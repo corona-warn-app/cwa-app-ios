@@ -137,11 +137,11 @@ final class CheckinRiskCalculation: CheckinRiskCalculationProtocol {
 		}
 
 		return CheckinRiskCalculationResult(
+			calculationDate: Date(),
 			checkinIdsWithRiskPerDate: checkinIdsWithRiskPerDate,
 			riskLevelPerDate: riskLevelPerDate
 		)
 	}
-
 
 	// MARK: - Private
 

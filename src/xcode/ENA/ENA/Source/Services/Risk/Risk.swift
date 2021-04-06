@@ -9,7 +9,7 @@ struct Risk: Equatable {
 	struct Details: Equatable {
 		var mostRecentDateWithRiskLevel: Date?
 		var numberOfDaysWithRiskLevel: Int
-		var exposureDetectionDate: Date?
+		var calculationDate: Date?
 	}
 
 	let level: RiskLevel
@@ -19,17 +19,17 @@ struct Risk: Equatable {
 
 extension Risk {
 	init(
-		riskCalculationResult: RiskCalculationResult,
-		previousRiskCalculationResult: RiskCalculationResult? = nil,
+		enfRiskCalculationResult: ENFRiskCalculationResult,
+		previousENFRiskCalculationResult: ENFRiskCalculationResult? = nil,
 		checkinCalculationResult: CheckinRiskCalculationResult,
 		previousCheckinCalculationResult: CheckinRiskCalculationResult? = nil
 	) {
-		let riskLevelHasChanged = previousRiskCalculationResult?.riskLevel != nil &&
-			riskCalculationResult.riskLevel != previousRiskCalculationResult?.riskLevel ||
+		let riskLevelHasChanged = previousENFRiskCalculationResult?.riskLevel != nil &&
+			enfRiskCalculationResult.riskLevel != previousENFRiskCalculationResult?.riskLevel ||
 			previousCheckinCalculationResult?.riskLevel != nil &&
 			checkinCalculationResult.riskLevel != previousCheckinCalculationResult?.riskLevel
 
-		let tracingRiskLevelPerDate = riskCalculationResult.riskLevelPerDate
+		let tracingRiskLevelPerDate = enfRiskCalculationResult.riskLevelPerDate
 		let checkinRiskLevelPerDate = checkinCalculationResult.riskLevelPerDate
 
 		// Merge the results from both risk calculation. For each date, the higher risk level is used.
@@ -57,7 +57,13 @@ extension Risk {
 			$1 == totalRiskLevel
 		}.count
 
-		let details = Details(mostRecentDateWithRiskLevel: mostRecentDateWithRiskLevel, numberOfDaysWithRiskLevel: numberOfDaysWithRiskLevel, exposureDetectionDate: riskCalculationResult.calculationDate)
+		let calculationDate = max(enfRiskCalculationResult.calculationDate, checkinCalculationResult.calculationDate)
+
+		let details = Details(
+			mostRecentDateWithRiskLevel: mostRecentDateWithRiskLevel,
+			numberOfDaysWithRiskLevel: numberOfDaysWithRiskLevel,
+			calculationDate: calculationDate
+		)
 
 		self.init(
 			level: totalRiskLevel,
@@ -77,7 +83,7 @@ extension Risk {
 		details: Risk.Details(
 			mostRecentDateWithRiskLevel: Date(timeIntervalSinceNow: -24 * 3600),
 			numberOfDaysWithRiskLevel: numberOfDaysWithRiskLevel ?? numberOfDaysWithRiskLevelDefaultValue,
-			exposureDetectionDate: Date()),
+			calculationDate: Date()),
 		riskLevelHasChanged: true
 	)
 
@@ -88,7 +94,7 @@ extension Risk {
 			details: Risk.Details(
 				mostRecentDateWithRiskLevel: Date(timeIntervalSinceNow: -24 * 3600),
 				numberOfDaysWithRiskLevel: numberOfDaysWithRiskLevel ?? numberOfDaysWithRiskLevelDefaultValue,
-				exposureDetectionDate: Date()),
+				calculationDate: Date()),
 			riskLevelHasChanged: true
 		)
 	}

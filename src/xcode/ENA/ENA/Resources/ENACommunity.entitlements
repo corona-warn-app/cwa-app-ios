@@ -4,8 +4,8 @@
 <dict>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
-		<string>applinks:www.coronawarn.app</string>
-		<string>applinks:www.coronawarn.app?mode=developer</string>
+		<string>applinks:e.coronawarn.app</string>
+		<string>applinks:e.coronawarn.app?mode=developer</string>
 		<string>applinks:coronawarn.app</string>
 		<string>applinks:coronawarn.app?mode=developer</string>
 	</array>

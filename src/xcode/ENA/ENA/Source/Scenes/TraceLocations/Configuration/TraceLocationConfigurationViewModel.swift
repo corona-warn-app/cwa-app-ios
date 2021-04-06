@@ -11,7 +11,8 @@ class TraceLocationConfigurationViewModel {
 	// MARK: - Init
 
 	init(
-		mode: Mode
+		mode: Mode,
+		eventStore: EventStoring
 	) {
 		switch mode {
 		case .new(let type):
@@ -35,7 +36,10 @@ class TraceLocationConfigurationViewModel {
 			defaultCheckInLengthInMinutes = traceLocation.defaultCheckInLengthInMinutes
 		}
 
+		self.eventStore = eventStore
+
 		setUpBindings()
+		checkForCompleteness()
 	}
 
 	// MARK: - Internal
@@ -43,6 +47,13 @@ class TraceLocationConfigurationViewModel {
 	enum Mode {
 		case new(TraceLocationType)
 		case duplicate(TraceLocation)
+	}
+
+	enum SavingError: Error {
+		case cryptographicSeedCreationFailed
+		case qrCodePayloadCreationFailed
+		case publicKeyDecodingFailed
+		case sqlStoreError(SecureSQLStoreError)
 	}
 
 	@OpenCombine.Published private(set) var startDatePickerIsHidden: Bool = true
@@ -141,23 +152,72 @@ class TraceLocationConfigurationViewModel {
 		checkForCompleteness()
 	}
 
-	func checkForCompleteness() {
+	func save() throws {
+		guard let cryptographicSeed = cryptographicSeed() else {
+			throw SavingError.cryptographicSeedCreationFailed
+		}
+
+		let version = 1
 		let trimmedDescription = description.trimmingCharacters(in: .whitespacesAndNewlines)
 		let trimmedAddress = address.trimmingCharacters(in: .whitespacesAndNewlines)
 
-		primaryButtonIsEnabled = !trimmedDescription.isEmpty && !trimmedAddress.isEmpty
-	}
+		let cwaLocationData = SAP_Internal_Pt_CWALocationData.with {
+			$0.version = 1
+			$0.type = SAP_Internal_Pt_TraceLocationType(rawValue: traceLocationType.rawValue) ?? .locationTypeUnspecified
+			$0.defaultCheckInLengthInMinutes = defaultCheckInLengthInMinutes.map { UInt32($0) } ?? 0
+		}
 
-	func save(completion: @escaping (Bool) -> Void) {
-		DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-			completion(true)
+		let cwaLocationSerializedData = try cwaLocationData.serializedData()
+
+		let publicKey = "gwLMzE153tQwAOf2MZoUXXfzWTdlSpfS99iZffmcmxOG9njSK4RTimFOFwDh6t0Tyw8XR01ugDYjtuKwjjuK49Oh83FWct6XpefPi9Skjxvvz53i9gaMmUEc96pbtoaA"
+		guard let publicKeyData = Data(base64Encoded: publicKey) else {
+			throw SavingError.publicKeyDecodingFailed
+		}
+
+		let qrCodePayload = SAP_Internal_Pt_QRCodePayload.with {
+			$0.version = 1
+
+			$0.locationData.version = UInt32(version)
+			$0.locationData.description_p = trimmedDescription
+			$0.locationData.address = trimmedAddress
+			$0.locationData.startTimestamp = startDate.map { UInt64($0.timeIntervalSince1970) } ?? 0
+			$0.locationData.endTimestamp = endDate.map { UInt64($0.timeIntervalSince1970) } ?? 0
+
+			$0.vendorData = cwaLocationSerializedData
+
+			$0.crowdNotifierData.version = 1
+			$0.crowdNotifierData.publicKey = publicKeyData
+			$0.crowdNotifierData.cryptographicSeed = cryptographicSeed
+		}
+
+		guard let id = qrCodePayload.id else {
+			throw SavingError.qrCodePayloadCreationFailed
+		}
+
+		let storeResult = eventStore.createTraceLocation(
+			TraceLocation(
+				id: id,
+				version: version,
+				type: traceLocationType,
+				description: trimmedDescription,
+				address: trimmedAddress,
+				startDate: startDate,
+				endDate: endDate,
+				defaultCheckInLengthInMinutes: defaultCheckInLengthInMinutes,
+				cryptographicSeed: cryptographicSeed,
+				cnPublicKey: publicKeyData
+			)
+		)
+
+		if case .failure(let error) = storeResult {
+			throw SavingError.sqlStoreError(error)
 		}
 	}
 
 	// MARK: - Private
 
+	private let eventStore: EventStoring
 	private let traceLocationType: TraceLocationType
-
 	private let defaultDefaultCheckInLengthInMinutes: Int = 15
 
 	private var subscriptions = Set<AnyCancellable>()
@@ -221,7 +281,7 @@ class TraceLocationConfigurationViewModel {
 			.assign(to: &$temporaryDefaultLengthSwitchIsOn)
 
 		$defaultCheckInLengthInMinutes
-			.compactMap { [weak self] in
+			.map { [weak self] in
 				guard
 					let timeInterval = TimeInterval(minutes: $0),
 					let formattedDuration = self?.durationFormatter.string(from: timeInterval)
@@ -236,6 +296,24 @@ class TraceLocationConfigurationViewModel {
 		$permanentDefaultLengthPickerIsHidden
 			.map { $0 ? UIColor.enaColor(for: .textPrimary1) : UIColor.enaColor(for: .textTint) }
 			.assign(to: &$permanentDefaultLengthValueTextColor)
+	}
+
+	private func checkForCompleteness() {
+		let trimmedDescription = description.trimmingCharacters(in: .whitespacesAndNewlines)
+		let trimmedAddress = address.trimmingCharacters(in: .whitespacesAndNewlines)
+
+		primaryButtonIsEnabled = !trimmedDescription.isEmpty && !trimmedAddress.isEmpty
+	}
+
+	private func cryptographicSeed() -> Data? {
+		var bytes = [UInt8](repeating: 0, count: 16)
+		let result = SecRandomCopyBytes(kSecRandomDefault, bytes.count, &bytes)
+		guard result == errSecSuccess else {
+			Log.error("Error creating random bytes.", log: .traceLocation)
+			return nil
+		}
+
+		return Data(bytes)
 	}
 
 }

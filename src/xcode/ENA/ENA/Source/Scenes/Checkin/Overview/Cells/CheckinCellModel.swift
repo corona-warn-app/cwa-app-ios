@@ -71,7 +71,7 @@ class CheckinCellModel: EventCellModel {
 		isActiveContainerViewHiddenPublisher.value = checkin.checkinCompleted
 		isButtonHiddenPublisher.value = checkin.checkinCompleted
 
-		if !checkin.checkinCompleted {
+		if checkin.checkinCompleted {
 			let dateFormatter = DateIntervalFormatter()
 			dateFormatter.dateStyle = .short
 			dateFormatter.timeStyle = .short

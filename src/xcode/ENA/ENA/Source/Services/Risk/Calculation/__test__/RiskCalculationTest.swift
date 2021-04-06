@@ -21,7 +21,7 @@ class RiskCalculationTest: XCTestCase {
 
 		for testCase in testCases {
 			// WHEN
-			let result = RiskCalculation().calculateRisk(
+			let result = ENFRiskCalculation().calculateRisk(
 				exposureWindows: testCase.exposureWindows,
 				configuration: testCasesWithConfiguration.defaultRiskCalculationConfiguration
 			)

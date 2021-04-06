@@ -170,7 +170,8 @@ class HomeCoordinator: RequiresAppDependencies {
 			developerStore: UserDefaults.standard,
 			exposureSubmissionService: exposureSubmissionService,
 			serverEnvironment: serverEnvironment,
-			otpService: otpService
+			otpService: otpService,
+			eventStore: eventStore
 		)
 		developerMenu?.enableIfAllowed()
 	}
@@ -258,6 +259,7 @@ class HomeCoordinator: RequiresAppDependencies {
 	private func showTraceLocations() {
 		traceLocationsCoordinator = TraceLocationsCoordinator(
 			store: store,
+			appConfig: appConfigurationProvider,
 			qrCodePosterTemplateProvider: qrCodePosterTemplateProvider,
 			eventStore: eventStore,
 			parentNavigationController: rootViewController

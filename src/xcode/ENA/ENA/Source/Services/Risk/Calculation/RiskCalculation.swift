@@ -4,16 +4,16 @@
 
 import Foundation
 
-protocol RiskCalculationProtocol {
+protocol ENFRiskCalculationProtocol {
 
 	func calculateRisk(
 		exposureWindows: [ExposureWindow],
 		configuration: RiskCalculationConfiguration
-	) -> RiskCalculationResult
+	) -> ENFRiskCalculationResult
 	
 }
 
-final class RiskCalculation: RiskCalculationProtocol, Codable {
+final class ENFRiskCalculation: ENFRiskCalculationProtocol, Codable {
 
 	// MARK: - Internal
 
@@ -38,7 +38,7 @@ final class RiskCalculation: RiskCalculationProtocol, Codable {
 	func calculateRisk(
 		exposureWindows: [ExposureWindow],
 		configuration: RiskCalculationConfiguration
-	) -> RiskCalculationResult {
+	) -> ENFRiskCalculationResult {
 		Log.info("[RiskCalculation] Started risk calculation", log: .riskDetection)
 
 		mappedExposureWindows = exposureWindows
@@ -108,7 +108,7 @@ final class RiskCalculation: RiskCalculationProtocol, Codable {
 
 		calculationDate = Date()
 
-		return RiskCalculationResult(
+		return ENFRiskCalculationResult(
 			riskLevel: riskLevel,
 			minimumDistinctEncountersWithLowRisk: minimumDistinctEncountersWithLowRisk,
 			minimumDistinctEncountersWithHighRisk: minimumDistinctEncountersWithHighRisk,

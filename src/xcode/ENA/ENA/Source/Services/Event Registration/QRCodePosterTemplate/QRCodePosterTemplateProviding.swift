@@ -10,6 +10,9 @@ protocol QRCodePosterTemplateProviding: AnyObject {
 
 	/// Provides the latest QR Code Poster Template
 	func latestQRCodePosterTemplate() -> AnyPublisher<SAP_Internal_Pt_QRCodePosterTemplateIOS, Error>
+	
+	/// Provides the default QR Code Poster Template
+	func defaultQRCodePosterTemplate() -> SAP_Internal_Pt_QRCodePosterTemplateIOS
 }
 
 /// Some requirements for QR Code Poster Template handling

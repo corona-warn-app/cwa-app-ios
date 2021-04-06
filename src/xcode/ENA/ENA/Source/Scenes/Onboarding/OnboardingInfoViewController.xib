@@ -209,9 +209,6 @@
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="ogB-Ax-QMH"/>
                                         </constraints>
                                         <state key="normal" title="Ignore"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isTransparent" value="YES"/>
-                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="didTapIgnoreButton:" destination="-1" eventType="touchUpInside" id="jlY-6g-gud"/>
                                         </connections>

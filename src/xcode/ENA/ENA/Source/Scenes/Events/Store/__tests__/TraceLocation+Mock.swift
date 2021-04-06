@@ -8,7 +8,7 @@ import Foundation
 extension TraceLocation {
 
 	static func mock(
-		id: Data = Data(),
+		id: Data = UUID().uuidString.data(using: .utf8) ?? Data(),
 		version: Int = 0,
 		type: TraceLocationType = .locationTypeUnspecified,
 		description: String = "",

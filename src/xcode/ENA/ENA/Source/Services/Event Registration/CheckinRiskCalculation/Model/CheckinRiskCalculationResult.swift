@@ -3,9 +3,9 @@
 //
 
 struct CheckinRiskCalculationResult: Codable {
+	let calculationDate: Date
 	let checkinIdsWithRiskPerDate: [Date: [CheckinIdWithRisk]]
 	let riskLevelPerDate: [Date: RiskLevel]
-
 }
 
 struct CheckinIdWithRisk: Codable {

@@ -7,6 +7,7 @@ import ExposureNotification
 import UIKit
 import OpenCombine
 
+// swiftlint:disable:next type_body_length
 final class RiskProvider: RiskProviding {
 
 	// MARK: - Init
@@ -17,7 +18,7 @@ final class RiskProvider: RiskProviding {
 		appConfigurationProvider: AppConfigurationProviding,
 		exposureManagerState: ExposureManagerState,
 		targetQueue: DispatchQueue = .main,
-		riskCalculation: RiskCalculationProtocol = RiskCalculation(),
+		enfRiskCalculation: ENFRiskCalculationProtocol = ENFRiskCalculation(),
 		checkinRiskCalculation: CheckinRiskCalculationProtocol,
 		keyPackageDownload: KeyPackageDownloadProtocol,
 		traceWarningPackageDownload: TraceWarningPackageDownloading,
@@ -28,7 +29,7 @@ final class RiskProvider: RiskProviding {
 		self.appConfigurationProvider = appConfigurationProvider
 		self.exposureManagerState = exposureManagerState
 		self.targetQueue = targetQueue
-		self.riskCalculation = riskCalculation
+		self.enfRiskCalculation = enfRiskCalculation
 		self.checkinRiskCalculation = checkinRiskCalculation
 		self.keyPackageDownload = keyPackageDownload
 		self.traceWarningPackageDownload = traceWarningPackageDownload
@@ -52,16 +53,26 @@ final class RiskProvider: RiskProviding {
 	var exposureManagerState: ExposureManagerState
 	private(set) var activityState: RiskProviderActivityState = .idle
 
+	var riskCalculatonDate: Date? {
+		if let enfRiskCalculationResult = store.enfRiskCalculationResult,
+		   let checkinRiskCalculationResult = store.checkinRiskCalculationResult {
+			let risk = Risk(enfRiskCalculationResult: enfRiskCalculationResult, checkinCalculationResult: checkinRiskCalculationResult)
+			return risk.details.calculationDate
+		} else {
+			return nil
+		}
+	}
+
 	var manualExposureDetectionState: ManualExposureDetectionState? {
 		riskProvidingConfiguration.manualExposureDetectionState(
-			lastExposureDetectionDate: store.riskCalculationResult?.calculationDate
+			lastExposureDetectionDate: riskCalculatonDate
 		)
 	}
 
 	/// Returns the next possible date of a exposureDetection
 	var nextExposureDetectionDate: Date {
 		riskProvidingConfiguration.nextExposureDetectionDate(
-			lastExposureDetectionDate: store.riskCalculationResult?.calculationDate
+			lastExposureDetectionDate: riskCalculatonDate
 		)
 	}
 
@@ -131,7 +142,7 @@ final class RiskProvider: RiskProviding {
 	private let store: Store
 	private let appConfigurationProvider: AppConfigurationProviding
 	private let targetQueue: DispatchQueue
-	private let riskCalculation: RiskCalculationProtocol
+	private let enfRiskCalculation: ENFRiskCalculationProtocol
 	private let checkinRiskCalculation: CheckinRiskCalculationProtocol
 	private let exposureDetectionExecutor: ExposureDetectionDelegate
 	
@@ -154,7 +165,7 @@ final class RiskProvider: RiskProviding {
 
 	private var shouldDetectExposureBecauseOfNewPackages: Bool {
 		let lastKeyPackageDownloadDate = store.lastKeyPackageDownloadDate
-		let lastExposureDetectionDate = store.riskCalculationResult?.calculationDate ?? .distantPast
+		let lastExposureDetectionDate = store.enfRiskCalculationResult?.calculationDate ?? .distantPast
 		let didDownloadNewPackagesSinceLastDetection = lastKeyPackageDownloadDate > lastExposureDetectionDate
 		let hoursSinceLastDetection = -lastExposureDetectionDate.hoursSinceNow
 		let lastDetectionMoreThan24HoursAgo = hoursSinceLastDetection > 24
@@ -274,7 +285,7 @@ final class RiskProvider: RiskProviding {
 			Log.info("RiskProvider: Using risk from previous detection", log: .riskDetection)
 			
 			// fill in the risk exposure metadata if new risk calculation is not done in the meanwhile
-			if let riskCalculationResult = store.riskCalculationResult {
+			if let riskCalculationResult = store.enfRiskCalculationResult {
 				Analytics.collect(.riskExposureMetadata(.updateRiskExposureMetadata(riskCalculationResult)))
 			}
 			completion(.success(risk))
@@ -302,7 +313,7 @@ final class RiskProvider: RiskProviding {
 
 	private func previousRiskIfExistingAndNotExpired(userInitiated: Bool) -> Risk? {
 		let enoughTimeHasPassed = riskProvidingConfiguration.shouldPerformExposureDetection(
-			lastExposureDetectionDate: store.riskCalculationResult?.calculationDate
+			lastExposureDetectionDate: store.enfRiskCalculationResult?.calculationDate
 		)
 		let shouldDetectExposures = (riskProvidingConfiguration.detectionMode == .manual && userInitiated) || riskProvidingConfiguration.detectionMode == .automatic
 
@@ -316,12 +327,12 @@ final class RiskProvider: RiskProviding {
 		Log.info("RiskProvider: Precondition fulfilled for fresh risk detection: shouldDetectExposureBecauseOfNewPackagesConsideringDetectionMode = \(shouldDetectExposureBecauseOfNewPackagesConsideringDetectionMode)", log: .riskDetection)
 		
 		if !enoughTimeHasPassed || !shouldDetectExposures || !shouldDetectExposureBecauseOfNewPackagesConsideringDetectionMode,
-		   let riskCalculationResult = store.riskCalculationResult,
+		   let enfRiskCalculationResult = store.enfRiskCalculationResult,
 		   let checkinRiskCalculationResult = store.checkinRiskCalculationResult {
 
 			Log.info("RiskProvider: Not calculating new risk, using result of most recent risk calculation", log: .riskDetection)
 			return Risk(
-				riskCalculationResult: riskCalculationResult,
+				enfRiskCalculationResult: enfRiskCalculationResult,
 				checkinCalculationResult: checkinRiskCalculationResult
 			)
 		}
@@ -364,20 +375,20 @@ final class RiskProvider: RiskProviding {
 		let configuration = RiskCalculationConfiguration(from: appConfiguration.riskCalculationParameters)
 
 
-			let riskCalculationResult = riskCalculation.calculateRisk(exposureWindows: exposureWindows, configuration: configuration)
+			let riskCalculationResult = enfRiskCalculation.calculateRisk(exposureWindows: exposureWindows, configuration: configuration)
 			let mappedWindows = exposureWindows.map { RiskCalculationExposureWindow(exposureWindow: $0, configuration: configuration) }
 			Analytics.collect(.exposureWindowsMetadata(.collectExposureWindows(mappedWindows)))
 
 			let checkinRiskCalculationResult = checkinRiskCalculation.calculateRisk(with: appConfiguration)
 
 			let risk = Risk(
-				riskCalculationResult: riskCalculationResult,
-				previousRiskCalculationResult: store.riskCalculationResult,
+				enfRiskCalculationResult: riskCalculationResult,
+				previousENFRiskCalculationResult: store.enfRiskCalculationResult,
 				checkinCalculationResult: checkinRiskCalculationResult,
 				previousCheckinCalculationResult: store.checkinRiskCalculationResult
 			)
 
-			store.riskCalculationResult = riskCalculationResult
+			store.enfRiskCalculationResult = riskCalculationResult
 			store.checkinRiskCalculationResult = checkinRiskCalculationResult
 
 			checkIfRiskStatusLoweredAlertShouldBeShown(risk)
@@ -537,7 +548,7 @@ extension RiskProvider {
 
 		switch risk.level {
 		case .high:
-			store.riskCalculationResult = RiskCalculationResult(
+			store.enfRiskCalculationResult = ENFRiskCalculationResult(
 				riskLevel: .high,
 				minimumDistinctEncountersWithLowRisk: 0,
 				minimumDistinctEncountersWithHighRisk: 0,
@@ -556,7 +567,7 @@ extension RiskProvider {
 				]
 			)
 		default:
-			store.riskCalculationResult = RiskCalculationResult(
+			store.enfRiskCalculationResult = ENFRiskCalculationResult(
 				riskLevel: .low,
 				minimumDistinctEncountersWithLowRisk: 0,
 				minimumDistinctEncountersWithHighRisk: 0,

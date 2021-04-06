@@ -39,7 +39,7 @@
 
 "Common_BackgroundFetch_AlertTitle" = "Odświeżanie aplikacji w tle dezaktywowane";
 
-"Common_Deadman_AlertTitle" = "Sprawdzanie narażenia";
+"Common_Deadman_AlertTitle" = "Twój status ryzyka";
 
 "Common_Deadman_AlertBody" = "Pamiętaj, aby regularnie otwierać aplikację Corona-Warn-App w celu sprawdzenia swojego statusu ryzyka.";
 
@@ -217,7 +217,7 @@
 /* There are two paragraphs in this section. The first one just contains text… */
 "ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Ryzyko zakażenia można obliczyć tylko dla okresów, w których rejestrowanie narażenia było aktywne. Dlatego też funkcja rejestrowania powinna być stale aktywna. Rejestrowanie narażenia obejmuje 14 ostatnich dni.";
 
-"ExposureDetection_ActiveTracingSection_Text_Paragraph1a" = "Aplikacja Corona-Warn-App została zainstalowana %u dni temu. Ryzyko zakażenia jest obliczane dla okresów, w których aktywne było rejestrowanie narażenia. Oblicza się je w przypadku kontaktowania się z innymi ludźmi przy aktywnej funkcji rejestrowania narażenia.";
+"ExposureDetection_ActiveTracingSection_Text_Paragraph1a" = "Aplikacja Corona-Warn-App została zainstalowana %u temu. Ryzyko zakażenia jest obliczane dla okresów, w których aktywne było rejestrowanie narażenia. Oblicza się je w przypadku kontaktowania się z innymi ludźmi przy aktywnej funkcji rejestrowania narażenia.";
 
 "ExposureDetection_ActiveTracingSection_Text_Paragraph1b" = "Jeśli rejestrowanie narażenia było aktywne podczas kontaktowania się z innymi ludźmi, można obliczyć ryzyko zakażenia dla tego okresu.";
 
@@ -272,7 +272,7 @@
 
 "Settings_DaysSinceInstall_P1" = "Ryzyko zakażenia można obliczyć tylko dla okresów, w których rejestrowanie narażenia było aktywne. Dlatego też funkcja rejestrowania powinna być stale aktywna. Rejestrowanie narażenia obejmuje 14 ostatnich dni.";
 
-"Settings_DaysSinceInstall_P2a" = "Aplikacja Corona-Warn-App została zainstalowana %u dni temu. Ryzyko zakażenia jest obliczane dla okresów, w których aktywne było rejestrowanie narażenia. Oblicza się je w przypadku kontaktowania się z innymi ludźmi przy aktywnej funkcji rejestrowania narażenia.";
+"Settings_DaysSinceInstall_P2a" = "Aplikacja Corona-Warn-App została zainstalowana %u temu. Ryzyko zakażenia jest obliczane dla okresów, w których aktywne było rejestrowanie narażenia. Oblicza się je w przypadku kontaktowania się z innymi ludźmi przy aktywnej funkcji rejestrowania narażenia.";
 
 "Settings_DaysSinceInstall_P2b" = "Jeśli rejestrowanie narażenia było aktywne podczas kontaktowania się z innymi ludźmi, można obliczyć ryzyko zakażenia dla tego okresu.";
 
@@ -405,7 +405,7 @@
 
 "OnboardingInfo_enableLoggingOfContactsPage_title" = "Jak włączyć rejestrowanie narażenia";
 
-"OnboardingInfo_enableLoggingOfContactsPage_boldText" = "Aby zidentyfikować ewentualne narażenie, musisz aktywować funkcję rejestrowania narażenia.";
+"OnboardingInfo_enableLoggingOfContactsPage_boldText" = "Aby ustalić występowanie ryzyka zakażenia, musisz aktywować funkcję rejestrowania narażenia.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Działanie funkcji rejestrowania narażenia polega na odbieraniu przez Twój IPhone za pomocą Bluetooth zaszyfrowanych, losowych identyfikatorów innych użytkowników aplikacji i przekazywaniu Twoich własnych, losowych identyfikatorów do ich urządzeń. Funkcję tę można wyłączyć w dowolnym momencie. \n\nIdentyfikatory przekazują w sposób zaszyfrowany wyłącznie informacje o dacie kontaktu, czasie trwania i odległości (przy wykorzystaniu mocy sygnału) od innych użytkowników aplikacji. Dane osobowe, takie jak nazwisko, adres, lokalizacja, nie są nigdy rejestrowane. Ustalenie tożsamości osób na podstawie losowych identyfikatorów nie jest możliwe.";
 
@@ -543,9 +543,7 @@
 
 "ExposureSubmissionQRInfo_header_section_1" = "Pobierz wynik testu";
 
-"ExposureSubmissionQRInfo_body_section_1" = "W następnym kroku zeskanuj kod QR ze swojego testu i pobierz wynik testu.";
-
-"ExposureSubmissionQRInfo_instruction1" = "Zeskanuj tylko swój własny test.";
+"ExposureSubmissionQRInfo_instruction1" = "Zeskanuj teraz kod QR dla swojego testu i pobierz wynik testu.";
 
 "ExposureSubmissionQRInfo_instruction2" = "Test można zeskanować tylko raz. Aplikacja nie może zarządzać wieloma testami jednocześnie.";
 
@@ -557,13 +555,15 @@
 
 "ExposureSubmissionQRInfo_body_section_2" = "Jeśli zdiagnozowano u Ciebie koronawirusa, możesz ostrzec innych za pośrednictwem aplikacji. Funkcja ostrzegania działa w kilku krajach. Obecnie są to następujące kraje:";
 
-"ExposureSubmissionQRInfo_acknowledgement_3" = "Twoja zgoda jest dobrowolna.";
+"ExposureSubmissionQRInfo_acknowledgement_3" = "Możesz pobrać swój wynik testu, nawet jeśli nie zamierzasz go udostępniać. Jeśli jednak zdecydujesz się na jego udostępnienie, pomożesz chronić innych przed zakażeniem.";
 
-"ExposureSubmissionQRInfo_acknowledgement_4" = "Możesz pobrać swój wynik testu, nawet jeśli nie zamierzasz go udostępniać. Jeśli jednak zdecydujesz się na jego udostępnienie, pomożesz chronić innych przed zakażeniem.";
+"ExposureSubmissionQRInfo_acknowledgement_4" = "Twoja tożsamość nie zostanie ujawniona. Inni użytkownicy nie dowiedzą się, kto udostępnił swoje wyniki testów.";
 
-"ExposureSubmissionQRInfo_acknowledgement_5" = "Twoja tożsamość nie zostanie ujawniona. Inni użytkownicy nie dowiedzą się, kto udostępnił swoje wyniki testów.";
+"ExposureSubmissionQRInfo_acknowledgement_5" = "W sekcji „Moje zameldowania” znajdują się wydarzenia i miejsca, których zameldowani goście zostaną ostrzeżeni. Możesz usunąć pojedyncze zameldowania z listy, aby wykluczyć je z procesu ostrzegania.";
 
 "ExposureSubmissionQRInfo_acknowledgement_6" = "Aby wyrazić zgodę, musisz mieć ukończone 16 lat.";
+
+"ExposureSubmissionQRInfo_acknowledgement_7" = "W kolejnym kroku wyraź zgodę na dostęp do losowych identyfikatorów.";
 
 "ExposureSubmissionQRInfo_primaryButtonTitle" = "Akceptuj";
 
@@ -1070,6 +1070,14 @@
 
 "Home_SubmitCard_Button" = "Następne kroki";
 
+/* Home Trace Locations Card */
+"Home_TraceLocationsCard_Title" = "Planujesz wydarzenie?";
+
+"Home_TraceLocationsCard_Body" = "Planujesz wydarzenie lub prowadzisz firmę? Utwórz kod QR, aby Twoi goście mogli zameldować się po przybyciu na miejsce.";
+
+"Home_TraceLocationsCard_Button" = "Utwórz kod QR";
+
+/* Home Info Card */
 "Home_InfoCard_ShareTitle" = "Udostępnij Corona-Warn-App";
 
 "Home_InfoCard_ShareBody" = "Im więcej osób będzie korzystać z aplikacji, tym szybciej będziemy mogli przerwać łańcuchy zakażeń. Zachęć rodzinę i znajomych do pobrania aplikacji.";
@@ -1361,6 +1369,11 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Dane o zmianach w tej wersji można znaleźć w informacjach o aplikacji w sekcji „Nowe funkcje”.";
 
+/* Version 2.0 */
+"NewVersionFeature_200_event_checkin_title" = "Meldowanie się za pomocą kodu QR w celu skutecznego śledzenia łańcuchów zakażeń";
+
+"NewVersionFeature_200_event_checkin_description" = "CWA umożliwia teraz meldowanie obecności w wydarzeniach i miejscach. Organizatorzy wydarzeń i właściciele sklepów mogą wykorzystać tę aplikację do utworzenia kodu QR. Goście mogą zeskanować ten kod QR po przybyciu na miejsce, aby zarejestrować swoją obecność. Na życzenie aplikacja może również utworzyć wpis w dzienniku. Jeśli u osoby, która zameldowała swoją obecność w danym wydarzeniu lub miejscu, zostanie później zdiagnozowany koronawirus, wszystkie  osoby, które zameldowały się w tym samym czasie, zostaną o tym automatycznie powiadomione.";
+
 /* Version 1.15 */
 "NewVersionFeature_115_cross_border_switzerland_title" = "Do międzynarodowego rejestrowania narażenia dodano Szwajcarię. ";
 
@@ -1496,6 +1509,17 @@
 "ContactDiary_Overview_ActionSheet_EditLocationTitle" = "Edytuj miejsca";
 
 "ContactDiary_Overview_ActionSheet_ExportActionSubject" = "Mój dziennik kontaktów";
+
+/* Checkin Risk */
+"ContactDiaray_Overview_Checkin_Title_HighRisk" = "Podwyższone ryzyko";
+
+"ContactDiaray_Overview_Checkin_Title_LowRisk" = "Niskie ryzyko";
+
+"ContactDiaray_Overview_Checkin_Title_Subheadline" = "Na podstawie Twojej obecności w:";
+
+"ContactDiaray_Overview_Checkin_High_Risk_In_Brackets" = "(podwyższone ryzyko)";
+
+"ContactDiaray_Overview_Checkin_Low_Risk_In_Brackets" = "(niskie ryzyko)";
 
 /* Day */
 "ContactDiary_Day_ContactPersonsSegment" = "Osoby";
@@ -1759,6 +1783,8 @@
 
 "Tabbar_Diary_Title" = "Dziennik";
 
+"Tabbar_CheckIn_Title" = "Zamelduj się";
+
 /* Data Donation */
 "DataDonation_IntroductionText" = "Podziel się z nami informacjami na temat korzystania z aplikacji i pomóż nam ocenić jej skuteczność.";
 
@@ -1879,6 +1905,164 @@
 /* Quick Actions a.k.a. shortcuts */
 "QuickAction_newContactDiaryEntry" = "Dodaj wpis do dziennika na dziś";
 
+"QuickAction_eventCheckin" = "Zamelduj się";
+
+/* Checkins */
+"Checkins_QR_Scanner_Title" = "Skan kodu QR";
+
+"Checkins_Overview_Title" = "Moje zameldowania";
+
+"Checkins_Overview_MenuButtonTitle" = "Menu";
+
+"Checkins_Overview_ScanButtonTitle" = "Skanuj kod QR";
+
+"Checkins_Overview_EmptyTitle" = "Nie ma jeszcze żadnych wpisów";
+
+"Checkins_Overview_EmptyDescription" = "Gdy zeskanujesz kod QR, aby zameldować swoją obecność w wydarzeniu lub miejscu, wpis zostanie utworzony automatycznie.";
+
+"Checkins_Overview_EmptyImageDescription" = "Budynek z symbolem kodu QR w tle";
+
+"Checkins_Overview_DeleteAllButtonTitle" = "Usuń wszystko";
+
+"Checkins_Overview_DurationTitle" = "Czas trwania";
+
+"Checkins_Overview_CheckinTimeTemplate" = "%@ - wymelduj automatycznie po %@";
+
+"Checkins_Overview_CheckoutButtonTitle" = "Wymelduj się teraz";
+
+"Checkins_Overview_MissingPermissions_Title" = "Zezwól na dostęp do aparatu";
+
+"Checkins_Overview_MissingPermissions_Description" = "Aby używać aparatu w smartfonie do skanowania kodów QR, musisz zezwolić na dostęp do aparatu w ustawieniach urządzenia dla aplikacji.";
+
+"Checkins_Overview_MissingPermissions_ButtonTitle" = "Otwórz ustawienia urządzenia";
+
+"Checkins_Overview_DeleteOne_AlertTitle" = "Czy na pewno chcesz usunąć ten wpis?";
+
+"Checkins_Overview_DeleteOne_AlertMessage" = "Nie będziesz mieć możliwości ostrzegania osób, które zameldowały się w tym samym czasie w tym miejscu lub na tym wydarzeniu, ani one nie będą ostrzegać Ciebie.";
+
+"Checkins_Overview_DeleteOne_AlertConfirmButtonTitle" = "Usuń";
+
+"Checkins_Overview_DeleteOne_AlertCancelButtonTitle" = "Anuluj";
+
+"Checkins_Overview_DeleteAll_AlertTitle" = "Czy na pewno chcesz usunąć wszystkie wpisy?";
+
+"Checkins_Overview_DeleteAll_AlertMessage" = "Nie będziesz mieć możliwości ostrzegania osób, które zameldowały się w tym samym czasie w tych miejscach lub na tych wydarzeniach, ani one nie będą ostrzegać Ciebie.";
+
+"Checkins_Overview_DeleteAll_AlertConfirmButtonTitle" = "Usuń";
+
+"Checkins_Overview_DeleteAll_AlertCancelButtonTitle" = "Anuluj";
+
+"Checkins_Overview_ActionSheet_InfoTitle" = "Informacje";
+
+"Checkins_Overview_ActionSheet_EditTitle" = "Edytuj";
+
+"Checkins_Overview_QRScanner_Instruction" = "Skanuj kod QR i zamelduj się";
+
+/* TraceLocations */
+"TraceLocations_Overview_Title" = "Moje kody QR";
+
+"TraceLocations_Overview_MenuButtonTitle" = "Menu";
+
+"TraceLocations_Overview_AddButtonTitle" = "Utwórz kod QR";
+
+"TraceLocations_Overview_EmptyTitle" = "Nie utworzono jeszcze kodów QR";
+
+"TraceLocations_Overview_EmptyDescription" = "W tym miejscu wyświetlane są wszystkie kody QR utworzone dla miejsca lub wydarzenia. Możesz usunąć kody QR, których już nie zamierzasz używać.";
+
+"TraceLocations_Overview_EmptyImageDescription" = "Smartfon z symbolem kodu QR";
+
+"TraceLocations_Overview_DeleteAllButtonTitle" = "Usuń wszystko";
+
+"TraceLocations_Overview_SelfCheckinButtonTitle" = "Zamelduj się";
+
+"TraceLocations_Overview_DeleteOne_AlertTitle" = "Czy chcesz usunąć kod QR?";
+
+"TraceLocations_Overview_DeleteOne_AlertMessage" = "Pamiętaj, że jeśli to zrobisz, ten kod QR nie będzie mógł być dłużej używany do meldowania się.";
+
+"TraceLocations_Overview_DeleteOne_AlertConfirmButtonTitle" = "Usuń";
+
+"TraceLocations_Overview_DeleteOne_AlertCancelButtonTitle" = "Anuluj";
+
+"TraceLocations_Overview_DeleteAll_AlertTitle" = "Czy na pewno chcesz usunąć wszystkie kody QR?";
+
+"TraceLocations_Overview_DeleteAll_AlertMessage" = "Pamiętaj, że jeśli to zrobisz, te kody QR nie będą mogły być dłużej używane do meldowania się.";
+
+"TraceLocations_Overview_DeleteAll_AlertConfirmButtonTitle" = "Usuń";
+
+"TraceLocations_Overview_DeleteAll_AlertCancelButtonTitle" = "Anuluj";
+
+"TraceLocations_Overview_ActionSheet_InfoTitle" = "Informacje";
+
+"TraceLocations_Overview_ActionSheet_EditTitle" = "Edytuj";
+
+/* Selection of a TraceLocations */
+"TraceLocations_TypeSelection_Title" = "Utwórz kod QR";
+
+"TraceLocations_Section_Title_Permanent" = "MIEJSCE";
+
+"TraceLocations_Section_Title_Temporary" = "WYDARZENIE";
+
+"TraceLocations_Type_Title_PermanentOther" = "Inne miejsce";
+
+"TraceLocations_Type_Title_PermanentRetail" = "Handel detaliczny";
+
+"TraceLocations_Title_Type_PermanentFoodService" = "Turystyka i hotelarstwo";
+
+"TraceLocations_Type_Title_PermanentCraft" = "Rzemiosło";
+
+"TraceLocations_Type_Title_PermanentWorkplace" = "Miejsce pracy";
+
+"TraceLocations_Type_Title_PermanentEducationalInstitution" = "Placówka oświatowa";
+
+"TraceLocations_Type_Title_PermanentPublicBuilding" = "Budynek użyteczności publicznej";
+
+"TraceLocations_Type_Subtitle_PermanentRetail" = "Sklep, punkt sprzedaży";
+
+"TraceLocations_Type_Subtitle_PermanentFoodService" = "Kawiarnia, bar, restauracja, hotel";
+
+"TraceLocations_Type_Subtitle_PermanentCraft" = "Fryzjer, stolarz";
+
+"TraceLocations_Type_Subtitle_PermanentWorkplace" = "Biuro, sala konferencyjna, kafeteria";
+
+"TraceLocations_Type_Subtitle_PermanentEducationalInstitution" = "Sala lekcyjna, sala wykładowa, biblioteka";
+
+"TraceLocations_Type_Subtitle_PermanentPublicBuilding" = "Urząd gminy, muzeum";
+
+"TraceLocations_Type_Title_TemporaryOther" = "Inne wydarzenie";
+
+"TraceLocations_Type_Title_TemporaryCulturalEvent" = "Wydarzenie kulturalne";
+
+"TraceLocations_Type_Title_TemporaryClubActivity" = "Zajęcia w klubie";
+
+"TraceLocations_Type_Title_TemporaryPrivateEvent" = "Prywatna impreza";
+
+"TraceLocations_Type_Title_TemporaryWorshipService" = "Nabożeństwo";
+
+"TraceLocations_Type_Subtitle_TemporaryCulturalEvent" = "Koncert, wystawa sztuki";
+
+"TraceLocations_Type_Subtitle_TemporaryClubActivity" = "Trening sportowy, spotkanie ogólne";
+
+"TraceLocations_Type_Subtitle_TemporaryPrivateEvent" = "Urodziny, spotkanie rodzinne";
+
+/* Trace Location Configuration */
+"TraceLocations_Configuration_Title" = "Utwórz kod QR";
+
+"TraceLocations_Configuration_DescriptionPlaceholder" = "Opis";
+
+"TraceLocations_Configuration_AddressPlaceholder" = "Miejsce";
+
+"TraceLocations_Configuration_StartDateTitle" = "Początek";
+
+"TraceLocations_Configuration_EndDateTitle" = "Koniec";
+
+"TraceLocations_Configuration_DefaultCheckinLengthTitle" = "Typowy pobyt";
+
+"TraceLocations_Configuration_DefaultCheckinLengthFootnote" = "Określ, jak długo zazwyczaj przebywają u Ciebie goście.";
+
+"TraceLocations_Configuration_PrimaryButtonTitle" = "Zapisz";
+
+"TraceLocations_Configuration_HoursUnit" = "%@ godz.";
+
 /* Error Reporting */
 "ErrorReport_Title" = "Raporty o błędach";
 
@@ -1911,4 +2095,68 @@
 "ErrorReport_DEVICE_NOT_SUPPORTED" = "Nie można wysłać raportu o błędzie (kod błędu %@).";
 
 "ErrorReport_TRY_AGAIN_LATER" = "W tej chwili nie można wysłać raportu o błędzie. Spróbuj ponownie później (kod błędu %@).";
+
+/* Checkins */
+"Checkin_Information_Title" = "Zamelduj się";
+
+"Checkin_Information_ImageDescription" = "Trzy osoby stoją przy wysokim stole, dwie z nich patrzą na swoje smartfony.";
+
+"Checkin_Information_DescriptionTitle" = "Przerywaj łańcuchy zakażeń w szybki i skuteczny sposób";
+
+"Checkin_Information_DescriptionSubHeadline" = "Zeskanuj kod QR dla wydarzenia lub miejsca, aby się zameldować i zarejestrować na smartfonie swoją obecność na tym wydarzeniu lub w miejscu.";
+
+"Checkin_Information_Item_RiskStatus_Title" = "Każde zameldowanie jest również brane pod uwagę przy obliczaniu statusu ryzyka. Jeśli u osoby, która zameldowała się na tym wydarzeniu lub w miejscu, zostanie później zdiagnozowany koronawirus, zostaniesz powiadomiony(-a), jeśli przebywałeś(-aś) w tym samym pomieszczeniu w tym samym czasie lub do 30 minut po opuszczeniu pomieszczenia przez zdiagnozowaną osobę.";
+
+"Checkin_Information_Item_Time_Title" = "Określ długość pobytu jak najdokładniej, aby ostrzeżenia mogły zostać odpowiednio dopasowane.";
+
+"Checkin_Information_Dataprivacy_Title" = "Więcej informacji znajduje się w oświadczeniu o ochronie prywatności.";
+
+"Checkin_Information_PrimaryButton_Title" = "Akceptuj";
+
+/* CheckIn edit */
+"Checkins_Edit_PrimaryButton_Title" = "Zapisz";
+
+"Checkins_Edit_Section_Title" = "Zmień długość pobytu dla:";
+
+"Checkins_Edit_CheckedIn" = "Zameldowano";
+
+"Checkins_Edit_CheckedOut" = "Wymeldowano";
+
+"Checkins_Edit_Notice" = "Długość pobytu nie zostanie automatycznie skorygowana w Twoim dzienniku kontaktów.";
+
+/* Trace Location */
+"TraceLocation_Information_Title" = "Utwórz kod QR";
+
+"TraceLocation_Information_ImageDescription" = "Jedna osoba wskazuje na tablicę flipchart, a dwie inne osoby siedzą obok i patrzą na flipchart.";
+
+"TraceLocation_Information_DescriptionTitle" = "Większe bezpieczeństwo dla Ciebie i Twoich gości";
+
+"TraceLocation_Information_DescriptionSubHeadline" = "Utwórz kod QR, który Twoi goście będą mogli zeskanować po przybyciu. Dzięki temu będą mogli ostrzegać innych gości lub otrzymywać od nich ostrzeżenia, jeśli zajdzie taka potrzeba.";
+
+"TraceLocation_Information_Item_RiskStatus" = "Każde zameldowanie jest również brane pod uwagę przy obliczaniu statusu ryzyka. Jeśli u osoby, która zameldowała swoją obecność w danym wydarzeniu lub miejscu, zostanie później zdiagnozowany koronawirus, goście zostaną powiadomieni, jeśli przebywali w tym samym pomieszczeniu w tym samym czasie lub do 30 minut po opuszczeniu pomieszczenia przez zdiagnozowaną osobę.";
+
+"TraceLocation_Information_Item_Checkin" = "Kod QR możesz przekazać gościom za pomocą smartfona lub w formie drukowanej.";
+
+"TraceLocation_Information_Item_RenewQRCode" = "Używając kodu QR przez dłuższy czas, musisz generować go ponownie każdego dnia poza godzinami pracy.";
+
+"TraceLocation_Information_PrimaryButton_Title" = "Dalej";
+
+/* Checkout */
+"Checkout_Notification_Title" = "Nastąpiło automatyczne wymeldowanie.";
+
+"Checkout_Notification_Body" = "W razie potrzeby dostosuj długość pobytu.";
+
+"Checkin_Details_HoursShortVersion" = "%@ godz.";
+
+"Checkin_Details_CheckinFor" = "Zamelduj się na";
+
+"Checkin_Details_Activity" = "Zajęcia w klubie";
+
+"Checkin_Details_SaveToDiary" = "Zapisać w dzienniku kontaktów po wymeldowaniu?";
+
+"Checkin_Details_AutomaticCheckout" = "Wymelduj automatycznie po";
+
+"Checkin_Details_EventNotStartedYet" = "To wydarzenie zaczyna się dopiero %@ w dniu %@. Czy chcesz się zameldować już teraz?";
+
+"Checkin_Details_EventEnded" = "To wydarzenie już się skończyło. Czy chcesz się zameldować z datą wsteczną?";
 

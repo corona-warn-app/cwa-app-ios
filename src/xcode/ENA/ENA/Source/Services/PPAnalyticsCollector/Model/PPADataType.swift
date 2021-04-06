@@ -21,7 +21,7 @@ enum PPAUserMetadata {
 
 enum PPARiskExposureMetadata {
 	case create(RiskExposureMetadata)
-	case updateRiskExposureMetadata(RiskCalculationResult)
+	case updateRiskExposureMetadata(ENFRiskCalculationResult)
 }
 
 enum PPATestResultMetadata {

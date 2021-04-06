@@ -10,20 +10,17 @@ class MockEventStore: EventStoring, EventProviding {
 
 	@discardableResult
 	func createTraceLocation(_ traceLocation: TraceLocation) -> SecureSQLStore.VoidResult {
-		traceLocationsPublisher.value.append(traceLocation)
+		traceLocationsPublisher.value = appendTraceLocationAndSort(traceLocation)
 		return .success(())
 	}
 
 	@discardableResult
 	func updateTraceLocation(_ traceLocation: TraceLocation) -> SecureSQLStore.VoidResult {
-		var traceLocations = traceLocationsPublisher.value
-		guard let oldTraceLocation = (traceLocations.first { $0.id == traceLocation.id }) else {
+		guard let oldTraceLocation = (traceLocationsPublisher.value.first { $0.id == traceLocation.id }) else {
 			return .failure(.database(.unknown))
 		}
 		let updatedTraceLocation = oldTraceLocation.updatedWith(traceLocation: traceLocation)
-		traceLocations.removeAll { $0.id == oldTraceLocation.id }
-		traceLocations.append(updatedTraceLocation)
-		traceLocationsPublisher.send(traceLocations)
+		traceLocationsPublisher.value = appendTraceLocationAndSort(updatedTraceLocation)
 		return .success(())
 	}
 
@@ -43,20 +40,17 @@ class MockEventStore: EventStoring, EventProviding {
 	func createCheckin(_ checkin: Checkin) -> SecureSQLStore.IdResult {
 		let id = UUID().hashValue
 		let checkinWithId = checkin.updatedWith(id: id)
-		checkinsPublisher.value.append(checkinWithId)
+		checkinsPublisher.value = appendCheckInAndSort(checkinWithId)
 		return .success(id)
 	}
 
 	@discardableResult
 	func updateCheckin(_ checkin: Checkin) -> SecureSQLStore.VoidResult {
-		var checkins = checkinsPublisher.value
-		guard let oldCheckin = (checkins.first { $0.id == checkin.id }) else {
+		guard let oldCheckin = (checkinsPublisher.value.first { $0.id == checkin.id }) else {
 			return .failure(.database(.unknown))
 		}
 		let updatedCheckin = oldCheckin.updatedWith(checkin: checkin)
-		checkins.removeAll { $0.id == oldCheckin.id }
-		checkins.append(updatedCheckin)
-		checkinsPublisher.send(checkins)
+		checkinsPublisher.value = appendCheckInAndSort(updatedCheckin)
 		return .success(())
 	}
 
@@ -132,6 +126,25 @@ class MockEventStore: EventStoring, EventProviding {
 	var traceTimeIntervalMatchesPublisher = OpenCombine.CurrentValueSubject<[TraceTimeIntervalMatch], Never>([])
 
 	var traceWarningPackageMetadatasPublisher = OpenCombine.CurrentValueSubject<[TraceWarningPackageMetadata], Never>([])
+
+	private func appendCheckInAndSort(_ checkIn: Checkin) -> [Checkin] {
+		var currentValues = checkinsPublisher.value
+		currentValues.removeAll { $0.id == checkIn.id }
+		currentValues.append(checkIn)
+		currentValues.sort {
+			$0.checkinEndDate > $1.checkinEndDate
+		}
+		return currentValues
+	}
+
+	private func appendTraceLocationAndSort(_ traceLocation: TraceLocation) -> [TraceLocation] {
+		var currentValues = traceLocationsPublisher.value
+		currentValues.append(traceLocation)
+		currentValues.sort {
+			$0.description < $1.description
+		}
+		return currentValues
+	}
 
 }
 

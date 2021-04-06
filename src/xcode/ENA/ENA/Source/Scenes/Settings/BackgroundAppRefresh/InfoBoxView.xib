@@ -87,9 +87,6 @@
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zCK-6F-VwA" userLabel="Share" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
                     <rect key="frame" x="16" y="850" width="382" height="30"/>
                     <state key="normal" title="Share"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="boolean" keyPath="isTransparent" value="YES"/>
-                    </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="onShare" destination="-1" eventType="touchUpInside" id="OzR-Ef-I0d"/>
                     </connections>

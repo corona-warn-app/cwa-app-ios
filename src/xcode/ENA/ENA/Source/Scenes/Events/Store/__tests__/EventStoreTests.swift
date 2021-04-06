@@ -261,6 +261,35 @@ class EventStoreTests: XCTestCase {
 		waitForExpectations(timeout: .medium)
 	}
 
+	func testGIVEN_StoreWithUnsortedTraceLocations_WHEN_TraceLocationPublisherFires_THEN_TraceLocationsAreSortedByDescriptionASC() {
+		// GIVEN
+		let store = makeStore(with: makeDatabaseQueue())
+		let traceLocationOne = makeTraceLocation(id: "1".data(using: .utf8) ?? Data(), description: "B")
+		let traceLocationTwo = makeTraceLocation(id: "2".data(using: .utf8) ?? Data(), description: "A")
+
+		let traceLocationsPublisherExpectation = expectation(description: "traceLocationsPublisher is triggered.")
+
+		// WHEN
+		store.traceLocationsPublisher
+			.dropFirst(2)
+			.sink { traceLocations in
+				traceLocationsPublisherExpectation.fulfill()
+				XCTAssertEqual(traceLocations.count, 2)
+
+				let traceLocationOne = traceLocations[0]
+				XCTAssertEqual(traceLocationOne.description, "A")
+
+				let traceLocationTwo = traceLocations[1]
+				XCTAssertEqual(traceLocationTwo.description, "B")
+			}
+			.store(in: &subscriptions)
+
+		// THEN
+		store.createTraceLocation(traceLocationOne)
+		store.createTraceLocation(traceLocationTwo)
+		waitForExpectations(timeout: .medium)
+	}
+
 	func test_When_createCheckin_Then_CheckinWasCreated_And_PublisherWasUpdated() {
 		let store = makeStore(with: makeDatabaseQueue())
 		let traceLocationStartDate = Date()
@@ -329,6 +358,38 @@ class EventStoreTests: XCTestCase {
 
 		store.createCheckin(checkin)
 
+		waitForExpectations(timeout: .medium)
+	}
+
+	func testGIVEN_StoreWithUnsortedCheckIns_WHEN_CheckinsPublisher_THEN_CheckinsIsSortedByEndDateDesc() {
+		// GIVEN
+		let store = makeStore(with: makeDatabaseQueue())
+		let nowPlus100 = Date(timeIntervalSinceNow: 100)
+		let nowPlus200 = Date(timeIntervalSinceNow: 200)
+		let checkInOne = makeCheckin(id: 1, checkinEndDate: nowPlus100)
+		let checkInTwo = makeCheckin(id: 2, checkinEndDate: nowPlus200)
+
+		let sinkExpectation = expectation(description: "Sink is called once.")
+		sinkExpectation.expectedFulfillmentCount = 1
+
+		// WHEN
+		store.checkinsPublisher
+			.dropFirst(2)
+			.sink { checkins in
+				sinkExpectation.fulfill()
+				XCTAssertEqual(checkins.count, 2)
+
+				let checkinOne = checkins[0]
+				XCTAssertEqual(checkinOne.id, 2)
+
+				let checkinTwo = checkins[1]
+				XCTAssertEqual(checkinTwo.id, 1)
+			}
+			.store(in: &subscriptions)
+
+		// THEN
+		store.createCheckin(checkInOne)
+		store.createCheckin(checkInTwo)
 		waitForExpectations(timeout: .medium)
 	}
 
@@ -938,12 +999,12 @@ class EventStoreTests: XCTestCase {
 		return store
 	}
 
-	private func makeTraceLocation(id: Data, endDate: Date = Date()) -> TraceLocation {
+	private func makeTraceLocation(id: Data, description: String = "Some description", endDate: Date = Date()) -> TraceLocation {
 		TraceLocation(
 			id: id,
 			version: 1,
 			type: .locationTypePermanentOther,
-			description: "Some description",
+			description: description,
 			address: "Some address",
 			startDate: Date(),
 			endDate: endDate,

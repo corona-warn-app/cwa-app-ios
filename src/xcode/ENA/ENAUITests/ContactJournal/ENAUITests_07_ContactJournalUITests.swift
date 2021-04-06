@@ -147,174 +147,6 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		XCTAssertEqual("Supermarkt Innenstadt", locationsTableView.cells.firstMatch.staticTexts.firstMatch.label)
 	}
 
-	func testScreenshotTwoPersonsOneLocationAndMessages() throws {
-		var screenshotCounter = 0
-		// setting up launch arguments
-		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
-		app.launchArguments.append(contentsOf: ["-riskLevel", "high"])
-		
-		// navigate to desired screen
-		navigateToJournalOverview()
-		
-		// select first cell
-		app.cells.element(boundBy: 1).tap()
-		
-		// add a person
-		addPersonToDayEntry("Andrea")
-		
-		// switch to places
-		app.segmentedControls.firstMatch.buttons[app.localized("ContactDiary_Day_LocationsSegment")].tap()
-		
-		// add a location
-		addLocationToDayEntry("Physiotherapie")
-		
-		// go back
-		app.navigationBars.firstMatch.buttons.element(boundBy: 0).tap()
-		
-		// select fourth cell
-		app.cells.element(boundBy: 4).tap()
-		
-		// add a person
-		addPersonToDayEntry("Michael")
-		
-		// go back
-		app.navigationBars.firstMatch.buttons.element(boundBy: 0).tap()
-		
-		app.swipeDown()
-		// take screenshot
-		snapshot("contact_journal_listing1_\(String(format: "%04d", (screenshotCounter.inc() )))")
-		
-		app.swipeUp()
-		// take screenshot
-		snapshot("contact_journal_listing1_\(String(format: "%04d", (screenshotCounter.inc() )))")
-	}
-
-	func testScreenshotAddTwoPersonsAndOneLocationToDate() throws {
-		var screenshotCounter = 0
-		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
-		app.launchArguments.append(contentsOf: ["-riskLevel", "high"])
-
-		navigateToJournalOverview()
-
-		// check count for overview: day cell 15 days plus 1 description cell
-		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 15 + 1)
-
-		// select 3th cell
-		XCTAssertTrue(app.descendants(matching: .table).firstMatch.cells.element(boundBy: 3).waitForExistence(timeout: .medium))
-		app.descendants(matching: .table).firstMatch.cells.element(boundBy: 3).tap()
-
-		let dayTableView = app.tables[AccessibilityIdentifiers.ContactDiary.dayTableView]
-
-		// check count for day entries: 1 add entry cell
-		XCTAssertEqual(dayTableView.cells.count, 1)
-
-		addPersonToDayEntry("Max Mustermann")
-		addPersonToDayEntry("Erika Musterfrau")
-
-		// check count for day entries: 1 add entry cell + 2 persons added
-		XCTAssertEqual(dayTableView.cells.count, 3)
-
-		// deselect Erika Musterfrau - 1 because new persons get entered on top
-		dayTableView.cells.element(boundBy: 1).staticTexts["Erika Musterfrau"].tap()
-
-		XCTAssertTrue(app.segmentedControls.firstMatch.waitForExistence(timeout: .medium))
-		app.segmentedControls.firstMatch.buttons[app.localized("ContactDiary_Day_LocationsSegment")].tap()
-
-		// check count for day entries: 1 add entry cell
-		XCTAssertEqual(dayTableView.cells.count, 1)
-
-		addLocationToDayEntry("Bäckerei")
-
-		// check count for day entries: 1 add entry cell + 1 location added
-		XCTAssertEqual(dayTableView.cells.count, 2)
-
-		XCTAssertTrue(app.navigationBars.firstMatch.buttons.element(boundBy: 0).waitForExistence(timeout: .medium))
-		app.navigationBars.firstMatch.buttons.element(boundBy: 0).tap()
-		snapshot("contact_journal_listing2_\(String(format: "%04d", (screenshotCounter.inc() )))")
-
-		// check count for overview: day cell 15 days plus 1 description cell
-		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 15 + 1)
-
-		XCTAssertTrue(app.descendants(matching: .table).firstMatch.cells.element(boundBy: 3).waitForExistence(timeout: .medium))
-		let dayCell = app.descendants(matching: .table).firstMatch.cells.element(boundBy: 3)
-
-		XCTAssertTrue(dayCell.staticTexts["Max Mustermann"].exists)
-		XCTAssertTrue(dayCell.staticTexts["Bäckerei"].exists)
-		XCTAssertFalse(dayCell.staticTexts["Erika Musterfrau"].exists)
-	}
-
-	func testScreenshotContactJournalInformation() throws {
-		var screenshotCounter = 0
-		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "NO"])
-
-		// navigate to desired screen
-		navigateToJournalOverview()
-
-		// take screenshot
-		snapshot("contact_journal_information_screen_\(String(format: "%04d", (screenshotCounter.inc() )))")
-
-		// Check whether we have entered the info screen.
-		XCTAssertTrue(app.images["AppStrings.ContactDiaryInformation.imageDescription"].waitForExistence(timeout: .medium))
-
-		app.swipeUp(velocity: .fast)
-		// take screenshot
-		snapshot("contact_journal_information_screen_\(String(format: "%04d", (screenshotCounter.inc() )))")
-
-		app.swipeUp(velocity: .fast)
-		// take screenshot
-		snapshot("contact_journal_information_screen_\(String(format: "%04d", (screenshotCounter.inc() )))")
-	}
-
-	func testScreenshotAddTwoPersonsTwoLocations() throws {
-		// setting up launch arguments
-		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
-		app.launchArguments.append(contentsOf: ["-riskLevel", "high"])
-
-		// navigate to desired screen
-		navigateToJournalOverview()
-
-		// select first cell
-		app.cells.element(boundBy: 1).tap()
-
-		// add persons
-		addPersonToDayEntry("Erika Musterfrau")
-		addPersonToDayEntry("Max Mustermann")
-		// take screenshot
-		snapshot("contact_journal_listing_add_persons")
-
-		// switch to places
-		app.segmentedControls.firstMatch.buttons[app.localized("ContactDiary_Day_LocationsSegment")].tap()
-
-		// add locations
-		addLocationToDayEntry("Sportzentrum")
-		addLocationToDayEntry("Büro")
-		// take screenshot
-		snapshot("contact_journal_listing_add_locations")
-
-		// go back
-		app.navigationBars.firstMatch.buttons.element(boundBy: 0).tap()
-	}
-
-	func testScreenshotEditPersonScreen() throws {
-		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
-
-		// open sheet to edit persons
-		openEditPersonViaSheet()
-
-		// take screenshot
-		snapshot("contact_journal_listing_edit_persons")
-	}
-
-	func testScreenshotEditLocationScreen() throws {
-		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
-
-		// open sheet to edit locations
-		openEditLocationsViaSheet()
-
-		// take screenshot
-		snapshot("contact_journal_listing_edit_locations")
-	}
-
 	func testAddPersonToDate() throws {
 		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
 
@@ -540,22 +372,263 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		XCTAssertEqual(app.navigationBars.firstMatch.identifier, app.localized("ContactDiary_Overview_Title"))
 	}
 
-	func testOverviewWithRiskLevelHighOnToday() throws {
+	/// Tests: ENF Risk High, Checkin Risk None
+	func testOverviewScenario1() throws {
 		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
-		app.launchArguments.append(contentsOf: ["-riskLevel", "high"])
+		app.launchArguments.append(contentsOf: ["-riskLevel", "low"])
 
 		navigateToJournalOverview()
 
         // check if overview is visible
         XCTAssertEqual(app.navigationBars.firstMatch.identifier, app.localized("ContactDiary_Overview_Title"))
 
-		let highRiskCell = app.descendants(matching: .table).firstMatch.cells.element(boundBy: 1)
-		XCTAssertNotNil( highRiskCell.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.riskLevelHigh])
+		// first cell should have the text for high risk, but none about checkin
+		let overviewCellWithEncounterRisk = app.descendants(matching: .table).firstMatch.cells.element(boundBy: 1)
+		let highRiskCell = overviewCellWithEncounterRisk.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.riskLevelLow]
+		XCTAssertTrue(highRiskCell.isHittable)
+		let checkinCell = overviewCellWithEncounterRisk.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.checkinRiskLevelLow]
+		XCTAssertFalse(checkinCell.isHittable)
+		
+		let overviewCellEmpty = app.descendants(matching: .table).firstMatch.cells.element(boundBy: 4)
+		let highRiskCellEmpty = overviewCellEmpty.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.riskLevelHigh]
+		XCTAssertFalse(highRiskCellEmpty.isHittable)
+		let checkinCellEmpty = overviewCellEmpty.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.checkinRiskLevelHigh]
+		XCTAssertFalse(checkinCellEmpty.isHittable)
+	}
+	
+	/// Tests: ENF Risk High, Checkin Risk High
+	func testOverviewScenario2() throws {
+		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
+		app.launchArguments.append(contentsOf: ["-riskLevel", "high"])
+		app.launchArguments.append(contentsOf: ["-checkinRiskLevel", "high"])
+		
+		navigateToJournalOverview()
 
-		let lowRiskCell = app.descendants(matching: .table).firstMatch.cells.element(boundBy: 4)
-		XCTAssertNotNil( lowRiskCell.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.riskLevelLow])
+		// check if overview is visible
+		XCTAssertEqual(app.navigationBars.firstMatch.identifier, app.localized("ContactDiary_Overview_Title"))
+
+		// first cell should have the text for high risk, but none about checkin
+		let overviewCellWithEncounterRisk = app.descendants(matching: .table).firstMatch.cells.element(boundBy: 1)
+		let highRiskCell = overviewCellWithEncounterRisk.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.riskLevelHigh]
+		XCTAssertTrue(highRiskCell.isHittable)
+		let checkinCell = overviewCellWithEncounterRisk.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.checkinRiskLevelHigh]
+		XCTAssertTrue(checkinCell.isHittable)
+		
+		let overviewCellEmpty = app.descendants(matching: .table).firstMatch.cells.element(boundBy: 4)
+		let highRiskCellEmpty = overviewCellEmpty.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.riskLevelHigh]
+		XCTAssertFalse(highRiskCellEmpty.isHittable)
+		let checkinCellEmpty = overviewCellEmpty.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.checkinRiskLevelHigh]
+		XCTAssertFalse(checkinCellEmpty.isHittable)
+	}
+	
+	/// Tests: ENF Risk None, Checkin Risk High
+	func testOverviewScenario3() throws {
+		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
+		app.launchArguments.append(contentsOf: ["-checkinRiskLevel", "low"])
+
+		navigateToJournalOverview()
+
+		// check if overview is visible
+		XCTAssertEqual(app.navigationBars.firstMatch.identifier, app.localized("ContactDiary_Overview_Title"))
+
+		// first cell should have the text for high risk, but none about checkin
+		let overviewCellWithEncounterRisk = app.descendants(matching: .table).firstMatch.cells.element(boundBy: 1)
+		let highRiskCell = overviewCellWithEncounterRisk.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.riskLevelHigh]
+		XCTAssertFalse(highRiskCell.isHittable)
+		let checkinCell = overviewCellWithEncounterRisk.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.checkinRiskLevelLow]
+		XCTAssertTrue(checkinCell.isHittable)
+		
+		let overviewCellEmpty = app.descendants(matching: .table).firstMatch.cells.element(boundBy: 4)
+		let highRiskCellEmpty = overviewCellEmpty.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.riskLevelHigh]
+		XCTAssertFalse(highRiskCellEmpty.isHittable)
+		let checkinCellEmpty = overviewCellEmpty.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.checkinRiskLevelHigh]
+		XCTAssertFalse(checkinCellEmpty.isHittable)
+	}
+	
+	// MARK: - Screenshots
+	
+	func testScreenshotOverview() throws {
+		var screenshotCounter = 0
+		// setting up launch arguments
+		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
+		app.launchArguments.append(contentsOf: ["-riskLevel", "high"])
+		app.launchArguments.append(contentsOf: ["-checkinRiskLevel", "high"])
+		
+		// navigate to desired screen
+		navigateToJournalOverview()
+		
+		// take screenshot from overview cell with high encounter risk and high checkin risk
+		snapshot("contact_journal_overview_high_risks_\(String(format: "%04d", (screenshotCounter.inc() )))")
+	}
+	
+	func testScreenshotTwoPersonsOneLocationAndMessages() throws {
+		var screenshotCounter = 0
+		// setting up launch arguments
+		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
+		app.launchArguments.append(contentsOf: ["-riskLevel", "high"])
+		
+		// navigate to desired screen
+		navigateToJournalOverview()
+		
+		// select first cell
+		app.cells.element(boundBy: 1).tap()
+		
+		// add a person
+		addPersonToDayEntry("Andrea")
+		
+		// switch to places
+		app.segmentedControls.firstMatch.buttons[app.localized("ContactDiary_Day_LocationsSegment")].tap()
+		
+		// add a location
+		addLocationToDayEntry("Physiotherapie")
+		
+		// go back
+		app.navigationBars.firstMatch.buttons.element(boundBy: 0).tap()
+		
+		// select fourth cell
+		app.cells.element(boundBy: 4).tap()
+		
+		// add a person
+		addPersonToDayEntry("Michael")
+		
+		// go back
+		app.navigationBars.firstMatch.buttons.element(boundBy: 0).tap()
+		
+		app.swipeDown()
+		// take screenshot
+		snapshot("contact_journal_listing1_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		
+		app.swipeUp()
+		// take screenshot
+		snapshot("contact_journal_listing1_\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
 
+	func testScreenshotAddTwoPersonsAndOneLocationToDate() throws {
+		var screenshotCounter = 0
+		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
+		app.launchArguments.append(contentsOf: ["-riskLevel", "high"])
+
+		navigateToJournalOverview()
+
+		// check count for overview: day cell 15 days plus 1 description cell
+		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 15 + 1)
+
+		// select 3th cell
+		XCTAssertTrue(app.descendants(matching: .table).firstMatch.cells.element(boundBy: 3).waitForExistence(timeout: .medium))
+		app.descendants(matching: .table).firstMatch.cells.element(boundBy: 3).tap()
+
+		let dayTableView = app.tables[AccessibilityIdentifiers.ContactDiary.dayTableView]
+
+		// check count for day entries: 1 add entry cell
+		XCTAssertEqual(dayTableView.cells.count, 1)
+
+		addPersonToDayEntry("Max Mustermann")
+		addPersonToDayEntry("Erika Musterfrau")
+
+		// check count for day entries: 1 add entry cell + 2 persons added
+		XCTAssertEqual(dayTableView.cells.count, 3)
+
+		// deselect Erika Musterfrau - 1 because new persons get entered on top
+		dayTableView.cells.element(boundBy: 1).staticTexts["Erika Musterfrau"].tap()
+
+		XCTAssertTrue(app.segmentedControls.firstMatch.waitForExistence(timeout: .medium))
+		app.segmentedControls.firstMatch.buttons[app.localized("ContactDiary_Day_LocationsSegment")].tap()
+
+		// check count for day entries: 1 add entry cell
+		XCTAssertEqual(dayTableView.cells.count, 1)
+
+		addLocationToDayEntry("Bäckerei")
+
+		// check count for day entries: 1 add entry cell + 1 location added
+		XCTAssertEqual(dayTableView.cells.count, 2)
+
+		XCTAssertTrue(app.navigationBars.firstMatch.buttons.element(boundBy: 0).waitForExistence(timeout: .medium))
+		app.navigationBars.firstMatch.buttons.element(boundBy: 0).tap()
+		snapshot("contact_journal_listing2_\(String(format: "%04d", (screenshotCounter.inc() )))")
+
+		// check count for overview: day cell 15 days plus 1 description cell
+		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 15 + 1)
+
+		XCTAssertTrue(app.descendants(matching: .table).firstMatch.cells.element(boundBy: 3).waitForExistence(timeout: .medium))
+		let dayCell = app.descendants(matching: .table).firstMatch.cells.element(boundBy: 3)
+
+		XCTAssertTrue(dayCell.staticTexts["Max Mustermann"].exists)
+		XCTAssertTrue(dayCell.staticTexts["Bäckerei"].exists)
+		XCTAssertFalse(dayCell.staticTexts["Erika Musterfrau"].exists)
+	}
+
+	func testScreenshotContactJournalInformation() throws {
+		var screenshotCounter = 0
+		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "NO"])
+
+		// navigate to desired screen
+		navigateToJournalOverview()
+
+		// take screenshot
+		snapshot("contact_journal_information_screen_\(String(format: "%04d", (screenshotCounter.inc() )))")
+
+		// Check whether we have entered the info screen.
+		XCTAssertTrue(app.images["AppStrings.ContactDiaryInformation.imageDescription"].waitForExistence(timeout: .medium))
+
+		app.swipeUp(velocity: .fast)
+		// take screenshot
+		snapshot("contact_journal_information_screen_\(String(format: "%04d", (screenshotCounter.inc() )))")
+
+		app.swipeUp(velocity: .fast)
+		// take screenshot
+		snapshot("contact_journal_information_screen_\(String(format: "%04d", (screenshotCounter.inc() )))")
+	}
+
+	func testScreenshotAddTwoPersonsTwoLocations() throws {
+		// setting up launch arguments
+		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
+		app.launchArguments.append(contentsOf: ["-riskLevel", "high"])
+
+		// navigate to desired screen
+		navigateToJournalOverview()
+
+		// select first cell
+		app.cells.element(boundBy: 1).tap()
+
+		// add persons
+		addPersonToDayEntry("Erika Musterfrau")
+		addPersonToDayEntry("Max Mustermann")
+		// take screenshot
+		snapshot("contact_journal_listing_add_persons")
+
+		// switch to places
+		app.segmentedControls.firstMatch.buttons[app.localized("ContactDiary_Day_LocationsSegment")].tap()
+
+		// add locations
+		addLocationToDayEntry("Sportzentrum")
+		addLocationToDayEntry("Büro")
+		// take screenshot
+		snapshot("contact_journal_listing_add_locations")
+
+		// go back
+		app.navigationBars.firstMatch.buttons.element(boundBy: 0).tap()
+	}
+
+	func testScreenshotEditPersonScreen() throws {
+		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
+
+		// open sheet to edit persons
+		openEditPersonViaSheet()
+
+		// take screenshot
+		snapshot("contact_journal_listing_edit_persons")
+	}
+
+	func testScreenshotEditLocationScreen() throws {
+		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
+
+		// open sheet to edit locations
+		openEditLocationsViaSheet()
+
+		// take screenshot
+		snapshot("contact_journal_listing_edit_locations")
+	}
+	
 	// MARK: - Private
 
 	private func navigateToJournalOverview() {

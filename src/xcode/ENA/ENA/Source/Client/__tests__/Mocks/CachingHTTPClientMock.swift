@@ -26,7 +26,7 @@ final class CachingHTTPClientMock: CachingHTTPClient {
 	
 	static let staticQRCodeTemplate: SAP_Internal_Pt_QRCodePosterTemplateIOS = {
 		guard
-			let url = Bundle(for: CachingHTTPClientMock.self).url(forResource: "qr_code_template", withExtension: "bin"),
+			let url = Bundle(for: CachingHTTPClientMock.self).url(forResource: "default_qr_code_poster_template_ios", withExtension: "bin"),
 			let data = try? Data(contentsOf: url),
 			let stats = try? SAP_Internal_Pt_QRCodePosterTemplateIOS(serializedData: data)
 		else {

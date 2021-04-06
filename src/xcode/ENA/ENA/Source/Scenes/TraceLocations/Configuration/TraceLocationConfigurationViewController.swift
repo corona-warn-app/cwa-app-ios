@@ -62,12 +62,12 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 	// MARK: - Protocol FooterViewHandling
 
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
-		footerView?.setLoadingIndicator(true, disable: true, button: .primary)
-		viewModel.save { [weak self] success in
-			self?.footerView?.setLoadingIndicator(false, disable: false, button: .primary)
-			if success {
-				self?.onDismiss()
-			}
+		do {
+			try viewModel.save()
+			onDismiss()
+		} catch {
+			Log.error("Error saving trace location: \(error.localizedDescription)", log: .traceLocation, error: error)
+			showError(error)
 		}
 	}
 
@@ -341,6 +341,26 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 				self?.footerView?.setEnabled($0, button: .primary)
 			}
 			.store(in: &subscriptions)
+	}
+
+	private func showError(_ error: Error) {
+		let alert = UIAlertController(
+			title: String(
+				format: AppStrings.TraceLocations.Configuration.savingErrorMessage,
+				String(describing: error)
+			),
+			message: nil,
+			preferredStyle: .alert
+		)
+
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.Common.alertActionOk,
+				style: .default
+			)
+		)
+
+		present(alert, animated: true)
 	}
 
 }

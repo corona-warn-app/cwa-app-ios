@@ -116,7 +116,7 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		app.launchArguments += [UITestingParameters.ExposureSubmission.getRegistrationTokenSuccess.rawValue]
 		app.launchArguments += [UITestingParameters.ExposureSubmission.submitExposureSuccess.rawValue]
 		
-		// launch and nagivate to the desired screen
+		// launch and navigate to the desired screen
 		launch()
 		navigateToSymptomsScreen()
 		

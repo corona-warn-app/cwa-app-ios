@@ -463,7 +463,7 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 		Log.info("[EventStore] Update TraceLocations publisher.", log: .localData)
 
 		let sql = """
-				SELECT * FROM TraceLocation;
+				SELECT * FROM TraceLocation ORDER BY description ASC;
 			"""
 
 		do {
@@ -531,7 +531,7 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 		Log.info("[EventStore] Update checkins publisher.", log: .localData)
 
 		let sql = """
-				SELECT * FROM Checkin;
+				SELECT * FROM Checkin ORDER BY checkinEndDate DESC;
 			"""
 
 		do {

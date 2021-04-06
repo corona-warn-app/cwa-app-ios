@@ -17,7 +17,7 @@ final class RiskProviderTests: XCTestCase {
 		
 		let duration = DateComponents(day: 1)
 
-		store.riskCalculationResult = nil
+		store.enfRiskCalculationResult = nil
 
 		let config = RiskProvidingConfiguration(
 			exposureDetectionValidityDuration: duration,
@@ -42,7 +42,7 @@ final class RiskProviderTests: XCTestCase {
 			store: store,
 			appConfigurationProvider: appConfig,
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
-			riskCalculation: RiskCalculationFake(riskLevelPerDate: riskLevelPerDateENF),
+			enfRiskCalculation: ENFRiskCalculationFake(riskLevelPerDate: riskLevelPerDateENF),
 			checkinRiskCalculation: CheckinRiskCalculationFake(riskLevelPerDate: riskLevelPerDateCheckin),
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			traceWarningPackageDownload: traceWarningPackageDownload,
@@ -91,7 +91,7 @@ final class RiskProviderTests: XCTestCase {
 		
 		let duration = DateComponents(day: 1)
 
-		store.riskCalculationResult = nil
+		store.enfRiskCalculationResult = nil
 
 		let config = RiskProvidingConfiguration(
 			exposureDetectionValidityDuration: duration,
@@ -116,7 +116,7 @@ final class RiskProviderTests: XCTestCase {
 			store: store,
 			appConfigurationProvider: appConfig,
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
-			riskCalculation: RiskCalculationFake(riskLevelPerDate: riskLevelPerDateENF),
+			enfRiskCalculation: ENFRiskCalculationFake(riskLevelPerDate: riskLevelPerDateENF),
 			checkinRiskCalculation: CheckinRiskCalculationFake(riskLevelPerDate: riskLevelPerDateCheckin),
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			traceWarningPackageDownload: traceWarningPackageDownload,
@@ -165,7 +165,7 @@ final class RiskProviderTests: XCTestCase {
 		
 		let duration = DateComponents(day: 1)
 
-		store.riskCalculationResult = nil
+		store.enfRiskCalculationResult = nil
 
 		let config = RiskProvidingConfiguration(
 			exposureDetectionValidityDuration: duration,
@@ -190,7 +190,7 @@ final class RiskProviderTests: XCTestCase {
 			store: store,
 			appConfigurationProvider: appConfig,
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
-			riskCalculation: RiskCalculationFake(riskLevelPerDate: riskLevelPerDateENF),
+			enfRiskCalculation: ENFRiskCalculationFake(riskLevelPerDate: riskLevelPerDateENF),
 			checkinRiskCalculation: CheckinRiskCalculationFake(riskLevelPerDate: riskLevelPerDateCheckin),
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			traceWarningPackageDownload: traceWarningPackageDownload,
@@ -237,7 +237,7 @@ final class RiskProviderTests: XCTestCase {
 		let duration = DateComponents(day: 1)
 
 		let store = MockTestStore()
-		store.riskCalculationResult = nil
+		store.enfRiskCalculationResult = nil
 
 		let config = RiskProvidingConfiguration(
 			exposureDetectionValidityDuration: duration,
@@ -252,7 +252,7 @@ final class RiskProviderTests: XCTestCase {
 			store: store,
 			appConfigurationProvider: appConfig,
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
-			riskCalculation: RiskCalculationFake(),
+			enfRiskCalculation: ENFRiskCalculationFake(),
 			checkinRiskCalculation: CheckinRiskCalculationFake(),
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig),
@@ -287,7 +287,7 @@ final class RiskProviderTests: XCTestCase {
 		let duration = DateComponents(day: 1)
 
 		let store = MockTestStore()
-		store.riskCalculationResult = nil
+		store.enfRiskCalculationResult = nil
 
 		let config = RiskProvidingConfiguration(
 			exposureDetectionValidityDuration: duration,
@@ -301,7 +301,7 @@ final class RiskProviderTests: XCTestCase {
 			store: store,
 			appConfigurationProvider: cachedAppConfig,
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
-			riskCalculation: RiskCalculationFake(),
+			enfRiskCalculation: ENFRiskCalculationFake(),
 			checkinRiskCalculation: CheckinRiskCalculationFake(),
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: cachedAppConfig),
@@ -339,7 +339,7 @@ final class RiskProviderTests: XCTestCase {
 		))
 
 		let store = MockTestStore()
-		store.riskCalculationResult = RiskCalculationResult(
+		store.enfRiskCalculationResult = ENFRiskCalculationResult(
 			riskLevel: .low,
 			minimumDistinctEncountersWithLowRisk: 0,
 			minimumDistinctEncountersWithHighRisk: 0,
@@ -352,6 +352,7 @@ final class RiskProviderTests: XCTestCase {
 			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 		store.checkinRiskCalculationResult = CheckinRiskCalculationResult(
+			calculationDate: Date(),
 			checkinIdsWithRiskPerDate: [:],
 			riskLevelPerDate: [:]
 		)
@@ -376,7 +377,7 @@ final class RiskProviderTests: XCTestCase {
 			store: store,
 			appConfigurationProvider: cachedAppConfig,
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
-			riskCalculation: RiskCalculationFake(),
+			enfRiskCalculation: ENFRiskCalculationFake(),
 			checkinRiskCalculation: CheckinRiskCalculationFake(),
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: cachedAppConfig),
@@ -402,7 +403,7 @@ final class RiskProviderTests: XCTestCase {
 		let duration = DateComponents(day: 1)
 
 		let store = MockTestStore()
-		store.riskCalculationResult = nil
+		store.enfRiskCalculationResult = nil
 		store.positiveTestResultWasShown = false
 		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = nil
 
@@ -418,7 +419,7 @@ final class RiskProviderTests: XCTestCase {
 			store: store,
 			appConfigurationProvider: appConfig,
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
-			riskCalculation: RiskCalculationFake(),
+			enfRiskCalculation: ENFRiskCalculationFake(),
 			checkinRiskCalculation: CheckinRiskCalculationFake(),
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig),
@@ -455,7 +456,7 @@ final class RiskProviderTests: XCTestCase {
 		let duration = DateComponents(day: 1)
 
 		let store = MockTestStore()
-		store.riskCalculationResult = nil
+		store.enfRiskCalculationResult = nil
 		store.positiveTestResultWasShown = false
 		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = nil
 
@@ -472,7 +473,7 @@ final class RiskProviderTests: XCTestCase {
 			store: store,
 			appConfigurationProvider: appConfig,
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
-			riskCalculation: RiskCalculationFake(),
+			enfRiskCalculation: ENFRiskCalculationFake(),
 			checkinRiskCalculation: CheckinRiskCalculationFake(),
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig),
@@ -510,7 +511,7 @@ final class RiskProviderTests: XCTestCase {
 
 		let store = MockTestStore()
 
-		store.riskCalculationResult = nil
+		store.enfRiskCalculationResult = nil
 		store.positiveTestResultWasShown = true
 
 		let config = RiskProvidingConfiguration(
@@ -526,7 +527,7 @@ final class RiskProviderTests: XCTestCase {
 			store: store,
 			appConfigurationProvider: appConfig,
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
-			riskCalculation: RiskCalculationFake(),
+			enfRiskCalculation: ENFRiskCalculationFake(),
 			checkinRiskCalculation: CheckinRiskCalculationFake(),
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig),
@@ -564,7 +565,7 @@ final class RiskProviderTests: XCTestCase {
 		let duration = DateComponents(day: 1)
 
 		let store = MockTestStore()
-		store.riskCalculationResult = nil
+		store.enfRiskCalculationResult = nil
 		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = Int64(Date().timeIntervalSince1970)
 
 		let config = RiskProvidingConfiguration(
@@ -580,7 +581,7 @@ final class RiskProviderTests: XCTestCase {
 			store: store,
 			appConfigurationProvider: appConfig,
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
-			riskCalculation: RiskCalculationFake(),
+			enfRiskCalculation: ENFRiskCalculationFake(),
 			checkinRiskCalculation: CheckinRiskCalculationFake(),
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig),
@@ -828,7 +829,7 @@ final class RiskProviderTests: XCTestCase {
 		let duration = DateComponents(day: 1)
 
 		let store = MockTestStore()
-		store.riskCalculationResult = nil
+		store.enfRiskCalculationResult = nil
 
 		let config = RiskProvidingConfiguration(
 			exposureDetectionValidityDuration: duration,
@@ -847,7 +848,7 @@ final class RiskProviderTests: XCTestCase {
 			store: store,
 			appConfigurationProvider: appConfig,
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
-			riskCalculation: RiskCalculationFake(),
+			enfRiskCalculation: ENFRiskCalculationFake(),
 			checkinRiskCalculation: CheckinRiskCalculationFake(),
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig),
@@ -889,7 +890,7 @@ final class RiskProviderTests: XCTestCase {
 		let today = Calendar.utcCalendar.startOfDay(for: Date())
 		let previousRiskLevelPerDate = [today: previousRiskLevel]
 		
-		store.riskCalculationResult = RiskCalculationResult(
+		store.enfRiskCalculationResult = ENFRiskCalculationResult(
 			riskLevel: previousRiskLevel,
 			minimumDistinctEncountersWithLowRisk: 0,
 			minimumDistinctEncountersWithHighRisk: 0,
@@ -903,6 +904,7 @@ final class RiskProviderTests: XCTestCase {
 		)
 
 		store.checkinRiskCalculationResult = CheckinRiskCalculationResult(
+			calculationDate: Date(),
 			checkinIdsWithRiskPerDate: [:],
 			riskLevelPerDate: previousRiskLevelPerDate
 		)
@@ -934,7 +936,7 @@ final class RiskProviderTests: XCTestCase {
 			store: store,
 			appConfigurationProvider: appConfigurationProvider,
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
-			riskCalculation: RiskCalculationFake(riskLevelPerDate: riskLevelPerDate),
+			enfRiskCalculation: ENFRiskCalculationFake(riskLevelPerDate: riskLevelPerDate),
 			checkinRiskCalculation: CheckinRiskCalculationFake(riskLevelPerDate: riskLevelPerDate),
 			keyPackageDownload: keyPackageDownload,
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfigurationProvider),
@@ -956,7 +958,7 @@ final class RiskProviderTests: XCTestCase {
 		))
 
 		let store = MockTestStore()
-		store.riskCalculationResult = RiskCalculationResult(
+		store.enfRiskCalculationResult = ENFRiskCalculationResult(
 			riskLevel: .low,
 			minimumDistinctEncountersWithLowRisk: 0,
 			minimumDistinctEncountersWithHighRisk: 0,
@@ -969,6 +971,7 @@ final class RiskProviderTests: XCTestCase {
 			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 		store.checkinRiskCalculationResult = CheckinRiskCalculationResult(
+			calculationDate: Date(),
 			checkinIdsWithRiskPerDate: [:],
 			riskLevelPerDate: [:]
 		)
@@ -1008,7 +1011,7 @@ final class RiskProviderTests: XCTestCase {
 			store: store,
 			appConfigurationProvider: cachedAppConfig,
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
-			riskCalculation: RiskCalculationFake(),
+			enfRiskCalculation: ENFRiskCalculationFake(),
 			checkinRiskCalculation: CheckinRiskCalculationFake(),
 			keyPackageDownload: keyPackageDownload,
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: cachedAppConfig),
@@ -1042,7 +1045,7 @@ final class RiskProviderTests: XCTestCase {
 		))
 
 		let store = MockTestStore()
-		store.riskCalculationResult = RiskCalculationResult(
+		store.enfRiskCalculationResult = ENFRiskCalculationResult(
 			riskLevel: .low,
 			minimumDistinctEncountersWithLowRisk: 0,
 			minimumDistinctEncountersWithHighRisk: 0,
@@ -1055,6 +1058,7 @@ final class RiskProviderTests: XCTestCase {
 			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 		store.checkinRiskCalculationResult = CheckinRiskCalculationResult(
+			calculationDate: Date(),
 			checkinIdsWithRiskPerDate: [:],
 			riskLevelPerDate: [:]
 		)
@@ -1092,7 +1096,7 @@ final class RiskProviderTests: XCTestCase {
 			store: store,
 			appConfigurationProvider: cachedAppConfig,
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
-			riskCalculation: RiskCalculationFake(),
+			enfRiskCalculation: ENFRiskCalculationFake(),
 			checkinRiskCalculation: CheckinRiskCalculationFake(),
 			keyPackageDownload: keyPackageDownload,
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: cachedAppConfig),
@@ -1126,7 +1130,7 @@ final class RiskProviderTests: XCTestCase {
 		))
 
 		let store = MockTestStore()
-		store.riskCalculationResult = RiskCalculationResult(
+		store.enfRiskCalculationResult = ENFRiskCalculationResult(
 			riskLevel: .low,
 			minimumDistinctEncountersWithLowRisk: 0,
 			minimumDistinctEncountersWithHighRisk: 0,
@@ -1139,6 +1143,7 @@ final class RiskProviderTests: XCTestCase {
 			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 		store.checkinRiskCalculationResult = CheckinRiskCalculationResult(
+			calculationDate: Date(),
 			checkinIdsWithRiskPerDate: [:],
 			riskLevelPerDate: [:]
 		)
@@ -1178,7 +1183,7 @@ final class RiskProviderTests: XCTestCase {
 			store: store,
 			appConfigurationProvider: cachedAppConfig,
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
-			riskCalculation: RiskCalculationFake(),
+			enfRiskCalculation: ENFRiskCalculationFake(),
 			checkinRiskCalculation: CheckinRiskCalculationFake(),
 			keyPackageDownload: keyPackageDownload,
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: cachedAppConfig),
@@ -1212,7 +1217,7 @@ final class RiskProviderTests: XCTestCase {
 		))
 
 		let store = MockTestStore()
-		store.riskCalculationResult = RiskCalculationResult(
+		store.enfRiskCalculationResult = ENFRiskCalculationResult(
 			riskLevel: .low,
 			minimumDistinctEncountersWithLowRisk: 0,
 			minimumDistinctEncountersWithHighRisk: 0,
@@ -1225,6 +1230,7 @@ final class RiskProviderTests: XCTestCase {
 			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 		store.checkinRiskCalculationResult = CheckinRiskCalculationResult(
+			calculationDate: Date(),
 			checkinIdsWithRiskPerDate: [:],
 			riskLevelPerDate: [:]
 		)
@@ -1262,7 +1268,7 @@ final class RiskProviderTests: XCTestCase {
 			store: store,
 			appConfigurationProvider: cachedAppConfig,
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
-			riskCalculation: RiskCalculationFake(),
+			enfRiskCalculation: ENFRiskCalculationFake(),
 			checkinRiskCalculation: CheckinRiskCalculationFake(),
 			keyPackageDownload: keyPackageDownload,
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: cachedAppConfig),
@@ -1311,7 +1317,7 @@ final class RiskProviderTests: XCTestCase {
 	}
 }
 
-private class RiskCalculationFake: RiskCalculationProtocol {
+private class ENFRiskCalculationFake: ENFRiskCalculationProtocol {
 	
 	init(
 		riskLevelPerDate: [Date: RiskLevel]? = nil
@@ -1337,10 +1343,10 @@ private class RiskCalculationFake: RiskCalculationProtocol {
 	func calculateRisk(
 		exposureWindows: [ExposureWindow],
 		configuration: RiskCalculationConfiguration
-	) -> RiskCalculationResult {
+	) -> ENFRiskCalculationResult {
 		mappedExposureWindows = exposureWindows.map({ RiskCalculationExposureWindow(exposureWindow: $0, configuration: configuration) })
 
-		return RiskCalculationResult(
+		return ENFRiskCalculationResult(
 			riskLevel: riskLevel,
 			minimumDistinctEncountersWithLowRisk: 0,
 			minimumDistinctEncountersWithHighRisk: 0,
@@ -1368,7 +1374,7 @@ private class CheckinRiskCalculationFake: CheckinRiskCalculationProtocol {
 	let riskLevelPerDate: [Date: RiskLevel]
 
 	func calculateRisk(with config: SAP_Internal_V2_ApplicationConfigurationIOS) -> CheckinRiskCalculationResult {
-		return CheckinRiskCalculationResult(checkinIdsWithRiskPerDate: [Date: [CheckinIdWithRisk]](), riskLevelPerDate: riskLevelPerDate)
+		return CheckinRiskCalculationResult(calculationDate: Date(), checkinIdsWithRiskPerDate: [Date: [CheckinIdWithRisk]](), riskLevelPerDate: riskLevelPerDate)
 	}
 }
 

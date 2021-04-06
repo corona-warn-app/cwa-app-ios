@@ -105,7 +105,7 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 	@OpenCombine.Published var isButtonHidden: Bool = true
 
 	var previousRiskTitle: String {
-		switch homeState.lastRiskCalculationResult?.riskLevel {
+		switch homeState.risk?.level {
 		case .low:
 			return AppStrings.ExposureDetection.low
 		case .high:
@@ -173,7 +173,7 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 	private var subscriptions = Set<AnyCancellable>()
 
 	private var lastUpdateDateString: String {
-		if let lastUpdateDate = homeState.lastRiskCalculationResult?.calculationDate {
+		if let lastUpdateDate = homeState.riskCalculationDate {
 			return Self.lastUpdateDateFormatter.string(from: lastUpdateDate)
 		} else {
 			return AppStrings.Home.riskCardNoDateTitle

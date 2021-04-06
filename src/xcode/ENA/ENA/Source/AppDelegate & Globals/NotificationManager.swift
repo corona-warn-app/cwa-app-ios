@@ -8,7 +8,13 @@ import NotificationCenter
 final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 	weak var appDelegate: AppDelegate?
 
-	func userNotificationCenter(_: UNUserNotificationCenter, willPresent _: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+	func userNotificationCenter(_: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+
+		// Checkout a event checkin.
+		if notification.request.identifier.contains(EventCheckoutService.notificationIdentifierPrefix) {
+			appDelegate?.eventCheckoutService.checkoutOverdueCheckins()
+		}
+
 		completionHandler([.alert, .badge, .sound])
 	}
 
