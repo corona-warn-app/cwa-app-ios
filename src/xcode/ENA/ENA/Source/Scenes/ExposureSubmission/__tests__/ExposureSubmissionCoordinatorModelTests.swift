@@ -333,14 +333,14 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 	func testGetTestResultSucceeds() {
 		let expectedTestResult: TestResult = .positive
 
-		let exposureSubmissionService = MockExposureSubmissionService()
-		exposureSubmissionService.getTestResultCallback = { completion in
-			completion(.success(expectedTestResult))
+		let client = ClientMock()
+		client.onGetTestResult = { _, _, completion in
+			completion(.success(expectedTestResult.rawValue))
 		}
 
 		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService,
-			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore())
+			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTestService: CoronaTestService(client: client, store: MockTestStore())
 		)
 
 		let expectedIsLoadingValues = [true, false]
@@ -408,11 +408,6 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 			},
 			onSuccess: { _ in onSuccessExpectation.fulfill() },
 			onError: { error in
-//				if case .responseFailure(let failure) = error, case .invalidResponse = failure {
-//
-//				} else {
-//					XCTFail()
-//				}
 				XCTAssertEqual(error, expectedError)
 
 				onErrorExpectation.fulfill()

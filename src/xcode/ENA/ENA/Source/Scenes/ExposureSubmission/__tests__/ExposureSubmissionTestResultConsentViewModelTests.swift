@@ -11,7 +11,7 @@ class ExposureSubmissionTestResultConsentViewModelTests: XCTestCase {
 	func testCellsInSection0() {
 		let viewModel = ExposureSubmissionTestResultConsentViewModel(
 			supportedCountries: [],
-			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore()),
 			testResultAvailability: .availableAndPositive,
 			dismissCompletion: nil
 		)
@@ -41,7 +41,7 @@ class ExposureSubmissionTestResultConsentViewModelTests: XCTestCase {
 	func testCellsInSection1() {
 		let viewModel = ExposureSubmissionTestResultConsentViewModel(
 			supportedCountries: [],
-			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore()),
 			testResultAvailability: .availableAndPositive,
 			dismissCompletion: nil
 		)
@@ -59,7 +59,7 @@ class ExposureSubmissionTestResultConsentViewModelTests: XCTestCase {
 	func testCellsInSection2() {
 		let viewModel = ExposureSubmissionTestResultConsentViewModel(
 			supportedCountries: [],
-			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore()),
 			testResultAvailability: .availableAndPositive,
 			dismissCompletion: nil
 		)

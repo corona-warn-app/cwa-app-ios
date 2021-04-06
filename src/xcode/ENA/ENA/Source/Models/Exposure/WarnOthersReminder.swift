@@ -30,8 +30,6 @@ class WarnOthersReminder: WarnOthersRemindable {
 			return false
 		}
 		set {
-			// TODO
-			()
 //			store.positiveTestResultWasShown = newValue
 		}
 	}
@@ -39,7 +37,7 @@ class WarnOthersReminder: WarnOthersRemindable {
 	var isSubmissionConsentGiven: Bool {
 		// TODO
 		return false
-		//return store.isSubmissionConsentGiven
+		// return store.isSubmissionConsentGiven
 	}
 
 	/// Notification timer in seconds for notification one

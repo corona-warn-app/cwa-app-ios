@@ -90,14 +90,13 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 	}
 
 	func testStart_withNegativeResult() {
-		exposureSubmissionService.hasRegistrationToken = true
 		let coordinator = createCoordinator(
 			parentNavigationController: parentNavigationController,
 			exposureSubmissionService: exposureSubmissionService,
 			delegate: delegate
 		)
 
-		coronaTestService.pcrTest = PCRTest.mock(testResult: .negative)
+		coronaTestService.pcrTest = PCRTest.mock(registrationToken: "asdf", testResult: .negative)
 
 		coordinator.start(with: .pcr)
 
@@ -111,14 +110,13 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 	}
 
 	func testStart_withPositiveResult() {
-		exposureSubmissionService.hasRegistrationToken = true
 		let coordinator = createCoordinator(
 			parentNavigationController: parentNavigationController,
 			exposureSubmissionService: exposureSubmissionService,
 			delegate: delegate
 		)
 
-		coronaTestService.pcrTest = PCRTest.mock(testResult: .positive)
+		coronaTestService.pcrTest = PCRTest.mock(registrationToken: "asdf", testResult: .positive)
 
 		coordinator.start(with: .pcr)
 

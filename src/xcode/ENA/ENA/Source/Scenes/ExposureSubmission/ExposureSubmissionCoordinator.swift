@@ -852,10 +852,6 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			isSubmissionConsentGiven: submissionConsentGiven,
 			isLoading: isLoading,
 			onSuccess: { [weak self] testResult in
-				guard let pcrTest = self?.model.coronaTestService.pcrTest else {
-					fatalError("Received success call but corona test is not registered")
-				}
-
 				self?.model.coronaTestType = .pcr
 
 				switch testResult {
