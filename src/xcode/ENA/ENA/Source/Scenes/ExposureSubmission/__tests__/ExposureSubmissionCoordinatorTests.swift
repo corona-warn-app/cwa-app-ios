@@ -14,16 +14,17 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 	private var exposureSubmissionService: MockExposureSubmissionService!
 	// swiftlint:disable:next weak_delegate
 	private var delegate: MockExposureSubmissionCoordinatorDelegate!
+	private var store: Store!
+	private var coronaTestService: CoronaTestService!
 
 	// MARK: - Setup and teardown methods.
 
-	private var store: Store!
-	
 	override func setUpWithError() throws {
 		store = MockTestStore()
 		parentNavigationController = UINavigationController()
 		exposureSubmissionService = MockExposureSubmissionService()
 		delegate = MockExposureSubmissionCoordinatorDelegate()
+		coronaTestService = CoronaTestService(client: ClientMock(), store: store)
 	}
 
 	// MARK: - Helper methods.
@@ -31,12 +32,9 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 	private func createCoordinator(
 		parentNavigationController: UINavigationController,
 		exposureSubmissionService: ExposureSubmissionService,
-		delegate: ExposureSubmissionCoordinatorDelegate,
-		coronaTestService: CoronaTestService? = nil
+		delegate: ExposureSubmissionCoordinatorDelegate
 	) -> ExposureSubmissionCoordinator {
-		let coronaTestService = coronaTestService ?? CoronaTestService(client: ClientMock(), store: store)
-
-		return ExposureSubmissionCoordinator(
+		ExposureSubmissionCoordinator(
 			warnOthersReminder: WarnOthersReminder(store: self.store),
 			parentNavigationController: parentNavigationController,
 			exposureSubmissionService: exposureSubmissionService,
@@ -92,14 +90,14 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 	}
 
 	func testStart_withNegativeResult() {
-		store.pcrTest = PCRTest.mock(testResult: .negative)
-
 		exposureSubmissionService.hasRegistrationToken = true
 		let coordinator = createCoordinator(
 			parentNavigationController: parentNavigationController,
 			exposureSubmissionService: exposureSubmissionService,
 			delegate: delegate
 		)
+
+		coronaTestService.pcrTest = PCRTest.mock(testResult: .negative)
 
 		coordinator.start(with: .pcr)
 
@@ -113,14 +111,14 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 	}
 
 	func testStart_withPositiveResult() {
-		store.pcrTest = PCRTest.mock(testResult: .positive)
-
 		exposureSubmissionService.hasRegistrationToken = true
 		let coordinator = createCoordinator(
 			parentNavigationController: parentNavigationController,
 			exposureSubmissionService: exposureSubmissionService,
 			delegate: delegate
 		)
+
+		coronaTestService.pcrTest = PCRTest.mock(testResult: .positive)
 
 		coordinator.start(with: .pcr)
 
@@ -156,24 +154,20 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 	}
 
 	func testInitialViewController() throws {
-		let coronaTestService = CoronaTestService(client: ClientMock(), store: store)
-		coronaTestService.pcrTest = PCRTest.mock(testResult: .positive, positiveTestResultWasShown: false)
-
-		// dummy
-		exposureSubmissionService.hasRegistrationToken = true
 		let coordinator = createCoordinator(
 			parentNavigationController: parentNavigationController,
 			exposureSubmissionService: exposureSubmissionService,
-			delegate: delegate,
-			coronaTestService: coronaTestService
+			delegate: delegate
 		)
 
-		coordinator.start()
+		coronaTestService.pcrTest = PCRTest.mock(testResult: .positive, positiveTestResultWasShown: false)
+
+		coordinator.start(with: .pcr)
 
 		let unknown = coordinator.getInitialViewController()
 		XCTAssertTrue(unknown is TopBottomContainerViewController<TestResultAvailableViewController, FooterViewController>)
 
-		coronaTestService.pcrTest = PCRTest.mock(testResult: .positive, positiveTestResultWasShown: true)
+		coronaTestService.pcrTest?.positiveTestResultWasShown = true
 
 		let positive = coordinator.getInitialViewController()
 		XCTAssertTrue(positive is TopBottomContainerViewController<ExposureSubmissionWarnOthersViewController, FooterViewController>)

@@ -269,7 +269,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 					}
 				)
 			},
-			onChangeToPositiveTestResult: { [weak self] coronaTest in
+			onChangeToPositiveTestResult: { [weak self] in
 				self?.showTestResultAvailableScreen()
 			},
 			onTestDeleted: { [weak self] in
