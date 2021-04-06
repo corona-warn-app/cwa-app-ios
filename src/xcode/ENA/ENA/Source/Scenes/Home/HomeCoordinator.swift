@@ -26,7 +26,8 @@ class HomeCoordinator: RequiresAppDependencies {
 			diagnosisKeysRetrieval: self.exposureManager,
 			appConfigurationProvider: appConfigurationProvider,
 			client: self.client,
-			store: self.store
+			store: self.store,
+			eventStore: self.eventStore
 		)
 	}()
 
