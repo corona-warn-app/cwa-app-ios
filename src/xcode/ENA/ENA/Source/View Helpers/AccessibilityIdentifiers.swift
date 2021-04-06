@@ -426,6 +426,11 @@ enum AccessibilityIdentifiers {
 		enum Overview {
 			static let tableView = "TableView.TracelocationOverview"
 		}
+		
+		enum Configuration {
+			static let descriptionPlaceholder = "AppStrings.TraceLocations.Configuration.descriptionPlaceholder"
+			static let addressPlaceholder = "AppStrings.TraceLocations.Configuration.addressPlaceholder"
+		}
 	}
 	
 	enum CheckinInformation {

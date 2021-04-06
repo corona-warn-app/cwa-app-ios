@@ -47,7 +47,9 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 		permanentSettingsContainerView.isHidden = viewModel.permanentSettingsContainerIsHidden
 
 		descriptionTextField.placeholder = AppStrings.TraceLocations.Configuration.descriptionPlaceholder
+		descriptionTextField.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Configuration.descriptionPlaceholder
 		addressTextField.placeholder = AppStrings.TraceLocations.Configuration.addressPlaceholder
+		addressTextField.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Configuration.addressPlaceholder
 
 		startDateTitleLabel.text = AppStrings.TraceLocations.Configuration.startDateTitle
 		endDateTitleLabel.text = AppStrings.TraceLocations.Configuration.endDateTitle
