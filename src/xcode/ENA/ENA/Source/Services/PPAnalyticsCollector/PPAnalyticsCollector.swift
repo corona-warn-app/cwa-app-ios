@@ -441,10 +441,12 @@ extension PPAnalyticsCollector {
 	/// Setup Analytics for testing. The store or the submitter can be nil for testing purposes.
 	static func setupMock(
 		store: (Store & PPAnalyticsData)? = nil,
-		submitter: PPAnalyticsSubmitter? = nil
+		submitter: PPAnalyticsSubmitter? = nil,
+		coronaTestService: CoronaTestService? = nil
 	) {
 		PPAnalyticsCollector.store = store
 		PPAnalyticsCollector.submitter = submitter
+		PPAnalyticsCollector.coronaTestService = coronaTestService
 	}
 
 	/// ONLY FOR TESTING. Returns the last successful submitted data.

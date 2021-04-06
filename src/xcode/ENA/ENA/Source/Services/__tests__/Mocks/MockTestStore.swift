@@ -6,7 +6,7 @@ import Foundation
 
 #if DEBUG
 
-final class MockTestStore: Store {
+final class MockTestStore: Store, PPAnalyticsData {
 
 	var warnOthersNotificationOneTimer: TimeInterval = WarnOthersNotificationsTimeInterval.intervalOne
 	var warnOthersNotificationTwoTimer: TimeInterval = WarnOthersNotificationsTimeInterval.intervalTwo
