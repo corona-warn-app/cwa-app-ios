@@ -35,8 +35,6 @@
 		0138F55125ECD44300A9B075 /* risk_calculation_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F54525ECD44300A9B075 /* risk_calculation_parameters.pb.swift */; };
 		0138F55325ECD44300A9B075 /* event_registration_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F54725ECD44300A9B075 /* event_registration_parameters.pb.swift */; };
 		0138F56125ECDC7700A9B075 /* TransmissionRiskValueMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F56025ECDC7700A9B075 /* TransmissionRiskValueMapping.swift */; };
-		0138F5B425ED3B8800A9B075 /* default_app_config_115 in Resources */ = {isa = PBXBuildFile; fileRef = 0138F5B325ED3B8800A9B075 /* default_app_config_115 */; };
-		0138F5B525ED3B8800A9B075 /* default_app_config_115 in Resources */ = {isa = PBXBuildFile; fileRef = 0138F5B325ED3B8800A9B075 /* default_app_config_115 */; };
 		0138F5F225EFDBC300A9B075 /* HomeTraceLocationsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F5ED25EFDBC300A9B075 /* HomeTraceLocationsTableViewCell.swift */; };
 		0138F5F325EFDBC300A9B075 /* HomeTraceLocationsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0138F5EE25EFDBC300A9B075 /* HomeTraceLocationsTableViewCell.xib */; };
 		0138F5F425EFDBC300A9B075 /* HomeTraceLocationsCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F5EF25EFDBC300A9B075 /* HomeTraceLocationsCellModel.swift */; };
@@ -534,6 +532,7 @@
 		8F3D71AA25A86AD300D52CCD /* HomeExposureLoggingCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3D71A925A86AD300D52CCD /* HomeExposureLoggingCellModelTests.swift */; };
 		8F43A3CB25D55A3E008FD630 /* ppa_data.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F43A3C925D55A3D008FD630 /* ppa_data.pb.swift */; };
 		8F43A3CC25D55A3E008FD630 /* ppa_data_request_ios.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F43A3CA25D55A3E008FD630 /* ppa_data_request_ios.pb.swift */; };
+		8F7C3A2B261C5F3500AEC979 /* default_app_config_200 in Resources */ = {isa = PBXBuildFile; fileRef = 8F7C3A2A261C5F3500AEC979 /* default_app_config_200 */; };
 		8F7FD70F25E3EFAC006CDE01 /* HTMLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7FD70E25E3EFAC006CDE01 /* HTMLViewController.swift */; };
 		8F7FD71425E3F65E006CDE01 /* HTMLViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F7FD71325E3F65E006CDE01 /* HTMLViewController.xib */; };
 		8FA88F672613325700FD36DA /* QRCodePayload+extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA88F662613325700FD36DA /* QRCodePayload+extention.swift */; };
@@ -1073,7 +1072,6 @@
 		0138F54525ECD44300A9B075 /* risk_calculation_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = risk_calculation_parameters.pb.swift; sourceTree = "<group>"; };
 		0138F54725ECD44300A9B075 /* event_registration_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = event_registration_parameters.pb.swift; sourceTree = "<group>"; };
 		0138F56025ECDC7700A9B075 /* TransmissionRiskValueMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransmissionRiskValueMapping.swift; sourceTree = "<group>"; };
-		0138F5B325ED3B8800A9B075 /* default_app_config_115 */ = {isa = PBXFileReference; lastKnownFileType = file; path = default_app_config_115; sourceTree = "<group>"; };
 		0138F5ED25EFDBC300A9B075 /* HomeTraceLocationsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTraceLocationsTableViewCell.swift; sourceTree = "<group>"; };
 		0138F5EE25EFDBC300A9B075 /* HomeTraceLocationsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeTraceLocationsTableViewCell.xib; sourceTree = "<group>"; };
 		0138F5EF25EFDBC300A9B075 /* HomeTraceLocationsCellModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTraceLocationsCellModel.swift; sourceTree = "<group>"; };
@@ -1589,6 +1587,7 @@
 		8F3D71A925A86AD300D52CCD /* HomeExposureLoggingCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeExposureLoggingCellModelTests.swift; sourceTree = "<group>"; };
 		8F43A3C925D55A3D008FD630 /* ppa_data.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ppa_data.pb.swift; sourceTree = "<group>"; };
 		8F43A3CA25D55A3E008FD630 /* ppa_data_request_ios.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ppa_data_request_ios.pb.swift; sourceTree = "<group>"; };
+		8F7C3A2A261C5F3500AEC979 /* default_app_config_200 */ = {isa = PBXFileReference; lastKnownFileType = file; path = default_app_config_200; sourceTree = "<group>"; };
 		8F7FD70E25E3EFAC006CDE01 /* HTMLViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLViewController.swift; sourceTree = "<group>"; };
 		8F7FD71325E3F65E006CDE01 /* HTMLViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HTMLViewController.xib; sourceTree = "<group>"; };
 		8FA88F662613325700FD36DA /* QRCodePayload+extention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QRCodePayload+extention.swift"; sourceTree = "<group>"; };
@@ -5048,7 +5047,6 @@
 			children = (
 				B1FE13FC24896EE700D012E5 /* __tests__ */,
 				B1FE13F824896DDB00D012E5 /* CachedAppConfiguration.swift */,
-				0138F5B325ED3B8800A9B075 /* default_app_config_115 */,
 				AB3560992547167800C3F8E0 /* DeviceTimeCheck.swift */,
 				B1FE13FA24896E6700D012E5 /* AppConfigurationProviding.swift */,
 				3539DAD0252B353C00489B1A /* CachedAppConfigurationMock.swift */,
@@ -5063,6 +5061,7 @@
 				35E1219D25B19D8C0098D754 /* sample_stats */,
 				B1FE13FD24896EF700D012E5 /* CachedAppConfigurationTests.swift */,
 				AB35609F2547194C00C3F8E0 /* DeviceTimeCheckTests.swift */,
+				8F7C3A2A261C5F3500AEC979 /* default_app_config_200 */,
 				356FBF48255EC27A00959346 /* CacheAppConfigMockTests.swift */,
 				352DEA6E25B08966006751D1 /* StatisticsProviderTests.swift */,
 			);
@@ -6020,7 +6019,6 @@
 				01F2A59725803D2600DA96A6 /* DiaryOverviewDescriptionTableViewCell.xib in Resources */,
 				01D026C0258BACCE00B6389A /* ExposureDetectionRiskTextCell.xib in Resources */,
 				016E260825AF20540077C64C /* HomeStatisticsCardView.xib in Resources */,
-				0138F5B425ED3B8800A9B075 /* default_app_config_115 in Resources */,
 				01A4DC9D259247AF007D5794 /* HomeRiskTableViewCell.xib in Resources */,
 				13156CFD248C19D000AFC472 /* usage.html in Resources */,
 				01F2A5D5258208C500DA96A6 /* DiaryDayViewController.xib in Resources */,
@@ -6075,6 +6073,7 @@
 				01A6EFCB258BE9C60001D8C2 /* NotificationSettingsOffTableViewCell.xib in Resources */,
 				01D02710258BC17500B6389A /* InviteFriendsViewController.xib in Resources */,
 				35D16DDF2567FB980069AD1B /* DynamicLegalCell.xib in Resources */,
+				8F7C3A2B261C5F3500AEC979 /* default_app_config_200 in Resources */,
 				710021DE248EAF16001F0B63 /* ExposureSubmissionImageCardCell.xib in Resources */,
 				71F5418E248BEE08006DB793 /* privacy-policy.html in Resources */,
 				01D02697258BA0E000B6389A /* ExposureDetectionLoadingCell.xib in Resources */,
@@ -6102,7 +6101,6 @@
 				01678E9C249A5F08003B048B /* testStore.sqlite in Resources */,
 				AB1FCBDC2521FCD5005930BA /* TestServerEnvironments.json in Resources */,
 				F252472F2483955B00C5556B /* DynamicTableViewControllerFake.storyboard in Resources */,
-				0138F5B525ED3B8800A9B075 /* default_app_config_115 in Resources */,
 				50FA071126021180003C1E46 /* api-response-traceWarning in Resources */,
 				01571B7A255E9A6F00E4E891 /* config-wru-2020-11-13 in Resources */,
 				BA7D178125D549B3006B9EBF /* testData.json in Resources */,

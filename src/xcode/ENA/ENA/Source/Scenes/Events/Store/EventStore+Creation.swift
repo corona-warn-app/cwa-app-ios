@@ -113,4 +113,12 @@ extension EventStore {
 
 		return key
 	}
+	
+	static func resetEncryptionKey() throws -> String {
+		guard let keychain = try? KeychainHelper() else {
+			fatalError("[EventStore] Failed to create KeychainHelper for event store.")
+		}
+		try keychain.clearInKeychain(key: EventStore.encryptionKeyKey)
+		return encryptionKey
+	}
 }
