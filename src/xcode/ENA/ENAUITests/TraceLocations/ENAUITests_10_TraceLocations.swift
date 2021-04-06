@@ -71,7 +71,71 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 		XCTAssertFalse(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].exists)
 	}
 	
-	func testCreateTraceLocation() throws {
+	func test_CreateAndDelete_one_traceLocation() throws {
+		// GIVEN
+		app.launchArguments.append(contentsOf: ["-TraceLocationsInfoScreenShown", "YES"])
+		
+		// WHEN
+		app.launch()
+		if let button = UITestHelper.scrollTo(identifier: AccessibilityIdentifiers.Home.traceLocationsCardButton, element: app, app: app) {
+			button.tap()
+		} else {
+			XCTFail("Can't find element \(AccessibilityIdentifiers.Home.traceLocationsCardButton)")
+		}
+		
+		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.addButtonTitle)].waitForExistence(timeout: .short))
+		
+		let event = "Mittagessen"
+		let location = "Kantine"
+		createTraceLocation(event: event, location: location)
+		
+		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.title)].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.selfCheckinButtonTitle)].exists)
+		XCTAssertTrue(app.staticTexts[event].exists)
+		XCTAssertTrue(app.staticTexts[location].exists)
+
+		removeTraceLocation(event: event, location: location)
+
+		XCTAssertFalse(app.staticTexts[event].exists)
+		XCTAssertFalse(app.staticTexts[location].exists)
+	}
+
+	func test_CreateAndDelete_two_traceLocations() throws {
+		// GIVEN
+		app.launchArguments.append(contentsOf: ["-TraceLocationsInfoScreenShown", "YES"])
+		
+		// WHEN
+		app.launch()
+		if let button = UITestHelper.scrollTo(identifier: AccessibilityIdentifiers.Home.traceLocationsCardButton, element: app, app: app) {
+			button.tap()
+		} else {
+			XCTFail("Can't find element \(AccessibilityIdentifiers.Home.traceLocationsCardButton)")
+		}
+		
+		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.addButtonTitle)].waitForExistence(timeout: .short))
+		
+		let event1 = "Mittagessen"
+		let location1 = "Kantine"
+		createTraceLocation(event: event1, location: location1)
+
+		let event2 = "Workshop"
+		let location2 = "Walldorf"
+		createTraceLocation(event: event2, location: location2)
+
+		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.title)].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.selfCheckinButtonTitle)].exists)
+		XCTAssertTrue(app.staticTexts[event1].exists)
+		XCTAssertTrue(app.staticTexts[location1].exists)
+		XCTAssertTrue(app.staticTexts[event2].exists)
+		XCTAssertTrue(app.staticTexts[location2].exists)
+
+		removeAllTraceLocations(event: event1)
+
+		XCTAssertFalse(app.staticTexts[event1].exists)
+		XCTAssertFalse(app.staticTexts[event2].exists)
+	}
+	
+	func test_WHEN_tapCreateQRCode_THEN_traceLocation_input_screen_is_displayed() throws {
 		// GIVEN
 		app.launchArguments.append(contentsOf: ["-TraceLocationsInfoScreenShown", "YES"])
 		
@@ -99,19 +163,51 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.TraceLocation.Configuration.permanentDefaultLengthTitleLabel].exists)
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.TraceLocation.Configuration.permanentDefaultLengthFootnoteLabel].exists)
 		
-		let descriptionInputField = app.textFields[AccessibilityIdentifiers.TraceLocation.Configuration.descriptionPlaceholder]
-		let locationInputField = app.textFields[AccessibilityIdentifiers.TraceLocation.Configuration.addressPlaceholder]
-		
-		descriptionInputField.tap()
-		descriptionInputField.typeText("Kantine")
-		locationInputField.tap()
-		locationInputField.typeText("Berlin")
-		
-		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
-		acc()
-	
 	}
 	
+	func createTraceLocation(event: String, location: String) {
+		// add trace location
+
+		app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.addButtonTitle)].exists
+		app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.addButtonTitle)].tap()
+		
+		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.permanent.subtitle.workplace)].waitForExistence(timeout: .short))
+		app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.permanent.subtitle.workplace)].tap()
+		
+		let descriptionInputField = app.textFields[AccessibilityIdentifiers.TraceLocation.Configuration.descriptionPlaceholder]
+		let locationInputField = app.textFields[AccessibilityIdentifiers.TraceLocation.Configuration.addressPlaceholder]
+		descriptionInputField.tap()
+		descriptionInputField.typeText(event)
+		locationInputField.tap()
+		locationInputField.typeText(location)
+		
+		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
+	}
+
+	func removeTraceLocation(event: String, location: String) {
+		app.staticTexts[event].swipeLeft()
+		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.DeleteOneAlert.confirmButtonTitle)].waitForExistence(timeout: .short))
+		
+		// tap "Löschen"
+		app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.DeleteOneAlert.confirmButtonTitle)].tap()
+		// Alert: tap "Löschen"
+		app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.DeleteOneAlert.confirmButtonTitle)].tap()
+	}
+	
+	func removeAllTraceLocations(event: String) {
+		app.staticTexts[event].swipeLeft()
+		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.DeleteOneAlert.confirmButtonTitle)].waitForExistence(timeout: .short))
+		
+		// tap "Alle entfernen"
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].exists)
+		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].tap()
+		
+		// Alert: tap "Löschen"
+		XCTAssertTrue(app.alerts.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.DeleteOneAlert.confirmButtonTitle)].waitForExistence(timeout: .short))
+		app.alerts.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.DeleteOneAlert.confirmButtonTitle)].tap()
+	}
+	
+//	[0]	String	"Wollen Sie wirklich alle QR-Codes löschen?"	
 	/*
 	func test_screenshot_traceLocation_print_flow() throws {
 	app.launch()
@@ -147,25 +243,4 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 	}
 	*/
 
-	func acc() {
-		let b1 =         AccessibilityLabels.labelsOfElement(app.buttons)
-		let b2 = AccessibilityLabels.accIdentifiersOfElement(app.buttons)
-		let b3 =      AccessibilityLabels.accLabelsOfElement(app.buttons)
-
-		let s1 =         AccessibilityLabels.labelsOfElement(app.staticTexts)
-		let s2 = AccessibilityLabels.accIdentifiersOfElement(app.staticTexts)
-		let s3 =      AccessibilityLabels.accLabelsOfElement(app.staticTexts)
-
-		let c1 =         AccessibilityLabels.labelsOfElement(app.cells)
-		let c2 = AccessibilityLabels.accIdentifiersOfElement(app.cells)
-		let c3 =      AccessibilityLabels.accLabelsOfElement(app.cells)
-
-		let t1 =         AccessibilityLabels.labelsOfElement(app.textFields)
-		let t2 = AccessibilityLabels.accIdentifiersOfElement(app.textFields)
-		let t3 =      AccessibilityLabels.accLabelsOfElement(app.textFields)
-
-		let i1 = AccessibilityLabels.labelsOfElement(app.images)
-		let i2 = AccessibilityLabels.accIdentifiersOfElement(app.images)
-		let i3 = AccessibilityLabels.accLabelsOfElement(app.images)
-	}
 }
