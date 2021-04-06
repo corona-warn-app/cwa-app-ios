@@ -25,15 +25,21 @@ class WarnOthersReminder: WarnOthersRemindable {
 
 	var positiveTestResultWasShown: Bool {
 		get {
-			return store.positiveTestResultWasShown
+			// TODO
+//			return store.positiveTestResultWasShown
+			return false
 		}
 		set {
-			store.positiveTestResultWasShown = newValue
+			// TODO
+			()
+//			store.positiveTestResultWasShown = newValue
 		}
 	}
 	
 	var isSubmissionConsentGiven: Bool {
-		return store.isSubmissionConsentGiven
+		// TODO
+		return false
+		//return store.isSubmissionConsentGiven
 	}
 
 	/// Notification timer in seconds for notification one

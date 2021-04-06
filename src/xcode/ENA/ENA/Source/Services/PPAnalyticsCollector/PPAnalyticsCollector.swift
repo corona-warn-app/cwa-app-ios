@@ -308,25 +308,27 @@ enum PPAnalyticsCollector {
 	}
 
 	private static func setHoursSinceTestResult() {
-		guard let resultDateTimeStamp = store?.testResultReceivedTimeStamp else {
-			Log.warning("Could not log hoursSinceTestResult due to testResultReceivedTimeStamp is nil", log: .ppa)
-			return
-		}
+		// TODO
+//		guard let resultDateTimeStamp = store?.testResultReceivedTimeStamp else {
+//			Log.warning("Could not log hoursSinceTestResult due to testResultReceivedTimeStamp is nil", log: .ppa)
+//			return
+//		}
 
-		let timeInterval = TimeInterval(resultDateTimeStamp)
-		let resultDate = Date(timeIntervalSince1970: timeInterval)
-		let diffComponents = Calendar.current.dateComponents([.hour], from: resultDate, to: Date())
-		store?.keySubmissionMetadata?.hoursSinceTestResult = Int32(diffComponents.hour ?? 0)
+//		let timeInterval = TimeInterval(resultDateTimeStamp)
+//		let resultDate = Date(timeIntervalSince1970: timeInterval)
+//		let diffComponents = Calendar.current.dateComponents([.hour], from: resultDate, to: Date())
+//		store?.keySubmissionMetadata?.hoursSinceTestResult = Int32(diffComponents.hour ?? 0)
 	}
 
 	private static func setHoursSinceTestRegistration() {
-		guard let registrationDate = store?.testRegistrationDate else {
-			Log.warning("Could not log hoursSinceTestRegistration due to testRegistrationDate is nil", log: .ppa)
-			return
-		}
+		// TODO
+//		guard let registrationDate = store?.testRegistrationDate else {
+//			Log.warning("Could not log hoursSinceTestRegistration due to testRegistrationDate is nil", log: .ppa)
+//			return
+//		}
 
-		let diffComponents = Calendar.current.dateComponents([.hour], from: registrationDate, to: Date())
-		store?.keySubmissionMetadata?.hoursSinceTestRegistration = Int32(diffComponents.hour ?? 0)
+//		let diffComponents = Calendar.current.dateComponents([.hour], from: registrationDate, to: Date())
+//		store?.keySubmissionMetadata?.hoursSinceTestRegistration = Int32(diffComponents.hour ?? 0)
 	}
 
 	private static func setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration() {
@@ -344,13 +346,15 @@ enum PPAnalyticsCollector {
 		}
 		switch riskLevel {
 		case .high:
-			guard let timeOfRiskChangeToHigh = store?.dateOfConversionToHighRisk,
-				  let registrationTime = store?.testRegistrationDate else {
-				Log.warning("Could not log risk calculation result due to timeOfRiskChangeToHigh is nil", log: .ppa)
-				return
-			}
-			let differenceInHours = Calendar.current.dateComponents([.hour], from: timeOfRiskChangeToHigh, to: registrationTime)
-			store?.keySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration = Int32(differenceInHours.hour ?? -1)
+			// TODO
+//			guard let timeOfRiskChangeToHigh = store?.dateOfConversionToHighRisk,
+//				  let registrationTime = store?.testRegistrationDate else {
+//				Log.warning("Could not log risk calculation result due to timeOfRiskChangeToHigh is nil", log: .ppa)
+//				return
+//			}
+//			let differenceInHours = Calendar.current.dateComponents([.hour], from: timeOfRiskChangeToHigh, to: registrationTime)
+//			store?.keySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration = Int32(differenceInHours.hour ?? -1)
+		break
 		case .low:
 			store?.keySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration = -1
 		}

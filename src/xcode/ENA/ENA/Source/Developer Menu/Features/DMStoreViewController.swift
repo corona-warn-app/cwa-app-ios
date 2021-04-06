@@ -23,21 +23,20 @@ final class DMStoreViewController: UITableViewController {
 	private let store: Store
 	private lazy var items: [DMStoreItem] = {
 		[
-			DMStoreItem(attribute: "lastSuccessfulSubmitDiagnosisKeyTimestamp") { store in
-				String(store.lastSuccessfulSubmitDiagnosisKeyTimestamp ?? 0)
-			},
-			DMStoreItem(attribute: "initialSubmitCompleted") { store in
-				String(store.initialSubmitCompleted)
-			},
-			DMStoreItem(attribute: "devicePairingConsentAcceptTimestamp") { store in
-				store.devicePairingConsentAcceptTimestamp?.description ?? ""
-			},
-			DMStoreItem(attribute: "devicePairingSuccessfulTimestamp") { store in
-				store.devicePairingSuccessfulTimestamp?.description ?? ""
-			},
-			DMStoreItem(attribute: "devicePairingConsentAcceptTimestamp") { store in
-				store.devicePairingConsentAcceptTimestamp?.description ?? ""
-			},
+			// TODO
+//			DMStoreItem(attribute: "lastSuccessfulSubmitDiagnosisKeyTimestamp") { store in
+//				String(store.lastSuccessfulSubmitDiagnosisKeyTimestamp ?? 0)
+//			},
+			// TODO
+//			DMStoreItem(attribute: "devicePairingConsentAcceptTimestamp") { store in
+//				store.devicePairingConsentAcceptTimestamp?.description ?? ""
+//			},
+//			DMStoreItem(attribute: "devicePairingSuccessfulTimestamp") { store in
+//				store.devicePairingSuccessfulTimestamp?.description ?? ""
+//			},
+//			DMStoreItem(attribute: "devicePairingConsentAcceptTimestamp") { store in
+//				store.devicePairingConsentAcceptTimestamp?.description ?? ""
+//			},
 			DMStoreItem(attribute: "lastAppConfigETag") { store in
 				store.appConfigMetadata?.lastAppConfigETag.description ?? "<nil>"
 			},

@@ -97,6 +97,15 @@ enum CoronaTest {
 		}
 	}
 
+	var type: CoronaTestType {
+		switch self {
+		case .pcr:
+			return .pcr
+		case .antigen:
+			return .antigen
+		}
+	}
+
 }
 
 struct PCRTest: Codable, Equatable {

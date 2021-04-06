@@ -171,10 +171,11 @@ class RootCoordinator: RequiresAppDependencies {
 
 	private lazy var exposureSubmissionService: ExposureSubmissionService = {
 		ExposureSubmissionServiceFactory.create(
-			diagnosisKeysRetrieval: self.exposureManager,
+			diagnosisKeysRetrieval: exposureManager,
 			appConfigurationProvider: appConfigurationProvider,
-			client: self.client,
-			store: self.store
+			client: client,
+			store: store,
+			coronaTestService: coronaTestService
 		)
 	}()
 	

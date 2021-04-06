@@ -197,7 +197,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		- differenceBetweenTestResultAndCurrentDateInHours >= hoursSinceTestResultToSubmitKeySubmissionMetadata
 		*/
 		var isSubmitted = false
-		var timeDifferenceFulfilsCriteria = false
+		var timeDifferenceFulfillsCriteria = false
 		
 		// if submitted is true
 		if store.keySubmissionMetadata?.submitted == true {
@@ -207,18 +207,19 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		}
 		
 		// if there is no test result time stamp
-		guard let resultDateTimeStamp = store.testResultReceivedTimeStamp else {
-			return isSubmitted
-		}
+		// TODO
+//		guard let resultDateTimeStamp = store.testResultReceivedTimeStamp else {
+//			return isSubmitted
+//		}
 		
-		let timeInterval = TimeInterval(resultDateTimeStamp)
-		let testResultDate = Date(timeIntervalSince1970: timeInterval)
-		let differenceBetweenTestResultAndCurrentDate = Calendar.current.dateComponents([.hour], from: testResultDate, to: Date())
-		if let differenceBetweenTestResultAndCurrentDateInHours = differenceBetweenTestResultAndCurrentDate.hour,
-		   differenceBetweenTestResultAndCurrentDateInHours >= hoursSinceTestResultToSubmitKeySubmissionMetadata {
-			timeDifferenceFulfilsCriteria = true
-		}
-		return isSubmitted || timeDifferenceFulfilsCriteria
+//		let timeInterval = TimeInterval(resultDateTimeStamp)
+//		let testResultDate = Date(timeIntervalSince1970: timeInterval)
+//		let differenceBetweenTestResultAndCurrentDate = Calendar.current.dateComponents([.hour], from: testResultDate, to: Date())
+//		if let differenceBetweenTestResultAndCurrentDateInHours = differenceBetweenTestResultAndCurrentDate.hour,
+//		   differenceBetweenTestResultAndCurrentDateInHours >= hoursSinceTestResultToSubmitKeySubmissionMetadata {
+//			timeDifferenceFulfillsCriteria = true
+//		}
+		return isSubmitted || timeDifferenceFulfillsCriteria
 	}
 	
 	private var shouldIncludeTestResultMetadata: Bool {

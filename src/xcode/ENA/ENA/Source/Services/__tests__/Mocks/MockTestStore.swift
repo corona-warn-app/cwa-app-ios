@@ -6,13 +6,12 @@ import Foundation
 
 #if DEBUG
 
-final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, PPAnalyticsData, EventRegistrationCaching, CoronaTestStoring {
+final class MockTestStore: Store {
 
 	var warnOthersNotificationOneTimer: TimeInterval = WarnOthersNotificationsTimeInterval.intervalOne
 	var warnOthersNotificationTwoTimer: TimeInterval = WarnOthersNotificationsTimeInterval.intervalTwo
 
 	var positiveTestResultWasShown: Bool = false
-	var isAllowedToPerformBackgroundFakeRequests = false
 	var firstPlaybookExecution: Date?
 	var lastBackgroundFakeRequest: Date = .init()
 	var hasSeenBackgroundFetchAlert: Bool = false
@@ -21,10 +20,7 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, 
 	var shouldShowRiskStatusLoweredAlert: Bool = false
 	var testResultReceivedTimeStamp: Int64?
 	func clearAll(key: String?) {}
-	var hasSeenSubmissionExposureTutorial: Bool = false
 	var lastSuccessfulSubmitDiagnosisKeyTimestamp: Int64?
-	var numberOfSuccesfulSubmissions: Int64?
-	var initialSubmitCompleted: Bool = false
 	var exposureActivationConsentAcceptTimestamp: Int64?
 	var exposureActivationConsentAccept: Bool = false
 	var isOnboarded: Bool = false

@@ -25,7 +25,7 @@ class CoronaTestService {
 
 	init(
 		client: Client,
-		store: CoronaTestStoring
+		store: CoronaTestStoring & CoronaTestStoringLegacy
 	) {
 		self.client = client
 		self.store = store
@@ -215,10 +215,39 @@ class CoronaTestService {
 		}
 	}
 
+	func migrate() {
+		if store.registrationToken != nil || store.lastSuccessfulSubmitDiagnosisKeyTimestamp != nil, let testRegistrationTimestamp = store.devicePairingConsentAcceptTimestamp {
+			pcrTest = PCRTest(
+				registrationToken: store.registrationToken,
+				testRegistrationDate: Date(timeIntervalSince1970: TimeInterval(testRegistrationTimestamp)),
+				testResult: .pending,
+				testResultReceivedDate: store.testResultReceivedTimeStamp.map { Date(timeIntervalSince1970: TimeInterval($0)) },
+				positiveTestResultWasShown: store.positiveTestResultWasShown,
+				isSubmissionConsentGiven: store.isSubmissionConsentGiven,
+				submissionTAN: store.tan,
+				keysSubmitted: store.lastSuccessfulSubmitDiagnosisKeyTimestamp != nil,
+				journalEntryCreated: false
+			)
+		}
+
+//		store.registrationToken = nil
+//		store.teleTan = nil
+//		store.tan = nil
+//		store.testGUID = nil
+//		store.devicePairingConsentAccept = false
+//		store.devicePairingConsentAcceptTimestamp = nil
+//		store.devicePairingSuccessfulTimestamp = nil
+//		store.testResultReceivedTimeStamp = nil
+//		store.testRegistrationDate = nil
+//		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = nil
+//		store.positiveTestResultWasShown = false
+//		store.isSubmissionConsentGiven = false
+	}
+
 	// MARK: - Private
 
 	private let client: Client
-	private var store: CoronaTestStoring
+	private var store: CoronaTestStoring & CoronaTestStoringLegacy
 
 	private let fakeRequestService: FakeRequestService
 

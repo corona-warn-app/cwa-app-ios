@@ -167,9 +167,14 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 	private func createTestResultAvailableViewController() -> UIViewController {
 		NotificationCenter.default.post(Notification(name: .didStartExposureSubmissionFlow, object: nil, userInfo: ["result": model.coronaTest?.testResult.rawValue as Any]))
+
+		guard let coronaTestType = model.coronaTestType else {
+			fatalError("Cannot create a test result available view controller without a corona test")
+		}
 		
 		let viewModel = TestResultAvailableViewModel(
-			exposureSubmissionService: model.exposureSubmissionService,
+			coronaTestType: coronaTestType,
+			coronaTestService: model.coronaTestService,
 			onSubmissionConsentCellTap: { [weak self] isLoading in
 				self?.model.exposureSubmissionService.loadSupportedCountries(
 					isLoading: isLoading,
@@ -485,7 +490,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		let vc = ExposureSubmissionTestResultConsentViewController(
 			viewModel: ExposureSubmissionTestResultConsentViewModel(
 				supportedCountries: supportedCountries,
-				exposureSubmissionService: model.exposureSubmissionService,
+				coronaTestService: model.coronaTestService,
 				testResultAvailability: testResultAvailability,
 				dismissCompletion: dismissCompletion
 			)

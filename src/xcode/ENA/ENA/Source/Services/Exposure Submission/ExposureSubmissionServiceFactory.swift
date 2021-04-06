@@ -12,7 +12,8 @@ enum ExposureSubmissionServiceFactory {
 		diagnosisKeysRetrieval: DiagnosisKeysRetrieval,
 		appConfigurationProvider: AppConfigurationProviding,
 		client: Client,
-		store: Store
+		store: Store,
+		coronaTestService: CoronaTestService
 	) -> ExposureSubmissionService {
 		#if DEBUG
 		if isUITesting {
@@ -22,19 +23,20 @@ enum ExposureSubmissionServiceFactory {
 					appConfigurationProvider: appConfigurationProvider,
 					client: client,
 					store: store,
-					warnOthersReminder: WarnOthersReminder(store: store)
+					coronaTestService: coronaTestService
 				)
 			}
 
 			let service = MockExposureSubmissionService()
 
-			if isEnabled(.getRegistrationTokenSuccess) {
-				service.getRegistrationTokenCallback = { _, completeWith in
-					DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-						completeWith(.success("dummyRegToken"))
-					}
-				}
-			}
+			// TODO
+//			if isEnabled(.getRegistrationTokenSuccess) {
+//				service.getRegistrationTokenCallback = { _, completeWith in
+//					DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//						completeWith(.success("dummyRegToken"))
+//					}
+//				}
+//			}
 
 			if isEnabled(.loadSupportedCountriesSuccess) {
 				service.loadSupportedCountriesCallback = { isLoading, onSuccess in
@@ -71,7 +73,7 @@ enum ExposureSubmissionServiceFactory {
 			appConfigurationProvider: appConfigurationProvider,
 			client: client,
 			store: store,
-			warnOthersReminder: WarnOthersReminder(store: store)
+			coronaTestService: coronaTestService
 		)
 
 		return service

@@ -12,12 +12,12 @@ class ExposureSubmissionTestResultConsentViewModel {
 	
 	init(
 		supportedCountries: [Country],
-		exposureSubmissionService: ExposureSubmissionService,
+		coronaTestService: CoronaTestService,
 		testResultAvailability: TestResultAvailability,
 		dismissCompletion: (() -> Void)?
 	) {
 		self.supportedCountries = supportedCountries.sortedByLocalizedName
-		self.exposureSubmissionService = exposureSubmissionService
+		self.coronaTestService = coronaTestService
 		self.testResultAvailability = testResultAvailability
 		self.dismissCompletion = dismissCompletion
 	}
@@ -43,10 +43,11 @@ class ExposureSubmissionTestResultConsentViewModel {
 								cell.accessoryView = toggleSwitch
 								toggleSwitch.onTintColor = .enaColor(for: .tint)
 								toggleSwitch.addTarget(self, action: #selector(self.consentStateChanged), for: .valueChanged)
-								
-								self.exposureSubmissionService.isSubmissionConsentGivenPublisher.sink { isSubmissionConsentGiven in
-									toggleSwitch.isOn = isSubmissionConsentGiven
-								}.store(in: &self.cancellables)
+
+								// TODO
+//								self.exposureSubmissionService.isSubmissionConsentGivenPublisher.sink { isSubmissionConsentGiven in
+//									toggleSwitch.isOn = isSubmissionConsentGiven
+//								}.store(in: &self.cancellables)
 							}
 						),
 						.body(text: AppStrings.AutomaticSharingConsent.switchTitleDescription),
@@ -121,11 +122,12 @@ class ExposureSubmissionTestResultConsentViewModel {
 	private let dismissCompletion: (() -> Void)?
 	
 	private var cancellables: Set<AnyCancellable> = []
-	private var exposureSubmissionService: ExposureSubmissionService
+	private var coronaTestService: CoronaTestService
 
 	@objc
 	private func consentStateChanged(switchState: UISwitch) {
-		exposureSubmissionService.isSubmissionConsentGiven = switchState.isOn
+		// TODO
+//		exposureSubmissionService.isSubmissionConsentGiven = switchState.isOn
 	}
 
 }

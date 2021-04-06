@@ -304,7 +304,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			appConfigurationProvider: self.appConfigurationProvider,
 			client: self.client,
 			store: self.store,
-			warnOthersReminder: WarnOthersReminder(store: store))
+			coronaTestService: coronaTestService)
 	}
 
 	func requestUpdatedExposureState() {

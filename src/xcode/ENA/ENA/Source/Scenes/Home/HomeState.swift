@@ -107,11 +107,15 @@ class HomeState: ENStateHandlerUpdating {
 	}
 
 	var positiveTestResultWasShown: Bool {
-		store.registrationToken != nil && testResult == .positive && WarnOthersReminder(store: store).positiveTestResultWasShown
+		// TODO
+//		store.registrationToken != nil && testResult == .positive && WarnOthersReminder(store: store).positiveTestResultWasShown
+		false
 	}
 
 	var keysWereSubmitted: Bool {
-		store.lastSuccessfulSubmitDiagnosisKeyTimestamp != nil
+		// TODO
+//		store.lastSuccessfulSubmitDiagnosisKeyTimestamp != nil
+		false
 	}
 
 	var shouldShowDaysSinceInstallation: Bool {
@@ -138,10 +142,11 @@ class HomeState: ENStateHandlerUpdating {
 		// Avoid unnecessary loading.
 		guard testResult == nil || testResult != .positive else { return }
 
-		guard store.registrationToken != nil else {
-			testResult = nil
-			return
-		}
+		// TODO
+//		guard store.registrationToken != nil else {
+//			testResult = nil
+//			return
+//		}
 
 		// Make sure to make the loading cell appear for at least `minRequestTime`.
 		// This avoids an ugly flickering when the cell is only shown for the fraction of a second.
@@ -151,30 +156,31 @@ class HomeState: ENStateHandlerUpdating {
 
 		testResultIsLoading = true
 
-		exposureSubmissionService.getTestResult { [weak self] result in
-			self?.testResultIsLoading = false
-
-			switch result {
-			case .failure(let error):
-				// When we fail here, publish the error to trigger an alert and set the state to pending.
-				self?.testResultLoadingError = .error(error)
-				self?.testResult = .pending
-
-			case .success(let testResult):
-				switch testResult {
-				case .expired:
-					self?.testResultLoadingError = .expired
-					self?.testResult = .expired
-
-				case .invalid, .negative, .positive, .pending:
-					let requestTime = Date().timeIntervalSince(requestStart)
-					let delay = requestTime < minRequestTime && self?.testResult == nil ? minRequestTime : 0
-					DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-						self?.testResult = testResult
-					}
-				}
-			}
-		}
+		// TODO
+//		exposureSubmissionService.getTestResult { [weak self] result in
+//			self?.testResultIsLoading = false
+//
+//			switch result {
+//			case .failure(let error):
+//				// When we fail here, publish the error to trigger an alert and set the state to pending.
+//				self?.testResultLoadingError = .error(error)
+//				self?.testResult = .pending
+//
+//			case .success(let testResult):
+//				switch testResult {
+//				case .expired:
+//					self?.testResultLoadingError = .expired
+//					self?.testResult = .expired
+//
+//				case .invalid, .negative, .positive, .pending:
+//					let requestTime = Date().timeIntervalSince(requestStart)
+//					let delay = requestTime < minRequestTime && self?.testResult == nil ? minRequestTime : 0
+//					DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+//						self?.testResult = testResult
+//					}
+//				}
+//			}
+//		}
 	}
 
 	func updateStatistics() {

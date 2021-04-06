@@ -81,9 +81,14 @@ class ExposureSubmissionCoordinatorModel {
 		onSuccess: @escaping () -> Void,
 		onError: @escaping (ExposureSubmissionError) -> Void
 	) {
+		guard let coronaTestType = coronaTestType else {
+			onError(.noCoronaTestTypeGiven)
+			return
+		}
+
 		isLoading(true)
 
-		exposureSubmissionService.submitExposure { error in
+		exposureSubmissionService.submitExposure(coronaTestType: coronaTestType) { error in
 			isLoading(false)
 
 			switch error {

@@ -27,10 +27,11 @@ struct DeadmanNotificationManager: DeadmanNotificationManageable {
 	
 	/// Schedules a local notification to fire 36 hours from now, if there isn´t a notification already scheduled
 	func scheduleDeadmanNotificationIfNeeded() {
-		guard store.lastSuccessfulSubmitDiagnosisKeyTimestamp == nil else {
-			Log.info("DeadmanNotificationManager: Keys were already submitted. Don't schedule new deadman notification.", log: .riskDetection)
-			return
-		}
+		// TODO
+//		guard store.lastSuccessfulSubmitDiagnosisKeyTimestamp == nil else {
+//			Log.info("DeadmanNotificationManager: Keys were already submitted. Don't schedule new deadman notification.", log: .riskDetection)
+//			return
+//		}
 
 		guard !WarnOthersReminder(store: store).positiveTestResultWasShown else {
 			Log.info("DeadmanNotificationManager: Positive test result was already shown. Don't schedule new deadman notification.", log: .riskDetection)

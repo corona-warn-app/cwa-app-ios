@@ -139,26 +139,31 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 			appConfigurationProvider: dependencies.appConfigurationProvider,
 			client: dependencies.client,
 			store: dependencies.store,
-			warnOthersReminder: WarnOthersReminder(store: dependencies.store)
+			coronaTestService: dependencies.coronaTestService
 		)
 
-		service.submitExposure { error in
-			switch error {
-			case .noSubmissionConsent:
-				Analytics.collect(.keySubmissionMetadata(.submittedInBackground(false)))
-				Log.info("[ENATaskExecutionDelegate] Submission: no consent given", log: .api)
-			case .noKeysCollected:
-				Analytics.collect(.keySubmissionMetadata(.submittedInBackground(false)))
-				Log.info("[ENATaskExecutionDelegate] Submission: no keys to submit", log: .api)
-			case .some(let error):
-				Analytics.collect(.keySubmissionMetadata(.submittedInBackground(false)))
-				Log.error("[ENATaskExecutionDelegate] Submission error: \(error.localizedDescription)", log: .api)
-			case .none:
-				Analytics.collect(.keySubmissionMetadata(.submittedInBackground(true)))
-				Log.info("[ENATaskExecutionDelegate] Submission successful", log: .api)
-			}
+		for coronaTestType in [CoronaTestType.pcr, CoronaTestType.antigen] {
+			service.submitExposure(coronaTestType: coronaTestType) { error in
+				switch error {
+				case .noCoronaTestOfGivenType:
+					Analytics.collect(.keySubmissionMetadata(.submittedInBackground(false)))
+					Log.info("[ENATaskExecutionDelegate] Submission: no corona test of type \(coronaTestType) registered", log: .api)
+				case .noSubmissionConsent:
+					Analytics.collect(.keySubmissionMetadata(.submittedInBackground(false)))
+					Log.info("[ENATaskExecutionDelegate] Submission: no consent given", log: .api)
+				case .noKeysCollected:
+					Analytics.collect(.keySubmissionMetadata(.submittedInBackground(false)))
+					Log.info("[ENATaskExecutionDelegate] Submission: no keys to submit", log: .api)
+				case .some(let error):
+					Analytics.collect(.keySubmissionMetadata(.submittedInBackground(false)))
+					Log.error("[ENATaskExecutionDelegate] Submission error: \(error.localizedDescription)", log: .api)
+				case .none:
+					Analytics.collect(.keySubmissionMetadata(.submittedInBackground(true)))
+					Log.info("[ENATaskExecutionDelegate] Submission successful", log: .api)
+				}
 
-			completion(true)
+				completion(true)
+			}
 		}
 	}
 
@@ -176,34 +181,35 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 			appConfigurationProvider: dependencies.appConfigurationProvider,
 			client: dependencies.client,
 			store: dependencies.store,
-			warnOthersReminder: WarnOthersReminder(store: dependencies.store)
+			coronaTestService: dependencies.coronaTestService
 		)
 
-		guard dependencies.store.registrationToken != nil && dependencies.store.testResultReceivedTimeStamp == nil else {
-			completion(false)
-			return
-		}
-		Log.info("Requesting TestResult…", log: .api)
-		service.getTestResult { result in
-			switch result {
-			case .failure(let error):
-				Log.error(error.localizedDescription, log: .api)
-			case .success(.pending), .success(.expired):
-				// Do not trigger notifications for pending or expired results.
-				Log.info("TestResult pending or expired", log: .api)
-			case .success(let testResult):
-				Log.info("Triggering Notification to inform user about TestResult: \(testResult.stringValue)", log: .api)
-				// We attach the test result to determine which screen to show when user taps the notification
-				UNUserNotificationCenter.current().presentNotification(
-					title: AppStrings.LocalNotifications.testResultsTitle,
-					body: AppStrings.LocalNotifications.testResultsBody,
-					identifier: ActionableNotificationIdentifier.testResult.identifier,
-					info: [ActionableNotificationIdentifier.testResult.identifier: testResult.rawValue]
-				)
-			}
-
-			completion(true)
-		}
+		// TODO
+//		guard dependencies.store.registrationToken != nil && dependencies.store.testResultReceivedTimeStamp == nil else {
+//			completion(false)
+//			return
+//		}
+//		Log.info("Requesting TestResult…", log: .api)
+//		service.getTestResult { result in
+//			switch result {
+//			case .failure(let error):
+//				Log.error(error.localizedDescription, log: .api)
+//			case .success(.pending), .success(.expired):
+//				// Do not trigger notifications for pending or expired results.
+//				Log.info("TestResult pending or expired", log: .api)
+//			case .success(let testResult):
+//				Log.info("Triggering Notification to inform user about TestResult: \(testResult.stringValue)", log: .api)
+//				// We attach the test result to determine which screen to show when user taps the notification
+//				UNUserNotificationCenter.current().presentNotification(
+//					title: AppStrings.LocalNotifications.testResultsTitle,
+//					body: AppStrings.LocalNotifications.testResultsBody,
+//					identifier: ActionableNotificationIdentifier.testResult.identifier,
+//					info: [ActionableNotificationIdentifier.testResult.identifier: testResult.rawValue]
+//				)
+//			}
+//
+//			completion(true)
+//		}
 	}
 
 	/// This method performs a check for the current exposure detection state. Only if the risk level has changed compared to the

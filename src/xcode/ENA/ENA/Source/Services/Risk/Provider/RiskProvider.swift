@@ -101,19 +101,20 @@ final class RiskProvider: RiskProviding {
 			return
 		}
 
-		guard store.lastSuccessfulSubmitDiagnosisKeyTimestamp == nil else {
-			Log.info("RiskProvider: Keys were already submitted. Don't start new risk detection.", log: .riskDetection)
-
-			// Keep downloading key packages and trace warning packages for plausible deniability
-
-			downloadKeyPackages()
-
-			appConfigurationProvider.appConfiguration().sink { [weak self] appConfiguration in
-				self?.downloadTraceWarningPackages(with: appConfiguration, completion: { _ in })
-			}.store(in: &subscriptions)
-
-			return
-		}
+		// TODO
+//		guard store.lastSuccessfulSubmitDiagnosisKeyTimestamp == nil else {
+//			Log.info("RiskProvider: Keys were already submitted. Don't start new risk detection.", log: .riskDetection)
+//
+//			// Keep downloading key packages and trace warning packages for plausible deniability
+//
+//			downloadKeyPackages()
+//
+//			appConfigurationProvider.appConfiguration().sink { [weak self] appConfiguration in
+//				self?.downloadTraceWarningPackages(with: appConfiguration, completion: { _ in })
+//			}.store(in: &subscriptions)
+//
+//			return
+//		}
 
 		guard !WarnOthersReminder(store: store).positiveTestResultWasShown else {
 			Log.info("RiskProvider: Positive test result was already shown. Don't start new risk detection.", log: .riskDetection)
@@ -512,10 +513,12 @@ final class RiskProvider: RiskProviding {
 	private func updateRiskProviderActivityState() {
 		if keyPackageDownloadStatus == .downloading || traceWarningDownloadStatus == .downloading {
 			self.updateActivityState(.downloading)
-		} else if (keyPackageDownloadStatus == .idle && (self.store.lastSuccessfulSubmitDiagnosisKeyTimestamp != nil || WarnOthersReminder(store: self.store).positiveTestResultWasShown)) &&
-					traceWarningDownloadStatus == .idle {
-			self.updateActivityState(.idle)
 		}
+		// TODO
+//		else if (keyPackageDownloadStatus == .idle && (self.store.lastSuccessfulSubmitDiagnosisKeyTimestamp != nil || WarnOthersReminder(store: self.store).positiveTestResultWasShown)) &&
+//					traceWarningDownloadStatus == .idle {
+//			self.updateActivityState(.idle)
+//		}
 	}
 }
 

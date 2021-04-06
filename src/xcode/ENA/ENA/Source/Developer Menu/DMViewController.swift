@@ -62,7 +62,8 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 	// MARK: Clear Registration Token of Submission
 	@objc
 	private func clearRegistrationToken() {
-		store.registrationToken = nil
+		// TODO
+//		store.registrationToken = nil
 		let alert = UIAlertController(
 			title: "Token Deleted",
 			message: "Successfully deleted the submission registration token.",
@@ -173,7 +174,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 	// MARK: Performing developer menu related tasks
 	@objc
 	private func sendFakeRequest() {
-		exposureSubmissionService.fakeRequest { _ in
+		FakeRequestService(client: client).fakeRequest {
 			let alert = self.setupErrorAlert(title: "Info", message: "Fake request was sent.")
 			self.present(alert, animated: true) {}
 		}

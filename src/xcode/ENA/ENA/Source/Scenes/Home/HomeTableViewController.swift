@@ -442,7 +442,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 		var cellModel: HomeThankYouCellModel
 		cellModel = HomeThankYouCellModel(
-			testResultTimestamp: viewModel.store.devicePairingSuccessfulTimestamp
+			// TODO
+			testResultTimestamp: Int64(Date().timeIntervalSince1970) // viewModel.store.devicePairingSuccessfulTimestamp
 		)
 
 		#if DEBUG

@@ -136,11 +136,12 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 		timeInterval1TextField.keyboardType = .numberPad
 		timeInterval2TextField.keyboardType = .numberPad
 		self.hideKeyboardWhenTappedAround()
-		
-		self.exposureSubmissionService.isSubmissionConsentGivenPublisher.sink { isSubmissionConsentGiven in
-			self.consentSwitch.isOn = isSubmissionConsentGiven
-			self.currentSubmissionConsentStatusStateLabel.text = isSubmissionConsentGiven ? "🟢 Consent granted 👍" : "🔴 Consent not given 👎"
-		}.store(in: &cancellables)
+
+		// TODO
+//		self.exposureSubmissionService.isSubmissionConsentGivenPublisher.sink { isSubmissionConsentGiven in
+//			self.consentSwitch.isOn = isSubmissionConsentGiven
+//			self.currentSubmissionConsentStatusStateLabel.text = isSubmissionConsentGiven ? "🟢 Consent granted 👍" : "🔴 Consent not given 👎"
+//		}.store(in: &cancellables)
 		
 	}
 	
@@ -165,7 +166,8 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 	
 	@objc
 	private func consentStateChanged(switchState: UISwitch) {
-		exposureSubmissionService.isSubmissionConsentGiven = switchState.isOn
+		// TODO
+//		exposureSubmissionService.isSubmissionConsentGiven = switchState.isOn
 	}
 	
 	@objc

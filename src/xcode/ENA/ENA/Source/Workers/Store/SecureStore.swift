@@ -51,32 +51,6 @@ final class SecureStore: Store {
 		}
 	}
 
-	var testResultReceivedTimeStamp: Int64? {
-		get { kvStore["testResultReceivedTimeStamp"] as Int64? }
-		set { kvStore["testResultReceivedTimeStamp"] = newValue }
-	}
-
-	// this test registration date is for both TAN and QR submission
-	var testRegistrationDate: Date? {
-		get { kvStore["testRegistrationDate"] as Date? ?? nil }
-		set { kvStore["testRegistrationDate"] = newValue }
-	}
-
-	var lastSuccessfulSubmitDiagnosisKeyTimestamp: Int64? {
-		get { kvStore["lastSuccessfulSubmitDiagnosisKeyTimestamp"] as Int64? }
-		set { kvStore["lastSuccessfulSubmitDiagnosisKeyTimestamp"] = newValue }
-	}
-
-	var numberOfSuccesfulSubmissions: Int64? {
-		get { kvStore["numberOfSuccesfulSubmissions"] as Int64? ?? 0 }
-		set { kvStore["numberOfSuccesfulSubmissions"] = newValue }
-	}
-
-	var initialSubmitCompleted: Bool {
-		get { kvStore["initialSubmitCompleted"] as Bool? ?? false }
-		set { kvStore["initialSubmitCompleted"] = newValue }
-	}
-
 	var exposureActivationConsentAcceptTimestamp: Int64? {
 		get { kvStore["exposureActivationConsentAcceptTimestamp"] as Int64? ?? 0 }
 		set { kvStore["exposureActivationConsentAcceptTimestamp"] = newValue }
@@ -85,41 +59,6 @@ final class SecureStore: Store {
 	var exposureActivationConsentAccept: Bool {
 		get { kvStore["exposureActivationConsentAccept"] as Bool? ?? false }
 		set { kvStore["exposureActivationConsentAccept"] = newValue }
-	}
-
-	var registrationToken: String? {
-		get { kvStore["registrationToken"] as String? }
-		set { kvStore["registrationToken"] = newValue }
-	}
-
-	var teleTan: String? {
-		get { kvStore["teleTan"] as String? ?? "" }
-		set { kvStore["teleTan"] = newValue }
-	}
-
-	var tan: String? {
-		get { kvStore["tan"] as String? }
-		set { kvStore["tan"] = newValue }
-	}
-
-	var testGUID: String? {
-		get { kvStore["testGUID"] as String? ?? "" }
-		set { kvStore["testGUID"] = newValue }
-	}
-
-	var devicePairingConsentAccept: Bool {
-		get { kvStore["devicePairingConsentAccept"] as Bool? ?? false }
-		set { kvStore["devicePairingConsentAccept"] = newValue }
-	}
-
-	var devicePairingConsentAcceptTimestamp: Int64? {
-		get { kvStore["devicePairingConsentAcceptTimestamp"] as Int64? ?? 0 }
-		set { kvStore["devicePairingConsentAcceptTimestamp"] = newValue }
-	}
-
-	var devicePairingSuccessfulTimestamp: Int64? {
-		get { kvStore["devicePairingSuccessfulTimestamp"] as Int64? ?? 0 }
-		set { kvStore["devicePairingSuccessfulTimestamp"] = newValue }
 	}
 
 	var isOnboarded: Bool {
@@ -140,11 +79,6 @@ final class SecureStore: Store {
 	var dateOfAcceptedPrivacyNotice: Date? {
 		get { kvStore["dateOfAcceptedPrivacyNotice"] as Date? ?? nil }
 		set { kvStore["dateOfAcceptedPrivacyNotice"] = newValue }
-	}
-
-	var hasSeenSubmissionExposureTutorial: Bool {
-		get { kvStore["hasSeenSubmissionExposureTutorial"] as Bool? ?? false }
-		set { kvStore["hasSeenSubmissionExposureTutorial"] = newValue }
 	}
 
 	var hasSeenBackgroundFetchAlert: Bool {
@@ -218,11 +152,6 @@ final class SecureStore: Store {
 		set { kvStore["firstPlaybookExecution"] = newValue }
 	}
 
-	var isAllowedToPerformBackgroundFakeRequests: Bool {
-		get { kvStore["shouldPerformBackgroundFakeRequests"] as Bool? ?? false }
-		set { kvStore["shouldPerformBackgroundFakeRequests"] = newValue }
-	}
-
 	var selectedServerEnvironment: ServerEnvironmentData {
 		get { kvStore["selectedServerEnvironment"] as ServerEnvironmentData? ?? serverEnvironment.defaultEnvironment() }
 		set { kvStore["selectedServerEnvironment"] = newValue }
@@ -256,11 +185,6 @@ final class SecureStore: Store {
 	var lastKeyPackageDownloadDate: Date {
 		get { kvStore["lastKeyPackageDownloadDate"] as Date? ?? .distantPast }
 		set { kvStore["lastKeyPackageDownloadDate"] = newValue }
-	}
-
-	var isSubmissionConsentGiven: Bool {
-		get { kvStore["isSubmissionConsentGiven"] as Bool? ?? false }
-		set { kvStore["isSubmissionConsentGiven"] = newValue }
 	}
 
 	var submissionKeys: [SAP_External_Exposurenotification_TemporaryExposureKey]? {
@@ -369,11 +293,6 @@ extension SecureStore {
 		set { kvStore["warnOthersNotificationTimerTwo"] = newValue }
 	}
 
-	var positiveTestResultWasShown: Bool {
-		get { kvStore["warnOthersHasActiveTestResult"] as Bool? ?? false }
-		set { kvStore["warnOthersHasActiveTestResult"] = newValue }
-	}
-
 }
 
 extension SecureStore: AppConfigCaching {
@@ -434,6 +353,71 @@ extension SecureStore: CoronaTestStoring {
 	var antigenTest: AntigenTest? {
 		get { kvStore["antigenTest"] as AntigenTest? }
 		set { kvStore["antigenTest"] = newValue }
+	}
+
+}
+
+extension SecureStore: CoronaTestStoringLegacy {
+
+	var registrationToken: String? {
+		get { kvStore["registrationToken"] as String? }
+		set { kvStore["registrationToken"] = newValue }
+	}
+
+	var teleTan: String? {
+		get { kvStore["teleTan"] as String? ?? "" }
+		set { kvStore["teleTan"] = newValue }
+	}
+
+	var tan: String? {
+		get { kvStore["tan"] as String? }
+		set { kvStore["tan"] = newValue }
+	}
+
+	var testGUID: String? {
+		get { kvStore["testGUID"] as String? ?? "" }
+		set { kvStore["testGUID"] = newValue }
+	}
+
+	var devicePairingConsentAccept: Bool {
+		get { kvStore["devicePairingConsentAccept"] as Bool? ?? false }
+		set { kvStore["devicePairingConsentAccept"] = newValue }
+	}
+
+	var devicePairingConsentAcceptTimestamp: Int64? {
+		get { kvStore["devicePairingConsentAcceptTimestamp"] as Int64? ?? 0 }
+		set { kvStore["devicePairingConsentAcceptTimestamp"] = newValue }
+	}
+
+	var devicePairingSuccessfulTimestamp: Int64? {
+		get { kvStore["devicePairingSuccessfulTimestamp"] as Int64? ?? 0 }
+		set { kvStore["devicePairingSuccessfulTimestamp"] = newValue }
+	}
+
+	var testResultReceivedTimeStamp: Int64? {
+		get { kvStore["testResultReceivedTimeStamp"] as Int64? }
+		set { kvStore["testResultReceivedTimeStamp"] = newValue }
+	}
+
+	// this test registration date is for both TAN and QR submission
+	var testRegistrationDate: Date? {
+		get { kvStore["testRegistrationDate"] as Date? ?? nil }
+		set { kvStore["testRegistrationDate"] = newValue }
+	}
+
+	var lastSuccessfulSubmitDiagnosisKeyTimestamp: Int64? {
+		get { kvStore["lastSuccessfulSubmitDiagnosisKeyTimestamp"] as Int64? }
+		set { kvStore["lastSuccessfulSubmitDiagnosisKeyTimestamp"] = newValue }
+	}
+
+	var positiveTestResultWasShown: Bool {
+		get { kvStore["warnOthersHasActiveTestResult"] as Bool? ?? false }
+		set { kvStore["warnOthersHasActiveTestResult"] = newValue }
+	}
+
+	var isSubmissionConsentGiven: Bool {
+		get { kvStore["isSubmissionConsentGiven"] as Bool? ?? false }
+		set { kvStore["isSubmissionConsentGiven"] = newValue }
 	}
 
 }

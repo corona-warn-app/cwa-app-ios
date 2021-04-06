@@ -15,52 +15,13 @@ protocol StoreProtocol: AnyObject {
 	var developerDistributionBaseURLOverride: String? { get set }
 	var developerVerificationBaseURLOverride: String? { get set }
 
-	@available(*, deprecated)
-	var teleTan: String? { get set }
-
-	/// A secret allowing the client to upload the diagnosisKey set.
-	@available(*, deprecated)
-	var tan: String? { get set }
-	@available(*, deprecated)
-	var testGUID: String? { get set }
-	@available(*, deprecated)
-	var devicePairingConsentAccept: Bool { get set }
-	@available(*, deprecated)
-	var devicePairingConsentAcceptTimestamp: Int64? { get set }
-	@available(*, deprecated)
-	var devicePairingSuccessfulTimestamp: Int64? { get set }
-
 	var allowRiskChangesNotification: Bool { get set }
 	var allowTestsStatusNotification: Bool { get set }
 
 	var appInstallationDate: Date? { get set }
 
-	@available(*, deprecated)
-	var registrationToken: String? { get set }
-	var hasSeenSubmissionExposureTutorial: Bool { get set }
-
 	/// A boolean flag that indicates whether the user has seen the background fetch disabled alert.
 	var hasSeenBackgroundFetchAlert: Bool { get set }
-
-	/// Timestamp that represents the date at which
-	/// the user has received a test reult.
-	@available(*, deprecated)
-	var testResultReceivedTimeStamp: Int64? { get set }
-
-	/// Date when the test was registered for both TAN and QR
-	@available(*, deprecated)
-	var testRegistrationDate: Date? { get set }
-
-	/// Timestamp representing the last successful diagnosis keys submission.
-	/// This is needed to allow in the future delta submissions of diagnosis keys since the last submission.
-	@available(*, deprecated)
-	var lastSuccessfulSubmitDiagnosisKeyTimestamp: Int64? { get set }
-
-	/// The number of successful submissions to the CWA-submission backend service.
-	var numberOfSuccesfulSubmissions: Int64? { get set }
-
-	/// Boolean representing the initial submit completed state.
-	var initialSubmitCompleted: Bool { get set }
 
 	/// An integer value representing the timestamp when the user
 	/// accepted to submit his diagnosisKeys with the CWA submission service.
@@ -83,9 +44,6 @@ protocol StoreProtocol: AnyObject {
 	/// `true` if the user needs to be informed about how risk detection works.
 	/// We only inform the user once. By default the value of this property is `true`.
 	var userNeedsToBeInformedAboutHowRiskDetectionWorks: Bool { get set }
-
-	/// True if the app is allowed to execute fake requests (for plausible deniability) in the background.
-	var isAllowedToPerformBackgroundFakeRequests: Bool { get set }
 
 	/// Time when the app sent the last background fake request.
 	var lastBackgroundFakeRequest: Date { get set }
@@ -110,12 +68,6 @@ protocol StoreProtocol: AnyObject {
 	var deviceTimeLastStateChange: Date { get set }
 
 	var wasDeviceTimeErrorShown: Bool { get set }
-
-	@available(*, deprecated)
-	var positiveTestResultWasShown: Bool { get set }
-
-	@available(*, deprecated)
-	var isSubmissionConsentGiven: Bool { get set }
 
 	var submissionKeys: [SAP_External_Exposurenotification_TemporaryExposureKey]? { get set }
 
@@ -188,5 +140,39 @@ protocol CoronaTestStoring {
 
 }
 
+protocol CoronaTestStoringLegacy {
+
+	var registrationToken: String? { get set }
+
+	var teleTan: String? { get set }
+
+	/// A secret allowing the client to upload the diagnosisKey set.
+	var tan: String? { get set }
+
+	var testGUID: String? { get set }
+
+	var devicePairingConsentAccept: Bool { get set }
+
+	var devicePairingConsentAcceptTimestamp: Int64? { get set }
+
+	var devicePairingSuccessfulTimestamp: Int64? { get set }
+
+	/// Timestamp that represents the date at which
+	/// the user has received a test reult.
+	var testResultReceivedTimeStamp: Int64? { get set }
+
+	/// Date when the test was registered for both TAN and QR
+	var testRegistrationDate: Date? { get set }
+
+	/// Timestamp representing the last successful diagnosis keys submission.
+	/// This is needed to allow in the future delta submissions of diagnosis keys since the last submission.
+	var lastSuccessfulSubmitDiagnosisKeyTimestamp: Int64? { get set }
+
+	var positiveTestResultWasShown: Bool { get set }
+
+	var isSubmissionConsentGiven: Bool { get set }
+
+}
+
 /// Wrapper protocol
-protocol Store: StoreProtocol, AppConfigCaching, StatisticsCaching, ServerEnvironmentProviding, PrivacyPreservingProviding, EventRegistrationCaching, CoronaTestStoring {}
+protocol Store: StoreProtocol, AppConfigCaching, StatisticsCaching, ServerEnvironmentProviding, PrivacyPreservingProviding, EventRegistrationCaching, CoronaTestStoring, CoronaTestStoringLegacy {}

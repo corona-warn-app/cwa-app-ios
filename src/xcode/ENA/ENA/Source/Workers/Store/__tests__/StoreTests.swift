@@ -29,22 +29,6 @@ final class StoreTests: XCTestCase {
 		XCTAssertEqual(store.lastSuccessfulSubmitDiagnosisKeyTimestamp, Int64.min)
 	}
 
-	func testNumberOfSuccesfulSubmissions_Success() {
-		XCTAssertEqual(store.numberOfSuccesfulSubmissions, 0)
-		store.numberOfSuccesfulSubmissions = Int64.max
-		XCTAssertEqual(store.numberOfSuccesfulSubmissions, Int64.max)
-		store.numberOfSuccesfulSubmissions = Int64.min
-		XCTAssertEqual(store.numberOfSuccesfulSubmissions, Int64.min)
-	}
-
-	func testInitialSubmitCompleted_Success() {
-		XCTAssertFalse(store.initialSubmitCompleted)
-		store.initialSubmitCompleted = true
-		XCTAssertTrue(store.initialSubmitCompleted)
-		store.initialSubmitCompleted = false
-		XCTAssertFalse(store.initialSubmitCompleted)
-	}
-
 	func testRegistrationToken_Success() {
 		XCTAssertNil(store.registrationToken)
 
@@ -79,9 +63,6 @@ final class StoreTests: XCTestCase {
 		XCTAssertEqual(tmpStore.dateOfAcceptedPrivacyNotice?.description, testDate1.description)
 		XCTAssertTrue(tmpStore.allowRiskChangesNotification)
 		XCTAssertTrue(tmpStore.allowTestsStatusNotification)
-		XCTAssertTrue(tmpStore.hasSeenSubmissionExposureTutorial)
-		XCTAssertEqual(tmpStore.numberOfSuccesfulSubmissions, 1)
-		XCTAssertTrue(tmpStore.initialSubmitCompleted)
 		XCTAssertEqual(tmpStore.exposureActivationConsentAcceptTimestamp, testTimeStamp)
 		XCTAssertTrue(tmpStore.exposureActivationConsentAccept)
 	}
