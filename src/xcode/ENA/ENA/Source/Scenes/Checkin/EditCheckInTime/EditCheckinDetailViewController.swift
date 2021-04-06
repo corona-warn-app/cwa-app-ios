@@ -61,6 +61,46 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 		didCalculateGradientHeight = true
 	}
 
+	func didShowKeyboard(_ size: CGRect) {
+		// set new inset to allow some scrolling, to make space for the overlapping keyboard
+		tableView.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: size.height, right: 0.0)
+		tableView.scrollIndicatorInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: size.height, right: 0.0)
+
+		// try the get the next cell after the picker cell - because we can't get the exact position of the
+		// 'textfield' inside the picker
+		let indexPath: IndexPath
+		switch viewModel.responderCellType {
+		case .startDate:
+			indexPath = IndexPath(row: 0, section: EditCheckinDetailViewModel.TableViewSections.startPicker.rawValue + 1)
+		case .endDate:
+			indexPath = IndexPath(row: 0, section: EditCheckinDetailViewModel.TableViewSections.endPicker.rawValue + 1)
+		case .none:
+			return
+		}
+
+		guard let cell = tableView.cellForRow(at: indexPath) else {
+			return
+		}
+
+		// if cells origin is not inside the tableViews frame we have to adjust content offset
+		let cellRect = tableView.convert(cell.frame, to: view)
+		let tableViewFrame = tableView.frame
+
+		if !tableViewFrame.contains(cellRect.origin) {
+			let offset = tableViewFrame.origin.y + tableViewFrame.size.height - cellRect.origin.y
+			// only negative offset indicated it's under the keyboard
+			if offset < 0 {
+				tableView.setContentOffset(CGPoint(x: 0, y: tableView.contentOffset.y + abs(offset)), animated: true)
+			}
+		}
+	}
+
+	func didHideKeyboard() {
+		tableView.contentInset = .zero
+		tableView.scrollIndicatorInsets = .zero
+		viewModel.responderCellType = .none
+	}
+
 	// MARK: - UITableViewDataSource
 
 	func numberOfSections(in tableView: UITableView) -> Int {
