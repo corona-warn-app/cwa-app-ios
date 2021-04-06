@@ -12,8 +12,6 @@ extension ExposureSubmissionService {
 	/// - Returns: A list of converted checkins
 	func preparedCheckinsForSubmission(with eventStore: EventStoringProviding, appConfig: SAP_Internal_V2_ApplicationConfigurationIOS, symptomOnset: SymptomsOnset, completion: @escaping (_ transformed: [SAP_Internal_Pt_CheckIn]) -> Void) {
 		
-		// [KGA] Refactored eventstore, delete line if working
-		//let eventStore = EventStore(url: EventStore.storeURL)
 		let rawCheckins = eventStore.checkinsPublisher.value
 
 		let css = CheckinSplittingService()
