@@ -93,7 +93,7 @@ struct PlausibleDeniabilityService: PlausibleDeniability {
 	private let fakeRequestService: FakeRequestService
 
 	private var isAllowedToPerformBackgroundFakeRequests: Bool {
-		return coronaTestService.pcrTestPublisher.value != nil || coronaTestService.antigenTestPublisher.value != nil
+		return coronaTestService.pcrTest != nil || coronaTestService.antigenTest != nil
 	}
 
 	/// Triggers one or more fake requests over a time interval of multiple seconds.

@@ -33,14 +33,11 @@ class ExposureSubmissionCoordinatorModel {
 	var coronaTestType: CoronaTestType?
 
 	var coronaTest: CoronaTest? {
-		switch coronaTestType {
-		case .pcr:
-			return coronaTestService.pcrTestPublisher.value.map { .pcr($0) }
-		case .antigen:
-			return coronaTestService.antigenTestPublisher.value.map { .antigen($0) }
-		case .none:
+		guard let coronaTestType = coronaTestType else {
 			return nil
 		}
+
+		return coronaTestService.coronaTest(ofType: coronaTestType)
 	}
 
 	var shouldShowSymptomsOnsetScreen = false

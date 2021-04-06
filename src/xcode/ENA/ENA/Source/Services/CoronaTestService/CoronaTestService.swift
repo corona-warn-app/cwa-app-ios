@@ -33,19 +33,31 @@ class CoronaTestService {
 		self.fakeRequestService = FakeRequestService(client: client)
 
 		updatePublishersFromStore()
+
+		$pcrTest
+			.sink { [weak self] pcrTest in
+				self?.store.pcrTest = pcrTest
+			}
+			.store(in: &subscriptions)
+
+		$antigenTest
+			.sink { [weak self] antigenTest in
+				self?.store.antigenTest = antigenTest
+			}
+			.store(in: &subscriptions)
 	}
 
 	// MARK: - Protocol CoronaTestServiceProviding
 
-	var pcrTestPublisher = OpenCombine.CurrentValueSubject<PCRTest?, Never>(nil)
-	var antigenTestPublisher = OpenCombine.CurrentValueSubject<AntigenTest?, Never>(nil)
+	@OpenCombine.Published var pcrTest: PCRTest?
+	@OpenCombine.Published var antigenTest: AntigenTest?
 
 	func coronaTest(ofType type: CoronaTestType) -> CoronaTest? {
 		switch type {
 		case .pcr:
-			return pcrTestPublisher.value.map { .pcr($0) }
+			return pcrTest.map { .pcr($0) }
 		case .antigen:
-			return antigenTestPublisher.value.map { .antigen($0) }
+			return antigenTest.map { .antigen($0) }
 		}
 	}
 
@@ -114,7 +126,7 @@ class CoronaTestService {
 			completion: { [weak self] result in
 				switch result {
 				case .success(let registrationToken):
-					self?.store.antigenTest = AntigenTest(
+					self?.antigenTest = AntigenTest(
 						registrationToken: registrationToken,
 						testedPerson: TestedPerson(name: name, birthday: birthday),
 						pointOfCareConsentDate: pointOfCareConsentTimestamp,
@@ -126,7 +138,6 @@ class CoronaTestService {
 						keysSubmitted: false,
 						journalEntryCreated: false
 					)
-					self?.updatePublishersFromStore()
 
 					self?.getTestResult(for: .antigen, duringRegistration: true) { result in
 						completion(result)
@@ -173,7 +184,7 @@ class CoronaTestService {
 			case let .success(submissionTAN):
 				switch coronaTest {
 				case .pcr(let pcrTest):
-					self.store.pcrTest = PCRTest(
+					self.pcrTest = PCRTest(
 						registrationToken: pcrTest.registrationToken,
 						testRegistrationDate: pcrTest.testRegistrationDate,
 						testResult: pcrTest.testResult,
@@ -186,7 +197,7 @@ class CoronaTestService {
 					)
 
 				case .antigen(let antigenTest):
-					self.store.antigenTest = AntigenTest(
+					self.antigenTest = AntigenTest(
 						registrationToken: antigenTest.registrationToken,
 						testedPerson: antigenTest.testedPerson,
 						pointOfCareConsentDate: antigenTest.pointOfCareConsentDate,
@@ -200,8 +211,6 @@ class CoronaTestService {
 					)
 				}
 
-				self.updatePublishersFromStore()
-
 				completion(.success(submissionTAN))
 			}
 		}
@@ -210,21 +219,19 @@ class CoronaTestService {
 	func removeTest(_ coronaTestType: CoronaTestType) {
 		switch coronaTestType {
 		case .pcr:
-			store.pcrTest = nil
+			pcrTest = nil
 		case .antigen:
-			store.antigenTest = nil
+			antigenTest = nil
 		}
-
-		updatePublishersFromStore()
 	}
 
 	func updatePublishersFromStore() {
-		if pcrTestPublisher.value != store.pcrTest {
-			pcrTestPublisher.value = store.pcrTest
+		if pcrTest != store.pcrTest {
+			pcrTest = store.pcrTest
 		}
 
-		if antigenTestPublisher.value != store.antigenTest {
-			antigenTestPublisher.value = store.antigenTest
+		if antigenTest != store.antigenTest {
+			antigenTest = store.antigenTest
 		}
 	}
 
@@ -234,6 +241,8 @@ class CoronaTestService {
 	private var store: CoronaTestStoring
 
 	private let fakeRequestService: FakeRequestService
+
+	private var subscriptions = Set<AnyCancellable>()
 
 	private func getRegistrationToken(
 		forKey key: String,
@@ -267,9 +276,7 @@ class CoronaTestService {
 			journalEntryCreated: false
 		)
 
-		self.store.pcrTest = pcrTest
-
-		updatePublishersFromStore()
+		self.pcrTest = pcrTest
 
 		return pcrTest
 	}
@@ -285,7 +292,9 @@ class CoronaTestService {
 			return
 		}
 
-		client.getTestResult(forDevice: registrationToken, isFake: false) { result in
+		client.getTestResult(forDevice: registrationToken, isFake: false) { [weak self] result in
+			guard let self = self else { return }
+
 			switch result {
 			case let .failure(error):
 				completion(.failure(.responseFailure(error)))
@@ -299,9 +308,9 @@ class CoronaTestService {
 
 				switch coronaTestType {
 				case .pcr:
-					self.store.pcrTest?.testResult = testResult
+					self.pcrTest?.testResult = testResult
 				case .antigen:
-					self.store.antigenTest?.testResult = testResult
+					self.antigenTest?.testResult = testResult
 				}
 
 				switch testResult {
@@ -309,9 +318,9 @@ class CoronaTestService {
 					if coronaTest.testResultReceivedDate == nil {
 						switch coronaTestType {
 						case .pcr:
-							self.store.pcrTest?.testResultReceivedDate = Date()
+							self.pcrTest?.testResultReceivedDate = Date()
 						case .antigen:
-							self.store.antigenTest?.testResultReceivedDate = Date()
+							self.antigenTest?.testResultReceivedDate = Date()
 						}
 					}
 
@@ -334,14 +343,12 @@ class CoronaTestService {
 
 					switch coronaTestType {
 					case .pcr:
-						self.store.pcrTest?.registrationToken = nil
+						self.pcrTest?.registrationToken = nil
 					case .antigen:
-						self.store.antigenTest?.registrationToken = nil
+						self.antigenTest?.registrationToken = nil
 					}
 				}
 			}
-
-			self.updatePublishersFromStore()
 		}
 	}
 
