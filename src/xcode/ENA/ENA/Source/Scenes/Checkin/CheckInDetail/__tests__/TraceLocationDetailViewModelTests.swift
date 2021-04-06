@@ -34,7 +34,7 @@ class TraceLocationDetailViewModelTests: XCTestCase {
 		XCTAssertEqual(sut.locationType, TraceLocationType.locationTypePermanentFoodService.title)
 		XCTAssertEqual(sut.locationDescription, "Los Pollos Hermanos")
 		XCTAssertEqual(sut.locationAddress, "13 Main Street, Albuquerque")
-		//Duration should be rounded up to 30
+		// Duration should be rounded up to 30
 		XCTAssertEqual(sut.selectedDurationInMinutes, 30)
 		XCTAssertEqual(sut.shouldSaveToContactJournal, store.shouldAddCheckinToContactDiaryByDefault)
 	}
