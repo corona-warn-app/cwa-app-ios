@@ -104,7 +104,7 @@ struct PCRTest: Codable, Equatable {
 	var registrationToken: String?
 	var testRegistrationDate: Date
 
-	var testResult: TestResult = .pending
+	var testResult: TestResult
 	var testResultReceivedDate: Date?
 	var positiveTestResultWasShown: Bool
 	var isSubmissionConsentGiven: Bool
@@ -125,7 +125,7 @@ struct AntigenTest: Codable, Equatable {
 	// The date of when the consent was provided by the tested person at the Point of Care.
 	var pointOfCareConsentDate: Date
 
-	var testResult: TestResult = .pending
+	var testResult: TestResult
 	var testResultReceivedDate: Date?
 	var positiveTestResultWasShown: Bool
 	var isSubmissionConsentGiven: Bool
