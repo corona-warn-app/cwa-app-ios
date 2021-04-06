@@ -49,7 +49,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		super.init()
 
 		// Make the analytics working. Should not be called later than at this moment of app initialisation.
-		Analytics.setup(store: store, submitter: self.analyticsSubmitter)
+		Analytics.setup(
+			store: store,
+			coronaTestService: coronaTestService,
+			submitter: self.analyticsSubmitter
+		)
 	}
 
 	deinit {
