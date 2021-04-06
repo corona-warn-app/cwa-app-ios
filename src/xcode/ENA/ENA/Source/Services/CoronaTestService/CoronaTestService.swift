@@ -182,33 +182,11 @@ class CoronaTestService {
 			case let .failure(error):
 				completion(.failure(.responseFailure(error)))
 			case let .success(submissionTAN):
-				switch coronaTest {
-				case .pcr(let pcrTest):
-					self.pcrTest = PCRTest(
-						registrationToken: pcrTest.registrationToken,
-						testRegistrationDate: pcrTest.testRegistrationDate,
-						testResult: pcrTest.testResult,
-						testResultReceivedDate: pcrTest.testResultReceivedDate,
-						positiveTestResultWasShown: pcrTest.positiveTestResultWasShown,
-						isSubmissionConsentGiven: pcrTest.isSubmissionConsentGiven,
-						submissionTAN: submissionTAN,
-						keysSubmitted: pcrTest.keysSubmitted,
-						journalEntryCreated: pcrTest.journalEntryCreated
-					)
-
-				case .antigen(let antigenTest):
-					self.antigenTest = AntigenTest(
-						registrationToken: antigenTest.registrationToken,
-						testedPerson: antigenTest.testedPerson,
-						pointOfCareConsentDate: antigenTest.pointOfCareConsentDate,
-						testResult: antigenTest.testResult,
-						testResultReceivedDate: antigenTest.testResultReceivedDate,
-						positiveTestResultWasShown: antigenTest.positiveTestResultWasShown,
-						isSubmissionConsentGiven: antigenTest.isSubmissionConsentGiven,
-						submissionTAN: submissionTAN,
-						keysSubmitted: antigenTest.keysSubmitted,
-						journalEntryCreated: antigenTest.journalEntryCreated
-					)
+				switch coronaTestType {
+				case .pcr:
+					self.pcrTest?.submissionTAN = submissionTAN
+				case .antigen:
+					self.antigenTest?.submissionTAN = submissionTAN
 				}
 
 				completion(.success(submissionTAN))
