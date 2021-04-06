@@ -111,7 +111,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	/// Option 3: (default) return the ExposureSubmissionIntroViewController.
 	func getInitialViewController() -> UIViewController {
 		// We got a test result and can jump straight into the test result view controller.
-		if let coronaTestType = model.coronaTestType, let coronaTest = model.coronaTest {
+		if let coronaTest = model.coronaTest {
 			// For a positive test result we show the test result available screen if it wasn't shown before
 			if coronaTest.testResult == .positive {
 				if !coronaTest.positiveTestResultWasShown {
