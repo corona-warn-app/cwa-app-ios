@@ -43,17 +43,19 @@ class DiaryOverviewViewModelTest: XCTestCase {
 		)
 
 		let expectationRefreshTableView = expectation(description: "Refresh Tableview")
-		/*** why 4 times: 1 - initial value days + 1 - initial value homeState + 1 update HomeStat + 1 updata Diary days  */
+		/*** why 3 times: 1 - initial value days + 1 - initial value homeState + 1 update HomeState */
 		expectationRefreshTableView.expectedFulfillmentCount = 3
 		
 		viewModel.$days
 			.sink { _ in
+				print("------ 1")
 				expectationRefreshTableView.fulfill()
 			}
 			.store(in: &subscriptions)
 		
 		viewModel.homeState?.$riskState
 			.sink { _ in
+				print("------ 2")
 				expectationRefreshTableView.fulfill()
 			}
 			.store(in: &subscriptions)
@@ -75,16 +77,10 @@ class DiaryOverviewViewModelTest: XCTestCase {
 		)
 
 		let daysPublisherExpectation = expectation(description: "Days publisher called")
-		/*** why 3 times: 1 - initial value days + 1 - initial value homeState  + 1 updata Diary days  */
+		/*** why 2 times: 1 - initial value days + 1 updata Diary days  */
 		daysPublisherExpectation.expectedFulfillmentCount = 2
 		
 		viewModel.$days
-			.sink { _ in
-				daysPublisherExpectation.fulfill()
-			}
-			.store(in: &subscriptions)
-		
-		viewModel.homeState?.$riskState
 			.sink { _ in
 				daysPublisherExpectation.fulfill()
 			}
