@@ -206,7 +206,8 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 	
 	func test_checkinTraceLocation() throws {
 		// GIVEN
-		app.launchArguments.append(contentsOf: ["-TraceLocationsInfoScreenShown", "YES"])
+		app.launchArguments.append(contentsOf: ["-TraceLocationsInfoScreenShown", "YES"]) // checkinInfoScreenShown
+		app.launchArguments.append(contentsOf: ["-checkinInfoScreenShown", "YES"])
 		
 		// WHEN
 		app.launch()
@@ -236,6 +237,9 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 		
 		XCTAssertFalse(app.staticTexts[event].exists)
 		XCTAssertFalse(app.staticTexts[location].exists)
+		
+		app.tabBars.buttons[AccessibilityIdentifiers.Tabbar.checkin].tap()
+		myCheckins_checkout()
 	}
 	
 	func test_screenshot_traceLocation_print_flow() throws {
@@ -291,6 +295,43 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 	}
 	
 	// MARK: - Internal
+	
+	func myCheckins_checkout() {
+
+		let initialNumberOfCells = app.cells.count
+		
+		// iterate over all event cells and search for the checkout button
+		let query = app.cells.buttons
+		let n = query.count
+		XCTAssertTrue(n > 1)
+		var numberOfCheckouts = 0
+		for i in 0...(n - 1) {
+			if query.element(boundBy: i).identifier == AccessibilityIdentifiers.TraceLocation.Configuration.eventTableViewCellButton {
+				numberOfCheckouts = numberOfCheckouts.inc()
+			}
+		}
+		XCTAssertTrue( numberOfCheckouts == 1 ) // assumption: one cell has a checkout button
+		
+		// tap checkout button
+		XCTAssertTrue(query.element(boundBy: 1).identifier == AccessibilityIdentifiers.TraceLocation.Configuration.eventTableViewCellButton)
+		query.element(boundBy: 1).tap()
+		
+		app.swipeUp() // update UI
+		
+		// iterate over all event cells and search for the checkout button
+		var numberOfRemainingCheckouts = 0
+		let remainingButtons = app.cells.buttons
+		let m = remainingButtons.count
+		XCTAssertTrue(m > 0)
+		for i in 0...(m - 1) {
+			if query.element(boundBy: i).identifier == AccessibilityIdentifiers.TraceLocation.Configuration.eventTableViewCellButton {
+				numberOfRemainingCheckouts = numberOfRemainingCheckouts.inc()
+			}
+		}
+		XCTAssertTrue( numberOfRemainingCheckouts == 0 ) // assumption: no cell has a checkout button
+		XCTAssertTrue( initialNumberOfCells == app.cells.count ) // assumption: number of cells has not changed
+			
+	}
 	
 	func createTraceLocation(event: String, location: String) {
 		// add trace location
