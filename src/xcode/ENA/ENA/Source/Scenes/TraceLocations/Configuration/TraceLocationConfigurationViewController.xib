@@ -25,6 +25,7 @@
                 <outlet property="permanentDefaultLengthTitleLabel" destination="eEu-OE-nnH" id="DjO-Bz-ult"/>
                 <outlet property="permanentDefaultLengthValueLabel" destination="078-Ur-eek" id="5yt-LG-icH"/>
                 <outlet property="permanentSettingsContainerView" destination="Xhc-Zp-GkJ" id="IFs-Mh-oUk"/>
+                <outlet property="scrollView" destination="rNc-bS-jlq" id="iYO-TC-VFd"/>
                 <outlet property="startDateHeaderContainerView" destination="T7S-6q-B6t" id="IbS-kk-CzC"/>
                 <outlet property="startDatePicker" destination="bCX-eI-LLW" id="twn-d4-uam"/>
                 <outlet property="startDatePickerContainerView" destination="gNY-32-hy4" id="JU3-Ki-7uW"/>

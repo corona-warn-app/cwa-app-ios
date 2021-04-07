@@ -59,6 +59,7 @@ class TraceLocationDetailViewController: UIViewController {
 	@IBOutlet private weak var additionalInfoView: UIView!
 	@IBOutlet private weak var additionalInfoLabel: ENALabel!
 	@IBOutlet private weak var pickerSwitch: ENASwitch!
+	@IBOutlet private weak var checkInButton: ENAButton!
 
 	private func setupViewModel() {
 		viewModel.$pickerButtonTitle
@@ -79,6 +80,8 @@ class TraceLocationDetailViewController: UIViewController {
 		addBorderAndColorToView(descriptionView, color: .enaColor(for: .hairline))
 		addBorderAndColorToView(bottomCardView, color: .enaColor(for: .hairline))
 		addBorderAndColorToView(additionalInfoView, color: .enaColor(for: .hairline))
+		checkInButton.setTitle(AppStrings.Checkins.Details.checkInButton, for: .normal)
+		checkInButton.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Details.checkInButton
 	}
 	
 	private func setupLabels() {

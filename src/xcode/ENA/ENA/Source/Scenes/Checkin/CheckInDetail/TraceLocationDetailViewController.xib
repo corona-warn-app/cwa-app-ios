@@ -18,6 +18,7 @@
                 <outlet property="addressLabel" destination="HOb-g7-FlT" id="fJO-si-HRM"/>
                 <outlet property="automaticCheckOutLabel" destination="UBN-wb-TKy" id="4IG-FN-bmZ"/>
                 <outlet property="bottomCardView" destination="Ek6-qj-gRz" id="zPW-8o-d4S"/>
+                <outlet property="checkInButton" destination="LzL-ri-WCR" id="nhq-cH-UN3"/>
                 <outlet property="checkInForLabel" destination="qe2-Cr-Hsf" id="2Cc-Rz-KNx"/>
                 <outlet property="countDownDatePicker" destination="yid-Kg-xeK" id="adm-pi-5xT"/>
                 <outlet property="descriptionLabel" destination="qEg-yG-yRz" id="iEe-il-h37"/>
