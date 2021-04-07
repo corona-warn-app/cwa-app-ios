@@ -25,11 +25,11 @@ struct TraceLocation {
 	}
 	
 	var qrCodeURL: String? {
-		guard let base32EncodedString = qrCodePayloadData?.base32EncodedString.trimmingCharacters(in: ["="]) else {
+		guard let base64EncodedString = qrCodePayloadData?.base64URLEncodedString() else {
 			return nil
 		}
 
-		return String(format: "https://e.coronawarn.app/c1/%@", base32EncodedString).uppercased()
+		return String(format: "https://e.coronawarn.app?v=1#%@", base64EncodedString).uppercased()
 	}
 
 	var suggestedCheckoutLength: Int {
@@ -93,34 +93,15 @@ extension TraceLocation {
 	
 	init?(qrCodeString: String, encoding: EncodingType) {
 		
-		let decodedData: Data
-		switch encoding {
-		case .base32:
-			guard let data = qrCodeString.base32DecodedData else {
-				Log.error("Couldn't serialize the data using base32")
-				return nil
-			}
-			decodedData = data
-		case .base64:
-			
-			guard let data = Data(base64Encoded: qrCodeString.toggleBase64URLSafe(on: false)) else {
-				Log.error("Couldn't serialize the data using base64")
-				return nil
-			}
-			decodedData = data
-		case .unspecified:
-			guard let data = qrCodeString.base32DecodedData else {
-				Log.error("Got unspecified encoding type, will try to encode using base32")
-				return nil
-			}
-			decodedData = data
+		guard let decodedData = Data(base64Encoded: qrCodeString.toggleBase64URLSafe(on: false)) else {
+			Log.error("Couldn't serialize the data using base64")
+			return nil
 		}
-	
+		
 		Log.debug("Data found: \(String(describing: decodedData))")
-
-
+		
+		
 		do {
-			// creates a fake event for the moment
 			let qrCodePayload = try SAP_Internal_Pt_QRCodePayload(serializedData: decodedData)
 			let traceLocation = qrCodePayload.locationData
 			let eventInformation = try SAP_Internal_Pt_CWALocationData(serializedData: qrCodePayload.vendorData)

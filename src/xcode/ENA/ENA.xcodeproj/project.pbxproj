@@ -522,7 +522,8 @@
 		8F015FF325DD62BA004FEF04 /* ExposureSubmission+TestResult+Extenstion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F015FF225DD62BA004FEF04 /* ExposureSubmission+TestResult+Extenstion.swift */; };
 		8F070CE925E58B9400D29344 /* HtmlInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F070CE825E58B9400D29344 /* HtmlInfoModel.swift */; };
 		8F11512425DC27E9007BDBC6 /* (null) in Sources */ = {isa = PBXBuildFile; };
-		8F1365C3261C8AB80009820C /* String+Base64Encoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1365C2261C8AB80009820C /* String+Base64Encoding.swift */; };
+		8F1365C3261C8AB80009820C /* String+Base64URLEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1365C2261C8AB80009820C /* String+Base64URLEncoding.swift */; };
+		8F1365FE261DAEE10009820C /* Data+Base64URLEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1365FD261DAEE10009820C /* Data+Base64URLEncoding.swift */; };
 		8F270194259B5BA700E48CFE /* ContactDiaryMigration1To2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F270193259B5BA700E48CFE /* ContactDiaryMigration1To2.swift */; };
 		8F3202442600C7BB00D6A224 /* TorchMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3202432600C7BB00D6A224 /* TorchMode.swift */; };
 		8F3D71AA25A86AD300D52CCD /* HomeExposureLoggingCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3D71A925A86AD300D52CCD /* HomeExposureLoggingCellModelTests.swift */; };
@@ -1573,7 +1574,8 @@
 		85E33443247EB357006E74EC /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		8F015FF225DD62BA004FEF04 /* ExposureSubmission+TestResult+Extenstion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExposureSubmission+TestResult+Extenstion.swift"; sourceTree = "<group>"; };
 		8F070CE825E58B9400D29344 /* HtmlInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtmlInfoModel.swift; sourceTree = "<group>"; };
-		8F1365C2261C8AB80009820C /* String+Base64Encoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Base64Encoding.swift"; sourceTree = "<group>"; };
+		8F1365C2261C8AB80009820C /* String+Base64URLEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Base64URLEncoding.swift"; sourceTree = "<group>"; };
+		8F1365FD261DAEE10009820C /* Data+Base64URLEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Base64URLEncoding.swift"; sourceTree = "<group>"; };
 		8F27018E259B593700E48CFE /* ContactDiaryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryStore.swift; sourceTree = "<group>"; };
 		8F270193259B5BA700E48CFE /* ContactDiaryMigration1To2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryMigration1To2.swift; sourceTree = "<group>"; };
 		8F3202432600C7BB00D6A224 /* TorchMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TorchMode.swift; sourceTree = "<group>"; };
@@ -3543,7 +3545,8 @@
 				B111EE2B2465D9F7001AEBB4 /* String+Localization.swift */,
 				2FA968CD24D8560B008EE367 /* String+Random.swift */,
 				B14D0CDA246E968C00D5BEBC /* String+Today.swift */,
-				8F1365C2261C8AB80009820C /* String+Base64Encoding.swift */,
+				8F1365C2261C8AB80009820C /* String+Base64URLEncoding.swift */,
+				8F1365FD261DAEE10009820C /* Data+Base64URLEncoding.swift */,
 				34FE15A72604F99D0002CB69 /* UIColor+HEX.swift */,
 				71CC3EA2246D6C4000217F2C /* UIFont+DynamicType.swift */,
 				01C6AC39252B2A500052814D /* UIImage+Color.swift */,
@@ -6676,7 +6679,7 @@
 				AB190EC125FB761500FBFF0D /* SecureSQLStore.swift in Sources */,
 				0138F5F425EFDBC300A9B075 /* HomeTraceLocationsCellModel.swift in Sources */,
 				50BD1420260B73CC0013983A /* Verification.swift in Sources */,
-				8F1365C3261C8AB80009820C /* String+Base64Encoding.swift in Sources */,
+				8F1365C3261C8AB80009820C /* String+Base64URLEncoding.swift in Sources */,
 				01B7232724F812BC0064C0EB /* OptionGroupView.swift in Sources */,
 				50E3BE5A250127DF0033E2C7 /* AppInformationDynamicAction.swift in Sources */,
 				9488C3012521EE8E00504648 /* DeltaOnboardingNavigationController.swift in Sources */,
@@ -6748,6 +6751,7 @@
 				352E0F19255D537C00DC3E20 /* AppConfiguration+Validation.swift in Sources */,
 				AB190E9925FB677800FBFF0D /* DeleteCheckinQuery.swift in Sources */,
 				506A2F2025D2A08900B7DDFB /* DataDonationDetailsViewController.swift in Sources */,
+				8F1365FE261DAEE10009820C /* Data+Base64URLEncoding.swift in Sources */,
 				01C7665E25024A09002C9A5C /* DatePickerOptionView.swift in Sources */,
 				BAEE121C25ECF7AB009A0284 /* CheckinQRCodeScannerViewModel.swift in Sources */,
 				CD99A3CA2461A47C00BF12AF /* AppStrings.swift in Sources */,
