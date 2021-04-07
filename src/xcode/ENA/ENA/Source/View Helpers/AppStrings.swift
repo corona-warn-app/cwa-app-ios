@@ -1437,6 +1437,7 @@ enum AppStrings {
 		}
 		
 		enum Details {
+			static let checkInButton = NSLocalizedString("Checkin_Details_CheckIn_Button", comment: "")
 			static let hoursShortVersion = NSLocalizedString("Checkin_Details_HoursShortVersion", comment: "")
 			static let checkinFor = NSLocalizedString("Checkin_Details_CheckinFor", comment: "")
 			static let saveToDiary = NSLocalizedString("Checkin_Details_SaveToDiary", comment: "")
