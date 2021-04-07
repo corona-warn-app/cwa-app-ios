@@ -230,6 +230,7 @@ class HomeTestResultCellModelTests: XCTestCase {
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: .init(),
 			enState: .enabled,
+			coronaTestService: CoronaTestService(client: ClientMock(), store: store),
 			exposureSubmissionService: MockExposureSubmissionService(),
 			statisticsProvider: StatisticsProvider(
 				client: CachingHTTPClientMock(store: store),

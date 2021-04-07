@@ -16,6 +16,7 @@ class HomeTableViewModelTests: XCTestCase {
 				riskProvider: MockRiskProvider(),
 				exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 				enState: .enabled,
+				coronaTestService: CoronaTestService(client: ClientMock(), store: store),
 				exposureSubmissionService: MockExposureSubmissionService(),
 				statisticsProvider: StatisticsProvider(
 					client: CachingHTTPClientMock(store: store),
@@ -67,6 +68,7 @@ class HomeTableViewModelTests: XCTestCase {
 				riskProvider: MockRiskProvider(),
 				exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 				enState: .enabled,
+				coronaTestService: CoronaTestService(client: ClientMock(), store: store),
 				exposureSubmissionService: MockExposureSubmissionService(),
 				statisticsProvider: StatisticsProvider(
 					client: CachingHTTPClientMock(store: store),
@@ -92,6 +94,7 @@ class HomeTableViewModelTests: XCTestCase {
 				riskProvider: MockRiskProvider(),
 				exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 				enState: .enabled,
+				coronaTestService: CoronaTestService(client: ClientMock(), store: store),
 				exposureSubmissionService: MockExposureSubmissionService(),
 				statisticsProvider: StatisticsProvider(
 					client: CachingHTTPClientMock(store: store),
@@ -115,6 +118,7 @@ class HomeTableViewModelTests: XCTestCase {
 				riskProvider: MockRiskProvider(),
 				exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 				enState: .enabled,
+				coronaTestService: CoronaTestService(client: ClientMock(), store: store),
 				exposureSubmissionService: MockExposureSubmissionService(),
 				statisticsProvider: StatisticsProvider(
 					client: CachingHTTPClientMock(store: store),
@@ -144,6 +148,7 @@ class HomeTableViewModelTests: XCTestCase {
 				riskProvider: MockRiskProvider(),
 				exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 				enState: .enabled,
+				coronaTestService: CoronaTestService(client: ClientMock(), store: store),
 				exposureSubmissionService: MockExposureSubmissionService(),
 				statisticsProvider: StatisticsProvider(
 					client: CachingHTTPClientMock(store: store),
@@ -173,6 +178,7 @@ class HomeTableViewModelTests: XCTestCase {
 				riskProvider: MockRiskProvider(),
 				exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 				enState: .enabled,
+				coronaTestService: CoronaTestService(client: ClientMock(), store: store),
 				exposureSubmissionService: MockExposureSubmissionService(),
 				statisticsProvider: StatisticsProvider(
 					client: CachingHTTPClientMock(store: store),
