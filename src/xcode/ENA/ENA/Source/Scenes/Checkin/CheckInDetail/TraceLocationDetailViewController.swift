@@ -119,7 +119,6 @@ class TraceLocationDetailViewController: UIViewController {
 	private func setupPicker() {
 		countDownDatePicker.datePickerMode = .countDownTimer
 		countDownDatePicker.minuteInterval = 15
-		countDownDatePicker.countDownDuration = TimeInterval(viewModel.duration)
 		countDownDatePicker.addTarget(self, action: #selector(didSelectDuration(datePicker:)), for: .valueChanged)
 	}
 	
@@ -127,10 +126,6 @@ class TraceLocationDetailViewController: UIViewController {
 	private func didSelectDuration(datePicker: UIDatePicker) {
 		let duration = datePicker.countDownDuration
 		viewModel.duration = duration
-
-		DispatchQueue.main.async {
-			self.countDownDatePicker.countDownDuration = self.viewModel.duration
-		}
 	}
 
 	private func addBorderAndColorToView(_ view: UIView, color: UIColor) {
@@ -163,5 +158,27 @@ class TraceLocationDetailViewController: UIViewController {
 		
 		let color: UIColor = isHidden ? .enaColor(for: .textPrimary1) : .enaColor(for: .textTint)
 		pickerButton.setTitleColor(color, for: .normal)
+
+		if !isHidden {
+			countDownDatePicker.removeTarget(self, action: nil, for: .allEvents)
+			setupPicker()
+
+			// the dispatch to the main queue is require because of an iOS issue
+			// UIDatePicker won't call action .valueChang on first change
+			// workaround is to set countDownDuration && date with a bit of delay on the main queue
+			//
+			DispatchQueue.main.asyncAfter(deadline: .now() + 0.01, execute: { [weak self] in
+				guard let self = self else {
+					Log.debug("Failed to unwrap self")
+					return
+				}
+				let durationInMinutes = Int(self.viewModel.duration / 60)
+				let components = durationInMinutes.quotientAndRemainder(dividingBy: 60)
+				let date = DateComponents(calendar: Calendar.current, hour: components.quotient, minute: components.remainder).date ?? Date()
+
+				self.countDownDatePicker.countDownDuration = self.viewModel.duration
+				self.countDownDatePicker.setDate(date, animated: true)
+			})
+		}
 	}
 }
