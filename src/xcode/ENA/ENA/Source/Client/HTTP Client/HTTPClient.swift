@@ -611,7 +611,7 @@ final class HTTPClient: Client {
 						}
 						let eTag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag")
 						
-						// First look if package will be empty. According to tech spec: If "cwa-empty-pkg" == 1, this indicates that the package is empty (i.e. no zip file, to extract).
+						// First look if package will be empty. According to tech spec: If "x-amz-meta-cwa-empty-pkg" == 1, this indicates that the package is empty (i.e. no zip file, to extract).
 						if response.httpResponse.value(forCaseInsensitiveHeaderField: "x-amz-meta-cwa-empty-pkg") == "1" {
 							let emptyPackage = PackageDownloadResponse(package: nil, etag: eTag)
 							Log.info("Succesfully downloaded empty traceWarningPackage", log: .api)
