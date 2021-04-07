@@ -427,6 +427,7 @@ enum AccessibilityIdentifiers {
 		
 		enum Overview {
 			static let tableView = "TableView.TracelocationOverview"
+			static let menueButton = "AppStrings.TraceLocations.Overview.menueButton"
 		}
 		
 		enum Configuration {
