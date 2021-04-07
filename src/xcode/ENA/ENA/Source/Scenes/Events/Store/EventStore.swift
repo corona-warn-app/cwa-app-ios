@@ -46,7 +46,7 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 	// MARK: - Protocol SecureSQLStore
 
 	let databaseQueue: FMDatabaseQueue
-	let key: String
+	var key: String
 	let schema: StoreSchemaProtocol
 	let migrator: SerialMigratorProtocol
 	let logIdentifier = "EventStore"
@@ -70,25 +70,6 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 				maxTextLength: maxTextLength
 			)
 			result = executeTraceLocationQuery(createTraceLocationQuery, in: database)
-		}
-
-		guard let _result = result else {
-			fatalError("[EventStore] Result should not be nil.")
-		}
-
-		return _result
-	}
-
-	@discardableResult
-	func updateTraceLocation(_ traceLocation: TraceLocation) -> Result<Void, SecureSQLStoreError> {
-
-		var result: SecureSQLStore.VoidResult?
-
-		databaseQueue.inDatabase { database in
-			Log.info("[EventStore] Update TraceLocation.", log: .localData)
-
-			let updateTraceLocationQuery = UpdateTraceLocationQuery(traceLocation: traceLocation, maxTextLength: maxTextLength)
-			result = executeTraceLocationQuery(updateTraceLocationQuery, in: database)
 		}
 
 		guard let _result = result else {
@@ -358,7 +339,7 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 				return
 			}
 
-			let updateCheckinsResult = updateCheckins(with: database)
+			let updateCheckinsResult = updateCheckinsPublisher(with: database)
 			guard case .success = updateCheckinsResult else {
 				logLastErrorCode(from: database)
 				result = .failure(dbError(from: database))
@@ -398,6 +379,10 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 			return .failure(error)
 		}
 
+		if let newKey = try? EventStore.resetEncryptionKey() {
+			key = newKey
+		}
+		
 		let openAndSetupResult = openAndSetup()
 		if case .failure = openAndSetupResult {
 			return openAndSetupResult
@@ -435,10 +420,10 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 		var result: SecureSQLStore.VoidResult?
 
 		databaseQueue.inDatabase { database in
-			let ckeckinsResult = updateCheckins(with: database)
-			let traceLocationsResult = updateTraceLocations(with: database)
-			let traceWarningPackageMetadata = updateTraceWarningPackageMetadata(with: database)
-			let traceTimeIntervalMatchesResult = updateTraceTimeIntervalMatches(with: database)
+			let ckeckinsResult = updateCheckinsPublisher(with: database)
+			let traceLocationsResult = updateTraceLocationsPublisher(with: database)
+			let traceWarningPackageMetadata = updateTraceWarningPackageMetadataPublisher(with: database)
+			let traceTimeIntervalMatchesResult = updateTraceTimeIntervalMatchesPublisher(with: database)
 
 			guard case .success = ckeckinsResult,
 				  case .success = traceLocationsResult,
@@ -459,7 +444,7 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 	}
 
 	@discardableResult
-	private func updateTraceLocations(with database: FMDatabase) -> SecureSQLStore.VoidResult {
+	private func updateTraceLocationsPublisher(with database: FMDatabase) -> SecureSQLStore.VoidResult {
 		Log.info("[EventStore] Update TraceLocations publisher.", log: .localData)
 
 		let sql = """
@@ -527,7 +512,7 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 	}
 
 	@discardableResult
-	private func updateCheckins(with database: FMDatabase) -> SecureSQLStore.VoidResult {
+	private func updateCheckinsPublisher(with database: FMDatabase) -> SecureSQLStore.VoidResult {
 		Log.info("[EventStore] Update checkins publisher.", log: .localData)
 
 		let sql = """
@@ -607,7 +592,7 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 	}
 
 	@discardableResult
-	private func updateTraceTimeIntervalMatches(with database: FMDatabase) -> SecureSQLStore.VoidResult {
+	private func updateTraceTimeIntervalMatchesPublisher(with database: FMDatabase) -> SecureSQLStore.VoidResult {
 		Log.info("[EventStore] Update TraceTimeIntervalMatches publisher.", log: .localData)
 
 		let sql = """
@@ -655,7 +640,7 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 	}
 
 	@discardableResult
-	private func updateTraceWarningPackageMetadata(with database: FMDatabase) -> SecureSQLStore.VoidResult {
+	private func updateTraceWarningPackageMetadataPublisher(with database: FMDatabase) -> SecureSQLStore.VoidResult {
 		Log.info("[EventStore] Update TraceWarningPackageMetadata publisher.", log: .localData)
 
 		let sql = """
@@ -699,7 +684,7 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 			return .failure(dbError(from: database))
 		}
 
-		let updateTraceLocationsResult = updateTraceLocations(with: database)
+		let updateTraceLocationsResult = updateTraceLocationsPublisher(with: database)
 		guard case .success = updateTraceLocationsResult else {
 			logLastErrorCode(from: database)
 			return .failure(dbError(from: database))
@@ -714,7 +699,7 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 			return .failure(dbError(from: database))
 		}
 
-		let updateCheckinsResult = updateCheckins(with: database)
+		let updateCheckinsResult = updateCheckinsPublisher(with: database)
 		guard case .success = updateCheckinsResult else {
 			logLastErrorCode(from: database)
 			return .failure(dbError(from: database))
@@ -733,7 +718,7 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 			return .failure(dbError(from: database))
 		}
 
-		let updateTraceTimeIntervalMatchesResult = updateTraceTimeIntervalMatches(with: database)
+		let updateTraceTimeIntervalMatchesResult = updateTraceTimeIntervalMatchesPublisher(with: database)
 		guard case .success = updateTraceTimeIntervalMatchesResult else {
 			logLastErrorCode(from: database)
 			return .failure(dbError(from: database))
@@ -752,7 +737,7 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 			return .failure(dbError(from: database))
 		}
 
-		let updateTraceWarningPackageMetadataResult = updateTraceWarningPackageMetadata(with: database)
+		let updateTraceWarningPackageMetadataResult = updateTraceWarningPackageMetadataPublisher(with: database)
 		guard case .success = updateTraceWarningPackageMetadataResult else {
 			logLastErrorCode(from: database)
 			return .failure(dbError(from: database))
