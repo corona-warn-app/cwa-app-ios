@@ -54,6 +54,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			coronaTestService: coronaTestService,
 			submitter: self.analyticsSubmitter
 		)
+
+		// Migrate the old pcr test structure from versions older than v2.1
+		coronaTestService.migrate()
 	}
 
 	deinit {

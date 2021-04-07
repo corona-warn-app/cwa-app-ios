@@ -230,18 +230,18 @@ class CoronaTestService {
 			)
 		}
 
-//		store.registrationToken = nil
-//		store.teleTan = nil
-//		store.tan = nil
-//		store.testGUID = nil
-//		store.devicePairingConsentAccept = false
-//		store.devicePairingConsentAcceptTimestamp = nil
-//		store.devicePairingSuccessfulTimestamp = nil
-//		store.testResultReceivedTimeStamp = nil
-//		store.testRegistrationDate = nil
-//		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = nil
-//		store.positiveTestResultWasShown = false
-//		store.isSubmissionConsentGiven = false
+		store.registrationToken = nil
+		store.teleTan = nil
+		store.tan = nil
+		store.testGUID = nil
+		store.devicePairingConsentAccept = false
+		store.devicePairingConsentAcceptTimestamp = nil
+		store.devicePairingSuccessfulTimestamp = nil
+		store.testResultReceivedTimeStamp = nil
+		store.testRegistrationDate = nil
+		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = nil
+		store.positiveTestResultWasShown = false
+		store.isSubmissionConsentGiven = false
 	}
 
 	// MARK: - Private
