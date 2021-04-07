@@ -66,7 +66,7 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 		tableView.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: size.height, right: 0.0)
 		tableView.scrollIndicatorInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: size.height, right: 0.0)
 
-		// try the get the next cell after the picker cell - because we can't get the exact position of the
+		// try to get the next cell after the picker cell - because we can't get the exact position of the
 		// 'textfield' inside the picker
 		let indexPath: IndexPath
 		switch viewModel.responderCellType {

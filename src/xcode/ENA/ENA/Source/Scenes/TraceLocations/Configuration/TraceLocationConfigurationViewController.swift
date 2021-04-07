@@ -170,15 +170,15 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 			endDatePicker.preferredDatePickerStyle = .inline
 		}
 
-		startDatePicker.addTarget(self, action: #selector(selectedDatPicker(sender:)), for: .editingDidBegin)
-		endDatePicker.addTarget(self, action: #selector(selectedDatPicker(sender:)), for: .editingDidBegin)
+		startDatePicker.addTarget(self, action: #selector(selectDatPicker(sender:)), for: .editingDidBegin)
+		endDatePicker.addTarget(self, action: #selector(selectDatPicker(sender:)), for: .editingDidBegin)
 
 		startDatePicker.addTarget(self, action: #selector(deselectDatePicker(sender:)), for: .editingDidEnd)
 		endDatePicker.addTarget(self, action: #selector(deselectDatePicker(sender:)), for: .editingDidEnd)
 	}
 
 	@objc
-	private func selectedDatPicker(sender: UIDatePicker) {
+	private func selectDatPicker(sender: UIDatePicker) {
 		currentSelectedDatePicker = sender
 	}
 
