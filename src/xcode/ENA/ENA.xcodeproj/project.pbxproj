@@ -936,7 +936,6 @@
 		EB08F1862541CE5700D11FA9 /* temporary_exposure_key_export.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB08F1832541CE5700D11FA9 /* temporary_exposure_key_export.pb.swift */; };
 		EB08F1872541CE5700D11FA9 /* temporary_exposure_key_signature_list.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB08F1842541CE5700D11FA9 /* temporary_exposure_key_signature_list.pb.swift */; };
 		EB08F1882541CE5700D11FA9 /* diagnosis_key_batch.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB08F1852541CE5700D11FA9 /* diagnosis_key_batch.pb.swift */; };
-		EB0F740D25E93CA2003BFAE7 /* Base32DecodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0F740C25E93CA2003BFAE7 /* Base32DecodingTests.swift */; };
 		EB0F743525E94452003BFAE7 /* SAP_Internal_Pt_TraceLocation_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0F743425E94452003BFAE7 /* SAP_Internal_Pt_TraceLocation_Tests.swift */; };
 		EB11B02A24EE7CA500143A95 /* ENAUITestsSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB11B02924EE7CA500143A95 /* ENAUITestsSettings.swift */; };
 		EB17144625716EA80088D7A9 /* FileManager+KeyPackageStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB17144525716EA80088D7A9 /* FileManager+KeyPackageStorage.swift */; };
@@ -1988,7 +1987,6 @@
 		EB08F1832541CE5700D11FA9 /* temporary_exposure_key_export.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = temporary_exposure_key_export.pb.swift; path = ../../../gen/output/external/exposurenotification/temporary_exposure_key_export.pb.swift; sourceTree = "<group>"; };
 		EB08F1842541CE5700D11FA9 /* temporary_exposure_key_signature_list.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = temporary_exposure_key_signature_list.pb.swift; path = ../../../gen/output/external/exposurenotification/temporary_exposure_key_signature_list.pb.swift; sourceTree = "<group>"; };
 		EB08F1852541CE5700D11FA9 /* diagnosis_key_batch.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = diagnosis_key_batch.pb.swift; path = ../../../gen/output/external/exposurenotification/diagnosis_key_batch.pb.swift; sourceTree = "<group>"; };
-		EB0F740C25E93CA2003BFAE7 /* Base32DecodingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Base32DecodingTests.swift; sourceTree = "<group>"; };
 		EB0F743425E94452003BFAE7 /* SAP_Internal_Pt_TraceLocation_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SAP_Internal_Pt_TraceLocation_Tests.swift; sourceTree = "<group>"; };
 		EB11B02924EE7CA500143A95 /* ENAUITestsSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITestsSettings.swift; sourceTree = "<group>"; };
 		EB17144525716EA80088D7A9 /* FileManager+KeyPackageStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+KeyPackageStorage.swift"; sourceTree = "<group>"; };
@@ -5662,7 +5660,6 @@
 			isa = PBXGroup;
 			children = (
 				34FE15922604AD700002CB69 /* sample_qr_code_template */,
-				EB0F740C25E93CA2003BFAE7 /* Base32DecodingTests.swift */,
 				ABD08252260C7FDE007C4B24 /* CheckinRiskCalculationTests.swift */,
 				34FE159B2604B1800002CB69 /* QRCodePosterTemplateProviderTests.swift */,
 			);
@@ -6909,7 +6906,6 @@
 				01A97DD12506768F00C07C37 /* DatePickerOptionViewModelTests.swift in Sources */,
 				0177F4B125503805009DD568 /* ScanInstanceTest.swift in Sources */,
 				0109DB8726036E4400624BB3 /* CheckinsOverviewViewModelTest.swift in Sources */,
-				EB0F740D25E93CA2003BFAE7 /* Base32DecodingTests.swift in Sources */,
 				BADBC85625D6C1C500488DB7 /* BaseDataDonationViewModelTests.swift in Sources */,
 				5006C283260E4ABA00533CAA /* Checkin+Mock.swift in Sources */,
 				35AA4AF4259B40FC00D32306 /* CryptoFallbackTests.swift in Sources */,
