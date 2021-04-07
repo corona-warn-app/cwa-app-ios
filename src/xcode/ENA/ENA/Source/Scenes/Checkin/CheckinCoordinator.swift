@@ -212,6 +212,10 @@ final class CheckinCoordinator {
 				presentDisclaimer: {
 					let detailViewController = HTMLViewController(model: AppInformationModel.privacyModel)
 					detailViewController.title = AppStrings.AppInformation.privacyTitle
+					detailViewController.isDismissable = false
+					if #available(iOS 13.0, *) {
+						detailViewController.isModalInPresentation = true
+					}
 					showDetail(detailViewController)
 				},
 				hidesCloseButton: hidesCloseButton
