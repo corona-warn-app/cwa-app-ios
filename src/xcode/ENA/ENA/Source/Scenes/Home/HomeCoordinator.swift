@@ -23,7 +23,19 @@ class HomeCoordinator: RequiresAppDependencies {
 	private var exposureDetectionCoordinator: ExposureDetectionCoordinator?
 	
 	private lazy var exposureSubmissionService: ExposureSubmissionService = {
-		ExposureSubmissionServiceFactory.create(
+		#if DEBUG
+		if isUITesting {
+			return ENAExposureSubmissionService(
+				diagnosisKeysRetrieval: exposureManager,
+				appConfigurationProvider: CachedAppConfigurationMock(with: CachedAppConfigurationMock.screenshotConfiguration),
+				client: ClientMock(),
+				store: MockTestStore(),
+				coronaTestService: coronaTestService
+			)
+		}
+		#endif
+
+		return ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: exposureManager,
 			appConfigurationProvider: appConfigurationProvider,
 			client: client,

@@ -168,16 +168,6 @@ class RootCoordinator: RequiresAppDependencies {
 			eventCheckoutService: eventCheckoutService
 		)
 	}()
-
-	private lazy var exposureSubmissionService: ExposureSubmissionService = {
-		ExposureSubmissionServiceFactory.create(
-			diagnosisKeysRetrieval: exposureManager,
-			appConfigurationProvider: appConfigurationProvider,
-			client: client,
-			store: store,
-			coronaTestService: coronaTestService
-		)
-	}()
 	
 	private var enStateUpdateList = NSHashTable<AnyObject>.weakObjects()
 

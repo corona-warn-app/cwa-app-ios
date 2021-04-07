@@ -140,7 +140,7 @@ class HomeState: ENStateHandlerUpdating {
 		// Avoid unnecessary loading.
 		guard testResult == nil || testResult != .positive else { return }
 
-		guard coronaTestService.pcrTest != nil else {
+		guard coronaTestService.pcrTest?.registrationToken != nil else {
 			testResult = nil
 			return
 		}

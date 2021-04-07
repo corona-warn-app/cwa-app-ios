@@ -116,9 +116,6 @@ class ENAUITestsQuickActions: XCTestCase {
 	func testShortcutAvailabilityDuringSubmissionFlow() throws {
 		let app = XCUIApplication()
 		app.setDefaults()
-		app.launchArguments.append(contentsOf: [UITestingParameters.ExposureSubmission.useMock.rawValue])
-		app.launchArguments.append(contentsOf: [UITestingParameters.ExposureSubmission.getRegistrationTokenSuccess.rawValue])
-		app.launchArguments.append(contentsOf: [UITestingParameters.ExposureSubmission.submitExposureSuccess.rawValue])
 
 		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
 		app.launchArguments.append(contentsOf: ["-setCurrentOnboardingVersion", "YES"])
