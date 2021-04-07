@@ -176,17 +176,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 			let store = MockTestStore()
 
-			store.pcrTest = PCRTest(
-				registrationToken: nil,
-				testRegistrationDate: Date(),
-				testResult: testResult ?? .pending,
-				testResultReceivedDate: Date(),
-				positiveTestResultWasShown: !showTestResultAvailableViewController,
-				isSubmissionConsentGiven: UserDefaults.standard.string(forKey: "isSubmissionConsentGiven") == "YES",
-				submissionTAN: nil,
-				keysSubmitted: false,
-				journalEntryCreated: false
-			)
+			if testResult != nil || showTestResultAvailableViewController {
+				store.pcrTest = PCRTest(
+					registrationToken: "asdf",
+					testRegistrationDate: Date(),
+					testResult: testResult ?? .pending,
+					testResultReceivedDate: Date(),
+					positiveTestResultWasShown: !showTestResultAvailableViewController,
+					isSubmissionConsentGiven: UserDefaults.standard.string(forKey: "isSubmissionConsentGiven") == "YES",
+					submissionTAN: nil,
+					keysSubmitted: false,
+					journalEntryCreated: false
+				)
+			}
 
 			return CoronaTestService(
 				client: ClientMock(),
