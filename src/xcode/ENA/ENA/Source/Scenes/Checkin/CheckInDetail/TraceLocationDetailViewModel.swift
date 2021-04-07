@@ -32,6 +32,12 @@ final class TraceLocationDetailViewModel {
 	
 	// MARK: - Internal
 
+	enum TraceLocationDateStatus {
+		case notStarted
+		case inProgress
+		case ended
+	}
+
 	let locationType: String
 	let locationDescription: String
 	let locationAddress: String
@@ -61,22 +67,19 @@ final class TraceLocationDetailViewModel {
 			return .inProgress
 		}
 	}
+
 	var formattedStartDateString: String {
-		let dateFormatter = DateFormatter()
-		dateFormatter.dateStyle = .short
-		return dateFormatter.string(from: traceLocation.startDate ?? Date())
+		guard let date = traceLocation.startDate else {
+			return ""
+		}
+		return DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .none)
 	}
+
 	var formattedStartTimeString: String {
-		let dateFormatter = DateFormatter()
-		dateFormatter.timeStyle = .short
-		dateFormatter.dateStyle = .none
-		return dateFormatter.string(from: traceLocation.startDate ?? Date())
-	}
-	
-	enum TraceLocationDateStatus {
-		case notStarted
-		case inProgress
-		case ended
+		guard let date = traceLocation.startDate else {
+			return ""
+		}
+		return DateFormatter.localizedString(from: date, dateStyle: .none, timeStyle: .short)
 	}
 
 	func saveCheckinToDatabase() {
