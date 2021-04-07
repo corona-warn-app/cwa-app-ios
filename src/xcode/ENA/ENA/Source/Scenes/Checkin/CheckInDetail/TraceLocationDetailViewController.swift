@@ -121,8 +121,6 @@ class TraceLocationDetailViewController: UIViewController {
 		countDownDatePicker.minuteInterval = 15
 		countDownDatePicker.countDownDuration = TimeInterval(viewModel.duration)
 		countDownDatePicker.addTarget(self, action: #selector(didSelectDuration(datePicker:)), for: .valueChanged)
-
-		didSelectDuration(datePicker: countDownDatePicker)
 	}
 	
 	@objc
