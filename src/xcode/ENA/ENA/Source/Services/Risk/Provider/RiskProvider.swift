@@ -102,7 +102,7 @@ final class RiskProvider: RiskProviding {
 			return
 		}
 
-		guard coronaTestService.hasAtLeastOneShownPositiveOrSubmittedTest else {
+		guard !coronaTestService.hasAtLeastOneShownPositiveOrSubmittedTest else {
 			Log.info("RiskProvider: At least one registered test has an already shown positive test result or keys submitted. Don't start new risk detection.", log: .riskDetection)
 
 			// Keep downloading key packages and trace warning packages for plausible deniability
