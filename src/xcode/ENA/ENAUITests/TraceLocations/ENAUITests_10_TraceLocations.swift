@@ -122,6 +122,7 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 		let location2 = "Walldorf"
 		createTraceLocation(event: event2, location: location2)
 		
+		// THEN
 		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.title)].waitForExistence(timeout: .short))
 		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.selfCheckinButtonTitle)].exists)
 		XCTAssertTrue(app.staticTexts[event1].exists)
@@ -133,6 +134,53 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 		
 		XCTAssertFalse(app.staticTexts[event1].exists)
 		XCTAssertFalse(app.staticTexts[event2].exists)
+	}
+
+	func test_CreateAndDelete_traceLocations_via_menu_function() throws {
+		// GIVEN
+		app.launchArguments.append(contentsOf: ["-TraceLocationsInfoScreenShown", "YES"])
+		
+		// WHEN
+		app.launch()
+		if let button = UITestHelper.scrollTo(identifier: AccessibilityIdentifiers.Home.traceLocationsCardButton, element: app, app: app) {
+			button.tap()
+		} else {
+			XCTFail("Can't find element \(AccessibilityIdentifiers.Home.traceLocationsCardButton)")
+		}
+		
+		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.addButtonTitle)].waitForExistence(timeout: .short))
+		
+		let event1 = "Daily Scrum"
+		let location1 = "Office"
+		createTraceLocation(event: event1, location: location1)
+		
+		let event2 = "Sprint Planning"
+		let location2 = "Walldorf"
+		createTraceLocation(event: event2, location: location2)
+		
+		// THEN
+		XCTAssertTrue(app.cells.count >= 3) // assumption: at least 3 cells
+		
+//		tap the "more" button
+		app.navigationBars.buttons[AccessibilityIdentifiers.TraceLocation.Overview.menueButton].tap()
+		
+		// verify the buttons
+		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.ActionSheet.editTitle)].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.ActionSheet.infoTitle)].exists)
+		
+		// tap "Edit" button
+		app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.ActionSheet.editTitle)].tap()
+
+		// button "Alle entfernen"
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].exists)
+		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].tap()
+
+		// Alert: tap "Löschen"
+		XCTAssertTrue(app.alerts.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.DeleteOneAlert.confirmButtonTitle)].waitForExistence(timeout: .short))
+		app.alerts.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.DeleteOneAlert.confirmButtonTitle)].tap()
+		
+		XCTAssertTrue(app.cells.count == 1) // assumption: only one cell remains
+		
 	}
 	
 	func test_WHEN_tapCreateQRCode_THEN_traceLocation_input_screen_is_displayed() throws {
@@ -317,6 +365,7 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 		query.element(boundBy: 1).tap()
 		
 		app.swipeUp() // update UI
+		app.swipeDown()
 		
 		// iterate over all event cells and search for the checkout button
 		var numberOfRemainingCheckouts = 0
