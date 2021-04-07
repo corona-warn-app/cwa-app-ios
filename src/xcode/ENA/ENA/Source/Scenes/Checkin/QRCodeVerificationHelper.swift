@@ -42,7 +42,6 @@ class QRCodeVerificationHelper {
 			// Extract ENCODED_PAYLOAD
 			// for some reason we get an extra match at index 0 which is the entire URL so  we need to add an offset of 1 to each index after that to get the correct corresponding parts
 			guard let unWrappedMatch = match,
-				  let qrDescriptor = descriptor,
 				  let payLoadIndex = descriptor?.encodedPayloadGroupIndex,
 				  payLoadIndex < unWrappedMatch.numberOfRanges,
 				  let payLoadRange = Range(unWrappedMatch.range(at: Int(payLoadIndex) + 1), in: url)
@@ -52,10 +51,8 @@ class QRCodeVerificationHelper {
 				return
 			}
 
-			// let version = url[versionRange]
 			let payLoad = url[payLoadRange]
-			let encodingType = EncodingType(rawValue: qrDescriptor.payloadEncoding.rawValue) ?? .unspecified
-			guard let traceLocation = TraceLocation(qrCodeString: String(payLoad), encoding: encodingType) else {
+			guard let traceLocation = TraceLocation(qrCodeString: String(payLoad)) else {
 				onError(QRScannerError.codeNotFound)
 				return
 			}
