@@ -142,7 +142,10 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 			coronaTestService: dependencies.coronaTestService
 		)
 
+		let group = DispatchGroup()
+
 		for coronaTestType in CoronaTestType.allCases {
+			group.enter()
 			service.submitExposure(coronaTestType: coronaTestType) { error in
 				switch error {
 				case .noCoronaTestOfGivenType:
@@ -162,8 +165,12 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 					Log.info("[ENATaskExecutionDelegate] Submission successful", log: .api)
 				}
 
-				completion(true)
+				group.leave()
 			}
+		}
+
+		group.notify(queue: .main) {
+			completion(true)
 		}
 	}
 
@@ -181,9 +188,12 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 			return
 		}
 
+		let group = DispatchGroup()
+
 		for coronaTestType in CoronaTestType.allCases {
 			Log.info("Requesting TestResult for test type \(coronaTestType)…", log: .api)
 
+			group.enter()
 			dependencies.coronaTestService.updateTestResult(for: coronaTestType) { result in
 				switch result {
 				case .failure(let error):
@@ -202,8 +212,12 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 					)
 				}
 
-				completion(true)
+				group.leave()
 			}
+		}
+
+		group.notify(queue: .main) {
+			completion(true)
 		}
 	}
 
