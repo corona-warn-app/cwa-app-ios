@@ -12,9 +12,6 @@ protocol EventStoring {
 	func createTraceLocation(_ traceLocation: TraceLocation) -> SecureSQLStore.VoidResult
 
 	@discardableResult
-	func updateTraceLocation(_ traceLocation: TraceLocation) -> SecureSQLStore.VoidResult
-
-	@discardableResult
 	func deleteTraceLocation(id: Data) -> SecureSQLStore.VoidResult
 
 	@discardableResult
