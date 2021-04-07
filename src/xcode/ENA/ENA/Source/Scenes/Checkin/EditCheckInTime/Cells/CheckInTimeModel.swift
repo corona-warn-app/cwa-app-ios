@@ -33,6 +33,7 @@ final class CheckInTimeModel {
 	@OpenCombine.Published var maxDate: Date?
 	@OpenCombine.Published var date: Date
 	@OpenCombine.Published var isPickerVisible: Bool = false
+	@OpenCombine.Published var isFirstResponder: Bool = false
 
 	var dateString: String {
 		DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .short)
