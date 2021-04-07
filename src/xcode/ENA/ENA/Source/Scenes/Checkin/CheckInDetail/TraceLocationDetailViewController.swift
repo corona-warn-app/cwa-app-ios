@@ -42,8 +42,7 @@ class TraceLocationDetailViewController: UIViewController {
 	private let dismiss: () -> Void
 
 	private var subscriptions = Set<AnyCancellable>()
-	private var isInitialSetup = true
-	
+
 	@IBOutlet private weak var bottomCardView: UIView!
 	@IBOutlet private weak var descriptionView: UIView!
 	@IBOutlet private weak var logoImageView: UIImageView!
@@ -62,8 +61,6 @@ class TraceLocationDetailViewController: UIViewController {
 	@IBOutlet private weak var pickerSwitch: ENASwitch!
 
 	private func setupViewModel() {
-		viewModel.pickerView(didSelectRow: viewModel.selectedDurationInMinutes)
-
 		viewModel.$pickerButtonTitle
 			.sink { [weak self] hour in
 				if let hour = hour {
@@ -71,6 +68,10 @@ class TraceLocationDetailViewController: UIViewController {
 				}
 			}
 			.store(in: &subscriptions)
+
+		let components = viewModel.selectedDurationInMinutes.quotientAndRemainder(dividingBy: 60)
+		let date = DateComponents(calendar: Calendar.current, hour: components.quotient, minute: components.remainder).date ?? Date()
+		datePickerView.setDate(date, animated: true)
 	}
 
 	private func setupView() {
@@ -123,7 +124,7 @@ class TraceLocationDetailViewController: UIViewController {
 	
 	@objc
 	private func didSelectDuration(datePicker: UIDatePicker) {
-		viewModel.pickerView(didSelectRow: Int(datePicker.countDownDuration / 60))
+		viewModel.selectedDurationInMinutes = Int(datePicker.countDownDuration / 60)
 	}
 
 	private func addBorderAndColorToView(_ view: UIView, color: UIColor) {
@@ -155,12 +156,5 @@ class TraceLocationDetailViewController: UIViewController {
 		
 		let color: UIColor = pickerContainerView.isHidden ? .enaColor(for: .textPrimary1) : .enaColor(for: .textTint)
 		pickerButton.setTitleColor(color, for: .normal)
-		
-		if !pickerContainerView.isHidden && isInitialSetup {
-			isInitialSetup = false
-			let components = viewModel.selectedDurationInMinutes.quotientAndRemainder(dividingBy: 60)
-			let date = DateComponents(calendar: Calendar.current, hour: components.quotient, minute: components.remainder).date ?? Date()
-			datePickerView.setDate(date, animated: true)
-		}
 	}
 }

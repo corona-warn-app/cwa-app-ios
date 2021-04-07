@@ -36,13 +36,25 @@ final class TraceLocationDetailViewModel {
 	
 	// MARK: - Internal
 		
-	@OpenCombine.Published var pickerButtonTitle: String?
+	@OpenCombine.Published private(set) var pickerButtonTitle: String?
 
 	let locationType: String
 	let locationDescription: String
 	let locationAddress: String
-	var selectedDurationInMinutes: Int
+
 	var shouldSaveToContactJournal: Bool
+	var selectedDurationInMinutes: Int {
+		didSet {
+			let components = selectedDurationInMinutes.quotientAndRemainder(dividingBy: 60)
+			let date = Calendar.current.date(bySettingHour: components.quotient, minute: components.remainder, second: 0, of: Date())
+			guard let hour = formattedHourString(date) else {
+				Log.debug("Error converting date to string")
+				return
+			}
+			pickerButtonTitle = String(format: AppStrings.Checkins.Details.hoursShortVersion, hour)
+		}
+	}
+
 	var traceLocationStatus: TraceLocationDateStatus? {
 		guard let startDate = traceLocation.startDate,
 			  let endDate = traceLocation.endDate else {
@@ -74,15 +86,6 @@ final class TraceLocationDetailViewModel {
 		case ended
 	}
 
-	func pickerView(didSelectRow numberOfMinutes: Int) {
-		selectedDurationInMinutes = numberOfMinutes
-		let components = numberOfMinutes.quotientAndRemainder(dividingBy: 60)
-		let date = Calendar.current.date(bySettingHour: components.quotient, minute: components.remainder, second: 0, of: Date())
-		if let hour = formattedHourString(date) {
-			pickerButtonTitle = String(format: AppStrings.Checkins.Details.hoursShortVersion, hour)
-		}
-	}
-	
 	func saveCheckinToDatabase() {
 		let checkinStartDate = Date()
 		guard let checkinEndDate = Calendar.current.date(byAdding: .minute, value: selectedDurationInMinutes, to: checkinStartDate) else {
