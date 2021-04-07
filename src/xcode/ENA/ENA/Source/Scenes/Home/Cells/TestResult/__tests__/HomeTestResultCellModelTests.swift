@@ -46,12 +46,12 @@ class HomeTestResultCellModelTests: XCTestCase {
 	let buttonTitlesArray = [
 		AppStrings.Home.submitCardButton,
 		AppStrings.Home.submitCardButton,
-		AppStrings.Home.resultCardShowResultButton,
-		AppStrings.Home.resultCardShowResultButton,
-		AppStrings.Home.resultCardShowResultButton,
+		AppStrings.Home.submitCardButton,
+		AppStrings.Home.submitCardButton,
+		AppStrings.Home.submitCardButton,
 		AppStrings.Home.resultCardRetrieveResultButton,
-		AppStrings.Home.resultCardShowResultButton,
-		AppStrings.Home.resultCardShowResultButton
+		AppStrings.Home.submitCardButton,
+		AppStrings.Home.submitCardButton
 	]
 	let imagesArray = [
 		UIImage(named: "Illu_Hand_with_phone-initial"),
@@ -78,11 +78,11 @@ class HomeTestResultCellModelTests: XCTestCase {
 	let accessabilityIdentifiersArray = [
 		AccessibilityIdentifiers.Home.submitCardButton,
 		AccessibilityIdentifiers.Home.submitCardButton,
-		AccessibilityIdentifiers.Home.resultCardShowResultButton,
-		AccessibilityIdentifiers.Home.resultCardShowResultButton,
-		AccessibilityIdentifiers.Home.resultCardShowResultButton,
-		AccessibilityIdentifiers.Home.resultCardShowResultButton,
-		AccessibilityIdentifiers.Home.resultCardShowResultButton,
+		AccessibilityIdentifiers.Home.submitCardButton,
+		AccessibilityIdentifiers.Home.submitCardButton,
+		AccessibilityIdentifiers.Home.submitCardButton,
+		AccessibilityIdentifiers.Home.submitCardButton,
+		AccessibilityIdentifiers.Home.submitCardButton,
 		AccessibilityIdentifiers.Home.submitCardButton
 	]
 

@@ -512,8 +512,8 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		launch()
 		
 		// Open Intro screen.
-		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.resultCardShowResultButton].waitForExistence(timeout: .long))
-		app.cells.buttons[AccessibilityIdentifiers.Home.resultCardShowResultButton].tap()
+		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .long))
+		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].tap()
 		
 		// Open Test Result screen.
 		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
@@ -597,8 +597,8 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		launch()
 
 		// Open test result available screen.
-		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.resultCardShowResultButton].waitForExistence(timeout: .long))
-		app.cells.buttons[AccessibilityIdentifiers.Home.resultCardShowResultButton].tap()
+		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .long))
+		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].tap()
 		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .long))
 
 		snapshot("submissionflow_screenshot_test_result_available")
@@ -610,8 +610,8 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		launch()
 
 		// Open test result screen.
-		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.resultCardShowResultButton].waitForExistence(timeout: .long))
-		app.cells.buttons[AccessibilityIdentifiers.Home.resultCardShowResultButton].tap()
+		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .long))
+		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].tap()
 		XCTAssertTrue(app.staticTexts["AppStrings.ExposureSubmissionResult.procedure"].waitForExistence(timeout: .medium))
 
 		snapshot("submissionflow_screenshot_test_result_pending")
