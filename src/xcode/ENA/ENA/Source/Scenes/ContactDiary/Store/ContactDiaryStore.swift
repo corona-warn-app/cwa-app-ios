@@ -936,10 +936,12 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 						Location.name,
 						Location.phoneNumber,
 						Location.emailAddress,
+						Location.traceLocationId,
 						LocationVisit.id AS locationVisitId,
 						LocationVisit.date as locationVisitDate,
 						LocationVisit.durationInMinutes as locationVisitDuration,
-						LocationVisit.circumstances as locationVisitCircumstances
+						LocationVisit.circumstances as locationVisitCircumstances,
+						LocationVisit.checkinId as checkinId
 				FROM Location
 				LEFT JOIN LocationVisit
 				ON Location.id = LocationVisit.locationId
