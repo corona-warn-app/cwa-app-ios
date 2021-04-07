@@ -68,6 +68,7 @@ class TraceLocationDetailViewController: UIViewController {
 		addBorderAndColorToView(additionalInfoView, color: .enaColor(for: .hairline))
 
 		checkInButton.setTitle(AppStrings.Checkins.Details.checkInButton, for: .normal)
+		checkInButton.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Details.checkInButton
 
 		setupLabels()
 		setupPicker()
