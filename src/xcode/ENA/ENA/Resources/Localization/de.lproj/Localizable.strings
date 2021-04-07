@@ -2020,6 +2020,14 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "Checkins_Overview_QRScanner_Instruction" = "QR-Code scannen und einchecken";
 
+"Checkin_QR_Scanner_Checkin_Error_Title" = "Ungültiger QR-Code";
+
+"Checkin_QR_Scanner_Error_InvalidURL" = "Der gescannte QR-Code gilt nicht für das Einchecken für ein Event oder einen Ort. Bitte scannen Sie einen geeigneten QR-Code (Fehlercode INVALID_URL).";
+
+"Checkin_QR_Scanner_Error_InvalidPayload" = "Ungültiger QR-Code verhindert das Einchecken. Die verantwortliche Stelle muss einen neuen QR-Code generieren (Fehlercode INVALID_PAYLOAD).";
+
+"Checkin_QR_Scanner_Error_InvalidURLVendorData" = "Ungültiger QR-Code verhindert das Einchecken. Die verantwortliche Stelle muss einen neuen QR-Code generieren (Fehlercode INVALID_VENDOR_DATA).";
+
 /* TraceLocations */
 
 "TraceLocations_Overview_Title" = "Meine QR-Codes";
