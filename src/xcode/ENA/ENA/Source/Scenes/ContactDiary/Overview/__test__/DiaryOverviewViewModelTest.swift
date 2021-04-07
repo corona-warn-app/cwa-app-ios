@@ -8,6 +8,14 @@ import XCTest
 import OpenCombine
 
 class DiaryOverviewViewModelTest: XCTestCase {
+	
+	var subscriptions = [AnyCancellable]()
+	
+	override func setUp() {
+		super.setUp()
+		subscriptions.forEach({ $0.cancel() })
+		subscriptions.removeAll()
+	}
 
 	/** riksupdate on homeState must trigger refrashTableview*/
 	func testGIVEN_ViewModel_WHEN_ChangeRiskLevel_THEN_Refresh() {
@@ -36,11 +44,19 @@ class DiaryOverviewViewModelTest: XCTestCase {
 
 		let expectationRefreshTableView = expectation(description: "Refresh Tableview")
 		/*** why 4 times: 1 - initial value days + 1 - initial value homeState + 1 update HomeStat + 1 updata Diary days  */
-		expectationRefreshTableView.expectedFulfillmentCount = 4
-
-		viewModel.refreshTableView = {
-			expectationRefreshTableView.fulfill()
-		}
+		expectationRefreshTableView.expectedFulfillmentCount = 3
+		
+		viewModel.$days
+			.sink { _ in
+				expectationRefreshTableView.fulfill()
+			}
+			.store(in: &subscriptions)
+		
+		viewModel.homeState?.$riskState
+			.sink { _ in
+				expectationRefreshTableView.fulfill()
+			}
+			.store(in: &subscriptions)
 
 		// WHEN
 		homeState.riskState = .risk(.mocked)
@@ -60,11 +76,20 @@ class DiaryOverviewViewModelTest: XCTestCase {
 
 		let daysPublisherExpectation = expectation(description: "Days publisher called")
 		/*** why 3 times: 1 - initial value days + 1 - initial value homeState  + 1 updata Diary days  */
-		daysPublisherExpectation.expectedFulfillmentCount = 3
-
-		viewModel.refreshTableView = {
-			daysPublisherExpectation.fulfill()
-		}
+		daysPublisherExpectation.expectedFulfillmentCount = 2
+		
+		viewModel.$days
+			.sink { _ in
+				daysPublisherExpectation.fulfill()
+			}
+			.store(in: &subscriptions)
+		
+		viewModel.homeState?.$riskState
+			.sink { _ in
+				daysPublisherExpectation.fulfill()
+			}
+			.store(in: &subscriptions)
+		
 		diaryStore.addContactPerson(name: "Martin Augst")
 
 		waitForExpectations(timeout: .medium)
