@@ -27,28 +27,25 @@ final class TraceLocationDetailViewModel {
 		self.shouldSaveToContactJournal = store.shouldAddCheckinToContactDiaryByDefault
 		// max duration in the picker is 23:45
 		let maxDurationInMinutes = (23 * 60) + 45
-		self.selectedDurationInMinutes = min(traceLocation.suggestedCheckoutLength, maxDurationInMinutes)
+		self.duration = TimeInterval(min(traceLocation.suggestedCheckoutLength, maxDurationInMinutes) * 60)
 	}
 	
 	// MARK: - Internal
-		
-	@OpenCombine.Published private(set) var pickerButtonTitle: String?
 
 	let locationType: String
 	let locationDescription: String
 	let locationAddress: String
 
 	var shouldSaveToContactJournal: Bool
-	var selectedDurationInMinutes: Int {
-		didSet {
-			let components = selectedDurationInMinutes.quotientAndRemainder(dividingBy: 60)
-			let date = Calendar.current.date(bySettingHour: components.quotient, minute: components.remainder, second: 0, of: Date())
-			guard let hour = formattedHourString(date) else {
-				Log.debug("Error converting date to string")
-				return
-			}
-			pickerButtonTitle = String(format: AppStrings.Checkins.Details.hoursShortVersion, hour)
+
+	@OpenCombine.Published var duration: TimeInterval
+
+	var pickerButtonTitle: String {
+		guard let durationString = durationFormatter.string(from: duration) else {
+			Log.error("Failed to convert duration to string")
+			return ""
 		}
+		return String(format: AppStrings.Checkins.Details.hoursShortVersion, durationString)
 	}
 
 	var traceLocationStatus: TraceLocationDateStatus? {
@@ -84,14 +81,12 @@ final class TraceLocationDetailViewModel {
 
 	func saveCheckinToDatabase() {
 		let checkinStartDate = Date()
-		guard let checkinEndDate = Calendar.current.date(byAdding: .minute, value: selectedDurationInMinutes, to: checkinStartDate) else {
+		guard let checkinEndDate = Calendar.current.date(byAdding: .second, value: Int(duration), to: checkinStartDate),
+			  let idHash = traceLocation.idHash else {
 			Log.warning("checkinEndDate is nill", log: .checkin)
 			return
 		}
-		guard let idHash = traceLocation.idHash else {
-			return
-		}
-		
+
 		let checkin: Checkin = Checkin(
 			id: 0,
 			traceLocationId: traceLocation.id,
@@ -120,13 +115,14 @@ final class TraceLocationDetailViewModel {
 	private let traceLocation: TraceLocation
 	private let eventStore: EventStoringProviding
 	private let store: Store
-	
-	private func formattedHourString(_ date: Date?) -> String? {
-		let dateComponentsFormatter = DateComponentsFormatter()
-		dateComponentsFormatter.allowedUnits = [.hour, .minute]
-		dateComponentsFormatter.unitsStyle = .positional
-		dateComponentsFormatter.zeroFormattingBehavior = .pad
-		let components = Calendar.current.dateComponents([.hour, .minute], from: date ?? Date())
-		return dateComponentsFormatter.string(from: components)
-	}
+
+	private lazy var durationFormatter: DateComponentsFormatter = {
+		let formatter = DateComponentsFormatter()
+		formatter.unitsStyle = .positional
+		formatter.allowedUnits = [.hour, .minute]
+		formatter.zeroFormattingBehavior = .default
+		formatter.zeroFormattingBehavior = .pad
+		return formatter
+	}()
+
 }

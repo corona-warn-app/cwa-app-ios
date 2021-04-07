@@ -62,11 +62,11 @@ class TraceLocationDetailViewController: UIViewController {
 	@IBOutlet private weak var checkInButton: ENAButton!
 
 	private func setupViewModel() {
-		viewModel.$pickerButtonTitle
-			.sink { [weak self] hour in
-				if let hour = hour {
-					self?.pickerButton.setTitle(hour, for: .normal)
-				}
+		viewModel.$duration
+			.receive(on: DispatchQueue.main.ocombine)
+			.sink { [weak self] _ in
+				guard let self = self else { return }
+				self.pickerButton.setTitle(self.viewModel.pickerButtonTitle, for: .normal)
 			}
 			.store(in: &subscriptions)
 	}
@@ -119,7 +119,7 @@ class TraceLocationDetailViewController: UIViewController {
 	private func setupPicker() {
 		countDownDatePicker.datePickerMode = .countDownTimer
 		countDownDatePicker.minuteInterval = 15
-//		countDownDatePicker.countDownDuration = TimeInterval(viewModel.selectedDurationInMinutes * 60)
+		countDownDatePicker.countDownDuration = TimeInterval(viewModel.duration)
 		countDownDatePicker.addTarget(self, action: #selector(didSelectDuration(datePicker:)), for: .valueChanged)
 
 		didSelectDuration(datePicker: countDownDatePicker)
@@ -128,10 +128,10 @@ class TraceLocationDetailViewController: UIViewController {
 	@objc
 	private func didSelectDuration(datePicker: UIDatePicker) {
 		let duration = datePicker.countDownDuration
-		viewModel.selectedDurationInMinutes = Int(duration / 60)
+		viewModel.duration = duration
 
 		DispatchQueue.main.async {
-			self.countDownDatePicker.countDownDuration = TimeInterval(duration)
+			self.countDownDatePicker.countDownDuration = self.viewModel.duration
 		}
 	}
 
