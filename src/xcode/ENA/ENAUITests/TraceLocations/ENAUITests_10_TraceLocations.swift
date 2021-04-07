@@ -85,21 +85,21 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 		
 		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.addButtonTitle)].waitForExistence(timeout: .short))
 		
-		let event = "Mittagessen"
-		let location = "Kantine"
+		let event = "Ausser Atem"
+		let location = "Cinema Paradiso"
 		createTraceLocation(event: event, location: location)
 		
 		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.title)].waitForExistence(timeout: .short))
 		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.selfCheckinButtonTitle)].exists)
 		XCTAssertTrue(app.staticTexts[event].exists)
 		XCTAssertTrue(app.staticTexts[location].exists)
-
+		
 		removeTraceLocation(event: event)
-
+		
 		XCTAssertFalse(app.staticTexts[event].exists)
 		XCTAssertFalse(app.staticTexts[location].exists)
 	}
-
+	
 	func test_CreateAndDelete_two_traceLocations() throws {
 		// GIVEN
 		app.launchArguments.append(contentsOf: ["-TraceLocationsInfoScreenShown", "YES"])
@@ -117,20 +117,20 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 		let event1 = "Daily Scrum"
 		let location1 = "Office"
 		createTraceLocation(event: event1, location: location1)
-
+		
 		let event2 = "Sprint Planning"
 		let location2 = "Walldorf"
 		createTraceLocation(event: event2, location: location2)
-
+		
 		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.title)].waitForExistence(timeout: .short))
 		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.selfCheckinButtonTitle)].exists)
 		XCTAssertTrue(app.staticTexts[event1].exists)
 		XCTAssertTrue(app.staticTexts[location1].exists)
 		XCTAssertTrue(app.staticTexts[event2].exists)
 		XCTAssertTrue(app.staticTexts[location2].exists)
-
+		
 		removeAllTraceLocations()
-
+		
 		XCTAssertFalse(app.staticTexts[event1].exists)
 		XCTAssertFalse(app.staticTexts[event2].exists)
 	}
@@ -151,7 +151,7 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 		
 		// add trace location
 		app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.addButtonTitle)].tap()
-
+		
 		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.permanent.subtitle.workplace)].waitForExistence(timeout: .short))
 		app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.permanent.subtitle.workplace)].tap()
 		
@@ -164,7 +164,7 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.TraceLocation.Configuration.permanentDefaultLengthFootnoteLabel].exists)
 		
 	}
-
+	
 	func test_displayDetailsOfTraceLocation() throws {
 		// GIVEN
 		app.launchArguments.append(contentsOf: ["-TraceLocationsInfoScreenShown", "YES"])
@@ -179,24 +179,29 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 		
 		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.addButtonTitle)].waitForExistence(timeout: .short))
 		
-		let event = "Mittagessen"
-		let location = "Kantine"
+		let event = "At least we can build something"
+		let location = "Kino"
 		createTraceLocation(event: event, location: location)
 		
 		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.title)].waitForExistence(timeout: .short))
 		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.selfCheckinButtonTitle)].exists)
 		XCTAssertTrue(app.staticTexts[event].exists)
 		XCTAssertTrue(app.staticTexts[location].exists)
-
-		app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.selfCheckinButtonTitle)].tap()
 		
-		XCTAssertTrue(app.buttons["IconCloseContrastButton"].exists)
-		app.buttons["IconCloseContrastButton"].tap()
-
-		removeTraceLocation(event: event)
-
-		XCTAssertFalse(app.staticTexts[event].exists)
-		XCTAssertFalse(app.staticTexts[location].exists)
+		// the QR code cells start at index = 1
+		let query = app.cells
+		let n = query.count
+		XCTAssertTrue(n > 1)
+		// tap the cell to display the details
+		query.element(boundBy: 1).tap()
+		
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.AccessibilityLabel.close].waitForExistence(timeout: .short)) // identifier defined in xib
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].exists)
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.General.secondaryFooterButton].exists)
+		
+		app.buttons[AccessibilityIdentifiers.AccessibilityLabel.close].tap()
+		// clean up
+		removeAllTraceLocations()
 	}
 	
 	func test_checkinTraceLocation() throws {
@@ -221,18 +226,72 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.selfCheckinButtonTitle)].exists)
 		XCTAssertTrue(app.staticTexts[event].exists)
 		XCTAssertTrue(app.staticTexts[location].exists)
-
+		
 		app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.selfCheckinButtonTitle)].tap()
 		
-		XCTAssertTrue(app.buttons["Einchecken"].exists)
-		app.buttons["Einchecken"].tap()
-
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.TraceLocation.Details.checkInButton].exists)
+		app.buttons[AccessibilityIdentifiers.TraceLocation.Details.checkInButton].tap()
+		
 		removeTraceLocation(event: event)
-
+		
 		XCTAssertFalse(app.staticTexts[event].exists)
 		XCTAssertFalse(app.staticTexts[location].exists)
 	}
-
+	
+	func test_screenshot_traceLocation_print_flow() throws {
+		app.launch()
+		if let button = UITestHelper.scrollTo(identifier: AccessibilityIdentifiers.Home.traceLocationsCardButton, element: app, app: app) {
+			button.tap()
+		} else {
+			XCTFail("Can't find element \(AccessibilityIdentifiers.Home.traceLocationsCardButton)")
+		}
+		
+		let event = "Team Meeting"
+		let location = "Office"
+		createTraceLocation(event: event, location: location)
+		
+		// take snapshot
+		snapshot("tracelocation_overview")
+		
+		// navigate to tracelocation detail view for second item
+		app.tables[AccessibilityIdentifiers.TraceLocation.Overview.tableView].cells.element(boundBy: 1).tap()
+		
+		// check if the print version button exists
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitForExistence(timeout: .short))
+		
+		// take snapshot
+		snapshot("tracelocation_detail_view")
+		
+		// navigate to tracelocation print version view
+		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].tap()
+		
+		// wait for the pdf view to be loaded
+		let delayExpectation = XCTestExpectation()
+		delayExpectation.isInverted = true
+		wait(for: [delayExpectation], timeout: .short)
+		
+		// take snapshot
+		snapshot("tracelocation_pdf_view")
+		//		app.navigationBars.buttons[AccessibilityLabels.localized(AppStrings.Common.general_BackButtonTitle)].tap()
+		
+		let query = app.navigationBars.buttons
+		let n = query.count
+		XCTAssertTrue(n > 0)
+		for i in 0...(n - 1) {
+			let label = query.element(boundBy: i).label
+			if label == AccessibilityLabels.localized(AppStrings.Common.general_BackButtonTitle) {
+				query.element(boundBy: i).tap()
+				break
+			}
+		}
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.AccessibilityLabel.close].waitForExistence(timeout: .short))
+		app.buttons[AccessibilityIdentifiers.AccessibilityLabel.close].tap()
+		// clean up
+		removeAllTraceLocations()
+	}
+	
+	// MARK: - Internal
+	
 	func createTraceLocation(event: String, location: String) {
 		// add trace location
 		app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.addButtonTitle)].tap()
@@ -249,7 +308,7 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 		
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 	}
-
+	
 	func removeTraceLocation(event: String) {
 		app.staticTexts[event].swipeLeft()
 		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.DeleteOneAlert.confirmButtonTitle)].waitForExistence(timeout: .short))
@@ -281,39 +340,4 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 		}
 	}
 	
-	/*
-	func test_screenshot_traceLocation_print_flow() throws {
-	app.launch()
-	
-	// check if the tracelocation card exists
-	XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.traceLocationsCardButton].waitForExistence(timeout: .short))
-	
-	// navigate to tracelocation overview
-	app.buttons[AccessibilityIdentifiers.Home.traceLocationsCardButton].tap()
-	
-	// take snapshot
-	snapshot("tracelocation_overview")
-	
-	// navigate to tracelocation detail view for second item
-	app.tables[AccessibilityIdentifiers.TraceLocation.Overview.tableView].cells.element(boundBy: 2).tap()
-	
-	// check if the print version button exists
-	XCTAssertTrue(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitForExistence(timeout: .short))
-	
-	// take snapshot
-	snapshot("tracelocation_detail_view")
-	
-	// navigate to tracelocation print version view
-	app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].tap()
-	
-	// wait for the pdf view to be loaded
-	let delayExpectation = XCTestExpectation()
-	delayExpectation.isInverted = true
-	wait(for: [delayExpectation], timeout: .short)
-	
-	// take snapshot
-	snapshot("tracelocation_pdf_view")
-	}
-	*/
-
 }
