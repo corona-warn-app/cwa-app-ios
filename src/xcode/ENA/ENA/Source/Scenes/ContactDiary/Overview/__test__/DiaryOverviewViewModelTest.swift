@@ -48,14 +48,12 @@ class DiaryOverviewViewModelTest: XCTestCase {
 		
 		viewModel.$days
 			.sink { _ in
-				print("------ 1")
 				expectationRefreshTableView.fulfill()
 			}
 			.store(in: &subscriptions)
 		
 		viewModel.homeState?.$riskState
 			.sink { _ in
-				print("------ 2")
 				expectationRefreshTableView.fulfill()
 			}
 			.store(in: &subscriptions)
