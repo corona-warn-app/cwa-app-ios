@@ -29,8 +29,8 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 			showPositiveTestResultIfNeeded()
 
 		case ActionableNotificationIdentifier.testResult.identifier:
-			let testIdenifier = ActionableNotificationIdentifier.testResult.identifier
-			guard let testResultRawValue = response.notification.request.content.userInfo[testIdenifier] as? Int,
+			let testIdentifier = ActionableNotificationIdentifier.testResult.identifier
+			guard let testResultRawValue = response.notification.request.content.userInfo[testIdentifier] as? Int,
 				  let testResult = TestResult(rawValue: testResultRawValue) else {
 				appDelegate?.showHome()
 				return
