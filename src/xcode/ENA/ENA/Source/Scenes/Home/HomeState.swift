@@ -14,6 +14,7 @@ class HomeState: ENStateHandlerUpdating {
 		riskProvider: RiskProviding,
 		exposureManagerState: ExposureManagerState,
 		enState: ENStateHandler.State,
+		coronaTestService: CoronaTestService,
 		exposureSubmissionService: ExposureSubmissionService,
 		statisticsProvider: StatisticsProviding
 	) {
@@ -43,6 +44,7 @@ class HomeState: ENStateHandlerUpdating {
 		self.riskProvider = riskProvider
 		self.exposureManagerState = exposureManagerState
 		self.enState = enState
+		self.coronaTestService = coronaTestService
 		self.exposureSubmissionService = exposureSubmissionService
 		self.statisticsProvider = statisticsProvider
 
@@ -109,13 +111,13 @@ class HomeState: ENStateHandlerUpdating {
 	var positiveTestResultWasShown: Bool {
 		// TODO
 //		store.registrationToken != nil && testResult == .positive && WarnOthersReminder(store: store).positiveTestResultWasShown
-		false
+		coronaTestService.pcrTest?.testResult == .positive && coronaTestService.pcrTest?.positiveTestResultWasShown == true
 	}
 
 	var keysWereSubmitted: Bool {
 		// TODO
 //		store.lastSuccessfulSubmitDiagnosisKeyTimestamp != nil
-		false
+		coronaTestService.pcrTest?.keysSubmitted == true
 	}
 
 	var shouldShowDaysSinceInstallation: Bool {
@@ -143,10 +145,11 @@ class HomeState: ENStateHandlerUpdating {
 		guard testResult == nil || testResult != .positive else { return }
 
 		// TODO
+		guard coronaTestService.pcrTest != nil else {
 //		guard store.registrationToken != nil else {
-//			testResult = nil
-//			return
-//		}
+			testResult = nil
+			return
+		}
 
 		// Make sure to make the loading cell appear for at least `minRequestTime`.
 		// This avoids an ugly flickering when the cell is only shown for the fraction of a second.
@@ -157,30 +160,31 @@ class HomeState: ENStateHandlerUpdating {
 		testResultIsLoading = true
 
 		// TODO
+		coronaTestService.updateTestResult(for: .pcr) { [weak self] result in
 //		exposureSubmissionService.getTestResult { [weak self] result in
-//			self?.testResultIsLoading = false
-//
-//			switch result {
-//			case .failure(let error):
-//				// When we fail here, publish the error to trigger an alert and set the state to pending.
-//				self?.testResultLoadingError = .error(error)
-//				self?.testResult = .pending
-//
-//			case .success(let testResult):
-//				switch testResult {
-//				case .expired:
-//					self?.testResultLoadingError = .expired
-//					self?.testResult = .expired
-//
-//				case .invalid, .negative, .positive, .pending:
-//					let requestTime = Date().timeIntervalSince(requestStart)
-//					let delay = requestTime < minRequestTime && self?.testResult == nil ? minRequestTime : 0
-//					DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-//						self?.testResult = testResult
-//					}
-//				}
-//			}
-//		}
+			self?.testResultIsLoading = false
+
+			switch result {
+			case .failure(let error):
+				// When we fail here, publish the error to trigger an alert and set the state to pending.
+				self?.testResultLoadingError = .error(error)
+				self?.testResult = .pending
+
+			case .success(let testResult):
+				switch testResult {
+				case .expired:
+					self?.testResultLoadingError = .expired
+					self?.testResult = .expired
+
+				case .invalid, .negative, .positive, .pending:
+					let requestTime = Date().timeIntervalSince(requestStart)
+					let delay = requestTime < minRequestTime && self?.testResult == nil ? minRequestTime : 0
+					DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+						self?.testResult = testResult
+					}
+				}
+			}
+		}
 	}
 
 	func updateStatistics() {
@@ -211,6 +215,7 @@ class HomeState: ENStateHandlerUpdating {
 	private let statisticsProvider: StatisticsProviding
 	private var subscriptions = Set<AnyCancellable>()
 
+	private let coronaTestService: CoronaTestService
 	private let exposureSubmissionService: ExposureSubmissionService
 
 	private let riskProvider: RiskProviding

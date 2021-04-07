@@ -81,6 +81,7 @@ class HomeCoordinator: RequiresAppDependencies {
 				riskProvider: riskProvider,
 				exposureManagerState: exposureManager.exposureManagerState,
 				enState: enStateHandler.state,
+				coronaTestService: coronaTestService,
 				exposureSubmissionService: exposureSubmissionService,
 				statisticsProvider: statisticsProvider
 			)
