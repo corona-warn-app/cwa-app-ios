@@ -138,7 +138,14 @@ class ExposureSubmissionCoordinatorModel {
 	}
 
 	func setSubmissionConsentGiven(_ isSubmissionConsentGiven: Bool) {
-		// TODO
+		switch coronaTestType {
+		case .pcr:
+			coronaTestService.pcrTest?.isSubmissionConsentGiven = isSubmissionConsentGiven
+		case .antigen:
+			coronaTestService.antigenTest?.isSubmissionConsentGiven = isSubmissionConsentGiven
+		case .none:
+			fatalError("Cannot set submission consent, no corona test type is set")
+		}
 	}
 
 }
