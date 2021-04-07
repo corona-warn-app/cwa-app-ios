@@ -74,22 +74,32 @@ class CoronaTestService {
 		getRegistrationToken(
 			forKey: ENAHasher.sha256(guid),
 			withType: "GUID",
-			completion: { result in
+			completion: { [weak self] result in
 				switch result {
 				case .success(let registrationToken):
-					self.storePCRTest(withRegistrationToken: registrationToken, isSubmissionConsentGiven: isSubmissionConsentGiven)
+					self?.pcrTest = PCRTest(
+						registrationToken: registrationToken,
+						testRegistrationDate: Date(),
+						testResult: .pending,
+						testResultReceivedDate: nil,
+						positiveTestResultWasShown: false,
+						isSubmissionConsentGiven: isSubmissionConsentGiven,
+						submissionTAN: nil,
+						keysSubmitted: false,
+						journalEntryCreated: false
+					)
 
 					// because this block is only called in QR submission
 					Analytics.collect(.testResultMetadata(.registerNewTestMetadata(Date(), registrationToken)))
 					Analytics.collect(.keySubmissionMetadata(.submittedWithTeletan(false)))
 
-					self.getTestResult(for: .pcr, duringRegistration: true) { result in
+					self?.getTestResult(for: .pcr, duringRegistration: true) { result in
 						completion(result)
 					}
 				case .failure(let error):
 					completion(.failure(error))
 
-					self.fakeRequestService.fakeVerificationAndSubmissionServerRequest()
+					self?.fakeRequestService.fakeVerificationAndSubmissionServerRequest()
 				}
 			}
 		)
@@ -98,18 +108,29 @@ class CoronaTestService {
 	func registerPCRTest(
 		teleTAN: String,
 		isSubmissionConsentGiven: Bool,
-		completion: @escaping CoronaTestHandler
+		completion: @escaping VoidResultHandler
 	) {
 		getRegistrationToken(
 			forKey: teleTAN,
 			withType: "TELETAN",
-			completion: { result in
-				self.fakeRequestService.fakeVerificationAndSubmissionServerRequest()
+			completion: { [weak self] result in
+				self?.fakeRequestService.fakeVerificationAndSubmissionServerRequest()
 
 				switch result {
 				case .success(let registrationToken):
-					let pcrTest = self.storePCRTest(withRegistrationToken: registrationToken, isSubmissionConsentGiven: isSubmissionConsentGiven)
-					completion(.success(.pcr(pcrTest)))
+					self?.pcrTest = PCRTest(
+						registrationToken: registrationToken,
+						testRegistrationDate: Date(),
+						testResult: .positive,
+						testResultReceivedDate: nil,
+						positiveTestResultWasShown: true,
+						isSubmissionConsentGiven: isSubmissionConsentGiven,
+						submissionTAN: nil,
+						keysSubmitted: false,
+						journalEntryCreated: false
+					)
+
+					completion(.success(()))
 				case .failure(let error):
 					completion(.failure(error))
 				}
@@ -288,28 +309,6 @@ class CoronaTestService {
 				completion(.success(registrationToken))
 			}
 		}
-	}
-
-	@discardableResult
-	private func storePCRTest(
-		withRegistrationToken registrationToken: String,
-		isSubmissionConsentGiven: Bool
-	) -> PCRTest {
-		let pcrTest = PCRTest(
-			registrationToken: registrationToken,
-			testRegistrationDate: Date(),
-			testResult: .pending,
-			testResultReceivedDate: nil,
-			positiveTestResultWasShown: false,
-			isSubmissionConsentGiven: isSubmissionConsentGiven,
-			submissionTAN: nil,
-			keysSubmitted: false,
-			journalEntryCreated: false
-		)
-
-		self.pcrTest = pcrTest
-
-		return pcrTest
 	}
 
 	// swiftlint:disable:next cyclomatic_complexity
