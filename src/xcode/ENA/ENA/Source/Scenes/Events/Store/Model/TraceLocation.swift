@@ -92,7 +92,7 @@ extension TraceLocation {
 	// MARK: - Init
 	
 	/// Expects the String to be Base64URL encoded
-	init?(qrCodeString: String, encoding: EncodingType) {
+	init?(qrCodeString: String) {
 		
 		guard let decodedData = Data(base64URLEncoded: qrCodeString) else {
 			Log.error("Couldn't serialize the data using base64")

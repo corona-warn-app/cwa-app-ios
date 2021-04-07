@@ -44,25 +44,4 @@ extension String {
 		}
 	}
 	
-//	func encodedDataIn64Bit() {
-//		let utf8str = self.data(using: .utf8)
-//
-//		if let base64Encoded = utf8str?.base64EncodedString(options: Data.Base64EncodingOptions(rawValue: 0)) {
-//			print("Encoded: \(base64Encoded)")
-//
-//			if let base64Decoded = Data(base64Encoded: base64Encoded, options: Data.Base64DecodingOptions(rawValue: 0))
-//			.map({ String(data: $0, encoding: .utf8) }) {
-//				// Convert back to a string
-//				print("Decoded: \(base64Decoded ?? "")")
-//			}
-//		}
-//	}
-//	/// Converts  Base64URL encoded String into Data
-//	func base64URLEncodedData() -> Data? {
-//		/// First Convert Base64URL encoded String into Base64 Encoded String
-//		let base64String = self.toggleBase64URLSafe(on: false)
-//		
-//		/// Convert Base64Encoded String into Data
-//		return Data(base64Encoded: base64String)
-//	}
 }
