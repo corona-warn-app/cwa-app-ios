@@ -44,6 +44,7 @@
                         </imageView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Yh-SR-IVJ">
                             <rect key="frame" x="368" y="29" width="30" height="30"/>
+                            <accessibility key="accessibilityConfiguration" identifier="IconCloseContrastButton"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="30" id="6tZ-iA-2Ug"/>
                                 <constraint firstAttribute="width" constant="30" id="dWJ-IX-RCd"/>
