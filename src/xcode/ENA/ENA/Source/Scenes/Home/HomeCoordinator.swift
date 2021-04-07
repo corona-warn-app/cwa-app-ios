@@ -175,7 +175,8 @@ class HomeCoordinator: RequiresAppDependencies {
 			exposureSubmissionService: exposureSubmissionService,
 			serverEnvironment: serverEnvironment,
 			otpService: otpService,
-			coronaTestService: coronaTestService
+			coronaTestService: coronaTestService,
+			eventStore: eventStore
 		)
 		developerMenu?.enableIfAllowed()
 	}

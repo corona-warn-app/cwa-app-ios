@@ -38,7 +38,8 @@ final class DMDeveloperMenu {
 		exposureSubmissionService: ExposureSubmissionService,
 		serverEnvironment: ServerEnvironment,
 		otpService: OTPServiceProviding,
-		coronaTestService: CoronaTestService
+		coronaTestService: CoronaTestService,
+		eventStore: EventStoringProviding
 	) {
 		self.client = client
 		self.wifiClient = wifiClient
@@ -50,6 +51,7 @@ final class DMDeveloperMenu {
 		self.serverEnvironment = serverEnvironment
 		self.otpService = otpService
 		self.coronaTestService = coronaTestService
+        self.eventStore = eventStore
 	}
 
 	// MARK: Properties
@@ -57,6 +59,7 @@ final class DMDeveloperMenu {
 	private let client: Client
 	private let wifiClient: WifiOnlyHTTPClient
 	private let store: Store
+    private let eventStore: EventStoringProviding
 	private let exposureManager: ExposureManager
 	private let exposureSubmissionService: ExposureSubmissionService
 	private let developerStore: DMStore
@@ -89,7 +92,8 @@ final class DMDeveloperMenu {
 			wifiClient: wifiClient,
 			exposureSubmissionService: exposureSubmissionService,
 			otpService: otpService,
-			coronaTestService: coronaTestService
+			coronaTestService: coronaTestService,
+			eventStore: eventStore
 		)
 
 		let closeBarButtonItem = UIBarButtonItem(

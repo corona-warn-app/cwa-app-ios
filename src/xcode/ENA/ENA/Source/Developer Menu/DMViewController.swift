@@ -15,13 +15,15 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		wifiClient: WifiOnlyHTTPClient,
 		exposureSubmissionService: ExposureSubmissionService,
 		otpService: OTPServiceProviding,
-		coronaTestService: CoronaTestService
+		coronaTestService: CoronaTestService,
+		eventStore: EventStoringProviding
 	) {
 		self.client = client
 		self.wifiClient = wifiClient
 		self.exposureSubmissionService = exposureSubmissionService
 		self.otpService = otpService
 		self.coronaTestService = coronaTestService
+		self.eventStore = eventStore
 
 		super.init(style: .plain)
 		title = "👩🏾‍💻 Developer Menu 🧑‍💻"
@@ -38,6 +40,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 	private let exposureSubmissionService: ExposureSubmissionService
 	private let otpService: OTPServiceProviding
 	private let coronaTestService: CoronaTestService
+	private let eventStore: EventStoringProviding
 
 	private var keys = [SAP_External_Exposurenotification_TemporaryExposureKey]() {
 		didSet {
@@ -164,6 +167,10 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 			vc = DMPPAnalyticsViewController(store: store, client: client, appConfig: appConfigurationProvider, coronaTestService: coronaTestService)
 		case .installationDate:
 			vc = DMInstallationDateViewController(store: store)
+		case .allTraceLocations:
+			vc = DMRecentCreatedEventViewController(store: store, eventStore: eventStore)
+		case .mostRecentTraceLocationCheckedInto:
+			vc = DMDMMostRecentTraceLocationCheckedIntoViewController(store: store)
 		}
 
 		if let vc = vc {
