@@ -145,13 +145,9 @@ class TraceLocationDetailViewController: UIViewController {
 		viewModel.shouldSaveToContactJournal = pickerSwitch.isOn
 	}
 
-	@IBAction private func pickerViewTapped(_ sender: Any) {
-		showPickerButton(sender)
-	}
-	
-	@IBAction private func showPickerButton(_ sender: Any) {
-		self.pickerContainerView.isHidden = !self.pickerContainerView.isHidden
-		self.pickerSeparator.isHidden = self.pickerContainerView.isHidden
+	@IBAction private func togglePickerButtonVisibility(_ sender: Any) {
+		pickerContainerView.isHidden = !pickerContainerView.isHidden
+		pickerSeparator.isHidden = pickerContainerView.isHidden
 		
 		let color: UIColor = pickerContainerView.isHidden ? .enaColor(for: .textPrimary1) : .enaColor(for: .textTint)
 		pickerButton.setTitleColor(color, for: .normal)
