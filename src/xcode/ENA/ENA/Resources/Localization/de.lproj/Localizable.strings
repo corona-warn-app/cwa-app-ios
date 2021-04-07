@@ -1408,6 +1408,20 @@ sein.";
 
 "NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Informationen unter dem Menüpunkt „Neue Funktionen”.";
 
+/* Version 2.1 */
+
+"NewVersionFeature_21_reg_antigen_title" = "Registrierung von Antigen-Schnelltests";
+
+"NewVersionFeature_21_reg_antigen_description" = "Sie können nun zusätzlich zu PCR-Tests auch Antigen-Schnelltests per QR-Code scannen und das Testergebnis in der App anzeigen.";
+
+"NewVersionFeature_21_tech_hotline_foreign_countries_title" = "Technische Hotline nun auch aus dem Ausland erreichbar";
+
+"NewVersionFeature_21_tech_hotline_foreign_countries_description" = "Sie können die technische Hotline nun auch aus dem Ausland unter der Nummer +49 30 498 75401 erreichen. Es fallen Gebühren des jeweiligen Telefonanbieters an.";
+
+"NewVersionFeature_21_tan_hotline_foreign_countries_title" = "TAN-Hotline nun auch aus dem Ausland erreichbar";
+
+"NewVersionFeature_21_tan_hotline_foreign_countries_description" = "Sie können bei einem positiven Befund nun auch aus dem Ausland eine TAN anfordern unter der Nummer +49 30 498 75402. Es fallen Gebühren des jeweiligen Telefonanbieters an.";
+
 /* Version 2.0 */
 
 "NewVersionFeature_200_event_checkin_title" = "Check-in per QR-Code für effiziente Rückverfolgbarkeit von Infektionsketten";
