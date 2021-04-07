@@ -51,7 +51,6 @@ class QRCodeVerificationHelper {
 				return
 			}
 
-			// let version = url[versionRange]
 			let payLoad = url[payLoadRange]
 			guard let traceLocation = TraceLocation(qrCodeString: String(payLoad)) else {
 				onError(QRScannerError.codeNotFound)

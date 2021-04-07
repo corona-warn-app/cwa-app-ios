@@ -29,7 +29,7 @@ struct TraceLocation {
 			return nil
 		}
 
-		return String(format: "https://e.coronawarn.app?v=1#%@", base64URLEncodedString).uppercased()
+		return String(format: "https://e.coronawarn.app?v=1#%@", base64URLEncodedString)
 	}
 
 	var suggestedCheckoutLength: Int {
@@ -95,7 +95,7 @@ extension TraceLocation {
 	init?(qrCodeString: String) {
 		
 		guard let decodedData = Data(base64URLEncoded: qrCodeString) else {
-			Log.error("Couldn't serialize the data using base64")
+			Log.error("Couldn't serialize the data using base64URL")
 			return nil
 		}
 		
