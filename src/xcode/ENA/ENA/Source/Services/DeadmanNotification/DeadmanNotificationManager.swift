@@ -15,9 +15,11 @@ struct DeadmanNotificationManager: DeadmanNotificationManageable {
 
 	init(
 		store: Store,
+		coronaTestService: CoronaTestService,
 		userNotificationCenter: UserNotificationCenter = UNUserNotificationCenter.current()
 	) {
 		self.store = store
+		self.coronaTestService = coronaTestService
 		self.userNotificationCenter = userNotificationCenter
 	}
 
@@ -27,16 +29,10 @@ struct DeadmanNotificationManager: DeadmanNotificationManageable {
 	
 	/// Schedules a local notification to fire 36 hours from now, if there isn´t a notification already scheduled
 	func scheduleDeadmanNotificationIfNeeded() {
-		// TODO
-//		guard store.lastSuccessfulSubmitDiagnosisKeyTimestamp == nil else {
-//			Log.info("DeadmanNotificationManager: Keys were already submitted. Don't schedule new deadman notification.", log: .riskDetection)
-//			return
-//		}
-
-//		guard !WarnOthersReminder(store: store).positiveTestResultWasShown else {
-//			Log.info("DeadmanNotificationManager: Positive test result was already shown. Don't schedule new deadman notification.", log: .riskDetection)
-//			return
-//		}
+		guard !coronaTestService.hasAtLeastOneShownPositiveOrSubmittedTest else {
+			Log.info("DeadmanNotificationManager: Keys were already submitted or positive test result was already shown for at least one registered test. Don't schedule new deadman notification.", log: .riskDetection)
+			return
+		}
 
 		/// Check if Deadman Notification is already scheduled
 		userNotificationCenter.getPendingNotificationRequests { notificationRequests in
@@ -79,6 +75,7 @@ struct DeadmanNotificationManager: DeadmanNotificationManageable {
 	// MARK: - Private
 
 	private let store: Store
+	private let coronaTestService: CoronaTestService
 	private let userNotificationCenter: UserNotificationCenter
 
 	/// Cancels the Deadman Notification

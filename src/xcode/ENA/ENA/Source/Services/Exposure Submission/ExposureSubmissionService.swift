@@ -22,12 +22,14 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		appConfigurationProvider: AppConfigurationProviding,
 		client: Client,
 		store: Store,
+		deadmanNotificationManager: DeadmanNotificationManageable? = nil,
 		coronaTestService: CoronaTestService
 	) {
 		self.diagnosisKeysRetrieval = diagnosisKeysRetrieval
 		self.appConfigurationProvider = appConfigurationProvider
 		self.client = client
 		self.store = store
+		self.deadmanNotificationManager = deadmanNotificationManager ?? DeadmanNotificationManager(store: store, coronaTestService: coronaTestService)
 		self.coronaTestService = coronaTestService
 
 		fakeRequestService = FakeRequestService(client: client)
@@ -153,6 +155,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	private let appConfigurationProvider: AppConfigurationProviding
 	private let client: Client
 	private let store: Store
+	private let deadmanNotificationManager: DeadmanNotificationManageable
 	private let coronaTestService: CoronaTestService
 
 	private let fakeRequestService: FakeRequestService
@@ -235,9 +238,8 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			coronaTestService.antigenTest?.submissionTAN = nil
 		}
 
-		/// Deactivate deadman notification for end-of-life-state
-		// TODO
-//		deadmanNotificationManager.resetDeadmanNotification()
+		/// Deactivate deadman notification while submitted test is still present
+		deadmanNotificationManager.resetDeadmanNotification()
 
 		temporaryExposureKeys = nil
 		supportedCountries = []

@@ -72,8 +72,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		_: UIApplication,
 		didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
 	) -> Bool {
-
-
 		#if DEBUG
 		setupOnboardingForTesting()
 		setupDatadonationForTesting()
@@ -98,7 +96,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		UNUserNotificationCenter.current().delegate = notificationManager
 
 		/// Setup DeadmanNotification after AppLaunch
-		DeadmanNotificationManager(store: store).scheduleDeadmanNotificationIfNeeded()
+		DeadmanNotificationManager(store: store, coronaTestService: coronaTestService).scheduleDeadmanNotificationIfNeeded()
 
 		consumer.didFailCalculateRisk = { [weak self] error in
 			self?.showError(error)
@@ -259,7 +257,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			checkinRiskCalculation: checkinRiskCalculation,
 			keyPackageDownload: keyPackageDownload,
 			traceWarningPackageDownload: traceWarningPackageDownload,
-			exposureDetectionExecutor: exposureDetectionExecutor
+			exposureDetectionExecutor: exposureDetectionExecutor,
+			coronaTestService: coronaTestService
 		)
 		#else
 		return RiskProvider(

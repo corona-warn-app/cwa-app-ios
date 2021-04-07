@@ -6,10 +6,10 @@ import Foundation
 import NotificationCenter
 
 final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
+
 	weak var appDelegate: AppDelegate?
 
 	func userNotificationCenter(_: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-
 		// Checkout a event checkin.
 		if notification.request.identifier.contains(EventCheckoutService.notificationIdentifierPrefix) {
 			appDelegate?.eventCheckoutService.checkoutOverdueCheckins()
@@ -52,12 +52,10 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 	}
 
 	private func showPositiveTestResultIfNeeded() {
-		guard let store = appDelegate?.store else {
-			// this should be a unit test
-			return
-		}
-		let warnOthersReminder = WarnOthersReminder(store: store)
-		guard warnOthersReminder.positiveTestResultWasShown else {
+		guard
+			let coronaTestService = appDelegate?.coronaTestService,
+			coronaTestService.pcrTest?.positiveTestResultWasShown == true || coronaTestService.antigenTest?.positiveTestResultWasShown == true
+		else {
 			return
 		}
 

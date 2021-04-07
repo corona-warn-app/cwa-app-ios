@@ -13,6 +13,7 @@ class DeadmanNotificationManagerTests: XCTestCase {
 
 		let manager = DeadmanNotificationManager(
 			store: store,
+			coronaTestService: CoronaTestService(client: ClientMock(), store: store),
 			userNotificationCenter: notificationCenter
 		)
 
@@ -48,6 +49,7 @@ class DeadmanNotificationManagerTests: XCTestCase {
 
 		let manager = DeadmanNotificationManager(
 			store: store,
+			coronaTestService: CoronaTestService(client: ClientMock(), store: store),
 			userNotificationCenter: notificationCenter
 		)
 
@@ -66,6 +68,7 @@ class DeadmanNotificationManagerTests: XCTestCase {
 
 		let manager = DeadmanNotificationManager(
 			store: store,
+			coronaTestService: CoronaTestService(client: ClientMock(), store: store),
 			userNotificationCenter: notificationCenter
 		)
 
@@ -84,6 +87,7 @@ class DeadmanNotificationManagerTests: XCTestCase {
 
 		let manager = DeadmanNotificationManager(
 			store: store,
+			coronaTestService: CoronaTestService(client: ClientMock(), store: store),
 			userNotificationCenter: notificationCenter
 		)
 
@@ -103,6 +107,7 @@ class DeadmanNotificationManagerTests: XCTestCase {
 
 		let manager = DeadmanNotificationManager(
 			store: store,
+			coronaTestService: CoronaTestService(client: ClientMock(), store: store),
 			userNotificationCenter: notificationCenter
 		)
 
@@ -121,6 +126,7 @@ class DeadmanNotificationManagerTests: XCTestCase {
 
 		let manager = DeadmanNotificationManager(
 			store: store,
+			coronaTestService: CoronaTestService(client: ClientMock(), store: store),
 			userNotificationCenter: notificationCenter
 		)
 
@@ -140,6 +146,7 @@ class DeadmanNotificationManagerTests: XCTestCase {
 
 		let manager = DeadmanNotificationManager(
 			store: store,
+			coronaTestService: CoronaTestService(client: ClientMock(), store: store),
 			userNotificationCenter: notificationCenter
 		)
 

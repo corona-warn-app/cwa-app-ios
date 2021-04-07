@@ -109,7 +109,7 @@ class ExposureSubmissionTestResultViewModel {
 	private let onChangeToPositiveTestResult: () -> Void
 	private let onTestDeleted: () -> Void
 
-	private var cancellables: Set<AnyCancellable> = []
+	private var subscriptions = Set<AnyCancellable>()
 	
 	private var primaryButtonIsLoading: Bool = false {
 		didSet {
@@ -129,7 +129,7 @@ class ExposureSubmissionTestResultViewModel {
 
 					self?.updateForCurrentTestResult(coronaTest: .pcr(pcrTest))
 				}
-				.store(in: &cancellables)
+				.store(in: &subscriptions)
 		case .antigen:
 			coronaTestService.$antigenTest
 				.sink { [weak self] antigenTest in
@@ -139,7 +139,7 @@ class ExposureSubmissionTestResultViewModel {
 
 					self?.updateForCurrentTestResult(coronaTest: .antigen(antigenTest))
 				}
-				.store(in: &cancellables)
+				.store(in: &subscriptions)
 		}
 	}
 

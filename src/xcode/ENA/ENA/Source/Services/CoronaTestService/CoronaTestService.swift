@@ -52,6 +52,11 @@ class CoronaTestService {
 	@OpenCombine.Published var pcrTest: PCRTest?
 	@OpenCombine.Published var antigenTest: AntigenTest?
 
+	var hasAtLeastOneShownPositiveOrSubmittedTest: Bool {
+		pcrTest?.positiveTestResultWasShown == true || pcrTest?.keysSubmitted == true ||
+			antigenTest?.positiveTestResultWasShown == true || antigenTest?.keysSubmitted == true
+	}
+
 	func coronaTest(ofType type: CoronaTestType) -> CoronaTest? {
 		switch type {
 		case .pcr:
@@ -204,6 +209,7 @@ class CoronaTestService {
 			antigenTest = nil
 		}
 
+		// TODO
 //		warnOthersReminder.reset()
 	}
 
@@ -217,6 +223,7 @@ class CoronaTestService {
 			break
 		}
 
+		// TODO
 //		warnOthersReminder.evaluateShowingTestResult(coronaTest(ofType: coronaTestType).testResult)
 	}
 

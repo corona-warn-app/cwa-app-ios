@@ -412,7 +412,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 				let model = ExposureSubmissionTestResultViewModel(
 					coronaTestType: .pcr,
 					coronaTestService: coronaTestService,
-						onSubmissionConsentCellTap: { _ in },
+					onSubmissionConsentCellTap: { _ in },
 					onContinueWithSymptomsFlowButtonTap: { },
 					onContinueWarnOthersButtonTap: { _ in },
 					onChangeToPositiveTestResult: { },

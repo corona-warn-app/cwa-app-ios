@@ -7,7 +7,6 @@ import ExposureNotification
 import UIKit
 import OpenCombine
 
-// swiftlint:disable:next type_body_length
 final class RiskProvider: RiskProviding {
 
 	// MARK: - Init
@@ -22,7 +21,8 @@ final class RiskProvider: RiskProviding {
 		checkinRiskCalculation: CheckinRiskCalculationProtocol,
 		keyPackageDownload: KeyPackageDownloadProtocol,
 		traceWarningPackageDownload: TraceWarningPackageDownloading,
-		exposureDetectionExecutor: ExposureDetectionDelegate
+		exposureDetectionExecutor: ExposureDetectionDelegate,
+		coronaTestService: CoronaTestService
 	) {
 		self.riskProvidingConfiguration = configuration
 		self.store = store
@@ -34,6 +34,7 @@ final class RiskProvider: RiskProviding {
 		self.keyPackageDownload = keyPackageDownload
 		self.traceWarningPackageDownload = traceWarningPackageDownload
 		self.exposureDetectionExecutor = exposureDetectionExecutor
+		self.coronaTestService = coronaTestService
 		self.keyPackageDownloadStatus = .idle
 		self.traceWarningDownloadStatus = .idle
 
@@ -101,34 +102,19 @@ final class RiskProvider: RiskProviding {
 			return
 		}
 
-		// TODO
-//		guard store.lastSuccessfulSubmitDiagnosisKeyTimestamp == nil else {
-//			Log.info("RiskProvider: Keys were already submitted. Don't start new risk detection.", log: .riskDetection)
-//
-//			// Keep downloading key packages and trace warning packages for plausible deniability
-//
-//			downloadKeyPackages()
-//
-//			appConfigurationProvider.appConfiguration().sink { [weak self] appConfiguration in
-//				self?.downloadTraceWarningPackages(with: appConfiguration, completion: { _ in })
-//			}.store(in: &subscriptions)
-//
-//			return
-//		}
+		guard coronaTestService.hasAtLeastOneShownPositiveOrSubmittedTest else {
+			Log.info("RiskProvider: At least one registered test has an already shown positive test result or keys submitted. Don't start new risk detection.", log: .riskDetection)
 
-//		guard !WarnOthersReminder(store: store).positiveTestResultWasShown else {
-//			Log.info("RiskProvider: Positive test result was already shown. Don't start new risk detection.", log: .riskDetection)
-//
-//			// Keep downloading key packages and trace warning packages for plausible deniability
-//
-//			downloadKeyPackages()
-//
-//			appConfigurationProvider.appConfiguration().sink { [weak self] appConfiguration in
-//				self?.downloadTraceWarningPackages(with: appConfiguration, completion: { _ in })
-//			}.store(in: &subscriptions)
-//
-//			return
-//		}
+			// Keep downloading key packages and trace warning packages for plausible deniability
+
+			downloadKeyPackages()
+
+			appConfigurationProvider.appConfiguration().sink { [weak self] appConfiguration in
+				self?.downloadTraceWarningPackages(with: appConfiguration, completion: { _ in })
+			}.store(in: &subscriptions)
+
+			return
+		}
 
 		queue.async {
 			self.updateActivityState(.riskRequested)
@@ -146,6 +132,7 @@ final class RiskProvider: RiskProviding {
 	private let enfRiskCalculation: ENFRiskCalculationProtocol
 	private let checkinRiskCalculation: CheckinRiskCalculationProtocol
 	private let exposureDetectionExecutor: ExposureDetectionDelegate
+	private let coronaTestService: CoronaTestService
 	
 	private let queue = DispatchQueue(label: "com.sap.RiskProvider")
 	private let consumersQueue = DispatchQueue(label: "com.sap.RiskProvider.consumer")
@@ -398,7 +385,7 @@ final class RiskProvider: RiskProviding {
 			completion(.success(risk))
 
 			/// We were able to calculate a risk so we have to reset the DeadMan Notification
-			DeadmanNotificationManager(store: store).resetDeadmanNotification()
+		DeadmanNotificationManager(store: store, coronaTestService: coronaTestService).resetDeadmanNotification()
 	}
 	
 
@@ -513,12 +500,10 @@ final class RiskProvider: RiskProviding {
 	private func updateRiskProviderActivityState() {
 		if keyPackageDownloadStatus == .downloading || traceWarningDownloadStatus == .downloading {
 			self.updateActivityState(.downloading)
+		} else if keyPackageDownloadStatus == .idle && coronaTestService.hasAtLeastOneShownPositiveOrSubmittedTest &&
+					traceWarningDownloadStatus == .idle {
+			self.updateActivityState(.idle)
 		}
-		// TODO
-//		else if (keyPackageDownloadStatus == .idle && (self.store.lastSuccessfulSubmitDiagnosisKeyTimestamp != nil || WarnOthersReminder(store: self.store).positiveTestResultWasShown)) &&
-//					traceWarningDownloadStatus == .idle {
-//			self.updateActivityState(.idle)
-//		}
 	}
 }
 
