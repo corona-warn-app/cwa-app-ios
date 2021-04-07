@@ -20,8 +20,6 @@ extension Data {
 	}
 }
 
-
-
 extension String {
 	/// Encodes or decodes into a base64url safe representation
 	///
@@ -39,24 +37,32 @@ extension String {
 			var base64 = self.replacingOccurrences(of: "_", with: "/")
 				.replacingOccurrences(of: "-", with: "+")
 			// Add any necessary padding with `=`
-			if base64.count % 4 != 0 {
+			if !base64.count.isMultiple(of: 4) {
 				base64.append(String(repeating: "=", count: 4 - base64.count % 4))
 			}
 			return base64
 		}
 	}
 	
-	func encodedDataIn64Bit() {
-		let utf8str = self.data(using: .utf8)
-
-		if let base64Encoded = utf8str?.base64EncodedString(options: Data.Base64EncodingOptions(rawValue: 0)) {
-			print("Encoded: \(base64Encoded)")
-
-			if let base64Decoded = Data(base64Encoded: base64Encoded, options: Data.Base64DecodingOptions(rawValue: 0))
-			.map({ String(data: $0, encoding: .utf8) }) {
-				// Convert back to a string
-				print("Decoded: \(base64Decoded ?? "")")
-			}
-		}
+//	func encodedDataIn64Bit() {
+//		let utf8str = self.data(using: .utf8)
+//
+//		if let base64Encoded = utf8str?.base64EncodedString(options: Data.Base64EncodingOptions(rawValue: 0)) {
+//			print("Encoded: \(base64Encoded)")
+//
+//			if let base64Decoded = Data(base64Encoded: base64Encoded, options: Data.Base64DecodingOptions(rawValue: 0))
+//			.map({ String(data: $0, encoding: .utf8) }) {
+//				// Convert back to a string
+//				print("Decoded: \(base64Decoded ?? "")")
+//			}
+//		}
+//	}
+	/// Converts  Base64URL encoded String into Data
+	func base64URLEncodedData() -> Data? {
+		/// First Convert Base64URL encoded String into Base64 Encoded String
+		let base64String = self.toggleBase64URLSafe(on: false)
+		
+		/// Convert Base64Encoded String into Data
+		return Data(base64Encoded: base64String)
 	}
 }
