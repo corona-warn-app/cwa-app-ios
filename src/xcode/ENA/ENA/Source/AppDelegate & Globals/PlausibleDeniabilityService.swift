@@ -18,6 +18,7 @@ struct PlausibleDeniabilityService: PlausibleDeniability {
 	var appConfigurationProvider: AppConfigurationProviding
 	var client: Client
 	var store: Store
+	var eventStore: EventStoringProviding
 	var warnOthersReminder: WarnOthersRemindable
 
 
@@ -87,6 +88,7 @@ struct PlausibleDeniabilityService: PlausibleDeniability {
 			appConfigurationProvider: appConfigurationProvider,
 			client: client,
 			store: store,
+			eventStore: eventStore,
 			warnOthersReminder: WarnOthersReminder(store: store)
 		)
 		let group = DispatchGroup()

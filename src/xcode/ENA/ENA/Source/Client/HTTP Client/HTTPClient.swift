@@ -200,10 +200,6 @@ final class HTTPClient: Client {
 	}
 
 	func submit(payload: CountrySubmissionPayload, isFake: Bool, completion: @escaping KeySubmissionResponse) {
-		let keys = payload.exposureKeys
-		let countries = payload.visitedCountries
-		let tan = payload.tan
-		let payload = CountrySubmissionPayload(exposureKeys: keys, visitedCountries: countries, tan: tan)
 		guard let request = try? URLRequest.keySubmissionRequest(configuration: configuration, payload: payload, isFake: isFake) else {
 			completion(.failure(SubmissionError.requestCouldNotBeBuilt))
 			return
