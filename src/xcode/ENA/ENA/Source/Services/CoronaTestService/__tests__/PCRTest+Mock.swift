@@ -22,7 +22,7 @@ extension PCRTest {
 			registrationToken: registrationToken,
 			testRegistrationDate: testRegistrationDate,
 			testResult: testResult,
-			testResultReceivedDate: testRegistrationDate,
+			testResultReceivedDate: testResultReceivedDate,
 			positiveTestResultWasShown: positiveTestResultWasShown,
 			isSubmissionConsentGiven: isSubmissionConsentGiven,
 			submissionTAN: submissionTAN,

@@ -295,7 +295,7 @@ final class RiskProviderTests: XCTestCase {
 		let store = MockTestStore()
 
 		store.enfRiskCalculationResult = nil
-		store.positiveTestResultWasShown = true
+		store.pcrTest = PCRTest.mock(positiveTestResultWasShown: true)
 
 		let config = RiskProvidingConfiguration(
 			exposureDetectionValidityDuration: duration,
@@ -350,7 +350,7 @@ final class RiskProviderTests: XCTestCase {
 
 		let store = MockTestStore()
 		store.enfRiskCalculationResult = nil
-		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = Int64(Date().timeIntervalSince1970)
+		store.pcrTest = PCRTest.mock(keysSubmitted: true)
 
 		let config = RiskProvidingConfiguration(
 			exposureDetectionValidityDuration: duration,

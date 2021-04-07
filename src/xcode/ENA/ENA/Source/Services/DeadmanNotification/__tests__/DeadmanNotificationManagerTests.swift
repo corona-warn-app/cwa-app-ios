@@ -81,7 +81,7 @@ class DeadmanNotificationManagerTests: XCTestCase {
 
 	func testDeadmanNotificationIsNotScheduledIfPositiveTestResultWasShown() {
 		let store = MockTestStore()
-		store.positiveTestResultWasShown = true
+		store.pcrTest = PCRTest.mock(positiveTestResultWasShown: true)
 
 		let notificationCenter = MockUserNotificationCenter()
 
@@ -100,7 +100,7 @@ class DeadmanNotificationManagerTests: XCTestCase {
 
 	func testDeadmanNotificationIsNotRescheduledIfPositiveTestResultWasShown() {
 		let store = MockTestStore()
-		store.positiveTestResultWasShown = true
+		store.pcrTest = PCRTest.mock(positiveTestResultWasShown: true)
 
 		let notificationCenter = MockUserNotificationCenter()
 		notificationCenter.notificationRequests = [deadmanNotificationRequest]
@@ -120,7 +120,7 @@ class DeadmanNotificationManagerTests: XCTestCase {
 
 	func testDeadmanNotificationIsNotScheduledIfKeysWereSubmitted() {
 		let store = MockTestStore()
-		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = 12345678
+		store.pcrTest = PCRTest.mock(keysSubmitted: true)
 
 		let notificationCenter = MockUserNotificationCenter()
 
@@ -139,7 +139,7 @@ class DeadmanNotificationManagerTests: XCTestCase {
 
 	func testDeadmanNotificationIsNotRescheduledIfKeysWereSubmitted() {
 		let store = MockTestStore()
-		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = 12345678
+		store.pcrTest = PCRTest.mock(keysSubmitted: true)
 
 		let notificationCenter = MockUserNotificationCenter()
 		notificationCenter.notificationRequests = [deadmanNotificationRequest]

@@ -13,10 +13,13 @@ class TestResultAvailableViewModelTest: XCTestCase {
 		let expectationFulFill = expectation(description: "primary button code execute")
 		let expectationNotFulFill = expectation(description: "consent cell code excecute")
 		expectationNotFulFill.isInverted = true
+
+		let store = MockTestStore()
+		store.pcrTest = PCRTest.mock(testResult: .positive)
 		
 		let viewModel = TestResultAvailableViewModel(
 			coronaTestType: .pcr,
-			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore()),
+			coronaTestService: CoronaTestService(client: ClientMock(), store: store),
 			onSubmissionConsentCellTap: { _ in
 				expectationNotFulFill.fulfill()
 			},
@@ -39,9 +42,12 @@ class TestResultAvailableViewModelTest: XCTestCase {
 		expectationNotFulFill.isInverted = true
 		var bindings: Set<AnyCancellable> = []
 
+		let store = MockTestStore()
+		store.pcrTest = PCRTest.mock(testResult: .positive)
+
 		let viewModel = TestResultAvailableViewModel(
 			coronaTestType: .pcr,
-			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore()),
+			coronaTestService: CoronaTestService(client: ClientMock(), store: store),
 			onSubmissionConsentCellTap: { _ in
 				expectationNotFulFill.fulfill()
 			},
@@ -73,9 +79,12 @@ class TestResultAvailableViewModelTest: XCTestCase {
 		expectationNotFulFill.isInverted = true
 		var bindings: Set<AnyCancellable> = []
 
+		let store = MockTestStore()
+		store.pcrTest = PCRTest.mock(testResult: .positive)
+
 		let viewModel = TestResultAvailableViewModel(
 			coronaTestType: .pcr,
-			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore()),
+			coronaTestService: CoronaTestService(client: ClientMock(), store: store),
 			onSubmissionConsentCellTap: { _ in
 				expectationFulFill.fulfill()
 			},
