@@ -55,7 +55,7 @@ class TraceLocationDetailViewController: UIViewController {
 	@IBOutlet private weak var pickerButton: ENAButton!
 	@IBOutlet private weak var pickerContainerView: UIView!
 	@IBOutlet private weak var pickerSeparator: UIView!
-	@IBOutlet private weak var datePickerView: UIDatePicker!
+	@IBOutlet private weak var countDownDatePicker: UIDatePicker!
 	@IBOutlet private weak var additionalInfoView: UIView!
 	@IBOutlet private weak var additionalInfoLabel: ENALabel!
 	@IBOutlet private weak var pickerSwitch: ENASwitch!
@@ -68,10 +68,6 @@ class TraceLocationDetailViewController: UIViewController {
 				}
 			}
 			.store(in: &subscriptions)
-
-		let components = viewModel.selectedDurationInMinutes.quotientAndRemainder(dividingBy: 60)
-		let date = DateComponents(calendar: Calendar.current, hour: components.quotient, minute: components.remainder).date ?? Date()
-		datePickerView.setDate(date, animated: true)
 	}
 
 	private func setupView() {
@@ -114,17 +110,26 @@ class TraceLocationDetailViewController: UIViewController {
 			additionalInfoView.isHidden = true
 		}
 	}
+
+	private var observer: NSKeyValueObservation!
 	
 	private func setupPicker() {
-		datePickerView.locale = Locale(identifier: "de_DE")
-		datePickerView.datePickerMode = .countDownTimer
-		datePickerView.minuteInterval = 15
-		datePickerView.addTarget(self, action: #selector(didSelectDuration(datePicker:)), for: .valueChanged)
+		countDownDatePicker.datePickerMode = .countDownTimer
+		countDownDatePicker.minuteInterval = 15
+//		countDownDatePicker.countDownDuration = TimeInterval(viewModel.selectedDurationInMinutes * 60)
+		countDownDatePicker.addTarget(self, action: #selector(didSelectDuration(datePicker:)), for: .valueChanged)
+
+		didSelectDuration(datePicker: countDownDatePicker)
 	}
 	
 	@objc
 	private func didSelectDuration(datePicker: UIDatePicker) {
-		viewModel.selectedDurationInMinutes = Int(datePicker.countDownDuration / 60)
+		let duration = datePicker.countDownDuration
+		viewModel.selectedDurationInMinutes = Int(duration / 60)
+
+		DispatchQueue.main.async {
+			self.countDownDatePicker.countDownDuration = TimeInterval(duration)
+		}
 	}
 
 	private func addBorderAndColorToView(_ view: UIView, color: UIColor) {
@@ -151,10 +156,11 @@ class TraceLocationDetailViewController: UIViewController {
 	}
 
 	@IBAction private func togglePickerButtonVisibility(_ sender: Any) {
-		pickerContainerView.isHidden = !pickerContainerView.isHidden
-		pickerSeparator.isHidden = pickerContainerView.isHidden
+		let isHidden = !pickerContainerView.isHidden
+		pickerContainerView.isHidden = isHidden
+		pickerSeparator.isHidden = isHidden
 		
-		let color: UIColor = pickerContainerView.isHidden ? .enaColor(for: .textPrimary1) : .enaColor(for: .textTint)
+		let color: UIColor = isHidden ? .enaColor(for: .textPrimary1) : .enaColor(for: .textTint)
 		pickerButton.setTitleColor(color, for: .normal)
 	}
 }
