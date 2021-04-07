@@ -25,17 +25,18 @@ class WarnOthersReminder: WarnOthersRemindable {
 
 	var positiveTestResultWasShown: Bool {
 		get {
-			// TODO
+			// TADA
 //			return store.positiveTestResultWasShown
 			return false
 		}
 		set {
 //			store.positiveTestResultWasShown = newValue
+			_ = newValue
 		}
 	}
 	
 	var isSubmissionConsentGiven: Bool {
-		// TODO
+		// TADA
 		return false
 		// return store.isSubmissionConsentGiven
 	}

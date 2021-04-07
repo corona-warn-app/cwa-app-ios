@@ -225,7 +225,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 	/// This method removes all left over persisted objects part of the `submitExposure` flow.
 	private func submitExposureCleanup(coronaTestType: CoronaTestType) {
-		// TODO
+		// TADA
 		/// Cancel warn others notifications and set positiveTestResultWasShown = false
 		// warnOthersReminder.reset()
 

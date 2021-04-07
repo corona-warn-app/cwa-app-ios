@@ -23,11 +23,11 @@ final class DMStoreViewController: UITableViewController {
 	private let store: Store
 	private lazy var items: [DMStoreItem] = {
 		[
-			// TODO
+			// TADA
 //			DMStoreItem(attribute: "lastSuccessfulSubmitDiagnosisKeyTimestamp") { store in
 //				String(store.lastSuccessfulSubmitDiagnosisKeyTimestamp ?? 0)
 //			},
-			// TODO
+			// TADA
 //			DMStoreItem(attribute: "devicePairingConsentAcceptTimestamp") { store in
 //				store.devicePairingConsentAcceptTimestamp?.description ?? ""
 //			},

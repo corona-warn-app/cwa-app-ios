@@ -230,7 +230,7 @@ class CoronaTestService {
 			antigenTest = nil
 		}
 
-		// TODO
+		// TADA
 //		warnOthersReminder.reset()
 	}
 
@@ -244,7 +244,7 @@ class CoronaTestService {
 			break
 		}
 
-		// TODO
+		// TADA
 //		warnOthersReminder.evaluateShowingTestResult(coronaTest(ofType: coronaTestType).testResult)
 	}
 

@@ -68,7 +68,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 	// MARK: Clear Registration Token of Submission
 	@objc
 	private func clearRegistrationToken() {
-		// TODO
+		// TADA
 //		store.registrationToken = nil
 		let alert = UIAlertController(
 			title: "Token Deleted",
@@ -152,7 +152,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		case .listPendingNotifications:
 			vc = DMNotificationsViewController()
 		case .warnOthersNotifications:
-			// TODO
+			// TADA
 //			vc = DMWarnOthersNotificationViewController(warnOthersReminder: WarnOthersReminder(store: store), store: store, exposureSubmissionService: exposureSubmissionService)
 			vc = nil
 		case .deviceTimeCheck:
