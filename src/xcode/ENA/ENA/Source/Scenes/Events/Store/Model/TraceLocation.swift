@@ -25,11 +25,11 @@ struct TraceLocation {
 	}
 	
 	var qrCodeURL: String? {
-		guard let base64EncodedString = qrCodePayloadData?.base64URLEncodedString() else {
+		guard let base64URLEncodedString = qrCodePayloadData?.base64URLEncodedString() else {
 			return nil
 		}
 
-		return String(format: "https://e.coronawarn.app?v=1#%@", base64EncodedString).uppercased()
+		return String(format: "https://e.coronawarn.app?v=1#%@", base64URLEncodedString).uppercased()
 	}
 
 	var suggestedCheckoutLength: Int {
@@ -91,9 +91,10 @@ extension TraceLocation {
 	
 	// MARK: - Init
 	
+	/// Expects the String to be Base64URL encoded
 	init?(qrCodeString: String, encoding: EncodingType) {
 		
-		guard let decodedData = Data(base64Encoded: qrCodeString.toggleBase64URLSafe(on: false)) else {
+		guard let decodedData = Data(base64URLEncoded: qrCodeString) else {
 			Log.error("Couldn't serialize the data using base64")
 			return nil
 		}

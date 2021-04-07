@@ -57,12 +57,12 @@ extension String {
 //			}
 //		}
 //	}
-	/// Converts  Base64URL encoded String into Data
-	func base64URLEncodedData() -> Data? {
-		/// First Convert Base64URL encoded String into Base64 Encoded String
-		let base64String = self.toggleBase64URLSafe(on: false)
-		
-		/// Convert Base64Encoded String into Data
-		return Data(base64Encoded: base64String)
-	}
+//	/// Converts  Base64URL encoded String into Data
+//	func base64URLEncodedData() -> Data? {
+//		/// First Convert Base64URL encoded String into Base64 Encoded String
+//		let base64String = self.toggleBase64URLSafe(on: false)
+//		
+//		/// Convert Base64Encoded String into Data
+//		return Data(base64Encoded: base64String)
+//	}
 }
