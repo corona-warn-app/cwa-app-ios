@@ -118,11 +118,38 @@ class ExposureSubmissionTestResultViewModel {
 		}
 	}
 
+	private func bindToCoronaTestUpdates() {
+		switch coronaTestType {
+		case .pcr:
+			coronaTestService.$pcrTest
+				.sink { [weak self] pcrTest in
+					guard let pcrTest = pcrTest else {
+						return
+					}
+
+					self?.updateForCurrentTestResult(coronaTest: .pcr(pcrTest))
+				}
+				.store(in: &cancellables)
+		case .antigen:
+			coronaTestService.$antigenTest
+				.sink { [weak self] antigenTest in
+					guard let antigenTest = antigenTest else {
+						return
+					}
+
+					self?.updateForCurrentTestResult(coronaTest: .antigen(antigenTest))
+				}
+				.store(in: &cancellables)
+		}
+	}
+
 	private func updateForCurrentTestResult(coronaTest: CoronaTest) {
 		// Positive test results are not shown immediately
-		if coronaTest.testResult == .positive {
+		if coronaTest.testResult == .positive && self.coronaTest.testResult != .positive {
 			self.onChangeToPositiveTestResult()
 		}
+
+		self.coronaTest = coronaTest
 
 		self.dynamicTableViewModel = DynamicTableViewModel(currentTestResultSections)
 		footerViewModel = ExposureSubmissionTestResultViewModel.footerViewModel(coronaTest: coronaTest)
@@ -413,31 +440,6 @@ class ExposureSubmissionTestResultViewModel {
 				]
 			)
 		]
-	}
-	
-	private func bindToCoronaTestUpdates() {
-		switch coronaTestType {
-		case .pcr:
-			coronaTestService.$pcrTest
-				.sink { [weak self] pcrTest in
-					guard let pcrTest = pcrTest else {
-						return
-					}
-
-					self?.updateForCurrentTestResult(coronaTest: .pcr(pcrTest))
-				}
-				.store(in: &cancellables)
-		case .antigen:
-			coronaTestService.$antigenTest
-				.sink { [weak self] antigenTest in
-					guard let antigenTest = antigenTest else {
-						return
-					}
-
-					self?.updateForCurrentTestResult(coronaTest: .antigen(antigenTest))
-				}
-				.store(in: &cancellables)
-		}
 	}
 
 }
