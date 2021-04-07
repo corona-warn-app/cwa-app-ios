@@ -54,10 +54,8 @@ class QRCodeVerificationHelper {
 				return
 			}
 
-			// let version = url[versionRange]
 			let payLoad = url[payLoadRange]
-			let encodingType = EncodingType(rawValue: qrDescriptor.payloadEncoding.rawValue) ?? .unspecified
-			guard let traceLocation = TraceLocation(qrCodeString: String(payLoad), encoding: encodingType) else {
+			guard let traceLocation = TraceLocation(qrCodeString: String(payLoad)) else {
 				Log.error("error decoding the Payload, invalid Vendor data", log: .checkin)
 				onError(CheckinQRScannerError.invalidVendorData)
 				return
