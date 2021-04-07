@@ -30,9 +30,19 @@ class TraceLocationDetailViewController: UIViewController {
 		super.viewDidLoad()
 
 		setupView()
+		setupLabels()
+		setupPicker()
+		setupAdditionalInfoView()
+		setupViewModel()
 	}
 	
 	// MARK: - Private
+
+	private let viewModel: TraceLocationDetailViewModel
+	private let dismiss: () -> Void
+
+	private var subscriptions = Set<AnyCancellable>()
+	private var isInitialSetup = true
 	
 	@IBOutlet private weak var bottomCardView: UIView!
 	@IBOutlet private weak var descriptionView: UIView!
@@ -50,11 +60,18 @@ class TraceLocationDetailViewController: UIViewController {
 	@IBOutlet private weak var additionalInfoView: UIView!
 	@IBOutlet private weak var additionalInfoLabel: ENALabel!
 	@IBOutlet private weak var pickerSwitch: ENASwitch!
-		
-	private let viewModel: TraceLocationDetailViewModel
-	private let dismiss: () -> Void
-	private var subscriptions = Set<AnyCancellable>()
-	private var isInitialSetup = true
+
+	private func setupViewModel() {
+		viewModel.pickerView(didSelectRow: viewModel.selectedDurationInMinutes)
+
+		viewModel.$pickerButtonTitle
+			.sink { [weak self] hour in
+				if let hour = hour {
+					self?.pickerButton.setTitle(hour, for: .normal)
+				}
+			}
+			.store(in: &subscriptions)
+	}
 
 	private func setupView() {
 		view.backgroundColor = .enaColor(for: .background)
@@ -65,19 +82,6 @@ class TraceLocationDetailViewController: UIViewController {
 		addBorderAndColorToView(descriptionView, color: .enaColor(for: .hairline))
 		addBorderAndColorToView(bottomCardView, color: .enaColor(for: .hairline))
 		addBorderAndColorToView(additionalInfoView, color: .enaColor(for: .hairline))
-		
-		setupLabels()
-		setupPicker()
-		setupAdditionalInfoView()
-		viewModel.pickerView(didSelectRow: viewModel.selectedDurationInMinutes)
-		
-		viewModel.$pickerButtonTitle
-			.sink { [weak self] hour in
-				if let hour = hour {
-					self?.pickerButton.setTitle(hour, for: .normal)
-				}
-			}
-			.store(in: &subscriptions)
 	}
 	
 	private func setupLabels() {
