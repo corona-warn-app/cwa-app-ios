@@ -31,6 +31,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore())
 		)
 
+		model.coronaTestType = .pcr
 		model.symptomsOptionSelected(.no)
 
 		// Submit to check that correct symptoms onset is set
@@ -55,6 +56,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore())
 		)
 
+		model.coronaTestType = .pcr
 		model.symptomsOptionSelected(.preferNotToSay)
 
 		// Submit to check that correct symptoms onset is set
@@ -81,6 +83,8 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore())
 		)
 
+		model.coronaTestType = .pcr
+
 		let yesterday = try XCTUnwrap(Calendar.gregorian().date(byAdding: .day, value: -1, to: Date()))
 
 		model.symptomsOnsetOptionSelected(.exactDate(yesterday))
@@ -106,6 +110,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore())
 		)
 
+		model.coronaTestType = .pcr
 		model.symptomsOnsetOptionSelected(.lastSevenDays)
 
 		// Submit to check that correct symptoms onset is set
@@ -129,6 +134,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore())
 		)
 
+		model.coronaTestType = .pcr
 		model.symptomsOnsetOptionSelected(.oneToTwoWeeksAgo)
 
 		// Submit to check that correct symptoms onset is set
@@ -153,6 +159,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore())
 		)
 
+		model.coronaTestType = .pcr
 		model.symptomsOnsetOptionSelected(.moreThanTwoWeeksAgo)
 
 		// Submit to check that correct symptoms onset is set
@@ -176,6 +183,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore())
 		)
 
+		model.coronaTestType = .pcr
 		model.symptomsOnsetOptionSelected(.preferNotToSay)
 
 		// Submit to check that correct symptoms onset is set
@@ -198,6 +206,8 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore())
 		)
+
+		model.coronaTestType = .pcr
 
 		let expectedIsLoadingValues = [true, false]
 		var isLoadingValues = [Bool]()
@@ -234,6 +244,8 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore())
 		)
 
+		model.coronaTestType = .pcr
+
 		let expectedIsLoadingValues = [true, false]
 		var isLoadingValues = [Bool]()
 
@@ -268,6 +280,8 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore())
 		)
+
+		model.coronaTestType = .pcr
 
 		let expectedIsLoadingValues = [true, false]
 		var isLoadingValues = [Bool]()
@@ -305,6 +319,8 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore())
 		)
+
+		model.coronaTestType = .pcr
 
 		let expectedIsLoadingValues = [true, false]
 		var isLoadingValues = [Bool]()

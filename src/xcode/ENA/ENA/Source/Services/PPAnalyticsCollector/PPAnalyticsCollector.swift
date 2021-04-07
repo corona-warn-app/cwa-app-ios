@@ -350,7 +350,6 @@ enum PPAnalyticsCollector {
 			}
 			let differenceInHours = Calendar.current.dateComponents([.hour], from: timeOfRiskChangeToHigh, to: registrationTime)
 			store?.keySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration = Int32(differenceInHours.hour ?? -1)
-		break
 		case .low:
 			store?.keySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration = -1
 		}
