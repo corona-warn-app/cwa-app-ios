@@ -483,6 +483,10 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	}
 
 	private func showTestResultSubmissionConsentScreen(supportedCountries: [Country], testResultAvailability: TestResultAvailability) {
+		guard let coronaTestType = model.coronaTestType else {
+			fatalError("Could not find corona test type to show the consent screen for.")
+		}
+
 		// we should show the alert in the completion only if the testResult is positiveAndAvailable
 		let dismissCompletion: (() -> Void)? = testResultAvailability == .notAvailable ? nil : { [weak self] in
 			self?.showTestResultAvailableCloseAlert()
@@ -490,6 +494,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		let vc = ExposureSubmissionTestResultConsentViewController(
 			viewModel: ExposureSubmissionTestResultConsentViewModel(
 				supportedCountries: supportedCountries,
+				coronaTestType: coronaTestType,
 				coronaTestService: model.coronaTestService,
 				testResultAvailability: testResultAvailability,
 				dismissCompletion: dismissCompletion
