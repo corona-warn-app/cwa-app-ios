@@ -30,7 +30,6 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 		// if the the bottom view controller is FooterViewController we use it's viewModel here as well
 		self.footerViewModel = (bottomViewController as? FooterViewController)?.viewModel
 		self.initialHeight = footerViewModel?.height ?? 0.0
-
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -110,6 +109,19 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 				}
 			}
 			.store(in: &subscriptions)
+
+
+		keyboardDidShownObserver = NotificationCenter.default.addObserver(forName: UIResponder.keyboardDidShowNotification, object: nil, queue: OperationQueue.main) { notification in
+			guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
+				return
+			}
+			self.footerViewHandler?.didShowKeyboard(keyboardSize)
+		}
+
+		keyboardDidHideObserver = NotificationCenter.default.addObserver(forName: UIResponder.keyboardDidHideNotification, object: nil, queue: OperationQueue.main, using: { [weak self] _ in
+			self?.footerViewHandler?.didHideKeyboard()
+		})
+
 	}
 
 	// MARK: - Protocol DismissHandling
@@ -177,6 +189,9 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 	private var subscriptions: [AnyCancellable] = []
 	private var bottomViewHeightAnchorConstraint: NSLayoutConstraint!
 	private var bottomViewBottomAnchorConstraint: NSLayoutConstraint!
+
+	private var keyboardDidShownObserver: NSObjectProtocol?
+	private var keyboardDidHideObserver: NSObjectProtocol?
 
 	private func updateBottomHeight(_ height: CGFloat, animated: Bool = false) {
 		guard bottomViewHeightAnchorConstraint.constant != height else {

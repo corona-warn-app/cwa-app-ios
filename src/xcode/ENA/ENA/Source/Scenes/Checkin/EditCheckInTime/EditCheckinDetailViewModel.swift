@@ -28,6 +28,14 @@ final class EditCheckinDetailViewModel {
 			})
 			.store(in: &subscriptions)
 
+		checkInStartCellModel.$isFirstResponder
+			.sink(receiveValue: { [weak self] value in
+				if value {
+					self?.responderCellType = .startDate
+				}
+			})
+			.store(in: &subscriptions)
+
 		$isStartDatePickerVisible
 			.assign(to: \CheckInTimeModel.isPickerVisible, on: checkInStartCellModel)
 			.store(in: &subscriptions)
@@ -39,9 +47,18 @@ final class EditCheckinDetailViewModel {
 			})
 			.store(in: &subscriptions)
 
+		checkInEndCellModel.$isFirstResponder
+			.sink(receiveValue: { [weak self] value in
+				if value {
+					self?.responderCellType = .endDate
+				}
+			})
+			.store(in: &subscriptions)
+
 		$isEndDatePickerVisible
 			.assign(to: \CheckInTimeModel.isPickerVisible, on: checkInEndCellModel)
 			.store(in: &subscriptions)
+
 	}
 
 	enum TableViewSections: Int, CaseIterable {
@@ -58,7 +75,16 @@ final class EditCheckinDetailViewModel {
 
 	// MARK: - Internal
 
+	enum ResponderCellType {
+		case startDate
+		case endDate
+		case none
+	}
+
 	let checkInDescriptionCellModel: CheckInDescriptionCellModel
+
+	var responderCellType: ResponderCellType = .none
+
 	lazy var checkInStartCellModel: CheckInTimeModel = {
 		CheckInTimeModel(
 			AppStrings.Checkins.Edit.checkedIn,

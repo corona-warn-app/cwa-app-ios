@@ -15,16 +15,6 @@ class MockEventStore: EventStoring, EventProviding {
 	}
 
 	@discardableResult
-	func updateTraceLocation(_ traceLocation: TraceLocation) -> SecureSQLStore.VoidResult {
-		guard let oldTraceLocation = (traceLocationsPublisher.value.first { $0.id == traceLocation.id }) else {
-			return .failure(.database(.unknown))
-		}
-		let updatedTraceLocation = oldTraceLocation.updatedWith(traceLocation: traceLocation)
-		traceLocationsPublisher.value = appendTraceLocationAndSort(updatedTraceLocation)
-		return .success(())
-	}
-
-	@discardableResult
 	func deleteTraceLocation(id: Data) -> SecureSQLStore.VoidResult {
 		traceLocationsPublisher.value.removeAll { $0.id == id }
 		return .success(())
