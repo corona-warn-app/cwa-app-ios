@@ -238,7 +238,6 @@ class HomeCoordinator: RequiresAppDependencies {
 		// when .start() is called. The coordinator is then bound to the lifecycle of this navigation controller
 		// which is managed by UIKit.
 		let coordinator = ExposureSubmissionCoordinator(
-			warnOthersReminder: WarnOthersReminder(store: store),
 			parentNavigationController: rootViewController,
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: coronaTestService,

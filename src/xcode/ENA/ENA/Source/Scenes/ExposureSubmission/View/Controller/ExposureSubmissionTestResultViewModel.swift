@@ -12,7 +12,6 @@ class ExposureSubmissionTestResultViewModel {
 	init(
 		coronaTestType: CoronaTestType,
 		coronaTestService: CoronaTestService,
-		warnOthersReminder: WarnOthersRemindable,
 		onSubmissionConsentCellTap: @escaping (@escaping (Bool) -> Void) -> Void,
 		onContinueWithSymptomsFlowButtonTap: @escaping () -> Void,
 		onContinueWarnOthersButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
@@ -21,7 +20,6 @@ class ExposureSubmissionTestResultViewModel {
 	) {
 		self.coronaTestType = coronaTestType
 		self.coronaTestService = coronaTestService
-		self.warnOthersReminder = warnOthersReminder
 		self.onSubmissionConsentCellTap = onSubmissionConsentCellTap
 		self.onContinueWithSymptomsFlowButtonTap = onContinueWithSymptomsFlowButtonTap
 		self.onContinueWarnOthersButtonTap = onContinueWarnOthersButtonTap
@@ -92,19 +90,15 @@ class ExposureSubmissionTestResultViewModel {
 	func deleteTest() {
 		coronaTestService.removeTest(coronaTestType)
 		onTestDeleted()
-		
-		// Update warn others model
-		self.warnOthersReminder.reset()
 	}
 	
 	func updateWarnOthers() {
-		warnOthersReminder.evaluateShowingTestResult(coronaTest.testResult)
+		coronaTestService.evaluateShowingTest(ofType: coronaTestType)
 	}
 	
 	// MARK: - Private
 	
 	private var coronaTestService: CoronaTestService
-	private var warnOthersReminder: WarnOthersRemindable
 
 	private let coronaTestType: CoronaTestType
 
@@ -128,8 +122,6 @@ class ExposureSubmissionTestResultViewModel {
 		// Positive test results are not shown immediately
 		if coronaTest.testResult == .positive {
 			self.onChangeToPositiveTestResult()
-		} else {
-			self.updateWarnOthers()
 		}
 
 		self.dynamicTableViewModel = DynamicTableViewModel(currentTestResultSections)

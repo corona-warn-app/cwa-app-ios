@@ -34,7 +34,6 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
 			coronaTestService: coronaTestService,
-			warnOthersReminder: WarnOthersReminder(store: self.store),
 			onSubmissionConsentCellTap: { _ in },
 			onContinueWithSymptomsFlowButtonTap: {
 				onContinueWithSymptomsFlowButtonTapExpectation.fulfill()
@@ -75,7 +74,6 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			let model = ExposureSubmissionTestResultViewModel(
 				coronaTestType: .pcr,
 				coronaTestService: coronaTestService,
-				warnOthersReminder: WarnOthersReminder(store: self.store),
 				onSubmissionConsentCellTap: { _ in },
 				onContinueWithSymptomsFlowButtonTap: {
 					onContinueWithSymptomsFlowButtonTapExpectation.fulfill()
@@ -114,7 +112,6 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
 			coronaTestService: coronaTestService,
-			warnOthersReminder: WarnOthersReminder(store: self.store),
 			onSubmissionConsentCellTap: { _ in },
 			onContinueWithSymptomsFlowButtonTap: {
 				onContinueWithSymptomsFlowButtonTapExpectation.fulfill()
@@ -148,7 +145,6 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
 			coronaTestService: coronaTestService,
-			warnOthersReminder: WarnOthersReminder(store: self.store),
 			onSubmissionConsentCellTap: { _ in },
 			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
@@ -202,7 +198,6 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
 			coronaTestService: coronaTestService,
-			warnOthersReminder: WarnOthersReminder(store: self.store),
 			onSubmissionConsentCellTap: { _ in },
 			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
@@ -229,7 +224,6 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
 			coronaTestService: coronaTestService,
-			warnOthersReminder: WarnOthersReminder(store: self.store),
 			onSubmissionConsentCellTap: { _ in },
 			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
@@ -278,7 +272,6 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
 			coronaTestService: coronaTestService,
-			warnOthersReminder: WarnOthersReminder(store: self.store),
 			onSubmissionConsentCellTap: { _ in },
 			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
@@ -304,7 +297,6 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			let model = ExposureSubmissionTestResultViewModel(
 				coronaTestType: .pcr,
 				coronaTestService: coronaTestService,
-				warnOthersReminder: WarnOthersReminder(store: self.store),
 				onSubmissionConsentCellTap: { _ in },
 				onContinueWithSymptomsFlowButtonTap: { },
 				onContinueWarnOthersButtonTap: { _ in },
@@ -331,7 +323,6 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
 			coronaTestService: coronaTestService,
-			warnOthersReminder: WarnOthersReminder(store: self.store),
 			onSubmissionConsentCellTap: { _ in },
 			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
@@ -356,7 +347,6 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			let model = ExposureSubmissionTestResultViewModel(
 				coronaTestType: .pcr,
 				coronaTestService: coronaTestService,
-				warnOthersReminder: WarnOthersReminder(store: self.store),
 				onSubmissionConsentCellTap: { _ in },
 				onContinueWithSymptomsFlowButtonTap: { },
 				onContinueWarnOthersButtonTap: { _ in },
@@ -389,7 +379,6 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			let model = ExposureSubmissionTestResultViewModel(
 				coronaTestType: .pcr,
 				coronaTestService: coronaTestService,
-				warnOthersReminder: WarnOthersReminder(store: self.store),
 				onSubmissionConsentCellTap: { _ in },
 				onContinueWithSymptomsFlowButtonTap: { },
 				onContinueWarnOthersButtonTap: { _ in },
@@ -423,8 +412,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 				let model = ExposureSubmissionTestResultViewModel(
 					coronaTestType: .pcr,
 					coronaTestService: coronaTestService,
-					warnOthersReminder: WarnOthersReminder(store: self.store),
-					onSubmissionConsentCellTap: { _ in },
+						onSubmissionConsentCellTap: { _ in },
 					onContinueWithSymptomsFlowButtonTap: { },
 					onContinueWarnOthersButtonTap: { _ in },
 					onChangeToPositiveTestResult: { },
@@ -456,7 +444,6 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
 			coronaTestService: coronaTestService,
-			warnOthersReminder: WarnOthersReminder(store: self.store),
 			onSubmissionConsentCellTap: { _ in },
 			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
@@ -495,7 +482,6 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
 			coronaTestService: coronaTestService,
-			warnOthersReminder: WarnOthersReminder(store: self.store),
 			onSubmissionConsentCellTap: { _ in },
 			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
@@ -554,7 +540,6 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
 			coronaTestService: coronaTestService,
-			warnOthersReminder: WarnOthersReminder(store: self.store),
 			onSubmissionConsentCellTap: { _ in },
 			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
@@ -593,7 +578,6 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
 			coronaTestService: coronaTestService,
-			warnOthersReminder: WarnOthersReminder(store: self.store),
 			onSubmissionConsentCellTap: { _ in },
 			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
@@ -636,7 +620,6 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
 			coronaTestService: coronaTestService,
-			warnOthersReminder: WarnOthersReminder(store: self.store),
 			onSubmissionConsentCellTap: { _ in },
 			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },

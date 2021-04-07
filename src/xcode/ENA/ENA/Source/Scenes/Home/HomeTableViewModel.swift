@@ -126,12 +126,7 @@ class HomeTableViewModel {
 	}
 
 	func reenableRiskDetection() {
-		// TODO
-//		store.positiveTestResultWasShown = false
-//		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = nil
-//		store.testResultReceivedTimeStamp = nil
-
-		state.testResult = nil
+		state.coronaTestService.removeTest(.pcr)
 		state.requestRisk(userInitiated: true)
 	}
 

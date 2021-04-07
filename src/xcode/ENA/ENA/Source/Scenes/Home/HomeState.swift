@@ -109,14 +109,10 @@ class HomeState: ENStateHandlerUpdating {
 	}
 
 	var positiveTestResultWasShown: Bool {
-		// TODO
-//		store.registrationToken != nil && testResult == .positive && WarnOthersReminder(store: store).positiveTestResultWasShown
 		coronaTestService.pcrTest?.testResult == .positive && coronaTestService.pcrTest?.positiveTestResultWasShown == true
 	}
 
 	var keysWereSubmitted: Bool {
-		// TODO
-//		store.lastSuccessfulSubmitDiagnosisKeyTimestamp != nil
 		coronaTestService.pcrTest?.keysSubmitted == true
 	}
 
@@ -144,9 +140,7 @@ class HomeState: ENStateHandlerUpdating {
 		// Avoid unnecessary loading.
 		guard testResult == nil || testResult != .positive else { return }
 
-		// TODO
 		guard coronaTestService.pcrTest != nil else {
-//		guard store.registrationToken != nil else {
 			testResult = nil
 			return
 		}
@@ -159,9 +153,7 @@ class HomeState: ENStateHandlerUpdating {
 
 		testResultIsLoading = true
 
-		// TODO
 		coronaTestService.updateTestResult(for: .pcr) { [weak self] result in
-//		exposureSubmissionService.getTestResult { [weak self] result in
 			self?.testResultIsLoading = false
 
 			switch result {
@@ -215,7 +207,7 @@ class HomeState: ENStateHandlerUpdating {
 	private let statisticsProvider: StatisticsProviding
 	private var subscriptions = Set<AnyCancellable>()
 
-	private let coronaTestService: CoronaTestService
+	let coronaTestService: CoronaTestService
 	private let exposureSubmissionService: ExposureSubmissionService
 
 	private let riskProvider: RiskProviding

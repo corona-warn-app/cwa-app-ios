@@ -33,10 +33,10 @@ struct DeadmanNotificationManager: DeadmanNotificationManageable {
 //			return
 //		}
 
-		guard !WarnOthersReminder(store: store).positiveTestResultWasShown else {
-			Log.info("DeadmanNotificationManager: Positive test result was already shown. Don't schedule new deadman notification.", log: .riskDetection)
-			return
-		}
+//		guard !WarnOthersReminder(store: store).positiveTestResultWasShown else {
+//			Log.info("DeadmanNotificationManager: Positive test result was already shown. Don't schedule new deadman notification.", log: .riskDetection)
+//			return
+//		}
 
 		/// Check if Deadman Notification is already scheduled
 		userNotificationCenter.getPendingNotificationRequests { notificationRequests in

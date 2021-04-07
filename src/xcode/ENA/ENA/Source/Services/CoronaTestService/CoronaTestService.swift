@@ -203,6 +203,21 @@ class CoronaTestService {
 		case .antigen:
 			antigenTest = nil
 		}
+
+//		warnOthersReminder.reset()
+	}
+
+	func evaluateShowingTest(ofType coronaTestType: CoronaTestType) {
+		switch coronaTestType {
+		case .pcr where pcrTest?.testResult == .positive:
+			pcrTest?.positiveTestResultWasShown = true
+		case .antigen where antigenTest?.testResult == .positive:
+			antigenTest = nil
+		default:
+			break
+		}
+
+//		warnOthersReminder.evaluateShowingTestResult(coronaTest(ofType: coronaTestType).testResult)
 	}
 
 	func updatePublishersFromStore() {

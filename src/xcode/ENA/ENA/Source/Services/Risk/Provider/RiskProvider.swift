@@ -116,19 +116,19 @@ final class RiskProvider: RiskProviding {
 //			return
 //		}
 
-		guard !WarnOthersReminder(store: store).positiveTestResultWasShown else {
-			Log.info("RiskProvider: Positive test result was already shown. Don't start new risk detection.", log: .riskDetection)
-
-			// Keep downloading key packages and trace warning packages for plausible deniability
-
-			downloadKeyPackages()
-
-			appConfigurationProvider.appConfiguration().sink { [weak self] appConfiguration in
-				self?.downloadTraceWarningPackages(with: appConfiguration, completion: { _ in })
-			}.store(in: &subscriptions)
-
-			return
-		}
+//		guard !WarnOthersReminder(store: store).positiveTestResultWasShown else {
+//			Log.info("RiskProvider: Positive test result was already shown. Don't start new risk detection.", log: .riskDetection)
+//
+//			// Keep downloading key packages and trace warning packages for plausible deniability
+//
+//			downloadKeyPackages()
+//
+//			appConfigurationProvider.appConfiguration().sink { [weak self] appConfiguration in
+//				self?.downloadTraceWarningPackages(with: appConfiguration, completion: { _ in })
+//			}.store(in: &subscriptions)
+//
+//			return
+//		}
 
 		queue.async {
 			self.updateActivityState(.riskRequested)

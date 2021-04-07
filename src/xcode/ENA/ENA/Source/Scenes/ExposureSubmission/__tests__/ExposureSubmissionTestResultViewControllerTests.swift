@@ -23,7 +23,6 @@ class ExposureSubmissionViewControllerTests: XCTestCase {
 			viewModel: ExposureSubmissionTestResultViewModel(
 				coronaTestType: .pcr,
 				coronaTestService: CoronaTestService(client: ClientMock(), store: store),
-				warnOthersReminder: WarnOthersReminder(store: self.store),
 				onSubmissionConsentCellTap: { _ in },
 				onContinueWithSymptomsFlowButtonTap: { },
 				onContinueWarnOthersButtonTap: { _ in },

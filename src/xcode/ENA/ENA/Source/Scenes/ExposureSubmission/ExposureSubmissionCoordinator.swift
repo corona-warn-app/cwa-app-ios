@@ -20,7 +20,6 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	// MARK: - Init
 
 	init(
-		warnOthersReminder: WarnOthersRemindable,
 		parentNavigationController: UINavigationController,
 		exposureSubmissionService: ExposureSubmissionService,
 		coronaTestService: CoronaTestService,
@@ -29,7 +28,6 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	) {
 		self.parentNavigationController = parentNavigationController
 		self.delegate = delegate
-		self.warnOthersReminder = warnOthersReminder
 
 		super.init()
 
@@ -155,7 +153,6 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	private weak var presentedViewController: UIViewController?
 
 	private var model: ExposureSubmissionCoordinatorModel!
-	private let warnOthersReminder: WarnOthersRemindable
 
 	private func push(_ vc: UIViewController) {
 		self.navigationController?.pushViewController(vc, animated: true)
@@ -249,7 +246,6 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		let viewModel = ExposureSubmissionTestResultViewModel(
 			coronaTestType: coronaTestType,
 			coronaTestService: model.coronaTestService,
-			warnOthersReminder: warnOthersReminder,
 			onSubmissionConsentCellTap: { [weak self] isLoading in
 				self?.model.exposureSubmissionService.loadSupportedCountries(
 					isLoading: isLoading,
