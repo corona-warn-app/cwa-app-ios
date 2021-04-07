@@ -239,7 +239,7 @@ class CoronaTestService {
 		case .pcr where pcrTest?.testResult == .positive:
 			pcrTest?.positiveTestResultWasShown = true
 		case .antigen where antigenTest?.testResult == .positive:
-			antigenTest = nil
+			antigenTest?.positiveTestResultWasShown = true
 		default:
 			break
 		}
