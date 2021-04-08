@@ -20,7 +20,7 @@
                 <outlet property="bottomCardView" destination="Ek6-qj-gRz" id="zPW-8o-d4S"/>
                 <outlet property="checkInButton" destination="LzL-ri-WCR" id="nhq-cH-UN3"/>
                 <outlet property="checkInForLabel" destination="qe2-Cr-Hsf" id="2Cc-Rz-KNx"/>
-                <outlet property="datePickerView" destination="yid-Kg-xeK" id="adm-pi-5xT"/>
+                <outlet property="countDownDatePicker" destination="yid-Kg-xeK" id="adm-pi-5xT"/>
                 <outlet property="descriptionLabel" destination="qEg-yG-yRz" id="iEe-il-h37"/>
                 <outlet property="descriptionView" destination="16U-OV-LaG" id="txb-xX-3OP"/>
                 <outlet property="logoImageView" destination="9Uc-cd-UtX" id="xcq-tp-AWD"/>
@@ -248,7 +248,7 @@ deutschen SAP Anwendergruppe</string>
                                                                                 </userDefinedRuntimeAttribute>
                                                                             </userDefinedRuntimeAttributes>
                                                                             <connections>
-                                                                                <action selector="showPickerButton:" destination="-1" eventType="touchUpInside" id="eOu-4A-awd"/>
+                                                                                <action selector="togglePickerButtonVisibility:" destination="-1" eventType="touchUpInside" id="eOu-4A-awd"/>
                                                                             </connections>
                                                                         </button>
                                                                     </subviews>
@@ -364,7 +364,7 @@ deutschen SAP Anwendergruppe</string>
         </tapGestureRecognizer>
         <tapGestureRecognizer id="UID-rT-S6c" userLabel="Picker View Gesture Recognizer">
             <connections>
-                <action selector="pickerViewTapped:" destination="-1" id="lBl-y9-szy"/>
+                <action selector="togglePickerButtonVisibility:" destination="-1" id="0TV-SU-d21"/>
             </connections>
         </tapGestureRecognizer>
     </objects>

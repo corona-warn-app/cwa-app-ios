@@ -18,27 +18,11 @@ class DiaryOverviewViewModel {
 		self.diaryStore = diaryStore
 		self.secureStore = store
 		self.eventStore = eventStore
-
-		$days
-			.receive(on: DispatchQueue.OCombine(.main))
-			.sink { [weak self] _ in
-				self?.refreshTableView?()
-			}
-			.store(in: &subscriptions)
-
-		diaryStore.diaryDaysPublisher.sink { [weak self] in
-			self?.days = $0
-		}.store(in: &subscriptions)
-
-		homeState?.$riskState
-			.receive(on: DispatchQueue.OCombine(.main))
-			.sink { [weak self] updatedRiskState in
-				switch updatedRiskState {
-				case .risk:
-					self?.refreshTableView?()
-				default:
-					break
-				}
+		self.homeState = homeState
+		
+		self.diaryStore.diaryDaysPublisher
+			.sink { [weak self] in
+				self?.days = $0
 			}
 			.store(in: &subscriptions)
 	}
@@ -50,14 +34,13 @@ class DiaryOverviewViewModel {
 		case days
 	}
 
-	@OpenCombine.Published private(set) var days: [DiaryDay] = []
-
+	@OpenCombine.Published var days: [DiaryDay] = []
+	
+	var homeState: HomeState?
 	var numberOfSections: Int {
 		Section.allCases.count
 	}
-
-	var refreshTableView: (() -> Void)?
-
+	
 	func day(by indexPath: IndexPath) -> DiaryDay {
 		return days[indexPath.row]
 	}

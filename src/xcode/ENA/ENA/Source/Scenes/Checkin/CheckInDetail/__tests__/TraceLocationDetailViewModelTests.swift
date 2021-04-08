@@ -35,7 +35,7 @@ class TraceLocationDetailViewModelTests: XCTestCase {
 		XCTAssertEqual(sut.locationDescription, "Los Pollos Hermanos")
 		XCTAssertEqual(sut.locationAddress, "13 Main Street, Albuquerque")
 		// Duration should be rounded up to 30
-		XCTAssertEqual(sut.selectedDurationInMinutes, 30)
+		XCTAssertEqual(sut.duration, 30 * 60)
 		XCTAssertEqual(sut.shouldSaveToContactJournal, store.shouldAddCheckinToContactDiaryByDefault)
 	}
 
@@ -69,7 +69,7 @@ class TraceLocationDetailViewModelTests: XCTestCase {
 		XCTAssertEqual(sut.locationDescription, "Los Pollos Hermanos")
 		XCTAssertEqual(sut.locationAddress, "13 Main Street, Albuquerque")
 		// max checkout Duration should be clipped to 23:45 to match the picker
-		XCTAssertEqual(sut.selectedDurationInMinutes, (23 * 60) + 45)
+		XCTAssertEqual(sut.duration, ((23 * 60) + 45) * 60)
 	}
     func testTraceLocationViewModel_EventStatus_EventWithNoStartAndEndDate() {
 		guard let id = Data(base64Encoded: "Test") else {
@@ -239,12 +239,13 @@ class TraceLocationDetailViewModelTests: XCTestCase {
 		let sut = TraceLocationDetailViewModel(traceLocation, eventStore: MockEventStore(), store: MockTestStore())
 		
 		let durationToBeSelected = 150
-		sut.pickerView(didSelectDuration: durationToBeSelected)
-		XCTAssertEqual(sut.selectedDurationInMinutes, durationToBeSelected, "Selected duration should be reflected in the viewModel")
+		sut.duration = TimeInterval(durationToBeSelected * 60)
+		XCTAssertEqual(Int(sut.duration), durationToBeSelected * 60, "Selected duration should be reflected in the viewModel")
 		
 		// expected Button Title
 		let selectedComponents = durationToBeSelected.quotientAndRemainder(dividingBy: 60)
 		let date = Calendar.current.date(bySettingHour: selectedComponents.quotient, minute: selectedComponents.remainder, second: 0, of: Date())
+
 		let dateComponentsFormatter = DateComponentsFormatter()
 		dateComponentsFormatter.allowedUnits = [.hour, .minute]
 		dateComponentsFormatter.unitsStyle = .positional
@@ -290,7 +291,7 @@ class TraceLocationDetailViewModelTests: XCTestCase {
 		sut.shouldSaveToContactJournal = false
 		sut.saveCheckinToDatabase()
 		
-		let checkinEndDate = try XCTUnwrap(Calendar.current.date(byAdding: .minute, value: sut.selectedDurationInMinutes, to: currentDate))
+		let checkinEndDate = try XCTUnwrap(Calendar.current.date(byAdding: .second, value: Int(sut.duration), to: currentDate))
 
 		let sinkExpectation = expectation(description: "Sink is called once.")
 		sinkExpectation.expectedFulfillmentCount = 1
