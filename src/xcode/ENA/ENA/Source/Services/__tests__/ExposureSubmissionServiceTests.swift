@@ -330,60 +330,6 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		waitForExpectations(timeout: expectationsTimeout)
 	}
 
-	func testSubmitExposure_hoursSinceRegistration_hoursSinceResult() {
-		// Arrange
-		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
-		let client = ClientMock()
-		let store = MockTestStore()
-		Analytics.setupMock(store: store)
-		store.isPrivacyPreservingAnalyticsConsentGiven = true
-		store.registrationToken = "dummyRegistrationToken"
-		store.positiveTestResultWasShown = true
-		store.testResultReceivedTimeStamp = 12345678
-
-		let appConfigurationProvider = CachedAppConfigurationMock()
-		var deadmanNotificationManager = MockDeadmanNotificationManager()
-
-		let deadmanResetExpectation = expectation(description: "Deadman notification reset")
-		deadmanNotificationManager.resetDeadmanNotificationCalled = {
-			deadmanResetExpectation.fulfill()
-		}
-
-		let coronaTestService = CoronaTestService(client: client, store: store)
-		coronaTestService.pcrTest = PCRTest.mock(
-			registrationToken: "asdf",
-			isSubmissionConsentGiven: true
-		)
-
-		let service = ENAExposureSubmissionService(
-			diagnosisKeysRetrieval: keyRetrieval,
-			appConfigurationProvider: appConfigurationProvider,
-			client: client,
-			store: store,
-			deadmanNotificationManager: deadmanNotificationManager,
-			coronaTestService: coronaTestService
-		)
-		service.symptomsOnset = .lastSevenDays
-
-		let successExpectation = self.expectation(description: "Success")
-
-		// Act
-		service.getTemporaryExposureKeys { error in
-			XCTAssertNil(error)
-
-			service.submitExposure(coronaTestType: .pcr) { error in
-				XCTAssertNil(error)
-				successExpectation.fulfill()
-			}
-		}
-
-		waitForExpectations(timeout: expectationsTimeout)
-
-		XCTAssertNotNil(store.keySubmissionMetadata?.hoursSinceTestResult)
-		XCTAssertNotNil(store.keySubmissionMetadata?.hoursSinceTestRegistration)
-		XCTAssertTrue(((store.keySubmissionMetadata?.submitted) != false))
-	}
-
 	func testCorrectErrorForRequestCouldNotBeBuilt() {
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
 		let appConfigurationProvider = CachedAppConfigurationMock()
