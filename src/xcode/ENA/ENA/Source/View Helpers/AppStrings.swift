@@ -929,27 +929,27 @@ enum AppStrings {
 		
 		static let generalDescription = NSLocalizedString("DeltaOnboarding_NewVersionFeatures_Description", comment: "")
 		
+		static let aboutAppInformation = NSLocalizedString("NewVersionFeatures_Info_about_abb_information", comment: "")
+		
+		/* Version 2.1 */
+		
+		static let feature21RegAntigenTitle = NSLocalizedString("NewVersionFeature_21_reg_antigen_title", comment: "")
+		
+		static let feature21RegAntigenDescription = NSLocalizedString("NewVersionFeature_21_reg_antigen_description", comment: "")
+		
+		static let feature21NewIntTechHotlineTitle = NSLocalizedString("NewVersionFeature_21_tech_hotline_foreign_countries_title", comment: "")
+		
+		static let feature21NewIntTechHotlineDescription = NSLocalizedString("NewVersionFeature_21_tech_hotline_foreign_countries_description", comment: "")
+		
+		static let feature21NewIntTanHotlineTitle = NSLocalizedString("NewVersionFeature_21_tan_hotline_foreign_countries_title", comment: "")
+		
+		static let feature21NewIntTanHotlineDescription = NSLocalizedString("NewVersionFeature_21_tan_hotline_foreign_countries_description", comment: "")
+		
 		/* Version 2.00 */
 		
 		static let feature200EventRegistrationTitle = NSLocalizedString("NewVersionFeature_200_event_checkin_title", comment: "")
 		
 		static let feature200EventRegistrationDescription = NSLocalizedString("NewVersionFeature_200_event_checkin_description", comment: "")
-		
-		/* Version 1.15 */
-		
-		static let aboutAppInformation = NSLocalizedString("NewVersionFeatures_Info_about_abb_information", comment: "")
-		
-		static let feature115SwitzerlandTitle = NSLocalizedString("NewVersionFeature_115_cross_border_switzerland_title", comment: "")
-		
-		static let feature115SwitzerlandDescription = NSLocalizedString("NewVersionFeature_115_cross_border_switzerland_description", comment: "")
-		
-		static let feature115DaysSinceInstallTitle = NSLocalizedString("NewVersionFeature_115_days_since_install_title", comment: "")
-		
-		static let feature115DaysSinceInstallDescription = NSLocalizedString("NewVersionFeature_115_days_since_install_description", comment: "")
-		
-		static let feature115ErrorAnalyticsLogTitle = NSLocalizedString("NewVersionFeature_115_error_analytic_logs_title", comment: "")
-		
-		static let feature115ErrorAnalyticsLogDescription = NSLocalizedString("NewVersionFeature_115_error_analytic_logs_description", comment: "")
 	}
 	
 	enum DeltaOnboarding {

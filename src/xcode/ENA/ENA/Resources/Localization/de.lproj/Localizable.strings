@@ -1428,20 +1428,6 @@ sein.";
 
 "NewVersionFeature_200_event_checkin_description" = "Die CWA ermöglicht nun einen Check-in für Events und Orte. Personen, die Events veranstalten oder ein Geschäft haben, können über die App einen QR-Code erstellen. Durch Scannen des QR-Codes können sich Gäste bei Ankunft einchecken, um so ihre Anwesenheit zu registrieren. Auf Wunsch legt die App außerdem einen entsprechenden Tagebuch-Eintrag an. Wird eine eingecheckte Person später positiv auf das Coronavirus getestet, können andere Personen gewarnt werden, die zur selben Zeit eingescheckt waren.";
 
-/* Version 1.15 */
-
-"NewVersionFeature_115_cross_border_switzerland_title" = "Länderübergreifende Risiko-Ermittlung um Schweiz erweitert ";
-
-"NewVersionFeature_115_cross_border_switzerland_description" = "Die Corona-Warn-App nutzende Personen können nun auch verschlüsselte Zufalls-IDs mit Personen austauschen, die die offizielle Warn-App der Schweiz nutzen. Somit können Warnungen an App nutzende Personen in der Schweiz geschickt sowie von ihnen empfangen werden.";
-
-"NewVersionFeature_115_days_since_install_title" = "Änderung der Risikokarten";
-
-"NewVersionFeature_115_days_since_install_description" = "Auf den Risikokarten entfällt die Anzeige der Anzahl aktiver Tage bzw. dass die App dauerhaft aktiv ist.";
-
-"NewVersionFeature_115_error_analytic_logs_title" = "Erstellung von Fehlerberichten";
-
-"NewVersionFeature_115_error_analytic_logs_description" = "Sie können nun nach Aufforderung des technischen Supports einen Fehlerbericht erstellen und die Schritte aufzeichnen, die Sie in der App ausführen. Mögliche technische Fehler können so besser analysiert und schneller behoben werden.";
-
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
 
