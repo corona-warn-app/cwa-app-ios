@@ -71,7 +71,7 @@ final class TraceWarningMatcher: TraceWarningMatching {
 			guard !checkins.isEmpty else {
 				continue
 			}
-			Log.info("[TraceWarningMatching] Found \(checkins.count) number of matches with the same location id hash.", log: .checkin)
+			Log.info("[TraceWarningMatching] Found \(checkins.count) matches with the same location id hash.", log: .checkin)
 
 			// Filter checkins where the warning overlaps the timeframe.
 			checkins = checkins.filter {
@@ -81,7 +81,7 @@ final class TraceWarningMatcher: TraceWarningMatching {
 			guard !checkins.isEmpty else {
 				continue
 			}
-			Log.info("[TraceWarningMatching] Found \(checkins.count) number of overlaping matches.", log: .checkin)
+			Log.info("[TraceWarningMatching] Found \(checkins.count) overlaping matches.", log: .checkin)
 
 			// Persist checkins and warning as matches.
 			for checkin in checkins {
