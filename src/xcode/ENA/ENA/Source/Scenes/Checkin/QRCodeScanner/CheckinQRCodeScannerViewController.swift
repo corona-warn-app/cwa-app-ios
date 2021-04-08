@@ -11,7 +11,9 @@ class CheckinQRCodeScannerViewController: UIViewController {
 	// MARK: - Init
 
 	init(
-		didScanCheckin: @escaping (String) -> Void,
+		qrCodeVerificationHelper: QRCodeVerificationHelper,
+		appConfiguration: AppConfigurationProviding,
+		didScanCheckin: @escaping (TraceLocation) -> Void,
 		dismiss: @escaping () -> Void
 	) {
 		self.dismiss = dismiss
@@ -19,10 +21,12 @@ class CheckinQRCodeScannerViewController: UIViewController {
 		super.init(nibName: nil, bundle: nil)
 		
 		self.viewModel = CheckinQRCodeScannerViewModel(
-			onSuccess: { [weak self] qrCodeString in
+			verificationHelper: qrCodeVerificationHelper,
+			appConfiguration: appConfiguration,
+			onSuccess: { [weak self] traceLocation in
 				AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
 				self?.viewModel?.deactivateScanning()
-				didScanCheckin(qrCodeString)
+				didScanCheckin(traceLocation)
 			},
 			onError: { error in
 				switch error {
@@ -34,7 +38,8 @@ class CheckinQRCodeScannerViewController: UIViewController {
 				default:
 					self.showErrorAlert()
 				}
-		 })
+			}
+		)
 	}
 
 	@available(*, unavailable)
@@ -193,7 +198,7 @@ class CheckinQRCodeScannerViewController: UIViewController {
 
 		let alert = UIAlertController(
 			title: AppStrings.Checkins.QRScanner.Error.title,
-			message: AppStrings.Checkins.QRScanner.Error.description,
+			message: AppStrings.Checkins.QRScanner.Error.invalidURL,
 			preferredStyle: .alert
 		)
 		alert.addAction(
@@ -205,9 +210,15 @@ class CheckinQRCodeScannerViewController: UIViewController {
 				}
 			)
 		)
-		alert.addAction(UIAlertAction(title: AppStrings.Common.alertActionOk, style: .default, handler: { [weak self] _ in
-			self?.viewModel?.activateScanning()
-		}))
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.Common.alertActionOk,
+				style: .default,
+				handler: { [weak self] _ in
+					self?.viewModel?.activateScanning()
+				}
+			)
+		)
 
 		DispatchQueue.main.async { [weak self] in
 			self?.present(alert, animated: true)
