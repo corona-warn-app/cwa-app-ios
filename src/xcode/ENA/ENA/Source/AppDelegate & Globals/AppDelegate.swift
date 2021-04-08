@@ -96,7 +96,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		UNUserNotificationCenter.current().delegate = notificationManager
 
 		/// Setup DeadmanNotification after AppLaunch
-		DeadmanNotificationManager(store: store, coronaTestService: coronaTestService).scheduleDeadmanNotificationIfNeeded()
+		DeadmanNotificationManager(coronaTestService: coronaTestService).scheduleDeadmanNotificationIfNeeded()
 
 		consumer.didFailCalculateRisk = { [weak self] error in
 			self?.showError(error)

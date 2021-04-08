@@ -24,8 +24,10 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 			 ActionableNotificationIdentifier.deviceTimeCheck.identifier:
 			appDelegate?.showHome()
 
-		case ActionableNotificationIdentifier.warnOthersReminder1.identifier,
-			 ActionableNotificationIdentifier.warnOthersReminder2.identifier:
+		case ActionableNotificationIdentifier.pcrWarnOthersReminder1.identifier,
+			 ActionableNotificationIdentifier.pcrWarnOthersReminder2.identifier,
+			 ActionableNotificationIdentifier.antigenWarnOthersReminder1.identifier,
+			 ActionableNotificationIdentifier.antigenWarnOthersReminder2.identifier:
 			showPositiveTestResultIfNeeded()
 
 		case ActionableNotificationIdentifier.testResult.identifier:

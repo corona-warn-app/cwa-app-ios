@@ -363,29 +363,29 @@ final class RiskProvider: RiskProviding {
 		let configuration = RiskCalculationConfiguration(from: appConfiguration.riskCalculationParameters)
 
 
-			let riskCalculationResult = enfRiskCalculation.calculateRisk(exposureWindows: exposureWindows, configuration: configuration)
-			let mappedWindows = exposureWindows.map { RiskCalculationExposureWindow(exposureWindow: $0, configuration: configuration) }
-			Analytics.collect(.exposureWindowsMetadata(.collectExposureWindows(mappedWindows)))
+		let riskCalculationResult = enfRiskCalculation.calculateRisk(exposureWindows: exposureWindows, configuration: configuration)
+		let mappedWindows = exposureWindows.map { RiskCalculationExposureWindow(exposureWindow: $0, configuration: configuration) }
+		Analytics.collect(.exposureWindowsMetadata(.collectExposureWindows(mappedWindows)))
 
-			let checkinRiskCalculationResult = checkinRiskCalculation.calculateRisk(with: appConfiguration)
+		let checkinRiskCalculationResult = checkinRiskCalculation.calculateRisk(with: appConfiguration)
 
-			let risk = Risk(
-				enfRiskCalculationResult: riskCalculationResult,
-				previousENFRiskCalculationResult: store.enfRiskCalculationResult,
-				checkinCalculationResult: checkinRiskCalculationResult,
-				previousCheckinCalculationResult: store.checkinRiskCalculationResult
-			)
+		let risk = Risk(
+			enfRiskCalculationResult: riskCalculationResult,
+			previousENFRiskCalculationResult: store.enfRiskCalculationResult,
+			checkinCalculationResult: checkinRiskCalculationResult,
+			previousCheckinCalculationResult: store.checkinRiskCalculationResult
+		)
 
-			store.enfRiskCalculationResult = riskCalculationResult
-			store.checkinRiskCalculationResult = checkinRiskCalculationResult
+		store.enfRiskCalculationResult = riskCalculationResult
+		store.checkinRiskCalculationResult = checkinRiskCalculationResult
 
-			checkIfRiskStatusLoweredAlertShouldBeShown(risk)
-			Analytics.collect(.riskExposureMetadata(.updateRiskExposureMetadata(riskCalculationResult)))
+		checkIfRiskStatusLoweredAlertShouldBeShown(risk)
+		Analytics.collect(.riskExposureMetadata(.updateRiskExposureMetadata(riskCalculationResult)))
 
-			completion(.success(risk))
+		completion(.success(risk))
 
-			/// We were able to calculate a risk so we have to reset the DeadMan Notification
-		DeadmanNotificationManager(store: store, coronaTestService: coronaTestService).resetDeadmanNotification()
+		/// We were able to calculate a risk so we have to reset the DeadMan Notification
+		DeadmanNotificationManager(coronaTestService: coronaTestService).resetDeadmanNotification()
 	}
 	
 

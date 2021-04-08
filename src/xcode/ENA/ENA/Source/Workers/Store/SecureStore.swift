@@ -287,14 +287,14 @@ extension SecureStore: EventRegistrationCaching {
 	}
 }
 
-extension SecureStore {
+extension SecureStore: WarnOthersTimeIntervalStoring {
 
-	var warnOthersNotificationOneTimer: TimeInterval {
+	var warnOthersNotificationOneTimeInterval: TimeInterval {
 		get { kvStore["warnOthersNotificationTimerOne"] as TimeInterval? ?? WarnOthersNotificationsTimeInterval.intervalOne }
 		set { kvStore["warnOthersNotificationTimerOne"] = newValue }
 	}
 
-	var warnOthersNotificationTwoTimer: TimeInterval {
+	var warnOthersNotificationTwoTimeInterval: TimeInterval {
 		get { kvStore["warnOthersNotificationTimerTwo"] as TimeInterval? ?? WarnOthersNotificationsTimeInterval.intervalTwo }
 		set { kvStore["warnOthersNotificationTimerTwo"] = newValue }
 	}

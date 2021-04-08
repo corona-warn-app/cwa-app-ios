@@ -14,11 +14,9 @@ struct DeadmanNotificationManager: DeadmanNotificationManageable {
 	// MARK: - Init
 
 	init(
-		store: Store,
 		coronaTestService: CoronaTestService,
 		userNotificationCenter: UserNotificationCenter = UNUserNotificationCenter.current()
 	) {
-		self.store = store
 		self.coronaTestService = coronaTestService
 		self.userNotificationCenter = userNotificationCenter
 	}
@@ -74,7 +72,6 @@ struct DeadmanNotificationManager: DeadmanNotificationManageable {
 	
 	// MARK: - Private
 
-	private let store: Store
 	private let coronaTestService: CoronaTestService
 	private let userNotificationCenter: UserNotificationCenter
 

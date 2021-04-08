@@ -25,24 +25,33 @@ class CoronaTestService {
 
 	init(
 		client: Client,
-		store: CoronaTestStoring & CoronaTestStoringLegacy
+		store: CoronaTestStoring & CoronaTestStoringLegacy & WarnOthersTimeIntervalStoring
 	) {
 		self.client = client
 		self.store = store
 
 		self.fakeRequestService = FakeRequestService(client: client)
+		self.warnOthersReminder = WarnOthersReminder(store: store)
 
 		updatePublishersFromStore()
 
 		$pcrTest
 			.sink { [weak self] pcrTest in
 				self?.store.pcrTest = pcrTest
+
+				if pcrTest?.keysSubmitted == true {
+					self?.warnOthersReminder.cancelNotifications(for: .pcr)
+				}
 			}
 			.store(in: &subscriptions)
 
 		$antigenTest
 			.sink { [weak self] antigenTest in
 				self?.store.antigenTest = antigenTest
+
+				if antigenTest?.keysSubmitted == true {
+					self?.warnOthersReminder.cancelNotifications(for: .antigen)
+				}
 			}
 			.store(in: &subscriptions)
 	}
@@ -230,8 +239,7 @@ class CoronaTestService {
 			antigenTest = nil
 		}
 
-		// TADA
-//		warnOthersReminder.reset()
+		warnOthersReminder.cancelNotifications(for: coronaTestType)
 	}
 
 	func evaluateShowingTest(ofType coronaTestType: CoronaTestType) {
@@ -244,8 +252,11 @@ class CoronaTestService {
 			break
 		}
 
-		// TADA
-//		warnOthersReminder.evaluateShowingTestResult(coronaTest(ofType: coronaTestType).testResult)
+		DeadmanNotificationManager(coronaTestService: self).resetDeadmanNotification()
+
+		if coronaTest(ofType: coronaTestType)?.isSubmissionConsentGiven == true {
+			warnOthersReminder.scheduleNotifications(for: coronaTestType)
+		}
 	}
 
 	func updatePublishersFromStore() {
@@ -293,6 +304,7 @@ class CoronaTestService {
 	private var store: CoronaTestStoring & CoronaTestStoringLegacy
 
 	private let fakeRequestService: FakeRequestService
+	private let warnOthersReminder: WarnOthersReminder
 
 	private var subscriptions = Set<AnyCancellable>()
 

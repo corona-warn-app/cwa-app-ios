@@ -12,14 +12,13 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 	// MARK: - Init
 	
 	init(
-		warnOthersReminder: WarnOthersRemindable,
+		warnOthersReminder: WarnOthersReminder,
 		store: Store,
-		exposureSubmissionService: ExposureSubmissionService
+		coronaTestService: CoronaTestService
 	) {
-		
 		self.store = store
 		self.warnOthersReminder = warnOthersReminder
-		self.exposureSubmissionService = exposureSubmissionService
+		self.coronaTestService = coronaTestService
 		super.init(nibName: nil, bundle: nil)
 	}
 	
@@ -34,6 +33,8 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 		super.viewDidLoad()
 		
 		view.backgroundColor = ColorCompatibility.systemBackground
+
+		let scrollview = UIScrollView()
 		
 		let titleLabel = UILabel(frame: .zero)
 		titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -47,18 +48,22 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 		currentSubmissionConsentStatusTitleLabel.text = "Current status of submission consent\n"
 		currentSubmissionConsentStatusTitleLabel.font = UIFont.enaFont(for: .headline)
 		
-		currentSubmissionConsentStatusStateLabel = UILabel(frame: .zero)
-		currentSubmissionConsentStatusStateLabel.translatesAutoresizingMaskIntoConstraints = false
-		currentSubmissionConsentStatusStateLabel.numberOfLines = 0
-		currentSubmissionConsentStatusStateLabel.font = UIFont.enaFont(for: .title2)
+		currentPCRSubmissionConsentStatusStateLabel = UILabel(frame: .zero)
+		currentPCRSubmissionConsentStatusStateLabel.translatesAutoresizingMaskIntoConstraints = false
+		currentPCRSubmissionConsentStatusStateLabel.numberOfLines = 0
+		currentPCRSubmissionConsentStatusStateLabel.font = UIFont.enaFont(for: .title2)
+
+		currentAntigenSubmissionConsentStatusStateLabel = UILabel(frame: .zero)
+		currentAntigenSubmissionConsentStatusStateLabel.translatesAutoresizingMaskIntoConstraints = false
+		currentAntigenSubmissionConsentStatusStateLabel.numberOfLines = 0
+		currentAntigenSubmissionConsentStatusStateLabel.font = UIFont.enaFont(for: .title2)
 		
 		let currentSubmissionConsentStatusStateDescription = UILabel(frame: .zero)
 		currentSubmissionConsentStatusStateDescription.translatesAutoresizingMaskIntoConstraints = false
 		currentSubmissionConsentStatusStateDescription.numberOfLines = 0
 		currentSubmissionConsentStatusStateDescription.text = "\n⚠️ If SubmissionConsent is granted (🟢), then no warn others notifications will be scheduled!"
 		currentSubmissionConsentStatusStateDescription.font = UIFont.enaFont(for: .subheadline)
-		
-		
+
 		let descriptionLabel = UILabel(frame: .zero)
 		descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
 		descriptionLabel.numberOfLines = 0
@@ -109,21 +114,38 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 		timeInterval2TextField.delegate = self
 		timeInterval2TextField.borderStyle = .line
 		
-		consentSwitch.onTintColor = .enaColor(for: .tint)
-		consentSwitch.addTarget(self, action: #selector(self.consentStateChanged), for: .valueChanged)
+		pcrConsentSwitch.onTintColor = .enaColor(for: .tint)
+		pcrConsentSwitch.addTarget(self, action: #selector(self.pcrConsentStateChanged), for: .valueChanged)
+
+		antigenConsentSwitch.onTintColor = .enaColor(for: .tint)
+		antigenConsentSwitch.addTarget(self, action: #selector(self.pcrConsentStateChanged), for: .valueChanged)
 		
-		let stackView = UIStackView(arrangedSubviews: [currentSubmissionConsentStatusTitleLabel, currentSubmissionConsentStatusStateLabel, consentSwitch, currentSubmissionConsentStatusStateDescription, titleLabel, descriptionLabel, timeInterval1Label, timeInterval1TextField, timeInterval2Label, timeInterval2TextField, saveButton, resetDefaultsButton, descriptionResetNotificationsLabel, resetNotificationsButton])
+		let stackView = UIStackView(arrangedSubviews: [currentSubmissionConsentStatusTitleLabel, currentPCRSubmissionConsentStatusStateLabel, pcrConsentSwitch, currentAntigenSubmissionConsentStatusStateLabel, antigenConsentSwitch, currentSubmissionConsentStatusStateDescription, titleLabel, descriptionLabel, timeInterval1Label, timeInterval1TextField, timeInterval2Label, timeInterval2TextField, saveButton, resetDefaultsButton, descriptionResetNotificationsLabel, resetNotificationsButton])
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		stackView.axis = .vertical
 		stackView.alignment = .center
 		stackView.spacing = 10
 		stackView.setCustomSpacing(20, after: descriptionLabel)
-		
-		view.addSubview(stackView)
+
+		view.addSubview(scrollview)
+		scrollview.addSubview(stackView)
+		scrollview.translatesAutoresizingMaskIntoConstraints = false
+		stackView.translatesAutoresizingMaskIntoConstraints = false
+
+		let heightAnchor = stackView.heightAnchor.constraint(equalTo: scrollview.heightAnchor)
+		heightAnchor.priority = .defaultLow
+
 		NSLayoutConstraint.activate([
-			stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-			stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-			stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+			scrollview.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+			scrollview.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+			scrollview.topAnchor.constraint(equalTo: view.topAnchor),
+			scrollview.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+			stackView.leadingAnchor.constraint(equalTo: scrollview.leadingAnchor, constant: 10),
+			stackView.trailingAnchor.constraint(equalTo: scrollview.trailingAnchor, constant: -10),
+			stackView.topAnchor.constraint(equalTo: scrollview.topAnchor, constant: 10),
+			stackView.bottomAnchor.constraint(equalTo: scrollview.bottomAnchor),
+			stackView.widthAnchor.constraint(equalTo: scrollview.widthAnchor, constant: -20),
+			heightAnchor,
 			timeInterval1TextField.widthAnchor.constraint(equalToConstant: 70),
 			timeInterval2TextField.widthAnchor.constraint(equalToConstant: 70)
 		])
@@ -137,21 +159,44 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 		timeInterval2TextField.keyboardType = .numberPad
 		self.hideKeyboardWhenTappedAround()
 
-		// TADA
-//		self.exposureSubmissionService.isSubmissionConsentGivenPublisher.sink { isSubmissionConsentGiven in
-//			self.consentSwitch.isOn = isSubmissionConsentGiven
-//			self.currentSubmissionConsentStatusStateLabel.text = isSubmissionConsentGiven ? "🟢 Consent granted 👍" : "🔴 Consent not given 👎"
-//		}.store(in: &cancellables)
+		coronaTestService.$pcrTest
+			.sink { pcrTest in
+				self.pcrConsentSwitch.isEnabled = pcrTest != nil
+
+				guard let pcrTest = pcrTest else {
+					self.currentPCRSubmissionConsentStatusStateLabel.text = "No PCR test registered"
+					return
+				}
+
+				self.pcrConsentSwitch.isOn = pcrTest.isSubmissionConsentGiven
+				self.currentPCRSubmissionConsentStatusStateLabel.text = pcrTest.isSubmissionConsentGiven ? "PCR: 🟢 Consent granted 👍" : "PCR: 🔴 Consent not given 👎"
+			}
+			.store(in: &subscriptions)
+
+		coronaTestService.$antigenTest
+			.sink { antigenTest in
+				self.antigenConsentSwitch.isEnabled = antigenTest != nil
+
+				guard let antigenTest = antigenTest else {
+					self.currentAntigenSubmissionConsentStatusStateLabel.text = "No Antigen test registered"
+					return
+				}
+
+				self.antigenConsentSwitch.isOn = antigenTest.isSubmissionConsentGiven
+				self.currentAntigenSubmissionConsentStatusStateLabel.text = antigenTest.isSubmissionConsentGiven ? "Antigen: 🟢 Consent granted 👍" : "Antigen: 🔴 Consent not given 👎"
+			}
+			.store(in: &subscriptions)
 		
 	}
 	
 	// MARK: - Private
 
-	private let consentSwitch = UISwitch()
+	private let pcrConsentSwitch = UISwitch()
+	private let antigenConsentSwitch = UISwitch()
 	
-	private var cancellables: Set<AnyCancellable> = []
+	private var subscriptions: Set<AnyCancellable> = []
 	
-	private var exposureSubmissionService: ExposureSubmissionService
+	private var coronaTestService: CoronaTestService
 	
 	private var timeInterval1TextField: UITextField!
 	private var timeInterval2TextField: UITextField!
@@ -160,14 +205,19 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 	private var timeInterval2Label: UILabel!
 
 	private let store: Store
-	private var warnOthersReminder: WarnOthersRemindable
+	private var warnOthersReminder: WarnOthersReminder
 	
-	private var currentSubmissionConsentStatusStateLabel = UILabel()
+	private var currentPCRSubmissionConsentStatusStateLabel = UILabel()
+	private var currentAntigenSubmissionConsentStatusStateLabel = UILabel()
 	
 	@objc
-	private func consentStateChanged(switchState: UISwitch) {
-		// TADA
-//		exposureSubmissionService.isSubmissionConsentGiven = switchState.isOn
+	private func pcrConsentStateChanged(switchState: UISwitch) {
+		coronaTestService.pcrTest?.isSubmissionConsentGiven = switchState.isOn
+	}
+
+	@objc
+	private func antigenConsentStateChanged(switchState: UISwitch) {
+		coronaTestService.antigenTest?.isSubmissionConsentGiven = switchState.isOn
 	}
 	
 	@objc

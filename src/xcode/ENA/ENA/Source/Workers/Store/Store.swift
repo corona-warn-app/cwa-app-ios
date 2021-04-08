@@ -51,12 +51,6 @@ protocol StoreProtocol: AnyObject {
 	/// The time when the playbook was executed in background.
 	var firstPlaybookExecution: Date? { get set }
 
-	/// Delay time in seconds, when the first notification to warn others will be shown,
-	var warnOthersNotificationOneTimer: TimeInterval { get set }
-
-	/// Delay time in seconds, when the first notification to warn others will be shown,
-	var warnOthersNotificationTwoTimer: TimeInterval { get set }
-
 	var wasRecentDayKeyDownloadSuccessful: Bool { get set }
 
 	var wasRecentHourKeyDownloadSuccessful: Bool { get set }
@@ -135,9 +129,20 @@ protocol EventRegistrationCaching: AnyObject {
 	var qrCodePosterTemplateMetadata: QRCodePosterTemplateMetadata? { get set }
 }
 
+protocol WarnOthersTimeIntervalStoring {
+
+	/// Delay time in seconds, when the first notification to warn others will be shown,
+	var warnOthersNotificationOneTimeInterval: TimeInterval { get set }
+
+	/// Delay time in seconds, when the first notification to warn others will be shown,
+	var warnOthersNotificationTwoTimeInterval: TimeInterval { get set }
+
+}
+
 protocol CoronaTestStoring {
 
 	var pcrTest: PCRTest? { get set }
+
 	var antigenTest: AntigenTest? { get set }
 
 }
@@ -177,4 +182,4 @@ protocol CoronaTestStoringLegacy {
 }
 
 /// Wrapper protocol
-protocol Store: StoreProtocol, AppConfigCaching, StatisticsCaching, ServerEnvironmentProviding, PrivacyPreservingProviding, EventRegistrationCaching, CoronaTestStoring, CoronaTestStoringLegacy {}
+protocol Store: StoreProtocol, AppConfigCaching, StatisticsCaching, ServerEnvironmentProviding, PrivacyPreservingProviding, EventRegistrationCaching, WarnOthersTimeIntervalStoring, CoronaTestStoring, CoronaTestStoringLegacy {}

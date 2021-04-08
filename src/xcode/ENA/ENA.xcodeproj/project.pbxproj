@@ -181,6 +181,7 @@
 		01B72BFF2583B57300A3E3BC /* DiaryEditEntriesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01B72BF02583B51C00A3E3BC /* DiaryEditEntriesTableViewCell.xib */; };
 		01B72C032583B71100A3E3BC /* DiaryEditEntriesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01B72BDC2583AB1400A3E3BC /* DiaryEditEntriesViewController.xib */; };
 		01B72C0B25875BC300A3E3BC /* DiaryDayAddCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B72C0A25875BC300A3E3BC /* DiaryDayAddCellModel.swift */; };
+		01BA06BA261F1B9A00237DD8 /* WarnOthersReminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B255A52551B7C800649B4C /* WarnOthersReminder.swift */; };
 		01C2D43E2501225100FB23BF /* MockExposureSubmissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3284256248E7431006B1F09 /* MockExposureSubmissionService.swift */; };
 		01C2D4432501260D00FB23BF /* OptionGroupViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C2D440250124E600FB23BF /* OptionGroupViewModelTests.swift */; };
 		01C6ABF42527273E0052814D /* String+Insertion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C6ABF32527273D0052814D /* String+Insertion.swift */; };
@@ -554,7 +555,6 @@
 		945CD04D25DE592E007ADB4F /* DiaryDayNotesInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945CD04C25DE592E007ADB4F /* DiaryDayNotesInfoViewController.swift */; };
 		945CD05225DE5961007ADB4F /* DiaryDayNotesInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945CD05125DE5961007ADB4F /* DiaryDayNotesInfoViewModel.swift */; };
 		9488C3012521EE8E00504648 /* DeltaOnboardingNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9488C3002521EE8E00504648 /* DeltaOnboardingNavigationController.swift */; };
-		948AFE672553DC5B0019579A /* WarnOthersRemindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948AFE662553DC5B0019579A /* WarnOthersRemindable.swift */; };
 		948AFE7A2554377F0019579A /* UNUserNotificationCenter+WarnOthers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948AFE792554377F0019579A /* UNUserNotificationCenter+WarnOthers.swift */; };
 		948DCDC3252EFC9A00CDE020 /* ENAUITests_05_ExposureLogging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948DCDC2252EFC9A00CDE020 /* ENAUITests_05_ExposureLogging.swift */; };
 		94ABF76B25B9676F004AB56F /* DeltaOnboardingNewVersionFeaturesControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94ABF76A25B9676F004AB56F /* DeltaOnboardingNewVersionFeaturesControllerTests.swift */; };
@@ -1603,7 +1603,6 @@
 		945CD05125DE5961007ADB4F /* DiaryDayNotesInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayNotesInfoViewModel.swift; sourceTree = "<group>"; };
 		9488C3002521EE8E00504648 /* DeltaOnboardingNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaOnboardingNavigationController.swift; sourceTree = "<group>"; };
 		948AFE5E2552F6F60019579A /* WarnOthersReminderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarnOthersReminderTests.swift; sourceTree = "<group>"; };
-		948AFE662553DC5B0019579A /* WarnOthersRemindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarnOthersRemindable.swift; sourceTree = "<group>"; };
 		948AFE792554377F0019579A /* UNUserNotificationCenter+WarnOthers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UNUserNotificationCenter+WarnOthers.swift"; sourceTree = "<group>"; };
 		948DCDC2252EFC9A00CDE020 /* ENAUITests_05_ExposureLogging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_05_ExposureLogging.swift; sourceTree = "<group>"; };
 		94ABF76A25B9676F004AB56F /* DeltaOnboardingNewVersionFeaturesControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaOnboardingNewVersionFeaturesControllerTests.swift; sourceTree = "<group>"; };
@@ -3457,7 +3456,6 @@
 				518A69FA24687D5800444E66 /* RiskLevel.swift */,
 				01D307892562B03B00ADB67B /* RiskState.swift */,
 				94427A4F25502B8900C36BE6 /* WarnOthersNotificationsTimeInterval.swift */,
-				948AFE662553DC5B0019579A /* WarnOthersRemindable.swift */,
 				94B255A52551B7C800649B4C /* WarnOthersReminder.swift */,
 				35E121B825B23D060098D754 /* StatisticsMetadata.swift */,
 			);
@@ -6344,7 +6342,6 @@
 				8595BF5F246032D90056EA27 /* ENASwitch.swift in Sources */,
 				B1C7EEAE24941A3B00F1F284 /* ManualExposureDetectionState.swift in Sources */,
 				EB513DFD25FA34E60020C0B9 /* check_in.pb.swift in Sources */,
-				948AFE672553DC5B0019579A /* WarnOthersRemindable.swift in Sources */,
 				35C701EC2556BCB9008AEA91 /* Migration1To2.swift in Sources */,
 				01EA17E52591399200E98E02 /* HomeInfoCellModel.swift in Sources */,
 				016E25F325AF13EA0077C64C /* HomeStatisticsTableViewCell.swift in Sources */,
@@ -6391,6 +6388,7 @@
 				8FA88FAA2613B38D00FD36DA /* QRCodeVerificationHelper.swift in Sources */,
 				0138F54925ECD44300A9B075 /* ppdd_edus_parameters.pb.swift in Sources */,
 				BA06D5A825DBE0910039D1DB /* TextFieldManager.swift in Sources */,
+				01BA06BA261F1B9A00237DD8 /* WarnOthersReminder.swift in Sources */,
 				B1741B4E2462C21F006275D9 /* DMViewController.swift in Sources */,
 				EB2394A024E5492900E71225 /* BackgroundAppRefreshViewModel.swift in Sources */,
 				EE22DB8C247FB43A001B0A71 /* DescriptionTableViewCell.swift in Sources */,

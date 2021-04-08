@@ -29,7 +29,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		self.appConfigurationProvider = appConfigurationProvider
 		self.client = client
 		self.store = store
-		self.deadmanNotificationManager = deadmanNotificationManager ?? DeadmanNotificationManager(store: store, coronaTestService: coronaTestService)
+		self.deadmanNotificationManager = deadmanNotificationManager ?? DeadmanNotificationManager(coronaTestService: coronaTestService)
 		self.coronaTestService = coronaTestService
 
 		fakeRequestService = FakeRequestService(client: client)
@@ -225,10 +225,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 	/// This method removes all left over persisted objects part of the `submitExposure` flow.
 	private func submitExposureCleanup(coronaTestType: CoronaTestType) {
-		// TADA
-		/// Cancel warn others notifications and set positiveTestResultWasShown = false
-		// warnOthersReminder.reset()
-
 		switch coronaTestType {
 		case .pcr:
 			coronaTestService.pcrTest?.keysSubmitted = true
@@ -244,7 +240,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		temporaryExposureKeys = nil
 		supportedCountries = []
 		symptomsOnset = .noInformation
-
 
 		Log.info("Exposure submission cleanup.", log: .api)
 	}
