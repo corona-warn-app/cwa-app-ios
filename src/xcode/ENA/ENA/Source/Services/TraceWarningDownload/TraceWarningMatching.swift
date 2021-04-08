@@ -95,7 +95,7 @@ final class TraceWarningMatcher: TraceWarningMatching {
 					endIntervalNumber: Int(warning.startIntervalNumber + warning.period)
 				)
 
-				Log.info("[TraceWarningMatching] Persist match with checkinId: \(checkin.id) and traceWarningPackageId: \(package.intervalNumber). ", log: .checkin)
+				Log.info("[TraceWarningMatching] Persist match with checkin.id: \(checkin.id) and package.intervalNumber: \(package.intervalNumber). ", log: .checkin)
 				eventStore.createTraceTimeIntervalMatch(match)
 			}
 		}
