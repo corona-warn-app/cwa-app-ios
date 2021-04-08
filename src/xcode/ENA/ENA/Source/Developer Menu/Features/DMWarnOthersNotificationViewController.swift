@@ -29,12 +29,11 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 
 	// MARK: - Overrides
 
+	// swiftlint:disable:next function_body_length
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
 		view.backgroundColor = ColorCompatibility.systemBackground
-
-		let scrollview = UIScrollView()
 		
 		let titleLabel = UILabel(frame: .zero)
 		titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -159,6 +158,33 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 		timeInterval2TextField.keyboardType = .numberPad
 		self.hideKeyboardWhenTappedAround()
 
+		setupSubscriptions()
+	}
+	
+	// MARK: - Private
+
+	private let scrollview = UIScrollView()
+
+	private let pcrConsentSwitch = UISwitch()
+	private let antigenConsentSwitch = UISwitch()
+	
+	private var subscriptions: Set<AnyCancellable> = []
+	
+	private var coronaTestService: CoronaTestService
+	
+	private var timeInterval1TextField: UITextField!
+	private var timeInterval2TextField: UITextField!
+
+	private var timeInterval1Label: UILabel!
+	private var timeInterval2Label: UILabel!
+
+	private let store: Store
+	private var warnOthersReminder: WarnOthersReminder
+	
+	private var currentPCRSubmissionConsentStatusStateLabel = UILabel()
+	private var currentAntigenSubmissionConsentStatusStateLabel = UILabel()
+
+	private func setupSubscriptions() {
 		coronaTestService.$pcrTest
 			.sink { pcrTest in
 				self.pcrConsentSwitch.isEnabled = pcrTest != nil
@@ -186,29 +212,7 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 				self.currentAntigenSubmissionConsentStatusStateLabel.text = antigenTest.isSubmissionConsentGiven ? "Antigen: 🟢 Consent granted 👍" : "Antigen: 🔴 Consent not given 👎"
 			}
 			.store(in: &subscriptions)
-		
 	}
-	
-	// MARK: - Private
-
-	private let pcrConsentSwitch = UISwitch()
-	private let antigenConsentSwitch = UISwitch()
-	
-	private var subscriptions: Set<AnyCancellable> = []
-	
-	private var coronaTestService: CoronaTestService
-	
-	private var timeInterval1TextField: UITextField!
-	private var timeInterval2TextField: UITextField!
-
-	private var timeInterval1Label: UILabel!
-	private var timeInterval2Label: UILabel!
-
-	private let store: Store
-	private var warnOthersReminder: WarnOthersReminder
-	
-	private var currentPCRSubmissionConsentStatusStateLabel = UILabel()
-	private var currentAntigenSubmissionConsentStatusStateLabel = UILabel()
 	
 	@objc
 	private func pcrConsentStateChanged(switchState: UISwitch) {
