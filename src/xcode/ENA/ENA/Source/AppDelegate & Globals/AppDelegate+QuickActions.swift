@@ -49,7 +49,8 @@ enum QuickAction: String {
 
 		var shortcutItems = [UIApplicationShortcutItem(type: QuickAction.diaryNewEntry.rawValue, localizedTitle: AppStrings.QuickActions.contactDiaryNewEntry, localizedSubtitle: nil, icon: UIApplicationShortcutIcon(templateImageName: "book.closed"))]
 		
-		if AVCaptureDevice.authorizationStatus(for: .video) == .authorized {
+		let status = AVCaptureDevice.authorizationStatus(for: .video)
+		if status == .authorized || status == .notDetermined {
 			// dont show event checkin action if no camera access granted
 			shortcutItems.append(
 				UIApplicationShortcutItem(type: QuickAction.eventCheckin.rawValue, localizedTitle: AppStrings.QuickActions.eventCheckin, localizedSubtitle: nil, icon: UIApplicationShortcutIcon(templateImageName: "qrcode.viewfinder"))
