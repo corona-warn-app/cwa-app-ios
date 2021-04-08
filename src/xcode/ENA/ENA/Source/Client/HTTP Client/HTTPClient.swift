@@ -612,7 +612,8 @@ final class HTTPClient: Client {
 						let eTag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag")
 						
 						// First look if the response is empty. (i.e. no zip file, to extract).
-						if response.httpResponse.expectedContentLength == 0 {
+						// "expectedContentLength" will be -1 if the "content-length" header field is missing.
+						if response.httpResponse.expectedContentLength <= 0 {
 							let emptyPackage = PackageDownloadResponse(package: nil, etag: eTag)
 							Log.info("Succesfully downloaded empty traceWarningPackage", log: .api)
 							completion(.success(emptyPackage))
