@@ -10,9 +10,13 @@ class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDel
 	// MARK: - Init
 
 	init(
-		onSuccess: @escaping(String) -> Void,
+		verificationHelper: QRCodeVerificationHelper,
+		appConfiguration: AppConfigurationProviding,
+		onSuccess: @escaping(TraceLocation) -> Void,
 		onError: ((CheckinQRScannerError) -> Void)?
 	) {
+		self.appConfiguration = appConfiguration
+		self.verificationHelper = verificationHelper
 		self.captureDevice = AVCaptureDevice.default(for: .video)
 		self.onSuccess = onSuccess
 		self.onError = onError
@@ -43,8 +47,16 @@ class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDel
 			onError?(CheckinQRScannerError.codeNotFound)
 			return
 		}
-		onSuccess(url)
-
+		verificationHelper.verifyQrCode(
+			qrCodeString: url,
+			appConfigurationProvider: appConfiguration,
+			onSuccess: { [weak self] traceLocation in
+				self?.onSuccess(traceLocation)
+			},
+			onError: { [weak self] error in
+				self?.onError?(error)
+			}
+		)
 	}
 	// MARK: - Internal
 
@@ -66,7 +78,9 @@ class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDel
 		return captureSession
 	}()
 
-	var onSuccess: (String) -> Void
+	private let appConfiguration: AppConfigurationProviding
+	private let verificationHelper: QRCodeVerificationHelper
+	var onSuccess: (TraceLocation) -> Void
 	var onError: ((CheckinQRScannerError) -> Void)?
 	/// get current torchMode by device state
 	var torchMode: TorchMode {
