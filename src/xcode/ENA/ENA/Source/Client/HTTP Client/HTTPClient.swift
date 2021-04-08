@@ -669,7 +669,7 @@ private extension URLRequest {
 			$0.requestPadding = self.getSubmissionPadding(for: payload.exposureKeys)
 			$0.keys = payload.exposureKeys
 			$0.checkIns = payload.eventCheckIns
-			/// Consent needs always set to be true https://jira.itc.sap.com/browse/EXPOSUREAPP-3125?focusedCommentId=1022122&page=com.atlassian.jira.plugin.system.issuetabpanels%3Acomment-tabpanel#comment-1022122
+			/// Consent needs always set to be true
 			$0.consentToFederation = true
 			$0.visitedCountries = payload.visitedCountries.map { $0.id }
 		}
