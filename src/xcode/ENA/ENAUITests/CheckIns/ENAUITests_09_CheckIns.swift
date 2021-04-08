@@ -27,19 +27,19 @@ class ENAUITests_09_CheckIns: XCTestCase {
 		// Navigate to CheckIn
 		app.buttons[AccessibilityIdentifiers.Tabbar.checkin].tap()
 		
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.CheckinInformation.acknowledgementTitle].exists)
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.CheckinInformation.dataPrivacyTitle].exists)
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.CheckinInformation.primaryButton].exists)
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Checkin.Information.acknowledgementTitle].exists)
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Checkin.Information.dataPrivacyTitle].exists)
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Checkin.Information.primaryButton].exists)
 		
-		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.CheckinInformation.descriptionTitle].exists)
-		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.CheckinInformation.descriptionSubHeadline].exists)
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Information.descriptionTitle].exists)
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Information.descriptionSubHeadline].exists)
 		snapshot("CheckInInfoScreen")
 		
 		// Navigate to Data Privacy
-		if let target = UITestHelper.scrollTo(identifier: AccessibilityIdentifiers.CheckinInformation.dataPrivacyTitle, element: app, app: app) {
+		if let target = UITestHelper.scrollTo(identifier: AccessibilityIdentifiers.Checkin.Information.dataPrivacyTitle, element: app, app: app) {
 			target.tap()
 		} else {
-			XCTFail("Can't find element \(AccessibilityIdentifiers.CheckinInformation.dataPrivacyTitle)")
+			XCTFail("Can't find element \(AccessibilityIdentifiers.Checkin.Information.dataPrivacyTitle)")
 		}
 		
 		XCTAssertTrue(app.staticTexts["AppStrings.AppInformation.privacyTitle"].waitForExistence(timeout: .short))
@@ -54,8 +54,8 @@ class ENAUITests_09_CheckIns: XCTestCase {
 		app.buttons[AccessibilityIdentifiers.Tabbar.checkin].tap()
 		
 		// Confirm consent
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.CheckinInformation.primaryButton].waitForExistence(timeout: .short))
-		app.buttons[AccessibilityIdentifiers.CheckinInformation.primaryButton].tap()
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Checkin.Information.primaryButton].waitForExistence(timeout: .short))
+		app.buttons[AccessibilityIdentifiers.Checkin.Information.primaryButton].tap()
 		
 		snapshot("CheckIn_MyCheckins")
 		
