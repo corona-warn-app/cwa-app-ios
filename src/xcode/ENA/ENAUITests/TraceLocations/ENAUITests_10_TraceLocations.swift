@@ -227,7 +227,7 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 		XCTAssertTrue(app.staticTexts[event].waitForExistence(timeout: .short))
 		
 		// the QR code cells start at index = 1
-		let query = app.cells
+		var query = app.cells
 		let n = query.count
 		XCTAssertTrue(n > 1)
 		// tap the cell to display the details
@@ -238,6 +238,18 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].exists)
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.General.secondaryFooterButton].exists)
 		
+		// query for the event title and event location
+		query = app.cells.staticTexts
+		
+		let titleLabel = query.element(matching: .staticText, identifier: AccessibilityIdentifiers.TraceLocation.Details.titleLabel)
+		XCTAssertNotNil(titleLabel)
+		XCTAssertTrue(titleLabel.label == event)
+		
+		let locationLabel = query.element(matching: .staticText, identifier: AccessibilityIdentifiers.TraceLocation.Details.locationLabel)
+		XCTAssertNotNil(locationLabel)
+		XCTAssertTrue(locationLabel.label == location)
+		
+		// close view
 		app.buttons[AccessibilityIdentifiers.AccessibilityLabel.close].tap()
 		// clean up
 		swipeLeft_and_remove_all_traceLocations_at_once()
