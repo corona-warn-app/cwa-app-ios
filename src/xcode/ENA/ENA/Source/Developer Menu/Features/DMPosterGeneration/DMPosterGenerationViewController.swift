@@ -32,6 +32,62 @@ class DMPosterGenerationViewController: UIViewController, UITextFieldDelegate {
 		super.viewDidLoad()
 		view.backgroundColor = ColorCompatibility.systemBackground
 		
+		setupView()
+		setupNavigationBar()
+		self.hideKeyboardWhenTappedAround()
+	}
+
+	// MARK: - Protocol UITextFieldDelegate
+	
+	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+		view.endEditing(true)
+	}
+
+	func textFieldDidBeginEditing(_ textField: UITextField) {
+		// in order to prevent movement for top text fields
+		if textField.tag != 1 {
+			self.animateViewMoving(up: true, moveValue: 200)
+		}
+	}
+	
+	func textFieldDidEndEditing(_ textField: UITextField) {
+		// in order to prevent movement for top text fields
+		if textField.tag != 1 {
+			self.animateViewMoving(up: false, moveValue: 200)
+		}
+	}
+
+	func animateViewMoving (up: Bool, moveValue: CGFloat) {
+		let movementDuration: TimeInterval = 0.3
+		let movement: CGFloat = (up ? -moveValue : moveValue)
+		UIView.beginAnimations( "animateView", context: nil)
+		UIView.setAnimationBeginsFromCurrentState(true)
+		UIView.setAnimationDuration(movementDuration)
+		self.view.frame = self.view.frame.offsetBy(dx: 0, dy: movement)
+		UIView.commitAnimations()
+	}
+	
+	// MARK: - Private
+
+	private let viewModel: DMPosterGenerationViewModel
+	private let qrCodePosterTemplateProvider: QRCodePosterTemplateProviding
+
+	private var qrCodeOffsetXField: UITextField!
+	private var qrCodeOffsetYField: UITextField!
+	private var qrCodeSideLengthField: UITextField!
+	
+	private var descriptionOffsetXField: UITextField!
+	private var descriptionOffsetYField: UITextField!
+	private var descriptionWidthField: UITextField!
+	private var descriptionHeightField: UITextField!
+	private var descriptionFontSizeField: UITextField!
+	private var descriptionFontColorField: UITextField!
+
+	private func setupNavigationBar() {
+		title = "Poster Generation"
+	}
+	
+	private func setupView() {
 		// setting up labels and text fields
 		let titleLabel = UILabel(frame: .zero)
 		titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -217,62 +273,8 @@ class DMPosterGenerationViewController: UIViewController, UITextFieldDelegate {
 		descriptionHeightField.text = "40"
 		descriptionFontSizeField.text = "14"
 		descriptionFontColorField.text = "#000000"
-		
-		self.hideKeyboardWhenTappedAround()
-		
-		setupNavigationBar()
 	}
 
-	// MARK: - Protocol UITextFieldDelegate
-	
-	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-		view.endEditing(true)
-	}
-
-	func textFieldDidBeginEditing(_ textField: UITextField) {
-		// in order to prevent movement for top text fields
-		if textField.tag != 1 {
-			self.animateViewMoving(up: true, moveValue: 200)
-		}
-	}
-	
-	func textFieldDidEndEditing(_ textField: UITextField) {
-		// in order to prevent movement for top text fields
-		if textField.tag != 1 {
-			self.animateViewMoving(up: false, moveValue: 200)
-		}
-	}
-
-	func animateViewMoving (up: Bool, moveValue: CGFloat) {
-		let movementDuration: TimeInterval = 0.3
-		let movement: CGFloat = (up ? -moveValue : moveValue)
-		UIView.beginAnimations( "animateView", context: nil)
-		UIView.setAnimationBeginsFromCurrentState(true)
-		UIView.setAnimationDuration(movementDuration)
-		self.view.frame = self.view.frame.offsetBy(dx: 0, dy: movement)
-		UIView.commitAnimations()
-	}
-	
-	// MARK: - Private
-
-	private let viewModel: DMPosterGenerationViewModel
-	private let qrCodePosterTemplateProvider: QRCodePosterTemplateProviding
-
-	private var qrCodeOffsetXField: UITextField!
-	private var qrCodeOffsetYField: UITextField!
-	private var qrCodeSideLengthField: UITextField!
-	
-	private var descriptionOffsetXField: UITextField!
-	private var descriptionOffsetYField: UITextField!
-	private var descriptionWidthField: UITextField!
-	private var descriptionHeightField: UITextField!
-	private var descriptionFontSizeField: UITextField!
-	private var descriptionFontColorField: UITextField!
-
-	private func setupNavigationBar() {
-		title = "Poster Generation"
-	}
-	
 	@objc
 	private func generatePosterButtonTapped() {
 		viewModel.fetchQRCodePosterTemplateData { [weak self] templateData in
