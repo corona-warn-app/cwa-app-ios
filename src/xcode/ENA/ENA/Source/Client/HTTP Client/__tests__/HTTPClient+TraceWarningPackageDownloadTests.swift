@@ -17,7 +17,7 @@ final class HTTPClientTraceWarningPackageDownloadTests: XCTestCase {
 		let url = Bundle(for: type(of: self)).url(forResource: "api-response-traceWarning", withExtension: nil)
 		let stack = MockNetworkStack(
 			httpStatus: 200,
-			headerFields: ["etAg": "\"SomeEtag\""],
+			headerFields: ["etAg": "\"SomeEtag\"", "content-length": "1"],
 			responseData: try Data(contentsOf: XCTUnwrap(url))
 		)
 
@@ -42,13 +42,13 @@ final class HTTPClientTraceWarningPackageDownloadTests: XCTestCase {
 		self.assertPackageFormat(for: try XCTUnwrap(response))
 	}
 	
-	func testGIVEN_CountryAndPackageId_WHEN_EmptyHeaderIsSend_THEN_EmptyTraceWarningPackageIsReturned() throws {
+	func testGIVEN_CountryAndPackageId_WHEN_EmptyContentHeaderIsSend_THEN_EmptyTraceWarningPackageIsReturned() throws {
 		
 		// GIVEN
 		let packageId = Date().unixTimestampInHours
 		let stack = MockNetworkStack(
 			httpStatus: 200,
-			headerFields: ["etAg": "\"SomeEtag\"", "cwa-empty-pkg": "1"],
+			headerFields: ["etAg": "\"SomeEtag\"", "content-length": "0"],
 			responseData: Data()
 		)
 
@@ -80,7 +80,7 @@ final class HTTPClientTraceWarningPackageDownloadTests: XCTestCase {
 		let packageId = Date().unixTimestampInHours
 		let stack = MockNetworkStack(
 			httpStatus: 200,
-			headerFields: ["etAg": "\"SomeEtag\""],
+			headerFields: ["etAg": "\"SomeEtag\"", "content-length": "1"],
 			responseData: Data(bytes: [0xA, 0xB] as [UInt8], count: 2)
 		)
 
@@ -109,7 +109,7 @@ final class HTTPClientTraceWarningPackageDownloadTests: XCTestCase {
 		let packageId = Date().unixTimestampInHours
 		let stack = MockNetworkStack(
 			httpStatus: 200,
-			headerFields: ["etAg": "\"SomeEtag\""],
+			headerFields: ["etAg": "\"SomeEtag\"", "content-length": "1"],
 			responseData: Data(bytes: [0xA, 0xB] as [UInt8], count: 2)
 		)
 
@@ -139,7 +139,7 @@ final class HTTPClientTraceWarningPackageDownloadTests: XCTestCase {
 		let packageId = Date().unixTimestampInHours
 		let stack = MockNetworkStack(
 			httpStatus: 200,
-			headerFields: ["etAg": "\"SomeEtag\""],
+			headerFields: ["etAg": "\"SomeEtag\"", "content-length": "1"],
 			responseData: nil
 		)
 
