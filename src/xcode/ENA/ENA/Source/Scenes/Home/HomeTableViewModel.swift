@@ -52,10 +52,6 @@ class HomeTableViewModel {
 				return [.risk, .testResult]
 			} else if UserDefaults.standard.string(forKey: "showPositiveTestResult") == "YES" {
 				return [.shownPositiveTestResult]
-			} else if state.positiveTestResultWasShown {
-				return [.shownPositiveTestResult]
-			} else {
-				return [.risk, .testResult]
 			}
 		}
 		#endif
