@@ -38,7 +38,7 @@ final class TestableCheckinQRCodeScannerViewModel: CheckinQRCodeScannerViewModel
 class CheckinQRCodeScannerViewModelTests: XCTestCase {
 	
 	func testSuccessfulScan() {
-		let guid = "3D6D08-3567F3F2-4DCF-43A3-8737-4CD1F87D6FDA"
+		let guid = "https://e.coronawarn.app?v=1#CAESJQgBEgpBZ3dheSBJbmMuGhExNTk0IERlZmZlIEF2ZW51ZSgAMAAadggBEmA4xNrp5hKJoO_yVbXfF1gS8Yc5nURhOIVLG3nUcSg8IPsI2e8JSIhg-FrHUymQ3RR80KUKb1lZjLQkfTUINUP16r6-jFDURwUlCQQi6NXCgI0rQw0a4MrVrKMbF4NzhQMaEPXDJZ2XSeO0SY43-KCQlQciBggBEAQYHA"
 		
 		let onSuccessExpectation = expectation(description: "onSuccess called")
 		onSuccessExpectation.expectedFulfillmentCount = 1
@@ -48,9 +48,9 @@ class CheckinQRCodeScannerViewModelTests: XCTestCase {
 		onErrorExpectation.expectedFulfillmentCount = 1
 		
 		let viewModel = TestableCheckinQRCodeScannerViewModel(
-			onSuccess: { qrCodeString in
-				XCTAssertEqual(qrCodeString, guid)
-				
+			verificationHelper: QRCodeVerificationHelper(),
+			appConfiguration: CachedAppConfigurationMock(),
+			onSuccess: { _ in
 				onSuccessExpectation.fulfill()
 			},
 			onError: { _ in
@@ -76,6 +76,8 @@ class CheckinQRCodeScannerViewModelTests: XCTestCase {
 		onErrorExpectation.expectedFulfillmentCount = 1
 		
 		let viewModel = TestableCheckinQRCodeScannerViewModel(
+			verificationHelper: QRCodeVerificationHelper(),
+			appConfiguration: CachedAppConfigurationMock(),
 			onSuccess: { _ in
 				onSuccessExpectation.fulfill()
 			},
@@ -96,7 +98,7 @@ class CheckinQRCodeScannerViewModelTests: XCTestCase {
 	}
 		
 	func testInitalUnsuccessfulScanWithSuccessfulRetry() {
-		let validGuid = "3D6D08-3567F3F2-4DCF-43A3-8737-4CD1F87D6FDA"
+		let validGuid = "https://e.coronawarn.app?v=1#CAESJQgBEgpBZ3dheSBJbmMuGhExNTk0IERlZmZlIEF2ZW51ZSgAMAAadggBEmA4xNrp5hKJoO_yVbXfF1gS8Yc5nURhOIVLG3nUcSg8IPsI2e8JSIhg-FrHUymQ3RR80KUKb1lZjLQkfTUINUP16r6-jFDURwUlCQQi6NXCgI0rQw0a4MrVrKMbF4NzhQMaEPXDJZ2XSeO0SY43-KCQlQciBggBEAQYHA"
 		let emptyGuid = ""
 		
 		let onSuccessExpectation = expectation(description: "onSuccess called")
@@ -106,9 +108,9 @@ class CheckinQRCodeScannerViewModelTests: XCTestCase {
 		onErrorExpectation.expectedFulfillmentCount = 1
 		
 		let viewModel = TestableCheckinQRCodeScannerViewModel(
-			onSuccess: { qrCodeString in
-				XCTAssertEqual(qrCodeString, validGuid)
-				
+			verificationHelper: QRCodeVerificationHelper(),
+			appConfiguration: CachedAppConfigurationMock(),
+			onSuccess: { _ in
 				onSuccessExpectation.fulfill()
 			},
 			onError: { error  in

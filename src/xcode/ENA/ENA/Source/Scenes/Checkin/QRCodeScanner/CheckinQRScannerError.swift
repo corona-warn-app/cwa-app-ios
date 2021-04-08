@@ -16,6 +16,12 @@ enum CheckinQRScannerError: Error, LocalizedError {
 		switch self {
 		case .cameraPermissionDenied:
 			return AppStrings.ExposureSubmissionQRScanner.cameraPermissionDenied
+		case .codeNotFound:
+			return AppStrings.Checkins.QRScanner.Error.invalidURL
+		case .invalidPayload:
+			return AppStrings.Checkins.QRScanner.Error.invalidPayload
+		case .invalidVendorData:
+			return AppStrings.Checkins.QRScanner.Error.invalidVendorData
 		default:
 			return AppStrings.ExposureSubmissionQRScanner.otherError
 		}
