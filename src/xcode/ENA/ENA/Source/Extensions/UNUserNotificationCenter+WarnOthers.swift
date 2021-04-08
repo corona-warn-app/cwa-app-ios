@@ -4,7 +4,7 @@
 
 import UserNotifications
 
-extension UNUserNotificationCenter {
+extension UserNotificationCenter {
 	
 	// MARK: - Internal
 	
@@ -40,13 +40,12 @@ extension UNUserNotificationCenter {
 	// MARK: - Private
 	
 	private func presentNotification(identifier: String, in timeInterval: TimeInterval) {
-		UNUserNotificationCenter.current()
-			.presentNotification(
-				title: AppStrings.WarnOthersNotification.title,
-				body: AppStrings.WarnOthersNotification.description,
-				identifier: identifier,
-				in: timeInterval
-			)
+		presentNotification(
+			title: AppStrings.WarnOthersNotification.title,
+			body: AppStrings.WarnOthersNotification.description,
+			identifier: identifier,
+			in: timeInterval
+		)
 	}
 
 }

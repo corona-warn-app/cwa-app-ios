@@ -19,7 +19,7 @@ public enum ActionableNotificationIdentifier: String {
 	}
 }
 
-extension UNUserNotificationCenter {
+extension UserNotificationCenter {
 
 	func presentNotification(
 		title: String,

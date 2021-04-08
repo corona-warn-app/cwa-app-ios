@@ -10,9 +10,11 @@ class WarnOthersReminder {
 	// MARK: - Init
 
 	init(
-		store: WarnOthersTimeIntervalStoring
+		store: WarnOthersTimeIntervalStoring,
+		userNotificationCenter: UserNotificationCenter = UNUserNotificationCenter.current()
 	) {
 		self.store = store
+		self.userNotificationCenter = userNotificationCenter
 	}
 
 	// MARK: - Internal
@@ -39,7 +41,7 @@ class WarnOthersReminder {
 
 	/// This function takes a `CoronaTestType` as parameter to schedule warn others notifications for this test type
 	func scheduleNotifications(for coronaTestType: CoronaTestType) {
-		UNUserNotificationCenter.current().scheduleWarnOthersNotifications(
+		userNotificationCenter.scheduleWarnOthersNotifications(
 			coronaTestType: coronaTestType,
 			timeIntervalOne: TimeInterval(notificationOneTimeInterval),
 			timeIntervalTwo: TimeInterval(notificationTwoTimeInterval)
@@ -49,7 +51,7 @@ class WarnOthersReminder {
 
 	/// In case the user has informed others about the positive result, this function should be called to reset possible pending 'warn others' notifications
 	func cancelNotifications(for coronaTestType: CoronaTestType) {
-		UNUserNotificationCenter.current().cancelWarnOthersNotification(coronaTestType: coronaTestType)
+		userNotificationCenter.cancelWarnOthersNotification(coronaTestType: coronaTestType)
 		Log.info("Warn others reminder: Notifications for type \(coronaTestType) have been canceled")
 	}
 
@@ -62,5 +64,6 @@ class WarnOthersReminder {
 	// MARK: - Private
 
 	private var store: WarnOthersTimeIntervalStoring
+	private var userNotificationCenter: UserNotificationCenter
 
 }

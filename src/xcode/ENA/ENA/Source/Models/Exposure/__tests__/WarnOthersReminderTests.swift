@@ -8,84 +8,217 @@ import XCTest
 
 class WarnOthersReminderTests: XCTestCase {
 	
-	override func tearDown() {
+	func testTimeIntervalsAreInitializedCorrectly() throws {
 		let store = MockTestStore()
 		let warnOthersReminder = WarnOthersReminder(store: store)
 		
-		// To ensure we have no scheduled warn others notifications leftovers
-		warnOthersReminder.reset()
-	}
-	
-	func testWarnOthers_allVariablesAreInitial() throws {
-		let store = MockTestStore()
-		
-		let warnOthersReminder = WarnOthersReminder(store: store)
-		
-		let timerOneTime = WarnOthersNotificationsTimeInterval.intervalOne
-		XCTAssertEqual(warnOthersReminder.notificationOneTimeInterval, timerOneTime, "Notification timeInterval one has not the intial value of \(timerOneTime)")
-		
-		let timerTwoTime = WarnOthersNotificationsTimeInterval.intervalTwo
-		XCTAssertEqual(Double(warnOthersReminder.notificationTwoTimeInterval), timerTwoTime, "Notification timeInterval two has not the intial value of \(timerTwoTime)")
-		
-		XCTAssertFalse(warnOthersReminder.positiveTestResultWasShown, "Inital value of positiveTestResultWasShown should be 'false'")
-	}
-	
-	func testWarnOthers_changedValuesShouldBeCorrect() throws {
-		let store = MockTestStore()
-		let warnOthersReminder = WarnOthersReminder(store: store)
-		
-		warnOthersReminder.evaluateShowingTestResult(.positive)
-		XCTAssertTrue(warnOthersReminder.positiveTestResultWasShown, "Inital value of positiveTestResultWasShown should be 'true'")
-		
-		warnOthersReminder.notificationOneTimeInterval = TimeInterval(42)
-		XCTAssertEqual(warnOthersReminder.notificationOneTimeInterval, TimeInterval(42), "Notification timeInterval one has not the intial value of '42'")
-		
-		warnOthersReminder.notificationTwoTimeInterval = TimeInterval(43)
-		XCTAssertEqual(warnOthersReminder.notificationTwoTimeInterval, TimeInterval(43), "Notification timeInterval two has not the intial value of '43'")
-		
-		warnOthersReminder.reset()
-		XCTAssertFalse(warnOthersReminder.positiveTestResultWasShown, "Inital value of positiveTestResultWasShown should be 'false'")
-	}
-
-	func testWarnOthers_ShowingPositiveTestResultResetsDeadmanNotification() throws {
-		let store = MockTestStore()
-
-		var deadmanNotificationManager = MockDeadmanNotificationManager()
-
-		let deadmanResetExpectation = expectation(description: "Deadman notification reset")
-		deadmanNotificationManager.resetDeadmanNotificationCalled = {
-			deadmanResetExpectation.fulfill()
-		}
-
-		let warnOthersReminder = WarnOthersReminder(
-			store: store,
-			deadmanNotificationManager: deadmanNotificationManager
+		XCTAssertEqual(
+			warnOthersReminder.notificationOneTimeInterval,
+			WarnOthersNotificationsTimeInterval.intervalOne
 		)
 
-		warnOthersReminder.evaluateShowingTestResult(.positive)
+		XCTAssertEqual(
+			warnOthersReminder.notificationTwoTimeInterval,
+			WarnOthersNotificationsTimeInterval.intervalTwo
+		)
+	}
 
-		waitForExpectations(timeout: .medium)
+	func testIntervalsAreWrittenToStore() throws {
+		let store = MockTestStore()
+		let warnOthersReminder = WarnOthersReminder(store: store)
+
+		warnOthersReminder.notificationOneTimeInterval = TimeInterval(42)
+		XCTAssertEqual(warnOthersReminder.notificationOneTimeInterval, TimeInterval(42))
+		XCTAssertEqual(store.warnOthersNotificationOneTimeInterval, TimeInterval(42))
+
+		warnOthersReminder.notificationTwoTimeInterval = TimeInterval(43)
+		XCTAssertEqual(warnOthersReminder.notificationTwoTimeInterval, TimeInterval(43))
+		XCTAssertEqual(store.warnOthersNotificationTwoTimeInterval, TimeInterval(43))
 	}
 	
-	func testWarnOthers_SubmissionConsentGiven() throws {
-		let store = MockTestStore()
-		store.isSubmissionConsentGiven = true
-		
-		let warnOthersReminder = WarnOthersReminder(store: store)
-		
-		XCTAssertTrue(warnOthersReminder.isSubmissionConsentGiven, "Submission consent given should be true")
-		
+	func testPCRNotificationsAreScheduledCorrectly() throws {
+		let mockNotificationCenter = MockUserNotificationCenter()
+		let warnOthersReminder = WarnOthersReminder(
+			store: MockTestStore(),
+			userNotificationCenter: mockNotificationCenter
+		)
+
+		XCTAssertTrue(mockNotificationCenter.notificationRequests.isEmpty)
+
+		warnOthersReminder.scheduleNotifications(for: .pcr)
+
+		XCTAssertEqual(mockNotificationCenter.notificationRequests.count, 2)
+
+		XCTAssertEqual(
+			mockNotificationCenter.notificationRequests[0].identifier,
+			ActionableNotificationIdentifier.pcrWarnOthersReminder1.identifier
+		)
+
+		XCTAssertEqual(
+			mockNotificationCenter.notificationRequests[0].content.title,
+			AppStrings.WarnOthersNotification.title
+		)
+
+		XCTAssertEqual(
+			mockNotificationCenter.notificationRequests[0].content.body,
+			AppStrings.WarnOthersNotification.description
+		)
+
+		XCTAssertEqual(
+			(mockNotificationCenter.notificationRequests[0].trigger as? UNTimeIntervalNotificationTrigger)?.timeInterval,
+			warnOthersReminder.notificationOneTimeInterval
+		)
+
+		XCTAssertEqual(
+			mockNotificationCenter.notificationRequests[1].identifier,
+			ActionableNotificationIdentifier.pcrWarnOthersReminder2.identifier
+		)
+
+		XCTAssertEqual(
+			mockNotificationCenter.notificationRequests[1].content.title,
+			AppStrings.WarnOthersNotification.title
+		)
+
+		XCTAssertEqual(
+			mockNotificationCenter.notificationRequests[1].content.body,
+			AppStrings.WarnOthersNotification.description
+		)
+
+		XCTAssertEqual(
+			(mockNotificationCenter.notificationRequests[1].trigger as? UNTimeIntervalNotificationTrigger)?.timeInterval,
+			warnOthersReminder.notificationTwoTimeInterval
+		)
 	}
-	
-	func testWarnOthers_noSubmissionConsentGiven() throws {
-		
-		let store = MockTestStore()
-		store.isSubmissionConsentGiven = false
-		
-		let warnOthersReminder = WarnOthersReminder(store: store)
-		
-		XCTAssertFalse(warnOthersReminder.isSubmissionConsentGiven, "Submission consent given should be false")
-		
+
+	func testAntigenNotificationsAreScheduledCorrectly() throws {
+		let mockNotificationCenter = MockUserNotificationCenter()
+		let warnOthersReminder = WarnOthersReminder(
+			store: MockTestStore(),
+			userNotificationCenter: mockNotificationCenter
+		)
+
+		XCTAssertTrue(mockNotificationCenter.notificationRequests.isEmpty)
+
+		warnOthersReminder.scheduleNotifications(for: .antigen)
+
+		XCTAssertEqual(mockNotificationCenter.notificationRequests.count, 2)
+
+		XCTAssertEqual(
+			mockNotificationCenter.notificationRequests[0].identifier,
+			ActionableNotificationIdentifier.antigenWarnOthersReminder1.identifier
+		)
+
+		XCTAssertEqual(
+			mockNotificationCenter.notificationRequests[0].content.title,
+			AppStrings.WarnOthersNotification.title
+		)
+
+		XCTAssertEqual(
+			mockNotificationCenter.notificationRequests[0].content.body,
+			AppStrings.WarnOthersNotification.description
+		)
+
+		XCTAssertEqual(
+			(mockNotificationCenter.notificationRequests[0].trigger as? UNTimeIntervalNotificationTrigger)?.timeInterval,
+			warnOthersReminder.notificationOneTimeInterval
+		)
+
+		XCTAssertEqual(
+			mockNotificationCenter.notificationRequests[1].identifier,
+			ActionableNotificationIdentifier.antigenWarnOthersReminder2.identifier
+		)
+
+		XCTAssertEqual(
+			mockNotificationCenter.notificationRequests[1].content.title,
+			AppStrings.WarnOthersNotification.title
+		)
+
+		XCTAssertEqual(
+			mockNotificationCenter.notificationRequests[1].content.body,
+			AppStrings.WarnOthersNotification.description
+		)
+
+		XCTAssertEqual(
+			(mockNotificationCenter.notificationRequests[1].trigger as? UNTimeIntervalNotificationTrigger)?.timeInterval,
+			warnOthersReminder.notificationTwoTimeInterval
+		)
+	}
+
+	func testPCRNotificationsAreCancelledCorrectly() throws {
+		let mockNotificationCenter = MockUserNotificationCenter()
+		let warnOthersReminder = WarnOthersReminder(
+			store: MockTestStore(),
+			userNotificationCenter: mockNotificationCenter
+		)
+
+		XCTAssertTrue(mockNotificationCenter.notificationRequests.isEmpty)
+
+		warnOthersReminder.scheduleNotifications(for: .pcr)
+		warnOthersReminder.scheduleNotifications(for: .antigen)
+
+		XCTAssertEqual(mockNotificationCenter.notificationRequests.count, 4)
+
+		warnOthersReminder.cancelNotifications(for: .pcr)
+
+		XCTAssertEqual(mockNotificationCenter.notificationRequests.count, 2)
+
+		XCTAssertEqual(
+			mockNotificationCenter.notificationRequests[0].identifier,
+			ActionableNotificationIdentifier.antigenWarnOthersReminder1.identifier
+		)
+
+		XCTAssertEqual(
+			mockNotificationCenter.notificationRequests[1].identifier,
+			ActionableNotificationIdentifier.antigenWarnOthersReminder2.identifier
+		)
+	}
+
+	func testAntigenNotificationsAreCancelledCorrectly() throws {
+		let mockNotificationCenter = MockUserNotificationCenter()
+		let warnOthersReminder = WarnOthersReminder(
+			store: MockTestStore(),
+			userNotificationCenter: mockNotificationCenter
+		)
+
+		XCTAssertTrue(mockNotificationCenter.notificationRequests.isEmpty)
+
+		warnOthersReminder.scheduleNotifications(for: .pcr)
+		warnOthersReminder.scheduleNotifications(for: .antigen)
+
+		XCTAssertEqual(mockNotificationCenter.notificationRequests.count, 4)
+
+		warnOthersReminder.cancelNotifications(for: .antigen)
+
+		XCTAssertEqual(mockNotificationCenter.notificationRequests.count, 2)
+
+		XCTAssertEqual(
+			mockNotificationCenter.notificationRequests[0].identifier,
+			ActionableNotificationIdentifier.pcrWarnOthersReminder1.identifier
+		)
+
+		XCTAssertEqual(
+			mockNotificationCenter.notificationRequests[1].identifier,
+			ActionableNotificationIdentifier.pcrWarnOthersReminder2.identifier
+		)
+	}
+
+	func testResetCancelsAllNotifications() throws {
+		let mockNotificationCenter = MockUserNotificationCenter()
+		let warnOthersReminder = WarnOthersReminder(
+			store: MockTestStore(),
+			userNotificationCenter: mockNotificationCenter
+		)
+
+		XCTAssertTrue(mockNotificationCenter.notificationRequests.isEmpty)
+
+		warnOthersReminder.scheduleNotifications(for: .pcr)
+		warnOthersReminder.scheduleNotifications(for: .antigen)
+
+		XCTAssertEqual(mockNotificationCenter.notificationRequests.count, 4)
+
+		warnOthersReminder.reset()
+
+		XCTAssertTrue(mockNotificationCenter.notificationRequests.isEmpty)
 	}
 	
 }
