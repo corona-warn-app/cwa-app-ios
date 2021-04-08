@@ -8,19 +8,13 @@ import Foundation
 
 final class MockTestStore: Store, PPAnalyticsData {
 
-	var warnOthersNotificationOneTimer: TimeInterval = WarnOthersNotificationsTimeInterval.intervalOne
-	var warnOthersNotificationTwoTimer: TimeInterval = WarnOthersNotificationsTimeInterval.intervalTwo
-
-	var positiveTestResultWasShown: Bool = false
 	var firstPlaybookExecution: Date?
 	var lastBackgroundFakeRequest: Date = .init()
 	var hasSeenBackgroundFetchAlert: Bool = false
 	var enfRiskCalculationResult: ENFRiskCalculationResult?
 	var checkinRiskCalculationResult: CheckinRiskCalculationResult?
 	var shouldShowRiskStatusLoweredAlert: Bool = false
-	var testResultReceivedTimeStamp: Int64?
 	func clearAll(key: String?) {}
-	var lastSuccessfulSubmitDiagnosisKeyTimestamp: Int64?
 	var exposureActivationConsentAcceptTimestamp: Int64?
 	var exposureActivationConsentAccept: Bool = false
 	var isOnboarded: Bool = false
@@ -31,13 +25,6 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var developerSubmissionBaseURLOverride: String?
 	var developerDistributionBaseURLOverride: String?
 	var developerVerificationBaseURLOverride: String?
-	var teleTan: String?
-	var tan: String?
-	var testGUID: String?
-	var devicePairingConsentAccept: Bool = false
-	var devicePairingConsentAcceptTimestamp: Int64?
-	var devicePairingSuccessfulTimestamp: Int64?
-	var registrationToken: String?
 	var allowRiskChangesNotification: Bool = true
 	var allowTestsStatusNotification: Bool = true
 	var appInstallationDate: Date? = Date()
@@ -49,13 +36,11 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var deviceTimeLastStateChange: Date = Date()
 	var deviceTimeCheckResult: DeviceTimeCheck.TimeCheckResult = .correct
 	var wasDeviceTimeErrorShown = false
-	var isSubmissionConsentGiven = false
 	var submissionKeys: [SAP_External_Exposurenotification_TemporaryExposureKey]?
 	var submissionCountries: [Country] = [.defaultCountry()]
 	var submissionSymptomsOnset: SymptomsOnset = .noInformation
 	var journalWithExposureHistoryInfoScreenShown: Bool = false
 	var dateOfConversionToHighRisk: Date?
-	var testRegistrationDate: Date?
 
 	#if !RELEASE
 	// Settings from the debug menu.
@@ -105,10 +90,30 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var shouldAddCheckinToContactDiaryByDefault = true
 	var qrCodePosterTemplateMetadata: QRCodePosterTemplateMetadata?
 
+	// MARK: - WarnOthersTimeIntervalStoring
+
+	var warnOthersNotificationOneTimeInterval: TimeInterval = WarnOthersNotificationsTimeInterval.intervalOne
+	var warnOthersNotificationTwoTimeInterval: TimeInterval = WarnOthersNotificationsTimeInterval.intervalTwo
+
 	// MARK: - CoronaTestStoring
 
 	var pcrTest: PCRTest?
 	var antigenTest: AntigenTest?
+
+	// MARK: - CoronaTestStoringLegacy
+
+	var registrationToken: String?
+	var teleTan: String?
+	var tan: String?
+	var testGUID: String?
+	var devicePairingConsentAccept: Bool = false
+	var devicePairingConsentAcceptTimestamp: Int64?
+	var devicePairingSuccessfulTimestamp: Int64?
+	var testResultReceivedTimeStamp: Int64?
+	var testRegistrationDate: Date?
+	var lastSuccessfulSubmitDiagnosisKeyTimestamp: Int64?
+	var positiveTestResultWasShown: Bool = false
+	var isSubmissionConsentGiven = false
 
 }
 
