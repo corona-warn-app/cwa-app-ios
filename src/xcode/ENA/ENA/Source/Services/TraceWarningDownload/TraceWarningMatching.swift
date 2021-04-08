@@ -57,19 +57,31 @@ final class TraceWarningMatcher: TraceWarningMatching {
 	// MARK: - Internal
 
 	func matchAndStore(package: SAP_Internal_Pt_TraceWarningPackage) {
+		Log.info("[TraceWarningMatching] Package interval number: \(package.intervalNumber)", log: .checkin)
+
 		for warning in package.timeIntervalWarnings {
+			Log.info("[TraceWarningMatching] Warning startIntervalNumber: \(warning.startIntervalNumber), period: \(warning.period)", log: .checkin)
+			Log.debug("[TraceWarningMatching] Warning : \(warning)", log: .checkin)
 
 			// Filter checkins with same id hash.
 			var checkins: [Checkin] = eventStore.checkinsPublisher.value.filter {
 				$0.traceLocationIdHash == warning.locationIDHash
 			}
 
+			guard !checkins.isEmpty else {
+				continue
+			}
+			Log.info("[TraceWarningMatching] Found \(checkins.count) number of matches with the same location id hash.", log: .checkin)
+
 			// Filter checkins where the warning overlaps the timeframe.
 			checkins = checkins.filter {
 				calculateOverlap(checkin: $0, warning: warning) > 0
 			}
 
-			Log.info("[TraceWarningMatching] Found \(checkins.count) number of matches. ", log: .checkin)
+			guard !checkins.isEmpty else {
+				continue
+			}
+			Log.info("[TraceWarningMatching] Found \(checkins.count) number of overlaping matches.", log: .checkin)
 
 			// Persist checkins and warning as matches.
 			for checkin in checkins {
