@@ -32,6 +32,9 @@ final class CheckinRiskCalculation: CheckinRiskCalculationProtocol {
 	// MARK: - Protocol CheckinRiskCalculationProtocol
 
 	func calculateRisk(with config: SAP_Internal_V2_ApplicationConfigurationIOS) -> CheckinRiskCalculationResult {
+
+		Log.info("[CheckinRiskCalculation] Start checkin risk calculation.", log: .checkin)
+
 		let transmissionRiskValueMapping = config.presenceTracingParameters.riskCalculationParameters.transmissionRiskValueMapping
 		let normalizedTimePerCheckInToRiskLevelMapping = config.presenceTracingParameters.riskCalculationParameters.normalizedTimePerCheckInToRiskLevelMapping
 		let normalizedTimePerDayToRiskLevelMapping = config.presenceTracingParameters.riskCalculationParameters.normalizedTimePerDayToRiskLevelMapping
@@ -59,6 +62,8 @@ final class CheckinRiskCalculation: CheckinRiskCalculationProtocol {
 					guard overlapInMinutes > 0 else {
 						continue
 					}
+
+					Log.info("[CheckinRiskCalculation] Found match with overlapInMinutes: \(overlapInMinutes)", log: .checkin)
 
 					//	3. Determine Transmission Risk Value: for each match, the transmission risk value is determined by looking up the corresponding item of Configuration Parameter transmissionRiskValueMapping where transmissionRiskLevel matches the Transmission Risk Level of the match. The transmission risk value is the corresponding transmissionRiskValue of the item. If there is no such match, the transmission risk value is set to 0.
 
@@ -135,6 +140,8 @@ final class CheckinRiskCalculation: CheckinRiskCalculationProtocol {
 				return nil
 			}
 		}
+
+		Log.debug("[CheckinRiskCalculation] Finished checkin risk calculation", log: .checkin)
 
 		return CheckinRiskCalculationResult(
 			calculationDate: Date(),

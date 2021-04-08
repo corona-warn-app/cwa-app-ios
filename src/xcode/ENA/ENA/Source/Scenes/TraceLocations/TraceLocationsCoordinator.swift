@@ -107,6 +107,10 @@ class TraceLocationsCoordinator {
 				presentDisclaimer: {
 					let detailViewController = HTMLViewController(model: AppInformationModel.privacyModel)
 					detailViewController.title = AppStrings.AppInformation.privacyTitle
+					detailViewController.isDismissable = false
+					if #available(iOS 13.0, *) {
+						detailViewController.isModalInPresentation = true
+					}
 					// hides the footer view as well
 					detailViewController.hidesBottomBarWhenPushed = true
 					navigationController.pushViewController(detailViewController, animated: true)
