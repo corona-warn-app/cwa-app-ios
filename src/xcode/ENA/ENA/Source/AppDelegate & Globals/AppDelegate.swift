@@ -272,7 +272,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			checkinRiskCalculation: checkinRiskCalculation,
 			keyPackageDownload: keyPackageDownload,
 			traceWarningPackageDownload: traceWarningPackageDownload,
-			exposureDetectionExecutor: exposureDetectionExecutor
+			exposureDetectionExecutor: exposureDetectionExecutor,
+			coronaTestService: coronaTestService
 		)
 		#endif
 	}()
