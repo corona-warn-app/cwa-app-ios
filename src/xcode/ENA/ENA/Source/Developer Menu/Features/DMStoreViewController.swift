@@ -23,20 +23,12 @@ final class DMStoreViewController: UITableViewController {
 	private let store: Store
 	private lazy var items: [DMStoreItem] = {
 		[
-			// TADA
-//			DMStoreItem(attribute: "lastSuccessfulSubmitDiagnosisKeyTimestamp") { store in
-//				String(store.lastSuccessfulSubmitDiagnosisKeyTimestamp ?? 0)
-//			},
-			// TADA
-//			DMStoreItem(attribute: "devicePairingConsentAcceptTimestamp") { store in
-//				store.devicePairingConsentAcceptTimestamp?.description ?? ""
-//			},
-//			DMStoreItem(attribute: "devicePairingSuccessfulTimestamp") { store in
-//				store.devicePairingSuccessfulTimestamp?.description ?? ""
-//			},
-//			DMStoreItem(attribute: "devicePairingConsentAcceptTimestamp") { store in
-//				store.devicePairingConsentAcceptTimestamp?.description ?? ""
-//			},
+			DMStoreItem(attribute: "pcrTest") { store in
+				String(describing: store.pcrTest)
+			},
+			DMStoreItem(attribute: "antigenTest") { store in
+				String(describing: store.antigenTest)
+			},
 			DMStoreItem(attribute: "lastAppConfigETag") { store in
 				store.appConfigMetadata?.lastAppConfigETag.description ?? "<nil>"
 			},
@@ -69,6 +61,7 @@ final class DMStoreViewController: UITableViewController {
 		let item = items[indexPath.row]
 		cell.textLabel?.text = item.attribute
 		cell.detailTextLabel?.text = item.buildValue(store)
+		cell.detailTextLabel?.numberOfLines = 0
 		return cell
 	}
 }

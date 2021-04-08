@@ -65,25 +65,6 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		navigationController?.setToolbarHidden(true, animated: animated)
 	}
 
-	// MARK: Clear Registration Token of Submission
-	@objc
-	private func clearRegistrationToken() {
-		// TADA
-//		store.registrationToken = nil
-		let alert = UIAlertController(
-			title: "Token Deleted",
-			message: "Successfully deleted the submission registration token.",
-			preferredStyle: .alert
-		)
-		alert.addAction(
-			UIAlertAction(
-				title: AppStrings.Common.alertActionOk,
-				style: .cancel
-			)
-		)
-		present(alert, animated: true, completion: nil)
-	}
-
 	// MARK: UITableView
 
 	override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
@@ -135,9 +116,6 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		case .sendFakeRequest:
 			vc = nil
 			sendFakeRequest()
-		case .purgeRegistrationToken:
-			clearRegistrationToken()
-			vc = nil
 		case .manuallyRequestRisk:
 			vc = nil
 			manuallyRequestRisk()
@@ -152,9 +130,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		case .listPendingNotifications:
 			vc = DMNotificationsViewController()
 		case .warnOthersNotifications:
-			// TADA
-//			vc = DMWarnOthersNotificationViewController(warnOthersReminder: WarnOthersReminder(store: store), store: store, exposureSubmissionService: exposureSubmissionService)
-			vc = nil
+			vc = DMWarnOthersNotificationViewController(warnOthersReminder: WarnOthersReminder(store: store), store: store, coronaTestService: coronaTestService)
 		case .deviceTimeCheck:
 			vc = DMDeviceTimeCheckViewController(store: store)
 		case .ppacService:
