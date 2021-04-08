@@ -543,11 +543,15 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 	func test_ThankYouScreen_WarnOthersFromAlert() {
 		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
 		app.launchArguments.append(contentsOf: ["-testResult", TestResult.positive.stringValue])
+		app.launchArguments.append(contentsOf: ["-showTestResultAvailableViewController", "YES"])
 		launch()
 		
 		// Open Intro screen.
 		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .long))
 		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].tap()
+
+		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
+		app.buttons["General.primaryFooterButton"].tap()
 		
 		// Open Test Result screen.
 		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
@@ -560,18 +564,15 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .long))
 
 		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].tap()
-		
+
+		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
+		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
+
 		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
-				
+
 		// quick hack - can't easily use `addUIInterruptionMonitor` in this test
-		app.alerts.firstMatch.buttons[AccessibilityIdentifiers.General.cancelButton].tap()
-		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
-		
-		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
-		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
-		
-		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
+		app.alerts.firstMatch.buttons.element(boundBy: 1).tap() // warn
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 		
 		app.navigationBars["ExposureSubmissionNavigationController"].buttons.element(boundBy: 0).tap()
@@ -586,8 +587,8 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		app.alerts.firstMatch.buttons.firstMatch.tap() // yes
 
 		// Back to homescreen
-		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .long))
-		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].isHittable)
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].isHittable)
 	}
 	
 	func test_screenshot_test_result_available() {
