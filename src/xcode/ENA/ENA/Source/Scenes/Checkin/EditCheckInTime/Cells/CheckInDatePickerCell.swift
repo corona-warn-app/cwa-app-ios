@@ -26,11 +26,15 @@ class CheckInDatePickerCell: UITableViewCell, ReuseIdentifierProviding {
 		timeDatePicker.date = cellModel.date
 
 		cellModel.$minDate
-			.assign(to: \UIDatePicker.minimumDate, on: timeDatePicker)
+			.sink(receiveValue: { newDate in
+				self.timeDatePicker.minimumDate = newDate
+			})
 			.store(in: &subscriptions)
 
 		cellModel.$maxDate
-			.assign(to: \UIDatePicker.maximumDate, on: timeDatePicker)
+			.sink(receiveValue: { newDate in
+				self.timeDatePicker.maximumDate = newDate
+			})
 			.store(in: &subscriptions)
 	}
 

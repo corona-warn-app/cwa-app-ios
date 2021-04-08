@@ -82,6 +82,7 @@ class EventTableViewCell: UITableViewCell {
 		dateLabel.text = cellModel.date
 
 		button.setTitle(cellModel.buttonTitle, for: .normal)
+		button.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Configuration.eventTableViewCellButton
 
 		self.onButtonTap = onButtonTap
 
