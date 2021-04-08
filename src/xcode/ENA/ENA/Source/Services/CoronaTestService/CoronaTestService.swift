@@ -140,7 +140,7 @@ class CoronaTestService {
 
 	func registerAntigenTestAndGetResult(
 		with guid: String,
-		pointOfCareConsentTimestamp: Date,
+		pointOfCareConsentDate: Date,
 		name: String?,
 		birthday: String?,
 		isSubmissionConsentGiven: Bool,
@@ -148,14 +148,14 @@ class CoronaTestService {
 	) {
 		getRegistrationToken(
 			forKey: ENAHasher.sha256(guid),
-			withType: "GUID", // tbd, tech spec missing
+			withType: "GUID",
 			completion: { [weak self] result in
 				switch result {
 				case .success(let registrationToken):
 					self?.antigenTest = AntigenTest(
 						registrationToken: registrationToken,
 						testedPerson: TestedPerson(name: name, birthday: birthday),
-						pointOfCareConsentDate: pointOfCareConsentTimestamp,
+						pointOfCareConsentDate: pointOfCareConsentDate,
 						testResult: .pending,
 						testResultReceivedDate: nil,
 						positiveTestResultWasShown: false,
