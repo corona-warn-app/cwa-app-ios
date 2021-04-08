@@ -191,6 +191,7 @@ class TraceLocationsOverviewViewController: UITableViewController, FooterViewHan
 				action: #selector(didTapMoreButton)
 			)
 			barButtonItem.accessibilityLabel = AppStrings.TraceLocations.Overview.menuButtonTitle
+			barButtonItem.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Overview.menueButton
 			barButtonItem.tintColor = .enaColor(for: .tint)
 		}
 
