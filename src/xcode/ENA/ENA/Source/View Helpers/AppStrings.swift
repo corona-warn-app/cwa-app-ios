@@ -65,6 +65,22 @@ enum AppStrings {
 		static let hotlineNumber = NSLocalizedString("ExposureSubmission_Hotline_Number", comment: "")
 		static let qrCodeExpiredTitle = NSLocalizedString("ExposureSubmissionQRInfo_QRCodeExpired_Alert_Title", comment: "")
 		static let qrCodeExpiredAlertText = NSLocalizedString("ExposureSubmissionQRInfo_QRCodeExpired_Alert_Text", comment: "")
+
+		enum OverwriteNotice {
+			static let title = NSLocalizedString("ExposureSubmission_OverwriteNotice_Title", comment: "")
+			static let primaryButton = NSLocalizedString("ExposureSubmission_OverwriteNotice_PrimaryButton", comment: "")
+			static let secondaryButton = NSLocalizedString("ExposureSubmission_OverwriteNotice_SecondaryButton", comment: "")
+
+			enum Pcr {
+				static let headline = NSLocalizedString("ExposureSubmission_OverwriteNotice_Pcr_Headline", comment: "")
+				static let text = NSLocalizedString("ExposureSubmission_OverwriteNotice_Pcr_Text", comment: "")
+			}
+
+			enum Antigen {
+				static let headline = NSLocalizedString("ExposureSubmission_OverwriteNotice_Antigen_Headline", comment: "")
+				static let text = NSLocalizedString("ExposureSubmission_OverwriteNotice_Pcr_Text", comment: "")
+			}
+		}
 	}
 
 	enum ExposureSubmissionTanEntry {
