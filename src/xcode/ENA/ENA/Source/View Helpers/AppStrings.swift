@@ -1373,8 +1373,10 @@ enum AppStrings {
 			static let instruction = NSLocalizedString("Checkins_Overview_QRScanner_Instruction", comment: "")
 
 			enum Error {
-				static let title = NSLocalizedString("Checkin_QR_Scanner_Error_Title", comment: "")
-				static let description = NSLocalizedString("Checkin_QR_Scanner_Error_Description", comment: "")
+				static let title = NSLocalizedString("Checkin_QR_Scanner_Checkin_Error_Title", comment: "")
+				static let invalidURL = NSLocalizedString("Checkin_QR_Scanner_Error_InvalidURL", comment: "")
+				static let invalidPayload = NSLocalizedString("Checkin_QR_Scanner_Error_InvalidPayload", comment: "")
+				static let invalidVendorData = NSLocalizedString("Checkin_QR_Scanner_Error_InvalidURLVendorData", comment: "")
 			}
 		}
 
