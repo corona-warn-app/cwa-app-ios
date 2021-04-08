@@ -191,9 +191,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 				)
 			}
 
+			var testResultResponse: TestResult?
+			if let testResultStringValue = UserDefaults.standard.string(forKey: "testResultResponse") {
+				testResultResponse = TestResult(stringValue: testResultStringValue)
+			}
+
 			let client = ClientMock()
 			client.onGetTestResult = { _, _, completion in
-				completion(.success(testResult?.rawValue ?? TestResult.pending.rawValue))
+				completion(.success(testResultResponse?.rawValue ?? testResult?.rawValue ?? TestResult.pending.rawValue))
 			}
 
 			return CoronaTestService(

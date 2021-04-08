@@ -120,6 +120,7 @@ class ENAUITestsQuickActions: XCTestCase {
 		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
 		app.launchArguments.append(contentsOf: ["-setCurrentOnboardingVersion", "YES"])
 		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
+		app.launchArguments.append(contentsOf: ["-testResultResponse", TestResult.positive.stringValue])
 		app.launch()
 
 		// Open Intro screen ("Testergebnis abrufen")
