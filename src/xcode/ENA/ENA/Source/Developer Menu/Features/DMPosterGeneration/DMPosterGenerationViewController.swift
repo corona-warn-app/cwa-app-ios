@@ -27,7 +27,6 @@ class DMPosterGenerationViewController: UIViewController, UITextFieldDelegate {
 
 	// MARK: - Overrides
 
-	// swiftlint:disable:next function_body_length
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		view.backgroundColor = ColorCompatibility.systemBackground
@@ -87,6 +86,7 @@ class DMPosterGenerationViewController: UIViewController, UITextFieldDelegate {
 		title = "Poster Generation"
 	}
 	
+	// swiftlint:disable:next function_body_length
 	private func setupView() {
 		// setting up labels and text fields
 		let titleLabel = UILabel(frame: .zero)
