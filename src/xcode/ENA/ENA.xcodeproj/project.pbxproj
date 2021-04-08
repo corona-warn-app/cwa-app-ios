@@ -183,6 +183,7 @@
 		01B72C0B25875BC300A3E3BC /* DiaryDayAddCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B72C0A25875BC300A3E3BC /* DiaryDayAddCellModel.swift */; };
 		01BA06BA261F1B9A00237DD8 /* WarnOthersReminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B255A52551B7C800649B4C /* WarnOthersReminder.swift */; };
 		01BA06C1261F384A00237DD8 /* WarnOthersReminderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948AFE5E2552F6F60019579A /* WarnOthersReminderTests.swift */; };
+		01BA06D3261F41E100237DD8 /* ExposureSubmissionServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF27BD2246ADBA70044D32B /* ExposureSubmissionServiceTests.swift */; };
 		01C2D43E2501225100FB23BF /* MockExposureSubmissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3284256248E7431006B1F09 /* MockExposureSubmissionService.swift */; };
 		01C2D4432501260D00FB23BF /* OptionGroupViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C2D440250124E600FB23BF /* OptionGroupViewModelTests.swift */; };
 		01C6ABF42527273E0052814D /* String+Insertion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C6ABF32527273D0052814D /* String+Insertion.swift */; };
@@ -1205,6 +1206,7 @@
 		01B72BEE2583B51C00A3E3BC /* DiaryEditEntriesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEditEntriesTableViewCell.swift; sourceTree = "<group>"; };
 		01B72BF02583B51C00A3E3BC /* DiaryEditEntriesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiaryEditEntriesTableViewCell.xib; sourceTree = "<group>"; };
 		01B72C0A25875BC300A3E3BC /* DiaryDayAddCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayAddCellModel.swift; sourceTree = "<group>"; };
+		01BA06C5261F417700237DD8 /* CoronaServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaServiceTests.swift; sourceTree = "<group>"; };
 		01C2D440250124E600FB23BF /* OptionGroupViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionGroupViewModelTests.swift; sourceTree = "<group>"; };
 		01C6ABF32527273D0052814D /* String+Insertion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Insertion.swift"; sourceTree = "<group>"; };
 		01C6AC0D252B1E980052814D /* ExposureSubmissionQRScannerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionQRScannerViewModel.swift; sourceTree = "<group>"; };
@@ -2617,6 +2619,7 @@
 			isa = PBXGroup;
 			children = (
 				01CBD88F261B3FBC00158B3E /* PCRTest+Mock.swift */,
+				01BA06C5261F417700237DD8 /* CoronaServiceTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -7022,6 +7025,7 @@
 				BADDD83F2603956600337223 /* TraceLocationCellModelTests.swift in Sources */,
 				71176E2F248922B0004B0C9F /* ENAColorTests.swift in Sources */,
 				014086B82588F9FD00E9E5B2 /* DiaryEditEntriesViewModelTest.swift in Sources */,
+				01BA06D3261F41E100237DD8 /* ExposureSubmissionServiceTests.swift in Sources */,
 				0DF6BB9D248AE232007E8B0C /* AppUpdateCheckerHelperTests.swift in Sources */,
 				50C029B625E406A400460FA4 /* RiskExposureMetadataTests.swift in Sources */,
 				A328425D248E82BC006B1F09 /* ExposureSubmissionTestResultViewControllerTests.swift in Sources */,
