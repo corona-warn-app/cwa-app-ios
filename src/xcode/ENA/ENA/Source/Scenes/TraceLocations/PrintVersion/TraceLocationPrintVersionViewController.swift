@@ -80,7 +80,7 @@ class TraceLocationPrintVersionViewController: UIViewController, UIActivityItemS
 			Log.error("Could not write the template data to the pdf file.", log: .qrCode, error: error)
 		}
 		
-		let activityViewController = UIActivityViewController(activityItems: [self, pdfFileURL], applicationActivities: nil)
+		let activityViewController = UIActivityViewController(activityItems: [pdfFileURL], applicationActivities: nil)
 		present(activityViewController, animated: true, completion: nil)
 	}
 
