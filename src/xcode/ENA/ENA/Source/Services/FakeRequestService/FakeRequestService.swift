@@ -27,20 +27,20 @@ class FakeRequestService {
 	/// This method is called randomly sometimes in the foreground and from the background.
 	/// It represents the full-fledged dummy request needed to realize plausible deniability.
 	/// Nothing called in this method is considered a "real" request.
-	func fakeRequest(completionHandler: (() -> Void)? = nil) {
+	func fakeRequest(completion: (() -> Void)? = nil) {
 		fakeVerificationServerRequest {
 			self.fakeVerificationServerRequest {
 				self.fakeSubmissionServerRequest {
-					completionHandler?()
+					completion?()
 				}
 			}
 		}
 	}
 
 	/// This method represents a dummy method that is sent to the verification server.
-	func fakeVerificationServerRequest(completion: @escaping () -> Void) {
+	func fakeVerificationServerRequest(completion: (() -> Void)? = nil) {
 		client.getTANForExposureSubmit(forDevice: Self.fakeRegistrationToken, isFake: true) { _ in
-			completion()
+			completion?()
 		}
 	}
 
