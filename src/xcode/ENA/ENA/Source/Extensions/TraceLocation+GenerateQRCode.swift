@@ -3,7 +3,6 @@
 //
 
 import UIKit
-import Base32
 
 extension TraceLocation {
 
