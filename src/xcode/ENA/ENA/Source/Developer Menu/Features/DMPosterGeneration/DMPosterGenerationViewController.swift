@@ -287,9 +287,7 @@ class DMPosterGenerationViewController: UIViewController, UITextFieldDelegate {
 							let viewController = TraceLocationPrintVersionViewController(
 								viewModel: TraceLocationPrintVersionViewModel(pdfView: pdfView, traceLocation: self.viewModel.traceLocation)
 							)
-							DispatchQueue.main.async { [weak self] in
-								self?.navigationController?.pushViewController(viewController, animated: true)
-							}
+							self.navigationController?.pushViewController(viewController, animated: true)
 						} catch {
 							Log.error("Could not create the PDF view.", log: .qrCode, error: error)
 						}
