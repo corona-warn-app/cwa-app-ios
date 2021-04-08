@@ -235,7 +235,7 @@ final class CheckinCoordinator {
 		let footerViewController = FooterViewController(
 			FooterViewModel(
 				primaryButtonName: AppStrings.Checkins.Information.primaryButtonTitle,
-				primaryIdentifier: AccessibilityIdentifiers.CheckinInformation.primaryButton,
+				primaryIdentifier: AccessibilityIdentifiers.Checkin.Information.primaryButton,
 				isSecondaryButtonEnabled: false,
 				isPrimaryButtonHidden: false,
 				isSecondaryButtonHidden: true

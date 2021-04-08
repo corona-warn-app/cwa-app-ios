@@ -47,15 +47,21 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 		permanentSettingsContainerView.isHidden = viewModel.permanentSettingsContainerIsHidden
 
 		descriptionTextField.placeholder = AppStrings.TraceLocations.Configuration.descriptionPlaceholder
+		descriptionTextField.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Configuration.descriptionPlaceholder
 		addressTextField.placeholder = AppStrings.TraceLocations.Configuration.addressPlaceholder
+		addressTextField.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Configuration.addressPlaceholder
 
 		startDateTitleLabel.text = AppStrings.TraceLocations.Configuration.startDateTitle
 		endDateTitleLabel.text = AppStrings.TraceLocations.Configuration.endDateTitle
 
 		temporaryDefaultLengthTitleLabel.text = AppStrings.TraceLocations.Configuration.defaultCheckinLengthTitle
+		temporaryDefaultLengthTitleLabel.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Configuration.temporaryDefaultLengthTitleLabel
 		temporaryDefaultLengthFootnoteLabel.text = AppStrings.TraceLocations.Configuration.defaultCheckinLengthFootnote
+		temporaryDefaultLengthFootnoteLabel.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Configuration.temporaryDefaultLengthFootnoteLabel
 		permanentDefaultLengthTitleLabel.text = AppStrings.TraceLocations.Configuration.defaultCheckinLengthTitle
+		permanentDefaultLengthTitleLabel.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Configuration.permanentDefaultLengthTitleLabel
 		permanentDefaultLengthFootnoteLabel.text = AppStrings.TraceLocations.Configuration.defaultCheckinLengthFootnote
+		permanentDefaultLengthFootnoteLabel.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Configuration.permanentDefaultLengthFootnoteLabel
 
 	}
 

@@ -204,6 +204,7 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 			)
 			barButtonItem.accessibilityLabel = AppStrings.Checkins.Overview.menuButtonTitle
 			barButtonItem.tintColor = .enaColor(for: .tint)
+			barButtonItem.accessibilityIdentifier = AccessibilityIdentifiers.Checkin.Overview.menueButton
 		}
 
 		parent?.navigationItem.setRightBarButton(barButtonItem, animated: true)

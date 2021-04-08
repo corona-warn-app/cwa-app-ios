@@ -30,16 +30,16 @@ struct CheckInsInfoScreenViewModel {
 							imageLiteralResourceName: "Illu_Event_Attendee"
 						),
 						accessibilityLabel: AppStrings.Checkins.Information.imageDescription,
-						accessibilityIdentifier: AccessibilityIdentifiers.CheckinInformation.imageDescription
+						accessibilityIdentifier: AccessibilityIdentifiers.Checkin.Information.imageDescription
 					),
 				cells: [
 					.title2(
 						text: AppStrings.Checkins.Information.descriptionTitle,
-						accessibilityIdentifier: AccessibilityIdentifiers.CheckinInformation.descriptionTitle
+						accessibilityIdentifier: AccessibilityIdentifiers.Checkin.Information.descriptionTitle
 					),
 					.subheadline(
 						text: AppStrings.Checkins.Information.descriptionSubHeadline,
-						accessibilityIdentifier: AccessibilityIdentifiers.CheckinInformation.descriptionSubHeadline
+						accessibilityIdentifier: AccessibilityIdentifiers.Checkin.Information.descriptionSubHeadline
 					),
 					.space(
 						height: 15.0,
@@ -72,7 +72,7 @@ struct CheckInsInfoScreenViewModel {
 						bulletPointCellWithBoldText(text: AppStrings.Checkins.Information.legalText03)
 						],
 					subheadline2: NSAttributedString(string: AppStrings.Checkins.Information.legalSubHeadline02),
-					accessibilityIdentifier: AccessibilityIdentifiers.CheckinInformation.acknowledgementTitle,
+					accessibilityIdentifier: AccessibilityIdentifiers.Checkin.Information.acknowledgementTitle,
 					configure: { _, cell, _ in
 						cell.backgroundColor = .enaColor(for: .background)
 					}
@@ -85,7 +85,7 @@ struct CheckInsInfoScreenViewModel {
 					.body(
 						text: AppStrings.Checkins.Information.dataPrivacyTitle,
 						style: DynamicCell.TextCellStyle.label,
-						accessibilityIdentifier: AccessibilityIdentifiers.CheckinInformation.dataPrivacyTitle,
+						accessibilityIdentifier: AccessibilityIdentifiers.Checkin.Information.dataPrivacyTitle,
 						accessibilityTraits: UIAccessibilityTraits.link,
 						action: .execute { _, _ in
 							presentDisclaimer()

@@ -5,7 +5,7 @@
 import XCTest
 
 class ENAUITests_09_CheckIns: XCTestCase {
-
+	
 	var app: XCUIApplication!
 	
 	override func setUpWithError() throws {
@@ -17,7 +17,7 @@ class ENAUITests_09_CheckIns: XCTestCase {
 		app.launchArguments.append(contentsOf: ["-setCurrentOnboardingVersion", "YES"])
 		
 	}
-
+	
 	func testCheckinInfoScreen_navigate_to_dataPrivacy() throws {
 		app.launchArguments.append(contentsOf: ["-checkinInfoScreenShown", "NO"])
 		app.launch()
@@ -26,37 +26,40 @@ class ENAUITests_09_CheckIns: XCTestCase {
 		
 		// Navigate to CheckIn
 		app.buttons[AccessibilityIdentifiers.Tabbar.checkin].tap()
-
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.CheckinInformation.acknowledgementTitle].exists)
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.CheckinInformation.dataPrivacyTitle].exists)
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.CheckinInformation.primaryButton].exists)
 		
-		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.CheckinInformation.descriptionTitle].exists)
-		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.CheckinInformation.descriptionSubHeadline].exists)
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Checkin.Information.acknowledgementTitle].exists)
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Checkin.Information.dataPrivacyTitle].exists)
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Checkin.Information.primaryButton].exists)
+		
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Information.descriptionTitle].exists)
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Information.descriptionSubHeadline].exists)
+		snapshot("CheckInInfoScreen")
 		
 		// Navigate to Data Privacy
-		app.swipeUp(velocity: .fast)
-		XCTAssertFalse(app.staticTexts["AppStrings.AppInformation.privacyTitle"].exists)
-		app.cells[AccessibilityIdentifiers.CheckinInformation.dataPrivacyTitle].tap()
-
+		if let target = UITestHelper.scrollTo(identifier: AccessibilityIdentifiers.Checkin.Information.dataPrivacyTitle, element: app, app: app) {
+			target.tap()
+		} else {
+			XCTFail("Can't find element \(AccessibilityIdentifiers.Checkin.Information.dataPrivacyTitle)")
+		}
+		
 		XCTAssertTrue(app.staticTexts["AppStrings.AppInformation.privacyTitle"].waitForExistence(timeout: .short))
 	}
-
+	
 	func testCheckinInfoScreen_confirmConsent() throws {
 		app.launchArguments.append(contentsOf: ["-checkinInfoScreenShown", "NO"])
 		app.launch()
-
-		// Home screen
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Tabbar.checkin].waitForExistence(timeout: .short))
 		
 		// Navigate to CheckIn
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Tabbar.checkin].waitForExistence(timeout: .short))
 		app.buttons[AccessibilityIdentifiers.Tabbar.checkin].tap()
-
-		// Confirm consent
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.CheckinInformation.primaryButton].waitForExistence(timeout: .short))
-		app.buttons[AccessibilityIdentifiers.CheckinInformation.primaryButton].tap()
 		
-		// verify elements on the following screen – pending
-    }
-
+		// Confirm consent
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Checkin.Information.primaryButton].waitForExistence(timeout: .short))
+		app.buttons[AccessibilityIdentifiers.Checkin.Information.primaryButton].tap()
+		
+		snapshot("CheckIn_MyCheckins")
+		
+		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.Checkins.Overview.title)].waitForExistence(timeout: .short))
+	}
+	
 }
