@@ -529,7 +529,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionHotline_Description" = "Bitte halten Sie zur TAN-Abfrage Ihren Befundbrief (sofern vorhanden) und Ihre Telefonnummer bereit.";
 
-"ExposureSubmissionHotline_SectionTitle" = "Info zum Ablauf:";
+"ExposureSubmissionHotline_SectionTitle" = "Infos zum Ablauf:";
 
 "ExposureSubmissionHotline_SectionDescription1" = "Rufen Sie die bundesweite Hotline an und fragen Sie nach einer TAN.";
 
@@ -673,7 +673,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_CardPending" = "Ergebnis liegt noch nicht vor";
 
-"ExposureSubmissionResult_Procedure" = "Info zum Ablauf:";
+"ExposureSubmissionResult_Procedure" = "Infos zum Ablauf:";
 
 "ExposureSubmissionResult_testAdded" = "Ihr Test wurde hinzugefügt.";
 
@@ -697,7 +697,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_testInvalid" = "Test kann nicht ausgewertet werden";
 
-"ExposureSubmissionResult_testInvalidDesc" = "Es gab ein Problem bei der Auswertung Ihres Tests. Bitte kontaktieren Sie das Testcenter oder das zuständige Labor, um Information zum weiteren Vorgehen zu erhalten.";
+"ExposureSubmissionResult_testInvalidDesc" = "Es gab ein Problem bei der Auswertung Ihres Tests. Bitte kontaktieren Sie das Testcenter oder das zuständige Labor, um Informationen zum weiteren Vorgehen zu erhalten.";
 
 "ExposureSubmissionResult_testExpired" = "Test kann nicht ausgewertet werden";
 
@@ -969,7 +969,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 /* Home Navigation Bar */
 "Home_LeftBarButton_description" = "Corona-Warn-App Logo";
 
-"Home_RightBarButton_description" = "Info";
+"Home_RightBarButton_description" = "Infos";
 
 /* Home Active card */
 "Home_Activate_Card_On_Title" = "Risiko-Ermittlung aktiv";
@@ -2028,11 +2028,19 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "Checkins_Overview_DeleteAll_AlertCancelButtonTitle" = "Abbrechen";
 
-"Checkins_Overview_ActionSheet_InfoTitle" = "Info";
+"Checkins_Overview_ActionSheet_InfoTitle" = "Infos";
 
 "Checkins_Overview_ActionSheet_EditTitle" = "Bearbeiten";
 
 "Checkins_Overview_QRScanner_Instruction" = "QR-Code scannen und einchecken";
+
+"Checkin_QR_Scanner_Checkin_Error_Title" = "Ungültiger QR-Code";
+
+"Checkin_QR_Scanner_Error_InvalidURL" = "Der gescannte QR-Code gilt nicht für das Einchecken für ein Event oder einen Ort. Bitte scannen Sie einen geeigneten QR-Code (Fehlercode INVALID_URL).";
+
+"Checkin_QR_Scanner_Error_InvalidPayload" = "Ungültiger QR-Code verhindert das Einchecken. Die verantwortliche Stelle muss einen neuen QR-Code generieren (Fehlercode INVALID_PAYLOAD).";
+
+"Checkin_QR_Scanner_Error_InvalidURLVendorData" = "Ungültiger QR-Code verhindert das Einchecken. Die verantwortliche Stelle muss einen neuen QR-Code generieren (Fehlercode INVALID_VENDOR_DATA).";
 
 /* TraceLocations */
 
@@ -2068,7 +2076,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TraceLocations_Overview_DeleteAll_AlertCancelButtonTitle" = "Abbrechen";
 
-"TraceLocations_Overview_ActionSheet_InfoTitle" = "Info";
+"TraceLocations_Overview_ActionSheet_InfoTitle" = "Infos";
 
 "TraceLocations_Overview_ActionSheet_EditTitle" = "Bearbeiten";
 
