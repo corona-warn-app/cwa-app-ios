@@ -421,7 +421,8 @@ enum AccessibilityIdentifiers {
 		enum Details {
 			static let printVersionButton = "AppStrings.TraceLocations.Details.printVersionButtonTitle"
 			static let duplicateButton = "AppStrings.TraceLocations.Details.duplicateButtonTitle"
-
+			static let titleLabel = "AppStrings.TraceLocations.Details.titleLabel"
+			static let locationLabel = "AppStrings.TraceLocations.Details.locationLabel"
 			static let checkInButton = "AppStrings.Checkins.Details.checkInButton"
 		}
 		
