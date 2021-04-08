@@ -191,8 +191,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 				)
 			}
 
+			let client = ClientMock()
+			client.onGetTestResult = { _, _, completion in
+				completion(.success(testResult?.rawValue ?? TestResult.pending.rawValue))
+			}
+
 			return CoronaTestService(
-				client: ClientMock(),
+				client: client,
 				store: store
 			)
 		}
