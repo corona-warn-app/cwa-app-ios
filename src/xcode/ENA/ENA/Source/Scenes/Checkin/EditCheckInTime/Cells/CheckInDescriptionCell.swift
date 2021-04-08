@@ -24,8 +24,11 @@ class CheckInDescriptionCell: UITableViewCell, ReuseIdentifierProviding {
 
 	func configure(cellModel: CheckInDescriptionCellModel) {
 		traceLocationTypeLabel.text = cellModel.locationType
+		traceLocationTypeLabel.accessibilityIdentifier = AccessibilityIdentifiers.CheckinDetails.traceLocationTypeLabel
 		traceLocationDescriptionLabel.text = cellModel.description
+		traceLocationDescriptionLabel.accessibilityIdentifier = AccessibilityIdentifiers.CheckinDetails.traceLocationDescriptionLabel
 		traceLocationAddressLabel.text = cellModel.address
+		traceLocationAddressLabel.accessibilityIdentifier = AccessibilityIdentifiers.CheckinDetails.traceLocationAddressLabel
 	}
 
 	// MARK: - Private

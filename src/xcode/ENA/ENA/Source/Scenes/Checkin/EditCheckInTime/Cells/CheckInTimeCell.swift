@@ -24,6 +24,7 @@ class CheckInTimeCell: UITableViewCell, ReuseIdentifierProviding {
 	func configure(_ cellModel: CheckInTimeModel) {
 		self.cellModel = cellModel
 		typeLabel.text = cellModel.type
+		typeLabel.accessibilityIdentifier = AccessibilityIdentifiers.CheckinDetails.typeLabel
 		topSeparatorView.isHidden = !cellModel.hasTopSeparator
 		topLayoutConstraint.constant = cellModel.hasTopSeparator ? 16.0 : 0.0
 		bottomLayoutConstraint.constant = cellModel.hasTopSeparator ? 0.0 : -16.0

@@ -449,5 +449,11 @@ enum AccessibilityIdentifiers {
 		static let primaryButton = "AppStrings.CheckInInformation.primaryButton"
 		static let acknowledgementTitle = "CheckInInformation.acknowledgement_title"
 	}
+	enum CheckinDetails {
+		static let typeLabel = "AppStrings.CheckIn.Edit.checkedOut"
+		static let traceLocationTypeLabel = "AppStrings.CheckIn.Edit.traceLocationTypeLabel"
+		static let traceLocationDescriptionLabel = "AppStrings.CheckIn.Edit.traceLocationDescriptionLabel"
+		static let traceLocationAddressLabel = "AppStrings.CheckIn.Edit.traceLocationAddressLabel"
+	}
 
 }
