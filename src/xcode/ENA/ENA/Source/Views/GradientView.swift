@@ -40,7 +40,7 @@ class GradientView: UIView {
 			UIColor(red: 0.663, green: 0.246, blue: 0.271, alpha: 1).cgColor
 		]
 		gradientLayer.locations = [0.12, 0.48, 0.81]
-		gradientLayer.startPoint = CGPoint(x: 0.05, y: 0.5)
-		gradientLayer.endPoint = CGPoint(x: 1.25, y: 0.5)
+		gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.5)
+		gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
 	}
 }
