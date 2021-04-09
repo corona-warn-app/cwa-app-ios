@@ -52,9 +52,11 @@ class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDel
 			appConfigurationProvider: appConfiguration,
 			onSuccess: { [weak self] traceLocation in
 				self?.onSuccess(traceLocation)
+				self?.verificationHelper.subscriptions.removeAll()
 			},
 			onError: { [weak self] error in
 				self?.onError?(error)
+				self?.verificationHelper.subscriptions.removeAll()
 			}
 		)
 	}
