@@ -9,7 +9,7 @@ extension PCRTest {
 
 	static func mock(
 		registrationToken: String? = nil,
-		testRegistrationDate: Date = Date(),
+		registrationDate: Date = Date(),
 		testResult: TestResult = .pending,
 		testResultReceivedDate: Date? = nil,
 		positiveTestResultWasShown: Bool = false,
@@ -20,7 +20,7 @@ extension PCRTest {
 	) -> PCRTest {
 		PCRTest(
 			registrationToken: registrationToken,
-			testRegistrationDate: testRegistrationDate,
+			registrationDate: registrationDate,
 			testResult: testResult,
 			testResultReceivedDate: testResultReceivedDate,
 			positiveTestResultWasShown: positiveTestResultWasShown,

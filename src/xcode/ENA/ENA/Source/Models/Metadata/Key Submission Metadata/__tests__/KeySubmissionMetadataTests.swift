@@ -21,7 +21,7 @@ class KeySubmissionMetadataTests: XCTestCase {
 		secureStore.dateOfConversionToHighRisk = Calendar.current.date(byAdding: .day, value: -1, to: Date())
 		secureStore.enfRiskCalculationResult = riskCalculationResult
 
-		coronaTestService.pcrTest = PCRTest.mock(testRegistrationDate: Date())
+		coronaTestService.pcrTest = PCRTest.mock(registrationDate: Date())
 
 		let keySubmissionMetadata = KeySubmissionMetadata(
 			submitted: false,
@@ -58,7 +58,7 @@ class KeySubmissionMetadataTests: XCTestCase {
 		secureStore.enfRiskCalculationResult = riskCalculationResult
 
 		coronaTestService.pcrTest = PCRTest.mock(
-			testRegistrationDate: Calendar.current.date(byAdding: .day, value: -1, to: Date()) ?? Date(),
+			registrationDate: Calendar.current.date(byAdding: .day, value: -1, to: Date()) ?? Date(),
 			testResultReceivedDate: dateSixHourAgo ?? Date()
 		)
 

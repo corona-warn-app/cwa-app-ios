@@ -442,7 +442,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 		var cellModel: HomeThankYouCellModel
 		cellModel = HomeThankYouCellModel(
-			testResultTimestamp: Int64((viewModel.state.coronaTestService.pcrTest?.testRegistrationDate ?? Date()).timeIntervalSince1970)
+			testResultTimestamp: Int64((viewModel.state.coronaTestService.pcrTest?.registrationDate ?? Date()).timeIntervalSince1970)
 		)
 
 		#if DEBUG
