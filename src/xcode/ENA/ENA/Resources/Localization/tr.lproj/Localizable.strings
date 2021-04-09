@@ -219,7 +219,7 @@
 
 "ExposureDetection_ActiveTracingSection_Text_Paragraph1a" = "Corona-Warn-App %u gün önce yüklendi. Enfeksiyon riskiniz, maruz kalma günlüğünün etkin olduğu dönemler için hesaplanır. Başka insanlarla karşılaşmışsanız ve bu sırada maruz kalma günlüğü etkindiyse enfeksiyon riskiniz hesaplanır.";
 
-"ExposureDetection_ActiveTracingSection_Text_Paragraph1b" = "Maruz kalma günüğü başka insanlarla karşılaştığınız sırada etkindiyse bu dönem için enfeksiyon riskiniz hesaplanabilir.";
+"ExposureDetection_ActiveTracingSection_Text_Paragraph1b" = "Maruz kalma günlüğü başka insanlarla karşılaştığınız anlarda etkindiyse bu dönem için enfeksiyon riskiniz hesaplanabilir.";
 
 /* Exposure Detection Errors */
 "ExposureDetectionError_Alert_Message" = "Maruz kalma günlüğü sırasında bir hata oluştu.";
@@ -274,7 +274,7 @@
 
 "Settings_DaysSinceInstall_P2a" = "Corona-Warn-App %u gün önce yüklendi. Enfeksiyon riskiniz, maruz kalma günlüğünün etkin olduğu dönemler için hesaplanır. Başka insanlarla karşılaşmışsanız ve bu sırada maruz kalma günlüğü etkindiyse enfeksiyon riskiniz hesaplanır.";
 
-"Settings_DaysSinceInstall_P2b" = "Maruz kalma günüğü başka insanlarla karşılaştığınız sırada etkindiyse bu dönem için enfeksiyon riskiniz hesaplanabilir.";
+"Settings_DaysSinceInstall_P2b" = "Maruz kalma günlüğü başka insanlarla karşılaştığınız anlarda etkindiyse bu dönem için enfeksiyon riskiniz hesaplanabilir.";
 
 "Settings_DataDonation_Label" = "Verileri Paylaş";
 
@@ -554,6 +554,8 @@
 "ExposureSubmissionQRInfo_header_section_2" = "Lütfen karşılaştığınız diğer kullanıcıları uyararak onlara yardımcı olun!";
 
 "ExposureSubmissionQRInfo_body_section_2" = "Koronavirüs tanısı aldıysanız uygulama üzerinden diğer kullanıcıları uyarabilirsiniz. Uyarı özelliği birden fazla ülkede etkindir. Şu anda aşağıdaki ülkeler katılmaktadır:";
+
+"ExposureSubmissionQRInfo_body_section_3" = "Sizinle aynı anda aynı etkinliklerde veya yerlerde check in yapan kişilere de uyarı gönderilecektir.";
 
 "ExposureSubmissionQRInfo_acknowledgement_3" = "Paylaşmamayı seçseniz de test sonucunuzu alabilirsiniz. Ancak test sonucunuzu paylaşırsanız diğer kullanıcıların enfeksiyona karşı korunmasına yardımcı olursunuz.";
 
@@ -1380,7 +1382,7 @@
 /* Version 2.0 */
 "NewVersionFeature_200_event_checkin_title" = "Enfeksiyon zincirlerini etkili bir biçimde takip etmek için QR kod ile check in";
 
-"NewVersionFeature_200_event_checkin_description" = "CWA artık etkinliklere ve yerlere check in yapabilmenizi sağlar. Etkinlik organizatörleri ve mağaza sahipleri uygulamayı kullanarak bir QR kod oluşturabilir. Ardından konuklar geldiklerinde bu QR kodu tarayarak katılımlarını kayıt altına alabilir. Uygulama, talep üzerine günce girişi oluşturma seçeneği de sunmaktadır. Bu etkinliğe ya da yere check in yapan bir kişi daha sonra koronavirüs tanısı alırsa aynı anda check in yapmış herkese otomatik olarak uyarı gönderilir.";
+"NewVersionFeature_200_event_checkin_description" = "CWA artık etkinliklere ve yerlere check in yapabilmenizi sağlar. Etkinlik organizatörleri ve mağaza sahipleri uygulamayı kullanarak bir QR kod oluşturabilir. Ardından konuklar geldiklerinde bu QR kodu tarayarak katılımlarını kayıt altına alabilir. Uygulama, talep üzerine günce girişi oluşturma seçeneği de sunmaktadır. Bu etkinliğe ya da yere check in yapan bir kişi daha sonra koronavirüs tanısı alırsa aynı anda check in yapmış diğer kişilere otomatik olarak uyarı gönderilebilir.";
 
 /* Version 1.15 */
 "NewVersionFeature_115_cross_border_switzerland_title" = "Uluslararası Maruz Kalma Günlüğüne İsviçre Eklendi ";
@@ -1966,6 +1968,14 @@
 
 "Checkins_Overview_QRScanner_Instruction" = "QR Kodu Tara ve Check In Yap";
 
+"Checkin_QR_Scanner_Checkin_Error_Title" = "Geçersiz QR Kod";
+
+"Checkin_QR_Scanner_Error_InvalidURL" = "Taranan QR kod, etkinlik veya yer check-in’leri için geçerli değil. Lütfen uygun bir QR kod tarayın (hata kodu INVALID_URL).";
+
+"Checkin_QR_Scanner_Error_InvalidPayload" = "Geçersiz QR kod nedeniyle check-in engellendi. Sorumlu kuruluş, yeni bir QR kod oluşturmalıdır (hata kodu INVALID_PAYLOAD).";
+
+"Checkin_QR_Scanner_Error_InvalidURLVendorData" = "Geçersiz QR kod nedeniyle check-in engellendi. Sorumlu kuruluş, yeni bir QR kod oluşturmalıdır (hata kodu INVALID_VENDOR_DATA).";
+
 /* TraceLocations */
 "TraceLocations_Overview_Title" = "QR Kodlarım";
 
@@ -2002,6 +2012,11 @@
 "TraceLocations_Overview_ActionSheet_InfoTitle" = "Bilgi";
 
 "TraceLocations_Overview_ActionSheet_EditTitle" = "Düzenle";
+
+/* Trace Location Details */
+"TraceLocations_Details_PrintVersionButtonTitle" = "Basılı Versiyonu Görüntüle";
+
+"TraceLocations_Details_DuplicateButtonTitle" = "Şablon olarak kullan";
 
 /* Selection of a TraceLocations */
 "TraceLocations_TypeSelection_Title" = "QR Kod Oluştur";
@@ -2070,6 +2085,8 @@
 "TraceLocations_Configuration_PrimaryButtonTitle" = "Kaydet";
 
 "TraceLocations_Configuration_HoursUnit" = "%@ sa.";
+
+"TraceLocations_Configuration_SavingErrorMessage" = "QR kod şu anda kaydedilemiyor. Lütfen daha sonra tekrar deneyin (hata kodu: %@).";
 
 /* Error Reporting */
 "ErrorReport_Title" = "Hata Raporları";
@@ -2158,8 +2175,6 @@
 
 "Checkin_Details_CheckinFor" = "Check in niteliği:";
 
-"Checkin_Details_Activity" = "Kulüp faaliyetleri";
-
 "Checkin_Details_SaveToDiary" = "Check-out yapıldıktan sonra temas günceme kaydedilsin mi?";
 
 "Checkin_Details_AutomaticCheckout" = "Daha sonra otomatik olarak check out yap";
@@ -2167,4 +2182,6 @@
 "Checkin_Details_EventNotStartedYet" = "Bu etkinliğin başlangıç saati, %@ %@ olarak belirlenmiştir. Şimdiden check in yapmak istiyor musunuz?";
 
 "Checkin_Details_EventEnded" = "Bu etkinlik zaten bitmiş. Geriye dönük olarak check in yapmak istiyor musunuz?";
+
+"Checkin_Details_CheckIn_Button" = "Check In";
 
