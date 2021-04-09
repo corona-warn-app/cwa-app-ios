@@ -58,10 +58,10 @@ class CheckInTimeCell: UITableViewCell, ReuseIdentifierProviding {
 		backgroundColor = .enaColor(for: .cellBackground)
 		contentView.backgroundColor = .enaColor(for: .cellBackground)
 
-		typeLabel.font = .enaFont(for: .subheadline)
+		typeLabel.font = .enaFont(for: .headline, weight: .regular)
 		typeLabel.textColor = .enaColor(for: .textPrimary1)
 
-		dateTimeLabel.font = .enaFont(for: .subheadline, weight: .semibold)
+		dateTimeLabel.font = .enaFont(for: .headline, weight: .semibold)
 		dateTimeLabel.textColor = .enaColor(for: .textPrimary1)
 		dateTimeLabel.textAlignment = .right
 		dateTimeLabel.numberOfLines = 1
