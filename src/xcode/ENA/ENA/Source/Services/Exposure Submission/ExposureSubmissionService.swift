@@ -12,7 +12,6 @@ import OpenCombine
 /// state. It wraps around the `SecureStore` binding.
 /// The consent value is published using the `isSubmissionConsentGivenPublisher` and the rest of the application can simply subscribe to
 /// it to stay in sync.
-
 class ENAExposureSubmissionService: ExposureSubmissionService {
 
 	// MARK: - Init
@@ -22,6 +21,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		appConfigurationProvider: AppConfigurationProviding,
 		client: Client,
 		store: Store,
+		eventStore: EventStoringProviding,
 		deadmanNotificationManager: DeadmanNotificationManageable? = nil,
 		coronaTestService: CoronaTestService
 	) {
@@ -29,6 +29,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		self.appConfigurationProvider = appConfigurationProvider
 		self.client = client
 		self.store = store
+		self.eventStore = eventStore
 		self.deadmanNotificationManager = deadmanNotificationManager ?? DeadmanNotificationManager(coronaTestService: coronaTestService)
 		self.coronaTestService = coronaTestService
 
@@ -41,6 +42,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			appConfigurationProvider: dependencies.appConfigurationProvider,
 			client: dependencies.client,
 			store: dependencies.store,
+			eventStore: dependencies.eventStore,
 			coronaTestService: dependencies.coronaTestService
 		)
 	}
@@ -130,22 +132,38 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			submitExposureCleanup(coronaTestType: coronaTest.type)
 			return
 		}
-		let processedKeys = keys.processedForSubmission(with: symptomsOnset)
 
-		// Request needs to be prepended by the fake request.
-		fakeRequestService.fakeVerificationServerRequest {
-			self._submitExposure(
-				processedKeys,
-				coronaTest: coronaTest,
-				visitedCountries: self.supportedCountries,
-				completion: completion
-			)
-		}
+		// we need the app configuration first…
+		appConfigurationProvider
+			.appConfiguration()
+			.sink { appConfig in
+				// Fetch & process keys and checkins
+				let processedKeys = keys.processedForSubmission(with: self.symptomsOnset)
+				self.preparedCheckinsForSubmission(
+					with: self.eventStore,
+					appConfig: appConfig,
+					symptomOnset: self.symptomsOnset,
+					completion: { checkins in
+						// Request needs to be prepended by the fake request.
+						self.fakeRequestService.fakeVerificationServerRequest {
+							self._submitExposure(
+								processedKeys,
+								coronaTest: coronaTest,
+								visitedCountries: self.supportedCountries,
+								attendedEvents: checkins,
+								completion: completion
+							)
+						}
+					}
+				)
+			}
+			.store(in: &subscriptions)
 	}
 
 	var exposureManagerState: ExposureManagerState {
 		diagnosisKeysRetrieval.exposureManagerState
 	}
+
 
 	// MARK: - Private
 
@@ -155,6 +173,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	private let appConfigurationProvider: AppConfigurationProviding
 	private let client: Client
 	private let store: Store
+	private let eventStore: EventStoringProviding
 	private let deadmanNotificationManager: DeadmanNotificationManageable
 	private let coronaTestService: CoronaTestService
 
@@ -178,6 +197,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		_ keys: [SAP_External_Exposurenotification_TemporaryExposureKey],
 		coronaTest: CoronaTest,
 		visitedCountries: [Country],
+		attendedEvents events: [SAP_Internal_Pt_CheckIn],
 		completion: @escaping ExposureSubmissionHandler
 	) {
 		coronaTestService.getSubmissionTAN(for: coronaTest.type) { result in
@@ -185,7 +205,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			case let .failure(error):
 				completion(.coronaTestServiceError(error))
 			case let .success(tan):
-				self._submit(keys, coronaTest: coronaTest, with: tan, visitedCountries: visitedCountries, completion: completion)
+				self._submit(keys, coronaTest: coronaTest, with: tan, visitedCountries: visitedCountries, attendedEvents: events, completion: completion)
 			}
 		}
 	}
@@ -198,11 +218,13 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		coronaTest: CoronaTest,
 		with tan: String,
 		visitedCountries: [Country],
+		attendedEvents events: [SAP_Internal_Pt_CheckIn],
 		completion: @escaping ExposureSubmissionHandler
 	) {
 		let payload = CountrySubmissionPayload(
 			exposureKeys: keys,
 			visitedCountries: visitedCountries,
+			eventCheckIns: events,
 			tan: tan
 		)
 		client.submit(payload: payload, isFake: false) { result in
@@ -245,3 +267,4 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	}
 
 }
+// swiftlint:enable type_body_length

@@ -135,7 +135,7 @@ class RootCoordinator: RequiresAppDependencies {
 			return
 		}
 		tabBarController.selectedIndex = index
-		checkInCoordinator.showTraceLocationDetails(guid)
+		checkInCoordinator.showTraceLocationDetailsFromExternalCamera(guid)
 	}
 
 	func updateDetectionMode(
@@ -168,7 +168,7 @@ class RootCoordinator: RequiresAppDependencies {
 			eventCheckoutService: eventCheckoutService
 		)
 	}()
-	
+
 	private var enStateUpdateList = NSHashTable<AnyObject>.weakObjects()
 
 }

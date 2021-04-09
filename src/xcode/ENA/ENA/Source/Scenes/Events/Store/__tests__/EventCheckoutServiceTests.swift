@@ -14,9 +14,18 @@ class EventCheckoutServiceTests: XCTestCase {
 	// The EventCheckoutService creates journal entries internally if the event store changes.
 	var eventCheckoutService: EventCheckoutService?
 
-	func test_When_Checkout_Then_ContactDiaryLocationCreated() {
+	func test_When_Checkout_Then_ContactDiaryLocationCreated() throws {
 		let mockEventStore = MockEventStore()
-		let checkin = makeDummyCheckin(id: -1)
+
+		let today = Date()
+		guard let tomorrow = Calendar.utcCalendar.date(byAdding: .day, value: 1, to: today) else {
+			XCTFail("Could not create date.")
+			return
+		}
+
+		let checkin = makeDummyCheckin(
+			id: -1
+		)
 		let createCheckinResult = mockEventStore.createCheckin(checkin)
 		guard case let .success(checkinId) = createCheckinResult else {
 			XCTFail("Could not create checkin.")
@@ -31,27 +40,24 @@ class EventCheckoutServiceTests: XCTestCase {
 			userNotificationCenter: MockUserNotificationCenter()
 		)
 
-		let sinkExpectation = expectation(description: "Sink should be called.")
-		sinkExpectation.assertForOverFulfill = false
-
-		mockDiaryStore.diaryDaysPublisher.dropFirst().sink { _ in
-			let checkinLocationExists = mockDiaryStore.locations.contains {
-				$0.traceLocationId == "someGUID".data(using: .utf8)
-			}
-			XCTAssertTrue(checkinLocationExists)
-
-			sinkExpectation.fulfill()
-		}.store(in: &subscriptions)
-
 		// Updating checkin with 'checkinCompleted == true' will trigger a checkout handling in the EventCheckoutService.
-		let completedCheckin = makeDummyCheckin(
+		let checkinWithData = makeDummyCheckin(
 			id: checkinId,
-			checkinCompleted: true,
-			traceLocationId: "someGUID".data(using: .utf8) ?? Data()
+			traceLocationId: "someGUID".data(using: .utf8) ?? Data(),
+			traceLocationDescription: "Some Description",
+			traceLocationAddress: "Some Address",
+			traceLocationStartDate: today,
+			traceLocationEndDate: tomorrow
 		)
+		let completedCheckin = checkinWithData.completedCheckin(checkinEndDate: Date())
 		mockEventStore.updateCheckin(completedCheckin)
 
-		waitForExpectations(timeout: .medium)
+		let _checkinLocation = mockDiaryStore.locations.first(where: {
+			$0.traceLocationId == "someGUID".data(using: .utf8)
+		})
+		let checkinLocation = try XCTUnwrap(_checkinLocation)
+
+		XCTAssertEqual(checkinLocation.name, "Some Description, Some Address, \(dateIntervalFormatter.string(from: today, to: tomorrow))")
 	}
 
 	func test_When_Checkout_Then_ContactDiaryLocationVisitsCreated() {
@@ -71,15 +77,6 @@ class EventCheckoutServiceTests: XCTestCase {
 			userNotificationCenter: MockUserNotificationCenter()
 		)
 
-		let sinkExpectation = expectation(description: "Sink should be called.")
-		sinkExpectation.assertForOverFulfill = false
-
-		mockDiaryStore.diaryDaysPublisher.dropFirst(2).sink { _ in
-			XCTAssertEqual(mockDiaryStore.locations.count, 1)
-			XCTAssertEqual(mockDiaryStore.locationVisits.count, 1)
-			sinkExpectation.fulfill()
-		}.store(in: &subscriptions)
-
 		// Updating checkin with 'checkinCompleted == true' will trigger a checkout handling in the EventCheckoutService.
 		let completedCheckin = makeDummyCheckin(
 			id: checkinId,
@@ -88,7 +85,8 @@ class EventCheckoutServiceTests: XCTestCase {
 		)
 		mockEventStore.updateCheckin(completedCheckin)
 
-		waitForExpectations(timeout: .medium)
+		XCTAssertEqual(mockDiaryStore.locations.count, 1)
+		XCTAssertEqual(mockDiaryStore.locationVisits.count, 1)
 	}
 
 	func test_Given_FirstCheckout_When_SecondCheckoutOfSameLocationAndSameDate_Then_OnlyOneLocationVisitIsCreated() {
@@ -402,5 +400,12 @@ class EventCheckoutServiceTests: XCTestCase {
 		let dateFormatter = DateFormatter()
 		dateFormatter.dateStyle = .short
 		return dateFormatter
+	}()
+
+	private lazy var dateIntervalFormatter: DateIntervalFormatter = {
+		let formatter = DateIntervalFormatter()
+		formatter.dateStyle = .short
+		formatter.timeStyle = .none
+		return formatter
 	}()
 }

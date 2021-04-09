@@ -6,7 +6,7 @@
 import ExposureNotification
 import XCTest
 
-
+// swiftlint:disable file_length
 // swiftlint:disable:next type_body_length
 class ExposureSubmissionServiceTests: XCTestCase {
 
@@ -43,6 +43,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 			appConfigurationProvider: appConfigurationProvider,
 			client: client,
 			store: store,
+			eventStore: MockEventStore(),
 			deadmanNotificationManager: deadmanNotificationManager,
 			coronaTestService: coronaTestService
 		)
@@ -79,6 +80,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (nil, nil))
 		let client = ClientMock()
 		let store = MockTestStore()
+		let eventStore = MockEventStore()
 		let appConfigurationProvider = CachedAppConfigurationMock()
 
 		let coronaTestService = CoronaTestService(client: client, store: store)
@@ -91,6 +93,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 			appConfigurationProvider: appConfigurationProvider,
 			client: client,
 			store: store,
+			eventStore: eventStore,
 			coronaTestService: coronaTestService
 		)
 
@@ -135,6 +138,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 			appConfigurationProvider: appConfigurationProvider,
 			client: client,
 			store: store,
+			eventStore: MockEventStore(),
 			coronaTestService: coronaTestService
 		)
 
@@ -157,6 +161,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (nil, ENError(.notAuthorized)))
 		let client = ClientMock()
 		let store = MockTestStore()
+		let eventStore = MockEventStore()
 		let appConfigurationProvider = CachedAppConfigurationMock()
 
 		let coronaTestService = CoronaTestService(client: client, store: store)
@@ -169,6 +174,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 			appConfigurationProvider: appConfigurationProvider,
 			client: client,
 			store: store,
+			eventStore: eventStore,
 			coronaTestService: coronaTestService
 		)
 
@@ -195,6 +201,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (nil, nil))
 		let client = ClientMock()
 		let store = MockTestStore()
+		let eventStore = MockEventStore()
 		let appConfigurationProvider = CachedAppConfigurationMock()
 
 		let coronaTestService = CoronaTestService(client: client, store: store)
@@ -207,6 +214,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 			appConfigurationProvider: appConfigurationProvider,
 			client: client,
 			store: store,
+			eventStore: eventStore,
 			coronaTestService: coronaTestService
 		)
 
@@ -230,6 +238,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: ([], nil))
 		let client = ClientMock()
 		let store = MockTestStore()
+		let eventStore = MockEventStore()
 		let appConfigurationProvider = CachedAppConfigurationMock()
 
 		let coronaTestService = CoronaTestService(client: client, store: store)
@@ -242,6 +251,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 			appConfigurationProvider: appConfigurationProvider,
 			client: client,
 			store: store,
+			eventStore: eventStore,
 			coronaTestService: coronaTestService
 		)
 
@@ -265,6 +275,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
 		let client = ClientMock(submissionError: .invalidPayloadOrHeaders)
 		let store = MockTestStore()
+		let eventStore = MockEventStore()
 		store.registrationToken = "dummyRegistrationToken"
 		let appConfigurationProvider = CachedAppConfigurationMock()
 
@@ -279,6 +290,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 			appConfigurationProvider: appConfigurationProvider,
 			client: client,
 			store: store,
+			eventStore: eventStore,
 			coronaTestService: coronaTestService
 		)
 
@@ -301,6 +313,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
 		let client = ClientMock()
 		let store = MockTestStore()
+		let eventStore = MockEventStore()
 		let appConfigurationProvider = CachedAppConfigurationMock()
 
 		let coronaTestService = CoronaTestService(client: client, store: store)
@@ -314,6 +327,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 			appConfigurationProvider: appConfigurationProvider,
 			client: client,
 			store: store,
+			eventStore: eventStore,
 			coronaTestService: coronaTestService
 		)
 
@@ -342,7 +356,14 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		)
 
 		let expectation = self.expectation(description: "Correct error description received.")
-		let service = ENAExposureSubmissionService(diagnosisKeysRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, coronaTestService: coronaTestService)
+		let service = ENAExposureSubmissionService(
+			diagnosisKeysRetrieval: keyRetrieval,
+			appConfigurationProvider: appConfigurationProvider,
+			client: client,
+			store: store,
+			eventStore: MockEventStore(),
+			coronaTestService: coronaTestService
+		)
 
 		let controlTest = "\(AppStrings.ExposureSubmissionError.errorPrefix) - The submission request could not be built correctly."
 
@@ -370,8 +391,14 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		)
 
 		let expectation = self.expectation(description: "Correct error description received.")
-		let service = ENAExposureSubmissionService(diagnosisKeysRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, coronaTestService: coronaTestService)
-
+		let service = ENAExposureSubmissionService(
+			diagnosisKeysRetrieval: keyRetrieval,
+			appConfigurationProvider: appConfigurationProvider,
+			client: client,
+			store: store,
+			eventStore: MockEventStore(),
+			coronaTestService: coronaTestService
+		)
 		// Execute test.
 		let controlTest = "\(AppStrings.ExposureSubmissionError.errorPrefix) - Received an invalid payload or headers."
 
@@ -404,7 +431,14 @@ class ExposureSubmissionServiceTests: XCTestCase {
 			isSubmissionConsentGiven: true
 		)
 
-		let service = ENAExposureSubmissionService(diagnosisKeysRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, coronaTestService: coronaTestService)
+		let service = ENAExposureSubmissionService(
+			diagnosisKeysRetrieval: keyRetrieval,
+			appConfigurationProvider: appConfigurationProvider,
+			client: client,
+			store: store,
+			eventStore: MockEventStore(),
+			coronaTestService: coronaTestService
+		)
 
 		let expectation = self.expectation(description: "all callbacks called")
 		expectation.expectedFulfillmentCount = 2
@@ -423,6 +457,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 					completion(.failure(.fakeResponse))
 				}
 				service.submitExposure(coronaTestType: .pcr) { result in
+
 					expectation.fulfill()
 					XCTAssertNil(result)
 				}
@@ -441,11 +476,13 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let client = ClientMock()
 
 		let store = MockTestStore()
+		let eventStore = MockEventStore()
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: MockDiagnosisKeysRetrieval(diagnosisKeysResult: ([], nil)),
 			appConfigurationProvider: CachedAppConfigurationMock(with: config),
 			client: client,
 			store: store,
+			eventStore: eventStore,
 			coronaTestService: CoronaTestService(client: client, store: store)
 		)
 
@@ -479,11 +516,13 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let client = ClientMock()
 
 		let store = MockTestStore()
+		let eventStore = MockEventStore()
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: MockDiagnosisKeysRetrieval(diagnosisKeysResult: ([], nil)),
 			appConfigurationProvider: CachedAppConfigurationMock(with: config),
 			client: client,
 			store: store,
+			eventStore: eventStore,
 			coronaTestService: CoronaTestService(client: client, store: store)
 		)
 
@@ -518,6 +557,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let client = ClientMock()
 
 		let store = MockTestStore()
+		let eventStore = MockEventStore()
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: MockDiagnosisKeysRetrieval(
 				diagnosisKeysResult: ([], nil),
@@ -526,6 +566,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			client: client,
 			store: store,
+			eventStore: eventStore,
 			coronaTestService: CoronaTestService(client: client, store: store)
 		)
 
@@ -533,6 +574,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 	}
 
 	// MARK: - Plausible Deniability
+
 
 	func test_submitExposurePlaybook() {
 		// Counter to track the execution order.
@@ -577,7 +619,13 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
 		// Run test.
 
-		let service = ENAExposureSubmissionService(diagnosisKeysRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, coronaTestService: coronaTestService)
+		let service = ENAExposureSubmissionService(
+			diagnosisKeysRetrieval: keyRetrieval,
+			appConfigurationProvider: appConfigurationProvider,
+			client: client, store: store,
+			eventStore: MockEventStore(),
+			coronaTestService: coronaTestService
+		)
 
 		service.getTemporaryExposureKeys { _ in
 			service.submitExposure(coronaTestType: .pcr) { error in

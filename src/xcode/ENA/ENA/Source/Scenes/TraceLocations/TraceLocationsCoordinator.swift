@@ -107,6 +107,10 @@ class TraceLocationsCoordinator {
 				presentDisclaimer: {
 					let detailViewController = HTMLViewController(model: AppInformationModel.privacyModel)
 					detailViewController.title = AppStrings.AppInformation.privacyTitle
+					detailViewController.isDismissable = false
+					if #available(iOS 13.0, *) {
+						detailViewController.isModalInPresentation = true
+					}
 					// hides the footer view as well
 					detailViewController.hidesBottomBarWhenPushed = true
 					navigationController.pushViewController(detailViewController, animated: true)
@@ -148,7 +152,7 @@ class TraceLocationsCoordinator {
 					viewModel: TraceLocationDetailsViewModel(traceLocation: traceLocation, store: self.store, qrCodePosterTemplateProvider: self.qrCodePosterTemplateProvider, qrCodeErrorCorrectionLevel: qrCodeErrorCorrectionLevel),
 					onPrintVersionButtonTap: { [weak self] pdfView in
 						DispatchQueue.main.async {
-							self?.showPrintVersionScreen(pdfView: pdfView)
+							self?.showPrintVersionScreen(pdfView: pdfView, traceLocation: traceLocation)
 						}
 					},
 					onDuplicateButtonTap: { [weak self] traceLocation in
@@ -183,9 +187,9 @@ class TraceLocationsCoordinator {
 			})
 	}
 
-	private func showPrintVersionScreen(pdfView: PDFView) {
+	private func showPrintVersionScreen(pdfView: PDFView, traceLocation: TraceLocation) {
 		let viewController = TraceLocationPrintVersionViewController(
-			viewModel: TraceLocationPrintVersionViewModel(pdfView: pdfView)
+			viewModel: TraceLocationPrintVersionViewModel(pdfView: pdfView, traceLocation: traceLocation)
 		)
 
 		traceLocationDetailsNavigationController?.pushViewController(viewController, animated: true)

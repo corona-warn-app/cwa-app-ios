@@ -325,6 +325,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			appConfigurationProvider: self.appConfigurationProvider,
 			client: self.client,
 			store: self.store,
+			eventStore: self.eventStore,
 			coronaTestService: coronaTestService)
 	}
 
