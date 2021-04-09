@@ -14,8 +14,7 @@ protocol QRCodeVerificationHelperProviding {
 	)
 }
 class QRCodeVerificationHelper {
-	
-	private var subscriptions: Set<AnyCancellable> = []
+	var subscriptions: Set<AnyCancellable> = []
 
 	func verifyQrCode(
 		qrCodeString url: String,
