@@ -4,8 +4,9 @@
 
 import UIKit
 import PDFKit
+import LinkPresentation
 
-class TraceLocationPrintVersionViewController: UIViewController {
+class TraceLocationPrintVersionViewController: UIViewController, UIActivityItemSource {
 
 	// MARK: - Init
 
@@ -37,6 +38,31 @@ class TraceLocationPrintVersionViewController: UIViewController {
 		}
 	}
 
+	// MARK: - Protocol UIActivityItemSource
+
+	func activityViewControllerPlaceholderItem(_: UIActivityViewController) -> Any {
+		return viewModel.shareTitle
+	}
+
+	func activityViewController(_: UIActivityViewController, itemForActivityType activityType: UIActivity.ActivityType?) -> Any? {
+		if activityType == .mail {
+			return ""
+		}
+
+		return viewModel.shareTitle
+	}
+
+	@available(iOS 13.0, *)
+	func activityViewControllerLinkMetadata(_: UIActivityViewController) -> LPLinkMetadata? {
+		let metadata = LPLinkMetadata()
+		metadata.title = viewModel.shareTitle
+		return metadata
+	}
+
+	func activityViewController(_: UIActivityViewController, subjectForActivityType _: UIActivity.ActivityType?) -> String {
+		return viewModel.shareTitle
+	}
+
 	// MARK: - Private
 
 	private let viewModel: TraceLocationPrintVersionViewModel
@@ -44,7 +70,17 @@ class TraceLocationPrintVersionViewController: UIViewController {
 	@objc
 	private func didTapShareButton() {
 		guard let data = viewModel.pdfView.document?.dataRepresentation() else { return }
-		let activityViewController = UIActivityViewController(activityItems: [data], applicationActivities: nil)
+		let temporaryFolder = FileManager.default.temporaryDirectory
+		let pdfFileName = "cwa-qr-code.pdf"
+		let pdfFileURL = temporaryFolder.appendingPathComponent(pdfFileName)
+		
+		do {
+			try data.write(to: pdfFileURL)
+		} catch {
+			Log.error("Could not write the template data to the pdf file.", log: .qrCode, error: error)
+		}
+		
+		let activityViewController = UIActivityViewController(activityItems: [pdfFileURL], applicationActivities: nil)
 		present(activityViewController, animated: true, completion: nil)
 	}
 

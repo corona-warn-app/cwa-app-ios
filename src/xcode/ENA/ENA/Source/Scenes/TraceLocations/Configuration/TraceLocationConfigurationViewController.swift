@@ -47,15 +47,21 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 		permanentSettingsContainerView.isHidden = viewModel.permanentSettingsContainerIsHidden
 
 		descriptionTextField.placeholder = AppStrings.TraceLocations.Configuration.descriptionPlaceholder
+		descriptionTextField.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Configuration.descriptionPlaceholder
 		addressTextField.placeholder = AppStrings.TraceLocations.Configuration.addressPlaceholder
+		addressTextField.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Configuration.addressPlaceholder
 
 		startDateTitleLabel.text = AppStrings.TraceLocations.Configuration.startDateTitle
 		endDateTitleLabel.text = AppStrings.TraceLocations.Configuration.endDateTitle
 
 		temporaryDefaultLengthTitleLabel.text = AppStrings.TraceLocations.Configuration.defaultCheckinLengthTitle
+		temporaryDefaultLengthTitleLabel.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Configuration.temporaryDefaultLengthTitleLabel
 		temporaryDefaultLengthFootnoteLabel.text = AppStrings.TraceLocations.Configuration.defaultCheckinLengthFootnote
+		temporaryDefaultLengthFootnoteLabel.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Configuration.temporaryDefaultLengthFootnoteLabel
 		permanentDefaultLengthTitleLabel.text = AppStrings.TraceLocations.Configuration.defaultCheckinLengthTitle
+		permanentDefaultLengthTitleLabel.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Configuration.permanentDefaultLengthTitleLabel
 		permanentDefaultLengthFootnoteLabel.text = AppStrings.TraceLocations.Configuration.defaultCheckinLengthFootnote
+		permanentDefaultLengthFootnoteLabel.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Configuration.permanentDefaultLengthFootnoteLabel
 
 	}
 
@@ -71,13 +77,28 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 		}
 	}
 
+	func didShowKeyboard(_ size: CGRect) {
+		guard let selectedPickerFrame = currentSelectedDatePicker?.frame else {
+			return
+		}
+		scrollView.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: size.height, right: 0.0)
+		scrollView.scrollIndicatorInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: size.height, right: 0.0)
+		scrollView.scrollRectToVisible(selectedPickerFrame, animated: true)
+	}
+
+	func didHideKeyboard() {
+		scrollView.scrollIndicatorInsets = .zero
+	}
+
 	// MARK: - Private
 
 	private let viewModel: TraceLocationConfigurationViewModel
 	private let onDismiss: () -> Void
 
 	private var subscriptions = Set<AnyCancellable>()
+	private var currentSelectedDatePicker: UIDatePicker?
 
+	@IBOutlet private weak var scrollView: UIScrollView!
 	@IBOutlet private weak var traceLocationTypeLabel: ENALabel!
 
 	@IBOutlet private weak var textFieldContainerView: UIView!
@@ -154,6 +175,22 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 			startDatePicker.preferredDatePickerStyle = .inline
 			endDatePicker.preferredDatePickerStyle = .inline
 		}
+
+		startDatePicker.addTarget(self, action: #selector(selectDatePicker(sender:)), for: .editingDidBegin)
+		endDatePicker.addTarget(self, action: #selector(selectDatePicker(sender:)), for: .editingDidBegin)
+
+		startDatePicker.addTarget(self, action: #selector(deselectDatePicker(sender:)), for: .editingDidEnd)
+		endDatePicker.addTarget(self, action: #selector(deselectDatePicker(sender:)), for: .editingDidEnd)
+	}
+
+	@objc
+	private func selectDatePicker(sender: UIDatePicker) {
+		currentSelectedDatePicker = sender
+	}
+
+	@objc
+	private func deselectDatePicker(sender: UIDatePicker) {
+		currentSelectedDatePicker = nil
 	}
 
 	private func setUpGestureRecognizers() {

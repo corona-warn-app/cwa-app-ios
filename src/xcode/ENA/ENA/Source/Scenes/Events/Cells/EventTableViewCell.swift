@@ -33,6 +33,15 @@ class EventTableViewCell: UITableViewCell {
 		cellModel = nil
 		onButtonTap = nil
 	}
+	
+	override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+		super.setHighlighted(highlighted, animated: animated)
+		if highlighted {
+			containerView.backgroundColor = .enaColor(for: .listHighlight)
+		} else {
+			containerView.backgroundColor = .enaColor(for: .cellBackground)
+		}
+	}
 
 	// MARK: - Internal
 
@@ -73,6 +82,7 @@ class EventTableViewCell: UITableViewCell {
 		dateLabel.text = cellModel.date
 
 		button.setTitle(cellModel.buttonTitle, for: .normal)
+		button.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Configuration.eventTableViewCellButton
 
 		self.onButtonTap = onButtonTap
 

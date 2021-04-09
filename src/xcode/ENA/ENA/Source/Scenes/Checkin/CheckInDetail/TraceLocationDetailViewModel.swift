@@ -25,18 +25,35 @@ final class TraceLocationDetailViewModel {
 		self.locationAddress = traceLocation.address
 		self.locationDescription = traceLocation.description
 		self.shouldSaveToContactJournal = store.shouldAddCheckinToContactDiaryByDefault
-		self.selectedDurationInMinutes = traceLocation.suggestedCheckoutLength
+		// max duration in the picker is 23:45
+		let maxDurationInMinutes = (23 * 60) + 45
+		self.duration = TimeInterval(min(traceLocation.suggestedCheckoutLength, maxDurationInMinutes) * 60)
 	}
 	
 	// MARK: - Internal
-		
-	@OpenCombine.Published var pickerButtonTitle: String?
+
+	enum TraceLocationDateStatus {
+		case notStarted
+		case inProgress
+		case ended
+	}
 
 	let locationType: String
 	let locationDescription: String
 	let locationAddress: String
-	var selectedDurationInMinutes: Int
+
 	var shouldSaveToContactJournal: Bool
+
+	@OpenCombine.Published var duration: TimeInterval
+
+	var pickerButtonTitle: String {
+		guard let durationString = durationFormatter.string(from: duration) else {
+			Log.error("Failed to convert duration to string")
+			return ""
+		}
+		return String(format: AppStrings.Checkins.Details.hoursShortVersion, durationString)
+	}
+
 	var traceLocationStatus: TraceLocationDateStatus? {
 		guard let startDate = traceLocation.startDate,
 			  let endDate = traceLocation.endDate else {
@@ -50,43 +67,29 @@ final class TraceLocationDetailViewModel {
 			return .inProgress
 		}
 	}
+
 	var formattedStartDateString: String {
-		let dateFormatter = DateFormatter()
-		dateFormatter.dateStyle = .short
-		return dateFormatter.string(from: traceLocation.startDate ?? Date())
-	}
-	var formattedStartTimeString: String {
-		let dateFormatter = DateFormatter()
-		dateFormatter.timeStyle = .short
-		dateFormatter.dateStyle = .none
-		return dateFormatter.string(from: traceLocation.startDate ?? Date())
-	}
-	
-	enum TraceLocationDateStatus {
-		case notStarted
-		case inProgress
-		case ended
+		guard let date = traceLocation.startDate else {
+			return ""
+		}
+		return DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .none)
 	}
 
-	func pickerView(didSelectRow numberOfMinutes: Int) {
-		selectedDurationInMinutes = numberOfMinutes
-		let components = numberOfMinutes.quotientAndRemainder(dividingBy: 60)
-		let date = Calendar.current.date(bySettingHour: components.quotient, minute: components.remainder, second: 0, of: Date())
-		if let hour = formattedHourString(date) {
-			pickerButtonTitle = String(format: AppStrings.Checkins.Details.hoursShortVersion, hour)
+	var formattedStartTimeString: String {
+		guard let date = traceLocation.startDate else {
+			return ""
 		}
+		return DateFormatter.localizedString(from: date, dateStyle: .none, timeStyle: .short)
 	}
-	
+
 	func saveCheckinToDatabase() {
 		let checkinStartDate = Date()
-		guard let checkinEndDate = Calendar.current.date(byAdding: .minute, value: selectedDurationInMinutes, to: checkinStartDate) else {
+		guard let checkinEndDate = Calendar.current.date(byAdding: .second, value: Int(duration), to: checkinStartDate),
+			  let idHash = traceLocation.idHash else {
 			Log.warning("checkinEndDate is nill", log: .checkin)
 			return
 		}
-		guard let idHash = traceLocation.idHash else {
-			return
-		}
-		
+
 		let checkin: Checkin = Checkin(
 			id: 0,
 			traceLocationId: traceLocation.id,
@@ -115,13 +118,14 @@ final class TraceLocationDetailViewModel {
 	private let traceLocation: TraceLocation
 	private let eventStore: EventStoringProviding
 	private let store: Store
-	
-	private func formattedHourString(_ date: Date?) -> String? {
-		let dateComponentsFormatter = DateComponentsFormatter()
-		dateComponentsFormatter.allowedUnits = [.hour, .minute]
-		dateComponentsFormatter.unitsStyle = .positional
-		dateComponentsFormatter.zeroFormattingBehavior = .pad
-		let components = Calendar.current.dateComponents([.hour, .minute], from: date ?? Date())
-		return dateComponentsFormatter.string(from: components)
-	}
+
+	private lazy var durationFormatter: DateComponentsFormatter = {
+		let formatter = DateComponentsFormatter()
+		formatter.unitsStyle = .positional
+		formatter.allowedUnits = [.hour, .minute]
+		formatter.zeroFormattingBehavior = .default
+		formatter.zeroFormattingBehavior = .pad
+		return formatter
+	}()
+
 }

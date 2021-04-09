@@ -7,6 +7,8 @@ import Foundation
 
 extension Checkin {
 
+	/// Provide a set of default parameters to quickly generate a `Checkin`
+	/// - Returns: A mocked `Checkin`
 	static func mock(
 		id: Int = 0,
 		traceLocationId: Data = Data(),
@@ -43,6 +45,6 @@ extension Checkin {
 			checkinCompleted: checkinCompleted,
 			createJournalEntry: createJournalEntry
 		)
-   }
+	}
 
 }

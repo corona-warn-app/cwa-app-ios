@@ -25,6 +25,15 @@ final class EditCheckinDetailViewModel {
 			.sink(receiveValue: { startDate in
 				self.startDate = startDate
 				self.checkInEndCellModel.minDate = startDate
+				self.checkInEndCellModel.maxDate = max(Calendar.current.date(byAdding: .hour, value: 24, to: startDate) ?? startDate, self.endDate)
+			})
+			.store(in: &subscriptions)
+
+		checkInStartCellModel.$isFirstResponder
+			.sink(receiveValue: { [weak self] value in
+				if value {
+					self?.responderCellType = .startDate
+				}
 			})
 			.store(in: &subscriptions)
 
@@ -36,12 +45,22 @@ final class EditCheckinDetailViewModel {
 			.sink(receiveValue: { endDate in
 				self.endDate = endDate
 				self.checkInStartCellModel.maxDate = endDate
+				self.checkInStartCellModel.minDate = min(Calendar.current.date(byAdding: .hour, value: -24, to: endDate) ?? endDate, self.startDate)
+			})
+			.store(in: &subscriptions)
+
+		checkInEndCellModel.$isFirstResponder
+			.sink(receiveValue: { [weak self] value in
+				if value {
+					self?.responderCellType = .endDate
+				}
 			})
 			.store(in: &subscriptions)
 
 		$isEndDatePickerVisible
 			.assign(to: \CheckInTimeModel.isPickerVisible, on: checkInEndCellModel)
 			.store(in: &subscriptions)
+
 	}
 
 	enum TableViewSections: Int, CaseIterable {
@@ -58,10 +77,20 @@ final class EditCheckinDetailViewModel {
 
 	// MARK: - Internal
 
+	enum ResponderCellType {
+		case startDate
+		case endDate
+		case none
+	}
+
 	let checkInDescriptionCellModel: CheckInDescriptionCellModel
+
+	var responderCellType: ResponderCellType = .none
+
 	lazy var checkInStartCellModel: CheckInTimeModel = {
 		CheckInTimeModel(
 			AppStrings.Checkins.Edit.checkedIn,
+			minDate: Calendar.current.date(byAdding: .hour, value: -24, to: checkIn.checkinEndDate) ?? checkIn.checkinEndDate,
 			maxDate: checkIn.checkinEndDate,
 			date: checkIn.checkinStartDate,
 			hasTopSeparator: false,
@@ -73,6 +102,7 @@ final class EditCheckinDetailViewModel {
 		CheckInTimeModel(
 			AppStrings.Checkins.Edit.checkedOut,
 			minDate: checkIn.checkinStartDate,
+			maxDate: Calendar.current.date(byAdding: .hour, value: 24, to: checkIn.checkinStartDate) ?? checkIn.checkinStartDate,
 			date: checkIn.checkinEndDate,
 			hasTopSeparator: true,
 			isPickerVisible: self.isEndDatePickerVisible

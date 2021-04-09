@@ -11,14 +11,15 @@ final class CheckInTimeModel {
 
 	init(
 		_ type: String,
-		minDate: Date? = nil,
-		maxDate: Date? = nil,
+		minDate: Date,
+		maxDate: Date,
 		date: Date,
 		hasTopSeparator: Bool,
 		isPickerVisible: Bool
 	) {
 		self.type = type
 		self.minDate = minDate
+		self.maxDate = maxDate
 		self.date = date
 		self.hasTopSeparator = hasTopSeparator
 		self.isPickerVisible = isPickerVisible
@@ -29,10 +30,12 @@ final class CheckInTimeModel {
 	let type: String
 	let hasTopSeparator: Bool
 
-	@OpenCombine.Published var minDate: Date?
-	@OpenCombine.Published var maxDate: Date?
+	@OpenCombine.Published var minDate: Date
+	@OpenCombine.Published var maxDate: Date
 	@OpenCombine.Published var date: Date
+
 	@OpenCombine.Published var isPickerVisible: Bool = false
+	@OpenCombine.Published var isFirstResponder: Bool = false
 
 	var dateString: String {
 		DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .short)

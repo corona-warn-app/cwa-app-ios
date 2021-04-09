@@ -132,7 +132,7 @@ class RootCoordinator: RequiresAppDependencies {
 			return
 		}
 		tabBarController.selectedIndex = index
-		checkInCoordinator.showTraceLocationDetails(guid)
+		checkInCoordinator.showTraceLocationDetailsFromExternalCamera(guid)
 	}
 
 	func updateDetectionMode(
@@ -170,7 +170,8 @@ class RootCoordinator: RequiresAppDependencies {
 			diagnosisKeysRetrieval: self.exposureManager,
 			appConfigurationProvider: appConfigurationProvider,
 			client: self.client,
-			store: self.store
+			store: self.store,
+			eventStore: self.eventStore
 		)
 	}()
 	

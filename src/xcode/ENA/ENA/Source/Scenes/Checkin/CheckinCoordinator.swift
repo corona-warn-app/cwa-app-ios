@@ -88,7 +88,8 @@ final class CheckinCoordinator {
 	private let appConfiguration: AppConfigurationProviding
 	private let eventCheckoutService: EventCheckoutService
 	private var subscriptions: [AnyCancellable] = []
-	
+	private let verificationService = QRCodeVerificationHelper()
+
 	private var infoScreenShown: Bool {
 		get { store.checkinInfoScreenShown }
 		set { store.checkinInfoScreenShown = newValue }
@@ -139,10 +140,11 @@ final class CheckinCoordinator {
 	private func showQRCodeScanner() {
 		
 		let qrCodeScanner = CheckinQRCodeScannerViewController(
-			viewModel: CheckinQRCodeScannerViewModel(),
-			didScanCheckin: { [weak self] qrCodeString in
+			qrCodeVerificationHelper: verificationService,
+			appConfiguration: appConfiguration,
+			didScanCheckin: { [weak self] traceLocation in
 				self?.viewController.dismiss(animated: true, completion: {
-					self?.showTraceLocationDetails(qrCodeString)
+					self?.showTraceLocationDetails(traceLocation)
 				})
 			},
 			dismiss: { [weak self] in
@@ -157,28 +159,19 @@ final class CheckinCoordinator {
 			self?.viewController.present(navigationController, animated: true)
 		}
 	}
-	let verificationService = QRCodeVerificationHelper()
-
-	func showTraceLocationDetails(_ qrCodeString: String) {
+	
+	func showTraceLocationDetailsFromExternalCamera(_ qrCodeString: String) {
 		verificationService.verifyQrCode(
 			qrCodeString: qrCodeString,
 			appConfigurationProvider: appConfiguration,
 			onSuccess: { [weak self] traceLocation in
-				
-				guard let self = self else { return }
-				let viewModel = TraceLocationDetailViewModel(traceLocation, eventStore: self.eventStore, store: self.store)
-				let traceLocationDetailViewController = TraceLocationDetailViewController(
-					viewModel,
-					dismiss: { [weak self] in
-						self?.viewController.dismiss(animated: true)
-					}
-				)
-				self.viewController.present(traceLocationDetailViewController, animated: true)
+				self?.showTraceLocationDetails(traceLocation)
+				self?.verificationService.subscriptions.removeAll()
 			},
-			onError: { error in
+			onError: { [weak self] error in
 				let alert = UIAlertController(
-					title: AppStrings.Common.alertTitleGeneral,
-					message: error.localizedDescription,
+					title: AppStrings.Checkins.QRScanner.Error.title,
+					message: error.errorDescription,
 					preferredStyle: .alert
 				)
 				alert.addAction(
@@ -190,8 +183,23 @@ final class CheckinCoordinator {
 						}
 					)
 				)
-			})
+				self?.viewController.present(alert, animated: true)
+				self?.verificationService.subscriptions.removeAll()
+			}
+		)
 	}
+	
+	private func showTraceLocationDetails(_ traceLocation: TraceLocation) {
+		let viewModel = TraceLocationDetailViewModel(traceLocation, eventStore: self.eventStore, store: self.store)
+		let traceLocationDetailViewController = TraceLocationDetailViewController(
+			viewModel,
+			dismiss: { [weak self] in
+				self?.viewController.dismiss(animated: true)
+			}
+		)
+		self.viewController.present(traceLocationDetailViewController, animated: true)
+	}
+
 	
 	private func showSettings() {
 		guard let url = URL(string: UIApplication.openSettingsURLString),
@@ -213,6 +221,10 @@ final class CheckinCoordinator {
 				presentDisclaimer: {
 					let detailViewController = HTMLViewController(model: AppInformationModel.privacyModel)
 					detailViewController.title = AppStrings.AppInformation.privacyTitle
+					detailViewController.isDismissable = false
+					if #available(iOS 13.0, *) {
+						detailViewController.isModalInPresentation = true
+					}
 					showDetail(detailViewController)
 				},
 				hidesCloseButton: hidesCloseButton
@@ -225,7 +237,7 @@ final class CheckinCoordinator {
 		let footerViewController = FooterViewController(
 			FooterViewModel(
 				primaryButtonName: AppStrings.Checkins.Information.primaryButtonTitle,
-				primaryIdentifier: AccessibilityIdentifiers.CheckinInformation.primaryButton,
+				primaryIdentifier: AccessibilityIdentifiers.Checkin.Information.primaryButton,
 				isSecondaryButtonEnabled: false,
 				isPrimaryButtonHidden: false,
 				isSecondaryButtonHidden: true

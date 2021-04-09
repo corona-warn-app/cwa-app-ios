@@ -26,7 +26,8 @@ class HomeCoordinator: RequiresAppDependencies {
 			diagnosisKeysRetrieval: self.exposureManager,
 			appConfigurationProvider: appConfigurationProvider,
 			client: self.client,
-			store: self.store
+			store: self.store,
+			eventStore: self.eventStore
 		)
 	}()
 
@@ -171,7 +172,8 @@ class HomeCoordinator: RequiresAppDependencies {
 			exposureSubmissionService: exposureSubmissionService,
 			serverEnvironment: serverEnvironment,
 			otpService: otpService,
-			eventStore: eventStore
+			eventStore: eventStore,
+			qrCodePosterTemplateProvider: qrCodePosterTemplateProvider
 		)
 		developerMenu?.enableIfAllowed()
 	}

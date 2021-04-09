@@ -24,12 +24,17 @@ class CheckInDatePickerCell: UITableViewCell, ReuseIdentifierProviding {
 	func configure(_ cellModel: CheckInTimeModel) {
 		self.cellModel = cellModel
 		timeDatePicker.date = cellModel.date
+
 		cellModel.$minDate
-			.assign(to: \UIDatePicker.minimumDate, on: timeDatePicker)
+			.sink(receiveValue: { newDate in
+				self.timeDatePicker.minimumDate = newDate
+			})
 			.store(in: &subscriptions)
 
 		cellModel.$maxDate
-			.assign(to: \UIDatePicker.maximumDate, on: timeDatePicker)
+			.sink(receiveValue: { newDate in
+				self.timeDatePicker.maximumDate = newDate
+			})
 			.store(in: &subscriptions)
 	}
 
@@ -62,6 +67,8 @@ class CheckInDatePickerCell: UITableViewCell, ReuseIdentifierProviding {
 		timeDatePicker.translatesAutoresizingMaskIntoConstraints = false
 		tileView.addSubview(timeDatePicker)
 		timeDatePicker.addTarget(self, action: #selector(updateDate(sender:)), for: .valueChanged)
+		timeDatePicker.addTarget(self, action: #selector(beginEditing(sender:)), for: .editingDidBegin)
+		timeDatePicker.addTarget(self, action: #selector(endEditing(sender:)), for: .editingDidEnd)
 
 		NSLayoutConstraint.activate(
 			[
@@ -81,6 +88,16 @@ class CheckInDatePickerCell: UITableViewCell, ReuseIdentifierProviding {
 	@objc
 	private func updateDate(sender: UIDatePicker) {
 		cellModel.date = sender.date
+	}
+
+	@objc
+	private func beginEditing(sender: UIDatePicker) {
+		cellModel.isFirstResponder = true
+	}
+
+	@objc
+	private func endEditing(sender: UIDatePicker) {
+		cellModel.isFirstResponder = false
 	}
 
 }

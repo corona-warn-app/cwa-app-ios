@@ -113,6 +113,7 @@ class DynamicLegalExtendedCell: UITableViewCell {
 			contentStackView2.addArrangedSubview(label)
 		}
 		
+		cardView.layoutIfNeeded()
 	}
 
 	private func setup() {

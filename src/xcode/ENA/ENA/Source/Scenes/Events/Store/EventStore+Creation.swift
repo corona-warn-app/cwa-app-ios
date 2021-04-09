@@ -33,6 +33,32 @@ extension EventStore {
 		)
 	}
 
+	static var storeURL: URL {
+		storeDirectoryURL
+			.appendingPathComponent("EventStore")
+			.appendingPathExtension("sqlite")
+	}
+
+	static var storeDirectoryURL: URL {
+		let fileManager = FileManager.default
+
+		guard let storeDirectoryURL = try? fileManager
+				.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+				.appendingPathComponent("EventStore") else {
+			fatalError("[EventStore] Could not create folder.")
+		}
+
+		if !fileManager.fileExists(atPath: storeDirectoryURL.path) {
+			do {
+				try fileManager.createDirectory(atPath: storeDirectoryURL.path, withIntermediateDirectories: true, attributes: nil)
+			} catch {
+				Log.error("Could not create directory at \(storeDirectoryURL)", log: .localData, error: error)
+				assertionFailure()
+			}
+		}
+		return storeDirectoryURL
+	}
+
 	static func make(url: URL? = nil) -> EventStore {
 		let storeURL: URL
 
@@ -69,32 +95,6 @@ extension EventStore {
 		}
 	}
 
-	private static var storeURL: URL {
-		storeDirectoryURL
-			.appendingPathComponent("EventStore")
-			.appendingPathExtension("sqlite")
-	}
-
-	private static var storeDirectoryURL: URL {
-		let fileManager = FileManager.default
-
-		guard let storeDirectoryURL = try? fileManager
-				.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-				.appendingPathComponent("EventStore") else {
-			fatalError("[EventStore] Could not create folder.")
-		}
-
-		if !fileManager.fileExists(atPath: storeDirectoryURL.path) {
-			do {
-				try fileManager.createDirectory(atPath: storeDirectoryURL.path, withIntermediateDirectories: true, attributes: nil)
-			} catch {
-				Log.error("Could not create directory at \(storeDirectoryURL)", log: .localData, error: error)
-				assertionFailure()
-			}
-		}
-		return storeDirectoryURL
-	}
-
 	private static var encryptionKey: String {
 		guard let keychain = try? KeychainHelper() else {
 			fatalError("[EventStore] Failed to create KeychainHelper for event store.")
@@ -112,5 +112,13 @@ extension EventStore {
 		}
 
 		return key
+	}
+	
+	static func resetEncryptionKey() throws -> String {
+		guard let keychain = try? KeychainHelper() else {
+			fatalError("[EventStore] Failed to create KeychainHelper for event store.")
+		}
+		try keychain.clearInKeychain(key: EventStore.encryptionKeyKey)
+		return encryptionKey
 	}
 }
