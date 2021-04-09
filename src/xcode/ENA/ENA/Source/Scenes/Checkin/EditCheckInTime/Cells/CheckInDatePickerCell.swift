@@ -19,6 +19,14 @@ class CheckInDatePickerCell: UITableViewCell, ReuseIdentifierProviding {
 		fatalError("init(coder:) has not been implemented")
 	}
 
+	// MARK: - Overrides
+
+	override func prepareForReuse() {
+		super.prepareForReuse()
+		subscriptions.forEach { $0.cancel() }
+		subscriptions.removeAll()
+	}
+
 	// MARK: - Internal
 
 	func configure(_ cellModel: CheckInTimeModel) {
