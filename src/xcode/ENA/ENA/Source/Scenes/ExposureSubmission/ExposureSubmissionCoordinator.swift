@@ -51,6 +51,34 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			return
 		}
 
+		/* remove later */
+
+		let testOverwriteNoticeViewController = TestOverwriteNoticeViewController(
+			testType: .pcr,
+			didTapPrimaryButton: {
+				Log.debug("Did accept overwrite of older test result")
+				self.parentNavigationController?.dismiss(animated: true)
+			},
+			didTapSecondaryButton: {
+				Log.debug("Did decline overwrite of older test result")
+				self.parentNavigationController?.dismiss(animated: true)
+			}
+		)
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: AppStrings.ExposureSubmission.OverwriteNotice.primaryButton,
+				secondaryButtonName: AppStrings.ExposureSubmission.OverwriteNotice.secondaryButton
+			)
+		)
+		let topBottomViewController = TopBottomContainerViewController(topController: testOverwriteNoticeViewController, bottomController: footerViewController)
+		let testOverwriteNoticeNavigationController = DismissHandlingNavigationController(rootViewController: topBottomViewController)
+		parentNavigationController.present(testOverwriteNoticeNavigationController, animated: true)
+		navigationController = testOverwriteNoticeNavigationController
+
+		return
+
+		/* ------------- */
+
 		/// The navigation controller keeps a strong reference to the coordinator. The coordinator only reaches reference count 0
 		/// when UIKit dismisses the navigationController.
 		let exposureSubmissionNavigationController = ExposureSubmissionNavigationController(

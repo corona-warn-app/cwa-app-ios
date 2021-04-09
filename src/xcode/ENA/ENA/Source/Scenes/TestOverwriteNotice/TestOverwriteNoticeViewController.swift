@@ -28,6 +28,9 @@ class TestOverwriteNoticeViewController: UITableViewController, DismissHandling,
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
+		parent?.navigationItem.title = viewModel.title
+		parent?.navigationController?.navigationBar.prefersLargeTitles = true
 	}
 
 	// MARK: - Protocol FooterViewHandling
