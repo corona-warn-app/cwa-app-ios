@@ -47,26 +47,32 @@ class EventTableViewCell: UITableViewCell {
 
 	func configure(cellModel: EventCellModel, onButtonTap: @escaping () -> Void) {
 		cellModel.isInactiveIconHiddenPublisher
+			.receive(on: DispatchQueue.main.ocombine)
 			.assign(to: \.isHidden, on: inactiveIconImageView)
 			.store(in: &subscriptions)
 
 		cellModel.isActiveContainerViewHiddenPublisher
+			.receive(on: DispatchQueue.main.ocombine)
 			.assign(to: \.isHidden, on: activeContainerView)
 			.store(in: &subscriptions)
 
 		cellModel.isButtonHiddenPublisher
+			.receive(on: DispatchQueue.main.ocombine)
 			.assign(to: \.isHidden, on: button)
 			.store(in: &subscriptions)
 
 		cellModel.durationPublisher
+			.receive(on: DispatchQueue.main.ocombine)
 			.assign(to: \.text, on: durationLabel)
 			.store(in: &subscriptions)
 
 		cellModel.timePublisher
+			.receive(on: DispatchQueue.main.ocombine)
 			.assign(to: \.text, on: timeLabel)
 			.store(in: &subscriptions)
 
 		cellModel.timePublisher
+			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] in
 				self?.timeLabel.isHidden = $0 == nil
 			}
