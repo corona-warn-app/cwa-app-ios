@@ -143,25 +143,12 @@ final class EditCheckinDetailViewModel {
 			Log.debug("nothing to save here")
 			return
 		}
-		let updateCheckIn = Checkin(
-			id: checkIn.id,
-			traceLocationId: checkIn.traceLocationId,
-			traceLocationIdHash: checkIn.traceLocationIdHash,
-			traceLocationVersion: checkIn.traceLocationVersion,
-			traceLocationType: checkIn.traceLocationType,
-			traceLocationDescription: checkIn.traceLocationDescription,
-			traceLocationAddress: checkIn.traceLocationAddress,
-			traceLocationStartDate: checkIn.traceLocationStartDate,
-			traceLocationEndDate: checkIn.traceLocationEndDate,
-			traceLocationDefaultCheckInLengthInMinutes: checkIn.traceLocationDefaultCheckInLengthInMinutes,
-			cryptographicSeed: checkIn.cryptographicSeed,
-			cnPublicKey: checkIn.cnPublicKey,
+
+		let updatedCheckin = checkIn.updatedCheckin(
 			checkinStartDate: startDate,
-			checkinEndDate: endDate,
-			checkinCompleted: checkIn.checkinCompleted,
-			createJournalEntry: checkIn.createJournalEntry
+			checkinEndDate: endDate
 		)
-		eventStore.updateCheckin(updateCheckIn)
+		eventStore.updateCheckin(updatedCheckin)
 	}
 
 	// MARK: - Private

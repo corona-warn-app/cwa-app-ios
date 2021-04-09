@@ -362,7 +362,7 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 		
 		// tap checkout button
 		XCTAssertTrue(query.element(boundBy: 1).identifier == AccessibilityIdentifiers.TraceLocation.Configuration.eventTableViewCellButton)
-		query.element(boundBy: 1).waitForExistence(timeout: .short)
+		_ = query.element(boundBy: 1).waitForExistence(timeout: .short)
 		query.element(boundBy: 1).tap()
 		
 		app.swipeUp()

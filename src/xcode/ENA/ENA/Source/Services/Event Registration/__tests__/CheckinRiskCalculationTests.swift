@@ -183,18 +183,16 @@ class CheckinRiskCalculationTests: XCTestCase {
 		let traceWarningMatcher = TraceWarningMatcher(eventStore: eventStore)
 
 		let result1 = eventStore.createCheckin(
-			makeDummyCheckin(
-				startDate: checkin1StartDate,
-				endDate: checkin1EndDate,
-				traceLocationId: "1"
+			Checkin.mock(
+				checkinStartDate: checkin1StartDate,
+				checkinEndDate: checkin1EndDate
 			)
 		)
 
 		let result2 = eventStore.createCheckin(
-			makeDummyCheckin(
-				startDate: checkin2StartDate,
-				endDate: checkin2EndDate,
-				traceLocationId: "2"
+			Checkin.mock(
+				checkinStartDate: checkin2StartDate,
+				checkinEndDate: checkin2EndDate
 			)
 		)
 
@@ -325,10 +323,9 @@ class CheckinRiskCalculationTests: XCTestCase {
 		let traceWarningMatcher = TraceWarningMatcher(eventStore: eventStore)
 
 		let result1 = eventStore.createCheckin(
-			makeDummyCheckin(
-				startDate: checkinStartDate,
-				endDate: checkinEndDate,
-				traceLocationId: "1"
+			Checkin.mock(
+				checkinStartDate: checkinStartDate,
+				checkinEndDate: checkinEndDate
 			)
 		)
 
@@ -350,31 +347,6 @@ class CheckinRiskCalculationTests: XCTestCase {
 			eventStore: eventStore,
 			checkinSplittingService: checkinSplittingService,
 			traceWarningMatcher: traceWarningMatcher
-		)
-	}
-
-	private func makeDummyCheckin(
-		startDate: Date = Date(),
-		endDate: Date = Date(),
-		traceLocationId: String = "0"
-	) -> Checkin {
-		Checkin(
-			id: 0,
-			traceLocationId: traceLocationId.data(using: .utf8) ?? Data(),
-			traceLocationIdHash: traceLocationId.data(using: .utf8) ?? Data(),
-			traceLocationVersion: 0,
-			traceLocationType: .locationTypePermanentCraft,
-			traceLocationDescription: "",
-			traceLocationAddress: "",
-			traceLocationStartDate: Date(),
-			traceLocationEndDate: Date(),
-			traceLocationDefaultCheckInLengthInMinutes: 0,
-			cryptographicSeed: Data(),
-			cnPublicKey: Data(),
-			checkinStartDate: startDate,
-			checkinEndDate: endDate,
-			checkinCompleted: false,
-			createJournalEntry: false
 		)
 	}
 
