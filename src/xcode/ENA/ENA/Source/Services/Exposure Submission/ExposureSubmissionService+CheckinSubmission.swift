@@ -22,6 +22,9 @@ extension ExposureSubmissionService {
 		let transmissionRiskValueMapping = appConfig.presenceTracingParameters.riskCalculationParameters.transmissionRiskValueMapping
 
 		let checkins = rawCheckins
+			.compactMap {
+				$0.derivingWarningTimeInterval(config: PresenceTracingSubmissionConfiguration(from: appConfig.presenceTracingParameters.submissionParameters))
+			}
 			// Split checkins per day
 			.reduce([Checkin]()) { value, checkin -> [Checkin] in
 				var mutableValue = value
