@@ -217,9 +217,9 @@
 /* There are two paragraphs in this section. The first one just contains text… */
 "ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Your risk of infection can be calculated only for periods during which exposure logging was active. The logging feature should therefore remain active permanently. Exposure logging covers the last 14 days.";
 
-"ExposureDetection_ActiveTracingSection_Text_Paragraph1a" = "The Corona-Warn-App was installed %u ago. Your risk of infection is calculated for the periods during which exposure logging was active. If you have encountered other people and exposure logging was active, your risk of infection is calculated.";
+"ExposureDetection_ActiveTracingSection_Text_Paragraph1a" = "The Corona-Warn-App was installed %u days ago. Your risk of infection is calculated for the periods during which exposure logging was active. If you have encountered other people and exposure logging was active, your risk of infection is calculated.";
 
-"ExposureDetection_ActiveTracingSection_Text_Paragraph1b" = "If exposure logging was active in times during which you encountered other people, your risk of infection can be calculated for this period.";
+"ExposureDetection_ActiveTracingSection_Text_Paragraph1b" = "If exposure logging was active at times during which you encountered other people, your risk of infection can be calculated for this period.";
 
 /* Exposure Detection Errors */
 "ExposureDetectionError_Alert_Message" = "An error occurred during exposure logging.";
@@ -272,9 +272,9 @@
 
 "Settings_DaysSinceInstall_P1" = "Your risk of infection can be calculated only for periods during which exposure logging was active. The logging feature should therefore remain active permanently. Exposure logging covers the last 14 days.";
 
-"Settings_DaysSinceInstall_P2a" = "The Corona-Warn-App was installed %u ago. Your risk of infection is calculated for the periods during which exposure logging was active. If you have encountered other people and exposure logging was active, your risk of infection is calculated.";
+"Settings_DaysSinceInstall_P2a" = "The Corona-Warn-App was installed %u days ago. Your risk of infection is calculated for the periods during which exposure logging was active. If you have encountered other people and exposure logging was active, your risk of infection is calculated.";
 
-"Settings_DaysSinceInstall_P2b" = "If exposure logging was active in times during which you encountered other people, your risk of infection can be calculated for this period.";
+"Settings_DaysSinceInstall_P2b" = "If exposure logging was active at times during which you encountered other people, your risk of infection can be calculated for this period.";
 
 "Settings_DataDonation_Label" = "Share Data";
 
@@ -555,6 +555,8 @@
 
 "ExposureSubmissionQRInfo_body_section_2" = "If you have been diagnosed with coronavirus, you can warn others through the app. The warning feature works in several countries. The following countries are currently participating:";
 
+"ExposureSubmissionQRInfo_body_section_3" = "People who were checked in to the same events or places at the same time as you were will also be warned.";
+
 "ExposureSubmissionQRInfo_acknowledgement_3" = "You can retrieve your test result even if you do not choose to share it. But if you share your test result, you will help to protect others against infection.";
 
 "ExposureSubmissionQRInfo_acknowledgement_4" = "Your identity will remain secret. Other users will not find out who has shared a test result.";
@@ -767,7 +769,6 @@
 "ExposureSubmissionSymptoms_CancelAlertButtonContinue" = "No";
 
 /* ExposureSubmissionWarnOthers */
-
 "ExposureSubmissionWarnOthers_title" = "Warn Others";
 
 "ExposureSubmissionWarnOthers_AccImageDescription" = "A device transmits an encrypted positive test diagnosis to the system.";
@@ -1381,7 +1382,7 @@
 /* Version 2.0 */
 "NewVersionFeature_200_event_checkin_title" = "QR code check-in to effectively track chains of infection";
 
-"NewVersionFeature_200_event_checkin_description" = "The CWA now enables you to check in to events and places. Event organizers and store owners can use the app to create a QR code. Guests can then scan this QR code when they arrive to register their presence. The app can also create a journal entry upon request. If someone who checked in to this event or place is diagnosed with coronavirus later, everyone who was checked in at the same time is notified automatically.";
+"NewVersionFeature_200_event_checkin_description" = "The CWA now enables you to check in to events and places. Event organizers and store owners can use the app to create a QR code. Guests can then scan this QR code when they arrive to register their presence. The app can also create a journal entry upon request. If someone who checked in to this event or place is diagnosed with coronavirus later, other people who were checked in at the same time can be warned automatically.";
 
 /* Version 1.15 */
 "NewVersionFeature_115_cross_border_switzerland_title" = "Switzerland Added to Transnational Exposure Logging ";
@@ -1967,6 +1968,14 @@
 
 "Checkins_Overview_QRScanner_Instruction" = "Scan QR Code and Check In";
 
+"Checkin_QR_Scanner_Checkin_Error_Title" = "Invalid QR Code";
+
+"Checkin_QR_Scanner_Error_InvalidURL" = "The scanned QR code is not valid for check-ins for an event or place. Please scan a suitable QR code (error code INVALID_URL).";
+
+"Checkin_QR_Scanner_Error_InvalidPayload" = "Check-in prevented due to invalid QR code. The responsible body has to generate a new QR code (error code INVALID_PAYLOAD).";
+
+"Checkin_QR_Scanner_Error_InvalidURLVendorData" = "Check-in prevented due to invalid QR code. The responsible body has to generate a new QR code (error code INVALID_VENDOR_DATA).";
+
 /* TraceLocations */
 "TraceLocations_Overview_Title" = "My QR Codes";
 
@@ -2003,6 +2012,11 @@
 "TraceLocations_Overview_ActionSheet_InfoTitle" = "Information";
 
 "TraceLocations_Overview_ActionSheet_EditTitle" = "Edit";
+
+/* Trace Location Details */
+"TraceLocations_Details_PrintVersionButtonTitle" = "Display Print Version";
+
+"TraceLocations_Details_DuplicateButtonTitle" = "Use as Template";
 
 /* Selection of a TraceLocations */
 "TraceLocations_TypeSelection_Title" = "Create QR Code";
@@ -2071,6 +2085,8 @@
 "TraceLocations_Configuration_PrimaryButtonTitle" = "Save";
 
 "TraceLocations_Configuration_HoursUnit" = "%@ hrs.";
+
+"TraceLocations_Configuration_SavingErrorMessage" = "The QR code cannot be saved right now. Please try again later (error code %@).";
 
 /* Error Reporting */
 "ErrorReport_Title" = "Error Reports";
@@ -2159,8 +2175,6 @@
 
 "Checkin_Details_CheckinFor" = "Check in for:";
 
-"Checkin_Details_Activity" = "Club activities";
-
 "Checkin_Details_SaveToDiary" = "Record in my contact journal after check-out?";
 
 "Checkin_Details_AutomaticCheckout" = "Check out automatically after";
@@ -2168,4 +2182,6 @@
 "Checkin_Details_EventNotStartedYet" = "This event doesn’t start until %@ on %@. Do you want to check in already?";
 
 "Checkin_Details_EventEnded" = "This event is already over. Do you want to check in retroactively?";
+
+"Checkin_Details_CheckIn_Button" = "Check In";
 
