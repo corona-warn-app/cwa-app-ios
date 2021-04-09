@@ -346,7 +346,7 @@ class CoronaTestService {
 			case let .failure(error):
 				completion(.failure(.responseFailure(error)))
 			case let .success(testResult):
-				guard let testResult = TestResult(rawValue: testResult) else {
+				guard let testResult = TestResult(serverResponse: testResult) else {
 					completion(.failure(.unknownTestResult))
 					return
 				}

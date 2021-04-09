@@ -33,7 +33,7 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 		case ActionableNotificationIdentifier.testResult.identifier:
 			let testIdentifier = ActionableNotificationIdentifier.testResult.identifier
 			guard let testResultRawValue = response.notification.request.content.userInfo[testIdentifier] as? Int,
-				  let testResult = TestResult(rawValue: testResultRawValue) else {
+				  let testResult = TestResult(serverResponse: testResultRawValue) else {
 				appDelegate?.showHome()
 				return
 			}
