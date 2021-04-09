@@ -329,7 +329,12 @@ class CoronaTestService {
 		duringRegistration: Bool,
 		_ completion: @escaping TestResultHandler
 	) {
-		guard let coronaTest = coronaTest(ofType: coronaTestType), let registrationToken = coronaTest.registrationToken else {
+		guard let coronaTest = coronaTest(ofType: coronaTestType) else {
+			completion(.failure(.noCoronaTestOfRequestedType))
+			return
+		}
+
+		guard let registrationToken = coronaTest.registrationToken else {
 			completion(.failure(.noRegistrationToken))
 			return
 		}
