@@ -366,7 +366,7 @@ class CoronaTestService {
 						}
 					}
 
-					if coronaTestType == .pcr {
+					if coronaTestType == .pcr && duringRegistration {
 						Analytics.collect(.keySubmissionMetadata(.setHoursSinceHighRiskWarningAtTestRegistration))
 						Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration))
 					}
