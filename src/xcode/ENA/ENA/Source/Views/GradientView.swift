@@ -17,7 +17,6 @@ class GradientView: UIView {
 
 	required init?(coder: NSCoder) {
 		super.init(coder: coder)
-
 		setupLayer()
 	}
 
@@ -25,6 +24,12 @@ class GradientView: UIView {
 
 	override class var layerClass: AnyClass {
 		return CAGradientLayer.self
+	}
+
+	// MARK: - Internal
+
+	@IBInspectable  var isTilted: Bool = true {
+		didSet { setupLayer() }
 	}
 
 	// MARK: - Private
@@ -40,7 +45,14 @@ class GradientView: UIView {
 			UIColor(red: 0.663, green: 0.246, blue: 0.271, alpha: 1).cgColor
 		]
 		gradientLayer.locations = [0.12, 0.48, 0.81]
-		gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.5)
-		gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
+
+		if isTilted {
+			gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.5)
+			gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
+		} else {
+			gradientLayer.startPoint = CGPoint(x: 0.05, y: 0.5)
+			gradientLayer.endPoint = CGPoint(x: 1.25, y: 0.5)
+		}
+
 	}
 }
