@@ -132,6 +132,7 @@ class CheckinCellModel: EventCellModel {
 
 	@objc
 	private func refreshUpdateTimerAfterResumingFromBackground() {
+		updateFromTimer()
 		scheduleUpdateTimer()
 	}
 
