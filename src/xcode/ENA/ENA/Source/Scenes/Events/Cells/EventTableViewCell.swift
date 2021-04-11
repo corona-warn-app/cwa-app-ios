@@ -46,31 +46,37 @@ class EventTableViewCell: UITableViewCell {
 	// MARK: - Internal
 
 	func configure(cellModel: EventCellModel, onButtonTap: @escaping () -> Void) {
+		inactiveIconImageView.isHidden = cellModel.isInactiveIconHiddenPublisher.value
 		cellModel.isInactiveIconHiddenPublisher
 			.receive(on: DispatchQueue.main.ocombine)
 			.assign(to: \.isHidden, on: inactiveIconImageView)
 			.store(in: &subscriptions)
 
+		activeContainerView.isHidden = cellModel.isActiveContainerViewHiddenPublisher.value
 		cellModel.isActiveContainerViewHiddenPublisher
 			.receive(on: DispatchQueue.main.ocombine)
 			.assign(to: \.isHidden, on: activeContainerView)
 			.store(in: &subscriptions)
 
+		button.isHidden = cellModel.isButtonHiddenPublisher.value
 		cellModel.isButtonHiddenPublisher
 			.receive(on: DispatchQueue.main.ocombine)
 			.assign(to: \.isHidden, on: button)
 			.store(in: &subscriptions)
 
+		durationLabel.text = cellModel.durationPublisher.value
 		cellModel.durationPublisher
 			.receive(on: DispatchQueue.main.ocombine)
 			.assign(to: \.text, on: durationLabel)
 			.store(in: &subscriptions)
 
+		timeLabel.text = cellModel.timePublisher.value
 		cellModel.timePublisher
 			.receive(on: DispatchQueue.main.ocombine)
 			.assign(to: \.text, on: timeLabel)
 			.store(in: &subscriptions)
 
+		timeLabel.isHidden = cellModel.timePublisher.value == nil
 		cellModel.timePublisher
 			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] in
