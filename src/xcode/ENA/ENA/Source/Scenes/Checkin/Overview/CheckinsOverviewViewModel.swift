@@ -104,6 +104,10 @@ class CheckinsOverviewViewModel {
 		shouldReload = true
 	}
 
+	func checkoutOverdueCheckins() {
+		eventCheckoutService.checkoutOverdueCheckins()
+	}
+
 	// MARK: - Private
 
 	private let store: EventStoringProviding
@@ -124,7 +128,7 @@ class CheckinsOverviewViewModel {
 			checkinCellModels = checkins.map { checkin in
 				CheckinCellModel(
 					checkin: checkin,
-					eventProvider: store,
+					eventCheckoutService: eventCheckoutService,
 					onUpdate: { [weak self] in
 						self?.onUpdate?()
 					}

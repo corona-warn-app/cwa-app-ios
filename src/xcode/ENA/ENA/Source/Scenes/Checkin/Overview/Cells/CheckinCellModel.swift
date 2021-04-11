@@ -11,10 +11,11 @@ class CheckinCellModel: EventCellModel {
 
 	init(
 		checkin: Checkin,
-		eventProvider: EventProviding,
+		eventCheckoutService: EventCheckoutService,
 		onUpdate: @escaping () -> Void
 	) {
 		self.checkin = checkin
+		self.eventCheckoutService = eventCheckoutService
 		self.onUpdate = onUpdate
 
 		updateForActiveState()
@@ -60,6 +61,7 @@ class CheckinCellModel: EventCellModel {
 
 	// MARK: - Private
 
+	private let eventCheckoutService: EventCheckoutService
 	private let onUpdate: () -> Void
 
 	private var subscriptions = Set<AnyCancellable>()
@@ -138,6 +140,7 @@ class CheckinCellModel: EventCellModel {
 
 	@objc
 	private func updateFromTimer() {
+		eventCheckoutService.checkoutOverdueCheckins()
 		updateForActiveState()
 		onUpdate()
 	}

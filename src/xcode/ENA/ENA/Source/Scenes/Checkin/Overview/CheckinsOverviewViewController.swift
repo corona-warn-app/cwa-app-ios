@@ -56,6 +56,12 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 			.store(in: &subscriptions)
 	}
 
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+
+		viewModel.checkoutOverdueCheckins()
+	}
+
 	override func setEditing(_ editing: Bool, animated: Bool) {
 		super.setEditing(editing, animated: animated)
 
