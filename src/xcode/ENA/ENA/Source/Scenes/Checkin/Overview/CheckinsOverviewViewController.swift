@@ -39,7 +39,7 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 		setupTableView()
 		parent?.navigationItem.largeTitleDisplayMode = .always
 		parent?.navigationItem.title = AppStrings.Checkins.Overview.title
-		updateRightBarButtonItem()
+		updateRightBarButtonItem(isEditing: false)
 
 		viewModel.onUpdate = { [weak self] in
 			self?.animateChanges()
@@ -59,12 +59,10 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 	override func setEditing(_ editing: Bool, animated: Bool) {
 		super.setEditing(editing, animated: animated)
 
-		updateRightBarButtonItem()
-		addEntryCellModel.setEnabled(!editing)
-		missingPermissionsCellModel.setEnabled(!editing)
-		
-		let newState: FooterViewModel.VisibleButtons = editing ? .primary : .none
-		footerView?.update(to: newState)
+		// Only reset to false because it is also set to true for single-row swipe to delete and we don't want to enter edit mode then.
+		if editing == false {
+			updateFor(isEditing: false)
+		}
 	}
 
 	// MARK: - FooterViewHandling
@@ -190,24 +188,32 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 		}
 	}
 
-	private func updateRightBarButtonItem() {
-		let barButtonItem: UIBarButtonItem
+	private func updateFor(isEditing: Bool) {
+		updateRightBarButtonItem(isEditing: isEditing)
+		addEntryCellModel.setEnabled(!isEditing)
+		missingPermissionsCellModel.setEnabled(!isEditing)
 
-		if tableView.isEditing {
-			barButtonItem = editButtonItem
-		} else {
-			barButtonItem = UIBarButtonItem(
+		let newState: FooterViewModel.VisibleButtons = isEditing ? .primary : .none
+		footerView?.update(to: newState)
+	}
+
+	private func updateRightBarButtonItem(isEditing: Bool) {
+		// Only update if necessary to prevent unnecessary animations
+		if isEditing && parent?.navigationItem.rightBarButtonItem != editButtonItem {
+			parent?.navigationItem.setRightBarButton(editButtonItem, animated: true)
+		} else if parent?.navigationItem.rightBarButtonItem == nil || parent?.navigationItem.rightBarButtonItem == editButtonItem {
+			let barButtonItem = UIBarButtonItem(
 				image: UIImage(named: "Icons_More_Circle"),
 				style: .plain,
 				target: self,
 				action: #selector(didTapMoreButton)
 			)
 			barButtonItem.accessibilityLabel = AppStrings.Checkins.Overview.menuButtonTitle
-			barButtonItem.tintColor = .enaColor(for: .tint)
 			barButtonItem.accessibilityIdentifier = AccessibilityIdentifiers.Checkin.Overview.menueButton
-		}
+			barButtonItem.tintColor = .enaColor(for: .tint)
 
-		parent?.navigationItem.setRightBarButton(barButtonItem, animated: true)
+			parent?.navigationItem.setRightBarButton(barButtonItem, animated: true)
+		}
 	}
 
 	private func checkinAddCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -287,6 +293,7 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 			style: .default,
 			handler: { [weak self] _ in
 				self?.setEditing(true, animated: true)
+				self?.updateFor(isEditing: true)
 			}
 		)
 		actionSheet.addAction(editAction)
