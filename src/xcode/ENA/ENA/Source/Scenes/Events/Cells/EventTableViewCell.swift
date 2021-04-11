@@ -90,9 +90,6 @@ class EventTableViewCell: UITableViewCell {
 		titleLabel.text = cellModel.title
 		addressLabel.text = cellModel.address
 
-		dateContainerView.isHidden = cellModel.date == nil
-		dateLabel.text = cellModel.date
-
 		button.setTitle(cellModel.buttonTitle, for: .normal)
 		button.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Configuration.eventTableViewCellButton
 
@@ -114,9 +111,6 @@ class EventTableViewCell: UITableViewCell {
 	@IBOutlet private weak var durationStackView: UIStackView!
 	@IBOutlet private weak var durationTitleLabel: ENALabel!
 	@IBOutlet private weak var durationLabel: ENALabel!
-
-	@IBOutlet private weak var dateContainerView: UIView!
-	@IBOutlet private weak var dateLabel: ENALabel!
 
 	@IBOutlet private weak var titleLabel: ENALabel!
 	@IBOutlet private weak var addressLabel: ENALabel!

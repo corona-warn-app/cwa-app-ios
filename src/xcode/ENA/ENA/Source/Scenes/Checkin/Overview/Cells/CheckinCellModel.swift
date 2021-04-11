@@ -35,10 +35,6 @@ class CheckinCellModel: EventCellModel {
 	var isActiveIconHidden: Bool = true
 	var isDurationStackViewHidden: Bool = false
 
-	var date: String? {
-		DateFormatter.localizedString(from: checkin.checkinStartDate, dateStyle: .short, timeStyle: .none)
-	}
-
 	var title: String {
 		checkin.traceLocationDescription
 	}
@@ -80,7 +76,7 @@ class CheckinCellModel: EventCellModel {
 
 			timePublisher.value = dateFormatter.string(from: checkin.checkinStartDate, to: checkin.checkinEndDate)
 		} else {
-			let formattedCheckinTime = DateFormatter.localizedString(from: checkin.checkinStartDate, dateStyle: .none, timeStyle: .short)
+			let formattedCheckinTime = DateFormatter.localizedString(from: checkin.checkinStartDate, dateStyle: .short, timeStyle: .short)
 
 			let dateComponentsFormatter = DateComponentsFormatter()
 			dateComponentsFormatter.allowedUnits = [.hour, .minute]
