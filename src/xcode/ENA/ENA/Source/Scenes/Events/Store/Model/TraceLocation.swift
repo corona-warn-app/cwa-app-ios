@@ -36,14 +36,16 @@ struct TraceLocation {
 		let duration: Int
 		if let defaultDuration = defaultCheckInLengthInMinutes {
 			duration = defaultDuration
-		} else {
+		} else if let startDate = startDate, let endDate = endDate {
 			let eventDuration = Calendar.current.dateComponents(
 				[.minute],
-				from: startDate ?? Date(),
-				to: endDate ?? Date()
+				from: startDate,
+				to: endDate
 			).minute
-			// the 0 should not be possible since we expect either the defaultCheckInLengthInMinutes or the start and end dates to be available always
-			duration = eventDuration ?? 0
+
+			duration = eventDuration ?? 15
+		} else {
+			duration = 15
 		}
 		// rounding up to 15
 		let durationStep = 15
