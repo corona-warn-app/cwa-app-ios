@@ -11,17 +11,15 @@ extension ExposureSubmissionService {
 	///  Details on the implementation can be found in the [tech spec](https://github.com/corona-warn-app/cwa-app-tech-spec/blob/proposal/event-registration-mvp/docs/spec/event-registration-client.md#attendee-check-in-submission).
 	/// - Returns: A list of converted checkins
 	func preparedCheckinsForSubmission(
-		with eventStore: EventStoringProviding,
+		checkins: [Checkin],
 		appConfig: SAP_Internal_V2_ApplicationConfigurationIOS,
-		symptomOnset: SymptomsOnset,
-		completion: @escaping (_ transformed: [SAP_Internal_Pt_CheckIn]) -> Void
-	) {
-		let rawCheckins = eventStore.checkinsPublisher.value
+		symptomOnset: SymptomsOnset
+	) -> [SAP_Internal_Pt_CheckIn] {
 
 		let css = CheckinSplittingService()
 		let transmissionRiskValueMapping = appConfig.presenceTracingParameters.riskCalculationParameters.transmissionRiskValueMapping
 
-		let checkins = rawCheckins
+		let preparedCheckins = checkins
 			// Split checkins per day
 			.reduce([Checkin]()) { value, checkin -> [Checkin] in
 				var mutableValue = value
@@ -52,6 +50,6 @@ extension ExposureSubmissionService {
 				return preparedCheckin
 			}
 
-		completion(checkins)
+		return preparedCheckins
 	}
 }
