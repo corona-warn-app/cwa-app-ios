@@ -30,8 +30,6 @@ class ExposureSubmissionCheckinTests: XCTestCase {
 		XCTAssertEqual(preparedCheckins[2].transmissionRiskLevel, 7)
 		XCTAssertEqual(preparedCheckins[3].transmissionRiskLevel, 8)
 		XCTAssertEqual(preparedCheckins[4].transmissionRiskLevel, 8)
-
-		waitForExpectations(timeout: .short)
     }
 
 	func testDerivingWarningTimeInterval() throws {
