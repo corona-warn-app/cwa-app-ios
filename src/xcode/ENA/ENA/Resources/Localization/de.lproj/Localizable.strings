@@ -1423,25 +1423,29 @@ sein.";
 
 "NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Informationen unter dem Menüpunkt „Neue Funktionen”.";
 
+/* Version 2.1 */
+
+"NewVersionFeature_21_reg_antigen_title" = "Registrierung von Antigen-Schnelltests";
+
+"NewVersionFeature_21_reg_antigen_description" = "Sie können sich nun zusätzlich zu Ergebnissen von PCR-Tests auch Ergebnisse von Antigen-Schnelltests in der App anzeigen lassen und nutzen, um andere zu warnen.";
+
+"NewVersionFeature_21_show_proof_title" = "Anzeige von Nachweisen";
+
+"NewVersionFeature_21_show_proof_description" = "Auf Wunsch können Sie über die App Ihren persönlichen Infektionsstatus nachweisen (z.B. negativer Schnelltest). Bitte beachten Sie, dass Sie grundsätzlich nicht zum Nachweis Ihres Infektionsstatus per App verpflichtet sind. Sie können Ihren Infektionsstatus im Rahmen der rechtlichen Bestimmungen an Ihrem Aufenthaltsort auch auf andere Weise nachweisen.";
+
+"NewVersionFeature_21_tech_hotline_foreign_countries_title" = "Technische Hotline nun auch aus dem Ausland erreichbar";
+
+"NewVersionFeature_21_tech_hotline_foreign_countries_description" = "Sie können die technische Hotline nun auch aus dem Ausland unter der Nummer +49 30 498 75401 erreichen. Es fallen Gebühren des jeweiligen Telefonanbieters an.";
+
+"NewVersionFeature_21_tan_hotline_foreign_countries_title" = "TAN-Hotline nun auch aus dem Ausland erreichbar";
+
+"NewVersionFeature_21_tan_hotline_foreign_countries_description" = "Sie können bei einem positiven Befund nun auch aus dem Ausland eine TAN anfordern unter der Nummer +49 30 498 75402. Es fallen Gebühren des jeweiligen Telefonanbieters an.";
+
 /* Version 2.0 */
 
 "NewVersionFeature_200_event_checkin_title" = "Check-in per QR-Code für effiziente Rückverfolgbarkeit von Infektionsketten";
 
 "NewVersionFeature_200_event_checkin_description" = "Die CWA ermöglicht nun einen Check-in für Events und Orte. Personen, die Events veranstalten oder ein Geschäft haben, können über die App einen QR-Code erstellen. Durch Scannen des QR-Codes können sich Gäste bei Ankunft einchecken, um so ihre Anwesenheit zu registrieren. Auf Wunsch legt die App außerdem einen entsprechenden Tagebuch-Eintrag an. Wird eine eingecheckte Person später positiv auf das Coronavirus getestet, können andere Personen gewarnt werden, die zur selben Zeit eingescheckt waren.";
-
-/* Version 1.15 */
-
-"NewVersionFeature_115_cross_border_switzerland_title" = "Länderübergreifende Risiko-Ermittlung um Schweiz erweitert ";
-
-"NewVersionFeature_115_cross_border_switzerland_description" = "Die Corona-Warn-App nutzende Personen können nun auch verschlüsselte Zufalls-IDs mit Personen austauschen, die die offizielle Warn-App der Schweiz nutzen. Somit können Warnungen an App nutzende Personen in der Schweiz geschickt sowie von ihnen empfangen werden.";
-
-"NewVersionFeature_115_days_since_install_title" = "Änderung der Risikokarten";
-
-"NewVersionFeature_115_days_since_install_description" = "Auf den Risikokarten entfällt die Anzeige der Anzahl aktiver Tage bzw. dass die App dauerhaft aktiv ist.";
-
-"NewVersionFeature_115_error_analytic_logs_title" = "Erstellung von Fehlerberichten";
-
-"NewVersionFeature_115_error_analytic_logs_description" = "Sie können nun nach Aufforderung des technischen Supports einen Fehlerbericht erstellen und die Schritte aufzeichnen, die Sie in der App ausführen. Mögliche technische Fehler können so besser analysiert und schneller behoben werden.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";

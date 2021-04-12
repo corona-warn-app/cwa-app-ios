@@ -85,7 +85,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	func dismiss() {
 		navigationController?.dismiss(animated: true, completion: {
 			// used for updating (hiding) app shortcuts
-			NotificationCenter.default.post(Notification(name: .didDismissExposureSubmissionFlow))
+			QuickAction.exposureSubmissionFlowTestResult = nil
 		})
 	}
 
@@ -94,7 +94,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		push(vc)
 
 		// If a TAN was entered, we skip `showTestResultAvailableScreen(with:)`, so we notify (again) about the new state
-		NotificationCenter.default.post(Notification(name: .didStartExposureSubmissionFlow, object: nil, userInfo: ["result": testResult.rawValue]))
+		QuickAction.exposureSubmissionFlowTestResult = testResult
 	}
 
 	func showTanScreen() {
@@ -200,7 +200,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 
 	private func createTestResultAvailableViewController(testResult: TestResult) -> UIViewController {
 		
-		NotificationCenter.default.post(Notification(name: .didStartExposureSubmissionFlow, object: nil, userInfo: ["result": testResult.rawValue]))
+		QuickAction.exposureSubmissionFlowTestResult = testResult
 		
 		let viewModel = TestResultAvailableViewModel(
 			exposureSubmissionService: model.exposureSubmissionService,
@@ -265,7 +265,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		// store is only initialized when a positive test result is received
 		if testResult == .positive {
 			updateStoreWithKeySubmissionMetadataDefaultValues()
-			NotificationCenter.default.post(Notification(name: .didStartExposureSubmissionFlow, object: nil, userInfo: ["result": testResult.rawValue]))
+			QuickAction.exposureSubmissionFlowTestResult = testResult
 		}
 		Analytics.collect(.keySubmissionMetadata(.lastSubmissionFlowScreen(.submissionFlowScreenTestResult)))
 
@@ -510,7 +510,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		push(vc)
 
 		// used for updating (hiding) app shortcuts
-		NotificationCenter.default.post(Notification(name: .didStartExposureSubmissionFlow, object: nil, userInfo: ["result": testResult.rawValue]))
+		QuickAction.exposureSubmissionFlowTestResult = testResult
 	}
 
 	private func showTestResultSubmissionConsentScreen(supportedCountries: [Country], testResultAvailability: TestResultAvailability) {
