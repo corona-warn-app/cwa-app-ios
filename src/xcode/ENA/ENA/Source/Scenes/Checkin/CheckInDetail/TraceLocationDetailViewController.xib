@@ -63,6 +63,10 @@
                         <constraint firstItem="9Uc-cd-UtX" firstAttribute="leading" secondItem="WjZ-Cc-86K" secondAttribute="leading" constant="16" id="fna-7G-kxd"/>
                         <constraint firstItem="5Yh-SR-IVJ" firstAttribute="centerY" secondItem="9Uc-cd-UtX" secondAttribute="centerY" id="i3h-aM-asv"/>
                     </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="isTilted" value="NO"/>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="setTilted" value="NO"/>
+                    </userDefinedRuntimeAttributes>
                 </view>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lQK-F5-RWF">
                     <rect key="frame" x="0.0" y="80" width="414" height="707"/>
@@ -76,6 +80,10 @@
                                     <constraints>
                                         <constraint firstAttribute="height" constant="160" id="d2t-gw-nUF"/>
                                     </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isTilted" value="NO"/>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="setTilted" value="NO"/>
+                                    </userDefinedRuntimeAttributes>
                                 </view>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Einchecken für:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qe2-Cr-Hsf" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                     <rect key="frame" x="16" y="24" width="414" height="20.5"/>
