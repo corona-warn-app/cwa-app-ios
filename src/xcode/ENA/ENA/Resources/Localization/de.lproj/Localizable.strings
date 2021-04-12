@@ -1412,7 +1412,11 @@ sein.";
 
 "NewVersionFeature_21_reg_antigen_title" = "Registrierung von Antigen-Schnelltests";
 
-"NewVersionFeature_21_reg_antigen_description" = "Sie können nun zusätzlich zu PCR-Tests auch Antigen-Schnelltests per QR-Code scannen und das Testergebnis in der App anzeigen.";
+"NewVersionFeature_21_reg_antigen_description" = "Sie können sich nun zusätzlich zu Ergebnissen von PCR-Tests auch Ergebnisse von Antigen-Schnelltests in der App anzeigen lassen und nutzen, um andere zu warnen.";
+
+"NewVersionFeature_21_show_proof_title" = "Anzeige von Nachweisen";
+
+"NewVersionFeature_21_show_proof_description" = "Auf Wunsch können Sie über die App Ihren persönlichen Infektionsstatus nachweisen (z.B. negativer Schnelltest). Bitte beachten Sie, dass Sie grundsätzlich nicht zum Nachweis Ihres Infektionsstatus per App verpflichtet sind. Sie können Ihren Infektionsstatus im Rahmen der rechtlichen Bestimmungen an Ihrem Aufenthaltsort auch auf andere Weise nachweisen.";
 
 "NewVersionFeature_21_tech_hotline_foreign_countries_title" = "Technische Hotline nun auch aus dem Ausland erreichbar";
 
