@@ -122,7 +122,7 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 		XCTAssertTrue(app.staticTexts[location2].exists)
 		
 		// clean up
-		swipeLeft_and_remove_all_traceLocations_at_once()
+		removeAllTraceLocationsAtOnce()
 		
 		XCTAssertFalse(app.staticTexts[event1].exists)
 		XCTAssertFalse(app.staticTexts[event2].exists)
@@ -252,13 +252,13 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 		// close view
 		app.buttons[AccessibilityIdentifiers.AccessibilityLabel.close].tap()
 		// clean up
-		swipeLeft_and_remove_all_traceLocations_at_once()
+		removeAllTraceLocationsAtOnce()
 	}
 	
 	func test_WHEN_traceLocation_exists_THEN_checkin_and_checkout() throws {
 		// GIVEN
 		app.launchArguments.append(contentsOf: ["-TraceLocationsInfoScreenShown", "YES"])
-		app.launchArguments.append(contentsOf: ["-checkinInfoScreenShown", "YES"]) // checkinInfoScreenShown
+		app.launchArguments.append(contentsOf: ["-checkinInfoScreenShown", "YES"])
 		
 		// WHEN
 		app.launch()
@@ -271,8 +271,9 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.addButtonTitle)].waitForExistence(timeout: .short))
 		
 		let event = "Mittagessen"
-		let location = "Kantine"
-		createTraceLocation(event: event, location: location)
+		let traceLocations: [String: String] = [event: "Kantine"]
+
+		createTraceLocation(event: event, location: traceLocations[event] ?? "")
 		XCTAssertTrue(app.staticTexts[event].waitForExistence(timeout: .short))
 		
 		// check in
@@ -287,11 +288,17 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 		
 		// switch to "My Checkins" and checkout of the event
 		app.tabBars.buttons[AccessibilityIdentifiers.Tabbar.checkin].tap()
-		myCheckins_checkout(numberOfTraceLocations: 1)
+		myCheckins_checkout(traceLocations: traceLocations)
+		myCheckins_display_details(traceLocations: traceLocations)
+		myCheckins_delete_all()
+		
 	}
 	
 	func test_screenshots_of_traceLocation_print_flow() throws {
+		app.launchArguments.append(contentsOf: ["-TraceLocationsInfoScreenShown", "YES"])
+		app.launchArguments.append(contentsOf: ["-checkinInfoScreenShown", "YES"])
 		app.launch()
+		// navigate to "Create QR Code"
 		if let button = UITestHelper.scrollTo(identifier: AccessibilityIdentifiers.Home.traceLocationsCardButton, element: app, app: app) {
 			button.tap()
 		} else {
@@ -339,12 +346,13 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 		app.buttons[AccessibilityIdentifiers.AccessibilityLabel.close].tap()
 		
 		// clean up
-		swipeLeft_and_remove_all_traceLocations_at_once()
+		removeAllTraceLocationsAtOnce()
 	}
 	
 	func test_WHEN_event_checkout_THEN_display_details() throws {
 		// GIVEN
 		app.launchArguments.append(contentsOf: ["-TraceLocationsInfoScreenShown", "YES"])
+		app.launchArguments.append(contentsOf: ["-checkinInfoScreenShown", "YES"])
 		app.launch()
 		if let button = UITestHelper.scrollTo(identifier: AccessibilityIdentifiers.Home.traceLocationsCardButton, element: app, app: app) {
 			button.tap()
@@ -353,39 +361,39 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 		}
 		
 		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.addButtonTitle)].waitForExistence(timeout: .short))
+		let traceLocations: [String: String] = ["event1": "location1", "event2": "location2"]
 		
-		let event1 = "event1"
-		let location1 = "location1"
-		createTraceLocation(event: event1, location: location1)
+		createTraceLocation(event: "event1", location: traceLocations["event1"] ?? "")
 		
-		XCTAssertTrue(app.staticTexts[event1].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.staticTexts["event1"].waitForExistence(timeout: .short))
 		// check in
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.TraceLocation.Configuration.eventTableViewCellButton].exists)
 		app.buttons[AccessibilityIdentifiers.TraceLocation.Configuration.eventTableViewCellButton].tap()
 		app.buttons[AccessibilityIdentifiers.TraceLocation.Details.checkInButton].tap()
 		
-		let event2 = "event2"
-		let location2 = "location2"
-		createTraceLocation(event: event2, location: location2)
+		createTraceLocation(event: "event2", location: traceLocations["event2"] ?? "")
 
-		XCTAssertTrue(app.staticTexts[event2].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.staticTexts["event2"].waitForExistence(timeout: .short))
 		// check in
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.TraceLocation.Configuration.eventTableViewCellButton].exists)
 		app.buttons[AccessibilityIdentifiers.TraceLocation.Configuration.eventTableViewCellButton].tap()
 		app.buttons[AccessibilityIdentifiers.TraceLocation.Details.checkInButton].tap()
 		
-		swipeLeft_and_remove_all_traceLocations_at_once()
+		removeAllTraceLocationsAtOnce()
 		
 		// switch to "My Checkins" and checkout of the event
 		app.tabBars.buttons[AccessibilityIdentifiers.Tabbar.checkin].tap()
 		
-		myCheckins_checkout(numberOfTraceLocations: 2)
+		myCheckins_checkout(traceLocations: traceLocations)
+		myCheckins_display_details(traceLocations: traceLocations)
+		myCheckins_delete_all()
 		
 	}
 	
 	// MARK: - Internal
 	
-	func myCheckins_checkout(numberOfTraceLocations: Int) {
+	// Check out of all events
+	func myCheckins_checkout(traceLocations: [String: String]) {
 
 		let initialNumberOfCells = app.cells.count
 		
@@ -399,51 +407,69 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 				numberOfCheckouts = numberOfCheckouts.inc()
 			}
 		}
-		XCTAssertTrue( numberOfCheckouts == numberOfTraceLocations ) // assumption: one cell has a checkout button
 		
-		// tap checkout button
-		XCTAssertTrue(query.element(boundBy: 1).identifier == AccessibilityIdentifiers.TraceLocation.Configuration.eventTableViewCellButton)
-		query.element(boundBy: 1).waitForExistence(timeout: .short)
-		query.element(boundBy: 1).tap()
+		XCTAssertTrue( numberOfCheckouts == traceLocations.count ) // assumption: one cell has a checkout button
 		
-		app.swipeUp()
-		app.swipeDown()
+		// for all events: checkout
+		for event in traceLocations.keys {
+			XCTAssertTrue(query.element(boundBy: 1).identifier == AccessibilityIdentifiers.TraceLocation.Configuration.eventTableViewCellButton)
+			
+			XCTAssertTrue(query.element(boundBy: 1).waitForExistence(timeout: .short))
+			XCTAssertTrue(app.staticTexts[event].exists)
+			XCTAssertTrue(app.staticTexts[traceLocations[event] ?? ""].exists)
+			query.element(boundBy: 1).tap()
+		}
+
+		XCTAssertTrue(initialNumberOfCells == app.cells.count)
+	}
+	
+	func myCheckins_display_details(traceLocations: [String: String]) {
+		let query = app.cells.buttons
+		// for all events: display details
+		for event in traceLocations.keys {
+			XCTAssertTrue(query.element(boundBy: 1).identifier == AccessibilityIdentifiers.TraceLocation.Configuration.eventTableViewCellButton)
+			
+			XCTAssertTrue(query.element(boundBy: 1).waitForExistence(timeout: .short))
+			XCTAssertTrue(app.staticTexts[event].exists)
+			XCTAssertTrue(app.staticTexts[traceLocations[event] ?? ""].exists)
+			query.element(boundBy: 1).tap()
+			
+			let staticTexts = app.cells.staticTexts
+			XCTAssertTrue(staticTexts.element(matching: .staticText, identifier: AccessibilityIdentifiers.Checkin.Details.typeLabel).exists)
+			XCTAssertTrue(staticTexts.element(matching: .staticText, identifier: AccessibilityIdentifiers.Checkin.Details.traceLocationTypeLabel).exists)
+			XCTAssertTrue(staticTexts.element(matching: .staticText, identifier: AccessibilityIdentifiers.Checkin.Details.traceLocationDescriptionLabel).exists)
+			XCTAssertTrue(staticTexts.element(matching: .staticText, identifier: AccessibilityIdentifiers.Checkin.Details.traceLocationAddressLabel).exists)
+			XCTAssertTrue(app.staticTexts[event].exists)
+			XCTAssertTrue(app.staticTexts[traceLocations[event] ?? ""].exists)
+			// tap "Speichern" to go back to overview
+			let buttons = app.buttons
+			XCTAssertTrue(buttons.element(matching: .button, identifier: AccessibilityIdentifiers.General.primaryFooterButton).exists)
+			buttons.element(matching: .button, identifier: AccessibilityIdentifiers.General.primaryFooterButton).tap()
+		}
 		
-		// tap the event, verify the detail screen
+	}
+
+	func myCheckins_delete_all() {
+		// tap the "more" button
+		XCTAssertTrue(app.navigationBars.buttons[AccessibilityIdentifiers.Checkin.Overview.menueButton].waitForExistence(timeout: .short))
+		app.navigationBars.buttons[AccessibilityIdentifiers.Checkin.Overview.menueButton].tap()
 		
-		XCTAssertTrue( initialNumberOfCells == app.cells.count ) // assumption: number of cells has not changed
-		query.element(boundBy: 1).tap()
+		// verify the buttons
+		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.Checkins.Overview.ActionSheet.editTitle)].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.Checkins.Overview.ActionSheet.infoTitle)].exists)
 		
-//		let staticTexts = app.cells.staticTexts
-//		XCTAssertTrue(staticTexts.element(matching: .staticText, identifier: AccessibilityIdentifiers.Checkin.Details.typeLabel).exists)
-//		XCTAssertTrue(staticTexts.element(matching: .staticText, identifier: AccessibilityIdentifiers.Checkin.Details.traceLocationTypeLabel).exists)
-//		XCTAssertTrue(staticTexts.element(matching: .staticText, identifier: AccessibilityIdentifiers.Checkin.Details.traceLocationDescriptionLabel).exists)
-//		XCTAssertTrue(staticTexts.element(matching: .staticText, identifier: AccessibilityIdentifiers.Checkin.Details.traceLocationAddressLabel).exists)
+		// tap "Edit" button
+		app.buttons[AccessibilityLabels.localized(AppStrings.Checkins.Overview.ActionSheet.editTitle)].tap()
+
+		// button "Alle entfernen"
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitForExistence(timeout: .short))
+		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].tap()
+
+		// Alert: tap "Entfernen"
+		XCTAssertTrue(app.alerts.buttons[AccessibilityLabels.localized(AppStrings.Checkins.Overview.DeleteAllAlert.confirmButtonTitle)].waitForExistence(timeout: .short))
+		app.alerts.buttons[AccessibilityLabels.localized(AppStrings.Checkins.Overview.DeleteOneAlert.confirmButtonTitle)].tap()
 		
-		// tap "Speichern" to go back to overview
-//		let buttons = app.buttons
-//		XCTAssertTrue(buttons.element(matching: .button, identifier: AccessibilityIdentifiers.General.primaryFooterButton).exists)
-//		buttons.element(matching: .button, identifier: AccessibilityIdentifiers.General.primaryFooterButton).tap()
-//
-//		// tap the "more" button
-//		app.navigationBars.buttons[AccessibilityIdentifiers.Checkin.Overview.menueButton].tap()
-//		
-//		// verify the buttons
-//		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.Checkins.Overview.ActionSheet.editTitle)].waitForExistence(timeout: .short))
-//		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.Checkins.Overview.ActionSheet.infoTitle)].exists)
-//		
-//		// tap "Edit" button
-//		app.buttons[AccessibilityLabels.localized(AppStrings.Checkins.Overview.ActionSheet.editTitle)].tap()
-//
-//		// button "Alle entfernen"
-//		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitForExistence(timeout: .short))
-//		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].tap()
-//
-//		// Alert: tap "Entfernen"
-//		XCTAssertTrue(app.alerts.buttons[AccessibilityLabels.localized(AppStrings.Checkins.Overview.DeleteAllAlert.confirmButtonTitle)].waitForExistence(timeout: .short))
-//		app.alerts.buttons[AccessibilityLabels.localized(AppStrings.Checkins.Overview.DeleteOneAlert.confirmButtonTitle)].tap()
-//		
-//		XCTAssertTrue(app.cells.count == 1) // assumption: only one cell remains
+		XCTAssertTrue(app.cells.count == 1) // assumption: only one cell remains
 		
 	}
 	
@@ -474,25 +500,23 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 		app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.DeleteOneAlert.confirmButtonTitle)].tap()
 	}
 	
-	func swipeLeft_and_remove_all_traceLocations_at_once() {
-		let query = app.buttons
-		let n = query.count
-		
-		if n > 0 {
-			for i in 0...(n - 1) {
-				if query.element(boundBy: i).identifier == AccessibilityIdentifiers.TraceLocation.Configuration.eventTableViewCellButton {
-					query.element(boundBy: i).swipeLeft()
-					XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.DeleteOneAlert.confirmButtonTitle)].waitForExistence(timeout: .short))
-					// tap "Alle entfernen"
-					XCTAssertTrue(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].exists)
-					app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].tap()
-					// Alert: tap "Löschen"
-					XCTAssertTrue(app.alerts.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.DeleteOneAlert.confirmButtonTitle)].waitForExistence(timeout: .short))
-					app.alerts.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.DeleteOneAlert.confirmButtonTitle)].tap()
-					return // all QR codes have been deleted
-				}
-			}
-		}
+	func removeAllTraceLocationsAtOnce() {
+		XCTAssertTrue(app.navigationBars.buttons.element(boundBy: 1).waitForExistence(timeout: .short))
+		app.navigationBars.buttons.element(boundBy: 1).tap()
+
+		let editButton = app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.ActionSheet.editTitle)]
+		XCTAssertTrue(editButton.waitForExistence(timeout: .medium))
+		editButton.tap()
+
+		// tap "Alle entfernen"
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitForExistence(timeout: .medium))
+		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].tap()
+
+		// Alert: tap "Löschen"
+		XCTAssertTrue(app.alerts.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.DeleteAllAlert.confirmButtonTitle)].waitForExistence(timeout: .short))
+		app.alerts.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.DeleteAllAlert.confirmButtonTitle)].tap()
+
+		return // all QR codes have been deleted
 	}
 	
 }
