@@ -21,9 +21,8 @@ class QRCodeVerificationHelper {
 		appConfigurationProvider: AppConfigurationProviding,
 		onSuccess: @escaping((TraceLocation) -> Void),
 		onError: @escaping((CheckinQRScannerError) -> Void)
-
 	) {
-		appConfigurationProvider.appConfiguration().sink { appConfig in
+		appConfigurationProvider.appConfiguration().sink { [weak self] appConfig in
 			
 			// 1-Validate URL
 			var match: NSTextCheckingResult?
@@ -52,14 +51,38 @@ class QRCodeVerificationHelper {
 				onError(CheckinQRScannerError.invalidPayload)
 				return
 			}
-
+			
 			let payLoad = url[payLoadRange]
 			guard let traceLocation = TraceLocation(qrCodeString: String(payLoad)) else {
 				Log.error("error decoding the Payload, invalid Vendor data", log: .checkin)
 				onError(CheckinQRScannerError.invalidVendorData)
 				return
 			}
-			onSuccess(traceLocation)
+			self?.validateTraceLocationInformation(traceLocation: traceLocation, onSuccess: onSuccess, onError: onError)
+			
 		}.store(in: &subscriptions)
+	}
+	
+	func validateTraceLocationInformation(
+		traceLocation: TraceLocation,
+		onSuccess: @escaping((TraceLocation) -> Void),
+		onError: @escaping((CheckinQRScannerError) -> Void)
+	) {
+		guard !traceLocation.description.isEmpty else {
+			Log.error("TraceLocation description cannot be empty!", log: .checkin)
+			onError(CheckinQRScannerError.invalidDescription)
+			return
+		}
+		guard !traceLocation.address.isEmpty else {
+			Log.error("TraceLocation address cannot be empty!", log: .checkin)
+			onError(CheckinQRScannerError.invalidAddress)
+			return
+		}
+		guard traceLocation.cryptographicSeed.count == 16 else {
+			Log.error("TraceLocation cryptographicSeed must be 16 bytes!", log: .checkin)
+			onError(CheckinQRScannerError.invalidCryptoSeed)
+			return
+		}
+		onSuccess(traceLocation)
 	}
 }
