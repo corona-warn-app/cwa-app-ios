@@ -31,7 +31,6 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 		// WHEN
 		app.launch()
 		// Swipe up until it is visible
-		
 		if let button = UITestHelper.scrollTo(identifier: AccessibilityIdentifiers.Home.traceLocationsCardButton, element: app, app: app) {
 			button.tap()
 		} else {
@@ -42,6 +41,8 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.TraceLocation.dataPrivacyTitle].waitForExistence(timeout: .short))
 		XCTAssertTrue(app.images[AccessibilityIdentifiers.TraceLocation.imageDescription].exists)
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].exists)
+
+		snapshot("tracelocation_infoScreen")
 	}
 	
 	func test_WHEN_navigate_to_TraceLocations_for_the_second_time_THEN_no_infoscreen_is_displayed() throws {
@@ -361,19 +362,21 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 		}
 		
 		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.addButtonTitle)].waitForExistence(timeout: .short))
-		let traceLocations: [String: String] = ["event1": "location1", "event2": "location2"]
+		let event1 = "Mittagessen"
+		let event2 = "Team Meeting"
+		let traceLocations: [String: String] = [event1: "Kantine", event2: "Office"]
 		
-		createTraceLocation(event: "event1", location: traceLocations["event1"] ?? "")
+		createTraceLocation(event: event1, location: traceLocations[event1] ?? "")
 		
-		XCTAssertTrue(app.staticTexts["event1"].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.staticTexts[event1].waitForExistence(timeout: .short))
 		// check in
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.TraceLocation.Configuration.eventTableViewCellButton].exists)
 		app.buttons[AccessibilityIdentifiers.TraceLocation.Configuration.eventTableViewCellButton].tap()
 		app.buttons[AccessibilityIdentifiers.TraceLocation.Details.checkInButton].tap()
 		
-		createTraceLocation(event: "event2", location: traceLocations["event2"] ?? "")
+		createTraceLocation(event: event2, location: traceLocations[event2] ?? "")
 
-		XCTAssertTrue(app.staticTexts["event2"].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.staticTexts[event2].waitForExistence(timeout: .short))
 		// check in
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.TraceLocation.Configuration.eventTableViewCellButton].exists)
 		app.buttons[AccessibilityIdentifiers.TraceLocation.Configuration.eventTableViewCellButton].tap()
@@ -384,7 +387,9 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 		// switch to "My Checkins" and checkout of the event
 		app.tabBars.buttons[AccessibilityIdentifiers.Tabbar.checkin].tap()
 		
+		snapshot("mycheckins_overview")
 		myCheckins_checkout(traceLocations: traceLocations)
+		snapshot("mycheckins_allCheckedOut")
 		myCheckins_display_details(traceLocations: traceLocations)
 		myCheckins_delete_all()
 		
@@ -441,6 +446,9 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 			XCTAssertTrue(staticTexts.element(matching: .staticText, identifier: AccessibilityIdentifiers.Checkin.Details.traceLocationAddressLabel).exists)
 			XCTAssertTrue(app.staticTexts[event].exists)
 			XCTAssertTrue(app.staticTexts[traceLocations[event] ?? ""].exists)
+			
+			snapshot("mycheckins_details")
+			
 			// tap "Speichern" to go back to overview
 			let buttons = app.buttons
 			XCTAssertTrue(buttons.element(matching: .button, identifier: AccessibilityIdentifiers.General.primaryFooterButton).exists)
