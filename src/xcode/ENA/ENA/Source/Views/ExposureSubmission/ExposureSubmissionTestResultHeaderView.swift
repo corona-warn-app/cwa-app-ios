@@ -23,11 +23,11 @@ class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
 
 	// MARK: - DynamicTableViewHeaderFooterView methods.
 
-	func configure(testResult: TestResult, timeStamp: Int64?) {
-		subTitleLabel.text = AppStrings.ExposureSubmissionResult.card_subtitle
-		titleLabel.text = testResult.text
-		barView.backgroundColor = testResult.color
-		imageView.image = testResult.image
+	func configure(coronaTest: CoronaTest, timeStamp: Int64?) {
+		subTitleLabel.text = coronaTest.type.subtitle
+		titleLabel.text = coronaTest.testResult.text
+		barView.backgroundColor = coronaTest.testResult.color
+		imageView.image = coronaTest.testResult.image
 
 		if let timeStamp = timeStamp {
 			let formatter = DateFormatter()
@@ -54,7 +54,21 @@ class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
 	}
 }
 
+
+private extension CoronaTestType {
+	
+	var subtitle: String {
+		switch self {
+		case .pcr:
+			return AppStrings.ExposureSubmissionResult.card_subtitle_pcr_test
+		case .antigen:
+			return AppStrings.ExposureSubmissionResult.card_subtitle_antigen_test
+		}
+	}
+}
+
 private extension TestResult {
+	
 	var color: UIColor {
 		switch self {
 		case .positive: return .enaColor(for: .riskHigh)

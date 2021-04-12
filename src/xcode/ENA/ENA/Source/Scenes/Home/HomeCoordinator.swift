@@ -141,7 +141,7 @@ class HomeCoordinator: RequiresAppDependencies {
 						delegate: self
 					)
 					
-					coordinator.start(with: .pcr)
+					coordinator.start(with: .antigen)
 				},
 				onExposureLoggingCellTap: { [weak self] enState in
 					self?.showExposureNotificationSetting(enState: enState)
