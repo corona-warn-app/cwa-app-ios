@@ -91,7 +91,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Fo
 			forHeaderFooterViewReuseIdentifier: HeaderReuseIdentifier.pcrTestResult.rawValue
 		)
 		tableView.register(
-			AntigenExposureSubmissionTestResultHeaderView.self,
+			AntigenExposureSubmissionNegativeTestResultHeaderView.self,
 			forHeaderFooterViewReuseIdentifier: HeaderReuseIdentifier.antigenTestResult.rawValue
 		)
 		tableView.register(

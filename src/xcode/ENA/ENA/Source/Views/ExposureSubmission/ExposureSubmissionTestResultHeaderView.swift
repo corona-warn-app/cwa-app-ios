@@ -24,11 +24,17 @@ class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
 
 	// MARK: - DynamicTableViewHeaderFooterView methods.
 
-	func configure<T: Test>(coronaTest: T, timeStamp: Int64?) {
-		
-		subTitleLabel.text = AppStrings.ExposureSubmissionResult.PCR.card_subtitle
+	func configure(coronaTest: CoronaTest, timeStamp: Int64?) {
+
 		barView.backgroundColor = coronaTest.testResult.color
 		imageView.image = coronaTest.testResult.image
+		
+		switch coronaTest.type {
+		case .pcr:
+			subTitleLabel.text = AppStrings.ExposureSubmissionResult.PCR.card_subtitle
+		case .antigen:
+			subTitleLabel.text = AppStrings.ExposureSubmissionResult.Antigen.card_subtitle
+		}
 		
 		switch coronaTest.testResult {
 		case .positive: titleLabel.text = "\(AppStrings.ExposureSubmissionResult.card_title)\n\(AppStrings.ExposureSubmissionResult.PCR.card_positive)"
@@ -67,7 +73,7 @@ class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
 	}
 }
 
-class AntigenExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
+class AntigenExposureSubmissionNegativeTestResultHeaderView: DynamicTableViewHeaderFooterView {
 		
 	private var lineView: UIView!
 	private var imageView: UIImageView!
@@ -79,6 +85,7 @@ class AntigenExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFoote
 	
 	private var imageWidthConstraint: NSLayoutConstraint!
 	
+	// swiftlint:disable:next function_body_length
 	override init(reuseIdentifier: String?) {
 		super.init(reuseIdentifier: reuseIdentifier)
 		
@@ -139,7 +146,7 @@ class AntigenExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFoote
 		dateLabel = ENALabel()
 		dateLabel.style = .subheadline
 		dateLabel.textColor = .enaColor(for: .textPrimary2)
-		dateLabel.numberOfLines = 1
+		dateLabel.numberOfLines = 0
 		dateLabel.adjustsFontSizeToFitWidth = true
 		dateLabel.translatesAutoresizingMaskIntoConstraints = false
 		wrapperView.addSubview(dateLabel)
