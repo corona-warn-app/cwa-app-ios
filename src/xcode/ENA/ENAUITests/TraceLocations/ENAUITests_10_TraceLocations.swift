@@ -291,7 +291,10 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 	}
 	
 	func test_screenshots_of_traceLocation_print_flow() throws {
+		app.launchArguments.append(contentsOf: ["-TraceLocationsInfoScreenShown", "YES"])
+		app.launchArguments.append(contentsOf: ["-checkinInfoScreenShown", "YES"])
 		app.launch()
+		// navigate to "Create QR Code"
 		if let button = UITestHelper.scrollTo(identifier: AccessibilityIdentifiers.Home.traceLocationsCardButton, element: app, app: app) {
 			button.tap()
 		} else {
@@ -362,7 +365,7 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 		
 		// tap checkout button
 		XCTAssertTrue(query.element(boundBy: 1).identifier == AccessibilityIdentifiers.TraceLocation.Configuration.eventTableViewCellButton)
-		_ = query.element(boundBy: 1).waitForExistence(timeout: .short)
+
 		query.element(boundBy: 1).tap()
 		
 		app.swipeUp()
@@ -433,6 +436,7 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 	}
 	
 	func removeAllTraceLocationsAtOnce() {
+		XCTAssertTrue(app.navigationBars.buttons.element(boundBy: 1).waitForExistence(timeout: .short))
 		app.navigationBars.buttons.element(boundBy: 1).tap()
 
 		let editButton = app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.ActionSheet.editTitle)]
