@@ -88,7 +88,11 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Fo
 
 		tableView.register(
 			UINib(nibName: String(describing: ExposureSubmissionTestResultHeaderView.self), bundle: nil),
-			forHeaderFooterViewReuseIdentifier: HeaderReuseIdentifier.testResult.rawValue
+			forHeaderFooterViewReuseIdentifier: HeaderReuseIdentifier.pcrTestResult.rawValue
+		)
+		tableView.register(
+			AntigenExposureSubmissionTestResultHeaderView.self,
+			forHeaderFooterViewReuseIdentifier: HeaderReuseIdentifier.antigenTestResult.rawValue
 		)
 		tableView.register(
 			ExposureSubmissionStepCell.self,
@@ -180,7 +184,8 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Fo
 
 extension ExposureSubmissionTestResultViewController {
 	enum HeaderReuseIdentifier: String, TableViewHeaderFooterReuseIdentifiers {
-		case testResult = "testResult"
+		case pcrTestResult = "pcrTestResult"
+		case antigenTestResult = "antigenTestResult"
 	}
 }
 
