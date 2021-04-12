@@ -34,78 +34,43 @@ class ExposureSubmissionCheckinTests: XCTestCase {
 		waitForExpectations(timeout: .short)
     }
 
-	func testPrepareCheckinForSubmission() throws {
-		let traceLocationId = "asdf".data(using: .utf8) ?? Data()
+	func testDerivingWarningTimeInterval() throws {
+		let service = MockExposureSubmissionService()
+		let appConfig = CachedAppConfigurationMock.defaultAppConfiguration
 
-		// create a mock checkin and check preconditions
-		for i in stride(from: 1, to: 600, by: 10) {
-			let checkin = Checkin.mock(
-				traceLocationId: traceLocationId,
-				checkinStartDate: Date(timeIntervalSinceNow: -(Double(i * 10))),
-				checkinEndDate: Date()
-			)
-			XCTAssertGreaterThan(checkin.checkinEndDate, checkin.checkinStartDate)
+		let startOfToday = Calendar.current.startOfDay(for: Date())
 
-			let transformedCheckin = checkin.prepareForSubmission()
-			XCTAssertGreaterThanOrEqual(transformedCheckin.endIntervalNumber, transformedCheckin.startIntervalNumber)
+		let filteredStartDate = try XCTUnwrap(Calendar.current.date(byAdding: .minute, value: 1, to: startOfToday))
+		let filteredEndDate = try XCTUnwrap(Calendar.current.date(byAdding: .minute, value: 8, to: filteredStartDate))
 
-			// check calculated interval numbers and compare to start/end dates
-			XCTAssertEqual(
-				TimeInterval(transformedCheckin.startIntervalNumber * 600),
-				checkin.checkinStartDate.timeIntervalSince1970,
-				accuracy: 600
-			)
+		let keptStartDate = try XCTUnwrap(Calendar.current.date(byAdding: .minute, value: 0, to: startOfToday))
+		let keptEndDate = try XCTUnwrap(Calendar.current.date(byAdding: .minute, value: 10, to: keptStartDate))
+		let derivedEndDate = try XCTUnwrap(Calendar.current.date(byAdding: .minute, value: 20, to: keptStartDate))
 
-			XCTAssertEqual(
-				TimeInterval(transformedCheckin.endIntervalNumber * 600),
-				checkin.checkinEndDate.timeIntervalSince1970,
-				accuracy: 600
-			)
+		let expectedStartIntervalNumber = UInt32(keptStartDate.timeIntervalSince1970 / 600)
+		let expectedEndIntervalNumber = UInt32(derivedEndDate.timeIntervalSince1970 / 600)
 
-			XCTAssertEqual(transformedCheckin.locationID, traceLocationId)
-		}
-	}
-
-	func testCheckinTransformationWithTraceLocationStartAndEndDate() throws {
-		// create a mock checkin and check preconditions
-		let startDate = Date(timeIntervalSinceNow: -200)
-		let endDate = Date(timeIntervalSinceNow: 200)
-
-		let checkin = Checkin.mock(
-			traceLocationId: "traceLocationId".data(using: .utf8) ?? Data(),
-			traceLocationVersion: 17,
-			traceLocationDescription: "Description",
-			traceLocationAddress: "Address",
-			traceLocationStartDate: startDate,
-			traceLocationEndDate: endDate
+		let checkin1 = Checkin.mock(
+			checkinStartDate: filteredStartDate,
+			checkinEndDate: filteredEndDate
+		)
+		let checkin2 = Checkin.mock(
+			checkinStartDate: keptStartDate,
+			checkinEndDate: keptEndDate
 		)
 
-		let protobufTraceLocation = checkin.traceLocation
-
-		XCTAssertEqual(protobufTraceLocation.version, 17)
-		XCTAssertEqual(protobufTraceLocation.description_p, "Description")
-		XCTAssertEqual(protobufTraceLocation.address, "Address")
-		XCTAssertEqual(protobufTraceLocation.startTimestamp, UInt64(startDate.timeIntervalSince1970))
-		XCTAssertEqual(protobufTraceLocation.endTimestamp, UInt64(endDate.timeIntervalSince1970))
-	}
-
-	func testCheckinTransformationWithoutTraceLocationStartAndEndDate() throws {
-		// create a mock checkin and check preconditions
-		let checkin = Checkin.mock(
-			traceLocationId: "traceLocationId".data(using: .utf8) ?? Data(),
-			traceLocationVersion: 17,
-			traceLocationDescription: "Description",
-			traceLocationAddress: "Address",
-			traceLocationStartDate: nil,
-			traceLocationEndDate: nil
+		// process checkins
+		let preparedCheckins = service.preparedCheckinsForSubmission(
+			checkins: [checkin1, checkin2],
+			appConfig: appConfig,
+			symptomOnset: .daysSinceOnset(0)
 		)
+		
+		XCTAssertEqual(preparedCheckins.count, 1)
 
-		let protobufTraceLocation = checkin.traceLocation
+		XCTAssertEqual(preparedCheckins[0].startIntervalNumber, expectedStartIntervalNumber)
+		XCTAssertEqual(preparedCheckins[0].endIntervalNumber, expectedEndIntervalNumber)
 
-		XCTAssertEqual(protobufTraceLocation.version, 17)
-		XCTAssertEqual(protobufTraceLocation.description_p, "Description")
-		XCTAssertEqual(protobufTraceLocation.address, "Address")
-		XCTAssertEqual(protobufTraceLocation.startTimestamp, 0)
-		XCTAssertEqual(protobufTraceLocation.endTimestamp, 0)
+		waitForExpectations(timeout: .short)
 	}
 }
