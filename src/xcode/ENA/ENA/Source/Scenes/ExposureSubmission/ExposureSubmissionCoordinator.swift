@@ -59,7 +59,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				Log.debug("Did accept overwrite of older test result")
 				self.parentNavigationController?.dismiss(animated: true)
 			},
-			didTapSecondaryButton: {
+			didTapCloseButton: {
 				Log.debug("Did decline overwrite of older test result")
 				self.parentNavigationController?.dismiss(animated: true)
 			}
@@ -76,6 +76,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		navigationController = testOverwriteNoticeNavigationController
 
 		return
+
 
 		/* ------------- */
 

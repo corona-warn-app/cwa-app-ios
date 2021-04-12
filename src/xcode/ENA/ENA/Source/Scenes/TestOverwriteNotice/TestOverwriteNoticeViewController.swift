@@ -11,11 +11,11 @@ class TestOverwriteNoticeViewController: UITableViewController, DismissHandling,
 	init(
 		testType: CoronaTestType,
 		didTapPrimaryButton: @escaping () -> Void,
-		didTapSecondaryButton: @escaping () -> Void
+		didTapCloseButton: @escaping () -> Void
 	) {
 		self.viewModel = TestOverwriteNoticeViewModel(testType)
 		self.didTapPrimaryButton = didTapPrimaryButton
-		self.didTapSecondaryButton = didTapSecondaryButton
+		self.didTapCloseButton = didTapCloseButton
 		super.init(style: .plain)
 	}
 
@@ -33,6 +33,12 @@ class TestOverwriteNoticeViewController: UITableViewController, DismissHandling,
 		parent?.navigationController?.navigationBar.prefersLargeTitles = true
 	}
 
+	// MARK: - DismissHandling
+
+	func wasAttemptedToBeDismissed() {
+		didTapCloseButton()
+	}
+
 	// MARK: - Protocol FooterViewHandling
 
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
@@ -40,7 +46,7 @@ class TestOverwriteNoticeViewController: UITableViewController, DismissHandling,
 		case .primary:
 			didTapPrimaryButton()
 		case .secondary:
-			didTapSecondaryButton()
+			didTapCloseButton()
 		}
 	}
 
@@ -52,7 +58,7 @@ class TestOverwriteNoticeViewController: UITableViewController, DismissHandling,
 
 	private let viewModel: TestOverwriteNoticeViewModel
 	private let didTapPrimaryButton: () -> Void
-	private let didTapSecondaryButton: () -> Void
+	private let didTapCloseButton: () -> Void
 
 
 }
