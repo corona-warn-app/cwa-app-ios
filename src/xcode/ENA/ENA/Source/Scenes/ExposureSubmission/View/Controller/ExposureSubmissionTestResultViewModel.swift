@@ -259,7 +259,7 @@ class ExposureSubmissionTestResultViewModel {
 							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure),
 					
 					ExposureSubmissionDynamicCell.stepCell(
-						title: AppStrings.ExposureSubmissionResult.testAdded,
+						title: AppStrings.ExposureSubmissionResult.pcrTestAdded,
 						description: nil,
 						icon: UIImage(named: "Icons_Grey_Check"),
 						hairline: .iconAttached
@@ -297,15 +297,21 @@ class ExposureSubmissionTestResultViewModel {
 							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure),
 					
 					ExposureSubmissionDynamicCell.stepCell(
-						title: AppStrings.ExposureSubmissionResult.testAdded,
+						title: AppStrings.ExposureSubmissionResult.antigenTestAdded,
 						description: nil,
 						icon: UIImage(named: "Icons_Grey_Check"),
 						hairline: .iconAttached
 					),
 					
 					ExposureSubmissionDynamicCell.stepCell(
-						title: AppStrings.ExposureSubmissionResult.testPending,
-						description: AppStrings.ExposureSubmissionResult.testPendingDesc,
+						title: AppStrings.ExposureSubmissionResult.antigenTestPending,
+						description: AppStrings.ExposureSubmissionResult.antigenTestPendingDesc,
+						icon: UIImage(named: "Icons_Grey_Wait"),
+						hairline: .none
+					),
+					ExposureSubmissionDynamicCell.stepCell(
+						title: AppStrings.ExposureSubmissionResult.antigenTestPendingContactJournal,
+						description: AppStrings.ExposureSubmissionResult.antigenTestPendingContactJournalDesc,
 						icon: UIImage(named: "Icons_Grey_Wait"),
 						hairline: .none
 					)]
@@ -361,7 +367,7 @@ class ExposureSubmissionTestResultViewModel {
 							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure),
 					
 					ExposureSubmissionDynamicCell.stepCell(
-						title: AppStrings.ExposureSubmissionResult.testAdded,
+						title: AppStrings.ExposureSubmissionResult.pcrTestAdded,
 						description: nil,
 						icon: UIImage(named: "Icons_Grey_Check"),
 						hairline: .iconAttached
