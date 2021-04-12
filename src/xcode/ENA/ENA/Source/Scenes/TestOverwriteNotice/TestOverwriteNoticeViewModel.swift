@@ -15,15 +15,15 @@ struct TestOverwriteNoticeViewModel {
 		switch testType {
 		case .pcr:
 			self.headline = AppStrings.ExposureSubmission.OverwriteNotice.Pcr.headline
-			self.headlineAccessibility = AccessibilityIdentifiers.ExposureSubmission.OverwriteNotice.Pcr.headline
+			self.headlineAccessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.OverwriteNotice.Pcr.headline
 			self.text = AppStrings.ExposureSubmission.OverwriteNotice.Pcr.text
-			self.textAccessibility = AccessibilityIdentifiers.ExposureSubmission.OverwriteNotice.Pcr.text
+			self.textAccessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.OverwriteNotice.Pcr.text
 
 		case .antigen:
 			self.headline = AppStrings.ExposureSubmission.OverwriteNotice.Antigen.headline
-			self.headlineAccessibility = AccessibilityIdentifiers.ExposureSubmission.OverwriteNotice.Antigen.headline
+			self.headlineAccessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.OverwriteNotice.Antigen.headline
 			self.text = AppStrings.ExposureSubmission.OverwriteNotice.Antigen.text
-			self.textAccessibility = AccessibilityIdentifiers.ExposureSubmission.OverwriteNotice.Antigen.text
+			self.textAccessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.OverwriteNotice.Antigen.text
 		}
 	}
 
@@ -48,11 +48,11 @@ struct TestOverwriteNoticeViewModel {
 				cells: [
 					.title2(
 						text: headline,
-						accessibilityIdentifier: headlineAccessibility
+						accessibilityIdentifier: headlineAccessibilityIdentifier
 					),
 					.body(
 						text: text,
-						accessibilityIdentifier: textAccessibility
+						accessibilityIdentifier: textAccessibilityIdentifier
 					)
 				]
 			)
@@ -63,8 +63,8 @@ struct TestOverwriteNoticeViewModel {
 	// MARK: - Private
 
 	private	let headline: String
-	private	let headlineAccessibility: String
+	private	let headlineAccessibilityIdentifier: String
 	private	let text: String
-	private	let textAccessibility: String
+	private	let textAccessibilityIdentifier: String
 
 }

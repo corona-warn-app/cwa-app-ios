@@ -44,12 +44,10 @@ class TestOverwriteNoticeViewController: DynamicTableViewController, DismissHand
 	// MARK: - Protocol FooterViewHandling
 
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
-		switch type {
-		case .primary:
-			didTapPrimaryButton()
-		case .secondary:
-			didTapCloseButton()
+		guard type == .primary else {
+			return
 		}
+		didTapPrimaryButton()
 	}
 
 	// MARK: - Public
@@ -65,7 +63,7 @@ class TestOverwriteNoticeViewController: DynamicTableViewController, DismissHand
 	private func setupTableView() {
 		tableView.separatorStyle = .none
 		tableView.allowsSelection = false
-		tableView.backgroundColor =	.enaColor(for: .background)
+		tableView.backgroundColor = .enaColor(for: .background)
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
 	}
 

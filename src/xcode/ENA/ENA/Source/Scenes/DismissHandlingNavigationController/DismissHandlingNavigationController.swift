@@ -37,11 +37,11 @@ class DismissHandlingNavigationController: UINavigationController, UIAdaptivePre
 
 	func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
 		guard let topViewController = viewControllers.last,
-			  let dismissAbleViewController = topViewController as? DismissHandling  else {
+			  let dismissableViewController = topViewController as? DismissHandling  else {
 			return
 		}
 
-		dismissAbleViewController.wasAttemptedToBeDismissed()
+		dismissableViewController.wasAttemptedToBeDismissed()
 	}
 
 	// MARK: - Public
