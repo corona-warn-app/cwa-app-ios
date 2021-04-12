@@ -4,7 +4,7 @@
 
 import UIKit
 
-class TestOverwriteNoticeViewController: UITableViewController, DismissHandling, FooterViewHandling {
+class TestOverwriteNoticeViewController: DynamicTableViewController, DismissHandling, FooterViewHandling {
 
 	// MARK: - Init
 
@@ -16,7 +16,7 @@ class TestOverwriteNoticeViewController: UITableViewController, DismissHandling,
 		self.viewModel = TestOverwriteNoticeViewModel(testType)
 		self.didTapPrimaryButton = didTapPrimaryButton
 		self.didTapCloseButton = didTapCloseButton
-		super.init(style: .plain)
+		super.init(nibName: nil, bundle: nil)
 	}
 
 	@available(*, unavailable)
@@ -31,6 +31,8 @@ class TestOverwriteNoticeViewController: UITableViewController, DismissHandling,
 		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 		parent?.navigationItem.title = viewModel.title
 		parent?.navigationController?.navigationBar.prefersLargeTitles = true
+
+		setupTableView()
 	}
 
 	// MARK: - DismissHandling
@@ -60,5 +62,11 @@ class TestOverwriteNoticeViewController: UITableViewController, DismissHandling,
 	private let didTapPrimaryButton: () -> Void
 	private let didTapCloseButton: () -> Void
 
+	private func setupTableView() {
+		tableView.separatorStyle = .none
+		tableView.allowsSelection = false
+		tableView.backgroundColor =	.enaColor(for: .background)
+		dynamicTableViewModel = viewModel.dynamicTableViewModel
+	}
 
 }

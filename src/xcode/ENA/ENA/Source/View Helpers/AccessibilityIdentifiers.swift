@@ -330,6 +330,21 @@ enum AccessibilityIdentifiers {
 	enum ExposureSubmission {
 		static let primaryButton = "AppStrings.ExposureSubmission.primaryButton"
 		static let secondaryButton = "AppStrings.ExposureSubmission.secondaryButton"
+
+		enum OverwriteNotice {
+			static let imageDescription = "AppStrings.ExposureSubmission.OverwriteNotice.imageDescription"
+
+			enum Pcr {
+				static let headline = "AppStrings.ExposureSubmission.OverwriteNotice.Pcr.headline"
+				static let text = "AppStrings.ExposureSubmission.OverwriteNotice.Pcr.text"
+			}
+
+			enum Antigen {
+				static let headline = "AppStrings.ExposureSubmission.OverwriteNotice.Antigen.headline"
+				static let text = "AppStrings.ExposureSubmission.OverwriteNotice.Antigen.text"
+			}
+		}
+
 	}
 
 	enum Reset {
