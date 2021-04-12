@@ -20,6 +20,11 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature21RegAntigenTitle, description: AppStrings.NewVersionFeatures.feature21RegAntigenDescription)
 		)
 		
+		// Show proof
+		self.newVersionFeatures.append(
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature21ShowProofTitle, description: AppStrings.NewVersionFeatures.feature21ShowProofDescription)
+		)
+		
 		// New international tech hotline
 		self.newVersionFeatures.append(
 			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature21NewIntTechHotlineTitle, description: AppStrings.NewVersionFeatures.feature21NewIntTechHotlineDescription)
