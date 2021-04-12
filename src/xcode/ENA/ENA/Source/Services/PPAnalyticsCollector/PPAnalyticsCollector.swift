@@ -319,7 +319,7 @@ enum PPAnalyticsCollector {
 	}
 
 	private static func setHoursSinceTestRegistration() {
-		guard let registrationDate = coronaTestService?.pcrTest?.testRegistrationDate else {
+		guard let registrationDate = coronaTestService?.pcrTest?.registrationDate else {
 			Log.warning("Could not log hoursSinceTestRegistration due to testRegistrationDate is nil", log: .ppa)
 			return
 		}
@@ -344,7 +344,7 @@ enum PPAnalyticsCollector {
 		switch riskLevel {
 		case .high:
 			guard let timeOfRiskChangeToHigh = store?.dateOfConversionToHighRisk,
-				  let registrationTime = coronaTestService?.pcrTest?.testRegistrationDate else {
+				  let registrationTime = coronaTestService?.pcrTest?.registrationDate else {
 				Log.warning("Could not log risk calculation result due to timeOfRiskChangeToHigh is nil", log: .ppa)
 				return
 			}

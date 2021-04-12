@@ -30,10 +30,19 @@ class TraceLocationDetailViewController: UIViewController {
 		super.viewDidLoad()
 
 		setupView()
+		setupLabels()
+		setupPicker()
+		setupAdditionalInfoView()
+		setupViewModel()
 	}
 	
 	// MARK: - Private
-	
+
+	private let viewModel: TraceLocationDetailViewModel
+	private let dismiss: () -> Void
+
+	private var subscriptions = Set<AnyCancellable>()
+
 	@IBOutlet private weak var bottomCardView: UIView!
 	@IBOutlet private weak var descriptionView: UIView!
 	@IBOutlet private weak var logoImageView: UIImageView!
@@ -46,15 +55,21 @@ class TraceLocationDetailViewController: UIViewController {
 	@IBOutlet private weak var pickerButton: ENAButton!
 	@IBOutlet private weak var pickerContainerView: UIView!
 	@IBOutlet private weak var pickerSeparator: UIView!
-	@IBOutlet private weak var datePickerView: UIDatePicker!
+	@IBOutlet private weak var countDownDatePicker: UIDatePicker!
 	@IBOutlet private weak var additionalInfoView: UIView!
 	@IBOutlet private weak var additionalInfoLabel: ENALabel!
 	@IBOutlet private weak var pickerSwitch: ENASwitch!
-		
-	private let viewModel: TraceLocationDetailViewModel
-	private let dismiss: () -> Void
-	private var subscriptions = Set<AnyCancellable>()
-	private var isInitialSetup = true
+	@IBOutlet private weak var checkInButton: ENAButton!
+
+	private func setupViewModel() {
+		viewModel.$duration
+			.receive(on: DispatchQueue.main.ocombine)
+			.sink { [weak self] _ in
+				guard let self = self else { return }
+				self.pickerButton.setTitle(self.viewModel.pickerButtonTitle, for: .normal)
+			}
+			.store(in: &subscriptions)
+	}
 
 	private func setupView() {
 		view.backgroundColor = .enaColor(for: .background)
@@ -65,19 +80,8 @@ class TraceLocationDetailViewController: UIViewController {
 		addBorderAndColorToView(descriptionView, color: .enaColor(for: .hairline))
 		addBorderAndColorToView(bottomCardView, color: .enaColor(for: .hairline))
 		addBorderAndColorToView(additionalInfoView, color: .enaColor(for: .hairline))
-		
-		setupLabels()
-		setupPicker()
-		setupAdditionalInfoView()
-		viewModel.pickerView(didSelectRow: viewModel.selectedDurationInMinutes)
-		
-		viewModel.$pickerButtonTitle
-			.sink { [weak self] hour in
-				if let hour = hour {
-					self?.pickerButton.setTitle(hour, for: .normal)
-				}
-			}
-			.store(in: &subscriptions)
+		checkInButton.setTitle(AppStrings.Checkins.Details.checkInButton, for: .normal)
+		checkInButton.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Details.checkInButton
 	}
 	
 	private func setupLabels() {
@@ -109,17 +113,19 @@ class TraceLocationDetailViewController: UIViewController {
 			additionalInfoView.isHidden = true
 		}
 	}
+
+	private var observer: NSKeyValueObservation!
 	
 	private func setupPicker() {
-		datePickerView.locale = Locale(identifier: "de_DE")
-		datePickerView.datePickerMode = .countDownTimer
-		datePickerView.minuteInterval = 15
-		datePickerView.addTarget(self, action: #selector(didSelectDuration(datePicker:)), for: .valueChanged)
+		countDownDatePicker.datePickerMode = .countDownTimer
+		countDownDatePicker.minuteInterval = 15
+		countDownDatePicker.addTarget(self, action: #selector(didSelectDuration(datePicker:)), for: .valueChanged)
 	}
 	
 	@objc
 	private func didSelectDuration(datePicker: UIDatePicker) {
-		viewModel.pickerView(didSelectRow: Int(datePicker.countDownDuration / 60))
+		let duration = datePicker.countDownDuration
+		viewModel.duration = duration
 	}
 
 	private func addBorderAndColorToView(_ view: UIView, color: UIColor) {
@@ -145,22 +151,34 @@ class TraceLocationDetailViewController: UIViewController {
 		viewModel.shouldSaveToContactJournal = pickerSwitch.isOn
 	}
 
-	@IBAction private func pickerViewTapped(_ sender: Any) {
-		showPickerButton(sender)
-	}
-	
-	@IBAction private func showPickerButton(_ sender: Any) {
-		self.pickerContainerView.isHidden = !self.pickerContainerView.isHidden
-		self.pickerSeparator.isHidden = self.pickerContainerView.isHidden
+	@IBAction private func togglePickerButtonVisibility(_ sender: Any) {
+		let isHidden = !pickerContainerView.isHidden
+		pickerContainerView.isHidden = isHidden
+		pickerSeparator.isHidden = isHidden
 		
-		let color: UIColor = pickerContainerView.isHidden ? .enaColor(for: .textPrimary1) : .enaColor(for: .textTint)
+		let color: UIColor = isHidden ? .enaColor(for: .textPrimary1) : .enaColor(for: .textTint)
 		pickerButton.setTitleColor(color, for: .normal)
-		
-		if !pickerContainerView.isHidden && isInitialSetup {
-			isInitialSetup = false
-			let components = viewModel.selectedDurationInMinutes.quotientAndRemainder(dividingBy: 60)
-			let date = DateComponents(calendar: Calendar.current, hour: components.quotient, minute: components.remainder).date ?? Date()
-			datePickerView.setDate(date, animated: true)
+
+		if !isHidden {
+			countDownDatePicker.removeTarget(self, action: nil, for: .allEvents)
+			setupPicker()
+
+			// the dispatch to the main queue is require because of an iOS issue
+			// UIDatePicker won't call action .valueChang on first change
+			// workaround is to set countDownDuration && date with a bit of delay on the main queue
+			//
+			DispatchQueue.main.asyncAfter(deadline: .now() + 0.01, execute: { [weak self] in
+				guard let self = self else {
+					Log.debug("Failed to unwrap self")
+					return
+				}
+				let durationInMinutes = Int(self.viewModel.duration / 60)
+				let components = durationInMinutes.quotientAndRemainder(dividingBy: 60)
+				let date = DateComponents(calendar: Calendar.current, hour: components.quotient, minute: components.remainder).date ?? Date()
+
+				self.countDownDatePicker.countDownDuration = self.viewModel.duration
+				self.countDownDatePicker.setDate(date, animated: true)
+			})
 		}
 	}
 }

@@ -61,6 +61,12 @@ final class EventCheckoutService {
 		dateFormatter.dateStyle = .short
 		return dateFormatter
 	}()
+	private lazy var dateIntervalFormatter: DateIntervalFormatter = {
+		let formatter = DateIntervalFormatter()
+		formatter.dateStyle = .short
+		formatter.timeStyle = .none
+		return formatter
+	}()
 
 	private func registerToCheckinChanges() {
 		Log.info("[EventCheckoutService] Register to checkin changes.", log: .checkin)
@@ -202,12 +208,9 @@ final class EventCheckoutService {
 			locationNameElements.append(checkin.traceLocationAddress)
 		}
 
-		if let startDate = checkin.traceLocationStartDate {
-			locationNameElements.append(shortDateFormatter.string(from: startDate))
-		}
-
-		if	let endDate = checkin.traceLocationEndDate {
-			locationNameElements.append(shortDateFormatter.string(from: endDate))
+		if let startDate = checkin.traceLocationStartDate,
+		   let endDate = checkin.traceLocationEndDate {
+			locationNameElements.append(dateIntervalFormatter.string(from: startDate, to: endDate))
 		}
 
 		let addLocationResult = contactDiaryStore.addLocation(

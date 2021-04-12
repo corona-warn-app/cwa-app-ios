@@ -200,10 +200,6 @@ final class HTTPClient: Client {
 	}
 
 	func submit(payload: CountrySubmissionPayload, isFake: Bool, completion: @escaping KeySubmissionResponse) {
-		let keys = payload.exposureKeys
-		let countries = payload.visitedCountries
-		let tan = payload.tan
-		let payload = CountrySubmissionPayload(exposureKeys: keys, visitedCountries: countries, tan: tan)
 		guard let request = try? URLRequest.keySubmissionRequest(configuration: configuration, payload: payload, isFake: isFake) else {
 			completion(.failure(SubmissionError.requestCouldNotBeBuilt))
 			return
@@ -615,8 +611,9 @@ final class HTTPClient: Client {
 						}
 						let eTag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag")
 						
-						// First look if package will be empty. According to tech spec: If "cwa-empty-pkg" == 1, this indicates that the package is empty (i.e. no zip file, to extract).
-						if response.httpResponse.value(forCaseInsensitiveHeaderField: "cwa-empty-pkg") == "1" {
+						// First look if the response is empty. (i.e. no zip file, to extract).
+						// "expectedContentLength" will be -1 if the "content-length" header field is missing.
+						if response.httpResponse.expectedContentLength <= 0 {
 							let emptyPackage = PackageDownloadResponse(package: nil, etag: eTag)
 							Log.info("Succesfully downloaded empty traceWarningPackage", log: .api)
 							completion(.success(emptyPackage))
@@ -672,7 +669,8 @@ private extension URLRequest {
 		let submPayload = SAP_Internal_SubmissionPayload.with {
 			$0.requestPadding = self.getSubmissionPadding(for: payload.exposureKeys)
 			$0.keys = payload.exposureKeys
-			/// Consent needs always set to be true https://jira.itc.sap.com/browse/EXPOSUREAPP-3125?focusedCommentId=1022122&page=com.atlassian.jira.plugin.system.issuetabpanels%3Acomment-tabpanel#comment-1022122
+			$0.checkIns = payload.eventCheckIns
+			/// Consent needs always set to be true
 			$0.consentToFederation = true
 			$0.visitedCountries = payload.visitedCountries.map { $0.id }
 		}

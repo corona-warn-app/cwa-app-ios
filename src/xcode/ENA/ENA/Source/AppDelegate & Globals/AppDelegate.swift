@@ -180,7 +180,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 				let unwrappedTestResult = testResult ?? .pending
 				store.pcrTest = PCRTest(
 					registrationToken: "asdf",
-					testRegistrationDate: Date(),
+					registrationDate: Date(),
 					testResult: unwrappedTestResult,
 					testResultReceivedDate: unwrappedTestResult == .pending ? nil : Date(),
 					positiveTestResultWasShown: !showTestResultAvailableViewController,
@@ -325,6 +325,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			appConfigurationProvider: self.appConfigurationProvider,
 			client: self.client,
 			store: self.store,
+			eventStore: self.eventStore,
 			coronaTestService: coronaTestService)
 	}
 

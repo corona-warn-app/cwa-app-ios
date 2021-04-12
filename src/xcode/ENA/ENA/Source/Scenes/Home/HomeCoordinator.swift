@@ -30,6 +30,7 @@ class HomeCoordinator: RequiresAppDependencies {
 				appConfigurationProvider: CachedAppConfigurationMock(with: CachedAppConfigurationMock.screenshotConfiguration),
 				client: ClientMock(),
 				store: MockTestStore(),
+				eventStore: eventStore,
 				coronaTestService: coronaTestService
 			)
 		}
@@ -40,6 +41,7 @@ class HomeCoordinator: RequiresAppDependencies {
 			appConfigurationProvider: appConfigurationProvider,
 			client: client,
 			store: store,
+			eventStore: eventStore,
 			coronaTestService: coronaTestService
 		)
 	}()

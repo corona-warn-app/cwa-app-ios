@@ -37,7 +37,7 @@ enum CoronaTest {
 	var testDate: Date {
 		switch self {
 		case .pcr(let pcrTest):
-			return pcrTest.testRegistrationDate
+			return pcrTest.registrationDate
 		case .antigen(let antigenTest):
 			return antigenTest.pointOfCareConsentDate
 		}
@@ -111,13 +111,13 @@ enum CoronaTest {
 struct PCRTest: Codable, Equatable {
 
 	var registrationToken: String?
-	var testRegistrationDate: Date
+	var registrationDate: Date
 
 	var testResult: TestResult
 	var testResultReceivedDate: Date?
 	var positiveTestResultWasShown: Bool
-	var isSubmissionConsentGiven: Bool
 
+	var isSubmissionConsentGiven: Bool
 	// Can only be used once to submit, cached here in case submission fails
 	var submissionTAN: String?
 	var keysSubmitted: Bool
@@ -129,16 +129,16 @@ struct PCRTest: Codable, Equatable {
 struct AntigenTest: Codable, Equatable {
 
 	var registrationToken: String?
-	var testedPerson: TestedPerson
-
 	// The date of when the consent was provided by the tested person at the Point of Care.
 	var pointOfCareConsentDate: Date
+
+	var testedPerson: TestedPerson
 
 	var testResult: TestResult
 	var testResultReceivedDate: Date?
 	var positiveTestResultWasShown: Bool
-	var isSubmissionConsentGiven: Bool
 
+	var isSubmissionConsentGiven: Bool
 	// Can only be used once to submit, cached here in case submission fails
 	var submissionTAN: String?
 	var keysSubmitted: Bool

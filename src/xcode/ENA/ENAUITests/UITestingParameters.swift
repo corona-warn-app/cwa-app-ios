@@ -25,7 +25,7 @@ extension TestResult {
 			fatalError("Could not convert String to Int")
 		}
 		
-		self.init(rawValue: rawValue)
+		self.init(serverResponse: rawValue)
 	}
 	
 	var stringValue: String {
