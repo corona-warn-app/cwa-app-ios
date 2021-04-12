@@ -6,7 +6,7 @@
 import ExposureNotification
 import XCTest
 
-class CoronaServiceTests: XCTestCase {
+class CoronaTestServiceTests: XCTestCase {
 
 	// MARK: - Test Result
 
