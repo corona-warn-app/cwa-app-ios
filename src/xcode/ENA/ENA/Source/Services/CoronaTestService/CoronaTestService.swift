@@ -98,7 +98,6 @@ class CoronaTestService {
 						journalEntryCreated: false
 					)
 
-					// because this block is only called in QR submission
 					Analytics.collect(.testResultMetadata(.registerNewTestMetadata(Date(), registrationToken)))
 					Analytics.collect(.keySubmissionMetadata(.submittedWithTeletan(false)))
 
@@ -138,6 +137,8 @@ class CoronaTestService {
 						keysSubmitted: false,
 						journalEntryCreated: false
 					)
+
+					Analytics.collect(.keySubmissionMetadata(.submittedWithTeletan(true)))
 
 					completion(.success(()))
 				case .failure(let error):

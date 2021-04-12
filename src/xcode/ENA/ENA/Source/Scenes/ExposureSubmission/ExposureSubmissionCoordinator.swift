@@ -86,8 +86,6 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				self?.presentTanInvalidAlert(localizedDescription: localizedDescription, completion: completion)
 			},
 			tanSuccessfullyTransferred: { [weak self] in
-				Analytics.collect(.keySubmissionMetadata(.submittedWithTeletan(true)))
-
 				self?.model.coronaTestType = .pcr
 
 				// A TAN always indicates a positive test result.
