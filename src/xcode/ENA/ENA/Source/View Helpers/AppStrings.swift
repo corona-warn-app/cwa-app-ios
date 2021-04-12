@@ -989,14 +989,17 @@ enum AppStrings {
 		static let switchTitle = NSLocalizedString("AutomaticSharingConsent_SwitchTitle", comment: "")
 		static let switchTitleDescription = NSLocalizedString("AutomaticSharingConsent_SwitchTitleDesc", comment: "")
 		static let consentSubTitle = NSLocalizedString("AutomaticSharingConsent_Subtitle", tableName: "Localizable.legal", comment: "")
-		static let consentDescriptionPart1 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart1", tableName: "Localizable.legal", comment: "")
-		static let consentDescriptionPart2 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart2", tableName: "Localizable.legal", comment: "")
-		static let consentDescriptionPart3 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart3", tableName: "Localizable.legal", comment: "")
+		static let consentDescriptionPCRPart1 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart1_PCR", tableName: "Localizable.legal", comment: "")
+		static let consentDescriptionPCRPart2 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart2_PCR", tableName: "Localizable.legal", comment: "")
+		static let consentDescriptionPCRPart3 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart3_PCR", tableName: "Localizable.legal", comment: "")
+		static let consentDescriptionRATPart1 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart1_RAT", tableName: "Localizable.legal", comment: "")
+		static let consentDescriptionRATPart2 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart2_RAT", tableName: "Localizable.legal", comment: "")
+		static let consentDescriptionRATPart3 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart3_RAT", tableName: "Localizable.legal", comment: "")
 		static let consentDescriptionPart4 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart4", tableName: "Localizable.legal", comment: "")
 		static let consentDescriptionPart5 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart5", tableName: "Localizable.legal", comment: "")
 		static let dataProcessingDetailInfo = NSLocalizedString("AutomaticSharingConsent_DataProcessingDetailInfo", comment: "")
 	}
-	
+
 	enum ThankYouScreen {
 		static let title = NSLocalizedString("Thank_You_Title", comment: "")
 		static let subTitle = NSLocalizedString("Thank_You_SubTitle", comment: "")
