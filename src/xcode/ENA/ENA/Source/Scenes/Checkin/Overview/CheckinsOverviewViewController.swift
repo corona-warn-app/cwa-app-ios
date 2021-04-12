@@ -45,7 +45,7 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 			self?.animateChanges()
 		}
 
-		viewModel.$shouldReload
+		viewModel.$triggerReload
 			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] _ in
 				guard let self = self, self.shouldReload else { return }
@@ -123,6 +123,7 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 					tableView.deleteRows(at: [indexPath], with: .automatic)
 				}, completion: { _ in
 					self.shouldReload = true
+					self.viewModel.triggerReload = true
 
 					if self.viewModel.isEmpty {
 						self.setEditing(false, animated: true)
