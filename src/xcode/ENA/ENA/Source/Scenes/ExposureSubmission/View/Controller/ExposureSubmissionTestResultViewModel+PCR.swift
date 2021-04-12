@@ -42,7 +42,7 @@ extension ExposureSubmissionTestResultViewModel {
 					
 					
 					ExposureSubmissionDynamicCell.stepCell(
-						title: AppStrings.ExposureSubmissionResult.testAdded,
+						title: AppStrings.ExposureSubmissionResult.pcrTestAdded,
 						description: nil,
 						icon: UIImage(named: "Icons_Grey_Check"),
 						hairline: .iconAttached
