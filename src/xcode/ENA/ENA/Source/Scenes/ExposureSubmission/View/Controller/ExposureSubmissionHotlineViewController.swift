@@ -127,7 +127,7 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 							accessibilityTraits: [.button],
 							hairline: .topAttached,
 							bottomSpacing: .small,
-							action: .execute { [weak self] _, _ in self?.callForeignHotline() }
+							action: .execute { [weak self] _, _ in self?.callHotline(foreign: true) }
 						),
 						ExposureSubmissionDynamicCell.stepCell(
 							style: .footnote,
@@ -155,24 +155,15 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 		)
 	}
 
-	private func callHotline() {
-		guard let url = URL(string: "telprompt:\(AppStrings.ExposureSubmission.hotlineNumber)"),
+	private func callHotline(foreign: Bool = false) {
+		let phoneNumber = foreign ? AppStrings.ExposureSubmission.hotlineNumberForeign : AppStrings.ExposureSubmission.hotlineNumber
+		guard let url = URL(string: "telprompt:\(phoneNumber)"),
 			  UIApplication.shared.canOpenURL(url) else {
-			Log.error("Call failed: telprompt:\(AppStrings.ExposureSubmission.hotlineNumber) failed")
+			Log.error("Call failed: telprompt:\(phoneNumber) failed")
 			return
 		}
 		UIApplication.shared.open(url, options: [:], completionHandler: nil)
 	}
-	
-	private func callForeignHotline() {
-		guard let url = URL(string: "telprompt:\(AppStrings.ExposureSubmission.hotlineNumberForeign)"),
-			  UIApplication.shared.canOpenURL(url) else {
-			Log.error("Call failed: telprompt:\(AppStrings.ExposureSubmission.hotlineNumberForeign) failed")
-			return
-		}
-		UIApplication.shared.open(url, options: [:], completionHandler: nil)
-	}
-
 }
 
 // MARK: - Cell reuse identifiers.
