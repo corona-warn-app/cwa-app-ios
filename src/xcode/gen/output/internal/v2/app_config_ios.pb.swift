@@ -131,6 +131,15 @@ struct SAP_Internal_V2_ApplicationConfigurationIOS {
   /// Clears the value of `presenceTracingParameters`. Subsequent reads from it will return its default value.
   mutating func clearPresenceTracingParameters() {_uniqueStorage()._presenceTracingParameters = nil}
 
+  var coronaTestParameters: SAP_Internal_V2_CoronaTestParameters {
+    get {return _storage._coronaTestParameters ?? SAP_Internal_V2_CoronaTestParameters()}
+    set {_uniqueStorage()._coronaTestParameters = newValue}
+  }
+  /// Returns true if `coronaTestParameters` has been explicitly set.
+  var hasCoronaTestParameters: Bool {return _storage._coronaTestParameters != nil}
+  /// Clears the value of `coronaTestParameters`. Subsequent reads from it will return its default value.
+  mutating func clearCoronaTestParameters() {_uniqueStorage()._coronaTestParameters = nil}
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
@@ -195,6 +204,7 @@ extension SAP_Internal_V2_ApplicationConfigurationIOS: SwiftProtobuf.Message, Sw
     10: .same(proto: "privacyPreservingAnalyticsParameters"),
     11: .same(proto: "errorLogSharingParameters"),
     12: .same(proto: "presenceTracingParameters"),
+    13: .same(proto: "coronaTestParameters"),
   ]
 
   fileprivate class _StorageClass {
@@ -210,6 +220,7 @@ extension SAP_Internal_V2_ApplicationConfigurationIOS: SwiftProtobuf.Message, Sw
     var _privacyPreservingAnalyticsParameters: SAP_Internal_V2_PPDDPrivacyPreservingAnalyticsParametersIOS? = nil
     var _errorLogSharingParameters: SAP_Internal_V2_PPDDErrorLogSharingParametersIOS? = nil
     var _presenceTracingParameters: SAP_Internal_V2_PresenceTracingParameters? = nil
+    var _coronaTestParameters: SAP_Internal_V2_CoronaTestParameters? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -228,6 +239,7 @@ extension SAP_Internal_V2_ApplicationConfigurationIOS: SwiftProtobuf.Message, Sw
       _privacyPreservingAnalyticsParameters = source._privacyPreservingAnalyticsParameters
       _errorLogSharingParameters = source._errorLogSharingParameters
       _presenceTracingParameters = source._presenceTracingParameters
+      _coronaTestParameters = source._coronaTestParameters
     }
   }
 
@@ -258,6 +270,7 @@ extension SAP_Internal_V2_ApplicationConfigurationIOS: SwiftProtobuf.Message, Sw
         case 10: try { try decoder.decodeSingularMessageField(value: &_storage._privacyPreservingAnalyticsParameters) }()
         case 11: try { try decoder.decodeSingularMessageField(value: &_storage._errorLogSharingParameters) }()
         case 12: try { try decoder.decodeSingularMessageField(value: &_storage._presenceTracingParameters) }()
+        case 13: try { try decoder.decodeSingularMessageField(value: &_storage._coronaTestParameters) }()
         default: break
         }
       }
@@ -302,6 +315,9 @@ extension SAP_Internal_V2_ApplicationConfigurationIOS: SwiftProtobuf.Message, Sw
       if let v = _storage._presenceTracingParameters {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 12)
       }
+      if let v = _storage._coronaTestParameters {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 13)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -323,6 +339,7 @@ extension SAP_Internal_V2_ApplicationConfigurationIOS: SwiftProtobuf.Message, Sw
         if _storage._privacyPreservingAnalyticsParameters != rhs_storage._privacyPreservingAnalyticsParameters {return false}
         if _storage._errorLogSharingParameters != rhs_storage._errorLogSharingParameters {return false}
         if _storage._presenceTracingParameters != rhs_storage._presenceTracingParameters {return false}
+        if _storage._coronaTestParameters != rhs_storage._coronaTestParameters {return false}
         return true
       }
       if !storagesAreEqual {return false}
