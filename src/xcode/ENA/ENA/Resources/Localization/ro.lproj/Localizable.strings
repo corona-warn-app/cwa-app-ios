@@ -518,7 +518,7 @@
 
 "ExposureSubmissionHotline_SectionTitle" = "Cum funcționează:";
 
-"ExposureSubmissionHotline_SectionDescription1" = "Sunați la hotline-ul național și solicitați un TAN:";
+"ExposureSubmissionHotline_SectionDescription1" = "Rufen Sie die Hotline an und fragen Sie nach einer TAN.";
 
 "ExposureSubmissionHotline_iconAccessibilityLabel1" = "Pasul 1 din 2";
 
@@ -1172,7 +1172,7 @@
 
 "App_Information_Contact_Description" = "Pentru întrebări tehnice despre aplicația Corona-Warn, contactați hotline-ul nostru la nivel național.";
 
-"App_Information_Contact_Hotline_Title" = "Hotline tehnic";
+"App_Information_Contact_Hotline_Title" = "Technische Hotline:";
 
 "App_Information_Contact_Hotline_Text_Domestic" = "0800 7540001";
 

@@ -518,7 +518,7 @@
 
 "ExposureSubmissionHotline_SectionTitle" = "Как работи:";
 
-"ExposureSubmissionHotline_SectionDescription1" = "Обадете се на националната гореща линия и поискайте ТАН код:";
+"ExposureSubmissionHotline_SectionDescription1" = "Rufen Sie die Hotline an und fragen Sie nach einer TAN.";
 
 "ExposureSubmissionHotline_iconAccessibilityLabel1" = "Стъпка 1 от 2";
 
@@ -1172,7 +1172,7 @@
 
 "App_Information_Contact_Description" = "Моля, използвайте нашата национална гореща линия за технически въпроси относно приложението Corona-Warn-App.";
 
-"App_Information_Contact_Hotline_Title" = "Технически въпроси";
+"App_Information_Contact_Hotline_Title" = "Technische Hotline:";
 
 "App_Information_Contact_Hotline_Text_Domestic" = "0800 7540001";
 

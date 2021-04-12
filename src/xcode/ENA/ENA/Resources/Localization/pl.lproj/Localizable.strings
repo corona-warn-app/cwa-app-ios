@@ -518,7 +518,7 @@
 
 "ExposureSubmissionHotline_SectionTitle" = "Jak to działa:";
 
-"ExposureSubmissionHotline_SectionDescription1" = "Zadzwoń na ogólnokrajową infolinię i poproś o numer TAN:";
+"ExposureSubmissionHotline_SectionDescription1" = "Rufen Sie die Hotline an und fragen Sie nach einer TAN.";
 
 "ExposureSubmissionHotline_iconAccessibilityLabel1" = "Krok 1 z 2";
 
@@ -1172,7 +1172,7 @@
 
 "App_Information_Contact_Description" = "W przypadku pytań technicznych dotyczących Corona-Warn-App prosimy o kontakt z naszą ogólnokrajową infolinią.";
 
-"App_Information_Contact_Hotline_Title" = "Infolinia techniczna";
+"App_Information_Contact_Hotline_Title" = "Technische Hotline:";
 
 "App_Information_Contact_Hotline_Text_Domestic" = "0800 7540001";
 
