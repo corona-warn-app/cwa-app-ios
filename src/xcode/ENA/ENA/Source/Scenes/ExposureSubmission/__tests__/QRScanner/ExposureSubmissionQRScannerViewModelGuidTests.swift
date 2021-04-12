@@ -18,7 +18,7 @@ final class ExposureSubmissionQRScannerViewModelGuidTests: XCTestCase {
 		let viewModel = createViewModel()
 
 		// WHEN
-		guard let result = viewModel.extractGuid(from: "https://localhost/?123456-12345678-1234-4DA7-B166-B86D85475064") else {
+		guard let result = viewModel.coronaTestQRCodeInformation(from: "https://localhost/?123456-12345678-1234-4DA7-B166-B86D85475064") else {
 			XCTFail("result cant be nil")
 			return
 		}
@@ -37,7 +37,7 @@ final class ExposureSubmissionQRScannerViewModelGuidTests: XCTestCase {
 		let viewModel = createViewModel()
 
 		// WHEN
-		guard let result = viewModel.extractGuid(from: "HTTPS://LOCALHOST/?123456-12345678-1234-4DA7-B166-B86D85475064") else {
+		guard let result = viewModel.coronaTestQRCodeInformation(from: "HTTPS://LOCALHOST/?123456-12345678-1234-4DA7-B166-B86D85475064") else {
 			XCTFail("result cant be nil")
 			return
 		}
@@ -56,7 +56,7 @@ final class ExposureSubmissionQRScannerViewModelGuidTests: XCTestCase {
 		let viewModel = createViewModel()
 
 		// WHEN
-		let guid = viewModel.extractGuid(from: "https://localhost//?123456-12345678-1234-4DA7-B166-B86D85475064")
+		let guid = viewModel.coronaTestQRCodeInformation(from: "https://localhost//?123456-12345678-1234-4DA7-B166-B86D85475064")
 
 		// THEN
 		XCTAssertNil(guid)
@@ -67,7 +67,7 @@ final class ExposureSubmissionQRScannerViewModelGuidTests: XCTestCase {
 		let viewModel = createViewModel()
 
 		// WHEN
-		let guid = viewModel.extractGuid(from: "https://localhost///?123456-12345678-1234-4DA7-B166-B86D85475064")
+		let guid = viewModel.coronaTestQRCodeInformation(from: "https://localhost///?123456-12345678-1234-4DA7-B166-B86D85475064")
 
 		// THEN
 		XCTAssertNil(guid)
@@ -78,7 +78,7 @@ final class ExposureSubmissionQRScannerViewModelGuidTests: XCTestCase {
 		let viewModel = createViewModel()
 
 		// WHEN
-		let guid = viewModel.extractGuid(from: "HTTPS://LOCALHOST///?123456-12345678-1234-4DA7-B166-B86D85475064")
+		let guid = viewModel.coronaTestQRCodeInformation(from: "HTTPS://LOCALHOST///?123456-12345678-1234-4DA7-B166-B86D85475064")
 
 		// THEN
 		XCTAssertNil(guid)
@@ -89,7 +89,7 @@ final class ExposureSubmissionQRScannerViewModelGuidTests: XCTestCase {
 		let viewModel = createViewModel()
 
 		// WHEN
-		guard let result = viewModel.extractGuid(from: "https://localhost/?123456-12345678-1234-4DA7-B166-B86D85475ABC") else {
+		guard let result = viewModel.coronaTestQRCodeInformation(from: "https://localhost/?123456-12345678-1234-4DA7-B166-B86D85475ABC") else {
 			XCTFail("result cant be nil")
 			return
 		}
@@ -108,7 +108,7 @@ final class ExposureSubmissionQRScannerViewModelGuidTests: XCTestCase {
 		let viewModel = createViewModel()
 
 		// WHEN
-		guard let result = viewModel.extractGuid(from: "https://localhost/?123456-12345678-1234-4DA7-B166-B86D85475abc") else {
+		guard let result = viewModel.coronaTestQRCodeInformation(from: "https://localhost/?123456-12345678-1234-4DA7-B166-B86D85475abc") else {
 			XCTFail("result cant be nil")
 			return
 		}
@@ -127,7 +127,7 @@ final class ExposureSubmissionQRScannerViewModelGuidTests: XCTestCase {
 		let viewModel = createViewModel()
 
 		// WHEN
-		guard let result = viewModel.extractGuid(from: "HTTPS://LOCALHOST/?123456-12345678-1234-4DA7-B166-B86D85475ABC") else {
+		guard let result = viewModel.coronaTestQRCodeInformation(from: "HTTPS://LOCALHOST/?123456-12345678-1234-4DA7-B166-B86D85475ABC") else {
 			XCTFail("result cant be nil")
 			return
 		}
@@ -146,7 +146,7 @@ final class ExposureSubmissionQRScannerViewModelGuidTests: XCTestCase {
 		let viewModel = createViewModel()
 
 		// WHEN
-		guard let result = viewModel.extractGuid(from: "HTTPS://LOCALHOST/?123456-12345678-1234-4DA7-B166-B86D85475abc") else {
+		guard let result = viewModel.coronaTestQRCodeInformation(from: "HTTPS://LOCALHOST/?123456-12345678-1234-4DA7-B166-B86D85475abc") else {
 			XCTFail("result cant be nil")
 			return
 		}
@@ -165,7 +165,7 @@ final class ExposureSubmissionQRScannerViewModelGuidTests: XCTestCase {
 		let viewModel = createViewModel()
 
 		// WHEN
-		let guid = viewModel.extractGuid(from: "https://localhost/?")
+		let guid = viewModel.coronaTestQRCodeInformation(from: "https://localhost/?")
 
 		// THEN
 		XCTAssertNil(guid)
@@ -176,7 +176,7 @@ final class ExposureSubmissionQRScannerViewModelGuidTests: XCTestCase {
 		let viewModel = createViewModel()
 
 		// WHEN
-		let guid = viewModel.extractGuid(from: "https://localhost/%20?3D6D08-3567F3F2-4DCF-43A3-8737-4CD1F87D6FDA")
+		let guid = viewModel.coronaTestQRCodeInformation(from: "https://localhost/%20?3D6D08-3567F3F2-4DCF-43A3-8737-4CD1F87D6FDA")
 
 		// THEN
 		XCTAssertNil(guid)
@@ -187,7 +187,7 @@ final class ExposureSubmissionQRScannerViewModelGuidTests: XCTestCase {
 		let viewModel = createViewModel()
 
 		// WHEN
-		let guid = viewModel.extractGuid(from: "https://some-host.com/?3D6D08-3567F3F2-4DCF-43A3-8737-4CD1F87D6FDA")
+		let guid = viewModel.coronaTestQRCodeInformation(from: "https://some-host.com/?3D6D08-3567F3F2-4DCF-43A3-8737-4CD1F87D6FDA")
 
 		// THEN
 		XCTAssertNil(guid)
@@ -198,7 +198,7 @@ final class ExposureSubmissionQRScannerViewModelGuidTests: XCTestCase {
 		let viewModel = createViewModel()
 
 		// WHEN
-		let guid = viewModel.extractGuid(from: "http://localhost/?123456-12345678-1234-4DA7-B166-B86D85475064")
+		let guid = viewModel.coronaTestQRCodeInformation(from: "http://localhost/?123456-12345678-1234-4DA7-B166-B86D85475064")
 
 		// THEN
 		XCTAssertNil(guid)
@@ -209,7 +209,7 @@ final class ExposureSubmissionQRScannerViewModelGuidTests: XCTestCase {
 		let viewModel = createViewModel()
 
 		// WHEN
-		let guid = viewModel.extractGuid(from: "https://localhost/?3567F3F2-4DCF-43A3-8737-4CD1F87D6FDA")
+		let guid = viewModel.coronaTestQRCodeInformation(from: "https://localhost/?3567F3F2-4DCF-43A3-8737-4CD1F87D6FDA")
 
 		// THEN
 		XCTAssertNil(guid)
@@ -220,7 +220,7 @@ final class ExposureSubmissionQRScannerViewModelGuidTests: XCTestCase {
 		let viewModel = createViewModel()
 
 		// WHEN
-		let guid = viewModel.extractGuid(from: "https://localhost/?https://localhost/?4CD1F87D6FDA")
+		let guid = viewModel.coronaTestQRCodeInformation(from: "https://localhost/?https://localhost/?4CD1F87D6FDA")
 
 		// THEN
 		XCTAssertNil(guid)
@@ -231,7 +231,7 @@ final class ExposureSubmissionQRScannerViewModelGuidTests: XCTestCase {
 		let viewModel = createViewModel()
 
 		// WHEN
-		let guid = viewModel.extractGuid(from: "https://www.localhost/%20?3D6D08-3567F3F2-4DCF-43A3-8737-4CD1F87D6FDA")
+		let guid = viewModel.coronaTestQRCodeInformation(from: "https://www.localhost/%20?3D6D08-3567F3F2-4DCF-43A3-8737-4CD1F87D6FDA")
 
 		// THEN
 		XCTAssertNil(guid)

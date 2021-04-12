@@ -149,13 +149,13 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 		deactivateScanning()
 
 		if let code = metadataObjects.first(where: { $0 is MetadataMachineReadableCodeObject }) as? MetadataMachineReadableCodeObject, let stringValue = code.stringValue {
-			guard let testType = extractGuid(from: stringValue) else {
+			guard let coronaTestQRCodeInformation = coronaTestQRCodeInformation(from: stringValue) else {
 				onError(.codeNotFound) { [weak self] in
 					self?.activateScanning()
 				}
 				return
 			}
-			onSuccess(testType)
+			onSuccess(coronaTestQRCodeInformation)
 		}
 	}
 
@@ -165,7 +165,7 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 	/// - the guid contains only the following characters: a-f, A-F, 0-9,-
 	/// - the guid is a well formatted string (6-8-4-4-4-12) with length 43
 	///   (6 chars encode a random number, 32 chars for the uuid, 5 chars are separators)
-	func extractGuid(from input: String) -> CoronaTestQRCodeInformation? {
+	func coronaTestQRCodeInformation(from input: String) -> CoronaTestQRCodeInformation? {
 		// general checks for both PCR and Rapid tests
 		guard !input.isEmpty,
 			  let urlComponents = URLComponents(string: input),
@@ -175,9 +175,9 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 		}
 		// specific checks based on test type
 		if urlComponents.host?.lowercased() == "localhost" {
-			return extractPcrTestInformation(from: input, urlComponents: urlComponents)
+			return pcrTestInformation(from: input, urlComponents: urlComponents)
 		} else if urlComponents.host?.lowercased() == "s.coronawarn.app" {
-			return extractAntigenTestInformation(from: input, urlComponents: urlComponents)
+			return antigenTestInformation(from: input, urlComponents: urlComponents)
 		} else {
 			return nil
 		}
@@ -188,7 +188,7 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 	private let onSuccess: (CoronaTestQRCodeInformation) -> Void
 	private let captureDevice: AVCaptureDevice?
 	
-	private func extractPcrTestInformation(from guidURL: String, urlComponents: URLComponents) -> CoronaTestQRCodeInformation? {
+	private func pcrTestInformation(from guidURL: String, urlComponents: URLComponents) -> CoronaTestQRCodeInformation? {
 		guard guidURL.count <= 150,
 			  urlComponents.path.components(separatedBy: "/").count == 2,	// one / will separate into two components
 			  let candidate = urlComponents.query,
@@ -202,7 +202,7 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 		return matchings.isEmpty ? nil : .pcr(candidate)
 	}
 	
-	private func extractAntigenTestInformation(from guidURL: String, urlComponents: URLComponents) -> CoronaTestQRCodeInformation? {
+	private func antigenTestInformation(from guidURL: String, urlComponents: URLComponents) -> CoronaTestQRCodeInformation? {
 		guard let payloadUrl = urlComponents.fragment,
 			  let candidate = urlComponents.query,
 			  candidate.count == 3 else {
@@ -210,7 +210,7 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 		}
 		
 		// extract payload
-		guard let testInformation = RapidTestInformation(payload: payloadUrl),
+		guard let testInformation = AntigenTestInformation(payload: payloadUrl),
 			  testInformation.guid.range(
 				of: #"^[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}$"#,
 				options: .regularExpression

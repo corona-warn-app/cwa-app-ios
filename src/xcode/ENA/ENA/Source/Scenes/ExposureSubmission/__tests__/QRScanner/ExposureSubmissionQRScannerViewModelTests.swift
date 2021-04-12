@@ -256,7 +256,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 	func testQRCodeExtraction_EmptyString() {
 		let viewModel = createViewModel()
 
-		let result = viewModel.extractGuid(from: "")
+		let result = viewModel.coronaTestQRCodeInformation(from: "")
 
 		XCTAssertNil(result)
 	}
@@ -264,7 +264,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 	func testQRCodeExtraction_InputLengthExceeded() {
 		let viewModel = createViewModel()
 
-		let result = viewModel.extractGuid(from: String(repeating: "x", count: 150))
+		let result = viewModel.coronaTestQRCodeInformation(from: String(repeating: "x", count: 150))
 
 		XCTAssertNil(result)
 	}
@@ -272,7 +272,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 	func testQRCodeExtraction_WrongURL() {
 		let viewModel = createViewModel()
 
-		let result = viewModel.extractGuid(from: "https://wrong.app/?\(validPcrGuid)")
+		let result = viewModel.coronaTestQRCodeInformation(from: "https://wrong.app/?\(validPcrGuid)")
 
 		XCTAssertNil(result)
 	}
@@ -280,7 +280,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 	func testQRCodeExtration_someUTF8Text() {
 		let viewModel = createViewModel()
 
-		let result = viewModel.extractGuid(from: "This is a Test ん鞠")
+		let result = viewModel.coronaTestQRCodeInformation(from: "This is a Test ん鞠")
 
 		XCTAssertNil(result)
 	}
@@ -288,7 +288,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 	func testQRCodeExtraction_MissingURL() {
 		let viewModel = createViewModel()
 
-		let result = viewModel.extractGuid(from: "?\(validPcrGuid)")
+		let result = viewModel.coronaTestQRCodeInformation(from: "?\(validPcrGuid)")
 
 		XCTAssertNil(result)
 	}
@@ -296,7 +296,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 	func testQRCodeExtraction_MissingQuestionMark() {
 		let viewModel = createViewModel()
 
-		let result = viewModel.extractGuid(from: "https://localhost/\(validPcrGuid)")
+		let result = viewModel.coronaTestQRCodeInformation(from: "https://localhost/\(validPcrGuid)")
 
 		XCTAssertNil(result)
 	}
@@ -304,7 +304,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 	func testPcrQRCodeExtraction_AdditionalSpaceAfterQuestionMark() {
 		let viewModel = createViewModel()
 
-		let result = viewModel.extractGuid(from: "? \(validPcrGuid)")
+		let result = viewModel.coronaTestQRCodeInformation(from: "? \(validPcrGuid)")
 
 		XCTAssertNil(result)
 	}
@@ -312,7 +312,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 	func testPcrQRCodeExtraction_GUIDLengthExceeded() {
 		let viewModel = createViewModel()
 
-		let result = viewModel.extractGuid(from: "https://localhost/?\(validPcrGuid)-BEEF")
+		let result = viewModel.coronaTestQRCodeInformation(from: "https://localhost/?\(validPcrGuid)-BEEF")
 
 		XCTAssertNil(result)
 	}
@@ -320,7 +320,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 	func testPcrQRCodeExtraction_GUIDTooShort() {
 		let viewModel = createViewModel()
 
-		let result = viewModel.extractGuid(from: "https://localhost/?\(validPcrGuid.dropLast(4))")
+		let result = viewModel.coronaTestQRCodeInformation(from: "https://localhost/?\(validPcrGuid.dropLast(4))")
 
 		XCTAssertNil(result)
 	}
@@ -328,7 +328,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 	func testAntigenQRCodeExtraction_GUIDLengthExceeded() {
 		let viewModel = createViewModel()
 
-		let result = viewModel.extractGuid(from: "https://s.coronawarn.app/?v=1#\(validAntigenPayload)-BEEF")
+		let result = viewModel.coronaTestQRCodeInformation(from: "https://s.coronawarn.app/?v=1#\(validAntigenPayload)-BEEF")
 
 		XCTAssertNil(result)
 	}
@@ -336,7 +336,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 	func testAntigenPcrQRCodeExtraction_GUIDTooShort() {
 		let viewModel = createViewModel()
 
-		let result = viewModel.extractGuid(from: "https://s.coronawarn.app/?v=1#\(validAntigenPayload.dropLast(4))")
+		let result = viewModel.coronaTestQRCodeInformation(from: "https://s.coronawarn.app/?v=1#\(validAntigenPayload.dropLast(4))")
 
 		XCTAssertNil(result)
 	}
@@ -345,7 +345,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 		let viewModel = createViewModel()
 
 		let wrongGuid = "3D6D-083567F3F2-4DCF-43A3-8737-4CD1F87D6FDA"
-		let result = viewModel.extractGuid(from: "https://localhost/?\(wrongGuid)")
+		let result = viewModel.coronaTestQRCodeInformation(from: "https://localhost/?\(wrongGuid)")
 
 		XCTAssertNil(result)
 	}
@@ -353,7 +353,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 	func testPcrQRCodeExtraction_ValidWithUppercaseString() {
 		let viewModel = createViewModel()
 
-		guard let result = viewModel.extractGuid(from: "https://localhost/?\(validPcrGuid.uppercased())") else {
+		guard let result = viewModel.coronaTestQRCodeInformation(from: "https://localhost/?\(validPcrGuid.uppercased())") else {
 			XCTFail("Result is nil")
 			return
 		}
@@ -369,7 +369,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 	func testPcrQRCodeExtraction_ValidWithLowercaseString() {
 		let viewModel = createViewModel()
 
-		guard let result = viewModel.extractGuid(from: "https://localhost/?\(validPcrGuid.lowercased())") else {
+		guard let result = viewModel.coronaTestQRCodeInformation(from: "https://localhost/?\(validPcrGuid.lowercased())") else {
 			XCTFail("Result is nil")
 			return
 		}
@@ -386,7 +386,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 		
 		let mixedCaseGuid = "3D6d08-3567F3f2-4DcF-43A3-8737-4CD1F87d6FDa"
 		
-		guard let result = viewModel.extractGuid(from: "https://localhost/?\(mixedCaseGuid)") else {
+		guard let result = viewModel.coronaTestQRCodeInformation(from: "https://localhost/?\(mixedCaseGuid)") else {
 			XCTFail("Result is nil")
 			return
 		}
@@ -425,7 +425,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 		let viewModel = createViewModel()
 
 		// WHEN
-		let result = viewModel.extractGuid(from: "HTTPS://LOCALHOST/?\(validPcrGuid)")
+		let result = viewModel.coronaTestQRCodeInformation(from: "HTTPS://LOCALHOST/?\(validPcrGuid)")
 
 		// THEN
 		XCTAssertNotNil(result)
@@ -436,7 +436,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 		let viewModel = createViewModel()
 
 		// WHEN
-		let result = viewModel.extractGuid(from: "https://localhost//?A9652E-3BE0486D-0678-40A8-BEFD-07846B41993C")
+		let result = viewModel.coronaTestQRCodeInformation(from: "https://localhost//?A9652E-3BE0486D-0678-40A8-BEFD-07846B41993C")
 
 		// THEN
 		XCTAssertNil(result)
@@ -447,7 +447,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 		let viewModel = createViewModel()
 
 		// WHEN
-		let result = viewModel.extractGuid(from: "https://s.coronawarn.app/?v=1#//?eyJ0aW1lc3RhbXAiOjE2MTgyMzM5NzksImd1aWQiOiIwQzg5MjItMEM4OTIyNjMtQTM0Qy00RjM1LTg5QUMtMTcyMzlBMzQ2QUZEIiwiZm4iOiJDYW1lcm9uIiwibG4iOiJIdWRzb24iLCJkb2IiOiIxOTkyLTA4LTA3In0")
+		let result = viewModel.coronaTestQRCodeInformation(from: "https://s.coronawarn.app/?v=1#//?eyJ0aW1lc3RhbXAiOjE2MTgyMzM5NzksImd1aWQiOiIwQzg5MjItMEM4OTIyNjMtQTM0Qy00RjM1LTg5QUMtMTcyMzlBMzQ2QUZEIiwiZm4iOiJDYW1lcm9uIiwibG4iOiJIdWRzb24iLCJkb2IiOiIxOTkyLTA4LTA3In0")
 
 		// THEN
 		XCTAssertNil(result)

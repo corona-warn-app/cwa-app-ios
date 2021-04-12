@@ -426,9 +426,9 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 	private func showQRScreen(isLoading: @escaping (Bool) -> Void) {
 		let scannerViewController = ExposureSubmissionQRScannerViewController(
-			onSuccess: { [weak self] guid in
+			onSuccess: { [weak self] testQrCodeInformation in
 				self?.presentedViewController?.dismiss(animated: true) {
-					self?.registerTestAndGetResult(with: guid, submissionConsentGiven: true, isLoading: isLoading)
+					self?.registerTestAndGetResult(with: testQrCodeInformation, submissionConsentGiven: true, isLoading: isLoading)
 				}
 			},
 			onError: { [weak self] error, reactivateScanning in
@@ -854,7 +854,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			isLoading: isLoading,
 			onSuccess: { [weak self] testResult in
 				
-				self?.model.coronaTestType = CoronaTestType(rawValue: testQrCodeInformation.rawValue)
+				self?.model.coronaTestType = testQrCodeInformation.testType
 
 				switch testResult {
 				case .positive:

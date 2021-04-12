@@ -4,7 +4,7 @@
 
 import Foundation
 
-struct RapidTestInformation: Codable {
+struct AntigenTestInformation: Codable {
 	
 	// MARK: - Init
 	
@@ -23,17 +23,13 @@ struct RapidTestInformation: Codable {
 			jsonData = parsedData
 		}
 		do {
-			self = try JSONDecoder().decode(RapidTestInformation.self, from: jsonData)
+			self = try JSONDecoder().decode(AntigenTestInformation.self, from: jsonData)
 		} catch {
 			Log.debug("Failed to read / parse district json", log: .ppac)
 			return nil
 		}
 	}
-	
-	func verify() {
 		
-	}
-	
 	// MARK: - Internal
 	
 	let guid: String
