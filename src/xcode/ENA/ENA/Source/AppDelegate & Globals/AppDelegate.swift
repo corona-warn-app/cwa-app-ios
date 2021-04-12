@@ -298,7 +298,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		)
 	}()
 
-	var notificationManager: NotificationManager! = NotificationManager()
+	lazy var notificationManager: NotificationManager = {
+		let notificationManager = NotificationManager()
+		notificationManager.appDelegate = self
+
+		return notificationManager
+	}()
 
 	// MARK: - Protocol ENAExposureManagerObserver
 

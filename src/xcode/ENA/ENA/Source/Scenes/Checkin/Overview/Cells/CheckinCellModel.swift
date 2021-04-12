@@ -11,10 +11,11 @@ class CheckinCellModel: EventCellModel {
 
 	init(
 		checkin: Checkin,
-		eventProvider: EventProviding,
+		eventCheckoutService: EventCheckoutService,
 		onUpdate: @escaping () -> Void
 	) {
 		self.checkin = checkin
+		self.eventCheckoutService = eventCheckoutService
 		self.onUpdate = onUpdate
 
 		updateForActiveState()
@@ -33,10 +34,6 @@ class CheckinCellModel: EventCellModel {
 
 	var isActiveIconHidden: Bool = true
 	var isDurationStackViewHidden: Bool = false
-
-	var date: String? {
-		DateFormatter.localizedString(from: checkin.checkinStartDate, dateStyle: .short, timeStyle: .none)
-	}
 
 	var title: String {
 		checkin.traceLocationDescription
@@ -60,6 +57,7 @@ class CheckinCellModel: EventCellModel {
 
 	// MARK: - Private
 
+	private let eventCheckoutService: EventCheckoutService
 	private let onUpdate: () -> Void
 
 	private var subscriptions = Set<AnyCancellable>()
@@ -78,7 +76,7 @@ class CheckinCellModel: EventCellModel {
 
 			timePublisher.value = dateFormatter.string(from: checkin.checkinStartDate, to: checkin.checkinEndDate)
 		} else {
-			let formattedCheckinTime = DateFormatter.localizedString(from: checkin.checkinStartDate, dateStyle: .none, timeStyle: .short)
+			let formattedCheckinTime = DateFormatter.localizedString(from: checkin.checkinStartDate, dateStyle: .short, timeStyle: .short)
 
 			let dateComponentsFormatter = DateComponentsFormatter()
 			dateComponentsFormatter.allowedUnits = [.hour, .minute]
@@ -132,11 +130,13 @@ class CheckinCellModel: EventCellModel {
 
 	@objc
 	private func refreshUpdateTimerAfterResumingFromBackground() {
+		updateFromTimer()
 		scheduleUpdateTimer()
 	}
 
 	@objc
 	private func updateFromTimer() {
+		eventCheckoutService.checkoutOverdueCheckins()
 		updateForActiveState()
 		onUpdate()
 	}

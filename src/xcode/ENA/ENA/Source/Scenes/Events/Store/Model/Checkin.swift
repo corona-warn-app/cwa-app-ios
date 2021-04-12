@@ -30,6 +30,7 @@ struct Checkin: Equatable {
 }
 
 extension Checkin {
+
 	var roundedDurationIn15mSteps: Int {
 		let checkinDurationInM = (checkinEndDate - checkinStartDate) / 60
 		let roundedDuration = Int(round(checkinDurationInM / 15) * 15)
@@ -55,6 +56,7 @@ extension Checkin {
 			checkinCompleted: true,
 			createJournalEntry: self.createJournalEntry)
 	}
+
 }
 
 // MARK: - Submission handling
@@ -73,6 +75,68 @@ extension Checkin {
 		loc.startTimestamp = UInt64(traceLocationStartDate?.timeIntervalSince1970 ?? 0)
 		loc.endTimestamp = UInt64(traceLocationEndDate?.timeIntervalSince1970 ?? 0)
 		return loc
+	}
+
+	func derivingWarningTimeInterval(config: PresenceTracingSubmissionConfiguration) -> Checkin? {
+		let startTimestamp = Int(checkinStartDate.timeIntervalSince1970)
+		let endTimestamp = Int(checkinEndDate.timeIntervalSince1970)
+
+		let durationInSeconds =	max(0, endTimestamp - startTimestamp)
+		let durationInMinutes = durationInSeconds / 60
+
+		let dropDueToDuration = config.durationFilters
+			.map { $0.dropIfMinutesInRange.contains(durationInMinutes) }
+			.contains(true)
+
+		if dropDueToDuration {
+			return nil
+		}
+
+		let aerosoleDecayInSeconds = config.aerosoleDecayLinearFunctions
+			.first { $0.minutesRange.contains(durationInMinutes) }
+			.map {
+				$0.slope * Double(durationInSeconds) + $0.intercept * 60
+			} ?? 0
+
+		let targetDurationInSeconds = round((Double(durationInSeconds) + aerosoleDecayInSeconds) / 600) * 600
+
+		let relevantStartTimestamp = startTimestamp
+		let relevantEndTimestamp = endTimestamp + Int(aerosoleDecayInSeconds)
+
+		let relevantStartIntervalTimestamp = Int(relevantStartTimestamp / 600) * 600
+		let relevantEndIntervalTimestamp = Int(relevantEndTimestamp / 600) * 600
+
+		let overlapWithStartInterval = relevantStartIntervalTimestamp + 600 - relevantStartTimestamp
+		let overlapWithEndInterval = relevantEndTimestamp - relevantEndIntervalTimestamp
+
+		let newStartTimestamp: TimeInterval
+		let newEndTimestamp: TimeInterval
+		if overlapWithEndInterval > overlapWithStartInterval {
+			newEndTimestamp = TimeInterval(relevantEndIntervalTimestamp + 600)
+			newStartTimestamp = newEndTimestamp - targetDurationInSeconds
+		} else {
+			newStartTimestamp = TimeInterval(relevantStartIntervalTimestamp)
+			newEndTimestamp = newStartTimestamp + targetDurationInSeconds
+		}
+
+		return Checkin(
+			id: id,
+			traceLocationId: traceLocationId,
+			traceLocationIdHash: traceLocationIdHash,
+			traceLocationVersion: traceLocationVersion,
+			traceLocationType: traceLocationType,
+			traceLocationDescription: traceLocationDescription,
+			traceLocationAddress: traceLocationAddress,
+			traceLocationStartDate: traceLocationStartDate,
+			traceLocationEndDate: traceLocationEndDate,
+			traceLocationDefaultCheckInLengthInMinutes: traceLocationDefaultCheckInLengthInMinutes,
+			cryptographicSeed: cryptographicSeed,
+			cnPublicKey: cnPublicKey,
+			checkinStartDate: Date(timeIntervalSince1970: newStartTimestamp),
+			checkinEndDate: Date(timeIntervalSince1970: newEndTimestamp),
+			checkinCompleted: checkinCompleted,
+			createJournalEntry: createJournalEntry
+		)
 	}
 
 	/// Converts a `Checkin` to the protobuf structure required for submission
