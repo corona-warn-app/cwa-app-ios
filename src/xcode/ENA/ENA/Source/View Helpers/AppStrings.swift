@@ -94,7 +94,8 @@ enum AppStrings {
 	enum ExposureSubmissionResult {
 		static let title = NSLocalizedString("ExposureSubmissionResult_Title", comment: "")
 		static let card_title = NSLocalizedString("ExposureSubmissionResult_CardTitle", comment: "")
-		static let card_subtitle = NSLocalizedString("ExposureSubmissionResult_CardSubTitle", comment: "")
+		static let card_subtitle_pcr_test = NSLocalizedString("ExposureSubmissionResult_CardSubTitle", comment: "")
+		static let card_subtitle_antigen_test = NSLocalizedString("ExposureSubmissionResult_CardSubTitle_Antigen", comment: "")
 		static let card_positive = NSLocalizedString("ExposureSubmissionResult_CardPositive", comment: "")
 		static let card_negative = NSLocalizedString("ExposureSubmissionResult_CardNegative", comment: "")
 		static let card_invalid = NSLocalizedString("ExposureSubmissionResult_CardInvalid", comment: "")
