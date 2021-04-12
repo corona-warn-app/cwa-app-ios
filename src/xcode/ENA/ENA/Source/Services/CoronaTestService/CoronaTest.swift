@@ -11,7 +11,7 @@ enum CoronaTestType: CaseIterable {
 
 }
 
-enum CoronaTest {
+enum CoronaTest: Test {
 
 	case pcr(PCRTest)
 	case antigen(AntigenTest)
@@ -108,17 +108,33 @@ enum CoronaTest {
 
 }
 
-struct PCRTest: Codable, Equatable {
+protocol Test: Equatable {
+	
+	var registrationToken: String? { get }
 
-	var registrationToken: String?
+	var testResult: TestResult { get }
+	var testResultReceivedDate: Date? { get }
+	var positiveTestResultWasShown: Bool { get }
+
+	var isSubmissionConsentGiven: Bool { get }
+	// Can only be used once to submit, cached here in case submission fails
+	var submissionTAN: String? { get }
+	var keysSubmitted: Bool { get }
+
+	var journalEntryCreated: Bool { get }
+}
+
+struct PCRTest: Test, Codable {
+
 	var registrationDate: Date
+	var registrationToken: String?
 
 	var testResult: TestResult
 	var testResultReceivedDate: Date?
 	var positiveTestResultWasShown: Bool
 
 	var isSubmissionConsentGiven: Bool
-	// Can only be used once to submit, cached here in case submission fails
+
 	var submissionTAN: String?
 	var keysSubmitted: Bool
 
@@ -126,11 +142,11 @@ struct PCRTest: Codable, Equatable {
 
 }
 
-struct AntigenTest: Codable, Equatable {
+struct AntigenTest: Test, Codable {
 
-	var registrationToken: String?
 	// The date of when the consent was provided by the tested person at the Point of Care.
 	var pointOfCareConsentDate: Date
+	var registrationToken: String?
 
 	var testedPerson: TestedPerson
 
@@ -139,7 +155,7 @@ struct AntigenTest: Codable, Equatable {
 	var positiveTestResultWasShown: Bool
 
 	var isSubmissionConsentGiven: Bool
-	// Can only be used once to submit, cached here in case submission fails
+
 	var submissionTAN: String?
 	var keysSubmitted: Bool
 

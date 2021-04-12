@@ -112,9 +112,9 @@ class HomeCoordinator: RequiresAppDependencies {
 					#warning("REMOVE CODE BELOW!")
 					guard let self = self else { return }
 					
-					self.coronaTestService.pcrTest = PCRTest(registrationToken: nil,
-															 registrationDate:  Date().addingTimeInterval(-15 * 3600),
-															 testResult: .pending,
+					self.coronaTestService.pcrTest = PCRTest(registrationDate:  Date().addingTimeInterval(-15 * 3600),
+															 registrationToken: nil,
+															 testResult: .negative,
 															 testResultReceivedDate: nil,
 															 positiveTestResultWasShown: false,
 															 isSubmissionConsentGiven: false,
@@ -122,16 +122,16 @@ class HomeCoordinator: RequiresAppDependencies {
 															 keysSubmitted: false,
 															 journalEntryCreated: false)
 					
-					self.coronaTestService.antigenTest = AntigenTest(registrationToken: nil,
-																pointOfCareConsentDate: Date().addingTimeInterval(-15 * 3600),
-																testedPerson: TestedPerson(name: "Name", birthday: "15.08.2001"),
-																testResult: .pending,
-																testResultReceivedDate: nil,
-																positiveTestResultWasShown: false,
-																isSubmissionConsentGiven: false,
-																submissionTAN: nil,
-																keysSubmitted: false,
-																journalEntryCreated: false)
+					self.coronaTestService.antigenTest = AntigenTest(pointOfCareConsentDate: Date().addingTimeInterval(-15 * 3600),
+																	 registrationToken: nil,
+																	 testedPerson: TestedPerson(name: "Name", birthday: "15.08.2001"),
+																	 testResult: .negative,
+																	 testResultReceivedDate: nil,
+																	 positiveTestResultWasShown: false,
+																	 isSubmissionConsentGiven: false,
+																	 submissionTAN: nil,
+																	 keysSubmitted: false,
+																	 journalEntryCreated: false)
 					
 					let coordinator = ExposureSubmissionCoordinator(
 						parentNavigationController: self.rootViewController,

@@ -661,9 +661,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 /* Exposure Submission Result */
 "ExposureSubmissionResult_Title" = "Ihr Testergebnis";
 
+"ExposureSubmissionResult_Title_Antigen" = "Schnelltest";
+
 "ExposureSubmissionResult_CardSubTitle" = "IHR BEFUND";
 
-"ExposureSubmissionResult_CardSubTitle_Antigen" = "Ihr Schnelltest Befund";
+"ExposureSubmissionResult_CardSubTitle_Antigen" = "Befund";
 
 "ExposureSubmissionResult_CardTitle" = "SARS-CoV-2";
 
@@ -829,6 +831,8 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ExposureSubmissionResult_RegistrationDateUnknown" = "Registrierungsdatum unbekannt";
 
 "ExposureSubmissionResult_RegistrationDate" = "Test hinzugefügt am";
+
+"ExposureSubmissionResult_RegistrationDate_Antigen" = "Ausgestellt:";
 
 /* Exposure Submission */
 

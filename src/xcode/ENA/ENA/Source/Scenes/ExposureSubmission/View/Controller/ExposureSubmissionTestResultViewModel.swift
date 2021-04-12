@@ -51,6 +51,15 @@ class ExposureSubmissionTestResultViewModel {
 		coronaTestService.coronaTest(ofType: coronaTestType).map { Int64($0.testDate.timeIntervalSince1970) }
 	}
 	
+	var title: String {
+		switch coronaTest.type {
+		case .pcr:
+			return AppStrings.ExposureSubmissionResult.PCR.title
+		case .antigen:
+			return AppStrings.ExposureSubmissionResult.Antigen.title
+		}
+	}
+	
 	func didTapPrimaryButton() {
 		switch coronaTest.testResult {
 		case .positive:
@@ -176,153 +185,6 @@ class ExposureSubmissionTestResultViewModel {
 			completion()
 		}
 	}
-
-	/// This is the positive result section which will be shown, if the user
-	/// has GIVEN submission consent to share the positive test result with others
-	var positiveTestResultSectionsWithSubmissionConsent: [DynamicSection] {
-		[
-			.section(
-				header: .identifier(
-					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
-					configure: { view, _ in
-						(view as? ExposureSubmissionTestResultHeaderView)?.configure(coronaTest: self.coronaTest, timeStamp: self.timeStamp)
-					}
-				),
-				separators: .none,
-				cells: [
-					.title2(text: AppStrings.ExposureSubmissionPositiveTestResult.withConsentTitle,
-							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionPositiveTestResult.withConsentTitle),
-					.headline(text: AppStrings.ExposureSubmissionPositiveTestResult.withConsentInfo1,
-							  accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionPositiveTestResult.withConsentInfo1),
-					.body(text: AppStrings.ExposureSubmissionPositiveTestResult.withConsentInfo2, accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionPositiveTestResult.withConsentInfo2)
-				]
-			)
-		]
-	}
-	
-	/// This is the positive result section which will be shown, if the user
-	/// has NOT GIVEN submission consent to share the positive test result with others
-	var positiveTestResultSectionsWithoutSubmissionConsent: [DynamicSection] {
-		[
-			.section(
-				header: .identifier(
-					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
-					configure: { view, _ in
-						(view as? ExposureSubmissionTestResultHeaderView)?.configure(coronaTest: self.coronaTest, timeStamp: self.timeStamp)
-					}
-				),
-				separators: .none,
-				cells: [
-					.title2(text: AppStrings.ExposureSubmissionPositiveTestResult.noConsentTitle,
-							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionPositiveTestResult.noConsentTitle),
-					
-					ExposureSubmissionDynamicCell.stepCell(
-						title: AppStrings.ExposureSubmissionPositiveTestResult.noConsentInfo1,
-						description: nil,
-						icon: UIImage(named: "Icons - Warnen"),
-						iconTint: .enaColor(for: .riskHigh),
-						hairline: .none,
-						bottomSpacing: .normal
-					),
-					ExposureSubmissionDynamicCell.stepCell(
-						style: .body,
-						title: AppStrings.ExposureSubmissionPositiveTestResult.noConsentInfo2,
-						icon: UIImage(named: "Icons - Lock"),
-						iconTint: .enaColor(for: .riskHigh),
-						hairline: .none,
-						bottomSpacing: .normal
-					),
-					ExposureSubmissionDynamicCell.stepCell(
-						style: .body,
-						title: AppStrings.ExposureSubmissionPositiveTestResult.noConsentInfo3,
-						icon: UIImage(named: "Icons - Home"),
-						iconTint: .enaColor(for: .riskHigh),
-						hairline: .none,
-						bottomSpacing: .normal
-					)
-				]
-			)
-		]
-	}
-	
-	var invalidTestResultSections: [DynamicSection] {
-		[
-			.section(
-				header: .identifier(
-					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
-					configure: { view, _ in
-						(view as? ExposureSubmissionTestResultHeaderView)?.configure(coronaTest: self.coronaTest, timeStamp: self.timeStamp)
-					}
-				),
-				separators: .none,
-				cells: [
-					.title2(text: AppStrings.ExposureSubmissionResult.procedure,
-							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure),
-					
-					ExposureSubmissionDynamicCell.stepCell(
-						title: AppStrings.ExposureSubmissionResult.pcrTestAdded,
-						description: nil,
-						icon: UIImage(named: "Icons_Grey_Check"),
-						hairline: .iconAttached
-					),
-					
-					ExposureSubmissionDynamicCell.stepCell(
-						title: AppStrings.ExposureSubmissionResult.testInvalid,
-						description: AppStrings.ExposureSubmissionResult.testInvalidDesc,
-						icon: UIImage(named: "Icons_Grey_Error"),
-						hairline: .topAttached
-					),
-					
-					ExposureSubmissionDynamicCell.stepCell(
-						title: AppStrings.ExposureSubmissionResult.testRemove,
-						description: AppStrings.ExposureSubmissionResult.testRemoveDesc,
-						icon: UIImage(named: "Icons_Grey_Entfernen"),
-						hairline: .none
-					)
-				]
-			)
-		]
-	}
-	
-	var expiredTestResultSections: [DynamicSection] {
-		[
-			.section(
-				header: .identifier(
-					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
-					configure: { view, _ in
-						(view as? ExposureSubmissionTestResultHeaderView)?.configure(coronaTest: self.coronaTest, timeStamp: self.timeStamp)
-					}
-				),
-				separators: .none,
-				cells: [
-					.title2(text: AppStrings.ExposureSubmissionResult.procedure,
-							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure),
-					
-					ExposureSubmissionDynamicCell.stepCell(
-						title: AppStrings.ExposureSubmissionResult.pcrTestAdded,
-						description: nil,
-						icon: UIImage(named: "Icons_Grey_Check"),
-						hairline: .iconAttached
-					),
-					
-					ExposureSubmissionDynamicCell.stepCell(
-						title: AppStrings.ExposureSubmissionResult.testExpired,
-						description: AppStrings.ExposureSubmissionResult.testExpiredDesc,
-						icon: UIImage(named: "Icons_Grey_Error"),
-						hairline: .topAttached
-					),
-					
-					ExposureSubmissionDynamicCell.stepCell(
-						title: AppStrings.ExposureSubmissionResult.testRemove,
-						description: AppStrings.ExposureSubmissionResult.testRemoveDesc,
-						icon: UIImage(named: "Icons_Grey_Entfernen"),
-						hairline: .none
-					)
-				]
-			)
-		]
-	}
-
 }
 
 extension ExposureSubmissionTestResultViewModel {
