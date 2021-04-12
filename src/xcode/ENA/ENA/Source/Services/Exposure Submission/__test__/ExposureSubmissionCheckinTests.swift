@@ -65,12 +65,10 @@ class ExposureSubmissionCheckinTests: XCTestCase {
 			appConfig: appConfig,
 			symptomOnset: .daysSinceOnset(0)
 		)
-		
+
 		XCTAssertEqual(preparedCheckins.count, 1)
 
 		XCTAssertEqual(preparedCheckins[0].startIntervalNumber, expectedStartIntervalNumber)
 		XCTAssertEqual(preparedCheckins[0].endIntervalNumber, expectedEndIntervalNumber)
-
-		waitForExpectations(timeout: .short)
 	}
 }
