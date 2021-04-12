@@ -38,7 +38,8 @@ class UpdateCheckinQuery: StoreQueryProtocol {
 			checkinStartDate = ?,
 			checkinEndDate = ?,
 			checkinCompleted = ?,
-			createJournalEntry = ?
+			createJournalEntry = ?,
+			checkinSubmitted = ?
 			WHERE id = ?;
 		"""
 
@@ -71,6 +72,7 @@ class UpdateCheckinQuery: StoreQueryProtocol {
 					Int(checkin.checkinEndDate.timeIntervalSince1970),
 					checkin.checkinCompleted,
 					checkin.createJournalEntry,
+					checkin.checkinSubmitted,
 					checkin.id
 				]
 			)

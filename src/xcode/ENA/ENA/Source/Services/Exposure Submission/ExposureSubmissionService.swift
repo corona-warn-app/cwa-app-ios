@@ -164,12 +164,35 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			.appConfiguration()
 			.sink { appConfig in
 				// Fetch & process keys and checkins
-				let processedKeys = keys.processedForSubmission(with: self.symptomsOnset)
-				self.preparedCheckinsForSubmission(with: self.eventStore, appConfig: appConfig, symptomOnset: self.symptomsOnset, completion: { checkins in
-					// Request needs to be prepended by the fake request.
-					self._fakeVerificationServerRequest(completion: { _ in
-						self._submitExposure(processedKeys, visitedCountries: self.supportedCountries, attendedEvents: checkins, completion: completion)
-					})
+				let processedKeys = keys.processedForSubmission(
+					with: self.symptomsOnset
+				)
+				let checkins = self.eventStore.checkinsPublisher.value
+				let processedCheckins = self.preparedCheckinsForSubmission(
+					checkins: checkins,
+					appConfig: appConfig,
+					symptomOnset: self.symptomsOnset
+				)
+
+				// Request needs to be prepended by the fake request.
+				self._fakeVerificationServerRequest(completion: { _ in
+					self._submitExposure(
+						processedKeys,
+						visitedCountries: self.supportedCountries,
+						checkins: processedCheckins,
+						completion: { [weak self] error in
+
+							// If there was no error during submission,
+							// update the checkins to checkinSubmitted = true.
+							if error == nil {
+								for checkin in checkins {
+									let updatedCheckin = checkin.updatedCheckin(checkinSubmitted: true)
+									self?.eventStore.updateCheckin(updatedCheckin)
+								}
+							}
+							completion(error)
+						}
+					)
 				})
 			}
 			.store(in: &subscriptions)
@@ -409,7 +432,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	private func _submitExposure(
 		_ keys: [SAP_External_Exposurenotification_TemporaryExposureKey],
 		visitedCountries: [Country],
-		attendedEvents events: [SAP_Internal_Pt_CheckIn],
+		checkins: [SAP_Internal_Pt_CheckIn],
 		completion: @escaping ExposureSubmissionHandler
 	) {
 		_getTANForExposureSubmit(hasConsent: true, completion: { result in
@@ -417,7 +440,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			case let .failure(error):
 				completion(error)
 			case let .success(tan):
-				self._submit(keys, with: tan, visitedCountries: visitedCountries, attendedEvents: events, completion: completion)
+				self._submit(keys, with: tan, visitedCountries: visitedCountries, checkins: checkins, completion: completion)
 			}
 		})
 	}
@@ -429,13 +452,13 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		_ keys: [SAP_External_Exposurenotification_TemporaryExposureKey],
 		with tan: String,
 		visitedCountries: [Country],
-		attendedEvents events: [SAP_Internal_Pt_CheckIn],
+		checkins: [SAP_Internal_Pt_CheckIn],
 		completion: @escaping ExposureSubmissionHandler
 	) {
 		let payload = CountrySubmissionPayload(
 			exposureKeys: keys,
 			visitedCountries: visitedCountries,
-			eventCheckIns: events,
+			checkins: checkins,
 			tan: tan
 		)
 		client.submit(payload: payload, isFake: false) { result in
@@ -530,7 +553,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		let payload = CountrySubmissionPayload(
 			exposureKeys: [],
 			visitedCountries: [],
-			eventCheckIns: [],
+			checkins: [],
 			tan: ENAExposureSubmissionService.fakeSubmissionTan
 		)
 

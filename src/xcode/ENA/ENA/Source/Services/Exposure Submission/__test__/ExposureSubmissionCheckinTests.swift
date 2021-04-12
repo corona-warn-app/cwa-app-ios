@@ -11,32 +11,25 @@ class ExposureSubmissionCheckinTests: XCTestCase {
         let service = MockExposureSubmissionService()
 		let appConfig = CachedAppConfigurationMock.defaultAppConfiguration
 
-		let eventStore = MockEventStore()
-		eventStore.createCheckin(Checkin.mock(
+		let checkin = Checkin.mock(
 			checkinStartDate: try XCTUnwrap(Calendar.current.date(byAdding: .day, value: -20, to: Date())),
 			checkinEndDate: Date()
-		))
+		)
 
 		// process checkins
-		let processingDone = expectation(description: "processing done")
-		service.preparedCheckinsForSubmission(
-			with: eventStore,
+		let preparedCheckins = service.preparedCheckinsForSubmission(
+			checkins: [checkin],
 			appConfig: appConfig,
 			symptomOnset: .daysSinceOnset(0)
-		) { checkins in
-			XCTAssertEqual(checkins.count, 5)
+		)
 
-			XCTAssertEqual(checkins[0].transmissionRiskLevel, 4)
-			XCTAssertEqual(checkins[1].transmissionRiskLevel, 6)
-			XCTAssertEqual(checkins[2].transmissionRiskLevel, 7)
-			XCTAssertEqual(checkins[3].transmissionRiskLevel, 8)
-			XCTAssertEqual(checkins[4].transmissionRiskLevel, 8)
+		XCTAssertEqual(preparedCheckins.count, 5)
 
-			processingDone.fulfill()
-		}
-
-		waitForExpectations(timeout: .short)
-		eventStore.cleanup()
+		XCTAssertEqual(preparedCheckins[0].transmissionRiskLevel, 4)
+		XCTAssertEqual(preparedCheckins[1].transmissionRiskLevel, 6)
+		XCTAssertEqual(preparedCheckins[2].transmissionRiskLevel, 7)
+		XCTAssertEqual(preparedCheckins[3].transmissionRiskLevel, 8)
+		XCTAssertEqual(preparedCheckins[4].transmissionRiskLevel, 8)
     }
 
 	func testDerivingWarningTimeInterval() throws {
@@ -55,34 +48,25 @@ class ExposureSubmissionCheckinTests: XCTestCase {
 		let expectedStartIntervalNumber = UInt32(keptStartDate.timeIntervalSince1970 / 600)
 		let expectedEndIntervalNumber = UInt32(derivedEndDate.timeIntervalSince1970 / 600)
 
-		let eventStore = MockEventStore()
-		eventStore.createCheckin(Checkin.mock(
+		let checkin1 = Checkin.mock(
 			checkinStartDate: filteredStartDate,
 			checkinEndDate: filteredEndDate
-		))
-
-		eventStore.createCheckin(Checkin.mock(
+		)
+		let checkin2 = Checkin.mock(
 			checkinStartDate: keptStartDate,
 			checkinEndDate: keptEndDate
-		))
+		)
 
 		// process checkins
-		let processingDone = expectation(description: "processing done")
-		service.preparedCheckinsForSubmission(
-			with: eventStore,
+		let preparedCheckins = service.preparedCheckinsForSubmission(
+			checkins: [checkin1, checkin2],
 			appConfig: appConfig,
 			symptomOnset: .daysSinceOnset(0)
-		) { checkins in
-			XCTAssertEqual(checkins.count, 1)
+		)
 
-			XCTAssertEqual(checkins[0].startIntervalNumber, expectedStartIntervalNumber)
-			XCTAssertEqual(checkins[0].endIntervalNumber, expectedEndIntervalNumber)
+		XCTAssertEqual(preparedCheckins.count, 1)
 
-			processingDone.fulfill()
-		}
-
-		waitForExpectations(timeout: .short)
-		eventStore.cleanup()
+		XCTAssertEqual(preparedCheckins[0].startIntervalNumber, expectedStartIntervalNumber)
+		XCTAssertEqual(preparedCheckins[0].endIntervalNumber, expectedEndIntervalNumber)
 	}
-
 }
