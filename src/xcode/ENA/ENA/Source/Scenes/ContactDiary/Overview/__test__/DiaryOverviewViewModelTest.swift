@@ -27,6 +27,7 @@ class DiaryOverviewViewModelTest: XCTestCase {
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
+			coronaTestService: CoronaTestService(client: ClientMock(), store: store),
 			exposureSubmissionService: MockExposureSubmissionService(),
 			statisticsProvider: StatisticsProvider(
 				client: CachingHTTPClientMock(store: store),

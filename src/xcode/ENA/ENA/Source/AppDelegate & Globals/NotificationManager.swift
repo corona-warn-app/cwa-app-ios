@@ -6,10 +6,10 @@ import Foundation
 import NotificationCenter
 
 final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
+
 	weak var appDelegate: AppDelegate?
 
 	func userNotificationCenter(_: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-
 		// Checkout a event checkin.
 		if notification.request.identifier.contains(EventCheckoutService.notificationIdentifierPrefix) {
 			appDelegate?.eventCheckoutService.checkoutOverdueCheckins()
@@ -24,14 +24,16 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 			 ActionableNotificationIdentifier.deviceTimeCheck.identifier:
 			appDelegate?.showHome()
 
-		case ActionableNotificationIdentifier.warnOthersReminder1.identifier,
-			 ActionableNotificationIdentifier.warnOthersReminder2.identifier:
+		case ActionableNotificationIdentifier.pcrWarnOthersReminder1.identifier,
+			 ActionableNotificationIdentifier.pcrWarnOthersReminder2.identifier,
+			 ActionableNotificationIdentifier.antigenWarnOthersReminder1.identifier,
+			 ActionableNotificationIdentifier.antigenWarnOthersReminder2.identifier:
 			showPositiveTestResultIfNeeded()
 
 		case ActionableNotificationIdentifier.testResult.identifier:
-			let testIdenifier = ActionableNotificationIdentifier.testResult.identifier
-			guard let testResultRawValue = response.notification.request.content.userInfo[testIdenifier] as? Int,
-				  let testResult = TestResult(rawValue: testResultRawValue) else {
+			let testIdentifier = ActionableNotificationIdentifier.testResult.identifier
+			guard let testResultRawValue = response.notification.request.content.userInfo[testIdentifier] as? Int,
+				  let testResult = TestResult(serverResponse: testResultRawValue) else {
 				appDelegate?.showHome()
 				return
 			}
@@ -52,12 +54,10 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 	}
 
 	private func showPositiveTestResultIfNeeded() {
-		guard let store = appDelegate?.store else {
-			// this should be a unit test
-			return
-		}
-		let warnOthersReminder = WarnOthersReminder(store: store)
-		guard warnOthersReminder.positiveTestResultWasShown else {
+		guard
+			let coronaTestService = appDelegate?.coronaTestService,
+			coronaTestService.pcrTest?.positiveTestResultWasShown == true || coronaTestService.antigenTest?.positiveTestResultWasShown == true
+		else {
 			return
 		}
 

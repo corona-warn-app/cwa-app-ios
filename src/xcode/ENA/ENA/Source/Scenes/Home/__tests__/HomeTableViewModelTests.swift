@@ -16,6 +16,7 @@ class HomeTableViewModelTests: XCTestCase {
 				riskProvider: MockRiskProvider(),
 				exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 				enState: .enabled,
+				coronaTestService: CoronaTestService(client: ClientMock(), store: store),
 				exposureSubmissionService: MockExposureSubmissionService(),
 				statisticsProvider: StatisticsProvider(
 					client: CachingHTTPClientMock(store: store),
@@ -59,7 +60,7 @@ class HomeTableViewModelTests: XCTestCase {
 
 	func testRiskAndTestRowsIfKeysSubmitted() {
 		let store = MockTestStore()
-		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = Int64(Date().timeIntervalSince1970)
+		store.pcrTest = PCRTest.mock(keysSubmitted: true)
 		
 		let viewModel = HomeTableViewModel(
 			state: .init(
@@ -67,6 +68,7 @@ class HomeTableViewModelTests: XCTestCase {
 				riskProvider: MockRiskProvider(),
 				exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 				enState: .enabled,
+				coronaTestService: CoronaTestService(client: ClientMock(), store: store),
 				exposureSubmissionService: MockExposureSubmissionService(),
 				statisticsProvider: StatisticsProvider(
 					client: CachingHTTPClientMock(store: store),
@@ -83,8 +85,7 @@ class HomeTableViewModelTests: XCTestCase {
 	
 	func testRiskAndTestRowsIfPositiveTestResultWasShown() {
 		let store = MockTestStore()
-		store.registrationToken = "FAKETOKEN!"
-		store.positiveTestResultWasShown = true
+		store.pcrTest = PCRTest.mock(registrationToken: "FAKETOKEN!", testResult: .positive, positiveTestResultWasShown: true)
 		
 		let sut = HomeTableViewModel(
 			state: .init(
@@ -92,6 +93,7 @@ class HomeTableViewModelTests: XCTestCase {
 				riskProvider: MockRiskProvider(),
 				exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 				enState: .enabled,
+				coronaTestService: CoronaTestService(client: ClientMock(), store: store),
 				exposureSubmissionService: MockExposureSubmissionService(),
 				statisticsProvider: StatisticsProvider(
 					client: CachingHTTPClientMock(store: store),
@@ -115,6 +117,7 @@ class HomeTableViewModelTests: XCTestCase {
 				riskProvider: MockRiskProvider(),
 				exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 				enState: .enabled,
+				coronaTestService: CoronaTestService(client: ClientMock(), store: store),
 				exposureSubmissionService: MockExposureSubmissionService(),
 				statisticsProvider: StatisticsProvider(
 					client: CachingHTTPClientMock(store: store),
@@ -144,6 +147,7 @@ class HomeTableViewModelTests: XCTestCase {
 				riskProvider: MockRiskProvider(),
 				exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 				enState: .enabled,
+				coronaTestService: CoronaTestService(client: ClientMock(), store: store),
 				exposureSubmissionService: MockExposureSubmissionService(),
 				statisticsProvider: StatisticsProvider(
 					client: CachingHTTPClientMock(store: store),
@@ -173,6 +177,7 @@ class HomeTableViewModelTests: XCTestCase {
 				riskProvider: MockRiskProvider(),
 				exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 				enState: .enabled,
+				coronaTestService: CoronaTestService(client: ClientMock(), store: store),
 				exposureSubmissionService: MockExposureSubmissionService(),
 				statisticsProvider: StatisticsProvider(
 					client: CachingHTTPClientMock(store: store),
@@ -182,8 +187,7 @@ class HomeTableViewModelTests: XCTestCase {
 			store: store
 		)
 
-		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = 12345678
-		store.testResultReceivedTimeStamp = 23456789
+		store.pcrTest = PCRTest.mock(testResultReceivedDate: Date(timeIntervalSince1970: 23456789), keysSubmitted: true)
 
 		viewModel.reenableRiskDetection()
 

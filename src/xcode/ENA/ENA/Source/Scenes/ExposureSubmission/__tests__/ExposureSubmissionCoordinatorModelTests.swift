@@ -9,7 +9,8 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 	func testSymptomsOptionYesSelected() {
 		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: MockExposureSubmissionService()
+			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore())
 		)
 
 		model.symptomsOptionSelected(.yes)
@@ -26,9 +27,11 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		}
 
 		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService
+			exposureSubmissionService: exposureSubmissionService,
+			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore())
 		)
 
+		model.coronaTestType = .pcr
 		model.symptomsOptionSelected(.no)
 
 		// Submit to check that correct symptoms onset is set
@@ -49,9 +52,11 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		}
 
 		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService
+			exposureSubmissionService: exposureSubmissionService,
+			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore())
 		)
 
+		model.coronaTestType = .pcr
 		model.symptomsOptionSelected(.preferNotToSay)
 
 		// Submit to check that correct symptoms onset is set
@@ -74,8 +79,11 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		}
 
 		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService
+			exposureSubmissionService: exposureSubmissionService,
+			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore())
 		)
+
+		model.coronaTestType = .pcr
 
 		let yesterday = try XCTUnwrap(Calendar.gregorian().date(byAdding: .day, value: -1, to: Date()))
 
@@ -98,9 +106,11 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		}
 
 		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService
+			exposureSubmissionService: exposureSubmissionService,
+			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore())
 		)
 
+		model.coronaTestType = .pcr
 		model.symptomsOnsetOptionSelected(.lastSevenDays)
 
 		// Submit to check that correct symptoms onset is set
@@ -120,9 +130,11 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		}
 
 		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService
+			exposureSubmissionService: exposureSubmissionService,
+			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore())
 		)
 
+		model.coronaTestType = .pcr
 		model.symptomsOnsetOptionSelected(.oneToTwoWeeksAgo)
 
 		// Submit to check that correct symptoms onset is set
@@ -143,9 +155,11 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		}
 
 		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService
+			exposureSubmissionService: exposureSubmissionService,
+			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore())
 		)
 
+		model.coronaTestType = .pcr
 		model.symptomsOnsetOptionSelected(.moreThanTwoWeeksAgo)
 
 		// Submit to check that correct symptoms onset is set
@@ -165,9 +179,11 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		}
 
 		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService
+			exposureSubmissionService: exposureSubmissionService,
+			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore())
 		)
 
+		model.coronaTestType = .pcr
 		model.symptomsOnsetOptionSelected(.preferNotToSay)
 
 		// Submit to check that correct symptoms onset is set
@@ -187,8 +203,11 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		}
 
 		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService
+			exposureSubmissionService: exposureSubmissionService,
+			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore())
 		)
+
+		model.coronaTestType = .pcr
 
 		let expectedIsLoadingValues = [true, false]
 		var isLoadingValues = [Bool]()
@@ -221,8 +240,11 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		}
 
 		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService
+			exposureSubmissionService: exposureSubmissionService,
+			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore())
 		)
+
+		model.coronaTestType = .pcr
 
 		let expectedIsLoadingValues = [true, false]
 		var isLoadingValues = [Bool]()
@@ -255,8 +277,11 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		}
 
 		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService
+			exposureSubmissionService: exposureSubmissionService,
+			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore())
 		)
+
+		model.coronaTestType = .pcr
 
 		let expectedIsLoadingValues = [true, false]
 		var isLoadingValues = [Bool]()
@@ -291,8 +316,11 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		}
 
 		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService
+			exposureSubmissionService: exposureSubmissionService,
+			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore())
 		)
+
+		model.coronaTestType = .pcr
 
 		let expectedIsLoadingValues = [true, false]
 		var isLoadingValues = [Bool]()
@@ -321,13 +349,14 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 	func testGetTestResultSucceeds() {
 		let expectedTestResult: TestResult = .positive
 
-		let exposureSubmissionService = MockExposureSubmissionService()
-		exposureSubmissionService.getTestResultCallback = { completion in
-			completion(.success(expectedTestResult))
+		let client = ClientMock()
+		client.onGetTestResult = { _, _, completion in
+			completion(.success(expectedTestResult.rawValue))
 		}
 
 		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService
+			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTestService: CoronaTestService(client: client, store: MockTestStore())
 		)
 
 		let expectedIsLoadingValues = [true, false]
@@ -341,8 +370,9 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		let onErrorExpectation = expectation(description: "onError is not called")
 		onErrorExpectation.isInverted = true
 
-		model.getTestResults(
-			for: .guid(""),
+		model.registerPCRTestAndGetResult(
+			for: "",
+			isSubmissionConsentGiven: true,
 			isLoading: {
 				isLoadingValues.append($0)
 				isLoadingExpectation.fulfill()
@@ -360,15 +390,18 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 	}
 
 	func testGetTestResultFails() {
-		let expectedError: ExposureSubmissionError = .unknown
+		let expectedError: CoronaTestServiceError = .responseFailure(.invalidResponse)
 
 		let exposureSubmissionService = MockExposureSubmissionService()
-		exposureSubmissionService.getTestResultCallback = { completion in
-			completion(.failure(expectedError))
+
+		let client = ClientMock()
+		client.onGetTestResult = { _, _, completion in
+			completion(.failure(.invalidResponse))
 		}
 
 		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService
+			exposureSubmissionService: exposureSubmissionService,
+			coronaTestService: CoronaTestService(client: client, store: MockTestStore())
 		)
 
 		let expectedIsLoadingValues = [true, false]
@@ -382,8 +415,9 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 		let onErrorExpectation = expectation(description: "onError is called")
 
-		model.getTestResults(
-			for: .guid(""),
+		model.registerPCRTestAndGetResult(
+			for: "",
+			isSubmissionConsentGiven: true,
 			isLoading: {
 				isLoadingValues.append($0)
 				isLoadingExpectation.fulfill()

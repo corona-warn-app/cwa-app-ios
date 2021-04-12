@@ -14,14 +14,17 @@ final class DMPPAnalyticsViewModel {
 	init(
 		store: Store,
 		client: Client,
-		appConfig: AppConfigurationProviding
+		appConfig: AppConfigurationProviding,
+		coronaTestService: CoronaTestService
 	) {
 		self.store = store
 		self.client = client
 		self.submitter = PPAnalyticsSubmitter(
 			store: store,
 			client: client,
-			appConfig: appConfig)
+			appConfig: appConfig,
+			coronaTestService: coronaTestService
+		)
 	}
 
 	// MARK: - Internal

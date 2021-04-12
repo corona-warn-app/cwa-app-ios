@@ -52,10 +52,6 @@ class HomeTableViewModel {
 				return [.risk, .testResult]
 			} else if UserDefaults.standard.string(forKey: "showPositiveTestResult") == "YES" {
 				return [.shownPositiveTestResult]
-			} else if state.positiveTestResultWasShown {
-				return [.shownPositiveTestResult]
-			} else {
-				return [.risk, .testResult]
 			}
 		}
 		#endif
@@ -126,11 +122,7 @@ class HomeTableViewModel {
 	}
 
 	func reenableRiskDetection() {
-		store.positiveTestResultWasShown = false
-		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = nil
-		store.testResultReceivedTimeStamp = nil
-
-		state.testResult = nil
+		state.coronaTestService.removeTest(.pcr)
 		state.requestRisk(userInitiated: true)
 	}
 

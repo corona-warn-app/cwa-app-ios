@@ -13,9 +13,13 @@ class TestResultAvailableViewModelTest: XCTestCase {
 		let expectationFulFill = expectation(description: "primary button code execute")
 		let expectationNotFulFill = expectation(description: "consent cell code excecute")
 		expectationNotFulFill.isInverted = true
+
+		let store = MockTestStore()
+		store.pcrTest = PCRTest.mock(testResult: .positive)
 		
 		let viewModel = TestResultAvailableViewModel(
-			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTestType: .pcr,
+			coronaTestService: CoronaTestService(client: ClientMock(), store: store),
 			onSubmissionConsentCellTap: { _ in
 				expectationNotFulFill.fulfill()
 			},
@@ -34,13 +38,16 @@ class TestResultAvailableViewModelTest: XCTestCase {
 	
 	func testGIVEN_ViewModel_WHEN_getDynamicTableViewModel_THEN_SectionsAndCellMatchExpectation() {
 		// GIVEN
-		let exposureSubmissionService = MockExposureSubmissionService()
 		let expectationNotFulFill = expectation(description: "consent cell code excecute")
 		expectationNotFulFill.isInverted = true
 		var bindings: Set<AnyCancellable> = []
 
+		let store = MockTestStore()
+		store.pcrTest = PCRTest.mock(testResult: .positive)
+
 		let viewModel = TestResultAvailableViewModel(
-			exposureSubmissionService: exposureSubmissionService,
+			coronaTestType: .pcr,
+			coronaTestService: CoronaTestService(client: ClientMock(), store: store),
 			onSubmissionConsentCellTap: { _ in
 				expectationNotFulFill.fulfill()
 			},
@@ -67,14 +74,17 @@ class TestResultAvailableViewModelTest: XCTestCase {
 	
 	func testGIVEN_ViewModel_WHEN_GetIconCellActionTigger_THEN_ExpectationFulfill() {
 		// GIVEN
-		let exposureSubmissionService = MockExposureSubmissionService()
 		let expectationFulFill = expectation(description: "primary button code execute")
 		let expectationNotFulFill = expectation(description: "consent cell code excecute")
 		expectationNotFulFill.isInverted = true
 		var bindings: Set<AnyCancellable> = []
 
+		let store = MockTestStore()
+		store.pcrTest = PCRTest.mock(testResult: .positive)
+
 		let viewModel = TestResultAvailableViewModel(
-			exposureSubmissionService: exposureSubmissionService,
+			coronaTestType: .pcr,
+			coronaTestService: CoronaTestService(client: ClientMock(), store: store),
 			onSubmissionConsentCellTap: { _ in
 				expectationFulFill.fulfill()
 			},

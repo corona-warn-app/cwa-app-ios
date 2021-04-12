@@ -38,6 +38,7 @@ final class DMDeveloperMenu {
 		exposureSubmissionService: ExposureSubmissionService,
 		serverEnvironment: ServerEnvironment,
 		otpService: OTPServiceProviding,
+		coronaTestService: CoronaTestService,
 		eventStore: EventStoringProviding,
 		qrCodePosterTemplateProvider: QRCodePosterTemplateProviding
 	) {
@@ -50,6 +51,7 @@ final class DMDeveloperMenu {
 		self.exposureSubmissionService = exposureSubmissionService
 		self.serverEnvironment = serverEnvironment
 		self.otpService = otpService
+		self.coronaTestService = coronaTestService
         self.eventStore = eventStore
 		self.qrCodePosterTemplateProvider = qrCodePosterTemplateProvider
 	}
@@ -65,6 +67,7 @@ final class DMDeveloperMenu {
 	private let developerStore: DMStore
 	private let serverEnvironment: ServerEnvironment
 	private let otpService: OTPServiceProviding
+	private let coronaTestService: CoronaTestService
 	private let qrCodePosterTemplateProvider: QRCodePosterTemplateProviding
 
 	// MARK: Interacting with the developer menu
@@ -92,6 +95,7 @@ final class DMDeveloperMenu {
 			wifiClient: wifiClient,
 			exposureSubmissionService: exposureSubmissionService,
 			otpService: otpService,
+			coronaTestService: coronaTestService,
 			eventStore: eventStore,
 			qrCodePosterTemplateProvider: qrCodePosterTemplateProvider
 		)

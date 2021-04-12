@@ -110,11 +110,6 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		
 		// setting up launch arguments
 		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
-		app.launchArguments += [UITestingParameters.ExposureSubmission.useMock.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.loadSupportedCountriesSuccess.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.getTemporaryExposureKeysSuccess.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.getRegistrationTokenSuccess.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.submitExposureSuccess.rawValue]
 		
 		// launch and navigate to the desired screen
 		launch()
@@ -130,11 +125,6 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 	
 	func test_SubmitTAN_SymptomsOptionNo() {
 		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
-		app.launchArguments += [UITestingParameters.ExposureSubmission.useMock.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.loadSupportedCountriesSuccess.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.getTemporaryExposureKeysSuccess.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.getRegistrationTokenSuccess.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.submitExposureSuccess.rawValue]
 		launch()
 		navigateToSymptomsScreen()
 
@@ -165,21 +155,13 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		XCTAssertTrue(btnContinue.isEnabled)
 		btnContinue.tap()
 		
-		// This may fail in future because of the Thank You card. So, just check the home screen
-		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .long))
-
 		// Back to homescreen
-		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .long))
-		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].isHittable)
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].isHittable)
 	}
 
 	func test_SubmitTAN_SymptomsOptionPreferNotToSay() {
 		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
-		app.launchArguments += [UITestingParameters.ExposureSubmission.useMock.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.loadSupportedCountriesSuccess.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.getTemporaryExposureKeysSuccess.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.getRegistrationTokenSuccess.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.submitExposureSuccess.rawValue]
 		launch()
 		navigateToSymptomsScreen()
 
@@ -210,21 +192,13 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		XCTAssertTrue(btnContinue.isEnabled)
 		btnContinue.tap()
 		
-		// This button ID might fail in future versions because of the to be added 'Thank You' card.
-		// Currently UI tests CURRENTLY don't reflect the correct UI state after this test.
-		// 'Thank You' should be visible and is expected in non-ui tests!
-		let thankYouCardID = AccessibilityIdentifiers.Home.submitCardButton
-		XCTAssertTrue(app.cells.buttons[thankYouCardID].waitForExistence(timeout: .long))
-		XCTAssertTrue(app.cells.buttons[thankYouCardID].isHittable)
+		// Back to homescreen
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].isHittable)
 	}
 
 	func test_SubmitTAN_SymptomsOnsetDateOption() {
 		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
-		app.launchArguments += [UITestingParameters.ExposureSubmission.useMock.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.loadSupportedCountriesSuccess.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.getTemporaryExposureKeysSuccess.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.getRegistrationTokenSuccess.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.submitExposureSuccess.rawValue]
 		launch()
 		navigateToSymptomsOnsetScreen()
 
@@ -301,18 +275,14 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		XCTAssertTrue(btnContinue.isEnabled)
 		btnContinue.tap()
 		
-		// This may fail in future because of the Thank You card. So, just check the home screen
-		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .long))
-		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].isHittable)
+		// Back to homescreen
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].isHittable)
+
 	}
 
 	func test_SubmitTAN_CancelOnTestResultScreen() {
 		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
-		app.launchArguments += [UITestingParameters.ExposureSubmission.useMock.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.loadSupportedCountriesSuccess.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.getTemporaryExposureKeysSuccess.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.getRegistrationTokenSuccess.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.submitExposureSuccess.rawValue]
 		launch()
 
 		// monitor system dialogues and use default handler to simply dismiss any alert – we don't care for the result
@@ -350,17 +320,12 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		app.alerts.firstMatch.buttons[AccessibilityIdentifiers.General.defaultButton].tap()
 
 		// Back to homescreen
-		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .long))
-		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].isHittable)
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].isHittable)
 	}
 	
 	func test_SubmitTAN_SecondaryFlowWithoutSymptomsScreens() {
 		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
-		app.launchArguments += [UITestingParameters.ExposureSubmission.useMock.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.loadSupportedCountriesSuccess.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.getTemporaryExposureKeysSuccess.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.getRegistrationTokenSuccess.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.submitExposureSuccess.rawValue]
 		launch()
 
 		// monitor system dialogues and use default handler to simply dismiss any alert – we don't care for the result
@@ -407,11 +372,6 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		var screenshotCounter = 0
 
 		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
-		app.launchArguments += [UITestingParameters.ExposureSubmission.useMock.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.getRegistrationTokenSuccess.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.loadSupportedCountriesSuccess.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.getTemporaryExposureKeysSuccess.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.submitExposureSuccess.rawValue]
 		launch()
 
 		// monitor system dialogues and use default handler to simply dismiss any alert – we don't care for the result
@@ -465,11 +425,6 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		var screenshotCounter = 0
 
 		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
-		app.launchArguments += [UITestingParameters.ExposureSubmission.useMock.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.getRegistrationTokenSuccess.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.loadSupportedCountriesSuccess.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.getTemporaryExposureKeysSuccess.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.submitExposureSuccess.rawValue]
 
 		if #available(iOS 13.4, *) {
 			app.resetAuthorizationStatus(for: .camera)
@@ -516,11 +471,6 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		var screenshotCounter = 0
 
 		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.disabled.stringValue])
-		app.launchArguments += [UITestingParameters.ExposureSubmission.useMock.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.getRegistrationTokenSuccess.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.loadSupportedCountriesSuccess.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.getTemporaryExposureKeysSuccess.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.submitExposureSuccess.rawValue]
 		launch()
 		snapshot("tan_submissionflow_\(String(format: "%04d", (screenshotCounter.inc() )))")
 
@@ -558,11 +508,6 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 	// Navigate to the Thank You screen after getting the positive test result.
 	func test_ThankYouScreen_withWarnOthers() {
 		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
-		app.launchArguments += [UITestingParameters.ExposureSubmission.useMock.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.loadSupportedCountriesSuccess.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.getTemporaryExposureKeysSuccess.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.getRegistrationTokenSuccess.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.submitExposureSuccess.rawValue]
 		app.launchArguments.append(contentsOf: ["-testResult", TestResult.positive.stringValue])
 		launch()
 		
@@ -590,24 +535,23 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		app.alerts.firstMatch.buttons.firstMatch.tap() // no
 		
 		// Back to homescreen
-		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .long))
-		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].isHittable)
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].isHittable)
 	}
 
 	// Navigate to the Thank You screen with alert on Test Result Screen.
 	func test_ThankYouScreen_WarnOthersFromAlert() {
 		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
-		app.launchArguments += [UITestingParameters.ExposureSubmission.useMock.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.loadSupportedCountriesSuccess.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.getTemporaryExposureKeysSuccess.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.getRegistrationTokenSuccess.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.submitExposureSuccess.rawValue]
 		app.launchArguments.append(contentsOf: ["-testResult", TestResult.positive.stringValue])
+		app.launchArguments.append(contentsOf: ["-showTestResultAvailableViewController", "YES"])
 		launch()
 		
 		// Open Intro screen.
 		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .long))
 		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].tap()
+
+		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
+		app.buttons["General.primaryFooterButton"].tap()
 		
 		// Open Test Result screen.
 		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
@@ -620,18 +564,15 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .long))
 
 		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].tap()
-		
+
+		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
+		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
+
 		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
-				
+
 		// quick hack - can't easily use `addUIInterruptionMonitor` in this test
-		app.alerts.firstMatch.buttons[AccessibilityIdentifiers.General.cancelButton].tap()
-		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
-		
-		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
-		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
-		
-		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
+		app.alerts.firstMatch.buttons.element(boundBy: 1).tap() // warn
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 		
 		app.navigationBars["ExposureSubmissionNavigationController"].buttons.element(boundBy: 0).tap()
@@ -646,17 +587,12 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		app.alerts.firstMatch.buttons.firstMatch.tap() // yes
 
 		// Back to homescreen
-		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .long))
-		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].isHittable)
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].isHittable)
 	}
 	
 	func test_screenshot_test_result_available() {
 		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
-		app.launchArguments += [UITestingParameters.ExposureSubmission.useMock.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.loadSupportedCountriesSuccess.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.getTemporaryExposureKeysSuccess.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.getRegistrationTokenSuccess.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.submitExposureSuccess.rawValue]
 		app.launchArguments.append(contentsOf: ["-testResult", TestResult.positive.stringValue])
 		app.launchArguments.append(contentsOf: ["-showTestResultAvailableViewController", "YES"])
 		launch()
@@ -711,11 +647,6 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 
 	func test_screenshot_symptoms_onset_date_option() {
 		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
-		app.launchArguments += [UITestingParameters.ExposureSubmission.useMock.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.loadSupportedCountriesSuccess.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.getTemporaryExposureKeysSuccess.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.getRegistrationTokenSuccess.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.submitExposureSuccess.rawValue]
 		launch()
 		navigateToSymptomsOnsetScreen()
 
@@ -728,11 +659,6 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 
 	func test_screenshot_thankyou_screen() {
 		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
-		app.launchArguments += [UITestingParameters.ExposureSubmission.useMock.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.loadSupportedCountriesSuccess.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.getTemporaryExposureKeysSuccess.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.getRegistrationTokenSuccess.rawValue]
-		app.launchArguments += [UITestingParameters.ExposureSubmission.submitExposureSuccess.rawValue]
 		app.launchArguments.append(contentsOf: ["-testResult", TestResult.positive.stringValue])
 		launch()
 
@@ -741,10 +667,6 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].tap()
 
 		// Open Test Result screen.
-		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
-		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
-
-		// Open Warn Others screen.
 		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 
@@ -757,7 +679,8 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		app.alerts.firstMatch.buttons.element(boundBy: 0).tap()
 
 		// Back to homescreen
-		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].isHittable)
 	}
 }
 

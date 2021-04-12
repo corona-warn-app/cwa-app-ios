@@ -14,6 +14,7 @@ class HomeState: ENStateHandlerUpdating {
 		riskProvider: RiskProviding,
 		exposureManagerState: ExposureManagerState,
 		enState: ENStateHandler.State,
+		coronaTestService: CoronaTestService,
 		exposureSubmissionService: ExposureSubmissionService,
 		statisticsProvider: StatisticsProviding
 	) {
@@ -43,6 +44,7 @@ class HomeState: ENStateHandlerUpdating {
 		self.riskProvider = riskProvider
 		self.exposureManagerState = exposureManagerState
 		self.enState = enState
+		self.coronaTestService = coronaTestService
 		self.exposureSubmissionService = exposureSubmissionService
 		self.statisticsProvider = statisticsProvider
 
@@ -107,11 +109,11 @@ class HomeState: ENStateHandlerUpdating {
 	}
 
 	var positiveTestResultWasShown: Bool {
-		store.registrationToken != nil && testResult == .positive && WarnOthersReminder(store: store).positiveTestResultWasShown
+		coronaTestService.pcrTest?.testResult == .positive && coronaTestService.pcrTest?.positiveTestResultWasShown == true
 	}
 
 	var keysWereSubmitted: Bool {
-		store.lastSuccessfulSubmitDiagnosisKeyTimestamp != nil
+		coronaTestService.pcrTest?.keysSubmitted == true
 	}
 
 	var shouldShowDaysSinceInstallation: Bool {
@@ -138,7 +140,7 @@ class HomeState: ENStateHandlerUpdating {
 		// Avoid unnecessary loading.
 		guard testResult == nil || testResult != .positive else { return }
 
-		guard store.registrationToken != nil else {
+		guard coronaTestService.pcrTest?.registrationToken != nil else {
 			testResult = nil
 			return
 		}
@@ -151,7 +153,7 @@ class HomeState: ENStateHandlerUpdating {
 
 		testResultIsLoading = true
 
-		exposureSubmissionService.getTestResult { [weak self] result in
+		coronaTestService.updateTestResult(for: .pcr) { [weak self] result in
 			self?.testResultIsLoading = false
 
 			switch result {
@@ -205,6 +207,7 @@ class HomeState: ENStateHandlerUpdating {
 	private let statisticsProvider: StatisticsProviding
 	private var subscriptions = Set<AnyCancellable>()
 
+	let coronaTestService: CoronaTestService
 	private let exposureSubmissionService: ExposureSubmissionService
 
 	private let riskProvider: RiskProviding

@@ -49,7 +49,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		super.init()
 
 		// Make the analytics working. Should not be called later than at this moment of app initialisation.
-		Analytics.setup(store: store, submitter: self.analyticsSubmitter)
+		Analytics.setup(
+			store: store,
+			coronaTestService: coronaTestService,
+			submitter: self.analyticsSubmitter
+		)
+
+		// Migrate the old pcr test structure from versions older than v2.1
+		coronaTestService.migrate()
 	}
 
 	deinit {
@@ -65,8 +72,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		_: UIApplication,
 		didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
 	) -> Bool {
-
-
 		#if DEBUG
 		setupOnboardingForTesting()
 		setupDatadonationForTesting()
@@ -91,7 +96,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		UNUserNotificationCenter.current().delegate = notificationManager
 
 		/// Setup DeadmanNotification after AppLaunch
-		DeadmanNotificationManager(store: store).scheduleDeadmanNotificationIfNeeded()
+		DeadmanNotificationManager(coronaTestService: coronaTestService).scheduleDeadmanNotificationIfNeeded()
 
 		consumer.didFailCalculateRisk = { [weak self] error in
 			self?.showError(error)
@@ -159,6 +164,53 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
     let serverEnvironment: ServerEnvironment
 	var store: Store
 
+	lazy var coronaTestService: CoronaTestService = {
+		#if DEBUG
+		if isUITesting {
+			var testResult: TestResult?
+			if let testResultStringValue = UserDefaults.standard.string(forKey: "testResult") {
+				testResult = TestResult(stringValue: testResultStringValue)
+			}
+
+			let showTestResultAvailableViewController = UserDefaults.standard.string(forKey: "showTestResultAvailableViewController") == "YES"
+
+			let store = MockTestStore()
+
+			if testResult != nil || showTestResultAvailableViewController {
+				let unwrappedTestResult = testResult ?? .pending
+				store.pcrTest = PCRTest(
+					registrationToken: "asdf",
+					registrationDate: Date(),
+					testResult: unwrappedTestResult,
+					testResultReceivedDate: unwrappedTestResult == .pending ? nil : Date(),
+					positiveTestResultWasShown: !showTestResultAvailableViewController,
+					isSubmissionConsentGiven: UserDefaults.standard.string(forKey: "isSubmissionConsentGiven") == "YES",
+					submissionTAN: nil,
+					keysSubmitted: false,
+					journalEntryCreated: false
+				)
+			}
+
+			var testResultResponse: TestResult?
+			if let testResultStringValue = UserDefaults.standard.string(forKey: "testResultResponse") {
+				testResultResponse = TestResult(stringValue: testResultStringValue)
+			}
+
+			let client = ClientMock()
+			client.onGetTestResult = { _, _, completion in
+				completion(.success(testResultResponse?.rawValue ?? testResult?.rawValue ?? TestResult.pending.rawValue))
+			}
+
+			return CoronaTestService(
+				client: client,
+				store: store
+			)
+		}
+		#endif
+
+		return CoronaTestService(client: client, store: store)
+	}()
+
 	lazy var eventCheckoutService: EventCheckoutService = EventCheckoutService(
 		eventStore: eventStore,
 		contactDiaryStore: contactDiaryStore
@@ -166,12 +218,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	lazy var plausibleDeniabilityService: PlausibleDeniabilityService = {
 		PlausibleDeniabilityService(
-			exposureManager: self.exposureManager,
-			appConfigurationProvider: self.appConfigurationProvider,
 			client: self.client,
 			store: self.store,
-			eventStore: self.eventStore,
-			warnOthersReminder: WarnOthersReminder(store: self.store)
+			coronaTestService: coronaTestService
 		)
 	}()
 
@@ -221,7 +270,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			checkinRiskCalculation: checkinRiskCalculation,
 			keyPackageDownload: keyPackageDownload,
 			traceWarningPackageDownload: traceWarningPackageDownload,
-			exposureDetectionExecutor: exposureDetectionExecutor
+			exposureDetectionExecutor: exposureDetectionExecutor,
+			coronaTestService: coronaTestService
 		)
 		#else
 		return RiskProvider(
@@ -232,7 +282,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			checkinRiskCalculation: checkinRiskCalculation,
 			keyPackageDownload: keyPackageDownload,
 			traceWarningPackageDownload: traceWarningPackageDownload,
-			exposureDetectionExecutor: exposureDetectionExecutor
+			exposureDetectionExecutor: exposureDetectionExecutor,
+			coronaTestService: coronaTestService
 		)
 		#endif
 	}()
@@ -241,7 +292,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		return PPAnalyticsSubmitter(
 			store: store,
 			client: client,
-			appConfig: appConfigurationProvider
+			appConfig: appConfigurationProvider,
+			coronaTestService: coronaTestService
 		)
 	}()
 
@@ -274,7 +326,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			client: self.client,
 			store: self.store,
 			eventStore: self.eventStore,
-			warnOthersReminder: WarnOthersReminder(store: store))
+			coronaTestService: coronaTestService)
 	}
 
 	func requestUpdatedExposureState() {
@@ -327,10 +379,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	/// Resets all stores and notifies the Onboarding and resets all pending notifications
 	func coordinatorUserDidRequestReset(exposureSubmissionService: ExposureSubmissionService) {
-		exposureSubmissionService.reset()
-
 		// Reset key value store. Preserve some values.
-
 		do {
 			/// Following values are excluded from reset:
 			/// - PPAC API Token
@@ -372,6 +421,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		// Reset event store
 		eventStore.reset()
+
+		coronaTestService.updatePublishersFromStore()
 	}
 
 	// MARK: - Protocol ExposureStateUpdating
@@ -510,6 +561,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	lazy var coordinator = RootCoordinator(
 		self,
+		coronaTestService: coronaTestService,
 		contactDiaryStore: contactDiaryStore,
 		eventStore: eventStore,
 		eventCheckoutService: eventCheckoutService,

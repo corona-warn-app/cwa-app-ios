@@ -12,12 +12,14 @@ class ExposureSubmissionTestResultConsentViewModel {
 	
 	init(
 		supportedCountries: [Country],
-		exposureSubmissionService: ExposureSubmissionService,
+		coronaTestType: CoronaTestType,
+		coronaTestService: CoronaTestService,
 		testResultAvailability: TestResultAvailability,
 		dismissCompletion: (() -> Void)?
 	) {
 		self.supportedCountries = supportedCountries.sortedByLocalizedName
-		self.exposureSubmissionService = exposureSubmissionService
+		self.coronaTestType = coronaTestType
+		self.coronaTestService = coronaTestService
 		self.testResultAvailability = testResultAvailability
 		self.dismissCompletion = dismissCompletion
 	}
@@ -35,18 +37,38 @@ class ExposureSubmissionTestResultConsentViewModel {
 							color: nil,
 							accessibilityIdentifier: nil,
 							accessibilityTraits: .header,
-							configure: {[weak self] _, cell, _ in
+							configure: { [weak self] _, cell, _ in
 								guard let self = self else {
 									return
 								}
+
 								let toggleSwitch = UISwitch()
 								cell.accessoryView = toggleSwitch
 								toggleSwitch.onTintColor = .enaColor(for: .tint)
 								toggleSwitch.addTarget(self, action: #selector(self.consentStateChanged), for: .valueChanged)
-								
-								self.exposureSubmissionService.isSubmissionConsentGivenPublisher.sink { isSubmissionConsentGiven in
-									toggleSwitch.isOn = isSubmissionConsentGiven
-								}.store(in: &self.cancellables)
+
+								switch self.coronaTestType {
+								case .pcr:
+									self.coronaTestService.$pcrTest
+										.sink { pcrTest in
+											guard let pcrTest = pcrTest else {
+												return
+											}
+
+											toggleSwitch.isOn = pcrTest.isSubmissionConsentGiven
+										}
+										.store(in: &self.subscriptions)
+								case .antigen:
+									self.coronaTestService.$antigenTest
+										.sink { antigenTest in
+											guard let antigenTest = antigenTest else {
+												return
+											}
+
+											toggleSwitch.isOn = antigenTest.isSubmissionConsentGiven
+										}
+										.store(in: &self.subscriptions)
+								}
 							}
 						),
 						.body(text: AppStrings.AutomaticSharingConsent.switchTitleDescription),
@@ -117,15 +139,21 @@ class ExposureSubmissionTestResultConsentViewModel {
 	// MARK: - Private
 
 	private let supportedCountries: [Country]
+	private let coronaTestType: CoronaTestType
+	private var coronaTestService: CoronaTestService
 	private let testResultAvailability: TestResultAvailability
 	private let dismissCompletion: (() -> Void)?
 	
-	private var cancellables: Set<AnyCancellable> = []
-	private var exposureSubmissionService: ExposureSubmissionService
+	private var subscriptions = Set<AnyCancellable>()
 
 	@objc
 	private func consentStateChanged(switchState: UISwitch) {
-		exposureSubmissionService.isSubmissionConsentGiven = switchState.isOn
+		switch coronaTestType {
+		case .pcr:
+			coronaTestService.pcrTest?.isSubmissionConsentGiven = switchState.isOn
+		case .antigen:
+			coronaTestService.antigenTest?.isSubmissionConsentGiven = switchState.isOn
+		}
 	}
 
 }

@@ -55,7 +55,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 
 		let viewModel = TestableExposureSubmissionQRScannerViewModel(
 			onSuccess: { deviceRegistrationKey in
-				XCTAssertEqual(deviceRegistrationKey, .guid(guid))
+				XCTAssertEqual(deviceRegistrationKey, guid)
 
 				onSuccessExpectation.fulfill()
 			},
@@ -141,7 +141,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 
 		let viewModel = TestableExposureSubmissionQRScannerViewModel(
 			onSuccess: { deviceRegistrationKey in
-				XCTAssertEqual(deviceRegistrationKey, .guid(validGuid))
+				XCTAssertEqual(deviceRegistrationKey, validGuid)
 
 				onSuccessExpectation.fulfill()
 			},

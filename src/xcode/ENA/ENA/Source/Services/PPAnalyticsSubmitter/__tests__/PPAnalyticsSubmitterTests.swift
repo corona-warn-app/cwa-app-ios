@@ -23,7 +23,8 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
 			client: client,
-			appConfig: appConfigurationProvider
+			appConfig: appConfigurationProvider,
+			coronaTestService: CoronaTestService(client: client, store: store)
 		)
 
 		let expectation = self.expectation(description: "completion handler is called without an error")
@@ -73,7 +74,8 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
 			client: client,
-			appConfig: appConfigurationProvider
+			appConfig: appConfigurationProvider,
+			coronaTestService: CoronaTestService(client: client, store: store)
 		)
 
 		let expectation = self.expectation(description: "completion handler is called with an error")
@@ -107,7 +109,8 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
 			client: client,
-			appConfig: appConfigurationProvider
+			appConfig: appConfigurationProvider,
+			coronaTestService: CoronaTestService(client: client, store: store)
 		)
 
 		let expectation = self.expectation(description: "completion handler is called with an error")
@@ -141,7 +144,8 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
 			client: client,
-			appConfig: appConfigurationProvider
+			appConfig: appConfigurationProvider,
+			coronaTestService: CoronaTestService(client: client, store: store)
 		)
 
 		let expectation = self.expectation(description: "completion handler is called with an error")
@@ -174,7 +178,8 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
 			client: client,
-			appConfig: appConfigurationProvider
+			appConfig: appConfigurationProvider,
+			coronaTestService: CoronaTestService(client: client, store: store)
 		)
 
 		let expectation = self.expectation(description: "completion handler is called with an error")
@@ -208,7 +213,8 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
 			client: client,
-			appConfig: appConfigurationProvider
+			appConfig: appConfigurationProvider,
+			coronaTestService: CoronaTestService(client: client, store: store)
 		)
 
 		let expectation = self.expectation(description: "completion handler is called with an error")
@@ -243,7 +249,8 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
 			client: client,
-			appConfig: appConfigurationProvider
+			appConfig: appConfigurationProvider,
+			coronaTestService: CoronaTestService(client: client, store: store)
 		)
 
 		let expectation = self.expectation(description: "completion handler is called with an error")
@@ -279,7 +286,8 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
 			client: client,
-			appConfig: appConfigurationProvider
+			appConfig: appConfigurationProvider,
+			coronaTestService: CoronaTestService(client: client, store: store)
 		)
 
 		let expectation = self.expectation(description: "completion handler is called with an error")
@@ -313,7 +321,8 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
 			client: client,
-			appConfig: appConfigurationProvider
+			appConfig: appConfigurationProvider,
+			coronaTestService: CoronaTestService(client: client, store: store)
 		)
 
 		let expectation = self.expectation(description: "completion handler is called with an error")
@@ -665,7 +674,8 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		return PPAnalyticsSubmitter(
 			store: store,
 			client: client,
-			appConfig: appConfigurationProvider
+			appConfig: appConfigurationProvider,
+			coronaTestService: CoronaTestService(client: client, store: store)
 		)
 	}
 

@@ -9,6 +9,7 @@ enum ExposureSubmissionError: Error, Equatable {
 	case noRegistrationToken
 	case enNotEnabled
 	case notAuthorized
+	case coronaTestServiceError(CoronaTestServiceError)
 
 	/// User has not granted acces to their keys
 	case keysNotShared
@@ -17,6 +18,8 @@ enum ExposureSubmissionError: Error, Equatable {
 	case noKeysCollected
 
 	case noSubmissionConsent
+	case noCoronaTestTypeGiven
+	case noCoronaTestOfGivenType
 	case noDevicePairingConsent
 	case noAppConfiguration
 	case invalidTan

@@ -116,13 +116,11 @@ class ENAUITestsQuickActions: XCTestCase {
 	func testShortcutAvailabilityDuringSubmissionFlow() throws {
 		let app = XCUIApplication()
 		app.setDefaults()
-		app.launchArguments.append(contentsOf: [UITestingParameters.ExposureSubmission.useMock.rawValue])
-		app.launchArguments.append(contentsOf: [UITestingParameters.ExposureSubmission.getRegistrationTokenSuccess.rawValue])
-		app.launchArguments.append(contentsOf: [UITestingParameters.ExposureSubmission.submitExposureSuccess.rawValue])
 
 		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
 		app.launchArguments.append(contentsOf: ["-setCurrentOnboardingVersion", "YES"])
 		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
+		app.launchArguments.append(contentsOf: ["-testResultResponse", TestResult.positive.stringValue])
 		app.launch()
 
 		// Open Intro screen ("Testergebnis abrufen")
@@ -148,9 +146,7 @@ class ENAUITestsQuickActions: XCTestCase {
 		// Result Screen
 		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.primaryButton"].waitForExistence(timeout: .medium))
 		try checkAppMenu(expectNewDiaryItem: false, expectEventCheckin: false) // !!! Quick action should be disabled until we leave the submission flow
-		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 
-		// Warn others screen
 		// We currently back out of the submission flow. This might be extended in future, feel free to add tests for the following views :)
 		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.secondaryButton"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()

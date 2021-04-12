@@ -36,7 +36,7 @@ final class ExposureSubmissionNavigationController: ENANavigationControllerWithF
 	// MARK: - Init
 
 	init(
-		coordinator: ExposureSubmissionCoordinating? = nil,
+		coordinator: ExposureSubmissionCoordinator? = nil,
 		dismissClosure: @escaping () -> Void,
 		rootViewController: UIViewController
 	) {
@@ -84,7 +84,7 @@ final class ExposureSubmissionNavigationController: ENANavigationControllerWithF
 
 	// MARK: - Private
 
-	private let coordinator: ExposureSubmissionCoordinating?
+	private let coordinator: ExposureSubmissionCoordinator?
 	private let dismissClosure: () -> Void
 
 }

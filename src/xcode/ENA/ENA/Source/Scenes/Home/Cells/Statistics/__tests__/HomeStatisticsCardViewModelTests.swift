@@ -540,10 +540,10 @@ class HomeStatisticsCardViewModelTests: XCTestCase {
 
 				switch rank {
 				case .primary:
-					XCTAssertEqual(viewModel.primaryTrendImageTintColor, expectedColor)
+					XCTAssertEqual(viewModel.primaryTrendImageTintColor?.cgColor, expectedColor?.cgColor)
 					XCTAssertEqual(viewModel.primaryTrendAccessibilityValue, expectedAccessibilityValue)
 				case .secondary:
-					XCTAssertEqual(viewModel.secondaryTrendImageTintColor, expectedColor)
+					XCTAssertEqual(viewModel.secondaryTrendImageTintColor?.cgColor, expectedColor?.cgColor)
 					XCTAssertEqual(viewModel.secondaryTrendAccessibilityValue, expectedAccessibilityValue)
 				default:
 					XCTFail("Only actual ranks are tested")

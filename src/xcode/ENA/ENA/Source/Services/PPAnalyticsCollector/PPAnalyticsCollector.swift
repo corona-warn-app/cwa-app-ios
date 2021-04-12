@@ -14,6 +14,7 @@ enum PPAnalyticsCollector {
 	/// Setup Analytics for regular use. We expect here a secure store.
 	static func setup(
 		store: Store,
+		coronaTestService: CoronaTestService,
 		submitter: PPAnalyticsSubmitter
 	) {
 		// Make sure the secure store now also implements the PPAnalyticsData protocol with the properties defined there (the analytics data proporties).
@@ -22,12 +23,12 @@ enum PPAnalyticsCollector {
 			fatalError("I will never submit any analytics data. Could not cast to correct store protocol")
 		}
 		PPAnalyticsCollector.store = store
+		PPAnalyticsCollector.coronaTestService = coronaTestService
 		PPAnalyticsCollector.submitter = submitter
 	}
 
 	/// The main purpose for the collector. Call this method to log some analytics data and pass the corresponding enums.
 	static func collect(_ dataType: PPADataType) {
-
 		// Make sure the user consent is given. If not, we must not log something.
 		guard let consent = store?.isPrivacyPreservingAnalyticsConsentGiven,
 			  consent == true else {
@@ -97,7 +98,7 @@ enum PPAnalyticsCollector {
 
 	// The real store property.
 	private static var _store: (Store & PPAnalyticsData)?
-
+	private static var coronaTestService: CoronaTestService?
 	private static var submitter: PPAnalyticsSubmitter?
 
 	// MARK: - UserMetada
@@ -308,19 +309,17 @@ enum PPAnalyticsCollector {
 	}
 
 	private static func setHoursSinceTestResult() {
-		guard let resultDateTimeStamp = store?.testResultReceivedTimeStamp else {
+		guard let testResultReceivedDate = coronaTestService?.pcrTest?.testResultReceivedDate else {
 			Log.warning("Could not log hoursSinceTestResult due to testResultReceivedTimeStamp is nil", log: .ppa)
 			return
 		}
 
-		let timeInterval = TimeInterval(resultDateTimeStamp)
-		let resultDate = Date(timeIntervalSince1970: timeInterval)
-		let diffComponents = Calendar.current.dateComponents([.hour], from: resultDate, to: Date())
+		let diffComponents = Calendar.current.dateComponents([.hour], from: testResultReceivedDate, to: Date())
 		store?.keySubmissionMetadata?.hoursSinceTestResult = Int32(diffComponents.hour ?? 0)
 	}
 
 	private static func setHoursSinceTestRegistration() {
-		guard let registrationDate = store?.testRegistrationDate else {
+		guard let registrationDate = coronaTestService?.pcrTest?.registrationDate else {
 			Log.warning("Could not log hoursSinceTestRegistration due to testRegistrationDate is nil", log: .ppa)
 			return
 		}
@@ -345,7 +344,7 @@ enum PPAnalyticsCollector {
 		switch riskLevel {
 		case .high:
 			guard let timeOfRiskChangeToHigh = store?.dateOfConversionToHighRisk,
-				  let registrationTime = store?.testRegistrationDate else {
+				  let registrationTime = coronaTestService?.pcrTest?.registrationDate else {
 				Log.warning("Could not log risk calculation result due to timeOfRiskChangeToHigh is nil", log: .ppa)
 				return
 			}
@@ -441,10 +440,12 @@ extension PPAnalyticsCollector {
 	/// Setup Analytics for testing. The store or the submitter can be nil for testing purposes.
 	static func setupMock(
 		store: (Store & PPAnalyticsData)? = nil,
-		submitter: PPAnalyticsSubmitter? = nil
+		submitter: PPAnalyticsSubmitter? = nil,
+		coronaTestService: CoronaTestService? = nil
 	) {
 		PPAnalyticsCollector.store = store
 		PPAnalyticsCollector.submitter = submitter
+		PPAnalyticsCollector.coronaTestService = coronaTestService
 	}
 
 	/// ONLY FOR TESTING. Returns the last successful submitted data.

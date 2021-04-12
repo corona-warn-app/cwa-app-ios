@@ -54,7 +54,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Fo
 	// MARK: - Protocol DismissHandling
 
 	func wasAttemptedToBeDismissed() {
-		onDismiss(viewModel.testResult) { [weak self] isLoading in
+		onDismiss(viewModel.coronaTest.testResult) { [weak self] isLoading in
 			DispatchQueue.main.async {
 				self?.parent?.navigationItem.rightBarButtonItem?.isEnabled = !isLoading
 				self?.footerView?.setLoadingIndicator(isLoading, disable: false, button: .primary)

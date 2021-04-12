@@ -9,13 +9,19 @@ class KeySubmissionMetadataTests: XCTestCase {
 	
 	func testKeySubmissionMetadataValues_HighRisk() {
 		let secureStore = MockTestStore()
-		Analytics.setupMock(store: secureStore)
+		let coronaTestService = CoronaTestService(client: ClientMock(), store: secureStore)
+
+		Analytics.setupMock(store: secureStore, coronaTestService: coronaTestService)
+
 		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
+
 		let riskCalculationResult = mockHighRiskCalculationResult()
 		let isSubmissionConsentGiven = true
+
 		secureStore.dateOfConversionToHighRisk = Calendar.current.date(byAdding: .day, value: -1, to: Date())
 		secureStore.enfRiskCalculationResult = riskCalculationResult
-		secureStore.testRegistrationDate = Date()
+
+		coronaTestService.pcrTest = PCRTest.mock(registrationDate: Date())
 
 		let keySubmissionMetadata = KeySubmissionMetadata(
 			submitted: false,
@@ -40,15 +46,21 @@ class KeySubmissionMetadataTests: XCTestCase {
 
 	func testKeySubmissionMetadataValues_HighRisk_testHours() {
 		let secureStore = MockTestStore()
-		Analytics.setupMock(store: secureStore)
+		let coronaTestService = CoronaTestService(client: ClientMock(), store: secureStore)
+
+		Analytics.setupMock(store: secureStore, coronaTestService: coronaTestService)
+
 		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
 		let riskCalculationResult = mockHighRiskCalculationResult()
 		let isSubmissionConsentGiven = true
 		let dateSixHourAgo = Calendar.current.date(byAdding: .hour, value: -6, to: Date())
 		secureStore.dateOfConversionToHighRisk = Calendar.current.date(byAdding: .day, value: -1, to: Date())
 		secureStore.enfRiskCalculationResult = riskCalculationResult
-		secureStore.testRegistrationDate = Calendar.current.date(byAdding: .day, value: -1, to: Date())
-		secureStore.testResultReceivedTimeStamp = Int64(dateSixHourAgo?.timeIntervalSince1970 ?? Date().timeIntervalSince1970)
+
+		coronaTestService.pcrTest = PCRTest.mock(
+			registrationDate: Calendar.current.date(byAdding: .day, value: -1, to: Date()) ?? Date(),
+			testResultReceivedDate: dateSixHourAgo ?? Date()
+		)
 
 		let keySubmissionMetadata = KeySubmissionMetadata(
 			submitted: false,

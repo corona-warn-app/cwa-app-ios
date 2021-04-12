@@ -11,20 +11,36 @@ final class TestResultAvailableViewModel {
 	// MARK: - Init
 	
 	init(
-		exposureSubmissionService: ExposureSubmissionService,
+		coronaTestType: CoronaTestType,
+		coronaTestService: CoronaTestService,
 		onSubmissionConsentCellTap: @escaping (@escaping (Bool) -> Void) -> Void,
 		onPrimaryButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
 		onDismiss: @escaping () -> Void
 	) {
-		self.exposureSubmissionService = exposureSubmissionService
 		self.onSubmissionConsentCellTap = onSubmissionConsentCellTap
 		self.onPrimaryButtonTap = onPrimaryButtonTap
 		self.onDismiss = onDismiss
-		
-		exposureSubmissionService.isSubmissionConsentGivenPublisher.sink { [weak self] consentGranted in
-			guard let self = self else { return }
-			self.dynamicTableViewModel = self.createDynamicTableViewModel(consentGranted)
-		}.store(in: &cancellables)
+
+		switch coronaTestType {
+		case .pcr:
+			coronaTestService.$pcrTest
+				.sink { [weak self] pcrTest in
+					guard let self = self, let pcrTest = pcrTest else {
+						return
+					}
+					self.dynamicTableViewModel = self.createDynamicTableViewModel(pcrTest.isSubmissionConsentGiven)
+				}
+				.store(in: &cancellables)
+		case .antigen:
+			coronaTestService.$antigenTest
+				.sink { [weak self] antigenTest in
+					guard let self = self, let antigenTest = antigenTest else {
+						return
+					}
+					self.dynamicTableViewModel = self.createDynamicTableViewModel(antigenTest.isSubmissionConsentGiven)
+				}
+				.store(in: &cancellables)
+		}
 	}
 	
 	// MARK: - Internal
@@ -37,7 +53,6 @@ final class TestResultAvailableViewModel {
 	
 	// MARK: - Private
 	
-	private let exposureSubmissionService: ExposureSubmissionService
 	private var cancellables: Set<AnyCancellable> = []
 	private let onSubmissionConsentCellTap: (@escaping (Bool) -> Void) -> Void
 	

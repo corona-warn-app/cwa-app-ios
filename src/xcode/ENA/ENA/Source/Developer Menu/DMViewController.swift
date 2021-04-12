@@ -15,6 +15,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		wifiClient: WifiOnlyHTTPClient,
 		exposureSubmissionService: ExposureSubmissionService,
 		otpService: OTPServiceProviding,
+		coronaTestService: CoronaTestService,
 		eventStore: EventStoringProviding,
 		qrCodePosterTemplateProvider: QRCodePosterTemplateProviding
 	) {
@@ -22,6 +23,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		self.wifiClient = wifiClient
 		self.exposureSubmissionService = exposureSubmissionService
 		self.otpService = otpService
+		self.coronaTestService = coronaTestService
 		self.eventStore = eventStore
 		self.qrCodePosterTemplateProvider = qrCodePosterTemplateProvider
 
@@ -39,6 +41,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 	private let consumer = RiskConsumer()
 	private let exposureSubmissionService: ExposureSubmissionService
 	private let otpService: OTPServiceProviding
+	private let coronaTestService: CoronaTestService
 	private let eventStore: EventStoringProviding
 	private let qrCodePosterTemplateProvider: QRCodePosterTemplateProviding
 
@@ -63,24 +66,6 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		super.viewWillAppear(animated)
 
 		navigationController?.setToolbarHidden(true, animated: animated)
-	}
-
-	// MARK: Clear Registration Token of Submission
-	@objc
-	private func clearRegistrationToken() {
-		store.registrationToken = nil
-		let alert = UIAlertController(
-			title: "Token Deleted",
-			message: "Successfully deleted the submission registration token.",
-			preferredStyle: .alert
-		)
-		alert.addAction(
-			UIAlertAction(
-				title: AppStrings.Common.alertActionOk,
-				style: .cancel
-			)
-		)
-		present(alert, animated: true, completion: nil)
 	}
 
 	// MARK: UITableView
@@ -134,9 +119,6 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		case .sendFakeRequest:
 			vc = nil
 			sendFakeRequest()
-		case .purgeRegistrationToken:
-			clearRegistrationToken()
-			vc = nil
 		case .manuallyRequestRisk:
 			vc = nil
 			manuallyRequestRisk()
@@ -151,7 +133,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		case .listPendingNotifications:
 			vc = DMNotificationsViewController()
 		case .warnOthersNotifications:
-			vc = DMWarnOthersNotificationViewController(warnOthersReminder: WarnOthersReminder(store: store), store: store, exposureSubmissionService: exposureSubmissionService)
+			vc = DMWarnOthersNotificationViewController(warnOthersReminder: WarnOthersReminder(store: store), store: store, coronaTestService: coronaTestService)
 		case .deviceTimeCheck:
 			vc = DMDeviceTimeCheckViewController(store: store)
 		case .ppacService:
@@ -159,11 +141,11 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		case .otpService:
 			vc = DMOTPServiceViewController(store: store, otpService: otpService)
 		case .ppaMostRecent:
-			vc = DMPPAnalyticsMostRecent(store: store, client: client, appConfig: appConfigurationProvider)
+			vc = DMPPAnalyticsMostRecent(store: store, client: client, appConfig: appConfigurationProvider, coronaTestService: coronaTestService)
 		case .ppaActual:
-			vc = DMPPAnalyticsActualData(store: store, client: client, appConfig: appConfigurationProvider)
+			vc = DMPPAnalyticsActualData(store: store, client: client, appConfig: appConfigurationProvider, coronaTestService: coronaTestService)
 		case .ppaSubmission:
-			vc = DMPPAnalyticsViewController(store: store, client: client, appConfig: appConfigurationProvider)
+			vc = DMPPAnalyticsViewController(store: store, client: client, appConfig: appConfigurationProvider, coronaTestService: coronaTestService)
 		case .installationDate:
 			vc = DMInstallationDateViewController(store: store)
 		case .allTraceLocations:
@@ -185,7 +167,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 	// MARK: Performing developer menu related tasks
 	@objc
 	private func sendFakeRequest() {
-		exposureSubmissionService.fakeRequest { _ in
+		FakeRequestService(client: client).fakeRequest {
 			let alert = self.setupErrorAlert(title: "Info", message: "Fake request was sent.")
 			self.present(alert, animated: true) {}
 		}
