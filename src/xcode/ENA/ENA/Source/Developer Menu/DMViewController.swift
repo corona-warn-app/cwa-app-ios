@@ -16,7 +16,8 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		exposureSubmissionService: ExposureSubmissionService,
 		otpService: OTPServiceProviding,
 		coronaTestService: CoronaTestService,
-		eventStore: EventStoringProviding
+		eventStore: EventStoringProviding,
+		qrCodePosterTemplateProvider: QRCodePosterTemplateProviding
 	) {
 		self.client = client
 		self.wifiClient = wifiClient
@@ -24,6 +25,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		self.otpService = otpService
 		self.coronaTestService = coronaTestService
 		self.eventStore = eventStore
+		self.qrCodePosterTemplateProvider = qrCodePosterTemplateProvider
 
 		super.init(style: .plain)
 		title = "👩🏾‍💻 Developer Menu 🧑‍💻"
@@ -41,6 +43,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 	private let otpService: OTPServiceProviding
 	private let coronaTestService: CoronaTestService
 	private let eventStore: EventStoringProviding
+	private let qrCodePosterTemplateProvider: QRCodePosterTemplateProviding
 
 	private var keys = [SAP_External_Exposurenotification_TemporaryExposureKey]() {
 		didSet {
@@ -146,9 +149,11 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		case .installationDate:
 			vc = DMInstallationDateViewController(store: store)
 		case .allTraceLocations:
-			vc = DMRecentCreatedEventViewController(store: store, eventStore: eventStore)
+			vc = DMRecentCreatedEventViewController(store: store, eventStore: eventStore, qrCodePosterTemplateProvider: qrCodePosterTemplateProvider, isPosterGeneration: false)
 		case .mostRecentTraceLocationCheckedInto:
 			vc = DMDMMostRecentTraceLocationCheckedIntoViewController(store: store)
+		case .adHocPosterGeneration:
+			vc = DMRecentCreatedEventViewController(store: store, eventStore: eventStore, qrCodePosterTemplateProvider: qrCodePosterTemplateProvider, isPosterGeneration: true)
 		}
 
 		if let vc = vc {

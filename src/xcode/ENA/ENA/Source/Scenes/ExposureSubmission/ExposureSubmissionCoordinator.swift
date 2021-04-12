@@ -67,7 +67,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	func dismiss() {
 		navigationController?.dismiss(animated: true, completion: {
 			// used for updating (hiding) app shortcuts
-			NotificationCenter.default.post(Notification(name: .didDismissExposureSubmissionFlow))
+			QuickAction.exposureSubmissionFlowTestResult = nil
 		})
 	}
 
@@ -76,7 +76,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		push(vc)
 
 		// If a TAN was entered, we skip `showTestResultAvailableScreen(with:)`, so we notify (again) about the new state
-		NotificationCenter.default.post(Notification(name: .didStartExposureSubmissionFlow, object: nil, userInfo: ["result": model.coronaTest?.testResult.rawValue as Any]))
+		QuickAction.exposureSubmissionFlowTestResult = model.coronaTest?.testResult
 	}
 
 	func showTanScreen() {
@@ -161,12 +161,12 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	// MARK: Initial Screens
 
 	private func createTestResultAvailableViewController() -> UIViewController {
-		NotificationCenter.default.post(Notification(name: .didStartExposureSubmissionFlow, object: nil, userInfo: ["result": model.coronaTest?.testResult.rawValue as Any]))
-
-		guard let coronaTestType = model.coronaTestType else {
+        guard let coronaTestType = model.coronaTestType, let coronaTest = model.coronaTest else {
 			fatalError("Cannot create a test result available view controller without a corona test")
 		}
-		
+
+		QuickAction.exposureSubmissionFlowTestResult = coronaTest.testResult
+
 		let viewModel = TestResultAvailableViewModel(
 			coronaTestType: coronaTestType,
 			coronaTestService: model.coronaTestService,
@@ -234,8 +234,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 		// store is only initialized when a positive test result is received
 		if coronaTest.testResult == .positive {
-			updateStoreWithKeySubmissionMetadataDefaultValues(for: coronaTest)
-			NotificationCenter.default.post(Notification(name: .didStartExposureSubmissionFlow, object: nil, userInfo: ["result": model.coronaTest?.testResult.rawValue as Any]))
+            updateStoreWithKeySubmissionMetadataDefaultValues(for: coronaTest)
+			QuickAction.exposureSubmissionFlowTestResult = coronaTest.testResult
 		}
 		Analytics.collect(.keySubmissionMetadata(.lastSubmissionFlowScreen(.submissionFlowScreenTestResult)))
 
@@ -473,7 +473,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		push(vc)
 
 		// used for updating (hiding) app shortcuts
-		NotificationCenter.default.post(Notification(name: .didStartExposureSubmissionFlow, object: nil, userInfo: ["result": model.coronaTest?.testResult.rawValue as Any]))
+		QuickAction.exposureSubmissionFlowTestResult = model.coronaTest?.testResult
 	}
 
 	private func showTestResultSubmissionConsentScreen(supportedCountries: [Country], testResultAvailability: TestResultAvailability) {

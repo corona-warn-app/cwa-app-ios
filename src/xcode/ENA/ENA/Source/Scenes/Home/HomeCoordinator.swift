@@ -190,7 +190,8 @@ class HomeCoordinator: RequiresAppDependencies {
 			serverEnvironment: serverEnvironment,
 			otpService: otpService,
 			coronaTestService: coronaTestService,
-			eventStore: eventStore
+			eventStore: eventStore,
+			qrCodePosterTemplateProvider: qrCodePosterTemplateProvider
 		)
 		developerMenu?.enableIfAllowed()
 	}

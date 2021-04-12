@@ -22,6 +22,7 @@ class TraceLocationDetailsLocationCell: UITableViewCell, ReuseIdentifierProvidin
 
 	func configure(_ model: String) {
 		locationLabel.text = model
+		locationLabel.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Details.locationLabel
 	}
 
 	// MARK: - Private

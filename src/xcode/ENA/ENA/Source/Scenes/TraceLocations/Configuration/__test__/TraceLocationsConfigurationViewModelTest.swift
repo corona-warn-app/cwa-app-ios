@@ -81,7 +81,7 @@ class TraceLocationsConfigurationViewModelTest: XCTestCase {
 			XCTAssertEqual(viewModel.address, "")
 			XCTAssertNil(viewModel.startDate)
 			XCTAssertNil(viewModel.endDate)
-			XCTAssertEqual(viewModel.defaultCheckInLengthInMinutes, 15)
+			XCTAssertEqual(viewModel.defaultCheckInLengthInMinutes, 120)
 
 			XCTAssertNil(viewModel.formattedStartDate)
 			XCTAssertNil(viewModel.formattedEndDate)
@@ -175,13 +175,22 @@ class TraceLocationsConfigurationViewModelTest: XCTestCase {
 		XCTAssertFalse(viewModel.permanentSettingsContainerIsHidden)
 	}
 
-	func testDefaultDefaultCheckInLengthTimeInterval() {
+	func testDefaultPermanentCheckInLengthTimeInterval() {
 		let viewModel = TraceLocationConfigurationViewModel(
 			mode: .new(.locationTypeUnspecified),
 			eventStore: MockEventStore()
 		)
 
-		XCTAssertEqual(viewModel.defaultDefaultCheckInLengthTimeInterval, 900)
+		XCTAssertEqual(viewModel.defaultPermanentCheckInLengthTimeInterval, 7200)
+	}
+
+	func testDefaultTemporaryCheckInLengthTimeInterval() {
+		let viewModel = TraceLocationConfigurationViewModel(
+			mode: .new(.locationTypeUnspecified),
+			eventStore: MockEventStore()
+		)
+
+		XCTAssertEqual(viewModel.defaultTemporaryCheckInLengthTimeInterval, 900)
 	}
 
 	func testHeaderTapped() {

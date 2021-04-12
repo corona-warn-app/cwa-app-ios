@@ -16,8 +16,6 @@ protocol EventCellModel {
 	var isActiveIconHidden: Bool { get }
 	var isDurationStackViewHidden: Bool { get }
 
-	var date: String? { get }
-
 	var title: String { get }
 	var address: String { get }
 

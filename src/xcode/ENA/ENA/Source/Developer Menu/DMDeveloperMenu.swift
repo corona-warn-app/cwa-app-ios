@@ -39,7 +39,8 @@ final class DMDeveloperMenu {
 		serverEnvironment: ServerEnvironment,
 		otpService: OTPServiceProviding,
 		coronaTestService: CoronaTestService,
-		eventStore: EventStoringProviding
+		eventStore: EventStoringProviding,
+		qrCodePosterTemplateProvider: QRCodePosterTemplateProviding
 	) {
 		self.client = client
 		self.wifiClient = wifiClient
@@ -52,6 +53,7 @@ final class DMDeveloperMenu {
 		self.otpService = otpService
 		self.coronaTestService = coronaTestService
         self.eventStore = eventStore
+		self.qrCodePosterTemplateProvider = qrCodePosterTemplateProvider
 	}
 
 	// MARK: Properties
@@ -66,6 +68,7 @@ final class DMDeveloperMenu {
 	private let serverEnvironment: ServerEnvironment
 	private let otpService: OTPServiceProviding
 	private let coronaTestService: CoronaTestService
+	private let qrCodePosterTemplateProvider: QRCodePosterTemplateProviding
 
 	// MARK: Interacting with the developer menu
 
@@ -93,7 +96,8 @@ final class DMDeveloperMenu {
 			exposureSubmissionService: exposureSubmissionService,
 			otpService: otpService,
 			coronaTestService: coronaTestService,
-			eventStore: eventStore
+			eventStore: eventStore,
+			qrCodePosterTemplateProvider: qrCodePosterTemplateProvider
 		)
 
 		let closeBarButtonItem = UIBarButtonItem(
