@@ -18,7 +18,7 @@ class CheckinSplittingServiceTests: XCTestCase {
 		}
 
 		let splittingService = CheckinSplittingService()
-		let checkin = makeDummyCheckin(id: 0, startDate: checkinStartDate, endDate: checkinEndDate)
+		let checkin = Checkin.mock(id: 0, checkinStartDate: checkinStartDate, checkinEndDate: checkinEndDate)
 
 		let splitedCheckins = splittingService.split(checkin)
 		XCTAssertEqual(splitedCheckins.count, 1)
@@ -39,7 +39,7 @@ class CheckinSplittingServiceTests: XCTestCase {
 		}
 
 		let splittingService = CheckinSplittingService()
-		let checkin = makeDummyCheckin(id: 0, startDate: checkinStartDate, endDate: checkinEndDate)
+		let checkin = Checkin.mock(id: 0, checkinStartDate: checkinStartDate, checkinEndDate: checkinEndDate)
 
 		let splitedCheckins = splittingService.split(checkin)
 		XCTAssertEqual(splitedCheckins.count, 1)
@@ -60,7 +60,7 @@ class CheckinSplittingServiceTests: XCTestCase {
 		}
 
 		let splittingService = CheckinSplittingService()
-		let checkin = makeDummyCheckin(id: 0, startDate: checkinStartDate, endDate: checkinEndDate)
+		let checkin = Checkin.mock(id: 0, checkinStartDate: checkinStartDate, checkinEndDate: checkinEndDate)
 
 		let splitedCheckins = splittingService.split(checkin)
 		XCTAssertEqual(splitedCheckins.count, 2)
@@ -86,7 +86,7 @@ class CheckinSplittingServiceTests: XCTestCase {
 		}
 
 		let splittingService = CheckinSplittingService()
-		let checkin = makeDummyCheckin(id: 0, startDate: checkinStartDate, endDate: checkinEndDate)
+		let checkin = Checkin.mock(id: 0, checkinStartDate: checkinStartDate, checkinEndDate: checkinEndDate)
 
 		let splitedCheckins = splittingService.split(checkin)
 		XCTAssertEqual(splitedCheckins.count, 3)
@@ -117,7 +117,7 @@ class CheckinSplittingServiceTests: XCTestCase {
 		}
 
 		let splittingService = CheckinSplittingService()
-		let checkin = makeDummyCheckin(id: 0, startDate: checkinStartDate, endDate: checkinEndDate)
+		let checkin = Checkin.mock(id: 0, checkinStartDate: checkinStartDate, checkinEndDate: checkinEndDate)
 
 		let splitedCheckins = splittingService.split(checkin)
 		XCTAssertEqual(splitedCheckins.count, 1)
@@ -138,7 +138,7 @@ class CheckinSplittingServiceTests: XCTestCase {
 		}
 
 		let splittingService = CheckinSplittingService()
-		let checkin = makeDummyCheckin(id: 0, startDate: checkinStartDate, endDate: checkinEndDate)
+		let checkin = Checkin.mock(id: 0, checkinStartDate: checkinStartDate, checkinEndDate: checkinEndDate)
 
 		let splitedCheckins = splittingService.split(checkin)
 		XCTAssertEqual(splitedCheckins.count, 1)
@@ -160,7 +160,7 @@ class CheckinSplittingServiceTests: XCTestCase {
 		}
 
 		let splittingService = CheckinSplittingService()
-		let checkin = makeDummyCheckin(id: 0, startDate: checkinStartDate, endDate: checkinEndDate)
+		let checkin = Checkin.mock(id: 0, checkinStartDate: checkinStartDate, checkinEndDate: checkinEndDate)
 
 		let splitedCheckins = splittingService.split(checkin)
 		XCTAssertEqual(splitedCheckins.count, 2)
@@ -175,33 +175,6 @@ class CheckinSplittingServiceTests: XCTestCase {
 		XCTAssertEqual("2021-03-05T00:00:00Z", utcFormatter.string(from: splitedCheckinEndDate0))
 		XCTAssertEqual("2021-03-05T00:00:00Z", utcFormatter.string(from: splitedCheckinStartDate1))
 		XCTAssertEqual("2021-03-05T08:15:00Z", utcFormatter.string(from: splitedCheckinEndDate1))
-	}
-
-	func makeDummyCheckin(
-		id: Int,
-		startDate: Date = Date(),
-		endDate: Date = Date(),
-		checkinCompleted: Bool = false,
-		traceLocationId: Data = "0".data(using: .utf8) ?? Data()
-	) -> Checkin {
-		Checkin(
-			id: id,
-			traceLocationId: traceLocationId,
-			traceLocationIdHash: traceLocationId,
-			traceLocationVersion: 0,
-			traceLocationType: .locationTypePermanentCraft,
-			traceLocationDescription: "",
-			traceLocationAddress: "",
-			traceLocationStartDate: Date(),
-			traceLocationEndDate: Date(),
-			traceLocationDefaultCheckInLengthInMinutes: 0,
-			cryptographicSeed: Data(),
-			cnPublicKey: Data(),
-			checkinStartDate: startDate,
-			checkinEndDate: endDate,
-			checkinCompleted: checkinCompleted,
-			createJournalEntry: true
-		)
 	}
 
 	var utcFormatter: ISO8601DateFormatter = {

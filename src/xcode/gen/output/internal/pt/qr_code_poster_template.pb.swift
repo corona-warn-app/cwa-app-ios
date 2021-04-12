@@ -97,6 +97,15 @@ struct SAP_Internal_Pt_QRCodePosterTemplateIOS {
   /// Clears the value of `descriptionTextBox`. Subsequent reads from it will return its default value.
   mutating func clearDescriptionTextBox() {self._descriptionTextBox = nil}
 
+  var addressTextBox: SAP_Internal_Pt_QRCodePosterTemplateIOS.QRCodeTextBoxIOS {
+    get {return _addressTextBox ?? SAP_Internal_Pt_QRCodePosterTemplateIOS.QRCodeTextBoxIOS()}
+    set {_addressTextBox = newValue}
+  }
+  /// Returns true if `addressTextBox` has been explicitly set.
+  var hasAddressTextBox: Bool {return self._addressTextBox != nil}
+  /// Clears the value of `addressTextBox`. Subsequent reads from it will return its default value.
+  mutating func clearAddressTextBox() {self._addressTextBox = nil}
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   struct QRCodeTextBoxIOS {
@@ -124,6 +133,7 @@ struct SAP_Internal_Pt_QRCodePosterTemplateIOS {
   init() {}
 
   fileprivate var _descriptionTextBox: SAP_Internal_Pt_QRCodePosterTemplateIOS.QRCodeTextBoxIOS? = nil
+  fileprivate var _addressTextBox: SAP_Internal_Pt_QRCodePosterTemplateIOS.QRCodeTextBoxIOS? = nil
 }
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -256,6 +266,7 @@ extension SAP_Internal_Pt_QRCodePosterTemplateIOS: SwiftProtobuf.Message, SwiftP
     3: .same(proto: "offsetY"),
     4: .same(proto: "qrCodeSideLength"),
     5: .same(proto: "descriptionTextBox"),
+    6: .same(proto: "addressTextBox"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -269,6 +280,7 @@ extension SAP_Internal_Pt_QRCodePosterTemplateIOS: SwiftProtobuf.Message, SwiftP
       case 3: try { try decoder.decodeSingularUInt32Field(value: &self.offsetY) }()
       case 4: try { try decoder.decodeSingularUInt32Field(value: &self.qrCodeSideLength) }()
       case 5: try { try decoder.decodeSingularMessageField(value: &self._descriptionTextBox) }()
+      case 6: try { try decoder.decodeSingularMessageField(value: &self._addressTextBox) }()
       default: break
       }
     }
@@ -290,6 +302,9 @@ extension SAP_Internal_Pt_QRCodePosterTemplateIOS: SwiftProtobuf.Message, SwiftP
     if let v = self._descriptionTextBox {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
     }
+    if let v = self._addressTextBox {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -299,6 +314,7 @@ extension SAP_Internal_Pt_QRCodePosterTemplateIOS: SwiftProtobuf.Message, SwiftP
     if lhs.offsetY != rhs.offsetY {return false}
     if lhs.qrCodeSideLength != rhs.qrCodeSideLength {return false}
     if lhs._descriptionTextBox != rhs._descriptionTextBox {return false}
+    if lhs._addressTextBox != rhs._addressTextBox {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

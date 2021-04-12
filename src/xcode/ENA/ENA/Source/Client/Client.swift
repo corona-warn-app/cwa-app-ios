@@ -210,7 +210,7 @@ struct CountrySubmissionPayload {
 	let visitedCountries: [Country]
 
 	/// List of  attended events
-	let eventCheckIns: [SAP_Internal_Pt_CheckIn]
+	let checkins: [SAP_Internal_Pt_CheckIn]
 
 	/// a transaction number
 	let tan: String

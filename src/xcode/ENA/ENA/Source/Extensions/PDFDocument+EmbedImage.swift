@@ -10,11 +10,18 @@ enum PDFEmbeddingError: Error {
 	case pageCreation // Could not create a new Page containing the image
 }
 
+struct PDFText {
+	let text: String
+	let size: CGFloat
+	let color: UIColor
+	let rect: CGRect
+}
+
 extension PDFDocument {
 	
 	/// Embeds image and text on the first Page on given position
 	/// Inspired  by https://pspdfkit.com/blog/2019/insert-image-into-pdf-with-swift/
-	func embedImageAndText(image: UIImage, at position: CGPoint, text: String, of textSize: CGFloat?, and textColor: UIColor, with textRect: CGRect) throws {
+	func embedImageAndText(image: UIImage, at position: CGPoint, texts: [PDFText]) throws {
 		
 		// `page` is of type `PDFPage`.
 		guard let page = page(at: 0) else {
@@ -44,16 +51,19 @@ extension PDFDocument {
 			// Draw your image onto the context.
 			image.draw(in: imageRect)
 			
-			// Set the font as per the font size provided
-			let font = UIFont.preferredFont(forTextStyle: .body).scaledFont(size: textSize, weight: .regular)
+			for pdfText in texts {
+				// Set the font as per the font size provided
+				let font = UIFont.preferredFont(forTextStyle: .body).scaledFont(size: pdfText.size, weight: .regular)
 
-			let textFontAttributes: [NSAttributedString.Key: Any] = [
-				NSAttributedString.Key.font: font,
-				NSAttributedString.Key.foregroundColor: textColor
-			]
+				let textFontAttributes: [NSAttributedString.Key: Any] = [
+					NSAttributedString.Key.font: font,
+					NSAttributedString.Key.foregroundColor: pdfText.color
+				]
+
+				// Draw text onto the context
+				pdfText.text.draw(in: pdfText.rect, withAttributes: textFontAttributes)
+			}
 			
-			// Draw text onto the context
-			text.draw(in: textRect, withAttributes: textFontAttributes)
 		}
 		
 		// Create a new `PDFPage` with the image that was generated above.
