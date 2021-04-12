@@ -199,17 +199,39 @@ class TraceLocationDetailsViewController: UIViewController, UITableViewDataSourc
 
 		let qrSideLength = CGFloat(templateData.qrCodeSideLength)
 		guard let qrCodeImage = viewModel.qrCode(size: CGSize(width: qrSideLength, height: qrSideLength)) else { return pdfView }
-		let textDetails = templateData.descriptionTextBox
-		let textColor = UIColor().hexStringToUIColor(hex: textDetails.fontColor)
+		let descriptionTextDetails = templateData.descriptionTextBox
+		let adressTextDetails = templateData.addressTextBox
+		
+		let descriptionText = PDFText(
+			text: viewModel.title,
+			size: CGFloat(descriptionTextDetails.fontSize),
+			color: .black,//UIColor().hexStringToUIColor(hex: descriptionTextDetails.fontColor),
+			rect: CGRect(
+				x: CGFloat(descriptionTextDetails.offsetX),
+				y: CGFloat(descriptionTextDetails.offsetY),
+				width: CGFloat(descriptionTextDetails.width),
+				height: CGFloat(descriptionTextDetails.height)
+			)
+		)
+		
+		let adressText = PDFText(
+			text: viewModel.title,
+			size: CGFloat(adressTextDetails.fontSize),
+			color: .black,//UIColor().hexStringToUIColor(hex: adressTextDetails.fontColor),
+			rect: CGRect(
+				x: CGFloat(adressTextDetails.offsetX),
+				y: CGFloat(adressTextDetails.offsetY),
+				width: CGFloat(adressTextDetails.width),
+				height: CGFloat(adressTextDetails.height)
+			)
+		)
 		
 		try? pdfDocument?.embedImageAndText(
 			image: qrCodeImage,
 			at: CGPoint(x: CGFloat(templateData.offsetX), y: CGFloat(templateData.offsetY)),
-			text: viewModel.posterDescription,
-			of: CGFloat(textDetails.fontSize),
-			and: textColor,
-			with: CGRect(x: CGFloat(textDetails.offsetX), y: CGFloat(textDetails.offsetY), width: CGFloat(textDetails.width), height: CGFloat(textDetails.height))
+			texts: [descriptionText]
 		)
+		
 
 		pdfView.document = pdfDocument
 		pdfView.scaleFactor = pdfView.scaleFactorForSizeToFit

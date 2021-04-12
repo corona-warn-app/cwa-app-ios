@@ -306,14 +306,14 @@ class DMPosterGenerationViewController: UIViewController, UITextFieldDelegate {
 		guard let qrCodeImage = viewModel.traceLocation.qrCode(size: CGSize(width: qrCodeSideLengthField.cgFloatValue, height: qrCodeSideLengthField.cgFloatValue), qrCodeErrorCorrectionLevel: .medium) else { return pdfView }
 		guard let hexColorString = descriptionFontColorField.text else { return pdfView }
 
-		try? pdfDocument?.embedImageAndText(
-			image: qrCodeImage,
-			at: CGPoint(x: qrCodeOffsetXField.cgFloatValue, y: qrCodeOffsetYField.cgFloatValue),
-			text: viewModel.posterDescription,
-			of: descriptionFontSizeField.cgFloatValue,
-			and: UIColor().hexStringToUIColor(hex: hexColorString),
-			with: CGRect(x: descriptionOffsetXField.cgFloatValue, y: descriptionOffsetYField.cgFloatValue, width: descriptionWidthField.cgFloatValue, height: descriptionHeightField.cgFloatValue)
-		)
+//		try? pdfDocument?.embedImageAndText(
+//			image: qrCodeImage,
+//			at: CGPoint(x: qrCodeOffsetXField.cgFloatValue, y: qrCodeOffsetYField.cgFloatValue),
+//			text: viewModel.posterDescription,
+//			of: descriptionFontSizeField.cgFloatValue,
+//			and: UIColor().hexStringToUIColor(hex: hexColorString),
+//			with: CGRect(x: descriptionOffsetXField.cgFloatValue, y: descriptionOffsetYField.cgFloatValue, width: descriptionWidthField.cgFloatValue, height: descriptionHeightField.cgFloatValue)
+//		)
 
 		pdfView.document = pdfDocument
 		pdfView.scaleFactor = pdfView.scaleFactorForSizeToFit
