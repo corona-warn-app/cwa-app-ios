@@ -151,7 +151,13 @@ class ExposureSubmissionTestResultViewModel {
 
 		self.coronaTest = coronaTest
 
-		self.dynamicTableViewModel = DynamicTableViewModel(currentTestResultSections)
+		switch coronaTest.type {
+		case .pcr:
+			dynamicTableViewModel = pcrTableViewModel()
+		case .antigen:
+			dynamicTableViewModel = antigenTableViewModel()
+		}
+		
 		footerViewModel = ExposureSubmissionTestResultViewModel.footerViewModel(coronaTest: coronaTest)
 	}
 	
@@ -169,25 +175,10 @@ class ExposureSubmissionTestResultViewModel {
 			completion()
 		}
 	}
-	
-	private var currentTestResultSections: [DynamicSection] {
-		switch coronaTest.testResult {
-		case .positive:
-			return coronaTest.isSubmissionConsentGiven ? positiveTestResultSectionsWithSubmissionConsent : positiveTestResultSectionsWithoutSubmissionConsent
-		case .negative:
-			return negativeTestResultSections
-		case .invalid:
-			return invalidTestResultSections
-		case .pending:
-			return pendingTestResultSections
-		case .expired:
-			return expiredTestResultSections
-		}
-	}
-	
+
 	/// This is the positive result section which will be shown, if the user
 	/// has GIVEN submission consent to share the positive test result with others
-	private var positiveTestResultSectionsWithSubmissionConsent: [DynamicSection] {
+	var positiveTestResultSectionsWithSubmissionConsent: [DynamicSection] {
 		[
 			.section(
 				header: .identifier(
@@ -210,7 +201,7 @@ class ExposureSubmissionTestResultViewModel {
 	
 	/// This is the positive result section which will be shown, if the user
 	/// has NOT GIVEN submission consent to share the positive test result with others
-	private var positiveTestResultSectionsWithoutSubmissionConsent: [DynamicSection] {
+	var positiveTestResultSectionsWithoutSubmissionConsent: [DynamicSection] {
 		[
 			.section(
 				header: .identifier(
@@ -251,57 +242,9 @@ class ExposureSubmissionTestResultViewModel {
 				]
 			)
 		]
-	}
+	}	
 	
-	private var negativeTestResultSections: [DynamicSection] {
-		[
-			.section(
-				header: .identifier(
-					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
-					configure: { view, _ in
-						(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .negative, timeStamp: self.timeStamp)
-					}
-				),
-				separators: .none,
-				cells: [
-					.title2(text: AppStrings.ExposureSubmissionResult.procedure,
-							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure),
-					
-					
-					ExposureSubmissionDynamicCell.stepCell(
-						title: AppStrings.ExposureSubmissionResult.testAdded,
-						description: nil,
-						icon: UIImage(named: "Icons_Grey_Check"),
-						hairline: .iconAttached
-					),
-					
-					ExposureSubmissionDynamicCell.stepCell(
-						title: AppStrings.ExposureSubmissionResult.testNegative,
-						description: AppStrings.ExposureSubmissionResult.testNegativeDesc,
-						icon: UIImage(named: "Icons_Grey_Error"),
-						hairline: .topAttached
-					),
-					
-					ExposureSubmissionDynamicCell.stepCell(
-						title: AppStrings.ExposureSubmissionResult.testRemove,
-						description: AppStrings.ExposureSubmissionResult.testRemoveDesc,
-						icon: UIImage(named: "Icons_Grey_Entfernen"),
-						hairline: .none
-					),
-					
-					.title2(text: AppStrings.ExposureSubmissionResult.furtherInfos_Title,
-							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.furtherInfos_Title),
-					
-					.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem1, spacing: .large),
-					.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem2, spacing: .large),
-					.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem3, spacing: .large),
-					.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_TestAgain, spacing: .large)
-				]
-			)
-		]
-	}
-	
-	private var invalidTestResultSections: [DynamicSection] {
+	var invalidTestResultSections: [DynamicSection] {
 		[
 			.section(
 				header: .identifier(
@@ -340,7 +283,7 @@ class ExposureSubmissionTestResultViewModel {
 		]
 	}
 	
-	private var pendingTestResultSections: [DynamicSection] {
+	var pendingTestResultSections: [DynamicSection] {
 		[
 			.section(
 				header: .identifier(
@@ -403,7 +346,7 @@ class ExposureSubmissionTestResultViewModel {
 		]
 	}
 	
-	private var expiredTestResultSections: [DynamicSection] {
+	var expiredTestResultSections: [DynamicSection] {
 		[
 			.section(
 				header: .identifier(

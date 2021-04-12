@@ -107,7 +107,41 @@ class HomeCoordinator: RequiresAppDependencies {
 				),
 				appConfigurationProvider: appConfigurationProvider,
 				onInfoBarButtonItemTap: { [weak self] in
-					self?.showRiskLegend()
+					//self?.showRiskLegend()
+					
+					#warning("REMOVE CODE BELOW!")
+					guard let self = self else { return }
+					
+					self.coronaTestService.pcrTest = PCRTest(registrationToken: nil,
+															 registrationDate:  Date().addingTimeInterval(-15 * 3600),
+															 testResult: .negative,
+															 testResultReceivedDate: nil,
+															 positiveTestResultWasShown: false,
+															 isSubmissionConsentGiven: false,
+															 submissionTAN: nil,
+															 keysSubmitted: false,
+															 journalEntryCreated: false)
+					
+					self.coronaTestService.antigenTest = AntigenTest(registrationToken: nil,
+																pointOfCareConsentDate: Date().addingTimeInterval(-15 * 3600),
+																testedPerson: TestedPerson(name: "Name", birthday: "15.08.2001"),
+																testResult: .negative,
+																testResultReceivedDate: nil,
+																positiveTestResultWasShown: false,
+																isSubmissionConsentGiven: false,
+																submissionTAN: nil,
+																keysSubmitted: false,
+																journalEntryCreated: false)
+					
+					let coordinator = ExposureSubmissionCoordinator(
+						parentNavigationController: self.rootViewController,
+						exposureSubmissionService: self.exposureSubmissionService,
+						coronaTestService: self.coronaTestService,
+						store: self.store,
+						delegate: self
+					)
+					
+					coordinator.start(with: .pcr)
 				},
 				onExposureLoggingCellTap: { [weak self] enState in
 					self?.showExposureNotificationSetting(enState: enState)
