@@ -68,7 +68,7 @@ final class CheckinRiskCalculation: CheckinRiskCalculationProtocol {
 						continue
 					}
 
-					Log.info("[CheckinRiskCalculation] Found match with overlapInMinutes: \(overlapInMinutes)", log: .checkin)
+					Log.debug("[CheckinRiskCalculation] Found match with overlapInMinutes: \(overlapInMinutes)", log: .checkin)
 
 					//	4. Determine Transmission Risk Value: for each match, the transmission risk value is determined by looking up the corresponding item of Configuration Parameter transmissionRiskValueMapping where transmissionRiskLevel matches the Transmission Risk Level of the match. The transmission risk value is the corresponding transmissionRiskValue of the item. If there is no such match, the transmission risk value is set to 0.
 
@@ -78,6 +78,8 @@ final class CheckinRiskCalculation: CheckinRiskCalculationProtocol {
 					.map { $0.transmissionRiskValue } ?? 0
 
 					// 	5. Determine Normalized Time per Match: the normalized time of a match is determined by multiplying the Transmission Risk Value with the Overlap in Minutes.
+
+					Log.debug("[CheckinRiskCalculation] Calculate with transimssionRiskValue: \(transimssionRiskValue)", log: .checkin)
 
 					let normalizedTimePerMatch = transimssionRiskValue * Double(overlapInMinutes)
 
@@ -96,6 +98,8 @@ final class CheckinRiskCalculation: CheckinRiskCalculationProtocol {
 				}
 
 				if let riskLevel = riskLevel {
+					Log.debug("[CheckinRiskCalculation] Calculated riskLevel: \(riskLevel)", log: .checkin)
+
 					let checkinWithRisk = CheckinWithRiskLevel(
 						checkin: splittedCheckin,
 						riskLevel: riskLevel,
@@ -146,7 +150,9 @@ final class CheckinRiskCalculation: CheckinRiskCalculationProtocol {
 			}
 		}
 
-		Log.debug("[CheckinRiskCalculation] Finished checkin risk calculation", log: .checkin)
+		Log.info("[CheckinRiskCalculation] Finished checkin risk calculation", log: .checkin)
+
+		Log.debug("[CheckinRiskCalculation] Calculated risk per date: \(riskLevelPerDate)", log: .checkin)
 
 		return CheckinRiskCalculationResult(
 			calculationDate: Date(),
