@@ -38,24 +38,29 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 		setUpGestureRecognizers()
 		setUpBindings()
 
-		let initialDefaultCheckInLength = TimeInterval(minutes: viewModel.defaultCheckInLengthInMinutes) ?? viewModel.defaultDefaultCheckInLengthTimeInterval
-		temporaryDefaultLengthPicker.countDownDuration = initialDefaultCheckInLength
-		permanentDefaultLengthPicker.countDownDuration = initialDefaultCheckInLength
+		temporaryDefaultLengthPicker.countDownDuration = TimeInterval(minutes: viewModel.defaultCheckInLengthInMinutes) ?? viewModel.defaultTemporaryCheckInLengthTimeInterval
+		permanentDefaultLengthPicker.countDownDuration = TimeInterval(minutes: viewModel.defaultCheckInLengthInMinutes) ?? viewModel.defaultPermanentCheckInLengthTimeInterval
 
 		traceLocationTypeLabel.text = viewModel.traceLocationTypeTitle
 		temporarySettingsContainerView.isHidden = viewModel.temporarySettingsContainerIsHidden
 		permanentSettingsContainerView.isHidden = viewModel.permanentSettingsContainerIsHidden
 
 		descriptionTextField.placeholder = AppStrings.TraceLocations.Configuration.descriptionPlaceholder
+		descriptionTextField.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Configuration.descriptionPlaceholder
 		addressTextField.placeholder = AppStrings.TraceLocations.Configuration.addressPlaceholder
+		addressTextField.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Configuration.addressPlaceholder
 
 		startDateTitleLabel.text = AppStrings.TraceLocations.Configuration.startDateTitle
 		endDateTitleLabel.text = AppStrings.TraceLocations.Configuration.endDateTitle
 
 		temporaryDefaultLengthTitleLabel.text = AppStrings.TraceLocations.Configuration.defaultCheckinLengthTitle
+		temporaryDefaultLengthTitleLabel.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Configuration.temporaryDefaultLengthTitleLabel
 		temporaryDefaultLengthFootnoteLabel.text = AppStrings.TraceLocations.Configuration.defaultCheckinLengthFootnote
+		temporaryDefaultLengthFootnoteLabel.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Configuration.temporaryDefaultLengthFootnoteLabel
 		permanentDefaultLengthTitleLabel.text = AppStrings.TraceLocations.Configuration.defaultCheckinLengthTitle
+		permanentDefaultLengthTitleLabel.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Configuration.permanentDefaultLengthTitleLabel
 		permanentDefaultLengthFootnoteLabel.text = AppStrings.TraceLocations.Configuration.defaultCheckinLengthFootnote
+		permanentDefaultLengthFootnoteLabel.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Configuration.permanentDefaultLengthFootnoteLabel
 
 	}
 
@@ -331,7 +336,7 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 
 				// Need to set the countDownDuration after unhiding, otherwise the first valueChanged event is not triggered
 				if !isHidden {
-					self.temporaryDefaultLengthPicker.countDownDuration = TimeInterval(minutes: self.viewModel.defaultCheckInLengthInMinutes) ?? self.viewModel.defaultDefaultCheckInLengthTimeInterval
+					self.temporaryDefaultLengthPicker.countDownDuration = TimeInterval(minutes: self.viewModel.defaultCheckInLengthInMinutes) ?? self.viewModel.defaultTemporaryCheckInLengthTimeInterval
 				}
 			}
 			.store(in: &subscriptions)
@@ -362,7 +367,7 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 
 				// Need to set the countDownDuration after unhiding, otherwise the first valueChanged event is not triggered
 				if !isHidden {
-					self.permanentDefaultLengthPicker.countDownDuration = TimeInterval(minutes: self.viewModel.defaultCheckInLengthInMinutes) ?? self.viewModel.defaultDefaultCheckInLengthTimeInterval
+					self.permanentDefaultLengthPicker.countDownDuration = TimeInterval(minutes: self.viewModel.defaultCheckInLengthInMinutes) ?? self.viewModel.defaultPermanentCheckInLengthTimeInterval
 				}
 			}
 			.store(in: &subscriptions)
