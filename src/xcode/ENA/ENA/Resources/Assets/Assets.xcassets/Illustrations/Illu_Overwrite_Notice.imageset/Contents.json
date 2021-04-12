@@ -1,7 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Illu_Overwrite_Notice.pdf",
+      "filename" : "Illus_two-test-results_light-mode.pdf",
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "Illus_two-test-results_dark-mode.pdf",
       "idiom" : "universal"
     }
   ],
