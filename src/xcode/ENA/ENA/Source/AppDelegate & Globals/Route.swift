@@ -18,14 +18,26 @@ enum Route {
 
 	init?(url: URL) {
 		let components = URLComponents(url: url, resolvingAgainstBaseURL: true)
-		guard components?.host?.lowercased() == "e.coronawarn.app" else {
+		guard let host = components?.host?.lowercased() else {
 			return nil
 		}
-		self = .checkin(url.absoluteString)
+
+		switch host {
+		case "s.coronawarn.app":
+			self = .rapidAntigen(url.absoluteString)
+
+		case "e.coronawarn.app":
+			self = .checkin(url.absoluteString)
+
+		default:
+			return nil
+		}
+
 	}
 
 	// MARK: - Internal
 
 	case checkin(String)
+	case rapidAntigen(String)
 
 }
