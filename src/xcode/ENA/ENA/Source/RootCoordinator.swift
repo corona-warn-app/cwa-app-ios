@@ -142,6 +142,20 @@ class RootCoordinator: RequiresAppDependencies {
 		}
 	}
 
+	func showRapidAntigenTest(_ rapidTest: String) {
+		guard let homeCoordinator = homeCoordinator,
+			  let index = tabBarController.viewControllers?.firstIndex(of: homeCoordinator.rootViewController) else {
+			Log.error("Failed to find home coordinator - stop", log: .default)
+			return
+		}
+
+		tabBarController.dismiss(animated: false) {
+			self.tabBarController.selectedIndex = index
+			Log.debug("Show test registration")
+		}
+
+	}
+
 	func updateDetectionMode(
 		_ detectionMode: DetectionMode
 	) {

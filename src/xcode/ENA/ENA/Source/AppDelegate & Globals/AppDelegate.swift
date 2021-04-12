@@ -645,6 +645,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			switch eventRoute {
 			case .checkin(let guid):
 				coordinator.showEvent(guid)
+			case .rapidAntigen(let antigenTest):
+				coordinator.showRapidAntigenTest(antigenTest)
 			}
 		}
 
