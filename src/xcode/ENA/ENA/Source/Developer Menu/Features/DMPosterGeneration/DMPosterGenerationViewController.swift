@@ -7,6 +7,7 @@
 import UIKit
 import PDFKit
 
+// swiftlint:disable:next type_body_length
 class DMPosterGenerationViewController: UIViewController, UITextFieldDelegate {
 
 	// MARK: - Init
@@ -81,6 +82,13 @@ class DMPosterGenerationViewController: UIViewController, UITextFieldDelegate {
 	private var descriptionHeightField: UITextField!
 	private var descriptionFontSizeField: UITextField!
 	private var descriptionFontColorField: UITextField!
+	
+	private var addressOffsetXField: UITextField!
+	private var addressOffsetYField: UITextField!
+	private var addressWidthField: UITextField!
+	private var addressHeightField: UITextField!
+	private var addressFontSizeField: UITextField!
+	private var addressFontColorField: UITextField!
 
 	private func setupNavigationBar() {
 		title = "Poster Generation"
@@ -198,6 +206,73 @@ class DMPosterGenerationViewController: UIViewController, UITextFieldDelegate {
 		descriptionFontColorField.delegate = self
 		descriptionFontColorField.borderStyle = .bezel
 		
+		let addressOffsetXLabel = UILabel(frame: .zero)
+		addressOffsetXLabel.translatesAutoresizingMaskIntoConstraints = false
+		addressOffsetXLabel.numberOfLines = 0
+		addressOffsetXLabel.text = "Address offset x-axis"
+		addressOffsetXLabel.font = UIFont.enaFont(for: .subheadline)
+	
+		addressOffsetXField = UITextField(frame: .zero)
+		addressOffsetXField.translatesAutoresizingMaskIntoConstraints = false
+		addressOffsetXField.delegate = self
+		addressOffsetXField.borderStyle = .bezel
+		addressOffsetXField.tag = 1
+
+		let addressOffsetYLabel = UILabel(frame: .zero)
+		addressOffsetYLabel.translatesAutoresizingMaskIntoConstraints = false
+		addressOffsetYLabel.numberOfLines = 0
+		addressOffsetYLabel.text = "Address offset y-axis"
+		addressOffsetYLabel.font = UIFont.enaFont(for: .subheadline)
+	
+		addressOffsetYField = UITextField(frame: .zero)
+		addressOffsetYField.translatesAutoresizingMaskIntoConstraints = false
+		addressOffsetYField.delegate = self
+		addressOffsetYField.borderStyle = .bezel
+		
+		let addressWidthLabel = UILabel(frame: .zero)
+		addressWidthLabel.translatesAutoresizingMaskIntoConstraints = false
+		addressWidthLabel.numberOfLines = 0
+		addressWidthLabel.text = "Address Width"
+		addressWidthLabel.font = UIFont.enaFont(for: .subheadline)
+		
+		addressWidthField = UITextField(frame: .zero)
+		addressWidthField.translatesAutoresizingMaskIntoConstraints = false
+		addressWidthField.delegate = self
+		addressWidthField.borderStyle = .bezel
+		
+		let addressHeightLabel = UILabel(frame: .zero)
+		addressHeightLabel.translatesAutoresizingMaskIntoConstraints = false
+		addressHeightLabel.numberOfLines = 0
+		addressHeightLabel.text = "Address Height"
+		addressHeightLabel.font = UIFont.enaFont(for: .subheadline)
+	
+		addressHeightField = UITextField(frame: .zero)
+		addressHeightField.translatesAutoresizingMaskIntoConstraints = false
+		addressHeightField.delegate = self
+		addressHeightField.borderStyle = .bezel
+		
+		let addressFontSizeLabel = UILabel(frame: .zero)
+		addressFontSizeLabel.translatesAutoresizingMaskIntoConstraints = false
+		addressFontSizeLabel.numberOfLines = 0
+		addressFontSizeLabel.text = "Address Font Size"
+		addressFontSizeLabel.font = UIFont.enaFont(for: .subheadline)
+	
+		addressFontSizeField = UITextField(frame: .zero)
+		addressFontSizeField.translatesAutoresizingMaskIntoConstraints = false
+		addressFontSizeField.delegate = self
+		addressFontSizeField.borderStyle = .bezel
+		
+		let addressFontColorLabel = UILabel(frame: .zero)
+		addressFontColorLabel.translatesAutoresizingMaskIntoConstraints = false
+		addressFontColorLabel.numberOfLines = 0
+		addressFontColorLabel.text = "Address Font Color"
+		addressFontColorLabel.font = UIFont.enaFont(for: .subheadline)
+	
+		addressFontColorField = UITextField(frame: .zero)
+		addressFontColorField.translatesAutoresizingMaskIntoConstraints = false
+		addressFontColorField.delegate = self
+		addressFontColorField.borderStyle = .bezel
+	
 		let generatePosterButton = UIButton(frame: .zero)
 		generatePosterButton.translatesAutoresizingMaskIntoConstraints = false
 		generatePosterButton.setTitle("Generate Poster", for: .normal)
@@ -212,15 +287,23 @@ class DMPosterGenerationViewController: UIViewController, UITextFieldDelegate {
 		
 		let stackViewDescription = UIStackView(arrangedSubviews: [descriptionOffsetXLabel, descriptionOffsetXField, descriptionOffsetYLabel, descriptionOffsetYField] +
 									[descriptionWidthLabel, descriptionWidthField, descriptionHeightLabel, descriptionHeightField] +
-									[descriptionFontSizeLabel, descriptionFontSizeField, descriptionFontColorLabel, descriptionFontColorField, generatePosterButton])
+									[descriptionFontSizeLabel, descriptionFontSizeField, descriptionFontColorLabel, descriptionFontColorField])
 		stackViewDescription.translatesAutoresizingMaskIntoConstraints = false
 		stackViewDescription.axis = .vertical
 		stackViewDescription.spacing = 10
+		
+		let stackViewAddress = UIStackView(arrangedSubviews: [addressOffsetXLabel, addressOffsetXField, addressOffsetYLabel, addressOffsetYField] +
+									[addressWidthLabel, addressWidthField, addressHeightLabel, addressHeightField] +
+									[addressFontSizeLabel, addressFontSizeField, addressFontColorLabel, addressFontColorField, generatePosterButton])
+		stackViewAddress.translatesAutoresizingMaskIntoConstraints = false
+		stackViewAddress.axis = .vertical
+		stackViewAddress.spacing = 10
 		
 		let contentView = UIView()
 		contentView.translatesAutoresizingMaskIntoConstraints = false
 		contentView.addSubview(stackViewQRCode)
 		contentView.addSubview(stackViewDescription)
+		contentView.addSubview(stackViewAddress)
 		
 		let scrollView = UIScrollView()
 		scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -238,7 +321,11 @@ class DMPosterGenerationViewController: UIViewController, UITextFieldDelegate {
 			stackViewDescription.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
 			stackViewDescription.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
 			stackViewDescription.topAnchor.constraint(equalTo: stackViewQRCode.bottomAnchor, constant: 10),
-			stackViewDescription.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 10),
+			
+			stackViewAddress.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+			stackViewAddress.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+			stackViewAddress.topAnchor.constraint(equalTo: stackViewDescription.bottomAnchor, constant: 10),
+			stackViewAddress.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 10),
 
 			contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
 			contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
@@ -262,6 +349,11 @@ class DMPosterGenerationViewController: UIViewController, UITextFieldDelegate {
 		descriptionWidthField.keyboardType = .numberPad
 		descriptionHeightField.keyboardType = .numberPad
 		descriptionFontSizeField.keyboardType = .numberPad
+		addressOffsetXField.keyboardType = .numberPad
+		addressOffsetYField.keyboardType = .numberPad
+		addressWidthField.keyboardType = .numberPad
+		addressHeightField.keyboardType = .numberPad
+		addressFontSizeField.keyboardType = .numberPad
 		
 		// setting the default values for the text fields:
 		qrCodeOffsetXField.text = "97"
@@ -270,9 +362,15 @@ class DMPosterGenerationViewController: UIViewController, UITextFieldDelegate {
 		descriptionOffsetXField.text = "80"
 		descriptionOffsetYField.text = "510"
 		descriptionWidthField.text = "420"
-		descriptionHeightField.text = "40"
-		descriptionFontSizeField.text = "14"
+		descriptionHeightField.text = "15"
+		descriptionFontSizeField.text = "10"
 		descriptionFontColorField.text = "#000000"
+		addressOffsetXField.text = "80"
+		addressOffsetYField.text = "525"
+		addressWidthField.text = "420"
+		addressHeightField.text = "15"
+		addressFontSizeField.text = "10"
+		addressFontColorField.text = "#000000"
 	}
 
 	@objc
@@ -302,6 +400,39 @@ class DMPosterGenerationViewController: UIViewController, UITextFieldDelegate {
 	private func createPdfView(templateData: SAP_Internal_Pt_QRCodePosterTemplateIOS) throws -> PDFView {
 		let pdfView = PDFView()
 		let pdfDocument = PDFDocument(data: templateData.template)
+		
+		guard let qrCodeImage = viewModel.traceLocation.qrCode(size: CGSize(width: qrCodeSideLengthField.cgFloatValue, height: qrCodeSideLengthField.cgFloatValue), qrCodeErrorCorrectionLevel: .medium) else { return pdfView }
+		guard let hexDescriptionColorString = descriptionFontColorField.text else { return pdfView }
+		guard let hexAddressColorString = addressFontColorField.text else { return pdfView }
+		
+		let descriptionText = PDFText(
+			text: viewModel.title,
+			size: descriptionFontSizeField.cgFloatValue,
+			color: UIColor().hexStringToUIColor(hex: hexDescriptionColorString),
+			rect: CGRect(
+				x: descriptionOffsetXField.cgFloatValue,
+				y: descriptionOffsetYField.cgFloatValue,
+				width: descriptionWidthField.cgFloatValue,
+				height: descriptionHeightField.cgFloatValue
+			)
+		)
+		
+		let addressText = PDFText(
+			text: viewModel.address,
+			size: addressFontSizeField.cgFloatValue,
+			color: UIColor().hexStringToUIColor(hex: hexAddressColorString),
+			rect: CGRect(
+				x: addressOffsetXField.cgFloatValue,
+				y: addressOffsetYField.cgFloatValue,
+				width: addressWidthField.cgFloatValue,
+				height: addressHeightField.cgFloatValue
+			)
+		)
+		
+		try? pdfDocument?.embedImageAndText(
+			image: qrCodeImage,
+			at: CGPoint(x: qrCodeOffsetXField.cgFloatValue, y: qrCodeOffsetYField.cgFloatValue),
+			texts: [descriptionText, addressText])
 
 		pdfView.document = pdfDocument
 		pdfView.scaleFactor = pdfView.scaleFactorForSizeToFit
