@@ -4,6 +4,7 @@
 
 import Foundation
 import OpenCombine
+import UIKit
 
 enum CoronaTestServiceError: Error, Equatable {
 	case responseFailure(URLSession.Response.Failure)
@@ -188,6 +189,49 @@ class CoronaTestService {
 		)
 	}
 
+	func upateTestResults(presentNotification: Bool, completion: @escaping VoidResultHandler) {
+		let group = DispatchGroup()
+		var errors = [CoronaTestServiceError]()
+
+		for coronaTestType in CoronaTestType.allCases {
+			Log.info("[CoronaTestService] Requesting TestResult for test type \(coronaTestType)…", log: .api)
+
+			group.enter()
+			updateTestResult(for: coronaTestType) { result in
+				switch result {
+				case .failure(let error):
+					Log.error(error.localizedDescription, log: .api)
+					errors.append(error)
+				case .success(.pending), .success(.expired):
+					// Do not trigger notifications for pending or expired results.
+					Log.info("[CoronaTestService] TestResult pending or expired", log: .api)
+				case .success(let testResult):
+					Log.info("[CoronaTestService] Triggering Notification to inform user about TestResult: \(testResult.stringValue)", log: .api)
+
+					if presentNotification {
+						// We attach the test result to determine which screen to show when user taps the notification
+						UNUserNotificationCenter.current().presentNotification(
+							title: AppStrings.LocalNotifications.testResultsTitle,
+							body: AppStrings.LocalNotifications.testResultsBody,
+							identifier: ActionableNotificationIdentifier.testResult.identifier,
+							info: [ActionableNotificationIdentifier.testResult.identifier: testResult.rawValue]
+						)
+					}
+				}
+
+				group.leave()
+			}
+		}
+
+		group.notify(queue: .main) {
+			if let error = errors.first {
+				completion(.failure(error))
+			} else {
+				completion(.success(()))
+			}
+		}
+	}
+
 	func updateTestResult(for coronaTestType: CoronaTestType, completion: @escaping TestResultHandler) {
 		getTestResult(for: coronaTestType, duringRegistration: false) { result in
 			self.fakeRequestService.fakeVerificationAndSubmissionServerRequest {
@@ -336,6 +380,11 @@ class CoronaTestService {
 
 		guard let registrationToken = coronaTest.registrationToken else {
 			completion(.failure(.noRegistrationToken))
+			return
+		}
+
+		guard coronaTest.testResultReceivedDate == nil else {
+			completion(.success(coronaTest.testResult))
 			return
 		}
 
