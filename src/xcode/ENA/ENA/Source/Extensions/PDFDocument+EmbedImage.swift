@@ -50,19 +50,20 @@ extension PDFDocument {
 			
 			// Draw your image onto the context.
 			image.draw(in: imageRect)
-		}
-		
-		for pdfText in texts {
-			// Set the font as per the font size provided
-			let font = UIFont.preferredFont(forTextStyle: .body).scaledFont(size: pdfText.size, weight: .regular)
-
-			let textFontAttributes: [NSAttributedString.Key: Any] = [
-				NSAttributedString.Key.font: font,
-				NSAttributedString.Key.foregroundColor: pdfText.color
-			]
 			
-			// Draw text onto the context
-			pdfText.text.draw(in: pdfText.rect, withAttributes: textFontAttributes)
+			for pdfText in texts {
+				// Set the font as per the font size provided
+				let font = UIFont.preferredFont(forTextStyle: .body).scaledFont(size: pdfText.size, weight: .regular)
+
+				let textFontAttributes: [NSAttributedString.Key: Any] = [
+					NSAttributedString.Key.font: font,
+					NSAttributedString.Key.foregroundColor: pdfText.color
+				]
+
+				// Draw text onto the context
+				pdfText.text.draw(in: pdfText.rect, withAttributes: textFontAttributes)
+			}
+			
 		}
 		
 		// Create a new `PDFPage` with the image that was generated above.
