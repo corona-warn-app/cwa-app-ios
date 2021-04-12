@@ -6,8 +6,15 @@ import Foundation
 import UIKit
 
 extension DynamicCell {
-	static func phone(text: String, number: String, accessibilityIdentifier: String? = nil) -> Self {
-		var cell: DynamicCell = .icon(UIImage(named: "phone"), text: .string(text), tintColor: .enaColor(for: .textPrimary1), selectionStyle: .default, action: .call(number: number)) { _, cell, _ in
+	static func phone(
+		text: String,
+		number: String,
+		accessibilityIdentifier: String? = nil,
+		foreign: Bool = false
+	) -> Self {
+		
+		let image = foreign ? UIImage(named: "phone_foreign") : UIImage(named: "phone")
+		var cell: DynamicCell = .icon(image, text: .string(text), tintColor: .enaColor(for: .textPrimary1), selectionStyle: .default, action: .call(number: number)) { _, cell, _ in
 			cell.textLabel?.textColor = .enaColor(for: .textTint)
 			(cell.textLabel as? ENALabel)?.style = .title2
 			
@@ -22,7 +29,8 @@ extension DynamicCell {
 				let actionName = "\(AppStrings.ExposureSubmissionHotline.callButtonTitle) \(AppStrings.AccessibilityLabel.phoneNumber)"
 				cell.accessibilityCustomActions = [
 					UIAccessibilityCustomAction(name: actionName, actionHandler: {  _ -> Bool in
-						if let url = URL(string: "telprompt:\(AppStrings.ExposureSubmission.hotlineNumber)"),
+						let phoneNumber = foreign ? AppStrings.ExposureSubmission.hotlineNumberForeign : AppStrings.ExposureSubmission.hotlineNumber
+						if let url = URL(string: "telprompt:\(phoneNumber)"),
 							UIApplication.shared.canOpenURL(url) {
 							UIApplication.shared.open(url, options: [:], completionHandler: nil)
 						}

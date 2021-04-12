@@ -25,6 +25,6 @@ class AppInformationModelTest: XCTestCase {
 		let section = AppInformationModel.contactModel.section(0)
 		let numberOfCells = section.cells.count
 		
-		XCTAssertEqual(numberOfCells, 6)
+		XCTAssertEqual(numberOfCells, 8)
 	}
 }
