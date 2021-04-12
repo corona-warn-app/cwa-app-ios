@@ -182,7 +182,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 					registrationToken: "asdf",
 					registrationDate: Date(),
 					testResult: unwrappedTestResult,
-					testResultReceivedDate: unwrappedTestResult == .pending ? nil : Date(),
+					finalTestResultReceivedDate: unwrappedTestResult == .pending ? nil : Date(),
 					positiveTestResultWasShown: !showTestResultAvailableViewController,
 					isSubmissionConsentGiven: UserDefaults.standard.string(forKey: "isSubmissionConsentGiven") == "YES",
 					submissionTAN: nil,

@@ -309,7 +309,7 @@ enum PPAnalyticsCollector {
 	}
 
 	private static func setHoursSinceTestResult() {
-		guard let testResultReceivedDate = coronaTestService?.pcrTest?.testResultReceivedDate else {
+		guard let testResultReceivedDate = coronaTestService?.pcrTest?.finalTestResultReceivedDate else {
 			Log.warning("Could not log hoursSinceTestResult due to testResultReceivedTimeStamp is nil", log: .ppa)
 			return
 		}
