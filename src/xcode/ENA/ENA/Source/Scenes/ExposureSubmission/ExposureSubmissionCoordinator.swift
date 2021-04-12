@@ -854,7 +854,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			isLoading: isLoading,
 			onSuccess: { [weak self] testResult in
 				
-				self?.model.coronaTestType = CoronaTestType(rawValue: testQrCodeInformation.rawValue)
+				self?.model.coronaTestType =  testQrCodeInformation.testType
 
 				switch testResult {
 				case .positive:
