@@ -8,31 +8,35 @@ extension ExposureSubmissionTestResultViewModel {
 	
 	func antigenTableViewModel() -> DynamicTableViewModel {
 		
+		guard let antigenTest = coronaTest.antigenTest else {
+			fatalError("something went horribly wrong")
+		}
+		
 		let sections: [DynamicSection]
 		
 		switch coronaTest.testResult {
 		case .positive:
-			sections = coronaTest.isSubmissionConsentGiven ? positiveTestResultSectionsWithSubmissionConsent : positiveTestResultSectionsWithoutSubmissionConsent
+			sections = coronaTest.isSubmissionConsentGiven ? positiveTestResultSectionsWithSubmissionConsent(test: antigenTest) : positiveTestResultSectionsWithoutSubmissionConsent(test: antigenTest)
 		case .negative:
-			sections = negativeTestResultSections
+			sections = negativeTestResultSections(test: antigenTest)
 		case .invalid:
-			sections = invalidTestResultSections
+			sections = invalidTestResultSections(test: antigenTest)
 		case .pending:
-			sections = pendingTestResultSections
+			sections = pendingTestResultSections(test: antigenTest)
 		case .expired:
-			sections = expiredTestResultSections
+			sections = expiredTestResultSections(test: antigenTest)
 		}
 		
 		return DynamicTableViewModel(sections)
 	}
 	
-	private var pendingTestResultSections: [DynamicSection] {
+	private func pendingTestResultSections(test: AntigenTest) -> [DynamicSection] {
 		[
 			.section(
 				header: .identifier(
-					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
+					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.antigenTestResult,
 					configure: { view, _ in
-						(view as? ExposureSubmissionTestResultHeaderView)?.configure(coronaTest: self.coronaTest, timeStamp: self.timeStamp)
+						(view as? AntigenExposureSubmissionTestResultHeaderView)?.configure(coronaTest: test, timeStamp: self.timeStamp)
 					}
 				),
 				cells: [
@@ -99,13 +103,13 @@ extension ExposureSubmissionTestResultViewModel {
 	
 	/// This is the positive result section which will be shown, if the user
 	/// has NOT GIVEN submission consent to share the positive test result with others
-	private var positiveTestResultSectionsWithoutSubmissionConsent: [DynamicSection] {
+	private func positiveTestResultSectionsWithoutSubmissionConsent(test: AntigenTest) -> [DynamicSection] {
 		[
 			.section(
 				header: .identifier(
-					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
+					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.antigenTestResult,
 					configure: { view, _ in
-						(view as? ExposureSubmissionTestResultHeaderView)?.configure(coronaTest: self.coronaTest, timeStamp: self.timeStamp)
+						(view as? AntigenExposureSubmissionTestResultHeaderView)?.configure(coronaTest: test, timeStamp: self.timeStamp)
 					}
 				),
 				separators: .none,
@@ -144,13 +148,13 @@ extension ExposureSubmissionTestResultViewModel {
 	
 	/// This is the positive result section which will be shown, if the user
 	/// has GIVEN submission consent to share the positive test result with others
-	private var positiveTestResultSectionsWithSubmissionConsent: [DynamicSection] {
+	private func positiveTestResultSectionsWithSubmissionConsent(test: AntigenTest) -> [DynamicSection] {
 		[
 			.section(
 				header: .identifier(
-					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
+					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.antigenTestResult,
 					configure: { view, _ in
-						(view as? ExposureSubmissionTestResultHeaderView)?.configure(coronaTest: self.coronaTest, timeStamp: self.timeStamp)
+						(view as? AntigenExposureSubmissionTestResultHeaderView)?.configure(coronaTest: test, timeStamp: self.timeStamp)
 					}
 				),
 				separators: .none,
@@ -165,13 +169,13 @@ extension ExposureSubmissionTestResultViewModel {
 		]
 	}
 	
-	private var negativeTestResultSections: [DynamicSection] {
+	private func negativeTestResultSections(test: AntigenTest) -> [DynamicSection] {
 		[
 			.section(
 				header: .identifier(
-					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
+					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.antigenTestResult,
 					configure: { view, _ in
-						(view as? ExposureSubmissionTestResultHeaderView)?.configure(coronaTest: self.coronaTest, timeStamp: self.timeStamp)
+						(view as? AntigenExposureSubmissionTestResultHeaderView)?.configure(coronaTest: test, timeStamp: self.timeStamp)
 					}
 				),
 				separators: .none,
@@ -213,13 +217,13 @@ extension ExposureSubmissionTestResultViewModel {
 		]
 	}
 	
-	private var expiredTestResultSections: [DynamicSection] {
+	private func expiredTestResultSections(test: AntigenTest) -> [DynamicSection] {
 		[
 			.section(
 				header: .identifier(
-					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
+					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.antigenTestResult,
 					configure: { view, _ in
-						(view as? ExposureSubmissionTestResultHeaderView)?.configure(coronaTest: self.coronaTest, timeStamp: self.timeStamp)
+						(view as? AntigenExposureSubmissionTestResultHeaderView)?.configure(coronaTest: test, timeStamp: self.timeStamp)
 					}
 				),
 				separators: .none,
@@ -252,13 +256,13 @@ extension ExposureSubmissionTestResultViewModel {
 		]
 	}
 	
-	private var invalidTestResultSections: [DynamicSection] {
+	private func invalidTestResultSections(test: AntigenTest) -> [DynamicSection] {
 		[
 			.section(
 				header: .identifier(
-					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
+					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.antigenTestResult,
 					configure: { view, _ in
-						(view as? ExposureSubmissionTestResultHeaderView)?.configure(coronaTest: self.coronaTest, timeStamp: self.timeStamp)
+						(view as? AntigenExposureSubmissionTestResultHeaderView)?.configure(coronaTest: test, timeStamp: self.timeStamp)
 					}
 				),
 				separators: .none,
@@ -289,5 +293,17 @@ extension ExposureSubmissionTestResultViewModel {
 				]
 			)
 		]
+	}
+}
+
+private extension CoronaTest {
+	
+	var antigenTest: AntigenTest? {
+		switch self {
+		case .pcr:
+			return nil
+		case .antigen(let test):
+			return test
+		}
 	}
 }

@@ -673,6 +673,10 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_CardNegative" = "negativ";
 
+"ExposureSubmissionResult_CardPositive_Antigen" = "Positiv";
+
+"ExposureSubmissionResult_CardNegative_Antigen" = "Negativ";
+
 "ExposureSubmissionResult_CardInvalid" = "Auswertung nicht möglich";
 
 "ExposureSubmissionResult_CardPending" = "Ergebnis liegt noch nicht vor";
@@ -720,6 +724,8 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ExposureSubmissionResult_antigenTestPendingContactJournal" = "Ihr Testergebnis wird dem Kontakt-Tagebuch hinzugefügt.";
 
 "ExposureSubmissionResult_antigenTestPendingContactJournalDesc" = "Sobald Ihr Testergebnis vorliegt, wird es Ihnen in der App angezeigt.";
+
+"ExposureSubmissionResult_antigenTestNegativDesc" = "Das Virus SARS-CoV-2 wurde bei Ihnen nicht nachgewiesen.";
 
 "ExposureSubmissionResult_WarnOthersConsentGiven" = "Einverständnis „Andere warnen“ erteilt";
 
@@ -833,6 +839,10 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ExposureSubmissionResult_RegistrationDate" = "Test hinzugefügt am";
 
 "ExposureSubmissionResult_RegistrationDate_Antigen" = "Ausgestellt:";
+
+"ExposureSubmissionResult_RegistrationDate_Suffix_Antigen" = "Uhr";
+
+"ExposureSubmissionResult_Person_Birthday_Prefix" = "geb.";
 
 /* Exposure Submission */
 
