@@ -78,7 +78,7 @@ enum AppStrings {
 
 			enum Antigen {
 				static let headline = NSLocalizedString("ExposureSubmission_OverwriteNotice_Antigen_Headline", comment: "")
-				static let text = NSLocalizedString("ExposureSubmission_OverwriteNotice_Pcr_Text", comment: "")
+				static let text = NSLocalizedString("ExposureSubmission_OverwriteNotice_Antigen_Text", comment: "")
 			}
 		}
 	}
