@@ -303,8 +303,8 @@ class DMPosterGenerationViewController: UIViewController, UITextFieldDelegate {
 		let pdfView = PDFView()
 		let pdfDocument = PDFDocument(data: templateData.template)
 
-		guard let qrCodeImage = viewModel.traceLocation.qrCode(size: CGSize(width: qrCodeSideLengthField.cgFloatValue, height: qrCodeSideLengthField.cgFloatValue), qrCodeErrorCorrectionLevel: .medium) else { return pdfView }
-		guard let hexColorString = descriptionFontColorField.text else { return pdfView }
+//		guard let qrCodeImage = viewModel.traceLocation.qrCode(size: CGSize(width: qrCodeSideLengthField.cgFloatValue, height: qrCodeSideLengthField.cgFloatValue), qrCodeErrorCorrectionLevel: .medium) else { return pdfView }
+//		guard let hexColorString = descriptionFontColorField.text else { return pdfView }
 
 //		try? pdfDocument?.embedImageAndText(
 //			image: qrCodeImage,

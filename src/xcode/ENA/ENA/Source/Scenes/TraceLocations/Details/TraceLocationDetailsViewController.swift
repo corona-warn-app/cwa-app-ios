@@ -204,25 +204,25 @@ class TraceLocationDetailsViewController: UIViewController, UITableViewDataSourc
 		
 		let descriptionText = PDFText(
 			text: viewModel.title,
-			size: CGFloat(10),
+			size: CGFloat(descriptionTextDetails.fontSize),
 			color: UIColor().hexStringToUIColor(hex: descriptionTextDetails.fontColor),
 			rect: CGRect(
 				x: CGFloat(descriptionTextDetails.offsetX),
 				y: CGFloat(descriptionTextDetails.offsetY),
 				width: CGFloat(descriptionTextDetails.width),
-				height: CGFloat(20)
+				height: CGFloat(descriptionTextDetails.height)
 			)
 		)
 		
 		let adressText = PDFText(
 			text: viewModel.address,
-			size: CGFloat(10),
-			color: UIColor().hexStringToUIColor(hex: "#000000"),
+			size: CGFloat(adressTextDetails.fontSize),
+			color: UIColor().hexStringToUIColor(hex: adressTextDetails.fontColor),
 			rect: CGRect(
-				x: CGFloat(80),
-				y: CGFloat(530),
-				width: CGFloat(420),
-				height: CGFloat(20)
+				x: CGFloat(adressTextDetails.offsetX),
+				y: CGFloat(adressTextDetails.offsetY),
+				width: CGFloat(adressTextDetails.width),
+				height: CGFloat(adressTextDetails.height)
 			)
 		)
 		
