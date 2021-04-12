@@ -10,7 +10,4 @@ private func withPrefix(_ name: String) -> Notification.Name {
 
 extension Notification.Name {
 	static let isOnboardedDidChange = withPrefix("isOnboardedDidChange")
-
-	static let didStartExposureSubmissionFlow = withPrefix("didStartExposureSubmissionFlow")
-	static let didDismissExposureSubmissionFlow = withPrefix("didDismissExposureSubmissionFlow")
 }
