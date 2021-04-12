@@ -51,35 +51,6 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			return
 		}
 
-		/* remove later */
-
-		let testOverwriteNoticeViewController = TestOverwriteNoticeViewController(
-			testType: .pcr,
-			didTapPrimaryButton: {
-				Log.debug("Did accept overwrite of older test result")
-				self.parentNavigationController?.dismiss(animated: true)
-			},
-			didTapCloseButton: {
-				Log.debug("Did decline overwrite of older test result")
-				self.parentNavigationController?.dismiss(animated: true)
-			}
-		)
-		let footerViewController = FooterViewController(
-			FooterViewModel(
-				primaryButtonName: AppStrings.ExposureSubmission.OverwriteNotice.primaryButton,
-				isSecondaryButtonHidden: true
-			)
-		)
-		let topBottomViewController = TopBottomContainerViewController(topController: testOverwriteNoticeViewController, bottomController: footerViewController)
-		let testOverwriteNoticeNavigationController = DismissHandlingNavigationController(rootViewController: topBottomViewController)
-		parentNavigationController.present(testOverwriteNoticeNavigationController, animated: true)
-		navigationController = testOverwriteNoticeNavigationController
-
-		return
-
-
-		/* ------------- */
-
 		/// The navigation controller keeps a strong reference to the coordinator. The coordinator only reaches reference count 0
 		/// when UIKit dismisses the navigationController.
 		let exposureSubmissionNavigationController = ExposureSubmissionNavigationController(
@@ -190,6 +161,27 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	private var subscriptions = [AnyCancellable]()
 
 	// MARK: Initial Screens
+
+	private func showOverrideTestNotice(
+		testType: CoronaTestType,
+		didTapAccept: @escaping () -> Void,
+		didTapDecline: @escaping () -> Void
+	) {
+		let testOverwriteNoticeViewController = TestOverwriteNoticeViewController(
+			testType: testType,
+			didTapPrimaryButton: didTapAccept,
+			didTapCloseButton: didTapDecline
+		)
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: AppStrings.ExposureSubmission.OverwriteNotice.primaryButton,
+				isSecondaryButtonHidden: true
+			)
+		)
+		let topBottomViewController = TopBottomContainerViewController(topController: testOverwriteNoticeViewController, bottomController: footerViewController)
+		let testOverwriteNoticeNavigationController = DismissHandlingNavigationController(rootViewController: topBottomViewController)
+		parentNavigationController?.present(testOverwriteNoticeNavigationController, animated: true)
+	}
 
 	private func createTestResultAvailableViewController() -> UIViewController {
 		NotificationCenter.default.post(Notification(name: .didStartExposureSubmissionFlow, object: nil, userInfo: ["result": model.coronaTest?.testResult.rawValue as Any]))
