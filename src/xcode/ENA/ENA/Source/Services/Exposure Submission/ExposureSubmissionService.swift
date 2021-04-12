@@ -152,6 +152,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				self.fakeRequestService.fakeVerificationServerRequest {
 					self._submitExposure(
 						processedKeys,
+						coronaTest: coronaTest,
 						visitedCountries: self.supportedCountries,
 						checkins: processedCheckins,
 						completion: { [weak self] error in
@@ -166,8 +167,8 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 							}
 							completion(error)
 						}
-					}
-				)
+					)
+				}
 			}
 			.store(in: &subscriptions)
 	}

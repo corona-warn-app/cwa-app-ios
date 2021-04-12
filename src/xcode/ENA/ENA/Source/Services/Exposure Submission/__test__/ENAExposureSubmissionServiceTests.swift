@@ -10,8 +10,10 @@ class ENAExposureSubmissionServiceTests: XCTestCase {
 	func test_When_SubmissionWasSuccessful_Then_CheckinSubmittedIsTrue() {
 		let keysRetrievalMock = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (nil, nil) )
 		let mockStore = MockTestStore()
-		let warnOthersReminder = WarnOthersReminder(store: mockStore)
 		let eventStore = MockEventStore()
+
+		let coronaTestService = CoronaTestService(client: ClientMock(), store: mockStore)
+		coronaTestService.pcrTest = PCRTest.mock(registrationToken: "regToken", isSubmissionConsentGiven: true)
 		
 		mockStore.isSubmissionConsentGiven = true
 		mockStore.submissionKeys = [SAP_External_Exposurenotification_TemporaryExposureKey()]
@@ -24,12 +26,11 @@ class ENAExposureSubmissionServiceTests: XCTestCase {
 			client: ClientMock(),
 			store: mockStore,
 			eventStore: eventStore,
-			warnOthersReminder: warnOthersReminder
+			coronaTestService: coronaTestService
 		)
 		
 		let completionExpectation = expectation(description: "Completion should be called.")
-		checkinSubmissionService.submitExposure { error in
-			
+		checkinSubmissionService.submitExposure(coronaTestType: .pcr) { error in
 			XCTAssertNil(error)
 			XCTAssertTrue(eventStore.checkinsPublisher.value[0].checkinSubmitted)
 			
