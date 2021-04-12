@@ -900,6 +900,7 @@
 		BAC939D2261F5389008BECED /* TestOverwriteNoticeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC939D1261F5389008BECED /* TestOverwriteNoticeViewModel.swift */; };
 		BAC939D8261F5D08008BECED /* DismissHandlingNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC939D7261F5D08008BECED /* DismissHandlingNavigationController.swift */; };
 		BACCCC7525ADB9FD00195AC3 /* RiskLegendeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACCCC7425ADB9FD00195AC3 /* RiskLegendeTest.swift */; };
+		BACD176B2624978200104AD9 /* TestOverwriteNoticeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACD176A2624978200104AD9 /* TestOverwriteNoticeViewModelTests.swift */; };
 		BACD671725B7002F00BAF5D0 /* RiskCalculationResultTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACD671625B7002F00BAF5D0 /* RiskCalculationResultTests.swift */; };
 		BAD962FB25668F4000FAB615 /* TestResultAvailableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD962FA25668F4000FAB615 /* TestResultAvailableViewController.swift */; };
 		BAD9630025668F8E00FAB615 /* TestResultAvailableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD962FF25668F8E00FAB615 /* TestResultAvailableViewModel.swift */; };
@@ -1960,6 +1961,7 @@
 		BAC939D1261F5389008BECED /* TestOverwriteNoticeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestOverwriteNoticeViewModel.swift; sourceTree = "<group>"; };
 		BAC939D7261F5D08008BECED /* DismissHandlingNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissHandlingNavigationController.swift; sourceTree = "<group>"; };
 		BACCCC7425ADB9FD00195AC3 /* RiskLegendeTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskLegendeTest.swift; sourceTree = "<group>"; };
+		BACD176A2624978200104AD9 /* TestOverwriteNoticeViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestOverwriteNoticeViewModelTests.swift; sourceTree = "<group>"; };
 		BACD671625B7002F00BAF5D0 /* RiskCalculationResultTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskCalculationResultTests.swift; sourceTree = "<group>"; };
 		BAD962FA25668F4000FAB615 /* TestResultAvailableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultAvailableViewController.swift; sourceTree = "<group>"; };
 		BAD962FF25668F8E00FAB615 /* TestResultAvailableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultAvailableViewModel.swift; sourceTree = "<group>"; };
@@ -5570,6 +5572,7 @@
 		BAC939CB261F52C9008BECED /* TestOverwriteNotice */ = {
 			isa = PBXGroup;
 			children = (
+				BACD17692624976E00104AD9 /* __tests__ */,
 				BAC939CC261F5359008BECED /* TestOverwriteNoticeViewController.swift */,
 				BAC939D1261F5389008BECED /* TestOverwriteNoticeViewModel.swift */,
 			);
@@ -5590,6 +5593,14 @@
 				BACCCC7425ADB9FD00195AC3 /* RiskLegendeTest.swift */,
 			);
 			path = __test__;
+			sourceTree = "<group>";
+		};
+		BACD17692624976E00104AD9 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				BACD176A2624978200104AD9 /* TestOverwriteNoticeViewModelTests.swift */,
+			);
+			path = __tests__;
 			sourceTree = "<group>";
 		};
 		BAD962F925668E5D00FAB615 /* TestResultAvailable */ = {
@@ -6985,6 +6996,7 @@
 				BAA4D72225E9501E00821B5C /* EUSettingsViewModelTests.swift in Sources */,
 				BA69A80D25CDA80600023265 /* SelectValueViewModelTests.swift in Sources */,
 				AB453F602534B04400D8339E /* ExposureManagerTests.swift in Sources */,
+				BACD176B2624978200104AD9 /* TestOverwriteNoticeViewModelTests.swift in Sources */,
 				94ABF76B25B9676F004AB56F /* DeltaOnboardingNewVersionFeaturesControllerTests.swift in Sources */,
 				8FE6CEFD2617482C006BFB82 /* CheckinQRCodeScannerViewModelTests.swift in Sources */,
 				B10F9B8C249961CE00C418F4 /* UIFont+DynamicTypeTests.swift in Sources */,
