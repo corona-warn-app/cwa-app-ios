@@ -122,7 +122,7 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 		XCTAssertTrue(app.staticTexts[location2].exists)
 		
 		// clean up
-		swipeLeft_and_remove_all_traceLocations_at_once()
+		removeAllTraceLocationsAtOnce()
 		
 		XCTAssertFalse(app.staticTexts[event1].exists)
 		XCTAssertFalse(app.staticTexts[event2].exists)
@@ -252,7 +252,7 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 		// close view
 		app.buttons[AccessibilityIdentifiers.AccessibilityLabel.close].tap()
 		// clean up
-		swipeLeft_and_remove_all_traceLocations_at_once()
+		removeAllTraceLocationsAtOnce()
 	}
 	
 	func test_WHEN_traceLocation_exists_THEN_checkin_and_checkout() throws {
@@ -291,7 +291,10 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 	}
 	
 	func test_screenshots_of_traceLocation_print_flow() throws {
+		app.launchArguments.append(contentsOf: ["-TraceLocationsInfoScreenShown", "YES"])
+		app.launchArguments.append(contentsOf: ["-checkinInfoScreenShown", "YES"])
 		app.launch()
+		// navigate to "Create QR Code"
 		if let button = UITestHelper.scrollTo(identifier: AccessibilityIdentifiers.Home.traceLocationsCardButton, element: app, app: app) {
 			button.tap()
 		} else {
@@ -339,7 +342,7 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 		app.buttons[AccessibilityIdentifiers.AccessibilityLabel.close].tap()
 		
 		// clean up
-		swipeLeft_and_remove_all_traceLocations_at_once()
+		removeAllTraceLocationsAtOnce()
 	}
 	
 	// MARK: - Internal
@@ -362,7 +365,6 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 		
 		// tap checkout button
 		XCTAssertTrue(query.element(boundBy: 1).identifier == AccessibilityIdentifiers.TraceLocation.Configuration.eventTableViewCellButton)
-		query.element(boundBy: 1).waitForExistence(timeout: .short)
 		query.element(boundBy: 1).tap()
 		
 		app.swipeUp()
@@ -403,7 +405,6 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 		app.alerts.buttons[AccessibilityLabels.localized(AppStrings.Checkins.Overview.DeleteOneAlert.confirmButtonTitle)].tap()
 		
 		XCTAssertTrue(app.cells.count == 1) // assumption: only one cell remains
-		
 	}
 	
 	func createTraceLocation(event: String, location: String) {
@@ -433,25 +434,23 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 		app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.DeleteOneAlert.confirmButtonTitle)].tap()
 	}
 	
-	func swipeLeft_and_remove_all_traceLocations_at_once() {
-		let query = app.buttons
-		let n = query.count
-		
-		if n > 0 {
-			for i in 0...(n - 1) {
-				if query.element(boundBy: i).identifier == AccessibilityIdentifiers.TraceLocation.Configuration.eventTableViewCellButton {
-					query.element(boundBy: i).swipeLeft()
-					XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.DeleteOneAlert.confirmButtonTitle)].waitForExistence(timeout: .short))
-					// tap "Alle entfernen"
-					XCTAssertTrue(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].exists)
-					app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].tap()
-					// Alert: tap "Löschen"
-					XCTAssertTrue(app.alerts.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.DeleteOneAlert.confirmButtonTitle)].waitForExistence(timeout: .short))
-					app.alerts.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.DeleteOneAlert.confirmButtonTitle)].tap()
-					return // all QR codes have been deleted
-				}
-			}
-		}
+	func removeAllTraceLocationsAtOnce() {
+		XCTAssertTrue(app.navigationBars.buttons.element(boundBy: 1).waitForExistence(timeout: .short))
+		app.navigationBars.buttons.element(boundBy: 1).tap()
+
+		let editButton = app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.ActionSheet.editTitle)]
+		XCTAssertTrue(editButton.waitForExistence(timeout: .medium))
+		editButton.tap()
+
+		// tap "Alle entfernen"
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitForExistence(timeout: .medium))
+		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].tap()
+
+		// Alert: tap "Löschen"
+		XCTAssertTrue(app.alerts.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.DeleteAllAlert.confirmButtonTitle)].waitForExistence(timeout: .short))
+		app.alerts.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.DeleteAllAlert.confirmButtonTitle)].tap()
+
+		return // all QR codes have been deleted
 	}
 	
 }

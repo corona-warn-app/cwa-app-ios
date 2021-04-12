@@ -23,7 +23,7 @@ class TraceLocationConfigurationViewModel {
 				startDate = Date()
 				endDate = Date()
 			case .permanent:
-				defaultCheckInLengthInMinutes = defaultDefaultCheckInLengthInMinutes
+				defaultCheckInLengthInMinutes = defaultPermanentCheckInLengthInMinutes
 			case .unspecified:
 				break
 			}
@@ -80,8 +80,12 @@ class TraceLocationConfigurationViewModel {
 	@OpenCombine.Published private(set) var formattedEndDate: String?
 	@OpenCombine.Published private(set) var formattedDefaultCheckInLength: String?
 
-	var defaultDefaultCheckInLengthTimeInterval: TimeInterval {
-		TimeInterval(defaultDefaultCheckInLengthInMinutes * 60)
+	var defaultTemporaryCheckInLengthTimeInterval: TimeInterval {
+		TimeInterval(defaultTemporaryCheckInLengthInMinutes * 60)
+	}
+
+	var defaultPermanentCheckInLengthTimeInterval: TimeInterval {
+		TimeInterval(defaultPermanentCheckInLengthInMinutes * 60)
 	}
 
 	var traceLocationTypeTitle: String {
@@ -114,7 +118,7 @@ class TraceLocationConfigurationViewModel {
 
 	func temporaryDefaultLengthHeaderTapped() {
 		if defaultCheckInLengthInMinutes == nil {
-			defaultCheckInLengthInMinutes = defaultDefaultCheckInLengthInMinutes
+			defaultCheckInLengthInMinutes = defaultTemporaryCheckInLengthInMinutes
 		} else {
 			defaultCheckInLengthInMinutes = nil
 		}
@@ -122,7 +126,7 @@ class TraceLocationConfigurationViewModel {
 
 	func temporaryDefaultLengthSwitchSet(to isOn: Bool) {
 		if defaultCheckInLengthInMinutes == nil && isOn {
-			defaultCheckInLengthInMinutes = defaultDefaultCheckInLengthInMinutes
+			defaultCheckInLengthInMinutes = defaultTemporaryCheckInLengthInMinutes
 		} else if !isOn {
 			defaultCheckInLengthInMinutes = nil
 		}
@@ -218,7 +222,8 @@ class TraceLocationConfigurationViewModel {
 
 	private let eventStore: EventStoring
 	private let traceLocationType: TraceLocationType
-	private let defaultDefaultCheckInLengthInMinutes: Int = 15
+	private let defaultTemporaryCheckInLengthInMinutes: Int = 15
+	private let defaultPermanentCheckInLengthInMinutes: Int = 120
 
 	private var subscriptions = Set<AnyCancellable>()
 

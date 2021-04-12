@@ -12,7 +12,7 @@ class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDel
 	init(
 		verificationHelper: QRCodeVerificationHelper,
 		appConfiguration: AppConfigurationProviding,
-		onSuccess: @escaping(TraceLocation) -> Void,
+		onSuccess: @escaping (TraceLocation) -> Void,
 		onError: ((CheckinQRScannerError) -> Void)?
 	) {
 		self.appConfiguration = appConfiguration
@@ -63,7 +63,6 @@ class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDel
 	// MARK: - Internal
 
 	lazy var captureSession: AVCaptureSession? = {
-		
 		guard let currentCaptureDevice = captureDevice,
 			let captureDeviceInput = try? AVCaptureDeviceInput(device: currentCaptureDevice) else {
 			onError?(.cameraPermissionDenied)
