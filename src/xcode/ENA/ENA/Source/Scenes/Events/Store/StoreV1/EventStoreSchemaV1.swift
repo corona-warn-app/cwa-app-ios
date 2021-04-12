@@ -41,7 +41,8 @@ class EventStoreSchemaV1: StoreSchemaProtocol {
 					checkinStartDate INTEGER NOT NULL,
 					checkinEndDate INTEGER NOT NULL,
 					checkinCompleted INTEGER NOT NULL,
-					createJournalEntry INTEGER NOT NULL
+					createJournalEntry INTEGER NOT NULL,
+					checkinSubmitted INTEGER NOT NULL
 				);
 
 				CREATE TABLE IF NOT EXISTS TraceLocation (

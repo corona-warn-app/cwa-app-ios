@@ -183,18 +183,16 @@ class CheckinRiskCalculationTests: XCTestCase {
 		let traceWarningMatcher = TraceWarningMatcher(eventStore: eventStore)
 
 		let result1 = eventStore.createCheckin(
-			makeDummyCheckin(
-				startDate: checkin1StartDate,
-				endDate: checkin1EndDate,
-				traceLocationId: "1"
+			Checkin.mock(
+				checkinStartDate: checkin1StartDate,
+				checkinEndDate: checkin1EndDate
 			)
 		)
 
 		let result2 = eventStore.createCheckin(
-			makeDummyCheckin(
-				startDate: checkin2StartDate,
-				endDate: checkin2EndDate,
-				traceLocationId: "2"
+			Checkin.mock(
+				checkinStartDate: checkin2StartDate,
+				checkinEndDate: checkin2EndDate
 			)
 		)
 
@@ -248,6 +246,65 @@ class CheckinRiskCalculationTests: XCTestCase {
 		XCTAssertEqual(numberOfHighRisksPerCheckin, 4)
 		XCTAssertEqual(checkinRiskCalculationResult.riskLevelPerDate.count, 3)
 		XCTAssertEqual(checkinRiskCalculationResult.checkinIdsWithRiskPerDate.count, 3)
+	}
+
+	func test_When_StoreHasSubmittedCheckins_Then_SubmittedCheckinsAreIgnored_And_NoHighRiskIsReturned() {
+		guard let checkinStartDate = utcFormatter.date(from: "2021-03-04T09:30:00+01:00"),
+			  let checkinEndDate = utcFormatter.date(from: "2021-03-04T010:30:00+01:00"),
+			  let matchStartDate = utcFormatter.date(from: "2021-03-04T09:30:00+01:00"),
+			  let matchEndDate = utcFormatter.date(from: "2021-03-04T10:30:00+01:00")else {
+			XCTFail("Could not create dates.")
+			return
+		}
+
+		let eventStore = MockEventStore()
+		let checkinSplittingService = CheckinSplittingService()
+		let traceWarningMatcher = TraceWarningMatcher(eventStore: eventStore)
+
+		let result1 = eventStore.createCheckin(
+			Checkin.mock(
+				checkinStartDate: checkinStartDate,
+				checkinEndDate: checkinEndDate,
+				checkinSubmitted: true
+			)
+		)
+
+		guard case .success(let checkinId1) = result1 else {
+			XCTFail("Success result expected.")
+			return
+		}
+
+		eventStore.createTraceTimeIntervalMatch(
+			makeDummyMatch(
+				checkinId: checkinId1,
+				startIntervalNumber: create10MinutesInterval(from: matchStartDate),
+				endIntervalNumber: create10MinutesInterval(from: matchEndDate),
+				transmissionRiskLevel: 1
+			)
+		)
+
+		let riskCalculation = CheckinRiskCalculation(
+			eventStore: eventStore,
+			checkinSplittingService: checkinSplittingService,
+			traceWarningMatcher: traceWarningMatcher
+		)
+
+		let checkinRiskCalculationResult = riskCalculation.calculateRisk(with: createAppConfig())
+
+		let numberOfHighDayRisks: Int = checkinRiskCalculationResult.riskLevelPerDate.reduce(0) {
+			$1.value == .high ? $0 + 1 : $0
+		}
+
+		let numberOfHighCheckinRisks: Int = checkinRiskCalculationResult.checkinIdsWithRiskPerDate.reduce(0) {
+			$1.value.reduce($0) {
+				$1.riskLevel == .high ? $0 + 1 : $0
+			}
+		}
+
+		XCTAssertEqual(numberOfHighDayRisks, 0)
+		XCTAssertEqual(numberOfHighCheckinRisks, 0)
+		XCTAssertEqual(checkinRiskCalculationResult.riskLevelPerDate.count, 0)
+		XCTAssertEqual(checkinRiskCalculationResult.checkinIdsWithRiskPerDate.count, 0)
 	}
 
 	private func createAppConfig() -> SAP_Internal_V2_ApplicationConfigurationIOS {
@@ -325,10 +382,9 @@ class CheckinRiskCalculationTests: XCTestCase {
 		let traceWarningMatcher = TraceWarningMatcher(eventStore: eventStore)
 
 		let result1 = eventStore.createCheckin(
-			makeDummyCheckin(
-				startDate: checkinStartDate,
-				endDate: checkinEndDate,
-				traceLocationId: "1"
+			Checkin.mock(
+				checkinStartDate: checkinStartDate,
+				checkinEndDate: checkinEndDate
 			)
 		)
 
@@ -350,31 +406,6 @@ class CheckinRiskCalculationTests: XCTestCase {
 			eventStore: eventStore,
 			checkinSplittingService: checkinSplittingService,
 			traceWarningMatcher: traceWarningMatcher
-		)
-	}
-
-	private func makeDummyCheckin(
-		startDate: Date = Date(),
-		endDate: Date = Date(),
-		traceLocationId: String = "0"
-	) -> Checkin {
-		Checkin(
-			id: 0,
-			traceLocationId: traceLocationId.data(using: .utf8) ?? Data(),
-			traceLocationIdHash: traceLocationId.data(using: .utf8) ?? Data(),
-			traceLocationVersion: 0,
-			traceLocationType: .locationTypePermanentCraft,
-			traceLocationDescription: "",
-			traceLocationAddress: "",
-			traceLocationStartDate: Date(),
-			traceLocationEndDate: Date(),
-			traceLocationDefaultCheckInLengthInMinutes: 0,
-			cryptographicSeed: Data(),
-			cnPublicKey: Data(),
-			checkinStartDate: startDate,
-			checkinEndDate: endDate,
-			checkinCompleted: false,
-			createJournalEntry: false
 		)
 	}
 

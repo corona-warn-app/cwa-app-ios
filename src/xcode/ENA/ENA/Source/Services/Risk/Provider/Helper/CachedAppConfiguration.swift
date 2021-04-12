@@ -93,6 +93,9 @@ final class CachedAppConfiguration {
 							lastAppConfigFetch: Date(),
 							appConfig: response.config
 						)
+
+						Log.debug("Fetched config: \(response.config).", log: .appConfig)
+
 						// update revokation list
 						let revokationList = self.store.appConfigMetadata?.appConfig.revokationEtags ?? []
 						self.packageStore?.revokationList = revokationList // for future package-operations

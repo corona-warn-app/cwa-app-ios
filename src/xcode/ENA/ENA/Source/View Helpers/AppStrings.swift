@@ -1388,6 +1388,9 @@ enum AppStrings {
 				static let invalidURL = NSLocalizedString("Checkin_QR_Scanner_Error_InvalidURL", comment: "")
 				static let invalidPayload = NSLocalizedString("Checkin_QR_Scanner_Error_InvalidPayload", comment: "")
 				static let invalidVendorData = NSLocalizedString("Checkin_QR_Scanner_Error_InvalidURLVendorData", comment: "")
+				static let invalidDescription = NSLocalizedString("Checkin_QR_Scanner_Error_InvalidDescription", comment: "")
+				static let invalidAddress = NSLocalizedString("Checkin_QR_Scanner_Error_InvalidAddress", comment: "")
+				static let invalidCryptographicSeed = NSLocalizedString("Checkin_QR_Scanner_Error_InvalidCryptographicSeed", comment: "")
 			}
 		}
 

@@ -1858,7 +1858,7 @@ sein.";
 
 "Tabbar_Diary_Title" = "Tagebuch";
 
-"Tabbar_CheckIn_Title" = "Check In";
+"Tabbar_CheckIn_Title" = "Check-in";
 
 /* Data Donation */
 
@@ -2046,6 +2046,12 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "Checkin_QR_Scanner_Error_InvalidPayload" = "Ungültiger QR-Code verhindert das Einchecken. Die verantwortliche Stelle muss einen neuen QR-Code generieren (Fehlercode INVALID_PAYLOAD).";
 
 "Checkin_QR_Scanner_Error_InvalidURLVendorData" = "Ungültiger QR-Code verhindert das Einchecken. Die verantwortliche Stelle muss einen neuen QR-Code generieren (Fehlercode INVALID_VENDOR_DATA).";
+
+"Checkin_QR_Scanner_Error_InvalidDescription" = "Ungültiger QR-Code verhindert das Einchecken. Die verantwortliche Stelle muss einen neuen QR-Code generieren (Fehlercode INVALID_DESCRIPTION).";
+
+"Checkin_QR_Scanner_Error_InvalidAddress" = "Ungültiger QR-Code verhindert das Einchecken. Die verantwortliche Stelle muss einen neuen QR-Code generieren (Fehlercode INVALID_ADDRESS).";
+
+"Checkin_QR_Scanner_Error_InvalidCryptographicSeed" = "Ungültiger QR-Code verhindert das Einchecken. Die verantwortliche Stelle muss einen neuen QR-Code generieren (Fehlercode INVALID_CRYPTO_SEED).";
 
 /* TraceLocations */
 

@@ -108,6 +108,10 @@ final class ENFRiskCalculation: ENFRiskCalculationProtocol, Codable {
 
 		calculationDate = Date()
 
+		Log.debug("[RiskCalculation] Calculated risk per date: \(riskLevelPerDate)", log: .checkin)
+
+		Log.debug("[RiskCalculation] Calculated overall risk level: \(riskLevel)", log: .riskDetection)
+
 		return ENFRiskCalculationResult(
 			riskLevel: riskLevel,
 			minimumDistinctEncountersWithLowRisk: minimumDistinctEncountersWithLowRisk,
