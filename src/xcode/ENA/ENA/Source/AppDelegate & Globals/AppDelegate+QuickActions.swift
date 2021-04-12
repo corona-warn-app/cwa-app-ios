@@ -21,6 +21,7 @@ enum QuickAction: String {
 		guard willResignActiveNotification == nil else {
 			return
 		}
+		Log.info("[QuickAction] setup", log: .ui)
 		willResignActiveNotification = NotificationCenter.default.addObserver(forName: UIApplication.willResignActiveNotification, object: nil, queue: nil) { _ in
 			update()
 		}
@@ -37,12 +38,14 @@ enum QuickAction: String {
 				
 		// No shortcuts if test result positiv
 		if let testResult = exposureSubmissionFlowTestResult, testResult == .positive {
+			Log.info("[QuickAction] Remove all shortcut items since exposure submission test result is positiv", log: .ui)
 			application.shortcutItems = nil
 			return
 		}
 
 		// No shortcuts if not onboarded
 		guard let appDelegate = application.delegate as? AppDelegate, appDelegate.store.isOnboarded else {
+			Log.info("[QuickAction] Remove all shortcut items since onboarding is not done yet", log: .ui)
 			application.shortcutItems = nil
 			return
 		}
