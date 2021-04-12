@@ -48,7 +48,7 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 		viewModel.$triggerReload
 			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] _ in
-				guard let self = self, self.shouldReload else { return }
+				guard let self = self, self.isAllowedToReload else { return }
 
 				self.tableView.reloadData()
 				self.updateEmptyState()
@@ -117,12 +117,12 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 			confirmAction: { [weak self] in
 				guard let self = self else { return }
 
-				self.shouldReload = false
+				self.isAllowedToReload = false
 				self.viewModel.removeEntry(at: indexPath)
 				tableView.performBatchUpdates({
 					tableView.deleteRows(at: [indexPath], with: .automatic)
 				}, completion: { _ in
-					self.shouldReload = true
+					self.isAllowedToReload = true
 					self.viewModel.triggerReload = true
 
 					if self.viewModel.isEmpty {
@@ -164,7 +164,7 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 
 	private var subscriptions = [AnyCancellable]()
 
-	private var shouldReload = true
+	private var isAllowedToReload = true
 	private var addEntryCellModel = AddCheckinCellModel()
 	private var missingPermissionsCellModel = MissingPermissionsCellModel()
 
@@ -322,7 +322,7 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 
 				let numberOfRows = self.viewModel.numberOfRows(in: CheckinsOverviewViewModel.Section.entries.rawValue)
 
-				self.shouldReload = false
+				self.isAllowedToReload = false
 				self.viewModel.removeAll()
 				self.tableView.performBatchUpdates({
 					self.tableView.deleteRows(
@@ -332,7 +332,7 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 						with: .automatic
 					)
 				}, completion: { _ in
-					self.shouldReload = true
+					self.isAllowedToReload = true
 
 					self.setEditing(false, animated: true)
 					self.updateEmptyState()

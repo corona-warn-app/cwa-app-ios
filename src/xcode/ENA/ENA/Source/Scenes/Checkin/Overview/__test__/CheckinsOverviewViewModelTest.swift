@@ -344,7 +344,7 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 	}
 
 	func testUpdateForCameraPermission() throws {
-		let reloadExpectation = expectation(description: "shouldReload published")
+		let reloadExpectation = expectation(description: "triggerReload published")
 		reloadExpectation.expectedFulfillmentCount = 2 // initial call + update for camera permission
 
 		let eventStore = MockEventStore()
@@ -417,7 +417,7 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 			onEntryCellTap: { _ in }
 		)
 
-		let reloadExpectation = expectation(description: "shouldReload published")
+		let reloadExpectation = expectation(description: "triggerReload published")
 		reloadExpectation.expectedFulfillmentCount = 2 // initial call + update for added checkin
 		let cancellable = viewModel.$triggerReload
 			.sink { _ in
@@ -450,7 +450,7 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 			onEntryCellTap: { _ in }
 		)
 
-		let reloadExpectation = expectation(description: "shouldReload published")
+		let reloadExpectation = expectation(description: "triggerReload published")
 		reloadExpectation.expectedFulfillmentCount = 2 // initial call + update for removed checkin
 		let cancellable = viewModel.$triggerReload
 			.sink { _ in
@@ -492,7 +492,7 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 			onUpdateExpectation.fulfill()
 		}
 
-		let reloadExpectation = expectation(description: "shouldReload published only once")
+		let reloadExpectation = expectation(description: "triggerReload published only once")
 		reloadExpectation.expectedFulfillmentCount = 1
 		let cancellable = viewModel.$triggerReload
 			.sink { _ in
