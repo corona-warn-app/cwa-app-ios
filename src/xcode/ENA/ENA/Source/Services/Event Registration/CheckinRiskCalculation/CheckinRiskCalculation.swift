@@ -74,7 +74,7 @@ final class CheckinRiskCalculation: CheckinRiskCalculationProtocol {
 
 					// 	4. Determine Normalized Time per Match: the normalized time of a match is determined by multiplying the Transmission Risk Value with the Overlap in Minutes.
 
-					Log.debug("[CheckinRiskCalculation] Calcualte with transimssionRiskValue: \(transimssionRiskValue)", log: .checkin)
+					Log.debug("[CheckinRiskCalculation] Calculate with transimssionRiskValue: \(transimssionRiskValue)", log: .checkin)
 
 					let normalizedTimePerMatch = transimssionRiskValue * Double(overlapInMinutes)
 
@@ -93,7 +93,7 @@ final class CheckinRiskCalculation: CheckinRiskCalculationProtocol {
 				}
 
 				if let riskLevel = riskLevel {
-					Log.debug("[CheckinRiskCalculation] Calcualtes riskLevel: \(riskLevel)", log: .checkin)
+					Log.debug("[CheckinRiskCalculation] Calculated riskLevel: \(riskLevel)", log: .checkin)
 
 					let checkinWithRisk = CheckinWithRiskLevel(
 						checkin: splittedCheckin,
