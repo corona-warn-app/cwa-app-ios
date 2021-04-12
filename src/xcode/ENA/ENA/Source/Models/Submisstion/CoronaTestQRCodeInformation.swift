@@ -10,12 +10,12 @@ enum CoronaTestQRCodeInformation {
 	
 	// we cant declare the enum type to Int because we have properties inside the cases
 	
-	var rawValue: Int {
+	var testType: CoronaTestType {
 		switch self {
 		case .pcr:
-			return 0
+			return .pcr
 		case .antigen:
-			return 1
+			return .antigen
 		}
 	}
 }
