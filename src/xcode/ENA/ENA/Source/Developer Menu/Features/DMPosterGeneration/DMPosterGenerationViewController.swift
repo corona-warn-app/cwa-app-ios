@@ -278,7 +278,7 @@ class DMPosterGenerationViewController: UIViewController, UITextFieldDelegate {
 		generatePosterButton.addTarget(self, action: #selector(generatePosterButtonTapped), for: .touchUpInside)
 		generatePosterButton.setTitleColor(.enaColor(for: .buttonDestructive), for: .normal)
 		
-		// adding two stackviews on to a uiview and then add that view to the scroll view
+		// adding three stackviews on to a uiview and then add that view to the scroll view
 		let stackViewQRCode = UIStackView(arrangedSubviews: [titleLabel, qrCodeOffsetXLabel, qrCodeOffsetXField, qrCodeOffsetYLabel, qrCodeOffsetYField, qrCodeSideLength, qrCodeSideLengthField])
 		stackViewQRCode.translatesAutoresizingMaskIntoConstraints = false
 		stackViewQRCode.axis = .vertical
