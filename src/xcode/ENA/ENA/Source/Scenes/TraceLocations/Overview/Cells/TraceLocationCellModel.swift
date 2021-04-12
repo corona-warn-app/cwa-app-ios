@@ -46,23 +46,6 @@ class TraceLocationCellModel: EventCellModel {
 	var isActiveIconHidden: Bool = false
 	var isDurationStackViewHidden: Bool = true
 
-	var date: String? {
-		guard let startDate = traceLocation.startDate, let endDate = traceLocation.endDate else {
-			return nil
-		}
-
-		if !Calendar.current.isDate(startDate, inSameDayAs: endDate) {
-			// Multi-day events show the full dates in the time label
-			return nil
-		}
-
-		let dateFormatter = DateIntervalFormatter()
-		dateFormatter.dateStyle = .short
-		dateFormatter.timeStyle = .none
-
-		return dateFormatter.string(from: startDate, to: endDate)
-	}
-
 	var title: String {
 		traceLocation.description
 	}
@@ -82,10 +65,8 @@ class TraceLocationCellModel: EventCellModel {
 
 	private var timeString: String? {
 		if let startDate = traceLocation.startDate, let endDate = traceLocation.endDate {
-			let endsOnSameDay = Calendar.current.isDate(startDate, inSameDayAs: endDate)
-
 			let dateFormatter = DateIntervalFormatter()
-			dateFormatter.dateStyle = endsOnSameDay ? .none : .short
+			dateFormatter.dateStyle = .short
 			dateFormatter.timeStyle = .short
 
 			return dateFormatter.string(from: startDate, to: endDate)
