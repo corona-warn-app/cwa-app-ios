@@ -1201,13 +1201,19 @@ sein.";
 
 "App_Information_Contact_Hotline_Title" = "Technische Hotline";
 
-"App_Information_Contact_Hotline_Text" = "0800 7540001";
+"App_Information_Contact_Hotline_Text_Domestic" = "0800 7540001";
 
-"App_Information_Contact_Hotline_Number" = "08007540001";
+"App_Information_Contact_Hotline_Number_Domestic" = "08007540001";
 
-"App_Information_Contact_Hotline_Description" = "Unser Kundenservice ist für Sie da.";
+"App_Information_Contact_Hotline_Details_Domestic" = "Für Anrufe innerhalb Deutschlands.\nDer Anruf ist kostenfrei.";
 
-"App_Information_Contact_Hotline_Terms" = "Sprachen: Deutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo - Sa: 07:00 - 22:00 Uhr\n(außer an bundesweiten Feiertagen)\n\nDer Anruf ist kostenfrei.\n\nFür gesundheitliche Fragen wenden Sie sich bitte an Ihre Hausarztpraxis oder die Hotline des ärztlichen Bereitschaftsdienstes 116 117.";
+"App_Information_Contact_Hotline_Text_Foreign" = "+49 30 498 75402";
+
+"App_Information_Contact_Hotline_Number_Foreign" = "+493049875402";
+
+"App_Information_Contact_Hotline_Details_Foreign" = "Für Anrufe aus dem Ausland.\nEs fallen die Gebühren des jeweiligen Telefonanbieters an.";
+
+"App_Information_Contact_Hotline_Terms" = "Unser Kundenservice ist in den folgenden Sprachen für Sie da:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo-So: Täglich 24 Stunden\n\nFür gesundheitliche Fragen wenden Sie sich bitte an Ihre Hausarztpraxis oder die Hotline des ärztlichen Bereitschaftsdienstes 116 117.";
 
 /* App Information - Imprint */
 "App_Information_New_Features_Navigation" = "Neue Funktionen";

@@ -1174,13 +1174,19 @@
 
 "App_Information_Contact_Hotline_Title" = "Технически въпроси";
 
-"App_Information_Contact_Hotline_Text" = "0800 7540001";
+"App_Information_Contact_Hotline_Text_Domestic" = "0800 7540001";
 
-"App_Information_Contact_Hotline_Number" = "08007540001";
+"App_Information_Contact_Hotline_Number_Domestic" = "08007540001";
 
-"App_Information_Contact_Hotline_Description" = "Нашият екип за обслужване на клиенти е готов да Ви помогне.";
+"App_Information_Contact_Hotline_Details_Domestic" = "Für Anrufe innerhalb Deutschlands.\nDer Anruf ist kostenfrei.";
 
-"App_Information_Contact_Hotline_Terms" = "Езици: немски, английски, турски\n\nРаботно време:\nпонеделник до събота: 7:00 - 22:00\n(с изключение на национални празници)\n\nОбаждането е безплатно.\n\nАко имате въпроси, свързани със здравето, се обадете на личния си лекар или на горещата линия на службата за медицинска помощ на телефон 116 117.";
+"App_Information_Contact_Hotline_Text_Foreign" = "+49 30 498 75402";
+
+"App_Information_Contact_Hotline_Number_Foreign" = "+493049875402";
+
+"App_Information_Contact_Hotline_Details_Foreign" = "Für Anrufe aus dem Ausland.\nEs fallen die Gebühren des jeweiligen Telefonanbieters an.";
+
+"App_Information_Contact_Hotline_Terms" = "Unser Kundenservice ist in den folgenden Sprachen für Sie da:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo-So: Täglich 24 Stunden\n\nFür gesundheitliche Fragen wenden Sie sich bitte an Ihre Hausarztpraxis oder die Hotline des ärztlichen Bereitschaftsdienstes 116 117.";
 
 /* App Information - Imprint */
 "App_Information_New_Features_Navigation" = "Нови функции";
