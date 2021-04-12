@@ -172,7 +172,8 @@ class HomeCoordinator: RequiresAppDependencies {
 			exposureSubmissionService: exposureSubmissionService,
 			serverEnvironment: serverEnvironment,
 			otpService: otpService,
-			eventStore: eventStore
+			eventStore: eventStore,
+			qrCodePosterTemplateProvider: qrCodePosterTemplateProvider
 		)
 		developerMenu?.enableIfAllowed()
 	}
