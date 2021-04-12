@@ -69,7 +69,6 @@ enum AppStrings {
 		enum OverwriteNotice {
 			static let title = NSLocalizedString("ExposureSubmission_OverwriteNotice_Title", comment: "")
 			static let primaryButton = NSLocalizedString("ExposureSubmission_OverwriteNotice_PrimaryButton", comment: "")
-			static let secondaryButton = NSLocalizedString("ExposureSubmission_OverwriteNotice_SecondaryButton", comment: "")
 
 			enum Pcr {
 				static let headline = NSLocalizedString("ExposureSubmission_OverwriteNotice_Pcr_Headline", comment: "")

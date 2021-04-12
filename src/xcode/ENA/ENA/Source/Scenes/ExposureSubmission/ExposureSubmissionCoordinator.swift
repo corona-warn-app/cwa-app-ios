@@ -67,7 +67,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		let footerViewController = FooterViewController(
 			FooterViewModel(
 				primaryButtonName: AppStrings.ExposureSubmission.OverwriteNotice.primaryButton,
-				secondaryButtonName: AppStrings.ExposureSubmission.OverwriteNotice.secondaryButton
+				isSecondaryButtonHidden: true
 			)
 		)
 		let topBottomViewController = TopBottomContainerViewController(topController: testOverwriteNoticeViewController, bottomController: footerViewController)
