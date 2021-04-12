@@ -537,7 +537,6 @@
 		85E33444247EB357006E74EC /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85E33443247EB357006E74EC /* CircularProgressView.swift */; };
 		8F015FF325DD62BA004FEF04 /* ExposureSubmission+TestResult+Extenstion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F015FF225DD62BA004FEF04 /* ExposureSubmission+TestResult+Extenstion.swift */; };
 		8F070CE925E58B9400D29344 /* HtmlInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F070CE825E58B9400D29344 /* HtmlInfoModel.swift */; };
-		8F11512425DC27E9007BDBC6 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		8F270194259B5BA700E48CFE /* ContactDiaryMigration1To2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F270193259B5BA700E48CFE /* ContactDiaryMigration1To2.swift */; };
 		8F3202442600C7BB00D6A224 /* TorchMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3202432600C7BB00D6A224 /* TorchMode.swift */; };
 		8F3D71AA25A86AD300D52CCD /* HomeExposureLoggingCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3D71A925A86AD300D52CCD /* HomeExposureLoggingCellModelTests.swift */; };
@@ -4052,6 +4051,8 @@
 				8FA88FDF2616692000FD36DA /* TraceLocationDetailViewModelTests.swift */,
 			);
 			path = __tests__;
+			sourceTree = "<group>";
+		};
 		8FDB9401261FBA0F00BA8CB1 /* Submisstion */ = {
 			isa = PBXGroup;
 			children = (
@@ -7033,7 +7034,6 @@
 				507685D325E8EA040039B7B6 /* UserMetadataTests.swift in Sources */,
 				F2DC809224898B1800EDC40A /* DynamicTableViewControllerHeaderTests.swift in Sources */,
 				01F52FFC2552E6F600997A26 /* ENARangeTest.swift in Sources */,
-				8F11512425DC27E9007BDBC6 /* (null) in Sources */,
 				BAC0A4DE25768039002B5361 /* TanInputViewModelTests.swift in Sources */,
 				B1D431C8246C69F300E728AD /* HTTPClient+ConfigurationTests.swift in Sources */,
 				5051CBB6260BCF6D003FC7C1 /* Int+DateFromUnixTimestampInHours.swift in Sources */,

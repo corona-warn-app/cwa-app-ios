@@ -21,6 +21,11 @@ extension Data {
 }
 
 extension String {
+	
+	var isBase64Encoded: Bool {
+		return (self.contains("+") || self.contains("/") || self.contains("="))
+	}
+	
 	/// Encodes or decodes into a base64url safe representation
 	///
 	/// - Parameter on: Whether or not the string should be made safe for URL strings

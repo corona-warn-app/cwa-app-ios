@@ -9,8 +9,18 @@ struct RapidTestInformation: Codable {
 	// MARK: - Init
 	
 	init?(payload: String) {
-		guard let jsonData = Data(base64URLEncoded: payload) else {
-			return nil
+		
+		let jsonData: Data
+		if payload.isBase64Encoded {
+			guard let parsedData = Data(base64Encoded: payload) else {
+				return nil
+			}
+			jsonData = parsedData
+		} else {
+			guard let parsedData = Data(base64URLEncoded: payload) else {
+				return nil
+			}
+			jsonData = parsedData
 		}
 		do {
 			self = try JSONDecoder().decode(RapidTestInformation.self, from: jsonData)
@@ -20,16 +30,23 @@ struct RapidTestInformation: Codable {
 		}
 	}
 	
+	func verify() {
+		
+	}
+	
 	// MARK: - Internal
 	
 	let guid: String
 	let timestamp: Int
-	let firstName: String
-	let lastName: String
-	let dateOfBirth: String
+	let firstName: String?
+	let lastName: String?
+	let dateOfBirth: String?
 	
-	var fullName: String {
-		return firstName + " " + lastName
+	var fullName: String? {
+		guard let first = firstName, let last = lastName else {
+			return nil
+		}
+		return first + " " + last
 	}
 	var pointOfCareConsentDate: Date {
 		return Date(timeIntervalSince1970: TimeInterval(timestamp))

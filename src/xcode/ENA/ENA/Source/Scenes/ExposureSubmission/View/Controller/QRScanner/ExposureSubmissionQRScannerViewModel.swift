@@ -173,37 +173,11 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 			  urlComponents.scheme?.lowercased() == "https" else {
 			return nil
 		}
-		
 		// specific checks based on test type
 		if urlComponents.host?.lowercased() == "localhost" {
-			
-			guard input.count <= 150,
-				  urlComponents.path.components(separatedBy: "/").count == 2,	// one / will separate into two components    1 for rapid
-				  let candidate = urlComponents.query,
-				  candidate.count == 43,
-				  let matchings = candidate.range(
-					of: #"^[0-9A-Fa-f]{6}-[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}$"#,
-					options: .regularExpression
-				  ) else {
-				return nil
-			}
-			return matchings.isEmpty ? nil : .pcr(candidate)
-			
+			return extractPcrTestInformation(from: input, urlComponents: urlComponents)
 		} else if urlComponents.host?.lowercased() == "s.coronawarn.app" {
-			
-			guard urlComponents.path.components(separatedBy: "/").count == 1,	// one / will separate into two components    1 for rapid
-				  let payloadUrl = urlComponents.fragment,
-				  let candidate = urlComponents.query,
-				  candidate.count == 3 else {
-				return nil
-			}
-			
-			// extract payload
-			guard let testInformation = RapidTestInformation(payload: payloadUrl) else {
-				return nil
-			}
-			
-			return .antigen(testInformation, payloadUrl)
+			return extractAntigenTestInformation(from: input, urlComponents: urlComponents)
 		} else {
 			return nil
 		}
@@ -213,49 +187,47 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 
 	private let onSuccess: (CoronaTestQRCodeInformation) -> Void
 	private let captureDevice: AVCaptureDevice?
-
-}
-
-// to be removed after merging 2.0
-
-extension Data {
-	/// Instantiates data by decoding a base64url string into base64
-	///
-	/// - Parameter string: A base64url encoded string
-	init?(base64URLEncoded string: String) {
-		self.init(base64Encoded: string.toggleBase64URLSafe(on: false))
-	}
-	/// Encodes the string into a base64url safe representation
-	///
-	/// - Returns: A string that is base64 encoded but made safe for passing
-	///            in as a query parameter into a URL string
-	func base64URLEncodedString() -> String {
-		return self.base64EncodedString().toggleBase64URLSafe(on: true)
-	}
-}
-
-extension String {
-	/// Encodes or decodes into a base64url safe representation
-	///
-	/// - Parameter on: Whether or not the string should be made safe for URL strings
-	/// - Returns: if `on`, then a base64url string; if `off` then a base64 string
-	func toggleBase64URLSafe(on: Bool) -> String {
-		if on {
-			// Make base64 string safe for passing into URL query params
-			let base64url = self.replacingOccurrences(of: "/", with: "_")
-				.replacingOccurrences(of: "+", with: "-")
-				.replacingOccurrences(of: "=", with: "")
-			return base64url
-		} else {
-			// Return to base64 encoding
-			var base64 = self.replacingOccurrences(of: "_", with: "/")
-				.replacingOccurrences(of: "-", with: "+")
-			// Add any necessary padding with `=`
-			if !base64.count.isMultiple(of: 4) {
-				base64.append(String(repeating: "=", count: 4 - base64.count % 4))
-			}
-			return base64
+	
+	private func extractPcrTestInformation(from guidURL: String, urlComponents: URLComponents) -> CoronaTestQRCodeInformation? {
+		guard guidURL.count <= 150,
+			  urlComponents.path.components(separatedBy: "/").count == 2,	// one / will separate into two components
+			  let candidate = urlComponents.query,
+			  candidate.count == 43,
+			  let matchings = candidate.range(
+				of: #"^[0-9A-Fa-f]{6}-[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}$"#,
+				options: .regularExpression
+			  ) else {
+			return nil
 		}
+		return matchings.isEmpty ? nil : .pcr(candidate)
 	}
 	
+	private func extractAntigenTestInformation(from guidURL: String, urlComponents: URLComponents) -> CoronaTestQRCodeInformation? {
+		guard let payloadUrl = urlComponents.fragment,
+			  let candidate = urlComponents.query,
+			  candidate.count == 3 else {
+			return nil
+		}
+		
+		// extract payload
+		guard let testInformation = RapidTestInformation(payload: payloadUrl),
+			  testInformation.guid.range(
+				of: #"^[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}$"#,
+				options: .regularExpression
+			  ) != nil,
+			  testInformation.guid.count == 36,
+			  testInformation.timestamp >= 0
+		else {
+			return nil
+		}
+		// Check in case the dateOfBirth is available, that it is in the correct format
+		if let dateOfBirth = testInformation.dateOfBirth {
+			let dateFormatter = DateFormatter()
+			dateFormatter.dateFormat = "yyyy-MM-dd"
+			guard dateFormatter.date(from: dateOfBirth) != nil else {
+				return nil
+			}
+		}
+		return .antigen(testInformation, payloadUrl)
+	}
 }
