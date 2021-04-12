@@ -19,6 +19,14 @@ class CheckInDatePickerCell: UITableViewCell, ReuseIdentifierProviding {
 		fatalError("init(coder:) has not been implemented")
 	}
 
+	// MARK: - Overrides
+
+	override func prepareForReuse() {
+		super.prepareForReuse()
+		subscriptions.forEach { $0.cancel() }
+		subscriptions.removeAll()
+	}
+
 	// MARK: - Internal
 
 	func configure(_ cellModel: CheckInTimeModel) {
@@ -26,11 +34,15 @@ class CheckInDatePickerCell: UITableViewCell, ReuseIdentifierProviding {
 		timeDatePicker.date = cellModel.date
 
 		cellModel.$minDate
-			.assign(to: \UIDatePicker.minimumDate, on: timeDatePicker)
+			.sink(receiveValue: { newDate in
+				self.timeDatePicker.minimumDate = newDate
+			})
 			.store(in: &subscriptions)
 
 		cellModel.$maxDate
-			.assign(to: \UIDatePicker.maximumDate, on: timeDatePicker)
+			.sink(receiveValue: { newDate in
+				self.timeDatePicker.maximumDate = newDate
+			})
 			.store(in: &subscriptions)
 	}
 

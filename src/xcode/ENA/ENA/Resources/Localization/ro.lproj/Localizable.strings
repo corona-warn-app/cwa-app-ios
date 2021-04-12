@@ -217,7 +217,7 @@
 /* There are two paragraphs in this section. The first one just contains text… */
 "ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Riscul dvs. de infectare poate fi calculat doar pentru perioadele în care a fost activă înregistrarea în jurnal a expunerilor. Prin urmare, caracteristica de înregistrare în jurnal trebuie să rămână permanent activă. Înregistrarea în jurnal a expunerilor acoperă ultimele 14 zile.";
 
-"ExposureDetection_ActiveTracingSection_Text_Paragraph1a" = "Aplicația Corona-Warn a fost instalată acum %u. Riscul dvs. de infectare este calculat pentru perioadele în care înregistrarea în jurnal a expunerilor a fost activă. Dacă v-ați întâlnit cu alte persoane și înregistrarea în jurnal a expunerilor a fost activă, este calculat riscul dvs. de infectare.";
+"ExposureDetection_ActiveTracingSection_Text_Paragraph1a" = "Aplicația Corona-Warn a fost instalată acum %u zi(le). Riscul dvs. de infectare este calculat pentru perioadele în care înregistrarea în jurnal a expunerilor a fost activă. Dacă v-ați întâlnit cu alte persoane și înregistrarea în jurnal a expunerilor a fost activă, este calculat riscul dvs. de infectare.";
 
 "ExposureDetection_ActiveTracingSection_Text_Paragraph1b" = "Dacă înregistrarea în jurnal a expunerilor a fost activă pe durata în care v-ați întâlnit cu alte persoane, riscul dvs. de infectare poate fi calculat pentru această perioadă.";
 
@@ -272,7 +272,7 @@
 
 "Settings_DaysSinceInstall_P1" = "Riscul dvs. de infectare poate fi calculat doar pentru perioadele în care a fost activă înregistrarea în jurnal a expunerilor. Prin urmare, caracteristica de înregistrare în jurnal trebuie să rămână permanent activă. Înregistrarea în jurnal a expunerilor acoperă ultimele 14 zile.";
 
-"Settings_DaysSinceInstall_P2a" = "Aplicația Corona-Warn a fost instalată acum %u. Riscul dvs. de infectare este calculat pentru perioadele în care înregistrarea în jurnal a expunerilor a fost activă. Dacă v-ați întâlnit cu alte persoane și înregistrarea în jurnal a expunerilor a fost activă, este calculat riscul dvs. de infectare.";
+"Settings_DaysSinceInstall_P2a" = "Aplicația Corona-Warn a fost instalată acum %u zi(le). Riscul dvs. de infectare este calculat pentru perioadele în care înregistrarea în jurnal a expunerilor a fost activă. Dacă v-ați întâlnit cu alte persoane și înregistrarea în jurnal a expunerilor a fost activă, este calculat riscul dvs. de infectare.";
 
 "Settings_DaysSinceInstall_P2b" = "Dacă înregistrarea în jurnal a expunerilor a fost activă pe durata în care v-ați întâlnit cu alte persoane, riscul dvs. de infectare poate fi calculat pentru această perioadă.";
 
@@ -555,6 +555,8 @@
 
 "ExposureSubmissionQRInfo_body_section_2" = "Dacă ați fost diagnosticat cu coronavirus, puteți să îi avertizați pe ceilalți prin intermediul aplicației. Caracteristica de avertizare funcționează în câteva țări. Următoarele țări participă în prezent:";
 
+"ExposureSubmissionQRInfo_body_section_3" = "Persoanele care au făcut check-in la aceleași evenimente sau în aceleași locuri în același timp cu dvs. vor fi, de asemenea, avertizate.";
+
 "ExposureSubmissionQRInfo_acknowledgement_3" = "Puteți afla rezultatul testului dvs. chiar dacă nu alegeți să îl partajați. Dar dacă partajați rezultatul testului dvs., veți ajuta la protejarea celorlalți împotriva infectării.";
 
 "ExposureSubmissionQRInfo_acknowledgement_4" = "Identitatea dvs. va rămâne secretă. Alți utilizatori nu vor afla cine a partajat rezultatul testului.";
@@ -776,6 +778,14 @@
 "ExposureSubmissionWarnOthers_description" = "Deoarece ați fost testat pozitiv la coronavirus, acum puteți să îi avertizați pe ceilalți prin intermediul aplicației.";
 
 "ExposureSubmissionWarnOthers_supportedCountriesTitle" = "Caracteristica de avertizare funcționează în câteva țări. Următoarele țări participă în prezent:";
+
+"ExposureSubmissionWarnOthers_consent_bullet1" = "Consimțământul dvs. este voluntar.";
+
+"ExposureSubmissionWarnOthers_consent_bullet2" = "Puteți afla rezultatul testului dvs. chiar dacă alegeți să nu îl partajați. Dar dacă partajați rezultatul testului dvs., veți ajuta la protejarea celorlalți împotriva infectării.";
+
+"ExposureSubmissionWarnOthers_consent_bullet3" = "Identitatea dvs. va rămâne secretă. Alți utilizatori nu vor afla cine a partajat rezultatul testului.";
+
+"ExposureSubmissionWarnOthers_consent_bullet4" = "Trebuie să aveți cel puțin 16 ani pentru a vă acorda consimțământul.";
 
 "ExposureSubmissionWarnOthers_continueButton" = "Accept";
 
@@ -1372,7 +1382,7 @@
 /* Version 2.0 */
 "NewVersionFeature_200_event_checkin_title" = "Faceți check-in cu codul QR pentru a urmări eficient lanțurile de infectare";
 
-"NewVersionFeature_200_event_checkin_description" = "Acum, aplicația Corona-Warn vă permite să faceți check-in la evenimente și în locuri. Organizatorii de evenimente și proprietarii de magazine pot utiliza aplicația pentru a crea un cod QR. Apoi, invitații pot scana acest cod QR atunci când sosesc, pentru a-și înregistra prezența. De asemenea, aplicația poate crea la cerere o intrare în jurnal. Dacă o persoană care a făcut check-in la acest eveniment sau în acest loc este diagnosticată ulterior cu coronavirus, toate persoanele care au făcut check-in în același timp sunt notificate automat.";
+"NewVersionFeature_200_event_checkin_description" = "Acum, aplicația Corona-Warn vă permite să faceți check-in la evenimente și în locuri. Organizatorii de evenimente și proprietarii de magazine pot utiliza aplicația pentru a crea un cod QR. Apoi, invitații pot scana acest cod QR atunci când sosesc, pentru a-și înregistra prezența. De asemenea, aplicația poate crea la cerere o intrare în jurnal. Dacă o persoană care a făcut check-in la acest eveniment sau în acest loc este diagnosticată ulterior cu coronavirus, alte persoane care au făcut check-in în același timp pot fi avertizate automat.";
 
 /* Version 1.15 */
 "NewVersionFeature_115_cross_border_switzerland_title" = "A fost adăugată Elveția la înregistrarea transnațională a expunerilor în jurnal ";
@@ -1958,6 +1968,14 @@
 
 "Checkins_Overview_QRScanner_Instruction" = "Scanare cod QR și check-in";
 
+"Checkin_QR_Scanner_Checkin_Error_Title" = "Cod QR nevalabil";
+
+"Checkin_QR_Scanner_Error_InvalidURL" = "Codul QR scanat nu este valabil pentru check-inurile la un eveniment sau într-un loc. Scanați un cod QR corespunzător (cod de eroare INVALID_URL).";
+
+"Checkin_QR_Scanner_Error_InvalidPayload" = "Check-in împiedicat din cauza unui cod QR nevalabil. Organismul responsabil trebuie să genereze un cod QR nou (cod de eroare INVALID_PAYLOAD).";
+
+"Checkin_QR_Scanner_Error_InvalidURLVendorData" = "Check-in împiedicat din cauza unui cod QR nevalabil. Organismul responsabil trebuie să genereze un cod QR nou (cod de eroare INVALID_VENDOR_DATA).";
+
 /* TraceLocations */
 "TraceLocations_Overview_Title" = "Codurile mele QR";
 
@@ -1994,6 +2012,11 @@
 "TraceLocations_Overview_ActionSheet_InfoTitle" = "Informații";
 
 "TraceLocations_Overview_ActionSheet_EditTitle" = "Editare";
+
+/* Trace Location Details */
+"TraceLocations_Details_PrintVersionButtonTitle" = "Afișare versiune de tipărire";
+
+"TraceLocations_Details_DuplicateButtonTitle" = "Utilizare ca șablon";
 
 /* Selection of a TraceLocations */
 "TraceLocations_TypeSelection_Title" = "Creare cod QR";
@@ -2062,6 +2085,8 @@
 "TraceLocations_Configuration_PrimaryButtonTitle" = "Salvare";
 
 "TraceLocations_Configuration_HoursUnit" = "%@ ore.";
+
+"TraceLocations_Configuration_SavingErrorMessage" = "Codul QR nu poate fi salvat chiar acum. Încercați din nou mai târziu (cod de eroare %@).";
 
 /* Error Reporting */
 "ErrorReport_Title" = "Rapoarte de erori";
@@ -2150,8 +2175,6 @@
 
 "Checkin_Details_CheckinFor" = "Check-in pentru:";
 
-"Checkin_Details_Activity" = "Activități de club sportiv";
-
 "Checkin_Details_SaveToDiary" = "Înregistrați în jurnalul meu de contacte după check-out?";
 
 "Checkin_Details_AutomaticCheckout" = "Check-out automat după";
@@ -2159,4 +2182,6 @@
 "Checkin_Details_EventNotStartedYet" = "Acest eveniment nu începe până la %@ pe %@. Doriți să faceți deja check-inul?";
 
 "Checkin_Details_EventEnded" = "Aceste eveniment s-a încheiat deja. Doriți să faceți check-in retroactiv?";
+
+"Checkin_Details_CheckIn_Button" = "Check-in";
 

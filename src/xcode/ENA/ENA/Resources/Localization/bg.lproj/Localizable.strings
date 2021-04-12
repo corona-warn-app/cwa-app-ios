@@ -555,6 +555,8 @@
 
 "ExposureSubmissionQRInfo_body_section_2" = "Ако Ви е поставена диагноза „коронавирус“, можете да предупредите останалите с помощта на приложението. Функцията за предупреждаване работи в няколко държави. Към момента това са:";
 
+"ExposureSubmissionQRInfo_body_section_3" = "Ще бъдат предупредени и хората, които са се регистрирали за същите събития или места по същото време.";
+
 "ExposureSubmissionQRInfo_acknowledgement_3" = "Можете да получите резултата от Вашия тест, без да е необходимо да го споделяте. Ако обаче споделите резултата си, ще помогнете на другите да се предпазят от заразяване.";
 
 "ExposureSubmissionQRInfo_acknowledgement_4" = "Вашата самоличност няма да бъде разкрита. Другите потребители няма да узнаят кой е споделил резултата от теста си.";
@@ -776,6 +778,14 @@
 "ExposureSubmissionWarnOthers_description" = "Тъй като тестът Ви за коронавирус е положителен, можете да предупредите останалите чрез приложението.";
 
 "ExposureSubmissionWarnOthers_supportedCountriesTitle" = "Функцията за предупреждаване работи в няколко държави. Към момента това са:";
+
+"ExposureSubmissionWarnOthers_consent_bullet1" = "Вашето съгласие е доброволно.";
+
+"ExposureSubmissionWarnOthers_consent_bullet2" = "Можете да получите резултата от Вашия тест, без да е необходимо да го споделяте, но ако споделите резултата си, ще помогнете на другите да се предпазят от заразяване.";
+
+"ExposureSubmissionWarnOthers_consent_bullet3" = "Вашата самоличност няма да бъде разкрита. Другите потребители няма да узнаят кой е споделил резултата от теста си.";
+
+"ExposureSubmissionWarnOthers_consent_bullet4" = "За да дадете съгласието си, трябва да имате навършени 16 години.";
 
 "ExposureSubmissionWarnOthers_continueButton" = "Приемам";
 
@@ -1372,7 +1382,7 @@
 /* Version 2.0 */
 "NewVersionFeature_200_event_checkin_title" = "Прекъснете успешно веригите на заразяване чрез регистрация с QR код";
 
-"NewVersionFeature_200_event_checkin_description" = "CWA Ви позволява да се регистрирате, когато пристигате на определени места и събития. Организаторите на събития и собствениците на магазини могат да използват приложението за създаване на QR код, който посетителите да сканират, когато пристигат, за да регистрират присъствието си. При поискване приложението може също да създава запис в дневника. Ако на някой от посетителите на съответното място или събитие бъде поставена диагноза коронавирус, всички лица, които са се регистрирали на същото място по същото време, ще бъдат уведомени.";
+"NewVersionFeature_200_event_checkin_description" = "CWA Ви позволява да се регистрирате, когато пристигате на определени места и събития. Организаторите на събития и собствениците на магазини могат да използват приложението за създаване на QR код, който посетителите да сканират, когато пристигат, за да регистрират присъствието си. При поискване приложението може също да създава запис в дневника. Ако на някой от посетителите на съответното място или събитие бъде поставена диагноза коронавирус, други лица, които са се регистрирали на същото място по същото време, може да бъдат предупредени автоматично.";
 
 /* Version 1.15 */
 "NewVersionFeature_115_cross_border_switzerland_title" = "Швейцария е добавена към международното регистриране на излаганията на риск ";
@@ -1958,6 +1968,14 @@
 
 "Checkins_Overview_QRScanner_Instruction" = "Сканиране на QR код и регистриране";
 
+"Checkin_QR_Scanner_Checkin_Error_Title" = "Невалиден QR код";
+
+"Checkin_QR_Scanner_Error_InvalidURL" = "Сканираният QR код не е валиден за регистрации за събитие или място. Моля, сканирайте подходящ QR код (код за грешка: INVALID_URL).";
+
+"Checkin_QR_Scanner_Error_InvalidPayload" = "Регистрацията не е извършена поради невалиден QR код. Отговорният орган трябва да генерира нов QR код (код за грешка: INVALID_PAYLOAD).";
+
+"Checkin_QR_Scanner_Error_InvalidURLVendorData" = "Регистрацията не е извършена поради невалиден QR код. Отговорният орган трябва да генерира нов QR код (код за грешка: INVALID_VENDOR_DATA).";
+
 /* TraceLocations */
 "TraceLocations_Overview_Title" = "Моите QR кодове";
 
@@ -1994,6 +2012,11 @@
 "TraceLocations_Overview_ActionSheet_InfoTitle" = "Информация";
 
 "TraceLocations_Overview_ActionSheet_EditTitle" = "Редактиране";
+
+/* Trace Location Details */
+"TraceLocations_Details_PrintVersionButtonTitle" = "Показване на версия за печат";
+
+"TraceLocations_Details_DuplicateButtonTitle" = "Използване като шаблон";
 
 /* Selection of a TraceLocations */
 "TraceLocations_TypeSelection_Title" = "Създаване на QR код";
@@ -2062,6 +2085,8 @@
 "TraceLocations_Configuration_PrimaryButtonTitle" = "Запазване";
 
 "TraceLocations_Configuration_HoursUnit" = "%@ ч";
+
+"TraceLocations_Configuration_SavingErrorMessage" = "QR кодът не може да бъде запазен в момента. Моля, опитайте по-късно (код на грешката: %@).";
 
 /* Error Reporting */
 "ErrorReport_Title" = "Отчети за грешки";
@@ -2150,8 +2175,6 @@
 
 "Checkin_Details_CheckinFor" = "Регистрация за:";
 
-"Checkin_Details_Activity" = "Клубни дейности";
-
 "Checkin_Details_SaveToDiary" = "Да се създаде ли запис дневника на контактите след прекратяване на регистрацията?";
 
 "Checkin_Details_AutomaticCheckout" = "Автоматично прекратяване на регистрацията след";
@@ -2159,4 +2182,6 @@
 "Checkin_Details_EventNotStartedYet" = "Това събитие започва в %@ на %@. Желаете ли да се регистрирате още сега?";
 
 "Checkin_Details_EventEnded" = "Това събитие вече е отминало. Желаете ли да се регистрирате със задна дата?";
+
+"Checkin_Details_CheckIn_Button" = "Регистрация";
 

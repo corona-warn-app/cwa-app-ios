@@ -26,7 +26,9 @@ class TraceLocationPrintVersionViewController: UIViewController, UIActivityItemS
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		self.view = viewModel.pdfView
+		view = viewModel.pdfView
+		view.backgroundColor = .enaColor(for: .background)
+		navigationController?.navigationBar.prefersLargeTitles = false
 
 		let printButton = UIBarButtonItem(image: UIImage(named: "Icons_Printer"), style: .plain, target: self, action: #selector(didTapPrintButton))
 		let shareButton = UIBarButtonItem(image: UIImage(named: "Icons_Share"), style: .plain, target: self, action: #selector(didTapShareButton))
@@ -80,7 +82,7 @@ class TraceLocationPrintVersionViewController: UIViewController, UIActivityItemS
 			Log.error("Could not write the template data to the pdf file.", log: .qrCode, error: error)
 		}
 		
-		let activityViewController = UIActivityViewController(activityItems: [self, pdfFileURL], applicationActivities: nil)
+		let activityViewController = UIActivityViewController(activityItems: [pdfFileURL], applicationActivities: nil)
 		present(activityViewController, animated: true, completion: nil)
 	}
 
