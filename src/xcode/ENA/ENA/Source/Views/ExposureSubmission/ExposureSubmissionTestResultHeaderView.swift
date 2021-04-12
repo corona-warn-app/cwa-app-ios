@@ -2,19 +2,20 @@
 // 🦠 Corona-Warn-App
 //
 
-import Foundation
 import UIKit
 
 class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
+		
 	// MARK: Attributes.
 
-	@IBOutlet private var barView: UIView!
+	@IBOutlet var barView: UIView!
 
-	@IBOutlet private var subTitleLabel: ENALabel!
-	@IBOutlet private var titleLabel: ENALabel!
-	@IBOutlet private var timeLabel: ENALabel!
+	@IBOutlet var stackView: UIStackView!
+	@IBOutlet var subTitleLabel: ENALabel!
+	@IBOutlet var titleLabel: ENALabel!
+	@IBOutlet var timeLabel: ENALabel!
 
-	@IBOutlet private var imageView: UIImageView!
+	@IBOutlet var imageView: UIImageView!
 
 	override func awakeFromNib() {
 		super.awakeFromNib()
@@ -23,26 +24,28 @@ class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
 
 	// MARK: - DynamicTableViewHeaderFooterView methods.
 
-	func configure(coronaTest: CoronaTest, timeStamp: Int64?) {
-		subTitleLabel.text = coronaTest.type.subtitle
-		titleLabel.text = coronaTest.testResult.text
-		barView.backgroundColor = coronaTest.testResult.color
-		imageView.image = coronaTest.testResult.image
-
-		if let timeStamp = timeStamp {
-			let formatter = DateFormatter()
-			formatter.dateStyle = .medium
-			formatter.timeStyle = .none
-			let date = Date(timeIntervalSince1970: TimeInterval(timeStamp))
-			timeLabel.text = "\(AppStrings.ExposureSubmissionResult.registrationDate) \(formatter.string(from: date))"
-		} else {
-			timeLabel.text = "\(AppStrings.ExposureSubmissionResult.registrationDateUnknown)"
+	func configure<T: Test>(coronaTest: T, timeStamp: Int64?) {
+		if let test = coronaTest as? PCRTest {
+			setupForPCRTest(test, timeStamp: timeStamp)
+		} else if let test = coronaTest as? AntigenTest {
+			setupForAntigenTest(test, timeStamp: timeStamp)
+		} else if let test = coronaTest as? CoronaTest {
+			switch test.type {
+			case .pcr:
+				setupForPCRTest(test, timeStamp: timeStamp)
+			case .antigen:
+				setupForAntigenTest(test, timeStamp: timeStamp)
+			}
 		}
 	}
 
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 		super.traitCollectionDidChange(previousTraitCollection)
 		updateIllustration(for: traitCollection)
+	}
+	
+	override func prepareForReuse() {
+		super.prepareForReuse()
 	}
 
 	private func updateIllustration(for traitCollection: UITraitCollection) {
@@ -52,17 +55,40 @@ class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
 			imageView.isHidden = false
 		}
 	}
-}
-
-
-private extension CoronaTestType {
 	
-	var subtitle: String {
-		switch self {
-		case .pcr:
-			return AppStrings.ExposureSubmissionResult.card_subtitle_pcr_test
-		case .antigen:
-			return AppStrings.ExposureSubmissionResult.card_subtitle_antigen_test
+	private func setupForPCRTest<T: Test>(_ coronaTest: T, timeStamp: Int64?) {
+		
+		subTitleLabel.text = AppStrings.ExposureSubmissionResult.PCR.card_subtitle
+		titleLabel.text = coronaTest.testResult.text
+		barView.backgroundColor = coronaTest.testResult.color
+		imageView.image = coronaTest.testResult.image
+
+		if let timeStamp = timeStamp {
+			let formatter = DateFormatter()
+			formatter.dateStyle = .medium
+			formatter.timeStyle = .none
+			let date = Date(timeIntervalSince1970: TimeInterval(timeStamp))
+			timeLabel.text = "\(AppStrings.ExposureSubmissionResult.PCR.registrationDate) \(formatter.string(from: date))"
+		} else {
+			timeLabel.text = "\(AppStrings.ExposureSubmissionResult.registrationDateUnknown)"
+		}
+	}
+	
+	private func setupForAntigenTest<T: Test>(_ coronaTest: T, timeStamp: Int64?) {
+		
+		subTitleLabel.text = AppStrings.ExposureSubmissionResult.Antigen.card_subtitle
+		titleLabel.text = coronaTest.testResult.text
+		barView.backgroundColor = coronaTest.testResult.color
+		imageView.image = coronaTest.testResult.image
+
+		if let timeStamp = timeStamp {
+			let formatter = DateFormatter()
+			formatter.dateStyle = .medium
+			formatter.timeStyle = .short
+			let date = Date(timeIntervalSince1970: TimeInterval(timeStamp))
+			timeLabel.text = "\(AppStrings.ExposureSubmissionResult.Antigen.registrationDate) \(formatter.string(from: date))"
+		} else {
+			timeLabel.text = "\(AppStrings.ExposureSubmissionResult.registrationDateUnknown)"
 		}
 	}
 }

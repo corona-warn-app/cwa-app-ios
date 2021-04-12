@@ -87,8 +87,8 @@ class CoronaTestService {
 				switch result {
 				case .success(let registrationToken):
 					self?.pcrTest = PCRTest(
-						registrationToken: registrationToken,
 						registrationDate: Date(),
+						registrationToken: registrationToken,
 						testResult: .pending,
 						testResultReceivedDate: nil,
 						positiveTestResultWasShown: false,
@@ -128,8 +128,8 @@ class CoronaTestService {
 				switch result {
 				case .success(let registrationToken):
 					self?.pcrTest = PCRTest(
-						registrationToken: registrationToken,
 						registrationDate: Date(),
+						registrationToken: registrationToken,
 						testResult: .positive,
 						testResultReceivedDate: nil,
 						positiveTestResultWasShown: true,
@@ -162,8 +162,8 @@ class CoronaTestService {
 				switch result {
 				case .success(let registrationToken):
 					self?.antigenTest = AntigenTest(
-						registrationToken: registrationToken,
 						pointOfCareConsentDate: pointOfCareConsentDate,
+						registrationToken: registrationToken,
 						testedPerson: TestedPerson(name: name, birthday: birthday),
 						testResult: .pending,
 						testResultReceivedDate: nil,
@@ -272,8 +272,8 @@ class CoronaTestService {
 	func migrate() {
 		if store.registrationToken != nil || store.lastSuccessfulSubmitDiagnosisKeyTimestamp != nil, let testRegistrationTimestamp = store.devicePairingConsentAcceptTimestamp {
 			pcrTest = PCRTest(
-				registrationToken: store.registrationToken,
 				registrationDate: Date(timeIntervalSince1970: TimeInterval(testRegistrationTimestamp)),
+				registrationToken: store.registrationToken,
 				testResult: .pending,
 				testResultReceivedDate: store.testResultReceivedTimeStamp.map { Date(timeIntervalSince1970: TimeInterval($0)) },
 				positiveTestResultWasShown: store.positiveTestResultWasShown,

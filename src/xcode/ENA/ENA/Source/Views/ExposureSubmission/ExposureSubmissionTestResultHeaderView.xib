@@ -118,6 +118,7 @@
             <connections>
                 <outlet property="barView" destination="zNO-5U-YCi" id="Rbl-oN-Pcp"/>
                 <outlet property="imageView" destination="Yca-Yb-Tsz" id="mB7-TW-fy9"/>
+                <outlet property="stackView" destination="3vq-uJ-Wvp" id="hTQ-eX-NbC"/>
                 <outlet property="subTitleLabel" destination="OU3-fJ-eEo" id="de8-2n-nur"/>
                 <outlet property="timeLabel" destination="dGr-ET-QNF" id="Lj1-oz-bFU"/>
                 <outlet property="titleLabel" destination="Tam-Om-CJ8" id="9jl-LZ-Jhw"/>
