@@ -49,8 +49,8 @@ struct TestOverwriteNoticeViewModel {
 						text: headline,
 						accessibilityIdentifier: headlineAccessibility
 					),
-					.subheadline(
-						text: title,
+					.body(
+						text: text,
 						accessibilityIdentifier: textAccessibility
 					)
 				]
