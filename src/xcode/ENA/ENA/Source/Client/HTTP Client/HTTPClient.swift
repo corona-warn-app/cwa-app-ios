@@ -669,7 +669,7 @@ private extension URLRequest {
 		let submPayload = SAP_Internal_SubmissionPayload.with {
 			$0.requestPadding = self.getSubmissionPadding(for: payload.exposureKeys)
 			$0.keys = payload.exposureKeys
-			$0.checkIns = payload.eventCheckIns
+			$0.checkIns = payload.checkins
 			/// Consent needs always set to be true
 			$0.consentToFederation = true
 			$0.visitedCountries = payload.visitedCountries.map { $0.id }
