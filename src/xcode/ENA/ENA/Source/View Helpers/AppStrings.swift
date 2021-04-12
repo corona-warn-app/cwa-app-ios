@@ -316,14 +316,6 @@ enum AppStrings {
 		static let defaultError = NSLocalizedString("ExposureSubmissionError_defaultError", comment: "")
 		static let noAppConfiguration = NSLocalizedString("ExposureSubmissionError_noAppConfiguration", comment: "")
 		static let errorPrefix = NSLocalizedString("ExposureSubmissionError_ErrorPrefix", comment: "")
-		
-		enum antigenTestsErrors {
-			static let pending = NSLocalizedString("ExposureSubmissionError_Pending", comment: "")
-			static let negative = NSLocalizedString("ExposureSubmissionError_Negative", comment: "")
-			static let positive = NSLocalizedString("ExposureSubmissionError_Positive", comment: "")
-			static let invalid = NSLocalizedString("ExposureSubmissionError_Invalid", comment: "")
-			static let expired = NSLocalizedString("ExposureSubmissionError_Expired", comment: "")
-		}
 	}
 
 	enum ExposureDetection {
