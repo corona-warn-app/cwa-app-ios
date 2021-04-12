@@ -63,6 +63,7 @@ enum AppStrings {
 		static let confirmDismissPopUpTitle = NSLocalizedString("ExposureSubmission_ConfirmDismissPopUpTitle", comment: "")
 		static let confirmDismissPopUpText = NSLocalizedString("ExposureSubmission_ConfirmDismissPopUpText", comment: "")
 		static let hotlineNumber = NSLocalizedString("ExposureSubmission_Hotline_Number", comment: "")
+		static let hotlineNumberForeign = NSLocalizedString("ExposureSubmission_Hotline_Number_Foreign", comment: "")
 		static let qrCodeExpiredTitle = NSLocalizedString("ExposureSubmissionQRInfo_QRCodeExpired_Alert_Title", comment: "")
 		static let qrCodeExpiredAlertText = NSLocalizedString("ExposureSubmissionQRInfo_QRCodeExpired_Alert_Text", comment: "")
 	}
@@ -195,7 +196,10 @@ enum AppStrings {
 		static let sectionDescription2 = NSLocalizedString("ExposureSubmission_SectionDescription2", comment: "")
 		static let callButtonTitle = NSLocalizedString("ExposureSubmission_CallButtonTitle", comment: "")
 		static let tanInputButtonTitle = NSLocalizedString("ExposureSubmission_TANInputButtonTitle", comment: "")
-		static let phoneNumber = NSLocalizedString("ExposureSubmission_PhoneNumber", comment: "")
+		static let phoneNumberDomestic = NSLocalizedString("ExposureSubmission_PhoneNumberDomestic", comment: "")
+		static let phoneDetailsDomestic = NSLocalizedString("ExposureSubmission_PhoneDetailsDomestic", comment: "")
+		static let phoneNumberForeign = NSLocalizedString("ExposureSubmission_PhoneNumberForeign", comment: "")
+		static let phoneDetailsForeign = NSLocalizedString("ExposureSubmission_PhoneDetailsForeign", comment: "")
 		static let hotlineDetailDescription = NSLocalizedString("ExposureSubmission_PhoneDetailDescription", comment: "")
 		static let imageDescription = NSLocalizedString("ExposureSubmissionHotline_imageDescription", comment: "")
 	}
