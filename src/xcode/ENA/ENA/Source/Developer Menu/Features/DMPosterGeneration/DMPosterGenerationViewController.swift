@@ -216,7 +216,6 @@ class DMPosterGenerationViewController: UIViewController, UITextFieldDelegate {
 		addressOffsetXField.translatesAutoresizingMaskIntoConstraints = false
 		addressOffsetXField.delegate = self
 		addressOffsetXField.borderStyle = .bezel
-		addressOffsetXField.tag = 1
 
 		let addressOffsetYLabel = UILabel(frame: .zero)
 		addressOffsetYLabel.translatesAutoresizingMaskIntoConstraints = false
