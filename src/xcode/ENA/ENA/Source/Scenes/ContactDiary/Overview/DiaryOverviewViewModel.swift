@@ -143,7 +143,9 @@ class DiaryOverviewViewModel {
 			checkinStartDate: Date(),
 			checkinEndDate: Date(),
 			checkinCompleted: true,
-			createJournalEntry: false)
+			createJournalEntry: false,
+			checkinSubmitted: false
+		)
 		let highRiskCheckin1 = CheckinWithRisk(checkIn: fakedCheckin1, risk: .low)
 		let fakedCheckin2 = Checkin(
 			id: 0,
@@ -161,7 +163,9 @@ class DiaryOverviewViewModel {
 			checkinStartDate: Date(),
 			checkinEndDate: Date(),
 			checkinCompleted: true,
-			createJournalEntry: false)
+			createJournalEntry: false,
+			checkinSubmitted: false
+		)
 		let highRiskCheckin2 = CheckinWithRisk(checkIn: fakedCheckin2, risk: risk)
 		let fakedCheckin3 = Checkin(
 			id: 0,
@@ -179,7 +183,9 @@ class DiaryOverviewViewModel {
 			checkinStartDate: Date(),
 			checkinEndDate: Date(),
 			checkinCompleted: true,
-			createJournalEntry: false)
+			createJournalEntry: false,
+			checkinSubmitted: false
+		)
 		let highRiskCheckin3 = CheckinWithRisk(checkIn: fakedCheckin3, risk: risk)
 		let checkins = [highRiskCheckin1, highRiskCheckin2, highRiskCheckin3]
 		return checkins.sorted(by: { $0.checkIn.traceLocationDescription < $1.checkIn.traceLocationDescription })

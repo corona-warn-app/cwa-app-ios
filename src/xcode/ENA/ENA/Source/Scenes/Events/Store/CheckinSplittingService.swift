@@ -83,7 +83,8 @@ private extension Checkin {
 			checkinStartDate: startDate,
 			checkinEndDate: endDate,
 			checkinCompleted: self.checkinCompleted,
-			createJournalEntry: self.createJournalEntry
+			createJournalEntry: self.createJournalEntry,
+			checkinSubmitted: self.checkinSubmitted
 		)
 	}
 }

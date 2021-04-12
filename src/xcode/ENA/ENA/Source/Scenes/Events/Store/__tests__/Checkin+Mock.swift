@@ -25,8 +25,10 @@ extension Checkin {
 		checkinStartDate: Date = Date(),
 		checkinEndDate: Date = Date(),
 		checkinCompleted: Bool = false,
-		createJournalEntry: Bool = false
+		createJournalEntry: Bool = false,
+		checkinSubmitted: Bool = false
 	) -> Self {
+		
 		Checkin(
 			id: id,
 			traceLocationId: traceLocationId,
@@ -43,7 +45,8 @@ extension Checkin {
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate,
 			checkinCompleted: checkinCompleted,
-			createJournalEntry: createJournalEntry
+			createJournalEntry: createJournalEntry,
+			checkinSubmitted: checkinSubmitted
 		)
 	}
 
