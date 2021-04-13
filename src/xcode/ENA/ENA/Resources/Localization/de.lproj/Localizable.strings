@@ -570,7 +570,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionQRInfo_instruction1" = "Scannen Sie nun per QR-Code Ihren eigenen Test und rufen Sie Ihr Testergebnis ab.";
 
-"ExposureSubmissionQRInfo_instruction2" = "Ihr Test kann nur einmal gescannt werden. Die App kann nicht gleichzeitig mehrere Tests verwalten.";
+"ExposureSubmissionQRInfo_instruction2" = "Jeder Test kann nur einmal gescannt werden. Die App kann maximal einen Schnelltest und einen PCR-Test gleichzeitig verwalten.";
 
 "ExposureSubmissionQRInfo_instruction3" = "Die App kann %@ gleichzeitig mehrere Tests verwalten.";
 
