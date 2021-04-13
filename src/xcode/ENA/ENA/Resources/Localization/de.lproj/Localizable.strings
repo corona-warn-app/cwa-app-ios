@@ -674,7 +674,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_CardSubTitle" = "IHR BEFUND";
 
-"ExposureSubmissionResult_CardSubTitle_Antigen" = "Ihr Schnelltest Befund";
+"ExposureSubmissionResult_CardSubTitle_Antigen" = "Ihr Schnelltest-Befund";
 
 "ExposureSubmissionResult_CardTitle" = "SARS-CoV-2";
 
@@ -855,11 +855,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_Person_Birthday_Prefix" = "geb.";
 
-"ExposureSubmissionResult_Abbreviation_Hours" = "Std";
+"ExposureSubmissionResult_Abbreviation_Hours" = "Std.";
 
-"ExposureSubmissionResult_Abbreviation_Minutes" = "Min";
+"ExposureSubmissionResult_Abbreviation_Minutes" = "Min.";
 
-"ExposureSubmissionResult_Abbreviation_Seconds" = "Sek";
+"ExposureSubmissionResult_Abbreviation_Seconds" = "Sek.";
 
 "ExposureSubmissionResult_Timer_Title" = "Ergebnis liegt vor seit";
 
