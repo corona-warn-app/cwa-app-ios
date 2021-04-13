@@ -160,27 +160,6 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 	// MARK: Initial Screens
 
-	private func showOverrideTestNotice(
-		testType: CoronaTestType,
-		didTapAccept: @escaping () -> Void,
-		didTapDecline: @escaping () -> Void
-	) {
-		let testOverwriteNoticeViewController = TestOverwriteNoticeViewController(
-			testType: testType,
-			didTapPrimaryButton: didTapAccept,
-			didTapCloseButton: didTapDecline
-		)
-		let footerViewController = FooterViewController(
-			FooterViewModel(
-				primaryButtonName: AppStrings.ExposureSubmission.OverwriteNotice.primaryButton,
-				isSecondaryButtonHidden: true
-			)
-		)
-		let topBottomViewController = TopBottomContainerViewController(topController: testOverwriteNoticeViewController, bottomController: footerViewController)
-		let testOverwriteNoticeNavigationController = DismissHandlingNavigationController(rootViewController: topBottomViewController)
-		parentNavigationController?.present(testOverwriteNoticeNavigationController, animated: true)
-	}
-
 	private func createTestResultAvailableViewController() -> UIViewController {
         guard let coronaTestType = model.coronaTestType, let coronaTest = model.coronaTest else {
 			fatalError("Cannot create a test result available view controller without a corona test")
@@ -447,7 +426,12 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		let scannerViewController = ExposureSubmissionQRScannerViewController(
 			onSuccess: { [weak self] testQrCodeInformation in
 				self?.presentedViewController?.dismiss(animated: true) {
-					self?.registerTestAndGetResult(with: testQrCodeInformation, submissionConsentGiven: true, isLoading: isLoading)
+					if let oldTest = self?.model.coronaTestService.coronaTest(ofType: testQrCodeInformation.testType),
+					   oldTest.testResult != .expired && oldTest.testResult != .invalid {
+						self?.showOverrideTestNotice(testQrCodeInformation: testQrCodeInformation, submissionConsentGiven: true)
+					} else {
+						self?.registerTestAndGetResult(with: testQrCodeInformation, submissionConsentGiven: true, isLoading: isLoading)
+					}
 				}
 			},
 			onError: { [weak self] error, reactivateScanning in
@@ -861,6 +845,37 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	}
 
 	// MARK: Test Result Helper
+
+	// show a overwrite notice screen if a test of give type was registered before
+	// registerTestAndGetResult will update the loading state of the primary button
+	private func showOverrideTestNotice(
+		testQrCodeInformation: CoronaTestQRCodeInformation,
+		submissionConsentGiven: Bool
+	) {
+
+		let footerViewModel = FooterViewModel(
+			primaryButtonName: AppStrings.ExposureSubmission.OverwriteNotice.primaryButton,
+			isSecondaryButtonHidden: true
+		)
+
+		let overwriteNoticeViewController = TestOverwriteNoticeViewController(
+			testType: testQrCodeInformation.testType,
+			didTapPrimaryButton: { [weak self] in
+				self?.registerTestAndGetResult(with: testQrCodeInformation, submissionConsentGiven: submissionConsentGiven, isLoading: { isLoading in
+					footerViewModel.setLoadingIndicator(isLoading, disable: isLoading, button: .primary)
+				})
+			},
+			didTapCloseButton: { [weak self] in
+				// on cancel the submission flow is stopped immediately
+				self?.parentNavigationController?.dismiss(animated: true)
+			}
+		)
+
+		let footerViewController = FooterViewController(footerViewModel)
+		let topBottomViewController = TopBottomContainerViewController(topController: overwriteNoticeViewController, bottomController: footerViewController)
+		topBottomViewController.navigationItem.hidesBackButton = true
+		push(topBottomViewController)
+	}
 
 	private func registerTestAndGetResult(
 		with testQrCodeInformation: CoronaTestQRCodeInformation,
