@@ -22,7 +22,7 @@ class ENAUITests_09_CheckIns: XCTestCase {
 		// GIVEN
 		app.launchArguments.append(contentsOf: ["-checkinInfoScreenShown", "YES"])
 		app.launch()
-				XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Tabbar.checkin].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Tabbar.checkin].waitForExistence(timeout: .short))
 		
 		// Navigate to CheckIn
 		app.buttons[AccessibilityIdentifiers.Tabbar.checkin].tap()
@@ -30,7 +30,7 @@ class ENAUITests_09_CheckIns: XCTestCase {
 		// WHEN
 		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.Checkins.Overview.scanButtonTitle)].waitForExistence(timeout: .short))
 		app.buttons[AccessibilityLabels.localized(AppStrings.Checkins.Overview.scanButtonTitle)].tap()
-
+		
 		// THEN
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Details.saveToDiary].waitForExistence(timeout: .short))
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Details.automaticCheckout].exists)
@@ -91,11 +91,11 @@ class ENAUITests_09_CheckIns: XCTestCase {
 		
 		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.Checkins.Overview.title)].waitForExistence(timeout: .short))
 	}
-
+	
 	// MARK: - Private
 	
 	private func myCheckins_checkout() {
-
+		
 		let initialNumberOfCells = app.cells.count
 		
 		// iterate over all event cells and search for the checkout button
@@ -131,7 +131,7 @@ class ENAUITests_09_CheckIns: XCTestCase {
 		let buttons = app.buttons
 		XCTAssertTrue(buttons.element(matching: .button, identifier: AccessibilityIdentifiers.General.primaryFooterButton).exists)
 		buttons.element(matching: .button, identifier: AccessibilityIdentifiers.General.primaryFooterButton).tap()
-
+		
 		// tap the "more" button
 		app.navigationBars.buttons[AccessibilityIdentifiers.Checkin.Overview.menueButton].tap()
 		
@@ -141,11 +141,11 @@ class ENAUITests_09_CheckIns: XCTestCase {
 		
 		// tap "Edit" button
 		app.buttons[AccessibilityLabels.localized(AppStrings.Checkins.Overview.ActionSheet.editTitle)].tap()
-
+		
 		// button "Alle entfernen"
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitForExistence(timeout: .short))
 		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].tap()
-
+		
 		// Alert: tap "Entfernen"
 		XCTAssertTrue(app.alerts.buttons[AccessibilityLabels.localized(AppStrings.Checkins.Overview.DeleteAllAlert.confirmButtonTitle)].waitForExistence(timeout: .short))
 		app.alerts.buttons[AccessibilityLabels.localized(AppStrings.Checkins.Overview.DeleteOneAlert.confirmButtonTitle)].tap()
