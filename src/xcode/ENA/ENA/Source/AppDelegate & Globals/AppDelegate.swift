@@ -84,8 +84,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			return true
 		}
 
-		// Check for any URLs passed into the app – most likely via scanning a QR code
-		let route = routeForScannedQRCode(in: launchOptions)
+		// Check for any URLs passed into the app – most likely via scanning a QR code or antigen rapid test
+		let route = routeFromLaunchOptions(launchOptions)
 		setupUI(route)
 		QuickAction.setup()
 
@@ -455,11 +455,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		)
 	}()
 
-	/// Prepare handling of scanned QR codes
-	///
 	/// - Parameter launchOptions: Launch options passed on app launch
 	/// - Returns: A `Route` if a valid URL is passed in the launch options
-	private func routeForScannedQRCode(in launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Route? {
+	private func routeFromLaunchOptions(_ launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Route? {
 		guard let activityDictionary = launchOptions?[.userActivityDictionary] as? [AnyHashable: Any] else {
 			return nil
 		}

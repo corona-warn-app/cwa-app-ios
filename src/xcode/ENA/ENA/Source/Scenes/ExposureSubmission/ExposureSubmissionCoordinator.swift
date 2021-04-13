@@ -44,24 +44,17 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 	func start(with coronaTestType: CoronaTestType? = nil) {
 		model.coronaTestType = coronaTestType
+		start(with: getInitialViewController())
+	}
 
-		let initialVC = getInitialViewController()
-		guard let parentNavigationController = parentNavigationController else {
-			Log.error("Parent navigation controller not set.", log: .ui)
-			return
-		}
-
-		/// The navigation controller keeps a strong reference to the coordinator. The coordinator only reaches reference count 0
-		/// when UIKit dismisses the navigationController.
-		let exposureSubmissionNavigationController = ExposureSubmissionNavigationController(
-			coordinator: self,
-			dismissClosure: { [weak self] in
-				self?.dismiss()
-			},
-			rootViewController: initialVC
+	func start(with payload: String) {
+		model.exposureSubmissionService.loadSupportedCountries(
+			isLoading: { _ in }, // ToDo where to show loading indicator here?
+			onSuccess: { supportedCountries in
+				let qrInfoScreen = self.makeQRInfoScreen(supportedCountries: supportedCountries)
+				self.start(with: qrInfoScreen)
+			}
 		)
-		parentNavigationController.present(exposureSubmissionNavigationController, animated: true)
-		navigationController = exposureSubmissionNavigationController
 	}
 
 	func dismiss() {
@@ -157,6 +150,27 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	}
 
 	private var subscriptions = [AnyCancellable]()
+
+	// MARK: Start
+
+	private func start(with initialViewController: UIViewController) {
+		guard let parentNavigationController = parentNavigationController else {
+			Log.error("Parent navigation controller not set.", log: .ui)
+			return
+		}
+
+		/// The navigation controller keeps a strong reference to the coordinator. The coordinator only reaches reference count 0
+		/// when UIKit dismisses the navigationController.
+		let exposureSubmissionNavigationController = ExposureSubmissionNavigationController(
+			coordinator: self,
+			dismissClosure: { [weak self] in
+				self?.dismiss()
+			},
+			rootViewController: initialViewController
+		)
+		parentNavigationController.present(exposureSubmissionNavigationController, animated: true)
+		navigationController = exposureSubmissionNavigationController
+	}
 
 	// MARK: Initial Screens
 
@@ -372,7 +386,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 	}
 
-	private func showQRInfoScreen(supportedCountries: [Country]) {
+	private func makeQRInfoScreen(supportedCountries: [Country]) -> UIViewController {
 		let vc = ExposureSubmissionQRInfoViewController(
 			supportedCountries: supportedCountries,
 			onPrimaryButtonTap: { [weak self] isLoading in
@@ -403,7 +417,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			},
 			dismiss: { [weak self] in self?.dismiss() }
 		)
-		
+
 		let footerViewController = FooterViewController(
 			FooterViewModel(
 				primaryButtonName: AppStrings.ExposureSubmissionQRInfo.primaryButtonTitle,
@@ -413,13 +427,17 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				isSecondaryButtonHidden: true
 			)
 		)
-		
+
 		let topBottomContainerViewController = TopBottomContainerViewController(
 			topController: vc,
 			bottomController: footerViewController
 		)
-		
-		push(topBottomContainerViewController)
+
+		return topBottomContainerViewController
+	}
+
+	private func showQRInfoScreen(supportedCountries: [Country]) {
+		push(makeQRInfoScreen(supportedCountries: supportedCountries))
 	}
 
 	private func showQRScreen(isLoading: @escaping (Bool) -> Void) {

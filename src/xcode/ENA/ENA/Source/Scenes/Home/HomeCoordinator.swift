@@ -176,6 +176,25 @@ class HomeCoordinator: RequiresAppDependencies {
 		homeState?.updateDetectionMode(detectionMode)
 	}
 
+	func showStatisticsInfo() {
+		let statisticsInfoController = StatisticsInfoViewController(
+			onDismiss: { [weak rootViewController] in
+				rootViewController?.dismiss(animated: true)
+			}
+		)
+
+		rootViewController.present(
+			UINavigationController(rootViewController: statisticsInfoController),
+			animated: true
+		)
+	}
+
+	func showExposureSubmission(with payload: String) {
+		showExposureSubmission(with: nil, payload: payload)
+	}
+
+	// MARK: - Private
+
 	#if !RELEASE
 	private var developerMenu: DMDeveloperMenu?
 	private func enableDeveloperMenuIfAllowed(in controller: UIViewController) {
@@ -247,8 +266,7 @@ class HomeCoordinator: RequiresAppDependencies {
 		exposureDetectionCoordinator?.start()
 	}
 
-
-	private func showExposureSubmission(with result: TestResult? = nil) {
+	private func showExposureSubmission(with result: TestResult? = nil, payload: String? = nil) {
 		// A strong reference to the coordinator is passed to the exposure submission navigation controller
 		// when .start() is called. The coordinator is then bound to the lifecycle of this navigation controller
 		// which is managed by UIKit.
@@ -262,22 +280,11 @@ class HomeCoordinator: RequiresAppDependencies {
 
 		if coronaTestService.pcrTest != nil {
 			coordinator.start(with: .pcr)
+		} else if let payload = payload {
+			coordinator.start(with: payload)
 		} else {
 			coordinator.start()
 		}
-	}
-
-	func showStatisticsInfo() {
-		let statisticsInfoController = StatisticsInfoViewController(
-			onDismiss: { [weak rootViewController] in
-				rootViewController?.dismiss(animated: true)
-			}
-		)
-
-		rootViewController.present(
-			UINavigationController(rootViewController: statisticsInfoController),
-			animated: true
-		)
 	}
 
 	private func showTraceLocations() {
