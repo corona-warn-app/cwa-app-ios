@@ -105,19 +105,43 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 						ExposureSubmissionDynamicCell.stepCell(
 							style: .headline,
 							color: .enaColor(for: .textTint),
-							title: AppStrings.ExposureSubmissionHotline.phoneNumber,
+							title: AppStrings.ExposureSubmissionHotline.phoneNumberDomestic,
 							accessibilityLabel: AppStrings.ExposureSubmissionHotline.callButtonTitle,
 							accessibilityTraits: [.button],
 							hairline: .topAttached,
-							bottomSpacing: .normal,
+							bottomSpacing: .small,
 							action: .execute { [weak self] _, _ in self?.callHotline() }
+						),
+						ExposureSubmissionDynamicCell.stepCell(
+							style: .footnote,
+							title: AppStrings.ExposureSubmissionHotline.phoneDetailsDomestic,
+							accessibilityLabel: AppStrings.ExposureSubmissionHotline.phoneDetailsDomestic,
+							hairline: .topAttached,
+							bottomSpacing: .normal
+						),
+						ExposureSubmissionDynamicCell.stepCell(
+							style: .headline,
+							color: .enaColor(for: .textTint),
+							title: AppStrings.ExposureSubmissionHotline.phoneNumberForeign,
+							accessibilityLabel: AppStrings.ExposureSubmissionHotline.callButtonTitle,
+							accessibilityTraits: [.button],
+							hairline: .topAttached,
+							bottomSpacing: .small,
+							action: .execute { [weak self] _, _ in self?.callHotline(foreign: true) }
+						),
+						ExposureSubmissionDynamicCell.stepCell(
+							style: .footnote,
+							title: AppStrings.ExposureSubmissionHotline.phoneDetailsForeign,
+							accessibilityLabel: AppStrings.ExposureSubmissionHotline.phoneDetailsForeign,
+							hairline: .topAttached,
+							bottomSpacing: .normal
 						),
 						ExposureSubmissionDynamicCell.stepCell(
 							style: .footnote,
 							title: AppStrings.ExposureSubmissionHotline.hotlineDetailDescription,
 							accessibilityLabel: AppStrings.ExposureSubmissionHotline.hotlineDetailDescription,
 							hairline: .topAttached,
-							bottomSpacing: .large
+							bottomSpacing: .normal
 						),
 						ExposureSubmissionDynamicCell.stepCell(
 							style: .body,
@@ -131,15 +155,15 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 		)
 	}
 
-	private func callHotline() {
-		guard let url = URL(string: "telprompt:\(AppStrings.ExposureSubmission.hotlineNumber)"),
+	private func callHotline(foreign: Bool = false) {
+		let phoneNumber = foreign ? AppStrings.ExposureSubmission.hotlineNumberForeign : AppStrings.ExposureSubmission.hotlineNumber
+		guard let url = URL(string: "telprompt:\(phoneNumber)"),
 			  UIApplication.shared.canOpenURL(url) else {
-			Log.error("Call failed: telprompt:\(AppStrings.ExposureSubmission.hotlineNumber) failed")
+			Log.error("Call failed: telprompt:\(phoneNumber) failed")
 			return
 		}
 		UIApplication.shared.open(url, options: [:], completionHandler: nil)
 	}
-
 }
 
 // MARK: - Cell reuse identifiers.

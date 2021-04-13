@@ -38,7 +38,8 @@ class CreateCheckinQuery: StoreQueryProtocol {
 				checkinStartDate,
 				checkinEndDate,
 				checkinCompleted,
-				createJournalEntry
+				createJournalEntry,
+				checkinSubmitted
 			)
 			VALUES (
 				:traceLocationId,
@@ -55,7 +56,8 @@ class CreateCheckinQuery: StoreQueryProtocol {
 				:checkinStartDate,
 				:checkinEndDate,
 				:checkinCompleted,
-				:createJournalEntry
+				:createJournalEntry,
+				:checkinSubmitted
 			);
 		"""
 
@@ -84,7 +86,8 @@ class CreateCheckinQuery: StoreQueryProtocol {
 			"checkinStartDate": Int(checkin.checkinStartDate.timeIntervalSince1970),
 			"checkinEndDate": Int(checkin.checkinEndDate.timeIntervalSince1970),
 			"checkinCompleted": checkin.checkinCompleted,
-			"createJournalEntry": checkin.createJournalEntry
+			"createJournalEntry": checkin.createJournalEntry,
+			"checkinSubmitted": checkin.checkinSubmitted
 		]
 
 		return database.executeUpdate(sql, withParameterDictionary: parameters)

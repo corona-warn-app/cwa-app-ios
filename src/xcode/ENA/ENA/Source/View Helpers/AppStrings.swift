@@ -63,6 +63,7 @@ enum AppStrings {
 		static let confirmDismissPopUpTitle = NSLocalizedString("ExposureSubmission_ConfirmDismissPopUpTitle", comment: "")
 		static let confirmDismissPopUpText = NSLocalizedString("ExposureSubmission_ConfirmDismissPopUpText", comment: "")
 		static let hotlineNumber = NSLocalizedString("ExposureSubmission_Hotline_Number", comment: "")
+		static let hotlineNumberForeign = NSLocalizedString("ExposureSubmission_Hotline_Number_Foreign", comment: "")
 		static let qrCodeExpiredTitle = NSLocalizedString("ExposureSubmissionQRInfo_QRCodeExpired_Alert_Title", comment: "")
 		static let qrCodeExpiredAlertText = NSLocalizedString("ExposureSubmissionQRInfo_QRCodeExpired_Alert_Text", comment: "")
 	}
@@ -195,7 +196,10 @@ enum AppStrings {
 		static let sectionDescription2 = NSLocalizedString("ExposureSubmission_SectionDescription2", comment: "")
 		static let callButtonTitle = NSLocalizedString("ExposureSubmission_CallButtonTitle", comment: "")
 		static let tanInputButtonTitle = NSLocalizedString("ExposureSubmission_TANInputButtonTitle", comment: "")
-		static let phoneNumber = NSLocalizedString("ExposureSubmission_PhoneNumber", comment: "")
+		static let phoneNumberDomestic = NSLocalizedString("ExposureSubmission_PhoneNumberDomestic", comment: "")
+		static let phoneDetailsDomestic = NSLocalizedString("ExposureSubmission_PhoneDetailsDomestic", comment: "")
+		static let phoneNumberForeign = NSLocalizedString("ExposureSubmission_PhoneNumberForeign", comment: "")
+		static let phoneDetailsForeign = NSLocalizedString("ExposureSubmission_PhoneDetailsForeign", comment: "")
 		static let hotlineDetailDescription = NSLocalizedString("ExposureSubmission_PhoneDetailDescription", comment: "")
 		static let imageDescription = NSLocalizedString("ExposureSubmissionHotline_imageDescription", comment: "")
 	}
@@ -882,9 +886,12 @@ enum AppStrings {
 		static let contactTitle = NSLocalizedString("App_Information_Contact_Title", comment: "")
 		static let contactDescription = NSLocalizedString("App_Information_Contact_Description", comment: "")
 		static let contactHotlineTitle = NSLocalizedString("App_Information_Contact_Hotline_Title", comment: "")
-		static let contactHotlineText = NSLocalizedString("App_Information_Contact_Hotline_Text", comment: "")
-		static let contactHotlineNumber = NSLocalizedString("App_Information_Contact_Hotline_Number", comment: "")
-		static let contactHotlineDescription = NSLocalizedString("App_Information_Contact_Hotline_Description", comment: "")
+		static let contactHotlineDomesticText = NSLocalizedString("App_Information_Contact_Hotline_Text_Domestic", comment: "")
+		static let contactHotlineDomesticNumber = NSLocalizedString("App_Information_Contact_Hotline_Number_Domestic", comment: "")
+		static let contactHotlineDomesticDetails = NSLocalizedString("App_Information_Contact_Hotline_Details_Domestic", comment: "")
+		static let contactHotlineForeignText = NSLocalizedString("App_Information_Contact_Hotline_Text_Foreign", comment: "")
+		static let contactHotlineForeignNumber = NSLocalizedString("App_Information_Contact_Hotline_Number_Foreign", comment: "")
+		static let contactHotlineForeignDetails = NSLocalizedString("App_Information_Contact_Hotline_Details_Foreign", comment: "")
 		static let contactHotlineTerms = NSLocalizedString("App_Information_Contact_Hotline_Terms", comment: "")
 
 		static let imprintNavigation = NSLocalizedString("App_Information_Imprint_Navigation", comment: "")
@@ -1384,6 +1391,9 @@ enum AppStrings {
 				static let invalidURL = NSLocalizedString("Checkin_QR_Scanner_Error_InvalidURL", comment: "")
 				static let invalidPayload = NSLocalizedString("Checkin_QR_Scanner_Error_InvalidPayload", comment: "")
 				static let invalidVendorData = NSLocalizedString("Checkin_QR_Scanner_Error_InvalidURLVendorData", comment: "")
+				static let invalidDescription = NSLocalizedString("Checkin_QR_Scanner_Error_InvalidDescription", comment: "")
+				static let invalidAddress = NSLocalizedString("Checkin_QR_Scanner_Error_InvalidAddress", comment: "")
+				static let invalidCryptographicSeed = NSLocalizedString("Checkin_QR_Scanner_Error_InvalidCryptographicSeed", comment: "")
 			}
 		}
 
