@@ -418,7 +418,8 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 		// THEN
 		// switch to journal and check entries for events
 		app.tabBars.buttons[AccessibilityIdentifiers.Tabbar.diary].tap()
-				
+		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.ContactDiary.Overview.title)].waitForExistence(timeout: .short))
+
 //		count the number of entries on the screen
 		var eventcount = [0, 0, 0]
 		for i in 0...(app.cells.count - 1) {
