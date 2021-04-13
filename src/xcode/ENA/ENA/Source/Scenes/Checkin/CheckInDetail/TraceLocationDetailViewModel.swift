@@ -106,7 +106,8 @@ final class TraceLocationDetailViewModel {
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate,
 			checkinCompleted: false,
-			createJournalEntry: shouldSaveToContactJournal
+			createJournalEntry: shouldSaveToContactJournal,
+			checkinSubmitted: false
 		)
 
 		store.shouldAddCheckinToContactDiaryByDefault = shouldSaveToContactJournal

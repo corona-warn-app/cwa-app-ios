@@ -23,8 +23,9 @@ class EventCheckoutServiceTests: XCTestCase {
 			return
 		}
 
-		let checkin = makeDummyCheckin(
-			id: -1
+		let checkin = Checkin.mock(
+			id: -1,
+			createJournalEntry: true
 		)
 		let createCheckinResult = mockEventStore.createCheckin(checkin)
 		guard case let .success(checkinId) = createCheckinResult else {
@@ -41,13 +42,14 @@ class EventCheckoutServiceTests: XCTestCase {
 		)
 
 		// Updating checkin with 'checkinCompleted == true' will trigger a checkout handling in the EventCheckoutService.
-		let checkinWithData = makeDummyCheckin(
+		let checkinWithData = Checkin.mock(
 			id: checkinId,
 			traceLocationId: "someGUID".data(using: .utf8) ?? Data(),
 			traceLocationDescription: "Some Description",
 			traceLocationAddress: "Some Address",
 			traceLocationStartDate: today,
-			traceLocationEndDate: tomorrow
+			traceLocationEndDate: tomorrow,
+			createJournalEntry: true
 		)
 		let completedCheckin = checkinWithData.completedCheckin(checkinEndDate: Date())
 		mockEventStore.updateCheckin(completedCheckin)
@@ -62,7 +64,7 @@ class EventCheckoutServiceTests: XCTestCase {
 
 	func test_When_Checkout_Then_ContactDiaryLocationVisitsCreated() {
 		let mockEventStore = MockEventStore()
-		let checkin = makeDummyCheckin(id: -1)
+		let checkin = Checkin.mock(id: -1, createJournalEntry: true)
 		let createCheckinResult = mockEventStore.createCheckin(checkin)
 		guard case let .success(checkinId) = createCheckinResult else {
 			XCTFail("Could not create checkin.")
@@ -78,10 +80,11 @@ class EventCheckoutServiceTests: XCTestCase {
 		)
 
 		// Updating checkin with 'checkinCompleted == true' will trigger a checkout handling in the EventCheckoutService.
-		let completedCheckin = makeDummyCheckin(
+		let completedCheckin = Checkin.mock(
 			id: checkinId,
+			traceLocationId: "someGUID".data(using: .utf8) ?? Data(),
 			checkinCompleted: true,
-			traceLocationId: "someGUID".data(using: .utf8) ?? Data()
+			createJournalEntry: true
 		)
 		mockEventStore.updateCheckin(completedCheckin)
 
@@ -94,21 +97,25 @@ class EventCheckoutServiceTests: XCTestCase {
 		// Given
 
 		let mockEventStore = MockEventStore()
-		let checkin = makeDummyCheckin(id: -1)
+		let checkin = Checkin.mock(id: -1, createJournalEntry: true)
 		let createCheckinResult = mockEventStore.createCheckin(checkin)
 		guard case let .success(checkinId) = createCheckinResult else {
 			XCTFail("Could not create checkin.")
 			return
 		}
-		let completedCheckin = makeDummyCheckin(
+		let completedCheckin = Checkin.mock(
 			id: checkinId,
+			traceLocationId: "someGUID".data(using: .utf8) ?? Data(),
 			checkinCompleted: true,
-			traceLocationId: "someGUID".data(using: .utf8) ?? Data()
+			createJournalEntry: true
 		)
 		mockEventStore.updateCheckin(completedCheckin)
 
 		// When
-		let checkin2 = makeDummyCheckin(id: -1)
+		let checkin2 = Checkin.mock(
+			id: -1,
+			createJournalEntry: true
+		)
 		let createCheckinResult2 = mockEventStore.createCheckin(checkin2)
 		guard case let .success(checkinId2) = createCheckinResult2 else {
 			XCTFail("Could not create checkin.")
@@ -133,10 +140,11 @@ class EventCheckoutServiceTests: XCTestCase {
 		}.store(in: &subscriptions)
 
 		// Updating checkin with 'checkinCompleted == true' will trigger a checkout handling in the EventCheckoutService.
-		let completedCheckin2 = makeDummyCheckin(
+		let completedCheckin2 = Checkin.mock(
 			id: checkinId2,
+			traceLocationId: "someGUID".data(using: .utf8) ?? Data(),
 			checkinCompleted: true,
-			traceLocationId: "someGUID".data(using: .utf8) ?? Data()
+			createJournalEntry: true
 		)
 		mockEventStore.updateCheckin(completedCheckin2)
 
@@ -149,11 +157,19 @@ class EventCheckoutServiceTests: XCTestCase {
 
 	func test_When_checkoutOverdueCheckins_Then_OnlyOverdueCheckinsAreCompleted() {
 		let mockEventStore = MockEventStore()
-		let overdueCheckin = makeDummyCheckin(id: -1, checkinEndDate: Date.distantPast)
+		let overdueCheckin = Checkin.mock(
+			id: -1,
+			checkinEndDate: Date.distantPast,
+			createJournalEntry: true
+		)
 		mockEventStore.createCheckin(overdueCheckin)
 		mockEventStore.createCheckin(overdueCheckin)
 
-		let currentCheckin = makeDummyCheckin(id: -1, checkinEndDate: Date.distantFuture)
+		let currentCheckin = Checkin.mock(
+			id: -1,
+			checkinEndDate: Date.distantFuture,
+			createJournalEntry: true
+		)
 		mockEventStore.createCheckin(currentCheckin)
 
 		let eventCheckoutService = EventCheckoutService(
@@ -190,15 +206,16 @@ class EventCheckoutServiceTests: XCTestCase {
 			return
 		}
 
-		let twoDayCheckin = makeDummyCheckin(
+		let twoDayCheckin = Checkin.mock(
 			id: -1,
-			checkinStartDate: checkinStartDate,
-			checkinEndDate: checkinEndDate,
 			traceLocationId: "id".data(using: .utf8) ?? Data(),
 			traceLocationDescription: "Some Description",
 			traceLocationAddress: "Some Address",
 			traceLocationStartDate: traceLocationStartDate,
-			traceLocationEndDate: traceLocationEndDate
+			traceLocationEndDate: traceLocationEndDate,
+			checkinStartDate: checkinStartDate,
+			checkinEndDate: checkinEndDate,
+			createJournalEntry: true
 		)
 
 		let mockEventStore = MockEventStore()
@@ -232,7 +249,7 @@ class EventCheckoutServiceTests: XCTestCase {
 
 	func test_When_Checkout_Then_NotificationIsRequested() {
 		let mockEventStore = MockEventStore()
-		let checkin = makeDummyCheckin(id: -1)
+		let checkin = Checkin.mock(id: -1)
 		let createCheckinResult = mockEventStore.createCheckin(checkin)
 		guard case let .success(checkinId) = createCheckinResult else {
 			XCTFail("Could not create checkin.")
@@ -246,18 +263,18 @@ class EventCheckoutServiceTests: XCTestCase {
 			contactDiaryStore: MockDiaryStore(),
 			userNotificationCenter: mockNotificationCenter
 		)
-		_ = makeDummyCheckin(id: checkinId)
+		_ = Checkin.mock(id: checkinId)
 
 		XCTAssertEqual(mockNotificationCenter.notificationRequests.count, 1)
 	}
 
 	func test_When_CheckoutOverdueCheckins_Then_NotificationRequestsAreChanged() {
 		let mockEventStore = MockEventStore()
-		let overdueCheckin = makeDummyCheckin(id: -1, checkinEndDate: Date.distantPast)
+		let overdueCheckin = Checkin.mock(id: -1, checkinEndDate: Date.distantPast)
 		mockEventStore.createCheckin(overdueCheckin)
 		mockEventStore.createCheckin(overdueCheckin)
 
-		let currentCheckin = makeDummyCheckin(id: -1, checkinEndDate: Date.distantFuture)
+		let currentCheckin = Checkin.mock(id: -1, checkinEndDate: Date.distantFuture)
 		mockEventStore.createCheckin(currentCheckin)
 
 		let mockUserNotificationCenter = MockUserNotificationCenter()
@@ -278,7 +295,7 @@ class EventCheckoutServiceTests: XCTestCase {
 
 	func test_When_CheckoutCheckinOverAPI_Then_NotificationRequestsAreChanged() {
 		let mockEventStore = MockEventStore()
-		let currentCheckin = makeDummyCheckin(id: -1, checkinEndDate: Date.distantFuture)
+		let currentCheckin = Checkin.mock(id: -1, checkinEndDate: Date.distantFuture)
 		mockEventStore.createCheckin(currentCheckin)
 
 		let result = mockEventStore.createCheckin(currentCheckin)
@@ -287,7 +304,7 @@ class EventCheckoutServiceTests: XCTestCase {
 			return
 		}
 
-		let checkinWithId = makeDummyCheckin(id: checkinId)
+		let checkinWithId = Checkin.mock(id: checkinId)
 
 		let mockUserNotificationCenter = MockUserNotificationCenter()
 
@@ -307,7 +324,7 @@ class EventCheckoutServiceTests: XCTestCase {
 
 	func test_When_SetCheckinToCompleted_Then_NotificationRequestsAreChanged() {
 		let mockEventStore = MockEventStore()
-		let currentCheckin = makeDummyCheckin(id: -1, checkinEndDate: Date.distantFuture)
+		let currentCheckin = Checkin.mock(id: -1, checkinEndDate: Date.distantFuture)
 		mockEventStore.createCheckin(currentCheckin)
 
 		let result = mockEventStore.createCheckin(currentCheckin)
@@ -316,7 +333,7 @@ class EventCheckoutServiceTests: XCTestCase {
 			return
 		}
 
-		let completedCheckin = makeDummyCheckin(id: checkinId, checkinCompleted: true)
+		let completedCheckin = Checkin.mock(id: checkinId, checkinCompleted: true)
 
 		let mockUserNotificationCenter = MockUserNotificationCenter()
 
@@ -339,7 +356,7 @@ class EventCheckoutServiceTests: XCTestCase {
 
 	func test_When_CheckoutOverdueCheckins_Then_OnlyEventCheckoutServiceNotificationsAreAffected() {
 		let mockEventStore = MockEventStore()
-		let overdueCheckin = makeDummyCheckin(id: -1, checkinEndDate: Date.distantPast)
+		let overdueCheckin = Checkin.mock(id: -1, checkinEndDate: Date.distantPast)
 		mockEventStore.createCheckin(overdueCheckin)
 
 		let mockUserNotificationCenter = MockUserNotificationCenter()
@@ -358,37 +375,6 @@ class EventCheckoutServiceTests: XCTestCase {
 		XCTAssertEqual(mockUserNotificationCenter.notificationRequests.count, 2)
 		eventCheckoutService.checkoutOverdueCheckins()
 		XCTAssertEqual(mockUserNotificationCenter.notificationRequests.count, 1)
-	}
-
-	func makeDummyCheckin(
-		id: Int,
-		checkinStartDate: Date = Date(),
-		checkinEndDate: Date = Date(),
-		checkinCompleted: Bool = false,
-		traceLocationId: Data = "0".data(using: .utf8) ?? Data(),
-		traceLocationDescription: String = "",
-		traceLocationAddress: String = "",
-		traceLocationStartDate: Date = Date(),
-		traceLocationEndDate: Date = Date()
-	) -> Checkin {
-		Checkin(
-			id: id,
-			traceLocationId: traceLocationId,
-			traceLocationIdHash: traceLocationId,
-			traceLocationVersion: 0,
-			traceLocationType: .locationTypePermanentCraft,
-			traceLocationDescription: traceLocationDescription,
-			traceLocationAddress: traceLocationAddress,
-			traceLocationStartDate: traceLocationStartDate,
-			traceLocationEndDate: traceLocationEndDate,
-			traceLocationDefaultCheckInLengthInMinutes: 0,
-			cryptographicSeed: Data(),
-			cnPublicKey: Data(),
-			checkinStartDate: checkinStartDate,
-			checkinEndDate: checkinEndDate,
-			checkinCompleted: checkinCompleted,
-			createJournalEntry: true
-		)
 	}
 
 	var utcFormatter: ISO8601DateFormatter = {

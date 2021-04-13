@@ -451,6 +451,9 @@
 /* phone number; no spacing allowed */
 "ExposureSubmission_Hotline_Number" = "08007540002";
 
+/* phone number; no spacing allowed */
+"ExposureSubmission_Hotline_Number_Foreign" = "+493049875402";
+
 "ExposureSubmission_DataPrivacyTitle" = "Onay";
 
 "ExposureSubmission_Continue_actionText" = "Sonraki";
@@ -515,16 +518,22 @@
 
 "ExposureSubmissionHotline_SectionTitle" = "Nasıl çalışır?";
 
-"ExposureSubmissionHotline_SectionDescription1" = "Ulusal yardım hattını arayın ve TAN talep edin:";
+"ExposureSubmissionHotline_SectionDescription1" = "Rufen Sie die Hotline an und fragen Sie nach einer TAN.";
 
 "ExposureSubmissionHotline_iconAccessibilityLabel1" = "Adım 1/2";
 
 "ExposureSubmissionHotline_iconAccessibilityLabel2" = "Adım 2/2";
 
 /* UI text; spacing allowed */
-"ExposureSubmission_PhoneNumber" = "0800 7540002";
+"ExposureSubmission_PhoneNumberDomestic" = "0800 7540002";
 
-"ExposureSubmission_PhoneDetailDescription" = "Diller: \nAlmanca, İngilizce, Türkçe\n\nMesai saatleri:\n7 gün 24 saat\n\nArama ücretsizdir.\n\nSağlıkla ilgili tüm sorularınız için lütfen aile hekiminizle veya tıbbi acil servis yardım hattı ile iletişime geçin. Telefon: 116 117.";
+"ExposureSubmission_PhoneDetailsDomestic" = "Für Anrufe innerhalb Deutschlands.\nDer Anruf ist kostenfrei.";
+
+"ExposureSubmission_PhoneNumberForeign" = "+49 30 498 75402";
+
+"ExposureSubmission_PhoneDetailsForeign" = "Für Anrufe aus dem Ausland.\nEs fallen die Gebühren des jeweiligen Telefonanbieters an.";
+
+"ExposureSubmission_PhoneDetailDescription" = "Unser Kundenservice ist in den folgenden Sprachen für Sie da:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo-So: Täglich 24 Stunden\n\nFür gesundheitliche Fragen wenden Sie sich bitte an Ihre Hausarztpraxis oder die Hotline des ärztlichen Bereitschaftsdienstes 116 117.";
 
 "ExposureSubmission_SectionDescription2" = "Uygulamaya TAN girerek testinizi kaydedin.";
 
@@ -1165,13 +1174,19 @@
 
 "App_Information_Contact_Hotline_Title" = "Teknik Yardım Hattı";
 
-"App_Information_Contact_Hotline_Text" = "0800 7540001";
+"App_Information_Contact_Hotline_Text_Domestic" = "0800 7540001";
 
-"App_Information_Contact_Hotline_Number" = "08007540001";
+"App_Information_Contact_Hotline_Number_Domestic" = "08007540001";
 
-"App_Information_Contact_Hotline_Description" = "Müşteri hizmetlerimiz size yardımcı olmaya hazır.";
+"App_Information_Contact_Hotline_Details_Domestic" = "Für Anrufe innerhalb Deutschlands.\nDer Anruf ist kostenfrei.";
 
-"App_Information_Contact_Hotline_Terms" = "Diller: Almanca, İngilizce, Türkçe\n\nMesai saatleri:\nPazartesi - Cumartesi: 07.00 - 22.00\n(ulusal tatiller hariçtir)\n\nArama ücretsizdir.\n\nSağlıkla ilgili tüm sorularınız için lütfen aile hekiminizle veya tıbbi acil servis yardım hattı ile iletişime geçin. Telefon: 116 117.";
+"App_Information_Contact_Hotline_Text_Foreign" = "+49 30 498 75402";
+
+"App_Information_Contact_Hotline_Number_Foreign" = "+493049875402";
+
+"App_Information_Contact_Hotline_Details_Foreign" = "Für Anrufe aus dem Ausland.\nEs fallen die Gebühren des jeweiligen Telefonanbieters an.";
+
+"App_Information_Contact_Hotline_Terms" = "Unser Kundenservice ist in den folgenden Sprachen für Sie da:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo-So: Täglich 24 Stunden\n\nFür gesundheitliche Fragen wenden Sie sich bitte an Ihre Hausarztpraxis oder die Hotline des ärztlichen Bereitschaftsdienstes 116 117.";
 
 /* App Information - Imprint */
 "App_Information_New_Features_Navigation" = "Yeni Özellikler";
@@ -1793,7 +1808,7 @@
 
 "Tabbar_Diary_Title" = "Günce";
 
-"Tabbar_CheckIn_Title" = "Check In";
+"Tabbar_CheckIn_Title" = "Check-in";
 
 /* Data Donation */
 "DataDonation_IntroductionText" = "Uygulamayı nasıl kullandığınızı belirtin ve uygulamanın etkinliğini değerlendirmemize yardımcı olun.";

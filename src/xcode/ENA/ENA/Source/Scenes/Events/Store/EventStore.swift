@@ -544,6 +544,7 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 				let checkinEndDate = Date(timeIntervalSince1970: Double(queryResult.int(forColumn: "checkinEndDate")))
 				let checkinCompleted = queryResult.bool(forColumn: "checkinCompleted")
 				let createJournalEntry = queryResult.bool(forColumn: "createJournalEntry")
+				let checkinSubmitted = queryResult.bool(forColumn: "checkinSubmitted")
 
 				var traceLocationStart: Date?
 				if let traceLocationStartInterval = queryResult.object(forColumn: "traceLocationStartDate") as? Int {
@@ -576,7 +577,8 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 					checkinStartDate: checkinStartDate,
 					checkinEndDate: checkinEndDate,
 					checkinCompleted: checkinCompleted,
-					createJournalEntry: createJournalEntry
+					createJournalEntry: createJournalEntry,
+					checkinSubmitted: checkinSubmitted
 				)
 
 				checkins.append(checkin)

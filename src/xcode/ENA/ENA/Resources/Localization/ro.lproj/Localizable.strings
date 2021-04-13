@@ -451,6 +451,9 @@
 /* phone number; no spacing allowed */
 "ExposureSubmission_Hotline_Number" = "08007540002";
 
+/* phone number; no spacing allowed */
+"ExposureSubmission_Hotline_Number_Foreign" = "+493049875402";
+
 "ExposureSubmission_DataPrivacyTitle" = "Consimțământ";
 
 "ExposureSubmission_Continue_actionText" = "Înainte";
@@ -515,16 +518,22 @@
 
 "ExposureSubmissionHotline_SectionTitle" = "Cum funcționează:";
 
-"ExposureSubmissionHotline_SectionDescription1" = "Sunați la hotline-ul național și solicitați un TAN:";
+"ExposureSubmissionHotline_SectionDescription1" = "Rufen Sie die Hotline an und fragen Sie nach einer TAN.";
 
 "ExposureSubmissionHotline_iconAccessibilityLabel1" = "Pasul 1 din 2";
 
 "ExposureSubmissionHotline_iconAccessibilityLabel2" = "Pasul 2 din 2";
 
 /* UI text; spacing allowed */
-"ExposureSubmission_PhoneNumber" = "0800 7540002";
+"ExposureSubmission_PhoneNumberDomestic" = "0800 7540002";
 
-"ExposureSubmission_PhoneDetailDescription" = "Limbi: \ngermană, engleză, turcă\n\nProgram de lucru:\n24/7\n\nApelul este gratuit.\n\nDacă aveți întrebări legate de starea de sănătate, vă rugăm să contactați medicul de familie sau hotline-ul pentru servicii medicale de urgență, la numărul de telefon: 116 117.";
+"ExposureSubmission_PhoneDetailsDomestic" = "Für Anrufe innerhalb Deutschlands.\nDer Anruf ist kostenfrei.";
+
+"ExposureSubmission_PhoneNumberForeign" = "+49 30 498 75402";
+
+"ExposureSubmission_PhoneDetailsForeign" = "Für Anrufe aus dem Ausland.\nEs fallen die Gebühren des jeweiligen Telefonanbieters an.";
+
+"ExposureSubmission_PhoneDetailDescription" = "Unser Kundenservice ist in den folgenden Sprachen für Sie da:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo-So: Täglich 24 Stunden\n\nFür gesundheitliche Fragen wenden Sie sich bitte an Ihre Hausarztpraxis oder die Hotline des ärztlichen Bereitschaftsdienstes 116 117.";
 
 "ExposureSubmission_SectionDescription2" = "Înregistrați testul dvs. introducând codul TAN în aplicație.";
 
@@ -1163,15 +1172,21 @@
 
 "App_Information_Contact_Description" = "Pentru întrebări tehnice despre aplicația Corona-Warn, contactați hotline-ul nostru la nivel național.";
 
-"App_Information_Contact_Hotline_Title" = "Hotline tehnic";
+"App_Information_Contact_Hotline_Title" = "Technische Hotline:";
 
-"App_Information_Contact_Hotline_Text" = "0800 7540001";
+"App_Information_Contact_Hotline_Text_Domestic" = "0800 7540001";
 
-"App_Information_Contact_Hotline_Number" = "08007540001";
+"App_Information_Contact_Hotline_Number_Domestic" = "08007540001";
 
-"App_Information_Contact_Hotline_Description" = "Serviciul clienți vă stă la dispoziție.";
+"App_Information_Contact_Hotline_Details_Domestic" = "Für Anrufe innerhalb Deutschlands.\nDer Anruf ist kostenfrei.";
 
-"App_Information_Contact_Hotline_Terms" = "Limbi: germană, engleză, turcă\n\nProgram de lucru:\nluni - sâmbătă: 07:00 - 22:00\n(exceptând sărbătorile legale)\n\nApelul este gratuit.\n\nDacă aveți întrebări legate de starea de sănătate, vă rugăm să contactați medicul de familie sau hotline-ul pentru servicii medicale de urgență, la numărul de telefon: 112.";
+"App_Information_Contact_Hotline_Text_Foreign" = "+49 30 498 75402";
+
+"App_Information_Contact_Hotline_Number_Foreign" = "+493049875402";
+
+"App_Information_Contact_Hotline_Details_Foreign" = "Für Anrufe aus dem Ausland.\nEs fallen die Gebühren des jeweiligen Telefonanbieters an.";
+
+"App_Information_Contact_Hotline_Terms" = "Unser Kundenservice ist in den folgenden Sprachen für Sie da:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo-So: Täglich 24 Stunden\n\nFür gesundheitliche Fragen wenden Sie sich bitte an Ihre Hausarztpraxis oder die Hotline des ärztlichen Bereitschaftsdienstes 116 117.";
 
 /* App Information - Imprint */
 "App_Information_New_Features_Navigation" = "Caracteristici noi";
