@@ -142,7 +142,7 @@ class RootCoordinator: RequiresAppDependencies {
 		}
 	}
 
-	func showRapidAntigenTest(_ payload: String) {
+	func showRapidAntigenTest(_ testInformation: CoronaTestQRCodeInformation) {
 		guard let homeCoordinator = homeCoordinator,
 			  let index = tabBarController.viewControllers?.firstIndex(of: homeCoordinator.rootViewController) else {
 			Log.error("Failed to find home coordinator - stop", log: .default)
@@ -151,7 +151,7 @@ class RootCoordinator: RequiresAppDependencies {
 
 		tabBarController.dismiss(animated: false) {
 			self.tabBarController.selectedIndex = index
-			homeCoordinator.showExposureSubmission(with: payload)
+			homeCoordinator.showExposureSubmission(with: testInformation)
 		}
 
 	}

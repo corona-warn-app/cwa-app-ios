@@ -47,11 +47,11 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		start(with: getInitialViewController())
 	}
 
-	func start(with payload: String) {
+	func start(with testInformation: CoronaTestQRCodeInformation) {
 		model.exposureSubmissionService.loadSupportedCountries(
 			isLoading: { _ in }, // ToDo where to show loading indicator here?
 			onSuccess: { supportedCountries in
-				let qrInfoScreen = self.makeQRInfoScreen(supportedCountries: supportedCountries)
+				let qrInfoScreen = self.makeQRInfoScreen(supportedCountries: supportedCountries, testInformation: testInformation)
 				self.start(with: qrInfoScreen)
 			}
 		)
@@ -383,10 +383,9 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				})
 		)
 		navigationController?.present(alert, animated: true)
-
 	}
 
-	private func makeQRInfoScreen(supportedCountries: [Country]) -> UIViewController {
+	private func makeQRInfoScreen(supportedCountries: [Country], testInformation: CoronaTestQRCodeInformation?) -> UIViewController {
 		let vc = ExposureSubmissionQRInfoViewController(
 			supportedCountries: supportedCountries,
 			onPrimaryButtonTap: { [weak self] isLoading in
@@ -397,22 +396,22 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 								switch error.toExposureSubmissionError() {
 								case .notAuthorized:
 									// user did not authorize -> continue to scanning the qr code
-									self?.showQRScreen(isLoading: isLoading)
+									self?.showQRScreen(testInformation: testInformation, isLoading: isLoading)
 								default:
 									// present alert
 									let alert = UIAlertController.errorAlert(message: error.localizedDescription, completion: { [weak self] in
-										self?.showQRScreen(isLoading: isLoading)
+										self?.showQRScreen(testInformation: testInformation, isLoading: isLoading)
 									})
 									self?.navigationController?.present(alert, animated: true, completion: nil)
 								}
 							} else {
 								// continue to scanning the qr code
-								self?.showQRScreen(isLoading: isLoading)
+								self?.showQRScreen(testInformation: testInformation, isLoading: isLoading)
 							}
 						}
 					})
 				} else {
-					self?.showQRScreen(isLoading: isLoading)
+					self?.showQRScreen(testInformation: testInformation, isLoading: isLoading)
 				}
 			},
 			dismiss: { [weak self] in self?.dismiss() }
@@ -437,58 +436,67 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	}
 
 	private func showQRInfoScreen(supportedCountries: [Country]) {
-		push(makeQRInfoScreen(supportedCountries: supportedCountries))
+		push(makeQRInfoScreen(supportedCountries: supportedCountries, testInformation: nil))
 	}
 
-	private func showQRScreen(isLoading: @escaping (Bool) -> Void) {
-		let scannerViewController = ExposureSubmissionQRScannerViewController(
-			onSuccess: { [weak self] testQrCodeInformation in
-				self?.presentedViewController?.dismiss(animated: true) {
-					if let oldTest = self?.model.coronaTestService.coronaTest(ofType: testQrCodeInformation.testType),
-					   oldTest.testResult != .expired && oldTest.testResult != .invalid {
-						self?.showOverrideTestNotice(testQrCodeInformation: testQrCodeInformation, submissionConsentGiven: true)
-					} else {
-						self?.registerTestAndGetResult(with: testQrCodeInformation, submissionConsentGiven: true, isLoading: isLoading)
-					}
-				}
-			},
-			onError: { [weak self] error, reactivateScanning in
-				switch error {
-				case .cameraPermissionDenied:
-					DispatchQueue.main.async {
-						let alert = UIAlertController.errorAlert(message: error.localizedDescription, completion: {
-							self?.presentedViewController?.dismiss(animated: true)
-						})
-						self?.presentedViewController?.present(alert, animated: true)
-					}
-				case .codeNotFound:
-					DispatchQueue.main.async {
-						let alert = UIAlertController.errorAlert(
-							title: AppStrings.ExposureSubmissionError.qrAlreadyUsedTitle,
-							message: AppStrings.ExposureSubmissionError.qrAlreadyUsed,
-							okTitle: AppStrings.Common.alertActionCancel,
-							secondaryActionTitle: AppStrings.Common.alertActionRetry,
-							completion: { [weak self] in
-								self?.presentedViewController?.dismiss(animated: true)
-							},
-							secondaryActionCompletion: { reactivateScanning() }
-						)
-						self?.presentedViewController?.present(alert, animated: true)
-					}
-				case .other:
-					Log.error("QRScannerError.other occurred.", log: .ui)
-				}
-			},
-			onCancel: { [weak self] in
-				self?.presentedViewController?.dismiss(animated: true)
+	private func showQRScreen(testInformation: CoronaTestQRCodeInformation?, isLoading: @escaping (Bool) -> Void) {
+		let testInformationSuccess: (CoronaTestQRCodeInformation) -> Void = { [weak self] testQrCodeInformation in
+			if let oldTest = self?.model.coronaTestService.coronaTest(ofType: testQrCodeInformation.testType),
+			   oldTest.testResult != .expired && oldTest.testResult != .invalid {
+				self?.showOverrideTestNotice(testQrCodeInformation: testQrCodeInformation, submissionConsentGiven: true)
+			} else {
+				self?.registerTestAndGetResult(with: testQrCodeInformation, submissionConsentGiven: true, isLoading: isLoading)
 			}
-		)
+		}
 
-		let qrScannerNavigationController = UINavigationController(rootViewController: scannerViewController)
-		qrScannerNavigationController.modalPresentationStyle = .fullScreen
+		if let testInformation = testInformation {
+			testInformationSuccess(testInformation)
+		} else {
+			let scannerViewController = ExposureSubmissionQRScannerViewController(
+				onSuccess: { [weak self] testQrCodeInformation in
+					self?.presentedViewController?.dismiss(animated: true) {
+						testInformationSuccess(testQrCodeInformation)
+					}
+				},
+				onError: { [weak self] error, reactivateScanning in
+					switch error {
+					case .cameraPermissionDenied:
+						DispatchQueue.main.async {
+							let alert = UIAlertController.errorAlert(message: error.localizedDescription, completion: {
+								self?.presentedViewController?.dismiss(animated: true)
+							})
+							self?.presentedViewController?.present(alert, animated: true)
+						}
+					case .codeNotFound:
+						DispatchQueue.main.async {
+							let alert = UIAlertController.errorAlert(
+								title: AppStrings.ExposureSubmissionError.qrAlreadyUsedTitle,
+								message: AppStrings.ExposureSubmissionError.qrAlreadyUsed,
+								okTitle: AppStrings.Common.alertActionCancel,
+								secondaryActionTitle: AppStrings.Common.alertActionRetry,
+								completion: { [weak self] in
+									self?.presentedViewController?.dismiss(animated: true)
+								},
+								secondaryActionCompletion: { reactivateScanning() }
+							)
+							self?.presentedViewController?.present(alert, animated: true)
+						}
+					case .other:
+						Log.error("QRScannerError.other occurred.", log: .ui)
+					}
+				},
+				onCancel: { [weak self] in
+					self?.presentedViewController?.dismiss(animated: true)
+				}
+			)
 
-		navigationController?.present(qrScannerNavigationController, animated: true)
-		presentedViewController = qrScannerNavigationController
+			let qrScannerNavigationController = UINavigationController(rootViewController: scannerViewController)
+			qrScannerNavigationController.modalPresentationStyle = .fullScreen
+
+			navigationController?.present(qrScannerNavigationController, animated: true)
+			presentedViewController = qrScannerNavigationController
+		}
+
 	}
 
 	private func showTestResultAvailableScreen() {
@@ -934,7 +942,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 							self?.dismiss()
 						},
 						secondaryActionCompletion: { [weak self] in
-							self?.showQRScreen(isLoading: isLoading)
+							self?.showQRScreen(testInformation: nil, isLoading: isLoading)
 						}
 					)
 				case .testExpired:

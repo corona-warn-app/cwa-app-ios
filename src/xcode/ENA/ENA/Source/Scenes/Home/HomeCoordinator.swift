@@ -189,8 +189,8 @@ class HomeCoordinator: RequiresAppDependencies {
 		)
 	}
 
-	func showExposureSubmission(with payload: String) {
-		showExposureSubmission(with: nil, payload: payload)
+	func showExposureSubmission(with testInformation: CoronaTestQRCodeInformation) {
+		showExposureSubmission(with: nil, testInformation: testInformation)
 	}
 
 	// MARK: - Private
@@ -266,7 +266,7 @@ class HomeCoordinator: RequiresAppDependencies {
 		exposureDetectionCoordinator?.start()
 	}
 
-	private func showExposureSubmission(with result: TestResult? = nil, payload: String? = nil) {
+	private func showExposureSubmission(with result: TestResult? = nil, testInformation: CoronaTestQRCodeInformation? = nil) {
 		// A strong reference to the coordinator is passed to the exposure submission navigation controller
 		// when .start() is called. The coordinator is then bound to the lifecycle of this navigation controller
 		// which is managed by UIKit.
@@ -280,8 +280,8 @@ class HomeCoordinator: RequiresAppDependencies {
 
 		if coronaTestService.pcrTest != nil {
 			coordinator.start(with: .pcr)
-		} else if let payload = payload {
-			coordinator.start(with: payload)
+		} else if let testInformation = testInformation {
+			coordinator.start(with: testInformation)
 		} else {
 			coordinator.start()
 		}
