@@ -130,6 +130,80 @@ class ExposureSubmissionTestResultViewModel {
 	private var showSpecialCaseForNegativeAntigenTest: Bool {
 		return coronaTest.type == .antigen && coronaTest.testResult == .negative
 	}
+
+	private func bindToCoronaTestUpdates() {
+		switch coronaTestType {
+		case .pcr:
+			coronaTestService.$pcrTest
+				.sink { [weak self] pcrTest in
+					guard let pcrTest = pcrTest else {
+						return
+					}
+
+					self?.updateForCurrentTestResult(coronaTest: .pcr(pcrTest))
+				}
+				.store(in: &subscriptions)
+		case .antigen:
+			coronaTestService.$antigenTest
+				.sink { [weak self] antigenTest in
+					guard let antigenTest = antigenTest else {
+						return
+					}
+
+					self?.updateForCurrentTestResult(coronaTest: .antigen(antigenTest))
+				}
+				.store(in: &subscriptions)
+		}
+	}
+
+	private func updateForCurrentTestResult(coronaTest: CoronaTest) {
+		// Positive test results are not shown immediately
+		if coronaTest.testResult == .positive && self.coronaTest.testResult != .positive {
+			self.onChangeToPositiveTestResult()
+		}
+
+		self.coronaTest = coronaTest
+
+		let sections: [DynamicSection]
+		switch coronaTest.testResult {
+		case .positive:
+			sections = coronaTest.isSubmissionConsentGiven ? positiveTestResultSectionsWithSubmissionConsent : positiveTestResultSectionsWithoutSubmissionConsent
+		case .negative:
+			if let test = coronaTest.antigenTest, showSpecialCaseForNegativeAntigenTest {
+				sections = negativeAntigenTestResultSections(test: test)
+			} else {
+				sections = negativeTestResultSections
+			}
+		case .invalid:
+			sections = invalidTestResultSections
+		case .pending:
+			sections = pendingTestResultSections
+		case .expired:
+			sections = expiredTestResultSections
+		}
+		dynamicTableViewModel = DynamicTableViewModel(sections)
+		
+		footerViewModel = ExposureSubmissionTestResultViewModel.footerViewModel(coronaTest: coronaTest)
+	}
+	
+	private func refreshTest(completion: @escaping () -> Void) {
+		coronaTestService.updateTestResult(for: coronaTestType) { [weak self] result in
+			guard let self = self else { return }
+
+			switch result {
+			case let .failure(error):
+				self.error = error
+			case .success:
+				break
+			}
+
+			completion()
+		}
+	}
+}
+
+// MARK: - Pending
+extension ExposureSubmissionTestResultViewModel {
 	
 	private var pendingTestResultSections: [DynamicSection] {
 		
@@ -218,6 +292,10 @@ class ExposureSubmissionTestResultViewModel {
 			)
 		]
 	}
+}
+
+// MARK: - Positiv
+extension ExposureSubmissionTestResultViewModel {
 	
 	/// This is the positive result section which will be shown, if the user
 	/// has NOT GIVEN submission consent to share the positive test result with others
@@ -286,6 +364,10 @@ class ExposureSubmissionTestResultViewModel {
 			)
 		]
 	}
+}
+
+// MARK: - Negative
+extension ExposureSubmissionTestResultViewModel {
 	
 	private var negativeTestResultSections: [DynamicSection] {
 		
@@ -419,6 +501,11 @@ class ExposureSubmissionTestResultViewModel {
 		 )
 		]
 	}
+}
+
+
+// MARK: - Expired
+extension ExposureSubmissionTestResultViewModel {
 	
 	private var expiredTestResultSections: [DynamicSection] {
 		[
@@ -458,6 +545,11 @@ class ExposureSubmissionTestResultViewModel {
 			)
 		]
 	}
+}
+
+
+// MARK: - Invalid
+extension ExposureSubmissionTestResultViewModel {
 	
 	private var invalidTestResultSections: [DynamicSection] {
 		[
@@ -497,78 +589,9 @@ class ExposureSubmissionTestResultViewModel {
 			)
 		]
 	}
-
-	private func bindToCoronaTestUpdates() {
-		switch coronaTestType {
-		case .pcr:
-			coronaTestService.$pcrTest
-				.sink { [weak self] pcrTest in
-					guard let pcrTest = pcrTest else {
-						return
-					}
-
-					self?.updateForCurrentTestResult(coronaTest: .pcr(pcrTest))
-				}
-				.store(in: &subscriptions)
-		case .antigen:
-			coronaTestService.$antigenTest
-				.sink { [weak self] antigenTest in
-					guard let antigenTest = antigenTest else {
-						return
-					}
-
-					self?.updateForCurrentTestResult(coronaTest: .antigen(antigenTest))
-				}
-				.store(in: &subscriptions)
-		}
-	}
-
-	private func updateForCurrentTestResult(coronaTest: CoronaTest) {
-		// Positive test results are not shown immediately
-		if coronaTest.testResult == .positive && self.coronaTest.testResult != .positive {
-			self.onChangeToPositiveTestResult()
-		}
-
-		self.coronaTest = coronaTest
-
-		let sections: [DynamicSection]
-		switch coronaTest.testResult {
-		case .positive:
-			sections = coronaTest.isSubmissionConsentGiven ? positiveTestResultSectionsWithSubmissionConsent : positiveTestResultSectionsWithoutSubmissionConsent
-		case .negative:
-			if let test = coronaTest.antigenTest, showSpecialCaseForNegativeAntigenTest {
-				sections = negativeAntigenTestResultSections(test: test)
-			} else {
-				sections = negativeTestResultSections
-			}
-		case .invalid:
-			sections = invalidTestResultSections
-		case .pending:
-			sections = pendingTestResultSections
-		case .expired:
-			sections = expiredTestResultSections
-		}
-		dynamicTableViewModel = DynamicTableViewModel(sections)
-		
-		footerViewModel = ExposureSubmissionTestResultViewModel.footerViewModel(coronaTest: coronaTest)
-	}
-	
-	private func refreshTest(completion: @escaping () -> Void) {
-		coronaTestService.updateTestResult(for: coronaTestType) { [weak self] result in
-			guard let self = self else { return }
-
-			switch result {
-			case let .failure(error):
-				self.error = error
-			case .success:
-				break
-			}
-
-			completion()
-		}
-	}
 }
 
+// MARK: - Footer view helper
 extension ExposureSubmissionTestResultViewModel {
 	
 	static func footerViewModel(coronaTest: CoronaTest) -> FooterViewModel {
@@ -615,4 +638,6 @@ private extension CoronaTest {
 			return test
 		}
 	}
+	
+	// swiftlint:disable:next file_length
 }
