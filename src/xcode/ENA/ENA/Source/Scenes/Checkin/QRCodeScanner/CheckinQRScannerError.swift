@@ -13,6 +13,7 @@ enum CheckinQRScannerError: Error, LocalizedError {
 	case invalidAddress
 	case invalidDescription
 	case invalidCryptoSeed
+	case invalidTimeStamps
 	case other
 
 	var errorDescription: String? {
@@ -31,6 +32,8 @@ enum CheckinQRScannerError: Error, LocalizedError {
 			return AppStrings.Checkins.QRScanner.Error.invalidAddress
 		case .invalidCryptoSeed:
 			return AppStrings.Checkins.QRScanner.Error.invalidCryptographicSeed
+		case .invalidTimeStamps:
+			return AppStrings.Checkins.QRScanner.Error.invalidTimeStamps
 		default:
 			return AppStrings.ExposureSubmissionQRScanner.otherError
 		}

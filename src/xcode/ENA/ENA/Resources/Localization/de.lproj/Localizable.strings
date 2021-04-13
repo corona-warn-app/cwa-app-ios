@@ -2069,6 +2069,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "Checkin_QR_Scanner_Error_InvalidCryptographicSeed" = "Ungültiger QR-Code verhindert das Einchecken. Die verantwortliche Stelle muss einen neuen QR-Code generieren (Fehlercode INVALID_CRYPTO_SEED).";
 
+"Checkin_QR_Scanner_Error_InvalidTimeStamps" = "Ungültiger QR-Code verhindert das Einchecken. Die verantwortliche Stelle muss einen neuen QR-Code generieren (Fehlercode INVALID_TIMESTAMPS).";
+
 /* TraceLocations */
 
 "TraceLocations_Overview_Title" = "Meine QR-Codes";
