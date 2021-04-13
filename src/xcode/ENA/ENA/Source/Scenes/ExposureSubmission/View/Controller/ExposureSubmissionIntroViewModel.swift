@@ -36,11 +36,7 @@ class ExposureSubmissionIntroViewModel {
 					height: 200
 				),
 				separators: .none,
-				cells: [
-					.title2(
-						text: AppStrings.ExposureSubmissionDispatch.sectionHeadline,
-						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.sectionHeadline)
-				]
+				cells: []
 			))
 			$0.add(.section(cells: [
 				.imageCard(
