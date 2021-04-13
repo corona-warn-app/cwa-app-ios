@@ -514,7 +514,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_DispatchSectionHeadline2" = "Ihr Test ist positiv?";
 
-"ExposureSubmissionDispatch_QRCodeButtonTitle" = "Test mit QR-Code";
+"ExposureSubmissionDispatch_QRCodeButtonTitle" = "QR-Code scannen";
 
 "ExposureSubmissionDispatch_QRCodeButtonDescription" = "Registrieren Sie Ihren Test, indem Sie den QR-Code Ihres Testdokuments scannen.";
 
