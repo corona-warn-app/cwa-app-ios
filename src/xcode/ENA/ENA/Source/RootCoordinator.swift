@@ -149,11 +149,9 @@ class RootCoordinator: RequiresAppDependencies {
 			return
 		}
 
-		tabBarController.dismiss(animated: false) {
-			self.tabBarController.selectedIndex = index
-			homeCoordinator.showExposureSubmission(with: testInformation)
-		}
-
+		tabBarController.dismiss(animated: false)
+		tabBarController.selectedIndex = index
+		homeCoordinator.showExposureSubmission(with: testInformation)
 	}
 
 	func updateDetectionMode(
