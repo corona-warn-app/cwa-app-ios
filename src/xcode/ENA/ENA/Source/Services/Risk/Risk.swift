@@ -24,18 +24,27 @@ extension Risk {
 		checkinCalculationResult: CheckinRiskCalculationResult,
 		previousCheckinCalculationResult: CheckinRiskCalculationResult? = nil
 	) {
+		Log.info("[Risk] Merging risks from ENF and checkin. Create Risk.", log: .riskDetection)
+
 		let riskLevelHasChanged = previousENFRiskCalculationResult?.riskLevel != nil &&
 			enfRiskCalculationResult.riskLevel != previousENFRiskCalculationResult?.riskLevel ||
 			previousCheckinCalculationResult?.riskLevel != nil &&
 			checkinCalculationResult.riskLevel != previousCheckinCalculationResult?.riskLevel
 
+		Log.debug("[Risk] riskLevelHasChanged: \(riskLevelHasChanged)", log: .riskDetection)
+
 		let tracingRiskLevelPerDate = enfRiskCalculationResult.riskLevelPerDate
 		let checkinRiskLevelPerDate = checkinCalculationResult.riskLevelPerDate
+
+		Log.debug("[Risk] tracingRiskLevelPerDate: \(tracingRiskLevelPerDate)", log: .riskDetection)
+		Log.debug("[Risk] checkinRiskLevelPerDate: \(checkinRiskLevelPerDate)", log: .riskDetection)
 
 		// Merge the results from both risk calculation. For each date, the higher risk level is used.
 		let mergedRiskLevelPerDate = tracingRiskLevelPerDate.merging(checkinRiskLevelPerDate) { lhs, rhs -> RiskLevel in
 			max(lhs, rhs)
 		}
+
+		Log.debug("[Risk] mergedRiskLevelPerDate: \(mergedRiskLevelPerDate)", log: .riskDetection)
 
 		// The Total Risk Level is High if there is least one Date with Risk Level per Date calculated as High; it is Low otherwise.
 		var totalRiskLevel: RiskLevel = .low
@@ -45,6 +54,8 @@ extension Risk {
 			totalRiskLevel = .high
 		}
 
+		Log.debug("[Risk] totalRiskLevel: \(totalRiskLevel)", log: .riskDetection)
+
 		// 1. Filter for the desired risk.
 		// 2. Select the maximum by date (the most currrent).
 		let mostRecentDateWithRiskLevel = mergedRiskLevelPerDate.filter {
@@ -53,9 +64,13 @@ extension Risk {
 			$0.key < $1.key
 		})?.key
 
+		Log.debug("[Risk] mostRecentDateWithRiskLevel: \(mostRecentDateWithRiskLevel)", log: .riskDetection)
+
 		let numberOfDaysWithRiskLevel = mergedRiskLevelPerDate.filter {
 			$1 == totalRiskLevel
 		}.count
+
+		Log.debug("[Risk] numberOfDaysWithRiskLevel: \(numberOfDaysWithRiskLevel)", log: .riskDetection)
 
 		let calculationDate = max(enfRiskCalculationResult.calculationDate, checkinCalculationResult.calculationDate)
 
