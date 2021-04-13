@@ -55,6 +55,11 @@ class CheckinCellModel: EventCellModel {
 		onUpdate()
 	}
 
+	@objc
+	func invalidateTimer() {
+		updateTimer?.invalidate()
+	}
+
 	// MARK: - Private
 
 	private let eventCheckoutService: EventCheckoutService
@@ -109,7 +114,7 @@ class CheckinCellModel: EventCellModel {
 		}
 
 		// Schedule new timer.
-		NotificationCenter.default.addObserver(self, selector: #selector(invalidateUpdatedTimer), name: UIApplication.didEnterBackgroundNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(invalidateTimer), name: UIApplication.didEnterBackgroundNotification, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(refreshUpdateTimerAfterResumingFromBackground), name: UIApplication.didBecomeActiveNotification, object: nil)
 
 		let now = Date()
@@ -121,11 +126,6 @@ class CheckinCellModel: EventCellModel {
 		updateTimer = Timer(fireAt: firstFireDate, interval: 60, target: self, selector: #selector(updateFromTimer), userInfo: nil, repeats: true)
 		guard let updateTimer = updateTimer else { return }
 		RunLoop.current.add(updateTimer, forMode: .common)
-	}
-
-	@objc
-	private func invalidateUpdatedTimer() {
-		updateTimer?.invalidate()
 	}
 
 	@objc
