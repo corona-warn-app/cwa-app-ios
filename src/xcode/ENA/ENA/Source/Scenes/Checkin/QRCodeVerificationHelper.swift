@@ -95,7 +95,7 @@ class QRCodeVerificationHelper {
 		let startTimeStamp = traceLocation.startDate?.timeIntervalSince1970 ?? 0
 		let endTimeStamp = traceLocation.endDate?.timeIntervalSince1970 ?? 0
 		let bothTimeStampsAreZero = (startTimeStamp == 0 && endTimeStamp == 0)
-		let startTimeIsBeforeEndTime = startTimeStamp < endTimeStamp
+		let startTimeIsBeforeEndTime = startTimeStamp <= endTimeStamp
 		
 		guard bothTimeStampsAreZero || startTimeIsBeforeEndTime else {
 			Log.error("startTimeStamp must be less than endTimeStamp or both should be 0", log: .checkin)
