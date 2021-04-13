@@ -14,6 +14,7 @@ enum CoronaTestServiceError: Error, Equatable {
 	case noCoronaTestOfRequestedType
 }
 
+// swiftlint:disable:next type_body_length
 class CoronaTestService {
 
 	typealias VoidResultHandler = (Result<Void, CoronaTestServiceError>) -> Void
@@ -83,6 +84,8 @@ class CoronaTestService {
 		isSubmissionConsentGiven: Bool,
 		completion: @escaping TestResultHandler
 	) {
+		Log.info("[CoronaTestService] Registering PCR test (guid: \(guid), isSubmissionConsentGiven: \(isSubmissionConsentGiven))", log: .api)
+
 		getRegistrationToken(
 			forKey: ENAHasher.sha256(guid),
 			withType: "GUID",
@@ -101,7 +104,8 @@ class CoronaTestService {
 						journalEntryCreated: false
 					)
 
-					// because this block is only called in QR submission
+					Log.info("[CoronaTestService] PCR test registered: \(String(describing: self?.pcrTest))", log: .api)
+
 					Analytics.collect(.testResultMetadata(.registerNewTestMetadata(Date(), registrationToken)))
 					Analytics.collect(.keySubmissionMetadata(.submittedWithTeletan(false)))
 
@@ -109,6 +113,8 @@ class CoronaTestService {
 						completion(result)
 					}
 				case .failure(let error):
+					Log.error("[CoronaTestService] PCR test registration failed: \(error.localizedDescription)", log: .api)
+
 					completion(.failure(error))
 
 					self?.fakeRequestService.fakeVerificationAndSubmissionServerRequest()
@@ -122,6 +128,8 @@ class CoronaTestService {
 		isSubmissionConsentGiven: Bool,
 		completion: @escaping VoidResultHandler
 	) {
+		Log.info("[CoronaTestService] Registering PCR test (teleTAN: \(teleTAN), isSubmissionConsentGiven: \(isSubmissionConsentGiven))", log: .api)
+
 		getRegistrationToken(
 			forKey: teleTAN,
 			withType: "TELETAN",
@@ -142,8 +150,14 @@ class CoronaTestService {
 						journalEntryCreated: false
 					)
 
+					Log.info("[CoronaTestService] PCR test registered: \(String(describing: self?.pcrTest))", log: .api)
+
+					Analytics.collect(.keySubmissionMetadata(.submittedWithTeletan(true)))
+
 					completion(.success(()))
 				case .failure(let error):
+					Log.error("[CoronaTestService] PCR test registration failed: \(error.localizedDescription)", log: .api)
+
 					completion(.failure(error))
 				}
 			}
@@ -158,6 +172,8 @@ class CoronaTestService {
 		isSubmissionConsentGiven: Bool,
 		completion: @escaping TestResultHandler
 	) {
+		Log.info("[CoronaTestService] Registering antigen test (guid: \(guid), pointOfCareConsentDate: \(pointOfCareConsentDate), name: \(String(describing: name)), birthday: \(String(describing: birthday)), isSubmissionConsentGiven: \(isSubmissionConsentGiven))", log: .api)
+
 		getRegistrationToken(
 			forKey: ENAHasher.sha256(guid),
 			withType: "GUID",
@@ -177,12 +193,16 @@ class CoronaTestService {
 						journalEntryCreated: false
 					)
 
+					Log.info("[CoronaTestService] Antigen test registered: \(String(describing: self?.antigenTest))", log: .api)
+
 					self?.getTestResult(for: .antigen, duringRegistration: true) { result in
 						completion(result)
 					}
 
 					self?.fakeRequestService.fakeSubmissionServerRequest()
 				case .failure(let error):
+					Log.error("[CoronaTestService] Antigen test registration failed: \(error.localizedDescription)", log: .api)
+
 					completion(.failure(error))
 
 					self?.fakeRequestService.fakeVerificationAndSubmissionServerRequest()
@@ -235,6 +255,8 @@ class CoronaTestService {
 	}
 
 	func updateTestResult(for coronaTestType: CoronaTestType, completion: @escaping TestResultHandler) {
+		Log.info("[CoronaTestService] Updating test result (coronaTestType: \(coronaTestType))", log: .api)
+
 		getTestResult(for: coronaTestType, duringRegistration: false) { result in
 			self.fakeRequestService.fakeVerificationAndSubmissionServerRequest {
 				completion(result)
@@ -243,6 +265,8 @@ class CoronaTestService {
 	}
 
 	func getSubmissionTAN(for coronaTestType: CoronaTestType, completion: @escaping SubmissionTANResultHandler) {
+		Log.info("[CoronaTestService] Getting submission tan (coronaTestType: \(coronaTestType))", log: .api)
+
 		guard let coronaTest = coronaTest(ofType: coronaTestType) else {
 			completion(.failure(.noCoronaTestOfRequestedType))
 			return
@@ -261,15 +285,21 @@ class CoronaTestService {
 		client.getTANForExposureSubmit(forDevice: registrationToken, isFake: false) { result in
 			switch result {
 			case let .failure(error):
+				Log.error("[CoronaTestService] Getting submission tan failed: \(error.localizedDescription)", log: .api)
+
 				completion(.failure(.responseFailure(error)))
 			case let .success(submissionTAN):
 				switch coronaTestType {
 				case .pcr:
 					self.pcrTest?.submissionTAN = submissionTAN
 					self.pcrTest?.registrationToken = nil
+
+					Log.info("[CoronaTestService] Received submission tan for PCR test: \(String(describing: self.pcrTest))", log: .api)
 				case .antigen:
 					self.antigenTest?.submissionTAN = submissionTAN
 					self.antigenTest?.registrationToken = nil
+
+					Log.info("[CoronaTestService] Received submission tan for antigen test: \(String(describing: self.antigenTest))", log: .api)
 				}
 
 				completion(.success(submissionTAN))
@@ -278,6 +308,8 @@ class CoronaTestService {
 	}
 
 	func removeTest(_ coronaTestType: CoronaTestType) {
+		Log.info("[CoronaTestService] Removing test (coronaTestType: \(coronaTestType)", log: .api)
+
 		switch coronaTestType {
 		case .pcr:
 			pcrTest = nil
@@ -289,11 +321,17 @@ class CoronaTestService {
 	}
 
 	func evaluateShowingTest(ofType coronaTestType: CoronaTestType) {
+		Log.info("[CoronaTestService] Evaluating showing test (coronaTestType: \(coronaTestType))", log: .api)
+
 		switch coronaTestType {
 		case .pcr where pcrTest?.testResult == .positive:
 			pcrTest?.positiveTestResultWasShown = true
+
+			Log.info("[CoronaTestService] Positive PCR test result was shown", log: .api)
 		case .antigen where antigenTest?.testResult == .positive:
 			antigenTest?.positiveTestResultWasShown = true
+
+			Log.info("[CoronaTestService] Positive antigen test result was shown", log: .api)
 		default:
 			break
 		}
@@ -306,12 +344,18 @@ class CoronaTestService {
 	}
 
 	func updatePublishersFromStore() {
+		Log.info("[CoronaTestService] Updating publishers from store", log: .api)
+
 		if pcrTest != store.pcrTest {
 			pcrTest = store.pcrTest
+
+			Log.info("[CoronaTestService] PCR test updated from store", log: .api)
 		}
 
 		if antigenTest != store.antigenTest {
 			antigenTest = store.antigenTest
+
+			Log.info("[CoronaTestService] Antigen test updated from store", log: .api)
 		}
 	}
 
@@ -328,6 +372,10 @@ class CoronaTestService {
 				keysSubmitted: store.lastSuccessfulSubmitDiagnosisKeyTimestamp != nil,
 				journalEntryCreated: false
 			)
+
+			Log.info("[CoronaTestService] Migrated preexisting PCR test: \(String(describing: pcrTest))", log: .api)
+		} else {
+			Log.info("[CoronaTestService] No migration required (store.registrationToken: \(String(describing: store.registrationToken)), store.lastSuccessfulSubmitDiagnosisKeyTimestamp: \(String(describing: store.lastSuccessfulSubmitDiagnosisKeyTimestamp)), store.devicePairingConsentAcceptTimestamp: \(String(describing: store.devicePairingConsentAcceptTimestamp))", log: .api)
 		}
 
 		store.registrationToken = nil
@@ -376,12 +424,19 @@ class CoronaTestService {
 		duringRegistration: Bool,
 		_ completion: @escaping TestResultHandler
 	) {
+		Log.info("[CoronaTestService] Getting test result (coronaTestType: \(coronaTestType), duringRegistration: \(duringRegistration))", log: .api)
+
+
 		guard let coronaTest = coronaTest(ofType: coronaTestType) else {
+			Log.error("[CoronaTestService] Getting test result failed: No corona test of requested type", log: .api)
+
 			completion(.failure(.noCoronaTestOfRequestedType))
 			return
 		}
 
 		guard let registrationToken = coronaTest.registrationToken else {
+			Log.error("[CoronaTestService] Getting test result failed: No registration token", log: .api)
+
 			completion(.failure(.noRegistrationToken))
 			return
 		}
@@ -396,12 +451,18 @@ class CoronaTestService {
 
 			switch result {
 			case let .failure(error):
+				Log.error("[CoronaTestService] Getting test result failed: \(error.localizedDescription)", log: .api)
+
 				completion(.failure(.responseFailure(error)))
-			case let .success(testResult):
-				guard let testResult = TestResult(serverResponse: testResult) else {
+			case let .success(rawTestResult):
+				guard let testResult = TestResult(serverResponse: rawTestResult) else {
+					Log.error("[CoronaTestService] Getting test result failed: Unknown test result \(rawTestResult)", log: .api)
+
 					completion(.failure(.unknownTestResult))
 					return
 				}
+
+				Log.info("[CoronaTestService] Got test result (coronaTestType: \(coronaTestType), testResult: \(testResult))", log: .api)
 
 				Analytics.collect(.testResultMetadata(.updateTestResult(testResult, registrationToken)))
 

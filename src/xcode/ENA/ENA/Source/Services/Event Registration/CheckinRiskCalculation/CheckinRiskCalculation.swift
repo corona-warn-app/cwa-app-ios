@@ -42,13 +42,18 @@ final class CheckinRiskCalculation: CheckinRiskCalculationProtocol {
 
 		// Determine Risk Level per Check-In
 
-		for checkin in eventStore.checkinsPublisher.value {
-			// 1. Split CheckIn by Midnight UTC: the CheckIn is split as per Split CheckIn by Midnight UTC.
+		// 1. Drop Submitted CheckIns: filter out all CheckIns with Check-in Submitted set to true.
+		// This is to ensure that users don't match their own submitted check-ins.
+
+		let chickens = eventStore.checkinsPublisher.value.filter { !$0.checkinSubmitted }
+
+		for checkin in chickens {
+			// 2. Split CheckIn by Midnight UTC: the CheckIn is split as per Split CheckIn by Midnight UTC.
 
 			let splittedCheckins = checkinSplittingService.split(checkin)
 
 			for splittedCheckin in splittedCheckins {
-				//	2. Find Relevant Matches: for each check-in after splitting, find those records in the Database Table for TraceTimeIntervalMatches that have an overlap time of > 0 as per Calculate Overlap of CheckIn and TraceTimeIntervalWarning and keep the overlap as Overlap in Minutes.
+				//	3. Find Relevant Matches: for each check-in after splitting, find those records in the Database Table for TraceTimeIntervalMatches that have an overlap time of > 0 as per Calculate Overlap of CheckIn and TraceTimeIntervalWarning and keep the overlap as Overlap in Minutes.
 
 				var normalizedTimePerCheckin: Double = 0
 
@@ -63,25 +68,27 @@ final class CheckinRiskCalculation: CheckinRiskCalculationProtocol {
 						continue
 					}
 
-					Log.info("[CheckinRiskCalculation] Found match with overlapInMinutes: \(overlapInMinutes)", log: .checkin)
+					Log.debug("[CheckinRiskCalculation] Found match with overlapInMinutes: \(overlapInMinutes)", log: .checkin)
 
-					//	3. Determine Transmission Risk Value: for each match, the transmission risk value is determined by looking up the corresponding item of Configuration Parameter transmissionRiskValueMapping where transmissionRiskLevel matches the Transmission Risk Level of the match. The transmission risk value is the corresponding transmissionRiskValue of the item. If there is no such match, the transmission risk value is set to 0.
+					//	4. Determine Transmission Risk Value: for each match, the transmission risk value is determined by looking up the corresponding item of Configuration Parameter transmissionRiskValueMapping where transmissionRiskLevel matches the Transmission Risk Level of the match. The transmission risk value is the corresponding transmissionRiskValue of the item. If there is no such match, the transmission risk value is set to 0.
 
 					let transimssionRiskValue = transmissionRiskValueMapping.first {
 						$0.transmissionRiskLevel == match.transmissionRiskLevel
 					}
 					.map { $0.transmissionRiskValue } ?? 0
 
-					// 	4. Determine Normalized Time per Match: the normalized time of a match is determined by multiplying the Transmission Risk Value with the Overlap in Minutes.
+					// 	5. Determine Normalized Time per Match: the normalized time of a match is determined by multiplying the Transmission Risk Value with the Overlap in Minutes.
+
+					Log.debug("[CheckinRiskCalculation] Calculate with transimssionRiskValue: \(transimssionRiskValue)", log: .checkin)
 
 					let normalizedTimePerMatch = transimssionRiskValue * Double(overlapInMinutes)
 
-					//	5. Determine Normalized Time per Check-in: the normalized time per check-in is the sum of all Normalized Time per Match of the corresponding matches.
+					//	6. Determine Normalized Time per Check-in: the normalized time per check-in is the sum of all Normalized Time per Match of the corresponding matches.
 
 					normalizedTimePerCheckin += normalizedTimePerMatch
 				}
 
-				//	6. Determine Risk Level: find the first item in Configuration Parameter normalizedTimePerCheckInToRiskLevelMapping where Normalized Time per Check-in of the Check-In is in the range of the item described by normalizedTimeRange (see Working with Ranges). The Risk Level is the riskLevel parameter of the matching item. If there is no matching item, no Risk Level is associated with the Check-in (i.e. the Check-in is not relevant from an epidemiological perspective).
+				//	7. Determine Risk Level: find the first item in Configuration Parameter normalizedTimePerCheckInToRiskLevelMapping where Normalized Time per Check-in of the Check-In is in the range of the item described by normalizedTimeRange (see Working with Ranges). The Risk Level is the riskLevel parameter of the matching item. If there is no matching item, no Risk Level is associated with the Check-in (i.e. the Check-in is not relevant from an epidemiological perspective).
 
 				let riskLevel = normalizedTimePerCheckInToRiskLevelMapping.first(where: {
 					let range = ENARange(from: $0.normalizedTimeRange)
@@ -91,6 +98,8 @@ final class CheckinRiskCalculation: CheckinRiskCalculationProtocol {
 				}
 
 				if let riskLevel = riskLevel {
+					Log.debug("[CheckinRiskCalculation] Calculated riskLevel: \(riskLevel)", log: .checkin)
+
 					let checkinWithRisk = CheckinWithRiskLevel(
 						checkin: splittedCheckin,
 						riskLevel: riskLevel,
@@ -141,7 +150,9 @@ final class CheckinRiskCalculation: CheckinRiskCalculationProtocol {
 			}
 		}
 
-		Log.debug("[CheckinRiskCalculation] Finished checkin risk calculation", log: .checkin)
+		Log.info("[CheckinRiskCalculation] Finished checkin risk calculation", log: .checkin)
+
+		Log.debug("[CheckinRiskCalculation] Calculated risk per date: \(riskLevelPerDate)", log: .checkin)
 
 		return CheckinRiskCalculationResult(
 			calculationDate: Date(),

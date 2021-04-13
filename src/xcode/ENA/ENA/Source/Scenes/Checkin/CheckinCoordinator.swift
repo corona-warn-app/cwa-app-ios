@@ -166,8 +166,9 @@ final class CheckinCoordinator {
 			appConfigurationProvider: appConfiguration,
 			onSuccess: { [weak self] traceLocation in
 				self?.showTraceLocationDetails(traceLocation)
+				self?.verificationService.subscriptions.removeAll()
 			},
-			onError: { error in
+			onError: { [weak self] error in
 				let alert = UIAlertController(
 					title: AppStrings.Checkins.QRScanner.Error.title,
 					message: error.errorDescription,
@@ -182,7 +183,8 @@ final class CheckinCoordinator {
 						}
 					)
 				)
-				self.viewController.present(alert, animated: true)
+				self?.viewController.present(alert, animated: true)
+				self?.verificationService.subscriptions.removeAll()
 			}
 		)
 	}
@@ -235,7 +237,7 @@ final class CheckinCoordinator {
 		let footerViewController = FooterViewController(
 			FooterViewModel(
 				primaryButtonName: AppStrings.Checkins.Information.primaryButtonTitle,
-				primaryIdentifier: AccessibilityIdentifiers.CheckinInformation.primaryButton,
+				primaryIdentifier: AccessibilityIdentifiers.Checkin.Information.primaryButton,
 				isSecondaryButtonEnabled: false,
 				isPrimaryButtonHidden: false,
 				isSecondaryButtonHidden: true

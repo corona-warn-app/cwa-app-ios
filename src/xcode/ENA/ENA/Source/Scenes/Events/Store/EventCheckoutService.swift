@@ -72,6 +72,7 @@ final class EventCheckoutService {
 		Log.info("[EventCheckoutService] Register to checkin changes.", log: .checkin)
 
 		eventStore.checkinsPublisher.sink { [weak self] checkins in
+			Log.info("[EventCheckoutService] checkinsPublisher sink called", log: .checkin)
 
 			// Cancel all notifications.
 			// This will also cancel the deleted checkins, which are not part of the publishers value.

@@ -60,14 +60,58 @@ struct SAP_Internal_SubmissionPayload {
 
   var checkIns: [SAP_Internal_Pt_CheckIn] = []
 
+  var submissionType: SAP_Internal_SubmissionPayload.SubmissionType {
+    get {return _submissionType ?? .pcrTest}
+    set {_submissionType = newValue}
+  }
+  /// Returns true if `submissionType` has been explicitly set.
+  var hasSubmissionType: Bool {return self._submissionType != nil}
+  /// Clears the value of `submissionType`. Subsequent reads from it will return its default value.
+  mutating func clearSubmissionType() {self._submissionType = nil}
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  enum SubmissionType: SwiftProtobuf.Enum {
+    typealias RawValue = Int
+    case pcrTest // = 0
+    case rapidTest // = 1
+
+    init() {
+      self = .pcrTest
+    }
+
+    init?(rawValue: Int) {
+      switch rawValue {
+      case 0: self = .pcrTest
+      case 1: self = .rapidTest
+      default: return nil
+      }
+    }
+
+    var rawValue: Int {
+      switch self {
+      case .pcrTest: return 0
+      case .rapidTest: return 1
+      }
+    }
+
+  }
 
   init() {}
 
   fileprivate var _requestPadding: Data? = nil
   fileprivate var _origin: String? = nil
   fileprivate var _consentToFederation: Bool? = nil
+  fileprivate var _submissionType: SAP_Internal_SubmissionPayload.SubmissionType? = nil
 }
+
+#if swift(>=4.2)
+
+extension SAP_Internal_SubmissionPayload.SubmissionType: CaseIterable {
+  // Support synthesized by the compiler.
+}
+
+#endif  // swift(>=4.2)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
@@ -82,6 +126,7 @@ extension SAP_Internal_SubmissionPayload: SwiftProtobuf.Message, SwiftProtobuf._
     4: .same(proto: "origin"),
     5: .same(proto: "consentToFederation"),
     6: .same(proto: "checkIns"),
+    7: .same(proto: "submissionType"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -96,6 +141,7 @@ extension SAP_Internal_SubmissionPayload: SwiftProtobuf.Message, SwiftProtobuf._
       case 4: try { try decoder.decodeSingularStringField(value: &self._origin) }()
       case 5: try { try decoder.decodeSingularBoolField(value: &self._consentToFederation) }()
       case 6: try { try decoder.decodeRepeatedMessageField(value: &self.checkIns) }()
+      case 7: try { try decoder.decodeSingularEnumField(value: &self._submissionType) }()
       default: break
       }
     }
@@ -120,6 +166,9 @@ extension SAP_Internal_SubmissionPayload: SwiftProtobuf.Message, SwiftProtobuf._
     if !self.checkIns.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.checkIns, fieldNumber: 6)
     }
+    if let v = self._submissionType {
+      try visitor.visitSingularEnumField(value: v, fieldNumber: 7)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -130,7 +179,15 @@ extension SAP_Internal_SubmissionPayload: SwiftProtobuf.Message, SwiftProtobuf._
     if lhs._origin != rhs._origin {return false}
     if lhs._consentToFederation != rhs._consentToFederation {return false}
     if lhs.checkIns != rhs.checkIns {return false}
+    if lhs._submissionType != rhs._submissionType {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
+}
+
+extension SAP_Internal_SubmissionPayload.SubmissionType: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "SUBMISSION_TYPE_PCR_TEST"),
+    1: .same(proto: "SUBMISSION_TYPE_RAPID_TEST"),
+  ]
 }

@@ -87,7 +87,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		// Check for any URLs passed into the app – most likely via scanning a QR code
 		let route = routeForScannedQRCode(in: launchOptions)
 		setupUI(route)
-		setupQuickActions()
+		QuickAction.setup()
 
 		UIDevice.current.isBatteryMonitoringEnabled = true
 
@@ -350,7 +350,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		)
 	}()
 
-	var notificationManager: NotificationManager! = NotificationManager()
+	lazy var notificationManager: NotificationManager = {
+		let notificationManager = NotificationManager()
+		notificationManager.appDelegate = self
+
+		return notificationManager
+	}()
 
 	// MARK: - Protocol ENAExposureManagerObserver
 
@@ -687,7 +692,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	@objc
 	private func isOnboardedDidChange(_: NSNotification) {
 		store.isOnboarded ? showHome() : showOnboarding()
-		updateQuickActions()
 	}
 
 	@objc

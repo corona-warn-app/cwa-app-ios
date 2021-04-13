@@ -39,16 +39,16 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 		setupTableView()
 		parent?.navigationItem.largeTitleDisplayMode = .always
 		parent?.navigationItem.title = AppStrings.Checkins.Overview.title
-		updateRightBarButtonItem()
+		updateRightBarButtonItem(isEditing: false)
 
 		viewModel.onUpdate = { [weak self] in
 			self?.animateChanges()
 		}
 
-		viewModel.$shouldReload
+		viewModel.$triggerReload
 			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] _ in
-				guard let self = self, self.shouldReload else { return }
+				guard let self = self, self.isAllowedToReload else { return }
 
 				self.tableView.reloadData()
 				self.updateEmptyState()
@@ -56,15 +56,19 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 			.store(in: &subscriptions)
 	}
 
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+
+		viewModel.checkoutOverdueCheckins()
+	}
+
 	override func setEditing(_ editing: Bool, animated: Bool) {
 		super.setEditing(editing, animated: animated)
 
-		updateRightBarButtonItem()
-		addEntryCellModel.setEnabled(!editing)
-		missingPermissionsCellModel.setEnabled(!editing)
-		
-		let newState: FooterViewModel.VisibleButtons = editing ? .primary : .none
-		footerView?.update(to: newState)
+		// Only reset to false because it is also set to true for single-row swipe to delete and we don't want to enter edit mode then.
+		if editing == false {
+			updateFor(isEditing: false)
+		}
 	}
 
 	// MARK: - FooterViewHandling
@@ -113,12 +117,13 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 			confirmAction: { [weak self] in
 				guard let self = self else { return }
 
-				self.shouldReload = false
+				self.isAllowedToReload = false
 				self.viewModel.removeEntry(at: indexPath)
 				tableView.performBatchUpdates({
 					tableView.deleteRows(at: [indexPath], with: .automatic)
 				}, completion: { _ in
-					self.shouldReload = true
+					self.isAllowedToReload = true
+					self.viewModel.triggerReload = true
 
 					if self.viewModel.isEmpty {
 						self.setEditing(false, animated: true)
@@ -159,7 +164,7 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 
 	private var subscriptions = [AnyCancellable]()
 
-	private var shouldReload = true
+	private var isAllowedToReload = true
 	private var addEntryCellModel = AddCheckinCellModel()
 	private var missingPermissionsCellModel = MissingPermissionsCellModel()
 
@@ -181,7 +186,7 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 
 		tableView.separatorStyle = .none
 		tableView.rowHeight = UITableView.automaticDimension
-		tableView.estimatedRowHeight = 60
+		tableView.estimatedRowHeight = 600
 	}
 
 	private func animateChanges() {
@@ -190,23 +195,32 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 		}
 	}
 
-	private func updateRightBarButtonItem() {
-		let barButtonItem: UIBarButtonItem
+	private func updateFor(isEditing: Bool) {
+		updateRightBarButtonItem(isEditing: isEditing)
+		addEntryCellModel.setEnabled(!isEditing)
+		missingPermissionsCellModel.setEnabled(!isEditing)
 
-		if tableView.isEditing {
-			barButtonItem = editButtonItem
-		} else {
-			barButtonItem = UIBarButtonItem(
+		let newState: FooterViewModel.VisibleButtons = isEditing ? .primary : .none
+		footerView?.update(to: newState)
+	}
+
+	private func updateRightBarButtonItem(isEditing: Bool) {
+		// Only update if necessary to prevent unnecessary animations
+		if isEditing && parent?.navigationItem.rightBarButtonItem != editButtonItem {
+			parent?.navigationItem.setRightBarButton(editButtonItem, animated: true)
+		} else if parent?.navigationItem.rightBarButtonItem == nil || parent?.navigationItem.rightBarButtonItem == editButtonItem {
+			let barButtonItem = UIBarButtonItem(
 				image: UIImage(named: "Icons_More_Circle"),
 				style: .plain,
 				target: self,
 				action: #selector(didTapMoreButton)
 			)
 			barButtonItem.accessibilityLabel = AppStrings.Checkins.Overview.menuButtonTitle
+			barButtonItem.accessibilityIdentifier = AccessibilityIdentifiers.Checkin.Overview.menueButton
 			barButtonItem.tintColor = .enaColor(for: .tint)
-		}
 
-		parent?.navigationItem.setRightBarButton(barButtonItem, animated: true)
+			parent?.navigationItem.setRightBarButton(barButtonItem, animated: true)
+		}
 	}
 
 	private func checkinAddCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -286,6 +300,7 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 			style: .default,
 			handler: { [weak self] _ in
 				self?.setEditing(true, animated: true)
+				self?.updateFor(isEditing: true)
 			}
 		)
 		actionSheet.addAction(editAction)
@@ -307,7 +322,7 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 
 				let numberOfRows = self.viewModel.numberOfRows(in: CheckinsOverviewViewModel.Section.entries.rawValue)
 
-				self.shouldReload = false
+				self.isAllowedToReload = false
 				self.viewModel.removeAll()
 				self.tableView.performBatchUpdates({
 					self.tableView.deleteRows(
@@ -317,7 +332,7 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 						with: .automatic
 					)
 				}, completion: { _ in
-					self.shouldReload = true
+					self.isAllowedToReload = true
 
 					self.setEditing(false, animated: true)
 					self.updateEmptyState()
