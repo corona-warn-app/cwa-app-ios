@@ -42,11 +42,17 @@
 
 "AutomaticSharingConsent_Subtitle" = "Einverständnis";
 
-"AutomaticSharingConsent_DescriptionPart1" = "Wenn Sie positiv auf Corona getestet wurden, teilt die App Ihr Testergebnis, um Nutzer zu warnen, denen Sie begegnet sind.";
+"AutomaticSharingConsent_DescriptionPart1_PCR" = "Wenn Sie positiv auf Corona getestet wurden, teilt die App Ihr Testergebnis, um Nutzer zu warnen, denen Sie begegnet sind.";
 
-"AutomaticSharingConsent_DescriptionPart2" = "Die Warnung erreicht Nutzer von offiziellen Corona-Apps der folgenden teilnehmenden Länder:";
+"AutomaticSharingConsent_DescriptionPart1_RAT" = "Wenn Sie positiv auf Corona getestet wurden, teilt die App Ihr Testergebnis, um Nutzer, denen Sie begegnet sind, zu warnen.";
 
-"AutomaticSharingConsent_DescriptionPart3" = "Wenn Sie zusätzlich Angaben zum Beginn Ihrer Symptome machen, werden auch diese geteilt.";
+"AutomaticSharingConsent_DescriptionPart2_PCR" = "Die Warnung erreicht Nutzer von offiziellen Corona-Apps der folgenden teilnehmenden Länder:";
+
+"AutomaticSharingConsent_DescriptionPart2_RAT" = "Die Warnung betrifft Nutzer, die zeitgleich am selben Event oder Ort wie Sie eingecheckt waren und Nutzer der Corona-Apps der folgenden Länder:";
+
+"AutomaticSharingConsent_DescriptionPart3_PCR" = "Wenn Sie zusätzlich Angaben zum Beginn Ihrer Symptome machen, werden auch diese geteilt.";
+
+"AutomaticSharingConsent_DescriptionPart3_RAT" = "Im Falle von Schnelltests werden nur Nutzer der Corona-Warn-App gewarnt. Wenn Sie zusätzlich Angaben zum Beginn Ihrer Symptome machen, werden auch diese Daten geteilt.";
 
 "AutomaticSharingConsent_DescriptionPart4" = "Sie können Ihr Einverständnis zurücknehmen, indem Sie oben „Andere warnen“ deaktivieren.";
 
