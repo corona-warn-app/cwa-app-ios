@@ -5,10 +5,8 @@
 import Foundation
 
 enum CoronaTestType: CaseIterable {
-
 	case pcr
 	case antigen
-
 }
 
 enum CoronaTest: Test {
