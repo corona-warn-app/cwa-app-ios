@@ -427,6 +427,7 @@
 		50B5057D25CAEF5C00EEA380 /* OTPToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B5057C25CAEF5C00EEA380 /* OTPToken.swift */; };
 		50B5058925CAF3EF00EEA380 /* DMOTPServiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B5058825CAF3EF00EEA380 /* DMOTPServiceViewController.swift */; };
 		50B5058E25CAF3FC00EEA380 /* DMOTPServiceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B5058D25CAF3FC00EEA380 /* DMOTPServiceViewModel.swift */; };
+		50BA986C2625BB8600D21500 /* TraceLocation+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0109DB9926037E6A00624BB3 /* TraceLocation+Mock.swift */; };
 		50BD1406260A1E840013983A /* TraceWarningSuccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BD1405260A1E840013983A /* TraceWarningSuccess.swift */; };
 		50BD1420260B73CC0013983A /* Verification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BD141F260B73CC0013983A /* Verification.swift */; };
 		50BD1425260B74C20013983A /* VerificationMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BD1424260B74C20013983A /* VerificationMock.swift */; };
@@ -6819,6 +6820,7 @@
 				51D420C424583E3300AD70CA /* SettingsViewController.swift in Sources */,
 				01C6AC0E252B1E990052814D /* ExposureSubmissionQRScannerViewModel.swift in Sources */,
 				BA94BBBD260DF51F005CF38F /* CheckInNoticeCell.swift in Sources */,
+				50BA986C2625BB8600D21500 /* TraceLocation+Mock.swift in Sources */,
 				01909882257E675D0065D050 /* DiaryContactPerson.swift in Sources */,
 				016E262F25AF45770077C64C /* StatisticsInfoViewController.swift in Sources */,
 				8F7FD70F25E3EFAC006CDE01 /* HTMLViewController.swift in Sources */,
