@@ -292,6 +292,7 @@
 		13E5046B248E3DF30086641C /* AppStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A3C92461A47C00BF12AF /* AppStrings.swift */; };
 		13E5046C248E434B0086641C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EE70C23A245B09E900AC9B2F /* Localizable.strings */; };
 		13E5046D248E434B0086641C /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = EE92A340245D96DA006B97B0 /* Localizable.stringsdict */; };
+		2E1C502A2625805A00188619 /* AntigenExposureSubmissionNegativeTestResultHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1C50292625805A00188619 /* AntigenExposureSubmissionNegativeTestResultHeaderView.swift */; };
 		2E303E6625D50A3E00346FB8 /* ActionDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E303E6425D50A3E00346FB8 /* ActionDetailTableViewCell.swift */; };
 		2E303E7D25D52E0A00346FB8 /* SeperatorLineLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E303E7C25D52E0900346FB8 /* SeperatorLineLayer.swift */; };
 		2E67C3D525BAFFC8008C6C90 /* DiaryExportItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E67C3D425BAFFC8008C6C90 /* DiaryExportItem.swift */; };
@@ -1341,6 +1342,7 @@
 		137846482488027500A50AB8 /* OnboardingInfoViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OnboardingInfoViewController+Extension.swift"; sourceTree = "<group>"; };
 		138910C4247A909000D739F6 /* ENATaskScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENATaskScheduler.swift; sourceTree = "<group>"; };
 		13E50468248E3CD20086641C /* ENAUITestsAppInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITestsAppInformation.swift; sourceTree = "<group>"; };
+		2E1C50292625805A00188619 /* AntigenExposureSubmissionNegativeTestResultHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntigenExposureSubmissionNegativeTestResultHeaderView.swift; sourceTree = "<group>"; };
 		2E303E6425D50A3E00346FB8 /* ActionDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionDetailTableViewCell.swift; sourceTree = "<group>"; };
 		2E303E7C25D52E0900346FB8 /* SeperatorLineLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeperatorLineLayer.swift; sourceTree = "<group>"; };
 		2E67C3D425BAFFC8008C6C90 /* DiaryExportItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiaryExportItem.swift; sourceTree = "<group>"; };
@@ -3829,6 +3831,7 @@
 				710224F32490E7A3000C5DEF /* ExposureSubmissionStepCell.swift */,
 				71FE1C84247AC33D00851FEB /* ExposureSubmissionTestResultHeaderView.swift */,
 				711EFCC824935C79005FEF21 /* ExposureSubmissionTestResultHeaderView.xib */,
+				2E1C50292625805A00188619 /* AntigenExposureSubmissionNegativeTestResultHeaderView.swift */,
 				351E630A256C5B9C00D89B29 /* LabeledCountriesCell.swift */,
 				351E630B256C5B9C00D89B29 /* LabeledCountriesCell.xib */,
 			);
@@ -6322,6 +6325,7 @@
 				50B5057D25CAEF5C00EEA380 /* OTPToken.swift in Sources */,
 				01CBD884261B3CF700158B3E /* ClientMock.swift in Sources */,
 				B1A89F3924819CC200DA1CEC /* ExposureStateUpdating.swift in Sources */,
+				2E1C502A2625805A00188619 /* AntigenExposureSubmissionNegativeTestResultHeaderView.swift in Sources */,
 				01EEC09F260224FF00924E15 /* MissingPermissionsCellModel.swift in Sources */,
 				01909877257E64BD0065D050 /* DiaryEditEntriesViewController.swift in Sources */,
 				8F43A3CB25D55A3E008FD630 /* ppa_data.pb.swift in Sources */,
