@@ -26,7 +26,7 @@
                                 <rect key="frame" x="0.0" y="8" width="288" height="261"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="6Aj-m6-RRD">
-                                        <rect key="frame" x="16" y="8" width="256" height="183"/>
+                                        <rect key="frame" x="16" y="8" width="256" height="203"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MeineCheck-ins" translatesAutoresizingMaskIntoConstraints="NO" id="lst-zi-Q1h">
                                                 <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
@@ -45,10 +45,10 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="95" height="167"/>
                                                                 <subviews>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="AGB-RB-R4j">
-                                                                        <rect key="frame" x="8" y="62.5" width="79" height="42.5"/>
+                                                                        <rect key="frame" x="8" y="63" width="79" height="41"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Duration" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SSm-eW-rHn" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                                                <rect key="frame" x="13.5" y="0.0" width="52" height="16"/>
+                                                                                <rect key="frame" x="7" y="0.0" width="65.5" height="20.5"/>
                                                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <nil key="highlightedColor"/>
@@ -57,7 +57,7 @@
                                                                                 </userDefinedRuntimeAttributes>
                                                                             </label>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ac8-dJ-mRI" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                                                <rect key="frame" x="7.5" y="16" width="64" height="26.5"/>
+                                                                                <rect key="frame" x="16.5" y="20.5" width="46" height="20.5"/>
                                                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <nil key="highlightedColor"/>
@@ -130,7 +130,7 @@
                                         </subviews>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lw3-BW-ppn" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="203" width="256" height="50"/>
+                                        <rect key="frame" x="16" y="223" width="256" height="30"/>
                                         <state key="normal" title="Button"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="hasBorder" value="YES"/>
@@ -147,7 +147,7 @@
                         <color key="backgroundColor" name="ENA Cell Background Color"/>
                         <constraints>
                             <constraint firstItem="LuB-hP-sBP" firstAttribute="top" secondItem="1nm-Ky-YXw" secondAttribute="top" constant="8" id="2ij-wu-8Ek"/>
-                            <constraint firstAttribute="bottom" secondItem="LuB-hP-sBP" secondAttribute="bottom" constant="8" id="NAB-ed-if5"/>
+                            <constraint firstAttribute="bottom" secondItem="LuB-hP-sBP" secondAttribute="bottom" priority="999" constant="8" id="NAB-ed-if5"/>
                             <constraint firstItem="LuB-hP-sBP" firstAttribute="leading" secondItem="1nm-Ky-YXw" secondAttribute="leading" id="h8p-Ib-apC"/>
                             <constraint firstAttribute="trailing" secondItem="LuB-hP-sBP" secondAttribute="trailing" id="wzQ-kz-JLI"/>
                         </constraints>
@@ -183,10 +183,10 @@
     </objects>
     <designables>
         <designable name="LlW-QB-tlo">
-            <size key="intrinsicContentSize" width="35" height="20.5"/>
+            <size key="intrinsicContentSize" width="33" height="20.5"/>
         </designable>
         <designable name="Lw3-BW-ppn">
-            <size key="intrinsicContentSize" width="70" height="50"/>
+            <size key="intrinsicContentSize" width="46" height="30"/>
         </designable>
         <designable name="Org-Yd-acz">
             <size key="intrinsicContentSize" width="65.5" height="20.5"/>
@@ -195,10 +195,10 @@
             <size key="intrinsicContentSize" width="38" height="20.5"/>
         </designable>
         <designable name="SSm-eW-rHn">
-            <size key="intrinsicContentSize" width="52" height="16"/>
+            <size key="intrinsicContentSize" width="65.5" height="20.5"/>
         </designable>
         <designable name="ac8-dJ-mRI">
-            <size key="intrinsicContentSize" width="64" height="26.5"/>
+            <size key="intrinsicContentSize" width="46" height="20.5"/>
         </designable>
     </designables>
     <resources>
