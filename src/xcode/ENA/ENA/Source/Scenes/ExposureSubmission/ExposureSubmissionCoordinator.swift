@@ -160,6 +160,27 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 	// MARK: Initial Screens
 
+	private func showOverrideTestNotice(
+		testType: CoronaTestType,
+		didTapAccept: @escaping () -> Void,
+		didTapDecline: @escaping () -> Void
+	) {
+		let testOverwriteNoticeViewController = TestOverwriteNoticeViewController(
+			testType: testType,
+			didTapPrimaryButton: didTapAccept,
+			didTapCloseButton: didTapDecline
+		)
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: AppStrings.ExposureSubmission.OverwriteNotice.primaryButton,
+				isSecondaryButtonHidden: true
+			)
+		)
+		let topBottomViewController = TopBottomContainerViewController(topController: testOverwriteNoticeViewController, bottomController: footerViewController)
+		let testOverwriteNoticeNavigationController = DismissHandlingNavigationController(rootViewController: topBottomViewController)
+		parentNavigationController?.present(testOverwriteNoticeNavigationController, animated: true)
+	}
+
 	private func createTestResultAvailableViewController() -> UIViewController {
         guard let coronaTestType = model.coronaTestType, let coronaTest = model.coronaTest else {
 			fatalError("Cannot create a test result available view controller without a corona test")
