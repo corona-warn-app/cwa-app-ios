@@ -451,6 +451,9 @@
 /* phone number; no spacing allowed */
 "ExposureSubmission_Hotline_Number" = "08007540002";
 
+/* phone number; no spacing allowed */
+"ExposureSubmission_Hotline_Number_Foreign" = "+493049875402";
+
 "ExposureSubmission_DataPrivacyTitle" = "Съгласие";
 
 "ExposureSubmission_Continue_actionText" = "Напред";
@@ -515,16 +518,22 @@
 
 "ExposureSubmissionHotline_SectionTitle" = "Как работи:";
 
-"ExposureSubmissionHotline_SectionDescription1" = "Обадете се на националната гореща линия и поискайте ТАН код:";
+"ExposureSubmissionHotline_SectionDescription1" = "Rufen Sie die Hotline an und fragen Sie nach einer TAN.";
 
 "ExposureSubmissionHotline_iconAccessibilityLabel1" = "Стъпка 1 от 2";
 
 "ExposureSubmissionHotline_iconAccessibilityLabel2" = "Стъпка 2 от 2";
 
 /* UI text; spacing allowed */
-"ExposureSubmission_PhoneNumber" = "0800 7540002";
+"ExposureSubmission_PhoneNumberDomestic" = "0800 7540002";
 
-"ExposureSubmission_PhoneDetailDescription" = "Езици: \nнемски, английски, турски\n\nРаботно време:\n24/7\n\nОбаждането е безплатно.\n\nАко имате въпроси, свързани със здравето, се обадете на личния си лекар или на горещата линия на службата за медицинска помощ на телефон 116 117.";
+"ExposureSubmission_PhoneDetailsDomestic" = "Für Anrufe innerhalb Deutschlands.\nDer Anruf ist kostenfrei.";
+
+"ExposureSubmission_PhoneNumberForeign" = "+49 30 498 75402";
+
+"ExposureSubmission_PhoneDetailsForeign" = "Für Anrufe aus dem Ausland.\nEs fallen die Gebühren des jeweiligen Telefonanbieters an.";
+
+"ExposureSubmission_PhoneDetailDescription" = "Unser Kundenservice ist in den folgenden Sprachen für Sie da:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo-So: Täglich 24 Stunden\n\nFür gesundheitliche Fragen wenden Sie sich bitte an Ihre Hausarztpraxis oder die Hotline des ärztlichen Bereitschaftsdienstes 116 117.";
 
 "ExposureSubmission_SectionDescription2" = "Регистрирайте теста си, като въведете ТАН кода в приложението.";
 
@@ -1163,15 +1172,21 @@
 
 "App_Information_Contact_Description" = "Моля, използвайте нашата национална гореща линия за технически въпроси относно приложението Corona-Warn-App.";
 
-"App_Information_Contact_Hotline_Title" = "Технически въпроси";
+"App_Information_Contact_Hotline_Title" = "Technische Hotline:";
 
-"App_Information_Contact_Hotline_Text" = "0800 7540001";
+"App_Information_Contact_Hotline_Text_Domestic" = "0800 7540001";
 
-"App_Information_Contact_Hotline_Number" = "08007540001";
+"App_Information_Contact_Hotline_Number_Domestic" = "08007540001";
 
-"App_Information_Contact_Hotline_Description" = "Нашият екип за обслужване на клиенти е готов да Ви помогне.";
+"App_Information_Contact_Hotline_Details_Domestic" = "Für Anrufe innerhalb Deutschlands.\nDer Anruf ist kostenfrei.";
 
-"App_Information_Contact_Hotline_Terms" = "Езици: немски, английски, турски\n\nРаботно време:\nпонеделник до събота: 7:00 - 22:00\n(с изключение на национални празници)\n\nОбаждането е безплатно.\n\nАко имате въпроси, свързани със здравето, се обадете на личния си лекар или на горещата линия на службата за медицинска помощ на телефон 116 117.";
+"App_Information_Contact_Hotline_Text_Foreign" = "+49 30 498 75402";
+
+"App_Information_Contact_Hotline_Number_Foreign" = "+493049875402";
+
+"App_Information_Contact_Hotline_Details_Foreign" = "Für Anrufe aus dem Ausland.\nEs fallen die Gebühren des jeweiligen Telefonanbieters an.";
+
+"App_Information_Contact_Hotline_Terms" = "Unser Kundenservice ist in den folgenden Sprachen für Sie da:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo-So: Täglich 24 Stunden\n\nFür gesundheitliche Fragen wenden Sie sich bitte an Ihre Hausarztpraxis oder die Hotline des ärztlichen Bereitschaftsdienstes 116 117.";
 
 /* App Information - Imprint */
 "App_Information_New_Features_Navigation" = "Нови функции";

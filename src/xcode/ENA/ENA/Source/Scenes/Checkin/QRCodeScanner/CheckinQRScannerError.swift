@@ -10,6 +10,9 @@ enum CheckinQRScannerError: Error, LocalizedError {
 	case codeNotFound // invalid url
 	case invalidPayload
 	case invalidVendorData
+	case invalidAddress
+	case invalidDescription
+	case invalidCryptoSeed
 	case other
 
 	var errorDescription: String? {
@@ -22,6 +25,12 @@ enum CheckinQRScannerError: Error, LocalizedError {
 			return AppStrings.Checkins.QRScanner.Error.invalidPayload
 		case .invalidVendorData:
 			return AppStrings.Checkins.QRScanner.Error.invalidVendorData
+		case .invalidDescription:
+			return AppStrings.Checkins.QRScanner.Error.invalidDescription
+		case .invalidAddress:
+			return AppStrings.Checkins.QRScanner.Error.invalidAddress
+		case .invalidCryptoSeed:
+			return AppStrings.Checkins.QRScanner.Error.invalidCryptographicSeed
 		default:
 			return AppStrings.ExposureSubmissionQRScanner.otherError
 		}

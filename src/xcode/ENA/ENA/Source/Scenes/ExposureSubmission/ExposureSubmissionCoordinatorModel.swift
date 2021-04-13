@@ -112,8 +112,8 @@ class ExposureSubmissionCoordinatorModel {
 		}
 	}
 
-	func registerPCRTestAndGetResult(
-		for guid: String,
+	func registerTestAndGetResult(
+		for testType: CoronaTestQRCodeInformation,
 		isSubmissionConsentGiven: Bool,
 		isLoading: @escaping (Bool) -> Void,
 		onSuccess: @escaping (TestResult) -> Void,
@@ -121,20 +121,42 @@ class ExposureSubmissionCoordinatorModel {
 	) {
 		isLoading(true)
 		// QR code test fetch
-		coronaTestService.registerPCRTestAndGetResult(
-			guid: guid,
-			isSubmissionConsentGiven: isSubmissionConsentGiven,
-			completion: { result in
-				isLoading(false)
-
-				switch result {
-				case let .failure(error):
-					onError(error)
-				case let .success(testResult):
-					onSuccess(testResult)
+		switch testType {
+		case .pcr(let guid):
+			coronaTestService.registerPCRTestAndGetResult(
+				guid: guid,
+				isSubmissionConsentGiven: isSubmissionConsentGiven,
+				completion: { result in
+					isLoading(false)
+					
+					switch result {
+					case let .failure(error):
+						onError(error)
+					case let .success(testResult):
+						onSuccess(testResult)
+					}
 				}
-			}
-		)
+			)
+		case .antigen(let rapidTest):
+			coronaTestService.registerAntigenTestAndGetResult(
+				with: rapidTest.guid,
+				pointOfCareConsentDate: rapidTest.pointOfCareConsentDate,
+				name: rapidTest.fullName,
+				birthday: rapidTest.dateOfBirth,
+				isSubmissionConsentGiven: isSubmissionConsentGiven,
+				completion: { result in
+					isLoading(false)
+					
+					switch result {
+					case let .failure(error):
+						onError(error)
+					case let .success(testResult):
+						onSuccess(testResult)
+					}
+				}
+			)
+		}
+
 	}
 
 	func setSubmissionConsentGiven(_ isSubmissionConsentGiven: Bool) {

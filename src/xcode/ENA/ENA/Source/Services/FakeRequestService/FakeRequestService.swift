@@ -49,7 +49,7 @@ class FakeRequestService {
 		let payload = CountrySubmissionPayload(
 			exposureKeys: [],
 			visitedCountries: [],
-			eventCheckIns: [],
+			checkins: [],
 			tan: Self.fakeSubmissionTan
 		)
 

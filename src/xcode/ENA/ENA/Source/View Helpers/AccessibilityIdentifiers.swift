@@ -151,9 +151,14 @@ enum AccessibilityIdentifiers {
 		static let contactTitle = "AppStrings.AppInformation.contactTitle"
 		static let contactDescription = "AppStrings.AppInformation.contactDescription"
 		static let contactHotlineTitle = "AppStrings.AppInformation.contactHotlineTitle"
-		static let contactHotlineText = "AppStrings.AppInformation.contactHotlineText"
-		static let contactHotlineDescription = "AppStrings.AppInformation.contactHotlineDescription"
+		
+		static let contactHotlineDomesticText = "AppStrings.AppInformation.contactHotlineDomesticText"
+		static let contactHotlineDomesticDetails = "AppStrings.AppInformation.contactHotlineDomesticDetails"
+		static let contactHotlineForeignText = "AppStrings.AppInformation.contactHotlineForeignText"
+		static let contactHotlineForeignDetails = "AppStrings.AppInformation.contactHotlineForeignDetails"
+		
 		static let contactHotlineTerms = "AppStrings.AppInformation.contactHotlineTerms"
+		
 		static let imprintImageDescription = "AppStrings.AppInformation.imprintImageDescription"
 		static let imprintSection1Title = "AppStrings.AppInformation.imprintSection1Title"
 		static let imprintSection1Text = "AppStrings.AppInformation.imprintSection1Text"
@@ -330,6 +335,21 @@ enum AccessibilityIdentifiers {
 	enum ExposureSubmission {
 		static let primaryButton = "AppStrings.ExposureSubmission.primaryButton"
 		static let secondaryButton = "AppStrings.ExposureSubmission.secondaryButton"
+
+		enum OverwriteNotice {
+			static let imageDescription = "AppStrings.ExposureSubmission.OverwriteNotice.imageDescription"
+
+			enum Pcr {
+				static let headline = "AppStrings.ExposureSubmission.OverwriteNotice.Pcr.headline"
+				static let text = "AppStrings.ExposureSubmission.OverwriteNotice.Pcr.text"
+			}
+
+			enum Antigen {
+				static let headline = "AppStrings.ExposureSubmission.OverwriteNotice.Antigen.headline"
+				static let text = "AppStrings.ExposureSubmission.OverwriteNotice.Antigen.text"
+			}
+		}
+
 	}
 	
 	enum Reset {

@@ -24,8 +24,12 @@ final class DMPosterGenerationViewModel {
 	let traceLocation: TraceLocation
 	typealias QRCodePosterTemplateCompletionHandler = (Result<SAP_Internal_Pt_QRCodePosterTemplateIOS, Error>) -> Void
 
-	var posterDescription: String {
-		String(format: "%@\n%@", traceLocation.description, traceLocation.address)
+	var title: String {
+		return traceLocation.description
+	}
+	
+	var address: String {
+		return traceLocation.address
 	}
 
 	func fetchQRCodePosterTemplateData(completion: @escaping QRCodePosterTemplateCompletionHandler) {

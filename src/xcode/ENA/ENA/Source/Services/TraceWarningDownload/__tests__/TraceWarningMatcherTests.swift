@@ -22,8 +22,8 @@ class TraceWarningMatcherTests: XCTestCase {
 			return
 		}
 
-		let checkin = createDummyCheckin(
-			traceLocationIdHash: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
+		let checkin = Checkin.mock(
+			traceLocationIdHash: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871".data(using: .utf8) ?? Data(),
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
@@ -56,8 +56,8 @@ class TraceWarningMatcherTests: XCTestCase {
 			return
 		}
 
-		let checkin = createDummyCheckin(
-			traceLocationIdHash: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
+		let checkin = Checkin.mock(
+			traceLocationIdHash: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871".data(using: .utf8) ?? Data(),
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
@@ -90,8 +90,8 @@ class TraceWarningMatcherTests: XCTestCase {
 			return
 		}
 
-		let checkin = createDummyCheckin(
-			traceLocationIdHash: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
+		let checkin = Checkin.mock(
+			traceLocationIdHash: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871".data(using: .utf8) ?? Data(),
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
@@ -124,8 +124,8 @@ class TraceWarningMatcherTests: XCTestCase {
 			return
 		}
 
-		let checkin = createDummyCheckin(
-			traceLocationIdHash: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
+		let checkin = Checkin.mock(
+			traceLocationIdHash: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871".data(using: .utf8) ?? Data(),
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
@@ -158,8 +158,8 @@ class TraceWarningMatcherTests: XCTestCase {
 			return
 		}
 
-		let checkin = createDummyCheckin(
-			traceLocationIdHash: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
+		let checkin = Checkin.mock(
+			traceLocationIdHash: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871".data(using: .utf8) ?? Data(),
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
@@ -192,8 +192,8 @@ class TraceWarningMatcherTests: XCTestCase {
 			return
 		}
 
-		let checkin = createDummyCheckin(
-			traceLocationIdHash: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
+		let checkin = Checkin.mock(
+			traceLocationIdHash: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871".data(using: .utf8) ?? Data(),
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
@@ -226,8 +226,8 @@ class TraceWarningMatcherTests: XCTestCase {
 			return
 		}
 
-		let checkin = createDummyCheckin(
-			traceLocationIdHash: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
+		let checkin = Checkin.mock(
+			traceLocationIdHash: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871".data(using: .utf8) ?? Data(),
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
@@ -263,8 +263,8 @@ class TraceWarningMatcherTests: XCTestCase {
 			return
 		}
 
-		let checkin = createDummyCheckin(
-			traceLocationIdHash: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
+		let checkin = Checkin.mock(
+			traceLocationIdHash: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871".data(using: .utf8) ?? Data(),
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
@@ -299,8 +299,8 @@ class TraceWarningMatcherTests: XCTestCase {
 			return
 		}
 
-		let checkin = createDummyCheckin(
-			traceLocationIdHash: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
+		let checkin = Checkin.mock(
+			traceLocationIdHash: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871".data(using: .utf8) ?? Data(),
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
@@ -335,8 +335,8 @@ class TraceWarningMatcherTests: XCTestCase {
 			return
 		}
 
-		let checkin = createDummyCheckin(
-			traceLocationIdHash: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
+		let checkin = Checkin.mock(
+			traceLocationIdHash: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871".data(using: .utf8) ?? Data(),
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
@@ -371,8 +371,8 @@ class TraceWarningMatcherTests: XCTestCase {
 			return
 		}
 
-		let checkin = createDummyCheckin(
-			traceLocationIdHash: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
+		let checkin = Checkin.mock(
+			traceLocationIdHash: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871".data(using: .utf8) ?? Data(),
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
@@ -407,8 +407,8 @@ class TraceWarningMatcherTests: XCTestCase {
 			return
 		}
 
-		let checkin = createDummyCheckin(
-			traceLocationIdHash: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
+		let checkin = Checkin.mock(
+			traceLocationIdHash: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871".data(using: .utf8) ?? Data(),
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
@@ -443,8 +443,8 @@ class TraceWarningMatcherTests: XCTestCase {
 			return
 		}
 
-		let checkin = createDummyCheckin(
-			traceLocationIdHash: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
+		let checkin = Checkin.mock(
+			traceLocationIdHash: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871".data(using: .utf8) ?? Data(),
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
@@ -479,8 +479,8 @@ class TraceWarningMatcherTests: XCTestCase {
 			return
 		}
 
-		let checkin = createDummyCheckin(
-			traceLocationIdHash: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
+		let checkin = Checkin.mock(
+			traceLocationIdHash: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871".data(using: .utf8) ?? Data(),
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
@@ -514,8 +514,8 @@ class TraceWarningMatcherTests: XCTestCase {
 			return
 		}
 
-		let checkin = createDummyCheckin(
-			traceLocationIdHash: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
+		let checkin = Checkin.mock(
+			traceLocationIdHash: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871".data(using: .utf8) ?? Data(),
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
@@ -550,8 +550,8 @@ class TraceWarningMatcherTests: XCTestCase {
 			return
 		}
 
-		let checkin = createDummyCheckin(
-			traceLocationIdHash: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
+		let checkin = Checkin.mock(
+			traceLocationIdHash: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871".data(using: .utf8) ?? Data(),
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
@@ -588,8 +588,8 @@ class TraceWarningMatcherTests: XCTestCase {
 			return
 		}
 
-		let checkin = createDummyCheckin(
-			traceLocationIdHash: "",
+		let checkin = Checkin.mock(
+			traceLocationIdHash: Data(),
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
@@ -602,30 +602,6 @@ class TraceWarningMatcherTests: XCTestCase {
 
 	private func create10MinutesInterval(from date: Date) -> UInt32 {
 		UInt32(date.timeIntervalSince1970 / 600)
-	}
-
-	private func createDummyCheckin(
-		traceLocationIdHash: String,
-		checkinStartDate: Date = Date(),
-		checkinEndDate: Date = Date()
-		) -> Checkin {
-		Checkin(
-			id: 0,
-			traceLocationId: Data(),
-			traceLocationIdHash: traceLocationIdHash.data(using: .utf8) ?? Data(),
-			traceLocationVersion: 0,
-			traceLocationType: .locationTypePermanentCraft,
-			traceLocationDescription: "",
-			traceLocationAddress: "",
-			traceLocationStartDate: Date(),
-			traceLocationEndDate: Date(),
-			traceLocationDefaultCheckInLengthInMinutes: 0,
-			cryptographicSeed: Data(),
-			cnPublicKey: Data(),
-			checkinStartDate: checkinStartDate,
-			checkinEndDate: checkinEndDate,
-			checkinCompleted: true,
-			createJournalEntry: true)
 	}
 
 	private var utcFormatter: ISO8601DateFormatter = {

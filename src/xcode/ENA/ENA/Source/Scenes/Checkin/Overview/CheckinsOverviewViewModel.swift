@@ -38,7 +38,7 @@ class CheckinsOverviewViewModel {
 		case entries
 	}
 
-	@OpenCombine.Published private(set) var shouldReload: Bool = false
+	@OpenCombine.Published var triggerReload: Bool = false
 
 	var onUpdate: (() -> Void)?
 
@@ -101,7 +101,7 @@ class CheckinsOverviewViewModel {
 	}
 
 	func updateForCameraPermission() {
-		shouldReload = true
+		triggerReload = true
 	}
 
 	func checkoutOverdueCheckins() {
@@ -135,7 +135,7 @@ class CheckinsOverviewViewModel {
 				)
 			}
 
-			shouldReload = true
+			triggerReload = true
 		} else {
 			checkinCellModels.forEach { cellModel in
 				guard let checkin = checkins.first(where: { $0.id == cellModel.checkin.id }) else {
