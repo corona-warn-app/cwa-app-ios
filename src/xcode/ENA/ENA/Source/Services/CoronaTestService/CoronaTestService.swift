@@ -441,11 +441,6 @@ class CoronaTestService {
 			return
 		}
 
-		guard coronaTest.finalTestResultReceivedDate == nil else {
-			completion(.success(coronaTest.testResult))
-			return
-		}
-
 		client.getTestResult(forDevice: registrationToken, isFake: false) { [weak self] result in
 			guard let self = self else { return }
 
@@ -475,11 +470,13 @@ class CoronaTestService {
 
 				switch testResult {
 				case .positive, .negative, .invalid:
-					switch coronaTestType {
-					case .pcr:
-						self.pcrTest?.finalTestResultReceivedDate = Date()
-					case .antigen:
-						self.antigenTest?.finalTestResultReceivedDate = Date()
+					if coronaTest.finalTestResultReceivedDate == nil {
+						switch coronaTestType {
+						case .pcr:
+							self.pcrTest?.finalTestResultReceivedDate = Date()
+						case .antigen:
+							self.antigenTest?.finalTestResultReceivedDate = Date()
+						}
 					}
 
 					if coronaTestType == .pcr && duringRegistration {
