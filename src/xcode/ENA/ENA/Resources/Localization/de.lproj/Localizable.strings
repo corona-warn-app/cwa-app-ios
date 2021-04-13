@@ -504,7 +504,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 /* Exposure Submission Dispatch */
 
-"ExposureSubmission_DispatchTitle" = "Testergebnis abrufen";
+"ExposureSubmission_DispatchTitle" = "Test registrieren";
 
 "ExposureSubmissionIntroduction_AccImageDescription" = "Ein Smartphone übermittelt einen positiven Testbefund verschlüsselt ins System.";
 
