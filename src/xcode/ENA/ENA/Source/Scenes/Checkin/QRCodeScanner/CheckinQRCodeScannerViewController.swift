@@ -36,7 +36,7 @@ class CheckinQRCodeScannerViewController: UIViewController {
 						self.dismiss()
 					}
 				default:
-					self.showErrorAlert()
+					self.showErrorAlert(error: error)
 				}
 			}
 		)
@@ -192,13 +192,13 @@ class CheckinQRCodeScannerViewController: UIViewController {
 		view.layer.insertSublayer(previewLayer, at: 0)
 	}
 
-	private func showErrorAlert() {
+	private func showErrorAlert(error: CheckinQRScannerError) {
 
 		viewModel?.deactivateScanning()
 
 		let alert = UIAlertController(
 			title: AppStrings.Checkins.QRScanner.Error.title,
-			message: AppStrings.Checkins.QRScanner.Error.invalidURL,
+			message: error.errorDescription,
 			preferredStyle: .alert
 		)
 		alert.addAction(
