@@ -18,30 +18,32 @@ class ENAUITests_09_CheckIns: XCTestCase {
 		
 	}
 	
-	func testQRCodeScanner() {
+	func test_WHEN_scan_QRCode_THEN_checkin_and_checkout() {
+		// GIVEN
 		app.launchArguments.append(contentsOf: ["-checkinInfoScreenShown", "YES"])
 		app.launch()
-		
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Tabbar.checkin].waitForExistence(timeout: .short))
+				XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Tabbar.checkin].waitForExistence(timeout: .short))
 		
 		// Navigate to CheckIn
 		app.buttons[AccessibilityIdentifiers.Tabbar.checkin].tap()
 		
+		// WHEN
 		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.Checkins.Overview.scanButtonTitle)].waitForExistence(timeout: .short))
 		app.buttons[AccessibilityLabels.localized(AppStrings.Checkins.Overview.scanButtonTitle)].tap()
 
+		// THEN
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Details.saveToDiary].waitForExistence(timeout: .short))
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Details.automaticCheckout].exists)
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Details.checkinFor].exists)
 		XCTAssertTrue(app.staticTexts["Supermarkt"].exists)
 		XCTAssertTrue(app.staticTexts["Walldorf"].exists)
-		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.unspecified.title)].exists)
+		XCTAssertTrue(app.staticTexts[AppStrings.TraceLocations.unspecified.title].exists)
 		
 		// check in
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.TraceLocation.Details.checkInButton].waitForExistence(timeout: .short))
 		app.buttons[AccessibilityIdentifiers.TraceLocation.Details.checkInButton].tap()
 		
-		
+		// check out and clean up
 		myCheckins_checkout()
 		
 	}
@@ -113,7 +115,6 @@ class ENAUITests_09_CheckIns: XCTestCase {
 		query.element(boundBy: 1).tap()
 		
 		// tap the event, verify the detail screen
-		
 		XCTAssertTrue( initialNumberOfCells == app.cells.count ) // assumption: number of cells has not changed
 		query.element(boundBy: 1).tap()
 		
@@ -124,7 +125,7 @@ class ENAUITests_09_CheckIns: XCTestCase {
 		XCTAssertTrue(staticTexts.element(matching: .staticText, identifier: AccessibilityIdentifiers.Checkin.Details.traceLocationAddressLabel).exists)
 		XCTAssertTrue(app.staticTexts["Supermarkt"].exists)
 		XCTAssertTrue(app.staticTexts["Walldorf"].exists)
-		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.unspecified.title)].exists)
+		XCTAssertTrue(app.staticTexts[AppStrings.TraceLocations.unspecified.title].exists)
 		
 		// tap "Speichern" to go back to overview
 		let buttons = app.buttons
