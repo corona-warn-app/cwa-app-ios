@@ -687,6 +687,8 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_antigenTestAdded" = "Ihr Schnelltest wurde hinzugefügt.";
 
+"ExposureSubmissionResult_antigenTestAddedDesc" = "Das Test-Ergebnis wird 48 Stunden hier angezeigt. Zusätzlich legt die App einen Eintrag in Ihrem Kontakt-Tagebuch an.";
+
 "ExposureSubmissionResult_warnOthers" = "Andere warnen";
 
 "ExposureSubmissionResult_warnOthersDesc" = "Bitte teilen Sie Ihre Zufalls-IDs und warnen Sie andere.\nHelfen Sie, das Infektionsrisiko für andere genauer zu bestimmen, indem Sie auch angeben, wann eventuelle Corona-Symptome zum ersten Mal aufgetreten sind.";
@@ -725,7 +727,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_antigenTestPendingContactJournalDesc" = "Sobald Ihr Testergebnis vorliegt, wird es Ihnen in der App angezeigt.";
 
-"ExposureSubmissionResult_antigenTestNegativDesc" = "Das Virus SARS-CoV-2 wurde bei Ihnen nicht nachgewiesen.";
+"ExposureSubmissionResult_antigenTestNegativDesc" = "Der Schnelltest hat keinen Nachweis für das Coronavirus SARS-CoV-2 bei Ihnen ergeben.";
 
 "ExposureSubmissionResult_WarnOthersConsentGiven" = "Einverständnis „Andere warnen“ erteilt";
 
@@ -851,6 +853,10 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ExposureSubmissionResult_Abbreviation_Seconds" = "Sek";
 
 "ExposureSubmissionResult_Timer_Title" = "Ergebnis liegt vor seit";
+
+"ExposureSubmissionResult_Negative_Antigen_Proof_Title" = "Nachweis-Funktion";
+
+"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Sie können den hier angezeigten Befund auch als Nachweis für das Vorliegen eines negativen Schnelltest-Ergebnisses verwenden. Informieren Sie sich hierzu bitte auch über die Kriterien für die Anerkennung von Test-Nachweisen in Ihrem Bundesland. Bitte beachten Sie, dass Sie grundsätzlich nicht zum Nachweis per App verpflichtet sind. Sie können Ihr Schnelltest-Ergebnis im Rahmen der rechtlichen Bestimmungen auf andere Weise nachweisen.";
 
 /* Exposure Submission */
 

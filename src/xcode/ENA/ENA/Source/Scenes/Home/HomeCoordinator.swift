@@ -125,7 +125,7 @@ class HomeCoordinator: RequiresAppDependencies {
 					self.coronaTestService.antigenTest = AntigenTest(pointOfCareConsentDate: Date().addingTimeInterval(-15 * 3600),
 																	 registrationToken: nil,
 																	 testedPerson: TestedPerson(name: "Name", birthday: "15.08.2001"),
-																	 testResult: .negative,
+																	 testResult: .pending,
 																	 testResultReceivedDate: nil,
 																	 positiveTestResultWasShown: false,
 																	 isSubmissionConsentGiven: false,
