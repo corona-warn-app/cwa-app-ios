@@ -186,7 +186,7 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 
 		tableView.separatorStyle = .none
 		tableView.rowHeight = UITableView.automaticDimension
-		tableView.estimatedRowHeight = 600
+		tableView.estimatedRowHeight = 60
 	}
 
 	private func animateChanges() {
