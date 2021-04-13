@@ -869,6 +869,22 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionError_noAppConfiguration" = "Ihre Internetverbindung wurde unterbrochen. Bitte prüfen Sie die Verbindung und öffnen Sie die App dann erneut.";
 
+/* ExposureSubmission OverwriteNotice */
+
+"ExposureSubmission_OverwriteNotice_Title" = "Hinweis";
+
+"ExposureSubmission_OverwriteNotice_PrimaryButton" = "Weiter";
+
+"ExposureSubmission_OverwriteNotice_Image_Description" = "Ein Test ersetzt einen bestehenden vorherigen Test.";
+
+"ExposureSubmission_OverwriteNotice_Pcr_Headline" = "Sie haben bereits einen PCR-Test registriert";
+
+"ExposureSubmission_OverwriteNotice_Pcr_Text" = "Sie haben bereits einen PCR-Test registriert. Die App kann maximal einen Schnelltest und einen PCR-Test gleichzeitig verwalten. Wenn Sie einen weiteren PCR-Test registrieren, wird der erste PCR-Test aus der App gelöscht.";
+
+"ExposureSubmission_OverwriteNotice_Antigen_Headline" = "Sie haben bereits einen Schnelltest registriert. ";
+
+"ExposureSubmission_OverwriteNotice_Antigen_Text" = "Sie haben bereits einen Schnelltest registriert. Die App kann maximal einen Schnelltest und einen PCR-Test gleichzeitig verwalten. Wenn Sie einen weiteren Schnelltest registrieren, wird der erste Schnelltest aus der App gelöscht.";
+
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Risiko-Ermittlung";
 

@@ -370,8 +370,8 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		let onErrorExpectation = expectation(description: "onError is not called")
 		onErrorExpectation.isInverted = true
 
-		model.registerPCRTestAndGetResult(
-			for: "",
+		model.registerTestAndGetResult(
+			for: .pcr(""),
 			isSubmissionConsentGiven: true,
 			isLoading: {
 				isLoadingValues.append($0)
@@ -415,8 +415,8 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 		let onErrorExpectation = expectation(description: "onError is called")
 
-		model.registerPCRTestAndGetResult(
-			for: "",
+		model.registerTestAndGetResult(
+			for: .pcr(""),
 			isSubmissionConsentGiven: true,
 			isLoading: {
 				isLoadingValues.append($0)

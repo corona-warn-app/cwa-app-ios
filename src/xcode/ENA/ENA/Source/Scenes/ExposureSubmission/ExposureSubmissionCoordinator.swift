@@ -160,6 +160,27 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 	// MARK: Initial Screens
 
+	private func showOverrideTestNotice(
+		testType: CoronaTestType,
+		didTapAccept: @escaping () -> Void,
+		didTapDecline: @escaping () -> Void
+	) {
+		let testOverwriteNoticeViewController = TestOverwriteNoticeViewController(
+			testType: testType,
+			didTapPrimaryButton: didTapAccept,
+			didTapCloseButton: didTapDecline
+		)
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: AppStrings.ExposureSubmission.OverwriteNotice.primaryButton,
+				isSecondaryButtonHidden: true
+			)
+		)
+		let topBottomViewController = TopBottomContainerViewController(topController: testOverwriteNoticeViewController, bottomController: footerViewController)
+		let testOverwriteNoticeNavigationController = DismissHandlingNavigationController(rootViewController: topBottomViewController)
+		parentNavigationController?.present(testOverwriteNoticeNavigationController, animated: true)
+	}
+
 	private func createTestResultAvailableViewController() -> UIViewController {
         guard let coronaTestType = model.coronaTestType, let coronaTest = model.coronaTest else {
 			fatalError("Cannot create a test result available view controller without a corona test")
@@ -424,9 +445,9 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 	private func showQRScreen(isLoading: @escaping (Bool) -> Void) {
 		let scannerViewController = ExposureSubmissionQRScannerViewController(
-			onSuccess: { [weak self] guid in
+			onSuccess: { [weak self] testQrCodeInformation in
 				self?.presentedViewController?.dismiss(animated: true) {
-					self?.registerPCRTestAndGetResult(with: guid, submissionConsentGiven: true, isLoading: isLoading)
+					self?.registerTestAndGetResult(with: testQrCodeInformation, submissionConsentGiven: true, isLoading: isLoading)
 				}
 			},
 			onError: { [weak self] error, reactivateScanning in
@@ -841,17 +862,18 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 	// MARK: Test Result Helper
 
-	private func registerPCRTestAndGetResult(
-		with guid: String,
+	private func registerTestAndGetResult(
+		with testQrCodeInformation: CoronaTestQRCodeInformation,
 		submissionConsentGiven: Bool,
 		isLoading: @escaping (Bool) -> Void
 	) {
-		model.registerPCRTestAndGetResult(
-			for: guid,
+		model.registerTestAndGetResult(
+			for: testQrCodeInformation,
 			isSubmissionConsentGiven: submissionConsentGiven,
 			isLoading: isLoading,
 			onSuccess: { [weak self] testResult in
-				self?.model.coronaTestType = .pcr
+				
+				self?.model.coronaTestType = testQrCodeInformation.testType
 
 				switch testResult {
 				case .positive:
@@ -892,8 +914,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 						message: error.localizedDescription,
 						secondaryActionTitle: AppStrings.Common.alertActionRetry,
 						secondaryActionCompletion: {
-							self?.registerPCRTestAndGetResult(
-								with: guid,
+							self?.registerTestAndGetResult(
+								with: testQrCodeInformation,
 								submissionConsentGiven: submissionConsentGiven,
 								isLoading: isLoading
 							)
