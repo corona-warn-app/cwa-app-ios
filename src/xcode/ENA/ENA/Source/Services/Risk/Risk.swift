@@ -64,7 +64,7 @@ extension Risk {
 			$0.key < $1.key
 		})?.key
 
-		Log.debug("[Risk] mostRecentDateWithRiskLevel: \(mostRecentDateWithRiskLevel)", log: .riskDetection)
+		Log.debug("[Risk] mostRecentDateWithRiskLevel: \(String(describing: mostRecentDateWithRiskLevel))", log: .riskDetection)
 
 		let numberOfDaysWithRiskLevel = mergedRiskLevelPerDate.filter {
 			$1 == totalRiskLevel
