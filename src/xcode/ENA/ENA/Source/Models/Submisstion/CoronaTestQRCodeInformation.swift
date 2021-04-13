@@ -6,7 +6,7 @@ import Foundation
 
 enum CoronaTestQRCodeInformation {
 	case pcr(String)
-	case antigen(AntigenTestInformation, String)
+	case antigen(AntigenTestInformation)
 	
 	// we cant declare the enum type to Int because we have properties inside the cases
 	
