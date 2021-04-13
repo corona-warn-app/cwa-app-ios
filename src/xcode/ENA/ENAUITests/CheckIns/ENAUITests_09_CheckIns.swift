@@ -42,10 +42,9 @@ class ENAUITests_09_CheckIns: XCTestCase {
 		// check in
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.TraceLocation.Details.checkInButton].waitForExistence(timeout: .short))
 		app.buttons[AccessibilityIdentifiers.TraceLocation.Details.checkInButton].tap()
-		
+
 		// check out and clean up
 		myCheckins_checkout()
-		
 	}
 	
 	func testCheckinInfoScreen_navigate_to_dataPrivacy() throws {
@@ -108,14 +107,14 @@ class ENAUITests_09_CheckIns: XCTestCase {
 				numberOfCheckouts = numberOfCheckouts.inc()
 			}
 		}
-		XCTAssertTrue( numberOfCheckouts == 1 ) // assumption: one cell has a checkout button
+		XCTAssertTrue(numberOfCheckouts == 1) // assumption: one cell has a checkout button
 		
 		// tap checkout button
 		XCTAssertTrue(query.element(boundBy: 1).identifier == AccessibilityIdentifiers.TraceLocation.Configuration.eventTableViewCellButton)
 		query.element(boundBy: 1).tap()
 		
 		// tap the event, verify the detail screen
-		XCTAssertTrue( initialNumberOfCells == app.cells.count ) // assumption: number of cells has not changed
+		XCTAssertTrue(initialNumberOfCells == app.cells.count) // assumption: number of cells has not changed
 		query.element(boundBy: 1).tap()
 		
 		let staticTexts = app.cells.staticTexts

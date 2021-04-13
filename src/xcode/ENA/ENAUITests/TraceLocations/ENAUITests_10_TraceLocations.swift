@@ -461,13 +461,11 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 				numberOfCheckouts = numberOfCheckouts.inc()
 			}
 		}
-		
-		XCTAssertTrue( numberOfCheckouts == traceLocations.count ) // assumption: one cell has a checkout button
+		XCTAssertTrue(numberOfCheckouts == traceLocations.count) // assumption: one cell has a checkout button
 		
 		// for all events: checkout
 		for event in traceLocations.keys {
 			XCTAssertTrue(query.element(boundBy: 1).identifier == AccessibilityIdentifiers.TraceLocation.Configuration.eventTableViewCellButton)
-			
 			XCTAssertTrue(query.element(boundBy: 1).waitForExistence(timeout: .short))
 			XCTAssertTrue(app.staticTexts[event].exists)
 			XCTAssertTrue(app.staticTexts[traceLocations[event] ?? ""].exists)
@@ -497,7 +495,6 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 			XCTAssertTrue(buttons.element(matching: .button, identifier: AccessibilityIdentifiers.General.primaryFooterButton).exists)
 			buttons.element(matching: .button, identifier: AccessibilityIdentifiers.General.primaryFooterButton).tap()
 		}
-		
 	}
 	
 	private func myCheckins_details_screenshot(event: String) {
