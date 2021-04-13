@@ -17,7 +17,7 @@ class CheckinCellModelTests: XCTestCase {
 		)
 		let cellViewModel = CheckinCellModel(
 			checkin: checkin,
-			eventProvider: MockEventStore(),
+			eventCheckoutService: EventCheckoutService(eventStore: MockEventStore(), contactDiaryStore: MockDiaryStore()),
 			onUpdate: {}
 		)
 
@@ -29,7 +29,6 @@ class CheckinCellModelTests: XCTestCase {
 		XCTAssertFalse(cellViewModel.isDurationStackViewHidden)
 		XCTAssertFalse(cellViewModel.isButtonHiddenPublisher.value)
 
-		XCTAssertEqual(cellViewModel.date, "18.03.21")
 		XCTAssertEqual(cellViewModel.title, "Sportstudio")
 		XCTAssertEqual(cellViewModel.address, "Musterstraße 1a, 01234 Musterstadt")
 	}
@@ -45,7 +44,7 @@ class CheckinCellModelTests: XCTestCase {
 
 		let cellViewModel = CheckinCellModel(
 			checkin: checkin,
-			eventProvider: MockEventStore(),
+			eventCheckoutService: EventCheckoutService(eventStore: MockEventStore(), contactDiaryStore: MockDiaryStore()),
 			onUpdate: {}
 		)
 
@@ -69,7 +68,6 @@ class CheckinCellModelTests: XCTestCase {
 		XCTAssertFalse(cellViewModel.isDurationStackViewHidden)
 		XCTAssertTrue(cellViewModel.isButtonHiddenPublisher.value)
 
-		XCTAssertEqual(cellViewModel.date, "18.03.21")
 		XCTAssertEqual(cellViewModel.title, "Sportstudio")
 		XCTAssertEqual(cellViewModel.address, "Musterstraße 1a, 01234 Musterstadt")
 	}

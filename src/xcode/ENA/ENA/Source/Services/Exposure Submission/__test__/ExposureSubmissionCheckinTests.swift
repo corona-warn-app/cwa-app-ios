@@ -11,62 +11,62 @@ class ExposureSubmissionCheckinTests: XCTestCase {
         let service = MockExposureSubmissionService()
 		let appConfig = CachedAppConfigurationMock.defaultAppConfiguration
 
-		let eventStore = try XCTUnwrap(EventStore(url: EventStore.storeURL))
-		
-		// create dummy data
-		(0...3).forEach { _ in
-			let result = eventStore.createCheckin(Checkin.mock())
-			switch result {
-			case .success:
-				break
-			case .failure(let error):
-				XCTFail(error.localizedDescription)
-			}
-		}
-
-		debugPrint(eventStore.checkinsPublisher.value)
+		let checkin = Checkin.mock(
+			checkinStartDate: try XCTUnwrap(Calendar.current.date(byAdding: .day, value: -20, to: Date())),
+			checkinEndDate: Date()
+		)
 
 		// process checkins
-		let processingDone = expectation(description: "processing done")
-		service.preparedCheckinsForSubmission(with: eventStore, appConfig: appConfig, symptomOnset: .noInformation) { checkins in
-			XCTAssertEqual(checkins.count, 4)
-			processingDone.fulfill()
-		}
+		let preparedCheckins = service.preparedCheckinsForSubmission(
+			checkins: [checkin],
+			appConfig: appConfig,
+			symptomOnset: .daysSinceOnset(0)
+		)
 
-		waitForExpectations(timeout: .short)
-		eventStore.cleanup()
+		XCTAssertEqual(preparedCheckins.count, 5)
+
+		XCTAssertEqual(preparedCheckins[0].transmissionRiskLevel, 4)
+		XCTAssertEqual(preparedCheckins[1].transmissionRiskLevel, 6)
+		XCTAssertEqual(preparedCheckins[2].transmissionRiskLevel, 7)
+		XCTAssertEqual(preparedCheckins[3].transmissionRiskLevel, 8)
+		XCTAssertEqual(preparedCheckins[4].transmissionRiskLevel, 8)
     }
-/*
-	func testCheckinTransformation() throws {
-		// create a mock checkin and check preconditions
 
-		for i in stride(from: 1, to: 600, by: 10) {
-			let checkin = Checkin.mock(
-				checkinStartDate: Date(timeIntervalSinceNow: -(Double(i * 10))),
-				checkinEndDate: Date()
-			)
-			XCTAssertGreaterThan(checkin.checkinEndDate, checkin.checkinStartDate)
-			XCTAssertGreaterThanOrEqual(try XCTUnwrap(checkin.traceLocationEndDate), try XCTUnwrap(checkin.traceLocationEndDate))
+	func testDerivingWarningTimeInterval() throws {
+		let service = MockExposureSubmissionService()
+		let appConfig = CachedAppConfigurationMock.defaultAppConfiguration
 
-			let transformed = checkin.prepareForSubmission()
-			XCTAssertTrue(type(of: transformed) == SAP_Internal_Pt_CheckIn.self)
-			XCTAssertGreaterThanOrEqual(transformed.endIntervalNumber, transformed.startIntervalNumber)
+		let startOfToday = Calendar.current.startOfDay(for: Date())
 
-			// check calculated interval numbers and compare to star/end dates
-			XCTAssertEqual(
-				TimeInterval(transformed.startIntervalNumber * 600),
-				checkin.checkinStartDate.timeIntervalSince1970,
-				accuracy: 600)
+		let filteredStartDate = try XCTUnwrap(Calendar.current.date(byAdding: .minute, value: 1, to: startOfToday))
+		let filteredEndDate = try XCTUnwrap(Calendar.current.date(byAdding: .minute, value: 8, to: filteredStartDate))
 
-			XCTAssertEqual(
-				TimeInterval(transformed.startIntervalNumber * 600),
-				checkin.checkinStartDate.timeIntervalSince1970,
-				accuracy: 600)
+		let keptStartDate = try XCTUnwrap(Calendar.current.date(byAdding: .minute, value: 0, to: startOfToday))
+		let keptEndDate = try XCTUnwrap(Calendar.current.date(byAdding: .minute, value: 10, to: keptStartDate))
+		let derivedEndDate = try XCTUnwrap(Calendar.current.date(byAdding: .minute, value: 20, to: keptStartDate))
 
-			// trace location conversion
-			let location = checkin.traceLocation
-			XCTAssertEqual(location.startTimestamp, UInt64(checkin.traceLocationStartDate?.timeIntervalSince1970 ?? 0))
-			XCTAssertEqual(location.endTimestamp, UInt64(checkin.traceLocationEndDate?.timeIntervalSince1970 ?? 0))
-		}
-	}*/
+		let expectedStartIntervalNumber = UInt32(keptStartDate.timeIntervalSince1970 / 600)
+		let expectedEndIntervalNumber = UInt32(derivedEndDate.timeIntervalSince1970 / 600)
+
+		let checkin1 = Checkin.mock(
+			checkinStartDate: filteredStartDate,
+			checkinEndDate: filteredEndDate
+		)
+		let checkin2 = Checkin.mock(
+			checkinStartDate: keptStartDate,
+			checkinEndDate: keptEndDate
+		)
+
+		// process checkins
+		let preparedCheckins = service.preparedCheckinsForSubmission(
+			checkins: [checkin1, checkin2],
+			appConfig: appConfig,
+			symptomOnset: .daysSinceOnset(0)
+		)
+
+		XCTAssertEqual(preparedCheckins.count, 1)
+
+		XCTAssertEqual(preparedCheckins[0].startIntervalNumber, expectedStartIntervalNumber)
+		XCTAssertEqual(preparedCheckins[0].endIntervalNumber, expectedEndIntervalNumber)
+	}
 }

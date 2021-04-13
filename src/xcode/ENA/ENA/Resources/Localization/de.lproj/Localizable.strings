@@ -465,6 +465,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 /* phone number; no spacing allowed */
 "ExposureSubmission_Hotline_Number" = "08007540002";
 
+/* phone number; no spacing allowed */
+"ExposureSubmission_Hotline_Number_Foreign" = "+493049875402";
+
 "ExposureSubmission_DataPrivacyTitle" = "Einwilligungserklärung";
 
 "ExposureSubmission_Continue_actionText" = "Weiter";
@@ -531,16 +534,22 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionHotline_SectionTitle" = "Infos zum Ablauf:";
 
-"ExposureSubmissionHotline_SectionDescription1" = "Rufen Sie die bundesweite Hotline an und fragen Sie nach einer TAN.";
+"ExposureSubmissionHotline_SectionDescription1" = "Rufen Sie die Hotline an und fragen Sie nach einer TAN.";
 
 "ExposureSubmissionHotline_iconAccessibilityLabel1" = "Schritt 1 von 2";
 
 "ExposureSubmissionHotline_iconAccessibilityLabel2" = "Schritt 2 von 2";
 
 /* UI text; spacing allowed */
-"ExposureSubmission_PhoneNumber" = "0800 7540002";
+"ExposureSubmission_PhoneNumberDomestic" = "0800 7540002";
 
-"ExposureSubmission_PhoneDetailDescription" = "Sprachen:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\ntäglich 24 Stunden\n\nDer Anruf ist kostenfrei.\n\nFür gesundheitliche Fragen wenden Sie sich bitte an Ihre Hausarztpraxis oder die Hotline des ärztlichen Bereitschaftsdienstes 116 117.";
+"ExposureSubmission_PhoneDetailsDomestic" = "Für Anrufe innerhalb Deutschlands.\nDer Anruf ist kostenfrei.";
+
+"ExposureSubmission_PhoneNumberForeign" = "+49 30 498 75402";
+
+"ExposureSubmission_PhoneDetailsForeign" = "Für Anrufe aus dem Ausland.\nEs fallen die Gebühren des jeweiligen Telefonanbieters an.";
+
+"ExposureSubmission_PhoneDetailDescription" = "Unser Kundenservice ist in den folgenden Sprachen für Sie da:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo-So: Täglich 24 Stunden\n\nFür gesundheitliche Fragen wenden Sie sich bitte an Ihre Hausarztpraxis oder die Hotline des ärztlichen Bereitschaftsdienstes 116 117.";
 
 "ExposureSubmission_SectionDescription2" = "Geben Sie die TAN in der App ein, um Ihren Test zu registrieren.";
 
@@ -1206,15 +1215,21 @@ sein.";
 
 "App_Information_Contact_Description" = "Für technische Fragen rund um die Corona-Warn-App können Sie sich direkt an unsere bundesweite technische Hotline wenden.";
 
-"App_Information_Contact_Hotline_Title" = "Technische Hotline";
+"App_Information_Contact_Hotline_Title" = "Technische Hotline:";
 
-"App_Information_Contact_Hotline_Text" = "0800 7540001";
+"App_Information_Contact_Hotline_Text_Domestic" = "0800 7540001";
 
-"App_Information_Contact_Hotline_Number" = "08007540001";
+"App_Information_Contact_Hotline_Number_Domestic" = "08007540001";
 
-"App_Information_Contact_Hotline_Description" = "Unser Kundenservice ist für Sie da.";
+"App_Information_Contact_Hotline_Details_Domestic" = "Für Anrufe innerhalb Deutschlands.\nDer Anruf ist kostenfrei.";
 
-"App_Information_Contact_Hotline_Terms" = "Sprachen: Deutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo - Sa: 07:00 - 22:00 Uhr\n(außer an bundesweiten Feiertagen)\n\nDer Anruf ist kostenfrei.\n\nFür gesundheitliche Fragen wenden Sie sich bitte an Ihre Hausarztpraxis oder die Hotline des ärztlichen Bereitschaftsdienstes 116 117.";
+"App_Information_Contact_Hotline_Text_Foreign" = "+49 30 498 75402";
+
+"App_Information_Contact_Hotline_Number_Foreign" = "+493049875402";
+
+"App_Information_Contact_Hotline_Details_Foreign" = "Für Anrufe aus dem Ausland.\nEs fallen die Gebühren des jeweiligen Telefonanbieters an.";
+
+"App_Information_Contact_Hotline_Terms" = "Unser Kundenservice ist in den folgenden Sprachen für Sie da:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo-So: Täglich 24 Stunden\n\nFür gesundheitliche Fragen wenden Sie sich bitte an Ihre Hausarztpraxis oder die Hotline des ärztlichen Bereitschaftsdienstes 116 117.";
 
 /* App Information - Imprint */
 "App_Information_New_Features_Navigation" = "Neue Funktionen";
@@ -1428,7 +1443,11 @@ sein.";
 
 "NewVersionFeature_21_reg_antigen_title" = "Registrierung von Antigen-Schnelltests";
 
-"NewVersionFeature_21_reg_antigen_description" = "Sie können nun zusätzlich zu PCR-Tests auch Antigen-Schnelltests per QR-Code scannen und das Testergebnis in der App anzeigen.";
+"NewVersionFeature_21_reg_antigen_description" = "Sie können sich nun zusätzlich zu Ergebnissen von PCR-Tests auch Ergebnisse von Antigen-Schnelltests in der App anzeigen lassen und nutzen, um andere zu warnen.";
+
+"NewVersionFeature_21_show_proof_title" = "Anzeige von Nachweisen";
+
+"NewVersionFeature_21_show_proof_description" = "Auf Wunsch können Sie über die App Ihren persönlichen Infektionsstatus nachweisen (z.B. negativer Schnelltest). Bitte beachten Sie, dass Sie grundsätzlich nicht zum Nachweis Ihres Infektionsstatus per App verpflichtet sind. Sie können Ihren Infektionsstatus im Rahmen der rechtlichen Bestimmungen an Ihrem Aufenthaltsort auch auf andere Weise nachweisen.";
 
 "NewVersionFeature_21_tech_hotline_foreign_countries_title" = "Technische Hotline nun auch aus dem Ausland erreichbar";
 
@@ -1855,7 +1874,7 @@ sein.";
 
 "Tabbar_Diary_Title" = "Tagebuch";
 
-"Tabbar_CheckIn_Title" = "Check In";
+"Tabbar_CheckIn_Title" = "Check-in";
 
 /* Data Donation */
 
@@ -2043,6 +2062,12 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "Checkin_QR_Scanner_Error_InvalidPayload" = "Ungültiger QR-Code verhindert das Einchecken. Die verantwortliche Stelle muss einen neuen QR-Code generieren (Fehlercode INVALID_PAYLOAD).";
 
 "Checkin_QR_Scanner_Error_InvalidURLVendorData" = "Ungültiger QR-Code verhindert das Einchecken. Die verantwortliche Stelle muss einen neuen QR-Code generieren (Fehlercode INVALID_VENDOR_DATA).";
+
+"Checkin_QR_Scanner_Error_InvalidDescription" = "Ungültiger QR-Code verhindert das Einchecken. Die verantwortliche Stelle muss einen neuen QR-Code generieren (Fehlercode INVALID_DESCRIPTION).";
+
+"Checkin_QR_Scanner_Error_InvalidAddress" = "Ungültiger QR-Code verhindert das Einchecken. Die verantwortliche Stelle muss einen neuen QR-Code generieren (Fehlercode INVALID_ADDRESS).";
+
+"Checkin_QR_Scanner_Error_InvalidCryptographicSeed" = "Ungültiger QR-Code verhindert das Einchecken. Die verantwortliche Stelle muss einen neuen QR-Code generieren (Fehlercode INVALID_CRYPTO_SEED).";
 
 /* TraceLocations */
 

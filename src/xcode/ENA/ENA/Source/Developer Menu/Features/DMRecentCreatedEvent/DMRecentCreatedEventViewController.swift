@@ -11,13 +11,17 @@ class DMRecentCreatedEventViewController: UITableViewController {
     // MARK: - Init
 
     init(
-        store: Store,
-        eventStore: EventStoringProviding
+		store: Store,
+		eventStore: EventStoringProviding,
+		qrCodePosterTemplateProvider: QRCodePosterTemplateProviding,
+		isPosterGeneration: Bool
     ) {
         self.viewModel = DMRecentCreatedEventViewModel(
             store: store,
             eventStore: eventStore
         )
+		self.qrCodePosterTemplateProvider = qrCodePosterTemplateProvider
+		self.isPosterGeneration = isPosterGeneration
 
         if #available(iOS 13.0, *) {
             super.init(style: .insetGrouped)
@@ -64,15 +68,24 @@ class DMRecentCreatedEventViewController: UITableViewController {
 		return cell
 	}
 	
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		let posterGenerationViewController = DMPosterGenerationViewController(traceLocation: viewModel.traceLocations[indexPath.row], qrCodePosterTemplateProvider: qrCodePosterTemplateProvider)
+		
+		DispatchQueue.main.async { [weak self] in
+			self?.navigationController?.pushViewController(posterGenerationViewController, animated: true)
+		}
+	}
 
     // MARK: - Private
 
     private let viewModel: DMRecentCreatedEventViewModel
-	
+	private let isPosterGeneration: Bool
+	private let qrCodePosterTemplateProvider: QRCodePosterTemplateProviding
+
     private func setupTableView() {
         tableView.estimatedRowHeight = 45.0
         tableView.rowHeight = UITableView.automaticDimension
-		tableView.allowsSelection = false
+		tableView.allowsSelection = isPosterGeneration
 
         // wire up tableview with the viewModel
         viewModel.refreshTableView = { indexSet in
@@ -84,7 +97,11 @@ class DMRecentCreatedEventViewController: UITableViewController {
 	
 
     private func setupNavigationBar() {
-        title = "All created trace locations"
+		if isPosterGeneration {
+			title = "Select a trace location"
+		} else {
+			title = "All created trace locations"
+		}
     }
 }
 #endif
