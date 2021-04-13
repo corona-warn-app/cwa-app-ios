@@ -16,7 +16,18 @@ class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDel
 		onError: ((CheckinQRScannerError) -> Void)?
 	) {
 		if isUITesting {
-			let traceLocation = TraceLocation.mock(description: "Supermarkt", address: "Walldorf")
+			let traceLocation = TraceLocation(
+				id: UUID().uuidString.data(using: .utf8) ?? Data(),
+				version: 0,
+				type: .locationTypeUnspecified,
+				description: "Supermarkt",
+				address: "Walldorf",
+				startDate: nil,
+				endDate: nil,
+				defaultCheckInLengthInMinutes: nil,
+				cryptographicSeed: Data(),
+				cnPublicKey: Data()
+			)
 			onSuccess(traceLocation)
 		}
 		self.appConfiguration = appConfiguration
