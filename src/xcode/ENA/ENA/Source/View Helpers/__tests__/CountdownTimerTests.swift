@@ -64,6 +64,29 @@ class CountdownTimerTests: XCTestCase {
 		c.start()
 		self.waitForExpectations(timeout: .extraLong) // just add enough buffer
 	}
+	
+	func test_countUp() {
+		let start = Date().addingTimeInterval(-4.0)
+				
+		let c = CountdownTimer(countUpFrom: start)
+		c.delegate = countdownTimerTarget
+		
+		let updateExpectation = self.expectation(description: "Calls update every second.")
+		updateExpectation.expectedFulfillmentCount = 4
+		countdownTimerTarget.updateCallback = { _, time in
+			let components = Calendar.current.dateComponents(
+				[.hour, .minute, .second],
+				from: start,
+				to: Date()
+			)
+			if time == CountdownTimer.format(components) {
+				updateExpectation.fulfill()
+			}
+		}
+		
+		c.start()
+		self.waitForExpectations(timeout: .medium) // just add enough buffer
+	}
 }
 
 private class CountdownTimerTarget: CountdownTimerDelegate {
