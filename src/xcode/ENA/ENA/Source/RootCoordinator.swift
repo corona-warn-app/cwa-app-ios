@@ -133,10 +133,9 @@ class RootCoordinator: RequiresAppDependencies {
 		}
 
 		// Close all modal screens that would prevent showing the checkin screen first.
-		tabBarController.dismiss(animated: false) {
-			self.tabBarController.selectedIndex = index
-			self.checkInCoordinator.showTraceLocationDetailsFromExternalCamera(guid)
-		}
+		tabBarController.dismiss(animated: false)
+		tabBarController.selectedIndex = index
+		checkInCoordinator.showTraceLocationDetailsFromExternalCamera(guid)
 	}
 
 	func updateDetectionMode(
