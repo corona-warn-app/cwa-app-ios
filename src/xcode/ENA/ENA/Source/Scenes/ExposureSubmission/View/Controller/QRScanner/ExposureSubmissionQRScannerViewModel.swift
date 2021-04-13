@@ -228,6 +228,6 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 				return nil
 			}
 		}
-		return .antigen(testInformation, payloadUrl)
+		return .antigen(testInformation)
 	}
 }

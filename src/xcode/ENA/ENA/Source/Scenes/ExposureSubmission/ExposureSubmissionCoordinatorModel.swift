@@ -137,9 +137,9 @@ class ExposureSubmissionCoordinatorModel {
 					}
 				}
 			)
-		case let .antigen(rapidTest, guid):
+		case .antigen(let rapidTest):
 			coronaTestService.registerAntigenTestAndGetResult(
-				with: guid,
+				with: rapidTest.guid,
 				pointOfCareConsentDate: rapidTest.pointOfCareConsentDate,
 				name: rapidTest.fullName,
 				birthday: rapidTest.dateOfBirth,
