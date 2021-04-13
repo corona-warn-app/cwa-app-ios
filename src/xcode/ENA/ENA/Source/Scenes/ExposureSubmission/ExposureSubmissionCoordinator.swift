@@ -428,7 +428,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				self?.presentedViewController?.dismiss(animated: true) {
 					if let oldTest = self?.model.coronaTestService.coronaTest(ofType: testQrCodeInformation.testType),
 					   oldTest.testResult != .expired && oldTest.testResult != .invalid {
-						self?.showOverrideTestNoticeIfNeeded(testQrCodeInformation: testQrCodeInformation, submissionConsentGiven: true)
+						self?.showOverrideTestNotice(testQrCodeInformation: testQrCodeInformation, submissionConsentGiven: true)
 					} else {
 						self?.registerTestAndGetResult(with: testQrCodeInformation, submissionConsentGiven: true, isLoading: isLoading)
 					}
@@ -848,7 +848,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 	// show a overwrite notice screen if a test of give type was registered before
 	// registerTestAndGetResult will update the loading state of the primary button
-	private func showOverrideTestNoticeIfNeeded(
+	private func showOverrideTestNotice(
 		testQrCodeInformation: CoronaTestQRCodeInformation,
 		submissionConsentGiven: Bool
 	) {
