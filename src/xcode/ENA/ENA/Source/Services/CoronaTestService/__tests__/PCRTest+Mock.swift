@@ -19,8 +19,8 @@ extension PCRTest {
 		journalEntryCreated: Bool = false
 	) -> PCRTest {
 		PCRTest(
-			registrationToken: registrationToken,
 			registrationDate: registrationDate,
+			registrationToken: registrationToken,
 			testResult: testResult,
 			testResultReceivedDate: testResultReceivedDate,
 			positiveTestResultWasShown: positiveTestResultWasShown,

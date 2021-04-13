@@ -106,6 +106,23 @@ enum CoronaTest: Test {
 		}
 	}
 
+	var pcrTest: PCRTest? {
+		switch self {
+		case .pcr(let test):
+			return test
+		case .antigen:
+			return nil
+		}
+	}
+	
+	var antigenTest: AntigenTest? {
+		switch self {
+		case .pcr:
+			return nil
+		case .antigen(let test):
+			return test
+		}
+	}
 }
 
 protocol Test: Equatable {

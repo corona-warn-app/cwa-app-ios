@@ -626,18 +626,6 @@ extension ExposureSubmissionTestResultViewModel {
 			)
 		}
 	}
-}
-
-private extension CoronaTest {
-	
-	var antigenTest: AntigenTest? {
-		switch self {
-		case .pcr:
-			return nil
-		case .antigen(let test):
-			return test
-		}
-	}
 	
 	// swiftlint:disable:next file_length
 }
