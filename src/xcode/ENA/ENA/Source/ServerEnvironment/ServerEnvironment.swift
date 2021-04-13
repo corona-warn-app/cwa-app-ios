@@ -24,15 +24,16 @@ struct ServerEnvironment {
 	private let environments: [ServerEnvironmentData]
 
 	init(bundle: Bundle = Bundle.main, resourceName: String = "ServerEnvironments") {
-		guard
-			let jsonURL = bundle.url(forResource: resourceName, withExtension: "json"),
-			let jsonData = try? Data(contentsOf: jsonURL),
-			let map = try? JSONDecoder().decode(Map.self, from: jsonData) else {
-
+		guard let jsonURL = bundle.url(forResource: resourceName, withExtension: "json") else {
 			fatalError("Missing server environment.")
 		}
-
-		self.environments = map.serverEnvironments
+		do {
+			let jsonData = try Data(contentsOf: jsonURL)
+			let map = try JSONDecoder().decode(Map.self, from: jsonData)
+			self.environments = map.serverEnvironments
+		} catch {
+			fatalError("Error parsing server environments: \(error)")
+		}
 	}
 
 	func availableEnvironments() -> [ServerEnvironmentData] {
