@@ -8,14 +8,11 @@ class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
 			
 	// MARK: Attributes.
 
-	@IBOutlet var barView: UIView!
-
-	@IBOutlet var stackView: UIStackView!
-	@IBOutlet var subTitleLabel: ENALabel!
-	@IBOutlet var titleLabel: ENALabel!
-	@IBOutlet var timeLabel: ENALabel!
-
-	@IBOutlet var imageView: UIImageView!
+	@IBOutlet private var barView: UIView!
+	@IBOutlet private var subTitleLabel: ENALabel!
+	@IBOutlet private var titleLabel: ENALabel!
+	@IBOutlet private var timeLabel: ENALabel!
+	@IBOutlet private var imageView: UIImageView!
 
 	override func awakeFromNib() {
 		super.awakeFromNib()
