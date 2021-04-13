@@ -78,8 +78,9 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 		waitForExpectations(timeout: .short)
 	}
 	
-	func testSuccessfulAntigenScan_Base64URL() {
-		let guid = "eyJ0aW1lc3RhbXAiOjE2MTgzMDYwNTYsImd1aWQiOiI1OEM0MERBMC00Q0M1LTQ4ODAtOTIyMS0xNjBCNjA1OTIxQzAiLCJmbiI6IkpvZWwiLCJsbiI6IkdyYXppYW5pIiwiZG9iIjoiMTk4OC0wNy0wOSJ9"
+	func testSuccessfulAntigenScan_Base64URL() throws {
+		let payload = "eyJ0aW1lc3RhbXAiOjE2MTgzMDYwNTYsImd1aWQiOiI1OEM0MERBMC00Q0M1LTQ4ODAtOTIyMS0xNjBCNjA1OTIxQzAiLCJmbiI6IkpvZWwiLCJsbiI6IkdyYXppYW5pIiwiZG9iIjoiMTk4OC0wNy0wOSJ9"
+		let validAntigenGuid = try XCTUnwrap(self.validAntigenGuid(validPayLoad: payload))
 
 		let onSuccessExpectation = expectation(description: "onSuccess called")
 		onSuccessExpectation.expectedFulfillmentCount = 1
@@ -91,8 +92,8 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 		let viewModel = TestableExposureSubmissionQRScannerViewModel(
 			onSuccess: { testInformation in
 				switch testInformation {
-				case .antigen(_, let scannedGuid):
-					XCTAssertEqual(scannedGuid, guid)
+				case .antigen(let testInformation):
+					XCTAssertEqual(testInformation.guid, validAntigenGuid)
 				case .pcr:
 					XCTFail("Expected antigen test")
 				}
@@ -104,7 +105,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 			}
 		)
 
-		let metaDataObject = FakeMetadataMachineReadableCodeObject(stringValue: "https://s.coronawarn.app/?v=1#\(guid)")
+		let metaDataObject = FakeMetadataMachineReadableCodeObject(stringValue: "https://s.coronawarn.app/?v=1#\(payload)")
 		viewModel.activateScanning()
 		viewModel.didScan(metadataObjects: [metaDataObject])
 
@@ -113,8 +114,9 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 
 		waitForExpectations(timeout: .short)
 	}
-	func testSuccessfulAntigenScan_base64() {
-		let guid = "eyJ0aW1lc3RhbXAiOjE2MTgzMDY1MzAsImd1aWQiOiJDQzcyMEI2Ni1CNTBFLTQ1NzAtQUNCNC02RUExNEFEMDdGRDIiLCJmbiI6Ikhlcm1hbiIsImxuIjoiTWFydGluZXoiLCJkb2IiOiIxOTY0LTA5LTI3In0="
+	func testSuccessfulAntigenScan_base64() throws {
+		let payload = "eyJ0aW1lc3RhbXAiOjE2MTgzMDY1MzAsImd1aWQiOiJDQzcyMEI2Ni1CNTBFLTQ1NzAtQUNCNC02RUExNEFEMDdGRDIiLCJmbiI6Ikhlcm1hbiIsImxuIjoiTWFydGluZXoiLCJkb2IiOiIxOTY0LTA5LTI3In0="
+		let validAntigenGuid = try XCTUnwrap(self.validAntigenGuid(validPayLoad: payload))
 
 		let onSuccessExpectation = expectation(description: "onSuccess called")
 		onSuccessExpectation.expectedFulfillmentCount = 1
@@ -126,8 +128,8 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 		let viewModel = TestableExposureSubmissionQRScannerViewModel(
 			onSuccess: { testInformation in
 				switch testInformation {
-				case .antigen(_, let scannedGuid):
-					XCTAssertEqual(scannedGuid, guid)
+				case .antigen(let testInformation):
+					XCTAssertEqual(testInformation.guid, validAntigenGuid)
 				case .pcr:
 					XCTFail("Expected antigen test")
 				}
@@ -139,7 +141,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 			}
 		)
 
-		let metaDataObject = FakeMetadataMachineReadableCodeObject(stringValue: "https://s.coronawarn.app/?v=1#\(guid)")
+		let metaDataObject = FakeMetadataMachineReadableCodeObject(stringValue: "https://s.coronawarn.app/?v=1#\(payload)")
 		viewModel.activateScanning()
 		viewModel.didScan(metadataObjects: [metaDataObject])
 
@@ -328,7 +330,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 	func testAntigenQRCodeExtraction_GUIDLengthExceeded() throws {
 		let viewModel = createViewModel()
 
-		let validAntigenGuid = try XCTUnwrap(self.validAntigenGuid)
+		let validAntigenGuid = try XCTUnwrap(self.validAntigenGuid(validPayLoad: validAntigenPayLoad))
 		let result = viewModel.coronaTestQRCodeInformation(from: "https://s.coronawarn.app/?v=1#\(validAntigenGuid)-BEEF")
 
 		XCTAssertNil(result)
@@ -337,7 +339,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 	func testAntigenPcrQRCodeExtraction_GUIDTooShort() throws {
 		let viewModel = createViewModel()
 		
-		let validAntigenGuid = try XCTUnwrap(self.validAntigenGuid)
+		let validAntigenGuid = try XCTUnwrap(self.validAntigenGuid(validPayLoad: validAntigenPayLoad))
 		let result = viewModel.coronaTestQRCodeInformation(from: "https://s.coronawarn.app/?v=1#\(validAntigenGuid.dropLast(4))")
 
 		XCTAssertNil(result)
@@ -456,8 +458,9 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 	}
 	
 	private let validPcrGuid = "3D6D08-3567F3F2-4DCF-43A3-8737-4CD1F87D6FDA"
-	private var validAntigenGuid: String? {
-		let validPayLoad = "eyJ0aW1lc3RhbXAiOjE2MTgzMDY1MzAsImd1aWQiOiJDQzcyMEI2Ni1CNTBFLTQ1NzAtQUNCNC02RUExNEFEMDdGRDIiLCJmbiI6Ikhlcm1hbiIsImxuIjoiTWFydGluZXoiLCJkb2IiOiIxOTY0LTA5LTI3In0="
+	private let validAntigenPayLoad = "eyJ0aW1lc3RhbXAiOjE2MTgzMDY1MzAsImd1aWQiOiJDQzcyMEI2Ni1CNTBFLTQ1NzAtQUNCNC02RUExNEFEMDdGRDIiLCJmbiI6Ikhlcm1hbiIsImxuIjoiTWFydGluZXoiLCJkb2IiOiIxOTY0LTA5LTI3In0="
+	private func  validAntigenGuid(validPayLoad: String) -> String? {
+		
 		let jsonData: Data
 		if validPayLoad.isBase64Encoded {
 			guard let parsedData = Data(base64Encoded: validPayLoad) else {
