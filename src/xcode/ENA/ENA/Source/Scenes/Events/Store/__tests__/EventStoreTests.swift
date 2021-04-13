@@ -209,7 +209,8 @@ class EventStoreTests: XCTestCase {
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate,
 			checkinCompleted: false,
-			createJournalEntry: true
+			createJournalEntry: true,
+			checkinSubmitted: false
 		)
 
 		let sinkExpectation = expectation(description: "Sink is called once.")
@@ -235,6 +236,7 @@ class EventStoreTests: XCTestCase {
 				XCTAssertEqual(Int(checkin.checkinEndDate.timeIntervalSince1970), Int(checkinStartDate.timeIntervalSince1970))
 				XCTAssertFalse(checkin.checkinCompleted)
 				XCTAssertTrue(checkin.createJournalEntry)
+				XCTAssertFalse(checkin.checkinSubmitted)
 
 				guard let traceLocationStartDate2 = checkin.traceLocationStartDate else {
 					XCTFail("Nil for traceLocationStartDate2 not expected.")
@@ -262,8 +264,8 @@ class EventStoreTests: XCTestCase {
 		let store = makeStore(with: makeDatabaseQueue())
 		let nowPlus100 = Date(timeIntervalSinceNow: 100)
 		let nowPlus200 = Date(timeIntervalSinceNow: 200)
-		let checkInOne = makeCheckin(id: 1, checkinEndDate: nowPlus100)
-		let checkInTwo = makeCheckin(id: 2, checkinEndDate: nowPlus200)
+		let checkInOne = Checkin.mock(id: 1, checkinEndDate: nowPlus100)
+		let checkInTwo = Checkin.mock(id: 2, checkinEndDate: nowPlus200)
 
 		let sinkExpectation = expectation(description: "Sink is called once.")
 		sinkExpectation.expectedFulfillmentCount = 1
@@ -310,7 +312,8 @@ class EventStoreTests: XCTestCase {
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate,
 			checkinCompleted: false,
-			createJournalEntry: true
+			createJournalEntry: true,
+			checkinSubmitted: false
 		)
 
 		let sinkExpectation = expectation(description: "Sink is called once.")
@@ -350,7 +353,7 @@ class EventStoreTests: XCTestCase {
 	func test_When_updateCheckin_Then_CheckinWasUpdated_And_PublisherWasUpdated() throws {
 		let store = makeStore(with: makeDatabaseQueue())
 
-		store.createCheckin(makeCheckin(id: 1))
+		store.createCheckin(Checkin.mock(id: 1))
 
 		let tomorrowDate = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: 1, to: Date()))
 
@@ -370,7 +373,8 @@ class EventStoreTests: XCTestCase {
 			checkinStartDate: tomorrowDate,
 			checkinEndDate: tomorrowDate,
 			checkinCompleted: true,
-			createJournalEntry: false
+			createJournalEntry: false,
+			checkinSubmitted: true
 		)
 
 		let sinkExpectation = expectation(description: "Sink is called once.")
@@ -396,6 +400,7 @@ class EventStoreTests: XCTestCase {
 				XCTAssertEqual(Int(checkin.checkinEndDate.timeIntervalSince1970), Int(tomorrowDate.timeIntervalSince1970))
 				XCTAssertTrue(checkin.checkinCompleted)
 				XCTAssertFalse(checkin.createJournalEntry)
+				XCTAssertTrue(checkin.checkinSubmitted)
 
 				guard let traceLocationStartDate2 = checkin.traceLocationStartDate else {
 					XCTFail("Nil for traceLocationStartDate2 not expected.")
@@ -421,7 +426,7 @@ class EventStoreTests: XCTestCase {
 	func test_When_updateCheckinWithNilValues_Then_CheckinWasUpdated_And_PublisherWasUpdated() throws {
 		let store = makeStore(with: makeDatabaseQueue())
 
-		store.createCheckin(makeCheckin(id: 1))
+		store.createCheckin(Checkin.mock(id: 1))
 
 		let tomorrowDate = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: 1, to: Date()))
 
@@ -441,7 +446,8 @@ class EventStoreTests: XCTestCase {
 			checkinStartDate: tomorrowDate,
 			checkinEndDate: tomorrowDate,
 			checkinCompleted: false,
-			createJournalEntry: false
+			createJournalEntry: false,
+			checkinSubmitted: true
 		)
 
 		let sinkExpectation = expectation(description: "Sink is called once.")
@@ -463,6 +469,7 @@ class EventStoreTests: XCTestCase {
 				XCTAssertEqual(checkin.cnPublicKey, "Other".data(using: .utf8))
 				XCTAssertEqual(Int(checkin.checkinStartDate.timeIntervalSince1970), Int(tomorrowDate.timeIntervalSince1970))
 				XCTAssertFalse(checkin.createJournalEntry)
+				XCTAssertTrue(checkin.checkinSubmitted)
 
 				XCTAssertNil(checkin.traceLocationDefaultCheckInLengthInMinutes)
 				XCTAssertNil(checkin.traceLocationStartDate)
@@ -480,7 +487,7 @@ class EventStoreTests: XCTestCase {
 	func test_When_deleteCheckin_Then_CheckinWasDeleted_And_PublisherWasUpdated() {
 		let store = makeStore(with: makeDatabaseQueue())
 
-		let checkin = makeCheckin(id: 1)
+		let checkin = Checkin.mock(id: 1)
 		store.createCheckin(checkin)
 
 		let sinkExpectation = expectation(description: "Sink is called once.")
@@ -502,8 +509,8 @@ class EventStoreTests: XCTestCase {
 	func test_When_deleteAllCheckins_Then_AllCheckinsWereDeleted_And_PublisherWasUpdated() {
 		let store = makeStore(with: makeDatabaseQueue())
 
-		store.createCheckin(makeCheckin(id: 1))
-		store.createCheckin(makeCheckin(id: 2))
+		store.createCheckin(Checkin.mock(id: 1))
+		store.createCheckin(Checkin.mock(id: 2))
 
 		let sinkExpectation = expectation(description: "Sink is called once.")
 		sinkExpectation.expectedFulfillmentCount = 1
@@ -669,9 +676,9 @@ class EventStoreTests: XCTestCase {
 		}.store(in: &subscriptions)
 
 		// Create different checkins. Todays date checkins should survive.
-		store.createCheckin(makeCheckin(id: 1, checkinEndDate: dateOlderThenRetention))
-		store.createCheckin(makeCheckin(id: 2, checkinEndDate: today))
-		store.createCheckin(makeCheckin(id: 3, checkinEndDate: today))
+		store.createCheckin(Checkin.mock(id: 1, checkinEndDate: dateOlderThenRetention))
+		store.createCheckin(Checkin.mock(id: 2, checkinEndDate: today))
+		store.createCheckin(Checkin.mock(id: 3, checkinEndDate: today))
 
 		// At this point cleanup is called internally and old entries are removed.
 		let store2 = makeStore(with: databaseQueue)
@@ -770,7 +777,7 @@ class EventStoreTests: XCTestCase {
 
 		// Add data.
 
-		store.createCheckin(makeCheckin(id: 1))
+		store.createCheckin(Checkin.mock(id: 1))
 		store.createTraceLocation(makeTraceLocation(id: "1".data(using: .utf8) ?? Data()))
 		store.createTraceTimeIntervalMatch(makeTraceTimeIntervalMatch(id: 1))
 		store.createTraceWarningPackageMetadata(makeTraceWarningPackageMetadata(id: 1))
@@ -798,7 +805,7 @@ class EventStoreTests: XCTestCase {
 
 		// Add again some data an check if persistence is still working.
 
-		store.createCheckin(makeCheckin(id: 1))
+		store.createCheckin(Checkin.mock(id: 1))
 		store.createTraceLocation(makeTraceLocation(id: "1".data(using: .utf8) ?? Data()))
 		store.createTraceTimeIntervalMatch(makeTraceTimeIntervalMatch(id: 1))
 		store.createTraceWarningPackageMetadata(makeTraceWarningPackageMetadata(id: 1))
@@ -814,7 +821,7 @@ class EventStoreTests: XCTestCase {
 		let store = EventStore.make(url: tempDatabaseURL)
 
 		// Create some data and check if it was created.
-		store.createCheckin(makeCheckin(id: 1))
+		store.createCheckin(Checkin.mock(id: 1))
 		XCTAssertEqual(store.checkinsPublisher.value.count, 1)
 
 		// Close the store. So we can start the corruption.
@@ -834,7 +841,7 @@ class EventStoreTests: XCTestCase {
 		XCTAssertEqual(rescuedStore.checkinsPublisher.value.count, 0)
 
 		// Check if the rescued store is working.
-		rescuedStore.createCheckin(makeCheckin(id: 1))
+		rescuedStore.createCheckin(Checkin.mock(id: 1))
 		XCTAssertEqual(rescuedStore.checkinsPublisher.value.count, 1)
 	}
 
@@ -907,27 +914,6 @@ class EventStoreTests: XCTestCase {
 			defaultCheckInLengthInMinutes: 1,
 			cryptographicSeed: Data(),
 			cnPublicKey: Data()
-		)
-	}
-
-	private func makeCheckin(id: Int, checkinEndDate: Date = Date()) -> Checkin {
-		Checkin(
-			id: id,
-			traceLocationId: Data(),
-			traceLocationIdHash: Data(),
-			traceLocationVersion: 1,
-			traceLocationType: .locationTypePermanentOther,
-			traceLocationDescription: "Some description",
-			traceLocationAddress: "Some address",
-			traceLocationStartDate: Date(),
-			traceLocationEndDate: Date(),
-			traceLocationDefaultCheckInLengthInMinutes: 1,
-			cryptographicSeed: "Some".data(using: .utf8) ?? Data(),
-			cnPublicKey: "Some".data(using: .utf8) ?? Data(),
-			checkinStartDate: Date(),
-			checkinEndDate: checkinEndDate,
-			checkinCompleted: false,
-			createJournalEntry: true
 		)
 	}
 

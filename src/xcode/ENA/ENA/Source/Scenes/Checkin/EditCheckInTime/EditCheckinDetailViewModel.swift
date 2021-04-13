@@ -25,6 +25,7 @@ final class EditCheckinDetailViewModel {
 			.sink(receiveValue: { startDate in
 				self.startDate = startDate
 				self.checkInEndCellModel.minDate = startDate
+				self.checkInEndCellModel.maxDate = max(Calendar.current.date(byAdding: .hour, value: 24, to: startDate) ?? startDate, self.endDate)
 			})
 			.store(in: &subscriptions)
 
@@ -44,6 +45,7 @@ final class EditCheckinDetailViewModel {
 			.sink(receiveValue: { endDate in
 				self.endDate = endDate
 				self.checkInStartCellModel.maxDate = endDate
+				self.checkInStartCellModel.minDate = min(Calendar.current.date(byAdding: .hour, value: -24, to: endDate) ?? endDate, self.startDate)
 			})
 			.store(in: &subscriptions)
 
@@ -88,6 +90,7 @@ final class EditCheckinDetailViewModel {
 	lazy var checkInStartCellModel: CheckInTimeModel = {
 		CheckInTimeModel(
 			AppStrings.Checkins.Edit.checkedIn,
+			minDate: Calendar.current.date(byAdding: .hour, value: -24, to: checkIn.checkinEndDate) ?? checkIn.checkinEndDate,
 			maxDate: checkIn.checkinEndDate,
 			date: checkIn.checkinStartDate,
 			hasTopSeparator: false,
@@ -99,6 +102,7 @@ final class EditCheckinDetailViewModel {
 		CheckInTimeModel(
 			AppStrings.Checkins.Edit.checkedOut,
 			minDate: checkIn.checkinStartDate,
+			maxDate: Calendar.current.date(byAdding: .hour, value: 24, to: checkIn.checkinStartDate) ?? checkIn.checkinStartDate,
 			date: checkIn.checkinEndDate,
 			hasTopSeparator: true,
 			isPickerVisible: self.isEndDatePickerVisible
@@ -139,25 +143,12 @@ final class EditCheckinDetailViewModel {
 			Log.debug("nothing to save here")
 			return
 		}
-		let updateCheckIn = Checkin(
-			id: checkIn.id,
-			traceLocationId: checkIn.traceLocationId,
-			traceLocationIdHash: checkIn.traceLocationIdHash,
-			traceLocationVersion: checkIn.traceLocationVersion,
-			traceLocationType: checkIn.traceLocationType,
-			traceLocationDescription: checkIn.traceLocationDescription,
-			traceLocationAddress: checkIn.traceLocationAddress,
-			traceLocationStartDate: checkIn.traceLocationStartDate,
-			traceLocationEndDate: checkIn.traceLocationEndDate,
-			traceLocationDefaultCheckInLengthInMinutes: checkIn.traceLocationDefaultCheckInLengthInMinutes,
-			cryptographicSeed: checkIn.cryptographicSeed,
-			cnPublicKey: checkIn.cnPublicKey,
+
+		let updatedCheckin = checkIn.updatedCheckin(
 			checkinStartDate: startDate,
-			checkinEndDate: endDate,
-			checkinCompleted: checkIn.checkinCompleted,
-			createJournalEntry: checkIn.createJournalEntry
+			checkinEndDate: endDate
 		)
-		eventStore.updateCheckin(updateCheckIn)
+		eventStore.updateCheckin(updatedCheckin)
 	}
 
 	// MARK: - Private

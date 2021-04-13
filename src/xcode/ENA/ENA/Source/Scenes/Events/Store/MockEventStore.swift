@@ -199,7 +199,8 @@ private extension Checkin {
 			checkinStartDate: self.checkinStartDate,
 			checkinEndDate: self.checkinEndDate,
 			checkinCompleted: self.checkinCompleted,
-			createJournalEntry: self.createJournalEntry
+			createJournalEntry: self.createJournalEntry,
+			checkinSubmitted: self.checkinSubmitted
 		)
 	}
 
@@ -220,7 +221,8 @@ private extension Checkin {
 			checkinStartDate: checkin.checkinStartDate,
 			checkinEndDate: checkin.checkinEndDate,
 			checkinCompleted: checkin.checkinCompleted,
-			createJournalEntry: checkin.createJournalEntry
+			createJournalEntry: checkin.createJournalEntry,
+			checkinSubmitted: checkin.checkinSubmitted
 		)
 	}
 }
