@@ -118,6 +118,10 @@ enum AppStrings {
 			static let personBirthdayPrefix = NSLocalizedString("ExposureSubmissionResult_Person_Birthday_Prefix", comment: "")
 			static let registrationDate = NSLocalizedString("ExposureSubmissionResult_RegistrationDate_Antigen", comment: "")
 			static let registrationDateSuffix = NSLocalizedString("ExposureSubmissionResult_RegistrationDate_Suffix_Antigen", comment: "")
+			static let hoursAbbreviation = NSLocalizedString("ExposureSubmissionResult_Abbreviation_Hours", comment: "")
+			static let minutesAbbreviation = NSLocalizedString("ExposureSubmissionResult_Abbreviation_Minutes", comment: "")
+			static let secondsAbbreviation = NSLocalizedString("ExposureSubmissionResult_Abbreviation_Seconds", comment: "")
+			static let timerTitle = NSLocalizedString("ExposureSubmissionResult_Timer_Title", comment: "")
 		}
 				
 		static let card_title = NSLocalizedString("ExposureSubmissionResult_CardTitle", comment: "")

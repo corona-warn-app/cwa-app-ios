@@ -59,10 +59,6 @@ class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
 		super.traitCollectionDidChange(previousTraitCollection)
 		updateIllustration(for: traitCollection)
 	}
-	
-	override func prepareForReuse() {
-		super.prepareForReuse()
-	}
 
 	private func updateIllustration(for traitCollection: UITraitCollection) {
 		if traitCollection.preferredContentSizeCategory >= .extraExtraExtraLarge {
@@ -75,15 +71,13 @@ class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
 
 class AntigenExposureSubmissionNegativeTestResultHeaderView: DynamicTableViewHeaderFooterView {
 		
-	private var lineView: UIView!
-	private var imageView: UIImageView!
-	private var subtitleLabel: ENALabel!
-	private var resultTitleLabel: ENALabel!
-	private var personLabel: ENALabel!
-	private var dateLabel: ENALabel!
-	private var counterView: TestResultCounterView!
+	// MARK: - Init
 	
-	private var imageWidthConstraint: NSLayoutConstraint!
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+	
+	// MARK: - Overrides
 	
 	// swiftlint:disable:next function_body_length
 	override init(reuseIdentifier: String?) {
@@ -231,27 +225,21 @@ class AntigenExposureSubmissionNegativeTestResultHeaderView: DynamicTableViewHea
 		updateIllustration(for: traitCollection)
 	}
 	
-	required init?(coder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
-	}
-	
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 		super.traitCollectionDidChange(previousTraitCollection)
 		updateIllustration(for: traitCollection)
 	}
 	
-	private func updateIllustration(for traitCollection: UITraitCollection) {
-		if traitCollection.preferredContentSizeCategory >= .extraExtraExtraLarge {
-			imageWidthConstraint.constant = 0
-			imageView.isHidden = true
-		} else {
-			imageWidthConstraint.constant = 90
-			imageView.isHidden = false
-		}
+	
+	override func prepareForReuse() {
+		super.prepareForReuse()
+		counterView.beginDate = nil
 	}
+		
+	// MARK: - Internal
 	
 	func configure(coronaTest: AntigenTest, timeStamp: Int64?) {
-		
+		counterView.beginDate = coronaTest.pointOfCareConsentDate
 		lineView.backgroundColor = coronaTest.testResult.color
 		imageView.image = coronaTest.testResult.image
 		subtitleLabel.text = AppStrings.ExposureSubmissionResult.Antigen.card_subtitle
@@ -285,29 +273,158 @@ class AntigenExposureSubmissionNegativeTestResultHeaderView: DynamicTableViewHea
 			dateLabel.text = "\(AppStrings.ExposureSubmissionResult.registrationDateUnknown)"
 		}
 	}
+	
+	// MARK: - Private
+	
+	private var lineView: UIView!
+	private var imageView: UIImageView!
+	private var subtitleLabel: ENALabel!
+	private var resultTitleLabel: ENALabel!
+	private var personLabel: ENALabel!
+	private var dateLabel: ENALabel!
+	private var counterView: TestResultCounterView!
+	private var imageWidthConstraint: NSLayoutConstraint!
+	
+	private func updateIllustration(for traitCollection: UITraitCollection) {
+		if traitCollection.preferredContentSizeCategory >= .extraExtraExtraLarge {
+			imageWidthConstraint.constant = 0
+			imageView.isHidden = true
+		} else {
+			imageWidthConstraint.constant = 90
+			imageView.isHidden = false
+		}
+	}
 }
 
-class TestResultCounterView: UIView {
+class TestResultCounterView: UIView, CountdownTimerDelegate {
+	
+	// MARK: - Init
 	
 	convenience init() {
 		self.init(frame: .zero)
-	}
-	
-	override init(frame: CGRect) {
-		super.init(frame: frame)
-		// self
-		translatesAutoresizingMaskIntoConstraints = false
 	}
 	
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
 	
+	
+	// MARK: - Overrides
+	
+	override init(frame: CGRect) {
+		super.init(frame: frame)
+		
+		translatesAutoresizingMaskIntoConstraints = false
+
+		let titleLabel = ENALabel()
+		titleLabel.style = .footnote
+		titleLabel.textColor = .enaColor(for: .textPrimary1)
+		titleLabel.numberOfLines = 0
+		titleLabel.textAlignment = .center
+		titleLabel.adjustsFontSizeToFitWidth = true
+		titleLabel.text = AppStrings.ExposureSubmissionResult.Antigen.timerTitle
+		titleLabel.translatesAutoresizingMaskIntoConstraints = false
+		addSubview(titleLabel)
+		
+		let timeLabelFont = UIFont.systemFont(ofSize: 34, weight: .bold)
+		let timeLabelSize = ("00" as NSString).size(withAttributes: [.font: timeLabelFont])
+		
+		timeLabel = ENALabel()
+		timeLabel.font = timeLabelFont
+		timeLabel.textColor = .enaColor(for: .textPrimary1)
+		timeLabel.numberOfLines = 1
+		timeLabel.textAlignment = .center
+		timeLabel.adjustsFontSizeToFitWidth = true
+		timeLabel.translatesAutoresizingMaskIntoConstraints = false
+		addSubview(timeLabel)
+		
+		let hourLabel = ENALabel()
+		hourLabel.style = .footnote
+		hourLabel.textColor = .enaColor(for: .textPrimary2)
+		hourLabel.numberOfLines = 1
+		hourLabel.textAlignment = .center
+		hourLabel.adjustsFontSizeToFitWidth = true
+		hourLabel.text = AppStrings.ExposureSubmissionResult.Antigen.hoursAbbreviation
+		hourLabel.translatesAutoresizingMaskIntoConstraints = false
+		addSubview(hourLabel)
+		
+		let minLabel = ENALabel()
+		minLabel.style = .footnote
+		minLabel.textColor = .enaColor(for: .textPrimary2)
+		minLabel.numberOfLines = 1
+		minLabel.textAlignment = .center
+		minLabel.adjustsFontSizeToFitWidth = true
+		minLabel.text = AppStrings.ExposureSubmissionResult.Antigen.minutesAbbreviation
+		minLabel.translatesAutoresizingMaskIntoConstraints = false
+		addSubview(minLabel)
+		
+		let secLabel = ENALabel()
+		secLabel.style = .footnote
+		secLabel.textColor = .enaColor(for: .textPrimary2)
+		secLabel.numberOfLines = 1
+		secLabel.textAlignment = .center
+		secLabel.adjustsFontSizeToFitWidth = true
+		secLabel.text = AppStrings.ExposureSubmissionResult.Antigen.secondsAbbreviation
+		secLabel.translatesAutoresizingMaskIntoConstraints = false
+		addSubview(secLabel)
+		
+		NSLayoutConstraint.activate([
+			// titleLabel
+			titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
+			titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
+			titleLabel.topAnchor.constraint(equalTo: topAnchor),
+			titleLabel.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor),
+			// timeLabel
+			timeLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
+			timeLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
+			timeLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4),
+			timeLabel.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor),
+			timeLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+			// hourLabel
+			hourLabel.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 2),
+			hourLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
+			hourLabel.centerXAnchor.constraint(equalTo: centerXAnchor, constant: -timeLabelSize.width),
+			// minLabel
+			minLabel.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 2),
+			minLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
+			minLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+			minLabel.widthAnchor.constraint(equalToConstant: timeLabelSize.width),
+			// secLabel
+			secLabel.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 2),
+			secLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
+			secLabel.centerXAnchor.constraint(equalTo: centerXAnchor, constant: timeLabelSize.width)
+		])
+	}
+	
+	// MARK: - Protocol CountdownTimerDelegate
+	
+	func countdownTimer(_ timer: CountdownTimer, didUpdate time: String) {
+		timeLabel.text = time
+	}
+	
+	func countdownTimer(_ timer: CountdownTimer, didEnd done: Bool) {
+		timeLabel.text = nil
+	}
+		
+	// MARK: - Internal
+	
 	var beginDate: Date? {
 		didSet {
-			
+			// cleanup
+			countdownTimer?.invalidate()
+			// setup
+			if let date = beginDate {
+				countdownTimer = CountdownTimer(countUpFrom: date)
+				countdownTimer?.delegate = self
+				countdownTimer?.start()
+			}
 		}
 	}
+	
+	// MARK: - Private
+	
+	private var countdownTimer: CountdownTimer?
+	private var timeLabel: ENALabel!
 }
 
 private extension TestResult {

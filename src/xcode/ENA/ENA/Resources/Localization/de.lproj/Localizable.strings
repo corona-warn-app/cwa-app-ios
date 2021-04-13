@@ -844,6 +844,14 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_Person_Birthday_Prefix" = "geb.";
 
+"ExposureSubmissionResult_Abbreviation_Hours" = "Std";
+
+"ExposureSubmissionResult_Abbreviation_Minutes" = "Min";
+
+"ExposureSubmissionResult_Abbreviation_Seconds" = "Sek";
+
+"ExposureSubmissionResult_Timer_Title" = "Ergebnis liegt vor seit";
+
 /* Exposure Submission */
 
 "ExposureSubmissionError_ErrorPrefix" = "Es ist einen technischer Fehler bei der Übertragung Ihrer Daten aufgetreten. Wenden Sie sich bitte an die technische Hotline. Die Nummer finden Sie unter App-Informationen.";

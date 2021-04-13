@@ -133,8 +133,10 @@ class ExposureSubmissionTestResultViewModel {
 	
 	private var pendingTestResultSections: [DynamicSection] {
 		
-		var cells = [DynamicCell.title2(text: AppStrings.ExposureSubmissionResult.procedure,
-										accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure)]
+		var cells = [DynamicCell.title2(
+						text: AppStrings.ExposureSubmissionResult.procedure,
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure
+		)]
 		
 		switch coronaTest.type {
 		case .pcr:
