@@ -4,7 +4,6 @@
 
 import XCTest
 
-// swiftlint:disable file_length
 // swiftlint:disable:next type_body_length
 class ENAUITests_10_TraceLocations: XCTestCase {
 	
@@ -440,7 +439,7 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 		createTraceLocation(event: event, location: traceLocations_checked_in[event] ?? "")
 		XCTAssertTrue(app.staticTexts[event].waitForExistence(timeout: .short))
 		// check in
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.TraceLocation.Configuration.eventTableViewCellButton].exists)
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.TraceLocation.Configuration.eventTableViewCellButton].waitForExistence(timeout: .short))
 		app.buttons[AccessibilityIdentifiers.TraceLocation.Configuration.eventTableViewCellButton].tap()
 		app.buttons[AccessibilityIdentifiers.TraceLocation.Details.checkInButton].tap()
 	}
@@ -451,7 +450,7 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 		
 		let initialNumberOfCells = app.cells.count
 		
-		// iterate over all event cells and search for the checkout button
+		// iterate over all event cells and count the checkout buttons
 		let query = app.cells.buttons
 		let n = query.count
 		XCTAssertTrue(n > 1)
