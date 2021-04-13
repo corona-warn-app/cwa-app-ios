@@ -4,9 +4,9 @@
 
 "ExposureSubmissionWarnOthers_acknowledgementBody" = "By tapping on “Accept”, you consent to the following steps:";
 
-"ExposureSubmissionWarnOthers_acknowledgement_1_1" = "The app will share your test result in order to warn other users of official coronavirus apps whom you have encountered. The warning will work in the countries mentioned above. If you provide additional information about the onset of your symptoms, this will also be shared.";
+"ExposureSubmissionWarnOthers_acknowledgement_1_1" = "The app will share your test result in order to warn users whom you have encountered. This applies to users of coronavirus apps from the above countries and users who were simultaneously checked in at the same event or place as you. In the case of rapid tests, only users of the Corona-Warn-App will be warned. If you provide additional information about the onset of symptoms, this will be also shared.";
 
-"ExposureSubmissionWarnOthers_acknowledgement_1_2" = "In the next step, please share your test result (or more precisely: your random IDs from the last 14 days) by tapping on “Share”.";
+"ExposureSubmissionWarnOthers_acknowledgement_1_2" = "In the next step, grant your consent to access random IDs.";
 
 "ExposureSubmissionWarnOthers_acknowledgement_footer" = "If you have already warned other users, you can withdraw your consent by deleting the app.";
 
@@ -33,7 +33,7 @@
 
 "ExposureSubmissionQRInfo_acknowledgement_legal_Bullet1_2" = "If you change your mind later, you can delete the test in the app.";
 
-"ExposureSubmissionQRInfo_acknowledgement_legal_Bullet2" = "If you have tested positive for coronavirus, the app will share your test result in order to warn other users whom you have encountered. This applies to users of coronavirus apps from the above countries and users who were simultaneously checked in at the same event or place as you.";
+"ExposureSubmissionQRInfo_acknowledgement_legal_Bullet2" = "If you have tested positive for coronavirus, the app will share your test result in order to warn other users whom you have encountered. This applies to users of coronavirus apps from the above countries and users who were simultaneously checked in at the same event or place as you. In the case of rapid tests, only users of the Corona-Warn-App will be warned.";
 
 "ExposureSubmissionQRInfo_acknowledgement_legal_Bullet3" = "If you provide additional information about the onset of your symptoms, this will also be shared.";
 

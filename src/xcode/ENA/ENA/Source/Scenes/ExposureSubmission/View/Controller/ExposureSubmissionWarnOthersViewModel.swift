@@ -55,11 +55,6 @@ struct ExposureSubmissionWarnOthersViewModel {
 						text: AppStrings.ExposureSubmissionWarnOthers.description,
 						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnOthers.description
 					),
-					.space(height: 12),
-					.body(
-						text: AppStrings.ExposureSubmissionWarnOthers.supportedCountriesTitle,
-						accessibilityIdentifier: nil
-					),
 					.space(height: 12)
 				]
 			)
