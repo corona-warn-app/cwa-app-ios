@@ -6,6 +6,7 @@
 import ExposureNotification
 import XCTest
 
+// swiftlint:disable:next type_body_length
 class CoronaTestServiceTests: XCTestCase {
 
 	// MARK: - Test Result
@@ -306,7 +307,7 @@ class CoronaTestServiceTests: XCTestCase {
 		)
 	}
 
-	func test_When_UpateTestResultsWithPresentNotification_Then_NotificationShouldBePresented() {
+	func test_When_UpatePresentNotificationTrue_Then_NotificationShouldBePresented() {
 		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		client.onGetTestResult = { _, _, completion in
@@ -328,6 +329,30 @@ class CoronaTestServiceTests: XCTestCase {
 		waitForExpectations(timeout: .short)
 
 		XCTAssertEqual(mockNotificationCenter.notificationRequests.count, 2)
+	}
+
+	func test_When_UpatePresentNotificationFalse_Then_NotificationShouldNOTBePresented() {
+		let mockNotificationCenter = MockUserNotificationCenter()
+		let client = ClientMock()
+		client.onGetTestResult = { _, _, completion in
+			completion(.success(TestResult.positive.rawValue))
+		}
+
+		let testService = CoronaTestService(
+			client: client,
+			store: MockTestStore(),
+			notificationCenter: mockNotificationCenter
+		)
+		testService.antigenTest = AntigenTest.mock(registrationToken: "regToken")
+		testService.pcrTest = PCRTest.mock(registrationToken: "regToken")
+
+		let completionExpectation = expectation(description: "Completion should be called.")
+		testService.updateTestResults(presentNotification: false) { _ in
+			completionExpectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
+
+		XCTAssertEqual(mockNotificationCenter.notificationRequests.count, 0)
 	}
 
 	func test_When_UpateTestResultsFails_Then_ErrorIsReturned() {
