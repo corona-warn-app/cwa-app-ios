@@ -8,15 +8,9 @@ import XCTest
 
 class CountdownTimerTests: XCTestCase {
 
-	private var countdownTimerTarget: CountdownTimerTarget!
-
-	override func setUp() {
-		super.setUp()
-		countdownTimerTarget = CountdownTimerTarget()
-	}
-
 	func test_callsDone() {
 		let end = Date().addingTimeInterval(1)
+		let countdownTimerTarget = CountdownTimerTarget()
 		let c = CountdownTimer(countdownTo: end)
 		c.delegate = countdownTimerTarget
 
@@ -32,6 +26,7 @@ class CountdownTimerTests: XCTestCase {
 
 	func test_callsDoneWhenEndInPast() {
 		let end = Date.distantPast
+		let countdownTimerTarget = CountdownTimerTarget()
 		let c = CountdownTimer(countdownTo: end)
 		c.delegate = countdownTimerTarget
 
@@ -46,6 +41,7 @@ class CountdownTimerTests: XCTestCase {
 
 	func test_countsDown() {
 		let end = Date().addingTimeInterval(3.0)
+		let countdownTimerTarget = CountdownTimerTarget()
 		let c = CountdownTimer(countdownTo: end)
 		c.delegate = countdownTimerTarget
 
@@ -68,6 +64,7 @@ class CountdownTimerTests: XCTestCase {
 	func test_countUp() {
 		let start = Date().addingTimeInterval(-4.0)
 				
+		let countdownTimerTarget = CountdownTimerTarget()
 		let c = CountdownTimer(countUpFrom: start)
 		c.delegate = countdownTimerTarget
 		
