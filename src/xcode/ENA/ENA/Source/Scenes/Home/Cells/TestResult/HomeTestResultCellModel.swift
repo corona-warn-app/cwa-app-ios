@@ -70,7 +70,7 @@ class HomeTestResultCellModel {
 	@OpenCombine.Published var subtitle: String?
 	@OpenCombine.Published var description: String! = ""
 	@OpenCombine.Published var buttonTitle: String! = ""
-	@OpenCombine.Published var image: UIImage? = nil
+	@OpenCombine.Published var image: UIImage?
 	@OpenCombine.Published var tintColor: UIColor = .enaColor(for: .textPrimary1)
 	@OpenCombine.Published var isActivityIndicatorHidden: Bool = false
 	@OpenCombine.Published var isUserInteractionEnabled: Bool = false
