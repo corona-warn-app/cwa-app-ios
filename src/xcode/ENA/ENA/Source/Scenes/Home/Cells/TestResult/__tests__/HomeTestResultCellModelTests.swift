@@ -56,7 +56,7 @@ class HomeTestResultCellModelTests: XCTestCase {
 	let imagesArray = [
 		UIImage(named: "Illu_Hand_with_phone-initial"),
 		UIImage(named: "Illu_Hand_with_phone-initial"),
-		UIImage(named: "Illu_Hand_with_phone-negativ"),
+		UIImage(named: "Illu_Home_NegativesTestErgebnis"),
 		UIImage(named: "Illu_Hand_with_phone-error"),
 		UIImage(named: "Illu_Hand_with_phone-pending"),
 		UIImage(named: "Illu_Hand_with_phone-error"),

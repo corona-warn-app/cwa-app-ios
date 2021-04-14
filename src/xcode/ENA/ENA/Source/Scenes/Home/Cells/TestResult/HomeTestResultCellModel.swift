@@ -73,9 +73,11 @@ class HomeTestResultCellModel {
 	@OpenCombine.Published var title: String! = ""
 	@OpenCombine.Published var subtitle: String?
 	@OpenCombine.Published var description: String! = ""
+	@OpenCombine.Published var footnote: String?
 	@OpenCombine.Published var buttonTitle: String! = ""
 	@OpenCombine.Published var image: UIImage?
 	@OpenCombine.Published var tintColor: UIColor = .enaColor(for: .textPrimary1)
+	@OpenCombine.Published var isNegativeDiagnosisHidden: Bool = true
 	@OpenCombine.Published var isActivityIndicatorHidden: Bool = false
 	@OpenCombine.Published var isUserInteractionEnabled: Bool = false
 	@OpenCombine.Published var accessibilityIdentifier: String! = AccessibilityIdentifiers.Home.submitCardButton
@@ -118,20 +120,40 @@ class HomeTestResultCellModel {
 	private func configureLoading() {
 		subtitle = AppStrings.Home.TestResult.Loading.title
 		description = AppStrings.Home.TestResult.Loading.description
+		footnote = nil
 		buttonTitle = AppStrings.Home.TestResult.Button.showResult
 		image = UIImage(named: "Illu_Hand_with_phone-initial")
 		tintColor = .enaColor(for: .textPrimary1)
+		isNegativeDiagnosisHidden = true
 		isActivityIndicatorHidden = false
 		isUserInteractionEnabled = false
 		accessibilityIdentifier = AccessibilityIdentifiers.Home.submitCardButton
 	}
 
 	private func configureTestResultNegative() {
-		subtitle = AppStrings.Home.TestResult.Negative.title
+		subtitle = nil
 		description = AppStrings.Home.TestResult.Negative.description
+
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateStyle = .short
+		dateFormatter.timeStyle = .none
+
+		let dateTemplate: String
+		switch coronaTestType {
+		case .pcr:
+			dateTemplate = AppStrings.Home.TestResult.Negative.datePCR
+		case .antigen:
+			dateTemplate = AppStrings.Home.TestResult.Negative.dateAntigen
+		}
+
+		let testDate = coronaTestService.coronaTest(ofType: coronaTestType)?.testDate
+		let formattedTestDate = testDate.map { dateFormatter.string(from: $0) }
+		footnote = formattedTestDate.map { String(format: dateTemplate, $0) }
+
 		buttonTitle = AppStrings.Home.TestResult.Button.showResult
-		image = UIImage(named: "Illu_Hand_with_phone-negativ")
+		image = UIImage(named: "Illu_Home_NegativesTestErgebnis")
 		tintColor = .enaColor(for: .textSemanticGreen)
+		isNegativeDiagnosisHidden = false
 		isActivityIndicatorHidden = true
 		isUserInteractionEnabled = true
 		accessibilityIdentifier = AccessibilityIdentifiers.Home.submitCardButton
@@ -140,9 +162,11 @@ class HomeTestResultCellModel {
 	private func configureTestResultInvalid() {
 		subtitle = AppStrings.Home.TestResult.Invalid.title
 		description = AppStrings.Home.TestResult.Invalid.description
+		footnote = nil
 		buttonTitle = AppStrings.Home.TestResult.Button.showResult
 		image = UIImage(named: "Illu_Hand_with_phone-error")
 		tintColor = .enaColor(for: .textSemanticGray)
+		isNegativeDiagnosisHidden = true
 		isActivityIndicatorHidden = true
 		isUserInteractionEnabled = true
 		accessibilityIdentifier = AccessibilityIdentifiers.Home.submitCardButton
@@ -158,9 +182,11 @@ class HomeTestResultCellModel {
 			description = AppStrings.Home.TestResult.Pending.antigenDescription
 		}
 
+		footnote = nil
 		buttonTitle = AppStrings.Home.TestResult.Button.showResult
 		image = UIImage(named: "Illu_Hand_with_phone-pending")
 		tintColor = .enaColor(for: .textPrimary2)
+		isNegativeDiagnosisHidden = true
 		isActivityIndicatorHidden = true
 		isUserInteractionEnabled = true
 		accessibilityIdentifier = AccessibilityIdentifiers.Home.submitCardButton
@@ -169,9 +195,11 @@ class HomeTestResultCellModel {
 	private func configureTestResultAvailable() {
 		subtitle = AppStrings.Home.TestResult.Available.title
 		description = AppStrings.Home.TestResult.Available.description
+		footnote = nil
 		buttonTitle = AppStrings.Home.TestResult.Button.showResult
 		image = UIImage(named: "Illu_Hand_with_phone-error")
 		tintColor = .enaColor(for: .textSemanticGray)
+		isNegativeDiagnosisHidden = true
 		isActivityIndicatorHidden = true
 		isUserInteractionEnabled = true
 		accessibilityIdentifier = AccessibilityIdentifiers.Home.submitCardButton
@@ -180,9 +208,11 @@ class HomeTestResultCellModel {
 	private func configureTestResultExpired() {
 		subtitle = AppStrings.Home.TestResult.Expired.title
 		description = AppStrings.Home.TestResult.Expired.description
+		footnote = nil
 		buttonTitle = AppStrings.Home.TestResult.Button.showResult
 		image = UIImage(named: "Illu_Hand_with_phone-pending")
 		tintColor = .enaColor(for: .textPrimary2)
+		isNegativeDiagnosisHidden = true
 		isActivityIndicatorHidden = true
 		isUserInteractionEnabled = true
 		accessibilityIdentifier = AccessibilityIdentifiers.Home.submitCardButton
@@ -191,9 +221,11 @@ class HomeTestResultCellModel {
 	private func configureTestResultOutdated() {
 		subtitle = AppStrings.Home.TestResult.Expired.title
 		description = AppStrings.Home.TestResult.Expired.description
+		footnote = nil
 		buttonTitle = AppStrings.Home.TestResult.Button.showResult
 		image = UIImage(named: "Illu_Hand_with_phone-pending")
 		tintColor = .enaColor(for: .textPrimary2)
+		isNegativeDiagnosisHidden = true
 		isActivityIndicatorHidden = true
 		isUserInteractionEnabled = true
 		accessibilityIdentifier = AccessibilityIdentifiers.Home.submitCardButton

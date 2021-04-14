@@ -53,6 +53,14 @@ final class HomeTestResultTableViewCell: UITableViewCell {
 			.store(in: &subscriptions)
 
 		cellModel.$description.assign(to: \.text, on: descriptionLabel).store(in: &subscriptions)
+
+		cellModel.$footnote
+			.sink { [weak self] in
+				self?.footnoteLabel.text = $0
+				self?.footnoteLabel.isHidden = (nil == $0)
+			}
+			.store(in: &subscriptions)
+
 		cellModel.$image.assign(to: \.image, on: illustrationView).store(in: &subscriptions)
 
 		cellModel.$buttonTitle
@@ -62,6 +70,10 @@ final class HomeTestResultTableViewCell: UITableViewCell {
 			.store(in: &subscriptions)
 
 		cellModel.$tintColor.assign(to: \.tintColor, on: self).store(in: &subscriptions)
+
+		cellModel.$isNegativeDiagnosisHidden
+			.assign(to: \.isHidden, on: negativeDiagnosisStackView)
+			.store(in: &subscriptions)
 
 		cellModel.$isActivityIndicatorHidden.assign(to: \.isHidden, on: activityIndicator).store(in: &subscriptions)
 		cellModel.$isActivityIndicatorHidden.map({ !$0 }).assign(to: \.isHidden, on: illustrationView).store(in: &subscriptions)
@@ -82,9 +94,18 @@ final class HomeTestResultTableViewCell: UITableViewCell {
 	@IBOutlet private weak var cardView: HomeCardView!
 	@IBOutlet private weak var titleLabel: ENALabel!
 	@IBOutlet private weak var subtitleLabel: ENALabel!
+
+	@IBOutlet private weak var negativeDiagnosisStackView: UIStackView!
+	@IBOutlet private weak var negativeDiagnosisCaptionLabel: ENALabel!
+	@IBOutlet private weak var negativeDiagnosisVirusLabel: ENALabel!
+	@IBOutlet private weak var negativeDiagnosisLabel: ENALabel!
+
 	@IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
-	@IBOutlet private weak var descriptionLabel: ENALabel!
 	@IBOutlet private weak var illustrationView: UIImageView!
+
+	@IBOutlet private weak var descriptionLabel: ENALabel!
+	@IBOutlet private weak var footnoteLabel: ENALabel!
+
 	@IBOutlet private weak var button: ENAButton!
 
 	private var subscriptions = Set<AnyCancellable>()
@@ -95,6 +116,10 @@ final class HomeTestResultTableViewCell: UITableViewCell {
 	private func setup() {
 		subtitleLabel.textColor = tintColor
 		updateIllustration(for: traitCollection)
+
+		negativeDiagnosisCaptionLabel.text = AppStrings.Home.TestResult.Negative.caption
+		negativeDiagnosisVirusLabel.text = AppStrings.Home.TestResult.Negative.title
+		negativeDiagnosisLabel.text = AppStrings.Home.TestResult.Negative.titleNegative
 
 		setupAccessibility()
 	}
