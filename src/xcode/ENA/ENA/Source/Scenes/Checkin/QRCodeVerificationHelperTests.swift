@@ -113,7 +113,7 @@ class QRCodeVerificationHelperTests: XCTestCase {
 		waitForExpectations(timeout: .short)
 	}
 
-	func testValidPayload_InvalidDescription() {
+	func testValidPayload_InvalidDescription_EmptyString() {
 		let traceLocation = TraceLocation.mock(
 			description: "",
 			address: "Test",
@@ -133,7 +133,7 @@ class QRCodeVerificationHelperTests: XCTestCase {
 		waitForExpectations(timeout: .short)
 	}
 	
-	func testValidPayload_InvalidAddress() {
+	func testValidPayload_InvalidAddress_EmptyString() {
 		let traceLocation = TraceLocation.mock(
 			description: "Test",
 			address: "",
@@ -146,7 +146,87 @@ class QRCodeVerificationHelperTests: XCTestCase {
 			traceLocation: traceLocation,
 			onSuccess: { _ in },
 			onError: { error in
-				XCTAssertEqual(error, .invalidAddress, "TraceLocation description cannot be empty!")
+				XCTAssertEqual(error, .invalidAddress, "TraceLocation address cannot be empty!")
+				onErrorExpectation.fulfill()
+			}
+		)
+		waitForExpectations(timeout: .short)
+	}
+	
+	func testValidPayload_InvalidDescription_Over100() {
+		let traceLocation = TraceLocation.mock(
+			description: "1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890x",
+			address: "Test",
+			cryptographicSeed: cryptographicSeed()
+			)
+		let onErrorExpectation = expectation(description: "onError called")
+
+		let qrCodeVerificationHelper = QRCodeVerificationHelper()
+		qrCodeVerificationHelper.validateTraceLocationInformation(
+			traceLocation: traceLocation,
+			onSuccess: { _ in },
+			onError: { error in
+				XCTAssertEqual(error, .invalidDescription, "TraceLocation description cannot be > 100 characters!")
+				onErrorExpectation.fulfill()
+			}
+		)
+		waitForExpectations(timeout: .short)
+	}
+	
+	func testValidPayload_InvalidAddress_Over100() {
+		let traceLocation = TraceLocation.mock(
+			description: "Test",
+			address: "1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890x",
+			cryptographicSeed: cryptographicSeed()
+			)
+		let onErrorExpectation = expectation(description: "onError called")
+
+		let qrCodeVerificationHelper = QRCodeVerificationHelper()
+		qrCodeVerificationHelper.validateTraceLocationInformation(
+			traceLocation: traceLocation,
+			onSuccess: { _ in },
+			onError: { error in
+				XCTAssertEqual(error, .invalidAddress, "TraceLocation address cannot be > 100 characters!")
+				onErrorExpectation.fulfill()
+			}
+		)
+		waitForExpectations(timeout: .short)
+	}
+	
+	func testValidPayload_InvalidDescription_LineBreaks() {
+		let traceLocation = TraceLocation.mock(
+			description: "My name is\n Bond",
+			address: "Test",
+			cryptographicSeed: cryptographicSeed()
+			)
+		let onErrorExpectation = expectation(description: "onError called")
+
+		let qrCodeVerificationHelper = QRCodeVerificationHelper()
+		qrCodeVerificationHelper.validateTraceLocationInformation(
+			traceLocation: traceLocation,
+			onSuccess: { _ in },
+			onError: { error in
+				XCTAssertEqual(error, .invalidDescription, "TraceLocation description cannot have LineBreaks!")
+				onErrorExpectation.fulfill()
+			}
+		)
+		waitForExpectations(timeout: .short)
+	}
+	
+	func testValidPayload_InvalidAddress_LineBreaks() {
+		let traceLocation = TraceLocation.mock(
+			description: "Test",
+			address: "James\rBond",
+			cryptographicSeed: cryptographicSeed()
+			)
+		let onErrorExpectation = expectation(description: "onError called")
+
+		let qrCodeVerificationHelper = QRCodeVerificationHelper()
+		qrCodeVerificationHelper.validateTraceLocationInformation(
+			traceLocation: traceLocation,
+			onSuccess: { _ in },
+			onError: { error in
+				XCTAssertEqual(error, .invalidAddress, "TraceLocation address cannot have LineBreaks!")
 				onErrorExpectation.fulfill()
 			}
 		)
@@ -166,13 +246,37 @@ class QRCodeVerificationHelperTests: XCTestCase {
 			traceLocation: traceLocation,
 			onSuccess: { _ in },
 			onError: { error in
-				XCTAssertEqual(error, .invalidCryptoSeed, "TraceLocation description cannot be empty!")
+				XCTAssertEqual(error, .invalidCryptoSeed, "cryptographicSeed must be 16 bytes!")
 				onErrorExpectation.fulfill()
 			}
 		)
 		waitForExpectations(timeout: .short)
 	}
 
+	func testValidPayload_InvalidTimeStamps() {
+		let now = Date()
+		let oneHourAgo = Calendar.utcCalendar.date(byAdding: .hour, value: -1, to: now)
+		let traceLocation = TraceLocation.mock(
+			description: "Test",
+			address: "Test",
+			startDate: now,
+			endDate: oneHourAgo,
+			cryptographicSeed: cryptographicSeed(count: 16)
+		)
+		let onErrorExpectation = expectation(description: "onError called")
+
+		let qrCodeVerificationHelper = QRCodeVerificationHelper()
+		qrCodeVerificationHelper.validateTraceLocationInformation(
+			traceLocation: traceLocation,
+			onSuccess: { _ in },
+			onError: { error in
+				XCTAssertEqual(error, .invalidTimeStamps, "startTimeStamp must be less than endTimeStamp or both should be 0")
+				onErrorExpectation.fulfill()
+			}
+		)
+		waitForExpectations(timeout: .short)
+	}
+	
 	private func cryptographicSeed(count: Int = 16) -> Data {
 		var bytes = [UInt8](repeating: 0, count: count)
 		let result = SecRandomCopyBytes(kSecRandomDefault, bytes.count, &bytes)
@@ -180,7 +284,6 @@ class QRCodeVerificationHelperTests: XCTestCase {
 			Log.error("Error creating random bytes.", log: .traceLocation)
 			return Data()
 		}
-
 		return Data(bytes)
 	}
 }

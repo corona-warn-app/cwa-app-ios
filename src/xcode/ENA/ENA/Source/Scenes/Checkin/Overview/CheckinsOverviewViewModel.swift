@@ -125,6 +125,10 @@ class CheckinsOverviewViewModel {
 
 	private func update(from checkins: [Checkin]) {
 		if checkins.map({ $0.id }) != checkinCellModels.map({ $0.checkin.id }) {
+			checkinCellModels.forEach {
+				$0.invalidateTimer()
+			}
+
 			checkinCellModels = checkins.map { checkin in
 				CheckinCellModel(
 					checkin: checkin,
