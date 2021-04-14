@@ -504,7 +504,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 /* Exposure Submission Dispatch */
 
-"ExposureSubmission_DispatchTitle" = "Testergebnis abrufen";
+"ExposureSubmission_DispatchTitle" = "Test registrieren";
 
 "ExposureSubmissionIntroduction_AccImageDescription" = "Ein Smartphone übermittelt einen positiven Testbefund verschlüsselt ins System.";
 
@@ -512,11 +512,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_DispatchSectionHeadline" = "Sie haben sich bereits testen lassen?";
 
-"ExposureSubmission_DispatchSectionHeadline2" = "Ihr Test ist positiv?";
+"ExposureSubmission_DispatchSectionHeadline2" = "Ihr PCR-Test ist positiv?";
 
-"ExposureSubmissionDispatch_QRCodeButtonTitle" = "Test mit QR-Code";
+"ExposureSubmissionDispatch_QRCodeButtonTitle" = "QR-Code scannen";
 
-"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Registrieren Sie Ihren Test, indem Sie den QR-Code Ihres Testdokuments scannen.";
+"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Erhalten Sie Ihr Testergebnis in der App und warnen Sie andere.";
 
 "ExposureSubmissionDispatch_TANButtonTitle" = "TAN-Eingabe";
 
