@@ -14,6 +14,7 @@ enum PPAnalyticsCollector {
 	/// Setup Analytics for regular use. We expect here a secure store.
 	static func setup(
 		store: Store,
+		coronaTestService: CoronaTestService,
 		submitter: PPAnalyticsSubmitter
 	) {
 		// Make sure the secure store now also implements the PPAnalyticsData protocol with the properties defined there (the analytics data proporties).
@@ -22,12 +23,12 @@ enum PPAnalyticsCollector {
 			fatalError("I will never submit any analytics data. Could not cast to correct store protocol")
 		}
 		PPAnalyticsCollector.store = store
+		PPAnalyticsCollector.coronaTestService = coronaTestService
 		PPAnalyticsCollector.submitter = submitter
 	}
 
 	/// The main purpose for the collector. Call this method to log some analytics data and pass the corresponding enums.
 	static func collect(_ dataType: PPADataType) {
-
 		// Make sure the user consent is given. If not, we must not log something.
 		guard let consent = store?.isPrivacyPreservingAnalyticsConsentGiven,
 			  consent == true else {
@@ -41,8 +42,6 @@ enum PPAnalyticsCollector {
 			Analytics.logUserMetadata(userMetadata)
 		case let .riskExposureMetadata(riskExposureMetadata):
 			Analytics.logRiskExposureMetadata(riskExposureMetadata)
-		case let .clientMetadata(clientMetadata):
-			Analytics.logClientMetadata(clientMetadata)
 		case let .testResultMetadata(TestResultMetadata):
 			Analytics.logTestResultMetadata(TestResultMetadata)
 		case let .keySubmissionMetadata(keySubmissionMetadata):
@@ -99,7 +98,7 @@ enum PPAnalyticsCollector {
 
 	// The real store property.
 	private static var _store: (Store & PPAnalyticsData)?
-
+	private static var coronaTestService: CoronaTestService?
 	private static var submitter: PPAnalyticsSubmitter?
 
 	// MARK: - UserMetada
@@ -122,8 +121,8 @@ enum PPAnalyticsCollector {
 		}
 	}
 
-	private static func updateRiskExposureMetadata(_ riskCalculationResult: RiskCalculationResult) {
-		let riskLevel = riskCalculationResult.riskLevel
+	private static func updateRiskExposureMetadata(_ enfRiskCalculationResult: ENFRiskCalculationResult) {
+		let riskLevel = enfRiskCalculationResult.riskLevel
 		let riskLevelChangedComparedToPreviousSubmission: Bool
 		let dateChangedComparedToPreviousSubmission: Bool
 
@@ -144,7 +143,7 @@ enum PPAnalyticsCollector {
 
 		// if there is most recent date store for previous submission
 		if store?.previousRiskExposureMetadata?.mostRecentDateAtRiskLevel != nil {
-			if riskCalculationResult.mostRecentDateWithCurrentRiskLevel !=
+			if enfRiskCalculationResult.mostRecentDateWithCurrentRiskLevel !=
 				store?.previousRiskExposureMetadata?.mostRecentDateAtRiskLevel {
 				// if there is a change in date
 				dateChangedComparedToPreviousSubmission = true
@@ -157,7 +156,7 @@ enum PPAnalyticsCollector {
 			dateChangedComparedToPreviousSubmission = false
 		}
 
-		guard let mostRecentDateWithCurrentRiskLevel = riskCalculationResult.mostRecentDateWithCurrentRiskLevel else {
+		guard let mostRecentDateWithCurrentRiskLevel = enfRiskCalculationResult.mostRecentDateWithCurrentRiskLevel else {
 			// most recent date is not available because of no exposure
 			let newRiskExposureMetadata = RiskExposureMetadata(
 				riskLevel: riskLevel,
@@ -174,23 +173,6 @@ enum PPAnalyticsCollector {
 			dateChangedComparedToPreviousSubmission: dateChangedComparedToPreviousSubmission
 		)
 		Analytics.collect(.riskExposureMetadata(.create(newRiskExposureMetadata)))
-	}
-
-
-	// MARK: - ClientMetadata
-
-	private static func logClientMetadata(_ clientMetadata: PPAClientMetadata) {
-		switch clientMetadata {
-		case let .create(metaData):
-			store?.clientMetadata = metaData
-		case .setClientMetaData:
-			Analytics.setClientMetaData()
-		}
-	}
-
-	private static func setClientMetaData() {
-		let eTag = store?.appConfigMetadata?.lastAppConfigETag
-		Analytics.collect(.clientMetadata(.create(ClientMetadata(etag: eTag))))
 	}
 
 	// MARK: - TestResultMetadata
@@ -210,6 +192,38 @@ enum PPAnalyticsCollector {
 		}
 	}
 
+	private static func registerNewTestMetadata(_ date: Date = Date(), _ token: String) {
+		guard let riskCalculationResult = store?.enfRiskCalculationResult else {
+			Log.warning("Could not register new test meta data due to riskCalculationResult is nil", log: .ppa)
+			return
+		}
+		var testResultMetadata = TestResultMetadata(registrationToken: token)
+		testResultMetadata.testRegistrationDate = date
+		testResultMetadata.riskLevelAtTestRegistration = riskCalculationResult.riskLevel
+		
+		if let mostRecentRiskCalculationDate = riskCalculationResult.mostRecentDateWithCurrentRiskLevel {
+			let daysSinceMostRecentDateAtRiskLevelAtTestRegistration = Calendar.current.dateComponents([.day], from: mostRecentRiskCalculationDate, to: date).day
+			testResultMetadata.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = daysSinceMostRecentDateAtRiskLevelAtTestRegistration
+			Log.debug("daysSinceMostRecentDateAtRiskLevelAtTestRegistration: \(String(describing: daysSinceMostRecentDateAtRiskLevelAtTestRegistration))", log: .ppa)
+		} else {
+			testResultMetadata.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = -1
+			Log.warning("daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1", log: .ppa)
+		}
+
+		Analytics.collect(.testResultMetadata(.create(testResultMetadata)))
+
+		switch riskCalculationResult.riskLevel {
+		case .high:
+			guard let timeOfRiskChangeToHigh = store?.dateOfConversionToHighRisk else {
+				Log.warning("Could not log risk calculation result due to timeOfRiskChangeToHigh is nil", log: .ppa)
+				return
+			}
+			let differenceInHours = Calendar.current.dateComponents([.hour], from: timeOfRiskChangeToHigh, to: date)
+			store?.testResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration = differenceInHours.hour
+		case .low:
+			store?.testResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration = -1
+		}
+	}
 	private static func updateTestResult(_ testResult: TestResult, _ token: String) {
 		// we only save metadata for tests submitted on QR code,and there is the only place in the app where we set the registration date
 		guard store?.testResultMetadata?.testRegistrationToken == token,
@@ -246,32 +260,6 @@ enum PPAnalyticsCollector {
 		}
 	}
 
-	private static func registerNewTestMetadata(_ date: Date = Date(), _ token: String) {
-		guard let riskCalculationResult = store?.riskCalculationResult else {
-			Log.warning("Could not register new test meta data due to riskCalculationResult is nil", log: .ppa)
-			return
-		}
-		var testResultMetadata = TestResultMetadata(registrationToken: token)
-		testResultMetadata.testRegistrationDate = date
-		testResultMetadata.riskLevelAtTestRegistration = riskCalculationResult.riskLevel
-		testResultMetadata.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = riskCalculationResult.numberOfDaysWithCurrentRiskLevel
-
-		Analytics.collect(.testResultMetadata(.create(testResultMetadata)))
-
-		switch riskCalculationResult.riskLevel {
-		case .high:
-			guard let timeOfRiskChangeToHigh = store?.dateOfConversionToHighRisk else {
-				Log.warning("Could not log risk calculation result due to timeOfRiskChangeToHigh is nil", log: .ppa)
-				return
-			}
-			let differenceInHours = Calendar.current.dateComponents([.hour], from: timeOfRiskChangeToHigh, to: date)
-			store?.testResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration = differenceInHours.hour
-		case .low:
-			store?.testResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration = -1
-		}
-
-
-	}
 
 	// MARK: - KeySubmissionMetadata
 
@@ -321,19 +309,17 @@ enum PPAnalyticsCollector {
 	}
 
 	private static func setHoursSinceTestResult() {
-		guard let resultDateTimeStamp = store?.testResultReceivedTimeStamp else {
+		guard let testResultReceivedDate = coronaTestService?.pcrTest?.finalTestResultReceivedDate else {
 			Log.warning("Could not log hoursSinceTestResult due to testResultReceivedTimeStamp is nil", log: .ppa)
 			return
 		}
 
-		let timeInterval = TimeInterval(resultDateTimeStamp)
-		let resultDate = Date(timeIntervalSince1970: timeInterval)
-		let diffComponents = Calendar.current.dateComponents([.hour], from: resultDate, to: Date())
+		let diffComponents = Calendar.current.dateComponents([.hour], from: testResultReceivedDate, to: Date())
 		store?.keySubmissionMetadata?.hoursSinceTestResult = Int32(diffComponents.hour ?? 0)
 	}
 
 	private static func setHoursSinceTestRegistration() {
-		guard let registrationDate = store?.testRegistrationDate else {
+		guard let registrationDate = coronaTestService?.pcrTest?.registrationDate else {
 			Log.warning("Could not log hoursSinceTestRegistration due to testRegistrationDate is nil", log: .ppa)
 			return
 		}
@@ -343,7 +329,7 @@ enum PPAnalyticsCollector {
 	}
 
 	private static func setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration() {
-		guard let numberOfDaysWithCurrentRiskLevel = store?.riskCalculationResult?.numberOfDaysWithCurrentRiskLevel  else {
+		guard let numberOfDaysWithCurrentRiskLevel = store?.enfRiskCalculationResult?.numberOfDaysWithCurrentRiskLevel  else {
 			Log.warning("Could not log daysSinceMostRecentDateAtRiskLevelAtTestRegistration due to numberOfDaysWithCurrentRiskLevel is nil", log: .ppa)
 			return
 		}
@@ -351,14 +337,14 @@ enum PPAnalyticsCollector {
 	}
 
 	private static func setHoursSinceHighRiskWarningAtTestRegistration() {
-		guard let riskLevel = store?.riskCalculationResult?.riskLevel  else {
+		guard let riskLevel = store?.enfRiskCalculationResult?.riskLevel  else {
 			Log.warning("Could not log hoursSinceHighRiskWarningAtTestRegistration due to riskLevel is nil", log: .ppa)
 			return
 		}
 		switch riskLevel {
 		case .high:
 			guard let timeOfRiskChangeToHigh = store?.dateOfConversionToHighRisk,
-				  let registrationTime = store?.testRegistrationDate else {
+				  let registrationTime = coronaTestService?.pcrTest?.registrationDate else {
 				Log.warning("Could not log risk calculation result due to timeOfRiskChangeToHigh is nil", log: .ppa)
 				return
 			}
@@ -453,10 +439,12 @@ extension PPAnalyticsCollector {
 	/// Setup Analytics for testing. The store or the submitter can be nil for testing purposes.
 	static func setupMock(
 		store: (Store & PPAnalyticsData)? = nil,
-		submitter: PPAnalyticsSubmitter? = nil
+		submitter: PPAnalyticsSubmitter? = nil,
+		coronaTestService: CoronaTestService? = nil
 	) {
 		PPAnalyticsCollector.store = store
 		PPAnalyticsCollector.submitter = submitter
+		PPAnalyticsCollector.coronaTestService = coronaTestService
 	}
 
 	/// ONLY FOR TESTING. Returns the last successful submitted data.

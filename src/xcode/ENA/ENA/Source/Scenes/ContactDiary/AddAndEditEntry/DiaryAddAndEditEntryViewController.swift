@@ -232,7 +232,7 @@ private final class TextFieldCell: UITableViewCell {
 		// self
 		selectionStyle = .none
 		// textField
-		textField = DiaryEntryTextField(frame: .zero)
+		textField = ENATextField(frame: .zero)
 		textField.autocorrectionType = .no
 		textField.isUserInteractionEnabled = true
 		textField.clearButtonMode = .whileEditing
@@ -256,5 +256,5 @@ private final class TextFieldCell: UITableViewCell {
 	
 	static let identifier = "TextFieldCell"
 	
-	var textField: DiaryEntryTextField!
+	var textField: ENATextField!
 }

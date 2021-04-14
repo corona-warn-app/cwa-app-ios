@@ -7,6 +7,8 @@ import UIKit
 class HomeCoordinator: RequiresAppDependencies {
 	private weak var delegate: CoordinatorDelegate?
 	private let otpService: OTPServiceProviding
+	private let eventStore: EventStoringProviding
+	private let coronaTestService: CoronaTestService
 
 	let rootViewController: UINavigationController = AppNavigationController(rootViewController: UIViewController())
 
@@ -15,16 +17,32 @@ class HomeCoordinator: RequiresAppDependencies {
 
 	private var settingsController: SettingsViewController?
 
+	private var traceLocationsCoordinator: TraceLocationsCoordinator?
 	private var settingsCoordinator: SettingsCoordinator?
 
 	private var exposureDetectionCoordinator: ExposureDetectionCoordinator?
-
+	
 	private lazy var exposureSubmissionService: ExposureSubmissionService = {
-		ExposureSubmissionServiceFactory.create(
-			diagnosisKeysRetrieval: self.exposureManager,
+		#if DEBUG
+		if isUITesting {
+			return ENAExposureSubmissionService(
+				diagnosisKeysRetrieval: exposureManager,
+				appConfigurationProvider: CachedAppConfigurationMock(with: CachedAppConfigurationMock.screenshotConfiguration),
+				client: ClientMock(),
+				store: MockTestStore(),
+				eventStore: eventStore,
+				coronaTestService: coronaTestService
+			)
+		}
+		#endif
+
+		return ENAExposureSubmissionService(
+			diagnosisKeysRetrieval: exposureManager,
 			appConfigurationProvider: appConfigurationProvider,
-			client: self.client,
-			store: self.store
+			client: client,
+			store: store,
+			eventStore: eventStore,
+			coronaTestService: coronaTestService
 		)
 	}()
 
@@ -45,14 +63,25 @@ class HomeCoordinator: RequiresAppDependencies {
 		)
 	}()
 	
+	private lazy var qrCodePosterTemplateProvider: QRCodePosterTemplateProvider = {
+		return QRCodePosterTemplateProvider(
+			client: CachingHTTPClient(serverEnvironmentProvider: store),
+			store: store
+		)
+	}()
+	
 	private var enStateUpdateList = NSHashTable<AnyObject>.weakObjects()
 
 	init(
 		_ delegate: CoordinatorDelegate,
-		otpService: OTPServiceProviding
+		otpService: OTPServiceProviding,
+		eventStore: EventStoringProviding,
+		coronaTestService: CoronaTestService
 	) {
 		self.delegate = delegate
 		self.otpService = otpService
+		self.eventStore = eventStore
+		self.coronaTestService = coronaTestService
 	}
 
 	deinit {
@@ -66,6 +95,7 @@ class HomeCoordinator: RequiresAppDependencies {
 				riskProvider: riskProvider,
 				exposureManagerState: exposureManager.exposureManagerState,
 				enState: enStateHandler.state,
+				coronaTestService: coronaTestService,
 				exposureSubmissionService: exposureSubmissionService,
 				statisticsProvider: statisticsProvider
 			)
@@ -93,6 +123,9 @@ class HomeCoordinator: RequiresAppDependencies {
 				},
 				onStatisticsInfoButtonTap: { [weak self] in
 					self?.showStatisticsInfo()
+				},
+				onTraceLocationsCellTap: { [weak self] in
+					self?.showTraceLocations()
 				},
 				onInviteFriendsCellTap: { [weak self] in
 					self?.showInviteFriends()
@@ -146,7 +179,6 @@ class HomeCoordinator: RequiresAppDependencies {
 	#if !RELEASE
 	private var developerMenu: DMDeveloperMenu?
 	private func enableDeveloperMenuIfAllowed(in controller: UIViewController) {
-
 		developerMenu = DMDeveloperMenu(
 			presentingViewController: controller,
 			client: client,
@@ -156,7 +188,10 @@ class HomeCoordinator: RequiresAppDependencies {
 			developerStore: UserDefaults.standard,
 			exposureSubmissionService: exposureSubmissionService,
 			serverEnvironment: serverEnvironment,
-			otpService: otpService
+			otpService: otpService,
+			coronaTestService: coronaTestService,
+			eventStore: eventStore,
+			qrCodePosterTemplateProvider: qrCodePosterTemplateProvider
 		)
 		developerMenu?.enableIfAllowed()
 	}
@@ -170,7 +205,7 @@ class HomeCoordinator: RequiresAppDependencies {
 		}
 	}
 
-	func showRiskLegend() {
+	private func showRiskLegend() {
 		let riskLegendViewController = RiskLegendViewController(
 			onDismiss: { [weak rootViewController] in
 				rootViewController?.dismiss(animated: true)
@@ -218,14 +253,18 @@ class HomeCoordinator: RequiresAppDependencies {
 		// when .start() is called. The coordinator is then bound to the lifecycle of this navigation controller
 		// which is managed by UIKit.
 		let coordinator = ExposureSubmissionCoordinator(
-			warnOthersReminder: WarnOthersReminder(store: store),
 			parentNavigationController: rootViewController,
 			exposureSubmissionService: exposureSubmissionService,
+			coronaTestService: coronaTestService,
 			store: self.store,
 			delegate: self
 		)
 
-		coordinator.start(with: result)
+		if coronaTestService.pcrTest != nil {
+			coordinator.start(with: .pcr)
+		} else {
+			coordinator.start()
+		}
 	}
 
 	func showStatisticsInfo() {
@@ -239,6 +278,18 @@ class HomeCoordinator: RequiresAppDependencies {
 			UINavigationController(rootViewController: statisticsInfoController),
 			animated: true
 		)
+	}
+
+	private func showTraceLocations() {
+		traceLocationsCoordinator = TraceLocationsCoordinator(
+			store: store,
+			appConfig: appConfigurationProvider,
+			qrCodePosterTemplateProvider: qrCodePosterTemplateProvider,
+			eventStore: eventStore,
+			parentNavigationController: rootViewController
+		)
+
+		traceLocationsCoordinator?.start()
 	}
 
 	private func showInviteFriends() {
@@ -290,7 +341,7 @@ class HomeCoordinator: RequiresAppDependencies {
 }
 
 extension HomeCoordinator: ExposureSubmissionCoordinatorDelegate {
-	func exposureSubmissionCoordinatorWillDisappear(_ coordinator: ExposureSubmissionCoordinating) {
+	func exposureSubmissionCoordinatorWillDisappear(_ coordinator: ExposureSubmissionCoordinator) {
 		homeController?.reload()
 		homeState?.updateTestResult()
 	}

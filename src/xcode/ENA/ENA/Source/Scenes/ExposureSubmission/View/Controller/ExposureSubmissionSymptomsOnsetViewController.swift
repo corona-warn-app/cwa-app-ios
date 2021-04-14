@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-class ExposureSubmissionSymptomsOnsetViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild, DismissHandling {
+class ExposureSubmissionSymptomsOnsetViewController: DynamicTableViewController, FooterViewHandling, DismissHandling {
 
 	// MARK: - Init
 
@@ -16,7 +16,6 @@ class ExposureSubmissionSymptomsOnsetViewController: DynamicTableViewController,
 		self.onPrimaryButtonTap = onPrimaryButtonTap
 		self.onDismiss = onDismiss
 		super.init(nibName: nil, bundle: nil)
-		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 	}
 
 	@available(*, unavailable)
@@ -32,13 +31,9 @@ class ExposureSubmissionSymptomsOnsetViewController: DynamicTableViewController,
 		setupView()
 	}
 
-	override var navigationItem: UINavigationItem {
-		navigationFooterItem
-	}
-
-	// MARK: - Protocol ENANavigationControllerWithFooterChild
-
-	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
+	// MARK: - Protocol FooterViewHandling
+	
+	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
 		guard let selectedSymptomsOnsetSelectionOption = selectedSymptomsOnsetOption else {
 			fatalError("Primary button must not be enabled before the user has selected an option")
 		}
@@ -46,9 +41,8 @@ class ExposureSubmissionSymptomsOnsetViewController: DynamicTableViewController,
 		onPrimaryButtonTap(selectedSymptomsOnsetSelectionOption) { [weak self] isLoading in
 			DispatchQueue.main.async {
 				self?.view.isUserInteractionEnabled = !isLoading
-				self?.navigationItem.rightBarButtonItem?.isEnabled = !isLoading
-				self?.navigationFooterItem?.isPrimaryButtonLoading = isLoading
-				self?.navigationFooterItem?.isPrimaryButtonEnabled = !isLoading
+				self?.parent?.navigationItem.rightBarButtonItem?.isEnabled = !isLoading
+				self?.footerView?.setLoadingIndicator(isLoading, disable: isLoading, button: .primary)
 			}
 		}
 	}
@@ -59,8 +53,7 @@ class ExposureSubmissionSymptomsOnsetViewController: DynamicTableViewController,
 		onDismiss { [weak self] isLoading in
 			DispatchQueue.main.async {
 				self?.view.isUserInteractionEnabled = !isLoading
-				self?.navigationFooterItem?.isPrimaryButtonLoading = isLoading
-				self?.navigationFooterItem?.isPrimaryButtonEnabled = !isLoading
+				self?.footerView?.setLoadingIndicator(isLoading, disable: isLoading, button: .primary)
 			}
 		}
 	}
@@ -84,15 +77,6 @@ class ExposureSubmissionSymptomsOnsetViewController: DynamicTableViewController,
 	private var optionGroupSelectionSubscription: AnyCancellable?
 
 	@OpenCombine.Published private var selectedSymptomsOnsetOption: SymptomsOnsetOption?
-
-	private lazy var navigationFooterItem: ENANavigationFooterItem = {
-		let item = ENANavigationFooterItem()
-		item.primaryButtonTitle = AppStrings.ExposureSubmissionSymptomsOnset.continueButton
-		item.isPrimaryButtonEnabled = true
-		item.isSecondaryButtonHidden = true
-		item.title = AppStrings.ExposureSubmissionTestResultAvailable.title
-		return item
-	}()
 
 	private var optionGroupSelection: OptionGroupViewModel.Selection? {
 		didSet {
@@ -118,13 +102,13 @@ class ExposureSubmissionSymptomsOnsetViewController: DynamicTableViewController,
 	private func setupView() {
 		view.backgroundColor = .enaColor(for: .background)
 		
-		navigationItem.title = AppStrings.ExposureSubmissionSymptomsOnset.title
-		navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionSymptomsOnset.continueButton
-
+		parent?.navigationItem.title = AppStrings.ExposureSubmissionSymptomsOnset.title
+		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
+		
 		setupTableView()
 
-		symptomsOnsetButtonStateSubscription = $selectedSymptomsOnsetOption.receive(on: RunLoop.main.ocombine).sink {
-			self.navigationFooterItem?.isPrimaryButtonEnabled = $0 != nil
+		symptomsOnsetButtonStateSubscription = $selectedSymptomsOnsetOption.receive(on: RunLoop.main.ocombine).sink { [weak self] in
+			self?.footerView?.setLoadingIndicator(false, disable: $0 == nil, button: .primary)
 		}
 	}
 

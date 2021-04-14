@@ -3,7 +3,7 @@ syntax = "proto2";
 package SAP.internal;
 
 import "external/exposurenotification/temporary_exposure_key_export.proto";
-import "internal/evreg/check_in.proto";
+import "internal/pt/check_in.proto";
 
 message SubmissionPayload {
   repeated SAP.external.exposurenotification.TemporaryExposureKey keys = 1;
@@ -11,5 +11,11 @@ message SubmissionPayload {
   repeated string visitedCountries = 3;
   optional string origin = 4;
   optional bool consentToFederation = 5;
-  repeated SAP.internal.evreg.CheckIn checkIns = 6;
+  repeated SAP.internal.pt.CheckIn checkIns = 6;
+  optional SubmissionType submissionType = 7 [default = SUBMISSION_TYPE_PCR_TEST];
+
+  enum SubmissionType {
+    SUBMISSION_TYPE_PCR_TEST = 0;
+    SUBMISSION_TYPE_RAPID_TEST = 1;
+  }
 }

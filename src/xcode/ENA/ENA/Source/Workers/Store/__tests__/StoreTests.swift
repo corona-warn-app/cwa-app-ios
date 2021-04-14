@@ -29,22 +29,6 @@ final class StoreTests: XCTestCase {
 		XCTAssertEqual(store.lastSuccessfulSubmitDiagnosisKeyTimestamp, Int64.min)
 	}
 
-	func testNumberOfSuccesfulSubmissions_Success() {
-		XCTAssertEqual(store.numberOfSuccesfulSubmissions, 0)
-		store.numberOfSuccesfulSubmissions = Int64.max
-		XCTAssertEqual(store.numberOfSuccesfulSubmissions, Int64.max)
-		store.numberOfSuccesfulSubmissions = Int64.min
-		XCTAssertEqual(store.numberOfSuccesfulSubmissions, Int64.min)
-	}
-
-	func testInitialSubmitCompleted_Success() {
-		XCTAssertFalse(store.initialSubmitCompleted)
-		store.initialSubmitCompleted = true
-		XCTAssertTrue(store.initialSubmitCompleted)
-		store.initialSubmitCompleted = false
-		XCTAssertFalse(store.initialSubmitCompleted)
-	}
-
 	func testRegistrationToken_Success() {
 		XCTAssertNil(store.registrationToken)
 
@@ -77,20 +61,8 @@ final class StoreTests: XCTestCase {
 
 		XCTAssertTrue(tmpStore.isOnboarded)
 		XCTAssertEqual(tmpStore.dateOfAcceptedPrivacyNotice?.description, testDate1.description)
-		XCTAssertEqual(tmpStore.teleTan, "97RR2D5644")
-		XCTAssertEqual(tmpStore.tan, "97RR2D5644")
-		XCTAssertEqual(tmpStore.testGUID, "00000000-0000-4000-8000-000000000000")
-		XCTAssertTrue(tmpStore.devicePairingConsentAccept)
-		XCTAssertEqual(tmpStore.devicePairingConsentAcceptTimestamp, testTimeStamp)
-		XCTAssertEqual(tmpStore.devicePairingSuccessfulTimestamp, testTimeStamp)
 		XCTAssertTrue(tmpStore.allowRiskChangesNotification)
 		XCTAssertTrue(tmpStore.allowTestsStatusNotification)
-		XCTAssertEqual(tmpStore.registrationToken, "")
-		XCTAssertTrue(tmpStore.hasSeenSubmissionExposureTutorial)
-		XCTAssertEqual(tmpStore.testResultReceivedTimeStamp, testTimeStamp)
-		XCTAssertEqual(tmpStore.lastSuccessfulSubmitDiagnosisKeyTimestamp, testTimeStamp)
-		XCTAssertEqual(tmpStore.numberOfSuccesfulSubmissions, 1)
-		XCTAssertTrue(tmpStore.initialSubmitCompleted)
 		XCTAssertEqual(tmpStore.exposureActivationConsentAcceptTimestamp, testTimeStamp)
 		XCTAssertTrue(tmpStore.exposureActivationConsentAccept)
 	}

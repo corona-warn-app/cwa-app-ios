@@ -79,8 +79,8 @@ extension URLSessionError: ExposureSubmissionErrorTransformable {
 	/// no clue why we still have this…
 	func toExposureSubmissionError() -> ExposureSubmissionError {
 		switch self {
-		case let .httpError(wrapped, _):
-			return .httpError(wrapped.localizedDescription)
+		case let .httpError(localizedDescription, _):
+			return .httpError(localizedDescription)
 		case .invalidResponse:
 			return .invalidResponse
 		case .teleTanAlreadyUsed:

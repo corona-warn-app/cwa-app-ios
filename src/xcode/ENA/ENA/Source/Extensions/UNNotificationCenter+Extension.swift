@@ -8,8 +8,10 @@ public enum ActionableNotificationIdentifier: String {
 	case testResult = "test-result"
 	case riskDetection = "risk-detection"
 	case deviceTimeCheck = "device-time-check"
-	case warnOthersReminder1 = "warn-others-reminder-1"
-	case warnOthersReminder2 = "warn-others-reminder-2"
+	case pcrWarnOthersReminder1 = "pcr-warn-others-reminder-1"
+	case pcrWarnOthersReminder2 = "pcr-warn-others-reminder-2"
+	case antigenWarnOthersReminder1 = "antigen-warn-others-reminder-1"
+	case antigenWarnOthersReminder2 = "antigen-warn-others-reminder-2"
 
 	var identifier: String {
 		let bundleIdentifier = Bundle.main.bundleIdentifier ?? "de.rki.coronawarnapp"
@@ -17,7 +19,7 @@ public enum ActionableNotificationIdentifier: String {
 	}
 }
 
-extension UNUserNotificationCenter {
+extension UserNotificationCenter {
 
 	func presentNotification(
 		title: String,

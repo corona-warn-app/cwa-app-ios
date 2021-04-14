@@ -38,10 +38,14 @@ enum AppInformationModel {
 					  accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.contactDescription),
 				.headline(text: AppStrings.AppInformation.contactHotlineTitle,
 						  accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.contactHotlineTitle),
-				.phone(text: AppStrings.AppInformation.contactHotlineText, number: AppStrings.AppInformation.contactHotlineNumber,
-					   accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.contactHotlineText),
-				.footnote(text: AppStrings.AppInformation.contactHotlineDescription,
-						  accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.contactHotlineDescription),
+				.phone(text: AppStrings.AppInformation.contactHotlineDomesticText, number: AppStrings.AppInformation.contactHotlineDomesticNumber,
+					   accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.contactHotlineDomesticText),
+				.footnote(text: AppStrings.AppInformation.contactHotlineDomesticDetails,
+						  accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.contactHotlineDomesticDetails),
+				.phone(text: AppStrings.AppInformation.contactHotlineForeignText, number: AppStrings.AppInformation.contactHotlineForeignNumber,
+					   accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.contactHotlineForeignText, foreign: true),
+				.footnote(text: AppStrings.AppInformation.contactHotlineForeignDetails,
+						  accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.contactHotlineForeignDetails),
 				.footnote(text: AppStrings.AppInformation.contactHotlineTerms,
 						  accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.contactHotlineTerms)
 			]

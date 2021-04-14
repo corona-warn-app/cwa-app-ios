@@ -5,7 +5,7 @@
 import Foundation
 import UIKit
 
-class DiaryInfoViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
+class DiaryInfoViewController: DynamicTableViewController, FooterViewHandling {
 	
 	// MARK: - Init
 	
@@ -28,31 +28,15 @@ class DiaryInfoViewController: DynamicTableViewController, ENANavigationControll
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
 		setupView()
-
-		if !viewModel.hidesCloseButton {
-			navigationItem.rightBarButtonItem = CloseBarButtonItem(
-				onTap: { [weak self] in
-					self?.onDismiss()
-				}
-			)
-		}
-
-		navigationController?.navigationBar.prefersLargeTitles = true
-		footerView?.primaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.primaryButton
 	}
 
-	override var navigationItem: UINavigationItem {
-		navigationFooterItem
-	}
+	// MARK: - Protocol FooterViewHandling
 
-	// MARK: - Protocol ENANavigationControllerWithFooterChild
-
-	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
+	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
 		onDismiss()
 	}
-
+	
 	// MARK: - Internal
 	
 	enum ReuseIdentifiers: String, TableViewCellReuseIdentifiers {
@@ -64,19 +48,19 @@ class DiaryInfoViewController: DynamicTableViewController, ENANavigationControll
 	private let viewModel: DiaryInfoViewModel
 	private let onDismiss: () -> Void
 
-	private lazy var navigationFooterItem: ENANavigationFooterItem = {
-		let item = ENANavigationFooterItem()
-
-		item.primaryButtonTitle = AppStrings.ContactDiary.Information.primaryButtonTitle
-		item.isPrimaryButtonEnabled = true
-		item.isSecondaryButtonHidden = true
-
-		item.title = AppStrings.ContactDiary.Information.title
-
-		return item
-	}()
-
 	private func setupView() {
+		
+		parent?.navigationItem.title = AppStrings.ContactDiary.Information.title
+		
+		if !viewModel.hidesCloseButton {
+			parent?.navigationItem.rightBarButtonItem = CloseBarButtonItem(
+				onTap: { [weak self] in
+					self?.onDismiss()
+				}
+			)
+		}
+
+		parent?.navigationController?.navigationBar.prefersLargeTitles = true
 		view.backgroundColor = .enaColor(for: .background)
 
 		tableView.register(

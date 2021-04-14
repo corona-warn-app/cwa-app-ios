@@ -9,13 +9,19 @@ class KeySubmissionMetadataTests: XCTestCase {
 	
 	func testKeySubmissionMetadataValues_HighRisk() {
 		let secureStore = MockTestStore()
-		Analytics.setupMock(store: secureStore)
+		let coronaTestService = CoronaTestService(client: ClientMock(), store: secureStore)
+
+		Analytics.setupMock(store: secureStore, coronaTestService: coronaTestService)
+
 		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
+
 		let riskCalculationResult = mockHighRiskCalculationResult()
 		let isSubmissionConsentGiven = true
+
 		secureStore.dateOfConversionToHighRisk = Calendar.current.date(byAdding: .day, value: -1, to: Date())
-		secureStore.riskCalculationResult = riskCalculationResult
-		secureStore.testRegistrationDate = Date()
+		secureStore.enfRiskCalculationResult = riskCalculationResult
+
+		coronaTestService.pcrTest = PCRTest.mock(registrationDate: Date())
 
 		let keySubmissionMetadata = KeySubmissionMetadata(
 			submitted: false,
@@ -27,7 +33,8 @@ class KeySubmissionMetadataTests: XCTestCase {
 			hoursSinceTestResult: 0,
 			hoursSinceTestRegistration: 0,
 			daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1,
-			hoursSinceHighRiskWarningAtTestRegistration: -1)
+			hoursSinceHighRiskWarningAtTestRegistration: -1
+		)
 		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata)))
 		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration))
 		Analytics.collect(.keySubmissionMetadata(.setHoursSinceHighRiskWarningAtTestRegistration))
@@ -39,15 +46,21 @@ class KeySubmissionMetadataTests: XCTestCase {
 
 	func testKeySubmissionMetadataValues_HighRisk_testHours() {
 		let secureStore = MockTestStore()
-		Analytics.setupMock(store: secureStore)
+		let coronaTestService = CoronaTestService(client: ClientMock(), store: secureStore)
+
+		Analytics.setupMock(store: secureStore, coronaTestService: coronaTestService)
+
 		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
 		let riskCalculationResult = mockHighRiskCalculationResult()
 		let isSubmissionConsentGiven = true
 		let dateSixHourAgo = Calendar.current.date(byAdding: .hour, value: -6, to: Date())
 		secureStore.dateOfConversionToHighRisk = Calendar.current.date(byAdding: .day, value: -1, to: Date())
-		secureStore.riskCalculationResult = riskCalculationResult
-		secureStore.testRegistrationDate = Calendar.current.date(byAdding: .day, value: -1, to: Date())
-		secureStore.testResultReceivedTimeStamp = Int64(dateSixHourAgo?.timeIntervalSince1970 ?? Date().timeIntervalSince1970)
+		secureStore.enfRiskCalculationResult = riskCalculationResult
+
+		coronaTestService.pcrTest = PCRTest.mock(
+			registrationDate: Calendar.current.date(byAdding: .day, value: -1, to: Date()) ?? Date(),
+			finalTestResultReceivedDate: dateSixHourAgo ?? Date()
+		)
 
 		let keySubmissionMetadata = KeySubmissionMetadata(
 			submitted: false,
@@ -76,7 +89,7 @@ class KeySubmissionMetadataTests: XCTestCase {
 		let riskCalculationResult = mockHighRiskCalculationResult()
 		let isSubmissionConsentGiven = true
 		secureStore.dateOfConversionToHighRisk = Calendar.current.date(byAdding: .day, value: -1, to: Date())
-		secureStore.riskCalculationResult = riskCalculationResult
+		secureStore.enfRiskCalculationResult = riskCalculationResult
 
 		let keySubmissionMetadata = KeySubmissionMetadata(
 			submitted: false,
@@ -105,7 +118,7 @@ class KeySubmissionMetadataTests: XCTestCase {
 		let riskCalculationResult = mockHighRiskCalculationResult()
 		let isSubmissionConsentGiven = true
 		secureStore.dateOfConversionToHighRisk = Calendar.current.date(byAdding: .day, value: -1, to: Date())
-		secureStore.riskCalculationResult = riskCalculationResult
+		secureStore.enfRiskCalculationResult = riskCalculationResult
 		Analytics.collect(.keySubmissionMetadata(.submittedWithTeletan(false)))
 
 		let keySubmissionMetadata = KeySubmissionMetadata(
@@ -144,7 +157,7 @@ class KeySubmissionMetadataTests: XCTestCase {
 		let riskCalculationResult = mockLowRiskCalculationResult()
 		let isSubmissionConsentGiven = true
 		secureStore.dateOfConversionToHighRisk = Calendar.current.date(byAdding: .day, value: -1, to: Date())
-		secureStore.riskCalculationResult = riskCalculationResult
+		secureStore.enfRiskCalculationResult = riskCalculationResult
 		secureStore.testRegistrationDate = Date()
 
 		let keySubmissionMetadata = KeySubmissionMetadata(
@@ -167,8 +180,8 @@ class KeySubmissionMetadataTests: XCTestCase {
 		XCTAssertEqual(secureStore.keySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration, -1, "the value should be default value i.e., -1 as the risk is low")
 	}
 
-	private func mockHighRiskCalculationResult(risk: RiskLevel = .high) -> RiskCalculationResult {
-		RiskCalculationResult(
+	private func mockHighRiskCalculationResult(risk: RiskLevel = .high) -> ENFRiskCalculationResult {
+		ENFRiskCalculationResult(
 			riskLevel: risk,
 			minimumDistinctEncountersWithLowRisk: 0,
 			minimumDistinctEncountersWithHighRisk: 0,
@@ -181,8 +194,8 @@ class KeySubmissionMetadataTests: XCTestCase {
 			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 	}
-	private func mockLowRiskCalculationResult(risk: RiskLevel = .low) -> RiskCalculationResult {
-		RiskCalculationResult(
+	private func mockLowRiskCalculationResult(risk: RiskLevel = .low) -> ENFRiskCalculationResult {
+		ENFRiskCalculationResult(
 			riskLevel: risk,
 			minimumDistinctEncountersWithLowRisk: 0,
 			minimumDistinctEncountersWithHighRisk: 0,

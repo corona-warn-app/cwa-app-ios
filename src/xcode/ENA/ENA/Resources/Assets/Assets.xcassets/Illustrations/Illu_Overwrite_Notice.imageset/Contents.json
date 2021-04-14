@@ -1,0 +1,22 @@
+{
+  "images" : [
+    {
+      "filename" : "Illus_two-test-results_light-mode.pdf",
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "Illus_two-test-results_dark-mode.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

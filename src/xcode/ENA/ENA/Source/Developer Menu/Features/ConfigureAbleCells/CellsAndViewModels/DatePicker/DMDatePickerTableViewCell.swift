@@ -6,7 +6,7 @@
 
 import UIKit
 
-class DMDatePickerTableViewCell: UITableViewCell, DMConfigureableCell {
+class DMDatePickerTableViewCell: UITableViewCell, ConfigureableCell {
 
 	// MARK: - Overrides
 

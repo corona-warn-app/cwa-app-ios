@@ -31,6 +31,8 @@ struct SAP_Internal_V2_KeyDownloadParametersIOS {
 
   var revokedHourPackages: [SAP_Internal_V2_HourPackageMetadata] = []
 
+  var revokedTraceWarningPackages: [SAP_Internal_V2_TraceWarningPackageMetadata] = []
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
@@ -48,6 +50,8 @@ struct SAP_Internal_V2_KeyDownloadParametersAndroid {
   var downloadTimeoutInSeconds: Int32 = 0
 
   var overallTimeoutInSeconds: Int32 = 0
+
+  var revokedTraceWarningPackages: [SAP_Internal_V2_TraceWarningPackageMetadata] = []
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -88,6 +92,18 @@ struct SAP_Internal_V2_HourPackageMetadata {
   init() {}
 }
 
+struct SAP_Internal_V2_TraceWarningPackageMetadata {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var etag: String = String()
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "SAP.internal.v2"
@@ -97,6 +113,7 @@ extension SAP_Internal_V2_KeyDownloadParametersIOS: SwiftProtobuf.Message, Swift
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "revokedDayPackages"),
     2: .same(proto: "revokedHourPackages"),
+    3: .same(proto: "revokedTraceWarningPackages"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -107,6 +124,7 @@ extension SAP_Internal_V2_KeyDownloadParametersIOS: SwiftProtobuf.Message, Swift
       switch fieldNumber {
       case 1: try { try decoder.decodeRepeatedMessageField(value: &self.revokedDayPackages) }()
       case 2: try { try decoder.decodeRepeatedMessageField(value: &self.revokedHourPackages) }()
+      case 3: try { try decoder.decodeRepeatedMessageField(value: &self.revokedTraceWarningPackages) }()
       default: break
       }
     }
@@ -119,12 +137,16 @@ extension SAP_Internal_V2_KeyDownloadParametersIOS: SwiftProtobuf.Message, Swift
     if !self.revokedHourPackages.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.revokedHourPackages, fieldNumber: 2)
     }
+    if !self.revokedTraceWarningPackages.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.revokedTraceWarningPackages, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: SAP_Internal_V2_KeyDownloadParametersIOS, rhs: SAP_Internal_V2_KeyDownloadParametersIOS) -> Bool {
     if lhs.revokedDayPackages != rhs.revokedDayPackages {return false}
     if lhs.revokedHourPackages != rhs.revokedHourPackages {return false}
+    if lhs.revokedTraceWarningPackages != rhs.revokedTraceWarningPackages {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -137,6 +159,7 @@ extension SAP_Internal_V2_KeyDownloadParametersAndroid: SwiftProtobuf.Message, S
     2: .same(proto: "revokedHourPackages"),
     3: .same(proto: "downloadTimeoutInSeconds"),
     4: .same(proto: "overallTimeoutInSeconds"),
+    5: .same(proto: "revokedTraceWarningPackages"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -149,6 +172,7 @@ extension SAP_Internal_V2_KeyDownloadParametersAndroid: SwiftProtobuf.Message, S
       case 2: try { try decoder.decodeRepeatedMessageField(value: &self.revokedHourPackages) }()
       case 3: try { try decoder.decodeSingularInt32Field(value: &self.downloadTimeoutInSeconds) }()
       case 4: try { try decoder.decodeSingularInt32Field(value: &self.overallTimeoutInSeconds) }()
+      case 5: try { try decoder.decodeRepeatedMessageField(value: &self.revokedTraceWarningPackages) }()
       default: break
       }
     }
@@ -167,6 +191,9 @@ extension SAP_Internal_V2_KeyDownloadParametersAndroid: SwiftProtobuf.Message, S
     if self.overallTimeoutInSeconds != 0 {
       try visitor.visitSingularInt32Field(value: self.overallTimeoutInSeconds, fieldNumber: 4)
     }
+    if !self.revokedTraceWarningPackages.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.revokedTraceWarningPackages, fieldNumber: 5)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -175,6 +202,7 @@ extension SAP_Internal_V2_KeyDownloadParametersAndroid: SwiftProtobuf.Message, S
     if lhs.revokedHourPackages != rhs.revokedHourPackages {return false}
     if lhs.downloadTimeoutInSeconds != rhs.downloadTimeoutInSeconds {return false}
     if lhs.overallTimeoutInSeconds != rhs.overallTimeoutInSeconds {return false}
+    if lhs.revokedTraceWarningPackages != rhs.revokedTraceWarningPackages {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -268,6 +296,38 @@ extension SAP_Internal_V2_HourPackageMetadata: SwiftProtobuf.Message, SwiftProto
     if lhs.region != rhs.region {return false}
     if lhs.date != rhs.date {return false}
     if lhs.hour != rhs.hour {return false}
+    if lhs.etag != rhs.etag {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension SAP_Internal_V2_TraceWarningPackageMetadata: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".TraceWarningPackageMetadata"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "etag"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.etag) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.etag.isEmpty {
+      try visitor.visitSingularStringField(value: self.etag, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: SAP_Internal_V2_TraceWarningPackageMetadata, rhs: SAP_Internal_V2_TraceWarningPackageMetadata) -> Bool {
     if lhs.etag != rhs.etag {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true

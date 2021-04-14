@@ -29,6 +29,12 @@ extension OSLog {
 	static let survey = OSLog(subsystem: subsystem, category: "survey")
 	/// PP Analytics
 	static let ppa = OSLog(subsystem: subsystem, category: "ppa")
+	/// Event / Location Checkin
+	static let checkin = OSLog(subsystem: subsystem, category: "checkin")
+	/// Event / Location Organizer
+	static let traceLocation = OSLog(subsystem: subsystem, category: "traceLocation")
+	/// QR Code
+	static let qrCode = OSLog(subsystem: subsystem, category: "qrCode")
 }
 
 /// Logging
@@ -174,6 +180,7 @@ struct FileLogger {
 	/// - Returns: a `StreamReader`
 	func logReader(for logType: OSLogType) throws -> StreamReader {
 		let fileURL = logFileBaseURL.appendingPathComponent(logType.logFilePath)
+		try createLogFile(for: fileURL)
 		guard let reader = StreamReader(at: fileURL) else {
 			throw Error.streamerInitError
 		}
@@ -184,14 +191,8 @@ struct FileLogger {
 	/// - Throws: `FileLogger.Error.streamerInitError` if Reader initialization fails
 	/// - Returns: a `StreamReader`
 	func logReader() throws -> StreamReader {
-		
 		let url = allLogsFileURL
-		let fileManager = FileManager.default
-		if !fileManager.fileExists(atPath: url.path) {
-			try fileManager.createDirectory(at: logFileBaseURL, withIntermediateDirectories: true)
-			fileManager.createFile(atPath: url.path, contents: Data())
-		}
-		
+		try createLogFile(for: url)
 		guard let reader = StreamReader(at: url) else {
 			throw Error.streamerInitError
 		}
@@ -210,6 +211,14 @@ struct FileLogger {
 
 	private let encoding: String.Encoding = .utf8
 	private let logDateFormatter = ISO8601DateFormatter()
+	
+	private func createLogFile(for url: URL) throws {
+		let fileManager = FileManager.default
+		if !fileManager.fileExists(atPath: url.path) {
+			try fileManager.createDirectory(at: logFileBaseURL, withIntermediateDirectories: true)
+			fileManager.createFile(atPath: url.path, contents: Data())
+		}
+	}
 
 	private func makeWriteFileHandle(with logType: OSLogType) -> FileHandle? {
 		let logFileURL = logFileBaseURL.appendingPathComponent("\(logType.title).txt")

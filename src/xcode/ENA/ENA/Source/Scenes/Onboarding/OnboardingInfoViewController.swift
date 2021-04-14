@@ -166,15 +166,14 @@ final class OnboardingInfoViewController: UIViewController {
 		)
 
 		let dataDonationViewController = DataDonationViewController(viewModel: dataDonationViewModel)
-		let footerViewModel = FooterViewModel(
-			primaryButtonName: AppStrings.DataDonation.Info.buttonOK,
-			secondaryButtonName: AppStrings.DataDonation.Info.buttonNOK
-		)
 
 		let containerViewController = TopBottomContainerViewController(
 			topController: dataDonationViewController,
 			bottomController: FooterViewController(
-				footerViewModel,
+				FooterViewModel(
+					primaryButtonName: AppStrings.DataDonation.Info.buttonOK,
+					secondaryButtonName: AppStrings.DataDonation.Info.buttonNOK
+				),
 				didTapPrimaryButton: { [weak self] in
 					dataDonationViewModel.save(consentGiven: true)
 					self?.finishOnBoarding()
@@ -182,8 +181,9 @@ final class OnboardingInfoViewController: UIViewController {
 				didTapSecondaryButton: { [weak self] in
 					dataDonationViewModel.save(consentGiven: false)
 					self?.finishOnBoarding()
-				}),
-			bottomHeight: 140.0)
+				}
+			)
+		)
 		
 		navigationController?.pushViewController(containerViewController, animated: true)
 	}
@@ -225,7 +225,7 @@ final class OnboardingInfoViewController: UIViewController {
 			let textAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.preferredFont(forTextStyle: .body).scaledFont(size: 15, weight: .regular), .link: onboardingInfo.link]
 
 			let attributedString = NSMutableAttributedString(string: onboardingInfo.linkDisplayText, attributes: textAttributes)
-					
+
 			linkTextView.attributedText = attributedString
 			linkTextView.dataDetectorTypes = UIDataDetectorTypes.all
 			linkTextView.isScrollEnabled = false

@@ -100,7 +100,7 @@ class HomeTestResultCellModel {
 		title = AppStrings.Home.resultCardLoadingTitle
 		subtitle = nil
 		description = AppStrings.Home.resultCardLoadingBody
-		buttonTitle = AppStrings.Home.resultCardShowResultButton
+		buttonTitle = AppStrings.Home.submitCardButton
 		image = UIImage(named: "Illu_Hand_with_phone-initial")
 		tintColor = .enaColor(for: .textPrimary1)
 		isActivityIndicatorHidden = false
@@ -112,36 +112,36 @@ class HomeTestResultCellModel {
 		title = AppStrings.Home.resultCardResultAvailableTitle
 		subtitle = AppStrings.Home.resultCardNegativeTitle
 		description = AppStrings.Home.resultCardNegativeDesc
-		buttonTitle = AppStrings.Home.resultCardShowResultButton
+		buttonTitle = AppStrings.Home.submitCardButton
 		image = UIImage(named: "Illu_Hand_with_phone-negativ")
 		tintColor = .enaColor(for: .textSemanticGreen)
 		isActivityIndicatorHidden = true
 		isUserInteractionEnabled = true
-		accessibilityIdentifier = AccessibilityIdentifiers.Home.resultCardShowResultButton
+		accessibilityIdentifier = AccessibilityIdentifiers.Home.submitCardButton
 	}
 
 	private func configureTestResultInvalid() {
 		title = AppStrings.Home.resultCardResultAvailableTitle
 		subtitle = AppStrings.Home.resultCardInvalidTitle
 		description = AppStrings.Home.resultCardInvalidDesc
-		buttonTitle = AppStrings.Home.resultCardShowResultButton
+		buttonTitle = AppStrings.Home.submitCardButton
 		image = UIImage(named: "Illu_Hand_with_phone-error")
 		tintColor = .enaColor(for: .textSemanticGray)
 		isActivityIndicatorHidden = true
 		isUserInteractionEnabled = true
-		accessibilityIdentifier = AccessibilityIdentifiers.Home.resultCardShowResultButton
+		accessibilityIdentifier = AccessibilityIdentifiers.Home.submitCardButton
 	}
 
 	private func configureTestResultPending() {
 		title = AppStrings.Home.resultCardResultUnvailableTitle
 		subtitle = nil
 		description = AppStrings.Home.resultCardPendingDesc
-		buttonTitle = AppStrings.Home.resultCardShowResultButton
+		buttonTitle = AppStrings.Home.submitCardButton
 		image = UIImage(named: "Illu_Hand_with_phone-pending")
 		tintColor = .enaColor(for: .textPrimary2)
 		isActivityIndicatorHidden = true
 		isUserInteractionEnabled = true
-		accessibilityIdentifier = AccessibilityIdentifiers.Home.resultCardShowResultButton
+		accessibilityIdentifier = AccessibilityIdentifiers.Home.submitCardButton
 	}
 
 	private func configureTestResultAvailable() {
@@ -153,7 +153,7 @@ class HomeTestResultCellModel {
 		tintColor = .enaColor(for: .textSemanticGray)
 		isActivityIndicatorHidden = true
 		isUserInteractionEnabled = true
-		accessibilityIdentifier = AccessibilityIdentifiers.Home.resultCardShowResultButton
+		accessibilityIdentifier = AccessibilityIdentifiers.Home.submitCardButton
 	}
 
 }

@@ -13,12 +13,28 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		
 		// ADD NEW FEATURES HERE
 		
-		self.featureVersion = "1.15"
+		self.featureVersion = "2.1"
 		
-		// Switzerland
+		// Antigen Registration
 		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature115SwitzerlandTitle, description: AppStrings.NewVersionFeatures.feature115SwitzerlandDescription)
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature21RegAntigenTitle, description: AppStrings.NewVersionFeatures.feature21RegAntigenDescription)
 		)
+		
+		// Show proof
+		self.newVersionFeatures.append(
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature21ShowProofTitle, description: AppStrings.NewVersionFeatures.feature21ShowProofDescription)
+		)
+		
+		// New international tech hotline
+		self.newVersionFeatures.append(
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature21NewIntTechHotlineTitle, description: AppStrings.NewVersionFeatures.feature21NewIntTechHotlineDescription)
+		)
+		
+		// New international tan hotline
+		self.newVersionFeatures.append(
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature21NewIntTanHotlineTitle, description: AppStrings.NewVersionFeatures.feature21NewIntTanHotlineDescription)
+		)
+		
 	}
 
 	// MARK: - Internal

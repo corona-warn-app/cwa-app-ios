@@ -26,11 +26,17 @@ class RootCoordinator: RequiresAppDependencies {
 	
 	init(
 		_ delegate: CoordinatorDelegate,
+		coronaTestService: CoronaTestService,
 		contactDiaryStore: DiaryStoringProviding,
+		eventStore: EventStoringProviding,
+		eventCheckoutService: EventCheckoutService,
 		otpService: OTPServiceProviding
 	) {
 		self.delegate = delegate
+		self.coronaTestService = coronaTestService
 		self.contactDiaryStore = contactDiaryStore
+		self.eventStore = eventStore
+		self.eventCheckoutService = eventCheckoutService
 		self.otpService = otpService
 	}
 
@@ -54,7 +60,12 @@ class RootCoordinator: RequiresAppDependencies {
 			return
 		}
 		
-		let homeCoordinator = HomeCoordinator(delegate, otpService: otpService)
+		let homeCoordinator = HomeCoordinator(
+			delegate,
+			otpService: otpService,
+			eventStore: eventStore,
+			coronaTestService: coronaTestService
+		)
 		self.homeCoordinator = homeCoordinator
 		homeCoordinator.showHome(enStateHandler: enStateHandler)
 		
@@ -63,27 +74,38 @@ class RootCoordinator: RequiresAppDependencies {
 		let diaryCoordinator = DiaryCoordinator(
 			store: store,
 			diaryStore: contactDiaryStore,
+			eventStore: eventStore,
 			homeState: homeState
 		)
 		self.diaryCoordinator = diaryCoordinator
 		
-		
+		// Setup checkin coordinator after app reset
+		let checkInCoordinator = CheckinCoordinator(
+			store: store,
+			eventStore: eventStore,
+			appConfiguration: appConfigurationProvider,
+			eventCheckoutService: eventCheckoutService
+		)
+		self.checkInCoordinator = checkInCoordinator
+
 		// Tabbar
 		let startTabbarItem = UITabBarItem(title: AppStrings.Tabbar.homeTitle, image: UIImage(named: "Icons_Tabbar_Home"), selectedImage: nil)
 		startTabbarItem.accessibilityIdentifier = AccessibilityIdentifiers.Tabbar.home
 		homeCoordinator.rootViewController.tabBarItem = startTabbarItem
-		
-		
+
 		let diaryTabbarItem = UITabBarItem(title: AppStrings.Tabbar.diaryTitle, image: UIImage(named: "Icons_Tabbar_Diary"), selectedImage: nil)
 		diaryTabbarItem.accessibilityIdentifier = AccessibilityIdentifiers.Tabbar.diary
 		diaryCoordinator.viewController.tabBarItem = diaryTabbarItem
 
-		let tabbarVC = UITabBarController()
-		tabbarVC.tabBar.tintColor = .enaColor(for: .tint)
-		tabbarVC.tabBar.barTintColor = .enaColor(for: .background)
-		tabbarVC.setViewControllers([homeCoordinator.rootViewController, diaryCoordinator.viewController], animated: false)
+		let eventsTabbarItem = UITabBarItem(title: AppStrings.Tabbar.checkInTitle, image: UIImage(named: "Icons_Tabbar_Checkin"), selectedImage: nil)
+		eventsTabbarItem.accessibilityIdentifier = AccessibilityIdentifiers.Tabbar.checkin
+		checkInCoordinator.viewController.tabBarItem = eventsTabbarItem
 
-		viewController.embedViewController(childViewController: tabbarVC)
+		tabBarController.tabBar.tintColor = .enaColor(for: .tint)
+		tabBarController.tabBar.barTintColor = .enaColor(for: .background)
+		tabBarController.setViewControllers([homeCoordinator.rootViewController, checkInCoordinator.viewController, diaryCoordinator.viewController], animated: false)
+
+		viewController.embedViewController(childViewController: tabBarController)
 	}
 
 	func showTestResultFromNotification(with result: TestResult) {
@@ -107,6 +129,18 @@ class RootCoordinator: RequiresAppDependencies {
 		viewController.embedViewController(childViewController: navigationVC)
 	}
 
+	func showEvent(_ guid: String) {
+		let checkInNavigationController = checkInCoordinator.viewController
+		guard let index = tabBarController.viewControllers?.firstIndex(of: checkInNavigationController) else {
+			return
+		}
+
+		// Close all modal screens that would prevent showing the checkin screen first.
+		tabBarController.dismiss(animated: false)
+		tabBarController.selectedIndex = index
+		checkInCoordinator.showTraceLocationDetailsFromExternalCamera(guid)
+	}
+
 	func updateDetectionMode(
 		_ detectionMode: DetectionMode
 	) {
@@ -115,26 +149,29 @@ class RootCoordinator: RequiresAppDependencies {
 	}
 	
 	// MARK: - Private
-	
+
 	private weak var delegate: CoordinatorDelegate?
 
+	private let coronaTestService: CoronaTestService
 	private let contactDiaryStore: DiaryStoringProviding
+	private let eventStore: EventStoringProviding
+	private let eventCheckoutService: EventCheckoutService
 	private let otpService: OTPServiceProviding
+	private let tabBarController = UITabBarController()
 
 	private var homeCoordinator: HomeCoordinator?
 	private var homeState: HomeState?
 
 	private(set) var diaryCoordinator: DiaryCoordinator?
-
-	private lazy var exposureSubmissionService: ExposureSubmissionService = {
-		ExposureSubmissionServiceFactory.create(
-			diagnosisKeysRetrieval: self.exposureManager,
-			appConfigurationProvider: appConfigurationProvider,
-			client: self.client,
-			store: self.store
+	private(set) lazy var checkInCoordinator: CheckinCoordinator = {
+		CheckinCoordinator(
+			store: store,
+			eventStore: eventStore,
+			appConfiguration: appConfigurationProvider,
+			eventCheckoutService: eventCheckoutService
 		)
 	}()
-	
+
 	private var enStateUpdateList = NSHashTable<AnyObject>.weakObjects()
 
 }
