@@ -15,6 +15,7 @@ class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDel
 		onSuccess: @escaping (TraceLocation) -> Void,
 		onError: ((CheckinQRScannerError) -> Void)?
 	) {
+		#if DEBUG
 		if isUITesting {
 			let traceLocation = TraceLocation(
 				id: UUID().uuidString.data(using: .utf8) ?? Data(),
@@ -30,6 +31,7 @@ class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDel
 			)
 			onSuccess(traceLocation)
 		}
+		#endif
 		self.appConfiguration = appConfiguration
 		self.verificationHelper = verificationHelper
 		self.captureDevice = AVCaptureDevice.default(for: .video)
