@@ -231,12 +231,15 @@ class CoronaTestService {
 					Log.info("[CoronaTestService] Triggering Notification to inform user about TestResult: \(testResult.stringValue)", log: .api)
 
 					if presentNotification {
-						// We attach the test result to determine which screen to show when user taps the notification
+						// We attach the test result and type to determine which screen to show when user taps the notification
 						self?.notificationCenter.presentNotification(
 							title: AppStrings.LocalNotifications.testResultsTitle,
 							body: AppStrings.LocalNotifications.testResultsBody,
 							identifier: ActionableNotificationIdentifier.testResult.identifier,
-							info: [ActionableNotificationIdentifier.testResult.identifier: testResult.rawValue]
+							info: [
+								ActionableNotificationIdentifier.testResult.identifier: testResult.rawValue,
+								ActionableNotificationIdentifier.testResultType.identifier: coronaTestType.rawValue
+							]
 						)
 					}
 				}
