@@ -242,12 +242,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 	// MARK: - Internal
 
-	func reload() {
-		DispatchQueue.main.async { [weak self] in
-			self?.tableView.reloadData()
-		}
-	}
-
 	func scrollToTop(animated: Bool) {
 		tableView.setContentOffset(.zero, animated: animated)
 	}
@@ -487,7 +481,9 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				self?.tableView.scrollToRow(at: indexPath, at: .top, animated: false)
 			},
 			onUpdate: { [weak self] in
-				self?.reload()
+				DispatchQueue.main.async { [weak self] in
+					self?.tableView.reloadSections([HomeTableViewModel.Section.statistics.rawValue], with: .none)
+				}
 			}
 		)
 
