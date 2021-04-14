@@ -81,6 +81,58 @@ final class CheckinCoordinator {
 		}
 	}()
 	
+	func showQRCodeScanner() {
+		
+		let qrCodeScanner = CheckinQRCodeScannerViewController(
+			qrCodeVerificationHelper: verificationService,
+			appConfiguration: appConfiguration,
+			didScanCheckin: { [weak self] traceLocation in
+				self?.viewController.dismiss(animated: true, completion: {
+					self?.showTraceLocationDetails(traceLocation)
+				})
+			},
+			dismiss: { [weak self] in
+				self?.checkinsOverviewViewModel.updateForCameraPermission()
+				self?.viewController.dismiss(animated: true)
+			}
+		)
+		qrCodeScanner.definesPresentationContext = true
+		DispatchQueue.main.async { [weak self] in
+			let navigationController = UINavigationController(rootViewController: qrCodeScanner)
+			navigationController.modalPresentationStyle = .fullScreen
+			self?.viewController.present(navigationController, animated: true)
+		}
+	}
+	
+	func showTraceLocationDetailsFromExternalCamera(_ qrCodeString: String) {
+		verificationService.verifyQrCode(
+			qrCodeString: qrCodeString,
+			appConfigurationProvider: appConfiguration,
+			onSuccess: { [weak self] traceLocation in
+				self?.showTraceLocationDetails(traceLocation)
+				self?.verificationService.subscriptions.removeAll()
+			},
+			onError: { [weak self] error in
+				let alert = UIAlertController(
+					title: AppStrings.Checkins.QRScanner.Error.title,
+					message: error.errorDescription,
+					preferredStyle: .alert
+				)
+				alert.addAction(
+					UIAlertAction(
+						title: AppStrings.Common.alertActionOk,
+						style: .default,
+						handler: { _ in
+							alert.dismiss(animated: true, completion: nil)
+						}
+					)
+				)
+				self?.viewController.present(alert, animated: true)
+				self?.verificationService.subscriptions.removeAll()
+			}
+		)
+	}
+	
 	// MARK: - Private
 
 	private let store: Store
@@ -135,58 +187,6 @@ final class CheckinCoordinator {
 			bottomController: footerViewController
 		)
 		viewController.present(topBottomContainerViewController, animated: true)
-	}
-
-	func showQRCodeScanner() {
-		
-		let qrCodeScanner = CheckinQRCodeScannerViewController(
-			qrCodeVerificationHelper: verificationService,
-			appConfiguration: appConfiguration,
-			didScanCheckin: { [weak self] traceLocation in
-				self?.viewController.dismiss(animated: true, completion: {
-					self?.showTraceLocationDetails(traceLocation)
-				})
-			},
-			dismiss: { [weak self] in
-				self?.checkinsOverviewViewModel.updateForCameraPermission()
-				self?.viewController.dismiss(animated: true)
-			}
-		)
-		qrCodeScanner.definesPresentationContext = true
-		DispatchQueue.main.async { [weak self] in
-			let navigationController = UINavigationController(rootViewController: qrCodeScanner)
-			navigationController.modalPresentationStyle = .fullScreen
-			self?.viewController.present(navigationController, animated: true)
-		}
-	}
-	
-	func showTraceLocationDetailsFromExternalCamera(_ qrCodeString: String) {
-		verificationService.verifyQrCode(
-			qrCodeString: qrCodeString,
-			appConfigurationProvider: appConfiguration,
-			onSuccess: { [weak self] traceLocation in
-				self?.showTraceLocationDetails(traceLocation)
-				self?.verificationService.subscriptions.removeAll()
-			},
-			onError: { [weak self] error in
-				let alert = UIAlertController(
-					title: AppStrings.Checkins.QRScanner.Error.title,
-					message: error.errorDescription,
-					preferredStyle: .alert
-				)
-				alert.addAction(
-					UIAlertAction(
-						title: AppStrings.Common.alertActionOk,
-						style: .default,
-						handler: { _ in
-							alert.dismiss(animated: true, completion: nil)
-						}
-					)
-				)
-				self?.viewController.present(alert, animated: true)
-				self?.verificationService.subscriptions.removeAll()
-			}
-		)
 	}
 	
 	private func showTraceLocationDetails(_ traceLocation: TraceLocation) {
