@@ -59,7 +59,7 @@ class KeySubmissionMetadataTests: XCTestCase {
 
 		coronaTestService.pcrTest = PCRTest.mock(
 			registrationDate: Calendar.current.date(byAdding: .day, value: -1, to: Date()) ?? Date(),
-			testResultReceivedDate: dateSixHourAgo ?? Date()
+			finalTestResultReceivedDate: dateSixHourAgo ?? Date()
 		)
 
 		let keySubmissionMetadata = KeySubmissionMetadata(
