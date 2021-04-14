@@ -115,9 +115,9 @@ class HomeTableViewModel {
 		case .exposureLogging, .riskAndTestResults, .testRegistration, .statistics, .traceLocations:
 			return 0
 		case .infos:
-			return 16
+			return 12
 		case .settings:
-			return 32
+			return 24
 		case .none:
 			fatalError("Invalid section")
 		}
