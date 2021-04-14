@@ -96,8 +96,8 @@ class CoronaTestService {
 				switch result {
 				case .success(let registrationToken):
 					self?.pcrTest = PCRTest(
-						registrationToken: registrationToken,
 						registrationDate: Date(),
+						registrationToken: registrationToken,
 						testResult: .pending,
 						finalTestResultReceivedDate: nil,
 						positiveTestResultWasShown: false,
@@ -142,8 +142,8 @@ class CoronaTestService {
 				switch result {
 				case .success(let registrationToken):
 					self?.pcrTest = PCRTest(
-						registrationToken: registrationToken,
 						registrationDate: Date(),
+						registrationToken: registrationToken,
 						testResult: .positive,
 						finalTestResultReceivedDate: nil,
 						positiveTestResultWasShown: true,
@@ -184,8 +184,8 @@ class CoronaTestService {
 				switch result {
 				case .success(let registrationToken):
 					self?.antigenTest = AntigenTest(
-						registrationToken: registrationToken,
 						pointOfCareConsentDate: pointOfCareConsentDate,
+						registrationToken: registrationToken,
 						testedPerson: TestedPerson(name: name, birthday: birthday),
 						testResult: .pending,
 						finalTestResultReceivedDate: nil,
@@ -234,12 +234,15 @@ class CoronaTestService {
 					Log.info("[CoronaTestService] Triggering Notification to inform user about TestResult: \(testResult.stringValue)", log: .api)
 
 					if presentNotification {
-						// We attach the test result to determine which screen to show when user taps the notification
+						// We attach the test result and type to determine which screen to show when user taps the notification
 						self?.notificationCenter.presentNotification(
 							title: AppStrings.LocalNotifications.testResultsTitle,
 							body: AppStrings.LocalNotifications.testResultsBody,
 							identifier: ActionableNotificationIdentifier.testResult.identifier,
-							info: [ActionableNotificationIdentifier.testResult.identifier: testResult.rawValue]
+							info: [
+								ActionableNotificationIdentifier.testResult.identifier: testResult.rawValue,
+								ActionableNotificationIdentifier.testResultType.identifier: coronaTestType.rawValue
+							]
 						)
 					}
 				}
@@ -365,8 +368,8 @@ class CoronaTestService {
 	func migrate() {
 		if store.registrationToken != nil || store.lastSuccessfulSubmitDiagnosisKeyTimestamp != nil, let testRegistrationTimestamp = store.devicePairingConsentAcceptTimestamp {
 			pcrTest = PCRTest(
-				registrationToken: store.registrationToken,
 				registrationDate: Date(timeIntervalSince1970: TimeInterval(testRegistrationTimestamp)),
+				registrationToken: store.registrationToken,
 				testResult: .pending,
 				finalTestResultReceivedDate: store.testResultReceivedTimeStamp.map { Date(timeIntervalSince1970: TimeInterval($0)) },
 				positiveTestResultWasShown: store.positiveTestResultWasShown,

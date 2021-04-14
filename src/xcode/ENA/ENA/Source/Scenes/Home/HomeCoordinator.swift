@@ -162,13 +162,13 @@ class HomeCoordinator: RequiresAppDependencies {
 		}
 	}
 	
-	func showTestResultFromNotification(with result: TestResult) {
+	func showTestResultFromNotification(with testType: CoronaTestType) {
 		if let presentedViewController = rootViewController.presentedViewController {
 			presentedViewController.dismiss(animated: true) {
-				self.showExposureSubmission(with: .pcr)
+				self.showExposureSubmission(with: testType)
 			}
 		} else {
-			self.showExposureSubmission(with: .pcr)
+			self.showExposureSubmission(with: testType)
 		}
 	}
 	
