@@ -43,10 +43,9 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		super.init(style: .plain)
 
 		viewModel.$riskAndTestResultsRows
+			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] _ in
-				DispatchQueue.main.async {
-					self?.reload()
-				}
+				self?.tableView.reloadSections([HomeTableViewModel.Section.riskAndTestResults.rawValue], with: .none)
 			}
 			.store(in: &subscriptions)
 
