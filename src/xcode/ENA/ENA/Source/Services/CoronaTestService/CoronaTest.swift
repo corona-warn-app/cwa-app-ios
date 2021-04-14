@@ -41,12 +41,12 @@ enum CoronaTest: Equatable {
 		}
 	}
 
-	var testResultReceivedDate: Date? {
+	var finalTestResultReceivedDate: Date? {
 		switch self {
 		case .pcr(let pcrTest):
-			return pcrTest.testResultReceivedDate
+			return pcrTest.finalTestResultReceivedDate
 		case .antigen(let antigenTest):
-			return antigenTest.testResultReceivedDate
+			return antigenTest.finalTestResultReceivedDate
 		}
 	}
 
@@ -129,7 +129,7 @@ struct PCRTest: Equatable, Codable {
 	var registrationToken: String?
 
 	var testResult: TestResult
-	var testResultReceivedDate: Date?
+	var finalTestResultReceivedDate: Date?
 	var positiveTestResultWasShown: Bool
 
 	var isSubmissionConsentGiven: Bool
@@ -150,7 +150,7 @@ struct AntigenTest: Equatable, Codable {
 	var testedPerson: TestedPerson
 
 	var testResult: TestResult
-	var testResultReceivedDate: Date?
+	var finalTestResultReceivedDate: Date?
 	var positiveTestResultWasShown: Bool
 
 	var isSubmissionConsentGiven: Bool

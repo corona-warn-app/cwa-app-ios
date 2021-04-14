@@ -4,6 +4,7 @@
 
 import Foundation
 import OpenCombine
+import UIKit
 
 enum CoronaTestServiceError: Error, Equatable {
 	case responseFailure(URLSession.Response.Failure)
@@ -13,6 +14,7 @@ enum CoronaTestServiceError: Error, Equatable {
 	case noCoronaTestOfRequestedType
 }
 
+// swiftlint:disable:next type_body_length
 class CoronaTestService {
 
 	typealias VoidResultHandler = (Result<Void, CoronaTestServiceError>) -> Void
@@ -25,10 +27,12 @@ class CoronaTestService {
 
 	init(
 		client: Client,
-		store: CoronaTestStoring & CoronaTestStoringLegacy & WarnOthersTimeIntervalStoring
+		store: CoronaTestStoring & CoronaTestStoringLegacy & WarnOthersTimeIntervalStoring,
+		notificationCenter: UserNotificationCenter = UNUserNotificationCenter.current()
 	) {
 		self.client = client
 		self.store = store
+		self.notificationCenter = notificationCenter
 
 		self.fakeRequestService = FakeRequestService(client: client)
 		self.warnOthersReminder = WarnOthersReminder(store: store)
@@ -92,7 +96,7 @@ class CoronaTestService {
 						registrationDate: Date(),
 						registrationToken: registrationToken,
 						testResult: .pending,
-						testResultReceivedDate: nil,
+						finalTestResultReceivedDate: nil,
 						positiveTestResultWasShown: false,
 						isSubmissionConsentGiven: isSubmissionConsentGiven,
 						submissionTAN: nil,
@@ -138,7 +142,7 @@ class CoronaTestService {
 						registrationDate: Date(),
 						registrationToken: registrationToken,
 						testResult: .positive,
-						testResultReceivedDate: nil,
+						finalTestResultReceivedDate: nil,
 						positiveTestResultWasShown: true,
 						isSubmissionConsentGiven: isSubmissionConsentGiven,
 						submissionTAN: nil,
@@ -181,7 +185,7 @@ class CoronaTestService {
 						registrationToken: registrationToken,
 						testedPerson: TestedPerson(name: name, birthday: birthday),
 						testResult: .pending,
-						testResultReceivedDate: nil,
+						finalTestResultReceivedDate: nil,
 						positiveTestResultWasShown: false,
 						isSubmissionConsentGiven: false,
 						submissionTAN: nil,
@@ -207,10 +211,53 @@ class CoronaTestService {
 		)
 	}
 
-	func updateTestResult(for coronaTestType: CoronaTestType, completion: @escaping TestResultHandler) {
+	func updateTestResults(force: Bool = true, presentNotification: Bool, completion: @escaping VoidResultHandler) {
+		let group = DispatchGroup()
+		var errors = [CoronaTestServiceError]()
+
+		for coronaTestType in CoronaTestType.allCases {
+			Log.info("[CoronaTestService] Requesting TestResult for test type \(coronaTestType)…", log: .api)
+
+			group.enter()
+			updateTestResult(for: coronaTestType, force: force) { [weak self] result in
+				switch result {
+				case .failure(let error):
+					Log.error(error.localizedDescription, log: .api)
+					errors.append(error)
+				case .success(.pending), .success(.expired):
+					// Do not trigger notifications for pending or expired results.
+					Log.info("[CoronaTestService] TestResult pending or expired", log: .api)
+				case .success(let testResult):
+					Log.info("[CoronaTestService] Triggering Notification to inform user about TestResult: \(testResult.stringValue)", log: .api)
+
+					if presentNotification {
+						// We attach the test result to determine which screen to show when user taps the notification
+						self?.notificationCenter.presentNotification(
+							title: AppStrings.LocalNotifications.testResultsTitle,
+							body: AppStrings.LocalNotifications.testResultsBody,
+							identifier: ActionableNotificationIdentifier.testResult.identifier,
+							info: [ActionableNotificationIdentifier.testResult.identifier: testResult.rawValue]
+						)
+					}
+				}
+
+				group.leave()
+			}
+		}
+
+		group.notify(queue: .main) {
+			if let error = errors.first {
+				completion(.failure(error))
+			} else {
+				completion(.success(()))
+			}
+		}
+	}
+
+	func updateTestResult(for coronaTestType: CoronaTestType, force: Bool = true, completion: @escaping TestResultHandler) {
 		Log.info("[CoronaTestService] Updating test result (coronaTestType: \(coronaTestType))", log: .api)
 
-		getTestResult(for: coronaTestType, duringRegistration: false) { result in
+		getTestResult(for: coronaTestType, force: force, duringRegistration: false) { result in
 			self.fakeRequestService.fakeVerificationAndSubmissionServerRequest {
 				completion(result)
 			}
@@ -318,7 +365,7 @@ class CoronaTestService {
 				registrationDate: Date(timeIntervalSince1970: TimeInterval(testRegistrationTimestamp)),
 				registrationToken: store.registrationToken,
 				testResult: .pending,
-				testResultReceivedDate: store.testResultReceivedTimeStamp.map { Date(timeIntervalSince1970: TimeInterval($0)) },
+				finalTestResultReceivedDate: store.testResultReceivedTimeStamp.map { Date(timeIntervalSince1970: TimeInterval($0)) },
 				positiveTestResultWasShown: store.positiveTestResultWasShown,
 				isSubmissionConsentGiven: store.isSubmissionConsentGiven,
 				submissionTAN: store.tan,
@@ -349,6 +396,7 @@ class CoronaTestService {
 
 	private let client: Client
 	private var store: CoronaTestStoring & CoronaTestStoringLegacy
+	private let notificationCenter: UserNotificationCenter
 
 	private let fakeRequestService: FakeRequestService
 	private let warnOthersReminder: WarnOthersReminder
@@ -373,6 +421,7 @@ class CoronaTestService {
 	// swiftlint:disable:next cyclomatic_complexity
 	private func getTestResult(
 		for coronaTestType: CoronaTestType,
+		force: Bool = true,
 		duringRegistration: Bool,
 		_ completion: @escaping TestResultHandler
 	) {
@@ -390,6 +439,11 @@ class CoronaTestService {
 			Log.error("[CoronaTestService] Getting test result failed: No registration token", log: .api)
 
 			completion(.failure(.noRegistrationToken))
+			return
+		}
+
+		guard force || coronaTest.finalTestResultReceivedDate == nil else {
+			completion(.success(coronaTest.testResult))
 			return
 		}
 
@@ -422,12 +476,12 @@ class CoronaTestService {
 
 				switch testResult {
 				case .positive, .negative, .invalid:
-					if coronaTest.testResultReceivedDate == nil {
+					if coronaTest.finalTestResultReceivedDate == nil {
 						switch coronaTestType {
 						case .pcr:
-							self.pcrTest?.testResultReceivedDate = Date()
+							self.pcrTest?.finalTestResultReceivedDate = Date()
 						case .antigen:
-							self.antigenTest?.testResultReceivedDate = Date()
+							self.antigenTest?.finalTestResultReceivedDate = Date()
 						}
 					}
 
