@@ -12,9 +12,24 @@ protocol DateProviding {
 }
 
 struct DateProvider: DateProviding {
-	var today: Date {
-		return Date()
+	
+	// MARK: - Init
+	
+	init(date: Date) {
+		_date = date
 	}
+	
+	init() { }
+	
+	// MARK: - Internal
+	
+	var today: Date {
+		return _date ?? Date()
+	}
+	
+	// MARK: - Private
+	
+	private var _date: Date?
 }
 
 private struct ExportEntry {
