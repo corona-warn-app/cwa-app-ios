@@ -49,9 +49,6 @@ extension Checkin {
 
 extension Checkin {
 
-	/// a 10 minute interval
-	private static let INTERVAL_LENGTH: TimeInterval = 600
-
 	/// Extract and return the  trace location of the current checkin
 	var traceLocation: SAP_Internal_Pt_TraceLocation {
 		var loc = SAP_Internal_Pt_TraceLocation()
@@ -134,8 +131,8 @@ extension Checkin {
 
 		// 10 minute time interval; derived from the unix timestamps
 		// see: https://github.com/corona-warn-app/cwa-app-tech-spec/blob/proposal/event-registration-mvp/docs/spec/event-registration-client.md#derive-10-minute-interval-from-timestamp
-		checkin.startIntervalNumber = UInt32(checkinStartDate.timeIntervalSince1970 / Checkin.INTERVAL_LENGTH)
-		checkin.endIntervalNumber = UInt32(checkinEndDate.timeIntervalSince1970 / Checkin.INTERVAL_LENGTH)
+		checkin.startIntervalNumber = UInt32(checkinStartDate.timeIntervalSince1970 / EventStore.tenMinutesIntervalLength)
+		checkin.endIntervalNumber = UInt32(checkinEndDate.timeIntervalSince1970 / EventStore.tenMinutesIntervalLength)
 		assert(checkin.startIntervalNumber <= checkin.endIntervalNumber)
 		checkin.locationID = traceLocationId
 
