@@ -187,7 +187,7 @@ class HomeTableViewModelTests: XCTestCase {
 			store: store
 		)
 
-		store.pcrTest = PCRTest.mock(testResultReceivedDate: Date(timeIntervalSince1970: 23456789), keysSubmitted: true)
+		store.pcrTest = PCRTest.mock(finalTestResultReceivedDate: Date(timeIntervalSince1970: 23456789), keysSubmitted: true)
 
 		viewModel.reenableRiskDetection()
 
