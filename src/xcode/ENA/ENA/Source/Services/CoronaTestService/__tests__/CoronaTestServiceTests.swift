@@ -618,4 +618,5 @@ class CoronaTestServiceTests: XCTestCase {
  		)
  	}
 
+	// swiftlint:disable:next file_length
 }
