@@ -407,7 +407,7 @@
 		504E8B3125D41CD400CAFBDF /* DMPPAnalyticsActualData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E8B3025D41CD400CAFBDF /* DMPPAnalyticsActualData.swift */; };
 		5051CBB6260BCF6D003FC7C1 /* Int+DateFromUnixTimestampInHours.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5051CBAE260BCE70003FC7C1 /* Int+DateFromUnixTimestampInHours.swift */; };
 		505936942625BF7000D40216 /* ExposureSubmissionSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505936932625BF7000D40216 /* ExposureSubmissionSuccessViewController.swift */; };
-		505936AA2626C13800D40216 /* ExposureSubmissionSuccessViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505936A92626C13800D40216 /* ExposureSubmissionSuccessViewControllerTest.swift */; };
+		505936B52626C36B00D40216 /* ExposureSubmissionSuccessViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505936B42626C36B00D40216 /* ExposureSubmissionSuccessViewControllerTest.swift */; };
 		505F2E522587738900697CC2 /* AccessibilityLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505F2E512587738900697CC2 /* AccessibilityLabels.swift */; };
 		505F506E25C833AA004920EB /* edus_otp_request_ios.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505F506925C833A9004920EB /* edus_otp_request_ios.pb.swift */; };
 		505F506F25C833AA004920EB /* edus_otp.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505F506A25C833A9004920EB /* edus_otp.pb.swift */; };
@@ -1463,7 +1463,7 @@
 		504E8B3025D41CD400CAFBDF /* DMPPAnalyticsActualData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMPPAnalyticsActualData.swift; sourceTree = "<group>"; };
 		5051CBAE260BCE70003FC7C1 /* Int+DateFromUnixTimestampInHours.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+DateFromUnixTimestampInHours.swift"; sourceTree = "<group>"; };
 		505936932625BF7000D40216 /* ExposureSubmissionSuccessViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionSuccessViewController.swift; sourceTree = "<group>"; };
-		505936A92626C13800D40216 /* ExposureSubmissionSuccessViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionSuccessViewControllerTest.swift; sourceTree = "<group>"; };
+		505936B42626C36B00D40216 /* ExposureSubmissionSuccessViewControllerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionSuccessViewControllerTest.swift; sourceTree = "<group>"; };
 		505F2E512587738900697CC2 /* AccessibilityLabels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityLabels.swift; sourceTree = "<group>"; };
 		505F506925C833A9004920EB /* edus_otp_request_ios.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = edus_otp_request_ios.pb.swift; sourceTree = "<group>"; };
 		505F506A25C833A9004920EB /* edus_otp.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = edus_otp.pb.swift; sourceTree = "<group>"; };
@@ -4214,8 +4214,8 @@
 				A328425B248E82B5006B1F09 /* ExposureSubmissionTestResultViewControllerTests.swift */,
 				016961AF2549630100FF92E3 /* ExposureSubmissionTestResultViewModelTests.swift */,
 				2FD881CB2490F65C00BEC8FC /* ExposureSubmissionHotlineViewControllerTest.swift */,
-				505936A92626C13800D40216 /* ExposureSubmissionSuccessViewControllerTest.swift */,
 				2FD881CD249115E700BEC8FC /* ExposureSubmissionNavigationControllerTest.swift */,
+				505936B42626C36B00D40216 /* ExposureSubmissionSuccessViewControllerTest.swift */,
 				015178C12507D2A90074F095 /* ExposureSubmissionSymptomsOnsetViewControllerTests.swift */,
 				EB3BCA8A2507B8F3003F27C7 /* ExposureSubmissionSymptomsViewControllerTests.swift */,
 				A32842602490E2AC006B1F09 /* ExposureSubmissionWarnOthersViewControllerTests.swift */,
@@ -6823,6 +6823,7 @@
 				505936942625BF7000D40216 /* ExposureSubmissionSuccessViewController.swift in Sources */,
 				EB17144625716EA80088D7A9 /* FileManager+KeyPackageStorage.swift in Sources */,
 				5006C275260E2A4900533CAA /* CheckinWithRisk.swift in Sources */,
+				505936B52626C36B00D40216 /* ExposureSubmissionSuccessViewControllerTest.swift in Sources */,
 				AB124E202604EC34009004B3 /* DeleteAllTraceWarningPackageMetadataQuery.swift in Sources */,
 				ABE9613F25EFEC3700D0F699 /* InstallationDate.swift in Sources */,
 				BAC42DC42583AF9D001A94C0 /* ENATextField.swift in Sources */,
@@ -7039,7 +7040,6 @@
 				BAFBF36925ADE0F1003F5DC2 /* HomeInfoCellModelTests.swift in Sources */,
 				A1BABD0924A57B88000ED515 /* TemporaryExposureKeyMock.swift in Sources */,
 				940109F225DFB5EF0017355C /* DiaryDayNotesInfoViewModelTest.swift in Sources */,
-				505936AA2626C13800D40216 /* ExposureSubmissionSuccessViewControllerTest.swift in Sources */,
 				BAA19D7326121ACC00CBBDDD /* EditCheckinDetailViewModelTests.swift in Sources */,
 				A1E41949249548770016E52A /* HTTPClient+SubmitTests.swift in Sources */,
 				A1E41941249410AF0016E52A /* SAPDownloadedPackage+Helpers.swift in Sources */,
