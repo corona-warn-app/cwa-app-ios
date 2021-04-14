@@ -25,10 +25,12 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 			appDelegate?.showHome()
 
 		case ActionableNotificationIdentifier.pcrWarnOthersReminder1.identifier,
-			 ActionableNotificationIdentifier.pcrWarnOthersReminder2.identifier,
-			 ActionableNotificationIdentifier.antigenWarnOthersReminder1.identifier,
+			 ActionableNotificationIdentifier.pcrWarnOthersReminder2.identifier:
+			showPositivePCRTestResultIfNeeded()
+
+		case ActionableNotificationIdentifier.antigenWarnOthersReminder1.identifier,
 			 ActionableNotificationIdentifier.antigenWarnOthersReminder2.identifier:
-			showPositiveTestResultIfNeeded()
+			showPositiveAntigenTestResultIfNeeded()
 
 		case ActionableNotificationIdentifier.testResult.identifier:
 			let testIdentifier = ActionableNotificationIdentifier.testResult.identifier
@@ -44,7 +46,7 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 
 			switch testResult {
 			case .positive, .negative:
-				showTestResultFromNotification(with: testResult)
+				showTestResultFromNotification(with: testResultType)
 			case .invalid:
 				appDelegate?.showHome()
 			case .expired, .pending:
@@ -57,19 +59,22 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 		completionHandler()
 	}
 
-	private func showPositiveTestResultIfNeeded() {
-		guard
-			let coronaTestService = appDelegate?.coronaTestService,
-			coronaTestService.pcrTest?.positiveTestResultWasShown == true || coronaTestService.antigenTest?.positiveTestResultWasShown == true
-		else {
-			return
+	private func showPositivePCRTestResultIfNeeded() {
+		if let pcrTest = appDelegate?.coronaTestService.pcrTest,
+		   pcrTest.positiveTestResultWasShown {
+			showTestResultFromNotification(with: .pcr)
 		}
-
-		showTestResultFromNotification(with: .positive)
 	}
 
-	private func showTestResultFromNotification(with testResult: TestResult) {
+	private func showPositiveAntigenTestResultIfNeeded() {
+		if let antigenTest = appDelegate?.coronaTestService.antigenTest,
+		   antigenTest.positiveTestResultWasShown {
+			showTestResultFromNotification(with: .antigen)
+		}
+	}
+
+	private func showTestResultFromNotification(with testType: CoronaTestType) {
 		// we should show screens based on test result regardless wether positiveTestResultWasShown before or not
-		appDelegate?.coordinator.showTestResultFromNotification(with: testResult)
+		appDelegate?.coordinator.showTestResultFromNotification(with: testType)
 	}
 }
