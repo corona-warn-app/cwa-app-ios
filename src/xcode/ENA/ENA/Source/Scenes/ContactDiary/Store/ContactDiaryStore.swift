@@ -8,11 +8,13 @@ import FMDB
 import OpenCombine
 
 protocol DateProviding {
-	var today: Date { get set }
+	var today: Date { get }
 }
 
 struct DateProvider: DateProviding {
-	var today: Date = Date()
+	var today: Date {
+		return Date()
+	}
 }
 
 private struct ExportEntry {
