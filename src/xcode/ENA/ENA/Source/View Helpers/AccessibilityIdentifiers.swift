@@ -453,6 +453,9 @@ enum AccessibilityIdentifiers {
 			static let traceLocationTypeLabel = "AppStrings.CheckIn.Edit.traceLocationTypeLabel"
 			static let traceLocationDescriptionLabel = "AppStrings.CheckIn.Edit.traceLocationDescriptionLabel"
 			static let traceLocationAddressLabel = "AppStrings.CheckIn.Edit.traceLocationAddressLabel"
+			static let saveToDiary = "AppStrings.Checkins.Details.saveToDiary"
+			static let automaticCheckout = "AppStrings.Checkins.Details.automaticCheckout"
+			static let checkinFor = "AppStrings.Checkins.Details.checkinFor"
 		}
 		
 		enum Information {
