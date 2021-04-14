@@ -184,7 +184,7 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 			return
 		}
 
-		dependencies.coronaTestService.updateTestResults(presentNotification: true) { result in
+		dependencies.coronaTestService.updateTestResults(force: false, presentNotification: true) { result in
 			switch result {
 			case .success:
 				completion(true)

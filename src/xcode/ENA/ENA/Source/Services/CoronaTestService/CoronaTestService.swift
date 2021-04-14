@@ -211,7 +211,7 @@ class CoronaTestService {
 		)
 	}
 
-	func updateTestResults(presentNotification: Bool, completion: @escaping VoidResultHandler) {
+	func updateTestResults(force: Bool = true, presentNotification: Bool, completion: @escaping VoidResultHandler) {
 		let group = DispatchGroup()
 		var errors = [CoronaTestServiceError]()
 
@@ -219,7 +219,7 @@ class CoronaTestService {
 			Log.info("[CoronaTestService] Requesting TestResult for test type \(coronaTestType)…", log: .api)
 
 			group.enter()
-			updateTestResult(for: coronaTestType) { [weak self] result in
+			updateTestResult(for: coronaTestType, force: force) { [weak self] result in
 				switch result {
 				case .failure(let error):
 					Log.error(error.localizedDescription, log: .api)
@@ -254,10 +254,10 @@ class CoronaTestService {
 		}
 	}
 
-	func updateTestResult(for coronaTestType: CoronaTestType, completion: @escaping TestResultHandler) {
+	func updateTestResult(for coronaTestType: CoronaTestType, force: Bool = true, completion: @escaping TestResultHandler) {
 		Log.info("[CoronaTestService] Updating test result (coronaTestType: \(coronaTestType))", log: .api)
 
-		getTestResult(for: coronaTestType, duringRegistration: false) { result in
+		getTestResult(for: coronaTestType, force: force, duringRegistration: false) { result in
 			self.fakeRequestService.fakeVerificationAndSubmissionServerRequest {
 				completion(result)
 			}
@@ -421,6 +421,7 @@ class CoronaTestService {
 	// swiftlint:disable:next cyclomatic_complexity
 	private func getTestResult(
 		for coronaTestType: CoronaTestType,
+		force: Bool = true,
 		duringRegistration: Bool,
 		_ completion: @escaping TestResultHandler
 	) {
@@ -438,6 +439,11 @@ class CoronaTestService {
 			Log.error("[CoronaTestService] Getting test result failed: No registration token", log: .api)
 
 			completion(.failure(.noRegistrationToken))
+			return
+		}
+
+		guard force || coronaTest.finalTestResultReceivedDate == nil else {
+			completion(.success(coronaTest.testResult))
 			return
 		}
 
