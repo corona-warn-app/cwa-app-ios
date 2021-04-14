@@ -143,7 +143,8 @@ class HomeTableViewModel {
 					break
 				case .responseFailure, .unknownTestResult:
 					// Only show errors for corona tests that are still expecting their final test result
-					if self.coronaTestService.pcrTest != nil && self.coronaTestService.pcrTest?.testResultReceivedDate == nil || self.coronaTestService.antigenTest != nil && self.coronaTestService.antigenTest?.testResultReceivedDate == nil {
+					if self.coronaTestService.pcrTest != nil && self.coronaTestService.pcrTest?.finalTestResultReceivedDate == nil ||
+						self.coronaTestService.antigenTest != nil && self.coronaTestService.antigenTest?.finalTestResultReceivedDate == nil {
 						self.testResultLoadingError = error
 					}
 				}
