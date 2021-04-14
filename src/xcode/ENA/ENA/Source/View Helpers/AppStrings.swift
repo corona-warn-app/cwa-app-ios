@@ -109,15 +109,45 @@ enum AppStrings {
 	}
 
 	enum ExposureSubmissionResult {
-		static let title = NSLocalizedString("ExposureSubmissionResult_Title", comment: "")
+		
+		enum PCR {
+			static let title = NSLocalizedString("ExposureSubmissionResult_Title", comment: "")
+			static let card_positive = NSLocalizedString("ExposureSubmissionResult_CardPositive", comment: "")
+			static let card_negative = NSLocalizedString("ExposureSubmissionResult_CardNegative", comment: "")
+			static let card_subtitle = NSLocalizedString("ExposureSubmissionResult_CardSubTitle", comment: "")
+			static let testPending = NSLocalizedString("ExposureSubmissionResult_testPending", comment: "")
+			static let testPendingDesc = NSLocalizedString("ExposureSubmissionResult_testPendingDesc", comment: "")
+			static let testAdded = NSLocalizedString("ExposureSubmissionResult_testAdded", comment: "")
+			static let registrationDate = NSLocalizedString("ExposureSubmissionResult_RegistrationDate", comment: "")
+		}
+		
+		enum Antigen {
+			static let title = NSLocalizedString("ExposureSubmissionResult_Title_Antigen", comment: "")
+			static let card_positive = NSLocalizedString("ExposureSubmissionResult_CardPositive_Antigen", comment: "")
+			static let card_negative = NSLocalizedString("ExposureSubmissionResult_CardNegative_Antigen", comment: "")
+			static let card_subtitle = NSLocalizedString("ExposureSubmissionResult_CardSubTitle_Antigen", comment: "")
+			static let testPending = NSLocalizedString("ExposureSubmissionResult_antigenTestPending", comment: "")
+			static let testPendingDesc = NSLocalizedString("ExposureSubmissionResult_antigenTestPendingDesc", comment: "")
+			static let testPendingContactJournal = NSLocalizedString("ExposureSubmissionResult_antigenTestPendingContactJournal", comment: "")
+			static let testPendingContactJournalDesc = NSLocalizedString("ExposureSubmissionResult_antigenTestPendingContactJournalDesc", comment: "")
+			static let testNegativeDesc = NSLocalizedString("ExposureSubmissionResult_antigenTestNegativDesc", comment: "")
+			static let testAdded = NSLocalizedString("ExposureSubmissionResult_antigenTestAdded", comment: "")
+			static let testAddedDesc = NSLocalizedString("ExposureSubmissionResult_antigenTestAddedDesc", comment: "")
+			static let personBirthdayPrefix = NSLocalizedString("ExposureSubmissionResult_Person_Birthday_Prefix", comment: "")
+			static let registrationDate = NSLocalizedString("ExposureSubmissionResult_RegistrationDate_Antigen", comment: "")
+			static let registrationDateSuffix = NSLocalizedString("ExposureSubmissionResult_RegistrationDate_Suffix_Antigen", comment: "")
+			static let hoursAbbreviation = NSLocalizedString("ExposureSubmissionResult_Abbreviation_Hours", comment: "")
+			static let minutesAbbreviation = NSLocalizedString("ExposureSubmissionResult_Abbreviation_Minutes", comment: "")
+			static let secondsAbbreviation = NSLocalizedString("ExposureSubmissionResult_Abbreviation_Seconds", comment: "")
+			static let timerTitle = NSLocalizedString("ExposureSubmissionResult_Timer_Title", comment: "")
+			static let proofTitle = NSLocalizedString("ExposureSubmissionResult_Negative_Antigen_Proof_Title", comment: "")
+			static let proofDesc = NSLocalizedString("ExposureSubmissionResult_Negative_Antigen_Proof_Desc", comment: "")
+		}
+				
 		static let card_title = NSLocalizedString("ExposureSubmissionResult_CardTitle", comment: "")
-		static let card_subtitle = NSLocalizedString("ExposureSubmissionResult_CardSubTitle", comment: "")
-		static let card_positive = NSLocalizedString("ExposureSubmissionResult_CardPositive", comment: "")
-		static let card_negative = NSLocalizedString("ExposureSubmissionResult_CardNegative", comment: "")
 		static let card_invalid = NSLocalizedString("ExposureSubmissionResult_CardInvalid", comment: "")
 		static let card_pending = NSLocalizedString("ExposureSubmissionResult_CardPending", comment: "")
 		static let procedure = NSLocalizedString("ExposureSubmissionResult_Procedure", comment: "")
-		static let testAdded = NSLocalizedString("ExposureSubmissionResult_testAdded", comment: "")
 		static let warnOthers = NSLocalizedString("ExposureSubmissionResult_warnOthers", comment: "")
 		static let testNegative = NSLocalizedString("ExposureSubmissionResult_testNegative", comment: "")
 		static let testNegativeDesc = NSLocalizedString("ExposureSubmissionResult_testNegativeDesc", comment: "")
@@ -125,8 +155,6 @@ enum AppStrings {
 		static let testInvalidDesc = NSLocalizedString("ExposureSubmissionResult_testInvalidDesc", comment: "")
 		static let testExpired = NSLocalizedString("ExposureSubmissionResult_testExpired", comment: "")
 		static let testExpiredDesc = NSLocalizedString("ExposureSubmissionResult_testExpiredDesc", comment: "")
-		static let testPending = NSLocalizedString("ExposureSubmissionResult_testPending", comment: "")
-		static let testPendingDesc = NSLocalizedString("ExposureSubmissionResult_testPendingDesc", comment: "")
 		static let warnOthersConsentGiven = NSLocalizedString("ExposureSubmissionResult_WarnOthersConsentGiven", comment: "")
 		static let warnOthersConsentNotGiven = NSLocalizedString("ExposureSubmissionResult_WarnOthersConsentNotGiven", comment: "")
 		static let testRemove = NSLocalizedString("ExposureSubmissionResult_testRemove", comment: "")
@@ -144,7 +172,6 @@ enum AppStrings {
 		static let removeAlert_Title = NSLocalizedString("ExposureSubmissionResult_RemoveAlert_Title", comment: "")
 		static let removeAlert_Text = NSLocalizedString("ExposureSubmissionResult_RemoveAlert_Text", comment: "")
 		static let registrationDateUnknown = NSLocalizedString("ExposureSubmissionResult_RegistrationDateUnknown", comment: "")
-		static let registrationDate = NSLocalizedString("ExposureSubmissionResult_RegistrationDate", comment: "")
 	}
 
 	enum ExposureSubmissionDispatch {
