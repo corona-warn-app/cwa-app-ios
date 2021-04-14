@@ -1972,9 +1972,17 @@
 
 "Checkin_QR_Scanner_Error_InvalidURL" = "Codul QR scanat nu este valabil pentru check-inurile la un eveniment sau într-un loc. Scanați un cod QR corespunzător (cod de eroare INVALID_URL).";
 
-"Checkin_QR_Scanner_Error_InvalidPayload" = "Check-in împiedicat din cauza unui cod QR nevalabil. Organismul responsabil trebuie să genereze un cod QR nou (cod de eroare INVALID_PAYLOAD).";
+"Checkin_QR_Scanner_Error_InvalidPayload" = "Check-in împiedicat din cauza unui cod QR nevalabil. Partea responsabilă trebuie să genereze un cod QR nou (cod de eroare INVALID_PAYLOAD).";
 
-"Checkin_QR_Scanner_Error_InvalidURLVendorData" = "Check-in împiedicat din cauza unui cod QR nevalabil. Organismul responsabil trebuie să genereze un cod QR nou (cod de eroare INVALID_VENDOR_DATA).";
+"Checkin_QR_Scanner_Error_InvalidURLVendorData" = "Check-in împiedicat din cauza unui cod QR nevalabil. Partea responsabilă trebuie să genereze un cod QR nou (cod de eroare INVALID_VENDOR_DATA).";
+
+"Checkin_QR_Scanner_Error_InvalidDescription" = "Check-in împiedicat din cauza unui cod QR nevalabil. Partea responsabilă trebuie să genereze un cod QR nou (cod de eroare INVALID_DESCRIPTION).";
+
+"Checkin_QR_Scanner_Error_InvalidAddress" = "Check-in împiedicat din cauza unui cod QR nevalabil. Partea responsabilă trebuie să genereze un cod QR nou (cod de eroare INVALID_ADDRESS).";
+
+"Checkin_QR_Scanner_Error_InvalidCryptographicSeed" = "Check-in împiedicat din cauza unui cod QR nevalabil. Partea responsabilă trebuie să genereze un cod QR nou (cod de eroare INVALID_CRYPTO_SEED).";
+
+"Checkin_QR_Scanner_Error_InvalidTimeStamps" = "Check-in împiedicat din cauza unui cod QR nevalabil. Partea responsabilă trebuie să genereze un cod QR nou (cod de eroare INVALID_TIMESTAMPS).";
 
 /* TraceLocations */
 "TraceLocations_Overview_Title" = "Codurile mele QR";

@@ -1793,7 +1793,7 @@
 
 "Tabbar_Diary_Title" = "Günce";
 
-"Tabbar_CheckIn_Title" = "Check-in";
+"Tabbar_CheckIn_Title" = "Check In";
 
 /* Data Donation */
 "DataDonation_IntroductionText" = "Uygulamayı nasıl kullandığınızı belirtin ve uygulamanın etkinliğini değerlendirmemize yardımcı olun.";
@@ -1972,9 +1972,17 @@
 
 "Checkin_QR_Scanner_Error_InvalidURL" = "Taranan QR kod, etkinlik veya yer check-in’leri için geçerli değil. Lütfen uygun bir QR kod tarayın (hata kodu INVALID_URL).";
 
-"Checkin_QR_Scanner_Error_InvalidPayload" = "Geçersiz QR kod nedeniyle check-in engellendi. Sorumlu kuruluş, yeni bir QR kod oluşturmalıdır (hata kodu INVALID_PAYLOAD).";
+"Checkin_QR_Scanner_Error_InvalidPayload" = "Geçersiz QR kod nedeniyle check-in engellendi. Sorumlu taraf yeni bir QR kod oluşturmalıdır (hata kodu INVALID_PAYLOAD).";
 
-"Checkin_QR_Scanner_Error_InvalidURLVendorData" = "Geçersiz QR kod nedeniyle check-in engellendi. Sorumlu kuruluş, yeni bir QR kod oluşturmalıdır (hata kodu INVALID_VENDOR_DATA).";
+"Checkin_QR_Scanner_Error_InvalidURLVendorData" = "Geçersiz QR kod nedeniyle check-in engellendi. Sorumlu taraf yeni bir QR kod oluşturmalıdır (hata kodu INVALID_VENDOR_DATA).";
+
+"Checkin_QR_Scanner_Error_InvalidDescription" = "Geçersiz QR kod nedeniyle check-in engellendi. Sorumlu taraf yeni bir QR kod oluşturmalıdır (hata kodu INVALID_DESCRIPTION).";
+
+"Checkin_QR_Scanner_Error_InvalidAddress" = "Geçersiz QR kod nedeniyle check-in engellendi. Sorumlu taraf yeni bir QR kod oluşturmalıdır (hata kodu INVALID_ADDRESS).";
+
+"Checkin_QR_Scanner_Error_InvalidCryptographicSeed" = "Geçersiz QR kod nedeniyle check-in engellendi. Sorumlu taraf yeni bir QR kod oluşturmalıdır (hata kodu INVALID_CRYPTO_SEED).";
+
+"Checkin_QR_Scanner_Error_InvalidTimeStamps" = "Geçersiz QR kod nedeniyle check-in engellendi. Sorumlu taraf yeni bir QR kod oluşturmalıdır (hata kodu INVALID_TIMESTAMPS).";
 
 /* TraceLocations */
 "TraceLocations_Overview_Title" = "QR Kodlarım";
