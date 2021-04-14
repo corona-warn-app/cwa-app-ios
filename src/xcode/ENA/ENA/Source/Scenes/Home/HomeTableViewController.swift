@@ -687,40 +687,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		}
 	}
 
-	// TODO
-//	private func showReenableConfirmationAlert() {
-//		let title = AppStrings.Home.reenableAlertTitle
-//		let message = AppStrings.Home.reenableAlertMessage
-//
-//		let alert = UIAlertController(
-//			title: title,
-//			message: message,
-//			preferredStyle: .alert
-//		)
-//
-//		alert.addAction(
-//			UIAlertAction(
-//				title: AppStrings.Home.reenableAlertConfirmButtonTitle,
-//				style: .default,
-//				handler: { [weak self] _ in
-//					self?.viewModel.reenableRiskDetection()
-//					self?.scrollToTop(animated: false)
-//					self?.tableView.reloadSections([HomeTableViewModel.Section.riskAndTestResults.rawValue], with: .automatic)
-//				}
-//			)
-//		)
-//
-//		alert.addAction(
-//			UIAlertAction(
-//				title: AppStrings.Home.reenableAlertCancelButtonTitle,
-//				style: .cancel,
-//				handler: nil
-//			)
-//		)
-//
-//		present(alert, animated: true)
-//	}
-
 	@objc
 	private func refreshUIAfterResumingFromBackground() {
 		refreshUI()
