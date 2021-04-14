@@ -1987,9 +1987,17 @@
 
 "Checkin_QR_Scanner_Error_InvalidURL" = "Сканираният QR код не е валиден за регистрации за събитие или място. Моля, сканирайте подходящ QR код (код за грешка: INVALID_URL).";
 
-"Checkin_QR_Scanner_Error_InvalidPayload" = "Регистрацията не е извършена поради невалиден QR код. Отговорният орган трябва да генерира нов QR код (код за грешка: INVALID_PAYLOAD).";
+"Checkin_QR_Scanner_Error_InvalidPayload" = "Регистрацията не е извършена поради невалиден QR код. Отговорната страна трябва да генерира нов QR код (код за грешка: INVALID_PAYLOAD).";
 
-"Checkin_QR_Scanner_Error_InvalidURLVendorData" = "Регистрацията не е извършена поради невалиден QR код. Отговорният орган трябва да генерира нов QR код (код за грешка: INVALID_VENDOR_DATA).";
+"Checkin_QR_Scanner_Error_InvalidURLVendorData" = "Регистрацията не е извършена поради невалиден QR код. Отговорната страна трябва да генерира нов QR код (код за грешка: INVALID_VENDOR_DATA).";
+
+"Checkin_QR_Scanner_Error_InvalidDescription" = "Регистрацията не е извършена поради невалиден QR код. Отговорната страна трябва да генерира нов QR код (код за грешка: INVALID_DESCRIPTION).";
+
+"Checkin_QR_Scanner_Error_InvalidAddress" = "Регистрацията не е извършена поради невалиден QR код. Отговорната страна трябва да генерира нов QR код (код за грешка: INVALID_ADDRESS).";
+
+"Checkin_QR_Scanner_Error_InvalidCryptographicSeed" = "Регистрацията не е извършена поради невалиден QR код. Отговорната страна трябва да генерира нов QR код (код за грешка: INVALID_CRYPTO_SEED).";
+
+"Checkin_QR_Scanner_Error_InvalidTimeStamps" = "Регистрацията не е извършена поради невалиден QR код. Отговорната страна трябва да генерира нов QR код (код за грешка: INVALID_TIMESTAMPS).";
 
 /* TraceLocations */
 "TraceLocations_Overview_Title" = "Моите QR кодове";
