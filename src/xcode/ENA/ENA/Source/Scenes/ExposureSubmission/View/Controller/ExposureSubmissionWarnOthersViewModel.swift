@@ -14,7 +14,7 @@ struct ExposureSubmissionWarnOthersViewModel {
 	private let acknowledgementString: NSAttributedString = {
 		let boldText = AppStrings.ExposureSubmissionWarnOthers.acknowledgement_1_1
 		let normalText = AppStrings.ExposureSubmissionWarnOthers.acknowledgement_1_2
-		let string = NSMutableAttributedString(string: "\(boldText) \(normalText)")
+		let string = NSMutableAttributedString(string: "\(boldText)\n\n\(normalText)")
 
 		// highlighted text
 		let attributes: [NSAttributedString.Key: Any] = [
@@ -54,11 +54,6 @@ struct ExposureSubmissionWarnOthersViewModel {
 					.body(
 						text: AppStrings.ExposureSubmissionWarnOthers.description,
 						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnOthers.description
-					),
-					.space(height: 12),
-					.body(
-						text: AppStrings.ExposureSubmissionWarnOthers.supportedCountriesTitle,
-						accessibilityIdentifier: nil
 					),
 					.space(height: 12)
 				]
