@@ -8,6 +8,8 @@ struct HomeShownPositiveTestResultCellModel {
 
 	// MARK: - Internal
 
+	let coronaTestType: CoronaTestType
+
 	let backgroundColor = UIColor.enaColor(for: .background)
 
 	let title = AppStrings.Home.findingPositiveCardTitle

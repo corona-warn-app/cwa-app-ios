@@ -95,15 +95,17 @@ class HomeCoordinator: RequiresAppDependencies {
 				riskProvider: riskProvider,
 				exposureManagerState: exposureManager.exposureManagerState,
 				enState: enStateHandler.state,
-				coronaTestService: coronaTestService,
-				exposureSubmissionService: exposureSubmissionService,
 				statisticsProvider: statisticsProvider
 			)
 
 			let homeController = HomeTableViewController(
 				viewModel: HomeTableViewModel(
 					state: homeState,
-					store: store
+					store: store,
+					coronaTestService: coronaTestService,
+					onTestResultCellTap: { [weak self] coronaTestType in
+						self?.showExposureSubmission(with: coronaTestType)
+					}
 				),
 				appConfigurationProvider: appConfigurationProvider,
 				onInfoBarButtonItemTap: { [weak self] in
@@ -118,8 +120,8 @@ class HomeCoordinator: RequiresAppDependencies {
 				onInactiveCellButtonTap: { [weak self] enState in
 					self?.showExposureNotificationSetting(enState: enState)
 				},
-				onTestResultCellTap: { [weak self] testResult in
-					self?.showExposureSubmission(with: testResult)
+				onTestRegistrationCellTap: { [weak self] in
+					self?.showExposureSubmission()
 				},
 				onStatisticsInfoButtonTap: { [weak self] in
 					self?.showStatisticsInfo()
@@ -163,10 +165,10 @@ class HomeCoordinator: RequiresAppDependencies {
 	func showTestResultFromNotification(with result: TestResult) {
 		if let presentedViewController = rootViewController.presentedViewController {
 			presentedViewController.dismiss(animated: true) {
-				self.showExposureSubmission(with: result)
+				self.showExposureSubmission(with: .pcr)
 			}
 		} else {
-			self.showExposureSubmission(with: result)
+			self.showExposureSubmission(with: .pcr)
 		}
 	}
 	
@@ -248,23 +250,17 @@ class HomeCoordinator: RequiresAppDependencies {
 	}
 
 
-	private func showExposureSubmission(with result: TestResult? = nil) {
+	private func showExposureSubmission(with coronaTestType: CoronaTestType? = nil) {
 		// A strong reference to the coordinator is passed to the exposure submission navigation controller
 		// when .start() is called. The coordinator is then bound to the lifecycle of this navigation controller
 		// which is managed by UIKit.
 		let coordinator = ExposureSubmissionCoordinator(
 			parentNavigationController: rootViewController,
 			exposureSubmissionService: exposureSubmissionService,
-			coronaTestService: coronaTestService,
-			store: self.store,
-			delegate: self
+			coronaTestService: coronaTestService
 		)
 
-		if coronaTestService.pcrTest != nil {
-			coordinator.start(with: .pcr)
-		} else {
-			coordinator.start()
-		}
+		coordinator.start(with: coronaTestType)
 	}
 
 	func showStatisticsInfo() {
@@ -338,13 +334,6 @@ class HomeCoordinator: RequiresAppDependencies {
 		}
 	}
 
-}
-
-extension HomeCoordinator: ExposureSubmissionCoordinatorDelegate {
-	func exposureSubmissionCoordinatorWillDisappear(_ coordinator: ExposureSubmissionCoordinator) {
-		homeController?.reload()
-		homeState?.updateTestResult()
-	}
 }
 
 extension HomeCoordinator: ExposureStateUpdating {

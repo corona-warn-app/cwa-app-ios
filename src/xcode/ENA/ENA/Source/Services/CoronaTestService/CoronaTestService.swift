@@ -61,6 +61,9 @@ class CoronaTestService {
 	@OpenCombine.Published var pcrTest: PCRTest?
 	@OpenCombine.Published var antigenTest: AntigenTest?
 
+	@OpenCombine.Published var pcrTestResultIsLoading: Bool = false
+	@OpenCombine.Published var antigenTestResultIsLoading: Bool = false
+
 	var hasAtLeastOneShownPositiveOrSubmittedTest: Bool {
 		pcrTest?.positiveTestResultWasShown == true || pcrTest?.keysSubmitted == true ||
 			antigenTest?.positiveTestResultWasShown == true || antigenTest?.keysSubmitted == true
@@ -393,8 +396,22 @@ class CoronaTestService {
 			return
 		}
 
+		switch coronaTestType {
+		case .pcr:
+			pcrTestResultIsLoading = true
+		case .antigen:
+			antigenTestResultIsLoading = true
+		}
+
 		client.getTestResult(forDevice: registrationToken, isFake: false) { [weak self] result in
 			guard let self = self else { return }
+
+			switch coronaTestType {
+			case .pcr:
+				self.pcrTestResultIsLoading = false
+			case .antigen:
+				self.antigenTestResultIsLoading = false
+			}
 
 			switch result {
 			case let .failure(error):

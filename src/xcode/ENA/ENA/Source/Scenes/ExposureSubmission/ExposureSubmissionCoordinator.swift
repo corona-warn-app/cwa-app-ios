@@ -7,11 +7,6 @@ import UIKit
 import OpenCombine
 import ExposureNotification
 
-/// This delegate allows a class to be notified for life-cycle events of the coordinator.
-protocol ExposureSubmissionCoordinatorDelegate: class {
-	func exposureSubmissionCoordinatorWillDisappear(_ coordinator: ExposureSubmissionCoordinator)
-}
-
 // swiftlint:disable file_length
 /// Concrete implementation of the ExposureSubmissionCoordinator protocol.
 // swiftlint:disable:next type_body_length
@@ -22,12 +17,9 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	init(
 		parentNavigationController: UINavigationController,
 		exposureSubmissionService: ExposureSubmissionService,
-		coronaTestService: CoronaTestService,
-		store: Store,
-		delegate: ExposureSubmissionCoordinatorDelegate? = nil
+		coronaTestService: CoronaTestService
 	) {
 		self.parentNavigationController = parentNavigationController
-		self.delegate = delegate
 
 		super.init()
 
@@ -38,9 +30,6 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	}
 
 	// MARK: - Internal
-
-	/// - NOTE: The delegate is called by the `viewWillDisappear(_:)` method of the `navigationController`.
-	weak var delegate: ExposureSubmissionCoordinatorDelegate?
 
 	func start(with coronaTestType: CoronaTestType? = nil) {
 		model.coronaTestType = coronaTestType

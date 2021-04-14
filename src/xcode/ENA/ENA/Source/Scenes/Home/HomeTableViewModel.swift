@@ -11,71 +11,73 @@ class HomeTableViewModel {
 
 	init(
 		state: HomeState,
-		store: Store
+		store: Store,
+		coronaTestService: CoronaTestService,
+		onTestResultCellTap: @escaping (CoronaTestType?) -> Void
 	) {
 		self.state = state
 		self.store = store
+		self.coronaTestService = coronaTestService
+		self.onTestResultCellTap = onTestResultCellTap
+
+		coronaTestService.$pcrTest
+			.receive(on: DispatchQueue.main.ocombine)
+			.sink { [weak self] in
+				self?.updateWith(pcrTest: $0)
+			}
+			.store(in: &subscriptions)
+
+		coronaTestService.$antigenTest
+			.receive(on: DispatchQueue.main.ocombine)
+			.sink { [weak self] in
+				self?.updateWith(antigenTest: $0)
+			}
+			.store(in: &subscriptions)
 	}
 
 	// MARK: - Internal
 
 	enum Section: Int, CaseIterable {
 		case exposureLogging
-		case riskAndTest
+		case riskAndTestResults
+		case testRegistration
 		case statistics
 		case traceLocations
 		case infos
 		case settings
 	}
 
-	enum RiskAndTestRow {
+	enum RiskAndTestResultsRow: Equatable {
 		case risk
-		case testResult
-		case shownPositiveTestResult
-		case thankYou
+		case pcrTestResult(TestResultState)
+		case antigenTestResult(TestResultState)
+	}
+
+	enum TestResultState: Equatable {
+		case `default`
+		case positiveResultWasShown
+		case keysSubmitted
 	}
 
 	let state: HomeState
 	let store: Store
+	let coronaTestService: CoronaTestService
+
+	@OpenCombine.Published var testResultLoadingError: Error?
+	@OpenCombine.Published var riskAndTestResultsRows: [RiskAndTestResultsRow] = []
 
 	var numberOfSections: Int {
 		Section.allCases.count
-	}
-
-	var riskAndTestRows: [RiskAndTestRow] {
-		#if DEBUG
-		if isUITesting {
-			// adding this for launch argument to fake cards on home screen for testing
-			if UserDefaults.standard.string(forKey: "showThankYouScreen") == "YES" {
-				return [.thankYou]
-			} else if UserDefaults.standard.string(forKey: "showTestResultScreen") == "YES" {
-				return [.risk, .testResult]
-			} else if UserDefaults.standard.string(forKey: "showPositiveTestResult") == "YES" {
-				return [.shownPositiveTestResult]
-			}
-		}
-		#endif
-		if state.keysWereSubmitted {
-			// This is shown when we submitted keys! (Positive test result + actually decided to submit keys.)
-			// Once this state is reached, it cannot be left anymore.
-
-			Log.info("Reached end of life state.", log: .localData)
-			return [.thankYou]
-		} else if state.positiveTestResultWasShown {
-			// This is shown when a positive test result was already shown to the user. The risk cell will not be shown in that case.
-
-			return [.shownPositiveTestResult]
-		} else {
-			return [.risk, .testResult]
-		}
 	}
 
 	func numberOfRows(in section: Int) -> Int {
 		switch Section(rawValue: section) {
 		case .exposureLogging:
 			return 1
-		case .riskAndTest:
-			return riskAndTestRows.count
+		case .riskAndTestResults:
+			return riskAndTestResultsRows.count
+		case .testRegistration:
+			return 1
 		case .statistics:
 			return 1
 		case .traceLocations:
@@ -99,7 +101,7 @@ class HomeTableViewModel {
 
 	func heightForHeader(in section: Int) -> CGFloat {
 		switch Section(rawValue: section) {
-		case .exposureLogging, .riskAndTest, .statistics, .traceLocations:
+		case .exposureLogging, .riskAndTestResults, .testRegistration, .statistics, .traceLocations:
 			return 0
 		case .infos, .settings:
 			return 16
@@ -110,7 +112,7 @@ class HomeTableViewModel {
 
 	func heightForFooter(in section: Int) -> CGFloat {
 		switch Section(rawValue: section) {
-		case .exposureLogging, .riskAndTest, .statistics, .traceLocations:
+		case .exposureLogging, .riskAndTestResults, .testRegistration, .statistics, .traceLocations:
 			return 0
 		case .infos:
 			return 16
@@ -121,9 +123,70 @@ class HomeTableViewModel {
 		}
 	}
 
-	func reenableRiskDetection() {
-		state.coronaTestService.removeTest(.pcr)
-		state.requestRisk(userInitiated: true)
+	func didTapTestResultCell(coronaTestType: CoronaTestType) {
+		if coronaTestService.coronaTest(ofType: coronaTestType)?.testResult == .expired {
+			coronaTestService.removeTest(coronaTestType)
+		} else {
+			onTestResultCellTap(coronaTestType)
+		}
+	}
+
+	func updateTestResult() {
+		coronaTestService.updateTestResult(for: .pcr) { [weak self] result in
+			if case .failure(let error) = result {
+				self?.testResultLoadingError = error
+			}
+		}
+	}
+
+	// MARK: - Private
+
+	private let onTestResultCellTap: (CoronaTestType?) -> Void
+	private var subscriptions = Set<AnyCancellable>()
+
+	private func updateWith(pcrTest: PCRTest? = nil, antigenTest: AntigenTest? = nil) {
+		let updatedRiskAndTestResultsRows = self.computedRiskAndTestResultsRows(pcrTest: pcrTest, antigenTest: antigenTest)
+
+		if updatedRiskAndTestResultsRows != self.riskAndTestResultsRows {
+			self.riskAndTestResultsRows = updatedRiskAndTestResultsRows
+		}
+
+		if updatedRiskAndTestResultsRows.contains(.risk) && !self.riskAndTestResultsRows.contains(.risk) {
+			self.state.requestRisk(userInitiated: true)
+		}
+	}
+
+	private func computedRiskAndTestResultsRows(pcrTest: PCRTest? = nil, antigenTest: AntigenTest? = nil) -> [RiskAndTestResultsRow] {
+		var riskAndTestResultsRows = [RiskAndTestResultsRow]()
+		if !coronaTestService.hasAtLeastOneShownPositiveOrSubmittedTest {
+			riskAndTestResultsRows.append(.risk)
+		}
+
+		if let pcrTest = pcrTest ?? coronaTestService.pcrTest {
+			let testResultState: TestResultState
+			if pcrTest.keysSubmitted {
+				testResultState = .keysSubmitted
+			} else if pcrTest.testResult == .positive && pcrTest.positiveTestResultWasShown {
+				testResultState = .positiveResultWasShown
+			} else {
+				testResultState = .default
+			}
+			riskAndTestResultsRows.append(.pcrTestResult(testResultState))
+		}
+
+		if let antigenTest = antigenTest ?? coronaTestService.antigenTest {
+			let testResultState: TestResultState
+			if antigenTest.keysSubmitted {
+				testResultState = .keysSubmitted
+			} else if antigenTest.testResult == .positive && antigenTest.positiveTestResultWasShown {
+				testResultState = .positiveResultWasShown
+			} else {
+				testResultState = .default
+			}
+			riskAndTestResultsRows.append(.antigenTestResult(testResultState))
+		}
+
+		return riskAndTestResultsRows
 	}
 
 }
