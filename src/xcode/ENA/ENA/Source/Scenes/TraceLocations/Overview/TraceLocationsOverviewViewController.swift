@@ -163,7 +163,7 @@ class TraceLocationsOverviewViewController: UITableViewController, FooterViewHan
 
 		tableView.separatorStyle = .none
 		tableView.rowHeight = UITableView.automaticDimension
-		tableView.estimatedRowHeight = 600
+		tableView.estimatedRowHeight = 60
 		tableView.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Overview.tableView
 	}
 

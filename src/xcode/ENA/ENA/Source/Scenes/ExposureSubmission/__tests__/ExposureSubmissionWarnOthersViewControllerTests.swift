@@ -30,7 +30,7 @@ class ExposureSubmissionWarnOthersViewControllerTests: XCTestCase {
 		let dynamicTableViewModel = viewModel.dynamicTableViewModel
 
 		XCTAssertEqual(dynamicTableViewModel.numberOfSection, 4)
-		XCTAssertEqual(dynamicTableViewModel.section(0).cells.count, 5)
+		XCTAssertEqual(dynamicTableViewModel.section(0).cells.count, 3)
 		XCTAssertEqual(dynamicTableViewModel.section(1).cells.count, 2)
 		XCTAssertEqual(dynamicTableViewModel.section(2).cells.count, 6)
 		XCTAssertEqual(dynamicTableViewModel.section(3).cells.count, 2)

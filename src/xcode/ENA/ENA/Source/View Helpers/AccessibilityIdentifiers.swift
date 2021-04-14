@@ -253,6 +253,7 @@ enum AccessibilityIdentifiers {
 		static let description = "AppStrings.ExposureSubmissionSuccess.description"
 		static let listTitle = "AppStrings.ExposureSubmissionSuccess.listTitle"
 		static let subTitle = "AppStrings.ExposureSubmissionSuccess.subTitle"
+		static let closeButton = "AppStrings.ExposureSubmissionSuccess.button"
 	}
 	
 	enum ExposureSubmissionHotline {

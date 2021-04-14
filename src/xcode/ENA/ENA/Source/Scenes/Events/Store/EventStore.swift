@@ -12,7 +12,8 @@ import FMDB
 // swiftlint:disable:next type_body_length
 class EventStore: SecureSQLStore, EventStoringProviding {
 
-	static let dataRetentionPeriodInDays = 15
+	static let tenMinutesIntervalLength: TimeInterval = 600
+	static let dataRetentionPeriodInDays: TimeInterval = 15
 	static let encryptionKeyKey = "EventStoreEncryptionKey"
 
 	// MARK: - Init
@@ -304,23 +305,23 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 				return
 			}
 
-			let retentionTimeInterval = Int(Date().timeIntervalSince1970) - EventStore.dataRetentionPeriodInDays * 86400
+			let retentionTimeInterval = Date().timeIntervalSince1970 - EventStore.dataRetentionPeriodInDays * 86400
+			let tenMinutesRetentionInterval = retentionTimeInterval / EventStore.tenMinutesIntervalLength
 
 			let sqlCleanupCheckin = """
 				DELETE FROM Checkin
-				WHERE checkinEndDate < \(retentionTimeInterval)
-				AND checkinEndDate IS NOT NULL;
+				WHERE checkinEndDate < \(Int(retentionTimeInterval));
 			"""
 
 			let sqlCleanupTraceLocation = """
 				DELETE FROM TraceLocation
-				WHERE endDate < \(retentionTimeInterval)
+				WHERE endDate < \(Int(retentionTimeInterval))
 				AND endDate > 0;
 			"""
 
 			let sqlCleanupTraceTimeIntervalMatch = """
 				DELETE FROM TraceTimeIntervalMatch
-				WHERE endIntervalNumber < \(retentionTimeInterval);
+				WHERE endIntervalNumber < \(Int(tenMinutesRetentionInterval));
 			"""
 
 			do {
@@ -341,6 +342,20 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 
 			let updateCheckinsResult = updateCheckinsPublisher(with: database)
 			guard case .success = updateCheckinsResult else {
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
+				return
+			}
+
+			let updateTraceTimeIntervalMatchesResult = updateTraceTimeIntervalMatchesPublisher(with: database)
+			guard case .success = updateTraceTimeIntervalMatchesResult else {
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
+				return
+			}
+
+			let updateTraceLocationsResult = updateTraceLocationsPublisher(with: database)
+			guard case .success = updateTraceLocationsResult else {
 				logLastErrorCode(from: database)
 				result = .failure(dbError(from: database))
 				return
