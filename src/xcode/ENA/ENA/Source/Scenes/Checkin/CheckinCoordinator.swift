@@ -137,7 +137,7 @@ final class CheckinCoordinator {
 		viewController.present(topBottomContainerViewController, animated: true)
 	}
 
-	private func showQRCodeScanner() {
+	func showQRCodeScanner() {
 		
 		let qrCodeScanner = CheckinQRCodeScannerViewController(
 			qrCodeVerificationHelper: verificationService,
