@@ -20,8 +20,8 @@ extension AntigenTest {
 		journalEntryCreated: Bool = false
 	) -> AntigenTest {
 		AntigenTest(
-			registrationToken: registrationToken,
 			pointOfCareConsentDate: pointOfCareConsentDate,
+			registrationToken: registrationToken,
 			testedPerson: testedPerson,
 			testResult: testResult,
 			finalTestResultReceivedDate: finalTestResultReceivedDate,

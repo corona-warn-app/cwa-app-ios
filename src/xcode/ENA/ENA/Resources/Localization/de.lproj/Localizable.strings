@@ -670,13 +670,21 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 /* Exposure Submission Result */
 "ExposureSubmissionResult_Title" = "Ihr Testergebnis";
 
+"ExposureSubmissionResult_Title_Antigen" = "Schnelltest";
+
 "ExposureSubmissionResult_CardSubTitle" = "IHR BEFUND";
+
+"ExposureSubmissionResult_CardSubTitle_Antigen" = "Ihr Schnelltest-Befund";
 
 "ExposureSubmissionResult_CardTitle" = "SARS-CoV-2";
 
 "ExposureSubmissionResult_CardPositive" = "positiv";
 
 "ExposureSubmissionResult_CardNegative" = "negativ";
+
+"ExposureSubmissionResult_CardPositive_Antigen" = "Positiv";
+
+"ExposureSubmissionResult_CardNegative_Antigen" = "Negativ";
 
 "ExposureSubmissionResult_CardInvalid" = "Auswertung nicht möglich";
 
@@ -685,6 +693,10 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ExposureSubmissionResult_Procedure" = "Infos zum Ablauf:";
 
 "ExposureSubmissionResult_testAdded" = "Ihr Test wurde hinzugefügt.";
+
+"ExposureSubmissionResult_antigenTestAdded" = "Ihr Schnelltest wurde hinzugefügt.";
+
+"ExposureSubmissionResult_antigenTestAddedDesc" = "Das Test-Ergebnis wird 48 Stunden hier angezeigt. Zusätzlich legt die App einen Eintrag in Ihrem Kontakt-Tagebuch an.";
 
 "ExposureSubmissionResult_warnOthers" = "Andere warnen";
 
@@ -715,6 +727,16 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ExposureSubmissionResult_testPending" = "Ihr Testergebnis liegt noch nicht vor.";
 
 "ExposureSubmissionResult_testPendingDesc" = "Sobald Ihr Testergebnis vorliegt, wird es Ihnen in der App angezeigt.\n\nSie bekommen Ihr Testergebnis auch außerhalb der App mitgeteilt. Falls Ihr Test positiv ist, bekommen Sie vom Gesundheitsamt eine Mitteilung.\n\nWenn Ihnen außerhalb der App ein positives Testergebnis mitgeteilt wurde, entfernen Sie den aktuell in der App registrierten Test. Rufen Sie die unter „TAN anfragen” angegebene Nummer an, um eine TAN zu erhalten. Registrieren Sie dann Ihr Testergebnis mithilfe der TAN in der App.";
+
+"ExposureSubmissionResult_antigenTestPending" = "Ihr Testergebnis liegt noch nicht vor.";
+
+"ExposureSubmissionResult_antigenTestPendingDesc" = "Sobald Ihr Testergebnis vorliegt, wird es Ihnen in der App angezeigt.";
+
+"ExposureSubmissionResult_antigenTestPendingContactJournal" = "Ihr Testergebnis wird dem Kontakt-Tagebuch hinzugefügt.";
+
+"ExposureSubmissionResult_antigenTestPendingContactJournalDesc" = "Sobald Ihr Testergebnis vorliegt, wird es Ihnen in der App angezeigt.";
+
+"ExposureSubmissionResult_antigenTestNegativDesc" = "Der Schnelltest hat keinen Nachweis für das Coronavirus SARS-CoV-2 bei Ihnen ergeben.";
 
 "ExposureSubmissionResult_WarnOthersConsentGiven" = "Einverständnis „Andere warnen“ erteilt";
 
@@ -826,6 +848,24 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ExposureSubmissionResult_RegistrationDateUnknown" = "Registrierungsdatum unbekannt";
 
 "ExposureSubmissionResult_RegistrationDate" = "Test hinzugefügt am";
+
+"ExposureSubmissionResult_RegistrationDate_Antigen" = "Ausgestellt:";
+
+"ExposureSubmissionResult_RegistrationDate_Suffix_Antigen" = "Uhr";
+
+"ExposureSubmissionResult_Person_Birthday_Prefix" = "geb.";
+
+"ExposureSubmissionResult_Abbreviation_Hours" = "Std.";
+
+"ExposureSubmissionResult_Abbreviation_Minutes" = "Min.";
+
+"ExposureSubmissionResult_Abbreviation_Seconds" = "Sek.";
+
+"ExposureSubmissionResult_Timer_Title" = "Ergebnis liegt vor seit";
+
+"ExposureSubmissionResult_Negative_Antigen_Proof_Title" = "Nachweis-Funktion";
+
+"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Sie können den hier angezeigten Befund auch als Nachweis für das Vorliegen eines negativen Schnelltest-Ergebnisses verwenden. Informieren Sie sich hierzu bitte auch über die Kriterien für die Anerkennung von Test-Nachweisen in Ihrem Bundesland. Bitte beachten Sie, dass Sie grundsätzlich nicht zum Nachweis per App verpflichtet sind. Sie können Ihr Schnelltest-Ergebnis im Rahmen der rechtlichen Bestimmungen auf andere Weise nachweisen.";
 
 /* Exposure Submission */
 
