@@ -12,25 +12,33 @@ struct HomeShownPositiveTestResultCellModel {
 
 	let backgroundColor = UIColor.enaColor(for: .background)
 
-	let title = AppStrings.Home.findingPositiveCardTitle
+	var title: String {
+		switch coronaTestType {
+		case .pcr:
+			return AppStrings.Home.TestResult.pcrTitle
+		case .antigen:
+			return AppStrings.Home.TestResult.antigenTitle
+		}
+	}
+
 	let titleColor: UIColor = .enaColor(for: .textPrimary1)
 
-	let statusTitle = AppStrings.Home.findingPositiveCardStatusTitle
-	let statusSubtitle = AppStrings.Home.findingPositiveCardStatusSubtitle
+	let statusTitle = AppStrings.Home.TestResult.ShownPositive.statusTitle
+	let statusSubtitle = AppStrings.Home.TestResult.ShownPositive.statusSubtitle
 	let statusTitleColor: UIColor = .enaColor(for: .textPrimary1)
 	let statusLineColor: UIColor = .enaColor(for: .riskHigh)
 	let statusImageName = "Illu_Home_PositivTestErgebnis"
 
-	let noteTitle = AppStrings.Home.findingPositiveCardNoteTitle
+	let noteTitle = AppStrings.Home.TestResult.ShownPositive.noteTitle
 
-	let buttonTitle = AppStrings.Home.findingPositiveCardButton
+	let buttonTitle = AppStrings.Home.TestResult.ShownPositive.button
 
 	let iconColor: UIColor = .enaColor(for: .riskHigh)
 
 	var homeItemViewModels: [HomeItemViewModel] {
 		[
 			HomeImageItemViewModel(
-				title: AppStrings.Home.findingPositivePhoneItemTitle,
+				title: AppStrings.Home.TestResult.ShownPositive.phoneItemTitle,
 				titleColor: titleColor,
 				iconImageName: "Icons - Hotline",
 				iconTintColor: iconColor,
@@ -39,7 +47,7 @@ struct HomeShownPositiveTestResultCellModel {
 				containerInsets: .init(top: 10.0, left: 0.0, bottom: 10.0, right: 0)
 			),
 			HomeImageItemViewModel(
-				title: AppStrings.Home.findingPositiveHomeItemTitle,
+				title: AppStrings.Home.TestResult.ShownPositive.homeItemTitle,
 				titleColor: titleColor,
 				iconImageName: "Icons - Home",
 				iconTintColor: iconColor,
@@ -48,7 +56,7 @@ struct HomeShownPositiveTestResultCellModel {
 				containerInsets: .init(top: 10.0, left: 0.0, bottom: 10.0, right: 0)
 			),
 			HomeImageItemViewModel(
-				title: AppStrings.Home.findingPositiveShareItemTitle,
+				title: AppStrings.Home.TestResult.ShownPositive.shareItemTitle,
 				titleColor: titleColor,
 				iconImageName: "Icons - Warnen",
 				iconTintColor: iconColor,

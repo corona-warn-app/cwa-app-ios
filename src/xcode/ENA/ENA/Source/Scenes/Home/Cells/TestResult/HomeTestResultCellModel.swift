@@ -20,6 +20,8 @@ class HomeTestResultCellModel {
 
 		switch coronaTestType {
 		case .pcr:
+			title = AppStrings.Home.TestResult.pcrTitle
+
 			coronaTestService.$pcrTest
 				.receive(on: DispatchQueue.OCombine(.main))
 				.sink { [weak self] pcrTest in
@@ -41,6 +43,8 @@ class HomeTestResultCellModel {
 				}
 				.store(in: &subscriptions)
 		case .antigen:
+			title = AppStrings.Home.TestResult.antigenTitle
+
 			coronaTestService.$antigenTest
 				.receive(on: DispatchQueue.OCombine(.main))
 				.sink { [weak self] antigenTest in
@@ -112,10 +116,9 @@ class HomeTestResultCellModel {
 	}
 
 	private func configureLoading() {
-		title = AppStrings.Home.resultCardLoadingTitle
-		subtitle = nil
-		description = AppStrings.Home.resultCardLoadingBody
-		buttonTitle = AppStrings.Home.submitCardButton
+		subtitle = AppStrings.Home.TestResult.Loading.title
+		description = AppStrings.Home.TestResult.Loading.description
+		buttonTitle = AppStrings.Home.TestResult.Button.showResult
 		image = UIImage(named: "Illu_Hand_with_phone-initial")
 		tintColor = .enaColor(for: .textPrimary1)
 		isActivityIndicatorHidden = false
@@ -124,10 +127,9 @@ class HomeTestResultCellModel {
 	}
 
 	private func configureTestResultNegative() {
-		title = AppStrings.Home.resultCardResultAvailableTitle
-		subtitle = AppStrings.Home.resultCardNegativeTitle
-		description = AppStrings.Home.resultCardNegativeDesc
-		buttonTitle = AppStrings.Home.submitCardButton
+		subtitle = AppStrings.Home.TestResult.Negative.title
+		description = AppStrings.Home.TestResult.Negative.description
+		buttonTitle = AppStrings.Home.TestResult.Button.showResult
 		image = UIImage(named: "Illu_Hand_with_phone-negativ")
 		tintColor = .enaColor(for: .textSemanticGreen)
 		isActivityIndicatorHidden = true
@@ -136,10 +138,9 @@ class HomeTestResultCellModel {
 	}
 
 	private func configureTestResultInvalid() {
-		title = AppStrings.Home.resultCardResultAvailableTitle
-		subtitle = AppStrings.Home.resultCardInvalidTitle
-		description = AppStrings.Home.resultCardInvalidDesc
-		buttonTitle = AppStrings.Home.submitCardButton
+		subtitle = AppStrings.Home.TestResult.Invalid.title
+		description = AppStrings.Home.TestResult.Invalid.description
+		buttonTitle = AppStrings.Home.TestResult.Button.showResult
 		image = UIImage(named: "Illu_Hand_with_phone-error")
 		tintColor = .enaColor(for: .textSemanticGray)
 		isActivityIndicatorHidden = true
@@ -148,22 +149,16 @@ class HomeTestResultCellModel {
 	}
 
 	private func configureTestResultPending() {
-		title = AppStrings.Home.resultCardResultUnvailableTitle
-		subtitle = nil
-		description = AppStrings.Home.resultCardPendingDesc
-		buttonTitle = AppStrings.Home.submitCardButton
-		image = UIImage(named: "Illu_Hand_with_phone-pending")
-		tintColor = .enaColor(for: .textPrimary2)
-		isActivityIndicatorHidden = true
-		isUserInteractionEnabled = true
-		accessibilityIdentifier = AccessibilityIdentifiers.Home.submitCardButton
-	}
+		subtitle = AppStrings.Home.TestResult.Pending.title
 
-	private func configureTestResultExpired() {
-		title = AppStrings.Home.resultCardResultUnvailableTitle
-		subtitle = nil
-		description = AppStrings.Home.resultCardPendingDesc
-		buttonTitle = AppStrings.Home.submitCardButton
+		switch coronaTestType {
+		case .pcr:
+			description = AppStrings.Home.TestResult.Pending.pcrDescription
+		case .antigen:
+			description = AppStrings.Home.TestResult.Pending.antigenDescription
+		}
+
+		buttonTitle = AppStrings.Home.TestResult.Button.showResult
 		image = UIImage(named: "Illu_Hand_with_phone-pending")
 		tintColor = .enaColor(for: .textPrimary2)
 		isActivityIndicatorHidden = true
@@ -172,12 +167,33 @@ class HomeTestResultCellModel {
 	}
 
 	private func configureTestResultAvailable() {
-		title = AppStrings.Home.resultCardResultAvailableTitle
-		subtitle = AppStrings.Home.resultCardAvailableSubtitle
-		description = AppStrings.Home.resultCardAvailableDesc
-		buttonTitle = AppStrings.Home.resultCardRetrieveResultButton
+		subtitle = AppStrings.Home.TestResult.Available.title
+		description = AppStrings.Home.TestResult.Available.description
+		buttonTitle = AppStrings.Home.TestResult.Button.showResult
 		image = UIImage(named: "Illu_Hand_with_phone-error")
 		tintColor = .enaColor(for: .textSemanticGray)
+		isActivityIndicatorHidden = true
+		isUserInteractionEnabled = true
+		accessibilityIdentifier = AccessibilityIdentifiers.Home.submitCardButton
+	}
+
+	private func configureTestResultExpired() {
+		subtitle = AppStrings.Home.TestResult.Expired.title
+		description = AppStrings.Home.TestResult.Expired.description
+		buttonTitle = AppStrings.Home.TestResult.Button.showResult
+		image = UIImage(named: "Illu_Hand_with_phone-pending")
+		tintColor = .enaColor(for: .textPrimary2)
+		isActivityIndicatorHidden = true
+		isUserInteractionEnabled = true
+		accessibilityIdentifier = AccessibilityIdentifiers.Home.submitCardButton
+	}
+
+	private func configureTestResultOutdated() {
+		subtitle = AppStrings.Home.TestResult.Expired.title
+		description = AppStrings.Home.TestResult.Expired.description
+		buttonTitle = AppStrings.Home.TestResult.Button.showResult
+		image = UIImage(named: "Illu_Hand_with_phone-pending")
+		tintColor = .enaColor(for: .textPrimary2)
 		isActivityIndicatorHidden = true
 		isUserInteractionEnabled = true
 		accessibilityIdentifier = AccessibilityIdentifiers.Home.submitCardButton

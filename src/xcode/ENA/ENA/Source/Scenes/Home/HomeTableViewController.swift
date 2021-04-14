@@ -58,7 +58,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 				self.alertError(
 					message: error.localizedDescription,
-					title: AppStrings.Home.resultCardLoadingErrorTitle
+					title: AppStrings.Home.TestResult.resultCardLoadingErrorTitle
 				)
 			}
 			.store(in: &subscriptions)
