@@ -50,7 +50,10 @@ class FakeRequestService {
 			exposureKeys: [],
 			visitedCountries: [],
 			checkins: [],
-			tan: Self.fakeSubmissionTan
+			tan: Self.fakeSubmissionTan,
+			submissionType: SAP_Internal_SubmissionPayload.SubmissionType(
+				rawValue: Int.random(in: 0...1)
+			) ?? .pcrTest
 		)
 
 		client.submit(payload: payload, isFake: true) { _ in
