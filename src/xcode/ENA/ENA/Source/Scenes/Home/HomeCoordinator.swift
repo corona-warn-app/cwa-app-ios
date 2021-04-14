@@ -118,8 +118,9 @@ class HomeCoordinator: RequiresAppDependencies {
 				onInactiveCellButtonTap: { [weak self] enState in
 					self?.showExposureNotificationSetting(enState: enState)
 				},
-				onTestResultCellTap: { [weak self] testResult in
-					self?.showExposureSubmission(with: testResult)
+				onTestResultCellTap: { [weak self] _ in
+					// Todo: onTestResultCellTap should pass the type to showExposureSubmission
+					self?.showExposureSubmission(with: .pcr)
 				},
 				onStatisticsInfoButtonTap: { [weak self] in
 					self?.showStatisticsInfo()
@@ -160,13 +161,13 @@ class HomeCoordinator: RequiresAppDependencies {
 		}
 	}
 	
-	func showTestResultFromNotification(with result: TestResult) {
+	func showTestResultFromNotification(with testType: CoronaTestType) {
 		if let presentedViewController = rootViewController.presentedViewController {
 			presentedViewController.dismiss(animated: true) {
-				self.showExposureSubmission(with: result)
+				self.showExposureSubmission(with: testType)
 			}
 		} else {
-			self.showExposureSubmission(with: result)
+			self.showExposureSubmission(with: testType)
 		}
 	}
 	
@@ -266,7 +267,7 @@ class HomeCoordinator: RequiresAppDependencies {
 		exposureDetectionCoordinator?.start()
 	}
 
-	private func showExposureSubmission(with result: TestResult? = nil, testInformation: CoronaTestQRCodeInformation? = nil) {
+	private func showExposureSubmission(with testType: CoronaTestType? = nil, testInformation: CoronaTestQRCodeInformation? = nil) {
 		// A strong reference to the coordinator is passed to the exposure submission navigation controller
 		// when .start() is called. The coordinator is then bound to the lifecycle of this navigation controller
 		// which is managed by UIKit.
@@ -277,13 +278,10 @@ class HomeCoordinator: RequiresAppDependencies {
 			store: self.store,
 			delegate: self
 		)
-
-		if coronaTestService.pcrTest != nil {
-			coordinator.start(with: .pcr)
-		} else if let testInformation = testInformation {
+		if let testInformation = testInformation {
 			coordinator.start(with: testInformation)
 		} else {
-			coordinator.start()
+			coordinator.start(with: testType)
 		}
 	}
 

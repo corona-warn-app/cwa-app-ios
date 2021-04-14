@@ -401,7 +401,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "OnboardingInfo_togetherAgainstCoronaPage_boldText" = "Mehr Schutz für Sie und uns alle. Mit der Corona-Warn-App durchbrechen wir Infektionsketten schneller.";
 
-"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Machen Sie Ihr Smartphone zum Corona-Warn-System. Überblicken Sie Ihren Risikostatus und erfahren Sie, ob in den letzten 14 Tagen Corona-positiv getestete Personen in Ihrer Nähe waren.\n\nDie App merkt sich Begegnungen zwischen Menschen, indem ihre Smartphones verschlüsselte Zufalls-IDs austauschen. Persönliche Daten werden dabei nicht ausgetauscht.";
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Machen Sie Ihr Smartphone zum Corona-Warn-System. Überblicken Sie Ihren Risikostatus und erfahren Sie, ob in den letzten 14 Tagen Corona-positiv getestete Personen in Ihrer Nähe waren.\n\nLassen Sie sich Ihre Testergebnisse (PCR-Test oder Antigen-Schnelltest) in der App anzeigen und warnen Sie andere, wenn Sie ein positives Testergebnis erhalten.\n\nAuf Wunsch können Sie mit der App Ihren persönlichen Infektionsstatus nachweisen (z. B. negativer Schnelltest). Bitte beachten Sie, dass Sie grundsätzlich nicht zum Nachweis Ihres Infektionsstatus per App verpflichtet sind. Sie können Ihren Infektionsstatus im Rahmen der rechtlichen Bestimmungen an Ihrem Aufenthaltsort auch auf andere Weise nachweisen.\n\nDie App merkt sich Begegnungen zwischen Menschen, indem ihre Smartphones verschlüsselte Zufalls-IDs austauschen. Persönliche Daten werden dabei nicht ausgetauscht.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_linkText" = "Informationen zur App in leichter Sprache und Gebärdensprache";
 
@@ -504,7 +504,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 /* Exposure Submission Dispatch */
 
-"ExposureSubmission_DispatchTitle" = "Testergebnis abrufen";
+"ExposureSubmission_DispatchTitle" = "Test registrieren";
 
 "ExposureSubmissionIntroduction_AccImageDescription" = "Ein Smartphone übermittelt einen positiven Testbefund verschlüsselt ins System.";
 
@@ -512,11 +512,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_DispatchSectionHeadline" = "Sie haben sich bereits testen lassen?";
 
-"ExposureSubmission_DispatchSectionHeadline2" = "Ihr Test ist positiv?";
+"ExposureSubmission_DispatchSectionHeadline2" = "Ihr PCR-Test ist positiv?";
 
-"ExposureSubmissionDispatch_QRCodeButtonTitle" = "Test mit QR-Code";
+"ExposureSubmissionDispatch_QRCodeButtonTitle" = "QR-Code scannen";
 
-"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Registrieren Sie Ihren Test, indem Sie den QR-Code Ihres Testdokuments scannen.";
+"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Erhalten Sie Ihr Testergebnis in der App und warnen Sie andere.";
 
 "ExposureSubmissionDispatch_TANButtonTitle" = "TAN-Eingabe";
 
@@ -570,7 +570,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionQRInfo_instruction1" = "Scannen Sie nun per QR-Code Ihren eigenen Test und rufen Sie Ihr Testergebnis ab.";
 
-"ExposureSubmissionQRInfo_instruction2" = "Ihr Test kann nur einmal gescannt werden. Die App kann nicht gleichzeitig mehrere Tests verwalten.";
+"ExposureSubmissionQRInfo_instruction2" = "Jeder Test kann nur einmal gescannt werden. Die App kann maximal einen Schnelltest und einen PCR-Test gleichzeitig verwalten.";
 
 "ExposureSubmissionQRInfo_instruction3" = "Die App kann %@ gleichzeitig mehrere Tests verwalten.";
 
@@ -578,7 +578,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionQRInfo_header_section_2" = "Helfen Sie mit, indem Sie andere warnen, denen Sie begegnet sind!";
 
-"ExposureSubmissionQRInfo_body_section_2" = "Wenn Sie positiv auf Corona getestet wurden, können Sie Ihre Mitmenschen über die App warnen. Die Warnung funktioniert in mehreren Ländern. Derzeit nehmen folgende Länder teil:";
+"ExposureSubmissionQRInfo_body_section_2" = "Wenn Sie positiv auf Corona getestet wurden, können Sie Ihre Mitmenschen über die App warnen. Bei einem Schnelltest funktioniert die Warnung nur in Deutschland, im Falle eines PCR-Tests funktioniert die Warnung in folgenden Ländern:";
 
 "ExposureSubmissionQRInfo_body_section_3" = "Es werden auch Ihre Mitmenschen gewarnt, die zeitgleich mit Ihnen an denselben Events oder Orten eingecheckt waren.";
 
@@ -670,13 +670,21 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 /* Exposure Submission Result */
 "ExposureSubmissionResult_Title" = "Ihr Testergebnis";
 
+"ExposureSubmissionResult_Title_Antigen" = "Schnelltest";
+
 "ExposureSubmissionResult_CardSubTitle" = "IHR BEFUND";
+
+"ExposureSubmissionResult_CardSubTitle_Antigen" = "Ihr Schnelltest-Befund";
 
 "ExposureSubmissionResult_CardTitle" = "SARS-CoV-2";
 
 "ExposureSubmissionResult_CardPositive" = "positiv";
 
 "ExposureSubmissionResult_CardNegative" = "negativ";
+
+"ExposureSubmissionResult_CardPositive_Antigen" = "Positiv";
+
+"ExposureSubmissionResult_CardNegative_Antigen" = "Negativ";
 
 "ExposureSubmissionResult_CardInvalid" = "Auswertung nicht möglich";
 
@@ -685,6 +693,10 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ExposureSubmissionResult_Procedure" = "Infos zum Ablauf:";
 
 "ExposureSubmissionResult_testAdded" = "Ihr Test wurde hinzugefügt.";
+
+"ExposureSubmissionResult_antigenTestAdded" = "Ihr Schnelltest wurde hinzugefügt.";
+
+"ExposureSubmissionResult_antigenTestAddedDesc" = "Das Test-Ergebnis wird 48 Stunden hier angezeigt. Zusätzlich legt die App einen Eintrag in Ihrem Kontakt-Tagebuch an.";
 
 "ExposureSubmissionResult_warnOthers" = "Andere warnen";
 
@@ -715,6 +727,16 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ExposureSubmissionResult_testPending" = "Ihr Testergebnis liegt noch nicht vor.";
 
 "ExposureSubmissionResult_testPendingDesc" = "Sobald Ihr Testergebnis vorliegt, wird es Ihnen in der App angezeigt.\n\nSie bekommen Ihr Testergebnis auch außerhalb der App mitgeteilt. Falls Ihr Test positiv ist, bekommen Sie vom Gesundheitsamt eine Mitteilung.\n\nWenn Ihnen außerhalb der App ein positives Testergebnis mitgeteilt wurde, entfernen Sie den aktuell in der App registrierten Test. Rufen Sie die unter „TAN anfragen” angegebene Nummer an, um eine TAN zu erhalten. Registrieren Sie dann Ihr Testergebnis mithilfe der TAN in der App.";
+
+"ExposureSubmissionResult_antigenTestPending" = "Ihr Testergebnis liegt noch nicht vor.";
+
+"ExposureSubmissionResult_antigenTestPendingDesc" = "Sobald Ihr Testergebnis vorliegt, wird es Ihnen in der App angezeigt.";
+
+"ExposureSubmissionResult_antigenTestPendingContactJournal" = "Ihr Testergebnis wird dem Kontakt-Tagebuch hinzugefügt.";
+
+"ExposureSubmissionResult_antigenTestPendingContactJournalDesc" = "Sobald Ihr Testergebnis vorliegt, wird es Ihnen in der App angezeigt.";
+
+"ExposureSubmissionResult_antigenTestNegativDesc" = "Der Schnelltest hat keinen Nachweis für das Coronavirus SARS-CoV-2 bei Ihnen ergeben.";
 
 "ExposureSubmissionResult_WarnOthersConsentGiven" = "Einverständnis „Andere warnen“ erteilt";
 
@@ -803,7 +825,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionWarnOthers_sectionTitle" = "Helfen Sie mit!";
 
-"ExposureSubmissionWarnOthers_description" = "Da Sie positiv auf Corona getestet wurden, können Sie Ihre Mitmenschen über die App warnen.";
+"ExposureSubmissionWarnOthers_description" = "Da Sie positiv auf Corona getestet wurden, können Sie Ihre Mitmenschen über die App warnen. Bei einem Schnelltest funktioniert die Warnung nur in Deutschland, im Falle eines PCR-Tests funktioniert die Warnung in folgenden Ländern:";
 
 "ExposureSubmissionWarnOthers_supportedCountriesTitle" = "Die Warnung funktioniert in mehreren Ländern. Derzeit nehmen folgende Länder teil:";
 
@@ -826,6 +848,24 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ExposureSubmissionResult_RegistrationDateUnknown" = "Registrierungsdatum unbekannt";
 
 "ExposureSubmissionResult_RegistrationDate" = "Test hinzugefügt am";
+
+"ExposureSubmissionResult_RegistrationDate_Antigen" = "Ausgestellt:";
+
+"ExposureSubmissionResult_RegistrationDate_Suffix_Antigen" = "Uhr";
+
+"ExposureSubmissionResult_Person_Birthday_Prefix" = "geb.";
+
+"ExposureSubmissionResult_Abbreviation_Hours" = "Std.";
+
+"ExposureSubmissionResult_Abbreviation_Minutes" = "Min.";
+
+"ExposureSubmissionResult_Abbreviation_Seconds" = "Sek.";
+
+"ExposureSubmissionResult_Timer_Title" = "Ergebnis liegt vor seit";
+
+"ExposureSubmissionResult_Negative_Antigen_Proof_Title" = "Nachweis-Funktion";
+
+"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Sie können den hier angezeigten Befund auch als Nachweis für das Vorliegen eines negativen Schnelltest-Ergebnisses verwenden. Informieren Sie sich hierzu bitte auch über die Kriterien für die Anerkennung von Test-Nachweisen in Ihrem Bundesland. Bitte beachten Sie, dass Sie grundsätzlich nicht zum Nachweis per App verpflichtet sind. Sie können Ihr Schnelltest-Ergebnis im Rahmen der rechtlichen Bestimmungen auf andere Weise nachweisen.";
 
 /* Exposure Submission */
 

@@ -73,7 +73,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Fo
 
 	private func setUpView() {
 		
-		parent?.navigationItem.title = AppStrings.ExposureSubmissionResult.title
+		parent?.navigationItem.title = viewModel.title
 		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 		parent?.navigationItem.hidesBackButton = true
 		parent?.navigationItem.largeTitleDisplayMode = .always
@@ -88,7 +88,11 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Fo
 
 		tableView.register(
 			UINib(nibName: String(describing: ExposureSubmissionTestResultHeaderView.self), bundle: nil),
-			forHeaderFooterViewReuseIdentifier: HeaderReuseIdentifier.testResult.rawValue
+			forHeaderFooterViewReuseIdentifier: HeaderReuseIdentifier.pcrTestResult.rawValue
+		)
+		tableView.register(
+			AntigenExposureSubmissionNegativeTestResultHeaderView.self,
+			forHeaderFooterViewReuseIdentifier: HeaderReuseIdentifier.antigenTestResult.rawValue
 		)
 		tableView.register(
 			ExposureSubmissionStepCell.self,
@@ -180,7 +184,8 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Fo
 
 extension ExposureSubmissionTestResultViewController {
 	enum HeaderReuseIdentifier: String, TableViewHeaderFooterReuseIdentifiers {
-		case testResult = "testResultCell"
+		case pcrTestResult = "pcrTestResult"
+		case antigenTestResult = "antigenTestResult"
 	}
 }
 

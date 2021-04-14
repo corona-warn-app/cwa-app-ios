@@ -206,7 +206,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		}
 		
 		// if there is no test result time stamp
-		guard let testResultReceivedDate = coronaTestService.pcrTest?.testResultReceivedDate else {
+		guard let testResultReceivedDate = coronaTestService.pcrTest?.finalTestResultReceivedDate else {
 			return isSubmitted
 		}
 

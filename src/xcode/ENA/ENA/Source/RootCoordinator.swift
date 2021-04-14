@@ -108,10 +108,9 @@ class RootCoordinator: RequiresAppDependencies {
 		viewController.embedViewController(childViewController: tabBarController)
 	}
 
-	func showTestResultFromNotification(with result: TestResult) {
-		homeCoordinator?.showTestResultFromNotification(with: result)
+	func showTestResultFromNotification(with testType: CoronaTestType) {
+		homeCoordinator?.showTestResultFromNotification(with: testType)
 	}
-	
 	
 	func showOnboarding() {
 		let onboardingVC = OnboardingInfoViewController(
@@ -136,10 +135,9 @@ class RootCoordinator: RequiresAppDependencies {
 		}
 
 		// Close all modal screens that would prevent showing the checkin screen first.
-		tabBarController.dismiss(animated: false) {
-			self.tabBarController.selectedIndex = index
-			self.checkInCoordinator.showTraceLocationDetailsFromExternalCamera(guid)
-		}
+		tabBarController.dismiss(animated: false)
+		tabBarController.selectedIndex = index
+		checkInCoordinator.showTraceLocationDetailsFromExternalCamera(guid)
 	}
 
 	func showRapidAntigenTest(_ testInformation: CoronaTestQRCodeInformation) {

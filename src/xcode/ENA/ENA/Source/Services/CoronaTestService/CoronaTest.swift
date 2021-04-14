@@ -4,12 +4,12 @@
 
 import Foundation
 
-enum CoronaTestType: CaseIterable {
+enum CoronaTestType: Int, CaseIterable {
 	case pcr
 	case antigen
 }
 
-enum CoronaTest {
+enum CoronaTest: Equatable {
 
 	case pcr(PCRTest)
 	case antigen(AntigenTest)
@@ -41,12 +41,12 @@ enum CoronaTest {
 		}
 	}
 
-	var testResultReceivedDate: Date? {
+	var finalTestResultReceivedDate: Date? {
 		switch self {
 		case .pcr(let pcrTest):
-			return pcrTest.testResultReceivedDate
+			return pcrTest.finalTestResultReceivedDate
 		case .antigen(let antigenTest):
-			return antigenTest.testResultReceivedDate
+			return antigenTest.finalTestResultReceivedDate
 		}
 	}
 
@@ -104,15 +104,32 @@ enum CoronaTest {
 		}
 	}
 
+	var pcrTest: PCRTest? {
+		switch self {
+		case .pcr(let test):
+			return test
+		case .antigen:
+			return nil
+		}
+	}
+	
+	var antigenTest: AntigenTest? {
+		switch self {
+		case .pcr:
+			return nil
+		case .antigen(let test):
+			return test
+		}
+	}
 }
 
-struct PCRTest: Codable, Equatable {
+struct PCRTest: Equatable, Codable {
 
-	var registrationToken: String?
 	var registrationDate: Date
+	var registrationToken: String?
 
 	var testResult: TestResult
-	var testResultReceivedDate: Date?
+	var finalTestResultReceivedDate: Date?
 	var positiveTestResultWasShown: Bool
 
 	var isSubmissionConsentGiven: Bool
@@ -124,16 +141,16 @@ struct PCRTest: Codable, Equatable {
 
 }
 
-struct AntigenTest: Codable, Equatable {
+struct AntigenTest: Equatable, Codable {
 
-	var registrationToken: String?
 	// The date of when the consent was provided by the tested person at the Point of Care.
 	var pointOfCareConsentDate: Date
+	var registrationToken: String?
 
 	var testedPerson: TestedPerson
 
 	var testResult: TestResult
-	var testResultReceivedDate: Date?
+	var finalTestResultReceivedDate: Date?
 	var positiveTestResultWasShown: Bool
 
 	var isSubmissionConsentGiven: Bool

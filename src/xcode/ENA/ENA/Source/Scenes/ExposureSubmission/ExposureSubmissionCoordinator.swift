@@ -970,12 +970,12 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			}
 		)
 	}
-
+	
 	private func submitExposureAndDismiss(isLoading: @escaping (Bool) -> Void) {
 		self.model.submitExposure(
 			isLoading: isLoading,
 			onSuccess: { [weak self] in
-				self?.dismiss()
+				self?.showExposureSubmissionSuccessViewController()
 			},
 			onError: { [weak self] error in
 				// reset all the values taken during the submission flow because submission failed
@@ -987,6 +987,16 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				}
 			}
 		)
+	}
+	
+	private func showExposureSubmissionSuccessViewController() {
+		let exposureSubmissionSuccessViewController = ExposureSubmissionSuccessViewController(
+			dismiss: { [weak self] in
+				self?.dismiss()
+			}
+		)
+		
+		push(exposureSubmissionSuccessViewController)
 	}
 }
 

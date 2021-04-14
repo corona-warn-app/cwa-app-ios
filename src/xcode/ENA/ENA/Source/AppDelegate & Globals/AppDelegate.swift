@@ -179,10 +179,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			if testResult != nil || showTestResultAvailableViewController {
 				let unwrappedTestResult = testResult ?? .pending
 				store.pcrTest = PCRTest(
-					registrationToken: "asdf",
 					registrationDate: Date(),
+					registrationToken: "asdf",
 					testResult: unwrappedTestResult,
-					testResultReceivedDate: unwrappedTestResult == .pending ? nil : Date(),
+					finalTestResultReceivedDate: unwrappedTestResult == .pending ? nil : Date(),
 					positiveTestResultWasShown: !showTestResultAvailableViewController,
 					isSubmissionConsentGiven: UserDefaults.standard.string(forKey: "isSubmissionConsentGiven") == "YES",
 					submissionTAN: nil,
