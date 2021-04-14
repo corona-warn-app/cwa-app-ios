@@ -34,7 +34,7 @@ class HomeTestResultCellModel {
 			coronaTestService.$pcrTestResultIsLoading
 				.receive(on: DispatchQueue.OCombine(.main))
 				.sink { [weak self] testResultIsLoading in
-					if testResultIsLoading {
+					if testResultIsLoading && self?.coronaTestService.pcrTest?.testResultReceivedDate == nil {
 						self?.configureLoading()
 						onUpdate()
 					}
@@ -55,7 +55,7 @@ class HomeTestResultCellModel {
 			coronaTestService.$antigenTestResultIsLoading
 				.receive(on: DispatchQueue.OCombine(.main))
 				.sink { [weak self] testResultIsLoading in
-					if testResultIsLoading {
+					if testResultIsLoading && self?.coronaTestService.antigenTest?.testResultReceivedDate == nil {
 						self?.configureLoading()
 						onUpdate()
 					}
