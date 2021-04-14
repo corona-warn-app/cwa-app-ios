@@ -1808,7 +1808,7 @@
 
 "Tabbar_Diary_Title" = "Journal";
 
-"Tabbar_CheckIn_Title" = "Check-in";
+"Tabbar_CheckIn_Title" = "Check In";
 
 /* Data Donation */
 "DataDonation_IntroductionText" = "Let us know how you use the app and help us to assess its effectiveness.";
@@ -1987,9 +1987,17 @@
 
 "Checkin_QR_Scanner_Error_InvalidURL" = "The scanned QR code is not valid for check-ins for an event or place. Please scan a suitable QR code (error code INVALID_URL).";
 
-"Checkin_QR_Scanner_Error_InvalidPayload" = "Check-in prevented due to invalid QR code. The responsible body has to generate a new QR code (error code INVALID_PAYLOAD).";
+"Checkin_QR_Scanner_Error_InvalidPayload" = "Check-in prevented due to invalid QR code. The responsible party has to generate a new QR code (error code INVALID_PAYLOAD).";
 
-"Checkin_QR_Scanner_Error_InvalidURLVendorData" = "Check-in prevented due to invalid QR code. The responsible body has to generate a new QR code (error code INVALID_VENDOR_DATA).";
+"Checkin_QR_Scanner_Error_InvalidURLVendorData" = "Check-in prevented due to invalid QR code. The responsible party has to generate a new QR code (error code INVALID_VENDOR_DATA).";
+
+"Checkin_QR_Scanner_Error_InvalidDescription" = "Check-in prevented due to invalid QR code. The responsible party has to generate a new QR code (error code INVALID_DESCRIPTION).";
+
+"Checkin_QR_Scanner_Error_InvalidAddress" = "Check-in prevented due to invalid QR code. The responsible party has to generate a new QR code (error code INVALID_ADDRESS).";
+
+"Checkin_QR_Scanner_Error_InvalidCryptographicSeed" = "Check-in prevented due to invalid QR code. The responsible party has to generate a new QR code (error code INVALID_CRYPTO_SEED).";
+
+"Checkin_QR_Scanner_Error_InvalidTimeStamps" = "Check-in prevented due to invalid QR code. The responsible party has to generate a new QR code (error code INVALID_TIMESTAMPS).";
 
 /* TraceLocations */
 "TraceLocations_Overview_Title" = "My QR Codes";
