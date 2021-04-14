@@ -132,9 +132,21 @@ class HomeTableViewModel {
 	}
 
 	func updateTestResult() {
+		// TODO: Both test types
 		coronaTestService.updateTestResult(for: .pcr) { [weak self] result in
+			guard let self = self else { return }
+
 			if case .failure(let error) = result {
-				self?.testResultLoadingError = error
+				switch error {
+				case .noCoronaTestOfRequestedType, .noRegistrationToken, .testExpired:
+					// Errors because of no registered corona tests or expired tests are ignored
+					break
+				case .responseFailure, .unknownTestResult:
+					// Only show errors for corona tests that are still expecting their final test result
+					if self.coronaTestService.pcrTest != nil && self.coronaTestService.pcrTest?.testResultReceivedDate == nil || self.coronaTestService.antigenTest != nil && self.coronaTestService.antigenTest?.testResultReceivedDate == nil {
+						self.testResultLoadingError = error
+					}
+				}
 			}
 		}
 	}

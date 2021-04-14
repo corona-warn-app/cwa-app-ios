@@ -381,7 +381,6 @@ class CoronaTestService {
 	) {
 		Log.info("[CoronaTestService] Getting test result (coronaTestType: \(coronaTestType), duringRegistration: \(duringRegistration))", log: .api)
 
-
 		guard let coronaTest = coronaTest(ofType: coronaTestType) else {
 			Log.error("[CoronaTestService] Getting test result failed: No corona test of requested type", log: .api)
 
