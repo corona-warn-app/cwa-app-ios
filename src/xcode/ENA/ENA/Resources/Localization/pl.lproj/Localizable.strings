@@ -1972,9 +1972,17 @@
 
 "Checkin_QR_Scanner_Error_InvalidURL" = "Zeskanowany kod QR nie jest prawidłowy dla zameldowania obecności w wydarzeniu lub miejscu. Zeskanuj odpowiedni kod QR (kod błędu INVALID_URL).";
 
-"Checkin_QR_Scanner_Error_InvalidPayload" = "Zameldowanie niemożliwe z powodu nieprawidłowego kodu QR. Organ odpowiedzialny musi wygenerować nowy kod QR (kod błędu INVALID_PAYLOAD).";
+"Checkin_QR_Scanner_Error_InvalidPayload" = "Zameldowanie niemożliwe z powodu nieprawidłowego kodu QR. Osoba odpowiedzialna musi wygenerować nowy kod QR (kod błędu INVALID_PAYLOAD).";
 
-"Checkin_QR_Scanner_Error_InvalidURLVendorData" = "Zameldowanie niemożliwe z powodu nieprawidłowego kodu QR. Organ odpowiedzialny musi wygenerować nowy kod QR (kod błędu INVALID_VENDOR_DATA).";
+"Checkin_QR_Scanner_Error_InvalidURLVendorData" = "Zameldowanie niemożliwe z powodu nieprawidłowego kodu QR. Osoba odpowiedzialna musi wygenerować nowy kod QR (kod błędu INVALID_VENDOR_DATA).";
+
+"Checkin_QR_Scanner_Error_InvalidDescription" = "Zameldowanie niemożliwe z powodu nieprawidłowego kodu QR. Osoba odpowiedzialna musi wygenerować nowy kod QR (kod błędu INVALID_DESCRIPTION).";
+
+"Checkin_QR_Scanner_Error_InvalidAddress" = "Zameldowanie niemożliwe z powodu nieprawidłowego kodu QR. Osoba odpowiedzialna musi wygenerować nowy kod QR (kod błędu INVALID_ADDRESS).";
+
+"Checkin_QR_Scanner_Error_InvalidCryptographicSeed" = "Zameldowanie niemożliwe z powodu nieprawidłowego kodu QR. Osoba odpowiedzialna musi wygenerować nowy kod QR (kod błędu INVALID_CRYPTO_SEED).";
+
+"Checkin_QR_Scanner_Error_InvalidTimeStamps" = "Zameldowanie niemożliwe z powodu nieprawidłowego kodu QR. Osoba odpowiedzialna musi wygenerować nowy kod QR (kod błędu INVALID_TIMESTAMPS).";
 
 /* TraceLocations */
 "TraceLocations_Overview_Title" = "Moje kody QR";
