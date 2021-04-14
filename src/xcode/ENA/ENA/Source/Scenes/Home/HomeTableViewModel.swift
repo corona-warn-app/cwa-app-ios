@@ -132,8 +132,8 @@ class HomeTableViewModel {
 	}
 
 	func updateTestResult() {
-		// TODO: Both test types
-		coronaTestService.updateTestResult(for: .pcr) { [weak self] result in
+		// According to the tech spec, test results should always be updated in the foreground, even if the final test result was received. Therefore: force = true
+		coronaTestService.updateTestResults(force: true, presentNotification: false) { [weak self] result in
 			guard let self = self else { return }
 
 			if case .failure(let error) = result {
