@@ -663,7 +663,7 @@ class EventStoreTests: XCTestCase {
 		let store = makeStore(with: databaseQueue)
 		let dataRetentionPeriodInDays = EventStore.dataRetentionPeriodInDays
 
-		let dateOlderThenRetention = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: -dataRetentionPeriodInDays - 1, to: Date()))
+		let dateOlderThenRetention = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: Int(-dataRetentionPeriodInDays - 1), to: Date()))
 		let today = Date()
 
 		// Check if checkins where created.
@@ -698,7 +698,7 @@ class EventStoreTests: XCTestCase {
 		let store = makeStore(with: databaseQueue)
 		let dataRetentionPeriodInDays = EventStore.dataRetentionPeriodInDays
 
-		let dateOlderThenRetention = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: -dataRetentionPeriodInDays - 1, to: Date()))
+		let dateOlderThenRetention = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: Int(-dataRetentionPeriodInDays - 1), to: Date()))
 		let today = Date()
 
 		// Check if TraceLocations where created.
@@ -733,7 +733,7 @@ class EventStoreTests: XCTestCase {
 		let store = makeStore(with: databaseQueue)
 		let dataRetentionPeriodInDays = EventStore.dataRetentionPeriodInDays
 
-		let dateOlderThenRetention = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: -dataRetentionPeriodInDays - 1, to: Date()))
+		let dateOlderThenRetention = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: Int(-dataRetentionPeriodInDays - 1), to: Date()))
 		let today = Date()
 
 		// Check if TraceLocations where created.
@@ -750,8 +750,8 @@ class EventStoreTests: XCTestCase {
 		store.createTraceLocation(makeTraceLocation(id: "2".data(using: .utf8) ?? Data(), endDate: today))
 		store.createTraceLocation(makeTraceLocation(id: "3".data(using: .utf8) ?? Data(), endDate: Date(timeIntervalSince1970: 0)))
 
-		store.createTraceTimeIntervalMatch(makeTraceTimeIntervalMatch(id: 1, endIntervalNumber: Int(dateOlderThenRetention.timeIntervalSince1970)))
-		store.createTraceTimeIntervalMatch(makeTraceTimeIntervalMatch(id: 2, endIntervalNumber: Int(today.timeIntervalSince1970)))
+		store.createTraceTimeIntervalMatch(makeTraceTimeIntervalMatch(id: 1, endIntervalNumber: Int(dateOlderThenRetention.timeIntervalSince1970 / EventStore.tenMinutesIntervalLength)))
+		store.createTraceTimeIntervalMatch(makeTraceTimeIntervalMatch(id: 2, endIntervalNumber: Int(today.timeIntervalSince1970 / EventStore.tenMinutesIntervalLength)))
 		store.createTraceTimeIntervalMatch(makeTraceTimeIntervalMatch(id: 3, endIntervalNumber: 0))
 
 		// At this point cleanup is called internally and old entries are removed.
@@ -843,6 +843,43 @@ class EventStoreTests: XCTestCase {
 		// Check if the rescued store is working.
 		rescuedStore.createCheckin(Checkin.mock(id: 1))
 		XCTAssertEqual(rescuedStore.checkinsPublisher.value.count, 1)
+	}
+
+	func test_when_cleanup_then_onlyOldDataIsDeleted() {
+		let databaseQueue = makeDatabaseQueue()
+		let store = makeStore(with: databaseQueue)
+		let dataRetentionPeriodInDays = EventStore.dataRetentionPeriodInDays
+
+		guard let yesterday = Calendar.utcCalendar.date(byAdding: .day, value: -1, to: Date()),
+			  let dayBeforeRetention = Calendar.utcCalendar.date(byAdding: .day, value: Int(-dataRetentionPeriodInDays - 1), to: Date()) else {
+			XCTFail("registration date is nil")
+			return
+		}
+
+		let tracelocation1 = makeTraceLocation(id: "1".data(using: .utf8) ?? Data(), endDate: yesterday)
+		let tracelocation2 = makeTraceLocation(id: "2".data(using: .utf8) ?? Data(), endDate: dayBeforeRetention)
+		store.createTraceLocation(tracelocation1)
+		store.createTraceLocation(tracelocation2)
+
+		let checkin1 = Checkin.mock(checkinEndDate: yesterday)
+		let checkin2 = Checkin.mock(checkinEndDate: dayBeforeRetention)
+		store.createCheckin(checkin1)
+		store.createCheckin(checkin2)
+
+		let match1 = makeTraceTimeIntervalMatch(id: 0, endIntervalNumber: Int(yesterday.timeIntervalSince1970 / TimeInterval(600)))
+		let match2 = makeTraceTimeIntervalMatch(id: 0, endIntervalNumber: Int(dayBeforeRetention.timeIntervalSince1970 / TimeInterval(600)))
+		store.createTraceTimeIntervalMatch(match1)
+		store.createTraceTimeIntervalMatch(match2)
+
+		XCTAssertEqual(store.traceLocationsPublisher.value.count, 2)
+		XCTAssertEqual(store.checkinsPublisher.value.count, 2)
+		XCTAssertEqual(store.traceTimeIntervalMatchesPublisher.value.count, 2)
+
+		store.cleanup()
+
+		XCTAssertEqual(store.traceLocationsPublisher.value.count, 1)
+		XCTAssertEqual(store.checkinsPublisher.value.count, 1)
+		XCTAssertEqual(store.traceTimeIntervalMatchesPublisher.value.count, 1)
 	}
 
 	private func makeTempDatabaseURL() throws -> URL {
