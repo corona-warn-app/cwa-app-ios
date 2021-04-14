@@ -155,6 +155,10 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		XCTAssertTrue(btnContinue.isEnabled)
 		btnContinue.tap()
 		
+		// We should see now the exposureSubmissionSuccessViewController
+		XCTAssertTrue(app.images[AccessibilityIdentifiers.ExposureSubmissionSuccess.accImageDescription].waitForExistence(timeout: .short))
+		app.buttons[AccessibilityIdentifiers.ExposureSubmissionSuccess.closeButton].tap()
+		
 		// Back to homescreen
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].waitForExistence(timeout: .long))
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].isHittable)
@@ -191,6 +195,10 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 
 		XCTAssertTrue(btnContinue.isEnabled)
 		btnContinue.tap()
+		
+		// We should see now the exposureSubmissionSuccessViewController
+		XCTAssertTrue(app.images[AccessibilityIdentifiers.ExposureSubmissionSuccess.accImageDescription].waitForExistence(timeout: .short))
+		app.buttons[AccessibilityIdentifiers.ExposureSubmissionSuccess.closeButton].tap()
 		
 		// Back to homescreen
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].waitForExistence(timeout: .long))
@@ -274,6 +282,10 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 
 		XCTAssertTrue(btnContinue.isEnabled)
 		btnContinue.tap()
+		
+		// We should see now the exposureSubmissionSuccessViewController
+		XCTAssertTrue(app.images[AccessibilityIdentifiers.ExposureSubmissionSuccess.accImageDescription].waitForExistence(timeout: .short))
+		app.buttons[AccessibilityIdentifiers.ExposureSubmissionSuccess.closeButton].tap()
 		
 		// Back to homescreen
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].waitForExistence(timeout: .long))
@@ -534,6 +546,10 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		// quick hack - can't easily use `addUIInterruptionMonitor` in this test
 		app.alerts.firstMatch.buttons.firstMatch.tap() // no
 		
+		// We should see now the exposureSubmissionSuccessViewController
+		XCTAssertTrue(app.images[AccessibilityIdentifiers.ExposureSubmissionSuccess.accImageDescription].waitForExistence(timeout: .short))
+		app.buttons[AccessibilityIdentifiers.ExposureSubmissionSuccess.closeButton].tap()
+		
 		// Back to homescreen
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].waitForExistence(timeout: .long))
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].isHittable)
@@ -585,6 +601,10 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 
 		// quick hack - can't easily use `addUIInterruptionMonitor` in this test
 		app.alerts.firstMatch.buttons.firstMatch.tap() // yes
+		
+		// We should see now the exposureSubmissionSuccessViewController
+		XCTAssertTrue(app.images[AccessibilityIdentifiers.ExposureSubmissionSuccess.accImageDescription].waitForExistence(timeout: .short))
+		app.buttons[AccessibilityIdentifiers.ExposureSubmissionSuccess.closeButton].tap()
 
 		// Back to homescreen
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].waitForExistence(timeout: .long))
@@ -657,7 +677,7 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		snapshot("submissionflow_screenshot_symptoms_onset_date_option")
 	}
 
-	func test_screenshot_thankyou_screen() {
+	func test_screenshot_exposureSubmissionSuccess_screen() {
 		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
 		app.launchArguments.append(contentsOf: ["-testResult", TestResult.positive.stringValue])
 		launch()
@@ -673,10 +693,16 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		// Open Thank You screen.
 		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
 
-		snapshot("submissionflow_screenshot_thank_you_screen")
-
 		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
 		app.alerts.firstMatch.buttons.element(boundBy: 0).tap()
+		
+		// We should see now the exposureSubmissionSuccessViewController
+		XCTAssertTrue(app.images[AccessibilityIdentifiers.ExposureSubmissionSuccess.accImageDescription].waitForExistence(timeout: .short))
+		
+		// the old thank you screen == exposureSubmissionSuccessViewController
+		snapshot("submissionflow_screenshot_thank_you_screen")
+		
+		app.buttons[AccessibilityIdentifiers.ExposureSubmissionSuccess.closeButton].tap()
 
 		// Back to homescreen
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].waitForExistence(timeout: .long))
