@@ -2,18 +2,16 @@
 // 🦠 Corona-Warn-App
 //
 
-import Foundation
 import UIKit
 
 class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
+			
 	// MARK: Attributes.
 
 	@IBOutlet private var barView: UIView!
-
 	@IBOutlet private var subTitleLabel: ENALabel!
 	@IBOutlet private var titleLabel: ENALabel!
 	@IBOutlet private var timeLabel: ENALabel!
-
 	@IBOutlet private var imageView: UIImageView!
 
 	override func awakeFromNib() {
@@ -23,18 +21,32 @@ class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
 
 	// MARK: - DynamicTableViewHeaderFooterView methods.
 
-	func configure(testResult: TestResult, timeStamp: Int64?) {
-		subTitleLabel.text = AppStrings.ExposureSubmissionResult.card_subtitle
-		titleLabel.text = testResult.text
-		barView.backgroundColor = testResult.color
-		imageView.image = testResult.image
+	func configure(coronaTest: CoronaTest, timeStamp: Int64?) {
+
+		barView.backgroundColor = coronaTest.testResult.color
+		imageView.image = coronaTest.testResult.image
+		
+		switch coronaTest.type {
+		case .pcr:
+			subTitleLabel.text = AppStrings.ExposureSubmissionResult.PCR.card_subtitle
+		case .antigen:
+			subTitleLabel.text = AppStrings.ExposureSubmissionResult.Antigen.card_subtitle
+		}
+		
+		switch coronaTest.testResult {
+		case .positive: titleLabel.text = "\(AppStrings.ExposureSubmissionResult.card_title)\n\(AppStrings.ExposureSubmissionResult.PCR.card_positive)"
+		case .negative: titleLabel.text = "\(AppStrings.ExposureSubmissionResult.card_title)\n\(AppStrings.ExposureSubmissionResult.PCR.card_negative)"
+		case .invalid: titleLabel.text = AppStrings.ExposureSubmissionResult.card_invalid
+		case .pending: titleLabel.text = AppStrings.ExposureSubmissionResult.card_pending
+		case .expired: titleLabel.text = AppStrings.ExposureSubmissionResult.card_invalid
+		}
 
 		if let timeStamp = timeStamp {
 			let formatter = DateFormatter()
 			formatter.dateStyle = .medium
 			formatter.timeStyle = .none
 			let date = Date(timeIntervalSince1970: TimeInterval(timeStamp))
-			timeLabel.text = "\(AppStrings.ExposureSubmissionResult.registrationDate) \(formatter.string(from: date))"
+			timeLabel.text = "\(AppStrings.ExposureSubmissionResult.PCR.registrationDate) \(formatter.string(from: date))"
 		} else {
 			timeLabel.text = "\(AppStrings.ExposureSubmissionResult.registrationDateUnknown)"
 		}
@@ -54,7 +66,8 @@ class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
 	}
 }
 
-private extension TestResult {
+extension TestResult {
+	
 	var color: UIColor {
 		switch self {
 		case .positive: return .enaColor(for: .riskHigh)
@@ -70,16 +83,6 @@ private extension TestResult {
 		case .negative: return UIImage(named: "Illu_Submission_NegativesTestErgebnis")
 		case .invalid, .expired: return UIImage(named: "Illu_Submission_FehlerhaftesTestErgebnis")
 		case .pending: return UIImage(named: "Illu_Submission_PendingTestErgebnis")
-		}
-	}
-
-	var text: String {
-		switch self {
-		case .positive: return "\(AppStrings.ExposureSubmissionResult.card_title)\n\(AppStrings.ExposureSubmissionResult.card_positive)"
-		case .negative: return "\(AppStrings.ExposureSubmissionResult.card_title)\n\(AppStrings.ExposureSubmissionResult.card_negative)"
-		case .invalid: return AppStrings.ExposureSubmissionResult.card_invalid
-		case .pending: return AppStrings.ExposureSubmissionResult.card_pending
-		case .expired: return AppStrings.ExposureSubmissionResult.card_invalid
 		}
 	}
 }
