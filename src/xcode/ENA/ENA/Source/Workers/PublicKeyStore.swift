@@ -9,7 +9,7 @@ import CryptoKit
 
 
 protocol PublicKeyProviding {
-	var currentPublicSignatureKey: PublicKeyProtocol { get }
+	func currentPublicSignatureKey() -> PublicKeyProtocol
 }
 
 struct PublicKeyProvider: PublicKeyProviding {
@@ -24,17 +24,26 @@ struct PublicKeyProvider: PublicKeyProviding {
 		}
 	}
 
-	var currentPublicSignatureKey: PublicKeyProtocol {
+	func currentPublicSignatureKey() -> PublicKeyProtocol {
 		let env = store.selectedServerEnvironment
+		return publicKey(for: env)
+	}
+
+	func publicSignatureKey(for name: String) -> PublicKeyProtocol? {
+		let env = ServerEnvironment().environment(name)
+		return publicKey(for: env)
+	}
+
+	private func publicKey(for environment: ServerEnvironmentData) -> PublicKeyProtocol {
 		do {
 			// init public key
 			if #available(iOS 13.0, *) {
-				guard let data = Data(base64Encoded: env.publicKeyString) else {
+				guard let data = Data(base64Encoded: environment.publicKeyString) else {
 					fatalError("Could not initialize public key from given data")
 				}
 				return try P256.Signing.PublicKey(rawRepresentation: data)
 			} else {
-				return try PublicKey(with: env.publicKeyString)
+				return try PublicKey(with: environment.publicKeyString)
 			}
 		} catch {
 			fatalError("Could not initialize public key: \(error.localizedDescription)")

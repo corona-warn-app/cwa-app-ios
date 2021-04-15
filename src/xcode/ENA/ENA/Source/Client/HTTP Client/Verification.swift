@@ -29,7 +29,7 @@ struct SignatureVerifier: SignatureVerification {
 			for signatureEntry in parsedSignatureFile.signatures {
 				let signatureData: Data = signatureEntry.signature
 				let signature = try ECDSASignature(derRepresentation: signatureData)
-				if pkProvider.currentPublicSignatureKey.isValid(signature: signature, for: package.bin) {
+				if pkProvider.currentPublicSignatureKey().isValid(signature: signature, for: package.bin) {
 					return true
 				}
 			}

@@ -13,7 +13,7 @@ struct MockPublicKeyProvider: PublicKeyProviding {
 		self.signingKey = signingKey
 	}
 
-	var currentPublicSignatureKey: PublicKeyProtocol {
+	func currentPublicSignatureKey() -> PublicKeyProtocol {
 		CryptoProvider.createPublicKey(from: signingKey)
 	}
 }
