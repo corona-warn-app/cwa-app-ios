@@ -16,14 +16,14 @@ class HomeTableViewModelTests: XCTestCase {
 				riskProvider: MockRiskProvider(),
 				exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 				enState: .enabled,
-				coronaTestService: CoronaTestService(client: ClientMock(), store: store),
-				exposureSubmissionService: MockExposureSubmissionService(),
 				statisticsProvider: StatisticsProvider(
 					client: CachingHTTPClientMock(store: store),
 					store: store
 				)
 			),
-			store: store
+			store: store,
+			coronaTestService: CoronaTestService(client: ClientMock(), store: store),
+			onTestResultCellTap: { _ in }
 		)
 
 		// Number of Sections
@@ -37,8 +37,8 @@ class HomeTableViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.numberOfRows(in: 4), 2, "Number of rows in section 4 does not match.")
 		XCTAssertEqual(viewModel.numberOfRows(in: 5), 2, "Number of rows in section 5 does not match.")
 
-		// Check riskAndTestRows
-		XCTAssertEqual(viewModel.riskAndTestRows, [.risk, .testResult], "Risk and Test Rows does not match.")
+		// Check riskAndTestResultsRows
+		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.risk], "Risk and Test Rows does not match.")
 		
 		// Height for Header
 		XCTAssertEqual(viewModel.heightForHeader(in: 0), 0, "Height for Header in Section 0 does not match.")
@@ -68,44 +68,42 @@ class HomeTableViewModelTests: XCTestCase {
 				riskProvider: MockRiskProvider(),
 				exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 				enState: .enabled,
-				coronaTestService: CoronaTestService(client: ClientMock(), store: store),
-				exposureSubmissionService: MockExposureSubmissionService(),
 				statisticsProvider: StatisticsProvider(
 					client: CachingHTTPClientMock(store: store),
 					store: store
 				)
 			),
-			store: store
+			store: store,
+			coronaTestService: CoronaTestService(client: ClientMock(), store: store),
+			onTestResultCellTap: { _ in }
 		)
 		
-		XCTAssertEqual(viewModel.numberOfRows(in: 1), 1, "Number of rows in section 1 does not match.")
-		
-		XCTAssertEqual(viewModel.riskAndTestRows, [.thankYou], "Risk and Test Rows does not match.")
+		XCTAssertEqual(viewModel.numberOfRows(in: 1), 1)
+		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.pcrTestResult(.positiveResultWasShown)])
 	}
 	
 	func testRiskAndTestRowsIfPositiveTestResultWasShown() {
 		let store = MockTestStore()
 		store.pcrTest = PCRTest.mock(registrationToken: "FAKETOKEN!", testResult: .positive, positiveTestResultWasShown: true)
 		
-		let sut = HomeTableViewModel(
+		let viewModel = HomeTableViewModel(
 			state: .init(
 				store: store,
 				riskProvider: MockRiskProvider(),
 				exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 				enState: .enabled,
-				coronaTestService: CoronaTestService(client: ClientMock(), store: store),
-				exposureSubmissionService: MockExposureSubmissionService(),
 				statisticsProvider: StatisticsProvider(
 					client: CachingHTTPClientMock(store: store),
 					store: store
 				)
 			),
-			store: store
+			store: store,
+			coronaTestService: CoronaTestService(client: ClientMock(), store: store),
+			onTestResultCellTap: { _ in }
 		)
-		sut.state.testResult = .positive
 		
-		XCTAssertEqual(sut.numberOfRows(in: 1), 1, "Number of rows in section 1 does not match.")
-		XCTAssertEqual(sut.riskAndTestRows, [.shownPositiveTestResult], "Risk and Test Rows does not match.")
+		XCTAssertEqual(viewModel.numberOfRows(in: 1), 1)
+		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.pcrTestResult(.positiveResultWasShown)])
 	}
 
 	func testRowHeightsWithoutStatistics() {
@@ -117,14 +115,14 @@ class HomeTableViewModelTests: XCTestCase {
 				riskProvider: MockRiskProvider(),
 				exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 				enState: .enabled,
-				coronaTestService: CoronaTestService(client: ClientMock(), store: store),
-				exposureSubmissionService: MockExposureSubmissionService(),
 				statisticsProvider: StatisticsProvider(
 					client: CachingHTTPClientMock(store: store),
 					store: store
 				)
 			),
-			store: store
+			store: store,
+			coronaTestService: CoronaTestService(client: ClientMock(), store: store),
+			onTestResultCellTap: { _ in }
 		)
 		viewModel.state.statistics.keyFigureCards = []
 
@@ -147,14 +145,14 @@ class HomeTableViewModelTests: XCTestCase {
 				riskProvider: MockRiskProvider(),
 				exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 				enState: .enabled,
-				coronaTestService: CoronaTestService(client: ClientMock(), store: store),
-				exposureSubmissionService: MockExposureSubmissionService(),
 				statisticsProvider: StatisticsProvider(
 					client: CachingHTTPClientMock(store: store),
 					store: store
 				)
 			),
-			store: store
+			store: store,
+			coronaTestService: CoronaTestService(client: ClientMock(), store: store),
+			onTestResultCellTap: { _ in }
 		)
 		viewModel.state.updateStatistics()
 
@@ -166,33 +164,6 @@ class HomeTableViewModelTests: XCTestCase {
 				)
 			}
 		}
-	}
-
-	func testReenableRiskDetection() {
-		let store = MockTestStore()
-
-		let viewModel = HomeTableViewModel(
-			state: .init(
-				store: store,
-				riskProvider: MockRiskProvider(),
-				exposureManagerState: .init(authorized: true, enabled: true, status: .active),
-				enState: .enabled,
-				coronaTestService: CoronaTestService(client: ClientMock(), store: store),
-				exposureSubmissionService: MockExposureSubmissionService(),
-				statisticsProvider: StatisticsProvider(
-					client: CachingHTTPClientMock(store: store),
-					store: store
-				)
-			),
-			store: store
-		)
-
-		store.pcrTest = PCRTest.mock(finalTestResultReceivedDate: Date(timeIntervalSince1970: 23456789), keysSubmitted: true)
-
-		viewModel.reenableRiskDetection()
-
-		XCTAssertNil(store.lastSuccessfulSubmitDiagnosisKeyTimestamp)
-		XCTAssertNil(store.testResultReceivedTimeStamp)
 	}
 
 }

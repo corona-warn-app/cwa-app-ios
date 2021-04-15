@@ -16,16 +16,17 @@ class HomeShownPositiveTestResultCellModelTest: XCTestCase {
     }
 
     func testModel() throws {
-        let sut = HomeShownPositiveTestResultCellModel()
+		let sut = HomeShownPositiveTestResultCellModel(
+			coronaTestType: .pcr,
+			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore()),
+			onUpdate: {}
+		)
 		let expectedInsets = UIEdgeInsets(top: 10.0, left: 0.0, bottom: 10.0, right: 0)
 		
-		XCTAssertNotNil(sut.backgroundColor)
 		XCTAssertNotNil(sut.title)
 		XCTAssertNotNil(sut.statusTitle)
 		XCTAssertNotNil(sut.statusSubtitle)
-		XCTAssertNotNil(sut.statusTitleColor)
-		XCTAssertNotNil(sut.statusLineColor)
-		XCTAssertNotNil(sut.statusImageName)
+		XCTAssertNotNil(sut.statusFootnote)
 		XCTAssertNotNil(sut.noteTitle)
 		XCTAssertNotNil(sut.buttonTitle)
 		XCTAssertNotNil(sut.iconColor)

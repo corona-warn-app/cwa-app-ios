@@ -53,10 +53,11 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		navigationController = exposureSubmissionNavigationController
 	}
 
-	func dismiss() {
+	func dismiss(completion: (() -> Void)? = nil) {
 		navigationController?.dismiss(animated: true, completion: {
 			// used for updating (hiding) app shortcuts
 			QuickAction.exposureSubmissionFlowTestResult = nil
+			completion?()
 		})
 	}
 

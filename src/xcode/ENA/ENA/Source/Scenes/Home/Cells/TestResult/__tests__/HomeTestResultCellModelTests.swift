@@ -12,50 +12,32 @@ class HomeTestResultCellModelTests: XCTestCase {
 	// so the total test cases are [.none(default), .none(explicit), .negative, .invalid, .pending, .positive, .expired, (Loading)]
 	
 	private var subscriptions = [AnyCancellable]()
-	
-	let titlesArray = [
-		AppStrings.Home.submitCardTitle,
-		AppStrings.Home.submitCardTitle,
-		AppStrings.Home.resultCardResultAvailableTitle,
-		AppStrings.Home.resultCardResultAvailableTitle,
-		AppStrings.Home.resultCardResultUnvailableTitle,
-		AppStrings.Home.resultCardResultAvailableTitle,
-		AppStrings.Home.resultCardResultUnvailableTitle,
-		AppStrings.Home.resultCardLoadingTitle
-	]
+
 	let subtitleArray = [
 		nil,
-		nil,
-		AppStrings.Home.resultCardNegativeTitle,
-		AppStrings.Home.resultCardInvalidTitle,
-		nil,
-		AppStrings.Home.resultCardAvailableSubtitle,
-		nil,
-		nil
+		AppStrings.Home.TestResult.Invalid.title,
+		AppStrings.Home.TestResult.Pending.title,
+		AppStrings.Home.TestResult.Available.title,
+		AppStrings.Home.TestResult.Expired.title,
+		AppStrings.Home.TestResult.Loading.title
 	]
 	let descriptionsArray = [
-		AppStrings.Home.submitCardBody,
-		AppStrings.Home.submitCardBody,
-		AppStrings.Home.resultCardNegativeDesc,
-		AppStrings.Home.resultCardInvalidDesc,
-		AppStrings.Home.resultCardPendingDesc,
-		AppStrings.Home.resultCardAvailableDesc,
-		AppStrings.Home.resultCardPendingDesc,
-		AppStrings.Home.resultCardLoadingBody
+		AppStrings.Home.TestResult.Negative.description,
+		AppStrings.Home.TestResult.Invalid.description,
+		AppStrings.Home.TestResult.Pending.pcrDescription,
+		AppStrings.Home.TestResult.Available.description,
+		AppStrings.Home.TestResult.Expired.description,
+		AppStrings.Home.TestResult.Loading.description
 	]
 	let buttonTitlesArray = [
-		AppStrings.Home.submitCardButton,
-		AppStrings.Home.submitCardButton,
-		AppStrings.Home.submitCardButton,
-		AppStrings.Home.submitCardButton,
-		AppStrings.Home.submitCardButton,
-		AppStrings.Home.resultCardRetrieveResultButton,
-		AppStrings.Home.submitCardButton,
-		AppStrings.Home.submitCardButton
+		AppStrings.Home.TestResult.Button.showResult,
+		AppStrings.Home.TestResult.Button.showResult,
+		AppStrings.Home.TestResult.Button.showResult,
+		AppStrings.Home.TestResult.Button.showResult,
+		AppStrings.Home.TestResult.Button.deleteTest,
+		AppStrings.Home.TestResult.Button.showResult
 	]
 	let imagesArray = [
-		UIImage(named: "Illu_Hand_with_phone-initial"),
-		UIImage(named: "Illu_Hand_with_phone-initial"),
 		UIImage(named: "Illu_Home_NegativesTestErgebnis"),
 		UIImage(named: "Illu_Hand_with_phone-error"),
 		UIImage(named: "Illu_Hand_with_phone-pending"),
@@ -63,21 +45,10 @@ class HomeTestResultCellModelTests: XCTestCase {
 		UIImage(named: "Illu_Hand_with_phone-pending"),
 		UIImage(named: "Illu_Hand_with_phone-initial")
 	]
-	let colorsArray: [UIColor] = [
-		.enaColor(for: .textPrimary1),
-		.enaColor(for: .textPrimary1),
-		.enaColor(for: .textSemanticGreen),
-		.enaColor(for: .textSemanticGray),
-		.enaColor(for: .textPrimary2),
-		.enaColor(for: .textSemanticGray),
-		.enaColor(for: .textPrimary2),
-		.enaColor(for: .textPrimary1)
-	]
-	let indicatorVisibilityArray = [true, true, true, true, true, true, true, false]
-	let userInteractionArray = [true, true, true, true, true, true, true, false]
+	let isNegativeDiagnosisHiddenArray = [false, true, true, true, true, true]
+	let indicatorVisibilityArray = [true, true, true, true, true, false]
+	let userInteractionArray = [true, true, true, true, true, false]
 	let accessabilityIdentifiersArray = [
-		AccessibilityIdentifiers.Home.submitCardButton,
-		AccessibilityIdentifiers.Home.submitCardButton,
 		AccessibilityIdentifiers.Home.submitCardButton,
 		AccessibilityIdentifiers.Home.submitCardButton,
 		AccessibilityIdentifiers.Home.submitCardButton,
@@ -86,15 +57,12 @@ class HomeTestResultCellModelTests: XCTestCase {
 		AccessibilityIdentifiers.Home.submitCardButton
 	]
 
-	// swiftlint:disable:next function_body_length
 	func test_whenHomeENStateChanges_then_changesAreReflectedInTheSubscription() {
-		
 		let expectationTitles = expectation(description: "expectationTitles")
 		let expectationSubtitles = expectation(description: "expectationSubtitles")
 		let expectationDescription = expectation(description: "expectationDescription")
 		let expectationButtonTitle = expectation(description: "expectationButtonTitle")
 		let expectationButtonImage = expectation(description: "expectationButtonImage")
-		let expectationTintColor = expectation(description: "expectationTintColor")
 		let expectationIndicatorVisibility = expectation(description: "expectationIndicatorVisibility")
 		let expectationUserInteraction = expectation(description: "expectationUserInteraction")
 		let expectationAccessabilityIdentifiers = expectation(description: "expectationAccessabilityIdentifiers")
@@ -105,27 +73,29 @@ class HomeTestResultCellModelTests: XCTestCase {
 		var recievedDescription = [String?]()
 		var recievedButtonTitle = [String?]()
 		var recievedImages = [UIImage?]()
-		var recievedtintColors = [UIColor]()
 		var recievedActivityIndicatorsVisibility = [Bool]()
 		var recievedUserInteractivity = [Bool]()
 		var recievedAccessibilityIdentifiers = [String?]()
 		
-		expectationTitles.expectedFulfillmentCount = titlesArray.count
 		expectationSubtitles.expectedFulfillmentCount = subtitleArray.count
 		expectationDescription.expectedFulfillmentCount = descriptionsArray.count
 		expectationButtonTitle.expectedFulfillmentCount = buttonTitlesArray.count
 		expectationButtonImage.expectedFulfillmentCount = imagesArray.count
-		expectationTintColor.expectedFulfillmentCount = colorsArray.count
 		expectationIndicatorVisibility.expectedFulfillmentCount = indicatorVisibilityArray.count
 		expectationUserInteraction.expectedFulfillmentCount = userInteractionArray.count
 		expectationAccessabilityIdentifiers.expectedFulfillmentCount = accessabilityIdentifiersArray.count
 		expectationOnUpdate.expectedFulfillmentCount = accessabilityIdentifiersArray.count
 		
-		let state = makeHomeState()
-		
-		let sut = HomeTestResultCellModel(homeState: state) {
-			expectationOnUpdate.fulfill()
-		}
+		let coronaTestService = CoronaTestService(client: ClientMock(), store: MockTestStore())
+		coronaTestService.pcrTest = PCRTest.mock()
+
+		let sut = HomeTestResultCellModel(
+			coronaTestType: .pcr,
+			coronaTestService: coronaTestService,
+			onUpdate: {
+				expectationOnUpdate.fulfill()
+			}
+		)
 		
 		sut.$title
 			.dropFirst()
@@ -167,14 +137,6 @@ class HomeTestResultCellModelTests: XCTestCase {
 			}
 			.store(in: &subscriptions)
 		
-		sut.$tintColor
-			.dropFirst()
-			.sink { recievedValue in
-				recievedtintColors.append(recievedValue)
-				expectationTintColor.fulfill()
-			}
-			.store(in: &subscriptions)
-		
 		sut.$isActivityIndicatorHidden
 			.dropFirst()
 			.sink { recievedValue in
@@ -198,44 +160,24 @@ class HomeTestResultCellModelTests: XCTestCase {
 				expectationAccessabilityIdentifiers.fulfill()
 			}
 			.store(in: &subscriptions)
-		
-		state.testResult = .none
-		state.testResult = .negative
-		state.testResult = .invalid
-		state.testResult = .pending
-		state.testResult = .positive
-		state.testResult = .expired
-		state.testResultIsLoading = true
+
+		coronaTestService.pcrTest?.testResult = .negative
+		coronaTestService.pcrTest?.testResult = .invalid
+		coronaTestService.pcrTest?.testResult = .pending
+		coronaTestService.pcrTest?.testResult = .positive
+		coronaTestService.pcrTest?.testResult = .expired
+		coronaTestService.pcrTestResultIsLoading = true
 				
 		waitForExpectations(timeout: .short, handler: nil)
 		
 		subscriptions.forEach({ $0.cancel() })
-		
-		XCTAssertEqual(recievedTitles, titlesArray)
+
 		XCTAssertEqual(recievedSubtitles, subtitleArray)
 		XCTAssertEqual(recievedDescription, descriptionsArray)
 		XCTAssertEqual(recievedButtonTitle, buttonTitlesArray)
 		XCTAssertEqual(recievedImages, imagesArray)
-		XCTAssertEqual(recievedtintColors, colorsArray)
 		XCTAssertEqual(recievedActivityIndicatorsVisibility, indicatorVisibilityArray)
 		XCTAssertEqual(recievedUserInteractivity, userInteractionArray)
 		XCTAssertEqual(recievedAccessibilityIdentifiers, accessabilityIdentifiersArray)
-	}
-	
-	private func makeHomeState() -> HomeState {
-		let store = MockTestStore()
-
-		return HomeState(
-			store: store,
-			riskProvider: MockRiskProvider(),
-			exposureManagerState: .init(),
-			enState: .enabled,
-			coronaTestService: CoronaTestService(client: ClientMock(), store: store),
-			exposureSubmissionService: MockExposureSubmissionService(),
-			statisticsProvider: StatisticsProvider(
-				client: CachingHTTPClientMock(store: store),
-				store: store
-			)
-		)
 	}
 }
