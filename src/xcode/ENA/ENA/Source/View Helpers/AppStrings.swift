@@ -807,6 +807,7 @@ enum AppStrings {
 				static let showResult = NSLocalizedString("Home_resultCard_ShowResultButton", comment: "")
 				static let retrieveResult = NSLocalizedString("Home_resultCard_RetrieveResultButton", comment: "")
 				static let deleteTest = NSLocalizedString("Home_resultCard_DeleteTestButton", comment: "")
+				static let hideTest = NSLocalizedString("Home_resultCard_HideTestButton", comment: "")
 			}
 
 			enum ShownPositive {

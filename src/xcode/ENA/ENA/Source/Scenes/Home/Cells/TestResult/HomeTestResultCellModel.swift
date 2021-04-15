@@ -118,18 +118,6 @@ class HomeTestResultCellModel {
 		}
 	}
 
-	private func configureLoading() {
-		subtitle = AppStrings.Home.TestResult.Loading.title
-		description = AppStrings.Home.TestResult.Loading.description
-		footnote = nil
-		buttonTitle = AppStrings.Home.TestResult.Button.showResult
-		image = UIImage(named: "Illu_Hand_with_phone-initial")
-		isNegativeDiagnosisHidden = true
-		isActivityIndicatorHidden = false
-		isUserInteractionEnabled = false
-		accessibilityIdentifier = AccessibilityIdentifiers.Home.submitCardButton
-	}
-
 	private func configureTestResultNegative() {
 		subtitle = nil
 		description = AppStrings.Home.TestResult.Negative.description
@@ -193,7 +181,7 @@ class HomeTestResultCellModel {
 		subtitle = AppStrings.Home.TestResult.Available.title
 		description = AppStrings.Home.TestResult.Available.description
 		footnote = nil
-		buttonTitle = AppStrings.Home.TestResult.Button.showResult
+		buttonTitle = AppStrings.Home.TestResult.Button.retrieveResult
 		image = UIImage(named: "Illu_Hand_with_phone-error")
 		isNegativeDiagnosisHidden = true
 		isActivityIndicatorHidden = true
@@ -205,7 +193,7 @@ class HomeTestResultCellModel {
 		subtitle = AppStrings.Home.TestResult.Expired.title
 		description = AppStrings.Home.TestResult.Expired.description
 		footnote = nil
-		buttonTitle = AppStrings.Home.TestResult.Button.showResult
+		buttonTitle = AppStrings.Home.TestResult.Button.deleteTest
 		image = UIImage(named: "Illu_Hand_with_phone-pending")
 		isNegativeDiagnosisHidden = true
 		isActivityIndicatorHidden = true
@@ -214,14 +202,26 @@ class HomeTestResultCellModel {
 	}
 
 	private func configureTestResultOutdated() {
-		subtitle = AppStrings.Home.TestResult.Expired.title
-		description = AppStrings.Home.TestResult.Expired.description
+		subtitle = AppStrings.Home.TestResult.Outdated.title
+		description = AppStrings.Home.TestResult.Outdated.description
 		footnote = nil
-		buttonTitle = AppStrings.Home.TestResult.Button.showResult
+		buttonTitle = AppStrings.Home.TestResult.Button.hideTest
 		image = UIImage(named: "Illu_Hand_with_phone-pending")
 		isNegativeDiagnosisHidden = true
 		isActivityIndicatorHidden = true
 		isUserInteractionEnabled = true
+		accessibilityIdentifier = AccessibilityIdentifiers.Home.submitCardButton
+	}
+
+	private func configureLoading() {
+		subtitle = AppStrings.Home.TestResult.Loading.title
+		description = AppStrings.Home.TestResult.Loading.description
+		footnote = nil
+		buttonTitle = AppStrings.Home.TestResult.Button.showResult
+		image = UIImage(named: "Illu_Hand_with_phone-initial")
+		isNegativeDiagnosisHidden = true
+		isActivityIndicatorHidden = false
+		isUserInteractionEnabled = false
 		accessibilityIdentifier = AccessibilityIdentifiers.Home.submitCardButton
 	}
 

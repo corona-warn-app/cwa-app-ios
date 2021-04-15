@@ -1170,6 +1170,8 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Home_resultCard_DeleteTestButton" = "Test löschen";
 
+"Home_resultCard_HideTestButton" = "Nicht mehr anzeigen";
+
 /* - Show Positive */
 
 "Home_Finding_Positive_Card_Status_Title" = "SARS-CoV-2-positiv";
