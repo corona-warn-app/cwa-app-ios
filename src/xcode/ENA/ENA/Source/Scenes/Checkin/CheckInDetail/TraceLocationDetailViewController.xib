@@ -315,7 +315,6 @@ deutschen SAP Anwendergruppe</string>
                                     </subviews>
                                 </stackView>
                             </subviews>
-                            <color key="backgroundColor" name="ENA Background Color"/>
                             <constraints>
                                 <constraint firstItem="qe2-Cr-Hsf" firstAttribute="trailing" secondItem="fx9-sT-lVo" secondAttribute="trailing" constant="16" id="3f5-Yx-H9G"/>
                                 <constraint firstItem="oNa-7R-1wU" firstAttribute="top" secondItem="qe2-Cr-Hsf" secondAttribute="bottom" constant="12" id="429-LQ-bU1"/>
