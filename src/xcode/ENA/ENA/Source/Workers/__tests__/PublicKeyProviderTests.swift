@@ -8,22 +8,18 @@ import CryptoKit
 #endif
 @testable import ENA
 
-extension StaticString: Equatable {
-	public static func == (lhs: StaticString, rhs: StaticString) -> Bool {
-		// swiftlint:disable:next identical_operands
-		return "\(lhs)" == "\(rhs)"
-	}
-}
 
 final class PublicKeyProviderTests: XCTestCase {
 
-	func testThatKeysHaveNotBeenAlteredAccidentally() {
+	func testThatKeysHaveNotBeenAlteredAccidentally() throws {
+		let environments = ServerEnvironment()
+
 		XCTAssertEqual(
-			PublicKeyEnv.production.stringRepresentation,
+			environments.environment(.production).publicKeyString,
 			"c7DEstcUIRcyk35OYDJ95/hTg3UVhsaDXKT0zK7NhHPXoyzipEnOp3GyNXDVpaPi3cAfQmxeuFMZAIX2+6A5Xg=="
 		)
 		XCTAssertEqual(
-			PublicKeyEnv.development.stringRepresentation,
+			environments.environment(.custom("wru")).publicKeyString,
 			"3BYTxr2HuJYQG+d7Ezu6KS8GEbFkiEvyJFg0j+C839gTjT6j7Ho0EXXZ/a07ZfvKcC2cmc1SunsrqU9Jov1J5Q=="
 		)
 	}

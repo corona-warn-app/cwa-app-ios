@@ -29,8 +29,8 @@ struct PublicKeyProvider: PublicKeyProviding {
 		return publicKey(for: env)
 	}
 
-	func publicSignatureKey(for name: String) -> PublicKeyProtocol? {
-		let env = ServerEnvironment().environment(name)
+	func publicSignatureKey(for descriptor: EnvironmentDescriptor) -> PublicKeyProtocol? {
+		let env = ServerEnvironment().environment(descriptor)
 		return publicKey(for: env)
 	}
 

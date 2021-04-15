@@ -1,7 +1,7 @@
 {
 	"ServerEnvironments":[
 		{
-			"name": "Default",
+			"name": "TestEnvironment0",
 			"distributionURL": "https://Default.distribution",
 			"submissionURL": "https://Default.submission",
 			"verificationURL": "https://Default.verification",

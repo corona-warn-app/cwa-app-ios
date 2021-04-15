@@ -25,6 +25,20 @@ struct ServerEnvironmentData: Codable {
 
 // MARK: - ServerEnvironment access.
 
+enum EnvironmentDescriptor {
+	case production
+	case custom(_ name: String)
+
+	var string: String {
+		switch self {
+		case .production:
+			return "prod"
+		case .custom(let name):
+			return name
+		}
+	}
+}
+
 struct ServerEnvironment {
 
 	private let environments: [ServerEnvironmentData]
@@ -46,8 +60,8 @@ struct ServerEnvironment {
 		return environments
 	}
 
-	func environment(_ name: String) -> ServerEnvironmentData {
-		guard let environment = availableEnvironments().first(where: { $0.name == name }) else {
+	func environment(_ name: EnvironmentDescriptor) -> ServerEnvironmentData {
+		guard let environment = availableEnvironments().first(where: { $0.name == name.string }) else {
 			fatalError("Missing server environment.")
 		}
 
@@ -55,6 +69,6 @@ struct ServerEnvironment {
 	}
 
 	func defaultEnvironment() -> ServerEnvironmentData {
-		return environment("Default")
+		return environment(.production)
 	}
 }

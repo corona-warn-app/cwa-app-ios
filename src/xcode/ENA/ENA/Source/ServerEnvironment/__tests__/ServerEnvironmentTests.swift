@@ -19,7 +19,7 @@ class ServerEnvironmentTests: XCTestCase {
 
 	func test_loadServerEnvironmentReturnesCorrectEnvironment() {
 		let sut_ServerEnvironment = makeServerEnvironment()
-		let environment = sut_ServerEnvironment.environment("TestEnvironment1")
+		let environment = sut_ServerEnvironment.environment(.custom("TestEnvironment1"))
 		
 		XCTAssertEqual(environment.name, "TestEnvironment1")
 	}
