@@ -23,6 +23,7 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 	
 	var app: XCUIApplication!
 	var screenshotCounter = 0
+	let prefix = "traceLocation_"
 	
 	// MARK: - Test cases.
 	
@@ -240,7 +241,6 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 			XCTFail("Can't find element \(AccessibilityIdentifiers.Home.traceLocationsCardButton)")
 		}
 		
-		let prefix = "traceLocation_"
 		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_InfoScreen")
 		app.swipeUp()
 		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_InfoScreen")
@@ -527,7 +527,6 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 	}
 	
 	private func createTraceLocation(event: String, location: String, withScreenshots: Bool) {
-		let prefix = "traceLocation_"
 		// add trace location
 		if withScreenshots == true { snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_emptyList") }
 

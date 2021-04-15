@@ -8,7 +8,7 @@ class ENAUITests_10_CheckIns: XCTestCase {
 	
 	var app: XCUIApplication!
 	var screenshotCounter = 0
-	let prefix = "eventCheckin_"
+	let prefix = "event_checkin_"
 	
 	override func setUpWithError() throws {
 		continueAfterFailure = false
