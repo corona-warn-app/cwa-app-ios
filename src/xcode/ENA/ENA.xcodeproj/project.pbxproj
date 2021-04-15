@@ -2570,9 +2570,6 @@
 				01A4DC5D25922EB2007D5794 /* HomeRiskTableViewCell.swift */,
 				01A4DC5925922EB1007D5794 /* HomeRiskTableViewCell.xib */,
 				01A4DD4225935D1F007D5794 /* HomeRiskCellModel.swift */,
-				01A4DC5725922EB1007D5794 /* HomeShownPositiveTestResultTableViewCell.swift */,
-				01A4DC5625922EB0007D5794 /* HomeShownPositiveTestResultTableViewCell.xib */,
-				017AD113259DCD3400FA2B3F /* HomeShownPositiveTestResultCellModel.swift */,
 			);
 			path = Risk;
 			sourceTree = "<group>";
@@ -2605,6 +2602,9 @@
 				01A6C2E62626D71600B6E95A /* HomeTestResultTableViewCell.swift */,
 				01A6C2E32626D71600B6E95A /* HomeTestResultTableViewCell.xib */,
 				01A6C2E22626D71600B6E95A /* HomeTestResultCellModel.swift */,
+				01A4DC5725922EB1007D5794 /* HomeShownPositiveTestResultTableViewCell.swift */,
+				01A4DC5625922EB0007D5794 /* HomeShownPositiveTestResultTableViewCell.xib */,
+				017AD113259DCD3400FA2B3F /* HomeShownPositiveTestResultCellModel.swift */,
 			);
 			path = TestResult;
 			sourceTree = "<group>";
