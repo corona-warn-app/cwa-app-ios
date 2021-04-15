@@ -93,6 +93,7 @@ private extension ENAColor {
 		switch self {
 		// MARK: - Background Colors
 		case .background: return "background"
+		case .backgroundLightGray: return "lightGrayBackground"
 		case .darkBackground: return "darkBackground"
 		case .cellBackground: return "cellBackground"
 		case .hairline: return "hairline"
