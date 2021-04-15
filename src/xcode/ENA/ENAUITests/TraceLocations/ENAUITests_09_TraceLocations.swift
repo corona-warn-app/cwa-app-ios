@@ -229,9 +229,10 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 	}
 	
 	func test_screenshots_of_traceLocation_print_flow() throws {
-		app.launchArguments.append(contentsOf: ["-TraceLocationsInfoScreenShown", "YES"])
+		app.launchArguments.append(contentsOf: ["-TraceLocationsInfoScreenShown", "NO"])
 		app.launchArguments.append(contentsOf: ["-checkinInfoScreenShown", "YES"])
 		app.launch()
+		
 		// navigate to "Create QR Code"
 		if let button = UITestHelper.scrollTo(identifier: AccessibilityIdentifiers.Home.traceLocationsCardButton, element: app, app: app) {
 			button.tap()
@@ -239,10 +240,19 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 			XCTFail("Can't find element \(AccessibilityIdentifiers.Home.traceLocationsCardButton)")
 		}
 		
+		let prefix = "traceLocation_"
+		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_InfoScreen")
+		app.swipeUp()
+		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_InfoScreen")
+		app.swipeUp()
+		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_InfoScreen")
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].exists)
+		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].tap()
+		
 		let event = "Team Meeting"
 		let location = "Office"
 		createTraceLocation(event: event, location: location, withScreenshots: true)
-		let prefix = "traceLocation_"
+		
 		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_traceLocationOverview")
 		
 		// navigate to detail view for second item
@@ -279,6 +289,13 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.AccessibilityLabel.close].waitForExistence(timeout: .short))
 		app.buttons[AccessibilityIdentifiers.AccessibilityLabel.close].tap()
 		
+		// check in
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.TraceLocation.Configuration.eventTableViewCellButton].waitForExistence(timeout: .short))
+		app.buttons[AccessibilityIdentifiers.TraceLocation.Configuration.eventTableViewCellButton].tap()
+		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_checkinScreen")
+		app.buttons[AccessibilityIdentifiers.TraceLocation.Details.checkInButton].tap()
+		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_myQRCodes")
+
 		// clean up
 		removeAllTraceLocationsAtOnce()
 	}
@@ -392,13 +409,6 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.TraceLocation.dataPrivacyTitle].waitForExistence(timeout: .short))
 		XCTAssertTrue(app.images[AccessibilityIdentifiers.TraceLocation.imageDescription].exists)
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].exists)
-
-		let prefix = "createQRCode_"
-		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_InfoScreen")
-		app.swipeUp()
-		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_InfoScreen")
-		app.swipeUp()
-		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_InfoScreen")
 
 	}
 	

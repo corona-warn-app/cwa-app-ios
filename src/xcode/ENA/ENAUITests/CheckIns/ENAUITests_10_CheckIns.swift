@@ -22,12 +22,27 @@ class ENAUITests_10_CheckIns: XCTestCase {
 	
 	func test_WHEN_scan_QRCode_THEN_checkin_and_checkout() {
 		// GIVEN
-		app.launchArguments.append(contentsOf: ["-checkinInfoScreenShown", "YES"])
+		app.launchArguments.append(contentsOf: ["-checkinInfoScreenShown", "NO"])
 		app.launch()
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Tabbar.checkin].waitForExistence(timeout: .short))
 		
 		// Navigate to CheckIn
 		app.buttons[AccessibilityIdentifiers.Tabbar.checkin].tap()
+		
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Checkin.Information.acknowledgementTitle].exists)
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Checkin.Information.dataPrivacyTitle].exists)
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Checkin.Information.primaryButton].exists)
+		
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Information.descriptionTitle].exists)
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Information.descriptionSubHeadline].exists)
+		
+		screenshotCounter = 0
+		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_checkinInfoScreen")
+		app.swipeUp()
+		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_checkinInfoScreen")
+		app.swipeUp()
+		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_checkinInfoScreen")
+		app.buttons[AccessibilityIdentifiers.Checkin.Information.primaryButton].tap()
 		
 		// WHEN
 		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.Checkins.Overview.scanButtonTitle)].waitForExistence(timeout: .short))
@@ -67,14 +82,7 @@ class ENAUITests_10_CheckIns: XCTestCase {
 		
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Information.descriptionTitle].exists)
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Information.descriptionSubHeadline].exists)
-		
-		screenshotCounter = 0
-		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_checkinInfoScreen")
-		app.swipeUp()
-		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_checkinInfoScreen")
-		app.swipeUp()
-		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_checkinInfoScreen")
-		
+				
 		// Navigate to Data Privacy
 		if let target = UITestHelper.scrollTo(identifier: AccessibilityIdentifiers.Checkin.Information.dataPrivacyTitle, element: app, app: app) {
 			target.tap()
@@ -174,7 +182,7 @@ class ENAUITests_10_CheckIns: XCTestCase {
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitForExistence(timeout: .short))
 		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].tap()
 
-		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "checkinDeleteAllAlert")
+		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_checkinDeleteAllAlert")
 		// Alert: tap "Entfernen"
 		XCTAssertTrue(app.alerts.buttons[AccessibilityLabels.localized(AppStrings.Checkins.Overview.DeleteAllAlert.confirmButtonTitle)].waitForExistence(timeout: .short))
 		app.alerts.buttons[AccessibilityLabels.localized(AppStrings.Checkins.Overview.DeleteOneAlert.confirmButtonTitle)].tap()
