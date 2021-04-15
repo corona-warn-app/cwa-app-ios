@@ -52,11 +52,12 @@ class RootCoordinator: RequiresAppDependencies {
 		return viewController
 	}()
 
-	func showHome(enStateHandler: ENStateHandler) {
-		viewController.clearChildViewController()
-		
-		// Home
-		guard let delegate = delegate else {
+	func showHome(enStateHandler: ENStateHandler, route: Route?) {
+		// only create and init the whole view stack if not done before
+		// there for we check if the homeCoordinator exists
+		guard let delegate = delegate,
+			  homeCoordinator == nil else {
+			homeCoordinator?.showHome(enStateHandler: enStateHandler, route: route)
 			return
 		}
 		
@@ -67,9 +68,11 @@ class RootCoordinator: RequiresAppDependencies {
 			coronaTestService: coronaTestService
 		)
 		self.homeCoordinator = homeCoordinator
-		homeCoordinator.showHome(enStateHandler: enStateHandler)
-		
-		
+		homeCoordinator.showHome(
+			enStateHandler: enStateHandler,
+			route: route
+		)
+
 		// ContactJournal
 		let diaryCoordinator = DiaryCoordinator(
 			store: store,
@@ -138,18 +141,6 @@ class RootCoordinator: RequiresAppDependencies {
 		tabBarController.dismiss(animated: false)
 		tabBarController.selectedIndex = index
 		checkInCoordinator.showTraceLocationDetailsFromExternalCamera(guid)
-	}
-
-	func showRapidAntigenTest(_ testInformationResult: Result<CoronaTestQRCodeInformation, QRCodeError>) {
-		guard let homeCoordinator = homeCoordinator,
-			  let index = tabBarController.viewControllers?.firstIndex(of: homeCoordinator.rootViewController) else {
-			Log.error("Failed to find home coordinator - stop", log: .default)
-			return
-		}
-
-		tabBarController.dismiss(animated: false)
-		tabBarController.selectedIndex = index
-		homeCoordinator.showExposureSubmission(with: testInformationResult)
 	}
 
 	func updateDetectionMode(

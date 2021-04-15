@@ -161,7 +161,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
 	let contactDiaryStore: DiaryStoringProviding = ContactDiaryStore.make()
 	let eventStore: EventStoringProviding = EventStore.make()
-    let serverEnvironment: ServerEnvironment
+	let serverEnvironment: ServerEnvironment
 	var store: Store
 
 	lazy var coronaTestService: CoronaTestService = {
@@ -398,7 +398,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			store.ppacApiToken = ppacAPIToken
 			store.appInstallationDate = installationDate
 			store.selectedServerEnvironment = environment
-            Analytics.collect(.submissionMetadata(.lastAppReset(Date())))
+			Analytics.collect(.submissionMetadata(.lastAppReset(Date())))
 		} catch {
 			fatalError("Creating new database key failed")
 		}
@@ -479,8 +479,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		}
 
 		guard let alert = makeErrorAlert(
-				riskProviderError: riskProviderError,
-				rootController: rootController
+			riskProviderError: riskProviderError,
+			rootController: rootController
 		) else {
 			return
 		}
@@ -637,17 +637,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			fatalError("It should not happen.")
 		}
 
-		coordinator.showHome(enStateHandler: enStateHandler)
+		switch route {
+		case .none:
+			coordinator.showHome(enStateHandler: enStateHandler, route: nil)
 
-		if let eventRoute = route {
-			switch eventRoute {
-			case .checkin(let guid):
-				coordinator.showEvent(guid)
-			case .rapidAntigen(let antigenTestinformation):
-				coordinator.showRapidAntigenTest(antigenTestinformation)
-			}
+		case .checkin(let guid):
+			coordinator.showHome(enStateHandler: enStateHandler, route: nil)
+			coordinator.showEvent(guid)
+
+		case .rapidAntigen:
+			coordinator.showHome(enStateHandler: enStateHandler, route: route)
 		}
-
 	}
 
 	private func showOnboarding() {

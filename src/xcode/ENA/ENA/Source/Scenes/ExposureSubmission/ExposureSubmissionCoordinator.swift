@@ -49,7 +49,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 	func start(with testInformationResult: Result<CoronaTestQRCodeInformation, QRCodeError>) {
 		model.exposureSubmissionService.loadSupportedCountries(
-			isLoading: { _ in }, // ToDo where to show loading indicator here?
+			isLoading: { _ in },
 			onSuccess: { supportedCountries in
 				switch testInformationResult {
 				case let .success(testInformation):

@@ -13,6 +13,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	init(
 		viewModel: HomeTableViewModel,
 		appConfigurationProvider: AppConfigurationProviding,
+		route: Route?,
 		onInfoBarButtonItemTap: @escaping () -> Void,
 		onExposureLoggingCellTap: @escaping (ENStateHandler.State) -> Void,
 		onRiskCellTap: @escaping (HomeState) -> Void,
@@ -23,11 +24,12 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		onInviteFriendsCellTap: @escaping () -> Void,
 		onFAQCellTap: @escaping () -> Void,
 		onAppInformationCellTap: @escaping () -> Void,
-		onSettingsCellTap: @escaping (ENStateHandler.State) -> Void
+		onSettingsCellTap: @escaping (ENStateHandler.State) -> Void,
+		showTestInformationResult: @escaping (Result<CoronaTestQRCodeInformation, QRCodeError>) -> Void
 	) {
 		self.viewModel = viewModel
 		self.appConfigurationProvider = appConfigurationProvider
-
+		self.route = route
 		self.onInfoBarButtonItemTap = onInfoBarButtonItemTap
 		self.onExposureLoggingCellTap = onExposureLoggingCellTap
 		self.onRiskCellTap = onRiskCellTap
@@ -39,6 +41,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		self.onFAQCellTap = onFAQCellTap
 		self.onAppInformationCellTap = onAppInformationCellTap
 		self.onSettingsCellTap = onSettingsCellTap
+		self.showTestInformationResult = showTestInformationResult
 
 		super.init(style: .plain)
 
@@ -237,6 +240,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 	// MARK: - Internal
 
+	var route: Route?
+
 	func reload() {
 		DispatchQueue.main.async { [weak self] in
 			self?.tableView.reloadData()
@@ -263,7 +268,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	private let onFAQCellTap: () -> Void
 	private let onAppInformationCellTap: () -> Void
 	private let onSettingsCellTap: (ENStateHandler.State) -> Void
-
+	private let showTestInformationResult: (Result<CoronaTestQRCodeInformation, QRCodeError>) -> Void
 	private var deltaOnboardingCoordinator: DeltaOnboardingCoordinator?
 
 	private var riskCell: UITableViewCell?
@@ -536,18 +541,33 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	}
 
 	private func showDeltaOnboardingAndAlertsIfNeeded() {
-		showDeltaOnboardingIfNeeded(completion: { [weak self] in
-			self?.showInformationHowRiskDetectionWorksIfNeeded(completion: {
-				self?.showBackgroundFetchAlertIfNeeded(completion: {
-					self?.showRiskStatusLoweredAlertIfNeeded()
+		showRouteIfNeeded(completion: {
+			self.showDeltaOnboardingIfNeeded(completion: { [weak self] in
+				self?.showInformationHowRiskDetectionWorksIfNeeded(completion: {
+					self?.showBackgroundFetchAlertIfNeeded(completion: {
+						self?.showRiskStatusLoweredAlertIfNeeded()
+					})
 				})
 			})
 		})
 	}
-	
+
+	private func showRouteIfNeeded(completion: @escaping () -> Void) {
+		defer {
+			route = nil
+		}
+
+		// handle error -> show alert & trigger the chain
+		guard case let .rapidAntigen(testResult) = route else {
+			completion()
+			return
+		}
+		showTestInformationResult(testResult)
+	}
+
 	private func showDeltaOnboardingIfNeeded(completion: @escaping () -> Void = {}) {
 		guard deltaOnboardingCoordinator == nil else { return }
-		
+
 		appConfigurationProvider.appConfiguration().sink { [weak self] configuration in
 			guard let self = self else { return }
 
