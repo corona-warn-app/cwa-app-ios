@@ -76,7 +76,6 @@ class HomeTestResultCellModel {
 	@OpenCombine.Published var footnote: String?
 	@OpenCombine.Published var buttonTitle: String! = ""
 	@OpenCombine.Published var image: UIImage?
-	@OpenCombine.Published var tintColor: UIColor = .enaColor(for: .textPrimary1)
 	@OpenCombine.Published var isNegativeDiagnosisHidden: Bool = true
 	@OpenCombine.Published var isActivityIndicatorHidden: Bool = false
 	@OpenCombine.Published var isUserInteractionEnabled: Bool = false
@@ -123,7 +122,6 @@ class HomeTestResultCellModel {
 		footnote = nil
 		buttonTitle = AppStrings.Home.TestResult.Button.showResult
 		image = UIImage(named: "Illu_Hand_with_phone-initial")
-		tintColor = .enaColor(for: .textPrimary1)
 		isNegativeDiagnosisHidden = true
 		isActivityIndicatorHidden = false
 		isUserInteractionEnabled = false
@@ -152,7 +150,6 @@ class HomeTestResultCellModel {
 
 		buttonTitle = AppStrings.Home.TestResult.Button.showResult
 		image = UIImage(named: "Illu_Home_NegativesTestErgebnis")
-		tintColor = .enaColor(for: .textSemanticGreen)
 		isNegativeDiagnosisHidden = false
 		isActivityIndicatorHidden = true
 		isUserInteractionEnabled = true
@@ -165,7 +162,6 @@ class HomeTestResultCellModel {
 		footnote = nil
 		buttonTitle = AppStrings.Home.TestResult.Button.showResult
 		image = UIImage(named: "Illu_Hand_with_phone-error")
-		tintColor = .enaColor(for: .textSemanticGray)
 		isNegativeDiagnosisHidden = true
 		isActivityIndicatorHidden = true
 		isUserInteractionEnabled = true
@@ -185,7 +181,6 @@ class HomeTestResultCellModel {
 		footnote = nil
 		buttonTitle = AppStrings.Home.TestResult.Button.showResult
 		image = UIImage(named: "Illu_Hand_with_phone-pending")
-		tintColor = .enaColor(for: .textPrimary2)
 		isNegativeDiagnosisHidden = true
 		isActivityIndicatorHidden = true
 		isUserInteractionEnabled = true
@@ -198,7 +193,6 @@ class HomeTestResultCellModel {
 		footnote = nil
 		buttonTitle = AppStrings.Home.TestResult.Button.showResult
 		image = UIImage(named: "Illu_Hand_with_phone-error")
-		tintColor = .enaColor(for: .textSemanticGray)
 		isNegativeDiagnosisHidden = true
 		isActivityIndicatorHidden = true
 		isUserInteractionEnabled = true
@@ -211,7 +205,6 @@ class HomeTestResultCellModel {
 		footnote = nil
 		buttonTitle = AppStrings.Home.TestResult.Button.showResult
 		image = UIImage(named: "Illu_Hand_with_phone-pending")
-		tintColor = .enaColor(for: .textPrimary2)
 		isNegativeDiagnosisHidden = true
 		isActivityIndicatorHidden = true
 		isUserInteractionEnabled = true
@@ -224,7 +217,6 @@ class HomeTestResultCellModel {
 		footnote = nil
 		buttonTitle = AppStrings.Home.TestResult.Button.showResult
 		image = UIImage(named: "Illu_Hand_with_phone-pending")
-		tintColor = .enaColor(for: .textPrimary2)
 		isNegativeDiagnosisHidden = true
 		isActivityIndicatorHidden = true
 		isUserInteractionEnabled = true

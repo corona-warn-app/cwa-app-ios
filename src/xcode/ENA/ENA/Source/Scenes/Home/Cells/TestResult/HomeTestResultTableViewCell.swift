@@ -28,12 +28,6 @@ final class HomeTestResultTableViewCell: UITableViewCell {
 		cardView.setHighlighted(highlighted, animated: animated)
 	}
 
-	override func tintColorDidChange() {
-		super.tintColorDidChange()
-
-		subtitleLabel.textColor = tintColor
-	}
-
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 		super.traitCollectionDidChange(previousTraitCollection)
 
@@ -68,8 +62,6 @@ final class HomeTestResultTableViewCell: UITableViewCell {
 				self?.button.setTitle(buttonTitle, for: .normal)
 			}
 			.store(in: &subscriptions)
-
-		cellModel.$tintColor.assign(to: \.tintColor, on: self).store(in: &subscriptions)
 
 		cellModel.$isNegativeDiagnosisHidden
 			.assign(to: \.isHidden, on: negativeDiagnosisStackView)
