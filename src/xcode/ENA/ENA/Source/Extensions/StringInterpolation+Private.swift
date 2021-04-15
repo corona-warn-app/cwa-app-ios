@@ -14,3 +14,22 @@ extension String.StringInterpolation {
 		#endif
 	}
 }
+
+extension CustomStringConvertible {
+
+	var 🤫: String {
+		#if !DEBUG
+			return ""
+		#else
+			return "🙈🙉🙊"
+		#endif
+	}
+}
+
+func 🤫(_ any: Any) -> Any {
+	#if !DEBUG
+		return any
+	#else
+		return "🙈🙉🙊"
+	#endif
+}

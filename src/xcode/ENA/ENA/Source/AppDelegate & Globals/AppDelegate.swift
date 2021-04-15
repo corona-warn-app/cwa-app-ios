@@ -32,6 +32,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	// MARK: - Init
 
 	override init() {
+
+		Log.debug("Some message: \("Bla")")
+		Log.debug("Some message: \(private🤫: "Bla")")
+
+		Log.debug("Some message: \(1)")
+		Log.debug("Some message: \(private🤫: 1)")
+
+		Log.debug("Some message: \([1, 2])")
+		Log.debug("Some message: \(private🤫: [1, 2])")
+
+		Log.debug("Some message: \(Checkin.mock())")
+		Log.debug("Some message: \(private🤫: Checkin.mock())")
+
+		Log.debug("Other message: \("Bla".🤫)")
+		Log.debug("Other message: \(1.🤫)")
+		Log.debug("Other message: \([1, 2].🤫)")
+//		Log.debug("Other message: \(Checkin.mock().🤫)")
+
+		Log.debug("Third message: \(ENA.🤫("Bla"))")
+		Log.debug("Third message: \(ENA.🤫(1))")
+		Log.debug("Third message: \(ENA.🤫([1, 2]))")
+		Log.debug("Third message: \(ENA.🤫(Checkin.mock()))")
+
 		self.serverEnvironment = ServerEnvironment()
 
 		self.store = SecureStore(subDirectory: "database", serverEnvironment: serverEnvironment)
