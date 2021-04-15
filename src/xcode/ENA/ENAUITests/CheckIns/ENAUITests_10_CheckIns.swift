@@ -4,7 +4,7 @@
 
 import XCTest
 
-class ENAUITests_09_CheckIns: XCTestCase {
+class ENAUITests_10_CheckIns: XCTestCase {
 	
 	var app: XCUIApplication!
 	
@@ -62,7 +62,11 @@ class ENAUITests_09_CheckIns: XCTestCase {
 		
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Information.descriptionTitle].exists)
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Information.descriptionSubHeadline].exists)
-		snapshot("CheckInInfoScreen")
+		snapshot("eventCheckin_014_checkinInfoScreen")
+		app.swipeUp()
+		snapshot("eventCheckin_015_checkinInfoScreen")
+		app.swipeUp()
+		snapshot("eventCheckin_016_checkinInfoScreen")
 		
 		// Navigate to Data Privacy
 		if let target = UITestHelper.scrollTo(identifier: AccessibilityIdentifiers.Checkin.Information.dataPrivacyTitle, element: app, app: app) {
@@ -86,7 +90,7 @@ class ENAUITests_09_CheckIns: XCTestCase {
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Checkin.Information.primaryButton].waitForExistence(timeout: .short))
 		app.buttons[AccessibilityIdentifiers.Checkin.Information.primaryButton].tap()
 		
-		snapshot("CheckIn_MyCheckins")
+		snapshot("eventCheckin_013_checkin_MyCheckins")
 		
 		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.Checkins.Overview.title)].waitForExistence(timeout: .short))
 	}
@@ -125,6 +129,20 @@ class ENAUITests_09_CheckIns: XCTestCase {
 		XCTAssertTrue(app.staticTexts["Supermarkt"].exists)
 		XCTAssertTrue(app.staticTexts["Walldorf"].exists)
 		XCTAssertTrue(app.staticTexts[AppStrings.TraceLocations.unspecified.title].exists)
+
+		// checkin time details
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Details.typeLabel].exists)
+		
+		for i in 0...(app.staticTexts.count - 1) {
+			if app.staticTexts.element(boundBy: i).identifier == AccessibilityIdentifiers.Checkin.Details.typeLabel {
+				app.staticTexts.element(boundBy: i).tap()
+				break
+			}
+		}
+				
+		snapshot("eventCheckin_017_checkinDetail")
+		app.swipeUp()
+		snapshot("eventCheckin_018_checkinDetail")
 		
 		// tap "Speichern" to go back to overview
 		let buttons = app.buttons
