@@ -33,7 +33,7 @@ final class DMPosterGenerationViewModel {
 	}
 
 	func fetchQRCodePosterTemplateData(completion: @escaping QRCodePosterTemplateCompletionHandler) {
-		qrCodePosterTemplateProvider.latestQRCodePosterTemplate()
+		qrCodePosterTemplateProvider.latestQRCodePosterTemplate(with: nil)
 			.sink(
 				receiveCompletion: { result in
 					switch result {

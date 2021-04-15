@@ -9,7 +9,7 @@ import OpenCombine
 protocol QRCodePosterTemplateProviding: AnyObject {
 
 	/// Provides the latest QR Code Poster Template
-	func latestQRCodePosterTemplate() -> AnyPublisher<SAP_Internal_Pt_QRCodePosterTemplateIOS, Error>
+	func latestQRCodePosterTemplate(with etag: String?) -> AnyPublisher<SAP_Internal_Pt_QRCodePosterTemplateIOS, Error>
 	
 	/// Provides the default QR Code Poster Template
 	func defaultQRCodePosterTemplate() -> SAP_Internal_Pt_QRCodePosterTemplateIOS
