@@ -57,10 +57,25 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 					self.start(with: qrInfoScreen)
 				case let .failure(qrCodeError):
 					if qrCodeError == .invalidTestCode {
+						self.showRATInvalidQrCodeAlert()
 					}
 				}
 			}
 		)
+	}
+
+	private func showRATInvalidQrCodeAlert() {
+		let alert = UIAlertController(
+			title: AppStrings.ExposureSubmission.ratQRCodeInvalidAlertTitle,
+			message: AppStrings.ExposureSubmission.ratQRCodeInvalidAlertText,
+			preferredStyle: .alert)
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.ExposureSubmission.ratQRCodeInvalidAlertButton,
+				style: .default
+			)
+		)
+		parentNavigationController?.present(alert, animated: true)
 	}
 
 	func dismiss() {
