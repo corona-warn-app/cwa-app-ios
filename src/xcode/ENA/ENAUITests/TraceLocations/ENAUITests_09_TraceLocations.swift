@@ -298,6 +298,12 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 
 		// clean up
 		removeAllTraceLocationsAtOnce()
+		
+		// MyCheckins: check out of all events
+		app.tabBars.buttons[AccessibilityIdentifiers.Tabbar.checkin].tap()
+//		myCheckins_checkout(traceLocations: traceLocations_checked_in)
+		myCheckins_delete_all()
+
 	}
 	
 	func test_WHEN_event_checkout_THEN_display_details() throws {
