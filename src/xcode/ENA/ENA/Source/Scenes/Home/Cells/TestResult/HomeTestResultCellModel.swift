@@ -30,6 +30,7 @@ class HomeTestResultCellModel {
 					}
 
 					self?.configure(for: pcrTest.testResult)
+					onUpdate()
 				}
 				.store(in: &subscriptions)
 
@@ -53,6 +54,7 @@ class HomeTestResultCellModel {
 					}
 
 					self?.configure(for: antigenTest.testResult)
+					onUpdate()
 				}
 				.store(in: &subscriptions)
 

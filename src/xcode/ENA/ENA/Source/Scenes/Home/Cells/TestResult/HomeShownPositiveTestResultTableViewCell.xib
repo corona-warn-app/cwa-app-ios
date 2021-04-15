@@ -57,23 +57,23 @@
                                         </constraints>
                                     </stackView>
                                     <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sjF-48-PMv" userLabel="Status Container View">
-                                        <rect key="frame" x="0.0" y="66" width="342" height="119.5"/>
+                                        <rect key="frame" x="0.0" y="66" width="342" height="158.5"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" alignment="center" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="kY3-DP-IbX">
-                                                <rect key="frame" x="12" y="0.0" width="318" height="119.5"/>
+                                                <rect key="frame" x="12" y="0.0" width="318" height="158.5"/>
                                                 <subviews>
                                                     <view clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f6I-Vv-TdH" userLabel="Vertical View" customClass="ExposureDetectionRoundedView" customModule="ENA" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="4" height="119.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="4" height="158.5"/>
                                                         <color key="backgroundColor" name="ENA Risk High Color"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="4" id="3JM-yE-NWs"/>
                                                         </constraints>
                                                     </view>
                                                     <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="749" insetsLayoutMarginsFromSafeArea="NO" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="oAq-8a-guk">
-                                                        <rect key="frame" x="36" y="13.5" width="190" height="92.5"/>
+                                                        <rect key="frame" x="36" y="42" width="190" height="74.5"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="SARS-CoV-2-positiv" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RJS-KL-MVl" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="0.0" width="190" height="53"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Status Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RJS-KL-MVl" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="0.0" width="190" height="26.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <color key="textColor" name="ENA Text Primary 1 Color"/>
                                                                 <nil key="highlightedColor"/>
@@ -81,8 +81,8 @@
                                                                     <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="title2"/>
                                                                 </userDefinedRuntimeAttributes>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="249" verticalCompressionResistancePriority="749" insetsLayoutMarginsFromSafeArea="NO" text="Das Virus SARS-CoV-2 wurde bei Ihnen  nachgewiesen." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gOR-ZF-7xa" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="61" width="190" height="31.5"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="249" verticalCompressionResistancePriority="749" insetsLayoutMarginsFromSafeArea="NO" text="Status Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gOR-ZF-7xa" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="34.5" width="190" height="16"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <color key="textColor" name="ENA Text Primary 1 Color"/>
                                                                 <nil key="highlightedColor"/>
@@ -90,10 +90,19 @@
                                                                     <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="footnote"/>
                                                                 </userDefinedRuntimeAttributes>
                                                             </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="249" verticalCompressionResistancePriority="749" insetsLayoutMarginsFromSafeArea="NO" text="Status Footnote" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="14Y-dU-C5G" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="58.5" width="190" height="16"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <color key="textColor" name="ENA Text Primary 2 Color"/>
+                                                                <nil key="highlightedColor"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="footnote"/>
+                                                                </userDefinedRuntimeAttributes>
+                                                            </label>
                                                         </subviews>
                                                     </stackView>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" insetsLayoutMarginsFromSafeArea="NO" image="Illu_Submission_PositivTestErgebnis" translatesAutoresizingMaskIntoConstraints="NO" id="lKB-wS-7kO">
-                                                        <rect key="frame" x="258" y="22.5" width="60" height="75"/>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" insetsLayoutMarginsFromSafeArea="NO" image="Illu_Home_PositivTestErgebnis" translatesAutoresizingMaskIntoConstraints="NO" id="lKB-wS-7kO">
+                                                        <rect key="frame" x="258" y="42" width="60" height="75"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="75" id="m9L-zF-eNK"/>
                                                             <constraint firstAttribute="width" constant="60" id="qwS-xi-7AP"/>
@@ -115,7 +124,7 @@
                                         <edgeInsets key="layoutMargins" top="0.0" left="12" bottom="0.0" right="12"/>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="249" text="Title 2 Note" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wXz-Xi-Tf9" userLabel="Note Label" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="201.5" width="342" height="74.5"/>
+                                        <rect key="frame" x="0.0" y="240.5" width="342" height="35.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" name="ENA Text Primary 1 Color"/>
                                         <nil key="highlightedColor"/>
@@ -137,6 +146,7 @@
                                 </subviews>
                             </stackView>
                         </subviews>
+                        <color key="backgroundColor" name="ENA Background Color"/>
                         <constraints>
                             <constraint firstItem="fPl-zU-Sve" firstAttribute="top" secondItem="Ddq-bd-aYY" secondAttribute="top" constant="20" id="6HD-FV-3r8"/>
                             <constraint firstAttribute="bottom" secondItem="fPl-zU-Sve" secondAttribute="bottom" constant="20" id="NP4-XX-LB0"/>
@@ -161,6 +171,7 @@
                 <outlet property="noteLabel" destination="wXz-Xi-Tf9" id="wnW-nk-Z1J"/>
                 <outlet property="stackView" destination="fPl-zU-Sve" id="kHd-VO-glB"/>
                 <outlet property="statusContainer" destination="sjF-48-PMv" id="yVu-Gm-mFB"/>
+                <outlet property="statusFootnoteLabel" destination="14Y-dU-C5G" id="XSc-4I-Y44"/>
                 <outlet property="statusImageView" destination="lKB-wS-7kO" id="FM3-U8-Ufk"/>
                 <outlet property="statusLineView" destination="f6I-Vv-TdH" id="DrO-CE-pfM"/>
                 <outlet property="statusSubtitleLabel" destination="gOR-ZF-7xa" id="U3T-AS-SDw"/>
@@ -172,14 +183,17 @@
         </tableViewCell>
     </objects>
     <designables>
+        <designable name="14Y-dU-C5G">
+            <size key="intrinsicContentSize" width="97" height="16"/>
+        </designable>
         <designable name="RJS-KL-MVl">
-            <size key="intrinsicContentSize" width="211.5" height="26.5"/>
+            <size key="intrinsicContentSize" width="117" height="26.5"/>
         </designable>
         <designable name="TMD-kf-ckR">
             <size key="intrinsicContentSize" width="77" height="33.5"/>
         </designable>
         <designable name="gOR-ZF-7xa">
-            <size key="intrinsicContentSize" width="336.5" height="16"/>
+            <size key="intrinsicContentSize" width="89.5" height="16"/>
         </designable>
         <designable name="nZI-TN-oBQ">
             <size key="intrinsicContentSize" width="70" height="50"/>
@@ -190,7 +204,10 @@
     </designables>
     <resources>
         <image name="Icons_Chevron_plain" width="7" height="12"/>
-        <image name="Illu_Submission_PositivTestErgebnis" width="90" height="112"/>
+        <image name="Illu_Home_PositivTestErgebnis" width="64" height="81"/>
+        <namedColor name="ENA Background Color">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="ENA Chevron Color">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.30000001192092896" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
@@ -199,6 +216,9 @@
         </namedColor>
         <namedColor name="ENA Text Primary 1 Color">
             <color red="0.090196078431372548" green="0.098039215686274508" blue="0.10196078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="ENA Text Primary 2 Color">
+            <color red="0.090196078431372548" green="0.098039215686274508" blue="0.10196078431372549" alpha="0.60000002384185791" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

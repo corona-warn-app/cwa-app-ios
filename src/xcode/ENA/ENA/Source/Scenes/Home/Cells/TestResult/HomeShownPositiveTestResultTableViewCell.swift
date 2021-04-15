@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import OpenCombine
 
 final class HomeShownPositiveTestResultTableViewCell: UITableViewCell {
 
@@ -34,21 +35,13 @@ final class HomeShownPositiveTestResultTableViewCell: UITableViewCell {
 	// MARK: - Internal
 
 	func configure(with cellModel: HomeShownPositiveTestResultCellModel, onPrimaryAction: @escaping () -> Void) {
-		containerView.backgroundColor = cellModel.backgroundColor
-
 		titleLabel.text = cellModel.title
-		titleLabel.textColor = cellModel.titleColor
-
 		topContainer.accessibilityLabel = cellModel.title
 
 		statusTitleLabel.text = cellModel.statusTitle
 		statusSubtitleLabel.text = cellModel.statusSubtitle
-
-		statusTitleLabel.textColor = cellModel.statusTitleColor
-		statusSubtitleLabel.textColor = cellModel.statusTitleColor
-
-		statusLineView.backgroundColor = cellModel.statusLineColor
-		statusImageView.image = UIImage(named: cellModel.statusImageName)
+		statusFootnoteLabel.text = cellModel.statusFootnote
+		statusLineView.backgroundColor = .enaColor(for: .riskHigh)
 
 		noteLabel.text = cellModel.noteTitle
 
@@ -56,25 +49,34 @@ final class HomeShownPositiveTestResultTableViewCell: UITableViewCell {
 			nextButton.setTitle(cellModel.buttonTitle, for: .normal)
 		}
 
-		// Configure risk stack view
+		cellModel.$homeItemViewModels
+			.sink { [weak self] in
+				self?.homeItemStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 
-		homeItemStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+				for itemModel in $0 {
+					let nibName = String(describing: itemModel.ViewType)
+					let nib = UINib(nibName: nibName, bundle: .main)
 
-		for itemModel in cellModel.homeItemViewModels {
-			let nibName = String(describing: itemModel.ViewType)
-			let nib = UINib(nibName: nibName, bundle: .main)
+					if let itemView = nib.instantiate(withOwner: self, options: nil).first as? HomeItemViewAny {
+						self?.homeItemStackView.addArrangedSubview(itemView)
+						itemView.configureAny(with: itemModel)
+					}
+				}
 
-			if let itemView = nib.instantiate(withOwner: self, options: nil).first as? HomeItemViewAny {
-				homeItemStackView.addArrangedSubview(itemView)
-				itemView.configureAny(with: itemModel)
+				self?.homeItemStackView.isHidden = $0.isEmpty
 			}
-		}
+			.store(in: &subscriptions)
 
-		homeItemStackView.isHidden = homeItemStackView.arrangedSubviews.isEmpty
+		cellModel.$isButtonHidden
+			.assign(to: \.isHidden, on: nextButton)
+			.store(in: &subscriptions)
 
 		nextButton.accessibilityIdentifier = AccessibilityIdentifiers.Home.submitCardButton
 
 		self.onPrimaryAction = onPrimaryAction
+
+		// Retaining cell model so it gets updated
+		self.cellModel = cellModel
 	}
 
 	// MARK: - Private
@@ -83,6 +85,7 @@ final class HomeShownPositiveTestResultTableViewCell: UITableViewCell {
 
 	@IBOutlet private weak var statusTitleLabel: ENALabel!
 	@IBOutlet private weak var statusSubtitleLabel: ENALabel!
+	@IBOutlet private weak var statusFootnoteLabel: ENALabel!
 	@IBOutlet private weak var statusImageView: UIImageView!
 	@IBOutlet private weak var statusLineView: UIView!
 
@@ -94,6 +97,9 @@ final class HomeShownPositiveTestResultTableViewCell: UITableViewCell {
 	@IBOutlet private weak var statusContainer: UIView!
 	@IBOutlet private weak var stackView: UIStackView!
 	@IBOutlet private weak var homeItemStackView: UIStackView!
+
+	private var subscriptions = Set<AnyCancellable>()
+	private var cellModel: HomeShownPositiveTestResultCellModel?
 
 	private var onPrimaryAction: (() -> Void)?
 

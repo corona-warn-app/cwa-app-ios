@@ -437,8 +437,15 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			fatalError("Could not dequeue HomeShownPositiveTestResultTableViewCell")
 		}
 
+		let cellModel = HomeShownPositiveTestResultCellModel(
+			coronaTestType: coronaTestType,
+			coronaTestService: viewModel.coronaTestService,
+			onUpdate: { [weak self] in
+				self?.animateChanges(of: cell)
+			}
+		)
 		cell.configure(
-			with: HomeShownPositiveTestResultCellModel(coronaTestType: coronaTestType),
+			with: cellModel,
 			onPrimaryAction: { [weak self] in
 				self?.viewModel.didTapTestResultCell(coronaTestType: coronaTestType)
 			}
