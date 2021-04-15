@@ -47,10 +47,10 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 
 		viewModel.$triggerReload
 			.receive(on: DispatchQueue.main.ocombine)
-			.sink { [weak self] _ in
-				guard let self = self else { return }
+			.sink { [weak self] triggerReload in
+				guard let self = self, triggerReload else { return }
 
-				guard self.viewModel.triggerReload, self.isAllowedToReload else {
+				guard self.isAllowedToReload else {
 					self.viewModel.triggerReload = false
 					return
 				}
