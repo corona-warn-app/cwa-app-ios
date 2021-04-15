@@ -22,50 +22,9 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 	// MARK: - Attributes.
 	
 	var app: XCUIApplication!
+	var screenshotCounter = 0
 	
 	// MARK: - Test cases.
-	
-	func test_WHEN_navigate_to_TraceLocations_for_the_first_time_THEN_infoscreen_is_displayed() throws {
-		// GIVEN
-		app.launchArguments.append(contentsOf: ["-TraceLocationsInfoScreenShown", "NO"])
-		
-		// WHEN
-		app.launch()
-		// Swipe up until it is visible
-		if let button = UITestHelper.scrollTo(identifier: AccessibilityIdentifiers.Home.traceLocationsCardButton, element: app, app: app) {
-			button.tap()
-		} else {
-			XCTFail("Can't find element \(AccessibilityIdentifiers.Home.traceLocationsCardButton)")
-		}
-		
-		// THEN
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.TraceLocation.dataPrivacyTitle].waitForExistence(timeout: .short))
-		XCTAssertTrue(app.images[AccessibilityIdentifiers.TraceLocation.imageDescription].exists)
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].exists)
-		
-		snapshot("eventCheckin_001_tracelocationInfoScreen")
-		app.swipeUp()
-		snapshot("eventCheckin_002_tracelocationInfoScreen")
-		app.swipeUp()
-		snapshot("eventCheckin_003_tracelocationInfoScreen")
-	}
-	
-	func test_WHEN_navigate_to_TraceLocations_for_the_second_time_THEN_no_infoscreen_is_displayed() throws {
-		// GIVEN
-		app.launchArguments.append(contentsOf: ["-TraceLocationsInfoScreenShown", "YES"])
-		
-		// WHEN
-		app.launch()
-		if let button = UITestHelper.scrollTo(identifier: AccessibilityIdentifiers.Home.traceLocationsCardButton, element: app, app: app) {
-			button.tap()
-		} else {
-			XCTFail("Can't find element \(AccessibilityIdentifiers.Home.traceLocationsCardButton)")
-		}
-		
-		// THEN
-		XCTAssertFalse(app.cells[AccessibilityIdentifiers.TraceLocation.dataPrivacyTitle].waitForExistence(timeout: .short))
-		XCTAssertFalse(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].exists)
-	}
 	
 	func test_WHEN_QRCode_is_created_THEN_list_contains_traceLocation() throws {
 		// GIVEN
@@ -283,8 +242,8 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 		let event = "Team Meeting"
 		let location = "Office"
 		createTraceLocation(event: event, location: location, withScreenshots: true)
-		
-		snapshot("eventCheckin_007_traceLocationOverview")
+		let prefix = "traceLocation_"
+		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_traceLocationOverview")
 		
 		// navigate to detail view for second item
 		app.tables[AccessibilityIdentifiers.TraceLocation.Overview.tableView].cells.element(boundBy: 1).tap()
@@ -292,7 +251,7 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 		// check if the print version button exists
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitForExistence(timeout: .short))
 		
-		snapshot("eventCheckin_008_traceLocationDetailScreen")
+		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_traceLocationDetailScreen")
 		
 		// navigate to trace location print version view
 		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].tap()
@@ -302,7 +261,7 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 		delayExpectation.isInverted = true
 		wait(for: [delayExpectation], timeout: .short)
 		
-		snapshot("eventCheckin_009_traceLocationPdfScreen")
+		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_traceLocationPdfScreen")
 		
 		// navigate back
 		let query = app.navigationBars.buttons
@@ -347,11 +306,20 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 		// switch to "My Checkins" and checkout of the event
 		app.tabBars.buttons[AccessibilityIdentifiers.Tabbar.checkin].tap()
 		
-		snapshot("eventCheckin_010_mycheckins_overview")
+//		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_mycheckins_overview")
 		myCheckins_checkout(traceLocations: traceLocations)
-		snapshot("eventCheckin_011_mycheckins_allCheckedOut")
+//		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_mycheckins_allCheckedOut")
 		myCheckins_display_details(traceLocations: traceLocations)
-		myCheckins_details_screenshot(event: event2) // "Team Meeting"
+		
+		XCTAssertTrue(app.staticTexts[event2].exists)
+		app.staticTexts[event2].tap()
+//		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_mycheckins_details")
+		
+		// tap "Speichern" to go back to overview
+		let buttons = app.buttons
+		XCTAssertTrue(buttons.element(matching: .button, identifier: AccessibilityIdentifiers.General.primaryFooterButton).exists)
+		buttons.element(matching: .button, identifier: AccessibilityIdentifiers.General.primaryFooterButton).tap()
+		
 		myCheckins_delete_all()
 		
 	}
@@ -407,6 +375,50 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 		XCTAssertTrue(eventcount[2] == 0)
 	}
 	
+	func test_WHEN_navigate_to_TraceLocations_for_the_first_time_THEN_infoscreen_is_displayed() throws {
+		// GIVEN
+		app.launchArguments.append(contentsOf: ["-TraceLocationsInfoScreenShown", "NO"])
+		
+		// WHEN
+		app.launch()
+		// Swipe up until it is visible
+		if let button = UITestHelper.scrollTo(identifier: AccessibilityIdentifiers.Home.traceLocationsCardButton, element: app, app: app) {
+			button.tap()
+		} else {
+			XCTFail("Can't find element \(AccessibilityIdentifiers.Home.traceLocationsCardButton)")
+		}
+		
+		// THEN
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.TraceLocation.dataPrivacyTitle].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.images[AccessibilityIdentifiers.TraceLocation.imageDescription].exists)
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].exists)
+
+		let prefix = "createQRCode_"
+		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_InfoScreen")
+		app.swipeUp()
+		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_InfoScreen")
+		app.swipeUp()
+		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_InfoScreen")
+
+	}
+	
+	func test_WHEN_navigate_to_TraceLocations_for_the_second_time_THEN_no_infoscreen_is_displayed() throws {
+		// GIVEN
+		app.launchArguments.append(contentsOf: ["-TraceLocationsInfoScreenShown", "YES"])
+		
+		// WHEN
+		app.launch()
+		if let button = UITestHelper.scrollTo(identifier: AccessibilityIdentifiers.Home.traceLocationsCardButton, element: app, app: app) {
+			button.tap()
+		} else {
+			XCTFail("Can't find element \(AccessibilityIdentifiers.Home.traceLocationsCardButton)")
+		}
+		
+		// THEN
+		XCTAssertFalse(app.cells[AccessibilityIdentifiers.TraceLocation.dataPrivacyTitle].waitForExistence(timeout: .short))
+		XCTAssertFalse(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].exists)
+	}
+
 	// MARK: - Private
 	
 	private func createEventAndCheckin(_ event: String, _ traceLocations_checked_in: [String: String]) {
@@ -470,19 +482,6 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 		}
 	}
 	
-	private func myCheckins_details_screenshot(event: String) {
-		XCTAssertTrue(app.staticTexts[event].exists)
-		app.staticTexts[event].tap()
-		
-		snapshot("eventCheckin_012_mycheckins_details")
-		
-		// tap "Speichern" to go back to overview
-		let buttons = app.buttons
-		XCTAssertTrue(buttons.element(matching: .button, identifier: AccessibilityIdentifiers.General.primaryFooterButton).exists)
-		buttons.element(matching: .button, identifier: AccessibilityIdentifiers.General.primaryFooterButton).tap()
-
-	}
-	
 	private func myCheckins_delete_all() {
 		// tap the "more" button
 		XCTAssertTrue(app.navigationBars.buttons[AccessibilityIdentifiers.Checkin.Overview.menueButton].waitForExistence(timeout: .short))
@@ -512,12 +511,13 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 	}
 	
 	private func createTraceLocation(event: String, location: String, withScreenshots: Bool) {
+		let prefix = "traceLocation_"
 		// add trace location
-		if withScreenshots == true { snapshot("eventCheckin_004_traceLocationEmptyList") }
+		if withScreenshots == true { snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_emptyList") }
 
 		app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.addButtonTitle)].tap()
 		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.permanent.subtitle.workplace)].waitForExistence(timeout: .short))
-		if withScreenshots == true { snapshot("eventCheckin_005_traceLocationCategories") }
+		if withScreenshots == true { snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_categories") }
 		
 		app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.permanent.subtitle.workplace)].tap()
 		let descriptionInputField = app.textFields[AccessibilityIdentifiers.TraceLocation.Configuration.descriptionPlaceholder]
@@ -526,8 +526,7 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 		descriptionInputField.typeText(event)
 		locationInputField.tap()
 		locationInputField.typeText(location)
-		if withScreenshots == true { snapshot("eventCheckin_006_createQRCodeInputScreen") }
-		
+		if withScreenshots == true { snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_createQRCodeInputScreen") }
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 	}
 	
