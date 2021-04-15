@@ -22,6 +22,7 @@ struct SAPDownloadedPackage: Fingerprinting {
 		do {
 			self = try archive.extractKeyPackage()
 		} catch {
+			Log.error("Could not extract key package: \(error.localizedDescription)", log: .localData, error: error)
 			return nil
 		}
 	}

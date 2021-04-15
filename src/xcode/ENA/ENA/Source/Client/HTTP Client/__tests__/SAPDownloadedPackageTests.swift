@@ -12,16 +12,16 @@ final class SAPDownloadedPackageTests: XCTestCase {
 	private let defaultBundleId = Bundle.main.bundleIdentifier ?? "de.rki.coronawarnapp"
 
 	private lazy var signingKey: PrivateKeyProvider = CryptoProvider.createPrivateKey()
-	private lazy var mockKeyProvider: PublicKeyProtocol = CryptoProvider.createPublicKey(from: signingKey)
-	private lazy var signatureVerifier = SignatureVerifier(key: { self.mockKeyProvider })
-	
+	private lazy var signatureVerifier: SignatureVerification = {
+		SignatureVerifier(key: MockPublicKeyProvider(signingKey: self.signingKey))
+	}()
 
 	// MARK: Signature Verification Tests
 
 	func testVerifySignature_SingleSignature() throws {
 		// Test the package signature verification process
 		let package = try SAPDownloadedPackage.makePackage(key: signingKey)
-		XCTAssertTrue(signatureVerifier(package))
+		XCTAssertTrue(signatureVerifier.verify(package))
 	}
 
 	func testVerifySignature_RejectModifiedBin() throws {
@@ -37,7 +37,7 @@ final class SAPDownloadedPackageTests: XCTestCase {
 			).asList()
 		)
 
-		XCTAssertFalse(signatureVerifier(package))
+		XCTAssertTrue(signatureVerifier.verify(package))
 	}
 
 	func testVerifySignature_RejectCorruptSignature() throws {
@@ -47,7 +47,7 @@ final class SAPDownloadedPackageTests: XCTestCase {
 			signature: Data(bytes: [0xA, 0xB, 0xC, 0xD] as [UInt8], count: 4)
 		)
 
-		XCTAssertFalse(signatureVerifier(package))
+		XCTAssertFalse(signatureVerifier.verify(package))
 	}
 
 	func testVerifySignature_OneKeyMatchesBundleId() throws {
@@ -61,7 +61,7 @@ final class SAPDownloadedPackageTests: XCTestCase {
 
 		let package = try SAPDownloadedPackage.makePackage(bin: data, signature: signatures)
 		// When no public key to sign is found, the verification should fail
-		XCTAssertTrue(signatureVerifier(package))
+		XCTAssertTrue(signatureVerifier.verify(package))
 	}
 
 	func testVerifySignature_OneSignatureFails() throws {
@@ -77,19 +77,14 @@ final class SAPDownloadedPackageTests: XCTestCase {
 
 		let package = try SAPDownloadedPackage.makePackage(bin: data, signature: signatures)
 		// Only one signature is necessary to pass the check
-		XCTAssertTrue(signatureVerifier(package))
+		XCTAssertTrue(signatureVerifier.verify(package))
 	}
 
 	// MARK: - Init from ZIP Tests
 
 	func testInitFromZIP() throws {
-		guard
-			let someData = "Some string!".data(using: .utf8),
-			let archive = Archive(accessMode: .create)
-		else {
-			XCTFail("Guard failed!")
-			return
-		}
+		let someData = try XCTUnwrap("Some string!".data(using: .utf8))
+		let archive = try XCTUnwrap(Archive(accessMode: .create))
 
 		try archive.addEntry(with: "export.bin", type: .file, uncompressedSize: 12, bufferSize: 4, provider: { position, size -> Data in
 			return someData.subdata(in: position..<position + size)
@@ -104,13 +99,8 @@ final class SAPDownloadedPackageTests: XCTestCase {
 	}
 
 	func testInitFromZIP_binNotFound() throws {
-		guard
-			let someData = "Some string!".data(using: .utf8),
-			let archive = Archive(accessMode: .create)
-		else {
-			XCTFail("Guard failed!")
-			return
-		}
+		let someData = try XCTUnwrap("Some string!".data(using: .utf8))
+		let archive = try XCTUnwrap(Archive(accessMode: .create))
 
 		try archive.addEntry(with: "export.bin", type: .file, uncompressedSize: 12, bufferSize: 4, provider: { position, size -> Data in
 			return someData.subdata(in: position..<position + size)
@@ -121,13 +111,8 @@ final class SAPDownloadedPackageTests: XCTestCase {
 	}
 
 	func testInitFromZIP_sigNotFound() throws {
-		guard
-			let someData = "Some string!".data(using: .utf8),
-			let archive = Archive(accessMode: .create)
-		else {
-			XCTFail("Guard failed!")
-			return
-		}
+		let someData = try XCTUnwrap("Some string!".data(using: .utf8))
+		let archive = try XCTUnwrap(Archive(accessMode: .create))
 
 		try archive.addEntry(with: "export.sig", type: .file, uncompressedSize: 12, bufferSize: 4, provider: { position, size -> Data in
 			return someData.subdata(in: position..<position + size)

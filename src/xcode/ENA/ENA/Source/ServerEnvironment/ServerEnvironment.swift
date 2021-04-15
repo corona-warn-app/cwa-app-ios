@@ -13,8 +13,14 @@ struct Map: Codable {
 }
 
 struct ServerEnvironmentData: Codable {
+	/// Environemnt name
 	let name: String
-	let distributionURL, submissionURL, verificationURL, dataDonationURL: URL
+
+	// Hosts
+	let distributionURL, submissionURL, verificationURL, dataDonationURL, errorLogSubmission: URL
+
+	/// String representation of the servers public key. Used for signature validation.
+	let publicKeyString: String
 }
 
 // MARK: - ServerEnvironment access.
