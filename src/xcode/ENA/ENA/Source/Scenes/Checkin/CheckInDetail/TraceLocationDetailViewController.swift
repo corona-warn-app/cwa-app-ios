@@ -73,7 +73,9 @@ class TraceLocationDetailViewController: UIViewController {
 	}
 
 	private func setupView() {
-		view.backgroundColor = .enaColor(for: .background)
+		// [KGA] One place
+		//view.backgroundColor = .enaColor(for: .background)
+		view.backgroundColor = .enaColor(for: .backgroundLightGray)
 		pickerButton.setTitleColor(.enaColor(for: .textPrimary1), for: .normal)
 		logoImageView.image = logoImageView.image?.withRenderingMode(.alwaysTemplate)
 		logoImageView.tintColor = .enaColor(for: .textContrast)
