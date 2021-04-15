@@ -13,10 +13,12 @@ final class DMPosterGenerationViewModel {
 
 	init(
 		traceLocation: TraceLocation,
-		qrCodePosterTemplateProvider: QRCodePosterTemplateProviding
+		qrCodePosterTemplateProvider: QRCodePosterTemplateProviding,
+		store: Store
 	) {
 		self.traceLocation = traceLocation
 		self.qrCodePosterTemplateProvider = qrCodePosterTemplateProvider
+		self.store = store
 	}
 
 	// MARK: - Internal
@@ -33,7 +35,7 @@ final class DMPosterGenerationViewModel {
 	}
 
 	func fetchQRCodePosterTemplateData(completion: @escaping QRCodePosterTemplateCompletionHandler) {
-		qrCodePosterTemplateProvider.latestQRCodePosterTemplate(with: nil)
+		qrCodePosterTemplateProvider.latestQRCodePosterTemplate(with: store.qrCodePosterTemplateMetadata?.lastQRCodePosterTemplateETag)
 			.sink(
 				receiveCompletion: { result in
 					switch result {
@@ -58,6 +60,7 @@ final class DMPosterGenerationViewModel {
 	// MARK: - Private
 
 	private let qrCodePosterTemplateProvider: QRCodePosterTemplateProviding
+	private let store: Store
 	private var subscriptions = Set<AnyCancellable>()
 	@OpenCombine.Published private(set) var qrCodePosterTemplate: SAP_Internal_Pt_QRCodePosterTemplateIOS = SAP_Internal_Pt_QRCodePosterTemplateIOS()
 }
