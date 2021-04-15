@@ -97,43 +97,6 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 		XCTAssertFalse(app.staticTexts[location].exists)
 	}
 	
-	func test_WHEN_two_QRCodes_are_created_THEN_list_displays_two_traceLocations() throws {
-		// GIVEN
-		app.launchArguments.append(contentsOf: ["-TraceLocationsInfoScreenShown", "YES"])
-		
-		// WHEN
-		app.launch()
-		if let button = UITestHelper.scrollTo(identifier: AccessibilityIdentifiers.Home.traceLocationsCardButton, element: app, app: app) {
-			button.tap()
-		} else {
-			XCTFail("Can't find element \(AccessibilityIdentifiers.Home.traceLocationsCardButton)")
-		}
-		
-		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.addButtonTitle)].waitForExistence(timeout: .short))
-		
-		let event1 = "Daily Scrum"
-		let location1 = "Office"
-		createTraceLocation(event: event1, location: location1)
-		
-		let event2 = "Sprint Planning"
-		let location2 = "Walldorf"
-		createTraceLocation(event: event2, location: location2)
-		
-		// THEN
-		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.title)].waitForExistence(timeout: .short))
-		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.selfCheckinButtonTitle)].exists)
-		XCTAssertTrue(app.staticTexts[event1].exists)
-		XCTAssertTrue(app.staticTexts[location1].exists)
-		XCTAssertTrue(app.staticTexts[event2].exists)
-		XCTAssertTrue(app.staticTexts[location2].exists)
-		
-		// clean up
-		removeAllTraceLocationsAtOnce()
-		
-		XCTAssertFalse(app.staticTexts[event1].exists)
-		XCTAssertFalse(app.staticTexts[event2].exists)
-	}
-	
 	func test_WHEN_list_contains_traceLocations_THEN_delete_all_entries_via_menu_function() throws {
 		// GIVEN
 		app.launchArguments.append(contentsOf: ["-TraceLocationsInfoScreenShown", "YES"])
@@ -157,6 +120,12 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 		createTraceLocation(event: event2, location: location2)
 		
 		// THEN
+		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.title)].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.selfCheckinButtonTitle)].exists)
+		XCTAssertTrue(app.staticTexts[event1].exists)
+		XCTAssertTrue(app.staticTexts[location1].exists)
+		XCTAssertTrue(app.staticTexts[event2].exists)
+		XCTAssertTrue(app.staticTexts[location2].exists)
 		XCTAssertTrue(app.cells.count >= 3) // assumption: at least 3 cells
 		
 		// tap the "more" button
@@ -563,6 +532,7 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 	}
 	
 	private func removeTraceLocation(event: String) {
+		// swipe left to remove a single trace location
 		app.staticTexts[event].swipeLeft()
 		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.DeleteOneAlert.confirmButtonTitle)].waitForExistence(timeout: .short))
 		
@@ -573,6 +543,7 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 	}
 	
 	private func removeAllTraceLocationsAtOnce() {
+		// use the "More" button to remove all trace locations
 		XCTAssertTrue(app.navigationBars.buttons.element(boundBy: 1).waitForExistence(timeout: .short))
 		app.navigationBars.buttons.element(boundBy: 1).tap()
 		

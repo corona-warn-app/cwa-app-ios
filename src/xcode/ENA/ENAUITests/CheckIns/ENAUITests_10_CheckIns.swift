@@ -37,13 +37,13 @@ class ENAUITests_10_CheckIns: XCTestCase {
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Details.checkinFor].exists)
 		XCTAssertTrue(app.staticTexts["Supermarkt"].exists)
 		XCTAssertTrue(app.staticTexts["Walldorf"].exists)
-		XCTAssertTrue(app.staticTexts[AppStrings.TraceLocations.unspecified.title].exists)
+		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.permanent.title.retail)].exists)
 		
 		// check in
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.TraceLocation.Details.checkInButton].waitForExistence(timeout: .short))
 		app.buttons[AccessibilityIdentifiers.TraceLocation.Details.checkInButton].tap()
 
-		// check out and clean up
+		// check out and clean up; take screenshots
 		myCheckins_checkout()
 	}
 	
@@ -128,7 +128,7 @@ class ENAUITests_10_CheckIns: XCTestCase {
 		XCTAssertTrue(staticTexts.element(matching: .staticText, identifier: AccessibilityIdentifiers.Checkin.Details.traceLocationAddressLabel).exists)
 		XCTAssertTrue(app.staticTexts["Supermarkt"].exists)
 		XCTAssertTrue(app.staticTexts["Walldorf"].exists)
-		XCTAssertTrue(app.staticTexts[AppStrings.TraceLocations.unspecified.title].exists)
+		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.permanent.title.retail)].exists)
 
 		// checkin time details
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Details.typeLabel].exists)
