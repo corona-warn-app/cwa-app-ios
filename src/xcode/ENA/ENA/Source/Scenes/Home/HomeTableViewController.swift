@@ -107,7 +107,9 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		if statisticsCell == nil {
 			riskCell = riskCell(forRowAt: IndexPath(row: 0, section: HomeTableViewModel.Section.riskAndTestResults.rawValue))
 			pcrTestResultCell = testResultCell(forRowAt: IndexPath(row: 1, section: HomeTableViewModel.Section.riskAndTestResults.rawValue), coronaTestType: .pcr)
+			pcrTestShownPositiveResultCell = shownPositiveTestResultCell(forRowAt: IndexPath(row: 1, section: HomeTableViewModel.Section.riskAndTestResults.rawValue), coronaTestType: .pcr)
 			antigenTestResultCell = testResultCell(forRowAt: IndexPath(row: 2, section: HomeTableViewModel.Section.riskAndTestResults.rawValue), coronaTestType: .antigen)
+			antigenTestShownPositiveResultCell = shownPositiveTestResultCell(forRowAt: IndexPath(row: 2, section: HomeTableViewModel.Section.riskAndTestResults.rawValue), coronaTestType: .antigen)
 			statisticsCell = statisticsCell(forRowAt: IndexPath(row: 0, section: HomeTableViewModel.Section.statistics.rawValue))
 		}
 
@@ -147,7 +149,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				switch testState {
 				case .default:
 					return testResultCell(forRowAt: indexPath, coronaTestType: .pcr)
-				case .positiveResultWasShown, .keysSubmitted:
+				case .positiveResultWasShown:
 					return shownPositiveTestResultCell(forRowAt: indexPath, coronaTestType: .pcr)
 				}
 
@@ -155,7 +157,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				switch testState {
 				case .default:
 					return testResultCell(forRowAt: indexPath, coronaTestType: .antigen)
-				case .positiveResultWasShown, .keysSubmitted:
+				case .positiveResultWasShown:
 					return shownPositiveTestResultCell(forRowAt: indexPath, coronaTestType: .antigen)
 				}
 			}
@@ -267,7 +269,9 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 	private var riskCell: UITableViewCell?
 	private var pcrTestResultCell: UITableViewCell?
+	private var pcrTestShownPositiveResultCell: UITableViewCell?
 	private var antigenTestResultCell: UITableViewCell?
+	private var antigenTestShownPositiveResultCell: UITableViewCell?
 	private var statisticsCell: UITableViewCell?
 
 	private var subscriptions = Set<AnyCancellable>()
@@ -391,15 +395,14 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	) -> UITableViewCell {
 		switch coronaTestType {
 		case .pcr:
-			if let testResultCell = pcrTestResultCell {
-				return testResultCell
+			if let cell = pcrTestResultCell {
+				return cell
 			}
 		case .antigen:
-			if let testResultCell = antigenTestResultCell {
-				return testResultCell
+			if let cell = antigenTestResultCell {
+				return cell
 			}
 		}
-
 
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeTestResultTableViewCell.self), for: indexPath) as? HomeTestResultTableViewCell else {
 			fatalError("Could not dequeue HomeTestResultTableViewCell")
@@ -433,6 +436,17 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		forRowAt indexPath: IndexPath,
 		coronaTestType: CoronaTestType
 	) -> UITableViewCell {
+		switch coronaTestType {
+		case .pcr:
+			if let cell = pcrTestShownPositiveResultCell {
+				return cell
+			}
+		case .antigen:
+			if let cell = antigenTestShownPositiveResultCell {
+				return cell
+			}
+		}
+
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeShownPositiveTestResultTableViewCell.self), for: indexPath) as? HomeShownPositiveTestResultTableViewCell else {
 			fatalError("Could not dequeue HomeShownPositiveTestResultTableViewCell")
 		}
@@ -450,6 +464,13 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				self?.viewModel.didTapTestResultCell(coronaTestType: coronaTestType)
 			}
 		)
+
+		switch coronaTestType {
+		case .pcr:
+			pcrTestShownPositiveResultCell = cell
+		case .antigen:
+			antigenTestShownPositiveResultCell = cell
+		}
 
 		return cell
 	}

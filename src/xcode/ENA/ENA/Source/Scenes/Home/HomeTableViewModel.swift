@@ -56,7 +56,6 @@ class HomeTableViewModel {
 	enum TestResultState: Equatable {
 		case `default`
 		case positiveResultWasShown
-		case keysSubmitted
 	}
 
 	let state: HomeState
@@ -177,9 +176,7 @@ class HomeTableViewModel {
 
 		if let pcrTest = pcrTest ?? coronaTestService.pcrTest {
 			let testResultState: TestResultState
-			if pcrTest.keysSubmitted {
-				testResultState = .keysSubmitted
-			} else if pcrTest.testResult == .positive && pcrTest.positiveTestResultWasShown {
+			if pcrTest.testResult == .positive && pcrTest.positiveTestResultWasShown {
 				testResultState = .positiveResultWasShown
 			} else {
 				testResultState = .default
@@ -189,9 +186,7 @@ class HomeTableViewModel {
 
 		if let antigenTest = antigenTest ?? coronaTestService.antigenTest {
 			let testResultState: TestResultState
-			if antigenTest.keysSubmitted {
-				testResultState = .keysSubmitted
-			} else if antigenTest.testResult == .positive && antigenTest.positiveTestResultWasShown {
+			if antigenTest.testResult == .positive && antigenTest.positiveTestResultWasShown {
 				testResultState = .positiveResultWasShown
 			} else {
 				testResultState = .default
