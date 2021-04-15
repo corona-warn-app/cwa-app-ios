@@ -47,12 +47,18 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		start(with: getInitialViewController())
 	}
 
-	func start(with testInformation: CoronaTestQRCodeInformation) {
+	func start(with testInformationResult: Result<CoronaTestQRCodeInformation, QRCodeError>) {
 		model.exposureSubmissionService.loadSupportedCountries(
 			isLoading: { _ in }, // ToDo where to show loading indicator here?
 			onSuccess: { supportedCountries in
-				let qrInfoScreen = self.makeQRInfoScreen(supportedCountries: supportedCountries, testInformation: testInformation)
-				self.start(with: qrInfoScreen)
+				switch testInformationResult {
+				case let .success(testInformation):
+					let qrInfoScreen = self.makeQRInfoScreen(supportedCountries: supportedCountries, testInformation: testInformation)
+					self.start(with: qrInfoScreen)
+				case let .failure(qrCodeError):
+					if qrCodeError == .invalidTestCode {
+					}
+				}
 			}
 		)
 	}

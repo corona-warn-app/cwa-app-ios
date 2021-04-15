@@ -177,7 +177,8 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 		if urlComponents.host?.lowercased() == "localhost" {
 			return pcrTestInformation(from: input, urlComponents: urlComponents)
 		} else if let route = Route(input),
-				  case .rapidAntigen(let testInformation) = route {
+				  case .rapidAntigen(let testInformationResult) = route,
+				  case let .success(testInformation) = testInformationResult {
 			return testInformation
 		} else {
 			return nil

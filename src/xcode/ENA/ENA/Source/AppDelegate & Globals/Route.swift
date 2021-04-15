@@ -39,7 +39,8 @@ enum Route {
 				  testInformation.guid.count == 36,
 				  testInformation.timestamp >= 0
 			else {
-				return nil
+				self = .rapidAntigen( .failure(.invalidTestCode))
+				return
 			}
 
 			// Check in case the dateOfBirth is available, that it is in the correct format
@@ -47,10 +48,11 @@ enum Route {
 				let dateFormatter = DateFormatter()
 				dateFormatter.dateFormat = "yyyy-MM-dd"
 				guard dateFormatter.date(from: dateOfBirth) != nil else {
-					return nil
+					self = .rapidAntigen( .failure(.invalidTestCode))
+					return
 				}
 			}
-			self = .rapidAntigen(.antigen(testInformation))
+			self = .rapidAntigen(.success(.antigen(testInformation)))
 
 		case "e.coronawarn.app":
 			self = .checkin(url.absoluteString)
@@ -58,12 +60,11 @@ enum Route {
 		default:
 			return nil
 		}
-
 	}
 
 	// MARK: - Internal
 
 	case checkin(String)
-	case rapidAntigen(CoronaTestQRCodeInformation)
+	case rapidAntigen(Result<CoronaTestQRCodeInformation, QRCodeError>)
 
 }
