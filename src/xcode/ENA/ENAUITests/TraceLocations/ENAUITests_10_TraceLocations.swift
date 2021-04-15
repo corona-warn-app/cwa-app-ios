@@ -43,7 +43,9 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 		XCTAssertTrue(app.images[AccessibilityIdentifiers.TraceLocation.imageDescription].exists)
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].exists)
 		
-		snapshot("tracelocation_infoScreen")
+		snapshot("createQRCode_010_tracelocationInfoScreen")
+		app.swipeUp()
+		snapshot("createQRCode_011_tracelocationInfoScreen")
 	}
 	
 	func test_WHEN_navigate_to_TraceLocations_for_the_second_time_THEN_no_infoscreen_is_displayed() throws {
@@ -309,9 +311,9 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 		
 		let event = "Team Meeting"
 		let location = "Office"
-		createTraceLocation(event: event, location: location)
+		createTraceLocation(event: event, location: location, withScreenshots: true)
 		
-		snapshot("tracelocation_overview")
+		snapshot("createQRCode_004_overview")
 		
 		// navigate to detail view for second item
 		app.tables[AccessibilityIdentifiers.TraceLocation.Overview.tableView].cells.element(boundBy: 1).tap()
@@ -319,7 +321,7 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 		// check if the print version button exists
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitForExistence(timeout: .short))
 		
-		snapshot("tracelocation_detail_view")
+		snapshot("createQRCode_005_detailScreen")
 		
 		// navigate to trace location print version view
 		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].tap()
@@ -329,7 +331,7 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 		delayExpectation.isInverted = true
 		wait(for: [delayExpectation], timeout: .short)
 		
-		snapshot("tracelocation_pdf_view")
+		snapshot("createQRCode_006_pdfScreen")
 		
 		// navigate back
 		let query = app.navigationBars.buttons
@@ -374,9 +376,9 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 		// switch to "My Checkins" and checkout of the event
 		app.tabBars.buttons[AccessibilityIdentifiers.Tabbar.checkin].tap()
 		
-		snapshot("mycheckins_overview")
+		snapshot("createQRCode_007_mycheckins_overview")
 		myCheckins_checkout(traceLocations: traceLocations)
-		snapshot("mycheckins_allCheckedOut")
+		snapshot("createQRCode_008_mycheckins_allCheckedOut")
 		myCheckins_display_details(traceLocations: traceLocations)
 		myCheckins_details_screenshot(event: event2) // "Team Meeting"
 		myCheckins_delete_all()
@@ -501,7 +503,7 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 		XCTAssertTrue(app.staticTexts[event].exists)
 		app.staticTexts[event].tap()
 		
-		snapshot("mycheckins_details")
+		snapshot("createQRCode_009_mycheckins_details")
 		
 		// tap "Speichern" to go back to overview
 		let buttons = app.buttons
@@ -535,18 +537,25 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 	}
 	
 	private func createTraceLocation(event: String, location: String) {
+		createTraceLocation(event: event, location: location, withScreenshots: false)
+	}
+	
+	private func createTraceLocation(event: String, location: String, withScreenshots: Bool) {
 		// add trace location
+		if withScreenshots == true { snapshot("createQRCode_001_emptyList") }
+
 		app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.addButtonTitle)].tap()
-		
 		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.permanent.subtitle.workplace)].waitForExistence(timeout: .short))
-		app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.permanent.subtitle.workplace)].tap()
+		if withScreenshots == true { snapshot("createQRCode_002_categories") }
 		
+		app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.permanent.subtitle.workplace)].tap()
 		let descriptionInputField = app.textFields[AccessibilityIdentifiers.TraceLocation.Configuration.descriptionPlaceholder]
 		let locationInputField = app.textFields[AccessibilityIdentifiers.TraceLocation.Configuration.addressPlaceholder]
 		descriptionInputField.tap()
 		descriptionInputField.typeText(event)
 		locationInputField.tap()
 		locationInputField.typeText(location)
+		if withScreenshots == true { snapshot("createQRCode_003_inputScreen") }
 		
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 	}
