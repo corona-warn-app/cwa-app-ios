@@ -39,6 +39,7 @@ enum PublicKeyEnv {
 		case .development: return "3BYTxr2HuJYQG+d7Ezu6KS8GEbFkiEvyJFg0j+C839gTjT6j7Ho0EXXZ/a07ZfvKcC2cmc1SunsrqU9Jov1J5Q=="
 		}
 	}
+	#error("inject keys")
 }
 
 typealias PublicKeyProviding = () -> PublicKeyProtocol

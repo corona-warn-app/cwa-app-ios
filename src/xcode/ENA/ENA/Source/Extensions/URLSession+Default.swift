@@ -12,6 +12,7 @@ extension URLSession {
 		/// Community, Debug, TestFlight, UITesting modes
 		let coronaWarnURLSessionDelegate: CoronaWarnURLSessionDelegate? = nil
 		#else
+		#error("inject publicKeyHash")
 		let coronaWarnURLSessionDelegate = CoronaWarnURLSessionDelegate(
 			publicKeyHash: "f30c3959de6b062374f037c505fb3864e1b0678086252ab457ddd97c729d06ab"
 		)
