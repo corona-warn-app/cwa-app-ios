@@ -69,7 +69,7 @@ enum AppStrings {
 
 		static let ratQRCodeInvalidAlertTitle = NSLocalizedString("ExposureSubmission_RAT_QR_Invalid_Alert_Title", comment: "")
 		static let ratQRCodeInvalidAlertText = NSLocalizedString("ExposureSubmission_RAT_QR_Invalid_Alert_Text", comment: "")
-		static let ratQRCodeInvalidAlertButton = NSLocalizedString("ExposureSubmission_RAT_QR_Invalid_Alert_Text", comment: "")
+		static let ratQRCodeInvalidAlertButton = NSLocalizedString("ExposureSubmission_RAT_QR_Invalid_Alert_Button", comment: "")
 
 		enum OverwriteNotice {
 			static let title = NSLocalizedString("ExposureSubmission_OverwriteNotice_Title", comment: "")
