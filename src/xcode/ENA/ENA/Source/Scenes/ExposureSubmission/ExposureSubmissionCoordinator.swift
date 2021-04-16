@@ -99,7 +99,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		// We got a test result and can jump straight into the test result view controller.
 		if let coronaTest = model.coronaTest {
 			// For a positive test result we show the test result available screen if it wasn't shown before
-			if coronaTest.testResult == .positive {
+			if coronaTest.testResult == .positive && !coronaTest.keysSubmitted {
 				if !coronaTest.positiveTestResultWasShown {
 					return createTestResultAvailableViewController()
 				} else {
@@ -222,8 +222,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			fatalError("Could not find corona test to create test result view controller for.")
 		}
 
-		// store is only initialized when a positive test result is received
-		if coronaTest.testResult == .positive {
+		// store is only initialized when a positive test result is received and not yet submitted
+		if coronaTest.testResult == .positive && !coronaTest.keysSubmitted {
             updateStoreWithKeySubmissionMetadataDefaultValues(for: coronaTest)
 			QuickAction.exposureSubmissionFlowTestResult = coronaTest.testResult
 		}
@@ -270,7 +270,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			viewModel: viewModel,
 			exposureSubmissionService: self.model.exposureSubmissionService,
 			onDismiss: { [weak self] testResult, isLoading in
-				if testResult == TestResult.positive {
+				if testResult == TestResult.positive && !coronaTest.keysSubmitted {
 					self?.showPositiveTestResultCancelAlert(isLoading: isLoading)
 				} else {
 					self?.dismiss()

@@ -254,15 +254,29 @@ enum AppStrings {
 		static let noConsentInfo3 = NSLocalizedString("TestResultPositive_NoConsent_Info3", comment: "")
 		static let noConsentPrimaryButtonTitle = NSLocalizedString("TestResultPositive_NoConsent_PrimaryButton", comment: "")
 		static let noConsentSecondaryButtonTitle = NSLocalizedString("TestResultPositive_NoConsent_SecondaryButton", comment: "")
+
 		static let noConsentAlertTitle = NSLocalizedString("TestResultPositive_NoConsent_AlertNotWarnOthers_Title", comment: "")
 		static let noConsentAlertDescription = NSLocalizedString("TestResultPositive_NoConsent_AlertNotWarnOthers_Description", comment: "")
 		static let noConsentAlertButtonDontWarn = NSLocalizedString("TestResultPositive_NoConsent_AlertNotWarnOthers_ButtonOne", comment: "")
 		static let noConsentAlertButtonWarn = NSLocalizedString("TestResultPositive_NoConsent_AlertNotWarnOthers_ButtonTwo", comment: "")
+
 		static let withConsentTitle = NSLocalizedString("TestResultPositive_WithConsent_Title", comment: "")
 		static let withConsentInfo1 = NSLocalizedString("TestResultPositive_WithConsent_Info1", comment: "")
 		static let withConsentInfo2 = NSLocalizedString("TestResultPositive_WithConsent_Info2", comment: "")
 		static let withConsentPrimaryButtonTitle = NSLocalizedString("TestResultPositive_WithConsent_PrimaryButton", comment: "")
 		static let withConsentSecondaryButtonTitle = NSLocalizedString("TestResultPositive_WithConsent_SecondaryButton", comment: "")
+
+		static let keysSubmittedDescription = NSLocalizedString("TestResultPositive_KeysSubmitted_Description", comment: "")
+		static let keysSubmittedTitle1 = NSLocalizedString("TestResultPositive_KeysSubmitted_Title1", comment: "")
+		static let keysSubmittedInfo1 = NSLocalizedString("TestResultPositive_KeysSubmitted_Info1", comment: "")
+		static let keysSubmittedInfo2 = NSLocalizedString("TestResultPositive_KeysSubmitted_Info2", comment: "")
+		static let keysSubmittedInfo3 = NSLocalizedString("TestResultPositive_KeysSubmitted_Info3", comment: "")
+		static let keysSubmittedTitle2 = NSLocalizedString("TestResultPositive_KeysSubmitted_Title2", comment: "")
+		static let keysSubmittedFurtherInfo1 = NSLocalizedString("TestResultPositive_KeysSubmitted_FurtherInfo1", comment: "")
+		static let keysSubmittedFurtherInfo2 = NSLocalizedString("TestResultPositive_KeysSubmitted_FurtherInfo2", comment: "")
+		static let keysSubmittedFurtherInfo3 = NSLocalizedString("TestResultPositive_KeysSubmitted_FurtherInfo3", comment: "")
+		static let keysSubmittedFurtherInfo4 = NSLocalizedString("TestResultPositive_KeysSubmitted_FurtherInfo4", comment: "")
+		static let keysSubmittedPrimaryButtonTitle = NSLocalizedString("TestResultPositive_KeysSubmitted_PrimaryButton", comment: "")
 	}
 
 	enum ExposureSubmissionSymptoms {
