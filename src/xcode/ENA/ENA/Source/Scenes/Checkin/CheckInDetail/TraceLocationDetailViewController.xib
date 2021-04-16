@@ -30,6 +30,7 @@
                 <outlet property="pickerSeparator" destination="wD3-ls-rxV" id="QEg-8T-WSc"/>
                 <outlet property="pickerSwitch" destination="FeX-e0-F2d" id="65a-lv-RG8"/>
                 <outlet property="saveToDiaryLabel" destination="M1z-st-0w7" id="c4n-cg-hT7"/>
+                <outlet property="scrollView" destination="lQK-F5-RWF" id="2Vu-A5-7I8"/>
                 <outlet property="view" destination="iN0-l3-epB" id="vGI-7O-PiC"/>
             </connections>
         </placeholder>
