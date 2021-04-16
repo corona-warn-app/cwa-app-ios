@@ -57,14 +57,14 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 					self.start(with: qrInfoScreen)
 				case let .failure(qrCodeError):
 					if qrCodeError == .invalidTestCode {
-						self.showRATInvalidQrCodeAlert()
+						self.showRATInvalidQQCode()
 					}
 				}
 			}
 		)
 	}
 
-	private func showRATInvalidQrCodeAlert() {
+	private func showRATInvalidQQCode() {
 		let alert = UIAlertController(
 			title: AppStrings.ExposureSubmission.ratQRCodeInvalidAlertTitle,
 			message: AppStrings.ExposureSubmission.ratQRCodeInvalidAlertText,
@@ -461,12 +461,12 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	}
 
 	private func showQRScreen(testInformation: CoronaTestQRCodeInformation?, isLoading: @escaping (Bool) -> Void) {
-		let testInformationSuccess: (CoronaTestQRCodeInformation) -> Void = { [weak self] testQrCodeInformation in
-			if let oldTest = self?.model.coronaTestService.coronaTest(ofType: testQrCodeInformation.testType),
+		let testInformationSuccess: (CoronaTestQRCodeInformation) -> Void = { [weak self] testQRCodeInformation in
+			if let oldTest = self?.model.coronaTestService.coronaTest(ofType: testQRCodeInformation.testType),
 			   oldTest.testResult != .expired && oldTest.testResult != .invalid {
-				self?.showOverrideTestNotice(testQrCodeInformation: testQrCodeInformation, submissionConsentGiven: true)
+				self?.showOverrideTestNotice(testQRCodeInformation: testQRCodeInformation, submissionConsentGiven: true)
 			} else {
-				self?.registerTestAndGetResult(with: testQrCodeInformation, submissionConsentGiven: true, isLoading: isLoading)
+				self?.registerTestAndGetResult(with: testQRCodeInformation, submissionConsentGiven: true, isLoading: isLoading)
 			}
 		}
 
@@ -474,9 +474,9 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			testInformationSuccess(testInformation)
 		} else {
 			let scannerViewController = ExposureSubmissionQRScannerViewController(
-				onSuccess: { [weak self] testQrCodeInformation in
+				onSuccess: { [weak self] testQRCodeInformation in
 					self?.presentedViewController?.dismiss(animated: true) {
-						testInformationSuccess(testQrCodeInformation)
+						testInformationSuccess(testQRCodeInformation)
 					}
 				},
 				onError: { [weak self] error, reactivateScanning in
@@ -896,7 +896,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	// show a overwrite notice screen if a test of give type was registered before
 	// registerTestAndGetResult will update the loading state of the primary button
 	private func showOverrideTestNotice(
-		testQrCodeInformation: CoronaTestQRCodeInformation,
+		testQRCodeInformation: CoronaTestQRCodeInformation,
 		submissionConsentGiven: Bool
 	) {
 
@@ -906,9 +906,9 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		)
 
 		let overwriteNoticeViewController = TestOverwriteNoticeViewController(
-			testType: testQrCodeInformation.testType,
+			testType: testQRCodeInformation.testType,
 			didTapPrimaryButton: { [weak self] in
-				self?.registerTestAndGetResult(with: testQrCodeInformation, submissionConsentGiven: submissionConsentGiven, isLoading: { isLoading in
+				self?.registerTestAndGetResult(with: testQRCodeInformation, submissionConsentGiven: submissionConsentGiven, isLoading: { isLoading in
 					footerViewModel.setLoadingIndicator(isLoading, disable: isLoading, button: .primary)
 				})
 			},
@@ -925,17 +925,17 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	}
 
 	private func registerTestAndGetResult(
-		with testQrCodeInformation: CoronaTestQRCodeInformation,
+		with testQRCodeInformation: CoronaTestQRCodeInformation,
 		submissionConsentGiven: Bool,
 		isLoading: @escaping (Bool) -> Void
 	) {
 		model.registerTestAndGetResult(
-			for: testQrCodeInformation,
+			for: testQRCodeInformation,
 			isSubmissionConsentGiven: submissionConsentGiven,
 			isLoading: isLoading,
 			onSuccess: { [weak self] testResult in
 				
-				self?.model.coronaTestType = testQrCodeInformation.testType
+				self?.model.coronaTestType = testQRCodeInformation.testType
 
 				switch testResult {
 				case .positive:
@@ -977,7 +977,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 						secondaryActionTitle: AppStrings.Common.alertActionRetry,
 						secondaryActionCompletion: {
 							self?.registerTestAndGetResult(
-								with: testQrCodeInformation,
+								with: testQRCodeInformation,
 								submissionConsentGiven: submissionConsentGiven,
 								isLoading: isLoading
 							)
