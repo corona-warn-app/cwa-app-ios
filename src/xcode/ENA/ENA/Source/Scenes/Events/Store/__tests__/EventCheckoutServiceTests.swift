@@ -221,8 +221,7 @@ class EventCheckoutServiceTests: XCTestCase {
 		let mockEventStore = MockEventStore()
 		mockEventStore.createCheckin(twoDayCheckin)
 
-		var dateProvider = DateProvider()
-		dateProvider.today = todayDate
+		let dateProvider = DateProvider(date: todayDate)
 
 		let mockDiaryStore = MockDiaryStore(dateProvider: dateProvider)
 

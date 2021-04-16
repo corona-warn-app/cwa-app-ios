@@ -184,41 +184,13 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 			return
 		}
 
-		guard (dependencies.coronaTestService.pcrTest != nil && dependencies.coronaTestService.pcrTest?.testResultReceivedDate == nil) || (dependencies.coronaTestService.antigenTest != nil && dependencies.coronaTestService.antigenTest?.testResultReceivedDate == nil) else {
-			completion(false)
-			return
-		}
-
-		let group = DispatchGroup()
-
-		for coronaTestType in CoronaTestType.allCases {
-			Log.info("Requesting TestResult for test type \(coronaTestType)…", log: .api)
-
-			group.enter()
-			dependencies.coronaTestService.updateTestResult(for: coronaTestType) { result in
-				switch result {
-				case .failure(let error):
-					Log.error(error.localizedDescription, log: .api)
-				case .success(.pending), .success(.expired):
-					// Do not trigger notifications for pending or expired results.
-					Log.info("TestResult pending or expired", log: .api)
-				case .success(let testResult):
-					Log.info("Triggering Notification to inform user about TestResult: \(testResult.stringValue)", log: .api)
-					// We attach the test result to determine which screen to show when user taps the notification
-					UNUserNotificationCenter.current().presentNotification(
-						title: AppStrings.LocalNotifications.testResultsTitle,
-						body: AppStrings.LocalNotifications.testResultsBody,
-						identifier: ActionableNotificationIdentifier.testResult.identifier,
-						info: [ActionableNotificationIdentifier.testResult.identifier: testResult.rawValue]
-					)
-				}
-
-				group.leave()
+		dependencies.coronaTestService.updateTestResults(force: false, presentNotification: true) { result in
+			switch result {
+			case .success:
+				completion(true)
+			case .failure:
+				completion(false)
 			}
-		}
-
-		group.notify(queue: .main) {
-			completion(true)
 		}
 	}
 

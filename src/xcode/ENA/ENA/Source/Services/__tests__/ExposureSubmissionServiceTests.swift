@@ -24,7 +24,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let coronaTestService = CoronaTestService(client: client, store: store)
 		coronaTestService.pcrTest = PCRTest.mock(
 			registrationToken: "dummyRegistrationToken",
-			testResultReceivedDate: Date(timeIntervalSince1970: 12345678),
+			finalTestResultReceivedDate: Date(timeIntervalSince1970: 12345678),
 			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true
 		)
@@ -68,7 +68,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		XCTAssertTrue(coronaTestService.pcrTest?.keysSubmitted == true)
 
 		/// The date of the test result is still needed because it is shown on the home screen after the submission
-		XCTAssertNotNil(coronaTestService.pcrTest?.testResultReceivedDate)
+		XCTAssertNotNil(coronaTestService.pcrTest?.finalTestResultReceivedDate)
 
 		XCTAssertNil(store.submissionKeys)
 		XCTAssertTrue(store.submissionCountries.isEmpty)

@@ -68,19 +68,38 @@ class QRCodeVerificationHelper {
 		onSuccess: @escaping((TraceLocation) -> Void),
 		onError: @escaping((CheckinQRScannerError) -> Void)
 	) {
-		guard !traceLocation.description.isEmpty else {
-			Log.error("TraceLocation description cannot be empty!", log: .checkin)
+		guard !traceLocation.description.isEmpty,
+			  traceLocation.description.count <= 100,
+			  !traceLocation.description.contains("\n"),
+			  !traceLocation.description.contains("\r")
+		else {
+			Log.error("TraceLocation description cannot be empty, >100, or contain line break!", log: .checkin)
 			onError(CheckinQRScannerError.invalidDescription)
 			return
 		}
-		guard !traceLocation.address.isEmpty else {
-			Log.error("TraceLocation address cannot be empty!", log: .checkin)
+		guard !traceLocation.address.isEmpty,
+			  traceLocation.address.count <= 100,
+			  !traceLocation.address.contains("\n"),
+			  !traceLocation.address.contains("\r")
+		else {
+			Log.error("TraceLocation address cannot be empty, >100, or contain line break!", log: .checkin)
 			onError(CheckinQRScannerError.invalidAddress)
 			return
 		}
 		guard traceLocation.cryptographicSeed.count == 16 else {
 			Log.error("TraceLocation cryptographicSeed must be 16 bytes!", log: .checkin)
 			onError(CheckinQRScannerError.invalidCryptoSeed)
+			return
+		}
+		
+		let startTimeStamp = traceLocation.startDate?.timeIntervalSince1970 ?? 0
+		let endTimeStamp = traceLocation.endDate?.timeIntervalSince1970 ?? 0
+		let bothTimeStampsAreZero = (startTimeStamp == 0 && endTimeStamp == 0)
+		let startTimeIsBeforeEndTime = startTimeStamp <= endTimeStamp
+		
+		guard bothTimeStampsAreZero || startTimeIsBeforeEndTime else {
+			Log.error("startTimeStamp must be less than endTimeStamp or both should be 0", log: .checkin)
+			onError(CheckinQRScannerError.invalidTimeStamps)
 			return
 		}
 		onSuccess(traceLocation)

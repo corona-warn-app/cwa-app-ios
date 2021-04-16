@@ -73,7 +73,7 @@ class TraceLocationDetailViewController: UIViewController {
 	}
 
 	private func setupView() {
-		view.backgroundColor = .enaColor(for: .background)
+		view.backgroundColor = .enaColor(for: .backgroundLightGray)
 		pickerButton.setTitleColor(.enaColor(for: .textPrimary1), for: .normal)
 		logoImageView.image = logoImageView.image?.withRenderingMode(.alwaysTemplate)
 		logoImageView.tintColor = .enaColor(for: .textContrast)
@@ -89,8 +89,11 @@ class TraceLocationDetailViewController: UIViewController {
 	
 	private func setupLabels() {
 		checkInForLabel.text = AppStrings.Checkins.Details.checkinFor
+		checkInForLabel.accessibilityIdentifier = AccessibilityIdentifiers.Checkin.Details.checkinFor
 		saveToDiaryLabel.text = AppStrings.Checkins.Details.saveToDiary
+		saveToDiaryLabel.accessibilityIdentifier = AccessibilityIdentifiers.Checkin.Details.saveToDiary
 		automaticCheckOutLabel.text = AppStrings.Checkins.Details.automaticCheckout
+		automaticCheckOutLabel.accessibilityIdentifier = AccessibilityIdentifiers.Checkin.Details.automaticCheckout
 
 		activityLabel.text = viewModel.locationType
 		descriptionLabel.text = viewModel.locationDescription

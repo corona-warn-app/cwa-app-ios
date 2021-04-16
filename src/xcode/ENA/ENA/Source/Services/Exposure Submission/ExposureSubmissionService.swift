@@ -218,7 +218,14 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			case let .failure(error):
 				completion(.coronaTestServiceError(error))
 			case let .success(tan):
-				self._submit(keys, coronaTest: coronaTest, with: tan, visitedCountries: visitedCountries, checkins: checkins, completion: completion)
+				self._submit(
+					keys,
+					coronaTest: coronaTest,
+					with: tan,
+					visitedCountries: visitedCountries,
+					checkins: checkins,
+					completion: completion
+				)
 			}
 		}
 	}
@@ -238,7 +245,8 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			exposureKeys: keys,
 			visitedCountries: visitedCountries,
 			checkins: checkins,
-			tan: tan
+			tan: tan,
+			submissionType: coronaTest.protobufType
 		)
 		client.submit(payload: payload, isFake: false) { result in
 			switch result {

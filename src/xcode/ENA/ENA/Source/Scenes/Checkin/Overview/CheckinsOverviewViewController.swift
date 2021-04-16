@@ -47,11 +47,17 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 
 		viewModel.$triggerReload
 			.receive(on: DispatchQueue.main.ocombine)
-			.sink { [weak self] _ in
-				guard let self = self, self.isAllowedToReload else { return }
+			.sink { [weak self] triggerReload in
+				guard let self = self, triggerReload else { return }
+
+				guard self.isAllowedToReload else {
+					self.viewModel.triggerReload = false
+					return
+				}
 
 				self.tableView.reloadData()
 				self.updateEmptyState()
+				self.viewModel.triggerReload = false
 			}
 			.store(in: &subscriptions)
 	}
@@ -186,10 +192,12 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 
 		tableView.separatorStyle = .none
 		tableView.rowHeight = UITableView.automaticDimension
-		tableView.estimatedRowHeight = 600
+		tableView.estimatedRowHeight = 60
 	}
 
 	private func animateChanges() {
+		guard !viewModel.triggerReload else { return }
+
 		DispatchQueue.main.async { [self] in
 			tableView.performBatchUpdates(nil, completion: nil)
 		}

@@ -83,8 +83,6 @@ class ENAUITests: XCTestCase {
 		// todo: need accessibility for Notify and Help
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .medium))
 		app.buttons[AccessibilityIdentifiers.Home.submitCardButton].tap()
-		// todo: need accessibility for Next
-		XCTAssertTrue(app.staticTexts["AppStrings.ExposureSubmissionDispatch.description"].waitForExistence(timeout: .medium))
 
 		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"].waitForExistence(timeout: .medium))
 		if snapshotsActive { snapshot("AppStore_0005") }

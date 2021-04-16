@@ -228,6 +228,11 @@ enum AccessibilityIdentifiers {
 		static let furtherInfos_Title = "AppStrings.ExposureSubmissionResult.furtherInfos_Title"
 		static let warnOthersConsentGivenCell = "AppStrings.ExposureSubmissionResult.warnOthersConsentGiven"
 		static let warnOthersConsentNotGivenCell = "AppStrings.ExposureSubmissionResult.warnOthersConsentNotGiven"
+		
+		enum Antigen {
+			static let proofTitle = "AppStrings.ExposureSubmissionResult.Antigen.proofTitle"
+			static let proofDesc = "AppStrings.ExposureSubmissionResult.Antigen.proofDesc"
+		}
 	}
 	
 	enum ExposureSubmissionPositiveTestResult {
@@ -253,6 +258,7 @@ enum AccessibilityIdentifiers {
 		static let description = "AppStrings.ExposureSubmissionSuccess.description"
 		static let listTitle = "AppStrings.ExposureSubmissionSuccess.listTitle"
 		static let subTitle = "AppStrings.ExposureSubmissionSuccess.subTitle"
+		static let closeButton = "AppStrings.ExposureSubmissionSuccess.button"
 	}
 	
 	enum ExposureSubmissionHotline {
@@ -335,6 +341,21 @@ enum AccessibilityIdentifiers {
 	enum ExposureSubmission {
 		static let primaryButton = "AppStrings.ExposureSubmission.primaryButton"
 		static let secondaryButton = "AppStrings.ExposureSubmission.secondaryButton"
+
+		enum OverwriteNotice {
+			static let imageDescription = "AppStrings.ExposureSubmission.OverwriteNotice.imageDescription"
+
+			enum Pcr {
+				static let headline = "AppStrings.ExposureSubmission.OverwriteNotice.Pcr.headline"
+				static let text = "AppStrings.ExposureSubmission.OverwriteNotice.Pcr.text"
+			}
+
+			enum Antigen {
+				static let headline = "AppStrings.ExposureSubmission.OverwriteNotice.Antigen.headline"
+				static let text = "AppStrings.ExposureSubmission.OverwriteNotice.Antigen.text"
+			}
+		}
+
 	}
 	
 	enum Reset {
@@ -457,6 +478,9 @@ enum AccessibilityIdentifiers {
 			static let traceLocationTypeLabel = "AppStrings.CheckIn.Edit.traceLocationTypeLabel"
 			static let traceLocationDescriptionLabel = "AppStrings.CheckIn.Edit.traceLocationDescriptionLabel"
 			static let traceLocationAddressLabel = "AppStrings.CheckIn.Edit.traceLocationAddressLabel"
+			static let saveToDiary = "AppStrings.Checkins.Details.saveToDiary"
+			static let automaticCheckout = "AppStrings.Checkins.Details.automaticCheckout"
+			static let checkinFor = "AppStrings.Checkins.Details.checkinFor"
 		}
 		
 		enum Information {

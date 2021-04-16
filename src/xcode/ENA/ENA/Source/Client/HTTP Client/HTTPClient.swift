@@ -673,6 +673,7 @@ private extension URLRequest {
 			/// Consent needs always set to be true
 			$0.consentToFederation = true
 			$0.visitedCountries = payload.visitedCountries.map { $0.id }
+			$0.submissionType = payload.submissionType
 		}
 		let payloadData = try submPayload.serializedData()
 		let url = configuration.submissionURL

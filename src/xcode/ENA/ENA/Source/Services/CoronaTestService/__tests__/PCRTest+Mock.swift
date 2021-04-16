@@ -11,7 +11,7 @@ extension PCRTest {
 		registrationToken: String? = nil,
 		registrationDate: Date = Date(),
 		testResult: TestResult = .pending,
-		testResultReceivedDate: Date? = nil,
+		finalTestResultReceivedDate: Date? = nil,
 		positiveTestResultWasShown: Bool = false,
 		isSubmissionConsentGiven: Bool = false,
 		submissionTAN: String? = nil,
@@ -19,10 +19,10 @@ extension PCRTest {
 		journalEntryCreated: Bool = false
 	) -> PCRTest {
 		PCRTest(
-			registrationToken: registrationToken,
 			registrationDate: registrationDate,
+			registrationToken: registrationToken,
 			testResult: testResult,
-			testResultReceivedDate: testResultReceivedDate,
+			finalTestResultReceivedDate: finalTestResultReceivedDate,
 			positiveTestResultWasShown: positiveTestResultWasShown,
 			isSubmissionConsentGiven: isSubmissionConsentGiven,
 			submissionTAN: submissionTAN,
