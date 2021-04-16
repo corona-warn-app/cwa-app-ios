@@ -78,6 +78,7 @@ class HomeTestResultCellModel {
 	@OpenCombine.Published var footnote: String?
 	@OpenCombine.Published var buttonTitle: String! = ""
 	@OpenCombine.Published var image: UIImage?
+	@OpenCombine.Published var isDisclosureIndicatorHidden: Bool = false
 	@OpenCombine.Published var isNegativeDiagnosisHidden: Bool = true
 	@OpenCombine.Published var isActivityIndicatorHidden: Bool = false
 	@OpenCombine.Published var isUserInteractionEnabled: Bool = false
@@ -140,6 +141,7 @@ class HomeTestResultCellModel {
 
 		buttonTitle = AppStrings.Home.TestResult.Button.showResult
 		image = UIImage(named: "Illu_Home_NegativesTestErgebnis")
+		isDisclosureIndicatorHidden = false
 		isNegativeDiagnosisHidden = false
 		isActivityIndicatorHidden = true
 		isUserInteractionEnabled = true
@@ -171,6 +173,7 @@ class HomeTestResultCellModel {
 		footnote = nil
 		buttonTitle = AppStrings.Home.TestResult.Button.showResult
 		image = UIImage(named: "Illu_Hand_with_phone-pending")
+		isDisclosureIndicatorHidden = false
 		isNegativeDiagnosisHidden = true
 		isActivityIndicatorHidden = true
 		isUserInteractionEnabled = true
@@ -183,6 +186,7 @@ class HomeTestResultCellModel {
 		footnote = nil
 		buttonTitle = AppStrings.Home.TestResult.Button.retrieveResult
 		image = UIImage(named: "Illu_Hand_with_phone-error")
+		isDisclosureIndicatorHidden = false
 		isNegativeDiagnosisHidden = true
 		isActivityIndicatorHidden = true
 		isUserInteractionEnabled = true
@@ -195,6 +199,7 @@ class HomeTestResultCellModel {
 		footnote = nil
 		buttonTitle = AppStrings.Home.TestResult.Button.deleteTest
 		image = UIImage(named: "Illu_Hand_with_phone-pending")
+		isDisclosureIndicatorHidden = false
 		isNegativeDiagnosisHidden = true
 		isActivityIndicatorHidden = true
 		isUserInteractionEnabled = true
@@ -207,6 +212,7 @@ class HomeTestResultCellModel {
 		footnote = nil
 		buttonTitle = AppStrings.Home.TestResult.Button.hideTest
 		image = UIImage(named: "Illu_Hand_with_phone-pending")
+		isDisclosureIndicatorHidden = true
 		isNegativeDiagnosisHidden = true
 		isActivityIndicatorHidden = true
 		isUserInteractionEnabled = true
@@ -219,6 +225,7 @@ class HomeTestResultCellModel {
 		footnote = nil
 		buttonTitle = AppStrings.Home.TestResult.Button.showResult
 		image = UIImage(named: "Illu_Hand_with_phone-initial")
+		isDisclosureIndicatorHidden = false
 		isNegativeDiagnosisHidden = true
 		isActivityIndicatorHidden = false
 		isUserInteractionEnabled = false

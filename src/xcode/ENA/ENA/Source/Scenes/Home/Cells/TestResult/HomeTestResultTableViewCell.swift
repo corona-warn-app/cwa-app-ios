@@ -69,6 +69,10 @@ final class HomeTestResultTableViewCell: UITableViewCell {
 			}
 			.store(in: &subscriptions)
 
+		cellModel.$isDisclosureIndicatorHidden
+			.assign(to: \.isHidden, on: disclosureIndicatorView)
+			.store(in: &subscriptions)
+
 		cellModel.$isNegativeDiagnosisHidden
 			.assign(to: \.isHidden, on: negativeDiagnosisStackView)
 			.store(in: &subscriptions)
@@ -102,6 +106,7 @@ final class HomeTestResultTableViewCell: UITableViewCell {
 
 	@IBOutlet private weak var cardView: HomeCardView!
 	@IBOutlet private weak var titleLabel: ENALabel!
+	@IBOutlet private weak var disclosureIndicatorView: UIView!
 	@IBOutlet private weak var subtitleLabel: ENALabel!
 
 	@IBOutlet private weak var negativeDiagnosisStackView: UIStackView!
