@@ -4,6 +4,11 @@
 
 import Foundation
 
+
+enum QRCodeError: Error {
+	case invalidTestCode
+}
+
 enum CoronaTestQRCodeInformation {
 	case pcr(String)
 	case antigen(AntigenTestInformation)

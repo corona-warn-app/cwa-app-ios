@@ -34,7 +34,8 @@ final class HTTPClientSubmitTests: XCTestCase {
 		let expectation = self.expectation(description: "completion handler is called without an error")
 
 		// Act
-		let payload = CountrySubmissionPayload(exposureKeys: keys, visitedCountries: [], checkins: [], tan: tan)
+		let payload = CountrySubmissionPayload(exposureKeys: keys, visitedCountries: [], checkins: [], tan: tan, submissionType: .pcrTest)
+
 		HTTPClient.makeWith(mock: stack).submit(payload: payload, isFake: false, completion: { response in
 			switch response {
 			case .failure(let error):
@@ -44,6 +45,34 @@ final class HTTPClientSubmitTests: XCTestCase {
 			}
 			expectation.fulfill()
 		})
+
+		waitForExpectations(timeout: expectationsTimeout)
+	}
+
+	func testSubmit_Request_SubmissionType() throws {
+		let payload = CountrySubmissionPayload(exposureKeys: keys, visitedCountries: [], checkins: [], tan: tan, submissionType: .rapidTest)
+
+		let expectation = self.expectation(description: "completion handler is called without an error")
+
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			// cannot be nil since this is not a a completion handler can be in (response + nil body)
+			responseData: Data(),
+			requestObserver: { request in
+				print(request)
+
+				guard let protoPayload = try? SAP_Internal_SubmissionPayload(serializedData: request.httpBody ?? Data()) else {
+					XCTFail("Request data expected to be serializable to protobuf.")
+					return
+				}
+
+				XCTAssertEqual(protoPayload.submissionType, payload.submissionType)
+
+				expectation.fulfill()
+			}
+		)
+
+		HTTPClient.makeWith(mock: stack).submit(payload: payload, isFake: false, completion: { _ in })
 
 		waitForExpectations(timeout: expectationsTimeout)
 	}
@@ -61,7 +90,7 @@ final class HTTPClientSubmitTests: XCTestCase {
 		let expectation = self.expectation(description: AppStrings.ExposureSubmission.generalErrorTitle)
 
 		// Act
-		let payload = CountrySubmissionPayload(exposureKeys: keys, visitedCountries: [], checkins: [], tan: tan)
+		let payload = CountrySubmissionPayload(exposureKeys: keys, visitedCountries: [], checkins: [], tan: tan, submissionType: .pcrTest)
 		HTTPClient.makeWith(mock: stack).submit(payload: payload, isFake: true) { response in
 			switch response {
 			case .failure:
@@ -87,7 +116,7 @@ final class HTTPClientSubmitTests: XCTestCase {
 		let expectation = self.expectation(description: "SpecificError")
 
 		// Act
-		let payload = CountrySubmissionPayload(exposureKeys: keys, visitedCountries: [], checkins: [], tan: tan)
+		let payload = CountrySubmissionPayload(exposureKeys: keys, visitedCountries: [], checkins: [], tan: tan, submissionType: .pcrTest)
 		HTTPClient.makeWith(mock: stack).submit(payload: payload, isFake: false) { response in
 			switch response {
 			case .failure(let error):
@@ -115,7 +144,7 @@ final class HTTPClientSubmitTests: XCTestCase {
 		let expectation = self.expectation(description: "ResponseNil")
 
 		// Act
-		let payload = CountrySubmissionPayload(exposureKeys: keys, visitedCountries: [], checkins: [], tan: tan)
+		let payload = CountrySubmissionPayload(exposureKeys: keys, visitedCountries: [], checkins: [], tan: tan, submissionType: .pcrTest)
 		HTTPClient.makeWith(mock: stack).submit(payload: payload, isFake: false) { response in
 			switch response {
 			case .failure(let error):
@@ -144,7 +173,7 @@ final class HTTPClientSubmitTests: XCTestCase {
 		let expectation = self.expectation(description: "Response400")
 
 		// Act
-		let payload = CountrySubmissionPayload(exposureKeys: keys, visitedCountries: [], checkins: [], tan: tan)
+		let payload = CountrySubmissionPayload(exposureKeys: keys, visitedCountries: [], checkins: [], tan: tan, submissionType: .pcrTest)
 		HTTPClient.makeWith(mock: stack).submit(payload: payload, isFake: false) { response in
 			defer { expectation.fulfill() }
 
@@ -172,7 +201,7 @@ final class HTTPClientSubmitTests: XCTestCase {
 		let expectation = self.expectation(description: "Response403")
 
 		// Act
-		let payload = CountrySubmissionPayload(exposureKeys: keys, visitedCountries: [], checkins: [], tan: tan)
+		let payload = CountrySubmissionPayload(exposureKeys: keys, visitedCountries: [], checkins: [], tan: tan, submissionType: .pcrTest)
 		HTTPClient.makeWith(mock: stack).submit(payload: payload, isFake: false) { response in
 			defer { expectation.fulfill() }
 

@@ -104,6 +104,15 @@ enum CoronaTest: Equatable {
 		}
 	}
 
+	var protobufType: SAP_Internal_SubmissionPayload.SubmissionType {
+		switch self {
+		case .pcr:
+			return .pcrTest
+		case .antigen:
+			return .rapidTest
+		}
+	}
+
 	var pcrTest: PCRTest? {
 		switch self {
 		case .pcr(let test):

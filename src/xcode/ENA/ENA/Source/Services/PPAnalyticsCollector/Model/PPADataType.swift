@@ -13,6 +13,23 @@ enum PPADataType {
 	case keySubmissionMetadata(PPAKeySubmissionMetadata)
 	case exposureWindowsMetadata(PPAExposureWindowsMetadata)
 	case submissionMetadata(PPASubmissionMetadata)
+	
+	var description: String {
+		switch self {
+		case .userData:
+			return "userData"
+		case .riskExposureMetadata:
+			return "riskExposureMetadata"
+		case .testResultMetadata:
+			return "testResultMetadata"
+		case .keySubmissionMetadata:
+			return "keySubmissionMetadata"
+		case .exposureWindowsMetadata:
+			return "exposureWindowsMetadata"
+		case .submissionMetadata:
+			return "submissionMetadata"
+		}
+	}
 }
 
 enum PPAUserMetadata {
