@@ -55,9 +55,19 @@ class RootCoordinator: RequiresAppDependencies {
 	func showHome(enStateHandler: ENStateHandler, route: Route?) {
 		// only create and init the whole view stack if not done before
 		// there for we check if the homeCoordinator exists
+		defer {
+			// dispatch event route handling to showEvent
+			if case let .checkIn(guid) = route {
+				showEvent(guid)
+			}
+		}
+
 		guard let delegate = delegate,
 			  homeCoordinator == nil else {
-			homeCoordinator?.showHome(enStateHandler: enStateHandler, route: route)
+			homeCoordinator?.showHome(
+				enStateHandler: enStateHandler,
+				route: route
+			)
 			return
 		}
 		

@@ -637,17 +637,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			fatalError("It should not happen.")
 		}
 
-		switch route {
-		case .none:
-			coordinator.showHome(enStateHandler: enStateHandler, route: nil)
-
-		case .checkIn(let guid):
-			coordinator.showHome(enStateHandler: enStateHandler, route: nil)
-			coordinator.showEvent(guid)
-
-		case .rapidAntigen:
-			coordinator.showHome(enStateHandler: enStateHandler, route: route)
-		}
+		coordinator.showHome(enStateHandler: enStateHandler, route: route)
 	}
 
 	private func showOnboarding() {

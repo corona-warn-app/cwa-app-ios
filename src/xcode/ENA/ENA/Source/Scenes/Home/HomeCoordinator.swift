@@ -104,7 +104,8 @@ class HomeCoordinator: RequiresAppDependencies {
 		guard homeController == nil else {
 			// if homeController is already there update the route and select matching tab
 			homeController?.route = route
-			if route != nil {
+			// only select tab if route is .rapidAntigen
+			if case .rapidAntigen = route {
 				selectHomeTabSection()
 			}
 			rootViewController.dismiss(animated: false)
