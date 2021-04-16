@@ -43,15 +43,6 @@ enum Route {
 				return
 			}
 
-			// Check in case the dateOfBirth is available, that it is in the correct format
-			if let dateOfBirth = testInformation.dateOfBirth {
-				let dateFormatter = DateFormatter()
-				dateFormatter.dateFormat = "yyyy-MM-dd"
-				guard dateFormatter.date(from: dateOfBirth) != nil else {
-					self = .rapidAntigen( .failure(.invalidTestCode))
-					return
-				}
-			}
 			self = .rapidAntigen(.success(.antigen(testInformation)))
 
 		case "e.coronawarn.app":
