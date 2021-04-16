@@ -55,7 +55,7 @@ enum Route {
 			self = .rapidAntigen(.success(.antigen(testInformation)))
 
 		case "e.coronawarn.app":
-			self = .checkin(url.absoluteString)
+			self = .checkIn(url.absoluteString)
 
 		default:
 			return nil
@@ -64,7 +64,7 @@ enum Route {
 
 	// MARK: - Internal
 
-	case checkin(String)
+	case checkIn(String)
 	case rapidAntigen(Result<CoronaTestQRCodeInformation, QRCodeError>)
 
 }

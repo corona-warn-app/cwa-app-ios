@@ -641,7 +641,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		case .none:
 			coordinator.showHome(enStateHandler: enStateHandler, route: nil)
 
-		case .checkin(let guid):
+		case .checkIn(let guid):
 			coordinator.showHome(enStateHandler: enStateHandler, route: nil)
 			coordinator.showEvent(guid)
 
