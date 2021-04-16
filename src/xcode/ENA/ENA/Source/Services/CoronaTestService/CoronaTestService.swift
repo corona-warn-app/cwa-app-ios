@@ -170,12 +170,13 @@ class CoronaTestService {
 	func registerAntigenTestAndGetResult(
 		with guid: String,
 		pointOfCareConsentDate: Date,
-		name: String?,
-		birthday: String?,
+		firstName: String?,
+		lastName: String?,
+		dateOfBirth: String?,
 		isSubmissionConsentGiven: Bool,
 		completion: @escaping TestResultHandler
 	) {
-		Log.info("[CoronaTestService] Registering antigen test (guid: \(guid), pointOfCareConsentDate: \(pointOfCareConsentDate), name: \(String(describing: name)), birthday: \(String(describing: birthday)), isSubmissionConsentGiven: \(isSubmissionConsentGiven))", log: .api)
+		Log.info("[CoronaTestService] Registering antigen test (guid: \(guid), pointOfCareConsentDate: \(pointOfCareConsentDate), firstName: \(String(describing: firstName)), lastName: \(String(describing: lastName)), dateOfBirth: \(String(describing: dateOfBirth)), isSubmissionConsentGiven: \(isSubmissionConsentGiven))", log: .api)
 
 		getRegistrationToken(
 			forKey: ENAHasher.sha256(guid),
@@ -186,7 +187,7 @@ class CoronaTestService {
 					self?.antigenTest = AntigenTest(
 						pointOfCareConsentDate: pointOfCareConsentDate,
 						registrationToken: registrationToken,
-						testedPerson: TestedPerson(name: name, birthday: birthday),
+						testedPerson: TestedPerson(firstName: firstName, lastName: lastName, dateOfBirth: dateOfBirth),
 						testResult: .pending,
 						finalTestResultReceivedDate: nil,
 						positiveTestResultWasShown: false,
