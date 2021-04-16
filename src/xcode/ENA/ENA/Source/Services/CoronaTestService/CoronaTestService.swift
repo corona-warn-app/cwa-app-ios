@@ -190,7 +190,7 @@ class CoronaTestService {
 						testResult: .pending,
 						finalTestResultReceivedDate: nil,
 						positiveTestResultWasShown: false,
-						isSubmissionConsentGiven: false,
+						isSubmissionConsentGiven: isSubmissionConsentGiven,
 						submissionTAN: nil,
 						keysSubmitted: false,
 						journalEntryCreated: false
