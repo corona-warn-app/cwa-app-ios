@@ -475,8 +475,10 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		} else {
 			let scannerViewController = ExposureSubmissionQRScannerViewController(
 				onSuccess: { [weak self] testQRCodeInformation in
-					self?.presentedViewController?.dismiss(animated: true) {
-						testInformationSuccess(testQRCodeInformation)
+					DispatchQueue.main.async {
+						self?.presentedViewController?.dismiss(animated: true) {
+							testInformationSuccess(testQRCodeInformation)
+						}
 					}
 				},
 				onError: { [weak self] error, reactivateScanning in
