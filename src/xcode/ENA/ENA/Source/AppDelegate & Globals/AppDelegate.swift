@@ -84,7 +84,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			return true
 		}
 
-		// Check for any URLs passed into the app – most likely via scanning a QR code or antigen rapid test
+		// Check for any URLs passed into the app – most likely via scanning a QR code from event or antigen rapid test
 		let route = routeFromLaunchOptions(launchOptions)
 		setupUI(route)
 		QuickAction.setup()
