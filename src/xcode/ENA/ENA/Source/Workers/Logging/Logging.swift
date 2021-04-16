@@ -73,16 +73,14 @@ enum Log {
 	private static func log(message: String, type: OSLogType, log: OSLog, error: Error?, file: String, line: Int, function: String) {
 		#if !RELEASE
 		// Console logging
-		DispatchQueue.global(qos: .utility).async {
-			let meta: String = "[\(file):\(line)] [\(function)]"
-			
-			// obviously we have to disable swiftlint here:
-			// swiftlint:disable:next no_direct_oslog
-			os_log("%{private}@ %{private}@", log: log, type: type, meta, message)
-			
-			// Save logs to File. This is used for viewing and exporting logs from debug menu.
-			fileLogger.log(message, logType: type, file: file, line: line, function: function)
-		}
+		let meta: String = "[\(file):\(line)] [\(function)]"
+		
+		// obviously we have to disable swiftlint here:
+		// swiftlint:disable:next no_direct_oslog
+		os_log("%{private}@ %{private}@", log: log, type: type, meta, message)
+		
+		// Save logs to File. This is used for viewing and exporting logs from debug menu.
+		fileLogger.log(message, logType: type, file: file, line: line, function: function)
 		#endif
 	}
 }

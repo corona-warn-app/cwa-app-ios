@@ -20,8 +20,6 @@ enum PPADataType {
 			return "userData"
 		case .riskExposureMetadata:
 			return "riskExposureMetadata"
-		case .clientMetadata:
-			return "clientMetadata"
 		case .testResultMetadata:
 			return "testResultMetadata"
 		case .keySubmissionMetadata:
