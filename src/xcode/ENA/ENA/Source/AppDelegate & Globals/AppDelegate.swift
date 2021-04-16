@@ -84,8 +84,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			return true
 		}
 
-		// Check for any URLs passed into the app – most likely via scanning a QR code
-		let route = routeForScannedQRCode(in: launchOptions)
+		// Check for any URLs passed into the app – most likely via scanning a QR code from event or antigen rapid test
+		let route = routeFromLaunchOptions(launchOptions)
 		setupUI(route)
 		QuickAction.setup()
 
@@ -161,7 +161,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
 	let contactDiaryStore: DiaryStoringProviding = ContactDiaryStore.make()
 	let eventStore: EventStoringProviding = EventStore.make()
-    let serverEnvironment: ServerEnvironment
+	let serverEnvironment: ServerEnvironment
 	var store: Store
 
 	lazy var coronaTestService: CoronaTestService = {
@@ -398,7 +398,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			store.ppacApiToken = ppacAPIToken
 			store.appInstallationDate = installationDate
 			store.selectedServerEnvironment = environment
-            Analytics.collect(.submissionMetadata(.lastAppReset(Date())))
+			Analytics.collect(.submissionMetadata(.lastAppReset(Date())))
 		} catch {
 			fatalError("Creating new database key failed")
 		}
@@ -455,11 +455,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		)
 	}()
 
-	/// Prepare handling of scanned QR codes
-	///
 	/// - Parameter launchOptions: Launch options passed on app launch
 	/// - Returns: A `Route` if a valid URL is passed in the launch options
-	private func routeForScannedQRCode(in launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Route? {
+	private func routeFromLaunchOptions(_ launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Route? {
 		guard let activityDictionary = launchOptions?[.userActivityDictionary] as? [AnyHashable: Any] else {
 			return nil
 		}
@@ -481,8 +479,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		}
 
 		guard let alert = makeErrorAlert(
-				riskProviderError: riskProviderError,
-				rootController: rootController
+			riskProviderError: riskProviderError,
+			rootController: rootController
 		) else {
 			return
 		}
@@ -639,15 +637,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			fatalError("It should not happen.")
 		}
 
-		coordinator.showHome(enStateHandler: enStateHandler)
-
-		if let eventRoute = route {
-			switch eventRoute {
-			case .checkin(let guid):
-				coordinator.showEvent(guid)
-			}
-		}
-
+		coordinator.showHome(enStateHandler: enStateHandler, route: route)
 	}
 
 	private func showOnboarding() {
