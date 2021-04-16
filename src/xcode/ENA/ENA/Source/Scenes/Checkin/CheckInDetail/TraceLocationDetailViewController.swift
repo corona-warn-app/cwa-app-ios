@@ -45,8 +45,7 @@ class TraceLocationDetailViewController: UIViewController, UIScrollViewDelegate 
 	// MARK: - Protocol UIScrollViewDelegate
 
 	func scrollViewDidScroll(_ scrollView: UIScrollView) {
-		let alpha = (scrollView.adjustedContentInset.top + scrollView.contentOffset.y) / 32
-		blurView.alpha = max(0, min(alpha, 1)) / 1
+		bannerView.adjustBlur(for: scrollView)
 	}
 	
 	// MARK: - Private
@@ -54,8 +53,7 @@ class TraceLocationDetailViewController: UIViewController, UIScrollViewDelegate 
 	private let viewModel: TraceLocationDetailViewModel
 	private let dismiss: () -> Void
 
-	private var bannerView: UIView!
-	private var blurView: UIVisualEffectView!
+	private var bannerView: GradientBlurBannerView!
 	private var subscriptions = Set<AnyCancellable>()
 
 	@IBOutlet private weak var scrollView: UIScrollView!
@@ -87,43 +85,16 @@ class TraceLocationDetailViewController: UIViewController, UIScrollViewDelegate 
 	}
 	
 	private func setupBannerView() {
-		
-		bannerView = UIView()
-		bannerView.translatesAutoresizingMaskIntoConstraints = false
+		bannerView = GradientBlurBannerView(didTapCloseButton: { [weak self] in
+			self?.dismiss()
+		})
 		view.addSubview(bannerView)
-		
-		let blurEffect = UIBlurEffect(style: .light)
-		blurView = UIVisualEffectView(effect: blurEffect)
-		blurView.translatesAutoresizingMaskIntoConstraints = false
-		bannerView.addSubview(blurView)
-		
-		let gradientNavigationView = GradientNavigationView(
-			didTapCloseButton: { [weak self] in
-				self?.dismiss()
-			}
-		)
-		gradientNavigationView.translatesAutoresizingMaskIntoConstraints = false
-		bannerView.addSubview(gradientNavigationView)
-		
 		NSLayoutConstraint.activate([
-			
 			bannerView.topAnchor.constraint(equalTo: view.topAnchor),
 			bannerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
 			bannerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-			bannerView.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor),
-			
-			blurView.topAnchor.constraint(equalTo: bannerView.topAnchor),
-			blurView.leadingAnchor.constraint(equalTo: bannerView.leadingAnchor),
-			blurView.trailingAnchor.constraint(equalTo: bannerView.trailingAnchor),
-			blurView.bottomAnchor.constraint(equalTo: bannerView.bottomAnchor),
-			
-			gradientNavigationView.topAnchor.constraint(equalTo: bannerView.topAnchor, constant: 24.0),
-			gradientNavigationView.leadingAnchor.constraint(equalTo: bannerView.leadingAnchor, constant: 16.0),
-			gradientNavigationView.trailingAnchor.constraint(equalTo: bannerView.trailingAnchor, constant: -16.0),
-			gradientNavigationView.bottomAnchor.constraint(equalTo: bannerView.bottomAnchor, constant: -16.0)
+			bannerView.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor)
 		])
-		
-		scrollViewDidScroll(scrollView)
 	}
 
 	private func setupView() {
@@ -239,4 +210,67 @@ class TraceLocationDetailViewController: UIViewController, UIScrollViewDelegate 
 			})
 		}
 	}
+}
+
+class GradientBlurBannerView: UIView {
+	
+	// MARK: - Init
+	
+	init(didTapCloseButton: @escaping () -> Void) {
+		self.didTapCloseButton = didTapCloseButton
+		super.init(frame: .zero)
+		
+		translatesAutoresizingMaskIntoConstraints = false
+		
+		let blurEffect = UIBlurEffect(style: .regular)
+		blurView = UIVisualEffectView(effect: blurEffect)
+		blurView.alpha = 0
+		blurView.translatesAutoresizingMaskIntoConstraints = false
+		addSubview(blurView)
+		
+		let gradientView = GradientView()
+		gradientView.isTilted = false
+		gradientView.alpha = 0.6
+		gradientView.translatesAutoresizingMaskIntoConstraints = false
+		blurView.contentView.addSubview(gradientView)
+		
+		let gradientNavigationView = GradientNavigationView(didTapCloseButton: didTapCloseButton)
+		gradientNavigationView.translatesAutoresizingMaskIntoConstraints = false
+		addSubview(gradientNavigationView)
+		
+		NSLayoutConstraint.activate([
+			
+			blurView.topAnchor.constraint(equalTo: topAnchor),
+			blurView.leadingAnchor.constraint(equalTo: leadingAnchor),
+			blurView.trailingAnchor.constraint(equalTo: trailingAnchor),
+			blurView.bottomAnchor.constraint(equalTo: bottomAnchor),
+			
+			gradientView.topAnchor.constraint(equalTo: blurView.contentView.topAnchor),
+			gradientView.leadingAnchor.constraint(equalTo: blurView.contentView.leadingAnchor),
+			gradientView.trailingAnchor.constraint(equalTo: blurView.contentView.trailingAnchor),
+			gradientView.bottomAnchor.constraint(equalTo: blurView.contentView.bottomAnchor),
+			
+			gradientNavigationView.topAnchor.constraint(equalTo: topAnchor, constant: 24.0),
+			gradientNavigationView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.0),
+			gradientNavigationView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.0),
+			gradientNavigationView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16.0)
+		])
+	}
+	
+	@available(*, unavailable)
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+	
+	// MARK: - Internal
+		
+	func adjustBlur(for scrollView: UIScrollView) {
+		let alpha = (scrollView.adjustedContentInset.top + scrollView.contentOffset.y) / (bounds.height / 2)
+		blurView.alpha = max(0, min(alpha, 1)) / 1
+	}
+	
+	// MARK: - Private
+	
+	private let didTapCloseButton: () -> Void
+	private var blurView: UIVisualEffectView!
 }
