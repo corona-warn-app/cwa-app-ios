@@ -88,7 +88,7 @@ class HomeCoordinator: RequiresAppDependencies {
 		enStateUpdateList.removeAllObjects()
 	}
 
-	private func selectHomeTabSection() {
+	private func selectHomeTabSection(route: Route?) {
 		DispatchQueue.main.async { [weak self] in
 			guard let rootViewController = self?.rootViewController,
 				let index = self?.homeController?.tabBarController?.viewControllers?.firstIndex(of: rootViewController) else {
@@ -97,21 +97,21 @@ class HomeCoordinator: RequiresAppDependencies {
 			}
 			self?.homeController?.tabBarController?.dismiss(animated: false)
 			self?.homeController?.tabBarController?.selectedIndex = index
+			self?.homeController?.route = route
+			self?.homeController?.showDeltaOnboardingAndAlertsIfNeeded()
 		}
 	}
 
 	func showHome(enStateHandler: ENStateHandler, route: Route?) {
 		guard homeController == nil else {
-			// if homeController is already there update the route and select matching tab
-			homeController?.route = route
-			// only select tab if route is .rapidAntigen
-			if case .rapidAntigen = route {
-				selectHomeTabSection()
+			guard case .rapidAntigen = route else {
+				rootViewController.dismiss(animated: false)
+				rootViewController.popToRootViewController(animated: false)
+				homeController?.scrollToTop(animated: false)
+				return
 			}
-			rootViewController.dismiss(animated: false)
-			rootViewController.popToRootViewController(animated: false)
-
-			homeController?.scrollToTop(animated: false)
+			// only select tab if route is .rapidAntigen
+			selectHomeTabSection(route: route)
 			return
 		}
 		let homeState = HomeState(

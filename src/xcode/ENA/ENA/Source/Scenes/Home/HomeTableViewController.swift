@@ -108,7 +108,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 		NotificationCenter.default.addObserver(self, selector: #selector(refreshUIAfterResumingFromBackground), name: UIApplication.willEnterForegroundNotification, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(refreshUI), name: NSNotification.Name.NSCalendarDayChanged, object: nil)
-		
+
 		refreshUI()
 	}
 
@@ -251,7 +251,19 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	func scrollToTop(animated: Bool) {
 		tableView.setContentOffset(.zero, animated: animated)
 	}
-	
+
+	func showDeltaOnboardingAndAlertsIfNeeded() {
+		self.showRouteIfNeeded(completion: {
+			self.showDeltaOnboardingIfNeeded(completion: { [weak self] in
+				self?.showInformationHowRiskDetectionWorksIfNeeded(completion: {
+					self?.showBackgroundFetchAlertIfNeeded(completion: {
+						self?.showRiskStatusLoweredAlertIfNeeded()
+					})
+				})
+			})
+		})
+	}
+
 	// MARK: - Private
 
 	private let viewModel: HomeTableViewModel
@@ -538,18 +550,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 	@IBAction private func infoButtonTapped() {
 		onInfoBarButtonItemTap()
-	}
-
-	private func showDeltaOnboardingAndAlertsIfNeeded() {
-		showRouteIfNeeded(completion: {
-			self.showDeltaOnboardingIfNeeded(completion: { [weak self] in
-				self?.showInformationHowRiskDetectionWorksIfNeeded(completion: {
-					self?.showBackgroundFetchAlertIfNeeded(completion: {
-						self?.showRiskStatusLoweredAlertIfNeeded()
-					})
-				})
-			})
-		})
 	}
 
 	private func showRouteIfNeeded(completion: @escaping () -> Void) {
