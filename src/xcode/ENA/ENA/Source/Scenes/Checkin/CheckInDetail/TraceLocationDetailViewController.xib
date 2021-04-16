@@ -20,16 +20,15 @@
                 <outlet property="bottomCardView" destination="Ek6-qj-gRz" id="zPW-8o-d4S"/>
                 <outlet property="checkInButton" destination="LzL-ri-WCR" id="nhq-cH-UN3"/>
                 <outlet property="checkInForLabel" destination="qe2-Cr-Hsf" id="2Cc-Rz-KNx"/>
-                <outlet property="closeButton" destination="5Yh-SR-IVJ" id="Meh-7O-Sat"/>
                 <outlet property="countDownDatePicker" destination="yid-Kg-xeK" id="adm-pi-5xT"/>
                 <outlet property="descriptionLabel" destination="qEg-yG-yRz" id="iEe-il-h37"/>
                 <outlet property="descriptionView" destination="16U-OV-LaG" id="txb-xX-3OP"/>
-                <outlet property="logoImageView" destination="9Uc-cd-UtX" id="xcq-tp-AWD"/>
                 <outlet property="pickerButton" destination="KL2-pg-6XN" id="Jje-6t-rMu"/>
                 <outlet property="pickerContainerView" destination="Wru-kA-6ul" id="rKM-FF-71m"/>
                 <outlet property="pickerSeparator" destination="wD3-ls-rxV" id="QEg-8T-WSc"/>
                 <outlet property="pickerSwitch" destination="FeX-e0-F2d" id="65a-lv-RG8"/>
                 <outlet property="saveToDiaryLabel" destination="M1z-st-0w7" id="c4n-cg-hT7"/>
+                <outlet property="scrollView" destination="lQK-F5-RWF" id="pVI-hz-PGq"/>
                 <outlet property="view" destination="iN0-l3-epB" id="vGI-7O-PiC"/>
             </connections>
         </placeholder>
@@ -38,55 +37,25 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WjZ-Cc-86K" userLabel="Bar Gradient View" customClass="GradientView" customModule="ENA" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
-                    <subviews>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Corona-Warn-App" translatesAutoresizingMaskIntoConstraints="NO" id="9Uc-cd-UtX">
-                            <rect key="frame" x="16" y="24" width="121" height="40"/>
-                        </imageView>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Yh-SR-IVJ">
-                            <rect key="frame" x="368" y="29" width="30" height="30"/>
-                            <accessibility key="accessibilityConfiguration" identifier="IconCloseContrastButton"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="30" id="6tZ-iA-2Ug"/>
-                                <constraint firstAttribute="width" constant="30" id="dWJ-IX-RCd"/>
-                            </constraints>
-                            <state key="normal" image="Icons - Close - Contrast"/>
-                            <connections>
-                                <action selector="cancelButtonPressed:" destination="-1" eventType="touchUpInside" id="1X0-3E-ci5"/>
-                            </connections>
-                        </button>
-                    </subviews>
-                    <constraints>
-                        <constraint firstAttribute="bottom" secondItem="9Uc-cd-UtX" secondAttribute="bottom" constant="16" id="ao5-MY-K9V"/>
-                        <constraint firstAttribute="trailing" secondItem="5Yh-SR-IVJ" secondAttribute="trailing" constant="16" id="cC2-rz-AuA"/>
-                        <constraint firstItem="9Uc-cd-UtX" firstAttribute="leading" secondItem="WjZ-Cc-86K" secondAttribute="leading" constant="16" id="fna-7G-kxd"/>
-                        <constraint firstItem="5Yh-SR-IVJ" firstAttribute="centerY" secondItem="9Uc-cd-UtX" secondAttribute="centerY" id="i3h-aM-asv"/>
-                    </constraints>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="boolean" keyPath="isTilted" value="NO"/>
-                        <userDefinedRuntimeAttribute type="boolean" keyPath="setTilted" value="NO"/>
-                    </userDefinedRuntimeAttributes>
-                </view>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lQK-F5-RWF">
-                    <rect key="frame" x="0.0" y="80" width="414" height="707"/>
+                    <rect key="frame" x="0.0" y="44" width="414" height="743"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WkR-AT-WXT" userLabel="contentView">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="672"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="752"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fx9-sT-lVo" userLabel="Gradiant View" customClass="GradientView" customModule="ENA" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="160"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="240"/>
                                     <color key="backgroundColor" systemColor="systemPurpleColor"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="160" id="d2t-gw-nUF"/>
+                                        <constraint firstAttribute="height" constant="240" id="d2t-gw-nUF"/>
                                     </constraints>
                                     <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isTilted" value="NO"/>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isTilted" value="YES"/>
                                         <userDefinedRuntimeAttribute type="boolean" keyPath="setTilted" value="NO"/>
                                     </userDefinedRuntimeAttributes>
                                 </view>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Einchecken für:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qe2-Cr-Hsf" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                    <rect key="frame" x="16" y="24" width="414" height="20.5"/>
+                                    <rect key="frame" x="16" y="104" width="414" height="20.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <color key="textColor" name="ENA Text Contrast Color"/>
                                     <nil key="highlightedColor"/>
@@ -95,7 +64,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="oNa-7R-1wU">
-                                    <rect key="frame" x="16" y="56.5" width="382" height="615.5"/>
+                                    <rect key="frame" x="16" y="136.5" width="382" height="615.5"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="16U-OV-LaG" userLabel="Description Card View">
                                             <rect key="frame" x="0.0" y="0.0" width="382" height="221.5"/>
@@ -349,7 +318,7 @@ deutschen SAP Anwendergruppe</string>
                                 <constraint firstAttribute="bottom" secondItem="oNa-7R-1wU" secondAttribute="bottom" id="8tO-M6-3GE"/>
                                 <constraint firstAttribute="trailing" secondItem="fx9-sT-lVo" secondAttribute="trailing" id="F1I-tM-CZF"/>
                                 <constraint firstItem="qe2-Cr-Hsf" firstAttribute="leading" secondItem="fx9-sT-lVo" secondAttribute="leading" constant="16" id="FVO-dV-I70"/>
-                                <constraint firstItem="qe2-Cr-Hsf" firstAttribute="top" secondItem="fx9-sT-lVo" secondAttribute="top" constant="24" id="IgJ-BW-WpL"/>
+                                <constraint firstItem="qe2-Cr-Hsf" firstAttribute="top" secondItem="fx9-sT-lVo" secondAttribute="top" constant="104" id="IgJ-BW-WpL"/>
                                 <constraint firstItem="fx9-sT-lVo" firstAttribute="top" secondItem="WkR-AT-WXT" secondAttribute="top" id="OPg-en-47M"/>
                                 <constraint firstItem="oNa-7R-1wU" firstAttribute="leading" secondItem="WkR-AT-WXT" secondAttribute="leading" constant="16" id="VZU-OY-2EJ"/>
                             </constraints>
@@ -382,13 +351,9 @@ deutschen SAP Anwendergruppe</string>
                 <constraint firstItem="lQK-F5-RWF" firstAttribute="bottom" secondItem="LzL-ri-WCR" secondAttribute="top" constant="-16" id="GIv-Bw-Moc"/>
                 <constraint firstAttribute="trailing" secondItem="LzL-ri-WCR" secondAttribute="trailing" constant="16" id="Ox4-8M-dwR"/>
                 <constraint firstItem="lQK-F5-RWF" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="Sib-2g-zc6"/>
-                <constraint firstItem="WjZ-Cc-86K" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="e9f-6O-9Xf"/>
-                <constraint firstItem="lQK-F5-RWF" firstAttribute="top" secondItem="WjZ-Cc-86K" secondAttribute="bottom" id="j0K-zS-KE6"/>
-                <constraint firstAttribute="top" secondItem="9Uc-cd-UtX" secondAttribute="top" constant="-24" id="q2f-jR-SUB"/>
+                <constraint firstItem="lQK-F5-RWF" firstAttribute="top" secondItem="M82-Om-I6C" secondAttribute="top" id="oWq-81-Cuk"/>
                 <constraint firstItem="LzL-ri-WCR" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="rF9-4l-YXt"/>
-                <constraint firstItem="WjZ-Cc-86K" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="sQR-ek-Fxm"/>
                 <constraint firstAttribute="trailing" secondItem="lQK-F5-RWF" secondAttribute="trailing" id="wHn-Qe-dty"/>
-                <constraint firstAttribute="trailing" secondItem="WjZ-Cc-86K" secondAttribute="trailing" id="y6x-v1-iXU"/>
             </constraints>
             <point key="canvasLocation" x="-142.02898550724638" y="81.696428571428569"/>
         </view>
@@ -436,8 +401,6 @@ deutschen SAP Anwendergruppe</string>
         </designable>
     </designables>
     <resources>
-        <image name="Corona-Warn-App" width="121" height="40"/>
-        <image name="Icons - Close - Contrast" width="30" height="30"/>
         <namedColor name="ENA Background Color">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

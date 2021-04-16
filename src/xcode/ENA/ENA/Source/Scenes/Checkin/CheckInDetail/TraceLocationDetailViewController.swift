@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-class TraceLocationDetailViewController: UIViewController {
+class TraceLocationDetailViewController: UIViewController, UIScrollViewDelegate {
 
 	// MARK: - Init
 
@@ -28,12 +28,25 @@ class TraceLocationDetailViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
+		
 		setupView()
+		setupBannerView()
 		setupLabels()
 		setupPicker()
 		setupAdditionalInfoView()
 		setupViewModel()
+	}
+	
+	override func viewDidLayoutSubviews() {
+		super.viewDidLayoutSubviews()
+		scrollView.scrollIndicatorInsets.top = bannerView.bounds.height
+	}
+
+	// MARK: - Protocol UIScrollViewDelegate
+
+	func scrollViewDidScroll(_ scrollView: UIScrollView) {
+		let alpha = (scrollView.adjustedContentInset.top + scrollView.contentOffset.y) / 32
+		blurView.alpha = max(0, min(alpha, 1)) / 1
 	}
 	
 	// MARK: - Private
@@ -41,11 +54,13 @@ class TraceLocationDetailViewController: UIViewController {
 	private let viewModel: TraceLocationDetailViewModel
 	private let dismiss: () -> Void
 
+	private var bannerView: UIView!
+	private var blurView: UIVisualEffectView!
 	private var subscriptions = Set<AnyCancellable>()
 
+	@IBOutlet private weak var scrollView: UIScrollView!
 	@IBOutlet private weak var bottomCardView: UIView!
 	@IBOutlet private weak var descriptionView: UIView!
-	@IBOutlet private weak var logoImageView: UIImageView!
 	@IBOutlet private weak var checkInForLabel: ENALabel!
 	@IBOutlet private weak var activityLabel: ENALabel!
 	@IBOutlet private weak var descriptionLabel: ENALabel!
@@ -60,7 +75,6 @@ class TraceLocationDetailViewController: UIViewController {
 	@IBOutlet private weak var additionalInfoLabel: ENALabel!
 	@IBOutlet private weak var pickerSwitch: ENASwitch!
 	@IBOutlet private weak var checkInButton: ENAButton!
-	@IBOutlet private weak var closeButton: UIButton!
 	
 	private func setupViewModel() {
 		viewModel.$duration
@@ -71,20 +85,57 @@ class TraceLocationDetailViewController: UIViewController {
 			}
 			.store(in: &subscriptions)
 	}
+	
+	private func setupBannerView() {
+		
+		bannerView = UIView()
+		bannerView.translatesAutoresizingMaskIntoConstraints = false
+		view.addSubview(bannerView)
+		
+		let blurEffect = UIBlurEffect(style: .light)
+		blurView = UIVisualEffectView(effect: blurEffect)
+		blurView.translatesAutoresizingMaskIntoConstraints = false
+		bannerView.addSubview(blurView)
+		
+		let gradientNavigationView = GradientNavigationView(
+			didTapCloseButton: { [weak self] in
+				self?.dismiss()
+			}
+		)
+		gradientNavigationView.translatesAutoresizingMaskIntoConstraints = false
+		bannerView.addSubview(gradientNavigationView)
+		
+		NSLayoutConstraint.activate([
+			
+			bannerView.topAnchor.constraint(equalTo: view.topAnchor),
+			bannerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+			bannerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+			bannerView.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor),
+			
+			blurView.topAnchor.constraint(equalTo: bannerView.topAnchor),
+			blurView.leadingAnchor.constraint(equalTo: bannerView.leadingAnchor),
+			blurView.trailingAnchor.constraint(equalTo: bannerView.trailingAnchor),
+			blurView.bottomAnchor.constraint(equalTo: bannerView.bottomAnchor),
+			
+			gradientNavigationView.topAnchor.constraint(equalTo: bannerView.topAnchor, constant: 24.0),
+			gradientNavigationView.leadingAnchor.constraint(equalTo: bannerView.leadingAnchor, constant: 16.0),
+			gradientNavigationView.trailingAnchor.constraint(equalTo: bannerView.trailingAnchor, constant: -16.0),
+			gradientNavigationView.bottomAnchor.constraint(equalTo: bannerView.bottomAnchor, constant: -16.0)
+		])
+		
+		scrollViewDidScroll(scrollView)
+	}
 
 	private func setupView() {
 		view.backgroundColor = .enaColor(for: .backgroundLightGray)
+		scrollView.delegate = self
 		pickerButton.setTitleColor(.enaColor(for: .textPrimary1), for: .normal)
-		logoImageView.image = logoImageView.image?.withRenderingMode(.alwaysTemplate)
-		logoImageView.tintColor = .enaColor(for: .textContrast)
 		pickerSwitch.setOn(viewModel.shouldSaveToContactJournal, animated: false)
 		addBorderAndColorToView(descriptionView, color: .enaColor(for: .hairline))
 		addBorderAndColorToView(bottomCardView, color: .enaColor(for: .hairline))
 		addBorderAndColorToView(additionalInfoView, color: .enaColor(for: .hairline))
 		checkInButton.setTitle(AppStrings.Checkins.Details.checkInButton, for: .normal)
 		checkInButton.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Details.checkInButton
-		closeButton.accessibilityLabel = AppStrings.AccessibilityLabel.close
-		closeButton.accessibilityIdentifier = AccessibilityIdentifiers.AccessibilityLabel.close
 	}
 	
 	private func setupLabels() {
@@ -144,7 +195,8 @@ class TraceLocationDetailViewController: UIViewController {
 		dismiss()
 	}
 	
-	@IBAction private func cancelButtonPressed(_ sender: Any) {
+	@objc
+	private func cancelButtonPressed(_ sender: Any) {
 		dismiss()
 	}
 	
