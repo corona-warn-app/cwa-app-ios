@@ -41,6 +41,9 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 		parent?.navigationItem.title = AppStrings.Checkins.Overview.title
 		updateRightBarButtonItem(isEditing: false)
 
+		tableView.reloadData()
+		updateEmptyState()
+
 		viewModel.onUpdate = { [weak self] in
 			self?.animateChanges()
 		}
