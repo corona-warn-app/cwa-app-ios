@@ -587,7 +587,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				if selectedSymptomsOption != .yes {
 					Analytics.collect(.keySubmissionMetadata(.submittedAfterSymptomFlow(true)))
 				}
-				self.model.shouldShowSymptomsOnsetScreen ? self.showSymptomsOnsetScreen() : self.submitExposureAndDismiss(isLoading: isLoading)
+				self.model.shouldShowSymptomsOnsetScreen ? self.showSymptomsOnsetScreen() : self.submitExposure(showSubmissionSuccess: true, isLoading: isLoading)
 			},
 			onDismiss: { [weak self] isLoading in
 				self?.showSubmissionSymptomsCancelAlert(isLoading: isLoading)
@@ -619,7 +619,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				self?.model.symptomsOnsetOptionSelected(selectedSymptomsOnsetOption)
 				// setting it to true regardless of the options selected
 				Analytics.collect(.keySubmissionMetadata(.submittedAfterSymptomFlow(true)))
-				self?.submitExposureAndDismiss(isLoading: isLoading)
+				self?.submitExposure(showSubmissionSuccess: true, isLoading: isLoading)
 			},
 			onDismiss: { [weak self] isLoading in
 				self?.showSubmissionSymptomsCancelAlert(isLoading: isLoading)
@@ -700,7 +700,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			handler: { [weak self] _ in
 				if isSubmissionConsentGiven {
 					Analytics.collect(.keySubmissionMetadata(.submittedAfterCancel(true)))
-					self?.submitExposureAndDismiss(isLoading: isLoading)
+					self?.submitExposure(showSubmissionSuccess: false, isLoading: isLoading)
 				} else {
 					self?.dismiss()
 				}
@@ -751,7 +751,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				style: .cancel,
 				handler: { [weak self] _ in
 					Analytics.collect(.keySubmissionMetadata(.submittedAfterCancel(true)))
-					self?.submitExposureAndDismiss(isLoading: isLoading)
+					self?.submitExposure(showSubmissionSuccess: false, isLoading: isLoading)
 				}
 			)
 		)
@@ -779,7 +779,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				style: .cancel,
 				handler: { [weak self] _ in
 					Analytics.collect(.keySubmissionMetadata(.submittedAfterCancel(true)))
-					self?.submitExposureAndDismiss(isLoading: isLoading)
+					self?.submitExposure(showSubmissionSuccess: false, isLoading: isLoading)
 				}
 			)
 		)
@@ -935,11 +935,15 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		)
 	}
 	
-	private func submitExposureAndDismiss(isLoading: @escaping (Bool) -> Void) {
+	private func submitExposure(showSubmissionSuccess: Bool = false, isLoading: @escaping (Bool) -> Void) {
 		self.model.submitExposure(
 			isLoading: isLoading,
 			onSuccess: { [weak self] in
-				self?.showExposureSubmissionSuccessViewController()
+				if showSubmissionSuccess {
+					self?.showExposureSubmissionSuccessViewController()
+				} else {
+					self?.dismiss()
+				}
 			},
 			onError: { [weak self] error in
 				// reset all the values taken during the submission flow because submission failed
