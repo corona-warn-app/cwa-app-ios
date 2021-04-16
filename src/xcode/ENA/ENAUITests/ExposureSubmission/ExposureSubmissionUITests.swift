@@ -43,7 +43,6 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		// Open Intro screen.
 		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .long))
 		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].tap()
-		XCTAssertTrue(app.staticTexts["AppStrings.ExposureSubmissionDispatch.description"].waitForExistence(timeout: .medium))
 
 		// Select hotline button.
 		XCTAssertTrue(app

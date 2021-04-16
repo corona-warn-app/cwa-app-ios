@@ -4,7 +4,7 @@
 
 import Foundation
 
-enum CoronaTestType: CaseIterable {
+enum CoronaTestType: Int, CaseIterable {
 	case pcr
 	case antigen
 }
@@ -101,6 +101,15 @@ enum CoronaTest: Equatable {
 			return .pcr
 		case .antigen:
 			return .antigen
+		}
+	}
+
+	var protobufType: SAP_Internal_SubmissionPayload.SubmissionType {
+		switch self {
+		case .pcr:
+			return .pcrTest
+		case .antigen:
+			return .rapidTest
 		}
 	}
 

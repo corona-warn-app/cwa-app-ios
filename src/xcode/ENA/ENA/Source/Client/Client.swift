@@ -209,11 +209,12 @@ struct CountrySubmissionPayload {
 	/// the list of countries to check for any exposures
 	let visitedCountries: [Country]
 
-	/// List of  attended events
 	let checkins: [SAP_Internal_Pt_CheckIn]
 
 	/// a transaction number
 	let tan: String
+
+	let submissionType: SAP_Internal_SubmissionPayload.SubmissionType
 }
 
 struct DaysResult {

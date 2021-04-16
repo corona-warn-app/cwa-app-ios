@@ -30,20 +30,13 @@ class ExposureSubmissionIntroViewModel {
 		return DynamicTableViewModel.with {
 			$0.add(.section(
 				header: .image(
-					UIImage(named: "Illu_Submission_Funktion1"),
+					UIImage(named: "Illu_Test_registration"),
 					accessibilityLabel: AppStrings.ExposureSubmissionDispatch.accImageDescription,
 					accessibilityIdentifier: AccessibilityIdentifiers.General.image,
 					height: 200
 				),
 				separators: .none,
-				cells: [
-					.body(
-						text: AppStrings.ExposureSubmissionDispatch.description,
-						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.description),
-					.title2(
-						text: AppStrings.ExposureSubmissionDispatch.sectionHeadline,
-						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.sectionHeadline)
-				]
+				cells: []
 			))
 			$0.add(.section(cells: [
 				.imageCard(

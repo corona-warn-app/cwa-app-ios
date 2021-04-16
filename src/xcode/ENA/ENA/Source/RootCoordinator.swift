@@ -108,10 +108,9 @@ class RootCoordinator: RequiresAppDependencies {
 		viewController.embedViewController(childViewController: tabBarController)
 	}
 
-	func showTestResultFromNotification(with result: TestResult) {
-		homeCoordinator?.showTestResultFromNotification(with: result)
+	func showTestResultFromNotification(with testType: CoronaTestType) {
+		homeCoordinator?.showTestResultFromNotification(with: testType)
 	}
-	
 	
 	func showOnboarding() {
 		let onboardingVC = OnboardingInfoViewController(
