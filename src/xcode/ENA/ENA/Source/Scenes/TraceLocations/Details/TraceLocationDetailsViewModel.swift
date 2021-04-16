@@ -65,7 +65,7 @@ class TraceLocationDetailsViewModel {
 	}
 
 	func fetchQRCodePosterTemplateData(completion: @escaping QRCodePosterTemplateCompletionHandler) {
-		qrCodePosterTemplateProvider.latestQRCodePosterTemplate()
+		qrCodePosterTemplateProvider.latestQRCodePosterTemplate(with: store.qrCodePosterTemplateMetadata?.lastQRCodePosterTemplateETag)
 			.sink(
 				receiveCompletion: { result in
 					switch result {
