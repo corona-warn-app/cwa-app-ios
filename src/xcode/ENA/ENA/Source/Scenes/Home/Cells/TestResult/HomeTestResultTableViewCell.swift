@@ -123,7 +123,6 @@ final class HomeTestResultTableViewCell: UITableViewCell {
 	private var onPrimaryAction: (() -> Void)?
 
 	private func setup() {
-		subtitleLabel.textColor = tintColor
 		updateIllustration(for: traitCollection)
 
 		negativeDiagnosisCaptionLabel.text = AppStrings.Home.TestResult.Negative.caption
