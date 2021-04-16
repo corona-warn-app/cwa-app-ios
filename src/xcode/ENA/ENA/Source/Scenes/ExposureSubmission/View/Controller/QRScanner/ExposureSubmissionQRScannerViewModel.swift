@@ -176,8 +176,10 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 		// specific checks based on test type
 		if urlComponents.host?.lowercased() == "localhost" {
 			return pcrTestInformation(from: input, urlComponents: urlComponents)
-		} else if urlComponents.host?.lowercased() == "s.coronawarn.app" {
-			return antigenTestInformation(from: input, urlComponents: urlComponents)
+		} else if let route = Route(input),
+				  case .rapidAntigen(let testInformationResult) = route,
+				  case let .success(testInformation) = testInformationResult {
+			return testInformation
 		} else {
 			return nil
 		}
@@ -201,33 +203,5 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 		}
 		return matchings.isEmpty ? nil : .pcr(candidate)
 	}
-	
-	private func antigenTestInformation(from guidURL: String, urlComponents: URLComponents) -> CoronaTestQRCodeInformation? {
-		guard let payloadUrl = urlComponents.fragment,
-			  let candidate = urlComponents.query,
-			  candidate.count == 3 else {
-			return nil
-		}
-		
-		// extract payload
-		guard let testInformation = AntigenTestInformation(payload: payloadUrl),
-			  testInformation.guid.range(
-				of: #"^[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}$"#,
-				options: .regularExpression
-			  ) != nil,
-			  testInformation.guid.count == 36,
-			  testInformation.timestamp >= 0
-		else {
-			return nil
-		}
-		// Check in case the dateOfBirth is available, that it is in the correct format
-		if let dateOfBirth = testInformation.dateOfBirth {
-			let dateFormatter = DateFormatter()
-			dateFormatter.dateFormat = "yyyy-MM-dd"
-			guard dateFormatter.date(from: dateOfBirth) != nil else {
-				return nil
-			}
-		}
-		return .antigen(testInformation)
-	}
+
 }
