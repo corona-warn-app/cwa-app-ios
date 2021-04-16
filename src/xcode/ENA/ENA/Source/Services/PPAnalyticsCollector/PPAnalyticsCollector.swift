@@ -335,7 +335,7 @@ enum PPAnalyticsCollector {
 			return
 		}
 		if let mostRecentRiskCalculationDate = store?.enfRiskCalculationResult?.mostRecentDateWithCurrentRiskLevel {
-			let daysSinceMostRecentDateAtRiskLevelAtTestRegistration = Calendar.current.dateComponents([.day], from: mostRecentRiskCalculationDate, to: registrationDate).day
+			let daysSinceMostRecentDateAtRiskLevelAtTestRegistration = Calendar.utcCalendar.dateComponents([.day], from: mostRecentRiskCalculationDate, to: registrationDate).day
 			store?.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = Int32(daysSinceMostRecentDateAtRiskLevelAtTestRegistration ?? -1)
 		} else {
 			store?.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = -1
