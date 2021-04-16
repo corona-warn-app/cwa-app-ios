@@ -98,6 +98,7 @@ class HomeTestResultCellModel {
 	@OpenCombine.Published var isNegativeDiagnosisHidden: Bool = true
 	@OpenCombine.Published var isActivityIndicatorHidden: Bool = false
 	@OpenCombine.Published var isUserInteractionEnabled: Bool = false
+	@OpenCombine.Published var isCellTappable: Bool = true
 	@OpenCombine.Published var accessibilityIdentifier: String! = AccessibilityIdentifiers.Home.submitCardButton
 
 	// MARK: - Private
@@ -161,6 +162,7 @@ class HomeTestResultCellModel {
 		isNegativeDiagnosisHidden = false
 		isActivityIndicatorHidden = true
 		isUserInteractionEnabled = true
+		isCellTappable = true
 		accessibilityIdentifier = AccessibilityIdentifiers.Home.submitCardButton
 	}
 
@@ -173,6 +175,7 @@ class HomeTestResultCellModel {
 		isNegativeDiagnosisHidden = true
 		isActivityIndicatorHidden = true
 		isUserInteractionEnabled = true
+		isCellTappable = true
 		accessibilityIdentifier = AccessibilityIdentifiers.Home.submitCardButton
 	}
 
@@ -193,6 +196,7 @@ class HomeTestResultCellModel {
 		isNegativeDiagnosisHidden = true
 		isActivityIndicatorHidden = true
 		isUserInteractionEnabled = true
+		isCellTappable = true
 		accessibilityIdentifier = AccessibilityIdentifiers.Home.submitCardButton
 	}
 
@@ -206,6 +210,7 @@ class HomeTestResultCellModel {
 		isNegativeDiagnosisHidden = true
 		isActivityIndicatorHidden = true
 		isUserInteractionEnabled = true
+		isCellTappable = true
 		accessibilityIdentifier = AccessibilityIdentifiers.Home.submitCardButton
 	}
 
@@ -219,6 +224,7 @@ class HomeTestResultCellModel {
 		isNegativeDiagnosisHidden = true
 		isActivityIndicatorHidden = true
 		isUserInteractionEnabled = true
+		isCellTappable = true
 		accessibilityIdentifier = AccessibilityIdentifiers.Home.submitCardButton
 	}
 
@@ -232,6 +238,7 @@ class HomeTestResultCellModel {
 		isNegativeDiagnosisHidden = true
 		isActivityIndicatorHidden = true
 		isUserInteractionEnabled = true
+		isCellTappable = false
 		accessibilityIdentifier = AccessibilityIdentifiers.Home.submitCardButton
 	}
 
@@ -245,6 +252,7 @@ class HomeTestResultCellModel {
 		isNegativeDiagnosisHidden = true
 		isActivityIndicatorHidden = false
 		isUserInteractionEnabled = false
+		isCellTappable = true
 		accessibilityIdentifier = AccessibilityIdentifiers.Home.submitCardButton
 	}
 

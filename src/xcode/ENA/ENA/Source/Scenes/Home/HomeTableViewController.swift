@@ -435,7 +435,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		cell.configure(
 			with: cellModel,
 			onPrimaryAction: { [weak self] in
-				self?.viewModel.didTapTestResultCell(coronaTestType: coronaTestType)
+				self?.viewModel.didTapTestResultButton(coronaTestType: coronaTestType)
 			}
 		)
 
@@ -478,7 +478,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		cell.configure(
 			with: cellModel,
 			onPrimaryAction: { [weak self] in
-				self?.viewModel.didTapTestResultCell(coronaTestType: coronaTestType)
+				self?.viewModel.didTapTestResultButton(coronaTestType: coronaTestType)
 			}
 		)
 

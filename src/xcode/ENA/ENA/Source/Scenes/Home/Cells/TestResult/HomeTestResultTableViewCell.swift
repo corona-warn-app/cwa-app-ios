@@ -25,6 +25,10 @@ final class HomeTestResultTableViewCell: UITableViewCell {
 	override func setHighlighted(_ highlighted: Bool, animated: Bool) {
 		super.setHighlighted(highlighted, animated: animated)
 
+		guard cellModel.isCellTappable else {
+			return
+		}
+
 		cardView.setHighlighted(highlighted, animated: animated)
 	}
 
@@ -98,7 +102,6 @@ final class HomeTestResultTableViewCell: UITableViewCell {
 
 		self.onPrimaryAction = onPrimaryAction
 
-		// Retaining cell model so it gets updated
 		self.cellModel = cellModel
 	}
 
@@ -123,7 +126,7 @@ final class HomeTestResultTableViewCell: UITableViewCell {
 	@IBOutlet private weak var button: ENAButton!
 
 	private var subscriptions = Set<AnyCancellable>()
-	private var cellModel: HomeTestResultCellModel?
+	private var cellModel: HomeTestResultCellModel!
 
 	private var onPrimaryAction: (() -> Void)?
 
