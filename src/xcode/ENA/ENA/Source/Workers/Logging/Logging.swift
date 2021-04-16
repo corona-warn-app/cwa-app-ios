@@ -45,14 +45,17 @@ extension OSLog {
 /// Log.info("something broke", log: .api)
 /// Log.warning("validation failed", log: .crypto)
 /// Log.error("my hovercraft is full of eels", log: .ui)
+///
+/// ```
+///
+/// Usage for sensitive logging data:
+/// ```
+/// Log.debug("some key \(private: "some sensitive values")")
+///
 /// ```
 enum Log {
 
-	#if !RELEASE
-
 	private static let fileLogger = FileLogger()
-
-	#endif
 
 	static func debug(_ message: String, log: OSLog = .default, file: String = #fileID, line: Int = #line, function: String = #function) {
         Self.log(message: message, type: .debug, log: log, error: nil, file: file, line: line, function: function)
@@ -71,21 +74,17 @@ enum Log {
     }
 
 	private static func log(message: String, type: OSLogType, log: OSLog, error: Error?, file: String, line: Int, function: String) {
-		#if !RELEASE
 		// Console logging
 		let meta: String = "[\(file):\(line)] [\(function)]"
 
 		// obviously we have to disable swiftline here:
 		// swiftlint:disable:next no_direct_oslog
-		os_log("%{private}@ %{private}@", log: log, type: type, meta, message)
+		os_log("%{public}@ %{public}@", log: log, type: type, meta, message)
 
 		// Save logs to File. This is used for viewing and exporting logs from debug menu.
 		fileLogger.log(message, logType: type, file: file, line: line, function: function)
-		#endif
 	}
 }
-
-#if !RELEASE
 
 extension OSLogType {
 
@@ -253,5 +252,3 @@ struct FileLogger {
 		}
 	}
 }
-
-#endif
