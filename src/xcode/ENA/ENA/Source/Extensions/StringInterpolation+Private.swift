@@ -5,31 +5,12 @@
 import Foundation
 	
 extension String.StringInterpolation {
-	mutating func appendInterpolation<T>(private🤫 value: T) {
+	mutating func appendInterpolation<T>(private value: T) {
 		
-		#if !DEBUG
-			appendLiteral(value)
+		#if DEBUG
+			appendLiteral(String(describing: value))
 		#else
 			appendLiteral("🙈🙉🙊")
 		#endif
 	}
-}
-
-extension CustomStringConvertible {
-
-	var 🤫: String {
-		#if !DEBUG
-			return ""
-		#else
-			return "🙈🙉🙊"
-		#endif
-	}
-}
-
-func 🤫(_ any: Any) -> Any {
-	#if !DEBUG
-		return any
-	#else
-		return "🙈🙉🙊"
-	#endif
 }
