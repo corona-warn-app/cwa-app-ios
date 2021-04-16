@@ -49,11 +49,15 @@ class HomeTestResultCellModel {
 			coronaTestService.$antigenTest
 				.receive(on: DispatchQueue.OCombine(.main))
 				.sink { [weak self] antigenTest in
-					guard let antigenTest = antigenTest else {
+					guard
+						let self = self,
+						let antigenTest = antigenTest,
+						!self.coronaTestService.antigenTestIsOutdated
+					else {
 						return
 					}
 
-					self?.configure(for: antigenTest.testResult)
+					self.configure(for: antigenTest.testResult)
 					onUpdate()
 				}
 				.store(in: &subscriptions)
@@ -65,6 +69,18 @@ class HomeTestResultCellModel {
 						self?.configureLoading()
 						onUpdate()
 					}
+				}
+				.store(in: &subscriptions)
+
+			coronaTestService.$antigenTestIsOutdated
+				.receive(on: DispatchQueue.OCombine(.main))
+				.sink { [weak self] antigenTestIsOutdated in
+					guard antigenTestIsOutdated else {
+						return
+					}
+
+					self?.configureTestResultOutdated()
+					onUpdate()
 				}
 				.store(in: &subscriptions)
 		}

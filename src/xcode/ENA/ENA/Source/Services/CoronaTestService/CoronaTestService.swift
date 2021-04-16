@@ -28,10 +28,12 @@ class CoronaTestService {
 	init(
 		client: Client,
 		store: CoronaTestStoring & CoronaTestStoringLegacy & WarnOthersTimeIntervalStoring,
+		appConfiguration: AppConfigurationProviding,
 		notificationCenter: UserNotificationCenter = UNUserNotificationCenter.current()
 	) {
 		self.client = client
 		self.store = store
+		self.appConfiguration = appConfiguration
 		self.notificationCenter = notificationCenter
 
 		self.fakeRequestService = FakeRequestService(client: client)
@@ -56,6 +58,13 @@ class CoronaTestService {
 				if antigenTest?.keysSubmitted == true {
 					self?.warnOthersReminder.cancelNotifications(for: .antigen)
 				}
+
+				if let antigenTest = antigenTest {
+					self?.setupOutdatedPublisher(for: antigenTest)
+				} else {
+					self?.antigenTestIsOutdated = false
+					self?.antigenTestOutdatedDate = nil
+				}
 			}
 			.store(in: &subscriptions)
 	}
@@ -64,6 +73,8 @@ class CoronaTestService {
 
 	@OpenCombine.Published var pcrTest: PCRTest?
 	@OpenCombine.Published var antigenTest: AntigenTest?
+
+	@OpenCombine.Published var antigenTestIsOutdated: Bool = false
 
 	@OpenCombine.Published var pcrTestResultIsLoading: Bool = false
 	@OpenCombine.Published var antigenTestResultIsLoading: Bool = false
@@ -403,10 +414,14 @@ class CoronaTestService {
 
 	private let client: Client
 	private var store: CoronaTestStoring & CoronaTestStoringLegacy
+	private let appConfiguration: AppConfigurationProviding
 	private let notificationCenter: UserNotificationCenter
 
 	private let fakeRequestService: FakeRequestService
 	private let warnOthersReminder: WarnOthersReminder
+
+	private var outdatedStateTimer: Timer?
+	private var antigenTestOutdatedDate: Date?
 
 	private var subscriptions = Set<AnyCancellable>()
 
@@ -525,4 +540,65 @@ class CoronaTestService {
 		}
 	}
 
+	private func setupOutdatedPublisher(for antigenTest: AntigenTest) {
+		appConfiguration.appConfiguration()
+			.sink {
+				let hoursToDeemTestOutdated = $0.coronaTestParameters.coronaRapidAntigenTestParameters.hoursToDeemTestOutdated
+				guard
+					hoursToDeemTestOutdated != 0,
+					let outdatedDate = Calendar.current.date(byAdding: .hour, value: Int(hoursToDeemTestOutdated), to: antigenTest.pointOfCareConsentDate)
+				else {
+					return
+				}
+
+				if Date() >= outdatedDate {
+					self.antigenTestIsOutdated = true
+				} else {
+					self.antigenTestOutdatedDate = outdatedDate
+					self.scheduleOutdatedStateTimer()
+				}
+			}
+			.store(in: &subscriptions)
+	}
+
+	private func scheduleOutdatedStateTimer() {
+		outdatedStateTimer?.invalidate()
+		NotificationCenter.default.removeObserver(self, name: UIApplication.didEnterBackgroundNotification, object: nil)
+		NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
+
+		guard let antigenTestOutdatedDate = antigenTestOutdatedDate else {
+			return
+		}
+
+		// Schedule new timer.
+		NotificationCenter.default.addObserver(self, selector: #selector(invalidateTimer), name: UIApplication.didEnterBackgroundNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(refreshUpdateTimerAfterResumingFromBackground), name: UIApplication.didBecomeActiveNotification, object: nil)
+
+		outdatedStateTimer = Timer(fireAt: antigenTestOutdatedDate, interval: 0, target: self, selector: #selector(updateFromTimer), userInfo: nil, repeats: false)
+
+		guard let outdatedStateTimer = outdatedStateTimer else { return }
+		RunLoop.current.add(outdatedStateTimer, forMode: .common)
+	}
+
+	@objc
+	func invalidateTimer() {
+		outdatedStateTimer?.invalidate()
+	}
+
+	@objc
+	private func refreshUpdateTimerAfterResumingFromBackground() {
+		updateFromTimer()
+		scheduleOutdatedStateTimer()
+	}
+
+	@objc
+	private func updateFromTimer() {
+		guard let antigenTestOutdatedDate = antigenTestOutdatedDate else {
+			return
+		}
+
+		antigenTestIsOutdated = Date() >= antigenTestOutdatedDate
+	}
+
+	// swiftlint:disable:next file_length
 }
