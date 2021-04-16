@@ -330,11 +330,16 @@ enum PPAnalyticsCollector {
 	}
 
 	private static func setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration() {
-		guard let numberOfDaysWithCurrentRiskLevel = store?.enfRiskCalculationResult?.numberOfDaysWithCurrentRiskLevel  else {
-			Log.warning("Could not log daysSinceMostRecentDateAtRiskLevelAtTestRegistration due to numberOfDaysWithCurrentRiskLevel is nil", log: .ppa)
+		guard let registrationDate = store?.testRegistrationDate else {
+			store?.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = -1
 			return
 		}
-		store?.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = Int32(numberOfDaysWithCurrentRiskLevel)
+		if let mostRecentRiskCalculationDate = store?.enfRiskCalculationResult?.mostRecentDateWithCurrentRiskLevel {
+			let daysSinceMostRecentDateAtRiskLevelAtTestRegistration = Calendar.utcCalendar.dateComponents([.day], from: mostRecentRiskCalculationDate, to: registrationDate).day
+			store?.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = Int32(daysSinceMostRecentDateAtRiskLevelAtTestRegistration ?? -1)
+		} else {
+			store?.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = -1
+		}
 	}
 
 	private static func setHoursSinceHighRiskWarningAtTestRegistration() {
