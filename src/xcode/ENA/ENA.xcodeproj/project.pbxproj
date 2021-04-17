@@ -5807,6 +5807,17 @@
 			path = UpdateOS;
 			sourceTree = "<group>";
 		};
+		EB3B34A2262B1BBE00B1801E /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				EB67B5E6262AD6A100218EC7 /* ExposureSubmissionCheckinTableViewCell.swift */,
+				EB67B5EE262AD6D300218EC7 /* ExposureSubmissionCheckinCellModel.swift */,
+				EB3B3498262B109E00B1801E /* ExposureSubmissionCheckinDescriptionTableViewCell.swift */,
+				EB3B349D262B10B900B1801E /* ExposureSubmissionCheckinDescriptionCellModel.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		EB41DC0624E53D3F0029C6F7 /* BackgroundAppRefresh */ = {
 			isa = PBXGroup;
 			children = (
@@ -5847,10 +5858,7 @@
 			children = (
 				EB67B5DA262AD48F00218EC7 /* ExposureSubmissionCheckinsViewController.swift */,
 				EB67B5E0262AD4A800218EC7 /* ExposureSubmissionCheckinsViewModel.swift */,
-				EB67B5E6262AD6A100218EC7 /* ExposureSubmissionCheckinTableViewCell.swift */,
-				EB67B5EE262AD6D300218EC7 /* ExposureSubmissionCheckinCellModel.swift */,
-				EB3B3498262B109E00B1801E /* ExposureSubmissionCheckinDescriptionTableViewCell.swift */,
-				EB3B349D262B10B900B1801E /* ExposureSubmissionCheckinDescriptionCellModel.swift */,
+				EB3B34A2262B1BBE00B1801E /* Cells */,
 			);
 			path = ExposureSubmissionCheckins;
 			sourceTree = "<group>";
