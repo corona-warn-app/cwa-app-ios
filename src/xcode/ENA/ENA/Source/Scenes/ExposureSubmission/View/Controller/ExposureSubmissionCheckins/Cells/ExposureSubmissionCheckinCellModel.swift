@@ -42,11 +42,13 @@ class ExposureSubmissionCheckinCellModel {
 	var selected: Bool = false {
 		didSet {
 			checkmarkImage = selected ? UIImage(named: "Checkin_Checkmark_Selected") : UIImage(named: "Checkin_Checkmark_Unselected")
+			a11yTraits = selected ? [.button, .selected] : [.button]
 		}
 	}
 	
 	@OpenCombine.Published var checkmarkImage = UIImage(named: "Checkin_Checkmark_Unselected")
-	
+	@OpenCombine.Published var a11yTraits: UIAccessibilityTraits = [.button]
+
 	// MARK: - Private
 
 }
