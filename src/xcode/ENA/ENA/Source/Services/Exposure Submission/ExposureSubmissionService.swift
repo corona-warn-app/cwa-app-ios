@@ -148,8 +148,8 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			return
 		}
 
-		guard !keys.isEmpty else {
-			Log.info("Cancelled submission: No temporary exposure keys to submit.", log: .api)
+		guard !keys.isEmpty || !checkins.isEmpty else {
+			Log.info("Cancelled submission: No temporary exposure keys or checkins to submit.", log: .api)
 			completion(.noKeysCollected)
 
 			// We perform a cleanup in order to set the correct
