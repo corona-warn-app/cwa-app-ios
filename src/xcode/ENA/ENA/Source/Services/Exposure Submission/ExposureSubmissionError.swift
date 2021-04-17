@@ -10,7 +10,7 @@ enum ExposureSubmissionError: Error, Equatable {
 	case enNotEnabled
 	case notAuthorized
 
-	/// User has not granted acces to their keys
+	/// User has not granted access to their keys
 	case keysNotShared
 
 	/// Access to keys was granted but no keys were collected by the exposure notification framework

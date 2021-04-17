@@ -105,6 +105,8 @@ protocol StoreProtocol: AnyObject {
 	var isSubmissionConsentGiven: Bool { get set }
 
 	var submissionKeys: [SAP_External_Exposurenotification_TemporaryExposureKey]? { get set }
+	
+	var submissionCheckins: [Checkin] { get set }
 
 	var submissionCountries: [Country] { get set }
 
