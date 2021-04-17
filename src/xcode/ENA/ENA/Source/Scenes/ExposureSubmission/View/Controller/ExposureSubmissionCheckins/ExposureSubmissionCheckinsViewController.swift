@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import OpenCombine
 
 class ExposureSubmissionCheckinsViewController: UITableViewController, DismissHandling, FooterViewHandling {
 
@@ -34,6 +35,13 @@ class ExposureSubmissionCheckinsViewController: UITableViewController, DismissHa
 		
 		tableView.register(ExposureSubmissionCheckinTableViewCell.self, forCellReuseIdentifier: ExposureSubmissionCheckinTableViewCell.reuseIdentifier)
 		tableView.register(ExposureSubmissionCheckinDescriptionTableViewCell.self, forCellReuseIdentifier: ExposureSubmissionCheckinDescriptionTableViewCell.reuseIdentifier)
+		
+		viewModel.$continueEnabled
+			.receive(on: DispatchQueue.main.ocombine)
+			.sink { [weak self] in
+				self?.footerView?.setEnabled($0, button: .primary)
+			}
+			.store(in: &subscriptions)
 	}
 	
 	// MARK: - Protocol DismissHandling
@@ -116,7 +124,8 @@ class ExposureSubmissionCheckinsViewController: UITableViewController, DismissHa
 	private let onCompletion: ([Checkin]) -> Void
 	private let onSkip: () -> Void
 	private let onDismiss: () -> Void
-	
+	private var subscriptions: Set<AnyCancellable> = []
+
 	private func descriptionCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ExposureSubmissionCheckinDescriptionTableViewCell.self), for: indexPath) as? ExposureSubmissionCheckinDescriptionTableViewCell else {
 			fatalError("Could not dequeue ExposureSubmissionCheckinDescriptionTableViewCell")
