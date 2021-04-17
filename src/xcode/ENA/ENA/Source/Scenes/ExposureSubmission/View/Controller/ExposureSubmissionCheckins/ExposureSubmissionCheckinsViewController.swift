@@ -30,6 +30,8 @@ class ExposureSubmissionCheckinsViewController: UITableViewController, DismissHa
 		parent?.navigationItem.hidesBackButton = true
 		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 		
+		tableView.separatorStyle = .none
+		
 		tableView.register(ExposureSubmissionCheckinTableViewCell.self, forCellReuseIdentifier: ExposureSubmissionCheckinTableViewCell.reuseIdentifier)
 		tableView.register(ExposureSubmissionCheckinDescriptionTableViewCell.self, forCellReuseIdentifier: ExposureSubmissionCheckinDescriptionTableViewCell.reuseIdentifier)
 	}
@@ -81,6 +83,7 @@ class ExposureSubmissionCheckinsViewController: UITableViewController, DismissHa
 		}
 		
 		let selectAllButton = UIButton()
+		selectAllButton.backgroundColor = .enaColor(for: .background)
 		selectAllButton.contentHorizontalAlignment = .left
 		selectAllButton.contentEdgeInsets = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
 		selectAllButton.setTitleColor(.enaColor(for: .textTint), for: .normal)
@@ -96,7 +99,7 @@ class ExposureSubmissionCheckinsViewController: UITableViewController, DismissHa
 		case .description:
 			return
 		case .checkins:
-			// TODO do something on selection
+			viewModel.toogleSelection(at: indexPath.row)
 			return
 		default:
 			fatalError("Invalid section")

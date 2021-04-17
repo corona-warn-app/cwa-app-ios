@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import OpenCombine
 
 class ExposureSubmissionCheckinsViewModel {
 	
@@ -29,6 +30,7 @@ class ExposureSubmissionCheckinsViewModel {
 	
 	let title = AppStrings.ExposureSubmissionCheckins.title
 	let checkinCellModels: [ExposureSubmissionCheckinCellModel]
+	@OpenCombine.Published var continueEnabled: Bool = false
 	
 	var numberOfSections: Int {
 		Section.allCases.count
@@ -47,11 +49,20 @@ class ExposureSubmissionCheckinsViewModel {
 	
 	@objc
 	func selectAll() {
-		print("SELECT ALL!")
-		
+		checkinCellModels.forEach { $0.selected = true }
+		checkContinuePossible()
+	}
+	
+	func toogleSelection(at index: Int) {
+		checkinCellModels[index].selected.toggle()
+		checkContinuePossible()
 	}
 	
 	// MARK: - Private
+	
+	func checkContinuePossible() {
+		continueEnabled = checkinCellModels.contains(where: { $0.selected == true } )
+	}
 	
 	
 }

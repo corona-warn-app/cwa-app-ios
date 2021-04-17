@@ -23,7 +23,7 @@ class ExposureSubmissionCheckinCellModel {
 	
 	let checkin: Checkin
 	
-	var title: String {
+	var description: String {
 		checkin.traceLocationDescription
 	}
 
@@ -39,7 +39,13 @@ class ExposureSubmissionCheckinCellModel {
 		return dateFormatter.string(from: checkin.checkinStartDate, to: checkin.checkinEndDate)
 	}
 	
-	@OpenCombine.Published var selected: Bool = false
+	var selected: Bool = false {
+		didSet {
+			checkmarkImage = selected ? UIImage(named: "Diary_Checkmark_Selected") : UIImage(named: "Diary_Checkmark_Unselected")
+		}
+	}
+	
+	@OpenCombine.Published var checkmarkImage = UIImage(named: "Diary_Checkmark_Unselected")
 	
 	// MARK: - Private
 

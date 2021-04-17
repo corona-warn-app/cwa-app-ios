@@ -11,6 +11,9 @@ class ExposureSubmissionCheckinDescriptionTableViewCell: UITableViewCell, ReuseI
 	
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
+		
+		selectionStyle = .none
+
 		contentView.addSubview(descriptionLabel)
 		NSLayoutConstraint.activate([
 			descriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
