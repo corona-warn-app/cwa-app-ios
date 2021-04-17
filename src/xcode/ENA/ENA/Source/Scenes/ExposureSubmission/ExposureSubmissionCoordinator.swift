@@ -561,10 +561,9 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				showNextScreen()
 			},
 			onSkip: { [weak self] in
+				// TODO set checkins to zero
 				self?.showSkipCheckinsAlert(dontShareHandler: {
-					
 					showNextScreen()
-					
 				})
 			},
 			onDismiss: { [weak self] in

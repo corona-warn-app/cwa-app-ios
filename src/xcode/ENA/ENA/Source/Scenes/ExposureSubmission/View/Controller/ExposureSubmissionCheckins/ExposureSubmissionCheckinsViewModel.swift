@@ -4,7 +4,7 @@
 
 import Foundation
 
-struct ExposureSubmissionCheckinsViewModel {
+class ExposureSubmissionCheckinsViewModel {
 	
 	// MARK: - Init
 	
@@ -43,6 +43,12 @@ struct ExposureSubmissionCheckinsViewModel {
 		case .none:
 			fatalError("Invalid section")
 		}
+	}
+	
+	@objc
+	func selectAll() {
+		print("SELECT ALL!")
+		
 	}
 	
 	// MARK: - Private

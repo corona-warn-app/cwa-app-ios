@@ -4,7 +4,7 @@
 
 import UIKit
 
-class ExposureSubmissionCheckinTableViewCell: UITableViewCell {
+class ExposureSubmissionCheckinTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 
 	// MARK: - Init
 	

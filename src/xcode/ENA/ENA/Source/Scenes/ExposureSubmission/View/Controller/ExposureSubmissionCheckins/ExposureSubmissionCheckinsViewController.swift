@@ -29,6 +29,9 @@ class ExposureSubmissionCheckinsViewController: UITableViewController, DismissHa
 		self.title = viewModel.title
 		self.navigationItem.hidesBackButton = true
 		self.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
+		
+		tableView.register(ExposureSubmissionCheckinTableViewCell.self, forCellReuseIdentifier: ExposureSubmissionCheckinTableViewCell.reuseIdentifier)
+		tableView.register(ExposureSubmissionCheckinDescriptionTableViewCell.self, forCellReuseIdentifier: ExposureSubmissionCheckinDescriptionTableViewCell.reuseIdentifier)
 	}
 	
 	// MARK: - Protocol DismissHandling
@@ -50,7 +53,55 @@ class ExposureSubmissionCheckinsViewController: UITableViewController, DismissHa
 			onSkip()
 		}
 	}
+	
+	// MARK: - Protocol UITableViewDataSource
 
+	override func numberOfSections(in tableView: UITableView) -> Int {
+		return viewModel.numberOfSections
+	}
+
+	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		return viewModel.numberOfRows(in: section)
+	}
+
+	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		switch ExposureSubmissionCheckinsViewModel.Section(rawValue: indexPath.section) {
+		case .description:
+			return descriptionCell(forRowAt: indexPath)
+		case .checkins:
+			return checkinCell(forRowAt: indexPath)
+		default:
+			fatalError("Invalid section")
+		}
+	}
+
+	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+		guard ExposureSubmissionCheckinsViewModel.Section(rawValue: section) == .checkins else {
+			return UIView()
+		}
+		
+		let selectAllButton = UIButton()
+		selectAllButton.contentHorizontalAlignment = .left
+		selectAllButton.contentEdgeInsets = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
+		selectAllButton.setTitleColor(.enaColor(for: .textTint), for: .normal)
+		selectAllButton.setTitle(AppStrings.ExposureSubmissionCheckins.selectAll, for: .normal)
+		selectAllButton.addTarget(viewModel, action: #selector(viewModel.selectAll), for: .touchUpInside)
+		return selectAllButton
+	}
+
+	// MARK: - Protocol UITableViewDelegate
+	
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		switch ExposureSubmissionCheckinsViewModel.Section(rawValue: indexPath.section) {
+		case .description:
+			return
+		case .checkins:
+			// TODO do something on selection
+			return
+		default:
+			fatalError("Invalid section")
+		}
+	}
 	
 	// MARK: - Public
 	
@@ -63,4 +114,19 @@ class ExposureSubmissionCheckinsViewController: UITableViewController, DismissHa
 	private let onSkip: () -> Void
 	private let onDismiss: () -> Void
 	
+	private func descriptionCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ExposureSubmissionCheckinDescriptionTableViewCell.self), for: indexPath) as? ExposureSubmissionCheckinDescriptionTableViewCell else {
+			fatalError("Could not dequeue ExposureSubmissionCheckinDescriptionTableViewCell")
+		}
+		return cell
+	}
+	
+	private func checkinCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ExposureSubmissionCheckinTableViewCell.self), for: indexPath) as? ExposureSubmissionCheckinTableViewCell else {
+			fatalError("Could not dequeue ExposureSubmissionCheckinTableViewCell")
+		}
+		cell.configure(with: viewModel.checkinCellModels[indexPath.row])
+		return cell
+	}
+		
 }
