@@ -141,6 +141,12 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			completion(.noSubmissionConsent)
 			return
 		}
+		
+		guard warnOthersReminder.positiveTestResultWasShown else {
+			Log.info("Cancelled submission: User has never seen their positive test result", log: .api)
+			completion(.positiveTestResultNotShown)
+			return
+		}
 
 		guard let keys = temporaryExposureKeys else {
 			Log.info("Cancelled submission: No temporary exposure keys to submit.", log: .api)
