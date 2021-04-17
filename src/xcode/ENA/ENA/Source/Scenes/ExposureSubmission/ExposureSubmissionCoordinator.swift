@@ -47,6 +47,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		parentNavigationController: UINavigationController,
 		exposureSubmissionService: ExposureSubmissionService,
 		store: Store,
+		eventProvider: EventProviding,
 		delegate: ExposureSubmissionCoordinatorDelegate? = nil
 	) {
 		self.parentNavigationController = parentNavigationController
@@ -54,7 +55,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		self.warnOthersReminder = warnOthersReminder
 
 		super.init()
-		model = ExposureSubmissionCoordinatorModel(exposureSubmissionService: exposureSubmissionService)
+		model = ExposureSubmissionCoordinatorModel(exposureSubmissionService: exposureSubmissionService, eventProvider: eventProvider)
 	}
 
 	// MARK: - Protocol ExposureSubmissionCoordinating
@@ -228,7 +229,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 					isLoading(false)
 
 					guard let error = error else {
-						self.showTestResultScreen(with: testResult)
+						self.showCheckinsScreen(testResult: testResult)
 						return
 					}
 
@@ -527,6 +528,21 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 			)
 		)
 
+		push(vc)
+	}
+	
+	private func showCheckinsScreen(testResult: TestResult) {
+		let vc = ExposureSubmissionCheckinsViewController(
+			checkins: model.eventProvider.checkinsPublisher.value,
+			onCompletion: { selectedCheckins in
+				// Do something with the selected Checkins
+				self.showTestResultScreen(with: testResult)
+			},
+			onDismiss: { [weak self] in
+				self?.showTestResultAvailableCloseAlert()
+			}
+		)
+		
 		push(vc)
 	}
 

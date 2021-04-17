@@ -27,7 +27,7 @@ struct ExposureSubmissionCheckinsViewModel {
 		case checkins
 	}
 	
-	let title = AppStrings.ExposureSubmissionCheckinSelection.title
+	let title = AppStrings.ExposureSubmissionCheckins.title
 	let checkinCellModels: [ExposureSubmissionCheckinCellModel]
 	
 	var numberOfSections: Int {

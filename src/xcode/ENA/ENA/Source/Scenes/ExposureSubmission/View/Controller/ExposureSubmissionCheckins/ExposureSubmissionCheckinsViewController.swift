@@ -4,13 +4,14 @@
 
 import UIKit
 
-class ExposureSubmissionCheckinsViewController: UITableViewController, ENANavigationControllerWithFooterChild {
+class ExposureSubmissionCheckinsViewController: UITableViewController, ENANavigationControllerWithFooterChild, DismissHandling {
 
 	// MARK: - Init
 	
-	init(checkins: [Checkin], onCompletion: @escaping ([Checkin]) -> Void) {
+	init(checkins: [Checkin], onCompletion: @escaping ([Checkin]) -> Void, onDismiss: @escaping () -> Void) {
 		self.viewModel = ExposureSubmissionCheckinsViewModel(checkins: checkins)
 		self.onCompletion = onCompletion
+		self.onDismiss = onDismiss
 		
 		super.init(style: .plain)
 	}
@@ -21,7 +22,20 @@ class ExposureSubmissionCheckinsViewController: UITableViewController, ENANaviga
 	
 	// MARK: - Overrides
 	
-	// MARK: - Protocol <#Name#>
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		
+		self.title = viewModel.title
+		self.navigationItem.hidesBackButton = true
+		self.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
+	}
+	
+	// MARK: - Protocol DismissHandling
+	
+	func wasAttemptedToBeDismissed() {
+		onDismiss()
+	}
+	
 	
 	// MARK: - Public
 	
@@ -31,5 +45,6 @@ class ExposureSubmissionCheckinsViewController: UITableViewController, ENANaviga
 	
 	private let viewModel: ExposureSubmissionCheckinsViewModel
 	private let onCompletion: ([Checkin]) -> Void
+	private let onDismiss: () -> Void
 	
 }

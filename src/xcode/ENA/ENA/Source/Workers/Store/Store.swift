@@ -158,7 +158,7 @@ protocol PrivacyPreservingProviding: AnyObject {
 }
 
 protocol EventRegistrationCaching: AnyObject {
-	/// Event registration - Flag that indicates if the recent trace warning download was succesful or not.
+	/// Event registration - Flag that indicates if the recent trace warning download was successful or not.
 	var wasRecentTraceWarningDownloadSuccessful: Bool { get set }
 	
 	var checkinInfoScreenShown: Bool { get set }
