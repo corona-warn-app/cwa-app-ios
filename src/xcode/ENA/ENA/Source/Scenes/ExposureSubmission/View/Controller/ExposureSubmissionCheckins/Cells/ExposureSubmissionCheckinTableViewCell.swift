@@ -22,5 +22,5 @@ class ExposureSubmissionCheckinTableViewCell: UITableViewCell, ReuseIdentifierPr
 	
 	// MARK: - Private
 	
-	var cellModel: ExposureSubmissionCheckinCellModel!
+	private var cellModel: ExposureSubmissionCheckinCellModel!
 }
