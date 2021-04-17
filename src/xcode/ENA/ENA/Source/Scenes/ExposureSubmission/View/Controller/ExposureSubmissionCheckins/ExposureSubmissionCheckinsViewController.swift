@@ -26,9 +26,9 @@ class ExposureSubmissionCheckinsViewController: UITableViewController, DismissHa
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		self.title = viewModel.title
-		self.navigationItem.hidesBackButton = true
-		self.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
+		parent?.title = viewModel.title
+		parent?.navigationItem.hidesBackButton = true
+		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 		
 		tableView.register(ExposureSubmissionCheckinTableViewCell.self, forCellReuseIdentifier: ExposureSubmissionCheckinTableViewCell.reuseIdentifier)
 		tableView.register(ExposureSubmissionCheckinDescriptionTableViewCell.self, forCellReuseIdentifier: ExposureSubmissionCheckinDescriptionTableViewCell.reuseIdentifier)
