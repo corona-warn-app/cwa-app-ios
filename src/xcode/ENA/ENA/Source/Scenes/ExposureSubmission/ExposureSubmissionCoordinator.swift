@@ -557,11 +557,11 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		let checkinsVC = ExposureSubmissionCheckinsViewController(
 			checkins: model.eventProvider.checkinsPublisher.value,
 			onCompletion: { [weak self] selectedCheckins in
-				// Do something with the selected Checkins
+				self?.model.exposureSubmissionService.checkins = selectedCheckins
 				showNextScreen()
 			},
 			onSkip: { [weak self] in
-				// TODO set checkins to zero
+				self?.model.exposureSubmissionService.checkins = []
 				self?.showSkipCheckinsAlert(dontShareHandler: {
 					showNextScreen()
 				})

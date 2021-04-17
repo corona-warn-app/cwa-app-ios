@@ -167,9 +167,8 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				let processedKeys = keys.processedForSubmission(
 					with: self.symptomsOnset
 				)
-				let checkins = self.eventStore.checkinsPublisher.value
 				let processedCheckins = self.preparedCheckinsForSubmission(
-					checkins: checkins,
+					checkins: self.checkins,
 					appConfig: appConfig,
 					symptomOnset: self.symptomsOnset
 				)
@@ -181,13 +180,15 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 						visitedCountries: self.supportedCountries,
 						checkins: processedCheckins,
 						completion: { [weak self] error in
-
+							guard let self = self else {
+								return
+							}
 							// If there was no error during submission,
 							// update the checkins to checkinSubmitted = true.
 							if error == nil {
-								for checkin in checkins {
+								for checkin in self.checkins {
 									let updatedCheckin = checkin.updatedCheckin(checkinSubmitted: true)
-									self?.eventStore.updateCheckin(updatedCheckin)
+									self.eventStore.updateCheckin(updatedCheckin)
 								}
 							}
 							completion(error)
@@ -304,6 +305,11 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	// MARK: - Internal
 
 	static let fakeRegistrationToken = "63b4d3ff-e0de-4bd4-90c1-17c2bb683a2f"
+	
+	var checkins: [Checkin] {
+		get { store.submissionCheckins }
+		set { store.submissionCheckins = newValue }
+	}
 
 	func updateStoreWithKeySubmissionMetadataDefaultValues() {
 		let keySubmissionMetadata = KeySubmissionMetadata(
@@ -532,6 +538,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 		isSubmissionConsentGiven = false
 		temporaryExposureKeys = nil
+		checkins = []
 		supportedCountries = []
 		symptomsOnset = .noInformation
 

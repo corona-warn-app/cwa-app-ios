@@ -17,6 +17,8 @@ protocol ExposureSubmissionService: class {
 	var hasRegistrationToken: Bool { get }
 
 	var supportedCountries: [Country] { get } // temporary!
+	
+	var checkins: [Checkin] { get set }
 
 	var devicePairingConsentAcceptTimestamp: Int64? { get }
 	var devicePairingSuccessfulTimestamp: Int64? { get }
