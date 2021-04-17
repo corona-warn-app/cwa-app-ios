@@ -2193,3 +2193,18 @@
 
 "Checkin_Details_CheckIn_Button" = "Check In";
 
+/* Submission Check-in */
+"Submission_Checkins_Title" = "Share your Location Check Ins?";
+
+"Submission_Checkins_Description" = "Warn others who checked in near you. Your personal data will not be shared.";
+
+"Submission_Checkins_SelectAll" = "Select all";
+
+"Submission_Checkins_Continue" = "Submit";
+
+"Submission_Checkins_Skip" = "Skip";
+
+"Submission_Checkins_Alert_Title" = "Are you sure you don’t want to share your Check-ins?";
+
+"Submission_Checkins_Alert_Message" = "Skipping will not warn any contacts who checked-in near you.";
+
