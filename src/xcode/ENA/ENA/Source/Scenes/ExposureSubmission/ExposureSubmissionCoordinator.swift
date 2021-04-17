@@ -550,7 +550,8 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		let footerViewModel = FooterViewModel(
 			primaryButtonName: AppStrings.ExposureSubmissionCheckins.continueButton,
 			secondaryButtonName: AppStrings.ExposureSubmissionCheckins.skipButton,
-			isPrimaryButtonEnabled: false
+			isPrimaryButtonEnabled: false,
+			backgroundColor: .enaColor(for: .darkBackground)
 		)
 		
 

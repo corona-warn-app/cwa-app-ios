@@ -13,6 +13,8 @@ class ExposureSubmissionCheckinDescriptionTableViewCell: UITableViewCell, ReuseI
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		
 		selectionStyle = .none
+		
+		backgroundColor = .enaColor(for: .darkBackground)
 
 		contentView.addSubview(descriptionLabel)
 		NSLayoutConstraint.activate([

@@ -35,6 +35,7 @@ class ExposureSubmissionCheckinsViewController: UITableViewController, DismissHa
 		
 		tableView.register(ExposureSubmissionCheckinTableViewCell.self, forCellReuseIdentifier: ExposureSubmissionCheckinTableViewCell.reuseIdentifier)
 		tableView.register(ExposureSubmissionCheckinDescriptionTableViewCell.self, forCellReuseIdentifier: ExposureSubmissionCheckinDescriptionTableViewCell.reuseIdentifier)
+		tableView.backgroundColor = .enaColor(for: .darkBackground)
 		
 		viewModel.$continueEnabled
 			.receive(on: DispatchQueue.main.ocombine)
@@ -91,7 +92,7 @@ class ExposureSubmissionCheckinsViewController: UITableViewController, DismissHa
 		}
 		
 		let selectAllButton = UIButton()
-		selectAllButton.backgroundColor = .enaColor(for: .background)
+		selectAllButton.backgroundColor = .enaColor(for: .darkBackground)
 		selectAllButton.contentHorizontalAlignment = .left
 		selectAllButton.contentEdgeInsets = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
 		selectAllButton.setTitleColor(.enaColor(for: .textTint), for: .normal)
