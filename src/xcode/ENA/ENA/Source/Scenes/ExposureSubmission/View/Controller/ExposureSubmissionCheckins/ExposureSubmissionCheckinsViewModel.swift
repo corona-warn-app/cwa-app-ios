@@ -36,6 +36,12 @@ class ExposureSubmissionCheckinsViewModel {
 		Section.allCases.count
 	}
 	
+	var selecteCheckins: [Checkin] {
+		checkinCellModels
+			.filter { $0.selected }
+			.map { $0.checkin }
+	}
+	
 	func numberOfRows(in section: Int) -> Int {
 		switch Section(rawValue: section) {
 		case .description:
@@ -61,7 +67,7 @@ class ExposureSubmissionCheckinsViewModel {
 	// MARK: - Private
 	
 	func checkContinuePossible() {
-		continueEnabled = checkinCellModels.contains(where: { $0.selected == true } )
+		continueEnabled = checkinCellModels.contains(where: { $0.selected == true })
 	}
 	
 	

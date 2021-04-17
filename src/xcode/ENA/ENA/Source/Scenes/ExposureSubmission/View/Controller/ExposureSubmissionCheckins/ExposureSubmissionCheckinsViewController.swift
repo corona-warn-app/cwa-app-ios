@@ -57,7 +57,7 @@ class ExposureSubmissionCheckinsViewController: UITableViewController, DismissHa
 		switch type {
 		case .primary:
 			// Submit
-			onCompletion([])
+			onCompletion(viewModel.selecteCheckins)
 		case .secondary:
 			// Skip
 			onSkip()
