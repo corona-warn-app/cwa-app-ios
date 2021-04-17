@@ -77,12 +77,15 @@ class ExposureSubmissionCheckinTableViewCell: UITableViewCell, ReuseIdentifierPr
 		checkmarkImageView.setContentHuggingPriority(.required, for: .horizontal)
 		
 		descriptionLabel.style = .headline
+		descriptionLabel.numberOfLines = 0
 		descriptionLabel.textColor = .enaColor(for: .textPrimary1)
 		
 		addressLabel.style = .body
+		addressLabel.numberOfLines = 0
 		addressLabel.textColor = .enaColor(for: .textPrimary2)
 
 		dateIntervalLabel.style = .body
+		dateIntervalLabel.numberOfLines = 0
 		dateIntervalLabel.textColor = .enaColor(for: .textPrimary1)
 		
 		contentView.addSubview(containerView)
@@ -107,6 +110,10 @@ class ExposureSubmissionCheckinTableViewCell: UITableViewCell, ReuseIdentifierPr
 			containerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 4),
 			containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
 			containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4),
+			
+			checkmarkImageView.heightAnchor.constraint(equalToConstant: 34),
+			checkmarkImageView.widthAnchor.constraint(equalToConstant: 34),
+			
 			
 			stackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
 			stackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 13),
