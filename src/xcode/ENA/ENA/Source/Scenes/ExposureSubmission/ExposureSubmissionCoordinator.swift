@@ -347,7 +347,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				self?.model.exposureSubmissionService.getTemporaryExposureKeys { error in
 					isLoading(false)
 					guard let error = error else {
-						self?.showThankYouScreen()
+						self?.showCheckinsScreen(testResult: .positive)
 						return
 					}
 					self?.model.exposureSubmissionService.isSubmissionConsentGiven = false
@@ -532,18 +532,63 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	}
 	
 	private func showCheckinsScreen(testResult: TestResult) {
-		let vc = ExposureSubmissionCheckinsViewController(
+		
+		let showNextScreen = { [weak self] in
+			if self?.warnOthersReminder.positiveTestResultWasShown == true {
+				self?.showThankYouScreen()
+			} else {
+				self?.showTestResultScreen(with: testResult)
+			}
+		}
+		
+		guard model.eventProvider.checkinsPublisher.value.contains(where: { $0.checkinCompleted }) else {
+			showNextScreen()
+			return
+		}
+		
+		
+		let footerViewModel = FooterViewModel(
+			primaryButtonName: AppStrings.ExposureSubmissionCheckins.continueButton,
+			secondaryButtonName: AppStrings.ExposureSubmissionCheckins.skipButton,
+			isPrimaryButtonEnabled: false
+		)
+		
+
+		let checkinsVC = ExposureSubmissionCheckinsViewController(
 			checkins: model.eventProvider.checkinsPublisher.value,
-			onCompletion: { selectedCheckins in
+			onCompletion: { [weak self] selectedCheckins in
 				// Do something with the selected Checkins
-				self.showTestResultScreen(with: testResult)
+				showNextScreen()
+			},
+			onSkip: { [weak self] in
+				self?.showSkipCheckinsAlert(dontShareHandler: {
+					
+					showNextScreen()
+					
+				})
 			},
 			onDismiss: { [weak self] in
-				self?.showTestResultAvailableCloseAlert()
+				if self?.warnOthersReminder.positiveTestResultWasShown == true {
+					self?.showSkipCheckinsAlert(dontShareHandler: {
+						Analytics.collect(.keySubmissionMetadata(.submittedAfterCancel(true)))
+						self?.submitExposureAndDismiss { isLoading in
+							footerViewModel.setLoadingIndicator(isLoading, disable: isLoading, button: .secondary)
+							footerViewModel.setLoadingIndicator(false, disable: isLoading, button: .primary)
+						}
+					})
+				} else {
+					self?.showTestResultAvailableCloseAlert()
+				}
 			}
 		)
 		
-		push(vc)
+		
+		let footerVC = FooterViewController(footerViewModel)
+		
+		
+		let topBottomVC = TopBottomContainerViewController(topController: checkinsVC, bottomController: footerVC)
+		
+		push(topBottomVC)
 	}
 
 	// MARK: Late consent
@@ -561,7 +606,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 					isLoading(false)
 
 					guard let error = error else {
-						self?.showThankYouScreen()
+						self?.showCheckinsScreen(testResult: .positive)
 						return
 					}
 
@@ -782,6 +827,33 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 			leaveView?.accessibilityIdentifier = AccessibilityIdentifiers.General.cancelButton
 			#endif
 		})
+	}
+	
+	private func showSkipCheckinsAlert(dontShareHandler: @escaping () -> Void) {
+		let alert = UIAlertController(
+			title: AppStrings.ExposureSubmissionCheckins.alertTitle,
+			message: AppStrings.ExposureSubmissionCheckins.alertMessage,
+			preferredStyle: .alert
+		)
+
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.ExposureSubmissionCheckins.alertDontShare,
+				style: .cancel,
+				handler: { _ in
+					dontShareHandler()
+				}
+			)
+		)
+
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.ExposureSubmissionCheckins.alertShare,
+				style: .default
+			)
+		)
+
+		navigationController?.present(alert, animated: true, completion: nil)
 	}
 
 	private func showThankYouCancelAlert(isLoading: @escaping (Bool) -> Void) {

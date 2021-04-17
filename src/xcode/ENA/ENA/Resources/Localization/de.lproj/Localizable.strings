@@ -2270,7 +2270,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "Submission_Checkins_Alert_Message" = "Skipping will not warn any contacts who checked-in near you.";
 
+"Submission_Checkins_Alert_Share" = "Share";
 
-
-
-
+"Submission_Checkins_Alert_DontShare" = "Don’t share";

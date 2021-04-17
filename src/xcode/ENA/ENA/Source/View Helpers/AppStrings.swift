@@ -84,6 +84,8 @@ enum AppStrings {
 		static let skipButton = NSLocalizedString("Submission_Checkins_Skip", comment: "")
 		static let alertTitle = NSLocalizedString("Submission_Checkins_Alert_Title", comment: "")
 		static let alertMessage = NSLocalizedString("Submission_Checkins_Alert_Message", comment: "")
+		static let alertShare = NSLocalizedString("Submission_Checkins_Alert_Share", comment: "")
+		static let alertDontShare = NSLocalizedString("Submission_Checkins_Alert_DontShare", comment: "")
 	}
 
 	enum ExposureSubmissionTestResultAvailable {

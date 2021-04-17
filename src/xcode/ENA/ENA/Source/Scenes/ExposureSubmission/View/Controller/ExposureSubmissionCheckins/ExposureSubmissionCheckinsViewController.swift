@@ -4,13 +4,14 @@
 
 import UIKit
 
-class ExposureSubmissionCheckinsViewController: UITableViewController, ENANavigationControllerWithFooterChild, DismissHandling {
+class ExposureSubmissionCheckinsViewController: UITableViewController, DismissHandling, FooterViewHandling {
 
 	// MARK: - Init
 	
-	init(checkins: [Checkin], onCompletion: @escaping ([Checkin]) -> Void, onDismiss: @escaping () -> Void) {
+	init(checkins: [Checkin], onCompletion: @escaping ([Checkin]) -> Void, onSkip: @escaping () -> Void, onDismiss: @escaping () -> Void) {
 		self.viewModel = ExposureSubmissionCheckinsViewModel(checkins: checkins)
 		self.onCompletion = onCompletion
+		self.onSkip = onSkip
 		self.onDismiss = onDismiss
 		
 		super.init(style: .plain)
@@ -37,6 +38,20 @@ class ExposureSubmissionCheckinsViewController: UITableViewController, ENANaviga
 	}
 	
 	
+	// MARK: - Protocol FooterViewHandling
+	
+	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
+		switch type {
+		case .primary:
+			// Submit
+			onCompletion([])
+		case .secondary:
+			// Skip
+			onSkip()
+		}
+	}
+
+	
 	// MARK: - Public
 	
 	// MARK: - Internal
@@ -45,6 +60,7 @@ class ExposureSubmissionCheckinsViewController: UITableViewController, ENANaviga
 	
 	private let viewModel: ExposureSubmissionCheckinsViewModel
 	private let onCompletion: ([Checkin]) -> Void
+	private let onSkip: () -> Void
 	private let onDismiss: () -> Void
 	
 }
