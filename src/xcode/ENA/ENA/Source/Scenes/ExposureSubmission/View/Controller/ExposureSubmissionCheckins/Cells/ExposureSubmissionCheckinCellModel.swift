@@ -41,11 +41,11 @@ class ExposureSubmissionCheckinCellModel {
 	
 	var selected: Bool = false {
 		didSet {
-			checkmarkImage = selected ? UIImage(named: "Diary_Checkmark_Selected") : UIImage(named: "Diary_Checkmark_Unselected")
+			checkmarkImage = selected ? UIImage(named: "Checkin_Checkmark_Selected") : UIImage(named: "Checkin_Checkmark_Unselected")
 		}
 	}
 	
-	@OpenCombine.Published var checkmarkImage = UIImage(named: "Diary_Checkmark_Unselected")
+	@OpenCombine.Published var checkmarkImage = UIImage(named: "Checkin_Checkmark_Unselected")
 	
 	// MARK: - Private
 
