@@ -30,7 +30,6 @@ class ExposureSubmissionCoordinatorModel {
 	let exposureSubmissionService: ExposureSubmissionService
 	let eventProvider: EventProviding
 	
-
 	var shouldShowSymptomsOnsetScreen = false
 
 	func symptomsOptionSelected(
