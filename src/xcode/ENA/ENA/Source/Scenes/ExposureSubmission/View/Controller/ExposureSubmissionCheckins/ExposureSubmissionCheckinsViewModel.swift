@@ -24,7 +24,7 @@ class ExposureSubmissionCheckinsViewModel {
 	
 	let title = AppStrings.ExposureSubmissionCheckins.title
 	let checkinCellModels: [ExposureSubmissionCheckinCellModel]
-	@OpenCombine.Published var continueEnabled: Bool = false
+	@OpenCombine.Published private(set) var continueEnabled: Bool = false
 	
 	var numberOfSections: Int {
 		Section.allCases.count
