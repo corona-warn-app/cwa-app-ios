@@ -164,6 +164,33 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		XCTAssertTrue(service.isSubmissionConsentGiven)
 		XCTAssertNil(store.lastSuccessfulSubmitDiagnosisKeyTimestamp)
 	}
+	
+	
+	func testSubmitExposure_PositiveTestResultNotShown() {
+		// Arrange
+		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (nil, nil))
+		let client = ClientMock()
+		let store = MockTestStore()
+		store.positiveTestResultWasShown = false
+		let eventStore = MockEventStore()
+		let appConfigurationProvider = CachedAppConfigurationMock()
+
+		let service = ENAExposureSubmissionService(diagnosisKeysRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, eventStore: eventStore, warnOthersReminder: WarnOthersReminder(store: store))
+		service.isSubmissionConsentGiven = true
+
+		let expectation = self.expectation(description: "PostiveTestResultNotShown")
+
+		// Act
+		service.submitExposure { error in
+			XCTAssertEqual(error, .positiveTestResultNotShown)
+			expectation.fulfill()
+		}
+
+		waitForExpectations(timeout: expectationsTimeout)
+
+		XCTAssertTrue(service.isSubmissionConsentGiven)
+		XCTAssertNil(store.lastSuccessfulSubmitDiagnosisKeyTimestamp)
+	}
 
 	func testSubmitExposure_KeysNotSharedDueToNotAuthorizedError() {
 		// Arrange
