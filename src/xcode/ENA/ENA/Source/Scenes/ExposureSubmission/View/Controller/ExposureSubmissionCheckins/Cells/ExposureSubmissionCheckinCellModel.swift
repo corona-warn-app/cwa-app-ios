@@ -40,7 +40,7 @@ class ExposureSubmissionCheckinCellModel {
 		}
 	}
 
-	@OpenCombine.Published var cellIsSelected: Bool = false
-	@OpenCombine.Published var checkmarkImage = UIImage(named: "Checkin_Checkmark_Unselected")
+	@OpenCombine.Published private(set)  var cellIsSelected: Bool = false
+	@OpenCombine.Published private(set) var checkmarkImage = UIImage(named: "Checkin_Checkmark_Unselected")
 
 }
