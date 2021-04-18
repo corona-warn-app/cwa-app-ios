@@ -43,7 +43,8 @@ class ExposureSubmissionCheckinsViewModel {
 		case .checkins:
 			return checkinCellModels.count
 		case .none:
-			fatalError("Invalid section")
+			Log.error("ExposureSubmissionCheckinsViewModel: numberOfRows asked for unknown section", log: .ui, error: nil)
+			return 0
 		}
 	}
 	
