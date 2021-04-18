@@ -9,7 +9,8 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 	func testSymptomsOptionYesSelected() {
 		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: MockExposureSubmissionService()
+			exposureSubmissionService: MockExposureSubmissionService(),
+			eventProvider: MockEventStore()
 		)
 
 		model.symptomsOptionSelected(.yes)
@@ -26,7 +27,8 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		}
 
 		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService
+			exposureSubmissionService: exposureSubmissionService,
+			eventProvider: MockEventStore()
 		)
 
 		model.symptomsOptionSelected(.no)
@@ -49,7 +51,8 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		}
 
 		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService
+			exposureSubmissionService: exposureSubmissionService,
+			eventProvider: MockEventStore()
 		)
 
 		model.symptomsOptionSelected(.preferNotToSay)
@@ -74,7 +77,8 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		}
 
 		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService
+			exposureSubmissionService: exposureSubmissionService,
+			eventProvider: MockEventStore()
 		)
 
 		let yesterday = try XCTUnwrap(Calendar.gregorian().date(byAdding: .day, value: -1, to: Date()))
@@ -98,7 +102,8 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		}
 
 		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService
+			exposureSubmissionService: exposureSubmissionService,
+			eventProvider: MockEventStore()
 		)
 
 		model.symptomsOnsetOptionSelected(.lastSevenDays)
@@ -120,7 +125,8 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		}
 
 		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService
+			exposureSubmissionService: exposureSubmissionService,
+			eventProvider: MockEventStore()
 		)
 
 		model.symptomsOnsetOptionSelected(.oneToTwoWeeksAgo)
@@ -143,7 +149,8 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		}
 
 		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService
+			exposureSubmissionService: exposureSubmissionService,
+			eventProvider: MockEventStore()
 		)
 
 		model.symptomsOnsetOptionSelected(.moreThanTwoWeeksAgo)
@@ -165,7 +172,8 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		}
 
 		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService
+			exposureSubmissionService: exposureSubmissionService,
+			eventProvider: MockEventStore()
 		)
 
 		model.symptomsOnsetOptionSelected(.preferNotToSay)
@@ -187,7 +195,8 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		}
 
 		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService
+			exposureSubmissionService: exposureSubmissionService,
+			eventProvider: MockEventStore()
 		)
 
 		let expectedIsLoadingValues = [true, false]
@@ -221,7 +230,8 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		}
 
 		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService
+			exposureSubmissionService: exposureSubmissionService,
+			eventProvider: MockEventStore()
 		)
 
 		let expectedIsLoadingValues = [true, false]
@@ -255,7 +265,8 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		}
 
 		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService
+			exposureSubmissionService: exposureSubmissionService,
+			eventProvider: MockEventStore()
 		)
 
 		let expectedIsLoadingValues = [true, false]
@@ -291,7 +302,8 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		}
 
 		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService
+			exposureSubmissionService: exposureSubmissionService,
+			eventProvider: MockEventStore()
 		)
 
 		let expectedIsLoadingValues = [true, false]
@@ -327,7 +339,8 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		}
 
 		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService
+			exposureSubmissionService: exposureSubmissionService,
+			eventProvider: MockEventStore()
 		)
 
 		let expectedIsLoadingValues = [true, false]
@@ -368,7 +381,8 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		}
 
 		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService
+			exposureSubmissionService: exposureSubmissionService,
+			eventProvider: MockEventStore()
 		)
 
 		let expectedIsLoadingValues = [true, false]

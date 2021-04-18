@@ -38,6 +38,7 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 			parentNavigationController: parentNavigationController,
 			exposureSubmissionService: exposureSubmissionService,
 			store: self.store,
+			eventProvider: MockEventStore(),
 			delegate: delegate
 		)
 	}
