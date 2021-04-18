@@ -4,7 +4,6 @@
 
 import Foundation
 
-
 struct ExposureSubmissionCheckinDescriptionCellModel {
 
 	// MARK: - Internal
