@@ -36,10 +36,6 @@ class ExposureSubmissionCheckinTableViewCell: UITableViewCell, ReuseIdentifierPr
 		}
 	}
 	
-	// MARK: - Protocol <#Name#>
-	
-	// MARK: - Public
-	
 	// MARK: - Internal
 	
 	func configure(with cellModel: ExposureSubmissionCheckinCellModel) {
@@ -128,7 +124,6 @@ class ExposureSubmissionCheckinTableViewCell: UITableViewCell, ReuseIdentifierPr
 		if #available(iOS 13.0, *) {
 			containerView.layer.cornerCurve = .continuous
 		}
-		
-
 	}
+	
 }
