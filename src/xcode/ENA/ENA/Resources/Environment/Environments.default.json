@@ -1,0 +1,13 @@
+{
+	"environments":[
+    {
+			"name": "prod",
+			"distributionURL": "https://svc90.main.px.t-online.de",
+			"submissionURL": "https://submission.coronawarn.app",
+			"verificationURL": "https://verification.coronawarn.app",
+			"dataDonationURL": "https://data.coronawarn.app",
+			"errorLogSubmission": "https://logupload.coronawarn.app",
+			"publicKeyString": "c7DEstcUIRcyk35OYDJ95/hTg3UVhsaDXKT0zK7NhHPXoyzipEnOp3GyNXDVpaPi3cAfQmxeuFMZAIX2+6A5Xg=="
+		}
+	]
+}

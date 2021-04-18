@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class ServerEnvironmentTests: XCTestCase {
+class EnvironmentTests: XCTestCase {
 	
 	func test_AvailableEnvironmentsReturnsEnvironments() {
 		let sut_ServerEnvironment = loadTestEnvironment()
@@ -34,7 +34,7 @@ class ServerEnvironmentTests: XCTestCase {
 	}
 
 	private func loadTestEnvironment() -> EnvironmentProviding {
-		let testBundle = Bundle(for: ServerEnvironmentTests.self)
+		let testBundle = Bundle(for: EnvironmentTests.self)
 		return Environments(bundle: testBundle, resourceName: "TestEnvironments")
 	}
 }

@@ -350,6 +350,7 @@
 		35327FF6256D4CE600C36A44 /* UIStackView+prune.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35327FF5256D4CE600C36A44 /* UIStackView+prune.swift */; };
 		353412CC2525EE4A0086D15C /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353412CB2525EE4A0086D15C /* Globals.swift */; };
 		35358DD425A23169004FD0CB /* HTTPClientCertificatePinningTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35358DD325A23169004FD0CB /* HTTPClientCertificatePinningTests.swift */; };
+		3535CD2A262C4E4E00A3CE38 /* TestEnvironments.json in Resources */ = {isa = PBXBuildFile; fileRef = AB1FCBDB2521FCD5005930BA /* TestEnvironments.json */; };
 		3539DAD1252B353C00489B1A /* CachedAppConfigurationMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3539DAD0252B353C00489B1A /* CachedAppConfigurationMock.swift */; };
 		3543135025DE992F00926575 /* ENAUITestsQuickActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3543134F25DE992F00926575 /* ENAUITestsQuickActions.swift */; };
 		354BB49A25B07DB000FBCFEE /* StatisticsProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354BB49925B07DB000FBCFEE /* StatisticsProviding.swift */; };
@@ -657,8 +658,7 @@
 		AB190F1C25FFAF3400FBFF0D /* ContactDiaryStoreSchemaV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9B2B1259B6B030080770D /* ContactDiaryStoreSchemaV2.swift */; };
 		AB190F2A25FFAF3C00FBFF0D /* ContactDiaryStoreSchemaV1.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAE0A1B257F77D90030ED47 /* ContactDiaryStoreSchemaV1.swift */; };
 		AB1BA92D25C30406002EA97F /* SurveyConsentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1BA92C25C30406002EA97F /* SurveyConsentViewController.swift */; };
-		AB1FCBD42521FC47005930BA /* ServerEnvironmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1FCBCC2521FC44005930BA /* ServerEnvironmentTests.swift */; };
-		AB1FCBDC2521FCD5005930BA /* TestEnvironments.json in Resources */ = {isa = PBXBuildFile; fileRef = AB1FCBDB2521FCD5005930BA /* TestEnvironments.json */; };
+		AB1FCBD42521FC47005930BA /* EnvironmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1FCBCC2521FC44005930BA /* EnvironmentTests.swift */; };
 		AB2F094A25D1687300C16309 /* SurveyURLProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2F094925D1687300C16309 /* SurveyURLProvider.swift */; };
 		AB2F094F25D169DC00C16309 /* SurveyURLServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2F094E25D169DC00C16309 /* SurveyURLServiceTests.swift */; };
 		AB35609A2547167800C3F8E0 /* DeviceTimeCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3560992547167800C3F8E0 /* DeviceTimeCheck.swift */; };
@@ -1738,7 +1738,7 @@
 		AB190EEA25FF6C3600FBFF0D /* ContactDiaryStoreSchemaV4Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactDiaryStoreSchemaV4Tests.swift; sourceTree = "<group>"; };
 		AB190EEB25FF6C3600FBFF0D /* ContactDiaryMigration3To4Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactDiaryMigration3To4Tests.swift; sourceTree = "<group>"; };
 		AB1BA92C25C30406002EA97F /* SurveyConsentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyConsentViewController.swift; sourceTree = "<group>"; };
-		AB1FCBCC2521FC44005930BA /* ServerEnvironmentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerEnvironmentTests.swift; sourceTree = "<group>"; };
+		AB1FCBCC2521FC44005930BA /* EnvironmentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentTests.swift; sourceTree = "<group>"; };
 		AB1FCBDB2521FCD5005930BA /* TestEnvironments.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestEnvironments.json; sourceTree = "<group>"; };
 		AB2F094925D1687300C16309 /* SurveyURLProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyURLProvider.swift; sourceTree = "<group>"; };
 		AB2F094E25D169DC00C16309 /* SurveyURLServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyURLServiceTests.swift; sourceTree = "<group>"; };
@@ -3724,7 +3724,7 @@
 			children = (
 				35B2FAAE25B9D362009ABC8E /* AppDelegate & Globals */,
 				AB126871254C0598006E9194 /* Utils */,
-				AB1FCBCA2521FC21005930BA /* ServerEnvironment */,
+				AB1FCBCA2521FC21005930BA /* Environment */,
 				B111EDEC2465B1F4001AEBB4 /* Client */,
 				CD99A3C82461A44B00BF12AF /* View Helpers */,
 				51CE1BBB2460B1BA002CF42A /* Protocols */,
@@ -4017,7 +4017,7 @@
 			isa = PBXGroup;
 			children = (
 				BA02642025E6AA750019CD55 /* District */,
-				AB628A1D251CDAA700CF61D2 /* ServerEnvironment */,
+				AB628A1D251CDAA700CF61D2 /* Environment */,
 				014891B224F90D0B002A6F77 /* ENA.plist */,
 				011E4B002483A35A002E6412 /* ENACommunity.entitlements */,
 				CD7F5C732466F6D400D3D03C /* ENATest.entitlements */,
@@ -4414,20 +4414,20 @@
 			path = Survey;
 			sourceTree = "<group>";
 		};
-		AB1FCBCA2521FC21005930BA /* ServerEnvironment */ = {
+		AB1FCBCA2521FC21005930BA /* Environment */ = {
 			isa = PBXGroup;
 			children = (
 				AB1FCBCB2521FC34005930BA /* __tests__ */,
 				352F25A724EFCBDE00ACDFF3 /* Environments.swift */,
 			);
-			path = ServerEnvironment;
+			path = Environment;
 			sourceTree = "<group>";
 		};
 		AB1FCBCB2521FC34005930BA /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
 				AB1FCBDB2521FCD5005930BA /* TestEnvironments.json */,
-				AB1FCBCC2521FC44005930BA /* ServerEnvironmentTests.swift */,
+				AB1FCBCC2521FC44005930BA /* EnvironmentTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -4478,12 +4478,12 @@
 			path = V1;
 			sourceTree = "<group>";
 		};
-		AB628A1D251CDAA700CF61D2 /* ServerEnvironment */ = {
+		AB628A1D251CDAA700CF61D2 /* Environment */ = {
 			isa = PBXGroup;
 			children = (
 				AB628A1E251CDADE00CF61D2 /* Environments.json */,
 			);
-			path = ServerEnvironment;
+			path = Environment;
 			sourceTree = "<group>";
 		};
 		AB68530925F8F68A00380F5A /* __tests__ */ = {
@@ -6076,6 +6076,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 85D7596824570491008175F0 /* Build configuration list for PBXNativeTarget "ENA" */;
 			buildPhases = (
+				3535CD20262C4D4A00A3CE38 /* Load default environment */,
 				71AFBD9324642AF500F91006 /* SwiftLint */,
 				85D759372457048F008175F0 /* Sources */,
 				85D759382457048F008175F0 /* Frameworks */,
@@ -6297,6 +6298,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3535CD2A262C4E4E00A3CE38 /* TestEnvironments.json in Resources */,
 				BA6C8B17254D729A008344F5 /* exposure-windows-risk-calculation.json in Resources */,
 				BA7D178925D5590C006B9EBF /* testDataInvalid.json in Resources */,
 				EB54938525F7CFB300A3C459 /* qr-code-to-embed.png in Resources */,
@@ -6304,7 +6306,6 @@
 				01BA0760262096D100237DD8 /* checkin-timeinterval-derivation.json in Resources */,
 				B1F8AE482479B4C30093A588 /* api-response-day-2020-05-16 in Resources */,
 				01678E9C249A5F08003B048B /* testStore.sqlite in Resources */,
-				AB1FCBDC2521FCD5005930BA /* TestEnvironments.json in Resources */,
 				F252472F2483955B00C5556B /* DynamicTableViewControllerFake.storyboard in Resources */,
 				50FA071126021180003C1E46 /* api-response-traceWarning in Resources */,
 				01571B7A255E9A6F00E4E891 /* config-wru-2020-11-13 in Resources */,
@@ -6349,6 +6350,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Copy mock statistics data to bundle in Debug configuration\nif [ \"${CONFIGURATION}\" == \"Debug\" ]; then\n    cp -r \"$SRCROOT/ENA/Source/Services/Risk/Provider/Helper/__tests__/sample_stats/\" \"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}\"\nfi\n";
+		};
+		3535CD20262C4D4A00A3CE38 /* Load default environment */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Load default environment";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Provide a default environment file, if not present\n${SOURCE_ROOT}/create_default_env.sh\n";
 		};
 		71AFBD9324642AF500F91006 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -7146,7 +7165,7 @@
 				F25247312484456800C5556B /* DynamicTableViewModelTests.swift in Sources */,
 				B15382E7248290BB0010F007 /* AppleFilesWriterTests.swift in Sources */,
 				50373EC925FBD08A000109AE /* HTTPClient+TraceWarningPackageDownloadTests.swift in Sources */,
-				AB1FCBD42521FC47005930BA /* ServerEnvironmentTests.swift in Sources */,
+				AB1FCBD42521FC47005930BA /* EnvironmentTests.swift in Sources */,
 				50BD1425260B74C20013983A /* VerificationMock.swift in Sources */,
 				BA02641325E6A0800019CD55 /* FooterViewModelTests.swift in Sources */,
 				0123D5992501385200A91838 /* ExposureSubmissionErrorTests.swift in Sources */,
