@@ -6,10 +6,14 @@ import XCTest
 @testable import ENA
 
 class EnvironmentTests: XCTestCase {
+
+	override func tearDown() {
+		UserDefaults.standard.removeObject(forKey: Environments.selectedEnvironmentKey)
+	}
 	
-	func test_AvailableEnvironmentsReturnsEnvironments() {
-		let sut_ServerEnvironment = loadTestEnvironment()
-		let environments = sut_ServerEnvironment.environments
+	func testAvailableEnvironmentsReturnsEnvironments() {
+		let testEnvironments = loadTestEnvironment()
+		let environments = testEnvironments.environments
 
 		XCTAssertEqual(environments.count, 4)
 		XCTAssertEqual(environments[0].name, "TestEnvironment0")
@@ -18,18 +22,27 @@ class EnvironmentTests: XCTestCase {
 		XCTAssertEqual(environments[3].name, "prod")
 	}
 
-	func test_loadServerEnvironmentReturnesCorrectEnvironment() {
+	func testloadServerEnvironmentReturnesCorrectEnvironment() {
 		let testEnvironments = loadTestEnvironment()
 
 		["prod", "TestEnvironment0", "TestEnvironment1", "TestEnvironment2"].shuffled().forEach { name in
 			let environment = testEnvironments.environment(.custom(name))
 			XCTAssertEqual(environment.name, name)
 		}
-
-
 	}
 
-	func test_defaultEnvironmentShouldReturnCorrectEnvironment() {
+	func testSelectedEnvironment() {
+		let testEnvironments = loadTestEnvironment()
+		// valid selection
+		["prod", "TestEnvironment0", "TestEnvironment1", "TestEnvironment2"].shuffled().forEach { name in
+			UserDefaults.standard.setValue(name, forKey: Environments.selectedEnvironmentKey)
+			XCTAssertEqual(testEnvironments.currentEnvironment().name, name)
+		}
+
+		// invalid selection will result in a `fatalError` so no need (and chance) to test it
+	}
+
+	func testDefaultEnvironmentShouldReturnCorrectEnvironment() {
 		let testEnvironments = loadTestEnvironment()
 		// First environment is default. In non-`DEBUG` builds this is always 'prod'
 		for _ in 0..<10 {
@@ -37,7 +50,7 @@ class EnvironmentTests: XCTestCase {
 			XCTAssertEqual(e.defaultEnvironment().name, e.environments[0].name)
 		}
 
-		// test for the production key/name: `.production == 'prod'` 
+		// test for the production key/name: `.production == 'prod'`
 		XCTAssertEqual(testEnvironments.environment(.production).name, "prod")
 	}
 
