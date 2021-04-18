@@ -12,13 +12,7 @@ class ExposureSubmissionCheckinCellModel {
 	init(checkin: Checkin) {
 		self.checkin = checkin
 	}
-	
-	// MARK: - Overrides
-	
-	// MARK: - Protocol <#Name#>
-	
-	// MARK: - Public
-	
+
 	// MARK: - Internal
 	
 	let checkin: Checkin
@@ -48,7 +42,5 @@ class ExposureSubmissionCheckinCellModel {
 	
 	@OpenCombine.Published var checkmarkImage = UIImage(named: "Checkin_Checkmark_Unselected")
 	@OpenCombine.Published var a11yTraits: UIAccessibilityTraits = [.button]
-
-	// MARK: - Private
 
 }
