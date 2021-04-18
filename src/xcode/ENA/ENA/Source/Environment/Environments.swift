@@ -15,8 +15,15 @@ struct EnvironmentData: Codable {
 	// Hosts
 	let distributionURL, submissionURL, verificationURL, dataDonationURL, errorLogSubmission: URL
 
-	/// String representation of the servers public key. Used for signature validation.
-	let publicKeyString: String
+	/// String representation of the package validation (public) key.
+	///
+	/// Note that the values are taken from the regular public key in PEM format but without the first 36 characters,
+	/// which denote PEM header information. These 36 characters are typically:
+	/// `MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE`
+	let validationKeyString: String
+
+	/// Used for certificate pinning
+	let pinningKeyHash: String
 }
 
 // MARK: - ServerEnvironment access.
@@ -24,7 +31,12 @@ struct EnvironmentData: Codable {
 protocol EnvironmentProviding {
 	var environments: [EnvironmentData] { get }
 
+	/// The default (i.e. first) environment
 	func defaultEnvironment() -> EnvironmentData
+
+	/// The currently selected set of environment parameters
+	///
+	/// Always returns the production-set on non-DEBUG builds
 	func currentEnvironment() -> EnvironmentData
 
 	func environment(_ name: EnvironmentDescriptor) -> EnvironmentData

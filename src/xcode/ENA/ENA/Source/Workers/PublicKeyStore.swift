@@ -28,12 +28,12 @@ struct PublicKeyProvider: PublicKeyProviding {
 		do {
 			// init public key
 			if #available(iOS 13.0, *) {
-				guard let data = Data(base64Encoded: environment.publicKeyString) else {
+				guard let data = Data(base64Encoded: environment.validationKeyString) else {
 					fatalError("Could not initialize public key from given data")
 				}
 				return try P256.Signing.PublicKey(rawRepresentation: data)
 			} else {
-				return try PublicKey(with: environment.publicKeyString)
+				return try PublicKey(with: environment.validationKeyString)
 			}
 		} catch {
 			fatalError("Could not initialize public key: \(error.localizedDescription)")

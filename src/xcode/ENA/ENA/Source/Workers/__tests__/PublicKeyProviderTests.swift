@@ -15,11 +15,11 @@ final class PublicKeyProviderTests: XCTestCase {
 		let environments = Environments()
 
 		XCTAssertEqual(
-			environments.environment(.production).publicKeyString,
+			environments.environment(.production).validationKeyString,
 			"c7DEstcUIRcyk35OYDJ95/hTg3UVhsaDXKT0zK7NhHPXoyzipEnOp3GyNXDVpaPi3cAfQmxeuFMZAIX2+6A5Xg=="
 		)
 		XCTAssertEqual(
-			environments.environment(.custom("wru")).publicKeyString,
+			environments.environment(.custom("wru")).validationKeyString,
 			"3BYTxr2HuJYQG+d7Ezu6KS8GEbFkiEvyJFg0j+C839gTjT6j7Ho0EXXZ/a07ZfvKcC2cmc1SunsrqU9Jov1J5Q=="
 		)
 	}

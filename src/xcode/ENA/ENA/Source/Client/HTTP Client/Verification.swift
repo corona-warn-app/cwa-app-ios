@@ -25,7 +25,7 @@ struct SignatureVerifier: SignatureVerification {
 	func verify(_ package: SAPDownloadedPackage) -> Bool {
 		do {
 			let parsedSignatureFile = try SAP_External_Exposurenotification_TEKSignatureList(serializedData: package.signature)
-
+			
 			for signatureEntry in parsedSignatureFile.signatures {
 				let signatureData: Data = signatureEntry.signature
 				let signature = try ECDSASignature(derRepresentation: signatureData)

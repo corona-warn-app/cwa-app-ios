@@ -1,13 +1,14 @@
 {
 	"environments":[
-    {
+		{
 			"name": "prod",
 			"distributionURL": "https://svc90.main.px.t-online.de",
 			"submissionURL": "https://submission.coronawarn.app",
 			"verificationURL": "https://verification.coronawarn.app",
 			"dataDonationURL": "https://data.coronawarn.app",
 			"errorLogSubmission": "https://logupload.coronawarn.app",
-			"publicKeyString": "c7DEstcUIRcyk35OYDJ95/hTg3UVhsaDXKT0zK7NhHPXoyzipEnOp3GyNXDVpaPi3cAfQmxeuFMZAIX2+6A5Xg=="
+			"publicKeyString": "c7DEstcUIRcyk35OYDJ95/hTg3UVhsaDXKT0zK7NhHPXoyzipEnOp3GyNXDVpaPi3cAfQmxeuFMZAIX2+6A5Xg==",
+			"publicKeyHash": "f30c3959de6b062374f037c505fb3864e1b0678086252ab457ddd97c729d06ab"
 		}
 	]
 }

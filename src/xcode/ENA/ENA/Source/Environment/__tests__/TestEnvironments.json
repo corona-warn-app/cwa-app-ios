@@ -7,7 +7,8 @@
 			"verificationURL": "https://TestEnvironment0.verification",
 			"dataDonationURL": "https://TestEnvironment0.datadonation",
 			"errorLogSubmission": "https://TestEnvironment0.logupload",
-			"publicKeyString": "Key0"
+			"validationKeyString": "Key0",
+			"pinningKeyHash": "hash0"
 		},
 		{
 			"name": "TestEnvironment1",
@@ -16,7 +17,8 @@
 			"verificationURL": "https://TestEnvironment1.verification",
 			"dataDonationURL": "https://TestEnvironment1.datadonation",
 			"errorLogSubmission": "https://TestEnvironment1.logupload",
-			"publicKeyString": "Key1"
+			"validationKeyString": "Key1",
+			"pinningKeyHash": "hash1"
 		},
 		{
 			"name": "TestEnvironment2",
@@ -25,7 +27,8 @@
 			"verificationURL": "https://TestEnvironment2.verification",
 			"dataDonationURL": "https://TestEnvironment2.datadonation",
 			"errorLogSubmission": "https://TestEnvironment2.logupload",
-			"publicKeyString": "Key2"
+			"validationKeyString": "Key2",
+			"pinningKeyHash": "hash2"
 		},
 		{
 			"name": "prod",
@@ -34,7 +37,8 @@
 			"verificationURL": "https://prod.verification",
 			"dataDonationURL": "https://prod.datadonation",
 			"errorLogSubmission": "https://prod.logupload",
-			"publicKeyString": "Key"
+			"validationKeyString": "Key",
+			"pinningKeyHash": "hash"
 		}
 	]
 }
