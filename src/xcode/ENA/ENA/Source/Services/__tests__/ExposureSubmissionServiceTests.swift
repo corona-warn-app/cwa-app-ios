@@ -144,6 +144,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (nil, nil))
 		let client = ClientMock()
 		let store = MockTestStore()
+		store.positiveTestResultWasShown = true
 		let eventStore = MockEventStore()
 		let appConfigurationProvider = CachedAppConfigurationMock()
 
@@ -163,12 +164,40 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		XCTAssertTrue(service.isSubmissionConsentGiven)
 		XCTAssertNil(store.lastSuccessfulSubmitDiagnosisKeyTimestamp)
 	}
+	
+	
+	func testSubmitExposure_PositiveTestResultNotShown() {
+		// Arrange
+		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (nil, nil))
+		let client = ClientMock()
+		let store = MockTestStore()
+		store.positiveTestResultWasShown = false
+		let eventStore = MockEventStore()
+		let appConfigurationProvider = CachedAppConfigurationMock()
+
+		let service = ENAExposureSubmissionService(diagnosisKeysRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, eventStore: eventStore, warnOthersReminder: WarnOthersReminder(store: store))
+		service.isSubmissionConsentGiven = true
+
+		let expectation = self.expectation(description: "PostiveTestResultNotShown")
+
+		// Act
+		service.submitExposure { error in
+			XCTAssertEqual(error, .positiveTestResultNotShown)
+			expectation.fulfill()
+		}
+
+		waitForExpectations(timeout: expectationsTimeout)
+
+		XCTAssertTrue(service.isSubmissionConsentGiven)
+		XCTAssertNil(store.lastSuccessfulSubmitDiagnosisKeyTimestamp)
+	}
 
 	func testSubmitExposure_KeysNotSharedDueToNotAuthorizedError() {
 		// Arrange
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (nil, ENError(.notAuthorized)))
 		let client = ClientMock()
 		let store = MockTestStore()
+		store.positiveTestResultWasShown = true
 		let eventStore = MockEventStore()
 		let appConfigurationProvider = CachedAppConfigurationMock()
 
@@ -198,6 +227,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (nil, nil))
 		let client = ClientMock()
 		let store = MockTestStore()
+		store.positiveTestResultWasShown = true
 		let eventStore = MockEventStore()
 		let appConfigurationProvider = CachedAppConfigurationMock()
 
@@ -225,6 +255,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: ([], nil))
 		let client = ClientMock()
 		let store = MockTestStore()
+		store.positiveTestResultWasShown = true
 		let eventStore = MockEventStore()
 		let appConfigurationProvider = CachedAppConfigurationMock()
 
@@ -250,6 +281,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
 		let client = ClientMock(submissionError: .invalidPayloadOrHeaders)
 		let store = MockTestStore()
+		store.positiveTestResultWasShown = true
 		let eventStore = MockEventStore()
 		store.registrationToken = "dummyRegistrationToken"
 		let appConfigurationProvider = CachedAppConfigurationMock()
@@ -276,6 +308,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
 		let client = ClientMock()
 		let store = MockTestStore()
+		store.positiveTestResultWasShown = true
 		let eventStore = MockEventStore()
 		let appConfigurationProvider = CachedAppConfigurationMock()
 
@@ -352,6 +385,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let appConfigurationProvider = CachedAppConfigurationMock()
 		let client = ClientMock(submissionError: .requestCouldNotBeBuilt)
 		let store = MockTestStore()
+		store.positiveTestResultWasShown = true
 		let eventStore = MockEventStore()
 		store.registrationToken = "dummyRegistrationToken"
 
@@ -377,6 +411,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let appConfigurationProvider = CachedAppConfigurationMock()
 		let client = ClientMock(submissionError: .invalidPayloadOrHeaders)
 		let store = MockTestStore()
+		store.positiveTestResultWasShown = true
 		let eventStore = MockEventStore()
 		store.registrationToken = "dummyRegistrationToken"
 		let expectation = self.expectation(description: "Correct error description received.")
@@ -407,6 +442,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
 		let appConfigurationProvider = CachedAppConfigurationMock()
 		let store = MockTestStore()
+		store.positiveTestResultWasShown = true
 		let eventStore = MockEventStore()
 		store.registrationToken = registrationToken
 
@@ -1044,6 +1080,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let appConfigurationProvider = CachedAppConfigurationMock()
 		let store = MockTestStore()
 		store.registrationToken = "dummyRegToken"
+		store.positiveTestResultWasShown = true
 		let eventStore = MockEventStore()
 		let client = ClientMock()
 

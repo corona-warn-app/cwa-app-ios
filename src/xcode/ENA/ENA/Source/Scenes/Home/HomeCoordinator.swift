@@ -239,6 +239,7 @@ class HomeCoordinator: RequiresAppDependencies {
 			parentNavigationController: rootViewController,
 			exposureSubmissionService: exposureSubmissionService,
 			store: self.store,
+			eventProvider: eventStore,
 			delegate: self
 		)
 
