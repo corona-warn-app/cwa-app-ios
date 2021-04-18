@@ -6,36 +6,19 @@ import UIKit
 
 class ExposureSubmissionCheckinDescriptionTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 
-
 	// MARK: - Init
 	
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		
-		selectionStyle = .none
-		
-		backgroundColor = .enaColor(for: .darkBackground)
-
-		contentView.addSubview(descriptionLabel)
-		NSLayoutConstraint.activate([
-			descriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-			descriptionLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-			descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-			descriptionLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
-		])
+		setupView()
 	}
 
 	@available(*, unavailable)
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
-	
-	// MARK: - Protocol <#Name#>
-	
-	// MARK: - Public
-	
-	// MARK: - Internal
-	
+		
 	// MARK: - Private
 	
 	private let cellModel = ExposureSubmissionCheckinDescriptionCellModel()
@@ -48,4 +31,17 @@ class ExposureSubmissionCheckinDescriptionTableViewCell: UITableViewCell, ReuseI
 		return label
 	}()
 
+	private func setupView() {
+		selectionStyle = .none
+		
+		backgroundColor = .enaColor(for: .darkBackground)
+
+		contentView.addSubview(descriptionLabel)
+		NSLayoutConstraint.activate([
+			descriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+			descriptionLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+			descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+			descriptionLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
+		])
+	}
 }
