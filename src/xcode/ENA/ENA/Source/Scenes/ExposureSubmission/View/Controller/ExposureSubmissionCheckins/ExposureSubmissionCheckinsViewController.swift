@@ -32,10 +32,9 @@ class ExposureSubmissionCheckinsViewController: UITableViewController, DismissHa
 		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 		
 		tableView.separatorStyle = .none
-		
+		tableView.backgroundColor = .enaColor(for: .darkBackground)
 		tableView.register(ExposureSubmissionCheckinTableViewCell.self, forCellReuseIdentifier: ExposureSubmissionCheckinTableViewCell.reuseIdentifier)
 		tableView.register(ExposureSubmissionCheckinDescriptionTableViewCell.self, forCellReuseIdentifier: ExposureSubmissionCheckinDescriptionTableViewCell.reuseIdentifier)
-		tableView.backgroundColor = .enaColor(for: .darkBackground)
 		
 		viewModel.$continueEnabled
 			.receive(on: DispatchQueue.main.ocombine)
@@ -50,8 +49,7 @@ class ExposureSubmissionCheckinsViewController: UITableViewController, DismissHa
 	func wasAttemptedToBeDismissed() {
 		onDismiss()
 	}
-	
-	
+		
 	// MARK: - Protocol FooterViewHandling
 	
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
@@ -114,10 +112,6 @@ class ExposureSubmissionCheckinsViewController: UITableViewController, DismissHa
 			fatalError("Invalid section")
 		}
 	}
-	
-	// MARK: - Public
-	
-	// MARK: - Internal
 	
 	// MARK: - Private
 	
