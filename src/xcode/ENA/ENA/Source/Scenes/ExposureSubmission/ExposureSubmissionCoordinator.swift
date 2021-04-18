@@ -568,6 +568,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				})
 			},
 			onDismiss: { [weak self] in
+				self?.model.exposureSubmissionService.checkins = []
 				if self?.warnOthersReminder.positiveTestResultWasShown == true {
 					self?.showSkipCheckinsAlert(dontShareHandler: {
 						Analytics.collect(.keySubmissionMetadata(.submittedAfterCancel(true)))
