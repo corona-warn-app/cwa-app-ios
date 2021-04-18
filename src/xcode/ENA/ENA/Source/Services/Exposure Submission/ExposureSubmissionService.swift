@@ -534,7 +534,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		isSubmissionConsentGiven = false
 		temporaryExposureKeys = nil
 		
-		for checkin in self.checkins {
+		for checkin in checkins {
 			let updatedCheckin = checkin.updatedCheckin(checkinSubmitted: true)
 			self.eventStore.updateCheckin(updatedCheckin)
 		}
