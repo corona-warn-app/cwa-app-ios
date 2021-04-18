@@ -109,7 +109,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		case .appConfiguration:
 			vc = DMAppConfigurationViewController(appConfiguration: appConfigurationProvider)
 		case .backendConfiguration:
-			vc = makeBackendConfigurationViewController()
+			vc = DMBackendConfigurationViewController()
 		case .store:
 			vc = DMStoreViewController(store: store)
 		case .lastSubmissionRequest:
@@ -171,11 +171,6 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 			let alert = self.setupErrorAlert(title: "Info", message: "Fake request was sent.")
 			self.present(alert, animated: true) {}
 		}
-	}
-
-	private func makeBackendConfigurationViewController() -> DMBackendConfigurationViewController {
-		return DMBackendConfigurationViewController()
-		#warning("further refactoring!?")
 	}
 
 	private func manuallyRequestRisk() {
