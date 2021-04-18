@@ -2256,20 +2256,20 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Submission Check-in */
 
-"Submission_Checkins_Title" = "Share your Location Check Ins?";
+"Submission_Checkins_Title" = "Check-ins teilen";
 
-"Submission_Checkins_Description" = "Warn others who checked in near you. Your personal data will not be shared.";
+"Submission_Checkins_Description" = "Teilen Sie Ihre Check-ins, um andere zu warnen, die in Ihrer Nähe waren. Ihre Identität bleibt geheim.";
 
-"Submission_Checkins_SelectAll" = "Select all";
+"Submission_Checkins_SelectAll" = "Alle auswählen";
 
-"Submission_Checkins_Continue" = "Submit";
+"Submission_Checkins_Continue" = "Weiter";
 
-"Submission_Checkins_Skip" = "Skip";
+"Submission_Checkins_Skip" = "Überspringen";
 
-"Submission_Checkins_Alert_Title" = "Are you sure you don’t want to share your Check-ins?";
+"Submission_Checkins_Alert_Title" = "Sind Sie sicher, dass Sie Ihre Check-Ins nicht teilen wollen?";
 
-"Submission_Checkins_Alert_Message" = "Skipping will not warn any contacts who checked-in near you.";
+"Submission_Checkins_Alert_Message" = "Dadurch werden andere nicht gewarnt, die in Ihrer Nähe waren.";
 
-"Submission_Checkins_Alert_Share" = "Share";
+"Submission_Checkins_Alert_Share" = "Teilen";
 
-"Submission_Checkins_Alert_DontShare" = "Don’t share";
+"Submission_Checkins_Alert_DontShare" = "Nicht teilen";
