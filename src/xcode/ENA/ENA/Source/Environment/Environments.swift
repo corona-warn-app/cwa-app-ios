@@ -46,7 +46,7 @@ enum EnvironmentDescriptor {
 
 struct Environments: EnvironmentProviding {
 
-	static let selectedEnvironmentKey = "selectedEnvironmentKey"
+	static let selectedEnvironmentKey = "env"
 
 	let environments: [EnvironmentData]
 
@@ -62,10 +62,16 @@ struct Environments: EnvironmentProviding {
 			fatalError("Error parsing server environments: \(error)")
 		}
 	}
+	#if DEBUG
+	/// Test initializer to provide custom envs
+	init(environments: [EnvironmentData]) {
+		self.environments = environments
+	}
+	#endif
 
 	func environment(_ name: EnvironmentDescriptor) -> EnvironmentData {
 		guard let environment = environments.first(where: { $0.name == name.string }) else {
-			fatalError("Missing server environment.")
+			fatalError("Missing server environment \(name.string).")
 		}
 
 		return environment
@@ -84,6 +90,10 @@ struct Environments: EnvironmentProviding {
 	}
 
 	func defaultEnvironment() -> EnvironmentData {
+		#if DEBUG
+		return environments[0]
+		#else
 		return environment(.production)
+		#endif
 	}
 }

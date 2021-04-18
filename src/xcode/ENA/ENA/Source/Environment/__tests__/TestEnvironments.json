@@ -1,7 +1,7 @@
 {
 	"environments":[
 		{
-			"name": "prod",
+			"name": "TestEnvironment0",
 			"distributionURL": "https://TestEnvironment0.distribution",
 			"submissionURL": "https://TestEnvironment0.submission",
 			"verificationURL": "https://TestEnvironment0.verification",
@@ -26,6 +26,15 @@
 			"dataDonationURL": "https://TestEnvironment2.datadonation",
 			"errorLogSubmission": "https://TestEnvironment2.logupload",
 			"publicKeyString": "Key2"
+		},
+		{
+			"name": "prod",
+			"distributionURL": "https://prod.distribution",
+			"submissionURL": "https://prod.submission",
+			"verificationURL": "https://prod.verification",
+			"dataDonationURL": "https://prod.datadonation",
+			"errorLogSubmission": "https://prod.logupload",
+			"publicKeyString": "Key"
 		}
 	]
 }
