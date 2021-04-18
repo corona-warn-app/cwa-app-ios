@@ -2204,9 +2204,9 @@
 
 "Submission_Checkins_Skip" = "Skip";
 
-"Submission_Checkins_Alert_Title" = "Are you sure you don’t want to share your Check-ins?";
+"Submission_Checkins_Alert_Title" = "Are you sure you don’t want to share your check-ins?";
 
-"Submission_Checkins_Alert_Message" = "Skipping will not warn any contacts who checked-in near you.";
+"Submission_Checkins_Alert_Message" = "Skipping will not warn any contacts who checked in near you.";
 
 "Submission_Checkins_Alert_Share" = "Share";
 
