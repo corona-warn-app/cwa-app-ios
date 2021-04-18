@@ -19,7 +19,7 @@ class HomeTableViewModelTests: XCTestCase {
 				coronaTestService: CoronaTestService(client: ClientMock(), store: store),
 				exposureSubmissionService: MockExposureSubmissionService(),
 				statisticsProvider: StatisticsProvider(
-					client: CachingHTTPClientMock(store: store),
+					client: CachingHTTPClientMock(),
 					store: store
 				)
 			),
@@ -71,7 +71,7 @@ class HomeTableViewModelTests: XCTestCase {
 				coronaTestService: CoronaTestService(client: ClientMock(), store: store),
 				exposureSubmissionService: MockExposureSubmissionService(),
 				statisticsProvider: StatisticsProvider(
-					client: CachingHTTPClientMock(store: store),
+					client: CachingHTTPClientMock(),
 					store: store
 				)
 			),
@@ -96,7 +96,7 @@ class HomeTableViewModelTests: XCTestCase {
 				coronaTestService: CoronaTestService(client: ClientMock(), store: store),
 				exposureSubmissionService: MockExposureSubmissionService(),
 				statisticsProvider: StatisticsProvider(
-					client: CachingHTTPClientMock(store: store),
+					client: CachingHTTPClientMock(),
 					store: store
 				)
 			),
@@ -120,7 +120,7 @@ class HomeTableViewModelTests: XCTestCase {
 				coronaTestService: CoronaTestService(client: ClientMock(), store: store),
 				exposureSubmissionService: MockExposureSubmissionService(),
 				statisticsProvider: StatisticsProvider(
-					client: CachingHTTPClientMock(store: store),
+					client: CachingHTTPClientMock(),
 					store: store
 				)
 			),
@@ -150,7 +150,7 @@ class HomeTableViewModelTests: XCTestCase {
 				coronaTestService: CoronaTestService(client: ClientMock(), store: store),
 				exposureSubmissionService: MockExposureSubmissionService(),
 				statisticsProvider: StatisticsProvider(
-					client: CachingHTTPClientMock(store: store),
+					client: CachingHTTPClientMock(),
 					store: store
 				)
 			),
@@ -180,7 +180,7 @@ class HomeTableViewModelTests: XCTestCase {
 				coronaTestService: CoronaTestService(client: ClientMock(), store: store),
 				exposureSubmissionService: MockExposureSubmissionService(),
 				statisticsProvider: StatisticsProvider(
-					client: CachingHTTPClientMock(store: store),
+					client: CachingHTTPClientMock(),
 					store: store
 				)
 			),

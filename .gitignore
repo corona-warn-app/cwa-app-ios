@@ -5,7 +5,8 @@
 ## User settings
 xcuserdata/
 LocalSettings.swift
-ServerEnvironments.json
+Environments.json
+ServerEnvironments.json # legacy
 
 ## compatibility with Xcode 8 and earlier (ignoring not required starting Xcode 9)
 *.xcscmblueprint

@@ -174,9 +174,8 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 	}
 
 	private func makeBackendConfigurationViewController() -> DMBackendConfigurationViewController {
-		return DMBackendConfigurationViewController(
-			serverEnvironmentProvider: store
-		)
+		return DMBackendConfigurationViewController()
+		#warning("further refactoring!?")
 	}
 
 	private func manuallyRequestRisk() {
@@ -214,8 +213,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
     private func makeServerEnvironmentViewController() -> DMServerEnvironmentViewController {
 		return DMServerEnvironmentViewController(
 			store: store,
-			downloadedPackagesStore: downloadedPackagesStore,
-			serverEnvironment: serverEnvironment
+			downloadedPackagesStore: downloadedPackagesStore
 		)
 	}
 }

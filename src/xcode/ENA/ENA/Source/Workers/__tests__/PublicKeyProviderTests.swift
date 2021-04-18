@@ -12,7 +12,7 @@ import CryptoKit
 final class PublicKeyProviderTests: XCTestCase {
 
 	func testThatKeysHaveNotBeenAlteredAccidentally() throws {
-		let environments = ServerEnvironment()
+		let environments = Environments()
 
 		XCTAssertEqual(
 			environments.environment(.production).publicKeyString,

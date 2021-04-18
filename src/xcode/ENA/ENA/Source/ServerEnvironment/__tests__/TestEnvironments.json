@@ -1,0 +1,31 @@
+{
+	"environments":[
+		{
+			"name": "prod",
+			"distributionURL": "https://TestEnvironment0.distribution",
+			"submissionURL": "https://TestEnvironment0.submission",
+			"verificationURL": "https://TestEnvironment0.verification",
+			"dataDonationURL": "https://TestEnvironment0.datadonation",
+			"errorLogSubmission": "https://TestEnvironment0.logupload",
+			"publicKeyString": "Key0"
+		},
+		{
+			"name": "TestEnvironment1",
+			"distributionURL": "https://TestEnvironment1.distribution",
+			"submissionURL": "https://TestEnvironment1.submission",
+			"verificationURL": "https://TestEnvironment1.verification",
+			"dataDonationURL": "https://TestEnvironment1.datadonation",
+			"errorLogSubmission": "https://TestEnvironment1.logupload",
+			"publicKeyString": "Key1"
+		},
+		{
+			"name": "TestEnvironment2",
+			"distributionURL": "https://TestEnvironment2.distribution",
+			"submissionURL": "https://TestEnvironment2.submission",
+			"verificationURL": "https://TestEnvironment2.verification",
+			"dataDonationURL": "https://TestEnvironment2.datadonation",
+			"errorLogSubmission": "https://TestEnvironment2.logupload",
+			"publicKeyString": "Key2"
+		}
+	]
+}

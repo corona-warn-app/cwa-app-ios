@@ -27,7 +27,7 @@ final class SAPDownloadedPackageTests: XCTestCase {
 	func testVerifySignature_RejectModifiedBin() throws {
 		// Test the package signature verification process - rejecting when the signature does not match
 		let bytes = [0xA, 0xB, 0xC, 0xD] as [UInt8]
-		// The bin and signature were  made for different data sets
+		// The bin and signature were made for different data sets
 
 		let package = try SAPDownloadedPackage.makePackage(
 			bin: Data(bytes: bytes, count: 4),
@@ -37,7 +37,7 @@ final class SAPDownloadedPackageTests: XCTestCase {
 			).asList()
 		)
 
-		XCTAssertTrue(signatureVerifier.verify(package))
+		XCTAssertFalse(signatureVerifier.verify(package))
 	}
 
 	func testVerifySignature_RejectCorruptSignature() throws {

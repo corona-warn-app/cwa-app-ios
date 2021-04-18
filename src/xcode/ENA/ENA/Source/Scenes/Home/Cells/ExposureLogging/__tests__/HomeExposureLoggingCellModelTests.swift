@@ -109,7 +109,7 @@ class HomeExposureLoggingCellModelTests: XCTestCase {
 			coronaTestService: CoronaTestService(client: ClientMock(), store: store),
 			exposureSubmissionService: MockExposureSubmissionService(),
 			statisticsProvider: StatisticsProvider(
-				client: CachingHTTPClientMock(store: store),
+				client: CachingHTTPClientMock(),
 				store: store
 			)
 		)

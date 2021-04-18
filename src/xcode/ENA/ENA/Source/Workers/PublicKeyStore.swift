@@ -2,7 +2,7 @@
 // 🦠 Corona-Warn-App
 //
 
-import UIKit
+import Foundation
 #if canImport(CryptoKit)
 import CryptoKit
 #endif
@@ -13,28 +13,18 @@ protocol PublicKeyProviding {
 }
 
 struct PublicKeyProvider: PublicKeyProviding {
-	let store: ServerEnvironmentProviding
-
-	init(store: ServerEnvironmentProviding? = nil) {
-		if let store = store {
-			self.store = store
-		} else {
-			let appDelegate = UIApplication.shared.delegate as? CoronaWarnAppDelegate ?? AppDelegate()
-			self.store = appDelegate.store
-		}
-	}
 
 	func currentPublicSignatureKey() -> PublicKeyProtocol {
-		let env = store.selectedServerEnvironment
+		let env = Environments().currentEnvironment()
 		return publicKey(for: env)
 	}
 
 	func publicSignatureKey(for descriptor: EnvironmentDescriptor) -> PublicKeyProtocol? {
-		let env = ServerEnvironment().environment(descriptor)
+		let env = Environments().environment(descriptor)
 		return publicKey(for: env)
 	}
 
-	private func publicKey(for environment: ServerEnvironmentData) -> PublicKeyProtocol {
+	private func publicKey(for environment: EnvironmentData) -> PublicKeyProtocol {
 		do {
 			// init public key
 			if #available(iOS 13.0, *) {

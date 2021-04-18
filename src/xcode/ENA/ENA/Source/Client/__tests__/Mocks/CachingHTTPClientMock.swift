@@ -7,8 +7,8 @@ import Foundation
 #if DEBUG
 final class CachingHTTPClientMock: CachingHTTPClient {
 
-	convenience init(store: Store) {
-		self.init(serverEnvironmentProvider: store)
+	convenience init(environemntProvider: EnvironmentProviding = Environments()) {
+		self.init(environmentProvider: environemntProvider)
 	}
 
 	static let staticAppConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
