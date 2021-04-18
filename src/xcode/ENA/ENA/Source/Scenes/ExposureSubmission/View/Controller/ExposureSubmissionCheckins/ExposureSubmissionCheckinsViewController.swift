@@ -109,7 +109,7 @@ class ExposureSubmissionCheckinsViewController: UITableViewController, DismissHa
 			viewModel.toogleSelection(at: indexPath.row)
 			return
 		default:
-			fatalError("Invalid section")
+			Log.error("ExposureSubmissionCheckinsViewController: didSelectRowAt in unknown section", log: .ui, error: nil)
 		}
 	}
 	
