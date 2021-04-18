@@ -532,7 +532,6 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	}
 	
 	private func showCheckinsScreen(testResult: TestResult) {
-		
 		let showNextScreen = { [weak self] in
 			if self?.warnOthersReminder.positiveTestResultWasShown == true {
 				self?.showThankYouScreen()
@@ -546,14 +545,12 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 			return
 		}
 		
-		
 		let footerViewModel = FooterViewModel(
 			primaryButtonName: AppStrings.ExposureSubmissionCheckins.continueButton,
 			secondaryButtonName: AppStrings.ExposureSubmissionCheckins.skipButton,
 			isPrimaryButtonEnabled: false,
 			backgroundColor: .enaColor(for: .darkBackground)
 		)
-		
 
 		let checkinsVC = ExposureSubmissionCheckinsViewController(
 			checkins: model.eventProvider.checkinsPublisher.value,
@@ -583,9 +580,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 			}
 		)
 		
-		
 		let footerVC = FooterViewController(footerViewModel)
-		
 		
 		let topBottomVC = TopBottomContainerViewController(topController: checkinsVC, bottomController: footerVC)
 		
