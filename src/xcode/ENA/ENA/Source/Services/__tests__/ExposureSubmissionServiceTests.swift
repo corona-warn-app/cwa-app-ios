@@ -358,6 +358,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let appConfigurationProvider = CachedAppConfigurationMock()
 		let client = ClientMock(submissionError: .requestCouldNotBeBuilt)
 		let store = MockTestStore()
+		store.positiveTestResultWasShown = true
 		let eventStore = MockEventStore()
 		store.registrationToken = "dummyRegistrationToken"
 
@@ -383,6 +384,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let appConfigurationProvider = CachedAppConfigurationMock()
 		let client = ClientMock(submissionError: .invalidPayloadOrHeaders)
 		let store = MockTestStore()
+		store.positiveTestResultWasShown = true
 		let eventStore = MockEventStore()
 		store.registrationToken = "dummyRegistrationToken"
 		let expectation = self.expectation(description: "Correct error description received.")

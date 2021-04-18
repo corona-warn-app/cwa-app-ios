@@ -185,18 +185,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 						processedKeys,
 						visitedCountries: self.supportedCountries,
 						checkins: processedCheckins,
-						completion: { [weak self] error in
-							guard let self = self else {
-								return
-							}
-							// If there was no error during submission,
-							// update the checkins to checkinSubmitted = true.
-							if error == nil {
-								for checkin in self.checkins {
-									let updatedCheckin = checkin.updatedCheckin(checkinSubmitted: true)
-									self.eventStore.updateCheckin(updatedCheckin)
-								}
-							}
+						completion: { error in
 							completion(error)
 						}
 					)
@@ -482,10 +471,10 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				Analytics.collect(.keySubmissionMetadata(.setHoursSinceTestRegistration))
 				Analytics.collect(.keySubmissionMetadata(.submitted(true)))
 				self.submitExposureCleanup()
-				Log.info("Successfully completed exposure sumbission.", log: .api)
+				Log.info("Successfully completed exposure submission.", log: .api)
 				completion(nil)
 			case .failure(let error):
-				Log.error("Error while submiting diagnosis keys: \(error.localizedDescription)", log: .api)
+				Log.error("Error while submitting diagnosis keys: \(error.localizedDescription)", log: .api)
 				completion(self.parseError(error))
 			}
 		}
@@ -544,6 +533,12 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 		isSubmissionConsentGiven = false
 		temporaryExposureKeys = nil
+		
+		for checkin in self.checkins {
+			let updatedCheckin = checkin.updatedCheckin(checkinSubmitted: true)
+			self.eventStore.updateCheckin(updatedCheckin)
+		}
+		
 		checkins = []
 		supportedCountries = []
 		symptomsOnset = .noInformation
