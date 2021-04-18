@@ -2255,7 +2255,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Submission Check-in */
 
-"Submission_Checkins_Title" = "Check-ins teilen";
+"Submission_Checkins_Title" = "Check-ins für diese Orte teilen?";
 
 "Submission_Checkins_Description" = "Teilen Sie Ihre Check-ins, um andere zu warnen, die in Ihrer Nähe waren. Ihre Identität bleibt geheim.";
 
