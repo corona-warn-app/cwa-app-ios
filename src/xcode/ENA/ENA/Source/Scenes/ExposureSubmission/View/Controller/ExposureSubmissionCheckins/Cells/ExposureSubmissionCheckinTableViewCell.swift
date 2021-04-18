@@ -49,9 +49,10 @@ class ExposureSubmissionCheckinTableViewCell: UITableViewCell, ReuseIdentifierPr
 			.receive(on: DispatchQueue.main.ocombine)
 			.assign(to: \.image, on: checkmarkImageView)
 			.store(in: &subscriptions)
-		cellModel.$a11yTraits
+
+		cellModel.$cellIsSelected
 			.receive(on: DispatchQueue.main.ocombine)
-			.assign(to: \.accessibilityTraits, on: self)
+			.assign(to: \.isSelected, on: self)
 			.store(in: &subscriptions)
 	}
 	
