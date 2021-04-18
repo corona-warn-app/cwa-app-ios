@@ -14,13 +14,7 @@ class ExposureSubmissionCheckinsViewModel {
 			.filter { $0.checkinCompleted } // Only shows completed check-ins
 			.map { ExposureSubmissionCheckinCellModel(checkin: $0) }
 	}
-	
-	// MARK: - Overrides
-	
-	// MARK: - Protocol <#Name#>
-	
-	// MARK: - Public
-	
+		
 	// MARK: - Internal
 	
 	enum Section: Int, CaseIterable {
@@ -66,9 +60,8 @@ class ExposureSubmissionCheckinsViewModel {
 	
 	// MARK: - Private
 	
-	func checkContinuePossible() {
+	private func checkContinuePossible() {
 		continueEnabled = checkinCellModels.contains(where: { $0.selected == true })
 	}
-	
 	
 }
