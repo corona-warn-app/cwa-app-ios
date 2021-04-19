@@ -54,6 +54,14 @@ class EnvironmentTests: XCTestCase {
 		XCTAssertEqual(testEnvironments.environment(.production).name, "prod")
 	}
 
+	// Dev test to verify CI builds
+	func testCIEnvironment() throws {
+		try XCTSkipUnless(ProcessInfo.processInfo.environment["CIRCLECI"] == "true")
+
+		XCTAssertNotEqual(Environments().currentEnvironment().name, "prod")
+		XCTAssertNotEqual(Environments().defaultEnvironment().name, "prod")
+	}
+
 	private func loadTestEnvironment() -> EnvironmentProviding {
 		let testBundle = Bundle(for: EnvironmentTests.self)
 		return Environments(bundle: testBundle, resourceName: "TestEnvironments")
