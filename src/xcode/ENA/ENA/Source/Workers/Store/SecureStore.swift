@@ -197,6 +197,12 @@ final class SecureStore: Store {
 			kvStore["submissionKeys"] = newValue?.compactMap { try? $0.serializedData() }
 		}
 	}
+	
+	var submissionCheckins: [Checkin] {
+		get { kvStore["submissionCheckins"] as [Checkin]? ?? [] }
+		set { kvStore["submissionCheckins"] = newValue }
+	}
+
 
 	var submissionCountries: [Country] {
 		get { kvStore["submissionCountries"] as [Country]? ?? [.defaultCountry()] }

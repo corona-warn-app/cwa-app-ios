@@ -18,7 +18,10 @@ class ENAExposureSubmissionServiceTests: XCTestCase {
 		mockStore.isSubmissionConsentGiven = true
 		mockStore.submissionKeys = [SAP_External_Exposurenotification_TemporaryExposureKey()]
 		mockStore.registrationToken = ""
+		mockStore.positiveTestResultWasShown = true
 		eventStore.createCheckin(Checkin.mock())
+		
+		mockStore.submissionCheckins = [eventStore.checkinsPublisher.value[0]]
 		
 		let checkinSubmissionService = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: keysRetrievalMock,

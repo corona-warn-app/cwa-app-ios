@@ -294,6 +294,7 @@ class HomeCoordinator: RequiresAppDependencies {
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: coronaTestService,
 			store: self.store,
+			eventProvider: eventStore,
 			delegate: self
 		)
 		if let testInformationResult = testInformationResult {
