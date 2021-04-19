@@ -20,7 +20,7 @@ class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDel
 			let traceLocation = TraceLocation(
 				id: UUID().uuidString.data(using: .utf8) ?? Data(),
 				version: 0,
-				type: .locationTypeUnspecified,
+				type: .locationTypePermanentRetail,
 				description: "Supermarkt",
 				address: "Walldorf",
 				startDate: nil,

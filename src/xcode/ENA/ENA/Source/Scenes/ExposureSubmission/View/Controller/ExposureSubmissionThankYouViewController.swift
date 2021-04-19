@@ -65,6 +65,7 @@ class ExposureSubmissionThankYouViewController: DynamicTableViewController, Foot
 		parent?.navigationItem.title = AppStrings.ThankYouScreen.title
 		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 		parent?.navigationItem.hidesBackButton = true
+		parent?.navigationItem.largeTitleDisplayMode = .always
 		
 		view.backgroundColor = .enaColor(for: .background)
 		

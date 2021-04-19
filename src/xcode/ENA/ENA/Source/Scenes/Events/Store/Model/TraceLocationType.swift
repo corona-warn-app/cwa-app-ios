@@ -8,7 +8,7 @@ enum TraceLocationTypeType {
 	case unspecified
 }
 
-enum TraceLocationType: Int {
+enum TraceLocationType: Int, Codable {
 
 	case locationTypeUnspecified = 0
 	case locationTypePermanentOther = 1
