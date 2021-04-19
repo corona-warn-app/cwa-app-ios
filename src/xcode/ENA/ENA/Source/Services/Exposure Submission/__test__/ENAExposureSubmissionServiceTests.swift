@@ -10,21 +10,22 @@ class ENAExposureSubmissionServiceTests: XCTestCase {
 	func test_When_SubmissionWasSuccessful_Then_CheckinSubmittedIsTrue() {
 		let keysRetrievalMock = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (nil, nil) )
 		let mockStore = MockTestStore()
+
 		let eventStore = MockEventStore()
+		eventStore.createCheckin(Checkin.mock())
 
 		let coronaTestService = CoronaTestService(
 			client: ClientMock(),
 			store: mockStore,
 			appConfiguration: CachedAppConfigurationMock()
 		)
-		coronaTestService.pcrTest = PCRTest.mock(registrationToken: "regToken", isSubmissionConsentGiven: true)
+		coronaTestService.pcrTest = PCRTest.mock(
+			registrationToken: "regToken",
+			positiveTestResultWasShown: true,
+			isSubmissionConsentGiven: true
+		)
 		
-		mockStore.isSubmissionConsentGiven = true
 		mockStore.submissionKeys = [SAP_External_Exposurenotification_TemporaryExposureKey()]
-		mockStore.registrationToken = ""
-		mockStore.positiveTestResultWasShown = true
-		eventStore.createCheckin(Checkin.mock())
-		
 		mockStore.submissionCheckins = [eventStore.checkinsPublisher.value[0]]
 		
 		let checkinSubmissionService = ENAExposureSubmissionService(
@@ -46,4 +47,5 @@ class ENAExposureSubmissionServiceTests: XCTestCase {
 		
 		waitForExpectations(timeout: .short)
 	}
+
 }
