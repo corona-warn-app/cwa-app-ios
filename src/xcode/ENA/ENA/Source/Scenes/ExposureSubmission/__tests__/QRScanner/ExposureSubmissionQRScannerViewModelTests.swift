@@ -438,7 +438,34 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 		// THEN
 		XCTAssertNil(result)
 	}
-	
+	func testAntigen_hashIsTooShort() {
+		let invalidHash = "f1200d9650f1fd673d58f52811f98f1427fab40b4996e9c2d0da8b741446408"
+		let antigenTestInformation = AntigenTestInformation.mock(hash: invalidHash)
+		
+		do {
+			let payloadData = try XCTUnwrap(JSONEncoder().encode(antigenTestInformation))
+			let payloadString = payloadData.base64EncodedString()
+			let url = "https://s.coronawarn.app/?v=1#\(payloadString)"
+			let route = Route(url)
+			XCTAssertEqual(route, Route.rapidAntigen( .failure(.invalidTestCode)), "incorrect hash should trigger an error")
+		} catch {
+			XCTFail("Caught an error while trying to encode the Antigen test")
+		}
+	}
+	func testAntigen_hashIsNotHex() {
+		let invalidHash = "f1200d9650f1fd673d58f52811f98f1427fab40b4996e9c2d0da8b741446408G"
+		let antigenTestInformation = AntigenTestInformation.mock(hash: invalidHash)
+		
+		do {
+			let payloadData = try XCTUnwrap(JSONEncoder().encode(antigenTestInformation))
+			let payloadString = payloadData.base64EncodedString()
+			let url = "https://s.coronawarn.app/?v=1#\(payloadString)"
+			let route = Route(url)
+			XCTAssertEqual(route, Route.rapidAntigen( .failure(.invalidTestCode)), "incorrect hash should trigger an error")
+		} catch {
+			XCTFail("Caught an error while trying to encode the Antigen test")
+		}
+	}
 	func testHashOFTheHash() {
 		// both the hash and the expectedHashOfTheHash are extracted from a known valid Antigen test from the Tech specs
 		let hash = "f1200d9650f1fd673d58f52811f98f1427fab40b4996e9c2d0da8b7414464086"

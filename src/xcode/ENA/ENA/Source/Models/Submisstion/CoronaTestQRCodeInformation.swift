@@ -24,3 +24,24 @@ enum CoronaTestQRCodeInformation {
 		}
 	}
 }
+
+extension CoronaTestQRCodeInformation: Equatable {
+	static func == (lhs: CoronaTestQRCodeInformation, rhs: CoronaTestQRCodeInformation) -> Bool {
+		switch lhs {
+		case .pcr(let lhsGuid):
+			switch rhs {
+			case .pcr(let rhsGuid):
+				return lhsGuid == rhsGuid
+			default:
+				return false
+			}
+		case .antigen(let lhsAntigenTestInformation):
+			switch rhs {
+			case .antigen(let rhsAntigenTestInformation):
+				return lhsAntigenTestInformation == rhsAntigenTestInformation
+			default:
+				return false
+			}
+		}
+	}
+}
