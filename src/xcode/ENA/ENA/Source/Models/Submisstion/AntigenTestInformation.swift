@@ -15,7 +15,7 @@ struct AntigenTestInformation: Codable, Equatable {
 		lastName: String?,
 		dateOfBirth: Date?
 	) {
-		self.hash = guid
+		self.hash = hash
 		self.timestamp = timestamp
 		self.firstName = firstName
 		self.lastName = lastName
@@ -95,13 +95,7 @@ struct AntigenTestInformation: Codable, Equatable {
 		}
 		return hashData.sha256String()
 	}
-	
-	// MARK: - Private
-	
-	private enum CodingKeys: String, CodingKey {
-		case hash, timestamp, firstName = "fn", lastName = "ln", dateOfBirth = "dob"
-	}
-
+		
 	// MARK: - Private
 
 	static let isoFormatter: ISO8601DateFormatter = {

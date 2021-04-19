@@ -11,7 +11,7 @@ extension AntigenTestInformation {
 		timestamp: Int = 5,
 		firstName: String? = nil,
 		lastName: String? = nil,
-		dateOfBirth: String? = nil
+		dateOfBirth: Date? = nil
 	) -> Self? {
 		AntigenTestInformation(
 			hash: hash,

@@ -477,7 +477,6 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 
 	private let validPcrGuid = "3D6D08-3567F3F2-4DCF-43A3-8737-4CD1F87D6FDA"
 	private func validAntigenHash(validPayload: String) -> String? {
-
 		let jsonData: Data
 		if validPayload.isBase64Encoded {
 			guard let parsedData = Data(base64Encoded: validPayload) else {
@@ -491,7 +490,17 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 			jsonData = parsedData
 		}
 		do {
-			let testInformation = try JSONDecoder().decode(AntigenTestInformation.self, from: jsonData)
+			let jsonDecoder = JSONDecoder()
+			jsonDecoder.dateDecodingStrategy = .custom({ decoder -> Date in
+				let container = try decoder.singleValueContainer()
+				let stringDate = try container.decode(String.self)
+				guard let date = AntigenTestInformation.isoFormatter.date(from: stringDate) else {
+					throw DecodingError.dataCorruptedError(in: container, debugDescription: "failed to decode date \(stringDate)")
+				}
+				return date
+			})
+
+			let testInformation = try jsonDecoder.decode(AntigenTestInformation.self, from: jsonData)
 			return testInformation.hash
 		} catch {
 			Log.debug("Failed to read / parse district json", log: .ppac)
