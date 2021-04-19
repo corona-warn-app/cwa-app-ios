@@ -2193,3 +2193,22 @@
 
 "Checkin_Details_CheckIn_Button" = "Zamelduj się";
 
+/* Submission Check-in */
+"Submission_Checkins_Title" = "Udostępnić Twoje zameldowania w lokalizacji?";
+
+"Submission_Checkins_Description" = "Ostrzegaj inne osoby, które się zameldowały w pobliżu. Twoje dane osobowe nie będą udostępniane.";
+
+"Submission_Checkins_SelectAll" = "Wybierz wszystkie";
+
+"Submission_Checkins_Continue" = "Prześlij";
+
+"Submission_Checkins_Skip" = "Pomiń";
+
+"Submission_Checkins_Alert_Title" = "Czy na pewno nie chcesz udostępniać swoich zameldowań?";
+
+"Submission_Checkins_Alert_Message" = "W przypadku pominięcia tej operacji żadne kontakty zameldowane w pobliżu nie otrzymają ostrzeżenia.";
+
+"Submission_Checkins_Alert_Share" = "Udostępnij";
+
+"Submission_Checkins_Alert_DontShare" = "Nie udostępniaj";
+

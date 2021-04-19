@@ -2193,3 +2193,22 @@
 
 "Checkin_Details_CheckIn_Button" = "Регистрация";
 
+/* Submission Check-in */
+"Submission_Checkins_Title" = "Ще споделите ли своите регистрации от локациите, които сте посетили?";
+
+"Submission_Checkins_Description" = "Предупредете останалите, които също са се регистрирали в близост до вас. Вашите лични данни няма да бъдат споделени.";
+
+"Submission_Checkins_SelectAll" = "Избери всички";
+
+"Submission_Checkins_Continue" = "Предаване";
+
+"Submission_Checkins_Skip" = "Пропускане";
+
+"Submission_Checkins_Alert_Title" = "Наистина ли не желаете да споделите своите регистрации?";
+
+"Submission_Checkins_Alert_Message" = "Като пропускате споделянето, вие не изпращате предупреждение на други контактни лица, регистрирани в близост до вас.";
+
+"Submission_Checkins_Alert_Share" = "Споделяне";
+
+"Submission_Checkins_Alert_DontShare" = "Да не се споделя";
+

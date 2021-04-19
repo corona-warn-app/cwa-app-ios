@@ -2193,3 +2193,22 @@
 
 "Checkin_Details_CheckIn_Button" = "Check-in";
 
+/* Submission Check-in */
+"Submission_Checkins_Title" = "Partajați check-inurile locației dvs.?";
+
+"Submission_Checkins_Description" = "Avertizați-i pe ceilalți care au făcut check-in în aproprierea dvs. Datele dvs. personale nu vor fi partajate.";
+
+"Submission_Checkins_SelectAll" = "Selectare tot";
+
+"Submission_Checkins_Continue" = "Transmitere";
+
+"Submission_Checkins_Skip" = "Omitere";
+
+"Submission_Checkins_Alert_Title" = "Sigur nu doriți să partajați check-inurile dvs.?";
+
+"Submission_Checkins_Alert_Message" = "Omiterea nu va avertiza contactele care au făcut check-in în apropierea dvs.";
+
+"Submission_Checkins_Alert_Share" = "Partajare";
+
+"Submission_Checkins_Alert_DontShare" = "Nu partajez";
+
