@@ -69,6 +69,10 @@
 
 "ExposureDetection_DaysSinceInstallation" = "Seit %u Tagen installiert";
 
+"ExposureDetection_OneDaySinceInstallation" = "Seit %u Tag installiert";
+
+"ExposureDetection_InstalledToday" = "Heute installiert";
+
 "ExposureDetection_LastExposure" = "Zuletzt am %@";
 
 "ExposureDetection_LastExposure_One_Risk_Day" = "Am %@";
@@ -1086,6 +1090,8 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 /* Home Low card */
 "Home_Risk_Low_Title" = "Niedriges Risiko";
 "Home_Risk_DaysSinceInstallation" = "Seit %u Tagen installiert";
+"Home_Risk_OneDaySinceInstallation" = "Seit %u Tag installiert";
+"Home_Risk_InstalledToday" = "Heute installiert";
 
 /* Home High card */
 "Home_Risk_High_Title" = "Erhöhtes Risiko";

@@ -390,6 +390,9 @@ enum AppStrings {
 		static let highColorName = NSLocalizedString("ExposureDetection_High_Red_Color", comment: "")
 
 		static let daysSinceInstallation = NSLocalizedString("ExposureDetection_DaysSinceInstallation", comment: "")
+		static let oneDaySinceInstallation = NSLocalizedString("ExposureDetection_OneDaySinceInstallation", comment: "")
+		static let installedToday = NSLocalizedString("ExposureDetection_InstalledToday", comment: "")
+		
 		static let lastExposure = NSLocalizedString("ExposureDetection_LastExposure", comment: "")
 		static let lastExposureOneRiskDay = NSLocalizedString("ExposureDetection_LastExposure_One_Risk_Day", comment: "")
 		static let refreshed = NSLocalizedString("ExposureDetection_Refreshed", comment: "")
@@ -762,6 +765,8 @@ enum AppStrings {
 		static let riskCardLowTitleColorName = NSLocalizedString("Home_Risk_Low_Color", comment: "")
 		static let riskCardLowNumberContactsItemTitle = NSLocalizedString("Home_Risk_Low_Number_Contacts_Item_Title", comment: "")
 		static let daysSinceInstallation = NSLocalizedString("Home_Risk_DaysSinceInstallation", comment: "")
+		static let oneDaySinceInstallation = NSLocalizedString("Home_Risk_OneDaySinceInstallation", comment: "")
+		static let installedToday = NSLocalizedString("Home_Risk_InstalledToday", comment: "")
 		static let riskEncounterLowFAQLink = NSLocalizedString("Risk_Encounter_Low_FAQ_URL", tableName: "Localizable.links", comment: "")
 
 		// High Card
