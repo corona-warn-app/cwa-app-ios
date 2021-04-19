@@ -146,7 +146,7 @@ class ExposureSubmissionCoordinatorModel {
 				with: rapidTest.guid,
 				pointOfCareConsentDate: rapidTest.pointOfCareConsentDate,
 				name: rapidTest.fullName,
-				birthday: rapidTest.dateOfBirth,
+				birthday: rapidTest.dateOfBirthString,
 				isSubmissionConsentGiven: isSubmissionConsentGiven,
 				completion: { result in
 					isLoading(false)
