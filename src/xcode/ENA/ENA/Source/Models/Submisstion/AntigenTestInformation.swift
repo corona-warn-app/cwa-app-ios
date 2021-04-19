@@ -9,13 +9,13 @@ struct AntigenTestInformation: Codable, Equatable {
 	// MARK: - Init
 
 	init(
-		guid: String,
+		hash: String,
 		timestamp: Int,
 		firstName: String?,
 		lastName: String?,
 		dateOfBirth: Date?
 	) {
-		self.guid = guid
+		self.hash = guid
 		self.timestamp = timestamp
 		self.firstName = firstName
 		self.lastName = lastName
@@ -57,18 +57,16 @@ struct AntigenTestInformation: Codable, Equatable {
 	// MARK: - Protocol Codable
 
 	enum CodingKeys: String, CodingKey {
-		case guid
+		case hash
 		case timestamp
 		case firstName = "fn"
 		case lastName = "ln"
 		case dateOfBirth = "dob"
 	}
-
-	// MARK: - Public
-
+		
 	// MARK: - Internal
 	
-	let guid: String
+	let hash: String
 	let timestamp: Int
 	let firstName: String?
 	let lastName: String?
@@ -90,6 +88,19 @@ struct AntigenTestInformation: Codable, Equatable {
 		}
 		return AntigenTestInformation.isoFormatter.string(from: dateOfBirth)
 	}
+	var hashOfTheHash: String {
+		guard let hashData = hash.data(using: .utf8) else {
+			Log.error("hash string couldn't be parsed to a data object", log: .qrCode)
+			return ""
+		}
+		return hashData.sha256String()
+	}
+	
+	// MARK: - Private
+	
+	private enum CodingKeys: String, CodingKey {
+		case hash, timestamp, firstName = "fn", lastName = "ln", dateOfBirth = "dob"
+	}
 
 	// MARK: - Private
 
@@ -99,5 +110,4 @@ struct AntigenTestInformation: Codable, Equatable {
 		isoFormatter.timeZone = TimeZone.current
 		return isoFormatter
 	}()
-
 }
