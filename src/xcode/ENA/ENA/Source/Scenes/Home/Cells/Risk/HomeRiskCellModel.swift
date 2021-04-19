@@ -304,8 +304,19 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 			itemViewModels.append(recentRiskDaysModel)
 
 		} else if homeState.shouldShowDaysSinceInstallation {
+			var daysSinceInstallationTitle = ""
+
+			switch homeState.daysSinceInstallation {
+			case 0:
+				daysSinceInstallationTitle = String(format: AppStrings.Home.installedToday, homeState.daysSinceInstallation)
+			case 1:
+				daysSinceInstallationTitle = String(format: AppStrings.Home.oneDaySinceInstallation, homeState.daysSinceInstallation)
+			default:
+				daysSinceInstallationTitle = String(format: AppStrings.Home.daysSinceInstallation, homeState.daysSinceInstallation)
+			}
+
 			let daysSinceInstallationModel = HomeImageItemViewModel(
-				title: String(format: AppStrings.Home.daysSinceInstallation, homeState.daysSinceInstallation),
+				title: daysSinceInstallationTitle,
 				titleColor: titleColor,
 				iconImageName: "Icons-DaysSinceInstall",
 				iconTintColor: titleColor,
