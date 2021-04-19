@@ -59,15 +59,6 @@ final class ExposureSubmissionNavigationController: ENANavigationControllerWithF
 		navigationBar.prefersLargeTitles = true
 	}
 
-	override func viewWillDisappear(_ animated: Bool) {
-		super.viewWillDisappear(animated)
-
-		// Check if the ExposureSubmissionNavigationController is popped from its parent.
-		guard self.isMovingFromParent || self.isBeingDismissed,
-			  let coordinator = coordinator else { return }
-		coordinator.delegate?.exposureSubmissionCoordinatorWillDisappear(coordinator)
-	}
-
 	// MARK: - Protocol UIAdaptivePresentationControllerDelegate
 
 	/// override to implement an other default handling - call dismissClosure()

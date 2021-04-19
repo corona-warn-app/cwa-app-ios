@@ -270,15 +270,29 @@ enum AppStrings {
 		static let noConsentInfo3 = NSLocalizedString("TestResultPositive_NoConsent_Info3", comment: "")
 		static let noConsentPrimaryButtonTitle = NSLocalizedString("TestResultPositive_NoConsent_PrimaryButton", comment: "")
 		static let noConsentSecondaryButtonTitle = NSLocalizedString("TestResultPositive_NoConsent_SecondaryButton", comment: "")
+
 		static let noConsentAlertTitle = NSLocalizedString("TestResultPositive_NoConsent_AlertNotWarnOthers_Title", comment: "")
 		static let noConsentAlertDescription = NSLocalizedString("TestResultPositive_NoConsent_AlertNotWarnOthers_Description", comment: "")
 		static let noConsentAlertButtonDontWarn = NSLocalizedString("TestResultPositive_NoConsent_AlertNotWarnOthers_ButtonOne", comment: "")
 		static let noConsentAlertButtonWarn = NSLocalizedString("TestResultPositive_NoConsent_AlertNotWarnOthers_ButtonTwo", comment: "")
+
 		static let withConsentTitle = NSLocalizedString("TestResultPositive_WithConsent_Title", comment: "")
 		static let withConsentInfo1 = NSLocalizedString("TestResultPositive_WithConsent_Info1", comment: "")
 		static let withConsentInfo2 = NSLocalizedString("TestResultPositive_WithConsent_Info2", comment: "")
 		static let withConsentPrimaryButtonTitle = NSLocalizedString("TestResultPositive_WithConsent_PrimaryButton", comment: "")
 		static let withConsentSecondaryButtonTitle = NSLocalizedString("TestResultPositive_WithConsent_SecondaryButton", comment: "")
+
+		static let keysSubmittedDescription = NSLocalizedString("TestResultPositive_KeysSubmitted_Description", comment: "")
+		static let keysSubmittedTitle1 = NSLocalizedString("TestResultPositive_KeysSubmitted_Title1", comment: "")
+		static let keysSubmittedInfo1 = NSLocalizedString("TestResultPositive_KeysSubmitted_Info1", comment: "")
+		static let keysSubmittedInfo2 = NSLocalizedString("TestResultPositive_KeysSubmitted_Info2", comment: "")
+		static let keysSubmittedInfo3 = NSLocalizedString("TestResultPositive_KeysSubmitted_Info3", comment: "")
+		static let keysSubmittedTitle2 = NSLocalizedString("TestResultPositive_KeysSubmitted_Title2", comment: "")
+		static let keysSubmittedFurtherInfo1 = NSLocalizedString("TestResultPositive_KeysSubmitted_FurtherInfo1", comment: "")
+		static let keysSubmittedFurtherInfo2 = NSLocalizedString("TestResultPositive_KeysSubmitted_FurtherInfo2", comment: "")
+		static let keysSubmittedFurtherInfo3 = NSLocalizedString("TestResultPositive_KeysSubmitted_FurtherInfo3", comment: "")
+		static let keysSubmittedFurtherInfo4 = NSLocalizedString("TestResultPositive_KeysSubmitted_FurtherInfo4", comment: "")
+		static let keysSubmittedPrimaryButtonTitle = NSLocalizedString("TestResultPositive_KeysSubmitted_PrimaryButton", comment: "")
 	}
 
 	enum ExposureSubmissionSymptoms {
@@ -773,44 +787,79 @@ enum AppStrings {
 		static let riskCardStatusDetectingTitle = NSLocalizedString("Home_Risk_Status_Detecting_Title", comment: "")
 		static let riskCardStatusDetectingBody = NSLocalizedString("Home_Risk_Status_Detecting_Body", comment: "")
 
-		// Thank you card
-		static let thankYouCardTitle = NSLocalizedString("Home_Thank_You_Card_Title", comment: "")
-		static let thankYouCardBody = NSLocalizedString("Home_Thank_You_Card_Body", comment: "")
-		static let thankYouCardNoteTitle = NSLocalizedString("Home_Thank_You_Card_Note_Title", comment: "")
-		static let thankYouCardPhoneItemTitle = NSLocalizedString("Home_Thank_You_Card_Phone_Item_Title", comment: "")
-		static let thankYouCardHomeItemTitle = NSLocalizedString("Home_Thank_You_Card_Home_Item_Title", comment: "")
-		static let thankYouCardFurtherInfoItemTitle = NSLocalizedString("Home_Thank_You_Card_Further_Info_Item_Title", comment: "")
-		static let thankYouCard14DaysItemTitle = NSLocalizedString("Home_Thank_You_Card_14Days_Item_Title", comment: "")
-		static let thankYouCardContactsItemTitle = NSLocalizedString("Home_Thank_You_Card_Contacts_Item_Title", comment: "")
-		static let thankYouCardAppItemTitle = NSLocalizedString("Home_Thank_You_Card_App_Item_Title", comment: "")
-		static let thankYouCardNoSymptomsItemTitle = NSLocalizedString("Home_Thank_You_Card_NoSymptoms_Item_Title", comment: "")
+		// Test Result States
+		enum TestResult {
+			static let pcrTitle = NSLocalizedString("Home_resultCard_PCR_Title", comment: "")
+			static let antigenTitle = NSLocalizedString("Home_resultCard_Antigen_Title", comment: "")
 
-		// Reenable card
-		static let reenableCardTitle = NSLocalizedString("Home_Reenable_Card_Title", comment: "")
-		static let reenableCardBody = NSLocalizedString("Home_Reenable_Card_Body", comment: "")
-		static let reenableCardButtonTitle = NSLocalizedString("Home_Reenable_Card_Button_Title", comment: "")
-		static let reenableCardTestResultTitle = NSLocalizedString("Home_Reenable_Card_TestResult_Title", comment: "")
-		static let reenableCardTestResultSubtitle = NSLocalizedString("Home_Reenable_Card_TestResult_Subtitle", comment: "")
-		static let reenableCardTestResultRegistration = NSLocalizedString("Home_Reenable_Card_TestResult_Registration", comment: "")
-		static let reenableAlertTitle = NSLocalizedString("Home_Reenable_Alert_Title", comment: "")
-		static let reenableAlertMessage = NSLocalizedString("Home_Reenable_Alert_Message", comment: "")
-		static let reenableAlertConfirmButtonTitle = NSLocalizedString("Home_Reenable_Alert_ConfirmButtonTitle", comment: "")
-		static let reenableAlertCancelButtonTitle = NSLocalizedString("Home_Reenable_Alert_CancelButtonTitle", comment: "")
+			static let resultCardLoadingErrorTitle = NSLocalizedString("Home_resultCard_LoadingErrorTitle", comment: "")
 
-		// Finding positive card
-		static let findingPositiveCardTitle = NSLocalizedString("Home_Finding_Positive_Card_Title", comment: "")
-		static let findingPositiveCardStatusTitle = NSLocalizedString("Home_Finding_Positive_Card_Status_Title", comment: "")
-		static let findingPositiveCardStatusSubtitle = NSLocalizedString("Home_Finding_Positive_Card_Status_Subtitle", comment: "")
-		static let findingPositiveCardNoteTitle = NSLocalizedString("Home_Finding_Positive_Card_Note_Title", comment: "")
-		static let findingPositivePhoneItemTitle = NSLocalizedString("Home_Finding_Positive_Card_Phone_Item_Title", comment: "")
-		static let findingPositiveHomeItemTitle = NSLocalizedString("Home_Finding_Positive_Card_Home_Item_Title", comment: "")
-		static let findingPositiveShareItemTitle = NSLocalizedString("Home_Finding_Positive_Card_Share_Item_Title", comment: "")
-		static let findingPositiveCardButton = NSLocalizedString("Home_Finding_Positive_Card_Button", comment: "")
+			enum Pending {
+				static let title = NSLocalizedString("Home_resultCard_ResultUnvailableTitle", comment: "")
+				static let pcrDescription = NSLocalizedString("Home_resultCard_Pending_PCR_Desc", comment: "")
+				static let antigenDescription = NSLocalizedString("Home_resultCard_Pending_Antigen_Desc", comment: "")
+			}
 
-		// Submit Card
-		static let submitCardTitle = NSLocalizedString("Home_SubmitCard_Title", comment: "")
-		static let submitCardBody = NSLocalizedString("Home_SubmitCard_Body", comment: "")
-		static let submitCardButton = NSLocalizedString("Home_SubmitCard_Button", comment: "")
+			enum Available {
+				static let title = NSLocalizedString("Home_resultCard_ResultAvailableTitle", comment: "")
+				static let description = NSLocalizedString("Home_resultCard_AvailableDesc", comment: "")
+			}
+
+			enum Negative {
+				static let caption = NSLocalizedString("Home_resultCard_NegativeCaption", comment: "")
+				static let title = NSLocalizedString("Home_resultCard_NegativeTitle", comment: "")
+				static let titleNegative = NSLocalizedString("Home_resultCard_NegativeTitleNegative", comment: "")
+				static let description = NSLocalizedString("Home_resultCard_NegativeDesc", comment: "")
+				static let datePCR = NSLocalizedString("Home_resultCard_NegativeDatePCR", comment: "")
+				static let dateAntigen = NSLocalizedString("Home_resultCard_NegativeDateAntigen", comment: "")
+			}
+
+			enum Invalid {
+				static let title = NSLocalizedString("Home_resultCard_InvalidTitle", comment: "")
+				static let description = NSLocalizedString("Home_resultCard_InvalidDesc", comment: "")
+			}
+
+			enum Expired {
+				static let title = NSLocalizedString("Home_resultCard_ExpiredTitle", comment: "")
+				static let description = NSLocalizedString("Home_resultCard_ExpiredDesc", comment: "")
+			}
+
+			enum Outdated {
+				static let title = NSLocalizedString("Home_resultCard_OutdatedTitle", comment: "")
+				static let description = NSLocalizedString("Home_resultCard_OutdatedDesc", comment: "")
+			}
+
+			enum Loading {
+				static let title = NSLocalizedString("Home_resultCard_LoadingTitle", comment: "")
+				static let description = NSLocalizedString("Home_resultCard_LoadingBody", comment: "")
+			}
+
+			enum Button {
+				static let showResult = NSLocalizedString("Home_resultCard_ShowResultButton", comment: "")
+				static let retrieveResult = NSLocalizedString("Home_resultCard_RetrieveResultButton", comment: "")
+				static let deleteTest = NSLocalizedString("Home_resultCard_DeleteTestButton", comment: "")
+				static let hideTest = NSLocalizedString("Home_resultCard_HideTestButton", comment: "")
+			}
+
+			enum ShownPositive {
+				static let statusTitle = NSLocalizedString("Home_Finding_Positive_Card_Status_Title", comment: "")
+				static let statusSubtitle = NSLocalizedString("Home_Finding_Positive_Card_Status_Subtitle", comment: "")
+				static let statusDatePCR = NSLocalizedString("Home_Finding_Positive_Card_Status_DatePCR", comment: "")
+				static let statusDateAntigen = NSLocalizedString("Home_Finding_Positive_Card_Status_DateAntigen", comment: "")
+				static let noteTitle = NSLocalizedString("Home_Finding_Positive_Card_Note_Title", comment: "")
+				static let verifyItemTitle = NSLocalizedString("Home_Finding_Positive_Card_Verify_Item_Title", comment: "")
+				static let phoneItemTitle = NSLocalizedString("Home_Finding_Positive_Card_Phone_Item_Title", comment: "")
+				static let homeItemTitle = NSLocalizedString("Home_Finding_Positive_Card_Home_Item_Title", comment: "")
+				static let shareItemTitle = NSLocalizedString("Home_Finding_Positive_Card_Share_Item_Title", comment: "")
+				static let button = NSLocalizedString("Home_Finding_Positive_Card_Button", comment: "")
+			}
+		}
+
+		enum TestRegistration {
+			static let title = NSLocalizedString("Home_TestRegistration_Title", comment: "")
+			static let description = NSLocalizedString("Home_TestRegistration_Body", comment: "")
+			static let button = NSLocalizedString("Home_TestRegistration_Button", comment: "")
+		}
 
 		// Trace Locations Card
 		static let traceLocationsCardTitle = NSLocalizedString("Home_TraceLocationsCard_Title", comment: "")
@@ -828,31 +877,14 @@ enum AppStrings {
 		static let infoCardAboutTitle = NSLocalizedString("Home_InfoCard_AboutTitle", comment: "")
 		static let infoCardAboutBody = NSLocalizedString("Home_InfoCard_AboutBody", comment: "")
 
-		// Test Result States
-		static let resultCardResultAvailableTitle = NSLocalizedString("Home_resultCard_ResultAvailableTitle", comment: "")
-		static let resultCardResultUnvailableTitle = NSLocalizedString("Home_resultCard_ResultUnvailableTitle", comment: "")
-		static let resultCardLoadingBody = NSLocalizedString("Home_resultCard_LoadingBody", comment: "")
-		static let resultCardLoadingTitle = NSLocalizedString("Home_resultCard_LoadingTitle", comment: "")
-		static let resultCardShowResultButton = NSLocalizedString("Home_resultCard_ShowResultButton", comment: "")
-		static let resultCardRetrieveResultButton = NSLocalizedString("Home_resultCard_RetrieveResultButton", comment: "")
-		static let resultCardNegativeTitle = NSLocalizedString("Home_resultCard_NegativeTitle", comment: "")
-		static let resultCardNegativeDesc = NSLocalizedString("Home_resultCard_NegativeDesc", comment: "")
-		static let resultCardPendingDesc = NSLocalizedString("Home_resultCard_PendingDesc", comment: "")
-		static let resultCardInvalidTitle = NSLocalizedString("Home_resultCard_InvalidTitle", comment: "")
-		static let resultCardInvalidDesc = NSLocalizedString("Home_resultCard_InvalidDesc", comment: "")
-		static let resultCardAvailableSubtitle = NSLocalizedString("Home_resultCard_AvailableSubtitle", comment: "")
-		static let resultCardAvailableDesc = NSLocalizedString("Home_resultCard_AvailableDesc", comment: "")
-		static let resultCardLoadingErrorTitle = NSLocalizedString("Home_resultCard_LoadingErrorTitle", comment: "")
+		// Risk Detection HowTo Alert
+
+		static let riskDetectionHowToAlertTitle = NSLocalizedString("How_Risk_Detection_Works_Alert_Title", comment: "")
+		static let riskDetectionHowToAlertMessage = NSLocalizedString("How_Risk_Detection_Works_Alert_Message", comment: "")
 
 		static let riskStatusLoweredAlertTitle = NSLocalizedString("Home_Alert_RiskStatusLowered_Title", comment: "")
 		static let riskStatusLoweredAlertMessage = NSLocalizedString("Home_Alert_RiskStatusLowered_Message", comment: "")
 		static let riskStatusLoweredAlertPrimaryButtonTitle = NSLocalizedString("Home_Alert_RiskStatusLowered_PrimaryButtonTitle", comment: "")
-
-		// Risk Detection HowTo Alert
-
-		static let riskDetectionHowToAlertTitle = NSLocalizedString("How_Risk_Detection_Works_Alert_Title", comment: "")
-
-		static let riskDetectionHowToAlertMessage = NSLocalizedString("How_Risk_Detection_Works_Alert_Message", comment: "")
 	}
 
 	enum InviteFriends {

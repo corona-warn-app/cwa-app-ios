@@ -143,6 +143,7 @@ extension ExposureSubmissionStepCell {
 
 	enum Spacing: CGFloat {
 		case large = 32
+		case medium = 16
 		case normal = 12
 		case small = 4
 	}

@@ -12,8 +12,6 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 
 	private var parentNavigationController: UINavigationController!
 	private var exposureSubmissionService: MockExposureSubmissionService!
-	// swiftlint:disable:next weak_delegate
-	private var delegate: MockExposureSubmissionCoordinatorDelegate!
 	private var store: Store!
 	private var coronaTestService: CoronaTestService!
 
@@ -23,24 +21,24 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 		store = MockTestStore()
 		parentNavigationController = UINavigationController()
 		exposureSubmissionService = MockExposureSubmissionService()
-		delegate = MockExposureSubmissionCoordinatorDelegate()
-		coronaTestService = CoronaTestService(client: ClientMock(), store: store)
+		coronaTestService = CoronaTestService(
+			client: ClientMock(),
+			store: store,
+			appConfiguration: CachedAppConfigurationMock()
+		)
 	}
 
 	// MARK: - Helper methods.
 
 	private func createCoordinator(
 		parentNavigationController: UINavigationController,
-		exposureSubmissionService: ExposureSubmissionService,
-		delegate: ExposureSubmissionCoordinatorDelegate
+		exposureSubmissionService: ExposureSubmissionService
 	) -> ExposureSubmissionCoordinator {
 		ExposureSubmissionCoordinator(
 			parentNavigationController: parentNavigationController,
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: coronaTestService,
-			store: self.store,
-			eventProvider: MockEventStore(),
-			delegate: delegate
+			eventProvider: MockEventStore()
 		)
 	}
 
@@ -58,8 +56,7 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 	func testStart_default() {
 		let coordinator = createCoordinator(
 			parentNavigationController: parentNavigationController,
-			exposureSubmissionService: exposureSubmissionService,
-			delegate: delegate
+			exposureSubmissionService: exposureSubmissionService
 		)
 
 		coordinator.start(with: nil)
@@ -89,8 +86,7 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 	func testStart_withNegativeResult() {
 		let coordinator = createCoordinator(
 			parentNavigationController: parentNavigationController,
-			exposureSubmissionService: exposureSubmissionService,
-			delegate: delegate
+			exposureSubmissionService: exposureSubmissionService
 		)
 
 		coronaTestService.pcrTest = PCRTest.mock(registrationToken: "asdf", testResult: .negative)
@@ -109,8 +105,7 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 	func testStart_withPositiveResult() {
 		let coordinator = createCoordinator(
 			parentNavigationController: parentNavigationController,
-			exposureSubmissionService: exposureSubmissionService,
-			delegate: delegate
+			exposureSubmissionService: exposureSubmissionService
 		)
 
 		coronaTestService.pcrTest = PCRTest.mock(registrationToken: "asdf", testResult: .positive)
@@ -133,26 +128,22 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 
 		let coordinator = createCoordinator(
 			parentNavigationController: parentNavigationController,
-			exposureSubmissionService: exposureSubmissionService,
-			delegate: delegate
+			exposureSubmissionService: exposureSubmissionService
 		)
-
-		let expectation = self.expectation(description: "Expect delegate to be called on disappear.")
-		delegate.onExposureSubmissionCoordinatorWillDisappear = { _ in expectation.fulfill() }
 
 		XCTAssertNil(parentNavigationController.presentedViewController)
 		coordinator.start(with: nil)
 		XCTAssertNotNil(parentNavigationController.presentedViewController)
 
-		coordinator.dismiss()
-		waitForExpectations(timeout: .medium)
+		coordinator.dismiss {
+			XCTAssertNil(self.parentNavigationController.presentedViewController)
+		}
 	}
 
 	func testInitialViewController() throws {
 		let coordinator = createCoordinator(
 			parentNavigationController: parentNavigationController,
-			exposureSubmissionService: exposureSubmissionService,
-			delegate: delegate
+			exposureSubmissionService: exposureSubmissionService
 		)
 
 		coronaTestService.pcrTest = PCRTest.mock(testResult: .positive, positiveTestResultWasShown: false)

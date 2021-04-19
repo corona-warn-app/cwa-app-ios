@@ -7,11 +7,6 @@ import UIKit
 import OpenCombine
 import ExposureNotification
 
-/// This delegate allows a class to be notified for life-cycle events of the coordinator.
-protocol ExposureSubmissionCoordinatorDelegate: class {
-	func exposureSubmissionCoordinatorWillDisappear(_ coordinator: ExposureSubmissionCoordinator)
-}
-
 // swiftlint:disable file_length
 /// Concrete implementation of the ExposureSubmissionCoordinator protocol.
 // swiftlint:disable:next type_body_length
@@ -23,12 +18,9 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		parentNavigationController: UINavigationController,
 		exposureSubmissionService: ExposureSubmissionService,
 		coronaTestService: CoronaTestService,
-		store: Store,
-		eventProvider: EventProviding,
-		delegate: ExposureSubmissionCoordinatorDelegate? = nil
+		eventProvider: EventProviding
 	) {
 		self.parentNavigationController = parentNavigationController
-		self.delegate = delegate
 
 		super.init()
 
@@ -40,9 +32,6 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	}
 
 	// MARK: - Internal
-
-	/// - NOTE: The delegate is called by the `viewWillDisappear(_:)` method of the `navigationController`.
-	weak var delegate: ExposureSubmissionCoordinatorDelegate?
 
 	func start(with coronaTestType: CoronaTestType? = nil) {
 		model.coronaTestType = coronaTestType
@@ -80,10 +69,11 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		parentNavigationController?.present(alert, animated: true)
 	}
 
-	func dismiss() {
+	func dismiss(completion: (() -> Void)? = nil) {
 		navigationController?.dismiss(animated: true, completion: {
 			// used for updating (hiding) app shortcuts
 			QuickAction.exposureSubmissionFlowTestResult = nil
+			completion?()
 		})
 	}
 
@@ -125,7 +115,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		// We got a test result and can jump straight into the test result view controller.
 		if let coronaTest = model.coronaTest {
 			// For a positive test result we show the test result available screen if it wasn't shown before
-			if coronaTest.testResult == .positive {
+			if coronaTest.testResult == .positive && !coronaTest.keysSubmitted {
 				if !coronaTest.positiveTestResultWasShown {
 					return createTestResultAvailableViewController()
 				} else {
@@ -269,8 +259,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			fatalError("Could not find corona test to create test result view controller for.")
 		}
 
-		// store is only initialized when a positive test result is received
-		if coronaTest.testResult == .positive {
+		// store is only initialized when a positive test result is received and not yet submitted
+		if coronaTest.testResult == .positive && !coronaTest.keysSubmitted {
             updateStoreWithKeySubmissionMetadataDefaultValues(for: coronaTest)
 			QuickAction.exposureSubmissionFlowTestResult = coronaTest.testResult
 		}
@@ -317,7 +307,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			viewModel: viewModel,
 			exposureSubmissionService: self.model.exposureSubmissionService,
 			onDismiss: { [weak self] testResult, isLoading in
-				if testResult == TestResult.positive {
+				if testResult == TestResult.positive && !coronaTest.keysSubmitted {
 					self?.showPositiveTestResultCancelAlert(isLoading: isLoading)
 				} else {
 					self?.dismiss()
@@ -592,7 +582,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				if self?.model.coronaTest?.positiveTestResultWasShown == true {
 					self?.showSkipCheckinsAlert(dontShareHandler: {
 						Analytics.collect(.keySubmissionMetadata(.submittedAfterCancel(true)))
-						self?.submitExposureAndDismiss { isLoading in
+						self?.submitExposure(showSubmissionSuccess: false) { isLoading in
 							footerViewModel.setLoadingIndicator(isLoading, disable: isLoading, button: .secondary)
 							footerViewModel.setLoadingIndicator(false, disable: isLoading, button: .primary)
 						}
@@ -704,7 +694,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				if selectedSymptomsOption != .yes {
 					Analytics.collect(.keySubmissionMetadata(.submittedAfterSymptomFlow(true)))
 				}
-				self.model.shouldShowSymptomsOnsetScreen ? self.showSymptomsOnsetScreen() : self.submitExposureAndDismiss(isLoading: isLoading)
+				self.model.shouldShowSymptomsOnsetScreen ? self.showSymptomsOnsetScreen() : self.submitExposure(showSubmissionSuccess: true, isLoading: isLoading)
 			},
 			onDismiss: { [weak self] isLoading in
 				self?.showSubmissionSymptomsCancelAlert(isLoading: isLoading)
@@ -736,7 +726,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				self?.model.symptomsOnsetOptionSelected(selectedSymptomsOnsetOption)
 				// setting it to true regardless of the options selected
 				Analytics.collect(.keySubmissionMetadata(.submittedAfterSymptomFlow(true)))
-				self?.submitExposureAndDismiss(isLoading: isLoading)
+				self?.submitExposure(showSubmissionSuccess: true, isLoading: isLoading)
 			},
 			onDismiss: { [weak self] isLoading in
 				self?.showSubmissionSymptomsCancelAlert(isLoading: isLoading)
@@ -817,7 +807,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			handler: { [weak self] _ in
 				if isSubmissionConsentGiven {
 					Analytics.collect(.keySubmissionMetadata(.submittedAfterCancel(true)))
-					self?.submitExposureAndDismiss(isLoading: isLoading)
+					self?.submitExposure(showSubmissionSuccess: false, isLoading: isLoading)
 				} else {
 					self?.dismiss()
 				}
@@ -895,7 +885,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				style: .cancel,
 				handler: { [weak self] _ in
 					Analytics.collect(.keySubmissionMetadata(.submittedAfterCancel(true)))
-					self?.submitExposureAndDismiss(isLoading: isLoading)
+					self?.submitExposure(showSubmissionSuccess: false, isLoading: isLoading)
 				}
 			)
 		)
@@ -923,7 +913,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				style: .cancel,
 				handler: { [weak self] _ in
 					Analytics.collect(.keySubmissionMetadata(.submittedAfterCancel(true)))
-					self?.submitExposureAndDismiss(isLoading: isLoading)
+					self?.submitExposure(showSubmissionSuccess: false, isLoading: isLoading)
 				}
 			)
 		)
@@ -1079,11 +1069,15 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		)
 	}
 	
-	private func submitExposureAndDismiss(isLoading: @escaping (Bool) -> Void) {
+	private func submitExposure(showSubmissionSuccess: Bool = false, isLoading: @escaping (Bool) -> Void) {
 		self.model.submitExposure(
 			isLoading: isLoading,
 			onSuccess: { [weak self] in
-				self?.showExposureSubmissionSuccessViewController()
+				if showSubmissionSuccess {
+					self?.showExposureSubmissionSuccessViewController()
+				} else {
+					self?.dismiss()
+				}
 			},
 			onError: { [weak self] error in
 				// reset all the values taken during the submission flow because submission failed

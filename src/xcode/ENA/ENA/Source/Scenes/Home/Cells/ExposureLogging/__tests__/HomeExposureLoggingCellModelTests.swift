@@ -106,8 +106,6 @@ class HomeExposureLoggingCellModelTests: XCTestCase {
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: .init(),
 			enState: enState,
-			coronaTestService: CoronaTestService(client: ClientMock(), store: store),
-			exposureSubmissionService: MockExposureSubmissionService(),
 			statisticsProvider: StatisticsProvider(
 				client: CachingHTTPClientMock(store: store),
 				store: store

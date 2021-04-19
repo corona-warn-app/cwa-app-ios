@@ -10,7 +10,7 @@ extension AntigenTest {
 	static func mock(
 		registrationToken: String? = nil,
 		pointOfCareConsentDate: Date = Date(),
-		testedPerson: TestedPerson = TestedPerson(name: nil, birthday: nil),
+		testedPerson: TestedPerson = TestedPerson(firstName: nil, lastName: nil, dateOfBirth: nil),
 		testResult: TestResult = .pending,
 		finalTestResultReceivedDate: Date? = nil,
 		positiveTestResultWasShown: Bool = false,
