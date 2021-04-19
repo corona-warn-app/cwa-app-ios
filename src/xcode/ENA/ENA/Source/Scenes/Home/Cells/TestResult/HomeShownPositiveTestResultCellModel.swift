@@ -74,14 +74,18 @@ class HomeShownPositiveTestResultCellModel {
 
 	let noteTitle = AppStrings.Home.TestResult.ShownPositive.noteTitle
 	let buttonTitle = AppStrings.Home.TestResult.ShownPositive.button
-	let iconColor: UIColor = .enaColor(for: .riskHigh)
 
-	@OpenCombine.Published var homeItemViewModels: [HomeItemViewModel] = []
-
+	@OpenCombine.Published var homeItemViewModels: [HomeImageItemViewModel] = []
 	@OpenCombine.Published var isButtonHidden = false
 
-	func configure(for coronaTest: CoronaTest) {
-		var homeItemViewModels = [HomeItemViewModel]()
+	// MARK: - Private
+
+	private let coronaTestType: CoronaTestType
+	private let coronaTestService: CoronaTestService
+	private var subscriptions = Set<AnyCancellable>()
+
+	private func configure(for coronaTest: CoronaTest) {
+		var homeItemViewModels = [HomeImageItemViewModel]()
 
 		if coronaTest.type == .antigen {
 			homeItemViewModels.append(
@@ -89,7 +93,7 @@ class HomeShownPositiveTestResultCellModel {
 					title: AppStrings.Home.TestResult.ShownPositive.verifyItemTitle,
 					titleColor: .enaColor(for: .textPrimary1),
 					iconImageName: "Icons - Test Tube",
-					iconTintColor: iconColor,
+					iconTintColor: .enaColor(for: .riskHigh),
 					color: .clear,
 					separatorColor: .clear,
 					containerInsets: .init(top: 10.0, left: 0.0, bottom: 10.0, right: 0)
@@ -102,7 +106,7 @@ class HomeShownPositiveTestResultCellModel {
 				title: AppStrings.Home.TestResult.ShownPositive.phoneItemTitle,
 				titleColor: .enaColor(for: .textPrimary1),
 				iconImageName: "Icons - Hotline",
-				iconTintColor: iconColor,
+				iconTintColor: .enaColor(for: .riskHigh),
 				color: .clear,
 				separatorColor: .clear,
 				containerInsets: .init(top: 10.0, left: 0.0, bottom: 10.0, right: 0)
@@ -111,7 +115,7 @@ class HomeShownPositiveTestResultCellModel {
 				title: AppStrings.Home.TestResult.ShownPositive.homeItemTitle,
 				titleColor: .enaColor(for: .textPrimary1),
 				iconImageName: "Icons - Home",
-				iconTintColor: iconColor,
+				iconTintColor: .enaColor(for: .riskHigh),
 				color: .clear,
 				separatorColor: .clear,
 				containerInsets: .init(top: 10.0, left: 0.0, bottom: 10.0, right: 0)
@@ -124,7 +128,7 @@ class HomeShownPositiveTestResultCellModel {
 					title: AppStrings.Home.TestResult.ShownPositive.shareItemTitle,
 					titleColor: .enaColor(for: .textPrimary1),
 					iconImageName: "Icons - Warnen",
-					iconTintColor: iconColor,
+					iconTintColor: .enaColor(for: .riskHigh),
 					color: .clear,
 					separatorColor: .clear,
 					containerInsets: .init(top: 10.0, left: 0.0, bottom: 10.0, right: 0)
@@ -136,11 +140,5 @@ class HomeShownPositiveTestResultCellModel {
 
 		isButtonHidden = coronaTest.keysSubmitted
 	}
-
-	// MARK: - Private
-
-	private let coronaTestType: CoronaTestType
-	private let coronaTestService: CoronaTestService
-	private var subscriptions = Set<AnyCancellable>()
 
 }
