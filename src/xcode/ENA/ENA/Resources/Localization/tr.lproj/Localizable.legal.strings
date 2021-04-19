@@ -1,11 +1,14 @@
 /* ExposureSubmissionWarnOthers */
 
-"ExposureSubmissionWarnOthers_acknowledgement_1_1" = "Uygulama, karşılaştığınız resmi Korona uygulamaları kullanıcıları uyarmak üzere onlara test sonucunuzu paylaşır. Uyarı, yukarıda sözü geçen ülkelerde çalışır. Ayrıca semptomlarınızın başlangıcı hakkında bilgi verirseniz, bu veri de paylaşılacaktır.";
+"ExposureSubmissionWarnOthers_acknowledgementTitle" = "Rıza Beyanınız";
 
-"ExposureSubmissionWarnOthers_acknowledgement_1_2" = "Lütfen bir sonraki adımda “Paylaş”a tıklayarak test sonucunuzu (daha doğrusu: Son 14 güne ait rastgele kimlik no'larınız) paylaşın.";
+"ExposureSubmissionWarnOthers_acknowledgementBody" = "“Kabul ediyorum”a tıklayarak aşağıdaki adımlara onay vermiş olursunuz:";
+
+"ExposureSubmissionWarnOthers_acknowledgement_1_1" = "Uygulama test sonucunuzu, karşılaştığınız kullanıcıları uyarmak için paylaşır. Bu yukarıda belirtilen ülkelerdeki Korona Uygulamasının kullanıcıları ve aynı zamanda aynı etkinlikte ya da yerde bulunduğunuz kullanıcılar için geçerlidir. Hızlı test durumunda sadece Korona Uyarı Uygulamasının kullanıcıları uyarılır. Semptomlarınızın başladığına ilişkin ek bilgiler verirseniz bu veriler de paylaşılır.";
+
+"ExposureSubmissionWarnOthers_acknowledgement_1_2" = "Sonraki adımada, rastgele kimiliklerinize erişim onayı verin.";
 
 "ExposureSubmissionWarnOthers_acknowledgement_footer" = "Uyarı gerçekleştikten sonra, Uygulamayı silerek verdiğiniz rıza beyanını da geri alabilirsiniz.";
-
 
 /* DeltaOnboarding */
 
@@ -21,34 +24,41 @@
 
 /* Exposure Submission QR Code Info */
 
-"ExposureSubmissionQRInfo_acknowledgement_title" = "Rıza Beyanınız";
+"ExposureSubmissionQRInfo_acknowledgement_legal_title" = "Rıza Beyanınız";
 
-"ExposureSubmissionQRInfo_acknowledgement_body" = "“Kabul ediyorum”a tıklayarak aşağıdaki adımlara onay vermiş olursunuz:";
+"ExposureSubmissionQRInfo_acknowledgement_legal_body" = "“Kabul ediyorum”a tıklayarak aşağıdaki adımlara onay vermiş olursunuz:";
 
-"ExposureSubmissionQRInfo_acknowledgement_1_1" = "Uygulama, test sonucunuzu çağırır.";
+"ExposureSubmissionQRInfo_acknowledgement_legal_Bullet1_1" = "Uygulama, test sonucunuzu çağırır.";
 
-"ExposureSubmissionQRInfo_acknowledgement_1_2" = "Daha sonra fikrinizi değiştirirseniz, söz konusu testi Uygulamadan kaldırabilirsiniz.";
+"ExposureSubmissionQRInfo_acknowledgement_legal_Bullet1_2" = "Daha sonra fikrinizi değiştirirseniz, söz konusu testi Uygulamadan kaldırabilirsiniz.";
 
-"ExposureSubmissionQRInfo_acknowledgement_2_1" = "Korona testiniz pozitif çıkmışsa, Uygulama karşılaştığınız kullanıcıları uyarmak üzere test sonucunuzu paylaşır. Bu, yukarıda belirtilen ülkelerdeki resmi Korona uygulamalarının kullanıcıları için geçerlidir. Ayrıca semptomlarınızın başlangıcı hakkında bilgi verirseniz, bu veri de paylaşılacaktır.";
+"ExposureSubmissionQRInfo_acknowledgement_legal_Bullet2" = "Korona testiniz pozitif çıkmışsa, Uygulama karşılaştığınız kullanıcıları uyarmak üzere test sonucunuzu paylaşır. Bu, yukarıda belirtilen ülkelerdeki resmi Korona uygulamalarının kullanıcıları için geçerlidir. Ayrıca semptomlarınızın başlangıcı hakkında bilgi verirseniz, bu veri de paylaşılacaktır.";
 
-"ExposureSubmissionQRInfo_acknowledgement_2_2" = "Verdiğiniz rıza beyanını istediğiniz zaman geri alabilirsiniz. Bunun ayarını, “Testi Göster” altında bulabilirsiniz. Paylaşmadan önce, rıza beyanınıza ilişkin yeniden bilgilendirilecek ve test sonucunuzu yayınlamaya izin vermeniz istenecektir.";
+"ExposureSubmissionQRInfo_acknowledgement_legal_Bullet3" = "Ayrıca semptomlarınızın başlangıcı hakkında bilgi verirseniz, bu veri de paylaşılacaktır.";
+
+"ExposureSubmissionQRInfo_acknowledgement_legal_WithdrawConsent" = "Onay beyanınızı istediğiniz zaman geri çekebilirsiniz. İlgili ayar “Testleri göster” altında yer alır. Bilgiler paylaşılmadan önce tekrar onayınız alınır.";
 
 /* Automatic share submission result consent */
 
 "AutomaticSharingConsent_Subtitle" = "Rıza Beyanı";
 
-"AutomaticSharingConsent_DescriptionPart1" = "Korona testiniz pozitif çıkmışsa, Uygulama karşılaştığınız kullanıcıları uyarmak üzere test sonucunuzu paylaşır.";
+"AutomaticSharingConsent_DescriptionPart1_PCR" = "Korona testiniz pozitif çıkmışsa, Uygulama karşılaştığınız kullanıcıları uyarmak üzere test sonucunuzu paylaşır.";
 
-"AutomaticSharingConsent_DescriptionPart2" = "Bu uyarı, yukarıda belirtilen ülkelerdeki resmi Korona uygulamalarının kullanıcılarına ulaşabilir:";
+"AutomaticSharingConsent_DescriptionPart1_RAT" = "Korona testiniz pozitif çıktıysa Uygulama test sonucunuzu, karşılaştığınız kullanıcıları yarmak için paylaşır.";
 
-"AutomaticSharingConsent_DescriptionPart3" = "Ayrıca semptomlarınızın başlangıcı hakkında bilgi verirseniz, bu veri de paylaşılacaktır.";
+"AutomaticSharingConsent_DescriptionPart2_PCR" = "Bu uyarı, yukarıda belirtilen ülkelerdeki resmi Korona uygulamalarının kullanıcılarına ulaşabilir:";
+
+"AutomaticSharingConsent_DescriptionPart2_RAT" = "Uyarı sizinle aynı etkinlikteki ya da yerdeki kullanıcılara ve aşağıdaki ülkelerdeki Korona Uygulaması kullanıcılarına gönderilir:";
+
+"AutomaticSharingConsent_DescriptionPart3_PCR" = "Ayrıca semptomlarınızın başlangıcı hakkında bilgi verirseniz, bu veri de paylaşılacaktır.";
+
+"AutomaticSharingConsent_DescriptionPart3_RAT" = "Hızlı test durumunda sadece Korona Uyarı Uygulamasının kullanıcıları uyarılır. Semptomlarınızın başladığına ilişkin ek bilgiler verirseniz bu veriler de paylaşılır.";
 
 "AutomaticSharingConsent_DescriptionPart4" = "Yukarıdaki “Diğer Kullanıcıları Uyarın” seçeneğini devre dışı bırakarak, verdiğiniz rıza beyanını geri alabilirsiniz.";
 
 "AutomaticSharingConsent_DescriptionPart5" = "Bunun ardından test sonucunuz size görüntülenir.";
 
-
-/* Contact diary information */
+/* Contact journal information */
 
 "ContactDiary_Information_Legal_Headline_1" = "Veri İşlemeye İlişkin Notlar";
 
@@ -132,3 +142,37 @@
 "errorReport_Legal_SendReports_Bullet2" = "Rapor RKI’ye gönderilmeden önce, Uygulamanızın orijinal olduğu bir kez kontrol edilir. Bunun için, akıllı telefonunuz tarafından benzersiz bir kimlik kodu oluşturulur ve Apple’ın Uygulamanızın orijinal ürün olduğunu RKI’ye doğrulaması için ABD veya diğer bir üçüncü ülkedeki Apple’a aktarılır. Bu kimlik kodu, akıllı telefonunuzun sürümü ve Uygulama hakkında veriler içerir. Apple, böylece kim olduğunuzu ortaya çıkarabilir ve akıllı telefonunuzun orijinallik kontrolünün yapıldığını anlayabilir. Apple, Uygulamadan daha fazla bilgi almaz.";
 
 "errorReport_Legal_SendReports_Paragraph" = "Gönderimden sonra hata raporu kimlik numarasını teknik desteğe bildirirseniz, sağlanan diğer bilgilerin, hata raporu kimliğinin ve hata raporunun silinmesini istediğiniz zaman talep edebilirsiniz. Aksi halde bu hata raporu 14 gün sonra otomatik olarak silinecektir.";
+
+/* Checkin */
+
+"Checkin_Information_Legal_Headline_1" = "Rıza beyanınız";
+
+"Checkin_Information_Legal_SubHeadline_1" = "“Kabul ediyorum”a tıklayarak aşağıdaki adımlara onay vermiş olursunuz:";
+
+"Checkin_Information_Legal_Text_1_bold" = "Uygulama, 16 gün boyunca hangi olaylarda veya konumlarda giriş denetimi yaptırdığınızı hatırlar.";
+
+"Checkin_Information_Legal_Text_1_normal" = "Bir giriş denetimi sırasında QR kodu taradığınızda, akıllı telefonunuzda olay veya konum için bir veri girişi oluşturulur.";
+
+"Checkin_Information_Legal_Text_2" = "Sizinle birlikte giriş denetimi yapan bir kullanıcının daha sonraki testi pozitif çıkarsa ve kendisi bir uyarı tetiklerse, akıllı telefonunuz testi pozitif çıkan bu kullanıcıdan rastgele kimlik numaraları almamış olsa bile, olay kimliği üzerinden otomatik olarak uyarılırsınız.";
+
+"Checkin_Information_Legal_Text_3" = "Eğer kendiniz daha sonra bir uyarıyı tetiklerseniz, “Giriş denetimlerim” altında girilen bir olay veya konumda sizinle eş zamanlı giriş yapmış olan diğer tüm kullanıcılar, olay kimliği üzerinden otomatik olarak uyarılacaktır.";
+
+"Checkin_Information_Legal_SubHeadline_2" = "“Giriş denetimlerim” altındaki bir giriş denetimini istediğiniz zaman silebilirsiniz.  Bu durumda akıllı telefonunuz yalnızca, bir riskli karşılaşmada testi pozitif çıkan bir kullanıcının rastgele kimlik numaralarını alırsa uyarılırsınız.";
+
+/* TraceLocation */
+
+"TraceLocation_Information_Legal_Headline_1" = "Veri gizliliği ve veri güvenliği";
+
+"TraceLocation_Information_Legal_Text_1" = "“Devam”a tıklarsanız, konuklarınız için bir QR kodu oluşturabilirsiniz.";
+
+"TraceLocation_Information_Legal_Text_2_bold" = "Olay veya konumla ilgili verileriniz, yazdırılabilir biçimde bir QR kodunda kaydedilecektir.";
+
+"TraceLocation_Information_Legal_Text_2" = "Daha sonra konuklarınız, Uygulama ile QR kodu tarayabilir.";
+
+"TraceLocation_Information_Legal_Text_3_bold" = "Lütfen olayınızın veya konumunuzun adı, kategorisi ve saati ve kalış süresi ile ilgili olarak mümkün olduğunca kesin bilgi sağlayın.";
+
+"TraceLocation_Information_Legal_Text_3" = "Verdiğinizi bilgiler ne kadar kesin olursa, konuklarınız da o kadar güvenilir bir biçimde uyarılabilir.";
+
+"TraceLocation_Information_Legal_Text_4" = "Lütfen tüm konuklarınızın QR kodu, mesafe ve hijyen kuralları çerçevesinde (en az 1,5 metre) tarayabilmesi için gerekli ortamı sağlayın.";
+
+"TraceLocation_Information_Legal_Text_5" = "Kalıcı ve güvenilir uyarılar tetiklemek ve QR kodların suistimal edilmesinin önüne geçmek adına, konumlar için olan QR kodları düzenli aralıklarla yeniden oluşturmanızı öneririz.";

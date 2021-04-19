@@ -4,7 +4,7 @@
 
 import Foundation
 
-struct RiskExposureMetadata: Codable {
+struct RiskExposureMetadata: Codable, Equatable {
 
 	// MARK: - Init
 

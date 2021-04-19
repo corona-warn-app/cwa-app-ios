@@ -3,27 +3,18 @@
 //
 
 import Foundation
-@testable import ENA
 
-final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, PPAnalyticsData {
+#if DEBUG
 
-	var warnOthersNotificationOneTimer: TimeInterval = WarnOthersNotificationsTimeInterval.intervalOne
-	var warnOthersNotificationTwoTimer: TimeInterval = WarnOthersNotificationsTimeInterval.intervalTwo
+final class MockTestStore: Store, PPAnalyticsData {
 
-	var positiveTestResultWasShown: Bool = false
-	var isAllowedToPerformBackgroundFakeRequests = false
 	var firstPlaybookExecution: Date?
 	var lastBackgroundFakeRequest: Date = .init()
 	var hasSeenBackgroundFetchAlert: Bool = false
-	var riskCalculationResult: RiskCalculationResult?
+	var enfRiskCalculationResult: ENFRiskCalculationResult?
+	var checkinRiskCalculationResult: CheckinRiskCalculationResult?
 	var shouldShowRiskStatusLoweredAlert: Bool = false
-	var tracingStatusHistory: TracingStatusHistory = []
-	var testResultReceivedTimeStamp: Int64?
 	func clearAll(key: String?) {}
-	var hasSeenSubmissionExposureTutorial: Bool = false
-	var lastSuccessfulSubmitDiagnosisKeyTimestamp: Int64?
-	var numberOfSuccesfulSubmissions: Int64?
-	var initialSubmitCompleted: Bool = false
 	var exposureActivationConsentAcceptTimestamp: Int64?
 	var exposureActivationConsentAccept: Bool = false
 	var isOnboarded: Bool = false
@@ -34,15 +25,9 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, 
 	var developerSubmissionBaseURLOverride: String?
 	var developerDistributionBaseURLOverride: String?
 	var developerVerificationBaseURLOverride: String?
-	var teleTan: String?
-	var tan: String?
-	var testGUID: String?
-	var devicePairingConsentAccept: Bool = false
-	var devicePairingConsentAcceptTimestamp: Int64?
-	var devicePairingSuccessfulTimestamp: Int64?
-	var registrationToken: String?
 	var allowRiskChangesNotification: Bool = true
 	var allowTestsStatusNotification: Bool = true
+	var appInstallationDate: Date? = Date()
 	var userNeedsToBeInformedAboutHowRiskDetectionWorks = false
 	var selectedServerEnvironment: ServerEnvironmentData = ServerEnvironment().defaultEnvironment()
 	var wasRecentDayKeyDownloadSuccessful = false
@@ -51,22 +36,21 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, 
 	var deviceTimeLastStateChange: Date = Date()
 	var deviceTimeCheckResult: DeviceTimeCheck.TimeCheckResult = .correct
 	var wasDeviceTimeErrorShown = false
-	var isSubmissionConsentGiven = false
 	var submissionKeys: [SAP_External_Exposurenotification_TemporaryExposureKey]?
+	var submissionCheckins: [Checkin] = []
 	var submissionCountries: [Country] = [.defaultCountry()]
 	var submissionSymptomsOnset: SymptomsOnset = .noInformation
 	var journalWithExposureHistoryInfoScreenShown: Bool = false
 	var dateOfConversionToHighRisk: Date?
-	var testRegistrationDate: Date?
-
 
 	#if !RELEASE
 	// Settings from the debug menu.
 	var fakeSQLiteError: Int32?
-	var mostRecentRiskCalculation: RiskCalculation?
+	var mostRecentRiskCalculation: ENFRiskCalculation?
 	var mostRecentRiskCalculationConfiguration: RiskCalculationConfiguration?
 	var dmKillDeviceTimeCheck = false
 	var forceAPITokenAuthorization = false
+	var recentTraceLocationCheckedInto: DMRecentTraceLocationCheckedInto?
 	#endif
 
 	// MARK: - AppConfigCaching
@@ -90,6 +74,7 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, 
 	var lastSubmissionAnalytics: Date?
 	var lastAppReset: Date?
 	var lastSubmittedPPAData: String?
+	var submittedWithQR: Bool = false
 	var currentRiskExposureMetadata: RiskExposureMetadata?
 	var previousRiskExposureMetadata: RiskExposureMetadata?
 	var userMetadata: UserMetadata?
@@ -100,4 +85,40 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, 
 
 	// MARSK: - ErrorLogProviding
 	var elsApiToken: ErrorLogSubmitting.ELSToken?
+	
+	// MARK: - EventRegistrationCaching
+	
+	var wasRecentTraceWarningDownloadSuccessful: Bool = false
+	var checkinInfoScreenShown: Bool = false
+	var traceLocationsInfoScreenShown: Bool = false
+	var shouldAddCheckinToContactDiaryByDefault = true
+	var qrCodePosterTemplateMetadata: QRCodePosterTemplateMetadata?
+
+	// MARK: - WarnOthersTimeIntervalStoring
+
+	var warnOthersNotificationOneTimeInterval: TimeInterval = WarnOthersNotificationsTimeInterval.intervalOne
+	var warnOthersNotificationTwoTimeInterval: TimeInterval = WarnOthersNotificationsTimeInterval.intervalTwo
+
+	// MARK: - CoronaTestStoring
+
+	var pcrTest: PCRTest?
+	var antigenTest: AntigenTest?
+
+	// MARK: - CoronaTestStoringLegacy
+
+	var registrationToken: String?
+	var teleTan: String?
+	var tan: String?
+	var testGUID: String?
+	var devicePairingConsentAccept: Bool = false
+	var devicePairingConsentAcceptTimestamp: Int64?
+	var devicePairingSuccessfulTimestamp: Int64?
+	var testResultReceivedTimeStamp: Int64?
+	var testRegistrationDate: Date?
+	var lastSuccessfulSubmitDiagnosisKeyTimestamp: Int64?
+	var positiveTestResultWasShown: Bool = false
+	var isSubmissionConsentGiven = false
+
 }
+
+#endif

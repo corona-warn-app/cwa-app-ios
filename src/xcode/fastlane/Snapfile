@@ -38,7 +38,7 @@ headless(false)
 erase_simulator(true)
 
 # Remove the '#' to set the status bar to 9:41 AM, and show full battery and reception.
-override_status_bar(true)
+# override_status_bar(true)
 
 localize_simulator(true)
 

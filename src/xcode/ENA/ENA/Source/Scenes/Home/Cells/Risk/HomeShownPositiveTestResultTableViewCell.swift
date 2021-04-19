@@ -72,6 +72,8 @@ final class HomeShownPositiveTestResultTableViewCell: UITableViewCell {
 
 		homeItemStackView.isHidden = homeItemStackView.arrangedSubviews.isEmpty
 
+		nextButton.accessibilityIdentifier = AccessibilityIdentifiers.Home.submitCardButton
+
 		self.onPrimaryAction = onPrimaryAction
 	}
 

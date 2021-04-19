@@ -100,10 +100,10 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 			return actionCell(for: indexPath, in: tableView)
 		case .euTracingCell:
 			return euTracingCell(for: indexPath, in: tableView)
-		case .tracingCell, .actionDetailCell:
+		case .daysSinceInstallationCell, .actionDetailCell:
 			switch enState {
 			case .enabled, .disabled:
-				return tracingCell(for: indexPath, in: tableView)
+				return daysSinceInstallationCell(for: indexPath, in: tableView)
 			case .bluetoothOff, .restricted, .notAuthorized, .unknown, .notActiveApp:
 				return actionDetailCell(for: indexPath, in: tableView)
 			}
@@ -152,7 +152,7 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 
 	// MARK: - Internal
 
-	let sections = [ReusableCellIdentifier.banner, .actionCell, .euTracingCell, .tracingCell, .descriptionCell]
+	let sections = [ReusableCellIdentifier.banner, .actionCell, .euTracingCell, .daysSinceInstallationCell, .descriptionCell]
 	let store: Store
 	let appConfigurationProvider: AppConfigurationProviding
 	var enState: ENStateHandler.State
@@ -168,7 +168,7 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 		case banner
 		case actionCell
 		case euTracingCell
-		case tracingCell
+		case daysSinceInstallationCell
 		case actionDetailCell
 		case descriptionCell
 	}
@@ -179,8 +179,8 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 
 	private func registerCells() {
 		tableView.register(
-			TracingHistoryTableViewCell.self,
-			forCellReuseIdentifier: ReusableCellIdentifier.tracingCell.rawValue
+			DaysSinceInstallTableViewCell.self,
+			forCellReuseIdentifier: ReusableCellIdentifier.daysSinceInstallationCell.rawValue
 		)
 
 		tableView.register(
@@ -316,33 +316,14 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 		return euTracingCell
 	}
 
-	private func tracingCell(for indexPath: IndexPath, in tableView: UITableView) -> UITableViewCell {
-		guard let tracingCell = tableView.dequeueReusableCell(withIdentifier: ReusableCellIdentifier.tracingCell.rawValue, for: indexPath) as? TracingHistoryTableViewCell else {
+	private func daysSinceInstallationCell(for indexPath: IndexPath, in tableView: UITableView) -> UITableViewCell {
+		guard let daysSinceInstallationCell = tableView.dequeueReusableCell(withIdentifier: ReusableCellIdentifier.daysSinceInstallationCell.rawValue, for: indexPath) as? DaysSinceInstallTableViewCell else {
 			fatalError("Cell is not registered")
 		}
 
-		let colorConfig: (UIColor, UIColor) = (self.enState == .enabled) ?
-			(UIColor.enaColor(for: .tint), UIColor.enaColor(for: .hairline)) :
-			(UIColor.enaColor(for: .textPrimary2), UIColor.enaColor(for: .hairline))
-		let activeTracing = store.tracingStatusHistory.activeTracing()
-		let text = [
-			activeTracing.exposureDetectionActiveTracingSectionTextParagraph0,
-			activeTracing.exposureDetectionActiveTracingSectionTextParagraph1]
-			.joined(separator: "\n\n")
+		daysSinceInstallationCell.configure(daysSinceInstall: store.appInstallationDate?.ageInDays ?? 0)
 
-		let numberOfDaysWithActiveTracing = activeTracing.inDays
-		let title = NSLocalizedString("ExposureDetection_ActiveTracingSection_Title", comment: "")
-		let subtitle = NSLocalizedString("ExposureDetection_ActiveTracingSection_Subtitle", comment: "")
-
-		tracingCell.configure(
-			progress: CGFloat(numberOfDaysWithActiveTracing),
-			title: title,
-			subtitle: subtitle,
-			text: text,
-			colorConfigurationTuple: colorConfig
-		)
-
-		return tracingCell
+		return daysSinceInstallationCell
 	}
 
 	private func descriptionCell(for indexPath: IndexPath, in tableView: UITableView) -> UITableViewCell {

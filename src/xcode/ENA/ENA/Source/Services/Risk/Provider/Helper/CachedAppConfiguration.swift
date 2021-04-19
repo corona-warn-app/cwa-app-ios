@@ -58,7 +58,7 @@ final class CachedAppConfiguration {
 
 	/// The location of the default app configuration.
 	private var defaultAppConfigPath: URL {
-		guard let url = Bundle.main.url(forResource: "default_app_config_115", withExtension: "") else {
+		guard let url = Bundle.main.url(forResource: "default_app_config_200", withExtension: "") else {
 			fatalError("Could not locate default app config")
 		}
 		return url
@@ -93,7 +93,9 @@ final class CachedAppConfiguration {
 							lastAppConfigFetch: Date(),
 							appConfig: response.config
 						)
-						Analytics.collect(.clientMetadata(.create(ClientMetadata(etag: response.eTag))))
+
+						Log.debug("Fetched config: \(response.config).", log: .appConfig)
+
 						// update revokation list
 						let revokationList = self.store.appConfigMetadata?.appConfig.revokationEtags ?? []
 						self.packageStore?.revokationList = revokationList // for future package-operations

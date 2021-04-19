@@ -18,8 +18,7 @@ struct KeySubmissionMetadata: Codable {
 		hoursSinceTestResult: Int32,
 		hoursSinceTestRegistration: Int32,
 		daysSinceMostRecentDateAtRiskLevelAtTestRegistration: Int32,
-		hoursSinceHighRiskWarningAtTestRegistration: Int32,
-		submittedWithTeleTAN: Bool
+		hoursSinceHighRiskWarningAtTestRegistration: Int32
 	) {
 		self.submitted = submitted
 		self.submittedInBackground = submittedInBackground
@@ -31,7 +30,6 @@ struct KeySubmissionMetadata: Codable {
 		self.hoursSinceTestRegistration = hoursSinceTestRegistration
 		self.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = daysSinceMostRecentDateAtRiskLevelAtTestRegistration
 		self.hoursSinceHighRiskWarningAtTestRegistration = hoursSinceHighRiskWarningAtTestRegistration
-		self.submittedWithTeleTAN = submittedWithTeleTAN
 	}
 
 	// MARK: - Protocol Codable
@@ -49,7 +47,6 @@ struct KeySubmissionMetadata: Codable {
 		hoursSinceTestRegistration = try container.decodeIfPresent(Int32.self, forKey: .hoursSinceTestRegistration)
 		daysSinceMostRecentDateAtRiskLevelAtTestRegistration = try container.decodeIfPresent(Int32.self, forKey: .daysSinceMostRecentDateAtRiskLevelAtTestRegistration)
 		hoursSinceHighRiskWarningAtTestRegistration = try container.decodeIfPresent(Int32.self, forKey: .hoursSinceHighRiskWarningAtTestRegistration)
-		submittedWithTeleTAN = try container.decodeIfPresent(Bool.self, forKey: .submittedWithTeleTAN)
 	}
 	
 	enum CodingKeys: String, CodingKey {

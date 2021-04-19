@@ -32,6 +32,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
+			coronaTestService: CoronaTestService(client: ClientMock(), store: store),
 			exposureSubmissionService: MockExposureSubmissionService(),
 			statisticsProvider: StatisticsProvider(
 				client: CachingHTTPClientMock(store: store),
@@ -44,7 +45,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			homeState: homeState,
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			onSurveyTap: { },
-			onInactiveButtonTap: { _ in }
+			onInactiveButtonTap: { }
 		)
 
 		// Needed to check the isHidden state of sections
@@ -73,27 +74,32 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			Risk.Details(
 				mostRecentDateWithRiskLevel: nil,
 				numberOfDaysWithRiskLevel: 0,
-				activeTracing: store.tracingStatusHistory.activeTracing(),
-				exposureDetectionDate: nil
+				calculationDate: nil
 			)
 		)
 	}
 
 	func testLowRiskStateWithEncounters() {
+		let mostRecentDateWithLowRisk = Calendar.utcCalendar.startOfDay(for: Date())
 
-		let mostRecentDateWithLowRisk = Date()
 		let calculationDate = Date()
-		store.riskCalculationResult = RiskCalculationResult(
+		store.enfRiskCalculationResult = ENFRiskCalculationResult(
 			riskLevel: .low,
-			minimumDistinctEncountersWithLowRisk: 2,
+			minimumDistinctEncountersWithLowRisk: 1,
 			minimumDistinctEncountersWithHighRisk: 0,
 			mostRecentDateWithLowRisk: mostRecentDateWithLowRisk,
 			mostRecentDateWithHighRisk: nil,
-			numberOfDaysWithLowRisk: 2,
+			numberOfDaysWithLowRisk: 1,
 			numberOfDaysWithHighRisk: 0,
 			calculationDate: calculationDate,
 			riskLevelPerDate: [mostRecentDateWithLowRisk: .low],
 			minimumDistinctEncountersWithHighRiskPerDate: [:]
+		)
+
+		store.checkinRiskCalculationResult = CheckinRiskCalculationResult(
+			calculationDate: calculationDate,
+			checkinIdsWithRiskPerDate: [:],
+			riskLevelPerDate: [mostRecentDateWithLowRisk: .low]
 		)
 
 		let homeState = HomeState(
@@ -101,6 +107,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
+			coronaTestService: CoronaTestService(client: ClientMock(), store: store),
 			exposureSubmissionService: MockExposureSubmissionService(),
 			statisticsProvider: StatisticsProvider(
 				client: CachingHTTPClientMock(store: store),
@@ -113,7 +120,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			homeState: homeState,
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			onSurveyTap: { },
-			onInactiveButtonTap: { _ in }
+			onInactiveButtonTap: { }
 		)
 
 		// Needed to check the isHidden state of sections
@@ -141,9 +148,8 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			viewModel.riskDetails,
 			Risk.Details(
 				mostRecentDateWithRiskLevel: mostRecentDateWithLowRisk,
-				numberOfDaysWithRiskLevel: 2,
-				activeTracing: store.tracingStatusHistory.activeTracing(),
-				exposureDetectionDate: calculationDate
+				numberOfDaysWithRiskLevel: 1,
+				calculationDate: calculationDate
 			)
 		)
 
@@ -209,7 +215,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 				
 		let mostRecentDateWithHighRisk = Date()
 		let calculationDate = Date()
-		store.riskCalculationResult = RiskCalculationResult(
+		store.enfRiskCalculationResult = ENFRiskCalculationResult(
 			riskLevel: .high,
 			minimumDistinctEncountersWithLowRisk: 0,
 			minimumDistinctEncountersWithHighRisk: 1,
@@ -221,12 +227,19 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			riskLevelPerDate: [mostRecentDateWithHighRisk: .high],
 			minimumDistinctEncountersWithHighRiskPerDate: [Date(): 1]
 		)
+
+		store.checkinRiskCalculationResult = CheckinRiskCalculationResult(
+			calculationDate: calculationDate,
+			checkinIdsWithRiskPerDate: [:],
+			riskLevelPerDate: [mostRecentDateWithHighRisk: .high]
+		)
 		
 		let homeState = HomeState(
 			store: store,
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
+			coronaTestService: CoronaTestService(client: ClientMock(), store: store),
 			exposureSubmissionService: MockExposureSubmissionService(),
 			statisticsProvider: StatisticsProvider(
 				client: CachingHTTPClientMock(store: store),
@@ -241,7 +254,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			homeState: homeState,
 			appConfigurationProvider: configuration,
 			onSurveyTap: { },
-			onInactiveButtonTap: { _ in }
+			onInactiveButtonTap: { }
 		)
 		
 		// Needed to check the isHidden state of sections
@@ -268,7 +281,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		
 		let mostRecentDateWithHighRisk = Date()
 		let calculationDate = Date()
-		store.riskCalculationResult = RiskCalculationResult(
+		store.enfRiskCalculationResult = ENFRiskCalculationResult(
 			riskLevel: .high,
 			minimumDistinctEncountersWithLowRisk: 0,
 			minimumDistinctEncountersWithHighRisk: 1,
@@ -281,11 +294,18 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			minimumDistinctEncountersWithHighRiskPerDate: [Date(): 1]
 		)
 
+		store.checkinRiskCalculationResult = CheckinRiskCalculationResult(
+			calculationDate: calculationDate,
+			checkinIdsWithRiskPerDate: [:],
+			riskLevelPerDate: [mostRecentDateWithHighRisk: .high]
+		)
+
 		let homeState = HomeState(
 			store: store,
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
+			coronaTestService: CoronaTestService(client: ClientMock(), store: store),
 			exposureSubmissionService: MockExposureSubmissionService(),
 			statisticsProvider: StatisticsProvider(
 				client: CachingHTTPClientMock(store: store),
@@ -300,7 +320,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			homeState: homeState,
 			appConfigurationProvider: configuration,
 			onSurveyTap: { },
-			onInactiveButtonTap: { _ in }
+			onInactiveButtonTap: { }
 		)
 		
 		// Needed to check the isHidden state of sections
@@ -345,8 +365,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			Risk.Details(
 				mostRecentDateWithRiskLevel: mostRecentDateWithHighRisk,
 				numberOfDaysWithRiskLevel: 1,
-				activeTracing: store.tracingStatusHistory.activeTracing(),
-				exposureDetectionDate: calculationDate
+				calculationDate: calculationDate
 			)
 		)
 
@@ -368,7 +387,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 
 		let mostRecentDateWithHighRisk = Date()
 		let calculationDate = Date()
-		store.riskCalculationResult = RiskCalculationResult(
+		store.enfRiskCalculationResult = ENFRiskCalculationResult(
 			riskLevel: .high,
 			minimumDistinctEncountersWithLowRisk: 0,
 			minimumDistinctEncountersWithHighRisk: 1,
@@ -381,11 +400,18 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			minimumDistinctEncountersWithHighRiskPerDate: [Date(): 1]
 		)
 
+		store.checkinRiskCalculationResult = CheckinRiskCalculationResult(
+			calculationDate: calculationDate,
+			checkinIdsWithRiskPerDate: [:],
+			riskLevelPerDate: [mostRecentDateWithHighRisk: .high]
+		)
+
 		let homeState = HomeState(
 			store: store,
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
+			coronaTestService: CoronaTestService(client: ClientMock(), store: store),
 			exposureSubmissionService: MockExposureSubmissionService(),
 			statisticsProvider: StatisticsProvider(
 				client: CachingHTTPClientMock(store: store),
@@ -400,7 +426,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			homeState: homeState,
 			appConfigurationProvider: configuration,
 			onSurveyTap: { },
-			onInactiveButtonTap: { _ in }
+			onInactiveButtonTap: { }
 		)
 		
 		// Needed to check the isHidden state of sections
@@ -486,6 +512,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
+			coronaTestService: CoronaTestService(client: ClientMock(), store: store),
 			exposureSubmissionService: MockExposureSubmissionService(),
 			statisticsProvider: StatisticsProvider(
 				client: CachingHTTPClientMock(store: store),
@@ -499,7 +526,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			homeState: homeState,
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			onSurveyTap: { },
-			onInactiveButtonTap: { _ in }
+			onInactiveButtonTap: { }
 		)
 
 		// Needed to check the isHidden state of sections
@@ -563,6 +590,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
+			coronaTestService: CoronaTestService(client: ClientMock(), store: store),
 			exposureSubmissionService: MockExposureSubmissionService(),
 			statisticsProvider: StatisticsProvider(
 				client: CachingHTTPClientMock(store: store),
@@ -576,7 +604,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			homeState: homeState,
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			onSurveyTap: { },
-			onInactiveButtonTap: { _ in }
+			onInactiveButtonTap: { }
 		)
 
 		// Needed to check the isHidden state of sections
@@ -635,17 +663,24 @@ class ExposureDetectionViewModelTests: XCTestCase {
 	}
 	
 	func testOnButtonTapInLowRiskStateAndManualMode() {
-		store.riskCalculationResult = RiskCalculationResult(
+		let date = Calendar.utcCalendar.startOfDay(for: Date())
+		store.enfRiskCalculationResult = ENFRiskCalculationResult(
 			riskLevel: .low,
-			minimumDistinctEncountersWithLowRisk: 2,
+			minimumDistinctEncountersWithLowRisk: 1,
 			minimumDistinctEncountersWithHighRisk: 0,
 			mostRecentDateWithLowRisk: Date(),
 			mostRecentDateWithHighRisk: nil,
-			numberOfDaysWithLowRisk: 2,
+			numberOfDaysWithLowRisk: 1,
 			numberOfDaysWithHighRisk: 0,
-			calculationDate: Date(),
-			riskLevelPerDate: [Date(): .low],
+			calculationDate: date,
+			riskLevelPerDate: [date: .low],
 			minimumDistinctEncountersWithHighRiskPerDate: [:]
+		)
+
+		store.checkinRiskCalculationResult = CheckinRiskCalculationResult(
+			calculationDate: date,
+			checkinIdsWithRiskPerDate: [:],
+			riskLevelPerDate: [date: .low]
 		)
 
 		let homeState = HomeState(
@@ -653,6 +688,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
+			coronaTestService: CoronaTestService(client: ClientMock(), store: store),
 			exposureSubmissionService: MockExposureSubmissionService(),
 			statisticsProvider: StatisticsProvider(
 				client: CachingHTTPClientMock(store: store),
@@ -684,7 +720,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			homeState: homeState,
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			onSurveyTap: { },
-			onInactiveButtonTap: { _ in onInactiveButtonTapExpectation.fulfill() }
+			onInactiveButtonTap: { onInactiveButtonTapExpectation.fulfill() }
 		)
 
 		viewModel.onButtonTap()
@@ -695,17 +731,25 @@ class ExposureDetectionViewModelTests: XCTestCase {
 	}
 
 	func testOnButtonTapInHighRiskStateAndManualMode() {
-		store.riskCalculationResult = RiskCalculationResult(
+		let date = Calendar.utcCalendar.startOfDay(for: Date())
+
+		store.enfRiskCalculationResult = ENFRiskCalculationResult(
 			riskLevel: .high,
 			minimumDistinctEncountersWithLowRisk: 0,
-			minimumDistinctEncountersWithHighRisk: 2,
+			minimumDistinctEncountersWithHighRisk: 1,
 			mostRecentDateWithLowRisk: nil,
 			mostRecentDateWithHighRisk: Date(),
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 1,
-			calculationDate: Date(),
-			riskLevelPerDate: [Date(): .high],
+			calculationDate: date,
+			riskLevelPerDate: [date: .high],
 			minimumDistinctEncountersWithHighRiskPerDate: [Date(): 1]
+		)
+
+		store.checkinRiskCalculationResult = CheckinRiskCalculationResult(
+			calculationDate: date,
+			checkinIdsWithRiskPerDate: [:],
+			riskLevelPerDate: [date: .low]
 		)
 
 		let homeState = HomeState(
@@ -713,6 +757,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
+			coronaTestService: CoronaTestService(client: ClientMock(), store: store),
 			exposureSubmissionService: MockExposureSubmissionService(),
 			statisticsProvider: StatisticsProvider(
 				client: CachingHTTPClientMock(store: store),
@@ -744,7 +789,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			homeState: homeState,
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			onSurveyTap: { },
-			onInactiveButtonTap: { _ in onInactiveButtonTapExpectation.fulfill() }
+			onInactiveButtonTap: { onInactiveButtonTapExpectation.fulfill() }
 		)
 
 		viewModel.onButtonTap()
@@ -760,6 +805,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
+			coronaTestService: CoronaTestService(client: ClientMock(), store: store),
 			exposureSubmissionService: MockExposureSubmissionService(),
 			statisticsProvider: StatisticsProvider(
 				client: CachingHTTPClientMock(store: store),
@@ -790,7 +836,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			homeState: homeState,
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			onSurveyTap: { },
-			onInactiveButtonTap: { _ in onInactiveButtonTapExpectation.fulfill() }
+			onInactiveButtonTap: { onInactiveButtonTapExpectation.fulfill() }
 		)
 
 		viewModel.onButtonTap()
@@ -806,6 +852,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
+			coronaTestService: CoronaTestService(client: ClientMock(), store: store),
 			exposureSubmissionService: MockExposureSubmissionService(),
 			statisticsProvider: StatisticsProvider(
 				client: CachingHTTPClientMock(store: store),
@@ -837,7 +884,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			homeState: homeState,
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			onSurveyTap: { },
-			onInactiveButtonTap: { _ in onInactiveButtonTapExpectation.fulfill() }
+			onInactiveButtonTap: { onInactiveButtonTapExpectation.fulfill() }
 		)
 
 		viewModel.onButtonTap()
@@ -858,11 +905,10 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		// Risk data section
 		var section = dynamicTableViewModel.section(0)
 		if hasAtLeastOneDayWithLowRiskLevel {
-			XCTAssertEqual(section.cells.count, 4)
+			XCTAssertEqual(section.cells.count, 3)
 			XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "riskCell")
 			XCTAssertEqual(section.cells[1].cellReuseIdentifier.rawValue, "riskCell")
 			XCTAssertEqual(section.cells[2].cellReuseIdentifier.rawValue, "riskCell")
-			XCTAssertEqual(section.cells[3].cellReuseIdentifier.rawValue, "riskCell")
 		} else {
 			XCTAssertEqual(section.cells.count, 3)
 			XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "riskCell")
@@ -897,7 +943,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		XCTAssertEqual(section.cells[4].cellReuseIdentifier.rawValue, "guideCell")
 		XCTAssertEqual(section.cells[5].cellReuseIdentifier.rawValue, "guideCell")
 
-		// Active tracing section
+		// Tracing section
 		section = dynamicTableViewModel.section(4)
 		XCTAssertEqual(section.cells.count, 2)
 		XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "headerCell")
@@ -905,7 +951,11 @@ class ExposureDetectionViewModelTests: XCTestCase {
 
 		// Explanation section
 		section = dynamicTableViewModel.section(5)
-		XCTAssertEqual(section.cells.count, 2)
+		if hasAtLeastOneDayWithLowRiskLevel == true {
+			XCTAssertEqual(section.cells.count, 3)
+		} else {
+			XCTAssertEqual(section.cells.count, 2)
+		}
 		XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "headerCell")
 		XCTAssertEqual(section.cells[1].cellReuseIdentifier.rawValue, "labelCell")
 
@@ -918,11 +968,10 @@ class ExposureDetectionViewModelTests: XCTestCase {
 	) {
 		// Risk data section
 		var section = dynamicTableViewModel.section(0)
-		XCTAssertEqual(section.cells.count, 4)
+		XCTAssertEqual(section.cells.count, 3)
 		XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "riskCell")
 		XCTAssertEqual(section.cells[1].cellReuseIdentifier.rawValue, "riskCell")
 		XCTAssertEqual(section.cells[2].cellReuseIdentifier.rawValue, "riskCell")
-		XCTAssertEqual(section.cells[3].cellReuseIdentifier.rawValue, "riskCell")
 		XCTAssertEqual(section.isHidden(for: viewController), isLoading ? true : false)
 
 		// Loading section
@@ -939,7 +988,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		XCTAssertEqual(section.cells[2].cellReuseIdentifier.rawValue, "guideCell")
 		XCTAssertEqual(section.cells[3].cellReuseIdentifier.rawValue, "longGuideCell")
 
-		// Active tracing section
+		// Tracing section
 		section = dynamicTableViewModel.section(3)
 		XCTAssertEqual(section.cells.count, 2)
 		XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "headerCell")
@@ -959,11 +1008,10 @@ class ExposureDetectionViewModelTests: XCTestCase {
 	) {
 		// Risk data section
 		var section = dynamicTableViewModel.section(0)
-		XCTAssertEqual(section.cells.count, 4)
+		XCTAssertEqual(section.cells.count, 3)
 		XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "riskCell")
 		XCTAssertEqual(section.cells[1].cellReuseIdentifier.rawValue, "riskCell")
 		XCTAssertEqual(section.cells[2].cellReuseIdentifier.rawValue, "riskCell")
-		XCTAssertEqual(section.cells[3].cellReuseIdentifier.rawValue, "riskCell")
 		XCTAssertEqual(section.isHidden(for: viewController), isLoading ? true : false)
 
 		// Loading section
@@ -984,7 +1032,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		section = dynamicTableViewModel.section(3)
 		XCTAssertEqual(section.cells.count, 1)
 
-		// Active tracing section
+		// Tracing section
 		section = dynamicTableViewModel.section(4)
 		XCTAssertEqual(section.cells.count, 2)
 		XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "headerCell")
@@ -1026,8 +1074,9 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		XCTAssertEqual(section.cells[5].cellReuseIdentifier.rawValue, "guideCell")
 
 		// Explanation section
+		let numberOfExposures = viewController.viewModel.riskDetails?.numberOfDaysWithRiskLevel ?? -1
 		section = dynamicTableViewModel.section(3)
-		XCTAssertEqual(section.cells.count, 2)
+		XCTAssertEqual(section.cells.count, numberOfExposures > 0 ? 3 : 2)
 		XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "headerCell")
 		XCTAssertEqual(section.cells[1].cellReuseIdentifier.rawValue, "labelCell")
 	}

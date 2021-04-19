@@ -92,7 +92,7 @@ final class OTPService: OTPServiceProviding {
 		client.authorize(otp: otp, ppacToken: ppacToken, isFake: false, forceApiTokenHeader: forceApiTokenHeader, completion: { [weak self] result in
 			guard let self = self else {
 				Log.error("could not create strong self", log: .otp)
-				completion(.failure(OTPError.generalError))
+				completion(.failure(OTPError.generalError(underlyingError: nil)))
 				return
 			}
 

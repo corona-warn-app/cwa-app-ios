@@ -29,48 +29,12 @@ final class StoreTests: XCTestCase {
 		XCTAssertEqual(store.lastSuccessfulSubmitDiagnosisKeyTimestamp, Int64.min)
 	}
 
-	func testNumberOfSuccesfulSubmissions_Success() {
-		XCTAssertEqual(store.numberOfSuccesfulSubmissions, 0)
-		store.numberOfSuccesfulSubmissions = Int64.max
-		XCTAssertEqual(store.numberOfSuccesfulSubmissions, Int64.max)
-		store.numberOfSuccesfulSubmissions = Int64.min
-		XCTAssertEqual(store.numberOfSuccesfulSubmissions, Int64.min)
-	}
-
-	func testInitialSubmitCompleted_Success() {
-		XCTAssertFalse(store.initialSubmitCompleted)
-		store.initialSubmitCompleted = true
-		XCTAssertTrue(store.initialSubmitCompleted)
-		store.initialSubmitCompleted = false
-		XCTAssertFalse(store.initialSubmitCompleted)
-	}
-
 	func testRegistrationToken_Success() {
 		XCTAssertNil(store.registrationToken)
 
 		let token = UUID().description
 		store.registrationToken = token
 		XCTAssertEqual(store.registrationToken, token)
-	}
-
-	func testTracingStatusHistory_Success() {
-		XCTAssertTrue(store.tracingStatusHistory.isEmpty)
-		let date1 = Date(timeIntervalSinceNow: -86400)
-		let date2 = Date()
-		let entry1 = TracingStatusEntry(on: true, date: date1)
-		let entry2 = TracingStatusEntry(on: false, date: date2)
-
-		store.tracingStatusHistory.append(entry1)
-		store.tracingStatusHistory.append(entry2)
-
-		XCTAssertEqual(store.tracingStatusHistory.count, 2)
-		XCTAssertTrue(store.tracingStatusHistory[0].on)
-		XCTAssertEqual(store.tracingStatusHistory[0].date.description, date1.description)
-		XCTAssertFalse(store.tracingStatusHistory[1].on)
-		XCTAssertEqual(store.tracingStatusHistory[1].date.description, date2.description)
-
-		store.flush()
-		XCTAssertTrue(store.tracingStatusHistory.isEmpty)
 	}
 
 	/// Reads a statically created db from version 1.0.0 into the app container and checks, whether all values from that version are still readable
@@ -94,32 +58,13 @@ final class StoreTests: XCTestCase {
 		// Prepare data
 		let testTimeStamp: Int64 = 1466467200  // 21.06.2016
 		let testDate1 = Date(timeIntervalSince1970: Double(testTimeStamp))
-		let testDate2 = Date(timeIntervalSince1970: Double(testTimeStamp) - 86400)
 
 		XCTAssertTrue(tmpStore.isOnboarded)
 		XCTAssertEqual(tmpStore.dateOfAcceptedPrivacyNotice?.description, testDate1.description)
-		XCTAssertEqual(tmpStore.teleTan, "97RR2D5644")
-		XCTAssertEqual(tmpStore.tan, "97RR2D5644")
-		XCTAssertEqual(tmpStore.testGUID, "00000000-0000-4000-8000-000000000000")
-		XCTAssertTrue(tmpStore.devicePairingConsentAccept)
-		XCTAssertEqual(tmpStore.devicePairingConsentAcceptTimestamp, testTimeStamp)
-		XCTAssertEqual(tmpStore.devicePairingSuccessfulTimestamp, testTimeStamp)
 		XCTAssertTrue(tmpStore.allowRiskChangesNotification)
 		XCTAssertTrue(tmpStore.allowTestsStatusNotification)
-		XCTAssertEqual(tmpStore.registrationToken, "")
-		XCTAssertTrue(tmpStore.hasSeenSubmissionExposureTutorial)
-		XCTAssertEqual(tmpStore.testResultReceivedTimeStamp, testTimeStamp)
-		XCTAssertEqual(tmpStore.lastSuccessfulSubmitDiagnosisKeyTimestamp, testTimeStamp)
-		XCTAssertEqual(tmpStore.numberOfSuccesfulSubmissions, 1)
-		XCTAssertTrue(tmpStore.initialSubmitCompleted)
 		XCTAssertEqual(tmpStore.exposureActivationConsentAcceptTimestamp, testTimeStamp)
 		XCTAssertTrue(tmpStore.exposureActivationConsentAccept)
-
-		XCTAssertEqual(tmpStore.tracingStatusHistory.count, 2)
-		XCTAssertTrue(tmpStore.tracingStatusHistory[0].on)
-		XCTAssertEqual(tmpStore.tracingStatusHistory[0].date.description, testDate1.description)
-		XCTAssertFalse(tmpStore.tracingStatusHistory[1].on)
-		XCTAssertEqual(tmpStore.tracingStatusHistory[1].date.description, testDate2.description)
 	}
 	
 	func testDeviceTimeSettings_initalAfterInitialization() {

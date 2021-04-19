@@ -43,7 +43,7 @@ final class TestableExposureSubmissionQRScannerViewModel: ExposureSubmissionQRSc
 
 final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 
-	func testSuccessfulScan() {
+	func testSuccessfulPcrScan() {
 		let guid = "3D6D08-3567F3F2-4DCF-43A3-8737-4CD1F87D6FDA"
 
 		let onSuccessExpectation = expectation(description: "onSuccess called")
@@ -54,9 +54,13 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 		onErrorExpectation.expectedFulfillmentCount = 1
 
 		let viewModel = TestableExposureSubmissionQRScannerViewModel(
-			onSuccess: { deviceRegistrationKey in
-				XCTAssertEqual(deviceRegistrationKey, .guid(guid))
-
+			onSuccess: { testInformation in
+				switch testInformation {
+				case .pcr(let scannedGuid):
+					XCTAssertEqual(scannedGuid, guid)
+				case .antigen:
+					XCTFail("Expected PCR test")
+				}
 				onSuccessExpectation.fulfill()
 			},
 			onError: { _, _ in
@@ -73,7 +77,79 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 
 		waitForExpectations(timeout: .short)
 	}
+	
+	func testSuccessfulAntigenScan_Base64URL() throws {
+		let payload = "eyJ0aW1lc3RhbXAiOjE2MTgzMDYwNTYsImd1aWQiOiI1OEM0MERBMC00Q0M1LTQ4ODAtOTIyMS0xNjBCNjA1OTIxQzAiLCJmbiI6IkpvZWwiLCJsbiI6IkdyYXppYW5pIiwiZG9iIjoiMTk4OC0wNy0wOSJ9"
+		let validAntigenGuid = try XCTUnwrap(self.validAntigenGuid(validPayLoad: payload))
 
+		let onSuccessExpectation = expectation(description: "onSuccess called")
+		onSuccessExpectation.expectedFulfillmentCount = 1
+
+		let onErrorExpectation = expectation(description: "onError not called")
+		// first onError call will happen on ViewModel init
+		onErrorExpectation.expectedFulfillmentCount = 1
+
+		let viewModel = TestableExposureSubmissionQRScannerViewModel(
+			onSuccess: { testInformation in
+				switch testInformation {
+				case .antigen(let testInformation):
+					XCTAssertEqual(testInformation.guid, validAntigenGuid)
+				case .pcr:
+					XCTFail("Expected antigen test")
+				}
+
+				onSuccessExpectation.fulfill()
+			},
+			onError: { _, _ in
+				onErrorExpectation.fulfill()
+			}
+		)
+
+		let metaDataObject = FakeMetadataMachineReadableCodeObject(stringValue: "https://s.coronawarn.app/?v=1#\(payload)")
+		viewModel.activateScanning()
+		viewModel.didScan(metadataObjects: [metaDataObject])
+
+		// Check that scanning is deactivated after one successful scan
+		viewModel.didScan(metadataObjects: [metaDataObject])
+
+		waitForExpectations(timeout: .short)
+	}
+	func testSuccessfulAntigenScan_base64() throws {
+		let payload = "eyJ0aW1lc3RhbXAiOjE2MTgzMDY1MzAsImd1aWQiOiJDQzcyMEI2Ni1CNTBFLTQ1NzAtQUNCNC02RUExNEFEMDdGRDIiLCJmbiI6Ikhlcm1hbiIsImxuIjoiTWFydGluZXoiLCJkb2IiOiIxOTY0LTA5LTI3In0="
+		let validAntigenGuid = try XCTUnwrap(self.validAntigenGuid(validPayLoad: payload))
+
+		let onSuccessExpectation = expectation(description: "onSuccess called")
+		onSuccessExpectation.expectedFulfillmentCount = 1
+
+		let onErrorExpectation = expectation(description: "onError not called")
+		// first onError call will happen on ViewModel init
+		onErrorExpectation.expectedFulfillmentCount = 1
+
+		let viewModel = TestableExposureSubmissionQRScannerViewModel(
+			onSuccess: { testInformation in
+				switch testInformation {
+				case .antigen(let testInformation):
+					XCTAssertEqual(testInformation.guid, validAntigenGuid)
+				case .pcr:
+					XCTFail("Expected antigen test")
+				}
+
+				onSuccessExpectation.fulfill()
+			},
+			onError: { _, _ in
+				onErrorExpectation.fulfill()
+			}
+		)
+
+		let metaDataObject = FakeMetadataMachineReadableCodeObject(stringValue: "https://s.coronawarn.app/?v=1#\(payload)")
+		viewModel.activateScanning()
+		viewModel.didScan(metadataObjects: [metaDataObject])
+
+		// Check that scanning is deactivated after one successful scan
+		viewModel.didScan(metadataObjects: [metaDataObject])
+
+		waitForExpectations(timeout: .short)
+	}
 	func testUnsuccessfulScan() {
 		let emptyGuid = ""
 
@@ -140,9 +216,13 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 		onErrorExpectation.expectedFulfillmentCount = 2
 
 		let viewModel = TestableExposureSubmissionQRScannerViewModel(
-			onSuccess: { deviceRegistrationKey in
-				XCTAssertEqual(deviceRegistrationKey, .guid(validGuid))
-
+			onSuccess: { testInformation in
+				switch testInformation {
+				case .pcr(let scannedGuid):
+					XCTAssertEqual(scannedGuid, validGuid)
+				case .antigen:
+					XCTFail("Expected PCR test")
+				}
 				onSuccessExpectation.fulfill()
 			},
 			onError: { error, reactivateScanning in
@@ -178,7 +258,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 	func testQRCodeExtraction_EmptyString() {
 		let viewModel = createViewModel()
 
-		let result = viewModel.extractGuid(from: "")
+		let result = viewModel.coronaTestQRCodeInformation(from: "")
 
 		XCTAssertNil(result)
 	}
@@ -186,7 +266,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 	func testQRCodeExtraction_InputLengthExceeded() {
 		let viewModel = createViewModel()
 
-		let result = viewModel.extractGuid(from: String(repeating: "x", count: 150))
+		let result = viewModel.coronaTestQRCodeInformation(from: String(repeating: "x", count: 150))
 
 		XCTAssertNil(result)
 	}
@@ -194,7 +274,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 	func testQRCodeExtraction_WrongURL() {
 		let viewModel = createViewModel()
 
-		let result = viewModel.extractGuid(from: "https://coronawarn.app/?\(validGuid)")
+		let result = viewModel.coronaTestQRCodeInformation(from: "https://wrong.app/?\(validPcrGuid)")
 
 		XCTAssertNil(result)
 	}
@@ -202,7 +282,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 	func testQRCodeExtration_someUTF8Text() {
 		let viewModel = createViewModel()
 
-		let result = viewModel.extractGuid(from: "This is a Test ん鞠")
+		let result = viewModel.coronaTestQRCodeInformation(from: "This is a Test ん鞠")
 
 		XCTAssertNil(result)
 	}
@@ -210,7 +290,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 	func testQRCodeExtraction_MissingURL() {
 		let viewModel = createViewModel()
 
-		let result = viewModel.extractGuid(from: "?\(validGuid)")
+		let result = viewModel.coronaTestQRCodeInformation(from: "?\(validPcrGuid)")
 
 		XCTAssertNil(result)
 	}
@@ -218,67 +298,108 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 	func testQRCodeExtraction_MissingQuestionMark() {
 		let viewModel = createViewModel()
 
-		let result = viewModel.extractGuid(from: "https://localhost/\(validGuid)")
+		let result = viewModel.coronaTestQRCodeInformation(from: "https://localhost/\(validPcrGuid)")
 
 		XCTAssertNil(result)
 	}
 
-	func testQRCodeExtraction_AdditionalSpaceAfterQuestionMark() {
+	func testPcrQRCodeExtraction_AdditionalSpaceAfterQuestionMark() {
 		let viewModel = createViewModel()
 
-		let result = viewModel.extractGuid(from: "? \(validGuid)")
+		let result = viewModel.coronaTestQRCodeInformation(from: "? \(validPcrGuid)")
 
 		XCTAssertNil(result)
 	}
 
-	func testQRCodeExtraction_GUIDLengthExceeded() {
+	func testPcrQRCodeExtraction_GUIDLengthExceeded() {
 		let viewModel = createViewModel()
 
-		let result = viewModel.extractGuid(from: "https://localhost/?\(validGuid)-BEEF")
+		let result = viewModel.coronaTestQRCodeInformation(from: "https://localhost/?\(validPcrGuid)-BEEF")
 
 		XCTAssertNil(result)
 	}
 
-	func testQRCodeExtraction_GUIDTooShort() {
+	func testPcrQRCodeExtraction_GUIDTooShort() {
 		let viewModel = createViewModel()
 
-		let result = viewModel.extractGuid(from: "https://localhost/?\(validGuid.dropLast(4))")
+		let result = viewModel.coronaTestQRCodeInformation(from: "https://localhost/?\(validPcrGuid.dropLast(4))")
 
 		XCTAssertNil(result)
 	}
 
-	func testQRCodeExtraction_GUIDStructureWrong() {
+	func testAntigenQRCodeExtraction_GUIDLengthExceeded() throws {
+		let viewModel = createViewModel()
+
+		let validAntigenGuid = try XCTUnwrap(self.validAntigenGuid(validPayLoad: validAntigenPayLoad))
+		let result = viewModel.coronaTestQRCodeInformation(from: "https://s.coronawarn.app/?v=1#\(validAntigenGuid)-BEEF")
+
+		XCTAssertNil(result)
+	}
+
+	func testAntigenPcrQRCodeExtraction_GUIDTooShort() throws {
+		let viewModel = createViewModel()
+		
+		let validAntigenGuid = try XCTUnwrap(self.validAntigenGuid(validPayLoad: validAntigenPayLoad))
+		let result = viewModel.coronaTestQRCodeInformation(from: "https://s.coronawarn.app/?v=1#\(validAntigenGuid.dropLast(4))")
+
+		XCTAssertNil(result)
+	}
+	
+	func testPcrQRCodeExtraction_GUIDStructureWrong() {
 		let viewModel = createViewModel()
 
 		let wrongGuid = "3D6D-083567F3F2-4DCF-43A3-8737-4CD1F87D6FDA"
-		let result = viewModel.extractGuid(from: "https://localhost/?\(wrongGuid)")
+		let result = viewModel.coronaTestQRCodeInformation(from: "https://localhost/?\(wrongGuid)")
 
 		XCTAssertNil(result)
 	}
 
-	func testQRCodeExtraction_ValidWithUppercaseString() {
+	func testPcrQRCodeExtraction_ValidWithUppercaseString() {
 		let viewModel = createViewModel()
 
-		let result = viewModel.extractGuid(from: "https://localhost/?\(validGuid.uppercased())")
+		guard let result = viewModel.coronaTestQRCodeInformation(from: "https://localhost/?\(validPcrGuid.uppercased())") else {
+			XCTFail("Result is nil")
+			return
+		}
 
-		XCTAssertEqual(result, validGuid)
+		switch  result {
+		case .antigen:
+			XCTFail("Expected PCR test")
+		case .pcr(let result):
+			XCTAssertEqual(result, validPcrGuid)
+		}
 	}
 
-	func testQRCodeExtraction_ValidWithLowercaseString() {
+	func testPcrQRCodeExtraction_ValidWithLowercaseString() {
 		let viewModel = createViewModel()
 
-		let result = viewModel.extractGuid(from: "https://localhost/?\(validGuid.lowercased())")
-
-		XCTAssertEqual(result, validGuid.lowercased())
+		guard let result = viewModel.coronaTestQRCodeInformation(from: "https://localhost/?\(validPcrGuid.lowercased())") else {
+			XCTFail("Result is nil")
+			return
+		}
+		switch  result {
+		case .antigen:
+			XCTFail("Expected PCR test")
+		case .pcr(let result):
+			XCTAssertEqual(result, validPcrGuid.lowercased())
+		}
 	}
 
-	func testQRCodeExtraction_ValidWithMixedcaseString() {
+	func testPcrQRCodeExtraction_ValidWithMixedcaseString() {
 		let viewModel = createViewModel()
-
+		
 		let mixedCaseGuid = "3D6d08-3567F3f2-4DcF-43A3-8737-4CD1F87d6FDa"
-		let result = viewModel.extractGuid(from: "https://localhost/?\(mixedCaseGuid)")
-
-		XCTAssertEqual(result, mixedCaseGuid)
+		
+		guard let result = viewModel.coronaTestQRCodeInformation(from: "https://localhost/?\(mixedCaseGuid)") else {
+			XCTFail("Result is nil")
+			return
+		}
+		switch  result {
+		case .antigen:
+			XCTFail("Expected PCR test")
+		case .pcr(let result):
+			XCTAssertEqual(result, mixedCaseGuid)
+		}
 	}
 
 	func testGIVEN_ViewModelWithScanningEnabled_WHEN_stop_THEN_scanningIsDisabled() {
@@ -286,7 +407,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 		let viewModel = ExposureSubmissionQRScannerViewModel(onSuccess: { _ in }, onError: { _, _ in })
 
 		// WHEN
-		viewModel.stopCapturSession()
+		viewModel.stopCaptureSession()
 
 		// THEN
 		XCTAssertFalse(viewModel.isScanningActivated, "Scanning is still enabled")
@@ -297,7 +418,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 		let viewModel = ExposureSubmissionQRScannerViewModel(onSuccess: { _ in }, onError: { _, _ in })
 
 		// WHEN
-		viewModel.stopCapturSession()
+		viewModel.stopCaptureSession()
 
 		// THEN
 		XCTAssertFalse(viewModel.isScanningActivated, "Scanning is still enabled")
@@ -308,24 +429,58 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 		let viewModel = createViewModel()
 
 		// WHEN
-		let result = viewModel.extractGuid(from: "HTTPS://LOCALHOST/?\(validGuid)")
+		let result = viewModel.coronaTestQRCodeInformation(from: "HTTPS://LOCALHOST/?\(validPcrGuid)")
 
 		// THEN
 		XCTAssertNotNil(result)
 	}
 
-	func testGIVEN_invalidPath_WHEN_extractGuid_THEN_isInvalid() {
+	func testGIVEN_invalidPath_WHEN_extractPcrGuid_THEN_isInvalid() {
 		// GIVEN
 		let viewModel = createViewModel()
 
 		// WHEN
-		let result = viewModel.extractGuid(from: "https://localhost//?A9652E-3BE0486D-0678-40A8-BEFD-07846B41993C")
+		let result = viewModel.coronaTestQRCodeInformation(from: "https://localhost//?A9652E-3BE0486D-0678-40A8-BEFD-07846B41993C")
 
 		// THEN
 		XCTAssertNil(result)
 	}
+	
+	func testGIVEN_invalidPath_WHEN_extractAntigenPayload_THEN_isInvalid() {
+		// GIVEN
+		let viewModel = createViewModel()
 
-	private let validGuid = "3D6D08-3567F3F2-4DCF-43A3-8737-4CD1F87D6FDA"
+		// WHEN
+		let result = viewModel.coronaTestQRCodeInformation(from: "https://s.coronawarn.app/?v=1#//?eyJ0aW1lc3RhbXAiOjE2MTgyMzM5NzksImd1aWQiOiIwQzg5MjItMEM4OTIyNjMtQTM0Qy00RjM1LTg5QUMtMTcyMzlBMzQ2QUZEIiwiZm4iOiJDYW1lcm9uIiwibG4iOiJIdWRzb24iLCJkb2IiOiIxOTkyLTA4LTA3In0")
+
+		// THEN
+		XCTAssertNil(result)
+	}
+	
+	private let validPcrGuid = "3D6D08-3567F3F2-4DCF-43A3-8737-4CD1F87D6FDA"
+	private let validAntigenPayLoad = "eyJ0aW1lc3RhbXAiOjE2MTgzMDY1MzAsImd1aWQiOiJDQzcyMEI2Ni1CNTBFLTQ1NzAtQUNCNC02RUExNEFEMDdGRDIiLCJmbiI6Ikhlcm1hbiIsImxuIjoiTWFydGluZXoiLCJkb2IiOiIxOTY0LTA5LTI3In0="
+	private func  validAntigenGuid(validPayLoad: String) -> String? {
+		
+		let jsonData: Data
+		if validPayLoad.isBase64Encoded {
+			guard let parsedData = Data(base64Encoded: validPayLoad) else {
+				return nil
+			}
+			jsonData = parsedData
+		} else {
+			guard let parsedData = Data(base64URLEncoded: validPayLoad) else {
+				return nil
+			}
+			jsonData = parsedData
+		}
+		do {
+			let testInformation = try JSONDecoder().decode(AntigenTestInformation.self, from: jsonData)
+			return testInformation.guid
+		} catch {
+			Log.debug("Failed to read / parse district json", log: .ppac)
+			return nil
+		}
+	}
 
 	private func createViewModel() -> ExposureSubmissionQRScannerViewModel {
 		ExposureSubmissionQRScannerViewModel(onSuccess: { _ in }, onError: { _, _ in })

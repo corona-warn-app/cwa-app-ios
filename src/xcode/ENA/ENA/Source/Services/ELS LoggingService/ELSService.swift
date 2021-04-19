@@ -71,7 +71,7 @@ final class ErrorLogSubmissionService: ErrorLogSubmitting {
 						}
 					}
 				case .failure(let error):
-					completion(.failure(OTPError.generalError))
+					completion(.failure(OTPError.generalError(underlyingError: error)))
 				}
 			}
 		}
@@ -93,7 +93,7 @@ final class ErrorLogSubmissionService: ErrorLogSubmitting {
 //			store.elsUploadToken = token
 //			return token
 //		}()
-//		client.submit(logFile: item.compressedData as Data, uploadToken: token, isFake: false, completion: completion)
+//		client.submitErrorLog(logFile: item.compressedData as Data, uploadToken: token, isFake: false, completion: completion)
 	}
 
 	// MARK: - Helpers

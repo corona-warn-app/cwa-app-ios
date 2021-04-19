@@ -52,8 +52,7 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating {
 
 		let errorReportsContainerViewController = TopBottomContainerViewController(
 			topController: TopErrorReportViewController(viewModel: viewModel),
-			bottomController: errorReportsLoggingViewController,
-			bottomHeight: errorLoggingStatus.bottomViewHeight
+			bottomController: errorReportsLoggingViewController
 		)
 		self.errorReportsContainerViewController = errorReportsContainerViewController
 		self.errorReportsLoggingViewController = errorReportsLoggingViewController
@@ -64,13 +63,15 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating {
 	// MARK: - Protocol ErrorReportsCoordinating
 
 	func startErrorLogging() {
-		errorReportsContainerViewController?.updateBottomHeight(to: ErrorLoggingStatus.active.bottomViewHeight)
-		// Add here Collection of Logs
+		// TODO: Remaining code after merge - might be removed
+		//errorReportsContainerViewController?.updateBottomHeight(to: ErrorLoggingStatus.active.bottomViewHeight)
+		// TODO: Add here Collection of Logs
 	}
 	
 	func stopErrorLogging() {
-		errorReportsContainerViewController?.updateBottomHeight(to: ErrorLoggingStatus.inactive.bottomViewHeight)
-		// Add here deletion of the collected logs
+		// TODO: Remaining code after merge - might be removed
+		//errorReportsContainerViewController?.updateBottomHeight(to: ErrorLoggingStatus.inactive.bottomViewHeight)
+		// TODO: Add here deletion of the collected logs
 	}
 	
 	func sendErrorLogging() {
@@ -105,8 +106,7 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating {
 		)
 		let topBottomViewController = TopBottomContainerViewController(
 			topController: topViewController,
-			bottomController: bottomViewController,
-			bottomHeight: 80
+			bottomController: bottomViewController
 		)
 		
 		rootViewController.navigationController?.pushViewController(topBottomViewController, animated: true)

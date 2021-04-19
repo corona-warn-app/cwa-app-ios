@@ -9,7 +9,7 @@ import XCTest
 class DiaryDayEmptyViewModelTest: XCTestCase {
 
 	func testContactPerson() throws {
-		let viewModel = DiaryDayEmptyViewModel(entryType: .contactPerson)
+		let viewModel = DiaryDayEmptyStateViewModel(entryType: .contactPerson)
 
 		XCTAssertEqual(viewModel.image, UIImage(named: "Illu_Diary_ContactPerson_Empty"))
 		XCTAssertEqual(viewModel.title, AppStrings.ContactDiary.Day.contactPersonsEmptyTitle)
@@ -18,7 +18,7 @@ class DiaryDayEmptyViewModelTest: XCTestCase {
 	}
 
 	func testLocation() throws {
-		let viewModel = DiaryDayEmptyViewModel(entryType: .location)
+		let viewModel = DiaryDayEmptyStateViewModel(entryType: .location)
 
 		XCTAssertEqual(viewModel.image, UIImage(named: "Illu_Diary_Location_Empty"))
 		XCTAssertEqual(viewModel.title, AppStrings.ContactDiary.Day.locationsEmptyTitle)

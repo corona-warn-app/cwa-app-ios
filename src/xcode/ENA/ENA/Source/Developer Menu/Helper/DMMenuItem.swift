@@ -16,10 +16,8 @@ enum DMMenuItem: Int, CaseIterable {
 	case manuallyRequestRisk
 	case debugRiskCalculation
 	case errorLog
-	case purgeRegistrationToken
 	case sendFakeRequest
 	case store
-	case tracingHistory
 	case onboardingVersion
 	case serverEnvironment
 	case simulateNoDiskSpace
@@ -31,6 +29,10 @@ enum DMMenuItem: Int, CaseIterable {
 	case ppaMostRecent
 	case ppaActual
 	case ppaSubmission
+	case installationDate
+    case allTraceLocations
+	case mostRecentTraceLocationCheckedInto
+	case adHocPosterGeneration
 }
 
 extension DMMenuItem {
@@ -56,10 +58,8 @@ extension DMMenuItem {
 		case .manuallyRequestRisk: return "Manually Request Risk"
 		case .debugRiskCalculation: return "Debug Risk Calculation"
 		case .errorLog: return "Error Log"
-		case .purgeRegistrationToken: return "Purge Registration Token"
 		case .sendFakeRequest: return "Send fake Request"
 		case .store: return "Store Contents"
-		case .tracingHistory: return "Tracing History"
 		case .onboardingVersion: return "Onboarding Version"
 		case .serverEnvironment: return "Server Environment"
 		case .simulateNoDiskSpace: return "Simulate SQLite Error"
@@ -71,6 +71,10 @@ extension DMMenuItem {
 		case .ppaMostRecent: return "PPA Most Recent Data"
 		case .ppaActual: return "PPA Actual Data"
 		case .ppaSubmission: return "PPA Submission"
+		case .installationDate: return "Installation Date"
+		case .allTraceLocations: return "All created trace locations"
+		case .mostRecentTraceLocationCheckedInto: return "Most recent trace location checked into"
+		case .adHocPosterGeneration: return "Ad-Hoc Poster Generation"
 		}
 	}
 	var subtitle: String {
@@ -84,10 +88,8 @@ extension DMMenuItem {
 		case .manuallyRequestRisk: return "Manually requests the current risk"
 		case .debugRiskCalculation: return "See the most recent risk calculation values"
 		case .errorLog: return "View all errors logged by the app"
-		case .purgeRegistrationToken: return "Purge Registration Token"
 		case .sendFakeRequest: return "Sends a fake request for testing plausible deniability"
 		case .store: return "See the contents of the encrypted store used by the app"
-		case .tracingHistory: return "See when tracing was active"
 		case .onboardingVersion: return "Set the onboarding version"
 		case .serverEnvironment: return "Select server environment"
 		case .simulateNoDiskSpace: return "Simulates SQLite returns defined error"
@@ -99,7 +101,10 @@ extension DMMenuItem {
 		case .ppaMostRecent: return "See the last successful submitted ppa data"
 		case .ppaActual: return "See current analytics data as they were submitted now"
 		case .ppaSubmission: return "Analytics data submission settings"
-
+		case .installationDate: return "Installation date setup"
+		case .allTraceLocations: return "See the data of the created trace locations"
+		case .mostRecentTraceLocationCheckedInto: return "See the calculated ID of the trace location most recently checked into"
+		case .adHocPosterGeneration: return "Generate QR code poster by providing the customized values"
 		}
 	}
 }

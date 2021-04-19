@@ -9,11 +9,27 @@ import Foundation
 enum PPADataType {
 	case userData(PPAUserMetadata)
 	case riskExposureMetadata(PPARiskExposureMetadata)
-	case clientMetadata(PPAClientMetadata)
 	case testResultMetadata(PPATestResultMetadata)
 	case keySubmissionMetadata(PPAKeySubmissionMetadata)
 	case exposureWindowsMetadata(PPAExposureWindowsMetadata)
 	case submissionMetadata(PPASubmissionMetadata)
+	
+	var description: String {
+		switch self {
+		case .userData:
+			return "userData"
+		case .riskExposureMetadata:
+			return "riskExposureMetadata"
+		case .testResultMetadata:
+			return "testResultMetadata"
+		case .keySubmissionMetadata:
+			return "keySubmissionMetadata"
+		case .exposureWindowsMetadata:
+			return "exposureWindowsMetadata"
+		case .submissionMetadata:
+			return "submissionMetadata"
+		}
+	}
 }
 
 enum PPAUserMetadata {
@@ -22,12 +38,7 @@ enum PPAUserMetadata {
 
 enum PPARiskExposureMetadata {
 	case create(RiskExposureMetadata)
-	case updateRiskExposureMetadata(RiskCalculationResult)
-}
-
-enum PPAClientMetadata {
-	case create(ClientMetadata)
-	case setClientMetaData
+	case updateRiskExposureMetadata(ENFRiskCalculationResult)
 }
 
 enum PPATestResultMetadata {
@@ -51,6 +62,7 @@ enum PPAKeySubmissionMetadata {
 	case keySubmissionHoursSinceTestRegistration(Int32?)
 	case daysSinceMostRecentDateAtRiskLevelAtTestRegistration(Int32)
 	case hoursSinceHighRiskWarningAtTestRegistration(Int32)
+	case updateSubmittedWithTeletan
 	case setHoursSinceTestResult
 	case setHoursSinceTestRegistration
 	case setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration
@@ -58,8 +70,7 @@ enum PPAKeySubmissionMetadata {
 }
 
 enum PPAExposureWindowsMetadata {
-	case create(ExposureWindowsMetadata)
-	case collectExposureWindows(RiskCalculationProtocol)
+	case collectExposureWindows([RiskCalculationExposureWindow])
 }
 
 enum PPASubmissionMetadata {

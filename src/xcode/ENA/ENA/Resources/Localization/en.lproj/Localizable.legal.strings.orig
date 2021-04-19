@@ -1,0 +1,181 @@
+/* ExposureSubmissionWarnOthers */
+
+"ExposureSubmissionWarnOthers_acknowledgementTitle" = "Your Consent";
+
+"ExposureSubmissionWarnOthers_acknowledgementBody" = "By tapping on “Accept”, you consent to the following steps:";
+
+"ExposureSubmissionWarnOthers_acknowledgement_1_1" = "The app will share your test result in order to warn users whom you have encountered. This applies to users of coronavirus apps from the above countries and users who were simultaneously checked in at the same event or place as you. In the case of rapid tests, only users of the Corona-Warn-App will be warned. If you provide additional information about the onset of symptoms, this will be also shared.";
+
+"ExposureSubmissionWarnOthers_acknowledgement_1_2" = "In the next step, grant your consent to access random IDs.";
+
+"ExposureSubmissionWarnOthers_acknowledgement_footer" = "If you have already warned other users, you can withdraw your consent by deleting the app.";
+
+
+/* DeltaOnboarding */
+
+"DeltaOnboarding_DataProcessing_Info_title" = "Information on Data Processing";
+
+"DeltaOnboarding_DataProcessing_Info_content" = "You do not need to change anything to find out whether you have had possible exposures involving app users in the participating countries and are therefore at risk of infection yourself. You just need to make sure that the exposure logging feature is still enabled. Exposure logging will automatically warn you about any possible exposure involving another user of the Corona-Warn-App or any other official coronavirus app.\n\nIf you have enabled the “Exposure Notifications” functionality on your iPhone, then your iPhone continuously generates random IDs and sends them via Bluetooth so that they can be received by other smartphones near you. Your iPhone, in turn, receives the random IDs of other smartphones. Your own random IDs and those received from other smartphones are recorded by your iPhone and stored there for 14 days.\n\nFor exposure logging, the app downloads up-to-date lists every day of the random IDs of all users who have shared their test result (more precisely: their own random IDs) via their official coronavirus app in order to warn other users. These lists are then compared with the random IDs of other users which have been recorded by your iPhone. The app will inform you if it detects a possible exposure. In this case, the app gains access to the data recorded by your iPhone about the possible exposure (date, duration and Bluetooth signal strength of the contact). The Bluetooth signal strength is used to derive the physical distance to the other user (the stronger the signal, the smaller the distance). The app analyses this information in order to calculate your risk of infection and to give you recommendations for what to do next. This analysis is only performed locally on your iPhone.\n\nApart from you, nobody (not even the RKI or the health authorities of participating countries) will know whether a possible exposure has been detected and what risk of infection has been identified for you.\n\nThe app’s privacy notice (including information about the data processing carried out for the transnational exposure logging feature) can be found in the menu under “App Information” > “Data Privacy”.";
+
+/* Onboarding */
+
+"OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "Consent";
+
+"OnboardingInfo_enableLoggingOfContactsPage_panelBody" = "You need to enable exposure logging to find out whether you have had possible exposures involving app users in the participating countries and are therefore at risk of infection yourself. By tapping on the “Activate exposure logging” button, you agree to enabling the exposure logging feature and to the associated data processing by the app.\n\nIn order to use the exposure logging feature, you will also have to enable the “Exposure Notifications” functionality provided by Apple on your iPhone and grant the Corona-Warn-App permission to use this.\n\nYour iPhone will then continuously generate random IDs and send them via Bluetooth so that they can be received by other smartphones near you. Your iPhone, in turn, receives the random IDs of other smartphones. Your own random IDs and those received from other smartphones are recorded by your iPhone and stored there for 14 days.\n\nFor exposure logging, the app downloads up-to-date lists every day of the random IDs of all users who have shared their test result (more precisely: their own random IDs) via their official coronavirus app in order to warn other users. These lists are then compared with the random IDs of other users which have been recorded by your iPhone.\n\nThe app will inform you if it detects a possible exposure. In this case, the app gains access to the data recorded by your iPhone about the possible exposure (date, duration and Bluetooth signal strength of the contact). The Bluetooth signal strength is used to derive the physical distance to the other user (the stronger the signal, the smaller the distance). The app analyses this information in order to calculate your risk of infection and to give you recommendations for what to do next. This analysis is only performed locally on your iPhone.\n\nApart from you, nobody (not even the RKI or the health authorities of participating countries) will know whether a possible exposure has been detected and what risk of infection has been identified for you.\n\nYou can withdraw your consent to the exposure logging feature at any time by either disabling the feature using the toggle switch in the app or deleting the app. If you would like to use the exposure logging feature again, you can toggle the feature back on or reinstall the app. If you disable the exposure logging feature, the app will no longer check for possible exposures. If you also wish to stop your device sending and receiving random IDs, you will need to disable the “Exposure Notifications” functionality in your iPhone settings. Please note that the app will not delete your random IDs or those received from other smartphones which have been recorded by this functionality on your iPhone. You can only permanently delete these in your iPhone settings.\n\nThe app’s privacy notice (including information about the data processing carried out for the transnational exposure logging feature) can be found in the menu under “App Information” > “Data Privacy”.";
+
+/* Exposure Submission QR Code Info */
+
+"ExposureSubmissionQRInfo_acknowledgement_legal_title" = "Your Consent";
+
+"ExposureSubmissionQRInfo_acknowledgement_legal_body" = "By tapping on “Accept”, you consent to the following steps:";
+
+"ExposureSubmissionQRInfo_acknowledgement_legal_Bullet1_1" = "The app will retrieve your test result.";
+
+"ExposureSubmissionQRInfo_acknowledgement_legal_Bullet1_2" = "If you change your mind later, you can delete the test in the app.";
+
+"ExposureSubmissionQRInfo_acknowledgement_legal_Bullet2" = "If you have tested positive for coronavirus, the app will share your test result in order to warn other users whom you have encountered. This applies to users of coronavirus apps from the above countries and users who were simultaneously checked in at the same event or place as you. In the case of rapid tests, only users of the Corona-Warn-App will be warned.";
+
+"ExposureSubmissionQRInfo_acknowledgement_legal_Bullet3" = "If you provide additional information about the onset of your symptoms, this will also be shared.";
+
+"ExposureSubmissionQRInfo_acknowledgement_legal_WithdrawConsent" = "You can withdraw your consent at any time. The setting for this can be found under “Display Test”. Before sharing your test result, you will be reminded of your consent.";
+
+/* Automatic share submission result consent */
+
+"AutomaticSharingConsent_Subtitle" = "Consent";
+
+"AutomaticSharingConsent_DescriptionPart1_PCR" = "If you have tested positive for coronavirus, the app will share your test result in order to warn other users whom you have encountered.";
+
+"AutomaticSharingConsent_DescriptionPart1_RAT" = "If you have tested positive for coronavirus, the app will share your test result in order to warn other users whom you have encountered.";
+
+"AutomaticSharingConsent_DescriptionPart2_PCR" = "The warning will reach users of the official coronavirus apps of the following participating countries:";
+
+"AutomaticSharingConsent_DescriptionPart2_RAT" = "This warning only affects users who were simultaneously checked in at the same event or place as you and users of coronavirus apps in the following countries:";
+
+"AutomaticSharingConsent_DescriptionPart3_PCR" = "If you provide additional information about the onset of your symptoms, this will also be shared.";
+
+"AutomaticSharingConsent_DescriptionPart3_RAT" = "In the case of rapid tests, only users of the Corona-Warn-App will be warned. If you provide additional information about the onset of symptoms, this will be also shared.";
+
+"AutomaticSharingConsent_DescriptionPart4" = "You can withdraw your consent by disabling “Warn Others” above.";
+
+"AutomaticSharingConsent_DescriptionPart5" = "Your test result will then be shown to you.";
+
+/* Contact journal information */
+
+"ContactDiary_Information_Legal_Headline_1" = "Information on Data Processing";
+
+"ContactDiary_Information_Legal_SubHeadline_1" = "You will retain full control over all of the information you record.";
+
+"ContactDiary_Information_Legal_Text_1" = "Using this additional feature of the Corona-Warn-App is voluntary. Only you decide which people and places you record.";
+
+"ContactDiary_Information_Legal_Text_2" = "Neither the RKI nor any other agency has access to the information you enter in the contact journal. The information is only stored in encrypted form on your iPhone.";
+
+"ContactDiary_Information_Legal_SubHeadline_2" = "Please respect other people’s privacy.";
+
+"ContactDiary_Information_Legal_Text_3" = "Please think carefully about with whom you share the information recorded in your contact journal, and how you share it. The information is meant to help you remember – it is not intended for anyone else. If the public health office (Gesundheitsamt) asks for your help with contact tracing, then sharing your entries is appropriate.";
+
+"ContactDiary_Information_Legal_Text_4" = "Private individuals as well as companies are not allowed to make you disclose the information you have recorded. Please respect the wishes of anyone who does not want to be recorded in your contact journal.";
+
+
+/* Data Donation */
+
+"DataDonation_Acknowledgement_Title" = "Your Consent";
+
+"DataDonation_Acknowledgement_Content" = "By tapping on “Accept”, you consent to the following:\n\nThe app will transmit information it records to the RKI, on a daily basis. The data concerns possible exposures and warnings that have been displayed to you, test results you have retrieved, and whether you have warned other users, and information about your smartphone’s operating system. If you have provided further details above (region, age group), then the RKI will also receive this information.\n\nThe RKI will compile this data into statistics and analyze it to assess the effectiveness and functioning of the app, and draw conclusions regarding the pandemic. The resulting knowledge will help to improve the app’s features and make it more user-friendly, as well as to inform other pandemic response measures.\n\nBefore your data is analyzed, it is necessary to ensure that each app that shares data is only counted once, so as not to distort the statistics. This is why the authenticity of your app needs to be verified. For this purpose, a unique identifier is generated by your smartphone and transmitted to Apple in the U.S. or other third countries, so that Apple can confirm the authenticity of your app to the RKI. The identifier contains information about the version of your smartphone and the app. On this basis, Apple may be able to infer your identity and learn that your smartphone has been authenticated. Apple does not receive any other information from the app during this process.\n\nYou can withdraw your consent at any time by disabling the data sharing feature in the app's settings.";
+
+"DataDonation_Acknowledgement_BulletPoint_1" = "Your consent is voluntary. If you do not give your consent, you will still be able to use the app.";
+
+"DataDonation_Acknowledgement_BulletPoint_2" = "If you share data about your use of the app, your identity will still be kept secret from the RKI. This means the RKI will not find out who you are or who you have met. No profiles will be created either.";
+
+"DataDonation_Acknowledgement_BulletPoint_3" = "You need to be at least 16 years old to give your consent.";
+
+"DataDonation_DetailedInformation_Headline" = "Verification of authenticity and transfer to a third country";
+
+"DataDonation_DetailedInformation_Text" = "To confirm the authenticity of your app, your smartphone will generate a unique identifier that contains information about the version of your smartphone and the app. This is necessary to prevent data from being transmitted to the RKI more than once or in an unauthorised manner, as this could distort the results of the analysis. The identifier will be transmitted to Apple. This may result in data being transferred to the U.S. or other third countries. There, the level of data protection may not be considered equivalent under European law and it may not be possible to enforce your European data protection rights. In particular, there is a possibility that once the transmitted data reaches Apple, it may be accessed and analysed by security authorities in the third country, even if they have no specific grounds for suspicion, for example by linking the data with other information. This only concerns the identifier sent to Apple. Apple will not receive the other information about how you use the Corona-Warn-App. It may however be possible for Apple to infer your identity from the identifier and learn that your smartphone has been authenticated.\n\nIf you do not consent to this transfer of your data to a third country, please do not tap on “Accept”. You will still be able to use the app, but not the data sharing feature.";
+
+/* Survey Consent Screen */
+
+"SurveyConsent_LegalTitle_BoldText" = "Your consent";
+
+"SurveyConsent_LegalBody1" = "By tapping on “Accept”, you consent to the following:";
+
+"SurveyConsent_LegalBody2" = "Before your participation link can be shown to you, the authenticity of your app is checked once. For this purpose, a unique identifier is generated by your smartphone and transmitted to Apple in the U.S. or other third countries, so that Apple can confirm the authenticity of your app to the RKI. The identifier contains information about the version of your smartphone and the app. . On this basis, Apple may be able to infer your identity and learn that your smartphone has been authenticated. Apple does not receive any other information from the app during this process. This ensures that each user can only participate in the survey once, so as not to distort the statistics.";
+
+"SurveyConsent_Legal_Bullet1" = "Your consent is voluntary. If you do not give your consent for the purposes of the survey, you will still be able to use the whole app.";
+
+"SurveyConsent_Legal_Bullet2" = "Even after you have given your consent, you do not have to participate in the survey. You can stop the survey at any time.";
+
+"SurveyConsent_Legal_Bullet3" = "You need to be at least 16 years old to give your consent.";
+
+"SurveyConsent_Legal_Details_Button_Title" = "Detailed information about this data processing and your consent";
+
+"SurveyConsent_Legal_Details_Headline" = "Verification of Authenticity and Transfer to a Third Country";
+
+"SurveyConsent_Details_Legal_Body1" = "To confirm the authenticity of your app, your smartphone will generate a unique identifier that contains information about the version of your smartphone and the app. This is necessary to prevent users from participating in the survey more than once, as this could distort the results of the survey. Once generated, the identifier will be transmitted once to Apple. This may result in data being transferred to the U.S. or other third countries. There, the level of data protection may not be considered equivalent under European law and it may not be possible to enforce your European data protection rights. In particular, there is a possibility that once the transmitted data reaches Apple, it may be accessed and analysed by security authorities in the third country, even if they have no specific grounds for suspicion, for example by linking the data with other information. This only concerns the identifier sent to Apple. Apple will not receive the other information about your participation in the survey. It may however be possible for Apple to infer your identity from the identifier and learn that your smartphone has been authenticated.";
+
+"SurveyConsent_Details_Legal_Body2" = "If you do not consent to this transfer of your data to a third country, please do not tap on “Accept”. You will still be able to use the app, but not participate in this survey.";
+
+/* Data Donation App Settings*/
+
+"ppa_settings_privacy_information_body" = "By enabling “Share Data” above, you consent to the following:\n\nThe app will transmit information it records to the RKI, on a daily basis. The data concerns possible exposures and warnings that have been displayed to you, test results you have retrieved, and whether you have warned other users, and information about your smartphone’s operating system. If you have provided further details above (region, age group), then the RKI will also receive this information.\n\nThe RKI will compile this data into statistics and analyze it to assess the effectiveness and functioning of the app, and draw conclusions regarding the pandemic. The resulting knowledge will help to improve the app’s features and make it more user-friendly, as well as to inform other pandemic response measures.\n\nBefore your data is analyzed, it is necessary to ensure that each app that shares data is only counted once, so as not to distort the statistics. This is why the authenticity of your app needs to be verified. For this purpose, a unique identifier is generated by your smartphone and transmitted to Apple in the U.S. or other third countries, so that Apple can confirm the authenticity of your app to the RKI. The identifier contains information about the version of your smartphone and the app. On this basis, Apple may be able to infer your identity and learn that your smartphone has been authenticated. Apple does not receive any other information from the app during this process.\n\nYou can withdraw your consent at any time by disabling “Share Data” above.";
+
+<<<<<<< HEAD
+/* Error Reports */
+
+"errorReport_Legal_DataPrivacy_Headline" = "Data protection and data security";
+
+"errorReport_Legal_DataPrivacy_Bullet1" = "Recording the error report is voluntary.";
+
+"errorReport_Legal_DataPrivacy_Bullet2" = "Initially, only you will have access to the error report. You can then decide whether to send the error report to the technical support team, whether to save the error report on your smartphone first, or whether to stop and erase the recorded information. If you first save the error report locally, this will give you the opportunity to view the error report yourself before submitting it to support.";
+
+"errorReport_Legal_DataPrivacy_Bullet3" = "The error report contains sensitive information, such as details of your test result or the infection risk determined for you. It does not contain any information about the QR codes you used when registering your test, any information you recorded in the contact journal, or any information about your identity.";
+
+"errorReport_Legal_DataPrivacy_Bullet4" = "We do not recommend publishing the error reports or sending them by email.";
+
+"errorReport_Legal_DataPrivacy_Bullet5" = "Private individuals as well as companies are not allowed to make you share a recorded error report with them.";
+
+"errorReport_Legal_SendReports_Headline" = "Your consent";
+
+"errorReport_Legal_SendReports_Subline" = "By tapping on “Accept and Send”, you consent to the following steps:";
+
+"errorReport_Legal_SendReports_Bullet1_Part1" = "The error report you create will be sent to the RKI for error analysis purposes.";
+
+"errorReport_Legal_SendReports_Bullet1_Part2" = "The RKI will analyse the error report in order to be able to identify and fix possible causes of the errors that occur in your app. If you provide the error report ID to the technical support team, then the RKI will be able to associate the error report with you personally.";
+
+"errorReport_Legal_SendReports_Bullet2" = "Before the report is sent to the RKI, the authenticity of your app is checked once. For this purpose, a unique identifier is generated by your smartphone and transmitted to Apple in the US or other third countries, so that Apple can confirm the authenticity of your app to the RKI. The identifier contains information about the version of your smartphone and the app. Apple may thus be able to infer your identity and learn that your smartphone has been authenticated. Apple will not receive any further information from the app or the error report during this process.";
+
+"errorReport_Legal_SendReports_Paragraph" = "If, after sending the report, you have provided your error report ID to the technical support team, then you may also request at any time that the other information you provided, the error report ID, and the error report itself be erased. Otherwise, the error report will be automatically erased after 14 days.";
+=======
+/* Checkin */
+
+"Checkin_Information_Legal_Headline_1" = "Your consent";
+
+"Checkin_Information_Legal_SubHeadline_1" = "By tapping on “Accept”, you consent to the following steps:";
+
+"Checkin_Information_Legal_Text_1_bold" = "The app will remember which events or places you’ve checked in at for 16 days.";
+
+"Checkin_Information_Legal_Text_1_normal" = "If you scan a QR code to check in somewhere, this will create a record for the event or place on your smartphone.";
+
+"Checkin_Information_Legal_Text_2" = "If a user who was checked in at the same time as you later tests positive and uses the warning feature, you will automatically receive a warning based on the event ID – even if your smartphone didn’t receive any random IDs from the user who tested positive.";
+
+"Checkin_Information_Legal_Text_3" = "If you later use the warning feature yourself, all of the other users who were checked in at the same time as you at an event or place listed under “My check-ins” will receive a warning based on the event ID.";
+
+"Checkin_Information_Legal_SubHeadline_2" = "You can erase a check-in at any time under “My check-ins”. In this case, you will only be warned if your smartphone identifies a possible exposure after receiving the random IDs of the user who tested positive.";
+
+/* TraceLocation */
+
+"TraceLocation_Information_Legal_Headline_1" = "Data protection and data security";
+
+"TraceLocation_Information_Legal_Text_1" = "If you tap on “Next”, you can create a QR code for your guests.";
+
+"TraceLocation_Information_Legal_Text_2_bold" = "Your event or place details will be stored in encoded form in a printable QR code.";
+
+"TraceLocation_Information_Legal_Text_2" = "Your guests can then scan the QR code with the app.";
+
+"TraceLocation_Information_Legal_Text_3_bold" = "Please ensure that you are as specific as possible about the name, category and time of your event or place, and the typical length of stay.";
+
+"TraceLocation_Information_Legal_Text_3" = "The more accurate your information, the more reliably your guests can be warned.";
+
+"TraceLocation_Information_Legal_Text_4" = "Please display the QR code in such a way that all your guests can scan it while observing the social distancing and hygiene rules (at least 1.5 metres).";
+
+"TraceLocation_Information_Legal_Text_5" = "We recommend creating new QR codes for places at regular intervals, so that warnings are as reliable as possible over time and in order to prevent the QR codes from being misused.";
+>>>>>>> release/2.2.x

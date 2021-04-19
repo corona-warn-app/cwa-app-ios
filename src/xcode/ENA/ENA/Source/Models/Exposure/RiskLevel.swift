@@ -5,7 +5,7 @@
 import ExposureNotification
 import Foundation
 
-enum RiskLevel: Int, Codable {
+enum RiskLevel: Int, Codable, Comparable {
 
 	case low = 1
 	case high = 2
@@ -30,5 +30,11 @@ enum RiskLevel: Int, Codable {
 		case .high:
 			return .riskLevelHigh
 		}
+	}
+
+	// MARK: - Protocol Comparable
+
+	static func < (lhs: RiskLevel, rhs: RiskLevel) -> Bool {
+		return lhs.rawValue < rhs.rawValue
 	}
 }

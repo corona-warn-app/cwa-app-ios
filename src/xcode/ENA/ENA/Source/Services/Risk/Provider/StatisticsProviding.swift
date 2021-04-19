@@ -16,7 +16,7 @@ protocol StatisticsProviding: class {
 protocol StatisticsFetching {
 	var configuration: HTTPClient.Configuration { get }
 	var session: URLSession { get }
-	var packageVerifier: SAPDownloadedPackage.Verifier { get }
+	var signatureVerifier: SignatureVerifier { get }
 
 	typealias StatisticsFetchingResultHandler = (Result<StatisticsFetchingResponse, Error>) -> Void
 

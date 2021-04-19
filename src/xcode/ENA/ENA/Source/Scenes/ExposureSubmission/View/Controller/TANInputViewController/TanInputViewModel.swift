@@ -10,12 +10,12 @@ final class TanInputViewModel {
 	// MARK: - Init
 	
 	init(
-		exposureSubmissionService: ExposureSubmissionService,
+		coronaTestService: CoronaTestService,
 		presentInvalidTanAlert: @escaping (String, @escaping () -> Void) -> Void,
 		tanSuccessfullyTransferred: @escaping () -> Void,
 		givenTan: String? = nil
 	) {
-		self.exposureSubmissionService = exposureSubmissionService
+		self.coronaTestService = coronaTestService
 		self.presentInvalidTanAlert = presentInvalidTanAlert
 		self.tanSuccessfullyTransferred = tanSuccessfullyTransferred
 		self.text = givenTan ?? ""
@@ -65,8 +65,7 @@ final class TanInputViewModel {
 
 		isPrimaryButtonEnabled = false
 		isPrimaryBarButtonIsLoading = true
-		exposureSubmissionService.getRegistrationToken(forKey: .teleTan(text)) { [weak self] result in
-
+		coronaTestService.registerPCRTest(teleTAN: text, isSubmissionConsentGiven: false) { [weak self] result in
 			switch result {
 			case let .failure(error):
 				// If teleTAN is incorrect, show Alert Controller
@@ -101,12 +100,12 @@ final class TanInputViewModel {
 		errorText = errors.joined(separator: "\n\n")
 	}
 
-	private let exposureSubmissionService: ExposureSubmissionService
+	private let coronaTestService: CoronaTestService
 	private let presentInvalidTanAlert: (String, @escaping () -> Void) -> Void
 	private let tanSuccessfullyTransferred: () -> Void
 
 	private func calculateChecksum(input: String) -> Character? {
-		let hash = Hasher.sha256(input)
+		let hash = ENAHasher.sha256(input)
 		switch hash.first?.uppercased() {
 		case "0":
 			return "G"

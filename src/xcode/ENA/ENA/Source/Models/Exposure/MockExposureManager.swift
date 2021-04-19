@@ -91,9 +91,6 @@ extension MockExposureManager: ExposureManager {
 	}
 
 	func alertForBluetoothOff(completion: @escaping () -> Void) -> UIAlertController? {
-		DispatchQueue.main.async {
-			completion()
-		}
 		return nil
 	}
 

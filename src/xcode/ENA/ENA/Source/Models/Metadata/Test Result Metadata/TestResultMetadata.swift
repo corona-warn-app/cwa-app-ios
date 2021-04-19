@@ -29,7 +29,7 @@ struct TestResultMetadata: Codable {
 			forKey: .hoursSinceHighRiskWarningAtTestRegistration
 		)
 		testRegistrationDate = try container.decodeIfPresent(Date.self, forKey: .testRegistrationDate)
-		testRegistrationToken = try container.decode(String.self, forKey: .testRegistrationDate)
+		testRegistrationToken = try container.decode(String.self, forKey: .testRegistrationToken)
 	}
 	
 	enum CodingKeys: String, CodingKey {
@@ -54,7 +54,7 @@ struct TestResultMetadata: Codable {
 	// the risk level on the riskcard i.e totalRiskLevel
 	var riskLevelAtTestRegistration: RiskLevel?
 	
-	// Number of days on the risk card
+	// test registration date - Most Recent Date at RiskLevel
 	var daysSinceMostRecentDateAtRiskLevelAtTestRegistration: Int?
 	
 	// if high = timestamp of when the risk card turned red -  timestamp of test registration

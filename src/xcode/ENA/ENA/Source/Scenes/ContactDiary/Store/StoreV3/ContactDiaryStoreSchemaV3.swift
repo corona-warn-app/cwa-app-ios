@@ -5,7 +5,7 @@
 import FMDB
 import CWASQLite
 
-class ContactDiaryStoreSchemaV3: ContactDiarySchemaProtocol {
+class ContactDiaryStoreSchemaV3: StoreSchemaProtocol {
 
 	// MARK: - Init
 
@@ -16,8 +16,8 @@ class ContactDiaryStoreSchemaV3: ContactDiarySchemaProtocol {
 	// MARK: - Public
 
 	@discardableResult
-	func create() -> Result<Void, SQLiteErrorCode> {
-		var result: Result<Void, SQLiteErrorCode> = .success(())
+	func create() -> SecureSQLStore.VoidResult {
+		var result: SecureSQLStore.VoidResult = .success(())
 
 		databaseQueue.inDatabase { database in
 			let sql = """
@@ -58,7 +58,8 @@ class ContactDiaryStoreSchemaV3: ContactDiarySchemaProtocol {
 
 			guard database.executeStatements(sql) else {
 				Log.error("[SQLite] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
-				result = .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+				let error = SecureSQLStoreError.database(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+				result = .failure(error)
 				return
 			}
 

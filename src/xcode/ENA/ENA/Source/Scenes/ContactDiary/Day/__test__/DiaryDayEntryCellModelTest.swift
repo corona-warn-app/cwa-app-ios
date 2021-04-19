@@ -366,7 +366,7 @@ class DiaryDayEntryCellModelTest: XCTestCase {
 		let store = MockDiaryStore()
 		let cellModel = contactPersonCellModelWithEncounter(store: store, circumstances: "")
 
-		cellModel.updateCircumstances("New Circumstances")
+		cellModel.updateContactPersonEncounter(circumstances: "New Circumstances")
 
 		XCTAssertEqual(firstContactPerson(in: store).encounter?.circumstances, "New Circumstances")
 	}
@@ -375,7 +375,7 @@ class DiaryDayEntryCellModelTest: XCTestCase {
 		let store = MockDiaryStore()
 		let cellModel = locationCellModelWithVisit(store: store, circumstances: "")
 
-		cellModel.updateCircumstances("New Circumstances")
+		cellModel.updateLocationVisit(durationInMinutes: cellModel.locationVisitDuration, circumstances: "New Circumstances")
 
 		XCTAssertEqual(firstLocation(in: store).visit?.circumstances, "New Circumstances")
 	}
@@ -452,7 +452,7 @@ class DiaryDayEntryCellModelTest: XCTestCase {
 			circumstances: "Circumstances"
 		)
 
-		cellModel.updateLocationVisit()
+		cellModel.updateLocationVisit(durationInMinutes: cellModel.locationVisitDuration, circumstances: cellModel.circumstances)
 
 		let visit = firstLocation(in: store).visit
 
@@ -539,7 +539,8 @@ class DiaryDayEntryCellModelTest: XCTestCase {
 			entry: .location(
 				DiaryLocation(
 					id: id,
-					name: name
+					name: name,
+					traceLocationId: nil
 				)
 			),
 			dateString: todayString,
@@ -570,12 +571,14 @@ class DiaryDayEntryCellModelTest: XCTestCase {
 				DiaryLocation(
 					id: locationID,
 					name: name,
+					traceLocationId: nil,
 					visit: LocationVisit(
 						id: visitID,
 						date: todayString,
 						locationId: locationID,
 						durationInMinutes: durationInMinutes,
-						circumstances: circumstances
+						circumstances: circumstances,
+						checkinId: nil
 					)
 				)
 			),

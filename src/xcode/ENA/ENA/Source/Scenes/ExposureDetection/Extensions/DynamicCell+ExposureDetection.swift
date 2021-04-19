@@ -71,23 +71,21 @@ extension DynamicCell {
 		}
 	}
 
-	static func riskStored(activeTracing: ActiveTracing, imageName: String) -> DynamicCell {
-		.risk { viewController, cell, _ in
-			var numberOfDaysStored = viewController.viewModel.riskDetails?.numberOfDaysWithActiveTracing ?? 0
-			cell.textLabel?.text = activeTracing.localizedDuration
-			if numberOfDaysStored < 0 { numberOfDaysStored = 0 }
-			if numberOfDaysStored > 13 {
-				cell.imageView?.image = UIImage(named: "Icons_TracingCircleFull - Dark")
-			} else {
-				cell.imageView?.image = UIImage(named: String(format: imageName, numberOfDaysStored))
-			}
+	static func riskStored(daysSinceInstallation: Int) -> DynamicCell {
+		.risk { _, cell, _ in
+			cell.textLabel?.text = String(format: AppStrings.ExposureDetection.daysSinceInstallation, daysSinceInstallation)
+			cell.imageView?.image = UIImage(named: "Icons-DaysSinceInstall")
 		}
 	}
 
 	static func riskRefreshed(text: String, image: UIImage?) -> DynamicCell {
 		.risk { viewController, cell, _ in
 			var valueText: String
-			if let date: Date = viewController.store.riskCalculationResult?.calculationDate {
+
+			if	let enfRiskCalulationResult = viewController.store.enfRiskCalculationResult,
+				  let checkinRiskCalculationResult = viewController.store.checkinRiskCalculationResult,
+				  let date = Risk(enfRiskCalculationResult: enfRiskCalulationResult, checkinCalculationResult: checkinRiskCalculationResult).details.calculationDate {
+				
 				valueText = relativeDateTimeFormatter.string(from: date)
 			} else {
 				valueText = AppStrings.ExposureDetection.refreshedNever

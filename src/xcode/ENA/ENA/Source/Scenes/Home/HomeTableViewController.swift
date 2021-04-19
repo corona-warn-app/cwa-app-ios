@@ -13,30 +13,35 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	init(
 		viewModel: HomeTableViewModel,
 		appConfigurationProvider: AppConfigurationProviding,
+		route: Route?,
 		onInfoBarButtonItemTap: @escaping () -> Void,
 		onExposureLoggingCellTap: @escaping (ENStateHandler.State) -> Void,
 		onRiskCellTap: @escaping (HomeState) -> Void,
 		onInactiveCellButtonTap: @escaping (ENStateHandler.State) -> Void,
 		onTestResultCellTap: @escaping (TestResult?) -> Void,
 		onStatisticsInfoButtonTap: @escaping () -> Void,
+		onTraceLocationsCellTap: @escaping () -> Void,
 		onInviteFriendsCellTap: @escaping () -> Void,
 		onFAQCellTap: @escaping () -> Void,
 		onAppInformationCellTap: @escaping () -> Void,
-		onSettingsCellTap: @escaping (ENStateHandler.State) -> Void
+		onSettingsCellTap: @escaping (ENStateHandler.State) -> Void,
+		showTestInformationResult: @escaping (Result<CoronaTestQRCodeInformation, QRCodeError>) -> Void
 	) {
 		self.viewModel = viewModel
 		self.appConfigurationProvider = appConfigurationProvider
-
+		self.route = route
 		self.onInfoBarButtonItemTap = onInfoBarButtonItemTap
 		self.onExposureLoggingCellTap = onExposureLoggingCellTap
 		self.onRiskCellTap = onRiskCellTap
 		self.onInactiveCellButtonTap = onInactiveCellButtonTap
 		self.onTestResultCellTap = onTestResultCellTap
 		self.onStatisticsInfoButtonTap = onStatisticsInfoButtonTap
+		self.onTraceLocationsCellTap = onTraceLocationsCellTap
 		self.onInviteFriendsCellTap = onInviteFriendsCellTap
 		self.onFAQCellTap = onFAQCellTap
 		self.onAppInformationCellTap = onAppInformationCellTap
 		self.onSettingsCellTap = onSettingsCellTap
+		self.showTestInformationResult = showTestInformationResult
 
 		super.init(style: .plain)
 
@@ -103,7 +108,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 		NotificationCenter.default.addObserver(self, selector: #selector(refreshUIAfterResumingFromBackground), name: UIApplication.willEnterForegroundNotification, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(refreshUI), name: NSNotification.Name.NSCalendarDayChanged, object: nil)
-		
+
 		refreshUI()
 	}
 
@@ -140,6 +145,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		return viewModel.numberOfRows(in: section)
 	}
 
+	// swiftlint:disable:next cyclomatic_complexity
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		switch HomeTableViewModel.Section(rawValue: indexPath.section) {
 		case .exposureLogging:
@@ -157,6 +163,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			}
 		case .statistics:
 			return statisticsCell(forRowAt: indexPath)
+		case .traceLocations:
+			return traceLocationsCell(forRowAt: indexPath)
 		case .infos:
 			return infoCell(forRowAt: indexPath)
 		case .settings:
@@ -204,6 +212,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			}
 		case .statistics:
 			break
+		case .traceLocations:
+			onTraceLocationsCellTap()
 		case .infos:
 			if indexPath.row == 0 {
 				onInviteFriendsCellTap()
@@ -230,14 +240,30 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 	// MARK: - Internal
 
+	var route: Route?
+
 	func reload() {
-		tableView.reloadData()
+		DispatchQueue.main.async { [weak self] in
+			self?.tableView.reloadData()
+		}
 	}
 
 	func scrollToTop(animated: Bool) {
 		tableView.setContentOffset(.zero, animated: animated)
 	}
-	
+
+	func showDeltaOnboardingAndAlertsIfNeeded() {
+		self.showRouteIfNeeded(completion: {
+			self.showDeltaOnboardingIfNeeded(completion: { [weak self] in
+				self?.showInformationHowRiskDetectionWorksIfNeeded(completion: {
+					self?.showBackgroundFetchAlertIfNeeded(completion: {
+						self?.showRiskStatusLoweredAlertIfNeeded()
+					})
+				})
+			})
+		})
+	}
+
 	// MARK: - Private
 
 	private let viewModel: HomeTableViewModel
@@ -249,11 +275,12 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	private let onInactiveCellButtonTap: (ENStateHandler.State) -> Void
 	private let onTestResultCellTap: (TestResult?) -> Void
 	private let onStatisticsInfoButtonTap: () -> Void
+	private let onTraceLocationsCellTap: () -> Void
 	private let onInviteFriendsCellTap: () -> Void
 	private let onFAQCellTap: () -> Void
 	private let onAppInformationCellTap: () -> Void
 	private let onSettingsCellTap: (ENStateHandler.State) -> Void
-
+	private let showTestInformationResult: (Result<CoronaTestQRCodeInformation, QRCodeError>) -> Void
 	private var deltaOnboardingCoordinator: DeltaOnboardingCoordinator?
 
 	private var riskCell: UITableViewCell?
@@ -302,6 +329,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		tableView.register(
 			UINib(nibName: String(describing: HomeStatisticsTableViewCell.self), bundle: nil),
 			forCellReuseIdentifier: String(describing: HomeStatisticsTableViewCell.self)
+		)
+		tableView.register(
+			UINib(nibName: String(describing: HomeTraceLocationsTableViewCell.self), bundle: nil),
+			forCellReuseIdentifier: String(describing: HomeTraceLocationsTableViewCell.self)
 		)
 		tableView.register(
 			UINib(nibName: String(describing: HomeInfoTableViewCell.self), bundle: nil),
@@ -426,9 +457,19 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			fatalError("Could not dequeue HomeThankYouTableViewCell")
 		}
 
-		let cellModel = HomeThankYouCellModel(
-			testResultTimestamp: viewModel.store.devicePairingSuccessfulTimestamp
+		var cellModel: HomeThankYouCellModel
+		cellModel = HomeThankYouCellModel(
+			testResultTimestamp: Int64((viewModel.state.coronaTestService.pcrTest?.registrationDate ?? Date()).timeIntervalSince1970)
 		)
+
+		#if DEBUG
+		if isUITesting {
+			cellModel = HomeThankYouCellModel(
+				testResultTimestamp: 1604793600 // 08.11.2020, 18574 days since 01.01.1970
+			)
+		}
+		#endif
+
 		cell.configure(
 			with: cellModel,
 			onPrimaryAction: { [weak self] in
@@ -467,6 +508,21 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		return cell
 	}
 
+	private func traceLocationsCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeTraceLocationsTableViewCell.self), for: indexPath) as? HomeTraceLocationsTableViewCell else {
+			fatalError("Could not dequeue HomeTraceLocationsTableViewCell")
+		}
+
+		cell.configure(
+			with: HomeTraceLocationsCellModel(),
+			onPrimaryAction: { [weak self] in
+				self?.onTraceLocationsCellTap()
+			}
+		)
+
+		return cell
+	}
+
 	private func infoCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeInfoTableViewCell.self), for: indexPath) as? HomeInfoTableViewCell else {
 			fatalError("Could not dequeue HomeInfoTableViewCell")
@@ -496,19 +552,22 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		onInfoBarButtonItemTap()
 	}
 
-	private func showDeltaOnboardingAndAlertsIfNeeded() {
-		showDeltaOnboardingIfNeeded(completion: { [weak self] in
-			self?.showInformationHowRiskDetectionWorksIfNeeded(completion: {
-				self?.showBackgroundFetchAlertIfNeeded(completion: {
-					self?.showRiskStatusLoweredAlertIfNeeded()
-				})
-			})
-		})
+	private func showRouteIfNeeded(completion: @escaping () -> Void) {
+		defer {
+			route = nil
+		}
+
+		// handle error -> show alert & trigger the chain
+		guard case let .rapidAntigen(testResult) = route else {
+			completion()
+			return
+		}
+		showTestInformationResult(testResult)
 	}
-	
+
 	private func showDeltaOnboardingIfNeeded(completion: @escaping () -> Void = {}) {
 		guard deltaOnboardingCoordinator == nil else { return }
-		
+
 		appConfigurationProvider.appConfiguration().sink { [weak self] configuration in
 			guard let self = self else { return }
 
@@ -555,13 +614,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			return
 		}
 
-		let title = NSLocalizedString("How_Risk_Detection_Works_Alert_Title", comment: "")
+		let title = AppStrings.Home.riskDetectionHowToAlertTitle
 		let message = String(
-			format: NSLocalizedString(
-				"How_Risk_Detection_Works_Alert_Message",
-				comment: ""
-			),
-			TracingStatusHistory.maxStoredDays
+			format: AppStrings.Home.riskDetectionHowToAlertMessage,
+			14
 		)
 
 		let alert = UIAlertController(
@@ -691,8 +747,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	
 	@objc
 	private func refreshUI() {
-		viewModel.state.updateTestResult()
-		viewModel.state.updateStatistics()
+		DispatchQueue.main.async { [weak self] in
+			self?.viewModel.state.updateTestResult()
+			self?.viewModel.state.updateStatistics()
+		}
 	}
 
 	// swiftlint:disable:next file_length

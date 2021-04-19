@@ -4,7 +4,7 @@
 
 import Foundation
 
-class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching {
+class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, QRCodePosterTemplateFetching {
 
 	private let serverEnvironmentProvider: ServerEnvironmentProviding
 
@@ -23,22 +23,23 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching {
 	/// The underlying URLSession for all network requests
 	let session: URLSession
 
-	/// Verifier for the fetched & signed protobuf packages
-	let packageVerifier: SAPDownloadedPackage.Verifier
+	/// SignatureVerifier for the fetched & signed protobuf packages
+	let signatureVerifier: SignatureVerifier
 
 	/// Initializer for the caching client.
 	///
 	/// - Parameters:
 	///   - clientConfiguration: The client configuration for the client.
 	///   - session: An optional session to use for network requests. Default is based on a predefined configuration.
-	///   - packageVerifier: The verifier to use for package validation.
+	///   - signatureVerifier: The signatureVerifier to use for package validation.
 	init(
 		serverEnvironmentProvider: ServerEnvironmentProviding,
 		session: URLSession = URLSession(configuration: .cachingSessionConfiguration()),
-		packageVerifier: SAPDownloadedPackage.Verifier = SAPDownloadedPackage.Verifier()) {
+		signatureVerifier: SignatureVerifier = SignatureVerifier()
+	) {
 		self.session = session
 		self.serverEnvironmentProvider = serverEnvironmentProvider
-		self.packageVerifier = packageVerifier
+		self.signatureVerifier = signatureVerifier
 	}
 
 	// MARK: - AppConfigurationFetching
@@ -106,6 +107,40 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching {
 		}
 	}
 
+	// MARK: QRCodePosterTemplateFetching
+	
+	/// Fetches the QR Code Poster Template Protobuf
+	/// - Parameters:
+	/// - etag: an optional ETag to download only versions that differ the given tag
+	/// - completion: The completion handler of the get call, which contains the prootbuf response
+	func fetchQRCodePosterTemplateData(
+		etag: String?,
+		completion: @escaping QRCodePosterTemplateCompletionHandler
+	) {
+		// Manual ETagging because we don't use native cache
+		var headers: [String: String]?
+		if let etag = etag {
+			headers = ["If-None-Match": etag]
+		}
+
+		session.GET(configuration.qrCodePosterTemplateURL, extraHeaders: headers) { result in
+			switch result {
+			case .success(let response):
+				do {
+					let package = try self.verifyPackage(in: response)
+					let qrCodePosterTemplateData = try SAP_Internal_Pt_QRCodePosterTemplateIOS(serializedData: package.bin)
+					let responseETag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag")
+					let qrCodePosterResponse = QRCodePosterTemplateResponse(qrCodePosterTemplateData, responseETag)
+					completion(.success(qrCodePosterResponse))
+				} catch {
+					completion(.failure(error))
+				}
+			case .failure(let error):
+				completion(.failure(error))
+			}
+		}
+	}
+	
 	// MARK: - Helpers
 
 	private func verifyPackage(in response: URLSession.Response) throws -> SAPDownloadedPackage {
@@ -124,8 +159,8 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching {
 		}
 
 		// data verified?
-		guard self.packageVerifier(package) else {
-			let error = CacheError.dataVerificationError(message: "Failed to verify signature")
+		guard self.signatureVerifier(package) else {
+			let error = CacheError.dataVerificationError(message: "Failed to verify signature.")
 			throw error
 		}
 
