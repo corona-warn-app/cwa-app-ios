@@ -144,7 +144,7 @@
 	<key>Settings_DaysSinceInstall_P2a</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string></string>
+		<string>%#@VARIABLE@</string>
 		<key>VARIABLE</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
