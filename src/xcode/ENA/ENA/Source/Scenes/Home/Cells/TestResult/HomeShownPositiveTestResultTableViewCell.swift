@@ -50,6 +50,7 @@ final class HomeShownPositiveTestResultTableViewCell: UITableViewCell {
 		}
 
 		cellModel.$homeItemViewModels
+			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] in
 				self?.homeItemStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 
@@ -68,6 +69,7 @@ final class HomeShownPositiveTestResultTableViewCell: UITableViewCell {
 			.store(in: &subscriptions)
 
 		cellModel.$isButtonHidden
+			.receive(on: DispatchQueue.OCombine(.main))
 			.assign(to: \.isHidden, on: nextButton)
 			.store(in: &subscriptions)
 

@@ -22,7 +22,6 @@ class HomeShownPositiveTestResultCellModel {
 			title = AppStrings.Home.TestResult.pcrTitle
 
 			coronaTestService.$pcrTest
-				.receive(on: DispatchQueue.OCombine(.main))
 				.sink { [weak self] pcrTest in
 					guard let pcrTest = pcrTest else {
 						return
@@ -36,7 +35,6 @@ class HomeShownPositiveTestResultCellModel {
 			title = AppStrings.Home.TestResult.antigenTitle
 
 			coronaTestService.$antigenTest
-				.receive(on: DispatchQueue.OCombine(.main))
 				.sink { [weak self] antigenTest in
 					guard let antigenTest = antigenTest else {
 						return
@@ -75,9 +73,7 @@ class HomeShownPositiveTestResultCellModel {
 	}
 
 	let noteTitle = AppStrings.Home.TestResult.ShownPositive.noteTitle
-
 	let buttonTitle = AppStrings.Home.TestResult.ShownPositive.button
-
 	let iconColor: UIColor = .enaColor(for: .riskHigh)
 
 	@OpenCombine.Published var homeItemViewModels: [HomeItemViewModel] = []

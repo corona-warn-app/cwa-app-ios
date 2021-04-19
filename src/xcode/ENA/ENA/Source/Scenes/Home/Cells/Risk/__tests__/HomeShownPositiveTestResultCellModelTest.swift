@@ -7,33 +7,34 @@ import XCTest
 
 class HomeShownPositiveTestResultCellModelTest: XCTestCase {
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
+    func testShownPositivePCRTest() throws {
+		let coronaTestService = CoronaTestService(
+			client: ClientMock(),
+			store: MockTestStore(),
+			appConfiguration: CachedAppConfigurationMock()
+		)
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
+		coronaTestService.pcrTest = PCRTest.mock(
+			registrationDate: Date(timeIntervalSinceReferenceDate: 0),
+			testResult: .positive,
+			positiveTestResultWasShown: true,
+			keysSubmitted: false
+		)
 
-    func testModel() throws {
 		let sut = HomeShownPositiveTestResultCellModel(
 			coronaTestType: .pcr,
-			coronaTestService: CoronaTestService(
-				client: ClientMock(),
-				store: MockTestStore(),
-				appConfiguration: CachedAppConfigurationMock()
-			),
+			coronaTestService: coronaTestService,
 			onUpdate: {}
 		)
 		let expectedInsets = UIEdgeInsets(top: 10.0, left: 0.0, bottom: 10.0, right: 0)
 		
-		XCTAssertNotNil(sut.title)
-		XCTAssertNotNil(sut.statusTitle)
-		XCTAssertNotNil(sut.statusSubtitle)
+		XCTAssertEqual(sut.title, AppStrings.Home.TestResult.pcrTitle)
+		XCTAssertEqual(sut.statusTitle, AppStrings.Home.TestResult.ShownPositive.statusTitle)
+		XCTAssertEqual(sut.statusSubtitle, AppStrings.Home.TestResult.ShownPositive.statusSubtitle)
 		XCTAssertNotNil(sut.statusFootnote)
-		XCTAssertNotNil(sut.noteTitle)
-		XCTAssertNotNil(sut.buttonTitle)
-		XCTAssertNotNil(sut.iconColor)
+		XCTAssertEqual(sut.noteTitle, AppStrings.Home.TestResult.ShownPositive.noteTitle)
+		XCTAssertEqual(sut.buttonTitle, AppStrings.Home.TestResult.ShownPositive.button)
+		XCTAssertEqual(sut.iconColor, .enaColor(for: .riskHigh))
 		
 		let arrayHomeItemViewModel = sut.homeItemViewModels
 		XCTAssertEqual(arrayHomeItemViewModel.count, 3)
