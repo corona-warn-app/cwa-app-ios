@@ -67,6 +67,10 @@ enum AppStrings {
 		static let qrCodeExpiredTitle = NSLocalizedString("ExposureSubmissionQRInfo_QRCodeExpired_Alert_Title", comment: "")
 		static let qrCodeExpiredAlertText = NSLocalizedString("ExposureSubmissionQRInfo_QRCodeExpired_Alert_Text", comment: "")
 
+		static let ratQRCodeInvalidAlertTitle = NSLocalizedString("ExposureSubmission_RAT_QR_Invalid_Alert_Title", comment: "")
+		static let ratQRCodeInvalidAlertText = NSLocalizedString("ExposureSubmission_RAT_QR_Invalid_Alert_Text", comment: "")
+		static let ratQRCodeInvalidAlertButton = NSLocalizedString("ExposureSubmission_RAT_QR_Invalid_Alert_Button", comment: "")
+
 		enum OverwriteNotice {
 			static let title = NSLocalizedString("ExposureSubmission_OverwriteNotice_Title", comment: "")
 			static let primaryButton = NSLocalizedString("ExposureSubmission_OverwriteNotice_PrimaryButton", comment: "")
@@ -91,6 +95,18 @@ enum AppStrings {
 		static let submit = NSLocalizedString("ExposureSubmissionTanEntry_Submit", comment: "")
 		static let invalidCharacterError = NSLocalizedString("ExposureSubmissionTanEntry_InvalidCharacterError", comment: "")
 		static let invalidError = NSLocalizedString("ExposureSubmissionTanEntry_InvalidError", comment: "")
+	}
+	
+	enum ExposureSubmissionCheckins {
+		static let title = NSLocalizedString("Submission_Checkins_Title", comment: "")
+		static let description = NSLocalizedString("Submission_Checkins_Description", comment: "")
+		static let selectAll = NSLocalizedString("Submission_Checkins_SelectAll", comment: "")
+		static let continueButton = NSLocalizedString("Submission_Checkins_Continue", comment: "")
+		static let skipButton = NSLocalizedString("Submission_Checkins_Skip", comment: "")
+		static let alertTitle = NSLocalizedString("Submission_Checkins_Alert_Title", comment: "")
+		static let alertMessage = NSLocalizedString("Submission_Checkins_Alert_Message", comment: "")
+		static let alertShare = NSLocalizedString("Submission_Checkins_Alert_Share", comment: "")
+		static let alertDontShare = NSLocalizedString("Submission_Checkins_Alert_DontShare", comment: "")
 	}
 
 	enum ExposureSubmissionTestResultAvailable {

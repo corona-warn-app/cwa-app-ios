@@ -30,10 +30,16 @@ class TraceLocationDetailViewController: UIViewController {
 		super.viewDidLoad()
 
 		setupView()
+		setupGradientView()
 		setupLabels()
 		setupPicker()
 		setupAdditionalInfoView()
 		setupViewModel()
+	}
+	
+	override func viewDidLayoutSubviews() {
+		super.viewDidLayoutSubviews()
+		updateGradienViewLayout()
 	}
 	
 	// MARK: - Private
@@ -41,8 +47,12 @@ class TraceLocationDetailViewController: UIViewController {
 	private let viewModel: TraceLocationDetailViewModel
 	private let dismiss: () -> Void
 
+	private var backgroundView: GradientBackgroundView!
+	private var contentOffsetObserver: NSKeyValueObservation!
 	private var subscriptions = Set<AnyCancellable>()
 
+	@IBOutlet private weak var scrollView: UIScrollView!
+	@IBOutlet private weak var barGradientView: UIView!
 	@IBOutlet private weak var bottomCardView: UIView!
 	@IBOutlet private weak var descriptionView: UIView!
 	@IBOutlet private weak var logoImageView: UIImageView!
@@ -73,7 +83,7 @@ class TraceLocationDetailViewController: UIViewController {
 	}
 
 	private func setupView() {
-		view.backgroundColor = .enaColor(for: .background)
+		view.backgroundColor = .enaColor(for: .backgroundLightGray)
 		pickerButton.setTitleColor(.enaColor(for: .textPrimary1), for: .normal)
 		logoImageView.image = logoImageView.image?.withRenderingMode(.alwaysTemplate)
 		logoImageView.tintColor = .enaColor(for: .textContrast)
@@ -85,6 +95,34 @@ class TraceLocationDetailViewController: UIViewController {
 		checkInButton.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Details.checkInButton
 		closeButton.accessibilityLabel = AppStrings.AccessibilityLabel.close
 		closeButton.accessibilityIdentifier = AccessibilityIdentifiers.AccessibilityLabel.close
+	}
+	
+	private func setupGradientView() {
+	
+		backgroundView = GradientBackgroundView()
+		backgroundView.translatesAutoresizingMaskIntoConstraints = false
+		view.insertSubview(backgroundView, at: 0)
+		
+		NSLayoutConstraint.activate([
+			backgroundView.topAnchor.constraint(equalTo: view.topAnchor),
+			backgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+			backgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+			backgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+		])
+		
+		contentOffsetObserver = scrollView.observe(\.contentOffset, options: .new) { [weak self] scrollView, change in
+			guard let self = self,
+				  let yOffset = change.newValue?.y else {
+				return
+			}
+			let offsetLimit = scrollView.frame.origin.y
+			self.backgroundView.updatedTopLayout(with: yOffset, limit: offsetLimit)
+		}
+	}
+	
+	private func updateGradienViewLayout() {
+		backgroundView.updatedTopLayout(with: 0, limit: scrollView.frame.origin.y)
+		backgroundView.gradientHeightConstraint.constant = barGradientView.bounds.height + 160
 	}
 	
 	private func setupLabels() {

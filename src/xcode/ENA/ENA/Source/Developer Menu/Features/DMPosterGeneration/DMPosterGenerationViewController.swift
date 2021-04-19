@@ -14,9 +14,10 @@ class DMPosterGenerationViewController: UIViewController, UITextFieldDelegate {
 
 	init(
 		traceLocation: TraceLocation,
-		qrCodePosterTemplateProvider: QRCodePosterTemplateProviding
+		qrCodePosterTemplateProvider: QRCodePosterTemplateProviding,
+		store: Store
 	) {
-		self.viewModel = DMPosterGenerationViewModel(traceLocation: traceLocation, qrCodePosterTemplateProvider: qrCodePosterTemplateProvider)
+		self.viewModel = DMPosterGenerationViewModel(traceLocation: traceLocation, qrCodePosterTemplateProvider: qrCodePosterTemplateProvider, store: store)
 		self.qrCodePosterTemplateProvider = qrCodePosterTemplateProvider
 
 		super.init(nibName: nil, bundle: nil)

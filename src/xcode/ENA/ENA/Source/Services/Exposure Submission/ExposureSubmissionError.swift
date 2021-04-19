@@ -11,7 +11,7 @@ enum ExposureSubmissionError: Error, Equatable {
 	case notAuthorized
 	case coronaTestServiceError(CoronaTestServiceError)
 
-	/// User has not granted acces to their keys
+	/// User has not granted access to their keys
 	case keysNotShared
 
 	/// Access to keys was granted but no keys were collected by the exposure notification framework
@@ -39,6 +39,7 @@ enum ExposureSubmissionError: Error, Equatable {
 	case invalidPayloadOrHeaders
 	case requestCouldNotBeBuilt
 	case qrExpired
+	case positiveTestResultNotShown // User has never seen his positive TestResult
 
 	/// **[Deprecated]** Legacy state to indicate no (meaningful) response was given.
 	///
