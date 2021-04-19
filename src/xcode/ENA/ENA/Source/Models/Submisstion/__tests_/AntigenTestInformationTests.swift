@@ -14,7 +14,7 @@ class AntigenTestInformationTests: XCTestCase {
 
 		// GIVEN
 		let antigenTestInformation = AntigenTestInformation(
-			guid: "GUID123",
+			hash: "asbf3242",
 			timestamp: 123456789,
 			firstName: "Thomase",
 			lastName: "Mustermann",
