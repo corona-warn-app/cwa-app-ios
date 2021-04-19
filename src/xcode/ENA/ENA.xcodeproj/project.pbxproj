@@ -2217,7 +2217,6 @@
 			isa = PBXGroup;
 			children = (
 				010B3D8525ADE5FD00EB44AB /* HomeRiskCellModelTests.swift */,
-				50C5203F25ADACBB008DF2F4 /* HomeShownPositiveTestResultCellModelTest.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -2632,6 +2631,7 @@
 			isa = PBXGroup;
 			children = (
 				01A6C2E52626D71600B6E95A /* HomeTestResultCellModelTests.swift */,
+				50C5203F25ADACBB008DF2F4 /* HomeShownPositiveTestResultCellModelTest.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
