@@ -2359,3 +2359,23 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "Checkin_Details_EventEnded" = "Das Event ist beendet. Wollen Sie nachträglich einchecken?";
 
 "Checkin_Details_CheckIn_Button" = "Einchecken";
+
+/* Submission Check-in */
+
+"Submission_Checkins_Title" = "Check-ins für diese Orte teilen?";
+
+"Submission_Checkins_Description" = "Teilen Sie Ihre Check-ins, um andere zu warnen, die in Ihrer Nähe waren. Ihre Identität bleibt geheim.";
+
+"Submission_Checkins_SelectAll" = "Alle auswählen";
+
+"Submission_Checkins_Continue" = "Weiter";
+
+"Submission_Checkins_Skip" = "Überspringen";
+
+"Submission_Checkins_Alert_Title" = "Sind Sie sicher, dass Sie Ihre Check-ins nicht teilen wollen?";
+
+"Submission_Checkins_Alert_Message" = "Dadurch werden andere nicht gewarnt, die in Ihrer Nähe waren.";
+
+"Submission_Checkins_Alert_Share" = "Teilen";
+
+"Submission_Checkins_Alert_DontShare" = "Nicht teilen";

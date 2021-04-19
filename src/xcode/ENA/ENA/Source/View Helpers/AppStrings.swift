@@ -96,6 +96,18 @@ enum AppStrings {
 		static let invalidCharacterError = NSLocalizedString("ExposureSubmissionTanEntry_InvalidCharacterError", comment: "")
 		static let invalidError = NSLocalizedString("ExposureSubmissionTanEntry_InvalidError", comment: "")
 	}
+	
+	enum ExposureSubmissionCheckins {
+		static let title = NSLocalizedString("Submission_Checkins_Title", comment: "")
+		static let description = NSLocalizedString("Submission_Checkins_Description", comment: "")
+		static let selectAll = NSLocalizedString("Submission_Checkins_SelectAll", comment: "")
+		static let continueButton = NSLocalizedString("Submission_Checkins_Continue", comment: "")
+		static let skipButton = NSLocalizedString("Submission_Checkins_Skip", comment: "")
+		static let alertTitle = NSLocalizedString("Submission_Checkins_Alert_Title", comment: "")
+		static let alertMessage = NSLocalizedString("Submission_Checkins_Alert_Message", comment: "")
+		static let alertShare = NSLocalizedString("Submission_Checkins_Alert_Share", comment: "")
+		static let alertDontShare = NSLocalizedString("Submission_Checkins_Alert_DontShare", comment: "")
+	}
 
 	enum ExposureSubmissionTestResultAvailable {
 		static let title = NSLocalizedString("ExposureSubmissionTestresultAvailable_Title", comment: "")
