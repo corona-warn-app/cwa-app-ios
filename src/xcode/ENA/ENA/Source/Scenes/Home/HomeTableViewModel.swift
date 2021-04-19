@@ -21,16 +21,14 @@ class HomeTableViewModel {
 		self.onTestResultCellTap = onTestResultCellTap
 
 		coronaTestService.$pcrTest
-			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] in
-				self?.updateWith(pcrTest: $0)
+				self?.update(pcrTest: $0)
 			}
 			.store(in: &subscriptions)
 
 		coronaTestService.$antigenTest
-			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] in
-				self?.updateWith(antigenTest: $0)
+				self?.update(antigenTest: $0)
 			}
 			.store(in: &subscriptions)
 	}
@@ -165,15 +163,15 @@ class HomeTableViewModel {
 	private let onTestResultCellTap: (CoronaTestType?) -> Void
 	private var subscriptions = Set<AnyCancellable>()
 
-	private func updateWith(pcrTest: PCRTest? = nil, antigenTest: AntigenTest? = nil) {
+	private func update(pcrTest: PCRTest? = nil, antigenTest: AntigenTest? = nil) {
 		let updatedRiskAndTestResultsRows = self.computedRiskAndTestResultsRows(pcrTest: pcrTest, antigenTest: antigenTest)
-
-		if updatedRiskAndTestResultsRows != self.riskAndTestResultsRows {
-			self.riskAndTestResultsRows = updatedRiskAndTestResultsRows
-		}
 
 		if updatedRiskAndTestResultsRows.contains(.risk) && !self.riskAndTestResultsRows.contains(.risk) {
 			self.state.requestRisk(userInitiated: true)
+		}
+
+		if updatedRiskAndTestResultsRows != self.riskAndTestResultsRows {
+			self.riskAndTestResultsRows = updatedRiskAndTestResultsRows
 		}
 	}
 

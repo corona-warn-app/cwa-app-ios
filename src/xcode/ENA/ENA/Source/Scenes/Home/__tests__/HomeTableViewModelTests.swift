@@ -31,40 +31,48 @@ class HomeTableViewModelTests: XCTestCase {
 		)
 
 		// Number of Sections
-		XCTAssertEqual(viewModel.numberOfSections, 6, "Number of sections does not match.")
+		XCTAssertEqual(viewModel.numberOfSections, 7)
 		
 		// Number of Rows per Section
-		XCTAssertEqual(viewModel.numberOfRows(in: 0), 1, "Number of rows in section 0 does not match.")
-		XCTAssertEqual(viewModel.numberOfRows(in: 1), 2, "Number of rows in section 1 does not match.")
-		XCTAssertEqual(viewModel.numberOfRows(in: 2), 1, "Number of rows in section 2 does not match.")
-		XCTAssertEqual(viewModel.numberOfRows(in: 3), 1, "Number of rows in section 3 does not match.")
-		XCTAssertEqual(viewModel.numberOfRows(in: 4), 2, "Number of rows in section 4 does not match.")
-		XCTAssertEqual(viewModel.numberOfRows(in: 5), 2, "Number of rows in section 5 does not match.")
+		XCTAssertEqual(viewModel.numberOfRows(in: 0), 1)
+		XCTAssertEqual(viewModel.numberOfRows(in: 1), 1)
+		XCTAssertEqual(viewModel.numberOfRows(in: 2), 1)
+		XCTAssertEqual(viewModel.numberOfRows(in: 3), 1)
+		XCTAssertEqual(viewModel.numberOfRows(in: 4), 1)
+		XCTAssertEqual(viewModel.numberOfRows(in: 5), 2)
+		XCTAssertEqual(viewModel.numberOfRows(in: 6), 2)
 
 		// Check riskAndTestResultsRows
-		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.risk], "Risk and Test Rows does not match.")
+		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.risk])
 		
 		// Height for Header
-		XCTAssertEqual(viewModel.heightForHeader(in: 0), 0, "Height for Header in Section 0 does not match.")
-		XCTAssertEqual(viewModel.heightForHeader(in: 1), 0, "Height for Header in Section 1 does not match.")
-		XCTAssertEqual(viewModel.heightForHeader(in: 2), 0, "Height for Header in Section 2 does not match.")
-		XCTAssertEqual(viewModel.heightForHeader(in: 3), 0, "Height for Header in Section 3 does not match.")
-		XCTAssertEqual(viewModel.heightForHeader(in: 4), 16, "Height for Header in Section 4 does not match.")
-		XCTAssertEqual(viewModel.heightForHeader(in: 5), 16, "Height for Header in Section 5 does not match.")
+		XCTAssertEqual(viewModel.heightForHeader(in: 0), 0)
+		XCTAssertEqual(viewModel.heightForHeader(in: 1), 0)
+		XCTAssertEqual(viewModel.heightForHeader(in: 2), 0)
+		XCTAssertEqual(viewModel.heightForHeader(in: 3), 0)
+		XCTAssertEqual(viewModel.heightForHeader(in: 4), 0)
+		XCTAssertEqual(viewModel.heightForHeader(in: 5), 16)
+		XCTAssertEqual(viewModel.heightForHeader(in: 6), 16)
 		
 		// Height for Footer
-		XCTAssertEqual(viewModel.heightForFooter(in: 0), 0, "Height for Footer in Section 0 does not match.")
-		XCTAssertEqual(viewModel.heightForFooter(in: 1), 0, "Height for Footer in Section 1 does not match.")
-		XCTAssertEqual(viewModel.heightForFooter(in: 2), 0, "Height for Footer in Section 2 does not match.")
-		XCTAssertEqual(viewModel.heightForFooter(in: 3), 0, "Height for Footer in Section 3 does not match.")
-		XCTAssertEqual(viewModel.heightForFooter(in: 4), 16, "Height for Footer in Section 4 does not match.")
-		XCTAssertEqual(viewModel.heightForFooter(in: 5), 32, "Height for Footer in Section 5 does not match.")
+		XCTAssertEqual(viewModel.heightForFooter(in: 0), 0)
+		XCTAssertEqual(viewModel.heightForFooter(in: 1), 0)
+		XCTAssertEqual(viewModel.heightForFooter(in: 2), 0)
+		XCTAssertEqual(viewModel.heightForFooter(in: 3), 0)
+		XCTAssertEqual(viewModel.heightForFooter(in: 4), 0)
+		XCTAssertEqual(viewModel.heightForFooter(in: 5), 12)
+		XCTAssertEqual(viewModel.heightForFooter(in: 6), 24)
 		
 	}
 
 	func testRiskAndTestRowsIfKeysSubmitted() {
 		let store = MockTestStore()
-		store.pcrTest = PCRTest.mock(keysSubmitted: true)
+		store.pcrTest = PCRTest.mock(
+			registrationToken: "FAKETOKEN!",
+			testResult: .positive,
+			positiveTestResultWasShown: true,
+			keysSubmitted: true
+		)
 		
 		let viewModel = HomeTableViewModel(
 			state: .init(
@@ -92,7 +100,12 @@ class HomeTableViewModelTests: XCTestCase {
 	
 	func testRiskAndTestRowsIfPositiveTestResultWasShown() {
 		let store = MockTestStore()
-		store.pcrTest = PCRTest.mock(registrationToken: "FAKETOKEN!", testResult: .positive, positiveTestResultWasShown: true)
+		store.pcrTest = PCRTest.mock(
+			registrationToken: "FAKETOKEN!",
+			testResult: .positive,
+			positiveTestResultWasShown: true,
+			keysSubmitted: false
+		)
 		
 		let viewModel = HomeTableViewModel(
 			state: .init(
