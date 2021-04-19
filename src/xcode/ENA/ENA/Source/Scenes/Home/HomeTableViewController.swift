@@ -49,6 +49,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] _ in
 				self?.tableView.reloadSections([HomeTableViewModel.Section.riskAndTestResults.rawValue], with: .none)
+				self?.viewModel.isUpdating = false
 			}
 			.store(in: &subscriptions)
 
@@ -354,10 +355,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		/// DispatchQueue prevents undefined behaviour in `visibleCells` while cells are being updated
 		/// https://developer.apple.com/forums/thread/117537
 		DispatchQueue.main.async { [self] in
-			guard tableView.visibleCells.contains(cell) else {
+			guard !viewModel.isUpdating, tableView.visibleCells.contains(cell) else {
 				return
 			}
-
+			
 			/// Animate the changed cell height
 			tableView.performBatchUpdates(nil, completion: nil)
 

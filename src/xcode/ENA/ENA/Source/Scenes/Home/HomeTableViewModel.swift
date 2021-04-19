@@ -59,6 +59,7 @@ class HomeTableViewModel {
 	let state: HomeState
 	let store: Store
 	let coronaTestService: CoronaTestService
+	var isUpdating: Bool = false
 
 	@OpenCombine.Published var testResultLoadingError: Error?
 	@OpenCombine.Published var riskAndTestResultsRows: [RiskAndTestResultsRow] = []
@@ -171,6 +172,7 @@ class HomeTableViewModel {
 		}
 
 		if updatedRiskAndTestResultsRows != self.riskAndTestResultsRows {
+			isUpdating = true
 			self.riskAndTestResultsRows = updatedRiskAndTestResultsRows
 		}
 	}
