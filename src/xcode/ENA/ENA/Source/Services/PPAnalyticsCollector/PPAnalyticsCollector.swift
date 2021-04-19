@@ -329,7 +329,7 @@ enum PPAnalyticsCollector {
 	}
 
 	private static func setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration() {
-		guard let registrationDate = store?.testRegistrationDate else {
+		guard let registrationDate = coronaTestService?.pcrTest?.registrationDate else {
 			store?.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = -1
 			return
 		}
