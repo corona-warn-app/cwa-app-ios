@@ -2856,7 +2856,6 @@
 				01EA17692590EF4E00E98E02 /* HomeTableViewModel.swift */,
 				01EA17FD259217B100E98E02 /* HomeState.swift */,
 				01EA176E2590F02F00E98E02 /* Cells */,
-				51D420B524583B5100AD70CA /* Extensions */,
 				01A4DC6025922EB2007D5794 /* Views */,
 			);
 			path = Home;
@@ -3744,6 +3743,7 @@
 				85D759802459A82D008175F0 /* Services */,
 				85D759712457059A008175F0 /* Scenes */,
 				51D420B224583AA400AD70CA /* Workers */,
+				51D420B524583B5100AD70CA /* Extensions */,
 				EBA3BE3B25C2FAA800F1C2AC /* RootCoordinator.swift */,
 			);
 			path = Source;
