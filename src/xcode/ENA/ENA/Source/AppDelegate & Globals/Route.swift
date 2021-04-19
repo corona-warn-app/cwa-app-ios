@@ -32,11 +32,10 @@ enum Route {
 
 			// extract payload
 			guard let testInformation = AntigenTestInformation(payload: payloadUrl),
-				  testInformation.guid.range(
-					of: #"^[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}$"#,
+				  testInformation.hash.range(
+					of: #"^[0-9A-Fa-f]{64}$"#,
 					options: .regularExpression
 				  ) != nil,
-				  testInformation.guid.count == 36,
 				  testInformation.timestamp >= 0
 			else {
 				self = .rapidAntigen( .failure(.invalidTestCode))
