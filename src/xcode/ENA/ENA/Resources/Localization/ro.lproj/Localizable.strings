@@ -762,7 +762,7 @@
 /* ExposureSubmissionSymptoms - Cancel alert */
 "ExposureSubmissionSymptoms_CancelAlertTitle" = "Doriți să anulați introducerea simptomelor dvs.?";
 
-"ExposureSubmissionSymptoms_CancelAlertMessage" = "Dacă furnizați informații despre simptomele dvs., îi puteți avertiza pe ceilalți într-un mod mai exact.";
+"ExposureSubmissionSymptoms_CancelAlertMessage" = "Dacă furnizați informații despre simptomele dvs., îi puteți avertiza pe ceilalți într-un mod mai precis.";
 
 "ExposureSubmissionSymptoms_CancelAlertButtonCancel" = "Da";
 
@@ -2192,4 +2192,23 @@
 "Checkin_Details_EventEnded" = "Aceste eveniment s-a încheiat deja. Doriți să faceți check-in retroactiv?";
 
 "Checkin_Details_CheckIn_Button" = "Check-in";
+
+/* Submission Check-in */
+"Submission_Checkins_Title" = "Partajarea check-inurilor dvs.";
+
+"Submission_Checkins_Description" = "Partajați check-inurile dvs. pentru a-i avertiza pe ceilalți care au făcut check-in în aproprierea dvs. Datele dvs. personale nu vor fi partajate.";
+
+"Submission_Checkins_SelectAll" = "Selectare tot";
+
+"Submission_Checkins_Continue" = "Înainte";
+
+"Submission_Checkins_Skip" = "Omitere";
+
+"Submission_Checkins_Alert_Title" = "Sigur nu doriți să partajați check-inurile dvs.?";
+
+"Submission_Checkins_Alert_Message" = "Dacă nu le partajați, alte persoane care au făcut check-in lângă dvs. nu vor fi avertizate.";
+
+"Submission_Checkins_Alert_Share" = "Partajare";
+
+"Submission_Checkins_Alert_DontShare" = "Nu partajez";
 

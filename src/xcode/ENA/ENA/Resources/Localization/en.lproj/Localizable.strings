@@ -762,7 +762,7 @@
 /* ExposureSubmissionSymptoms - Cancel alert */
 "ExposureSubmissionSymptoms_CancelAlertTitle" = "Do you want to cancel entering your symptoms?";
 
-"ExposureSubmissionSymptoms_CancelAlertMessage" = "If you provide information about your symptoms, you can warn others more exactly.";
+"ExposureSubmissionSymptoms_CancelAlertMessage" = "If you provide information about your symptoms, you can warn others more accurately.";
 
 "ExposureSubmissionSymptoms_CancelAlertButtonCancel" = "Yes";
 
@@ -2194,20 +2194,21 @@
 "Checkin_Details_CheckIn_Button" = "Check In";
 
 /* Submission Check-in */
-"Submission_Checkins_Title" = "Share your Location Check-Ins?";
+"Submission_Checkins_Title" = "Share Your Check-Ins";
 
-"Submission_Checkins_Description" = "Warn others who checked in near you. Your personal data will not be shared.";
+"Submission_Checkins_Description" = "Share your check-ins to warn others who checked in near you. Your personal data will not be shared.";
 
 "Submission_Checkins_SelectAll" = "Select all";
 
-"Submission_Checkins_Continue" = "Submit";
+"Submission_Checkins_Continue" = "Next";
 
 "Submission_Checkins_Skip" = "Skip";
 
 "Submission_Checkins_Alert_Title" = "Are you sure you don’t want to share your check-ins?";
 
-"Submission_Checkins_Alert_Message" = "Skipping will not warn any contacts who checked in near you.";
+"Submission_Checkins_Alert_Message" = "If you don’t, others who checked in near you will not be warned.";
 
 "Submission_Checkins_Alert_Share" = "Share";
 
-"Submission_Checkins_Alert_DontShare" = "Don’t share";
+"Submission_Checkins_Alert_DontShare" = "Don’t Share";
+

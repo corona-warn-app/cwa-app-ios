@@ -762,7 +762,7 @@
 /* ExposureSubmissionSymptoms - Cancel alert */
 "ExposureSubmissionSymptoms_CancelAlertTitle" = "Belirtilerinizi girmeyi iptal etmek istiyor musunuz?";
 
-"ExposureSubmissionSymptoms_CancelAlertMessage" = "Belirtilerinizle ilgili olarak bilgi verirseniz diğer kullanıcıları daha net bir biçimde uyarabilir.";
+"ExposureSubmissionSymptoms_CancelAlertMessage" = "Belirtilerinizle ilgili olarak bilgi verirseniz diğer kullanıcıları daha doğru bir şekilde uyarabilirsiniz.";
 
 "ExposureSubmissionSymptoms_CancelAlertButtonCancel" = "Evet";
 
@@ -2192,4 +2192,23 @@
 "Checkin_Details_EventEnded" = "Bu etkinlik zaten bitmiş. Geriye dönük olarak check in yapmak istiyor musunuz?";
 
 "Checkin_Details_CheckIn_Button" = "Check In";
+
+/* Submission Check-in */
+"Submission_Checkins_Title" = "Check-In’lerinizi Paylaşın";
+
+"Submission_Checkins_Description" = "Sizin yakınınızda check in yapmış olan diğer kullanıcıları uyarmak için check-in’lerinizi paylaşın. Kişisel verileriniz paylaşılmayacaktır.";
+
+"Submission_Checkins_SelectAll" = "Tümünü seç";
+
+"Submission_Checkins_Continue" = "Sonraki";
+
+"Submission_Checkins_Skip" = "Atla";
+
+"Submission_Checkins_Alert_Title" = "Check-in’lerinizi paylaşmak istemediğinizden emin misiniz?";
+
+"Submission_Checkins_Alert_Message" = "İstemiyorsanız sizin yakınınızda check-in yapmış olan diğer kullanıcılara uyarı gönderilmeyecektir.";
+
+"Submission_Checkins_Alert_Share" = "Paylaş";
+
+"Submission_Checkins_Alert_DontShare" = "Paylaşma";
 

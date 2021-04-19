@@ -762,7 +762,7 @@
 /* ExposureSubmissionSymptoms - Cancel alert */
 "ExposureSubmissionSymptoms_CancelAlertTitle" = "Czy chcesz anulować wprowadzanie objawów?";
 
-"ExposureSubmissionSymptoms_CancelAlertMessage" = "Przekazanie informacji o objawach pozwoli Ci na wysyłanie innym bardziej szczegółowych ostrzeżeń.";
+"ExposureSubmissionSymptoms_CancelAlertMessage" = "Przekazanie informacji o objawach pozwoli Ci na wysyłanie innym dokładniejszych ostrzeżeń.";
 
 "ExposureSubmissionSymptoms_CancelAlertButtonCancel" = "Tak";
 
@@ -2192,4 +2192,23 @@
 "Checkin_Details_EventEnded" = "To wydarzenie już się skończyło. Czy chcesz się zameldować z datą wsteczną?";
 
 "Checkin_Details_CheckIn_Button" = "Zamelduj się";
+
+/* Submission Check-in */
+"Submission_Checkins_Title" = "Udostępnij swoje zameldowania";
+
+"Submission_Checkins_Description" = "Udostępnij swoje zameldowania, aby ostrzegać innych, którzy się zameldowali w pobliżu. Twoje dane osobowe nie będą udostępniane.";
+
+"Submission_Checkins_SelectAll" = "Wybierz wszystkie";
+
+"Submission_Checkins_Continue" = "Dalej";
+
+"Submission_Checkins_Skip" = "Pomiń";
+
+"Submission_Checkins_Alert_Title" = "Czy na pewno nie chcesz udostępniać swoich zameldowań?";
+
+"Submission_Checkins_Alert_Message" = "Jeśli nie zrobisz tego, inne osoby zameldowane w pobliżu nie będą ostrzegane.";
+
+"Submission_Checkins_Alert_Share" = "Udostępnij";
+
+"Submission_Checkins_Alert_DontShare" = "Nie udostępniaj";
 
