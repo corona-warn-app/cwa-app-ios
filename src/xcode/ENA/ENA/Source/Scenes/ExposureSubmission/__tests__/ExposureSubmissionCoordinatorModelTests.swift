@@ -10,7 +10,8 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 	func testSymptomsOptionYesSelected() {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
-			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore())
+			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore()),
+			eventProvider: MockEventStore()
 		)
 
 		model.symptomsOptionSelected(.yes)
@@ -28,7 +29,8 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore())
+			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore()),
+			eventProvider: MockEventStore()
 		)
 
 		model.coronaTestType = .pcr
@@ -53,7 +55,8 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore())
+			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore()),
+			eventProvider: MockEventStore()
 		)
 
 		model.coronaTestType = .pcr
@@ -80,7 +83,8 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore())
+			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore()),
+			eventProvider: MockEventStore()
 		)
 
 		model.coronaTestType = .pcr
@@ -107,7 +111,8 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore())
+			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore()),
+			eventProvider: MockEventStore()
 		)
 
 		model.coronaTestType = .pcr
@@ -131,7 +136,8 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore())
+			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore()),
+			eventProvider: MockEventStore()
 		)
 
 		model.coronaTestType = .pcr
@@ -156,7 +162,8 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore())
+			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore()),
+			eventProvider: MockEventStore()
 		)
 
 		model.coronaTestType = .pcr
@@ -180,7 +187,8 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore())
+			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore()),
+			eventProvider: MockEventStore()
 		)
 
 		model.coronaTestType = .pcr
@@ -204,7 +212,8 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore())
+			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore()),
+			eventProvider: MockEventStore()
 		)
 
 		model.coronaTestType = .pcr
@@ -241,7 +250,8 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore())
+			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore()),
+			eventProvider: MockEventStore()
 		)
 
 		model.coronaTestType = .pcr
@@ -278,7 +288,8 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore())
+			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore()),
+			eventProvider: MockEventStore()
 		)
 
 		model.coronaTestType = .pcr
@@ -317,7 +328,8 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore())
+			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore()),
+			eventProvider: MockEventStore()
 		)
 
 		model.coronaTestType = .pcr
@@ -356,7 +368,8 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
-			coronaTestService: CoronaTestService(client: client, store: MockTestStore())
+			coronaTestService: CoronaTestService(client: client, store: MockTestStore()),
+			eventProvider: MockEventStore()
 		)
 
 		let expectedIsLoadingValues = [true, false]
@@ -401,7 +414,8 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			coronaTestService: CoronaTestService(client: client, store: MockTestStore())
+			coronaTestService: CoronaTestService(client: client, store: MockTestStore()),
+			eventProvider: MockEventStore()
 		)
 
 		let expectedIsLoadingValues = [true, false]

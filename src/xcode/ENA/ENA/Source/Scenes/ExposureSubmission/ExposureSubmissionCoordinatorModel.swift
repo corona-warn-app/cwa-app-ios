@@ -12,10 +12,12 @@ class ExposureSubmissionCoordinatorModel {
 
 	init(
 		exposureSubmissionService: ExposureSubmissionService,
-		coronaTestService: CoronaTestService
+		coronaTestService: CoronaTestService,
+		eventProvider: EventProviding
 	) {
 		self.exposureSubmissionService = exposureSubmissionService
 		self.coronaTestService = coronaTestService
+		self.eventProvider = eventProvider
 
 		// Try to load current country list initially to make it virtually impossible the user has to wait for it later.
 		exposureSubmissionService.loadSupportedCountries { _ in
@@ -40,6 +42,8 @@ class ExposureSubmissionCoordinatorModel {
 		return coronaTestService.coronaTest(ofType: coronaTestType)
 	}
 
+	let eventProvider: EventProviding
+	
 	var shouldShowSymptomsOnsetScreen = false
 
 	func symptomsOptionSelected(

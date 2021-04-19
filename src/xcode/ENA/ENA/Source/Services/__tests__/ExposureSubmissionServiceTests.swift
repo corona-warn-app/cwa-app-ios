@@ -116,6 +116,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		XCTAssertTrue(coronaTestService.pcrTest?.keysSubmitted == false)
 
 		XCTAssertEqual(store.submissionKeys, [])
+		XCTAssertEqual(store.submissionCheckins, [])
 		XCTAssertFalse(store.submissionCountries.isEmpty)
 		XCTAssertEqual(store.submissionSymptomsOnset, .noInformation)
 	}
@@ -128,6 +129,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
 		let coronaTestService = CoronaTestService(client: client, store: store)
 		coronaTestService.pcrTest = PCRTest.mock(
+			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true
 		)
 
@@ -155,6 +157,44 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		XCTAssertTrue(coronaTestService.pcrTest?.isSubmissionConsentGiven == true)
 		XCTAssertTrue(coronaTestService.pcrTest?.keysSubmitted == false)
 	}
+	
+	
+	func testSubmitExposure_PositiveTestResultNotShown() {
+		// Arrange
+		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (nil, nil))
+		let client = ClientMock()
+		let store = MockTestStore()
+
+		let coronaTestService = CoronaTestService(client: client, store: store)
+		coronaTestService.pcrTest = PCRTest.mock(
+			positiveTestResultWasShown: false,
+			isSubmissionConsentGiven: true
+		)
+
+		let appConfigurationProvider = CachedAppConfigurationMock()
+
+		let service = ENAExposureSubmissionService(
+			diagnosisKeysRetrieval: keyRetrieval,
+			appConfigurationProvider: appConfigurationProvider,
+			client: client,
+			store: store,
+			eventStore: MockEventStore(),
+			coronaTestService: coronaTestService
+		)
+
+		let expectation = self.expectation(description: "PositiveTestResultNotShown")
+
+		// Act
+		service.submitExposure(coronaTestType: .pcr) { error in
+			XCTAssertEqual(error, .positiveTestResultNotShown)
+			expectation.fulfill()
+		}
+
+		waitForExpectations(timeout: expectationsTimeout)
+
+		XCTAssertTrue(coronaTestService.pcrTest?.isSubmissionConsentGiven == true)
+		XCTAssertTrue(coronaTestService.pcrTest?.keysSubmitted == false)
+	}
 
 	func testSubmitExposure_KeysNotSharedDueToNotAuthorizedError() {
 		// Arrange
@@ -166,6 +206,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
 		let coronaTestService = CoronaTestService(client: client, store: store)
 		coronaTestService.pcrTest = PCRTest.mock(
+			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true
 		)
 
@@ -206,6 +247,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
 		let coronaTestService = CoronaTestService(client: client, store: store)
 		coronaTestService.pcrTest = PCRTest.mock(
+			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true
 		)
 
@@ -243,6 +285,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
 		let coronaTestService = CoronaTestService(client: client, store: store)
 		coronaTestService.pcrTest = PCRTest.mock(
+			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true
 		)
 
@@ -276,12 +319,12 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let client = ClientMock(submissionError: .invalidPayloadOrHeaders)
 		let store = MockTestStore()
 		let eventStore = MockEventStore()
-		store.registrationToken = "dummyRegistrationToken"
 		let appConfigurationProvider = CachedAppConfigurationMock()
 
 		let coronaTestService = CoronaTestService(client: client, store: store)
 		coronaTestService.pcrTest = PCRTest.mock(
 			registrationToken: "asdf",
+			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true
 		)
 
@@ -319,6 +362,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let coronaTestService = CoronaTestService(client: client, store: store)
 		coronaTestService.pcrTest = PCRTest.mock(
 			registrationToken: nil,
+			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true
 		)
 
@@ -352,6 +396,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let coronaTestService = CoronaTestService(client: client, store: store)
 		coronaTestService.pcrTest = PCRTest.mock(
 			registrationToken: "dummyRegistrationToken",
+			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true
 		)
 
@@ -387,6 +432,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let coronaTestService = CoronaTestService(client: client, store: store)
 		coronaTestService.pcrTest = PCRTest.mock(
 			registrationToken: "dummyRegistrationToken",
+			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true
 		)
 
@@ -428,6 +474,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let coronaTestService = CoronaTestService(client: client, store: store)
 		coronaTestService.pcrTest = PCRTest.mock(
 			registrationToken: "dummyRegistrationToken",
+			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true
 		)
 
@@ -614,6 +661,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let coronaTestService = CoronaTestService(client: client, store: store)
 		coronaTestService.pcrTest = PCRTest.mock(
 			registrationToken: "dummyRegToken",
+			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true
 		)
 
