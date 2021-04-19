@@ -4,8 +4,9 @@
 
 import Foundation
 import UIKit
+import OpenCombine
 
-class HomeTraceLocationsTableViewCell: UITableViewCell {
+final class HomeTestRegistrationTableViewCell: UITableViewCell {
 
 	// MARK: - Overrides
 
@@ -35,7 +36,7 @@ class HomeTraceLocationsTableViewCell: UITableViewCell {
 
 	// MARK: - Internal
 
-	func configure(with cellModel: HomeTraceLocationsCellModel, onPrimaryAction: @escaping () -> Void) {
+	func configure(with cellModel: HomeTestRegistrationCellModel, onPrimaryAction: @escaping () -> Void) {
 		titleLabel.text = cellModel.title
 		descriptionLabel.text = cellModel.description
 		illustrationView.image = cellModel.image
@@ -56,8 +57,8 @@ class HomeTraceLocationsTableViewCell: UITableViewCell {
 	@IBOutlet private var descriptionLabel: ENALabel!
 	@IBOutlet private var illustrationView: UIImageView!
 	@IBOutlet private var button: ENAButton!
-	@IBOutlet private weak var cardView: HomeCardView!
-	
+	@IBOutlet weak var cardView: HomeCardView!
+
 	private var onPrimaryAction: (() -> Void)?
 
 	private func setup() {
