@@ -141,12 +141,13 @@ class ExposureSubmissionCoordinatorModel {
 					}
 				}
 			)
-		case .antigen(let rapidTest):
+		case .antigen(let antigenTest):
 			coronaTestService.registerAntigenTestAndGetResult(
-				with: rapidTest.hashOfTheHash,
-				pointOfCareConsentDate: rapidTest.pointOfCareConsentDate,
-				name: rapidTest.fullName,
-				birthday: rapidTest.dateOfBirthString,
+				with: antigenTest.hashOfTheHash,
+				pointOfCareConsentDate: antigenTest.pointOfCareConsentDate,
+				firstName: antigenTest.firstName,
+				lastName: antigenTest.lastName,
+				dateOfBirth: antigenTest.dateOfBirthString,
 				isSubmissionConsentGiven: isSubmissionConsentGiven,
 				completion: { result in
 					isLoading(false)
