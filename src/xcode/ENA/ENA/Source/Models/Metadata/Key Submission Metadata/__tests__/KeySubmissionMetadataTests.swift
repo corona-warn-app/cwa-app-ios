@@ -152,13 +152,19 @@ class KeySubmissionMetadataTests: XCTestCase {
 
 	func testKeySubmissionMetadataValues_LowRisk() {
 		let secureStore = MockTestStore()
-		Analytics.setupMock(store: secureStore)
 		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
+
+		let coronaTestService = CoronaTestService(client: ClientMock(), store: secureStore)
+
+		Analytics.setupMock(store: secureStore, coronaTestService: coronaTestService)
+
 		let riskCalculationResult = mockLowRiskCalculationResult()
 		let isSubmissionConsentGiven = true
+
 		secureStore.dateOfConversionToHighRisk = Calendar.current.date(byAdding: .day, value: -1, to: Date())
 		secureStore.enfRiskCalculationResult = riskCalculationResult
-		secureStore.testRegistrationDate = Date()
+
+		coronaTestService.pcrTest = PCRTest.mock(registrationDate: Date())
 
 		let keySubmissionMetadata = KeySubmissionMetadata(
 			submitted: false,
