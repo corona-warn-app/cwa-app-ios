@@ -82,13 +82,10 @@ class ENAUITests_10_CheckIns: XCTestCase {
 		
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Information.descriptionTitle].exists)
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Information.descriptionSubHeadline].exists)
-				
-		// Navigate to Data Privacy
-		if let target = UITestHelper.scrollTo(identifier: AccessibilityIdentifiers.Checkin.Information.dataPrivacyTitle, element: app, app: app) {
-			target.tap()
-		} else {
-			XCTFail("Can't find element \(AccessibilityIdentifiers.Checkin.Information.dataPrivacyTitle)")
-		}
+
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Checkin.Information.dataPrivacyTitle].waitForExistence(timeout: .extraLong))
+
+		app.cells[AccessibilityIdentifiers.Checkin.Information.dataPrivacyTitle].tap()
 		
 		XCTAssertTrue(app.staticTexts["AppStrings.AppInformation.privacyTitle"].waitForExistence(timeout: .short))
 	}

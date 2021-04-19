@@ -147,7 +147,7 @@ class ExposureSubmissionCoordinatorModel {
 				pointOfCareConsentDate: antigenTest.pointOfCareConsentDate,
 				firstName: antigenTest.firstName,
 				lastName: antigenTest.lastName,
-				dateOfBirth: antigenTest.dateOfBirth,
+				dateOfBirth: antigenTest.dateOfBirthString,
 				isSubmissionConsentGiven: isSubmissionConsentGiven,
 				completion: { result in
 					isLoading(false)
