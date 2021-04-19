@@ -542,7 +542,7 @@ class CoronaTestService {
 
 	private func setupOutdatedPublisher(for antigenTest: AntigenTest) {
 		appConfiguration.appConfiguration()
-			.sink {
+			.sink { [weak self] in
 				let hoursToDeemTestOutdated = $0.coronaTestParameters.coronaRapidAntigenTestParameters.hoursToDeemTestOutdated
 				guard
 					hoursToDeemTestOutdated != 0,
@@ -552,10 +552,10 @@ class CoronaTestService {
 				}
 
 				if Date() >= outdatedDate {
-					self.antigenTestIsOutdated = true
+					self?.antigenTestIsOutdated = true
 				} else {
-					self.antigenTestOutdatedDate = outdatedDate
-					self.scheduleOutdatedStateTimer()
+					self?.antigenTestOutdatedDate = outdatedDate
+					self?.scheduleOutdatedStateTimer()
 				}
 			}
 			.store(in: &subscriptions)
