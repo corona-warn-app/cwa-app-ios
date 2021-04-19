@@ -73,18 +73,7 @@ extension DynamicCell {
 
 	static func riskStored(daysSinceInstallation: Int) -> DynamicCell {
 		.risk { _, cell, _ in
-			var daysSinceInstallationTitle = ""
-
-			switch daysSinceInstallation {
-			case 0:
-				daysSinceInstallationTitle = String(format: AppStrings.Home.installedToday, daysSinceInstallation)
-			case 1:
-				daysSinceInstallationTitle = String(format: AppStrings.Home.oneDaySinceInstallation, daysSinceInstallation)
-			default:
-				daysSinceInstallationTitle = String(format: AppStrings.Home.daysSinceInstallation, daysSinceInstallation)
-			}
-
-			cell.textLabel?.text = daysSinceInstallationTitle
+			cell.textLabel?.text = String(format: AppStrings.Home.daysSinceInstallation, daysSinceInstallation)
 			cell.imageView?.image = UIImage(named: "Icons-DaysSinceInstall")
 		}
 	}

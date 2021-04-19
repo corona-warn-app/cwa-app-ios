@@ -5,6 +5,7 @@
 import XCTest
 import ExposureNotification
 
+// swiftlint:disable:next type_body_length
 class ENAUITests_01_Home: XCTestCase {
 	var app: XCUIApplication!
 
