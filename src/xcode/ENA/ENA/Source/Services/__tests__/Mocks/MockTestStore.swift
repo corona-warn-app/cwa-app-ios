@@ -37,6 +37,7 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var deviceTimeCheckResult: DeviceTimeCheck.TimeCheckResult = .correct
 	var wasDeviceTimeErrorShown = false
 	var submissionKeys: [SAP_External_Exposurenotification_TemporaryExposureKey]?
+	var submissionCheckins: [Checkin] = []
 	var submissionCountries: [Country] = [.defaultCountry()]
 	var submissionSymptomsOnset: SymptomsOnset = .noInformation
 	var journalWithExposureHistoryInfoScreenShown: Bool = false

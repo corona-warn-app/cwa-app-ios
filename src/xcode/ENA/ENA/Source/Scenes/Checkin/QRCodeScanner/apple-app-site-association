@@ -5,24 +5,22 @@
       {
         "appID": "523TP53AQF.de.rki.corona-warn-app",
         "paths": [
-          "/c1/*",
-          "/C1/*"
+          "*"
         ]
       },
       {
         "appID": "523TP53AQF.de.rki.coronawarnapp-dev",
         "paths": [
-          "/c1/*",
-          "/C1/*"
+          "*"
         ]
       },
       {
         "appID": "523TP53AQF.de.rki.coronawarnapp",
         "paths": [
-          "/c1/*",
-          "/C1/*"
+          "*"
         ]
       }
     ]
   }
 }
+

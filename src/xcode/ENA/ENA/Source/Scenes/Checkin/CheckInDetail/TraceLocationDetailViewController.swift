@@ -30,10 +30,16 @@ class TraceLocationDetailViewController: UIViewController {
 		super.viewDidLoad()
 
 		setupView()
+		setupGradientView()
 		setupLabels()
 		setupPicker()
 		setupAdditionalInfoView()
 		setupViewModel()
+	}
+	
+	override func viewDidLayoutSubviews() {
+		super.viewDidLayoutSubviews()
+		updateGradienViewLayout()
 	}
 	
 	// MARK: - Private
@@ -41,8 +47,12 @@ class TraceLocationDetailViewController: UIViewController {
 	private let viewModel: TraceLocationDetailViewModel
 	private let dismiss: () -> Void
 
+	private var backgroundView: GradientBackgroundView!
+	private var contentOffsetObserver: NSKeyValueObservation!
 	private var subscriptions = Set<AnyCancellable>()
 
+	@IBOutlet private weak var scrollView: UIScrollView!
+	@IBOutlet private weak var barGradientView: UIView!
 	@IBOutlet private weak var bottomCardView: UIView!
 	@IBOutlet private weak var descriptionView: UIView!
 	@IBOutlet private weak var logoImageView: UIImageView!
@@ -85,6 +95,34 @@ class TraceLocationDetailViewController: UIViewController {
 		checkInButton.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Details.checkInButton
 		closeButton.accessibilityLabel = AppStrings.AccessibilityLabel.close
 		closeButton.accessibilityIdentifier = AccessibilityIdentifiers.AccessibilityLabel.close
+	}
+	
+	private func setupGradientView() {
+	
+		backgroundView = GradientBackgroundView()
+		backgroundView.translatesAutoresizingMaskIntoConstraints = false
+		view.insertSubview(backgroundView, at: 0)
+		
+		NSLayoutConstraint.activate([
+			backgroundView.topAnchor.constraint(equalTo: view.topAnchor),
+			backgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+			backgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+			backgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+		])
+		
+		contentOffsetObserver = scrollView.observe(\.contentOffset, options: .new) { [weak self] scrollView, change in
+			guard let self = self,
+				  let yOffset = change.newValue?.y else {
+				return
+			}
+			let offsetLimit = scrollView.frame.origin.y
+			self.backgroundView.updatedTopLayout(with: yOffset, limit: offsetLimit)
+		}
+	}
+	
+	private func updateGradienViewLayout() {
+		backgroundView.updatedTopLayout(with: 0, limit: scrollView.frame.origin.y)
+		backgroundView.gradientHeightConstraint.constant = barGradientView.bounds.height + 160
 	}
 	
 	private func setupLabels() {
@@ -158,33 +196,49 @@ class TraceLocationDetailViewController: UIViewController {
 	}
 
 	@IBAction private func togglePickerButtonVisibility(_ sender: Any) {
-		let isHidden = !pickerContainerView.isHidden
-		pickerContainerView.isHidden = isHidden
-		pickerSeparator.isHidden = isHidden
 		
-		let color: UIColor = isHidden ? .enaColor(for: .textPrimary1) : .enaColor(for: .textTint)
-		pickerButton.setTitleColor(color, for: .normal)
+		let isHidden = !pickerContainerView.isHidden
+		
+		UIView.animate(withDuration: 0.15) { [weak self] in
+			guard let self = self else {
+				Log.debug("Failed to unwrap self")
+				return
+			}
+			
+			self.pickerContainerView.alpha = isHidden ? 0 : 1
+			self.pickerContainerView.isHidden = isHidden
+			self.pickerSeparator.isHidden = isHidden
+			
+			let color: UIColor = isHidden ? .enaColor(for: .textPrimary1) : .enaColor(for: .textTint)
+			self.pickerButton.setTitleColor(color, for: .normal)
 
-		if !isHidden {
-			countDownDatePicker.removeTarget(self, action: nil, for: .allEvents)
-			setupPicker()
+		} completion: { _ in
+			
+			if !isHidden {
+				self.countDownDatePicker.removeTarget(self, action: nil, for: .allEvents)
+				self.setupPicker()
+				
+				// scroll to date picker
+				let rect = self.countDownDatePicker.convert(self.countDownDatePicker.frame, to: self.scrollView)
+				self.scrollView.scrollRectToVisible(rect, animated: true)
 
-			// the dispatch to the main queue is require because of an iOS issue
-			// UIDatePicker won't call action .valueChang on first change
-			// workaround is to set countDownDuration && date with a bit of delay on the main queue
-			//
-			DispatchQueue.main.asyncAfter(deadline: .now() + 0.01, execute: { [weak self] in
-				guard let self = self else {
-					Log.debug("Failed to unwrap self")
-					return
-				}
-				let durationInMinutes = Int(self.viewModel.duration / 60)
-				let components = durationInMinutes.quotientAndRemainder(dividingBy: 60)
-				let date = DateComponents(calendar: Calendar.current, hour: components.quotient, minute: components.remainder).date ?? Date()
+				// the dispatch to the main queue is require because of an iOS issue
+				// UIDatePicker won't call action .valueChang on first change
+				// workaround is to set countDownDuration && date with a bit of delay on the main queue
+				//
+				DispatchQueue.main.asyncAfter(deadline: .now() + 0.01, execute: { [weak self] in
+					guard let self = self else {
+						Log.debug("Failed to unwrap self")
+						return
+					}
+					let durationInMinutes = Int(self.viewModel.duration / 60)
+					let components = durationInMinutes.quotientAndRemainder(dividingBy: 60)
+					let date = DateComponents(calendar: Calendar.current, hour: components.quotient, minute: components.remainder).date ?? Date()
 
-				self.countDownDatePicker.countDownDuration = self.viewModel.duration
-				self.countDownDatePicker.setDate(date, animated: true)
-			})
+					self.countDownDatePicker.countDownDuration = self.viewModel.duration
+					self.countDownDatePicker.setDate(date, animated: true)
+				})
+			}
 		}
 	}
 }

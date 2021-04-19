@@ -13,62 +13,57 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	init(
 		viewModel: HomeTableViewModel,
 		appConfigurationProvider: AppConfigurationProviding,
+		route: Route?,
 		onInfoBarButtonItemTap: @escaping () -> Void,
 		onExposureLoggingCellTap: @escaping (ENStateHandler.State) -> Void,
 		onRiskCellTap: @escaping (HomeState) -> Void,
 		onInactiveCellButtonTap: @escaping (ENStateHandler.State) -> Void,
-		onTestResultCellTap: @escaping (TestResult?) -> Void,
+		onTestRegistrationCellTap: @escaping () -> Void,
 		onStatisticsInfoButtonTap: @escaping () -> Void,
 		onTraceLocationsCellTap: @escaping () -> Void,
 		onInviteFriendsCellTap: @escaping () -> Void,
 		onFAQCellTap: @escaping () -> Void,
 		onAppInformationCellTap: @escaping () -> Void,
-		onSettingsCellTap: @escaping (ENStateHandler.State) -> Void
+		onSettingsCellTap: @escaping (ENStateHandler.State) -> Void,
+		showTestInformationResult: @escaping (Result<CoronaTestQRCodeInformation, QRCodeError>) -> Void
 	) {
 		self.viewModel = viewModel
 		self.appConfigurationProvider = appConfigurationProvider
-
+		self.route = route
 		self.onInfoBarButtonItemTap = onInfoBarButtonItemTap
 		self.onExposureLoggingCellTap = onExposureLoggingCellTap
 		self.onRiskCellTap = onRiskCellTap
 		self.onInactiveCellButtonTap = onInactiveCellButtonTap
-		self.onTestResultCellTap = onTestResultCellTap
+		self.onTestRegistrationCellTap = onTestRegistrationCellTap
 		self.onStatisticsInfoButtonTap = onStatisticsInfoButtonTap
 		self.onTraceLocationsCellTap = onTraceLocationsCellTap
 		self.onInviteFriendsCellTap = onInviteFriendsCellTap
 		self.onFAQCellTap = onFAQCellTap
 		self.onAppInformationCellTap = onAppInformationCellTap
 		self.onSettingsCellTap = onSettingsCellTap
+		self.showTestInformationResult = showTestInformationResult
 
 		super.init(style: .plain)
 
-		viewModel.state.$testResult
+		viewModel.$riskAndTestResultsRows
+			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] _ in
-				DispatchQueue.main.async {
-					self?.reload()
-				}
+				self?.tableView.reloadSections([HomeTableViewModel.Section.riskAndTestResults.rawValue], with: .none)
+				self?.viewModel.isUpdating = false
 			}
 			.store(in: &subscriptions)
 
-		viewModel.state.$testResultLoadingError
+		viewModel.$testResultLoadingError
 			.receive(on: DispatchQueue.OCombine(.main))
-			.sink { [weak self] testResultLoadingError in
-				guard let self = self, let testResultLoadingError = testResultLoadingError else { return }
+			.sink { [weak self] error in
+				guard let self = self, let error = error else { return }
 
-				self.viewModel.state.testResultLoadingError = nil
+				self.viewModel.testResultLoadingError = nil
 
-				switch testResultLoadingError {
-				case .error(let error):
-					self.alertError(
-						message: error.localizedDescription,
-						title: AppStrings.Home.resultCardLoadingErrorTitle
-					)
-				case .expired:
-					self.alertError(
-						message: AppStrings.ExposureSubmissionResult.testExpiredDesc,
-						title: AppStrings.Home.resultCardLoadingErrorTitle
-					)
-				}
+				self.alertError(
+					message: error.localizedDescription,
+					title: AppStrings.Home.TestResult.resultCardLoadingErrorTitle
+				)
 			}
 			.store(in: &subscriptions)
 
@@ -105,7 +100,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 		NotificationCenter.default.addObserver(self, selector: #selector(refreshUIAfterResumingFromBackground), name: UIApplication.willEnterForegroundNotification, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(refreshUI), name: NSNotification.Name.NSCalendarDayChanged, object: nil)
-		
+
 		refreshUI()
 	}
 
@@ -114,8 +109,11 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 		/// preload expensive and updating cells to increase initial scrolling performance (especially of the statistics cell) and prevent animation on initial appearance
 		if statisticsCell == nil {
-			riskCell = riskCell(forRowAt: IndexPath(row: 0, section: HomeTableViewModel.Section.riskAndTest.rawValue))
-			testResultCell = testResultCell(forRowAt: IndexPath(row: 1, section: HomeTableViewModel.Section.riskAndTest.rawValue))
+			riskCell = riskCell(forRowAt: IndexPath(row: 0, section: HomeTableViewModel.Section.riskAndTestResults.rawValue))
+			pcrTestResultCell = testResultCell(forRowAt: IndexPath(row: 1, section: HomeTableViewModel.Section.riskAndTestResults.rawValue), coronaTestType: .pcr)
+			pcrTestShownPositiveResultCell = shownPositiveTestResultCell(forRowAt: IndexPath(row: 1, section: HomeTableViewModel.Section.riskAndTestResults.rawValue), coronaTestType: .pcr)
+			antigenTestResultCell = testResultCell(forRowAt: IndexPath(row: 2, section: HomeTableViewModel.Section.riskAndTestResults.rawValue), coronaTestType: .antigen)
+			antigenTestShownPositiveResultCell = shownPositiveTestResultCell(forRowAt: IndexPath(row: 2, section: HomeTableViewModel.Section.riskAndTestResults.rawValue), coronaTestType: .antigen)
 			statisticsCell = statisticsCell(forRowAt: IndexPath(row: 0, section: HomeTableViewModel.Section.statistics.rawValue))
 		}
 
@@ -147,17 +145,28 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		switch HomeTableViewModel.Section(rawValue: indexPath.section) {
 		case .exposureLogging:
 			return exposureLoggingCell(forRowAt: indexPath)
-		case .riskAndTest:
-			switch viewModel.riskAndTestRows[indexPath.row] {
+		case .riskAndTestResults:
+			switch viewModel.riskAndTestResultsRows[indexPath.row] {
 			case .risk:
 				return riskCell(forRowAt: indexPath)
-			case .testResult:
-				return testResultCell(forRowAt: indexPath)
-			case .shownPositiveTestResult:
-				return shownPositiveTestResultCell(forRowAt: indexPath)
-			case .thankYou:
-				return thankYouCell(forRowAt: indexPath)
+			case .pcrTestResult(let testState):
+				switch testState {
+				case .default:
+					return testResultCell(forRowAt: indexPath, coronaTestType: .pcr)
+				case .positiveResultWasShown:
+					return shownPositiveTestResultCell(forRowAt: indexPath, coronaTestType: .pcr)
+				}
+
+			case .antigenTestResult(let testState):
+				switch testState {
+				case .default:
+					return testResultCell(forRowAt: indexPath, coronaTestType: .antigen)
+				case .positiveResultWasShown:
+					return shownPositiveTestResultCell(forRowAt: indexPath, coronaTestType: .antigen)
+				}
 			}
+		case .testRegistration:
+			return testRegistrationCell(forRowAt: indexPath)
 		case .statistics:
 			return statisticsCell(forRowAt: indexPath)
 		case .traceLocations:
@@ -198,15 +207,17 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		switch HomeTableViewModel.Section(rawValue: indexPath.section) {
 		case .exposureLogging:
 			onExposureLoggingCellTap(viewModel.state.enState)
-		case .riskAndTest:
-			switch viewModel.riskAndTestRows[indexPath.row] {
+		case .riskAndTestResults:
+			switch viewModel.riskAndTestResultsRows[indexPath.row] {
 			case .risk:
 				onRiskCellTap(viewModel.state)
-			case .testResult, .shownPositiveTestResult:
-				onTestResultCellTap(viewModel.state.testResult)
-			case .thankYou:
-				break
+			case .pcrTestResult:
+				viewModel.didTapTestResultCell(coronaTestType: .pcr)
+			case .antigenTestResult:
+				viewModel.didTapTestResultCell(coronaTestType: .antigen)
 			}
+		case .testRegistration:
+			onTestRegistrationCellTap()
 		case .statistics:
 			break
 		case .traceLocations:
@@ -237,16 +248,24 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 	// MARK: - Internal
 
-	func reload() {
-		DispatchQueue.main.async { [weak self] in
-			self?.tableView.reloadData()
-		}
-	}
+	var route: Route?
 
 	func scrollToTop(animated: Bool) {
 		tableView.setContentOffset(.zero, animated: animated)
 	}
-	
+
+	func showDeltaOnboardingAndAlertsIfNeeded() {
+		self.showRouteIfNeeded(completion: {
+			self.showDeltaOnboardingIfNeeded(completion: { [weak self] in
+				self?.showInformationHowRiskDetectionWorksIfNeeded(completion: {
+					self?.showBackgroundFetchAlertIfNeeded(completion: {
+						self?.showRiskStatusLoweredAlertIfNeeded()
+					})
+				})
+			})
+		})
+	}
+
 	// MARK: - Private
 
 	private let viewModel: HomeTableViewModel
@@ -256,18 +275,21 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	private let onExposureLoggingCellTap: (ENStateHandler.State) -> Void
 	private let onRiskCellTap: (HomeState) -> Void
 	private let onInactiveCellButtonTap: (ENStateHandler.State) -> Void
-	private let onTestResultCellTap: (TestResult?) -> Void
+	private let onTestRegistrationCellTap: () -> Void
 	private let onStatisticsInfoButtonTap: () -> Void
 	private let onTraceLocationsCellTap: () -> Void
 	private let onInviteFriendsCellTap: () -> Void
 	private let onFAQCellTap: () -> Void
 	private let onAppInformationCellTap: () -> Void
 	private let onSettingsCellTap: (ENStateHandler.State) -> Void
-
+	private let showTestInformationResult: (Result<CoronaTestQRCodeInformation, QRCodeError>) -> Void
 	private var deltaOnboardingCoordinator: DeltaOnboardingCoordinator?
 
 	private var riskCell: UITableViewCell?
-	private var testResultCell: UITableViewCell?
+	private var pcrTestResultCell: UITableViewCell?
+	private var pcrTestShownPositiveResultCell: UITableViewCell?
+	private var antigenTestResultCell: UITableViewCell?
+	private var antigenTestShownPositiveResultCell: UITableViewCell?
 	private var statisticsCell: UITableViewCell?
 
 	private var subscriptions = Set<AnyCancellable>()
@@ -306,8 +328,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			forCellReuseIdentifier: String(describing: HomeShownPositiveTestResultTableViewCell.self)
 		)
 		tableView.register(
-			UINib(nibName: String(describing: HomeThankYouTableViewCell.self), bundle: nil),
-			forCellReuseIdentifier: String(describing: HomeThankYouTableViewCell.self)
+			UINib(nibName: String(describing: HomeTestRegistrationTableViewCell.self), bundle: nil),
+			forCellReuseIdentifier: String(describing: HomeTestRegistrationTableViewCell.self)
 		)
 		tableView.register(
 			UINib(nibName: String(describing: HomeStatisticsTableViewCell.self), bundle: nil),
@@ -333,16 +355,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		/// DispatchQueue prevents undefined behaviour in `visibleCells` while cells are being updated
 		/// https://developer.apple.com/forums/thread/117537
 		DispatchQueue.main.async { [self] in
-			guard tableView.visibleCells.contains(cell) else {
+			guard !viewModel.isUpdating, tableView.visibleCells.contains(cell) else {
 				return
 			}
-
-			/// Only animate changes as long as the risk and the test result cell are both still supposed to be there, otherwise reload the table view
-			guard viewModel.riskAndTestRows.count == 2 else {
-				tableView.reloadData()
-				return
-			}
-
+			
 			/// Animate the changed cell height
 			tableView.performBatchUpdates(nil, completion: nil)
 
@@ -391,9 +407,19 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		return cell
 	}
 
-	private func testResultCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-		if let testResultCell = testResultCell {
-			return testResultCell
+	private func testResultCell(
+		forRowAt indexPath: IndexPath,
+		coronaTestType: CoronaTestType
+	) -> UITableViewCell {
+		switch coronaTestType {
+		case .pcr:
+			if let cell = pcrTestResultCell {
+				return cell
+			}
+		case .antigen:
+			if let cell = antigenTestResultCell {
+				return cell
+			}
 		}
 
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeTestResultTableViewCell.self), for: indexPath) as? HomeTestResultTableViewCell else {
@@ -401,7 +427,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		}
 
 		let cellModel = HomeTestResultCellModel(
-			homeState: viewModel.state,
+			coronaTestType: coronaTestType,
+			coronaTestService: viewModel.coronaTestService,
 			onUpdate: { [weak self] in
 				self?.animateChanges(of: cell)
 			}
@@ -409,54 +436,72 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		cell.configure(
 			with: cellModel,
 			onPrimaryAction: { [weak self] in
-				guard let self = self else { return }
-				self.onTestResultCellTap(self.viewModel.state.testResult)
+				self?.viewModel.didTapTestResultButton(coronaTestType: coronaTestType)
 			}
 		)
 
-		testResultCell = cell
+		switch coronaTestType {
+		case .pcr:
+			pcrTestResultCell = cell
+		case .antigen:
+			antigenTestResultCell = cell
+		}
 
 		return cell
 	}
 
-	private func shownPositiveTestResultCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+	private func shownPositiveTestResultCell(
+		forRowAt indexPath: IndexPath,
+		coronaTestType: CoronaTestType
+	) -> UITableViewCell {
+		switch coronaTestType {
+		case .pcr:
+			if let cell = pcrTestShownPositiveResultCell {
+				return cell
+			}
+		case .antigen:
+			if let cell = antigenTestShownPositiveResultCell {
+				return cell
+			}
+		}
+
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeShownPositiveTestResultTableViewCell.self), for: indexPath) as? HomeShownPositiveTestResultTableViewCell else {
 			fatalError("Could not dequeue HomeShownPositiveTestResultTableViewCell")
 		}
 
-		cell.configure(
-			with: HomeShownPositiveTestResultCellModel(),
-			onPrimaryAction: { [weak self] in
-				guard let self = self else { return }
-				self.onTestResultCellTap(self.viewModel.state.testResult)
+		let cellModel = HomeShownPositiveTestResultCellModel(
+			coronaTestType: coronaTestType,
+			coronaTestService: viewModel.coronaTestService,
+			onUpdate: { [weak self] in
+				self?.animateChanges(of: cell)
 			}
 		)
+		cell.configure(
+			with: cellModel,
+			onPrimaryAction: { [weak self] in
+				self?.viewModel.didTapTestResultButton(coronaTestType: coronaTestType)
+			}
+		)
+
+		switch coronaTestType {
+		case .pcr:
+			pcrTestShownPositiveResultCell = cell
+		case .antigen:
+			antigenTestShownPositiveResultCell = cell
+		}
 
 		return cell
 	}
 
-	private func thankYouCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeThankYouTableViewCell.self), for: indexPath) as? HomeThankYouTableViewCell else {
-			fatalError("Could not dequeue HomeThankYouTableViewCell")
+	private func testRegistrationCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeTestRegistrationTableViewCell.self), for: indexPath) as? HomeTestRegistrationTableViewCell else {
+			fatalError("Could not dequeue HomeTraceLocationsTableViewCell")
 		}
-
-		var cellModel: HomeThankYouCellModel
-		cellModel = HomeThankYouCellModel(
-			testResultTimestamp: Int64((viewModel.state.coronaTestService.pcrTest?.registrationDate ?? Date()).timeIntervalSince1970)
-		)
-
-		#if DEBUG
-		if isUITesting {
-			cellModel = HomeThankYouCellModel(
-				testResultTimestamp: 1604793600 // 08.11.2020, 18574 days since 01.01.1970
-			)
-		}
-		#endif
 
 		cell.configure(
-			with: cellModel,
+			with: HomeTestRegistrationCellModel(),
 			onPrimaryAction: { [weak self] in
-				self?.showReenableConfirmationAlert()
+				self?.onTestRegistrationCellTap()
 			}
 		)
 
@@ -482,7 +527,9 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				self?.tableView.scrollToRow(at: indexPath, at: .top, animated: false)
 			},
 			onUpdate: { [weak self] in
-				self?.reload()
+				DispatchQueue.main.async { [weak self] in
+					self?.tableView.reloadSections([HomeTableViewModel.Section.statistics.rawValue], with: .none)
+				}
 			}
 		)
 
@@ -535,19 +582,22 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		onInfoBarButtonItemTap()
 	}
 
-	private func showDeltaOnboardingAndAlertsIfNeeded() {
-		showDeltaOnboardingIfNeeded(completion: { [weak self] in
-			self?.showInformationHowRiskDetectionWorksIfNeeded(completion: {
-				self?.showBackgroundFetchAlertIfNeeded(completion: {
-					self?.showRiskStatusLoweredAlertIfNeeded()
-				})
-			})
-		})
+	private func showRouteIfNeeded(completion: @escaping () -> Void) {
+		defer {
+			route = nil
+		}
+
+		// handle error -> show alert & trigger the chain
+		guard case let .rapidAntigen(testResult) = route else {
+			completion()
+			return
+		}
+		showTestInformationResult(testResult)
 	}
-	
+
 	private func showDeltaOnboardingIfNeeded(completion: @escaping () -> Void = {}) {
 		guard deltaOnboardingCoordinator == nil else { return }
-		
+
 		appConfigurationProvider.appConfiguration().sink { [weak self] configuration in
 			guard let self = self else { return }
 
@@ -686,39 +736,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		}
 	}
 
-	private func showReenableConfirmationAlert() {
-		let title = AppStrings.Home.reenableAlertTitle
-		let message = AppStrings.Home.reenableAlertMessage
-
-		let alert = UIAlertController(
-			title: title,
-			message: message,
-			preferredStyle: .alert
-		)
-
-		alert.addAction(
-			UIAlertAction(
-				title: AppStrings.Home.reenableAlertConfirmButtonTitle,
-				style: .default,
-				handler: { [weak self] _ in
-					self?.viewModel.reenableRiskDetection()
-					self?.scrollToTop(animated: false)
-					self?.tableView.reloadSections([HomeTableViewModel.Section.riskAndTest.rawValue], with: .automatic)
-				}
-			)
-		)
-
-		alert.addAction(
-			UIAlertAction(
-				title: AppStrings.Home.reenableAlertCancelButtonTitle,
-				style: .cancel,
-				handler: nil
-			)
-		)
-
-		present(alert, animated: true)
-	}
-
 	@objc
 	private func refreshUIAfterResumingFromBackground() {
 		refreshUI()
@@ -728,7 +745,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	@objc
 	private func refreshUI() {
 		DispatchQueue.main.async { [weak self] in
-			self?.viewModel.state.updateTestResult()
+			self?.viewModel.updateTestResult()
 			self?.viewModel.state.updateStatistics()
 		}
 	}
