@@ -28,7 +28,11 @@ class ExposureSubmissionViewControllerTests: XCTestCase {
 		return ExposureSubmissionTestResultViewController(
 			viewModel: ExposureSubmissionTestResultViewModel(
 				coronaTestType: coronaTest.type,
-				coronaTestService: CoronaTestService(client: ClientMock(), store: store),
+				coronaTestService: CoronaTestService(
+					client: ClientMock(),
+					store: store,
+					appConfiguration: CachedAppConfigurationMock()
+				),
 				onSubmissionConsentCellTap: { _ in },
 				onContinueWithSymptomsFlowButtonTap: { },
 				onContinueWarnOthersButtonTap: { _ in },

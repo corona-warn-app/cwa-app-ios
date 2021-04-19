@@ -201,14 +201,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 				completion(.success(testResultResponse?.rawValue ?? testResult?.rawValue ?? TestResult.pending.rawValue))
 			}
 
+			let appConfiguration = CachedAppConfigurationMock()
+
 			return CoronaTestService(
 				client: client,
-				store: store
+				store: store,
+				appConfiguration: appConfiguration
 			)
 		}
 		#endif
 
-		return CoronaTestService(client: client, store: store)
+		return CoronaTestService(
+			client: client,
+			store: store,
+			appConfiguration: appConfigurationProvider
+		)
 	}()
 
 	lazy var eventCheckoutService: EventCheckoutService = EventCheckoutService(

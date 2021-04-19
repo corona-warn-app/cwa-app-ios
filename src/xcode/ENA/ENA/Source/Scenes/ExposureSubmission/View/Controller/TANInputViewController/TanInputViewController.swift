@@ -172,7 +172,7 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 
 		// viewModel will notify about changes on errorText
 		viewModel.$errorText.sink { [weak self] newErrorText in
-			Log.debug("viewModel errorText did uodate to: \(newErrorText)")
+			Log.debug("viewModel errorText did update to: \(newErrorText)")
 
 			DispatchQueue.main.async {
 				self?.errorLabel.text = newErrorText

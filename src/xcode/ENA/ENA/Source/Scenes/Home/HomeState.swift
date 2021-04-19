@@ -14,8 +14,6 @@ class HomeState: ENStateHandlerUpdating {
 		riskProvider: RiskProviding,
 		exposureManagerState: ExposureManagerState,
 		enState: ENStateHandler.State,
-		coronaTestService: CoronaTestService,
-		exposureSubmissionService: ExposureSubmissionService,
 		statisticsProvider: StatisticsProviding
 	) {
 		if let riskCalculationResult = store.enfRiskCalculationResult,
@@ -44,8 +42,6 @@ class HomeState: ENStateHandlerUpdating {
 		self.riskProvider = riskProvider
 		self.exposureManagerState = exposureManagerState
 		self.enState = enState
-		self.coronaTestService = coronaTestService
-		self.exposureSubmissionService = exposureSubmissionService
 		self.statisticsProvider = statisticsProvider
 
 		self.exposureDetectionInterval = riskProvider.riskProvidingConfiguration.exposureDetectionInterval.hour ?? RiskProvidingConfiguration.defaultExposureDetectionsInterval
@@ -61,11 +57,6 @@ class HomeState: ENStateHandlerUpdating {
 
 	// MARK: - Internal
 
-	enum TestResultLoadingError {
-		case expired
-		case error(Error)
-	}
-
 	enum StatisticsLoadingError {
 		case dataVerificationError
 	}
@@ -75,10 +66,6 @@ class HomeState: ENStateHandlerUpdating {
 	@OpenCombine.Published private(set) var detectionMode: DetectionMode = .fromBackgroundStatus()
 	@OpenCombine.Published private(set) var exposureManagerState: ExposureManagerState
 	@OpenCombine.Published var enState: ENStateHandler.State
-
-	@OpenCombine.Published var testResult: TestResult?
-	@OpenCombine.Published var testResultIsLoading: Bool = false
-	@OpenCombine.Published var testResultLoadingError: TestResultLoadingError?
 
 	@OpenCombine.Published var statistics: SAP_Internal_Stats_Statistics = SAP_Internal_Stats_Statistics()
 	@OpenCombine.Published var statisticsLoadingError: StatisticsLoadingError?
@@ -108,14 +95,6 @@ class HomeState: ENStateHandlerUpdating {
 		riskProvider.nextExposureDetectionDate
 	}
 
-	var positiveTestResultWasShown: Bool {
-		coronaTestService.pcrTest?.testResult == .positive && coronaTestService.pcrTest?.positiveTestResultWasShown == true
-	}
-
-	var keysWereSubmitted: Bool {
-		coronaTestService.pcrTest?.keysSubmitted == true
-	}
-
 	var shouldShowDaysSinceInstallation: Bool {
 		daysSinceInstallation < 14
 	}
@@ -134,49 +113,6 @@ class HomeState: ENStateHandlerUpdating {
 
 	func requestRisk(userInitiated: Bool) {
 		riskProvider.requestRisk(userInitiated: userInitiated)
-	}
-
-	func updateTestResult() {
-		// Avoid unnecessary loading.
-		guard testResult == nil || testResult != .positive else { return }
-
-		guard coronaTestService.pcrTest?.registrationToken != nil else {
-			testResult = nil
-			return
-		}
-
-		// Make sure to make the loading cell appear for at least `minRequestTime`.
-		// This avoids an ugly flickering when the cell is only shown for the fraction of a second.
-		// Make sure to only trigger this additional delay when no other test result is present already.
-		let requestStart = Date()
-		let minRequestTime: TimeInterval = 0.5
-
-		testResultIsLoading = true
-
-		coronaTestService.updateTestResult(for: .pcr) { [weak self] result in
-			self?.testResultIsLoading = false
-
-			switch result {
-			case .failure(let error):
-				// When we fail here, publish the error to trigger an alert and set the state to pending.
-				self?.testResultLoadingError = .error(error)
-				self?.testResult = .pending
-
-			case .success(let testResult):
-				switch testResult {
-				case .expired:
-					self?.testResultLoadingError = .expired
-					self?.testResult = .expired
-
-				case .invalid, .negative, .positive, .pending:
-					let requestTime = Date().timeIntervalSince(requestStart)
-					let delay = requestTime < minRequestTime && self?.testResult == nil ? minRequestTime : 0
-					DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-						self?.testResult = testResult
-					}
-				}
-			}
-		}
 	}
 
 	func updateStatistics() {
@@ -206,9 +142,6 @@ class HomeState: ENStateHandlerUpdating {
 
 	private let statisticsProvider: StatisticsProviding
 	private var subscriptions = Set<AnyCancellable>()
-
-	let coronaTestService: CoronaTestService
-	private let exposureSubmissionService: ExposureSubmissionService
 
 	private let riskProvider: RiskProviding
 	private let riskConsumer = RiskConsumer()

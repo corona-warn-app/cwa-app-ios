@@ -9,7 +9,11 @@ class KeySubmissionMetadataTests: XCTestCase {
 	
 	func testKeySubmissionMetadataValues_HighRisk() {
 		let secureStore = MockTestStore()
-		let coronaTestService = CoronaTestService(client: ClientMock(), store: secureStore)
+		let coronaTestService = CoronaTestService(
+			client: ClientMock(),
+			store: secureStore,
+			appConfiguration: CachedAppConfigurationMock()
+		)
 
 		Analytics.setupMock(store: secureStore, coronaTestService: coronaTestService)
 
@@ -46,7 +50,11 @@ class KeySubmissionMetadataTests: XCTestCase {
 
 	func testKeySubmissionMetadataValues_HighRisk_testHours() {
 		let secureStore = MockTestStore()
-		let coronaTestService = CoronaTestService(client: ClientMock(), store: secureStore)
+		let coronaTestService = CoronaTestService(
+			client: ClientMock(),
+			store: secureStore,
+			appConfiguration: CachedAppConfigurationMock()
+		)
 
 		Analytics.setupMock(store: secureStore, coronaTestService: coronaTestService)
 
@@ -154,7 +162,11 @@ class KeySubmissionMetadataTests: XCTestCase {
 		let secureStore = MockTestStore()
 		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
 
-		let coronaTestService = CoronaTestService(client: ClientMock(), store: secureStore)
+		let coronaTestService = CoronaTestService(
+			client: ClientMock(),
+			store: secureStore,
+			appConfiguration: CachedAppConfigurationMock()
+		)
 
 		Analytics.setupMock(store: secureStore, coronaTestService: coronaTestService)
 
