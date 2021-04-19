@@ -39,6 +39,7 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: coronaTestService,
 			store: self.store,
+			eventProvider: MockEventStore(),
 			delegate: delegate
 		)
 	}

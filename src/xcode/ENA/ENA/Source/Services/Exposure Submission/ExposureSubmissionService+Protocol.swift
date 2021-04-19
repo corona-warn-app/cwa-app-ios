@@ -13,6 +13,8 @@ protocol ExposureSubmissionService: class {
 	var exposureManagerState: ExposureManagerState { get }
 
 	var supportedCountries: [Country] { get } // temporary!
+	
+	var checkins: [Checkin] { get set }
 
 	var symptomsOnset: SymptomsOnset { get set }
 
