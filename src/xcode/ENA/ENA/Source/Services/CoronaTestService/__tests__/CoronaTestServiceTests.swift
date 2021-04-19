@@ -339,7 +339,7 @@ class CoronaTestServiceTests: XCTestCase {
 		)
 	}
 
-	func test_When_UpatePresentNotificationTrue_Then_NotificationShouldBePresented() {
+	func test_When_UpdatePresentNotificationTrue_Then_NotificationShouldBePresented() {
 		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		client.onGetTestResult = { _, _, completion in
@@ -364,7 +364,7 @@ class CoronaTestServiceTests: XCTestCase {
 		XCTAssertEqual(mockNotificationCenter.notificationRequests.count, 2)
 	}
 
-	func test_When_UpatePresentNotificationFalse_Then_NotificationShouldNOTBePresented() {
+	func test_When_UpdatePresentNotificationFalse_Then_NotificationShouldNOTBePresented() {
 		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		client.onGetTestResult = { _, _, completion in
@@ -389,7 +389,7 @@ class CoronaTestServiceTests: XCTestCase {
 		XCTAssertEqual(mockNotificationCenter.notificationRequests.count, 0)
 	}
 
-	func test_When_UpateTestResultsFails_Then_ErrorIsReturned() {
+	func test_When_UpdateTestResultsFails_Then_ErrorIsReturned() {
 		let client = ClientMock()
 		client.onGetTestResult = { _, _, completion in
 			completion(.failure(.invalidResponse))
@@ -414,7 +414,7 @@ class CoronaTestServiceTests: XCTestCase {
 		waitForExpectations(timeout: .short)
 	}
 
-	func test_When_UpateTestResultsSuccessWithPending_Then_NoNotificationIsShown() {
+	func test_When_UpdateTestResultsSuccessWithPending_Then_NoNotificationIsShown() {
 		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		client.onGetTestResult = { _, _, completion in
@@ -439,7 +439,7 @@ class CoronaTestServiceTests: XCTestCase {
 		XCTAssertEqual(mockNotificationCenter.notificationRequests.count, 0)
 	}
 
-	func test_When_UpateTestResultsSuccessWithExpired_Then_NoNotificationIsShown() {
+	func test_When_UpdateTestResultsSuccessWithExpired_Then_NoNotificationIsShown() {
 		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		client.onGetTestResult = { _, _, completion in

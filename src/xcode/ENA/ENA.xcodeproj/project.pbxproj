@@ -187,7 +187,6 @@
 		01BA06C1261F384A00237DD8 /* WarnOthersReminderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948AFE5E2552F6F60019579A /* WarnOthersReminderTests.swift */; };
 		01BA06D3261F41E100237DD8 /* ExposureSubmissionServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF27BD2246ADBA70044D32B /* ExposureSubmissionServiceTests.swift */; };
 		01BA06F2261F536100237DD8 /* FakeRequestServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BA06E3261F52F500237DD8 /* FakeRequestServiceTests.swift */; };
-		01BA06F6261F5A0500237DD8 /* CoronaTestServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BA06C5261F417700237DD8 /* CoronaTestServiceTests.swift */; };
 		01BA06FB261F5B1000237DD8 /* AntigenTest+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BA06FA261F5B1000237DD8 /* AntigenTest+Mock.swift */; };
 		01BA07122620918200237DD8 /* CheckInTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BA07112620918200237DD8 /* CheckInTests.swift */; };
 		01BA071E2620921400237DD8 /* CheckinTestCasesWithConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BA071C2620921300237DD8 /* CheckinTestCasesWithConfiguration.swift */; };
@@ -566,7 +565,6 @@
 		8FA88F9F2613A7E300FD36DA /* EncodingType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA88F9E2613A7E300FD36DA /* EncodingType.swift */; };
 		8FA88FAA2613B38D00FD36DA /* QRCodeVerificationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA88FA92613B38D00FD36DA /* QRCodeVerificationHelper.swift */; };
 		8FA88FE02616692000FD36DA /* TraceLocationDetailViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA88FDF2616692000FD36DA /* TraceLocationDetailViewModelTests.swift */; };
-		8FB5A60B25DD647200679990 /* ExposureSubmissionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32842642491136E006B1F09 /* ExposureSubmissionUITests.swift */; };
 		8FB5A61625DD65D500679990 /* TestResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA9E39224D2F2920030561C /* TestResult.swift */; };
 		8FDB9403261FBA3800BA8CB1 /* AntigenTestInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDB9402261FBA3800BA8CB1 /* AntigenTestInformation.swift */; };
 		8FDB940B261FBAAA00BA8CB1 /* CoronaTestQRCodeInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDB940A261FBAAA00BA8CB1 /* CoronaTestQRCodeInformation.swift */; };
@@ -7176,7 +7174,6 @@
 				BA288AF42582616E0071009A /* DiaryInfoViewModelTest.swift in Sources */,
 				BAA4D71825E94BBB00821B5C /* Sequence+NSAttributedTextTests.swift in Sources */,
 				A173665324844F41006BE209 /* SQLiteKeyValueStoreTests.swift in Sources */,
-				01BA06F6261F5A0500237DD8 /* CoronaTestServiceTests.swift in Sources */,
 				01CBD890261B402500158B3E /* PCRTest+Mock.swift in Sources */,
 				A1877CAB248F2532006FEFC0 /* SAPDownloadedPackageTests.swift in Sources */,
 				AB8BC34F2551BBE100F3B5A7 /* HourKeyPackagesDownloadTests.swift in Sources */,
@@ -7359,7 +7356,6 @@
 				13E50469248E3CD20086641C /* ENAUITestsAppInformation.swift in Sources */,
 				01A1B45C252E077600841B63 /* TimeInterval+Convenience.swift in Sources */,
 				130CB19C246D92F800ADE602 /* ENAUITestsOnboarding.swift in Sources */,
-				8FB5A60B25DD647200679990 /* ExposureSubmissionUITests.swift in Sources */,
 				13E5046B248E3DF30086641C /* AppStrings.swift in Sources */,
 				A3EE6E5C249BB97500C64B61 /* UITestingParameters.swift in Sources */,
 				134F0F2C2475793400D88934 /* SnapshotHelper.swift in Sources */,
