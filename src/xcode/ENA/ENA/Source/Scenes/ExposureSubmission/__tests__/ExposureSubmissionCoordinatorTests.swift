@@ -21,7 +21,11 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 		store = MockTestStore()
 		parentNavigationController = UINavigationController()
 		exposureSubmissionService = MockExposureSubmissionService()
-		coronaTestService = CoronaTestService(client: ClientMock(), store: store)
+		coronaTestService = CoronaTestService(
+			client: ClientMock(),
+			store: store,
+			appConfiguration: CachedAppConfigurationMock()
+		)
 	}
 
 	// MARK: - Helper methods.

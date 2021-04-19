@@ -19,7 +19,11 @@ class TestResultAvailableViewModelTest: XCTestCase {
 		
 		let viewModel = TestResultAvailableViewModel(
 			coronaTestType: .pcr,
-			coronaTestService: CoronaTestService(client: ClientMock(), store: store),
+			coronaTestService: CoronaTestService(
+				client: ClientMock(),
+				store: store,
+				appConfiguration: CachedAppConfigurationMock()
+			),
 			onSubmissionConsentCellTap: { _ in
 				expectationNotFulFill.fulfill()
 			},
@@ -47,7 +51,11 @@ class TestResultAvailableViewModelTest: XCTestCase {
 
 		let viewModel = TestResultAvailableViewModel(
 			coronaTestType: .pcr,
-			coronaTestService: CoronaTestService(client: ClientMock(), store: store),
+			coronaTestService: CoronaTestService(
+				client: ClientMock(),
+				store: store,
+				appConfiguration: CachedAppConfigurationMock()
+			),
 			onSubmissionConsentCellTap: { _ in
 				expectationNotFulFill.fulfill()
 			},
@@ -84,7 +92,11 @@ class TestResultAvailableViewModelTest: XCTestCase {
 
 		let viewModel = TestResultAvailableViewModel(
 			coronaTestType: .pcr,
-			coronaTestService: CoronaTestService(client: ClientMock(), store: store),
+			coronaTestService: CoronaTestService(
+				client: ClientMock(),
+				store: store,
+				appConfiguration: CachedAppConfigurationMock()
+			),
 			onSubmissionConsentCellTap: { _ in
 				expectationFulFill.fulfill()
 			},

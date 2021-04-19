@@ -18,7 +18,11 @@ class HomeShownPositiveTestResultCellModelTest: XCTestCase {
     func testModel() throws {
 		let sut = HomeShownPositiveTestResultCellModel(
 			coronaTestType: .pcr,
-			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore()),
+			coronaTestService: CoronaTestService(
+				client: ClientMock(),
+				store: MockTestStore(),
+				appConfiguration: CachedAppConfigurationMock()
+			),
 			onUpdate: {}
 		)
 		let expectedInsets = UIEdgeInsets(top: 10.0, left: 0.0, bottom: 10.0, right: 0)

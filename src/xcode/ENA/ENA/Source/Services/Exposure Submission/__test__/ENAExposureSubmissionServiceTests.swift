@@ -12,7 +12,11 @@ class ENAExposureSubmissionServiceTests: XCTestCase {
 		let mockStore = MockTestStore()
 		let eventStore = MockEventStore()
 
-		let coronaTestService = CoronaTestService(client: ClientMock(), store: mockStore)
+		let coronaTestService = CoronaTestService(
+			client: ClientMock(),
+			store: mockStore,
+			appConfiguration: CachedAppConfigurationMock()
+		)
 		coronaTestService.pcrTest = PCRTest.mock(registrationToken: "regToken", isSubmissionConsentGiven: true)
 		
 		mockStore.isSubmissionConsentGiven = true

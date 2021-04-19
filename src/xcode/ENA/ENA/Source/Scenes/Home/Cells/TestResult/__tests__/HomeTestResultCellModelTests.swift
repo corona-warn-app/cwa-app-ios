@@ -86,7 +86,11 @@ class HomeTestResultCellModelTests: XCTestCase {
 		expectationAccessabilityIdentifiers.expectedFulfillmentCount = accessabilityIdentifiersArray.count
 		expectationOnUpdate.expectedFulfillmentCount = accessabilityIdentifiersArray.count
 		
-		let coronaTestService = CoronaTestService(client: ClientMock(), store: MockTestStore())
+		let coronaTestService = CoronaTestService(
+			client: ClientMock(),
+			store: MockTestStore(),
+			appConfiguration: CachedAppConfigurationMock()
+		)
 		coronaTestService.pcrTest = PCRTest.mock()
 
 		let sut = HomeTestResultCellModel(

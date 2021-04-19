@@ -22,7 +22,11 @@ class HomeTableViewModelTests: XCTestCase {
 				)
 			),
 			store: store,
-			coronaTestService: CoronaTestService(client: ClientMock(), store: store),
+			coronaTestService: CoronaTestService(
+				client: ClientMock(),
+				store: store,
+				appConfiguration: CachedAppConfigurationMock()
+			),
 			onTestResultCellTap: { _ in }
 		)
 
@@ -74,7 +78,11 @@ class HomeTableViewModelTests: XCTestCase {
 				)
 			),
 			store: store,
-			coronaTestService: CoronaTestService(client: ClientMock(), store: store),
+			coronaTestService: CoronaTestService(
+				client: ClientMock(),
+				store: store,
+				appConfiguration: CachedAppConfigurationMock()
+			),
 			onTestResultCellTap: { _ in }
 		)
 		
@@ -98,7 +106,11 @@ class HomeTableViewModelTests: XCTestCase {
 				)
 			),
 			store: store,
-			coronaTestService: CoronaTestService(client: ClientMock(), store: store),
+			coronaTestService: CoronaTestService(
+				client: ClientMock(),
+				store: store,
+				appConfiguration: CachedAppConfigurationMock()
+			),
 			onTestResultCellTap: { _ in }
 		)
 		
@@ -121,7 +133,11 @@ class HomeTableViewModelTests: XCTestCase {
 				)
 			),
 			store: store,
-			coronaTestService: CoronaTestService(client: ClientMock(), store: store),
+			coronaTestService: CoronaTestService(
+				client: ClientMock(),
+				store: store,
+				appConfiguration: CachedAppConfigurationMock()
+			),
 			onTestResultCellTap: { _ in }
 		)
 		viewModel.state.statistics.keyFigureCards = []
@@ -151,7 +167,11 @@ class HomeTableViewModelTests: XCTestCase {
 				)
 			),
 			store: store,
-			coronaTestService: CoronaTestService(client: ClientMock(), store: store),
+			coronaTestService: CoronaTestService(
+				client: ClientMock(),
+				store: store,
+				appConfiguration: CachedAppConfigurationMock()
+			),
 			onTestResultCellTap: { _ in }
 		)
 		viewModel.state.updateStatistics()

@@ -17,7 +17,11 @@ class CoronaTestServiceTests: XCTestCase {
 			completion(.success(TestResult.positive.rawValue))
 		}
 
-		let service = CoronaTestService(client: client, store: MockTestStore())
+		let service = CoronaTestService(
+			client: client,
+			store: MockTestStore(),
+			appConfiguration: CachedAppConfigurationMock()
+		)
 		service.pcrTest = PCRTest.mock(registrationToken: "regToken")
 
 		let expectation = self.expectation(description: "Expect to receive a result.")
@@ -53,7 +57,11 @@ class CoronaTestServiceTests: XCTestCase {
 			completion(.success(TestResult.positive.rawValue))
 		}
 
-		let service = CoronaTestService(client: client, store: MockTestStore())
+		let service = CoronaTestService(
+			client: client,
+			store: MockTestStore(),
+			appConfiguration: CachedAppConfigurationMock()
+		)
 		service.antigenTest = AntigenTest.mock(registrationToken: "regToken")
 
 		let expectation = self.expectation(description: "Expect to receive a result.")
@@ -84,7 +92,11 @@ class CoronaTestServiceTests: XCTestCase {
 	}
 
 	func testUpdatePCRTestResult_noCoronaTestOfRequestedType() {
-		let service = CoronaTestService(client: ClientMock(), store: MockTestStore())
+		let service = CoronaTestService(
+			client: ClientMock(),
+			store: MockTestStore(),
+			appConfiguration: CachedAppConfigurationMock()
+		)
 		service.pcrTest = nil
 
 		let expectation = self.expectation(description: "Expect to receive a result.")
@@ -103,7 +115,11 @@ class CoronaTestServiceTests: XCTestCase {
 	}
 
 	func testUpdateAntigenTestResult_noCoronaTestOfRequestedType() {
-		let service = CoronaTestService(client: ClientMock(), store: MockTestStore())
+		let service = CoronaTestService(
+			client: ClientMock(),
+			store: MockTestStore(),
+			appConfiguration: CachedAppConfigurationMock()
+		)
 		service.antigenTest = nil
 
 		let expectation = self.expectation(description: "Expect to receive a result.")
@@ -122,7 +138,11 @@ class CoronaTestServiceTests: XCTestCase {
 	}
 
 	func testUpdatePCRTestResult_noRegistrationToken() {
-		let service = CoronaTestService(client: ClientMock(), store: MockTestStore())
+		let service = CoronaTestService(
+			client: ClientMock(),
+			store: MockTestStore(),
+			appConfiguration: CachedAppConfigurationMock()
+		)
 		service.pcrTest = PCRTest.mock(registrationToken: nil)
 
 		let expectation = self.expectation(description: "Expect to receive a result.")
@@ -149,7 +169,11 @@ class CoronaTestServiceTests: XCTestCase {
 	}
 
 	func testUpdateAntigenTestResult_noRegistrationToken() {
-		let service = CoronaTestService(client: ClientMock(), store: MockTestStore())
+		let service = CoronaTestService(
+			client: ClientMock(),
+			store: MockTestStore(),
+			appConfiguration: CachedAppConfigurationMock()
+		)
 		service.antigenTest = AntigenTest.mock(registrationToken: nil)
 
 		let expectation = self.expectation(description: "Expect to receive a result.")
@@ -193,7 +217,11 @@ class CoronaTestServiceTests: XCTestCase {
 			completion(.success(TestResult.pending.rawValue))
 		}
 
-		let service = CoronaTestService(client: client, store: store)
+		let service = CoronaTestService(
+			client: client,
+			store: store,
+			appConfiguration: CachedAppConfigurationMock()
+		)
 		service.pcrTest = nil
 
 		let expectation = self.expectation(description: "Expect to receive a result.")
@@ -256,7 +284,11 @@ class CoronaTestServiceTests: XCTestCase {
 			completion(.success(TestResult.negative.rawValue))
 		}
 
-		let service = CoronaTestService(client: client, store: store)
+		let service = CoronaTestService(
+			client: client,
+			store: store,
+			appConfiguration: CachedAppConfigurationMock()
+		)
 		service.pcrTest = nil
 
 		let expectation = self.expectation(description: "Expect to receive a result.")
@@ -317,6 +349,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: mockNotificationCenter
 		)
 		testService.antigenTest = AntigenTest.mock(registrationToken: "regToken")
@@ -341,6 +374,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: mockNotificationCenter
 		)
 		testService.antigenTest = AntigenTest.mock(registrationToken: "regToken")
@@ -364,6 +398,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: MockUserNotificationCenter()
 		)
 		testService.antigenTest = AntigenTest.mock(registrationToken: "regToken")
@@ -389,6 +424,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: mockNotificationCenter
 		)
 		testService.antigenTest = AntigenTest.mock(registrationToken: "regToken")
@@ -413,6 +449,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: mockNotificationCenter
 		)
 		testService.antigenTest = AntigenTest.mock(registrationToken: "regToken")
@@ -434,6 +471,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: mockNotificationCenter
 		)
 		testService.antigenTest = AntigenTest.mock(
@@ -465,6 +503,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: mockNotificationCenter
 		)
 		testService.antigenTest = AntigenTest.mock(
@@ -495,6 +534,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: mockNotificationCenter
 		)
 		testService.antigenTest = AntigenTest.mock(
@@ -583,7 +623,11 @@ class CoronaTestServiceTests: XCTestCase {
 			completion(.success(()))
 		}
 
-		let service = CoronaTestService(client: client, store: MockTestStore())
+		let service = CoronaTestService(
+			client: client,
+			store: MockTestStore(),
+			appConfiguration: CachedAppConfigurationMock()
+		)
 		service.pcrTest = PCRTest.mock(registrationToken: "regToken")
 		service.antigenTest = AntigenTest.mock(registrationToken: "regToken")
 
