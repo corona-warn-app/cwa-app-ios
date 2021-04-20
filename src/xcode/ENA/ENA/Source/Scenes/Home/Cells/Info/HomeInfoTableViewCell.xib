@@ -100,10 +100,10 @@
     </objects>
     <designables>
         <designable name="agg-fi-lUn">
-            <size key="intrinsicContentSize" width="1636.5" height="20.5"/>
+            <size key="intrinsicContentSize" width="1475" height="18"/>
         </designable>
         <designable name="xM1-cv-GWJ">
-            <size key="intrinsicContentSize" width="67" height="20.5"/>
+            <size key="intrinsicContentSize" width="70.5" height="20.5"/>
         </designable>
     </designables>
     <resources>

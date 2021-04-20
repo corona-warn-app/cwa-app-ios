@@ -22,6 +22,7 @@ class DMRecentCreatedEventViewController: UITableViewController {
         )
 		self.qrCodePosterTemplateProvider = qrCodePosterTemplateProvider
 		self.isPosterGeneration = isPosterGeneration
+		self.store = store
 
         if #available(iOS 13.0, *) {
             super.init(style: .insetGrouped)
@@ -69,7 +70,7 @@ class DMRecentCreatedEventViewController: UITableViewController {
 	}
 	
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		let posterGenerationViewController = DMPosterGenerationViewController(traceLocation: viewModel.traceLocations[indexPath.row], qrCodePosterTemplateProvider: qrCodePosterTemplateProvider)
+		let posterGenerationViewController = DMPosterGenerationViewController(traceLocation: viewModel.traceLocations[indexPath.row], qrCodePosterTemplateProvider: qrCodePosterTemplateProvider, store: store)
 		
 		DispatchQueue.main.async { [weak self] in
 			self?.navigationController?.pushViewController(posterGenerationViewController, animated: true)
@@ -81,6 +82,7 @@ class DMRecentCreatedEventViewController: UITableViewController {
     private let viewModel: DMRecentCreatedEventViewModel
 	private let isPosterGeneration: Bool
 	private let qrCodePosterTemplateProvider: QRCodePosterTemplateProviding
+	private let store: Store
 
     private func setupTableView() {
         tableView.estimatedRowHeight = 45.0

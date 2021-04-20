@@ -79,8 +79,8 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 	}
 	
 	func testSuccessfulAntigenScan_Base64URL() throws {
-		let payload = "eyJ0aW1lc3RhbXAiOjE2MTgzMDYwNTYsImd1aWQiOiI1OEM0MERBMC00Q0M1LTQ4ODAtOTIyMS0xNjBCNjA1OTIxQzAiLCJmbiI6IkpvZWwiLCJsbiI6IkdyYXppYW5pIiwiZG9iIjoiMTk4OC0wNy0wOSJ9"
-		let validAntigenGuid = try XCTUnwrap(self.validAntigenGuid(validPayLoad: payload))
+		let payload = "eyJ0aW1lc3RhbXAiOjE2MTg4MjA0MDAsInNhbHQiOiIxNUE3MUZBQkYzRDMzODUzMTk3Mzk4MTJERTA0RDMwNUUwNDA4MkZEREQ0OEEzRTk4N0IwOUNBMUVBRUUwODJFIiwidGVzdElkIjoiZTA2ZGNlMDgtZTExYy00Yjg2LWI2NTUtNTljMzVjYTE4ODVkIiwiaGFzaCI6ImYxMjAwZDk2NTBmMWZkNjczZDU4ZjUyODExZjk4ZjE0MjdmYWI0MGI0OTk2ZTljMmQwZGE4Yjc0MTQ0NjQwODYiLCJmbiI6IkFsdGEiLCJsbiI6IkdyaWZmaW4iLCJkb2IiOiIxOTY0LTEwLTI0In0"
+		let validAntigenHash = try XCTUnwrap(self.validAntigenHash(validPayload: payload))
 
 		let onSuccessExpectation = expectation(description: "onSuccess called")
 		onSuccessExpectation.expectedFulfillmentCount = 1
@@ -93,7 +93,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 			onSuccess: { testInformation in
 				switch testInformation {
 				case .antigen(let testInformation):
-					XCTAssertEqual(testInformation.guid, validAntigenGuid)
+					XCTAssertEqual(testInformation.hash, validAntigenHash)
 				case .pcr:
 					XCTFail("Expected antigen test")
 				}
@@ -115,8 +115,8 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 		waitForExpectations(timeout: .short)
 	}
 	func testSuccessfulAntigenScan_base64() throws {
-		let payload = "eyJ0aW1lc3RhbXAiOjE2MTgzMDY1MzAsImd1aWQiOiJDQzcyMEI2Ni1CNTBFLTQ1NzAtQUNCNC02RUExNEFEMDdGRDIiLCJmbiI6Ikhlcm1hbiIsImxuIjoiTWFydGluZXoiLCJkb2IiOiIxOTY0LTA5LTI3In0="
-		let validAntigenGuid = try XCTUnwrap(self.validAntigenGuid(validPayLoad: payload))
+		let payload = "eyJ0aW1lc3RhbXAiOjE2MTg4MjQwNjIsInNhbHQiOiI1NjkxMDIzMTAyNkEzQ0Y3RDg5MTk3RkI4MjFDRDg3RDNFNDc1NEJCMDIwMzI1REU1MjA3RDcxNDM5OEI0MTlBIiwidGVzdElkIjoiM2U0YWQ1OGQtOWY5MS00NTgyLThhMmUtYWI5ZjkzMTg3YTBlIiwiaGFzaCI6IjI3N2ZiZDBhYzFlMTBjNWVmZDMxOTU1M2NlYmVmZjljODM3NGY4MGM1MTg3NmRhMDNjZjQxYWRkMmIzZmE3YWYiLCJmbiI6IkR1c3RpbiIsImxuIjoiRmVycmkiLCJkb2IiOiIxOTkxLTA3LTIxIn0="
+		let validAntigenHash = try XCTUnwrap(self.validAntigenHash(validPayload: payload))
 
 		let onSuccessExpectation = expectation(description: "onSuccess called")
 		onSuccessExpectation.expectedFulfillmentCount = 1
@@ -129,7 +129,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 			onSuccess: { testInformation in
 				switch testInformation {
 				case .antigen(let testInformation):
-					XCTAssertEqual(testInformation.guid, validAntigenGuid)
+					XCTAssertEqual(testInformation.hash, validAntigenHash)
 				case .pcr:
 					XCTFail("Expected antigen test")
 				}
@@ -279,7 +279,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 		XCTAssertNil(result)
 	}
 
-	func testQRCodeExtration_someUTF8Text() {
+	func testQRCodeExtraction_someUTF8Text() {
 		let viewModel = createViewModel()
 
 		let result = viewModel.coronaTestQRCodeInformation(from: "This is a Test ん鞠")
@@ -323,24 +323,6 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 		let viewModel = createViewModel()
 
 		let result = viewModel.coronaTestQRCodeInformation(from: "https://localhost/?\(validPcrGuid.dropLast(4))")
-
-		XCTAssertNil(result)
-	}
-
-	func testAntigenQRCodeExtraction_GUIDLengthExceeded() throws {
-		let viewModel = createViewModel()
-
-		let validAntigenGuid = try XCTUnwrap(self.validAntigenGuid(validPayLoad: validAntigenPayLoad))
-		let result = viewModel.coronaTestQRCodeInformation(from: "https://s.coronawarn.app/?v=1#\(validAntigenGuid)-BEEF")
-
-		XCTAssertNil(result)
-	}
-
-	func testAntigenPcrQRCodeExtraction_GUIDTooShort() throws {
-		let viewModel = createViewModel()
-		
-		let validAntigenGuid = try XCTUnwrap(self.validAntigenGuid(validPayLoad: validAntigenPayLoad))
-		let result = viewModel.coronaTestQRCodeInformation(from: "https://s.coronawarn.app/?v=1#\(validAntigenGuid.dropLast(4))")
 
 		XCTAssertNil(result)
 	}
@@ -456,34 +438,77 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 		// THEN
 		XCTAssertNil(result)
 	}
-	
-	private let validPcrGuid = "3D6D08-3567F3F2-4DCF-43A3-8737-4CD1F87D6FDA"
-	private let validAntigenPayLoad = "eyJ0aW1lc3RhbXAiOjE2MTgzMDY1MzAsImd1aWQiOiJDQzcyMEI2Ni1CNTBFLTQ1NzAtQUNCNC02RUExNEFEMDdGRDIiLCJmbiI6Ikhlcm1hbiIsImxuIjoiTWFydGluZXoiLCJkb2IiOiIxOTY0LTA5LTI3In0="
-	private func  validAntigenGuid(validPayLoad: String) -> String? {
+	func testAntigen_hashIsTooShort() {
+		let invalidHash = "f1200d9650f1fd673d58f52811f98f1427fab40b4996e9c2d0da8b741446408"
+		let antigenTestInformation = AntigenTestInformation.mock(hash: invalidHash)
 		
+		do {
+			let payloadData = try XCTUnwrap(JSONEncoder().encode(antigenTestInformation))
+			let payloadString = payloadData.base64EncodedString()
+			let url = "https://s.coronawarn.app/?v=1#\(payloadString)"
+			let route = Route(url)
+			XCTAssertEqual(route, Route.rapidAntigen( .failure(.invalidTestCode)), "incorrect hash should trigger an error")
+		} catch {
+			XCTFail("Caught an error while trying to encode the Antigen test")
+		}
+	}
+	func testAntigen_hashIsNotHex() {
+		let invalidHash = "f1200d9650f1fd673d58f52811f98f1427fab40b4996e9c2d0da8b741446408G"
+		let antigenTestInformation = AntigenTestInformation.mock(hash: invalidHash)
+		
+		do {
+			let payloadData = try XCTUnwrap(JSONEncoder().encode(antigenTestInformation))
+			let payloadString = payloadData.base64EncodedString()
+			let url = "https://s.coronawarn.app/?v=1#\(payloadString)"
+			let route = Route(url)
+			XCTAssertEqual(route, Route.rapidAntigen( .failure(.invalidTestCode)), "incorrect hash should trigger an error")
+		} catch {
+			XCTFail("Caught an error while trying to encode the Antigen test")
+		}
+	}
+	func testHashOFTheHash() {
+		// both the hash and the expectedHashOfTheHash are extracted from a known valid Antigen test from the Tech specs
+		let hash = "f1200d9650f1fd673d58f52811f98f1427fab40b4996e9c2d0da8b7414464086"
+		let expectedHashOfTheHash = "0984a938a78a33331d65c9341f5d272286e0b621adfa283237e788237a081ccb"
+		
+		let antigenTestInformation = AntigenTestInformation.mock(hash: hash)
+		XCTAssertEqual(antigenTestInformation?.hashOfTheHash, expectedHashOfTheHash, "Hash Does not match expected hash")
+	}
+
+	private let validPcrGuid = "3D6D08-3567F3F2-4DCF-43A3-8737-4CD1F87D6FDA"
+	private func validAntigenHash(validPayload: String) -> String? {
 		let jsonData: Data
-		if validPayLoad.isBase64Encoded {
-			guard let parsedData = Data(base64Encoded: validPayLoad) else {
+		if validPayload.isBase64Encoded {
+			guard let parsedData = Data(base64Encoded: validPayload) else {
 				return nil
 			}
 			jsonData = parsedData
 		} else {
-			guard let parsedData = Data(base64URLEncoded: validPayLoad) else {
+			guard let parsedData = Data(base64URLEncoded: validPayload) else {
 				return nil
 			}
 			jsonData = parsedData
 		}
 		do {
-			let testInformation = try JSONDecoder().decode(AntigenTestInformation.self, from: jsonData)
-			return testInformation.guid
+			let jsonDecoder = JSONDecoder()
+			jsonDecoder.dateDecodingStrategy = .custom({ decoder -> Date in
+				let container = try decoder.singleValueContainer()
+				let stringDate = try container.decode(String.self)
+				guard let date = AntigenTestInformation.isoFormatter.date(from: stringDate) else {
+					throw DecodingError.dataCorruptedError(in: container, debugDescription: "failed to decode date \(stringDate)")
+				}
+				return date
+			})
+
+			let testInformation = try jsonDecoder.decode(AntigenTestInformation.self, from: jsonData)
+			return testInformation.hash
 		} catch {
 			Log.debug("Failed to read / parse district json", log: .ppac)
 			return nil
 		}
 	}
-
+	
 	private func createViewModel() -> ExposureSubmissionQRScannerViewModel {
 		ExposureSubmissionQRScannerViewModel(onSuccess: { _ in }, onError: { _, _ in })
 	}
-
 }

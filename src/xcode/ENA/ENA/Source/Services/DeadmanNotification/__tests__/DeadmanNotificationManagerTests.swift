@@ -12,7 +12,11 @@ class DeadmanNotificationManagerTests: XCTestCase {
 		let notificationCenter = MockUserNotificationCenter()
 
 		let manager = DeadmanNotificationManager(
-			coronaTestService: CoronaTestService(client: ClientMock(), store: store),
+			coronaTestService: CoronaTestService(
+				client: ClientMock(),
+				store: store,
+				appConfiguration: CachedAppConfigurationMock()
+			),
 			userNotificationCenter: notificationCenter
 		)
 
@@ -47,7 +51,11 @@ class DeadmanNotificationManagerTests: XCTestCase {
 		notificationCenter.notificationRequests = [deadmanNotificationRequest]
 
 		let manager = DeadmanNotificationManager(
-			coronaTestService: CoronaTestService(client: ClientMock(), store: store),
+			coronaTestService: CoronaTestService(
+				client: ClientMock(),
+				store: store,
+				appConfiguration: CachedAppConfigurationMock()
+			),
 			userNotificationCenter: notificationCenter
 		)
 
@@ -65,7 +73,11 @@ class DeadmanNotificationManagerTests: XCTestCase {
 		notificationCenter.notificationRequests = [deadmanNotificationRequest]
 
 		let manager = DeadmanNotificationManager(
-			coronaTestService: CoronaTestService(client: ClientMock(), store: store),
+			coronaTestService: CoronaTestService(
+				client: ClientMock(),
+				store: store,
+				appConfiguration: CachedAppConfigurationMock()
+			),
 			userNotificationCenter: notificationCenter
 		)
 
@@ -83,7 +95,11 @@ class DeadmanNotificationManagerTests: XCTestCase {
 		let notificationCenter = MockUserNotificationCenter()
 
 		let manager = DeadmanNotificationManager(
-			coronaTestService: CoronaTestService(client: ClientMock(), store: store),
+			coronaTestService: CoronaTestService(
+				client: ClientMock(),
+				store: store,
+				appConfiguration: CachedAppConfigurationMock()
+			),
 			userNotificationCenter: notificationCenter
 		)
 
@@ -102,7 +118,11 @@ class DeadmanNotificationManagerTests: XCTestCase {
 		notificationCenter.notificationRequests = [deadmanNotificationRequest]
 
 		let manager = DeadmanNotificationManager(
-			coronaTestService: CoronaTestService(client: ClientMock(), store: store),
+			coronaTestService: CoronaTestService(
+				client: ClientMock(),
+				store: store,
+				appConfiguration: CachedAppConfigurationMock()
+			),
 			userNotificationCenter: notificationCenter
 		)
 
@@ -120,7 +140,11 @@ class DeadmanNotificationManagerTests: XCTestCase {
 		let notificationCenter = MockUserNotificationCenter()
 
 		let manager = DeadmanNotificationManager(
-			coronaTestService: CoronaTestService(client: ClientMock(), store: store),
+			coronaTestService: CoronaTestService(
+				client: ClientMock(),
+				store: store,
+				appConfiguration: CachedAppConfigurationMock()
+			),
 			userNotificationCenter: notificationCenter
 		)
 
@@ -139,7 +163,11 @@ class DeadmanNotificationManagerTests: XCTestCase {
 		notificationCenter.notificationRequests = [deadmanNotificationRequest]
 
 		let manager = DeadmanNotificationManager(
-			coronaTestService: CoronaTestService(client: ClientMock(), store: store),
+			coronaTestService: CoronaTestService(
+				client: ClientMock(),
+				store: store,
+				appConfiguration: CachedAppConfigurationMock()
+			),
 			userNotificationCenter: notificationCenter
 		)
 

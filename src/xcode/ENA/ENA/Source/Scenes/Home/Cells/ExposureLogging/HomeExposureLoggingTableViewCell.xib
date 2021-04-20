@@ -18,20 +18,20 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="omf-Yc-Mgx" userLabel="Container View" customClass="HomeCardView" customModule="ENA" customModuleProvider="target">
-                        <rect key="frame" x="16" y="32" width="382" height="75"/>
+                        <rect key="frame" x="16" y="28" width="382" height="83"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="dHq-FZ-5U7">
-                                <rect key="frame" x="16" y="16" width="332.5" height="43"/>
+                                <rect key="frame" x="16" y="16" width="332.5" height="51"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E8I-Ui-O6H">
-                                        <rect key="frame" x="0.0" y="4.5" width="34" height="34"/>
+                                        <rect key="frame" x="0.0" y="8.5" width="34" height="34"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="34" id="2aY-fh-yDd"/>
                                             <constraint firstAttribute="width" constant="34" id="m5l-Ad-PW0"/>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="749" text="Headline" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="os7-5B-ds1" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                        <rect key="frame" x="42" y="11.5" width="290.5" height="20.5"/>
+                                        <rect key="frame" x="42" y="15.5" width="290.5" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" name="ENA Text Primary 1 Color"/>
                                         <nil key="highlightedColor"/>
@@ -42,7 +42,7 @@
                                 </subviews>
                             </stackView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" insetsLayoutMarginsFromSafeArea="NO" image="Icons_Chevron_plain" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Cb-Bg-07B">
-                                <rect key="frame" x="348.5" y="31.5" width="7" height="12"/>
+                                <rect key="frame" x="348.5" y="35.5" width="7" height="12"/>
                                 <color key="tintColor" name="ENA Chevron Color"/>
                             </imageView>
                         </subviews>
@@ -61,9 +61,9 @@
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstItem="omf-Yc-Mgx" firstAttribute="leading" secondItem="B6J-ex-L0m" secondAttribute="leading" constant="16" id="4ex-dB-sTy"/>
-                    <constraint firstItem="omf-Yc-Mgx" firstAttribute="top" secondItem="B6J-ex-L0m" secondAttribute="top" constant="32" id="KEY-DB-nsn"/>
+                    <constraint firstItem="omf-Yc-Mgx" firstAttribute="top" secondItem="B6J-ex-L0m" secondAttribute="top" constant="28" id="KEY-DB-nsn"/>
                     <constraint firstAttribute="trailing" secondItem="omf-Yc-Mgx" secondAttribute="trailing" constant="16" id="MEY-yH-BQd"/>
-                    <constraint firstAttribute="bottom" secondItem="omf-Yc-Mgx" secondAttribute="bottom" constant="16" id="qbn-eb-L1V"/>
+                    <constraint firstAttribute="bottom" secondItem="omf-Yc-Mgx" secondAttribute="bottom" constant="12" id="qbn-eb-L1V"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -77,7 +77,7 @@
     </objects>
     <designables>
         <designable name="os7-5B-ds1">
-            <size key="intrinsicContentSize" width="67" height="20.5"/>
+            <size key="intrinsicContentSize" width="70.5" height="20.5"/>
         </designable>
     </designables>
     <resources>

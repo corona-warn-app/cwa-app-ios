@@ -8,6 +8,8 @@
 		<string>applinks:e.coronawarn.app?mode=developer</string>
 		<string>applinks:coronawarn.app</string>
 		<string>applinks:coronawarn.app?mode=developer</string>
+		<string>applinks:s.coronawarn.app</string>
+		<string>applinks:s.coronawarn.app?mode=developer</string>
 	</array>
 </dict>
 </plist>

@@ -28,10 +28,12 @@ class CoronaTestService {
 	init(
 		client: Client,
 		store: CoronaTestStoring & CoronaTestStoringLegacy & WarnOthersTimeIntervalStoring,
+		appConfiguration: AppConfigurationProviding,
 		notificationCenter: UserNotificationCenter = UNUserNotificationCenter.current()
 	) {
 		self.client = client
 		self.store = store
+		self.appConfiguration = appConfiguration
 		self.notificationCenter = notificationCenter
 
 		self.fakeRequestService = FakeRequestService(client: client)
@@ -56,6 +58,13 @@ class CoronaTestService {
 				if antigenTest?.keysSubmitted == true {
 					self?.warnOthersReminder.cancelNotifications(for: .antigen)
 				}
+
+				if let antigenTest = antigenTest {
+					self?.setupOutdatedPublisher(for: antigenTest)
+				} else {
+					self?.antigenTestIsOutdated = false
+					self?.antigenTestOutdatedDate = nil
+				}
 			}
 			.store(in: &subscriptions)
 	}
@@ -64,6 +73,11 @@ class CoronaTestService {
 
 	@OpenCombine.Published var pcrTest: PCRTest?
 	@OpenCombine.Published var antigenTest: AntigenTest?
+
+	@OpenCombine.Published var antigenTestIsOutdated: Bool = false
+
+	@OpenCombine.Published var pcrTestResultIsLoading: Bool = false
+	@OpenCombine.Published var antigenTestResultIsLoading: Bool = false
 
 	var hasAtLeastOneShownPositiveOrSubmittedTest: Bool {
 		pcrTest?.positiveTestResultWasShown == true || pcrTest?.keysSubmitted == true ||
@@ -167,12 +181,14 @@ class CoronaTestService {
 	func registerAntigenTestAndGetResult(
 		with guid: String,
 		pointOfCareConsentDate: Date,
-		name: String?,
-		birthday: String?,
+		firstName: String?,
+		lastName: String?,
+		dateOfBirth: String?,
 		isSubmissionConsentGiven: Bool,
 		completion: @escaping TestResultHandler
 	) {
-		Log.info("[CoronaTestService] Registering antigen test (guid: \(private: guid, public: "GUID ID"), pointOfCareConsentDate: \(private: pointOfCareConsentDate, public: "pointOfCareConsentDate ID"), name: \(private: String(describing: name), public: "Name of test person"), birthday: \(private: String(describing: birthday), public: "Birthday of test person"), isSubmissionConsentGiven: \(isSubmissionConsentGiven))", log: .api)
+
+		Log.info("[CoronaTestService] Registering antigen test (guid: \(private: guid, public: "GUID ID"), pointOfCareConsentDate: \(private: pointOfCareConsentDate, public: "pointOfCareConsentDate ID"), name: \(private: String(describing: lastName), public: "Name of test person"), birthday: \(private: String(describing: dateOfBirth), public: "Birthday of test person"), isSubmissionConsentGiven: \(isSubmissionConsentGiven))", log: .api)
 
 		getRegistrationToken(
 			forKey: ENAHasher.sha256(guid),
@@ -183,16 +199,16 @@ class CoronaTestService {
 					self?.antigenTest = AntigenTest(
 						pointOfCareConsentDate: pointOfCareConsentDate,
 						registrationToken: registrationToken,
-						testedPerson: TestedPerson(name: name, birthday: birthday),
+						testedPerson: TestedPerson(firstName: firstName, lastName: lastName, dateOfBirth: dateOfBirth),
 						testResult: .pending,
 						finalTestResultReceivedDate: nil,
 						positiveTestResultWasShown: false,
-						isSubmissionConsentGiven: false,
+						isSubmissionConsentGiven: isSubmissionConsentGiven,
 						submissionTAN: nil,
 						keysSubmitted: false,
 						journalEntryCreated: false
 					)
-
+					let blubb = "\(private: "ddd")"
 					Log.info("[CoronaTestService] Antigen test registered: \(private: String(describing: self?.antigenTest), public: "Antigen test result")", log: .api)
 
 					self?.getTestResult(for: .antigen, duringRegistration: true) { result in
@@ -399,10 +415,14 @@ class CoronaTestService {
 
 	private let client: Client
 	private var store: CoronaTestStoring & CoronaTestStoringLegacy
+	private let appConfiguration: AppConfigurationProviding
 	private let notificationCenter: UserNotificationCenter
 
 	private let fakeRequestService: FakeRequestService
 	private let warnOthersReminder: WarnOthersReminder
+
+	private var outdatedStateTimer: Timer?
+	private var antigenTestOutdatedDate: Date?
 
 	private var subscriptions = Set<AnyCancellable>()
 
@@ -430,7 +450,6 @@ class CoronaTestService {
 	) {
 		Log.info("[CoronaTestService] Getting test result (coronaTestType: \(coronaTestType), duringRegistration: \(duringRegistration))", log: .api)
 
-
 		guard let coronaTest = coronaTest(ofType: coronaTestType) else {
 			Log.error("[CoronaTestService] Getting test result failed: No corona test of requested type", log: .api)
 
@@ -444,14 +463,27 @@ class CoronaTestService {
 			completion(.failure(.noRegistrationToken))
 			return
 		}
-
 		guard force || coronaTest.finalTestResultReceivedDate == nil else {
 			completion(.success(coronaTest.testResult))
 			return
 		}
 
+		switch coronaTestType {
+		case .pcr:
+			pcrTestResultIsLoading = true
+		case .antigen:
+			antigenTestResultIsLoading = true
+		}
+
 		client.getTestResult(forDevice: registrationToken, isFake: false) { [weak self] result in
 			guard let self = self else { return }
+
+			switch coronaTestType {
+			case .pcr:
+				self.pcrTestResultIsLoading = false
+			case .antigen:
+				self.antigenTestResultIsLoading = false
+			}
 
 			switch result {
 			case let .failure(error):
@@ -509,4 +541,65 @@ class CoronaTestService {
 		}
 	}
 
+	private func setupOutdatedPublisher(for antigenTest: AntigenTest) {
+		appConfiguration.appConfiguration()
+			.sink { [weak self] in
+				let hoursToDeemTestOutdated = $0.coronaTestParameters.coronaRapidAntigenTestParameters.hoursToDeemTestOutdated
+				guard
+					hoursToDeemTestOutdated != 0,
+					let outdatedDate = Calendar.current.date(byAdding: .hour, value: Int(hoursToDeemTestOutdated), to: antigenTest.pointOfCareConsentDate)
+				else {
+					return
+				}
+
+				if Date() >= outdatedDate {
+					self?.antigenTestIsOutdated = true
+				} else {
+					self?.antigenTestOutdatedDate = outdatedDate
+					self?.scheduleOutdatedStateTimer()
+				}
+			}
+			.store(in: &subscriptions)
+	}
+
+	private func scheduleOutdatedStateTimer() {
+		outdatedStateTimer?.invalidate()
+		NotificationCenter.default.removeObserver(self, name: UIApplication.didEnterBackgroundNotification, object: nil)
+		NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
+
+		guard let antigenTestOutdatedDate = antigenTestOutdatedDate else {
+			return
+		}
+
+		// Schedule new timer.
+		NotificationCenter.default.addObserver(self, selector: #selector(invalidateTimer), name: UIApplication.didEnterBackgroundNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(refreshUpdateTimerAfterResumingFromBackground), name: UIApplication.didBecomeActiveNotification, object: nil)
+
+		outdatedStateTimer = Timer(fireAt: antigenTestOutdatedDate, interval: 0, target: self, selector: #selector(updateFromTimer), userInfo: nil, repeats: false)
+
+		guard let outdatedStateTimer = outdatedStateTimer else { return }
+		RunLoop.current.add(outdatedStateTimer, forMode: .common)
+	}
+
+	@objc
+	func invalidateTimer() {
+		outdatedStateTimer?.invalidate()
+	}
+
+	@objc
+	private func refreshUpdateTimerAfterResumingFromBackground() {
+		updateFromTimer()
+		scheduleOutdatedStateTimer()
+	}
+
+	@objc
+	private func updateFromTimer() {
+		guard let antigenTestOutdatedDate = antigenTestOutdatedDate else {
+			return
+		}
+
+		antigenTestIsOutdated = Date() >= antigenTestOutdatedDate
+	}
+
+	// swiftlint:disable:next file_length
 }
