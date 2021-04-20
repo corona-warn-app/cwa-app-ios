@@ -464,6 +464,7 @@ enum AccessibilityIdentifiers {
 			static let permanentDefaultLengthTitleLabel = "AppStrings.TraceLocations.Configuration.permanentDefaultLengthTitleLabel"
 			static let permanentDefaultLengthFootnoteLabel = "AppStrings.TraceLocations.Configuration.permanentDefaultLengthFootnoteLabel"
 			static let eventTableViewCellButton = "AppStrings.TraceLocations.Configuration.eventTableViewCellButton"
+			static let address = "AppStrings.TraceLocations.Configuration.address"
 		}
 	}
 

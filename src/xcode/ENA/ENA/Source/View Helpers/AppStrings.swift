@@ -1686,6 +1686,7 @@ enum AppStrings {
 			static let primaryButtonTitle = NSLocalizedString("TraceLocations_Configuration_PrimaryButtonTitle", comment: "")
 			static let hoursUnit = NSLocalizedString("TraceLocations_Configuration_HoursUnit", comment: "")
 			static let savingErrorMessage = NSLocalizedString("TraceLocations_Configuration_SavingErrorMessage", comment: "")
+			static let address = NSLocalizedString("TraceLocations_Configuration_Address", comment: "")
 		}
 	}
 
