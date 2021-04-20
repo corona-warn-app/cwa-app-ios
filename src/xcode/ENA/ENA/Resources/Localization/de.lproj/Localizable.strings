@@ -594,7 +594,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_RAT_QR_Invalid_Alert_Title" = "Fehler";
 
-"ExposureSubmission_RAT_QR_Invalid_Alert_Text" = "Möglicherweise wurde Ihre Internet-Verbindung unterbrochen. Bitte stellen Sie sicher, dass Sie mit dem Internet verbunden sind.";
+"ExposureSubmission_RAT_QR_Invalid_Alert_Text" = "Der QR-Code kann keinem Schnelltest zugeordnet werden. Bitte scannen Sie einen geeigneten QR-Code.";
 
 "ExposureSubmission_RAT_QR_Invalid_Alert_Button" = "OK";
 
