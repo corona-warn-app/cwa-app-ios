@@ -402,8 +402,8 @@ enum AppStrings {
 		static let lowColorName = NSLocalizedString("ExposureDetection_Low_Green_Color", comment: "")
 		static let high = NSLocalizedString("ExposureDetection_High", comment: "")
 		static let highColorName = NSLocalizedString("ExposureDetection_High_Red_Color", comment: "")
-
-		static let daysSinceInstallation = NSLocalizedString("ExposureDetection_DaysSinceInstallation", comment: "")
+		static let daysSinceInstallation = NSLocalizedString("Home_Risk_Days_Since_Installation_Title", comment: "")
+		
 		static let lastExposure = NSLocalizedString("ExposureDetection_LastExposure", comment: "")
 		static let lastExposureOneRiskDay = NSLocalizedString("ExposureDetection_LastExposure_One_Risk_Day", comment: "")
 		static let refreshed = NSLocalizedString("ExposureDetection_Refreshed", comment: "")
@@ -437,6 +437,7 @@ enum AppStrings {
 		static let tracingParagraph0 = NSLocalizedString("ExposureDetection_ActiveTracingSection_Text_Paragraph0", comment: "")
 		static let tracingParagraph1a = NSLocalizedString("ExposureDetection_ActiveTracingSection_Text_Paragraph1a", comment: "")
 		static let tracingParagraph1b = NSLocalizedString("ExposureDetection_ActiveTracingSection_Text_Paragraph1b", comment: "")
+		
 		static let explanationTitle = NSLocalizedString("ExposureDetection_Explanation_Title", comment: "")
 		static let explanationSubtitle = NSLocalizedString("ExposureDetection_Explanation_Subtitle", comment: "")
 		static let explanationTextOff = NSLocalizedString("ExposureDetection_Explanation_Text_Off", comment: "")
@@ -775,7 +776,7 @@ enum AppStrings {
 		static let riskCardLowTitle = NSLocalizedString("Home_Risk_Low_Title", comment: "")
 		static let riskCardLowTitleColorName = NSLocalizedString("Home_Risk_Low_Color", comment: "")
 		static let riskCardLowNumberContactsItemTitle = NSLocalizedString("Home_Risk_Low_Number_Contacts_Item_Title", comment: "")
-		static let daysSinceInstallation = NSLocalizedString("Home_Risk_DaysSinceInstallation", comment: "")
+		static let daysSinceInstallation = NSLocalizedString("Home_Risk_Days_Since_Installation_Title", comment: "")
 		static let riskEncounterLowFAQLink = NSLocalizedString("Risk_Encounter_Low_FAQ_URL", tableName: "Localizable.links", comment: "")
 
 		// High Card
