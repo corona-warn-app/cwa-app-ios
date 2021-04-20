@@ -50,10 +50,6 @@ class DiaryAddAndEditEntryViewController: UITableViewController, UITextFieldDele
 
 	}
 
-//	override var navigationItem: UINavigationItem {
-//		navigationFooterItem
-//	}
-
 	// MARK: - Protocol FooterViewHandling
 
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
