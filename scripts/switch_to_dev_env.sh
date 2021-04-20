@@ -12,3 +12,8 @@ curl \
   --silent \
   --fail \
   --location "${ENVIRONMENTS_FILE_URL}" > ${ENV_PATH}
+
+if [! -a ${ENV_PATH}]; then
+  echo "No environment file present. Aborting."
+  exit 1
+fi
