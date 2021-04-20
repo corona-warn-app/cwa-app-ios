@@ -512,7 +512,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionDispatch_QRCodeButtonDescription" = "Erhalten Sie Ihr Testergebnis in der App und warnen Sie andere.";
 
-"ExposureSubmissionDispatch_TANButtonTitle" = "TAN-Eingabe";
+"ExposureSubmissionDispatch_TANButtonTitle" = "TAN für PCR-Test anfragen";
 
 "ExposureSubmissionDispatch_TANButtonDescription" = "Ihnen liegt eine TAN vor? Weiter zur TAN-Eingabe, um andere zu warnen.";
 
