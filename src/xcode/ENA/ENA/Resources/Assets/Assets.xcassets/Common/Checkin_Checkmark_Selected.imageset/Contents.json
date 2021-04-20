@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "Illu_Hand_with_phone-negativ.pdf",
+      "filename" : "Checkin_Checkmark_Selected.pdf",
       "idiom" : "universal"
     },
     {
@@ -11,16 +11,12 @@
           "value" : "dark"
         }
       ],
-      "filename" : "Illu_Hand_with_phone-negativ-Dark.pdf",
+      "filename" : "Checkin_Checkmark_Selected_Dark.pdf",
       "idiom" : "universal"
     }
   ],
   "info" : {
     "author" : "xcode",
     "version" : 1
-  },
-  "properties" : {
-    "preserves-vector-representation" : true,
-    "template-rendering-intent" : "original"
   }
 }

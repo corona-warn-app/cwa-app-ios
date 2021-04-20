@@ -9,7 +9,11 @@ class KeySubmissionMetadataTests: XCTestCase {
 	
 	func testKeySubmissionMetadataValues_HighRisk() {
 		let secureStore = MockTestStore()
-		let coronaTestService = CoronaTestService(client: ClientMock(), store: secureStore)
+		let coronaTestService = CoronaTestService(
+			client: ClientMock(),
+			store: secureStore,
+			appConfiguration: CachedAppConfigurationMock()
+		)
 
 		Analytics.setupMock(store: secureStore, coronaTestService: coronaTestService)
 
@@ -40,13 +44,17 @@ class KeySubmissionMetadataTests: XCTestCase {
 		Analytics.collect(.keySubmissionMetadata(.setHoursSinceHighRiskWarningAtTestRegistration))
 
 		XCTAssertNotNil(secureStore.keySubmissionMetadata, "keySubmissionMetadata should be initialized with default values")
-		XCTAssertEqual(secureStore.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, Int32(riskCalculationResult.numberOfDaysWithCurrentRiskLevel), "number of days should be same")
+		XCTAssertEqual(secureStore.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, 2, "number of days should be 2")
 		XCTAssertEqual(secureStore.keySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration, 24, "the difference is one day so it should be 24")
 	}
 
 	func testKeySubmissionMetadataValues_HighRisk_testHours() {
 		let secureStore = MockTestStore()
-		let coronaTestService = CoronaTestService(client: ClientMock(), store: secureStore)
+		let coronaTestService = CoronaTestService(
+			client: ClientMock(),
+			store: secureStore,
+			appConfiguration: CachedAppConfigurationMock()
+		)
 
 		Analytics.setupMock(store: secureStore, coronaTestService: coronaTestService)
 
@@ -152,13 +160,23 @@ class KeySubmissionMetadataTests: XCTestCase {
 
 	func testKeySubmissionMetadataValues_LowRisk() {
 		let secureStore = MockTestStore()
-		Analytics.setupMock(store: secureStore)
 		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
+
+		let coronaTestService = CoronaTestService(
+			client: ClientMock(),
+			store: secureStore,
+			appConfiguration: CachedAppConfigurationMock()
+		)
+
+		Analytics.setupMock(store: secureStore, coronaTestService: coronaTestService)
+
 		let riskCalculationResult = mockLowRiskCalculationResult()
 		let isSubmissionConsentGiven = true
+
 		secureStore.dateOfConversionToHighRisk = Calendar.current.date(byAdding: .day, value: -1, to: Date())
 		secureStore.enfRiskCalculationResult = riskCalculationResult
-		secureStore.testRegistrationDate = Date()
+
+		coronaTestService.pcrTest = PCRTest.mock(registrationDate: Date())
 
 		let keySubmissionMetadata = KeySubmissionMetadata(
 			submitted: false,
@@ -176,7 +194,7 @@ class KeySubmissionMetadataTests: XCTestCase {
 		Analytics.collect(.keySubmissionMetadata(.setHoursSinceHighRiskWarningAtTestRegistration))
 
 		XCTAssertNotNil(secureStore.keySubmissionMetadata, "keySubmissionMetadata should be initialized with default values")
-		XCTAssertEqual(secureStore.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, Int32(riskCalculationResult.numberOfDaysWithCurrentRiskLevel), "number of days should be same")
+		XCTAssertEqual(secureStore.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, 3, "number of days should be 3")
 		XCTAssertEqual(secureStore.keySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration, -1, "the value should be default value i.e., -1 as the risk is low")
 	}
 
@@ -186,7 +204,7 @@ class KeySubmissionMetadataTests: XCTestCase {
 			minimumDistinctEncountersWithLowRisk: 0,
 			minimumDistinctEncountersWithHighRisk: 0,
 			mostRecentDateWithLowRisk: Date(),
-			mostRecentDateWithHighRisk: Date(),
+			mostRecentDateWithHighRisk: Calendar.utcCalendar.date(byAdding: .day, value: -2, to: Date()),
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 2,
 			calculationDate: Date(),
@@ -199,7 +217,7 @@ class KeySubmissionMetadataTests: XCTestCase {
 			riskLevel: risk,
 			minimumDistinctEncountersWithLowRisk: 0,
 			minimumDistinctEncountersWithHighRisk: 0,
-			mostRecentDateWithLowRisk: Date(),
+			mostRecentDateWithLowRisk: Calendar.utcCalendar.date(byAdding: .day, value: -3, to: Date()),
 			mostRecentDateWithHighRisk: Date(),
 			numberOfDaysWithLowRisk: 3,
 			numberOfDaysWithHighRisk: 0,

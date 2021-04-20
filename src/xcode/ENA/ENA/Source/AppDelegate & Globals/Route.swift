@@ -18,14 +18,43 @@ enum Route {
 
 	init?(url: URL) {
 		let components = URLComponents(url: url, resolvingAgainstBaseURL: true)
-		guard components?.host?.lowercased() == "e.coronawarn.app" else {
+		guard let host = components?.host?.lowercased() else {
 			return nil
 		}
-		self = .checkin(url.absoluteString)
+
+		switch host {
+		case "s.coronawarn.app":
+			guard let payloadUrl = components?.fragment,
+				  let candidate = components?.query,
+				  candidate.count == 3 else {
+				return nil
+			}
+
+			// extract payload
+			guard let testInformation = AntigenTestInformation(payload: payloadUrl),
+				  testInformation.hash.range(
+					of: #"^[0-9A-Fa-f]{64}$"#,
+					options: .regularExpression
+				  ) != nil,
+				  testInformation.timestamp >= 0
+			else {
+				self = .rapidAntigen( .failure(.invalidTestCode))
+				return
+			}
+
+			self = .rapidAntigen(.success(.antigen(testInformation)))
+
+		case "e.coronawarn.app":
+			self = .checkIn(url.absoluteString)
+
+		default:
+			return nil
+		}
 	}
 
 	// MARK: - Internal
 
-	case checkin(String)
+	case checkIn(String)
+	case rapidAntigen(Result<CoronaTestQRCodeInformation, QRCodeError>)
 
 }

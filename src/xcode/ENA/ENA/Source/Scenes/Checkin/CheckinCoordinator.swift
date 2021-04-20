@@ -70,6 +70,11 @@ final class CheckinCoordinator {
 				// Set as the only controller on the navigation stack to avoid back gesture etc.
 				self.viewController.setViewControllers([topBottomContainerViewController], animated: false)
 				self.infoScreenShown = true // remember and don't show it again
+				// open trace location details screen if necessary
+				if let qrCode = self.qrCodeAfterInfoScreen {
+					self.qrCodeAfterInfoScreen = nil
+					self.showTraceLocationDetailsFromExternalCamera(qrCode)
+				}
 			},
 			showDetail: { detailViewController in
 				self.viewController.pushViewController(detailViewController, animated: true)
@@ -105,9 +110,16 @@ final class CheckinCoordinator {
 	}
 	
 	func showTraceLocationDetailsFromExternalCamera(_ qrCodeString: String) {
+		// Info view MUST be shown
+		guard infoScreenShown else {
+			Log.debug("Checkin info screen not shown. Skipping further navigation", log: .ui)
+			// set this to true to open trace location details screen after info screen has been dismissed
+			qrCodeAfterInfoScreen = qrCodeString
+			return
+		}
 		verificationService.verifyQrCode(
 			qrCodeString: qrCodeString,
-			appConfigurationProvider: appConfiguration,
+			appConfigurationProvider: self.appConfiguration,
 			onSuccess: { [weak self] traceLocation in
 				self?.showTraceLocationDetails(traceLocation)
 				self?.verificationService.subscriptions.removeAll()
@@ -146,6 +158,7 @@ final class CheckinCoordinator {
 		get { store.checkinInfoScreenShown }
 		set { store.checkinInfoScreenShown = newValue }
 	}
+	private var qrCodeAfterInfoScreen: String?
 	
 	private lazy var checkinsOverviewViewModel: CheckinsOverviewViewModel = {
 		CheckinsOverviewViewModel(

@@ -188,11 +188,11 @@ class AntigenExposureSubmissionNegativeTestResultHeaderView: DynamicTableViewHea
 		}
 		resultTitleLabel.textColor = coronaTest.testResult.color
 		// personLabel
-		if let name = coronaTest.testedPerson.name, let birthday = coronaTest.testedPerson.birthday {
+		if let name = coronaTest.testedPerson.fullName, let birthday = coronaTest.testedPerson.formattedDateOfBirth {
 			personLabel.text = name + "\n" + AppStrings.ExposureSubmissionResult.Antigen.personBirthdayPrefix + " " + birthday
-		} else if let name = coronaTest.testedPerson.name {
+		} else if let name = coronaTest.testedPerson.fullName {
 			personLabel.text = name
-		} else if let birthday = coronaTest.testedPerson.birthday {
+		} else if let birthday = coronaTest.testedPerson.formattedDateOfBirth {
 			personLabel.text = AppStrings.ExposureSubmissionResult.Antigen.personBirthdayPrefix + " " + birthday
 		} else {
 			personLabel.text = nil
