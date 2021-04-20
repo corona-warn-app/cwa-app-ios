@@ -21,12 +21,14 @@ class HomeTableViewModel {
 		self.onTestResultCellTap = onTestResultCellTap
 
 		coronaTestService.$pcrTest
+			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] in
 				self?.update(pcrTest: $0)
 			}
 			.store(in: &subscriptions)
 
 		coronaTestService.$antigenTest
+			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] in
 				self?.update(antigenTest: $0)
 			}
