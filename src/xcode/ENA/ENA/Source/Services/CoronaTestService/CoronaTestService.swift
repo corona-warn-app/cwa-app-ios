@@ -187,6 +187,7 @@ class CoronaTestService {
 		isSubmissionConsentGiven: Bool,
 		completion: @escaping TestResultHandler
 	) {
+		// swiftlint:disable line_length
 		Log.info("[CoronaTestService] Registering antigen test (guid: \(private: guid, public: "GUID ID"), pointOfCareConsentDate: \(private: pointOfCareConsentDate, public: "pointOfCareConsentDate ID"), firstName: \(private: String(describing: firstName), public: "FirstName of test person"), lastName: \(private: String(describing: lastName), public: "LastName of test person"), birthday: \(private: String(describing: dateOfBirth), public: "Birthday of test person"), isSubmissionConsentGiven: \(isSubmissionConsentGiven))", log: .api)
 
 		getRegistrationToken(
@@ -207,7 +208,6 @@ class CoronaTestService {
 						keysSubmitted: false,
 						journalEntryCreated: false
 					)
-					let blubb = "\(private: "ddd")"
 					Log.info("[CoronaTestService] Antigen test registered: \(private: String(describing: self?.antigenTest), public: "Antigen test result")", log: .api)
 
 					self?.getTestResult(for: .antigen, duringRegistration: true) { result in
