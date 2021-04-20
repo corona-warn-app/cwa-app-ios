@@ -142,7 +142,7 @@ class HomeTableViewModel {
 
 	func updateTestResult() {
 		// According to the tech spec, test results should always be updated in the foreground, even if the final test result was received. Therefore: force = true
-		coronaTestService.updateTestResults(force: true, presentNotification: false) { [weak self] result in
+		coronaTestService.updateTestResult(for: .pcr, force: true) { [weak self] result in
 			guard let self = self else { return }
 
 			if case .failure(let error) = result {
@@ -152,8 +152,24 @@ class HomeTableViewModel {
 					break
 				case .responseFailure, .unknownTestResult:
 					// Only show errors for corona tests that are still expecting their final test result
-					if self.coronaTestService.pcrTest != nil && self.coronaTestService.pcrTest?.finalTestResultReceivedDate == nil ||
-						self.coronaTestService.antigenTest != nil && self.coronaTestService.antigenTest?.finalTestResultReceivedDate == nil {
+					if self.coronaTestService.pcrTest != nil && self.coronaTestService.pcrTest?.finalTestResultReceivedDate == nil {
+						self.testResultLoadingError = error
+					}
+				}
+			}
+		}
+
+		coronaTestService.updateTestResult(for: .antigen, force: true) { [weak self] result in
+			guard let self = self else { return }
+
+			if case .failure(let error) = result {
+				switch error {
+				case .noCoronaTestOfRequestedType, .noRegistrationToken, .testExpired:
+					// Errors because of no registered corona tests or expired tests are ignored
+					break
+				case .responseFailure, .unknownTestResult:
+					// Only show errors for corona tests that are still expecting their final test result
+					if self.coronaTestService.antigenTest != nil && self.coronaTestService.antigenTest?.finalTestResultReceivedDate == nil {
 						self.testResultLoadingError = error
 					}
 				}
