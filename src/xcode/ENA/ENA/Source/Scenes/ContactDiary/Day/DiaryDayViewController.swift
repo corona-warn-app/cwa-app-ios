@@ -60,6 +60,7 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 			.store(in: &subscriptions)
 
 		NotificationCenter.default.ocombine.publisher(for: UIApplication.keyboardWillShowNotification)
+			.append(NotificationCenter.default.ocombine.publisher(for: UIApplication.keyboardWillChangeFrameNotification))
 			.sink { [weak self] notification in
 
 				guard let self = self,
@@ -79,11 +80,11 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 				// this is such a beautiful piece of code by me - Bastian Kohlbauer - that fixes an iOS bug
 				// where the tableview will not automatically scroll to the position of the first responder
 				// if it is a UIDatePicker. please acknowledge and admire!
-				var targetRect = CGRect.zero
+				var targetRect: CGRect?
 				if let currentResponder = self.view.firstResponder as? UIView {
-					let rect = currentResponder.convert(currentResponder.frame, to: self.tableView)
+					let rect = currentResponder.convert(currentResponder.frame, to: self.view)
 					if keyboardFrame.contains(rect) {
-						targetRect = rect
+						targetRect = currentResponder.convert(currentResponder.frame, to: self.tableView)
 					}
 				}
 								
@@ -91,7 +92,7 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 				UIView.animate(withDuration: animationDuration, delay: 0, options: options, animations: { [weak self] in
 					self?.tableView.scrollIndicatorInsets.bottom = keyboardInset
 					self?.tableView.contentInset.bottom = keyboardInset
-					if !targetRect.isEmpty {
+					if let targetRect = targetRect {
 						self?.tableView.scrollRectToVisible(targetRect, animated: false)
 					}
 					
