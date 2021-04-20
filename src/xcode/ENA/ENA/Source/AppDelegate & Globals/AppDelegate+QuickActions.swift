@@ -120,10 +120,10 @@ extension AppDelegate {
 			tabBarController.selectedIndex = 1
 			
 			// dismiss an overlaying, modally presented view controller
-			coordinator.checkInCoordinator.viewController.presentedViewController?.dismiss(animated: false, completion: nil)
+			coordinator.checkInCoordinator?.viewController.presentedViewController?.dismiss(animated: false, completion: nil)
 			
 			// open qr code scanner for fast event checkin
-			coordinator.checkInCoordinator.showQRCodeScanner()
+			coordinator.checkInCoordinator?.showQRCodeScanner()
 		default:
 			Log.warning("unhandled shortcut item type \(shortcutItem.type)", log: .ui)
 			assertionFailure("Check this!")
