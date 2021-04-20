@@ -17,81 +17,9 @@ class HomeTestResultCellModel {
 	) {
 		self.coronaTestType = coronaTestType
 		self.coronaTestService = coronaTestService
+		self.onUpdate = onUpdate
 
-		switch coronaTestType {
-		case .pcr:
-			title = AppStrings.Home.TestResult.pcrTitle
-
-			coronaTestService.$pcrTest
-				.receive(on: DispatchQueue.OCombine(.main))
-				.sink { [weak self] pcrTest in
-					guard let pcrTest = pcrTest else {
-						return
-					}
-
-					self?.configure(for: pcrTest.testResult)
-					onUpdate()
-				}
-				.store(in: &subscriptions)
-
-			coronaTestService.$pcrTestResultIsLoading
-				.receive(on: DispatchQueue.OCombine(.main))
-				.sink { [weak self] testResultIsLoading in
-					if self?.coronaTestService.pcrTest?.finalTestResultReceivedDate == nil {
-						if testResultIsLoading {
-							self?.configureLoading()
-						} else if self?.isActivityIndicatorHidden == false {
-							self?.configureTestResultPending()
-						}
-						onUpdate()
-					}
-				}
-				.store(in: &subscriptions)
-		case .antigen:
-			title = AppStrings.Home.TestResult.antigenTitle
-
-			coronaTestService.$antigenTest
-				.receive(on: DispatchQueue.OCombine(.main))
-				.sink { [weak self] antigenTest in
-					guard
-						let self = self,
-						let antigenTest = antigenTest,
-						!self.coronaTestService.antigenTestIsOutdated
-					else {
-						return
-					}
-
-					self.configure(for: antigenTest.testResult)
-					onUpdate()
-				}
-				.store(in: &subscriptions)
-
-			coronaTestService.$antigenTestResultIsLoading
-				.receive(on: DispatchQueue.OCombine(.main))
-				.sink { [weak self] testResultIsLoading in
-					if self?.coronaTestService.antigenTest?.finalTestResultReceivedDate == nil {
-						if testResultIsLoading {
-							self?.configureLoading()
-						} else if self?.isActivityIndicatorHidden == false {
-							self?.configureTestResultPending()
-						}
-						onUpdate()
-					}
-				}
-				.store(in: &subscriptions)
-
-			coronaTestService.$antigenTestIsOutdated
-				.receive(on: DispatchQueue.OCombine(.main))
-				.sink { [weak self] antigenTestIsOutdated in
-					guard antigenTestIsOutdated else {
-						return
-					}
-
-					self?.configureTestResultOutdated()
-					onUpdate()
-				}
-				.store(in: &subscriptions)
-		}
+		setup()
 	}
 
 	// MARK: - Internal
@@ -113,7 +41,87 @@ class HomeTestResultCellModel {
 
 	private let coronaTestType: CoronaTestType
 	private let coronaTestService: CoronaTestService
+	private let onUpdate: () -> Void
+
 	private var subscriptions = Set<AnyCancellable>()
+
+	// swiftlint:disable:next cyclomatic_complexity
+	private func setup() {
+		switch coronaTestType {
+		case .pcr:
+			title = AppStrings.Home.TestResult.pcrTitle
+
+			coronaTestService.$pcrTest
+				.receive(on: DispatchQueue.OCombine(.main))
+				.sink { [weak self] pcrTest in
+					guard let pcrTest = pcrTest else {
+						return
+					}
+
+					self?.configure(for: pcrTest.testResult)
+					self?.onUpdate()
+				}
+				.store(in: &subscriptions)
+
+			coronaTestService.$pcrTestResultIsLoading
+				.receive(on: DispatchQueue.OCombine(.main))
+				.sink { [weak self] testResultIsLoading in
+					if self?.coronaTestService.pcrTest?.finalTestResultReceivedDate == nil {
+						if testResultIsLoading {
+							self?.configureLoading()
+						} else if self?.isActivityIndicatorHidden == false {
+							self?.configureTestResultPending()
+						}
+						self?.onUpdate()
+					}
+				}
+				.store(in: &subscriptions)
+		case .antigen:
+			title = AppStrings.Home.TestResult.antigenTitle
+
+			coronaTestService.$antigenTest
+				.receive(on: DispatchQueue.OCombine(.main))
+				.sink { [weak self] antigenTest in
+					guard
+						let self = self,
+						let antigenTest = antigenTest,
+						!self.coronaTestService.antigenTestIsOutdated
+					else {
+						return
+					}
+
+					self.configure(for: antigenTest.testResult)
+					self.onUpdate()
+				}
+				.store(in: &subscriptions)
+
+			coronaTestService.$antigenTestResultIsLoading
+				.receive(on: DispatchQueue.OCombine(.main))
+				.sink { [weak self] testResultIsLoading in
+					if self?.coronaTestService.antigenTest?.finalTestResultReceivedDate == nil {
+						if testResultIsLoading {
+							self?.configureLoading()
+						} else if self?.isActivityIndicatorHidden == false {
+							self?.configureTestResultPending()
+						}
+						self?.onUpdate()
+					}
+				}
+				.store(in: &subscriptions)
+
+			coronaTestService.$antigenTestIsOutdated
+				.receive(on: DispatchQueue.OCombine(.main))
+				.sink { [weak self] antigenTestIsOutdated in
+					guard antigenTestIsOutdated else {
+						return
+					}
+
+					self?.configureTestResultOutdated()
+					self?.onUpdate()
+				}
+				.store(in: &subscriptions)
+		}
+	}
 
 	private func configure(for testResult: TestResult) {
 		#if DEBUG
