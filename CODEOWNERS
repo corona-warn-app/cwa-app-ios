@@ -8,4 +8,4 @@
 * @corona-warn-app/cwa-app-ios-members
 
 # Code owners of all german texts
-/src/xcode/ENA/ENA/Resources/Localization/de.lproj/* @janetback @SabineLoss @tcfos @BLUM78691
+/src/xcode/ENA/ENA/Resources/Localization/de.lproj/* @janetback @SabineLoss
