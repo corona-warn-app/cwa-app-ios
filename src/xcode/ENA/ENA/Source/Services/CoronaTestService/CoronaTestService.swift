@@ -187,8 +187,7 @@ class CoronaTestService {
 		isSubmissionConsentGiven: Bool,
 		completion: @escaping TestResultHandler
 	) {
-
-		Log.info("[CoronaTestService] Registering antigen test (guid: \(private: guid, public: "GUID ID"), pointOfCareConsentDate: \(private: pointOfCareConsentDate, public: "pointOfCareConsentDate ID"), name: \(private: String(describing: lastName), public: "Name of test person"), birthday: \(private: String(describing: dateOfBirth), public: "Birthday of test person"), isSubmissionConsentGiven: \(isSubmissionConsentGiven))", log: .api)
+		Log.info("[CoronaTestService] Registering antigen test (guid: \(private: guid, public: "GUID ID"), pointOfCareConsentDate: \(private: pointOfCareConsentDate, public: "pointOfCareConsentDate ID"), firstName: \(private: String(describing: firstName), public: "FirstName of test person"), lastName: \(private: String(describing: lastName), public: "LastName of test person"), birthday: \(private: String(describing: dateOfBirth), public: "Birthday of test person"), isSubmissionConsentGiven: \(isSubmissionConsentGiven))", log: .api)
 
 		getRegistrationToken(
 			forKey: ENAHasher.sha256(guid),
