@@ -522,7 +522,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 /* Exposure Submission Hotline */
 
-"ExposureSubmissionHotline_Title" = "TAN anfragen";
+"ExposureSubmissionHotline_Title" = "TAN für PCR-Test anfragen";
 
 "ExposureSubmissionHotline_Description" = "Bitte halten Sie zur TAN-Abfrage Ihren Befundbrief (sofern vorhanden) und Ihre Telefonnummer bereit.";
 
