@@ -53,7 +53,8 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 			self.executeExposureDetectionRequest { _ in
 				Log.info("Done detecting Exposures…", log: .background)
 				
-				
+				/// ExposureDetection should be our highest Priority if we run all other tasks simultaneously we might get killed by the Watchdog while the Detection is running.
+				/// This could leave us in a dirty state which causes the ExposureDetection to run too often. This will then lead to Error 13. (https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-5836)
 				group.enter()
 				DispatchQueue.global().async {
 					Log.info("Trying to submit TEKs…", log: .background)
