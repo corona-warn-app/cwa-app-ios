@@ -20,17 +20,9 @@ class HomeTableViewModel {
 		self.coronaTestService = coronaTestService
 		self.onTestResultCellTap = onTestResultCellTap
 
-		coronaTestService.$pcrTest
-			.receive(on: DispatchQueue.main.ocombine)
+		coronaTestService.$tests
 			.sink { [weak self] in
-				self?.update(pcrTest: $0)
-			}
-			.store(in: &subscriptions)
-
-		coronaTestService.$antigenTest
-			.receive(on: DispatchQueue.main.ocombine)
-			.sink { [weak self] in
-				self?.update(antigenTest: $0)
+				self?.update(pcrTest: $0.pcr, antigenTest: $0.antigen)
 			}
 			.store(in: &subscriptions)
 	}
@@ -182,7 +174,7 @@ class HomeTableViewModel {
 	private let onTestResultCellTap: (CoronaTestType?) -> Void
 	private var subscriptions = Set<AnyCancellable>()
 
-	private func update(pcrTest: PCRTest? = nil, antigenTest: AntigenTest? = nil) {
+	private func update(pcrTest: PCRTest?, antigenTest: AntigenTest?) {
 		let updatedRiskAndTestResultsRows = self.computedRiskAndTestResultsRows(pcrTest: pcrTest, antigenTest: antigenTest)
 
 		if updatedRiskAndTestResultsRows.contains(.risk) && !self.riskAndTestResultsRows.contains(.risk) {
@@ -195,13 +187,17 @@ class HomeTableViewModel {
 		}
 	}
 
-	private func computedRiskAndTestResultsRows(pcrTest: PCRTest? = nil, antigenTest: AntigenTest? = nil) -> [RiskAndTestResultsRow] {
+	private func computedRiskAndTestResultsRows(pcrTest: PCRTest?, antigenTest: AntigenTest?) -> [RiskAndTestResultsRow] {
 		var riskAndTestResultsRows = [RiskAndTestResultsRow]()
-		if !coronaTestService.hasAtLeastOneShownPositiveOrSubmittedTest {
+
+		let hasAtLeastOneShownPositiveOrSubmittedTest = pcrTest?.positiveTestResultWasShown == true || pcrTest?.keysSubmitted == true || antigenTest?.positiveTestResultWasShown == true || antigenTest?.keysSubmitted == true
+
+
+		if !hasAtLeastOneShownPositiveOrSubmittedTest {
 			riskAndTestResultsRows.append(.risk)
 		}
 
-		if let pcrTest = pcrTest ?? coronaTestService.pcrTest {
+		if let pcrTest = pcrTest {
 			let testResultState: TestResultState
 			if pcrTest.testResult == .positive && pcrTest.positiveTestResultWasShown {
 				testResultState = .positiveResultWasShown
@@ -211,7 +207,7 @@ class HomeTableViewModel {
 			riskAndTestResultsRows.append(.pcrTestResult(testResultState))
 		}
 
-		if let antigenTest = antigenTest ?? coronaTestService.antigenTest {
+		if let antigenTest = antigenTest {
 			let testResultState: TestResultState
 			if antigenTest.testResult == .positive && antigenTest.positiveTestResultWasShown {
 				testResultState = .positiveResultWasShown

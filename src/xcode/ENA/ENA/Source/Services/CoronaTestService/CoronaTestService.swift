@@ -58,6 +58,7 @@ class CoronaTestService {
 		$pcrTest
 			.sink { [weak self] pcrTest in
 				self?.store.pcrTest = pcrTest
+				self?.tests.pcr = pcrTest
 
 				if pcrTest?.keysSubmitted == true {
 					self?.warnOthersReminder.cancelNotifications(for: .pcr)
@@ -68,6 +69,7 @@ class CoronaTestService {
 		$antigenTest
 			.sink { [weak self] antigenTest in
 				self?.store.antigenTest = antigenTest
+				self?.tests.antigen = antigenTest
 
 				if antigenTest?.keysSubmitted == true {
 					self?.warnOthersReminder.cancelNotifications(for: .antigen)
@@ -87,6 +89,8 @@ class CoronaTestService {
 
 	@OpenCombine.Published var pcrTest: PCRTest?
 	@OpenCombine.Published var antigenTest: AntigenTest?
+
+	@OpenCombine.Published private(set) var tests: (pcr: PCRTest?, antigen: AntigenTest?)
 
 	@OpenCombine.Published var antigenTestIsOutdated: Bool = false
 
