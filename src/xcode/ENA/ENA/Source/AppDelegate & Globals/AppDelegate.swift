@@ -142,12 +142,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
 		// handle QR cdes scanned in the camera app
-		guard
-			userActivity.activityType == NSUserActivityTypeBrowsingWeb,
-			let incomingURL = userActivity.webpageURL,
-			let route = Route(url: incomingURL),
-			store.isOnboarded
-		else {
+		var route: Route?
+		if userActivity.activityType == NSUserActivityTypeBrowsingWeb, let incomingURL = userActivity.webpageURL {
+			route = Route(url: incomingURL)
+		}
+		guard store.isOnboarded else {
+			postOnboardingRoute = route
 			return false
 		}
 		showHome(route)
@@ -453,7 +453,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	private var exposureDetection: ExposureDetection?
 	private let consumer = RiskConsumer()
-
+	private var postOnboardingRoute: Route?
+	
 	private lazy var exposureDetectionExecutor: ExposureDetectionExecutor = {
 		ExposureDetectionExecutor(
 			client: self.client,
@@ -587,6 +588,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		if store.isOnboarded {
 			showHome(route)
 		} else {
+			postOnboardingRoute = route
 			showOnboarding()
 		}
 		UIImageView.appearance().accessibilityIgnoresInvertColors = true
@@ -689,7 +691,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	@objc
 	private func isOnboardedDidChange(_: NSNotification) {
-		store.isOnboarded ? showHome() : showOnboarding()
+		if store.isOnboarded {
+			showHome(postOnboardingRoute)
+			postOnboardingRoute = nil
+		} else {
+			showOnboarding()
+		}
 	}
 
 	@objc
