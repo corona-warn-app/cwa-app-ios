@@ -89,8 +89,8 @@ class EventTableViewCell: UITableViewCell {
 
 		titleLabel.text = cellModel.title
 		addressLabel.text = cellModel.address
-		addressLabel.accessibilityLabel = String(format: AccessibilityIdentifiers.TraceLocation.Configuration.eventTableViewCellButton, cellModel.address)
-		addressLabel.accessibilityIdentifier = String(format: AccessibilityIdentifiers.TraceLocation.Configuration.eventTableViewCellButton, cellModel.address)
+		addressLabel.accessibilityLabel = String(format: AppStrings.TraceLocations.Configuration.address, cellModel.address)
+		addressLabel.accessibilityIdentifier = String(format: AppStrings.TraceLocations.Configuration.address, cellModel.address)
 
 		button.setTitle(cellModel.buttonTitle, for: .normal)
 		button.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Configuration.eventTableViewCellButton
