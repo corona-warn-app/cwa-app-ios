@@ -150,12 +150,12 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 
 		coordinator.start(with: .pcr)
 
-		let unknown = coordinator.getInitialViewController()
+		let unknown = coordinator.getInitialViewController(supportedCountries: [])
 		XCTAssertTrue(unknown is TopBottomContainerViewController<TestResultAvailableViewController, FooterViewController>)
 
 		coronaTestService.pcrTest?.positiveTestResultWasShown = true
 
-		let positive = coordinator.getInitialViewController()
+		let positive = coordinator.getInitialViewController(supportedCountries: [])
 		XCTAssertTrue(positive is TopBottomContainerViewController<ExposureSubmissionWarnOthersViewController, FooterViewController>)
 	}
 }
