@@ -37,8 +37,12 @@ class HomeTestResultCellModel {
 			coronaTestService.$pcrTestResultIsLoading
 				.receive(on: DispatchQueue.OCombine(.main))
 				.sink { [weak self] testResultIsLoading in
-					if testResultIsLoading && self?.coronaTestService.pcrTest?.finalTestResultReceivedDate == nil {
-						self?.configureLoading()
+					if self?.coronaTestService.pcrTest?.finalTestResultReceivedDate == nil {
+						if testResultIsLoading {
+							self?.configureLoading()
+						} else if self?.isActivityIndicatorHidden == false {
+							self?.configureTestResultPending()
+						}
 						onUpdate()
 					}
 				}
@@ -65,8 +69,12 @@ class HomeTestResultCellModel {
 			coronaTestService.$antigenTestResultIsLoading
 				.receive(on: DispatchQueue.OCombine(.main))
 				.sink { [weak self] testResultIsLoading in
-					if testResultIsLoading && self?.coronaTestService.antigenTest?.finalTestResultReceivedDate == nil {
-						self?.configureLoading()
+					if self?.coronaTestService.antigenTest?.finalTestResultReceivedDate == nil {
+						if testResultIsLoading {
+							self?.configureLoading()
+						} else if self?.isActivityIndicatorHidden == false {
+							self?.configureTestResultPending()
+						}
 						onUpdate()
 					}
 				}
