@@ -3,7 +3,7 @@
 set -euo pipefail
 
 SCRIPT_PATH=${0:A:h}
-ENV_PATH="${SCRIPT_PATH}/../src/xcode/ENA/ENA/Resources/Environment/Environments.json"
+ENV_PATH=`realpath "${SCRIPT_PATH}/../src/xcode/ENA/ENA/Resources/Environment/Environments.json"`
 
 # fetch CI configuration and overwrite local environments file
 curl \
@@ -11,6 +11,4 @@ curl \
   --header "Accept: application/vnd.github.v3.raw" \
   --silent \
   --fail \
-  --remote-name \
-  --output "${ENV_PATH}" \
-  --location "${ENVIRONMENTS_FILE_URL}"
+  --location "${ENVIRONMENTS_FILE_URL}" > ${ENV_PATH}
