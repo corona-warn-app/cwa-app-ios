@@ -9,5 +9,8 @@ ENV_PATH="${SCRIPT_PATH}/../src/xcode/ENA/ENA/Resources/Environment/Environments
 curl \
   --header "Authorization: token ${GITHUB_ACCESS_TOKEN}" \
   --header "Accept: application/vnd.github.v3.raw" \
+  --silent \
+  --fail \
   --remote-name \
-  --location "${ENVIRONMENTS_FILE_URL}" > ${ENV_PATH}
+  --output "${ENV_PATH}" \
+  --location "${ENVIRONMENTS_FILE_URL}"
