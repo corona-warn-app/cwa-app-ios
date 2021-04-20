@@ -557,6 +557,9 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			showNextScreen()
 			return
 		}
+
+		/// Reset checkins when entering the screen in case the user skips, cancels or stays on the screen during background submission
+		model.exposureSubmissionService.checkins = []
 		
 		let footerViewModel = FooterViewModel(
 			primaryButtonName: AppStrings.ExposureSubmissionCheckins.continueButton,
@@ -572,13 +575,11 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				showNextScreen()
 			},
 			onSkip: { [weak self] in
-				self?.model.exposureSubmissionService.checkins = []
 				self?.showSkipCheckinsAlert(dontShareHandler: {
 					showNextScreen()
 				})
 			},
 			onDismiss: { [weak self] in
-				self?.model.exposureSubmissionService.checkins = []
 				if self?.model.coronaTest?.positiveTestResultWasShown == true {
 					self?.showSkipCheckinsAlert(dontShareHandler: {
 						Analytics.collect(.keySubmissionMetadata(.submittedAfterCancel(true)))
