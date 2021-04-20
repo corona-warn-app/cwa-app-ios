@@ -47,8 +47,10 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 
 		descriptionTextField.placeholder = AppStrings.TraceLocations.Configuration.descriptionPlaceholder
 		descriptionTextField.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Configuration.descriptionPlaceholder
+		descriptionTextField.autocapitalizationType = .sentences
 		addressTextField.placeholder = AppStrings.TraceLocations.Configuration.addressPlaceholder
 		addressTextField.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Configuration.addressPlaceholder
+		addressTextField.autocapitalizationType = .sentences
 
 		startDateTitleLabel.text = AppStrings.TraceLocations.Configuration.startDateTitle
 		endDateTitleLabel.text = AppStrings.TraceLocations.Configuration.endDateTitle
