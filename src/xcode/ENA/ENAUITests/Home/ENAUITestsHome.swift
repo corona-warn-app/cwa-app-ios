@@ -5,6 +5,7 @@
 import XCTest
 import ExposureNotification
 
+// swiftlint:disable:next type_body_length
 class ENAUITests_01_Home: XCTestCase {
 	var app: XCUIApplication!
 
@@ -226,6 +227,30 @@ class ENAUITests_01_Home: XCTestCase {
 		app.launch()
 		
 		snapshot("homescreenrisk_level_\(riskLevel)_installation_\(installationDays)days_\(String(format: "%04d", (screenshotCounter.inc() )))")
+	}
+
+	func test_screenshot_homescreen_riskCardLow_1day() throws {
+		let riskLevel = "low"
+		let installationDays = "1"
+		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
+		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
+		app.launchArguments.append(contentsOf: ["-appInstallationDays", installationDays])
+		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
+		app.launch()
+		
+		snapshot("homescreenrisk_level_\(riskLevel)_installation_\(installationDays)day")
+	}
+	
+	func test_screenshot_homescreen_riskCardLow_0days() throws {
+		let riskLevel = "low"
+		let installationDays = "0"
+		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
+		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
+		app.launchArguments.append(contentsOf: ["-appInstallationDays", installationDays])
+		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
+		app.launch()
+		
+		snapshot("homescreenrisk_level_\(riskLevel)_installation_\(installationDays)days")
 	}
 
 	func test_screenshot_homescreen_riskCardInactive() throws {
