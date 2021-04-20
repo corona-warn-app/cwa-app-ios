@@ -192,7 +192,6 @@ class HomeTableViewModel {
 
 		let hasAtLeastOneShownPositiveOrSubmittedTest = pcrTest?.positiveTestResultWasShown == true || pcrTest?.keysSubmitted == true || antigenTest?.positiveTestResultWasShown == true || antigenTest?.keysSubmitted == true
 
-
 		if !hasAtLeastOneShownPositiveOrSubmittedTest {
 			riskAndTestResultsRows.append(.risk)
 		}
