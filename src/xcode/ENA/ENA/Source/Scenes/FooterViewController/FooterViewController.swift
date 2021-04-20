@@ -62,12 +62,12 @@ class FooterViewController: UIViewController {
 		view.addSubview(primaryButton)
 		view.addSubview(secondaryButton)
 
-		primaryButton.customBackgroundColor = viewModel.primaryCustomDisableBackgroundColor
+		primaryButton.disabledBackgroundColor = viewModel.primaryCustomDisableBackgroundColor
 		primaryButton.hasBackground = true
 		primaryButton.addTarget(self, action: #selector(didHitPrimaryButton), for: .primaryActionTriggered)
 		primaryButton.translatesAutoresizingMaskIntoConstraints = false
 		
-		secondaryButton.customBackgroundColor = viewModel.secondaryCustomDisableBackgroundColor
+		secondaryButton.disabledBackgroundColor = viewModel.secondaryCustomDisableBackgroundColor
 		secondaryButton.hasBackground = true
 		secondaryButton.addTarget(self, action: #selector(didHitSecondaryButton), for: .primaryActionTriggered)
 		secondaryButton.translatesAutoresizingMaskIntoConstraints = false
@@ -128,7 +128,7 @@ class FooterViewController: UIViewController {
 		
 		// primary button
 		
-		primaryButton.color = viewModel.primaryButtonColor
+		primaryButton.enabledBackgroundColor = viewModel.primaryButtonColor
 		primaryButton.hasBackground = !viewModel.primaryButtonInverted
 		primaryButton.setTitle(viewModel.primaryButtonName, for: .normal)
 		primaryButton.accessibilityIdentifier = viewModel.primaryIdentifier
@@ -138,7 +138,7 @@ class FooterViewController: UIViewController {
 		
 		// secondary button
 		
-		secondaryButton.color = viewModel.secondaryButtonColor
+		secondaryButton.enabledBackgroundColor = viewModel.secondaryButtonColor
 		secondaryButton.hasBackground = !viewModel.secondaryButtonInverted
 		secondaryButton.setTitle(viewModel.secondaryButtonName, for: .normal)
 		secondaryButton.accessibilityIdentifier = viewModel.secondaryIdentifier
