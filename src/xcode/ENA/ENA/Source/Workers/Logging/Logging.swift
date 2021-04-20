@@ -48,9 +48,21 @@ extension OSLog {
 ///
 /// ```
 ///
-/// Usage for sensitive logging data:
+/// 🚨🚨🚨🚨 Usage for sensitive / private logging data (like e.g. the name of a person in the contact journal): 🚨🚨🚨🚨
+/// These data are (see also TechSpec in future):
+/// - PCR QR-Code (GUID, URL)
+/// - PCR registration token
+/// - Contact Journal Information
+/// - Created Event Information
+/// - Scanned Event Information
+/// - Rapid Test profile information
+/// - Rapid Test QR-Code (URL and JSON payload (encoded and decoded))
+/// - Rapid test registration token
+/// - Personal Information in Rapid test result
+/// - TAN Code for submission
 /// ```
 /// Log.debug("some key \(private: "some sensitive values")")
+/// Log.debug("some key \(private: "some sensitive values", public: "explination what data is censored here")")
 ///
 /// ```
 enum Log {

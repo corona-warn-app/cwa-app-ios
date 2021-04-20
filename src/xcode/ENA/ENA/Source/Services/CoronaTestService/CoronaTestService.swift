@@ -84,7 +84,7 @@ class CoronaTestService {
 		isSubmissionConsentGiven: Bool,
 		completion: @escaping TestResultHandler
 	) {
-		Log.info("[CoronaTestService] Registering PCR test (guid: \(private: guid), isSubmissionConsentGiven: \(isSubmissionConsentGiven))", log: .api)
+		Log.info("[CoronaTestService] Registering PCR test (guid: \(private: guid, public: "GUID ID"), isSubmissionConsentGiven: \(isSubmissionConsentGiven))", log: .api)
 
 		getRegistrationToken(
 			forKey: ENAHasher.sha256(guid),
@@ -104,7 +104,7 @@ class CoronaTestService {
 						journalEntryCreated: false
 					)
 
-					Log.info("[CoronaTestService] PCR test registered: \(private: String(describing: self?.pcrTest))", log: .api)
+					Log.info("[CoronaTestService] PCR test registered: \(private: String(describing: self?.pcrTest), public: "PCR Test result")", log: .api)
 
 					Analytics.collect(.testResultMetadata(.registerNewTestMetadata(Date(), registrationToken)))
 					Analytics.collect(.keySubmissionMetadata(.submittedWithTeletan(false)))
@@ -128,7 +128,7 @@ class CoronaTestService {
 		isSubmissionConsentGiven: Bool,
 		completion: @escaping VoidResultHandler
 	) {
-		Log.info("[CoronaTestService] Registering PCR test (teleTAN: \(private: teleTAN), isSubmissionConsentGiven: \(isSubmissionConsentGiven))", log: .api)
+		Log.info("[CoronaTestService] Registering PCR test (teleTAN: \(private: teleTAN, public: "teleTAN ID"), isSubmissionConsentGiven: \(isSubmissionConsentGiven))", log: .api)
 
 		getRegistrationToken(
 			forKey: teleTAN,
@@ -150,7 +150,7 @@ class CoronaTestService {
 						journalEntryCreated: false
 					)
 
-					Log.info("[CoronaTestService] PCR test registered: \(private: String(describing: self?.pcrTest))", log: .api)
+					Log.info("[CoronaTestService] PCR test registered: \(private: String(describing: self?.pcrTest), public: "PCR Test result")", log: .api)
 
 					Analytics.collect(.keySubmissionMetadata(.submittedWithTeletan(true)))
 
@@ -172,7 +172,7 @@ class CoronaTestService {
 		isSubmissionConsentGiven: Bool,
 		completion: @escaping TestResultHandler
 	) {
-		Log.info("[CoronaTestService] Registering antigen test (guid: \(private: guid), pointOfCareConsentDate: \(private: pointOfCareConsentDate), name: \(private: String(describing: name)), birthday: \(private: String(describing: birthday)), isSubmissionConsentGiven: \(isSubmissionConsentGiven))", log: .api)
+		Log.info("[CoronaTestService] Registering antigen test (guid: \(private: guid, public: "GUID ID"), pointOfCareConsentDate: \(private: pointOfCareConsentDate, public: "pointOfCareConsentDate ID"), name: \(private: String(describing: name), public: "Name of test person"), birthday: \(private: String(describing: birthday), public: "Birthday of test person"), isSubmissionConsentGiven: \(isSubmissionConsentGiven))", log: .api)
 
 		getRegistrationToken(
 			forKey: ENAHasher.sha256(guid),
@@ -193,7 +193,7 @@ class CoronaTestService {
 						journalEntryCreated: false
 					)
 
-					Log.info("[CoronaTestService] Antigen test registered: \(private: String(describing: self?.antigenTest))", log: .api)
+					Log.info("[CoronaTestService] Antigen test registered: \(private: String(describing: self?.antigenTest), public: "Antigen test result")", log: .api)
 
 					self?.getTestResult(for: .antigen, duringRegistration: true) { result in
 						completion(result)
@@ -297,12 +297,12 @@ class CoronaTestService {
 					self.pcrTest?.submissionTAN = submissionTAN
 					self.pcrTest?.registrationToken = nil
 
-					Log.info("[CoronaTestService] Received submission tan for PCR test: \(private: String(describing: self.pcrTest))", log: .api)
+					Log.info("[CoronaTestService] Received submission tan for PCR test: \(private: String(describing: self.pcrTest), public: "PCR Test result")", log: .api)
 				case .antigen:
 					self.antigenTest?.submissionTAN = submissionTAN
 					self.antigenTest?.registrationToken = nil
 
-					Log.info("[CoronaTestService] Received submission tan for antigen test: \(private: String(describing: self.antigenTest))", log: .api)
+					Log.info("[CoronaTestService] Received submission tan for antigen test: \(private: String(describing: self.antigenTest), public: "TAN for antigen test")", log: .api)
 				}
 
 				completion(.success(submissionTAN))
@@ -376,9 +376,9 @@ class CoronaTestService {
 				journalEntryCreated: false
 			)
 
-			Log.info("[CoronaTestService] Migrated preexisting PCR test: \(private: String(describing: pcrTest))", log: .api)
+			Log.info("[CoronaTestService] Migrated preexisting PCR test: \(private: String(describing: pcrTest), public: "PCR Test result")", log: .api)
 		} else {
-			Log.info("[CoronaTestService] No migration required (store.registrationToken: \(private: String(describing: store.registrationToken)), store.lastSuccessfulSubmitDiagnosisKeyTimestamp: \(String(describing: store.lastSuccessfulSubmitDiagnosisKeyTimestamp)), store.devicePairingConsentAcceptTimestamp: \(String(describing: store.devicePairingConsentAcceptTimestamp))", log: .api)
+			Log.info("[CoronaTestService] No migration required (store.registrationToken: \(private: String(describing: store.registrationToken), public: "registration token ID"), store.lastSuccessfulSubmitDiagnosisKeyTimestamp: \(String(describing: store.lastSuccessfulSubmitDiagnosisKeyTimestamp)), store.devicePairingConsentAcceptTimestamp: \(String(describing: store.devicePairingConsentAcceptTimestamp))", log: .api)
 		}
 
 		store.registrationToken = nil

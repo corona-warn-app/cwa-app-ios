@@ -4,14 +4,16 @@
 
 import Foundation
 	
-/// If we prefix the content of the string interpolation with 'private', the content will be replaced by '🙈🙉🙊' to ensure no private infomation is logged.
 extension String.StringInterpolation {
-	mutating func appendInterpolation<T>(private value: T) {
-		
+	/// Use this method when logging sensitive data. This ensures, that the logged information is censored in release builds, but not in debug build, which is needed for us devs and the testers.
+	/// - Parameters:
+	///   - private: The sensitive data to be replaced in release builds with '🙈🙉🙊'.
+	///   - public: Additional explination text what should be logged as data but is censored.
+	mutating func appendInterpolation<T>(private value: T, public text: String = "") {
 		#if DEBUG
 			appendLiteral(String(describing: value))
 		#else
-			appendLiteral("🙈🙉🙊")
+			text.isEmpty ? appendLiteral("🙈🙉🙊") : appendLiteral("🙈🙉🙊. (Censoring cause: " + text + ")")
 		#endif
 	}
 }
