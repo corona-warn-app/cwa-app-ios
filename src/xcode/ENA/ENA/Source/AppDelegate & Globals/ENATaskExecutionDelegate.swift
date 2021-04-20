@@ -73,7 +73,6 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 					}
 				}
 
-
 				group.enter()
 				DispatchQueue.global().async {
 					Log.info("Starting FakeRequests…", log: .background)
@@ -120,7 +119,6 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 
 			}
 		}
-		
 		
 		group.notify(queue: .main) {
 			completion(true)
