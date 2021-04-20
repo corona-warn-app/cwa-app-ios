@@ -8,6 +8,7 @@ import UIKit
 @IBDesignable
 class ENAButton: DynamicTypeButton {
 	@IBInspectable var color: UIColor?
+	@IBInspectable var customBackgroundColor: UIColor?
 
 	@IBInspectable var hasBackground: Bool = true { didSet { applyStyle() } }
 	@IBInspectable var isInverted: Bool = false { didSet { applyStyle() } }
@@ -94,7 +95,7 @@ class ENAButton: DynamicTypeButton {
 		} else if isInverted {
 			style = .contrast
 		} else {
-			style = .emphasized(color: color)
+			style = .emphasized(color: color, backgroundColor: customBackgroundColor)
 		}
 
 		applyActivityIndicator()
@@ -193,7 +194,7 @@ class ENAButton: DynamicTypeButton {
 private extension ENAButton {
 	enum Style {
 		case transparent
-		case emphasized(color: UIColor?)
+		case emphasized(color: UIColor?, backgroundColor: UIColor?)
 		case contrast
 	}
 }
@@ -206,7 +207,7 @@ extension ENAButton.Style {
 	var backgroundColor: UIColor {
 		switch self {
 		case .transparent: return .clear
-		case .emphasized(let color): return color ?? .enaColor(for: .buttonPrimary)
+		case let .emphasized(color, _): return color ?? .enaColor(for: .buttonPrimary)
 		case .contrast: return .enaColor(for: .background)
 		}
 	}
@@ -222,8 +223,8 @@ extension ENAButton.Style {
 	var disabledBackgroundColor: UIColor {
 		switch self {
 		case .transparent: return .clear
-		case .emphasized: return .enaColor(for: .cellBackground)
-		case .contrast: return .enaColor(for: .cellBackground)
+		case let .emphasized(_, backgroundColor): return backgroundColor ?? .enaColor(for: .separator)
+		case .contrast: return .enaColor(for: .separator)
 		}
 	}
 
