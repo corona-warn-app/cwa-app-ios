@@ -31,6 +31,7 @@ class DiaryAddAndEditEntryViewController: UITableViewController, UITextFieldDele
 
 		view.backgroundColor = .enaColor(for: .background)
 
+		parent?.navigationItem.title = viewModel.title
 		parent?.navigationItem.largeTitleDisplayMode = .always
 		parent?.navigationItem.rightBarButtonItem = CloseBarButtonItem(
 			onTap: { [weak self] in
