@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-class DiaryAddAndEditEntryViewController: UITableViewController, UITextFieldDelegate, ENANavigationControllerWithFooterChild, DismissHandling {
+class DiaryAddAndEditEntryViewController: UITableViewController, UITextFieldDelegate, DismissHandling, FooterViewHandling {
 
 	// MARK: - Init
 
@@ -31,8 +31,12 @@ class DiaryAddAndEditEntryViewController: UITableViewController, UITextFieldDele
 
 		view.backgroundColor = .enaColor(for: .background)
 
-		navigationItem.largeTitleDisplayMode = .always
-
+		parent?.navigationItem.largeTitleDisplayMode = .always
+		parent?.navigationItem.rightBarButtonItem = CloseBarButtonItem(
+			onTap: { [weak self] in
+				self?.dismiss()
+			}
+		)
 		setupBindings()
 		setupView()
 	}
@@ -40,14 +44,27 @@ class DiaryAddAndEditEntryViewController: UITableViewController, UITextFieldDele
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 
-		navigationController?.navigationBar.prefersLargeTitles = true
-		navigationController?.navigationBar.sizeToFit()
+		parent?.navigationController?.navigationBar.prefersLargeTitles = true
+		parent?.navigationController?.navigationBar.sizeToFit()
+
 	}
 
-	override var navigationItem: UINavigationItem {
-		navigationFooterItem
+//	override var navigationItem: UINavigationItem {
+//		navigationFooterItem
+//	}
+
+	// MARK: - Protocol FooterViewHandling
+
+	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
+		guard type == .primary else {
+			return
+		}
+		viewModel.save()
+		dismiss()
 	}
-	
+
+	// MARK: - Protocol UITableViewDataSource
+
 	override func numberOfSections(in tableView: UITableView) -> Int {
 		return 1
 	}
@@ -62,6 +79,8 @@ class DiaryAddAndEditEntryViewController: UITableViewController, UITextFieldDele
 		view.heightAnchor.constraint(equalToConstant: 30).isActive = true
 		return view
 	}
+
+	// MARK: - Protocol UITableViewDelegate
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: TextFieldCell.identifier, for: indexPath) as? TextFieldCell else {
@@ -135,13 +154,6 @@ class DiaryAddAndEditEntryViewController: UITableViewController, UITextFieldDele
 		return false
 	}
 
-	// MARK: - ENANavigationControllerWithFooterChild
-
-	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		viewModel.save()
-		dismiss()
-	}
-
 	// MARK: - DismissHandling
 
 	func wasAttemptedToBeDismissed() {
@@ -160,26 +172,9 @@ class DiaryAddAndEditEntryViewController: UITableViewController, UITextFieldDele
 	private let dismiss: () -> Void
 	private var bindings: [AnyCancellable] = []
 
-	private lazy var navigationFooterItem: ENANavigationFooterItem = {
-		let item = ENANavigationFooterItem()
-
-		item.primaryButtonTitle = AppStrings.ContactDiary.AddEditEntry.primaryButtonTitle
-		item.isPrimaryButtonEnabled = true
-		item.isSecondaryButtonHidden = true
-
-		item.title = viewModel.title
-		item.largeTitleDisplayMode = .always
-		item.rightBarButtonItem = CloseBarButtonItem(
-			onTap: { [weak self] in
-				self?.dismiss()
-			}
-		)
-		return item
-	}()
-
 	private func setupBindings() {
-		viewModel.$entryModel.sink { [navigationFooterItem] updatedText in
-			navigationFooterItem.isPrimaryButtonEnabled = !updatedText.isEmpty
+		viewModel.$entryModel.sink { [weak self] updatedText in
+			self?.footerView?.setEnabled(!updatedText.isEmpty, button: .primary)
 		}.store(in: &bindings)
 	}
 
@@ -190,8 +185,6 @@ class DiaryAddAndEditEntryViewController: UITableViewController, UITextFieldDele
 		tableView.register(
 			TextFieldCell.self,
 			forCellReuseIdentifier: TextFieldCell.identifier)
-
-		footerView?.isHidden = false
 	}
 
 	@objc
