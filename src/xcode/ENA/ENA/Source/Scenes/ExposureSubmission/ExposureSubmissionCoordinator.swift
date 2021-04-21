@@ -35,7 +35,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 	func start(with coronaTestType: CoronaTestType? = nil) {
 		model.coronaTestType = coronaTestType
-		start(with: getInitialViewController())
+
+		start(with: self.getInitialViewController())
 	}
 
 	func start(with testInformationResult: Result<CoronaTestQRCodeInformation, QRCodeError>) {
@@ -119,7 +120,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				if !coronaTest.positiveTestResultWasShown {
 					return createTestResultAvailableViewController()
 				} else {
-					return createWarnOthersViewController()
+					return createWarnOthersViewController(supportedCountries: model.exposureSubmissionService.supportedCountries)
 				}
 			} else {
 				return createTestResultViewController()
@@ -327,12 +328,13 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		return topBottomContainerViewController
 	}
 
-	private func createWarnOthersViewController() -> UIViewController {
+	private func createWarnOthersViewController(supportedCountries: [Country]) -> UIViewController {
 		Analytics.collect(.keySubmissionMetadata(.lastSubmissionFlowScreen(.submissionFlowScreenWarnOthers)))
 
 		let vc = ExposureSubmissionWarnOthersViewController(
 			viewModel: ExposureSubmissionWarnOthersViewModel(
-				supportedCountries: model.exposureSubmissionService.supportedCountries) { [weak self] in
+				supportedCountries: supportedCountries
+			) { [weak self] in
 				self?.showTestResultAvailableCloseAlert()
 			},
 			onPrimaryButtonTap: { [weak self] isLoading in
@@ -557,6 +559,9 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			showNextScreen()
 			return
 		}
+
+		/// Reset checkins when entering the screen in case the user skips, cancels or stays on the screen during background submission
+		model.exposureSubmissionService.checkins = []
 		
 		let footerViewModel = FooterViewModel(
 			primaryButtonName: AppStrings.ExposureSubmissionCheckins.continueButton,
@@ -572,13 +577,11 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				showNextScreen()
 			},
 			onSkip: { [weak self] in
-				self?.model.exposureSubmissionService.checkins = []
 				self?.showSkipCheckinsAlert(dontShareHandler: {
 					showNextScreen()
 				})
 			},
 			onDismiss: { [weak self] in
-				self?.model.exposureSubmissionService.checkins = []
 				if self?.model.coronaTest?.positiveTestResultWasShown == true {
 					self?.showSkipCheckinsAlert(dontShareHandler: {
 						Analytics.collect(.keySubmissionMetadata(.submittedAfterCancel(true)))
@@ -603,52 +606,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	// MARK: Late consent
 
 	private func showWarnOthersScreen(supportedCountries: [Country]) {
-		Analytics.collect(.keySubmissionMetadata(.lastSubmissionFlowScreen(.submissionFlowScreenWarnOthers)))
-		let viewModel = ExposureSubmissionWarnOthersViewModel(supportedCountries: supportedCountries) { [weak self] in
-			self?.showTestResultAvailableCloseAlert()
-		}
-		let vc = ExposureSubmissionWarnOthersViewController(
-			viewModel: viewModel,
-			onPrimaryButtonTap: { [weak self] isLoading in
-				self?.model.setSubmissionConsentGiven(true)
-				self?.model.exposureSubmissionService.getTemporaryExposureKeys { error in
-					isLoading(false)
-
-					guard let error = error else {
-						self?.showCheckinsScreen()
-						return
-					}
-
-					self?.model.setSubmissionConsentGiven(false)
-
-					// User selected "Don't Share" / "Nicht teilen"
-					if error == .notAuthorized {
-						Log.info("OS submission authorization was declined.")
-					} else {
-						Log.error("\(#function) error", log: .ui, error: error)
-						self?.showErrorAlert(for: error)
-					}
-				}
-			},
-			dismiss: { [weak self] in self?.dismiss() }
-		)
-		
-		let footerViewController = FooterViewController(
-			FooterViewModel(
-				primaryButtonName: AppStrings.ExposureSubmissionQRInfo.primaryButtonTitle,
-				primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
-				secondaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.secondaryButton,
-				isSecondaryButtonEnabled: false,
-				isSecondaryButtonHidden: true
-			)
-		)
-		
-		let topBottomContainerViewController = TopBottomContainerViewController(
-			topController: vc,
-			bottomController: footerViewController
-		)
-		
-		push(topBottomContainerViewController)
+		let vc = createWarnOthersViewController(supportedCountries: supportedCountries)
+		push(vc)
 	}
 
 	private func showThankYouScreen() {
