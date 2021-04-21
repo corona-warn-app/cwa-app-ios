@@ -6,6 +6,28 @@ import Foundation
 
 struct RapidTestProfile: Codable {
 
+	// MARK: - Init
+
+	init(
+		forename: String?,
+		lastName: String?,
+		dateOfBirth: Date?,
+		addressLine: String?,
+		zipCode: String?,
+		city: String?,
+		phoneNumber: String?,
+		email: String?
+	) {
+		self.forename = forename
+		self.lastName = lastName
+		self.dateOfBirth = dateOfBirth
+		self.addressLine = addressLine
+		self.zipCode = zipCode
+		self.city = city
+		self.phoneNumber = phoneNumber
+		self.email = email
+	}
+
 	// MARK: - Protocol Codable
 
 	func encode(to encoder: Encoder) throws {
@@ -48,7 +70,6 @@ struct RapidTestProfile: Codable {
 		case phoneNumber
 		case email
 	}
-
 
 	// MARK: - Internal
 
