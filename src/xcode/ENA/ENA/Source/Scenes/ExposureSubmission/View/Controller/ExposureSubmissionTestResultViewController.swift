@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-class ExposureSubmissionTestResultViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild, DismissHandling {
+class ExposureSubmissionTestResultViewController: DynamicTableViewController, FooterViewHandling, DismissHandling {
 
 	// MARK: - Init
 
@@ -17,9 +17,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 		self.viewModel = viewModel
 		self.exposureSubmissionService = exposureSubmissionService
 		self.onDismiss = onDismiss
-
 		super.init(nibName: nil, bundle: nil)
-		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 	}
 
 	@available(*, unavailable)
@@ -34,10 +32,6 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 
 		setUpView()
 		setUpBindings()
-		
-		footerView?.primaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.primaryButton
-		footerView?.secondaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.secondaryButton
-		footerView?.isHidden = false
 	}
 	
 	override func viewDidAppear(_ animated: Bool) {
@@ -45,19 +39,16 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 		
 		viewModel.updateWarnOthers()
 	}
-
-	override var navigationItem: UINavigationItem {
-		viewModel.navigationFooterItem
-	}
 	
 	// MARK: - Protocol ENANavigationControllerWithFooterChild
-
-	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		viewModel.didTapPrimaryButton()
-	}
-
-	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapSecondaryButton button: UIButton) {
-		viewModel.didTapSecondaryButton()
+	
+	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
+		switch type {
+		case .primary:
+			viewModel.didTapPrimaryButton()
+		case .secondary:
+			viewModel.didTapSecondaryButton()
+		}
 	}
 
 	// MARK: - Protocol DismissHandling
@@ -65,10 +56,9 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 	func wasAttemptedToBeDismissed() {
 		onDismiss(viewModel.testResult) { [weak self] isLoading in
 			DispatchQueue.main.async {
-				self?.navigationItem.rightBarButtonItem?.isEnabled = !isLoading
-				self?.navigationFooterItem?.isPrimaryButtonEnabled = !isLoading
-				self?.navigationFooterItem?.isSecondaryButtonEnabled = !isLoading
-				self?.navigationFooterItem?.isSecondaryButtonLoading = isLoading
+				self?.parent?.navigationItem.rightBarButtonItem?.isEnabled = !isLoading
+				self?.footerView?.setLoadingIndicator(isLoading, disable: false, button: .primary)
+				self?.footerView?.setLoadingIndicator(isLoading, disable: isLoading, button: .secondary)
 			}
 		}
 	}
@@ -82,6 +72,12 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 	private var bindings: [AnyCancellable] = []
 
 	private func setUpView() {
+		
+		parent?.navigationItem.title = AppStrings.ExposureSubmissionResult.title
+		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
+		parent?.navigationItem.hidesBackButton = true
+		parent?.navigationItem.largeTitleDisplayMode = .always
+		
 		view.backgroundColor = .enaColor(for: .background)
 
 		setUpDynamicTableView()
@@ -135,6 +131,16 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 
 				let alert = self.setupErrorAlert(message: error.localizedDescription)
 				self.present(alert, animated: true)
+			}
+			.store(in: &bindings)
+		
+		viewModel.$footerViewModel
+			.dropFirst()
+			.sink { [weak self] footerViewModel in
+				guard let self = self, let footerViewModel = footerViewModel else { return }
+				guard let topBottomViewController = self.parent as? TopBottomContainerViewController<ExposureSubmissionTestResultViewController, FooterViewController> else { return }
+				
+				topBottomViewController.updateFooterViewModel(footerViewModel)
 			}
 			.store(in: &bindings)
 	}

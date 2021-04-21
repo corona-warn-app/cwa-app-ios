@@ -14,12 +14,16 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		client: Client,
 		wifiClient: WifiOnlyHTTPClient,
 		exposureSubmissionService: ExposureSubmissionService,
-		otpService: OTPServiceProviding
+		otpService: OTPServiceProviding,
+		eventStore: EventStoringProviding,
+		qrCodePosterTemplateProvider: QRCodePosterTemplateProviding
 	) {
 		self.client = client
 		self.wifiClient = wifiClient
 		self.exposureSubmissionService = exposureSubmissionService
 		self.otpService = otpService
+		self.eventStore = eventStore
+		self.qrCodePosterTemplateProvider = qrCodePosterTemplateProvider
 
 		super.init(style: .plain)
 		title = "👩🏾‍💻 Developer Menu 🧑‍💻"
@@ -35,6 +39,8 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 	private let consumer = RiskConsumer()
 	private let exposureSubmissionService: ExposureSubmissionService
 	private let otpService: OTPServiceProviding
+	private let eventStore: EventStoringProviding
+	private let qrCodePosterTemplateProvider: QRCodePosterTemplateProviding
 
 	private var keys = [SAP_External_Exposurenotification_TemporaryExposureKey]() {
 		didSet {
@@ -119,8 +125,6 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 			vc = DMAppConfigurationViewController(appConfiguration: appConfigurationProvider)
 		case .backendConfiguration:
 			vc = makeBackendConfigurationViewController()
-		case .tracingHistory:
-			vc = DMTracingHistoryViewController(tracingHistory: store.tracingStatusHistory)
 		case .store:
 			vc = DMStoreViewController(store: store)
 		case .lastSubmissionRequest:
@@ -160,6 +164,14 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 			vc = DMPPAnalyticsActualData(store: store, client: client, appConfig: appConfigurationProvider)
 		case .ppaSubmission:
 			vc = DMPPAnalyticsViewController(store: store, client: client, appConfig: appConfigurationProvider)
+		case .installationDate:
+			vc = DMInstallationDateViewController(store: store)
+		case .allTraceLocations:
+			vc = DMRecentCreatedEventViewController(store: store, eventStore: eventStore, qrCodePosterTemplateProvider: qrCodePosterTemplateProvider, isPosterGeneration: false)
+		case .mostRecentTraceLocationCheckedInto:
+			vc = DMDMMostRecentTraceLocationCheckedIntoViewController(store: store)
+		case .adHocPosterGeneration:
+			vc = DMRecentCreatedEventViewController(store: store, eventStore: eventStore, qrCodePosterTemplateProvider: qrCodePosterTemplateProvider, isPosterGeneration: true)
 		}
 
 		if let vc = vc {
@@ -205,7 +217,8 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 				title: "Purge Cache and request Risk",
 				style: .destructive
 			) { _ in
-				self.store.riskCalculationResult = nil
+				self.store.enfRiskCalculationResult = nil
+				self.store.checkinRiskCalculationResult = nil
 				self.riskProvider.requestRisk(userInitiated: true)
 			}
 		)

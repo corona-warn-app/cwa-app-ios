@@ -13,4 +13,12 @@ extension Calendar {
 		return calendar
 	}
 
+	static func utc() -> Calendar {
+		var calendar = Calendar(identifier: .gregorian)
+		guard let timezone = TimeZone(abbreviation: "UTC") else {
+			fatalError("Could not create UTC timezone.")
+		}
+		calendar.timeZone = timezone
+		return calendar
+	}
 }

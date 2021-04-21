@@ -14,12 +14,16 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 		riskProvider: RiskProvider,
 		plausibleDeniabilityService: PlausibleDeniabilityService,
 		contactDiaryStore: DiaryStoring,
+		eventStore: EventStoring,
+		eventCheckoutService: EventCheckoutService,
 		store: Store,
 		exposureSubmissionDependencies: ExposureSubmissionServiceDependencies
 	) {
 		self.riskProvider = riskProvider
 		self.pdService = plausibleDeniabilityService
 		self.contactDiaryStore = contactDiaryStore
+		self.eventStore = eventStore
+		self.eventCheckoutService = eventCheckoutService
 		self.store = store
 		self.dependencies = exposureSubmissionDependencies
 	}
@@ -88,6 +92,20 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 
 		group.enter()
 		DispatchQueue.global().async {
+			Log.info("Cleanup event store.", log: .background)
+			self.eventStore.cleanup(timeout: 10.0)
+			group.leave()
+		}
+
+		group.enter()
+		DispatchQueue.global().async {
+			Log.info("Checkout overdue checkins.", log: .background)
+			self.eventCheckoutService.checkoutOverdueCheckins()
+			group.leave()
+		}
+
+		group.enter()
+		DispatchQueue.global().async {
 			Log.info("Trigger analytics submission.", log: .background)
 			self.executeAnalyticsSubmission {
 				group.leave()
@@ -108,6 +126,8 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 	// MARK: - Private
 
 	private let backgroundTaskConsumer = RiskConsumer()
+	private let eventStore: EventStoring
+	private let eventCheckoutService: EventCheckoutService
 
 	/// This method attempts a submission of temporary exposure keys. The exposure submission service itself checks
 	/// whether a submission should actually be executed.
@@ -119,6 +139,7 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 			appConfigurationProvider: dependencies.appConfigurationProvider,
 			client: dependencies.client,
 			store: dependencies.store,
+			eventStore: dependencies.eventStore,
 			warnOthersReminder: WarnOthersReminder(store: dependencies.store)
 		)
 
@@ -156,6 +177,7 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 			appConfigurationProvider: dependencies.appConfigurationProvider,
 			client: dependencies.client,
 			store: dependencies.store,
+			eventStore: dependencies.eventStore,
 			warnOthersReminder: WarnOthersReminder(store: dependencies.store)
 		)
 
@@ -252,8 +274,17 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 	}
 
 	private func executeAnalyticsSubmission(completion: @escaping () -> Void) {
-		Analytics.triggerAnalyticsSubmission(completion: { _ in
-			// Ignore the result of the call, so we just complete after the call is finished.
+		// fill in the risk exposure metadata if new risk calculation is not done in the meanwhile
+		if let enfRiskCalculationResult = store.enfRiskCalculationResult {
+			Analytics.collect(.riskExposureMetadata(.updateRiskExposureMetadata(enfRiskCalculationResult)))
+		}
+		Analytics.triggerAnalyticsSubmission(completion: { result in
+			switch result {
+			case .success:
+				Log.info("[ENATaskExecutionDelegate] Analytics submission was triggered succesfully from background", log: .ppa)
+			case let .failure(error):
+				Log.error("[ENATaskExecutionDelegate] Analytics submission was triggered not succesfully from background with error: \(error)", log: .ppa, error: error)
+			}
 			completion()
 		})
 	}

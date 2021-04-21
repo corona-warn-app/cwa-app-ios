@@ -5,7 +5,7 @@
 import Foundation
 @testable import ENA
 
-final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, PPAnalyticsData {
+final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, PPAnalyticsData, EventRegistrationCaching {
 
 	var warnOthersNotificationOneTimer: TimeInterval = WarnOthersNotificationsTimeInterval.intervalOne
 	var warnOthersNotificationTwoTimer: TimeInterval = WarnOthersNotificationsTimeInterval.intervalTwo
@@ -15,9 +15,9 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, 
 	var firstPlaybookExecution: Date?
 	var lastBackgroundFakeRequest: Date = .init()
 	var hasSeenBackgroundFetchAlert: Bool = false
-	var riskCalculationResult: RiskCalculationResult?
+	var enfRiskCalculationResult: ENFRiskCalculationResult?
+	var checkinRiskCalculationResult: CheckinRiskCalculationResult?
 	var shouldShowRiskStatusLoweredAlert: Bool = false
-	var tracingStatusHistory: TracingStatusHistory = []
 	var testResultReceivedTimeStamp: Int64?
 	func clearAll(key: String?) {}
 	var hasSeenSubmissionExposureTutorial: Bool = false
@@ -43,6 +43,7 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, 
 	var registrationToken: String?
 	var allowRiskChangesNotification: Bool = true
 	var allowTestsStatusNotification: Bool = true
+	var appInstallationDate: Date? = Date()
 	var userNeedsToBeInformedAboutHowRiskDetectionWorks = false
 	var selectedServerEnvironment: ServerEnvironmentData = ServerEnvironment().defaultEnvironment()
 	var wasRecentDayKeyDownloadSuccessful = false
@@ -53,6 +54,7 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, 
 	var wasDeviceTimeErrorShown = false
 	var isSubmissionConsentGiven = false
 	var submissionKeys: [SAP_External_Exposurenotification_TemporaryExposureKey]?
+	var submissionCheckins: [Checkin] = []
 	var submissionCountries: [Country] = [.defaultCountry()]
 	var submissionSymptomsOnset: SymptomsOnset = .noInformation
 	var journalWithExposureHistoryInfoScreenShown: Bool = false
@@ -63,10 +65,11 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, 
 	#if !RELEASE
 	// Settings from the debug menu.
 	var fakeSQLiteError: Int32?
-	var mostRecentRiskCalculation: RiskCalculation?
+	var mostRecentRiskCalculation: ENFRiskCalculation?
 	var mostRecentRiskCalculationConfiguration: RiskCalculationConfiguration?
 	var dmKillDeviceTimeCheck = false
 	var forceAPITokenAuthorization = false
+	var recentTraceLocationCheckedInto: DMRecentTraceLocationCheckedInto?
 	#endif
 
 	// MARK: - AppConfigCaching
@@ -90,6 +93,7 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, 
 	var lastSubmissionAnalytics: Date?
 	var lastAppReset: Date?
 	var lastSubmittedPPAData: String?
+	var submittedWithQR: Bool = false
 	var currentRiskExposureMetadata: RiskExposureMetadata?
 	var previousRiskExposureMetadata: RiskExposureMetadata?
 	var userMetadata: UserMetadata?
@@ -97,4 +101,12 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, 
 	var keySubmissionMetadata: KeySubmissionMetadata?
 	var testResultMetadata: TestResultMetadata?
 	var exposureWindowsMetadata: ExposureWindowsMetadata?
+	
+	// MARK: - EventRegistrationCaching
+	
+	var wasRecentTraceWarningDownloadSuccessful: Bool = false
+	var checkinInfoScreenShown: Bool = false
+	var traceLocationsInfoScreenShown: Bool = false
+	var shouldAddCheckinToContactDiaryByDefault = true
+	var qrCodePosterTemplateMetadata: QRCodePosterTemplateMetadata?
 }

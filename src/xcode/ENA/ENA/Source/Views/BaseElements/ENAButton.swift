@@ -222,8 +222,8 @@ extension ENAButton.Style {
 	var disabledBackgroundColor: UIColor {
 		switch self {
 		case .transparent: return .clear
-		case .emphasized: return .enaColor(for: .separator)
-		case .contrast: return .enaColor(for: .separator)
+		case .emphasized: return .enaColor(for: .cellBackground)
+		case .contrast: return .enaColor(for: .cellBackground)
 		}
 	}
 

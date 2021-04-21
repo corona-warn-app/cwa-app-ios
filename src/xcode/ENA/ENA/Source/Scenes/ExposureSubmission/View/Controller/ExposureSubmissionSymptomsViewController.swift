@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-final class ExposureSubmissionSymptomsViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild, DismissHandling {
+final class ExposureSubmissionSymptomsViewController: DynamicTableViewController, FooterViewHandling, DismissHandling {
 
 	// MARK: - Init
 
@@ -16,7 +16,6 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 		self.onPrimaryButtonTap = onPrimaryButtonTap
 		self.onDismiss = onDismiss
 		super.init(nibName: nil, bundle: nil)
-		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 	}
 
 	@available(*, unavailable)
@@ -32,17 +31,12 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 		setupView()
 	}
 
-	override var navigationItem: UINavigationItem {
-		navigationFooterItem
-	}
-
-	// MARK: - Protocol ENANavigationControllerWithFooterChild
-
-	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
+	// MARK: - Protocol FooterViewHandling
+	
+	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
 		guard let selectedSymptomsOption = selectedSymptomsOption else {
 			fatalError("Primary button must not be enabled before the user has selected an option")
 		}
-
 		onPrimaryButtonTap(selectedSymptomsOption) { [weak self] isLoading in
 			DispatchQueue.main.async {
 				self?.updateForLoadingState(isLoading: isLoading)
@@ -76,29 +70,38 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 
 	@OpenCombine.Published private var selectedSymptomsOption: SymptomsOption?
 
-	private lazy var navigationFooterItem: ENANavigationFooterItem = {
-		let item = ENANavigationFooterItem()
-		item.primaryButtonTitle = AppStrings.ExposureSubmissionTestResultAvailable.primaryButtonTitle
-		item.isPrimaryButtonEnabled = true
-		item.isSecondaryButtonHidden = true
-		item.title = AppStrings.ExposureSubmissionTestResultAvailable.title
-		return item
-	}()
-
 	private var optionGroupSelection: OptionGroupViewModel.Selection? {
 		didSet {
 			guard case let .option(index: index) = optionGroupSelection else { return }
-
+			guard let topBottomViewController = parent as? TopBottomContainerViewController<ExposureSubmissionSymptomsViewController, FooterViewController> else { return }
 			switch index {
 			case 0:
 				selectedSymptomsOption = .yes
-				navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionSymptoms.continueButton
+				let footerViewModel = FooterViewModel(
+					primaryButtonName: AppStrings.ExposureSubmissionSymptoms.continueButton,
+					primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
+					isSecondaryButtonEnabled: false,
+					isSecondaryButtonHidden: true
+				)
+				topBottomViewController.updateFooterViewModel(footerViewModel)
 			case 1:
 				selectedSymptomsOption = .no
-				navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionSymptoms.doneButton
+				let footerViewModel = FooterViewModel(
+					primaryButtonName: AppStrings.ExposureSubmissionSymptoms.doneButton,
+					primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
+					isSecondaryButtonEnabled: false,
+					isSecondaryButtonHidden: true
+				)
+				topBottomViewController.updateFooterViewModel(footerViewModel)
 			case 2:
 				selectedSymptomsOption = .preferNotToSay
-				navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionSymptoms.doneButton
+				let footerViewModel = FooterViewModel(
+					primaryButtonName: AppStrings.ExposureSubmissionSymptoms.doneButton,
+					primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
+					isSecondaryButtonEnabled: false,
+					isSecondaryButtonHidden: true
+				)
+				topBottomViewController.updateFooterViewModel(footerViewModel)
 			default:
 				break
 			}
@@ -106,15 +109,16 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 	}
 
 	private func setupView() {
-		view.backgroundColor = .enaColor(for: .background)
 
-		navigationItem.title = AppStrings.ExposureSubmissionSymptoms.title
-		navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionSymptoms.continueButton
+		parent?.navigationItem.title = AppStrings.ExposureSubmissionSymptoms.title
+		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
+		
+		view.backgroundColor = .enaColor(for: .background)
 
 		setupTableView()
 
-		selectedSymptomsOptionConfirmationButtonStateSubscription = $selectedSymptomsOption.receive(on: RunLoop.main.ocombine).sink {
-			self.navigationFooterItem?.isPrimaryButtonEnabled = $0 != nil
+		selectedSymptomsOptionConfirmationButtonStateSubscription = $selectedSymptomsOption.receive(on: RunLoop.main.ocombine).sink { [weak self] in
+			self?.footerView?.setLoadingIndicator(false, disable: $0 == nil, button: .primary)
 		}
 	}
 
@@ -183,9 +187,8 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 
 	private func updateForLoadingState(isLoading: Bool) {
 		view.isUserInteractionEnabled = !isLoading
-		navigationItem.rightBarButtonItem?.isEnabled = !isLoading
-		navigationFooterItem?.isPrimaryButtonLoading = isLoading
-		navigationFooterItem?.isPrimaryButtonEnabled = !isLoading
+		parent?.navigationItem.rightBarButtonItem?.isEnabled = !isLoading
+		footerView?.setLoadingIndicator(isLoading, disable: isLoading, button: .primary)
 	}
 
 }

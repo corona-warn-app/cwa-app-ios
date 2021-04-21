@@ -43,9 +43,9 @@
 
 "Common_BackgroundFetch_AlertTitle" = "Hintergrundaktualisierung ausgeschaltet";
 
-"Common_Deadman_AlertTitle" = "Risiko-Überprüfung";
+"Common_Deadman_AlertTitle" = "Ihr Risikostatus";
 
-"Common_Deadman_AlertBody" = "Bitte öffnen Sie die Corona-Warn-App, um die Risiko-Überprüfung anzustoßen.";
+"Common_Deadman_AlertBody" = "Bitte denken Sie daran, die Corona-Warn-App regelmäßig zu öffnen, um Ihren Risikostatus zu überprüfen.";
 
 "Common_Tess_Relay_Description" = "Gehörlose, schwerhörige und spätertaubte Menschen können zur telefonischen Kontaktaufnahme die Tess-Relay-Dienste (Dolmetschen in Gebärdensprache und deutscher Schriftsprache) nutzen. Die Software können Sie im App Store herunterladen.";
 
@@ -66,6 +66,8 @@
 "ExposureDetection_High" = "Erhöhtes Risiko";
 
 "ExposureDetection_High_Red_Color" = "Rot";
+
+"ExposureDetection_DaysSinceInstallation" = "Seit %u Tagen installiert";
 
 "ExposureDetection_LastExposure" = "Zuletzt am %@";
 
@@ -91,7 +93,7 @@
 
 "ExposureDetection_Behavior_Title" = "Verhalten";
 
-"ExposureDetection_Behavior_Subtitle" = "So verhalten Sie sich richtig:";
+"ExposureDetection_Behavior_Subtitle" = "So verhalten Sie sich richtig.";
 
 "ExposureDetection_Guide_Hands" = "Waschen Sie Ihre Hände regelmäßig mit Seife für 20 Sekunden.";
 
@@ -100,10 +102,10 @@
 "ExposureDetection_Guide_Distance" = "Halten Sie mindestens 1,5 Meter Abstand zu anderen Personen.";
 
 "ExposureDetection_Guide_Sneeze" = "Niesen oder husten Sie in die Armbeuge oder in ein Taschentuch.";
-
+"ExposureDetection_Guide_Ventilation" = "Lüften Sie Innenräume mehrmals täglich. Öffnen Sie dazu die Fenster einige Minuten lang so weit wie möglich (Stoßlüftung).";
 "ExposureDetection_Guide_Home" = "Begeben Sie sich, wenn möglich, nach Hause bzw. bleiben Sie zu Hause.";
 
-"ExposureDetection_Guide_Hotline1" = "Bei Fragen zu Symptomen, Testmöglichkeiten und Isolationsmaßnahmen wenden Sie sich bitte an eine der folgenden Stellen:";
+"ExposureDetection_Guide_Hotline1" = "Bei Fragen zu Symptomen, Testmöglichkeiten und Quarantäne-Maßnahmen wenden Sie sich bitte an eine der folgenden Stellen:";
 
 "ExposureDetection_Guide_Hotline2" = "Ihre Hausarztpraxis";
 
@@ -129,9 +131,11 @@
 
 "ExposureDetection_Explanation_Text_Low_No_Encounter" = "Sie haben ein niedriges Infektionsrisiko, da keine Begegnung mit nachweislich Corona-positiv getesteten Personen aufgezeichnet wurde oder sich Ihre Begegnung auf kurze Zeit und einen größeren Abstand beschränkt hat.";
 
-"ExposureDetection_Explanation_Text_Low_With_Encounter" = "Sie haben ein niedriges Infektionsrisiko, da keine Begegnung mit nachweislich Corona-positiv getesteten Personen aufgezeichnet wurde oder sich Ihre Begegnung auf kurze Zeit und einen größeren Abstand beschränkt hat.";
+"ExposureDetection_Explanation_Text_Low_With_Encounter" = "Das Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung unter Berücksichtigung des Abstands und der Dauer von Begegnungen mit nachweislich Corona-positiv getesteten Personen sowie deren vermutlicher Infektiosität lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
 
-"ExposureDetection_Explanation_Text_High_DateOfLastExposure" = "Sie haben ein erhöhtes Infektionsrisiko, da Sie zuletzt am %@ mindestens einer nachweislich Corona-positiv getesteten Person über einen längeren Zeitraum und mit einem geringen Abstand begegnet sind.";
+"ExposureDetection_Explanation_Text_Low_With_Encounter_FAQ" = "Weitere Informationen finden Sie in den FAQ.";
+
+"ExposureDetection_Explanation_Text_High_DateOfLastExposure" = "Sie haben ein erhöhtes Infektionsrisiko, da Sie mindestens einer nachweislich Corona-positiv getesteten Person über einen längeren Zeitraum und mit einem geringen Abstand begegnet sind.";
 
 "ExposureDetection_Explanation_Text_High" = "Ihr Infektionsrisiko wird daher als erhöht eingestuft.\nDas Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung unter Berücksichtigung von Abstand und Dauer lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.\nWenn Sie nach Hause kommen, vermeiden Sie auch Begegnungen mit Familienmitgliedern und Mitbewohnern.";
 
@@ -216,10 +220,11 @@
 "ExposureDetection_ActiveTracingSection_Subtitle" = "Dieser Zeitraum wird berücksichtigt.";
 
 /* There are two paragraphs in this section. The first one just contains text… */
-"ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Die Berechnung des Infektionsrisikos kann nur für die Zeiträume erfolgen, an denen die Risiko-Ermittlung aktiv war. Die Risiko-Ermittlung sollte daher dauerhaft aktiv sein.";
+"ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Die Berechnung des Infektionsrisikos kann nur für die Zeiträume erfolgen, an denen die Risiko-Ermittlung aktiv war. Die Risiko-Ermittlung sollte daher dauerhaft aktiv sein. Für Ihre Risiko-Ermittlung wird der Zeitraum der letzten 14 Tage betrachtet.";
 
-/* … the second paragraph contains two columns. On the left there is our active\n tracing indicator. On the right column there is just text that explains what\n the indicator shows.\n\n Parameters:\n - first: total number of relevant days (usually 14).\n - second: the actual number of days with active tracing. */
-"ExposureDetection_ActiveTracingSection_Text_Paragraph1" = "Für Ihre Risiko-Ermittlung wird nur der Zeitraum der letzten %1$u Tage betrachtet. In diesem Zeitraum war Ihre Risiko-Ermittlung für eine Gesamtdauer von %2$u Tagen aktiv. Ältere Tage werden automatisch gelöscht, da sie aus Sicht des Infektionsschutzes nicht mehr relevant sind.";
+"ExposureDetection_ActiveTracingSection_Text_Paragraph1a" = "Die Corona-Warn-App ist seit %u Tagen installiert. Das Infektionsrisiko wird für Zeiträume berechnet, in denen die Risiko-Ermittlung aktiv ist. Wenn Sie andere Personen getroffen haben und die Risiko-Ermittlung aktiv war, wird Ihr Infektions-Risiko berechnet.";
+
+"ExposureDetection_ActiveTracingSection_Text_Paragraph1b" = "Wenn die Risiko-Ermittlung zu Zeiten, in denen Sie andere Personen getroffen haben, aktiv war, kann die Berechnung des Infektionsrisikos für diesen Zeitraum erfolgen.";
 
 /* Exposure Detection Errors */
 
@@ -267,6 +272,17 @@
 "Settings_Reset_Description" = "Löschen Sie alle Ihre Daten in der App.";
 
 "Settings_NavTitle" = "Einstellungen";
+
+"Settings_DaysSinceInstall_Title" = "Ermittlungszeitraum";
+
+"Settings_DaysSinceInstall_SubTitle" = "Dieser Zeitraum wird berücksichtigt.";
+
+"Settings_DaysSinceInstall_P1" = "Die Berechnung des Infektionsrisikos kann nur für die Zeiträume erfolgen, an denen die Risiko-Ermittlung aktiv war. Die Risiko-
+Ermittlung sollte daher dauerhaft aktiv sein. Für Ihre Risiko-Ermittlung wird der Zeitraum der letzten 14 Tage betrachtet.";
+
+"Settings_DaysSinceInstall_P2a" = "Die Corona-Warn-App ist seit %u Tagen installiert. Das Infektionsrisiko wird für Zeiträume berechnet, in denen die Risiko-Ermittlung aktiv ist. Wenn Sie andere Personen getroffen haben und die Risiko-Ermittlung aktiv war, wird Ihr Infektions-Risiko berechnet.";
+
+"Settings_DaysSinceInstall_P2b" = "Wenn die Risiko-Ermittlung zu Zeiten, in denen Sie andere Personen getroffen haben, aktiv war, kann die Berechnung des Infektionsrisikos für diesen Zeitraum erfolgen.";
 
 "Settings_DataDonation_Label" = "Datenspende";
 
@@ -401,9 +417,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "OnboardingInfo_enableLoggingOfContactsPage_title" = "Wie Sie die Risiko-Ermittlung ermöglichen";
 
-"OnboardingInfo_enableLoggingOfContactsPage_boldText" = "Um zu erkennen, ob für Sie ein Infektionsrisiko vorliegt, müssen Sie die Risiko-Ermittlung aktivieren.";
+"OnboardingInfo_enableLoggingOfContactsPage_boldText" = "Um zu erkennen, ob für Sie ein Infektionsrisiko vorliegt, müssen Sie die Risiko-Ermittlung aktivieren.";
 
-"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Die Risiko-Ermittlung funktioniert, indem Ihr iPhone per Bluetooth verschlüsselte Zufalls-IDs anderer App nutzenden Personen empfängt und Ihre eigenen Zufalls-IDs an deren Smartphones weitergibt. Die Risiko-Ermittlung lässt sich jederzeit deaktivieren.\n\nDie verschlüsselten Zufalls-IDs geben nur Auskunft über das Datum, die Dauer und die anhand der Signalstärke berechnete Entfernung zu Ihren Mitmenschen. Persönliche Daten wie Name, Adresse oder Aufenthaltsort werden zu keiner Zeit erfasst. Rückschlüsse auf einzelne Personen sind anhand der Zufalls-IDs nicht möglich.";
+"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Die Risiko-Ermittlung funktioniert, indem Ihr iPhone per Bluetooth verschlüsselte Zufalls-IDs anderer App nutzenden Personen empfängt und Ihre eigenen Zufalls-IDs an deren Smartphones weitergibt. Die Risiko-Ermittlung lässt sich jederzeit deaktivieren.\n\nDie verschlüsselten Zufalls-IDs geben nur Auskunft über das Datum, die Dauer und die anhand der Signalstärke berechnete Entfernung zu Ihren Mitmenschen. Persönliche Daten wie Name, Adresse oder Aufenthaltsort werden zu keiner Zeit erfasst. Rückschlüsse auf einzelne Personen sind anhand der Zufalls-IDs nicht möglich.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesTitle" = "App-Nutzung ab 16 Jahren";
 
@@ -429,9 +445,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "OnboardingInfo_alwaysStayInformedPage_title" = "Warnungen erhalten, Risiken erkennen";
 
-"OnboardingInfo_alwaysStayInformedPage_boldText" = "Die App kann Sie automatisch über Ihren Risikostatus informieren und bei Neuinfektionen von Menschen, denen Sie begegnet sind, warnen. Erlauben Sie der App jetzt, Sie zu benachrichtigen.";
+"OnboardingInfo_alwaysStayInformedPage_boldText" = "Die App kann Sie automatisch über Ihren Risikostatus informieren und bei Neuinfektionen von Menschen, denen Sie begegnet sind, warnen. Erlauben Sie der App jetzt, Sie zu benachrichtigen.";
 
-"OnboardingInfo_alwaysStayInformedPage_normalText" = "Auf diese Weise können Sie sich zum Schutz Ihrer Mitmenschen in Quarantäne begeben und sich nach entsprechender Abklärung testen lassen.";
+"OnboardingInfo_alwaysStayInformedPage_normalText" = "Auf diese Weise können Sie sich zum Schutz Ihrer Mitmenschen in Quarantäne begeben und sich nach entsprechender Abklärung testen lassen.";
 
 /* Onboarding EU Keys */
 
@@ -513,7 +529,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionHotline_Description" = "Bitte halten Sie zur TAN-Abfrage Ihren Befundbrief (sofern vorhanden) und Ihre Telefonnummer bereit.";
 
-"ExposureSubmissionHotline_SectionTitle" = "Info zum Ablauf:";
+"ExposureSubmissionHotline_SectionTitle" = "Infos zum Ablauf:";
 
 "ExposureSubmissionHotline_SectionDescription1" = "Rufen Sie die bundesweite Hotline an und fragen Sie nach einer TAN.";
 
@@ -543,9 +559,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionQRInfo_header_section_1" = "Testergebnis abrufen";
 
-"ExposureSubmissionQRInfo_body_section_1" = "Scannen Sie im nächsten Schritt den QR-Code auf Ihrem Test und rufen Sie Ihr Testergebnis ab.";
-
-"ExposureSubmissionQRInfo_instruction1" = "Bitte scannen Sie nur Ihren eigenen Test.";
+"ExposureSubmissionQRInfo_instruction1" = "Scannen Sie nun per QR-Code Ihren eigenen Test und rufen Sie Ihr Testergebnis ab.";
 
 "ExposureSubmissionQRInfo_instruction2" = "Ihr Test kann nur einmal gescannt werden. Die App kann nicht gleichzeitig mehrere Tests verwalten.";
 
@@ -557,13 +571,17 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionQRInfo_body_section_2" = "Wenn Sie positiv auf Corona getestet wurden, können Sie Ihre Mitmenschen über die App warnen. Die Warnung funktioniert in mehreren Ländern. Derzeit nehmen folgende Länder teil:";
 
-"ExposureSubmissionQRInfo_acknowledgement_3" = "Ihr Einverständnis ist freiwillig.";
+"ExposureSubmissionQRInfo_body_section_3" = "Es werden auch Ihre Mitmenschen gewarnt, die zeitgleich mit Ihnen an denselben Events oder Orten eingecheckt waren.";
 
-"ExposureSubmissionQRInfo_acknowledgement_4" = "Sie können Ihr Testergebnis auch abrufen, wenn Sie dies nicht teilen. Wenn Sie ihr Testergebnis teilen, helfen Sie jedoch mit, Ihre Mitmenschen vor Ansteckungen zu schützen.";
+"ExposureSubmissionQRInfo_acknowledgement_3" = "Sie können Ihr Testergebnis auch abrufen, wenn Sie dies nicht teilen. Wenn Sie ihr Testergebnis teilen, helfen Sie jedoch mit, Ihre Mitmenschen vor Ansteckungen zu schützen.";
 
-"ExposureSubmissionQRInfo_acknowledgement_5" = "Ihre Identität bleibt geheim. Andere Nutzer erfahren nicht, wer sein Testergebnis geteilt hat.";
+"ExposureSubmissionQRInfo_acknowledgement_4" = "Ihre Identität bleibt geheim. Andere Nutzer erfahren nicht, wer sein Testergebnis geteilt hat.";
+
+"ExposureSubmissionQRInfo_acknowledgement_5" = "Unter „Meine Check-ins“ können Sie Ihre Events und Orte einsehen, deren eingecheckte Gäste gewarnt werden. Sie können einzelne Check-Ins auch entfernen und so von der Warnung ausschließen.";
 
 "ExposureSubmissionQRInfo_acknowledgement_6" = "Sie können Ihr Einverständnis abgeben, wenn Sie mindestens 16 Jahre alt sind.";
+
+"ExposureSubmissionQRInfo_acknowledgement_7" = "Erteilen Sie im nächsten Schritt Ihre Erlaubnis zum Zugriff auf die Zufalls-IDs.";
 
 "ExposureSubmissionQRInfo_primaryButtonTitle" = "Einverstanden";
 
@@ -634,17 +652,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionTestresultAvailable_primaryButtonTitle" = "Weiter";
 
-"ExposureSubmissionTestresultAvailable_CloseAlertTitle" = "Achtung:\n Sie sind dabei den Vorgang abzubrechen. Sie haben Ihre Mitmenschen noch nicht gewarnt. Bitte schützen Sie Ihre Mitmenschen und schließen Sie den Vorgang ab.";
+"ExposureSubmissionTestresultAvailable_CloseAlertTitle" = "Erst wenn Sie sich über Ihr Testergebnis informiert haben, können Sie bei Bedarf Ihre Mitmenschen warnen und so helfen, Infektionsketten zu unterbrechen.";
 
-"ExposureSubmissionTestresultAvailable_CloseAlertMessage" = "Möchten Sie den Vorgang wirklich abbrechen?";
+"ExposureSubmissionTestresultAvailable_CloseAlertButtonCancel" = "Ergebnis nicht anzeigen";
 
-"ExposureSubmissionTestresultAvailable_NoConsentCloseAlertTitle" = "Wollen Sie wirklich abbrechen?";
-
-"ExposureSubmissionTestresultAvailable_NoConsentCloseAlertMessage" = "Ihre bisherigen Angaben werden nicht gespeichert.";
-
-"ExposureSubmissionTestresultAvailable_CloseAlertButtonCancel" = "Abbrechen";
-
-"ExposureSubmissionTestresultAvailable_CloseAlertButtonContinue" = "Fortsetzen";
+"ExposureSubmissionTestresultAvailable_CloseAlertButtonContinue" = "Ergebnis anzeigen";
 
 /* Exposure Submission Result */
 "ExposureSubmissionResult_Title" = "Ihr Testergebnis";
@@ -661,7 +673,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_CardPending" = "Ergebnis liegt noch nicht vor";
 
-"ExposureSubmissionResult_Procedure" = "Info zum Ablauf:";
+"ExposureSubmissionResult_Procedure" = "Infos zum Ablauf:";
 
 "ExposureSubmissionResult_testAdded" = "Ihr Test wurde hinzugefügt.";
 
@@ -685,7 +697,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_testInvalid" = "Test kann nicht ausgewertet werden";
 
-"ExposureSubmissionResult_testInvalidDesc" = "Es gab ein Problem bei der Auswertung Ihres Tests. Bitte kontaktieren Sie das Testcenter oder das zuständige Labor, um Information zum weiteren Vorgehen zu erhalten.";
+"ExposureSubmissionResult_testInvalidDesc" = "Es gab ein Problem bei der Auswertung Ihres Tests. Bitte kontaktieren Sie das Testcenter oder das zuständige Labor, um Informationen zum weiteren Vorgehen zu erhalten.";
 
 "ExposureSubmissionResult_testExpired" = "Test kann nicht ausgewertet werden";
 
@@ -785,6 +797,14 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ExposureSubmissionWarnOthers_description" = "Da Sie positiv auf Corona getestet wurden, können Sie Ihre Mitmenschen über die App warnen.";
 
 "ExposureSubmissionWarnOthers_supportedCountriesTitle" = "Die Warnung funktioniert in mehreren Ländern. Derzeit nehmen folgende Länder teil:";
+
+"ExposureSubmissionWarnOthers_consent_bullet1" = "Ihr Einverständnis ist freiwillig.";
+
+"ExposureSubmissionWarnOthers_consent_bullet2" = "Sie können Ihr Testergebnis auch abrufen, wenn Sie dies nicht teilen. Wenn Sie ihr Testergebnis teilen, helfen Sie jedoch mit, Ihre Mitmenschen vor Ansteckungen zu schützen.";
+
+"ExposureSubmissionWarnOthers_consent_bullet3" = "Ihre Identität bleibt geheim. Andere Nutzer erfahren nicht, wer sein Testergebnis geteilt hat.";
+
+"ExposureSubmissionWarnOthers_consent_bullet4" = "Sie können Ihr Einverständnis abgeben, wenn Sie mindestens 16 Jahre alt sind.";
 
 "ExposureSubmissionWarnOthers_continueButton" = "Einverstanden";
 
@@ -949,7 +969,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 /* Home Navigation Bar */
 "Home_LeftBarButton_description" = "Corona-Warn-App Logo";
 
-"Home_RightBarButton_description" = "Info";
+"Home_RightBarButton_description" = "Infos";
 
 /* Home Active card */
 "Home_Activate_Card_On_Title" = "Risiko-Ermittlung aktiv";
@@ -994,6 +1014,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 /* Home Low card */
 "Home_Risk_Low_Title" = "Niedriges Risiko";
+"Home_Risk_DaysSinceInstallation" = "Seit %u Tagen installiert";
 
 /* Home High card */
 "Home_Risk_High_Title" = "Erhöhtes Risiko";
@@ -1082,6 +1103,16 @@ sein.";
 "Home_SubmitCard_Body" = "Schützen Sie sich und Ihre Mitmenschen!";
 
 "Home_SubmitCard_Button" = "Nächste Schritte";
+
+/* Home Trace Locations Card */
+
+"Home_TraceLocationsCard_Title" = "Sie planen eine Veranstaltung?";
+
+"Home_TraceLocationsCard_Body" = "Sie planen ein Event oder haben ein Geschäft? Erstellen Sie einen QR-Code, mit dem sich Ihre Gäste bei Ankunft einchecken können.";
+
+"Home_TraceLocationsCard_Button" = "QR-Code erstellen";
+
+/* Home Info Card */
 
 "Home_InfoCard_ShareTitle" = "Corona-Warn-App empfehlen";
 
@@ -1212,6 +1243,31 @@ sein.";
 "App_Information_Terms_ImageDescription" = "Eine Hand hält ein Smartphone mit viel Text, daneben ist ein Haken als Symbol für akzeptierte Nutzungsbedingungen.";
 
 "App_Information_Terms_Title" = "Nutzungsbedingungen";
+
+/* App Information - Error Report */
+"ErrorReport_PrivacyInformation" = "Weitere Hinweise finden Sie in der Datenschutzerklärung";
+
+"ErrorReport_ActiveStatus_Title" = "Fehleranalyse läuft";
+
+"ErrorReport_InactiveStatus_Title" = "Inaktiv";
+
+"ErrorReport_Progress_Description" = "Derzeitige Größe %@ (unkomprimiert)";
+
+"ErrorReport_StartButtonTitle" = "Starten";
+
+"ErrorReport_StopAndDeleteButtonTitle" = "Stoppen und Löschen";
+
+"ErrorReport_SaveButtonTitle" = "Lokal speichern und fortsetzen";
+
+"ErrorReport_SendButtonTitle" = "Fehlerbericht senden";
+
+"ErrorReport_SendReports_Title" = "Fehlerbericht senden";
+
+"ErrorReport_SendReports_Paragraph" = "Bevor Sie den aufgezeichneten Fehlerbericht an den technischen Support des RKI übersenden können, ist Ihr Einverständnis erforderlich.\n\nNach der Übersendung erhalten Sie eine Fehlerbericht-ID. Diese können Sie angeben, um dem technischen Support z. B. weitere Informationen zukommen zu lassen und dabei eine Zuordnung zu Ihrem Fehlerbericht zu ermöglichen. Wenn Sie die Fehlerbericht-ID nicht mitteilen, ist dem RKI eine Zuordnung zu Ihrer Person nicht möglich.";
+
+"ErrorReport_SendReports_Details" = "Ausführliche Informationen zu dieser Datenverarbeitung und den Datenschutzrisiken in den USA und anderen Drittländern";
+
+"ErrorReport_SendReports_Button_Title" = "Einverstanden und senden";
 
 /* Invite Friends */
 "InviteFriends_NavTitle" = "Empfehlen";
@@ -1352,23 +1408,25 @@ sein.";
 
 "NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Informationen unter dem Menüpunkt „Neue Funktionen”.";
 
-/* Version 1.14 */
+/* Version 2.0 */
 
-"NewVersionFeature_114_additional_diary_functions_title" = "Zusatzfunktionen im Kontakt-Tagebuch";
+"NewVersionFeature_200_event_checkin_title" = "Check-in per QR-Code für effiziente Rückverfolgbarkeit von Infektionsketten";
 
-"NewVersionFeature_114_additional_diary_functions_description" = "Sie können zu jedem Eintrag angeben, unter welchen Umständen die Begegnung stattfand. Sie können aus vorgegebenen Optionen auswählen (z. B. Dauer der Begegnung, mit oder ohne Maske) sowie zusätzlich in einer kurzen Notiz weitere Umstände erfassen, die zu einem erhöhten Risiko führen könnten. Sollten Sie sich tatsächlich anstecken, können diese Angaben dem Gesundheitsamt bei der Nachverfolgung möglicher Infektionsketten helfen.";
+"NewVersionFeature_200_event_checkin_description" = "Die CWA ermöglicht nun einen Check-in für Events und Orte. Personen, die Events veranstalten oder ein Geschäft haben, können über die App einen QR-Code erstellen. Durch Scannen des QR-Codes können sich Gäste bei Ankunft einchecken, um so ihre Anwesenheit zu registrieren. Auf Wunsch legt die App außerdem einen entsprechenden Tagebuch-Eintrag an. Wird eine eingecheckte Person später positiv auf das Coronavirus getestet, können andere Personen gewarnt werden, die zur selben Zeit eingescheckt waren.";
 
-"NewVersionFeature_114_direct_access_diary_title" = "Direkter Zugriff auf Kontakt-Tagebuch";
+/* Version 1.15 */
 
-"NewVersionFeature_114_direct_access_diary_description" = "Sie können nun direkt einen Eintrag im Kontakt-Tagebuch hinzufügen, ohne erst die App öffnen zu müssen. Tippen Sie dazu etwa 2 Sekunden lang auf das Icon der Corona-Warn-App bis ein Menü erscheint und tippen Sie dann auf „Tagebuch-Eintrag für heute hinzufügen“.";
+"NewVersionFeature_115_cross_border_switzerland_title" = "Länderübergreifende Risiko-Ermittlung um Schweiz erweitert ";
 
-"NewVersionFeature_114_more_details_risk_status_title" = "Mehr Details zum Risikostatus ";
+"NewVersionFeature_115_cross_border_switzerland_description" = "Die Corona-Warn-App nutzende Personen können nun auch verschlüsselte Zufalls-IDs mit Personen austauschen, die die offizielle Warn-App der Schweiz nutzen. Somit können Warnungen an App nutzende Personen in der Schweiz geschickt sowie von ihnen empfangen werden.";
 
-"NewVersionFeature_114_more_details_risk_status_description" = "Wenn Ihnen in der App ein erhöhtes Risiko angezeigt wird, können Sie nun sehen, ob der Risikostatus aufgrund einer bzw. mehrerer Begegnungen mit erhöhtem Risiko angezeigt wird, oder aufgrund von mehreren Begegnungen mit niedrigem Risiko.";
+"NewVersionFeature_115_days_since_install_title" = "Änderung der Risikokarten";
 
-"NewVersionFeature_114_screenshots_title" = "Screenshots zur Corona-Warn-App";
+"NewVersionFeature_115_days_since_install_description" = "Auf den Risikokarten entfällt die Anzeige der Anzahl aktiver Tage bzw. dass die App dauerhaft aktiv ist.";
 
-"NewVersionFeature_114_screenshots_description" = "Auf https://www.coronawarn.app stehen nun alle Screenshots der App zu Verfügung. So können Sie sich nun auch über geplante Funktionen der App informieren.";
+"NewVersionFeature_115_error_analytic_logs_title" = "Erstellung von Fehlerberichten";
+
+"NewVersionFeature_115_error_analytic_logs_description" = "Sie können nun nach Aufforderung des technischen Supports einen Fehlerbericht erstellen und die Schritte aufzeichnen, die Sie in der App ausführen. Mögliche technische Fehler können so besser analysiert und schneller behoben werden.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
@@ -1493,6 +1551,18 @@ sein.";
 "ContactDiary_Overview_ActionSheet_EditLocationTitle" = "Orte bearbeiten";
 
 "ContactDiary_Overview_ActionSheet_ExportActionSubject" = "Mein Kontakt-Tagebuch";
+
+/* Checkin Risk */
+
+"ContactDiaray_Overview_Checkin_Title_HighRisk" = "Erhöhtes Risiko";
+
+"ContactDiaray_Overview_Checkin_Title_LowRisk" = "Niedriges Risiko";
+
+"ContactDiaray_Overview_Checkin_Title_Subheadline" = "aufgrund Ihrer Anwesenheit bei:";
+
+"ContactDiaray_Overview_Checkin_High_Risk_In_Brackets" = "(erhöhtes Risiko)";
+
+"ContactDiaray_Overview_Checkin_Low_Risk_In_Brackets" = "(niedriges Risiko)";
 
 /* Day */
 "ContactDiary_Day_ContactPersonsSegment" = "Personen";
@@ -1769,6 +1839,8 @@ sein.";
 
 "Tabbar_Diary_Title" = "Tagebuch";
 
+"Tabbar_CheckIn_Title" = "Check-in";
+
 /* Data Donation */
 
 "DataDonation_IntroductionText" = "Teilen Sie Daten über Ihre App-Nutzung mit uns und helfen Sie uns so, die Wirksamkeit der App zu bewerten.";
@@ -1891,4 +1963,312 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "Contact_Journal_Notes_Description" = "Hier können Sie Notizen machen, die Ihnen helfen, das Infektionsrisiko besser einzuschätzen.\n\nNotieren Sie hier weitere Umstände Ihrer Begegnung bzw. Ihres Aufenthalts, die sich auf das Infektionsrisiko auswirken können, z. B. räumliche Nähe zu anderen Personen oder was Sie gemacht haben (Beispiele: „saßen nah beieinander“, „Sport gemacht“, „wenig Platz“, „wir haben gesungen“).\n\nDiese Notizen können Ihnen später helfen, sich besser zu erinnern. So können Sie, wenn nötig, die Menschen, mit denen Sie zusammen waren, frühzeitig warnen und auch das Gesundheitsamt bei der Nachverfolgung möglicher Infektionsketten unterstützen.";
 
 /* Quick Actions a.k.a. shortcuts */
+
 "QuickAction_newContactDiaryEntry" = "Tagebuch-Eintrag für heute hinzufügen";
+
+"QuickAction_eventCheckin" = "Einchecken";
+
+/* Checkins */
+
+"Checkins_QR_Scanner_Title" = "QR-Code Scan";
+
+"Checkins_Overview_Title" = "Meine Check-ins";
+
+"Checkins_Overview_MenuButtonTitle" = "Menü";
+
+"Checkins_Overview_ScanButtonTitle" = "QR-Code scannen";
+
+"Checkins_Overview_EmptyTitle" = "Noch keine Einträge vorhanden";
+
+"Checkins_Overview_EmptyDescription" = "Wenn Sie einen QR-Code scannen, um sich für ein Event oder einen Ort einzuchecken, wird automatisch ein Eintrag angelegt.";
+
+"Checkins_Overview_EmptyImageDescription" = "Gebäude mit QR-Code-Symbol im Hintergrund";
+
+"Checkins_Overview_DeleteAllButtonTitle" = "Alle entfernen";
+
+"Checkins_Overview_DurationTitle" = "Dauer";
+
+"Checkins_Overview_CheckinTimeTemplate" = "%@ - Automatisch auschecken nach %@";
+
+"Checkins_Overview_CheckoutButtonTitle" = "Jetzt auschecken";
+
+"Checkins_Overview_MissingPermissions_Title" = "Benutzung der Kamera erlauben";
+
+"Checkins_Overview_MissingPermissions_Description" = "Um die Kamera für das Scannen des QR-Codes zu nutzen, müssen Sie die Verwendung der Kamera in den Geräte-Einstellungen zur App zulassen.";
+
+"Checkins_Overview_MissingPermissions_ButtonTitle" = "Geräte-Einstellungen öffnen";
+
+"Checkins_Overview_DeleteOne_AlertTitle" = "Wollen Sie diesen Eintrag wirklich entfernen?";
+
+"Checkins_Overview_DeleteOne_AlertMessage" = "Sie können dann Personen, die zur selben Zeit für diesen Ort oder Event eingecheckt waren, bei Bedarf nicht mehr warnen oder von ihnen gewarnt werden.";
+
+"Checkins_Overview_DeleteOne_AlertConfirmButtonTitle" = "Entfernen";
+
+"Checkins_Overview_DeleteOne_AlertCancelButtonTitle" = "Abbrechen";
+
+"Checkins_Overview_DeleteAll_AlertTitle" = "Wollen Sie wirklich alle Einträge entfernen?";
+
+"Checkins_Overview_DeleteAll_AlertMessage" = "Sie können dann Personen, die zur selben Zeit für diese Orte oder Events eingecheckt waren, bei Bedarf nicht mehr warnen oder von ihnen gewarnt werden.";
+
+"Checkins_Overview_DeleteAll_AlertConfirmButtonTitle" = "Entfernen";
+
+"Checkins_Overview_DeleteAll_AlertCancelButtonTitle" = "Abbrechen";
+
+"Checkins_Overview_ActionSheet_InfoTitle" = "Infos";
+
+"Checkins_Overview_ActionSheet_EditTitle" = "Bearbeiten";
+
+"Checkins_Overview_QRScanner_Instruction" = "QR-Code scannen und einchecken";
+
+"Checkin_QR_Scanner_Checkin_Error_Title" = "Ungültiger QR-Code";
+
+"Checkin_QR_Scanner_Error_InvalidURL" = "Der gescannte QR-Code gilt nicht für das Einchecken für ein Event oder einen Ort. Bitte scannen Sie einen geeigneten QR-Code (Fehlercode INVALID_URL).";
+
+"Checkin_QR_Scanner_Error_InvalidPayload" = "Ungültiger QR-Code verhindert das Einchecken. Die verantwortliche Stelle muss einen neuen QR-Code generieren (Fehlercode INVALID_PAYLOAD).";
+
+"Checkin_QR_Scanner_Error_InvalidURLVendorData" = "Ungültiger QR-Code verhindert das Einchecken. Die verantwortliche Stelle muss einen neuen QR-Code generieren (Fehlercode INVALID_VENDOR_DATA).";
+
+"Checkin_QR_Scanner_Error_InvalidDescription" = "Ungültiger QR-Code verhindert das Einchecken. Die verantwortliche Stelle muss einen neuen QR-Code generieren (Fehlercode INVALID_DESCRIPTION).";
+
+"Checkin_QR_Scanner_Error_InvalidAddress" = "Ungültiger QR-Code verhindert das Einchecken. Die verantwortliche Stelle muss einen neuen QR-Code generieren (Fehlercode INVALID_ADDRESS).";
+
+"Checkin_QR_Scanner_Error_InvalidCryptographicSeed" = "Ungültiger QR-Code verhindert das Einchecken. Die verantwortliche Stelle muss einen neuen QR-Code generieren (Fehlercode INVALID_CRYPTO_SEED).";
+
+"Checkin_QR_Scanner_Error_InvalidTimeStamps" = "Ungültiger QR-Code verhindert das Einchecken. Die verantwortliche Stelle muss einen neuen QR-Code generieren (Fehlercode INVALID_TIMESTAMPS).";
+
+/* TraceLocations */
+
+"TraceLocations_Overview_Title" = "Meine QR-Codes";
+
+"TraceLocations_Overview_MenuButtonTitle" = "Menü";
+
+"TraceLocations_Overview_AddButtonTitle" = "QR-Code erstellen";
+
+"TraceLocations_Overview_EmptyTitle" = "Noch keine QR-Codes erstellt";
+
+"TraceLocations_Overview_EmptyDescription" = "Hier werden alle QR-Codes angezeigt, die Sie für einen Ort oder ein Event erstellt haben. Sie können die QR-Codes löschen, wenn diese nicht mehr verwendet werden sollen.";
+
+"TraceLocations_Overview_EmptyImageDescription" = "Smartphone mit QR-Code-Symbol";
+
+"TraceLocations_Overview_DeleteAllButtonTitle" = "Alle entfernen";
+
+"TraceLocations_Overview_SelfCheckinButtonTitle" = "Selbst einchecken";
+
+"TraceLocations_Overview_DeleteOne_AlertTitle" = "Wollen Sie den QR-Code wirklich löschen?";
+
+"TraceLocations_Overview_DeleteOne_AlertMessage" = "Bitte denken Sie daran, dass der QR-Code danach nicht mehr zum Einchecken verwendet werden kann.";
+
+"TraceLocations_Overview_DeleteOne_AlertConfirmButtonTitle" = "Löschen";
+
+"TraceLocations_Overview_DeleteOne_AlertCancelButtonTitle" = "Abbrechen";
+
+"TraceLocations_Overview_DeleteAll_AlertTitle" = "Wollen Sie wirklich alle QR-Codes löschen?";
+
+"TraceLocations_Overview_DeleteAll_AlertMessage" = "Bitte denken Sie daran, dass diese QR-Codes danach nicht mehr zum Einchecken verwendet werden können.";
+
+"TraceLocations_Overview_DeleteAll_AlertConfirmButtonTitle" = "Löschen";
+
+"TraceLocations_Overview_DeleteAll_AlertCancelButtonTitle" = "Abbrechen";
+
+"TraceLocations_Overview_ActionSheet_InfoTitle" = "Infos";
+
+"TraceLocations_Overview_ActionSheet_EditTitle" = "Bearbeiten";
+
+/* Trace Location Details */
+
+"TraceLocations_Details_PrintVersionButtonTitle" = "Druckversion anzeigen";
+
+"TraceLocations_Details_DuplicateButtonTitle" = "Als Vorlage verwenden";
+
+/* Selection of a TraceLocations */
+"TraceLocations_TypeSelection_Title" = "QR-Code erstellen";
+
+"TraceLocations_Section_Title_Permanent" = "ORT";
+
+"TraceLocations_Section_Title_Temporary" = "EVENT";
+
+"TraceLocations_Type_Title_PermanentOther" = "anderer Ort";
+
+"TraceLocations_Type_Title_PermanentRetail" = "Einzelhandel";
+
+"TraceLocations_Title_Type_PermanentFoodService" = "Gastronomiebetrieb";
+
+"TraceLocations_Type_Title_PermanentCraft" = "Handwerksbetrieb";
+
+"TraceLocations_Type_Title_PermanentWorkplace" = "Arbeitsstätte";
+
+"TraceLocations_Type_Title_PermanentEducationalInstitution" = "Bildungsstätte";
+
+"TraceLocations_Type_Title_PermanentPublicBuilding" = "öffentliches Gebäude";
+
+"TraceLocations_Type_Subtitle_PermanentRetail" = "Geschäft, Verkaufsraum";
+
+"TraceLocations_Type_Subtitle_PermanentFoodService" = "Café, Kneipe, Restaurant, Hotel";
+
+"TraceLocations_Type_Subtitle_PermanentCraft" = "Friseur, Schreinerei";
+
+"TraceLocations_Type_Subtitle_PermanentWorkplace" = "Büro, Konferenzraum, Kantine";
+
+"TraceLocations_Type_Subtitle_PermanentEducationalInstitution" = "Klassenzimmer, Vorlesungssaal, Bibliothek";
+
+"TraceLocations_Type_Subtitle_PermanentPublicBuilding" = "Bürgeramt, Museum";
+
+"TraceLocations_Type_Title_TemporaryOther" = "anderes Event";
+
+"TraceLocations_Type_Title_TemporaryCulturalEvent" = "Kulturveranstaltung";
+
+"TraceLocations_Type_Title_TemporaryClubActivity" = "Vereinsaktivität";
+
+"TraceLocations_Type_Title_TemporaryPrivateEvent" = "private Feier";
+
+"TraceLocations_Type_Title_TemporaryWorshipService" = "Gottesdienst";
+
+"TraceLocations_Type_Subtitle_TemporaryCulturalEvent" = "Konzert, Kunstausstellung";
+
+"TraceLocations_Type_Subtitle_TemporaryClubActivity" = "Sporttraining, Mitgliederversammlung";
+
+"TraceLocations_Type_Subtitle_TemporaryPrivateEvent" = "Geburtstag, Familienfeier";
+
+/* Trace Location Configuration */
+
+"TraceLocations_Configuration_Title" = "QR-Code erstellen";
+
+"TraceLocations_Configuration_DescriptionPlaceholder" = "Bezeichnung";
+
+"TraceLocations_Configuration_AddressPlaceholder" = "Ort";
+
+"TraceLocations_Configuration_StartDateTitle" = "Beginn";
+
+"TraceLocations_Configuration_EndDateTitle" = "Ende";
+
+"TraceLocations_Configuration_DefaultCheckinLengthTitle" = "Typische Aufenthaltsdauer";
+
+"TraceLocations_Configuration_DefaultCheckinLengthFootnote" = "Geben Sie an, wie lange sich Gäste üblicherweise bei Ihnen aufhalten.";
+
+"TraceLocations_Configuration_PrimaryButtonTitle" = "Speichern";
+
+"TraceLocations_Configuration_HoursUnit" = "%@ Std.";
+
+"TraceLocations_Configuration_SavingErrorMessage" = "Der QR-Code kann aktuell nicht gespeichert werden. Bitte versuchen Sie es später noch einmal (Fehlercode %@).";
+
+/* Error Reporting */
+
+"ErrorReport_Title" = "Fehlerberichte";
+
+"ErrorReport_Description1" = "Um den technischen Support der App bei der Fehleranalyse zu unterstützen, können Sie einen Fehlerbericht der CWA aufzeichnen. Hierbei werden die einzelnen technischen Schritte und Ereignisse beim Ablauf der App detailliert aufgezeichnet. Den Fehlerbericht können Sie dann an den technischen Support senden und so helfen, Fehler zu erkennen und zu beheben.\n\nWeitere Informationen finden Sie in den FAQ:";
+
+"ErrorReport_FAQ" = "FAQ zu den Fehlerberichten";
+
+"ErrorReport_Description2" = "Bevor Sie den aufgezeichneten Fehlerbericht an den technischen Support des RKI übersenden können, ist Ihr Einverständnis erforderlich.\n\nNach der Übersendung erhalten Sie eine Fehlerbericht-ID. Diese können Sie angeben, um dem technischen Support z. B. weitere Informationen zukommen zu lassen und dabei eine Zuordnung zu Ihrem Fehlerbericht zu ermöglichen. Wenn Sie die Fehlerbericht-ID nicht mitteilen, ist dem RKI eine Zuordnung zu Ihrer Person nicht möglich.";
+
+"ErrorReport_DetailedInformation_Title" = "Ausführliche Informationen zur Übersendung der Fehlerberichte";
+
+"errorReport_DetailedInformation_Headline" = "Prüfung der Echtheit und Drittlandsübermittlung";
+
+"errorReport_DetailedInformation_Content1" = "Um die Echtheit Ihrer App zu bestätigen, erzeugt Ihr Smartphone eine eindeutige Kennung, die Informationen über die Version Ihres Smartphones und der App enthält. Das ist erforderlich, um sicherzustellen, dass nur Nutzer Daten auf diesem Weg an den technischen Support übersenden, die tatsächlich die Corona-Warn-App nutzen und nicht manipulierte Fehlerberichte bereitstellen. Die Kennung wird dafür einmalig an Apple übermittelt. Dabei kann es auch zu einer Datenübermittlung in die USA oder andere Drittländer kommen. Dort besteht möglicherweise kein dem europäischen Recht entsprechendes Datenschutzniveau und Ihre europäischen Datenschutzrechte können eventuell nicht durchgesetzt werden. Insbesondere besteht die Möglichkeit, dass Sicherheitsbehörden im Drittland, auch ohne einen konkreten Verdacht, auf die übermittelten Daten bei Apple zugreifen und diese auswerten, beispielsweise indem sie Daten mit anderen Informationen verknüpfen. Dies betrifft nur die an Apple übermittelte Kennung. Die Angaben aus Ihrem Fehlerbericht erhält Apple nicht. Möglicherweise kann Apple jedoch anhand der Kennung auf Ihre Identität schließen und nachvollziehen, dass die Echtheitsprüfung Ihres Smartphones stattgefunden hat.\n\nWenn Sie mit der Drittlandsübermittlung nicht einverstanden sind, tippen Sie bitte nicht „Einverstanden und Fehlerbericht senden“ an. Sie können die App weiterhin nutzen, eine Übersendung des Fehlerberichtes über die App ist dann jedoch nicht möglich.";
+
+"ErrorReport_DetailedInformation_Subheadline" = "Zur Auswertung der Fehlerberichte durch das RKI";
+
+"ErrorReport_DetailedInformation_Content2" = "Nachdem die Echtheit Ihrer App geprüft wurde, wird der Fehlerbericht über eine gesicherte Verbindung an das RKI übermittelt. Die Fehlerberichte werden nur zur Fehleranalyse und Fehlerbehebung im Rahmen zukünftiger Updates der App genutzt. Nur Mitarbeiter des technischen Support können auf die Fehlerberichte zugreifen. Die Fehlerberichte enthalten eine Vielzahl von Statusmeldungen und Ereignissen, die in der App ausgelöst wurden, sie enthalten aber keine Hinweise anhand derer das RKI auf Ihre Identität schließen kann. Erst wenn Sie die Fehlerbericht-ID im Zusammenhang mit weiteren Mitteilungen nennen, kann ein Zusammenhang zwischen der Mitteilung (und z. B. Ihrem dort enthaltenen Namen) und den im Fehlerbericht enthaltenen Angaben (z. B. technische Meldungen zur Berechnung im Rahmen der Risiko-Ermittlung, in der App angezeigte Informationen und durchlaufene Schritte, aber ggf. auch einem abgerufenen Testergebnis und ggf. im Rahmen der Warnung geteilter Zufalls-IDs) hergestellt werden.";
+
+"ErrorReport_Legal_DetailedInformation_Content2" = "Nachdem die Echtheit Ihrer App geprüft wurde, wird der Fehlerbericht über eine gesicherte Verbindung an das RKI übermittelt. Die Fehlerberichte werden nur zur Fehleranalyse und Fehlerbehebung im Rahmen zukünftiger Updates der App genutzt. Nur Mitarbeiter des technischen Support können auf die Fehlerberichte zugreifen. Die Fehlerberichte enthalten eine Vielzahl von Statusmeldungen und Ereignissen, die in der App ausgelöst wurden, sie enthalten aber keine Hinweise anhand derer das RKI auf Ihre Identität schließen kann. Erst wenn Sie die Fehlerbericht-ID im Zusammenhang mit weiteren Mitteilungen nennen, kann ein Zusammenhang zwischen der Mitteilung (und z. B. Ihrem dort enthaltenen Namen) und den im Fehlerbericht enthaltenen Angaben (z. B. technische Meldungen zur Berechnung im Rahmen der Risiko-Ermittlung, in der App angezeigte Informationen und durchlaufene Schritte, aber ggf. auch einem abgerufenen Testergebnis und ggf. im Rahmen der Warnung geteilter Zufalls-IDs) hergestellt werden.";
+
+"ErrorReport_History_Title" = "ID-Historie";
+
+"ErrorReport_History_Description" = "Hier sehen Sie die IDs Ihrer Fehleranalyse-Protokolle";
+
+"ErrorReport_History_Cell_ID" = "ID %@";
+
+"ErrorReport_History_Navigation_Subline" = "IDs der bisher geteilten Fehleranalysen";
+
+"ErrorReport_DEVICE_NOT_SUPPORTED" = "Der Fehlerbericht kann nicht übertragen werden (Fehlercode %@).";
+
+"ErrorReport_TRY_AGAIN_LATER" = "Der Fehlerbericht kann aktuell nicht übertragen werden. Bitte versuchen Sie es später noch einmal (Fehlercode %@).";
+
+/* Checkins */
+
+"Checkin_Information_Title" = "Einchecken";
+
+"Checkin_Information_ImageDescription" = "Drei Personen an einem Stehtisch, zwei von ihnen schauen auf ihr Smartphone.";
+
+"Checkin_Information_DescriptionTitle" = "Infektionsketten schnell und sicher unterbrechen";
+
+"Checkin_Information_DescriptionSubHeadline" = "Scannen Sie den QR-Code zu einem Event oder Ort, um sich einzuchecken und so Ihre Anwesenheit für dieses Event oder diesen Ort auf Ihrem Smartphone zu speichern.";
+
+"Checkin_Information_Item_RiskStatus_Title" = "Jeder Check-in wird bei der Ermittlung des Risikostatus zusätzlich berücksichtigt. Wird eine eingecheckte Person später positiv getestet, können Sie gewarnt werden, wenn Sie sich zur gleichen Zeit oder bis zu 30 Minuten nach der positiv getesteten Person im gleichen Raum aufgehalten haben.";
+
+"Checkin_Information_Item_Time_Title" = "Bitte geben Sie Ihre Aufenthaltszeit so genau wie möglich an, damit gezielt gewarnt werden kann.";
+
+"Checkin_Information_Dataprivacy_Title" = "Weitere Hinweise finden Sie in der Datenschutzerklärung.";
+
+"Checkin_Information_PrimaryButton_Title" = "Einverstanden";
+
+/* CheckIn edit */
+
+"Checkins_Edit_PrimaryButton_Title" = "Speichern";
+
+"Checkins_Edit_Section_Title" = "Aufenthaltsdauer anpassen für:";
+
+"Checkins_Edit_CheckedIn" = "Eingecheckt";
+
+"Checkins_Edit_CheckedOut" = "Ausgecheckt";
+
+"Checkins_Edit_Notice" = "Die Aufenthaltsdauer wird nicht automatisch in Ihrem Kontakt-Tagebuch angepasst.";
+
+/* Trace Location */
+
+"TraceLocation_Information_Title" = "QR-Code erstellen";
+
+"TraceLocation_Information_ImageDescription" = "Eine Person zeigt auf ein Flipchart, zwei Personen sitzen daneben und schauen auf das Flipchart.";
+
+"TraceLocation_Information_DescriptionTitle" = "Mehr Sicherheit für Sie und Ihre Gäste";
+
+"TraceLocation_Information_DescriptionSubHeadline" = "Erstellen Sie einen QR-Code, den Ihre Gäste bei ihrer Ankunft scannen können. So können sie bei Bedarf andere Gäste warnen oder von ihnen gewarnt werden.";
+
+"TraceLocation_Information_Item_RiskStatus" = "Jeder Check-in wird bei der Ermittlung des Risikostatus zusätzlich berücksichtigt. Wird eine eingecheckte Person später positiv getestet, können die Gäste gewarnt werden, wenn sie sich zur gleichen Zeit oder bis zu 30 Minuten nach der positiv getesteten Person im gleichen Raum aufgehalten haben.";
+
+"TraceLocation_Information_Item_Checkin" = "Stellen Sie den QR-Code Ihren Gästen entweder über Ihr Smartphone oder in ausgedruckter Form zur Verfügung.";
+
+"TraceLocation_Information_Item_RenewQRCode" = "Wenn Sie dauerhaft einen QR-Code verwenden, sollten Sie diesen einmal täglich außerhalb der Öffnungszeiten neu erstellen.";
+
+"TraceLocation_Information_PrimaryButton_Title" = "Weiter";
+
+/* Checkout */
+
+"Checkout_Notification_Title" = "Sie wurden automatisch ausgecheckt.";
+
+"Checkout_Notification_Body" = "Bitte passen Sie Ihre Aufenthaltsdauer gegebenenfalls an.";
+
+"Checkin_Details_HoursShortVersion" = "%@ Std.";
+
+"Checkin_Details_CheckinFor" = "Einchecken für:";
+
+"Checkin_Details_SaveToDiary" = "Nach dem Auschecken in mein Kontakt-Tagebuch eintragen?";
+
+"Checkin_Details_AutomaticCheckout" = "Automatisch auschecken nach";
+
+"Checkin_Details_EventNotStartedYet" = "Das Event beginnt erst am %@ um %@ Uhr. Wollen Sie bereits einchecken?";
+
+"Checkin_Details_EventEnded" = "Das Event ist beendet. Wollen Sie nachträglich einchecken?";
+
+"Checkin_Details_CheckIn_Button" = "Einchecken";
+
+/* Submission Check-in */
+
+"Submission_Checkins_Title" = "Check-ins teilen?";
+
+"Submission_Checkins_Description" = "Teilen Sie Ihre Check-ins, um andere zu warnen, die in Ihrer Nähe waren. Ihre Identität bleibt geheim.";
+
+"Submission_Checkins_SelectAll" = "Alle auswählen";
+
+"Submission_Checkins_Continue" = "Weiter";
+
+"Submission_Checkins_Skip" = "Überspringen";
+
+"Submission_Checkins_Alert_Title" = "Sind Sie sicher, dass Sie Ihre Check-ins nicht teilen wollen?";
+
+"Submission_Checkins_Alert_Message" = "Dadurch werden andere nicht gewarnt, die in Ihrer Nähe waren.";
+
+"Submission_Checkins_Alert_Share" = "Teilen";
+
+"Submission_Checkins_Alert_DontShare" = "Nicht teilen";

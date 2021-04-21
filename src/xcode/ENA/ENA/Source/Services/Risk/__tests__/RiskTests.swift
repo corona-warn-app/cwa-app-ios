@@ -1,44 +1,194 @@
-//
+////
 // 🦠 Corona-Warn-App
 //
 
-@testable import ENA
-import Foundation
 import XCTest
+@testable import ENA
 
-final class RiskTests: XCTestCase {
-	func testGetNumberOfDaysActiveTracing_LessThanOneDay() {
-		let details = mockDetails(activeTracing: .init(interval: .init(hours: 11)))
-		XCTAssertEqual(details.numberOfDaysWithActiveTracing, 0)
+class RiskTests: XCTestCase {
+
+	func test_When_DateHasHighRiskFromTracing_And_DateHasLowRiskFromCheckin_Then_ResultIsHighRisk() {
+		let today = Calendar.utcCalendar.startOfDay(for: Date())
+
+		let checkinRiskResult = CheckinRiskCalculationResult(
+			calculationDate: Date(),
+			checkinIdsWithRiskPerDate: [:],
+			riskLevelPerDate: [
+				today: .low
+			]
+		)
+
+		let tracingRiskResult = makeRiskCalculationResult(
+			riskLevelPerDate: [
+				today: .high
+			]
+		)
+
+		let risk = Risk(
+			enfRiskCalculationResult: tracingRiskResult,
+			checkinCalculationResult: checkinRiskResult
+		)
+
+		XCTAssertEqual(risk.level, .high)
+		XCTAssertEqual(risk.details.mostRecentDateWithRiskLevel, today)
+		XCTAssertEqual(risk.details.numberOfDaysWithRiskLevel, 1)
 	}
 
-	func testGetNumberOfDaysActiveTracing_ZeroHours() {
-		let details = mockDetails(activeTracing: .init(interval: .init(hours: 0)))
-		XCTAssertEqual(details.numberOfDaysWithActiveTracing, 0)
+	func test_When_DateHasLowRiskFromTracing_And_DateHasHighRiskFromCheckin_Then_ResultIsHighRisk() {
+		let today = Calendar.utcCalendar.startOfDay(for: Date())
+
+		let checkinRiskResult = CheckinRiskCalculationResult(
+			calculationDate: Date(),
+			checkinIdsWithRiskPerDate: [:],
+			riskLevelPerDate: [
+				today: .high
+			]
+		)
+
+		let tracingRiskResult = makeRiskCalculationResult(
+			riskLevelPerDate: [
+				today: .low
+			]
+		)
+
+		let risk = Risk(
+			enfRiskCalculationResult: tracingRiskResult,
+			checkinCalculationResult: checkinRiskResult
+		)
+
+		XCTAssertEqual(risk.level, .high)
+		XCTAssertEqual(risk.details.mostRecentDateWithRiskLevel, today)
+		XCTAssertEqual(risk.details.numberOfDaysWithRiskLevel, 1)
 	}
 
-	func testGetNumberOfDaysActiveTracing_OneDayRoundedDown() {
-		let details = mockDetails(activeTracing: .init(interval: .init(hours: 25)))
-		XCTAssertEqual(details.numberOfDaysWithActiveTracing, 1)
+	func test_When_DateHasLowRiskFromTracing_And_DateHasLowRiskFromCheckin_Then_ResultIsLowRisk() {
+		let today = Calendar.utcCalendar.startOfDay(for: Date())
+
+		let checkinRiskResult = CheckinRiskCalculationResult(
+			calculationDate: Date(),
+			checkinIdsWithRiskPerDate: [:],
+			riskLevelPerDate: [
+				today: .low
+			]
+		)
+
+		let tracingRiskResult = makeRiskCalculationResult(
+			riskLevelPerDate: [
+				today: .low
+			]
+		)
+
+		let risk = Risk(
+			enfRiskCalculationResult: tracingRiskResult,
+			checkinCalculationResult: checkinRiskResult
+		)
+
+		XCTAssertEqual(risk.level, .low)
+		XCTAssertEqual(risk.details.mostRecentDateWithRiskLevel, today)
+		XCTAssertEqual(risk.details.numberOfDaysWithRiskLevel, 1)
 	}
 
-	func testGetNumberOfDaysActiveTracing_OneDayExact() {
-		let details = mockDetails(activeTracing: .init(interval: .init(hours: 25)))
-		XCTAssertEqual(details.numberOfDaysWithActiveTracing, 1)
+	func test_When_DateHasHighRiskFromTracing_And_DateHasHighRiskFromCheckin_Then_ResultIsHighRisk() {
+		let today = Calendar.utcCalendar.startOfDay(for: Date())
+
+		let checkinRiskResult = CheckinRiskCalculationResult(
+			calculationDate: Date(),
+			checkinIdsWithRiskPerDate: [:],
+			riskLevelPerDate: [
+				today: .high
+			]
+		)
+
+		let tracingRiskResult = makeRiskCalculationResult(
+			riskLevelPerDate: [
+				today: .high
+			]
+		)
+
+		let risk = Risk(
+			enfRiskCalculationResult: tracingRiskResult,
+			checkinCalculationResult: checkinRiskResult
+		)
+
+		XCTAssertEqual(risk.level, .high)
+		XCTAssertEqual(risk.details.mostRecentDateWithRiskLevel, today)
+		XCTAssertEqual(risk.details.numberOfDaysWithRiskLevel, 1)
 	}
 
-	func testGetNumberOfDaysActiveTracing_FourteenDaysExact() {
-		let details = mockDetails(activeTracing: .init(interval: .init(hours: 14 * 24)))
-		XCTAssertEqual(details.numberOfDaysWithActiveTracing, 14)
-	}
-}
+	func test_When_ResultHasHighRisk_Then_OnlyHighRisksAreCounted() throws {
+		let today = Calendar.utcCalendar.startOfDay(for: Date())
+		let oneDayAgo = try XCTUnwrap(Calendar.utcCalendar.date(byAdding: .day, value: -1, to: today))
+		let threeDayAgo = try XCTUnwrap(Calendar.utcCalendar.date(byAdding: .day, value: -3, to: today))
 
-extension RiskTests {
-	func mockDetails(activeTracing: ActiveTracing) -> Risk.Details {
-		Risk.Details(
-			numberOfDaysWithRiskLevel: 0,
-			activeTracing: activeTracing,
-			exposureDetectionDate: Date()
+		let checkinRiskResult = CheckinRiskCalculationResult(
+			calculationDate: Date(),
+			checkinIdsWithRiskPerDate: [:],
+			riskLevelPerDate: [
+				today: .low,
+				oneDayAgo: .low,
+				threeDayAgo: .low
+			]
+		)
+
+		let tracingRiskResult = makeRiskCalculationResult(
+			riskLevelPerDate: [
+				today: .high
+			]
+		)
+
+		let risk = Risk(
+			enfRiskCalculationResult: tracingRiskResult,
+			checkinCalculationResult: checkinRiskResult
+		)
+
+		XCTAssertEqual(risk.level, .high)
+		XCTAssertEqual(risk.details.mostRecentDateWithRiskLevel, today)
+		XCTAssertEqual(risk.details.numberOfDaysWithRiskLevel, 1)
+	}
+
+	func test_When_ResultHasLowRisk_Then_OnlyLowRisksAreCounted() throws {
+		let today = Calendar.utcCalendar.startOfDay(for: Date())
+		let oneDayAgo = try XCTUnwrap(Calendar.utcCalendar.date(byAdding: .day, value: -1, to: today))
+		let threeDayAgo = try XCTUnwrap(Calendar.utcCalendar.date(byAdding: .day, value: -3, to: today))
+
+		let checkinRiskResult = CheckinRiskCalculationResult(
+			calculationDate: Date(),
+			checkinIdsWithRiskPerDate: [:],
+			riskLevelPerDate: [
+				today: .low,
+				oneDayAgo: .low,
+				threeDayAgo: .low
+			]
+		)
+
+		let tracingRiskResult = makeRiskCalculationResult(
+			riskLevelPerDate: [
+				today: .low
+			]
+		)
+
+		let risk = Risk(
+			enfRiskCalculationResult: tracingRiskResult,
+			checkinCalculationResult: checkinRiskResult
+		)
+
+		XCTAssertEqual(risk.level, .low)
+		XCTAssertEqual(risk.details.mostRecentDateWithRiskLevel, today)
+		XCTAssertEqual(risk.details.numberOfDaysWithRiskLevel, 3)
+	}
+
+	private func makeRiskCalculationResult(riskLevelPerDate: [Date: RiskLevel]) -> ENFRiskCalculationResult {
+		ENFRiskCalculationResult(
+			riskLevel: .low,
+			minimumDistinctEncountersWithLowRisk: 0,
+			minimumDistinctEncountersWithHighRisk: 0,
+			mostRecentDateWithLowRisk: nil,
+			mostRecentDateWithHighRisk: nil,
+			numberOfDaysWithLowRisk: 0,
+			numberOfDaysWithHighRisk: 2,
+			calculationDate: Date(),
+			riskLevelPerDate: riskLevelPerDate,
+			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 	}
 }

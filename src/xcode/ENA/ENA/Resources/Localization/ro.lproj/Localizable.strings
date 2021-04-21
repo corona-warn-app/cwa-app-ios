@@ -39,7 +39,7 @@
 
 "Common_BackgroundFetch_AlertTitle" = "Împrospătarea aplicației în fundal dezactivată";
 
-"Common_Deadman_AlertTitle" = "Verificarea expunerii";
+"Common_Deadman_AlertTitle" = "Starea riscului dvs.";
 
 "Common_Deadman_AlertBody" = "Nu uitați să deschideți frecvent aplicația Corona-Warn pentru a verifica starea riscului dvs.";
 
@@ -62,6 +62,8 @@
 "ExposureDetection_High" = "Risc crescut";
 
 "ExposureDetection_High_Red_Color" = "Roșu";
+
+"ExposureDetection_DaysSinceInstallation" = "Instalat acum %u zile";
 
 "ExposureDetection_LastExposure" = "Cel mai recent pe %@";
 
@@ -97,9 +99,11 @@
 
 "ExposureDetection_Guide_Sneeze" = "Strănutați sau tușiți în pliul cotului sau într-un șervețel.";
 
+"ExposureDetection_Guide_Ventilation" = "Aerisiți spațiile interioare de mai multe ori pe zi. Astfel, deschideți ferestrele cât mai larg posibil timp de câteva minute („ventilație șoc”).";
+
 "ExposureDetection_Guide_Home" = "Dacă este posibil, mergeți acasă și rămâneți în casă.";
 
-"ExposureDetection_Guide_Hotline1" = "Dacă aveți întrebări despre simptome, disponibilitatea testării sau autoizolare, contactați:";
+"ExposureDetection_Guide_Hotline1" = "Dacă aveți întrebări despre simptome, disponibilitatea testării sau măsurile de carantină, contactați fie:";
 
 "ExposureDetection_Guide_Hotline2" = "Medicul de familie";
 
@@ -125,9 +129,11 @@
 
 "ExposureDetection_Explanation_Text_Low_No_Encounter" = "Aveți un risc redus de infectare deoarece nu a fost înregistrată nicio expunere la persoane diagnosticate ulterior cu coronavirus sau expunerile dvs. au fost limitate la o perioadă scurtă și la o distanță mai mare.";
 
-"ExposureDetection_Explanation_Text_Low_With_Encounter" = "Aveți un risc redus de infectare deoarece nu a fost înregistrată nicio expunere la persoane diagnosticate ulterior cu coronavirus sau expunerile dvs. au fost limitate la o perioadă scurtă și la o distanță mai mare.";
+"ExposureDetection_Explanation_Text_Low_With_Encounter" = "Riscul de infectare este calculat local pe smartphone-ul dvs., utilizând datele de înregistrare în jurnal a expunerilor. Calculul ține cont și de distanța și durata expunerii la persoane diagnosticate cu coronavirus, precum și de potențiala contagiozitate a acestora. Riscul dvs. de infectare nu poate fi observat sau transmis mai departe niciunei alte persoane.";
 
-"ExposureDetection_Explanation_Text_High_DateOfLastExposure" = "Aveți un risc crescut de infectare deoarece ați fost expus ultima dată pe %@ pe o perioadă mai lungă de timp și în strânsă proximitate cu cel puțin o persoană diagnosticată cu COVID-19.";
+"ExposureDetection_Explanation_Text_Low_With_Encounter_FAQ" = "Pentru mai multe informații, consultați pagina noastră de întrebări frecvente.";
+
+"ExposureDetection_Explanation_Text_High_DateOfLastExposure" = "Aveți un risc crescut de infectare deoarece ați fost expus ultima dată pe o perioadă mai lungă de timp și în strânsă proximitate cu cel puțin o persoană diagnosticată cu coronavirus.";
 
 "ExposureDetection_Explanation_Text_High" = "Prin urmare, riscul dvs. de infectare a fost clasificat ca fiind crescut. \nRiscul dvs. de infectare este calculat pe baza datelor de înregistrare în jurnal a expunerilor (durata și proximitatea) la nivel local pe smartphone-ul dvs. Riscul dvs. de infectare nu poate fi văzut de o altă persoană sau transmis unei alte persoane. \nCând ajungeți acasă, evitați contactul strâns cu membrii familiei sau cu cei din gospodăria dvs.";
 
@@ -135,7 +141,7 @@
 
 "ExposureDetection_LowRiskExposure_Subtitle" = "De ce riscul dvs. de infectare este redus";
 
-"ExposureDetection_LowRiskExposure_Body" = "Ați avut o întâlnire cu o persoană diagnosticată cu COVID-19. Totuși, pe baza datelor de înregistrare în jurnal a expunerilor, riscul dvs. de infectare este redus. Riscul este redus dacă întâlnirea dvs. a fost de scurtă durată sau s-a păstrat o anumită distanță. Nu este cazul să vă îngrijorați și nu este nevoie de nicio acțiune specială din partea dvs. Vă recomandăm să respectați regulile generale privind distanțarea și igiena.";
+"ExposureDetection_LowRiskExposure_Body" = "Ați avut o întâlnire cu o persoană diagnosticată cu coronavirus. Totuși, pe baza datelor de înregistrare în jurnal a expunerilor, riscul dvs. de infectare este redus. Riscul este redus dacă întâlnirea dvs. a fost de scurtă durată sau s-a păstrat o anumită distanță. Nu este cazul să vă îngrijorați și nu este nevoie de nicio acțiune specială din partea dvs. Vă recomandăm să respectați regulile generale privind distanțarea și igiena.";
 
 "ExposureDetection_Button_Enable" = "Activați înregistrarea în jurnal a expunerilor";
 
@@ -209,10 +215,11 @@
 "ExposureDetection_ActiveTracingSection_Subtitle" = "Această perioadă este inclusă în calcul.";
 
 /* There are two paragraphs in this section. The first one just contains text… */
-"ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Riscul dvs. de infectare poate fi calculat doar pentru perioadele în care a fost activă înregistrarea în jurnal a expunerilor. Prin urmare, caracteristica de înregistrare în jurnal trebuie să rămână permanent activă.";
+"ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Riscul dvs. de infectare poate fi calculat doar pentru perioadele în care a fost activă înregistrarea în jurnal a expunerilor. Prin urmare, caracteristica de înregistrare în jurnal trebuie să rămână permanent activă. Înregistrarea în jurnal a expunerilor acoperă ultimele 14 zile.";
 
-/* … the second paragraph contains two columns. On the left there is our active\n tracing indicator. On the right column there is just text that explains what\n the indicator shows.\n\n Parameters:\n - first: total number of relevant days (usually 14).\n - second: the actual number of days with active tracing. */
-"ExposureDetection_ActiveTracingSection_Text_Paragraph1" = "Înregistrarea în jurnal a expunerilor acoperă ultimele %1$u zile. În această perioadă, caracteristica de înregistrare în jurnal de pe dispozitivul dvs. a fost activă timp de %2$u zile. Aplicația șterge automat înregistrările mai vechi din jurnal, întrucât acestea nu mai sunt relevante pentru prevenirea infectării.";
+"ExposureDetection_ActiveTracingSection_Text_Paragraph1a" = "Aplicația Corona-Warn a fost instalată acum %u zi(le). Riscul dvs. de infectare este calculat pentru perioadele în care înregistrarea în jurnal a expunerilor a fost activă. Dacă v-ați întâlnit cu alte persoane și înregistrarea în jurnal a expunerilor a fost activă, este calculat riscul dvs. de infectare.";
+
+"ExposureDetection_ActiveTracingSection_Text_Paragraph1b" = "Dacă înregistrarea în jurnal a expunerilor a fost activă pe durata în care v-ați întâlnit cu alte persoane, riscul dvs. de infectare poate fi calculat pentru această perioadă.";
 
 /* Exposure Detection Errors */
 "ExposureDetectionError_Alert_Message" = "A apărut o eroare în timpul înregistrării în jurnal a expunerilor.";
@@ -258,6 +265,16 @@
 "Settings_Reset_Description" = "Ștergeți toate datele dvs. din aplicație.";
 
 "Settings_NavTitle" = "Setări";
+
+"Settings_DaysSinceInstall_Title" = "Perioada înregistrată";
+
+"Settings_DaysSinceInstall_SubTitle" = "Această perioadă este inclusă în calcul.";
+
+"Settings_DaysSinceInstall_P1" = "Riscul dvs. de infectare poate fi calculat doar pentru perioadele în care a fost activă înregistrarea în jurnal a expunerilor. Prin urmare, caracteristica de înregistrare în jurnal trebuie să rămână permanent activă. Înregistrarea în jurnal a expunerilor acoperă ultimele 14 zile.";
+
+"Settings_DaysSinceInstall_P2a" = "Aplicația Corona-Warn a fost instalată acum %u zi(le). Riscul dvs. de infectare este calculat pentru perioadele în care înregistrarea în jurnal a expunerilor a fost activă. Dacă v-ați întâlnit cu alte persoane și înregistrarea în jurnal a expunerilor a fost activă, este calculat riscul dvs. de infectare.";
+
+"Settings_DaysSinceInstall_P2b" = "Dacă înregistrarea în jurnal a expunerilor a fost activă pe durata în care v-ați întâlnit cu alte persoane, riscul dvs. de infectare poate fi calculat pentru această perioadă.";
 
 "Settings_DataDonation_Label" = "Partajare date";
 
@@ -372,7 +389,7 @@
 
 "OnboardingInfo_togetherAgainstCoronaPage_boldText" = "Mai multă protecție pentru dvs. și pentru noi toți. Utilizând Corona-Warn-App putem întrerupe mai ușor lanțurile de infectare.";
 
-"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Transformați-vă dispozitivul într-un sistem de avertizare împotriva coronavirusului. Obțineți un sumar al stării de risc și aflați dacă ați intrat în contact strâns cu persoane diagnosticate cu COVID-19 în ultimele 14 zile. \n\nAplicația înregistrează în jurnal întâlnirile dintre persoane prin smartphone-urile acestora, care schimbă ID-uri aleatorii criptate, fără a accesa niciun fel de date personale.";
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Transformați-vă dispozitivul într-un sistem de avertizare împotriva coronavirusului. Obțineți un sumar al stării de risc și aflați dacă ați intrat în contact strâns cu persoane diagnosticate cu coronavirus în ultimele 14 zile. \n\nAplicația înregistrează în jurnal întâlnirile dintre persoane prin smartphone-urile acestora, care schimbă ID-uri aleatorii criptate, fără a accesa niciun fel de date personale.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_linkText" = "Informații despre aplicație în limbaj simplificat și în limbajul semnelor";
 
@@ -388,9 +405,9 @@
 
 "OnboardingInfo_enableLoggingOfContactsPage_title" = "Cum faceți posibilă înregistrarea în jurnal a expunerilor";
 
-"OnboardingInfo_enableLoggingOfContactsPage_boldText" = "Pentru a identifica orice posibilă expunere, trebuie să activați caracteristica de înregistrare în jurnal a expunerilor.";
+"OnboardingInfo_enableLoggingOfContactsPage_boldText" = "Pentru a identifica dacă sunteți supus riscului de infectare, trebuie să activați înregistrarea în jurnal a expunerilor.";
 
-"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Înregistrarea în jurnal a expunerilor funcționează astfel: iPhone-ul dvs. primește prin Bluetooth ID-uri aleatorii criptate ale altor utilizatori ai aplicației și transmite propriul dvs. ID aleatoriu către dispozitivele acestora. Această caracteristică poate fi oricând dezactivată. \n\nID-urile aleatorii criptate transmit informații doar despre dată, durată și proximitatea față de alte persoane (calculate utilizând intensitatea semnalului). Datele personale, precum numele, adresa și locația, nu sunt înregistrate niciodată. Nu se pot identifica persoane individuale pe baza ID-urilor aleatorii.";
+"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Înregistrarea în jurnal a expunerilor funcționează astfel: iPhone-ul dvs. primește prin Bluetooth ID-uri aleatorii criptate ale altor utilizatori ai aplicației și transmite propriul dvs. ID-uri aleatorii către dispozitivele acestora. Această caracteristică poate fi oricând dezactivată. \n\nID-urile aleatorii criptate transmit informații doar despre data, durata și proximitatea față de alte persoane (calculate utilizând intensitatea semnalului). Datele personale, precum numele, adresa și locația nu sunt înregistrate niciodată. Nu se pot identifica persoane individuale pe baza ID-urilor aleatorii.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesTitle" = "Limita de vârstă: începând cu 16 ani";
 
@@ -526,9 +543,7 @@
 
 "ExposureSubmissionQRInfo_header_section_1" = "Aflarea rezultatului testului";
 
-"ExposureSubmissionQRInfo_body_section_1" = "La pasul următor, scanați codul QR de pe testul dvs. și aflați rezultatul testului.";
-
-"ExposureSubmissionQRInfo_instruction1" = "Vă rugăm să scanați doar codul propriului dvs. test.";
+"ExposureSubmissionQRInfo_instruction1" = "Acum scanați codul QR de pe testul dvs. și aflați rezultatul testului.";
 
 "ExposureSubmissionQRInfo_instruction2" = "Testul dvs. poate fi scanat o singură dată. Aplicația nu poate gestiona mai multe teste simultan.";
 
@@ -540,13 +555,17 @@
 
 "ExposureSubmissionQRInfo_body_section_2" = "Dacă ați fost diagnosticat cu coronavirus, puteți să îi avertizați pe ceilalți prin intermediul aplicației. Caracteristica de avertizare funcționează în câteva țări. Următoarele țări participă în prezent:";
 
-"ExposureSubmissionQRInfo_acknowledgement_3" = "Consimțământul dvs. este voluntar.";
+"ExposureSubmissionQRInfo_body_section_3" = "Persoanele care au făcut check-in la aceleași evenimente sau în aceleași locuri în același timp cu dvs. vor fi, de asemenea, avertizate.";
 
-"ExposureSubmissionQRInfo_acknowledgement_4" = "Puteți afla rezultatul testului dvs. chiar dacă nu alegeți să îl partajați. Dar dacă partajați rezultatul testului dvs., veți ajuta la protejarea celorlalți împotriva infecției.";
+"ExposureSubmissionQRInfo_acknowledgement_3" = "Puteți afla rezultatul testului dvs. chiar dacă nu alegeți să îl partajați. Dar dacă partajați rezultatul testului dvs., veți ajuta la protejarea celorlalți împotriva infectării.";
 
-"ExposureSubmissionQRInfo_acknowledgement_5" = "Identitatea dvs. va rămâne secretă. Alți utilizatori nu vor afla cine a partajat rezultatul testului.";
+"ExposureSubmissionQRInfo_acknowledgement_4" = "Identitatea dvs. va rămâne secretă. Alți utilizatori nu vor afla cine a partajat rezultatul testului.";
+
+"ExposureSubmissionQRInfo_acknowledgement_5" = "La „Check-inurile mele”, puteți vedea evenimentele și locurile ale căror invitați cu check-inul făcut vor fi avertizați. Puteți elimina check-inuri individuale din listă pentru a le exclude din procesul de avertizare.";
 
 "ExposureSubmissionQRInfo_acknowledgement_6" = "Trebuie să aveți cel puțin 16 ani pentru a vă acorda consimțământul.";
+
+"ExposureSubmissionQRInfo_acknowledgement_7" = "În etapa următoare, acordați-vă consimțământul pentru a accesa ID-urile aleatorii.";
 
 "ExposureSubmissionQRInfo_primaryButtonTitle" = "Accept";
 
@@ -617,17 +636,11 @@
 
 "ExposureSubmissionTestresultAvailable_primaryButtonTitle" = "Înainte";
 
-"ExposureSubmissionTestresultAvailable_CloseAlertTitle" = "Important:\nSunteți pe punctul de a anula acest proces. Încă nu i-ați avertizat pe ceilalți. Vă rugăm să finalizați procesul și să ajutați la protejarea celorlalți.";
-
-"ExposureSubmissionTestresultAvailable_CloseAlertMessage" = "Sigur doriți să anulați acest proces?";
-
-"ExposureSubmissionTestresultAvailable_NoConsentCloseAlertTitle" = "Doriți să anulați?";
-
-"ExposureSubmissionTestresultAvailable_NoConsentCloseAlertMessage" = "Intrările dvs. nu vor fi salvate.";
+"ExposureSubmissionTestresultAvailable_CloseAlertTitle" = "După ce ați citit rezultatul testului dvs., îi puteți notifica pe ceilalți dacă este necesar și puteți întrerupe lanțul de infectare.";
 
 "ExposureSubmissionTestresultAvailable_CloseAlertButtonCancel" = "Anulare";
 
-"ExposureSubmissionTestresultAvailable_CloseAlertButtonContinue" = "Continuare";
+"ExposureSubmissionTestresultAvailable_CloseAlertButtonContinue" = "Afișare rezultat";
 
 /* Exposure Submission Result */
 "ExposureSubmissionResult_Title" = "Rezultatul testului dvs.";
@@ -766,12 +779,20 @@
 
 "ExposureSubmissionWarnOthers_supportedCountriesTitle" = "Caracteristica de avertizare funcționează în câteva țări. Următoarele țări participă în prezent:";
 
+"ExposureSubmissionWarnOthers_consent_bullet1" = "Consimțământul dvs. este voluntar.";
+
+"ExposureSubmissionWarnOthers_consent_bullet2" = "Puteți afla rezultatul testului dvs. chiar dacă alegeți să nu îl partajați. Dar dacă partajați rezultatul testului dvs., veți ajuta la protejarea celorlalți împotriva infectării.";
+
+"ExposureSubmissionWarnOthers_consent_bullet3" = "Identitatea dvs. va rămâne secretă. Alți utilizatori nu vor afla cine a partajat rezultatul testului.";
+
+"ExposureSubmissionWarnOthers_consent_bullet4" = "Trebuie să aveți cel puțin 16 ani pentru a vă acorda consimțământul.";
+
 "ExposureSubmissionWarnOthers_continueButton" = "Accept";
 
 /* Exposure Submission Result */
 "ExposureSubmissionResult_RemoveAlert_Title" = "Testul poate fi scanat o singură dată.";
 
-"ExposureSubmissionResult_RemoveAlert_Text" = "Dacă eliminați testul, nu veți mai putea afla rezultatul testului. Veți primi rezultatul testului dvs. de la centrul sau laboratorul de testare, indiferent de valabilitatea codului QR. Dacă sunteți diagnosticat cu COVID-19, direcția de sănătate publică va fi notificată prin canalul de comunicare prevăzut în mod legal și vă va contacta.";
+"ExposureSubmissionResult_RemoveAlert_Text" = "Dacă eliminați testul, nu veți mai putea afla rezultatul testului. Veți primi rezultatul testului dvs. de la centrul sau laboratorul de testare, indiferent de valabilitatea codului QR. Dacă sunteți diagnosticat cu coronavirus, direcția de sănătate publică va fi notificată prin canalul de comunicare prevăzut în mod legal și vă va contacta.";
 
 "ExposureSubmissionResult_RegistrationDateUnknown" = "Data înregistrării este necunoscută";
 
@@ -792,7 +813,7 @@
 
 "ExposureSubmissionError_NoResponse" = "Răspunsul nu are conținut.";
 
-"ExposureSubmissionError_QRAlreadyUsed" = "Codul QR este nevalabil sau a fost deja înregistrat pe un alt smartphone. Veți primi rezultatul testului dvs. de la centrul sau laboratorul de testare, indiferent de valabilitatea codului QR. Dacă sunteți diagnosticat cu COVID-19, direcția de sănătate publică va fi notificată prin canalul de comunicare prevăzut în mod legal și vă va contacta.";
+"ExposureSubmissionError_QRAlreadyUsed" = "Codul QR este nevalabil sau a fost deja înregistrat pe un alt smartphone. Veți primi rezultatul testului dvs. de la centrul sau laboratorul de testare, indiferent de valabilitatea codului QR. Dacă sunteți diagnosticat cu coronavirus, autoritatea de sănătate publică va fi notificată prin canalul de comunicare prevăzut în mod legal și vă va contacta.";
 
 "ExposureSubmissionError_QRAlreadyUsed_Title" = "Codul QR este nevalabil";
 
@@ -804,7 +825,7 @@
 
 "ExposureSubmissionError_RegTokenNotExist" = "Un cod TAN de transmis nu poate fi generat. Contactați hotline-ul tehnic accesând Informații aplicație -> Hotline tehnic.";
 
-"ExposureSubmissionError_other" = "A apărut o eroare de conexiune. Cod de eroare pentru asistența tehnică:";
+"ExposureSubmissionError_other" = "A apărut o eroare de conexiune. Cod de eroare pentru suportul tehnic:";
 
 "ExposureSubmissionError_otherend" = "Reîncercați.";
 
@@ -972,6 +993,8 @@
 /* Home Low card */
 "Home_Risk_Low_Title" = "Risc redus";
 
+"Home_Risk_DaysSinceInstallation" = "Instalat acum %u zile";
+
 /* Home High card */
 "Home_Risk_High_Title" = "Risc crescut";
 
@@ -1057,6 +1080,14 @@
 
 "Home_SubmitCard_Button" = "Pașii următori";
 
+/* Home Trace Locations Card */
+"Home_TraceLocationsCard_Title" = "Planificați un eveniment?";
+
+"Home_TraceLocationsCard_Body" = "Planificați un eveniment sau aveți o afacere? Creați un cod QR pentru ca invitații dvs. să poată face check-in când sosesc.";
+
+"Home_TraceLocationsCard_Button" = "Creare cod QR";
+
+/* Home Info Card */
 "Home_InfoCard_ShareTitle" = "Partajați Corona-Warn-App";
 
 "Home_InfoCard_ShareBody" = "Cu cât aplicația este utilizată de mai multe persoane, cu atât mai repede putem întrerupe lanțurile de infectare. Invitați-vă familia și prietenii să descarce aplicația.";
@@ -1116,7 +1147,7 @@
 
 "App_Information_About_Description" = "Robert Koch Institute (RKI) este un organism federal de sănătate publică din Germania. RKI a publicat aplicația Corona-Warn în numele Guvernului Federal. Aplicația are drept scop să completeze sub formă digitală măsurile de sănătate publică deja introduse: distanțarea socială, igiena și purtarea măștii.";
 
-"App_Information_About_Text" = "Persoanele care utilizează aplicația ajută la urmărirea și întreruperea lanțurilor de infectare. Aplicația salvează local, pe dispozitivul dvs., întâlnirile cu alte persoane. Sunteți notificat dacă ați întâlnit persoane care au fost diagnosticate ulterior cu COVID-19. Identitatea și confidențialitatea dvs. sunt protejate întotdeauna.";
+"App_Information_About_Text" = "Persoanele care utilizează aplicația ajută la urmărirea și întreruperea lanțurilor de infectare. Aplicația salvează local, pe dispozitivul dvs., întâlnirile cu alte persoane. Sunteți notificat dacă ați întâlnit persoane care au fost diagnosticate ulterior cu coronavirus. Identitatea și confidențialitatea dvs. sunt protejate întotdeauna.";
 
 "App_Information_About_LinkText" = "Informații despre aplicație în limbaj simplificat și în limbajul semnelor";
 
@@ -1185,6 +1216,31 @@
 "App_Information_Terms_ImageDescription" = "O mână ține un smartphone pe al cărui ecran este afișat un corp mare de text. Lângă text apare o bifă care simbolizează acceptarea condițiilor de utilizare.";
 
 "App_Information_Terms_Title" = "Condiții de utilizare";
+
+/* App Information - Error Report */
+"ErrorReport_PrivacyInformation" = "Pentru mai multe informații, consultați înștiințarea de confidențialitate";
+
+"ErrorReport_ActiveStatus_Title" = "Eroare la execuție analiză";
+
+"ErrorReport_InactiveStatus_Title" = "Inactivă";
+
+"ErrorReport_Progress_Description" = "Mărime curentă: %@ (necomprimat)";
+
+"ErrorReport_StartButtonTitle" = "Pornire";
+
+"ErrorReport_StopAndDeleteButtonTitle" = "Oprire și ștergere";
+
+"ErrorReport_SaveButtonTitle" = "Salvare locală și continuare";
+
+"ErrorReport_SendButtonTitle" = "Trimitere raport de erori";
+
+"ErrorReport_SendReports_Title" = "Trimitere raport de erori";
+
+"ErrorReport_SendReports_Paragraph" = "Consimțământul dvs. este necesar înainte de a trimite raportul de erori înregistrate la suportul tehnic al RKI.\n\nDupă ce trimiteți raportul, veți primi un ID pentru raportul de erori. Puteți specifica acest ID pentru a-i furniza suportului tehnic, de exemplu, informații suplimentare și permiteți astfel atribuirea acestora la raportul dvs. de erori. Dacă nu furnizați ID-ul raportului de erori, RKI nu vă poate atribui raportul dvs. individual.";
+
+"ErrorReport_SendReports_Details" = "Informații detaliate despre prelucrarea acestor date și riscurile privind prelucrarea datelor din SUA și din alte țări terțe";
+
+"ErrorReport_SendReports_Button_Title" = "Sunt de acord și trimitere";
 
 /* Invite Friends */
 "InviteFriends_NavTitle" = "Recomandați-ne";
@@ -1282,7 +1338,7 @@
 
 "RiskLegend_Random_Title" = "ID aleatoriu";
 
-"RiskLegend_Random_Text" = "ID-urile aleatorii sunt combinații de cifre și litere generate aleatoriu. Acestea sunt schimbate între dispozitivele aflate în proximitate strânsă. ID-urile aleatorii nu pot fi asociate cu o persoană anume și sunt șterse automat după 14 zile. Persoanele diagnosticate cu COVID-19 pot opta să trimită ID-urile aleatorii din ultimele 14 zile și altor utilizatori ai aplicației.";
+"RiskLegend_Random_Text" = "ID-urile aleatorii sunt combinații de cifre și litere generate aleatoriu. Acestea sunt schimbate între dispozitivele aflate în proximitate strânsă. ID-urile aleatorii nu pot fi asociate cu o persoană anume și sunt șterse automat după 14 zile. Persoanele diagnosticate cu coronavirus pot opta să trimită ID-urile aleatorii din ultimele 14 zile și altor utilizatori ai aplicației.";
 
 "RiskLegend_Image1_AccLabel" = "Un dispozitiv arată conținut numerotat diferit.";
 
@@ -1305,7 +1361,7 @@
 "ENATanInput_CharacterIndex" = "Caracterul %1$u din %2$u";
 
 /* Active Tracing Interval Formatting:\n The following two entries are used together. If tracing was not active (almost) 14 days\n during the last 14 days then `Active_Tracing_Interval_Partially_Active` is used – otherwise\n `Active_Tracing_Interval_Partially_Active` will be used. */
-"Active_Tracing_Interval_Partially_Active" = "În ultimele 14 zile, înregistrarea în jurnal a expunerilor a fost activă timp de %1$u zile.";
+"Active_Tracing_Interval_Partially_Active" = "În ultimele 14 zile, înregistrarea în jurnal a expunerilor a fost activă timp de %1$u zile";
 
 "Active_Tracing_Interval_Permanently_Active" = "Înregistrarea în jurnal a expunerilor este permanent activă";
 
@@ -1323,22 +1379,23 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Modificările din această versiune pot fi găsite în informațiile aplicației, la „Caracteristici noi”.";
 
-/* Version 1.14 */
-"NewVersionFeature_114_additional_diary_functions_title" = "Caracteristici suplimentare în jurnalul de contacte";
+/* Version 2.0 */
+"NewVersionFeature_200_event_checkin_title" = "Faceți check-in cu codul QR pentru a urmări eficient lanțurile de infectare";
 
-"NewVersionFeature_114_additional_diary_functions_description" = "Acum puteți introduce circumstanțele specifice ale fiecărei întâlniri. Puteți selecta din opțiunile predefinite (precum durata întâlnirii, cu mască sau fără mască) și puteți, de asemenea, introduce o notă scurtă pentru a înregistra alte circumstanțe care pot duce la un risc crescut. Dacă vă infectați, aceste informații pot ajuta autoritatea de sănătate publică să urmărească posibilele lanțuri de infectare.";
+"NewVersionFeature_200_event_checkin_description" = "Acum, aplicația Corona-Warn vă permite să faceți check-in la evenimente și în locuri. Organizatorii de evenimente și proprietarii de magazine pot utiliza aplicația pentru a crea un cod QR. Apoi, invitații pot scana acest cod QR atunci când sosesc, pentru a-și înregistra prezența. De asemenea, aplicația poate crea la cerere o intrare în jurnal. Dacă o persoană care a făcut check-in la acest eveniment sau în acest loc este diagnosticată ulterior cu coronavirus, alte persoane care au făcut check-in în același timp pot fi avertizate automat.";
 
-"NewVersionFeature_114_direct_access_diary_title" = "Acces direct la jurnalul de contacte";
+/* Version 1.15 */
+"NewVersionFeature_115_cross_border_switzerland_title" = "A fost adăugată Elveția la înregistrarea transnațională a expunerilor în jurnal ";
 
-"NewVersionFeature_114_direct_access_diary_description" = "Acum puteți adăuga o intrare direct la jurnalul dvs. de contacte, fără a mai fi nevoie să deschideți mai întâi aplicația. Pentru aceasta, atingeți și mențineți apăsată pictograma pentru aplicația Corona-Warn timp de aproximativ 2 secunde, până apare un meniu, apoi apăsați pe „Adăugare intrare în jurnal pentru astăzi”.";
+"NewVersionFeature_115_cross_border_switzerland_description" = "Utilizatorii aplicației Corona-Warn pot schimba acum ID-uri aleatorii criptate cu utilizatorii aplicației oficiale de avertizare din Elveția. Aceasta înseamnă că avertizările pot fi acum trimise și primite de utilizatorii aplicației din Elveția.";
 
-"NewVersionFeature_114_more_details_risk_status_title" = "Mai multe detalii despre starea riscului dvs. ";
+"NewVersionFeature_115_days_since_install_title" = "Modificarea mozaicurilor riscului";
 
-"NewVersionFeature_114_more_details_risk_status_description" = "Dacă aplicația indică un risc crescut pentru dvs., acum puteți vedea dacă starea riscului este afișată pe baza uneia sau mai multor expuneri cu un risc crescut sau pe baza mai multor expuneri cu risc redus.";
+"NewVersionFeature_115_days_since_install_description" = "Mozaicurile riscului nu mai conțin numărul de zile active sau nota că aplicația este activă permanent.";
 
-"NewVersionFeature_114_screenshots_title" = "Capturi de ecran ale aplicației Corona-Warn";
+"NewVersionFeature_115_error_analytic_logs_title" = "Generarea rapoartelor de erori";
 
-"NewVersionFeature_114_screenshots_description" = "Site-ul web https://www.coronawarn.app conține acum toate capturile de ecran ale aplicației, pentru a găsi, de exemplu, caracteristicile planificate.";
+"NewVersionFeature_115_error_analytic_logs_description" = "Acum puteți genera un raport de erori, la cerere de la suportul tehnic, și puteți înregistra etapele pe care le efectuați în aplicație. Această acțiune va facilita analizarea erorilor tehnice și corecția mai rapidă a acestora.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Înregistrare transnațională a expunerilor în jurnal";
@@ -1376,7 +1433,7 @@
 "AutomaticSharingConsent_DataProcessingDetailInfo" = "Informații detaliate privind Prelucrarea datelor și Consimțământul dvs.";
 
 /* Thank you screen */
-"Thank_You_Title" = "Vă mulţumim";
+"Thank_You_Title" = "Vă mulțumim";
 
 "Thank_You_SubTitle" = "Vă mulțumim pentru ajutorul dat la oprirea răspândirii coronavirusului.";
 
@@ -1462,6 +1519,17 @@
 "ContactDiary_Overview_ActionSheet_EditLocationTitle" = "Editare locuri";
 
 "ContactDiary_Overview_ActionSheet_ExportActionSubject" = "Jurnalul meu de contacte";
+
+/* Checkin Risk */
+"ContactDiaray_Overview_Checkin_Title_HighRisk" = "Risc crescut";
+
+"ContactDiaray_Overview_Checkin_Title_LowRisk" = "Risc redus";
+
+"ContactDiaray_Overview_Checkin_Title_Subheadline" = "Pe baza prezenței dvs. la:";
+
+"ContactDiaray_Overview_Checkin_High_Risk_In_Brackets" = "(risc crescut)";
+
+"ContactDiaray_Overview_Checkin_Low_Risk_In_Brackets" = "(risc redus)";
 
 /* Day */
 "ContactDiary_Day_ContactPersonsSegment" = "Persoane";
@@ -1725,6 +1793,8 @@
 
 "Tabbar_Diary_Title" = "Jurnal";
 
+"Tabbar_CheckIn_Title" = "Check-in";
+
 /* Data Donation */
 "DataDonation_IntroductionText" = "Spuneți-ne cum utilizați aplicația și ajutați-ne să evaluăm eficacitatea acesteia.";
 
@@ -1844,4 +1914,301 @@
 
 /* Quick Actions a.k.a. shortcuts */
 "QuickAction_newContactDiaryEntry" = "Adăugare intrare în jurnal pentru astăzi";
+
+"QuickAction_eventCheckin" = "Check-in";
+
+/* Checkins */
+"Checkins_QR_Scanner_Title" = "Scanare cod QR";
+
+"Checkins_Overview_Title" = "Check-inurile mele";
+
+"Checkins_Overview_MenuButtonTitle" = "Meniu";
+
+"Checkins_Overview_ScanButtonTitle" = "Scanare cod QR";
+
+"Checkins_Overview_EmptyTitle" = "Nicio intrare încă";
+
+"Checkins_Overview_EmptyDescription" = "Când scanați un cod QR pentru a face check-in la un eveniment sau într-un loc, este creată automat o intrare.";
+
+"Checkins_Overview_EmptyImageDescription" = "O clădire cu un simbol de cod QR în fundal";
+
+"Checkins_Overview_DeleteAllButtonTitle" = "Eliminare toate";
+
+"Checkins_Overview_DurationTitle" = "Durată";
+
+"Checkins_Overview_CheckinTimeTemplate" = "%@ - check-out automat după %@";
+
+"Checkins_Overview_CheckoutButtonTitle" = "Check-out acum";
+
+"Checkins_Overview_MissingPermissions_Title" = "Permiteți accesul la cameră";
+
+"Checkins_Overview_MissingPermissions_Description" = "Pentru a utiliza camera smartphone-ului să scanați codurile QR, trebuie să permiteți accesul la cameră în setările dispozitivului pentru aplicație.";
+
+"Checkins_Overview_MissingPermissions_ButtonTitle" = "Deschideți configurările dispozitivului";
+
+"Checkins_Overview_DeleteOne_AlertTitle" = "Sigur doriți să eliminați această intrare?";
+
+"Checkins_Overview_DeleteOne_AlertMessage" = "Nu veți mai putea avertiza alte persoane care au făcut check-in în acest loc sau la acest eveniment în același timp cu dvs. și nici dvs. nu veți mai fi avertizat de către acestea.";
+
+"Checkins_Overview_DeleteOne_AlertConfirmButtonTitle" = "Eliminare";
+
+"Checkins_Overview_DeleteOne_AlertCancelButtonTitle" = "Anulare";
+
+"Checkins_Overview_DeleteAll_AlertTitle" = "Sigur doriți să eliminați toate intrările?";
+
+"Checkins_Overview_DeleteAll_AlertMessage" = "Nu veți mai putea avertiza alte persoane care au făcut check-in în aceste locuri sau la aceste eveniment în același timp cu dvs. și nici dvs. nu veți mai fi avertizat de către acestea.";
+
+"Checkins_Overview_DeleteAll_AlertConfirmButtonTitle" = "Eliminare";
+
+"Checkins_Overview_DeleteAll_AlertCancelButtonTitle" = "Anulare";
+
+"Checkins_Overview_ActionSheet_InfoTitle" = "Informații";
+
+"Checkins_Overview_ActionSheet_EditTitle" = "Editare";
+
+"Checkins_Overview_QRScanner_Instruction" = "Scanare cod QR și check-in";
+
+"Checkin_QR_Scanner_Checkin_Error_Title" = "Cod QR nevalabil";
+
+"Checkin_QR_Scanner_Error_InvalidURL" = "Codul QR scanat nu este valabil pentru check-inurile la un eveniment sau într-un loc. Scanați un cod QR corespunzător (cod de eroare INVALID_URL).";
+
+"Checkin_QR_Scanner_Error_InvalidPayload" = "Check-in împiedicat din cauza unui cod QR nevalabil. Partea responsabilă trebuie să genereze un cod QR nou (cod de eroare INVALID_PAYLOAD).";
+
+"Checkin_QR_Scanner_Error_InvalidURLVendorData" = "Check-in împiedicat din cauza unui cod QR nevalabil. Partea responsabilă trebuie să genereze un cod QR nou (cod de eroare INVALID_VENDOR_DATA).";
+
+"Checkin_QR_Scanner_Error_InvalidDescription" = "Check-in împiedicat din cauza unui cod QR nevalabil. Partea responsabilă trebuie să genereze un cod QR nou (cod de eroare INVALID_DESCRIPTION).";
+
+"Checkin_QR_Scanner_Error_InvalidAddress" = "Check-in împiedicat din cauza unui cod QR nevalabil. Partea responsabilă trebuie să genereze un cod QR nou (cod de eroare INVALID_ADDRESS).";
+
+"Checkin_QR_Scanner_Error_InvalidCryptographicSeed" = "Check-in împiedicat din cauza unui cod QR nevalabil. Partea responsabilă trebuie să genereze un cod QR nou (cod de eroare INVALID_CRYPTO_SEED).";
+
+"Checkin_QR_Scanner_Error_InvalidTimeStamps" = "Check-in împiedicat din cauza unui cod QR nevalabil. Partea responsabilă trebuie să genereze un cod QR nou (cod de eroare INVALID_TIMESTAMPS).";
+
+/* TraceLocations */
+"TraceLocations_Overview_Title" = "Codurile mele QR";
+
+"TraceLocations_Overview_MenuButtonTitle" = "Meniu";
+
+"TraceLocations_Overview_AddButtonTitle" = "Creare cod QR";
+
+"TraceLocations_Overview_EmptyTitle" = "Niciun cod QR creat încă";
+
+"TraceLocations_Overview_EmptyDescription" = "Toate codurile QR pe care le-ați creat pentru un loc sau eveniment sunt afișate aici. Puteți șterge codurile QR pe care nu mai intenționați să le utilizați.";
+
+"TraceLocations_Overview_EmptyImageDescription" = "Smartphone cu simbol de cod QR";
+
+"TraceLocations_Overview_DeleteAllButtonTitle" = "Eliminare toate";
+
+"TraceLocations_Overview_SelfCheckinButtonTitle" = "Check-in";
+
+"TraceLocations_Overview_DeleteOne_AlertTitle" = "Doriți să ștergeți codul QR?";
+
+"TraceLocations_Overview_DeleteOne_AlertMessage" = "Luați în considerare că dacă îl ștergeți, codul QR nu mai poate fi utilizat pentru check-in.";
+
+"TraceLocations_Overview_DeleteOne_AlertConfirmButtonTitle" = "Ștergere";
+
+"TraceLocations_Overview_DeleteOne_AlertCancelButtonTitle" = "Anulare";
+
+"TraceLocations_Overview_DeleteAll_AlertTitle" = "Sigur doriți să ștergeți toate codurile QR?";
+
+"TraceLocations_Overview_DeleteAll_AlertMessage" = "Luați în considerare că dacă le ștergeți, codurile QR nu mai pot fi utilizate pentru check-in.";
+
+"TraceLocations_Overview_DeleteAll_AlertConfirmButtonTitle" = "Ștergere";
+
+"TraceLocations_Overview_DeleteAll_AlertCancelButtonTitle" = "Anulare";
+
+"TraceLocations_Overview_ActionSheet_InfoTitle" = "Informații";
+
+"TraceLocations_Overview_ActionSheet_EditTitle" = "Editare";
+
+/* Trace Location Details */
+"TraceLocations_Details_PrintVersionButtonTitle" = "Afișare versiune de tipărire";
+
+"TraceLocations_Details_DuplicateButtonTitle" = "Utilizare ca șablon";
+
+/* Selection of a TraceLocations */
+"TraceLocations_TypeSelection_Title" = "Creare cod QR";
+
+"TraceLocations_Section_Title_Permanent" = "LOC";
+
+"TraceLocations_Section_Title_Temporary" = "EVENIMENT";
+
+"TraceLocations_Type_Title_PermanentOther" = "Alt loc";
+
+"TraceLocations_Type_Title_PermanentRetail" = "Comerț cu amănuntul";
+
+"TraceLocations_Title_Type_PermanentFoodService" = "Ospitalitate";
+
+"TraceLocations_Type_Title_PermanentCraft" = "Saloane și ateliere de creație";
+
+"TraceLocations_Type_Title_PermanentWorkplace" = "Serviciu";
+
+"TraceLocations_Type_Title_PermanentEducationalInstitution" = "Centru de educație";
+
+"TraceLocations_Type_Title_PermanentPublicBuilding" = "Clădire publică";
+
+"TraceLocations_Type_Subtitle_PermanentRetail" = "Magazin, etaj de cumpărături";
+
+"TraceLocations_Type_Subtitle_PermanentFoodService" = "Cafenea, bar, restaurant, hotel";
+
+"TraceLocations_Type_Subtitle_PermanentCraft" = "Coafor, atelier de tâmplărie";
+
+"TraceLocations_Type_Subtitle_PermanentWorkplace" = "Birou, cameră de conferință, cantină";
+
+"TraceLocations_Type_Subtitle_PermanentEducationalInstitution" = "Sală de clasă, cameră de lectură, bibliotecă";
+
+"TraceLocations_Type_Subtitle_PermanentPublicBuilding" = "Birou municipal, muzeu";
+
+"TraceLocations_Type_Title_TemporaryOther" = "Alt eveniment";
+
+"TraceLocations_Type_Title_TemporaryCulturalEvent" = "Eveniment cultural";
+
+"TraceLocations_Type_Title_TemporaryClubActivity" = "Activități de club sportiv";
+
+"TraceLocations_Type_Title_TemporaryPrivateEvent" = "Petrecere privată";
+
+"TraceLocations_Type_Title_TemporaryWorshipService" = "Slujbă religioasă";
+
+"TraceLocations_Type_Subtitle_TemporaryCulturalEvent" = "Concert, expoziție artistică";
+
+"TraceLocations_Type_Subtitle_TemporaryClubActivity" = "Antrenament sportiv, adunare generală";
+
+"TraceLocations_Type_Subtitle_TemporaryPrivateEvent" = "Aniversare, adunare de familie";
+
+/* Trace Location Configuration */
+"TraceLocations_Configuration_Title" = "Creare cod QR";
+
+"TraceLocations_Configuration_DescriptionPlaceholder" = "Descriere";
+
+"TraceLocations_Configuration_AddressPlaceholder" = "Loc";
+
+"TraceLocations_Configuration_StartDateTitle" = "Început";
+
+"TraceLocations_Configuration_EndDateTitle" = "Sfârșit";
+
+"TraceLocations_Configuration_DefaultCheckinLengthTitle" = "Ședere tipică";
+
+"TraceLocations_Configuration_DefaultCheckinLengthFootnote" = "Specificați durata tipică a șederii invitaților la dvs.";
+
+"TraceLocations_Configuration_PrimaryButtonTitle" = "Salvare";
+
+"TraceLocations_Configuration_HoursUnit" = "%@ ore.";
+
+"TraceLocations_Configuration_SavingErrorMessage" = "Codul QR nu poate fi salvat chiar acum. Încercați din nou mai târziu (cod de eroare %@).";
+
+/* Error Reporting */
+"ErrorReport_Title" = "Rapoarte de erori";
+
+"ErrorReport_Description1" = "Pentru a ajuta echipa de suport tehnic a aplicației la analiza erorilor, puteți înregistra un raport de erori din aplicația Corona-Warn. Astfel, sunt înregistrate etapele tehnice individuale și rezultatele proceselor aplicației. Puteți trimite apoi raportul de erori la suportul tehnic și ajutați la identificarea și corectarea erorilor.\n\nPentru mai multe informații, consultați pagina noastră de întrebări frecvente:";
+
+"ErrorReport_FAQ" = "Întrebări frecvente despre rapoartele de erori";
+
+"ErrorReport_Description2" = "Consimțământul dvs. este necesar înainte de a trimite raportul de erori înregistrate la suportul tehnic al RKI.\n\nDupă ce trimiteți raportul, veți primi un ID pentru raportul de erori. Puteți specifica acest ID pentru a-i furniza suportului tehnic, de exemplu, informații suplimentare și permiteți astfel atribuirea acestora la raportul dvs. de erori. Dacă nu furnizați ID-ul raportului de erori, RKI nu vă poate atribui raportul dvs. individual.";
+
+"ErrorReport_DetailedInformation_Title" = "Informații detaliate despre trimiterea rapoartelor de erori";
+
+"errorReport_DetailedInformation_Headline" = "Verificarea autenticității și a transferului de date către țări terțe";
+
+"errorReport_DetailedInformation_Content1" = "Pentru a confirma autenticitatea aplicației dvs., smartphone-ul dvs. generează un identificator unic ce conține informații despre versiunea smartphone-ului și a aplicației. Acest lucru este necesar pentru a ne asigura că doar persoanele care utilizează efectiv aplicația Corona-Warn pot trimite date la suportul tehnic și să excludem rapoartele de erori manipulate. În acest scop, identificatorul este trimis la Apple. În acest proces, pot fi transferate date în SUA sau în alte țări terțe, unde nivelul de confidențialitate a datelor poate să nu corespundă cu legislația europeană și se poate să nu vă puteți exercita drepturile europene în ceea ce privește confidențialitatea datelor. În special, serviciile de securitate din țările terțe ar putea să vă acceseze și să vă analizeze datele de la Apple, chiar dacă nu există temei de suspiciune, și pot, de exemplu, lega aceste date de alte informații. Acest lucru se referă doar la identificatorul care este trimis la Apple. Apple nu primește informațiile din raportul dvs. de erori, însă Apple ar putea determina identitatea dvs. pe baza identificatorului și ar putea urmări că a fost efectuată verificarea autenticității pe smartphone-ul dvs.\n\nDacă nu sunteți de acord cu acest transfer al datelor dvs. către o țară terță, nu apăsați pe „Sunt de acord și trimitere”. Veți putea utiliza aplicația în continuare, dar nu veți putea trimite rapoarte de erori.";
+
+"ErrorReport_DetailedInformation_Subheadline" = "Cum analizează RKI rapoartele de erori";
+
+"ErrorReport_DetailedInformation_Content2" = "După ce este verificată autenticitatea aplicației dvs., raportul de erori este trimis la RKI printr-o conexiune sigură. Rapoartele de erori vor fi utilizate doar pentru depanarea și corecția erorilor în cadrul unor actualizări viitoare ale aplicației. Doar angajații responsabili cu suportul tehnic pot accesa rapoartele de erori. Rapoartele de erori conțin o varietate de mesaje de stare și evenimente declanșate în aplicație, dar nu conțin informații care i-ar permite institutului RKI să vă determine identitatea. Doar dacă dezvăluiți ID-ul raportului de erori în legătură cu mesaje viitoare se poate face o conexiune între mesaj (și, de exemplu, numele dvs. conținut în acesta) și informațiile conținute în raportul de erori (precum mesajele tehnice pentru calculul ca parte din înregistrarea în jurnal a expunerilor, informațiile afișate și etapele efectuate în aplicație și, unde este cazul, un rezultat de test obținut și ID-urile aleatorii partajate ca parte din notificarea altor utilizatori).";
+
+"ErrorReport_Legal_DetailedInformation_Content2" = "După ce este verificată autenticitatea aplicației dvs., raportul de erori este trimis la RKI printr-o conexiune sigură. Rapoartele de erori vor fi utilizate doar pentru depanarea și corecția erorilor în cadrul unor actualizări viitoare ale aplicației. Doar angajații responsabili cu suportul tehnic pot accesa rapoartele de erori. Rapoartele de erori conțin o varietate de mesaje de stare și evenimente declanșate în aplicație, dar nu conțin informații care i-ar permite institutului RKI să vă determine identitatea. Doar dacă dezvăluiți ID-ul raportului de erori în legătură cu mesaje viitoare se poate face o conexiune între mesaj (și, de exemplu, numele dvs. conținut în acesta) și informațiile conținute în raportul de erori (precum mesajele tehnice pentru calculul ca parte din înregistrarea în jurnal a expunerilor, informațiile afișate și etapele efectuate în aplicație și, unde este cazul, un rezultat de test obținut și ID-urile aleatorii partajate ca parte din notificarea altor utilizatori).";
+
+"ErrorReport_History_Title" = "Istoric ID-uri";
+
+"ErrorReport_History_Description" = "Aici vedeți ID-urile jurnalelor de analiză a erorilor";
+
+"ErrorReport_History_Cell_ID" = "ID %@";
+
+"ErrorReport_History_Navigation_Subline" = "ID-urile analizelor de erori partajate până în prezent";
+
+"ErrorReport_DEVICE_NOT_SUPPORTED" = "Raportul de erori nu poate fi trimis (cod de eroare %@).";
+
+"ErrorReport_TRY_AGAIN_LATER" = "Nu se poate trimite raportul de erori chiar acum. Încercați din nou mai târziu (cod de eroare %@).";
+
+/* Checkins */
+"Checkin_Information_Title" = "Check-in";
+
+"Checkin_Information_ImageDescription" = "Trei persoane stau în picioare la o masă înaltă, iar două dintre ele se uită pe smartphone.";
+
+"Checkin_Information_DescriptionTitle" = "Întrerupeți rapid și cu încredere lanțurile de infectare";
+
+"Checkin_Information_DescriptionSubHeadline" = "Scanați codul QR pentru un eveniment sau loc pentru a face check-in și a vă înregistra prezența la acesta pe smartphone-ul dvs.";
+
+"Checkin_Information_Item_RiskStatus_Title" = "La calcularea stării riscului dvs. este luat în calcul și fiecare check-in. Dacă o persoană care a făcut check-in la acest eveniment sau în acest loc este diagnosticată ulterior cu coronavirus, puteți fi notificat dacă ați fost în aceeași cameră în același timp sau în decurs de 30 de minute după persoana diagnosticată.";
+
+"Checkin_Information_Item_Time_Title" = "Specificați durata șederii cât mai precis posibil pentru a permite avertizările exacte.";
+
+"Checkin_Information_Dataprivacy_Title" = "Pentru mai multe informații, consultați înștiințarea de confidențialitate.";
+
+"Checkin_Information_PrimaryButton_Title" = "Accept";
+
+/* CheckIn edit */
+"Checkins_Edit_PrimaryButton_Title" = "Salvare";
+
+"Checkins_Edit_Section_Title" = "Modificare lungime ședere pentru:";
+
+"Checkins_Edit_CheckedIn" = "Check-in făcut";
+
+"Checkins_Edit_CheckedOut" = "Check-out făcut";
+
+"Checkins_Edit_Notice" = "Lungimea șederii nu va fi ajustată automat în jurnalul dvs. de contacte.";
+
+/* Trace Location */
+"TraceLocation_Information_Title" = "Creare cod QR";
+
+"TraceLocation_Information_ImageDescription" = "O persoană arată către un flipchart, în timp ce două persoane stau în apropiere și privesc flipchartul.";
+
+"TraceLocation_Information_DescriptionTitle" = "Siguranță crescută pentru dvs. și invitații dvs.";
+
+"TraceLocation_Information_DescriptionSubHeadline" = "Creați un cod QR pe care îl pot scana invitații dvs. atunci când sosesc. Acesta îi va ajuta să îi avertizeze pe ceilalți invitați sau să fie avertizați de ei, dacă este necesar.";
+
+"TraceLocation_Information_Item_RiskStatus" = "La calcularea stării riscului este luat în calcul și fiecare check-in. Dacă o persoană care a făcut check-in la acest eveniment sau în acest loc este diagnosticată ulterior cu coronavirus, invitații pot fi notificați dacă au fost în aceeași cameră în același timp sau în decurs de 30 de minute după persoana diagnosticată.";
+
+"TraceLocation_Information_Item_Checkin" = "Puteți furniza codul QR invitaților dvs. de pe smartphone-ul dvs. sau în formă tipărită.";
+
+"TraceLocation_Information_Item_RenewQRCode" = "Dacă doriți să utilizați un cod QR pe termen lung, generați-l din nou în fiecare zi, în afara programului dvs. de lucru.";
+
+"TraceLocation_Information_PrimaryButton_Title" = "Înainte";
+
+/* Checkout */
+"Checkout_Notification_Title" = "Ați făcut check-out automat.";
+
+"Checkout_Notification_Body" = "Ajustați durata șederii dvs. dacă este necesar.";
+
+"Checkin_Details_HoursShortVersion" = "%@ ore";
+
+"Checkin_Details_CheckinFor" = "Check-in pentru:";
+
+"Checkin_Details_SaveToDiary" = "Înregistrați în jurnalul meu de contacte după check-out?";
+
+"Checkin_Details_AutomaticCheckout" = "Check-out automat după";
+
+"Checkin_Details_EventNotStartedYet" = "Acest eveniment nu începe până la %@ pe %@. Doriți să faceți deja check-inul?";
+
+"Checkin_Details_EventEnded" = "Aceste eveniment s-a încheiat deja. Doriți să faceți check-in retroactiv?";
+
+"Checkin_Details_CheckIn_Button" = "Check-in";
+
+/* Submission Check-in */
+"Submission_Checkins_Title" = "Partajați check-inurile locației dvs.?";
+
+"Submission_Checkins_Description" = "Avertizați-i pe ceilalți care au făcut check-in în aproprierea dvs. Datele dvs. personale nu vor fi partajate.";
+
+"Submission_Checkins_SelectAll" = "Selectare tot";
+
+"Submission_Checkins_Continue" = "Transmitere";
+
+"Submission_Checkins_Skip" = "Omitere";
+
+"Submission_Checkins_Alert_Title" = "Sigur nu doriți să partajați check-inurile dvs.?";
+
+"Submission_Checkins_Alert_Message" = "Omiterea nu va avertiza contactele care au făcut check-in în apropierea dvs.";
+
+"Submission_Checkins_Alert_Share" = "Partajare";
+
+"Submission_Checkins_Alert_DontShare" = "Nu partajez";
 

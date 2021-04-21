@@ -10,10 +10,10 @@ extension Archive {
 
 	func extractAppConfiguration() throws -> SAP_Internal_V2_ApplicationConfigurationIOS {
 		guard let binEntry = self["default_app_config_ios.bin"] else {
-			throw FingerprintError.entryNotFound(entryID: "default_app_config.bin")
+			throw FingerprintError.entryNotFound(entryID: "default_app_config_ios.bin")
 		}
 		guard let hashEntry = self["default_app_config_ios.sha256"] else {
-			throw FingerprintError.entryNotFound(entryID: "default_app_config.sha256")
+			throw FingerprintError.entryNotFound(entryID: "default_app_config_ios.sha256")
 		}
 
 		do {

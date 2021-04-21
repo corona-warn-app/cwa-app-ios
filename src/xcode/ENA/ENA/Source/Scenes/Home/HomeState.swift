@@ -17,11 +17,12 @@ class HomeState: ENStateHandlerUpdating {
 		exposureSubmissionService: ExposureSubmissionService,
 		statisticsProvider: StatisticsProviding
 	) {
-		if let riskCalculationResult = store.riskCalculationResult {
+		if let riskCalculationResult = store.enfRiskCalculationResult,
+		   let checkinCalculationResult = store.checkinRiskCalculationResult {
 			self.riskState = .risk(
 				Risk(
-					activeTracing: store.tracingStatusHistory.activeTracing(),
-					riskCalculationResult: riskCalculationResult
+					enfRiskCalculationResult: riskCalculationResult,
+					checkinCalculationResult: checkinCalculationResult
 				)
 			)
 		} else {
@@ -31,8 +32,7 @@ class HomeState: ENStateHandlerUpdating {
 					details: .init(
 						mostRecentDateWithRiskLevel: nil,
 						numberOfDaysWithRiskLevel: 0,
-						activeTracing: store.tracingStatusHistory.activeTracing(),
-						exposureDetectionDate: nil
+						calculationDate: nil
 					),
 					riskLevelHasChanged: false
 				)
@@ -87,8 +87,19 @@ class HomeState: ENStateHandlerUpdating {
 		riskProvider.manualExposureDetectionState
 	}
 
-	var lastRiskCalculationResult: RiskCalculationResult? {
-		store.riskCalculationResult
+	var risk: Risk? {
+		guard let enfRiskCalculationResult = store.enfRiskCalculationResult,
+			  let checkinRiskCalculationResult = store.checkinRiskCalculationResult else {
+			return nil
+		}
+		return Risk(
+			enfRiskCalculationResult: enfRiskCalculationResult,
+			checkinCalculationResult: checkinRiskCalculationResult
+		)
+	}
+
+	var riskCalculationDate: Date? {
+		risk?.details.calculationDate
 	}
 
 	var nextExposureDetectionDate: Date {
@@ -101,6 +112,14 @@ class HomeState: ENStateHandlerUpdating {
 
 	var keysWereSubmitted: Bool {
 		store.lastSuccessfulSubmitDiagnosisKeyTimestamp != nil
+	}
+
+	var shouldShowDaysSinceInstallation: Bool {
+		daysSinceInstallation < 14
+	}
+
+	var daysSinceInstallation: Int {
+		store.appInstallationDate?.ageInDays ?? 0
 	}
 
 	func updateDetectionMode(_ detectionMode: DetectionMode) {

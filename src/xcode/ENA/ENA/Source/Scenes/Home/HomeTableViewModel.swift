@@ -23,6 +23,7 @@ class HomeTableViewModel {
 		case exposureLogging
 		case riskAndTest
 		case statistics
+		case traceLocations
 		case infos
 		case settings
 	}
@@ -81,6 +82,8 @@ class HomeTableViewModel {
 			return riskAndTestRows.count
 		case .statistics:
 			return 1
+		case .traceLocations:
+			return 1
 		case .infos:
 			return 2
 		case .settings:
@@ -100,7 +103,7 @@ class HomeTableViewModel {
 
 	func heightForHeader(in section: Int) -> CGFloat {
 		switch Section(rawValue: section) {
-		case .exposureLogging, .riskAndTest, .statistics:
+		case .exposureLogging, .riskAndTest, .statistics, .traceLocations:
 			return 0
 		case .infos, .settings:
 			return 16
@@ -111,7 +114,7 @@ class HomeTableViewModel {
 
 	func heightForFooter(in section: Int) -> CGFloat {
 		switch Section(rawValue: section) {
-		case .exposureLogging, .riskAndTest, .statistics:
+		case .exposureLogging, .riskAndTest, .statistics, .traceLocations:
 			return 0
 		case .infos:
 			return 16

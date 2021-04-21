@@ -21,7 +21,7 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bFV-fX-VLT" customClass="ExposureSubmissionQRScannerFocusView" customModule="ENA" customModuleProvider="target">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bFV-fX-VLT" customClass="QRScannerFocusView" customModule="ENA" customModuleProvider="target">
                     <rect key="frame" x="20.5" y="224" width="373" height="448"/>
                     <color key="tintColor" name="ENA Text Contrast Color"/>
                     <userDefinedRuntimeAttributes>

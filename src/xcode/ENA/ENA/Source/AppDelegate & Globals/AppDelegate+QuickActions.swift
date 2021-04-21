@@ -3,13 +3,68 @@
 //
 
 import UIKit
+import AVFoundation
 
 // MARK: - Quick Actions
 
-extension AppDelegate {
-
+enum QuickAction: String {
+	
 	/// General identifier for the 'add diary entry' shortcut action
-	private static let shortcutIdDiaryNewEntry = "de.rki.coronawarnapp.shortcut.diarynewentry"
+	case diaryNewEntry = "de.rki.coronawarnapp.shortcut.diarynewentry"
+	case eventCheckin = "de.rki.coronawarnapp.shortcut.eventcheckin"
+	
+	static var exposureSubmissionFlowTestResult: TestResult?
+	
+	private static var willResignActiveNotification: NSObjectProtocol?
+	
+	static func setup() {
+		guard willResignActiveNotification == nil else {
+			return
+		}
+		Log.info("[QuickAction] setup", log: .ui)
+		willResignActiveNotification = NotificationCenter.default.addObserver(forName: UIApplication.willResignActiveNotification, object: nil, queue: nil) { _ in
+			update()
+		}
+		// setup initial quick actions
+		update()
+	}
+	
+	/// Adds or removes quick actions accoring to the current application state
+	private static func update() {
+		
+		Log.info(#function, log: .ui)
+		
+		let application = UIApplication.shared
+				
+		// No shortcuts if test result positiv
+		if let testResult = exposureSubmissionFlowTestResult, testResult == .positive {
+			Log.info("[QuickAction] Remove all shortcut items since exposure submission test result is positiv", log: .ui)
+			application.shortcutItems = nil
+			return
+		}
+
+		// No shortcuts if not onboarded
+		guard let appDelegate = application.delegate as? AppDelegate, appDelegate.store.isOnboarded else {
+			Log.info("[QuickAction] Remove all shortcut items since onboarding is not done yet", log: .ui)
+			application.shortcutItems = nil
+			return
+		}
+
+		var shortcutItems = [UIApplicationShortcutItem(type: QuickAction.diaryNewEntry.rawValue, localizedTitle: AppStrings.QuickActions.contactDiaryNewEntry, localizedSubtitle: nil, icon: UIApplicationShortcutIcon(templateImageName: "book.closed"))]
+		
+		let status = AVCaptureDevice.authorizationStatus(for: .video)
+		if status == .authorized || status == .notDetermined {
+			// dont show event checkin action if no camera access granted
+			shortcutItems.append(
+				UIApplicationShortcutItem(type: QuickAction.eventCheckin.rawValue, localizedTitle: AppStrings.QuickActions.eventCheckin, localizedSubtitle: nil, icon: UIApplicationShortcutIcon(templateImageName: "qrcode.viewfinder"))
+			)
+		}
+		
+		application.shortcutItems = shortcutItems
+	}
+}
+
+extension AppDelegate {
 
 	func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
 		handleShortcutItem(shortcutItem)
@@ -40,46 +95,6 @@ extension AppDelegate {
 		return true
 	}
 
-	func setupQuickActions() {
-		// register for special events in the app flow
-		_ = NotificationCenter.default.addObserver(forName: .didStartExposureSubmissionFlow, object: nil, queue: nil) { [weak self] notification in
-			// don't allow shortcut during the more important submission flow
-			// but only if there is a positive test result
-			if let resultValue = notification.userInfo?["result"] as? Int, let result = TestResult(rawValue: resultValue) {
-				self?.updateQuickActions(removeAll: result == .positive)
-			} else if notification.userInfo?["result"] as? Int == -1 {
-				// not sure if this is happening only when using launch arguments, but because we end up in the 'positive' flow,
-				// we'll better disable the shortcuts
-				self?.updateQuickActions(removeAll: true)
-			} else {
-				self?.updateQuickActions()
-			}
-		}
-		_ = NotificationCenter.default.addObserver(forName: .didDismissExposureSubmissionFlow, object: nil, queue: nil) { [weak self] _ in
-			self?.updateQuickActions()
-		}
-
-		// define initial set of actions
-		updateQuickActions()
-	}
-
-	/// Adds or removes quick actions accoring to the current application state
-	func updateQuickActions(removeAll: Bool = false) {
-		Log.info("\(#function) removeAll: \(removeAll)", log: .ui)
-
-		let application = UIApplication.shared
-		// No shortcuts if not onboarded
-		guard store.isOnboarded, !removeAll else {
-			application.shortcutItems = nil
-			return
-		}
-
-		application.shortcutItems = [
-			UIApplicationShortcutItem(type: AppDelegate.shortcutIdDiaryNewEntry, localizedTitle: AppStrings.QuickActions.contactDiaryNewEntry, localizedSubtitle: nil, icon: UIApplicationShortcutIcon(templateImageName: "book.closed"))
-		]
-	}
-
-
 	/// General handler for all shortcut items.
 	///
 	///  Currently implemented:
@@ -88,16 +103,24 @@ extension AppDelegate {
 	/// - Parameter shortcutItem: the item to launch
 	func handleShortcutItem(_ shortcutItem: UIApplicationShortcutItem) {
 		Log.debug("Did open app via shortcut \(shortcutItem.type)", log: .ui)
-		if shortcutItem.type == AppDelegate.shortcutIdDiaryNewEntry {
+		switch shortcutItem.type {
+		case QuickAction.diaryNewEntry.rawValue:
 			Log.info("Shortcut: Open new diary entry", log: .ui)
 			guard let tabBarController = coordinator.tabBarController else { return }
-			tabBarController.selectedIndex = 1
-			
+			tabBarController.selectedIndex = 2
+
 			// dismiss an overlaying, modally presented view controller
 			coordinator.diaryCoordinator?.viewController.presentedViewController?.dismiss(animated: false, completion: nil)
 
 			// let diary coordinator handle pre-checks & navigation
 			coordinator.diaryCoordinator?.showCurrentDayScreen()
+		case QuickAction.eventCheckin.rawValue:
+			Log.info("Shortcut: Event checkin 📷", log: .ui)
+			guard let tabBarController = coordinator.tabBarController else { return }
+			tabBarController.selectedIndex = 1
+		default:
+			Log.warning("unhandled shortcut item type \(shortcutItem.type)", log: .ui)
+			assertionFailure("Check this!")
 		}
 	}
 }

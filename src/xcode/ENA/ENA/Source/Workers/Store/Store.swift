@@ -26,6 +26,8 @@ protocol StoreProtocol: AnyObject {
 	var allowRiskChangesNotification: Bool { get set }
 	var allowTestsStatusNotification: Bool { get set }
 
+	var appInstallationDate: Date? { get set }
+
 	var registrationToken: String? { get set }
 	var hasSeenSubmissionExposureTutorial: Bool { get set }
 
@@ -57,9 +59,9 @@ protocol StoreProtocol: AnyObject {
 	/// his diagnosiskeys to the CWA submission service.
 	var exposureActivationConsentAccept: Bool { get set }
 
-	var tracingStatusHistory: TracingStatusHistory { get set }
+	var enfRiskCalculationResult: ENFRiskCalculationResult? { get set }
 
-	var riskCalculationResult: RiskCalculationResult? { get set }
+	var checkinRiskCalculationResult: CheckinRiskCalculationResult? { get set }
 
 	/// Date when the risk was changed to high
 	var dateOfConversionToHighRisk: Date? { get set }
@@ -103,6 +105,8 @@ protocol StoreProtocol: AnyObject {
 	var isSubmissionConsentGiven: Bool { get set }
 
 	var submissionKeys: [SAP_External_Exposurenotification_TemporaryExposureKey]? { get set }
+	
+	var submissionCheckins: [Checkin] { get set }
 
 	var submissionCountries: [Country] { get set }
 
@@ -116,13 +120,15 @@ protocol StoreProtocol: AnyObject {
 	/// Settings from the debug menu.
 	var fakeSQLiteError: Int32? { get set }
 
-	var mostRecentRiskCalculation: RiskCalculation? { get set }
+	var mostRecentRiskCalculation: ENFRiskCalculation? { get set }
 
 	var mostRecentRiskCalculationConfiguration: RiskCalculationConfiguration? { get set }
 
 	var dmKillDeviceTimeCheck: Bool { get set }
 
 	var forceAPITokenAuthorization: Bool { get set }
+	
+	var recentTraceLocationCheckedInto: DMRecentTraceLocationCheckedInto? { get set }
 
 	#endif
 
@@ -153,5 +159,17 @@ protocol PrivacyPreservingProviding: AnyObject {
 	var ppacApiToken: TimestampedToken? { get set }
 }
 
+protocol EventRegistrationCaching: AnyObject {
+	/// Event registration - Flag that indicates if the recent trace warning download was successful or not.
+	var wasRecentTraceWarningDownloadSuccessful: Bool { get set }
+	
+	var checkinInfoScreenShown: Bool { get set }
+
+	var traceLocationsInfoScreenShown: Bool { get set }
+
+	var shouldAddCheckinToContactDiaryByDefault: Bool { get set }
+	
+	var qrCodePosterTemplateMetadata: QRCodePosterTemplateMetadata? { get set }
+}
 /// Wrapper protocol
-protocol Store: StoreProtocol, AppConfigCaching, StatisticsCaching, ServerEnvironmentProviding, PrivacyPreservingProviding {}
+protocol Store: StoreProtocol, AppConfigCaching, StatisticsCaching, ServerEnvironmentProviding, PrivacyPreservingProviding, EventRegistrationCaching {}

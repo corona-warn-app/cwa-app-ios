@@ -13,8 +13,9 @@ class HomeRiskCellModelTests: XCTestCase {
 
 	func testLowRiskState() {
 		let store = MockTestStore()
+		let today = Calendar.utcCalendar.startOfDay(for: Date())
 
-		let riskCalculationResult = RiskCalculationResult(
+		let riskCalculationResult = ENFRiskCalculationResult(
 			riskLevel: .low,
 			minimumDistinctEncountersWithLowRisk: 2,
 			minimumDistinctEncountersWithHighRisk: 0,
@@ -23,11 +24,17 @@ class HomeRiskCellModelTests: XCTestCase {
 			numberOfDaysWithLowRisk: 2,
 			numberOfDaysWithHighRisk: 0,
 			calculationDate: Date(),
-			riskLevelPerDate: [Date(): .low],
+			riskLevelPerDate: [today: .low],
 			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 
-		store.riskCalculationResult = riskCalculationResult
+		let checkinRiskCalculationResult = CheckinRiskCalculationResult(
+			calculationDate: Date(),
+			checkinIdsWithRiskPerDate: [today: [CheckinIdWithRisk(checkinId: 0, riskLevel: .low)]],
+			riskLevelPerDate: [today: .low]
+		)
+
+		store.enfRiskCalculationResult = riskCalculationResult
 
 		let homeState = HomeState(
 			store: store,
@@ -100,8 +107,8 @@ class HomeRiskCellModelTests: XCTestCase {
 		homeState.riskProviderActivityState = .idle
 		homeState.riskState = .risk(
 			Risk(
-				activeTracing: .init(interval: 0),
-				riskCalculationResult: riskCalculationResult
+				enfRiskCalculationResult: riskCalculationResult,
+				checkinCalculationResult: checkinRiskCalculationResult
 			)
 		)
 
@@ -134,8 +141,9 @@ class HomeRiskCellModelTests: XCTestCase {
 
 	func testHighRiskState() {
 		let store = MockTestStore()
+		let today = Calendar.utcCalendar.startOfDay(for: Date())
 
-		let riskCalculationResult = RiskCalculationResult(
+		let riskCalculationResult = ENFRiskCalculationResult(
 			riskLevel: .high,
 			minimumDistinctEncountersWithLowRisk: 0,
 			minimumDistinctEncountersWithHighRisk: 1,
@@ -144,11 +152,17 @@ class HomeRiskCellModelTests: XCTestCase {
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 1,
 			calculationDate: Date(),
-			riskLevelPerDate: [Date(): .high],
-			minimumDistinctEncountersWithHighRiskPerDate: [Date(): 1]
+			riskLevelPerDate: [today: .high],
+			minimumDistinctEncountersWithHighRiskPerDate: [today: 1]
 		)
+		store.enfRiskCalculationResult = riskCalculationResult
 
-		store.riskCalculationResult = riskCalculationResult
+		let checkinRiskCalculationResult = CheckinRiskCalculationResult(
+			calculationDate: Date(),
+			checkinIdsWithRiskPerDate: [today: [CheckinIdWithRisk(checkinId: 0, riskLevel: .high)]],
+			riskLevelPerDate: [today: .high]
+		)
+		store.checkinRiskCalculationResult = checkinRiskCalculationResult
 
 		let homeState = HomeState(
 			store: store,
@@ -222,8 +236,8 @@ class HomeRiskCellModelTests: XCTestCase {
 		homeState.riskProviderActivityState = .idle
 		homeState.riskState = .risk(
 			Risk(
-				activeTracing: .init(interval: 0),
-				riskCalculationResult: riskCalculationResult
+				enfRiskCalculationResult: riskCalculationResult,
+				checkinCalculationResult: checkinRiskCalculationResult
 			)
 		)
 
@@ -477,7 +491,7 @@ class HomeRiskCellModelTests: XCTestCase {
 
 	func testOnButtonTapInLowRiskStateAndManualMode() {
 		let store = MockTestStore()
-		store.riskCalculationResult = RiskCalculationResult(
+		store.enfRiskCalculationResult = ENFRiskCalculationResult(
 			riskLevel: .low,
 			minimumDistinctEncountersWithLowRisk: 2,
 			minimumDistinctEncountersWithHighRisk: 0,
@@ -537,7 +551,7 @@ class HomeRiskCellModelTests: XCTestCase {
 
 	func testOnButtonTapInHighRiskStateAndManualMode() {
 		let store = MockTestStore()
-		store.riskCalculationResult = RiskCalculationResult(
+		store.enfRiskCalculationResult = ENFRiskCalculationResult(
 			riskLevel: .high,
 			minimumDistinctEncountersWithLowRisk: 0,
 			minimumDistinctEncountersWithHighRisk: 2,

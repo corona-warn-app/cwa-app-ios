@@ -89,8 +89,7 @@ class PPAnalyticsCollectorTests: XCTestCase {
 			hoursSinceTestResult: 0901,
 			hoursSinceTestRegistration: 0901,
 			daysSinceMostRecentDateAtRiskLevelAtTestRegistration: 0901,
-			hoursSinceHighRiskWarningAtTestRegistration: 0901,
-			submittedWithTeleTAN: true
+			hoursSinceHighRiskWarningAtTestRegistration: 0901
 		)
 		store.exposureWindowsMetadata = ExposureWindowsMetadata(
 			newExposureWindowsQueue: [],
@@ -115,6 +114,8 @@ class PPAnalyticsCollectorTests: XCTestCase {
 		XCTAssertNil(store.userMetadata)
 		countOfDeletedProperties += 1
 		XCTAssertNil(store.lastSubmittedPPAData)
+		countOfDeletedProperties += 1
+		XCTAssertFalse(store.submittedWithQR)
 		countOfDeletedProperties += 1
 		XCTAssertNil(store.lastAppReset)
 		countOfDeletedProperties += 1

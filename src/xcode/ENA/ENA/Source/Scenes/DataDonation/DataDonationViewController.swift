@@ -26,9 +26,9 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		navigationItem.title = AppStrings.DataDonation.Info.title
-		navigationItem.largeTitleDisplayMode = .always
-		navigationController?.navigationBar.prefersLargeTitles = true
+		parent?.navigationItem.title = AppStrings.DataDonation.Info.title
+		parent?.navigationItem.largeTitleDisplayMode = .always
+		parent?.navigationController?.navigationBar.prefersLargeTitles = true
 		setupTableView()
 	}
 
@@ -62,9 +62,7 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 			.sink { [weak self] _ in
 				guard let self = self else { return }
 				self.dynamicTableViewModel = self.viewModel.dynamicTableViewModel
-				DispatchQueue.main.asyncAfter(wallDeadline: .now() + 0.35) {
-					self.tableView.reloadData()
-				}
+				self.tableView.reloadData()
 			}.store(in: &subscriptions)
 	}
 }

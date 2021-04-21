@@ -4,21 +4,20 @@
 
 import Foundation
 
-protocol RiskCalculationProtocol {
+protocol ENFRiskCalculationProtocol {
 
 	func calculateRisk(
 		exposureWindows: [ExposureWindow],
 		configuration: RiskCalculationConfiguration
-	) throws -> RiskCalculationResult
+	) -> ENFRiskCalculationResult
 	
-	var mappedExposureWindows: [RiskCalculationExposureWindow] { get set }
 }
 
-final class RiskCalculation: RiskCalculationProtocol, Codable {
+final class ENFRiskCalculation: ENFRiskCalculationProtocol, Codable {
 
 	// MARK: - Internal
 
-	var mappedExposureWindows: [RiskCalculationExposureWindow] = []
+	private(set) var mappedExposureWindows: [RiskCalculationExposureWindow] = []
 	private(set) var filteredExposureWindows: [RiskCalculationExposureWindow] = []
 	private(set) var exposureWindowsPerDate: [Date: [RiskCalculationExposureWindow]] = [:]
 	private(set) var normalizedTimePerDate: [Date: Double] = [:]
@@ -39,15 +38,15 @@ final class RiskCalculation: RiskCalculationProtocol, Codable {
 	func calculateRisk(
 		exposureWindows: [ExposureWindow],
 		configuration: RiskCalculationConfiguration
-	) throws -> RiskCalculationResult {
+	) -> ENFRiskCalculationResult {
 		Log.info("[RiskCalculation] Started risk calculation", log: .riskDetection)
 
 		mappedExposureWindows = exposureWindows
 			.map { RiskCalculationExposureWindow(exposureWindow: $0, configuration: configuration) }
 
-		/// 0. Filter by `Minutes at Attenuation` and `Transmission Risk Level`
+		/// 0. Filter by `Risk Level`, `Minutes at Attenuation`, and `Transmission Risk Level`
 		filteredExposureWindows = mappedExposureWindows
-			.filter { !$0.isDroppedByMinutesAtAttenuation && !$0.isDroppedByTransmissionRiskLevel }
+			.filter { $0.riskLevel != nil && !$0.isDroppedByMinutesAtAttenuation && !$0.isDroppedByTransmissionRiskLevel }
 
 		/// 1. Group `Exposure Windows by Date`
 		exposureWindowsPerDate = Dictionary(grouping: filteredExposureWindows, by: { $0.date })
@@ -60,33 +59,25 @@ final class RiskCalculation: RiskCalculationProtocol, Codable {
 		}
 
 		/// 3. Determine `Risk Level per Date`
-		riskLevelPerDate = try normalizedTimePerDate.mapValues { normalizedTime -> RiskLevel in
-			guard let riskLevel = configuration.normalizedTimePerDayToRiskLevelMapping
-					.first(where: { $0.normalizedTimeRange.contains(normalizedTime) })
-					.map({ $0.riskLevel })
-			else {
-				Log.error("[RiskCalculation] Risk calculation failed: normalized time \(normalizedTime) is not contained in \(configuration.normalizedTimePerDayToRiskLevelMapping)\n\nRiskCalculationConfiguration: \(configuration)\n\nmappedExposureWindows: \(mappedExposureWindows)\n\nnormalizedTimePerDate \(normalizedTimePerDate)", log: .riskDetection)
-
-
-				throw RiskCalculationError.invalidConfiguration
-			}
-
-			return riskLevel
+		riskLevelPerDate = normalizedTimePerDate.compactMapValues { normalizedTime -> RiskLevel? in
+			configuration.normalizedTimePerDayToRiskLevelMapping
+				.first(where: { $0.normalizedTimeRange.contains(normalizedTime) })?
+				.riskLevel
 		}
 
 		/// 4. Determine `Minimum Distinct Encounters With Low Risk per Date`
-		minimumDistinctEncountersWithLowRiskPerDate = try exposureWindowsPerDate.mapValues { windows -> Int in
-			let trlAndConfidenceCombinations = try windows
-				.filter { try $0.riskLevel() == .low }
+		minimumDistinctEncountersWithLowRiskPerDate = exposureWindowsPerDate.mapValues { windows -> Int in
+			let trlAndConfidenceCombinations = windows
+				.filter { $0.riskLevel == .low }
 				.map { "\($0.transmissionRiskLevel)_\($0.calibrationConfidence.rawValue)" }
 
 			return Set(trlAndConfidenceCombinations).count
 		}
 
 		/// 5. Determine `Minimum Distinct Encounters With High Risk per Date`
-		minimumDistinctEncountersWithHighRiskPerDate = try exposureWindowsPerDate.mapValues { windows -> Int in
-			let trlAndConfidenceCombinations = try windows
-				.filter { try $0.riskLevel() == .high }
+		minimumDistinctEncountersWithHighRiskPerDate = exposureWindowsPerDate.mapValues { windows -> Int in
+			let trlAndConfidenceCombinations = windows
+				.filter { $0.riskLevel == .high }
 				.map { "\($0.transmissionRiskLevel)_\($0.calibrationConfidence.rawValue)" }
 
 			return Set(trlAndConfidenceCombinations).count
@@ -117,7 +108,11 @@ final class RiskCalculation: RiskCalculationProtocol, Codable {
 
 		calculationDate = Date()
 
-		return RiskCalculationResult(
+		Log.debug("[RiskCalculation] Calculated risk per date: \(riskLevelPerDate)", log: .checkin)
+
+		Log.debug("[RiskCalculation] Calculated overall risk level: \(riskLevel)", log: .riskDetection)
+
+		return ENFRiskCalculationResult(
 			riskLevel: riskLevel,
 			minimumDistinctEncountersWithLowRisk: minimumDistinctEncountersWithLowRisk,
 			minimumDistinctEncountersWithHighRisk: minimumDistinctEncountersWithHighRisk,

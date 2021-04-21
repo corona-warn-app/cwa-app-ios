@@ -6,13 +6,14 @@ import ExposureNotification
 import Foundation
 import OpenCombine
 
+// swiftlint:disable type_body_length
+
 /// The `ENASubmissionSubmission Service` provides functions and attributes to access relevant information
 /// around the exposure submission process.
 /// Especially, when it comes to the `submissionConsent`, then only this service should be used to modify (change) the value of the current
 /// state. It wraps around the `SecureStore` binding.
 /// The consent value is published using the `isSubmissionConsentGivenPublisher` and the rest of the application can simply subscribe to
 /// it to stay in sync.
-
 class ENAExposureSubmissionService: ExposureSubmissionService {
 
 	// MARK: - Init
@@ -22,6 +23,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		appConfigurationProvider: AppConfigurationProviding,
 		client: Client,
 		store: Store,
+		eventStore: EventStoringProviding,
 		warnOthersReminder: WarnOthersRemindable,
 		deadmanNotificationManager: DeadmanNotificationManageable? = nil
 	) {
@@ -29,13 +31,13 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		self.appConfigurationProvider = appConfigurationProvider
 		self.client = client
 		self.store = store
+		self.eventStore = eventStore
 		self.warnOthersReminder = warnOthersReminder
 		self.deadmanNotificationManager = deadmanNotificationManager ?? DeadmanNotificationManager(store: store)
 		self._isSubmissionConsentGiven = store.isSubmissionConsentGiven
 
 		self.isSubmissionConsentGivenPublisher.sink { isSubmissionConsentGiven in
 			self.store.isSubmissionConsentGiven = isSubmissionConsentGiven
-			Analytics.collect(.keySubmissionMetadata(.advancedConsentGiven(isSubmissionConsentGiven)))
 		}.store(in: &subscriptions)
 	}
 
@@ -45,6 +47,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			appConfigurationProvider: dependencies.appConfigurationProvider,
 			client: dependencies.client,
 			store: dependencies.store,
+			eventStore: dependencies.eventStore,
 			warnOthersReminder: dependencies.warnOthersReminder
 		)
 	}
@@ -138,6 +141,12 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			completion(.noSubmissionConsent)
 			return
 		}
+		
+		guard warnOthersReminder.positiveTestResultWasShown else {
+			Log.info("Cancelled submission: User has never seen their positive test result", log: .api)
+			completion(.positiveTestResultNotShown)
+			return
+		}
 
 		guard let keys = temporaryExposureKeys else {
 			Log.info("Cancelled submission: No temporary exposure keys to submit.", log: .api)
@@ -145,8 +154,8 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			return
 		}
 
-		guard !keys.isEmpty else {
-			Log.info("Cancelled submission: No temporary exposure keys to submit.", log: .api)
+		guard !keys.isEmpty || !checkins.isEmpty else {
+			Log.info("Cancelled submission: No temporary exposure keys or checkins to submit.", log: .api)
 			completion(.noKeysCollected)
 
 			// We perform a cleanup in order to set the correct
@@ -155,12 +164,34 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			submitExposureCleanup()
 			return
 		}
-		let processedKeys = keys.processedForSubmission(with: symptomsOnset)
 
-		// Request needs to be prepended by the fake request.
-		_fakeVerificationServerRequest(completion: { _ in
-			self._submitExposure(processedKeys, visitedCountries: self.supportedCountries, completion: completion)
-		})
+		// we need the app configuration first…
+		appConfigurationProvider
+			.appConfiguration()
+			.sink { appConfig in
+				// Fetch & process keys and checkins
+				let processedKeys = keys.processedForSubmission(
+					with: self.symptomsOnset
+				)
+				let processedCheckins = self.preparedCheckinsForSubmission(
+					checkins: self.checkins,
+					appConfig: appConfig,
+					symptomOnset: self.symptomsOnset
+				)
+
+				// Request needs to be prepended by the fake request.
+				self._fakeVerificationServerRequest(completion: { _ in
+					self._submitExposure(
+						processedKeys,
+						visitedCountries: self.supportedCountries,
+						checkins: processedCheckins,
+						completion: { error in
+							completion(error)
+						}
+					)
+				})
+			}
+			.store(in: &subscriptions)
 	}
 
 	/// Stores the provided key, retrieves the registration token and deletes the key.
@@ -269,6 +300,11 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	// MARK: - Internal
 
 	static let fakeRegistrationToken = "63b4d3ff-e0de-4bd4-90c1-17c2bb683a2f"
+	
+	var checkins: [Checkin] {
+		get { store.submissionCheckins }
+		set { store.submissionCheckins = newValue }
+	}
 
 	func updateStoreWithKeySubmissionMetadataDefaultValues() {
 		let keySubmissionMetadata = KeySubmissionMetadata(
@@ -281,11 +317,9 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			hoursSinceTestResult: 0,
 			hoursSinceTestRegistration: 0,
 			daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1,
-			hoursSinceHighRiskWarningAtTestRegistration: -1,
-			submittedWithTeleTAN: true)
+			hoursSinceHighRiskWarningAtTestRegistration: -1)
 		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata)))
 	}
-
 
 	// MARK: - Private
 
@@ -297,6 +331,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	private let appConfigurationProvider: AppConfigurationProviding
 	private let client: Client
 	private let store: Store
+	private let eventStore: EventStoringProviding
 	private let warnOthersReminder: WarnOthersRemindable
 	private let deadmanNotificationManager: DeadmanNotificationManageable
 
@@ -398,6 +433,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	private func _submitExposure(
 		_ keys: [SAP_External_Exposurenotification_TemporaryExposureKey],
 		visitedCountries: [Country],
+		checkins: [SAP_Internal_Pt_CheckIn],
 		completion: @escaping ExposureSubmissionHandler
 	) {
 		_getTANForExposureSubmit(hasConsent: true, completion: { result in
@@ -405,7 +441,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			case let .failure(error):
 				completion(error)
 			case let .success(tan):
-				self._submit(keys, with: tan, visitedCountries: visitedCountries, completion: completion)
+				self._submit(keys, with: tan, visitedCountries: visitedCountries, checkins: checkins, completion: completion)
 			}
 		})
 	}
@@ -417,25 +453,28 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		_ keys: [SAP_External_Exposurenotification_TemporaryExposureKey],
 		with tan: String,
 		visitedCountries: [Country],
+		checkins: [SAP_Internal_Pt_CheckIn],
 		completion: @escaping ExposureSubmissionHandler
 	) {
 		let payload = CountrySubmissionPayload(
 			exposureKeys: keys,
 			visitedCountries: visitedCountries,
+			checkins: checkins,
 			tan: tan
 		)
 		client.submit(payload: payload, isFake: false) { result in
 			switch result {
 			case .success:
 				Analytics.collect(.keySubmissionMetadata(.advancedConsentGiven(self.store.isSubmissionConsentGiven)))
+				Analytics.collect(.keySubmissionMetadata(.updateSubmittedWithTeletan))
 				Analytics.collect(.keySubmissionMetadata(.setHoursSinceTestResult))
 				Analytics.collect(.keySubmissionMetadata(.setHoursSinceTestRegistration))
 				Analytics.collect(.keySubmissionMetadata(.submitted(true)))
 				self.submitExposureCleanup()
-				Log.info("Successfully completed exposure sumbission.", log: .api)
+				Log.info("Successfully completed exposure submission.", log: .api)
 				completion(nil)
 			case .failure(let error):
-				Log.error("Error while submiting diagnosis keys: \(error.localizedDescription)", log: .api)
+				Log.error("Error while submitting diagnosis keys: \(error.localizedDescription)", log: .api)
 				completion(self.parseError(error))
 			}
 		}
@@ -470,7 +509,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	private func getKeyAndType(for key: DeviceRegistrationKey) -> (String, String) {
 		switch key {
 		case let .guid(guid):
-			return (Hasher.sha256(guid), "GUID")
+			return (ENAHasher.sha256(guid), "GUID")
 		case let .teleTan(teleTan):
 			// teleTAN should NOT be hashed, is for short time
 			// usage only.
@@ -494,6 +533,13 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 		isSubmissionConsentGiven = false
 		temporaryExposureKeys = nil
+		
+		for checkin in checkins {
+			let updatedCheckin = checkin.updatedCheckin(checkinSubmitted: true)
+			self.eventStore.updateCheckin(updatedCheckin)
+		}
+		
+		checkins = []
 		supportedCountries = []
 		symptomsOnset = .noInformation
 
@@ -515,6 +561,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		let payload = CountrySubmissionPayload(
 			exposureKeys: [],
 			visitedCountries: [],
+			checkins: [],
 			tan: ENAExposureSubmissionService.fakeSubmissionTan
 		)
 
@@ -532,3 +579,4 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		}
 	}
 }
+// swiftlint:enable type_body_length

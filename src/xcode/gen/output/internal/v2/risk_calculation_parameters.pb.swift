@@ -48,6 +48,8 @@ struct SAP_Internal_V2_RiskCalculationParameters {
 
   var transmissionRiskLevelMultiplier: Double = 0
 
+  var transmissionRiskValueMapping: [SAP_Internal_V2_TransmissionRiskValueMapping] = []
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
@@ -241,6 +243,20 @@ struct SAP_Internal_V2_TransmissionRiskLevelEncoding {
   init() {}
 }
 
+struct SAP_Internal_V2_TransmissionRiskValueMapping {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var transmissionRiskLevel: Int32 = 0
+
+  var transmissionRiskValue: Double = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "SAP.internal.v2"
@@ -255,6 +271,7 @@ extension SAP_Internal_V2_RiskCalculationParameters: SwiftProtobuf.Message, Swif
     5: .same(proto: "normalizedTimePerDayToRiskLevelMapping"),
     6: .same(proto: "trlEncoding"),
     7: .same(proto: "transmissionRiskLevelMultiplier"),
+    8: .same(proto: "transmissionRiskValueMapping"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -270,6 +287,7 @@ extension SAP_Internal_V2_RiskCalculationParameters: SwiftProtobuf.Message, Swif
       case 5: try { try decoder.decodeRepeatedMessageField(value: &self.normalizedTimePerDayToRiskLevelMapping) }()
       case 6: try { try decoder.decodeSingularMessageField(value: &self._trlEncoding) }()
       case 7: try { try decoder.decodeSingularDoubleField(value: &self.transmissionRiskLevelMultiplier) }()
+      case 8: try { try decoder.decodeRepeatedMessageField(value: &self.transmissionRiskValueMapping) }()
       default: break
       }
     }
@@ -297,6 +315,9 @@ extension SAP_Internal_V2_RiskCalculationParameters: SwiftProtobuf.Message, Swif
     if self.transmissionRiskLevelMultiplier != 0 {
       try visitor.visitSingularDoubleField(value: self.transmissionRiskLevelMultiplier, fieldNumber: 7)
     }
+    if !self.transmissionRiskValueMapping.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.transmissionRiskValueMapping, fieldNumber: 8)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -308,6 +329,7 @@ extension SAP_Internal_V2_RiskCalculationParameters: SwiftProtobuf.Message, Swif
     if lhs.normalizedTimePerDayToRiskLevelMapping != rhs.normalizedTimePerDayToRiskLevelMapping {return false}
     if lhs._trlEncoding != rhs._trlEncoding {return false}
     if lhs.transmissionRiskLevelMultiplier != rhs.transmissionRiskLevelMultiplier {return false}
+    if lhs.transmissionRiskValueMapping != rhs.transmissionRiskValueMapping {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -574,6 +596,44 @@ extension SAP_Internal_V2_TransmissionRiskLevelEncoding: SwiftProtobuf.Message, 
     if lhs.reportTypeOffsetSelfReport != rhs.reportTypeOffsetSelfReport {return false}
     if lhs.reportTypeOffsetConfirmedClinicalDiagnosis != rhs.reportTypeOffsetConfirmedClinicalDiagnosis {return false}
     if lhs.reportTypeOffsetConfirmedTest != rhs.reportTypeOffsetConfirmedTest {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension SAP_Internal_V2_TransmissionRiskValueMapping: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".TransmissionRiskValueMapping"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "transmissionRiskLevel"),
+    2: .same(proto: "transmissionRiskValue"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.transmissionRiskLevel) }()
+      case 2: try { try decoder.decodeSingularDoubleField(value: &self.transmissionRiskValue) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.transmissionRiskLevel != 0 {
+      try visitor.visitSingularInt32Field(value: self.transmissionRiskLevel, fieldNumber: 1)
+    }
+    if self.transmissionRiskValue != 0 {
+      try visitor.visitSingularDoubleField(value: self.transmissionRiskValue, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: SAP_Internal_V2_TransmissionRiskValueMapping, rhs: SAP_Internal_V2_TransmissionRiskValueMapping) -> Bool {
+    if lhs.transmissionRiskLevel != rhs.transmissionRiskLevel {return false}
+    if lhs.transmissionRiskValue != rhs.transmissionRiskValue {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

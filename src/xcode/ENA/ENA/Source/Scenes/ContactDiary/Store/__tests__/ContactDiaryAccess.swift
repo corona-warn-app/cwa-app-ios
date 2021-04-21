@@ -5,6 +5,7 @@
 import XCTest
 import Foundation
 import FMDB
+@testable import ENA
 
 final class ContactDiaryAccess {
 
@@ -74,6 +75,46 @@ final class ContactDiaryAccess {
 		}
 	}
 
+	func addContactPersonEncounter(
+		date: String,
+		contactPersonId: Int,
+		duration: ContactPersonEncounter.Duration,
+		maskSituation: ContactPersonEncounter.MaskSituation,
+		setting: ContactPersonEncounter.Setting,
+		circumstances: String,
+		to databaseQueue: FMDatabaseQueue
+	) {
+		databaseQueue.inDatabase { database in
+			let sql = """
+				INSERT INTO ContactPersonEncounter (
+					date,
+					contactPersonId,
+					duration,
+					maskSituation,
+					setting,
+					circumstances
+				)
+				VALUES (
+					:date,
+					:contactPersonId,
+					:duration,
+					:maskSituation,
+					:setting,
+					:circumstances
+				);
+			"""
+			let parameters: [String: Any] = [
+				"date": date,
+				"contactPersonId": contactPersonId,
+				"duration": duration.rawValue,
+				"maskSituation": maskSituation.rawValue,
+				"setting": setting.rawValue,
+				"circumstances": circumstances
+			]
+			database.executeUpdate(sql, withParameterDictionary: parameters)
+		}
+	}
+
 	func addLocationVisit(
 		date: String,
 		locationId: Int,
@@ -98,54 +139,35 @@ final class ContactDiaryAccess {
 		}
 	}
 
-	func fetch(table: String, from databaseQueue: FMDatabaseQueue) -> FMResultSet {
-		var _result: FMResultSet?
+	func addLocationVisit(
+		date: String,
+		locationId: Int,
+		durationInMinutes: Int,
+		circumstances: String,
+		to databaseQueue: FMDatabaseQueue
+	) {
 		databaseQueue.inDatabase { database in
 			let sql = """
-				SELECT * FROM \(table);
+				INSERT INTO LocationVisit (
+					date,
+					locationId,
+					durationInMinutes,
+					circumstances
+				)
+				VALUES (
+					:date,
+					:locationId,
+					:durationInMinutes,
+					:circumstances
+				);
 			"""
-
-			_result = database.executeQuery(sql, withArgumentsIn: [])
+			let parameters: [String: Any] = [
+				"date": date,
+				"locationId": locationId,
+				"durationInMinutes": durationInMinutes,
+				"circumstances": circumstances
+			]
+			database.executeUpdate(sql, withParameterDictionary: parameters)
 		}
-
-		guard let result = _result else {
-			XCTFail("Could not fetch items from table \(table).")
-			return FMResultSet()
-		}
-
-		return result
-	}
-
-	func fetchItem(from table: String, with id: Int, from databaseQueue: FMDatabaseQueue) -> FMResultSet {
-		var _result: FMResultSet?
-		databaseQueue.inDatabase { database in
-			let sql =
-			"""
-				SELECT
-					*
-				FROM
-					\(table)
-				WHERE
-					id = '\(id)'
-			;
-			"""
-
-			guard let queryResult = database.executeQuery(sql, withParameterDictionary: nil) else {
-				return
-			}
-
-			guard queryResult.next() else {
-				return
-			}
-
-			_result = queryResult
-		}
-
-		guard let result = _result else {
-			XCTFail("Could not fetch item from \(table).")
-			return FMResultSet()
-		}
-
-		return result
 	}
 }

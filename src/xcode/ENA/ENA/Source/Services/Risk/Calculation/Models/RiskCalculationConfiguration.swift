@@ -15,7 +15,7 @@ struct RiskCalculationConfiguration: Codable {
 		self.normalizedTimePerEWToRiskLevelMapping = riskCalculationParameters.normalizedTimePerEwtoRiskLevelMapping.map { NormalizedTimeToRiskLevelMapping(from: $0) }
 		self.normalizedTimePerDayToRiskLevelMapping = riskCalculationParameters.normalizedTimePerDayToRiskLevelMapping.map { NormalizedTimeToRiskLevelMapping(from: $0) }
 		self.trlEncoding = TrlEncoding(from: riskCalculationParameters.trlEncoding)
-		self.transmissionRiskLevelMultiplier = riskCalculationParameters.transmissionRiskLevelMultiplier
+		self.transmissionRiskValueMapping = riskCalculationParameters.transmissionRiskValueMapping.map { TransmissionRiskValueMapping(from: $0) }
 	}
 
 	// MARK: - Internal
@@ -26,6 +26,6 @@ struct RiskCalculationConfiguration: Codable {
 	let normalizedTimePerEWToRiskLevelMapping: [NormalizedTimeToRiskLevelMapping]
 	let normalizedTimePerDayToRiskLevelMapping: [NormalizedTimeToRiskLevelMapping]
 	let trlEncoding: TrlEncoding
-	let transmissionRiskLevelMultiplier: Double
+	let transmissionRiskValueMapping: [TransmissionRiskValueMapping]
 	
 }

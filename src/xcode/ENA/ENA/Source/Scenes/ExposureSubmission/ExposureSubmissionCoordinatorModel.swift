@@ -10,8 +10,12 @@ class ExposureSubmissionCoordinatorModel {
 
 	// MARK: - Init
 
-	init(exposureSubmissionService: ExposureSubmissionService) {
+	init(
+		exposureSubmissionService: ExposureSubmissionService,
+		eventProvider: EventProviding
+	) {
 		self.exposureSubmissionService = exposureSubmissionService
+		self.eventProvider = eventProvider
 
 		// Try to load current country list initially to make it virtually impossible the user has to wait for it later.
 		exposureSubmissionService.loadSupportedCountries { _ in
@@ -24,7 +28,8 @@ class ExposureSubmissionCoordinatorModel {
 	// MARK: - Internal
 
 	let exposureSubmissionService: ExposureSubmissionService
-
+	let eventProvider: EventProviding
+	
 	var shouldShowSymptomsOnsetScreen = false
 
 	func symptomsOptionSelected(

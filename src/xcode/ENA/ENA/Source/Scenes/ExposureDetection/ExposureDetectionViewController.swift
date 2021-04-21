@@ -60,16 +60,6 @@ final class ExposureDetectionViewController: DynamicTableViewController, Require
 			}
 			.store(in: &subscriptions)
 
-		viewModel.$exposureNotificationError
-			.sink { [weak self] error in
-				guard let self = self, let error = error else { return }
-
-				self.viewModel.exposureNotificationError = nil
-
-				self.alertError(message: error.localizedDescription, title: AppStrings.Common.alertTitleGeneral)
-			}
-			.store(in: &subscriptions)
-
 		viewModel.$riskBackgroundColor.assign(to: \.backgroundColor, on: headerView).store(in: &subscriptions)
 
 		viewModel.$titleText.assign(to: \.text, on: titleLabel).store(in: &subscriptions)

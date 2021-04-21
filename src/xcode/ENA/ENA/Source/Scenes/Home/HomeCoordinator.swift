@@ -7,6 +7,7 @@ import UIKit
 class HomeCoordinator: RequiresAppDependencies {
 	private weak var delegate: CoordinatorDelegate?
 	private let otpService: OTPServiceProviding
+	private let eventStore: EventStoringProviding
 
 	let rootViewController: UINavigationController = AppNavigationController(rootViewController: UIViewController())
 
@@ -15,16 +16,18 @@ class HomeCoordinator: RequiresAppDependencies {
 
 	private var settingsController: SettingsViewController?
 
+	private var traceLocationsCoordinator: TraceLocationsCoordinator?
 	private var settingsCoordinator: SettingsCoordinator?
 
 	private var exposureDetectionCoordinator: ExposureDetectionCoordinator?
-
+	
 	private lazy var exposureSubmissionService: ExposureSubmissionService = {
 		ExposureSubmissionServiceFactory.create(
 			diagnosisKeysRetrieval: self.exposureManager,
 			appConfigurationProvider: appConfigurationProvider,
 			client: self.client,
-			store: self.store
+			store: self.store,
+			eventStore: self.eventStore
 		)
 	}()
 
@@ -45,14 +48,23 @@ class HomeCoordinator: RequiresAppDependencies {
 		)
 	}()
 	
+	private lazy var qrCodePosterTemplateProvider: QRCodePosterTemplateProvider = {
+		return QRCodePosterTemplateProvider(
+			client: CachingHTTPClient(serverEnvironmentProvider: store),
+			store: store
+		)
+	}()
+	
 	private var enStateUpdateList = NSHashTable<AnyObject>.weakObjects()
 
 	init(
 		_ delegate: CoordinatorDelegate,
-		otpService: OTPServiceProviding
+		otpService: OTPServiceProviding,
+		eventStore: EventStoringProviding
 	) {
 		self.delegate = delegate
 		self.otpService = otpService
+		self.eventStore = eventStore
 	}
 
 	deinit {
@@ -93,6 +105,9 @@ class HomeCoordinator: RequiresAppDependencies {
 				},
 				onStatisticsInfoButtonTap: { [weak self] in
 					self?.showStatisticsInfo()
+				},
+				onTraceLocationsCellTap: { [weak self] in
+					self?.showTraceLocations()
 				},
 				onInviteFriendsCellTap: { [weak self] in
 					self?.showInviteFriends()
@@ -156,7 +171,9 @@ class HomeCoordinator: RequiresAppDependencies {
 			developerStore: UserDefaults.standard,
 			exposureSubmissionService: exposureSubmissionService,
 			serverEnvironment: serverEnvironment,
-			otpService: otpService
+			otpService: otpService,
+			eventStore: eventStore,
+			qrCodePosterTemplateProvider: qrCodePosterTemplateProvider
 		)
 		developerMenu?.enableIfAllowed()
 	}
@@ -170,7 +187,7 @@ class HomeCoordinator: RequiresAppDependencies {
 		}
 	}
 
-	func showRiskLegend() {
+	private func showRiskLegend() {
 		let riskLegendViewController = RiskLegendViewController(
 			onDismiss: { [weak rootViewController] in
 				rootViewController?.dismiss(animated: true)
@@ -222,6 +239,7 @@ class HomeCoordinator: RequiresAppDependencies {
 			parentNavigationController: rootViewController,
 			exposureSubmissionService: exposureSubmissionService,
 			store: self.store,
+			eventProvider: eventStore,
 			delegate: self
 		)
 
@@ -239,6 +257,18 @@ class HomeCoordinator: RequiresAppDependencies {
 			UINavigationController(rootViewController: statisticsInfoController),
 			animated: true
 		)
+	}
+
+	private func showTraceLocations() {
+		traceLocationsCoordinator = TraceLocationsCoordinator(
+			store: store,
+			appConfig: appConfigurationProvider,
+			qrCodePosterTemplateProvider: qrCodePosterTemplateProvider,
+			eventStore: eventStore,
+			parentNavigationController: rootViewController
+		)
+
+		traceLocationsCoordinator?.start()
 	}
 
 	private func showInviteFriends() {

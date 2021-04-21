@@ -9,7 +9,7 @@ extension ENCalibrationConfidence: Codable { }
 extension ENDiagnosisReportType: Codable { }
 extension ENInfectiousness: Codable { }
 
-struct ExposureWindow: Codable {
+struct ExposureWindow: Codable, Equatable {
 
 	// MARK: - Init
 
@@ -42,6 +42,16 @@ struct ExposureWindow: Codable {
 		case date = "ageInDays"
 	}
 
+	// MARK: - Protocol Equatable
+
+	static func == (lhs: ExposureWindow, rhs: ExposureWindow) -> Bool {
+		return  lhs.calibrationConfidence == rhs.calibrationConfidence &&
+			lhs.date == rhs.date &&
+			lhs.reportType == rhs.reportType &&
+			lhs.infectiousness == rhs.infectiousness &&
+			lhs.scanInstances == rhs.scanInstances
+	}
+
 	init(from decoder: Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 
@@ -51,7 +61,7 @@ struct ExposureWindow: Codable {
 		let scanInstances = try container.decode([ScanInstance].self, forKey: .scanInstances)
 
 		let ageInDays = try container.decode(Int.self, forKey: .date)
-		guard let date = Calendar.current.date(byAdding: .day, value: -ageInDays, to: Calendar.current.startOfDay(for: Date())) else {
+		guard let date = Calendar.utcCalendar.date(byAdding: .day, value: -ageInDays, to: Calendar.utcCalendar.startOfDay(for: Date())) else {
 			fatalError("Date could not be generated")
 		}
 

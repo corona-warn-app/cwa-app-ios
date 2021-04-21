@@ -62,7 +62,7 @@ final class RiskCalculationExposureWindow: Codable, CustomDebugStringConvertible
 		try container.encode(transmissionRiskValue, forKey: .transmissionRiskValue)
 		try container.encode(weightedMinutes, forKey: .weightedMinutes)
 		try container.encode(normalizedTime, forKey: .normalizedTime)
-		try container.encode(riskLevel(), forKey: .riskLevel)
+		try container.encode(riskLevel, forKey: .riskLevel)
 	}
 
 	// MARK: - Internal
@@ -91,20 +91,21 @@ final class RiskCalculationExposureWindow: Codable, CustomDebugStringConvertible
 
 	/// 1. Filter by `Minutes at Attenuation`
 	lazy var isDroppedByMinutesAtAttenuation: Bool = {
-		return configuration.minutesAtAttenuationFilters.map { filter in
-			let secondsAtAttenuation = exposureWindow.scanInstances
-				.filter { $0.secondsSinceLastScan >= 0 }
-				.filter { scanInstance in
-					filter.attenuationRange.contains(scanInstance.minAttenuation)
-				}
-				.map { $0.secondsSinceLastScan }
-				.reduce(0, +)
+		configuration.minutesAtAttenuationFilters
+			.map { filter in
+				let secondsAtAttenuation = exposureWindow.scanInstances
+					.filter { $0.secondsSinceLastScan >= 0 }
+					.filter { scanInstance in
+						filter.attenuationRange.contains(scanInstance.minAttenuation)
+					}
+					.map { $0.secondsSinceLastScan }
+					.reduce(0, +)
 
-			let minutesAtAttenuation = secondsAtAttenuation / 60
+				let minutesAtAttenuation = secondsAtAttenuation / 60
 
-			return filter.dropIfMinutesInRange.contains(minutesAtAttenuation)
-		}
-		.contains(true)
+				return filter.dropIfMinutesInRange.contains(minutesAtAttenuation)
+			}
+			.contains(true)
 	}()
 
 	/// 2. Determine `Transmission Risk Level`
@@ -132,28 +133,22 @@ final class RiskCalculationExposureWindow: Codable, CustomDebugStringConvertible
 
 	/// 3. Filter by `Transmission Risk Level`
 	lazy var isDroppedByTransmissionRiskLevel: Bool = {
-		return configuration.trlFilters.map {
-			$0.dropIfTrlInRange.contains(transmissionRiskLevel)
-		}
-		.contains(true)
+		configuration.trlFilters
+			.map { $0.dropIfTrlInRange.contains(transmissionRiskLevel) }
+			.contains(true)
 	}()
 
 	/// 6. Determine `Normalized Time`
 	lazy var normalizedTime: Double = {
-		return transmissionRiskValue * weightedMinutes
+		transmissionRiskValue * weightedMinutes
 	}()
 
 	/// 7. Determine `Risk Level`
-	func riskLevel() throws -> RiskLevel {
-		guard let riskLevel = configuration.normalizedTimePerEWToRiskLevelMapping
-				.first(where: { $0.normalizedTimeRange.contains(normalizedTime) })
-				.map({ $0.riskLevel })
-		else {
-			throw RiskCalculationError.invalidConfiguration
-		}
-
-		return riskLevel
-	}
+	lazy var riskLevel: RiskLevel? = {
+		configuration.normalizedTimePerEWToRiskLevelMapping
+			.first { $0.normalizedTimeRange.contains(normalizedTime) }
+			.map { $0.riskLevel }
+	}()
 
 	// MARK: - Private
 
@@ -161,7 +156,9 @@ final class RiskCalculationExposureWindow: Codable, CustomDebugStringConvertible
 
 	/// 4. Determine `Transmission Risk Value`
 	private lazy var transmissionRiskValue: Double = {
-		Double(transmissionRiskLevel) * configuration.transmissionRiskLevelMultiplier
+		configuration.transmissionRiskValueMapping
+			.first { $0.transmissionRiskLevel == transmissionRiskLevel }
+			.map { $0.transmissionRiskValue } ?? 0
 	}()
 
 	/// 5. Determine `Weighted Minutes`

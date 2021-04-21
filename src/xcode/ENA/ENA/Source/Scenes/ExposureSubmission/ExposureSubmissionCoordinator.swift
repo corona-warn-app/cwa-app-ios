@@ -47,6 +47,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		parentNavigationController: UINavigationController,
 		exposureSubmissionService: ExposureSubmissionService,
 		store: Store,
+		eventProvider: EventProviding,
 		delegate: ExposureSubmissionCoordinatorDelegate? = nil
 	) {
 		self.parentNavigationController = parentNavigationController
@@ -54,7 +55,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		self.warnOthersReminder = warnOthersReminder
 
 		super.init()
-		model = ExposureSubmissionCoordinatorModel(exposureSubmissionService: exposureSubmissionService)
+		model = ExposureSubmissionCoordinatorModel(exposureSubmissionService: exposureSubmissionService, eventProvider: eventProvider)
 	}
 
 	// MARK: - Protocol ExposureSubmissionCoordinating
@@ -85,7 +86,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	func dismiss() {
 		navigationController?.dismiss(animated: true, completion: {
 			// used for updating (hiding) app shortcuts
-			NotificationCenter.default.post(Notification(name: .didDismissExposureSubmissionFlow))
+			QuickAction.exposureSubmissionFlowTestResult = nil
 		})
 	}
 
@@ -94,7 +95,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		push(vc)
 
 		// If a TAN was entered, we skip `showTestResultAvailableScreen(with:)`, so we notify (again) about the new state
-		NotificationCenter.default.post(Notification(name: .didStartExposureSubmissionFlow, object: nil, userInfo: ["result": testResult.rawValue]))
+		QuickAction.exposureSubmissionFlowTestResult = testResult
 	}
 
 	func showTanScreen() {
@@ -199,6 +200,9 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	// MARK: Initial Screens
 
 	private func createTestResultAvailableViewController(testResult: TestResult) -> UIViewController {
+		
+		QuickAction.exposureSubmissionFlowTestResult = testResult
+		
 		let viewModel = TestResultAvailableViewModel(
 			exposureSubmissionService: model.exposureSubmissionService,
 			onSubmissionConsentCellTap: { [weak self] isLoading in
@@ -225,7 +229,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 					isLoading(false)
 
 					guard let error = error else {
-						self.showTestResultScreen(with: testResult)
+						self.showCheckinsScreen(testResult: testResult)
 						return
 					}
 
@@ -243,54 +247,69 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				self?.showTestResultAvailableCloseAlert()
 			}
 		)
-		return TestResultAvailableViewController(viewModel)
+		
+		let footerViewModel = FooterViewModel(
+			primaryButtonName: AppStrings.ExposureSubmissionTestResultAvailable.primaryButtonTitle,
+			isSecondaryButtonEnabled: false,
+			isSecondaryButtonHidden: true
+		)
+		
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: TestResultAvailableViewController(viewModel),
+			bottomController: FooterViewController(footerViewModel)
+		)
+		
+		return topBottomContainerViewController
 	}
 
-	private func createTestResultViewController(with testResult: TestResult) -> ExposureSubmissionTestResultViewController {
+	private func createTestResultViewController(with testResult: TestResult) -> TopBottomContainerViewController<ExposureSubmissionTestResultViewController, FooterViewController> {
 		// store is only initialized when a positive test result is received
 		if testResult == .positive {
 			updateStoreWithKeySubmissionMetadataDefaultValues()
-			NotificationCenter.default.post(Notification(name: .didStartExposureSubmissionFlow, object: nil, userInfo: ["result": testResult]))
+			QuickAction.exposureSubmissionFlowTestResult = testResult
 		}
 		Analytics.collect(.keySubmissionMetadata(.lastSubmissionFlowScreen(.submissionFlowScreenTestResult)))
 
 		let testResultAvailability: TestResultAvailability = testResult == .positive ? .availableAndPositive : .notAvailable
-		return ExposureSubmissionTestResultViewController(
-			viewModel: .init(
-				testResult: testResult,
-				exposureSubmissionService: model.exposureSubmissionService,
-				warnOthersReminder: warnOthersReminder,
-				onSubmissionConsentCellTap: { [weak self] isLoading in
-					self?.model.exposureSubmissionService.loadSupportedCountries(
-						isLoading: isLoading,
-						onSuccess: { supportedCountries in
-							self?.showTestResultSubmissionConsentScreen(
-								supportedCountries: supportedCountries,
-								testResultAvailability: testResultAvailability
-							)
-						}
-					)
-				},
-				onContinueWithSymptomsFlowButtonTap: { [weak self] in
-					self?.showSymptomsScreen()
-				},
-				onContinueWarnOthersButtonTap: { [weak self] isLoading in
-					Log.debug("\(#function) will load app config", log: .appConfig)
-					self?.model.exposureSubmissionService.loadSupportedCountries(
-						isLoading: isLoading,
-						onSuccess: { supportedCountries in
-							Log.debug("\(#function) did load app config", log: .appConfig)
-							self?.showWarnOthersScreen(supportedCountries: supportedCountries)
-						}
-					)
-				},
-				onChangeToPositiveTestResult: { [weak self] in
-					self?.showTestResultAvailableScreen(with: .positive)
-				},
-				onTestDeleted: { [weak self] in
-					self?.dismiss()
-				}
-			),
+		
+		let viewModel = ExposureSubmissionTestResultViewModel(
+			testResult: testResult,
+			exposureSubmissionService: model.exposureSubmissionService,
+			warnOthersReminder: warnOthersReminder,
+			onSubmissionConsentCellTap: { [weak self] isLoading in
+				self?.model.exposureSubmissionService.loadSupportedCountries(
+					isLoading: isLoading,
+					onSuccess: { supportedCountries in
+						self?.showTestResultSubmissionConsentScreen(
+							supportedCountries: supportedCountries,
+							testResultAvailability: testResultAvailability
+						)
+					}
+				)
+			},
+			onContinueWithSymptomsFlowButtonTap: { [weak self] in
+				self?.showSymptomsScreen()
+			},
+			onContinueWarnOthersButtonTap: { [weak self] isLoading in
+				Log.debug("\(#function) will load app config", log: .appConfig)
+				self?.model.exposureSubmissionService.loadSupportedCountries(
+					isLoading: isLoading,
+					onSuccess: { supportedCountries in
+						Log.debug("\(#function) did load app config", log: .appConfig)
+						self?.showWarnOthersScreen(supportedCountries: supportedCountries)
+					}
+				)
+			},
+			onChangeToPositiveTestResult: { [weak self] in
+				self?.showTestResultAvailableScreen(with: .positive)
+			},
+			onTestDeleted: { [weak self] in
+				self?.dismiss()
+			}
+		)
+		
+		let vc = ExposureSubmissionTestResultViewController(
+			viewModel: viewModel,
 			exposureSubmissionService: self.model.exposureSubmissionService,
 			onDismiss: { [weak self] testResult, isLoading in
 				if testResult == TestResult.positive {
@@ -298,12 +317,22 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				} else {
 					self?.dismiss()
 				}
-
 			}
 		)
+		
+		let footerViewController = FooterViewController(
+			ExposureSubmissionTestResultViewModel.footerViewModel(testResult: testResult, isSubmissionConsentGiven: model.exposureSubmissionService.isSubmissionConsentGiven)
+		)
+		
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: vc,
+			bottomController: footerViewController
+		)
+		
+		return topBottomContainerViewController
 	}
 
-	private func createWarnOthersViewController() -> ExposureSubmissionWarnOthersViewController {
+	private func createWarnOthersViewController() -> UIViewController {
 		Analytics.collect(.keySubmissionMetadata(.lastSubmissionFlowScreen(.submissionFlowScreenWarnOthers)))
 
 		// ugly but works for the moment
@@ -318,7 +347,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				self?.model.exposureSubmissionService.getTemporaryExposureKeys { error in
 					isLoading(false)
 					guard let error = error else {
-						self?.showThankYouScreen()
+						self?.showCheckinsScreen(testResult: .positive)
 						return
 					}
 					self?.model.exposureSubmissionService.isSubmissionConsentGiven = false
@@ -331,7 +360,23 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 			},
 			dismiss: { [weak self] in self?.dismiss() }
 		)
-		return vc
+		
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: AppStrings.ExposureSubmissionQRInfo.primaryButtonTitle,
+				primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
+				secondaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.secondaryButton,
+				isSecondaryButtonEnabled: false,
+				isSecondaryButtonHidden: true
+			)
+		)
+		
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: vc,
+			bottomController: footerViewController
+		)
+		
+		return topBottomContainerViewController
 	}
 
 	// MARK: Screen Flow
@@ -362,6 +407,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	}
 
 	private func showQRInfoScreen(supportedCountries: [Country]) {
+		
 		let vc = ExposureSubmissionQRInfoViewController(
 			supportedCountries: supportedCountries,
 			onPrimaryButtonTap: { [weak self] isLoading in
@@ -394,8 +440,23 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 			},
 			dismiss: { [weak self] in self?.dismiss() }
 		)
-
-		push(vc)
+		
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: AppStrings.ExposureSubmissionQRInfo.primaryButtonTitle,
+				primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
+				secondaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.secondaryButton,
+				isSecondaryButtonEnabled: false,
+				isSecondaryButtonHidden: true
+			)
+		)
+		
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: vc,
+			bottomController: footerViewController
+		)
+		
+		push(topBottomContainerViewController)
 	}
 
 	private func showQRScreen(isLoading: @escaping (Bool) -> Void) {
@@ -450,7 +511,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		push(vc)
 
 		// used for updating (hiding) app shortcuts
-		NotificationCenter.default.post(Notification(name: .didStartExposureSubmissionFlow))
+		QuickAction.exposureSubmissionFlowTestResult = testResult
 	}
 
 	private func showTestResultSubmissionConsentScreen(supportedCountries: [Country], testResultAvailability: TestResultAvailability) {
@@ -469,10 +530,67 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 
 		push(vc)
 	}
+	
+	private func showCheckinsScreen(testResult: TestResult) {
+		let showNextScreen = { [weak self] in
+			if self?.warnOthersReminder.positiveTestResultWasShown == true {
+				self?.showThankYouScreen()
+			} else {
+				self?.showTestResultScreen(with: testResult)
+			}
+		}
+		
+		guard model.eventProvider.checkinsPublisher.value.contains(where: { $0.checkinCompleted }) else {
+			showNextScreen()
+			return
+		}
+		
+		let footerViewModel = FooterViewModel(
+			primaryButtonName: AppStrings.ExposureSubmissionCheckins.continueButton,
+			secondaryButtonName: AppStrings.ExposureSubmissionCheckins.skipButton,
+			isPrimaryButtonEnabled: false,
+			backgroundColor: .enaColor(for: .darkBackground)
+		)
+
+		let checkinsVC = ExposureSubmissionCheckinsViewController(
+			checkins: model.eventProvider.checkinsPublisher.value,
+			onCompletion: { [weak self] selectedCheckins in
+				self?.model.exposureSubmissionService.checkins = selectedCheckins
+				showNextScreen()
+			},
+			onSkip: { [weak self] in
+				self?.model.exposureSubmissionService.checkins = []
+				self?.showSkipCheckinsAlert(dontShareHandler: {
+					showNextScreen()
+				})
+			},
+			onDismiss: { [weak self] in
+				self?.model.exposureSubmissionService.checkins = []
+				if self?.warnOthersReminder.positiveTestResultWasShown == true {
+					self?.showSkipCheckinsAlert(dontShareHandler: {
+						Analytics.collect(.keySubmissionMetadata(.submittedAfterCancel(true)))
+						self?.submitExposureAndDismiss { isLoading in
+							footerViewModel.setLoadingIndicator(isLoading, disable: isLoading, button: .secondary)
+							footerViewModel.setLoadingIndicator(false, disable: isLoading, button: .primary)
+						}
+					})
+				} else {
+					self?.showTestResultAvailableCloseAlert()
+				}
+			}
+		)
+		
+		let footerVC = FooterViewController(footerViewModel)
+		
+		let topBottomVC = TopBottomContainerViewController(topController: checkinsVC, bottomController: footerVC)
+		
+		push(topBottomVC)
+	}
 
 	// MARK: Late consent
 
 	private func showWarnOthersScreen(supportedCountries: [Country]) {
+		Analytics.collect(.keySubmissionMetadata(.lastSubmissionFlowScreen(.submissionFlowScreenWarnOthers)))
 		let viewModel = ExposureSubmissionWarnOthersViewModel(supportedCountries: supportedCountries) { [weak self] in
 			self?.showTestResultAvailableCloseAlert()
 		}
@@ -484,7 +602,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 					isLoading(false)
 
 					guard let error = error else {
-						self?.showThankYouScreen()
+						self?.showCheckinsScreen(testResult: .positive)
 						return
 					}
 
@@ -501,8 +619,23 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 			},
 			dismiss: { [weak self] in self?.dismiss() }
 		)
-
-		push(vc)
+		
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: AppStrings.ExposureSubmissionQRInfo.primaryButtonTitle,
+				primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
+				secondaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.secondaryButton,
+				isSecondaryButtonEnabled: false,
+				isSecondaryButtonHidden: true
+			)
+		)
+		
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: vc,
+			bottomController: footerViewController
+		)
+		
+		push(topBottomContainerViewController)
 	}
 
 	private func showThankYouScreen() {
@@ -514,8 +647,24 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				self?.showThankYouCancelAlert(isLoading: isLoading)
 			}
 		)
+		
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: AppStrings.ThankYouScreen.continueButton,
+				secondaryButtonName: AppStrings.ThankYouScreen.cancelButton,
+				primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
+				secondaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.secondaryButton,
+				isPrimaryButtonEnabled: true,
+				isSecondaryButtonEnabled: true
+			)
+		)
+		
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: thankYouVC,
+			bottomController: footerViewController
+		)
 
-		push(thankYouVC)
+		push(topBottomContainerViewController)
 	}
 
 	// MARK: Symptoms
@@ -539,7 +688,21 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 			}
 		)
 
-		push(vc)
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: AppStrings.ExposureSubmissionSymptoms.continueButton,
+				primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
+				isSecondaryButtonEnabled: false,
+				isSecondaryButtonHidden: true
+			)
+		)
+		
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: vc,
+			bottomController: footerViewController
+		)
+
+		push(topBottomContainerViewController)
 	}
 
 	private func showSymptomsOnsetScreen() {
@@ -557,21 +720,32 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 			}
 		)
 
-		push(vc)
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: AppStrings.ExposureSubmissionSymptomsOnset.continueButton,
+				primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
+				isPrimaryButtonEnabled: true,
+				isSecondaryButtonEnabled: false,
+				isPrimaryButtonHidden: false,
+				isSecondaryButtonHidden: true
+			)
+		)
+		
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: vc,
+			bottomController: footerViewController
+		)
+
+		push(topBottomContainerViewController)
 	}
 
 	// MARK: Cancel Alerts
 
 	private func showTestResultAvailableCloseAlert() {
-		let isSubmissionConsentGiven = self.model.exposureSubmissionService.isSubmissionConsentGiven
-
-		let alertTitle = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionTestResultAvailable.closeAlertTitle : AppStrings.ExposureSubmissionTestResultAvailable.noConsentCloseAlertTitle
-
-		let alertMessage = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionTestResultAvailable.closeAlertMessage : AppStrings.ExposureSubmissionTestResultAvailable.noConsentCloseAlertMessage
 
 		let alert = UIAlertController(
-			title: alertTitle,
-			message: alertMessage,
+			title: AppStrings.ExposureSubmissionTestResultAvailable.closeAlertTitle,
+			message: nil,
 			preferredStyle: .alert
 		)
 
@@ -649,6 +823,33 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 			leaveView?.accessibilityIdentifier = AccessibilityIdentifiers.General.cancelButton
 			#endif
 		})
+	}
+	
+	private func showSkipCheckinsAlert(dontShareHandler: @escaping () -> Void) {
+		let alert = UIAlertController(
+			title: AppStrings.ExposureSubmissionCheckins.alertTitle,
+			message: AppStrings.ExposureSubmissionCheckins.alertMessage,
+			preferredStyle: .alert
+		)
+
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.ExposureSubmissionCheckins.alertDontShare,
+				style: .cancel,
+				handler: { _ in
+					dontShareHandler()
+				}
+			)
+		)
+
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.ExposureSubmissionCheckins.alertShare,
+				style: .default
+			)
+		)
+
+		navigationController?.present(alert, animated: true, completion: nil)
 	}
 
 	private func showThankYouCancelAlert(isLoading: @escaping (Bool) -> Void) {
@@ -746,8 +947,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 			hoursSinceTestResult: 0,
 			hoursSinceTestRegistration: 0,
 			daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1,
-			hoursSinceHighRiskWarningAtTestRegistration: -1,
-			submittedWithTeleTAN: true)
+			hoursSinceHighRiskWarningAtTestRegistration: -1)
 		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata)))
 		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration))
 		Analytics.collect(.keySubmissionMetadata(.setHoursSinceHighRiskWarningAtTestRegistration))

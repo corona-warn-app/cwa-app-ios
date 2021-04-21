@@ -17,6 +17,8 @@ protocol ExposureSubmissionService: class {
 	var hasRegistrationToken: Bool { get }
 
 	var supportedCountries: [Country] { get } // temporary!
+	
+	var checkins: [Checkin] { get set }
 
 	var devicePairingConsentAcceptTimestamp: Int64? { get }
 	var devicePairingSuccessfulTimestamp: Int64? { get }
@@ -55,5 +57,6 @@ struct ExposureSubmissionServiceDependencies {
 	let appConfigurationProvider: AppConfigurationProviding
 	let client: Client
 	let store: Store
+	let eventStore: EventStoringProviding
 	let warnOthersReminder: WarnOthersRemindable
 }

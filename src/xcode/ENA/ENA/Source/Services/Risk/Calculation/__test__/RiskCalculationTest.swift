@@ -7,21 +7,21 @@ import XCTest
 
 class RiskCalculationTest: XCTestCase {
 
-	func testWHEN_LoadingJsonTestFile_THEN_24TestCasesWithConfigurationAreReturned() {
+	func testWHEN_LoadingJsonTestFile_THEN_AllTestCasesWithConfigurationAreReturned() {
 		// WHEN
 		let testCases = testCasesWithConfiguration.testCases
 
 		// THEN
-		XCTAssertEqual(testCases.count, 25)
+		XCTAssertEqual(testCases.count, 28)
 	}
 
-	func testGIVEN_TestCases_WHEN_CalculatingRiskForEachTestCase_THEN_ResultIsCorrect() throws {
+	func testGIVEN_TestCases_WHEN_CalculatingRiskForEachTestCase_THEN_ResultIsCorrect() {
 		// GIVEN
 		let testCases = testCasesWithConfiguration.testCases
 
 		for testCase in testCases {
 			// WHEN
-			let result = try RiskCalculation().calculateRisk(
+			let result = ENFRiskCalculation().calculateRisk(
 				exposureWindows: testCase.exposureWindows,
 				configuration: testCasesWithConfiguration.defaultRiskCalculationConfiguration
 			)
@@ -59,8 +59,7 @@ class RiskCalculationTest: XCTestCase {
 		let testBundle = Bundle(for: RiskCalculationTest.self)
 		guard let urlJsonFile = testBundle.url(forResource: "exposure-windows-risk-calculation", withExtension: "json"),
 			  let data = try? Data(contentsOf: urlJsonFile) else {
-			XCTFail("Failed init json file for tests")
-			fatalError("Failed init json file for tests - stop hete")
+			fatalError("Failed init json file for tests - stop here")
 		}
 
 		do {

@@ -177,21 +177,20 @@ final class SecureStore: Store {
 		set { kvStore["allowTestsStatusNotification"] = newValue }
 	}
 
-	var tracingStatusHistory: TracingStatusHistory {
-		get {
-			guard let historyData = kvStore["tracingStatusHistory"] else {
-				return []
-			}
-			return (try? TracingStatusHistory.from(data: historyData)) ?? []
-		}
-		set {
-			kvStore["tracingStatusHistory"] = try? newValue.JSONData()
-		}
+	var appInstallationDate: Date? {
+		get { kvStore["appInstallationDate"] as Date? }
+		set { kvStore["appInstallationDate"] = newValue }
 	}
 
-	var riskCalculationResult: RiskCalculationResult? {
-		get { kvStore["riskCalculationResult"] as RiskCalculationResult? ?? nil }
+	var enfRiskCalculationResult: ENFRiskCalculationResult? {
+		// After renaming "riskCalculationResult" to "enfRiskCalculationResult" the key for the kvStore was NOT renamed intentionally to avoid a migration.
+		get { kvStore["riskCalculationResult"] as ENFRiskCalculationResult? ?? nil }
 		set { kvStore["riskCalculationResult"] = newValue }
+	}
+
+	var checkinRiskCalculationResult: CheckinRiskCalculationResult? {
+		get { kvStore["checkinRiskCalculationResult"] as CheckinRiskCalculationResult? ?? nil }
+		set { kvStore["checkinRiskCalculationResult"] = newValue }
 	}
 
 	var dateOfConversionToHighRisk: Date? {
@@ -274,6 +273,12 @@ final class SecureStore: Store {
 			kvStore["submissionKeys"] = newValue?.compactMap { try? $0.serializedData() }
 		}
 	}
+	
+	var submissionCheckins: [Checkin] {
+		get { kvStore["submissionCheckins"] as [Checkin]? ?? [] }
+		set { kvStore["submissionCheckins"] = newValue }
+	}
+
 
 	var submissionCountries: [Country] {
 		get { kvStore["submissionCountries"] as [Country]? ?? [.defaultCountry()] }
@@ -289,7 +294,7 @@ final class SecureStore: Store {
 		get { kvStore["journalWithExposureHistoryInfoScreenShown"] as Bool? ?? false }
 		set { kvStore["journalWithExposureHistoryInfoScreenShown"] = newValue }
 	}
-
+	
 	#if !RELEASE
 
 	// Settings from the debug menu.
@@ -304,8 +309,8 @@ final class SecureStore: Store {
 		set { kvStore["dmKillDeviceTimeCheck"] = newValue }
 	}
 
-	var mostRecentRiskCalculation: RiskCalculation? {
-		get { kvStore["mostRecentRiskCalculation"] as RiskCalculation? }
+	var mostRecentRiskCalculation: ENFRiskCalculation? {
+		get { kvStore["mostRecentRiskCalculation"] as ENFRiskCalculation? }
 		set { kvStore["mostRecentRiskCalculation"] = newValue }
 	}
 
@@ -318,6 +323,12 @@ final class SecureStore: Store {
 		get { kvStore["forceAPITokenAuthorization"] as Bool? ?? false }
 		set { kvStore["forceAPITokenAuthorization"] = newValue }
 	}
+	
+	var recentTraceLocationCheckedInto: DMRecentTraceLocationCheckedInto? {
+		get { kvStore["recentTraceLocationCheckedInto"] as DMRecentTraceLocationCheckedInto? ?? nil }
+		set { kvStore["recentTraceLocationCheckedInto"] = newValue }
+	}
+
 
 	#endif
 
@@ -328,6 +339,34 @@ final class SecureStore: Store {
 	private let directoryURL: URL
 	private var serverEnvironment: ServerEnvironment
 
+}
+
+extension SecureStore: EventRegistrationCaching {
+	
+	var wasRecentTraceWarningDownloadSuccessful: Bool {
+		get { kvStore["wasRecentTraceWarningDownloadSuccessful"] as Bool? ?? false }
+		set { kvStore["wasRecentTraceWarningDownloadSuccessful"] = newValue }
+	}
+	
+	var checkinInfoScreenShown: Bool {
+		get { kvStore["checkinInfoScreenShown"] as Bool? ?? false }
+		set { kvStore["checkinInfoScreenShown"] = newValue }
+	}
+	
+	var traceLocationsInfoScreenShown: Bool {
+		get { kvStore["traceLocationsInfoScreenShown"] as Bool? ?? false }
+		set { kvStore["traceLocationsInfoScreenShown"] = newValue }
+	}
+	
+	var shouldAddCheckinToContactDiaryByDefault: Bool {
+		get { kvStore["shouldAddCheckinToContactDiaryByDefault"] as Bool? ?? true }
+		set { kvStore["shouldAddCheckinToContactDiaryByDefault"] = newValue }
+	}
+	
+	var qrCodePosterTemplateMetadata: QRCodePosterTemplateMetadata? {
+		get { kvStore["qrCodePosterTemplateMetadata"] as QRCodePosterTemplateMetadata? ?? nil }
+		set { kvStore["qrCodePosterTemplateMetadata"] = newValue }
+	}
 }
 
 extension SecureStore {
@@ -351,8 +390,8 @@ extension SecureStore {
 
 extension SecureStore: AppConfigCaching {
 	var appConfigMetadata: AppConfigMetadata? {
-		get { kvStore["appConfigMetadata"] as AppConfigMetadata? ?? nil }
-		set { kvStore["appConfigMetadata"] = newValue }
+		get { kvStore["appConfigMetadataV2"] as AppConfigMetadata? ?? nil }
+		set { kvStore["appConfigMetadataV2"] = newValue }
 	}
 }
 
@@ -368,7 +407,9 @@ extension SecureStore: PrivacyPreservingProviding {
 	var isPrivacyPreservingAnalyticsConsentGiven: Bool {
 		get { kvStore["isPrivacyPreservingAnalyticsConsentGiven"] as Bool? ?? false }
 		set { kvStore["isPrivacyPreservingAnalyticsConsentGiven"] = newValue
-			userData = nil
+			if newValue == false {
+				userData = nil
+			}
 		}
 	}
 
