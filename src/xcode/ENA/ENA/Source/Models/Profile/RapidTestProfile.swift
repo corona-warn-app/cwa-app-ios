@@ -32,6 +32,7 @@ struct RapidTestProfile: Codable {
 
 	func encode(to encoder: Encoder) throws {
 		var container = encoder.container(keyedBy: CodingKeys.self)
+		try container.encodeIfPresent(forename, forKey: .forename)
 		try container.encodeIfPresent(lastName, forKey: .lastName)
 		if let dateOfBirth = dateOfBirth {
 			try? container.encodeIfPresent(ISO8601DateFormatter.justDate.string(from: dateOfBirth), forKey: .dateOfBirth)

@@ -11,7 +11,7 @@ class RapidTestProfileTests: XCTestCase {
 	let jsonDecoder = JSONDecoder()
 
 	let jsonFullString = """
-	{"zipCode":"12345","city":"Musterstadt","phoneNumber":"+49150123456789","dateOfBirth":"1971-11-01","forename":"Max","email":"kai.teuber@coronawarn.app","addressLine":"Musterstrasse 1a","lastName":"Mustermann"}
+	{"zipCode":"12345","city":"Musterstadt","phoneNumber":"+49150123456789","dateOfBirth":"1971-11-01","forename":"Max","email":"max.mustermann@coronawarn.app","addressLine":"Musterstrasse 1a","lastName":"Mustermann"}
 	"""
 
 	let jsonDateOnlyString = """
@@ -28,7 +28,7 @@ class RapidTestProfileTests: XCTestCase {
 			zipCode: "12345",
 			city: "Musterstadt",
 			phoneNumber: "+49150123456789",
-			email: "kai.teuber@coronawarn.app"
+			email: "max.mustermann@coronawarn.app"
 		)
 
 		// WHEN
@@ -54,7 +54,7 @@ class RapidTestProfileTests: XCTestCase {
 		XCTAssertEqual(rapidTestProfile.zipCode, "12345")
 		XCTAssertEqual(rapidTestProfile.city, "Musterstadt")
 		XCTAssertEqual(rapidTestProfile.phoneNumber, "+49150123456789")
-		XCTAssertEqual(rapidTestProfile.email, "kai.teuber@coronawarn.app")
+		XCTAssertEqual(rapidTestProfile.email, "max.mustermann@coronawarn.app")
 	}
 
 	func testGIVEN_RapidTestProfileDateOnly_WHEN_SerializeToJson_THEN_FormateMatches() throws {
