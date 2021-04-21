@@ -281,8 +281,8 @@ extension ExposureSubmissionTestResultViewModel {
 								activityIndicatorView.startAnimating()
 								cell?.accessoryView = isLoading ? activityIndicatorView : nil
 								cell?.isUserInteractionEnabled = !isLoading
-								self?.footerViewModel?.setLoadingIndicator(false, disable: isLoading, button: .primary)
-								self?.footerViewModel?.setLoadingIndicator(false, disable: isLoading, button: .secondary)
+								self?.footerViewModel?.setEnabled(isLoading, button: .primary)
+								self?.footerViewModel?.setEnabled(isLoading, button: .secondary)
 							}
 						},
 						configure: { _, cell, _ in
