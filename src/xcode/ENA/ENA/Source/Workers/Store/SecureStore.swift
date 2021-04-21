@@ -433,8 +433,8 @@ extension SecureStore: CoronaTestStoringLegacy {
 	}
 
 	var anitgenTestProfile: AntigenTestProfile? {
-		get { kvStore["rapidTestProfile"] as AntigenTestProfile? }
-		set { kvStore["rapidTestProfile"] = newValue }
+		get { kvStore["antigenTestProfile"] as AntigenTestProfile? }
+		set { kvStore["antigenTestProfile"] = newValue }
 	}
 
 }
