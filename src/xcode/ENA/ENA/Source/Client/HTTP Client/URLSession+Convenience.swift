@@ -135,3 +135,31 @@ extension URLSession.Response {
 
 	typealias Completion = (Result<URLSession.Response, Failure>) -> Void
 }
+
+extension URLSession.Response.Failure: LocalizedError {
+	var errorDescription: String? {
+		switch self {
+		case let .serverError(code):
+			return "\(AppStrings.ExposureSubmissionError.other)\(code)\(AppStrings.ExposureSubmissionError.otherend)"
+		case let .httpError(desc, _):
+			return "\(AppStrings.ExposureSubmissionError.httpError)\n\(desc)"
+		case .invalidResponse:
+			return AppStrings.ExposureSubmissionError.invalidResponse
+		case .noResponse:
+			return AppStrings.ExposureSubmissionError.noResponse
+		case .noNetworkConnection:
+			return AppStrings.ExposureSubmissionError.noNetworkConnection
+		case .qrAlreadyUsed:
+			return AppStrings.ExposureSubmissionError.qrAlreadyUsed
+		case .qrDoesNotExist:
+			return AppStrings.ExposureSubmissionError.qrNotExist
+		case .teleTanAlreadyUsed:
+			return AppStrings.ExposureSubmissionError.teleTanAlreadyUsed
+		case .regTokenNotExist:
+			return AppStrings.ExposureSubmissionError.regTokenNotExist
+		default:
+			Log.error("\(self)", log: .api)
+			return AppStrings.ExposureSubmissionError.defaultError
+		}
+	}
+}
