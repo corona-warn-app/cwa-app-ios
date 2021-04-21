@@ -36,12 +36,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	func start(with coronaTestType: CoronaTestType? = nil) {
 		model.coronaTestType = coronaTestType
 
-		model.exposureSubmissionService.loadSupportedCountries(
-			isLoading: { _ in },
-			onSuccess: { supportedCountries in
-				self.start(with: self.getInitialViewController(supportedCountries: supportedCountries))
-			}
-		)
+		start(with: self.getInitialViewController())
 	}
 
 	func start(with testInformationResult: Result<CoronaTestQRCodeInformation, QRCodeError>) {
@@ -117,7 +112,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	/// Option 2: if a test result was passed, the method checks further preconditions (e.g. the exposure submission service has a registration token)
 	/// and returns an ExposureSubmissionTestResultViewController.
 	/// Option 3: (default) return the ExposureSubmissionIntroViewController.
-	func getInitialViewController(supportedCountries: [Country]) -> UIViewController {
+	func getInitialViewController() -> UIViewController {
 		// We got a test result and can jump straight into the test result view controller.
 		if let coronaTest = model.coronaTest {
 			// For a positive test result we show the test result available screen if it wasn't shown before
@@ -125,7 +120,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				if !coronaTest.positiveTestResultWasShown {
 					return createTestResultAvailableViewController()
 				} else {
-					return createWarnOthersViewController(supportedCountries: supportedCountries)
+					return createWarnOthersViewController(supportedCountries: model.exposureSubmissionService.supportedCountries)
 				}
 			} else {
 				return createTestResultViewController()
