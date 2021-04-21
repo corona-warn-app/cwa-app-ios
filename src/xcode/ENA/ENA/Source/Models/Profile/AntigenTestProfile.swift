@@ -4,12 +4,12 @@
 
 import Foundation
 
-struct RapidTestProfile: Codable {
+struct AntigenTestProfile: Codable {
 
 	// MARK: - Init
 
 	init(
-		forename: String? = nil,
+		firstName: String? = nil,
 		lastName: String? = nil,
 		dateOfBirth: Date? = nil,
 		addressLine: String? = nil,
@@ -18,7 +18,7 @@ struct RapidTestProfile: Codable {
 		phoneNumber: String? = nil,
 		email: String? = nil
 	) {
-		self.forename = forename
+		self.firstName = firstName
 		self.lastName = lastName
 		self.dateOfBirth = dateOfBirth
 		self.addressLine = addressLine
@@ -32,7 +32,7 @@ struct RapidTestProfile: Codable {
 
 	func encode(to encoder: Encoder) throws {
 		var container = encoder.container(keyedBy: CodingKeys.self)
-		try container.encodeIfPresent(forename, forKey: .forename)
+		try container.encodeIfPresent(firstName, forKey: .firstName)
 		try container.encodeIfPresent(lastName, forKey: .lastName)
 		if let dateOfBirth = dateOfBirth {
 			try? container.encodeIfPresent(ISO8601DateFormatter.justDate.string(from: dateOfBirth), forKey: .dateOfBirth)
@@ -46,7 +46,7 @@ struct RapidTestProfile: Codable {
 
 	init(from decoder: Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
-		forename = try? container.decode(String.self, forKey: .forename)
+		firstName = try? container.decode(String.self, forKey: .firstName)
 		lastName = try? container.decode(String.self, forKey: .lastName)
 		if let validFromString = try? container.decode(String.self, forKey: .dateOfBirth) {
 			dateOfBirth = ISO8601DateFormatter.justDate.date(from: validFromString)
@@ -61,7 +61,7 @@ struct RapidTestProfile: Codable {
 	}
 
 	enum CodingKeys: String, CodingKey {
-		case forename
+		case firstName
 		case lastName
 		case dateOfBirth
 		case addressLine
@@ -73,7 +73,7 @@ struct RapidTestProfile: Codable {
 
 	// MARK: - Internal
 
-	let forename: String?
+	let firstName: String?
 	let lastName: String?
 	let dateOfBirth: Date?
 	let addressLine: String?
