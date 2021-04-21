@@ -138,7 +138,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				)
 			},
 			onTANButtonTap: { [weak self] in self?.showTanScreen() },
-			onHotlineButtonTap: { [weak self] in self?.showHotlineScreen() }
+			onHotlineButtonTap: { [weak self] in self?.showHotlineScreen() },
+			onRapidTestProfileTap: { [weak self] in self?.showCreateAntigenTestProfile() }
 		)
 		return ExposureSubmissionIntroViewController(
 			viewModel: viewModel,
@@ -709,6 +710,20 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		)
 
 		push(topBottomContainerViewController)
+	}
+
+	// MARK: - AntigenTestProfile
+
+	private func showAntigenTestProfileInformation() {
+		Log.debug("showAntigenTestProfileInformation")
+	}
+
+	private func showCreateAntigenTestProfile() {
+		Log.debug("showCreateAntigenTestProfile")
+	}
+
+	private func showAntigenTestProfile() {
+		Log.debug("showAntigenTestProfile")
 	}
 
 	// MARK: Cancel Alerts
