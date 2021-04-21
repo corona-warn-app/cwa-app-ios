@@ -82,7 +82,7 @@ class HomeTestResultCellModelTests: XCTestCase {
 		expectationIndicatorVisibility.expectedFulfillmentCount = indicatorVisibilityArray.count
 		expectationUserInteraction.expectedFulfillmentCount = userInteractionArray.count
 		expectationAccessibilityIdentifiers.expectedFulfillmentCount = accessibilityIdentifiersArray.count
-		expectationOnUpdate.expectedFulfillmentCount = accessibilityIdentifiersArray.count
+		expectationOnUpdate.expectedFulfillmentCount = 7
 		
 		let coronaTestService = CoronaTestService(
 			client: ClientMock(),

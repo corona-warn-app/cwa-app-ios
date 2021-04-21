@@ -93,7 +93,8 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		personsTableView.cells.firstMatch.tap()
 
 		XCTAssertEqual(app.navigationBars.element(boundBy: 1).identifier, app.localized("ContactDiary_AddEditEntry_PersonTitle"))
-		let textField = app.tables.firstMatch.cells.textFields.firstMatch
+
+		let textField = app.textFields.firstMatch
 		textField.tap()
 		textField.typeText("-Müller")
 
@@ -131,7 +132,7 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		locationsTableView.cells.firstMatch.tap()
 
 		XCTAssertEqual(app.navigationBars.element(boundBy: 1).identifier, app.localized("ContactDiary_AddEditEntry_LocationTitle"))
-		let textField = app.tables.firstMatch.cells.textFields.firstMatch
+		let textField = app.textFields.firstMatch
 		textField.tap()
 		textField.typeText(" Innenstadt")
 
