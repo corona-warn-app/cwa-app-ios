@@ -512,17 +512,17 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionDispatch_QRCodeButtonDescription" = "Erhalten Sie Ihr Testergebnis in der App und warnen Sie andere.";
 
-"ExposureSubmissionDispatch_TANButtonTitle" = "TAN-Eingabe";
+"ExposureSubmissionDispatch_TANButtonTitle" = "TAN für PCR-Test eingeben";
 
-"ExposureSubmissionDispatch_TANButtonDescription" = "Ihnen liegt eine TAN vor? Weiter zur TAN-Eingabe, um andere zu warnen.";
+"ExposureSubmissionDispatch_TANButtonDescription" = "Ihnen liegt eine TAN für Ihren PCR-Test vor? Weiter zur TAN-Eingabe, um andere zu warnen.";
 
-"ExposureSubmissionDispatch_HotlineButtonTitle" = "Noch keine TAN?";
+"ExposureSubmissionDispatch_HotlineButtonTitle" = "TAN für PCR-Test anfragen";
 
-"ExposureSubmissionDispatch_HotlineButtonDescription" = "Rufen Sie uns an und erhalten Sie eine TAN.";
+"ExposureSubmissionDispatch_HotlineButtonDescription" = "Rufen Sie uns an und erhalten Sie eine TAN für Ihren PCR-Test.";
 
 /* Exposure Submission Hotline */
 
-"ExposureSubmissionHotline_Title" = "TAN anfragen";
+"ExposureSubmissionHotline_Title" = "TAN für PCR-Test anfragen";
 
 "ExposureSubmissionHotline_Description" = "Bitte halten Sie zur TAN-Abfrage Ihren Befundbrief (sofern vorhanden) und Ihre Telefonnummer bereit.";
 
@@ -545,7 +545,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_PhoneDetailDescription" = "Unser Kundenservice ist in den folgenden Sprachen für Sie da:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo-So: Täglich 24 Stunden\n\nFür gesundheitliche Fragen wenden Sie sich bitte an Ihre Hausarztpraxis oder die Hotline des ärztlichen Bereitschaftsdienstes 116 117.";
 
-"ExposureSubmission_SectionDescription2" = "Geben Sie die TAN in der App ein, um Ihren Test zu registrieren.";
+"ExposureSubmission_SectionDescription2" = "Geben Sie die TAN in der App ein, um Ihren PRC-Test zu registrieren.";
 
 "ExposureSubmission_CallButtonTitle" = "Anrufen";
 
@@ -2355,7 +2355,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Submission Check-in */
 
-"Submission_Checkins_Title" = "Check-ins für diese Orte teilen?";
+"Submission_Checkins_Title" = "Check-ins teilen?";
 
 "Submission_Checkins_Description" = "Teilen Sie Ihre Check-ins, um andere zu warnen, die in Ihrer Nähe waren. Ihre Identität bleibt geheim.";
 
