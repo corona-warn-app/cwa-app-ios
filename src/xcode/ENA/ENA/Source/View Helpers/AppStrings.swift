@@ -1498,6 +1498,7 @@ enum AppStrings {
 			static let emptyDescription = NSLocalizedString("Checkins_Overview_EmptyDescription", comment: "")
 			static let emptyImageDescription = NSLocalizedString("Checkins_Overview_EmptyImageDescription", comment: "")
 			static let deleteAllButtonTitle = NSLocalizedString("Checkins_Overview_DeleteAllButtonTitle", comment: "")
+			static let itemPrefix = NSLocalizedString("Checkins_Overview_Item_Prefix", comment: "")
 
 			static let durationTitle = NSLocalizedString("Checkins_Overview_DurationTitle", comment: "")
 			static let checkinTimeTemplate = NSLocalizedString("Checkins_Overview_CheckinTimeTemplate", comment: "")
@@ -1639,6 +1640,7 @@ enum AppStrings {
 			static let emptyDescription = NSLocalizedString("TraceLocations_Overview_EmptyDescription", comment: "")
 			static let emptyImageDescription = NSLocalizedString("TraceLocations_Overview_EmptyImageDescription", comment: "")
 			static let deleteAllButtonTitle = NSLocalizedString("TraceLocations_Overview_DeleteAllButtonTitle", comment: "")
+			static let itemPrefix = NSLocalizedString("TraceLocations_Overview_Item_Prefix", comment: "")
 
 			static let selfCheckinButtonTitle = NSLocalizedString("TraceLocations_Overview_SelfCheckinButtonTitle", comment: "")
 
@@ -1686,7 +1688,6 @@ enum AppStrings {
 			static let primaryButtonTitle = NSLocalizedString("TraceLocations_Configuration_PrimaryButtonTitle", comment: "")
 			static let hoursUnit = NSLocalizedString("TraceLocations_Configuration_HoursUnit", comment: "")
 			static let savingErrorMessage = NSLocalizedString("TraceLocations_Configuration_SavingErrorMessage", comment: "")
-			static let address = NSLocalizedString("TraceLocations_Configuration_Address", comment: "")
 		}
 	}
 
