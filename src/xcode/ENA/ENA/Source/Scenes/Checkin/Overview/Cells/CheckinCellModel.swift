@@ -45,6 +45,10 @@ class CheckinCellModel: EventCellModel {
 
 	var buttonTitle: String = AppStrings.Checkins.Overview.checkoutButtonTitle
 
+	var titlePrefix: String {
+		String(format: AppStrings.Checkins.Overview.itemPrefix, checkin.traceLocationDescription)
+	}
+
 	func update(with checkin: Checkin) {
 		guard checkin != self.checkin else {
 			return

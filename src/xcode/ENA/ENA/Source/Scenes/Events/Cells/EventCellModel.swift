@@ -18,7 +18,8 @@ protocol EventCellModel {
 
 	var title: String { get }
 	var address: String { get }
-
+	var titlePrefix: String { get }
+	
 	var buttonTitle: String { get }
 
 }

@@ -88,9 +88,10 @@ class EventTableViewCell: UITableViewCell {
 		durationStackView.isHidden = cellModel.isDurationStackViewHidden
 
 		titleLabel.text = cellModel.title
+		titleLabel.accessibilityLabel = cellModel.titlePrefix
+		titleLabel.accessibilityIdentifier = cellModel.titlePrefix
+		
 		addressLabel.text = cellModel.address
-		addressLabel.accessibilityLabel = String(format: AppStrings.TraceLocations.Configuration.address, cellModel.address)
-		addressLabel.accessibilityIdentifier = String(format: AppStrings.TraceLocations.Configuration.address, cellModel.address)
 
 		button.setTitle(cellModel.buttonTitle, for: .normal)
 		button.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Configuration.eventTableViewCellButton

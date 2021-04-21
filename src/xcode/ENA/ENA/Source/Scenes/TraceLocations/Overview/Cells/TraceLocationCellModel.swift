@@ -55,6 +55,10 @@ class TraceLocationCellModel: EventCellModel {
 	}
 
 	var buttonTitle: String = AppStrings.TraceLocations.Overview.selfCheckinButtonTitle
+	
+	var titlePrefix: String {
+		String(format: AppStrings.TraceLocations.Overview.itemPrefix, traceLocation.description)
+	}
 
 	// MARK: - Private
 
