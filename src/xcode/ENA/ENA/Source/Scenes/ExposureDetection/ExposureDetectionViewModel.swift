@@ -578,10 +578,7 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 
 		let p1: String
 		if homeState.shouldShowDaysSinceInstallation && risk.details.numberOfDaysWithRiskLevel == 0 {
-			p1 = String(
-				format: AppStrings.ExposureDetection.tracingParagraph1a,
-				homeState.daysSinceInstallation
-			)
+			p1 = String(format: AppStrings.ExposureDetection.tracingParagraph1a, homeState.daysSinceInstallation)
 		} else {
 			p1 = AppStrings.ExposureDetection.tracingParagraph1b
 		}
