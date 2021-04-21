@@ -88,13 +88,6 @@ struct AntigenTestInformation: Codable, Equatable {
 		}
 		return AntigenTestInformation.isoFormatter.string(from: dateOfBirth)
 	}
-	var hashOfTheHash: String {
-		guard let hashData = hash.data(using: .utf8) else {
-			Log.error("hash string couldn't be parsed to a data object", log: .qrCode)
-			return ""
-		}
-		return hashData.sha256String()
-	}
 		
 	// MARK: - Private
 
