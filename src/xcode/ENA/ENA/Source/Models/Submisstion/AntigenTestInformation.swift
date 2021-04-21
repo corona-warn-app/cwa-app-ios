@@ -41,7 +41,7 @@ struct AntigenTestInformation: Codable, Equatable {
 			jsonDecoder.dateDecodingStrategy = .custom({ decoder -> Date in
 				let container = try decoder.singleValueContainer()
 				let stringDate = try container.decode(String.self)
-				guard let date = AntigenTestInformation.isoFormatter.date(from: stringDate) else {
+				guard let date = ISO8601DateFormatter.justDate.date(from: stringDate) else {
 					throw DecodingError.dataCorruptedError(in: container, debugDescription: "failed to decode date \(stringDate)")
 				}
 				return date
@@ -86,7 +86,7 @@ struct AntigenTestInformation: Codable, Equatable {
 		guard let dateOfBirth = dateOfBirth else {
 			return nil
 		}
-		return AntigenTestInformation.isoFormatter.string(from: dateOfBirth)
+		return ISO8601DateFormatter.justDate.string(from: dateOfBirth)
 	}
 	var hashOfTheHash: String {
 		guard let hashData = hash.data(using: .utf8) else {
@@ -96,12 +96,4 @@ struct AntigenTestInformation: Codable, Equatable {
 		return hashData.sha256String()
 	}
 		
-	// MARK: - Private
-
-	static let isoFormatter: ISO8601DateFormatter = {
-		let isoFormatter = ISO8601DateFormatter()
-		isoFormatter.formatOptions = [.withFullDate]
-		isoFormatter.timeZone = TimeZone.current
-		return isoFormatter
-	}()
 }

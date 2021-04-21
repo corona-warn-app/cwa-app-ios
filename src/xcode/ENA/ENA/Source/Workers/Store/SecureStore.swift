@@ -432,6 +432,11 @@ extension SecureStore: CoronaTestStoringLegacy {
 		set { kvStore["isSubmissionConsentGiven"] = newValue }
 	}
 
+	var profile: RapidTestProfile? {
+		get { kvStore["rapidTestProfile"] as RapidTestProfile? }
+		set { kvStore["rapidTestProfile"] = newValue }
+	}
+
 }
 
 extension SecureStore {

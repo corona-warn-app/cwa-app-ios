@@ -181,6 +181,8 @@ protocol CoronaTestStoringLegacy {
 
 	var isSubmissionConsentGiven: Bool { get set }
 
+	var profile: RapidTestProfile? { get set }
+
 }
 
 /// Wrapper protocol
