@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class RapidTestProfileTests: XCTestCase {
+class AntigenTestProfileTests: XCTestCase {
 
 	let jsonEncoder = JSONEncoder()
 	let jsonDecoder = JSONDecoder()
@@ -20,8 +20,8 @@ class RapidTestProfileTests: XCTestCase {
 
 	func testGIVEN_RapidTestProfile_WHEN_SerializeToJson_THEN_FormateMatches() throws {
 		// GIVEN
-		let profile = RapidTestProfile(
-			forename: "Max",
+		let profile = AntigenTestProfile(
+			firstName: "Max",
 			lastName: "Mustermann",
 			dateOfBirth: Date(timeIntervalSince1970: 57801600),
 			addressLine: "Musterstrasse 1a",
@@ -44,10 +44,10 @@ class RapidTestProfileTests: XCTestCase {
 		let jsonData = try XCTUnwrap(jsonFullString.data(using: .utf8))
 
 		// WHEN
-		let rapidTestProfile = try XCTUnwrap(try? jsonDecoder.decode(RapidTestProfile.self, from: jsonData))
+		let rapidTestProfile = try XCTUnwrap(try? jsonDecoder.decode(AntigenTestProfile.self, from: jsonData))
 
 		// THEN
-		XCTAssertEqual(rapidTestProfile.forename, "Max")
+		XCTAssertEqual(rapidTestProfile.firstName, "Max")
 		XCTAssertEqual(rapidTestProfile.lastName, "Mustermann")
 		XCTAssertEqual(rapidTestProfile.dateOfBirth, Date(timeIntervalSince1970: 57801600))
 		XCTAssertEqual(rapidTestProfile.addressLine, "Musterstrasse 1a")
@@ -59,7 +59,7 @@ class RapidTestProfileTests: XCTestCase {
 
 	func testGIVEN_RapidTestProfileDateOnly_WHEN_SerializeToJson_THEN_FormateMatches() throws {
 		// GIVEN
-		let profile = RapidTestProfile(
+		let profile = AntigenTestProfile(
 			dateOfBirth: Date(timeIntervalSince1970: 57801600)
 		)
 
@@ -76,7 +76,7 @@ class RapidTestProfileTests: XCTestCase {
 		let jsonData = try XCTUnwrap(jsonDateOnlyString.data(using: .utf8))
 
 		// WHEN
-		let rapidTestProfile = try XCTUnwrap(try? jsonDecoder.decode(RapidTestProfile.self, from: jsonData))
+		let rapidTestProfile = try XCTUnwrap(try? jsonDecoder.decode(AntigenTestProfile.self, from: jsonData))
 
 		// THEN
 		XCTAssertEqual(rapidTestProfile.dateOfBirth, Date(timeIntervalSince1970: 57801600))

@@ -911,9 +911,9 @@
 		BAB6C81225C4652D00E042FB /* PPACTokenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB6C81125C4652D00E042FB /* PPACTokenTests.swift */; };
 		BAB6C82325C4666900E042FB /* PPACServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB6C82225C4666900E042FB /* PPACServiceTest.swift */; };
 		BAB953D625B86015007B80C7 /* HistoryExposure.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB953D525B86015007B80C7 /* HistoryExposure.swift */; };
-		BAB9FC5B2630557900EB4E76 /* RapidTestProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB9FC5A2630557900EB4E76 /* RapidTestProfile.swift */; };
+		BAB9FC5B2630557900EB4E76 /* AntigenTestProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB9FC5A2630557900EB4E76 /* AntigenTestProfile.swift */; };
 		BAB9FC6A26305C3100EB4E76 /* ISO8601DateFormatter+extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB9FC6926305C3100EB4E76 /* ISO8601DateFormatter+extentions.swift */; };
-		BAB9FC6F26305F8000EB4E76 /* RapidTestProfileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB9FC6E26305F8000EB4E76 /* RapidTestProfileTests.swift */; };
+		BAB9FC6F26305F8000EB4E76 /* AntigenTestProfileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB9FC6E26305F8000EB4E76 /* AntigenTestProfileTests.swift */; };
 		BAC0A4DE25768039002B5361 /* TanInputViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC0A4DD25768039002B5361 /* TanInputViewModelTests.swift */; };
 		BAC42DC42583AF9D001A94C0 /* ENATextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC42DC32583AF9D001A94C0 /* ENATextField.swift */; };
 		BAC7291226037BB6006D83C7 /* MissingPermissionsCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC7291126037BB6006D83C7 /* MissingPermissionsCellModelTests.swift */; };
@@ -2004,9 +2004,9 @@
 		BAB6C81125C4652D00E042FB /* PPACTokenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPACTokenTests.swift; sourceTree = "<group>"; };
 		BAB6C82225C4666900E042FB /* PPACServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPACServiceTest.swift; sourceTree = "<group>"; };
 		BAB953D525B86015007B80C7 /* HistoryExposure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryExposure.swift; sourceTree = "<group>"; };
-		BAB9FC5A2630557900EB4E76 /* RapidTestProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RapidTestProfile.swift; sourceTree = "<group>"; };
+		BAB9FC5A2630557900EB4E76 /* AntigenTestProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntigenTestProfile.swift; sourceTree = "<group>"; };
 		BAB9FC6926305C3100EB4E76 /* ISO8601DateFormatter+extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ISO8601DateFormatter+extentions.swift"; sourceTree = "<group>"; };
-		BAB9FC6E26305F8000EB4E76 /* RapidTestProfileTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RapidTestProfileTests.swift; sourceTree = "<group>"; };
+		BAB9FC6E26305F8000EB4E76 /* AntigenTestProfileTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntigenTestProfileTests.swift; sourceTree = "<group>"; };
 		BAC0A4DD25768039002B5361 /* TanInputViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanInputViewModelTests.swift; sourceTree = "<group>"; };
 		BAC42DC32583AF9D001A94C0 /* ENATextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENATextField.swift; sourceTree = "<group>"; };
 		BAC7291126037BB6006D83C7 /* MissingPermissionsCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissingPermissionsCellModelTests.swift; sourceTree = "<group>"; };
@@ -5683,7 +5683,7 @@
 			isa = PBXGroup;
 			children = (
 				BAB9FC6526305B2D00EB4E76 /* __tests__ */,
-				BAB9FC5A2630557900EB4E76 /* RapidTestProfile.swift */,
+				BAB9FC5A2630557900EB4E76 /* AntigenTestProfile.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -5691,7 +5691,7 @@
 		BAB9FC6526305B2D00EB4E76 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
-				BAB9FC6E26305F8000EB4E76 /* RapidTestProfileTests.swift */,
+				BAB9FC6E26305F8000EB4E76 /* AntigenTestProfileTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -6899,7 +6899,7 @@
 				EB3B349E262B10B900B1801E /* ExposureSubmissionCheckinDescriptionCellModel.swift in Sources */,
 				EB7F8E9524E434E000A3CCC4 /* BackgroundAppRefreshViewController.swift in Sources */,
 				BA94BBC2260DFD42005CF38F /* CheckInTopCornerCell.swift in Sources */,
-				BAB9FC5B2630557900EB4E76 /* RapidTestProfile.swift in Sources */,
+				BAB9FC5B2630557900EB4E76 /* AntigenTestProfile.swift in Sources */,
 				EB7D205624E6A5930089264C /* InfoBoxViewModel.swift in Sources */,
 				859DD512248549790073D59F /* MockDiagnosisKeysRetrieval.swift in Sources */,
 				EB6B5D8D2539B36100B0ED57 /* DMNotificationCell.swift in Sources */,
@@ -7241,7 +7241,7 @@
 				01A97DD12506768F00C07C37 /* DatePickerOptionViewModelTests.swift in Sources */,
 				0177F4B125503805009DD568 /* ScanInstanceTest.swift in Sources */,
 				0109DB8726036E4400624BB3 /* CheckinsOverviewViewModelTest.swift in Sources */,
-				BAB9FC6F26305F8000EB4E76 /* RapidTestProfileTests.swift in Sources */,
+				BAB9FC6F26305F8000EB4E76 /* AntigenTestProfileTests.swift in Sources */,
 				BADBC85625D6C1C500488DB7 /* BaseDataDonationViewModelTests.swift in Sources */,
 				5006C283260E4ABA00533CAA /* Checkin+Mock.swift in Sources */,
 				35AA4AF4259B40FC00D32306 /* CryptoFallbackTests.swift in Sources */,
