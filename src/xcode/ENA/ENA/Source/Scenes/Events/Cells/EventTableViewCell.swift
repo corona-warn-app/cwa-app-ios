@@ -88,8 +88,7 @@ class EventTableViewCell: UITableViewCell {
 		durationStackView.isHidden = cellModel.isDurationStackViewHidden
 
 		titleLabel.text = cellModel.title
-		titleLabel.accessibilityLabel = cellModel.titlePrefix
-		titleLabel.accessibilityIdentifier = cellModel.titlePrefix
+		titleLabel.accessibilityLabel = cellModel.titleAccessiblityLabel
 		
 		addressLabel.text = cellModel.address
 

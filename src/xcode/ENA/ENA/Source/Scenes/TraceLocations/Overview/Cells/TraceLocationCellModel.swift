@@ -56,7 +56,7 @@ class TraceLocationCellModel: EventCellModel {
 
 	var buttonTitle: String = AppStrings.TraceLocations.Overview.selfCheckinButtonTitle
 	
-	var titlePrefix: String {
+	var titleAccessiblityLabel: String {
 		String(format: AppStrings.TraceLocations.Overview.itemPrefix, traceLocation.description)
 	}
 

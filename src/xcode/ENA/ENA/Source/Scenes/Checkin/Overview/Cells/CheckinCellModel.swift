@@ -45,7 +45,7 @@ class CheckinCellModel: EventCellModel {
 
 	var buttonTitle: String = AppStrings.Checkins.Overview.checkoutButtonTitle
 
-	var titlePrefix: String {
+	var titleAccessiblityLabel: String {
 		String(format: AppStrings.Checkins.Overview.itemPrefix, checkin.traceLocationDescription)
 	}
 
