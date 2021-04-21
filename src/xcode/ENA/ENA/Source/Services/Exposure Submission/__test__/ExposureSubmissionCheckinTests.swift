@@ -7,6 +7,34 @@ import XCTest
 
 class ExposureSubmissionCheckinTests: XCTestCase {
 
+	func testCheckinTransmissionPreparationFiltersSubmittedCheckins() throws {
+		let service = MockExposureSubmissionService()
+		let appConfig = CachedAppConfigurationMock.defaultAppConfiguration
+
+		let startDate = Date()
+		let endDate = Date(timeIntervalSinceNow: 15 * 60)
+
+		let checkins = [
+			Checkin.mock(traceLocationId: try XCTUnwrap("0".data(using: .utf8)), checkinStartDate: startDate, checkinEndDate: endDate, checkinSubmitted: true),
+			Checkin.mock(traceLocationId: try XCTUnwrap("1".data(using: .utf8)), checkinStartDate: startDate, checkinEndDate: endDate, checkinSubmitted: true),
+			Checkin.mock(traceLocationId: try XCTUnwrap("2".data(using: .utf8)), checkinStartDate: startDate, checkinEndDate: endDate, checkinSubmitted: false),
+			Checkin.mock(traceLocationId: try XCTUnwrap("3".data(using: .utf8)), checkinStartDate: startDate, checkinEndDate: endDate, checkinSubmitted: false),
+			Checkin.mock(traceLocationId: try XCTUnwrap("4".data(using: .utf8)), checkinStartDate: startDate, checkinEndDate: endDate, checkinSubmitted: true)
+		]
+
+		// process checkins
+		let preparedCheckins = service.preparedCheckinsForSubmission(
+			checkins: checkins,
+			appConfig: appConfig,
+			symptomOnset: .daysSinceOnset(0)
+		)
+
+		XCTAssertEqual(preparedCheckins.count, 2)
+
+		XCTAssertEqual(preparedCheckins[0].locationID, try XCTUnwrap("2".data(using: .utf8)))
+		XCTAssertEqual(preparedCheckins[1].locationID, try XCTUnwrap("3".data(using: .utf8)))
+	}
+
     func testCheckinTransmissionPreparation() throws {
         let service = MockExposureSubmissionService()
 		let appConfig = CachedAppConfigurationMock.defaultAppConfiguration
