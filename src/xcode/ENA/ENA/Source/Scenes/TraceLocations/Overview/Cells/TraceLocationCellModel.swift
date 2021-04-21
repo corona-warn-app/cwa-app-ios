@@ -33,6 +33,7 @@ class TraceLocationCellModel: EventCellModel {
 			.store(in: &subscriptions)
 
 		timePublisher.value = timeString
+		titleAccessiblityLabelPublisher.value = String(format: AppStrings.TraceLocations.Overview.itemPrefix, traceLocation.description)
 	}
 
 	// MARK: - Internal
@@ -42,6 +43,7 @@ class TraceLocationCellModel: EventCellModel {
 	var isButtonHiddenPublisher = CurrentValueSubject<Bool, Never>(true)
 	var durationPublisher = CurrentValueSubject<String?, Never>(nil)
 	var timePublisher = CurrentValueSubject<String?, Never>(nil)
+	var titleAccessiblityLabelPublisher = CurrentValueSubject<String?, Never>(nil)
 
 	var isActiveIconHidden: Bool = false
 	var isDurationStackViewHidden: Bool = true
@@ -55,10 +57,6 @@ class TraceLocationCellModel: EventCellModel {
 	}
 
 	var buttonTitle: String = AppStrings.TraceLocations.Overview.selfCheckinButtonTitle
-	
-	var titleAccessiblityLabel: String {
-		String(format: AppStrings.TraceLocations.Overview.itemPrefix, traceLocation.description)
-	}
 
 	// MARK: - Private
 

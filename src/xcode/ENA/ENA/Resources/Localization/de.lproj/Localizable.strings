@@ -2120,7 +2120,9 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "Checkins_Overview_QRScanner_Instruction" = "QR-Code scannen und einchecken";
 
-"Checkins_Overview_Item_Prefix" = "Check-in für %@.";
+"Checkins_Overview_Item_Prefix_CheckIn" = "Check-in %@.";
+
+"Checkins_Overview_Item_Prefix_CheckedOut" = "Checked-Out %@.";
 
 "Checkin_QR_Scanner_Checkin_Error_Title" = "Ungültiger QR-Code";
 

@@ -88,7 +88,11 @@ class EventTableViewCell: UITableViewCell {
 		durationStackView.isHidden = cellModel.isDurationStackViewHidden
 
 		titleLabel.text = cellModel.title
-		titleLabel.accessibilityLabel = cellModel.titleAccessiblityLabel
+		titleLabel.accessibilityLabel = cellModel.titleAccessiblityLabelPublisher.value
+		cellModel.titleAccessiblityLabelPublisher
+			.receive(on: DispatchQueue.main.ocombine)
+			.assign(to: \.accessibilityLabel, on: titleLabel)
+			.store(in: &subscriptions)
 		
 		addressLabel.text = cellModel.address
 

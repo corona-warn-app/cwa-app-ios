@@ -10,6 +10,7 @@ protocol EventCellModel {
 	var isInactiveIconHiddenPublisher: OpenCombine.CurrentValueSubject<Bool, Never> { get }
 	var isActiveContainerViewHiddenPublisher: OpenCombine.CurrentValueSubject<Bool, Never> { get }
 	var isButtonHiddenPublisher: OpenCombine.CurrentValueSubject<Bool, Never> { get }
+	var titleAccessiblityLabelPublisher: OpenCombine.CurrentValueSubject<String?, Never> { get }
 	var durationPublisher: OpenCombine.CurrentValueSubject<String?, Never> { get }
 	var timePublisher: OpenCombine.CurrentValueSubject<String?, Never> { get }
 
@@ -18,7 +19,6 @@ protocol EventCellModel {
 
 	var title: String { get }
 	var address: String { get }
-	var titleAccessiblityLabel: String { get }
 	
 	var buttonTitle: String { get }
 

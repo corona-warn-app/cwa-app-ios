@@ -29,6 +29,7 @@ class CheckinCellModel: EventCellModel {
 	var isInactiveIconHiddenPublisher = CurrentValueSubject<Bool, Never>(true)
 	var isActiveContainerViewHiddenPublisher = CurrentValueSubject<Bool, Never>(true)
 	var isButtonHiddenPublisher = CurrentValueSubject<Bool, Never>(true)
+	var titleAccessiblityLabelPublisher = CurrentValueSubject<String?, Never>(nil)
 	var durationPublisher = CurrentValueSubject<String?, Never>(nil)
 	var timePublisher = CurrentValueSubject<String?, Never>(nil)
 
@@ -44,10 +45,6 @@ class CheckinCellModel: EventCellModel {
 	}
 
 	var buttonTitle: String = AppStrings.Checkins.Overview.checkoutButtonTitle
-
-	var titleAccessiblityLabel: String {
-		String(format: AppStrings.Checkins.Overview.itemPrefix, checkin.traceLocationDescription)
-	}
 
 	func update(with checkin: Checkin) {
 		guard checkin != self.checkin else {
@@ -84,6 +81,7 @@ class CheckinCellModel: EventCellModel {
 			dateFormatter.timeStyle = .short
 
 			timePublisher.value = dateFormatter.string(from: checkin.checkinStartDate, to: checkin.checkinEndDate)
+			titleAccessiblityLabelPublisher.value = String(format: AppStrings.Checkins.Overview.itemPrefixCheckedOut, checkin.traceLocationDescription)
 		} else {
 			let formattedCheckinTime = DateFormatter.localizedString(from: checkin.checkinStartDate, dateStyle: .short, timeStyle: .short)
 
@@ -96,6 +94,7 @@ class CheckinCellModel: EventCellModel {
 			} else {
 				timePublisher.value = formattedCheckinTime
 			}
+			titleAccessiblityLabelPublisher.value = String(format: AppStrings.Checkins.Overview.itemPrefixCheckIn, checkin.traceLocationDescription)
 		}
 
 		let duration = Date().timeIntervalSince(checkin.checkinStartDate)
