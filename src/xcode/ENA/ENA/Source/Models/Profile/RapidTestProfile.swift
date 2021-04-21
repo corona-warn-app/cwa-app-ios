@@ -9,14 +9,14 @@ struct RapidTestProfile: Codable {
 	// MARK: - Init
 
 	init(
-		forename: String?,
-		lastName: String?,
-		dateOfBirth: Date?,
-		addressLine: String?,
-		zipCode: String?,
-		city: String?,
-		phoneNumber: String?,
-		email: String?
+		forename: String? = nil,
+		lastName: String? = nil,
+		dateOfBirth: Date? = nil,
+		addressLine: String? = nil,
+		zipCode: String? = nil,
+		city: String? = nil,
+		phoneNumber: String? = nil,
+		email: String? = nil
 	) {
 		self.forename = forename
 		self.lastName = lastName
@@ -32,16 +32,15 @@ struct RapidTestProfile: Codable {
 
 	func encode(to encoder: Encoder) throws {
 		var container = encoder.container(keyedBy: CodingKeys.self)
-		try container.encode(forename, forKey: .forename)
-		try container.encode(lastName, forKey: .lastName)
+		try container.encodeIfPresent(lastName, forKey: .lastName)
 		if let dateOfBirth = dateOfBirth {
-			try container.encode(ISO8601DateFormatter.justDate.string(from: dateOfBirth), forKey: .dateOfBirth)
+			try? container.encodeIfPresent(ISO8601DateFormatter.justDate.string(from: dateOfBirth), forKey: .dateOfBirth)
 		}
-		try container.encode(addressLine, forKey: .addressLine)
-		try container.encode(zipCode, forKey: .zipCode)
-		try container.encode(city, forKey: .city)
-		try container.encode(phoneNumber, forKey: .phoneNumber)
-		try container.encode(email, forKey: .email)
+		try container.encodeIfPresent(addressLine, forKey: .addressLine)
+		try container.encodeIfPresent(zipCode, forKey: .zipCode)
+		try container.encodeIfPresent(city, forKey: .city)
+		try container.encodeIfPresent(phoneNumber, forKey: .phoneNumber)
+		try container.encodeIfPresent(email, forKey: .email)
 	}
 
 	init(from decoder: Decoder) throws {
