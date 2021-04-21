@@ -20,6 +20,7 @@ extension ExposureSubmissionService {
 		let transmissionRiskValueMapping = appConfig.presenceTracingParameters.riskCalculationParameters.transmissionRiskValueMapping
 
 		let preparedCheckins = checkins
+			.filter { !$0.checkinSubmitted }
 			.compactMap {
 				$0.derivingWarningTimeInterval(config: PresenceTracingSubmissionConfiguration(from: appConfig.presenceTracingParameters.submissionParameters))
 			}
