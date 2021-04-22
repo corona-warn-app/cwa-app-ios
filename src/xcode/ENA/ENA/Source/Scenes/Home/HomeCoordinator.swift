@@ -5,9 +5,9 @@
 import UIKit
 
 class HomeCoordinator: RequiresAppDependencies {
-	
+
 	// MARK: - Init
-	
+
 	init(
 		_ delegate: CoordinatorDelegate,
 		otpService: OTPServiceProviding,
@@ -25,17 +25,17 @@ class HomeCoordinator: RequiresAppDependencies {
 	deinit {
 		enStateUpdateList.removeAllObjects()
 	}
-	
+
 	// MARK: - Overrides
-	
+
 	// MARK: - Protocol <#Name#>
-	
+
 	// MARK: - Public
-	
+
 	// MARK: - Internal
-	
+
 	let rootViewController: UINavigationController = AppNavigationController(rootViewController: UIViewController())
-	
+
 	func showHome(enStateHandler: ENStateHandler, route: Route?) {
 		guard homeController == nil else {
 			guard case .rapidAntigen = route else {
@@ -53,15 +53,17 @@ class HomeCoordinator: RequiresAppDependencies {
 			riskProvider: riskProvider,
 			exposureManagerState: exposureManager.exposureManagerState,
 			enState: enStateHandler.state,
-			coronaTestService: coronaTestService,
-			exposureSubmissionService: exposureSubmissionService,
 			statisticsProvider: statisticsProvider
 		)
 
 		let homeController = HomeTableViewController(
 			viewModel: HomeTableViewModel(
 				state: homeState,
-				store: store
+				store: store,
+				coronaTestService: coronaTestService,
+				onTestResultCellTap: { [weak self] coronaTestType in
+					self?.showExposureSubmission(testType: coronaTestType)
+				}
 			),
 			appConfigurationProvider: appConfigurationProvider,
 			route: route,
@@ -77,9 +79,8 @@ class HomeCoordinator: RequiresAppDependencies {
 			onInactiveCellButtonTap: { [weak self] enState in
 				self?.showExposureNotificationSetting(enState: enState)
 			},
-			onTestResultCellTap: { [weak self] _ in
-				// Todo: onTestResultCellTap should pass the type to showExposureSubmission
-				self?.showExposureSubmission(testType: .pcr)
+			onTestRegistrationCellTap: { [weak self] in
+				self?.showExposureSubmission()
 			},
 			onStatisticsInfoButtonTap: { [weak self] in
 				self?.showStatisticsInfo()
@@ -101,7 +102,7 @@ class HomeCoordinator: RequiresAppDependencies {
 				self?.showSettings(enState: enState)
 			},
 			showTestInformationResult: { [weak self] testInformationResult in
-				self?.showExposureSubmission(testInformationResult: testInformationResult)
+			   self?.showExposureSubmission(testInformationResult: testInformationResult)
 			}
 		)
 
@@ -116,7 +117,7 @@ class HomeCoordinator: RequiresAppDependencies {
 			#endif
 		})
 	}
-	
+
 	func showTestResultFromNotification(with testType: CoronaTestType) {
 		if let presentedViewController = rootViewController.presentedViewController {
 			presentedViewController.dismiss(animated: true) {
@@ -126,28 +127,15 @@ class HomeCoordinator: RequiresAppDependencies {
 			self.showExposureSubmission(testType: testType)
 		}
 	}
-	
+
 	func updateDetectionMode(
 		_ detectionMode: DetectionMode
 	) {
 		homeState?.updateDetectionMode(detectionMode)
 	}
 
-	func showStatisticsInfo() {
-		let statisticsInfoController = StatisticsInfoViewController(
-			onDismiss: { [weak rootViewController] in
-				rootViewController?.dismiss(animated: true)
-			}
-		)
-
-		rootViewController.present(
-			UINavigationController(rootViewController: statisticsInfoController),
-			animated: true
-		)
-	}
-	
 	// MARK: - Private
-	
+
 	private let ppacService: PrivacyPreservingAccessControl
 	private let otpService: OTPServiceProviding
 	private let eventStore: EventStoringProviding
@@ -160,9 +148,9 @@ class HomeCoordinator: RequiresAppDependencies {
 	private var settingsCoordinator: SettingsCoordinator?
 	private var exposureDetectionCoordinator: ExposureDetectionCoordinator?
 	private var enStateUpdateList = NSHashTable<AnyObject>.weakObjects()
-	
+
 	private weak var delegate: CoordinatorDelegate?
-		
+
 	private lazy var exposureSubmissionService: ExposureSubmissionService = {
 		#if DEBUG
 		if isUITesting {
@@ -188,28 +176,28 @@ class HomeCoordinator: RequiresAppDependencies {
 	}()
 
 	private lazy var statisticsProvider: StatisticsProvider = {
-		#if DEBUG
-		let useMockDataForStatistics = UserDefaults.standard.string(forKey: "useMockDataForStatistics")
-		if isUITesting, useMockDataForStatistics != "NO" {
+			#if DEBUG
+			let useMockDataForStatistics = UserDefaults.standard.string(forKey: "useMockDataForStatistics")
+			if isUITesting, useMockDataForStatistics != "NO" {
+				return StatisticsProvider(
+					client: CachingHTTPClientMock(),
+					store: store
+				)
+			}
+			#endif
+
 			return StatisticsProvider(
-				client: CachingHTTPClientMock(store: store),
+				client: CachingHTTPClient(),
 				store: store
 			)
-		}
-		#endif
-
-		return StatisticsProvider(
-			client: CachingHTTPClient(serverEnvironmentProvider: store),
-			store: store
-		)
-	}()
-	
-	private lazy var qrCodePosterTemplateProvider: QRCodePosterTemplateProvider = {
-		return QRCodePosterTemplateProvider(
-			client: CachingHTTPClient(serverEnvironmentProvider: store),
-			store: store
-		)
-	}()
+		}()
+		
+		private lazy var qrCodePosterTemplateProvider: QRCodePosterTemplateProvider = {
+			return QRCodePosterTemplateProvider(
+				client: CachingHTTPClient(),
+				store: store
+			)
+		}()
 
 	private func selectHomeTabSection(route: Route?) {
 		DispatchQueue.main.async { [weak self] in
@@ -224,7 +212,7 @@ class HomeCoordinator: RequiresAppDependencies {
 			self?.homeController?.showDeltaOnboardingAndAlertsIfNeeded()
 		}
 	}
-	
+
 	private func setExposureManagerEnabled(_ enabled: Bool, then completion: @escaping (ExposureNotificationError?) -> Void) {
 		if enabled {
 			exposureManager.enable(completion: completion)
@@ -284,15 +272,27 @@ class HomeCoordinator: RequiresAppDependencies {
 			parentNavigationController: rootViewController,
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: coronaTestService,
-			store: self.store,
-			eventProvider: eventStore,
-			delegate: self
+			eventProvider: eventStore
 		)
+
 		if let testInformationResult = testInformationResult {
 			coordinator.start(with: testInformationResult)
 		} else {
 			coordinator.start(with: testType)
 		}
+	}
+
+	private func showStatisticsInfo() {
+		let statisticsInfoController = StatisticsInfoViewController(
+			onDismiss: { [weak rootViewController] in
+				rootViewController?.dismiss(animated: true)
+			}
+		)
+
+		rootViewController.present(
+			UINavigationController(rootViewController: statisticsInfoController),
+			animated: true
+		)
 	}
 
 	private func showTraceLocations() {
@@ -355,7 +355,7 @@ class HomeCoordinator: RequiresAppDependencies {
 			enStateUpdateList.add(anyObject)
 		}
 	}
-	
+
 	#if !RELEASE
 	private var developerMenu: DMDeveloperMenu?
 	private func enableDeveloperMenuIfAllowed(in controller: UIViewController) {
@@ -367,7 +367,7 @@ class HomeCoordinator: RequiresAppDependencies {
 			exposureManager: exposureManager,
 			developerStore: UserDefaults.standard,
 			exposureSubmissionService: exposureSubmissionService,
-			serverEnvironment: serverEnvironment,
+			environmentProvider: Environments(),
 			otpService: otpService,
 			coronaTestService: coronaTestService,
 			eventStore: eventStore,
@@ -377,13 +377,6 @@ class HomeCoordinator: RequiresAppDependencies {
 		developerMenu?.enableIfAllowed()
 	}
 	#endif
-}
-
-extension HomeCoordinator: ExposureSubmissionCoordinatorDelegate {
-	func exposureSubmissionCoordinatorWillDisappear(_ coordinator: ExposureSubmissionCoordinator) {
-		homeController?.reload()
-		homeState?.updateTestResult()
-	}
 }
 
 extension HomeCoordinator: ExposureStateUpdating {

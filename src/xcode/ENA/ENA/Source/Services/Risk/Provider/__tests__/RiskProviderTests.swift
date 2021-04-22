@@ -47,7 +47,11 @@ final class RiskProviderTests: XCTestCase {
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			traceWarningPackageDownload: traceWarningPackageDownload,
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
-			coronaTestService: CoronaTestService(client: client, store: store)
+			coronaTestService: CoronaTestService(
+				client: client,
+				store: store,
+				appConfiguration: CachedAppConfigurationMock()
+			)
 		)
 		
 		let consumer = RiskConsumer()
@@ -122,7 +126,11 @@ final class RiskProviderTests: XCTestCase {
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			traceWarningPackageDownload: traceWarningPackageDownload,
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
-			coronaTestService: CoronaTestService(client: client, store: store)
+			coronaTestService: CoronaTestService(
+				client: client,
+				store: store,
+				appConfiguration: CachedAppConfigurationMock()
+			)
 		)
 		
 		let consumer = RiskConsumer()
@@ -197,7 +205,11 @@ final class RiskProviderTests: XCTestCase {
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			traceWarningPackageDownload: traceWarningPackageDownload,
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
-			coronaTestService: CoronaTestService(client: client, store: store)
+			coronaTestService: CoronaTestService(
+				client: client,
+				store: store,
+				appConfiguration: CachedAppConfigurationMock()
+			)
 		)
 		
 		let consumer = RiskConsumer()
@@ -260,7 +272,11 @@ final class RiskProviderTests: XCTestCase {
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
-			coronaTestService: CoronaTestService(client: ClientMock(), store: store)
+			coronaTestService: CoronaTestService(
+				client: ClientMock(),
+				store: store,
+				appConfiguration: CachedAppConfigurationMock()
+			)
 		)
 
 		let didCalculateRiskCalled = expectation(description: "expect didCalculateRisk to be called once")
@@ -310,7 +326,11 @@ final class RiskProviderTests: XCTestCase {
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: cachedAppConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
-			coronaTestService: CoronaTestService(client: ClientMock(), store: store)
+			coronaTestService: CoronaTestService(
+				client: ClientMock(),
+				store: store,
+				appConfiguration: CachedAppConfigurationMock()
+			)
 		)
 
 		let didCalculateRiskCalled = expectation(description: "expect didCalculateRisk to be called")
@@ -387,7 +407,11 @@ final class RiskProviderTests: XCTestCase {
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: cachedAppConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
-			coronaTestService: CoronaTestService(client: ClientMock(), store: store)
+			coronaTestService: CoronaTestService(
+				client: ClientMock(),
+				store: store,
+				appConfiguration: CachedAppConfigurationMock()
+			)
 		)
 
 		let requestRiskExpectation = expectation(description: "")
@@ -430,7 +454,11 @@ final class RiskProviderTests: XCTestCase {
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
-			coronaTestService: CoronaTestService(client: ClientMock(), store: store)
+			coronaTestService: CoronaTestService(
+				client: ClientMock(),
+				store: store,
+				appConfiguration: CachedAppConfigurationMock()
+			)
 		)
 
 		let consumer = RiskConsumer()
@@ -485,7 +513,11 @@ final class RiskProviderTests: XCTestCase {
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
-			coronaTestService: CoronaTestService(client: ClientMock(), store: store)
+			coronaTestService: CoronaTestService(
+				client: ClientMock(),
+				store: store,
+				appConfiguration: CachedAppConfigurationMock()
+			)
 		)
 
 		let consumer = RiskConsumer()
@@ -540,7 +572,11 @@ final class RiskProviderTests: XCTestCase {
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
-			coronaTestService: CoronaTestService(client: ClientMock(), store: store)
+			coronaTestService: CoronaTestService(
+				client: ClientMock(),
+				store: store,
+				appConfiguration: CachedAppConfigurationMock()
+			)
 		)
 
 		let consumer = RiskConsumer()
@@ -595,7 +631,11 @@ final class RiskProviderTests: XCTestCase {
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
-			coronaTestService: CoronaTestService(client: ClientMock(), store: store)
+			coronaTestService: CoronaTestService(
+				client: ClientMock(),
+				store: store,
+				appConfiguration: CachedAppConfigurationMock()
+			)
 		)
 
 		let consumer = RiskConsumer()
@@ -863,7 +903,11 @@ final class RiskProviderTests: XCTestCase {
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
-			coronaTestService: CoronaTestService(client: ClientMock(), store: store)
+			coronaTestService: CoronaTestService(
+				client: ClientMock(),
+				store: store,
+				appConfiguration: CachedAppConfigurationMock()
+			)
 		)
 
 	}
@@ -952,7 +996,11 @@ final class RiskProviderTests: XCTestCase {
 			keyPackageDownload: keyPackageDownload,
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfigurationProvider),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
-			coronaTestService: CoronaTestService(client: ClientMock(), store: store)
+			coronaTestService: CoronaTestService(
+				client: ClientMock(),
+				store: store,
+				appConfiguration: CachedAppConfigurationMock()
+			)
 		)
 	}
 
@@ -1028,7 +1076,11 @@ final class RiskProviderTests: XCTestCase {
 			keyPackageDownload: keyPackageDownload,
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: cachedAppConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
-			coronaTestService: CoronaTestService(client: ClientMock(), store: store)
+			coronaTestService: CoronaTestService(
+				client: ClientMock(),
+				store: store,
+				appConfiguration: CachedAppConfigurationMock()
+			)
 		)
 
 		let requestRiskExpectation = expectation(description: "")
@@ -1114,7 +1166,11 @@ final class RiskProviderTests: XCTestCase {
 			keyPackageDownload: keyPackageDownload,
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: cachedAppConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
-			coronaTestService: CoronaTestService(client: ClientMock(), store: store)
+			coronaTestService: CoronaTestService(
+				client: ClientMock(),
+				store: store,
+				appConfiguration: CachedAppConfigurationMock()
+			)
 		)
 
 		let requestRiskExpectation = expectation(description: "")
@@ -1202,7 +1258,11 @@ final class RiskProviderTests: XCTestCase {
 			keyPackageDownload: keyPackageDownload,
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: cachedAppConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
-			coronaTestService: CoronaTestService(client: ClientMock(), store: store)
+			coronaTestService: CoronaTestService(
+				client: ClientMock(),
+				store: store,
+				appConfiguration: CachedAppConfigurationMock()
+			)
 		)
 
 		let requestRiskExpectation = expectation(description: "")
@@ -1288,7 +1348,11 @@ final class RiskProviderTests: XCTestCase {
 			keyPackageDownload: keyPackageDownload,
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: cachedAppConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
-			coronaTestService: CoronaTestService(client: ClientMock(), store: store)
+			coronaTestService: CoronaTestService(
+				client: ClientMock(),
+				store: store,
+				appConfiguration: CachedAppConfigurationMock()
+			)
 		)
 
 		let requestRiskExpectation = expectation(description: "")

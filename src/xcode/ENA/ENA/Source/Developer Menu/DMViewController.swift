@@ -96,7 +96,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		case .appConfiguration:
 			vc = DMAppConfigurationViewController(appConfiguration: appConfigurationProvider)
 		case .backendConfiguration:
-			vc = makeBackendConfigurationViewController()
+			vc = DMBackendConfigurationViewController()
 		case .store:
 			vc = DMStoreViewController(store: store)
 		case .lastSubmissionRequest:
@@ -183,12 +183,6 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		}
 	}
 
-	private func makeBackendConfigurationViewController() -> DMBackendConfigurationViewController {
-		return DMBackendConfigurationViewController(
-			serverEnvironmentProvider: store
-		)
-	}
-
 	private func manuallyRequestRisk() {
 		let alert = UIAlertController(
 			title: "Manually request risk?",
@@ -224,8 +218,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
     private func makeServerEnvironmentViewController() -> DMServerEnvironmentViewController {
 		return DMServerEnvironmentViewController(
 			store: store,
-			downloadedPackagesStore: downloadedPackagesStore,
-			serverEnvironment: serverEnvironment
+			downloadedPackagesStore: downloadedPackagesStore
 		)
 	}
 }

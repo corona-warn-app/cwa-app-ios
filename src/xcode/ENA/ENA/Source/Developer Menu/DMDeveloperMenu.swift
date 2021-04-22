@@ -37,7 +37,7 @@ final class DMDeveloperMenu {
 		exposureManager: ExposureManager,
 		developerStore: DMStore,
 		exposureSubmissionService: ExposureSubmissionService,
-		serverEnvironment: ServerEnvironment,
+		environmentProvider: EnvironmentProviding,
 		otpService: OTPServiceProviding,
 		coronaTestService: CoronaTestService,
 		eventStore: EventStoringProviding,
@@ -51,14 +51,14 @@ final class DMDeveloperMenu {
 		self.exposureManager = exposureManager
 		self.developerStore = developerStore
 		self.exposureSubmissionService = exposureSubmissionService
-		self.serverEnvironment = serverEnvironment
+		self.environmentProvider = environmentProvider
 		self.otpService = otpService
 		self.coronaTestService = coronaTestService
 		self.eventStore = eventStore
 		self.qrCodePosterTemplateProvider = qrCodePosterTemplateProvider
 		self.ppacService = ppacService
 	}
-	
+
 	// MARK: - Internal
 	
 	/// Enables the developer menu if it is currently allowed to do so.
@@ -119,7 +119,7 @@ final class DMDeveloperMenu {
 	private let exposureManager: ExposureManager
 	private let exposureSubmissionService: ExposureSubmissionService
 	private let developerStore: DMStore
-	private let serverEnvironment: ServerEnvironment
+	private let environmentProvider: EnvironmentProviding
 	private let otpService: OTPServiceProviding
 	private let coronaTestService: CoronaTestService
 	private let qrCodePosterTemplateProvider: QRCodePosterTemplateProviding

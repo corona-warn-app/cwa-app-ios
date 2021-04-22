@@ -140,20 +140,27 @@ class RootCoordinator: RequiresAppDependencies {
 		
 		navigationVC.setViewControllers([onboardingVC], animated: false)
 		
+		tabBarController.clearChildViewController()
+		tabBarController.setViewControllers([], animated: false)
+		
+		homeCoordinator = nil
+		diaryCoordinator = nil
+		checkInCoordinator = nil
+		
 		viewController.clearChildViewController()
 		viewController.embedViewController(childViewController: navigationVC)
 	}
 
 	func showEvent(_ guid: String) {
-		let checkInNavigationController = checkInCoordinator.viewController
-		guard let index = tabBarController.viewControllers?.firstIndex(of: checkInNavigationController) else {
+		guard let checkInNavigationController = checkInCoordinator?.viewController,
+			  let index = tabBarController.viewControllers?.firstIndex(of: checkInNavigationController) else {
 			return
 		}
 
 		// Close all modal screens that would prevent showing the checkin screen first.
 		tabBarController.dismiss(animated: false)
 		tabBarController.selectedIndex = index
-		checkInCoordinator.showTraceLocationDetailsFromExternalCamera(guid)
+		checkInCoordinator?.showTraceLocationDetailsFromExternalCamera(guid)
 	}
 
 	func updateDetectionMode(
@@ -177,17 +184,10 @@ class RootCoordinator: RequiresAppDependencies {
 
 	private var homeCoordinator: HomeCoordinator?
 	private var homeState: HomeState?
-
+	
 	private(set) var diaryCoordinator: DiaryCoordinator?
-	private(set) lazy var checkInCoordinator: CheckinCoordinator = {
-		CheckinCoordinator(
-			store: store,
-			eventStore: eventStore,
-			appConfiguration: appConfigurationProvider,
-			eventCheckoutService: eventCheckoutService
-		)
-	}()
-
+	private(set) var checkInCoordinator: CheckinCoordinator?
+	
 	private var enStateUpdateList = NSHashTable<AnyObject>.weakObjects()
 
 }

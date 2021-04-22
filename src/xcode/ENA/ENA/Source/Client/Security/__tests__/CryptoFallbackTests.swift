@@ -221,9 +221,7 @@ class CryptoFallbackTests: iOS13TestCase {
 
 	func testAlteredPackageValidation() throws {
 		let rootKey = try PrivateKey()
-		let publicKey = rootKey.publicKey
-
-		let signatureVerifier = SignatureVerifier(key: { publicKey })
+		let signatureVerifier = SignatureVerifier(key: MockPublicKeyProvider(signingKey: rootKey))
 		let package = try SAPDownloadedPackage.makePackage(key: rootKey)
 
 		XCTAssertTrue(signatureVerifier(package))

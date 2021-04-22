@@ -1055,7 +1055,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 		var result: SecureSQLStore.VoidResult?
 
 		databaseQueue.inDatabase { database in
-			Log.info("[ContactDiaryStore] Remove all entires from \(tableName)", log: .localData)
+			Log.info("[ContactDiaryStore] Remove all entries from \(tableName)", log: .localData)
 
 			let sql = """
 				DELETE FROM \(tableName)

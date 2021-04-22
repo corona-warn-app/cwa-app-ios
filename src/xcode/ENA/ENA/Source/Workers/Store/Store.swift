@@ -93,10 +93,6 @@ protocol StoreProtocol: AnyObject {
 
 }
 
-protocol ServerEnvironmentProviding {
-	var selectedServerEnvironment: ServerEnvironmentData { get set }
-}
-
 protocol AppConfigCaching: AnyObject {
 	var appConfigMetadata: AppConfigMetadata? { get set }
 }
@@ -190,5 +186,17 @@ protocol CoronaTestStoringLegacy {
 
 }
 
+// swiftlint:disable all
 /// Wrapper protocol
-protocol Store: StoreProtocol, AppConfigCaching, StatisticsCaching, ServerEnvironmentProviding, PrivacyPreservingProviding, EventRegistrationCaching, WarnOthersTimeIntervalStoring, CoronaTestStoring, CoronaTestStoringLegacy, ErrorLogProviding {}
+protocol Store:
+	AppConfigCaching,
+	CoronaTestStoring,
+	CoronaTestStoringLegacy,
+	ErrorLogProviding,
+	EventRegistrationCaching,
+	PrivacyPreservingProviding,
+	StatisticsCaching,
+	StoreProtocol,
+	WarnOthersTimeIntervalStoring
+{}
+// swiftlint:enable all

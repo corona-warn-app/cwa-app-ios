@@ -49,70 +49,77 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 
 		group.enter()
 		DispatchQueue.global().async {
-			Log.info("Trying to submit TEKs…", log: .background)
-			self.executeSubmitTemporaryExposureKeys { _ in
-				group.leave()
-				Log.info("Done submitting TEKs…", log: .background)
-			}
-		}
-
-		group.enter()
-		DispatchQueue.global().async {
-			Log.info("Trying to fetch TestResults…", log: .background)
-			self.executeFetchTestResults { _ in
-				group.leave()
-				Log.info("Done fetching TestResults…", log: .background)
-			}
-		}
-
-		group.enter()
-		DispatchQueue.global().async {
 			Log.info("Starting ExposureDetection…", log: .background)
 			self.executeExposureDetectionRequest { _ in
-				group.leave()
 				Log.info("Done detecting Exposures…", log: .background)
+				
+				/// ExposureDetection should be our highest Priority if we run all other tasks simultaneously we might get killed by the Watchdog while the Detection is running.
+				/// This could leave us in a dirty state which causes the ExposureDetection to run too often. This will then lead to Error 13. (https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-5836)
+				group.enter()
+				DispatchQueue.global().async {
+					Log.info("Trying to submit TEKs…", log: .background)
+					self.executeSubmitTemporaryExposureKeys { _ in
+						group.leave()
+						Log.info("Done submitting TEKs…", log: .background)
+					}
+				}
+
+				group.enter()
+				DispatchQueue.global().async {
+					Log.info("Trying to fetch TestResults…", log: .background)
+					self.executeFetchTestResults { _ in
+						group.leave()
+						Log.info("Done fetching TestResults…", log: .background)
+					}
+				}
+
+				group.enter()
+				DispatchQueue.global().async {
+					Log.info("Starting FakeRequests…", log: .background)
+					self.pdService.executeFakeRequests {
+						group.leave()
+						Log.info("Done sending FakeRequests…", log: .background)
+					}
+				}
+
+				group.enter()
+				DispatchQueue.global().async {
+					Log.info("Cleanup contact diary store.", log: .background)
+					self.contactDiaryStore.cleanup(timeout: 10.0)
+					Log.info("Done cleaning up contact diary store.", log: .background)
+					group.leave()
+				}
+
+				group.enter()
+				DispatchQueue.global().async {
+					Log.info("Cleanup event store.", log: .background)
+					self.eventStore.cleanup(timeout: 10.0)
+					Log.info("Done cleaning up contact event store.", log: .background)
+					group.leave()
+				}
+
+				group.enter()
+				DispatchQueue.global().async {
+					Log.info("Checkout overdue checkins.", log: .background)
+					self.eventCheckoutService.checkoutOverdueCheckins()
+					Log.info("Done checkin out overdue checkins.", log: .background)
+					group.leave()
+				}
+
+				group.enter()
+				DispatchQueue.global().async {
+					Log.info("Trigger analytics submission.", log: .background)
+					self.executeAnalyticsSubmission {
+						group.leave()
+						Log.info("Done triggering analytics submission…", log: .background)
+					}
+				}
+				
+				group.leave() // Leave from the Exposure detection
+
 			}
 		}
-
-		group.enter()
-		DispatchQueue.global().async {
-			Log.info("Starting FakeRequests…", log: .background)
-			self.pdService.executeFakeRequests {
-				group.leave()
-				Log.info("Done sending FakeRequests…", log: .background)
-			}
-		}
-
-		group.enter()
-		DispatchQueue.global().async {
-			Log.info("Cleanup contact diary store.", log: .background)
-			self.contactDiaryStore.cleanup(timeout: 10.0)
-			group.leave()
-		}
-
-		group.enter()
-		DispatchQueue.global().async {
-			Log.info("Cleanup event store.", log: .background)
-			self.eventStore.cleanup(timeout: 10.0)
-			group.leave()
-		}
-
-		group.enter()
-		DispatchQueue.global().async {
-			Log.info("Checkout overdue checkins.", log: .background)
-			self.eventCheckoutService.checkoutOverdueCheckins()
-			group.leave()
-		}
-
-		group.enter()
-		DispatchQueue.global().async {
-			Log.info("Trigger analytics submission.", log: .background)
-			self.executeAnalyticsSubmission {
-				group.leave()
-				Log.info("Done triggering analytics submission…", log: .background)
-			}
-		}
-
+		
 		group.notify(queue: .main) {
 			completion(true)
 		}
@@ -267,9 +274,9 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 		Analytics.triggerAnalyticsSubmission(completion: { result in
 			switch result {
 			case .success:
-				Log.info("[ENATaskExecutionDelegate] Analytics submission was triggered succesfully from background", log: .ppa)
+				Log.info("[ENATaskExecutionDelegate] Analytics submission was triggered successfully from background", log: .ppa)
 			case let .failure(error):
-				Log.error("[ENATaskExecutionDelegate] Analytics submission was triggered not succesfully from background with error: \(error)", log: .ppa, error: error)
+				Log.error("[ENATaskExecutionDelegate] Analytics submission was triggered not successfully from background with error: \(error)", log: .ppa, error: error)
 			}
 			completion()
 		})

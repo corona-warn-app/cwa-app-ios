@@ -36,7 +36,8 @@ enum PPAnalyticsCollector {
 			return
 		}
 
-		Log.debug("Logging analytics data: \(dataType.description)", log: .ppa)
+		Log.debug("Logging analytics data: \(private: dataType, public: "Some private analytics data")", log: .ppa)
+
 		switch dataType {
 		case let .userData(userMetadata):
 			Analytics.logUserMetadata(userMetadata)
@@ -329,7 +330,7 @@ enum PPAnalyticsCollector {
 	}
 
 	private static func setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration() {
-		guard let registrationDate = store?.testRegistrationDate else {
+		guard let registrationDate = coronaTestService?.pcrTest?.registrationDate else {
 			store?.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = -1
 			return
 		}

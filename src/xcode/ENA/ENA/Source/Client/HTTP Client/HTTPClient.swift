@@ -11,10 +11,10 @@ final class HTTPClient: Client {
 	// MARK: - Init
 
 	init(
-		serverEnvironmentProvider: ServerEnvironmentProviding,
+		environmentProvider: EnvironmentProviding = Environments(),
 		session: URLSession = .coronaWarnSession()
 	) {
-		self.serverEnvironmentProvider = serverEnvironmentProvider
+		self.environmentProvider = environmentProvider
 		self.session = session
 	}
 
@@ -476,15 +476,11 @@ final class HTTPClient: Client {
 
 	// MARK: - Internal
 
-	var configuration: Configuration {
-		Configuration.makeDefaultConfiguration(
-			serverEnvironmentProvider: serverEnvironmentProvider
-		)
-	}
+	lazy var configuration: Configuration = Configuration.makeDefaultConfiguration(environmentProvider: environmentProvider)
 
 	// MARK: - Private
 
-	private let serverEnvironmentProvider: ServerEnvironmentProviding
+	private let environmentProvider: EnvironmentProviding
 	private let session: URLSession
 	private var fetchDayRetries: [URL: Int] = [:]
 	private var traceWarningPackageDownloadRetries: [URL: Int] = [:]
