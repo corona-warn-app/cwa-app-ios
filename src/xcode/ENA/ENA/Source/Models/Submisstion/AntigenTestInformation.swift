@@ -14,14 +14,19 @@ struct AntigenTestInformation: Codable, Equatable {
 		firstName: String?,
 		lastName: String?,
 		dateOfBirth: Date?
-	) {
+		) {
 		self.hash = hash
 		self.timestamp = timestamp
 		self.firstName = firstName
 		self.lastName = lastName
 		self.dateOfBirth = dateOfBirth
+		guard let dateOfBirth = dateOfBirth else {
+			dateOfBirthString = nil
+			return
+		}
+		dateOfBirthString = AntigenTestInformation.isoFormatter.string(from: dateOfBirth)
 	}
-
+	
 	init?(payload: String) {
 
 		let jsonData: Data
@@ -37,23 +42,20 @@ struct AntigenTestInformation: Codable, Equatable {
 			jsonData = parsedData
 		}
 		do {
-			let jsonDecoder = JSONDecoder()
-			jsonDecoder.dateDecodingStrategy = .custom({ decoder -> Date in
-				let container = try decoder.singleValueContainer()
-				let stringDate = try container.decode(String.self)
-				guard let date = AntigenTestInformation.isoFormatter.date(from: stringDate) else {
-					throw DecodingError.dataCorruptedError(in: container, debugDescription: "failed to decode date \(stringDate)")
-				}
-				return date
-			})
-
-			self = try jsonDecoder.decode(AntigenTestInformation.self, from: jsonData)
+			let decodedObject = try JSONDecoder().decode(AntigenTestInformation.self, from: jsonData)
+			
+			self.hash = decodedObject.hash
+			self.timestamp = decodedObject.timestamp
+			self.firstName = decodedObject.firstName?.isEmpty ?? true ? nil : decodedObject.firstName
+			self.lastName = decodedObject.lastName?.isEmpty ?? true ? nil : decodedObject.lastName
+			self.dateOfBirthString = decodedObject.dateOfBirthString?.isEmpty ?? true ? nil : decodedObject.dateOfBirthString
+			self.dateOfBirth = AntigenTestInformation.isoFormatter.date(from: decodedObject.dateOfBirthString ?? "")
 		} catch {
 			Log.debug("Failed to read / parse district json", log: .ppac)
 			return nil
 		}
 	}
-
+	
 	// MARK: - Protocol Codable
 
 	enum CodingKeys: String, CodingKey {
@@ -61,7 +63,7 @@ struct AntigenTestInformation: Codable, Equatable {
 		case timestamp
 		case firstName = "fn"
 		case lastName = "ln"
-		case dateOfBirth = "dob"
+		case dateOfBirthString = "dob"
 	}
 		
 	// MARK: - Internal
@@ -70,7 +72,8 @@ struct AntigenTestInformation: Codable, Equatable {
 	let timestamp: Int
 	let firstName: String?
 	let lastName: String?
-	let dateOfBirth: Date?
+	let dateOfBirthString: String?
+	var dateOfBirth: Date?
 	
 	var fullName: String? {
 		guard let first = firstName, let last = lastName else {
@@ -81,20 +84,13 @@ struct AntigenTestInformation: Codable, Equatable {
 	var pointOfCareConsentDate: Date {
 		return Date(timeIntervalSince1970: TimeInterval(timestamp))
 	}
-
-	var dateOfBirthString: String? {
-		guard let dateOfBirth = dateOfBirth else {
-			return nil
-		}
-		return AntigenTestInformation.isoFormatter.string(from: dateOfBirth)
-	}
 		
 	// MARK: - Private
 
 	static let isoFormatter: ISO8601DateFormatter = {
 		let isoFormatter = ISO8601DateFormatter()
 		isoFormatter.formatOptions = [.withFullDate]
-		isoFormatter.timeZone = TimeZone.current
+		isoFormatter.timeZone = TimeZone.utcTimeZone
 		return isoFormatter
 	}()
 }
