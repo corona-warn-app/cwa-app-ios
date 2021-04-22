@@ -722,20 +722,27 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	// MARK: - AntigenTestProfile
 
 	private func showAntigenTestProfileInformation() {
-		let antigenTestProfileInformationViewController = AntigenTestProfileInformationViewController(
+		var antigenTestProfileInformationViewController: AntigenTestProfileInformationViewController!
+		antigenTestProfileInformationViewController = AntigenTestProfileInformationViewController(
 			store: store,
-			didTapDataPrivacy: { },
+			didTapDataPrivacy: {
+				// please check if we really wanna use it that way
+				if case let .execute(block) = DynamicAction.push(htmlModel: AppInformationModel.privacyModel, withTitle: AppStrings.AppInformation.privacyTitle) {
+					block(antigenTestProfileInformationViewController, nil)
+				}
+			},
 			didTapContinue: { [weak self] in
 				self?.showCreateAntigenTestProfile()
 			},
 			dismiss: { [weak self] in self?.dismiss() }
 		)
+		// showSecondaryButton for testing data-privacy at the moment
 
 		let footerViewModel = FooterViewModel(
 			primaryButtonName: "Weiter",
+			secondaryButtonName: "Datenschutz",
 			isPrimaryButtonEnabled: true,
-			isSecondaryButtonEnabled: false,
-			isSecondaryButtonHidden: true
+			isSecondaryButtonEnabled: true
 		)
 		let footerViewController = FooterViewController(footerViewModel)
 		let topBottomContainerViewController = TopBottomContainerViewController(
@@ -783,17 +790,14 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				self?.model.exposureSubmissionService.loadSupportedCountries(
 					isLoading: isLoading,
 					onSuccess: { supportedCountries in
-						self?.showTestResultSubmissionConsentScreen(
-							supportedCountries: supportedCountries,
-							testResultAvailability: .availableAndPositive
-						)
+						self?.showQRInfoScreen(supportedCountries: supportedCountries)
 					}
 				)
 
 			},
 			didTapDeleteProfile: { [weak self] in
-				self?.navigationController?.popToRootViewController(animated: true)
-			}
+				self?.navigationController?.popViewController(animated: true)
+			}, dismiss: { [weak self] in self?.dismiss() }
 		)
 
 		let footerViewModel = FooterViewModel(

@@ -33,16 +33,23 @@ class AntigenTestProfileInformationViewController: DynamicTableViewController, F
 
 		parent?.navigationItem.title = viewModel.title
 		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
-//		viewModel.markScreenSeen()
+		viewModel.markScreenSeen()
 	}
 
 	// MARK: - Protocol FooterViewHandling
 
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
-		guard case .primary = type else {
-			return
+
+		// this one can get used if data privacy will be removed from footer's secondary button
+//		guard case .primary = type else {
+//			return
+//		}
+		switch type {
+		case .primary:
+			didTapContinue()
+		case .secondary:
+			didTapDataPrivacy()
 		}
-		didTapContinue()
 	}
 
 	// MARK: - Protocol DismissHandling

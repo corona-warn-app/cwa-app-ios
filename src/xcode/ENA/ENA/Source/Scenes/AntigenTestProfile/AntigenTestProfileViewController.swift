@@ -4,18 +4,20 @@
 
 import UIKit
 
-class AntigenTestProfileViewController: UIViewController, FooterViewHandling {
+class AntigenTestProfileViewController: UIViewController, FooterViewHandling, DismissHandling {
 
 	// MARK: - Init
 
 	init(
 		store: AntigenTestProfileStoring,
 		didTapContinue: @escaping (@escaping (Bool) -> Void) -> Void,
-		didTapDeleteProfile: @escaping () -> Void
+		didTapDeleteProfile: @escaping () -> Void,
+		dismiss: @escaping () -> Void
 	) {
 		self.viewModel = AntigenTestProfileViewModel(store: store)
 		self.didTapContinue = didTapContinue
 		self.didTapDeleteProfile = didTapDeleteProfile
+		self.dismiss = dismiss
 
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -29,8 +31,16 @@ class AntigenTestProfileViewController: UIViewController, FooterViewHandling {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		parent?.navigationItem.hidesBackButton = true
-		parent?.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(imageLiteralResourceName: "chevron.backward"), style: .plain, target: self, action: #selector(backToRootViewController))
+
+		let logoImage = UIImage(imageLiteralResourceName: "Corona-Warn-App").withRenderingMode(.alwaysTemplate)
+		let logoImageView = UIImageView(image: logoImage)
+		logoImageView.tintColor = .enaColor(for: .textContrast)
+
+		parent?.navigationController?.navigationBar.tintColor = .white
+		parent?.navigationItem.titleView = logoImageView
+		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
+
+		navigationController?.viewControllers = [navigationController?.viewControllers.first, navigationController?.viewControllers.last].compactMap { $0 }
 	}
 
 	// MARK: - Protocol FooterViewHandling
@@ -46,6 +56,12 @@ class AntigenTestProfileViewController: UIViewController, FooterViewHandling {
 		}
 	}
 
+	// MARK: - Protocol DismissHandling
+
+	func wasAttemptedToBeDismissed() {
+		dismiss()
+	}
+
 	// MARK: - Public
 
 	// MARK: - Internal
@@ -55,6 +71,7 @@ class AntigenTestProfileViewController: UIViewController, FooterViewHandling {
 	private let viewModel: AntigenTestProfileViewModel
 	private let didTapContinue: (@escaping (Bool) -> Void) -> Void
 	private let didTapDeleteProfile: () -> Void
+	private let dismiss: () -> Void
 
 	@objc
 	private func backToRootViewController() {
