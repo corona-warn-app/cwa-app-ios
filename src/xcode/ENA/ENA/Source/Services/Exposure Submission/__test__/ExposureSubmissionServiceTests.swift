@@ -723,7 +723,6 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
 	// MARK: - Plausible Deniability
 
-
 	func test_submitExposurePlaybook() {
 		// Counter to track the execution order.
 		var count = 0
