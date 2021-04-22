@@ -624,7 +624,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		if exposureManager.exposureManagerState.status == .unknown {
 			exposureManager.activate { [weak self] error in
 				if let error = error {
-					Log.error("Cannot activate the  ENManager. The reason is \(error)", log: .api)
+					Log.error("Cannot activate the ENManager. The reason is \(error)", log: .api)
 				}
 				self?.presentHomeVC(route)
 			}
