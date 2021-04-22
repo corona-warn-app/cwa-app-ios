@@ -30,7 +30,6 @@ struct LogUploadResponse: Decodable {
 	let hash: String
 }
 
-
 /// Handler for the log file uploading process
 final class ErrorLogSubmissionService: ErrorLogSubmitting {
 	
