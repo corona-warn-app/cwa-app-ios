@@ -28,7 +28,7 @@ extension HTTPClient {
 					requiresTrailingSlash: false
 				),
 				errorLogSubmission: .init(
-					baseURL: serverEnvironmentProvider.selectedServerEnvironment.errorLogSubmission,
+					baseURL: environmentProvider.currentEnvironment().errorLogSubmission,
 					requiresTrailingSlash: false
 				)
 			)

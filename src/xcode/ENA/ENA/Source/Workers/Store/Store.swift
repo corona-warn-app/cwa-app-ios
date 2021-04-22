@@ -185,4 +185,14 @@ protocol CoronaTestStoringLegacy {
 }
 
 /// Wrapper protocol
-protocol Store: StoreProtocol, AppConfigCaching, StatisticsCaching, PrivacyPreservingProviding, EventRegistrationCaching, WarnOthersTimeIntervalStoring, CoronaTestStoring, CoronaTestStoringLegacy {}
+protocol Store:
+	AppConfigCaching,
+	CoronaTestStoring,
+	CoronaTestStoringLegacy,
+	ErrorLogProviding,
+	EventRegistrationCaching,
+	PrivacyPreservingProviding,
+	StatisticsCaching,
+	StoreProtocol,
+	WarnOthersTimeIntervalStoring
+{}
