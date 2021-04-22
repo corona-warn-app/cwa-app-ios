@@ -149,12 +149,6 @@ class ENAUITests_02_AppInformation: XCTestCase {
 		navigateToErrorReporting()
 		
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.ErrorReport.topBody].waitForExistence(timeout: .short))
-		// TODO: needs cleanup
-//		AccessibilityLabels.printAccIdentifiers(app.buttons)
-//		AccessibilityLabels.printAccIdentifiers(app.cells)
-//			Acc.Id 2: AppStrings.ErrorReport.privacyNavigation
-//			Acc.Id 3: AppStrings.ErrorReport.privacyInformation
-//		AccessibilityLabels.printAccIdentifiers(app.textViews)
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ErrorReport.startButton].exists)
 		app.buttons[AccessibilityIdentifiers.ErrorReport.startButton].tap()
 	}
