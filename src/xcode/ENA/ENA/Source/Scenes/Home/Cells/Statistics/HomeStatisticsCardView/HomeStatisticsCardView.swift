@@ -54,13 +54,15 @@ class HomeStatisticsCardView: UIView {
 				infoButton.accessibilityIdentifier = viewModel?.infoButtonAccessiblityIdentifier
 			}
 
+			// TODO: [KGA]
 			if viewModel?.primaryTitle != nil, let primaryTitleLabel = self.primaryTitleLabel {
-				accessibilityElements.append(primaryTitleLabel)
+				accessibilityElements.append("\(primaryTitleLabel) \(primaryValueLabel)")
+				Log.info("Moinsen....")
 			}
 
-			if viewModel?.primaryValue != nil, let primaryValueLabel = self.primaryValueLabel {
-				accessibilityElements.append(primaryValueLabel)
-			}
+//			if viewModel?.primaryValue != nil, let primaryValueLabel = self.primaryValueLabel {
+//				accessibilityElements.append(primaryValueLabel)
+//			}
 
 			if viewModel?.primaryTrendImage != nil, let primaryTrendImageView = self.primaryTrendImageView {
 				accessibilityElements.append(primaryTrendImageView)
