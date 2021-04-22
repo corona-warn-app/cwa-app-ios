@@ -93,10 +93,6 @@ protocol StoreProtocol: AnyObject {
 
 }
 
-protocol ServerEnvironmentProviding {
-	var selectedServerEnvironment: ServerEnvironmentData { get set }
-}
-
 protocol AppConfigCaching: AnyObject {
 	var appConfigMetadata: AppConfigMetadata? { get set }
 }
@@ -186,4 +182,4 @@ protocol CoronaTestStoringLegacy {
 }
 
 /// Wrapper protocol
-protocol Store: StoreProtocol, AppConfigCaching, StatisticsCaching, ServerEnvironmentProviding, PrivacyPreservingProviding, EventRegistrationCaching, WarnOthersTimeIntervalStoring, CoronaTestStoring, CoronaTestStoringLegacy {}
+protocol Store: StoreProtocol, AppConfigCaching, StatisticsCaching, PrivacyPreservingProviding, EventRegistrationCaching, WarnOthersTimeIntervalStoring, CoronaTestStoring, CoronaTestStoringLegacy {}
