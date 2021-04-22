@@ -107,7 +107,7 @@ class HomeExposureLoggingCellModelTests: XCTestCase {
 			exposureManagerState: .init(),
 			enState: enState,
 			statisticsProvider: StatisticsProvider(
-				client: CachingHTTPClientMock(store: store),
+				client: CachingHTTPClientMock(),
 				store: store
 			)
 		)

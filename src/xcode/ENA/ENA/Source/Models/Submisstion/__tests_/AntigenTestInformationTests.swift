@@ -10,7 +10,7 @@ class AntigenTestInformationTests: XCTestCase {
 	func testGIVEN_AntigenTestInformationPayload_WHEN_Parse_THEN_WillBeEqual() throws {
 
 		let dateString = "2010-08-01"
-		let date = AntigenTestInformation.isoFormatter.date(from: dateString)
+		let date = ISO8601DateFormatter.justDate.date(from: dateString)
 
 		// GIVEN
 		let antigenTestInformation = AntigenTestInformation(
@@ -21,11 +21,6 @@ class AntigenTestInformationTests: XCTestCase {
 			dateOfBirth: date
 		)
 		let encoder = JSONEncoder()
-		encoder.dateEncodingStrategy = .custom({ date, encoder in
-			var container = encoder.singleValueContainer()
-			try container.encode(AntigenTestInformation.isoFormatter.string(from: date))
-		})
-
 		let payloadData = try encoder.encode(antigenTestInformation).base64EncodedData()
 		let payload = try XCTUnwrap(String(data: payloadData, encoding: .utf8))
 

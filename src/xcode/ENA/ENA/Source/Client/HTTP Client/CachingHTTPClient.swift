@@ -6,7 +6,7 @@ import Foundation
 
 class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, QRCodePosterTemplateFetching {
 
-	private let serverEnvironmentProvider: ServerEnvironmentProviding
+	private let environmentProvider: EnvironmentProviding
 
 	enum CacheError: Error {
 		case dataFetchError(message: String?)
@@ -16,7 +16,7 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, QRCodePos
 	/// The client configuration - mostly server endpoints per environment
 	var configuration: HTTPClient.Configuration {
 		HTTPClient.Configuration.makeDefaultConfiguration(
-			serverEnvironmentProvider: serverEnvironmentProvider
+			environmentProvider: environmentProvider
 		)
 	}
 
@@ -33,12 +33,12 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, QRCodePos
 	///   - session: An optional session to use for network requests. Default is based on a predefined configuration.
 	///   - signatureVerifier: The signatureVerifier to use for package validation.
 	init(
-		serverEnvironmentProvider: ServerEnvironmentProviding,
+		environmentProvider: EnvironmentProviding = Environments(),
 		session: URLSession = URLSession(configuration: .cachingSessionConfiguration()),
 		signatureVerifier: SignatureVerifier = SignatureVerifier()
 	) {
 		self.session = session
-		self.serverEnvironmentProvider = serverEnvironmentProvider
+		self.environmentProvider = environmentProvider
 		self.signatureVerifier = signatureVerifier
 	}
 
