@@ -1499,7 +1499,9 @@ enum AppStrings {
 			static let emptyDescription = NSLocalizedString("Checkins_Overview_EmptyDescription", comment: "")
 			static let emptyImageDescription = NSLocalizedString("Checkins_Overview_EmptyImageDescription", comment: "")
 			static let deleteAllButtonTitle = NSLocalizedString("Checkins_Overview_DeleteAllButtonTitle", comment: "")
-
+			static let itemPrefixCheckIn = NSLocalizedString("Checkins_Overview_Item_Prefix_CheckIn", comment: "")
+			static let itemPrefixCheckedOut = NSLocalizedString("Checkins_Overview_Item_Prefix_CheckedOut", comment: "")
+			
 			static let durationTitle = NSLocalizedString("Checkins_Overview_DurationTitle", comment: "")
 			static let checkinTimeTemplate = NSLocalizedString("Checkins_Overview_CheckinTimeTemplate", comment: "")
 			static let checkoutButtonTitle = NSLocalizedString("Checkins_Overview_CheckoutButtonTitle", comment: "")
@@ -1640,6 +1642,7 @@ enum AppStrings {
 			static let emptyDescription = NSLocalizedString("TraceLocations_Overview_EmptyDescription", comment: "")
 			static let emptyImageDescription = NSLocalizedString("TraceLocations_Overview_EmptyImageDescription", comment: "")
 			static let deleteAllButtonTitle = NSLocalizedString("TraceLocations_Overview_DeleteAllButtonTitle", comment: "")
+			static let itemPrefix = NSLocalizedString("TraceLocations_Overview_Item_Prefix", comment: "")
 
 			static let selfCheckinButtonTitle = NSLocalizedString("TraceLocations_Overview_SelfCheckinButtonTitle", comment: "")
 
