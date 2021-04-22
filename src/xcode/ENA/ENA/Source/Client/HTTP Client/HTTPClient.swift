@@ -225,7 +225,7 @@ final class HTTPClient: Client {
 	}
 
 	func authorize(
-		otp: String,
+		otpEdus: String,
 		ppacToken: PPACToken,
 		isFake: Bool,
 		forceApiTokenHeader: Bool = false,
@@ -233,7 +233,7 @@ final class HTTPClient: Client {
 	) {
 		guard let request = try? URLRequest.authorizeOTPRequest(
 				configuration: configuration,
-				otp: otp,
+				otpEdus: otpEdus,
 				ppacToken: ppacToken,
 				forceApiTokenHeader: forceApiTokenHeader) else {
 			completion(.failure(.invalidResponseError))
@@ -263,24 +263,20 @@ final class HTTPClient: Client {
 		})
 	}
 
-	func authorizeELS(
-		elsToken: String,
+	func authorize(
+		otpEls: String,
 		ppacToken: PPACToken,
-		isFake: Bool,
-		forceApiTokenHeader: Bool = false,
 		completion: @escaping OTPAuthorizationCompletionHandler
 	) {
-		guard let request = try? URLRequest.authorizeELSTokenRequest(
+		guard let request = try? URLRequest.authorizeOTPRequest(
 				configuration: configuration,
-				elsToken: elsToken,
-				ppacToken: ppacToken,
-				isFake: isFake,
-				forceApiTokenHeader: forceApiTokenHeader) else {
+				otpEls: otpEls,
+				ppacToken: ppacToken) else {
 			completion(.failure(.invalidResponseError))
 			return
 		}
 
-		session.response(for: request, isFake: isFake, completion: { [weak self] result in
+		session.response(for: request, isFake: false, completion: { [weak self] result in
 			switch result {
 			case let .success(response):
 				switch response.statusCode {
@@ -914,19 +910,18 @@ private extension URLRequest {
 
 	static func authorizeOTPRequest(
 		configuration: HTTPClient.Configuration,
-		otp: String,
+		otpEdus: String,
 		ppacToken: PPACToken,
 		forceApiTokenHeader: Bool,
 		isFake: Bool = false
 	) throws -> URLRequest {
-
 		let ppacIos = SAP_Internal_Ppdd_PPACIOS.with {
 			$0.apiToken = ppacToken.apiToken
 			$0.deviceToken = ppacToken.deviceToken
 		}
 
 		let payload = SAP_Internal_Ppdd_EDUSOneTimePassword.with {
-			$0.otp = otp
+			$0.otp = otpEdus
 		}
 
 		let protoBufRequest = SAP_Internal_Ppdd_EDUSOneTimePasswordRequestIOS.with {
@@ -934,7 +929,7 @@ private extension URLRequest {
 			$0.authentication = ppacIos
 		}
 
-		let url = configuration.otpAuthorizationURL
+		let url = configuration.otpEdusAuthorizationURL
 		let body = try protoBufRequest.serializedData()
 		var request = URLRequest(url: url)
 
@@ -963,22 +958,18 @@ private extension URLRequest {
 		return request
 	}
 
-	static func authorizeELSTokenRequest(
+	static func authorizeOTPRequest(
 		configuration: HTTPClient.Configuration,
-		elsToken: String,
-		ppacToken: PPACToken,
-		isFake: Bool,
-		forceApiTokenHeader: Bool
+		otpEls: String,
+		ppacToken: PPACToken
 	) throws -> URLRequest {
-		#warning(" client foo")
-
 		let ppacIos = SAP_Internal_Ppdd_PPACIOS.with {
 			$0.apiToken = ppacToken.apiToken
 			$0.deviceToken = ppacToken.deviceToken
 		}
 
 		let payload = SAP_Internal_Ppdd_ELSOneTimePassword.with {
-			$0.otp = elsToken
+			$0.otp = otpEls
 		}
 
 		let protoBufRequest = SAP_Internal_Ppdd_ELSOneTimePasswordRequestIOS.with {
@@ -986,7 +977,7 @@ private extension URLRequest {
 			$0.authentication = ppacIos
 		}
 
-		var request = URLRequest(url: configuration.elsAuthorizationURL)
+		var request = URLRequest(url: configuration.otpElsAuthorizationURL)
 		request.httpMethod = "POST"
 		request.httpBody = try protoBufRequest.serializedData()
 
@@ -995,19 +986,6 @@ private extension URLRequest {
 			"application/x-protobuf",
 			forHTTPHeaderField: "Content-Type"
 		)
-		request.setValue(
-			isFake ? "1" : "0",
-			forHTTPHeaderField: "cwa-fake"
-		)
-		#if !RELEASE
-		if forceApiTokenHeader {
-			request.setValue(
-				"1",
-				forHTTPHeaderField: "cwa-ppac-ios-accept-api-token"
-			)
-		}
-		#endif
-
 		return request
 	}
 

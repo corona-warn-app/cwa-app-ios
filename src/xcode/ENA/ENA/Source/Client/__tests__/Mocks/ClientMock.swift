@@ -56,8 +56,8 @@ final class ClientMock {
 	var onGetRegistrationToken: ((String, String, Bool, @escaping RegistrationHandler) -> Void)?
 	var onGetTANForExposureSubmit: ((String, Bool, @escaping TANHandler) -> Void)?
 	var onSupportedCountries: ((@escaping CountryFetchCompletion) -> Void)?
-	var onGetOTP: ((String, PPACToken, Bool, @escaping OTPAuthorizationCompletionHandler) -> Void)?
-	var onGetELSToken: ((String, PPACToken, Bool, @escaping OTPAuthorizationCompletionHandler) -> Void)?
+	var onGetOTPEdus: ((String, PPACToken, Bool, @escaping OTPAuthorizationCompletionHandler) -> Void)?
+	var onGetOTPEls: ((String, PPACToken, @escaping OTPAuthorizationCompletionHandler) -> Void)?
 	var onSubmitErrorLog: ((Data, Bool, @escaping ErrorLogSubmitting.ELSSubmissionResponse) -> Void)?
 	var onSubmitAnalytics: ((SAP_Internal_Ppdd_PPADataIOS, PPACToken, Bool, @escaping PPAnalyticsSubmitionCompletionHandler) -> Void)?
 	var onTraceWarningDiscovery: ((String, @escaping TraceWarningPackageDiscoveryCompletionHandler) -> Void)?
@@ -168,32 +168,30 @@ extension ClientMock: Client {
 	}
 
 	func authorize(
-		otp: String,
+		otpEdus: String,
 		ppacToken: PPACToken,
 		isFake: Bool,
 		forceApiTokenHeader: Bool = false,
 		completion: @escaping OTPAuthorizationCompletionHandler
 	) {
-		guard let onGetOTP = self.onGetOTP else {
+		guard let onGetOTPEdus = self.onGetOTPEdus else {
 			completion(.success(Date()))
 			return
 		}
-		onGetOTP(otp, ppacToken, isFake, completion)
+		onGetOTPEdus(otpEdus, ppacToken, isFake, completion)
 	}
 
-	func authorizeELS(
-		elsToken: String,
+	func authorize(
+		otpEls: String,
 		ppacToken: PPACToken,
-		isFake: Bool,
-		forceApiTokenHeader: Bool,
 		completion: @escaping OTPAuthorizationCompletionHandler
 	) {
-		guard let onGetELSToken = self.onGetELSToken else {
+		guard let onGetOTPEls = self.onGetOTPEls else {
 			completion(.success(Date()))
 			return
 		}
 
-		onGetELSToken(elsToken, ppacToken, isFake, completion)
+		onGetOTPEls(otpEls, ppacToken, completion)
 	}
 
 	func submit(

@@ -86,15 +86,15 @@ protocol Client {
 
 	// MARK: OTP Authorization
 
-	/// Authorizes an otp at our servers with a tuple of device token and api token as authentication and the otp as payload.
+	/// Authorizes an edus otp at our servers with a tuple of device token and api token as authentication and the otp as payload.
 	/// - Parameters:
-	///   - otp: the otp to authorize
+	///   - otpEdus: the edus otp to authorize
 	///   - ppacToken: the ppac token which is generated previously by the PPACService
 	///   - isFake: Flag to indicate a fake request
 	///   - forceApiTokenHeader: A Flag that indicates, if a special header flag is send to enforce to accept the API Token. ONLY executable for non release builds
 	///   - completion: The completion handler of the submission call, which contains the expirationDate of the otp as String
 	func authorize(
-		otp: String,
+		otpEdus: String,
 		ppacToken: PPACToken,
 		isFake: Bool,
 		forceApiTokenHeader: Bool,
@@ -102,18 +102,14 @@ protocol Client {
 	)
 
 
-	/// Authorization for the ELS token
+	/// Authorizes an els otp at our servers with a tuple of device token and api token as authentication and the otp as payload.
 	/// - Parameters:
-	///   - elsToken: The els token to register
+	///   - otpEls: the els otp to authorize
 	///   - ppacToken: The ppac token which is generated previously by the PPACService
-	///   - isFake: Flag to indicate a fake request
-	///   - forceApiTokenHeader: A Flag that indicates, if a special header flag is send to enforce to accept the API Token. ONLY executable for non release builds
 	///   - completion: The completion handler of the submission call, which contains the expirationDate of the otp as String
-	func authorizeELS(
-		elsToken: String,
+	func authorize(
+		otpEls: String,
 		ppacToken: PPACToken,
-		isFake: Bool,
-		forceApiTokenHeader: Bool,
 		completion: @escaping OTPAuthorizationCompletionHandler
 	)
 

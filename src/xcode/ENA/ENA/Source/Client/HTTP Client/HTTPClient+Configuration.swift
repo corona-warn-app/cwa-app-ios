@@ -28,7 +28,7 @@ extension HTTPClient {
 					requiresTrailingSlash: false
 				),
 				errorLogSubmission: .init(
-					baseURL: serverEnvironmentProvider.selectedServerEnvironment.errorLogSubmission,
+					baseURL: serverEnvironmentProvider.selectedServerEnvironment.errorLogSubmissionURL,
 					requiresTrailingSlash: false
 				)
 			)
@@ -173,7 +173,7 @@ extension HTTPClient {
 			)
 		}
 
-		var otpAuthorizationURL: URL {
+		var otpEdusAuthorizationURL: URL {
 			endpoints
 				.dataDonation
 				.appending(
@@ -184,7 +184,7 @@ extension HTTPClient {
 				)
 		}
 
-		var elsAuthorizationURL: URL {
+		var otpElsAuthorizationURL: URL {
 			endpoints
 				.dataDonation
 				.appending(
