@@ -599,7 +599,7 @@ extension ExposureSubmissionTestResultViewModel {
 					description: nil,
 					icon: UIImage(named: "Icons_Grey_Check"),
 					hairline: .iconAttached
-				),
+				)
 			])
 		case .antigen:
 			cells.append(contentsOf: [
@@ -608,7 +608,7 @@ extension ExposureSubmissionTestResultViewModel {
 					description: nil,
 					icon: UIImage(named: "Icons_Grey_Check"),
 					hairline: .iconAttached
-				),
+				)
 			])
 		}
 
