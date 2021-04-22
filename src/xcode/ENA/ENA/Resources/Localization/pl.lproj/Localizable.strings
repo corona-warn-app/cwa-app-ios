@@ -63,8 +63,6 @@
 
 "ExposureDetection_High_Red_Color" = "Czerwony";
 
-"ExposureDetection_DaysSinceInstallation" = "Zainstalowano %u dni temu";
-
 "ExposureDetection_LastExposure" = "Ostatnio dnia %@";
 
 "ExposureDetection_LastExposure_One_Risk_Day" = "Dnia %@";
@@ -217,8 +215,6 @@
 /* There are two paragraphs in this section. The first one just contains text… */
 "ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Ryzyko zakażenia można obliczyć tylko dla okresów, w których rejestrowanie narażenia było aktywne. Dlatego też funkcja rejestrowania powinna być stale aktywna. Rejestrowanie narażenia obejmuje 14 ostatnich dni.";
 
-"ExposureDetection_ActiveTracingSection_Text_Paragraph1a" = "Aplikacja Corona-Warn-App została zainstalowana %u dni temu. Ryzyko zakażenia jest obliczane dla okresów, w których aktywne było rejestrowanie narażenia. Oblicza się je w przypadku kontaktowania się z innymi ludźmi przy aktywnej funkcji rejestrowania narażenia.";
-
 "ExposureDetection_ActiveTracingSection_Text_Paragraph1b" = "Jeśli rejestrowanie narażenia było aktywne podczas kontaktowania się z innymi ludźmi, można obliczyć ryzyko zakażenia dla tego okresu.";
 
 /* Exposure Detection Errors */
@@ -271,8 +267,6 @@
 "Settings_DaysSinceInstall_SubTitle" = "Ten okres jest uwzględniony w obliczeniu.";
 
 "Settings_DaysSinceInstall_P1" = "Ryzyko zakażenia można obliczyć tylko dla okresów, w których rejestrowanie narażenia było aktywne. Dlatego też funkcja rejestrowania powinna być stale aktywna. Rejestrowanie narażenia obejmuje 14 ostatnich dni.";
-
-"Settings_DaysSinceInstall_P2a" = "Aplikacja Corona-Warn-App została zainstalowana %u dni temu. Ryzyko zakażenia jest obliczane dla okresów, w których aktywne było rejestrowanie narażenia. Oblicza się je w przypadku kontaktowania się z innymi ludźmi przy aktywnej funkcji rejestrowania narażenia.";
 
 "Settings_DaysSinceInstall_P2b" = "Jeśli rejestrowanie narażenia było aktywne podczas kontaktowania się z innymi ludźmi, można obliczyć ryzyko zakażenia dla tego okresu.";
 
@@ -389,7 +383,7 @@
 
 "OnboardingInfo_togetherAgainstCoronaPage_boldText" = "Większa ochrona dla Ciebie i dla nas wszystkich. Korzystając z aplikacji Corona-Warn-App, możemy znacznie szybciej przerwać łańcuchy zakażeń.";
 
-"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Zmień swoje urządzenie w system ostrzegania przed koronawirusem. Zapoznaj się ze swoim statusem ryzyka i dowiedz się, czy miałeś(-aś) bliski kontakt z osobą, u której w ciągu ostatnich 14 dni zdiagnozowano koronawirusa. \n\nAplikacja rejestruje kontakty między osobami poprzez wymianę zaszyfrowanych, losowych identyfikatorów między ich smartfonami bez uzyskiwania dostępu do danych osobowych.";
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Zmień swoje urządzenie w system ostrzegania przed koronawirusem. Zapoznaj się ze swoim statusem ryzyka i dowiedz się, czy miałeś(-aś) bliski kontakt z osobą, u której w ciągu ostatnich 14 dni zdiagnozowano koronawirusa. \n\nAplikacja rejestruje kontakty między osobami poprzez wymianę zaszyfrowanych, losowych identyfikatorów między ich smartfonami bez uzyskiwania dostępu do danych osobowych.\n\nJeśli chcesz, możesz użyć aplikacji, aby udowodnić swój osobisty status dotyczący zakażenia (na przykład negatywny wynik szybkiego testu). Pamiętaj jednak, że nie masz obowiązku korzystania z aplikacji w celu potwierdzenia swojego statusu dotyczącego zakażenia. Możesz również udowodnić swój status dotyczący zakażenia w inny sposób, zgodny z przepisami prawnymi obowiązującymi w Twoim miejscu zamieszkania.\n\nAplikacja rejestruje kontakty między osobami poprzez wymianę zaszyfrowanych, losowych identyfikatorów między ich smartfonami bez uzyskiwania dostępu do danych osobowych.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_linkText" = "Informacja o aplikacji w języku uproszczonym i języku migowym";
 
@@ -489,7 +483,7 @@
 "ExposureSubmission_GeneralErrorTitle" = "Błąd";
 
 /* Exposure Submission Dispatch */
-"ExposureSubmission_DispatchTitle" = "Pobierz wynik testu";
+"ExposureSubmission_DispatchTitle" = "Zarejestruj test";
 
 "ExposureSubmissionIntroduction_AccImageDescription" = "Zaszyfrowana diagnoza zakażenia jest przesyłana do systemu.";
 
@@ -497,11 +491,11 @@
 
 "ExposureSubmission_DispatchSectionHeadline" = "Czy wykonano Ci test?";
 
-"ExposureSubmission_DispatchSectionHeadline2" = "Czy Twój wynik testu na obecność koronawirusa był pozytywny?";
+"ExposureSubmission_DispatchSectionHeadline2" = "Czy wynik Twojego testu PCR był pozytywny?";
 
-"ExposureSubmissionDispatch_QRCodeButtonTitle" = "Test z kodem QR";
+"ExposureSubmissionDispatch_QRCodeButtonTitle" = "Skanuj kod QR";
 
-"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Zarejestruj test poprzez zeskanowanie kodu QR dokumentu testu.";
+"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Odbierz wynik testu w aplikacji i ostrzegaj innych.";
 
 "ExposureSubmissionDispatch_TANButtonTitle" = "Wpisz TAN";
 
@@ -518,7 +512,7 @@
 
 "ExposureSubmissionHotline_SectionTitle" = "Jak to działa:";
 
-"ExposureSubmissionHotline_SectionDescription1" = "Rufen Sie die Hotline an und fragen Sie nach einer TAN.";
+"ExposureSubmissionHotline_SectionDescription1" = "Zadzwoń na infolinię i poproś o numer TAN:";
 
 "ExposureSubmissionHotline_iconAccessibilityLabel1" = "Krok 1 z 2";
 
@@ -527,13 +521,13 @@
 /* UI text; spacing allowed */
 "ExposureSubmission_PhoneNumberDomestic" = "0800 7540002";
 
-"ExposureSubmission_PhoneDetailsDomestic" = "Für Anrufe innerhalb Deutschlands.\nDer Anruf ist kostenfrei.";
+"ExposureSubmission_PhoneDetailsDomestic" = "Dla połączeń z terytorium Niemiec.\nPołączenie jest bezpłatne.";
 
 "ExposureSubmission_PhoneNumberForeign" = "+49 30 498 75402";
 
-"ExposureSubmission_PhoneDetailsForeign" = "Für Anrufe aus dem Ausland.\nEs fallen die Gebühren des jeweiligen Telefonanbieters an.";
+"ExposureSubmission_PhoneDetailsForeign" = "Dla połączeń spoza Niemiec.\nObowiązują opłaty podane przez operatora telefonicznego.";
 
-"ExposureSubmission_PhoneDetailDescription" = "Unser Kundenservice ist in den folgenden Sprachen für Sie da:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo-So: Täglich 24 Stunden\n\nFür gesundheitliche Fragen wenden Sie sich bitte an Ihre Hausarztpraxis oder die Hotline des ärztlichen Bereitschaftsdienstes 116 117.";
+"ExposureSubmission_PhoneDetailDescription" = "Zapewniamy obsługę klienta w następujących językach: \nangielskim, niemieckim, tureckim\n\nGodziny pracy:\n24/7\n\nW razie jakichkolwiek pytań związanych ze zdrowiem skontaktuj się z lekarzem rodzinnym lub lekarzem dyżurnym pod numerem: 116 117.";
 
 "ExposureSubmission_SectionDescription2" = "Zarejestruj swój test poprzez wpisanie numeru TAN w aplikacji.";
 
@@ -554,7 +548,7 @@
 
 "ExposureSubmissionQRInfo_instruction1" = "Zeskanuj teraz kod QR dla swojego testu i pobierz wynik testu.";
 
-"ExposureSubmissionQRInfo_instruction2" = "Test można zeskanować tylko raz. Aplikacja nie może zarządzać wieloma testami jednocześnie.";
+"ExposureSubmissionQRInfo_instruction2" = "Test można zeskanować tylko raz. Aplikacja może zarządzać maksymalnie jednym szybkim testem i jednym testem PCR jednocześnie.";
 
 "ExposureSubmissionQRInfo_instruction3" = "Aplikacja może%@ zarządzać wieloma testami w tym samym czasie.";
 
@@ -562,7 +556,7 @@
 
 "ExposureSubmissionQRInfo_header_section_2" = "Pomóż osobom, z którymi miałeś(-aś) kontakt, ostrzegając ich!";
 
-"ExposureSubmissionQRInfo_body_section_2" = "Jeśli zdiagnozowano u Ciebie koronawirusa, możesz ostrzec innych za pośrednictwem aplikacji. Funkcja ostrzegania działa w kilku krajach. Obecnie są to następujące kraje:";
+"ExposureSubmissionQRInfo_body_section_2" = "Jeśli zdiagnozowano u Ciebie koronawirusa, możesz ostrzec innych za pośrednictwem aplikacji. Jeżeli wykonałeś(-aś) szybki test, funkcja ostrzegania działa tylko w Niemczech. Jeśli wykonałeś(-aś) test PCR, funkcja ostrzegania działa w następujących krajach:";
 
 "ExposureSubmissionQRInfo_body_section_3" = "Osoby, które zameldowały swoją obecność w tych samych wydarzeniach lub miejscach w tym samym czasie co Ty, również zostaną ostrzeżone.";
 
@@ -581,6 +575,12 @@
 "ExposureSubmissionQRInfo_QRCodeExpired_Alert_Title" = "Kod QR stracił ważność";
 
 "ExposureSubmissionQRInfo_QRCodeExpired_Alert_Text" = "Twój test ma więcej niż 21 dni i nie można go już zarejestrować w aplikacji. Jeśli w przyszłości będziesz ponownie poddawać się testowi, zeskanuj kod QR, gdy tylko go otrzymasz.";
+
+"ExposureSubmission_RAT_QR_Invalid_Alert_Title" = "Błąd";
+
+"ExposureSubmission_RAT_QR_Invalid_Alert_Text" = "Kodu QR nie można dopasować do szybkiego testu. Zeskanuj odpowiedni kod QR.";
+
+"ExposureSubmission_RAT_QR_Invalid_Alert_Button" = "OK";
 
 /* Exposure Submission QR Code Scanner */
 "ExposureSubmissionQRScanner_title" = "Skan kodu QR";
@@ -654,13 +654,21 @@
 /* Exposure Submission Result */
 "ExposureSubmissionResult_Title" = "Twój wynik testu";
 
+"ExposureSubmissionResult_Title_Antigen" = "Szybki test";
+
 "ExposureSubmissionResult_CardSubTitle" = "Twoja diagnoza";
+
+"ExposureSubmissionResult_CardSubTitle_Antigen" = "Wynik Twojego szybkiego testu";
 
 "ExposureSubmissionResult_CardTitle" = "SARS-CoV-2";
 
 "ExposureSubmissionResult_CardPositive" = "Zakażenie";
 
 "ExposureSubmissionResult_CardNegative" = "Brak zakażenia";
+
+"ExposureSubmissionResult_CardPositive_Antigen" = "Zakażenie";
+
+"ExposureSubmissionResult_CardNegative_Antigen" = "Brak zakażenia";
 
 "ExposureSubmissionResult_CardInvalid" = "Ustalenie wyniku jest niemożliwe";
 
@@ -669,6 +677,10 @@
 "ExposureSubmissionResult_Procedure" = "Jak to działa:";
 
 "ExposureSubmissionResult_testAdded" = "Twój test został dodany.";
+
+"ExposureSubmissionResult_antigenTestAdded" = "Twój szybki test został dodany.";
+
+"ExposureSubmissionResult_antigenTestAddedDesc" = "Wynik testu jest wyświetlany tutaj przez 48 godzin. Aplikacja tworzy również wpis w Twoim dzienniku kontaktów.";
 
 "ExposureSubmissionResult_warnOthers" = "Ostrzegaj innych";
 
@@ -699,6 +711,16 @@
 "ExposureSubmissionResult_testPending" = "Twój wynik testu nie jest jeszcze dostępny.";
 
 "ExposureSubmissionResult_testPendingDesc" = "Wynik testu zostanie wyświetlony w aplikacji, jak tylko będzie dostępny.\n\nWynik testu otrzymasz również poza aplikacją. Organ ds. zdrowia publicznego powiadomi Cię, jeśli wynik testu będzie pozytywny.\n\nJeśli otrzymasz powiadomienie o pozytywnym wyniku testu poza aplikacją, usuń test aktualnie zarejestrowany w aplikacji. Zadzwoń na numer podany w sekcji „Poproś o TAN”, aby otrzymać numer TAN. Będziesz mieć wówczas możliwość zarejestrowania swojego wyniku w aplikacji za pomocą tego numeru, aby ostrzegać innych.";
+
+"ExposureSubmissionResult_antigenTestPending" = "Wynik Twojego testu nie jest jeszcze dostępny.";
+
+"ExposureSubmissionResult_antigenTestPendingDesc" = "Wynik testu zostanie wyświetlony w aplikacji, jak tylko będzie dostępny.";
+
+"ExposureSubmissionResult_antigenTestPendingContactJournal" = "Wynik Twojego testu zostanie dodany do dziennika kontaktów.";
+
+"ExposureSubmissionResult_antigenTestPendingContactJournalDesc" = "Wynik testu zostanie wyświetlony w aplikacji, jak tylko będzie dostępny.";
+
+"ExposureSubmissionResult_antigenTestNegativDesc" = "Szybki test nie dostarczył dowodów na to, że masz koronawirusa SARS-CoV-2.";
 
 "ExposureSubmissionResult_WarnOthersConsentGiven" = "Zgoda na „Ostrzeganie innych” udzielona";
 
@@ -784,7 +806,7 @@
 
 "ExposureSubmissionWarnOthers_sectionTitle" = "Możesz pomóc!";
 
-"ExposureSubmissionWarnOthers_description" = "Ze względu na pozytywny wynik testu na obecność koronawirusa możesz teraz ostrzegać innych za pośrednictwem aplikacji.";
+"ExposureSubmissionWarnOthers_description" = "Ponieważ zdiagnozowano u Ciebie koronawirusa, możesz ostrzec innych za pośrednictwem aplikacji. Jeżeli wykonałeś(-aś) szybki test, funkcja ostrzegania działa tylko w Niemczech. Jeśli wykonałeś(-aś) test PCR, funkcja ostrzegania działa w następujących krajach:";
 
 "ExposureSubmissionWarnOthers_supportedCountriesTitle" = "Funkcja ostrzegania działa w kilku krajach. Obecnie są to następujące kraje:";
 
@@ -806,6 +828,24 @@
 "ExposureSubmissionResult_RegistrationDateUnknown" = "Data rejestracji nieznana";
 
 "ExposureSubmissionResult_RegistrationDate" = "Test dodany dnia";
+
+"ExposureSubmissionResult_RegistrationDate_Antigen" = "Data wydania:";
+
+"ExposureSubmissionResult_RegistrationDate_Suffix_Antigen" = ".";
+
+"ExposureSubmissionResult_Person_Birthday_Prefix" = "Data urodzenia";
+
+"ExposureSubmissionResult_Abbreviation_Hours" = "godz.";
+
+"ExposureSubmissionResult_Abbreviation_Minutes" = "min";
+
+"ExposureSubmissionResult_Abbreviation_Seconds" = "sek.";
+
+"ExposureSubmissionResult_Timer_Title" = "Wynik dostępny od";
+
+"ExposureSubmissionResult_Negative_Antigen_Proof_Title" = "Funkcja weryfikacji";
+
+"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Wyświetlony tutaj wynik testu może również służyć jako dowód negatywnego wyniku szybkiego testu. Aby uzyskać więcej informacji, zapoznaj się z kryteriami akceptacji dowodu przeprowadzenia testów w swoim kraju związkowym. Pamiętaj, że nie masz obowiązku używania aplikacji do udowodnienia statusu dotyczącego zakażenia. Wynik szybkiego testu możesz również udowodnić w inny sposób zgodny z przepisami prawa.";
 
 /* Exposure Submission */
 "ExposureSubmissionError_ErrorPrefix" = "Podczas wysyłania Twoim danych pojawił się błąd techniczny. Skontaktuj się z infolinią techniczną. Numer telefonu znajdziesz w sekcji Informacje o aplikacji.";
@@ -847,6 +887,21 @@
 "ExposureSubmissionError_defaultError" = "Błąd podczas przesyłania klucza";
 
 "ExposureSubmissionError_noAppConfiguration" = "Twoje połączenie internetowe zostało utracone. Sprawdź połączenie, a następnie ponownie otwórz aplikację.";
+
+/* ExposureSubmission OverwriteNotice */
+"ExposureSubmission_OverwriteNotice_Title" = "Uwaga";
+
+"ExposureSubmission_OverwriteNotice_PrimaryButton" = "Dalej";
+
+"ExposureSubmission_OverwriteNotice_Image_Description" = "Jeśli wprowadzisz nowy test, zastąpi on wszystkie poprzednie testy.";
+
+"ExposureSubmission_OverwriteNotice_Pcr_Headline" = "Zarejestrowano już test PCR.";
+
+"ExposureSubmission_OverwriteNotice_Pcr_Text" = "Zarejestrowano już test PCR. Aplikacja może zarządzać maksymalnie jednym szybkim testem i jednym testem PCR jednocześnie. Jeśli zarejestrujesz kolejny test PCR, pierwszy test PCR zostanie usunięty z aplikacji.";
+
+"ExposureSubmission_OverwriteNotice_Antigen_Headline" = "Zarejestrowano już szybki test.";
+
+"ExposureSubmission_OverwriteNotice_Antigen_Text" = "Zarejestrowano już szybki test. Aplikacja może zarządzać maksymalnie jednym szybkim testem i jednym testem PCR jednocześnie. Jeśli zarejestrujesz kolejny szybki test, pierwszy szybki test zostanie usunięty z aplikacji.";
 
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Rejestrowanie narażenia";
@@ -1002,8 +1057,6 @@
 /* Home Low card */
 "Home_Risk_Low_Title" = "Niskie ryzyko";
 
-"Home_Risk_DaysSinceInstallation" = "Zainstalowano %u dni temu";
-
 /* Home High card */
 "Home_Risk_High_Title" = "Podwyższone ryzyko";
 
@@ -1023,56 +1076,79 @@
 
 "Home_Risk_Restart_Button_Title" = "Uruchom ponownie";
 
-/* Home Thank you card */
-"Home_Thank_You_Card_Title" = "Dziękujemy!";
+/* Home Test Result Card */
+"Home_resultCard_PCR_Title" = "Test PCR";
 
-"Home_Thank_You_Card_Body" = "Twoje wsparcie pozwala na ostrzeganie innych osób i daje im możliwość odpowiedniego zareagowania.";
+"Home_resultCard_Antigen_Title" = "Szybki test";
 
-"Home_Thank_You_Card_Note_Title" = "Uwaga:";
+"Home_resultCard_LoadingErrorTitle" = "Nie można załadować Twojego wyniku testu.";
 
-"Home_Thank_You_Card_Phone_Item_Title" = "Organ ds. zdrowia publicznego skontaktuje się z Tobą w ciągu kilku najbliższych dni.";
+/* - Pending */
+"Home_resultCard_ResultUnvailableTitle" = "Twój wynik testu nie jest jeszcze dostępny";
 
-"Home_Thank_You_Card_Home_Item_Title" = "Możesz zarażać. Izoluj się od innych osób.";
+"Home_resultCard_Pending_PCR_Desc" = "Ustalanie wyniku Twojego testu PCR jeszcze się nie zakończyło.";
 
-"Home_Thank_You_Card_Further_Info_Item_Title" = "Inne informacje:";
+"Home_resultCard_Pending_Antigen_Desc" = "Ustalanie wyniku Twojego szybkiego testu jeszcze się nie zakończyło.";
 
-"Home_Thank_You_Card_14Days_Item_Title" = "Okres kwarantanny wynosi zazwyczaj 14 dni. Obserwuj swoje objawy i monitoruj ich rozwój.";
+/* - Available */
+"Home_resultCard_ResultAvailableTitle" = "Pobierz wynik testu";
 
-"Home_Thank_You_Card_Contacts_Item_Title" = "Zostaniesz poproszony(-a) przez organ ds. zdrowia publicznego o stworzenie listy osób, z którymi miałeś(-aś) kontakt. Powinna ona obejmować wszystkie osoby, z którymi miałeś(-aś) bliski kontakt (w odległości mniejszej niż 2 metry, rozmowa twarzą w twarz) przez ponad 15 minut w ciągu dwóch dni poprzedzających zachorowanie. Możesz do tego celu wykorzystać swój dziennik kontaktów: po prostu wyeksportuj wpisy, a następnie wydrukuj je lub wyślij pocztą e-mail.";
+"Home_resultCard_AvailableDesc" = "Jeśli masz pozytywny wynik testu na obecność koronawirusa, możesz ostrzec innych.";
 
-"Home_Thank_You_Card_App_Item_Title" = "Zwróć szczególną uwagę na osoby, które nie zostaną powiadomione bezpośrednio przez aplikację, ponieważ nie posiadają smartfonów lub nie zainstalowały aplikacji.";
+/* - Negative */
+"Home_resultCard_NegativeCaption" = "Wyniki";
 
-"Home_Thank_You_Card_NoSymptoms_Item_Title" = "Nawet jeśli nie masz już żadnych objawów i znów czujesz się dobrze, możesz nadal zarażać.";
+"Home_resultCard_NegativeTitle" = "SARS-CoV-2";
 
-/* Home Reenable card */
-"Home_Reenable_Card_Title" = "Zakończono sprawdzanie narażeń";
+"Home_resultCard_NegativeTitleNegative" = "Wynik negatywny";
 
-"Home_Reenable_Card_Body" = "Automatyczne sprawdzanie narażeń zakończyło się, ponieważ zdiagnozowano u Ciebie koronawirusa i przebywasz obecnie na izolacji. W każdej chwili możesz ponownie aktywować test narażenia. Jeśli to zrobisz, zarejestrowany test zostanie automatycznie usunięty.";
+"Home_resultCard_NegativeDesc" = "Nie zdiagnozowano u Ciebie wirusa SARS-CoV-2.";
 
-"Home_Reenable_Card_Button_Title" = "Włącz sprawdzanie narażeń";
+"Home_resultCard_NegativeDatePCR" = "Test zarejestrowany dnia %@";
 
-"Home_Reenable_Card_TestResult_Title" = "Zakażenie SARS-CoV-2";
+"Home_resultCard_NegativeDateAntigen" = "Wykonany dnia %@";
 
-"Home_Reenable_Card_TestResult_Subtitle" = "Zdiagnozowano u Ciebie wirusa SARS-CoV-2.";
+/* - Invalid */
+"Home_resultCard_InvalidTitle" = "Nieprawidłowy test";
 
-"Home_Reenable_Card_TestResult_Registration" = "Test zarejestrowany dnia %@";
+"Home_resultCard_InvalidDesc" = "Ustalenie wyniku Twojego testu jest niemożliwe.";
 
-"Home_Reenable_Alert_Title" = "Aktywuj sprawdzanie narażeń";
+/* - Expired */
+"Home_resultCard_ExpiredTitle" = "Utrata ważności";
 
-"Home_Reenable_Alert_Message" = "Twój bieżący test zostanie usunięty z aplikacji, więc w razie potrzeby możesz zarejestrować nowy test.";
+"Home_resultCard_ExpiredDesc" = "Twój test ma więcej niż 21 dni i stracił ważność. Usuń test. Będziesz mieć wówczas możliwość dodania kolejnego.";
 
-"Home_Reenable_Alert_ConfirmButtonTitle" = "Aktywuj";
+/* - Outdated */
+"Home_resultCard_OutdatedTitle" = "Test nie jest już aktualny";
 
-"Home_Reenable_Alert_CancelButtonTitle" = "Anuluj";
+"Home_resultCard_OutdatedDesc" = "Twój szybki test jest starszy niż 48 godzin i nie będzie już tutaj wyświetlany. ";
 
-/* Home Finding positive */
-"Home_Finding_Positive_Card_Title" = "Diagnoza zakażenia";
+/* - Loading */
+"Home_resultCard_LoadingTitle" = "Aktualizacja w toku …";
 
+"Home_resultCard_LoadingBody" = "Bieżące dane są pobierane i sprawdzane. Może to potrwać kilka minut.";
+
+/* - Button */
+"Home_resultCard_ShowResultButton" = "Wyświetl test:";
+
+"Home_resultCard_RetrieveResultButton" = "Pobierz wynik testu";
+
+"Home_resultCard_DeleteTestButton" = "Usuń test";
+
+"Home_resultCard_HideTestButton" = "Nie wyświetlaj ponownie";
+
+/* - Show Positive */
 "Home_Finding_Positive_Card_Status_Title" = "Zakażenie SARS-CoV-2";
 
 "Home_Finding_Positive_Card_Status_Subtitle" = "Zdiagnozowano u Ciebie wirusa SARS-CoV-2.";
 
+"Home_Finding_Positive_Card_Status_DatePCR" = "Test zarejestrowany dnia %@";
+
+"Home_Finding_Positive_Card_Status_DateAntigen" = "Wykonany dnia %@";
+
 "Home_Finding_Positive_Card_Note_Title" = "Uwaga:";
+
+"Home_Finding_Positive_Card_Verify_Item_Title" = "Wykonaj test PCR, aby zweryfikować wynik tego testu. ";
 
 "Home_Finding_Positive_Card_Phone_Item_Title" = "Organ ds. zdrowia publicznego skontaktuje się z Tobą w ciągu kilku najbliższych dni telefonicznie lub listownie.";
 
@@ -1082,12 +1158,12 @@
 
 "Home_Finding_Positive_Card_Button" = "Ostrzegaj innych";
 
-/* Home Submit card */
-"Home_SubmitCard_Title" = "Czy wykonano Ci test?";
+/* Home Test Registration Card */
+"Home_TestRegistration_Title" = "Zarejestruj test";
 
-"Home_SubmitCard_Body" = "Pomóż chronić siebie i innych.";
+"Home_TestRegistration_Body" = "Korzystaj z aplikacji do pobierania wyników swoich badań, aby szybciej ostrzegać innych.";
 
-"Home_SubmitCard_Button" = "Następne kroki";
+"Home_TestRegistration_Button" = "Następne kroki";
 
 /* Home Trace Locations Card */
 "Home_TraceLocationsCard_Title" = "Planujesz wydarzenie?";
@@ -1110,35 +1186,6 @@
 "Home_AppInformationCard_Title" = "Informacje o aplikacji";
 
 "Home_AppInformationCard_Version" = "Wersja";
-
-/* Home Result Card */
-"Home_resultCard_ResultAvailableTitle" = "Twój wynik testu jest dostępny";
-
-"Home_resultCard_ResultUnvailableTitle" = "Twój wynik testu nie jest jeszcze dostępny";
-
-"Home_resultCard_ShowResultButton" = "Wyświetl test:";
-
-"Home_resultCard_RetrieveResultButton" = "Pobierz wynik testu";
-
-"Home_resultCard_LoadingBody" = "Bieżące dane są pobierane i sprawdzane. Może to potrwać kilka minut.";
-
-"Home_resultCard_LoadingTitle" = "Aktualizacja w toku …";
-
-"Home_resultCard_NegativeTitle" = "Diagnoza: brak zakażenia";
-
-"Home_resultCard_NegativeDesc" = "Nie zdiagnozowano u Ciebie zakażenia wirusem SARS-CoV-2.";
-
-"Home_resultCard_PendingDesc" = "Ustalanie wyniku Twojego testu jeszcze się nie zakończyło.";
-
-"Home_resultCard_InvalidTitle" = "Nieprawidłowy test";
-
-"Home_resultCard_InvalidDesc" = "Ustalenie wyniku Twojego testu jest niemożliwe.";
-
-"Home_resultCard_AvailableSubtitle" = "Możesz teraz pobrać wynik testu.";
-
-"Home_resultCard_AvailableDesc" = "Jeśli masz pozytywny wynik testu na obecność koronawirusa, możesz ostrzec innych.";
-
-"Home_resultCard_LoadingErrorTitle" = "Nie można załadować Twojego wyniku testu.";
 
 /* Home Alert Risk Lowered */
 "Home_Alert_RiskStatusLowered_Title" = "Zmiana Twojego statusu ryzyka";
@@ -1172,21 +1219,21 @@
 
 "App_Information_Contact_Description" = "W przypadku pytań technicznych dotyczących Corona-Warn-App prosimy o kontakt z naszą ogólnokrajową infolinią.";
 
-"App_Information_Contact_Hotline_Title" = "Technische Hotline:";
+"App_Information_Contact_Hotline_Title" = "Infolinia techniczna:";
 
 "App_Information_Contact_Hotline_Text_Domestic" = "0800 7540001";
 
 "App_Information_Contact_Hotline_Number_Domestic" = "08007540001";
 
-"App_Information_Contact_Hotline_Details_Domestic" = "Für Anrufe innerhalb Deutschlands.\nDer Anruf ist kostenfrei.";
+"App_Information_Contact_Hotline_Details_Domestic" = "Dla połączeń z terytorium Niemiec.\nPołączenie jest bezpłatne.";
 
 "App_Information_Contact_Hotline_Text_Foreign" = "+49 30 498 75402";
 
 "App_Information_Contact_Hotline_Number_Foreign" = "+493049875402";
 
-"App_Information_Contact_Hotline_Details_Foreign" = "Für Anrufe aus dem Ausland.\nEs fallen die Gebühren des jeweiligen Telefonanbieters an.";
+"App_Information_Contact_Hotline_Details_Foreign" = "Dla połączeń spoza Niemiec.\nObowiązują opłaty podane przez operatora telefonicznego.";
 
-"App_Information_Contact_Hotline_Terms" = "Unser Kundenservice ist in den folgenden Sprachen für Sie da:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo-So: Täglich 24 Stunden\n\nFür gesundheitliche Fragen wenden Sie sich bitte an Ihre Hausarztpraxis oder die Hotline des ärztlichen Bereitschaftsdienstes 116 117.";
+"App_Information_Contact_Hotline_Terms" = "Zapewniamy obsługę klienta w następujących językach: \nangielskim, niemieckim, tureckim\n\nGodziny pracy:\n24/7\n\nW razie jakichkolwiek pytań związanych ze zdrowiem skontaktuj się z lekarzem rodzinnym lub lekarzem dyżurnym pod numerem: 116 117.";
 
 /* App Information - Imprint */
 "App_Information_New_Features_Navigation" = "Nowe funkcje";
@@ -1394,23 +1441,27 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Dane o zmianach w tej wersji można znaleźć w informacjach o aplikacji w sekcji „Nowe funkcje”.";
 
+/* Version 2.1 */
+"NewVersionFeature_21_reg_antigen_title" = "Rejestracja szybkich testów antygenowych";
+
+"NewVersionFeature_21_reg_antigen_description" = "Oprócz wyników testów PCR, w aplikacji można teraz wyświetlać również wyniki szybkich testów antygenowych i wykorzystywać je do ostrzegania innych.";
+
+"NewVersionFeature_21_show_proof_title" = "Przedstawienie dowodu";
+
+"NewVersionFeature_21_show_proof_description" = "Jeśli chcesz, możesz użyć aplikacji, aby udowodnić swój osobisty status dotyczący zakażenia (na przykład negatywny wynik szybkiego testu). Pamiętaj jednak, że nie masz obowiązku korzystania z aplikacji w celu potwierdzenia swojego statusu dotyczącego zakażenia. Możesz również udowodnić swój status dotyczący zakażenia w inny sposób, zgodny z przepisami prawnymi obowiązującymi w Twoim miejscu zamieszkania.";
+
+"NewVersionFeature_21_tech_hotline_foreign_countries_title" = "Infolinia techniczna już dostępna poza granicami Niemiec";
+
+"NewVersionFeature_21_tech_hotline_foreign_countries_description" = "Z infolinią techniczną można się teraz połączyć również poza terytorium Niemiec, pod numerem +49 30 498 75401. W takim przypadku obowiązują opłaty pobierane przez operatora telefonicznego.";
+
+"NewVersionFeature_21_tan_hotline_foreign_countries_title" = "Infolinia TAN już dostępna poza granicami Niemiec";
+
+"NewVersionFeature_21_tan_hotline_foreign_countries_description" = "Jeśli zdiagnozowano u Ciebie koronawirusa, możesz teraz poprosić o numer TAN poza terytorium Niemiec, dzwoniąc na numer +49 30 498 75402. W takim przypadku obowiązują opłaty pobierane przez operatora telefonicznego.";
+
 /* Version 2.0 */
 "NewVersionFeature_200_event_checkin_title" = "Meldowanie się za pomocą kodu QR w celu skutecznego śledzenia łańcuchów zakażeń";
 
 "NewVersionFeature_200_event_checkin_description" = "CWA umożliwia teraz meldowanie obecności w wydarzeniach i miejscach. Organizatorzy wydarzeń i właściciele sklepów mogą wykorzystać tę aplikację do utworzenia kodu QR. Goście mogą zeskanować ten kod QR po przybyciu na miejsce, aby zarejestrować swoją obecność. Na życzenie aplikacja może również utworzyć wpis w dzienniku. Jeśli u osoby, która zameldowała swoją obecność w danym wydarzeniu lub miejscu, zostanie później zdiagnozowany koronawirus, inne osoby, które zameldowały się w tym samym czasie, otrzymają automatyczne ostrzeżenie.";
-
-/* Version 1.15 */
-"NewVersionFeature_115_cross_border_switzerland_title" = "Do międzynarodowego rejestrowania narażenia dodano Szwajcarię. ";
-
-"NewVersionFeature_115_cross_border_switzerland_description" = "Użytkownicy aplikacji Corona-Warn-App mogą teraz wymieniać się zaszyfrowanymi losowymi identyfikatorami z użytkownikami oficjalnej aplikacji ostrzegawczej w Szwajcarii. Oznacza to, że ostrzeżenia mogą być teraz wysyłane do użytkowników aplikacji w Szwajcarii i od nich odbierane.";
-
-"NewVersionFeature_115_days_since_install_title" = "Zmiana w kafelkach ryzyka";
-
-"NewVersionFeature_115_days_since_install_description" = "Kafelki ryzyka nie zawierają już liczby aktywnych dni ani informacji, że aplikacja jest aktywna na stałe.";
-
-"NewVersionFeature_115_error_analytic_logs_title" = "Generowanie raportów o błędach";
-
-"NewVersionFeature_115_error_analytic_logs_description" = "Na prośbę działu wsparcia technicznego możesz teraz wygenerować raport o błędach i zapisać czynności wykonane w aplikacji. Ułatwi to analizę błędów technicznych i przyśpieszy ich usuwanie.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Rejestrowanie narażenia w różnych krajach";
@@ -1492,6 +1543,28 @@
 "TestResultPositive_WithConsent_PrimaryButton" = "Wprowadź objawy";
 
 "TestResultPositive_WithConsent_SecondaryButton" = "Zakończ";
+
+"TestResultPositive_KeysSubmitted_Description" = "Twoje wsparcie pozwala na ostrzeganie innych osób i daje im możliwość odpowiedniego zareagowania.";
+
+"TestResultPositive_KeysSubmitted_Title1" = "Uwaga:";
+
+"TestResultPositive_KeysSubmitted_Info1" = "Wykonaj test PCR, aby zweryfikować wynik tego testu.";
+
+"TestResultPositive_KeysSubmitted_Info2" = "Organ ds. zdrowia publicznego skontaktuje się z Tobą w ciągu kilku najbliższych dni telefonicznie lub listownie.";
+
+"TestResultPositive_KeysSubmitted_Info3" = "Istnieje duże prawdopodobieństwo, że możesz zakażać. Odizoluj się od innych ludzi.";
+
+"TestResultPositive_KeysSubmitted_Title2" = "Inne informacje:";
+
+"TestResultPositive_KeysSubmitted_FurtherInfo1" = "Okres kwarantanny wynosi zazwyczaj 14 dni. Obserwuj swoje objawy i monitoruj ich rozwój.";
+
+"TestResultPositive_KeysSubmitted_FurtherInfo2" = "Zostaniesz poproszony(-a) przez organ ds. zdrowia publicznego o stworzenie listy osób, z którymi miałeś(-aś) kontakt. Powinna ona obejmować wszystkie osoby, z którymi miałeś(-aś) bliski kontakt (w odległości mniejszej niż 2 metry, rozmowa twarzą w twarz) przez ponad 15 minut w ciągu dwóch dni poprzedzających zachorowanie. Możesz do tego celu wykorzystać swój dziennik kontaktów: po prostu wyeksportuj wpisy, a następnie wydrukuj je lub wyślij pocztą e-mail.";
+
+"TestResultPositive_KeysSubmitted_FurtherInfo3" = "Zwróć szczególną uwagę na osoby, które nie zostaną powiadomione bezpośrednio przez aplikację, ponieważ nie posiadają smartfonów lub nie zainstalowały aplikacji.";
+
+"TestResultPositive_KeysSubmitted_FurtherInfo4" = "Nawet jeśli nie masz już żadnych objawów i znów czujesz się dobrze, możesz nadal zarażać, dlatego prosimy o przestrzeganie wyznaczonego okresu kwarantanny.";
+
+"TestResultPositive_KeysSubmitted_PrimaryButton" = "Usuń test";
 
 /* Overview */
 "ContactDiary_Overview_Button_Title_Menu" = "Menu";
@@ -2207,4 +2280,23 @@
 "Checkin_Details_EventEnded" = "To wydarzenie już się skończyło. Czy chcesz się zameldować z datą wsteczną?";
 
 "Checkin_Details_CheckIn_Button" = "Zamelduj się";
+
+/* Submission Check-in */
+"Submission_Checkins_Title" = "Udostępnić Twoje zameldowania w lokalizacji?";
+
+"Submission_Checkins_Description" = "Ostrzegaj inne osoby, które się zameldowały w pobliżu. Twoje dane osobowe nie będą udostępniane.";
+
+"Submission_Checkins_SelectAll" = "Wybierz wszystkie";
+
+"Submission_Checkins_Continue" = "Prześlij";
+
+"Submission_Checkins_Skip" = "Pomiń";
+
+"Submission_Checkins_Alert_Title" = "Czy na pewno nie chcesz udostępniać swoich zameldowań?";
+
+"Submission_Checkins_Alert_Message" = "W przypadku pominięcia tej operacji żadne kontakty zameldowane w pobliżu nie otrzymają ostrzeżenia.";
+
+"Submission_Checkins_Alert_Share" = "Udostępnij";
+
+"Submission_Checkins_Alert_DontShare" = "Nie udostępniaj";
 

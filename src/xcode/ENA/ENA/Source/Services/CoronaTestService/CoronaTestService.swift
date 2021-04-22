@@ -6,12 +6,26 @@ import Foundation
 import OpenCombine
 import UIKit
 
-enum CoronaTestServiceError: Error, Equatable {
+enum CoronaTestServiceError: LocalizedError, Equatable {
 	case responseFailure(URLSession.Response.Failure)
 	case unknownTestResult
 	case testExpired
 	case noRegistrationToken
 	case noCoronaTestOfRequestedType
+
+	var errorDescription: String? {
+		switch self {
+		case let .responseFailure(responseFailure):
+			return responseFailure.errorDescription
+		case .noRegistrationToken:
+			return AppStrings.ExposureSubmissionError.noRegistrationToken
+		case .testExpired:
+			return AppStrings.ExposureSubmission.qrCodeExpiredAlertText
+		default:
+			Log.error("\(self)", log: .api)
+			return AppStrings.ExposureSubmissionError.defaultError
+		}
+	}
 }
 
 // swiftlint:disable:next type_body_length
@@ -44,6 +58,7 @@ class CoronaTestService {
 		$pcrTest
 			.sink { [weak self] pcrTest in
 				self?.store.pcrTest = pcrTest
+				self?.tests.pcr = pcrTest
 
 				if pcrTest?.keysSubmitted == true {
 					self?.warnOthersReminder.cancelNotifications(for: .pcr)
@@ -54,6 +69,7 @@ class CoronaTestService {
 		$antigenTest
 			.sink { [weak self] antigenTest in
 				self?.store.antigenTest = antigenTest
+				self?.tests.antigen = antigenTest
 
 				if antigenTest?.keysSubmitted == true {
 					self?.warnOthersReminder.cancelNotifications(for: .antigen)
@@ -73,6 +89,8 @@ class CoronaTestService {
 
 	@OpenCombine.Published var pcrTest: PCRTest?
 	@OpenCombine.Published var antigenTest: AntigenTest?
+
+	@OpenCombine.Published private(set) var tests: (pcr: PCRTest?, antigen: AntigenTest?)
 
 	@OpenCombine.Published var antigenTestIsOutdated: Bool = false
 
@@ -179,7 +197,7 @@ class CoronaTestService {
 	}
 
 	func registerAntigenTestAndGetResult(
-		with guid: String,
+		with hash: String,
 		pointOfCareConsentDate: Date,
 		firstName: String?,
 		lastName: String?,
@@ -187,10 +205,10 @@ class CoronaTestService {
 		isSubmissionConsentGiven: Bool,
 		completion: @escaping TestResultHandler
 	) {
-		Log.info("[CoronaTestService] Registering antigen test (guid: \(guid), pointOfCareConsentDate: \(pointOfCareConsentDate), firstName: \(String(describing: firstName)), lastName: \(String(describing: lastName)), dateOfBirth: \(String(describing: dateOfBirth)), isSubmissionConsentGiven: \(isSubmissionConsentGiven))", log: .api)
+		Log.info("[CoronaTestService] Registering antigen test (hash: \(hash), pointOfCareConsentDate: \(pointOfCareConsentDate), firstName: \(String(describing: firstName)), lastName: \(String(describing: lastName)), dateOfBirth: \(String(describing: dateOfBirth)), isSubmissionConsentGiven: \(isSubmissionConsentGiven))", log: .api)
 
 		getRegistrationToken(
-			forKey: ENAHasher.sha256(guid),
+			forKey: ENAHasher.sha256(hash),
 			withType: "GUID",
 			completion: { [weak self] result in
 				switch result {
@@ -356,7 +374,8 @@ class CoronaTestService {
 
 		DeadmanNotificationManager(coronaTestService: self).resetDeadmanNotification()
 
-		if coronaTest(ofType: coronaTestType)?.isSubmissionConsentGiven == true {
+		if let coronaTest = coronaTest(ofType: coronaTestType), coronaTest.isSubmissionConsentGiven,
+			coronaTest.positiveTestResultWasShown, !coronaTest.keysSubmitted {
 			warnOthersReminder.scheduleNotifications(for: coronaTestType)
 		}
 	}

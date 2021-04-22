@@ -96,7 +96,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		setupTableView()
 
 		navigationItem.largeTitleDisplayMode = .automatic
-		tableView.backgroundColor = .enaColor(for: .separator)
+		tableView.backgroundColor = .enaColor(for: .darkBackground)
 
 		NotificationCenter.default.addObserver(self, selector: #selector(refreshUIAfterResumingFromBackground), name: UIApplication.willEnterForegroundNotification, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(refreshUI), name: NSNotification.Name.NSCalendarDayChanged, object: nil)
@@ -181,7 +181,14 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	}
 
 	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-		UIView()
+		guard HomeTableViewModel.Section(rawValue: section) == .settings else {
+			return UIView()
+		}
+
+		let headerView = UIView()
+		headerView.backgroundColor = .enaColor(for: .separator)
+
+		return headerView
 	}
 
 	override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -189,7 +196,32 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	}
 
 	override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-		UIView()
+		if HomeTableViewModel.Section(rawValue: section) == .infos {
+			let footerView = UIView()
+			footerView.backgroundColor = .enaColor(for: .separator)
+
+			return footerView
+		} else if HomeTableViewModel.Section(rawValue: section) == .settings {
+			let footerView = UIView()
+
+			let colorView = UIView()
+			colorView.backgroundColor = .enaColor(for: .separator)
+
+			footerView.addSubview(colorView)
+			colorView.translatesAutoresizingMaskIntoConstraints = false
+
+			NSLayoutConstraint.activate([
+				colorView.leadingAnchor.constraint(equalTo: footerView.leadingAnchor),
+				colorView.topAnchor.constraint(equalTo: footerView.topAnchor),
+				colorView.trailingAnchor.constraint(equalTo: footerView.trailingAnchor),
+				// Extend the last footer view so the color is shown even when rubber banding the scroll view
+				colorView.bottomAnchor.constraint(equalTo: footerView.bottomAnchor, constant: UIScreen.main.bounds.height)
+			])
+
+			return footerView
+		} else {
+			return UIView()
+		}
 	}
 
 	override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {

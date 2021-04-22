@@ -239,8 +239,22 @@ class DiaryCoordinator {
 				presentingViewController.dismiss(animated: true)
 			}
 		)
-		let navigationController = ENANavigationControllerWithFooter(rootViewController: viewController)
 
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: AppStrings.ContactDiary.AddEditEntry.primaryButtonTitle,
+				primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
+				isSecondaryButtonEnabled: false,
+				isSecondaryButtonHidden: true
+			)
+		)
+
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: viewController,
+			bottomController: footerViewController
+		)
+
+		let navigationController = UINavigationController(rootViewController: topBottomContainerViewController)
 		presentingViewController.present(navigationController, animated: true)
 	}
 
