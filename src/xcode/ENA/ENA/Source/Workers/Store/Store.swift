@@ -184,6 +184,8 @@ protocol CoronaTestStoringLegacy {
 
 	var isSubmissionConsentGiven: Bool { get set }
 
+	var antigenTestProfile: AntigenTestProfile? { get set }
+
 }
 
 // swiftlint:disable all

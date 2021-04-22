@@ -120,7 +120,7 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var lastSuccessfulSubmitDiagnosisKeyTimestamp: Int64?
 	var positiveTestResultWasShown: Bool = false
 	var isSubmissionConsentGiven = false
-
+	var antigenTestProfile: AntigenTestProfile?
 }
 
 #endif
