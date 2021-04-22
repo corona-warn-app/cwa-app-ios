@@ -13,7 +13,7 @@ struct EnvironmentData: Codable {
 	let name: String
 
 	// Hosts
-	let distributionURL, submissionURL, verificationURL, dataDonationURL, errorLogSubmission: URL
+	let distributionURL, submissionURL, verificationURL, dataDonationURL, errorLogSubmissionURL: URL
 
 	/// String representation of the package validation (public) key.
 	///
