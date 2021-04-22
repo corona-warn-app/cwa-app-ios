@@ -339,26 +339,32 @@ extension SecureStore: PrivacyPreservingProviding {
 		}
 	}
 
-	var otpToken: OTPToken? {
+	var otpTokenEdus: OTPToken? {
 		get { kvStore["otpToken"] as OTPToken? }
 		set { kvStore["otpToken"] = newValue }
 	}
 
-	var otpAuthorizationDate: Date? {
+	var otpEdusAuthorizationDate: Date? {
 		get { kvStore["otpAuthorizationDate"] as Date? }
 		set { kvStore["otpAuthorizationDate"] = newValue }
 	}
 
-	var ppacApiToken: TimestampedToken? {
+	var ppacApiTokenEdus: TimestampedToken? {
 		get { kvStore["ppacApiToken"] as TimestampedToken? }
 		set { kvStore["ppacApiToken"] = newValue }
 	}
 }
 
 extension SecureStore: ErrorLogProviding {
-	var elsApiToken: TimestampedToken? {
-		get { kvStore["elsApiToken"] as TimestampedToken? }
-		set { kvStore["elsApiToken"] = newValue }
+	
+	var ppacApiTokenEls: TimestampedToken? {
+		get { kvStore["ppacApiTokenEls"] as TimestampedToken? }
+		set { kvStore["ppacApiTokenEls"] = newValue }
+	}
+	
+	var otpTokenEls: OTPToken? {
+		get { kvStore["otpTokenEls"] as OTPToken? }
+		set { kvStore["otpTokenEls"] = newValue }
 	}
 }
 

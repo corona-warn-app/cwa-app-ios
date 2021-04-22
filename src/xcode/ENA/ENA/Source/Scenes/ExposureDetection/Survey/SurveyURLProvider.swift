@@ -105,7 +105,7 @@ final class SurveyURLProvider: SurveyURLProviding {
 	private func getOTP(for ppacToken: PPACToken, completion: @escaping (Result<URL, SurveyError>) -> Void) {
 		Log.info("Request OTP token.", log: .survey)
 
-		otpService.getOTP(ppacToken: ppacToken) { [weak self] result in
+		otpService.getOTPEdus(ppacToken: ppacToken) { [weak self] result in
 			switch result {
 			case .success(let otp):
 				Log.info("Successfully created survey OTP.", log: .survey)
