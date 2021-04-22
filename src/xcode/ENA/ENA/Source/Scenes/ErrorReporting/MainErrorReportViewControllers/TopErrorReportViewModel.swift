@@ -29,7 +29,7 @@ class TopErrorReportViewModel {
 				),
 				.link(
 					text: AppStrings.ErrorReport.faq,
-					url: URL(string: "https://example.com"), // TO DO Get correct Link
+					url: URL(string: AppStrings.ErrorReport.faqURL),
 					accessibilityIdentifier: AccessibilityIdentifiers.ErrorReport.faq
 				)
 			])
