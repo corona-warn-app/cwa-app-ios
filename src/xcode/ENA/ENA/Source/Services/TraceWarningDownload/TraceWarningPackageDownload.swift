@@ -226,6 +226,12 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 		// 3. Clean up revoked Packages.
 		let revokedPackages = appConfig.keyDownloadParameters.revokedTraceWarningPackages
 		removeRevokedTraceWarningMetadataPackages(revokedPackages)
+				
+		guard !eventStore.traceWarningPackageMetadatasPublisher.value.isEmpty else {
+			Log.info("TraceWarningPackageDownload: Aborted due to checkin metadata database is empty.", log: .checkin)
+			completion(.success(.success))
+			return
+		}
 		
 		self.status = .downloading
 		
