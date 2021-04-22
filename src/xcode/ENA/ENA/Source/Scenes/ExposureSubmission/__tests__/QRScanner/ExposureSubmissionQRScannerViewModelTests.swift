@@ -466,14 +466,6 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 			XCTFail("Caught an error while trying to encode the Antigen test")
 		}
 	}
-	func testHashOFTheHash() {
-		// both the hash and the expectedHashOfTheHash are extracted from a known valid Antigen test from the Tech specs
-		let hash = "f1200d9650f1fd673d58f52811f98f1427fab40b4996e9c2d0da8b7414464086"
-		let expectedHashOfTheHash = "0984a938a78a33331d65c9341f5d272286e0b621adfa283237e788237a081ccb"
-		
-		let antigenTestInformation = AntigenTestInformation.mock(hash: hash)
-		XCTAssertEqual(antigenTestInformation?.hashOfTheHash, expectedHashOfTheHash, "Hash Does not match expected hash")
-	}
 
 	private let validPcrGuid = "3D6D08-3567F3F2-4DCF-43A3-8737-4CD1F87D6FDA"
 	private func validAntigenHash(validPayload: String) -> String? {
