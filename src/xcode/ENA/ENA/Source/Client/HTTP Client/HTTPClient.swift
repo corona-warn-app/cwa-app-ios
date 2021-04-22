@@ -422,55 +422,53 @@ final class HTTPClient: Client {
 		traceWarningPackageDownload(country: country, packageId: packageId, url: url, completion: completion)
 	}
 
-	func submitErrorLog(
-		logFile: Data,
-		uploadToken: PPACToken,
-		isFake: Bool = false,
-		forceApiTokenHeader: Bool,
+	func submit(
+		errorLogFile: Data,
+		otpEls: String,
 		completion: @escaping ErrorLogSubmitting.ELSSubmissionResponse
 	) {
 		guard let request = try? URLRequest.errorLogSubmit(
 				configuration: configuration,
-				payload: logFile,
-				ppacToken: uploadToken,
-				isFake: isFake,
-				forceApiTokenHeader: forceApiTokenHeader) else {
+				payload: errorLogFile,
+				otpEls: otpEls) else {
 			completion(.failure(.urlCreationError))
 			return
 		}
-		#if DEBUG
-		debugPrint("[\(request.httpMethod ?? "GET")] \(request)")
-		debugPrint(request.allHTTPHeaderFields ?? [:])
-		debugPrint(String(data: request.httpBody ?? Data(), encoding: .utf8) ?? "<nil>")
-		#endif
 
-		session.response(for: request, isFake: isFake, extraHeaders: nil) { result in
-			do {
-				switch result {
-				case .success(let response):
-					debugPrint(response)
-					switch response.statusCode {
-					case 201:
-						guard let body = response.body else {
-							throw PPASError.jsonError
-						}
-						let result = try JSONDecoder().decode(LogUploadResponse.self, from: body)
-						completion(.success(result))
-					case 400..<500:
-						fallthrough
-					default:
-						#warning("TODO")
-						debugPrint(String(data: response.body ?? Data(), encoding: .utf8))
+		session.response(for: request, completion: { result in
+			switch result {
+			case let .success(response):
+				switch response.statusCode {
+				case 201:
+					guard let responseBody = response.body else {
+						Log.error("Error in response body: \(response.statusCode)", log: .api)
+						completion(.failure(.responseError(response.statusCode)))
+						return
 					}
-				case .failure(let error):
-					throw error
+					do {
+						let decodedResponse = try JSONDecoder().decode(
+							LogUploadResponse.self,
+							from: responseBody
+						)
+						completion(.success(decodedResponse))
+					} catch {
+						Log.error("Failed to decode response json", log: .api, error: error)
+						completion(.failure(.jsonError))
+					}
+				case 500:
+					Log.error("Internal server error at uploading error log file.", log: .api)
+					completion(.failure(.responseError(500)))
+				default:
+					Log.error("Wrong http status code: \(String(response.statusCode))", log: .api)
+					completion(.failure(.responseError(response.statusCode)))
 				}
-			} catch {
-				#warning("TODO")
-				completion(.failure(.generalError))
+			case let .failure(error):
+				Log.error("Error in response: \(error)", log: .api)
+				completion(.failure(.defaultServerError(error)))
 			}
-		}
+		})
 	}
+
 
 	// MARK: - Public
 
@@ -1029,29 +1027,23 @@ private extension URLRequest {
 	static func errorLogSubmit(
 		configuration: HTTPClient.Configuration,
 		payload: Data,
-		ppacToken: PPACToken,
-		isFake: Bool,
-		forceApiTokenHeader: Bool
+		otpEls: String
 	) throws -> URLRequest {
-		let boundary = payload.hashValue.description //UUID().uuidString
+		let boundary = payload.hashValue.description
 		var request = URLRequest(url: configuration.logUploadURL)
-		request.httpMethod = "POST"
+		request.httpMethod = HttpMethod.post
 		// create multipart body
 		request.httpBody = try Self.requestBodyForLogUpload(logData: payload, boundary: boundary)
 
 		// headers
 		request.setValue(
-			ppacToken.apiToken,
+			otpEls,
 			forHTTPHeaderField: "cwa-otp"
 		)
 		request.setValue(
 			"multipart/form-data; boundary=\(boundary)",
 			forHTTPHeaderField: "Content-Type"
 		)
-//		request.setValue(
-//			"\(request.httpBody?.count ?? 0)",
-//			forHTTPHeaderField: "Content-Length"
-//		)
 
 		return request
 	}

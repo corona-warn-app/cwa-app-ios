@@ -130,20 +130,16 @@ protocol Client {
 		completion: @escaping PPAnalyticsSubmitionCompletionHandler
 	)
 
-	// MARK: ELS (Error Log Sharing)
+	// MARK: ELS Submit (Error Log Sharing)
 
 	/// Log file upload for the ELS  Service
 	/// - Parameters:
 	///   - logFile: The compressed log `Data` to upload
 	///   - uploadToken: The 'ota token'; used for grouping multiple uploads per installation
-	///   - isFake: Flag to indicate a fake request
-	///   - forceApiTokenHeader: A Flag that indicates, if a special header flag is send to enforce to accept the API Token. ONLY executable for non release builds
 	///   - completion: He completion handler of the submission call, which contains the log `id` and `hash` value of the uploaded item
-	func submitErrorLog(
-		logFile: Data,
-		uploadToken: PPACToken,
-		isFake: Bool,
-		forceApiTokenHeader: Bool,
+	func submit(
+		errorLogFile: Data,
+		otpEls: String,
 		completion: @escaping ErrorLogSubmitting.ELSSubmissionResponse
 	)
 	

@@ -58,7 +58,7 @@ final class ClientMock {
 	var onSupportedCountries: ((@escaping CountryFetchCompletion) -> Void)?
 	var onGetOTPEdus: ((String, PPACToken, Bool, @escaping OTPAuthorizationCompletionHandler) -> Void)?
 	var onGetOTPEls: ((String, PPACToken, @escaping OTPAuthorizationCompletionHandler) -> Void)?
-	var onSubmitErrorLog: ((Data, Bool, @escaping ErrorLogSubmitting.ELSSubmissionResponse) -> Void)?
+	var onSubmitErrorLog: ((Data, @escaping ErrorLogSubmitting.ELSSubmissionResponse) -> Void)?
 	var onSubmitAnalytics: ((SAP_Internal_Ppdd_PPADataIOS, PPACToken, Bool, @escaping PPAnalyticsSubmitionCompletionHandler) -> Void)?
 	var onTraceWarningDiscovery: ((String, @escaping TraceWarningPackageDiscoveryCompletionHandler) -> Void)?
 	var onTraceWarningDownload: ((String, Int, @escaping TraceWarningPackageDownloadCompletionHandler) -> Void)?
@@ -231,19 +231,17 @@ extension ClientMock: Client {
 		onTraceWarningDownload(country, packageId, completion)
 	}
 
-	func submitErrorLog(
-		logFile: Data,
-		uploadToken: PPACToken,
-		isFake: Bool = false,
-		forceApiTokenHeader: Bool,
+	func submit(
+		errorLogFile: Data,
+		otpEls: String,
 		completion: @escaping ErrorLogSubmitting.ELSSubmissionResponse
 	) {
 		guard let onSubmitErrorLog = self.onSubmitErrorLog else {
-			completion(.success(LogUploadResponse(id: "\(Int.random(in: 0..<Int.max))", hash: logFile.sha256String())))
+			completion(.success(LogUploadResponse(id: "\(Int.random(in: 0..<Int.max))", hash: errorLogFile.sha256String())))
 			return
 		}
 
-		onSubmitErrorLog(logFile, isFake, completion)
+		onSubmitErrorLog(errorLogFile, completion)
 	}
 }
 #endif
