@@ -722,16 +722,42 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	// MARK: - AntigenTestProfile
 
 	private func showAntigenTestProfileInformation() {
-		Log.debug("showAntigenTestProfileInformation")
+		let antigenTestProfileInformationViewController = AntigenTestProfileInformationViewController(
+			store: store,
+			didTapDataPrivacy: { },
+			didTapContinue: { [weak self] in
+				self?.showCreateAntigenTestProfile()
+			},
+			dismiss: { [weak self] in self?.dismiss() }
+		)
+
+		let footerViewModel = FooterViewModel(
+			primaryButtonName: "Weiter",
+			isPrimaryButtonEnabled: true,
+			isSecondaryButtonEnabled: false,
+			isSecondaryButtonHidden: true
+		)
+		let footerViewController = FooterViewController(footerViewModel)
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: antigenTestProfileInformationViewController,
+			bottomController: footerViewController
+		)
+
+		push(topBottomContainerViewController)
 	}
 
 	private func showCreateAntigenTestProfile() {
+		guard store.antigenTestProfileInfoScreenShown else {
+			showAntigenTestProfileInformation()
+			return
+		}
 
 		let createAntigenTestProfileViewController = CreateAntigenTestProfileViewController(
 			store: store,
 			didTapSave: { [weak self] in
 				self?.showAntigenTestProfile()
-			}
+			},
+			dismiss: { [weak self] in self?.dismiss() }
 		)
 
 		let footerViewModel = FooterViewModel(

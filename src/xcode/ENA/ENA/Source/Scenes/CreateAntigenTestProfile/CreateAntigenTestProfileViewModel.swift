@@ -27,6 +27,8 @@ final class CreateAntigenTestProfileViewModel {
 	// MARK: - Internal
 	@OpenCombine.Published var antigenTestProfile: AntigenTestProfile
 
+	let title: String = "Schnelltest-Profil anlegen"
+
 	var isSaveButtonEnabled: Bool {
 		return
 			!(antigenTestProfile.firstName?.isEmpty ?? true) ||

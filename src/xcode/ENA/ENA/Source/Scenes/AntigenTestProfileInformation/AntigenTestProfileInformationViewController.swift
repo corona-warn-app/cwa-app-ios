@@ -4,19 +4,20 @@
 
 import UIKit
 
-class CreateAntigenTestProfileViewController: UIViewController, FooterViewHandling, DismissHandling {
+class AntigenTestProfileInformationViewController: DynamicTableViewController, FooterViewHandling, DismissHandling {
 
 	// MARK: - Init
 
 	init(
 		store: AntigenTestProfileStoring,
-		didTapSave: @escaping () -> Void,
+		didTapDataPrivacy: @escaping () -> Void,
+		didTapContinue: @escaping () -> Void,
 		dismiss: @escaping () -> Void
 	) {
-		self.viewModel = CreateAntigenTestProfileViewModel(store: store)
-		self.didTapSave = didTapSave
+		self.viewModel = AntigenTestProfileInformationViewModel(store: store)
+		self.didTapDataPrivacy = didTapDataPrivacy
+		self.didTapContinue = didTapContinue
 		self.dismiss = dismiss
-
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -32,6 +33,7 @@ class CreateAntigenTestProfileViewController: UIViewController, FooterViewHandli
 
 		parent?.navigationItem.title = viewModel.title
 		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
+//		viewModel.markScreenSeen()
 	}
 
 	// MARK: - Protocol FooterViewHandling
@@ -40,8 +42,7 @@ class CreateAntigenTestProfileViewController: UIViewController, FooterViewHandli
 		guard case .primary = type else {
 			return
 		}
-		viewModel.save()
-		didTapSave()
+		didTapContinue()
 	}
 
 	// MARK: - Protocol DismissHandling
@@ -56,8 +57,9 @@ class CreateAntigenTestProfileViewController: UIViewController, FooterViewHandli
 
 	// MARK: - Private
 
-	private let viewModel: CreateAntigenTestProfileViewModel
-	private let didTapSave: () -> Void
+	private let viewModel: AntigenTestProfileInformationViewModel
+	private let didTapDataPrivacy: () -> Void
+	private let didTapContinue: () -> Void
 	private let dismiss: () -> Void
 
 }
