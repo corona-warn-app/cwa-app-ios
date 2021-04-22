@@ -145,7 +145,7 @@ protocol CoronaTestStoring {
 
 }
 
-protocol AntigenTestProfileStoring {
+protocol AntigenTestProfileStoring: AnyObject {
 
 	var antigenTestProfile: AntigenTestProfile? { get set }
 

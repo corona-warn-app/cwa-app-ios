@@ -139,7 +139,14 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			},
 			onTANButtonTap: { [weak self] in self?.showTanScreen() },
 			onHotlineButtonTap: { [weak self] in self?.showHotlineScreen() },
-			onRapidTestProfileTap: { [weak self] in self?.showCreateAntigenTestProfile() }
+			onRapidTestProfileTap: { [weak self] in
+				// later move that to the title and inject both methods - just to get flow working
+//				if self?.store.antigenTestProfile == nil {
+//					self?.showCreateAntigenTestProfile()
+//				} else {
+					self?.showAntigenTestProfile()
+//				}
+			}
 		)
 		return ExposureSubmissionIntroViewController(
 			viewModel: viewModel,
@@ -723,7 +730,25 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	}
 
 	private func showAntigenTestProfile() {
-		Log.debug("showAntigenTestProfile")
+		let antigenTestProfileViewController = AntigenTestProfileViewController(
+			store: store,
+			didTapContinue: { Log.debug("Continue to consent screen") },
+			didTapDeleteProfile: { [weak self] in self?.navigationController?.popToRootViewController(animated: true) }
+		)
+
+		let footerViewModel = FooterViewModel(
+			primaryButtonName: "Weiter",
+			secondaryButtonName: "Schnelltest-Profil entfernen",
+			isPrimaryButtonEnabled: true,
+			isSecondaryButtonEnabled: true
+		)
+		let footerViewController = FooterViewController(footerViewModel)
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: antigenTestProfileViewController,
+			bottomController: footerViewController
+		)
+
+		push(topBottomContainerViewController)
 	}
 
 	// MARK: Cancel Alerts
