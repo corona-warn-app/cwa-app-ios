@@ -64,7 +64,6 @@ class BottomErrorReportViewController: UIViewController, RequiresAppDependencies
 	// MARK: - Internal
 
 	func configure(status: ErrorLoggingStatus) {
-		
 		switch status {
 		case .active:
 			coloredCircle.tintColor = .enaColor(for: .brandRed)
@@ -94,7 +93,9 @@ class BottomErrorReportViewController: UIViewController, RequiresAppDependencies
 	private let didTapStopAndDeleteButton: () -> Void
 
 	private var subscriptions = [AnyCancellable]()
-	
+
+	@IBOutlet private weak var stackView: UIStackView!
+	@IBOutlet private weak var stackViewHeightConstraint: NSLayoutConstraint!
 	@IBOutlet private weak var startButton: ENAButton!
 	@IBOutlet private weak var sendReportButton: ENAButton!
 	@IBOutlet private weak var saveLocallyButton: ENAButton!
@@ -121,6 +122,8 @@ class BottomErrorReportViewController: UIViewController, RequiresAppDependencies
 		sendReportButton.isHidden = !isActive
 		saveLocallyButton.isHidden = !isActive
 		stopAndDeleteButton.isHidden = !isActive
+
+		stackViewHeightConstraint.constant = isActive ? 180 : 60
 	}
 	
 	@IBAction private func startLoggingReport(_ sender: Any) {
