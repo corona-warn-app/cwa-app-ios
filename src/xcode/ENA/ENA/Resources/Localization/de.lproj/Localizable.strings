@@ -460,7 +460,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ExposureSubmission_Hotline_Number" = "08007540002";
 
 /* phone number; no spacing allowed */
-"ExposureSubmission_Hotline_Number_Foreign" = "+493049875402";
+"ExposureSubmission_Hotline_Number_Foreign" = "+493049875401";
 
 "ExposureSubmission_DataPrivacyTitle" = "Einwilligungserklärung";
 
@@ -539,13 +539,13 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_PhoneDetailsDomestic" = "Für Anrufe innerhalb Deutschlands.\nDer Anruf ist kostenfrei.";
 
-"ExposureSubmission_PhoneNumberForeign" = "+49 30 498 75402";
+"ExposureSubmission_PhoneNumberForeign" = "+49 30 498 75401";
 
 "ExposureSubmission_PhoneDetailsForeign" = "Für Anrufe aus dem Ausland.\nEs fallen die Gebühren des jeweiligen Telefonanbieters an.";
 
-"ExposureSubmission_PhoneDetailDescription" = "Unser Kundenservice ist in den folgenden Sprachen für Sie da:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo-So: Täglich 24 Stunden\n\nFür gesundheitliche Fragen wenden Sie sich bitte an Ihre Hausarztpraxis oder die Hotline des ärztlichen Bereitschaftsdienstes 116 117.";
+"ExposureSubmission_PhoneDetailDescription" = "Unser Kundenservice ist in den folgenden Sprachen für Sie da:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo-Sa: 07:00 - 22:00 Uhr\n\nFür gesundheitliche Fragen wenden Sie sich bitte an Ihre Hausarztpraxis oder die Hotline des ärztlichen Bereitschaftsdienstes 116 117.";
 
-"ExposureSubmission_SectionDescription2" = "Geben Sie die TAN in der App ein, um Ihren PRC-Test zu registrieren.";
+"ExposureSubmission_SectionDescription2" = "Geben Sie die TAN in der App ein, um Ihren PCR-Test zu registrieren.";
 
 "ExposureSubmission_CallButtonTitle" = "Anrufen";
 
@@ -865,7 +865,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_Negative_Antigen_Proof_Title" = "Nachweis-Funktion";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Sie können den hier angezeigten Befund auch als Nachweis für das Vorliegen eines negativen Schnelltest-Ergebnisses verwenden. Informieren Sie sich hierzu bitte auch über die Kriterien für die Anerkennung von Test-Nachweisen in Ihrem Bundesland. Bitte beachten Sie, dass Sie grundsätzlich nicht zum Nachweis per App verpflichtet sind. Sie können Ihr Schnelltest-Ergebnis im Rahmen der rechtlichen Bestimmungen auf andere Weise nachweisen.";
+"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Sie können den hier angezeigten Befund auch als Nachweis für das Vorliegen eines negativen Schnelltest-Ergebnisses verwenden.\n\nBitte beachten Sie, dass Sie nur dann einen Nachweis über Ihr Schnelltest-Ergebnis erbringen müssen, wenn dies gesetzlich festgelegt ist. Sie können den Nachweis über die App oder auch auf andere Weise erbringen. Informieren Sie sich hierzu bitte auch über die Kriterien für die Anerkennung von Test-Nachweisen in Ihrem Bundesland.";
 
 /* Exposure Submission */
 
@@ -1183,7 +1183,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Home_Finding_Positive_Card_Note_Title" = "Bitte beachten Sie:";
 
-"Home_Finding_Positive_Card_Verify_Item_Title" = "Machen Sie einen PCR Test, um dieses Test-Ergebnis zu verifizieren. ";
+"Home_Finding_Positive_Card_Verify_Item_Title" = "Machen Sie einen PCR-Test, um dieses Test-Ergebnis zu verifizieren. ";
 
 "Home_Finding_Positive_Card_Phone_Item_Title" = "Das Gesundheitsamt wird sich in den nächsten Tagen telefonisch oder schriftlich bei Ihnen melden.";
 
@@ -1266,13 +1266,13 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "App_Information_Contact_Hotline_Details_Domestic" = "Für Anrufe innerhalb Deutschlands.\nDer Anruf ist kostenfrei.";
 
-"App_Information_Contact_Hotline_Text_Foreign" = "+49 30 498 75402";
+"App_Information_Contact_Hotline_Text_Foreign" = "+49 30 498 75401";
 
-"App_Information_Contact_Hotline_Number_Foreign" = "+493049875402";
+"App_Information_Contact_Hotline_Number_Foreign" = "+493049875401";
 
 "App_Information_Contact_Hotline_Details_Foreign" = "Für Anrufe aus dem Ausland.\nEs fallen die Gebühren des jeweiligen Telefonanbieters an.";
 
-"App_Information_Contact_Hotline_Terms" = "Unser Kundenservice ist in den folgenden Sprachen für Sie da:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo-So: Täglich 24 Stunden\n\nFür gesundheitliche Fragen wenden Sie sich bitte an Ihre Hausarztpraxis oder die Hotline des ärztlichen Bereitschaftsdienstes 116 117.";
+"App_Information_Contact_Hotline_Terms" = "Unser Kundenservice ist in den folgenden Sprachen für Sie da:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo-Sa: 07:00 - 22:00 Uhr\n\nFür gesundheitliche Fragen wenden Sie sich bitte an Ihre Hausarztpraxis oder die Hotline des ärztlichen Bereitschaftsdienstes 116 117.";
 
 /* App Information - Imprint */
 "App_Information_New_Features_Navigation" = "Neue Funktionen";
@@ -1498,7 +1498,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeature_21_tan_hotline_foreign_countries_title" = "TAN-Hotline nun auch aus dem Ausland erreichbar";
 
-"NewVersionFeature_21_tan_hotline_foreign_countries_description" = "Sie können bei einem positiven Befund nun auch aus dem Ausland eine TAN anfordern unter der Nummer +49 30 498 75402. Es fallen Gebühren des jeweiligen Telefonanbieters an.";
+"NewVersionFeature_21_tan_hotline_foreign_countries_description" = "Sie können bei einem positiven Befund nun auch aus dem Ausland eine TAN anfordern unter der Nummer +49 30 498 75401. Es fallen Gebühren des jeweiligen Telefonanbieters an.";
 
 /* Version 2.0 */
 
@@ -1590,7 +1590,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "TestResultPositive_KeysSubmitted_Title1" = "Bitte beachten Sie:";
 
-"TestResultPositive_KeysSubmitted_Info1" = "Machen Sie einen PCR Test, um dieses Test-Ergebnis zu verifizieren.";
+"TestResultPositive_KeysSubmitted_Info1" = "Machen Sie einen PCR-Test, um dieses Test-Ergebnis zu verifizieren.";
 
 "TestResultPositive_KeysSubmitted_Info2" = "Das Gesundheitsamt wird sich in den nächsten Tagen telefonisch oder schriftlich bei Ihnen melden.";
 
@@ -2120,6 +2120,10 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "Checkins_Overview_QRScanner_Instruction" = "QR-Code scannen und einchecken";
 
+"Checkins_Overview_Item_Prefix_CheckIn" = "Check-In für %@.";
+
+"Checkins_Overview_Item_Prefix_CheckedOut" = "Checked-Out für %@.";
+
 "Checkin_QR_Scanner_Checkin_Error_Title" = "Ungültiger QR-Code";
 
 "Checkin_QR_Scanner_Error_InvalidURL" = "Der gescannte QR-Code gilt nicht für das Einchecken für ein Event oder einen Ort. Bitte scannen Sie einen geeigneten QR-Code (Fehlercode INVALID_URL).";
@@ -2173,6 +2177,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "TraceLocations_Overview_ActionSheet_InfoTitle" = "Infos";
 
 "TraceLocations_Overview_ActionSheet_EditTitle" = "Bearbeiten";
+
+"TraceLocations_Overview_Item_Prefix" = "QR-Code für %@.";
 
 /* Trace Location Details */
 
