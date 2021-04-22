@@ -177,7 +177,7 @@ protocol CoronaTestStoringLegacy {
 
 	var isSubmissionConsentGiven: Bool { get set }
 
-	var anitgenTestProfile: AntigenTestProfile? { get set }
+	var antigenTestProfile: AntigenTestProfile? { get set }
 
 }
 
