@@ -11,7 +11,7 @@ class AntigenTestProfileTests: XCTestCase {
 	let jsonDecoder = JSONDecoder()
 
 	let jsonFullString = """
-	{"zipCode":"12345","city":"Musterstadt","phoneNumber":"+49150123456789","dateOfBirth":"1971-11-01","forename":"Max","email":"max.mustermann@coronawarn.app","addressLine":"Musterstrasse 1a","lastName":"Mustermann"}
+	{"zipCode":"12345","city":"Musterstadt","firstName":"Max","phoneNumber":"+49150123456789","dateOfBirth":"1971-11-01","email":"max.mustermann@coronawarn.app","addressLine":"Musterstrasse 1a","lastName":"Mustermann"}
 	"""
 
 	let jsonDateOnlyString = """
