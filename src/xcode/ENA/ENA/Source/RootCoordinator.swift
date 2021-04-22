@@ -117,7 +117,8 @@ class RootCoordinator: RequiresAppDependencies {
 		tabBarController.tabBar.tintColor = .enaColor(for: .tint)
 		tabBarController.tabBar.barTintColor = .enaColor(for: .background)
 		tabBarController.setViewControllers([homeCoordinator.rootViewController, checkInCoordinator.viewController, diaryCoordinator.viewController], animated: false)
-
+		
+		viewController.clearChildViewController()
 		viewController.embedViewController(childViewController: tabBarController)
 	}
 
