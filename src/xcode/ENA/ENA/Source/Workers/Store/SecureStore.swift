@@ -14,11 +14,11 @@ final class SecureStore: Store {
 	init(
 		at directoryURL: URL,
 		key: String,
-		serverEnvironment: ServerEnvironment
+		environmentProvider: EnvironmentProviding = Environments()
 	) throws {
 		self.directoryURL = directoryURL
 		self.kvStore = try SQLiteKeyValueStore(with: directoryURL, key: key)
-		self.serverEnvironment = serverEnvironment
+		self.environmentProvider = environmentProvider
 	}
 
 	// MARK: - Protocol Store
@@ -152,11 +152,6 @@ final class SecureStore: Store {
 		set { kvStore["firstPlaybookExecution"] = newValue }
 	}
 
-	var selectedServerEnvironment: ServerEnvironmentData {
-		get { kvStore["selectedServerEnvironment"] as ServerEnvironmentData? ?? serverEnvironment.defaultEnvironment() }
-		set { kvStore["selectedServerEnvironment"] = newValue }
-	}
-
 	var wasRecentDayKeyDownloadSuccessful: Bool {
 		get { kvStore["wasRecentDayKeyDownloadSuccessful"] as Bool? ?? false }
 		set { kvStore["wasRecentDayKeyDownloadSuccessful"] = newValue }
@@ -253,7 +248,6 @@ final class SecureStore: Store {
 		set { kvStore["recentTraceLocationCheckedInto"] = newValue }
 	}
 
-
 	#endif
 
 	let kvStore: SQLiteKeyValueStore
@@ -261,7 +255,7 @@ final class SecureStore: Store {
 	// MARK: - Private
 
 	private let directoryURL: URL
-	private var serverEnvironment: ServerEnvironment
+	private let environmentProvider: EnvironmentProviding
 
 }
 
@@ -445,14 +439,13 @@ extension SecureStore {
 
 	static let keychainDatabaseKey = "secureStoreDatabaseKey"
 
-	convenience init(subDirectory: String, serverEnvironment: ServerEnvironment) {
-		self.init(subDirectory: subDirectory, isRetry: false, serverEnvironment: serverEnvironment)
+	convenience init(subDirectory: String, environmentProvider: EnvironmentProviding = Environments()) {
+		self.init(subDirectory: subDirectory, isRetry: false, environmentProvider: environmentProvider)
 	}
 
-	private convenience init(subDirectory: String, isRetry: Bool, serverEnvironment: ServerEnvironment) {
-		// swiftlint:disable:next force_try
-		let keychain = try! KeychainHelper()
+	private convenience init(subDirectory: String, isRetry: Bool, environmentProvider: EnvironmentProviding = Environments()) {
 		do {
+			let keychain = try KeychainHelper()
 			let directoryURL = try SecureStore.databaseDirectory(at: subDirectory)
 			let fileManager = FileManager.default
 			if fileManager.fileExists(atPath: directoryURL.path) {
@@ -463,7 +456,7 @@ extension SecureStore {
 					if isUITesting, ProcessInfo.processInfo.arguments.contains(UITestingParameters.SecureStoreHandling.simulateMismatchingKey.rawValue) {
 						// injecting a wrong key to simulate a mismatch, e.g. because of backup restoration or other reasons
 						key = "wrong 🔑"
-						try self.init(at: directoryURL, key: key, serverEnvironment: serverEnvironment)
+						try self.init(at: directoryURL, key: key, environmentProvider: environmentProvider)
 						return
 					}
 					#endif
@@ -472,15 +465,15 @@ extension SecureStore {
 				} else {
 					key = try keychain.generateDatabaseKey()
 				}
-				try self.init(at: directoryURL, key: key, serverEnvironment: serverEnvironment)
+				try self.init(at: directoryURL, key: key, environmentProvider: environmentProvider)
 			} else {
 				try fileManager.createDirectory(atPath: directoryURL.path, withIntermediateDirectories: true, attributes: nil)
 				let key = try keychain.generateDatabaseKey()
-				try self.init(at: directoryURL, key: key, serverEnvironment: serverEnvironment)
+				try self.init(at: directoryURL, key: key, environmentProvider: environmentProvider)
 			}
 		} catch is SQLiteStoreError where isRetry == false {
 			SecureStore.performHardDatabaseReset(at: subDirectory)
-			self.init(subDirectory: subDirectory, isRetry: true, serverEnvironment: serverEnvironment)
+			self.init(subDirectory: subDirectory, isRetry: true, environmentProvider: environmentProvider)
 		} catch {
 			fatalError("Creating the Database failed (\(error)")
 		}

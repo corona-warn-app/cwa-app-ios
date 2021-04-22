@@ -9,22 +9,22 @@ extension HTTPClient {
 		
 		// MARK: Default Instances
 
-		static func makeDefaultConfiguration(serverEnvironmentProvider: ServerEnvironmentProviding) -> Configuration {
+		static func makeDefaultConfiguration(environmentProvider: EnvironmentProviding) -> Configuration {
 			let endpoints = Configuration.Endpoints(
 				distribution: .init(
-					baseURL: serverEnvironmentProvider.selectedServerEnvironment.distributionURL,
+					baseURL: environmentProvider.currentEnvironment().distributionURL,
 					requiresTrailingSlash: false
 				),
 				submission: .init(
-					baseURL: serverEnvironmentProvider.selectedServerEnvironment.submissionURL,
+					baseURL: environmentProvider.currentEnvironment().submissionURL,
 					requiresTrailingSlash: false
 				),
 				verification: .init(
-					baseURL: serverEnvironmentProvider.selectedServerEnvironment.verificationURL,
+					baseURL: environmentProvider.currentEnvironment().verificationURL,
 					requiresTrailingSlash: false
 				),
 				dataDonation: .init(
-					baseURL: serverEnvironmentProvider.selectedServerEnvironment.dataDonationURL,
+					baseURL: environmentProvider.currentEnvironment().dataDonationURL,
 					requiresTrailingSlash: false
 				),
 				errorLogSubmission: .init(

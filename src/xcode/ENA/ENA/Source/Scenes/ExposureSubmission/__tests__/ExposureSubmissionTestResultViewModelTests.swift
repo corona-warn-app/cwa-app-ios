@@ -28,7 +28,11 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			description: "onContinueWithSymptomsFlowButtonTap closure is called"
 		)
 
-		let coronaTestService = CoronaTestService(client: client, store: MockTestStore())
+		let coronaTestService = CoronaTestService(
+			client: client,
+			store: MockTestStore(),
+			appConfiguration: CachedAppConfigurationMock()
+		)
 		coronaTestService.pcrTest = PCRTest.mock(testResult: .positive, isSubmissionConsentGiven: true)
 
 		let model = ExposureSubmissionTestResultViewModel(
@@ -68,7 +72,11 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			)
 			onContinueWithSymptomsFlowButtonTapExpectation.isInverted = true
 
-			let coronaTestService = CoronaTestService(client: client, store: MockTestStore())
+			let coronaTestService = CoronaTestService(
+				client: client,
+				store: MockTestStore(),
+				appConfiguration: CachedAppConfigurationMock()
+			)
 			coronaTestService.pcrTest = PCRTest.mock(testResult: testResult)
 
 			let model = ExposureSubmissionTestResultViewModel(
@@ -106,7 +114,11 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		)
 		onContinueWithSymptomsFlowButtonTapExpectation.isInverted = true
 
-		let coronaTestService = CoronaTestService(client: client, store: MockTestStore())
+		let coronaTestService = CoronaTestService(
+			client: client,
+			store: MockTestStore(),
+			appConfiguration: CachedAppConfigurationMock()
+		)
 		coronaTestService.pcrTest = PCRTest.mock(registrationToken: "asdf", testResult: .pending)
 
 		let model = ExposureSubmissionTestResultViewModel(
@@ -139,7 +151,11 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			getTestResultExpectation.fulfill()
 		}
 
-		let coronaTestService = CoronaTestService(client: client, store: MockTestStore())
+		let coronaTestService = CoronaTestService(
+			client: client,
+			store: MockTestStore(),
+			appConfiguration: CachedAppConfigurationMock()
+		)
 		coronaTestService.pcrTest = PCRTest.mock(registrationToken: "asdf", testResult: .pending)
 
 		let model = ExposureSubmissionTestResultViewModel(
@@ -192,7 +208,11 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			getTestResultExpectation.fulfill()
 		}
 
-		let coronaTestService = CoronaTestService(client: client, store: MockTestStore())
+		let coronaTestService = CoronaTestService(
+			client: client,
+			store: MockTestStore(),
+			appConfiguration: CachedAppConfigurationMock()
+		)
 		coronaTestService.pcrTest = PCRTest.mock(registrationToken: "asdf", testResult: .pending)
 
 		let model = ExposureSubmissionTestResultViewModel(
@@ -218,7 +238,11 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 
 		let client = ClientMock()
 
-		let coronaTestService = CoronaTestService(client: client, store: MockTestStore())
+		let coronaTestService = CoronaTestService(
+			client: client,
+			store: MockTestStore(),
+			appConfiguration: CachedAppConfigurationMock()
+		)
 		coronaTestService.pcrTest = PCRTest.mock(testResult: .pending)
 
 		let model = ExposureSubmissionTestResultViewModel(
@@ -266,7 +290,11 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 	}
 		
 	func testDidTapSecondaryButtonOnPendingTestResult() {
-		let coronaTestService = CoronaTestService(client: ClientMock(), store: MockTestStore())
+		let coronaTestService = CoronaTestService(
+			client: ClientMock(),
+			store: MockTestStore(),
+			appConfiguration: CachedAppConfigurationMock()
+		)
 		coronaTestService.pcrTest = PCRTest.mock(testResult: .pending)
 
 		let model = ExposureSubmissionTestResultViewModel(
@@ -291,7 +319,11 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 	func testDidTapSecondaryButtonOnNegativeInvalidOrExpiredTestResult() {
 		let testResults: [TestResult] = [.negative, .invalid, .expired]
 		for testResult in testResults {
-			let coronaTestService = CoronaTestService(client: ClientMock(), store: MockTestStore())
+			let coronaTestService = CoronaTestService(
+				client: ClientMock(),
+				store: MockTestStore(),
+				appConfiguration: CachedAppConfigurationMock()
+			)
 			coronaTestService.pcrTest = PCRTest.mock(testResult: testResult)
 
 			let model = ExposureSubmissionTestResultViewModel(
@@ -317,7 +349,11 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 	func testDeletion() {
 		let onTestDeletedCalledExpectation = expectation(description: "onTestDeleted closure is called")
 
-		let coronaTestService = CoronaTestService(client: ClientMock(), store: MockTestStore())
+		let coronaTestService = CoronaTestService(
+			client: ClientMock(),
+			store: MockTestStore(),
+			appConfiguration: CachedAppConfigurationMock()
+		)
 		coronaTestService.pcrTest = PCRTest.mock(testResult: .expired)
 
 		let model = ExposureSubmissionTestResultViewModel(
@@ -341,7 +377,11 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 	
 	func testNavigationFooterItemForPendingTestResult() {
 		do {
-			let coronaTestService = CoronaTestService(client: ClientMock(), store: MockTestStore())
+			let coronaTestService = CoronaTestService(
+				client: ClientMock(),
+				store: MockTestStore(),
+				appConfiguration: CachedAppConfigurationMock()
+			)
 			coronaTestService.pcrTest = PCRTest.mock(testResult: .pending)
 
 			let model = ExposureSubmissionTestResultViewModel(
@@ -373,7 +413,11 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 	func testNavigationFooterItemForPositiveTestResult() {
 		
 		do {
-			let coronaTestService = CoronaTestService(client: ClientMock(), store: MockTestStore())
+			let coronaTestService = CoronaTestService(
+				client: ClientMock(),
+				store: MockTestStore(),
+				appConfiguration: CachedAppConfigurationMock()
+			)
 			coronaTestService.pcrTest = PCRTest.mock(testResult: .positive)
 
 			let model = ExposureSubmissionTestResultViewModel(
@@ -406,7 +450,11 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		do {
 			let testResults: [TestResult] = [.negative, .invalid, .expired]
 			for testResult in testResults {
-				let coronaTestService = CoronaTestService(client: ClientMock(), store: MockTestStore())
+				let coronaTestService = CoronaTestService(
+					client: ClientMock(),
+					store: MockTestStore(),
+					appConfiguration: CachedAppConfigurationMock()
+				)
 				coronaTestService.pcrTest = PCRTest.mock(testResult: testResult)
 
 				let model = ExposureSubmissionTestResultViewModel(
@@ -438,7 +486,11 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 	}
 	
 	func testDynamicTableViewModelForPositiveTestResult() {
-		let coronaTestService = CoronaTestService(client: ClientMock(), store: MockTestStore())
+		let coronaTestService = CoronaTestService(
+			client: ClientMock(),
+			store: MockTestStore(),
+			appConfiguration: CachedAppConfigurationMock()
+		)
 		coronaTestService.pcrTest = PCRTest.mock(testResult: .positive)
 
 		let model = ExposureSubmissionTestResultViewModel(
@@ -476,7 +528,11 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 	}
 	
 	func testDynamicTableViewModelForNegativeTestResult() {
-		let coronaTestService = CoronaTestService(client: ClientMock(), store: MockTestStore())
+		let coronaTestService = CoronaTestService(
+			client: ClientMock(),
+			store: MockTestStore(),
+			appConfiguration: CachedAppConfigurationMock()
+		)
 		coronaTestService.pcrTest = PCRTest.mock(testResult: .negative)
 
 		let model = ExposureSubmissionTestResultViewModel(
@@ -534,7 +590,11 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 	}
 	
 	func testDynamicTableViewModelForInvalidTestResult() {
-		let coronaTestService = CoronaTestService(client: ClientMock(), store: MockTestStore())
+		let coronaTestService = CoronaTestService(
+			client: ClientMock(),
+			store: MockTestStore(),
+			appConfiguration: CachedAppConfigurationMock()
+		)
 		coronaTestService.pcrTest = PCRTest.mock(testResult: .invalid)
 
 		let model = ExposureSubmissionTestResultViewModel(
@@ -572,7 +632,11 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 	}
 	
 	func testDynamicTableViewModelForPendingTestResult() {
-		let coronaTestService = CoronaTestService(client: ClientMock(), store: MockTestStore())
+		let coronaTestService = CoronaTestService(
+			client: ClientMock(),
+			store: MockTestStore(),
+			appConfiguration: CachedAppConfigurationMock()
+		)
 		coronaTestService.pcrTest = PCRTest.mock(testResult: .pending)
 
 		let model = ExposureSubmissionTestResultViewModel(
@@ -614,7 +678,11 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 	}
 	
 	func testDynamicTableViewModelForExpiredTestResult() {
-		let coronaTestService = CoronaTestService(client: ClientMock(), store: MockTestStore())
+		let coronaTestService = CoronaTestService(
+			client: ClientMock(),
+			store: MockTestStore(),
+			appConfiguration: CachedAppConfigurationMock()
+		)
 		coronaTestService.pcrTest = PCRTest.mock(testResult: .expired)
 
 		let model = ExposureSubmissionTestResultViewModel(

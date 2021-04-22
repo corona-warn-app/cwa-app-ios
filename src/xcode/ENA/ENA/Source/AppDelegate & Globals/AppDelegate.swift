@@ -19,7 +19,7 @@ protocol CoronaWarnAppDelegate: AnyObject {
 	var riskProvider: RiskProvider { get }
 	var exposureManager: ExposureManager { get }
 	var taskScheduler: ENATaskScheduler { get }
-	var serverEnvironment: ServerEnvironment { get }
+	var environmentProvider: EnvironmentProviding { get }
 	var contactDiaryStore: DiaryStoringProviding { get }
 
 	func requestUpdatedExposureState()
@@ -32,17 +32,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	// MARK: - Init
 
 	override init() {
-		self.serverEnvironment = ServerEnvironment()
+		self.environmentProvider = Environments()
 
-		self.store = SecureStore(subDirectory: "database", serverEnvironment: serverEnvironment)
+		self.store = SecureStore(subDirectory: "database", environmentProvider: environmentProvider)
 
 		if store.appInstallationDate == nil {
 			store.appInstallationDate = InstallationDate.inferredFromDocumentDirectoryCreationDate()
 			Log.debug("App installation date: \(String(describing: store.appInstallationDate))")
 		}
 
-		self.client = HTTPClient(serverEnvironmentProvider: store)
-		self.wifiClient = WifiOnlyHTTPClient(serverEnvironmentProvider: store)
+		self.client = HTTPClient(environmentProvider: environmentProvider)
+		self.wifiClient = WifiOnlyHTTPClient(environmentProvider: environmentProvider)
 
 		self.downloadedPackagesStore.keyValueStore = self.store
 
@@ -141,12 +141,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
 		// handle QR cdes scanned in the camera app
-		guard
-			userActivity.activityType == NSUserActivityTypeBrowsingWeb,
-			let incomingURL = userActivity.webpageURL,
-			let route = Route(url: incomingURL),
-			store.isOnboarded
-		else {
+		var route: Route?
+		if userActivity.activityType == NSUserActivityTypeBrowsingWeb, let incomingURL = userActivity.webpageURL {
+			route = Route(url: incomingURL)
+		}
+		guard store.isOnboarded else {
+			postOnboardingRoute = route
 			return false
 		}
 		showHome(route)
@@ -161,7 +161,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
 	let contactDiaryStore: DiaryStoringProviding = ContactDiaryStore.make()
 	let eventStore: EventStoringProviding = EventStore.make()
-	let serverEnvironment: ServerEnvironment
+    let environmentProvider: EnvironmentProviding
 	var store: Store
 
 	lazy var coronaTestService: CoronaTestService = {
@@ -201,14 +201,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 				completion(.success(testResultResponse?.rawValue ?? testResult?.rawValue ?? TestResult.pending.rawValue))
 			}
 
+			let appConfiguration = CachedAppConfigurationMock()
+
 			return CoronaTestService(
 				client: client,
-				store: store
+				store: store,
+				appConfiguration: appConfiguration
 			)
 		}
 		#endif
 
-		return CoronaTestService(client: client, store: store)
+		return CoronaTestService(
+			client: client,
+			store: store,
+			appConfiguration: appConfigurationProvider
+		)
 	}()
 
 	lazy var eventCheckoutService: EventCheckoutService = EventCheckoutService(
@@ -232,7 +239,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		}
 		#endif
 		// use a custom http client that uses/recognized caching mechanisms
-		let appFetchingClient = CachingHTTPClient(serverEnvironmentProvider: store)
+		let appFetchingClient = CachingHTTPClient(environmentProvider: environmentProvider)
 
 		let provider = CachedAppConfiguration(client: appFetchingClient, store: store)
 		// used to remove invalidated key packages
@@ -384,12 +391,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			/// Following values are excluded from reset:
 			/// - PPAC API Token
 			/// - App installation date
-			/// - Environment setting
 			///
 			/// read values from the current store
 			let ppacAPIToken = store.ppacApiToken
 			let installationDate = store.appInstallationDate
-			let environment = store.selectedServerEnvironment
 
 			let newKey = try KeychainHelper().generateDatabaseKey()
 			store.clearAll(key: newKey)
@@ -397,8 +402,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			/// write excluded values back to the 'new' store
 			store.ppacApiToken = ppacAPIToken
 			store.appInstallationDate = installationDate
-			store.selectedServerEnvironment = environment
-			Analytics.collect(.submissionMetadata(.lastAppReset(Date())))
+            Analytics.collect(.submissionMetadata(.lastAppReset(Date())))
 		} catch {
 			fatalError("Creating new database key failed")
 		}
@@ -445,7 +449,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	private var exposureDetection: ExposureDetection?
 	private let consumer = RiskConsumer()
-
+	private var postOnboardingRoute: Route?
+	
 	private lazy var exposureDetectionExecutor: ExposureDetectionExecutor = {
 		ExposureDetectionExecutor(
 			client: self.client,
@@ -579,6 +584,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		if store.isOnboarded {
 			showHome(route)
 		} else {
+			postOnboardingRoute = route
 			showOnboarding()
 		}
 		UIImageView.appearance().accessibilityIgnoresInvertColors = true
@@ -618,7 +624,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		if exposureManager.exposureManagerState.status == .unknown {
 			exposureManager.activate { [weak self] error in
 				if let error = error {
-					Log.error("Cannot activate the  ENManager. The reason is \(error)", log: .api)
+					Log.error("Cannot activate the ENManager. The reason is \(error)", log: .api)
 				}
 				self?.presentHomeVC(route)
 			}
@@ -681,7 +687,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	@objc
 	private func isOnboardedDidChange(_: NSNotification) {
-		store.isOnboarded ? showHome() : showOnboarding()
+		if store.isOnboarded {
+			showHome(postOnboardingRoute)
+			postOnboardingRoute = nil
+		} else {
+			showOnboarding()
+		}
 	}
 
 	@objc

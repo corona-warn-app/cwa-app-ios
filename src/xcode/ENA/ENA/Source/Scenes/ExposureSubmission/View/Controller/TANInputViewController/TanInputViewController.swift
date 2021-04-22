@@ -170,9 +170,9 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 			}
 		}.store(in: &bindings)
 
-		// viewModel will notify about changes on errorText
+		// viewModel will notify about changes on errorText. errorText can contain the TAN for submission, there for it is private data.
 		viewModel.$errorText.sink { [weak self] newErrorText in
-			Log.debug("viewModel errorText did uodate to: \(newErrorText)")
+			Log.debug("viewModel errorText did update to: \(private: newErrorText, public: "teletan id")")
 
 			DispatchQueue.main.async {
 				self?.errorLabel.text = newErrorText

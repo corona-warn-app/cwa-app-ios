@@ -11,71 +11,65 @@ class HomeTableViewModel {
 
 	init(
 		state: HomeState,
-		store: Store
+		store: Store,
+		coronaTestService: CoronaTestService,
+		onTestResultCellTap: @escaping (CoronaTestType?) -> Void
 	) {
 		self.state = state
 		self.store = store
+		self.coronaTestService = coronaTestService
+		self.onTestResultCellTap = onTestResultCellTap
+
+		coronaTestService.$tests
+			.sink { [weak self] in
+				self?.update(pcrTest: $0.pcr, antigenTest: $0.antigen)
+			}
+			.store(in: &subscriptions)
 	}
 
 	// MARK: - Internal
 
 	enum Section: Int, CaseIterable {
 		case exposureLogging
-		case riskAndTest
+		case riskAndTestResults
+		case testRegistration
 		case statistics
 		case traceLocations
 		case infos
 		case settings
 	}
 
-	enum RiskAndTestRow {
+	enum RiskAndTestResultsRow: Equatable {
 		case risk
-		case testResult
-		case shownPositiveTestResult
-		case thankYou
+		case pcrTestResult(TestResultState)
+		case antigenTestResult(TestResultState)
+	}
+
+	enum TestResultState: Equatable {
+		case `default`
+		case positiveResultWasShown
 	}
 
 	let state: HomeState
 	let store: Store
+	let coronaTestService: CoronaTestService
+	var isUpdating: Bool = false
+
+	@OpenCombine.Published var testResultLoadingError: Error?
+	@OpenCombine.Published var riskAndTestResultsRows: [RiskAndTestResultsRow] = []
 
 	var numberOfSections: Int {
 		Section.allCases.count
-	}
-
-	var riskAndTestRows: [RiskAndTestRow] {
-		#if DEBUG
-		if isUITesting {
-			// adding this for launch argument to fake cards on home screen for testing
-			if UserDefaults.standard.string(forKey: "showThankYouScreen") == "YES" {
-				return [.thankYou]
-			} else if UserDefaults.standard.string(forKey: "showTestResultScreen") == "YES" {
-				return [.risk, .testResult]
-			} else if UserDefaults.standard.string(forKey: "showPositiveTestResult") == "YES" {
-				return [.shownPositiveTestResult]
-			}
-		}
-		#endif
-		if state.keysWereSubmitted {
-			// This is shown when we submitted keys! (Positive test result + actually decided to submit keys.)
-			// Once this state is reached, it cannot be left anymore.
-
-			Log.info("Reached end of life state.", log: .localData)
-			return [.thankYou]
-		} else if state.positiveTestResultWasShown {
-			// This is shown when a positive test result was already shown to the user. The risk cell will not be shown in that case.
-
-			return [.shownPositiveTestResult]
-		} else {
-			return [.risk, .testResult]
-		}
 	}
 
 	func numberOfRows(in section: Int) -> Int {
 		switch Section(rawValue: section) {
 		case .exposureLogging:
 			return 1
-		case .riskAndTest:
-			return riskAndTestRows.count
+		case .riskAndTestResults:
+			return riskAndTestResultsRows.count
+		case .testRegistration:
+			return 1
 		case .statistics:
 			return 1
 		case .traceLocations:
@@ -99,7 +93,7 @@ class HomeTableViewModel {
 
 	func heightForHeader(in section: Int) -> CGFloat {
 		switch Section(rawValue: section) {
-		case .exposureLogging, .riskAndTest, .statistics, .traceLocations:
+		case .exposureLogging, .riskAndTestResults, .testRegistration, .statistics, .traceLocations:
 			return 0
 		case .infos, .settings:
 			return 16
@@ -110,20 +104,119 @@ class HomeTableViewModel {
 
 	func heightForFooter(in section: Int) -> CGFloat {
 		switch Section(rawValue: section) {
-		case .exposureLogging, .riskAndTest, .statistics, .traceLocations:
+		case .exposureLogging, .riskAndTestResults, .testRegistration, .statistics, .traceLocations:
 			return 0
 		case .infos:
-			return 16
+			return 12
 		case .settings:
-			return 32
+			return 24
 		case .none:
 			fatalError("Invalid section")
 		}
 	}
 
-	func reenableRiskDetection() {
-		state.coronaTestService.removeTest(.pcr)
-		state.requestRisk(userInitiated: true)
+	func didTapTestResultCell(coronaTestType: CoronaTestType) {
+		if coronaTestType == .antigen && coronaTestService.antigenTestIsOutdated {
+			return
+		}
+
+		onTestResultCellTap(coronaTestType)
+	}
+
+	func didTapTestResultButton(coronaTestType: CoronaTestType) {
+		if coronaTestService.coronaTest(ofType: coronaTestType)?.testResult == .expired ||
+			(coronaTestType == .antigen && coronaTestService.antigenTestIsOutdated) {
+			coronaTestService.removeTest(coronaTestType)
+		} else {
+			onTestResultCellTap(coronaTestType)
+		}
+	}
+
+	func updateTestResult() {
+		// According to the tech spec, test results should always be updated in the foreground, even if the final test result was received. Therefore: force = true
+		coronaTestService.updateTestResult(for: .pcr, force: true) { [weak self] result in
+			guard let self = self else { return }
+
+			if case .failure(let error) = result {
+				switch error {
+				case .noCoronaTestOfRequestedType, .noRegistrationToken, .testExpired:
+					// Errors because of no registered corona tests or expired tests are ignored
+					break
+				case .responseFailure, .unknownTestResult:
+					// Only show errors for corona tests that are still expecting their final test result
+					if self.coronaTestService.pcrTest != nil && self.coronaTestService.pcrTest?.finalTestResultReceivedDate == nil {
+						self.testResultLoadingError = error
+					}
+				}
+			}
+		}
+
+		coronaTestService.updateTestResult(for: .antigen, force: true) { [weak self] result in
+			guard let self = self else { return }
+
+			if case .failure(let error) = result {
+				switch error {
+				case .noCoronaTestOfRequestedType, .noRegistrationToken, .testExpired:
+					// Errors because of no registered corona tests or expired tests are ignored
+					break
+				case .responseFailure, .unknownTestResult:
+					// Only show errors for corona tests that are still expecting their final test result
+					if self.coronaTestService.antigenTest != nil && self.coronaTestService.antigenTest?.finalTestResultReceivedDate == nil {
+						self.testResultLoadingError = error
+					}
+				}
+			}
+		}
+	}
+
+	// MARK: - Private
+
+	private let onTestResultCellTap: (CoronaTestType?) -> Void
+	private var subscriptions = Set<AnyCancellable>()
+
+	private func update(pcrTest: PCRTest?, antigenTest: AntigenTest?) {
+		let updatedRiskAndTestResultsRows = self.computedRiskAndTestResultsRows(pcrTest: pcrTest, antigenTest: antigenTest)
+
+		if updatedRiskAndTestResultsRows.contains(.risk) && !self.riskAndTestResultsRows.contains(.risk) {
+			self.state.requestRisk(userInitiated: true)
+		}
+
+		if updatedRiskAndTestResultsRows != self.riskAndTestResultsRows {
+			isUpdating = true
+			self.riskAndTestResultsRows = updatedRiskAndTestResultsRows
+		}
+	}
+
+	private func computedRiskAndTestResultsRows(pcrTest: PCRTest?, antigenTest: AntigenTest?) -> [RiskAndTestResultsRow] {
+		var riskAndTestResultsRows = [RiskAndTestResultsRow]()
+
+		let hasAtLeastOneShownPositiveOrSubmittedTest = pcrTest?.positiveTestResultWasShown == true || pcrTest?.keysSubmitted == true || antigenTest?.positiveTestResultWasShown == true || antigenTest?.keysSubmitted == true
+
+		if !hasAtLeastOneShownPositiveOrSubmittedTest {
+			riskAndTestResultsRows.append(.risk)
+		}
+
+		if let pcrTest = pcrTest {
+			let testResultState: TestResultState
+			if pcrTest.testResult == .positive && pcrTest.positiveTestResultWasShown {
+				testResultState = .positiveResultWasShown
+			} else {
+				testResultState = .default
+			}
+			riskAndTestResultsRows.append(.pcrTestResult(testResultState))
+		}
+
+		if let antigenTest = antigenTest {
+			let testResultState: TestResultState
+			if antigenTest.testResult == .positive && antigenTest.positiveTestResultWasShown {
+				testResultState = .positiveResultWasShown
+			} else {
+				testResultState = .default
+			}
+			riskAndTestResultsRows.append(.antigenTestResult(testResultState))
+		}
+
+		return riskAndTestResultsRows
 	}
 
 }
