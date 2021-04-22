@@ -912,6 +912,9 @@
 		BAB6C81225C4652D00E042FB /* PPACTokenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB6C81125C4652D00E042FB /* PPACTokenTests.swift */; };
 		BAB6C82325C4666900E042FB /* PPACServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB6C82225C4666900E042FB /* PPACServiceTest.swift */; };
 		BAB953D625B86015007B80C7 /* HistoryExposure.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB953D525B86015007B80C7 /* HistoryExposure.swift */; };
+		BAB9FC5B2630557900EB4E76 /* AntigenTestProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB9FC5A2630557900EB4E76 /* AntigenTestProfile.swift */; };
+		BAB9FC6A26305C3100EB4E76 /* ISO8601DateFormatter+extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB9FC6926305C3100EB4E76 /* ISO8601DateFormatter+extentions.swift */; };
+		BAB9FC6F26305F8000EB4E76 /* AntigenTestProfileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB9FC6E26305F8000EB4E76 /* AntigenTestProfileTests.swift */; };
 		BAC0A4DE25768039002B5361 /* TanInputViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC0A4DD25768039002B5361 /* TanInputViewModelTests.swift */; };
 		BAC42DC42583AF9D001A94C0 /* ENATextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC42DC32583AF9D001A94C0 /* ENATextField.swift */; };
 		BAC7291226037BB6006D83C7 /* MissingPermissionsCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC7291126037BB6006D83C7 /* MissingPermissionsCellModelTests.swift */; };
@@ -2001,6 +2004,9 @@
 		BAB6C81125C4652D00E042FB /* PPACTokenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPACTokenTests.swift; sourceTree = "<group>"; };
 		BAB6C82225C4666900E042FB /* PPACServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPACServiceTest.swift; sourceTree = "<group>"; };
 		BAB953D525B86015007B80C7 /* HistoryExposure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryExposure.swift; sourceTree = "<group>"; };
+		BAB9FC5A2630557900EB4E76 /* AntigenTestProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntigenTestProfile.swift; sourceTree = "<group>"; };
+		BAB9FC6926305C3100EB4E76 /* ISO8601DateFormatter+extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ISO8601DateFormatter+extentions.swift"; sourceTree = "<group>"; };
+		BAB9FC6E26305F8000EB4E76 /* AntigenTestProfileTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntigenTestProfileTests.swift; sourceTree = "<group>"; };
 		BAC0A4DD25768039002B5361 /* TanInputViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanInputViewModelTests.swift; sourceTree = "<group>"; };
 		BAC42DC32583AF9D001A94C0 /* ENATextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENATextField.swift; sourceTree = "<group>"; };
 		BAC7291126037BB6006D83C7 /* MissingPermissionsCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissingPermissionsCellModelTests.swift; sourceTree = "<group>"; };
@@ -3681,6 +3687,7 @@
 				01DB708425068167008F7244 /* Calendar+GregorianLocale.swift */,
 				0190B224255C423600CF4244 /* Date+Age.swift */,
 				AB7E2A7F255ACC06005C90F6 /* Date+Utils.swift */,
+				BAB9FC6926305C3100EB4E76 /* ISO8601DateFormatter+extentions.swift */,
 				51895EDB245E16CD0085DA38 /* ENAColor.swift */,
 				710021DB248E44A6001F0B63 /* ENAFont.swift */,
 				50AF8B4525E00D7200F65328 /* ENDiagnosisReportType+Protobuf.swift */,
@@ -3769,16 +3776,17 @@
 			isa = PBXGroup;
 			children = (
 				B1AC51D424CED8740087C35B /* __tests__ */,
-				138910C3247A907500D739F6 /* Task Scheduling */,
 				B1125458246F2C2100AB5036 /* Converting Keys */,
+				B18E852E248C29D400CF4FB8 /* DetectionMode.swift */,
+				FEDCE1B8926528ED74CDE1B2 /* ENStateHandler+State.swift */,
 				514E81322461B97700636861 /* Exposure */,
 				50C0296725E4067400460FA4 /* Metadata */,
 				51EE9A6C245C0FB500F2544F /* Onboarding */,
-				B18E852E248C29D400CF4FB8 /* DetectionMode.swift */,
-				8FDB9401261FBA0F00BA8CB1 /* Submisstion */,
+				BAB9FC592630555600EB4E76 /* Profile */,
 				8F3202482600C7F600D6A224 /* QR Code Scanning */,
-				FEDCE1B8926528ED74CDE1B2 /* ENStateHandler+State.swift */,
+				8FDB9401261FBA0F00BA8CB1 /* Submisstion */,
 				0144BDE0250924CC00B0857C /* SymptomsOnset.swift */,
+				138910C3247A907500D739F6 /* Task Scheduling */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -4005,9 +4013,6 @@
 		85D759712457059A008175F0 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				BAC939D6261F5CC9008BECED /* DismissHandlingNavigationController */,
-				BAC939CB261F52C9008BECED /* TestOverwriteNotice */,
-				ABE9615825F11FA000D0F699 /* Events */,
 				71176E30248957B1004B0C9F /* App */,
 				EE85998B2462EFD4002E7AE2 /* AppInformation */,
 				BAA4D72E25E95B1D00821B5C /* Checkin */,
@@ -4015,8 +4020,10 @@
 				BA63815825E69D1000A642BB /* Containers */,
 				BA0073BB25D189E50036DFDD /* DataDonation */,
 				BA7D17D025D5947B006B9EBF /* DataDonationDetails */,
+				BAC939D6261F5CC9008BECED /* DismissHandlingNavigationController */,
 				71F76D0E24767AF100515A01 /* DynamicTableViewController */,
 				858F6F71245AEC05009FFD33 /* ENSetting */,
+				ABE9615825F11FA000D0F699 /* Events */,
 				514E81312461946E00636861 /* ExposureDetection */,
 				CD99A398245B229F00BF12AF /* ExposureSubmission */,
 				BA63815925E69D1E00A642BB /* FooterViewController */,
@@ -4031,6 +4038,7 @@
 				BA69A7D625CD782900023265 /* SelectValueViewController */,
 				51D420C224583D7B00AD70CA /* Settings */,
 				016E260C25AF43440077C64C /* StatisticsInfo */,
+				BAC939CB261F52C9008BECED /* TestOverwriteNotice */,
 				0138F61825EFE61400A9B075 /* TraceLocations */,
 				EBB92C70259E10BD00013B41 /* UpdateOS */,
 			);
@@ -5662,6 +5670,23 @@
 			path = __tests__;
 			sourceTree = "<group>";
 		};
+		BAB9FC592630555600EB4E76 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				BAB9FC6526305B2D00EB4E76 /* __tests__ */,
+				BAB9FC5A2630557900EB4E76 /* AntigenTestProfile.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		BAB9FC6526305B2D00EB4E76 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				BAB9FC6E26305F8000EB4E76 /* AntigenTestProfileTests.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
 		BAC0A4DC25768017002B5361 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
@@ -6595,6 +6620,7 @@
 				BA6C8A9E254D634E008344F5 /* RiskCalculationConfiguration.swift in Sources */,
 				7154EB4A247D21E200A467FF /* ExposureDetectionLongGuideCell.swift in Sources */,
 				505F507225C833AA004920EB /* ppac_ios.pb.swift in Sources */,
+				BAB9FC6A26305C3100EB4E76 /* ISO8601DateFormatter+extentions.swift in Sources */,
 				50EACA9B25E682AE004DDADB /* ENInfectiousness+Protobuf.swift in Sources */,
 				50DC527924FEB2AE00F6D8EB /* AppInformationDynamicCell.swift in Sources */,
 				013A5552260CEE340092B5B1 /* TimeInterval+Minutes.swift in Sources */,
@@ -6883,6 +6909,7 @@
 				EB3B349E262B10B900B1801E /* ExposureSubmissionCheckinDescriptionCellModel.swift in Sources */,
 				EB7F8E9524E434E000A3CCC4 /* BackgroundAppRefreshViewController.swift in Sources */,
 				BA94BBC2260DFD42005CF38F /* CheckInTopCornerCell.swift in Sources */,
+				BAB9FC5B2630557900EB4E76 /* AntigenTestProfile.swift in Sources */,
 				EB7D205624E6A5930089264C /* InfoBoxViewModel.swift in Sources */,
 				859DD512248549790073D59F /* MockDiagnosisKeysRetrieval.swift in Sources */,
 				EB6B5D8D2539B36100B0ED57 /* DMNotificationCell.swift in Sources */,
@@ -7225,6 +7252,7 @@
 				01A97DD12506768F00C07C37 /* DatePickerOptionViewModelTests.swift in Sources */,
 				0177F4B125503805009DD568 /* ScanInstanceTest.swift in Sources */,
 				0109DB8726036E4400624BB3 /* CheckinsOverviewViewModelTest.swift in Sources */,
+				BAB9FC6F26305F8000EB4E76 /* AntigenTestProfileTests.swift in Sources */,
 				BADBC85625D6C1C500488DB7 /* BaseDataDonationViewModelTests.swift in Sources */,
 				5006C283260E4ABA00533CAA /* Checkin+Mock.swift in Sources */,
 				35AA4AF4259B40FC00D32306 /* CryptoFallbackTests.swift in Sources */,
