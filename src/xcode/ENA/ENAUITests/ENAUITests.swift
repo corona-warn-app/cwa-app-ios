@@ -128,7 +128,7 @@ class ENAUITests: XCTestCase {
 		// ScreenShot_0006: Negative result
 		try navigateThroughOnboarding()
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .medium))
-		app.buttons[AccessibilityIdentifiers.Home.submitCardButton].firstMatch.tap()
+		app.buttons[AccessibilityIdentifiers.Home.submitCardButton].tap()
 
 		if snapshotsActive { snapshot("AppStore_0006") }
 	}
