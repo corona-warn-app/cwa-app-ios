@@ -184,6 +184,7 @@ protocol CoronaTestStoringLegacy {
 
 }
 
+// swiftlint:disable all
 /// Wrapper protocol
 protocol Store:
 	AppConfigCaching,
@@ -196,3 +197,4 @@ protocol Store:
 	StoreProtocol,
 	WarnOthersTimeIntervalStoring
 {}
+// swiftlint:enable all

@@ -10,7 +10,7 @@ class ELSSubmissionTests: XCTestCase {
 	// Disabled; manual usage only
     func testELSAuthentication() throws {
 		let store = MockTestStore()
-		let client = HTTPClient(serverEnvironmentProvider: store)
+		let client = HTTPClient()
 
 		let onPPACToken = expectation(description: "onPPAC")
 		let onUpload = expectation(description: "onUpload")
@@ -27,8 +27,7 @@ class ELSSubmissionTests: XCTestCase {
 				XCTFail(error.localizedDescription)
 			case .success(let ppacToken):
 				let logFile = "Dummy log".data(using: .utf8) ?? Data()
-
-				client.submit(logFile: logFile, uploadToken: ppacToken, isFake: false, forceApiTokenHeader: false) { result in
+				client.submitErrorLog(logFile: logFile, uploadToken: ppacToken, isFake: false, forceApiTokenHeader: false) { result in
 					switch result {
 					case .failure(let error):
 						XCTFail(error.localizedDescription)

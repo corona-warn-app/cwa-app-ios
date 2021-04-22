@@ -4,7 +4,7 @@
 
 import Foundation
 
-enum OTPError: Error {
+enum OTPError: Error, Equatable {
 	case generalError(underlyingError: Error? = nil)
 	case invalidResponseError
 	case internalServerError
@@ -46,5 +46,9 @@ enum OTPError: Error {
 		case .deviceTokenSyntaxError:
 			return "deviceTokenSyntaxError"
 		}
+	}
+
+	static func == (lhs: OTPError, rhs: OTPError) -> Bool {
+		return lhs.description == rhs.description
 	}
 }
