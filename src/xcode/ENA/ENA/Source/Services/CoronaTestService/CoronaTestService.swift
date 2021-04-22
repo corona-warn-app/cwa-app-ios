@@ -197,7 +197,7 @@ class CoronaTestService {
 	}
 
 	func registerAntigenTestAndGetResult(
-		with guid: String,
+		with hash: String,
 		pointOfCareConsentDate: Date,
 		firstName: String?,
 		lastName: String?,
@@ -205,11 +205,10 @@ class CoronaTestService {
 		isSubmissionConsentGiven: Bool,
 		completion: @escaping TestResultHandler
 	) {
-		// swiftlint:disable line_length
-		Log.info("[CoronaTestService] Registering antigen test (guid: \(private: guid, public: "GUID ID"), pointOfCareConsentDate: \(private: pointOfCareConsentDate, public: "pointOfCareConsentDate ID"), firstName: \(private: String(describing: firstName), public: "FirstName of test person"), lastName: \(private: String(describing: lastName), public: "LastName of test person"), birthday: \(private: String(describing: dateOfBirth), public: "Birthday of test person"), isSubmissionConsentGiven: \(isSubmissionConsentGiven))", log: .api)
+		Log.info("[CoronaTestService] Registering antigen test (hash: \(hash), pointOfCareConsentDate: \(pointOfCareConsentDate), firstName: \(String(describing: firstName)), lastName: \(String(describing: lastName)), dateOfBirth: \(String(describing: dateOfBirth)), isSubmissionConsentGiven: \(isSubmissionConsentGiven))", log: .api)
 
 		getRegistrationToken(
-			forKey: ENAHasher.sha256(guid),
+			forKey: ENAHasher.sha256(hash),
 			withType: "GUID",
 			completion: { [weak self] result in
 				switch result {

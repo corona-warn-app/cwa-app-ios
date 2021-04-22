@@ -41,4 +41,8 @@ final class CheckInTimeModel {
 		DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .short)
 	}
 
+	var accessibilityDate: String {
+		DateFormatter.localizedString(from: date, dateStyle: .long, timeStyle: .short)
+	}
+
 }

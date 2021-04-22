@@ -143,7 +143,7 @@ class ExposureSubmissionCoordinatorModel {
 			)
 		case .antigen(let antigenTest):
 			coronaTestService.registerAntigenTestAndGetResult(
-				with: antigenTest.hashOfTheHash,
+				with: antigenTest.hash,
 				pointOfCareConsentDate: antigenTest.pointOfCareConsentDate,
 				firstName: antigenTest.firstName,
 				lastName: antigenTest.lastName,
