@@ -59,30 +59,33 @@ final class ErrorLogSubmissionService: ErrorLogSubmitting {
 	
 	func submit(log: Data, completion: @escaping (Result<LogUploadResponse, ELSError>) -> Void) {
 		
-	
-		authenticate(completion: { [weak self] otpEls in
-			
-			
-			
-		})
-		
 		// get log data from the 'all logs' file
-//		guard let item = LogDataItem(at: fileLogger.allLogsFileURL) else {
-//			Log.warning("No log data to export.", log: .els)
-//			completion(.failure(PPASError.generalError))
-//			return
-//		}
-//
-//		#warning("TODO!!!!!")
-//		// if needed, generate els token on the fly
-//		let token = store.elsApiToken ?? {
-//			let token = UUID().uuidString
-//			Log.info("Creating new ELS upload token", log: .els)
-//			store.elsUploadToken = token
-//			return token
-//		}()
-//		client.submitErrorLog(logFile: item.compressedData as Data, uploadToken: token, isFake: false, completion: completion)
-		
+		guard let errorLogFiledata = LogDataItem(at: fileLogger.allLogsFileURL)?.compressedData else {
+			Log.warning("No log data to export.", log: .els)
+			completion(.failure(.emptyLogFile))
+			return
+		}
+		Log.debug("Succesfully got a zipped error log file. Proceed with authentication for els.")
+
+		authenticate(completion: { [weak self] result in
+			switch result {
+			case let .success(otpEls):
+				Log.debug("Successfully authenticated ppac and otp for els. Proceed with uploading error log file.")
+				self?.client.submit(errorLogFile: errorLogFiledata as Data, otpEls: otpEls, completion: { result in
+					switch result {
+					case let .success(errorFileLogResponse):
+						Log.debug("Successfully uploaded error file log to server.")
+						completion(.success(errorFileLogResponse))
+					case let .failure(error):
+						Log.error("Uploading error file log failed.", log: .els, error: error)
+						completion(.failure(error))
+					}
+				})
+			case let .failure(error):
+				Log.error("Authentication for els otp failed. Abord upload process.", log: .els, error: error)
+				completion(.failure(error))
+			}
+		})
 	}
 	
 	// MARK: - Public
@@ -104,24 +107,28 @@ final class ErrorLogSubmissionService: ErrorLogSubmitting {
 		ppacService.getPPACTokenELS({ [weak self] result in
 			switch result {
 			case let .success(ppacToken):
+				Log.debug("Successfully retrieved for els a ppac token. Proceed for otp.")
 				// then get otp token for els (without restrictions for api token)
 				self?.otpService.getOTPEls(ppacToken: ppacToken, completion: { result in
 					switch result {
 					case let .success(otpEls):
+						Log.debug("Successfully retrieved for els an otp.")
 						// now we can submit our log with valid otp.
 						completion(.success(otpEls))
 					case let .failure(otpError):
+						Log.error("Could not obtain otp for els.", log: .els, error: otpError)
 						completion(.failure(.otpError(otpError)))
 					}
 				})
 			case let .failure(ppacError):
+				Log.error("Could not obtain ppac token for els.", log: .els, error: ppacError)
 				completion(.failure(.ppacError(ppacError)))
 			}
 		})
 	}
 
 	private func setupFileSizePublisher() -> AnyPublisher<Int64, ELSError> {
-		// TO DO: evaluate switch to constant observation https://developer.apple.com/documentation/foundation/nsfilepresenter
+		// TODO: evaluate switch to constant observation https://developer.apple.com/documentation/foundation/nsfilepresenter
 		return Timer
 			.publish(every: 1.0, on: .main, in: .default)
 			.autoconnect()
