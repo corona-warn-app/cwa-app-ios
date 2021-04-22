@@ -10,7 +10,7 @@ class AntigenTestProfileViewController: UIViewController, FooterViewHandling {
 
 	init(
 		store: AntigenTestProfileStoring,
-		didTapContinue: @escaping () -> Void,
+		didTapContinue: @escaping (@escaping (Bool) -> Void) -> Void,
 		didTapDeleteProfile: @escaping () -> Void
 	) {
 		self.viewModel = AntigenTestProfileViewModel(store: store)
@@ -37,7 +37,7 @@ class AntigenTestProfileViewController: UIViewController, FooterViewHandling {
 		switch type {
 
 		case .primary:
-			didTapContinue()
+			didTapContinue({ _ in Log.debug("is loading closure here") })
 		case .secondary:
 			viewModel.deleteProfile()
 			didTapDeleteProfile()
@@ -51,7 +51,7 @@ class AntigenTestProfileViewController: UIViewController, FooterViewHandling {
 	// MARK: - Private
 	
 	private let viewModel: AntigenTestProfileViewModel
-	private let didTapContinue: () -> Void
+	private let didTapContinue: (@escaping (Bool) -> Void) -> Void
 	private let didTapDeleteProfile: () -> Void
 
 }

@@ -732,7 +732,19 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	private func showAntigenTestProfile() {
 		let antigenTestProfileViewController = AntigenTestProfileViewController(
 			store: store,
-			didTapContinue: { Log.debug("Continue to consent screen") },
+			didTapContinue: { [weak self] isLoading in
+				self?.model.coronaTestType = .antigen
+				self?.model.exposureSubmissionService.loadSupportedCountries(
+					isLoading: isLoading,
+					onSuccess: { supportedCountries in
+						self?.showTestResultSubmissionConsentScreen(
+							supportedCountries: supportedCountries,
+							testResultAvailability: .availableAndPositive
+						)
+					}
+				)
+
+			},
 			didTapDeleteProfile: { [weak self] in self?.navigationController?.popToRootViewController(animated: true) }
 		)
 
