@@ -41,7 +41,14 @@ enum Route {
 				self = .rapidAntigen( .failure(.invalidTestCode))
 				return
 			}
-
+			let allIsNil = testInformation.firstName == nil && testInformation.firstName == nil && testInformation.dateOfBirthString == nil
+			// dateOfBirth is nil if dateOfBirthString is nil OR if dateOfBirthString is invalid
+			let allIsValid = testInformation.firstName != nil && testInformation.firstName != nil && testInformation.dateOfBirth != nil
+			
+			guard allIsNil || allIsValid else {
+				self = .rapidAntigen( .failure(.invalidTestCode))
+				return
+			}
 			self = .rapidAntigen(.success(.antigen(testInformation)))
 
 		case "e.coronawarn.app":
