@@ -29,7 +29,7 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 
 		// if the the bottom view controller is FooterViewController we use it's viewModel here as well
 		self.footerViewModel = (bottomViewController as? FooterViewController)?.viewModel
-		self.initialHeight = footerViewModel?.height ?? 0.0
+		self.initialHeight = footerViewModel?.height ?? bottomController.view.bounds.height
 		super.init(nibName: nil, bundle: nil)
 	}
 
