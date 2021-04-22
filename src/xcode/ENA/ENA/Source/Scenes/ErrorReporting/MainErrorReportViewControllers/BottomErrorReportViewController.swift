@@ -39,11 +39,19 @@ class BottomErrorReportViewController: UIViewController, RequiresAppDependencies
 		super.viewDidLoad()
 		
 		titleLabel.text = AppStrings.ErrorReport.title
+
 		startButton.setTitle(AppStrings.ErrorReport.startButtonTitle, for: .normal)
 		startButton.accessibilityIdentifier = AccessibilityIdentifiers.ErrorReport.startButton
+
 		sendReportButton.setTitle(AppStrings.ErrorReport.sendButtontitle, for: .normal)
+		sendReportButton.accessibilityIdentifier = AccessibilityIdentifiers.ErrorReport.sendReportButton
+
 		saveLocallyButton.setTitle(AppStrings.ErrorReport.saveButtonTitle, for: .normal)
+		saveLocallyButton.accessibilityIdentifier = AccessibilityIdentifiers.ErrorReport.saveLocallyButton
+
 		stopAndDeleteButton.setTitle(AppStrings.ErrorReport.stopAndDeleteButtonTitle, for: .normal)
+		stopAndDeleteButton.accessibilityIdentifier = AccessibilityIdentifiers.ErrorReport.stopAndDeleteButton
+
 		configure(status: .inactive)
 
 		elsService

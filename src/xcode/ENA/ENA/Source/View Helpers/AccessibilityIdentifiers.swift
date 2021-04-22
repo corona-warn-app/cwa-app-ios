@@ -449,6 +449,12 @@ enum AccessibilityIdentifiers {
 		static let historyDescription = "AppStrings.ErrorReport.historyDescription"
 		
 		static let startButton = "AppStrings.ErrorReport.startButtonTitle"
+		static let sendReportButton = "AppStrings.ErrorReport.sendButtontitle"
+		static let saveLocallyButton = "AppStrings.ErrorReport.saveButtonTitle"
+		static let stopAndDeleteButton = "AppStrings.ErrorReport.stopAndDeleteButtonTitle"
+
+		static let legalSendReports = "AppStrings.ErrorReport.Legal.sendReports_Headline"
+		static let sendReportsDetails = "AccessibilityIdentifiers.ErrorReport.sendReportsDetails"
 	}
 	
 	enum TraceLocation {
