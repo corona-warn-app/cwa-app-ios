@@ -275,7 +275,7 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 		let packagesToDownload = determinePackagesToDownload(availables: availablePackagesOnCDN, earliest: earliestRelevantPackage)
 		
 		guard !packagesToDownload.isEmpty else {
-			Log.info("TraceWarningPackageDownload: Aborted due to checkin metadata database is empty.", log: .checkin)
+			Log.info("TraceWarningPackageDownload: Aborted due to no packages to download.", log: .checkin)
 			completion(.success(.success))
 			return
 		}
