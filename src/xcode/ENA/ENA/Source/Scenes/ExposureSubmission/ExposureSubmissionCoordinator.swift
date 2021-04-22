@@ -141,11 +141,11 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			onHotlineButtonTap: { [weak self] in self?.showHotlineScreen() },
 			onRapidTestProfileTap: { [weak self] in
 				// later move that to the title and inject both methods - just to get flow working
-//				if self?.store.antigenTestProfile == nil {
-//					self?.showCreateAntigenTestProfile()
-//				} else {
+				if self?.store.antigenTestProfile == nil {
+					self?.showCreateAntigenTestProfile()
+				} else {
 					self?.showAntigenTestProfile()
-//				}
+				}
 			}
 		)
 		return ExposureSubmissionIntroViewController(
@@ -726,7 +726,27 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	}
 
 	private func showCreateAntigenTestProfile() {
-		Log.debug("showCreateAntigenTestProfile")
+
+		let createAntigenTestProfileViewController = CreateAntigenTestProfileViewController(
+			store: store,
+			didTapSave: { [weak self] in
+				self?.showAntigenTestProfile()
+			}
+		)
+
+		let footerViewModel = FooterViewModel(
+			primaryButtonName: "Weiter",
+			isPrimaryButtonEnabled: true,
+			isSecondaryButtonEnabled: false,
+			isSecondaryButtonHidden: true
+		)
+		let footerViewController = FooterViewController(footerViewModel)
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: createAntigenTestProfileViewController,
+			bottomController: footerViewController
+		)
+
+		push(topBottomContainerViewController)
 	}
 
 	private func showAntigenTestProfile() {
@@ -745,7 +765,9 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				)
 
 			},
-			didTapDeleteProfile: { [weak self] in self?.navigationController?.popToRootViewController(animated: true) }
+			didTapDeleteProfile: { [weak self] in
+				self?.navigationController?.popToRootViewController(animated: true)
+			}
 		)
 
 		let footerViewModel = FooterViewModel(

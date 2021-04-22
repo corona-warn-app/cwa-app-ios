@@ -29,6 +29,8 @@ class AntigenTestProfileViewController: UIViewController, FooterViewHandling {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		parent?.navigationItem.hidesBackButton = true
+		parent?.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(imageLiteralResourceName: "chevron.backward"), style: .plain, target: self, action: #selector(backToRootViewController))
 	}
 
 	// MARK: - Protocol FooterViewHandling
@@ -53,5 +55,10 @@ class AntigenTestProfileViewController: UIViewController, FooterViewHandling {
 	private let viewModel: AntigenTestProfileViewModel
 	private let didTapContinue: (@escaping (Bool) -> Void) -> Void
 	private let didTapDeleteProfile: () -> Void
+
+	@objc
+	private func backToRootViewController() {
+		didTapDeleteProfile()
+	}
 
 }
