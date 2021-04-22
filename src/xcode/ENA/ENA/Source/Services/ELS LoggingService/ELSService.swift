@@ -7,14 +7,13 @@ import OpenCombine
 
 protocol ErrorLogSubmitting {
 
-	typealias ELSAuthenticationResponse = (Result<TimestampedToken, OTPError>) -> Void
-	typealias ELSSubmissionResponse = (Result<LogUploadResponse, PPASError>) -> Void // TODO: PPAC or PPAS?
+	typealias ELSAuthenticationResponse = (Result<String, ELSError>) -> Void
+	typealias ELSSubmissionResponse = (Result<LogUploadResponse, ELSError>) -> Void
 	typealias ELSToken = TimestampedToken
 
 	/// Publisher returning the size in bytes for a given file
-	var logFileSizePublisher: OpenCombine.AnyPublisher<Int64, LogError> { get }
+	var logFileSizePublisher: OpenCombine.AnyPublisher<Int64, ELSError> { get }
 
-	func authenticate(completion: @escaping ELSAuthenticationResponse)
 	func submit(log: Data, completion: @escaping ELSSubmissionResponse)
 }
 
@@ -56,55 +55,17 @@ final class ErrorLogSubmissionService: ErrorLogSubmitting {
 	/// Publisher to handle changes in the size of the log file
 	///
 	/// - Note: The current implementation does NOT constantly observe file size changes!
-	private(set) lazy var logFileSizePublisher: AnyPublisher<Int64, LogError> = setupFileSizePublisher()
+	private(set) lazy var logFileSizePublisher: AnyPublisher<Int64, ELSError> = setupFileSizePublisher()
 	
-	func authenticate(completion: @escaping ELSAuthenticationResponse) {
+	func submit(log: Data, completion: @escaping (Result<LogUploadResponse, ELSError>) -> Void) {
 		
-		ppacService.getPPACTokenELS({ [weak self] result in
-			switch result {
-			case let .success(ppacToken):
-				self?.otpService.getOTPEls(ppacToken: ppacToken, completion: { [weak self] result in
-					switch result {
-					case let .success(otpEls):
-						break
-						// now can submit our log file with our authorized otp
-					case .failure(_):
-						break
-					}
-				})
-			case .failure(_):
-				break
-			}
+	
+		authenticate(completion: { [weak self] otpEls in
+			
+			
+			
 		})
-		/*
 		
-		if let token = store.elsApiToken, token.timestamp > Date() {
-			completion(.success(token))
-		} else {
-			let token = UUID().uuidString
-			PPACDeviceCheck().deviceToken(token) { result in
-				switch result {
-				case .success(let deviceToken):
-					self.client.authorizeELS(elsToken: token, ppacToken: deviceToken, isFake: false, forceApiTokenHeader: false) { result in
-						switch result {
-						case .success(let validUntil):
-							let elsToken = TimestampedToken(token: token, timestamp: validUntil)
-							self.store.elsApiToken = elsToken
-							completion(.success(elsToken))
-						case .failure(let error):
-							completion(.failure(error))
-						}
-					}
-				case .failure(let error):
-					completion(.failure(OTPError.generalError(underlyingError: error)))
-				}
-			}
-		}
-
-		*/
-	}
-
-	func submit(log: Data, completion: @escaping (Result<LogUploadResponse, PPASError>) -> Void) {
 		// get log data from the 'all logs' file
 //		guard let item = LogDataItem(at: fileLogger.allLogsFileURL) else {
 //			Log.warning("No log data to export.", log: .els)
@@ -137,20 +98,41 @@ final class ErrorLogSubmissionService: ErrorLogSubmitting {
 	
 	private lazy var fileLogger = FileLogger()
 	private lazy var fileManager = FileManager.default
+	
+	private func authenticate(completion: @escaping ELSAuthenticationResponse) {
+		// first get ppac token for els (without devide time check)
+		ppacService.getPPACTokenELS({ [weak self] result in
+			switch result {
+			case let .success(ppacToken):
+				// then get otp token for els (without restrictions for api token)
+				self?.otpService.getOTPEls(ppacToken: ppacToken, completion: { result in
+					switch result {
+					case let .success(otpEls):
+						// now we can submit our log with valid otp.
+						completion(.success(otpEls))
+					case let .failure(otpError):
+						completion(.failure(.otpError(otpError)))
+					}
+				})
+			case let .failure(ppacError):
+				completion(.failure(.ppacError(ppacError)))
+			}
+		})
+	}
 
-	private func setupFileSizePublisher() -> AnyPublisher<Int64, LogError> {
+	private func setupFileSizePublisher() -> AnyPublisher<Int64, ELSError> {
 		// TO DO: evaluate switch to constant observation https://developer.apple.com/documentation/foundation/nsfilepresenter
 		return Timer
 			.publish(every: 1.0, on: .main, in: .default)
 			.autoconnect()
 			.tryMap { _ in
 				guard let size = self.fileManager.sizeOfFile(atPath: self.fileLogger.allLogsFileURL.path) else {
-					throw LogError.couldNotReadLogfile()
+					throw ELSError.couldNotReadLogfile()
 				}
 				return size
 			}
-			.mapError({ error -> LogError in
-				return error as? LogError ?? LogError.couldNotReadLogfile(error.localizedDescription)
+			.mapError({ error -> ELSError in
+				return error as? ELSError ?? ELSError.couldNotReadLogfile(error.localizedDescription)
 			})
 			.eraseToAnyPublisher()
 	}
