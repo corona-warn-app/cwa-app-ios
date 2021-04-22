@@ -11,12 +11,16 @@ class BottomErrorReportViewController: UIViewController, RequiresAppDependencies
 
 	init(
 		coordinator: ErrorReportsCoordinating,
+		ppacService: PrivacyPreservingAccessControl,
+		otpService: OTPServiceProviding,
 		didTapStartButton: @escaping () -> Void,
 		didTapSaveButton: @escaping () -> Void,
 		didTapSendButton: @escaping () -> Void,
 		didTapStopAndDeleteButton: @escaping () -> Void
-		) {
+	) {
 		self.coordinator = coordinator
+		self.ppacService = ppacService
+		self.otpService = otpService
 		self.didTapStartButton = didTapStartButton
 		self.didTapSaveButton = didTapSaveButton
 		self.didTapSendButton = didTapSendButton
@@ -81,7 +85,38 @@ class BottomErrorReportViewController: UIViewController, RequiresAppDependencies
 	}
 
 	// MARK: - Private
+	
+	private let coordinator: ErrorReportsCoordinating
+	private let ppacService: PrivacyPreservingAccessControl
+	private let otpService: OTPServiceProviding
+	private let didTapStartButton: () -> Void
+	private let didTapSaveButton: () -> Void
+	private let didTapSendButton: () -> Void
+	private let didTapStopAndDeleteButton: () -> Void
 
+	private var subscriptions = [AnyCancellable]()
+	
+	@IBOutlet private weak var startButton: ENAButton!
+	@IBOutlet private weak var sendReportButton: ENAButton!
+	@IBOutlet private weak var saveLocallyButton: ENAButton!
+	@IBOutlet private weak var stopAndDeleteButton: ENAButton!
+	@IBOutlet private weak var titleLabel: ENALabel!
+	@IBOutlet private weak var statusTitle: ENALabel!
+	@IBOutlet private weak var statusDescription: ENALabel!
+	@IBOutlet private weak var coloredCircle: UIImageView!
+
+	private lazy var elsService: ErrorLogSubmitting = ErrorLogSubmissionService(
+		client: client,
+		store: store,
+		ppacService: ppacService,
+		otpService: otpService
+	)
+	private lazy var fileSizeFormatter: ByteCountFormatter = {
+		let formatter = ByteCountFormatter()
+		formatter.allowedUnits = [.useAll]
+		return formatter
+	}()
+	
 	private func showButtonsForStatus(isActive: Bool) {
 		startButton.isHidden = isActive
 		sendReportButton.isHidden = !isActive
@@ -106,27 +141,4 @@ class BottomErrorReportViewController: UIViewController, RequiresAppDependencies
 		didTapStopAndDeleteButton()
 		configure(status: .inactive)
 	}
-	
-	@IBOutlet private weak var startButton: ENAButton!
-	@IBOutlet private weak var sendReportButton: ENAButton!
-	@IBOutlet private weak var saveLocallyButton: ENAButton!
-	@IBOutlet private weak var stopAndDeleteButton: ENAButton!
-	@IBOutlet private weak var titleLabel: ENALabel!
-	@IBOutlet private weak var statusTitle: ENALabel!
-	@IBOutlet private weak var statusDescription: ENALabel!
-	@IBOutlet private weak var coloredCircle: UIImageView!
-	
-	private let didTapStartButton: () -> Void
-	private let didTapSaveButton: () -> Void
-	private let didTapSendButton: () -> Void
-	private let didTapStopAndDeleteButton: () -> Void
-	private let coordinator: ErrorReportsCoordinating
-	private var subscriptions = [AnyCancellable]()
-
-	private lazy var elsService: ErrorLogSubmitting = ErrorLogSubmissionService(client: self.client, store: self.store)
-	private lazy var fileSizeFormatter: ByteCountFormatter = {
-		let formatter = ByteCountFormatter()
-		formatter.allowedUnits = [.useAll]
-		return formatter
-	}()
 }

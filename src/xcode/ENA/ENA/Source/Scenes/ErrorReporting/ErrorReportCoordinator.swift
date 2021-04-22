@@ -15,9 +15,16 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating {
 
 	// MARK: - Init
 
-	init(rootViewController: UIViewController, initialState: ErrorLoggingStatus = .inactive) {
+	init(
+		rootViewController: UIViewController,
+		initialState: ErrorLoggingStatus = .inactive,
+		ppacService: PrivacyPreservingAccessControl,
+		otpService: OTPServiceProviding
+	) {
 		self.rootViewController = rootViewController
 		self.errorLoggingStatus = initialState
+		self.ppacService = ppacService
+		self.otpService = otpService
 	}
 
 	// MARK: - Internal
@@ -28,6 +35,8 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating {
 		// when the user goes back to the AppInformationViewController, the ErrorReportLoggingViewController will be deallocated and the coordinator with it
 		let errorReportsLoggingViewController = BottomErrorReportViewController(
 			coordinator: self,
+			ppacService: ppacService,
+			otpService: otpService,
 			didTapStartButton: { [weak self] in
 				self?.startErrorLogging()
 			}, didTapSaveButton: { [weak self] in
@@ -84,6 +93,26 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating {
 	
 	// MARK: - Private
 	
+	private let rootViewController: UIViewController
+	private let ppacService: PrivacyPreservingAccessControl
+	private let otpService: OTPServiceProviding
+	
+	private var errorLoggingStatus: ErrorLoggingStatus
+	// We need a reference to update the error logs size as we are on the screen by calling
+	private var errorReportsLoggingViewController: BottomErrorReportViewController?
+	/*
+	We need a reference to the TopBottomContainerViewController so we can adjust the
+	height of the bottom view depending on the Logging status: active or inactive
+	because the active status has 2 extra buttons so the height is variable
+	*/
+	private var errorReportsContainerViewController: TopBottomContainerViewController <TopErrorReportViewController, BottomErrorReportViewController>?
+	/*
+	We need to call the update() function inside this topViewControllerViewModel every time we show the main Controller
+	This insures that we show the correct number of Cells in the TopErrorReportViewController "based on wether there is already a history or not"
+	i.e If a history Cell should be added or not
+	*/
+	private var topViewControllerViewModel: TopErrorReportViewModel?
+	
 	private func showConfirmSendingScreen() {
 		let footerViewModel = FooterViewModel(
 			primaryButtonName: AppStrings.ErrorReport.sendReportsButtonTitle,
@@ -117,21 +146,4 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating {
 		htmlViewController.title = AppStrings.AppInformation.privacyNavigation
 		rootViewController.navigationController?.pushViewController(htmlViewController, animated: true)
 	}
-	
-	private let rootViewController: UIViewController
-	private var errorLoggingStatus: ErrorLoggingStatus
-	// We need a reference to update the error logs size as we are on the screen by calling
-	private var errorReportsLoggingViewController: BottomErrorReportViewController?
-	/*
-	We need a reference to the TopBottomContainerViewController so we can adjust the
-	height of the bottom view depending on the Logging status: active or inactive
-	because the active status has 2 extra buttons so the height is variable
-	*/
-	private var errorReportsContainerViewController: TopBottomContainerViewController <TopErrorReportViewController, BottomErrorReportViewController>?
-	/*
-	We need to call the update() function inside this topViewControllerViewModel every time we show the main Controller
-	This insures that we show the correct number of Cells in the TopErrorReportViewController "based on wether there is already a history or not"
-	i.e If a history Cell should be added or not
-	*/
-	private var topViewControllerViewModel: TopErrorReportViewModel?
 }

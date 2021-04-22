@@ -22,8 +22,9 @@ extension UserDefaults: DMStore {
 
 /// If enabled, the developer can be revealed by tripple-tapping anywhere within the `presentingViewController`.
 final class DMDeveloperMenu {
-	// MARK: Creating a developer menu
-
+	
+	// MARK: - Init
+	
 	/// Parameters:
 	/// - presentingViewController: The instance of `UIViewController` which should receive a developer menu.
 	/// - client: The `Client` to use.
@@ -40,7 +41,8 @@ final class DMDeveloperMenu {
 		otpService: OTPServiceProviding,
 		coronaTestService: CoronaTestService,
 		eventStore: EventStoringProviding,
-		qrCodePosterTemplateProvider: QRCodePosterTemplateProviding
+		qrCodePosterTemplateProvider: QRCodePosterTemplateProviding,
+		ppacService: PrivacyPreservingAccessControl
 	) {
 		self.client = client
 		self.wifiClient = wifiClient
@@ -52,26 +54,13 @@ final class DMDeveloperMenu {
 		self.serverEnvironment = serverEnvironment
 		self.otpService = otpService
 		self.coronaTestService = coronaTestService
-        self.eventStore = eventStore
+		self.eventStore = eventStore
 		self.qrCodePosterTemplateProvider = qrCodePosterTemplateProvider
+		self.ppacService = ppacService
 	}
-
-	// MARK: Properties
-	private let presentingViewController: UIViewController
-	private let client: Client
-	private let wifiClient: WifiOnlyHTTPClient
-	private let store: Store
-    private let eventStore: EventStoringProviding
-	private let exposureManager: ExposureManager
-	private let exposureSubmissionService: ExposureSubmissionService
-	private let developerStore: DMStore
-	private let serverEnvironment: ServerEnvironment
-	private let otpService: OTPServiceProviding
-	private let coronaTestService: CoronaTestService
-	private let qrCodePosterTemplateProvider: QRCodePosterTemplateProviding
-
-	// MARK: Interacting with the developer menu
-
+	
+	// MARK: - Internal
+	
 	/// Enables the developer menu if it is currently allowed to do so.
 	///
 	/// Whether or not the developer menu is allowed is determined at build time by looking at the active build configuration. It is only allowed for `RELEASE` and `DEBUG` builds. Builds that target the app store (configuration `APP_STORE`) are built without support for a developer menu.
@@ -83,13 +72,8 @@ final class DMDeveloperMenu {
 		showDeveloperMenuGesture.numberOfTapsRequired = 3
 		presentingViewController.view.addGestureRecognizer(showDeveloperMenuGesture)
 	}
-
-	@objc
-	private func _showDeveloperMenu(_: UITapGestureRecognizer) {
-		showDeveloperMenu()
-	}
-
-	 func showDeveloperMenu() {
+	
+	func showDeveloperMenu() {
 		let vc = DMViewController(
 			client: client,
 			wifiClient: wifiClient,
@@ -97,18 +81,19 @@ final class DMDeveloperMenu {
 			otpService: otpService,
 			coronaTestService: coronaTestService,
 			eventStore: eventStore,
-			qrCodePosterTemplateProvider: qrCodePosterTemplateProvider
+			qrCodePosterTemplateProvider: qrCodePosterTemplateProvider,
+			ppacService: ppacService
 		)
-
+		
 		let closeBarButtonItem = UIBarButtonItem(
 			title: "❌",
 			style: .done,
 			target: self,
 			action: #selector(closeDeveloperMenu)
 		)
-
+		
 		vc.navigationItem.rightBarButtonItem = closeBarButtonItem
-
+		
 		let navigationController = UINavigationController(
 			rootViewController: vc
 		)
@@ -118,12 +103,33 @@ final class DMDeveloperMenu {
 			completion: nil
 		)
 	}
-
+	
 	@objc
 	func closeDeveloperMenu() {
 		presentingViewController.dismiss(animated: true)
 	}
-
+	
+	// MARK: - Private
+	
+	private let presentingViewController: UIViewController
+	private let client: Client
+	private let wifiClient: WifiOnlyHTTPClient
+	private let store: Store
+	private let eventStore: EventStoringProviding
+	private let exposureManager: ExposureManager
+	private let exposureSubmissionService: ExposureSubmissionService
+	private let developerStore: DMStore
+	private let serverEnvironment: ServerEnvironment
+	private let otpService: OTPServiceProviding
+	private let coronaTestService: CoronaTestService
+	private let qrCodePosterTemplateProvider: QRCodePosterTemplateProviding
+	private let ppacService: PrivacyPreservingAccessControl
+	
+	@objc
+	private func _showDeveloperMenu(_: UITapGestureRecognizer) {
+		showDeveloperMenu()
+	}
+	
 	private func isAllowed() -> Bool {
 		true
 	}

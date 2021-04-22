@@ -65,7 +65,7 @@ final class SurveyURLProvider: SurveyURLProviding {
 
 	init(
 		configurationProvider: AppConfigurationProviding,
-		ppacService: PPACService,
+		ppacService: PrivacyPreservingAccessControl,
 		otpService: OTPServiceProviding
 	) {
 		self.configurationProvider = configurationProvider
@@ -83,7 +83,7 @@ final class SurveyURLProvider: SurveyURLProviding {
 	// MARK: - Private
 
 	private let configurationProvider: AppConfigurationProviding
-	private let ppacService: PPACService
+	private let ppacService: PrivacyPreservingAccessControl
 	private let otpService: OTPServiceProviding
 	private var subscriptions = [AnyCancellable]()
 

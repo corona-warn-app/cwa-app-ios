@@ -30,7 +30,8 @@ class RootCoordinator: RequiresAppDependencies {
 		contactDiaryStore: DiaryStoringProviding,
 		eventStore: EventStoringProviding,
 		eventCheckoutService: EventCheckoutService,
-		otpService: OTPServiceProviding
+		otpService: OTPServiceProviding,
+		ppacService: PrivacyPreservingAccessControl
 	) {
 		self.delegate = delegate
 		self.coronaTestService = coronaTestService
@@ -38,6 +39,7 @@ class RootCoordinator: RequiresAppDependencies {
 		self.eventStore = eventStore
 		self.eventCheckoutService = eventCheckoutService
 		self.otpService = otpService
+		self.ppacService = ppacService
 	}
 
 	deinit {
@@ -74,6 +76,7 @@ class RootCoordinator: RequiresAppDependencies {
 		let homeCoordinator = HomeCoordinator(
 			delegate,
 			otpService: otpService,
+			ppacService: ppacService,
 			eventStore: eventStore,
 			coronaTestService: coronaTestService
 		)
@@ -169,6 +172,7 @@ class RootCoordinator: RequiresAppDependencies {
 	private let eventStore: EventStoringProviding
 	private let eventCheckoutService: EventCheckoutService
 	private let otpService: OTPServiceProviding
+	private let ppacService: PrivacyPreservingAccessControl
 	private let tabBarController = UITabBarController()
 
 	private var homeCoordinator: HomeCoordinator?

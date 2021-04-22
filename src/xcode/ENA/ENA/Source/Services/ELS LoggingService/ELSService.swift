@@ -7,7 +7,7 @@ import OpenCombine
 
 protocol ErrorLogSubmitting {
 
-	typealias ELSAuthenticationResponse = (Result<ELSToken, OTPError>) -> Void
+	typealias ELSAuthenticationResponse = (Result<TimestampedToken, OTPError>) -> Void
 	typealias ELSSubmissionResponse = (Result<LogUploadResponse, PPASError>) -> Void // TODO: PPAC or PPAS?
 	typealias ELSToken = TimestampedToken
 
@@ -34,25 +34,50 @@ struct LogUploadResponse: Decodable {
 
 /// Handler for the log file uploading process
 final class ErrorLogSubmissionService: ErrorLogSubmitting {
-
-	private let client: Client
-	private var store: ErrorLogProviding
-	private lazy var fileLogger = FileLogger()
-	private lazy var fileManager = FileManager.default
-
+	
+	// MARK: - Init
+	
+	init(
+		client: Client,
+		store: ErrorLogProviding,
+		ppacService: PrivacyPreservingAccessControl,
+		otpService: OTPServiceProviding
+	) {
+		self.client = client
+		self.store = store
+		self.ppacService = ppacService
+		self.otpService = otpService
+	}
+	
+	// MARK: - Overrides
+	
+	// MARK: - Protocol ErrorLogSubmitting
+	
 	/// Publisher to handle changes in the size of the log file
 	///
 	/// - Note: The current implementation does NOT constantly observe file size changes!
 	private(set) lazy var logFileSizePublisher: AnyPublisher<Int64, LogError> = setupFileSizePublisher()
-
-	init(client: Client, store: ErrorLogProviding) {
-		self.client = client
-		self.store = store
-	}
-
-	// MARK: - ErrorLogSubmitting
-
+	
 	func authenticate(completion: @escaping ELSAuthenticationResponse) {
+		
+		ppacService.getPPACTokenELS({ [weak self] result in
+			switch result {
+			case let .success(ppacToken):
+				self?.otpService.getOTPEls(ppacToken: ppacToken, completion: { [weak self] result in
+					switch result {
+					case let .success(otpEls):
+						break
+						// now can submit our log file with our authorized otp
+					case .failure(_):
+						break
+					}
+				})
+			case .failure(_):
+				break
+			}
+		})
+		/*
+		
 		if let token = store.elsApiToken, token.timestamp > Date() {
 			completion(.success(token))
 		} else {
@@ -75,17 +100,19 @@ final class ErrorLogSubmissionService: ErrorLogSubmitting {
 				}
 			}
 		}
+
+		*/
 	}
 
 	func submit(log: Data, completion: @escaping (Result<LogUploadResponse, PPASError>) -> Void) {
 		// get log data from the 'all logs' file
-		guard let item = LogDataItem(at: fileLogger.allLogsFileURL) else {
-			Log.warning("No log data to export.", log: .els)
-			completion(.failure(PPASError.generalError))
-			return
-		}
-
-		#warning("TODO!!!!!")
+//		guard let item = LogDataItem(at: fileLogger.allLogsFileURL) else {
+//			Log.warning("No log data to export.", log: .els)
+//			completion(.failure(PPASError.generalError))
+//			return
+//		}
+//
+//		#warning("TODO!!!!!")
 //		// if needed, generate els token on the fly
 //		let token = store.elsApiToken ?? {
 //			let token = UUID().uuidString
@@ -94,9 +121,22 @@ final class ErrorLogSubmissionService: ErrorLogSubmitting {
 //			return token
 //		}()
 //		client.submitErrorLog(logFile: item.compressedData as Data, uploadToken: token, isFake: false, completion: completion)
+		
 	}
+	
+	// MARK: - Public
+	
+	// MARK: - Internal
+	
+	// MARK: - Private
 
-	// MARK: - Helpers
+	private let client: Client
+	private let store: ErrorLogProviding
+	private let ppacService: PrivacyPreservingAccessControl
+	private let otpService: OTPServiceProviding
+	
+	private lazy var fileLogger = FileLogger()
+	private lazy var fileManager = FileManager.default
 
 	private func setupFileSizePublisher() -> AnyPublisher<Int64, LogError> {
 		// TO DO: evaluate switch to constant observation https://developer.apple.com/documentation/foundation/nsfilepresenter

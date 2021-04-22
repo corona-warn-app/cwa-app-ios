@@ -41,11 +41,11 @@ final class DMOTPServiceViewModel {
 
 		switch section {
 		case .otpToken:
-			let otpToken = store.otpToken?.token ?? "no OTP Token generated yet"
+			let otpToken = store.otpTokenEdus?.token ?? "no OTP Token generated yet"
 			return DMKeyValueCellViewModel(key: "OTP Token", value: otpToken)
 		case .otpTimestamp:
 			let creationDate: String
-			if let timestamp = store.otpToken?.timestamp {
+			if let timestamp = store.otpTokenEdus?.timestamp {
 				creationDate = DateFormatter.localizedString(from: timestamp, dateStyle: .medium, timeStyle: .medium)
 			} else {
 				creationDate = "Due to no generated OTP Token, there is no timestamp"
@@ -53,7 +53,7 @@ final class DMOTPServiceViewModel {
 			return DMKeyValueCellViewModel(key: "otp timestamp", value: creationDate)
 		case .otpExpirationDate:
 			let expirationDate: String
-			if let timestamp = store.otpToken?.expirationDate {
+			if let timestamp = store.otpTokenEdus?.expirationDate {
 				expirationDate = DateFormatter.localizedString(from: timestamp, dateStyle: .medium, timeStyle: .medium)
 			} else {
 				expirationDate = "The OTP was not authorized and so has no expirationDate"
@@ -61,7 +61,7 @@ final class DMOTPServiceViewModel {
 			return DMKeyValueCellViewModel(key: "otp expiration date", value: expirationDate)
 		case .otpAuthorizationDate:
 			let authorizationDate: String
-			if let timestamp = store.otpAuthorizationDate {
+			if let timestamp = store.otpEdusAuthorizationDate {
 				authorizationDate = DateFormatter.localizedString(from: timestamp, dateStyle: .medium, timeStyle: .medium)
 			} else {
 				authorizationDate = "The OTP was not authorized and so has no authorizationDate"
@@ -73,8 +73,8 @@ final class DMOTPServiceViewModel {
 				textColor: .white,
 				backgroundColor: .enaColor(for: .buttonPrimary),
 				action: { [weak self] in
-					self?.otpService.discardOTP()
-					self?.store.otpAuthorizationDate = nil
+					self?.otpService.discardOTPEdus()
+					self?.store.otpEdusAuthorizationDate = nil
 					self?.refreshTableView([TableViewSections.otpToken.rawValue, TableViewSections.otpExpirationDate.rawValue, TableViewSections.otpAuthorizationDate.rawValue, TableViewSections.otpTimestamp.rawValue])
 				}
 			)

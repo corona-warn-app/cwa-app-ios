@@ -66,9 +66,16 @@ extension DynamicAction {
 		}
 	}
 	
-	static func pushErrorLogsCoordinator() -> Self {
+	static func pushErrorLogsCoordinator(
+		ppacService: PrivacyPreservingAccessControl,
+		otpService: OTPServiceProviding
+	) -> Self {
 		.execute { viewController, _ in
-			let coordinator = ErrorReportsCoordinator(rootViewController: viewController)
+			let coordinator = ErrorReportsCoordinator(
+				rootViewController: viewController,
+				ppacService: ppacService,
+				otpService: otpService
+			)
 			coordinator.start()
 		}
 	}

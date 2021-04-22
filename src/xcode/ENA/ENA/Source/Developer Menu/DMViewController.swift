@@ -9,7 +9,9 @@ import UIKit
 
 /// The root view controller of the developer menu.
 final class DMViewController: UITableViewController, RequiresAppDependencies {
-	// MARK: Creating a developer menu view controller
+	
+	// MARK: - Init
+	
 	init(
 		client: Client,
 		wifiClient: WifiOnlyHTTPClient,
@@ -17,7 +19,8 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		otpService: OTPServiceProviding,
 		coronaTestService: CoronaTestService,
 		eventStore: EventStoringProviding,
-		qrCodePosterTemplateProvider: QRCodePosterTemplateProviding
+		qrCodePosterTemplateProvider: QRCodePosterTemplateProviding,
+		ppacService: PrivacyPreservingAccessControl
 	) {
 		self.client = client
 		self.wifiClient = wifiClient
@@ -26,6 +29,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		self.coronaTestService = coronaTestService
 		self.eventStore = eventStore
 		self.qrCodePosterTemplateProvider = qrCodePosterTemplateProvider
+		self.ppacService = ppacService
 
 		super.init(style: .plain)
 		title = "👩🏾‍💻 Developer Menu 🧑‍💻"
@@ -35,26 +39,9 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 	required init?(coder _: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
-
-	// MARK: Properties
-	private let client: Client
-	private let consumer = RiskConsumer()
-	private let exposureSubmissionService: ExposureSubmissionService
-	private let otpService: OTPServiceProviding
-	private let coronaTestService: CoronaTestService
-	private let eventStore: EventStoringProviding
-	private let qrCodePosterTemplateProvider: QRCodePosterTemplateProviding
-
-	private var keys = [SAP_External_Exposurenotification_TemporaryExposureKey]() {
-		didSet {
-			keys = self.keys.sorted()
-		}
-	}
-
-	// internal because of protocol RequiresAppDependencies
-	let wifiClient: WifiOnlyHTTPClient
-
-	// MARK: UIViewController
+	
+	// MARK: - Overrides
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		consumer.didCalculateRisk = { _ in
@@ -67,9 +54,9 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 
 		navigationController?.setToolbarHidden(true, animated: animated)
 	}
-
-	// MARK: UITableView
-
+	
+	// MARK: - Protocol UITableView
+	
 	override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
 		DMMenuItem.allCases.count
 	}
@@ -137,15 +124,15 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		case .deviceTimeCheck:
 			vc = DMDeviceTimeCheckViewController(store: store)
 		case .ppacService:
-			vc = DMPPACViewController(store)
+			vc = DMPPACViewController(store, ppacService: ppacService)
 		case .otpService:
 			vc = DMOTPServiceViewController(store: store, otpService: otpService)
 		case .ppaMostRecent:
-			vc = DMPPAnalyticsMostRecent(store: store, client: client, appConfig: appConfigurationProvider, coronaTestService: coronaTestService)
+			vc = DMPPAnalyticsMostRecent(store: store, client: client, appConfig: appConfigurationProvider, coronaTestService: coronaTestService, ppacService: ppacService)
 		case .ppaActual:
-			vc = DMPPAnalyticsActualData(store: store, client: client, appConfig: appConfigurationProvider, coronaTestService: coronaTestService)
+			vc = DMPPAnalyticsActualData(store: store, client: client, appConfig: appConfigurationProvider, coronaTestService: coronaTestService, ppacService: ppacService)
 		case .ppaSubmission:
-			vc = DMPPAnalyticsViewController(store: store, client: client, appConfig: appConfigurationProvider, coronaTestService: coronaTestService)
+			vc = DMPPAnalyticsViewController(store: store, client: client, appConfig: appConfigurationProvider, coronaTestService: coronaTestService, ppacService: ppacService)
 		case .installationDate:
 			vc = DMInstallationDateViewController(store: store)
 		case .allTraceLocations:
@@ -163,8 +150,31 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 			)
 		}
 	}
+	
+	// MARK: - Public
+	
+	// MARK: - Internal
+	
+	// internal because of protocol RequiresAppDependencies
+	let wifiClient: WifiOnlyHTTPClient
+	
+	// MARK: - Private
+	
+	private let client: Client
+	private let consumer = RiskConsumer()
+	private let exposureSubmissionService: ExposureSubmissionService
+	private let otpService: OTPServiceProviding
+	private let coronaTestService: CoronaTestService
+	private let eventStore: EventStoringProviding
+	private let qrCodePosterTemplateProvider: QRCodePosterTemplateProviding
+	private let ppacService: PrivacyPreservingAccessControl
 
-	// MARK: Performing developer menu related tasks
+	private var keys = [SAP_External_Exposurenotification_TemporaryExposureKey]() {
+		didSet {
+			keys = self.keys.sorted()
+		}
+	}
+
 	@objc
 	private func sendFakeRequest() {
 		FakeRequestService(client: client).fakeRequest {
