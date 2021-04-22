@@ -226,14 +226,6 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 		// 3. Clean up revoked Packages.
 		let revokedPackages = appConfig.keyDownloadParameters.revokedTraceWarningPackages
 		removeRevokedTraceWarningMetadataPackages(revokedPackages)
-				
-		guard !eventStore.traceWarningPackageMetadatasPublisher.value.isEmpty else {
-			Log.info("TraceWarningPackageDownload: Aborted due to checkin metadata database is empty.", log: .checkin)
-			completion(.success(.success))
-			return
-		}
-		
-		self.status = .downloading
 		
 		// 4. Determine availablePackagesOnCDN (http discovery)
 		client.traceWarningPackageDiscovery(country: country, completion: { [weak self] result in
@@ -281,6 +273,14 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 				
 		// 7. Determine packagesToDownload
 		let packagesToDownload = determinePackagesToDownload(availables: availablePackagesOnCDN, earliest: earliestRelevantPackage)
+		
+		guard !packagesToDownload.isEmpty else {
+			Log.info("TraceWarningPackageDownload: Aborted due to checkin metadata database is empty.", log: .checkin)
+			completion(.success(.success))
+			return
+		}
+		
+		status = .downloading
 
 		Log.info("TraceWarningPackageDownload: Determined packages to download: \(packagesToDownload). Proceed with downloading the single packages...")
 		self.downloadDeterminedPackages(packageIds: packagesToDownload, country: country, completion: completion)

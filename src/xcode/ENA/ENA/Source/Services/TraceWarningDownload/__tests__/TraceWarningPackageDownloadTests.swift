@@ -93,7 +93,7 @@ class TraceWarningPackageDownloadTests: XCTestCase {
 		
 		// THEN
 		waitForExpectations(timeout: .medium)
-		XCTAssertEqual(responseCode, .noCheckins)
+		XCTAssertEqual(responseCode, .success)
 	}
 	
 	func testGIVEN_TraceWarningDownload_WHEN_AvailablePackagesOnCDNAreEmpty_THEN_Success() {
