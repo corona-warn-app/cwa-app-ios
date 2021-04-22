@@ -27,6 +27,7 @@ enum Route {
 			guard let payloadUrl = components?.fragment,
 				  let candidate = components?.query,
 				  candidate.count == 3 else {
+				Log.error("Antigen test QRCode URL is invalid", log: .qrCode)
 				return nil
 			}
 
@@ -39,6 +40,7 @@ enum Route {
 				  testInformation.timestamp >= 0
 			else {
 				self = .rapidAntigen( .failure(.invalidTestCode))
+				Log.error("Antigen test data is not, either timeStamp is -ve or the hash is invalid", log: .qrCode)
 				return
 			}
 			let allIsNil = testInformation.firstName == nil && testInformation.firstName == nil && testInformation.dateOfBirthString == nil
@@ -47,6 +49,7 @@ enum Route {
 			
 			guard allIsNil || allIsValid else {
 				self = .rapidAntigen( .failure(.invalidTestCode))
+				Log.error("Antigen test data is not valid: all values are nil? \(allIsNil), all values are valid? \(allIsValid)", log: .qrCode)
 				return
 			}
 			self = .rapidAntigen(.success(.antigen(testInformation)))

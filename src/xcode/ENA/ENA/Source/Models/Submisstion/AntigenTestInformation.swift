@@ -72,7 +72,7 @@ struct AntigenTestInformation: Codable, Equatable {
 	let timestamp: Int
 	let firstName: String?
 	let lastName: String?
-	var dateOfBirthString: String?
+	let dateOfBirthString: String?
 	var dateOfBirth: Date?
 	
 	var fullName: String? {
