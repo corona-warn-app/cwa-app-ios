@@ -2,6 +2,7 @@
 // 🦠 Corona-Warn-App
 //
 
+import Foundation
 import OpenCombine
 
 class MockEventStore: EventStoring, EventProviding {
