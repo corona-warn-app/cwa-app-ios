@@ -6,7 +6,7 @@
 			"submissionURL": "https://TestEnvironment0.submission",
 			"verificationURL": "https://TestEnvironment0.verification",
 			"dataDonationURL": "https://TestEnvironment0.datadonation",
-			"errorLogSubmission": "https://TestEnvironment0.logupload",
+			"errorLogSubmissionURL": "https://TestEnvironment0.logupload",
 			"validationKeyString": "Key0",
 			"pinningKeyHash": "hash0"
 		},
@@ -16,7 +16,7 @@
 			"submissionURL": "https://TestEnvironment1.submission",
 			"verificationURL": "https://TestEnvironment1.verification",
 			"dataDonationURL": "https://TestEnvironment1.datadonation",
-			"errorLogSubmission": "https://TestEnvironment1.logupload",
+			"errorLogSubmissionURL": "https://TestEnvironment1.logupload",
 			"validationKeyString": "Key1",
 			"pinningKeyHash": "hash1"
 		},
@@ -26,7 +26,7 @@
 			"submissionURL": "https://TestEnvironment2.submission",
 			"verificationURL": "https://TestEnvironment2.verification",
 			"dataDonationURL": "https://TestEnvironment2.datadonation",
-			"errorLogSubmission": "https://TestEnvironment2.logupload",
+			"errorLogSubmissionURL": "https://TestEnvironment2.logupload",
 			"validationKeyString": "Key2",
 			"pinningKeyHash": "hash2"
 		},
@@ -36,7 +36,7 @@
 			"submissionURL": "https://prod.submission",
 			"verificationURL": "https://prod.verification",
 			"dataDonationURL": "https://prod.datadonation",
-			"errorLogSubmission": "https://prod.logupload",
+			"errorLogSubmissionURL": "https://prod.logupload",
 			"validationKeyString": "Key",
 			"pinningKeyHash": "hash"
 		}
