@@ -41,6 +41,7 @@ class CheckInTimeCell: UITableViewCell, ReuseIdentifierProviding {
 			.receive(on: DispatchQueue.main.ocombine)
 			.sink { _ in
 				self.dateTimeLabel.text = cellModel.dateString
+				self.dateTimeLabel.accessibilityLabel = cellModel.accessibilityDate
 			}
 			.store(in: &subscriptions)
 

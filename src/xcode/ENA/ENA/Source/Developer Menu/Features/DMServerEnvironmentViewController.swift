@@ -100,7 +100,7 @@ class DMServerEnvironmentViewController: UIViewController, UIPickerViewDelegate,
 			let selectedRow = self.picker.selectedRow(inComponent: 0)
 			let selectedEnv = self.environmentProvider.environments[selectedRow]
 
-			UserDefaults.standard.setValue(selectedEnv, forKey: Environments.selectedEnvironmentKey)
+			UserDefaults.standard.setValue(selectedEnv.name, forKey: Environments.selectedEnvironmentKey)
 			self.updateCurrentEnviromentLabel()
 
 			self.store.enfRiskCalculationResult = nil

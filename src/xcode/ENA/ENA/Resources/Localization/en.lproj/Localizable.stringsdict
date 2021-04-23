@@ -1,7 +1,36 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>Home_Risk_Days_Since_Installation_Title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!--Plural form for ZERO.-->
+			<string>Installed today</string>
+			<key>one</key>
+			<!--Plural form for ONE.-->
+			<string>Installed %u day ago</string>
+			<key>few</key>
+			<!--Plural form for FEW.-->
+			<string>Installed %u days ago</string>
+			<key>many</key>
+			<!--Plural form for MANY.-->
+			<string>Installed %u days ago</string>
+			<key>two</key>
+			<!--Plural form for TWO.-->
+			<string>Installed %u days ago</string>
+			<key>other</key>
+			<!--Plural form for OTHER.-->
+			<string>Installed %u days ago</string>
+		</dict>
+	</dict>
 	<key>Home_Risk_Low_Number_Contacts_Item_Title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -13,16 +42,22 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>u</string>
 			<key>zero</key>
+			<!--Plural form for ZERO.-->
 			<string>No exposures</string>
 			<key>one</key>
+			<!--Plural form for ONE.-->
 			<string>Exposures with low risk on 1 day</string>
 			<key>few</key>
+			<!--Plural form for FEW.-->
 			<string>Exposures with low risk on %u days</string>
 			<key>many</key>
+			<!--Plural form for MANY.-->
 			<string>Exposures with low risk on %u days</string>
 			<key>two</key>
+			<!--Plural form for TWO.-->
 			<string>Exposures with low risk on %u days</string>
 			<key>other</key>
+			<!--Plural form for OTHER.-->
 			<string>Exposures with low risk on %u days</string>
 		</dict>
 	</dict>
@@ -37,16 +72,22 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>u</string>
 			<key>zero</key>
+			<!--Plural form for ZERO.-->
 			<string>Exposures on %u days with increased risk</string>
 			<key>one</key>
+			<!--Plural form for ONE.-->
 			<string>Exposures on 1 day with increased risk</string>
 			<key>few</key>
+			<!--Plural form for FEW.-->
 			<string>Exposures on %u days with increased risk</string>
 			<key>many</key>
+			<!--Plural form for MANY.-->
 			<string>Exposures on %u days with increased risk</string>
 			<key>two</key>
+			<!--Plural form for TWO.-->
 			<string>Exposures on %u days with increased risk</string>
 			<key>other</key>
+			<!--Plural form for OTHER.-->
 			<string>Exposures on %u days with increased risk</string>
 		</dict>
 	</dict>
@@ -61,16 +102,22 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>u</string>
 			<key>zero</key>
+			<!--Plural form for ZERO.-->
 			<string>Update in %02u:%2$#@seconds@ seconds</string>
 			<key>one</key>
+			<!--Plural form for ONE.-->
 			<string>Update in %02u:%2$#@seconds@ minute</string>
 			<key>few</key>
+			<!--Plural form for FEW.-->
 			<string>Update in %02u:%2$#@seconds@ minutes</string>
 			<key>many</key>
+			<!--Plural form for MANY.-->
 			<string>Update in %02u:%2$#@seconds@ minutes</string>
 			<key>two</key>
+			<!--Plural form for TWO.-->
 			<string>Update in %02u:%2$#@seconds@ minutes</string>
 			<key>other</key>
+			<!--Plural form for OTHER.-->
 			<string>Update in %02u:%2$#@seconds@ minutes</string>
 		</dict>
 		<key>seconds</key>
@@ -80,17 +127,83 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>u</string>
 			<key>one</key>
+			<!--Plural form for ONE.-->
 			<string>%02u</string>
 			<key>zero</key>
+			<!--Plural form for ZERO.-->
 			<string>%02u</string>
 			<key>few</key>
+			<!--Plural form for FEW.-->
 			<string>%02u</string>
 			<key>many</key>
+			<!--Plural form for MANY.-->
 			<string>%02u</string>
 			<key>two</key>
+			<!--Plural form for TWO.-->
 			<string>%02u</string>
 			<key>other</key>
+			<!--Plural form for OTHER.-->
 			<string>%02u</string>
+		</dict>
+	</dict>
+	<key>ExposureDetection_ActiveTracingSection_Text_Paragraph1a</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!--Plural form for ZERO.-->
+			<string>The Corona-Warn-App was installed today. Your risk of infection is calculated for the periods during which exposure logging was active. If you have encountered other people and exposure logging was active, your risk of infection is calculated.</string>
+			<key>one</key>
+			<!--Plural form for ONE.-->
+			<string>The Corona-Warn-App was installed %u day ago. Your risk of infection is calculated for the periods during which exposure logging was active. If you have encountered other people and exposure logging was active, your risk of infection is calculated.</string>
+			<key>few</key>
+			<!--Plural form for FEW.-->
+			<string>The Corona-Warn-App was installed %u days ago. Your risk of infection is calculated for the periods during which exposure logging was active. If you have encountered other people and exposure logging was active, your risk of infection is calculated.</string>
+			<key>many</key>
+			<!--Plural form for MANY.-->
+			<string>The Corona-Warn-App was installed %u days ago. Your risk of infection is calculated for the periods during which exposure logging was active. If you have encountered other people and exposure logging was active, your risk of infection is calculated.</string>
+			<key>two</key>
+			<!--Plural form for TWO.-->
+			<string>The Corona-Warn-App was installed %u days ago. Your risk of infection is calculated for the periods during which exposure logging was active. If you have encountered other people and exposure logging was active, your risk of infection is calculated.</string>
+			<key>other</key>
+			<!--Plural form for OTHER.-->
+			<string>The Corona-Warn-App was installed %u days ago. Your risk of infection is calculated for the periods during which exposure logging was active. If you have encountered other people and exposure logging was active, your risk of infection is calculated.</string>
+		</dict>
+	</dict>
+	<key>Settings_DaysSinceInstall_P2a</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!--Plural form for ZERO.-->
+			<string>The Corona-Warn-App was installed today. Your risk of infection is calculated for the periods during which exposure logging was active. If you have encountered other people and exposure logging was active, your risk of infection is calculated.</string>
+			<key>one</key>
+			<!--Plural form for ONE.-->
+			<string>The Corona-Warn-App was installed %u day ago. Your risk of infection is calculated for the periods during which exposure logging was active. If you have encountered other people and exposure logging was active, your risk of infection is calculated.</string>
+			<key>few</key>
+			<!--Plural form for FEW.-->
+			<string>The Corona-Warn-App was installed %u days ago. Your risk of infection is calculated for the periods during which exposure logging was active. If you have encountered other people and exposure logging was active, your risk of infection is calculated.</string>
+			<key>many</key>
+			<!--Plural form for MANY.-->
+			<string>The Corona-Warn-App was installed %u days ago. Your risk of infection is calculated for the periods during which exposure logging was active. If you have encountered other people and exposure logging was active, your risk of infection is calculated.</string>
+			<key>two</key>
+			<!--Plural form for TWO.-->
+			<string>The Corona-Warn-App was installed %u days ago. Your risk of infection is calculated for the periods during which exposure logging was active. If you have encountered other people and exposure logging was active, your risk of infection is calculated.</string>
+			<key>other</key>
+			<!--Plural form for OTHER.-->
+			<string>The Corona-Warn-App was installed %u days ago. Your risk of infection is calculated for the periods during which exposure logging was active. If you have encountered other people and exposure logging was active, your risk of infection is calculated.</string>
 		</dict>
 	</dict>
 	<key>ENSetting_Tracing_History</key>
@@ -104,16 +217,22 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>u</string>
 			<key>zero</key>
+			<!--Plural form for ZERO.-->
 			<string>Exposure logging has been active for less than one day. An exposure check can only be reliable if exposure logging is permanently activated.</string>
 			<key>one</key>
+			<!--Plural form for ONE.-->
 			<string>Exposure logging has been active for %u day. An exposure check can only be reliable if exposure logging is permanently activated.</string>
 			<key>few</key>
+			<!--Plural form for FEW.-->
 			<string>Exposure logging has been active for %u days. An exposure check can only be reliable if exposure logging is permanently activated.</string>
 			<key>many</key>
+			<!--Plural form for MANY.-->
 			<string>Exposure logging has been active for %u days. An exposure check can only be reliable if exposure logging is permanently activated.</string>
 			<key>two</key>
+			<!--Plural form for TWO.-->
 			<string>Exposure logging has been active for %u days. An exposure check can only be reliable if exposure logging is permanently activated.</string>
 			<key>other</key>
+			<!--Plural form for OTHER.-->
 			<string>Exposure logging has been active for %u days. An exposure check can only be reliable if exposure logging is permanently activated.</string>
 		</dict>
 	</dict>

@@ -21,11 +21,6 @@ class AntigenTestInformationTests: XCTestCase {
 			dateOfBirth: date
 		)
 		let encoder = JSONEncoder()
-		encoder.dateEncodingStrategy = .custom({ date, encoder in
-			var container = encoder.singleValueContainer()
-			try container.encode(ISO8601DateFormatter.justDate.string(from: date))
-		})
-
 		let payloadData = try encoder.encode(antigenTestInformation).base64EncodedData()
 		let payload = try XCTUnwrap(String(data: payloadData, encoding: .utf8))
 
