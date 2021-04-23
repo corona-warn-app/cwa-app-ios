@@ -56,44 +56,48 @@ class HomeStatisticsCardView: UIView {
 
 			// TODO: [KGA]
 			if viewModel?.primaryTitle != nil, let primaryTitleLabel = self.primaryTitleLabel {
-				var primaryAccessibilityText = primaryTitleLabel.text
-				
+				var primaryAccessibilityLabel = primaryTitleLabel.text
 				if viewModel?.primaryValue != nil, let primaryValueLabel = self.primaryValueLabel {
-					primaryAccessibilityText = "\(primaryAccessibilityText ?? "") \(primaryValueLabel.text!)"
+					primaryAccessibilityLabel?.append(" ")
+					primaryAccessibilityLabel?.append(primaryValueLabel.text ?? "")
 				}
 				
-				
-				primaryTitleLabel.text = primaryAccessibilityText
+				primaryTitleLabel.accessibilityLabel = primaryAccessibilityLabel
 				accessibilityElements.append(primaryTitleLabel)
 			}
-
-//			if viewModel?.primaryValue != nil, let primaryValueLabel = self.primaryValueLabel {
-//				accessibilityElements.append(primaryValueLabel)
-//			}
 
 			if viewModel?.primaryTrendImage != nil, let primaryTrendImageView = self.primaryTrendImageView {
 				accessibilityElements.append(primaryTrendImageView)
 			}
 
 			if viewModel?.secondaryTitle != nil, let secondaryTitleLabel = self.secondaryTitleLabel {
-				accessibilityElements.append("\(secondaryTitleLabel) \(secondaryValueLabel)")
+				var secondaryAccessibilityLabel = secondaryTitleLabel.text
+				if viewModel?.secondaryValue != nil, let secondaryValueLabel = self.secondaryValueLabel {
+					secondaryAccessibilityLabel?.append(" ")
+					secondaryAccessibilityLabel?.append(secondaryValueLabel.text ?? "")
+				}
+				secondaryTitleLabel.accessibilityLabel = secondaryAccessibilityLabel
+				accessibilityElements.append(secondaryTitleLabel)
 			}
 
-			if viewModel?.secondaryValue != nil, let secondaryValueLabel = self.secondaryValueLabel {
-				//accessibilityElements.append(secondaryValueLabel)
-			}
+			
 
 			if viewModel?.secondaryTrendImage != nil, let secondaryTrendImageView = self.secondaryTrendImageView {
 				accessibilityElements.append(secondaryTrendImageView)
 			}
 
 			if viewModel?.tertiaryTitle != nil, let tertiaryTitleLabel = self.tertiaryTitleLabel {
+				var tertiaryAccessibilityLabel = tertiaryTitleLabel.text
+				if viewModel?.tertiaryValue != nil, let tertiaryValueLabel = self.tertiaryValueLabel {
+					tertiaryAccessibilityLabel?.append(" ")
+					tertiaryAccessibilityLabel?.append(tertiaryValueLabel.text ?? "")
+					tertiaryTitleLabel.accessibilityLabel = tertiaryAccessibilityLabel
+				}
+				
 				accessibilityElements.append(tertiaryTitleLabel)
 			}
 
-			if viewModel?.tertiaryValue != nil, let tertiaryValueLabel = self.tertiaryValueLabel {
-				accessibilityElements.append(tertiaryValueLabel)
-			}
+			
 
 			if viewModel?.footnote != nil, let footnoteLabel = self.footnoteLabel {
 				accessibilityElements.append(footnoteLabel)
