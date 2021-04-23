@@ -32,8 +32,19 @@ class AntigenTestProfileViewController: UIViewController, FooterViewHandling, Di
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		setupNavigationBar()
 		setupBackground()
+//		setupNavigationBar()
+	}
+
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		setupNavigationBar()
+	}
+
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+		navigationController?.navigationBar.setBackgroundImage(originalBackgroundImage, for: .default)
+		navigationController?.navigationBar.shadowImage = originalShadowImage
 	}
 
 	// MARK: - Protocol FooterViewHandling
@@ -66,6 +77,13 @@ class AntigenTestProfileViewController: UIViewController, FooterViewHandling, Di
 	private let didTapDeleteProfile: () -> Void
 	private let dismiss: () -> Void
 
+	private let backgroundView = GradientBackgroundView(type: .blueOnly)
+	private let tableView = UITableView(frame: .zero, style: .plain)
+	private var tableContentObserver: NSKeyValueObservation!
+
+	private var originalBackgroundImage: UIImage?
+	private var originalShadowImage: UIImage?
+
 	@objc
 	private func backToRootViewController() {
 		didTapDeleteProfile()
@@ -77,33 +95,64 @@ class AntigenTestProfileViewController: UIViewController, FooterViewHandling, Di
 		logoImageView.tintColor = .enaColor(for: .textContrast)
 
 		parent?.navigationController?.navigationBar.tintColor = .white
+
 		parent?.navigationItem.titleView = logoImageView
 		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 
 		// remove previous view controllers from the stack, back button will
 		navigationController?.viewControllers = [navigationController?.viewControllers.first, navigationController?.viewControllers.last].compactMap { $0 }
 
-		// create a transparent navigation bar
+		// keep old images for restauration
+		originalBackgroundImage = navigationController?.navigationBar.backgroundImage(for: .default)
+		originalShadowImage = navigationController?.navigationBar.shadowImage
+
+//		// create a transparent navigation bar
 		let emptyImage = UIImage()
 		navigationController?.navigationBar.setBackgroundImage(emptyImage, for: .default)
 		navigationController?.navigationBar.shadowImage = emptyImage
 		navigationController?.navigationBar.isTranslucent = true
 		navigationController?.view.backgroundColor = .clear
+
+
+		parent?.navigationController?.navigationBar.prefersLargeTitles = false
+		parent?.navigationController?.navigationBar.sizeToFit()
+		parent?.navigationItem.largeTitleDisplayMode = .never
 	}
 
 	private func setupBackground() {
-		let gradientBackgroundView = GradientBackgroundView(type: .blueOnly)
-		gradientBackgroundView.translatesAutoresizingMaskIntoConstraints = false
-		view.addSubview(gradientBackgroundView)
+		backgroundView.gradientHeightConstraint.constant = 300.0
+		backgroundView.translatesAutoresizingMaskIntoConstraints = false
+		view.addSubview(backgroundView)
+
+		tableView.translatesAutoresizingMaskIntoConstraints = false
+		tableView.backgroundColor = .clear
+
+		view.addSubview(tableView)
 
 		NSLayoutConstraint.activate(
 			[
-				gradientBackgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-				gradientBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-				gradientBackgroundView.topAnchor.constraint(equalTo: view.topAnchor),
-				gradientBackgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+				backgroundView.topAnchor.constraint(equalTo: view.topAnchor),
+				backgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+				backgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+				backgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+
+				tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+				tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+				tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+				tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+
 			]
 		)
+
+		tableContentObserver = tableView.observe(\UITableView.contentOffset, options: .new) { [weak self] _, change in
+			guard let self = self,
+				  let yOffset = change.newValue?.y else {
+				return
+			}
+			let offsetLimit = self.view.safeAreaInsets.top
+			self.backgroundView.updatedTopLayout(with: yOffset, limit: offsetLimit)
+		}
+
 	}
 
 }
