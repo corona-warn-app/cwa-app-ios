@@ -2288,7 +2288,7 @@
 "Checkin_Details_CheckIn_Button" = "Check In";
 
 /* Submission Check-in */
-"Submission_Checkins_Title" = "Share Check-Ins?";
+"Submission_Checkins_Title" = "Share Location Check-Ins?";
 
 "Submission_Checkins_Description" = "Warn others who checked in near you. Your personal data will not be shared.";
 
