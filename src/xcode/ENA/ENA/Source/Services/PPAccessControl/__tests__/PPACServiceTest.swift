@@ -158,5 +158,7 @@ class PPACServiceTest: XCTestCase {
 		XCTAssertEqual(timestampedToken.timestamp, store.ppacApiTokenEdus?.timestamp)
 		XCTAssertEqual(timestampedToken.token, store.ppacApiTokenEdus?.token)
 	}
+	
+	// TODO Add Tests for the ELS stuff. Like that NO checks are done to device time check.
 
 }
