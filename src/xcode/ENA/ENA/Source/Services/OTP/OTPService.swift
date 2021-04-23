@@ -85,7 +85,7 @@ final class OTPService: OTPServiceProviding {
 		}
 
 		let otp = generateOTPToken()
-		authorizeEdus(otp, with: ppacToken, completion: completion)
+		authorizeEls(otp, with: ppacToken, completion: completion)
 	}
 
 	func discardOTPEdus() {

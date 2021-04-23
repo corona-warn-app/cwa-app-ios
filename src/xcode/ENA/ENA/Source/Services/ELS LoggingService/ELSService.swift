@@ -25,7 +25,7 @@ protocol ErrorLogHandling {
 	// delete existing log
 }
 
-struct LogUploadResponse: Decodable {
+struct LogUploadResponse: Codable {
 	let id: String
 	let hash: String
 }

@@ -6,43 +6,60 @@ import XCTest
 @testable import ENA
 
 class ELSSubmissionTests: XCTestCase {
-
-	// Disabled; manual usage only
-    func testELSAuthentication() throws {
+	
+	func testGIVEN_ELSService_WHEN_UploadIsTriggered_THEN_HappyCaseAllSucceeds() throws {
+		// GIVEN
 		let store = MockTestStore()
-		let client = HTTPClient()
+		let dummyTestFile = Data(bytes: [0xA, 0xB] as [UInt8], count: 2)
 
-		let onPPACToken = expectation(description: "onPPAC")
-		let onUpload = expectation(description: "onUpload")
-
+		let client = ClientMock()
+		
+		let testExpectation = expectation(description: "Test should success expectation")
+		
 		#if targetEnvironment(simulator)
 		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
 		#else
 		let deviceCheck = PPACDeviceCheck()
 		#endif
-		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
-		/*
-		ppacService.getPPACToken { result in
+		let ppacService = PPACService(
+			store: store,
+			deviceCheck: deviceCheck
+		)
+		let riskProvider = MockRiskProvider()
+		let otpService = OTPService(
+			store: store,
+			client: client,
+			riskProvider: riskProvider
+		)
+		
+		let elsService = ErrorLogSubmissionService(
+			client: client,
+			store: store,
+			ppacService: ppacService,
+			otpService: otpService
+		)
+		
+		var expectedResponse: LogUploadResponse?
+		
+		// WHEN
+		
+		elsService.submit(log: dummyTestFile, completion: { result in
 			switch result {
-			case .failure(let error):
-				XCTFail(error.localizedDescription)
-			case .success(let ppacToken):
-				let logFile = "Dummy log".data(using: .utf8) ?? Data()
-				client.submit(errorLogFile: logFile, otpEls: <#T##String#>, completion: <#T##(Result<LogUploadResponse, ELSError>) -> Void#>) (logFile: , uploadToken: ppacToken, isFake: false, forceApiTokenHeader: false) { result in
-					switch result {
-					case .failure(let error):
-						XCTFail(error.localizedDescription)
-					case .success(let response):
-						debugPrint(response.id)
-						debugPrint(response.hash)
-					}
-					onUpload.fulfill()
-				}
+			case let .success(response):
+				expectedResponse = response
+				testExpectation.fulfill()
+			case let .failure(error):
+				XCTFail("Test should not fail with error: \(error)")
 			}
-			onPPACToken.fulfill()
+		})
+		
+		waitForExpectations(timeout: .medium)
+		// THEN
+		guard let response = expectedResponse else {
+			XCTFail("expectedResponse should not be nil")
+			return
 		}
-
-		waitForExpectations(timeout: 60)
-*/
-    }
+		XCTAssertNotNil(response.id)
+		XCTAssertNotNil(response.hash)
+	}
 }
