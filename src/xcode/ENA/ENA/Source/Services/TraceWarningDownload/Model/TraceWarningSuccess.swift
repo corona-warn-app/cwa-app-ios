@@ -9,4 +9,5 @@ enum TraceWarningSuccess {
 	case noCheckins
 	case emptyAvailablePackages
 	case emptySinglePackage
+	case noPackagesAvailable
 }
