@@ -1039,30 +1039,6 @@ enum AppStrings {
 		static let feature22AntiGenProfileTitle = NSLocalizedString("NewVersionFeature_22_antigen_profiles_title", comment: "")
 		
 		static let feature22AntiGenProfileDescription = NSLocalizedString("NewVersionFeature_22_antigen_profiles_description", comment: "")
-
-		/* Version 2.1 */
-		
-		static let feature21RegAntigenTitle = NSLocalizedString("NewVersionFeature_21_reg_antigen_title", comment: "")
-		
-		static let feature21RegAntigenDescription = NSLocalizedString("NewVersionFeature_21_reg_antigen_description", comment: "")
-		
-		static let feature21ShowProofTitle = NSLocalizedString("NewVersionFeature_21_show_proof_title", comment: "")
-		
-		static let feature21ShowProofDescription = NSLocalizedString("NewVersionFeature_21_show_proof_description", comment: "")
-		
-		static let feature21NewIntTechHotlineTitle = NSLocalizedString("NewVersionFeature_21_tech_hotline_foreign_countries_title", comment: "")
-		
-		static let feature21NewIntTechHotlineDescription = NSLocalizedString("NewVersionFeature_21_tech_hotline_foreign_countries_description", comment: "")
-		
-		static let feature21NewIntTanHotlineTitle = NSLocalizedString("NewVersionFeature_21_tan_hotline_foreign_countries_title", comment: "")
-		
-		static let feature21NewIntTanHotlineDescription = NSLocalizedString("NewVersionFeature_21_tan_hotline_foreign_countries_description", comment: "")
-		
-		/* Version 2.00 */
-		
-		static let feature200EventRegistrationTitle = NSLocalizedString("NewVersionFeature_200_event_checkin_title", comment: "")
-		
-		static let feature200EventRegistrationDescription = NSLocalizedString("NewVersionFeature_200_event_checkin_description", comment: "")
 	}
 	
 	enum DeltaOnboarding {
