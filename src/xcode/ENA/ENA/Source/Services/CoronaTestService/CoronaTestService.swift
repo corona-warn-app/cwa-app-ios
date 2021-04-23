@@ -373,7 +373,7 @@ class CoronaTestService {
 
 		DeadmanNotificationManager(coronaTestService: self).resetDeadmanNotification()
 
-		if let coronaTest = coronaTest(ofType: coronaTestType), coronaTest.isSubmissionConsentGiven,
+		if let coronaTest = coronaTest(ofType: coronaTestType), !coronaTest.isSubmissionConsentGiven,
 			coronaTest.positiveTestResultWasShown, !coronaTest.keysSubmitted {
 			warnOthersReminder.scheduleNotifications(for: coronaTestType)
 		}
