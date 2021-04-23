@@ -20,6 +20,11 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		// probability will always succeed
 		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
+		#if targetEnvironment(simulator)
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
+		#else
+		let deviceCheck = PPACDeviceCheck()
+		#endif
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
 			client: client,
@@ -28,7 +33,8 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 				client: client,
 				store: store,
 				appConfiguration: CachedAppConfigurationMock()
-			)
+			),
+			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 
 		let expectation = self.expectation(description: "completion handler is called without an error")
@@ -75,6 +81,11 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		let client = ClientMock()
 		let config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
+		#if targetEnvironment(simulator)
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
+		#else
+		let deviceCheck = PPACDeviceCheck()
+		#endif
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
 			client: client,
@@ -83,7 +94,8 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 				client: client,
 				store: store,
 				appConfiguration: CachedAppConfigurationMock()
-			)
+			),
+			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 
 		let expectation = self.expectation(description: "completion handler is called with an error")
@@ -114,6 +126,11 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		let client = ClientMock()
 		let config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
+		#if targetEnvironment(simulator)
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
+		#else
+		let deviceCheck = PPACDeviceCheck()
+		#endif
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
 			client: client,
@@ -122,7 +139,8 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 				client: client,
 				store: store,
 				appConfiguration: CachedAppConfigurationMock()
-			)
+			),
+			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 
 		let expectation = self.expectation(description: "completion handler is called with an error")
@@ -153,6 +171,11 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		// probability will always fail
 		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = -1
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
+		#if targetEnvironment(simulator)
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
+		#else
+		let deviceCheck = PPACDeviceCheck()
+		#endif
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
 			client: client,
@@ -161,7 +184,8 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 				client: client,
 				store: store,
 				appConfiguration: CachedAppConfigurationMock()
-			)
+			),
+			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 
 		let expectation = self.expectation(description: "completion handler is called with an error")
@@ -191,6 +215,11 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
+		#if targetEnvironment(simulator)
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
+		#else
+		let deviceCheck = PPACDeviceCheck()
+		#endif
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
 			client: client,
@@ -199,7 +228,8 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 				client: client,
 				store: store,
 				appConfiguration: CachedAppConfigurationMock()
-			)
+			),
+			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 
 		let expectation = self.expectation(description: "completion handler is called with an error")
@@ -230,6 +260,11 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
+		#if targetEnvironment(simulator)
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
+		#else
+		let deviceCheck = PPACDeviceCheck()
+		#endif
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
 			client: client,
@@ -238,7 +273,8 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 				client: client,
 				store: store,
 				appConfiguration: CachedAppConfigurationMock()
-			)
+			),
+			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 
 		let expectation = self.expectation(description: "completion handler is called with an error")
@@ -270,6 +306,11 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
+		#if targetEnvironment(simulator)
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
+		#else
+		let deviceCheck = PPACDeviceCheck()
+		#endif
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
 			client: client,
@@ -278,7 +319,8 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 				client: client,
 				store: store,
 				appConfiguration: CachedAppConfigurationMock()
-			)
+			),
+			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 
 		let expectation = self.expectation(description: "completion handler is called with an error")
@@ -311,6 +353,11 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
+		#if targetEnvironment(simulator)
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
+		#else
+		let deviceCheck = PPACDeviceCheck()
+		#endif
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
 			client: client,
@@ -319,7 +366,8 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 				client: client,
 				store: store,
 				appConfiguration: CachedAppConfigurationMock()
-			)
+			),
+			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 
 		let expectation = self.expectation(description: "completion handler is called with an error")
@@ -350,6 +398,11 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		let client = ClientMock()
 		let appConfigurationProvider = CachedAppConfigurationMock()
+		#if targetEnvironment(simulator)
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
+		#else
+		let deviceCheck = PPACDeviceCheck()
+		#endif
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
 			client: client,
@@ -358,7 +411,8 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 				client: client,
 				store: store,
 				appConfiguration: CachedAppConfigurationMock()
-			)
+			),
+			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 
 		let expectation = self.expectation(description: "completion handler is called with an error")
@@ -707,6 +761,11 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		let client = ClientMock()
 		let config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
+		#if targetEnvironment(simulator)
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
+		#else
+		let deviceCheck = PPACDeviceCheck()
+		#endif
 		return PPAnalyticsSubmitter(
 			store: store,
 			client: client,
@@ -715,7 +774,8 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 				client: client,
 				store: store,
 				appConfiguration: CachedAppConfigurationMock()
-			)
+			),
+			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 	}
 

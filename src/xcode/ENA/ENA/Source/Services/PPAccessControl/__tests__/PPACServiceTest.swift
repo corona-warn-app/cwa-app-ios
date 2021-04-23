@@ -111,8 +111,8 @@ class PPACServiceTest: XCTestCase {
 			switch result {
 			case let .success(ppaToken):
 				ppacExpectation.fulfill()
-				XCTAssertNotNil(store.ppacEdusApiToken)
-				XCTAssertEqual(store.ppacEdusApiToken?.token, ppaToken.apiToken)
+				XCTAssertNotNil(store.ppacApiTokenEdus)
+				XCTAssertEqual(store.ppacApiTokenEdus?.token, ppaToken.apiToken)
 
 			case .failure:
 				XCTFail("Unexpected error happend")
@@ -133,9 +133,9 @@ class PPACServiceTest: XCTestCase {
 		let timestampedToken = ppacService.generateNewAPIToken()
 
 		// THEN
-		XCTAssertNotNil(store.ppacEdusApiToken)
-		XCTAssertEqual(timestampedToken.timestamp, store.ppacEdusApiToken?.timestamp)
-		XCTAssertEqual(timestampedToken.token, store.ppacEdusApiToken?.token)
+		XCTAssertNotNil(store.ppacApiTokenEdus)
+		XCTAssertEqual(timestampedToken.timestamp, store.ppacApiTokenEdus?.timestamp)
+		XCTAssertEqual(timestampedToken.token, store.ppacApiTokenEdus?.token)
 	}
 
 	func testGIVEN_ValidStoredAPIToken_WHEN_generateAPITokenb_THEN_NewTokenCreatedAndStored() throws {
@@ -145,18 +145,18 @@ class PPACServiceTest: XCTestCase {
 
 		let uuid = UUID().uuidString
 		let today = Date()
-		store.ppacEdusApiToken = TimestampedToken(token: uuid, timestamp: today)
+		store.ppacApiTokenEdus = TimestampedToken(token: uuid, timestamp: today)
 
 		// WHEN
 		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
 		let timestampedToken = ppacService.generateNewAPIToken()
 
 		// THEN
-		XCTAssertNotNil(store.ppacEdusApiToken)
+		XCTAssertNotNil(store.ppacApiTokenEdus)
 		XCTAssertNotEqual(timestampedToken.timestamp, today)
 		XCTAssertNotEqual(timestampedToken.token, uuid)
-		XCTAssertEqual(timestampedToken.timestamp, store.ppacEdusApiToken?.timestamp)
-		XCTAssertEqual(timestampedToken.token, store.ppacEdusApiToken?.token)
+		XCTAssertEqual(timestampedToken.timestamp, store.ppacApiTokenEdus?.timestamp)
+		XCTAssertEqual(timestampedToken.token, store.ppacApiTokenEdus?.token)
 	}
 
 }
