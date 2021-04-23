@@ -47,6 +47,7 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating {
 				self?.stopErrorLogging()
 			}
 		)
+		
 		let viewModel = TopErrorReportViewModel(
 			didPressHistoryCell: {
 				// Navigate to History screen, TO DO: Prepare the view model with the array of error logs to be displayed
@@ -72,14 +73,10 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating {
 	// MARK: - Protocol ErrorReportsCoordinating
 
 	func startErrorLogging() {
-		// TODO: Remaining code after merge - might be removed
-		//errorReportsContainerViewController?.updateBottomHeight(to: ErrorLoggingStatus.active.bottomViewHeight)
 		// TODO: Add here Collection of Logs
 	}
 	
 	func stopErrorLogging() {
-		// TODO: Remaining code after merge - might be removed
-		//errorReportsContainerViewController?.updateBottomHeight(to: ErrorLoggingStatus.inactive.bottomViewHeight)
 		// TODO: Add here deletion of the collected logs
 	}
 	

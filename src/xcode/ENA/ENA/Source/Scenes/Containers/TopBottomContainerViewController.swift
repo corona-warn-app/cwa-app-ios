@@ -12,9 +12,25 @@ protocol FooterViewUpdating {
 	func update(to state: FooterViewModel.VisibleButtons)
 	func setEnabled(_ isEnabled: Bool, button: FooterViewModel.ButtonType)
 	func setLoadingIndicator(_ show: Bool, disable: Bool, button: FooterViewModel.ButtonType)
+
+	/// Optional function to update the footer view with given `bounds` of the view.
+	///
+	/// Added to support customized Footer views that don't follw the 'model' approach. Consider this a hack until autolayout implementation is in place.
+	/// - Parameters:
+	///   - size: The final `size` of the footer view after the update.
+	///   - animated: Animated update or not.
+	///   - completion: An optional completion handler after the update.
+	func update(to size: CGSize, animated: Bool, completion: (() -> Void)?)
 }
 
-/** a simple container view controller to combine to view controllers vertically (top / bottom */
+extension FooterViewUpdating {
+	func update(to size: CGSize, animated: Bool, completion: (() -> Void)?) {
+		// Intentionally left blank to treat this as an optional protocol function
+		preconditionFailure("Called \(#function), but not implemented. Check this.") // to prevent developer errors
+	}
+}
+
+/** a simple container view controller to combine to view controllers vertically (top / bottom) */
 
 class TopBottomContainerViewController<TopViewController: UIViewController, BottomViewController: UIViewController>: UIViewController, DismissHandling, FooterViewUpdating {
 
@@ -133,7 +149,7 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 		dismissHandler.wasAttemptedToBeDismissed()
 	}
 
-	// MARK: Protocol FooterViewUpdating
+	// MARK: - Protocol FooterViewUpdating
 
 	var footerViewHandler: FooterViewHandling? {
 		return topViewController as? FooterViewHandling
@@ -176,6 +192,10 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 		.store(in: &subscriptions)
 	}
 
+	func update(to size: CGSize, animated: Bool, completion: (() -> Void)?) {
+		updateBottomHeight(size.height, animated: animated, completion: completion)
+	}
+
 	// MARK: - Internal
 
 	private (set) var footerViewModel: FooterViewModel?
@@ -193,7 +213,7 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 	private var keyboardDidShownObserver: NSObjectProtocol?
 	private var keyboardDidHideObserver: NSObjectProtocol?
 
-	private func updateBottomHeight(_ height: CGFloat, animated: Bool = false) {
+	private func updateBottomHeight(_ height: CGFloat, animated: Bool = false, completion: (() -> Void)? = nil) {
 		guard bottomViewHeightAnchorConstraint.constant != height else {
 			Log.debug("no height change found")
 			return
@@ -202,6 +222,9 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 		let animator = UIViewPropertyAnimator(duration: duration, curve: .easeInOut) { [weak self] in
 			self?.bottomViewHeightAnchorConstraint.constant = height
 			self?.view.layoutIfNeeded()
+		}
+		animator.addCompletion { _ in
+			completion?()
 		}
 		animator.startAnimation()
 	}
