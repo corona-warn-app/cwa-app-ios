@@ -85,6 +85,7 @@ class TopErrorReportViewModel {
 						}),
 						configure: { _, cell, _ in
 							cell.accessoryType = .disclosureIndicator
+							cell.accessibilityIdentifier = AccessibilityIdentifiers.ErrorReport.privacyInformation
 						})
 				])
 		)

@@ -11,7 +11,7 @@ final class ErrorReportDetailInformationViewModel {
 			$0.add(
 				.section(
 					cells: [
-						.title1(text: AppStrings.ErrorReport.detailedInformationTitle, accessibilityIdentifier: "AppStrings.ErrorReport.detailedInformationTitle"),
+						.title1(text: AppStrings.ErrorReport.detailedInformationTitle, accessibilityIdentifier: AccessibilityIdentifiers.ErrorReport.detailedInformationTitle),
 						.space(height: 20),
 						.custom(
 							withIdentifier: DataDonationDetailsViewController.CustomCellReuseIdentifiers.roundedCell,
@@ -31,8 +31,8 @@ final class ErrorReportDetailInformationViewModel {
 							}
 						),
 						.space(height: 20),
-						.headline(text: AppStrings.ErrorReport.detailedInfo_Subheadline, accessibilityIdentifier: "AppStrings.ErrorReport.detailedInfo_Subheadline"),
-						.body(text: AppStrings.ErrorReport.detailedInfo_Content2, accessibilityIdentifier: "AppStrings.ErrorReport.detailedInfo_Content2")
+						.headline(text: AppStrings.ErrorReport.detailedInfo_Subheadline, accessibilityIdentifier: AccessibilityIdentifiers.ErrorReport.detailedInformationSubHeadline),
+						.body(text: AppStrings.ErrorReport.detailedInfo_Content2, accessibilityIdentifier: AccessibilityIdentifiers.ErrorReport.detailedInformationContent2)
 					]
 				)
 			)

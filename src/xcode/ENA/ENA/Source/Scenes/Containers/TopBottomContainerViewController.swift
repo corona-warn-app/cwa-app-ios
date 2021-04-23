@@ -193,7 +193,7 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 	private var keyboardDidShownObserver: NSObjectProtocol?
 	private var keyboardDidHideObserver: NSObjectProtocol?
 
-	private func updateBottomHeight(_ height: CGFloat, animated: Bool = false) {
+	func updateBottomHeight(_ height: CGFloat, animated: Bool = false) {
 		guard bottomViewHeightAnchorConstraint.constant != height else {
 			Log.debug("no height change found")
 			return
