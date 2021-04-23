@@ -90,8 +90,8 @@ class HomeStatisticsCardView: UIView {
 				if viewModel?.tertiaryValue != nil, let tertiaryValueLabel = self.tertiaryValueLabel {
 					tertiaryAccessibilityLabel?.append(" ")
 					tertiaryAccessibilityLabel?.append(tertiaryValueLabel.text ?? "")
-					tertiaryTitleLabel.accessibilityLabel = tertiaryAccessibilityLabel
 				}
+				tertiaryTitleLabel.accessibilityLabel = tertiaryAccessibilityLabel
 				accessibilityElements.append(tertiaryTitleLabel)
 			}
 
