@@ -56,7 +56,6 @@ class HomeStatisticsCardView: UIView {
 				infoButton.accessibilityIdentifier = viewModel?.infoButtonAccessiblityIdentifier
 			}
 
-			// TODO: [KGA]
 			if viewModel?.primaryTitle != nil, let primaryTitleLabel = self.primaryTitleLabel {
 				var primaryAccessibilityLabel = primaryTitleLabel.text
 				if viewModel?.primaryValue != nil, let primaryValueLabel = self.primaryValueLabel {
@@ -98,8 +97,6 @@ class HomeStatisticsCardView: UIView {
 				
 				accessibilityElements.append(tertiaryTitleLabel)
 			}
-
-			
 
 			if viewModel?.footnote != nil, let footnoteLabel = self.footnoteLabel {
 				
