@@ -398,15 +398,17 @@ class CoronaTestService {
 
 	func migrate() {
 		if store.registrationToken != nil || store.lastSuccessfulSubmitDiagnosisKeyTimestamp != nil, let testRegistrationTimestamp = store.devicePairingConsentAcceptTimestamp {
+			let keysSubmitted = store.lastSuccessfulSubmitDiagnosisKeyTimestamp != nil
+
 			pcrTest = PCRTest(
 				registrationDate: Date(timeIntervalSince1970: TimeInterval(testRegistrationTimestamp)),
 				registrationToken: store.registrationToken,
-				testResult: .pending,
+				testResult: keysSubmitted || store.positiveTestResultWasShown ? .positive : .pending,
 				finalTestResultReceivedDate: store.testResultReceivedTimeStamp.map { Date(timeIntervalSince1970: TimeInterval($0)) },
 				positiveTestResultWasShown: store.positiveTestResultWasShown,
 				isSubmissionConsentGiven: store.isSubmissionConsentGiven,
 				submissionTAN: store.tan,
-				keysSubmitted: store.lastSuccessfulSubmitDiagnosisKeyTimestamp != nil,
+				keysSubmitted: keysSubmitted,
 				journalEntryCreated: false
 			)
 
