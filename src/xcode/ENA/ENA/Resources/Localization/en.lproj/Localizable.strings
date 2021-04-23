@@ -1382,7 +1382,7 @@
 /* Version 2.0 */
 "NewVersionFeature_200_event_checkin_title" = "QR code check-in to effectively track chains of infection";
 
-"NewVersionFeature_200_event_checkin_description" = "The CWA now enables you to check in to events and places. Event organizers and store owners can use the app to create a QR code. Guests can then scan this QR code when they arrive to register their presence. The app can also create a journal entry upon request. If someone who checked in to this event or place is diagnosed with coronavirus later, other people who were checked in at the same time can be warned automatically.";
+"NewVersionFeature_200_event_checkin_description" = "The CWA now enables you to check in to events and places. Event organizers and store owners can use the app to create a QR code. Guests can then scan this QR code when they arrive to register their presence. The app can also create a journal entry upon request. If someone who checked in to this event or place is diagnosed with coronavirus later, others who were checked in at the same time can be warned.";
 
 /* Version 1.15 */
 "NewVersionFeature_115_cross_border_switzerland_title" = "Switzerland Added to Transnational Exposure Logging ";
@@ -2194,7 +2194,7 @@
 "Checkin_Details_CheckIn_Button" = "Check In";
 
 /* Submission Check-in */
-"Submission_Checkins_Title" = "Share Location Check-Ins?";
+"Submission_Checkins_Title" = "Share Check-Ins?";
 
 "Submission_Checkins_Description" = "Warn others who checked in near you. Your personal data will not be shared.";
 

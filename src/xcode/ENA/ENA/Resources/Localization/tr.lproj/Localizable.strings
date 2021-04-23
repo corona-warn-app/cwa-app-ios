@@ -1382,7 +1382,7 @@
 /* Version 2.0 */
 "NewVersionFeature_200_event_checkin_title" = "Enfeksiyon zincirlerini etkili bir biçimde takip etmek için QR kod ile check in";
 
-"NewVersionFeature_200_event_checkin_description" = "CWA artık etkinliklere ve yerlere check in yapabilmenizi sağlar. Etkinlik organizatörleri ve mağaza sahipleri uygulamayı kullanarak bir QR kod oluşturabilir. Ardından konuklar geldiklerinde bu QR kodu tarayarak katılımlarını kayıt altına alabilir. Uygulama, talep üzerine günce girişi oluşturma seçeneği de sunmaktadır. Bu etkinliğe ya da yere check in yapan bir kişi daha sonra koronavirüs tanısı alırsa aynı anda check in yapmış diğer kişilere otomatik olarak uyarı gönderilebilir.";
+"NewVersionFeature_200_event_checkin_description" = "CWA artık etkinliklere ve yerlere check in yapabilmenizi sağlar. Etkinlik organizatörleri ve mağaza sahipleri uygulamayı kullanarak bir QR kod oluşturabilir. Ardından konuklar geldiklerinde bu QR kodu tarayarak katılımlarını kayıt altına alabilir. Uygulama, talep üzerine günce girişi oluşturma seçeneği de sunmaktadır. Bu etkinliğe ya da yere check in yapan bir kişi daha sonra koronavirüs tanısı alırsa aynı anda check in yapmış diğer kişilere uyarı gönderilebilir.";
 
 /* Version 1.15 */
 "NewVersionFeature_115_cross_border_switzerland_title" = "Uluslararası Maruz Kalma Günlüğüne İsviçre Eklendi ";
@@ -2194,7 +2194,7 @@
 "Checkin_Details_CheckIn_Button" = "Check In";
 
 /* Submission Check-in */
-"Submission_Checkins_Title" = "Konum Check-In’leriniz Paylaşılsın Mı?";
+"Submission_Checkins_Title" = "Check-In’ler Paylaşılsın Mı?";
 
 "Submission_Checkins_Description" = "Sizin yakınınızda check in yapmış olan diğer kullanıcıları uyarın. Kişisel verileriniz paylaşılmayacaktır.";
 

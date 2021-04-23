@@ -1382,7 +1382,7 @@
 /* Version 2.0 */
 "NewVersionFeature_200_event_checkin_title" = "Faceți check-in cu codul QR pentru a urmări eficient lanțurile de infectare";
 
-"NewVersionFeature_200_event_checkin_description" = "Acum, aplicația Corona-Warn vă permite să faceți check-in la evenimente și în locuri. Organizatorii de evenimente și proprietarii de magazine pot utiliza aplicația pentru a crea un cod QR. Apoi, invitații pot scana acest cod QR atunci când sosesc, pentru a-și înregistra prezența. De asemenea, aplicația poate crea la cerere o intrare în jurnal. Dacă o persoană care a făcut check-in la acest eveniment sau în acest loc este diagnosticată ulterior cu coronavirus, alte persoane care au făcut check-in în același timp pot fi avertizate automat.";
+"NewVersionFeature_200_event_checkin_description" = "Acum, aplicația Corona-Warn vă permite să faceți check-in la evenimente și în locuri. Organizatorii de evenimente și proprietarii de magazine pot utiliza aplicația pentru a crea un cod QR. Apoi, invitații pot scana acest cod QR atunci când sosesc, pentru a-și înregistra prezența. De asemenea, aplicația poate crea la cerere o intrare în jurnal. Dacă o persoană care a făcut check-in la acest eveniment sau în acest loc este diagnosticată ulterior cu coronavirus, alte persoane care au făcut check-in în același timp pot fi avertizate.";
 
 /* Version 1.15 */
 "NewVersionFeature_115_cross_border_switzerland_title" = "A fost adăugată Elveția la înregistrarea transnațională a expunerilor în jurnal ";
@@ -2194,7 +2194,7 @@
 "Checkin_Details_CheckIn_Button" = "Check-in";
 
 /* Submission Check-in */
-"Submission_Checkins_Title" = "Partajați check-inurile locației dvs.?";
+"Submission_Checkins_Title" = "Partajați check-inurile?";
 
 "Submission_Checkins_Description" = "Avertizați-i pe ceilalți care au făcut check-in în aproprierea dvs. Datele dvs. personale nu vor fi partajate.";
 
