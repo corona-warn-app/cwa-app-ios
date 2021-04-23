@@ -81,8 +81,6 @@ class HomeStatisticsCardView: UIView {
 				accessibilityElements.append(secondaryTitleLabel)
 			}
 
-			
-
 			if viewModel?.secondaryTrendImage != nil, let secondaryTrendImageView = self.secondaryTrendImageView {
 				accessibilityElements.append(secondaryTrendImageView)
 			}
@@ -94,15 +92,12 @@ class HomeStatisticsCardView: UIView {
 					tertiaryAccessibilityLabel?.append(tertiaryValueLabel.text ?? "")
 					tertiaryTitleLabel.accessibilityLabel = tertiaryAccessibilityLabel
 				}
-				
 				accessibilityElements.append(tertiaryTitleLabel)
 			}
 
 			if viewModel?.footnote != nil, let footnoteLabel = self.footnoteLabel {
-				
 				footnoteLabel.accessibilityTraits = UIAccessibilityTraits.link
 				accessibilityElements.append(footnoteLabel)
-				
 			}
 
 			return accessibilityElements
