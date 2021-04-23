@@ -85,8 +85,8 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		launch()
 		
 		// Open pending test result screen.
-		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .long))
-		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].tap()
+		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.TestResultCell.pendingPCRButton].waitForExistence(timeout: .long))
+		app.cells.buttons[AccessibilityIdentifiers.Home.TestResultCell.pendingPCRButton].tap()
 		XCTAssertTrue(app.staticTexts["AppStrings.ExposureSubmissionResult.procedure"].waitForExistence(timeout: .medium))
 
 		let consentNotGivenCell = app.cells[AccessibilityIdentifiers.ExposureSubmissionResult.warnOthersConsentNotGivenCell]
@@ -523,12 +523,8 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		launch()
 		
 		// Open Intro screen.
-		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .long))
-		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].tap()
-		
-		// Open Test Result screen.
-		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
-		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.pcrCell].waitForExistence(timeout: .long))
+		app.cells[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.pcrCell].tap()
 		
 		// Open Warn Others screen.
 		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
@@ -543,15 +539,11 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		app.alerts.firstMatch.buttons.element(boundBy: 1).tap() // no
 		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
 		// quick hack - can't easily use `addUIInterruptionMonitor` in this test
-		app.alerts.firstMatch.buttons.firstMatch.tap() // no
-		
-		// We should see now the exposureSubmissionSuccessViewController
-		XCTAssertTrue(app.images[AccessibilityIdentifiers.ExposureSubmissionSuccess.accImageDescription].waitForExistence(timeout: .short))
-		app.buttons[AccessibilityIdentifiers.ExposureSubmissionSuccess.closeButton].tap()
+		app.alerts.firstMatch.buttons.firstMatch.tap() // yes
 		
 		// Back to homescreen
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].waitForExistence(timeout: .long))
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].isHittable)
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.submittedPCRCell].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.submittedPCRCell].isHittable)
 	}
 
 	// Navigate to the Thank You screen with alert on Test Result Screen.

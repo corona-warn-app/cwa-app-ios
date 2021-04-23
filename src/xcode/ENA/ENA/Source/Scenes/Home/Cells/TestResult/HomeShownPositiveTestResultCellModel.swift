@@ -145,9 +145,9 @@ class HomeShownPositiveTestResultCellModel {
 		case (.pcr, false):
 			accessibilityIdentifier = AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.pcrCell
 		case (.pcr, true):
-			accessibilityIdentifier = AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.antigenCell
-		case (.antigen, false):
 			accessibilityIdentifier = AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.submittedPCRCell
+		case (.antigen, false):
+			accessibilityIdentifier = AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.antigenCell
 		case (.antigen, true):
 			accessibilityIdentifier = AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.submittedAntigenCell
 		}
