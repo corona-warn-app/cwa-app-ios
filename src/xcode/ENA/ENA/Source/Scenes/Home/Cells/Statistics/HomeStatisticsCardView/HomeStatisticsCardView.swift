@@ -46,11 +46,13 @@ class HomeStatisticsCardView: UIView {
 			var accessibilityElements = [Any]()
 
 			if viewModel?.title != nil, let titleLabel = self.titleLabel {
+				titleLabel.accessibilityTraits = UIAccessibilityTraits.header
 				accessibilityElements.append(titleLabel)
 			}
 
 			if let infoButton = self.infoButton {
 				accessibilityElements.append(infoButton)
+				infoButton.accessibilityTraits = UIAccessibilityTraits.button
 				infoButton.accessibilityIdentifier = viewModel?.infoButtonAccessiblityIdentifier
 			}
 
@@ -100,7 +102,10 @@ class HomeStatisticsCardView: UIView {
 			
 
 			if viewModel?.footnote != nil, let footnoteLabel = self.footnoteLabel {
+				
+				footnoteLabel.accessibilityTraits = UIAccessibilityTraits.link
 				accessibilityElements.append(footnoteLabel)
+				
 			}
 
 			return accessibilityElements
