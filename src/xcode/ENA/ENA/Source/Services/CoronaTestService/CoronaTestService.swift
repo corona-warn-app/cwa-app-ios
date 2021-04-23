@@ -405,7 +405,7 @@ class CoronaTestService {
 				registrationToken: store.registrationToken,
 				testResult: keysSubmitted || store.positiveTestResultWasShown ? .positive : .pending,
 				finalTestResultReceivedDate: store.testResultReceivedTimeStamp.map { Date(timeIntervalSince1970: TimeInterval($0)) },
-				positiveTestResultWasShown: store.positiveTestResultWasShown,
+				positiveTestResultWasShown: store.positiveTestResultWasShown || keysSubmitted,
 				isSubmissionConsentGiven: store.isSubmissionConsentGiven,
 				submissionTAN: store.tan,
 				keysSubmitted: keysSubmitted,
