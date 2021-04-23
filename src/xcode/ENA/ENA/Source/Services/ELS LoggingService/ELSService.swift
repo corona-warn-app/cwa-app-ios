@@ -127,9 +127,9 @@ final class ErrorLogSubmissionService: ErrorLogSubmitting {
 	}
 
 	private func setupFileSizePublisher() -> AnyPublisher<Int64, ELSError> {
-		// TODO: evaluate switch to constant observation https://developer.apple.com/documentation/foundation/nsfilepresenter
+		// evaluate switch to constant observation https://developer.apple.com/documentation/foundation/nsfilepresenter
 		return Timer
-			.publish(every: 1.0, on: .main, in: .default)
+			.publish(every: 1.0, on: .main, in: .default) // no need to have a high refresh rate, as file sizes normally don't grow that fast
 			.autoconnect()
 			.tryMap { _ in
 				guard let size = self.fileManager.sizeOfFile(atPath: self.fileLogger.allLogsFileURL.path) else {
