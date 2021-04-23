@@ -133,7 +133,10 @@ class ENAUITestsQuickActions: XCTestCase {
 		tanButton.tap()
 
 		// Fill in dummy TAN.
-		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.primaryButton"].waitForExistence(timeout: .medium))
+		
+		let tanSubmityButton = app.buttons[AppStrings.ExposureSubmissionTanEntry.submit]
+		XCTAssertTrue(tanSubmityButton.waitForExistence(timeout: .medium))
+
 		"qwdzxcsrhe".forEach {
 			app.keyboards.keys[String($0)].tap()
 		}
