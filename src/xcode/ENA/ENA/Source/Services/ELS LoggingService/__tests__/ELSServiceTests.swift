@@ -167,10 +167,12 @@ class ELSServiceTests: XCTestCase {
 	}
 	
 	func testGIVEN_ELSService_WHEN_UploadIsTriggered_THEN_CouldNotReadLogfileIsReturned() throws {
+		// TODO Write Unit Test
 //		XCTAssertEqual(ELSError.couldNotReadLogfile(""), error)
 	}
 	
 	func testGIVEN_ELSService_WHEN_UploadIsTriggered_THEN_EmptyLogFileIsReturned() throws {
+		// TODO Write Unit Test
 //		XCTAssertEqual(ELSError.emptyLogFile, error)
 	}
 }

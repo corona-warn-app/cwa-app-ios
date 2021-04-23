@@ -413,7 +413,7 @@
 		5017F65F25FFC1E8003A812E /* ClientMetadataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5017F65E25FFC1E8003A812E /* ClientMetadataTests.swift */; };
 		5021532925C988D80006842D /* OTPResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5021532825C988D80006842D /* OTPResponse.swift */; };
 		50352C8B25C94961007193D2 /* OTPServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50352C8A25C94961007193D2 /* OTPServiceTests.swift */; };
-		50352C9F25C96687007193D2 /* HTTPClient+AuthorizationOTPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50352C9725C9665A007193D2 /* HTTPClient+AuthorizationOTPTests.swift */; };
+		50352C9F25C96687007193D2 /* HTTPClient+AuthorizationOTPEdusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50352C9725C9665A007193D2 /* HTTPClient+AuthorizationOTPEdusTests.swift */; };
 		50373EC925FBD08A000109AE /* HTTPClient+TraceWarningPackageDownloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50373EC825FBD08A000109AE /* HTTPClient+TraceWarningPackageDownloadTests.swift */; };
 		503DB1A7255D822E00576E57 /* ExposureSubmissionIntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503DB1A6255D822E00576E57 /* ExposureSubmissionIntroViewController.swift */; };
 		503DB1AC255D826900576E57 /* ExposureSubmissionIntroViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503DB1AB255D826900576E57 /* ExposureSubmissionIntroViewModel.swift */; };
@@ -444,6 +444,8 @@
 		5081EEFE25FF9C5E004B8FDE /* CheckinsInfoScreenViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5081EEFD25FF9C5E004B8FDE /* CheckinsInfoScreenViewModelTest.swift */; };
 		5081EF0625FFB7E0004B8FDE /* CheckinsInfoScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5081EF0525FFB7E0004B8FDE /* CheckinsInfoScreenViewController.swift */; };
 		5081EF0E25FFDEC7004B8FDE /* ENAUITests_10_CheckIns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5081EF0D25FFDEC7004B8FDE /* ENAUITests_10_CheckIns.swift */; };
+		5089F95C2632D3B000E722D2 /* HTTPClient+AuthorizationOTPElsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5089F9572632D3AB00E722D2 /* HTTPClient+AuthorizationOTPElsTests.swift */; };
+		5089F96A2632D4CB00E722D2 /* HTTPClient+SubmitErrorLogFileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5089F9692632D4CB00E722D2 /* HTTPClient+SubmitErrorLogFileTests.swift */; };
 		508ACB6125DE6393006B9945 /* PPADataType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508ACB6025DE6393006B9945 /* PPADataType.swift */; };
 		508DB7D525D6B49E00F153D6 /* DataDonationDetailsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508DB7D425D6B49E00F153D6 /* DataDonationDetailsViewModelTests.swift */; };
 		5093B9A9260DEB2D007C0B09 /* TraceLocationDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5093B9A6260DEB2D007C0B09 /* TraceLocationDetailViewController.xib */; };
@@ -1503,7 +1505,7 @@
 		5017F65E25FFC1E8003A812E /* ClientMetadataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientMetadataTests.swift; sourceTree = "<group>"; };
 		5021532825C988D80006842D /* OTPResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPResponse.swift; sourceTree = "<group>"; };
 		50352C8A25C94961007193D2 /* OTPServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPServiceTests.swift; sourceTree = "<group>"; };
-		50352C9725C9665A007193D2 /* HTTPClient+AuthorizationOTPTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClient+AuthorizationOTPTests.swift"; sourceTree = "<group>"; };
+		50352C9725C9665A007193D2 /* HTTPClient+AuthorizationOTPEdusTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClient+AuthorizationOTPEdusTests.swift"; sourceTree = "<group>"; };
 		50373EC825FBD08A000109AE /* HTTPClient+TraceWarningPackageDownloadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClient+TraceWarningPackageDownloadTests.swift"; sourceTree = "<group>"; };
 		503DB1A6255D822E00576E57 /* ExposureSubmissionIntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionIntroViewController.swift; sourceTree = "<group>"; };
 		503DB1AB255D826900576E57 /* ExposureSubmissionIntroViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionIntroViewModel.swift; sourceTree = "<group>"; };
@@ -1535,6 +1537,8 @@
 		5081EEFD25FF9C5E004B8FDE /* CheckinsInfoScreenViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinsInfoScreenViewModelTest.swift; sourceTree = "<group>"; };
 		5081EF0525FFB7E0004B8FDE /* CheckinsInfoScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinsInfoScreenViewController.swift; sourceTree = "<group>"; };
 		5081EF0D25FFDEC7004B8FDE /* ENAUITests_10_CheckIns.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_10_CheckIns.swift; sourceTree = "<group>"; };
+		5089F9572632D3AB00E722D2 /* HTTPClient+AuthorizationOTPElsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClient+AuthorizationOTPElsTests.swift"; sourceTree = "<group>"; };
+		5089F9692632D4CB00E722D2 /* HTTPClient+SubmitErrorLogFileTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClient+SubmitErrorLogFileTests.swift"; sourceTree = "<group>"; };
 		508ACB6025DE6393006B9945 /* PPADataType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPADataType.swift; sourceTree = "<group>"; };
 		508ACB7B25DE6AE2006B9945 /* PPAnalyticsCollectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPAnalyticsCollectorTests.swift; sourceTree = "<group>"; };
 		508DB7D425D6B49E00F153D6 /* DataDonationDetailsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDonationDetailsViewModelTests.swift; sourceTree = "<group>"; };
@@ -5341,8 +5345,10 @@
 				A1E419562495A8F50016E52A /* HTTPClient+RegistrationTokenTests.swift */,
 				A1E41947249548260016E52A /* HTTPClient+SubmitTests.swift */,
 				A1E419502495A6EA0016E52A /* HTTPClient+TANForExposureSubmitTests.swift */,
-				50352C9725C9665A007193D2 /* HTTPClient+AuthorizationOTPTests.swift */,
+				50352C9725C9665A007193D2 /* HTTPClient+AuthorizationOTPEdusTests.swift */,
+				5089F9572632D3AB00E722D2 /* HTTPClient+AuthorizationOTPElsTests.swift */,
 				50C51CB525CDEA4300D4C33A /* HTTPClient+SubmitAnalyticsDataTests.swift */,
+				5089F9692632D4CB00E722D2 /* HTTPClient+SubmitErrorLogFileTests.swift */,
 				50AA526725FBA0CC000C77BB /* HTTPClient+TraceWarningPackageDiscoveryTests.swift */,
 				50373EC825FBD08A000109AE /* HTTPClient+TraceWarningPackageDownloadTests.swift */,
 				A1877CA9248F247D006FEFC0 /* SAPDownloadedPackageTests.swift */,
@@ -6901,6 +6907,7 @@
 				ABE9613525EFEB5C00D0F699 /* DMDatePickerCellViewModel.swift in Sources */,
 				EB5FE15C2599F5E400797E4E /* ENActivityHandling.swift in Sources */,
 				BA6C8AB9254D64D3008344F5 /* MinutesAtAttenuationWeight.swift in Sources */,
+				5089F96A2632D4CB00E722D2 /* HTTPClient+SubmitErrorLogFileTests.swift in Sources */,
 				7154EB4C247E862100A467FF /* ExposureDetectionLoadingCell.swift in Sources */,
 				94EAF87925B6CAA300BE1F40 /* DeltaOnboardingNewVersionFeaturesViewModel.swift in Sources */,
 				01A4DD4325935D1F007D5794 /* HomeRiskCellModel.swift in Sources */,
@@ -7346,6 +7353,7 @@
 				35A7F081250A7CF8005E6C33 /* KeychainHelperTests.swift in Sources */,
 				014086C52589040200E9E5B2 /* DiaryEditEntriesCellModelTest.swift in Sources */,
 				34FE15A02604B1880002CB69 /* QRCodePosterTemplateProviderTests.swift in Sources */,
+				5089F95C2632D3B000E722D2 /* HTTPClient+AuthorizationOTPElsTests.swift in Sources */,
 				01131E46261611A3001DB2CD /* TraceLocationsConfigurationViewModelTest.swift in Sources */,
 				0120ECF32587607600F78944 /* DiaryDayEntryCellModelTest.swift in Sources */,
 				3456D96725F0EBB400A62F5D /* ErrorReportHistoryViewModelTests.swift in Sources */,
@@ -7543,7 +7551,7 @@
 				0109DB9A26037E6A00624BB3 /* TraceLocation+Mock.swift in Sources */,
 				0144DD9725D40CC600CFB1D1 /* MockDeadmanNotificationManager.swift in Sources */,
 				B1FE13FE24896EF700D012E5 /* CachedAppConfigurationTests.swift in Sources */,
-				50352C9F25C96687007193D2 /* HTTPClient+AuthorizationOTPTests.swift in Sources */,
+				50352C9F25C96687007193D2 /* HTTPClient+AuthorizationOTPEdusTests.swift in Sources */,
 				524C4292256587B900EBC3B0 /* ExposureSubmissionTestResultConsentViewModelTests.swift in Sources */,
 				BA6C8B51254D80DF008344F5 /* ExposureWindowTest.swift in Sources */,
 				50BD2E7724FE26F400932566 /* AppInformationImprintTest.swift in Sources */,
