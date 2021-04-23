@@ -15,3 +15,9 @@ enum ELSError: Error {
 	case emptyLogFile
 	case couldNotReadLogfile(_ message: String? = nil)
 }
+
+extension ELSError: Equatable {
+	static func == (lhs: ELSError, rhs: ELSError) -> Bool {
+		lhs.localizedDescription == rhs.localizedDescription
+	}
+}

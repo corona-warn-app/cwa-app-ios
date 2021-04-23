@@ -20,6 +20,11 @@ final class PPACDeviceCheckMock: DeviceCheckable {
 	let isSupported: Bool
 
 	func deviceToken(_ apiToken: String, completion: @escaping (Result<PPACToken, PPACError>) -> Void) {
+		if !isSupported {
+			Log.error("Failed to create DeviceCheck token", log: .ppac)
+			completion(.failure(.generationFailed))
+			return
+		}
 		guard let deviceToken = deviceToken.data(using: .utf8)?.base64EncodedString() else {
 			Log.error("Failed to create DeviceCheck token", log: .ppac)
 			completion(.failure(.generationFailed))
