@@ -14,7 +14,7 @@ protocol ErrorLogSubmitting {
 	/// Publisher returning the size in bytes for a given file
 	var logFileSizePublisher: OpenCombine.AnyPublisher<Int64, ELSError> { get }
 
-	func submit(log: Data, completion: @escaping ELSSubmissionResponse)
+	func submit(completion: @escaping ELSSubmissionResponse)
 }
 
 protocol ErrorLogHandling {
@@ -56,7 +56,7 @@ final class ErrorLogSubmissionService: ErrorLogSubmitting {
 	/// - Note: The current implementation does NOT constantly observe file size changes!
 	private(set) lazy var logFileSizePublisher: AnyPublisher<Int64, ELSError> = setupFileSizePublisher()
 	
-	func submit(log: Data, completion: @escaping (Result<LogUploadResponse, ELSError>) -> Void) {
+	func submit(completion: @escaping (Result<LogUploadResponse, ELSError>) -> Void) {
 		
 		// get log data from the 'all logs' file
 		guard let errorLogFiledata = LogDataItem(at: fileLogger.allLogsFileURL)?.compressedData else {

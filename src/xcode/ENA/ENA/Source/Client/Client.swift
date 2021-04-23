@@ -192,14 +192,6 @@ enum PPAServerErrorCode: String, Codable {
 	case SALT_REDEEMED
 }
 
-enum ELSErrorCode: String, Codable {
-	case DEVICE_TOKEN_GENERATION_FAILED
-	case DEVICE_TOKEN_NOT_SUPPORTED
-	case DEVICE_TOKEN_INVALID
-	case DEVICE_TOKEN_REDEEMED
-	case DEVICE_TOKEN_SYNTAX_ERROR
-}
-
 extension SubmissionError: LocalizedError {
 	var localizedDescription: String {
 		switch self {

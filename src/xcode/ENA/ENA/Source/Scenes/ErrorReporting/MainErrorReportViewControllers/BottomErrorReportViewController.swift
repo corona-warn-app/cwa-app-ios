@@ -52,8 +52,6 @@ class BottomErrorReportViewController: UIViewController, RequiresAppDependencies
 		stopAndDeleteButton.setTitle(AppStrings.ErrorReport.stopAndDeleteButtonTitle, for: .normal)
 		stopAndDeleteButton.accessibilityIdentifier = AccessibilityIdentifiers.ErrorReport.stopAndDeleteButton
 
-		configure(status: .inactive)
-
 		elsService
 			.logFileSizePublisher
 			.sink { result in
@@ -69,19 +67,24 @@ class BottomErrorReportViewController: UIViewController, RequiresAppDependencies
 			.store(in: &subscriptions)
 	}
 
+	override func viewWillAppear(_ animated: Bool) {
+		configure(status: .inactive, animated: false)
+		super.viewWillAppear(animated)
+	}
+
 	// MARK: - Internal
 
-	func configure(status: ErrorLoggingStatus) {
+	func configure(status: ErrorLoggingStatus, animated: Bool = true) {
 		switch status {
 		case .active:
 			coloredCircle.tintColor = .enaColor(for: .brandRed)
 			statusTitle.text = AppStrings.ErrorReport.activeStatusTitle
-			showButtonsForStatus(isActive: true)
+			showButtonsForStatus(isActive: true, animated: animated)
 
 		case .inactive:
 			coloredCircle.tintColor = .enaColor(for: .hairline)
 			statusTitle.text = AppStrings.ErrorReport.inactiveStatusTitle
-			showButtonsForStatus(isActive: false)
+			showButtonsForStatus(isActive: false, animated: animated)
 		}
 	}
 	
@@ -125,13 +128,20 @@ class BottomErrorReportViewController: UIViewController, RequiresAppDependencies
 		return formatter
 	}()
 	
-	private func showButtonsForStatus(isActive: Bool) {
+	private func showButtonsForStatus(isActive: Bool, animated: Bool) {
 		startButton.isHidden = isActive
 		sendReportButton.isHidden = !isActive
 		saveLocallyButton.isHidden = !isActive
 		stopAndDeleteButton.isHidden = !isActive
 
-		stackViewHeightConstraint.constant = isActive ? 180 : 60
+		stackViewHeightConstraint.constant = isActive ? 180 : 60 // hack: 3 buttons vs 1 button
+
+		if let topBottomController = parent as? FooterViewUpdating {
+			let targetSize = CGSize(width: view.bounds.width, height: isActive ? 356 : 220)
+			topBottomController.update(to: targetSize, animated: animated, completion: {
+				Log.debug("Bottom view size: \(targetSize)", log: .ui)
+			})
+		}
 	}
 	
 	@IBAction private func startLoggingReport(_ sender: Any) {

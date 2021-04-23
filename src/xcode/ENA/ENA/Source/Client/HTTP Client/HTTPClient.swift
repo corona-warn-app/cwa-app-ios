@@ -972,7 +972,7 @@ private extension URLRequest {
 		}
 
 		var request = URLRequest(url: configuration.otpElsAuthorizationURL)
-		request.httpMethod = "POST"
+		request.httpMethod = HttpMethod.post
 		request.httpBody = try protoBufRequest.serializedData()
 
 		// Headers
