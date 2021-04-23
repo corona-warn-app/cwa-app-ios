@@ -173,11 +173,10 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		diagnosisKeysRetrieval.exposureManagerState
 	}
 
-var checkins: [Checkin] {
-get { store.submissionCheckins }
-set { store.submissionCheckins = newValue }
-}
-
+	var checkins: [Checkin] {
+		get { store.submissionCheckins }
+		set { store.submissionCheckins = newValue }
+	}
 
 	// MARK: - Private
 
