@@ -73,13 +73,13 @@ struct AntigenTestProfile: Codable {
 
 	// MARK: - Internal
 
-	let firstName: String?
-	let lastName: String?
-	let dateOfBirth: Date?
-	let addressLine: String?
-	let zipCode: String?
-	let city: String?
-	let phoneNumber: String?
-	let email: String?
+	var firstName: String?
+	var lastName: String?
+	var dateOfBirth: Date?
+	var addressLine: String?
+	var zipCode: String?
+	var city: String?
+	var phoneNumber: String?
+	var email: String?
 
 }

@@ -363,6 +363,20 @@ extension SecureStore: CoronaTestStoring {
 
 }
 
+extension SecureStore: AntigenTestProfileStoring {
+
+	var antigenTestProfile: AntigenTestProfile? {
+		get { kvStore["antigenTestProfile"] as AntigenTestProfile? }
+		set { kvStore["antigenTestProfile"] = newValue }
+	}
+
+	var antigenTestProfileInfoScreenShown: Bool {
+		get { kvStore["antigenTestProfileInfoScreenShown"] as Bool? ?? false }
+		set { kvStore["antigenTestProfileInfoScreenShown"] = newValue }
+	}
+
+}
+
 extension SecureStore: CoronaTestStoringLegacy {
 
 	var registrationToken: String? {
@@ -424,11 +438,6 @@ extension SecureStore: CoronaTestStoringLegacy {
 	var isSubmissionConsentGiven: Bool {
 		get { kvStore["isSubmissionConsentGiven"] as Bool? ?? false }
 		set { kvStore["isSubmissionConsentGiven"] = newValue }
-	}
-
-	var antigenTestProfile: AntigenTestProfile? {
-		get { kvStore["antigenTestProfile"] as AntigenTestProfile? }
-		set { kvStore["antigenTestProfile"] = newValue }
 	}
 
 }
