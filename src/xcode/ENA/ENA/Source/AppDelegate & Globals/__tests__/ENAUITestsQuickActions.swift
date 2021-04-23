@@ -24,6 +24,14 @@ class ENAUITestsQuickActions: XCTestCase {
 	override func tearDownWithError() throws {
 		XCUIDevice.shared.press(.home)
 	}
+	
+	override func invokeTest() {
+		if #available(iOS 13, *) {
+			super.invokeTest()
+		} else {
+			// Skipping test because it's iOS 13+ only
+		}
+	}
 
 	/// Test shortcut state after a fresh installtation
 	///
@@ -39,18 +47,9 @@ class ENAUITestsQuickActions: XCTestCase {
 		let app = try installCWApp()
 		// validate; onboarding first screen?
 		XCTAssertTrue(app.staticTexts["AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_title"].waitForExistence(timeout: .long))
-		XCUIDevice.shared.press(.home)
 
-		// Ok, now the real test.
-		XCTAssertTrue(appIcon.waitForExistence(timeout: .short))
-		if !appIcon.isHittable {
-			springboard.swipeLeft()
-		}
-		XCTAssertTrue(appIcon.isHittable)
-		appIcon.press(forDuration: 1.5)
-
-		let actionButton = springboard.buttons[newDiaryEntryLabel]
-		XCTAssertFalse(actionButton.exists, "Shortcuts should not be available on 'fresh' installations which aren't onboarded")
+		// Shortcuts should not be available on 'fresh' installations which aren't onboarded
+		try checkAppMenu(expectNewDiaryItem: false, expectEventCheckin: false)
     }
 
 	func testLaunchAfterOnboarding_diaryInfoRequred() throws {
@@ -63,21 +62,9 @@ class ENAUITestsQuickActions: XCTestCase {
 
 		// On home screen?
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .medium))
-		// back out
-		XCUIDevice.shared.press(.home)
 
-		// check app menu
-		let appIcon = try XCTUnwrap(springboard.icons[cwaBundleDisplayName])
-		XCTAssertTrue(appIcon.waitForExistence(timeout: .short))
-		if !appIcon.isHittable {
-			springboard.swipeLeft()
-		}
-		XCTAssertTrue(appIcon.isHittable)
-		appIcon.press(forDuration: 1.5)
-
-		let actionButton = springboard.buttons[newDiaryEntryLabel]
-		XCTAssertTrue(actionButton.waitForExistence(timeout: .short))
-		actionButton.tap()
+		let quickAction = try checkAppMenu(expectNewDiaryItem: true)
+		quickAction.tap()
 
 		// we expect the info screen
 		XCTAssertFalse(app.segmentedControls[AccessibilityIdentifiers.ContactDiary.segmentedControl].waitForExistence(timeout: .short))
@@ -94,21 +81,8 @@ class ENAUITestsQuickActions: XCTestCase {
 
 		// On home screen?
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .medium))
-		// back out
-		XCUIDevice.shared.press(.home)
-
-		// check app menu
-		let appIcon = try XCTUnwrap(springboard.icons[cwaBundleDisplayName])
-		XCTAssertTrue(appIcon.waitForExistence(timeout: .short))
-		if !appIcon.isHittable {
-			springboard.swipeLeft()
-		}
-		XCTAssertTrue(appIcon.isHittable)
-		appIcon.press(forDuration: 1.5)
-
-		let actionButton = springboard.buttons[newDiaryEntryLabel]
-		XCTAssertTrue(actionButton.waitForExistence(timeout: .short))
-		actionButton.tap()
+		let quickAction = try checkAppMenu(expectNewDiaryItem: true)
+		quickAction.tap()
 
 		XCTAssertTrue(app.segmentedControls[AccessibilityIdentifiers.ContactDiary.segmentedControl].waitForExistence(timeout: .short))
 	}
@@ -200,6 +174,29 @@ class ENAUITestsQuickActions: XCTestCase {
 		XCUIDevice.shared.press(.home)
 		// reference to `appIcon` fails for unknown reasons
 		springboard.icons[cwaBundleDisplayName].tap()
+	}
+	
+	@discardableResult
+	private func checkAppMenu(expectNewDiaryItem: Bool) throws -> XCUIElement {
+		// to dashboard
+		XCUIDevice.shared.press(.home)
+
+		// check app menu
+		let appIcon = try XCTUnwrap(springboard.icons[cwaBundleDisplayName])
+		XCTAssertTrue(appIcon.waitForExistence(timeout: .short))
+		if !appIcon.isHittable {
+			springboard.swipeLeft()
+		}
+		XCTAssertTrue(appIcon.isHittable)
+		appIcon.press(forDuration: 1.5)
+
+		let diaryEntryButton = springboard.buttons[newDiaryEntryLabel]
+		if expectNewDiaryItem {
+			XCTAssertNoThrow(diaryEntryButton.exists, "Shortcuts should be available in this state of the submission flow")
+		} else {
+			XCTAssertThrowsError(diaryEntryButton.exists, "Shortcuts should not be available once the user is in submission flow")
+		}
+		return diaryEntryButton
 	}
 
 	// MARK: - Install/Uninstall our app
