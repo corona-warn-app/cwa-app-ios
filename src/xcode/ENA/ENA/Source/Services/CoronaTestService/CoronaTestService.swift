@@ -397,9 +397,8 @@ class CoronaTestService {
 	}
 
 	func migrate() {
-		if store.registrationToken != nil || store.lastSuccessfulSubmitDiagnosisKeyTimestamp != nil, let testRegistrationTimestamp = store.devicePairingConsentAcceptTimestamp {
-			let keysSubmitted = store.lastSuccessfulSubmitDiagnosisKeyTimestamp != nil
-
+		let keysSubmitted = store.lastSuccessfulSubmitDiagnosisKeyTimestamp != nil
+		if store.registrationToken != nil || keysSubmitted, let testRegistrationTimestamp = store.devicePairingConsentAcceptTimestamp {
 			pcrTest = PCRTest(
 				registrationDate: Date(timeIntervalSince1970: TimeInterval(testRegistrationTimestamp)),
 				registrationToken: store.registrationToken,
