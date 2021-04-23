@@ -210,6 +210,8 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 					completion(.success(.emptyAvailablePackages))
 				} else if successes.contains(.emptySinglePackage) {
 					completion(.success(.emptySinglePackage))
+				} else if successes.contains(.noPackagesAvailable) {
+					completion(.success(.noPackagesAvailable))
 				} else {
 					completion(.success(.success))
 				}
@@ -276,7 +278,7 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 		
 		guard !packagesToDownload.isEmpty else {
 			Log.info("TraceWarningPackageDownload: Aborted due to no packages to download.", log: .checkin)
-			completion(.success(.success))
+			completion(.success(.noPackagesAvailable))
 			return
 		}
 		
