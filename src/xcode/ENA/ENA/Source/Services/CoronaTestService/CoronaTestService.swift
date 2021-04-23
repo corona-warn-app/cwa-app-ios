@@ -396,16 +396,26 @@ class CoronaTestService {
 	}
 
 	func migrate() {
-		if store.registrationToken != nil || store.lastSuccessfulSubmitDiagnosisKeyTimestamp != nil, let testRegistrationTimestamp = store.devicePairingConsentAcceptTimestamp {
+		let keysSubmitted = store.lastSuccessfulSubmitDiagnosisKeyTimestamp != nil
+		if store.registrationToken != nil || keysSubmitted, let testRegistrationTimestamp = store.devicePairingConsentAcceptTimestamp {
+			// The registration token is set to nil after submission, therefore we cannot fetch the result from the server and need
+			// to infer a positive test result when keys were submitted. If the positive test result was shown we also can confidently set it to .positive.
+			// For all other cases we set it to .pending and fetch the actual test result afterwards, as we did not store it in v2.0 and earlier.
+			let testResult: TestResult = keysSubmitted || store.positiveTestResultWasShown ? .positive : .pending
+
+			// In v2.0 and earlier the `positiveTestResultWasShown` property was reset on submission,
+			// from v2.1 we keep it set to true even after the submission.
+			let positiveTestResultWasShown = store.positiveTestResultWasShown || keysSubmitted
+
 			pcrTest = PCRTest(
 				registrationDate: Date(timeIntervalSince1970: TimeInterval(testRegistrationTimestamp)),
 				registrationToken: store.registrationToken,
-				testResult: .pending,
+				testResult: testResult,
 				finalTestResultReceivedDate: store.testResultReceivedTimeStamp.map { Date(timeIntervalSince1970: TimeInterval($0)) },
-				positiveTestResultWasShown: store.positiveTestResultWasShown,
+				positiveTestResultWasShown: positiveTestResultWasShown,
 				isSubmissionConsentGiven: store.isSubmissionConsentGiven,
 				submissionTAN: store.tan,
-				keysSubmitted: store.lastSuccessfulSubmitDiagnosisKeyTimestamp != nil,
+				keysSubmitted: keysSubmitted,
 				journalEntryCreated: false
 			)
 
