@@ -56,8 +56,15 @@ class HomeStatisticsCardView: UIView {
 
 			// TODO: [KGA]
 			if viewModel?.primaryTitle != nil, let primaryTitleLabel = self.primaryTitleLabel {
-				accessibilityElements.append("\(primaryTitleLabel) \(primaryValueLabel)")
-				Log.info("Moinsen....")
+				var primaryAccessibilityText = primaryTitleLabel.text
+				
+				if viewModel?.primaryValue != nil, let primaryValueLabel = self.primaryValueLabel {
+					primaryAccessibilityText = "\(primaryAccessibilityText ?? "") \(primaryValueLabel.text!)"
+				}
+				
+				
+				primaryTitleLabel.text = primaryAccessibilityText
+				accessibilityElements.append(primaryTitleLabel)
 			}
 
 //			if viewModel?.primaryValue != nil, let primaryValueLabel = self.primaryValueLabel {
@@ -69,11 +76,11 @@ class HomeStatisticsCardView: UIView {
 			}
 
 			if viewModel?.secondaryTitle != nil, let secondaryTitleLabel = self.secondaryTitleLabel {
-				accessibilityElements.append(secondaryTitleLabel)
+				accessibilityElements.append("\(secondaryTitleLabel) \(secondaryValueLabel)")
 			}
 
 			if viewModel?.secondaryValue != nil, let secondaryValueLabel = self.secondaryValueLabel {
-				accessibilityElements.append(secondaryValueLabel)
+				//accessibilityElements.append(secondaryValueLabel)
 			}
 
 			if viewModel?.secondaryTrendImage != nil, let secondaryTrendImageView = self.secondaryTrendImageView {
