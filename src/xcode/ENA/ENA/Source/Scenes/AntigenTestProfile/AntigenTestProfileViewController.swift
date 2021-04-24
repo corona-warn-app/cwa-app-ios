@@ -33,12 +33,8 @@ class AntigenTestProfileViewController: UIViewController, FooterViewHandling, Di
 		super.viewDidLoad()
 
 		setupBackground()
-//		setupNavigationBar()
-	}
-
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
 		setupNavigationBar()
+		setupTableView()
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {
@@ -102,17 +98,16 @@ class AntigenTestProfileViewController: UIViewController, FooterViewHandling, Di
 		// remove previous view controllers from the stack, back button will
 		navigationController?.viewControllers = [navigationController?.viewControllers.first, navigationController?.viewControllers.last].compactMap { $0 }
 
-		// keep old images for restauration
+		// keep old images for restoration
 		originalBackgroundImage = navigationController?.navigationBar.backgroundImage(for: .default)
 		originalShadowImage = navigationController?.navigationBar.shadowImage
 
-//		// create a transparent navigation bar
+		// create a transparent navigation bar
 		let emptyImage = UIImage()
 		navigationController?.navigationBar.setBackgroundImage(emptyImage, for: .default)
 		navigationController?.navigationBar.shadowImage = emptyImage
 		navigationController?.navigationBar.isTranslucent = true
 		navigationController?.view.backgroundColor = .clear
-
 
 		parent?.navigationController?.navigationBar.prefersLargeTitles = false
 		parent?.navigationController?.navigationBar.sizeToFit()
@@ -152,7 +147,11 @@ class AntigenTestProfileViewController: UIViewController, FooterViewHandling, Di
 			let offsetLimit = self.view.safeAreaInsets.top
 			self.backgroundView.updatedTopLayout(with: yOffset, limit: offsetLimit)
 		}
+	}
 
+	private func setupTableView() {
+		tableView.separatorStyle = .none
+		tableView.register(SimpelTextCell.self, forCellReuseIdentifier: SimpelTextCell.reuseIdentifier)
 	}
 
 }
