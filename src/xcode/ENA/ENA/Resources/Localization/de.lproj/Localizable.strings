@@ -1644,7 +1644,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ContactDiary_Overview_LocationVisit_Abbreviation_Hours" = "Std.";
 
 /* ActionSheet */
-"ContactDiary_Overview_ActionSheet_InfoActionTitle" = "Informationen";
+"ContactDiary_Overview_ActionSheet_InfoActionTitle" = "Infos";
 
 "ContactDiary_Overview_ActionSheet_ExportActionTitle" = "Einträge exportieren";
 
