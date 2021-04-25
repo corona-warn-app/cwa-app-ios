@@ -933,6 +933,10 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "AntigenTest_Profile_Noice_Text" = "Bitte zeigen Sie diesen QR-Code an der Teststelle vor, um Ihre persönlichen Daten schnell erfassen zu lassen. Bitte halten zusätzlich Sie Ihren Personalausweis bereit.";
 
+"AntigenTest_Profile_DateOfBirth_Format" = "geboren %@";
+
+"AntigenTest_Profile_Email_Format" = "Email %@";
+
 "AntigenTest_Profile_Primary_Button" = "Weiter";
 
 "AntigenTest_Profile_Secondary_Button" = "Schnelltest-Profil entfernen";

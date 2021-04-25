@@ -4,6 +4,7 @@
 
 import Foundation
 import UIKit
+import Contacts
 
 struct AntigenTestProfileViewModel {
 
@@ -51,10 +52,10 @@ struct AntigenTestProfileViewModel {
 
 	var profileCellViewModel: SimpelTextCellViewModel {
 		SimpelTextCellViewModel(
-			backgroundColor: .enaColor(for: .cellBackground),
+			backgroundColor: .enaColor(for: .background),
 			textColor: .enaColor(for: .textPrimary1 ),
 			textAlignment: .left,
-			text: "Max Mustermann\ngeboren 14.03.1987",
+			text: [friendlyName, formattedAddress, emailAdress, dateOfBirth].compactMap({ $0 }).joined(separator: "\n"),
 			topSpace: 18.0,
 			font: .enaFont(for: .headline),
 			boarderColor: UIColor().hexStringToUIColor(hex: "#EDEDED")
@@ -63,7 +64,7 @@ struct AntigenTestProfileViewModel {
 
 	var noticeCellViewModel: SimpelTextCellViewModel {
 		SimpelTextCellViewModel(
-			backgroundColor: .enaColor(for: .cellBackground),
+			backgroundColor: .enaColor(for: .background),
 			textColor: .enaColor(for: .textPrimary1 ),
 			textAlignment: .left,
 			text: AppStrings.ExposureSubmission.AntigenTest.Profile.noticeText,
@@ -91,4 +92,53 @@ struct AntigenTestProfileViewModel {
 
 	private let store: AntigenTestProfileStoring
 	private var antigenTestProfile: AntigenTestProfile?
+
+	private var friendlyName: String {
+		guard let antigenTestProfile = antigenTestProfile else {
+			Log.error("AntigenTestProfile failed to create address - profile is missing")
+			return ""
+		}
+
+		var components = PersonNameComponents()
+		components.givenName = antigenTestProfile.firstName
+		components.familyName = antigenTestProfile.lastName
+
+		let formatter = PersonNameComponentsFormatter()
+		formatter.style = .medium
+		return formatter.string(from: components).trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+	}
+
+	private var dateOfBirth: String? {
+		guard let dateOfBirth = antigenTestProfile?.dateOfBirth else {
+			return nil
+		}
+
+		return String(
+			format: AppStrings.ExposureSubmission.AntigenTest.Profile.dateOfBirthFormatText,
+			DateFormatter.localizedString(from: dateOfBirth, dateStyle: .medium, timeStyle: .none)
+		)
+	}
+
+	private var emailAdress: String? {
+		guard let email = antigenTestProfile?.email else {
+			return nil
+		}
+		return String(
+			format: AppStrings.ExposureSubmission.AntigenTest.Profile.emailFormatText,
+			email
+		)
+	}
+
+	private var formattedAddress: String {
+		guard let antigenTestProfile = antigenTestProfile else {
+			Log.error("AntigenTestProfile failed to create address - profile is missing")
+			return ""
+		}
+		let adr = CNMutablePostalAddress()
+		adr.street = antigenTestProfile.addressLine ?? ""
+		adr.city = antigenTestProfile.city ?? ""
+		adr.postalCode = antigenTestProfile.zipCode ?? ""
+		return CNPostalAddressFormatter().string(from: adr)
+	}
+
 }
