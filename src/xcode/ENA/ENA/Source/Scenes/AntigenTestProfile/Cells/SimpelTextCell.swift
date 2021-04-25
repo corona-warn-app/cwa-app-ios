@@ -29,6 +29,7 @@ class SimpelTextCell: UITableViewCell, ReuseIdentifierProviding {
 		contentTextLabel.text = cellViewModel.text
 		topSpaceLayoutConstraint.constant = cellViewModel.topSpace
 		contentTextLabel.font = cellViewModel.font
+		backgroundContainerView.layer.borderColor = cellViewModel.boarderColor.cgColor
 	}
 
 	// MARK: - Private
@@ -40,12 +41,14 @@ class SimpelTextCell: UITableViewCell, ReuseIdentifierProviding {
 	private func setupView() {
 		backgroundColor = .clear
 		contentView.backgroundColor = .clear
+		selectionStyle = .none
 
 		if #available(iOS 13.0, *) {
 			backgroundContainerView.layer.cornerCurve = .continuous
 		}
 		backgroundContainerView.layer.cornerRadius = 15.0
 		backgroundContainerView.layer.masksToBounds = true
+		backgroundContainerView.layer.borderWidth = 1.0
 
 		backgroundContainerView.translatesAutoresizingMaskIntoConstraints = false
 		contentView.addSubview(backgroundContainerView)

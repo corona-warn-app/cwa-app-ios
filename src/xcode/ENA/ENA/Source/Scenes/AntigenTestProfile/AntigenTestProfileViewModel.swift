@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct AntigenTestProfileViewModel {
 
@@ -55,7 +56,8 @@ struct AntigenTestProfileViewModel {
 			textAlignment: .left,
 			text: "Max Mustermann\ngeboren 14.03.1987",
 			topSpace: 18.0,
-			font: .enaFont(for: .headline)
+			font: .enaFont(for: .headline),
+			boarderColor: UIColor().hexStringToUIColor(hex: "#EDEDED")
 		)
 	}
 
@@ -66,7 +68,8 @@ struct AntigenTestProfileViewModel {
 			textAlignment: .left,
 			text: AppStrings.ExposureSubmission.AntigenTest.Profile.noticeText,
 			topSpace: 18.0,
-			font: .enaFont(for: .body)
+			font: .enaFont(for: .subheadline),
+			boarderColor: UIColor().hexStringToUIColor(hex: "#EDEDED")
 		)
 	}
 
