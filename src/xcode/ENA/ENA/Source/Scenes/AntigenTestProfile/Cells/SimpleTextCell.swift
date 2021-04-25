@@ -4,7 +4,7 @@
 
 import UIKit
 
-class SimpelTextCell: UITableViewCell, ReuseIdentifierProviding {
+class SimpleTextCell: UITableViewCell, ReuseIdentifierProviding {
 
 	// MARK: - Init
 
@@ -22,7 +22,7 @@ class SimpelTextCell: UITableViewCell, ReuseIdentifierProviding {
 
 	// MARK: - Internal
 
-	func configure(with cellViewModel: SimpelTextCellViewModel) {
+	func configure(with cellViewModel: SimpleTextCellViewModel) {
 		backgroundContainerView.backgroundColor = cellViewModel.backgroundColor ?? .clear
 		contentTextLabel.textColor = cellViewModel.textColor
 		contentTextLabel.textAlignment = cellViewModel.textAlignment

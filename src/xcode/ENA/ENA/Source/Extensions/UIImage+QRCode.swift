@@ -6,7 +6,7 @@ import UIKit
 
 extension UIImage {
 
-	class func QRCode(with string: String, size: CGSize = CGSize(width: 400, height: 400), qrCodeErrorCorrectionLevel: MappedErrorCorrectionType = .medium) -> UIImage? {
+	class func qrCode(with string: String, size: CGSize = CGSize(width: 400, height: 400), qrCodeErrorCorrectionLevel: MappedErrorCorrectionType = .medium) -> UIImage? {
 		/// Create data from string which will be feed into the CoreImage Filter
 		guard let data = string.data(using: .shiftJIS) else {
 			return nil

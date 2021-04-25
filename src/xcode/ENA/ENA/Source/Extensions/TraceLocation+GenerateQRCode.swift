@@ -13,7 +13,7 @@ extension TraceLocation {
 			return nil
 		}
 
-		return UIImage.QRCode(with: qrCodeURL, size: size, qrCodeErrorCorrectionLevel: qrCodeErrorCorrectionLevel)
+		return UIImage.qrCode(with: qrCodeURL, size: size, qrCodeErrorCorrectionLevel: qrCodeErrorCorrectionLevel)
 	}
 
 }

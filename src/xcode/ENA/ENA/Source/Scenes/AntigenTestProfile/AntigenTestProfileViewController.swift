@@ -35,10 +35,6 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 		setupBackground()
 		setupNavigationBar()
 		setupTableView()
-
-		let dataString = String(data: viewModel.vCardData, encoding: .utf8)
-		Log.debug("vCard: \(String(describing: dataString))")
-
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {
@@ -82,21 +78,25 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 		switch AntigenTestProfileViewModel.TableViewSections.map(indexPath.section) {
 
 		case .header:
-			let cell = tableView.dequeueReusableCell(cellType: SimpelTextCell.self, for: indexPath)
+			let cell = tableView.dequeueReusableCell(cellType: SimpleTextCell.self, for: indexPath)
 			cell.configure(with: viewModel.headerCellViewModel)
 			return cell
 
+		case .QRCode:
+			let cell = tableView.dequeueReusableCell(cellType: QRCodeCell.self, for: indexPath)
+			cell.configure(with: viewModel.qrCodeCellViewModel)
+			return cell
+
 		case .profile:
-			let cell = tableView.dequeueReusableCell(cellType: SimpelTextCell.self, for: indexPath)
+			let cell = tableView.dequeueReusableCell(cellType: SimpleTextCell.self, for: indexPath)
 			cell.configure(with: viewModel.profileCellViewModel)
 			return cell
 
 		case .notice:
-			let cell = tableView.dequeueReusableCell(cellType: SimpelTextCell.self, for: indexPath)
+			let cell = tableView.dequeueReusableCell(cellType: SimpleTextCell.self, for: indexPath)
 			cell.configure(with: viewModel.noticeCellViewModel)
 			return cell
 		}
-
 	}
 
 	// MARK: - Public
@@ -190,7 +190,8 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 		tableView.delegate = self
 		tableView.dataSource = self
 		tableView.separatorStyle = .none
-		tableView.register(SimpelTextCell.self, forCellReuseIdentifier: SimpelTextCell.reuseIdentifier)
+		tableView.register(SimpleTextCell.self, forCellReuseIdentifier: SimpleTextCell.reuseIdentifier)
+		tableView.register(QRCodeCell.self, forCellReuseIdentifier: QRCodeCell.reuseIdentifier)
 	}
 
 }

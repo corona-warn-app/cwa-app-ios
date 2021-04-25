@@ -12,8 +12,11 @@ struct AntigenTestProfileViewModel {
 	init(
 		store: AntigenTestProfileStoring
 	) {
+		guard let antigenTestProfile = store.antigenTestProfile else {
+			fatalError("We can't init without a valid antigenTestProfile stored")
+		}
 		self.store = store
-		self.antigenTestProfile = store.antigenTestProfile
+		self.antigenTestProfile = antigenTestProfile
 	}
 
 	// MARK: - Overrides
@@ -24,23 +27,8 @@ struct AntigenTestProfileViewModel {
 
 	// MARK: - Internal
 
-	func deleteProfile() {
-		store.antigenTestProfile = nil
-	}
-
-	var numberOfSections: Int {
-		TableViewSections.allCases.count
-	}
-
-	func numberOfItems(in section: TableViewSections) -> Int {
-		switch section {
-		default:
-			return 1
-		}
-	}
-
-	var headerCellViewModel: SimpelTextCellViewModel {
-		SimpelTextCellViewModel(
+	let headerCellViewModel: SimpleTextCellViewModel = {
+		SimpleTextCellViewModel(
 			backgroundColor: .clear,
 			textColor: .enaColor(for: .textContrast),
 			textAlignment: .center,
@@ -48,10 +36,34 @@ struct AntigenTestProfileViewModel {
 			topSpace: 42.0,
 			font: .enaFont(for: .headline)
 		)
+	}()
+
+	let noticeCellViewModel: SimpleTextCellViewModel = {
+		SimpleTextCellViewModel(
+			backgroundColor: .enaColor(for: .background),
+			textColor: .enaColor(for: .textPrimary1 ),
+			textAlignment: .left,
+			text: AppStrings.ExposureSubmission.AntigenTest.Profile.noticeText,
+			topSpace: 18.0,
+			font: .enaFont(for: .subheadline),
+			boarderColor: UIColor().hexStringToUIColor(hex: "#EDEDED")
+		)
+	}()
+
+	var qrCodeCellViewModel: QRCodeCellViewModel {
+		QRCodeCellViewModel(
+			antigenTestProfile: antigenTestProfile,
+			backgroundColor: .enaColor(for: .background),
+			boarderColor: UIColor().hexStringToUIColor(hex: "#EDEDED")
+		)
 	}
 
-	var profileCellViewModel: SimpelTextCellViewModel {
-		SimpelTextCellViewModel(
+	var numberOfSections: Int {
+		TableViewSections.allCases.count
+	}
+
+	var profileCellViewModel: SimpleTextCellViewModel {
+		SimpleTextCellViewModel(
 			backgroundColor: .enaColor(for: .background),
 			textColor: .enaColor(for: .textPrimary1 ),
 			textAlignment: .left,
@@ -62,39 +74,14 @@ struct AntigenTestProfileViewModel {
 		)
 	}
 
-	var noticeCellViewModel: SimpelTextCellViewModel {
-		SimpelTextCellViewModel(
-			backgroundColor: .enaColor(for: .background),
-			textColor: .enaColor(for: .textPrimary1 ),
-			textAlignment: .left,
-			text: AppStrings.ExposureSubmission.AntigenTest.Profile.noticeText,
-			topSpace: 18.0,
-			font: .enaFont(for: .subheadline),
-			boarderColor: UIColor().hexStringToUIColor(hex: "#EDEDED")
-		)
+	func deleteProfile() {
+		store.antigenTestProfile = nil
 	}
 
-	var vCardData: Data {
-		guard let antigenTestProfile = antigenTestProfile else {
-			Log.error("AntigenTestProfile failed to create vCard data - profile is missing")
-			return Data()
-		}
-		let contact = CNMutableContact()
-		contact.contactType = .person
-		contact.givenName = antigenTestProfile.firstName ?? ""
-		contact.familyName = antigenTestProfile.lastName ?? ""
-
-		if let dateOfBirth = antigenTestProfile.dateOfBirth {
-			contact.birthday = Calendar.current.dateComponents([.day, .month, .year], from: dateOfBirth)
-		}
-
-
-		do {
-			let vCardData = try CNContactVCardSerialization.data(with: [contact])
-			return vCardData
-		} catch {
-			Log.error("Failed to create vCard data with antigenTestProfile input")
-			return Data()
+	func numberOfItems(in section: TableViewSections) -> Int {
+		switch section {
+		default:
+			return 1
 		}
 	}
 
@@ -102,7 +89,7 @@ struct AntigenTestProfileViewModel {
 
 	enum TableViewSections: Int, CaseIterable {
 		case header
-//		case QRCode
+		case QRCode
 		case profile
 		case notice
 
@@ -115,14 +102,9 @@ struct AntigenTestProfileViewModel {
 	}
 
 	private let store: AntigenTestProfileStoring
-	private var antigenTestProfile: AntigenTestProfile?
+	private var antigenTestProfile: AntigenTestProfile
 
 	private var friendlyName: String {
-		guard let antigenTestProfile = antigenTestProfile else {
-			Log.error("AntigenTestProfile failed to create address - profile is missing")
-			return ""
-		}
-
 		var components = PersonNameComponents()
 		components.givenName = antigenTestProfile.firstName
 		components.familyName = antigenTestProfile.lastName
@@ -133,7 +115,7 @@ struct AntigenTestProfileViewModel {
 	}
 
 	private var dateOfBirth: String? {
-		guard let dateOfBirth = antigenTestProfile?.dateOfBirth else {
+		guard let dateOfBirth = antigenTestProfile.dateOfBirth else {
 			return nil
 		}
 
@@ -144,7 +126,7 @@ struct AntigenTestProfileViewModel {
 	}
 
 	private var emailAdress: String? {
-		guard let email = antigenTestProfile?.email else {
+		guard let email = antigenTestProfile.email else {
 			return nil
 		}
 		return String(
@@ -154,10 +136,6 @@ struct AntigenTestProfileViewModel {
 	}
 
 	private var formattedAddress: String {
-		guard let antigenTestProfile = antigenTestProfile else {
-			Log.error("AntigenTestProfile failed to create address - profile is missing")
-			return ""
-		}
 		let adr = CNMutablePostalAddress()
 		adr.street = antigenTestProfile.addressLine ?? ""
 		adr.city = antigenTestProfile.city ?? ""
