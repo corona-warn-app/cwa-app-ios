@@ -4,7 +4,7 @@
 
 import UIKit
 
-class AntigenTestProfileViewController: UIViewController, FooterViewHandling, DismissHandling {
+class AntigenTestProfileViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, FooterViewHandling, DismissHandling {
 
 	// MARK: - Init
 
@@ -60,6 +60,28 @@ class AntigenTestProfileViewController: UIViewController, FooterViewHandling, Di
 
 	func wasAttemptedToBeDismissed() {
 		dismiss()
+	}
+
+	// MARK: - UITableViewDataSource
+
+	func numberOfSections(in tableView: UITableView) -> Int {
+		viewModel.numberOfSections
+	}
+
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		viewModel.numberOfItems(in: AntigenTestProfileViewModel.TableViewSections.map(section))
+	}
+
+	// MARK: - UITableViewdelegate
+
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		switch AntigenTestProfileViewModel.TableViewSections.map(indexPath.section) {
+
+		case .header:
+			let cell = tableView.dequeueReusableCell(cellType: SimpelTextCell.self, for: indexPath)
+			cell.configure(with: viewModel.headerCellViewModel)
+			return cell
+		}
 	}
 
 	// MARK: - Public
@@ -150,6 +172,8 @@ class AntigenTestProfileViewController: UIViewController, FooterViewHandling, Di
 	}
 
 	private func setupTableView() {
+		tableView.delegate = self
+		tableView.dataSource = self
 		tableView.separatorStyle = .none
 		tableView.register(SimpelTextCell.self, forCellReuseIdentifier: SimpelTextCell.reuseIdentifier)
 	}
