@@ -74,6 +74,30 @@ struct AntigenTestProfileViewModel {
 		)
 	}
 
+	var vCardData: Data {
+		guard let antigenTestProfile = antigenTestProfile else {
+			Log.error("AntigenTestProfile failed to create vCard data - profile is missing")
+			return Data()
+		}
+		let contact = CNMutableContact()
+		contact.contactType = .person
+		contact.givenName = antigenTestProfile.firstName ?? ""
+		contact.familyName = antigenTestProfile.lastName ?? ""
+
+		if let dateOfBirth = antigenTestProfile.dateOfBirth {
+			contact.birthday = Calendar.current.dateComponents([.day, .month, .year], from: dateOfBirth)
+		}
+
+
+		do {
+			let vCardData = try CNContactVCardSerialization.data(with: [contact])
+			return vCardData
+		} catch {
+			Log.error("Failed to create vCard data with antigenTestProfile input")
+			return Data()
+		}
+	}
+
 	// MARK: - Private
 
 	enum TableViewSections: Int, CaseIterable {

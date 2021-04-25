@@ -35,6 +35,10 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 		setupBackground()
 		setupNavigationBar()
 		setupTableView()
+
+		let dataString = String(data: viewModel.vCardData, encoding: .utf8)
+		Log.debug("vCard: \(String(describing: dataString))")
+
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {
