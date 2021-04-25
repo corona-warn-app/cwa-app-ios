@@ -48,13 +48,35 @@ struct AntigenTestProfileViewModel {
 		)
 	}
 
+	var profileCellViewModel: SimpelTextCellViewModel {
+		SimpelTextCellViewModel(
+			backgroundColor: .enaColor(for: .cellBackground),
+			textColor: .enaColor(for: .textPrimary1 ),
+			textAlignment: .left,
+			text: "Max Mustermann\ngeboren 14.03.1987",
+			topSpace: 18.0,
+			font: .enaFont(for: .headline)
+		)
+	}
+
+	var noticeCellViewModel: SimpelTextCellViewModel {
+		SimpelTextCellViewModel(
+			backgroundColor: .enaColor(for: .cellBackground),
+			textColor: .enaColor(for: .textPrimary1 ),
+			textAlignment: .left,
+			text: AppStrings.ExposureSubmission.AntigenTest.Profile.noticeText,
+			topSpace: 18.0,
+			font: .enaFont(for: .body)
+		)
+	}
+
 	// MARK: - Private
 
 	enum TableViewSections: Int, CaseIterable {
 		case header
 //		case QRCode
-//		case profile
-//		case notice
+		case profile
+		case notice
 
 		static func map(_ section: Int) -> TableViewSections {
 			guard let section = TableViewSections(rawValue: section) else {

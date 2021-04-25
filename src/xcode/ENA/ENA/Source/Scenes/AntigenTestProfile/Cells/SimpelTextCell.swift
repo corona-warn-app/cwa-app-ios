@@ -41,12 +41,20 @@ class SimpelTextCell: UITableViewCell, ReuseIdentifierProviding {
 		backgroundColor = .clear
 		contentView.backgroundColor = .clear
 
+		if #available(iOS 13.0, *) {
+			backgroundContainerView.layer.cornerCurve = .continuous
+		}
+		backgroundContainerView.layer.cornerRadius = 15.0
+		backgroundContainerView.layer.masksToBounds = true
+
 		backgroundContainerView.translatesAutoresizingMaskIntoConstraints = false
 		contentView.addSubview(backgroundContainerView)
 
 		contentTextLabel.translatesAutoresizingMaskIntoConstraints = false
+		contentTextLabel.numberOfLines = 0
+
 		backgroundContainerView.addSubview(contentTextLabel)
-		topSpaceLayoutConstraint = contentTextLabel.topAnchor.constraint(equalTo: backgroundContainerView.topAnchor, constant: 5.0)
+		topSpaceLayoutConstraint = contentTextLabel.topAnchor.constraint(equalTo: backgroundContainerView.topAnchor, constant: 18.0)
 
 		NSLayoutConstraint.activate(
 			[
@@ -56,7 +64,7 @@ class SimpelTextCell: UITableViewCell, ReuseIdentifierProviding {
 				backgroundContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -30.0),
 
 				topSpaceLayoutConstraint,
-				contentTextLabel.bottomAnchor.constraint(equalTo: backgroundContainerView.bottomAnchor, constant: -5.0),
+				contentTextLabel.bottomAnchor.constraint(equalTo: backgroundContainerView.bottomAnchor, constant: -18.0),
 				contentTextLabel.leadingAnchor.constraint(equalTo: backgroundContainerView.leadingAnchor, constant: 14.0),
 				contentTextLabel.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor, constant: -14.0)
 			]

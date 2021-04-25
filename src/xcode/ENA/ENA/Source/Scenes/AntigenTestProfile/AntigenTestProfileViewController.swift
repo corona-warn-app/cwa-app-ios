@@ -81,7 +81,18 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 			let cell = tableView.dequeueReusableCell(cellType: SimpelTextCell.self, for: indexPath)
 			cell.configure(with: viewModel.headerCellViewModel)
 			return cell
+
+		case .profile:
+			let cell = tableView.dequeueReusableCell(cellType: SimpelTextCell.self, for: indexPath)
+			cell.configure(with: viewModel.profileCellViewModel)
+			return cell
+
+		case .notice:
+			let cell = tableView.dequeueReusableCell(cellType: SimpelTextCell.self, for: indexPath)
+			cell.configure(with: viewModel.noticeCellViewModel)
+			return cell
 		}
+
 	}
 
 	// MARK: - Public
