@@ -18,11 +18,15 @@ protocol ErrorLogSubmitting {
 }
 
 protocol ErrorLogHandling {
-	// Enable logging
 
-	// disable logging
+	/// Enable logging
+	func startLogging()
 
-	// delete existing log
+	/// Fetch logs to share with friends and family
+	func fetchExistingLog() -> LogDataItem?
+
+	/// 🔥 logs
+	func stopAndDeleteLog()
 }
 
 struct LogUploadResponse: Codable {
@@ -46,8 +50,6 @@ final class ErrorLogSubmissionService: ErrorLogSubmitting {
 		self.ppacService = ppacService
 		self.otpService = otpService
 	}
-	
-	// MARK: - Overrides
 	
 	// MARK: - Protocol ErrorLogSubmitting
 	
@@ -86,11 +88,7 @@ final class ErrorLogSubmissionService: ErrorLogSubmitting {
 			}
 		})
 	}
-	
-	// MARK: - Public
-	
-	// MARK: - Internal
-	
+
 	// MARK: - Private
 
 	private let client: Client
@@ -141,5 +139,51 @@ final class ErrorLogSubmissionService: ErrorLogSubmitting {
 				return error as? ELSError ?? ELSError.couldNotReadLogfile(error.localizedDescription)
 			})
 			.eraseToAnyPublisher()
+	}
+}
+
+extension ErrorLogSubmissionService: ErrorLogHandling {
+
+	private(set) static var errorLoggingEnabled: Bool = false
+
+	func startLogging() {
+		ErrorLogSubmissionService.errorLoggingEnabled = true
+	}
+
+	func fetchExistingLog() -> LogDataItem? {
+		// usage see: `DMLogsViewController.exportErrorLog()`
+		return Log.fetchELSLogs()
+	}
+
+	func stopAndDeleteLog() {
+		ErrorLogSubmissionService.errorLoggingEnabled = false
+		Log.deleteLogs()
+	}
+}
+
+// MARK: - Logging + ELS handling
+
+// Convenience functions we only need for ELS
+private extension Log {
+
+	/// Deletes the ELS logs - if present
+	///
+	/// Debug logs (the 'old' logs) are not affected
+	static func deleteLogs() {
+		do {
+			if FileManager.default.fileExists(atPath: fileLogger.errorLogFileURL.path) {
+				try FileManager.default.removeItem(at: fileLogger.errorLogFileURL)
+			}
+		} catch {
+			Log.error("Can't remove ELS logs: \(error)", log: .localData, error: error)
+		}
+	}
+
+	static func fetchELSLogs() -> LogDataItem? {
+		guard FileManager.default.fileExists(atPath: fileLogger.errorLogFileURL.path) else {
+			Log.warning("No log data to export.", log: .localData)
+			return nil
+		}
+		return LogDataItem(at: fileLogger.errorLogFileURL)
 	}
 }
