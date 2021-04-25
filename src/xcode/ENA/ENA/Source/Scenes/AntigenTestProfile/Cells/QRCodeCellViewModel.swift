@@ -33,11 +33,12 @@ struct QRCodeCellViewModel {
 	var qrCodeImage: UIImage {
 		guard let vCardString = String(data: vCardData, encoding: .utf8),
 			  let QRCodeImage = UIImage.qrCode(
-				  with: vCardString,
-				  size: CGSize(width: 280.0, height: 280.0),
-				  qrCodeErrorCorrectionLevel: .medium
+				with: vCardString,
+				encoding: .utf8,
+				size: CGSize(width: 280.0, height: 280.0),
+				qrCodeErrorCorrectionLevel: .medium
 			  )
-			  else {
+		else {
 			Log.error("Failed to create QRCode image for vCard data")
 			return UIImage()
 		}
@@ -58,6 +59,19 @@ struct QRCodeCellViewModel {
 			contact.birthday = Calendar.current.dateComponents([.day, .month, .year], from: dateOfBirth)
 		}
 
+		if let phoneNumber = antigenTestProfile.phoneNumber {
+			contact.phoneNumbers = [CNLabeledValue(label: "TEL", value: CNPhoneNumber(stringValue: phoneNumber))]
+		}
+
+		if !(antigenTestProfile.city?.isEmpty ?? true) ||
+		   !(antigenTestProfile.addressLine?.isEmpty ?? true) ||
+		   !(antigenTestProfile.zipCode?.isEmpty ?? true) {
+			let postalAddress = CNMutablePostalAddress()
+			postalAddress.city = antigenTestProfile.city ?? ""
+			postalAddress.street = antigenTestProfile.addressLine ?? ""
+			postalAddress.postalCode = antigenTestProfile.zipCode ?? ""
+			contact.postalAddresses = [CNLabeledValue(label: "ADR", value: postalAddress)]
+		}
 
 		do {
 			let vCardData = try CNContactVCardSerialization.data(with: [contact])
