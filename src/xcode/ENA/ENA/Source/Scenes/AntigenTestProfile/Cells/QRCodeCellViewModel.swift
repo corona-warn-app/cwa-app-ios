@@ -60,7 +60,7 @@ struct QRCodeCellViewModel {
 		}
 
 		if let phoneNumber = antigenTestProfile.phoneNumber {
-			contact.phoneNumbers = [CNLabeledValue(label: "TEL", value: CNPhoneNumber(stringValue: phoneNumber))]
+			contact.phoneNumbers = [CNLabeledValue(label: CNLabelHome, value: CNPhoneNumber(stringValue: phoneNumber))]
 		}
 
 		if !(antigenTestProfile.city?.isEmpty ?? true) ||
@@ -70,7 +70,7 @@ struct QRCodeCellViewModel {
 			postalAddress.city = antigenTestProfile.city ?? ""
 			postalAddress.street = antigenTestProfile.addressLine ?? ""
 			postalAddress.postalCode = antigenTestProfile.zipCode ?? ""
-			contact.postalAddresses = [CNLabeledValue(label: "ADR", value: postalAddress)]
+			contact.postalAddresses = [CNLabeledValue(label: CNLabelHome, value: postalAddress)]
 		}
 
 		do {
