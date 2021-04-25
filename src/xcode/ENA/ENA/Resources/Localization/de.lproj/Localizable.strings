@@ -2088,6 +2088,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "Checkins_Overview_DurationTitle" = "Dauer";
 
+"Checkins_Overview_CheckinDateTemplate" = "Am %@";
+
 "Checkins_Overview_CheckinTimeTemplate" = "%@ - Automatisch auschecken nach %@";
 
 "Checkins_Overview_CheckoutButtonTitle" = "Jetzt auschecken";
@@ -2350,6 +2352,12 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "Checkin_Details_CheckinFor" = "Einchecken für:";
 
 "Checkin_Details_SaveToDiary" = "Nach dem Auschecken in mein Kontakt-Tagebuch eintragen?";
+
+"Checkin_Details_SaveSwitch" = "Umschalttaste";
+
+"Checkin_Details_SaveSwitch_On" = "ein";
+
+"Checkin_Details_SaveSwitch_Off" = "aus";
 
 "Checkin_Details_AutomaticCheckout" = "Automatisch auschecken nach";
 
