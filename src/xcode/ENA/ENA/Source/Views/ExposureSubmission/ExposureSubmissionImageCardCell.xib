@@ -72,6 +72,7 @@
                                         <constraints>
                                             <constraint firstItem="WTn-zF-u23" firstAttribute="leading" secondItem="zkz-qh-4Ti" secondAttribute="leading" id="6PC-tI-TSj"/>
                                             <constraint firstAttribute="trailing" secondItem="WTn-zF-u23" secondAttribute="trailing" id="CbU-RT-8lz"/>
+                                            <constraint firstItem="WTn-zF-u23" firstAttribute="top" relation="greaterThanOrEqual" secondItem="zkz-qh-4Ti" secondAttribute="top" id="ht9-tq-9nS"/>
                                             <constraint firstAttribute="bottom" secondItem="WTn-zF-u23" secondAttribute="bottom" id="q6C-Ke-Adb"/>
                                         </constraints>
                                     </view>
@@ -89,7 +90,6 @@
                             <constraint firstItem="GZC-S1-aXb" firstAttribute="leading" secondItem="0aw-ny-N1D" secondAttribute="leadingMargin" id="RNS-VD-r2h"/>
                             <constraint firstItem="GZC-S1-aXb" firstAttribute="top" secondItem="0aw-ny-N1D" secondAttribute="topMargin" id="Rep-Sr-v0k"/>
                             <constraint firstAttribute="trailing" secondItem="w9G-5B-Ffy" secondAttribute="trailing" id="WVK-I1-jRx"/>
-                            <constraint firstItem="WTn-zF-u23" firstAttribute="top" relation="greaterThanOrEqual" secondItem="0aw-ny-N1D" secondAttribute="topMargin" constant="24" id="bf8-Q9-hgi"/>
                             <constraint firstAttribute="trailingMargin" secondItem="JVb-5I-BrX" secondAttribute="centerX" constant="14" id="fKI-bu-VGg"/>
                             <constraint firstAttribute="bottom" secondItem="GJr-7L-ixx" secondAttribute="bottom" id="psM-SX-s4X"/>
                             <constraint firstItem="JVb-5I-BrX" firstAttribute="leading" secondItem="GZC-S1-aXb" secondAttribute="trailing" constant="8" id="udh-SV-17J"/>

@@ -43,11 +43,17 @@ class ExposureSubmissionImageCardCell: UITableViewCell {
 		attributedDescription: NSAttributedString? = nil,
 		image: UIImage?,
 		backgroundView bgView: UIView? = nil,
+		textColor: UIColor? = nil,
 		accessibilityIdentifier: String?
 	) {
 		titleLabel.text = title
 		descriptionLabel.text = description
 		illustrationView?.image = image
+
+		if let textColor = textColor {
+			titleLabel.textColor = textColor
+			descriptionLabel.textColor = textColor
+		}
 
 		if let bgView = bgView {
 			addBackgroundView(bgView)
