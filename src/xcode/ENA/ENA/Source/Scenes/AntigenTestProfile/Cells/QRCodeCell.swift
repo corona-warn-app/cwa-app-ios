@@ -11,6 +11,10 @@ class QRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		setupView()
+		isAccessibilityElement = false
+		backgroundContainerView.isAccessibilityElement = true
+		backgroundContainerView.accessibilityTraits = .image
+		backgroundContainerView.accessibilityLabel = AppStrings.ExposureSubmission.AntigenTest.Profile.QRCodeImageDescription
 	}
 
 	@available(*, unavailable)
