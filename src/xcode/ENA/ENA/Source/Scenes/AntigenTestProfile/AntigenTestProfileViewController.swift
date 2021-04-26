@@ -43,6 +43,11 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 		navigationController?.navigationBar.shadowImage = originalShadowImage
 	}
 
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+		didCalculateGradientHeight = false
+	}
+
 	// MARK: - Protocol FooterViewHandling
 
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
@@ -73,6 +78,18 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 	}
 
 	// MARK: - UITableViewdelegate
+
+	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+		guard didCalculateGradientHeight == false,
+			  AntigenTestProfileViewModel.TableViewSections.map(indexPath.section)  == .QRCode else {
+			return
+		}
+
+		let cellRect = tableView.rectForRow(at: indexPath)
+		let result = view.convert(cellRect, from: tableView)
+		backgroundView.gradientHeightConstraint.constant = result.midY
+		didCalculateGradientHeight = true
+	}
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		switch AntigenTestProfileViewModel.TableViewSections.map(indexPath.section) {
@@ -105,11 +122,11 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 	private let didTapContinue: (@escaping (Bool) -> Void) -> Void
 	private let didTapDeleteProfile: () -> Void
 	private let dismiss: () -> Void
-
 	private let backgroundView = GradientBackgroundView(type: .blueOnly)
 	private let tableView = UITableView(frame: .zero, style: .plain)
-	private var tableContentObserver: NSKeyValueObservation!
 
+	private var didCalculateGradientHeight: Bool = false
+	private var tableContentObserver: NSKeyValueObservation!
 	private var originalBackgroundImage: UIImage?
 	private var originalShadowImage: UIImage?
 
