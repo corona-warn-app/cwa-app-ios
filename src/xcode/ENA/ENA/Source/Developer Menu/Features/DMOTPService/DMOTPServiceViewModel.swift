@@ -34,6 +34,7 @@ final class DMOTPServiceViewModel {
 		return 1
 	}
 
+	// swiftlint:disable cyclomatic_complexity
 	func cellViewModel(by indexPath: IndexPath) -> Any {
 		guard let section = TableViewSections(rawValue: indexPath.section) else {
 			fatalError("Unknown cell requested - stop")
