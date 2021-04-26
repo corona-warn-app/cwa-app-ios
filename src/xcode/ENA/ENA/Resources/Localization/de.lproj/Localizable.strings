@@ -630,7 +630,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionSuccess_listTitle" = "Bitte beachten Sie:";
 
-"ExposureSubmissionSuccess_listItem1" = "Das Gesundheitsamt wird sich in den nächsten Tagen bei Ihnen melden.";
+"ExposureSubmissionSuccess_listItem0" = "Machen Sie einen PCR-Test, um dieses Test-Ergebnis zu verifizieren. ";
+
+"ExposureSubmissionSuccess_listItem1" = "Das Gesundheitsamt wird sich in den nächsten Tagen telefonisch oder schriftlich bei Ihnen melden.";
 
 "ExposureSubmissionSuccess_listItem2" = "Sie sind ansteckend. Isolieren Sie sich von anderen Personen.";
 
@@ -1183,7 +1185,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Home_Finding_Positive_Card_Note_Title" = "Bitte beachten Sie:";
 
-"Home_Finding_Positive_Card_Verify_Item_Title" = "Machen Sie einen PCR Test, um dieses Test-Ergebnis zu verifizieren. ";
+"Home_Finding_Positive_Card_Verify_Item_Title" = "Machen Sie einen PCR-Test, um dieses Test-Ergebnis zu verifizieren. ";
 
 "Home_Finding_Positive_Card_Phone_Item_Title" = "Das Gesundheitsamt wird sich in den nächsten Tagen telefonisch oder schriftlich bei Ihnen melden.";
 
@@ -1590,7 +1592,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "TestResultPositive_KeysSubmitted_Title1" = "Bitte beachten Sie:";
 
-"TestResultPositive_KeysSubmitted_Info1" = "Machen Sie einen PCR Test, um dieses Test-Ergebnis zu verifizieren.";
+"TestResultPositive_KeysSubmitted_Info1" = "Machen Sie einen PCR-Test, um dieses Test-Ergebnis zu verifizieren.";
 
 "TestResultPositive_KeysSubmitted_Info2" = "Das Gesundheitsamt wird sich in den nächsten Tagen telefonisch oder schriftlich bei Ihnen melden.";
 

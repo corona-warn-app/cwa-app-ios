@@ -446,7 +446,7 @@
 "ExposureSubmission_Hotline_Number" = "08007540002";
 
 /* phone number; no spacing allowed */
-"ExposureSubmission_Hotline_Number_Foreign" = "+493049875402";
+"ExposureSubmission_Hotline_Number_Foreign" = "+493049875401";
 
 "ExposureSubmission_DataPrivacyTitle" = "Съгласие";
 
@@ -497,16 +497,16 @@
 
 "ExposureSubmissionDispatch_QRCodeButtonDescription" = "Получете резултата си в приложението и предупредете останалите.";
 
-"ExposureSubmissionDispatch_TANButtonTitle" = "Въведете ТАН код";
+"ExposureSubmissionDispatch_TANButtonTitle" = "Въведете ТАН код за PCR тест";
 
-"ExposureSubmissionDispatch_TANButtonDescription" = "Имате TAN код? Въведете го тук, за да предупредите останалите.";
+"ExposureSubmissionDispatch_TANButtonDescription" = "Имате TAN код за вашия PCR тест? Въведете го тук, за да предупредите останалите.";
 
-"ExposureSubmissionDispatch_HotlineButtonTitle" = "Все още нямате TAN код?";
+"ExposureSubmissionDispatch_HotlineButtonTitle" = "Заявете ТАН код за PCR тест";
 
-"ExposureSubmissionDispatch_HotlineButtonDescription" = "Позвънете ни, за да получите TAN код.";
+"ExposureSubmissionDispatch_HotlineButtonDescription" = "Позвънете ни, за да получите TAN код за PCR тест.";
 
 /* Exposure Submission Hotline */
-"ExposureSubmissionHotline_Title" = "Заявка за ТАН код";
+"ExposureSubmissionHotline_Title" = "Заявете ТАН код за PCR тест";
 
 "ExposureSubmissionHotline_Description" = "За да заявите ТАН код, подгответе резултата от своя тест (ако е наличен) и телефонния си номер.";
 
@@ -523,13 +523,13 @@
 
 "ExposureSubmission_PhoneDetailsDomestic" = "За обаждания на територията на Германия.\nОбаждането е безплатно.";
 
-"ExposureSubmission_PhoneNumberForeign" = "+49 30 498 75402";
+"ExposureSubmission_PhoneNumberForeign" = "+49 30 498 75401";
 
 "ExposureSubmission_PhoneDetailsForeign" = "За обаждания извън територията на Германия.\nВажат тарифите на телефонния ви оператор.";
 
-"ExposureSubmission_PhoneDetailDescription" = "Обслужването на клиентите, което предлагаме, е налично на следните езици: \nнемски, английски, турски\n\nРаботно време:\n24/7\n\nАко имате въпроси, свързани със здравето, се обадете на личния си лекар или на горещата линия на службата за медицинска помощ на телефон 116 117.";
+"ExposureSubmission_PhoneDetailDescription" = "Обслужването на клиентите, което предлагаме, е налично на следните езици: \nнемски, английски, турски\n\nРаботно време:\nпонеделник - събота, от 7:00 до 22:00 ч. (CET)\n\nАко имате въпроси, свързани със здравето, се обадете на личния си лекар или на горещата линия на службата за медицинска помощ на телефон 116 117.";
 
-"ExposureSubmission_SectionDescription2" = "Регистрирайте теста си, като въведете ТАН кода в приложението.";
+"ExposureSubmission_SectionDescription2" = "Регистрирайте PCR теста си, като въведете ТАН кода в приложението.";
 
 "ExposureSubmission_CallButtonTitle" = "Обаждане";
 
@@ -845,7 +845,7 @@
 
 "ExposureSubmissionResult_Negative_Antigen_Proof_Title" = "Функция за проверка";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Можете също така да използвате резултата от теста, който се показва тук, като доказателство за отрицателен резултат от бърз тест. За повече информация може да се запознаете с критериите за приемане на доказателства за тестване във Вашата федерална провинция. Моля, имайте предвид, че по никакъв начин не сте задължени да използвате приложението, за да доказвате статуса си на заразяване. Може да докажете статуса си и по друг начин, съобразен с правните разпоредби на вашето място на пребиваване";
+"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Можете също така да използвате резултата от теста, който се показва тук, като доказателство за отрицателен резултат от бърз тест. \n\nМоля, имайте предвид, че сте задължени да докажете резултата от вашия бърз тест единствено ако законът изисква това. Може да докажете резултата си чрез приложението или по друг начин. За повече информация, моля запознайте се с критериите за приемане на доказателства за тестване във Вашата федерална провинция. ";
 
 /* Exposure Submission */
 "ExposureSubmissionError_ErrorPrefix" = "Възникна техническа грешка при изпращането на данните Ви. Моля, обадете се на горещата линия за технически въпроси. Може да намерите телефонния номер в раздел „За приложението“.";
@@ -1148,7 +1148,7 @@
 
 "Home_Finding_Positive_Card_Note_Title" = "Моля, не забравяйте:";
 
-"Home_Finding_Positive_Card_Verify_Item_Title" = "Направете PCR тест, за да потвърдите този резултат от тест. ";
+"Home_Finding_Positive_Card_Verify_Item_Title" = "Направете PCR тест, за да потвърдите този резултат от тест.";
 
 "Home_Finding_Positive_Card_Phone_Item_Title" = "От службата за обществено здравеопазване (Gesundheitsamt) ще се свържат с Вас в следващите няколко дни по телефон или с писмо.";
 
@@ -1227,13 +1227,13 @@
 
 "App_Information_Contact_Hotline_Details_Domestic" = "За обаждания на територията на Германия.\nОбаждането е безплатно.";
 
-"App_Information_Contact_Hotline_Text_Foreign" = "+49 30 498 75402";
+"App_Information_Contact_Hotline_Text_Foreign" = "+49 30 498 75401";
 
-"App_Information_Contact_Hotline_Number_Foreign" = "+493049875402";
+"App_Information_Contact_Hotline_Number_Foreign" = "+493049875401";
 
 "App_Information_Contact_Hotline_Details_Foreign" = "За обаждания извън територията на Германия.\nВажат тарифите на телефонния ви оператор.";
 
-"App_Information_Contact_Hotline_Terms" = "Обслужването на клиентите, което предлагаме, е налично на следните езици: \nнемски, английски, турски\n\nРаботно време:\n24/7\n\nАко имате въпроси, свързани със здравето, се обадете на личния си лекар или на горещата линия на службата за медицинска помощ на телефон 116 117.";
+"App_Information_Contact_Hotline_Terms" = "Обслужването на клиентите, което предлагаме, е налично на следните езици: \nнемски, английски, турски\n\nРаботно време:\nпонеделник - събота, от 7:00 до 22:00 ч. (CET)\n\nАко имате въпроси, свързани със здравето, се обадете на личния си лекар или на горещата линия на службата за медицинска помощ на телефон 116 117.";
 
 /* App Information - Imprint */
 "App_Information_New_Features_Navigation" = "Нови функции";
@@ -1456,12 +1456,12 @@
 
 "NewVersionFeature_21_tan_hotline_foreign_countries_title" = "Вече е налична и гореща линия с ТАН кодове за обаждания извън Германия";
 
-"NewVersionFeature_21_tan_hotline_foreign_countries_description" = "Ако Ви е поставена диагноза „коронавирус“, вече можете да заявите ТАН код извън Германия на номер +49 30 498 75402. Важат тарифите на телефонния ви оператор.";
+"NewVersionFeature_21_tan_hotline_foreign_countries_description" = "Ако Ви е поставена диагноза „коронавирус“, вече можете да заявите ТАН код извън Германия на номер +49 30 498 75401. Важат тарифите на телефонния ви оператор.";
 
 /* Version 2.0 */
 "NewVersionFeature_200_event_checkin_title" = "Прекъснете успешно веригите на заразяване чрез регистрация с QR код";
 
-"NewVersionFeature_200_event_checkin_description" = "CWA Ви позволява да се регистрирате, когато пристигате на определени места и събития. Организаторите на събития и собствениците на магазини могат да използват приложението за създаване на QR код, който посетителите да сканират, когато пристигат, за да регистрират присъствието си. При поискване приложението може също да създава запис в дневника. Ако на някой от посетителите на съответното място или събитие бъде поставена диагноза коронавирус, други лица, които са се регистрирали на същото място по същото време, може да бъдат предупредени автоматично.";
+"NewVersionFeature_200_event_checkin_description" = "CWA Ви позволява да се регистрирате, когато пристигате на определени места и събития. Организаторите на събития и собствениците на магазини могат да използват приложението за създаване на QR код, който посетителите да сканират, когато пристигат, за да регистрират присъствието си. При поискване приложението може също да създава запис в дневника. Ако на някой от посетителите на съответното място или събитие бъде поставена диагноза коронавирус на по-късен етап, другите лица, които са се регистрирали на същото място по същото време, ще могат да бъдат предупредени.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Международно регистриране на излаганията";
@@ -2056,6 +2056,10 @@
 
 "Checkins_Overview_QRScanner_Instruction" = "Сканиране на QR код и регистриране";
 
+"Checkins_Overview_Item_Prefix_CheckIn" = "Регистрация за %@.";
+
+"Checkins_Overview_Item_Prefix_CheckedOut" = "Прекратена регистрация за %@.";
+
 "Checkin_QR_Scanner_Checkin_Error_Title" = "Невалиден QR код";
 
 "Checkin_QR_Scanner_Error_InvalidURL" = "Сканираният QR код не е валиден за регистрации за събитие или място. Моля, сканирайте подходящ QR код (код за грешка: INVALID_URL).";
@@ -2108,6 +2112,8 @@
 "TraceLocations_Overview_ActionSheet_InfoTitle" = "Информация";
 
 "TraceLocations_Overview_ActionSheet_EditTitle" = "Редактиране";
+
+"TraceLocations_Overview_Item_Prefix" = "QR код за %@.";
 
 /* Trace Location Details */
 "TraceLocations_Details_PrintVersionButtonTitle" = "Показване на версия за печат";
@@ -2282,7 +2288,7 @@
 "Checkin_Details_CheckIn_Button" = "Регистрация";
 
 /* Submission Check-in */
-"Submission_Checkins_Title" = "Ще споделите ли своите регистрации от локациите, които сте посетили?";
+"Submission_Checkins_Title" = "Ще споделите ли своите регистрации?";
 
 "Submission_Checkins_Description" = "Предупредете останалите, които също са се регистрирали в близост до вас. Вашите лични данни няма да бъдат споделени.";
 
