@@ -44,7 +44,7 @@ final class HTTPClientSubmitErrorLogFileTests: XCTestCase {
 		XCTAssertEqual(expectedResponse.hash, mockResponse?.hash)
 	}
 	
-	func testGIVEN_ErrorLog_WHEN_Submit_THEN_FailForInternalServerError() throws {
+	func testGIVEN_ErrorLog_WHEN_Submit_THEN_InternalServerError() throws {
 		// GIVEN
 		
 		let stack = MockNetworkStack(
@@ -73,7 +73,7 @@ final class HTTPClientSubmitErrorLogFileTests: XCTestCase {
 		XCTAssertEqual(errorResponse, ELSError.responseError(500))
 	}
 	
-	func testGIVEN_ErrorLog_WHEN_Submit_THEN_FailForWrongHttpStatusCode() throws {
+	func testGIVEN_ErrorLog_WHEN_Submit_THEN_OtherStatusCode() throws {
 		// GIVEN
 		
 		let stack = MockNetworkStack(
@@ -100,5 +100,34 @@ final class HTTPClientSubmitErrorLogFileTests: XCTestCase {
 		// THEN
 		waitForExpectations(timeout: .short)
 		XCTAssertEqual(errorResponse, ELSError.responseError(200))
+	}
+	
+	func testGIVEN_ErrorLog_WHEN_Submit_THEN_ResponseIsNil() throws {
+		// GIVEN
+		
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			responseData: nil
+		)
+
+		let expectation = self.expectation(description: "completion handler is called with an error")
+		let otp = "OTPFake"
+
+		// WHEN
+		var errorResponse: ELSError?
+		HTTPClient.makeWith(mock: stack).submit(errorLogFile: Data(), otpEls: otp, completion: { result in
+			switch result {
+			case .success:
+				XCTFail("Test should not succeed.")
+			case let .failure(error):
+				errorResponse = error
+			}
+			expectation.fulfill()
+			
+		})
+
+		// THEN
+		waitForExpectations(timeout: .short)
+		XCTAssertEqual(errorResponse, .defaultServerError(URLSession.Response.Failure.noResponse))
 	}
 }
