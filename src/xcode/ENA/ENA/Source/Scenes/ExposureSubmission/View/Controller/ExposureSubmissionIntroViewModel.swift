@@ -30,8 +30,8 @@ class ExposureSubmissionIntroViewModel {
 	let onRapidTestProfileTap: () -> Void
 
 	var dynamicTableModel: DynamicTableViewModel {
-		let someView = UIView(frame: .zero)
-		someView.backgroundColor = .red
+		let gradientView = GradientView()
+		gradientView.type = .blueOnly
 
 		return DynamicTableViewModel.with {
 			$0.add(.section(
@@ -60,8 +60,9 @@ class ExposureSubmissionIntroViewModel {
 				.imageCard(
 					title: AppStrings.ExposureSubmission.AntigenTest.Profile.profileTile_Title,
 					description: AppStrings.ExposureSubmission.AntigenTest.Profile.profileTile_Description,
-					image: UIImage(named: "Illu_AntigenTest_Profile"),
-					backgroundView: someView,
+					image: UIImage(named: "Illu_Submission_AntigenTest_Profile"),
+					backgroundView: gradientView,
+					textColor: .enaColor(for: .textContrast),
 					action: .execute { [weak self] _, _ in
 						self?.onRapidTestProfileTap()
 					},
@@ -96,6 +97,7 @@ private extension DynamicCell {
 		attributedDescription: NSAttributedString? = nil,
 		image: UIImage?,
 		backgroundView: UIView? = nil,
+		textColor: UIColor? = nil,
 		action: DynamicAction,
 		accessibilityIdentifier: String? = nil) -> Self {
 		.identifier(ExposureSubmissionIntroViewController.CustomCellReuseIdentifiers.imageCard, action: action) { _, cell, _ in
@@ -106,6 +108,7 @@ private extension DynamicCell {
 				attributedDescription: attributedDescription,
 				image: image,
 				backgroundView: backgroundView,
+				textColor: textColor,
 				accessibilityIdentifier: accessibilityIdentifier
 			)
 		}
