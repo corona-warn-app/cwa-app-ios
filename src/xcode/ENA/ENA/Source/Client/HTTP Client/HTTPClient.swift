@@ -1040,7 +1040,7 @@ private extension URLRequest {
 		payload: Data,
 		otpEls: String
 	) throws -> URLRequest {
-		let boundary = "Boundary-\(UUID().uuidString)"
+		let boundary = UUID().uuidString
 		var request = URLRequest(url: configuration.logUploadURL)
 		request.httpMethod = HttpMethod.post
 		// create multipart body
@@ -1056,7 +1056,12 @@ private extension URLRequest {
 			"multipart/form-data; boundary=\(boundary)",
 			forHTTPHeaderField: "Content-Type"
 		)
-
+		if let body = request.httpBody {
+			request.setValue(
+				"\(body.count)",
+				forHTTPHeaderField: "Content-Length"
+			)
+		}
 		return request
 	}
 
@@ -1117,18 +1122,16 @@ private extension URLRequest {
 	private static func requestBodyForLogUpload(
 		logData: Data,
 		boundary: String
-	) throws -> Data {
+	) throws -> Data? {
 		var body = Data()
 
 		// init form
-		try body.append("--\(boundary)\r\n")
-		
-		try body.append("Content-Disposition:form-data; name=\"file\"\r\n")
+		try body.append("\r\n--\(boundary)\r\n")
+		try body.append("Content-Disposition:form-data; name=\"file\"; filename=\"ErrorLog.zip\"\r\n")
 		try body.append("Content-Type:application/zip\r\n")
 		try body.append("Content-Length: \(logData.count)\r\n")
 		try body.append("\r\n")
-		try body.append("\(logData)\r\n")
-		try body.append("\r\n")
+		body.append(logData)
 		try body.append("--\(boundary)--\r\n")
 
 		return body
