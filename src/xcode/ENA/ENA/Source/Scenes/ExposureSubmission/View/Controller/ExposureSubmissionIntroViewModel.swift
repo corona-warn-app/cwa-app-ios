@@ -54,11 +54,10 @@ class ExposureSubmissionIntroViewModel {
 					},
 					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.qrCodeButtonDescription
 				),
-				// dummy image cared for the new flow
 				.imageCard(
-					title: "Test Profil",
-					description: "Test Profil",
-					image: UIImage(named: "Illu_Submission_QRCode"),
+					title: AppStrings.ExposureSubmission.AntigenTest.Profile.profileTile_Title,
+					description: AppStrings.ExposureSubmission.AntigenTest.Profile.profileTile_Description,
+					image: UIImage(named: "Illu_AntigenTest_Profile"),
 					action: .execute { [weak self] _, _ in
 						self?.onRapidTestProfileTap()
 					},
