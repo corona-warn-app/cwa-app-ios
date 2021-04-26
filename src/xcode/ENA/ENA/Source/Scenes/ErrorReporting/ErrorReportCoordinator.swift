@@ -113,6 +113,7 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating {
 	private func showConfirmSendingScreen() {
 		let footerViewModel = FooterViewModel(
 			primaryButtonName: AppStrings.ErrorReport.sendReportsButtonTitle,
+			primaryIdentifier: AccessibilityIdentifiers.ErrorReport.agreeAndSendButton,
 			isSecondaryButtonHidden: true
 		)
 		let bottomViewController = FooterViewController(

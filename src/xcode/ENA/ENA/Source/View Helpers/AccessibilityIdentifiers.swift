@@ -455,6 +455,11 @@ enum AccessibilityIdentifiers {
 
 		static let legalSendReports = "AppStrings.ErrorReport.Legal.sendReports_Headline"
 		static let sendReportsDetails = "AccessibilityIdentifiers.ErrorReport.sendReportsDetails"
+		static let detailedInformationTitle = "AccessibilityIdentifiers.ErrorReport.detailedInformationTitle"
+		static let detailedInformationSubHeadline = "AccessibilityIdentifiers.ErrorReport.detailedInformationSubHeadline"
+		static let detailedInformationContent2 = "AccessibilityIdentifiers.ErrorReport.detailedInformationContent2"
+		
+		static let agreeAndSendButton = "AccessibilityIdentifiers.ErrorReport.agreeAndSendButton"
 	}
 	
 	enum TraceLocation {

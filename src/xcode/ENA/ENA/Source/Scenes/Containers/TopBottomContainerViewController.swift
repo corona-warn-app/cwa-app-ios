@@ -228,5 +228,4 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 		}
 		animator.startAnimation()
 	}
-
 }

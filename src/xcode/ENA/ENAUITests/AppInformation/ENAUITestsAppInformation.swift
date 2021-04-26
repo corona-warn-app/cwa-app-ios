@@ -128,7 +128,8 @@ class ENAUITests_02_AppInformation: XCTestCase {
 		app.launch()
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .short))
 		navigateToErrorReporting()
-		
+		app.swipeUp(velocity: .fast)
+
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.ErrorReport.topBody].waitForExistence(timeout: .short))
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.ErrorReport.faq].exists)
 
@@ -150,7 +151,69 @@ class ENAUITests_02_AppInformation: XCTestCase {
 		
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.ErrorReport.topBody].waitForExistence(timeout: .short))
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ErrorReport.startButton].exists)
+		XCTAssertFalse(app.buttons[AccessibilityIdentifiers.ErrorReport.saveLocallyButton].exists)
+		XCTAssertFalse(app.buttons[AccessibilityIdentifiers.ErrorReport.stopAndDeleteButton].exists)
+		XCTAssertFalse(app.buttons[AccessibilityIdentifiers.ErrorReport.sendReportButton].exists)
+
 		app.buttons[AccessibilityIdentifiers.ErrorReport.startButton].tap()
+		
+		XCTAssertFalse(app.buttons[AccessibilityIdentifiers.ErrorReport.startButton].exists)
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ErrorReport.saveLocallyButton].exists)
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ErrorReport.stopAndDeleteButton].exists)
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ErrorReport.sendReportButton].exists)
+		
+		app.buttons[AccessibilityIdentifiers.ErrorReport.stopAndDeleteButton].tap()
+
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ErrorReport.startButton].exists)
+		XCTAssertFalse(app.buttons[AccessibilityIdentifiers.ErrorReport.saveLocallyButton].exists)
+		XCTAssertFalse(app.buttons[AccessibilityIdentifiers.ErrorReport.stopAndDeleteButton].exists)
+		XCTAssertFalse(app.buttons[AccessibilityIdentifiers.ErrorReport.sendReportButton].exists)
+	}
+	
+	func test_0028_AppInformationFlow_PrivacyScreen() throws {
+		app.launch()
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .short))
+		navigateToErrorReporting()
+		
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.ErrorReport.topBody].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.ErrorReport.privacyInformation].exists)
+		app.cells[AccessibilityIdentifiers.ErrorReport.privacyInformation].tap()
+		XCTAssertTrue(app.images[AccessibilityIdentifiers.AppInformation.privacyImageDescription].waitForExistence(timeout: .short))
+
+	}
+	
+	func test_0029_AppInformationFlow_ConfirmationScreen_ErrorReportDetailScreen() throws {
+		app.launch()
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .short))
+		navigateToErrorReporting()
+		
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ErrorReport.startButton].waitForExistence(timeout: .short))
+		app.buttons[AccessibilityIdentifiers.ErrorReport.startButton].tap()
+		app.buttons[AccessibilityIdentifiers.ErrorReport.sendReportButton].tap()
+		
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.ErrorReport.sendReportsDetails].waitForExistence(timeout: .short))
+		app.cells[AccessibilityIdentifiers.ErrorReport.sendReportsDetails].tap()
+		
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.ErrorReport.detailedInformationTitle].exists)
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.ErrorReport.detailedInformationSubHeadline].exists)
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.ErrorReport.detailedInformationContent2].exists)
+	}
+	
+	func test_0030_AppInformationFlow_ConfirmationScreen_HistoryScreen() throws {
+		app.launch()
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .short))
+		navigateToErrorReporting()
+		
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ErrorReport.startButton].waitForExistence(timeout: .short))
+		app.buttons[AccessibilityIdentifiers.ErrorReport.startButton].tap()
+		app.buttons[AccessibilityIdentifiers.ErrorReport.sendReportButton].tap()
+		
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ErrorReport.agreeAndSendButton].waitForExistence(timeout: .short))
+		app.buttons[AccessibilityIdentifiers.ErrorReport.agreeAndSendButton].tap()
+		// Test Navigation to History
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.ErrorReport.historyNavigation].exists)
+		app.cells[AccessibilityIdentifiers.ErrorReport.historyNavigation].tap()
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.ErrorReport.historyTitle].exists)
 	}
 	
 	private func navigateToErrorReporting() {
