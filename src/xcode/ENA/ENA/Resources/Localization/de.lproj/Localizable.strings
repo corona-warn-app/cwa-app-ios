@@ -927,17 +927,27 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_OverwriteNotice_Antigen_Text" = "Sie haben bereits einen Schnelltest registriert. Die App kann maximal einen Schnelltest und einen PCR-Test gleichzeitig verwalten. Wenn Sie einen weiteren Schnelltest registrieren, wird der erste Schnelltest aus der App gelöscht.";
 
-/* AntigenTest Profile */
+/* ExposureSubmission AntigenTest Profile */
 
-"AntigenTest_Profile_Header_Text" = "Schnelltest-Profil";
+"ExposureSubmission_Antigen_Profile_Header_Text" = "Schnelltest-Profil";
 
-"AntigenTest_Profile_Noice_Text" = "Bitte zeigen Sie diesen QR-Code an der Teststelle vor, um Ihre persönlichen Daten schnell erfassen zu lassen. Bitte halten zusätzlich Sie Ihren Personalausweis bereit.";
+"ExposureSubmission_Antigen_Profile_Noice_Text" = "Bitte zeigen Sie diesen QR-Code an der Teststelle vor, um Ihre persönlichen Daten schnell erfassen zu lassen. Bitte halten zusätzlich Sie Ihren Personalausweis bereit.";
 
-"AntigenTest_Profile_DateOfBirth_Format" = "geboren %@";
+"ExposureSubmission_Antigen_Profile_DateOfBirth_Format" = "geboren %@";
 
-"AntigenTest_Profile_Primary_Button" = "Weiter";
+"ExposureSubmission_Antigen_Profile_Primary_Button" = "Weiter";
 
-"AntigenTest_Profile_Secondary_Button" = "Schnelltest-Profil entfernen";
+"ExposureSubmission_Antigen_Profile_Secondary_Button" = "Schnelltest-Profil entfernen";
+
+/* ExposureSubmission AntigenTest */
+
+"ExposureSubmission_Profile_CreateProfileTile_Title" = "Schnelltest-Profil anlegen";
+
+"ExposureSubmission_Profile_CreateProfileTile_Description" = "Legen Sie ein Profil mit Ihren persönlichen Daten an, die Sie dann per QR-Code bei jedem Schnelltest vorlegen können.";
+
+"ExposureSubmission_Profile_ProfileTile_Title" = "Schnelltest-Profil";
+
+"ExposureSubmission_Profile_ProfileTile_Description" = "Sparen Sie Zeit und zeigen Sie Ihr Schnelltest-Profil bei der Teststelle vor.";
 
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Risiko-Ermittlung";

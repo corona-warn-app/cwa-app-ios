@@ -89,11 +89,16 @@ enum AppStrings {
 
 		enum AntigenTest {
 			enum Profile {
-				static let headerText = NSLocalizedString("AntigenTest_Profile_Header_Text", comment: "")
-				static let noticeText = NSLocalizedString("AntigenTest_Profile_Noice_Text", comment: "")
-				static let dateOfBirthFormatText = NSLocalizedString("AntigenTest_Profile_DateOfBirth_Format", comment: "")
-				static let primaryButton = NSLocalizedString("AntigenTest_Profile_Primary_Button", comment: "")
-				static let secondaryButton = NSLocalizedString("AntigenTest_Profile_Secondary_Button", comment: "")
+				static let headerText = NSLocalizedString("ExposureSubmission_Antigen_Profile_Header_Text", comment: "")
+				static let noticeText = NSLocalizedString("ExposureSubmission_Antigen_Profile_Noice_Text", comment: "")
+				static let dateOfBirthFormatText = NSLocalizedString("ExposureSubmission_Antigen_Profile_DateOfBirth_Format", comment: "")
+				static let primaryButton = NSLocalizedString("ExposureSubmission_Antigen_Profile_Primary_Button", comment: "")
+				static let secondaryButton = NSLocalizedString("ExposureSubmission_Antigen_Profile_Secondary_Button", comment: "")
+
+				static let createProfileTile_Title = NSLocalizedString("ExposureSubmission_Profile_CreateProfileTile_Title", comment: "")
+				static let createProfileTile_Description = NSLocalizedString("ExposureSubmission_Profile_CreateProfileTile_Description", comment: "")
+				static let profileTile_Title = NSLocalizedString("ExposureSubmission_Profile_ProfileTile_Title", comment: "")
+				static let profileTile_Description = NSLocalizedString("ExposureSubmission_Profile_ProfileTile_Description", comment: "")
 			}
 		}
 	}
