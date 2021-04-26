@@ -19,12 +19,6 @@ struct QRCodeCellViewModel {
 		self.boarderColor = boarderColor
 	}
 
-	// MARK: - Overrides
-
-	// MARK: - Protocol <#Name#>
-
-	// MARK: - Public
-
 	// MARK: - Internal
 
 	let backgroundColor: UIColor
@@ -45,11 +39,7 @@ struct QRCodeCellViewModel {
 		return QRCodeImage
 	}
 
-	// MARK: - Private
-
-	private let antigenTestProfile: AntigenTestProfile
-
-	private var vCardData: Data {
+	var vCardData: Data {
 		let contact = CNMutableContact()
 		contact.contactType = .person
 		contact.givenName = antigenTestProfile.firstName ?? ""
@@ -82,5 +72,8 @@ struct QRCodeCellViewModel {
 		}
 	}
 
+	// MARK: - Private
+
+	private let antigenTestProfile: AntigenTestProfile
 
 }
