@@ -7,7 +7,6 @@ import UIKit
 
 struct SimpleTextCellViewModel {
 
-
 	// MARK: - Init
 
 	init(
@@ -29,12 +28,6 @@ struct SimpleTextCellViewModel {
 		self.font = font
 		self.boarderColor = boarderColor
 	}
-
-	// MARK: - Overrides
-
-	// MARK: - Protocol <#Name#>
-
-	// MARK: - Public
 
 	// MARK: - Internal
 
