@@ -8,10 +8,10 @@ protocol ErrorReportsCoordinating: class {
 	func startErrorLogging()
 	func stopErrorLogging()
 	func sendErrorLogging()
-	func saveErrorLogging()
+	func exportErrorLogging()
 }
 
-final class ErrorReportsCoordinator: ErrorReportsCoordinating {
+final class ErrorReportsCoordinator: ErrorReportsCoordinating, RequiresAppDependencies {
 
 	// MARK: - Init
 
@@ -37,10 +37,11 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating {
 			coordinator: self,
 			ppacService: ppacService,
 			otpService: otpService,
+			elsService: elsService,
 			didTapStartButton: { [weak self] in
 				self?.startErrorLogging()
 			}, didTapSaveButton: { [weak self] in
-				self?.saveErrorLogging()
+				self?.exportErrorLogging()
 			}, didTapSendButton: { [weak self] in
 				self?.sendErrorLogging()
 			}, didTapStopAndDeleteButton: { [weak self] in
@@ -73,19 +74,27 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating {
 	// MARK: - Protocol ErrorReportsCoordinating
 
 	func startErrorLogging() {
-		// TODO: Add here Collection of Logs
+		elsService.startLogging()
 	}
 	
 	func stopErrorLogging() {
-		// TODO: Add here deletion of the collected logs
+		elsService.stopAndDeleteLog()
 	}
 	
 	func sendErrorLogging() {
 		showConfirmSendingScreen()
 	}
 
-	func saveErrorLogging() {
-		// Add here saving the logs to the file manager
+	func exportErrorLogging() {
+		guard let item = elsService.fetchExistingLog() else {
+			Log.warning("No logs to export", log: .localData)
+			return
+		}
+
+		// share sheet
+		let activityViewController = UIActivityViewController(activityItems: [item], applicationActivities: nil)
+		activityViewController.modalTransitionStyle = .coverVertical
+		rootViewController.present(activityViewController, animated: true, completion: nil)
 	}
 	
 	// MARK: - Private
@@ -109,6 +118,14 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating {
 	i.e If a history Cell should be added or not
 	*/
 	private var topViewControllerViewModel: TopErrorReportViewModel?
+
+	/// Reference to the ELS server handling error log recording & submission
+	private lazy var elsService: ErrorLogHandling & ErrorLogSubmitting = ErrorLogSubmissionService(
+		client: client,
+		store: store,
+		ppacService: ppacService,
+		otpService: otpService
+	)
 	
 	private func showConfirmSendingScreen() {
 		let footerViewModel = FooterViewModel(
