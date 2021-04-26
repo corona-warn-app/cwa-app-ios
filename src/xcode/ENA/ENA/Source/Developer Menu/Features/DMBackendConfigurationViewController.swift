@@ -11,9 +11,9 @@ final class DMBackendConfigurationViewController: UITableViewController {
 	// MARK: Creating a Configuration View Controller
 
 	init(
-		serverEnvironmentProvider: ServerEnvironmentProviding
+		environmentProvider: EnvironmentProviding = Environments()
 	) {
-		self.serverEnvironmentProvider = serverEnvironmentProvider
+		self.environmentProvider = environmentProvider
 
 		super.init(style: .plain)
 		title = "⚙️ Backend Configuration"
@@ -26,16 +26,16 @@ final class DMBackendConfigurationViewController: UITableViewController {
 
 	// MARK: Properties
 
-	private let serverEnvironmentProvider: ServerEnvironmentProviding
+	private let environmentProvider: EnvironmentProviding
 
 	private var distributionURL: String {
-		serverEnvironmentProvider.selectedServerEnvironment.distributionURL.absoluteString
+		environmentProvider.currentEnvironment().distributionURL.absoluteString
 	}
 	private var submissionURL: String {
-		serverEnvironmentProvider.selectedServerEnvironment.submissionURL.absoluteString
+		environmentProvider.currentEnvironment().submissionURL.absoluteString
 	}
 	private var verificationURL: String {
-		serverEnvironmentProvider.selectedServerEnvironment.verificationURL.absoluteString
+		environmentProvider.currentEnvironment().verificationURL.absoluteString
 	}
 
 	// MARK: UIViewController

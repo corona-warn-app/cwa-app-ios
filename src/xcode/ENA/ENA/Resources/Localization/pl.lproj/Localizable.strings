@@ -614,7 +614,9 @@
 
 "ExposureSubmissionSuccess_listTitle" = "Uwaga:";
 
-"ExposureSubmissionSuccess_listItem1" = "Organ ds. zdrowia publicznego skontaktuje się z Tobą w ciągu kilku najbliższych dni.";
+"ExposureSubmissionSuccess_listItem0" = "Wykonaj test PCR, aby zweryfikować wynik tego testu. ";
+
+"ExposureSubmissionSuccess_listItem1" = "Organ ds. zdrowia publicznego skontaktuje się z Tobą w ciągu kilku najbliższych dni telefonicznie lub listownie.";
 
 "ExposureSubmissionSuccess_listItem2" = "Możesz zarażać. Izoluj się od innych osób.";
 
@@ -2288,7 +2290,7 @@
 "Checkin_Details_CheckIn_Button" = "Zamelduj się";
 
 /* Submission Check-in */
-"Submission_Checkins_Title" = "Udostępnić Twoje zameldowania?";
+"Submission_Checkins_Title" = "Udostępnić zameldowania w lokalizacji?";
 
 "Submission_Checkins_Description" = "Ostrzegaj inne osoby, które się zameldowały w pobliżu. Twoje dane osobowe nie będą udostępniane.";
 
