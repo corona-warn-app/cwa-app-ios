@@ -591,10 +591,6 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 
 		// quick hack - can't easily use `addUIInterruptionMonitor` in this test
 		app.alerts.firstMatch.buttons.firstMatch.tap() // yes
-		
-		// We should see now the exposureSubmissionSuccessViewController
-		XCTAssertTrue(app.images[AccessibilityIdentifiers.ExposureSubmissionSuccess.accImageDescription].waitForExistence(timeout: .short))
-		app.buttons[AccessibilityIdentifiers.ExposureSubmissionSuccess.closeButton].tap()
 
 		// Back to homescreen
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].waitForExistence(timeout: .long))
@@ -682,10 +678,17 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 
 		// Open Thank You screen.
 		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
+		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 
-		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
-		app.alerts.firstMatch.buttons.element(boundBy: 0).tap()
-		
+		// Select no symptoms option
+		let optionNo = app.buttons["AppStrings.ExposureSubmissionSymptoms.answerOptionNo"]
+		XCTAssertTrue(optionNo.waitForExistence(timeout: .medium))
+		optionNo.tap()
+
+		let btnContinue = app.buttons["AppStrings.ExposureSubmission.primaryButton"]
+		XCTAssertTrue(btnContinue.isEnabled)
+		btnContinue.tap()
+
 		// We should see now the exposureSubmissionSuccessViewController
 		XCTAssertTrue(app.images[AccessibilityIdentifiers.ExposureSubmissionSuccess.accImageDescription].waitForExistence(timeout: .short))
 		
