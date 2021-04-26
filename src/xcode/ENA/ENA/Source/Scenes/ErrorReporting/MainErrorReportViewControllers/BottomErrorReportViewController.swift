@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-class BottomErrorReportViewController: UIViewController, RequiresAppDependencies {
+class BottomErrorReportViewController: UIViewController {
 
 	// MARK: - Init
 
@@ -13,6 +13,7 @@ class BottomErrorReportViewController: UIViewController, RequiresAppDependencies
 		coordinator: ErrorReportsCoordinating,
 		ppacService: PrivacyPreservingAccessControl,
 		otpService: OTPServiceProviding,
+		elsService: ErrorLogSubmitting,
 		didTapStartButton: @escaping () -> Void,
 		didTapSaveButton: @escaping () -> Void,
 		didTapSendButton: @escaping () -> Void,
@@ -21,6 +22,7 @@ class BottomErrorReportViewController: UIViewController, RequiresAppDependencies
 		self.coordinator = coordinator
 		self.ppacService = ppacService
 		self.otpService = otpService
+		self.elsService = elsService
 		self.didTapStartButton = didTapStartButton
 		self.didTapSaveButton = didTapSaveButton
 		self.didTapSendButton = didTapSendButton
@@ -98,6 +100,7 @@ class BottomErrorReportViewController: UIViewController, RequiresAppDependencies
 	private let coordinator: ErrorReportsCoordinating
 	private let ppacService: PrivacyPreservingAccessControl
 	private let otpService: OTPServiceProviding
+	private let elsService: ErrorLogSubmitting
 	private let didTapStartButton: () -> Void
 	private let didTapSaveButton: () -> Void
 	private let didTapSendButton: () -> Void
@@ -116,12 +119,6 @@ class BottomErrorReportViewController: UIViewController, RequiresAppDependencies
 	@IBOutlet private weak var statusDescription: ENALabel!
 	@IBOutlet private weak var coloredCircle: UIImageView!
 
-	private lazy var elsService: ErrorLogSubmitting = ErrorLogSubmissionService(
-		client: client,
-		store: store,
-		ppacService: ppacService,
-		otpService: otpService
-	)
 	private lazy var fileSizeFormatter: ByteCountFormatter = {
 		let formatter = ByteCountFormatter()
 		formatter.allowedUnits = [.useAll]

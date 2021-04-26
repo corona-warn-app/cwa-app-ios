@@ -130,7 +130,7 @@ final class ErrorLogSubmissionService: ErrorLogSubmitting {
 			.publish(every: 1.0, on: .main, in: .default) // no need to have a high refresh rate, as file sizes normally don't grow that fast
 			.autoconnect()
 			.tryMap { _ in
-				guard let size = self.fileManager.sizeOfFile(atPath: self.fileLogger.allLogsFileURL.path) else {
+				guard let size = self.fileManager.sizeOfFile(atPath: self.fileLogger.errorLogFileURL.path) else {
 					throw ELSError.couldNotReadLogfile()
 				}
 				return size
@@ -144,10 +144,20 @@ final class ErrorLogSubmissionService: ErrorLogSubmitting {
 
 extension ErrorLogSubmissionService: ErrorLogHandling {
 
-	private(set) static var errorLoggingEnabled: Bool = false
+	private static let errorLogEnabledKey = "elsLogActive"
+
+	/// Flag to indicate wether the ELS logging is active or not.
+	///
+	/// The initial value is fetched from `UserDefaults`.
+	private(set) static var errorLoggingEnabled: Bool = {
+		// fetch existing case from previous runs, e.g. after the app was terminated
+		return UserDefaults.standard.bool(forKey: ErrorLogSubmissionService.errorLogEnabledKey)
+	}()
 
 	func startLogging() {
+		UserDefaults.standard.setValue(true, forKey: ErrorLogSubmissionService.errorLogEnabledKey)
 		ErrorLogSubmissionService.errorLoggingEnabled = true
+		Log.info("===== ELS logging active =====", log: .localData)
 	}
 
 	func fetchExistingLog() -> LogDataItem? {
@@ -156,6 +166,8 @@ extension ErrorLogSubmissionService: ErrorLogHandling {
 	}
 
 	func stopAndDeleteLog() {
+		UserDefaults.standard.setValue(false, forKey: ErrorLogSubmissionService.errorLogEnabledKey)
+		Log.info("===== ELS logging finished =====", log: .localData)
 		ErrorLogSubmissionService.errorLoggingEnabled = false
 		Log.deleteLogs()
 	}
