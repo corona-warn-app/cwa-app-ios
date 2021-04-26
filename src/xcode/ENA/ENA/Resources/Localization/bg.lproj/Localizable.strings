@@ -614,7 +614,9 @@
 
 "ExposureSubmissionSuccess_listTitle" = "Моля, не забравяйте:";
 
-"ExposureSubmissionSuccess_listItem1" = "От службата за обществено здравеопазване (Gesundheitsamt) ще се свържат с Вас в следващите няколко дни.";
+"ExposureSubmissionSuccess_listItem0" = "Направете PCR тест, за да потвърдите този резултат от тестa. ";
+
+"ExposureSubmissionSuccess_listItem1" = "От службата за обществено здравеопазване (Gesundheitsamt) ще се свържат с Вас в следващите няколко дни по телефон или с писмо.";
 
 "ExposureSubmissionSuccess_listItem2" = "Вие сте носител на заразата. Необходимо е да се самоизолирате.";
 
@@ -2288,7 +2290,7 @@
 "Checkin_Details_CheckIn_Button" = "Регистрация";
 
 /* Submission Check-in */
-"Submission_Checkins_Title" = "Ще споделите ли своите регистрации?";
+"Submission_Checkins_Title" = "Ще споделите ли своите регистрации от локациите, които сте посетили?";
 
 "Submission_Checkins_Description" = "Предупредете останалите, които също са се регистрирали в близост до вас. Вашите лични данни няма да бъдат споделени.";
 
