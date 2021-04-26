@@ -50,6 +50,9 @@ class BottomErrorReportViewController: UIViewController {
 		stopAndDeleteButton.setTitle(AppStrings.ErrorReport.stopAndDeleteButtonTitle, for: .normal)
 		stopAndDeleteButton.accessibilityIdentifier = AccessibilityIdentifiers.ErrorReport.stopAndDeleteButton
 
+		let status: ErrorLoggingStatus = ErrorLogSubmissionService.errorLoggingEnabled ? .active : .inactive
+		configure(status: status, animated: false)
+
 		elsService
 			.logFileSizePublisher
 			.sink { result in
@@ -63,11 +66,6 @@ class BottomErrorReportViewController: UIViewController {
 				self.updateProgress(progressInBytes: size)
 			}
 			.store(in: &subscriptions)
-	}
-
-	override func viewWillAppear(_ animated: Bool) {
-		configure(status: .inactive, animated: false)
-		super.viewWillAppear(animated)
 	}
 
 	// MARK: - Internal
