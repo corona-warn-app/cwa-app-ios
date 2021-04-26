@@ -106,13 +106,8 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 	
 	func test_SubmitTAN_Screenshot_SymptomsOptionYes() {
 		var screenshotCounter = 0
-		
-		// setting up launch arguments
-		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
-		
-		// launch and navigate to the desired screen
-		launch()
-		navigateToSymptomsScreen()
+
+		launchAndNavigateToSymptomsScreen()
 		
 		// capturing and selecting Yes button
 		let optionYes = app.buttons["AppStrings.ExposureSubmissionSymptoms.answerOptionYes"]
@@ -123,9 +118,7 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 	}
 	
 	func test_SubmitTAN_SymptomsOptionNo() {
-		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
-		launch()
-		navigateToSymptomsScreen()
+		launchAndNavigateToSymptomsScreen()
 
 		let optionYes = app.buttons["AppStrings.ExposureSubmissionSymptoms.answerOptionYes"]
 		let optionNo = app.buttons["AppStrings.ExposureSubmissionSymptoms.answerOptionNo"]
@@ -164,9 +157,7 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 	}
 
 	func test_SubmitTAN_SymptomsOptionPreferNotToSay() {
-		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
-		launch()
-		navigateToSymptomsScreen()
+		launchAndNavigateToSymptomsScreen()
 
 		let optionYes = app.buttons["AppStrings.ExposureSubmissionSymptoms.answerOptionYes"]
 		let optionNo = app.buttons["AppStrings.ExposureSubmissionSymptoms.answerOptionNo"]
@@ -205,9 +196,7 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 	}
 
 	func test_SubmitTAN_SymptomsOnsetDateOption() {
-		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
-		launch()
-		navigateToSymptomsOnsetScreen()
+		launchAndNavigateToSymptomsOnsetScreen()
 
 		let optionExactDate = app.buttons["AppStrings.DatePickerOption.day"].firstMatch
 		let optionLastSevenDays = app.buttons["AppStrings.ExposureSubmissionSymptomsOnset.answerOptionLastSevenDays"]
@@ -390,12 +379,12 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 			return false
 		}
 
-		snapshot("tan_submissionflow_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		snapshot("tan_submissionflow_\(String(format: "%04d", (screenshotCounter.inc())))")
 		
 		// Open Intro screen.
 		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .long))
 		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].tap()
-		snapshot("tan_submissionflow_tan_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		snapshot("tan_submissionflow_tan_\(String(format: "%04d", (screenshotCounter.inc())))")
 				
 		// Overview Screen: click TAN button.
 		XCTAssertTrue(app
@@ -403,12 +392,12 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 						.waitForExistence(timeout: .medium)
 		)
 		app.buttons["AppStrings.ExposureSubmissionDispatch.tanButtonDescription"].tap()
-		snapshot("tan_submissionflow_tan_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		snapshot("tan_submissionflow_tan_\(String(format: "%04d", (screenshotCounter.inc())))")
 		
 		// Fill in dummy TAN.
 		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.primaryButton"].waitForExistence(timeout: .medium))
 		type(app, text: "qwdzxcsrhe")
-		snapshot("tan_submissionflow_tan_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		snapshot("tan_submissionflow_tan_\(String(format: "%04d", (screenshotCounter.inc())))")
 		
 		// Click continue button.
 		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.primaryButton"].isEnabled)
@@ -419,13 +408,13 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		// Click secondary button to skip symptoms screens and immediately go to warn others screen.
 		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.secondaryButton"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
-		snapshot("tan_submissionflow_tan_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		snapshot("tan_submissionflow_tan_\(String(format: "%04d", (screenshotCounter.inc())))")
 
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 		
 		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
-		snapshot("tan_submissionflow_tan_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		snapshot("tan_submissionflow_tan_\(String(format: "%04d", (screenshotCounter.inc())))")
 		
 		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
 		
@@ -652,9 +641,7 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 	}
 
 	func test_screenshot_symptoms_onset_date_option() {
-		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
-		launch()
-		navigateToSymptomsOnsetScreen()
+		launchAndNavigateToSymptomsOnsetScreen()
 
 		// select date
 		let optionExactDate = app.buttons["AppStrings.DatePickerOption.day"].firstMatch
@@ -664,23 +651,9 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 	}
 
 	func test_screenshot_exposureSubmissionSuccess_screen() {
-		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
-		app.launchArguments.append(contentsOf: ["-testResult", TestResult.positive.stringValue])
-		launch()
+		launchAndNavigateToSymptomsScreen()
 
-		// Open Intro screen.
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.pcrCell].waitForExistence(timeout: .long))
-		app.cells[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.pcrCell].tap()
-
-		// Open Test Result screen.
-		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
-		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
-
-		// Open Thank You screen.
-		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
-		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
-
-		// Select no symptoms option
+		// Symptoms Screen: Select no symptoms option
 		let optionNo = app.buttons["AppStrings.ExposureSubmissionSymptoms.answerOptionNo"]
 		XCTAssertTrue(optionNo.waitForExistence(timeout: .medium))
 		optionNo.tap()
@@ -737,43 +710,25 @@ extension ENAUITests_04_ExposureSubmissionUITests {
 		fatalError("Localization could not be loaded.")
 	}
 
-	func navigateToSymptomsScreen() {
-		// Open Intro screen.
-		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .long))
-		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].tap()
+	func launchAndNavigateToSymptomsScreen() {
+		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
+		app.launchArguments.append(contentsOf: ["-testResult", TestResult.positive.stringValue])
+		launch()
 
-		// Click TAN button.
-		XCTAssertTrue(app
-			.buttons["AppStrings.ExposureSubmissionDispatch.tanButtonDescription"]
-			.waitForExistence(timeout: .medium)
-		)
-		app.buttons["AppStrings.ExposureSubmissionDispatch.tanButtonDescription"].tap()
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.pcrCell].waitForExistence(timeout: .long))
+		app.cells[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.pcrCell].tap()
 
-		// Fill in dummy TAN.
-		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.primaryButton"].waitForExistence(timeout: .medium))
-		type(app, text: "qwdzxcsrhe")
-
-		// Click continue button.
-		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.primaryButton"].isEnabled)
-		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
-		// TAN tests are ALWAYS positive!
-
-		// Click next.
-		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.primaryButton"].waitForExistence(timeout: .medium))
+		// Test Result screen.
+		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 
-		// Click next to warn others.
-		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.primaryButton"].waitForExistence(timeout: .medium))
-		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
-		
-		// Click next to Symptoms Screen.
-		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.primaryButton"].waitForExistence(timeout: .medium))
+		// Thank You screen.
+		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 	}
 
-	func navigateToSymptomsOnsetScreen() {
-		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
-		navigateToSymptomsScreen()
+	func launchAndNavigateToSymptomsOnsetScreen() {
+		launchAndNavigateToSymptomsScreen()
 
 		let optionYes = app.buttons["AppStrings.ExposureSubmissionSymptoms.answerOptionYes"]
 
