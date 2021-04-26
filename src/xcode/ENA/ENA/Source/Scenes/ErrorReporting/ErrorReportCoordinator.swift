@@ -136,10 +136,22 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating, RequiresAppDepend
 		let bottomViewController = FooterViewController(
 			footerViewModel,
 			didTapPrimaryButton: {
-				self.rootViewController.navigationController?.popViewController(animated: true)
-				self.topViewControllerViewModel?.updateViewModel(isHistorySectionIncluded: true)
+				self.elsService.submit { result in
+					switch result {
+					case .success(let response):
+						debugPrint(response)
+						// IDs, etc.
+					case .failure(let error):
+						Log.error("ELS submission error: \(error)", log: .api, error: error)
+						// ...
+					}
+
+					// TODO: handle this properly!
+					self.rootViewController.navigationController?.popViewController(animated: true)
+					self.topViewControllerViewModel?.updateViewModel(isHistorySectionIncluded: true)
+				}
 			},
-			didTapSecondaryButton: {}
+			didTapSecondaryButton: { }
 		)
 		let topViewController = SendErrorLogsViewController(
 			model: SendErrorLogsViewModel(
