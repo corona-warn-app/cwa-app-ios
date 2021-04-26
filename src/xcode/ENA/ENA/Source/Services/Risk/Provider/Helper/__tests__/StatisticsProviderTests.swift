@@ -18,7 +18,7 @@ class StatisticsProviderTests: XCTestCase {
 		let store = MockTestStore()
 		XCTAssertNil(store.appConfigMetadata)
 
-		let client = CachingHTTPClientMock(store: store)
+		let client = CachingHTTPClientMock()
 		client.fetchStatistics(etag: "foo") { result in
 			switch result {
 			case .success(let response): // StatisticsFetchingResponse
@@ -40,8 +40,7 @@ class StatisticsProviderTests: XCTestCase {
 		let store = MockTestStore()
 		XCTAssertNil(store.statistics)
 
-		store.selectedServerEnvironment = ServerEnvironment().defaultEnvironment()
-		let client = CachingHTTPClient(serverEnvironmentProvider: store)
+		let client = CachingHTTPClient()
 		client.fetchStatistics(etag: "foo") { result in
 			switch result {
 			case .success(let response): // StatisticsFetchingResponse
@@ -66,7 +65,7 @@ class StatisticsProviderTests: XCTestCase {
 		valueReceived.expectedFulfillmentCount = 1
 
 		let store = MockTestStore()
-		let client = CachingHTTPClientMock(store: store)
+		let client = CachingHTTPClientMock()
 		let provider = StatisticsProvider(client: client, store: store)
 		provider.statistics()
 			.sink(receiveCompletion: { result in
@@ -91,7 +90,7 @@ class StatisticsProviderTests: XCTestCase {
 		responseReceived.expectedFulfillmentCount = 1
 
 		let store = MockTestStore()
-		let client = CachingHTTPClientMock(store: store)
+		let client = CachingHTTPClientMock()
 		client.onFetchStatistics = { _, completeWith in
 			// fake a broken backend
 			let error = URLSessionError.serverError(503)
@@ -133,7 +132,7 @@ class StatisticsProviderTests: XCTestCase {
 			timestamp: try XCTUnwrap(301.secondsAgo))
 
 		// Fake, backend returns HTTP 304
-		let client = CachingHTTPClientMock(store: store)
+		let client = CachingHTTPClientMock()
 		client.onFetchStatistics = { _, completeWith in
 			let error = URLSessionError.notModified
 			completeWith(.failure(error))
@@ -172,7 +171,7 @@ class StatisticsProviderTests: XCTestCase {
 			timestamp: try XCTUnwrap(301.secondsAgo))
 
 		// Fake, backend returns new data
-		let client = CachingHTTPClientMock(store: store)
+		let client = CachingHTTPClientMock()
 		client.onFetchStatistics = { _, completeWith in
 			let response = StatisticsFetchingResponse(CachingHTTPClientMock.staticStatistics, "fake2")
 			completeWith(.success(response))
@@ -208,7 +207,7 @@ class StatisticsProviderTests: XCTestCase {
 		let store = MockTestStore()
 
 		// Simulate response for given ETag
-		let client = CachingHTTPClientMock(store: store)
+		let client = CachingHTTPClientMock()
 		client.onFetchStatistics = { _, completeWith in
 			let error = URLSessionError.notModified
 			completeWith(.failure(error))

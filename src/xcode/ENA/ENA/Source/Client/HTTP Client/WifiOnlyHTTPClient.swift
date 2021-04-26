@@ -11,10 +11,10 @@ final class WifiOnlyHTTPClient: ClientWifiOnly {
 	// MARK: - Init
 
 	init(
-		serverEnvironmentProvider: ServerEnvironmentProviding,
+		environmentProvider: EnvironmentProviding = Environments(),
 		session: URLSession = URLSession(configuration: .coronaWarnSessionConfigurationWifiOnly())
 	) {
-		self.serverEnvironmentProvider = serverEnvironmentProvider
+		self.environmentProvider = environmentProvider
 		self.session = session
 		self.disableHourlyDownload = false
 	}
@@ -184,11 +184,9 @@ final class WifiOnlyHTTPClient: ClientWifiOnly {
 	}
 
 	// MARK: - Private
-	private let serverEnvironmentProvider: ServerEnvironmentProviding
+	private let environmentProvider: EnvironmentProviding
 	private var configuration: HTTPClient.Configuration {
-		HTTPClient.Configuration.makeDefaultConfiguration(
-			serverEnvironmentProvider: serverEnvironmentProvider
-		)
+		HTTPClient.Configuration.makeDefaultConfiguration(environmentProvider: environmentProvider)
 	}
 	private var session: URLSession
 	private var retries: [URL: Int] = [:]
