@@ -110,7 +110,7 @@ final class DMPPCViewModel {
 	private var lastKnownDeviceToken: Result<PPACToken, PPACError>?
 
 	private func generateppacEdusApiToken() {
-		guard (ppacService?.generateNewAPIToken()) != nil else {
+		guard (ppacService?.generateNewAPIEdusToken()) != nil else {
 			return
 		}
 		refreshTableView(

@@ -8,7 +8,8 @@ protocol PrivacyPreservingAccessControl {
 	func getPPACTokenEDUS(_ completion: @escaping (Result<PPACToken, PPACError>) -> Void)
 	func getPPACTokenELS(_ completion: @escaping (Result<PPACToken, PPACError>) -> Void)
 	#if !RELEASE
-	func generateNewAPIToken() -> TimestampedToken
+	func generateNewAPIEdusToken() -> TimestampedToken
+	func generateNewAPIElsToken() -> TimestampedToken
 	#endif
 }
 
@@ -59,8 +60,16 @@ class PPACService: PrivacyPreservingAccessControl {
 
 	#if !RELEASE
 	// needed to make it possible to get called from the developer menu
-	func generateNewAPIToken() -> TimestampedToken {
-		return generateAndStoreFreshAPIToken()
+	func generateNewAPIEdusToken() -> TimestampedToken {
+		let token = generateAndStoreFreshAPIToken()
+		store.ppacApiTokenEdus = token
+		return token
+	}
+	
+	func generateNewAPIElsToken() -> TimestampedToken {
+		let token = generateAndStoreFreshAPIToken()
+		store.ppacApiTokenEls = token
+		return token
 	}
 	#endif
 
