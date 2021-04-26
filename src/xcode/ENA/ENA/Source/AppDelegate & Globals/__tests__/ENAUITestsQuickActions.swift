@@ -25,13 +25,13 @@ class ENAUITestsQuickActions: XCTestCase {
 		XCUIDevice.shared.press(.home)
 	}
 	
-	override func invokeTest() {
-		if #available(iOS 13, *) {
-			super.invokeTest()
-		} else {
-			// Skipping test because it's iOS 13+ only
-		}
-	}
+//	override func invokeTest() {
+//		if #available(iOS 13, *) {
+//			super.invokeTest()
+//		} else {
+//			// Skipping test because it's iOS 13+ only
+//		}
+//	}
 
 	/// Test shortcut state after a fresh installtation
 	///
