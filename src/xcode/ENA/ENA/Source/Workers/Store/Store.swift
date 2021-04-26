@@ -119,6 +119,8 @@ protocol ErrorLogProviding: AnyObject {
 	var ppacApiTokenEls: TimestampedToken? { get set }
 	/// OTP for error log support (Els)
 	var otpTokenEls: OTPToken? { get set }
+	/// Date of last otp authorization
+	var otpElsAuthorizationDate: Date? { get set }
 }
 
 protocol EventRegistrationCaching: AnyObject {

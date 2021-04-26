@@ -360,6 +360,11 @@ extension SecureStore: ErrorLogProviding {
 		get { kvStore["otpTokenEls"] as OTPToken? }
 		set { kvStore["otpTokenEls"] = newValue }
 	}
+	
+	var otpElsAuthorizationDate: Date? {
+		get { kvStore["otpElsAuthorizationDate"] as Date? }
+		set { kvStore["otpElsAuthorizationDate"] = newValue }
+	}
 }
 
 extension SecureStore: CoronaTestStoring {

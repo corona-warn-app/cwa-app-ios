@@ -87,6 +87,7 @@ final class MockTestStore: Store, PPAnalyticsData {
 	
 	var ppacApiTokenEls: TimestampedToken?
 	var otpTokenEls: OTPToken?
+	var otpElsAuthorizationDate: Date?
 	
 	// MARK: - EventRegistrationCaching
 	
