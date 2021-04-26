@@ -86,6 +86,17 @@ enum AppStrings {
 				static let text = NSLocalizedString("ExposureSubmission_OverwriteNotice_Antigen_Text", comment: "")
 			}
 		}
+
+		enum AntigenTest {
+			enum Profile {
+				static let headerText = NSLocalizedString("AntigenTest_Profile_Header_Text", comment: "")
+				static let noticeText = NSLocalizedString("AntigenTest_Profile_Noice_Text", comment: "")
+				static let dateOfBirthFormatText = NSLocalizedString("AntigenTest_Profile_DateOfBirth_Format", comment: "")
+				static let emailFormatText = NSLocalizedString("AntigenTest_Profile_Email_Format", comment: "")
+				static let primaryButton = NSLocalizedString("AntigenTest_Profile_Primary_Button", comment: "")
+				static let secondaryButton = NSLocalizedString("AntigenTest_Profile_Secondary_Button", comment: "")
+			}
+		}
 	}
 
 	enum ExposureSubmissionTanEntry {
