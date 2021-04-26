@@ -35,8 +35,6 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating, RequiresAppDepend
 		// when the user goes back to the AppInformationViewController, the ErrorReportLoggingViewController will be deallocated and the coordinator with it
 		let errorReportsLoggingViewController = BottomErrorReportViewController(
 			coordinator: self,
-			ppacService: ppacService,
-			otpService: otpService,
 			elsService: elsService,
 			didTapStartButton: { [weak self] in
 				self?.startErrorLogging()

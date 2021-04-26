@@ -11,8 +11,6 @@ class BottomErrorReportViewController: UIViewController {
 
 	init(
 		coordinator: ErrorReportsCoordinating,
-		ppacService: PrivacyPreservingAccessControl,
-		otpService: OTPServiceProviding,
 		elsService: ErrorLogSubmitting,
 		didTapStartButton: @escaping () -> Void,
 		didTapSaveButton: @escaping () -> Void,
@@ -20,8 +18,6 @@ class BottomErrorReportViewController: UIViewController {
 		didTapStopAndDeleteButton: @escaping () -> Void
 	) {
 		self.coordinator = coordinator
-		self.ppacService = ppacService
-		self.otpService = otpService
 		self.elsService = elsService
 		self.didTapStartButton = didTapStartButton
 		self.didTapSaveButton = didTapSaveButton
@@ -98,8 +94,6 @@ class BottomErrorReportViewController: UIViewController {
 	// MARK: - Private
 	
 	private let coordinator: ErrorReportsCoordinating
-	private let ppacService: PrivacyPreservingAccessControl
-	private let otpService: OTPServiceProviding
 	private let elsService: ErrorLogSubmitting
 	private let didTapStartButton: () -> Void
 	private let didTapSaveButton: () -> Void
