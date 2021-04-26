@@ -153,11 +153,11 @@ struct AntigenTestProfileViewModel {
 	}
 
 	private var formattedAddress: String {
-		let adr = CNMutablePostalAddress()
-		adr.street = antigenTestProfile.addressLine ?? ""
-		adr.city = antigenTestProfile.city ?? ""
-		adr.postalCode = antigenTestProfile.zipCode ?? ""
-		return CNPostalAddressFormatter().string(from: adr)
+		let address = CNMutablePostalAddress()
+		address.street = antigenTestProfile.addressLine ?? ""
+		address.city = antigenTestProfile.city ?? ""
+		address.postalCode = antigenTestProfile.zipCode ?? ""
+		return CNPostalAddressFormatter().string(from: address)
 	}
 
 }
