@@ -584,7 +584,50 @@ extension ExposureSubmissionTestResultViewModel {
 extension ExposureSubmissionTestResultViewModel {
 	
 	private var expiredTestResultSections: [DynamicSection] {
-		[
+		var cells = [
+			DynamicCell.title2(
+				text: AppStrings.ExposureSubmissionResult.procedure,
+				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure
+			)
+		]
+
+		switch coronaTest.type {
+		case .pcr:
+			cells.append(contentsOf: [
+				ExposureSubmissionDynamicCell.stepCell(
+					title: AppStrings.ExposureSubmissionResult.PCR.testAdded,
+					description: nil,
+					icon: UIImage(named: "Icons_Grey_Check"),
+					hairline: .iconAttached
+				)
+			])
+		case .antigen:
+			cells.append(contentsOf: [
+				ExposureSubmissionDynamicCell.stepCell(
+					title: AppStrings.ExposureSubmissionResult.Antigen.testAdded,
+					description: nil,
+					icon: UIImage(named: "Icons_Grey_Check"),
+					hairline: .iconAttached
+				)
+			])
+		}
+
+		cells.append(contentsOf: [
+			ExposureSubmissionDynamicCell.stepCell(
+				title: AppStrings.ExposureSubmissionResult.testExpired,
+				description: AppStrings.ExposureSubmissionResult.testExpiredDesc,
+				icon: UIImage(named: "Icons_Grey_Error"),
+				hairline: .topAttached
+			),
+			ExposureSubmissionDynamicCell.stepCell(
+				title: AppStrings.ExposureSubmissionResult.testRemove,
+				description: AppStrings.ExposureSubmissionResult.testRemoveDesc,
+				icon: UIImage(named: "Icons_Grey_Entfernen"),
+				hairline: .none
+			)
+		])
+
+		return [
 			.section(
 				header: .identifier(
 					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.pcrTestResult,
@@ -593,34 +636,11 @@ extension ExposureSubmissionTestResultViewModel {
 					}
 				),
 				separators: .none,
-				cells: [
-					.title2(text: AppStrings.ExposureSubmissionResult.procedure,
-							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure),
-					
-					ExposureSubmissionDynamicCell.stepCell(
-						title: AppStrings.ExposureSubmissionResult.PCR.testAdded,
-						description: nil,
-						icon: UIImage(named: "Icons_Grey_Check"),
-						hairline: .iconAttached
-					),
-					
-					ExposureSubmissionDynamicCell.stepCell(
-						title: AppStrings.ExposureSubmissionResult.testExpired,
-						description: AppStrings.ExposureSubmissionResult.testExpiredDesc,
-						icon: UIImage(named: "Icons_Grey_Error"),
-						hairline: .topAttached
-					),
-					
-					ExposureSubmissionDynamicCell.stepCell(
-						title: AppStrings.ExposureSubmissionResult.testRemove,
-						description: AppStrings.ExposureSubmissionResult.testRemoveDesc,
-						icon: UIImage(named: "Icons_Grey_Entfernen"),
-						hairline: .none
-					)
-				]
+				cells: cells
 			)
 		]
 	}
+
 }
 
 
@@ -628,7 +648,50 @@ extension ExposureSubmissionTestResultViewModel {
 extension ExposureSubmissionTestResultViewModel {
 	
 	private var invalidTestResultSections: [DynamicSection] {
-		[
+		var cells = [
+			DynamicCell.title2(
+				text: AppStrings.ExposureSubmissionResult.procedure,
+				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure
+			)
+		]
+
+		switch coronaTest.type {
+		case .pcr:
+			cells.append(contentsOf: [
+				ExposureSubmissionDynamicCell.stepCell(
+					title: AppStrings.ExposureSubmissionResult.PCR.testAdded,
+					description: nil,
+					icon: UIImage(named: "Icons_Grey_Check"),
+					hairline: .iconAttached
+				)
+			])
+		case .antigen:
+			cells.append(contentsOf: [
+				ExposureSubmissionDynamicCell.stepCell(
+					title: AppStrings.ExposureSubmissionResult.Antigen.testAdded,
+					description: nil,
+					icon: UIImage(named: "Icons_Grey_Check"),
+					hairline: .iconAttached
+				)
+			])
+		}
+
+		cells.append(contentsOf: [
+			ExposureSubmissionDynamicCell.stepCell(
+				title: AppStrings.ExposureSubmissionResult.testInvalid,
+				description: AppStrings.ExposureSubmissionResult.testInvalidDesc,
+				icon: UIImage(named: "Icons_Grey_Error"),
+				hairline: .topAttached
+			),
+			ExposureSubmissionDynamicCell.stepCell(
+				title: AppStrings.ExposureSubmissionResult.testRemove,
+				description: AppStrings.ExposureSubmissionResult.testRemoveDesc,
+				icon: UIImage(named: "Icons_Grey_Entfernen"),
+				hairline: .none
+			)
+		])
+
+		return [
 			.section(
 				header: .identifier(
 					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.pcrTestResult,
@@ -637,31 +700,7 @@ extension ExposureSubmissionTestResultViewModel {
 					}
 				),
 				separators: .none,
-				cells: [
-					.title2(text: AppStrings.ExposureSubmissionResult.procedure,
-							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure),
-					
-					ExposureSubmissionDynamicCell.stepCell(
-						title: AppStrings.ExposureSubmissionResult.PCR.testAdded,
-						description: nil,
-						icon: UIImage(named: "Icons_Grey_Check"),
-						hairline: .iconAttached
-					),
-					
-					ExposureSubmissionDynamicCell.stepCell(
-						title: AppStrings.ExposureSubmissionResult.testInvalid,
-						description: AppStrings.ExposureSubmissionResult.testInvalidDesc,
-						icon: UIImage(named: "Icons_Grey_Error"),
-						hairline: .topAttached
-					),
-					
-					ExposureSubmissionDynamicCell.stepCell(
-						title: AppStrings.ExposureSubmissionResult.testRemove,
-						description: AppStrings.ExposureSubmissionResult.testRemoveDesc,
-						icon: UIImage(named: "Icons_Grey_Entfernen"),
-						hairline: .none
-					)
-				]
+				cells: cells
 			)
 		]
 	}

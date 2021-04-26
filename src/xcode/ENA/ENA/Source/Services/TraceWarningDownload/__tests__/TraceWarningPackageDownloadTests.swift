@@ -96,6 +96,42 @@ class TraceWarningPackageDownloadTests: XCTestCase {
 		XCTAssertEqual(responseCode, .noCheckins)
 	}
 	
+	func testGIVEN_TraceWarningDownload_WHEN_CheckInDatabaseIsNotEmpty_THEN_Success() {
+		
+		// GIVEN
+		let appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
+		let eventStore = MockEventStore()
+		
+		let checkin = Checkin.mock()
+		eventStore.createCheckin(checkin)
+		
+		let traceWarningPackageDownload = TraceWarningPackageDownload(
+			client: ClientMock(),
+			store: MockTestStore(),
+			eventStore: eventStore
+		)
+		
+		let successExpectation = expectation(description: "TraceWarningPackage CheckInDatabaseIsNotEmpty_THEN_Success.")
+		
+		// WHEN
+		var responseCode: TraceWarningSuccess?
+		traceWarningPackageDownload.startTraceWarningPackageDownload(with: appConfig, completion: { result in
+			switch result {
+			
+			case let .success(success):
+				responseCode = success
+				print(responseCode)
+				successExpectation.fulfill()
+			case let .failure(error):
+				XCTFail("Test should not fail but did with error: \(error)")
+			}
+		})
+		
+		// THEN
+		waitForExpectations(timeout: .medium)
+		XCTAssertEqual(responseCode, .noPackagesAvailable)
+	}
+	
 	func testGIVEN_TraceWarningDownload_WHEN_AvailablePackagesOnCDNAreEmpty_THEN_Success() {
 		
 		// GIVEN
@@ -233,7 +269,7 @@ class TraceWarningPackageDownloadTests: XCTestCase {
 		
 		// THEN
 		waitForExpectations(timeout: .medium)
-		XCTAssertEqual(responseCodeSuccess, .success)
+		XCTAssertEqual(responseCodeSuccess, .noPackagesAvailable)
 		XCTAssertEqual(responseCodeError, .downloadIsRunning)
 	}
 	

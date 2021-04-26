@@ -446,7 +446,7 @@
 "ExposureSubmission_Hotline_Number" = "08007540002";
 
 /* phone number; no spacing allowed */
-"ExposureSubmission_Hotline_Number_Foreign" = "+493049875402";
+"ExposureSubmission_Hotline_Number_Foreign" = "+493049875401";
 
 "ExposureSubmission_DataPrivacyTitle" = "Consent";
 
@@ -497,16 +497,16 @@
 
 "ExposureSubmissionDispatch_QRCodeButtonDescription" = "Receive your test result in the app and warn others.";
 
-"ExposureSubmissionDispatch_TANButtonTitle" = "Enter TAN";
+"ExposureSubmissionDispatch_TANButtonTitle" = "Enter TAN for PCR Test";
 
-"ExposureSubmissionDispatch_TANButtonDescription" = "Do you have a TAN? Tap here to enter your TAN so you can warn others.";
+"ExposureSubmissionDispatch_TANButtonDescription" = "Do you have a TAN for your PCR test? Tap here to enter your TAN so you can warn others.";
 
-"ExposureSubmissionDispatch_HotlineButtonTitle" = "No TAN yet?";
+"ExposureSubmissionDispatch_HotlineButtonTitle" = "Request TAN for PCR Test";
 
-"ExposureSubmissionDispatch_HotlineButtonDescription" = "Call us and get a TAN.";
+"ExposureSubmissionDispatch_HotlineButtonDescription" = "Call us and get a TAN for your PCR test.";
 
 /* Exposure Submission Hotline */
-"ExposureSubmissionHotline_Title" = "Request TAN";
+"ExposureSubmissionHotline_Title" = "Request TAN for PCR Test";
 
 "ExposureSubmissionHotline_Description" = "Please keep your test result (if available) and your phone number ready to request a TAN.";
 
@@ -523,13 +523,13 @@
 
 "ExposureSubmission_PhoneDetailsDomestic" = "For calls from within Germany.\nThe call is free of charge.";
 
-"ExposureSubmission_PhoneNumberForeign" = "+49 30 498 75402";
+"ExposureSubmission_PhoneNumberForeign" = "+49 30 498 75401";
 
 "ExposureSubmission_PhoneDetailsForeign" = "For calls from outside Germany.\nThe fees from your telephone provider will apply.";
 
-"ExposureSubmission_PhoneDetailDescription" = "LOur customer service is available in the following languages: \nEnglish, German, Turkish\n\nBusiness hours:\n24/7\n\nIf you have any health-related questions, please contact your general practitioner or the medical emergency service hotline; telephone: 116 117.";
+"ExposureSubmission_PhoneDetailDescription" = "Our customer service is available in the following languages: \nEnglish, German, Turkish\n\nBusiness hours:\nMo-Sa: 7:00 a.m. - 10:00 p.m. (CET)\n\nIf you have any health-related questions, please contact your general practitioner or the medical emergency service hotline; telephone: 116 117.";
 
-"ExposureSubmission_SectionDescription2" = "Register your test by entering the TAN in the app.";
+"ExposureSubmission_SectionDescription2" = "Register your PCR test by entering the TAN in the app.";
 
 "ExposureSubmission_CallButtonTitle" = "Call";
 
@@ -614,7 +614,9 @@
 
 "ExposureSubmissionSuccess_listTitle" = "Please note:";
 
-"ExposureSubmissionSuccess_listItem1" = "The public health authority will contact you within the next few days.";
+"ExposureSubmissionSuccess_listItem0" = "Take a PCR test to verify this test result. ";
+
+"ExposureSubmissionSuccess_listItem1" = "The public health authority will contact you within the next few days by telephone or by letter.";
 
 "ExposureSubmissionSuccess_listItem2" = "You are infectious. Isolate yourself from other people.";
 
@@ -845,7 +847,7 @@
 
 "ExposureSubmissionResult_Negative_Antigen_Proof_Title" = "Verification Feature";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "You can also use the test result displayed here as proof of a negative rapid test result. For more information, please familiarize yourself with the criteria for the acceptance of proof of testing in your federal state. Please note that you are under no obligation to use the app to prove your infection status. You can also prove the result of your rapid test in another manner compliant with the legal regulations.";
+"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "You can also use the test result displayed here as proof of a negative rapid test result. \n\nPlease note that you are only required to prove your rapid test result if this is required by law. You can prove the result using the app or in a different way. For more information, please familiarize yourself with the criteria for the acceptance of proof of testing in your federal state.";
 
 /* Exposure Submission */
 "ExposureSubmissionError_ErrorPrefix" = "A technical error occurred while sending your data. Please contact the technical hotline. You will find the phone number under App Information.";
@@ -1148,7 +1150,7 @@
 
 "Home_Finding_Positive_Card_Note_Title" = "Please note:";
 
-"Home_Finding_Positive_Card_Verify_Item_Title" = "Take a PCR test to verify this test result. ";
+"Home_Finding_Positive_Card_Verify_Item_Title" = "Take a PCR test to verify this test result.";
 
 "Home_Finding_Positive_Card_Phone_Item_Title" = "The public health authority will contact you within the next few days by telephone or by letter.";
 
@@ -1227,13 +1229,13 @@
 
 "App_Information_Contact_Hotline_Details_Domestic" = "For calls from within Germany.\nThe call is free of charge.";
 
-"App_Information_Contact_Hotline_Text_Foreign" = "+49 30 498 75402";
+"App_Information_Contact_Hotline_Text_Foreign" = "+49 30 498 75401";
 
-"App_Information_Contact_Hotline_Number_Foreign" = "+493049875402";
+"App_Information_Contact_Hotline_Number_Foreign" = "+493049875401";
 
 "App_Information_Contact_Hotline_Details_Foreign" = "For calls from outside Germany.\nThe fees from your telephone provider will apply.";
 
-"App_Information_Contact_Hotline_Terms" = "LOur customer service is available in the following languages: \nEnglish, German, Turkish\n\nBusiness hours:\n24/7\n\nIf you have any health-related questions, please contact your general practitioner or the medical emergency service hotline; telephone: 116 117.";
+"App_Information_Contact_Hotline_Terms" = "Our customer service is available in the following languages: \nEnglish, German, Turkish\n\nBusiness hours:\nMo-Sa: 7:00 a.m. - 10:00 p.m. (CET)\n\nIf you have any health-related questions, please contact your general practitioner or the medical emergency service hotline; telephone: 116 117.";
 
 /* App Information - Imprint */
 "App_Information_New_Features_Navigation" = "New Features";
@@ -1456,12 +1458,12 @@
 
 "NewVersionFeature_21_tan_hotline_foreign_countries_title" = "TAN Hotline Now Available from Outside Germany";
 
-"NewVersionFeature_21_tan_hotline_foreign_countries_description" = "If you are diagnosed with coronavirus, you can now request a TAN from outside Germany, under the number +49 30 498 75402. The fees from your telephone provider will apply.";
+"NewVersionFeature_21_tan_hotline_foreign_countries_description" = "If you are diagnosed with coronavirus, you can now request a TAN from outside Germany, under the number +49 30 498 75401. The fees from your telephone provider will apply.";
 
 /* Version 2.0 */
 "NewVersionFeature_200_event_checkin_title" = "QR code check-in to effectively track chains of infection";
 
-"NewVersionFeature_200_event_checkin_description" = "The CWA now enables you to check in to events and places. Event organizers and store owners can use the app to create a QR code. Guests can then scan this QR code when they arrive to register their presence. The app can also create a journal entry upon request. If someone who checked in to this event or place is diagnosed with coronavirus later, other people who were checked in at the same time can be warned automatically.";
+"NewVersionFeature_200_event_checkin_description" = "The CWA now enables you to check in to events and places. Event organizers and store owners can use the app to create a QR code. Guests can then scan this QR code when they arrive to register their presence. The app can also create a journal entry upon request. If someone who checked in to this event or place is diagnosed with coronavirus later, others who were checked in at the same time can be warned.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Transnational Exposure Logging";
@@ -2056,6 +2058,10 @@
 
 "Checkins_Overview_QRScanner_Instruction" = "Scan QR Code and Check In";
 
+"Checkins_Overview_Item_Prefix_CheckIn" = "Check-in for %@.";
+
+"Checkins_Overview_Item_Prefix_CheckedOut" = "Checked out for %@.";
+
 "Checkin_QR_Scanner_Checkin_Error_Title" = "Invalid QR Code";
 
 "Checkin_QR_Scanner_Error_InvalidURL" = "The scanned QR code is not valid for check-ins for an event or place. Please scan a suitable QR code (error code INVALID_URL).";
@@ -2108,6 +2114,8 @@
 "TraceLocations_Overview_ActionSheet_InfoTitle" = "Information";
 
 "TraceLocations_Overview_ActionSheet_EditTitle" = "Edit";
+
+"TraceLocations_Overview_Item_Prefix" = "QR code for %@.";
 
 /* Trace Location Details */
 "TraceLocations_Details_PrintVersionButtonTitle" = "Display Print Version";
@@ -2282,7 +2290,7 @@
 "Checkin_Details_CheckIn_Button" = "Check In";
 
 /* Submission Check-in */
-"Submission_Checkins_Title" = "Share Your Location Check-Ins?";
+"Submission_Checkins_Title" = "Share Location Check-Ins?";
 
 "Submission_Checkins_Description" = "Warn others who checked in near you. Your personal data will not be shared.";
 
