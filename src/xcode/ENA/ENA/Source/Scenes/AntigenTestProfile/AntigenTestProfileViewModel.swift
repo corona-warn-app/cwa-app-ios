@@ -46,7 +46,7 @@ struct AntigenTestProfileViewModel {
 			text: AppStrings.ExposureSubmission.AntigenTest.Profile.noticeText,
 			topSpace: 18.0,
 			font: .enaFont(for: .subheadline),
-			boarderColor: UIColor().hexStringToUIColor(hex: "#EDEDED")
+			boarderColor: .enaColor(for: .hairline)
 		)
 	}()
 
@@ -54,7 +54,7 @@ struct AntigenTestProfileViewModel {
 		QRCodeCellViewModel(
 			antigenTestProfile: antigenTestProfile,
 			backgroundColor: .enaColor(for: .background),
-			boarderColor: UIColor().hexStringToUIColor(hex: "#EDEDED")
+			boarderColor: .enaColor(for: .hairline)
 		)
 	}
 
@@ -89,7 +89,7 @@ struct AntigenTestProfileViewModel {
 			attributedText: [attributedName, attributedDetails].joined(with: "\n"),
 			topSpace: 18.0,
 			font: .enaFont(for: .headline),
-			boarderColor: UIColor().hexStringToUIColor(hex: "#EDEDED")
+			boarderColor: .enaColor(for: .hairline)
 		)
 	}
 
