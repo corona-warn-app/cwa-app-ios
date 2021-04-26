@@ -24,11 +24,15 @@ class SimpleTextCell: UITableViewCell, ReuseIdentifierProviding {
 
 	func configure(with cellViewModel: SimpleTextCellViewModel) {
 		backgroundContainerView.backgroundColor = cellViewModel.backgroundColor ?? .clear
-		contentTextLabel.textColor = cellViewModel.textColor
-		contentTextLabel.textAlignment = cellViewModel.textAlignment
-		contentTextLabel.text = cellViewModel.text
+		if cellViewModel.attributedText != nil {
+			contentTextLabel.attributedText = cellViewModel.attributedText
+		} else {
+			contentTextLabel.textColor = cellViewModel.textColor
+			contentTextLabel.textAlignment = cellViewModel.textAlignment
+			contentTextLabel.text = cellViewModel.text
+			contentTextLabel.font = cellViewModel.font
+		}
 		topSpaceLayoutConstraint.constant = cellViewModel.topSpace
-		contentTextLabel.font = cellViewModel.font
 		backgroundContainerView.layer.borderColor = cellViewModel.boarderColor.cgColor
 	}
 

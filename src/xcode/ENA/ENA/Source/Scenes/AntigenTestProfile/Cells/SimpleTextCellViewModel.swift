@@ -12,17 +12,19 @@ struct SimpleTextCellViewModel {
 
 	init(
 		backgroundColor: UIColor?,
-		textColor: UIColor,
-		textAlignment: NSTextAlignment,
-		text: String,
+		textColor: UIColor? = nil,
+		textAlignment: NSTextAlignment? = nil,
+		text: String? = nil,
+		attributedText: NSAttributedString? = nil,
 		topSpace: CGFloat,
 		font: UIFont,
 		boarderColor: UIColor = .clear
 	) {
 		self.backgroundColor = backgroundColor
 		self.textColor = textColor
-		self.textAlignment = textAlignment
+		self.textAlignment = textAlignment ?? .center
 		self.text = text
+		self.attributedText = attributedText
 		self.topSpace = topSpace
 		self.font = font
 		self.boarderColor = boarderColor
@@ -37,9 +39,10 @@ struct SimpleTextCellViewModel {
 	// MARK: - Internal
 
 	let backgroundColor: UIColor?
-	let textColor: UIColor
+	let textColor: UIColor?
 	let textAlignment: NSTextAlignment
-	let text: String
+	let text: String?
+	let attributedText: NSAttributedString?
 	let topSpace: CGFloat
 	let font: UIFont
 	let boarderColor: UIColor

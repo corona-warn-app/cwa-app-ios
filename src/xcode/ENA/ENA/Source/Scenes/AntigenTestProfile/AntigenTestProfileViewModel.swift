@@ -63,11 +63,30 @@ struct AntigenTestProfileViewModel {
 	}
 
 	var profileCellViewModel: SimpleTextCellViewModel {
-		SimpleTextCellViewModel(
+		let attributedName = NSAttributedString(
+			string: friendlyName,
+			attributes: [
+				.font: UIFont.enaFont(for: .headline),
+				.foregroundColor: UIColor.enaColor(for: .textPrimary1)
+			]
+		)
+
+		let attributedDetails = NSAttributedString(
+			string: [
+				dateOfBirth,
+				formattedAddress,
+				antigenTestProfile.phoneNumber,
+				antigenTestProfile.email
+			].compactMap({ $0 }).joined(separator: "\n"),
+			attributes: [
+				.font: UIFont.enaFont(for: .body),
+				.foregroundColor: UIColor.enaColor(for: .textPrimary1)
+			]
+		)
+
+		return SimpleTextCellViewModel(
 			backgroundColor: .enaColor(for: .background),
-			textColor: .enaColor(for: .textPrimary1 ),
-			textAlignment: .left,
-			text: [friendlyName, formattedAddress, emailAdress, dateOfBirth].compactMap({ $0 }).joined(separator: "\n"),
+			attributedText: [attributedName, attributedDetails].joined(with: "\n"),
 			topSpace: 18.0,
 			font: .enaFont(for: .headline),
 			boarderColor: UIColor().hexStringToUIColor(hex: "#EDEDED")
@@ -90,8 +109,8 @@ struct AntigenTestProfileViewModel {
 	enum TableViewSections: Int, CaseIterable {
 		case header
 		case QRCode
-		case profile
 		case notice
+		case profile
 
 		static func map(_ section: Int) -> TableViewSections {
 			guard let section = TableViewSections(rawValue: section) else {
@@ -125,14 +144,12 @@ struct AntigenTestProfileViewModel {
 		)
 	}
 
+	private var phoneNumber: String? {
+		return antigenTestProfile.phoneNumber
+	}
+
 	private var emailAdress: String? {
-		guard let email = antigenTestProfile.email else {
-			return nil
-		}
-		return String(
-			format: AppStrings.ExposureSubmission.AntigenTest.Profile.emailFormatText,
-			email
-		)
+		return antigenTestProfile.email
 	}
 
 	private var formattedAddress: String {
