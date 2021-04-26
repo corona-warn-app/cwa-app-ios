@@ -612,12 +612,14 @@ final class HTTPClient: Client {
 			return
 		}
 		do {
-			let decodedResponse = try JSONDecoder().decode(
+			let decoder = JSONDecoder()
+			decoder.dateDecodingStrategy = .iso8601
+			let decodedResponse = try decoder.decode(
 				OTPResponseProperties.self,
 				from: responseBody
 			)
 			guard let errorCode = decodedResponse.errorCode else {
-				Log.error("Failed to get errorCode because of invalid response payload structure", log: .api)
+				Log.error("Failed to get errorCode because it is nil", log: .api)
 				completion(.failure(.invalidResponseError))
 				return
 			}
@@ -970,16 +972,25 @@ private extension URLRequest {
 			$0.payload = payload
 			$0.authentication = ppacIos
 		}
+		
+		let url = configuration.otpElsAuthorizationURL
+		let body = try protoBufRequest.serializedData()
+		var request = URLRequest(url: url)
 
-		var request = URLRequest(url: configuration.otpElsAuthorizationURL)
 		request.httpMethod = HttpMethod.post
-		request.httpBody = try protoBufRequest.serializedData()
 
 		// Headers
 		request.setValue(
 			"application/x-protobuf",
 			forHTTPHeaderField: "Content-Type"
 		)
+		
+		request.setValue(
+			"0",
+			forHTTPHeaderField: "cwa-fake"
+		)
+		
+		request.httpBody = body
 		return request
 	}
 
@@ -1029,7 +1040,7 @@ private extension URLRequest {
 		payload: Data,
 		otpEls: String
 	) throws -> URLRequest {
-		let boundary = payload.hashValue.description
+		let boundary = "Boundary-\(UUID().uuidString)"
 		var request = URLRequest(url: configuration.logUploadURL)
 		request.httpMethod = HttpMethod.post
 		// create multipart body
@@ -1040,6 +1051,7 @@ private extension URLRequest {
 			otpEls,
 			forHTTPHeaderField: "cwa-otp"
 		)
+		
 		request.setValue(
 			"multipart/form-data; boundary=\(boundary)",
 			forHTTPHeaderField: "Content-Type"
@@ -1102,19 +1114,21 @@ private extension URLRequest {
 	///   - boundary: Delimiter in multipart documents; see: https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types#multipartform-data
 	/// - Throws: A `DataConversionError` if given strings cannot be decoded to UTF-8 data
 	/// - Returns: The prepared body data for the http request
-	private static func requestBodyForLogUpload(logData: Data, boundary: String) throws -> Data {
+	private static func requestBodyForLogUpload(
+		logData: Data,
+		boundary: String
+	) throws -> Data {
 		var body = Data()
 
 		// init form
 		try body.append("--\(boundary)\r\n")
-
-		try body.append("Content-Disposition: form-data; name=\"file\"; filename=\"errorlog.zip\"\r\n")
-		try body.append("Content-Type: application/zip\r\n")
+		
+		try body.append("Content-Disposition:form-data; name=\"file\"\r\n")
+		try body.append("Content-Type:application/zip\r\n")
 		try body.append("Content-Length: \(logData.count)\r\n")
 		try body.append("\r\n")
 		try body.append("\(logData)\r\n")
-
-		// finalize form
+		try body.append("\r\n")
 		try body.append("--\(boundary)--\r\n")
 
 		return body

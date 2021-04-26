@@ -252,7 +252,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	
 	private func generatePPACAndSubmitData(disableExposureWindowsProbability: Bool = false, completion: ((Result<Void, PPASError>) -> Void)? = nil) {
 		// Submit analytics data with generated ppac token
-		ppacService.getPPACToken { [weak self] result in
+		ppacService.getPPACTokenEDUS { [weak self] result in
 			switch result {
 			case let .success(token):
 				Log.info("Succesfully created new ppac token to submit analytics data.", log: .ppa)

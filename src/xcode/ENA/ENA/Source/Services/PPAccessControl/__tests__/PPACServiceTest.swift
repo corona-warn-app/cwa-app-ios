@@ -15,7 +15,7 @@ class PPACServiceTest: XCTestCase {
 		let failedExpectation = expectation(description: "getPPACToken failed")
 
 		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
-		ppacService.getPPACToken { result in
+		ppacService.getPPACTokenEDUS { result in
 			switch result {
 			case .failure(let error):
 				XCTAssertEqual(.timeIncorrect, error)
@@ -38,7 +38,7 @@ class PPACServiceTest: XCTestCase {
 
 		// WHEN
 		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
-		ppacService.getPPACToken { result in
+		ppacService.getPPACTokenEDUS { result in
 			switch result {
 			case .failure(let error):
 				XCTAssertEqual(.timeUnverified, error)
@@ -61,7 +61,7 @@ class PPACServiceTest: XCTestCase {
 
 		// WHEN
 		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
-		ppacService.getPPACToken { result in
+		ppacService.getPPACTokenEDUS { result in
 			switch result {
 			case .failure:
 				XCTFail("Failure not expected.")
@@ -83,7 +83,7 @@ class PPACServiceTest: XCTestCase {
 
 		// WHEN
 		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
-		ppacService.getPPACToken { result in
+		ppacService.getPPACTokenEDUS { result in
 			switch result {
 			case .failure(let error):
 				XCTAssertEqual(.deviceNotSupported, error)
@@ -107,7 +107,7 @@ class PPACServiceTest: XCTestCase {
 
 		// WHEN
 		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
-		ppacService.getPPACToken({ result in
+		ppacService.getPPACTokenEDUS({ result in
 			switch result {
 			case let .success(ppaToken):
 				ppacExpectation.fulfill()

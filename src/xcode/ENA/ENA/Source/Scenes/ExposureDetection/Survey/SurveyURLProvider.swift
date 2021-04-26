@@ -90,7 +90,7 @@ final class SurveyURLProvider: SurveyURLProviding {
 	private func getPPACToken(completion: @escaping (Result<URL, SurveyError>) -> Void) {
 		Log.info("Request PPAC token.", log: .survey)
 
-		ppacService.getPPACToken { [weak self] result in
+		ppacService.getPPACTokenEDUS { [weak self] result in
 			switch result {
 			case .success(let ppacToken):
 				Log.info("Successfully created PPAC token.", log: .survey)

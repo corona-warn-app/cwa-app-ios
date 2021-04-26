@@ -191,7 +191,7 @@ extension HTTPClient {
 					"version",
 					apiVersion,
 					"ios",
-					"log"
+					"els"
 			)
 		}
 

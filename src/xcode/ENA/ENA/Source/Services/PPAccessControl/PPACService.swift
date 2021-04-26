@@ -5,7 +5,7 @@
 import Foundation
 
 protocol PrivacyPreservingAccessControl {
-	func getPPACToken(_ completion: @escaping (Result<PPACToken, PPACError>) -> Void)
+	func getPPACTokenEDUS(_ completion: @escaping (Result<PPACToken, PPACError>) -> Void)
 	func getPPACTokenELS(_ completion: @escaping (Result<PPACToken, PPACError>) -> Void)
 	#if !RELEASE
 	func generateNewAPIToken() -> TimestampedToken
@@ -26,7 +26,7 @@ class PPACService: PrivacyPreservingAccessControl {
 
 	// MARK: - Protocol PrivacyPreservingAccessControl
 
-	func getPPACToken(_ completion: @escaping (Result<PPACToken, PPACError>) -> Void) {
+	func getPPACTokenEDUS(_ completion: @escaping (Result<PPACToken, PPACError>) -> Void) {
 
 		// check if time isn't incorrect
 		if store.deviceTimeCheckResult == .incorrect {
@@ -53,6 +53,7 @@ class PPACService: PrivacyPreservingAccessControl {
 	}
 	
 	func getPPACTokenELS(_ completion: @escaping (Result<PPACToken, PPACError>) -> Void) {
+		// no devide time checks for ELS
 		deviceCheck.deviceToken(apiTokenELS.token, completion: completion)
 	}
 

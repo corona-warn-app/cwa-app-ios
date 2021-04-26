@@ -72,7 +72,8 @@ final class OTPService: OTPServiceProviding {
 			completion(.failure(OTPError.otpAlreadyUsedThisMonth)) // Fehler
 			return
 		}
-
+		
+		Log.info("NO existing OTP EDUS was found. Generating new one.", log: .otp)
 		let otp = generateOTPToken()
 		authorizeEdus(otp, with: ppacToken, completion: completion)
 	}
@@ -83,7 +84,7 @@ final class OTPService: OTPServiceProviding {
 			completion(.success(otpToken.token))
 			return
 		}
-
+		Log.info("NO existing OTP ELS was found. Generating new one.", log: .otp)
 		let otp = generateOTPToken()
 		authorizeEls(otp, with: ppacToken, completion: completion)
 	}
