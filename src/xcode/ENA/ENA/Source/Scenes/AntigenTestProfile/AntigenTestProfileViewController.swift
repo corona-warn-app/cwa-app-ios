@@ -130,7 +130,7 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 		parent?.navigationController?.navigationBar.tintColor = .white
 
 		parent?.navigationItem.titleView = logoImageView
-		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
+		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton(.contrast)
 
 		// remove previous view controllers from the stack, back button will
 		navigationController?.viewControllers = [navigationController?.viewControllers.first, navigationController?.viewControllers.last].compactMap { $0 }

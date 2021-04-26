@@ -14,7 +14,10 @@ protocol DismissHandling {
 
 	/// default close button to respect the dismissHandling protocol
 	var dismissHandlingCloseBarButton: UIBarButtonItem { get }
+	/// close button to respect display mode and dismissHandling protocol
+	func dismissHandlingCloseBarButton(_ mode: CloseBarButtonItem.Mode) -> UIBarButtonItem
 }
+
 
 extension DismissHandling {
 
@@ -23,12 +26,19 @@ extension DismissHandling {
 
 	/// default implementation of dismissHandlingCloseButton
 	var dismissHandlingCloseBarButton: UIBarButtonItem {
+		dismissHandlingCloseBarButton(.normal)
+	}
+
+	/// default implementation of dismissHandling CloseButton with display mode
+	func dismissHandlingCloseBarButton(_ mode: CloseBarButtonItem.Mode) -> UIBarButtonItem {
 		CloseBarButtonItem(
+			mode: mode,
 			onTap: {
 				self.wasAttemptedToBeDismissed()
 			}
 		)
 	}
+
 }
 
 final class ExposureSubmissionNavigationController: ENANavigationControllerWithFooter {
