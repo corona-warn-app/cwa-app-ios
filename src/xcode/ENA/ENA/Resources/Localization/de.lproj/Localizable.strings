@@ -2355,9 +2355,9 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "Checkin_Details_SaveSwitch" = "Umschalttaste";
 
-"Checkin_Details_SaveSwitch_On" = "ein";
+"Checkin_Details_SaveSwitch_On" = "Ein";
 
-"Checkin_Details_SaveSwitch_Off" = "aus";
+"Checkin_Details_SaveSwitch_Off" = "Aus";
 
 "Checkin_Details_AutomaticCheckout" = "Automatisch auschecken nach";
 
