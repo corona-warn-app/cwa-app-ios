@@ -37,10 +37,21 @@ class ExposureSubmissionImageCardCell: UITableViewCell {
 
 	// MARK: - Internal
 
-	func configure(title: String, description: String, attributedDescription: NSAttributedString? = nil, image: UIImage?, accessibilityIdentifier: String?) {
+	func configure(
+		title: String,
+		description: String,
+		attributedDescription: NSAttributedString? = nil,
+		image: UIImage?,
+		backgroundView bgView: UIView? = nil,
+		accessibilityIdentifier: String?
+	) {
 		titleLabel.text = title
 		descriptionLabel.text = description
 		illustrationView?.image = image
+
+		if let bgView = bgView {
+			addBackgroundView(bgView)
+		}
 
 		if let attributedDescription = attributedDescription {
 			let attributedText = NSMutableAttributedString(attributedString: attributedDescription)
@@ -57,6 +68,7 @@ class ExposureSubmissionImageCardCell: UITableViewCell {
 	@IBOutlet private var titleLabel: ENALabel!
 	@IBOutlet private var descriptionLabel: ENALabel!
 	@IBOutlet private var illustrationView: UIImageView!
+	@IBOutlet private var cardBackgroundContainer: UIView!
 
 	private var highlightView: UIView!
 
@@ -88,4 +100,16 @@ class ExposureSubmissionImageCardCell: UITableViewCell {
 		}
 	}
 
+	private func addBackgroundView(_ bgView: UIView) {
+		cardBackgroundContainer.subviews.forEach { $0.removeFromSuperview() }
+		cardBackgroundContainer.addSubview(bgView)
+
+		bgView.translatesAutoresizingMaskIntoConstraints = false
+		NSLayoutConstraint.activate([
+			bgView.leadingAnchor.constraint(equalTo: cardBackgroundContainer.leadingAnchor),
+			bgView.topAnchor.constraint(equalTo: cardBackgroundContainer.topAnchor),
+			bgView.trailingAnchor.constraint(equalTo: cardBackgroundContainer.trailingAnchor),
+			bgView.bottomAnchor.constraint(equalTo: cardBackgroundContainer.bottomAnchor)
+		])
+	}
 }
