@@ -17,7 +17,8 @@ struct SimpleTextCellViewModel {
 		attributedText: NSAttributedString? = nil,
 		topSpace: CGFloat,
 		font: UIFont,
-		boarderColor: UIColor = .clear
+		boarderColor: UIColor = .clear,
+		accessibilityTraits: UIAccessibilityTraits = .none
 	) {
 		self.backgroundColor = backgroundColor
 		self.textColor = textColor
@@ -27,6 +28,7 @@ struct SimpleTextCellViewModel {
 		self.topSpace = topSpace
 		self.font = font
 		self.boarderColor = boarderColor
+		self.accessibilityTraits = accessibilityTraits
 	}
 
 	// MARK: - Internal
@@ -39,5 +41,6 @@ struct SimpleTextCellViewModel {
 	let topSpace: CGFloat
 	let font: UIFont
 	let boarderColor: UIColor
+	let accessibilityTraits: UIAccessibilityTraits
 
 }

@@ -11,6 +11,8 @@ class SimpleTextCell: UITableViewCell, ReuseIdentifierProviding {
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		setupView()
+		isAccessibilityElement = false
+		contentTextLabel.isAccessibilityElement = true
 	}
 
 	@available(*, unavailable)
@@ -22,6 +24,7 @@ class SimpleTextCell: UITableViewCell, ReuseIdentifierProviding {
 
 	func configure(with cellViewModel: SimpleTextCellViewModel) {
 		backgroundContainerView.backgroundColor = cellViewModel.backgroundColor ?? .clear
+		contentTextLabel.accessibilityTraits = cellViewModel.accessibilityTraits
 		if cellViewModel.attributedText != nil {
 			contentTextLabel.attributedText = cellViewModel.attributedText
 		} else {

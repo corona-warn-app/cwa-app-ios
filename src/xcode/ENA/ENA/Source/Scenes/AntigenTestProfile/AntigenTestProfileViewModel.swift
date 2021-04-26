@@ -29,7 +29,8 @@ struct AntigenTestProfileViewModel {
 			textAlignment: .center,
 			text: AppStrings.ExposureSubmission.AntigenTest.Profile.headerText,
 			topSpace: 42.0,
-			font: .enaFont(for: .headline)
+			font: .enaFont(for: .headline),
+			accessibilityTraits: .header
 		)
 	}()
 
@@ -41,7 +42,8 @@ struct AntigenTestProfileViewModel {
 			text: AppStrings.ExposureSubmission.AntigenTest.Profile.noticeText,
 			topSpace: 18.0,
 			font: .enaFont(for: .subheadline),
-			boarderColor: .enaColor(for: .hairline)
+			boarderColor: .enaColor(for: .hairline),
+			accessibilityTraits: .staticText
 		)
 	}()
 
@@ -84,7 +86,8 @@ struct AntigenTestProfileViewModel {
 			attributedText: [attributedName, attributedDetails].joined(with: "\n"),
 			topSpace: 18.0,
 			font: .enaFont(for: .headline),
-			boarderColor: .enaColor(for: .hairline)
+			boarderColor: .enaColor(for: .hairline),
+			accessibilityTraits: .staticText
 		)
 	}
 
