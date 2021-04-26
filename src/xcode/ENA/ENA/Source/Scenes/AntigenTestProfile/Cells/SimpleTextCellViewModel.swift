@@ -40,6 +40,4 @@ struct SimpleTextCellViewModel {
 	let font: UIFont
 	let boarderColor: UIColor
 
-	// MARK: - Private
-
 }

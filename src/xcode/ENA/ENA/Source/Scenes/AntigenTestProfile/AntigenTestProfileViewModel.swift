@@ -9,6 +9,7 @@ import Contacts
 struct AntigenTestProfileViewModel {
 
 	// MARK: - Init
+	
 	init(
 		store: AntigenTestProfileStoring
 	) {
@@ -18,12 +19,6 @@ struct AntigenTestProfileViewModel {
 		self.store = store
 		self.antigenTestProfile = antigenTestProfile
 	}
-
-	// MARK: - Overrides
-
-	// MARK: - Protocol <#Name#>
-
-	// MARK: - Public
 
 	// MARK: - Internal
 

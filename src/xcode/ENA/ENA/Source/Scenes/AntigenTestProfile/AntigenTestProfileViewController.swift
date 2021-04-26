@@ -99,10 +99,6 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 		}
 	}
 
-	// MARK: - Public
-
-	// MARK: - Internal
-
 	// MARK: - Private
 	
 	private let viewModel: AntigenTestProfileViewModel
@@ -132,7 +128,7 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 		parent?.navigationItem.titleView = logoImageView
 		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton(.contrast)
 
-		// remove previous view controllers from the stack, back button will
+		// remove previous view controllers from the stack, we will return to the rootViewController by back button here
 		navigationController?.viewControllers = [navigationController?.viewControllers.first, navigationController?.viewControllers.last].compactMap { $0 }
 
 		// keep old images for restoration
@@ -176,6 +172,7 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 			]
 		)
 
+		// observer tableView scrolling to move the background in sync
 		tableContentObserver = tableView.observe(\UITableView.contentOffset, options: .new) { [weak self] _, change in
 			guard let self = self,
 				  let yOffset = change.newValue?.y else {

@@ -18,8 +18,6 @@ class SimpleTextCell: UITableViewCell, ReuseIdentifierProviding {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	// MARK: - Public
-
 	// MARK: - Internal
 
 	func configure(with cellViewModel: SimpleTextCellViewModel) {
@@ -76,7 +74,5 @@ class SimpleTextCell: UITableViewCell, ReuseIdentifierProviding {
 				contentTextLabel.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor, constant: -14.0)
 			]
 		)
-
 	}
-
 }

@@ -24,6 +24,7 @@ struct QRCodeCellViewModel {
 	let backgroundColor: UIColor
 	let boarderColor: UIColor
 
+	// QRCode image with vCard data inside - will create an empty image if data is broken
 	var qrCodeImage: UIImage {
 		guard let vCardString = String(data: vCardData, encoding: .utf8),
 			  let QRCodeImage = UIImage.qrCode(
@@ -39,6 +40,7 @@ struct QRCodeCellViewModel {
 		return QRCodeImage
 	}
 
+	// create vCard data, CNContactVCardSerialization creates a version 3.0 output
 	var vCardData: Data {
 		let contact = CNMutableContact()
 		contact.contactType = .person
