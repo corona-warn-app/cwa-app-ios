@@ -7,9 +7,9 @@ import XCTest
 
 class OTPServiceTests: XCTestCase {
 
-	// MARK: - getValidOTP
+	// MARK: - getValidOTPEdus
 
-	func testGIVEN_OTPService_WHEN_NoOtpIsStored_THEN_SuccessAndOtpIsGeneratedAndReturned() {
+	func testGIVEN_OTPService_WHEN_NoOtpEdusIsStored_THEN_SuccessAndOtpEdusIsGeneratedAndReturned() {
 		// GIVEN
 		let store = MockTestStore()
 		let client = ClientMock()
@@ -39,7 +39,7 @@ class OTPServiceTests: XCTestCase {
 		XCTAssertEqual(expectedOtp, store.otpTokenEdus?.token)
 	}
 
-	func testGIVEN_OTPService_WHEN_OldButValidOtpIsStored_THEN_SuccessAndStoredOtpIsReturned() throws {
+	func testGIVEN_OTPService_WHEN_ExistingButValidOtpEdusIsStored_THEN_SuccessAndStoredOtpEdusIsReturned() throws {
 		// GIVEN
 		let store = MockTestStore()
 		let client = ClientMock()
@@ -75,7 +75,7 @@ class OTPServiceTests: XCTestCase {
 		XCTAssertEqual(oldToken.token, store.otpTokenEdus?.token)
 	}
 
-	func testGIVEN_OTPService_WHEN_OtpIsNotAvailable_AND_AuthorizedLastMonth_THEN_NewOTPIsReturned() throws {
+	func testGIVEN_OTPService_WHEN_OtpEdusIsNotAvailable_AND_AuthorizedLastMonth_THEN_NewOTPEdusIsReturned() throws {
 		let store = MockTestStore()
 		let client = ClientMock()
 		let riskProvider = MockRiskProvider()
@@ -102,7 +102,7 @@ class OTPServiceTests: XCTestCase {
 		XCTAssertNotNil(store.otpTokenEdus)
 	}
 
-	func testGIVEN_OTPService_WHEN_OtpIsNotAvailable_AND_AuthorizedThisMonth_THEN_ErrorIsReturned() throws {
+	func testGIVEN_OTPService_WHEN_OtpEdusIsNotAvailable_AND_AuthorizedThisMonth_THEN_ErrorIsReturned() throws {
 		let store = MockTestStore()
 		let client = ClientMock()
 		let riskProvider = MockRiskProvider()
@@ -127,9 +127,9 @@ class OTPServiceTests: XCTestCase {
 		XCTAssertNil(store.otpTokenEdus)
 	}
 
-	// MARK: - discardOTP
+	// MARK: - discardOTPEdus
 
-	func testGIVEN_StoredOtp_WHEN_RiskChangesToLow_THEN_OtpIsDiscarded() {
+	func testGIVEN_StoredOtp_WHEN_RiskChangesToLow_THEN_OtpEdusIsDiscarded() {
 		// GIVEN
 		let store = MockTestStore()
 		let client = ClientMock()
@@ -155,7 +155,7 @@ class OTPServiceTests: XCTestCase {
 		XCTAssertFalse(otpService.isOTPEdusAvailable)
 	}
 
-	func testGIVEN_StoredOtp_WHEN_OtpIsDiscarded_THEN_OtpIsNil() {
+	func testGIVEN_StoredOtp_WHEN_OtpEdusIsDiscarded_THEN_OtpEdusIsNil() {
 		// GIVEN
 		let store = MockTestStore()
 		let client = ClientMock()
@@ -188,7 +188,7 @@ class OTPServiceTests: XCTestCase {
 		XCTAssertNil(store.otpTokenEdus)
 	}
 
-	func testGIVEN_NoStoredOtp_WHEN_OtpIsDiscarded_THEN_OtpIsStillNil() {
+	func testGIVEN_NoStoredOtp_WHEN_OtpEdusIsDiscarded_THEN_OtpEdusIsStillNil() {
 		// GIVEN
 		let store = MockTestStore()
 		let client = ClientMock()
@@ -203,9 +203,9 @@ class OTPServiceTests: XCTestCase {
 		XCTAssertNil(store.otpTokenEdus)
 	}
 
-	// MARK: - isOTPAvailable
+	// MARK: - isOTPEdusAvailable
 
-	func testGIVEN_StoredAndAuthorizedOTP_WHEN_isOTPAvailable_THEN_TrueIsReturned() {
+	func testGIVEN_StoredAndAuthorizedOTPEdus_WHEN_isOTPEdusAvailable_THEN_TrueIsReturned() {
 		// GIVEN
 		let store = MockTestStore()
 		let client = ClientMock()
@@ -236,7 +236,7 @@ class OTPServiceTests: XCTestCase {
 		XCTAssertTrue(otpService.isOTPEdusAvailable)
 	}
 
-	func testGIVEN_StoredButNotAuthorizedOTP_WHEN_isStoredOTPAuthorized_THEN_FalseIsReturned() throws {
+	func testGIVEN_StoredButNotAuthorizedOTPEdus_WHEN_isStoredOTPEdusAuthorized_THEN_FalseIsReturned() throws {
 		// GIVEN
 		let store = MockTestStore()
 		let client = ClientMock()
@@ -250,5 +250,152 @@ class OTPServiceTests: XCTestCase {
 		XCTAssertFalse(isAuthorized)
 	}
 	
-	// TODO Add Tests for the OTPEls stuff. Like that NO checks are done to api token usage in same month.
+	// MARK: - getValidOTPEdus
+	
+	func testGIVEN_OTPService_WHEN_NoOtpElsIsStored_THEN_SuccessAndOtpElsIsGeneratedAndReturned() {
+		// GIVEN
+		let store = MockTestStore()
+		let client = ClientMock()
+		let riskProvider = MockRiskProvider()
+		let otpService = OTPService(store: store, client: client, riskProvider: riskProvider)
+		let ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
+
+		let expectation = self.expectation(description: "completion handler is called without an error")
+		var expectedOtp: String?
+
+		// WHEN
+		otpService.getOTPEls(ppacToken: ppacToken, completion: { result in
+			switch result {
+			case .success(let otp):
+				expectedOtp = otp
+				expectation.fulfill()
+			case .failure:
+				XCTFail("Test should not fail")
+			}
+		})
+
+		// THEN
+		waitForExpectations(timeout: .short)
+
+		XCTAssertNotNil(expectedOtp)
+		XCTAssertNotNil(store.otpTokenEls)
+		XCTAssertEqual(expectedOtp, store.otpTokenEls?.token)
+	}
+
+	func testGIVEN_OTPService_WHEN_OldButValidOtpElsIsStored_THEN_SuccessAndStoredOtpElsIsReturned() throws {
+		// GIVEN
+		let store = MockTestStore()
+		let client = ClientMock()
+		let riskProvider = MockRiskProvider()
+		let otpService = OTPService(store: store, client: client, riskProvider: riskProvider)
+		let ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
+
+		let expectation = self.expectation(description: "completion handler is called without an error")
+		let oldToken = OTPToken(token: "otpTokenFake", timestamp: Date(), expirationDate: Date())
+		store.otpTokenEls = oldToken
+		var expectedOtp: String?
+
+		// WHEN
+		otpService.getOTPEls(ppacToken: ppacToken, completion: { result in
+			switch result {
+			case .success(let otp):
+				expectedOtp = otp
+				expectation.fulfill()
+			case .failure:
+				XCTFail("Test should not fail")
+			}
+		})
+
+		// THEN
+		waitForExpectations(timeout: .short)
+
+		let responseOtp = try XCTUnwrap(expectedOtp)
+		XCTAssertNotNil(store.otpTokenEls)
+		XCTAssertEqual(responseOtp, store.otpTokenEls?.token)
+		XCTAssertEqual(responseOtp, oldToken.token)
+		XCTAssertEqual(oldToken.token, store.otpTokenEls?.token)
+	}
+
+	func testGIVEN_OTPService_WHEN_AuthorizedThisMonth_THEN_SameOTPElsIsReturned() throws {
+		let store = MockTestStore()
+		let client = ClientMock()
+		let riskProvider = MockRiskProvider()
+		let otpService = OTPService(store: store, client: client, riskProvider: riskProvider)
+		let ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
+
+		let expectation = self.expectation(description: "completion handler is called without an error")
+
+		let existingToken = OTPToken(token: "otpTokenFake", timestamp: Date(), expirationDate: nil)
+		store.otpTokenEls = existingToken
+		
+		let currentMonth = Calendar.current.component(.month, from: Date())
+		let currentMonthDate = Calendar.current.date(from: DateComponents(calendar: Calendar.current, month: currentMonth))
+		store.otpElsAuthorizationDate = currentMonthDate
+		
+		var expectedOtp: String?
+		
+		// WHEN
+		otpService.getOTPEls(ppacToken: ppacToken, completion: { result in
+			switch result {
+			case .success(let otp):
+				expectedOtp = otp
+				expectation.fulfill()
+			case .failure:
+				XCTFail("Test should not fail")
+			}
+		})
+
+		waitForExpectations(timeout: .short)
+		XCTAssertEqual(store.otpTokenEls?.token, expectedOtp)
+	}
+	
+	// MARK: - discardOTPEls
+	
+	func testGIVEN_StoredOtp_WHEN_OtpElsIsDiscarded_THEN_OtpElsIsNil() {
+		// GIVEN
+		let store = MockTestStore()
+		let client = ClientMock()
+		let riskProvider = MockRiskProvider()
+		let otpService = OTPService(store: store, client: client, riskProvider: riskProvider)
+		let ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
+
+		let expectation = self.expectation(description: "completion handler is called without an error")
+		var expectedOtp: String?
+
+		otpService.getOTPEls(ppacToken: ppacToken, completion: { result in
+			switch result {
+			case .success(let otp):
+				expectedOtp = otp
+				expectation.fulfill()
+			case .failure:
+				XCTFail("Test should not fail")
+			}
+		})
+
+		waitForExpectations(timeout: .short)
+		XCTAssertNotNil(expectedOtp)
+		XCTAssertNotNil(store.otpTokenEls)
+		XCTAssertEqual(expectedOtp, store.otpTokenEls?.token)
+
+		// WHEN
+		otpService.discardOTPEls()
+
+		// THEN
+		XCTAssertNil(store.otpTokenEls)
+	}
+
+	func testGIVEN_NoStoredOtp_WHEN_OtpElsIsDiscarded_THEN_OtpElsIsStillNil() {
+		// GIVEN
+		let store = MockTestStore()
+		let client = ClientMock()
+		let riskProvider = MockRiskProvider()
+		let otpService = OTPService(store: store, client: client, riskProvider: riskProvider)
+		XCTAssertNil(store.otpTokenEls)
+
+		// WHEN
+		otpService.discardOTPEls()
+
+		// THEN
+		XCTAssertNil(store.otpTokenEls)
+	}
 }

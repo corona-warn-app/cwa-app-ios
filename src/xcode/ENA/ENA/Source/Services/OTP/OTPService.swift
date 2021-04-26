@@ -104,6 +104,14 @@ final class OTPService: OTPServiceProviding {
 	private let store: Store
 	private let client: Client
 	private let riskConsumer: RiskConsumer
+	
+	private var isAuthorizedInCurrentMonth: Bool {
+		guard let authorizationDate = store.otpEdusAuthorizationDate else {
+			return false
+		}
+		return authorizationDate.isEqual(to: Date(), toGranularity: .month) &&
+			authorizationDate.isEqual(to: Date(), toGranularity: .year)
+	}
 
 	private func generateOTPToken() -> String {
 		return UUID().uuidString
@@ -177,13 +185,5 @@ final class OTPService: OTPServiceProviding {
 				completion(.failure(error))
 			}
 		})
-	}
-
-	var isAuthorizedInCurrentMonth: Bool {
-		guard let authorizationDate = store.otpEdusAuthorizationDate else {
-			return false
-		}
-		return authorizationDate.isEqual(to: Date(), toGranularity: .month) &&
-			authorizationDate.isEqual(to: Date(), toGranularity: .year)
 	}
 }
