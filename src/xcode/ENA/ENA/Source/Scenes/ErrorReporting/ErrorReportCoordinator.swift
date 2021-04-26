@@ -134,22 +134,20 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating, RequiresAppDepend
 		let bottomViewController = FooterViewController(
 			footerViewModel,
 			didTapPrimaryButton: {
+				// can't disable buttons while this is running
 				self.elsService.submit { result in
 					switch result {
 					case .success(let response):
-						debugPrint(response)
-						// IDs, etc.
+						Log.info("ELS log submitted successfully", log: .els)
+						self.rootViewController.navigationController?.popViewController(animated: true)
+						self.topViewControllerViewModel?.updateViewModel(isHistorySectionIncluded: true)
 					case .failure(let error):
-						Log.error("ELS submission error: \(error)", log: .api, error: error)
-						// ...
+						Log.error("ELS submission error: \(error)", log: .els, error: error)
+						self.showErrorAlert(with: error)
 					}
-
-					// TODO: handle this properly!
-					self.rootViewController.navigationController?.popViewController(animated: true)
-					self.topViewControllerViewModel?.updateViewModel(isHistorySectionIncluded: true)
 				}
 			},
-			didTapSecondaryButton: { }
+			didTapSecondaryButton: { /* no op */ }
 		)
 		let topViewController = SendErrorLogsViewController(
 			model: SendErrorLogsViewModel(
@@ -170,5 +168,17 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating, RequiresAppDepend
 		let htmlViewController = HTMLViewController(model: AppInformationModel.privacyModel)
 		htmlViewController.title = AppStrings.AppInformation.privacyNavigation
 		rootViewController.navigationController?.pushViewController(htmlViewController, animated: true)
+	}
+
+	private func showErrorAlert(with error: Error) {
+		// Nothing fancy here
+		let alert = UIAlertController(title: AppStrings.Common.alertTitleGeneral, message: error.localizedDescription, preferredStyle: .alert)
+		let okAction = UIAlertAction(title: AppStrings.Common.alertActionOk, style: .default, handler: { _ in
+			alert.dismiss(animated: true, completion: nil)
+		})
+		alert.addAction(okAction)
+		DispatchQueue.main.async {
+			self.rootViewController.present(alert, animated: true, completion: nil)
+		}
 	}
 }
