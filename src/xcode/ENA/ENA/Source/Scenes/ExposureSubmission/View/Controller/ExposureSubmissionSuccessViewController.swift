@@ -86,10 +86,14 @@ class ExposureSubmissionSuccessViewController: DynamicTableViewController, ENANa
 		tableView.register(ExposureSubmissionStepCell.self, forCellReuseIdentifier: CustomCellReuseIdentifiers.stepCell.rawValue)
 
 		var cells: [DynamicCell] = [
-			.body(text: AppStrings.ExposureSubmissionSuccess.description,
-				  accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionSuccess.description),
-			.title2(text: AppStrings.ExposureSubmissionSuccess.listTitle,
-					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionSuccess.listTitle)
+			.body(
+				text: AppStrings.ExposureSubmissionSuccess.description,
+				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionSuccess.description
+			),
+			.title2(
+				text: AppStrings.ExposureSubmissionSuccess.listTitle,
+				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionSuccess.listTitle
+			)
 		]
 
 		if coronaTestType == .antigen {

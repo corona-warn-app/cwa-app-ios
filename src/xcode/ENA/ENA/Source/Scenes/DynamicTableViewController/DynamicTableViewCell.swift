@@ -147,13 +147,15 @@ extension DynamicCell {
 		action: DynamicAction = .none,
 		configure: CellConfigurator? = nil
 	) -> Self {
-		.bulletPoint(attributedText: NSAttributedString(string: text),
-					 spacing: spacing,
-					 alignment: alignment,
-					 accessibilityIdentifier: accessibilityIdentifier,
-					 accessibilityTraits: accessibilityTraits,
-					 action: action,
-					 configure: configure)
+		.bulletPoint(
+			attributedText: NSAttributedString(string: text),
+			spacing: spacing,
+			alignment: alignment,
+			accessibilityIdentifier: accessibilityIdentifier,
+			accessibilityTraits: accessibilityTraits,
+			action: action,
+			configure: configure
+		)
 	}
 
 	static func bulletPoint(
