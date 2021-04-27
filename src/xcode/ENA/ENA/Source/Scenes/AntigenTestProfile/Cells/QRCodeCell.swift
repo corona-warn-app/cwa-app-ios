@@ -60,13 +60,12 @@ class QRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 				backgroundContainerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8.0),
 				backgroundContainerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 30.0),
 				backgroundContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -30.0),
+				backgroundContainerView.heightAnchor.constraint(equalTo: backgroundContainerView.widthAnchor),
 
-				qrCodeImageView.topAnchor.constraint(greaterThanOrEqualTo: backgroundContainerView.topAnchor, constant: 16.0),
-				qrCodeImageView.bottomAnchor.constraint(greaterThanOrEqualTo: backgroundContainerView.bottomAnchor, constant: -16.0),
-				qrCodeImageView.heightAnchor.constraint(equalToConstant: 280.0),
-				qrCodeImageView.widthAnchor.constraint(equalToConstant: 280.0),
-				qrCodeImageView.centerYAnchor.constraint(equalTo: backgroundContainerView.centerYAnchor),
-				qrCodeImageView.centerXAnchor.constraint(equalTo: backgroundContainerView.centerXAnchor)
+				qrCodeImageView.topAnchor.constraint(equalTo: backgroundContainerView.topAnchor, constant: 16.0),
+				qrCodeImageView.bottomAnchor.constraint(equalTo: backgroundContainerView.bottomAnchor, constant: -16.0),
+				qrCodeImageView.leadingAnchor.constraint(equalTo: backgroundContainerView.leadingAnchor, constant: 16.0),
+				qrCodeImageView.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor, constant: -16.0)
 			]
 		)
 
