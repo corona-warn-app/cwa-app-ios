@@ -107,7 +107,7 @@
 
 "ExposureDetection_Guide_Hotline3" = "Serviciul general de urgență la numărul de telefon 116117";
 
-"ExposureDetection_Guide_Hotline4" = "Direcția de sănătate publică relevantă";
+"ExposureDetection_Guide_Hotline4" = "Autoritatea de sănătate publică relevantă";
 
 /* Placeholder points to `ExposureDetection_LinkText` */
 "ExposureDetection_Guide_FAQ" = "Dacă vă testați, veți găsi mai multe informații despre procedura de testare în %@.";
@@ -614,7 +614,9 @@
 
 "ExposureSubmissionSuccess_listTitle" = "Rețineți:";
 
-"ExposureSubmissionSuccess_listItem1" = "Autoritatea de sănătate publică vă va contacta în următoarele zile.";
+"ExposureSubmissionSuccess_listItem0" = "Efectuați un test PCR pentru a verifica rezultatul acestui test. ";
+
+"ExposureSubmissionSuccess_listItem1" = "Autoritatea de sănătate publică vă va contacta în următoarele zile telefonic sau în scris.";
 
 "ExposureSubmissionSuccess_listItem2" = "Sunteți infectat. Izolați-vă de alte persoane.";
 
@@ -823,7 +825,7 @@
 /* Exposure Submission Result */
 "ExposureSubmissionResult_RemoveAlert_Title" = "Testul poate fi scanat o singură dată.";
 
-"ExposureSubmissionResult_RemoveAlert_Text" = "Dacă eliminați testul, nu veți mai putea afla rezultatul testului. Veți primi rezultatul testului dvs. de la centrul sau laboratorul de testare, indiferent de valabilitatea codului QR. Dacă sunteți diagnosticat cu coronavirus, direcția de sănătate publică va fi notificată prin canalul de comunicare prevăzut în mod legal și vă va contacta.";
+"ExposureSubmissionResult_RemoveAlert_Text" = "Dacă eliminați testul, nu veți mai putea afla rezultatul testului. Veți primi rezultatul testului dvs. de la centrul sau laboratorul de testare, indiferent de valabilitatea codului QR. Dacă sunteți diagnosticat cu coronavirus, autoritatea de sănătate publică va fi notificată prin canalul de comunicare prevăzut în mod legal și vă va contacta.";
 
 "ExposureSubmissionResult_RegistrationDateUnknown" = "Data înregistrării este necunoscută";
 
@@ -1150,7 +1152,7 @@
 
 "Home_Finding_Positive_Card_Verify_Item_Title" = "Efectuați un test PCR pentru a verifica rezultatul acestui test.";
 
-"Home_Finding_Positive_Card_Phone_Item_Title" = "Direcția de sănătate publică vă va contacta în următoarele zile telefonic sau în scris.";
+"Home_Finding_Positive_Card_Phone_Item_Title" = "Autoritatea de sănătate publică vă va contacta în următoarele zile telefonic sau în scris.";
 
 "Home_Finding_Positive_Card_Home_Item_Title" = "Sunteți infectat. Izolați-vă de alte persoane.";
 
@@ -1520,7 +1522,7 @@
 
 "TestResultPositive_NoConsent_Info2" = "Identitatea dvs. va rămâne secretă. Alți utilizatori nu vor afla cine a partajat rezultatul testului.";
 
-"TestResultPositive_NoConsent_Info3" = "Asigurați-vă că urmați instrucțiunile direcției dvs. de sănătate publică și că stați acasă, pentru a nu-i infecta pe ceilalți.";
+"TestResultPositive_NoConsent_Info3" = "Asigurați-vă că urmați instrucțiunile autorității dvs. de sănătate publică și că stați acasă, pentru a nu-i infecta pe ceilalți.";
 
 "TestResultPositive_NoConsent_PrimaryButton" = "Avertizați-i pe ceilalți";
 
@@ -1550,7 +1552,7 @@
 
 "TestResultPositive_KeysSubmitted_Info1" = "Efectuați un test PCR pentru a verifica rezultatul acestui test.";
 
-"TestResultPositive_KeysSubmitted_Info2" = "Direcția de sănătate publică vă va contacta în următoarele zile telefonic sau în scris.";
+"TestResultPositive_KeysSubmitted_Info2" = "Autoritatea de sănătate publică vă va contacta în următoarele zile telefonic sau în scris.";
 
 "TestResultPositive_KeysSubmitted_Info3" = "Există o probabilitate mare să fiți contagios. Izolați-vă de alte persoane.";
 
@@ -2288,7 +2290,7 @@
 "Checkin_Details_CheckIn_Button" = "Check-in";
 
 /* Submission Check-in */
-"Submission_Checkins_Title" = "Partajați check-inurile?";
+"Submission_Checkins_Title" = "Partajați check-inurile locației?";
 
 "Submission_Checkins_Description" = "Avertizați-i pe ceilalți care au făcut check-in în aproprierea dvs. Datele dvs. personale nu vor fi partajate.";
 
