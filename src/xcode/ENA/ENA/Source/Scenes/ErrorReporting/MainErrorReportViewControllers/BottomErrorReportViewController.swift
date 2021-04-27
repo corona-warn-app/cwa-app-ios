@@ -50,9 +50,6 @@ class BottomErrorReportViewController: UIViewController {
 		stopAndDeleteButton.setTitle(AppStrings.ErrorReport.stopAndDeleteButtonTitle, for: .normal)
 		stopAndDeleteButton.accessibilityIdentifier = AccessibilityIdentifiers.ErrorReport.stopAndDeleteButton
 
-		let status: ErrorLoggingStatus = ErrorLogSubmissionService.errorLoggingEnabled ? .active : .inactive
-		configure(status: status, animated: false)
-
 		elsService
 			.logFileSizePublisher
 			.sink { result in
@@ -66,6 +63,14 @@ class BottomErrorReportViewController: UIViewController {
 				self.updateProgress(progressInBytes: size)
 			}
 			.store(in: &subscriptions)
+	}
+
+	override func viewWillAppear(_ animated: Bool) {
+		// Keep this update call in `viewWillAppear` to prevent ui glitches on launch.
+		// This is caused by some race conditions in the top/bottom container.
+		let status: ErrorLoggingStatus = ErrorLogSubmissionService.errorLoggingEnabled ? .active : .inactive
+		configure(status: status, animated: false)
+		super.viewWillAppear(animated)
 	}
 
 	// MARK: - Internal
