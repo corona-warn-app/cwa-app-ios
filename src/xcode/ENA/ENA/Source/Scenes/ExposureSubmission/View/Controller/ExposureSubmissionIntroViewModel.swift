@@ -14,12 +14,14 @@ class ExposureSubmissionIntroViewModel {
 		onQRCodeButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
 		onTANButtonTap: @escaping () -> Void,
 		onHotlineButtonTap: @escaping () -> Void,
-		onRapidTestProfileTap: @escaping () -> Void
+		onRapidTestProfileTap: @escaping () -> Void,
+		antigenTestProfileStore: AntigenTestProfileStoring
 	) {
 		self.onQRCodeButtonTap = onQRCodeButtonTap
 		self.onTANButtonTap = onTANButtonTap
 		self.onHotlineButtonTap = onHotlineButtonTap
 		self.onRapidTestProfileTap = onRapidTestProfileTap
+		self.antigenTestProfileStore = antigenTestProfileStore
 	}
 	
 	// MARK: - Internal
@@ -28,10 +30,37 @@ class ExposureSubmissionIntroViewModel {
 	let onTANButtonTap: () -> Void
 	let onHotlineButtonTap: () -> Void
 	let onRapidTestProfileTap: () -> Void
+	let antigenTestProfileStore: AntigenTestProfileStoring
 
 	var dynamicTableModel: DynamicTableViewModel {
 		let gradientView = GradientView()
 		gradientView.type = .blueOnly
+
+		let profileCell: DynamicCell
+		if antigenTestProfileStore.antigenTestProfile == nil {
+			profileCell = DynamicCell.imageCard(
+				title: AppStrings.ExposureSubmission.AntigenTest.Profile.createProfileTile_Title,
+				description: AppStrings.ExposureSubmission.AntigenTest.Profile.createProfileTile_Description,
+				image: UIImage(named: "Illu_Submission_AntigenTest_CreateProfile"),
+				imageLayout: .center,
+				action: .execute { [weak self] _, _ in
+					self?.onRapidTestProfileTap()
+				},
+				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.qrCodeButtonDescription
+			)
+		} else {
+			profileCell = DynamicCell.imageCard(
+				title: AppStrings.ExposureSubmission.AntigenTest.Profile.profileTile_Title,
+				description: AppStrings.ExposureSubmission.AntigenTest.Profile.profileTile_Description,
+				image: UIImage(named: "Illu_Submission_AntigenTest_Profile"),
+				backgroundView: gradientView,
+				textColor: .enaColor(for: .textContrast),
+				action: .execute { [weak self] _, _ in
+					self?.onRapidTestProfileTap()
+				},
+				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.qrCodeButtonDescription
+			)
+		}
 
 		return DynamicTableViewModel.with {
 			$0.add(.section(
@@ -57,17 +86,7 @@ class ExposureSubmissionIntroViewModel {
 					},
 					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.qrCodeButtonDescription
 				),
-				.imageCard(
-					title: AppStrings.ExposureSubmission.AntigenTest.Profile.profileTile_Title,
-					description: AppStrings.ExposureSubmission.AntigenTest.Profile.profileTile_Description,
-					image: UIImage(named: "Illu_Submission_AntigenTest_Profile"),
-					backgroundView: gradientView,
-					textColor: .enaColor(for: .textContrast),
-					action: .execute { [weak self] _, _ in
-						self?.onRapidTestProfileTap()
-					},
-					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.qrCodeButtonDescription
-				),
+				profileCell,
 				.title2(text: AppStrings.ExposureSubmissionDispatch.sectionHeadline2,
 						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.sectionHeadline2),
 				.imageCard(
@@ -96,6 +115,7 @@ private extension DynamicCell {
 		description: String? = nil,
 		attributedDescription: NSAttributedString? = nil,
 		image: UIImage?,
+		imageLayout: ExposureSubmissionImageCardCell.ImageLayout = .right,
 		backgroundView: UIView? = nil,
 		textColor: UIColor? = nil,
 		action: DynamicAction,
@@ -107,6 +127,7 @@ private extension DynamicCell {
 				description: description ?? "",
 				attributedDescription: attributedDescription,
 				image: image,
+				imageLayout: imageLayout,
 				backgroundView: backgroundView,
 				textColor: textColor,
 				accessibilityIdentifier: accessibilityIdentifier
