@@ -74,7 +74,11 @@ final class ErrorLogSubmissionService: ErrorLogSubmitting {
 	func submit(completion: @escaping (Result<LogUploadResponse, ELSError>) -> Void) {
 		
 		// get log data from the 'all logs' file
-		guard let errorLogFiledata = LogDataItem(at: fileLogger.errorLogFileURL)?.compressedData else {
+		guard
+			let data = try? Data(contentsOf: fileLogger.errorLogFileURL),
+			data.isEmpty == false, // prevents some hassle with empty files
+			let errorLogFiledata = LogDataItem(at: fileLogger.errorLogFileURL)?.compressedData
+		else {
 			Log.warning("No log data to export.", log: .els)
 			completion(.failure(.emptyLogFile))
 			return

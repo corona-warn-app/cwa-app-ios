@@ -129,7 +129,7 @@ class ELSServiceTests: XCTestCase {
 			case .success:
 				XCTFail("Test should not succeed")
 			case .failure(let error):
-				XCTAssertEqual(ELSError.couldNotReadLogfile(""), error)
+				XCTAssertEqual(ELSError.emptyLogFile, error)
 			}
 		}
 	}
