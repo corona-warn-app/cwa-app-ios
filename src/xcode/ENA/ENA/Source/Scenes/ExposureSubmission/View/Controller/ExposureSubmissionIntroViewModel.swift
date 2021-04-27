@@ -90,7 +90,8 @@ class ExposureSubmissionIntroViewModel {
 				action: .execute { [weak self] _, _ in
 					self?.onRapidTestProfileTap()
 				},
-				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.qrCodeButtonDescription
+				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.qrCodeButtonDescription,
+				tag: "AntigenTestCreateProfileCard" // Used for unit testing.
 			)
 		} else {
 			let gradientView = GradientView()
@@ -105,7 +106,8 @@ class ExposureSubmissionIntroViewModel {
 				action: .execute { [weak self] _, _ in
 					self?.onRapidTestProfileTap()
 				},
-				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.qrCodeButtonDescription
+				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.qrCodeButtonDescription,
+				tag: "AntigenTestProfileCard" // Used for unit testing.
 			)
 		}
 	}
@@ -122,19 +124,26 @@ private extension DynamicCell {
 		backgroundView: UIView? = nil,
 		textColor: UIColor? = nil,
 		action: DynamicAction,
-		accessibilityIdentifier: String? = nil) -> Self {
-		.identifier(ExposureSubmissionIntroViewController.CustomCellReuseIdentifiers.imageCard, action: action) { _, cell, _ in
-			guard let cell = cell as? ExposureSubmissionImageCardCell else { return }
-			cell.configure(
-				title: title,
-				description: description ?? "",
-				attributedDescription: attributedDescription,
-				image: image,
-				imageLayout: imageLayout,
-				backgroundView: backgroundView,
-				textColor: textColor,
-				accessibilityIdentifier: accessibilityIdentifier
-			)
-		}
+		accessibilityIdentifier: String? = nil,
+		tag: String? = nil) -> Self {
+
+		.identifier(
+			ExposureSubmissionIntroViewController.CustomCellReuseIdentifiers.imageCard,
+			action: action,
+			tag: tag,
+			configure: { _, cell, _ in
+				guard let cell = cell as? ExposureSubmissionImageCardCell else { return }
+				cell.configure(
+					title: title,
+					description: description ?? "",
+					attributedDescription: attributedDescription,
+					image: image,
+					imageLayout: imageLayout,
+					backgroundView: backgroundView,
+					textColor: textColor,
+					accessibilityIdentifier: accessibilityIdentifier
+				)
+			}
+		)
 	}
 }
