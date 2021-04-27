@@ -9,34 +9,9 @@ class ELSServiceTests: XCTestCase {
 	
 	func testGIVEN_ELSService_WHEN_UploadIsTriggered_THEN_HappyCaseAllSucceeds() throws {
 		// GIVEN
-		let store = MockTestStore()
-		let client = ClientMock()
-		
+		let elsService = createELSService()
 		let testExpectation = expectation(description: "Test should success expectation")
-		
-		#if targetEnvironment(simulator)
-		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
-		#else
-		let deviceCheck = PPACDeviceCheck()
-		#endif
-		let ppacService = PPACService(
-			store: store,
-			deviceCheck: deviceCheck
-		)
-		let riskProvider = MockRiskProvider()
-		let otpService = OTPService(
-			store: store,
-			client: client,
-			riskProvider: riskProvider
-		)
-		
-		let elsService = ErrorLogSubmissionService(
-			client: client,
-			store: store,
-			ppacService: ppacService,
-			otpService: otpService
-		)
-		
+
 		var expectedResponse: LogUploadResponse?
 		
 		// WHEN
@@ -93,7 +68,7 @@ class ELSServiceTests: XCTestCase {
 		elsService.submit(completion: { result in
 			switch result {
 			case .success:
-				XCTFail("Test should not success")
+				XCTFail("Test should not succeed")
 			case let .failure(error):
 				expectedError = error
 				testExpectation.fulfill()
@@ -149,7 +124,7 @@ class ELSServiceTests: XCTestCase {
 		elsService.submit(completion: { result in
 			switch result {
 			case .success:
-				XCTFail("Test should not success")
+				XCTFail("Test should not succeed")
 			case let .failure(error):
 				expectedError = error
 				testExpectation.fulfill()
@@ -167,12 +142,55 @@ class ELSServiceTests: XCTestCase {
 	}
 	
 	func testGIVEN_ELSService_WHEN_UploadIsTriggered_THEN_CouldNotReadLogfileIsReturned() throws {
-		// TODO Write Unit Test
-//		XCTAssertEqual(ELSError.couldNotReadLogfile(""), error)
+		let elsService = createELSService()
+		
+		XCTAssertThrowsError(try elsService.stopAndDeleteLog())
+		XCTAssertNil(elsService.fetchExistingLog())
+
+		elsService.submit { result in
+			switch result {
+			case .success:
+				XCTFail("Test should not succeed")
+			case .failure(let error):
+				XCTAssertEqual(ELSError.couldNotReadLogfile(""), error)
+			}
+		}
 	}
 	
 	func testGIVEN_ELSService_WHEN_UploadIsTriggered_THEN_EmptyLogFileIsReturned() throws {
-		// TODO Write Unit Test
-//		XCTAssertEqual(ELSError.emptyLogFile, error)
+
+		let elsService = createELSService()
+		XCTAssertNil(elsService.fetchExistingLog())
+	}
+
+	//MARK: - Helpers
+
+	func createELSService() -> ErrorLogSubmissionService {
+		let store = MockTestStore()
+		let client = ClientMock()
+
+		#if targetEnvironment(simulator)
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
+		#else
+		let deviceCheck = PPACDeviceCheck()
+		#endif
+		let ppacService = PPACService(
+			store: store,
+			deviceCheck: deviceCheck
+		)
+		let riskProvider = MockRiskProvider()
+		let otpService = OTPService(
+			store: store,
+			client: client,
+			riskProvider: riskProvider
+		)
+
+		let elsService = ErrorLogSubmissionService(
+			client: client,
+			store: store,
+			ppacService: ppacService,
+			otpService: otpService
+		)
+		return elsService
 	}
 }

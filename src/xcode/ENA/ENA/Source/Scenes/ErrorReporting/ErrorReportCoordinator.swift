@@ -76,7 +76,11 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating, RequiresAppDepend
 	}
 	
 	func stopErrorLogging() {
-		elsService.stopAndDeleteLog()
+		do {
+			try elsService.stopAndDeleteLog()
+		} catch {
+			showErrorAlert(with: error)
+		}
 	}
 	
 	func sendErrorLogging() {

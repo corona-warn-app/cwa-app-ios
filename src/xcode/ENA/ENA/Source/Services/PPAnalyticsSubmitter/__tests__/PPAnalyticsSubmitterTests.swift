@@ -380,7 +380,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		analyticsSubmitter.triggerSubmitData(ppacToken: nil, completion: { result in
 			switch result {
 			case .success:
-				XCTFail("Test should not success")
+				XCTFail("Test should not succeed")
 			case let .failure(error):
 				ppasError = error
 				expectation.fulfill()
@@ -423,7 +423,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		analyticsSubmitter.triggerSubmitData(ppacToken: nil, completion: { result in
 			switch result {
 			case .success:
-				XCTFail("Test should not success")
+				XCTFail("Test should not succeed")
 			case let .failure(error):
 				ppasErrors.append(error)
 				expectation.fulfill()
@@ -433,7 +433,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		analyticsSubmitter.triggerSubmitData(ppacToken: nil, completion: { result in
 			switch result {
 			case .success:
-				XCTFail("Test should not success")
+				XCTFail("Test should not succeed")
 			case let .failure(error):
 				ppasErrors.append(error)
 				expectation.fulfill()

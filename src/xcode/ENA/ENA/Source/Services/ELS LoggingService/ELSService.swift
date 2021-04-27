@@ -26,7 +26,7 @@ protocol ErrorLogHandling {
 	func fetchExistingLog() -> LogDataItem?
 
 	/// 🔥 logs
-	func stopAndDeleteLog()
+	func stopAndDeleteLog() throws
 }
 
 struct LogUploadResponse: Codable {
@@ -61,7 +61,7 @@ final class ErrorLogSubmissionService: ErrorLogSubmitting {
 	func submit(completion: @escaping (Result<LogUploadResponse, ELSError>) -> Void) {
 		
 		// get log data from the 'all logs' file
-		guard let errorLogFiledata = LogDataItem(at: fileLogger.allLogsFileURL)?.compressedData else {
+		guard let errorLogFiledata = LogDataItem(at: fileLogger.errorLogFileURL)?.compressedData else {
 			Log.warning("No log data to export.", log: .els)
 			completion(.failure(.emptyLogFile))
 			return
@@ -165,11 +165,11 @@ extension ErrorLogSubmissionService: ErrorLogHandling {
 		return Log.fetchELSLogs()
 	}
 
-	func stopAndDeleteLog() {
+	func stopAndDeleteLog() throws {
 		UserDefaults.standard.setValue(false, forKey: ErrorLogSubmissionService.errorLogEnabledKey)
 		Log.info("===== ELS logging finished =====", log: .localData)
 		ErrorLogSubmissionService.errorLoggingEnabled = false
-		Log.deleteELSLogs()
+		try Log.deleteELSLogs()
 	}
 }
 
@@ -181,24 +181,32 @@ private extension Log {
 	/// Deletes the ELS logs - if present
 	///
 	/// Debug logs (the 'old' logs) are not affected
-	static func deleteELSLogs() {
-		do {
-			if FileManager.default.fileExists(atPath: fileLogger.errorLogFileURL.path) {
-				try FileManager.default.removeItem(at: fileLogger.errorLogFileURL)
-				Log.info("Deleted ELS logs", log: .els)
-			} else {
-				Log.info("No ELS log to delete", log: .els)
-			}
-		} catch {
-			Log.error("Can't remove ELS logs: \(error)", log: .localData, error: error)
+	static func deleteELSLogs() throws {
+		if FileManager.default.fileIsEmpty(atPath: fileLogger.errorLogFileURL.path) {
+			Log.info("No ELS log to delete", log: .els)
+			throw ELSError.emptyLogFile
+		} else {
+			try FileManager.default.removeItem(atPath: fileLogger.errorLogFileURL.path)
+			Log.info("Deleted ELS logs", log: .els)
 		}
 	}
 
 	static func fetchELSLogs() -> LogDataItem? {
-		guard FileManager.default.fileExists(atPath: fileLogger.errorLogFileURL.path) else {
+		guard !FileManager.default.fileIsEmpty(atPath: fileLogger.errorLogFileURL.path) else {
 			Log.warning("No log data to export.", log: .localData)
 			return nil
 		}
 		return LogDataItem(at: fileLogger.errorLogFileURL)
+	}
+}
+
+extension FileManager {
+
+	/// Covers cases of empty files (0 byte) being present
+	/// - Parameter path: The file path to check
+	/// - Returns: Returns `true` is the file is empty or in case of an invalid path given
+	func fileIsEmpty(atPath path: String) -> Bool {
+		let data = Data(contents(atPath: path) ?? Data())
+		return data.isEmpty
 	}
 }
