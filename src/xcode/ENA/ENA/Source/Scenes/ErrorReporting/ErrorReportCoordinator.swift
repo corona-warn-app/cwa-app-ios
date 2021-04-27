@@ -142,6 +142,12 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating, RequiresAppDepend
 				self.elsService.submit { result in
 					switch result {
 					case .success(let response):
+						// Let's make history ;)
+						var items = self.store.elsUploadHistory
+						items.append(ErrorLogUploadReceipt(id: response.id, timestamp: Date()))
+						var store = self.store // quick hack to allow writing
+						store.elsUploadHistory = items
+
 						Log.info("ELS log submitted successfully", log: .els)
 						self.rootViewController.navigationController?.popViewController(animated: true)
 						self.topViewControllerViewModel?.updateViewModel(isHistorySectionIncluded: true)

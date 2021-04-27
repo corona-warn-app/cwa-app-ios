@@ -123,6 +123,11 @@ protocol ErrorLogProviding: AnyObject {
 	var otpElsAuthorizationDate: Date? { get set }
 }
 
+protocol ErrorLogUploadHistoryProviding {
+	/// Collection of previous upload 'receipts'
+	var elsUploadHistory: [ErrorLogUploadReceipt] { get set }
+}
+
 protocol EventRegistrationCaching: AnyObject {
 	/// Event registration - Flag that indicates if the recent trace warning download was successful or not.
 	var wasRecentTraceWarningDownloadSuccessful: Bool { get set }
@@ -197,6 +202,7 @@ protocol Store:
 	CoronaTestStoring,
 	CoronaTestStoringLegacy,
 	ErrorLogProviding,
+	ErrorLogUploadHistoryProviding,
 	EventRegistrationCaching,
 	PrivacyPreservingProviding,
 	StatisticsCaching,

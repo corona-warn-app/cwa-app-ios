@@ -34,6 +34,19 @@ struct LogUploadResponse: Codable {
 	let hash: String
 }
 
+struct ErrorLogUploadReceipt: Codable {
+	/// Assigned ID of the uploaded log
+	let id: String
+
+	/// Upload timestamp
+	let timestamp: Date
+}
+
+//struct ErrorLogUploadHistory: Codable {
+//	/// A collection of metadata from previously uploaded logs, their timestamp & upload id. Can be empty
+//	let items: [ErrorLogUploadReceipt]
+//}
+
 /// Handler for the log file uploading process
 final class ErrorLogSubmissionService: ErrorLogSubmitting {
 	
