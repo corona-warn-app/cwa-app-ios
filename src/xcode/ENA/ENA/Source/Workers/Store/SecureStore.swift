@@ -199,7 +199,6 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 		set { kvStore["submissionCheckins"] = newValue }
 	}
 
-
 	var submissionCountries: [Country] {
 		get { kvStore["submissionCountries"] as [Country]? ?? [.defaultCountry()] }
 		set { kvStore["submissionCountries"] = newValue }
