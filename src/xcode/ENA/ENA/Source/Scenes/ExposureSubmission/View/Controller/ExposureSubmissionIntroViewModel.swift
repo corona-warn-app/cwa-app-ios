@@ -106,8 +106,10 @@ class ExposureSubmissionIntroViewModel {
 					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.qrCodeButtonDescription
 				),
 				profileCell,
-				.title2(text: AppStrings.ExposureSubmissionDispatch.sectionHeadline2,
-						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.sectionHeadline2),
+				.title2(
+					text: AppStrings.ExposureSubmissionDispatch.sectionHeadline2,
+					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.sectionHeadline2
+				),
 				.imageCard(
 					title: AppStrings.ExposureSubmissionDispatch.tanButtonTitle,
 					description: AppStrings.ExposureSubmissionDispatch.tanButtonDescription,
