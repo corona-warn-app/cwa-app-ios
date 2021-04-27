@@ -44,19 +44,13 @@ struct MockNetworkStack {
 extension HTTPClient {
 	/// Configure a `HTTPClient` with `.fake` configuration and mocked `URLSession`
 	static func makeWith(mock stack: MockNetworkStack) -> HTTPClient {
-		HTTPClient(
-			serverEnvironmentProvider: MockTestStore(),
-			session: stack.urlSession
-		)
+		HTTPClient(session: stack.urlSession)
 	}
 }
 
 extension WifiOnlyHTTPClient {
 	static func makeWith(mock stack: MockNetworkStack) -> WifiOnlyHTTPClient {
-		WifiOnlyHTTPClient(
-			serverEnvironmentProvider: MockTestStore(),
-			session: stack.urlSession
-		)
+		WifiOnlyHTTPClient(session: stack.urlSession)
 	}
 }
 

@@ -13,11 +13,13 @@ class ExposureSubmissionIntroViewModel {
 	init(
 		onQRCodeButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
 		onTANButtonTap: @escaping () -> Void,
-		onHotlineButtonTap: @escaping () -> Void
+		onHotlineButtonTap: @escaping () -> Void,
+		onRapidTestProfileTap: @escaping () -> Void
 	) {
 		self.onQRCodeButtonTap = onQRCodeButtonTap
 		self.onTANButtonTap = onTANButtonTap
 		self.onHotlineButtonTap = onHotlineButtonTap
+		self.onRapidTestProfileTap = onRapidTestProfileTap
 	}
 	
 	// MARK: - Internal
@@ -25,6 +27,7 @@ class ExposureSubmissionIntroViewModel {
 	let onQRCodeButtonTap: (@escaping (Bool) -> Void) -> Void
 	let onTANButtonTap: () -> Void
 	let onHotlineButtonTap: () -> Void
+	let onRapidTestProfileTap: () -> Void
 
 	var dynamicTableModel: DynamicTableViewModel {
 		return DynamicTableViewModel.with {
@@ -48,6 +51,16 @@ class ExposureSubmissionIntroViewModel {
 							// Disable repeated tapping again while country list is loading
 							cell?.isUserInteractionEnabled = !isLoading
 						}
+					},
+					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.qrCodeButtonDescription
+				),
+				// dummy image cared for the new flow
+				.imageCard(
+					title: "Test Profil",
+					description: "Test Profil",
+					image: UIImage(named: "Illu_Submission_QRCode"),
+					action: .execute { [weak self] _, _ in
+						self?.onRapidTestProfileTap()
 					},
 					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.qrCodeButtonDescription
 				),

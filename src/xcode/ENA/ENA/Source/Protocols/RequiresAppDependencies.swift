@@ -17,7 +17,6 @@ protocol RequiresAppDependencies {
 	var appConfigurationProvider: AppConfigurationProviding { get }
 	var riskProvider: RiskProviding { get }
 	var exposureManager: ExposureManager { get }
-	var serverEnvironment: ServerEnvironment { get }
 }
 
 extension RequiresAppDependencies {
@@ -51,10 +50,6 @@ extension RequiresAppDependencies {
 
 	var taskScheduler: ENATaskScheduler {
 		UIApplication.coronaWarnDelegate().taskScheduler
-	}
-
-	var serverEnvironment: ServerEnvironment {
-		UIApplication.coronaWarnDelegate().serverEnvironment
 	}
 }
 

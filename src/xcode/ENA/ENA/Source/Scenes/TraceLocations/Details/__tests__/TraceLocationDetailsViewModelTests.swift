@@ -10,7 +10,7 @@ class TraceLocationDetailsViewModelTests: XCTestCase {
 
 	func testQRCodePosterTemplate() throws {
 		let store = MockTestStore()
-		let client = CachingHTTPClientMock(store: store)
+		let client = CachingHTTPClientMock()
 		let provider = QRCodePosterTemplateProvider(client: client, store: store)
 
 		let viewModel = TraceLocationDetailsViewModel(

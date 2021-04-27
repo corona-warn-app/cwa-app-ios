@@ -103,7 +103,7 @@ extension TraceLocation {
 			return nil
 		}
 		
-		Log.debug("Data found: \(String(describing: decodedData))")
+		Log.debug("Data found: \(private: String(describing: decodedData), public: "Decoded qrCode")")
 		
 		
 		do {

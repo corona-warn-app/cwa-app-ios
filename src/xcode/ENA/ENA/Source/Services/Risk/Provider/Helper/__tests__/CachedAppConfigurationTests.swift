@@ -19,7 +19,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 		let store = MockTestStore()
 		XCTAssertNil(store.appConfigMetadata)
 
-		let client = CachingHTTPClientMock(store: store)
+		let client = CachingHTTPClientMock()
 		let expectedConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
 		client.onFetchAppConfiguration = { _, completeWith in
 			let config = AppConfigurationFetchingResponse(expectedConfig, "etag")
@@ -61,7 +61,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		config.supportedCountries = ["DE", "ES", "FR", "IT", "IE", "DK"]
 
-		let client = CachingHTTPClientMock(store: store)
+		let client = CachingHTTPClientMock()
 		client.onFetchAppConfiguration = { _, completeWith in
 			let config = AppConfigurationFetchingResponse(config, "etag")
 			completeWith((.success(config), nil))
@@ -92,7 +92,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		config.supportedCountries = []
 
-		let client = CachingHTTPClientMock(store: store)
+		let client = CachingHTTPClientMock()
 		client.onFetchAppConfiguration = { _, completeWith in
 			let config = AppConfigurationFetchingResponse(config, "etag")
 			completeWith((.success(config), nil))
@@ -125,7 +125,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 		let store = MockTestStore()
 		XCTAssertNil(store.appConfigMetadata)
 
-		let client = CachingHTTPClientMock(store: store)
+		let client = CachingHTTPClientMock()
 		let expectedConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
 
 		client.onFetchAppConfiguration = { _, completeWith in
@@ -157,7 +157,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 		let gotValue = expectation(description: "got countries list")
 		gotValue.expectedFulfillmentCount = 3
 
-		let client = CachingHTTPClientMock(store: store)
+		let client = CachingHTTPClientMock()
 		client.onFetchAppConfiguration = { _, completeWith in
 			let config = AppConfigurationFetchingResponse(config, "etag")
 			completeWith((.success(config), nil))

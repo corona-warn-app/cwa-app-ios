@@ -42,7 +42,7 @@ class HomeRiskCellModelTests: XCTestCase {
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
 			statisticsProvider: StatisticsProvider(
-				client: CachingHTTPClientMock(store: store),
+				client: CachingHTTPClientMock(),
 				store: store
 			)
 		)
@@ -169,7 +169,7 @@ class HomeRiskCellModelTests: XCTestCase {
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
 			statisticsProvider: StatisticsProvider(
-				client: CachingHTTPClientMock(store: store),
+				client: CachingHTTPClientMock(),
 				store: store
 			)
 		)
@@ -274,7 +274,7 @@ class HomeRiskCellModelTests: XCTestCase {
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
 			statisticsProvider: StatisticsProvider(
-				client: CachingHTTPClientMock(store: store),
+				client: CachingHTTPClientMock(),
 				store: store
 			)
 		)
@@ -384,7 +384,7 @@ class HomeRiskCellModelTests: XCTestCase {
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
 			statisticsProvider: StatisticsProvider(
-				client: CachingHTTPClientMock(store: store),
+				client: CachingHTTPClientMock(),
 				store: store
 			)
 		)
@@ -506,7 +506,7 @@ class HomeRiskCellModelTests: XCTestCase {
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
 			statisticsProvider: StatisticsProvider(
-				client: CachingHTTPClientMock(store: store),
+				client: CachingHTTPClientMock(),
 				store: store
 			)
 		)
@@ -565,7 +565,7 @@ class HomeRiskCellModelTests: XCTestCase {
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
 			statisticsProvider: StatisticsProvider(
-				client: CachingHTTPClientMock(store: store),
+				client: CachingHTTPClientMock(),
 				store: store
 			)
 		)
@@ -612,7 +612,7 @@ class HomeRiskCellModelTests: XCTestCase {
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
 			statisticsProvider: StatisticsProvider(
-				client: CachingHTTPClientMock(store: store),
+				client: CachingHTTPClientMock(),
 				store: store
 			)
 		)
@@ -658,7 +658,7 @@ class HomeRiskCellModelTests: XCTestCase {
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
 			statisticsProvider: StatisticsProvider(
-				client: CachingHTTPClientMock(store: store),
+				client: CachingHTTPClientMock(),
 				store: store
 			)
 		)
@@ -704,7 +704,7 @@ class HomeRiskCellModelTests: XCTestCase {
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
 			statisticsProvider: StatisticsProvider(
-				client: CachingHTTPClientMock(store: store),
+				client: CachingHTTPClientMock(),
 				store: store
 			)
 		)
@@ -736,7 +736,7 @@ class HomeRiskCellModelTests: XCTestCase {
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
 			statisticsProvider: StatisticsProvider(
-				client: CachingHTTPClientMock(store: store),
+				client: CachingHTTPClientMock(),
 				store: store
 			)
 		)
@@ -768,7 +768,7 @@ class HomeRiskCellModelTests: XCTestCase {
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
 			statisticsProvider: StatisticsProvider(
-				client: CachingHTTPClientMock(store: store),
+				client: CachingHTTPClientMock(),
 				store: store
 			)
 		)

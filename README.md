@@ -90,6 +90,10 @@ The following channels are available for discussions, feedback, and support requ
 | **Backend Issue**    | <a href="https://github.com/corona-warn-app/cwa-server/issues/new/choose" title="Open Backend Issue"><img src="https://img.shields.io/github/issues/corona-warn-app/cwa-server?style=flat-square"></a>  |
 | **Other Requests**    | <a href="mailto:corona-warn-app.opensource@sap.com" title="Email CWA Team"><img src="https://img.shields.io/badge/email-CWA%20team-green?logo=mail.ru&style=flat-square&logoColor=white"></a>   |
 
+## Data privacy
+
+For the possibility to read and export the log files which are created and filled at using the app, we ensure respecting the data privacy by censoring private informations (e.g. names of people in the contact journal). To ensure an efficent bug fixing on the side of the developers and testers, the corresponding information is still logged but marked as private. This affects that in release builds for the general public, the logged information is replaced by '🙈🙉🙊'. It may appear an additional text which explains what information is censored at this point.
+
 ## How to Contribute
 
 Contribution and feedback are encouraged and always welcome. For more information about how to contribute, the project structure, as well as additional contribution information, see our [Contribution Guidelines](./CONTRIBUTING.md). By participating in this project, you agree to abide by its [Code of Conduct](./CODE_OF_CONDUCT.md) at all times.
