@@ -120,7 +120,6 @@ class TraceWarningPackageDownloadTests: XCTestCase {
 			
 			case let .success(success):
 				responseCode = success
-				print(responseCode)
 				successExpectation.fulfill()
 			case let .failure(error):
 				XCTFail("Test should not fail but did with error: \(error)")
