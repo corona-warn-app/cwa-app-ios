@@ -19,7 +19,7 @@ class TopErrorReportViewModel {
 	
 	// MARK: - Internal
 	
-	func updateViewModel(isHistorySectionIncluded: Bool = false) {
+	func updateViewModel(isHistorySectionIncluded: Bool) {
 		var dynamic = DynamicTableViewModel([])
 		dynamic.add(
 			.section(cells: [

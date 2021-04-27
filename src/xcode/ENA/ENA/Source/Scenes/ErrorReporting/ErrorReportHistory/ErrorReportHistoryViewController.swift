@@ -9,8 +9,8 @@ class ErrorReportHistoryViewController: DynamicTableViewController {
 	
 	// MARK: - Init
 
-	init() {
-		self.viewModel = ErrorReportHistoryViewModel()
+	init(store: ErrorLogUploadHistoryProviding) {
+		self.viewModel = ErrorReportHistoryViewModel(historyItems: store.elsUploadHistory)
 		super.init(nibName: nil, bundle: nil)
 	}
 

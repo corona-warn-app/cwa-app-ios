@@ -49,14 +49,15 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating, RequiresAppDepend
 		
 		let viewModel = TopErrorReportViewModel(
 			didPressHistoryCell: {
-				// Navigate to History screen, TO DO: Prepare the view model with the array of error logs to be displayed
-				self.rootViewController.navigationController?.pushViewController(ErrorReportHistoryViewController(), animated: true)
+				// Navigate to History screen
+				self.rootViewController.navigationController?
+					.pushViewController(ErrorReportHistoryViewController(store: self.store), animated: true)
 
 			}, didPressPrivacyInformationCell: {
 				self.showPrivacyScreen()
 			}
 		)
-		viewModel.updateViewModel()
+		viewModel.updateViewModel(isHistorySectionIncluded: !store.elsUploadHistory.isEmpty)
 		topViewControllerViewModel = viewModel
 
 		let errorReportsContainerViewController = TopBottomContainerViewController(

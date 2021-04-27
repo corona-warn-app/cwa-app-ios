@@ -8,9 +8,8 @@ final class ErrorReportHistoryViewModel {
 
 	// MARK: - Init
 
-	init() {
-		// TO DO: should be replaced by Ids
-		self.ids = ["001", "002", "003", "004", "005"]
+	init(historyItems: [ErrorLogUploadReceipt]) {
+		self.items = historyItems
 	}
 
 	// MARK: - Internal
@@ -34,18 +33,14 @@ final class ErrorReportHistoryViewModel {
 			)
 		}
 	}
-	
-	var numberOfHistoryCells: Int {
-		return ids.count
-	}
 
 	// MARK: - Private
 
-	private let ids: [String]
+	private let items: [ErrorLogUploadReceipt]
 
 	private func buildHistoryCells() -> [DynamicCell] {
 		var cells: [DynamicCell] = []
-		for id in ids {
+		for item in items {
 			cells.append(.custom(
 				withIdentifier: ErrorReportHistoryViewController.CustomCellReuseIdentifiers.historyCell,
 						 configure: { _, cell, _ in
@@ -56,7 +51,7 @@ final class ErrorReportHistoryViewModel {
 									string: ENAFormatter.getDateTimeString(date: Date())
 								),
 								idLabel: NSMutableAttributedString(
-									string: String(format: AppStrings.ErrorReport.historyCellID, id)
+									string: String(format: AppStrings.ErrorReport.historyCellID, item.id)
 								))
 						 }
 					 ))
