@@ -6,7 +6,7 @@ import Foundation
 import OpenCombine
 
 
-protocol ExposureSubmissionService: class {
+protocol ExposureSubmissionService: AnyObject {
 
 	typealias ExposureSubmissionHandler = (_ error: ExposureSubmissionError?) -> Void
 

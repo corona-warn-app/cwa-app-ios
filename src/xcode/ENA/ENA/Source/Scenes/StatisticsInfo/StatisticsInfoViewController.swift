@@ -87,10 +87,12 @@ class StatisticsInfoViewController: DynamicTableViewController {
 				accessibilityIdentifier: nil
 			),
 			.section(
-				header: .image(UIImage(named: "Illu_StatisticsInfo"),
-							   accessibilityLabel: AppStrings.Statistics.Info.titleImageAccLabel,
-							   accessibilityIdentifier: nil,
-							   height: 200),
+				header: .image(
+					UIImage(named: "Illu_StatisticsInfo"),
+					accessibilityLabel: AppStrings.Statistics.Info.titleImageAccLabel,
+					accessibilityIdentifier: nil,
+					height: 200
+				),
 				footer: .space(height: 16),
 				cells: [
 					.title2(
