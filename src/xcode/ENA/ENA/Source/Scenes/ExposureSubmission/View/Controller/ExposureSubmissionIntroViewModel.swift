@@ -33,35 +33,6 @@ class ExposureSubmissionIntroViewModel {
 	let antigenTestProfileStore: AntigenTestProfileStoring
 
 	var dynamicTableModel: DynamicTableViewModel {
-		let gradientView = GradientView()
-		gradientView.type = .blueOnly
-
-		let profileCell: DynamicCell
-		if antigenTestProfileStore.antigenTestProfile == nil {
-			profileCell = DynamicCell.imageCard(
-				title: AppStrings.ExposureSubmission.AntigenTest.Profile.createProfileTile_Title,
-				description: AppStrings.ExposureSubmission.AntigenTest.Profile.createProfileTile_Description,
-				image: UIImage(named: "Illu_Submission_AntigenTest_CreateProfile"),
-				imageLayout: .center,
-				action: .execute { [weak self] _, _ in
-					self?.onRapidTestProfileTap()
-				},
-				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.qrCodeButtonDescription
-			)
-		} else {
-			profileCell = DynamicCell.imageCard(
-				title: AppStrings.ExposureSubmission.AntigenTest.Profile.profileTile_Title,
-				description: AppStrings.ExposureSubmission.AntigenTest.Profile.profileTile_Description,
-				image: UIImage(named: "Illu_Submission_AntigenTest_Profile"),
-				backgroundView: gradientView,
-				textColor: .enaColor(for: .textContrast),
-				action: .execute { [weak self] _, _ in
-					self?.onRapidTestProfileTap()
-				},
-				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.qrCodeButtonDescription
-			)
-		}
-
 		return DynamicTableViewModel.with {
 			$0.add(.section(
 				header: .image(
@@ -104,6 +75,38 @@ class ExposureSubmissionIntroViewModel {
 					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.hotlineButtonDescription
 				)
 			]))
+		}
+	}
+
+	// MARK: - Private
+
+	private var profileCell: DynamicCell {
+		if antigenTestProfileStore.antigenTestProfile == nil {
+			return .imageCard(
+				title: AppStrings.ExposureSubmission.AntigenTest.Profile.createProfileTile_Title,
+				description: AppStrings.ExposureSubmission.AntigenTest.Profile.createProfileTile_Description,
+				image: UIImage(named: "Illu_Submission_AntigenTest_CreateProfile"),
+				imageLayout: .center,
+				action: .execute { [weak self] _, _ in
+					self?.onRapidTestProfileTap()
+				},
+				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.qrCodeButtonDescription
+			)
+		} else {
+			let gradientView = GradientView()
+			gradientView.type = .blueOnly
+
+			return .imageCard(
+				title: AppStrings.ExposureSubmission.AntigenTest.Profile.profileTile_Title,
+				description: AppStrings.ExposureSubmission.AntigenTest.Profile.profileTile_Description,
+				image: UIImage(named: "Illu_Submission_AntigenTest_Profile"),
+				backgroundView: gradientView,
+				textColor: .enaColor(for: .textContrast),
+				action: .execute { [weak self] _, _ in
+					self?.onRapidTestProfileTap()
+				},
+				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.qrCodeButtonDescription
+			)
 		}
 	}
 
