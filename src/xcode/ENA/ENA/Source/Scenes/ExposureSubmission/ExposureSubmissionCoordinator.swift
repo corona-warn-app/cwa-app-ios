@@ -18,9 +18,11 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		parentNavigationController: UINavigationController,
 		exposureSubmissionService: ExposureSubmissionService,
 		coronaTestService: CoronaTestService,
-		eventProvider: EventProviding
+		eventProvider: EventProviding,
+		antigenTestProfileStore: AntigenTestProfileStoring
 	) {
 		self.parentNavigationController = parentNavigationController
+		self.antigenTestProfileStore = antigenTestProfileStore
 
 		super.init()
 
@@ -146,7 +148,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				} else {
 					self?.showAntigenTestProfile()
 				}
-			}
+			},
+			antigenTestProfileStore: antigenTestProfileStore
 		)
 		return ExposureSubmissionIntroViewController(
 			viewModel: viewModel,
@@ -166,6 +169,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	private weak var presentedViewController: UIViewController?
 
 	private var model: ExposureSubmissionCoordinatorModel!
+	private let antigenTestProfileStore: AntigenTestProfileStoring
 
 	private func push(_ vc: UIViewController) {
 		self.navigationController?.pushViewController(vc, animated: true)

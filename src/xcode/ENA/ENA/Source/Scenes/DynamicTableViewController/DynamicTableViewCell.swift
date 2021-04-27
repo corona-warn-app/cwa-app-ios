@@ -52,13 +52,13 @@ extension DynamicCell {
 		}
 	}
 
-	static func identifier(_ identifier: TableViewCellReuseIdentifiers, action: DynamicAction = .none, accessoryAction: DynamicAction = .none, configure: CellConfigurator? = nil) -> Self {
+	static func identifier(_ identifier: TableViewCellReuseIdentifiers, action: DynamicAction = .none, accessoryAction: DynamicAction = .none, tag: String? = nil, configure: CellConfigurator? = nil) -> Self {
 		.init(
 			cellReuseIdentifier: identifier,
 			action: action,
 			accessoryAction: accessoryAction,
 			configure: configure,
-			tag: nil
+			tag: tag
 		)
 	}
 
