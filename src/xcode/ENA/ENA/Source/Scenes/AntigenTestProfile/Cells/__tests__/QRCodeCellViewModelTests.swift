@@ -26,9 +26,8 @@ class QRCodeCellViewModelTests: XCTestCase {
 		)
 
 		// WHEN
-		let vCardData = try XCTUnwrap(String(data: viewModel.vCardData, encoding: .utf8))
 		let qrCodeImage = try XCTUnwrap(UIImage.qrCode(
-			with: vCardData,
+			with: viewModel.vCardV4,
 			encoding: .utf8,
 			size: CGSize(width: 280.0, height: 280.0),
 			qrCodeErrorCorrectionLevel: .medium
