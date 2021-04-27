@@ -21,10 +21,12 @@ class EUSettingsViewModel {
 	func euSettingsModel() -> DynamicTableViewModel {
 		DynamicTableViewModel([
 			.section(
-				header: .image(UIImage(named: "Illu_EU_Interop"),
-							   accessibilityLabel: AppStrings.ExposureSubmissionWarnOthers.accImageDescription,
-							   accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnOthers.accImageDescription,
-							   height: 250),
+				header: .image(
+					UIImage(named: "Illu_EU_Interop"),
+					accessibilityLabel: AppStrings.ExposureSubmissionWarnOthers.accImageDescription,
+					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnOthers.accImageDescription,
+					height: 250
+				),
 				cells: [
 					.space(height: 8),
 					.title1(
@@ -32,12 +34,14 @@ class EUSettingsViewModel {
 						accessibilityIdentifier: ""
 					),
 					.space(height: 8),
-					.body(text: AppStrings.ExposureNotificationSetting.euDescription1,
-						  accessibilityIdentifier: ""
+					.body(
+						text: AppStrings.ExposureNotificationSetting.euDescription1,
+						accessibilityIdentifier: ""
 					),
 					.space(height: 8),
-					.body(text: AppStrings.ExposureNotificationSetting.euDescription2,
-						  accessibilityIdentifier: ""
+					.body(
+						text: AppStrings.ExposureNotificationSetting.euDescription2,
+						accessibilityIdentifier: ""
 					),
 					.space(height: 8),
 					.headline(
@@ -58,8 +62,9 @@ class EUSettingsViewModel {
 			.section(
 				cells: [
 					.space(height: 8),
-					.body(text: AppStrings.ExposureNotificationSetting.euDescription4,
-						  accessibilityIdentifier: ""
+					.body(
+						text: AppStrings.ExposureNotificationSetting.euDescription4,
+						accessibilityIdentifier: ""
 					),
 					.space(height: 16)
 			])
@@ -73,24 +78,25 @@ private extension DynamicCell {
 		.custom(
 			withIdentifier: EUSettingsViewController.CustomCellReuseIdentifiers.roundedCell,
 			action: .none,
-			accessoryAction: .none) { _, cell, _ in
-				if let roundedCell = cell as? DynamicTableViewRoundedCell {
-					roundedCell.configure(
-						title: NSMutableAttributedString(string: AppStrings.ExposureNotificationSetting.euEmptyErrorTitle),
-						titleStyle: .title2,
-						body: NSMutableAttributedString(string: AppStrings.ExposureNotificationSetting.euEmptyErrorDescription),
-						textColor: .textPrimary1,
-						bgColor: .separator,
-						icons: [
-							UIImage(named: "Icons_MobileDaten"),
-							UIImage(named: "Icon_Wifi")]
-							.compactMap { $0 },
-						buttonTitle: AppStrings.ExposureNotificationSetting.euEmptyErrorButtonTitle) {
-						if let url = URL(string: UIApplication.openSettingsURLString) {
-							UIApplication.shared.open(url)
-						}
+			accessoryAction: .none
+		) { _, cell, _ in
+			if let roundedCell = cell as? DynamicTableViewRoundedCell {
+				roundedCell.configure(
+					title: NSMutableAttributedString(string: AppStrings.ExposureNotificationSetting.euEmptyErrorTitle),
+					titleStyle: .title2,
+					body: NSMutableAttributedString(string: AppStrings.ExposureNotificationSetting.euEmptyErrorDescription),
+					textColor: .textPrimary1,
+					bgColor: .separator,
+					icons: [
+						UIImage(named: "Icons_MobileDaten"),
+						UIImage(named: "Icon_Wifi")]
+						.compactMap { $0 },
+					buttonTitle: AppStrings.ExposureNotificationSetting.euEmptyErrorButtonTitle) {
+					if let url = URL(string: UIApplication.openSettingsURLString) {
+						UIApplication.shared.open(url)
 					}
 				}
 			}
+		}
 	}
 }

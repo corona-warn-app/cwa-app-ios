@@ -24,14 +24,6 @@ class ENAUITestsQuickActions: XCTestCase {
 	override func tearDownWithError() throws {
 		XCUIDevice.shared.press(.home)
 	}
-	
-	override func invokeTest() {
-		if #available(iOS 13, *) {
-			super.invokeTest()
-		} else {
-			// Skipping test because it's iOS 13+ only
-		}
-	}
 
 	/// Test shortcut state after a fresh installtation
 	///
@@ -107,7 +99,10 @@ class ENAUITestsQuickActions: XCTestCase {
 		tanButton.tap()
 
 		// Fill in dummy TAN.
-		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.primaryButton"].waitForExistence(timeout: .medium))
+		
+		let tanSubmityButton = app.buttons["AppStrings.ExposureSubmission.primaryButton"]
+		XCTAssertTrue(tanSubmityButton.waitForExistence(timeout: .medium))
+
 		"qwdzxcsrhe".forEach {
 			app.keyboards.keys[String($0)].tap()
 		}
