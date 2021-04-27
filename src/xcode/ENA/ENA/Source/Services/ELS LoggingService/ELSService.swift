@@ -169,7 +169,7 @@ extension ErrorLogSubmissionService: ErrorLogHandling {
 		UserDefaults.standard.setValue(false, forKey: ErrorLogSubmissionService.errorLogEnabledKey)
 		Log.info("===== ELS logging finished =====", log: .localData)
 		ErrorLogSubmissionService.errorLoggingEnabled = false
-		Log.deleteLogs()
+		Log.deleteELSLogs()
 	}
 }
 
@@ -181,10 +181,13 @@ private extension Log {
 	/// Deletes the ELS logs - if present
 	///
 	/// Debug logs (the 'old' logs) are not affected
-	static func deleteLogs() {
+	static func deleteELSLogs() {
 		do {
 			if FileManager.default.fileExists(atPath: fileLogger.errorLogFileURL.path) {
 				try FileManager.default.removeItem(at: fileLogger.errorLogFileURL)
+				Log.info("Deleted ELS logs", log: .els)
+			} else {
+				Log.info("No ELS log to delete", log: .els)
 			}
 		} catch {
 			Log.error("Can't remove ELS logs: \(error)", log: .localData, error: error)
