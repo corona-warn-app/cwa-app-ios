@@ -36,7 +36,7 @@ final class ErrorReportHistoryViewModel {
 
 	// MARK: - Private
 
-	private let items: [ErrorLogUploadReceipt]
+	let items: [ErrorLogUploadReceipt]
 
 	private func buildHistoryCells() -> [DynamicCell] {
 		var cells: [DynamicCell] = []

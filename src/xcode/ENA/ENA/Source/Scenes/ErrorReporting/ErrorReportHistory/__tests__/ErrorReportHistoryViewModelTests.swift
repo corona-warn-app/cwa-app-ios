@@ -9,7 +9,7 @@ class ErrorReportHistoryViewModelTests: XCTestCase {
 	
 	func testSectionsOfViewModel() throws {
 		// GIVEN
-		let historyViewModel = ErrorReportHistoryViewModel()
+		let historyViewModel = ErrorReportHistoryViewModel(historyItems: mockHistory())
 		let tableViewModel = historyViewModel.dynamicTableViewModel
 		
 		// WHEN
@@ -21,7 +21,7 @@ class ErrorReportHistoryViewModelTests: XCTestCase {
 	
 	func testForNumberOfStaticCells() throws {
 		// GIVEN
-		let historyViewModel = ErrorReportHistoryViewModel()
+		let historyViewModel = ErrorReportHistoryViewModel(historyItems: mockHistory())
 		let tableViewModel = historyViewModel.dynamicTableViewModel
 
 		// WHEN
@@ -33,19 +33,21 @@ class ErrorReportHistoryViewModelTests: XCTestCase {
 	
 	func testForNumberofDynamicCells() throws {
 		// GIVEN
-		let historyViewModel = ErrorReportHistoryViewModel()
+		let numHistoryItems = 42 // because!
+		let historyViewModel = ErrorReportHistoryViewModel(historyItems: mockHistory(count: numHistoryItems))
 		let tableViewModel = historyViewModel.dynamicTableViewModel
 
 		// WHEN
 		let numberOfCells = tableViewModel.numberOfRows(inSection: 1, for: DynamicTableViewController())
 
 		// THEN
-		XCTAssertEqual(numberOfCells, historyViewModel.numberOfHistoryCells)
+		XCTAssertEqual(numberOfCells, historyViewModel.items.count)
+		XCTAssertEqual(numberOfCells, numHistoryItems)
 	}
 
 	func testReuseIdentifierHistoryCell() throws {
 		// GIVEN
-		let historyViewModel = ErrorReportHistoryViewModel()
+		let historyViewModel = ErrorReportHistoryViewModel(historyItems: mockHistory())
 		let tableViewModel = historyViewModel.dynamicTableViewModel
 
 		// WHEN
@@ -55,4 +57,13 @@ class ErrorReportHistoryViewModelTests: XCTestCase {
 		XCTAssertEqual(cell2.cellReuseIdentifier.rawValue, ErrorReportHistoryViewController.CustomCellReuseIdentifiers.historyCell.rawValue)
 	}
 
+	// MARK: – Helpers
+
+	private func mockHistory(count: Int = 2) -> [ErrorLogUploadReceipt] {
+		var items: [ErrorLogUploadReceipt] = []
+		for i in 0..<count {
+			items.append(ErrorLogUploadReceipt(id: i.description, timestamp: Date()))
+		}
+		return items
+	}
 }
