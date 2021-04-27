@@ -18,9 +18,11 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		parentNavigationController: UINavigationController,
 		exposureSubmissionService: ExposureSubmissionService,
 		coronaTestService: CoronaTestService,
-		eventProvider: EventProviding
+		eventProvider: EventProviding,
+		antigenTestProfileStore: AntigenTestProfileStoring
 	) {
 		self.parentNavigationController = parentNavigationController
+		self.antigenTestProfileStore = antigenTestProfileStore
 
 		super.init()
 
@@ -104,7 +106,18 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			viewModel: tanInputViewModel,
 			dismiss: { [weak self] in self?.dismiss() }
 		)
-		push(vc)
+		
+		let footerViewModel = FooterViewModel(
+			primaryButtonName: AppStrings.ExposureSubmissionTanEntry.submit,
+			primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
+			isPrimaryButtonEnabled: false,
+			isSecondaryButtonHidden: true
+		)
+
+		let footerViewController = FooterViewController(footerViewModel)
+		let topBottomViewController = TopBottomContainerViewController(topController: vc, bottomController: footerViewController)
+		
+		push(topBottomViewController)
 	}
 
 	/// This method selects the correct initial view controller among the following options:
@@ -146,7 +159,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				} else {
 					self?.showAntigenTestProfile()
 				}
-			}
+			},
+			antigenTestProfileStore: antigenTestProfileStore
 		)
 		return ExposureSubmissionIntroViewController(
 			viewModel: viewModel,
@@ -166,6 +180,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	private weak var presentedViewController: UIViewController?
 
 	private var model: ExposureSubmissionCoordinatorModel!
+	private let antigenTestProfileStore: AntigenTestProfileStoring
 
 	private func push(_ vc: UIViewController) {
 		self.navigationController?.pushViewController(vc, animated: true)

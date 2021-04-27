@@ -163,12 +163,18 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 									
 									cell.configure(
 										options: [
-											.option(title: AppStrings.ExposureSubmissionSymptoms.answerOptionYes,
-													accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionSymptoms.answerOptionYes),
-											.option(title: AppStrings.ExposureSubmissionSymptoms.answerOptionNo,
-													accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionSymptoms.answerOptionNo),
-											.option(title: AppStrings.ExposureSubmissionSymptoms.answerOptionPreferNotToSay,
-													accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionSymptoms.answerOptionPreferNotToSay)
+											.option(
+												title: AppStrings.ExposureSubmissionSymptoms.answerOptionYes,
+												accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionSymptoms.answerOptionYes
+											),
+											.option(
+												title: AppStrings.ExposureSubmissionSymptoms.answerOptionNo,
+												accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionSymptoms.answerOptionNo
+											),
+											.option(
+												title: AppStrings.ExposureSubmissionSymptoms.answerOptionPreferNotToSay,
+												accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionSymptoms.answerOptionPreferNotToSay
+											)
 										],
 										// The current selection needs to be provided in case the cell is recreated after leaving and reentering the screen
 										initialSelection: self?.optionGroupSelection

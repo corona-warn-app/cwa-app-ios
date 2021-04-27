@@ -13,7 +13,7 @@ extension AppInformationViewController {
 		.about: AppInformationCellModel(
 			text: AppStrings.AppInformation.aboutNavigation,
 			accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.aboutNavigation,
-			action: .push(model: AppInformationModel.aboutModel, withTitle:  AppStrings.AppInformation.aboutNavigation)
+			action: .push(model: AppInformationModel.aboutModel, withTitle: AppStrings.AppInformation.aboutNavigation)
 		),
 		.faq: AppInformationCellModel(
 			text: AppStrings.AppInformation.faqNavigation,
