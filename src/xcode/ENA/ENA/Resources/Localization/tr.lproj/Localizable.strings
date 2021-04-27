@@ -614,7 +614,9 @@
 
 "ExposureSubmissionSuccess_listTitle" = "Lütfen unutmayın:";
 
-"ExposureSubmissionSuccess_listItem1" = "Kamu sağlığı yetkiliniz önümüzdeki birkaç gün içinde size ulaşacaktır.";
+"ExposureSubmissionSuccess_listItem0" = "Bu test sonucunu doğrulamak için PCR testi yapın. ";
+
+"ExposureSubmissionSuccess_listItem1" = "Kamu sağlığı yetkiliniz önümüzdeki birkaç gün içinde telefonla veya mektupla size ulaşacaktır.";
 
 "ExposureSubmissionSuccess_listItem2" = "Bulaşıcı bir hastalık taşıyorsunuz. Kendinizi diğer insanlardan izole edin.";
 
@@ -2288,7 +2290,7 @@
 "Checkin_Details_CheckIn_Button" = "Check In";
 
 /* Submission Check-in */
-"Submission_Checkins_Title" = "Check-In’ler Paylaşılsın Mı?";
+"Submission_Checkins_Title" = "Konum Check-In’leri Paylaşılsın Mı?";
 
 "Submission_Checkins_Description" = "Sizin yakınınızda check in yapmış olan diğer kullanıcıları uyarın. Kişisel verileriniz paylaşılmayacaktır.";
 
