@@ -80,20 +80,26 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 		dynamicTableViewModel = DynamicTableViewModel(
 			[
 				.section(
-					header: .image(UIImage(named: "Illu_Submission_Kontakt"),
-								   accessibilityLabel: AppStrings.ExposureSubmissionHotline.imageDescription,
-								   accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionHotline.imageDescription),
+					header: .image(
+						UIImage(named: "Illu_Submission_Kontakt"),
+						accessibilityLabel: AppStrings.ExposureSubmissionHotline.imageDescription,
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionHotline.imageDescription
+					),
 					cells: [
-						.body(text: [AppStrings.ExposureSubmissionHotline.description, AppStrings.Common.tessRelayDescription].joined(separator: "\n\n"),
-							  accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionHotline.description) { _, cell, _ in
-								cell.textLabel?.accessibilityTraits = .header
-							}
+						.body(
+							text: [AppStrings.ExposureSubmissionHotline.description, AppStrings.Common.tessRelayDescription].joined(separator: "\n\n"),
+							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionHotline.description
+						) { _, cell, _ in
+							cell.textLabel?.accessibilityTraits = .header
+						}
 					]
 				),
 				DynamicSection.section(
 					cells: [
-						.title2(text: AppStrings.ExposureSubmissionHotline.sectionTitle,
-								accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionHotline.sectionTitle),
+						.title2(
+							text: AppStrings.ExposureSubmissionHotline.sectionTitle,
+							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionHotline.sectionTitle
+						),
 						ExposureSubmissionDynamicCell.stepCell(
 							style: .body,
 							title: AppStrings.ExposureSubmissionHotline.sectionDescription1,

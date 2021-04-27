@@ -6,7 +6,7 @@ import Foundation
 import OpenCombine
 
 /// A provider for statistics
-protocol StatisticsProviding: class {
+protocol StatisticsProviding: AnyObject {
 
 	/// Provides the latest statistics
 	func statistics() -> AnyPublisher<SAP_Internal_Stats_Statistics, Error>
