@@ -82,16 +82,19 @@ class RiskLegendViewController: DynamicTableViewController {
 				accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.subtitle
 			),
 			.section(
-				header: .image(UIImage(named: "Illu_Legende-Overview"),
-							   accessibilityLabel: AppStrings.RiskLegend.titleImageAccLabel,
-							   accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.titleImageAccLabel,
-							   height: 200),
+				header: .image(
+					UIImage(named: "Illu_Legende-Overview"),
+					accessibilityLabel: AppStrings.RiskLegend.titleImageAccLabel,
+					accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.titleImageAccLabel,
+					height: 200
+				),
 				footer: .space(height: 32),
 				cells: [
 					.icon(UIImage(named: "Icons_Ueberblick_1"), text: .string(AppStrings.RiskLegend.legend1Title), style: .title2) { _, cell, _ in cell.accessibilityTraits = .header },
 					.body(
 						text: AppStrings.RiskLegend.legend1Text,
-						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.legend1Text)
+						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.legend1Text
+					)
 				]
 			),
 			.section(
@@ -100,22 +103,26 @@ class RiskLegendViewController: DynamicTableViewController {
 					.icon(UIImage(named: "Icons_Ueberblick_2"), text: .string(AppStrings.RiskLegend.legend2Title), style: .title2) { _, cell, _ in cell.accessibilityTraits = .header },
 					.body(
 						text: AppStrings.RiskLegend.legend2Text,
-						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.legend2Text),
+						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.legend2Text
+					),
 					.space(height: 8),
 					.headline(
 						text: AppStrings.RiskLegend.legend2RiskLevels,
-						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.legend2RiskLevels),
+						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.legend2RiskLevels
+					),
 					.space(height: 8),
 					.dotBodyCell(
 						color: .enaColor(for: .riskHigh),
 						text: AppStrings.RiskLegend.legend2High,
 						accessibilityLabelColor: AppStrings.ExposureDetection.highColorName,
-						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.legend2High),
+						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.legend2High
+					),
 					.dotBodyCell(
 						color: .enaColor(for: .riskLow),
 						text: AppStrings.RiskLegend.legend2Low,
 						accessibilityLabelColor: AppStrings.ExposureDetection.lowColorName,
-						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.legend2LowColor)
+						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.legend2LowColor
+					)
 				]
 			),
 			.section(
@@ -124,7 +131,8 @@ class RiskLegendViewController: DynamicTableViewController {
 					.icon(UIImage(named: "Icons_Ueberblick_3"), text: .string(AppStrings.RiskLegend.legend3Title), style: .title2) { _, cell, _ in cell.accessibilityTraits = .header },
 					.body(
 						text: AppStrings.RiskLegend.legend3Text,
-						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.legend3Text)
+						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.legend3Text
+					)
 				]
 			),
 			.section(
@@ -132,17 +140,20 @@ class RiskLegendViewController: DynamicTableViewController {
 				cells: [
 					.title2(
 						text: AppStrings.RiskLegend.definitionsTitle,
-						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.definitionsTitle)
+						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.definitionsTitle
+					)
 				]
 			),
 			.section(
 				cells: [
 					.headlineWithoutBottomInset(
 						text: AppStrings.RiskLegend.storeTitle,
-						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.storeTitle),
+						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.storeTitle
+					),
 					.body(
 						text: AppStrings.RiskLegend.storeText,
-						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.storeText)
+						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.storeText
+					)
 				]
 			),
 			.section(
@@ -150,10 +161,12 @@ class RiskLegendViewController: DynamicTableViewController {
 				cells: [
 					.headlineWithoutBottomInset(
 						text: AppStrings.RiskLegend.checkTitle,
-						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.checkTitle),
+						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.checkTitle
+					),
 					.body(
 						text: AppStrings.RiskLegend.checkText,
-						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.checkText)
+						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.checkText
+					)
 				]
 			),
 			.section(
@@ -161,10 +174,12 @@ class RiskLegendViewController: DynamicTableViewController {
 				cells: [
 					.headlineWithoutBottomInset(
 						text: AppStrings.RiskLegend.contactTitle,
-						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.contactTitle),
+						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.contactTitle
+					),
 					.body(
 						text: AppStrings.RiskLegend.contactText,
-						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.contactText)
+						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.contactText
+					)
 				]
 			),
 			.section(
@@ -172,10 +187,12 @@ class RiskLegendViewController: DynamicTableViewController {
 				cells: [
 					.headlineWithoutBottomInset(
 						text: AppStrings.RiskLegend.notificationTitle,
-						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.notificationTitle),
+						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.notificationTitle
+					),
 					.body(
 						text: AppStrings.RiskLegend.notificationText,
-						accessibilityIdentifier:AccessibilityIdentifiers.RiskLegend.notificationText)
+						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.notificationText
+					)
 				]
 			),
 			.section(
@@ -183,10 +200,12 @@ class RiskLegendViewController: DynamicTableViewController {
 				cells: [
 					.headlineWithoutBottomInset(
 						text: AppStrings.RiskLegend.randomTitle,
-						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.randomTitle),
+						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.randomTitle
+					),
 					.body(
 						text: AppStrings.RiskLegend.randomText,
-						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.randomText)
+						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.randomText
+					)
 				]
 			)
 		])
