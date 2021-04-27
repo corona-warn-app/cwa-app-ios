@@ -2140,7 +2140,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "Checkins_Overview_DeleteAll_AlertCancelButtonTitle" = "Abbrechen";
 
-"Checkins_Overview_ActionSheet_InfoTitle" = "Infos";
+"Checkins_Overview_ActionSheet_InfoTitle" = "Informationen";
 
 "Checkins_Overview_ActionSheet_EditTitle" = "Bearbeiten";
 
@@ -2200,7 +2200,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TraceLocations_Overview_DeleteAll_AlertCancelButtonTitle" = "Abbrechen";
 
-"TraceLocations_Overview_ActionSheet_InfoTitle" = "Infos";
+"TraceLocations_Overview_ActionSheet_InfoTitle" = "Informationen";
 
 "TraceLocations_Overview_ActionSheet_EditTitle" = "Bearbeiten";
 
