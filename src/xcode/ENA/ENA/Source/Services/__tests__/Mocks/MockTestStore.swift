@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import OpenCombine
 
 #if DEBUG
 
@@ -103,7 +104,17 @@ final class MockTestStore: Store, PPAnalyticsData {
 
 
 	// MARK: - AntigenTestProfileStoring
-	var antigenTestProfile: AntigenTestProfile?
+	lazy var antigenTestProfileSubject = {
+		CurrentValueSubject<AntigenTestProfile?, Never>(antigenTestProfile)
+	}()
+	var antigenTestProfile: AntigenTestProfile? {
+		get {
+			return antigenTestProfileSubject.value
+		}
+		set {
+			antigenTestProfileSubject.value = newValue
+		}
+	}
 	var antigenTestProfileInfoScreenShown: Bool = false
 
 	// MARK: - CoronaTestStoringLegacy

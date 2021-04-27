@@ -4,6 +4,7 @@
 
 import Foundation
 import ExposureNotification
+import OpenCombine
 
 protocol StoreProtocol: AnyObject {
 
@@ -146,6 +147,8 @@ protocol CoronaTestStoring {
 }
 
 protocol AntigenTestProfileStoring: AnyObject {
+
+	var antigenTestProfileSubject: CurrentValueSubject<AntigenTestProfile?, Never> { get }
 
 	var antigenTestProfile: AntigenTestProfile? { get set }
 

@@ -5,6 +5,7 @@
 
 import Foundation
 import UIKit
+import OpenCombine
 
 class ExposureSubmissionIntroViewModel {
 
@@ -22,6 +23,15 @@ class ExposureSubmissionIntroViewModel {
 		self.onHotlineButtonTap = onHotlineButtonTap
 		self.onRapidTestProfileTap = onRapidTestProfileTap
 		self.antigenTestProfileStore = antigenTestProfileStore
+
+		antigenTestProfileStore.antigenTestProfileSubject.sink { [weak self] testProfile in
+			guard let self = self else { return }
+
+			self.dynamicTableModel = self.makeDynamicTableModel(
+				testProfileAvailable: testProfile != nil
+			)
+			
+		}.store(in: &subscriptions)
 	}
 	
 	// MARK: - Internal
@@ -32,7 +42,45 @@ class ExposureSubmissionIntroViewModel {
 	let onRapidTestProfileTap: () -> Void
 	let antigenTestProfileStore: AntigenTestProfileStoring
 
-	var dynamicTableModel: DynamicTableViewModel {
+	@OpenCombine.Published var dynamicTableModel: DynamicTableViewModel = DynamicTableViewModel([])
+
+	// MARK: - Private
+
+	private var subscriptions = Set<AnyCancellable>()
+
+	private func makeDynamicTableModel(testProfileAvailable: Bool) -> DynamicTableViewModel {
+		let profileCell: DynamicCell
+
+		if testProfileAvailable {
+			let gradientView = GradientView()
+			gradientView.type = .blueOnly
+
+			profileCell = DynamicCell.imageCard(
+				title: AppStrings.ExposureSubmission.AntigenTest.Profile.profileTile_Title,
+				description: AppStrings.ExposureSubmission.AntigenTest.Profile.profileTile_Description,
+				image: UIImage(named: "Illu_Submission_AntigenTest_Profile"),
+				backgroundView: gradientView,
+				textColor: .enaColor(for: .textContrast),
+				action: .execute { [weak self] _, _ in
+					self?.onRapidTestProfileTap()
+				},
+				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.qrCodeButtonDescription,
+				tag: "AntigenTestProfileCard" // Used for unit testing.
+			)
+		} else {
+			profileCell = DynamicCell.imageCard(
+				title: AppStrings.ExposureSubmission.AntigenTest.Profile.createProfileTile_Title,
+				description: AppStrings.ExposureSubmission.AntigenTest.Profile.createProfileTile_Description,
+				image: UIImage(named: "Illu_Submission_AntigenTest_CreateProfile"),
+				imageLayout: .center,
+				action: .execute { [weak self] _, _ in
+					self?.onRapidTestProfileTap()
+				},
+				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.qrCodeButtonDescription,
+				tag: "AntigenTestCreateProfileCard" // Used for unit testing.
+			)
+		}
+
 		return DynamicTableViewModel.with {
 			$0.add(.section(
 				header: .image(
@@ -77,41 +125,6 @@ class ExposureSubmissionIntroViewModel {
 			]))
 		}
 	}
-
-	// MARK: - Private
-
-	private var profileCell: DynamicCell {
-		if antigenTestProfileStore.antigenTestProfile == nil {
-			return .imageCard(
-				title: AppStrings.ExposureSubmission.AntigenTest.Profile.createProfileTile_Title,
-				description: AppStrings.ExposureSubmission.AntigenTest.Profile.createProfileTile_Description,
-				image: UIImage(named: "Illu_Submission_AntigenTest_CreateProfile"),
-				imageLayout: .center,
-				action: .execute { [weak self] _, _ in
-					self?.onRapidTestProfileTap()
-				},
-				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.qrCodeButtonDescription,
-				tag: "AntigenTestCreateProfileCard" // Used for unit testing.
-			)
-		} else {
-			let gradientView = GradientView()
-			gradientView.type = .blueOnly
-
-			return .imageCard(
-				title: AppStrings.ExposureSubmission.AntigenTest.Profile.profileTile_Title,
-				description: AppStrings.ExposureSubmission.AntigenTest.Profile.profileTile_Description,
-				image: UIImage(named: "Illu_Submission_AntigenTest_Profile"),
-				backgroundView: gradientView,
-				textColor: .enaColor(for: .textContrast),
-				action: .execute { [weak self] _, _ in
-					self?.onRapidTestProfileTap()
-				},
-				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.qrCodeButtonDescription,
-				tag: "AntigenTestProfileCard" // Used for unit testing.
-			)
-		}
-	}
-
 }
 
 private extension DynamicCell {
