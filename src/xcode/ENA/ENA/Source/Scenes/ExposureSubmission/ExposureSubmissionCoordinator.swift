@@ -104,7 +104,17 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			viewModel: tanInputViewModel,
 			dismiss: { [weak self] in self?.dismiss() }
 		)
-		push(vc)
+		
+		let footerViewModel = FooterViewModel(
+			primaryButtonName: AppStrings.ExposureSubmissionTanEntry.submit,
+			isPrimaryButtonEnabled: false,
+			isSecondaryButtonHidden: true
+		)
+
+		let footerViewController = FooterViewController(footerViewModel)
+		let topBottomViewController = TopBottomContainerViewController(topController: vc, bottomController: footerViewController)
+		
+		push(topBottomViewController)
 	}
 
 	/// This method selects the correct initial view controller among the following options:
