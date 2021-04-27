@@ -86,38 +86,14 @@ class ELSServiceTests: XCTestCase {
 	}
 	
 	func testGIVEN_ELSService_WHEN_UploadIsTriggered_THEN_OTPErrorIsReturned() throws {
-		
-		let store = MockTestStore()
+
 		let client = ClientMock()
 		client.onGetOTPEls = { _, _, completion in
 			completion(.failure(OTPError.otherServerError))
 		}
-		
+		let elsService = createELSService(client: client)
 		let testExpectation = expectation(description: "Test should fail expectation")
-
-		#if targetEnvironment(simulator)
-		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
-		#else
-		let deviceCheck = PPACDeviceCheck()
-		#endif
 		
-		let ppacService = PPACService(
-			store: store,
-			deviceCheck: deviceCheck
-		)
-		let riskProvider = MockRiskProvider()
-		let otpService = OTPService(
-			store: store,
-			client: client,
-			riskProvider: riskProvider
-		)
-		
-		let elsService = ErrorLogSubmissionService(
-			client: client,
-			store: store,
-			ppacService: ppacService,
-			otpService: otpService
-		)
 		var expectedError: ELSError?
 
 		// WHEN
@@ -143,8 +119,9 @@ class ELSServiceTests: XCTestCase {
 	
 	func testGIVEN_ELSService_WHEN_UploadIsTriggered_THEN_CouldNotReadLogfileIsReturned() throws {
 		let elsService = createELSService()
-		
-		XCTAssertThrowsError(try elsService.stopAndDeleteLog())
+		// we don't care about the result, just ensuring 'clean' logs
+		try? elsService.stopAndDeleteLog()
+
 		XCTAssertNil(elsService.fetchExistingLog())
 
 		elsService.submit { result in
@@ -157,23 +134,33 @@ class ELSServiceTests: XCTestCase {
 		}
 	}
 	
-	func testGIVEN_ELSService_WHEN_UploadIsTriggered_THEN_EmptyLogFileIsReturned() throws {
-
+	func testLogFetching() throws {
 		let elsService = createELSService()
+
+		// we don't care about the result, just ensuring 'clean' logs
+		try? elsService.stopAndDeleteLog()
+		// No log? No LogItem!
 		XCTAssertNil(elsService.fetchExistingLog())
+
+		elsService.startLogging()
+		Log.debug("Test", log: .default)
+		XCTAssertNotNil(elsService.fetchExistingLog())
 	}
 
-	//MARK: - Helpers
+	// MARK: - Helpers
 
-	func createELSService() -> ErrorLogSubmissionService {
-		let store = MockTestStore()
-		let client = ClientMock()
+	// This thing currently doesn't handle all customizations
+	private func createELSService(
+		store: Store & PPAnalyticsData = MockTestStore(),
+		client: ClientMock = ClientMock()
+	) -> ErrorLogSubmissionService {
 
 		#if targetEnvironment(simulator)
 		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
 		#else
 		let deviceCheck = PPACDeviceCheck()
 		#endif
+
 		let ppacService = PPACService(
 			store: store,
 			deviceCheck: deviceCheck
