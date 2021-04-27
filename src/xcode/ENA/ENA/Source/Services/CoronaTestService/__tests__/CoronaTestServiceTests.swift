@@ -356,6 +356,17 @@ class CoronaTestServiceTests: XCTestCase {
 		testService.pcrTest = PCRTest.mock(registrationToken: "regToken")
 
 		let completionExpectation = expectation(description: "Completion should be called.")
+		completionExpectation.expectedFulfillmentCount = 3
+
+		testService.updateTestResults(presentNotification: true) { _ in
+			completionExpectation.fulfill()
+		}
+
+		// Updating two more times to check that notification are only scheduled once
+		testService.updateTestResults(presentNotification: true) { _ in
+			completionExpectation.fulfill()
+		}
+
 		testService.updateTestResults(presentNotification: true) { _ in
 			completionExpectation.fulfill()
 		}
