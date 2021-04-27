@@ -4,7 +4,7 @@
 
 import UIKit
 
-class CreateAntigenTestProfileViewController: UIViewController, FooterViewHandling, DismissHandling {
+class CreateAntigenTestProfileViewController: DynamicTableViewController, FooterViewHandling, DismissHandling {
 
 	// MARK: - Init
 
@@ -29,9 +29,7 @@ class CreateAntigenTestProfileViewController: UIViewController, FooterViewHandli
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
-		parent?.navigationItem.title = viewModel.title
-		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
+		setupView()
 	}
 
 	// MARK: - Protocol FooterViewHandling
@@ -60,4 +58,18 @@ class CreateAntigenTestProfileViewController: UIViewController, FooterViewHandli
 	private let didTapSave: () -> Void
 	private let dismiss: () -> Void
 
+	private func setupView() {
+		// navigationItem
+		parent?.navigationItem.title = viewModel.title
+		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
+		// view
+		view.backgroundColor = .enaColor(for: .background)
+		// tableView
+//		tableView.register(
+//			UINib(nibName: String(describing: DynamicLegalExtendedCell.self), bundle: nil),
+//			forCellReuseIdentifier: ReuseIdentifiers.legalExtended.rawValue
+//		)
+		dynamicTableViewModel = viewModel.dynamicTableViewModel
+		tableView.separatorStyle = .none
+	}
 }
