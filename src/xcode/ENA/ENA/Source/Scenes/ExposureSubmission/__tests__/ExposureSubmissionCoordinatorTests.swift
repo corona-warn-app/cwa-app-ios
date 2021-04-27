@@ -38,7 +38,8 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 			parentNavigationController: parentNavigationController,
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: coronaTestService,
-			eventProvider: MockEventStore()
+			eventProvider: MockEventStore(),
+			antigenTestProfileStore: store
 		)
 	}
 
