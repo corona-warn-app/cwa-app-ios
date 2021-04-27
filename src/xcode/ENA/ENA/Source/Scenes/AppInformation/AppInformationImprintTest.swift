@@ -14,7 +14,7 @@ class AppInformationImprintTest: XCTestCase {
 			.imprint: (
 				text: AppStrings.AppInformation.imprintNavigation,
 				accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintNavigation,
-				action: .push(model: imprintViewModel.dynamicTable, withTitle:  AppStrings.AppInformation.imprintNavigation)
+				action: .push(model: imprintViewModel.dynamicTable, withTitle: AppStrings.AppInformation.imprintNavigation)
 			)
 		]
 		
@@ -39,7 +39,7 @@ class AppInformationImprintTest: XCTestCase {
 			.imprint: (
 				text: AppStrings.AppInformation.imprintNavigation,
 				accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintNavigation,
-				action: .push(model: imprintViewModel.dynamicTable, withTitle:  AppStrings.AppInformation.imprintNavigation)
+				action: .push(model: imprintViewModel.dynamicTable, withTitle: AppStrings.AppInformation.imprintNavigation)
 			)
 		]
 		
@@ -65,7 +65,7 @@ class AppInformationImprintTest: XCTestCase {
 			.imprint: (
 				text: AppStrings.AppInformation.imprintNavigation,
 				accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintNavigation,
-				action: .push(model: imprintViewModel.dynamicTable, withTitle:  AppStrings.AppInformation.imprintNavigation)
+				action: .push(model: imprintViewModel.dynamicTable, withTitle: AppStrings.AppInformation.imprintNavigation)
 			)
 		]
 		

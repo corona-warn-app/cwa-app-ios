@@ -31,29 +31,47 @@ class AppInformationImprintViewModel {
 	
 	func initTable (localization: String = Bundle.main.preferredLocalizations.first ?? "de") {
 		var cells: [DynamicCell] = [
-			.headline(text: AppStrings.AppInformation.imprintSection1Title,
-					  accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection1Title,
-					  accessibilityTraits: .header),
-			.bodyWithoutTopInset(text: AppStrings.AppInformation.imprintSection1Text,
-								 style: .textView([]),
-								 accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection1Text),
-			.imprintHeadlineWithoutBottomInset(text: AppStrings.AppInformation.imprintSection2Title,
-										accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection2Title),
-			.bodyWithoutTopInset(text: AppStrings.AppInformation.imprintSection2Text,
-								 style: .textView([]),
-								 accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection2Text),
-			.imprintHeadlineWithoutBottomInset(text: AppStrings.AppInformation.imprintSection3Title,
-										accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection3Title),
-			.bodyWithoutTopInset(text: AppStrings.AppInformation.imprintSection3Text,
-								 style: .textView(.all),
-								 accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection3Text)]
+			.headline(
+				text: AppStrings.AppInformation.imprintSection1Title,
+				accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection1Title,
+				accessibilityTraits: .header
+			),
+			.bodyWithoutTopInset(
+				text: AppStrings.AppInformation.imprintSection1Text,
+				style: .textView([]),
+				accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection1Text
+			),
+			.imprintHeadlineWithoutBottomInset(
+				text: AppStrings.AppInformation.imprintSection2Title,
+				accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection2Title
+			),
+			.bodyWithoutTopInset(
+				text: AppStrings.AppInformation.imprintSection2Text,
+				style: .textView([]),
+				accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection2Text
+			),
+			.imprintHeadlineWithoutBottomInset(
+				text: AppStrings.AppInformation.imprintSection3Title,
+				accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection3Title
+			),
+			.bodyWithoutTopInset(
+				text: AppStrings.AppInformation.imprintSection3Text,
+				style: .textView(.all),
+				accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection3Text
+			)
+		]
 		cells.append(contentsOf: AppInformationImprintViewModel.contactForms(localization: localization))
 		cells.append(contentsOf: [
-						.imprintHeadlineWithoutBottomInset(text: AppStrings.AppInformation.imprintSection4Title,
-													accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection4Title),
-						.bodyWithoutTopInset(text: AppStrings.AppInformation.imprintSection4Text,
-											 style: .textView([]),
-											 accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection4Text)])
+			.imprintHeadlineWithoutBottomInset(
+				text: AppStrings.AppInformation.imprintSection4Title,
+				accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection4Title
+			),
+			.bodyWithoutTopInset(
+				text: AppStrings.AppInformation.imprintSection4Text,
+				style: .textView([]),
+				accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection4Text
+			)
+		])
 		let header: DynamicHeader = .image(UIImage(named: "Illu_Appinfo_Impressum"), accessibilityLabel: AppStrings.AppInformation.imprintImageDescription, accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintImageDescription, height: 230)
 		dynamicTable = DynamicTableViewModel([.section(header: header, cells: cells)])
 	}
