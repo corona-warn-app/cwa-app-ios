@@ -48,7 +48,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 					let qrInfoScreen = self.makeQRInfoScreen(supportedCountries: supportedCountries, testInformation: testInformation)
 					self.start(with: qrInfoScreen)
 				case let .failure(qrCodeError):
-					if qrCodeError == .invalidTestCode {
+					switch qrCodeError {
+					case .invalidTestCode:
 						self.showRATInvalidQQCode()
 					}
 				}
@@ -1051,7 +1052,14 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	}
 	
 	private func showExposureSubmissionSuccessViewController() {
+		guard let coronaTestType = model.coronaTestType else {
+			Log.error("No corona test type set to show the success view controller for, dismissing to be safe", log: .ui)
+			dismiss()
+			return
+		}
+
 		let exposureSubmissionSuccessViewController = ExposureSubmissionSuccessViewController(
+			coronaTestType: coronaTestType,
 			dismiss: { [weak self] in
 				self?.dismiss()
 			}

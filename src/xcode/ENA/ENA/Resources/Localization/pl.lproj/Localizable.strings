@@ -446,7 +446,7 @@
 "ExposureSubmission_Hotline_Number" = "08007540002";
 
 /* phone number; no spacing allowed */
-"ExposureSubmission_Hotline_Number_Foreign" = "+493049875402";
+"ExposureSubmission_Hotline_Number_Foreign" = "+493049875401";
 
 "ExposureSubmission_DataPrivacyTitle" = "Zgoda";
 
@@ -497,16 +497,16 @@
 
 "ExposureSubmissionDispatch_QRCodeButtonDescription" = "Odbierz wynik testu w aplikacji i ostrzegaj innych.";
 
-"ExposureSubmissionDispatch_TANButtonTitle" = "Wpisz TAN";
+"ExposureSubmissionDispatch_TANButtonTitle" = "Wpisz TAN do testu PCR";
 
-"ExposureSubmissionDispatch_TANButtonDescription" = "Czy masz numer TAN? Naciśnij tutaj, aby go wprowadzić i dzięki temu ostrzegać innych.";
+"ExposureSubmissionDispatch_TANButtonDescription" = "Czy masz numer TAN do swojego testu PCR? Naciśnij tutaj, aby go wprowadzić i dzięki temu ostrzegać innych.";
 
-"ExposureSubmissionDispatch_HotlineButtonTitle" = "Nie masz jeszcze numeru TAN?";
+"ExposureSubmissionDispatch_HotlineButtonTitle" = "Poproś o TAN do testu PCR";
 
-"ExposureSubmissionDispatch_HotlineButtonDescription" = "Zadzwoń i odbierz numer TAN.";
+"ExposureSubmissionDispatch_HotlineButtonDescription" = "Zadzwoń i odbierz numer TAN do testu PCR.";
 
 /* Exposure Submission Hotline */
-"ExposureSubmissionHotline_Title" = "Poproś o TAN";
+"ExposureSubmissionHotline_Title" = "Poproś o TAN do testu PCR";
 
 "ExposureSubmissionHotline_Description" = "Przygotuj wynik testu (jeśli jest dostępny) oraz numer telefonu, aby poprosić o numer TAN.";
 
@@ -523,13 +523,13 @@
 
 "ExposureSubmission_PhoneDetailsDomestic" = "Dla połączeń z terytorium Niemiec.\nPołączenie jest bezpłatne.";
 
-"ExposureSubmission_PhoneNumberForeign" = "+49 30 498 75402";
+"ExposureSubmission_PhoneNumberForeign" = "+49 30 498 75401";
 
 "ExposureSubmission_PhoneDetailsForeign" = "Dla połączeń spoza Niemiec.\nObowiązują opłaty podane przez operatora telefonicznego.";
 
-"ExposureSubmission_PhoneDetailDescription" = "Zapewniamy obsługę klienta w następujących językach: \nangielskim, niemieckim, tureckim\n\nGodziny pracy:\n24/7\n\nW razie jakichkolwiek pytań związanych ze zdrowiem skontaktuj się z lekarzem rodzinnym lub lekarzem dyżurnym pod numerem: 116 117.";
+"ExposureSubmission_PhoneDetailDescription" = "Zapewniamy obsługę klienta w następujących językach: \nangielskim, niemieckim, tureckim\n\nGodziny pracy:\nod poniedziałku do soboty w godzinach 7:00 - 22:00 (CET)\n\nW razie jakichkolwiek pytań związanych ze zdrowiem skontaktuj się z lekarzem rodzinnym lub lekarzem dyżurnym pod numerem: 116 117.";
 
-"ExposureSubmission_SectionDescription2" = "Zarejestruj swój test poprzez wpisanie numeru TAN w aplikacji.";
+"ExposureSubmission_SectionDescription2" = "Zarejestruj swój test PCR poprzez wpisanie numeru TAN w aplikacji.";
 
 "ExposureSubmission_CallButtonTitle" = "Zadzwoń";
 
@@ -614,7 +614,9 @@
 
 "ExposureSubmissionSuccess_listTitle" = "Uwaga:";
 
-"ExposureSubmissionSuccess_listItem1" = "Organ ds. zdrowia publicznego skontaktuje się z Tobą w ciągu kilku najbliższych dni.";
+"ExposureSubmissionSuccess_listItem0" = "Wykonaj test PCR, aby zweryfikować wynik tego testu. ";
+
+"ExposureSubmissionSuccess_listItem1" = "Organ ds. zdrowia publicznego skontaktuje się z Tobą w ciągu kilku najbliższych dni telefonicznie lub listownie.";
 
 "ExposureSubmissionSuccess_listItem2" = "Możesz zarażać. Izoluj się od innych osób.";
 
@@ -845,7 +847,7 @@
 
 "ExposureSubmissionResult_Negative_Antigen_Proof_Title" = "Funkcja weryfikacji";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Wyświetlony tutaj wynik testu może również służyć jako dowód negatywnego wyniku szybkiego testu. Aby uzyskać więcej informacji, zapoznaj się z kryteriami akceptacji dowodu przeprowadzenia testów w swoim kraju związkowym. Pamiętaj, że nie masz obowiązku używania aplikacji do udowodnienia statusu dotyczącego zakażenia. Wynik szybkiego testu możesz również udowodnić w inny sposób zgodny z przepisami prawa.";
+"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Wyświetlony tutaj wynik testu może również służyć jako dowód negatywnego wyniku szybkiego testu. \n\nPamiętaj, że wynik szybkiego testu musisz przedstawić tylko wtedy, gdy jest to wymagane przez prawo. Możesz przedstawić wynik za pomocą aplikacji lub w inny sposób. Aby uzyskać więcej informacji, zapoznaj się z kryteriami akceptacji dowodu przeprowadzenia testów w swoim kraju związkowym.";
 
 /* Exposure Submission */
 "ExposureSubmissionError_ErrorPrefix" = "Podczas wysyłania Twoim danych pojawił się błąd techniczny. Skontaktuj się z infolinią techniczną. Numer telefonu znajdziesz w sekcji Informacje o aplikacji.";
@@ -1148,7 +1150,7 @@
 
 "Home_Finding_Positive_Card_Note_Title" = "Uwaga:";
 
-"Home_Finding_Positive_Card_Verify_Item_Title" = "Wykonaj test PCR, aby zweryfikować wynik tego testu. ";
+"Home_Finding_Positive_Card_Verify_Item_Title" = "Wykonaj test PCR, aby zweryfikować wynik tego testu.";
 
 "Home_Finding_Positive_Card_Phone_Item_Title" = "Organ ds. zdrowia publicznego skontaktuje się z Tobą w ciągu kilku najbliższych dni telefonicznie lub listownie.";
 
@@ -1227,13 +1229,13 @@
 
 "App_Information_Contact_Hotline_Details_Domestic" = "Dla połączeń z terytorium Niemiec.\nPołączenie jest bezpłatne.";
 
-"App_Information_Contact_Hotline_Text_Foreign" = "+49 30 498 75402";
+"App_Information_Contact_Hotline_Text_Foreign" = "+49 30 498 75401";
 
-"App_Information_Contact_Hotline_Number_Foreign" = "+493049875402";
+"App_Information_Contact_Hotline_Number_Foreign" = "+493049875401";
 
 "App_Information_Contact_Hotline_Details_Foreign" = "Dla połączeń spoza Niemiec.\nObowiązują opłaty podane przez operatora telefonicznego.";
 
-"App_Information_Contact_Hotline_Terms" = "Zapewniamy obsługę klienta w następujących językach: \nangielskim, niemieckim, tureckim\n\nGodziny pracy:\n24/7\n\nW razie jakichkolwiek pytań związanych ze zdrowiem skontaktuj się z lekarzem rodzinnym lub lekarzem dyżurnym pod numerem: 116 117.";
+"App_Information_Contact_Hotline_Terms" = "Zapewniamy obsługę klienta w następujących językach: \nangielskim, niemieckim, tureckim\n\nGodziny pracy:\nod poniedziałku do soboty w godzinach 7:00 - 22:00 (CET)\n\nW razie jakichkolwiek pytań związanych ze zdrowiem skontaktuj się z lekarzem rodzinnym lub lekarzem dyżurnym pod numerem: 116 117.";
 
 /* App Information - Imprint */
 "App_Information_New_Features_Navigation" = "Nowe funkcje";
@@ -1456,12 +1458,12 @@
 
 "NewVersionFeature_21_tan_hotline_foreign_countries_title" = "Infolinia TAN już dostępna poza granicami Niemiec";
 
-"NewVersionFeature_21_tan_hotline_foreign_countries_description" = "Jeśli zdiagnozowano u Ciebie koronawirusa, możesz teraz poprosić o numer TAN poza terytorium Niemiec, dzwoniąc na numer +49 30 498 75402. W takim przypadku obowiązują opłaty pobierane przez operatora telefonicznego.";
+"NewVersionFeature_21_tan_hotline_foreign_countries_description" = "Jeśli zdiagnozowano u Ciebie koronawirusa, możesz teraz poprosić o numer TAN poza terytorium Niemiec, dzwoniąc na numer +49 30 498 75401. W takim przypadku obowiązują opłaty pobierane przez operatora telefonicznego.";
 
 /* Version 2.0 */
 "NewVersionFeature_200_event_checkin_title" = "Meldowanie się za pomocą kodu QR w celu skutecznego śledzenia łańcuchów zakażeń";
 
-"NewVersionFeature_200_event_checkin_description" = "CWA umożliwia teraz meldowanie obecności w wydarzeniach i miejscach. Organizatorzy wydarzeń i właściciele sklepów mogą wykorzystać tę aplikację do utworzenia kodu QR. Goście mogą zeskanować ten kod QR po przybyciu na miejsce, aby zarejestrować swoją obecność. Na życzenie aplikacja może również utworzyć wpis w dzienniku. Jeśli u osoby, która zameldowała swoją obecność w danym wydarzeniu lub miejscu, zostanie później zdiagnozowany koronawirus, inne osoby, które zameldowały się w tym samym czasie, otrzymają automatyczne ostrzeżenie.";
+"NewVersionFeature_200_event_checkin_description" = "CWA umożliwia teraz meldowanie obecności w wydarzeniach i miejscach. Organizatorzy wydarzeń i właściciele sklepów mogą wykorzystać tę aplikację do utworzenia kodu QR. Goście mogą zeskanować ten kod QR po przybyciu na miejsce, aby zarejestrować swoją obecność. Na życzenie aplikacja może również utworzyć wpis w dzienniku. Jeśli u osoby, która zameldowała swoją obecność w danym wydarzeniu lub miejscu, zostanie później zdiagnozowany koronawirus, inne osoby, które zameldowały się w tym samym czasie, otrzymają ostrzeżenie.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Rejestrowanie narażenia w różnych krajach";
@@ -2056,6 +2058,10 @@
 
 "Checkins_Overview_QRScanner_Instruction" = "Skanuj kod QR i zamelduj się";
 
+"Checkins_Overview_Item_Prefix_CheckIn" = "Zamelduj się do %@.";
+
+"Checkins_Overview_Item_Prefix_CheckedOut" = "Wymelduj się z %@.";
+
 "Checkin_QR_Scanner_Checkin_Error_Title" = "Nieprawidłowy kod QR";
 
 "Checkin_QR_Scanner_Error_InvalidURL" = "Zeskanowany kod QR nie jest prawidłowy dla zameldowania obecności w wydarzeniu lub miejscu. Zeskanuj odpowiedni kod QR (kod błędu INVALID_URL).";
@@ -2108,6 +2114,8 @@
 "TraceLocations_Overview_ActionSheet_InfoTitle" = "Informacje";
 
 "TraceLocations_Overview_ActionSheet_EditTitle" = "Edytuj";
+
+"TraceLocations_Overview_Item_Prefix" = "Kod QR do %@.";
 
 /* Trace Location Details */
 "TraceLocations_Details_PrintVersionButtonTitle" = "Wyświetl wersję do druku";
@@ -2282,7 +2290,7 @@
 "Checkin_Details_CheckIn_Button" = "Zamelduj się";
 
 /* Submission Check-in */
-"Submission_Checkins_Title" = "Udostępnić Twoje zameldowania w lokalizacji?";
+"Submission_Checkins_Title" = "Udostępnić zameldowania w lokalizacji?";
 
 "Submission_Checkins_Description" = "Ostrzegaj inne osoby, które się zameldowały w pobliżu. Twoje dane osobowe nie będą udostępniane.";
 

@@ -7,7 +7,7 @@ import XCTest
 
 class CountryTests: XCTestCase {
 
-	/// Identifier for the 'EU' region and coutries
+	/// Identifier for the 'EU' region and countries
 	let allCountryIDs = ["EU", "DE", "UK", "FR", "IT", "ES", "PL", "RO", "NL", "BE", "CZ", "EL", "SE", "PT", "HU", "AT", "CH", "BG", "DK", "FI", "SK", "NO", "IE", "HR", "SI", "LT", "LV", "EE", "CY", "LU", "MT", "IS"]
 
     func testCountryInit() throws {

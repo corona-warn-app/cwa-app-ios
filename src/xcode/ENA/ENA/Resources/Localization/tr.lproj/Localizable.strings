@@ -446,7 +446,7 @@
 "ExposureSubmission_Hotline_Number" = "08007540002";
 
 /* phone number; no spacing allowed */
-"ExposureSubmission_Hotline_Number_Foreign" = "+493049875402";
+"ExposureSubmission_Hotline_Number_Foreign" = "+493049875401";
 
 "ExposureSubmission_DataPrivacyTitle" = "Onay";
 
@@ -497,16 +497,16 @@
 
 "ExposureSubmissionDispatch_QRCodeButtonDescription" = "Uygulamada test sonucunuzu alın ve diğer kullanıcıları uyarın.";
 
-"ExposureSubmissionDispatch_TANButtonTitle" = "TAN gir";
+"ExposureSubmissionDispatch_TANButtonTitle" = "PCR Testi için TAN girin";
 
-"ExposureSubmissionDispatch_TANButtonDescription" = "TAN'niz var mı? Diğer kullanıcıları uyarabilmek için TAN'nizi girmek üzere buraya dokunun.";
+"ExposureSubmissionDispatch_TANButtonDescription" = "PCR testiniz için bir TAN'niz var mı? Diğer kullanıcıları uyarabilmek için TAN'nizi girmek üzere buraya dokunun.";
 
-"ExposureSubmissionDispatch_HotlineButtonTitle" = "TAN yok mu?";
+"ExposureSubmissionDispatch_HotlineButtonTitle" = "PCR Testi için TAN talebinde bulunun";
 
-"ExposureSubmissionDispatch_HotlineButtonDescription" = "Bizi arayın ve TAN alın.";
+"ExposureSubmissionDispatch_HotlineButtonDescription" = "Bizi arayın ve PCR testiniz için bir TAN alın.";
 
 /* Exposure Submission Hotline */
-"ExposureSubmissionHotline_Title" = "TAN Talebi";
+"ExposureSubmissionHotline_Title" = "PCR Testi için TAN talebinde bulunun";
 
 "ExposureSubmissionHotline_Description" = "TAN talebinde bulunmak için lütfen test sonucunuzu (varsa) ve telefon numaranızı hazır tutun.";
 
@@ -523,13 +523,13 @@
 
 "ExposureSubmission_PhoneDetailsDomestic" = "Almanya’dan yapılan aramalar içindir.\nArama ücretsizdir.";
 
-"ExposureSubmission_PhoneNumberForeign" = "+49 30 498 75402";
+"ExposureSubmission_PhoneNumberForeign" = "+49 30 498 75401";
 
 "ExposureSubmission_PhoneDetailsForeign" = "Almanya dışından yapılan aramalar içindir.\nTelefon sağlayıcınız tarafından uygulanan ücretler geçerlidir.";
 
-"ExposureSubmission_PhoneDetailDescription" = "Müşteri hizmetlerimiz şu dillerde size yardımcı olmaya hazır: \nİngilizce, Almanca, Türkçe\n\nMesai saatleri:\n7 gün 24 saat\n\nSağlıkla ilgili tüm sorularınız için lütfen aile hekiminizle veya tıbbi acil servis yardım hattı ile iletişime geçin. Telefon: 116 117.";
+"ExposureSubmission_PhoneDetailDescription" = "Müşteri hizmetlerimiz şu dillerde size yardımcı olmaya hazır: \nİngilizce, Almanca, Türkçe\n\nMesai saatleri:\nPts-Cts: 7.00 - 22.00 (CET)\n\nSağlıkla ilgili tüm sorularınız için lütfen aile hekiminizle veya tıbbi acil servis yardım hattı ile iletişime geçin. Telefon: 116 117.";
 
-"ExposureSubmission_SectionDescription2" = "Uygulamaya TAN girerek testinizi kaydedin.";
+"ExposureSubmission_SectionDescription2" = "Uygulamaya TAN girerek PCR testinizi kaydedin.";
 
 "ExposureSubmission_CallButtonTitle" = "Ara";
 
@@ -614,7 +614,9 @@
 
 "ExposureSubmissionSuccess_listTitle" = "Lütfen unutmayın:";
 
-"ExposureSubmissionSuccess_listItem1" = "Kamu sağlığı yetkiliniz önümüzdeki birkaç gün içinde size ulaşacaktır.";
+"ExposureSubmissionSuccess_listItem0" = "Bu test sonucunu doğrulamak için PCR testi yapın. ";
+
+"ExposureSubmissionSuccess_listItem1" = "Kamu sağlığı yetkiliniz önümüzdeki birkaç gün içinde telefonla veya mektupla size ulaşacaktır.";
 
 "ExposureSubmissionSuccess_listItem2" = "Bulaşıcı bir hastalık taşıyorsunuz. Kendinizi diğer insanlardan izole edin.";
 
@@ -845,7 +847,7 @@
 
 "ExposureSubmissionResult_Negative_Antigen_Proof_Title" = "Doğrulama Özelliği";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Burada görüntülenen test sonucunu da negatif bir hızlı test sonucu kanıtı olarak kullanabilirsiniz. Daha fazla bilgi için lütfen federal eyaletinizde geçerli test kanıtı kabul ölçütlerini öğrenin. Lütfen unutmayın; enfeksiyon durumunuzu kanıtlamak için uygulamayı kullanmak zorunda değilsiniz. Hızlı testinizin sonucunu, yasal düzenlemeler uyarınca başka bir şekilde de kanıtlayabilirsiniz.";
+"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Burada görüntülenen test sonucunu da negatif bir hızlı test sonucu kanıtı olarak kullanabilirsiniz. \n\nYalnızca yasalarca gerekli kılındığı takdirde hızlı test sonucunuzu kanıtlamanız gerektiğini unutmayın. Sonucu, uygulamayı kullanarak veya farklı bir şekilde kanıtlayabilirsiniz. Daha fazla bilgi için lütfen federal eyaletinizde geçerli test kanıtı kabül ölçütlerini öğrenin.";
 
 /* Exposure Submission */
 "ExposureSubmissionError_ErrorPrefix" = "Verilerinizi gönderirken teknik hata oluştu. Lütfen teknik yardım hattı ile iletişime geçin. Telefon numarasını Uygulama Bilgileri bölümünde bulabilirsiniz.";
@@ -1148,7 +1150,7 @@
 
 "Home_Finding_Positive_Card_Note_Title" = "Lütfen unutmayın:";
 
-"Home_Finding_Positive_Card_Verify_Item_Title" = "Bu test sonucunu doğrulamak için PCR testi yapın. ";
+"Home_Finding_Positive_Card_Verify_Item_Title" = "Bu test sonucunu doğrulamak için PCR testi yapın.";
 
 "Home_Finding_Positive_Card_Phone_Item_Title" = "Kamu sağlığı yetkiliniz önümüzdeki birkaç gün içinde telefonla veya mektupla size ulaşacaktır.";
 
@@ -1227,13 +1229,13 @@
 
 "App_Information_Contact_Hotline_Details_Domestic" = "Almanya’dan yapılan aramalar içindir.\nArama ücretsizdir.";
 
-"App_Information_Contact_Hotline_Text_Foreign" = "+49 30 498 75402";
+"App_Information_Contact_Hotline_Text_Foreign" = "+49 30 498 75401";
 
-"App_Information_Contact_Hotline_Number_Foreign" = "+493049875402";
+"App_Information_Contact_Hotline_Number_Foreign" = "+493049875401";
 
 "App_Information_Contact_Hotline_Details_Foreign" = "Almanya dışından yapılan aramalar içindir.\nTelefon sağlayıcınız tarafından uygulanan ücretler geçerlidir.";
 
-"App_Information_Contact_Hotline_Terms" = "Müşteri hizmetlerimiz şu dillerde size yardımcı olmaya hazır: \nİngilizce, Almanca, Türkçe\n\nMesai saatleri:\n7 gün 24 saat\n\nSağlıkla ilgili tüm sorularınız için lütfen aile hekiminizle veya tıbbi acil servis yardım hattı ile iletişime geçin. Telefon: 116 117.";
+"App_Information_Contact_Hotline_Terms" = "Müşteri hizmetlerimiz şu dillerde size yardımcı olmaya hazır: \nİngilizce, Almanca, Türkçe\n\nMesai saatleri:\nPts-Cts: 7.00 - 22.00 (CET)\n\nSağlıkla ilgili tüm sorularınız için lütfen aile hekiminizle veya tıbbi acil servis yardım hattı ile iletişime geçin. Telefon: 116 117.";
 
 /* App Information - Imprint */
 "App_Information_New_Features_Navigation" = "Yeni Özellikler";
@@ -1456,12 +1458,12 @@
 
 "NewVersionFeature_21_tan_hotline_foreign_countries_title" = "TAN Yardım Hattına Artık Almanya Dışından Ulaşılabilir";
 
-"NewVersionFeature_21_tan_hotline_foreign_countries_description" = "Koronavirüs tanısı aldıysanız artık +49 30 498 75402 numaralı hattı arayarak Almanya dışından TAN talebinde bulunabilirsiniz. Telefon sağlayıcınız tarafından uygulanan ücretler geçerlidir.";
+"NewVersionFeature_21_tan_hotline_foreign_countries_description" = "Koronavirüs tanısı aldıysanız artık +49 30 498 75401 numaralı hattı arayarak Almanya dışından TAN talebinde bulunabilirsiniz. Telefon sağlayıcınız tarafından uygulanan ücretler geçerlidir.";
 
 /* Version 2.0 */
 "NewVersionFeature_200_event_checkin_title" = "Enfeksiyon zincirlerini etkili bir biçimde takip etmek için QR kod ile check in";
 
-"NewVersionFeature_200_event_checkin_description" = "CWA artık etkinliklere ve yerlere check in yapabilmenizi sağlar. Etkinlik organizatörleri ve mağaza sahipleri uygulamayı kullanarak bir QR kod oluşturabilir. Ardından konuklar geldiklerinde bu QR kodu tarayarak katılımlarını kayıt altına alabilir. Uygulama, talep üzerine günce girişi oluşturma seçeneği de sunmaktadır. Bu etkinliğe ya da yere check in yapan bir kişi daha sonra koronavirüs tanısı alırsa aynı anda check in yapmış diğer kişilere otomatik olarak uyarı gönderilebilir.";
+"NewVersionFeature_200_event_checkin_description" = "CWA artık etkinliklere ve yerlere check in yapabilmenizi sağlar. Etkinlik organizatörleri ve mağaza sahipleri uygulamayı kullanarak bir QR kod oluşturabilir. Ardından konuklar geldiklerinde bu QR kodu tarayarak katılımlarını kayıt altına alabilir. Uygulama, talep üzerine günce girişi oluşturma seçeneği de sunmaktadır. Bu etkinliğe ya da yere check in yapan bir kişi daha sonra koronavirüs tanısı alırsa aynı anda check in yapmış diğer kişilere uyarı gönderilebilir.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Uluslararası Maruz Kalma Günlüğü";
@@ -1734,7 +1736,7 @@
 
 "ContactDiary_AddEditEntry_LocationPlaceholder_PhoneNumber" = "Telefon";
 
-"ContactDiary_AddEditEntry_LocationPlaceholder_EmailAddress" = "e-posta";
+"ContactDiary_AddEditEntry_LocationPlaceholder_EmailAddress" = "E-posta";
 
 /* - Person */
 "ContactDiary_AddEditEntry_PersonTitle" = "Kişi";
@@ -1743,7 +1745,7 @@
 
 "ContactDiary_AddEditEntry_PersonPlaceholder_PhoneNumber" = "Telefon";
 
-"ContactDiary_AddEditEntry_PersonPlaceholder_EmailAddress" = "e-posta";
+"ContactDiary_AddEditEntry_PersonPlaceholder_EmailAddress" = "E-posta";
 
 /* - Trend on Cards */
 "Statistics_Card_Trend_Increasing" = "Trend: Yukarı";
@@ -2056,6 +2058,10 @@
 
 "Checkins_Overview_QRScanner_Instruction" = "QR Kodu Tara ve Check In Yap";
 
+"Checkins_Overview_Item_Prefix_CheckIn" = "%@ için check-in.";
+
+"Checkins_Overview_Item_Prefix_CheckedOut" = "%@ için check out yapıldı.";
+
 "Checkin_QR_Scanner_Checkin_Error_Title" = "Geçersiz QR Kod";
 
 "Checkin_QR_Scanner_Error_InvalidURL" = "Taranan QR kod, etkinlik veya yer check-in’leri için geçerli değil. Lütfen uygun bir QR kod tarayın (hata kodu INVALID_URL).";
@@ -2108,6 +2114,8 @@
 "TraceLocations_Overview_ActionSheet_InfoTitle" = "Bilgi";
 
 "TraceLocations_Overview_ActionSheet_EditTitle" = "Düzenle";
+
+"TraceLocations_Overview_Item_Prefix" = "%@ QR kodu.";
 
 /* Trace Location Details */
 "TraceLocations_Details_PrintVersionButtonTitle" = "Basılı Versiyonu Görüntüle";
@@ -2282,7 +2290,7 @@
 "Checkin_Details_CheckIn_Button" = "Check In";
 
 /* Submission Check-in */
-"Submission_Checkins_Title" = "Konum Check-In’leriniz Paylaşılsın Mı?";
+"Submission_Checkins_Title" = "Konum Check-In’leri Paylaşılsın Mı?";
 
 "Submission_Checkins_Description" = "Sizin yakınınızda check in yapmış olan diğer kullanıcıları uyarın. Kişisel verileriniz paylaşılmayacaktır.";
 
