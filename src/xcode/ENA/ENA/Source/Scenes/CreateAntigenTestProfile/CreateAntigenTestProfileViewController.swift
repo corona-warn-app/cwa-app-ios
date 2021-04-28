@@ -73,7 +73,7 @@ class CreateAntigenTestProfileViewController: UITableViewController, FooterViewH
 			cell.lastNameTextField.addTarget(self, action: #selector(lastNameTextFieldDidChange(textField:)), for: .editingChanged)
 			
 			if let date = viewModel.antigenTestProfile.dateOfBirth {
-				cell.birthDateNameTextField.text = dateFormatter.string(from: date)
+				cell.birthDateNameTextField.text = DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .none)
 			}
 			cell.birthDateNameTextField.delegate = self
 			cell.birthDateNameTextField.addTarget(self, action: #selector(birthDateTextFieldDidChange(textField:)), for: .editingChanged)
@@ -141,7 +141,6 @@ class CreateAntigenTestProfileViewController: UITableViewController, FooterViewH
 	private let didTapSave: () -> Void
 	private let dismiss: () -> Void
 	
-	private var dateFormatter: DateFormatter!
 	private var cancellables = [OpenCombine.AnyCancellable]()
 
 	private func setupView() {
@@ -155,11 +154,6 @@ class CreateAntigenTestProfileViewController: UITableViewController, FooterViewH
 		tableView.register(CreateAntigenTestProfileDescriptionCell.self, forCellReuseIdentifier: CreateAntigenTestProfileDescriptionCell.reuseIdentifier)
 		tableView.register(CreateAntigenTestProfileInputCell.self, forCellReuseIdentifier: CreateAntigenTestProfileInputCell.reuseIdentifier)
 		tableView.keyboardDismissMode = .interactive
-		// date
-		dateFormatter = DateFormatter()
-		dateFormatter.dateStyle = .medium
-		dateFormatter.timeStyle = .none
-		dateFormatter.locale = Locale(identifier: "de_DE")
 	}
 	
 	private func setupBindings() {
@@ -198,7 +192,7 @@ class CreateAntigenTestProfileViewController: UITableViewController, FooterViewH
 	private func dateOfBirthDidChange(datePicker: UIDatePicker) {
 		viewModel.antigenTestProfile.dateOfBirth = datePicker.date
 		if let cell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? CreateAntigenTestProfileInputCell {
-			cell.textFields[2].text = dateFormatter.string(from: datePicker.date)
+			cell.textFields[2].text = DateFormatter.localizedString(from: datePicker.date, dateStyle: .medium, timeStyle: .none)
 		}
 	}
 	
