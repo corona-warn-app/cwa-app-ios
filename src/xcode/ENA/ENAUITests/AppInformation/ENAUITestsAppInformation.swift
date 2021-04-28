@@ -125,6 +125,7 @@ class ENAUITests_02_AppInformation: XCTestCase {
 	}
 	
 	func test_0026_AppInformationFlow_ErrorReports() throws {
+		app.launchArguments.append(contentsOf: ["-elsLogActive", "NO"])
 		app.launch()
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .short))
 		navigateToErrorReporting()
@@ -145,6 +146,7 @@ class ENAUITests_02_AppInformation: XCTestCase {
 	}
 
 	func test_0027_AppInformationFlow_ErrorReportsStart() throws {
+		app.launchArguments.append(contentsOf: ["-elsLogActive", "NO"])
 		app.launch()
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .short))
 		navigateToErrorReporting()
@@ -171,6 +173,7 @@ class ENAUITests_02_AppInformation: XCTestCase {
 	}
 	
 	func test_0028_AppInformationFlow_PrivacyScreen() throws {
+		app.launchArguments.append(contentsOf: ["-elsLogActive", "NO"])
 		app.launch()
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .short))
 		navigateToErrorReporting()
