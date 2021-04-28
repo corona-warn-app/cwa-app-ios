@@ -78,7 +78,10 @@ final class HomeShownPositiveTestResultTableViewCell: UITableViewCell {
 			.assign(to: \.isHidden, on: nextButton)
 			.store(in: &subscriptions)
 
-		nextButton.accessibilityIdentifier = AccessibilityIdentifiers.Home.submitCardButton
+		cellModel.$accessibilityIdentifier
+			.receive(on: DispatchQueue.OCombine(.main))
+			.assign(to: \.accessibilityIdentifier, on: self)
+			.store(in: &subscriptions)
 
 		self.onPrimaryAction = onPrimaryAction
 
