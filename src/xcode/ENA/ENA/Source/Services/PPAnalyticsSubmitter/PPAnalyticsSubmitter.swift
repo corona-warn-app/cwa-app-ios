@@ -244,7 +244,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		   differenceBetweenRegistrationAndCurrentDateInHours >= hoursSinceTestRegistrationToSubmitTestResultMetadata {
 			return true
 		}
-		return true
+		return false
 	}
 	
 	private func generatePPACAndSubmitData(disableExposureWindowsProbability: Bool = false, completion: ((Result<Void, PPASError>) -> Void)? = nil) {

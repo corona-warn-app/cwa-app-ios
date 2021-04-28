@@ -116,8 +116,12 @@ class TraceLocationsCoordinator {
 					navigationController.pushViewController(detailViewController, animated: true)
 				}
 			),
-			onDismiss: {
-				navigationController.dismiss(animated: true)
+			onDismiss: { [weak self] didConsent in
+				self?.infoScreenShown = didConsent
+				if !didConsent {
+					self?.parentNavigationController?.popViewController(animated: false)
+				}
+				navigationController.dismiss(animated: true, completion: nil)
 			}
 		)
 		
@@ -238,7 +242,8 @@ class TraceLocationsCoordinator {
 				primaryButtonName: AppStrings.TraceLocations.Configuration.primaryButtonTitle,
 				primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
 				isSecondaryButtonEnabled: false,
-				isSecondaryButtonHidden: true
+				isSecondaryButtonHidden: true,
+				primaryCustomDisableBackgroundColor: .enaColor(for: .cellBackground)
 			)
 		)
 		

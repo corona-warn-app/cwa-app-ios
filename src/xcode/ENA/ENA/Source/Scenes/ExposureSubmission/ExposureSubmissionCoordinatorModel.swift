@@ -12,10 +12,12 @@ class ExposureSubmissionCoordinatorModel {
 
 	init(
 		exposureSubmissionService: ExposureSubmissionService,
-		coronaTestService: CoronaTestService
+		coronaTestService: CoronaTestService,
+		eventProvider: EventProviding
 	) {
 		self.exposureSubmissionService = exposureSubmissionService
 		self.coronaTestService = coronaTestService
+		self.eventProvider = eventProvider
 
 		// Try to load current country list initially to make it virtually impossible the user has to wait for it later.
 		exposureSubmissionService.loadSupportedCountries { _ in
@@ -40,6 +42,8 @@ class ExposureSubmissionCoordinatorModel {
 		return coronaTestService.coronaTest(ofType: coronaTestType)
 	}
 
+	let eventProvider: EventProviding
+	
 	var shouldShowSymptomsOnsetScreen = false
 
 	func symptomsOptionSelected(
@@ -137,12 +141,13 @@ class ExposureSubmissionCoordinatorModel {
 					}
 				}
 			)
-		case .antigen(let rapidTest):
+		case .antigen(let antigenTest):
 			coronaTestService.registerAntigenTestAndGetResult(
-				with: rapidTest.guid,
-				pointOfCareConsentDate: rapidTest.pointOfCareConsentDate,
-				name: rapidTest.fullName,
-				birthday: rapidTest.dateOfBirth,
+				with: antigenTest.hash,
+				pointOfCareConsentDate: antigenTest.pointOfCareConsentDate,
+				firstName: antigenTest.firstName,
+				lastName: antigenTest.lastName,
+				dateOfBirth: antigenTest.dateOfBirthString,
 				isSubmissionConsentGiven: isSubmissionConsentGiven,
 				completion: { result in
 					isLoading(false)

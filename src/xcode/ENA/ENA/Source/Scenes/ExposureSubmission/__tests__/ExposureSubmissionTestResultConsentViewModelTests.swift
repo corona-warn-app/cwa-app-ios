@@ -12,7 +12,11 @@ class ExposureSubmissionTestResultConsentViewModelTests: XCTestCase {
 		let viewModel = ExposureSubmissionTestResultConsentViewModel(
 			supportedCountries: [],
 			coronaTestType: .pcr,
-			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore()),
+			coronaTestService: CoronaTestService(
+				client: ClientMock(),
+				store: MockTestStore(),
+				appConfiguration: CachedAppConfigurationMock()
+			),
 			testResultAvailability: .availableAndPositive,
 			dismissCompletion: nil
 		)
@@ -43,7 +47,11 @@ class ExposureSubmissionTestResultConsentViewModelTests: XCTestCase {
 		let viewModel = ExposureSubmissionTestResultConsentViewModel(
 			supportedCountries: [],
 			coronaTestType: .pcr,
-			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore()),
+			coronaTestService: CoronaTestService(
+				client: ClientMock(),
+				store: MockTestStore(),
+				appConfiguration: CachedAppConfigurationMock()
+			),
 			testResultAvailability: .availableAndPositive,
 			dismissCompletion: nil
 		)
@@ -62,7 +70,11 @@ class ExposureSubmissionTestResultConsentViewModelTests: XCTestCase {
 		let viewModel = ExposureSubmissionTestResultConsentViewModel(
 			supportedCountries: [],
 			coronaTestType: .pcr,
-			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore()),
+			coronaTestService: CoronaTestService(
+				client: ClientMock(),
+				store: MockTestStore(),
+				appConfiguration: CachedAppConfigurationMock()
+			),
 			testResultAvailability: .availableAndPositive,
 			dismissCompletion: nil
 		)

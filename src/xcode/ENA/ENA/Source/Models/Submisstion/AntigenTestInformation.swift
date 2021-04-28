@@ -4,12 +4,31 @@
 
 import Foundation
 
-struct AntigenTestInformation: Codable {
+struct AntigenTestInformation: Codable, Equatable {
 	
 	// MARK: - Init
+
+	init(
+		hash: String,
+		timestamp: Int,
+		firstName: String?,
+		lastName: String?,
+		dateOfBirth: Date?
+		) {
+		self.hash = hash
+		self.timestamp = timestamp
+		self.firstName = firstName
+		self.lastName = lastName
+		self.dateOfBirth = dateOfBirth
+		guard let dateOfBirth = dateOfBirth else {
+			dateOfBirthString = nil
+			return
+		}
+		dateOfBirthString = AntigenTestInformation.isoFormatter.string(from: dateOfBirth)
+	}
 	
 	init?(payload: String) {
-		
+
 		let jsonData: Data
 		if payload.isBase64Encoded {
 			guard let parsedData = Data(base64Encoded: payload) else {
@@ -23,20 +42,38 @@ struct AntigenTestInformation: Codable {
 			jsonData = parsedData
 		}
 		do {
-			self = try JSONDecoder().decode(AntigenTestInformation.self, from: jsonData)
+			let decodedObject = try JSONDecoder().decode(AntigenTestInformation.self, from: jsonData)
+			
+			self.hash = decodedObject.hash
+			self.timestamp = decodedObject.timestamp
+			self.firstName = decodedObject.firstName?.isEmpty ?? true ? nil : decodedObject.firstName
+			self.lastName = decodedObject.lastName?.isEmpty ?? true ? nil : decodedObject.lastName
+			self.dateOfBirthString = decodedObject.dateOfBirthString?.isEmpty ?? true ? nil : decodedObject.dateOfBirthString
+			self.dateOfBirth = AntigenTestInformation.isoFormatter.date(from: decodedObject.dateOfBirthString ?? "")
 		} catch {
 			Log.debug("Failed to read / parse district json", log: .ppac)
 			return nil
 		}
 	}
+	
+	// MARK: - Protocol Codable
+
+	enum CodingKeys: String, CodingKey {
+		case hash
+		case timestamp
+		case firstName = "fn"
+		case lastName = "ln"
+		case dateOfBirthString = "dob"
+	}
 		
 	// MARK: - Internal
 	
-	let guid: String
+	let hash: String
 	let timestamp: Int
 	let firstName: String?
 	let lastName: String?
-	let dateOfBirth: String?
+	let dateOfBirthString: String?
+	var dateOfBirth: Date?
 	
 	var fullName: String? {
 		guard let first = firstName, let last = lastName else {
@@ -47,9 +84,13 @@ struct AntigenTestInformation: Codable {
 	var pointOfCareConsentDate: Date {
 		return Date(timeIntervalSince1970: TimeInterval(timestamp))
 	}
+		
 	// MARK: - Private
-	
-	private enum CodingKeys: String, CodingKey {
-		case guid, timestamp, firstName = "fn", lastName = "ln", dateOfBirth = "dob"
-	}
+
+	static let isoFormatter: ISO8601DateFormatter = {
+		let isoFormatter = ISO8601DateFormatter()
+		isoFormatter.formatOptions = [.withFullDate]
+		isoFormatter.timeZone = TimeZone.utcTimeZone
+		return isoFormatter
+	}()
 }

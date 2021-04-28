@@ -6,13 +6,15 @@ import Foundation
 import OpenCombine
 
 
-protocol ExposureSubmissionService: class {
+protocol ExposureSubmissionService: AnyObject {
 
 	typealias ExposureSubmissionHandler = (_ error: ExposureSubmissionError?) -> Void
 
 	var exposureManagerState: ExposureManagerState { get }
 
 	var supportedCountries: [Country] { get } // temporary!
+	
+	var checkins: [Checkin] { get set }
 
 	var symptomsOnset: SymptomsOnset { get set }
 

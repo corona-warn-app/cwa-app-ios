@@ -63,8 +63,6 @@
 
 "ExposureDetection_High_Red_Color" = "Kırmızı";
 
-"ExposureDetection_DaysSinceInstallation" = "%u gün önce yüklendi";
-
 "ExposureDetection_LastExposure" = "En son %@";
 
 "ExposureDetection_LastExposure_One_Risk_Day" = "%@";
@@ -217,8 +215,6 @@
 /* There are two paragraphs in this section. The first one just contains text… */
 "ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Enfeksiyon riskiniz yalnızca maruz kalma günlüğünün etkin olduğu dönemler için hesaplanabilir. Bu nedenle günlüğe kaydetme özelliğinin sürekli etkin kalması gerekir. Maruz kalma günlüğü son 14 günü kapsar.";
 
-"ExposureDetection_ActiveTracingSection_Text_Paragraph1a" = "Corona-Warn-App %u gün önce yüklendi. Enfeksiyon riskiniz, maruz kalma günlüğünün etkin olduğu dönemler için hesaplanır. Başka insanlarla karşılaşmışsanız ve bu sırada maruz kalma günlüğü etkindiyse enfeksiyon riskiniz hesaplanır.";
-
 "ExposureDetection_ActiveTracingSection_Text_Paragraph1b" = "Maruz kalma günlüğü başka insanlarla karşılaştığınız anlarda etkindiyse bu dönem için enfeksiyon riskiniz hesaplanabilir.";
 
 /* Exposure Detection Errors */
@@ -271,8 +267,6 @@
 "Settings_DaysSinceInstall_SubTitle" = "Bu dönem hesaplamaya dahil edildi.";
 
 "Settings_DaysSinceInstall_P1" = "Enfeksiyon riskiniz yalnızca maruz kalma günlüğünün etkin olduğu dönemler için hesaplanabilir. Bu nedenle günlüğe kaydetme özelliğinin sürekli etkin kalması gerekir. Maruz kalma günlüğü son 14 günü kapsar.";
-
-"Settings_DaysSinceInstall_P2a" = "Corona-Warn-App %u gün önce yüklendi. Enfeksiyon riskiniz, maruz kalma günlüğünün etkin olduğu dönemler için hesaplanır. Başka insanlarla karşılaşmışsanız ve bu sırada maruz kalma günlüğü etkindiyse enfeksiyon riskiniz hesaplanır.";
 
 "Settings_DaysSinceInstall_P2b" = "Maruz kalma günlüğü başka insanlarla karşılaştığınız anlarda etkindiyse bu dönem için enfeksiyon riskiniz hesaplanabilir.";
 
@@ -389,7 +383,7 @@
 
 "OnboardingInfo_togetherAgainstCoronaPage_boldText" = "Sizin için ve hepimiz için daha fazla koruma. Corona-Warn-App uygulamasını kullanarak enfeksiyon zincirlerini çok daha kısa süre içinde kırabiliriz.";
 
-"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Cihazınızı koronavirüs uyarı sistemine dönüştürün. Risk durumunuza ilişkin genel bir bakış elde edin ve son 14 gün içinde koronavirüs tanısı konan herhangi biri ile yakın temasa geçip geçmediğinizi öğrenin. \n\nUygulama kişilerin akıllı telefonları arasında şifrelenmiş rastgele kimlikleri paylaşarak karşılaşma günlüğü oluşturur ve bu sırada hiçbir kişisel veriye erişim sağlanmaz.";
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Cihazınızı koronavirüs uyarı sistemine dönüştürün. Risk durumunuza ilişkin genel bir bakış elde edin ve son 14 gün içinde koronavirüs tanısı konan herhangi biri ile yakın temasa geçip geçmediğinizi öğrenin. \n\nUygulama kişilerin akıllı telefonları arasında şifrelenmiş rastgele kimlikleri paylaşarak karşılaşma günlüğü oluşturur ve bu sırada hiçbir kişisel veriye erişim sağlanmaz.\n\nDilerseniz uygulamayı kişisel enfeksiyon durumunuzu (örneğin, negatif sonuç veren bir hızlı test) kanıtlamak için kullanabilirsiniz. Ancak lütfen unutmayın; enfeksiyon durumunuzu kanıtlamak için uygulamayı kullanmak zorunda değilsiniz. Enfeksiyon durumunuzu, ikamet ettiğiniz bölgede geçerli olan yasal düzenlemeler uyarınca başka bir şekilde de kanıtlayabilirsiniz.\n\nUygulama kişilerin akıllı telefonları arasında şifrelenmiş rastgele kimlikleri paylaşarak karşılaşma günlüğü oluşturur ve bu sırada hiçbir kişisel veriye erişim sağlanmaz.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_linkText" = "Basitleştirilmiş Dilde ve İşaret Dilinde Uygulama Bilgileri";
 
@@ -452,7 +446,7 @@
 "ExposureSubmission_Hotline_Number" = "08007540002";
 
 /* phone number; no spacing allowed */
-"ExposureSubmission_Hotline_Number_Foreign" = "+493049875402";
+"ExposureSubmission_Hotline_Number_Foreign" = "+493049875401";
 
 "ExposureSubmission_DataPrivacyTitle" = "Onay";
 
@@ -489,7 +483,7 @@
 "ExposureSubmission_GeneralErrorTitle" = "Hata";
 
 /* Exposure Submission Dispatch */
-"ExposureSubmission_DispatchTitle" = "Test Sonucunu Al";
+"ExposureSubmission_DispatchTitle" = "Testinizi Kaydedin";
 
 "ExposureSubmissionIntroduction_AccImageDescription" = "Bir cihaz şifrelenmiş pozitif test tanısını sisteme aktarır.";
 
@@ -497,28 +491,28 @@
 
 "ExposureSubmission_DispatchSectionHeadline" = "Test yaptırdınız mı?";
 
-"ExposureSubmission_DispatchSectionHeadline2" = "Koronavirüs testinizin sonucu pozitif mi?";
+"ExposureSubmission_DispatchSectionHeadline2" = "PCR testinizin sonucu pozitif miydi?";
 
-"ExposureSubmissionDispatch_QRCodeButtonTitle" = "QR Kodlu Test";
+"ExposureSubmissionDispatch_QRCodeButtonTitle" = "QR Kodu Tara";
 
-"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Test belgenizin QR kodunu tarayarak testinizi kaydedin.";
+"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Uygulamada test sonucunuzu alın ve diğer kullanıcıları uyarın.";
 
-"ExposureSubmissionDispatch_TANButtonTitle" = "TAN gir";
+"ExposureSubmissionDispatch_TANButtonTitle" = "PCR Testi için TAN girin";
 
-"ExposureSubmissionDispatch_TANButtonDescription" = "TAN'niz var mı? Diğer kullanıcıları uyarabilmek için TAN'nizi girmek üzere buraya dokunun.";
+"ExposureSubmissionDispatch_TANButtonDescription" = "PCR testiniz için bir TAN'niz var mı? Diğer kullanıcıları uyarabilmek için TAN'nizi girmek üzere buraya dokunun.";
 
-"ExposureSubmissionDispatch_HotlineButtonTitle" = "TAN yok mu?";
+"ExposureSubmissionDispatch_HotlineButtonTitle" = "PCR Testi için TAN talebinde bulunun";
 
-"ExposureSubmissionDispatch_HotlineButtonDescription" = "Bizi arayın ve TAN alın.";
+"ExposureSubmissionDispatch_HotlineButtonDescription" = "Bizi arayın ve PCR testiniz için bir TAN alın.";
 
 /* Exposure Submission Hotline */
-"ExposureSubmissionHotline_Title" = "TAN Talebi";
+"ExposureSubmissionHotline_Title" = "PCR Testi için TAN talebinde bulunun";
 
 "ExposureSubmissionHotline_Description" = "TAN talebinde bulunmak için lütfen test sonucunuzu (varsa) ve telefon numaranızı hazır tutun.";
 
 "ExposureSubmissionHotline_SectionTitle" = "Nasıl çalışır?";
 
-"ExposureSubmissionHotline_SectionDescription1" = "Rufen Sie die Hotline an und fragen Sie nach einer TAN.";
+"ExposureSubmissionHotline_SectionDescription1" = "Yardım hattını arayın ve TAN talep edin:";
 
 "ExposureSubmissionHotline_iconAccessibilityLabel1" = "Adım 1/2";
 
@@ -527,15 +521,15 @@
 /* UI text; spacing allowed */
 "ExposureSubmission_PhoneNumberDomestic" = "0800 7540002";
 
-"ExposureSubmission_PhoneDetailsDomestic" = "Für Anrufe innerhalb Deutschlands.\nDer Anruf ist kostenfrei.";
+"ExposureSubmission_PhoneDetailsDomestic" = "Almanya’dan yapılan aramalar içindir.\nArama ücretsizdir.";
 
-"ExposureSubmission_PhoneNumberForeign" = "+49 30 498 75402";
+"ExposureSubmission_PhoneNumberForeign" = "+49 30 498 75401";
 
-"ExposureSubmission_PhoneDetailsForeign" = "Für Anrufe aus dem Ausland.\nEs fallen die Gebühren des jeweiligen Telefonanbieters an.";
+"ExposureSubmission_PhoneDetailsForeign" = "Almanya dışından yapılan aramalar içindir.\nTelefon sağlayıcınız tarafından uygulanan ücretler geçerlidir.";
 
-"ExposureSubmission_PhoneDetailDescription" = "Unser Kundenservice ist in den folgenden Sprachen für Sie da:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo-So: Täglich 24 Stunden\n\nFür gesundheitliche Fragen wenden Sie sich bitte an Ihre Hausarztpraxis oder die Hotline des ärztlichen Bereitschaftsdienstes 116 117.";
+"ExposureSubmission_PhoneDetailDescription" = "Müşteri hizmetlerimiz şu dillerde size yardımcı olmaya hazır: \nİngilizce, Almanca, Türkçe\n\nMesai saatleri:\nPts-Cts: 7.00 - 22.00 (CET)\n\nSağlıkla ilgili tüm sorularınız için lütfen aile hekiminizle veya tıbbi acil servis yardım hattı ile iletişime geçin. Telefon: 116 117.";
 
-"ExposureSubmission_SectionDescription2" = "Uygulamaya TAN girerek testinizi kaydedin.";
+"ExposureSubmission_SectionDescription2" = "Uygulamaya TAN girerek PCR testinizi kaydedin.";
 
 "ExposureSubmission_CallButtonTitle" = "Ara";
 
@@ -554,7 +548,7 @@
 
 "ExposureSubmissionQRInfo_instruction1" = "Şimdi, testinizin QR kodunu tarayın ve test sonucunuzu alın.";
 
-"ExposureSubmissionQRInfo_instruction2" = "Testiniz yalnızca bir kez taranabilir. Uygulama aynı anda birden fazla testi yönetememektedir.";
+"ExposureSubmissionQRInfo_instruction2" = "Her bir test yalnızca bir kez taranabilir. Uygulama tek seferde en fazla bir hızlı testi ve bir PCR testini yönetebilir.";
 
 "ExposureSubmissionQRInfo_instruction3" = "Uygulama aynı anda birden çok testi %@.";
 
@@ -562,7 +556,7 @@
 
 "ExposureSubmissionQRInfo_header_section_2" = "Lütfen karşılaştığınız diğer kullanıcıları uyararak onlara yardımcı olun!";
 
-"ExposureSubmissionQRInfo_body_section_2" = "Koronavirüs tanısı aldıysanız uygulama üzerinden diğer kullanıcıları uyarabilirsiniz. Uyarı özelliği birden fazla ülkede etkindir. Şu anda aşağıdaki ülkeler katılmaktadır:";
+"ExposureSubmissionQRInfo_body_section_2" = "Koronavirüs tanısı aldıysanız uygulama üzerinden diğer kullanıcıları uyarabilirsiniz. Hızlı test yaptıysanız uyarı özelliği yalnızca Almanya’da etkindir. PCR testi yaptırdıysanız uyarı özelliği şu ülkelerde etkindir:";
 
 "ExposureSubmissionQRInfo_body_section_3" = "Sizinle aynı anda aynı etkinliklerde veya yerlerde check in yapan kişilere de uyarı gönderilecektir.";
 
@@ -581,6 +575,12 @@
 "ExposureSubmissionQRInfo_QRCodeExpired_Alert_Title" = "QR kod artık geçerli değil";
 
 "ExposureSubmissionQRInfo_QRCodeExpired_Alert_Text" = "Testiniz 21 günden eski ve artık uygulamaya kaydedilemez. İlerleyen zamanlarda yeniden test yaptırırsanız lütfen QR kodu alır almaz tarayın.";
+
+"ExposureSubmission_RAT_QR_Invalid_Alert_Title" = "Hata";
+
+"ExposureSubmission_RAT_QR_Invalid_Alert_Text" = "QR kod bir hızlı test ile eşleştirilemiyor. Lütfen uygun bir QR kod tarayın.";
+
+"ExposureSubmission_RAT_QR_Invalid_Alert_Button" = "Tamam";
 
 /* Exposure Submission QR Code Scanner */
 "ExposureSubmissionQRScanner_title" = "QR Kod Tarama";
@@ -614,7 +614,9 @@
 
 "ExposureSubmissionSuccess_listTitle" = "Lütfen unutmayın:";
 
-"ExposureSubmissionSuccess_listItem1" = "Kamu sağlığı yetkiliniz önümüzdeki birkaç gün içinde size ulaşacaktır.";
+"ExposureSubmissionSuccess_listItem0" = "Bu test sonucunu doğrulamak için PCR testi yapın. ";
+
+"ExposureSubmissionSuccess_listItem1" = "Kamu sağlığı yetkiliniz önümüzdeki birkaç gün içinde telefonla veya mektupla size ulaşacaktır.";
 
 "ExposureSubmissionSuccess_listItem2" = "Bulaşıcı bir hastalık taşıyorsunuz. Kendinizi diğer insanlardan izole edin.";
 
@@ -654,13 +656,21 @@
 /* Exposure Submission Result */
 "ExposureSubmissionResult_Title" = "Test Sonucunuz";
 
+"ExposureSubmissionResult_Title_Antigen" = "Hızlı Test";
+
 "ExposureSubmissionResult_CardSubTitle" = "Tanı Sonucunuz";
+
+"ExposureSubmissionResult_CardSubTitle_Antigen" = "Hızlı testinizin sonucu";
 
 "ExposureSubmissionResult_CardTitle" = "SARS-CoV-2";
 
 "ExposureSubmissionResult_CardPositive" = "Pozitif";
 
 "ExposureSubmissionResult_CardNegative" = "Negatif";
+
+"ExposureSubmissionResult_CardPositive_Antigen" = "Pozitif";
+
+"ExposureSubmissionResult_CardNegative_Antigen" = "Negatif";
 
 "ExposureSubmissionResult_CardInvalid" = "Değerlendirme yapılamaz";
 
@@ -669,6 +679,10 @@
 "ExposureSubmissionResult_Procedure" = "Nasıl çalışır?";
 
 "ExposureSubmissionResult_testAdded" = "Testiniz eklendi.";
+
+"ExposureSubmissionResult_antigenTestAdded" = "Hızlı testiniz eklendi.";
+
+"ExposureSubmissionResult_antigenTestAddedDesc" = "Test sonucu 48 saat süreyle burada görüntülenir. Uygulama ayrıca temas güncenizde bir giriş oluşturur.";
 
 "ExposureSubmissionResult_warnOthers" = "Diğer Kullanıcıları Uyarın";
 
@@ -699,6 +713,16 @@
 "ExposureSubmissionResult_testPending" = "Test sonucunuz henüz çıkmadı.";
 
 "ExposureSubmissionResult_testPendingDesc" = "Test sonucunuz çıkar çıkmaz uygulamada görüntülenecektir.\n\nTest sonucunuz uygulama dışından da tarafınıza iletilecektir. Testinizin pozitif sonuç vermesi halinde kamu sağlığı yetkilileri sizi bilgilendirecektir.\n\nUygulama dışından bir pozitif test sonucu aldıysanız lütfen uygulamaya kayıtlı testi kaldırın. TAN almak için \"TAN Talebi\" başlığının altında gösterilen numarayı arayın. Ardından bu TAN'yi kullanarak sonucunuzu uygulamaya kaydedin ve diğer kullanıcıları uyarın.";
+
+"ExposureSubmissionResult_antigenTestPending" = "Test sonucunuz henüz çıkmadı.";
+
+"ExposureSubmissionResult_antigenTestPendingDesc" = "Test sonucunuz çıkar çıkmaz uygulamada görüntülenecektir.";
+
+"ExposureSubmissionResult_antigenTestPendingContactJournal" = "Test sonucunuz temas güncenize eklenecektir.";
+
+"ExposureSubmissionResult_antigenTestPendingContactJournalDesc" = "Test sonucunuz çıkar çıkmaz uygulamada görüntülenecektir.";
+
+"ExposureSubmissionResult_antigenTestNegativDesc" = "Hızlı test, koronavirüs SARS-CoV-2’ye yakalandığınıza dair hiçbir kanıt sağlamadı.";
 
 "ExposureSubmissionResult_WarnOthersConsentGiven" = "“Diğer kullanıcıları uyar” onayı verildi";
 
@@ -771,7 +795,7 @@
 /* ExposureSubmissionSymptoms - Cancel alert */
 "ExposureSubmissionSymptoms_CancelAlertTitle" = "Belirtilerinizi girmeyi iptal etmek istiyor musunuz?";
 
-"ExposureSubmissionSymptoms_CancelAlertMessage" = "Belirtilerinizle ilgili olarak bilgi verirseniz diğer kullanıcıları daha net bir biçimde uyarabilir.";
+"ExposureSubmissionSymptoms_CancelAlertMessage" = "Belirtilerinizle ilgili olarak bilgi verirseniz diğer kullanıcıları çok daha doğru bir şekilde uyarabilirsiniz.";
 
 "ExposureSubmissionSymptoms_CancelAlertButtonCancel" = "Evet";
 
@@ -784,7 +808,7 @@
 
 "ExposureSubmissionWarnOthers_sectionTitle" = "Yardımcı olabilirsiniz!";
 
-"ExposureSubmissionWarnOthers_description" = "Koronavirüs testinizin sonucu pozitif olduğu için şimdi diğer kullanıcıları uygulama üzerinden uyarabilirsiniz.";
+"ExposureSubmissionWarnOthers_description" = "Koronavirüs tanısı aldığınız için uygulama üzerinden diğer kullanıcıları uyarabilirsiniz. Hızlı test yaptıysanız uyarı özelliği yalnızca Almanya’da etkindir. PCR testi yaptırdıysanız uyarı özelliği şu ülkelerde etkindir:";
 
 "ExposureSubmissionWarnOthers_supportedCountriesTitle" = "Uyarı özelliği birden fazla ülkede etkindir. Şu anda aşağıdaki ülkeler katılmaktadır:";
 
@@ -806,6 +830,24 @@
 "ExposureSubmissionResult_RegistrationDateUnknown" = "Kayıt tarihi bilinmiyor";
 
 "ExposureSubmissionResult_RegistrationDate" = "Testin eklenme tarihi:";
+
+"ExposureSubmissionResult_RegistrationDate_Antigen" = "Düzenleme tarihi:";
+
+"ExposureSubmissionResult_RegistrationDate_Suffix_Antigen" = ".";
+
+"ExposureSubmissionResult_Person_Birthday_Prefix" = "Doğum tarihi";
+
+"ExposureSubmissionResult_Abbreviation_Hours" = "sa";
+
+"ExposureSubmissionResult_Abbreviation_Minutes" = "dk.";
+
+"ExposureSubmissionResult_Abbreviation_Seconds" = "sn.";
+
+"ExposureSubmissionResult_Timer_Title" = "Sonucun çıktığı tarih:";
+
+"ExposureSubmissionResult_Negative_Antigen_Proof_Title" = "Doğrulama Özelliği";
+
+"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Burada görüntülenen test sonucunu da negatif bir hızlı test sonucu kanıtı olarak kullanabilirsiniz. \n\nYalnızca yasalarca gerekli kılındığı takdirde hızlı test sonucunuzu kanıtlamanız gerektiğini unutmayın. Sonucu, uygulamayı kullanarak veya farklı bir şekilde kanıtlayabilirsiniz. Daha fazla bilgi için lütfen federal eyaletinizde geçerli test kanıtı kabül ölçütlerini öğrenin.";
 
 /* Exposure Submission */
 "ExposureSubmissionError_ErrorPrefix" = "Verilerinizi gönderirken teknik hata oluştu. Lütfen teknik yardım hattı ile iletişime geçin. Telefon numarasını Uygulama Bilgileri bölümünde bulabilirsiniz.";
@@ -847,6 +889,21 @@
 "ExposureSubmissionError_defaultError" = "Önemli aktarım sırasında hata oluştu";
 
 "ExposureSubmissionError_noAppConfiguration" = "İnternet bağlantınız kesildi. Lütfen bağlantıyı kontrol edin ve ardından uygulamayı yeniden açın.";
+
+/* ExposureSubmission OverwriteNotice */
+"ExposureSubmission_OverwriteNotice_Title" = "Not";
+
+"ExposureSubmission_OverwriteNotice_PrimaryButton" = "Sonraki";
+
+"ExposureSubmission_OverwriteNotice_Image_Description" = "Yeni bir test girerseniz bu, önceki testin yerine geçer.";
+
+"ExposureSubmission_OverwriteNotice_Pcr_Headline" = "Zaten bir PCR testi kaydı oluşturdunuz.";
+
+"ExposureSubmission_OverwriteNotice_Pcr_Text" = "Zaten bir PCR testi kaydı oluşturdunuz. Uygulama tek seferde en fazla bir hızlı testi ve bir PCR testini yönetebilir. Başka bir PCR testi kaydı oluşturursanız ilk PCR testi uygulamadan silinir.";
+
+"ExposureSubmission_OverwriteNotice_Antigen_Headline" = "Zaten bir hızlı test kaydı oluşturdunuz.";
+
+"ExposureSubmission_OverwriteNotice_Antigen_Text" = "Zaten bir hızlı test kaydı oluşturdunuz. Uygulama tek seferde en fazla bir hızlı testi ve bir PCR testini yönetebilir. Başka bir hızlı test kaydı oluşturursanız ilk hızlı test uygulamadan silinir.";
 
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Maruz Kalma Günlüğü";
@@ -1002,8 +1059,6 @@
 /* Home Low card */
 "Home_Risk_Low_Title" = "Düşük Risk";
 
-"Home_Risk_DaysSinceInstallation" = "%u gün önce yüklendi";
-
 /* Home High card */
 "Home_Risk_High_Title" = "Daha Yüksek Risk";
 
@@ -1023,56 +1078,79 @@
 
 "Home_Risk_Restart_Button_Title" = "Yeniden başlat";
 
-/* Home Thank you card */
-"Home_Thank_You_Card_Title" = "Teşekkür ederiz!";
+/* Home Test Result Card */
+"Home_resultCard_PCR_Title" = "PCR Testi";
 
-"Home_Thank_You_Card_Body" = "Desteğiniz sayesinde artık diğer kullanıcılar uyarılabilir ve buna uygun şekilde hareket edebilir.";
+"Home_resultCard_Antigen_Title" = "Hızlı Test";
 
-"Home_Thank_You_Card_Note_Title" = "Lütfen unutmayın:";
+"Home_resultCard_LoadingErrorTitle" = "Test sonucunuz yüklenemiyor.";
 
-"Home_Thank_You_Card_Phone_Item_Title" = "Kamu sağlığı yetkiliniz önümüzdeki birkaç gün içinde size ulaşacaktır.";
+/* - Pending */
+"Home_resultCard_ResultUnvailableTitle" = "Sonucunuz henüz çıkmadı";
 
-"Home_Thank_You_Card_Home_Item_Title" = "Bulaşıcı bir hastalık taşıyorsunuz. Kendinizi diğer insanlardan izole edin.";
+"Home_resultCard_Pending_PCR_Desc" = "PCR testinize ilişkin değerlendirme henüz tamamlanmadı.";
 
-"Home_Thank_You_Card_Further_Info_Item_Title" = "Diğer bilgiler:";
+"Home_resultCard_Pending_Antigen_Desc" = "Hızlı testinize ilişkin değerlendirme henüz tamamlanmadı.";
 
-"Home_Thank_You_Card_14Days_Item_Title" = "Karantina süreniz genellikle 14 gündür. Lütfen belirtilerinizi nasıl geliştiğini yakından izleyin.";
+/* - Available */
+"Home_resultCard_ResultAvailableTitle" = "Test Sonucunu Al";
 
-"Home_Thank_You_Card_Contacts_Item_Title" = "Kamu sağlığı yetkiliniz, temasa geçtiğiniz kişilerin bir listesini oluşturmanızı isteyecektir. Bu listeye, hasta olmadan önceki iki gün içinde 15 dakikadan uzun süreyle yakın temas halinde (2 metreden kısa mesafede, yüz yüze görüşme) olduğunuz herkesi dahil etmeniz gerekir. Bunun için temas güncenizi kullanabilirsiniz: Girişleri dışa aktarmanız ve ardından yazdırmanız ya da e-posta yoluyla göndermeniz yeterlidir.";
+"Home_resultCard_AvailableDesc" = "Koronavirüs testinizin sonucu pozitifse diğer kullanıcıları uyarabilirsiniz.";
 
-"Home_Thank_You_Card_App_Item_Title" = "Lütfen özellikle akıllı telefonu olmadığı veya uygulamayı yüklemediği için doğrudan uygulamanın uyarmayacağı kişileri göz önünde bulundurun.";
+/* - Negative */
+"Home_resultCard_NegativeCaption" = "Bulgular";
 
-"Home_Thank_You_Card_NoSymptoms_Item_Title" = "Hiçbir belirtiniz kalmasa ve kendinizi iyi hissetseniz dahi yine de hastalığı bulaştırabilirsiniz.";
+"Home_resultCard_NegativeTitle" = "SARS-CoV-2";
 
-/* Home Reenable card */
-"Home_Reenable_Card_Title" = "Maruz Kalma Denetimi Sona Erdi";
+"Home_resultCard_NegativeTitleNegative" = "Negatif";
 
-"Home_Reenable_Card_Body" = "Koronavirüs tanısı aldığınız ve şu anda izolasyonda olduğunuz için otomatik maruz kalma denetimi sona erdi. Maruz kalma testini dilediğiniz zaman yeniden etkinleştirebilirsiniz. Etkinleştirirseniz kayıtlı testiniz otomatik olarak silinir.";
+"Home_resultCard_NegativeDesc" = "SARS-CoV-2 virüsü tanısı almadınız.";
 
-"Home_Reenable_Card_Button_Title" = "Maruz Kalma Denetimini Aç";
+"Home_resultCard_NegativeDatePCR" = "Test %@ tarihinde kaydedildi";
 
-"Home_Reenable_Card_TestResult_Title" = "SARS-CoV-2 pozitif";
+"Home_resultCard_NegativeDateAntigen" = "%@ tarihinde yapıldı";
 
-"Home_Reenable_Card_TestResult_Subtitle" = "SARS-CoV-2 virüsü tanısı aldınız.";
+/* - Invalid */
+"Home_resultCard_InvalidTitle" = "Geçersiz test";
 
-"Home_Reenable_Card_TestResult_Registration" = "Test %@ tarihinde kaydedildi";
+"Home_resultCard_InvalidDesc" = "Testiniz değerlendirilemiyor.";
 
-"Home_Reenable_Alert_Title" = "Maruz Kalma Denetimini Etkinleştir";
+/* - Expired */
+"Home_resultCard_ExpiredTitle" = "Artık Geçerli Değil";
 
-"Home_Reenable_Alert_Message" = "Gerekli olması halinde yeni bir test kaydedebilmeniz için mevcut testiniz uygulamadan silinecek.";
+"Home_resultCard_ExpiredDesc" = "Testiniz 21 günden eski ve bu nedenle artık geçerli değil. Lütfen testi silin. Ardından başka bir test ekleyebilirsiniz.";
 
-"Home_Reenable_Alert_ConfirmButtonTitle" = "Etkinleştir";
+/* - Outdated */
+"Home_resultCard_OutdatedTitle" = "Test Artık Geçerli Değil";
 
-"Home_Reenable_Alert_CancelButtonTitle" = "İptal";
+"Home_resultCard_OutdatedDesc" = "Hızlı testiniz 48 saatten eski ve artık burada görüntülenmeyecek. ";
 
-/* Home Finding positive */
-"Home_Finding_Positive_Card_Title" = "Pozitif Tanı";
+/* - Loading */
+"Home_resultCard_LoadingTitle" = "Güncelleme devam ediyor …";
 
+"Home_resultCard_LoadingBody" = "Güncel veriler indiriliyor ve kaydediliyor. Bu işlem birkaç dakika sürebilir.";
+
+/* - Button */
+"Home_resultCard_ShowResultButton" = "Testi Göster";
+
+"Home_resultCard_RetrieveResultButton" = "Test Sonucunu Al";
+
+"Home_resultCard_DeleteTestButton" = "Testi Sil";
+
+"Home_resultCard_HideTestButton" = "Tekrar Görüntüleme";
+
+/* - Show Positive */
 "Home_Finding_Positive_Card_Status_Title" = "SARS-CoV-2 pozitif";
 
 "Home_Finding_Positive_Card_Status_Subtitle" = "SARS-CoV-2 virüsü tanısı aldınız.";
 
+"Home_Finding_Positive_Card_Status_DatePCR" = "Test %@ tarihinde kaydedildi";
+
+"Home_Finding_Positive_Card_Status_DateAntigen" = "%@ tarihinde yapıldı";
+
 "Home_Finding_Positive_Card_Note_Title" = "Lütfen unutmayın:";
+
+"Home_Finding_Positive_Card_Verify_Item_Title" = "Bu test sonucunu doğrulamak için PCR testi yapın.";
 
 "Home_Finding_Positive_Card_Phone_Item_Title" = "Kamu sağlığı yetkiliniz önümüzdeki birkaç gün içinde telefonla veya mektupla size ulaşacaktır.";
 
@@ -1082,12 +1160,12 @@
 
 "Home_Finding_Positive_Card_Button" = "Diğer Kullanıcıları Uyarın";
 
-/* Home Submit card */
-"Home_SubmitCard_Title" = "Test yaptırdınız mı?";
+/* Home Test Registration Card */
+"Home_TestRegistration_Title" = "Testinizi Kaydedin";
 
-"Home_SubmitCard_Body" = "Kendinizi ve diğer kullanıcıları korumaya yardımcı olun.";
+"Home_TestRegistration_Body" = "Diğer kullanıcıları daha hızlı uyarmak için test sonuçlarınızı almak üzere uygulamayı kullanın.";
 
-"Home_SubmitCard_Button" = "Sonraki Adımlar";
+"Home_TestRegistration_Button" = "Sonraki Adımlar";
 
 /* Home Trace Locations Card */
 "Home_TraceLocationsCard_Title" = "Bir etkinlik mi planlıyorsunuz?";
@@ -1110,35 +1188,6 @@
 "Home_AppInformationCard_Title" = "Uygulama Bilgileri";
 
 "Home_AppInformationCard_Version" = "Versiyon";
-
-/* Home Result Card */
-"Home_resultCard_ResultAvailableTitle" = "Test Sonucunuz Çıktı";
-
-"Home_resultCard_ResultUnvailableTitle" = "Sonucunuz henüz çıkmadı";
-
-"Home_resultCard_ShowResultButton" = "Testi Göster";
-
-"Home_resultCard_RetrieveResultButton" = "Test Sonucunu Al";
-
-"Home_resultCard_LoadingBody" = "Güncel veriler indiriliyor ve kaydediliyor. Bu işlem birkaç dakika sürebilir.";
-
-"Home_resultCard_LoadingTitle" = "Güncelleme devam ediyor …";
-
-"Home_resultCard_NegativeTitle" = "Negatif Tanı";
-
-"Home_resultCard_NegativeDesc" = "SARS-CoV-2 için negatif tanı aldınız.";
-
-"Home_resultCard_PendingDesc" = "Testinize ilişkin değerlendirme henüz tamamlanmadı.";
-
-"Home_resultCard_InvalidTitle" = "Geçersiz test";
-
-"Home_resultCard_InvalidDesc" = "Testiniz değerlendirilemiyor.";
-
-"Home_resultCard_AvailableSubtitle" = "Şimdi test sonucunuzu alabilirsiniz.";
-
-"Home_resultCard_AvailableDesc" = "Koronavirüs testinizin sonucu pozitifse diğer kullanıcıları uyarabilirsiniz.";
-
-"Home_resultCard_LoadingErrorTitle" = "Test sonucunuz yüklenemiyor.";
 
 /* Home Alert Risk Lowered */
 "Home_Alert_RiskStatusLowered_Title" = "Risk Durumunuzda Değişiklik";
@@ -1172,21 +1221,21 @@
 
 "App_Information_Contact_Description" = "Corona-Warn-App hakkında teknik sorularınız için lütfen ulusal yardım hattımızla iletişime geçin.";
 
-"App_Information_Contact_Hotline_Title" = "Teknik Yardım Hattı";
+"App_Information_Contact_Hotline_Title" = "Teknik yardım hattı:";
 
 "App_Information_Contact_Hotline_Text_Domestic" = "0800 7540001";
 
 "App_Information_Contact_Hotline_Number_Domestic" = "08007540001";
 
-"App_Information_Contact_Hotline_Details_Domestic" = "Für Anrufe innerhalb Deutschlands.\nDer Anruf ist kostenfrei.";
+"App_Information_Contact_Hotline_Details_Domestic" = "Almanya’dan yapılan aramalar içindir.\nArama ücretsizdir.";
 
-"App_Information_Contact_Hotline_Text_Foreign" = "+49 30 498 75402";
+"App_Information_Contact_Hotline_Text_Foreign" = "+49 30 498 75401";
 
-"App_Information_Contact_Hotline_Number_Foreign" = "+493049875402";
+"App_Information_Contact_Hotline_Number_Foreign" = "+493049875401";
 
-"App_Information_Contact_Hotline_Details_Foreign" = "Für Anrufe aus dem Ausland.\nEs fallen die Gebühren des jeweiligen Telefonanbieters an.";
+"App_Information_Contact_Hotline_Details_Foreign" = "Almanya dışından yapılan aramalar içindir.\nTelefon sağlayıcınız tarafından uygulanan ücretler geçerlidir.";
 
-"App_Information_Contact_Hotline_Terms" = "Unser Kundenservice ist in den folgenden Sprachen für Sie da:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo-So: Täglich 24 Stunden\n\nFür gesundheitliche Fragen wenden Sie sich bitte an Ihre Hausarztpraxis oder die Hotline des ärztlichen Bereitschaftsdienstes 116 117.";
+"App_Information_Contact_Hotline_Terms" = "Müşteri hizmetlerimiz şu dillerde size yardımcı olmaya hazır: \nİngilizce, Almanca, Türkçe\n\nMesai saatleri:\nPts-Cts: 7.00 - 22.00 (CET)\n\nSağlıkla ilgili tüm sorularınız için lütfen aile hekiminizle veya tıbbi acil servis yardım hattı ile iletişime geçin. Telefon: 116 117.";
 
 /* App Information - Imprint */
 "App_Information_New_Features_Navigation" = "Yeni Özellikler";
@@ -1394,23 +1443,27 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Bu sürümdeki değişiklikleri uygulama bilgilerinde “Yeni Özellikler” bölümünde bulabilirsiniz.";
 
+/* Version 2.1 */
+"NewVersionFeature_21_reg_antigen_title" = "Hızlı Antijen Testlerinin Kaydı";
+
+"NewVersionFeature_21_reg_antigen_description" = "PCR testlerinin sonuçlarına ek olarak artık hızlı antijen testlerinin sonuçlarını da uygulamada görüntüleyebilir ve bu sonuçları kullanarak diğer kullanıcıları uyarabilirsiniz.";
+
+"NewVersionFeature_21_show_proof_title" = "Kanıtın Görüntülenmesi";
+
+"NewVersionFeature_21_show_proof_description" = "Dilerseniz uygulamayı kişisel enfeksiyon durumunuzu (örneğin, negatif sonuç veren bir hızlı test) kanıtlamak için kullanabilirsiniz. Ancak lütfen unutmayın; enfeksiyon durumunuzu kanıtlamak için uygulamayı kullanmak zorunda değilsiniz. Enfeksiyon durumunuzu, ikamet ettiğiniz bölgede geçerli olan yasal düzenlemeler uyarınca başka bir şekilde de kanıtlayabilirsiniz.";
+
+"NewVersionFeature_21_tech_hotline_foreign_countries_title" = "Teknik Yardım Hattına Artık Almanya Dışından Ulaşılabilir";
+
+"NewVersionFeature_21_tech_hotline_foreign_countries_description" = "Teknik yardım hattına artık +49 30 498 75401 numaralı hattı arayarak Almanya dışından da ulaşabilirsiniz. Telefon sağlayıcınız tarafından uygulanan ücretler geçerlidir.";
+
+"NewVersionFeature_21_tan_hotline_foreign_countries_title" = "TAN Yardım Hattına Artık Almanya Dışından Ulaşılabilir";
+
+"NewVersionFeature_21_tan_hotline_foreign_countries_description" = "Koronavirüs tanısı aldıysanız artık +49 30 498 75401 numaralı hattı arayarak Almanya dışından TAN talebinde bulunabilirsiniz. Telefon sağlayıcınız tarafından uygulanan ücretler geçerlidir.";
+
 /* Version 2.0 */
 "NewVersionFeature_200_event_checkin_title" = "Enfeksiyon zincirlerini etkili bir biçimde takip etmek için QR kod ile check in";
 
-"NewVersionFeature_200_event_checkin_description" = "CWA artık etkinliklere ve yerlere check in yapabilmenizi sağlar. Etkinlik organizatörleri ve mağaza sahipleri uygulamayı kullanarak bir QR kod oluşturabilir. Ardından konuklar geldiklerinde bu QR kodu tarayarak katılımlarını kayıt altına alabilir. Uygulama, talep üzerine günce girişi oluşturma seçeneği de sunmaktadır. Bu etkinliğe ya da yere check in yapan bir kişi daha sonra koronavirüs tanısı alırsa aynı anda check in yapmış diğer kişilere otomatik olarak uyarı gönderilebilir.";
-
-/* Version 1.15 */
-"NewVersionFeature_115_cross_border_switzerland_title" = "Uluslararası Maruz Kalma Günlüğüne İsviçre Eklendi ";
-
-"NewVersionFeature_115_cross_border_switzerland_description" = "Corona-Warn-App kullanıcıları artık şifrelenmiş rastgele kimlikleri, İsviçre’de resmi uyarı uygulamasının kullanıcıları ile değiştirebilir. Buna göre, artık İsviçre’deki uygulama kullanıcıları ile uyarı alışverişi yapılabilir.";
-
-"NewVersionFeature_115_days_since_install_title" = "Risk Kutucuklarındaki Değişiklik";
-
-"NewVersionFeature_115_days_since_install_description" = "Artık risk kutucukları etkin gün sayısını veya uygulamanın kalıcı olarak etkin olduğuna yönelik notu içermemektedir.";
-
-"NewVersionFeature_115_error_analytic_logs_title" = "Hata Raporlarının Oluşturulması";
-
-"NewVersionFeature_115_error_analytic_logs_description" = "Artık teknik destek talebi üzerine bir hata raporu oluşturabilir ve uygulamada gerçekleştirdiğiniz adımları kaydedebilirsiniz. Bu sayede teknik hataların analiz edilmesi ve daha kısa süre içinde düzeltilmesi kolaylaştırılacaktır.";
+"NewVersionFeature_200_event_checkin_description" = "CWA artık etkinliklere ve yerlere check in yapabilmenizi sağlar. Etkinlik organizatörleri ve mağaza sahipleri uygulamayı kullanarak bir QR kod oluşturabilir. Ardından konuklar geldiklerinde bu QR kodu tarayarak katılımlarını kayıt altına alabilir. Uygulama, talep üzerine günce girişi oluşturma seçeneği de sunmaktadır. Bu etkinliğe ya da yere check in yapan bir kişi daha sonra koronavirüs tanısı alırsa aynı anda check in yapmış diğer kişilere uyarı gönderilebilir.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Uluslararası Maruz Kalma Günlüğü";
@@ -1492,6 +1545,28 @@
 "TestResultPositive_WithConsent_PrimaryButton" = "Belirtileri Gir";
 
 "TestResultPositive_WithConsent_SecondaryButton" = "Çıkış";
+
+"TestResultPositive_KeysSubmitted_Description" = "Desteğiniz sayesinde artık diğer kullanıcılar uyarılabilir ve buna uygun şekilde hareket edebilir.";
+
+"TestResultPositive_KeysSubmitted_Title1" = "Lütfen unutmayın:";
+
+"TestResultPositive_KeysSubmitted_Info1" = "Bu test sonucunu doğrulamak için PCR testi yapın.";
+
+"TestResultPositive_KeysSubmitted_Info2" = "Kamu sağlığı yetkiliniz önümüzdeki birkaç gün içinde telefonla veya mektupla size ulaşacaktır.";
+
+"TestResultPositive_KeysSubmitted_Info3" = "Yüksek bir olasılıkla enfekte oldunuz. Kendinizi diğer insanlardan izole edin.";
+
+"TestResultPositive_KeysSubmitted_Title2" = "Diğer bilgiler:";
+
+"TestResultPositive_KeysSubmitted_FurtherInfo1" = "Karantina süreniz genellikle 14 gündür. Lütfen belirtilerinizi nasıl geliştiğini yakından izleyin.";
+
+"TestResultPositive_KeysSubmitted_FurtherInfo2" = "Kamu sağlığı yetkiliniz, temasa geçtiğiniz kişilerin bir listesini oluşturmanızı isteyecektir. Bu listeye, hasta olmadan önceki iki gün içinde 15 dakikadan uzun süreyle yakın temas halinde (2 metreden kısa mesafede, yüz yüze görüşme) olduğunuz herkesi dahil etmeniz gerekir. Bunun için temas güncenizi kullanabilirsiniz: Girişleri dışa aktarmanız ve ardından yazdırmanız ya da e-posta yoluyla göndermeniz yeterlidir.";
+
+"TestResultPositive_KeysSubmitted_FurtherInfo3" = "Lütfen özellikle akıllı telefonu olmadığı veya uygulamayı yüklemediği için doğrudan uygulamanın uyarmayacağı kişileri göz önünde bulundurun.";
+
+"TestResultPositive_KeysSubmitted_FurtherInfo4" = "Hiçbir belirtiniz kalmasa ve kendinizi iyi hissetseniz dahi yine de hastalığı bulaştırabilirsiniz. Bu nedenle lütfen belirlenen karantina süresine uyun.";
+
+"TestResultPositive_KeysSubmitted_PrimaryButton" = "Testi Sil";
 
 /* Overview */
 "ContactDiary_Overview_Button_Title_Menu" = "Menü";
@@ -1661,7 +1736,7 @@
 
 "ContactDiary_AddEditEntry_LocationPlaceholder_PhoneNumber" = "Telefon";
 
-"ContactDiary_AddEditEntry_LocationPlaceholder_EmailAddress" = "e-posta";
+"ContactDiary_AddEditEntry_LocationPlaceholder_EmailAddress" = "E-posta";
 
 /* - Person */
 "ContactDiary_AddEditEntry_PersonTitle" = "Kişi";
@@ -1670,7 +1745,7 @@
 
 "ContactDiary_AddEditEntry_PersonPlaceholder_PhoneNumber" = "Telefon";
 
-"ContactDiary_AddEditEntry_PersonPlaceholder_EmailAddress" = "e-posta";
+"ContactDiary_AddEditEntry_PersonPlaceholder_EmailAddress" = "E-posta";
 
 /* - Trend on Cards */
 "Statistics_Card_Trend_Increasing" = "Trend: Yukarı";
@@ -1983,6 +2058,10 @@
 
 "Checkins_Overview_QRScanner_Instruction" = "QR Kodu Tara ve Check In Yap";
 
+"Checkins_Overview_Item_Prefix_CheckIn" = "%@ için check-in.";
+
+"Checkins_Overview_Item_Prefix_CheckedOut" = "%@ için check out yapıldı.";
+
 "Checkin_QR_Scanner_Checkin_Error_Title" = "Geçersiz QR Kod";
 
 "Checkin_QR_Scanner_Error_InvalidURL" = "Taranan QR kod, etkinlik veya yer check-in’leri için geçerli değil. Lütfen uygun bir QR kod tarayın (hata kodu INVALID_URL).";
@@ -2035,6 +2114,8 @@
 "TraceLocations_Overview_ActionSheet_InfoTitle" = "Bilgi";
 
 "TraceLocations_Overview_ActionSheet_EditTitle" = "Düzenle";
+
+"TraceLocations_Overview_Item_Prefix" = "%@ QR kodu.";
 
 /* Trace Location Details */
 "TraceLocations_Details_PrintVersionButtonTitle" = "Basılı Versiyonu Görüntüle";
@@ -2207,4 +2288,23 @@
 "Checkin_Details_EventEnded" = "Bu etkinlik zaten bitmiş. Geriye dönük olarak check in yapmak istiyor musunuz?";
 
 "Checkin_Details_CheckIn_Button" = "Check In";
+
+/* Submission Check-in */
+"Submission_Checkins_Title" = "Konum Check-In’leri Paylaşılsın Mı?";
+
+"Submission_Checkins_Description" = "Sizin yakınınızda check in yapmış olan diğer kullanıcıları uyarın. Kişisel verileriniz paylaşılmayacaktır.";
+
+"Submission_Checkins_SelectAll" = "Tümünü seç";
+
+"Submission_Checkins_Continue" = "Gönder";
+
+"Submission_Checkins_Skip" = "Atla";
+
+"Submission_Checkins_Alert_Title" = "Check-in’lerinizi paylaşmak istemediğinizden emin misiniz?";
+
+"Submission_Checkins_Alert_Message" = "Bu adımı atladığınızda sizin yakınınızda check in yapmış olan hiç kimseye uyarı gönderilmeyecektir.";
+
+"Submission_Checkins_Alert_Share" = "Paylaş";
+
+"Submission_Checkins_Alert_DontShare" = "Paylaşma";
 

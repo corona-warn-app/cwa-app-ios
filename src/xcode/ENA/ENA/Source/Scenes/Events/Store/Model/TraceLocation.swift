@@ -5,6 +5,8 @@
 // This implementation is based on the following technical specification.
 // For more details please see: https://github.com/corona-warn-app/cwa-app-tech-spec/blob/e87ef2851c91141573d5714fd24485219280543e/docs/spec/event-registration-client.md
 
+import Foundation
+
 struct TraceLocation {
 
 	// MARK: - Internal
@@ -101,7 +103,7 @@ extension TraceLocation {
 			return nil
 		}
 		
-		Log.debug("Data found: \(String(describing: decodedData))")
+		Log.debug("Data found: \(private: String(describing: decodedData), public: "Decoded qrCode")")
 		
 		
 		do {

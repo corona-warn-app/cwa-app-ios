@@ -5,7 +5,7 @@
 import Foundation
 import UIKit
 
-protocol ENAButtonFooterViewDelegate: class {
+protocol ENAButtonFooterViewDelegate: AnyObject {
 	func footerView(_ footerView: UIView, didTapPrimaryButton button: UIButton)
 	func footerView(_ footerView: UIView, didTapSecondaryButton button: UIButton)
 }

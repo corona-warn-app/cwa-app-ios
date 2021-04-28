@@ -52,11 +52,22 @@ class RootCoordinator: RequiresAppDependencies {
 		return viewController
 	}()
 
-	func showHome(enStateHandler: ENStateHandler) {
-		viewController.clearChildViewController()
-		
-		// Home
-		guard let delegate = delegate else {
+	func showHome(enStateHandler: ENStateHandler, route: Route?) {
+		// only create and init the whole view stack if not done before
+		// there for we check if the homeCoordinator exists
+		defer {
+			// dispatch event route handling to showEvent
+			if case let .checkIn(guid) = route {
+				showEvent(guid)
+			}
+		}
+
+		guard let delegate = delegate,
+			  homeCoordinator == nil else {
+			homeCoordinator?.showHome(
+				enStateHandler: enStateHandler,
+				route: route
+			)
 			return
 		}
 		
@@ -67,9 +78,11 @@ class RootCoordinator: RequiresAppDependencies {
 			coronaTestService: coronaTestService
 		)
 		self.homeCoordinator = homeCoordinator
-		homeCoordinator.showHome(enStateHandler: enStateHandler)
-		
-		
+		homeCoordinator.showHome(
+			enStateHandler: enStateHandler,
+			route: route
+		)
+
 		// ContactJournal
 		let diaryCoordinator = DiaryCoordinator(
 			store: store,
@@ -104,7 +117,8 @@ class RootCoordinator: RequiresAppDependencies {
 		tabBarController.tabBar.tintColor = .enaColor(for: .tint)
 		tabBarController.tabBar.barTintColor = .enaColor(for: .background)
 		tabBarController.setViewControllers([homeCoordinator.rootViewController, checkInCoordinator.viewController, diaryCoordinator.viewController], animated: false)
-
+		
+		viewController.clearChildViewController()
 		viewController.embedViewController(childViewController: tabBarController)
 	}
 
@@ -124,20 +138,27 @@ class RootCoordinator: RequiresAppDependencies {
 		
 		navigationVC.setViewControllers([onboardingVC], animated: false)
 		
+		tabBarController.clearChildViewController()
+		tabBarController.setViewControllers([], animated: false)
+		
+		homeCoordinator = nil
+		diaryCoordinator = nil
+		checkInCoordinator = nil
+		
 		viewController.clearChildViewController()
 		viewController.embedViewController(childViewController: navigationVC)
 	}
 
 	func showEvent(_ guid: String) {
-		let checkInNavigationController = checkInCoordinator.viewController
-		guard let index = tabBarController.viewControllers?.firstIndex(of: checkInNavigationController) else {
+		guard let checkInNavigationController = checkInCoordinator?.viewController,
+			  let index = tabBarController.viewControllers?.firstIndex(of: checkInNavigationController) else {
 			return
 		}
 
 		// Close all modal screens that would prevent showing the checkin screen first.
 		tabBarController.dismiss(animated: false)
 		tabBarController.selectedIndex = index
-		checkInCoordinator.showTraceLocationDetailsFromExternalCamera(guid)
+		checkInCoordinator?.showTraceLocationDetailsFromExternalCamera(guid)
 	}
 
 	func updateDetectionMode(
@@ -160,17 +181,10 @@ class RootCoordinator: RequiresAppDependencies {
 
 	private var homeCoordinator: HomeCoordinator?
 	private var homeState: HomeState?
-
+	
 	private(set) var diaryCoordinator: DiaryCoordinator?
-	private(set) lazy var checkInCoordinator: CheckinCoordinator = {
-		CheckinCoordinator(
-			store: store,
-			eventStore: eventStore,
-			appConfiguration: appConfigurationProvider,
-			eventCheckoutService: eventCheckoutService
-		)
-	}()
-
+	private(set) var checkInCoordinator: CheckinCoordinator?
+	
 	private var enStateUpdateList = NSHashTable<AnyObject>.weakObjects()
 
 }

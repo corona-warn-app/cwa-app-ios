@@ -64,6 +64,8 @@ protocol StoreProtocol: AnyObject {
 	var wasDeviceTimeErrorShown: Bool { get set }
 
 	var submissionKeys: [SAP_External_Exposurenotification_TemporaryExposureKey]? { get set }
+	
+	var submissionCheckins: [Checkin] { get set }
 
 	var submissionCountries: [Country] { get set }
 
@@ -91,10 +93,6 @@ protocol StoreProtocol: AnyObject {
 
 }
 
-protocol ServerEnvironmentProviding {
-	var selectedServerEnvironment: ServerEnvironmentData { get set }
-}
-
 protocol AppConfigCaching: AnyObject {
 	var appConfigMetadata: AppConfigMetadata? { get set }
 }
@@ -117,7 +115,7 @@ protocol PrivacyPreservingProviding: AnyObject {
 }
 
 protocol EventRegistrationCaching: AnyObject {
-	/// Event registration - Flag that indicates if the recent trace warning download was succesful or not.
+	/// Event registration - Flag that indicates if the recent trace warning download was successful or not.
 	var wasRecentTraceWarningDownloadSuccessful: Bool { get set }
 	
 	var checkinInfoScreenShown: Bool { get set }
@@ -147,6 +145,15 @@ protocol CoronaTestStoring {
 
 }
 
+protocol AntigenTestProfileStoring: AnyObject {
+
+	var antigenTestProfile: AntigenTestProfile? { get set }
+
+	var antigenTestProfileInfoScreenShown: Bool { get set }
+
+}
+
+/// this section contains only deprecated stuff, please do not add new things here
 protocol CoronaTestStoringLegacy {
 
 	var registrationToken: String? { get set }
@@ -182,4 +189,4 @@ protocol CoronaTestStoringLegacy {
 }
 
 /// Wrapper protocol
-protocol Store: StoreProtocol, AppConfigCaching, StatisticsCaching, ServerEnvironmentProviding, PrivacyPreservingProviding, EventRegistrationCaching, WarnOthersTimeIntervalStoring, CoronaTestStoring, CoronaTestStoringLegacy {}
+protocol Store: StoreProtocol, AppConfigCaching, StatisticsCaching, PrivacyPreservingProviding, EventRegistrationCaching, WarnOthersTimeIntervalStoring, CoronaTestStoring, AntigenTestProfileStoring, CoronaTestStoringLegacy {}

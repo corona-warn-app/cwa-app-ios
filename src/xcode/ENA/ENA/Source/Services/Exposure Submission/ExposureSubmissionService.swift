@@ -115,6 +115,12 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			completion(.noSubmissionConsent)
 			return
 		}
+		
+		guard coronaTest.positiveTestResultWasShown else {
+			Log.info("Cancelled submission: User has never seen their positive test result", log: .api)
+			completion(.positiveTestResultNotShown)
+			return
+		}
 
 		guard let keys = temporaryExposureKeys else {
 			Log.info("Cancelled submission: No temporary exposure keys to submit.", log: .api)
@@ -122,8 +128,8 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			return
 		}
 
-		guard !keys.isEmpty else {
-			Log.info("Cancelled submission: No temporary exposure keys to submit.", log: .api)
+		guard !keys.isEmpty || !checkins.isEmpty else {
+			Log.info("Cancelled submission: No temporary exposure keys or checkins to submit.", log: .api)
 			completion(.noKeysCollected)
 
 			// We perform a cleanup in order to set the correct
@@ -141,9 +147,8 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				let processedKeys = keys.processedForSubmission(
 					with: self.symptomsOnset
 				)
-				let checkins = self.eventStore.checkinsPublisher.value
 				let processedCheckins = self.preparedCheckinsForSubmission(
-					checkins: checkins,
+					checkins: self.checkins,
 					appConfig: appConfig,
 					symptomOnset: self.symptomsOnset
 				)
@@ -155,16 +160,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 						coronaTest: coronaTest,
 						visitedCountries: self.supportedCountries,
 						checkins: processedCheckins,
-						completion: { [weak self] error in
-
-							// If there was no error during submission,
-							// update the checkins to checkinSubmitted = true.
-							if error == nil {
-								for checkin in checkins {
-									let updatedCheckin = checkin.updatedCheckin(checkinSubmitted: true)
-									self?.eventStore.updateCheckin(updatedCheckin)
-								}
-							}
+						completion: { error in
 							completion(error)
 						}
 					)
@@ -177,6 +173,10 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		diagnosisKeysRetrieval.exposureManagerState
 	}
 
+	var checkins: [Checkin] {
+		get { store.submissionCheckins }
+		set { store.submissionCheckins = newValue }
+	}
 
 	// MARK: - Private
 
@@ -281,6 +281,13 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		deadmanNotificationManager.resetDeadmanNotification()
 
 		temporaryExposureKeys = nil
+		
+		for checkin in checkins {
+			let updatedCheckin = checkin.updatedCheckin(checkinSubmitted: true)
+			self.eventStore.updateCheckin(updatedCheckin)
+		}
+		
+		checkins = []
 		supportedCountries = []
 		symptomsOnset = .noInformation
 

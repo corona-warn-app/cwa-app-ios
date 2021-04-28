@@ -33,6 +33,7 @@ class TraceLocationCellModel: EventCellModel {
 			.store(in: &subscriptions)
 
 		timePublisher.value = timeString
+		titleAccessibilityLabelPublisher.value = String(format: AppStrings.TraceLocations.Overview.itemPrefix, traceLocation.description)
 	}
 
 	// MARK: - Internal
@@ -41,7 +42,10 @@ class TraceLocationCellModel: EventCellModel {
 	var isActiveContainerViewHiddenPublisher = CurrentValueSubject<Bool, Never>(false)
 	var isButtonHiddenPublisher = CurrentValueSubject<Bool, Never>(true)
 	var durationPublisher = CurrentValueSubject<String?, Never>(nil)
+	var durationAccessibilityPublisher = CurrentValueSubject<String?, Never>(nil)
 	var timePublisher = CurrentValueSubject<String?, Never>(nil)
+	var timeAccessibilityPublisher = CurrentValueSubject<String?, Never>(nil)
+	var titleAccessibilityLabelPublisher = CurrentValueSubject<String?, Never>(nil)
 
 	var isActiveIconHidden: Bool = false
 	var isDurationStackViewHidden: Bool = true

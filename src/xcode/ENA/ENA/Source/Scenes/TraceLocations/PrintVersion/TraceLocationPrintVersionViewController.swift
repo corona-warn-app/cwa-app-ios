@@ -82,7 +82,8 @@ class TraceLocationPrintVersionViewController: UIViewController, UIActivityItemS
 			Log.error("Could not write the template data to the pdf file.", log: .qrCode, error: error)
 		}
 		
-		let activityViewController = UIActivityViewController(activityItems: [pdfFileURL], applicationActivities: nil)
+		let exportItem = PDFExportItem(subject: viewModel.shareTitle, fileURL: pdfFileURL)
+		let activityViewController = UIActivityViewController(activityItems: [exportItem], applicationActivities: nil)
 		present(activityViewController, animated: true, completion: nil)
 	}
 
@@ -94,4 +95,38 @@ class TraceLocationPrintVersionViewController: UIViewController, UIActivityItemS
 		printController.printingItem = data
 		printController.present(animated: true, completionHandler: nil)
 	}
+}
+
+class PDFExportItem: NSObject, UIActivityItemSource {
+
+	// MARK: - Init
+	
+	init(subject: String, fileURL: URL) {
+		self.subject = subject
+		self.fileURL = fileURL
+	}
+	
+	// MARK: - Protocol UIActivityItemSource
+	
+	func activityViewControllerPlaceholderItem(_ activityViewController: UIActivityViewController) -> Any {
+		return ""
+	}
+	
+	func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivity.ActivityType?) -> Any? {
+		return fileURL
+	}
+	
+	func activityViewController(_ activityViewController: UIActivityViewController, subjectForActivityType activityType: UIActivity.ActivityType?) -> String {
+		switch activityType {
+		case .mail?:
+			return subject
+		default:
+			return ""
+		}
+	}
+	
+	// MARK: - Private
+	
+	private let subject: String
+	private let fileURL: URL
 }

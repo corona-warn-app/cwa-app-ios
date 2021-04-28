@@ -67,8 +67,6 @@
 
 "ExposureDetection_High_Red_Color" = "Rot";
 
-"ExposureDetection_DaysSinceInstallation" = "Seit %u Tagen installiert";
-
 "ExposureDetection_LastExposure" = "Zuletzt am %@";
 
 "ExposureDetection_LastExposure_One_Risk_Day" = "Am %@";
@@ -222,8 +220,6 @@
 /* There are two paragraphs in this section. The first one just contains text… */
 "ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Die Berechnung des Infektionsrisikos kann nur für die Zeiträume erfolgen, an denen die Risiko-Ermittlung aktiv war. Die Risiko-Ermittlung sollte daher dauerhaft aktiv sein. Für Ihre Risiko-Ermittlung wird der Zeitraum der letzten 14 Tage betrachtet.";
 
-"ExposureDetection_ActiveTracingSection_Text_Paragraph1a" = "Die Corona-Warn-App ist seit %u Tagen installiert. Das Infektionsrisiko wird für Zeiträume berechnet, in denen die Risiko-Ermittlung aktiv ist. Wenn Sie andere Personen getroffen haben und die Risiko-Ermittlung aktiv war, wird Ihr Infektions-Risiko berechnet.";
-
 "ExposureDetection_ActiveTracingSection_Text_Paragraph1b" = "Wenn die Risiko-Ermittlung zu Zeiten, in denen Sie andere Personen getroffen haben, aktiv war, kann die Berechnung des Infektionsrisikos für diesen Zeitraum erfolgen.";
 
 /* Exposure Detection Errors */
@@ -279,8 +275,6 @@
 
 "Settings_DaysSinceInstall_P1" = "Die Berechnung des Infektionsrisikos kann nur für die Zeiträume erfolgen, an denen die Risiko-Ermittlung aktiv war. Die Risiko-
 Ermittlung sollte daher dauerhaft aktiv sein. Für Ihre Risiko-Ermittlung wird der Zeitraum der letzten 14 Tage betrachtet.";
-
-"Settings_DaysSinceInstall_P2a" = "Die Corona-Warn-App ist seit %u Tagen installiert. Das Infektionsrisiko wird für Zeiträume berechnet, in denen die Risiko-Ermittlung aktiv ist. Wenn Sie andere Personen getroffen haben und die Risiko-Ermittlung aktiv war, wird Ihr Infektions-Risiko berechnet.";
 
 "Settings_DaysSinceInstall_P2b" = "Wenn die Risiko-Ermittlung zu Zeiten, in denen Sie andere Personen getroffen haben, aktiv war, kann die Berechnung des Infektionsrisikos für diesen Zeitraum erfolgen.";
 
@@ -466,7 +460,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ExposureSubmission_Hotline_Number" = "08007540002";
 
 /* phone number; no spacing allowed */
-"ExposureSubmission_Hotline_Number_Foreign" = "+493049875402";
+"ExposureSubmission_Hotline_Number_Foreign" = "+493049875401";
 
 "ExposureSubmission_DataPrivacyTitle" = "Einwilligungserklärung";
 
@@ -518,17 +512,17 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionDispatch_QRCodeButtonDescription" = "Erhalten Sie Ihr Testergebnis in der App und warnen Sie andere.";
 
-"ExposureSubmissionDispatch_TANButtonTitle" = "TAN-Eingabe";
+"ExposureSubmissionDispatch_TANButtonTitle" = "TAN für PCR-Test eingeben";
 
-"ExposureSubmissionDispatch_TANButtonDescription" = "Ihnen liegt eine TAN vor? Weiter zur TAN-Eingabe, um andere zu warnen.";
+"ExposureSubmissionDispatch_TANButtonDescription" = "Ihnen liegt eine TAN für Ihren PCR-Test vor? Weiter zur TAN-Eingabe, um andere zu warnen.";
 
-"ExposureSubmissionDispatch_HotlineButtonTitle" = "Noch keine TAN?";
+"ExposureSubmissionDispatch_HotlineButtonTitle" = "TAN für PCR-Test anfragen";
 
-"ExposureSubmissionDispatch_HotlineButtonDescription" = "Rufen Sie uns an und erhalten Sie eine TAN.";
+"ExposureSubmissionDispatch_HotlineButtonDescription" = "Rufen Sie uns an und erhalten Sie eine TAN für Ihren PCR-Test.";
 
 /* Exposure Submission Hotline */
 
-"ExposureSubmissionHotline_Title" = "TAN anfragen";
+"ExposureSubmissionHotline_Title" = "TAN für PCR-Test anfragen";
 
 "ExposureSubmissionHotline_Description" = "Bitte halten Sie zur TAN-Abfrage Ihren Befundbrief (sofern vorhanden) und Ihre Telefonnummer bereit.";
 
@@ -545,13 +539,13 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_PhoneDetailsDomestic" = "Für Anrufe innerhalb Deutschlands.\nDer Anruf ist kostenfrei.";
 
-"ExposureSubmission_PhoneNumberForeign" = "+49 30 498 75402";
+"ExposureSubmission_PhoneNumberForeign" = "+49 30 498 75401";
 
 "ExposureSubmission_PhoneDetailsForeign" = "Für Anrufe aus dem Ausland.\nEs fallen die Gebühren des jeweiligen Telefonanbieters an.";
 
-"ExposureSubmission_PhoneDetailDescription" = "Unser Kundenservice ist in den folgenden Sprachen für Sie da:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo-So: Täglich 24 Stunden\n\nFür gesundheitliche Fragen wenden Sie sich bitte an Ihre Hausarztpraxis oder die Hotline des ärztlichen Bereitschaftsdienstes 116 117.";
+"ExposureSubmission_PhoneDetailDescription" = "Unser Kundenservice ist in den folgenden Sprachen für Sie da:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo-Sa: 07:00 - 22:00 Uhr\n\nFür gesundheitliche Fragen wenden Sie sich bitte an Ihre Hausarztpraxis oder die Hotline des ärztlichen Bereitschaftsdienstes 116 117.";
 
-"ExposureSubmission_SectionDescription2" = "Geben Sie die TAN in der App ein, um Ihren Test zu registrieren.";
+"ExposureSubmission_SectionDescription2" = "Geben Sie die TAN in der App ein, um Ihren PCR-Test zu registrieren.";
 
 "ExposureSubmission_CallButtonTitle" = "Anrufen";
 
@@ -598,6 +592,12 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionQRInfo_QRCodeExpired_Alert_Text" = "Ihr Test liegt länger als 21 Tage zurück und kann nicht mehr in der App registriert werden. Bitte stellen Sie bei zukünftigen Tests sicher, dass Sie den QR-Code scannen, sobald er Ihnen vorliegt.";
 
+"ExposureSubmission_RAT_QR_Invalid_Alert_Title" = "Fehler";
+
+"ExposureSubmission_RAT_QR_Invalid_Alert_Text" = "Der QR-Code kann keinem Schnelltest zugeordnet werden. Bitte scannen Sie einen geeigneten QR-Code.";
+
+"ExposureSubmission_RAT_QR_Invalid_Alert_Button" = "OK";
+
 /* Exposure Submission QR Code Scanner */
 "ExposureSubmissionQRScanner_title" = "QR-Code Scan";
 
@@ -630,7 +630,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionSuccess_listTitle" = "Bitte beachten Sie:";
 
-"ExposureSubmissionSuccess_listItem1" = "Das Gesundheitsamt wird sich in den nächsten Tagen bei Ihnen melden.";
+"ExposureSubmissionSuccess_listItem0" = "Machen Sie einen PCR-Test, um dieses Test-Ergebnis zu verifizieren. ";
+
+"ExposureSubmissionSuccess_listItem1" = "Das Gesundheitsamt wird sich in den nächsten Tagen telefonisch oder schriftlich bei Ihnen melden.";
 
 "ExposureSubmissionSuccess_listItem2" = "Sie sind ansteckend. Isolieren Sie sich von anderen Personen.";
 
@@ -865,7 +867,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_Negative_Antigen_Proof_Title" = "Nachweis-Funktion";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Sie können den hier angezeigten Befund auch als Nachweis für das Vorliegen eines negativen Schnelltest-Ergebnisses verwenden. Informieren Sie sich hierzu bitte auch über die Kriterien für die Anerkennung von Test-Nachweisen in Ihrem Bundesland. Bitte beachten Sie, dass Sie grundsätzlich nicht zum Nachweis per App verpflichtet sind. Sie können Ihr Schnelltest-Ergebnis im Rahmen der rechtlichen Bestimmungen auf andere Weise nachweisen.";
+"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Sie können den hier angezeigten Befund auch als Nachweis für das Vorliegen eines negativen Schnelltest-Ergebnisses verwenden.\n\nBitte beachten Sie, dass Sie nur dann einen Nachweis über Ihr Schnelltest-Ergebnis erbringen müssen, wenn dies gesetzlich festgelegt ist. Sie können den Nachweis über die App oder auch auf andere Weise erbringen. Informieren Sie sich hierzu bitte auch über die Kriterien für die Anerkennung von Test-Nachweisen in Ihrem Bundesland.";
 
 /* Exposure Submission */
 
@@ -924,6 +926,30 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ExposureSubmission_OverwriteNotice_Antigen_Headline" = "Sie haben bereits einen Schnelltest registriert. ";
 
 "ExposureSubmission_OverwriteNotice_Antigen_Text" = "Sie haben bereits einen Schnelltest registriert. Die App kann maximal einen Schnelltest und einen PCR-Test gleichzeitig verwalten. Wenn Sie einen weiteren Schnelltest registrieren, wird der erste Schnelltest aus der App gelöscht.";
+
+/* ExposureSubmission AntigenTest Profile */
+
+"ExposureSubmission_Antigen_Profile_Header_Text" = "Schnelltest-Profil";
+
+"ExposureSubmission_Antigen_Profile_QRCode_Image_Description" = "Ein QR-Code mit Ihrem Schnelltest-Profil";
+
+"ExposureSubmission_Antigen_Profile_Noice_Text" = "Bitte zeigen Sie diesen QR-Code an der Teststelle vor, um Ihre persönlichen Daten schnell erfassen zu lassen. Bitte halten zusätzlich Sie Ihren Personalausweis bereit.";
+
+"ExposureSubmission_Antigen_Profile_DateOfBirth_Format" = "geboren %@";
+
+"ExposureSubmission_Antigen_Profile_Primary_Button" = "Weiter";
+
+"ExposureSubmission_Antigen_Profile_Secondary_Button" = "Schnelltest-Profil entfernen";
+
+/* ExposureSubmission AntigenTest */
+
+"ExposureSubmission_Profile_CreateProfileTile_Title" = "Schnelltest-Profil anlegen";
+
+"ExposureSubmission_Profile_CreateProfileTile_Description" = "Legen Sie ein Profil mit Ihren persönlichen Daten an, die Sie dann per QR-Code bei jedem Schnelltest vorlegen können.";
+
+"ExposureSubmission_Profile_ProfileTile_Title" = "Schnelltest-Profil";
+
+"ExposureSubmission_Profile_ProfileTile_Description" = "Sparen Sie Zeit und zeigen Sie Ihr Schnelltest-Profil bei der Teststelle vor.";
 
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Risiko-Ermittlung";
@@ -1079,7 +1105,6 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 /* Home Low card */
 "Home_Risk_Low_Title" = "Niedriges Risiko";
-"Home_Risk_DaysSinceInstallation" = "Seit %u Tagen installiert";
 
 /* Home High card */
 "Home_Risk_High_Title" = "Erhöhtes Risiko";
@@ -1102,57 +1127,89 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Home_Risk_Restart_Button_Title" = "Erneut starten";
 
-/* Home Thank you card */
-"Home_Thank_You_Card_Title" = "Vielen Dank!";
+/* Home Test Result Card */
 
-"Home_Thank_You_Card_Body" = "Dank Ihrer Mithilfe können andere gewarnt werden und entsprechend reagieren.";
+"Home_resultCard_PCR_Title" = "PCR-Test";
 
-"Home_Thank_You_Card_Note_Title" = "Bitte beachten Sie:";
+"Home_resultCard_Antigen_Title" = "Schnelltest";
 
-"Home_Thank_You_Card_Phone_Item_Title" = "Das Gesundheitsamt wird sich in den nächsten Tagen bei Ihnen melden.";
+"Home_resultCard_LoadingErrorTitle" = "Ihr Testergebnis konnte nicht geladen werden.";
 
-"Home_Thank_You_Card_Home_Item_Title" = "Sie sind ansteckend. Isolieren Sie sich von anderen Personen.";
+/* - Pending */
 
-"Home_Thank_You_Card_Further_Info_Item_Title" = "Weitere Infos:";
+"Home_resultCard_ResultUnvailableTitle" = "Ergebnis liegt noch nicht vor";
 
-"Home_Thank_You_Card_14Days_Item_Title" = "Die Quarantänezeit beträgt in der Regel 14 Tage. Bitte beobachten Sie genau, wie sich Ihre Symptome entwickeln.";
+"Home_resultCard_Pending_PCR_Desc" = "Die Auswertung Ihres PCR-Tests ist noch nicht abgeschlossen.";
 
-"Home_Thank_You_Card_Contacts_Item_Title" = "Sie werden von Ihrem Gesundheitsamt gebeten, eine Liste Ihrer Kontaktpersonen zu erstellen. Erfassen Sie dabei alle Personen, zu denen Sie in den zwei Tagen vor Erkrankungsbeginn engen Kontakt (unter 2 Meter, direktes Gespräch) über insgesamt 15 Minuten hatten. Nutzen Sie hierfür Ihr Kontakt-Tagebuch. Sie können die Einträge einfach exportieren und ausdrucken oder als E-Mail verschicken.";
+"Home_resultCard_Pending_Antigen_Desc" = "Die Auswertung Ihres Schnelltests ist noch nicht abgeschlossen.";
 
-"Home_Thank_You_Card_App_Item_Title" = "Bitte denken Sie hier auch besonders an Personen, die nicht automatisch durch die App informiert werden, da sie kein Smartphone besitzen oder die App nicht installiert haben.";
+/* - Available */
 
-"Home_Thank_You_Card_NoSymptoms_Item_Title" = "Auch wenn Sie keine Krankheitszeichen mehr haben und sich wieder gesund fühlen, könnten Sie noch ansteckend 
-sein.";
+"Home_resultCard_ResultAvailableTitle" = "Testergebnis abrufen";
 
-/* Home Reenable card */
-"Home_Reenable_Card_Title" = "Risiko-Überprüfung beendet";
+"Home_resultCard_AvailableDesc" = "Warnen Sie Ihre Mitmenschen, wenn Sie positiv auf Corona getestet wurden.";
 
-"Home_Reenable_Card_Body" = "Die automatische Risiko-Überprüfung wurde beendet, weil Sie sich aufgrund Ihres positiven Tests aktuell in Isolation befinden. Sie können die Risiko-Überprüfung jederzeit wieder einschalten. Ihr registrierter Test wird dann automatisch gelöscht.";
+/* - Negative */
 
-"Home_Reenable_Card_Button_Title" = "Risiko-Überprüfung einschalten";
+"Home_resultCard_NegativeCaption" = "Befund";
 
-"Home_Reenable_Card_TestResult_Title" = "SARS-CoV-2-positiv";
+"Home_resultCard_NegativeTitle" = "SARS-CoV-2";
 
-"Home_Reenable_Card_TestResult_Subtitle" = "Das Virus SARS-CoV-2 wurde bei Ihnen nachgewiesen.";
+"Home_resultCard_NegativeTitleNegative" = "Negativ";
 
-"Home_Reenable_Card_TestResult_Registration" = "Test registriert am %@";
+"Home_resultCard_NegativeDesc" = "Das Virus SARS-CoV-2 wurde bei Ihnen nicht nachgewiesen.";
 
-"Home_Reenable_Alert_Title" = "Risiko-Überprüfung aktivieren";
+"Home_resultCard_NegativeDatePCR" = "Test registriert am %@";
 
-"Home_Reenable_Alert_Message" = "Ihr aktueller Test wird aus der App gelöscht, damit Sie bei Bedarf einen neuen Test registrieren können.";
+"Home_resultCard_NegativeDateAntigen" = "Durchgeführt am %@";
 
-"Home_Reenable_Alert_ConfirmButtonTitle" = "Aktivieren";
+/* - Invalid */
 
-"Home_Reenable_Alert_CancelButtonTitle" = "Abbrechen";
+"Home_resultCard_InvalidTitle" = "Fehlerhafter Test";
 
-/* Home Finding positive */
-"Home_Finding_Positive_Card_Title" = "Befund positiv";
+"Home_resultCard_InvalidDesc" = "Ihr Test konnte nicht ausgewertet werden.";
+
+/* - Expired */
+
+"Home_resultCard_ExpiredTitle" = "Nicht mehr gültig";
+
+"Home_resultCard_ExpiredDesc" = "Ihr Test liegt länger als 21 Tage zurück und ist daher nicht länger relevant. Bitte löschen Sie den Test. Danach können Sie einen neuen Test hinzufügen.";
+
+/* - Outdated */
+
+"Home_resultCard_OutdatedTitle" = "Test nicht mehr aktuell";
+
+"Home_resultCard_OutdatedDesc" = "Ihr Schnelltest ist älter als 48 Stunden und wird hier nicht mehr angezeigt. ";
+
+/* - Loading */
+
+"Home_resultCard_LoadingTitle" = "Aktualisierung läuft …";
+
+"Home_resultCard_LoadingBody" = "Aktuelle Daten werden heruntergeladen. Dies kann mehrere Minuten dauern.";
+
+/* - Button */
+
+"Home_resultCard_ShowResultButton" = "Test anzeigen";
+
+"Home_resultCard_RetrieveResultButton" = "Testergebnis abrufen";
+
+"Home_resultCard_DeleteTestButton" = "Test löschen";
+
+"Home_resultCard_HideTestButton" = "Nicht mehr anzeigen";
+
+/* - Show Positive */
 
 "Home_Finding_Positive_Card_Status_Title" = "SARS-CoV-2-positiv";
 
 "Home_Finding_Positive_Card_Status_Subtitle" = "Das Virus SARS-CoV-2 wurde bei Ihnen nachgewiesen.";
 
+"Home_Finding_Positive_Card_Status_DatePCR" = "Test registriert am %@";
+
+"Home_Finding_Positive_Card_Status_DateAntigen" = "Durchgeführt am %@";
+
 "Home_Finding_Positive_Card_Note_Title" = "Bitte beachten Sie:";
+
+"Home_Finding_Positive_Card_Verify_Item_Title" = "Machen Sie einen PCR-Test, um dieses Test-Ergebnis zu verifizieren. ";
 
 "Home_Finding_Positive_Card_Phone_Item_Title" = "Das Gesundheitsamt wird sich in den nächsten Tagen telefonisch oder schriftlich bei Ihnen melden.";
 
@@ -1162,12 +1219,13 @@ sein.";
 
 "Home_Finding_Positive_Card_Button" = "Andere warnen";
 
-/* Home Submit card */
-"Home_SubmitCard_Title" = "Wurden Sie getestet?";
+/* Home Test Registration Card */
 
-"Home_SubmitCard_Body" = "Schützen Sie sich und Ihre Mitmenschen!";
+"Home_TestRegistration_Title" = "Test registrieren";
 
-"Home_SubmitCard_Button" = "Nächste Schritte";
+"Home_TestRegistration_Body" = "Nutzen Sie die App, um Ihre Testergebnisse abrufen und schneller warnen zu können.";
+
+"Home_TestRegistration_Button" = "Nächste Schritte";
 
 /* Home Trace Locations Card */
 
@@ -1192,35 +1250,6 @@ sein.";
 "Home_AppInformationCard_Title" = "App-Informationen";
 
 "Home_AppInformationCard_Version" = "Version";
-
-/* Home Result Card */
-"Home_resultCard_ResultAvailableTitle" = "Ihr Testergebnis liegt vor";
-
-"Home_resultCard_ResultUnvailableTitle" = "Ergebnis liegt noch nicht vor";
-
-"Home_resultCard_ShowResultButton" = "Test anzeigen";
-
-"Home_resultCard_RetrieveResultButton" = "Testergebnis abrufen";
-
-"Home_resultCard_LoadingBody" = "Aktuelle Daten werden heruntergeladen. Dies kann mehrere Minuten dauern.";
-
-"Home_resultCard_LoadingTitle" = "Aktualisierung läuft …";
-
-"Home_resultCard_NegativeTitle" = "Befund negativ";
-
-"Home_resultCard_NegativeDesc" = "Das Virus SARS-CoV-2 konnte bei Ihnen nicht nachgewiesen werden.";
-
-"Home_resultCard_PendingDesc" = "Die Auswertung Ihres Tests ist noch nicht abgeschlossen.";
-
-"Home_resultCard_InvalidTitle" = "Fehlerhafter Test";
-
-"Home_resultCard_InvalidDesc" = "Ihr Test konnte nicht ausgewertet werden.";
-
-"Home_resultCard_AvailableSubtitle" = "Sie können Ihr Testergebnis nun abrufen.";
-
-"Home_resultCard_AvailableDesc" = "Warnen Sie Ihre Mitmenschen, wenn Sie positiv auf Corona getestet wurden.";
-
-"Home_resultCard_LoadingErrorTitle" = "Ihr Testergebnis konnte nicht geladen werden.";
 
 /* Home Alert Risk Lowered */
 
@@ -1263,13 +1292,13 @@ sein.";
 
 "App_Information_Contact_Hotline_Details_Domestic" = "Für Anrufe innerhalb Deutschlands.\nDer Anruf ist kostenfrei.";
 
-"App_Information_Contact_Hotline_Text_Foreign" = "+49 30 498 75402";
+"App_Information_Contact_Hotline_Text_Foreign" = "+49 30 498 75401";
 
-"App_Information_Contact_Hotline_Number_Foreign" = "+493049875402";
+"App_Information_Contact_Hotline_Number_Foreign" = "+493049875401";
 
 "App_Information_Contact_Hotline_Details_Foreign" = "Für Anrufe aus dem Ausland.\nEs fallen die Gebühren des jeweiligen Telefonanbieters an.";
 
-"App_Information_Contact_Hotline_Terms" = "Unser Kundenservice ist in den folgenden Sprachen für Sie da:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo-So: Täglich 24 Stunden\n\nFür gesundheitliche Fragen wenden Sie sich bitte an Ihre Hausarztpraxis oder die Hotline des ärztlichen Bereitschaftsdienstes 116 117.";
+"App_Information_Contact_Hotline_Terms" = "Unser Kundenservice ist in den folgenden Sprachen für Sie da:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo-Sa: 07:00 - 22:00 Uhr\n\nFür gesundheitliche Fragen wenden Sie sich bitte an Ihre Hausarztpraxis oder die Hotline des ärztlichen Bereitschaftsdienstes 116 117.";
 
 /* App Information - Imprint */
 "App_Information_New_Features_Navigation" = "Neue Funktionen";
@@ -1495,13 +1524,13 @@ sein.";
 
 "NewVersionFeature_21_tan_hotline_foreign_countries_title" = "TAN-Hotline nun auch aus dem Ausland erreichbar";
 
-"NewVersionFeature_21_tan_hotline_foreign_countries_description" = "Sie können bei einem positiven Befund nun auch aus dem Ausland eine TAN anfordern unter der Nummer +49 30 498 75402. Es fallen Gebühren des jeweiligen Telefonanbieters an.";
+"NewVersionFeature_21_tan_hotline_foreign_countries_description" = "Sie können bei einem positiven Befund nun auch aus dem Ausland eine TAN anfordern unter der Nummer +49 30 498 75401. Es fallen Gebühren des jeweiligen Telefonanbieters an.";
 
 /* Version 2.0 */
 
 "NewVersionFeature_200_event_checkin_title" = "Check-in per QR-Code für effiziente Rückverfolgbarkeit von Infektionsketten";
 
-"NewVersionFeature_200_event_checkin_description" = "Die CWA ermöglicht nun einen Check-in für Events und Orte. Personen, die Events veranstalten oder ein Geschäft haben, können über die App einen QR-Code erstellen. Durch Scannen des QR-Codes können sich Gäste bei Ankunft einchecken, um so ihre Anwesenheit zu registrieren. Auf Wunsch legt die App außerdem einen entsprechenden Tagebuch-Eintrag an. Wird eine eingecheckte Person später positiv auf das Coronavirus getestet, können andere Personen gewarnt werden, die zur selben Zeit eingescheckt waren.";
+"NewVersionFeature_200_event_checkin_description" = "Die CWA ermöglicht nun einen Check-in für Events und Orte. Personen, die Events veranstalten oder ein Geschäft haben, können über die App einen QR-Code erstellen. Durch Scannen des QR-Codes können sich Gäste bei Ankunft einchecken, um so ihre Anwesenheit zu registrieren. Auf Wunsch legt die App außerdem einen entsprechenden Tagebuch-Eintrag an. Wird eine eingecheckte Person später positiv auf das Coronavirus getestet, können andere Personen gewarnt werden, die zur selben Zeit eingecheckt waren.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
@@ -1582,6 +1611,28 @@ sein.";
 "TestResultPositive_WithConsent_PrimaryButton" = "Weiter mit Symptom-Erfassung";
 
 "TestResultPositive_WithConsent_SecondaryButton" = "Beenden";
+
+"TestResultPositive_KeysSubmitted_Description" = "Dank Ihrer Mithilfe können andere gewarnt werden und entsprechend reagieren.";
+
+"TestResultPositive_KeysSubmitted_Title1" = "Bitte beachten Sie:";
+
+"TestResultPositive_KeysSubmitted_Info1" = "Machen Sie einen PCR-Test, um dieses Test-Ergebnis zu verifizieren.";
+
+"TestResultPositive_KeysSubmitted_Info2" = "Das Gesundheitsamt wird sich in den nächsten Tagen telefonisch oder schriftlich bei Ihnen melden.";
+
+"TestResultPositive_KeysSubmitted_Info3" = "Sie sind sehr warscheinlich ansteckend. Isolieren Sie sich von anderen Personen.";
+
+"TestResultPositive_KeysSubmitted_Title2" = "Weitere Infos:";
+
+"TestResultPositive_KeysSubmitted_FurtherInfo1" = "Die Quarantänezeit beträgt in der Regel 14 Tage. Bitte beobachten Sie genau, wie sich Ihre Symptome entwickeln.";
+
+"TestResultPositive_KeysSubmitted_FurtherInfo2" = "Sie werden von Ihrem Gesundheitsamt gebeten, eine Liste Ihrer Kontaktpersonen zu erstellen. Erfassen Sie dabei alle Personen, zu denen Sie in den zwei Tagen vor Erkrankungsbeginn engen Kontakt (unter 2 Meter, direktes Gespräch) über insgesamt 15 Minuten hatten. Nutzen Sie hierfür Ihr Kontakt-Tagebuch. Sie können die Einträge einfach exportieren und ausdrucken oder als E-Mail verschicken.";
+
+"TestResultPositive_KeysSubmitted_FurtherInfo3" = "Bitte denken Sie hier auch besonders an Personen, die nicht automatisch durch die App informiert werden, da sie kein Smartphone besitzen oder die App nicht installiert haben.";
+
+"TestResultPositive_KeysSubmitted_FurtherInfo4" = "Auch wenn Sie keine Symptome (mehr) haben, können Sie ansteckend sein. Bitte halten Sie die angeordnete Quarantänezeit in jedem Fall ein.";
+
+"TestResultPositive_KeysSubmitted_PrimaryButton" = "Test entfernen";
 
 /* Contact Diary*/
 
@@ -2063,6 +2114,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "Checkins_Overview_DurationTitle" = "Dauer";
 
+"Checkins_Overview_CheckinDateTemplate" = "Am %@";
+
 "Checkins_Overview_CheckinTimeTemplate" = "%@ - Automatisch auschecken nach %@";
 
 "Checkins_Overview_CheckoutButtonTitle" = "Jetzt auschecken";
@@ -2094,6 +2147,10 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "Checkins_Overview_ActionSheet_EditTitle" = "Bearbeiten";
 
 "Checkins_Overview_QRScanner_Instruction" = "QR-Code scannen und einchecken";
+
+"Checkins_Overview_Item_Prefix_CheckIn" = "Check-In für %@.";
+
+"Checkins_Overview_Item_Prefix_CheckedOut" = "Checked-Out für %@.";
 
 "Checkin_QR_Scanner_Checkin_Error_Title" = "Ungültiger QR-Code";
 
@@ -2148,6 +2205,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "TraceLocations_Overview_ActionSheet_InfoTitle" = "Infos";
 
 "TraceLocations_Overview_ActionSheet_EditTitle" = "Bearbeiten";
+
+"TraceLocations_Overview_Item_Prefix" = "QR-Code für %@.";
 
 /* Trace Location Details */
 
@@ -2320,6 +2379,12 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "Checkin_Details_SaveToDiary" = "Nach dem Auschecken in mein Kontakt-Tagebuch eintragen?";
 
+"Checkin_Details_SaveSwitch" = "Umschalttaste";
+
+"Checkin_Details_SaveSwitch_On" = "Ein";
+
+"Checkin_Details_SaveSwitch_Off" = "Aus";
+
 "Checkin_Details_AutomaticCheckout" = "Automatisch auschecken nach";
 
 "Checkin_Details_EventNotStartedYet" = "Das Event beginnt erst am %@ um %@ Uhr. Wollen Sie bereits einchecken?";
@@ -2327,3 +2392,23 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "Checkin_Details_EventEnded" = "Das Event ist beendet. Wollen Sie nachträglich einchecken?";
 
 "Checkin_Details_CheckIn_Button" = "Einchecken";
+
+/* Submission Check-in */
+
+"Submission_Checkins_Title" = "Check-ins teilen?";
+
+"Submission_Checkins_Description" = "Teilen Sie Ihre Check-ins, um andere zu warnen, die in Ihrer Nähe waren. Ihre Identität bleibt geheim.";
+
+"Submission_Checkins_SelectAll" = "Alle auswählen";
+
+"Submission_Checkins_Continue" = "Weiter";
+
+"Submission_Checkins_Skip" = "Überspringen";
+
+"Submission_Checkins_Alert_Title" = "Sind Sie sicher, dass Sie Ihre Check-ins nicht teilen wollen?";
+
+"Submission_Checkins_Alert_Message" = "Dadurch werden andere nicht gewarnt, die in Ihrer Nähe waren.";
+
+"Submission_Checkins_Alert_Share" = "Teilen";
+
+"Submission_Checkins_Alert_DontShare" = "Nicht teilen";

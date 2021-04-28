@@ -176,7 +176,7 @@ final class RiskProvider: RiskProviding {
 			self.downloadKeyPackages {result in
 				switch result {
 				case .success:
-					// If key download suceeds, continue with the download of the trace warning packages
+					// If key download succeeds, continue with the download of the trace warning packages
 					self.downloadTraceWarningPackages(with: appConfiguration, completion: { result in
 						switch result {
 						case .success:

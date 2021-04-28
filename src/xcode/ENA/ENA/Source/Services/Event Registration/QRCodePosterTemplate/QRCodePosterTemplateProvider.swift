@@ -20,9 +20,9 @@ class QRCodePosterTemplateProvider: QRCodePosterTemplateProviding {
 
 	// MARK: - Internal
 
-	func latestQRCodePosterTemplate() -> AnyPublisher<SAP_Internal_Pt_QRCodePosterTemplateIOS, Error> {
+	func latestQRCodePosterTemplate(with etag: String? = nil) -> AnyPublisher<SAP_Internal_Pt_QRCodePosterTemplateIOS, Error> {
 		guard let cached = store.qrCodePosterTemplateMetadata, !shouldFetch() else {
-			return fetchQRCodePosterTemplate().eraseToAnyPublisher()
+			return fetchQRCodePosterTemplate(with: etag).eraseToAnyPublisher()
 		}
 		// return cached data; no error
 		return Just(cached.qrCodePosterTemplate)
