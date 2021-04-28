@@ -63,14 +63,21 @@ struct AntigenTestProfileInformationViewModel {
 			// Legal text
 			.section(cells: [
 				.legalExtended(
-					title: NSAttributedString(string: AppStrings.Checkins.Information.legalHeadline01),
-					subheadline1: NSAttributedString(string: AppStrings.Checkins.Information.legalSubHeadline01),
+					title: NSAttributedString(
+						string: AppStrings.Checkins.Information.legalHeadline01,
+						attributes: [NSAttributedString.Key.font: UIFont.enaFont(for: .title2)]
+					),
+					subheadline1: nil,
 					bulletPoints1: [
-						bulletPointCellWithBoldHeadline(title: AppStrings.Checkins.Information.legalText01bold, text: AppStrings.Checkins.Information.legalText01normal),
-						bulletPointCellWithBoldText(text: AppStrings.Checkins.Information.legalText02),
-						bulletPointCellWithBoldText(text: AppStrings.Checkins.Information.legalText03)
+//						bulletPointCellWithRegularText(text: AppStrings.Checkins.Information.legalText01),
+						bulletPointCellWithRegularText(text: AppStrings.Checkins.Information.legalText02),
+						bulletPointCellWithRegularText(text: AppStrings.Checkins.Information.legalText03),
+//						bulletPointCellWithRegularText(text: AppStrings.Checkins.Information.legalText04),
+//						bulletPointCellWithRegularText(text: AppStrings.Checkins.Information.legalText05),
+//						bulletPointCellWithRegularText(text: AppStrings.Checkins.Information.legalText06),
+//						bulletPointCellWithRegularText(text: AppStrings.Checkins.Information.legalText07)
 						],
-					subheadline2: NSAttributedString(string: AppStrings.Checkins.Information.legalSubHeadline02),
+					subheadline2: nil,
 					accessibilityIdentifier: AccessibilityIdentifiers.Checkin.Information.acknowledgementTitle,
 					configure: { _, cell, _ in
 						cell.backgroundColor = .enaColor(for: .background)
@@ -109,6 +116,10 @@ struct AntigenTestProfileInformationViewModel {
 	private let normalTextAttribute: [NSAttributedString.Key: Any] = [
 		NSAttributedString.Key.font: UIFont.enaFont(for: .body)
 	]
+
+	private func bulletPointCellWithRegularText(text: String) -> NSMutableAttributedString {
+		return NSMutableAttributedString(string: "\(text)", attributes: normalTextAttribute)
+	}
 
 	private func bulletPointCellWithBoldHeadline(title: String, text: String) -> NSMutableAttributedString {
 		let bulletPoint = NSMutableAttributedString(string: "\(title)" + "\n\t", attributes: boldTextAttribute)
