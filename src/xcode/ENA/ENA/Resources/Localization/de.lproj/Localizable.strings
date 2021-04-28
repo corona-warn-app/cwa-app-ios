@@ -937,6 +937,8 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline" = "Mit Ihrem eigenen Schnelltest-Profil müssen Sie Ihre persönlichen Daten nicht bei jedem neuen Schnelltest erneut ausfüllen.";
 
+"ExposureSubmission_Antigen_Profile_Information_PrimaryButton" = "Weiter";
+
 /* ExposureSubmission AntigenTest Profile */
 
 "ExposureSubmission_Antigen_Profile_Header_Text" = "Schnelltest-Profil";
