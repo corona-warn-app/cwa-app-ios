@@ -2287,6 +2287,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "ErrorReport_Title" = "Fehlerberichte";
 
+"ErrorReport_Analysis" = "Fehleranalyse";
+
 "ErrorReport_Description1" = "Um den technischen Support der App bei der Fehleranalyse zu unterstützen, können Sie einen Fehlerbericht der CWA aufzeichnen. Hierbei werden die einzelnen technischen Schritte und Ereignisse beim Ablauf der App detailliert aufgezeichnet. Den Fehlerbericht können Sie dann an den technischen Support senden und so helfen, Fehler zu erkennen und zu beheben.\n\nWeitere Informationen finden Sie in den FAQ:";
 
 "ErrorReport_FAQ" = "FAQ zu den Fehlerberichten";
