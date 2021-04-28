@@ -939,6 +939,8 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_Antigen_Profile_Information_PrimaryButton" = "Weiter";
 
+"ExposureSubmission_Antigen_Profile_Information_Dataprivacy_Title" = "Weitere Hinweise finden Sie in der Datenschutzerklärung.";
+
 /* ExposureSubmission AntigenTest Profile */
 
 "ExposureSubmission_Antigen_Profile_Header_Text" = "Schnelltest-Profil";
