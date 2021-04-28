@@ -83,7 +83,7 @@ enum AppStrings {
 
 			enum Antigen {
 				static let headline = NSLocalizedString("ExposureSubmission_OverwriteNotice_Antigen_Headline", comment: "")
-				static let text = NSLocalizedString("ExposureSubmission_OverwriteNotice_Antigen_Text", comment: "")
+				static let text = NSLocalizedString("ExposureSubmission_/Users/kaiteuber/Documents/sap/cwa-app-ios/src/xcode/ENA/ENA/Resources/Localization/en.lproj/Localizable.legal.stringsOverwriteNotice_Antigen_Text", comment: "")
 			}
 		}
 
@@ -94,6 +94,17 @@ enum AppStrings {
 				static let imageDescription = NSLocalizedString("ExposureSubmission_Antigen_Profile_Information_Image_Description", comment: "")
 				static let descriptionTitle = NSLocalizedString("ExposureSubmission_Antigen_Profile_Information_Description_Title", comment: "")
 				static let descriptionSubHeadline = NSLocalizedString("ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline", comment: "")
+
+				enum legal {
+					static let title = NSLocalizedString("ExposureSubmission_Antigen_Profile_Legal_Headline", tableName: "Localizable.legal", comment: "")
+					static let text01 = NSLocalizedString("ExposureSubmission_Antigen_Profile_Legal_Text01", tableName: "Localizable.legal", comment: "")
+					static let text02 = NSLocalizedString("ExposureSubmission_Antigen_Profile_Legal_Text02", tableName: "Localizable.legal", comment: "")
+					static let text03 = NSLocalizedString("ExposureSubmission_Antigen_Profile_Legal_Text03", tableName: "Localizable.legal", comment: "")
+					static let text04 = NSLocalizedString("ExposureSubmission_Antigen_Profile_Legal_Text04", tableName: "Localizable.legal", comment: "")
+					static let text05 = NSLocalizedString("ExposureSubmission_Antigen_Profile_Legal_Text05", tableName: "Localizable.legal", comment: "")
+					static let text06 = NSLocalizedString("ExposureSubmission_Antigen_Profile_Legal_Text06", tableName: "Localizable.legal", comment: "")
+					static let text07 = NSLocalizedString("ExposureSubmission_Antigen_Profile_Legal_Text07", tableName: "Localizable.legal", comment: "")
+				}
 			}
 
 			enum Profile {

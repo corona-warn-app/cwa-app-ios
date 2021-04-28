@@ -64,19 +64,19 @@ struct AntigenTestProfileInformationViewModel {
 			.section(cells: [
 				.legalExtended(
 					title: NSAttributedString(
-						string: AppStrings.Checkins.Information.legalHeadline01,
+						string: AppStrings.ExposureSubmission.AntigenTest.Information.legal.title,
 						attributes: [NSAttributedString.Key.font: UIFont.enaFont(for: .title2)]
 					),
 					subheadline1: nil,
 					bulletPoints1: [
-//						bulletPointCellWithRegularText(text: AppStrings.Checkins.Information.legalText01),
-						bulletPointCellWithRegularText(text: AppStrings.Checkins.Information.legalText02),
-						bulletPointCellWithRegularText(text: AppStrings.Checkins.Information.legalText03),
-//						bulletPointCellWithRegularText(text: AppStrings.Checkins.Information.legalText04),
-//						bulletPointCellWithRegularText(text: AppStrings.Checkins.Information.legalText05),
-//						bulletPointCellWithRegularText(text: AppStrings.Checkins.Information.legalText06),
-//						bulletPointCellWithRegularText(text: AppStrings.Checkins.Information.legalText07)
-						],
+						bulletPointCellWithRegularText(text: AppStrings.ExposureSubmission.AntigenTest.Information.legal.text01),
+						bulletPointCellWithRegularText(text: AppStrings.ExposureSubmission.AntigenTest.Information.legal.text02),
+						bulletPointCellWithRegularText(text: AppStrings.ExposureSubmission.AntigenTest.Information.legal.text03),
+						bulletPointCellWithRegularText(text: AppStrings.ExposureSubmission.AntigenTest.Information.legal.text04),
+						bulletPointCellWithRegularText(text: AppStrings.ExposureSubmission.AntigenTest.Information.legal.text05),
+						bulletPointCellWithRegularText(text: AppStrings.ExposureSubmission.AntigenTest.Information.legal.text06),
+						bulletPointCellWithRegularText(text: AppStrings.ExposureSubmission.AntigenTest.Information.legal.text07)
+					],
 					subheadline2: nil,
 					accessibilityIdentifier: AccessibilityIdentifiers.Checkin.Information.acknowledgementTitle,
 					configure: { _, cell, _ in
