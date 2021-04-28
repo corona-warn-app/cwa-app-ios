@@ -49,12 +49,12 @@ class HomeTestResultCellModelTests: XCTestCase {
 	let indicatorVisibilityArray = [true, true, true, true, true, false]
 	let userInteractionArray = [true, true, true, true, true, false]
 	let accessibilityIdentifiersArray = [
-		AccessibilityIdentifiers.Home.submitCardButton,
-		AccessibilityIdentifiers.Home.submitCardButton,
-		AccessibilityIdentifiers.Home.submitCardButton,
-		AccessibilityIdentifiers.Home.submitCardButton,
-		AccessibilityIdentifiers.Home.submitCardButton,
-		AccessibilityIdentifiers.Home.submitCardButton
+		AccessibilityIdentifiers.Home.TestResultCell.pendingPCRButton,
+		AccessibilityIdentifiers.Home.TestResultCell.negativePCRButton,
+		AccessibilityIdentifiers.Home.TestResultCell.invalidPCRButton,
+		AccessibilityIdentifiers.Home.TestResultCell.availablePCRButton,
+		AccessibilityIdentifiers.Home.TestResultCell.expiredPCRButton,
+		AccessibilityIdentifiers.Home.TestResultCell.loadingPCRButton
 	]
 
 	func test_whenTestResultChanges_then_changesAreReflectedInTheSubscription() {
