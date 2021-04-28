@@ -29,6 +29,9 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 	func test_NavigateToIntroVC() throws {
 		launch()
 
+		// Check that no unconfigured test result cells exist
+		XCTAssertFalse(app.cells.buttons[AccessibilityIdentifiers.Home.TestResultCell.unconfiguredButton].exists)
+
 		// Click submit card.
 		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .long))
 		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].tap()
