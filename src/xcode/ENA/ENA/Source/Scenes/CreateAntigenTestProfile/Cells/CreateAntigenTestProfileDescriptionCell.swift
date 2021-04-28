@@ -8,9 +8,9 @@ class CreateAntigenTestProfileDescriptionCell: UITableViewCell, ReuseIdentifierP
 		
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
-		// self
+
 		selectionStyle = .none
-		// label
+
 		let label = ENALabel()
 		label.text = AppStrings.AntigenProfile.Create.description
 		label.style = .subheadline
@@ -18,7 +18,7 @@ class CreateAntigenTestProfileDescriptionCell: UITableViewCell, ReuseIdentifierP
 		label.numberOfLines = 0
 		label.translatesAutoresizingMaskIntoConstraints = false
 		contentView.addSubview(label)
-		//
+
 		NSLayoutConstraint.activate([
 			label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 23),
 			label.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -23),

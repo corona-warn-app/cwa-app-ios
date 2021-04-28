@@ -57,6 +57,7 @@ class CreateAntigenTestProfileViewController: UITableViewController, FooterViewH
 			guard let cell = tableView.dequeueReusableCell(withIdentifier: CreateAntigenTestProfileInputCell.reuseIdentifier, for: indexPath) as? CreateAntigenTestProfileInputCell else {
 				fatalError("Wrong cell")
 			}
+			
 			if #available(iOS 14.0, *) {
 				cell.birthdayPicker.addTarget(self, action: #selector(dateOfBirthDidChange(datePicker:)), for: .editingDidEnd)
 			} else {
@@ -122,13 +123,13 @@ class CreateAntigenTestProfileViewController: UITableViewController, FooterViewH
 	// MARK: - Protocol UITextFieldDelegate
 
 	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-		if textField.returnKeyType == .next {
-			if let cell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? CreateAntigenTestProfileInputCell,
-			   let currentIndex = cell.textFields.firstIndex(of: textField), (currentIndex + 1) < cell.textFields.count {
-				cell.textFields[currentIndex + 1].becomeFirstResponder()
-			} else {
-				textField.resignFirstResponder()
-			}
+		guard textField.returnKeyType == .next else {
+			textField.resignFirstResponder()
+			return true
+		}
+		if let cell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? CreateAntigenTestProfileInputCell,
+		   let currentIndex = cell.textFields.firstIndex(of: textField), (currentIndex + 1) < cell.textFields.count {
+			cell.textFields[currentIndex + 1].becomeFirstResponder()
 		} else {
 			textField.resignFirstResponder()
 		}
@@ -144,12 +145,12 @@ class CreateAntigenTestProfileViewController: UITableViewController, FooterViewH
 	private var cancellables = [OpenCombine.AnyCancellable]()
 
 	private func setupView() {
-		// navigationItem
+
 		parent?.navigationItem.title = AppStrings.AntigenProfile.Create.title
 		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
-		// view
+
 		view.backgroundColor = .enaColor(for: .background)
-		// tableView
+
 		tableView.separatorStyle = .none
 		tableView.register(CreateAntigenTestProfileDescriptionCell.self, forCellReuseIdentifier: CreateAntigenTestProfileDescriptionCell.reuseIdentifier)
 		tableView.register(CreateAntigenTestProfileInputCell.self, forCellReuseIdentifier: CreateAntigenTestProfileInputCell.reuseIdentifier)
