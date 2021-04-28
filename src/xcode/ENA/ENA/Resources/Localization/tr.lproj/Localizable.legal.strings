@@ -150,3 +150,21 @@
 "TraceLocation_Information_Legal_Text_4" = "Lütfen tüm konuklarınızın QR kodu, mesafe ve hijyen kuralları çerçevesinde (en az 1,5 metre) tarayabilmesi için gerekli ortamı sağlayın.";
 
 "TraceLocation_Information_Legal_Text_5" = "Kalıcı ve güvenilir uyarılar tetiklemek ve QR kodların suistimal edilmesinin önüne geçmek adına, konumlar için olan QR kodları düzenli aralıklarla yeniden oluşturmanızı öneririz.";
+
+/* ExposureSubmission - AntigenTest Profile */
+
+"ExposureSubmission_Antigen_Profile_Legal_Headline" = "Veri koruma ve veri güvenliği";
+
+"ExposureSubmission_Antigen_Profile_Legal_Text01" = "Uygulamada hızlı test profillerinin oluşturulması ve bunların kullanılması isteğe bağlıdır.";
+
+"ExposureSubmission_Antigen_Profile_Legal_Text02" = "Uygulama hızlı test profiliniz için girdiğiniz verileri kişisel kare kodunuza dönüştürür. Verilen tüm bilgiler kare kodunda mevcuttur.";
+
+"ExposureSubmission_Antigen_Profile_Legal_Text03" = "Test merkezine verilerinizi hızlı ve güvenli bir şekilde hazırlamak için test merkezinde hızlı test profilinizin kare kodunu taratabilirsiniz. Test merkezi verilerinizi test uygulamak için kullanır. Verilerinizi uygulama olmadan da sunabilirsiniz. Kare kodunda bulunan ve test merkezine başka şekilde sunacağınız verileri kendiniz belirlersiniz.";
+
+"ExposureSubmission_Antigen_Profile_Legal_Text04" = "Kişisel hızlı test profilinize öncelikle sadece siz erişebilirsiniz. Hızlı test profilinizin kare kodunu başkalarına gösterirseniz ancak o zaman bu kişiler hızlı test profilinizdeki kişisel verilere erişebilir. Bu sırada uygulamadaki diğer verilere erişim sağlanmaz (örn. Check-ins ya da rehber bilgileri gibi).";
+
+"ExposureSubmission_Antigen_Profile_Legal_Text05" = "Hızlı test profilinizi istediğiniz zaman tekrar kaldırabilirsiniz. O zamana kadar cihazınızdaki uygulamada kayıtlı kalır.";
+
+"ExposureSubmission_Antigen_Profile_Legal_Text06" = "Kare kodu kişisel verilerinizi içerir. Verilerinizin okunmasını istemiyorsanız kişisel kare kodunuzu kimseyle paylaşmayın. Kişisel kare kodunuzu paylaşmamanızı ve e-posta üzerinden göndermemenizi öneriyoruz.";
+
+"ExposureSubmission_Antigen_Profile_Legal_Text07" = "Özel şahıslar ya da şirketler hızlı test profilinizi göstermenizi talep edemezler.";
