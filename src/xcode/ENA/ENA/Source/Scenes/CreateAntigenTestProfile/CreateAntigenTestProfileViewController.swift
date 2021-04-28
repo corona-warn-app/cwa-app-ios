@@ -4,7 +4,7 @@
 
 import UIKit
 
-class CreateAntigenTestProfileViewController: DynamicTableViewController, FooterViewHandling, DismissHandling {
+class CreateAntigenTestProfileViewController: UIViewController, FooterViewHandling, DismissHandling, UITextFieldDelegate {
 
 	// MARK: - Init
 
@@ -47,6 +47,12 @@ class CreateAntigenTestProfileViewController: DynamicTableViewController, Footer
 	func wasAttemptedToBeDismissed() {
 		dismiss()
 	}
+	
+	// MARK: - Protocol UITextFieldDelegate
+
+	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+		view.endEditing(true)
+	}
 
 	// MARK: - Public
 
@@ -60,16 +66,67 @@ class CreateAntigenTestProfileViewController: DynamicTableViewController, Footer
 
 	private func setupView() {
 		// navigationItem
-		parent?.navigationItem.title = viewModel.title
+		parent?.navigationItem.title = AppStrings.AntigenProfile.Create.title
 		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 		// view
 		view.backgroundColor = .enaColor(for: .background)
-		// tableView
-//		tableView.register(
-//			UINib(nibName: String(describing: DynamicLegalExtendedCell.self), bundle: nil),
-//			forCellReuseIdentifier: ReuseIdentifiers.legalExtended.rawValue
-//		)
-		dynamicTableViewModel = viewModel.dynamicTableViewModel
-		tableView.separatorStyle = .none
+		// scrollView
+		let scrollView = UIScrollView()
+		scrollView.translatesAutoresizingMaskIntoConstraints = false
+		view.addSubview(scrollView)
+		// descriptionLabel
+		let descriptionLabel = ENALabel()
+		descriptionLabel.text = AppStrings.AntigenProfile.Create.description
+		descriptionLabel.style = .subheadline
+		descriptionLabel.textColor = .enaColor(for: .textPrimary2)
+		descriptionLabel.numberOfLines = 0
+		descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+		scrollView.addSubview(descriptionLabel)
+		//
+		let inset: CGFloat = 23
+		// firstNameTextField
+		let firstNameTextField = textField()
+		firstNameTextField.placeholder = AppStrings.AntigenProfile.Create.firstNameTextFieldPlaceholder
+		firstNameTextField.accessibilityIdentifier = AccessibilityIdentifiers.AntigenProfile.Create.firstNameTextField
+		scrollView.addSubview(firstNameTextField)
+		
+		// setup constrinats
+		NSLayoutConstraint.activate([
+			// scrollView
+			scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+			scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+			scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+			scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+			// descriptionLabel
+			descriptionLabel.leadingAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.leadingAnchor, constant: inset),
+			descriptionLabel.trailingAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.trailingAnchor, constant: -inset),
+			descriptionLabel.topAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.topAnchor, constant: inset),
+			descriptionLabel.bottomAnchor.constraint(lessThanOrEqualTo: scrollView.safeAreaLayoutGuide.bottomAnchor, constant: -inset),
+			// firstNameTextField
+			firstNameTextField.leadingAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.leadingAnchor, constant: inset),
+			firstNameTextField.trailingAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.trailingAnchor, constant: -inset),
+			firstNameTextField.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: inset),
+			firstNameTextField.bottomAnchor.constraint(lessThanOrEqualTo: scrollView.safeAreaLayoutGuide.bottomAnchor, constant: -inset),
+		])
+	}
+	
+	private func textField () -> ENATextField {
+		let textField = ENATextField(frame: .zero)
+		//textField.backgroundColor = .enaColor(for: .backgroundLightGray)
+		textField.clearButtonMode = .whileEditing
+		textField.textColor = .enaColor(for: .textPrimary1)
+		
+		textField.autocorrectionType = .no
+		textField.isUserInteractionEnabled = true
+		textField.clearButtonMode = .whileEditing
+		textField.spellCheckingType = .no
+		textField.smartQuotesType = .no
+		
+		textField.returnKeyType = .done
+		textField.delegate = self
+		textField.layer.borderWidth = 0
+		textField.translatesAutoresizingMaskIntoConstraints = false
+		textField.heightAnchor.constraint(greaterThanOrEqualToConstant: 40.0).isActive = true
+		return textField
 	}
 }

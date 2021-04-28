@@ -494,4 +494,19 @@ enum AccessibilityIdentifiers {
 		
 	}
 	
+	enum AntigenProfile {
+		
+		enum Create {
+			static let title = "AppStrings.AntigenProfile.Create.title"
+			static let description = "AppStrings.AntigenProfile.Create.description"
+			static let firstNameTextField = "AppStrings.AntigenProfile.Create.firstNameTextFieldPlaceholder"
+			static let lastNameTextFieldPlaceholder = "AppStrings.AntigenProfile.Create.lastNameTextFieldPlaceholder"
+			static let birthDateTextFieldPlaceholder = "AppStrings.AntigenProfile.Create.birthDateTextFieldPlaceholder"
+			static let streetTextFieldPlaceholder = "AppStrings.AntigenProfile.Create.streetTextFieldPlaceholder"
+			static let postalCodeTextFieldPlaceholder = "AppStrings.AntigenProfile.Create.postalCodeTextFieldPlaceholder"
+			static let cityTextFieldPlaceholder = "AppStrings.AntigenProfile.Create.cityTextFieldPlaceholder"
+			static let phoneNumberTextFieldPlaceholder = "AppStrings.AntigenProfile.Create.phoneNumberTextFieldPlaceholder"
+			static let emailAddressTextFieldPlaceholder = "AppStrings.AntigenProfile.Create.emailAddressTextFieldPlaceholder"
+		}
+	}
 }
