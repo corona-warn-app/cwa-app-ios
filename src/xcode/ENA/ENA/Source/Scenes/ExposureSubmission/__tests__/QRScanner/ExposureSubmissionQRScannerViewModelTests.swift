@@ -40,7 +40,7 @@ final class TestableExposureSubmissionQRScannerViewModel: ExposureSubmissionQRSc
 	}
 	#endif
 }
-
+// swiftlint:disable:next type_body_length
 final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 
 	func testSuccessfulPcrScan() {
