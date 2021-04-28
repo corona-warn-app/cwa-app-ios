@@ -15,7 +15,6 @@ class HomeShownPositiveTestResultCellModel {
 		onUpdate: @escaping () -> Void
 	) {
 		self.coronaTestType = coronaTestType
-		self.coronaTestService = coronaTestService
 
 		switch coronaTestType {
 		case .pcr:
@@ -54,11 +53,20 @@ class HomeShownPositiveTestResultCellModel {
 	let statusTitle = AppStrings.Home.TestResult.ShownPositive.statusTitle
 	let statusSubtitle = AppStrings.Home.TestResult.ShownPositive.statusSubtitle
 
-	var statusFootnote: String? {
-		let dateFormatter = DateFormatter()
-		dateFormatter.dateStyle = .short
-		dateFormatter.timeStyle = .none
+	let noteTitle = AppStrings.Home.TestResult.ShownPositive.noteTitle
+	let buttonTitle = AppStrings.Home.TestResult.ShownPositive.button
 
+	@OpenCombine.Published var statusFootnote: String?
+	@OpenCombine.Published var homeItemViewModels: [HomeImageItemViewModel] = []
+	@OpenCombine.Published var isButtonHidden = false
+	@OpenCombine.Published var accessibilityIdentifier: String?
+
+	// MARK: - Private
+
+	private let coronaTestType: CoronaTestType
+	private var subscriptions = Set<AnyCancellable>()
+
+	private func configure(for coronaTest: CoronaTest) {
 		let dateTemplate: String
 		switch coronaTestType {
 		case .pcr:
@@ -67,25 +75,9 @@ class HomeShownPositiveTestResultCellModel {
 			dateTemplate = AppStrings.Home.TestResult.ShownPositive.statusDateAntigen
 		}
 
-		let testDate = coronaTestService.coronaTest(ofType: coronaTestType)?.testDate
-		let formattedTestDate = testDate.map { dateFormatter.string(from: $0) }
-		return formattedTestDate.map { String(format: dateTemplate, $0) }
-	}
+		let formattedTestDate = DateFormatter.localizedString(from: coronaTest.testDate, dateStyle: .short, timeStyle: .none)
+		statusFootnote = String(format: dateTemplate, formattedTestDate)
 
-	let noteTitle = AppStrings.Home.TestResult.ShownPositive.noteTitle
-	let buttonTitle = AppStrings.Home.TestResult.ShownPositive.button
-
-	@OpenCombine.Published var homeItemViewModels: [HomeImageItemViewModel] = []
-	@OpenCombine.Published var isButtonHidden = false
-	@OpenCombine.Published var accessibilityIdentifier: String?
-
-	// MARK: - Private
-
-	private let coronaTestType: CoronaTestType
-	private let coronaTestService: CoronaTestService
-	private var subscriptions = Set<AnyCancellable>()
-
-	private func configure(for coronaTest: CoronaTest) {
 		var homeItemViewModels = [HomeImageItemViewModel]()
 
 		if coronaTest.type == .antigen {
