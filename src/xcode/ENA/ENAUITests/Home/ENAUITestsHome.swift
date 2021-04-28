@@ -373,7 +373,9 @@ class ENAUITests_01_Home: XCTestCase {
 		app.launchArguments.append(contentsOf: ["-antigenTestResult", TestResult.negative.stringValue])
 		app.launch()
 
-		XCTAssertTrue(app.cells.element(boundBy: 3).waitForExistence(timeout: .medium))
+		// TestKit waits for all background operations to finish before animate stuff.
+		// So, better have longer timeouts
+		XCTAssertTrue(app.cells.element(boundBy: 3).waitForExistence(timeout: .extraLong))
 		
 		snapshot("homescreenrisk_show_pcr_rat_negative_\(String(format: "%04d", (screenshotCounter.inc() )))")
 		app.swipeUp(velocity: .slow)
