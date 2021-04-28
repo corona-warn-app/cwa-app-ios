@@ -202,16 +202,11 @@ class ENAUITests_02_AppInformation: XCTestCase {
 	
 	func test_0030_AppInformationFlow_ConfirmationScreen_HistoryScreen() throws {
 		app.launchArguments.append(contentsOf: ["-elsLogActive", "NO"])
+		app.launchArguments.append(contentsOf: ["-elsCreateFakeHistory", "YES"])
 		app.launch()
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .short))
 		navigateToErrorReporting()
 		
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ErrorReport.startButton].waitForExistence(timeout: .short))
-		app.buttons[AccessibilityIdentifiers.ErrorReport.startButton].tap()
-		app.buttons[AccessibilityIdentifiers.ErrorReport.sendReportButton].tap()
-		
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ErrorReport.agreeAndSendButton].waitForExistence(timeout: .short))
-		app.buttons[AccessibilityIdentifiers.ErrorReport.agreeAndSendButton].tap()
 		// Test Navigation to History
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.ErrorReport.historyNavigation].exists)
 		app.cells[AccessibilityIdentifiers.ErrorReport.historyNavigation].tap()

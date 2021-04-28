@@ -4241,9 +4241,9 @@
 		85D759802459A82D008175F0 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				B15382DC248270220010F007 /* __tests__ */,
 				01BA06E0261F52E700237DD8 /* FakeRequestService */,
 				011216F22617360800320745 /* CoronaTestService */,
-				B15382DC248270220010F007 /* __tests__ */,
 				01FD3ED625D2F0D00049497A /* DeadmanNotification */,
 				B1D431C9246C848E00E728AD /* DownloadedPackagesStore */,
 				50AA51F825FA4D3F000C77BB /* TraceWarningDownload */,

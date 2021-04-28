@@ -368,6 +368,7 @@ extension SecureStore: ErrorLogProviding {
 }
 
 extension SecureStore: ErrorLogUploadHistoryProviding {
+	
 	var elsUploadHistory: [ErrorLogUploadReceipt] {
 		get { kvStore["elsHistory"] as [ErrorLogUploadReceipt]? ?? [ErrorLogUploadReceipt]() }
 		set { kvStore["elsHistory"] = newValue }

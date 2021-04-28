@@ -90,8 +90,6 @@
       "skippedTests" : [
         "ENAUITests",
         "ENAUITestsQuickActions\/testLaunchViaShortcutFromFreshInstall()",
-        "ENAUITests_02_AppInformation\/test_0027_AppInformationFlow_ErrorReportsStart()",
-        "ENAUITests_02_AppInformation\/test_0030_AppInformationFlow_ConfirmationScreen_HistoryScreen()",
         "ENAUITests_06_DeltaOnboarding\/testDeltaOnboardingV15View()"
       ],
       "target" : {

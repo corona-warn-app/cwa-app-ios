@@ -28,13 +28,24 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating, RequiresAppDepend
 		
 		#if DEBUG
 		if isUITesting {
-			// This ensures, that for any UI Test that sets the launch arguement to ["-elsLogActive", "NO"], the logging is disabled (so that for example the test can start logging)
-			if UserDefaults.standard.bool(forKey: "elsLogActive") == false {
+			// This ensures, that for any UI Test that sets the launch arguement, the logging is disabled (so that for example the test can start logging).
+			if let shouldElsLogginActive = UserDefaults.standard.string(forKey: "elsLogActive"),
+			   shouldElsLogginActive == "NO" {
 				do {
 					try elsService.stopAndDeleteLog()
 				} catch {
 					Log.warning("Could not stop ELS logging due to error: \(error)")
 				}
+			}
+			
+			// This ensures, that for any UI Test that sets the launch arguement, we create some history entries so that we simulate a succesfull els submission before.
+			if let journalRemoveAllPersons = UserDefaults.standard.string(forKey: "elsCreateFakeHistory"),
+			   journalRemoveAllPersons == "YES" {
+				var items = self.store.elsUploadHistory
+				items.append(ErrorLogUploadReceipt(id: "FakeReceiptID001", timestamp: Date()))
+				items.append(ErrorLogUploadReceipt(id: "FakeReceiptID002", timestamp: Date()))
+				var store = self.store // quick hack to allow writing
+				store.elsUploadHistory = items
 			}
 		}
 		#endif
@@ -153,7 +164,11 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating, RequiresAppDepend
 			footerViewModel,
 			didTapPrimaryButton: {
 				// can't disable buttons while this is running
-				self.elsService.submit { result in
+				self.elsService.submit { [weak self] result in
+					guard let self = self else {
+						Log.error("Could not create strong self")
+						return
+					}
 					switch result {
 					case .success(let response):
 						// Let's make history ;)
