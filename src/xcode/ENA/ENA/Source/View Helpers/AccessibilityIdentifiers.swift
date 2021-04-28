@@ -507,6 +507,7 @@ enum AccessibilityIdentifiers {
 			static let cityTextField = "AppStrings.AntigenProfile.Create.cityTextFieldPlaceholder"
 			static let phoneNumberTextField = "AppStrings.AntigenProfile.Create.phoneNumberTextFieldPlaceholder"
 			static let emailAddressTextField = "AppStrings.AntigenProfile.Create.emailAddressTextFieldPlaceholder"
+			static let saveButtonTitle = "AppStrings.AntigenProfile.Create.saveButtonTitle"
 		}
 	}
 }

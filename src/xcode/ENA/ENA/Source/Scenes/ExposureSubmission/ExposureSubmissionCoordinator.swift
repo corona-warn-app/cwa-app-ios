@@ -783,8 +783,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		)
 
 		let footerViewModel = FooterViewModel(
-			primaryButtonName: "Weiter",
-			isPrimaryButtonEnabled: true,
+			primaryButtonName: AppStrings.AntigenProfile.Create.saveButtonTitle,
+			isPrimaryButtonEnabled: false,
 			isSecondaryButtonEnabled: false,
 			isSecondaryButtonHidden: true
 		)

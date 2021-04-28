@@ -2423,6 +2423,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "AntigenProfile_Create_CityPlaceholder" = "Ort";
 
-"AntigenProfile_Create_PhoneNumberPlaceholder" = "Tel.Nr.";
+"AntigenProfile_Create_PhoneNumberPlaceholder" = "Tel. Nr.";
 
 "AntigenProfile_Create_EmailAddressPlaceholder" = "E-Mail-Adresse";
+
+"AntigenProfile_Create_Save_Button_Title" = "Speichern";
