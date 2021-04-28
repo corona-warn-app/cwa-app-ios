@@ -481,7 +481,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 			let payloadString = payloadData.base64EncodedString()
 			let url = "https://s.coronawarn.app/?v=1#\(payloadString)"
 			let route = Route(url)
-			XCTAssertEqual(route, Route.rapidAntigen( .failure(.invalidTestCode(.invalidTestedPersonInformation))), "incorrect recalculated Hash should trigger an error")
+			XCTAssertEqual(route, Route.rapidAntigen( .failure(.invalidTestCode(.invalidTestedPersonInformation))), "incorrect Personal info Hash should trigger an error")
 		} catch {
 			XCTFail("Caught an error while trying to encode the Antigen test")
 		}
@@ -501,7 +501,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 			let payloadString = payloadData.base64EncodedString()
 			let url = "https://s.coronawarn.app/?v=1#\(payloadString)"
 			let route = Route(url)
-			XCTAssertEqual(route, Route.rapidAntigen( .failure(.invalidTestCode(.invalidTimeStamp))), "incorrect recalculated Hash should trigger an error")
+			XCTAssertEqual(route, Route.rapidAntigen( .failure(.invalidTestCode(.invalidTimeStamp))), "incorrect TimeStamp should trigger an error")
 		} catch {
 			XCTFail("Caught an error while trying to encode the Antigen test")
 		}
