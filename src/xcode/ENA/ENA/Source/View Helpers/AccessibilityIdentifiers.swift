@@ -380,11 +380,13 @@ enum AccessibilityIdentifiers {
 			}
 		}
 
-		enum AntigetTest {
+		enum AntigenTest {
 			enum Information {
 				static let imageDescription = "AppStrings.ExposureSubmission.AntigenTest.Information.imageDescription"
 				static let descriptionTitle = "AppStrings.ExposureSubmission.AntigenTest.Information.descriptionTitle"
 				static let descriptionSubHeadline = "AppStrings.ExposureSubmission.AntigenTest.Information.descriptionSubHeadline"
+				static let acknowledgementTitle = "AntigenTest_Information_acknowledgement_title"
+				static let dataPrivacyTitle = "AppStrings.ExposureSubmission.AntigenTest.Information.dataPrivacyTitle"
 			}
 		}
 
@@ -516,12 +518,12 @@ enum AccessibilityIdentifiers {
 		}
 		
 		enum Information {
-			static let imageDescription = "AppStrings.CheckInInformation.imageDescription"
-			static let descriptionTitle = "AppStrings.CheckInInformation.descriptionTitle"
-			static let descriptionSubHeadline = "AppStrings.CheckInInformation.descriptionSubHeadline"
-			static let dataPrivacyTitle = "AppStrings.CheckInInformation.dataPrivacyTitle"
-			static let primaryButton = "AppStrings.CheckInInformation.primaryButton"
-			static let acknowledgementTitle = "CheckInInformation.acknowledgement_title"
+			static let imageDescription = "AppStrings.Checkins.Information.imageDescription"
+			static let descriptionTitle = "AppStrings.Checkins.Information.descriptionTitle"
+			static let descriptionSubHeadline = "AppStrings.Checkins.Information.descriptionSubHeadline"
+			static let dataPrivacyTitle = "AppStrings.Checkins.Information.dataPrivacyTitle"
+			static let primaryButton = "AppStrings.Checkins.Information.primaryButton"
+			static let acknowledgementTitle = "Checkins.Information.acknowledgement_title"
 		}
 		
 	}

@@ -106,6 +106,7 @@ enum AppStrings {
 					static let text06 = NSLocalizedString("ExposureSubmission_Antigen_Profile_Legal_Text06", tableName: "Localizable.legal", comment: "")
 					static let text07 = NSLocalizedString("ExposureSubmission_Antigen_Profile_Legal_Text07", tableName: "Localizable.legal", comment: "")
 				}
+				static let dataPrivacyTitle = NSLocalizedString("ExposureSubmission_Antigen_Profile_Information_Dataprivacy_Title", comment: "")
 			}
 
 			enum Profile {

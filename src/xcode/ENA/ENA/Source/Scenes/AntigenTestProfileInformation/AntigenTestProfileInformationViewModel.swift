@@ -44,17 +44,17 @@ struct AntigenTestProfileInformationViewModel {
 							imageLiteralResourceName: "Illu_Antigentest_Profil"
 						),
 						accessibilityLabel: AppStrings.ExposureSubmission.AntigenTest.Information.imageDescription,
-						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.AntigetTest.Information.imageDescription,
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Information.imageDescription,
 						height: 144.0
 					),
 				cells: [
 					.title2(
 						text: AppStrings.ExposureSubmission.AntigenTest.Information.descriptionTitle,
-						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.AntigetTest.Information.descriptionTitle
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Information.descriptionTitle
 					),
 					.subheadline(
 						text: AppStrings.ExposureSubmission.AntigenTest.Information.descriptionSubHeadline,
-						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.AntigetTest.Information.descriptionSubHeadline
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Information.descriptionSubHeadline
 					),
 					.space(
 						height: 15.0,
@@ -80,7 +80,7 @@ struct AntigenTestProfileInformationViewModel {
 						bulletPointCellWithRegularText(text: AppStrings.ExposureSubmission.AntigenTest.Information.legal.text07)
 					],
 					subheadline2: nil,
-					accessibilityIdentifier: AccessibilityIdentifiers.Checkin.Information.acknowledgementTitle,
+					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Information.acknowledgementTitle,
 					configure: { _, cell, _ in
 						cell.backgroundColor = .enaColor(for: .background)
 					}
@@ -91,9 +91,9 @@ struct AntigenTestProfileInformationViewModel {
 				separators: .all,
 				cells: [
 					.body(
-						text: AppStrings.Checkins.Information.dataPrivacyTitle,
+						text: AppStrings.ExposureSubmission.AntigenTest.Information.dataPrivacyTitle,
 						style: DynamicCell.TextCellStyle.label,
-						accessibilityIdentifier: AccessibilityIdentifiers.Checkin.Information.dataPrivacyTitle,
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Information.dataPrivacyTitle,
 						accessibilityTraits: UIAccessibilityTraits.link,
 						action: .execute { _, _ in
 							showDisclaimer()
