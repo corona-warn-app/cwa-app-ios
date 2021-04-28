@@ -76,6 +76,7 @@ class CreateAntigenTestProfileViewController: UIViewController, FooterViewHandli
 	private let dismiss: () -> Void
 	
 	private var dateFormatter: DateFormatter!
+	private var scrollView: UIScrollView!
 	private var textFields = [UITextField]()
 	private var cancellables = [OpenCombine.AnyCancellable]()
 
@@ -91,7 +92,12 @@ class CreateAntigenTestProfileViewController: UIViewController, FooterViewHandli
 		// view
 		view.backgroundColor = .enaColor(for: .background)
 		// scrollView
-		let scrollView = UIScrollView()
+		scrollView = UIScrollView()
+		scrollView.contentInsetAdjustmentBehavior = .always
+		if #available(iOS 13.0, *) {
+			scrollView.automaticallyAdjustsScrollIndicatorInsets = true
+		}
+		scrollView.keyboardDismissMode = .interactive
 		scrollView.translatesAutoresizingMaskIntoConstraints = false
 		view.addSubview(scrollView)
 		// descriptionLabel
@@ -204,49 +210,49 @@ class CreateAntigenTestProfileViewController: UIViewController, FooterViewHandli
 			// descriptionLabel
 			descriptionLabel.leadingAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.leadingAnchor, constant: inset),
 			descriptionLabel.trailingAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.trailingAnchor, constant: -inset),
-			descriptionLabel.topAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.topAnchor, constant: inset),
-			descriptionLabel.bottomAnchor.constraint(lessThanOrEqualTo: scrollView.safeAreaLayoutGuide.bottomAnchor, constant: -inset),
+			descriptionLabel.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: inset),
+			descriptionLabel.bottomAnchor.constraint(lessThanOrEqualTo: scrollView.bottomAnchor, constant: -inset),
 			// firstNameTextField
 			firstNameTextField.leadingAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.leadingAnchor, constant: inset),
 			firstNameTextField.trailingAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.trailingAnchor, constant: -inset),
 			firstNameTextField.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: inset),
-			firstNameTextField.bottomAnchor.constraint(lessThanOrEqualTo: scrollView.safeAreaLayoutGuide.bottomAnchor, constant: -inset),
+			firstNameTextField.bottomAnchor.constraint(lessThanOrEqualTo: scrollView.bottomAnchor, constant: -inset),
 			// lastNameTextField
 			lastNameTextField.leadingAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.leadingAnchor, constant: inset),
 			lastNameTextField.trailingAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.trailingAnchor, constant: -inset),
 			lastNameTextField.topAnchor.constraint(equalTo: firstNameTextField.bottomAnchor, constant: 7),
-			lastNameTextField.bottomAnchor.constraint(lessThanOrEqualTo: scrollView.safeAreaLayoutGuide.bottomAnchor, constant: -inset),
+			lastNameTextField.bottomAnchor.constraint(lessThanOrEqualTo: scrollView.bottomAnchor, constant: -inset),
 			// birthDateNameTextField
 			birthDateNameTextField.leadingAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.leadingAnchor, constant: inset),
 			birthDateNameTextField.trailingAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.trailingAnchor, constant: -inset),
 			birthDateNameTextField.topAnchor.constraint(equalTo: lastNameTextField.bottomAnchor, constant: 7),
-			birthDateNameTextField.bottomAnchor.constraint(lessThanOrEqualTo: scrollView.safeAreaLayoutGuide.bottomAnchor, constant: -inset),
+			birthDateNameTextField.bottomAnchor.constraint(lessThanOrEqualTo: scrollView.bottomAnchor, constant: -inset),
 			// addressLineTextField
 			addressLineTextField.leadingAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.leadingAnchor, constant: inset),
 			addressLineTextField.trailingAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.trailingAnchor, constant: -inset),
 			addressLineTextField.topAnchor.constraint(equalTo: birthDateNameTextField.bottomAnchor, constant: 7),
-			addressLineTextField.bottomAnchor.constraint(lessThanOrEqualTo: scrollView.safeAreaLayoutGuide.bottomAnchor, constant: -inset),
+			addressLineTextField.bottomAnchor.constraint(lessThanOrEqualTo: scrollView.bottomAnchor, constant: -inset),
 			// postalCodeTextField
 			postalCodeTextField.leadingAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.leadingAnchor, constant: inset),
 			postalCodeTextField.trailingAnchor.constraint(lessThanOrEqualTo: scrollView.safeAreaLayoutGuide.trailingAnchor, constant: -inset),
 			postalCodeTextField.topAnchor.constraint(equalTo: addressLineTextField.bottomAnchor, constant: 7),
-			postalCodeTextField.bottomAnchor.constraint(lessThanOrEqualTo: scrollView.safeAreaLayoutGuide.bottomAnchor, constant: -inset),
+			postalCodeTextField.bottomAnchor.constraint(lessThanOrEqualTo: scrollView.bottomAnchor, constant: -inset),
 			postalCodeTextField.widthAnchor.constraint(equalTo: addressLineTextField.widthAnchor, multiplier: 0.4),
 			// cityTextField
 			cityTextField.leadingAnchor.constraint(equalTo: postalCodeTextField.trailingAnchor, constant: 7),
 			cityTextField.trailingAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.trailingAnchor, constant: -inset),
 			cityTextField.topAnchor.constraint(equalTo: addressLineTextField.bottomAnchor, constant: 7),
-			cityTextField.bottomAnchor.constraint(lessThanOrEqualTo: scrollView.safeAreaLayoutGuide.bottomAnchor, constant: -inset),
+			cityTextField.bottomAnchor.constraint(lessThanOrEqualTo: scrollView.bottomAnchor, constant: -inset),
 			// phoneNumberTextField
 			phoneNumberTextField.leadingAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.leadingAnchor, constant: inset),
 			phoneNumberTextField.trailingAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.trailingAnchor, constant: -inset),
 			phoneNumberTextField.topAnchor.constraint(equalTo: cityTextField.bottomAnchor, constant: 7),
-			phoneNumberTextField.bottomAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.bottomAnchor, constant: -inset),
+			phoneNumberTextField.bottomAnchor.constraint(lessThanOrEqualTo: scrollView.bottomAnchor, constant: -inset),
 			// emailAddressTextField
 			emailAddressTextField.leadingAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.leadingAnchor, constant: inset),
 			emailAddressTextField.trailingAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.trailingAnchor, constant: -inset),
 			emailAddressTextField.topAnchor.constraint(equalTo: phoneNumberTextField.bottomAnchor, constant: 7),
-			emailAddressTextField.bottomAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.bottomAnchor, constant: -inset)
+			emailAddressTextField.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -inset)
 		])
 	}
 	
@@ -278,7 +284,7 @@ class CreateAntigenTestProfileViewController: UIViewController, FooterViewHandli
 		textField.delegate = self
 		textField.layer.borderWidth = 0
 		textField.translatesAutoresizingMaskIntoConstraints = false
-		textField.heightAnchor.constraint(greaterThanOrEqualToConstant: 40.0).isActive = true
+		textField.heightAnchor.constraint(equalToConstant: 40.0).isActive = true
 		return textField
 	}
 	
