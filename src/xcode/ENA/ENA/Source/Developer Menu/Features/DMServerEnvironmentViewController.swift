@@ -33,7 +33,7 @@ class DMServerEnvironmentViewController: UIViewController, UIPickerViewDelegate,
 
 		currentEnvironmentLabel = UILabel(frame: .zero)
 		currentEnvironmentLabel.translatesAutoresizingMaskIntoConstraints = false
-		updateCurrentEnviromentLabel()
+		updateCurrentEnvironmentLabel()
 
 		picker = UIPickerView(frame: .zero)
 		picker.translatesAutoresizingMaskIntoConstraints = false
@@ -86,7 +86,7 @@ class DMServerEnvironmentViewController: UIViewController, UIPickerViewDelegate,
 	private var currentEnvironmentLabel: UILabel!
 	private var picker: UIPickerView!
 
-	private func updateCurrentEnviromentLabel() {
+	private func updateCurrentEnvironmentLabel() {
 		currentEnvironmentLabel.text = "Selected Environment: \(environmentProvider.currentEnvironment().name)"
 	}
 
@@ -98,11 +98,12 @@ class DMServerEnvironmentViewController: UIViewController, UIPickerViewDelegate,
 			guard let self = self else { return }
 
 			let selectedRow = self.picker.selectedRow(inComponent: 0)
-			let selectedEnv = self.environmentProvider.environments[selectedRow]
+            let selectedEnv = self.environmentProvider.environments[selectedRow]
 
 			UserDefaults.standard.setValue(selectedEnv.name, forKey: Environments.selectedEnvironmentKey)
-			self.updateCurrentEnviromentLabel()
+			self.updateCurrentEnvironmentLabel()
 
+			self.store.appConfigMetadata = nil
 			self.store.enfRiskCalculationResult = nil
 			self.store.checkinRiskCalculationResult = nil
 			self.downloadedPackagesStore.reset()
