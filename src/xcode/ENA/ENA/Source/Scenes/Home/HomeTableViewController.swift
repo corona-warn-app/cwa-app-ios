@@ -128,11 +128,11 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		super.viewDidAppear(animated)
 
 		#if DEBUG
-		if isUITesting && UserDefaults.standard.bool(forKey: "showTestResultCards") == true {
+		if isUITesting && UserDefaults.standard.string(forKey: "showTestResultCards") == "YES" {
 			tableView.scrollToRow(at: IndexPath(row: 1, section: 1), at: .top, animated: false)
 		}
 		#endif
-
+		
 		showDeltaOnboardingAndAlertsIfNeeded()
 	}
 
