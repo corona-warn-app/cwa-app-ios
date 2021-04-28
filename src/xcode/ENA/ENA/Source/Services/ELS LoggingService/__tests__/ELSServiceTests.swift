@@ -100,7 +100,42 @@ class ELSServiceTests: XCTestCase {
 		XCTAssertEqual(ELSError.otpError(.otherServerError), error)
 	}
 	
-	func testGIVEN_ELSService_WHEN_UploadIsTriggered_THEN_CouldNotReadLogfileIsReturned() throws {
+	func testGIVEN_ELSService_WHEN_UploadIsTriggered_THEN_ServerErrorIsReturned() throws {
+		// GIVEN
+		let client = ClientMock()
+		let serverFailure = ELSError.defaultServerError(URLSession.Response.Failure.noResponse)
+		client.onSubmitErrorLog = { _, completion in
+			completion(.failure(serverFailure))
+		}
+		let elsService = createELSService(client: client)
+		// need at least no empty log file
+		elsService.startLogging()
+		let testExpectation = expectation(description: "Test should fail expectation")
+		
+		var expectedError: ELSError?
+
+		// WHEN
+		elsService.submit(completion: { result in
+			switch result {
+			case .success:
+				XCTFail("Test should not succeed")
+			case let .failure(error):
+				expectedError = error
+				testExpectation.fulfill()
+			}
+		})
+		
+		waitForExpectations(timeout: .medium)
+		
+		// THEN
+		guard let error = expectedError else {
+			XCTFail("expectedError should not be nil")
+			return
+		}
+		XCTAssertEqual(serverFailure, error)
+	}
+	
+	func testGIVEN_ELSService_WHEN_UploadIsTriggered_THEN_EmptyLogFileIsReturned() throws {
 		let elsService = createELSService()
 		// need at least no empty log file
 		elsService.startLogging()
