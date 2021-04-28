@@ -15,7 +15,14 @@ final class CreateAntigenTestProfileViewModel {
 		self.antigenTestProfile = AntigenTestProfile()
 
 		// this is only for coordinator testing, remove later
-		antigenTestProfile.firstName = "Max"
+		antigenTestProfile.firstName = "Sabine"
+		antigenTestProfile.lastName = "Schulz"
+		antigenTestProfile.dateOfBirth = Date(timeIntervalSince1970: 390047238)
+		antigenTestProfile.addressLine = "Blumenstraße 2"
+		antigenTestProfile.city = "Berlin"
+		antigenTestProfile.zipCode = "43923"
+		antigenTestProfile.phoneNumber = "0165434563"
+		antigenTestProfile.email = "sabine.schulz@gmx.com"
 	}
 
 	// MARK: - Overrides
