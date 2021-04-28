@@ -280,14 +280,14 @@ private class InputCell: UITableViewCell {
 		firstNameTextField = textField()
 		firstNameTextField.placeholder = AppStrings.AntigenProfile.Create.firstNameTextFieldPlaceholder
 		firstNameTextField.accessibilityIdentifier = AccessibilityIdentifiers.AntigenProfile.Create.firstNameTextField
-		firstNameTextField.keyboardType = .namePhonePad
+		firstNameTextField.keyboardType = .default
 		contentView.addSubview(firstNameTextField)
 		textFields.append(firstNameTextField)
 		// lastNameTextField
 		lastNameTextField = textField()
 		lastNameTextField.placeholder = AppStrings.AntigenProfile.Create.lastNameTextFieldPlaceholder
 		lastNameTextField.accessibilityIdentifier = AccessibilityIdentifiers.AntigenProfile.Create.lastNameTextField
-		lastNameTextField.keyboardType = .namePhonePad
+		lastNameTextField.keyboardType = .default
 		contentView.addSubview(lastNameTextField)
 		textFields.append(lastNameTextField)
 		// birthdayPicker
