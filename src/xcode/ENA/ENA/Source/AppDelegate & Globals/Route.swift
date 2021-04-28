@@ -56,6 +56,24 @@ enum Route {
 				Log.error("Antigen test data is not valid: all values are nil? \(allIsNil), all values are valid? \(allIsValid)", log: .qrCode)
 				return
 			}
+			
+			if allIsValid {
+				var informationArray = [String]()
+				informationArray.append(testInformation.dateOfBirthString ?? "")
+				informationArray.append(testInformation.firstName ?? "")
+				informationArray.append(testInformation.lastName ?? "")
+				informationArray.append(String(testInformation.timestamp))
+				informationArray.append(testInformation.testID ?? "")
+				informationArray.append(testInformation.cryptographicSalt ?? "")
+
+				let informationString = informationArray.joined(separator: "#")
+				let recomputedHashString = ENAHasher.sha256(informationString)
+				guard recomputedHashString == testInformation.hash else {
+					self = .rapidAntigen( .failure(.invalidTestCode(.hashMismatch)))
+					Log.error("recomputed hash: \(recomputedHashString) Doesn't match the original hash \(testInformation.hash)", log: .qrCode)
+					return
+				}
+			}
 			self = .rapidAntigen(.success(.antigen(testInformation)))
 
 		case "e.coronawarn.app":
