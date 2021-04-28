@@ -48,7 +48,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 					let qrInfoScreen = self.makeQRInfoScreen(supportedCountries: supportedCountries, testInformation: testInformation)
 					self.start(with: qrInfoScreen)
 				case let .failure(qrCodeError):
-					if qrCodeError == .invalidTestCode {
+					switch qrCodeError {
+					case .invalidTestCode:
 						self.showRATInvalidQQCode()
 					}
 				}
