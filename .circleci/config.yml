@@ -251,15 +251,15 @@ workflows:
                   - /^v.*/
               branches:
                 ignore: /.*/
-        - test:
-            requires:
-              - dependencies
-            filters:
-              tags:
-                only:
-                  - /^v.*/
-              branches:
-                ignore: /.*/
+        # - test:
+        #     requires:
+        #       - dependencies
+        #     filters:
+        #       tags:
+        #         only:
+        #           - /^v.*/
+        #       branches:
+        #         ignore: /.*/
         - build:
             requires:
               - dependencies
@@ -269,32 +269,32 @@ workflows:
                   - /^v.*/
               branches:
                 ignore: /.*/
-        - snapshot:
-            matrix:
-              parameters:
-                language: ["de-DE", "en-EN"]
-                displaymode: ["dark", "light"]
-            requires:
-              - dependencies
-            filters:
-              branches:
-                only:
-                  - /release\/.*/
-        - collect-snapshots:
-            requires:
-              - snapshot
-            filters:
-              tags:
-                only:
-                  - /^v.*/
-              branches:
-                ignore: /.*/
-        - testflight-release:
-            requires:
-              - test
-            filters:
-              tags:
-                only:
-                  - /^v.*/
-              branches:
-                ignore: /.*/
+        # - snapshot:
+        #     matrix:
+        #       parameters:
+        #         language: ["de-DE", "en-EN"]
+        #         displaymode: ["dark", "light"]
+        #     requires:
+        #       - dependencies
+        #     filters:
+        #       branches:
+        #         only:
+        #           - /release\/.*/
+        # - collect-snapshots:
+        #     requires:
+        #       - snapshot
+        #     filters:
+        #       tags:
+        #         only:
+        #           - /^v.*/
+        #       branches:
+        #         ignore: /.*/
+        - testflight-release
+            # requires:
+            #   - test
+            # filters:
+            #   tags:
+            #     only:
+            #       - /^v.*/
+            #   branches:
+            #     ignore: /.*/
