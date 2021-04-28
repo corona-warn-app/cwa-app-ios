@@ -244,13 +244,13 @@ workflows:
 
     beta-release:
       jobs:
-        - dependencies:
-            filters:
-              tags:
-                only:
-                  - /^v.*/
-              branches:
-                ignore: /.*/
+        - dependencies
+            # filters:
+            #   tags:
+            #     only:
+            #       - /^v.*/
+            #   branches:
+            #     ignore: /.*/
         # - test:
         #     requires:
         #       - dependencies
@@ -263,12 +263,12 @@ workflows:
         - build:
             requires:
               - dependencies
-            filters:
-              tags:
-                only:
-                  - /^v.*/
-              branches:
-                ignore: /.*/
+            # filters:
+            #   tags:
+            #     only:
+            #       - /^v.*/
+            #   branches:
+            #     ignore: /.*/
         # - snapshot:
         #     matrix:
         #       parameters:
