@@ -82,7 +82,7 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
 		// we are only interested in QRCode cell once if the traitCollectionDidChange - to update gradientHeightConstraint
 		guard didCalculateGradientHeight == false,
-			  AntigenTestProfileViewModel.TableViewSection.map(indexPath.section)  == .QRCode else {
+			  AntigenTestProfileViewModel.TableViewSection.map(indexPath.section)  == .qrCode else {
 			return
 		}
 
@@ -100,7 +100,7 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 			cell.configure(with: viewModel.headerCellViewModel)
 			return cell
 
-		case .QRCode:
+		case .qrCode:
 			let cell = tableView.dequeueReusableCell(cellType: QRCodeCell.self, for: indexPath)
 			cell.configure(with: viewModel.qrCodeCellViewModel)
 			return cell

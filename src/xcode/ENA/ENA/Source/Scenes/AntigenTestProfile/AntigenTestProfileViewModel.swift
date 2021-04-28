@@ -51,7 +51,7 @@ struct AntigenTestProfileViewModel {
 		QRCodeCellViewModel(
 			antigenTestProfile: antigenTestProfile,
 			backgroundColor: .enaColor(for: .background),
-			boarderColor: .enaColor(for: .hairline)
+			borderColor: .enaColor(for: .hairline)
 		)
 	}
 
@@ -106,7 +106,7 @@ struct AntigenTestProfileViewModel {
 
 	enum TableViewSection: Int, CaseIterable {
 		case header
-		case QRCode
+		case qrCode
 		case notice
 		case profile
 
@@ -140,14 +140,6 @@ struct AntigenTestProfileViewModel {
 			format: AppStrings.ExposureSubmission.AntigenTest.Profile.dateOfBirthFormatText,
 			DateFormatter.localizedString(from: dateOfBirth, dateStyle: .medium, timeStyle: .none)
 		)
-	}
-
-	private var phoneNumber: String? {
-		return antigenTestProfile.phoneNumber
-	}
-
-	private var emailAdress: String? {
-		return antigenTestProfile.email
 	}
 
 	private var formattedAddress: String {

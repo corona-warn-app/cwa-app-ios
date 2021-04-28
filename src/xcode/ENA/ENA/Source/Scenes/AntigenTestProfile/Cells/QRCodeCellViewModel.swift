@@ -12,17 +12,17 @@ struct QRCodeCellViewModel {
 	init(
 		antigenTestProfile: AntigenTestProfile,
 		backgroundColor: UIColor,
-		boarderColor: UIColor
+		borderColor: UIColor
 	) {
 		self.antigenTestProfile = antigenTestProfile
 		self.backgroundColor = backgroundColor
-		self.boarderColor = boarderColor
+		self.borderColor = borderColor
 	}
 
 	// MARK: - Internal
 
 	let backgroundColor: UIColor
-	let boarderColor: UIColor
+	let borderColor: UIColor
 
 	// QRCode image with vCard data inside - will create an empty image if data is broken
 	var qrCodeImage: UIImage {
