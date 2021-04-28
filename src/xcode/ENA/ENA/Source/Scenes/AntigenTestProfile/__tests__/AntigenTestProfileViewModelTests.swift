@@ -29,7 +29,7 @@ class AntigenTestProfileViewModelTests: XCTestCase {
 		XCTAssertNotNil(viewModel.profileCellViewModel)
 		XCTAssertEqual(viewModel.numberOfSections, 4)
 		XCTAssertEqual(viewModel.numberOfItems(in: .header), 1)
-		XCTAssertEqual(viewModel.numberOfItems(in: .QRCode), 1)
+		XCTAssertEqual(viewModel.numberOfItems(in: .qrCode), 1)
 		XCTAssertEqual(viewModel.numberOfItems(in: .notice), 1)
 		XCTAssertEqual(viewModel.numberOfItems(in: .profile), 1)
 	}

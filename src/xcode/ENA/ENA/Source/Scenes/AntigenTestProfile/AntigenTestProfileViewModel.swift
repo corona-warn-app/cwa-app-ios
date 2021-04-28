@@ -51,12 +51,12 @@ struct AntigenTestProfileViewModel {
 		QRCodeCellViewModel(
 			antigenTestProfile: antigenTestProfile,
 			backgroundColor: .enaColor(for: .background),
-			boarderColor: .enaColor(for: .hairline)
+			borderColor: .enaColor(for: .hairline)
 		)
 	}
 
 	var numberOfSections: Int {
-		TableViewSections.allCases.count
+		TableViewSection.allCases.count
 	}
 
 	var profileCellViewModel: SimpleTextCellViewModel {
@@ -95,7 +95,7 @@ struct AntigenTestProfileViewModel {
 		store.antigenTestProfile = nil
 	}
 
-	func numberOfItems(in section: TableViewSections) -> Int {
+	func numberOfItems(in section: TableViewSection) -> Int {
 		switch section {
 		default:
 			return 1
@@ -104,14 +104,14 @@ struct AntigenTestProfileViewModel {
 
 	// MARK: - Private
 
-	enum TableViewSections: Int, CaseIterable {
+	enum TableViewSection: Int, CaseIterable {
 		case header
-		case QRCode
+		case qrCode
 		case notice
 		case profile
 
-		static func map(_ section: Int) -> TableViewSections {
-			guard let section = TableViewSections(rawValue: section) else {
+		static func map(_ section: Int) -> TableViewSection {
+			guard let section = TableViewSection(rawValue: section) else {
 				fatalError("unsupported tableView section")
 			}
 			return section
@@ -140,14 +140,6 @@ struct AntigenTestProfileViewModel {
 			format: AppStrings.ExposureSubmission.AntigenTest.Profile.dateOfBirthFormatText,
 			DateFormatter.localizedString(from: dateOfBirth, dateStyle: .medium, timeStyle: .none)
 		)
-	}
-
-	private var phoneNumber: String? {
-		return antigenTestProfile.phoneNumber
-	}
-
-	private var emailAdress: String? {
-		return antigenTestProfile.email
 	}
 
 	private var formattedAddress: String {

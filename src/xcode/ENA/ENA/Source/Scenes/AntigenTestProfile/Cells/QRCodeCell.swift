@@ -27,7 +27,7 @@ class QRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 	func configure(with cellViewModel: QRCodeCellViewModel) {
 		qrCodeImageView.image = cellViewModel.qrCodeImage
 		backgroundContainerView.backgroundColor = cellViewModel.backgroundColor
-		backgroundContainerView.layer.borderColor = cellViewModel.boarderColor.cgColor
+		backgroundContainerView.layer.borderColor = cellViewModel.borderColor.cgColor
 	}
 
 	// MARK: - Private

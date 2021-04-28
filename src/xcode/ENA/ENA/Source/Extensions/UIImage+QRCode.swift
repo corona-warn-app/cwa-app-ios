@@ -14,17 +14,20 @@ extension UIImage {
 	) -> UIImage? {
 		/// Create data from string which will be feed into the CoreImage Filter
 		guard let data = string.data(using: encoding) else {
+			Log.error("Failed to convert string to data", log: .qrCode)
 			return nil
 		}
 
 		/// Create CoreImage Filter to create QR-Code
 		guard let filter = CIFilter(name: "CIQRCodeGenerator") else {
+			Log.error("Failed to get CIFilter CIQRCodeGenerator", log: .qrCode)
 			return nil
 		}
 		filter.setValue(data, forKey: "inputMessage") /// Feed data into Filter
 		filter.setValue(qrCodeErrorCorrectionLevel.mappedValue, forKey: "inputCorrectionLevel") /// Set ErrorCorrectionLevel
 
 		guard let image = filter.outputImage else {
+			Log.error("Failed to get output image from filter", log: .qrCode)
 			return nil
 		}
 

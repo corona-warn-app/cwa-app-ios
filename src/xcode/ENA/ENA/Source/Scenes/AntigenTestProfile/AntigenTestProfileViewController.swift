@@ -74,14 +74,15 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 	}
 
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		viewModel.numberOfItems(in: AntigenTestProfileViewModel.TableViewSections.map(section))
+		viewModel.numberOfItems(in: AntigenTestProfileViewModel.TableViewSection.map(section))
 	}
 
 	// MARK: - UITableViewdelegate
 
 	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+		// we are only interested in QRCode cell once if the traitCollectionDidChange - to update gradientHeightConstraint
 		guard didCalculateGradientHeight == false,
-			  AntigenTestProfileViewModel.TableViewSections.map(indexPath.section)  == .QRCode else {
+			  AntigenTestProfileViewModel.TableViewSection.map(indexPath.section)  == .qrCode else {
 			return
 		}
 
@@ -92,14 +93,14 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 	}
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		switch AntigenTestProfileViewModel.TableViewSections.map(indexPath.section) {
+		switch AntigenTestProfileViewModel.TableViewSection.map(indexPath.section) {
 
 		case .header:
 			let cell = tableView.dequeueReusableCell(cellType: SimpleTextCell.self, for: indexPath)
 			cell.configure(with: viewModel.headerCellViewModel)
 			return cell
 
-		case .QRCode:
+		case .qrCode:
 			let cell = tableView.dequeueReusableCell(cellType: QRCodeCell.self, for: indexPath)
 			cell.configure(with: viewModel.qrCodeCellViewModel)
 			return cell
@@ -190,6 +191,7 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 		)
 
 		// observer tableView scrolling to move the background in sync
+		// y offset value is required
 		tableContentObserver = tableView.observe(\UITableView.contentOffset, options: .new) { [weak self] _, change in
 			guard let self = self,
 				  let yOffset = change.newValue?.y else {

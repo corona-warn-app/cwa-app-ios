@@ -51,8 +51,10 @@ struct ExposureSubmissionQRInfoViewModel {
 		// Helfen Sie mit, …
 		model.add(
 			.section(cells: [
-				.title2(text: AppStrings.ExposureSubmissionQRInfo.headerSection2,
-						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.headerSection2),
+				.title2(
+					text: AppStrings.ExposureSubmissionQRInfo.headerSection2,
+					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.headerSection2
+				),
 				.body(text: AppStrings.ExposureSubmissionQRInfo.bodySection2)
 			])
 		)
@@ -74,11 +76,13 @@ struct ExposureSubmissionQRInfoViewModel {
 		// Ihr Einverständnis – legal text
 		model.add(
 			.section(cells: [
-				.acknowledgement2(title: NSAttributedString(string: AppStrings.ExposureSubmissionQRInfo.acknowledgementTitle),
-								 description: NSAttributedString(string: AppStrings.ExposureSubmissionQRInfo.acknowledgementBody),
-								 description2: NSAttributedString(string: AppStrings.ExposureSubmissionQRInfo.acknowledgementWithdrawConsent),
-								 bulletPoints: bulletPoints,
-								 accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.acknowledgementTitle),
+				.acknowledgement2(
+					title: NSAttributedString(string: AppStrings.ExposureSubmissionQRInfo.acknowledgementTitle),
+					description: NSAttributedString(string: AppStrings.ExposureSubmissionQRInfo.acknowledgementBody),
+					description2: NSAttributedString(string: AppStrings.ExposureSubmissionQRInfo.acknowledgementWithdrawConsent),
+					bulletPoints: bulletPoints,
+					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.acknowledgementTitle
+				),
 				.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement3, alignment: .legal),
 				.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement4, alignment: .legal),
 				.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement5, alignment: .legal),

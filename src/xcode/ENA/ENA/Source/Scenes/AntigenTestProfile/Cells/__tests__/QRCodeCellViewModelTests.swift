@@ -22,7 +22,7 @@ class QRCodeCellViewModelTests: XCTestCase {
 		let viewModel = QRCodeCellViewModel(
 			antigenTestProfile: antigenTestProfile,
 			backgroundColor: .white,
-			boarderColor: .red
+			borderColor: .red
 		)
 
 		// WHEN
@@ -35,7 +35,7 @@ class QRCodeCellViewModelTests: XCTestCase {
 
 		// THEN
 		XCTAssertEqual(viewModel.backgroundColor, .white)
-		XCTAssertEqual(viewModel.boarderColor, .red)
+		XCTAssertEqual(viewModel.borderColor, .red)
 		XCTAssertEqual(viewModel.qrCodeImage.pngData(), qrCodeImage.pngData())
 	}
 
