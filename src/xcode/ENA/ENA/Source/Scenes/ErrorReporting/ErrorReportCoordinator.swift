@@ -4,7 +4,7 @@
 
 import UIKit
 
-protocol ErrorReportsCoordinating: class {
+protocol ErrorReportsCoordinating: AnyObject {
 	func startErrorLogging()
 	func stopErrorLogging()
 	func sendErrorLogging()

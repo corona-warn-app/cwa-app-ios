@@ -45,8 +45,7 @@ class SendErrorLogsViewModel {
 			])
 		)
 		model.add(
-			.section(separators: .all,
-					 cells: [
+			.section(separators: .all, cells: [
 				.body(
 					text: AppStrings.ErrorReport.sendReportsDetails,
 					style: DynamicCell.TextCellStyle.label,

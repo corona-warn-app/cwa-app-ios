@@ -35,26 +35,26 @@ final class ErrorReportHistoryViewModel {
 	}
 
 	// MARK: - Private
-
+	
 	let items: [ErrorLogUploadReceipt]
-
+	
 	private func buildHistoryCells() -> [DynamicCell] {
 		var cells: [DynamicCell] = []
 		for item in items {
 			cells.append(.custom(
 				withIdentifier: ErrorReportHistoryViewController.CustomCellReuseIdentifiers.historyCell,
-						 configure: { _, cell, _ in
-							 guard let cell = cell as? ErrorReportHistoryCell else { return }
-							 cell.configure(
-								dateTimeLabel: NSMutableAttributedString(
-									// TO DO: placeholder date should be replaced
-									string: ENAFormatter.getDateTimeString(date: Date())
-								),
-								idLabel: NSMutableAttributedString(
-									string: String(format: AppStrings.ErrorReport.historyCellID, item.id)
-								))
-						 }
-					 ))
+				configure: { _, cell, _ in
+					guard let cell = cell as? ErrorReportHistoryCell else { return }
+					cell.configure(
+						dateTimeLabel: NSMutableAttributedString(
+							// TO DO: placeholder date should be replaced
+							string: ENAFormatter.getDateTimeString(date: Date())
+						),
+						idLabel: NSMutableAttributedString(
+							string: String(format: AppStrings.ErrorReport.historyCellID, item.id)
+						))
+				}
+			))
 		}
 		return cells
 	}
