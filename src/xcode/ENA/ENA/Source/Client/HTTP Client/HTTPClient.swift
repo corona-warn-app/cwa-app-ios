@@ -1127,7 +1127,8 @@ private extension URLRequest {
 
 		// init form
 		try body.append("\r\n--\(boundary)\r\n")
-		try body.append("Content-Disposition:form-data; name=\"file\"; filename=\"ErrorLog.zip\"\r\n")
+		// prevent potential file collisions on backend
+		try body.append("Content-Disposition:form-data; name=\"file\"; filename=\"ErrorLog-\(UUID().uuidString).zip\"\r\n")
 		try body.append("Content-Type:application/zip\r\n")
 		try body.append("Content-Length: \(logData.count)\r\n")
 		try body.append("\r\n")
