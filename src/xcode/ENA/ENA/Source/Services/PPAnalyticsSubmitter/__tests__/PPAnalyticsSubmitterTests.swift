@@ -354,7 +354,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
 		#if targetEnvironment(simulator)
-		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
+		let deviceCheck = PPACDeviceCheckMock(false, deviceToken: "iPhone")
 		#else
 		let deviceCheck = PPACDeviceCheck()
 		#endif
