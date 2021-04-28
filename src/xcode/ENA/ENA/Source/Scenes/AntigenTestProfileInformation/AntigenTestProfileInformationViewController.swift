@@ -33,6 +33,7 @@ class AntigenTestProfileInformationViewController: DynamicTableViewController, F
 
 		parent?.navigationItem.title = viewModel.title
 		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
+		setupView()
 		viewModel.markScreenSeen()
 	}
 
@@ -62,11 +63,28 @@ class AntigenTestProfileInformationViewController: DynamicTableViewController, F
 
 	// MARK: - Internal
 
+	private enum ReuseIdentifiers: String, TableViewCellReuseIdentifiers {
+		case legalExtended = "DynamicLegalExtendedCell"
+	}
+
 	// MARK: - Private
 
 	private let viewModel: AntigenTestProfileInformationViewModel
 	private let didTapDataPrivacy: () -> Void
 	private let didTapContinue: () -> Void
 	private let dismiss: () -> Void
+
+	private func setupView() {
+		view.backgroundColor = .enaColor(for: .background)
+
+		tableView.register(
+			UINib(nibName: String(describing: DynamicLegalExtendedCell.self), bundle: nil),
+			forCellReuseIdentifier: ReuseIdentifiers.legalExtended.rawValue
+		)
+
+		dynamicTableViewModel = viewModel.dynamicTableViewModel
+		tableView.separatorStyle = .none
+	}
+
 
 }
