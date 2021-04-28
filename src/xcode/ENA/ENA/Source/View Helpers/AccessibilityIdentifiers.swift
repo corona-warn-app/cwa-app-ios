@@ -49,6 +49,7 @@ enum AccessibilityIdentifiers {
 			static let outdatedAntigenButton = "AccessibilityIdentifiers.Home.outdatedAntigenButton"
 			static let loadingPCRButton = "AccessibilityIdentifiers.Home.loadingPCRButton"
 			static let loadingAntigenButton = "AccessibilityIdentifiers.Home.loadingAntigenButton"
+			static let unconfiguredButton = "AccessibilityIdentifiers.Home.unconfiguredButton"
 		}
 
 		enum ShownPositiveTestResultCell {

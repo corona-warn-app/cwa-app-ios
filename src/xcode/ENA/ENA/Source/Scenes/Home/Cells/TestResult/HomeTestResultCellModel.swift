@@ -35,7 +35,7 @@ class HomeTestResultCellModel {
 	@OpenCombine.Published var isActivityIndicatorHidden: Bool = false
 	@OpenCombine.Published var isUserInteractionEnabled: Bool = false
 	@OpenCombine.Published var isCellTappable: Bool = true
-	@OpenCombine.Published var accessibilityIdentifier: String! = ""
+	@OpenCombine.Published var accessibilityIdentifier: String! = AccessibilityIdentifiers.Home.TestResultCell.unconfiguredButton
 
 	// MARK: - Private
 
