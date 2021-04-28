@@ -10,20 +10,12 @@ class CloseBarButtonItem: UIBarButtonItem {
 	// MARK: - Init
 
 	init(
+		mode: Mode = .normal,
 		onTap: @escaping () -> Void
 	) {
 		self.onTap = onTap
-
 		super.init()
-
-		let closeButton = UIButton(type: .custom)
-		closeButton.setImage(UIImage(named: "Icons - Close"), for: .normal)
-		closeButton.setImage(UIImage(named: "Icons - Close - Tap"), for: .highlighted)
-		closeButton.addTarget(self, action: #selector(didTap), for: .primaryActionTriggered)
-		customView = closeButton
-
-		accessibilityLabel = AppStrings.AccessibilityLabel.close
-		accessibilityIdentifier = AccessibilityIdentifiers.AccessibilityLabel.close
+		setup(mode)
 	}
 
 	required init?(coder: NSCoder) {
@@ -32,11 +24,37 @@ class CloseBarButtonItem: UIBarButtonItem {
 
 	// MARK: - Internal
 
+	enum Mode {
+		case normal
+		case contrast
+	}
+
 	@objc
 	func didTap() {
 		onTap()
 	}
 
-	let onTap: () -> Void
+	// MARK: - Private
+
+	private let onTap: () -> Void
+
+	private func setup(_ mode: Mode) {
+		let closeButton = UIButton(type: .custom)
+		switch mode {
+
+		case .normal:
+			closeButton.setImage(UIImage(named: "Icons - Close"), for: .normal)
+			closeButton.setImage(UIImage(named: "Icons - Close - Tap"), for: .highlighted)
+
+		case .contrast:
+			closeButton.setImage(UIImage(named: "Icons - Close - Contrast"), for: .normal)
+			closeButton.setImage(UIImage(named: "Icons - Close - Tap - Contrast"), for: .highlighted)
+		}
+		closeButton.addTarget(self, action: #selector(didTap), for: .primaryActionTriggered)
+		customView = closeButton
+
+		accessibilityLabel = AppStrings.AccessibilityLabel.close
+		accessibilityIdentifier = AccessibilityIdentifiers.AccessibilityLabel.close
+	}
 
 }

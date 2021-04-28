@@ -816,10 +816,12 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		)
 
 		let footerViewModel = FooterViewModel(
-			primaryButtonName: "Weiter",
-			secondaryButtonName: "Schnelltest-Profil entfernen",
+			primaryButtonName: AppStrings.ExposureSubmission.AntigenTest.Profile.primaryButton,
+			secondaryButtonName: AppStrings.ExposureSubmission.AntigenTest.Profile.secondaryButton,
 			isPrimaryButtonEnabled: true,
-			isSecondaryButtonEnabled: true
+			isSecondaryButtonEnabled: true,
+			secondaryButtonInverted: true,
+			backgroundColor: .enaColor(for: .cellBackground)
 		)
 		let footerViewController = FooterViewController(footerViewModel)
 		let topBottomContainerViewController = TopBottomContainerViewController(
