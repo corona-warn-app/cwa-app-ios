@@ -153,6 +153,7 @@ class CreateAntigenTestProfileViewController: UITableViewController, FooterViewH
 		tableView.separatorStyle = .none
 		tableView.register(DescriptionCell.self, forCellReuseIdentifier: DescriptionCell.identifier)
 		tableView.register(InputCell.self, forCellReuseIdentifier: InputCell.identifier)
+		tableView.keyboardDismissMode = .interactive
 		// date
 		dateFormatter = DateFormatter()
 		dateFormatter.dateStyle = .medium
