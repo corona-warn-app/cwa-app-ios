@@ -39,8 +39,6 @@ class AntigenTestProfileInformationViewController: DynamicTableViewController, F
 	// MARK: - Protocol FooterViewHandling
 
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
-
-		// this one can get used if data privacy will be removed from footer's secondary button
 		guard case .primary = type else {
 			return
 		}
@@ -51,14 +49,6 @@ class AntigenTestProfileInformationViewController: DynamicTableViewController, F
 
 	func wasAttemptedToBeDismissed() {
 		dismiss()
-	}
-
-	// MARK: - Public
-
-	// MARK: - Internal
-
-	private enum ReuseIdentifiers: String, TableViewCellReuseIdentifiers {
-		case legalExtended = "DynamicLegalExtendedCell"
 	}
 
 	// MARK: - Private
@@ -72,7 +62,7 @@ class AntigenTestProfileInformationViewController: DynamicTableViewController, F
 
 		tableView.register(
 			UINib(nibName: String(describing: DynamicLegalExtendedCell.self), bundle: nil),
-			forCellReuseIdentifier: ReuseIdentifiers.legalExtended.rawValue
+			forCellReuseIdentifier: DynamicLegalExtendedCell.reuseIdentifier
 		)
 
 		dynamicTableViewModel = viewModel.dynamicTableViewModel

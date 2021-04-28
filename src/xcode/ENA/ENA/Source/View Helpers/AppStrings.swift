@@ -94,6 +94,7 @@ enum AppStrings {
 				static let imageDescription = NSLocalizedString("ExposureSubmission_Antigen_Profile_Information_Image_Description", comment: "")
 				static let descriptionTitle = NSLocalizedString("ExposureSubmission_Antigen_Profile_Information_Description_Title", comment: "")
 				static let descriptionSubHeadline = NSLocalizedString("ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline", comment: "")
+				static let primaryButton = NSLocalizedString("ExposureSubmission_Antigen_Profile_Information_PrimaryButton", comment: "")
 
 				enum legal {
 					static let title = NSLocalizedString("ExposureSubmission_Antigen_Profile_Legal_Headline", tableName: "Localizable.legal", comment: "")
