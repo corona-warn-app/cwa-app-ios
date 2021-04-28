@@ -29,9 +29,11 @@ class CheckinCellModel: EventCellModel {
 	var isInactiveIconHiddenPublisher = CurrentValueSubject<Bool, Never>(true)
 	var isActiveContainerViewHiddenPublisher = CurrentValueSubject<Bool, Never>(true)
 	var isButtonHiddenPublisher = CurrentValueSubject<Bool, Never>(true)
-	var titleAccessiblityLabelPublisher = CurrentValueSubject<String?, Never>(nil)
+	var titleAccessibilityLabelPublisher = CurrentValueSubject<String?, Never>(nil)
 	var durationPublisher = CurrentValueSubject<String?, Never>(nil)
+	var durationAccessibilityPublisher = CurrentValueSubject<String?, Never>(nil)
 	var timePublisher = CurrentValueSubject<String?, Never>(nil)
+	var timeAccessibilityPublisher = CurrentValueSubject<String?, Never>(nil)
 
 	var isActiveIconHidden: Bool = true
 	var isDurationStackViewHidden: Bool = false
@@ -81,9 +83,18 @@ class CheckinCellModel: EventCellModel {
 			dateFormatter.timeStyle = .short
 
 			timePublisher.value = dateFormatter.string(from: checkin.checkinStartDate, to: checkin.checkinEndDate)
-			titleAccessiblityLabelPublisher.value = String(format: AppStrings.Checkins.Overview.itemPrefixCheckedOut, checkin.traceLocationDescription)
+			titleAccessibilityLabelPublisher.value = String(format: AppStrings.Checkins.Overview.itemPrefixCheckedOut, checkin.traceLocationDescription)
+			
+			let timeAccessibilityDateFormatter = DateIntervalFormatter()
+			timeAccessibilityDateFormatter.dateStyle = .long
+			timeAccessibilityDateFormatter.timeStyle = .medium
+			let formattedAccessibilityCheckinTime = timeAccessibilityDateFormatter.string(from: checkin.checkinStartDate, to: checkin.checkinEndDate)
+			timeAccessibilityPublisher.value = String(format: AppStrings.Checkins.Overview.checkinDateTemplate, formattedAccessibilityCheckinTime)
 		} else {
 			let formattedCheckinTime = DateFormatter.localizedString(from: checkin.checkinStartDate, dateStyle: .short, timeStyle: .short)
+			
+			var formattedAccessibilityCheckinTime = DateFormatter.localizedString(from: checkin.checkinStartDate, dateStyle: .long, timeStyle: .medium)
+			formattedAccessibilityCheckinTime = String(format: AppStrings.Checkins.Overview.checkinDateTemplate, formattedAccessibilityCheckinTime)
 
 			let dateComponentsFormatter = DateComponentsFormatter()
 			dateComponentsFormatter.allowedUnits = [.hour, .minute]
@@ -91,10 +102,12 @@ class CheckinCellModel: EventCellModel {
 
 			if let formattedAutomaticCheckoutDuration = dateComponentsFormatter.string(from: checkin.checkinEndDate.timeIntervalSince(checkin.checkinStartDate)) {
 				timePublisher.value = String(format: AppStrings.Checkins.Overview.checkinTimeTemplate, formattedCheckinTime, formattedAutomaticCheckoutDuration)
+				timeAccessibilityPublisher.value = String(format: AppStrings.Checkins.Overview.checkinTimeTemplate, formattedAccessibilityCheckinTime, formattedAutomaticCheckoutDuration)
 			} else {
 				timePublisher.value = formattedCheckinTime
+				timeAccessibilityPublisher.value = formattedAccessibilityCheckinTime
 			}
-			titleAccessiblityLabelPublisher.value = String(format: AppStrings.Checkins.Overview.itemPrefixCheckIn, checkin.traceLocationDescription)
+			titleAccessibilityLabelPublisher.value = String(format: AppStrings.Checkins.Overview.itemPrefixCheckIn, checkin.traceLocationDescription)
 		}
 
 		let duration = Date().timeIntervalSince(checkin.checkinStartDate)
@@ -105,6 +118,9 @@ class CheckinCellModel: EventCellModel {
 		dateComponentsFormatter.zeroFormattingBehavior = .pad
 
 		durationPublisher.value = dateComponentsFormatter.string(from: duration)
+
+		let components = Calendar.utcCalendar.dateComponents([.hour, .minute], from: Date(timeIntervalSinceReferenceDate: duration))
+		durationAccessibilityPublisher.value = DateComponentsFormatter.localizedString(from: components, unitsStyle: .spellOut)
 	}
 
 	private func scheduleUpdateTimer() {

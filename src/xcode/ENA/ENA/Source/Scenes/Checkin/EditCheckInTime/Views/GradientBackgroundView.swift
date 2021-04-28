@@ -8,7 +8,8 @@ class GradientBackgroundView: UIView {
 
 	// MARK: - Init
 
-	init() {
+	init(type: GradientView.GradientType = .blueRedTilted) {
+		self.type = type
 		super.init(frame: .zero)
 		setupView()
 	}
@@ -20,17 +21,18 @@ class GradientBackgroundView: UIView {
 
 	// MARK: - Internal
 
-	var topLayoutConstraint: NSLayoutConstraint!
 	var gradientHeightConstraint: NSLayoutConstraint!
 
 	func updatedTopLayout(with offset: CGFloat, limit: CGFloat) {
 		let height = gradientView.bounds.size.height
-		topLayoutConstraint.constant = max(min(-offset, 0), -(height - limit))
+		topLayoutConstraint.constant = max(min(-offset, 0), min(-(height - limit), 0))
 	}
 
 	// MARK: - Private
 
 	private let gradientView = GradientView()
+	private let type: GradientView.GradientType
+	private var topLayoutConstraint: NSLayoutConstraint!
 
 	private func setupView() {
 		backgroundColor = .clear
@@ -42,6 +44,7 @@ class GradientBackgroundView: UIView {
 
 		gradientView.translatesAutoresizingMaskIntoConstraints = false
 		addSubview(gradientView)
+		gradientView.type = type
 
 		topLayoutConstraint = gradientView.topAnchor.constraint(equalTo: topAnchor)
 		gradientHeightConstraint = gradientView.heightAnchor.constraint(equalToConstant: 150)
