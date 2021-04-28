@@ -9,9 +9,11 @@ struct AntigenTestProfileInformationViewModel {
 	// MARK: - Init
 
 	init(
-		store: AntigenTestProfileStoring
+		store: AntigenTestProfileStoring,
+		showDisclaimer: @escaping () -> Void
 	) {
 		self.store = store
+		self.showDisclaimer = showDisclaimer
 	}
 
 	// MARK: - Overrides
@@ -94,7 +96,7 @@ struct AntigenTestProfileInformationViewModel {
 						accessibilityIdentifier: AccessibilityIdentifiers.Checkin.Information.dataPrivacyTitle,
 						accessibilityTraits: UIAccessibilityTraits.link,
 						action: .execute { _, _ in
-//							presentDisclaimer()
+							showDisclaimer()
 						},
 						configure: { _, cell, _ in
 							cell.accessoryType = .disclosureIndicator
@@ -109,26 +111,14 @@ struct AntigenTestProfileInformationViewModel {
 	// MARK: - Private
 
 	private let store: AntigenTestProfileStoring
+	private let showDisclaimer: () -> Void
 
-	private let boldTextAttribute: [NSAttributedString.Key: Any] = [
-		NSAttributedString.Key.font: UIFont.enaFont(for: .body, weight: .bold)
-	]
 	private let normalTextAttribute: [NSAttributedString.Key: Any] = [
 		NSAttributedString.Key.font: UIFont.enaFont(for: .body)
 	]
 
 	private func bulletPointCellWithRegularText(text: String) -> NSMutableAttributedString {
 		return NSMutableAttributedString(string: "\(text)", attributes: normalTextAttribute)
-	}
-
-	private func bulletPointCellWithBoldHeadline(title: String, text: String) -> NSMutableAttributedString {
-		let bulletPoint = NSMutableAttributedString(string: "\(title)" + "\n\t", attributes: boldTextAttribute)
-		bulletPoint.append(NSAttributedString(string: text, attributes: normalTextAttribute))
-		return bulletPoint
-	}
-
-	private func bulletPointCellWithBoldText(text: String) -> NSMutableAttributedString {
-		return NSMutableAttributedString(string: "\(text)", attributes: boldTextAttribute)
 	}
 
 }

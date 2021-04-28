@@ -755,9 +755,9 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 		let footerViewModel = FooterViewModel(
 			primaryButtonName: "Weiter",
-			secondaryButtonName: "Datenschutz",
 			isPrimaryButtonEnabled: true,
-			isSecondaryButtonEnabled: true
+			isSecondaryButtonEnabled: false,
+			isSecondaryButtonHidden: true
 		)
 		let footerViewController = FooterViewController(footerViewModel)
 		let topBottomContainerViewController = TopBottomContainerViewController(
