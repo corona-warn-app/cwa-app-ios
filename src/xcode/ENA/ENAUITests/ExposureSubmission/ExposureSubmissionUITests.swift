@@ -104,7 +104,7 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		XCTAssertTrue(consentGivenCell.waitForExistence(timeout: .long))
 	}
 	
-	func test_SubmitTAN_Screenshot_SymptomsOptionYes() {
+	func test_Screenshot_SymptomsOptionYes() {
 		var screenshotCounter = 0
 
 		launchAndNavigateToSymptomsScreen()
@@ -117,7 +117,7 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		snapshot("tan_submissionflow_symptoms_selection\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
 	
-	func test_SubmitTAN_SymptomsOptionNo() {
+	func test_SymptomsOptionNo() {
 		launchAndNavigateToSymptomsScreen()
 
 		let optionYes = app.buttons["AppStrings.ExposureSubmissionSymptoms.answerOptionYes"]
@@ -156,7 +156,7 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].isHittable)
 	}
 
-	func test_SubmitTAN_SymptomsOptionPreferNotToSay() {
+	func test_SymptomsOptionPreferNotToSay() {
 		launchAndNavigateToSymptomsScreen()
 
 		let optionYes = app.buttons["AppStrings.ExposureSubmissionSymptoms.answerOptionYes"]
@@ -195,7 +195,7 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].isHittable)
 	}
 
-	func test_SubmitTAN_SymptomsOnsetDateOption() {
+	func test_SymptomsOnsetDateOption() {
 		launchAndNavigateToSymptomsOnsetScreen()
 
 		let optionExactDate = app.buttons["AppStrings.DatePickerOption.day"].firstMatch
