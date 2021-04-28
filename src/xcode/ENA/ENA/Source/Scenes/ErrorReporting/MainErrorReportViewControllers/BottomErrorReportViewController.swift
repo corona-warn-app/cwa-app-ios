@@ -36,7 +36,7 @@ class BottomErrorReportViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		titleLabel.text = AppStrings.ErrorReport.title
+		titleLabel.text = AppStrings.ErrorReport.analysisTitle
 
 		startButton.setTitle(AppStrings.ErrorReport.startButtonTitle, for: .normal)
 		startButton.accessibilityIdentifier = AccessibilityIdentifiers.ErrorReport.startButton

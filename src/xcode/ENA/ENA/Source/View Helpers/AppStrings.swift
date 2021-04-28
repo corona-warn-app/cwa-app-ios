@@ -1491,6 +1491,7 @@ enum AppStrings {
 		static let detailedInformationTitle = NSLocalizedString("ErrorReport_DetailedInformation_Title", comment: "")
 		
 		// Bottom ViewController UI
+		static let analysisTitle = NSLocalizedString("ErrorReport_Analysis", comment: "")
 		static let activeStatusTitle = NSLocalizedString("ErrorReport_ActiveStatus_Title", comment: "")
 		static let inactiveStatusTitle = NSLocalizedString("ErrorReport_InactiveStatus_Title", comment: "")
 		static let statusProgress = NSLocalizedString("ErrorReport_Progress_Description", comment: "")
