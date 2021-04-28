@@ -40,7 +40,12 @@ final class HomeShownPositiveTestResultTableViewCell: UITableViewCell {
 
 		statusTitleLabel.text = cellModel.statusTitle
 		statusSubtitleLabel.text = cellModel.statusSubtitle
-		statusFootnoteLabel.text = cellModel.statusFootnote
+
+		cellModel.$statusFootnote
+			.receive(on: DispatchQueue.OCombine(.main))
+			.assign(to: \.text, on: statusFootnoteLabel)
+			.store(in: &subscriptions)
+
 		statusLineView.backgroundColor = .enaColor(for: .riskHigh)
 
 		noteLabel.text = cellModel.noteTitle
