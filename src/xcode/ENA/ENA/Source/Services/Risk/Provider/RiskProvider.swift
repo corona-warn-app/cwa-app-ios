@@ -533,7 +533,7 @@ extension RiskProvider {
 			  let someDaysAgo = Calendar.current.date(byAdding: .day, value: -3, to: today) else {
 			fatalError("Could not create date test data for riskLevelPerDate.")
 		}
-
+		
 		switch risk.level {
 		case .high:
 			store.enfRiskCalculationResult = ENFRiskCalculationResult(
@@ -563,7 +563,8 @@ extension RiskProvider {
 				mostRecentDateWithHighRisk: risk.details.mostRecentDateWithRiskLevel,
 				numberOfDaysWithLowRisk: risk.details.numberOfDaysWithRiskLevel,
 				numberOfDaysWithHighRisk: 0,
-				calculationDate: Date(),
+				// setting 09:06 hours of same day
+				calculationDate: Calendar.utcCalendar.date(bySettingHour: 7, minute: 6, second: 0, of: Date()) ?? Date(),
 				riskLevelPerDate: [
 					today: .low,
 					someDaysAgo: .low

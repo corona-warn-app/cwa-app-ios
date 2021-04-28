@@ -319,6 +319,7 @@
 		2FE15A3C249B8C0B0077BD8D /* AccessibilityIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE15A3B249B8C0B0077BD8D /* AccessibilityIdentifiers.swift */; };
 		2FF1D62E2487850200381FFB /* NSMutableAttributedString+Generation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF1D62D2487850200381FFB /* NSMutableAttributedString+Generation.swift */; };
 		2FF1D63024880FCF00381FFB /* DynamicTableViewRoundedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF1D62F24880FCF00381FFB /* DynamicTableViewRoundedCell.swift */; };
+		34706B8126395439005F598F /* ExposureSubmissionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32842642491136E006B1F09 /* ExposureSubmissionUITests.swift */; };
 		347FBB08260B8FE000672770 /* TraceLocationDetailsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347FBB07260B8FE000672770 /* TraceLocationDetailsViewModelTests.swift */; };
 		347FBB18260C9C4600672770 /* ENAUITests_09_TraceLocations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347FBB17260C9C4600672770 /* ENAUITests_09_TraceLocations.swift */; };
 		347FBB41260E405000672770 /* TraceLocationDetailsHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347FBB40260E405000672770 /* TraceLocationDetailsHeaderCell.swift */; };
@@ -7372,6 +7373,7 @@
 				509C69FE25B5D920000F2A4C /* ENAUITests-Statistics.swift in Sources */,
 				347FBB18260C9C4600672770 /* ENAUITests_09_TraceLocations.swift in Sources */,
 				505F2E522587738900697CC2 /* AccessibilityLabels.swift in Sources */,
+				34706B8126395439005F598F /* ExposureSubmissionUITests.swift in Sources */,
 				3543135025DE992F00926575 /* ENAUITestsQuickActions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
