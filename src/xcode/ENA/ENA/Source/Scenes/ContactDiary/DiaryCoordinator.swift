@@ -43,9 +43,9 @@ class DiaryCoordinator {
 
 	// MARK: - Internal
 
-	lazy var viewController: ENANavigationControllerWithFooter = {
+	lazy var viewController: UINavigationController = {
 		if !infoScreenShown {
-			return ENANavigationControllerWithFooter(rootViewController: infoScreen(hidesCloseButton: true, dismissAction: { [weak self] in
+			return UINavigationController(rootViewController: infoScreen(hidesCloseButton: true, dismissAction: { [weak self] in
 				guard let self = self else { return }
 				self.viewController.pushViewController(self.overviewScreen, animated: true)	// Push Overview
 				self.viewController.setViewControllers([self.overviewScreen], animated: false) // Set Overview as the only Controller on the navigation stack to avoid back gesture etc.
@@ -60,7 +60,7 @@ class DiaryCoordinator {
 				self.viewController.pushViewController(detailViewController, animated: true)
 			}))
 		} else {
-			return ENANavigationControllerWithFooter(rootViewController: overviewScreen)
+			return UINavigationController(rootViewController: overviewScreen)
 		}
 	}()
 

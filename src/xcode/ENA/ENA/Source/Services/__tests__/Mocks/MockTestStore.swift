@@ -29,7 +29,7 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var allowTestsStatusNotification: Bool = true
 	var appInstallationDate: Date? = Date()
 	var userNeedsToBeInformedAboutHowRiskDetectionWorks = false
-	var selectedServerEnvironment: ServerEnvironmentData = ServerEnvironment().defaultEnvironment()
+	var selectedServerEnvironment: EnvironmentData = Environments().defaultEnvironment()
 	var wasRecentDayKeyDownloadSuccessful = false
 	var wasRecentHourKeyDownloadSuccessful = false
 	var lastKeyPackageDownloadDate: Date = .distantPast
@@ -101,6 +101,11 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var pcrTest: PCRTest?
 	var antigenTest: AntigenTest?
 
+
+	// MARK: - AntigenTestProfileStoring
+	var antigenTestProfile: AntigenTestProfile?
+	var antigenTestProfileInfoScreenShown: Bool = false
+
 	// MARK: - CoronaTestStoringLegacy
 
 	var registrationToken: String?
@@ -115,7 +120,6 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var lastSuccessfulSubmitDiagnosisKeyTimestamp: Int64?
 	var positiveTestResultWasShown: Bool = false
 	var isSubmissionConsentGiven = false
-
 }
 
 #endif

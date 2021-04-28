@@ -36,7 +36,8 @@ enum PPAnalyticsCollector {
 			return
 		}
 
-		Log.debug("Logging analytics data: \(dataType.description)", log: .ppa)
+		Log.debug("Logging analytics data: \(private: dataType, public: "Some private analytics data")", log: .ppa)
+
 		switch dataType {
 		case let .userData(userMetadata):
 			Analytics.logUserMetadata(userMetadata)

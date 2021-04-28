@@ -72,14 +72,14 @@ class HomeStatisticsCardViewModel {
 	@OpenCombine.Published private(set) var footnote: String?
 
 	var titleAccessiblityIdentifier: String?
-	var infoButtonAccessiblityIdentifier: String?
+	var infoButtonAccessibilityIdentifier: String?
 	
 	// MARK: - Private
 
 	private func setupInfections(for keyFigureCard: SAP_Internal_Stats_KeyFigureCard) {
 		title = AppStrings.Statistics.Card.Infections.title
 		titleAccessiblityIdentifier = AccessibilityIdentifiers.Statistics.Infections.title
-		infoButtonAccessiblityIdentifier = AccessibilityIdentifiers.Statistics.Infections.infoButton
+		infoButtonAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.Infections.infoButton
 		illustrationImage = UIImage(named: "Illu_Bestaetigte_Neuinfektionen")
 
 		if keyFigureCard.keyFigures.contains(where: { $0.rank == .primary }) {
@@ -103,7 +103,7 @@ class HomeStatisticsCardViewModel {
 	private func setupKeySubmissions(for keyFigureCard: SAP_Internal_Stats_KeyFigureCard) {
 		title = AppStrings.Statistics.Card.KeySubmissions.title
 		titleAccessiblityIdentifier = AccessibilityIdentifiers.Statistics.KeySubmissions.title
-		infoButtonAccessiblityIdentifier = AccessibilityIdentifiers.Statistics.KeySubmissions.infoButton
+		infoButtonAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.KeySubmissions.infoButton
 		illustrationImage = UIImage(named: "Illu_Warnende_Personen")
 
 		if keyFigureCard.keyFigures.contains(where: { $0.rank == .primary }) {
@@ -129,7 +129,7 @@ class HomeStatisticsCardViewModel {
 	private func setupIncidence(for keyFigureCard: SAP_Internal_Stats_KeyFigureCard) {
 		title = AppStrings.Statistics.Card.Incidence.title
 		titleAccessiblityIdentifier = AccessibilityIdentifiers.Statistics.Incidence.title
-		infoButtonAccessiblityIdentifier = AccessibilityIdentifiers.Statistics.Incidence.infoButton
+		infoButtonAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.Incidence.infoButton
 		illustrationImage = UIImage(named: "Illu_7-Tage-Inzidenz")
 
 		if keyFigureCard.keyFigures.contains(where: { $0.rank == .primary }) {
@@ -147,7 +147,7 @@ class HomeStatisticsCardViewModel {
 	private func setupReproductionNumber(for keyFigureCard: SAP_Internal_Stats_KeyFigureCard) {
 		title = AppStrings.Statistics.Card.ReproductionNumber.title
 		titleAccessiblityIdentifier = AccessibilityIdentifiers.Statistics.ReproductionNumber.title
-		infoButtonAccessiblityIdentifier = AccessibilityIdentifiers.Statistics.ReproductionNumber.infoButton
+		infoButtonAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.ReproductionNumber.infoButton
 		illustrationImage = UIImage(named: "Illu_7-Tage-R-Wert")
 
 		if keyFigureCard.keyFigures.contains(where: { $0.rank == .primary }) {

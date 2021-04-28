@@ -13,11 +13,15 @@ class ExposureSubmissionIntroViewModel {
 	init(
 		onQRCodeButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
 		onTANButtonTap: @escaping () -> Void,
-		onHotlineButtonTap: @escaping () -> Void
+		onHotlineButtonTap: @escaping () -> Void,
+		onRapidTestProfileTap: @escaping () -> Void,
+		antigenTestProfileStore: AntigenTestProfileStoring
 	) {
 		self.onQRCodeButtonTap = onQRCodeButtonTap
 		self.onTANButtonTap = onTANButtonTap
 		self.onHotlineButtonTap = onHotlineButtonTap
+		self.onRapidTestProfileTap = onRapidTestProfileTap
+		self.antigenTestProfileStore = antigenTestProfileStore
 	}
 	
 	// MARK: - Internal
@@ -25,6 +29,8 @@ class ExposureSubmissionIntroViewModel {
 	let onQRCodeButtonTap: (@escaping (Bool) -> Void) -> Void
 	let onTANButtonTap: () -> Void
 	let onHotlineButtonTap: () -> Void
+	let onRapidTestProfileTap: () -> Void
+	let antigenTestProfileStore: AntigenTestProfileStoring
 
 	var dynamicTableModel: DynamicTableViewModel {
 		return DynamicTableViewModel.with {
@@ -51,8 +57,11 @@ class ExposureSubmissionIntroViewModel {
 					},
 					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.qrCodeButtonDescription
 				),
-				.title2(text: AppStrings.ExposureSubmissionDispatch.sectionHeadline2,
-						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.sectionHeadline2),
+				profileCell,
+				.title2(
+					text: AppStrings.ExposureSubmissionDispatch.sectionHeadline2,
+					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.sectionHeadline2
+				),
 				.imageCard(
 					title: AppStrings.ExposureSubmissionDispatch.tanButtonTitle,
 					description: AppStrings.ExposureSubmissionDispatch.tanButtonDescription,
@@ -71,6 +80,40 @@ class ExposureSubmissionIntroViewModel {
 		}
 	}
 
+	// MARK: - Private
+
+	private var profileCell: DynamicCell {
+		if antigenTestProfileStore.antigenTestProfile == nil {
+			return .imageCard(
+				title: AppStrings.ExposureSubmission.AntigenTest.Profile.createProfileTile_Title,
+				description: AppStrings.ExposureSubmission.AntigenTest.Profile.createProfileTile_Description,
+				image: UIImage(named: "Illu_Submission_AntigenTest_CreateProfile"),
+				imageLayout: .center,
+				action: .execute { [weak self] _, _ in
+					self?.onRapidTestProfileTap()
+				},
+				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.qrCodeButtonDescription,
+				tag: "AntigenTestCreateProfileCard" // Used for unit testing.
+			)
+		} else {
+			let gradientView = GradientView()
+			gradientView.type = .blueOnly
+
+			return .imageCard(
+				title: AppStrings.ExposureSubmission.AntigenTest.Profile.profileTile_Title,
+				description: AppStrings.ExposureSubmission.AntigenTest.Profile.profileTile_Description,
+				image: UIImage(named: "Illu_Submission_AntigenTest_Profile"),
+				backgroundView: gradientView,
+				textColor: .enaColor(for: .textContrast),
+				action: .execute { [weak self] _, _ in
+					self?.onRapidTestProfileTap()
+				},
+				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.qrCodeButtonDescription,
+				tag: "AntigenTestProfileCard" // Used for unit testing.
+			)
+		}
+	}
+
 }
 
 private extension DynamicCell {
@@ -79,17 +122,30 @@ private extension DynamicCell {
 		description: String? = nil,
 		attributedDescription: NSAttributedString? = nil,
 		image: UIImage?,
+		imageLayout: ExposureSubmissionImageCardCell.ImageLayout = .right,
+		backgroundView: UIView? = nil,
+		textColor: UIColor? = nil,
 		action: DynamicAction,
-		accessibilityIdentifier: String? = nil) -> Self {
-		.identifier(ExposureSubmissionIntroViewController.CustomCellReuseIdentifiers.imageCard, action: action) { _, cell, _ in
-			guard let cell = cell as? ExposureSubmissionImageCardCell else { return }
-			cell.configure(
-				title: title,
-				description: description ?? "",
-				attributedDescription: attributedDescription,
-				image: image,
-				accessibilityIdentifier: accessibilityIdentifier
-			)
-		}
+		accessibilityIdentifier: String? = nil,
+		tag: String? = nil) -> Self {
+
+		.identifier(
+			ExposureSubmissionIntroViewController.CustomCellReuseIdentifiers.imageCard,
+			action: action,
+			tag: tag,
+			configure: { _, cell, _ in
+				guard let cell = cell as? ExposureSubmissionImageCardCell else { return }
+				cell.configure(
+					title: title,
+					description: description ?? "",
+					attributedDescription: attributedDescription,
+					image: image,
+					imageLayout: imageLayout,
+					backgroundView: backgroundView,
+					textColor: textColor,
+					accessibilityIdentifier: accessibilityIdentifier
+				)
+			}
+		)
 	}
 }
