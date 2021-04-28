@@ -15,7 +15,7 @@ class CloseBarButtonItem: UIBarButtonItem {
 	) {
 		self.onTap = onTap
 		super.init()
-		setupNormalMode(mode)
+		setup(mode)
 	}
 
 	required init?(coder: NSCoder) {
@@ -38,7 +38,7 @@ class CloseBarButtonItem: UIBarButtonItem {
 
 	private let onTap: () -> Void
 
-	private func setupNormalMode(_ mode: Mode) {
+	private func setup(_ mode: Mode) {
 		let closeButton = UIButton(type: .custom)
 		switch mode {
 

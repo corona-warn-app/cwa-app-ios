@@ -74,14 +74,14 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 	}
 
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		viewModel.numberOfItems(in: AntigenTestProfileViewModel.TableViewSections.map(section))
+		viewModel.numberOfItems(in: AntigenTestProfileViewModel.TableViewSection.map(section))
 	}
 
 	// MARK: - UITableViewdelegate
 
 	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
 		guard didCalculateGradientHeight == false,
-			  AntigenTestProfileViewModel.TableViewSections.map(indexPath.section)  == .QRCode else {
+			  AntigenTestProfileViewModel.TableViewSection.map(indexPath.section)  == .QRCode else {
 			return
 		}
 
@@ -92,7 +92,7 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 	}
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		switch AntigenTestProfileViewModel.TableViewSections.map(indexPath.section) {
+		switch AntigenTestProfileViewModel.TableViewSection.map(indexPath.section) {
 
 		case .header:
 			let cell = tableView.dequeueReusableCell(cellType: SimpleTextCell.self, for: indexPath)
