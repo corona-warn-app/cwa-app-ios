@@ -165,52 +165,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	var store: Store
 
 	lazy var coronaTestService: CoronaTestService = {
-		#if DEBUG
-		if isUITesting {
-			var testResult: TestResult?
-			if let testResultStringValue = UserDefaults.standard.string(forKey: "testResult") {
-				testResult = TestResult(stringValue: testResultStringValue)
-			}
-
-			let showTestResultAvailableViewController = UserDefaults.standard.string(forKey: "showTestResultAvailableViewController") == "YES"
-
-			let store = MockTestStore()
-
-			if testResult != nil || showTestResultAvailableViewController {
-				let unwrappedTestResult = testResult ?? .pending
-				store.pcrTest = PCRTest(
-					registrationDate: Date(),
-					registrationToken: "asdf",
-					testResult: unwrappedTestResult,
-					finalTestResultReceivedDate: unwrappedTestResult == .pending ? nil : Date(),
-					positiveTestResultWasShown: !showTestResultAvailableViewController,
-					isSubmissionConsentGiven: UserDefaults.standard.string(forKey: "isSubmissionConsentGiven") == "YES",
-					submissionTAN: nil,
-					keysSubmitted: false,
-					journalEntryCreated: false
-				)
-			}
-
-			var testResultResponse: TestResult?
-			if let testResultStringValue = UserDefaults.standard.string(forKey: "testResultResponse") {
-				testResultResponse = TestResult(stringValue: testResultStringValue)
-			}
-
-			let client = ClientMock()
-			client.onGetTestResult = { _, _, completion in
-				completion(.success(testResultResponse?.rawValue ?? testResult?.rawValue ?? TestResult.pending.rawValue))
-			}
-
-			let appConfiguration = CachedAppConfigurationMock()
-
-			return CoronaTestService(
-				client: client,
-				store: store,
-				appConfiguration: appConfiguration
-			)
-		}
-		#endif
-
 		return CoronaTestService(
 			client: client,
 			store: store,

@@ -33,11 +33,10 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 		
 		// WHEN
 		app.launch()
-		if let button = UITestHelper.scrollTo(identifier: AccessibilityIdentifiers.Home.traceLocationsCardButton, element: app, app: app) {
-			button.tap()
-		} else {
-			XCTFail("Can't find element \(AccessibilityIdentifiers.Home.traceLocationsCardButton)")
-		}
+
+		let traceLocationsCardButton = app.buttons[AccessibilityIdentifiers.Home.traceLocationsCardButton]
+		XCTAssertTrue(traceLocationsCardButton.waitForExistence(timeout: .extraLong))
+		traceLocationsCardButton.tap()
 		
 		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.addButtonTitle)].waitForExistence(timeout: .short))
 		
@@ -63,11 +62,10 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 		
 		// WHEN
 		app.launch()
-		if let button = UITestHelper.scrollTo(identifier: AccessibilityIdentifiers.Home.traceLocationsCardButton, element: app, app: app) {
-			button.tap()
-		} else {
-			XCTFail("Can't find element \(AccessibilityIdentifiers.Home.traceLocationsCardButton)")
-		}
+
+		let traceLocationsCardButton = app.buttons[AccessibilityIdentifiers.Home.traceLocationsCardButton]
+		XCTAssertTrue(traceLocationsCardButton.waitForExistence(timeout: .extraLong))
+		traceLocationsCardButton.tap()
 		
 		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.addButtonTitle)].waitForExistence(timeout: .short))
 		
@@ -116,11 +114,10 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 		
 		// WHEN
 		app.launch()
-		if let button = UITestHelper.scrollTo(identifier: AccessibilityIdentifiers.Home.traceLocationsCardButton, element: app, app: app) {
-			button.tap()
-		} else {
-			XCTFail("Can't find element \(AccessibilityIdentifiers.Home.traceLocationsCardButton)")
-		}
+
+		let traceLocationsCardButton = app.buttons[AccessibilityIdentifiers.Home.traceLocationsCardButton]
+		XCTAssertTrue(traceLocationsCardButton.waitForExistence(timeout: .extraLong))
+		traceLocationsCardButton.tap()
 		
 		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.addButtonTitle)].waitForExistence(timeout: .short))
 		
@@ -147,11 +144,10 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 		
 		// WHEN
 		app.launch()
-		if let button = UITestHelper.scrollTo(identifier: AccessibilityIdentifiers.Home.traceLocationsCardButton, element: app, app: app) {
-			button.tap()
-		} else {
-			XCTFail("Can't find element \(AccessibilityIdentifiers.Home.traceLocationsCardButton)")
-		}
+
+		let traceLocationsCardButton = app.buttons[AccessibilityIdentifiers.Home.traceLocationsCardButton]
+		XCTAssertTrue(traceLocationsCardButton.waitForExistence(timeout: .extraLong))
+		traceLocationsCardButton.tap()
 		
 		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.addButtonTitle)].waitForExistence(timeout: .short))
 		
@@ -197,11 +193,10 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 		
 		// WHEN
 		app.launch()
-		if let button = UITestHelper.scrollTo(identifier: AccessibilityIdentifiers.Home.traceLocationsCardButton, element: app, app: app) {
-			button.tap()
-		} else {
-			XCTFail("Can't find element \(AccessibilityIdentifiers.Home.traceLocationsCardButton)")
-		}
+
+		let traceLocationsCardButton = app.buttons[AccessibilityIdentifiers.Home.traceLocationsCardButton]
+		XCTAssertTrue(traceLocationsCardButton.waitForExistence(timeout: .extraLong))
+		traceLocationsCardButton.tap()
 		
 		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.addButtonTitle)].waitForExistence(timeout: .short))
 		
@@ -235,11 +230,9 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 		app.launch()
 		
 		// navigate to "Create QR Code"
-		if let button = UITestHelper.scrollTo(identifier: AccessibilityIdentifiers.Home.traceLocationsCardButton, element: app, app: app) {
-			button.tap()
-		} else {
-			XCTFail("Can't find element \(AccessibilityIdentifiers.Home.traceLocationsCardButton)")
-		}
+		let traceLocationsCardButton = app.buttons[AccessibilityIdentifiers.Home.traceLocationsCardButton]
+		XCTAssertTrue(traceLocationsCardButton.waitForExistence(timeout: .extraLong))
+		traceLocationsCardButton.tap()
 		
 		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_InfoScreen")
 		app.swipeUp()
@@ -310,11 +303,10 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 		app.launchArguments.append(contentsOf: ["-TraceLocationsInfoScreenShown", "YES"])
 		app.launchArguments.append(contentsOf: ["-checkinInfoScreenShown", "YES"])
 		app.launch()
-		if let button = UITestHelper.scrollTo(identifier: AccessibilityIdentifiers.Home.traceLocationsCardButton, element: app, app: app) {
-			button.tap()
-		} else {
-			XCTFail("Can't find element \(AccessibilityIdentifiers.Home.traceLocationsCardButton)")
-		}
+
+		let traceLocationsCardButton = app.buttons[AccessibilityIdentifiers.Home.traceLocationsCardButton]
+		XCTAssertTrue(traceLocationsCardButton.waitForExistence(timeout: .extraLong))
+		traceLocationsCardButton.tap()
 		
 		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.addButtonTitle)].waitForExistence(timeout: .short))
 		let event1 = "Mittagessen"
@@ -354,11 +346,10 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 		app.launch()
 		
 		// WHEN
-		if let button = UITestHelper.scrollTo(identifier: AccessibilityIdentifiers.Home.traceLocationsCardButton, element: app, app: app) {
-			button.tap()
-		} else {
-			XCTFail("Can't find element \(AccessibilityIdentifiers.Home.traceLocationsCardButton)")
-		}
+
+		let traceLocationsCardButton = app.buttons[AccessibilityIdentifiers.Home.traceLocationsCardButton]
+		XCTAssertTrue(traceLocationsCardButton.waitForExistence(timeout: .extraLong))
+		traceLocationsCardButton.tap()
 
 		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.addButtonTitle)].waitForExistence(timeout: .short))
 		let event0 = "Mittagessen"
@@ -403,12 +394,10 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 		
 		// WHEN
 		app.launch()
-		// Swipe up until it is visible
-		if let button = UITestHelper.scrollTo(identifier: AccessibilityIdentifiers.Home.traceLocationsCardButton, element: app, app: app) {
-			button.tap()
-		} else {
-			XCTFail("Can't find element \(AccessibilityIdentifiers.Home.traceLocationsCardButton)")
-		}
+
+		let traceLocationsCardButton = app.buttons[AccessibilityIdentifiers.Home.traceLocationsCardButton]
+		XCTAssertTrue(traceLocationsCardButton.waitForExistence(timeout: .extraLong))
+		traceLocationsCardButton.tap()
 		
 		// THEN
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.TraceLocation.dataPrivacyTitle].waitForExistence(timeout: .short))
@@ -423,11 +412,10 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 		
 		// WHEN
 		app.launch()
-		if let button = UITestHelper.scrollTo(identifier: AccessibilityIdentifiers.Home.traceLocationsCardButton, element: app, app: app) {
-			button.tap()
-		} else {
-			XCTFail("Can't find element \(AccessibilityIdentifiers.Home.traceLocationsCardButton)")
-		}
+
+		let traceLocationsCardButton = app.buttons[AccessibilityIdentifiers.Home.traceLocationsCardButton]
+		XCTAssertTrue(traceLocationsCardButton.waitForExistence(timeout: .extraLong))
+		traceLocationsCardButton.tap()
 		
 		// THEN
 		XCTAssertFalse(app.cells[AccessibilityIdentifiers.TraceLocation.dataPrivacyTitle].waitForExistence(timeout: .short))
