@@ -127,6 +127,7 @@ class CoronaTestServiceTests: XCTestCase {
 			Date().timeIntervalSince1970,
 			accuracy: 10
 		)
+		XCTAssertTrue(store.submittedWithQR)
 	}
 
 	func testRegisterPCRTestAndGetResult_successWithSubmissionConsentGiven() {
@@ -198,6 +199,7 @@ class CoronaTestServiceTests: XCTestCase {
 			Date().timeIntervalSince1970,
 			accuracy: 10
 		)
+		XCTAssertTrue(store.submittedWithQR)
 	}
 
 	func testRegisterPCRTestAndGetResult_RegistrationFails() {
@@ -238,6 +240,7 @@ class CoronaTestServiceTests: XCTestCase {
 
 		XCTAssertNil(service.pcrTest)
 		XCTAssertNil(store.testResultMetadata)
+		XCTAssertFalse(store.submittedWithQR)
 	}
 
 	func testRegisterPCRTestAndGetResult_RegistrationSucceedsGettingTestResultFails() {
@@ -305,6 +308,131 @@ class CoronaTestServiceTests: XCTestCase {
 			Date().timeIntervalSince1970,
 			accuracy: 10
 		)
+		XCTAssertTrue(store.submittedWithQR)
+	}
+
+	func testRegisterPCRTestWithTeleTAN_successWithoutSubmissionConsentGiven() {
+		let store = MockTestStore()
+		store.enfRiskCalculationResult = mockRiskCalculationResult()
+
+		Analytics.setupMock(store: store)
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
+
+		let client = ClientMock()
+		client.onGetRegistrationToken = { _, _, _, completion in
+			completion(.success("registrationToken"))
+		}
+
+		let service = CoronaTestService(
+			client: client,
+			store: store,
+			appConfiguration: CachedAppConfigurationMock()
+		)
+		service.pcrTest = nil
+
+		let expectation = self.expectation(description: "Expect to receive a result.")
+
+		service.registerPCRTest(
+			teleTAN: "tele-tan",
+			isSubmissionConsentGiven: false
+		) { result in
+			expectation.fulfill()
+			switch result {
+			case .failure:
+				XCTFail("This test should always return a successful result.")
+			case .success:
+				break
+			}
+		}
+
+		waitForExpectations(timeout: .short)
+
+		guard let pcrTest = service.pcrTest else {
+			XCTFail("pcrTest should not be nil")
+			return
+		}
+
+		XCTAssertEqual(pcrTest.registrationToken, "registrationToken")
+		XCTAssertEqual(
+			try XCTUnwrap(pcrTest.registrationDate).timeIntervalSince1970,
+			Date().timeIntervalSince1970,
+			accuracy: 10
+		)
+		XCTAssertEqual(pcrTest.testResult, .positive)
+		XCTAssertEqual(
+			try XCTUnwrap(pcrTest.finalTestResultReceivedDate).timeIntervalSince1970,
+			Date().timeIntervalSince1970,
+			accuracy: 10
+		)
+		XCTAssertTrue(pcrTest.positiveTestResultWasShown)
+		XCTAssertFalse(pcrTest.isSubmissionConsentGiven)
+		XCTAssertNil(pcrTest.submissionTAN)
+		XCTAssertFalse(pcrTest.keysSubmitted)
+		XCTAssertFalse(pcrTest.journalEntryCreated)
+
+		XCTAssertFalse(store.submittedWithQR)
+	}
+
+	func testRegisterPCRTestWithTeleTAN_successWithSubmissionConsentGiven() {
+		let store = MockTestStore()
+		store.enfRiskCalculationResult = mockRiskCalculationResult()
+
+		Analytics.setupMock(store: store)
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
+
+		let client = ClientMock()
+		client.onGetRegistrationToken = { _, _, _, completion in
+			completion(.success("registrationToken2"))
+		}
+
+		let service = CoronaTestService(
+			client: client,
+			store: store,
+			appConfiguration: CachedAppConfigurationMock()
+		)
+		service.pcrTest = nil
+
+		let expectation = self.expectation(description: "Expect to receive a result.")
+
+		service.registerPCRTest(
+			teleTAN: "tele-tan",
+			isSubmissionConsentGiven: true
+		) { result in
+			expectation.fulfill()
+			switch result {
+			case .failure:
+				XCTFail("This test should always return a successful result.")
+			case .success:
+				break
+			}
+		}
+
+		waitForExpectations(timeout: .short)
+
+		guard let pcrTest = service.pcrTest else {
+			XCTFail("pcrTest should not be nil")
+			return
+		}
+
+		XCTAssertEqual(pcrTest.registrationToken, "registrationToken2")
+		XCTAssertEqual(
+			try XCTUnwrap(pcrTest.registrationDate).timeIntervalSince1970,
+			Date().timeIntervalSince1970,
+			accuracy: 10
+		)
+		XCTAssertEqual(pcrTest.testResult, .positive)
+		XCTAssertEqual(
+			try XCTUnwrap(pcrTest.finalTestResultReceivedDate).timeIntervalSince1970,
+			Date().timeIntervalSince1970,
+			accuracy: 10
+		)
+		XCTAssertTrue(pcrTest.positiveTestResultWasShown)
+		XCTAssertTrue(pcrTest.isSubmissionConsentGiven)
+		XCTAssertNil(pcrTest.submissionTAN)
+		XCTAssertFalse(pcrTest.keysSubmitted)
+		XCTAssertFalse(pcrTest.journalEntryCreated)
+
+		XCTAssertFalse(store.submittedWithQR)
 	}
 
 	func testRegisterAntigenTestAndGetResult_successWithoutSubmissionConsentGivenWithTestedPerson() {
@@ -397,6 +525,100 @@ class CoronaTestServiceTests: XCTestCase {
 				XCTFail("This test should always return a successful result.")
 			case .success(let testResult):
 				XCTAssertEqual(testResult, TestResult.pending)
+			}
+		}
+
+		waitForExpectations(timeout: .short)
+
+		guard let antigenTest = service.antigenTest else {
+			XCTFail("antigenTest should not be nil")
+			return
+		}
+
+		XCTAssertEqual(antigenTest.registrationToken, "registrationToken")
+		XCTAssertEqual(antigenTest.pointOfCareConsentDate, Date(timeIntervalSince1970: 2222))
+		XCTAssertNil(antigenTest.testedPerson.firstName)
+		XCTAssertNil(antigenTest.testedPerson.lastName)
+		XCTAssertNil(antigenTest.testedPerson.dateOfBirth)
+		XCTAssertEqual(antigenTest.testResult, .pending)
+		XCTAssertNil(antigenTest.finalTestResultReceivedDate)
+		XCTAssertFalse(antigenTest.positiveTestResultWasShown)
+		XCTAssertTrue(antigenTest.isSubmissionConsentGiven)
+		XCTAssertNil(antigenTest.submissionTAN)
+		XCTAssertFalse(antigenTest.keysSubmitted)
+		XCTAssertFalse(antigenTest.journalEntryCreated)
+	}
+
+	func testRegisterAntigenTestAndGetResult_RegistrationFails() {
+		let client = ClientMock()
+		client.onGetRegistrationToken = { _, _, _, completion in
+			completion(.failure(.qrAlreadyUsed))
+		}
+
+		let service = CoronaTestService(
+			client: client,
+			store: MockTestStore(),
+			appConfiguration: CachedAppConfigurationMock()
+		)
+		service.antigenTest = nil
+
+		let expectation = self.expectation(description: "Expect to receive a result.")
+
+		service.registerAntigenTestAndGetResult(
+			with: "hash",
+			pointOfCareConsentDate: Date(timeIntervalSince1970: 2222),
+			firstName: nil,
+			lastName: nil,
+			dateOfBirth: nil,
+			isSubmissionConsentGiven: true
+		) { result in
+			expectation.fulfill()
+			switch result {
+			case .failure(let error):
+				XCTAssertEqual(error, .responseFailure(.qrAlreadyUsed))
+			case .success:
+				XCTFail("This test should always return a failure.")
+			}
+		}
+
+		waitForExpectations(timeout: .short)
+
+		XCTAssertNil(service.antigenTest)
+	}
+
+	func testRegisterAntigenTestAndGetResult_RegistrationSucceedsGettingTestResultFails() {
+		let client = ClientMock()
+		client.onGetRegistrationToken = { _, _, _, completion in
+			completion(.success("registrationToken"))
+		}
+
+		client.onGetTestResult = { _, _, completion in
+			completion(.failure(.serverError(500)))
+		}
+
+		let service = CoronaTestService(
+			client: client,
+			store: MockTestStore(),
+			appConfiguration: CachedAppConfigurationMock()
+		)
+		service.antigenTest = nil
+
+		let expectation = self.expectation(description: "Expect to receive a result.")
+
+		service.registerAntigenTestAndGetResult(
+			with: "hash",
+			pointOfCareConsentDate: Date(timeIntervalSince1970: 2222),
+			firstName: nil,
+			lastName: nil,
+			dateOfBirth: nil,
+			isSubmissionConsentGiven: true
+		) { result in
+			expectation.fulfill()
+			switch result {
+			case .failure(let error):
+				XCTAssertEqual(error, .responseFailure(.serverError(500)))
+			case .success:
+				XCTFail("This test should always return a failure.")
 			}
 		}
 
