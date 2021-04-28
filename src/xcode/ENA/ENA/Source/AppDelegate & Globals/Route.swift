@@ -47,9 +47,9 @@ enum Route {
 				Log.error("Antigen test data is nil, either timeStamp is -ve or the hash is invalid", log: .qrCode)
 				return
 			}
-			let allIsNil = testInformation.firstName == nil && testInformation.firstName == nil && testInformation.dateOfBirthString == nil
+			let allIsNil = testInformation.firstName == nil && testInformation.lastName == nil && testInformation.dateOfBirthString == nil
 			// dateOfBirth is nil if dateOfBirthString is nil OR if dateOfBirthString is invalid
-			let allIsValid = testInformation.firstName != nil && testInformation.firstName != nil && testInformation.dateOfBirth != nil
+			let allIsValid = testInformation.firstName != nil && testInformation.lastName != nil && testInformation.dateOfBirth != nil
 			
 			guard allIsNil || allIsValid else {
 				self = .rapidAntigen( .failure(.invalidTestCode(.invalidTestedPersonInformation)))
