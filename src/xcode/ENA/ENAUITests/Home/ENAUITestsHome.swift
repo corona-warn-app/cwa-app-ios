@@ -368,7 +368,7 @@ class ENAUITests_01_Home: XCTestCase {
 	
 	func test_screenshot_homescreen_pcr_rat_negative() throws {
 		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
-		app.launchArguments.append(contentsOf: ["-showTestResultCards", TestResult.negative.stringValue])
+		app.launchArguments.append(contentsOf: ["-showTestResultCards", "YES"])
 		app.launchArguments.append(contentsOf: ["-pcrTestResult", TestResult.negative.stringValue])
 		app.launchArguments.append(contentsOf: ["-antigenTestResult", TestResult.negative.stringValue])
 		app.launch()
