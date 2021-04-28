@@ -79,7 +79,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 	}
 	
 	func testSuccessfulAntigenScan_Base64URL() throws {
-		let payload = "eyJ0aW1lc3RhbXAiOjE2MTg4MjA0MDAsInNhbHQiOiIxNUE3MUZBQkYzRDMzODUzMTk3Mzk4MTJERTA0RDMwNUUwNDA4MkZEREQ0OEEzRTk4N0IwOUNBMUVBRUUwODJFIiwidGVzdElkIjoiZTA2ZGNlMDgtZTExYy00Yjg2LWI2NTUtNTljMzVjYTE4ODVkIiwiaGFzaCI6ImYxMjAwZDk2NTBmMWZkNjczZDU4ZjUyODExZjk4ZjE0MjdmYWI0MGI0OTk2ZTljMmQwZGE4Yjc0MTQ0NjQwODYiLCJmbiI6IkFsdGEiLCJsbiI6IkdyaWZmaW4iLCJkb2IiOiIxOTY0LTEwLTI0In0"
+		let payload = "eyJ0aW1lc3RhbXAiOjE2MTk2MTcyNjksInNhbHQiOiI3QkZBMDZCNUFEOTMxMUI4NzE5QkI4MDY2MUM1NEVBRCIsInRlc3RpZCI6ImI0YTQwYzZjLWUwMmMtNDQ0OC1iOGFiLTBiNWI3YzM0ZDYwYSIsImhhc2giOiIxZWE0YzIyMmZmMGMwZTRlZDczNzNmMjc0Y2FhN2Y3NWQxMGZjY2JkYWM1NmM2MzI3NzFjZDk1OTIxMDJhNTU1IiwiZm4iOiJIZW5yeSIsImxuIjoiUGluemFuaSIsImRvYiI6IjE5ODktMDgtMzAifQ"
 		let validAntigenHash = try XCTUnwrap(self.validAntigenHash(validPayload: payload))
 
 		let onSuccessExpectation = expectation(description: "onSuccess called")
@@ -115,7 +115,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 		waitForExpectations(timeout: .short)
 	}
 	func testSuccessfulAntigenScan_base64() throws {
-		let payload = "eyJ0aW1lc3RhbXAiOjE2MTg4MjQwNjIsInNhbHQiOiI1NjkxMDIzMTAyNkEzQ0Y3RDg5MTk3RkI4MjFDRDg3RDNFNDc1NEJCMDIwMzI1REU1MjA3RDcxNDM5OEI0MTlBIiwidGVzdElkIjoiM2U0YWQ1OGQtOWY5MS00NTgyLThhMmUtYWI5ZjkzMTg3YTBlIiwiaGFzaCI6IjI3N2ZiZDBhYzFlMTBjNWVmZDMxOTU1M2NlYmVmZjljODM3NGY4MGM1MTg3NmRhMDNjZjQxYWRkMmIzZmE3YWYiLCJmbiI6IkR1c3RpbiIsImxuIjoiRmVycmkiLCJkb2IiOiIxOTkxLTA3LTIxIn0="
+		let payload = "eyJ0aW1lc3RhbXAiOjE2MTk2MTc5NjIsInNhbHQiOiI2MTc4QjY2NjI5RTRFQTk2QzNGRkM4NDVBNDg3QUQzRiIsInRlc3RpZCI6ImVhYWY4ZGIwLWRmOGMtNDI2ZC1hZmMwLWRkMDAyZjNhMzBkMiIsImhhc2giOiI4Zjg2N2MxMTdiZjg0OWMwNzYzM2E3MmE2MTlmNGNjNDI4N2ZkNTRkNWVhOWRmNzc2YWU0NWYwNzRlMzIxNzQ0IiwiZm4iOiJEdXN0aW4iLCJsbiI6IkFsYmxhcyIsImRvYiI6IjE5NjYtMDEtMDcifQ=="
 		let validAntigenHash = try XCTUnwrap(self.validAntigenHash(validPayload: payload))
 
 		let onSuccessExpectation = expectation(description: "onSuccess called")
@@ -447,7 +447,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 			let payloadString = payloadData.base64EncodedString()
 			let url = "https://s.coronawarn.app/?v=1#\(payloadString)"
 			let route = Route(url)
-			XCTAssertEqual(route, Route.rapidAntigen( .failure(.invalidTestCode)), "incorrect hash should trigger an error")
+			XCTAssertEqual(route, Route.rapidAntigen( .failure(.invalidTestCode(.invalidHash))), "incorrect hash should trigger an error")
 		} catch {
 			XCTFail("Caught an error while trying to encode the Antigen test")
 		}
@@ -461,12 +461,72 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 			let payloadString = payloadData.base64EncodedString()
 			let url = "https://s.coronawarn.app/?v=1#\(payloadString)"
 			let route = Route(url)
-			XCTAssertEqual(route, Route.rapidAntigen( .failure(.invalidTestCode)), "incorrect hash should trigger an error")
+			XCTAssertEqual(route, Route.rapidAntigen( .failure(.invalidTestCode(.invalidHash))), "incorrect hash should trigger an error")
 		} catch {
 			XCTFail("Caught an error while trying to encode the Antigen test")
 		}
 	}
-
+	func testAntigen_InvalidTestedPersonInformation() {
+		let antigenTestInformation = AntigenTestInformation.mock(
+			hash: "584b5177c687f2a007778b2f1d2365770ca318b0a8cda0593f691c0d17d18d01",
+			timestamp: 5,
+			firstName: "Jon",
+			lastName: nil,
+			cryptographicSalt: "C520E70759CC69B28CAA219A8B57DAB4",
+			testID: "40352cb5-e44b-409b-b4c9-2d8aac60f805",
+			dateOfBirth: Date(timeIntervalSince1970: 1619618081)
+		)
+		do {
+			let payloadData = try XCTUnwrap(JSONEncoder().encode(antigenTestInformation))
+			let payloadString = payloadData.base64EncodedString()
+			let url = "https://s.coronawarn.app/?v=1#\(payloadString)"
+			let route = Route(url)
+			XCTAssertEqual(route, Route.rapidAntigen( .failure(.invalidTestCode(.invalidTestedPersonInformation))), "incorrect recalculated Hash should trigger an error")
+		} catch {
+			XCTFail("Caught an error while trying to encode the Antigen test")
+		}
+	}
+	func testAntigen_InvalidTimeStamp() {
+		let antigenTestInformation = AntigenTestInformation.mock(
+			hash: "584b5177c687f2a007778b2f1d2365770ca318b0a8cda0593f691c0d17d18d01",
+			timestamp: -5,
+			firstName: "Jon",
+			lastName: "Bird",
+			cryptographicSalt: "C520E70759CC69B28CAA219A8B57DAB4",
+			testID: "40352cb5-e44b-409b-b4c9-2d8aac60f805",
+			dateOfBirth: Date(timeIntervalSince1970: 1619618081)
+		)
+		do {
+			let payloadData = try XCTUnwrap(JSONEncoder().encode(antigenTestInformation))
+			let payloadString = payloadData.base64EncodedString()
+			let url = "https://s.coronawarn.app/?v=1#\(payloadString)"
+			let route = Route(url)
+			XCTAssertEqual(route, Route.rapidAntigen( .failure(.invalidTestCode(.invalidTimeStamp))), "incorrect recalculated Hash should trigger an error")
+		} catch {
+			XCTFail("Caught an error while trying to encode the Antigen test")
+		}
+	}
+	func testAntigen_HashMismatch() {
+		let antigenTestInformation = AntigenTestInformation.mock(
+			hash: "584b5177c687f2a007778b2f1d2365770ca318b0a8cda0593f691c0d17d18d01",
+			timestamp: 5,
+			firstName: "Jon",
+			lastName: "Bird",
+			cryptographicSalt: "C520E70759CC69B28CAA219A8B57DAB4",
+			testID: "40352cb5-e44b-409b-b4c9-2d8aac60f805",
+			dateOfBirth: Date(timeIntervalSince1970: 1619618081)
+		)
+		do {
+			let payloadData = try XCTUnwrap(JSONEncoder().encode(antigenTestInformation))
+			let payloadString = payloadData.base64EncodedString()
+			let url = "https://s.coronawarn.app/?v=1#\(payloadString)"
+			let route = Route(url)
+			XCTAssertEqual(route, Route.rapidAntigen( .failure(.invalidTestCode(.hashMismatch))), "incorrect recalculated Hash should trigger an error")
+		} catch {
+			XCTFail("Caught an error while trying to encode the Antigen test")
+		}
+	}
+	
 	private let validPcrGuid = "3D6D08-3567F3F2-4DCF-43A3-8737-4CD1F87D6FDA"
 	private func validAntigenHash(validPayload: String) -> String? {
 		let jsonData: Data
