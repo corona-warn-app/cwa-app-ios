@@ -77,6 +77,7 @@ class HomeShownPositiveTestResultCellModel {
 
 	@OpenCombine.Published var homeItemViewModels: [HomeImageItemViewModel] = []
 	@OpenCombine.Published var isButtonHidden = false
+	@OpenCombine.Published var accessibilityIdentifier: String?
 
 	// MARK: - Private
 
@@ -139,6 +140,17 @@ class HomeShownPositiveTestResultCellModel {
 		self.homeItemViewModels = homeItemViewModels
 
 		isButtonHidden = coronaTest.keysSubmitted
+
+		switch (coronaTest.type, coronaTest.keysSubmitted) {
+		case (.pcr, false):
+			accessibilityIdentifier = AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.pcrCell
+		case (.pcr, true):
+			accessibilityIdentifier = AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.submittedPCRCell
+		case (.antigen, false):
+			accessibilityIdentifier = AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.antigenCell
+		case (.antigen, true):
+			accessibilityIdentifier = AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.submittedAntigenCell
+		}
 	}
 
 }

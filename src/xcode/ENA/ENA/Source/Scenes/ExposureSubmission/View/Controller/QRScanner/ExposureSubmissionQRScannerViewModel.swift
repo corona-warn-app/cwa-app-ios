@@ -18,8 +18,16 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 		self.onError = onError
 		self.captureSession = AVCaptureSession()
 		self.captureDevice = AVCaptureDevice.default(for: .video)
+
 		super.init()
+
 		setupCaptureSession()
+
+		#if DEBUG
+		if isUITesting {
+			onSuccess(CoronaTestQRCodeInformation.pcr("guid"))
+		}
+		#endif
 	}
 
 	// MARK: - Protocol AVCaptureMetadataOutputObjectsDelegate
