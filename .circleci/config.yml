@@ -289,9 +289,9 @@ workflows:
         #           - /^v.*/
         #       branches:
         #         ignore: /.*/
-        - testflight-release
-            # requires:
-            #   - test
+        - testflight-release:
+            requires:
+              - build
             # filters:
             #   tags:
             #     only:
