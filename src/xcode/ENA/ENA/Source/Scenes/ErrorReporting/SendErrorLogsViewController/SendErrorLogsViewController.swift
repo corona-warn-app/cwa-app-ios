@@ -26,7 +26,8 @@ class SendErrorLogsViewController: DynamicTableViewController, ENANavigationCont
 		setupTableView()
 
 		navigationController?.navigationBar.prefersLargeTitles = true
-		title = AppStrings.ErrorReport.sendReportsTitle
+		// important because this is a child view controller within a container!
+		parent?.title = AppStrings.ErrorReport.sendReportsTitle
 
 		view.backgroundColor = .enaColor(for: .background)
 
