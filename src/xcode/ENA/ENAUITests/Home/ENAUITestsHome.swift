@@ -367,7 +367,6 @@ class ENAUITests_01_Home: XCTestCase {
 	}
 	
 	func test_screenshot_homescreen_pcr_rat_negative() throws {
-		var screenshotCounter = 0
 		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
 		app.launchArguments.append(contentsOf: ["-showTestResultCards", TestResult.negative.stringValue])
 		app.launchArguments.append(contentsOf: ["-pcrTestResult", TestResult.negative.stringValue])
@@ -376,7 +375,7 @@ class ENAUITests_01_Home: XCTestCase {
 
 		XCTAssertTrue(app.cells.element(boundBy: 2).waitForExistence(timeout: .medium))
 
-		snapshot("homescreenrisk_show_pcr_rat_negative_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		snapshot("homescreenrisk_show_pcr_rat_negative")
 	}
 	
 	func test_screenshot_homescreen_thankyou_screen() throws {
