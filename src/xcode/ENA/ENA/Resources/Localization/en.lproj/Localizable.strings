@@ -1736,7 +1736,7 @@
 
 "ContactDiary_AddEditEntry_LocationPlaceholder_PhoneNumber" = "Phone";
 
-"ContactDiary_AddEditEntry_LocationPlaceholder_EmailAddress" = "e-mail";
+"ContactDiary_AddEditEntry_LocationPlaceholder_EmailAddress" = "E-mail";
 
 /* - Person */
 "ContactDiary_AddEditEntry_PersonTitle" = "Person";
@@ -1745,7 +1745,7 @@
 
 "ContactDiary_AddEditEntry_PersonPlaceholder_PhoneNumber" = "Phone";
 
-"ContactDiary_AddEditEntry_PersonPlaceholder_EmailAddress" = "e-mail";
+"ContactDiary_AddEditEntry_PersonPlaceholder_EmailAddress" = "E-mail";
 
 /* - Trend on Cards */
 "Statistics_Card_Trend_Increasing" = "Trend: Upwards";
