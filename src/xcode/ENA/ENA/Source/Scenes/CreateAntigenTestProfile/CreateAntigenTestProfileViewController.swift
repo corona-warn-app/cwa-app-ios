@@ -177,12 +177,12 @@ class CreateAntigenTestProfileViewController: UITableViewController, FooterViewH
 	
 	@objc
 	private func birthDateTextFieldDidChange(textField: UITextField) {
-		viewModel.antigenTestProfile.dateOfBirth = nil
+		viewModel.update(nil, keyPath: \.dateOfBirth)
 	}
 	
 	@objc
 	private func dateOfBirthDidChange(datePicker: UIDatePicker) {
-		viewModel.antigenTestProfile.dateOfBirth = datePicker.date
+		viewModel.update(datePicker.date, keyPath: \.dateOfBirth)
 		if let cell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? CreateAntigenTestProfileInputCell {
 			cell.textFields[2].text = DateFormatter.localizedString(from: datePicker.date, dateStyle: .medium, timeStyle: .none)
 		}
@@ -210,8 +210,7 @@ class CreateAntigenTestProfileViewController: UITableViewController, FooterViewH
 	
 	@objc
 	private func emailAddressTextFieldDidChange(textField: UITextField) {
-		viewModel.update( textField.text, keyPath: \.email)
+		viewModel.update(textField.text, keyPath: \.email)
 	}
-	
 	
 }

@@ -27,6 +27,10 @@ final class CreateAntigenTestProfileViewModel {
 	func update(_ text: String?, keyPath: WritableKeyPath<AntigenTestProfile, String?>) {
 		antigenTestProfile[keyPath: keyPath] = text
 	}
+	
+	func update(_ date: Date?, keyPath: WritableKeyPath<AntigenTestProfile, Date?>) {
+		antigenTestProfile[keyPath: keyPath] = date
+	}
 
 	// MARK: - Private
 
