@@ -356,6 +356,14 @@ enum AccessibilityIdentifiers {
 			}
 		}
 
+		enum AntigetTest {
+			enum Information {
+				static let imageDescription = "AppStrings.ExposureSubmission.AntigenTest.Information.imageDescription"
+				static let descriptionTitle = "AppStrings.ExposureSubmission.AntigenTest.Information.descriptionTitle"
+				static let descriptionSubHeadline = "AppStrings.ExposureSubmission.AntigenTest.Information.descriptionSubHeadline"
+			}
+		}
+
 	}
 	
 	enum Reset {

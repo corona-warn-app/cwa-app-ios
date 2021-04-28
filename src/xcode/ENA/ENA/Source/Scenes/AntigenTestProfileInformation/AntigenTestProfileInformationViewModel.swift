@@ -42,17 +42,17 @@ struct AntigenTestProfileInformationViewModel {
 							imageLiteralResourceName: "Illu_Antigentest_Profil"
 						),
 						accessibilityLabel: AppStrings.ExposureSubmission.AntigenTest.Information.imageDescription,
-						accessibilityIdentifier: AccessibilityIdentifiers.Checkin.Information.imageDescription,
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.AntigetTest.Information.imageDescription,
 						height: 144.0
 					),
 				cells: [
 					.title2(
 						text: AppStrings.ExposureSubmission.AntigenTest.Information.descriptionTitle,
-						accessibilityIdentifier: AccessibilityIdentifiers.Checkin.Information.descriptionTitle
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.AntigetTest.Information.descriptionTitle
 					),
 					.subheadline(
 						text: AppStrings.ExposureSubmission.AntigenTest.Information.descriptionSubHeadline,
-						accessibilityIdentifier: AccessibilityIdentifiers.Checkin.Information.descriptionSubHeadline
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.AntigetTest.Information.descriptionSubHeadline
 					),
 					.space(
 						height: 15.0,
