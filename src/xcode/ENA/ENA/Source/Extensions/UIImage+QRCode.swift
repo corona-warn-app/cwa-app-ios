@@ -14,6 +14,7 @@ extension UIImage {
 	) -> UIImage? {
 		/// Create data from string which will be feed into the CoreImage Filter
 		guard let data = string.data(using: encoding) else {
+			Log.error("Failed to convert string to data", log: .qrCode)
 			return nil
 		}
 
