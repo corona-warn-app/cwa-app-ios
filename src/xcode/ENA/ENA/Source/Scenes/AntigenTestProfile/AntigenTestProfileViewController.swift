@@ -80,6 +80,7 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 	// MARK: - UITableViewdelegate
 
 	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+		// we are only interested in QRCode cell once if the traitCollectionDidChange - to update gradientHeightConstraint
 		guard didCalculateGradientHeight == false,
 			  AntigenTestProfileViewModel.TableViewSection.map(indexPath.section)  == .QRCode else {
 			return
@@ -190,6 +191,7 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 		)
 
 		// observer tableView scrolling to move the background in sync
+		// y offset value is required
 		tableContentObserver = tableView.observe(\UITableView.contentOffset, options: .new) { [weak self] _, change in
 			guard let self = self,
 				  let yOffset = change.newValue?.y else {
