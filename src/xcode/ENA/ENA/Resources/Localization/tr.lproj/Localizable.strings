@@ -614,7 +614,9 @@
 
 "ExposureSubmissionSuccess_listTitle" = "Lütfen unutmayın:";
 
-"ExposureSubmissionSuccess_listItem1" = "Kamu sağlığı yetkiliniz önümüzdeki birkaç gün içinde size ulaşacaktır.";
+"ExposureSubmissionSuccess_listItem0" = "Bu test sonucunu doğrulamak için PCR testi yapın. ";
+
+"ExposureSubmissionSuccess_listItem1" = "Kamu sağlığı yetkiliniz önümüzdeki birkaç gün içinde telefonla veya mektupla size ulaşacaktır.";
 
 "ExposureSubmissionSuccess_listItem2" = "Bulaşıcı bir hastalık taşıyorsunuz. Kendinizi diğer insanlardan izole edin.";
 
@@ -1734,7 +1736,7 @@
 
 "ContactDiary_AddEditEntry_LocationPlaceholder_PhoneNumber" = "Telefon";
 
-"ContactDiary_AddEditEntry_LocationPlaceholder_EmailAddress" = "e-posta";
+"ContactDiary_AddEditEntry_LocationPlaceholder_EmailAddress" = "E-posta";
 
 /* - Person */
 "ContactDiary_AddEditEntry_PersonTitle" = "Kişi";
@@ -1743,7 +1745,7 @@
 
 "ContactDiary_AddEditEntry_PersonPlaceholder_PhoneNumber" = "Telefon";
 
-"ContactDiary_AddEditEntry_PersonPlaceholder_EmailAddress" = "e-posta";
+"ContactDiary_AddEditEntry_PersonPlaceholder_EmailAddress" = "E-posta";
 
 /* - Trend on Cards */
 "Statistics_Card_Trend_Increasing" = "Trend: Yukarı";
@@ -2288,7 +2290,7 @@
 "Checkin_Details_CheckIn_Button" = "Check In";
 
 /* Submission Check-in */
-"Submission_Checkins_Title" = "Check-In’ler Paylaşılsın Mı?";
+"Submission_Checkins_Title" = "Konum Check-In’leri Paylaşılsın Mı?";
 
 "Submission_Checkins_Description" = "Sizin yakınınızda check in yapmış olan diğer kullanıcıları uyarın. Kişisel verileriniz paylaşılmayacaktır.";
 

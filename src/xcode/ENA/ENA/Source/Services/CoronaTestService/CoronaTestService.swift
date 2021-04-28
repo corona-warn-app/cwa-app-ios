@@ -219,32 +219,15 @@ class CoronaTestService {
 		var errors = [CoronaTestServiceError]()
 
 		for coronaTestType in CoronaTestType.allCases {
-			Log.info("[CoronaTestService] Requesting TestResult for test type \(coronaTestType)…", log: .api)
-
 			group.enter()
-			updateTestResult(for: coronaTestType, force: force) { [weak self] result in
+
+			updateTestResult(for: coronaTestType, force: force, presentNotification: presentNotification) { result in
 				switch result {
 				case .failure(let error):
 					Log.error(error.localizedDescription, log: .api)
 					errors.append(error)
-				case .success(.pending), .success(.expired):
-					// Do not trigger notifications for pending or expired results.
-					Log.info("[CoronaTestService] TestResult pending or expired", log: .api)
-				case .success(let testResult):
-					Log.info("[CoronaTestService] Triggering Notification to inform user about TestResult: \(testResult.stringValue)", log: .api)
-
-					if presentNotification {
-						// We attach the test result and type to determine which screen to show when user taps the notification
-						self?.notificationCenter.presentNotification(
-							title: AppStrings.LocalNotifications.testResultsTitle,
-							body: AppStrings.LocalNotifications.testResultsBody,
-							identifier: ActionableNotificationIdentifier.testResult.identifier,
-							info: [
-								ActionableNotificationIdentifier.testResult.identifier: testResult.rawValue,
-								ActionableNotificationIdentifier.testResultType.identifier: coronaTestType.rawValue
-							]
-						)
-					}
+				case .success:
+					break
 				}
 
 				group.leave()
@@ -260,10 +243,15 @@ class CoronaTestService {
 		}
 	}
 
-	func updateTestResult(for coronaTestType: CoronaTestType, force: Bool = true, completion: @escaping TestResultHandler) {
+	func updateTestResult(
+		for coronaTestType: CoronaTestType,
+		force: Bool = true,
+		presentNotification: Bool = false,
+		completion: @escaping TestResultHandler
+	) {
 		Log.info("[CoronaTestService] Updating test result (coronaTestType: \(coronaTestType))", log: .api)
 
-		getTestResult(for: coronaTestType, force: force, duringRegistration: false) { result in
+		getTestResult(for: coronaTestType, force: force, duringRegistration: false, presentNotification: presentNotification) { result in
 			self.fakeRequestService.fakeVerificationAndSubmissionServerRequest {
 				completion(result)
 			}
@@ -477,6 +465,7 @@ class CoronaTestService {
 		for coronaTestType: CoronaTestType,
 		force: Bool = true,
 		duringRegistration: Bool,
+		presentNotification: Bool = false,
 		_ completion: @escaping TestResultHandler
 	) {
 		Log.info("[CoronaTestService] Getting test result (coronaTestType: \(coronaTestType), duringRegistration: \(duringRegistration))", log: .api)
@@ -560,6 +549,21 @@ class CoronaTestService {
 							self.pcrTest?.finalTestResultReceivedDate = Date()
 						case .antigen:
 							self.antigenTest?.finalTestResultReceivedDate = Date()
+						}
+
+						if presentNotification {
+							Log.info("[CoronaTestService] Triggering Notification (coronaTestType: \(coronaTestType), testResult: \(testResult))", log: .api)
+
+							// We attach the test result and type to determine which screen to show when user taps the notification
+							self.notificationCenter.presentNotification(
+								title: AppStrings.LocalNotifications.testResultsTitle,
+								body: AppStrings.LocalNotifications.testResultsBody,
+								identifier: ActionableNotificationIdentifier.testResult.identifier,
+								info: [
+									ActionableNotificationIdentifier.testResult.identifier: testResult.rawValue,
+									ActionableNotificationIdentifier.testResultType.identifier: coronaTestType.rawValue
+								]
+							)
 						}
 					}
 

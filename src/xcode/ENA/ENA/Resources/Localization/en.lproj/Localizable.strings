@@ -614,7 +614,9 @@
 
 "ExposureSubmissionSuccess_listTitle" = "Please note:";
 
-"ExposureSubmissionSuccess_listItem1" = "The public health authority will contact you within the next few days.";
+"ExposureSubmissionSuccess_listItem0" = "Take a PCR test to verify this test result. ";
+
+"ExposureSubmissionSuccess_listItem1" = "The public health authority will contact you within the next few days by telephone or by letter.";
 
 "ExposureSubmissionSuccess_listItem2" = "You are infectious. Isolate yourself from other people.";
 
@@ -1734,7 +1736,7 @@
 
 "ContactDiary_AddEditEntry_LocationPlaceholder_PhoneNumber" = "Phone";
 
-"ContactDiary_AddEditEntry_LocationPlaceholder_EmailAddress" = "e-mail";
+"ContactDiary_AddEditEntry_LocationPlaceholder_EmailAddress" = "E-mail";
 
 /* - Person */
 "ContactDiary_AddEditEntry_PersonTitle" = "Person";
@@ -1743,7 +1745,7 @@
 
 "ContactDiary_AddEditEntry_PersonPlaceholder_PhoneNumber" = "Phone";
 
-"ContactDiary_AddEditEntry_PersonPlaceholder_EmailAddress" = "e-mail";
+"ContactDiary_AddEditEntry_PersonPlaceholder_EmailAddress" = "E-mail";
 
 /* - Trend on Cards */
 "Statistics_Card_Trend_Increasing" = "Trend: Upwards";
