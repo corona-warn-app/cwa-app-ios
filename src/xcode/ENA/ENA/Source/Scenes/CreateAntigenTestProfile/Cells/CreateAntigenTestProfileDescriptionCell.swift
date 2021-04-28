@@ -6,6 +6,14 @@ import UIKit
 
 class CreateAntigenTestProfileDescriptionCell: UITableViewCell, ReuseIdentifierProviding {
 		
+	// MARK: - Init
+	
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+	
+	// MARK: - Overrides
+	
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 
@@ -25,9 +33,5 @@ class CreateAntigenTestProfileDescriptionCell: UITableViewCell, ReuseIdentifierP
 			label.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 6),
 			label.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -2)
 		])
-	}
-	
-	required init?(coder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
 	}
 }

@@ -6,16 +6,13 @@ import UIKit
 
 class CreateAntigenTestProfileInputCell: UITableViewCell, ReuseIdentifierProviding {
 		
-	var birthdayPicker: UIDatePicker!
-	var textFields = [UITextField]()
-	var firstNameTextField: ENATextField!
-	var lastNameTextField: ENATextField!
-	var birthDateNameTextField: ENATextField!
-	var addressLineTextField: ENATextField!
-	var postalCodeTextField: ENATextField!
-	var cityTextField: ENATextField!
-	var phoneNumberTextField: ENATextField!
-	var emailAddressTextField: ENATextField!
+	// MARK: - Init
+	
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+	
+	// MARK: - Overrides
 	
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -133,10 +130,21 @@ class CreateAntigenTestProfileInputCell: UITableViewCell, ReuseIdentifierProvidi
 		])
 	}
 	
-	required init?(coder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
-	}
+	// MARK: - Internal
 	
+	var birthdayPicker: UIDatePicker!
+	var textFields = [UITextField]()
+	var firstNameTextField: ENATextField!
+	var lastNameTextField: ENATextField!
+	var birthDateNameTextField: ENATextField!
+	var addressLineTextField: ENATextField!
+	var postalCodeTextField: ENATextField!
+	var cityTextField: ENATextField!
+	var phoneNumberTextField: ENATextField!
+	var emailAddressTextField: ENATextField!
+	
+	// MARK: - Private
+
 	private func textField () -> ENATextField {
 		let textField = ENATextField(frame: .zero)
 		textField.autocorrectionType = .no
