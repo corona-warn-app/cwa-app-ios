@@ -366,6 +366,36 @@ class ENAUITests_01_Home: XCTestCase {
 		snapshot("details_screen_risk_level_\(riskLevel)_risk_one_day_installation_\(installationDays)days_\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
 	
+	func test_screenshot_homescreen_pcr_rat_negative() throws {
+		var screenshotCounter = 0
+		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
+		app.launchArguments.append(contentsOf: ["-pcrTestResult", TestResult.negative.stringValue])
+		app.launchArguments.append(contentsOf: ["-antigenTestResult", TestResult.negative.stringValue])
+		app.launch()
+
+		XCTAssertTrue(app.cells.element(boundBy: 3).waitForExistence(timeout: .medium))
+		
+		snapshot("homescreenrisk_show_pcr_rat_negative_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		app.swipeUp(velocity: .slow)
+		snapshot("homescreenrisk_show_pcr_rat_negative_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		app.swipeUp(velocity: .slow)
+		snapshot("homescreenrisk_show_pcr_rat_negative_\(String(format: "%04d", (screenshotCounter.inc() )))")
+	}
+	
+	func test_screenshot_homescreen_pcr_rat_positive() throws {
+		var screenshotCounter = 0
+		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
+		app.launchArguments.append(contentsOf: ["-pcrTestResult", TestResult.positive.stringValue])
+		app.launchArguments.append(contentsOf: ["-antigenTestResult", TestResult.positive.stringValue])
+		app.launch()
+
+		snapshot("homescreenrisk_show_pcr_rat_positive_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		app.swipeUp(velocity: .slow)
+		snapshot("homescreenrisk_show_pcr_rat_positive_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		app.swipeUp(velocity: .slow)
+		snapshot("homescreenrisk_show_pcr_rat_positive_\(String(format: "%04d", (screenshotCounter.inc() )))")
+	}
+	
 	func test_screenshot_homescreen_thankyou_screen() throws {
 		var screenshotCounter = 0
 		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
