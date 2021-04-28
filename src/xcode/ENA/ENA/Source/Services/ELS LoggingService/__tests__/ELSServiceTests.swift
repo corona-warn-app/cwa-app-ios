@@ -10,8 +10,9 @@ class ELSServiceTests: XCTestCase {
 	func testGIVEN_ELSService_WHEN_UploadIsTriggered_THEN_HappyCaseAllSucceeds() throws {
 		// GIVEN
 		let elsService = createELSService()
+		// need at least no empty log file
+		elsService.startLogging()
 		let testExpectation = expectation(description: "Test should success expectation")
-
 		var expectedResponse: LogUploadResponse?
 		
 		// WHEN
@@ -38,30 +39,10 @@ class ELSServiceTests: XCTestCase {
 	
 	func testGIVEN_ELSService_WHEN_UploadIsTriggered_THEN_PPACErrorIsReturned() throws {
 		// GIVEN
-		let store = MockTestStore()
-		let client = ClientMock()
-		
+		let elsService = createELSService(ppacSucceeds: false)
+		// need at least no empty log file
+		elsService.startLogging()
 		let testExpectation = expectation(description: "Test should fail expectation")
-
-		let deviceCheck = PPACDeviceCheckMock(false, deviceToken: "iPhone")
-		
-		let ppacService = PPACService(
-			store: store,
-			deviceCheck: deviceCheck
-		)
-		let riskProvider = MockRiskProvider()
-		let otpService = OTPService(
-			store: store,
-			client: client,
-			riskProvider: riskProvider
-		)
-		
-		let elsService = ErrorLogSubmissionService(
-			client: client,
-			store: store,
-			ppacService: ppacService,
-			otpService: otpService
-		)
 		var expectedError: ELSError?
 
 		// WHEN
@@ -86,12 +67,14 @@ class ELSServiceTests: XCTestCase {
 	}
 	
 	func testGIVEN_ELSService_WHEN_UploadIsTriggered_THEN_OTPErrorIsReturned() throws {
-
+		// GIVEN
 		let client = ClientMock()
 		client.onGetOTPEls = { _, _, completion in
 			completion(.failure(OTPError.otherServerError))
 		}
 		let elsService = createELSService(client: client)
+		// need at least no empty log file
+		elsService.startLogging()
 		let testExpectation = expectation(description: "Test should fail expectation")
 		
 		var expectedError: ELSError?
@@ -119,6 +102,8 @@ class ELSServiceTests: XCTestCase {
 	
 	func testGIVEN_ELSService_WHEN_UploadIsTriggered_THEN_CouldNotReadLogfileIsReturned() throws {
 		let elsService = createELSService()
+		// need at least no empty log file
+		elsService.startLogging()
 		// we don't care about the result, just ensuring 'clean' logs
 		try? elsService.stopAndDeleteLog()
 
@@ -152,11 +137,12 @@ class ELSServiceTests: XCTestCase {
 	// This thing currently doesn't handle all customizations
 	private func createELSService(
 		store: Store & PPAnalyticsData = MockTestStore(),
-		client: ClientMock = ClientMock()
+		client: ClientMock = ClientMock(),
+		ppacSucceeds: Bool = true
 	) -> ErrorLogSubmissionService {
 
 		#if targetEnvironment(simulator)
-		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
+		let deviceCheck = PPACDeviceCheckMock(ppacSucceeds, deviceToken: "iPhone")
 		#else
 		let deviceCheck = PPACDeviceCheck()
 		#endif
