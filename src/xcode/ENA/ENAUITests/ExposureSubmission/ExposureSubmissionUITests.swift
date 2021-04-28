@@ -56,7 +56,9 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmissionHotline.tanInputButtonTitle"].waitForExistence(timeout: 2.0))
 	}
 
-	func test_QRCodeScanOpened() throws {
+	func test_SubmitWithQRCode() throws {
+		app.launchArguments.append(contentsOf: ["-pcrTestResultResponse", TestResult.positive.stringValue])
+
 		launch()
 
 		// -> Open Intro screen
@@ -77,6 +79,18 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 
 		// QR Code Scanner Screen
 		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
+
+		// Continue on "Test Result Available" Screen
+		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
+		app.buttons["General.primaryFooterButton"].tap()
+
+		// Open Test Result screen.
+		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
+		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
+
+		// Back to homescreen
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].isHittable)
 	}
 	
 	func test_Switch_consentSubmission() {
