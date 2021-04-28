@@ -15,7 +15,7 @@ enum Route {
 		}
 		self.init(url: url)
 	}
-
+	// swiftlint:disable:next cyclomatic_complexity
 	init?(url: URL) {
 		let components = URLComponents(url: url, resolvingAgainstBaseURL: true)
 		guard let host = components?.host?.lowercased() else {
@@ -32,15 +32,19 @@ enum Route {
 			}
 
 			// extract payload
-			guard let testInformation = AntigenTestInformation(payload: payloadUrl),
-				  testInformation.hash.range(
-					of: #"^[0-9A-Fa-f]{64}$"#,
-					options: .regularExpression
-				  ) != nil,
-				  testInformation.timestamp >= 0
-			else {
-				self = .rapidAntigen( .failure(.invalidTestCode))
-				Log.error("Antigen test data is not, either timeStamp is -ve or the hash is invalid", log: .qrCode)
+			guard let testInformation = AntigenTestInformation(payload: payloadUrl) else {
+				self = .rapidAntigen( .failure(.invalidTestCode(.invalidPayload)))
+				Log.error("Antigen test data is nil, either timeStamp is -ve or the hash is invalid", log: .qrCode)
+				return
+			}
+			guard testInformation.hash.range(of: #"^[0-9A-Fa-f]{64}$"#, options: .regularExpression) != nil  else {
+				self = .rapidAntigen( .failure(.invalidTestCode(.invalidHash)))
+				Log.error("Antigen test data is nil, either timeStamp is -ve or the hash is invalid", log: .qrCode)
+				return
+			}
+			guard  testInformation.timestamp >= 0 else {
+				self = .rapidAntigen( .failure(.invalidTestCode(.invalidTimeStamp)))
+				Log.error("Antigen test data is nil, either timeStamp is -ve or the hash is invalid", log: .qrCode)
 				return
 			}
 			let allIsNil = testInformation.firstName == nil && testInformation.firstName == nil && testInformation.dateOfBirthString == nil
@@ -48,7 +52,7 @@ enum Route {
 			let allIsValid = testInformation.firstName != nil && testInformation.firstName != nil && testInformation.dateOfBirth != nil
 			
 			guard allIsNil || allIsValid else {
-				self = .rapidAntigen( .failure(.invalidTestCode))
+				self = .rapidAntigen( .failure(.invalidTestCode(.invalidTestedPersonInformation)))
 				Log.error("Antigen test data is not valid: all values are nil? \(allIsNil), all values are valid? \(allIsValid)", log: .qrCode)
 				return
 			}
