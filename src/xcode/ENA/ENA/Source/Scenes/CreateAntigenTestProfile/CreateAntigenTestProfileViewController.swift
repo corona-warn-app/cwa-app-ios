@@ -43,17 +43,17 @@ class CreateAntigenTestProfileViewController: UITableViewController, FooterViewH
 	}
 	
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return 2
+		return Row.allCases.count
 	}
 	
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		switch indexPath.row {
-		case 0:
+		switch Row(rawValue: indexPath.row) {
+		case .description:
 			guard let cell = tableView.dequeueReusableCell(withIdentifier: CreateAntigenTestProfileDescriptionCell.reuseIdentifier, for: indexPath) as? CreateAntigenTestProfileDescriptionCell else {
 				fatalError("Wrong cell")
 			}
 			return cell
-		case 1:
+		case .inputFields:
 			guard let cell = tableView.dequeueReusableCell(withIdentifier: CreateAntigenTestProfileInputCell.reuseIdentifier, for: indexPath) as? CreateAntigenTestProfileInputCell else {
 				fatalError("Wrong cell")
 			}
@@ -99,8 +99,8 @@ class CreateAntigenTestProfileViewController: UITableViewController, FooterViewH
 			cell.emailAddressTextField.delegate = self
 			cell.emailAddressTextField.addTarget(self, action: #selector(emailAddressTextFieldDidChange(textField:)), for: .editingChanged)
 			return cell
-		default:
-			fatalError("Too many cells")
+		case .none:
+			fatalError("Could not init `Row` from indexPath.row")
 		}
 	}
 	
@@ -134,6 +134,13 @@ class CreateAntigenTestProfileViewController: UITableViewController, FooterViewH
 			textField.resignFirstResponder()
 		}
 		return true
+	}
+	
+	// MARK: - Private
+	
+	enum Row: Int, CaseIterable {
+		case description
+		case inputFields
 	}
 
 	// MARK: - Private
