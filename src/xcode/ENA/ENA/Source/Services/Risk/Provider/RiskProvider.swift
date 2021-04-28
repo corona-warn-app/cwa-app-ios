@@ -526,14 +526,13 @@ private extension RiskConsumer {
 extension RiskProvider {
 	private func _requestRiskLevel_Mock(userInitiated: Bool) {
 		let risk = Risk.mocked
-
 		let dateFormatter = ISO8601DateFormatter.contactDiaryUTCFormatter
 		let todayString = dateFormatter.string(from: Date())
 		guard let today = dateFormatter.date(from: todayString),
 			  let someDaysAgo = Calendar.current.date(byAdding: .day, value: -3, to: today) else {
 			fatalError("Could not create date test data for riskLevelPerDate.")
 		}
-
+		let calculationDate = Calendar.autoupdatingCurrent.date(bySettingHour: 9, minute: 6, second: 0, of: Date()) ?? Date()
 		switch risk.level {
 		case .high:
 			store.enfRiskCalculationResult = ENFRiskCalculationResult(
@@ -544,7 +543,7 @@ extension RiskProvider {
 				mostRecentDateWithHighRisk: risk.details.mostRecentDateWithRiskLevel,
 				numberOfDaysWithLowRisk: risk.details.numberOfDaysWithRiskLevel,
 				numberOfDaysWithHighRisk: risk.details.numberOfDaysWithRiskLevel,
-				calculationDate: Date(),
+				calculationDate: calculationDate,
 				riskLevelPerDate: [
 					today: .high,
 					someDaysAgo: .low
@@ -553,6 +552,11 @@ extension RiskProvider {
 					today: 1,
 					someDaysAgo: 1
 				]
+			)
+			store.checkinRiskCalculationResult = CheckinRiskCalculationResult(
+				calculationDate: calculationDate,
+				checkinIdsWithRiskPerDate: [:],
+				riskLevelPerDate: [:]
 			)
 		default:
 			store.enfRiskCalculationResult = ENFRiskCalculationResult(
@@ -563,7 +567,7 @@ extension RiskProvider {
 				mostRecentDateWithHighRisk: risk.details.mostRecentDateWithRiskLevel,
 				numberOfDaysWithLowRisk: risk.details.numberOfDaysWithRiskLevel,
 				numberOfDaysWithHighRisk: 0,
-				calculationDate: Date(),
+				calculationDate: calculationDate,
 				riskLevelPerDate: [
 					today: .low,
 					someDaysAgo: .low
@@ -572,6 +576,11 @@ extension RiskProvider {
 					today: 1,
 					someDaysAgo: 1
 				]
+			)
+			store.checkinRiskCalculationResult = CheckinRiskCalculationResult(
+				calculationDate: calculationDate,
+				checkinIdsWithRiskPerDate: [:],
+				riskLevelPerDate: [:]
 			)
 		}
 		successOnTargetQueue(risk: risk)
