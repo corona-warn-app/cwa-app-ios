@@ -88,6 +88,14 @@ enum AppStrings {
 		}
 
 		enum AntigenTest {
+
+			enum Information {
+				static let title = NSLocalizedString("ExposureSubmission_Antigen_Profile_Information_Title", comment: "")
+				static let imageDescription = NSLocalizedString("ExposureSubmission_Antigen_Profile_Information_Image_Description", comment: "")
+				static let descriptionTitle = NSLocalizedString("ExposureSubmission_Antigen_Profile_Information_Description_Title", comment: "")
+				static let descriptionSubHeadline = NSLocalizedString("ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline", comment: "")
+			}
+
 			enum Profile {
 				static let headerText = NSLocalizedString("ExposureSubmission_Antigen_Profile_Header_Text", comment: "")
 				static let QRCodeImageDescription = NSLocalizedString("ExposureSubmission_Antigen_Profile_QRCode_Image_Description", comment: "")

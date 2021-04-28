@@ -22,7 +22,7 @@ struct AntigenTestProfileInformationViewModel {
 
 	// MARK: - Internal
 
-	let title: String = "Schnelltest-Profil"
+	let title: String = AppStrings.ExposureSubmission.AntigenTest.Information.title
 
 	func markScreenSeen() {
 		#if DEBUG
@@ -41,35 +41,22 @@ struct AntigenTestProfileInformationViewModel {
 						UIImage(
 							imageLiteralResourceName: "Illu_Antigentest_Profil"
 						),
-						accessibilityLabel: AppStrings.Checkins.Information.imageDescription,
-						accessibilityIdentifier: AccessibilityIdentifiers.Checkin.Information.imageDescription
+						accessibilityLabel: AppStrings.ExposureSubmission.AntigenTest.Information.imageDescription,
+						accessibilityIdentifier: AccessibilityIdentifiers.Checkin.Information.imageDescription,
+						height: 144.0
 					),
 				cells: [
 					.title2(
-						text: AppStrings.Checkins.Information.descriptionTitle,
+						text: AppStrings.ExposureSubmission.AntigenTest.Information.descriptionTitle,
 						accessibilityIdentifier: AccessibilityIdentifiers.Checkin.Information.descriptionTitle
 					),
 					.subheadline(
-						text: AppStrings.Checkins.Information.descriptionSubHeadline,
+						text: AppStrings.ExposureSubmission.AntigenTest.Information.descriptionSubHeadline,
 						accessibilityIdentifier: AccessibilityIdentifiers.Checkin.Information.descriptionSubHeadline
 					),
 					.space(
 						height: 15.0,
 						color: .enaColor(for: .background)
-					),
-					.icon(
-						UIImage(imageLiteralResourceName: "Icons_CheckInRiskStatus"),
-						text: .string(AppStrings.Checkins.Information.itemRiskStatusTitle),
-						alignment: .top
-					),
-					.space(
-						height: 15.0,
-						color: .enaColor(for: .background)
-					),
-					.icon(
-						UIImage(imageLiteralResourceName: "Icons_Diary_Deleted_Automatically"),
-						text: .string(AppStrings.Checkins.Information.itemTimeTitle),
-						alignment: .top
 					)
 				]
 			),
