@@ -563,7 +563,7 @@ extension RiskProvider {
 				mostRecentDateWithHighRisk: risk.details.mostRecentDateWithRiskLevel,
 				numberOfDaysWithLowRisk: risk.details.numberOfDaysWithRiskLevel,
 				numberOfDaysWithHighRisk: 0,
-				calculationDate: Date(),
+				calculationDate: Calendar.autoupdatingCurrent.date(bySettingHour: 9, minute: 6, second: 0, of: Date()) ?? Date(),
 				riskLevelPerDate: [
 					today: .low,
 					someDaysAgo: .low
