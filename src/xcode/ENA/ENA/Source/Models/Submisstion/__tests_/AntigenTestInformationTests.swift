@@ -18,7 +18,9 @@ class AntigenTestInformationTests: XCTestCase {
 			timestamp: 123456789,
 			firstName: "Thomase",
 			lastName: "Mustermann",
-			dateOfBirth: date
+			dateOfBirth: date,
+			testID: "123",
+			cryptographicSalt: "456"
 		)
 		let encoder = JSONEncoder()
 		let payloadData = try encoder.encode(antigenTestInformation).base64EncodedData()

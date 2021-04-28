@@ -11,6 +11,8 @@ extension AntigenTestInformation {
 		timestamp: Int = 5,
 		firstName: String? = nil,
 		lastName: String? = nil,
+		cryptographicSalt: String? = nil,
+		testID: String? = nil,
 		dateOfBirth: Date? = nil
 	) -> Self? {
 		AntigenTestInformation(
@@ -18,7 +20,9 @@ extension AntigenTestInformation {
 			timestamp: timestamp,
 			firstName: firstName,
 			lastName: lastName,
-			dateOfBirth: dateOfBirth
+			dateOfBirth: dateOfBirth,
+			testID: testID,
+			cryptographicSalt: cryptographicSalt
 		)
 	}
 }
