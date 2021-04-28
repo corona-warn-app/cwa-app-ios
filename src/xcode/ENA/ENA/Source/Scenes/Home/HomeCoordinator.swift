@@ -51,21 +51,21 @@ class HomeCoordinator: RequiresAppDependencies {
 		let useMockDataForStatistics = UserDefaults.standard.string(forKey: "useMockDataForStatistics")
 		if isUITesting, useMockDataForStatistics != "NO" {
 			return StatisticsProvider(
-				client: CachingHTTPClientMock(store: store),
+				client: CachingHTTPClientMock(),
 				store: store
 			)
 		}
 		#endif
 
 		return StatisticsProvider(
-			client: CachingHTTPClient(serverEnvironmentProvider: store),
+			client: CachingHTTPClient(),
 			store: store
 		)
 	}()
 	
 	private lazy var qrCodePosterTemplateProvider: QRCodePosterTemplateProvider = {
 		return QRCodePosterTemplateProvider(
-			client: CachingHTTPClient(serverEnvironmentProvider: store),
+			client: CachingHTTPClient(),
 			store: store
 		)
 	}()
@@ -214,7 +214,7 @@ class HomeCoordinator: RequiresAppDependencies {
 			exposureManager: exposureManager,
 			developerStore: UserDefaults.standard,
 			exposureSubmissionService: exposureSubmissionService,
-			serverEnvironment: serverEnvironment,
+			environmentProvider: Environments(),
 			otpService: otpService,
 			coronaTestService: coronaTestService,
 			eventStore: eventStore,
@@ -282,7 +282,8 @@ class HomeCoordinator: RequiresAppDependencies {
 			parentNavigationController: rootViewController,
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: coronaTestService,
-			eventProvider: eventStore
+			eventProvider: eventStore,
+			antigenTestProfileStore: store
 		)
 
 		if let testInformationResult = testInformationResult {

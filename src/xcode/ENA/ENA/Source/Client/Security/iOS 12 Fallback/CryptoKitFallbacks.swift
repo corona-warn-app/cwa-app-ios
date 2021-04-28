@@ -170,14 +170,21 @@ protocol PublicKeyProtocol {
 
 /// Very naïve implementation of `P256.Signing.PublicKey` used as data container.
 struct PublicKey: PublicKeyProtocol {
+
+	enum Error: Swift.Error {
+		case publicKeyInitFailed
+	}
+
 	let rawRepresentation: Data
 	let x963Representation: Data
 
 	/// Initializes a PublicKey from a given key string.
 	/// - Parameters:
 	///   - pkString: A string representation of the public key to store
-	init(with pkString: StaticString) {
-		let rawData = Data(staticBase64Encoded: pkString)
+	init(with pkString: String) throws {
+		guard let rawData = Data(base64Encoded: pkString) else {
+			throw Error.publicKeyInitFailed
+		}
 		self.init(rawRepresentation: rawData)
 	}
 

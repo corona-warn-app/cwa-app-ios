@@ -174,6 +174,7 @@ final class DMLogsViewController: UIViewController {
 
 	private func updateTextView() {
 		guard let selectedSegment = LogSegment(rawValue: segmentedControl.selectedSegmentIndex) else {
+			Log.warning("Couldn't fetch the requested segment for index: \(segmentedControl.selectedSegmentIndex)", log: .default)
 			return
 		}
 
@@ -184,6 +185,7 @@ final class DMLogsViewController: UIViewController {
 			if let osLogType = selectedSegment.osLogType {
 				reader = try fileLogger.logReader(for: osLogType)
 			} else {
+				Log.warning("the osLogType for the selected segment is nil", log: .default)
 				reader = try fileLogger.logReader()
 			}
 			var text = ""
@@ -198,7 +200,7 @@ final class DMLogsViewController: UIViewController {
 			// However I leave it in for two reasons:
 			// 1. this view might get a refactoring later™ (https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-5426)
 			// 2. this is better than the current start at the top of a potentially very long log
-			textView.scrollRangeToVisible(NSRange(location: textView.text.count - 1, length: 1))
+			textView.scrollRangeToVisible(NSRange(location: textView.text.count, length: 0))
 		} catch {
 			Log.error("Error while displaying logs: \(error)", log: .default, error: error)
 		}

@@ -59,7 +59,7 @@ final class TanInputViewModel {
 	func submitTan() {
 		// isChecksumValid will perfome isValid internal
 		guard isChecksumValid else {
-			Log.debug("tried to submit tan \(text), but it is invalid")
+			Log.debug("tried to submit tan \(private: text, public: "TeleTan ID"), but it is invalid")
 			return
 		}
 

@@ -17,7 +17,7 @@ class HomeTableViewModelTests: XCTestCase {
 				exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 				enState: .enabled,
 				statisticsProvider: StatisticsProvider(
-					client: CachingHTTPClientMock(store: store),
+					client: CachingHTTPClientMock(),
 					store: store
 				)
 			),
@@ -81,7 +81,7 @@ class HomeTableViewModelTests: XCTestCase {
 				exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 				enState: .enabled,
 				statisticsProvider: StatisticsProvider(
-					client: CachingHTTPClientMock(store: store),
+					client: CachingHTTPClientMock(),
 					store: store
 				)
 			),
@@ -114,7 +114,7 @@ class HomeTableViewModelTests: XCTestCase {
 				exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 				enState: .enabled,
 				statisticsProvider: StatisticsProvider(
-					client: CachingHTTPClientMock(store: store),
+					client: CachingHTTPClientMock(),
 					store: store
 				)
 			),
@@ -141,7 +141,7 @@ class HomeTableViewModelTests: XCTestCase {
 				exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 				enState: .enabled,
 				statisticsProvider: StatisticsProvider(
-					client: CachingHTTPClientMock(store: store),
+					client: CachingHTTPClientMock(),
 					store: store
 				)
 			),
@@ -175,7 +175,7 @@ class HomeTableViewModelTests: XCTestCase {
 				exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 				enState: .enabled,
 				statisticsProvider: StatisticsProvider(
-					client: CachingHTTPClientMock(store: store),
+					client: CachingHTTPClientMock(),
 					store: store
 				)
 			),

@@ -100,7 +100,7 @@ class CountdownTimer {
 // MARK: - CountdownTimerDelegate.
 
 /// Provides callback methods that are called once per second (`update(_)`) until the countdown has finished.
-protocol CountdownTimerDelegate: class {
+protocol CountdownTimerDelegate: AnyObject {
 	func countdownTimer(_ timer: CountdownTimer, didUpdate time: String)
 	func countdownTimer(_ timer: CountdownTimer, didEnd done: Bool)
 }
