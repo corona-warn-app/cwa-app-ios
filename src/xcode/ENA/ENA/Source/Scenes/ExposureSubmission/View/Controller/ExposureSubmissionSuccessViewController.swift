@@ -11,8 +11,10 @@ class ExposureSubmissionSuccessViewController: DynamicTableViewController, ENANa
 	// MARK: - Init
 	
 	init(
+		coronaTestType: CoronaTestType,
 		dismiss: @escaping () -> Void
 	) {
+		self.coronaTestType = coronaTestType
 		self.dismiss = dismiss
 		
 		super.init(nibName: nil, bundle: nil)
@@ -63,7 +65,8 @@ class ExposureSubmissionSuccessViewController: DynamicTableViewController, ENANa
 	// MARK: - Internal
 	
 	// MARK: - Private
-	
+
+	private let coronaTestType: CoronaTestType
 	private let dismiss: () -> Void
 	
 	private lazy var navigationFooterItem: ENANavigationFooterItem = {
@@ -81,7 +84,58 @@ class ExposureSubmissionSuccessViewController: DynamicTableViewController, ENANa
 		tableView.separatorStyle = .none
 
 		tableView.register(ExposureSubmissionStepCell.self, forCellReuseIdentifier: CustomCellReuseIdentifiers.stepCell.rawValue)
-		
+
+		var cells: [DynamicCell] = [
+			.body(
+				text: AppStrings.ExposureSubmissionSuccess.description,
+				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionSuccess.description
+			),
+			.title2(
+				text: AppStrings.ExposureSubmissionSuccess.listTitle,
+				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionSuccess.listTitle
+			)
+		]
+
+		if coronaTestType == .antigen {
+			cells.append(
+				ExposureSubmissionDynamicCell.stepCell(
+					style: .body,
+					title: AppStrings.ExposureSubmissionSuccess.listItem0,
+					icon: UIImage(named: "Icons - Test Tube"),
+					iconTint: .enaColor(for: .riskHigh),
+					hairline: .none,
+					bottomSpacing: .normal
+				)
+			)
+		}
+
+		cells.append(contentsOf: [
+			ExposureSubmissionDynamicCell.stepCell(
+				style: .body,
+				title: AppStrings.ExposureSubmissionSuccess.listItem1,
+				icon: UIImage(named: "Icons - Hotline"),
+				iconTint: .enaColor(for: .riskHigh),
+				hairline: .none,
+				bottomSpacing: .normal
+			),
+			ExposureSubmissionDynamicCell.stepCell(
+				style: .body,
+				title: AppStrings.ExposureSubmissionSuccess.listItem2,
+				icon: UIImage(named: "Icons - Home"),
+				iconTint: .enaColor(for: .riskHigh),
+				hairline: .none,
+				bottomSpacing: .large
+			),
+			.title2(
+				text: AppStrings.ExposureSubmissionSuccess.subTitle,
+				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionSuccess.subTitle
+			),
+			.bulletPoint(text: AppStrings.ExposureSubmissionSuccess.listItem2_1, spacing: .large),
+			.bulletPoint(text: AppStrings.ExposureSubmissionSuccess.listItem2_2, spacing: .large),
+			.bulletPoint(text: AppStrings.ExposureSubmissionSuccess.listItem2_3, spacing: .large),
+			.bulletPoint(text: AppStrings.ExposureSubmissionSuccess.listItem2_4, spacing: .large)
+		])
+
 		dynamicTableViewModel = DynamicTableViewModel(
 			[
 				.section(
@@ -91,37 +145,7 @@ class ExposureSubmissionSuccessViewController: DynamicTableViewController, ENANa
 						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionSuccess.accImageDescription
 					),
 					separators: .none,
-					cells: [
-						.body(text: AppStrings.ExposureSubmissionSuccess.description,
-							  accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionSuccess.description),
-						.title2(text: AppStrings.ExposureSubmissionSuccess.listTitle,
-								accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionSuccess.listTitle),
-						
-						ExposureSubmissionDynamicCell.stepCell(
-							style: .body,
-							title: AppStrings.ExposureSubmissionSuccess.listItem1,
-							icon: UIImage(named: "Icons - Hotline"),
-							iconTint: .enaColor(for: .riskHigh),
-							hairline: .none,
-							bottomSpacing: .normal
-						),
-						ExposureSubmissionDynamicCell.stepCell(
-							style: .body,
-							title: AppStrings.ExposureSubmissionSuccess.listItem2,
-							icon: UIImage(named: "Icons - Home"),
-							iconTint: .enaColor(for: .riskHigh),
-							hairline: .none,
-							bottomSpacing: .large
-						),
-						
-						.title2(text: AppStrings.ExposureSubmissionSuccess.subTitle,
-								accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionSuccess.subTitle),
-						
-						.bulletPoint(text: AppStrings.ExposureSubmissionSuccess.listItem2_1, spacing: .large),
-						.bulletPoint(text: AppStrings.ExposureSubmissionSuccess.listItem2_2, spacing: .large),
-						.bulletPoint(text: AppStrings.ExposureSubmissionSuccess.listItem2_3, spacing: .large),
-						.bulletPoint(text: AppStrings.ExposureSubmissionSuccess.listItem2_4, spacing: .large)
-					]
+					cells: cells
 				)
 			]
 		)

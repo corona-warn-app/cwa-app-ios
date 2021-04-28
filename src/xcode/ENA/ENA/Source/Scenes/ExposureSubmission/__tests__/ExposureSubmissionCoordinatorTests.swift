@@ -38,7 +38,8 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 			parentNavigationController: parentNavigationController,
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: coronaTestService,
-			eventProvider: MockEventStore()
+			eventProvider: MockEventStore(),
+			antigenTestProfileStore: store
 		)
 	}
 
@@ -79,7 +80,7 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 		
 		let section2 = vc.dynamicTableViewModel.section(1)
 		XCTAssertNotNil(section2)
-		XCTAssertEqual(section2.cells.count, 4)
+		XCTAssertEqual(section2.cells.count, 5)
 
 	}
 

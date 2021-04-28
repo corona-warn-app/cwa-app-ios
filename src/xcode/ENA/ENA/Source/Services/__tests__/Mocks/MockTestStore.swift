@@ -111,6 +111,11 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var pcrTest: PCRTest?
 	var antigenTest: AntigenTest?
 
+
+	// MARK: - AntigenTestProfileStoring
+	var antigenTestProfile: AntigenTestProfile?
+	var antigenTestProfileInfoScreenShown: Bool = false
+
 	// MARK: - CoronaTestStoringLegacy
 
 	var registrationToken: String?
@@ -125,7 +130,6 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var lastSuccessfulSubmitDiagnosisKeyTimestamp: Int64?
 	var positiveTestResultWasShown: Bool = false
 	var isSubmissionConsentGiven = false
-	var antigenTestProfile: AntigenTestProfile?
 }
 
 #endif

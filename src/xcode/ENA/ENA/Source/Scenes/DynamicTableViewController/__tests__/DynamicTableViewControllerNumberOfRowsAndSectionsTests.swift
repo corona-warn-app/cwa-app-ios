@@ -25,8 +25,7 @@ extension DynamicTableViewControllerNumberOfRowsAndSectionsTests {
 	func testNumberOfSections_returnsValueFromViewModel_withOneSection() {
 		// setup view model
 		let sections = [
-			DynamicSection.section(cells: [.headline(text: "Foo",
-													 accessibilityIdentifier: "Foo")])
+			DynamicSection.section(cells: [.headline(text: "Foo", accessibilityIdentifier: "Foo")])
 		]
 		sut.dynamicTableViewModel = DynamicTableViewModel(sections)
 		
@@ -39,12 +38,9 @@ extension DynamicTableViewControllerNumberOfRowsAndSectionsTests {
 	func testNumberOfSections_returnsValueFromViewModel_withThreeSections() {
 		// setup view model
 		let sections: [DynamicSection] = [
-			.section(cells: [.headline(text: "Foo",
-									   accessibilityIdentifier: "Foo")]),
-			.section(cells: [.headline(text: "Bar",
-									   accessibilityIdentifier: "Bar")]),
-			.section(cells: [.headline(text: "Baz",
-									   accessibilityIdentifier: "Baz")])
+			.section(cells: [.headline(text: "Foo", accessibilityIdentifier: "Foo")]),
+			.section(cells: [.headline(text: "Bar", accessibilityIdentifier: "Bar")]),
+			.section(cells: [.headline(text: "Baz", accessibilityIdentifier: "Baz")])
 		]
 		sut.dynamicTableViewModel = DynamicTableViewModel(sections)
 		
@@ -73,12 +69,9 @@ extension DynamicTableViewControllerNumberOfRowsAndSectionsTests {
 	func testNumberOfRows_returnsValueFromViewModel_withThreeCells() {
 		// setup view model
 		let cells: [DynamicCell] = [
-			.headline(text: "Foo",
-					  accessibilityIdentifier: "Foo"),
-			.headline(text: "Bar",
-					  accessibilityIdentifier: "Bar"),
-			.headline(text: "Baz",
-					  accessibilityIdentifier: "Baz")
+			.headline(text: "Foo", accessibilityIdentifier: "Foo"),
+			.headline(text: "Bar", accessibilityIdentifier: "Bar"),
+			.headline(text: "Baz", accessibilityIdentifier: "Baz")
 		]
 		sut.dynamicTableViewModel = DynamicTableViewModel([.section(cells: cells)])
 		
@@ -91,12 +84,9 @@ extension DynamicTableViewControllerNumberOfRowsAndSectionsTests {
 	func testNumberOfRows_returnsOne_forHiddenSection() {
 		// setup view model
 		let cells: [DynamicCell] = [
-			.headline(text: "Foo",
-					  accessibilityIdentifier: "Foo"),
-			.headline(text: "Bar",
-					  accessibilityIdentifier: "Bar"),
-			.headline(text: "Baz",
-					  accessibilityIdentifier: "Baz")
+			.headline(text: "Foo", accessibilityIdentifier: "Foo"),
+			.headline(text: "Bar", accessibilityIdentifier: "Bar"),
+			.headline(text: "Baz", accessibilityIdentifier: "Baz")
 		]
 		let section = DynamicSection.section(isHidden: { _ in return true }, cells: cells)
 		sut.dynamicTableViewModel = DynamicTableViewModel([section])

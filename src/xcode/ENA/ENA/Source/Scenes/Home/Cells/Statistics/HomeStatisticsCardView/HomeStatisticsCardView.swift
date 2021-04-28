@@ -46,20 +46,25 @@ class HomeStatisticsCardView: UIView {
 			var accessibilityElements = [Any]()
 
 			if viewModel?.title != nil, let titleLabel = self.titleLabel {
+				titleLabel.accessibilityTraits = UIAccessibilityTraits.header
 				accessibilityElements.append(titleLabel)
 			}
 
 			if let infoButton = self.infoButton {
 				accessibilityElements.append(infoButton)
-				infoButton.accessibilityIdentifier = viewModel?.infoButtonAccessiblityIdentifier
+				infoButton.accessibilityTraits = UIAccessibilityTraits.button
+				infoButton.accessibilityIdentifier = viewModel?.infoButtonAccessibilityIdentifier
 			}
 
 			if viewModel?.primaryTitle != nil, let primaryTitleLabel = self.primaryTitleLabel {
+				var primaryAccessibilityLabel = primaryTitleLabel.text
+				if viewModel?.primaryValue != nil, let primaryValueLabel = self.primaryValueLabel {
+					primaryAccessibilityLabel?.append(" ")
+					primaryAccessibilityLabel?.append(primaryValueLabel.text ?? "")
+				}
+				
+				primaryTitleLabel.accessibilityLabel = primaryAccessibilityLabel
 				accessibilityElements.append(primaryTitleLabel)
-			}
-
-			if viewModel?.primaryValue != nil, let primaryValueLabel = self.primaryValueLabel {
-				accessibilityElements.append(primaryValueLabel)
 			}
 
 			if viewModel?.primaryTrendImage != nil, let primaryTrendImageView = self.primaryTrendImageView {
@@ -67,11 +72,13 @@ class HomeStatisticsCardView: UIView {
 			}
 
 			if viewModel?.secondaryTitle != nil, let secondaryTitleLabel = self.secondaryTitleLabel {
+				var secondaryAccessibilityLabel = secondaryTitleLabel.text
+				if viewModel?.secondaryValue != nil, let secondaryValueLabel = self.secondaryValueLabel {
+					secondaryAccessibilityLabel?.append(" ")
+					secondaryAccessibilityLabel?.append(secondaryValueLabel.text ?? "")
+				}
+				secondaryTitleLabel.accessibilityLabel = secondaryAccessibilityLabel
 				accessibilityElements.append(secondaryTitleLabel)
-			}
-
-			if viewModel?.secondaryValue != nil, let secondaryValueLabel = self.secondaryValueLabel {
-				accessibilityElements.append(secondaryValueLabel)
 			}
 
 			if viewModel?.secondaryTrendImage != nil, let secondaryTrendImageView = self.secondaryTrendImageView {
@@ -79,14 +86,17 @@ class HomeStatisticsCardView: UIView {
 			}
 
 			if viewModel?.tertiaryTitle != nil, let tertiaryTitleLabel = self.tertiaryTitleLabel {
+				var tertiaryAccessibilityLabel = tertiaryTitleLabel.text
+				if viewModel?.tertiaryValue != nil, let tertiaryValueLabel = self.tertiaryValueLabel {
+					tertiaryAccessibilityLabel?.append(" ")
+					tertiaryAccessibilityLabel?.append(tertiaryValueLabel.text ?? "")
+				}
+				tertiaryTitleLabel.accessibilityLabel = tertiaryAccessibilityLabel
 				accessibilityElements.append(tertiaryTitleLabel)
 			}
 
-			if viewModel?.tertiaryValue != nil, let tertiaryValueLabel = self.tertiaryValueLabel {
-				accessibilityElements.append(tertiaryValueLabel)
-			}
-
 			if viewModel?.footnote != nil, let footnoteLabel = self.footnoteLabel {
+				footnoteLabel.accessibilityTraits = UIAccessibilityTraits.link
 				accessibilityElements.append(footnoteLabel)
 			}
 

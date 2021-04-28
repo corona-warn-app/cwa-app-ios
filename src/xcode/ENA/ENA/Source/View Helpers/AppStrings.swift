@@ -86,6 +86,22 @@ enum AppStrings {
 				static let text = NSLocalizedString("ExposureSubmission_OverwriteNotice_Antigen_Text", comment: "")
 			}
 		}
+
+		enum AntigenTest {
+			enum Profile {
+				static let headerText = NSLocalizedString("ExposureSubmission_Antigen_Profile_Header_Text", comment: "")
+				static let QRCodeImageDescription = NSLocalizedString("ExposureSubmission_Antigen_Profile_QRCode_Image_Description", comment: "")
+				static let noticeText = NSLocalizedString("ExposureSubmission_Antigen_Profile_Noice_Text", comment: "")
+				static let dateOfBirthFormatText = NSLocalizedString("ExposureSubmission_Antigen_Profile_DateOfBirth_Format", comment: "")
+				static let primaryButton = NSLocalizedString("ExposureSubmission_Antigen_Profile_Primary_Button", comment: "")
+				static let secondaryButton = NSLocalizedString("ExposureSubmission_Antigen_Profile_Secondary_Button", comment: "")
+
+				static let createProfileTile_Title = NSLocalizedString("ExposureSubmission_Profile_CreateProfileTile_Title", comment: "")
+				static let createProfileTile_Description = NSLocalizedString("ExposureSubmission_Profile_CreateProfileTile_Description", comment: "")
+				static let profileTile_Title = NSLocalizedString("ExposureSubmission_Profile_ProfileTile_Title", comment: "")
+				static let profileTile_Description = NSLocalizedString("ExposureSubmission_Profile_ProfileTile_Description", comment: "")
+			}
+		}
 	}
 
 	enum ExposureSubmissionTanEntry {
@@ -362,6 +378,7 @@ enum AppStrings {
 		static let button = NSLocalizedString("ExposureSubmissionSuccess_Button", comment: "")
 		static let description = NSLocalizedString("ExposureSubmissionSuccess_Description", comment: "")
 		static let listTitle = NSLocalizedString("ExposureSubmissionSuccess_listTitle", comment: "")
+		static let listItem0 = NSLocalizedString("ExposureSubmissionSuccess_listItem1", comment: "")
 		static let listItem1 = NSLocalizedString("ExposureSubmissionSuccess_listItem1", comment: "")
 		static let listItem2 = NSLocalizedString("ExposureSubmissionSuccess_listItem2", comment: "")
 		static let subTitle = NSLocalizedString("ExposureSubmissionSuccess_subTitle", comment: "")

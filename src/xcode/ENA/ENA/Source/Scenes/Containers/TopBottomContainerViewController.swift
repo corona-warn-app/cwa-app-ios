@@ -77,7 +77,7 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 		bottomView.translatesAutoresizingMaskIntoConstraints = false
 
 		bottomViewHeightAnchorConstraint = bottomView.safeAreaLayoutGuide.heightAnchor.constraint(equalToConstant: initialHeight)
-		bottomViewBottomAnchorConstraint = bottomView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+		bottomViewBottomAnchorConstraint = bottomView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
 		
 		view.addSubview(bottomView)
 		NSLayoutConstraint.activate(
@@ -108,7 +108,7 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 					return
 				}
 
-				self.bottomViewBottomAnchorConstraint.constant = -keyboardHeight
+				self.bottomViewBottomAnchorConstraint.constant = -(keyboardHeight - self.view.safeAreaInsets.bottom - self.bottomViewController.view.safeAreaInsets.bottom)
 
 				UIView.animate(withDuration: 0.5) {
 					self.view.layoutIfNeeded()

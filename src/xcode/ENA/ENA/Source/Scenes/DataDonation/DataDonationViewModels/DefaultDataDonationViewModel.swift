@@ -27,37 +27,44 @@ final class DefaultDataDonationViewModel: BaseDataDonationViewModel {
 		/// this will change numer of cells by the already entered data
 		let sectionCells: [DynamicCell] = [
 			.headline(text: AppStrings.DataDonation.Info.subHeadState),
-			.body(text: friendlyFederalStateName,
-				  style: .label,
-				  accessibilityIdentifier: AccessibilityIdentifiers.DataDonation.federalStateName,
-				  accessibilityTraits: .button,
-				  action: .execute(block: { [weak self] _, _ in
+			.body(
+				text: friendlyFederalStateName,
+				style: .label,
+				accessibilityIdentifier: AccessibilityIdentifiers.DataDonation.federalStateName,
+				accessibilityTraits: .button,
+				action: .execute(block: { [weak self] _, _ in
 					self?.didTapSelectStateButton()
-				  }), configure: { _, cell, _ in
+				}), configure: { _, cell, _ in
 					cell.accessoryType = .disclosureIndicator
-				}),
+				}
+			),
 			dataDonationModel.federalStateName != nil ?
-				.body(text: friendlyRegionName,
-					  style: .label,
-					  accessibilityIdentifier: AccessibilityIdentifiers.DataDonation.regionName,
-					  accessibilityTraits: .button,
-					  action: .execute(block: { [weak self] _, _ in
+				.body(
+					text: friendlyRegionName,
+					style: .label,
+					accessibilityIdentifier: AccessibilityIdentifiers.DataDonation.regionName,
+					accessibilityTraits: .button,
+					action: .execute(block: { [weak self] _, _ in
 						self?.didTapSelectRegionButton()
-					  }), configure: { _, cell, _ in
+					}),
+					configure: { _, cell, _ in
 						cell.accessoryType = .disclosureIndicator
-					}) :
-				nil,
+					}
+				) : nil,
 			.headline(text: AppStrings.DataDonation.Info.subHeadAgeGroup),
-			.body(text: friendlyAgeName,
-				  style: .label,
-				  color: nil,
-				  accessibilityIdentifier: AccessibilityIdentifiers.DataDonation.ageGroup,
-				  accessibilityTraits: .button,
-				  action: .execute(block: { [weak self] _, _ in
+			.body(
+				text: friendlyAgeName,
+				style: .label,
+				color: nil,
+				accessibilityIdentifier: AccessibilityIdentifiers.DataDonation.ageGroup,
+				accessibilityTraits: .button,
+				action: .execute(block: { [weak self] _, _ in
 					self?.didTapAgeButton()
-				  }), configure: { _, cell, _ in
+				}),
+				configure: { _, cell, _ in
 					cell.accessoryType = .disclosureIndicator
-				})
+				}
+			)
 		]
 		.compactMap { $0 }
 
@@ -80,7 +87,8 @@ final class DefaultDataDonationViewModel: BaseDataDonationViewModel {
 						bulletPoints: [
 							NSAttributedString(string: AppStrings.DataDonation.Info.legalAcknowledgementBulletPoint1),
 							NSAttributedString(string: AppStrings.DataDonation.Info.legalAcknowledgementBulletPoint2),
-							NSAttributedString(string: AppStrings.DataDonation.Info.legalAcknowledgementBulletPoint3)],
+							NSAttributedString(string: AppStrings.DataDonation.Info.legalAcknowledgementBulletPoint3)
+						],
 						accessibilityIdentifier: AppStrings.DataDonation.Info.legalTitle
 					)
 				]

@@ -18,9 +18,11 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		parentNavigationController: UINavigationController,
 		exposureSubmissionService: ExposureSubmissionService,
 		coronaTestService: CoronaTestService,
-		eventProvider: EventProviding
+		eventProvider: EventProviding,
+		antigenTestProfileStore: AntigenTestProfileStoring
 	) {
 		self.parentNavigationController = parentNavigationController
+		self.antigenTestProfileStore = antigenTestProfileStore
 
 		super.init()
 
@@ -104,7 +106,18 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			viewModel: tanInputViewModel,
 			dismiss: { [weak self] in self?.dismiss() }
 		)
-		push(vc)
+		
+		let footerViewModel = FooterViewModel(
+			primaryButtonName: AppStrings.ExposureSubmissionTanEntry.submit,
+			primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
+			isPrimaryButtonEnabled: false,
+			isSecondaryButtonHidden: true
+		)
+
+		let footerViewController = FooterViewController(footerViewModel)
+		let topBottomViewController = TopBottomContainerViewController(topController: vc, bottomController: footerViewController)
+		
+		push(topBottomViewController)
 	}
 
 	/// This method selects the correct initial view controller among the following options:
@@ -138,7 +151,16 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				)
 			},
 			onTANButtonTap: { [weak self] in self?.showTanScreen() },
-			onHotlineButtonTap: { [weak self] in self?.showHotlineScreen() }
+			onHotlineButtonTap: { [weak self] in self?.showHotlineScreen() },
+			onRapidTestProfileTap: { [weak self] in
+				// later move that to the title and inject both methods - just to get flow working
+				if self?.store.antigenTestProfile == nil {
+					self?.showCreateAntigenTestProfile()
+				} else {
+					self?.showAntigenTestProfile()
+				}
+			},
+			antigenTestProfileStore: antigenTestProfileStore
 		)
 		return ExposureSubmissionIntroViewController(
 			viewModel: viewModel,
@@ -158,6 +180,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	private weak var presentedViewController: UIViewController?
 
 	private var model: ExposureSubmissionCoordinatorModel!
+	private let antigenTestProfileStore: AntigenTestProfileStoring
 
 	private func push(_ vc: UIViewController) {
 		self.navigationController?.pushViewController(vc, animated: true)
@@ -711,6 +734,102 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		push(topBottomContainerViewController)
 	}
 
+	// MARK: - AntigenTestProfile
+
+	private func showAntigenTestProfileInformation() {
+		var antigenTestProfileInformationViewController: AntigenTestProfileInformationViewController!
+		antigenTestProfileInformationViewController = AntigenTestProfileInformationViewController(
+			store: store,
+			didTapDataPrivacy: {
+				// please check if we really wanna use it that way
+				if case let .execute(block) = DynamicAction.push(htmlModel: AppInformationModel.privacyModel, withTitle: AppStrings.AppInformation.privacyTitle) {
+					block(antigenTestProfileInformationViewController, nil)
+				}
+			},
+			didTapContinue: { [weak self] in
+				self?.showCreateAntigenTestProfile()
+			},
+			dismiss: { [weak self] in self?.dismiss() }
+		)
+		// showSecondaryButton for testing data-privacy at the moment
+
+		let footerViewModel = FooterViewModel(
+			primaryButtonName: "Weiter",
+			secondaryButtonName: "Datenschutz",
+			isPrimaryButtonEnabled: true,
+			isSecondaryButtonEnabled: true
+		)
+		let footerViewController = FooterViewController(footerViewModel)
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: antigenTestProfileInformationViewController,
+			bottomController: footerViewController
+		)
+
+		push(topBottomContainerViewController)
+	}
+
+	private func showCreateAntigenTestProfile() {
+		guard store.antigenTestProfileInfoScreenShown else {
+			showAntigenTestProfileInformation()
+			return
+		}
+
+		let createAntigenTestProfileViewController = CreateAntigenTestProfileViewController(
+			store: store,
+			didTapSave: { [weak self] in
+				self?.showAntigenTestProfile()
+			},
+			dismiss: { [weak self] in self?.dismiss() }
+		)
+
+		let footerViewModel = FooterViewModel(
+			primaryButtonName: "Weiter",
+			isPrimaryButtonEnabled: true,
+			isSecondaryButtonEnabled: false,
+			isSecondaryButtonHidden: true
+		)
+		let footerViewController = FooterViewController(footerViewModel)
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: createAntigenTestProfileViewController,
+			bottomController: footerViewController
+		)
+
+		push(topBottomContainerViewController)
+	}
+
+	private func showAntigenTestProfile() {
+		let antigenTestProfileViewController = AntigenTestProfileViewController(
+			store: store,
+			didTapContinue: { [weak self] isLoading in
+				self?.model.coronaTestType = .antigen
+				self?.model.exposureSubmissionService.loadSupportedCountries(
+					isLoading: isLoading,
+					onSuccess: { supportedCountries in
+						self?.showQRInfoScreen(supportedCountries: supportedCountries)
+					}
+				)
+
+			},
+			didTapDeleteProfile: { [weak self] in
+				self?.navigationController?.popViewController(animated: true)
+			}, dismiss: { [weak self] in self?.dismiss() }
+		)
+
+		let footerViewModel = FooterViewModel(
+			primaryButtonName: "Weiter",
+			secondaryButtonName: "Schnelltest-Profil entfernen",
+			isPrimaryButtonEnabled: true,
+			isSecondaryButtonEnabled: true
+		)
+		let footerViewController = FooterViewController(footerViewModel)
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: antigenTestProfileViewController,
+			bottomController: footerViewController
+		)
+
+		push(topBottomContainerViewController)
+	}
+
 	// MARK: Cancel Alerts
 
 	private func showTestResultAvailableCloseAlert() {
@@ -1051,7 +1170,14 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	}
 	
 	private func showExposureSubmissionSuccessViewController() {
+		guard let coronaTestType = model.coronaTestType else {
+			Log.error("No corona test type set to show the success view controller for, dismissing to be safe", log: .ui)
+			dismiss()
+			return
+		}
+
 		let exposureSubmissionSuccessViewController = ExposureSubmissionSuccessViewController(
+			coronaTestType: coronaTestType,
 			dismiss: { [weak self] in
 				self?.dismiss()
 			}

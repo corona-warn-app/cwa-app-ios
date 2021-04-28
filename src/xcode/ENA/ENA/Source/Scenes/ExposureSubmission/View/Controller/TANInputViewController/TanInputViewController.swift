@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-class TanInputViewController: UIViewController, ENANavigationControllerWithFooterChild {
+class TanInputViewController: UIViewController, FooterViewHandling {
 
 	// MARK: - Init
 
@@ -14,8 +14,8 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 		dismiss: @escaping () -> Void
 	) {
 		self.viewModel = viewModel
+		self.dismiss = dismiss
 		super.init(nibName: nil, bundle: nil)
-		navigationItem.rightBarButtonItem = CloseBarButtonItem(onTap: dismiss)
 	}
 
 	@available(*, unavailable)
@@ -30,11 +30,6 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 		view.backgroundColor = ColorCompatibility.systemBackground
 		setupViews()
 		setupViewModelBindings()
-		footerView?.isHidden = false
-	}
-	
-	override var navigationItem: UINavigationItem {
-		navigationFooterItem
 	}
 
 	override func viewDidAppear(_ animated: Bool) {
@@ -52,13 +47,14 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 
 	// MARK: - Protocol ENANavigationControllerWithFooterChild
 	
-	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
+	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
 		viewModel.submitTan()
 	}
 
 	// MARK: - Private
 	
 	private let viewModel: TanInputViewModel
+	private let dismiss: () -> Void
 	private var bindings: Set<AnyCancellable> = []
 
 	private var tanInputView: TanInputView!
@@ -67,18 +63,13 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 	private var scrollView: UIScrollView!
 	private var stackView: UIStackView!
 
-	private lazy var navigationFooterItem: ENANavigationFooterItem = {
-		let item = ENANavigationFooterItem()
-		item.primaryButtonTitle = AppStrings.ExposureSubmissionTanEntry.submit
-		item.isPrimaryButtonEnabled = false
-		item.isSecondaryButtonHidden = true
-		item.title = AppStrings.ExposureSubmissionTanEntry.title
-		return item
-	}()
-
 	private var observer: NSKeyValueObservation?
 
 	private func setupViews() {
+		
+		parent?.navigationItem.title = AppStrings.ExposureSubmissionTanEntry.title
+		parent?.navigationItem.rightBarButtonItem = CloseBarButtonItem(onTap: dismiss)
+		
 		// scrollView needs to respect footerView, this gets done with a bottom insert by 55
 		scrollView = UIScrollView(frame: view.frame)
 		scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 55, right: 0.0)
@@ -90,27 +81,14 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 		// Ff the error label resets to empty we will scroll back to a negative top value to make sure scrollview
 		// is in top position (-103 is basically the default value).
 		observer = scrollView.observe(\UIScrollView.contentSize, options: .new, changeHandler: { [weak self] scrollView, _ in
-			if self?.errorLabel.text != nil {
-				guard let self = self,
-					  let footerView = self.footerView else {
-					return
-				}
-
-				DispatchQueue.main.async {
-					let footerViewRect = footerView.convert(footerView.bounds, to: scrollView)
-					if footerViewRect.intersects(self.stackView.frame) {
-						Log.debug("ContentSize changed - we might need to scroll to the visible rect by now")
-						let delta = footerViewRect.height - (self.stackView.frame.origin.y + self.stackView.frame.size.height) + scrollView.contentOffset.y
-						let bottomOffset = CGPoint(x: 0, y: delta)
-						scrollView.setContentOffset(bottomOffset, animated: true)
-					}
-				}
+			if let errorText = self?.errorLabel.text, !errorText.isEmpty {
+				Log.debug("ContentSize changed - we might need to scroll to the visible rect by now")
+				scrollView.scrollRectToVisible(CGRect(x: 0, y: scrollView.contentSize.height, width: 1, height: 1), animated: true)
 			} else {
-				let bottomOffset = CGPoint(x: 0, y: -103)
-				scrollView.setContentOffset(bottomOffset, animated: true)
+				scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
 			}
 		})
-
+		
 		NSLayoutConstraint.activate([
 			view.safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
 			view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
@@ -157,32 +135,35 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 
 	private func setupViewModelBindings() {
 		// viewModel will notify controller to enabled / disabler primary footer button
-		viewModel.$isPrimaryButtonEnabled.sink { [weak self] isEnabled in
-			DispatchQueue.main.async {
-				self?.navigationFooterItem?.isPrimaryButtonEnabled = isEnabled
+		viewModel.$isPrimaryButtonEnabled
+			.receive(on: DispatchQueue.main.ocombine)
+			.sink { [weak self] isEnabled in
+				self?.footerView?.setEnabled(isEnabled, button: .primary)
 			}
-		}.store(in: &bindings)
+			.store(in: &bindings)
 
 		// viewModel will notify controller to enable / disable loadingIndicator on primary footer button
-		viewModel.$isPrimaryBarButtonIsLoading.sink { [weak self] isLoading in
-			DispatchQueue.main.async {
-				self?.navigationFooterItem?.isPrimaryButtonLoading = isLoading
+		viewModel.$isPrimaryBarButtonIsLoading
+			.receive(on: DispatchQueue.main.ocombine)
+			.sink { [weak self] isLoading in
+				guard let self = self else {
+					return
+				}
+				self.footerView?.setLoadingIndicator(isLoading, disable: !self.viewModel.isPrimaryButtonEnabled, button: .primary)
 			}
-		}.store(in: &bindings)
+			.store(in: &bindings)
 
-		// viewModel will notify about changes on errorText. errorText can contain the TAN for submission, there for it is private data.
-		viewModel.$errorText.sink { [weak self] newErrorText in
-			Log.debug("viewModel errorText did update to: \(private: newErrorText, public: "teletan id")")
-
-			DispatchQueue.main.async {
+		// viewModel will notify about changes on errorText
+		viewModel.$errorText
+			.receive(on: DispatchQueue.main.ocombine)
+			.sink { [weak self] newErrorText in
+				Log.debug("viewModel errorText did update to: \(newErrorText)")
 				self?.errorLabel.text = newErrorText
 			}
-
-		}.store(in: &bindings)
+			.store(in: &bindings)
 
 		viewModel.didDissMissInvalidTanAlert = { [weak self] in
-			self?.navigationFooterItem?.isPrimaryButtonLoading = false
-			self?.navigationFooterItem?.isPrimaryButtonEnabled = true
+			self?.footerView?.setLoadingIndicator(false, disable: true, button: .primary)
 			self?.tanInputView.becomeFirstResponder()
 		}
 	}

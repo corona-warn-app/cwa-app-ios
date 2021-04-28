@@ -159,6 +159,15 @@ protocol CoronaTestStoring {
 
 }
 
+protocol AntigenTestProfileStoring: AnyObject {
+
+	var antigenTestProfile: AntigenTestProfile? { get set }
+
+	var antigenTestProfileInfoScreenShown: Bool { get set }
+
+}
+
+/// this section contains only deprecated stuff, please do not add new things here
 protocol CoronaTestStoringLegacy {
 
 	var registrationToken: String? { get set }
@@ -191,13 +200,12 @@ protocol CoronaTestStoringLegacy {
 
 	var isSubmissionConsentGiven: Bool { get set }
 
-	var antigenTestProfile: AntigenTestProfile? { get set }
-
 }
 
 // swiftlint:disable all
 /// Wrapper protocol
 protocol Store:
+    AntigenTestProfileStoring,
 	AppConfigCaching,
 	CoronaTestStoring,
 	CoronaTestStoringLegacy,

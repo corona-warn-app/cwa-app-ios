@@ -272,7 +272,8 @@ class HomeCoordinator: RequiresAppDependencies {
 			parentNavigationController: rootViewController,
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: coronaTestService,
-			eventProvider: eventStore
+			eventProvider: eventStore,
+			antigenTestProfileStore: store
 		)
 
 		if let testInformationResult = testInformationResult {
