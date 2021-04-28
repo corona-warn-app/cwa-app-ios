@@ -137,7 +137,7 @@ class CreateAntigenTestProfileViewController: UITableViewController, FooterViewH
 
 	// MARK: - Private
 
-	private let viewModel: CreateAntigenTestProfileViewModel
+	private var viewModel: CreateAntigenTestProfileViewModel
 	private let didTapSave: () -> Void
 	private let dismiss: () -> Void
 	
@@ -159,28 +159,19 @@ class CreateAntigenTestProfileViewController: UITableViewController, FooterViewH
 	private func setupBindings() {
 		viewModel.$antigenTestProfile
 			.sink { [weak self] antigenTestProfile in
-				let isSaveButtonEnabled =
-						!(antigenTestProfile.firstName?.isEmpty ?? true) ||
-						!(antigenTestProfile.lastName?.isEmpty ?? true) ||
-						(antigenTestProfile.dateOfBirth != nil) ||
-						!(antigenTestProfile.addressLine?.isEmpty ?? true) ||
-						!(antigenTestProfile.zipCode?.isEmpty ?? true) ||
-						!(antigenTestProfile.city?.isEmpty ?? true) ||
-						!(antigenTestProfile.phoneNumber?.isEmpty ?? true) ||
-						!(antigenTestProfile.email?.isEmpty ?? true)
-				self?.footerView?.setEnabled(isSaveButtonEnabled, button: .primary)
+				self?.footerView?.setEnabled(antigenTestProfile.isEligibleToSave, button: .primary)
 			}
 			.store(in: &cancellables)
 	}
 	
 	@objc
 	private func firstNameTextFieldDidChange(textField: UITextField) {
-		viewModel.antigenTestProfile.firstName = textField.text
+		viewModel.update(textField.text, keyPath: \.firstName)
 	}
 	
 	@objc
 	private func lastNameTextFieldDidChange(textField: UITextField) {
-		viewModel.antigenTestProfile.lastName = textField.text
+		viewModel.update(textField.text, keyPath: \.lastName)
 	}
 	
 	@objc
@@ -198,26 +189,28 @@ class CreateAntigenTestProfileViewController: UITableViewController, FooterViewH
 	
 	@objc
 	private func addressLineTextFieldDidChange(textField: UITextField) {
-		viewModel.antigenTestProfile.addressLine = textField.text
+		viewModel.update(textField.text, keyPath: \.addressLine)
 	}
 	
 	@objc
 	private func postalCodeTextFieldDidChange(textField: UITextField) {
-		viewModel.antigenTestProfile.zipCode = textField.text
+		viewModel.update(textField.text, keyPath: \.zipCode)
 	}
 	
 	@objc
 	private func cityTextFieldDidChange(textField: UITextField) {
-		viewModel.antigenTestProfile.city = textField.text
+		viewModel.update(textField.text, keyPath: \.city)
 	}
 	
 	@objc
 	private func phoneNumberTextFieldDidChange(textField: UITextField) {
-		viewModel.antigenTestProfile.phoneNumber = textField.text
+		viewModel.update(textField.text, keyPath: \.phoneNumber)
 	}
 	
 	@objc
 	private func emailAddressTextFieldDidChange(textField: UITextField) {
-		viewModel.antigenTestProfile.email = textField.text
+		viewModel.update( textField.text, keyPath: \.email)
 	}
+	
+	
 }
