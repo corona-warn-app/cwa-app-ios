@@ -173,6 +173,12 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 	private var subscriptions = Set<AnyCancellable>()
 
 	private var lastUpdateDateString: String {
+		#if DEBUG
+		if isUITesting {
+			return Self.lastUpdateDateFormatter.string(from: Calendar.autoupdatingCurrent.date(bySettingHour: 9, minute: 6, second: 0, of: Date()) ?? Date())
+		}
+		#endif
+
 		if let lastUpdateDate = homeState.riskCalculationDate {
 			return Self.lastUpdateDateFormatter.string(from: lastUpdateDate)
 		} else {
@@ -181,12 +187,6 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 	}
 
 	private var riskButtonTitle: String {
-		#if DEBUG
-		if isUITesting {
-			return Self.lastUpdateDateFormatter.string(from: Calendar.autoupdatingCurrent.date(bySettingHour: 9, minute: 6, second: 0, of: Date()) ?? Date())
-		}
-		#endif
-
 		if let timeUntilUpdate = timeUntilUpdate {
 			return String(format: AppStrings.ExposureDetection.refreshIn, timeUntilUpdate)
 		}
