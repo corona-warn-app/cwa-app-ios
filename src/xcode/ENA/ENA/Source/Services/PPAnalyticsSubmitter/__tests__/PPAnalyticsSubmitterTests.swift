@@ -420,29 +420,31 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 
 		// WHEN
 		var ppasErrors: [PPASError] = []
+		var ppasSuccess: [Void] = []
 		analyticsSubmitter.triggerSubmitData(ppacToken: nil, completion: { result in
 			switch result {
-			case .success:
-				XCTFail("Test should not succeed")
+			case let .success(success):
+				ppasSuccess.append(success)
 			case let .failure(error):
 				ppasErrors.append(error)
-				expectation.fulfill()
 			}
+			expectation.fulfill()
 		})
 		
 		analyticsSubmitter.triggerSubmitData(ppacToken: nil, completion: { result in
 			switch result {
-			case .success:
-				XCTFail("Test should not succeed")
+			case let .success(success):
+				ppasSuccess.append(success)
 			case let .failure(error):
 				ppasErrors.append(error)
-				expectation.fulfill()
 			}
+			expectation.fulfill()
 		})
 		
 		// THEN
 		waitForExpectations(timeout: .medium)
-		XCTAssertEqual(ppasErrors.count, 2)
+		XCTAssertEqual(ppasSuccess.count, 1)
+		XCTAssertEqual(ppasErrors.count, 1)
 		XCTAssertTrue(ppasErrors.contains(.submissionInProgress))
 	}
 
