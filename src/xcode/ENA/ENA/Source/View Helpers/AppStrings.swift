@@ -1722,6 +1722,7 @@ enum AppStrings {
 			static let cityTextFieldPlaceholder = NSLocalizedString("AntigenProfile_Create_CityPlaceholder", comment: "")
 			static let phoneNumberTextFieldPlaceholder = NSLocalizedString("AntigenProfile_Create_PhoneNumberPlaceholder", comment: "")
 			static let emailAddressTextFieldPlaceholder = NSLocalizedString("AntigenProfile_Create_EmailAddressPlaceholder", comment: "")
+			static let saveButtonTitle = NSLocalizedString("AntigenProfile_Create_Save_Button_Title", comment: "")
 		}
 	}
 	
