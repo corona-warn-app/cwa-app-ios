@@ -25,13 +25,13 @@ struct QRCodeCellViewModel {
 	let borderColor: UIColor
 
 	// QRCode image with vCard data inside - will create an empty image if data is broken
-	var qrCodeImage: UIImage {
+	func qrCodeImage(revDate: Date = Date()) -> UIImage {
 		guard let QRCodeImage = UIImage.qrCode(
-				with: vCardV4,
-				encoding: .utf8,
-				size: CGSize(width: 280.0, height: 280.0),
-				qrCodeErrorCorrectionLevel: .medium
-			  )
+			with: vCardV4(revDate: revDate),
+			encoding: .utf8,
+			size: CGSize(width: 280.0, height: 280.0),
+			qrCodeErrorCorrectionLevel: .medium
+		)
 		else {
 			Log.error("Failed to create QRCode image for vCard data")
 			return UIImage()
@@ -39,7 +39,7 @@ struct QRCodeCellViewModel {
 		return QRCodeImage
 	}
 
-	var vCardV4: String {
+	func vCardV4(revDate: Date = Date()) -> String {
 		let placeholder = """
 			BEGIN:VCARD
 			VERSION:4.0
@@ -69,7 +69,7 @@ struct QRCodeCellViewModel {
 			convertStringForVCard(antigenTestProfile.addressLine),
 			convertStringForVCard(antigenTestProfile.city),
 			convertStringForVCard(antigenTestProfile.zipCode),
-			DateFormatter.VCard.revDate.string(from: Date())
+			DateFormatter.VCard.revDate.string(from: revDate)
 		)
 	}
 
