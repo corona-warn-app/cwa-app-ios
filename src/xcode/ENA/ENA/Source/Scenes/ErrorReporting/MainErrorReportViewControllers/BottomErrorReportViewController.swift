@@ -23,7 +23,7 @@ class BottomErrorReportViewController: UIViewController {
 		self.didTapSaveButton = didTapSaveButton
 		self.didTapSendButton = didTapSendButton
 		self.didTapStopAndDeleteButton = didTapStopAndDeleteButton
-
+		
 		super.init(nibName: nil, bundle: nil)
 	}
 	

@@ -15,7 +15,7 @@ class ENAUITests_02_AppInformation: XCTestCase {
 		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
 		app.launchArguments.append(contentsOf: ["-setCurrentOnboardingVersion", "YES"])
 	}
-
+	
 	override func tearDownWithError() throws {
 		// Put teardown code here. This method is called after the invocation of each test method in the class.
 	}
@@ -183,6 +183,7 @@ class ENAUITests_02_AppInformation: XCTestCase {
 	}
 	
 	func test_0029_AppInformationFlow_ConfirmationScreen_ErrorReportDetailScreen() throws {
+		app.launchArguments.append(contentsOf: ["-elsLogActive", "NO"])
 		app.launch()
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .short))
 		navigateToErrorReporting()
@@ -200,6 +201,7 @@ class ENAUITests_02_AppInformation: XCTestCase {
 	}
 	
 	func test_0030_AppInformationFlow_ConfirmationScreen_HistoryScreen() throws {
+		app.launchArguments.append(contentsOf: ["-elsLogActive", "NO"])
 		app.launch()
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .short))
 		navigateToErrorReporting()

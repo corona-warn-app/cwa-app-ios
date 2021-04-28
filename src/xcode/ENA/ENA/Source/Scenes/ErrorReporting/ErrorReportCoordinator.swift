@@ -25,6 +25,19 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating, RequiresAppDepend
 		self.errorLoggingStatus = initialState
 		self.ppacService = ppacService
 		self.otpService = otpService
+		
+		#if DEBUG
+		if isUITesting {
+			// This ensures, that for any UI Test that sets the launch arguement to ["-elsLogActive", "NO"], the logging is disabled (so that for example the test can start logging)
+			if UserDefaults.standard.bool(forKey: "elsLogActive") == false {
+				do {
+					try elsService.stopAndDeleteLog()
+				} catch {
+					Log.warning("Could not stop ELS logging due to error: \(error)")
+				}
+			}
+		}
+		#endif
 	}
 
 	// MARK: - Internal
@@ -182,7 +195,6 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating, RequiresAppDepend
 	}
 
 	private func showErrorAlert(with error: Error) {
-		// Nothing fancy here
 		let alert = UIAlertController(title: AppStrings.Common.alertTitleGeneral, message: error.localizedDescription, preferredStyle: .alert)
 		let okAction = UIAlertAction(title: AppStrings.Common.alertActionOk, style: .default, handler: { _ in
 			alert.dismiss(animated: true, completion: nil)
