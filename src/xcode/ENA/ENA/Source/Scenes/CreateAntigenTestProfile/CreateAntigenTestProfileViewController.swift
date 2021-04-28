@@ -49,12 +49,12 @@ class CreateAntigenTestProfileViewController: UITableViewController, FooterViewH
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		switch indexPath.row {
 		case 0:
-			guard let cell = tableView.dequeueReusableCell(withIdentifier: DescriptionCell.identifier, for: indexPath) as? DescriptionCell else {
+			guard let cell = tableView.dequeueReusableCell(withIdentifier: CreateAntigenTestProfileDescriptionCell.reuseIdentifier, for: indexPath) as? CreateAntigenTestProfileDescriptionCell else {
 				fatalError("Wrong cell")
 			}
 			return cell
 		case 1:
-			guard let cell = tableView.dequeueReusableCell(withIdentifier: InputCell.identifier, for: indexPath) as? InputCell else {
+			guard let cell = tableView.dequeueReusableCell(withIdentifier: CreateAntigenTestProfileInputCell.reuseIdentifier, for: indexPath) as? CreateAntigenTestProfileInputCell else {
 				fatalError("Wrong cell")
 			}
 			if #available(iOS 14.0, *) {
@@ -123,7 +123,8 @@ class CreateAntigenTestProfileViewController: UITableViewController, FooterViewH
 
 	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
 		if textField.returnKeyType == .next {
-			if let cell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? InputCell, let currentIndex = cell.textFields.firstIndex(of: textField), (currentIndex + 1) < cell.textFields.count {
+			if let cell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? CreateAntigenTestProfileInputCell,
+			   let currentIndex = cell.textFields.firstIndex(of: textField), (currentIndex + 1) < cell.textFields.count {
 				cell.textFields[currentIndex + 1].becomeFirstResponder()
 			} else {
 				textField.resignFirstResponder()
@@ -151,8 +152,8 @@ class CreateAntigenTestProfileViewController: UITableViewController, FooterViewH
 		view.backgroundColor = .enaColor(for: .background)
 		// tableView
 		tableView.separatorStyle = .none
-		tableView.register(DescriptionCell.self, forCellReuseIdentifier: DescriptionCell.identifier)
-		tableView.register(InputCell.self, forCellReuseIdentifier: InputCell.identifier)
+		tableView.register(CreateAntigenTestProfileDescriptionCell.self, forCellReuseIdentifier: CreateAntigenTestProfileDescriptionCell.reuseIdentifier)
+		tableView.register(CreateAntigenTestProfileInputCell.self, forCellReuseIdentifier: CreateAntigenTestProfileInputCell.reuseIdentifier)
 		tableView.keyboardDismissMode = .interactive
 		// date
 		dateFormatter = DateFormatter()
@@ -196,7 +197,7 @@ class CreateAntigenTestProfileViewController: UITableViewController, FooterViewH
 	@objc
 	private func dateOfBirthDidChange(datePicker: UIDatePicker) {
 		viewModel.antigenTestProfile.dateOfBirth = datePicker.date
-		if let cell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? InputCell {
+		if let cell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? CreateAntigenTestProfileInputCell {
 			cell.textFields[2].text = dateFormatter.string(from: datePicker.date)
 		}
 	}
@@ -224,184 +225,5 @@ class CreateAntigenTestProfileViewController: UITableViewController, FooterViewH
 	@objc
 	private func emailAddressTextFieldDidChange(textField: UITextField) {
 		viewModel.antigenTestProfile.email = textField.text
-	}
-}
-
-private class DescriptionCell: UITableViewCell {
-	
-	static let identifier = "DescriptionCell"
-		
-	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-		super.init(style: style, reuseIdentifier: reuseIdentifier)
-		// self
-		selectionStyle = .none
-		// label
-		let label = ENALabel()
-		label.text = AppStrings.AntigenProfile.Create.description
-		label.style = .subheadline
-		label.textColor = .enaColor(for: .textPrimary2)
-		label.numberOfLines = 0
-		label.translatesAutoresizingMaskIntoConstraints = false
-		contentView.addSubview(label)
-		//
-		NSLayoutConstraint.activate([
-			label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 23),
-			label.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -23),
-			label.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 6),
-			label.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -2)
-		])
-	}
-	
-	required init?(coder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
-	}
-}
-
-private class InputCell: UITableViewCell {
-	
-	static let identifier = "InputCell"
-	
-	var birthdayPicker: UIDatePicker!
-	var textFields = [UITextField]()
-	var firstNameTextField: ENATextField!
-	var lastNameTextField: ENATextField!
-	var birthDateNameTextField: ENATextField!
-	var addressLineTextField: ENATextField!
-	var postalCodeTextField: ENATextField!
-	var cityTextField: ENATextField!
-	var phoneNumberTextField: ENATextField!
-	var emailAddressTextField: ENATextField!
-	
-	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-		super.init(style: style, reuseIdentifier: reuseIdentifier)
-		// self
-		selectionStyle = .none
-		// firstNameTextField
-		firstNameTextField = textField()
-		firstNameTextField.placeholder = AppStrings.AntigenProfile.Create.firstNameTextFieldPlaceholder
-		firstNameTextField.accessibilityIdentifier = AccessibilityIdentifiers.AntigenProfile.Create.firstNameTextField
-		firstNameTextField.keyboardType = .default
-		contentView.addSubview(firstNameTextField)
-		textFields.append(firstNameTextField)
-		// lastNameTextField
-		lastNameTextField = textField()
-		lastNameTextField.placeholder = AppStrings.AntigenProfile.Create.lastNameTextFieldPlaceholder
-		lastNameTextField.accessibilityIdentifier = AccessibilityIdentifiers.AntigenProfile.Create.lastNameTextField
-		lastNameTextField.keyboardType = .default
-		contentView.addSubview(lastNameTextField)
-		textFields.append(lastNameTextField)
-		// birthdayPicker
-		birthdayPicker = UIDatePicker()
-		birthdayPicker.locale = Locale(identifier: "de_DE")
-		birthdayPicker.datePickerMode = .date
-		if #available(iOS 13.4, *) {
-			birthdayPicker.preferredDatePickerStyle = .wheels
-		}
-		// birthDateNameTextField
-		birthDateNameTextField = textField()
-		birthDateNameTextField.placeholder = AppStrings.AntigenProfile.Create.birthDateTextFieldPlaceholder
-		birthDateNameTextField.accessibilityIdentifier = AccessibilityIdentifiers.AntigenProfile.Create.birthDateTextField
-		birthDateNameTextField.keyboardType = .default
-		birthDateNameTextField.inputView = birthdayPicker
-		contentView.addSubview(birthDateNameTextField)
-		textFields.append(birthDateNameTextField)
-		// addressLineTextField
-		addressLineTextField = textField()
-		addressLineTextField.placeholder = AppStrings.AntigenProfile.Create.streetTextFieldPlaceholder
-		addressLineTextField.accessibilityIdentifier = AccessibilityIdentifiers.AntigenProfile.Create.streetTextField
-		addressLineTextField.keyboardType = .default
-		contentView.addSubview(addressLineTextField)
-		textFields.append(addressLineTextField)
-		// postalCodeTextField
-		postalCodeTextField = textField()
-		postalCodeTextField.placeholder = AppStrings.AntigenProfile.Create.postalCodeTextFieldPlaceholder
-		postalCodeTextField.accessibilityIdentifier = AccessibilityIdentifiers.AntigenProfile.Create.postalCodeTextField
-		postalCodeTextField.keyboardType = .numberPad
-		contentView.addSubview(postalCodeTextField)
-		textFields.append(postalCodeTextField)
-		// cityTextField
-		cityTextField = textField()
-		cityTextField.placeholder = AppStrings.AntigenProfile.Create.cityTextFieldPlaceholder
-		cityTextField.accessibilityIdentifier = AccessibilityIdentifiers.AntigenProfile.Create.cityTextField
-		cityTextField.keyboardType = .default
-		contentView.addSubview(cityTextField)
-		textFields.append(cityTextField)
-		// phoneNumberTextField
-		phoneNumberTextField = textField()
-		phoneNumberTextField.placeholder = AppStrings.AntigenProfile.Create.phoneNumberTextFieldPlaceholder
-		phoneNumberTextField.accessibilityIdentifier = AccessibilityIdentifiers.AntigenProfile.Create.phoneNumberTextField
-		phoneNumberTextField.keyboardType = .phonePad
-		contentView.addSubview(phoneNumberTextField)
-		textFields.append(phoneNumberTextField)
-		// emailAddressTextField
-		emailAddressTextField = textField()
-		emailAddressTextField.placeholder = AppStrings.AntigenProfile.Create.emailAddressTextFieldPlaceholder
-		emailAddressTextField.accessibilityIdentifier = AccessibilityIdentifiers.AntigenProfile.Create.emailAddressTextField
-		emailAddressTextField.keyboardType = .emailAddress
-		contentView.addSubview(emailAddressTextField)
-		textFields.append(emailAddressTextField)
-		// setup constrinats
-		let inset: CGFloat = 23
-		NSLayoutConstraint.activate([
-			// firstNameTextField
-			firstNameTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset),
-			firstNameTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -inset),
-			firstNameTextField.topAnchor.constraint(equalTo: contentView.topAnchor, constant: inset),
-			firstNameTextField.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -inset),
-			// lastNameTextField
-			lastNameTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset),
-			lastNameTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -inset),
-			lastNameTextField.topAnchor.constraint(equalTo: firstNameTextField.bottomAnchor, constant: 7),
-			lastNameTextField.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -inset),
-			// birthDateNameTextField
-			birthDateNameTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset),
-			birthDateNameTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -inset),
-			birthDateNameTextField.topAnchor.constraint(equalTo: lastNameTextField.bottomAnchor, constant: 7),
-			birthDateNameTextField.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -inset),
-			// addressLineTextField
-			addressLineTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset),
-			addressLineTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -inset),
-			addressLineTextField.topAnchor.constraint(equalTo: birthDateNameTextField.bottomAnchor, constant: 7),
-			addressLineTextField.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -inset),
-			// postalCodeTextField
-			postalCodeTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset),
-			postalCodeTextField.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -inset),
-			postalCodeTextField.topAnchor.constraint(equalTo: addressLineTextField.bottomAnchor, constant: 7),
-			postalCodeTextField.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -inset),
-			postalCodeTextField.widthAnchor.constraint(equalTo: addressLineTextField.widthAnchor, multiplier: 0.4),
-			// cityTextField
-			cityTextField.leadingAnchor.constraint(equalTo: postalCodeTextField.trailingAnchor, constant: 7),
-			cityTextField.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -inset),
-			cityTextField.topAnchor.constraint(equalTo: addressLineTextField.bottomAnchor, constant: 7),
-			cityTextField.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -inset),
-			// phoneNumberTextField
-			phoneNumberTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset),
-			phoneNumberTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -inset),
-			phoneNumberTextField.topAnchor.constraint(equalTo: cityTextField.bottomAnchor, constant: 7),
-			phoneNumberTextField.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -inset),
-			// emailAddressTextField
-			emailAddressTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset),
-			emailAddressTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -inset),
-			emailAddressTextField.topAnchor.constraint(equalTo: phoneNumberTextField.bottomAnchor, constant: 7),
-			emailAddressTextField.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -inset)
-		])
-	}
-	
-	required init?(coder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
-	}
-	
-	private func textField () -> ENATextField {
-		let textField = ENATextField(frame: .zero)
-		textField.autocorrectionType = .no
-		textField.isUserInteractionEnabled = true
-		textField.returnKeyType = .next
-		textField.clearButtonMode = .whileEditing
-		textField.spellCheckingType = .no
-		textField.smartQuotesType = .no
-		textField.layer.borderWidth = 0
-		textField.translatesAutoresizingMaskIntoConstraints = false
-		textField.heightAnchor.constraint(equalToConstant: 40.0).isActive = true
-		return textField
 	}
 }
