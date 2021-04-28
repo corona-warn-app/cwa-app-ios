@@ -69,13 +69,19 @@ class EventTableViewCell: UITableViewCell {
 			.receive(on: DispatchQueue.main.ocombine)
 			.assign(to: \.text, on: durationLabel)
 			.store(in: &subscriptions)
-
+		
+		durationLabel.accessibilityLabel = cellModel.durationAccessibilityPublisher.value
+		cellModel.durationAccessibilityPublisher
+			.receive(on: DispatchQueue.main.ocombine)
+			.assign(to: \.accessibilityLabel, on: durationLabel)
+			.store(in: &subscriptions)
+		
 		timeLabel.text = cellModel.timePublisher.value
 		cellModel.timePublisher
 			.receive(on: DispatchQueue.main.ocombine)
 			.assign(to: \.text, on: timeLabel)
 			.store(in: &subscriptions)
-
+		
 		timeLabel.isHidden = cellModel.timePublisher.value == nil
 		cellModel.timePublisher
 			.receive(on: DispatchQueue.main.ocombine)
@@ -84,12 +90,18 @@ class EventTableViewCell: UITableViewCell {
 			}
 			.store(in: &subscriptions)
 
+		timeLabel.accessibilityLabel = cellModel.timeAccessibilityPublisher.value
+		cellModel.timeAccessibilityPublisher
+			.receive(on: DispatchQueue.main.ocombine)
+			.assign(to: \.accessibilityLabel, on: timeLabel)
+			.store(in: &subscriptions)
+		
 		activeIconImageView.isHidden = cellModel.isActiveIconHidden
 		durationStackView.isHidden = cellModel.isDurationStackViewHidden
 
 		titleLabel.text = cellModel.title
-		titleLabel.accessibilityLabel = cellModel.titleAccessiblityLabelPublisher.value
-		cellModel.titleAccessiblityLabelPublisher
+		titleLabel.accessibilityLabel = cellModel.titleAccessibilityLabelPublisher.value
+		cellModel.titleAccessibilityLabelPublisher
 			.receive(on: DispatchQueue.main.ocombine)
 			.assign(to: \.accessibilityLabel, on: titleLabel)
 			.store(in: &subscriptions)

@@ -54,6 +54,14 @@ final class TraceLocationDetailViewModel {
 		return String(format: AppStrings.Checkins.Details.hoursShortVersion, durationString)
 	}
 
+	var pickerButtonAccessibilityLabel: String {
+		let components = Calendar.utcCalendar.dateComponents([.hour, .minute], from: Date(timeIntervalSinceReferenceDate: duration))
+		guard let accessibilityLabel = DateComponentsFormatter.localizedString(from: components, unitsStyle: .spellOut) else {
+			return ""
+		}
+		return accessibilityLabel
+	}
+
 	var traceLocationStatus: TraceLocationDateStatus? {
 		guard let startDate = traceLocation.startDate,
 			  let endDate = traceLocation.endDate else {

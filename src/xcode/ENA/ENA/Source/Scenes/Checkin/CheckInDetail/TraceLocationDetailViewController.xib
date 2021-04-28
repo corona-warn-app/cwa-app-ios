@@ -21,6 +21,7 @@
                 <outlet property="bottomCardView" destination="Ek6-qj-gRz" id="zPW-8o-d4S"/>
                 <outlet property="checkInButton" destination="LzL-ri-WCR" id="nhq-cH-UN3"/>
                 <outlet property="checkInForLabel" destination="qe2-Cr-Hsf" id="2Cc-Rz-KNx"/>
+                <outlet property="checkOutView" destination="GDB-JB-hDV" id="k1Q-bf-2zE"/>
                 <outlet property="closeButton" destination="5Yh-SR-IVJ" id="Meh-7O-Sat"/>
                 <outlet property="countDownDatePicker" destination="yid-Kg-xeK" id="adm-pi-5xT"/>
                 <outlet property="descriptionLabel" destination="qEg-yG-yRz" id="iEe-il-h37"/>
@@ -32,6 +33,7 @@
                 <outlet property="pickerSwitch" destination="FeX-e0-F2d" id="65a-lv-RG8"/>
                 <outlet property="saveToDiaryLabel" destination="M1z-st-0w7" id="c4n-cg-hT7"/>
                 <outlet property="scrollView" destination="lQK-F5-RWF" id="vqc-py-cXH"/>
+                <outlet property="switchView" destination="T3S-Zc-NqF" id="b6e-uu-nG5"/>
                 <outlet property="view" destination="iN0-l3-epB" id="vGI-7O-PiC"/>
             </connections>
         </placeholder>
@@ -65,6 +67,10 @@
                         <constraint firstItem="9Uc-cd-UtX" firstAttribute="leading" secondItem="WjZ-Cc-86K" secondAttribute="leading" constant="16" id="fna-7G-kxd"/>
                         <constraint firstItem="5Yh-SR-IVJ" firstAttribute="centerY" secondItem="9Uc-cd-UtX" secondAttribute="centerY" id="i3h-aM-asv"/>
                     </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="isTilted" value="NO"/>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="setTilted" value="NO"/>
+                    </userDefinedRuntimeAttributes>
                 </view>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lQK-F5-RWF">
                     <rect key="frame" x="0.0" y="80" width="414" height="707"/>
@@ -100,7 +106,7 @@
                                                     <rect key="frame" x="16" y="30" width="350" height="161.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vereinsaktivität " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jzq-Fo-8cl" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="0.0" width="350" height="80"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="350" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" name="ENA Text Primary 2 Color"/>
                                                             <nil key="highlightedColor"/>
@@ -109,7 +115,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qEg-yG-yRz" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="90" width="350" height="41"/>
+                                                            <rect key="frame" x="0.0" y="30.5" width="350" height="100.5"/>
                                                             <string key="text">Jahrestreffen der 
 deutschen SAP Anwendergruppe</string>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -201,6 +207,9 @@ deutschen SAP Anwendergruppe</string>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nach dem Auschecken in mein Tagebuch eintragen? " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M1z-st-0w7" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                                                     <rect key="frame" x="0.0" y="18" width="292" height="273"/>
+                                                                    <accessibility key="accessibilityConfiguration">
+                                                                        <bool key="isElement" value="NO"/>
+                                                                    </accessibility>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <color key="textColor" name="ENA Text Primary 1 Color"/>
                                                                     <nil key="highlightedColor"/>
@@ -210,6 +219,9 @@ deutschen SAP Anwendergruppe</string>
                                                                 </label>
                                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FeX-e0-F2d" customClass="ENASwitch" customModule="ENA" customModuleProvider="target">
                                                                     <rect key="frame" x="300" y="139" width="52" height="31"/>
+                                                                    <accessibility key="accessibilityConfiguration">
+                                                                        <bool key="isElement" value="NO"/>
+                                                                    </accessibility>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="50" id="Ui2-tM-k69"/>
                                                                     </constraints>
@@ -218,6 +230,9 @@ deutschen SAP Anwendergruppe</string>
                                                                     </connections>
                                                                 </switch>
                                                             </subviews>
+                                                            <accessibility key="accessibilityConfiguration">
+                                                                <bool key="isElement" value="YES"/>
+                                                            </accessibility>
                                                             <gestureRecognizers/>
                                                             <constraints>
                                                                 <constraint firstItem="M1z-st-0w7" firstAttribute="centerY" secondItem="T3S-Zc-NqF" secondAttribute="centerY" id="8MD-gS-ZHi"/>
@@ -246,7 +261,10 @@ deutschen SAP Anwendergruppe</string>
                                                                     <rect key="frame" x="0.0" y="0.0" width="350" height="72"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Automatisch auschecken nach" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UBN-wb-TKy" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="269" height="72"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="241" height="72"/>
+                                                                            <accessibility key="accessibilityConfiguration">
+                                                                                <bool key="isElement" value="NO"/>
+                                                                            </accessibility>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
@@ -255,7 +273,10 @@ deutschen SAP Anwendergruppe</string>
                                                                             </userDefinedRuntimeAttributes>
                                                                         </label>
                                                                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KL2-pg-6XN" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
-                                                                            <rect key="frame" x="277" y="0.0" width="73" height="72"/>
+                                                                            <rect key="frame" x="249" y="0.0" width="101" height="72"/>
+                                                                            <accessibility key="accessibilityConfiguration">
+                                                                                <bool key="isElement" value="NO"/>
+                                                                            </accessibility>
                                                                             <color key="tintColor" name="ENA Text Contrast Color"/>
                                                                             <state key="normal" title="03:00 Std.">
                                                                                 <color key="titleColor" name="ENA Text Primary 1 Color"/>
@@ -270,6 +291,9 @@ deutschen SAP Anwendergruppe</string>
                                                                     </subviews>
                                                                 </stackView>
                                                             </subviews>
+                                                            <accessibility key="accessibilityConfiguration">
+                                                                <bool key="isElement" value="YES"/>
+                                                            </accessibility>
                                                             <gestureRecognizers/>
                                                             <constraints>
                                                                 <constraint firstAttribute="bottom" secondItem="fXe-5X-qHh" secondAttribute="bottom" id="3N7-mC-EoC"/>
@@ -396,13 +420,13 @@ deutschen SAP Anwendergruppe</string>
             <size key="intrinsicContentSize" width="121" height="20.5"/>
         </designable>
         <designable name="KL2-pg-6XN">
-            <size key="intrinsicContentSize" width="73" height="30"/>
+            <size key="intrinsicContentSize" width="101" height="50"/>
         </designable>
         <designable name="LzL-ri-WCR">
-            <size key="intrinsicContentSize" width="79" height="30"/>
+            <size key="intrinsicContentSize" width="108" height="50"/>
         </designable>
         <designable name="M1z-st-0w7">
-            <size key="intrinsicContentSize" width="402" height="20.5"/>
+            <size key="intrinsicContentSize" width="362" height="18"/>
         </designable>
         <designable name="UBN-wb-TKy">
             <size key="intrinsicContentSize" width="209" height="18"/>
@@ -411,10 +435,10 @@ deutschen SAP Anwendergruppe</string>
             <size key="intrinsicContentSize" width="614.5" height="20.5"/>
         </designable>
         <designable name="qEg-yG-yRz">
-            <size key="intrinsicContentSize" width="252" height="41"/>
+            <size key="intrinsicContentSize" width="434.5" height="67"/>
         </designable>
         <designable name="qe2-Cr-Hsf">
-            <size key="intrinsicContentSize" width="117.5" height="20.5"/>
+            <size key="intrinsicContentSize" width="123.5" height="20.5"/>
         </designable>
     </designables>
     <resources>
