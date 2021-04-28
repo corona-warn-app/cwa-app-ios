@@ -2421,7 +2421,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "AntigenProfile_Create_PostalCodePlaceholder" = "PLZ";
 
-"AntigenProfile_Create_CityPlaceholder" = "Stadt";
+"AntigenProfile_Create_CityPlaceholder" = "Ort";
 
 "AntigenProfile_Create_PhoneNumberPlaceholder" = "Tel.Nr.";
 
