@@ -927,6 +927,20 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_OverwriteNotice_Antigen_Text" = "Sie haben bereits einen Schnelltest registriert. Die App kann maximal einen Schnelltest und einen PCR-Test gleichzeitig verwalten. Wenn Sie einen weiteren Schnelltest registrieren, wird der erste Schnelltest aus der App gelöscht.";
 
+/* ExposureSubmission AntigenTest Profile Information */
+
+"ExposureSubmission_Antigen_Profile_Information_Title" = "Schnelltest-Profil";
+
+"ExposureSubmission_Antigen_Profile_Information_Image_Description" = "Eine Frau mit einem Smartphone in der Hand steht vor einem Gebäude. Ein QR-Code symbolisiert das zu scannende Schnelltest-Profil.";
+
+"ExposureSubmission_Antigen_Profile_Information_Description_Title" = "Legen Sie Ihre persönlichen Daten als QR-Code ab, um die Registrierung an der Teststelle  zu beschleunigen.";
+
+"ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline" = "Mit Ihrem eigenen Schnelltest-Profil müssen Sie Ihre persönlichen Daten nicht bei jedem neuen Schnelltest erneut ausfüllen.";
+
+"ExposureSubmission_Antigen_Profile_Information_PrimaryButton" = "Weiter";
+
+"ExposureSubmission_Antigen_Profile_Information_Dataprivacy_Title" = "Weitere Hinweise finden Sie in der Datenschutzerklärung.";
+
 /* ExposureSubmission AntigenTest Profile */
 
 "ExposureSubmission_Antigen_Profile_Header_Text" = "Schnelltest-Profil";
