@@ -107,7 +107,7 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		XCTAssertTrue(consentGivenCell.waitForExistence(timeout: .long))
 	}
 	
-	func test_Screenshot_SymptomsOptionYes() {
+	func test_screenshot_SymptomsOptionYes() {
 		var screenshotCounter = 0
 
 		launchAndNavigateToSymptomsScreen()
