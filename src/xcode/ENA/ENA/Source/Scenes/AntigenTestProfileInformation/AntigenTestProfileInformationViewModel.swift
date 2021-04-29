@@ -27,10 +27,7 @@ struct AntigenTestProfileInformationViewModel {
 	let title: String = AppStrings.ExposureSubmission.AntigenTest.Information.title
 
 	func markScreenSeen() {
-		#if DEBUG
-		#else
 		store.antigenTestProfileInfoScreenShown = true
-		#endif
 	}
 
 	var dynamicTableViewModel: DynamicTableViewModel {
