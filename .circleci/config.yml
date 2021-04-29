@@ -13,7 +13,7 @@ commands:
           command: |
             if ! command -v swiftlint &> /dev/null
             then
-              brew install swiftlint
+              brew install swiftlint coreutils
             fi
             swiftlint version
       - run:
