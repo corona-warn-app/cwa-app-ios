@@ -69,7 +69,7 @@ class ENAUITests_10_CheckIns: XCTestCase {
 		app.launchArguments.append(contentsOf: ["-checkinInfoScreenShown", "NO"])
 		app.launch()
 		
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Tabbar.checkin].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Tabbar.checkin].waitForExistence(timeout: .extraLong))
 		
 		// Navigate to CheckIn
 		app.buttons[AccessibilityIdentifiers.Tabbar.checkin].tap()
@@ -85,7 +85,7 @@ class ENAUITests_10_CheckIns: XCTestCase {
 
 		app.cells[AccessibilityIdentifiers.Checkin.Information.dataPrivacyTitle].tap()
 		
-		XCTAssertTrue(app.staticTexts["AppStrings.AppInformation.privacyTitle"].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.staticTexts["AppStrings.AppInformation.privacyTitle"].waitForExistence(timeout: .extraLong))
 	}
 	
 	func testCheckinInfoScreen_confirmConsent() throws {
