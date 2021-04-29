@@ -88,6 +88,27 @@ enum AppStrings {
 		}
 
 		enum AntigenTest {
+
+			enum Information {
+				static let title = NSLocalizedString("ExposureSubmission_Antigen_Profile_Information_Title", comment: "")
+				static let imageDescription = NSLocalizedString("ExposureSubmission_Antigen_Profile_Information_Image_Description", comment: "")
+				static let descriptionTitle = NSLocalizedString("ExposureSubmission_Antigen_Profile_Information_Description_Title", comment: "")
+				static let descriptionSubHeadline = NSLocalizedString("ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline", comment: "")
+				static let primaryButton = NSLocalizedString("ExposureSubmission_Antigen_Profile_Information_PrimaryButton", comment: "")
+
+				enum legal {
+					static let title = NSLocalizedString("ExposureSubmission_Antigen_Profile_Legal_Headline", tableName: "Localizable.legal", comment: "")
+					static let text01 = NSLocalizedString("ExposureSubmission_Antigen_Profile_Legal_Text01", tableName: "Localizable.legal", comment: "")
+					static let text02 = NSLocalizedString("ExposureSubmission_Antigen_Profile_Legal_Text02", tableName: "Localizable.legal", comment: "")
+					static let text03 = NSLocalizedString("ExposureSubmission_Antigen_Profile_Legal_Text03", tableName: "Localizable.legal", comment: "")
+					static let text04 = NSLocalizedString("ExposureSubmission_Antigen_Profile_Legal_Text04", tableName: "Localizable.legal", comment: "")
+					static let text05 = NSLocalizedString("ExposureSubmission_Antigen_Profile_Legal_Text05", tableName: "Localizable.legal", comment: "")
+					static let text06 = NSLocalizedString("ExposureSubmission_Antigen_Profile_Legal_Text06", tableName: "Localizable.legal", comment: "")
+					static let text07 = NSLocalizedString("ExposureSubmission_Antigen_Profile_Legal_Text07", tableName: "Localizable.legal", comment: "")
+				}
+				static let dataPrivacyTitle = NSLocalizedString("ExposureSubmission_Antigen_Profile_Information_Dataprivacy_Title", comment: "")
+			}
+
 			enum Profile {
 				static let headerText = NSLocalizedString("ExposureSubmission_Antigen_Profile_Header_Text", comment: "")
 				static let QRCodeImageDescription = NSLocalizedString("ExposureSubmission_Antigen_Profile_QRCode_Image_Description", comment: "")
