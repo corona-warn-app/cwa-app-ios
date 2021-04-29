@@ -2426,3 +2426,27 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "Submission_Checkins_Alert_Share" = "Teilen";
 
 "Submission_Checkins_Alert_DontShare" = "Nicht teilen";
+
+/* Create Antigen Profile */
+
+"AntigenProfile_Create_Title" = "Schnelltest-Profil";
+
+"AntigenProfile_Create_Description" = "Legen Sie Ihre persönlichen Daten als QR-Code ab, um die Registrierung an der Teststelle zu beschleunigen.";
+
+"AntigenProfile_Create_FirstNamePlaceholder" = "Vorname";
+
+"AntigenProfile_Create_LastNamePlaceholder" = "Nachname";
+
+"AntigenProfile_Create_BirthDatePlaceholder" = "Geburtsdatum";
+
+"AntigenProfile_Create_StreetPlaceholder" = "Strasse und Hausnummer";
+
+"AntigenProfile_Create_PostalCodePlaceholder" = "PLZ";
+
+"AntigenProfile_Create_CityPlaceholder" = "Ort";
+
+"AntigenProfile_Create_PhoneNumberPlaceholder" = "Tel. Nr.";
+
+"AntigenProfile_Create_EmailAddressPlaceholder" = "E-Mail-Adresse";
+
+"AntigenProfile_Create_Save_Button_Title" = "Speichern";

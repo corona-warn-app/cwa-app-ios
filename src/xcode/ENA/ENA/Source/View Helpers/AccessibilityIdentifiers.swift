@@ -528,4 +528,20 @@ enum AccessibilityIdentifiers {
 		
 	}
 	
+	enum AntigenProfile {
+		
+		enum Create {
+			static let title = "AppStrings.AntigenProfile.Create.title"
+			static let description = "AppStrings.AntigenProfile.Create.description"
+			static let firstNameTextField = "AppStrings.AntigenProfile.Create.firstNameTextFieldPlaceholder"
+			static let lastNameTextField = "AppStrings.AntigenProfile.Create.lastNameTextFieldPlaceholder"
+			static let birthDateTextField = "AppStrings.AntigenProfile.Create.birthDateTextFieldPlaceholder"
+			static let streetTextField = "AppStrings.AntigenProfile.Create.streetTextFieldPlaceholder"
+			static let postalCodeTextField = "AppStrings.AntigenProfile.Create.postalCodeTextFieldPlaceholder"
+			static let cityTextField = "AppStrings.AntigenProfile.Create.cityTextFieldPlaceholder"
+			static let phoneNumberTextField = "AppStrings.AntigenProfile.Create.phoneNumberTextFieldPlaceholder"
+			static let emailAddressTextField = "AppStrings.AntigenProfile.Create.emailAddressTextFieldPlaceholder"
+			static let saveButtonTitle = "AppStrings.AntigenProfile.Create.saveButtonTitle"
+		}
+	}
 }
