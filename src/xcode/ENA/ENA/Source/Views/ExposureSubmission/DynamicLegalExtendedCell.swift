@@ -5,7 +5,7 @@
 import UIKit
 
 @IBDesignable
-class DynamicLegalExtendedCell: UITableViewCell {
+class DynamicLegalExtendedCell: UITableViewCell, ReuseIdentifierProviding {
 
 	@IBOutlet private var cardView: UIView!
 	@IBOutlet private var titleLabel: ENALabel!
@@ -15,9 +15,6 @@ class DynamicLegalExtendedCell: UITableViewCell {
 	@IBOutlet private var containerStackView: UIStackView!
 	@IBOutlet private var contentStackView1: UIStackView!
 	@IBOutlet private var contentStackView2: UIStackView!
-	@IBOutlet private var internalStackView2: UIStackView!
-	
-	static let reuseIdentifier = "DynamicLegalExtendedCell"
 
 	override func prepareForInterfaceBuilder() {
 		super.prepareForInterfaceBuilder()

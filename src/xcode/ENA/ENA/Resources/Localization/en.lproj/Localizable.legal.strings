@@ -177,3 +177,21 @@
 "TraceLocation_Information_Legal_Text_4" = "Please display the QR code in such a way that all your guests can scan it while observing the social distancing and hygiene rules (at least 1.5 metres).";
 
 "TraceLocation_Information_Legal_Text_5" = "We recommend creating new QR codes for places at regular intervals, so that warnings are as reliable as possible over time and in order to prevent the QR codes from being misused.";
+
+/* ExposureSubmission - AntigenTest Profile */
+
+"ExposureSubmission_Antigen_Profile_Legal_Headline" = "Data protection and data security";
+
+"ExposureSubmission_Antigen_Profile_Legal_Text01" = "Creating a rapid test profile in the app, and using it, are voluntary.";
+
+"ExposureSubmission_Antigen_Profile_Legal_Text02" = "The app converts the data you enter for your rapid test profile into your personal QR code. The QR code then contains all the data you entered.";
+
+"ExposureSubmission_Antigen_Profile_Legal_Text03" = "At a testing point, you can then have your rapid test profile’s QR code scanned as a means of quickly and securely providing your data to the testing point. The testing point will need your data to carry out the test. However, you do not need the app to provide your data. You decide yourself which data is included in the QR code, and which information you communicate to the testing point by other means.";
+
+"ExposureSubmission_Antigen_Profile_Legal_Text04" = "To begin with, only you will have access to your personal rapid test profile. Other people can only access the personal data contained in your rapid test profile if you show them your rapid test profile’s QR code. This will not provide access to other data from the app (e.g. your check-ins or information in your contact journal).";
+
+"ExposureSubmission_Antigen_Profile_Legal_Text05" = "You have the possibility to delete your rapid test profile at any time. Until then, it will remain stored in the app on your smartphone.";
+
+"ExposureSubmission_Antigen_Profile_Legal_Text06" = "The QR code contains your personal information. Do not provide your personal QR code to anyone if you do not want the data to be read. We do not recommend publishing your personal QR code or sending it by email.";
+
+"ExposureSubmission_Antigen_Profile_Legal_Text07" = "Private individuals as well as companies are not allowed to make you share your rapid test profile with them.";
