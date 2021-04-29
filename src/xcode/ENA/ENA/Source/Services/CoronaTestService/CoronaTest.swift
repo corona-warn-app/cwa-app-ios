@@ -133,7 +133,25 @@ enum CoronaTest: Equatable {
 
 }
 
-struct PCRTest: Equatable, Codable {
+class PCRTest: Equatable, Codable {
+	
+	internal init(registrationDate: Date, registrationToken: String? = nil, testResult: TestResult, finalTestResultReceivedDate: Date? = nil, positiveTestResultWasShown: Bool, isSubmissionConsentGiven: Bool, submissionTAN: String? = nil, keysSubmitted: Bool, journalEntryCreated: Bool) {
+		self.registrationDate = registrationDate
+		self.registrationToken = registrationToken
+		self.testResult = testResult
+		self.finalTestResultReceivedDate = finalTestResultReceivedDate
+		self.positiveTestResultWasShown = positiveTestResultWasShown
+		self.isSubmissionConsentGiven = isSubmissionConsentGiven
+		self.submissionTAN = submissionTAN
+		self.keysSubmitted = keysSubmitted
+		self.journalEntryCreated = journalEntryCreated
+	}
+
+
+	static func == (lhs: PCRTest, rhs: PCRTest) -> Bool {
+		true
+	}
+
 
 	var registrationDate: Date
 	var registrationToken: String?

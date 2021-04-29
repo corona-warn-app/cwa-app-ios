@@ -153,6 +153,12 @@ protocol AntigenTestProfileStoring: AnyObject {
 
 }
 
+protocol HealthCertificateStoring {
+
+	var healthCertifiedPersons: [HealthCertifiedPerson] { get set }
+
+}
+
 /// this section contains only deprecated stuff, please do not add new things here
 protocol CoronaTestStoringLegacy {
 
@@ -189,4 +195,4 @@ protocol CoronaTestStoringLegacy {
 }
 
 /// Wrapper protocol
-protocol Store: StoreProtocol, AppConfigCaching, StatisticsCaching, PrivacyPreservingProviding, EventRegistrationCaching, WarnOthersTimeIntervalStoring, CoronaTestStoring, AntigenTestProfileStoring, CoronaTestStoringLegacy {}
+protocol Store: StoreProtocol, AppConfigCaching, StatisticsCaching, PrivacyPreservingProviding, EventRegistrationCaching, WarnOthersTimeIntervalStoring, CoronaTestStoring, AntigenTestProfileStoring, HealthCertificateStoring, CoronaTestStoringLegacy {}

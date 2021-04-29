@@ -213,6 +213,13 @@ final class SecureStore: Store {
 		get { kvStore["journalWithExposureHistoryInfoScreenShown"] as Bool? ?? false }
 		set { kvStore["journalWithExposureHistoryInfoScreenShown"] = newValue }
 	}
+
+	// MARK: - Protocol HealthCertificateStoring
+
+	var healthCertifiedPersons: [HealthCertifiedPerson] {
+		get { kvStore["healthCertifiedPersons"] as [HealthCertifiedPerson]? ?? [] }
+		set { kvStore["healthCertifiedPersons"] = newValue }
+	}
 	
 	#if !RELEASE
 
