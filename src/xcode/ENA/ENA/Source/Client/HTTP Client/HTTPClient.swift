@@ -1043,25 +1043,42 @@ private extension URLRequest {
 		let boundary = UUID().uuidString
 		var request = URLRequest(url: configuration.logUploadURL)
 		request.httpMethod = HttpMethod.post
-		// create multipart body
-		request.httpBody = try Self.requestBodyForLogUpload(logData: payload, boundary: boundary)
+		
+		// Create multipart body
+		
+		// prevent potential file collisions on backend
+		let fileName = "ErrorLog-\(UUID().uuidString).zip"
+		
+		var body = Data()
 
-		// headers
+		try body.append("\r\n--\(boundary)\r\n")
+		try body.append("Content-Disposition:form-data; name=\"file\"; filename=\"\(fileName)\"\r\n")
+		try body.append("Content-Type:application/zip\r\n")
+		try body.append("Content-Length: \(payload.count)\r\n")
+		try body.append("\r\n")
+		body.append(payload)
+		try body.append("\r\n")
+		try body.append("--\(boundary)--\r\n")
+		
+		request.httpBody = body
+		
+		// Create headers
+		
+		request.setValue(
+			"multipart/form-data; boundary=\(boundary)",
+			forHTTPHeaderField: "Content-Type"
+		)
+		
 		request.setValue(
 			otpEls,
 			forHTTPHeaderField: "cwa-otp"
 		)
 		
 		request.setValue(
-			"multipart/form-data; boundary=\(boundary)",
-			forHTTPHeaderField: "Content-Type"
+			"\(body.count)",
+			forHTTPHeaderField: "Content-Length"
 		)
-		if let body = request.httpBody {
-			request.setValue(
-				"\(body.count)",
-				forHTTPHeaderField: "Content-Length"
-			)
-		}
+		
 		return request
 	}
 
@@ -1109,34 +1126,6 @@ private extension URLRequest {
 		guard paddedKeysAmount > 0 else { return Data() }
 		guard let data = (String.getRandomString(of: 28 * paddedKeysAmount)).data(using: .ascii) else { return Data() }
 		return data
-	}
-
-	// MARK: - Multipart form-data
-
-	/// Constructs a `multipart/form-data` body for a given log data
-	/// - Parameters:
-	///   - logData: The compressed log data to submit
-	///   - boundary: Delimiter in multipart documents; see: https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types#multipartform-data
-	/// - Throws: A `DataConversionError` if given strings cannot be decoded to UTF-8 data
-	/// - Returns: The prepared body data for the http request
-	private static func requestBodyForLogUpload(
-		logData: Data,
-		boundary: String
-	) throws -> Data? {
-		var body = Data()
-
-		// init form
-		try body.append("\r\n--\(boundary)\r\n")
-		// prevent potential file collisions on backend
-		try body.append("Content-Disposition:form-data; name=\"file\"; filename=\"ErrorLog-\(UUID().uuidString).zip\"\r\n")
-		try body.append("Content-Type:application/zip\r\n")
-		try body.append("Content-Length: \(logData.count)\r\n")
-		try body.append("\r\n")
-		body.append(logData)
-		try body.append("\r\n")
-		try body.append("--\(boundary)--\r\n")
-
-		return body
 	}
 
 	// swiftlint:disable:next file_length
