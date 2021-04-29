@@ -27,6 +27,7 @@
         "ENAUITests_01_Home\/test_screenshot_homescreen_invalid_test_result()",
         "ENAUITests_01_Home\/test_screenshot_homescreen_loading_test_result()",
         "ENAUITests_01_Home\/test_screenshot_homescreen_negative_test_result()",
+        "ENAUITests_01_Home\/test_screenshot_homescreen_pcr_rat_negative()",
         "ENAUITests_01_Home\/test_screenshot_homescreen_pending_test_result()",
         "ENAUITests_01_Home\/test_screenshot_homescreen_positive_test_result()",
         "ENAUITests_01_Home\/test_screenshot_homescreen_riskCardHigh()",
