@@ -69,7 +69,7 @@ class ENAUITests_10_CheckIns: XCTestCase {
 		app.launchArguments.append(contentsOf: ["-checkinInfoScreenShown", "NO"])
 		app.launch()
 		
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Tabbar.checkin].waitForExistence(timeout: .extraLong))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Tabbar.checkin].waitForExistence(timeout: .short))
 		
 		// Navigate to CheckIn
 		app.buttons[AccessibilityIdentifiers.Tabbar.checkin].tap()
@@ -80,12 +80,29 @@ class ENAUITests_10_CheckIns: XCTestCase {
 		
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Information.descriptionTitle].exists)
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Information.descriptionSubHeadline].exists)
-
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Checkin.Information.dataPrivacyTitle].waitForExistence(timeout: .extraLong))
-
-		app.cells[AccessibilityIdentifiers.Checkin.Information.dataPrivacyTitle].tap()
 		
-		XCTAssertTrue(app.staticTexts["AppStrings.AppInformation.privacyTitle"].waitForExistence(timeout: .extraLong))
+		// find data privacy cell (last cell) and tap it
+		guard let lastCell = app.tables.firstMatch.cells.allElementsBoundByIndex.last,
+			  lastCell.identifier == AccessibilityIdentifiers.Checkin.Information.dataPrivacyTitle else {
+			XCTFail("Could not find last table view cell")
+			return
+		}
+		
+		let MAX_SCROLLS = 10
+		var count = 0
+		while lastCell.isHittable == false && count < MAX_SCROLLS {
+			app.swipeUp()
+			count += 1
+		}
+		
+		lastCell.tap()
+		
+
+//		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Checkin.Information.dataPrivacyTitle].waitForExistence(timeout: .short))
+
+//		app.cells[AccessibilityIdentifiers.Checkin.Information.dataPrivacyTitle].tap()
+		
+		XCTAssertTrue(app.staticTexts["AppStrings.AppInformation.privacyTitle"].waitForExistence(timeout: .short))
 	}
 	
 	func testCheckinInfoScreen_confirmConsent() throws {
