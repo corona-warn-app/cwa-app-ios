@@ -53,7 +53,6 @@ class DynamicLegalExtendedCell: UITableViewCell, ReuseIdentifierProviding {
 	/// - bulletPoints2
 	func configure(title: NSAttributedString, subheadline1: NSAttributedString?, bulletPoints: [NSAttributedString]?, subheadline2: NSAttributedString?, accessibilityIdentifier: String? = nil, spacing: CGFloat) {
 		
-		internalStackView2.isHidden = true
 		containerStackView.spacing = 10
 
 		let label = ENALabel() // get the default font – create fake label

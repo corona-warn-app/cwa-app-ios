@@ -22,7 +22,7 @@
                         <rect key="frame" x="16" y="11" width="288" height="878"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1md-SR-62Q" userLabel="Title Label 1" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                <rect key="frame" x="20" y="20" width="43.5" height="20.5"/>
+                                <rect key="frame" x="20" y="20" width="41.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -97,7 +97,6 @@
                 <outlet property="contentStackView2" destination="3ck-WL-Nhf" id="d0f-hL-Srn"/>
                 <outlet property="descriptionLabel1" destination="ZKO-eN-0Yw" id="0ZU-Ou-yLR"/>
                 <outlet property="descriptionLabel2" destination="79Y-9g-GkT" id="MC6-6e-laa"/>
-                <outlet property="internalStackView2" destination="3ck-WL-Nhf" id="Qpe-uC-pld"/>
                 <outlet property="titleLabel" destination="1md-SR-62Q" id="gKi-sf-MS2"/>
             </connections>
             <point key="canvasLocation" x="56.521739130434788" y="381.69642857142856"/>
@@ -105,13 +104,13 @@
     </objects>
     <designables>
         <designable name="1md-SR-62Q">
-            <size key="intrinsicContentSize" width="43.5" height="20.5"/>
+            <size key="intrinsicContentSize" width="41.5" height="20.5"/>
         </designable>
         <designable name="79Y-9g-GkT">
-            <size key="intrinsicContentSize" width="43.5" height="20.5"/>
+            <size key="intrinsicContentSize" width="41.5" height="20.5"/>
         </designable>
         <designable name="ZKO-eN-0Yw">
-            <size key="intrinsicContentSize" width="43.5" height="20.5"/>
+            <size key="intrinsicContentSize" width="41.5" height="20.5"/>
         </designable>
     </designables>
     <resources>
