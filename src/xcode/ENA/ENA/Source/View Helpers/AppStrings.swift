@@ -1713,5 +1713,22 @@ enum AppStrings {
 		}
 	}
 
+	enum AntigenProfile {
+		
+		enum Create {
+			static let title = NSLocalizedString("AntigenProfile_Create_Title", comment: "")
+			static let description = NSLocalizedString("AntigenProfile_Create_Description", comment: "")
+			static let firstNameTextFieldPlaceholder = NSLocalizedString("AntigenProfile_Create_FirstNamePlaceholder", comment: "")
+			static let lastNameTextFieldPlaceholder = NSLocalizedString("AntigenProfile_Create_LastNamePlaceholder", comment: "")
+			static let birthDateTextFieldPlaceholder = NSLocalizedString("AntigenProfile_Create_BirthDatePlaceholder", comment: "")
+			static let streetTextFieldPlaceholder = NSLocalizedString("AntigenProfile_Create_StreetPlaceholder", comment: "")
+			static let postalCodeTextFieldPlaceholder = NSLocalizedString("AntigenProfile_Create_PostalCodePlaceholder", comment: "")
+			static let cityTextFieldPlaceholder = NSLocalizedString("AntigenProfile_Create_CityPlaceholder", comment: "")
+			static let phoneNumberTextFieldPlaceholder = NSLocalizedString("AntigenProfile_Create_PhoneNumberPlaceholder", comment: "")
+			static let emailAddressTextFieldPlaceholder = NSLocalizedString("AntigenProfile_Create_EmailAddressPlaceholder", comment: "")
+			static let saveButtonTitle = NSLocalizedString("AntigenProfile_Create_Save_Button_Title", comment: "")
+		}
+	}
+	
 	// swiftlint:disable:next file_length
 }
