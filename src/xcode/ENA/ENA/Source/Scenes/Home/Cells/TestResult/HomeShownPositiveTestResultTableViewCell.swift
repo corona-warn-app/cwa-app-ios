@@ -40,7 +40,12 @@ final class HomeShownPositiveTestResultTableViewCell: UITableViewCell {
 
 		statusTitleLabel.text = cellModel.statusTitle
 		statusSubtitleLabel.text = cellModel.statusSubtitle
-		statusFootnoteLabel.text = cellModel.statusFootnote
+
+		cellModel.$statusFootnote
+			.receive(on: DispatchQueue.OCombine(.main))
+			.assign(to: \.text, on: statusFootnoteLabel)
+			.store(in: &subscriptions)
+
 		statusLineView.backgroundColor = .enaColor(for: .riskHigh)
 
 		noteLabel.text = cellModel.noteTitle
@@ -73,7 +78,10 @@ final class HomeShownPositiveTestResultTableViewCell: UITableViewCell {
 			.assign(to: \.isHidden, on: nextButton)
 			.store(in: &subscriptions)
 
-		nextButton.accessibilityIdentifier = AccessibilityIdentifiers.Home.submitCardButton
+		cellModel.$accessibilityIdentifier
+			.receive(on: DispatchQueue.OCombine(.main))
+			.assign(to: \.accessibilityIdentifier, on: self)
+			.store(in: &subscriptions)
 
 		self.onPrimaryAction = onPrimaryAction
 

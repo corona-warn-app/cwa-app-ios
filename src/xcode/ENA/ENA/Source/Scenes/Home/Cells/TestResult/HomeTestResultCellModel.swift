@@ -35,7 +35,7 @@ class HomeTestResultCellModel {
 	@OpenCombine.Published var isActivityIndicatorHidden: Bool = false
 	@OpenCombine.Published var isUserInteractionEnabled: Bool = false
 	@OpenCombine.Published var isCellTappable: Bool = true
-	@OpenCombine.Published var accessibilityIdentifier: String! = AccessibilityIdentifiers.Home.submitCardButton
+	@OpenCombine.Published var accessibilityIdentifier: String! = AccessibilityIdentifiers.Home.TestResultCell.unconfiguredButton
 
 	// MARK: - Private
 
@@ -179,7 +179,13 @@ class HomeTestResultCellModel {
 		isActivityIndicatorHidden = true
 		isUserInteractionEnabled = true
 		isCellTappable = true
-		accessibilityIdentifier = AccessibilityIdentifiers.Home.submitCardButton
+
+		switch coronaTestType {
+		case .pcr:
+			accessibilityIdentifier = AccessibilityIdentifiers.Home.TestResultCell.negativePCRButton
+		case .antigen:
+			accessibilityIdentifier = AccessibilityIdentifiers.Home.TestResultCell.negativeAntigenButton
+		}
 	}
 
 	private func configureTestResultInvalid() {
@@ -192,7 +198,13 @@ class HomeTestResultCellModel {
 		isActivityIndicatorHidden = true
 		isUserInteractionEnabled = true
 		isCellTappable = true
-		accessibilityIdentifier = AccessibilityIdentifiers.Home.submitCardButton
+
+		switch coronaTestType {
+		case .pcr:
+			accessibilityIdentifier = AccessibilityIdentifiers.Home.TestResultCell.invalidPCRButton
+		case .antigen:
+			accessibilityIdentifier = AccessibilityIdentifiers.Home.TestResultCell.invalidAntigenButton
+		}
 	}
 
 	private func configureTestResultPending() {
@@ -213,7 +225,13 @@ class HomeTestResultCellModel {
 		isActivityIndicatorHidden = true
 		isUserInteractionEnabled = true
 		isCellTappable = true
-		accessibilityIdentifier = AccessibilityIdentifiers.Home.submitCardButton
+
+		switch coronaTestType {
+		case .pcr:
+			accessibilityIdentifier = AccessibilityIdentifiers.Home.TestResultCell.pendingPCRButton
+		case .antigen:
+			accessibilityIdentifier = AccessibilityIdentifiers.Home.TestResultCell.pendingAntigenButton
+		}
 	}
 
 	private func configureTestResultAvailable() {
@@ -227,7 +245,13 @@ class HomeTestResultCellModel {
 		isActivityIndicatorHidden = true
 		isUserInteractionEnabled = true
 		isCellTappable = true
-		accessibilityIdentifier = AccessibilityIdentifiers.Home.submitCardButton
+
+		switch coronaTestType {
+		case .pcr:
+			accessibilityIdentifier = AccessibilityIdentifiers.Home.TestResultCell.availablePCRButton
+		case .antigen:
+			accessibilityIdentifier = AccessibilityIdentifiers.Home.TestResultCell.availableAntigenButton
+		}
 	}
 
 	private func configureTestResultExpired() {
@@ -241,7 +265,13 @@ class HomeTestResultCellModel {
 		isActivityIndicatorHidden = true
 		isUserInteractionEnabled = true
 		isCellTappable = true
-		accessibilityIdentifier = AccessibilityIdentifiers.Home.submitCardButton
+
+		switch coronaTestType {
+		case .pcr:
+			accessibilityIdentifier = AccessibilityIdentifiers.Home.TestResultCell.expiredPCRButton
+		case .antigen:
+			accessibilityIdentifier = AccessibilityIdentifiers.Home.TestResultCell.expiredAntigenButton
+		}
 	}
 
 	private func configureTestResultOutdated() {
@@ -255,7 +285,7 @@ class HomeTestResultCellModel {
 		isActivityIndicatorHidden = true
 		isUserInteractionEnabled = true
 		isCellTappable = false
-		accessibilityIdentifier = AccessibilityIdentifiers.Home.submitCardButton
+		accessibilityIdentifier = AccessibilityIdentifiers.Home.TestResultCell.outdatedAntigenButton
 	}
 
 	private func configureLoading() {
@@ -269,7 +299,13 @@ class HomeTestResultCellModel {
 		isActivityIndicatorHidden = false
 		isUserInteractionEnabled = false
 		isCellTappable = true
-		accessibilityIdentifier = AccessibilityIdentifiers.Home.submitCardButton
+
+		switch coronaTestType {
+		case .pcr:
+			accessibilityIdentifier = AccessibilityIdentifiers.Home.TestResultCell.loadingPCRButton
+		case .antigen:
+			accessibilityIdentifier = AccessibilityIdentifiers.Home.TestResultCell.loadingAntigenButton
+		}
 	}
 
 }

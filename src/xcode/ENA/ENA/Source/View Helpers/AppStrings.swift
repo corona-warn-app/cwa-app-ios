@@ -141,7 +141,7 @@ enum AppStrings {
 	}
 
 	enum ExposureSubmissionResult {
-		
+
 		enum PCR {
 			static let title = NSLocalizedString("ExposureSubmissionResult_Title", comment: "")
 			static let card_positive = NSLocalizedString("ExposureSubmissionResult_CardPositive", comment: "")
