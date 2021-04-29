@@ -1133,6 +1133,7 @@ private extension URLRequest {
 		try body.append("Content-Length: \(logData.count)\r\n")
 		try body.append("\r\n")
 		body.append(logData)
+		try body.append("\r\n")
 		try body.append("--\(boundary)--\r\n")
 
 		return body
