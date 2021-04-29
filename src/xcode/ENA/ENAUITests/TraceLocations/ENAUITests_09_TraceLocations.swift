@@ -351,7 +351,7 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 		XCTAssertTrue(traceLocationsCardButton.waitForExistence(timeout: .extraLong))
 		traceLocationsCardButton.tap()
 
-		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.addButtonTitle)].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.addButtonTitle)].waitForExistence(timeout: .medium))
 		let event0 = "Mittagessen"
 		let event1 = "Team Meeting"
 		let event2 = "Sprint Planung"
@@ -372,7 +372,7 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 		// THEN
 		// switch to journal and check entries for events
 		app.tabBars.buttons[AccessibilityIdentifiers.Tabbar.diary].tap()
-		XCTAssertTrue(app.navigationBars[AccessibilityLabels.localized(AppStrings.ContactDiary.Overview.title)].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.navigationBars[AccessibilityLabels.localized(AppStrings.ContactDiary.Overview.title)].waitForExistence(timeout: .medium))
 
 		// count the number of entries on the screen
 		var eventcount = [0, 0, 0]
