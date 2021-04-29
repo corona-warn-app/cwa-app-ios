@@ -83,7 +83,7 @@ enum AppStrings {
 
 			enum Antigen {
 				static let headline = NSLocalizedString("ExposureSubmission_OverwriteNotice_Antigen_Headline", comment: "")
-				static let text = NSLocalizedString("ExposureSubmission_/Users/kaiteuber/Documents/sap/cwa-app-ios/src/xcode/ENA/ENA/Resources/Localization/en.lproj/Localizable.legal.stringsOverwriteNotice_Antigen_Text", comment: "")
+				static let text = NSLocalizedString("ExposureSubmission_OverwriteNotice_Antigen_Text", comment: "")
 			}
 		}
 
