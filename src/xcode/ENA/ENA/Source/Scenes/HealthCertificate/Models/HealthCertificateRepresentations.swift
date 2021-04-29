@@ -5,7 +5,7 @@
 import Foundation
 import OpenCombine
 
-struct HealthCertificateRepresentations: Codable {
+struct HealthCertificateRepresentations: Codable, Equatable {
 
 	// MARK: - Internal
 

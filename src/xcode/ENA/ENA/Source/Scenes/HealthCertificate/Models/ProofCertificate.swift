@@ -5,7 +5,7 @@
 import Foundation
 import OpenCombine
 
-struct ProofCertificate: Codable {
+struct ProofCertificate: Codable, Equatable {
 
 	// MARK: - Internal
 
