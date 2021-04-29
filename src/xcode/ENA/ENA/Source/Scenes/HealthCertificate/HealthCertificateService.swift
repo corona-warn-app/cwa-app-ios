@@ -27,6 +27,14 @@ class HealthCertificateService {
 		}
 	}
 
+	func register(_ healthCertificateRepresentations: HealthCertificateRepresentations) {
+
+	}
+
+	func requestProof(for healthCertifiedPerson: HealthCertifiedPerson) {
+
+	}
+
 	func updatePublishersFromStore() {
 		Log.info("[HealthCertificateService] Updating publishers from store", log: .api)
 
