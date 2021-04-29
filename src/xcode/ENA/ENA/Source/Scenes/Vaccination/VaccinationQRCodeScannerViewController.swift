@@ -9,7 +9,7 @@ class VaccinationQRCodeScannerViewController: UIViewController {
 	// MARK: - Init
 
 	init(
-		didScanCheckin: @escaping (String) -> Void,
+		didScanVaccination: @escaping (String) -> Void,
 		dismiss: @escaping () -> Void
 	) {
 		self.dismiss = dismiss
