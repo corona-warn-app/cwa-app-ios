@@ -29,7 +29,6 @@ class HealthCertificateServiceTests: XCTestCase {
 			}
 
 		let proofCertificate = ProofCertificate(cborRepresentation: Data(), expirationDate: Date())
-
 		healthCertifiedPerson.proofCertificate = proofCertificate
 
 		XCTAssertEqual(store.healthCertifiedPersons.first?.proofCertificate, proofCertificate)
