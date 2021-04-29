@@ -14,8 +14,7 @@ class AntigenTestProfileInformationViewController: DynamicTableViewController, F
 		didTapContinue: @escaping () -> Void,
 		dismiss: @escaping () -> Void
 	) {
-		self.viewModel = AntigenTestProfileInformationViewModel(store: store)
-		self.didTapDataPrivacy = didTapDataPrivacy
+		self.viewModel = AntigenTestProfileInformationViewModel(store: store, showDisclaimer: didTapDataPrivacy)
 		self.didTapContinue = didTapContinue
 		self.dismiss = dismiss
 		super.init(nibName: nil, bundle: nil)
@@ -33,23 +32,17 @@ class AntigenTestProfileInformationViewController: DynamicTableViewController, F
 
 		parent?.navigationItem.title = viewModel.title
 		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
+		setupView()
 		viewModel.markScreenSeen()
 	}
 
 	// MARK: - Protocol FooterViewHandling
 
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
-
-		// this one can get used if data privacy will be removed from footer's secondary button
-//		guard case .primary = type else {
-//			return
-//		}
-		switch type {
-		case .primary:
-			didTapContinue()
-		case .secondary:
-			didTapDataPrivacy()
+		guard case .primary = type else {
+			return
 		}
+		didTapContinue()
 	}
 
 	// MARK: - Protocol DismissHandling
@@ -58,15 +51,23 @@ class AntigenTestProfileInformationViewController: DynamicTableViewController, F
 		dismiss()
 	}
 
-	// MARK: - Public
-
-	// MARK: - Internal
-
 	// MARK: - Private
 
 	private let viewModel: AntigenTestProfileInformationViewModel
-	private let didTapDataPrivacy: () -> Void
 	private let didTapContinue: () -> Void
 	private let dismiss: () -> Void
+
+	private func setupView() {
+		view.backgroundColor = .enaColor(for: .background)
+
+		tableView.register(
+			UINib(nibName: String(describing: DynamicLegalExtendedCell.self), bundle: nil),
+			forCellReuseIdentifier: DynamicLegalExtendedCell.reuseIdentifier
+		)
+
+		dynamicTableViewModel = viewModel.dynamicTableViewModel
+		tableView.separatorStyle = .none
+	}
+
 
 }

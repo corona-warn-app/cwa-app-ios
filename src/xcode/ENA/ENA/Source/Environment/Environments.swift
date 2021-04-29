@@ -75,7 +75,7 @@ struct Environments: EnvironmentProviding {
 		}
 	}
 	#if DEBUG
-	/// Test initializer to provide custom envs
+	/// Initializer to provide custom environments in tests
 	init(environments: [EnvironmentData]) {
 		self.environments = environments
 	}
@@ -90,7 +90,7 @@ struct Environments: EnvironmentProviding {
 	}
 
 	func currentEnvironment() -> EnvironmentData {
-		#if DEBUG
+		#if !RELEASE
 		if let env = UserDefaults.standard.string(forKey: Environments.selectedEnvironmentKey) {
 			return environment(.custom(env))
 		} else {
@@ -102,7 +102,7 @@ struct Environments: EnvironmentProviding {
 	}
 
 	func defaultEnvironment() -> EnvironmentData {
-		#if DEBUG
+		#if !RELEASE
 		return environments[0]
 		#else
 		return environment(.production)
