@@ -4,10 +4,11 @@
 
 import Foundation
 import ExposureNotification
+import OpenCombine
 
 /// The `SecureStore` class implements the `Store` protocol that defines all required storage attributes.
 /// It uses an SQLite Database that still needs to be encrypted
-final class SecureStore: Store {
+final class SecureStore: Store, AntigenTestProfileStoring {
 
 	// MARK: - Init
 
@@ -198,7 +199,6 @@ final class SecureStore: Store {
 		set { kvStore["submissionCheckins"] = newValue }
 	}
 
-
 	var submissionCountries: [Country] {
 		get { kvStore["submissionCountries"] as [Country]? ?? [.defaultCountry()] }
 		set { kvStore["submissionCountries"] = newValue }
@@ -212,6 +212,25 @@ final class SecureStore: Store {
 	var journalWithExposureHistoryInfoScreenShown: Bool {
 		get { kvStore["journalWithExposureHistoryInfoScreenShown"] as Bool? ?? false }
 		set { kvStore["journalWithExposureHistoryInfoScreenShown"] = newValue }
+	}
+
+	// MARK: - Protocol AntigenTestProfileStoring
+
+	lazy var antigenTestProfileSubject = {
+		CurrentValueSubject<AntigenTestProfile?, Never>(antigenTestProfile)
+	}()
+
+	var antigenTestProfile: AntigenTestProfile? {
+		get { kvStore["antigenTestProfile"] as AntigenTestProfile? }
+		set {
+			kvStore["antigenTestProfile"] = newValue
+			antigenTestProfileSubject.value = newValue
+		}
+	}
+
+	var antigenTestProfileInfoScreenShown: Bool {
+		get { kvStore["antigenTestProfileInfoScreenShown"] as Bool? ?? false }
+		set { kvStore["antigenTestProfileInfoScreenShown"] = newValue }
 	}
 	
 	#if !RELEASE
@@ -385,20 +404,6 @@ extension SecureStore: CoronaTestStoring {
 	var antigenTest: AntigenTest? {
 		get { kvStore["antigenTest"] as AntigenTest? }
 		set { kvStore["antigenTest"] = newValue }
-	}
-
-}
-
-extension SecureStore: AntigenTestProfileStoring {
-
-	var antigenTestProfile: AntigenTestProfile? {
-		get { kvStore["antigenTestProfile"] as AntigenTestProfile? }
-		set { kvStore["antigenTestProfile"] = newValue }
-	}
-
-	var antigenTestProfileInfoScreenShown: Bool {
-		get { kvStore["antigenTestProfileInfoScreenShown"] as Bool? ?? false }
-		set { kvStore["antigenTestProfileInfoScreenShown"] = newValue }
 	}
 
 }
