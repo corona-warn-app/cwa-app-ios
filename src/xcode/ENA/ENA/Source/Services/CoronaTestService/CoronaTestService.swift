@@ -6,28 +6,6 @@ import Foundation
 import OpenCombine
 import UIKit
 
-enum CoronaTestServiceError: LocalizedError, Equatable {
-	case responseFailure(URLSession.Response.Failure)
-	case unknownTestResult
-	case testExpired
-	case noRegistrationToken
-	case noCoronaTestOfRequestedType
-
-	var errorDescription: String? {
-		switch self {
-		case let .responseFailure(responseFailure):
-			return responseFailure.errorDescription
-		case .noRegistrationToken:
-			return AppStrings.ExposureSubmissionError.noRegistrationToken
-		case .testExpired:
-			return AppStrings.ExposureSubmission.qrCodeExpiredAlertText
-		default:
-			Log.error("\(self)", log: .api)
-			return AppStrings.ExposureSubmissionError.defaultError
-		}
-	}
-}
-
 // swiftlint:disable:next type_body_length
 class CoronaTestService {
 
@@ -45,44 +23,36 @@ class CoronaTestService {
 		appConfiguration: AppConfigurationProviding,
 		notificationCenter: UserNotificationCenter = UNUserNotificationCenter.current()
 	) {
+		#if DEBUG
+		if isUITesting {
+			self.client = ClientMock()
+			self.store = MockTestStore()
+			self.appConfiguration = CachedAppConfigurationMock()
+
+			self.notificationCenter = notificationCenter
+
+			self.fakeRequestService = FakeRequestService(client: client)
+			self.warnOthersReminder = WarnOthersReminder(store: store)
+
+			setup()
+
+			pcrTest = mockPCRTest
+			antigenTest = mockAntigenTest
+
+			return
+		}
+		#endif
+
 		self.client = client
 		self.store = store
 		self.appConfiguration = appConfiguration
+
 		self.notificationCenter = notificationCenter
 
 		self.fakeRequestService = FakeRequestService(client: client)
 		self.warnOthersReminder = WarnOthersReminder(store: store)
 
-		updatePublishersFromStore()
-
-		$pcrTest
-			.sink { [weak self] pcrTest in
-				self?.store.pcrTest = pcrTest
-				self?.tests.pcr = pcrTest
-
-				if pcrTest?.keysSubmitted == true {
-					self?.warnOthersReminder.cancelNotifications(for: .pcr)
-				}
-			}
-			.store(in: &subscriptions)
-
-		$antigenTest
-			.sink { [weak self] antigenTest in
-				self?.store.antigenTest = antigenTest
-				self?.tests.antigen = antigenTest
-
-				if antigenTest?.keysSubmitted == true {
-					self?.warnOthersReminder.cancelNotifications(for: .antigen)
-				}
-
-				if let antigenTest = antigenTest {
-					self?.setupOutdatedPublisher(for: antigenTest)
-				} else {
-					self?.antigenTestIsOutdated = false
-					self?.antigenTestOutdatedDate = nil
-				}
-			}
-			.store(in: &subscriptions)
+		setup()
 	}
 
 	// MARK: - Protocol CoronaTestServiceProviding
@@ -441,6 +411,39 @@ class CoronaTestService {
 
 	private var subscriptions = Set<AnyCancellable>()
 
+	private func setup() {
+		updatePublishersFromStore()
+
+		$pcrTest
+			.sink { [weak self] pcrTest in
+				self?.store.pcrTest = pcrTest
+				self?.tests.pcr = pcrTest
+
+				if pcrTest?.keysSubmitted == true {
+					self?.warnOthersReminder.cancelNotifications(for: .pcr)
+				}
+			}
+			.store(in: &subscriptions)
+
+		$antigenTest
+			.sink { [weak self] antigenTest in
+				self?.store.antigenTest = antigenTest
+				self?.tests.antigen = antigenTest
+
+				if antigenTest?.keysSubmitted == true {
+					self?.warnOthersReminder.cancelNotifications(for: .antigen)
+				}
+
+				if let antigenTest = antigenTest {
+					self?.setupOutdatedPublisher(for: antigenTest)
+				} else {
+					self?.antigenTestIsOutdated = false
+					self?.antigenTestOutdatedDate = nil
+				}
+			}
+			.store(in: &subscriptions)
+	}
+
 	private func getRegistrationToken(
 		forKey key: String,
 		withType type: String,
@@ -500,6 +503,18 @@ class CoronaTestService {
 			case .antigen:
 				self.antigenTestResultIsLoading = false
 			}
+
+			#if DEBUG
+			if isUITesting {
+				completion(
+					self.mockTestResultResponse(for: coronaTestType).flatMap { .success($0) } ??
+					self.mockTestResult(for: coronaTestType).flatMap { .success($0) } ??
+						.failure(.noCoronaTestOfRequestedType)
+				)
+
+				return
+			}
+			#endif
 
 			switch result {
 			case let .failure(error):
@@ -631,6 +646,65 @@ class CoronaTestService {
 
 		antigenTestIsOutdated = Date() >= antigenTestOutdatedDate
 	}
+
+	#if DEBUG
+
+	private var mockPCRTest: PCRTest? {
+		if let testResult = mockTestResult(for: .pcr) {
+			return PCRTest(
+				registrationDate: Date(),
+				registrationToken: "asdf",
+				testResult: testResult,
+				finalTestResultReceivedDate: testResult == .pending ? nil : Date(),
+				positiveTestResultWasShown: UserDefaults.standard.string(forKey: "pcrPositiveTestResultWasShown") == "YES",
+				isSubmissionConsentGiven: UserDefaults.standard.string(forKey: "isPCRSubmissionConsentGiven") == "YES",
+				submissionTAN: nil,
+				keysSubmitted: UserDefaults.standard.string(forKey: "pcrKeysSubmitted") == "YES",
+				journalEntryCreated: false
+			)
+		} else {
+			return nil
+		}
+	}
+
+	private var mockAntigenTest: AntigenTest? {
+		if let testResult = mockTestResult(for: .antigen) {
+			return AntigenTest(
+				pointOfCareConsentDate: Date(),
+				registrationToken: "zxcv",
+				testedPerson: TestedPerson(firstName: "Erika", lastName: "Mustermann", dateOfBirth: "1964-08-12"),
+				testResult: testResult,
+				finalTestResultReceivedDate: testResult == .pending ? nil : Date(),
+				positiveTestResultWasShown: UserDefaults.standard.string(forKey: "antigenPositiveTestResultWasShown") == "YES",
+				isSubmissionConsentGiven: UserDefaults.standard.string(forKey: "isAntigenSubmissionConsentGiven") == "YES",
+				submissionTAN: nil,
+				keysSubmitted: UserDefaults.standard.string(forKey: "antigenKeysSubmitted") == "YES",
+				journalEntryCreated: false
+			)
+		} else {
+			return nil
+		}
+	}
+
+	private func mockTestResult(for coronaTestType: CoronaTestType) -> TestResult? {
+		switch coronaTestType {
+		case .pcr:
+			return UserDefaults.standard.string(forKey: "pcrTestResult").flatMap { TestResult(stringValue: $0) }
+		case .antigen:
+			return UserDefaults.standard.string(forKey: "antigenTestResult").flatMap { TestResult(stringValue: $0) }
+		}
+	}
+
+	private func mockTestResultResponse(for coronaTestType: CoronaTestType) -> TestResult? {
+		switch coronaTestType {
+		case .pcr:
+			return UserDefaults.standard.string(forKey: "pcrTestResultResponse").flatMap { TestResult(stringValue: $0) }
+		case .antigen:
+			return UserDefaults.standard.string(forKey: "antigenTestResultResponse").flatMap { TestResult(stringValue: $0) }
+		}
+	}
+
+	#endif
 
 	// swiftlint:disable:next file_length
 }

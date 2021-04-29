@@ -56,6 +56,8 @@ class TraceLocationDetailViewController: UIViewController {
 	@IBOutlet private weak var bottomCardView: UIView!
 	@IBOutlet private weak var descriptionView: UIView!
 	@IBOutlet private weak var logoImageView: UIImageView!
+	@IBOutlet private weak var switchView: UIView!
+	@IBOutlet private weak var checkOutView: UIView!
 	@IBOutlet private weak var checkInForLabel: ENALabel!
 	@IBOutlet private weak var activityLabel: ENALabel!
 	@IBOutlet private weak var descriptionLabel: ENALabel!
@@ -78,6 +80,8 @@ class TraceLocationDetailViewController: UIViewController {
 			.sink { [weak self] _ in
 				guard let self = self else { return }
 				self.pickerButton.setTitle(self.viewModel.pickerButtonTitle, for: .normal)
+				
+				self.checkOutView.accessibilityLabel = "\(AppStrings.Checkins.Details.automaticCheckout)\(self.viewModel.pickerButtonAccessibilityLabel)"
 			}
 			.store(in: &subscriptions)
 	}
@@ -132,6 +136,8 @@ class TraceLocationDetailViewController: UIViewController {
 		saveToDiaryLabel.accessibilityIdentifier = AccessibilityIdentifiers.Checkin.Details.saveToDiary
 		automaticCheckOutLabel.text = AppStrings.Checkins.Details.automaticCheckout
 		automaticCheckOutLabel.accessibilityIdentifier = AccessibilityIdentifiers.Checkin.Details.automaticCheckout
+
+		switchView.accessibilityLabel = "\(AppStrings.Checkins.Details.saveToDiary) \(AppStrings.Checkins.Details.saveSwitch) \(pickerSwitch.isOn ? AppStrings.Checkins.Details.saveSwitchOn : AppStrings.Checkins.Details.saveSwitchOff)"
 
 		activityLabel.text = viewModel.locationType
 		descriptionLabel.text = viewModel.locationDescription
@@ -193,6 +199,8 @@ class TraceLocationDetailViewController: UIViewController {
 	
 	@IBAction private func switchValueChanged(_ sender: Any) {
 		viewModel.shouldSaveToContactJournal = pickerSwitch.isOn
+		
+		switchView.accessibilityLabel = "\(AppStrings.Checkins.Details.saveToDiary) \(AppStrings.Checkins.Details.saveSwitch) \(pickerSwitch.isOn ? AppStrings.Checkins.Details.saveSwitchOn : AppStrings.Checkins.Details.saveSwitchOff)"
 	}
 
 	@IBAction private func togglePickerButtonVisibility(_ sender: Any) {

@@ -141,7 +141,7 @@ enum AppStrings {
 	}
 
 	enum ExposureSubmissionResult {
-		
+
 		enum PCR {
 			static let title = NSLocalizedString("ExposureSubmissionResult_Title", comment: "")
 			static let card_positive = NSLocalizedString("ExposureSubmissionResult_CardPositive", comment: "")
@@ -1520,6 +1520,7 @@ enum AppStrings {
 			
 			static let durationTitle = NSLocalizedString("Checkins_Overview_DurationTitle", comment: "")
 			static let checkinTimeTemplate = NSLocalizedString("Checkins_Overview_CheckinTimeTemplate", comment: "")
+			static let checkinDateTemplate = NSLocalizedString("Checkins_Overview_CheckinDateTemplate", comment: "")
 			static let checkoutButtonTitle = NSLocalizedString("Checkins_Overview_CheckoutButtonTitle", comment: "")
 
 			enum MissingPermissions {
@@ -1572,6 +1573,9 @@ enum AppStrings {
 			static let hoursShortVersion = NSLocalizedString("Checkin_Details_HoursShortVersion", comment: "")
 			static let checkinFor = NSLocalizedString("Checkin_Details_CheckinFor", comment: "")
 			static let saveToDiary = NSLocalizedString("Checkin_Details_SaveToDiary", comment: "")
+			static let saveSwitch = NSLocalizedString("Checkin_Details_SaveSwitch", comment: "")
+			static let saveSwitchOn = NSLocalizedString("Checkin_Details_SaveSwitch_On", comment: "")
+			static let saveSwitchOff = NSLocalizedString("Checkin_Details_SaveSwitch_Off", comment: "")
 			static let automaticCheckout = NSLocalizedString("Checkin_Details_AutomaticCheckout", comment: "")
 			static let eventNotStartedYet = NSLocalizedString("Checkin_Details_EventNotStartedYet", comment: "")
 			static let eventEnded = NSLocalizedString("Checkin_Details_EventEnded", comment: "")
@@ -1709,5 +1713,22 @@ enum AppStrings {
 		}
 	}
 
+	enum AntigenProfile {
+		
+		enum Create {
+			static let title = NSLocalizedString("AntigenProfile_Create_Title", comment: "")
+			static let description = NSLocalizedString("AntigenProfile_Create_Description", comment: "")
+			static let firstNameTextFieldPlaceholder = NSLocalizedString("AntigenProfile_Create_FirstNamePlaceholder", comment: "")
+			static let lastNameTextFieldPlaceholder = NSLocalizedString("AntigenProfile_Create_LastNamePlaceholder", comment: "")
+			static let birthDateTextFieldPlaceholder = NSLocalizedString("AntigenProfile_Create_BirthDatePlaceholder", comment: "")
+			static let streetTextFieldPlaceholder = NSLocalizedString("AntigenProfile_Create_StreetPlaceholder", comment: "")
+			static let postalCodeTextFieldPlaceholder = NSLocalizedString("AntigenProfile_Create_PostalCodePlaceholder", comment: "")
+			static let cityTextFieldPlaceholder = NSLocalizedString("AntigenProfile_Create_CityPlaceholder", comment: "")
+			static let phoneNumberTextFieldPlaceholder = NSLocalizedString("AntigenProfile_Create_PhoneNumberPlaceholder", comment: "")
+			static let emailAddressTextFieldPlaceholder = NSLocalizedString("AntigenProfile_Create_EmailAddressPlaceholder", comment: "")
+			static let saveButtonTitle = NSLocalizedString("AntigenProfile_Create_Save_Button_Title", comment: "")
+		}
+	}
+	
 	// swiftlint:disable:next file_length
 }

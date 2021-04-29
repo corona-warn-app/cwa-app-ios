@@ -50,9 +50,7 @@ class ENAUITests_10_CheckIns: XCTestCase {
 		app.buttons[AccessibilityLabels.localized(AppStrings.Checkins.Overview.scanButtonTitle)].tap()
 		
 		// THEN
-		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Details.saveToDiary].waitForExistence(timeout: .short))
-		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Details.automaticCheckout].exists)
-		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Details.checkinFor].exists)
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Details.checkinFor].waitForExistence(timeout: .short))
 		XCTAssertTrue(app.staticTexts["Supermarkt"].exists)
 		XCTAssertTrue(app.staticTexts["Walldorf"].exists)
 		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.permanent.title.retail)].exists)
@@ -71,7 +69,7 @@ class ENAUITests_10_CheckIns: XCTestCase {
 		app.launchArguments.append(contentsOf: ["-checkinInfoScreenShown", "NO"])
 		app.launch()
 		
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Tabbar.checkin].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Tabbar.checkin].waitForExistence(timeout: .extraLong))
 		
 		// Navigate to CheckIn
 		app.buttons[AccessibilityIdentifiers.Tabbar.checkin].tap()
@@ -87,7 +85,7 @@ class ENAUITests_10_CheckIns: XCTestCase {
 
 		app.cells[AccessibilityIdentifiers.Checkin.Information.dataPrivacyTitle].tap()
 		
-		XCTAssertTrue(app.staticTexts["AppStrings.AppInformation.privacyTitle"].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.staticTexts["AppStrings.AppInformation.privacyTitle"].waitForExistence(timeout: .extraLong))
 	}
 	
 	func testCheckinInfoScreen_confirmConsent() throws {

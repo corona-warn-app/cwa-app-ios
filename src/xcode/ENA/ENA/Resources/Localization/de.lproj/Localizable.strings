@@ -2114,6 +2114,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "Checkins_Overview_DurationTitle" = "Dauer";
 
+"Checkins_Overview_CheckinDateTemplate" = "Am %@";
+
 "Checkins_Overview_CheckinTimeTemplate" = "%@ - Automatisch auschecken nach %@";
 
 "Checkins_Overview_CheckoutButtonTitle" = "Jetzt auschecken";
@@ -2377,6 +2379,12 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "Checkin_Details_SaveToDiary" = "Nach dem Auschecken in mein Kontakt-Tagebuch eintragen?";
 
+"Checkin_Details_SaveSwitch" = "Umschalttaste";
+
+"Checkin_Details_SaveSwitch_On" = "Ein";
+
+"Checkin_Details_SaveSwitch_Off" = "Aus";
+
 "Checkin_Details_AutomaticCheckout" = "Automatisch auschecken nach";
 
 "Checkin_Details_EventNotStartedYet" = "Das Event beginnt erst am %@ um %@ Uhr. Wollen Sie bereits einchecken?";
@@ -2404,3 +2412,27 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "Submission_Checkins_Alert_Share" = "Teilen";
 
 "Submission_Checkins_Alert_DontShare" = "Nicht teilen";
+
+/* Create Antigen Profile */
+
+"AntigenProfile_Create_Title" = "Schnelltest-Profil";
+
+"AntigenProfile_Create_Description" = "Legen Sie Ihre persönlichen Daten als QR-Code ab, um die Registrierung an der Teststelle zu beschleunigen.";
+
+"AntigenProfile_Create_FirstNamePlaceholder" = "Vorname";
+
+"AntigenProfile_Create_LastNamePlaceholder" = "Nachname";
+
+"AntigenProfile_Create_BirthDatePlaceholder" = "Geburtsdatum";
+
+"AntigenProfile_Create_StreetPlaceholder" = "Strasse und Hausnummer";
+
+"AntigenProfile_Create_PostalCodePlaceholder" = "PLZ";
+
+"AntigenProfile_Create_CityPlaceholder" = "Ort";
+
+"AntigenProfile_Create_PhoneNumberPlaceholder" = "Tel. Nr.";
+
+"AntigenProfile_Create_EmailAddressPlaceholder" = "E-Mail-Adresse";
+
+"AntigenProfile_Create_Save_Button_Title" = "Speichern";

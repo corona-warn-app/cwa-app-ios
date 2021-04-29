@@ -22,25 +22,49 @@ enum AccessibilityIdentifiers {
 	}
 	
 	enum Home {
-		static let submitCardButton = "AppStrings.Home.submitCardButton"
+		static let leftBarButtonDescription = "AppStrings.Home.leftBarButtonDescription"
+		static let rightBarButtonDescription = "AppStrings.Home.rightBarButtonDescription"
 		static let activateCardOnTitle = "AppStrings.Home.activateCardOnTitle"
 		static let activateCardOffTitle = "AppStrings.Home.activateCardOffTitle"
 		static let activateCardBluetoothOffTitle = "AppStrings.Home.activateCardBluetoothOffTitle"
 		static let riskCardIntervalUpdateTitle = "AppStrings.Home.riskCardIntervalUpdateTitle"
-		static let leftBarButtonDescription = "AppStrings.Home.leftBarButtonDescription"
-		static let rightBarButtonDescription = "AppStrings.Home.rightBarButtonDescription"
-		static let infoCardShareTitle = "AppStrings.Home.infoCardShareTitle"
-		static let infoCardAboutTitle = "AppStrings.Home.infoCardAboutTitle"
-		static let appInformationCardTitle = "AppStrings.Home.appInformationCardTitle"
-		static let settingsCardTitle = "AppStrings.Home.settingsCardTitle"
-		static let thankYouCard = "AppStrings.Home.thankYouCard"
-		static let traceLocationsCardButton = "AppStrings.Home.traceLocationsCardButton"
-		
+
 		enum RiskTableViewCell {
 			static let topContainer = "[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer]"
 			static let bodyLabel = "HomeRiskTableViewCell.bodyLabel"
 			static let updateButton = "HomeRiskTableViewCell.updateButton"
 		}
+
+		enum TestResultCell {
+			static let pendingPCRButton = "AccessibilityIdentifiers.Home.pendingPCRButton"
+			static let pendingAntigenButton = "AccessibilityIdentifiers.Home.pendingAntigenButton"
+			static let negativePCRButton = "AccessibilityIdentifiers.Home.negativePCRButton"
+			static let negativeAntigenButton = "AccessibilityIdentifiers.Home.negativeAntigenButton"
+			static let availablePCRButton = "AccessibilityIdentifiers.Home.availablePCRButton"
+			static let availableAntigenButton = "AccessibilityIdentifiers.Home.availableAntigenButton"
+			static let invalidPCRButton = "AccessibilityIdentifiers.Home.invalidPCRButton"
+			static let invalidAntigenButton = "AccessibilityIdentifiers.Home.invalidAntigenButton"
+			static let expiredPCRButton = "AccessibilityIdentifiers.Home.expiredPCRButton"
+			static let expiredAntigenButton = "AccessibilityIdentifiers.Home.expiredAntigenButton"
+			static let outdatedAntigenButton = "AccessibilityIdentifiers.Home.outdatedAntigenButton"
+			static let loadingPCRButton = "AccessibilityIdentifiers.Home.loadingPCRButton"
+			static let loadingAntigenButton = "AccessibilityIdentifiers.Home.loadingAntigenButton"
+			static let unconfiguredButton = "AccessibilityIdentifiers.Home.unconfiguredButton"
+		}
+
+		enum ShownPositiveTestResultCell {
+			static let pcrCell = "AccessibilityIdentifiers.Home.pcrCell"
+			static let antigenCell = "AccessibilityIdentifiers.Home.antigenCell"
+			static let submittedPCRCell = "AccessibilityIdentifiers.Home.submittedPCRCell"
+			static let submittedAntigenCell = "AccessibilityIdentifiers.Home.submittedAntigenCell"
+		}
+
+		static let submitCardButton = "AppStrings.Home.submitCardButton"
+		static let traceLocationsCardButton = "AppStrings.Home.traceLocationsCardButton"
+		static let infoCardShareTitle = "AppStrings.Home.infoCardShareTitle"
+		static let infoCardAboutTitle = "AppStrings.Home.infoCardAboutTitle"
+		static let appInformationCardTitle = "AppStrings.Home.appInformationCardTitle"
+		static let settingsCardTitle = "AppStrings.Home.settingsCardTitle"
 	}
 	
 	enum ContactDiary {
@@ -494,4 +518,20 @@ enum AccessibilityIdentifiers {
 		
 	}
 	
+	enum AntigenProfile {
+		
+		enum Create {
+			static let title = "AppStrings.AntigenProfile.Create.title"
+			static let description = "AppStrings.AntigenProfile.Create.description"
+			static let firstNameTextField = "AppStrings.AntigenProfile.Create.firstNameTextFieldPlaceholder"
+			static let lastNameTextField = "AppStrings.AntigenProfile.Create.lastNameTextFieldPlaceholder"
+			static let birthDateTextField = "AppStrings.AntigenProfile.Create.birthDateTextFieldPlaceholder"
+			static let streetTextField = "AppStrings.AntigenProfile.Create.streetTextFieldPlaceholder"
+			static let postalCodeTextField = "AppStrings.AntigenProfile.Create.postalCodeTextFieldPlaceholder"
+			static let cityTextField = "AppStrings.AntigenProfile.Create.cityTextFieldPlaceholder"
+			static let phoneNumberTextField = "AppStrings.AntigenProfile.Create.phoneNumberTextFieldPlaceholder"
+			static let emailAddressTextField = "AppStrings.AntigenProfile.Create.emailAddressTextFieldPlaceholder"
+			static let saveButtonTitle = "AppStrings.AntigenProfile.Create.saveButtonTitle"
+		}
+	}
 }
