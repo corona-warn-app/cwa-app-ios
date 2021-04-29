@@ -435,6 +435,47 @@ class CoronaTestServiceTests: XCTestCase {
 		XCTAssertFalse(store.submittedWithQR)
 	}
 
+	func testRegisterPCRTestWithTeleTAN_RegistrationFails() {
+		let store = MockTestStore()
+		store.enfRiskCalculationResult = mockRiskCalculationResult()
+
+		Analytics.setupMock(store: store)
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
+
+		let client = ClientMock()
+		client.onGetRegistrationToken = { _, _, _, completion in
+			completion(.failure(.teleTanAlreadyUsed))
+		}
+
+		let service = CoronaTestService(
+			client: client,
+			store: store,
+			appConfiguration: CachedAppConfigurationMock()
+		)
+		service.pcrTest = nil
+
+		let expectation = self.expectation(description: "Expect to receive a result.")
+
+		service.registerPCRTest(
+			teleTAN: "tele-tan",
+			isSubmissionConsentGiven: true
+		) { result in
+			expectation.fulfill()
+			switch result {
+			case .failure(let error):
+				XCTAssertEqual(error, .responseFailure(.teleTanAlreadyUsed))
+			case .success:
+				XCTFail("This test should always return a failure.")
+			}
+		}
+
+		waitForExpectations(timeout: .short)
+
+		XCTAssertNil(service.pcrTest)
+		XCTAssertNil(store.testResultMetadata)
+		XCTAssertFalse(store.submittedWithQR)
+	}
+
 	func testRegisterAntigenTestAndGetResult_successWithoutSubmissionConsentGivenWithTestedPerson() {
 		let client = ClientMock()
 		client.onGetRegistrationToken = { _, _, _, completion in
@@ -1064,7 +1105,11 @@ class CoronaTestServiceTests: XCTestCase {
 		waitForExpectations(timeout: .short)
 	}
 
-	// MARK: - Test removal
+	// MARK: - Get Submission TAN
+
+	
+
+	// MARK: - Test Removal
 
 	func testDeletingCoronaTest() {
 		let service = CoronaTestService(
