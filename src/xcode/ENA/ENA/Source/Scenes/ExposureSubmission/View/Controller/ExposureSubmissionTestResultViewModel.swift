@@ -81,11 +81,7 @@ class ExposureSubmissionTestResultViewModel {
 		case .negative, .invalid, .expired:
 			shouldShowDeletionConfirmationAlert = true
 		case .pending:
-			primaryButtonIsLoading = true
-			
-			refreshTest { [weak self] in
-				self?.primaryButtonIsLoading = false
-			}
+			refreshTest()
 		}
 	}
 	
@@ -107,6 +103,13 @@ class ExposureSubmissionTestResultViewModel {
 	
 	func updateWarnOthers() {
 		coronaTestService.evaluateShowingTest(ofType: coronaTestType)
+	}
+	
+	func updateTestResultIfPossible() {
+		guard coronaTest.testResult == .pending else {
+			return
+		}
+		refreshTest()
 	}
 	
 	// MARK: - Private
@@ -191,18 +194,19 @@ class ExposureSubmissionTestResultViewModel {
 		footerViewModel = ExposureSubmissionTestResultViewModel.footerViewModel(coronaTest: coronaTest)
 	}
 	
-	private func refreshTest(completion: @escaping () -> Void) {
+	private func refreshTest() {
+		primaryButtonIsLoading = true
 		coronaTestService.updateTestResult(for: coronaTestType) { [weak self] result in
 			guard let self = self else { return }
-
+			
+			self.primaryButtonIsLoading = false
+			
 			switch result {
 			case let .failure(error):
 				self.error = error
 			case .success:
 				break
 			}
-
-			completion()
 		}
 	}
 }
