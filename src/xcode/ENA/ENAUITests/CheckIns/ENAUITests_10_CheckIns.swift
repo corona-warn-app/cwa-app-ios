@@ -88,26 +88,13 @@ class ENAUITests_10_CheckIns: XCTestCase {
 			return
 		}
 		
-		let MAX_SCROLLS = 10
-		var count = 0
-		// swiftlint:disable:next no_plain_print
-		print("Starting with scrolling until i find that cell. Count: \(count)")
-
-		while lastCell.isHittable == false && count < MAX_SCROLLS {
+		let maxTries = 10
+		var actualTry = 0
+		while lastCell.isHittable == false && actualTry < maxTries {
 			app.swipeUp()
-			count += 1
-			// swiftlint:disable:next no_plain_print
-			print("Nothing found so far. Swiped and search again. Count: \(count)")
+			actualTry += 1
 		}
-		
-		// swiftlint:disable:next no_plain_print
-		print("Found the cell. Count: \(count)")
 		lastCell.tap()
-		
-
-//		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Checkin.Information.dataPrivacyTitle].waitForExistence(timeout: .short))
-
-//		app.cells[AccessibilityIdentifiers.Checkin.Information.dataPrivacyTitle].tap()
 		
 		XCTAssertTrue(app.staticTexts["AppStrings.AppInformation.privacyTitle"].waitForExistence(timeout: .short))
 	}
