@@ -30,7 +30,8 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		store: Store,
 		client: Client,
 		appConfig: AppConfigurationProviding,
-		coronaTestService: CoronaTestService
+		coronaTestService: CoronaTestService,
+		ppacService: PrivacyPreservingAccessControl
 	) {
 		guard let store = store as? (Store & PPAnalyticsData) else {
 			Log.error("I will never submit any analytics data. Could not cast to correct store protocol", log: .ppa)
@@ -41,6 +42,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		self.submissionState = .readyForSubmission
 		self.configurationProvider = appConfig
 		self.coronaTestService = coronaTestService
+		self.ppacService = ppacService
 	}
 	
 	// MARK: - Protocol PPAnalyticsSubmitting
@@ -149,6 +151,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	private let client: Client
 	private let configurationProvider: AppConfigurationProviding
 	private let coronaTestService: CoronaTestService
+	private let ppacService: PrivacyPreservingAccessControl
 	
 	private var submissionState: PPASubmissionState
 	private var subscriptions: Set<AnyCancellable> = []
@@ -248,12 +251,8 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	}
 	
 	private func generatePPACAndSubmitData(disableExposureWindowsProbability: Bool = false, completion: ((Result<Void, PPASError>) -> Void)? = nil) {
-		// Obtain authentication data
-		let deviceCheck = PPACDeviceCheck()
-		let ppacService = PPACService(store: self.store, deviceCheck: deviceCheck)
-		
 		// Submit analytics data with generated ppac token
-		ppacService.getPPACToken { [weak self] result in
+		ppacService.getPPACTokenEDUS { [weak self] result in
 			switch result {
 			case let .success(token):
 				Log.info("Succesfully created new ppac token to submit analytics data.", log: .ppa)

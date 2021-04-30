@@ -5,17 +5,16 @@
 import UIKit
 
 @IBDesignable
-class DynamicLegalExtendedCell: UITableViewCell {
+class DynamicLegalExtendedCell: UITableViewCell, ReuseIdentifierProviding {
 
 	@IBOutlet private var cardView: UIView!
 	@IBOutlet private var titleLabel: ENALabel!
 	@IBOutlet private var descriptionLabel1: ENALabel!
 	@IBOutlet private var descriptionLabel2: ENALabel!
 
+	@IBOutlet private var containerStackView: UIStackView!
 	@IBOutlet private var contentStackView1: UIStackView!
 	@IBOutlet private var contentStackView2: UIStackView!
-	
-	static let reuseIdentifier = "DynamicLegalExtendedCell"
 
 	override func prepareForInterfaceBuilder() {
 		super.prepareForInterfaceBuilder()
@@ -43,6 +42,23 @@ class DynamicLegalExtendedCell: UITableViewCell {
 		let textBlocks2 = bulletPoints2?.map({ $0.bulletPointString(bulletPointFont: label.font) }) ?? []
 
 		configure(title: title, description1: subheadline1, description2: subheadline2, textBlocks1: textBlocks1, textBlocks2: textBlocks2, accessibilityIdentifier: accessibilityIdentifier)
+	}
+	
+	/// Configure a legal extended cell:
+	/// - Parameters:
+	/// - title, (bold)
+	/// - subheadline1 (bold)
+	/// - bulletPoints1
+	/// - subheadline2 (bold)
+	/// - bulletPoints2
+	func configure(title: NSAttributedString, subheadline1: NSAttributedString?, bulletPoints: [NSAttributedString]?, subheadline2: NSAttributedString?, accessibilityIdentifier: String? = nil, spacing: CGFloat) {
+		
+		containerStackView.spacing = 10
+
+		let label = ENALabel() // get the default font – create fake label
+		let textBlocks1 = bulletPoints?.map({ $0.bulletPointString(bulletPointFont: label.font) }) ?? []
+
+		configure(title: title, description1: subheadline1, description2: subheadline2, textBlocks1: textBlocks1, textBlocks2: [], accessibilityIdentifier: accessibilityIdentifier)
 	}
 	
 	/// Configure a legal extended cell:

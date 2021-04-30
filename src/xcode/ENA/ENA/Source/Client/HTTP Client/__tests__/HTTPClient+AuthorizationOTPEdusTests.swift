@@ -6,7 +6,7 @@
 import Foundation
 import XCTest
 
-final class HTTPClientAuthorizationOTPTests: XCTestCase {
+final class HTTPClientAuthorizationOTPEdusTests: XCTestCase {
 
 	let expectationsTimeout: TimeInterval = 2
 
@@ -33,7 +33,7 @@ final class HTTPClientAuthorizationOTPTests: XCTestCase {
 
 		// WHEN
 		var expirationDate: Date?
-		HTTPClient.makeWith(mock: stack).authorize(otp: otp, ppacToken: ppacToken, isFake: false, completion: { result in
+		HTTPClient.makeWith(mock: stack).authorize(otpEdus: otp, ppacToken: ppacToken, isFake: false, completion: { result in
 			switch result {
 			case .success(let date):
 				expirationDate = date
@@ -62,7 +62,7 @@ final class HTTPClientAuthorizationOTPTests: XCTestCase {
 
 		// WHEN
 		var expectedOtpError: OTPError?
-		HTTPClient.makeWith(mock: stack).authorize(otp: otp, ppacToken: ppacToken, isFake: false, completion: { result in
+		HTTPClient.makeWith(mock: stack).authorize(otpEdus: otp, ppacToken: ppacToken, isFake: false, completion: { result in
 			switch result {
 			case .success:
 				XCTFail("success should not be called")
@@ -92,7 +92,7 @@ final class HTTPClientAuthorizationOTPTests: XCTestCase {
 
 		// WHEN
 		var expectedOtpError: OTPError?
-		HTTPClient.makeWith(mock: stack).authorize(otp: otp, ppacToken: ppacToken, isFake: false, completion: { result in
+		HTTPClient.makeWith(mock: stack).authorize(otpEdus: otp, ppacToken: ppacToken, isFake: false, completion: { result in
 			switch result {
 			case .success:
 				XCTFail("success should not be called")
@@ -122,7 +122,7 @@ final class HTTPClientAuthorizationOTPTests: XCTestCase {
 
 		// WHEN
 		var expectedOtpError: OTPError?
-		HTTPClient.makeWith(mock: stack).authorize(otp: otp, ppacToken: ppacToken, isFake: false, completion: { result in
+		HTTPClient.makeWith(mock: stack).authorize(otpEdus: otp, ppacToken: ppacToken, isFake: false, completion: { result in
 			switch result {
 			case .success:
 				XCTFail("success should not be called")
@@ -152,7 +152,7 @@ final class HTTPClientAuthorizationOTPTests: XCTestCase {
 
 		// WHEN
 		var expectedOtpError: OTPError?
-		HTTPClient.makeWith(mock: stack).authorize(otp: otp, ppacToken: ppacToken, isFake: false, completion: { result in
+		HTTPClient.makeWith(mock: stack).authorize(otpEdus: otp, ppacToken: ppacToken, isFake: false, completion: { result in
 			switch result {
 			case .success:
 				XCTFail("success should not be called")
@@ -182,7 +182,7 @@ final class HTTPClientAuthorizationOTPTests: XCTestCase {
 
 		// WHEN
 		var expectedOtpError: OTPError?
-		HTTPClient.makeWith(mock: stack).authorize(otp: otp, ppacToken: ppacToken, isFake: false, completion: { result in
+		HTTPClient.makeWith(mock: stack).authorize(otpEdus: otp, ppacToken: ppacToken, isFake: false, completion: { result in
 			switch result {
 			case .success:
 				XCTFail("success should not be called")
@@ -212,7 +212,7 @@ final class HTTPClientAuthorizationOTPTests: XCTestCase {
 
 		// WHEN
 		var expectedOtpError: OTPError?
-		HTTPClient.makeWith(mock: stack).authorize(otp: otp, ppacToken: ppacToken, isFake: false, completion: { result in
+		HTTPClient.makeWith(mock: stack).authorize(otpEdus: otp, ppacToken: ppacToken, isFake: false, completion: { result in
 			switch result {
 			case .success:
 				XCTFail("success should not be called")
@@ -242,7 +242,7 @@ final class HTTPClientAuthorizationOTPTests: XCTestCase {
 
 		// WHEN
 		var expectedOtpError: OTPError?
-		HTTPClient.makeWith(mock: stack).authorize(otp: otp, ppacToken: ppacToken, isFake: false, completion: { result in
+		HTTPClient.makeWith(mock: stack).authorize(otpEdus: otp, ppacToken: ppacToken, isFake: false, completion: { result in
 			switch result {
 			case .success:
 				XCTFail("success should not be called")
@@ -272,7 +272,7 @@ final class HTTPClientAuthorizationOTPTests: XCTestCase {
 
 		// WHEN
 		var expectedOtpError: OTPError?
-		HTTPClient.makeWith(mock: stack).authorize(otp: otp, ppacToken: ppacToken, isFake: false, completion: { result in
+		HTTPClient.makeWith(mock: stack).authorize(otpEdus: otp, ppacToken: ppacToken, isFake: false, completion: { result in
 			switch result {
 			case .success:
 				XCTFail("success should not be called")
@@ -302,7 +302,7 @@ final class HTTPClientAuthorizationOTPTests: XCTestCase {
 
 		// WHEN
 		var expectedOtpError: OTPError?
-		HTTPClient.makeWith(mock: stack).authorize(otp: otp, ppacToken: ppacToken, isFake: false, completion: { result in
+		HTTPClient.makeWith(mock: stack).authorize(otpEdus: otp, ppacToken: ppacToken, isFake: false, completion: { result in
 			switch result {
 			case .success:
 				XCTFail("success should not be called")
@@ -332,7 +332,7 @@ final class HTTPClientAuthorizationOTPTests: XCTestCase {
 
 		// WHEN
 		var expectedOtpError: OTPError?
-		HTTPClient.makeWith(mock: stack).authorize(otp: otp, ppacToken: ppacToken, isFake: false, completion: { result in
+		HTTPClient.makeWith(mock: stack).authorize(otpEdus: otp, ppacToken: ppacToken, isFake: false, completion: { result in
 			switch result {
 			case .success:
 				XCTFail("success should not be called")
@@ -362,7 +362,7 @@ final class HTTPClientAuthorizationOTPTests: XCTestCase {
 
 		// WHEN
 		var expectedOtpError: OTPError?
-		HTTPClient.makeWith(mock: stack).authorize(otp: otp, ppacToken: ppacToken, isFake: false, completion: { result in
+		HTTPClient.makeWith(mock: stack).authorize(otpEdus: otp, ppacToken: ppacToken, isFake: false, completion: { result in
 			switch result {
 			case .success:
 				XCTFail("success should not be called")
@@ -391,7 +391,7 @@ final class HTTPClientAuthorizationOTPTests: XCTestCase {
 
 		// WHEN
 		var expectedOtpError: OTPError?
-		HTTPClient.makeWith(mock: stack).authorize(otp: otp, ppacToken: ppacToken, isFake: false, completion: { result in
+		HTTPClient.makeWith(mock: stack).authorize(otpEdus: otp, ppacToken: ppacToken, isFake: false, completion: { result in
 			switch result {
 			case .success:
 				XCTFail("success should not be called")
