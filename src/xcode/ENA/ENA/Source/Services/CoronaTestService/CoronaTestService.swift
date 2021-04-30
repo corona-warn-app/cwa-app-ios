@@ -185,6 +185,7 @@ class CoronaTestService {
 				case .success(let registrationToken):
 					self?.antigenTest = AntigenTest(
 						pointOfCareConsentDate: pointOfCareConsentDate,
+						registrationDate: Date(),
 						registrationToken: registrationToken,
 						testedPerson: TestedPerson(firstName: firstName, lastName: lastName, dateOfBirth: dateOfBirth),
 						testResult: .pending,
@@ -672,6 +673,7 @@ class CoronaTestService {
 		if let testResult = mockTestResult(for: .antigen) {
 			return AntigenTest(
 				pointOfCareConsentDate: Date(),
+				registrationDate: Date(),
 				registrationToken: "zxcv",
 				testedPerson: TestedPerson(firstName: "Erika", lastName: "Mustermann", dateOfBirth: "1964-08-12"),
 				testResult: testResult,
