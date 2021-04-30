@@ -530,7 +530,24 @@ class CoronaTestService {
 			case let .failure(error):
 				Log.error("[CoronaTestService] Getting test result failed: \(error.localizedDescription)", log: .api)
 
-				completion(.failure(.responseFailure(error)))
+				// For error code 400 (.qrDoesNotExist) we set the test result to expired
+				if error == .qrDoesNotExist {
+					switch coronaTestType {
+					case .pcr:
+						self.pcrTest?.testResult = .expired
+					case .antigen:
+						self.antigenTest?.testResult = .expired
+					}
+
+					// For tests older than 21 days this should not be handled as an error
+					if ageInDays >= 21 {
+						completion(.success(.expired))
+					} else {
+						completion(.failure(.responseFailure(error)))
+					}
+				} else {
+					completion(.failure(.responseFailure(error)))
+				}
 			case let .success(rawTestResult):
 				guard let testResult = TestResult(serverResponse: rawTestResult) else {
 					Log.error("[CoronaTestService] Getting test result failed: Unknown test result \(rawTestResult)", log: .api)
