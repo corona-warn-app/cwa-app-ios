@@ -494,6 +494,9 @@ class CoronaTestService {
 		let ageInDays = Calendar.current.dateComponents([.day], from: registrationDate, to: Date()).day ?? 0
 
 		guard coronaTest.testResult != .expired || ageInDays < 21 else {
+			Log.error("[CoronaTestService] Expired test result older than 21 days returned", log: .api)
+
+			completion(.success(coronaTest.testResult))
 			return
 		}
 
