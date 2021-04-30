@@ -374,18 +374,13 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 		app.tabBars.buttons[AccessibilityIdentifiers.Tabbar.diary].tap()
 		XCTAssertTrue(app.navigationBars[AccessibilityLabels.localized(AppStrings.ContactDiary.Overview.title)].waitForExistence(timeout: .medium))
 
-		// count the number of entries on the screen
-		var eventcount = [0, 0, 0]
-		for i in 0...(app.cells.count - 1) {
-			let texts = app.cells.element(boundBy: i).staticTexts
-			eventcount[0] += texts["\(event0), \(traceLocations_checked_in[event0] ?? "")"].exists ? 1 : 0
-			eventcount[1] += texts["\(event1), \(traceLocations_checked_in[event1] ?? "")"].exists ? 1 : 0
-			eventcount[2] += texts["\(event2), \(traceLocations_not_checked_in[event2] ?? "")"].exists ? 1 : 0
-		}
 		
-		XCTAssertTrue(eventcount[0] == 1)
-		XCTAssertTrue(eventcount[1] == 1)
-		XCTAssertTrue(eventcount[2] == 0)
+		// Get the first overview table view cell.
+		let overviewCell = app.tables.firstMatch.cells.element(boundBy: 1)
+		
+		// Check we have two locations.
+		XCTAssertTrue(overviewCell.staticTexts.matching(identifier: "locationEntry-0").element.exists)
+		XCTAssertTrue(overviewCell.staticTexts.matching(identifier: "locationEntry-1").element.exists)
 	}
 	
 	func test_WHEN_navigate_to_TraceLocations_for_the_first_time_THEN_infoscreen_is_displayed() throws {

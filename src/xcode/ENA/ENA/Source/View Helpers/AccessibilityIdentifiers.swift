@@ -102,6 +102,8 @@ enum AccessibilityIdentifiers {
 			static let checkinRiskLevelLow = "AppStrings.ContactDiary.Overview.CheckinEncounter.titleLowRisk"
 			static let checkinRiskLevelHigh = "AppStrings.ContactDiary.Overview.CheckinEncounter.titleHighRisk"
 			static let checkinTableView = "AppStrings.ContactDiary.Overview.CheckinEncounter.tableView"
+			static let person = "ContactDiary_Overview_personEntry-%@"
+			static let location = "ContactDiary_Overview_locationEntry-%@"
 		}
 		
 		enum NotesInformation {
