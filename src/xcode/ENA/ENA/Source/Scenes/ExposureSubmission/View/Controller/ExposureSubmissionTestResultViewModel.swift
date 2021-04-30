@@ -107,6 +107,7 @@ class ExposureSubmissionTestResultViewModel {
 	
 	func updateTestResultIfPossible() {
 		guard coronaTest.testResult == .pending else {
+			Log.info("Not refreshing test because status is pending")
 			return
 		}
 		refreshTest()
