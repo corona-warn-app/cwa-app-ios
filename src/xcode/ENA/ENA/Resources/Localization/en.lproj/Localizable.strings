@@ -682,7 +682,7 @@
 
 "ExposureSubmissionResult_antigenTestAdded" = "Your rapid test was added.";
 
-"ExposureSubmissionResult_antigenTestAddedDesc" = "The test result is displayed her for 48 hours. The app also creates an entry in your contact journal.";
+"ExposureSubmissionResult_antigenTestAddedDesc" = "The test result is displayed here for 48 hours.";
 
 "ExposureSubmissionResult_warnOthers" = "Warn Others";
 
@@ -904,6 +904,41 @@
 "ExposureSubmission_OverwriteNotice_Antigen_Headline" = "You have already registered a rapid test.";
 
 "ExposureSubmission_OverwriteNotice_Antigen_Text" = "You have already registered a rapid test. The app can manage a maximum of one rapid test and one PCR test at the same time. If you register another rapid test, the first rapid test will be deleted from the app.";
+
+/* ExposureSubmission AntigenTest Profile Information */
+"ExposureSubmission_Antigen_Profile_Information_Title" = "Rapid Test Profile";
+
+"ExposureSubmission_Antigen_Profile_Information_Image_Description" = "A woman with a smartphone in her hand is standing in front of a building. A QR code symbolizes the rapid test profile to be scanned.";
+
+"ExposureSubmission_Antigen_Profile_Information_Description_Title" = "Save your personal data as a QR code to speed up registration at testing points.";
+
+"ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline" = "When you create a rapid test profile, you will not have to fill out your personal data again before every rapid test.";
+
+"ExposureSubmission_Antigen_Profile_Information_PrimaryButton" = "Continue";
+
+"ExposureSubmission_Antigen_Profile_Information_Dataprivacy_Title" = "For more information, please refer to the privacy notice.";
+
+/* ExposureSubmission AntigenTest Profile */
+"ExposureSubmission_Antigen_Profile_Header_Text" = "Rapid Test Profile";
+
+"ExposureSubmission_Antigen_Profile_QRCode_Image_Description" = "A QR code with your rapid test profile";
+
+"ExposureSubmission_Antigen_Profile_Noice_Text" = "Please present this QR code at the testing point so your personal data can be recorded more quickly. Also keep your ID card at hand.";
+
+"ExposureSubmission_Antigen_Profile_DateOfBirth_Format" = "Born %@";
+
+"ExposureSubmission_Antigen_Profile_Primary_Button" = "Continue";
+
+"ExposureSubmission_Antigen_Profile_Secondary_Button" = "Remove Rapid Test Profile";
+
+/* ExposureSubmission AntigenTest */
+"ExposureSubmission_Profile_CreateProfileTile_Title" = "Create Rapid Test Profile";
+
+"ExposureSubmission_Profile_CreateProfileTile_Description" = "You can create a profile with your personal data, which you can submit via QR code during every rapid test.";
+
+"ExposureSubmission_Profile_ProfileTile_Title" = "Rapid Test Profile";
+
+"ExposureSubmission_Profile_ProfileTile_Description" = "Save time and present your rapid test profile at the testing point.";
 
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Exposure Logging";
@@ -1443,27 +1478,14 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Changes in this release can be found in the app information, under “New Features”.";
 
-/* Version 2.1 */
-"NewVersionFeature_21_reg_antigen_title" = "Registration of Rapid Antigen Tests";
+/* Version 2.2 */
+"NewVersionFeature_22_record_error_logs_title" = "Record Troubleshooting Logs";
 
-"NewVersionFeature_21_reg_antigen_description" = "In addition to the results of PCR tests, you can now also display the results of rapid antigen tests in the app and use them to warn others.";
+"NewVersionFeature_22_record_error_logs_description" = "You can now generate an error log in the technical support feature for the app. It records the steps that you perform in the app, to simplify the analysis of potential errors and help us correct them more quickly.";
 
-"NewVersionFeature_21_show_proof_title" = "Display of Proof";
+"NewVersionFeature_22_antigen_profiles_title" = "Create Rapid Test Profiles";
 
-"NewVersionFeature_21_show_proof_description" = "If you want, you can use the app to prove your personal infection status (a negative rapid test, for example). Please note, however, that you are under no obligation to use the app to prove your infection status. You can also prove your infection status in another manner compliant with the legal regulations at your residence.";
-
-"NewVersionFeature_21_tech_hotline_foreign_countries_title" = "Technical Hotline Now Available from Outside Germany";
-
-"NewVersionFeature_21_tech_hotline_foreign_countries_description" = "You can now reach the technical hotline from outside Germany as well, under the number +49 30 498 75401. The fees from your telephone provider will apply.";
-
-"NewVersionFeature_21_tan_hotline_foreign_countries_title" = "TAN Hotline Now Available from Outside Germany";
-
-"NewVersionFeature_21_tan_hotline_foreign_countries_description" = "If you are diagnosed with coronavirus, you can now request a TAN from outside Germany, under the number +49 30 498 75401. The fees from your telephone provider will apply.";
-
-/* Version 2.0 */
-"NewVersionFeature_200_event_checkin_title" = "QR code check-in to effectively track chains of infection";
-
-"NewVersionFeature_200_event_checkin_description" = "The CWA now enables you to check in to events and places. Event organizers and store owners can use the app to create a QR code. Guests can then scan this QR code when they arrive to register their presence. The app can also create a journal entry upon request. If someone who checked in to this event or place is diagnosed with coronavirus later, others who were checked in at the same time can be warned.";
+"NewVersionFeature_22_antigen_profiles_description" = "You can now create a rapid test profile in your personal data. Your profile can then be scanned at testing points quickly and easily via QR code.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Transnational Exposure Logging";
@@ -2026,6 +2048,8 @@
 
 "Checkins_Overview_DurationTitle" = "Duration";
 
+"Checkins_Overview_CheckinDateTemplate" = "On %@";
+
 "Checkins_Overview_CheckinTimeTemplate" = "%@ - check out automatically after %@";
 
 "Checkins_Overview_CheckoutButtonTitle" = "Check Out Now";
@@ -2195,6 +2219,8 @@
 /* Error Reporting */
 "ErrorReport_Title" = "Error Reports";
 
+"ErrorReport_Analysis" = "Error Analysis";
+
 "ErrorReport_Description1" = "To help the app technical support team with error analysis, you can record an error report from the CWA. When you do so, the individual technical steps and results of app processes are recorded. You can then send the error report to technical support and help to identify and correct the error.\n\nFor further information, please see our FAQ page:";
 
 "ErrorReport_FAQ" = "FAQ for error reports";
@@ -2281,6 +2307,12 @@
 
 "Checkin_Details_SaveToDiary" = "Record in my contact journal after check-out?";
 
+"Checkin_Details_SaveSwitch" = "Toggle Switch";
+
+"Checkin_Details_SaveSwitch_On" = "On";
+
+"Checkin_Details_SaveSwitch_Off" = "Off";
+
 "Checkin_Details_AutomaticCheckout" = "Check out automatically after";
 
 "Checkin_Details_EventNotStartedYet" = "This event doesn’t start until %@ on %@. Do you want to check in already?";
@@ -2307,4 +2339,27 @@
 "Submission_Checkins_Alert_Share" = "Share";
 
 "Submission_Checkins_Alert_DontShare" = "Don’t Share";
+
+/* Create Antigen Profile */
+"AntigenProfile_Create_Title" = "Rapid Test Profile";
+
+"AntigenProfile_Create_Description" = "Save your personal data as a QR code to speed up registration at testing points.";
+
+"AntigenProfile_Create_FirstNamePlaceholder" = "First Name";
+
+"AntigenProfile_Create_LastNamePlaceholder" = "Last Name";
+
+"AntigenProfile_Create_BirthDatePlaceholder" = "Date of Birth";
+
+"AntigenProfile_Create_StreetPlaceholder" = "Street and House Number";
+
+"AntigenProfile_Create_PostalCodePlaceholder" = "Postal Code";
+
+"AntigenProfile_Create_CityPlaceholder" = "City";
+
+"AntigenProfile_Create_PhoneNumberPlaceholder" = "Phone";
+
+"AntigenProfile_Create_EmailAddressPlaceholder" = "E-Mail Address";
+
+"AntigenProfile_Create_Save_Button_Title" = "Save";
 

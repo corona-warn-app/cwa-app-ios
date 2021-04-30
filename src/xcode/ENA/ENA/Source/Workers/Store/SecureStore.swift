@@ -14,12 +14,10 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 
 	init(
 		at directoryURL: URL,
-		key: String,
-		environmentProvider: EnvironmentProviding = Environments()
+		key: String
 	) throws {
 		self.directoryURL = directoryURL
 		self.kvStore = try SQLiteKeyValueStore(with: directoryURL, key: key)
-		self.environmentProvider = environmentProvider
 	}
 
 	// MARK: - Protocol Store
@@ -274,7 +272,6 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 	// MARK: - Private
 
 	private let directoryURL: URL
-	private let environmentProvider: EnvironmentProviding
 
 }
 
@@ -352,19 +349,45 @@ extension SecureStore: PrivacyPreservingProviding {
 		}
 	}
 
-	var otpToken: OTPToken? {
+	var otpTokenEdus: OTPToken? {
 		get { kvStore["otpToken"] as OTPToken? }
 		set { kvStore["otpToken"] = newValue }
 	}
 
-	var otpAuthorizationDate: Date? {
+	var otpEdusAuthorizationDate: Date? {
 		get { kvStore["otpAuthorizationDate"] as Date? }
 		set { kvStore["otpAuthorizationDate"] = newValue }
 	}
 
-	var ppacApiToken: TimestampedToken? {
+	var ppacApiTokenEdus: TimestampedToken? {
 		get { kvStore["ppacApiToken"] as TimestampedToken? }
 		set { kvStore["ppacApiToken"] = newValue }
+	}
+}
+
+extension SecureStore: ErrorLogProviding {
+	
+	var ppacApiTokenEls: TimestampedToken? {
+		get { kvStore["ppacApiTokenEls"] as TimestampedToken? }
+		set { kvStore["ppacApiTokenEls"] = newValue }
+	}
+	
+	var otpTokenEls: OTPToken? {
+		get { kvStore["otpTokenEls"] as OTPToken? }
+		set { kvStore["otpTokenEls"] = newValue }
+	}
+	
+	var otpElsAuthorizationDate: Date? {
+		get { kvStore["otpElsAuthorizationDate"] as Date? }
+		set { kvStore["otpElsAuthorizationDate"] = newValue }
+	}
+}
+
+extension SecureStore: ErrorLogUploadHistoryProviding {
+	
+	var elsUploadHistory: [ErrorLogUploadReceipt] {
+		get { kvStore["elsHistory"] as [ErrorLogUploadReceipt]? ?? [ErrorLogUploadReceipt]() }
+		set { kvStore["elsHistory"] = newValue }
 	}
 }
 
@@ -468,7 +491,7 @@ extension SecureStore {
 					if isUITesting, ProcessInfo.processInfo.arguments.contains(UITestingParameters.SecureStoreHandling.simulateMismatchingKey.rawValue) {
 						// injecting a wrong key to simulate a mismatch, e.g. because of backup restoration or other reasons
 						key = "wrong 🔑"
-						try self.init(at: directoryURL, key: key, environmentProvider: environmentProvider)
+						try self.init(at: directoryURL, key: key)
 						return
 					}
 					#endif
@@ -477,11 +500,11 @@ extension SecureStore {
 				} else {
 					key = try keychain.generateDatabaseKey()
 				}
-				try self.init(at: directoryURL, key: key, environmentProvider: environmentProvider)
+				try self.init(at: directoryURL, key: key)
 			} else {
 				try fileManager.createDirectory(atPath: directoryURL.path, withIntermediateDirectories: true, attributes: nil)
 				let key = try keychain.generateDatabaseKey()
-				try self.init(at: directoryURL, key: key, environmentProvider: environmentProvider)
+				try self.init(at: directoryURL, key: key)
 			}
 		} catch is SQLiteStoreError where isRetry == false {
 			SecureStore.performHardDatabaseReset(at: subDirectory)

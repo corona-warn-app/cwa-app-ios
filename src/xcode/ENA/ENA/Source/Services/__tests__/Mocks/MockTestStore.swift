@@ -65,9 +65,9 @@ final class MockTestStore: Store, PPAnalyticsData {
 	// MARK: - PrivacyPreservingProviding
 
 	var isPrivacyPreservingAnalyticsConsentGiven: Bool = false
-	var otpToken: OTPToken?
-	var otpAuthorizationDate: Date?
-	var ppacApiToken: TimestampedToken?
+	var otpTokenEdus: OTPToken?
+	var otpEdusAuthorizationDate: Date?
+	var ppacApiTokenEdus: TimestampedToken?
 	var userData: UserMetadata?
 
 	// MARK: - PPAnalyticsData
@@ -83,6 +83,16 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var keySubmissionMetadata: KeySubmissionMetadata?
 	var testResultMetadata: TestResultMetadata?
 	var exposureWindowsMetadata: ExposureWindowsMetadata?
+
+	// MARK: - ErrorLogProviding
+	
+	var ppacApiTokenEls: TimestampedToken?
+	var otpTokenEls: OTPToken?
+	var otpElsAuthorizationDate: Date?
+
+	// MARK: - ErrorLogHistory
+
+	var elsUploadHistory: [ErrorLogUploadReceipt] = []
 	
 	// MARK: - EventRegistrationCaching
 	

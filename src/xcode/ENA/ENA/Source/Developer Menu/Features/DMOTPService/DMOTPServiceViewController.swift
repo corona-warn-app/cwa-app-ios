@@ -82,7 +82,7 @@ class DMOTPServiceViewController: UITableViewController {
 	}
 
 	private func setupNavigationBar() {
-		title = "OTP Token 🔑"
+		title = "OTP Tokens 🔑"
 	}
 }
 #endif

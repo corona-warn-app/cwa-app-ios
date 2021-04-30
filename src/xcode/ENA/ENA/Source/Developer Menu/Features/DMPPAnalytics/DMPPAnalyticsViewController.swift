@@ -14,13 +14,15 @@ class DMPPAnalyticsViewController: UITableViewController {
 		store: Store,
 		client: Client,
 		appConfig: AppConfigurationProviding,
-		coronaTestService: CoronaTestService
+		coronaTestService: CoronaTestService,
+		ppacService: PrivacyPreservingAccessControl
 	) {
 		self.viewModel = DMPPAnalyticsViewModel(
 			store: store,
 			client: client,
 			appConfig: appConfig,
-			coronaTestService: coronaTestService
+			coronaTestService: coronaTestService,
+			ppacService: ppacService
 		)
 
 		if #available(iOS 13.0, *) {

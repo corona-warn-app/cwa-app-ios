@@ -225,7 +225,7 @@ final class HTTPClient: Client {
 	}
 
 	func authorize(
-		otp: String,
+		otpEdus: String,
 		ppacToken: PPACToken,
 		isFake: Bool,
 		forceApiTokenHeader: Bool = false,
@@ -233,7 +233,7 @@ final class HTTPClient: Client {
 	) {
 		guard let request = try? URLRequest.authorizeOTPRequest(
 				configuration: configuration,
-				otp: otp,
+				otpEdus: otpEdus,
 				ppacToken: ppacToken,
 				forceApiTokenHeader: forceApiTokenHeader) else {
 			completion(.failure(.invalidResponseError))
@@ -247,6 +247,42 @@ final class HTTPClient: Client {
 				case 200:
 					self?.otpAuthorizationSuccessHandler(for: response, completion: completion)
 				case 400, 401, 403, 429:
+					self?.otpAuthorizationFailureHandler(for: response, completion: completion)
+				case 500:
+					Log.error("Failed to get authorized OTP - 500 status code", log: .api)
+					completion(.failure(.internalServerError))
+				default:
+					Log.error("Failed to authorize OTP - response error", log: .api)
+					Log.error(String(response.statusCode), log: .api)
+					completion(.failure(.internalServerError))
+				}
+			case let .failure(error):
+				Log.error("Failed to authorize OTP due to error: \(error).", log: .api)
+				completion(.failure(.invalidResponseError))
+			}
+		})
+	}
+
+	func authorize(
+		otpEls: String,
+		ppacToken: PPACToken,
+		completion: @escaping OTPAuthorizationCompletionHandler
+	) {
+		guard let request = try? URLRequest.authorizeOTPRequest(
+				configuration: configuration,
+				otpEls: otpEls,
+				ppacToken: ppacToken) else {
+			completion(.failure(.invalidResponseError))
+			return
+		}
+
+		session.response(for: request, isFake: false, completion: { [weak self] result in
+			switch result {
+			case let .success(response):
+				switch response.statusCode {
+				case 200:
+					self?.otpAuthorizationSuccessHandler(for: response, completion: completion)
+				case 400, 401, 403:
 					self?.otpAuthorizationFailureHandler(for: response, completion: completion)
 				case 500:
 					Log.error("Failed to get authorized OTP - 500 status code", log: .api)
@@ -321,7 +357,6 @@ final class HTTPClient: Client {
 		})
 	}
 	
-	
 	func traceWarningPackageDiscovery(
 		country: String,
 		completion: @escaping TraceWarningPackageDiscoveryCompletionHandler
@@ -375,7 +410,6 @@ final class HTTPClient: Client {
 				Log.error("Error in response body", log: .api, error: error)
 				completion(.failure(.defaultServerError(error)))
 			}
-			
 		})
 	}
 	
@@ -387,6 +421,54 @@ final class HTTPClient: Client {
 		let url = configuration.traceWarningPackageDownloadURL(country: country, packageId: packageId)
 		traceWarningPackageDownload(country: country, packageId: packageId, url: url, completion: completion)
 	}
+
+	func submit(
+		errorLogFile: Data,
+		otpEls: String,
+		completion: @escaping ErrorLogSubmitting.ELSSubmissionResponse
+	) {
+		guard let request = try? URLRequest.errorLogSubmit(
+				configuration: configuration,
+				payload: errorLogFile,
+				otpEls: otpEls) else {
+			completion(.failure(.urlCreationError))
+			return
+		}
+
+		session.response(for: request, completion: { result in
+			switch result {
+			case let .success(response):
+				switch response.statusCode {
+				case 201:
+					guard let responseBody = response.body else {
+						Log.error("Error in response body: \(response.statusCode)", log: .api)
+						completion(.failure(.responseError(response.statusCode)))
+						return
+					}
+					do {
+						let decodedResponse = try JSONDecoder().decode(
+							LogUploadResponse.self,
+							from: responseBody
+						)
+						completion(.success(decodedResponse))
+					} catch {
+						Log.error("Failed to decode response json", log: .api, error: error)
+						completion(.failure(.jsonError))
+					}
+				case 500:
+					Log.error("Internal server error at uploading error log file.", log: .api)
+					completion(.failure(.responseError(500)))
+				default:
+					Log.error("Wrong http status code: \(String(response.statusCode))", log: .api)
+					completion(.failure(.responseError(response.statusCode)))
+				}
+			case let .failure(error):
+				Log.error("Error in response: \(error)", log: .api)
+				completion(.failure(.defaultServerError(error)))
+			}
+		})
+	}
+
 
 	// MARK: - Public
 
@@ -530,12 +612,14 @@ final class HTTPClient: Client {
 			return
 		}
 		do {
-			let decodedResponse = try JSONDecoder().decode(
+			let decoder = JSONDecoder()
+			decoder.dateDecodingStrategy = .iso8601
+			let decodedResponse = try decoder.decode(
 				OTPResponseProperties.self,
 				from: responseBody
 			)
 			guard let errorCode = decodedResponse.errorCode else {
-				Log.error("Failed to get errorCode because of invalid response payload structure", log: .api)
+				Log.error("Failed to get errorCode because it is nil", log: .api)
 				completion(.failure(.invalidResponseError))
 				return
 			}
@@ -822,18 +906,18 @@ private extension URLRequest {
 
 	static func authorizeOTPRequest(
 		configuration: HTTPClient.Configuration,
-		otp: String,
+		otpEdus: String,
 		ppacToken: PPACToken,
-		forceApiTokenHeader: Bool
+		forceApiTokenHeader: Bool,
+		isFake: Bool = false
 	) throws -> URLRequest {
-
 		let ppacIos = SAP_Internal_Ppdd_PPACIOS.with {
 			$0.apiToken = ppacToken.apiToken
 			$0.deviceToken = ppacToken.deviceToken
 		}
 
 		let payload = SAP_Internal_Ppdd_EDUSOneTimePassword.with {
-			$0.otp = otp
+			$0.otp = otpEdus
 		}
 
 		let protoBufRequest = SAP_Internal_Ppdd_EDUSOneTimePasswordRequestIOS.with {
@@ -841,7 +925,7 @@ private extension URLRequest {
 			$0.authentication = ppacIos
 		}
 
-		let url = configuration.otpAuthorizationURL
+		let url = configuration.otpEdusAuthorizationURL
 		let body = try protoBufRequest.serializedData()
 		var request = URLRequest(url: url)
 
@@ -850,6 +934,11 @@ private extension URLRequest {
 		request.setValue(
 			"application/x-protobuf",
 			forHTTPHeaderField: "Content-Type"
+		)
+
+		request.setValue(
+			isFake ? "1" : "0",
+			forHTTPHeaderField: "cwa-fake"
 		)
 
 		#if !RELEASE
@@ -861,6 +950,46 @@ private extension URLRequest {
 		}
 		#endif
 
+		request.httpBody = body
+		return request
+	}
+
+	static func authorizeOTPRequest(
+		configuration: HTTPClient.Configuration,
+		otpEls: String,
+		ppacToken: PPACToken
+	) throws -> URLRequest {
+		let ppacIos = SAP_Internal_Ppdd_PPACIOS.with {
+			$0.apiToken = ppacToken.apiToken
+			$0.deviceToken = ppacToken.deviceToken
+		}
+
+		let payload = SAP_Internal_Ppdd_ELSOneTimePassword.with {
+			$0.otp = otpEls
+		}
+
+		let protoBufRequest = SAP_Internal_Ppdd_ELSOneTimePasswordRequestIOS.with {
+			$0.payload = payload
+			$0.authentication = ppacIos
+		}
+		
+		let url = configuration.otpElsAuthorizationURL
+		let body = try protoBufRequest.serializedData()
+		var request = URLRequest(url: url)
+
+		request.httpMethod = HttpMethod.post
+
+		// Headers
+		request.setValue(
+			"application/x-protobuf",
+			forHTTPHeaderField: "Content-Type"
+		)
+		
+		request.setValue(
+			"0",
+			forHTTPHeaderField: "cwa-fake"
+		)
+		
 		request.httpBody = body
 		return request
 	}
@@ -905,6 +1034,54 @@ private extension URLRequest {
 		request.httpBody = body
 		return request
 	}
+
+	static func errorLogSubmit(
+		configuration: HTTPClient.Configuration,
+		payload: Data,
+		otpEls: String
+	) throws -> URLRequest {
+		let boundary = UUID().uuidString
+		var request = URLRequest(url: configuration.logUploadURL)
+		request.httpMethod = HttpMethod.post
+		
+		// Create multipart body
+		
+		// prevent potential file collisions on backend
+		let fileName = "ErrorLog-\(UUID().uuidString).zip"
+		
+		var body = Data()
+
+		try body.append("\r\n--\(boundary)\r\n")
+		try body.append("Content-Disposition:form-data; name=\"file\"; filename=\"\(fileName)\"\r\n")
+		try body.append("Content-Type:application/zip\r\n")
+		try body.append("Content-Length: \(payload.count)\r\n")
+		try body.append("\r\n")
+		body.append(payload)
+		try body.append("\r\n")
+		try body.append("--\(boundary)--\r\n")
+		
+		request.httpBody = body
+		
+		// Create headers
+		
+		request.setValue(
+			"multipart/form-data; boundary=\(boundary)",
+			forHTTPHeaderField: "Content-Type"
+		)
+		
+		request.setValue(
+			otpEls,
+			forHTTPHeaderField: "cwa-otp"
+		)
+		
+		request.setValue(
+			"\(body.count)",
+			forHTTPHeaderField: "Content-Length"
+		)
+		
+		return request
+	}
+
 	
 	static func traceWarningPackageDiscovery(
 		configuration: HTTPClient.Configuration,
@@ -950,5 +1127,6 @@ private extension URLRequest {
 		guard let data = (String.getRandomString(of: 28 * paddedKeysAmount)).data(using: .ascii) else { return Data() }
 		return data
 	}
+
 	// swiftlint:disable:next file_length
 }

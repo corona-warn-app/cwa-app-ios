@@ -682,7 +682,7 @@
 
 "ExposureSubmissionResult_antigenTestAdded" = "Hızlı testiniz eklendi.";
 
-"ExposureSubmissionResult_antigenTestAddedDesc" = "Test sonucu 48 saat süreyle burada görüntülenir. Uygulama ayrıca temas güncenizde bir giriş oluşturur.";
+"ExposureSubmissionResult_antigenTestAddedDesc" = "Test sonucu 48 saat süreyle burada görüntülenir.";
 
 "ExposureSubmissionResult_warnOthers" = "Diğer Kullanıcıları Uyarın";
 
@@ -904,6 +904,41 @@
 "ExposureSubmission_OverwriteNotice_Antigen_Headline" = "Zaten bir hızlı test kaydı oluşturdunuz.";
 
 "ExposureSubmission_OverwriteNotice_Antigen_Text" = "Zaten bir hızlı test kaydı oluşturdunuz. Uygulama tek seferde en fazla bir hızlı testi ve bir PCR testini yönetebilir. Başka bir hızlı test kaydı oluşturursanız ilk hızlı test uygulamadan silinir.";
+
+/* ExposureSubmission AntigenTest Profile Information */
+"ExposureSubmission_Antigen_Profile_Information_Title" = "Hızlı Test Profili";
+
+"ExposureSubmission_Antigen_Profile_Information_Image_Description" = "Elinde akıllı telefon tutan bir kadın bir binanın önünde duruyor. QR kod, taranacak hızlı test profilini sembolize ediyor.";
+
+"ExposureSubmission_Antigen_Profile_Information_Description_Title" = "Test noktalarında kaydınızı hızlandırmak için kişisel verilerinizi bir QR kod olarak kaydedin.";
+
+"ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline" = "Hızlı test profili oluşturduğunuzda her hızlı testten önce kişisel verilerinizi yeniden doldurmanız gerekmez.";
+
+"ExposureSubmission_Antigen_Profile_Information_PrimaryButton" = "Devam Et";
+
+"ExposureSubmission_Antigen_Profile_Information_Dataprivacy_Title" = "Daha fazla bilgi için lütfen gizlilik bildirimine başvurun.";
+
+/* ExposureSubmission AntigenTest Profile */
+"ExposureSubmission_Antigen_Profile_Header_Text" = "Hızlı Test Profili";
+
+"ExposureSubmission_Antigen_Profile_QRCode_Image_Description" = "Hızlı test profilinizi içeren bir QR kod";
+
+"ExposureSubmission_Antigen_Profile_Noice_Text" = "Kişisel verilerinizin daha hızlı kaydedilebilmesi için lütfen test noktasında bu QR kodu sunun. Kimlik kartınızı da elinizde tutun.";
+
+"ExposureSubmission_Antigen_Profile_DateOfBirth_Format" = "Doğum tarihi: %@";
+
+"ExposureSubmission_Antigen_Profile_Primary_Button" = "Devam Et";
+
+"ExposureSubmission_Antigen_Profile_Secondary_Button" = "Hızlı Test Profilini Kaldır";
+
+/* ExposureSubmission AntigenTest */
+"ExposureSubmission_Profile_CreateProfileTile_Title" = "Hızlı Test Profili Oluştur";
+
+"ExposureSubmission_Profile_CreateProfileTile_Description" = "Kişisel verilerinizle bir profil oluşturabilir ve her hızlı test sırasında QR kod aracılığıyla gönderebilirsiniz.";
+
+"ExposureSubmission_Profile_ProfileTile_Title" = "Hızlı Test Profili";
+
+"ExposureSubmission_Profile_ProfileTile_Description" = "Zamandan tasarruf edip test noktasında hızlı test profilinizi sunabilirsiniz.";
 
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Maruz Kalma Günlüğü";
@@ -1443,27 +1478,14 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Bu sürümdeki değişiklikleri uygulama bilgilerinde “Yeni Özellikler” bölümünde bulabilirsiniz.";
 
-/* Version 2.1 */
-"NewVersionFeature_21_reg_antigen_title" = "Hızlı Antijen Testlerinin Kaydı";
+/* Version 2.2 */
+"NewVersionFeature_22_record_error_logs_title" = "Sorun Giderme Günlüklerini Kaydet";
 
-"NewVersionFeature_21_reg_antigen_description" = "PCR testlerinin sonuçlarına ek olarak artık hızlı antijen testlerinin sonuçlarını da uygulamada görüntüleyebilir ve bu sonuçları kullanarak diğer kullanıcıları uyarabilirsiniz.";
+"NewVersionFeature_22_record_error_logs_description" = "Artık uygulamanın teknik destek özelliğinde bir hata günlüğü oluşturabilirsiniz. Bu günlük, potansiyel hataların analizini basitleştirmek ve bu hataları daha hızlı düzeltmemize yardımcı olmak için uygulamada gerçekleştirdiğiniz adımları kaydeder.";
 
-"NewVersionFeature_21_show_proof_title" = "Kanıtın Görüntülenmesi";
+"NewVersionFeature_22_antigen_profiles_title" = "Hızlı Test Profilleri Oluştur";
 
-"NewVersionFeature_21_show_proof_description" = "Dilerseniz uygulamayı kişisel enfeksiyon durumunuzu (örneğin, negatif sonuç veren bir hızlı test) kanıtlamak için kullanabilirsiniz. Ancak lütfen unutmayın; enfeksiyon durumunuzu kanıtlamak için uygulamayı kullanmak zorunda değilsiniz. Enfeksiyon durumunuzu, ikamet ettiğiniz bölgede geçerli olan yasal düzenlemeler uyarınca başka bir şekilde de kanıtlayabilirsiniz.";
-
-"NewVersionFeature_21_tech_hotline_foreign_countries_title" = "Teknik Yardım Hattına Artık Almanya Dışından Ulaşılabilir";
-
-"NewVersionFeature_21_tech_hotline_foreign_countries_description" = "Teknik yardım hattına artık +49 30 498 75401 numaralı hattı arayarak Almanya dışından da ulaşabilirsiniz. Telefon sağlayıcınız tarafından uygulanan ücretler geçerlidir.";
-
-"NewVersionFeature_21_tan_hotline_foreign_countries_title" = "TAN Yardım Hattına Artık Almanya Dışından Ulaşılabilir";
-
-"NewVersionFeature_21_tan_hotline_foreign_countries_description" = "Koronavirüs tanısı aldıysanız artık +49 30 498 75401 numaralı hattı arayarak Almanya dışından TAN talebinde bulunabilirsiniz. Telefon sağlayıcınız tarafından uygulanan ücretler geçerlidir.";
-
-/* Version 2.0 */
-"NewVersionFeature_200_event_checkin_title" = "Enfeksiyon zincirlerini etkili bir biçimde takip etmek için QR kod ile check in";
-
-"NewVersionFeature_200_event_checkin_description" = "CWA artık etkinliklere ve yerlere check in yapabilmenizi sağlar. Etkinlik organizatörleri ve mağaza sahipleri uygulamayı kullanarak bir QR kod oluşturabilir. Ardından konuklar geldiklerinde bu QR kodu tarayarak katılımlarını kayıt altına alabilir. Uygulama, talep üzerine günce girişi oluşturma seçeneği de sunmaktadır. Bu etkinliğe ya da yere check in yapan bir kişi daha sonra koronavirüs tanısı alırsa aynı anda check in yapmış diğer kişilere uyarı gönderilebilir.";
+"NewVersionFeature_22_antigen_profiles_description" = "Artık kişisel verilerinizde bir hızlı test profili oluşturabilirsiniz. Ardından QR kod ile hızlı ve kolay bir biçimde test noktalarında profiliniz taranabilir.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Uluslararası Maruz Kalma Günlüğü";
@@ -2026,6 +2048,8 @@
 
 "Checkins_Overview_DurationTitle" = "Süre";
 
+"Checkins_Overview_CheckinDateTemplate" = "%@";
+
 "Checkins_Overview_CheckinTimeTemplate" = "%@ - %@ sonra otomatik olarak check out yap";
 
 "Checkins_Overview_CheckoutButtonTitle" = "Şimdi Check Out Yap";
@@ -2195,6 +2219,8 @@
 /* Error Reporting */
 "ErrorReport_Title" = "Hata Raporları";
 
+"ErrorReport_Analysis" = "Hata Analizi";
+
 "ErrorReport_Description1" = "Hata analizi konusunda uygulamanın teknik destek ekibine yardımcı olmak için CWA’da bir hata raporu kaydı oluşturabilirsiniz. Oluşturduğunuzda, her bir teknik adım ve uygulama işlemlerinin sonuçları kaydedilir. Ardından hata raporunu teknik ekibe gönderebilir ve hatanın belirlenip düzeltilmesine yardımcı olabilirsiniz.\n\nDaha fazla bilgi için lütfen SSS sayfamıza bakın:";
 
 "ErrorReport_FAQ" = "Hata raporları için SSS";
@@ -2281,6 +2307,12 @@
 
 "Checkin_Details_SaveToDiary" = "Check-out yapıldıktan sonra temas günceme kaydedilsin mi?";
 
+"Checkin_Details_SaveSwitch" = "Değiştirme düğmesi";
+
+"Checkin_Details_SaveSwitch_On" = "Açık";
+
+"Checkin_Details_SaveSwitch_Off" = "Kapalı";
+
 "Checkin_Details_AutomaticCheckout" = "Daha sonra otomatik olarak check out yap";
 
 "Checkin_Details_EventNotStartedYet" = "Bu etkinliğin başlangıç saati, %@ %@ olarak belirlenmiştir. Şimdiden check in yapmak istiyor musunuz?";
@@ -2307,4 +2339,27 @@
 "Submission_Checkins_Alert_Share" = "Paylaş";
 
 "Submission_Checkins_Alert_DontShare" = "Paylaşma";
+
+/* Create Antigen Profile */
+"AntigenProfile_Create_Title" = "Hızlı Test Profili";
+
+"AntigenProfile_Create_Description" = "Test noktalarında kaydınızı hızlandırmak için kişisel verilerinizi bir QR kod olarak kaydedin.";
+
+"AntigenProfile_Create_FirstNamePlaceholder" = "Ad";
+
+"AntigenProfile_Create_LastNamePlaceholder" = "Soyadı";
+
+"AntigenProfile_Create_BirthDatePlaceholder" = "Doğum Tarihi";
+
+"AntigenProfile_Create_StreetPlaceholder" = "Sokak ve Konut Numarası";
+
+"AntigenProfile_Create_PostalCodePlaceholder" = "Posta Kodu";
+
+"AntigenProfile_Create_CityPlaceholder" = "Şehir";
+
+"AntigenProfile_Create_PhoneNumberPlaceholder" = "Telefon";
+
+"AntigenProfile_Create_EmailAddressPlaceholder" = "E-posta Adresi";
+
+"AntigenProfile_Create_Save_Button_Title" = "Kaydet";
 
