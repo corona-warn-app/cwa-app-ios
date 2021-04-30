@@ -29,7 +29,9 @@ class VaccinationQRCodeScannerViewController: UIViewController {
 						self.dismiss()
 					}
 				default:
-					self.showErrorAlert(error: error)
+					DispatchQueue.main.async {
+						self.showErrorAlert(error: error)
+					}
 				}
 			}
 		)
