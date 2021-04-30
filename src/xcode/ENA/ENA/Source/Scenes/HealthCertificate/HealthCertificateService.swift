@@ -27,12 +27,28 @@ class HealthCertificateService {
 		}
 	}
 
-	func register(_ healthCertificateRepresentations: HealthCertificateRepresentations) {
+	func register(payload: String) -> Result<HealthCertifiedPerson, RegistrationError> {
+		Log.info("[HealthCertificateService] Registering health certificate from payload: \(private: payload)", log: .api)
 
+		return .success((HealthCertifiedPerson(proofCertificate: nil, healthCertificates: [])))
 	}
 
-	func requestProof(for healthCertifiedPerson: HealthCertifiedPerson) {
+	func requestProof(
+		for healthCertifiedPerson: HealthCertifiedPerson,
+		completion: (Result<Void, ProofRequestError>) -> Void
+	) {
+		Log.info("[HealthCertificateService] Requesting proof for health certified person: \(private: healthCertifiedPerson)", log: .api)
 
+		// TODO: let result = someOtherService.requestProof(for: healthCertifiedPerson.healthCertificates)
+		let result: Result<ProofCertificate, ProofRequestError> = .success(ProofCertificate(cborRepresentation: Data(), expirationDate: Date()))
+
+		switch result {
+		case .success(let proofCertificate):
+			healthCertifiedPerson.proofCertificate = proofCertificate
+			completion(.success(()))
+		case .failure(let error):
+			completion(.failure(error))
+		}
 	}
 
 	func updatePublishersFromStore() {
