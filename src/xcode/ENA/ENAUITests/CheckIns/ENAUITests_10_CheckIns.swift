@@ -90,11 +90,18 @@ class ENAUITests_10_CheckIns: XCTestCase {
 		
 		let MAX_SCROLLS = 10
 		var count = 0
+		// swiftlint:disable:next no_plain_print
+		print("Starting with scrolling until i find that cell. Count: \(count)")
+
 		while lastCell.isHittable == false && count < MAX_SCROLLS {
 			app.swipeUp()
 			count += 1
+			// swiftlint:disable:next no_plain_print
+			print("Nothing found so far. Swiped and search again. Count: \(count)")
 		}
 		
+		// swiftlint:disable:next no_plain_print
+		print("Found the cell. Count: \(count)")
 		lastCell.tap()
 		
 
