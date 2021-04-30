@@ -26,6 +26,10 @@ extension HTTPClient {
 				dataDonation: .init(
 					baseURL: environmentProvider.currentEnvironment().dataDonationURL,
 					requiresTrailingSlash: false
+				),
+				errorLogSubmission: .init(
+					baseURL: environmentProvider.currentEnvironment().errorLogSubmissionURL,
+					requiresTrailingSlash: false
 				)
 			)
 
@@ -169,7 +173,7 @@ extension HTTPClient {
 			)
 		}
 
-		var otpAuthorizationURL: URL {
+		var otpEdusAuthorizationURL: URL {
 			endpoints
 				.dataDonation
 				.appending(
@@ -179,7 +183,18 @@ extension HTTPClient {
 					"otp"
 				)
 		}
-		
+
+		var otpElsAuthorizationURL: URL {
+			endpoints
+				.dataDonation
+				.appending(
+					"version",
+					apiVersion,
+					"ios",
+					"els"
+			)
+		}
+
 		var ppaSubmitURL: URL {
 			endpoints
 				.dataDonation
@@ -227,6 +242,15 @@ extension HTTPClient {
 					"qr_code_poster_template_ios"
 			)
 		}
+
+		var logUploadURL: URL {
+			endpoints
+				.errorLogSubmission
+				.appending(
+					"api",
+					"logs"
+			)
+		}
 	}
 }
 
@@ -270,5 +294,6 @@ extension HTTPClient.Configuration {
 		let submission: Endpoint
 		let verification: Endpoint
 		let dataDonation: Endpoint
+		let errorLogSubmission: Endpoint
 	}
 }

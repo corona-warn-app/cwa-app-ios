@@ -5,10 +5,77 @@
 import Foundation
 import UIKit
 
-class AppInformationViewController: DynamicTableViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
+class AppInformationViewController: DynamicTableViewController, NavigationBarOpacityDelegate {
+	
+	// MARK: - Init
+	
+	init(
+		ppacService: PrivacyPreservingAccessControl,
+		otpService: OTPServiceProviding
+	) {
+		
+		self.model = [
+			.about: AppInformationCellModel(
+				text: AppStrings.AppInformation.aboutNavigation,
+				accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.aboutNavigation,
+				action: .push(model: AppInformationModel.aboutModel, withTitle: AppStrings.AppInformation.aboutNavigation)
+			),
+			.faq: AppInformationCellModel(
+				text: AppStrings.AppInformation.faqNavigation,
+				accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.faqNavigation,
+				action: .safari
+			),
+			.terms: AppInformationCellModel(
+				text: AppStrings.AppInformation.termsTitle,
+				accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.termsNavigation,
+				action: .push(htmlModel: AppInformationModel.termsModel, withTitle: AppStrings.AppInformation.termsNavigation)
+			),
+			.privacy: AppInformationCellModel(
+				text: AppStrings.AppInformation.privacyNavigation,
+				accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.privacyNavigation,
+				action: .push(htmlModel: AppInformationModel.privacyModel, withTitle: AppStrings.AppInformation.privacyNavigation)
+			),
+			.legal: AppInformationCellModel(
+				text: AppStrings.AppInformation.legalNavigation,
+				accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.legalNavigation,
+				action: .push(model: AppInformationViewController.legalModel, separators: true, withTitle: AppStrings.AppInformation.legalNavigation)
+			),
+			.contact: AppInformationCellModel(
+				text: AppStrings.AppInformation.contactNavigation,
+				accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.contactNavigation,
+				action: .push(model: AppInformationModel.contactModel, withTitle: AppStrings.AppInformation.contactNavigation)
+			),
+			.errorReport: AppInformationCellModel(
+				text: AppStrings.ErrorReport.title,
+				accessibilityIdentifier: AccessibilityIdentifiers.ErrorReport.navigation,
+				action: .pushErrorLogsCoordinator(
+					ppacService: ppacService,
+					otpService: otpService
+				)
+			),
+			.imprint: AppInformationCellModel(
+				text: AppStrings.AppInformation.imprintNavigation,
+				accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintNavigation,
+				action: .push(model: imprintViewModel.dynamicTable, withTitle: AppStrings.AppInformation.imprintNavigation)
+			),
+			.versionInfo: AppInformationCellModel(
+				text: AppStrings.AppInformation.newFeaturesNavigation,
+				accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.newFeaturesNavigation,
+				action: .push(viewController: DeltaOnboardingNewVersionFeaturesViewController(hasCloseButton: false))
+			)
+		]
+		
+		super.init(nibName: nil, bundle: nil)
+	}
+	
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+	
+	// MARK: - Overrides
+	
+	override func viewDidLoad() {
+		super.viewDidLoad()
 
 		tableView.backgroundColor = .enaColor(for: .separator)
 		tableView.separatorColor = .enaColor(for: .hairline)
@@ -21,10 +88,10 @@ class AppInformationViewController: DynamicTableViewController {
 				header: .space(height: 32),
 				footer: .view(footerView()),
 				separators: .none,
-				cells: Category.allCases.compactMap { Self.model[$0] }.map { .body(text: $0.text, accessibilityIdentifier: $0.accessibilityIdentifier) }
+				cells: Category.allCases.compactMap { model[$0] }.map { .body(text: $0.text, accessibilityIdentifier: $0.accessibilityIdentifier) }
 			)
 		])
-    }
+	}
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
@@ -32,10 +99,37 @@ class AppInformationViewController: DynamicTableViewController {
 		navigationController?.navigationBar.prefersLargeTitles = true
 		navigationController?.navigationBar.sizeToFit()
 	}
+	
+	// MARK: - Protocol UITableViewDelegate
+	
+	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let cell = super.tableView(tableView, cellForRowAt: indexPath)
+		cell.accessoryType = .disclosureIndicator
+		cell.selectionStyle = .default
 
-}
+		cell.isAccessibilityElement = true
+		cell.accessibilityLabel = cell.textLabel?.text
+		if let category = Category(rawValue: indexPath.row),
+			let accessibilityIdentifier = model[category]?.accessibilityIdentifier {
+			cell.accessibilityIdentifier = accessibilityIdentifier
+		}
 
-extension AppInformationViewController {
+		return cell
+	}
+
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		tableView.deselectRow(at: indexPath, animated: true)
+
+		if let category = Category(rawValue: indexPath.row),
+			let action = model[category]?.action {
+			self.execute(action: action)
+		}
+	}
+	
+	// MARK: - Public
+	
+	// MARK: - Internal
+	
 	enum Category: Int, Hashable, CaseIterable {
 		case versionInfo
 		case about
@@ -44,11 +138,18 @@ extension AppInformationViewController {
 		case privacy
 		case legal
 		case contact
+		case errorReport
 		case imprint
 	}
-}
+	
+	var preferredLargeTitleBackgroundColor: UIColor? { .enaColor(for: .background) }
+	
+	let imprintViewModel = AppInformationImprintViewModel(preferredLocalization: Bundle.main.preferredLocalizations.first ?? "de")
 
-extension AppInformationViewController {
+	var model: [Category: AppInformationCellModel]
+	
+	// MARK: - Private
+	
 	private func footerView() -> UIView {
 		let versionLabel = ENALabel()
 		versionLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -68,34 +169,4 @@ extension AppInformationViewController {
 
 		return footerView
 	}
-}
-
-extension AppInformationViewController {
-	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = super.tableView(tableView, cellForRowAt: indexPath)
-		cell.accessoryType = .disclosureIndicator
-		cell.selectionStyle = .default
-
-		cell.isAccessibilityElement = true
-		cell.accessibilityLabel = cell.textLabel?.text
-		if let category = Category(rawValue: indexPath.row),
-			let accessibilityIdentifier = Self.model[category]?.accessibilityIdentifier {
-			cell.accessibilityIdentifier = accessibilityIdentifier
-		}
-
-		return cell
-	}
-
-	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		tableView.deselectRow(at: indexPath, animated: true)
-
-		if let category = Category(rawValue: indexPath.row),
-			let action = Self.model[category]?.action {
-			self.execute(action: action)
-		}
-	}
-}
-
-extension AppInformationViewController: NavigationBarOpacityDelegate {
-	var preferredLargeTitleBackgroundColor: UIColor? { .enaColor(for: .background) }
 }
