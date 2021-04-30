@@ -483,7 +483,7 @@
 "ExposureSubmission_GeneralErrorTitle" = "Error";
 
 /* Exposure Submission Dispatch */
-"ExposureSubmission_DispatchTitle" = "Register your Test";
+"ExposureSubmission_DispatchTitle" = "Register Your Test";
 
 "ExposureSubmissionIntroduction_AccImageDescription" = "A device transmits an encrypted positive test diagnosis to the system.";
 
@@ -682,7 +682,7 @@
 
 "ExposureSubmissionResult_antigenTestAdded" = "Your rapid test was added.";
 
-"ExposureSubmissionResult_antigenTestAddedDesc" = "The test result is displayed her for 48 hours.";
+"ExposureSubmissionResult_antigenTestAddedDesc" = "The test result is displayed here for 48 hours.";
 
 "ExposureSubmissionResult_warnOthers" = "Warn Others";
 
@@ -728,7 +728,7 @@
 
 "ExposureSubmissionResult_WarnOthersConsentNotGiven" = "Consent “Warn others” not granted";
 
-"ExposureSubmissionResult_testRemove" = "Delete test";
+"ExposureSubmissionResult_testRemove" = "Remove Test";
 
 "ExposureSubmissionResult_testRemoveDesc" = "Please delete the test from the Corona-Warn-App, so that you can save a new test code here if necessary.";
 
@@ -845,9 +845,9 @@
 
 "ExposureSubmissionResult_Timer_Title" = "Result available since";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Title" = "";
+"ExposureSubmissionResult_Negative_Antigen_Proof_Title" = "Verification Feature";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Your test result is private and you are not required to share it unless required by law.\nIf you choose to share it, you may show this screen, or use one of the many other ways provided.\nFor more information, please familiarize yourself with the criteria for verification of testing in your federal state.";
+"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "You can also use the test result displayed here as proof of a negative rapid test result. \n\nPlease note that you are only required to prove your rapid test result if this is required by law. You can prove the result using the app or in a different way. For more information, please familiarize yourself with the criteria for the acceptance of proof of testing in your federal state.";
 
 /* Exposure Submission */
 "ExposureSubmissionError_ErrorPrefix" = "A technical error occurred while sending your data. Please contact the technical hotline. You will find the phone number under App Information.";
@@ -2307,3 +2307,4 @@
 "Submission_Checkins_Alert_Share" = "Share";
 
 "Submission_Checkins_Alert_DontShare" = "Don’t Share";
+
