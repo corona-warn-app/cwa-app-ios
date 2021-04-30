@@ -25,7 +25,7 @@ class ENAUITestsDataDonation: XCTestCase {
 		app.swipeUp(velocity: .fast)
 
 		// Navigate to settings
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.settingsCardTitle].waitForExistence(timeout: 5.0))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.settingsCardTitle].waitForExistence(timeout: .medium))
 		app.cells[AccessibilityIdentifiers.Home.settingsCardTitle].tap()
 
 		// Navigate to data donation screen

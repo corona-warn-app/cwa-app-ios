@@ -15,7 +15,8 @@ final class DMPPAnalyticsViewModel {
 		store: Store,
 		client: Client,
 		appConfig: AppConfigurationProviding,
-		coronaTestService: CoronaTestService
+		coronaTestService: CoronaTestService,
+		ppacService: PrivacyPreservingAccessControl
 	) {
 		self.store = store
 		self.client = client
@@ -23,7 +24,8 @@ final class DMPPAnalyticsViewModel {
 			store: store,
 			client: client,
 			appConfig: appConfig,
-			coronaTestService: coronaTestService
+			coronaTestService: coronaTestService,
+			ppacService: ppacService
 		)
 	}
 

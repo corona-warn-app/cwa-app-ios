@@ -65,7 +65,7 @@ final class SurveyURLProvider: SurveyURLProviding {
 
 	init(
 		configurationProvider: AppConfigurationProviding,
-		ppacService: PPACService,
+		ppacService: PrivacyPreservingAccessControl,
 		otpService: OTPServiceProviding
 	) {
 		self.configurationProvider = configurationProvider
@@ -83,14 +83,14 @@ final class SurveyURLProvider: SurveyURLProviding {
 	// MARK: - Private
 
 	private let configurationProvider: AppConfigurationProviding
-	private let ppacService: PPACService
+	private let ppacService: PrivacyPreservingAccessControl
 	private let otpService: OTPServiceProviding
 	private var subscriptions = [AnyCancellable]()
 
 	private func getPPACToken(completion: @escaping (Result<URL, SurveyError>) -> Void) {
 		Log.info("Request PPAC token.", log: .survey)
 
-		ppacService.getPPACToken { [weak self] result in
+		ppacService.getPPACTokenEDUS { [weak self] result in
 			switch result {
 			case .success(let ppacToken):
 				Log.info("Successfully created PPAC token.", log: .survey)
@@ -105,7 +105,7 @@ final class SurveyURLProvider: SurveyURLProviding {
 	private func getOTP(for ppacToken: PPACToken, completion: @escaping (Result<URL, SurveyError>) -> Void) {
 		Log.info("Request OTP token.", log: .survey)
 
-		otpService.getOTP(ppacToken: ppacToken) { [weak self] result in
+		otpService.getOTPEdus(ppacToken: ppacToken) { [weak self] result in
 			switch result {
 			case .success(let otp):
 				Log.info("Successfully created survey OTP.", log: .survey)
