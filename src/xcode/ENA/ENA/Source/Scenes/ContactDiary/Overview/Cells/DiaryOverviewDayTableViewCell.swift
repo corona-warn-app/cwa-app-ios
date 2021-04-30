@@ -83,7 +83,7 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 			case .contactPerson(let contactPerson):
 				imageView.image = UIImage(named: "Icons_Diary_ContactPerson")
 				entryLabel.text = contactPerson.name
-				entryLabel.accessibilityIdentifier = String(format: AccessibilityIdentifiers.ContactDiaryInformation.Overview.person, String(index))
+				entryLabel.accessibilityIdentifier = String(format: AccessibilityIdentifiers.ContactDiaryInformation.Overview.person, index)
 
 				if let personEncounter = contactPerson.encounter {
 					let detailLabelText = cellViewModel.entryDetailTextFor(personEncounter: personEncounter)
@@ -101,7 +101,7 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 			case .location(let location):
 				imageView.image = UIImage(named: "Icons_Diary_Location")
 				entryLabel.text = location.name
-				entryLabel.accessibilityIdentifier = String(format: AccessibilityIdentifiers.ContactDiaryInformation.Overview.location, String(index))
+				entryLabel.accessibilityIdentifier = String(format: AccessibilityIdentifiers.ContactDiaryInformation.Overview.location, index)
 
 				if let locationVisit = location.visit {
 					let detailLabelText = cellViewModel.entryDetailTextFor(locationVisit: locationVisit)

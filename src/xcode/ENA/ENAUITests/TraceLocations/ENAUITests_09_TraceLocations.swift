@@ -379,8 +379,8 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 		let overviewCell = app.tables.firstMatch.cells.element(boundBy: 1)
 		
 		// Check we have two locations.
-		XCTAssertTrue(overviewCell.staticTexts.matching(identifier: "locationEntry-0").element.exists)
-		XCTAssertTrue(overviewCell.staticTexts.matching(identifier: "locationEntry-1").element.exists)
+		XCTAssertTrue(overviewCell.staticTexts[String(format: AccessibilityIdentifiers.ContactDiaryInformation.Overview.location, 0)].waitForExistence(timeout: .short))
+		XCTAssertTrue(overviewCell.staticTexts[String(format: AccessibilityIdentifiers.ContactDiaryInformation.Overview.location, 1)].waitForExistence(timeout: .short))
 	}
 	
 	func test_WHEN_navigate_to_TraceLocations_for_the_first_time_THEN_infoscreen_is_displayed() throws {
