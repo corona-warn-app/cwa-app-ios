@@ -847,7 +847,7 @@
 
 "ExposureSubmissionResult_Negative_Antigen_Proof_Title" = "";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Your test result is private and you are not required to share it unless required by law.\nIf you choose to share it, you may show this screen, or use one of the many others ways provided.\nFor more information, please familiarize yourself with the criteria for verification of testing in your federal state.";
+"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Your test result is private and you are not required to share it unless required by law.\nIf you choose to share it, you may show this screen, or use one of the many other ways provided.\nFor more information, please familiarize yourself with the criteria for verification of testing in your federal state.";
 
 /* Exposure Submission */
 "ExposureSubmissionError_ErrorPrefix" = "A technical error occurred while sending your data. Please contact the technical hotline. You will find the phone number under App Information.";
@@ -2307,4 +2307,3 @@
 "Submission_Checkins_Alert_Share" = "Share";
 
 "Submission_Checkins_Alert_DontShare" = "Don’t Share";
-
