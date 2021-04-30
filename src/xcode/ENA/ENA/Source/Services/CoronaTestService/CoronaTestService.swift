@@ -484,8 +484,16 @@ class CoronaTestService {
 			completion(.failure(.noRegistrationToken))
 			return
 		}
+
 		guard force || coronaTest.finalTestResultReceivedDate == nil else {
 			completion(.success(coronaTest.testResult))
+			return
+		}
+
+		let registrationDate = coronaTest.registrationDate ?? coronaTest.testDate
+		let ageInDays = Calendar.current.dateComponents([.day], from: registrationDate, to: Date()).day ?? 0
+
+		guard coronaTest.testResult != .expired || ageInDays < 21 else {
 			return
 		}
 
