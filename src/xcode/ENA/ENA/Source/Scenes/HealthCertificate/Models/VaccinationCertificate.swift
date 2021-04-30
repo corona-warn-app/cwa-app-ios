@@ -5,7 +5,7 @@
 import Foundation
 import OpenCombine
 
-struct VaccinationCertificate: Codable, Equatable {
+struct VaccinationCertificate: Codable {
 
 	// MARK: - Protocol Codable
 

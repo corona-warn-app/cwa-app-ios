@@ -4,8 +4,9 @@
 
 import Foundation
 import OpenCombine
+import HealthCertificateToolkit
 
-struct HealthCertificate: Codable, Equatable {
+struct HealthCertificate: Codable {
 
 	// MARK: - Internal
 

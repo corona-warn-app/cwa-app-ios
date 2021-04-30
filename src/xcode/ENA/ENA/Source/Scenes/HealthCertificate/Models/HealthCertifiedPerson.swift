@@ -5,7 +5,7 @@
 import Foundation
 import OpenCombine
 
-class HealthCertifiedPerson: OpenCombine.ObservableObject, Codable, Equatable {
+class HealthCertifiedPerson: OpenCombine.ObservableObject, Codable {
 
 	init(proofCertificate: ProofCertificate?, healthCertificates: [HealthCertificate]) {
 		self.proofCertificate = proofCertificate
@@ -31,12 +31,6 @@ class HealthCertifiedPerson: OpenCombine.ObservableObject, Codable, Equatable {
 
 		try container.encode(proofCertificate, forKey: .proofCertificate)
 		try container.encode(healthCertificates, forKey: .healthCertificates)
-	}
-
-	// MARK: - Protocol Equatable
-
-	static func == (lhs: HealthCertifiedPerson, rhs: HealthCertifiedPerson) -> Bool {
-		lhs.proofCertificate == rhs.proofCertificate && lhs.healthCertificates == rhs.healthCertificates
 	}
 
 	// MARK: - Internal

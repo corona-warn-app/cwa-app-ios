@@ -4,15 +4,18 @@
 
 import Foundation
 import OpenCombine
+import HealthCertificateToolkit
 
 class HealthCertificateService {
 
 	// MARK: - Init
 
 	init(
-		store: HealthCertificateStoring
+		store: HealthCertificateStoring,
+		healthCertificateToolkit: HealthCertificateToolkit
 	) {
 		self.store = store
+		self.healthCertificateToolkit = healthCertificateToolkit
 
 		updatePublishersFromStore()
 	}
@@ -33,22 +36,24 @@ class HealthCertificateService {
 		return .success((HealthCertifiedPerson(proofCertificate: nil, healthCertificates: [])))
 	}
 
-	func requestProof(
+	func updateProofCertificate(
 		for healthCertifiedPerson: HealthCertifiedPerson,
 		completion: (Result<Void, ProofRequestError>) -> Void
 	) {
 		Log.info("[HealthCertificateService] Requesting proof for health certified person: \(private: healthCertifiedPerson)", log: .api)
 
-		// TODO: let result = someOtherService.requestProof(for: healthCertifiedPerson.healthCertificates)
-		let result: Result<ProofCertificate, ProofRequestError> = .success(ProofCertificate(cborRepresentation: Data(), expirationDate: Date()))
-
-		switch result {
-		case .success(let proofCertificate):
-			healthCertifiedPerson.proofCertificate = proofCertificate
-			completion(.success(()))
-		case .failure(let error):
-			completion(.failure(error))
-		}
+		healthCertificateToolkit.fetchProofCertificate(
+			for: healthCertifiedPerson.healthCertificates.map { $0.representations },
+			completion: { [weak self] result in
+				switch result {
+				case .success(let proofCertificate):
+					healthCertifiedPerson.proofCertificate = proofCertificate
+					completion(.success(()))
+				case .failure(let error):
+					completion(.failure(error))
+				}
+			}
+		)
 	}
 
 	func updatePublishersFromStore() {
@@ -60,6 +65,7 @@ class HealthCertificateService {
 	// MARK: - Private
 
 	private var store: HealthCertificateStoring
+	private var healthCertificateToolkit: HealthCertificateToolkit
 	private var subscriptions = Set<AnyCancellable>()
 
 	private func updateSubscriptions() {
