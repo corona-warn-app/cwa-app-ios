@@ -682,7 +682,7 @@
 
 "ExposureSubmissionResult_antigenTestAdded" = "Twój szybki test został dodany.";
 
-"ExposureSubmissionResult_antigenTestAddedDesc" = "Wynik testu jest wyświetlany tutaj przez 48 godzin. Aplikacja tworzy również wpis w Twoim dzienniku kontaktów.";
+"ExposureSubmissionResult_antigenTestAddedDesc" = "Wynik testu jest wyświetlany tutaj przez 48 godzin.";
 
 "ExposureSubmissionResult_warnOthers" = "Ostrzegaj innych";
 
@@ -2219,7 +2219,7 @@
 /* Error Reporting */
 "ErrorReport_Title" = "Raporty o błędach";
 
-"ErrorReport_Analysis" = "Fehleranalyse";
+"ErrorReport_Analysis" = "Analiza błędu";
 
 "ErrorReport_Description1" = "Aby pomóc zespołowi pomocy technicznej aplikacji w analizie błędów, możesz zarejestrować raport o błędzie z CWA. Gdy to zrobisz, poszczególne kroki techniczne i wyniki procesów aplikacji zostaną zarejestrowane. Następnie możesz wysłać raport o błędzie do pomocy technicznej i pomóc w zidentyfikowaniu i usunięciu błędu.\n\nWięcej informacji znajduje się na naszej stronie „Często zadawane pytania”:";
 
