@@ -682,7 +682,7 @@
 
 "ExposureSubmissionResult_antigenTestAdded" = "Testul dvs. rapid a fost adăugat.";
 
-"ExposureSubmissionResult_antigenTestAddedDesc" = "Rezultatul testului dvs. este afișat timp de 48 de ore.";
+"ExposureSubmissionResult_antigenTestAddedDesc" = "Rezultatul testului dvs. este afișat timp de 48 de ore. De asemenea, aplicația creează o intrare în jurnalul dvs. de contacte.";
 
 "ExposureSubmissionResult_warnOthers" = "Avertizați-i pe ceilalți";
 
@@ -904,6 +904,41 @@
 "ExposureSubmission_OverwriteNotice_Antigen_Headline" = "Ați înregistrat deja un test rapid.";
 
 "ExposureSubmission_OverwriteNotice_Antigen_Text" = "Ați înregistrat deja un test rapid. Aplicația poate gestiona cel mult un test rapid și un test PCR în același timp. Dacă înregistrați un alt test rapid, primul test rapid va fi șters din aplicație.";
+
+/* ExposureSubmission AntigenTest Profile Information */
+"ExposureSubmission_Antigen_Profile_Information_Title" = "Profil de test rapid";
+
+"ExposureSubmission_Antigen_Profile_Information_Image_Description" = "O femeie cu un smartphone în mână stă în fața unei clădiri. Un cod QR simbolizează profilul de test rapid de scanat.";
+
+"ExposureSubmission_Antigen_Profile_Information_Description_Title" = "Salvați datele dvs. personale sub formă de cod QR pentru a grăbi înregistrarea în punctele de testare.";
+
+"ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline" = "Când creați un profil de test rapid nu va trebui să completați din nou datele dvs. înainte de fiecare test rapid.";
+
+"ExposureSubmission_Antigen_Profile_Information_PrimaryButton" = "Continuare";
+
+"ExposureSubmission_Antigen_Profile_Information_Dataprivacy_Title" = "Pentru mai multe informații, consultați înștiințarea de confidențialitate.";
+
+/* ExposureSubmission AntigenTest Profile */
+"ExposureSubmission_Antigen_Profile_Header_Text" = "Profil de test rapid";
+
+"ExposureSubmission_Antigen_Profile_QRCode_Image_Description" = "Un cod QR cu un profil de test rapid";
+
+"ExposureSubmission_Antigen_Profile_Noice_Text" = "Prezentați acest cod QR în punctul de testare pentru ca datele dvs. personale să poată fi înregistrate mai repede. De asemenea, țineți cartea de identitate la îndemână.";
+
+"ExposureSubmission_Antigen_Profile_DateOfBirth_Format" = "Născut(ă) pe %@";
+
+"ExposureSubmission_Antigen_Profile_Primary_Button" = "Continuare";
+
+"ExposureSubmission_Antigen_Profile_Secondary_Button" = "Eliminare profil de test rapid";
+
+/* ExposureSubmission AntigenTest */
+"ExposureSubmission_Profile_CreateProfileTile_Title" = "Crearea profilului de test rapid";
+
+"ExposureSubmission_Profile_CreateProfileTile_Description" = "Puteți crea un profil cu datele dvs. personale, pe care îl puteți transmite prin intermediul codului QR la fiecare test rapid.";
+
+"ExposureSubmission_Profile_ProfileTile_Title" = "Profil de test rapid";
+
+"ExposureSubmission_Profile_ProfileTile_Description" = "Economisiți timp și prezentați profilul dvs. de test rapid la punctul de testare.";
 
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Înregistrarea în jurnal a expunerilor";
@@ -1443,27 +1478,14 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Modificările din această versiune pot fi găsite în informațiile aplicației, la „Caracteristici noi”.";
 
-/* Version 2.1 */
-"NewVersionFeature_21_reg_antigen_title" = "Înregistrarea testelor antigen rapide";
+/* Version 2.2 */
+"NewVersionFeature_22_record_error_logs_title" = "Înregistrarea jurnalelor de depanare";
 
-"NewVersionFeature_21_reg_antigen_description" = "Pe lângă rezultatele testelor PCR, acum puteți afișa și rezultatele testelor antigen rapide în aplicație și le puteți utiliza pentru a-i avertiza pe ceilalți.";
+"NewVersionFeature_22_record_error_logs_description" = "Acum puteți genera un jurnal de erori în caracteristica de suport tehnic pentru aplicație. Aceasta înregistrează etapele pe care le efectuați în aplicație, pentru a simplifica analiza de erori potențiale și pentru a ne ajuta să le corectăm mai rapid.";
 
-"NewVersionFeature_21_show_proof_title" = "Afișarea dovezii";
+"NewVersionFeature_22_antigen_profiles_title" = "Crearea profilurilor de test rapid";
 
-"NewVersionFeature_21_show_proof_description" = "Dacă doriți, puteți utiliza aplicația pentru a dovedi starea de infectare personală (de exemplu, un test rapid negativ). Rețineți, totuși, că nu aveți nicio obligație de a utiliza aplicația pentru a dovedi starea dvs. de infectare. De asemenea, puteți dovedi starea dvs. de infectare într-un alt mod care respectă reglementările legale din localitatea dvs. de domiciliu.";
-
-"NewVersionFeature_21_tech_hotline_foreign_countries_title" = "Hotline tehnic disponibil acum din afara Germaniei";
-
-"NewVersionFeature_21_tech_hotline_foreign_countries_description" = "Acum puteți contacta hotline-ul tehnic și din afara Germaniei, la numărul +49 30 498 75401. Se vor aplica tarifele furnizorului dvs. de servicii de telefonie.";
-
-"NewVersionFeature_21_tan_hotline_foreign_countries_title" = "Hotline TAN disponibil acum din afara Germaniei";
-
-"NewVersionFeature_21_tan_hotline_foreign_countries_description" = "Dacă sunteți diagnosticat cu coronavirus, acum puteți solicita un cod TAN din afara Germaniei, la numărul +49 30 498 75401. Se vor aplica tarifele furnizorului dvs. de servicii de telefonie.";
-
-/* Version 2.0 */
-"NewVersionFeature_200_event_checkin_title" = "Faceți check-in cu codul QR pentru a urmări eficient lanțurile de infectare";
-
-"NewVersionFeature_200_event_checkin_description" = "Acum, aplicația Corona-Warn vă permite să faceți check-in la evenimente și în locuri. Organizatorii de evenimente și proprietarii de magazine pot utiliza aplicația pentru a crea un cod QR. Apoi, invitații pot scana acest cod QR atunci când sosesc, pentru a-și înregistra prezența. De asemenea, aplicația poate crea la cerere o intrare în jurnal. Dacă o persoană care a făcut check-in la acest eveniment sau în acest loc este diagnosticată ulterior cu coronavirus, alte persoane care au făcut check-in în același timp pot fi avertizate.";
+"NewVersionFeature_22_antigen_profiles_description" = "Acum puteți crea un profil de test rapid în datele dvs. personale. Apoi, profilul dvs. poate fi scanat în punctele de testare, rapid și ușor, prin intermediul codului QR.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Înregistrare transnațională a expunerilor în jurnal";
@@ -2026,6 +2048,8 @@
 
 "Checkins_Overview_DurationTitle" = "Durată";
 
+"Checkins_Overview_CheckinDateTemplate" = "Pe %@";
+
 "Checkins_Overview_CheckinTimeTemplate" = "%@ - check-out automat după %@";
 
 "Checkins_Overview_CheckoutButtonTitle" = "Check-out acum";
@@ -2195,6 +2219,8 @@
 /* Error Reporting */
 "ErrorReport_Title" = "Rapoarte de erori";
 
+"ErrorReport_Analysis" = "Fehleranalyse";
+
 "ErrorReport_Description1" = "Pentru a ajuta echipa de suport tehnic a aplicației la analiza erorilor, puteți înregistra un raport de erori din aplicația Corona-Warn. Astfel, sunt înregistrate etapele tehnice individuale și rezultatele proceselor aplicației. Puteți trimite apoi raportul de erori la suportul tehnic și ajutați la identificarea și corectarea erorilor.\n\nPentru mai multe informații, consultați pagina noastră de întrebări frecvente:";
 
 "ErrorReport_FAQ" = "Întrebări frecvente despre rapoartele de erori";
@@ -2281,6 +2307,12 @@
 
 "Checkin_Details_SaveToDiary" = "Înregistrați în jurnalul meu de contacte după check-out?";
 
+"Checkin_Details_SaveSwitch" = "Comutator";
+
+"Checkin_Details_SaveSwitch_On" = "Pornită";
+
+"Checkin_Details_SaveSwitch_Off" = "Oprită";
+
 "Checkin_Details_AutomaticCheckout" = "Check-out automat după";
 
 "Checkin_Details_EventNotStartedYet" = "Acest eveniment nu începe până la %@ pe %@. Doriți să faceți deja check-inul?";
@@ -2307,4 +2339,27 @@
 "Submission_Checkins_Alert_Share" = "Partajare";
 
 "Submission_Checkins_Alert_DontShare" = "Nu partajez";
+
+/* Create Antigen Profile */
+"AntigenProfile_Create_Title" = "Profil de test rapid";
+
+"AntigenProfile_Create_Description" = "Salvați datele dvs. personale sub formă de cod QR pentru a grăbi înregistrarea în punctele de testare.";
+
+"AntigenProfile_Create_FirstNamePlaceholder" = "Prenume";
+
+"AntigenProfile_Create_LastNamePlaceholder" = "Nume";
+
+"AntigenProfile_Create_BirthDatePlaceholder" = "Data nașterii";
+
+"AntigenProfile_Create_StreetPlaceholder" = "Strada și numărul";
+
+"AntigenProfile_Create_PostalCodePlaceholder" = "Cod poștal";
+
+"AntigenProfile_Create_CityPlaceholder" = "Localitate";
+
+"AntigenProfile_Create_PhoneNumberPlaceholder" = "Telefon";
+
+"AntigenProfile_Create_EmailAddressPlaceholder" = "Adresă e-mail";
+
+"AntigenProfile_Create_Save_Button_Title" = "Salvare";
 
