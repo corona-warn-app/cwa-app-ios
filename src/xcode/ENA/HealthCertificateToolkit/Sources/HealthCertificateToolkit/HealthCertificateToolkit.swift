@@ -1,38 +1,79 @@
+//
+// 🦠 Corona-Warn-App
+//
+
+
 import Foundation
+import Compression
 
-enum HealthCertificateFetchingError: Error {
+public typealias DecodeHealthCertificateResult = Result<HealthCertificateRepresentations, HealthCertificateDecodingError>
+public typealias FetchProofCertificateResult = Result<Data, ProofCertificateFetchingError>
+
+public enum ProofCertificateFetchingError: Error {
     case something
     case general
 }
 
-enum HealthCertificateDecodingError: Error {
+public enum HealthCertificateDecodingError: Error {
     case something
     case general
 }
 
-protocol HealthCertificateToolkitProtocol {
-    func decode(base45: String) -> Result<HealthCertificateRepresentations, HealthCertificateDecodingError>
-    func fetchProofCertificate(for healthCertificates: [Data], completion: (Result<Data, HealthCertificateFetchingError>) -> Void)
+public protocol HealthCertificateToolkitProtocol {
+
+    func decodeHealthCertificate(base45: String) -> DecodeHealthCertificateResult
+
+    func fetchProofCertificate(for healthCertificates: [HealthCertificateRepresentations], completion: (FetchProofCertificateResult) -> Void)
 }
 
-struct HealthCertificateToolkit: HealthCertificateToolkitProtocol {
-    func decode(base45: String) -> Result<HealthCertificateRepresentations, HealthCertificateDecodingError> {
+public struct HealthCertificateToolkit: HealthCertificateToolkitProtocol {
+
+    public func decodeHealthCertificate(base45: String) -> DecodeHealthCertificateResult {
         .success( .fake())
     }
 
-    func fetchProofCertificate(for healthCertificates: [Data], completion: (Result<Data, HealthCertificateFetchingError>) -> Void) {
+    public func fetchProofCertificate(for healthCertificates: [HealthCertificateRepresentations], completion: (FetchProofCertificateResult) -> Void) {
 
+    }
+
+    func decodeWithBase45(_ base45String: String) -> Data {
+        return Data()
+    }
+
+    func decompress(_ data: Data) -> Data {
+        return Data()
+    }
+
+    func decodeCOSEPayload(_ data: Data) -> Data {
+        return Data()
+    }
+
+    func decodeJSON(_ data: Data) -> Data {
+        return Data()
     }
 }
 
 // MARK: - Fakes
 
-struct ElectronicHealthCertificateFake: HealthCertificateToolkitProtocol {
-    func decode(base45: String) -> Result<HealthCertificateRepresentations, HealthCertificateDecodingError> {
-        .success(.fake())
+public struct HealthCertificateToolkitStub: HealthCertificateToolkitProtocol {
+
+    init(
+        decodeResult: DecodeHealthCertificateResult,
+        fetchProofCertificateResult: FetchProofCertificateResult
+    ) {
+        self.decodeResult = decodeResult
+        self.fetchProofCertificateResult = fetchProofCertificateResult
     }
 
-    func fetchProofCertificate(for healthCertificates: [Data], completion: (Result<Data, HealthCertificateFetchingError>) -> Void) {
-        completion(.success(Data()))
+    public func decodeHealthCertificate(base45: String) -> DecodeHealthCertificateResult {
+        decodeResult
     }
+
+    public func fetchProofCertificate(for healthCertificates: [HealthCertificateRepresentations], completion: (Result<Data, ProofCertificateFetchingError>) -> Void) {
+        completion(fetchProofCertificateResult)
+    }
+
+    private let decodeResult: DecodeHealthCertificateResult
+    private let fetchProofCertificateResult: FetchProofCertificateResult
+
 }
