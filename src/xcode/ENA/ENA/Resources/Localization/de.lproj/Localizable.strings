@@ -927,6 +927,20 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_OverwriteNotice_Antigen_Text" = "Sie haben bereits einen Schnelltest registriert. Die App kann maximal einen Schnelltest und einen PCR-Test gleichzeitig verwalten. Wenn Sie einen weiteren Schnelltest registrieren, wird der erste Schnelltest aus der App gelöscht.";
 
+/* ExposureSubmission AntigenTest Profile Information */
+
+"ExposureSubmission_Antigen_Profile_Information_Title" = "Schnelltest-Profil";
+
+"ExposureSubmission_Antigen_Profile_Information_Image_Description" = "Eine Frau mit einem Smartphone in der Hand steht vor einem Gebäude. Ein QR-Code symbolisiert das zu scannende Schnelltest-Profil.";
+
+"ExposureSubmission_Antigen_Profile_Information_Description_Title" = "Legen Sie Ihre persönlichen Daten als QR-Code ab, um die Registrierung an der Teststelle  zu beschleunigen.";
+
+"ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline" = "Mit Ihrem eigenen Schnelltest-Profil müssen Sie Ihre persönlichen Daten nicht bei jedem neuen Schnelltest erneut ausfüllen.";
+
+"ExposureSubmission_Antigen_Profile_Information_PrimaryButton" = "Weiter";
+
+"ExposureSubmission_Antigen_Profile_Information_Dataprivacy_Title" = "Weitere Hinweise finden Sie in der Datenschutzerklärung.";
+
 /* ExposureSubmission AntigenTest Profile */
 
 "ExposureSubmission_Antigen_Profile_Header_Text" = "Schnelltest-Profil";
@@ -1508,29 +1522,15 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Informationen unter dem Menüpunkt „Neue Funktionen”.";
 
-/* Version 2.1 */
+/* Version 2.2 */
 
-"NewVersionFeature_21_reg_antigen_title" = "Registrierung von Antigen-Schnelltests";
+"NewVersionFeature_22_record_error_logs_title" = "Aufzeichnung von Fehleranalyse-Protokollen";
 
-"NewVersionFeature_21_reg_antigen_description" = "Sie können sich nun zusätzlich zu Ergebnissen von PCR-Tests auch Ergebnisse von Antigen-Schnelltests in der App anzeigen lassen und nutzen, um andere zu warnen.";
+"NewVersionFeature_22_record_error_logs_description" = "Sie können nun im Rahmen des technischen Supports für die App einen Fehlerprotokoll erstellen, das die Schritte aufzeichnet, die Sie in der App ausführen. Somit wird die Analyse von möglichen Fehlern erleichtert, welches zu einer schnelleren Fehlerbehebung führen kann.";
 
-"NewVersionFeature_21_show_proof_title" = "Anzeige von Nachweisen";
+"NewVersionFeature_22_antigen_profiles_title" = "Anlegen von Schnelltest-Profilen";
 
-"NewVersionFeature_21_show_proof_description" = "Auf Wunsch können Sie über die App Ihren persönlichen Infektionsstatus nachweisen (z.B. negativer Schnelltest). Bitte beachten Sie, dass Sie grundsätzlich nicht zum Nachweis Ihres Infektionsstatus per App verpflichtet sind. Sie können Ihren Infektionsstatus im Rahmen der rechtlichen Bestimmungen an Ihrem Aufenthaltsort auch auf andere Weise nachweisen.";
-
-"NewVersionFeature_21_tech_hotline_foreign_countries_title" = "Technische Hotline nun auch aus dem Ausland erreichbar";
-
-"NewVersionFeature_21_tech_hotline_foreign_countries_description" = "Sie können die technische Hotline nun auch aus dem Ausland unter der Nummer +49 30 498 75401 erreichen. Es fallen Gebühren des jeweiligen Telefonanbieters an.";
-
-"NewVersionFeature_21_tan_hotline_foreign_countries_title" = "TAN-Hotline nun auch aus dem Ausland erreichbar";
-
-"NewVersionFeature_21_tan_hotline_foreign_countries_description" = "Sie können bei einem positiven Befund nun auch aus dem Ausland eine TAN anfordern unter der Nummer +49 30 498 75401. Es fallen Gebühren des jeweiligen Telefonanbieters an.";
-
-/* Version 2.0 */
-
-"NewVersionFeature_200_event_checkin_title" = "Check-in per QR-Code für effiziente Rückverfolgbarkeit von Infektionsketten";
-
-"NewVersionFeature_200_event_checkin_description" = "Die CWA ermöglicht nun einen Check-in für Events und Orte. Personen, die Events veranstalten oder ein Geschäft haben, können über die App einen QR-Code erstellen. Durch Scannen des QR-Codes können sich Gäste bei Ankunft einchecken, um so ihre Anwesenheit zu registrieren. Auf Wunsch legt die App außerdem einen entsprechenden Tagebuch-Eintrag an. Wird eine eingecheckte Person später positiv auf das Coronavirus getestet, können andere Personen gewarnt werden, die zur selben Zeit eingecheckt waren.";
+"NewVersionFeature_22_antigen_profiles_description" = "Sie können nun ein Schnelltest-Profil mit Ihren persönlichen Daten anlegen. Ihr Profil kann dann an Teststellen per QR-Code schnell und einfach gescannt werden.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
@@ -2412,3 +2412,27 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "Submission_Checkins_Alert_Share" = "Teilen";
 
 "Submission_Checkins_Alert_DontShare" = "Nicht teilen";
+
+/* Create Antigen Profile */
+
+"AntigenProfile_Create_Title" = "Schnelltest-Profil";
+
+"AntigenProfile_Create_Description" = "Legen Sie Ihre persönlichen Daten als QR-Code ab, um die Registrierung an der Teststelle zu beschleunigen.";
+
+"AntigenProfile_Create_FirstNamePlaceholder" = "Vorname";
+
+"AntigenProfile_Create_LastNamePlaceholder" = "Nachname";
+
+"AntigenProfile_Create_BirthDatePlaceholder" = "Geburtsdatum";
+
+"AntigenProfile_Create_StreetPlaceholder" = "Strasse und Hausnummer";
+
+"AntigenProfile_Create_PostalCodePlaceholder" = "PLZ";
+
+"AntigenProfile_Create_CityPlaceholder" = "Ort";
+
+"AntigenProfile_Create_PhoneNumberPlaceholder" = "Tel. Nr.";
+
+"AntigenProfile_Create_EmailAddressPlaceholder" = "E-Mail-Adresse";
+
+"AntigenProfile_Create_Save_Button_Title" = "Speichern";

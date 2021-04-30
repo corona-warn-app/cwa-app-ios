@@ -60,7 +60,7 @@ struct AntigenTestProfile: Codable {
 		email = try? container.decode(String.self, forKey: .email)
 	}
 
-	enum CodingKeys: String, CodingKey {
+	enum CodingKeys: String, CodingKey, CaseIterable {
 		case firstName
 		case lastName
 		case dateOfBirth

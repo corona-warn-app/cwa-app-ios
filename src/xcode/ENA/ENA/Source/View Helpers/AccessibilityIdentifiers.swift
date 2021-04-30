@@ -380,6 +380,16 @@ enum AccessibilityIdentifiers {
 			}
 		}
 
+		enum AntigenTest {
+			enum Information {
+				static let imageDescription = "AppStrings.ExposureSubmission.AntigenTest.Information.imageDescription"
+				static let descriptionTitle = "AppStrings.ExposureSubmission.AntigenTest.Information.descriptionTitle"
+				static let descriptionSubHeadline = "AppStrings.ExposureSubmission.AntigenTest.Information.descriptionSubHeadline"
+				static let acknowledgementTitle = "AntigenTest_Information_acknowledgement_title"
+				static let dataPrivacyTitle = "AppStrings.ExposureSubmission.AntigenTest.Information.dataPrivacyTitle"
+			}
+		}
+
 	}
 	
 	enum Reset {
@@ -508,14 +518,30 @@ enum AccessibilityIdentifiers {
 		}
 		
 		enum Information {
-			static let imageDescription = "AppStrings.CheckInInformation.imageDescription"
-			static let descriptionTitle = "AppStrings.CheckInInformation.descriptionTitle"
-			static let descriptionSubHeadline = "AppStrings.CheckInInformation.descriptionSubHeadline"
-			static let dataPrivacyTitle = "AppStrings.CheckInInformation.dataPrivacyTitle"
-			static let primaryButton = "AppStrings.CheckInInformation.primaryButton"
-			static let acknowledgementTitle = "CheckInInformation.acknowledgement_title"
+			static let imageDescription = "AppStrings.Checkins.Information.imageDescription"
+			static let descriptionTitle = "AppStrings.Checkins.Information.descriptionTitle"
+			static let descriptionSubHeadline = "AppStrings.Checkins.Information.descriptionSubHeadline"
+			static let dataPrivacyTitle = "AppStrings.Checkins.Information.dataPrivacyTitle"
+			static let primaryButton = "AppStrings.Checkins.Information.primaryButton"
+			static let acknowledgementTitle = "Checkins.Information.acknowledgement_title"
 		}
 		
 	}
 	
+	enum AntigenProfile {
+		
+		enum Create {
+			static let title = "AppStrings.AntigenProfile.Create.title"
+			static let description = "AppStrings.AntigenProfile.Create.description"
+			static let firstNameTextField = "AppStrings.AntigenProfile.Create.firstNameTextFieldPlaceholder"
+			static let lastNameTextField = "AppStrings.AntigenProfile.Create.lastNameTextFieldPlaceholder"
+			static let birthDateTextField = "AppStrings.AntigenProfile.Create.birthDateTextFieldPlaceholder"
+			static let streetTextField = "AppStrings.AntigenProfile.Create.streetTextFieldPlaceholder"
+			static let postalCodeTextField = "AppStrings.AntigenProfile.Create.postalCodeTextFieldPlaceholder"
+			static let cityTextField = "AppStrings.AntigenProfile.Create.cityTextFieldPlaceholder"
+			static let phoneNumberTextField = "AppStrings.AntigenProfile.Create.phoneNumberTextFieldPlaceholder"
+			static let emailAddressTextField = "AppStrings.AntigenProfile.Create.emailAddressTextFieldPlaceholder"
+			static let saveButtonTitle = "AppStrings.AntigenProfile.Create.saveButtonTitle"
+		}
+	}
 }

@@ -88,6 +88,27 @@ enum AppStrings {
 		}
 
 		enum AntigenTest {
+
+			enum Information {
+				static let title = NSLocalizedString("ExposureSubmission_Antigen_Profile_Information_Title", comment: "")
+				static let imageDescription = NSLocalizedString("ExposureSubmission_Antigen_Profile_Information_Image_Description", comment: "")
+				static let descriptionTitle = NSLocalizedString("ExposureSubmission_Antigen_Profile_Information_Description_Title", comment: "")
+				static let descriptionSubHeadline = NSLocalizedString("ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline", comment: "")
+				static let primaryButton = NSLocalizedString("ExposureSubmission_Antigen_Profile_Information_PrimaryButton", comment: "")
+
+				enum legal {
+					static let title = NSLocalizedString("ExposureSubmission_Antigen_Profile_Legal_Headline", tableName: "Localizable.legal", comment: "")
+					static let text01 = NSLocalizedString("ExposureSubmission_Antigen_Profile_Legal_Text01", tableName: "Localizable.legal", comment: "")
+					static let text02 = NSLocalizedString("ExposureSubmission_Antigen_Profile_Legal_Text02", tableName: "Localizable.legal", comment: "")
+					static let text03 = NSLocalizedString("ExposureSubmission_Antigen_Profile_Legal_Text03", tableName: "Localizable.legal", comment: "")
+					static let text04 = NSLocalizedString("ExposureSubmission_Antigen_Profile_Legal_Text04", tableName: "Localizable.legal", comment: "")
+					static let text05 = NSLocalizedString("ExposureSubmission_Antigen_Profile_Legal_Text05", tableName: "Localizable.legal", comment: "")
+					static let text06 = NSLocalizedString("ExposureSubmission_Antigen_Profile_Legal_Text06", tableName: "Localizable.legal", comment: "")
+					static let text07 = NSLocalizedString("ExposureSubmission_Antigen_Profile_Legal_Text07", tableName: "Localizable.legal", comment: "")
+				}
+				static let dataPrivacyTitle = NSLocalizedString("ExposureSubmission_Antigen_Profile_Information_Dataprivacy_Title", comment: "")
+			}
+
 			enum Profile {
 				static let headerText = NSLocalizedString("ExposureSubmission_Antigen_Profile_Header_Text", comment: "")
 				static let QRCodeImageDescription = NSLocalizedString("ExposureSubmission_Antigen_Profile_QRCode_Image_Description", comment: "")
@@ -1047,29 +1068,15 @@ enum AppStrings {
 		
 		static let aboutAppInformation = NSLocalizedString("NewVersionFeatures_Info_about_abb_information", comment: "")
 		
-		/* Version 2.1 */
+		/* Version 2.2 */
 		
-		static let feature21RegAntigenTitle = NSLocalizedString("NewVersionFeature_21_reg_antigen_title", comment: "")
+		static let feature22RecordErrorLogsTitle = NSLocalizedString("NewVersionFeature_22_record_error_logs_title", comment: "")
 		
-		static let feature21RegAntigenDescription = NSLocalizedString("NewVersionFeature_21_reg_antigen_description", comment: "")
+		static let feature22RecordErrorLogsDescription = NSLocalizedString("NewVersionFeature_22_record_error_logs_description", comment: "")
 		
-		static let feature21ShowProofTitle = NSLocalizedString("NewVersionFeature_21_show_proof_title", comment: "")
+		static let feature22AntiGenProfileTitle = NSLocalizedString("NewVersionFeature_22_antigen_profiles_title", comment: "")
 		
-		static let feature21ShowProofDescription = NSLocalizedString("NewVersionFeature_21_show_proof_description", comment: "")
-		
-		static let feature21NewIntTechHotlineTitle = NSLocalizedString("NewVersionFeature_21_tech_hotline_foreign_countries_title", comment: "")
-		
-		static let feature21NewIntTechHotlineDescription = NSLocalizedString("NewVersionFeature_21_tech_hotline_foreign_countries_description", comment: "")
-		
-		static let feature21NewIntTanHotlineTitle = NSLocalizedString("NewVersionFeature_21_tan_hotline_foreign_countries_title", comment: "")
-		
-		static let feature21NewIntTanHotlineDescription = NSLocalizedString("NewVersionFeature_21_tan_hotline_foreign_countries_description", comment: "")
-		
-		/* Version 2.00 */
-		
-		static let feature200EventRegistrationTitle = NSLocalizedString("NewVersionFeature_200_event_checkin_title", comment: "")
-		
-		static let feature200EventRegistrationDescription = NSLocalizedString("NewVersionFeature_200_event_checkin_description", comment: "")
+		static let feature22AntiGenProfileDescription = NSLocalizedString("NewVersionFeature_22_antigen_profiles_description", comment: "")
 	}
 	
 	enum DeltaOnboarding {
@@ -1713,5 +1720,22 @@ enum AppStrings {
 		}
 	}
 
+	enum AntigenProfile {
+		
+		enum Create {
+			static let title = NSLocalizedString("AntigenProfile_Create_Title", comment: "")
+			static let description = NSLocalizedString("AntigenProfile_Create_Description", comment: "")
+			static let firstNameTextFieldPlaceholder = NSLocalizedString("AntigenProfile_Create_FirstNamePlaceholder", comment: "")
+			static let lastNameTextFieldPlaceholder = NSLocalizedString("AntigenProfile_Create_LastNamePlaceholder", comment: "")
+			static let birthDateTextFieldPlaceholder = NSLocalizedString("AntigenProfile_Create_BirthDatePlaceholder", comment: "")
+			static let streetTextFieldPlaceholder = NSLocalizedString("AntigenProfile_Create_StreetPlaceholder", comment: "")
+			static let postalCodeTextFieldPlaceholder = NSLocalizedString("AntigenProfile_Create_PostalCodePlaceholder", comment: "")
+			static let cityTextFieldPlaceholder = NSLocalizedString("AntigenProfile_Create_CityPlaceholder", comment: "")
+			static let phoneNumberTextFieldPlaceholder = NSLocalizedString("AntigenProfile_Create_PhoneNumberPlaceholder", comment: "")
+			static let emailAddressTextFieldPlaceholder = NSLocalizedString("AntigenProfile_Create_EmailAddressPlaceholder", comment: "")
+			static let saveButtonTitle = NSLocalizedString("AntigenProfile_Create_Save_Button_Title", comment: "")
+		}
+	}
+	
 	// swiftlint:disable:next file_length
 }

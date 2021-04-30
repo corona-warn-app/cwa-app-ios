@@ -752,13 +752,12 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			},
 			dismiss: { [weak self] in self?.dismiss() }
 		)
-		// showSecondaryButton for testing data-privacy at the moment
 
 		let footerViewModel = FooterViewModel(
-			primaryButtonName: "Weiter",
-			secondaryButtonName: "Datenschutz",
+			primaryButtonName: AppStrings.ExposureSubmission.AntigenTest.Information.primaryButton,
 			isPrimaryButtonEnabled: true,
-			isSecondaryButtonEnabled: true
+			isSecondaryButtonEnabled: false,
+			isSecondaryButtonHidden: true
 		)
 		let footerViewController = FooterViewController(footerViewModel)
 		let topBottomContainerViewController = TopBottomContainerViewController(
@@ -784,8 +783,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		)
 
 		let footerViewModel = FooterViewModel(
-			primaryButtonName: "Weiter",
-			isPrimaryButtonEnabled: true,
+			primaryButtonName: AppStrings.AntigenProfile.Create.saveButtonTitle,
+			isPrimaryButtonEnabled: false,
 			isSecondaryButtonEnabled: false,
 			isSecondaryButtonHidden: true
 		)
