@@ -28,6 +28,8 @@ public protocol HealthCertificateToolkitProtocol {
 
 public struct HealthCertificateToolkit: HealthCertificateToolkitProtocol {
 
+    // MARK: - Protocol HealthCertificateToolkitProtocol
+
     public func decodeHealthCertificate(base45: String) -> DecodeHealthCertificateResult {
         .success( .fake())
     }
@@ -35,6 +37,8 @@ public struct HealthCertificateToolkit: HealthCertificateToolkitProtocol {
     public func fetchProofCertificate(for healthCertificates: [HealthCertificateRepresentations], completion: (FetchProofCertificateResult) -> Void) {
 
     }
+
+    // MARK: - Internal
 
     func decodeWithBase45(_ base45String: String) -> Data {
         return Data()
@@ -57,6 +61,8 @@ public struct HealthCertificateToolkit: HealthCertificateToolkitProtocol {
 
 public struct HealthCertificateToolkitStub: HealthCertificateToolkitProtocol {
 
+    // MARK: - Init
+
     init(
         decodeResult: DecodeHealthCertificateResult,
         fetchProofCertificateResult: FetchProofCertificateResult
@@ -65,6 +71,8 @@ public struct HealthCertificateToolkitStub: HealthCertificateToolkitProtocol {
         self.fetchProofCertificateResult = fetchProofCertificateResult
     }
 
+    // MARK: - Public
+
     public func decodeHealthCertificate(base45: String) -> DecodeHealthCertificateResult {
         decodeResult
     }
@@ -72,6 +80,8 @@ public struct HealthCertificateToolkitStub: HealthCertificateToolkitProtocol {
     public func fetchProofCertificate(for healthCertificates: [HealthCertificateRepresentations], completion: (Result<Data, ProofCertificateFetchingError>) -> Void) {
         completion(fetchProofCertificateResult)
     }
+
+    // MARK: - Private
 
     private let decodeResult: DecodeHealthCertificateResult
     private let fetchProofCertificateResult: FetchProofCertificateResult
