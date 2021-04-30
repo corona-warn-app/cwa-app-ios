@@ -1,3 +1,3 @@
-# ElectronicHealthCertificate
+# HealthCertificateToolkit
 
 A description of this package.

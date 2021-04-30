@@ -4,7 +4,6 @@
 
 
 import Foundation
-import Compression
 
 public typealias DecodeHealthCertificateResult = Result<HealthCertificateRepresentations, HealthCertificateDecodingError>
 public typealias FetchProofCertificateResult = Result<Data, ProofCertificateFetchingError>
@@ -52,7 +51,7 @@ public struct HealthCertificateToolkit: HealthCertificateToolkitProtocol {
         return Data()
     }
 
-    func decodeJSON(_ data: Data) -> Data {
+    func extractJSON(_ data: Data) -> Data {
         return Data()
     }
 }
