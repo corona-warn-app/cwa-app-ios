@@ -682,7 +682,7 @@
 
 "ExposureSubmissionResult_antigenTestAdded" = "Your rapid test was added.";
 
-"ExposureSubmissionResult_antigenTestAddedDesc" = "The test result is displayed her for 48 hours. The app also creates an entry in your contact journal.";
+"ExposureSubmissionResult_antigenTestAddedDesc" = "The test result is displayed her for 48 hours.";
 
 "ExposureSubmissionResult_warnOthers" = "Warn Others";
 
