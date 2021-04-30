@@ -55,13 +55,13 @@ struct HealthCertificate: Codable {
 
 // MARK: - Fakes
 
-extension HealthCertificateRepresentations {
+extension CertificateRepresentations {
     static func fake(
         base45: String = "",
         cbor: Data = Data(),
         json: Data = Data()
-    ) -> HealthCertificateRepresentations {
-        HealthCertificateRepresentations(base45: base45, cbor: cbor, json: json)
+    ) -> CertificateRepresentations {
+        CertificateRepresentations(base45: base45, cbor: cbor, json: json)
     }
 }
 

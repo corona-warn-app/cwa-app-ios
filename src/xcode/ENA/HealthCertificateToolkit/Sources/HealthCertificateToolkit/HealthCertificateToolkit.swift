@@ -5,8 +5,8 @@
 
 import Foundation
 
-public typealias DecodeHealthCertificateResult = Result<HealthCertificateRepresentations, HealthCertificateDecodingError>
-public typealias FetchProofCertificateResult = Result<Data, ProofCertificateFetchingError>
+public typealias DecodeHealthCertificateResult = Result<CertificateRepresentations, HealthCertificateDecodingError>
+public typealias FetchProofCertificateResult = Result<CertificateRepresentations, ProofCertificateFetchingError>
 
 public enum ProofCertificateFetchingError: Error {
     case something
@@ -22,7 +22,7 @@ public protocol HealthCertificateToolkitProtocol {
 
     func decodeHealthCertificate(base45: String) -> DecodeHealthCertificateResult
 
-    func fetchProofCertificate(for healthCertificates: [HealthCertificateRepresentations], completion: (FetchProofCertificateResult) -> Void)
+    func fetchProofCertificate(for healthCertificates: [CertificateRepresentations], completion: (FetchProofCertificateResult) -> Void)
 }
 
 public struct HealthCertificateToolkit: HealthCertificateToolkitProtocol {
@@ -33,7 +33,7 @@ public struct HealthCertificateToolkit: HealthCertificateToolkitProtocol {
         .success( .fake())
     }
 
-    public func fetchProofCertificate(for healthCertificates: [HealthCertificateRepresentations], completion: (FetchProofCertificateResult) -> Void) {
+    public func fetchProofCertificate(for healthCertificates: [CertificateRepresentations], completion: (FetchProofCertificateResult) -> Void) {
 
     }
 
@@ -76,7 +76,7 @@ public struct HealthCertificateToolkitStub: HealthCertificateToolkitProtocol {
         decodeResult
     }
 
-    public func fetchProofCertificate(for healthCertificates: [HealthCertificateRepresentations], completion: (Result<Data, ProofCertificateFetchingError>) -> Void) {
+    public func fetchProofCertificate(for healthCertificates: [CertificateRepresentations], completion: (Result<Data, ProofCertificateFetchingError>) -> Void) {
         completion(fetchProofCertificateResult)
     }
 
