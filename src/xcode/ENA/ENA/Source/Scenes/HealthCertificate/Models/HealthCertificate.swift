@@ -8,9 +8,17 @@ import HealthCertificateToolkit
 
 struct HealthCertificate: Codable {
 
+	// MARK: - Init
+
+	init(representations: CertificateRepresentations) throws {
+		self.representations = representations
+
+		self.healthCertificateResponse = try JSONDecoder().decode(HealthCertificateResponse.self, from: representations.json)
+	}
+
 	// MARK: - Internal
 
-	let representations: HealthCertificateRepresentations
+	let representations: CertificateRepresentations
 
 	var version: String {
 		healthCertificateResponse.version

@@ -33,7 +33,18 @@ class HealthCertificateService {
 	func register(payload: String) -> Result<HealthCertifiedPerson, RegistrationError> {
 		Log.info("[HealthCertificateService] Registering health certificate from payload: \(private: payload)", log: .api)
 
-		return .success((HealthCertifiedPerson(proofCertificate: nil, healthCertificates: [])))
+		switch healthCertificateToolkit.decodeHealthCertificate(base45: payload) {
+		case .success(let certificateRepresentations):
+			do {
+				let healthCertificate = try HealthCertificate(representations: certificateRepresentations)
+
+				return .success((HealthCertifiedPerson(healthCertificates: [healthCertificate], proofCertificate: nil)))
+			} catch {
+				return .failure(.jsonDecodingError(error))
+			}
+		case .failure(let error):
+			return .failure(.decodingError(error))
+		}
 	}
 
 	func updateProofCertificate(
@@ -44,13 +55,17 @@ class HealthCertificateService {
 
 		healthCertificateToolkit.fetchProofCertificate(
 			for: healthCertifiedPerson.healthCertificates.map { $0.representations },
-			completion: { [weak self] result in
+			completion: { result in
 				switch result {
-				case .success(let proofCertificate):
-					healthCertifiedPerson.proofCertificate = proofCertificate
+				case .success(let proofCertificateRepresentations):
+					do {
+						healthCertifiedPerson.proofCertificate = try ProofCertificate(representations: proofCertificateRepresentations)
+					} catch {
+						completion(.failure(.jsonDecodingError(error)))
+					}
 					completion(.success(()))
 				case .failure(let error):
-					completion(.failure(error))
+					completion(.failure(.fetchingError(error)))
 				}
 			}
 		)

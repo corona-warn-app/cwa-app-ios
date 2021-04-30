@@ -4,10 +4,13 @@
 
 import Foundation
 import OpenCombine
+import HealthCertificateToolkit
 
 extension HealthCertificateService {
 
 	enum RegistrationError: LocalizedError {
+		case decodingError(HealthCertificateDecodingError)
+		case jsonDecodingError(Error)
 		case vaccinationCertificateAlreadyRegistered
 		case dateOfBirthMismatch
 		case nameMismatch
@@ -15,8 +18,8 @@ extension HealthCertificateService {
 	}
 
 	enum ProofRequestError: LocalizedError {
-		case networkError
-		case serverError
+		case fetchingError(ProofCertificateFetchingError)
+		case jsonDecodingError(Error)
 	}
 
 }

@@ -250,6 +250,7 @@
 		01DB708525068167008F7244 /* Calendar+GregorianLocale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DB708425068167008F7244 /* Calendar+GregorianLocale.swift */; };
 		01DF186E2603B28200A002E4 /* TraceLocationsOverviewViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DF186A2603B17000A002E4 /* TraceLocationsOverviewViewModelTest.swift */; };
 		01DF188E2608D3BB00A002E4 /* TraceLocationConfigurationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01DF188D2608D3BB00A002E4 /* TraceLocationConfigurationViewController.xib */; };
+		01E05139263C437300D57A5E /* ProofCertificateResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E05138263C437300D57A5E /* ProofCertificateResponse.swift */; };
 		01E4298E251DCDC90057FCBE /* Localizable.legal.strings in Resources */ = {isa = PBXBuildFile; fileRef = 01E42990251DCDC90057FCBE /* Localizable.legal.strings */; };
 		01EA17622590EAAF00E98E02 /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA17612590EAAF00E98E02 /* HomeTableViewController.swift */; };
 		01EA176A2590EF4F00E98E02 /* HomeTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA17692590EF4E00E98E02 /* HomeTableViewModel.swift */; };
@@ -1344,6 +1345,7 @@
 		01DB708425068167008F7244 /* Calendar+GregorianLocale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Calendar+GregorianLocale.swift"; sourceTree = "<group>"; };
 		01DF186A2603B17000A002E4 /* TraceLocationsOverviewViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationsOverviewViewModelTest.swift; sourceTree = "<group>"; };
 		01DF188D2608D3BB00A002E4 /* TraceLocationConfigurationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TraceLocationConfigurationViewController.xib; sourceTree = "<group>"; };
+		01E05138263C437300D57A5E /* ProofCertificateResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProofCertificateResponse.swift; sourceTree = "<group>"; };
 		01E25C6F24A3B52F007E33F8 /* Info_Testflight.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info_Testflight.plist; sourceTree = "<group>"; };
 		01E4298F251DCDC90057FCBE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.legal.strings; sourceTree = "<group>"; };
 		01E42994251DCDCE0057FCBE /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.legal.strings; sourceTree = "<group>"; };
@@ -2546,11 +2548,10 @@
 			isa = PBXGroup;
 			children = (
 				017D8DA3263B02F30009E91C /* HealthCertifiedPerson.swift */,
-				017D8D9F263B02DA0009E91C /* ProofCertificate.swift */,
 				017D8DA4263B02F40009E91C /* HealthCertificate.swift */,
-				017D8DA1263B02E00009E91C /* HealthCertificateResponse.swift */,
-				017D8DA5263B02F60009E91C /* HealthCertificateName.swift */,
-				017D8DA9263B03BD0009E91C /* VaccinationCertificate.swift */,
+				01E05137263C436100D57A5E /* HealthCertificateResponse */,
+				017D8D9F263B02DA0009E91C /* ProofCertificate.swift */,
+				01E05138263C437300D57A5E /* ProofCertificateResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2964,6 +2965,16 @@
 				01DF186A2603B17000A002E4 /* TraceLocationsOverviewViewModelTest.swift */,
 			);
 			path = __test__;
+			sourceTree = "<group>";
+		};
+		01E05137263C436100D57A5E /* HealthCertificateResponse */ = {
+			isa = PBXGroup;
+			children = (
+				017D8DA1263B02E00009E91C /* HealthCertificateResponse.swift */,
+				017D8DA5263B02F60009E91C /* HealthCertificateName.swift */,
+				017D8DA9263B03BD0009E91C /* VaccinationCertificate.swift */,
+			);
+			path = HealthCertificateResponse;
 			sourceTree = "<group>";
 		};
 		01EA17602590E9B900E98E02 /* Home */ = {
@@ -6797,6 +6808,7 @@
 				B1FC2D2024D9C8DF00083C81 /* SAP_TemporaryExposureKey+DeveloperMenu.swift in Sources */,
 				717D21E9248C022E00D9717E /* DynamicTableViewHtmlCell.swift in Sources */,
 				01BA0755262094D700237DD8 /* AerosoleDecayFunctionLinear.swift in Sources */,
+				01E05139263C437300D57A5E /* ProofCertificateResponse.swift in Sources */,
 				BA6C8A9E254D634E008344F5 /* RiskCalculationConfiguration.swift in Sources */,
 				7154EB4A247D21E200A467FF /* ExposureDetectionLongGuideCell.swift in Sources */,
 				505F507225C833AA004920EB /* ppac_ios.pb.swift in Sources */,

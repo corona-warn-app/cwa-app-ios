@@ -6,7 +6,8 @@ import Foundation
 
 public struct CertificateRepresentations: Codable {
 
-    let base45: String
-    let cbor: Data
-    let json: Data
+    public let base45: String
+    public let cbor: Data
+    public let json: Data
+
 }
