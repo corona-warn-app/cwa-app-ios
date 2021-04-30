@@ -118,6 +118,32 @@
 
 "ppa_settings_privacy_information_body" = "Indem Sie oben „Datenspende“ aktivieren, willigen Sie ein:\n\nDie App übermittelt täglich von ihr erfasste Angaben an das RKI. Die Daten betreffen angezeigte Risiko-Begegnungen und Warnungen, durch Sie abgerufene Testergebnisse, ob Sie andere Nutzer gewarnt haben sowie Angaben über das Betriebssystem Ihres Smartphones. Wenn Sie oben weitere Angaben gemacht haben (Region, Altersgruppe), werden auch diese an das RKI übermittelt.\n\nDas RKI wird diese Daten zu Statistiken zusammenfassen und auswerten, um die Wirksamkeit und Funktionsweise der App zu bewerten und Rückschlüsse auf das Pandemiegeschehen zu ziehen. Die dabei gefundenen Erkenntnisse helfen bei der Verbesserung der Funktionen und Nutzerfreundlichkeit der App sowie bei der Steuerung anderer Maßnahmen der Pandemiebekämpfung.\n\nBevor Ihre Daten ausgewertet werden, muss sichergestellt sein, dass jede an der Datenspende teilnehmende App nur einmal gezählt wird und die Statistiken nicht verfälscht werden. Hierfür muss die Echtheit Ihrer App geprüft werden. Dazu wird durch Ihr Smartphone eine eindeutige Kennung erzeugt und an Apple in die USA oder andere Drittländer übermittelt, damit Apple die Echtheit Ihrer App gegenüber dem RKI bestätigen kann. Die Kennung enthält Informationen über die Version Ihres Smartphones und der App. Apple kann damit möglicherweise auf Ihre Identität schließen und nachvollziehen, dass die Echtheitsprüfung Ihres Smartphones stattgefunden hat. Weitere Angaben aus der App erhält Apple hierbei nicht.\n\nSie können Ihr Einverständnis jederzeit zurücknehmen, indem Sie oben „Datenspende“ deaktivieren.";
 
+/* Error Reports */
+
+"errorReport_Legal_DataPrivacy_Headline" = "Datenschutz und Datensicherheit";
+
+"errorReport_Legal_DataPrivacy_Bullet1" = "Die Aufzeichnung des Fehlerberichts ist freiwillig.";
+
+"errorReport_Legal_DataPrivacy_Bullet2" = "Auf den Fehlerbericht haben zunächst nur Sie Zugriff. Sie können im Anschluss entscheiden, ob Sie den Fehlerbericht an den technischen Support senden, ob Sie den Fehlerbericht zunächst auf Ihrem Smartphone speichern oder die Aufzeichnung stoppen und löschen wollen. Wenn Sie den Fehlerbericht zunächst lokal speichern, haben Sie die Möglichkeit, sich den Fehlerbericht selbst anzuschauen, bevor Sie diesen an den Support übermitteln.";
+
+"errorReport_Legal_DataPrivacy_Bullet3" = "Der Fehlerbericht enthält sensible Informationen, zum Beispiel Angaben über Ihr Testergebnis oder das für Sie ermittelte Ansteckungsrisiko. Er enthält keine Informationen über die QR-Codes, die Sie bei der Testregistrierung verwendet haben, über Angaben, die Sie im Kontakt-Tagebuch erfasste haben oder Angaben zu Ihrer Identität.";
+
+"errorReport_Legal_DataPrivacy_Bullet4" = "Wir empfehlen die Fehlerberichte nicht zu veröffentlichen und nicht per E-Mail zu versenden.";
+
+"errorReport_Legal_DataPrivacy_Bullet5" = "Private Personen oder Unternehmen dürfen von Ihnen nicht die Weitergabe eines aufgezeichneten Fehlerberichtes verlangen.";
+
+"errorReport_Legal_SendReports_Headline" = "Ihr Einverständnis";
+
+"errorReport_Legal_SendReports_Subline" = "Durch Antippen von „Einverstanden und senden“ willigen Sie in folgende Schritte ein:";
+
+"errorReport_Legal_SendReports_Bullet1_Part1" = "Der von Ihnen erstellte Fehlerbericht wird zu Zwecken der Fehleranalyse an das RKI übermittelt.";
+
+"errorReport_Legal_SendReports_Bullet1_Part2" = "Das RKI wird den Fehlerbericht auswerten, um mögliche Ursachen der in Ihrer App auftretenden Fehler erkennen und beheben zu können. Wenn Sie dem technischen Support die Fehlerbericht-ID mitteilen, kann das RKI den Fehlerbericht Ihrer Person zuordnen.";
+
+"errorReport_Legal_SendReports_Bullet2" = "Bevor der Bericht an das RKI übersendet wird, wird die Echtheit Ihrer App einmalig geprüft. Dazu wird durch Ihr Smartphone eine eindeutige Kennung erzeugt und an Apple in die USA oder andere Drittländer übermittelt, damit Apple die Echtheit Ihrer App gegenüber dem RKI bestätigen kann. Die Kennung enthält Informationen über die Version Ihres Smartphones und der App. Apple kann damit möglicherweise auf Ihre Identität schließen und nachvollziehen, dass die Echtheitsprüfung Ihres Smartphones stattgefunden hat. Weitere Angaben aus der App oder dem Fehlerbericht erhält Apple hierbei nicht.";
+
+"errorReport_Legal_SendReports_Paragraph" = "Sollten Sie dem technischen Support nach der Übersendung Ihre Fehlerbericht-ID mitgeteilt haben, können Sie auch jederzeit die Löschung der weiteren mitgeteilten Informationen, der Fehlerbericht-ID und des Fehlerberichtes verlangen. Andernfalls wird der Fehlerbericht automatisch nach 14 Tagen gelöscht.";
+
 /* Checkin */
 
 "Checkin_Information_Legal_Headline_1" = "Ihr Einverständnis";
@@ -151,3 +177,21 @@
 "TraceLocation_Information_Legal_Text_4" = "Bitte stellen Sie den QR-Code so zur Verfügung, dass alle Ihre Gäste ihn unter Einhaltung der Abstands- und Hygieneregeln (mindestens 1,5 Meter) scannen können.";
 
 "TraceLocation_Information_Legal_Text_5" = "Wir empfehlen die QR-Codes für Orte in regelmäßigen Abständen neu zu erstellen, um dauerhaft zuverlässige Warnungen zu ermöglichen und Missbrauch der QR-Codes zu verhindern.";
+
+/* ExposureSubmission - AntigenTest Profile */
+
+"ExposureSubmission_Antigen_Profile_Legal_Headline" = "Datenschutz und Datensicherheit";
+
+"ExposureSubmission_Antigen_Profile_Legal_Text01" = "Das Anlegen eines Schnelltest-Profils in der App und dessen Verwendung sind freiwillig.";
+
+"ExposureSubmission_Antigen_Profile_Legal_Text02" = "Die App wandelt die Daten, die Sie für Ihr Schnelltest-Profil eingeben, in Ihren persönlichen QR-Code um. Im QR-Code sind dann alle eingegebenen Daten enthalten.";
+
+"ExposureSubmission_Antigen_Profile_Legal_Text03" = "In der Teststelle können Sie den QR-Code Ihres Schnelltest-Profils scannen lassen, um der Teststelle Ihre Daten schnell und sicher bereitzustellen. Die Teststelle benötigt Ihre Daten zur Durchführung des Tests. Sie können die Daten aber auch ohne die App bereitstellen. Sie entscheiden selbst, welche Daten im QR-Code enthalten sind und welche Sie der Teststelle auf andere Weise mitteilen.";
+
+"ExposureSubmission_Antigen_Profile_Legal_Text04" = "Auf Ihr persönliches Schnelltest-Profil haben zunächst nur Sie Zugriff. Nur wenn Sie den QR-Code des Schnelltest-Profils anderen Personen zeigen, können diese Zugriff auf die persönlichen Daten Ihres Schnelltest-Profils erhalten. Ein Zugriff auf andere Daten aus der App erfolgt dabei nicht (z.B. Ihre Check-ins oder Angaben im Kontakt-Tagebuch).";
+
+"ExposureSubmission_Antigen_Profile_Legal_Text05" = "Sie haben jederzeit die Möglichkeit, Ihr Schnelltest-Profil wieder zu entfernen. Bis dahin bleibt es in der App auf Ihrem Smartphone gespeichert.";
+
+"ExposureSubmission_Antigen_Profile_Legal_Text06" = "Der QR-Code enthält Ihre persönlichen Angaben. Stellen Sie Ihren persönlichen QR-Code niemandem zur Verfügung, wenn Sie nicht wollen, dass die Daten ausgelesen werden. Wir empfehlen Ihren persönlichen QR-Code nicht zu veröffentlichen und nicht per E-Mail zu versenden.";
+
+"ExposureSubmission_Antigen_Profile_Legal_Text07" = "Private Personen oder Unternehmen dürfen von Ihnen nicht verlangen, dass Sie Ihr Schnelltest-Profil vorzeigen.";

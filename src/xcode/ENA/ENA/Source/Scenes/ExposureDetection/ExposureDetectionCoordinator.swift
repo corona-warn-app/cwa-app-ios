@@ -5,23 +5,17 @@
 import UIKit
 
 final class ExposureDetectionCoordinator {
-
-	private let appConfigurationProvider: AppConfigurationProviding
-	private let rootViewController: UIViewController
-	private var navigationController: ENANavigationControllerWithFooter?
-	private let store: Store
-	private let homeState: HomeState
-	private let exposureManager: ExposureManager
-	private let otpService: OTPServiceProviding
-	private let surveyURLProvider: SurveyURLProviding
-
+	
+	// MARK: - Init
+	
 	init(
 		rootViewController: UIViewController,
 		store: Store,
 		homeState: HomeState,
 		exposureManager: ExposureManager,
 		appConfigurationProvider: AppConfigurationProviding,
-		otpService: OTPServiceProviding
+		otpService: OTPServiceProviding,
+		ppacService: PrivacyPreservingAccessControl
 	) {
 		self.rootViewController = rootViewController
 		self.store = store
@@ -29,18 +23,22 @@ final class ExposureDetectionCoordinator {
 		self.exposureManager = exposureManager
 		self.appConfigurationProvider = appConfigurationProvider
 		self.otpService = otpService
-
-		let ppacService = PPACService(
-			store: store,
-			deviceCheck: PPACDeviceCheck()
-		)
+		
 		self.surveyURLProvider = SurveyURLProvider(
 			configurationProvider: appConfigurationProvider,
 			ppacService: ppacService,
 			otpService: otpService
 		)
 	}
-
+	
+	// MARK: - Overrides
+	
+	// MARK: - Protocol <#Name#>
+	
+	// MARK: - Public
+	
+	// MARK: - Internal
+	
 	func start() {
 		let exposureDetectionController = ExposureDetectionViewController(
 			viewModel: ExposureDetectionViewModel(
@@ -51,7 +49,7 @@ final class ExposureDetectionCoordinator {
 						return
 					}
 
-					if self.otpService.isOTPAvailable {
+					if self.otpService.isOTPEdusAvailable {
 						self.showSurveyWebpage()
 					} else {
 						self.showSurveyConsent()
@@ -82,7 +80,18 @@ final class ExposureDetectionCoordinator {
 		
 		rootViewController.present(_navigationController, animated: true)
 	}
-
+	
+	// MARK: - Private
+	
+	private let appConfigurationProvider: AppConfigurationProviding
+	private let rootViewController: UIViewController
+	private var navigationController: ENANavigationControllerWithFooter?
+	private let store: Store
+	private let homeState: HomeState
+	private let exposureManager: ExposureManager
+	private let otpService: OTPServiceProviding
+	private let surveyURLProvider: SurveyURLProviding
+	
 	private func showSurveyConsent() {
 		setNavigationBarHidden(false)
 
