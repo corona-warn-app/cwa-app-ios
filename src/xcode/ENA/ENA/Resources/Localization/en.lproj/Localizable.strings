@@ -845,9 +845,9 @@
 
 "ExposureSubmissionResult_Timer_Title" = "Result available since";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Title" = "Verification Feature";
+"ExposureSubmissionResult_Negative_Antigen_Proof_Title" = " ";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "You can also use the test result displayed here as proof of a negative rapid test result. \n\nPlease note that you are only required to prove your rapid test result if this is required by law. You can prove the result using the app or in a different way. For more information, please familiarize yourself with the criteria for the acceptance of proof of testing in your federal state.";
+"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Your test result is private and you are not required to share it unless required by law. If you choose to share it, you may show this screen, or use one of the many other ways provided. For more information, please familiarize yourself with the criteria for verification of testing in your federal state.";
 
 /* Exposure Submission */
 "ExposureSubmissionError_ErrorPrefix" = "A technical error occurred while sending your data. Please contact the technical hotline. You will find the phone number under App Information.";
