@@ -76,7 +76,7 @@ public struct HealthCertificateToolkitStub: HealthCertificateToolkitProtocol {
         decodeResult
     }
 
-    public func fetchProofCertificate(for healthCertificates: [CertificateRepresentations], completion: (Result<Data, ProofCertificateFetchingError>) -> Void) {
+    public func fetchProofCertificate(for healthCertificates: [CertificateRepresentations], completion: (FetchProofCertificateResult) -> Void) {
         completion(fetchProofCertificateResult)
     }
 
