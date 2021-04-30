@@ -682,7 +682,7 @@
 
 "ExposureSubmissionResult_antigenTestAdded" = "Hızlı testiniz eklendi.";
 
-"ExposureSubmissionResult_antigenTestAddedDesc" = "Test sonucu 48 saat süreyle burada görüntülenir. Uygulama ayrıca temas güncenizde bir giriş oluşturur.";
+"ExposureSubmissionResult_antigenTestAddedDesc" = "Test sonucu 48 saat süreyle burada görüntülenir.";
 
 "ExposureSubmissionResult_warnOthers" = "Diğer Kullanıcıları Uyarın";
 
@@ -2219,7 +2219,7 @@
 /* Error Reporting */
 "ErrorReport_Title" = "Hata Raporları";
 
-"ErrorReport_Analysis" = "Fehleranalyse";
+"ErrorReport_Analysis" = "Hata Analizi";
 
 "ErrorReport_Description1" = "Hata analizi konusunda uygulamanın teknik destek ekibine yardımcı olmak için CWA’da bir hata raporu kaydı oluşturabilirsiniz. Oluşturduğunuzda, her bir teknik adım ve uygulama işlemlerinin sonuçları kaydedilir. Ardından hata raporunu teknik ekibe gönderebilir ve hatanın belirlenip düzeltilmesine yardımcı olabilirsiniz.\n\nDaha fazla bilgi için lütfen SSS sayfamıza bakın:";
 
