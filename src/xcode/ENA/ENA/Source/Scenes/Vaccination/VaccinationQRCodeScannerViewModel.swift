@@ -112,18 +112,11 @@ class VaccinationQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObject
 			Log.error(error.localizedDescription, log: .api)
 		}
 	}
-
-	// MARK: - Private
-
-	private let captureDevice: AVCaptureDevice?
-	var isScanningActivated: Bool {
-		captureSession?.isRunning ?? false
-	}
-
+	
 	func startCaptureSession() {
 		switch AVCaptureDevice.authorizationStatus(for: .video) {
 		case .authorized:
-			Log.info("AVCaptureDevice.authorized - enable qr code scanner", log: .checkin)
+			Log.info("AVCaptureDevice.authorized - enable qr code scanner", log: .qrCode)
 			activateScanning()
 		case .notDetermined:
 			AVCaptureDevice.requestAccess(for: .video) { [weak self] isAllowed in
@@ -138,5 +131,12 @@ class VaccinationQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObject
 			onError?(.cameraPermissionDenied)
 			Log.info(".cameraPermissionDenied - stop here we can't go on", log: .ui)
 		}
+	}
+
+	// MARK: - Private
+
+	private let captureDevice: AVCaptureDevice?
+	var isScanningActivated: Bool {
+		captureSession?.isRunning ?? false
 	}
 }

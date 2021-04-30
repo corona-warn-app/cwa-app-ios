@@ -9,7 +9,7 @@ class VaccinationQRCodeScannerViewController: UIViewController {
 	// MARK: - Init
 
 	init(
-		didScanCheckin: @escaping (String) -> Void,
+		didScanVaccination: @escaping (String) -> Void,
 		dismiss: @escaping () -> Void
 	) {
 		self.dismiss = dismiss
@@ -20,11 +20,10 @@ class VaccinationQRCodeScannerViewController: UIViewController {
 			onSuccess: { [weak self] qrCodeString in
 				AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
 				self?.viewModel?.deactivateScanning()
-			//	didScanCheckin(qrCodeString)
+			//	TODO call the success closure
 			},
 			onError: { error in
 				switch error {
-				// for the moment we always show the same alert
 				case .cameraPermissionDenied:
 					DispatchQueue.main.async {
 						self.dismiss()
