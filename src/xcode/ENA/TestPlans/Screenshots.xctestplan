@@ -15,6 +15,7 @@
   },
   "testTargets" : [
     {
+      "parallelizable" : true,
       "selectedTests" : [
         "ENAUITests\/test_0000_Generate_Screenshots_For_AppStore()",
         "ENAUITests\/test_0001_Generate_Screenshots_For_AppStore_Submission()",

@@ -101,20 +101,6 @@ class ENAUITests: XCTestCase {
 
 	}
 	
-	func test_0003_Generate_Screenshot_For_AppStore_Statistics() throws {
-
-		app.setPreferredContentSizeCategory(accessibility: .normal, size: .M)
-		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
-		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
-		app.launchArguments.append(contentsOf: ["-useMockDataForStatistics", "YES"]) // prevent failing tests for 1.11; use "NO" for 1.12
-		app.launch()
-
-		app.swipeUp(velocity: .slow)
-		// ScreenShot_0008: Statistics on Home screen
-		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Statistics.Infections.title].exists)
-		snapshot("AppStore_0008")
-	}
-
 	func test_0001_Generate_Screenshots_For_AppStore_Submission() throws {
 
 		let snapshotsActive = true
@@ -131,6 +117,20 @@ class ENAUITests: XCTestCase {
 		app.buttons[AccessibilityIdentifiers.Home.submitCardButton].tap()
 
 		if snapshotsActive { snapshot("AppStore_0006") }
+	}
+
+	func test_0002_Generate_Screenshot_For_AppStore_Statistics() throws {
+
+		app.setPreferredContentSizeCategory(accessibility: .normal, size: .M)
+		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
+		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
+		app.launchArguments.append(contentsOf: ["-useMockDataForStatistics", "YES"]) // prevent failing tests for 1.11; use "NO" for 1.12
+		app.launch()
+
+		app.swipeUp(velocity: .slow)
+		// ScreenShot_0008: Statistics on Home screen
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Statistics.Infections.title].exists)
+		snapshot("AppStore_0008")
 	}
 
 }
