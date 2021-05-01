@@ -5,7 +5,7 @@
 import XCTest
 import ExposureNotification
 
-class ENAUITests_Statistics: XCTestCase {
+class ENAUITests_01b_Statistics: XCTestCase {
 	var app: XCUIApplication!
 	
 	override func setUp() {

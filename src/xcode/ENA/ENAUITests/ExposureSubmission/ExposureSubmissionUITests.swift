@@ -7,7 +7,7 @@ import ExposureNotification
 
 // swiftlint:disable file_length
 // swiftlint:disable:next type_body_length
-class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
+class ENAUITests_04a_ExposureSubmission: XCTestCase {
 
 	// MARK: - Attributes.
 	
@@ -681,7 +681,7 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 
 // MARK: - Helpers.
 
-extension ENAUITests_04_ExposureSubmissionUITests {
+extension ENAUITests_04a_ExposureSubmission {
 
 	private func type(_ app: XCUIApplication, text: String) {
 		text.forEach {
@@ -698,7 +698,7 @@ extension ENAUITests_04_ExposureSubmissionUITests {
 	/// Use this method to grab localized strings correctly.
 	private func localized(_ string: String) -> String {
 		if let path =
-			Bundle(for: ENAUITests_04_ExposureSubmissionUITests.self)
+			Bundle(for: ENAUITests_04a_ExposureSubmission.self)
 				.path(
 					forResource: deviceLanguage,
 					ofType: "lproj"

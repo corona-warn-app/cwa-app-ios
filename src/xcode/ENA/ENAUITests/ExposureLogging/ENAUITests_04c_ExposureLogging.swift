@@ -5,7 +5,7 @@
 import XCTest
 import ExposureNotification
 
-class ENAUITests_05_ExposureLogging: XCTestCase {
+class ENAUITests_04c_ExposureLogging: XCTestCase {
 	
 	var app: XCUIApplication!
 
