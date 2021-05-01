@@ -853,7 +853,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_RegistrationDate_Antigen" = "Ausgestellt:";
 
-"ExposureSubmissionResult_RegistrationDate_Suffix_Antigen" = "Uhr";
+"ExposureSubmissionResult_RegistrationDate_Suffix_Antigen" = " Uhr";
 
 "ExposureSubmissionResult_Person_Birthday_Prefix" = "geb.";
 
