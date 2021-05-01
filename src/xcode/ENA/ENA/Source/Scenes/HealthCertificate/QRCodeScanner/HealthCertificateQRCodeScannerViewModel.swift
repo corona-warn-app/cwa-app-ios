@@ -5,7 +5,7 @@
 import Foundation
 import AVFoundation
 
-class VaccinationQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
+class HealthCertificateQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
 
 	// MARK: - Init
 

@@ -576,7 +576,7 @@
 		85E33444247EB357006E74EC /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85E33443247EB357006E74EC /* CircularProgressView.swift */; };
 		8F015FF325DD62BA004FEF04 /* ExposureSubmission+TestResult+Extenstion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F015FF225DD62BA004FEF04 /* ExposureSubmission+TestResult+Extenstion.swift */; };
 		8F070CE925E58B9400D29344 /* HtmlInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F070CE825E58B9400D29344 /* HtmlInfoModel.swift */; };
-		8F1F9812263C028400373B24 /* VaccinationQRCodeScannerViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1F9811263C028400373B24 /* VaccinationQRCodeScannerViewModelTests.swift */; };
+		8F1F9812263C028400373B24 /* HealthCertificateQRCodeScannerViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1F9811263C028400373B24 /* HealthCertificateQRCodeScannerViewModelTests.swift */; };
 		8F270194259B5BA700E48CFE /* ContactDiaryMigration1To2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F270193259B5BA700E48CFE /* ContactDiaryMigration1To2.swift */; };
 		8F3202442600C7BB00D6A224 /* TorchMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3202432600C7BB00D6A224 /* TorchMode.swift */; };
 		8F3D71AA25A86AD300D52CCD /* HomeExposureLoggingCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3D71A925A86AD300D52CCD /* HomeExposureLoggingCellModelTests.swift */; };
@@ -605,8 +605,8 @@
 		8FDB9403261FBA3800BA8CB1 /* AntigenTestInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDB9402261FBA3800BA8CB1 /* AntigenTestInformation.swift */; };
 		8FDB940B261FBAAA00BA8CB1 /* CoronaTestQRCodeInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDB940A261FBAAA00BA8CB1 /* CoronaTestQRCodeInformation.swift */; };
 		8FE6CEFD2617482C006BFB82 /* CheckinQRCodeScannerViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE6CEFC2617482C006BFB82 /* CheckinQRCodeScannerViewModelTests.swift */; };
-		8FE87F8E263AD16900A9C904 /* VaccinationQRCodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE87F8D263AD16900A9C904 /* VaccinationQRCodeScannerViewController.swift */; };
-		8FE87F96263AD9EF00A9C904 /* VaccinationQRCodeScannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE87F95263AD9EF00A9C904 /* VaccinationQRCodeScannerViewModel.swift */; };
+		8FE87F8E263AD16900A9C904 /* HealthCertificateQRCodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE87F8D263AD16900A9C904 /* HealthCertificateQRCodeScannerViewController.swift */; };
+		8FE87F96263AD9EF00A9C904 /* HealthCertificateQRCodeScannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE87F95263AD9EF00A9C904 /* HealthCertificateQRCodeScannerViewModel.swift */; };
 		940109F225DFB5EF0017355C /* DiaryDayNotesInfoViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940109ED25DFB40E0017355C /* DiaryDayNotesInfoViewModelTest.swift */; };
 		94092541254BFE6800FE61A2 /* DMWarnOthersNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94092540254BFE6800FE61A2 /* DMWarnOthersNotificationViewController.swift */; };
 		9412FAFE252349EA0086E139 /* DeltaOnboardingViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9412FAF92523499D0086E139 /* DeltaOnboardingViewControllerTests.swift */; };
@@ -869,6 +869,9 @@
 		BA112DF7255586E9007F5712 /* WifiOnlyHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA112DF6255586E9007F5712 /* WifiOnlyHTTPClient.swift */; };
 		BA112E0A25559CDD007F5712 /* ClientWifiOnly.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA112E0925559CDD007F5712 /* ClientWifiOnly.swift */; };
 		BA11D5BA2588D590005DCD6B /* DiaryAddAndEditEntryViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA11D5B92588D590005DCD6B /* DiaryAddAndEditEntryViewModelTest.swift */; };
+		BA180759263D7213008AD370 /* HealthCertificateConsentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA180758263D7213008AD370 /* HealthCertificateConsentViewController.swift */; };
+		BA18075B263D7222008AD370 /* HealthCertificateConsentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA18075A263D7222008AD370 /* HealthCertificateConsentViewModel.swift */; };
+		BA18075D263D7F32008AD370 /* CreateHealthCertificateCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA18075C263D7F32008AD370 /* CreateHealthCertificateCoordinatorViewModel.swift */; };
 		BA27993B255995E100C3B64D /* DMWifiClientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA27993A255995E100C3B64D /* DMWifiClientViewController.swift */; };
 		BA288AF42582616E0071009A /* DiaryInfoViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA288AF32582616E0071009A /* DiaryInfoViewModelTest.swift */; };
 		BA2B393A25F7C6F700374CF1 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2B393925F7C6F700374CF1 /* GradientView.swift */; };
@@ -1712,7 +1715,7 @@
 		85E33443247EB357006E74EC /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		8F015FF225DD62BA004FEF04 /* ExposureSubmission+TestResult+Extenstion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExposureSubmission+TestResult+Extenstion.swift"; sourceTree = "<group>"; };
 		8F070CE825E58B9400D29344 /* HtmlInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtmlInfoModel.swift; sourceTree = "<group>"; };
-		8F1F9811263C028400373B24 /* VaccinationQRCodeScannerViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationQRCodeScannerViewModelTests.swift; sourceTree = "<group>"; };
+		8F1F9811263C028400373B24 /* HealthCertificateQRCodeScannerViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateQRCodeScannerViewModelTests.swift; sourceTree = "<group>"; };
 		8F27018E259B593700E48CFE /* ContactDiaryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryStore.swift; sourceTree = "<group>"; };
 		8F270193259B5BA700E48CFE /* ContactDiaryMigration1To2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryMigration1To2.swift; sourceTree = "<group>"; };
 		8F3202432600C7BB00D6A224 /* TorchMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TorchMode.swift; sourceTree = "<group>"; };
@@ -1741,8 +1744,8 @@
 		8FDB9402261FBA3800BA8CB1 /* AntigenTestInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntigenTestInformation.swift; sourceTree = "<group>"; };
 		8FDB940A261FBAAA00BA8CB1 /* CoronaTestQRCodeInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaTestQRCodeInformation.swift; sourceTree = "<group>"; };
 		8FE6CEFC2617482C006BFB82 /* CheckinQRCodeScannerViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinQRCodeScannerViewModelTests.swift; sourceTree = "<group>"; };
-		8FE87F8D263AD16900A9C904 /* VaccinationQRCodeScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationQRCodeScannerViewController.swift; sourceTree = "<group>"; };
-		8FE87F95263AD9EF00A9C904 /* VaccinationQRCodeScannerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationQRCodeScannerViewModel.swift; sourceTree = "<group>"; };
+		8FE87F8D263AD16900A9C904 /* HealthCertificateQRCodeScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateQRCodeScannerViewController.swift; sourceTree = "<group>"; };
+		8FE87F95263AD9EF00A9C904 /* HealthCertificateQRCodeScannerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateQRCodeScannerViewModel.swift; sourceTree = "<group>"; };
 		8FF9B2B1259B6B030080770D /* ContactDiaryStoreSchemaV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryStoreSchemaV2.swift; sourceTree = "<group>"; };
 		940109ED25DFB40E0017355C /* DiaryDayNotesInfoViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayNotesInfoViewModelTest.swift; sourceTree = "<group>"; };
 		94092540254BFE6800FE61A2 /* DMWarnOthersNotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMWarnOthersNotificationViewController.swift; sourceTree = "<group>"; };
@@ -2009,6 +2012,9 @@
 		BA112DF6255586E9007F5712 /* WifiOnlyHTTPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WifiOnlyHTTPClient.swift; sourceTree = "<group>"; };
 		BA112E0925559CDD007F5712 /* ClientWifiOnly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientWifiOnly.swift; sourceTree = "<group>"; };
 		BA11D5B92588D590005DCD6B /* DiaryAddAndEditEntryViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryAddAndEditEntryViewModelTest.swift; sourceTree = "<group>"; };
+		BA180758263D7213008AD370 /* HealthCertificateConsentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateConsentViewController.swift; sourceTree = "<group>"; };
+		BA18075A263D7222008AD370 /* HealthCertificateConsentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateConsentViewModel.swift; sourceTree = "<group>"; };
+		BA18075C263D7F32008AD370 /* CreateHealthCertificateCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateHealthCertificateCoordinatorViewModel.swift; sourceTree = "<group>"; };
 		BA27993A255995E100C3B64D /* DMWifiClientViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMWifiClientViewController.swift; sourceTree = "<group>"; };
 		BA288AF32582616E0071009A /* DiaryInfoViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryInfoViewModelTest.swift; sourceTree = "<group>"; };
 		BA2B393925F7C6F700374CF1 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
@@ -4252,7 +4258,6 @@
 				BAC939CB261F52C9008BECED /* TestOverwriteNotice */,
 				0138F61825EFE61400A9B075 /* TraceLocations */,
 				EBB92C70259E10BD00013B41 /* UpdateOS */,
-				8FE87F8C263AD0FF00A9C904 /* Vaccination */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -4320,7 +4325,7 @@
 		8F1F9810263C026300373B24 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
-				8F1F9811263C028400373B24 /* VaccinationQRCodeScannerViewModelTests.swift */,
+				8F1F9811263C028400373B24 /* HealthCertificateQRCodeScannerViewModelTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -4415,14 +4420,14 @@
 			path = Submisstion;
 			sourceTree = "<group>";
 		};
-		8FE87F8C263AD0FF00A9C904 /* Vaccination */ = {
+		8FE87F8C263AD0FF00A9C904 /* QRCodeScanner */ = {
 			isa = PBXGroup;
 			children = (
 				8F1F9810263C026300373B24 /* __tests__ */,
-				8FE87F8D263AD16900A9C904 /* VaccinationQRCodeScannerViewController.swift */,
-				8FE87F95263AD9EF00A9C904 /* VaccinationQRCodeScannerViewModel.swift */,
+				8FE87F8D263AD16900A9C904 /* HealthCertificateQRCodeScannerViewController.swift */,
+				8FE87F95263AD9EF00A9C904 /* HealthCertificateQRCodeScannerViewModel.swift */,
 			);
-			path = Vaccination;
+			path = QRCodeScanner;
 			sourceTree = "<group>";
 		};
 		941B68AD253F005600DC1962 /* Helper */ = {
@@ -5611,6 +5616,8 @@
 		BA180757263D6D75008AD370 /* Consent */ = {
 			isa = PBXGroup;
 			children = (
+				BA180758263D7213008AD370 /* HealthCertificateConsentViewController.swift */,
+				BA18075A263D7222008AD370 /* HealthCertificateConsentViewModel.swift */,
 			);
 			path = Consent;
 			sourceTree = "<group>";
@@ -5660,8 +5667,10 @@
 		BA3B011E263D67F600A2A25C /* HealthCertificate */ = {
 			isa = PBXGroup;
 			children = (
+				8FE87F8C263AD0FF00A9C904 /* QRCodeScanner */,
 				BA180757263D6D75008AD370 /* Consent */,
 				BA3B011F263D681600A2A25C /* CreateHealthCertificateCoordinator.swift */,
+				BA18075C263D7F32008AD370 /* CreateHealthCertificateCoordinatorViewModel.swift */,
 			);
 			path = HealthCertificate;
 			sourceTree = "<group>";
@@ -6901,6 +6910,7 @@
 				0144BDE1250924CC00B0857C /* SymptomsOnset.swift in Sources */,
 				BA00740025D1A1810036DFDD /* District.swift in Sources */,
 				01C6AC26252B23D70052814D /* QRScannerFocusView.swift in Sources */,
+				BA18075D263D7F32008AD370 /* CreateHealthCertificateCoordinatorViewModel.swift in Sources */,
 				01B7232424F812500064C0EB /* DynamicTableViewOptionGroupCell.swift in Sources */,
 				AB190EE525FF5B0D00FBFF0D /* ContactDiaryStoreSchemaV4.swift in Sources */,
 				ABF574DF25C308DF0098E315 /* SurveyConsentViewModel.swift in Sources */,
@@ -7185,6 +7195,7 @@
 				01A1B44A252DFD7800841B63 /* MetadataObject.swift in Sources */,
 				01BA07432620938E00237DD8 /* DurationFilter.swift in Sources */,
 				51C737BD245B349700286105 /* OnboardingInfoViewController.swift in Sources */,
+				BA180759263D7213008AD370 /* HealthCertificateConsentViewController.swift in Sources */,
 				BA4985E426385928009D395C /* Dateformatter+vCard.swift in Sources */,
 				EB08F17F2541CE3300D11FA9 /* risk_score_parameters.pb.swift in Sources */,
 				01A6C2FA2626DE1800B6E95A /* HomeTestRegistrationTableViewCell.swift in Sources */,
@@ -7318,7 +7329,7 @@
 				EBDE11BB255EC34C008C0F51 /* DMDeviceTimeCheckViewModel.swift in Sources */,
 				5222AA68255ECFE100F338C7 /* ExposureSubmissionTestResultConsentViewController.swift in Sources */,
 				713EA25F24798A9100AB7EE8 /* ExposureDetectionRiskCell.swift in Sources */,
-				8FE87F96263AD9EF00A9C904 /* VaccinationQRCodeScannerViewModel.swift in Sources */,
+				8FE87F96263AD9EF00A9C904 /* HealthCertificateQRCodeScannerViewModel.swift in Sources */,
 				01F5F7222487B9C000229720 /* AppInformationViewController.swift in Sources */,
 				01C6AC32252B29C00052814D /* QRScannerError.swift in Sources */,
 				AB6993AF2608F39E00232AD7 /* TraceWarningMatching.swift in Sources */,
@@ -7378,7 +7389,7 @@
 				34FE15A82604F99E0002CB69 /* UIColor+HEX.swift in Sources */,
 				71FE1C8C247AC79D00851FEB /* DynamicTableViewIconCell.swift in Sources */,
 				0138F69025F21C8000A9B075 /* TraceLocationCellModel.swift in Sources */,
-				8FE87F8E263AD16900A9C904 /* VaccinationQRCodeScannerViewController.swift in Sources */,
+				8FE87F8E263AD16900A9C904 /* HealthCertificateQRCodeScannerViewController.swift in Sources */,
 				B19FD7112491A07000A9D56A /* String+SemanticVersion.swift in Sources */,
 				BA0F6C5326317C220046BA48 /* AntigenTestProfileViewModel.swift in Sources */,
 				AB190EA925FB705500FBFF0D /* CreateTraceTimeIntervalMatchQuery.swift in Sources */,
@@ -7386,6 +7397,7 @@
 				AB7E2A80255ACC06005C90F6 /* Date+Utils.swift in Sources */,
 				B16457BD24DC3F4E002879EB /* DMKeysViewController.swift in Sources */,
 				51D420C424583E3300AD70CA /* SettingsViewController.swift in Sources */,
+				BA18075B263D7222008AD370 /* HealthCertificateConsentViewModel.swift in Sources */,
 				01C6AC0E252B1E990052814D /* ExposureSubmissionQRScannerViewModel.swift in Sources */,
 				BA94BBBD260DF51F005CF38F /* CheckInNoticeCell.swift in Sources */,
 				EB67B5DB262AD48F00218EC7 /* ExposureSubmissionCheckinsViewController.swift in Sources */,
@@ -7523,7 +7535,7 @@
 				01A1B467252E19D000841B63 /* ExposureSubmissionCoordinatorModelTests.swift in Sources */,
 				BA7F15A12629D3F200CA4783 /* RouteTests.swift in Sources */,
 				B1EAEC8F247118D1003BE9A2 /* URLSession+ConvenienceTests.swift in Sources */,
-				8F1F9812263C028400373B24 /* VaccinationQRCodeScannerViewModelTests.swift in Sources */,
+				8F1F9812263C028400373B24 /* HealthCertificateQRCodeScannerViewModelTests.swift in Sources */,
 				A32C046524D96348005BEA61 /* HTTPClient+PlausibeDeniabilityTests.swift in Sources */,
 				BADBC82925D6BB6400488DB7 /* DistrictTests.swift in Sources */,
 				0156F05C25D2DA2300543640 /* DeadmanNotificationManagerTests.swift in Sources */,

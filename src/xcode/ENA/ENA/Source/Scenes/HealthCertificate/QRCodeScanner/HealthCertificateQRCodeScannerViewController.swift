@@ -5,7 +5,8 @@
 import UIKit
 import AVFoundation
 
-class VaccinationQRCodeScannerViewController: UIViewController {
+class HealthCertificateQRCodeScannerViewController: UIViewController {
+
 	// MARK: - Init
 
 	init(
@@ -16,7 +17,7 @@ class VaccinationQRCodeScannerViewController: UIViewController {
 		
 		super.init(nibName: nil, bundle: nil)
 		
-		self.viewModel = VaccinationQRCodeScannerViewModel(
+		viewModel = HealthCertificateQRCodeScannerViewModel(
 			onSuccess: { [weak self] qrCodeString in
 				AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
 				self?.viewModel?.deactivateScanning()
@@ -36,6 +37,7 @@ class VaccinationQRCodeScannerViewController: UIViewController {
 			}
 		)
 	}
+
 	@available(*, unavailable)
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
@@ -63,10 +65,9 @@ class VaccinationQRCodeScannerViewController: UIViewController {
 	// MARK: - Private
 
 	private let focusView = QRScannerFocusView()
-
 	private let dismiss: () -> Void
 
-	private var viewModel: VaccinationQRCodeScannerViewModel?
+	private var viewModel: HealthCertificateQRCodeScannerViewModel?
 	private var previewLayer: AVCaptureVideoPreviewLayer! { didSet { updatePreviewMask() } }
 
 	private func setupView() {

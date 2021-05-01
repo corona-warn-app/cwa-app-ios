@@ -28,7 +28,7 @@ final class CreateHealthCertificateCoordinator {
 		if !coordinatorViewModel.hasShownConsetScreem {
 			showConsetScreem()
 		} else {
-
+			presentQRCodeScanner()
 		}
 	}
 
@@ -39,29 +39,46 @@ final class CreateHealthCertificateCoordinator {
 	private let navigationController: UINavigationController
 
 	private func showConsetScreem() {
-		let consetScreen = UIViewController()
-		consetScreen.title = "Ihr Einverständnis"
+
+		let consetScreen = HealthCertificateConsentViewController(
+			didTapConsetButton: presentQRCodeScanner
+		)
+
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: "Einverstanden",
+				isPrimaryButtonEnabled: true,
+				isSecondaryButtonEnabled: false,
+				isSecondaryButtonHidden: true,
+				backgroundColor: .enaColor(for: .background)
+			)
+		)
+
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: consetScreen,
+			bottomController: footerViewController
+		)
+
 		// we do not animate here because this alwasy is the first screen
-		navigationController.pushViewController(consetScreen, animated: false)
+		navigationController.pushViewController(topBottomContainerViewController, animated: false)
 		parentViewController.present(navigationController, animated: true)
 	}
 
 	private func presentQRCodeScanner() {
+		let qrCodeScannerViewController = HealthCertificateQRCodeScannerViewController(
+			didScanVaccination: { payload in
+				Log.debug("Did scan payload \(payload)")
+			}, dismiss: {
+				self.parentViewController.dismiss(animated: true)
+			}
+		)
 
+		if !navigationController.viewControllers.isEmpty {
+			navigationController.pushViewController(qrCodeScannerViewController, animated: true)
+		} else {
+			navigationController.pushViewController(qrCodeScannerViewController, animated: false)
+			parentViewController.present(navigationController, animated: true)
+		}
 	}
 
-}
-
-final class CreateHealthCertificateCoordinatorViewModel {
-
-	// MARK: - Init
-
-	// MARK: - Public
-
-	// MARK: - Internal
-
-	let hasShownConsetScreem: Bool = false
-	let hasHealthCertificate: Bool = false
-
-	// MARK: - Private
 }
