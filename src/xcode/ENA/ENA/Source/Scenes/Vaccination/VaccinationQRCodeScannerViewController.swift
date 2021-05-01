@@ -20,7 +20,7 @@ class VaccinationQRCodeScannerViewController: UIViewController {
 			onSuccess: { [weak self] qrCodeString in
 				AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
 				self?.viewModel?.deactivateScanning()
-			//	TODO call the success closure
+				Log.debug("QR-Code \(qrCodeString)")
 			},
 			onError: { error in
 				switch error {
