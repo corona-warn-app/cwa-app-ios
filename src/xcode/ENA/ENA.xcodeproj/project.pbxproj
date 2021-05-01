@@ -5667,8 +5667,8 @@
 		BA3B011E263D67F600A2A25C /* HealthCertificate */ = {
 			isa = PBXGroup;
 			children = (
-				8FE87F8C263AD0FF00A9C904 /* QRCodeScanner */,
 				BA180757263D6D75008AD370 /* Consent */,
+				8FE87F8C263AD0FF00A9C904 /* QRCodeScanner */,
 				BA3B011F263D681600A2A25C /* CreateHealthCertificateCoordinator.swift */,
 				BA18075C263D7F32008AD370 /* CreateHealthCertificateCoordinatorViewModel.swift */,
 			);
