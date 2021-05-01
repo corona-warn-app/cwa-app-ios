@@ -14,7 +14,8 @@ class DMPPAnalyticsActualData: UIViewController {
 		store: Store,
 		client: Client,
 		appConfig: AppConfigurationProviding,
-		coronaTestService: CoronaTestService
+		coronaTestService: CoronaTestService,
+		ppacService: PrivacyPreservingAccessControl
 	) {
 		self.store = store
 		self.client = client
@@ -23,7 +24,8 @@ class DMPPAnalyticsActualData: UIViewController {
 			store: store,
 			client: client,
 			appConfig: appConfig,
-			coronaTestService: coronaTestService
+			coronaTestService: coronaTestService,
+			ppacService: ppacService
 		)
 
 		super.init(nibName: nil, bundle: nil)

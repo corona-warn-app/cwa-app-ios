@@ -5,7 +5,7 @@
 import ExposureNotification
 import Foundation
 
-/// Describes how to interfact with the backend.
+/// Describes how to interact with the backend.
 protocol Client {
 	// MARK: Types
 
@@ -86,18 +86,30 @@ protocol Client {
 
 	// MARK: OTP Authorization
 
-	/// Authorizes an otp at our servers with a tuple of device token and api token as authentication and the otp as payload.
+	/// Authorizes an edus otp at our servers with a tuple of device token and api token as authentication and the otp as payload.
 	/// - Parameters:
-	///   - otp: the otp to authorize
+	///   - otpEdus: the edus otp to authorize
 	///   - ppacToken: the ppac token which is generated previously by the PPACService
 	///   - isFake: Flag to indicate a fake request
 	///   - forceApiTokenHeader: A Flag that indicates, if a special header flag is send to enforce to accept the API Token. ONLY executable for non release builds
 	///   - completion: The completion handler of the submission call, which contains the expirationDate of the otp as String
 	func authorize(
-		otp: String,
+		otpEdus: String,
 		ppacToken: PPACToken,
 		isFake: Bool,
 		forceApiTokenHeader: Bool,
+		completion: @escaping OTPAuthorizationCompletionHandler
+	)
+
+
+	/// Authorizes an els otp at our servers with a tuple of device token and api token as authentication and the otp as payload.
+	/// - Parameters:
+	///   - otpEls: the els otp to authorize
+	///   - ppacToken: The ppac token which is generated previously by the PPACService
+	///   - completion: The completion handler of the submission call, which contains the expirationDate of the otp as String
+	func authorize(
+		otpEls: String,
+		ppacToken: PPACToken,
 		completion: @escaping OTPAuthorizationCompletionHandler
 	)
 
@@ -106,7 +118,7 @@ protocol Client {
 	/// Authorizes an otp at our servers with a tuple of device token and api token as authentication and the otp as payload.
 	/// - Parameters:
 	///   - payload: SAP_Internal_Ppdd_PPADataRequestIOS, which contains several metrics data
-	///   - ppacToken: the ppac token which is generated previously by the PPACService
+	///   - ppacToken: The ppac token which is generated previously by the PPACService
 	///   - isFake: Flag to indicate a fake request
 	///   - forceApiTokenHeader: A Flag that indicates, if a special header flag is send to enforce to accept the API Token. ONLY executable for non release builds
 	///   - completion: The completion handler of the submission call, which contains the expirationDate of the otp as String
@@ -116,6 +128,19 @@ protocol Client {
 		isFake: Bool,
 		forceApiTokenHeader: Bool,
 		completion: @escaping PPAnalyticsSubmitionCompletionHandler
+	)
+
+	// MARK: ELS Submit (Error Log Sharing)
+
+	/// Log file upload for the ELS  Service
+	/// - Parameters:
+	///   - logFile: The compressed log `Data` to upload
+	///   - uploadToken: The 'ota token'; used for grouping multiple uploads per installation
+	///   - completion: He completion handler of the submission call, which contains the log `id` and `hash` value of the uploaded item
+	func submit(
+		errorLogFile: Data,
+		otpEls: String,
+		completion: @escaping ErrorLogSubmitting.ELSSubmissionResponse
 	)
 	
 	// MARK: Event / Check-In (aka traceWarning)

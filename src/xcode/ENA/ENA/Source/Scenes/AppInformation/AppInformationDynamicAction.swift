@@ -65,4 +65,18 @@ extension DynamicAction {
 			viewController.navigationController?.pushViewController(toViewController, animated: true)
 		}
 	}
+	
+	static func pushErrorLogsCoordinator(
+		ppacService: PrivacyPreservingAccessControl,
+		otpService: OTPServiceProviding
+	) -> Self {
+		.execute { viewController, _ in
+			let coordinator = ErrorReportsCoordinator(
+				rootViewController: viewController,
+				ppacService: ppacService,
+				otpService: otpService
+			)
+			coordinator.start()
+		}
+	}
 }

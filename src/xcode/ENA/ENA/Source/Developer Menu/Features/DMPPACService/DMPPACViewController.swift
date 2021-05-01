@@ -9,11 +9,14 @@ class DMPPACViewController: UITableViewController {
 
 	// MARK: - Init
 
-	init( _ store: Store) {
+	init(
+		_ store: Store,
+		ppacService: PrivacyPreservingAccessControl
+	) {
 		#if targetEnvironment(simulator)
-		self.viewModel = DMPPCViewModel(store, deviceCheck: PPACDeviceCheckMock(true, deviceToken: "Simulator DeviceCheck unavailable"))
+		self.viewModel = DMPPCViewModel(store, ppacService: PPACService(store: store, deviceCheck: PPACDeviceCheckMock(true, deviceToken: "Simulator DeviceCheck unavailable")))
 		#else
-		self.viewModel = DMPPCViewModel(store, deviceCheck: PPACDeviceCheck())
+		self.viewModel = DMPPCViewModel(store, ppacService: ppacService)
 		#endif
 
 		if #available(iOS 13.0, *) {

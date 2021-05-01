@@ -682,7 +682,7 @@
 
 "ExposureSubmissionResult_antigenTestAdded" = "Бързият Ви тест е добавен.";
 
-"ExposureSubmissionResult_antigenTestAddedDesc" = "Резултатът от теста ще се показва тук в рамките на 48 часа. Приложението ще направи запис и в дневника Ви на контактите.";
+"ExposureSubmissionResult_antigenTestAddedDesc" = "Резултатът от теста ще се показва тук в рамките на 48 часа.";
 
 "ExposureSubmissionResult_warnOthers" = "Предупредете другите";
 
