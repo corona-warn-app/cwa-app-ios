@@ -181,6 +181,18 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			return infoCell(forRowAt: indexPath)
 		case .settings:
 			return infoCell(forRowAt: indexPath)
+
+		case .healthCertificate:
+			let placeHolderCell = UITableViewCell(style: .default, reuseIdentifier: "placeHolderCell")
+			placeHolderCell.textLabel?.text = "Digitaler Impfnachweis\nSARS-CoV-2 Impfschutz"
+			placeHolderCell.textLabel?.numberOfLines = 0
+			return placeHolderCell
+
+		case .registerHealthCertificate:
+			let placeHolderCell = UITableViewCell(style: .default, reuseIdentifier: "placeHolderCell")
+			placeHolderCell.textLabel?.text = "Test registrieren"
+			return placeHolderCell
+
 		default:
 			fatalError("Invalid section")
 		}

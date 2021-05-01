@@ -32,7 +32,9 @@ class HomeTableViewModel {
 	enum Section: Int, CaseIterable {
 		case exposureLogging
 		case riskAndTestResults
+		case healthCertificate
 		case testRegistration
+		case registerHealthCertificate
 		case statistics
 		case traceLocations
 		case infos
@@ -70,6 +72,10 @@ class HomeTableViewModel {
 			return riskAndTestResultsRows.count
 		case .testRegistration:
 			return 1
+		case .healthCertificate:
+			return 1
+		case .registerHealthCertificate:
+			return 1
 		case .statistics:
 			return 1
 		case .traceLocations:
@@ -93,7 +99,7 @@ class HomeTableViewModel {
 
 	func heightForHeader(in section: Int) -> CGFloat {
 		switch Section(rawValue: section) {
-		case .exposureLogging, .riskAndTestResults, .testRegistration, .statistics, .traceLocations:
+		case .exposureLogging, .riskAndTestResults, .testRegistration, .statistics, .traceLocations, .healthCertificate, .registerHealthCertificate:
 			return 0
 		case .infos, .settings:
 			return 16
@@ -104,7 +110,7 @@ class HomeTableViewModel {
 
 	func heightForFooter(in section: Int) -> CGFloat {
 		switch Section(rawValue: section) {
-		case .exposureLogging, .riskAndTestResults, .testRegistration, .statistics, .traceLocations:
+		case .exposureLogging, .riskAndTestResults, .testRegistration, .statistics, .traceLocations, .healthCertificate, .registerHealthCertificate:
 			return 0
 		case .infos:
 			return 12
