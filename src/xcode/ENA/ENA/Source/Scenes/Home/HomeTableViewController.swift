@@ -25,7 +25,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		onFAQCellTap: @escaping () -> Void,
 		onAppInformationCellTap: @escaping () -> Void,
 		onSettingsCellTap: @escaping (ENStateHandler.State) -> Void,
-		showTestInformationResult: @escaping (Result<CoronaTestQRCodeInformation, QRCodeError>) -> Void
+		showTestInformationResult: @escaping (Result<CoronaTestQRCodeInformation, QRCodeError>) -> Void,
+		onCreateHealtCertificateTap: @escaping () -> Void
 	) {
 		self.viewModel = viewModel
 		self.appConfigurationProvider = appConfigurationProvider
@@ -42,6 +43,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		self.onAppInformationCellTap = onAppInformationCellTap
 		self.onSettingsCellTap = onSettingsCellTap
 		self.showTestInformationResult = showTestInformationResult
+		self.onCreateHealtCertificateTap = onCreateHealtCertificateTap
 
 		super.init(style: .plain)
 
@@ -188,7 +190,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			placeHolderCell.textLabel?.numberOfLines = 0
 			return placeHolderCell
 
-		case .registerHealthCertificate:
+		case .createHealthCertificate:
 			let placeHolderCell = UITableViewCell(style: .default, reuseIdentifier: "placeHolderCell")
 			placeHolderCell.textLabel?.text = "Test registrieren"
 			return placeHolderCell
@@ -284,6 +286,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			} else {
 				onSettingsCellTap(viewModel.state.enState)
 			}
+
+		case .createHealthCertificate:
+			onCreateHealtCertificateTap()
+
 		default:
 			fatalError("Invalid section")
 		}
@@ -333,6 +339,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	private let onAppInformationCellTap: () -> Void
 	private let onSettingsCellTap: (ENStateHandler.State) -> Void
 	private let showTestInformationResult: (Result<CoronaTestQRCodeInformation, QRCodeError>) -> Void
+	private let onCreateHealtCertificateTap: () -> Void
 	private var deltaOnboardingCoordinator: DeltaOnboardingCoordinator?
 
 	private var riskCell: UITableViewCell?

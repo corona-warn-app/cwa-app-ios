@@ -34,7 +34,7 @@ class HomeTableViewModel {
 		case riskAndTestResults
 		case healthCertificate
 		case testRegistration
-		case registerHealthCertificate
+		case createHealthCertificate
 		case statistics
 		case traceLocations
 		case infos
@@ -74,7 +74,7 @@ class HomeTableViewModel {
 			return 1
 		case .healthCertificate:
 			return 1
-		case .registerHealthCertificate:
+		case .createHealthCertificate:
 			return 1
 		case .statistics:
 			return 1
@@ -99,7 +99,7 @@ class HomeTableViewModel {
 
 	func heightForHeader(in section: Int) -> CGFloat {
 		switch Section(rawValue: section) {
-		case .exposureLogging, .riskAndTestResults, .testRegistration, .statistics, .traceLocations, .healthCertificate, .registerHealthCertificate:
+		case .exposureLogging, .riskAndTestResults, .testRegistration, .statistics, .traceLocations, .healthCertificate, .createHealthCertificate:
 			return 0
 		case .infos, .settings:
 			return 16
@@ -110,7 +110,7 @@ class HomeTableViewModel {
 
 	func heightForFooter(in section: Int) -> CGFloat {
 		switch Section(rawValue: section) {
-		case .exposureLogging, .riskAndTestResults, .testRegistration, .statistics, .traceLocations, .healthCertificate, .registerHealthCertificate:
+		case .exposureLogging, .riskAndTestResults, .testRegistration, .statistics, .traceLocations, .healthCertificate, .createHealthCertificate:
 			return 0
 		case .infos:
 			return 12
