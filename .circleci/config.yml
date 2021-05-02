@@ -7,8 +7,6 @@ configuration:
 
 commands:
   install-tools:
-    environment:
-      HOMEBREW_NO_AUTO_UPDATE: 1
     steps:
       - run:
           name: Install swiftlint
@@ -47,6 +45,8 @@ jobs:
     macos:
       xcode: *xcode_version
     resource_class: *resource_class
+    environment:
+      HOMEBREW_NO_AUTO_UPDATE: 1
     steps:
       - prepare-dependencies
       - persist_to_workspace:
