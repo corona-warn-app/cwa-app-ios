@@ -243,6 +243,7 @@ enum AccessibilityIdentifiers {
 		static let sectionHeadline = "AppStrings.ExposureSubmission_DispatchSectionHeadline"
 		static let sectionHeadline2 = "AppStrings.ExposureSubmission_DispatchSectionHeadline2"
 		static let qrCodeButtonDescription = "AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"
+		static let qrCodeAntigenButtonDescription = "AppStrings.ExposureSubmissionDispatch.qrCodeAntigenButtonDescription"
 		static let tanButtonDescription = "AppStrings.ExposureSubmissionDispatch.tanButtonDescription"
 		static let hotlineButtonDescription = "AppStrings.ExposureSubmissionDispatch.hotlineButtonDescription"
 	}

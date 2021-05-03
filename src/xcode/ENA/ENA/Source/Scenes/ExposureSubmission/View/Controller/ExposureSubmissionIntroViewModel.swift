@@ -64,7 +64,7 @@ class ExposureSubmissionIntroViewModel {
 				action: .execute { [weak self] _, _ in
 					self?.onRapidTestProfileTap()
 				},
-				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.qrCodeButtonDescription,
+				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.qrCodeAntigenButtonDescription,
 				tag: "AntigenTestProfileCard" // Used for unit testing.
 			)
 		} else {
@@ -76,7 +76,7 @@ class ExposureSubmissionIntroViewModel {
 				action: .execute { [weak self] _, _ in
 					self?.onRapidTestProfileTap()
 				},
-				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.qrCodeButtonDescription,
+				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.qrCodeAntigenButtonDescription,
 				tag: "AntigenTestCreateProfileCard" // Used for unit testing.
 			)
 		}
