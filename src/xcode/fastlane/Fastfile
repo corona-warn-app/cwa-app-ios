@@ -78,7 +78,7 @@ platform :ios do
       run_tests(
         scheme: "ENA",
         xcargs: "SWIFT_TREAT_WARNINGS_AS_ERRORS=NO",
-        testplan: "SmokeTests",#{}"AllTests", # reduces dev time – remove before flight!
+        testplan: "AllTests",
         only_test_configurations: ["DE"],
         devices: ["iPhone 11"],
         prelaunch_simulator: true,
@@ -102,12 +102,6 @@ platform :ios do
         verbose: false
       )
     end
-      # Needs to be done here and in rescue if test fails rescue will be executed if it succedes this will be called.
-      zip(
-        path: "fastlane/test_output/ENA.xcresult",
-        output_path: "fastlane/test_output/ENA.xcresult.zip",
-        verbose: false
-      )
 
   end
 
