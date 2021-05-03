@@ -41,7 +41,7 @@ final class CachingHTTPClientMock: CachingHTTPClient {
 		return configMetadata
 	}()
 
-	static let statiVaccinationValueSets: SAP_Internal_Dgc_ValueSets = {
+	static let staticVaccinationValueSets: SAP_Internal_Dgc_ValueSets = {
 		let bundle = Bundle(for: CachingHTTPClientMock.self)
 		guard let configMetadata = try? SAP_Internal_Dgc_ValueSets(jsonString: "{\"vp\":{\"items\":[{\"key\":\"1119349007\",\"displayText\":\"SARS-CoV-2 mRNA vaccine\"}]},\"mp\":{\"items\":[{\"key\":\"EU/1/20/1528\",\"displayText\":\"Comirnaty\"}]},\"ma\":{\"items\":[{\"key\":\"ORG-100001699\",\"displayText\":\"AstraZeneca AB\"}]}}") else {
 			fatalError("Cannot initialize static test data")
@@ -93,7 +93,7 @@ final class CachingHTTPClientMock: CachingHTTPClient {
 		
 	override func fetchVaccinationValueSets(etag: String?, completion: @escaping CachingHTTPClient.VaccinationValueSetsCompletionHandler) {
 		guard let handler = self.onFetchVaccinationValueSets else {
-			let response = VaccinationValueSetsResponse(CachingHTTPClientMock.statiVaccinationValueSets, "fake")
+			let response = VaccinationValueSetsResponse(CachingHTTPClientMock.staticVaccinationValueSets, "fake")
 			completion(.success(response))
 			return
 		}

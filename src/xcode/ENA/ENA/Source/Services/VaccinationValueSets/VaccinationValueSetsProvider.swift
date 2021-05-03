@@ -7,6 +7,8 @@ import OpenCombine
 
 class VaccinationValueSetsProvider: VaccinationValueSetsProviding {
 
+	// MARK: - Init
+
 	init(client: VaccinationValueSetsFetching, store: Store) {
 		self.client = client
 		self.store = store

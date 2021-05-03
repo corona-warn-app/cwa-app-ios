@@ -4,7 +4,7 @@
 
 import Foundation
 
-struct VaccinationValueDataSets: Codable, Equatable {
+struct VaccinationValueDataSets: Decodable, Equatable {
 	
 	// MARK: - Init
 	
@@ -41,9 +41,7 @@ struct VaccinationValueDataSets: Codable, Equatable {
 		let valueDataSetsData = try container.decode(Data.self, forKey: .valueDataSets)
 		valueDataSets = try SAP_Internal_Dgc_ValueSets(serializedData: valueDataSetsData)
 	}
-	
-	func encode(to encoder: Encoder) throws {}
-	
+		
 	// MARK: - Internal
 	
 	var lastValueDataSetsETag: String?

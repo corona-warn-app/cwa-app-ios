@@ -89,7 +89,7 @@ class VaccinationValueSetsProvidingTests: XCTestCase {
 		store.vaccinationCertificateValueDataSets = VaccinationValueDataSets(
 			lastValueDataSetsETag: "fake",
 			lastValueDataSetsDate: try XCTUnwrap(301.secondsAgo),
-			valueDataSets: CachingHTTPClientMock.statiVaccinationValueSets
+			valueDataSets: CachingHTTPClientMock.staticVaccinationValueSets
 		)
 		// Fake, backend returns HTTP 304
 		let client = CachingHTTPClientMock()
