@@ -83,10 +83,10 @@ class HealthCertificatePersonViewController: UIViewController, UITableViewDataSo
 			cell.configure(with: viewModel.incompleteVaccinationCellViewModel)
 			return cell
 
-//		case .qrCode:
-//			let cell = tableView.dequeueReusableCell(cellType: QRCodeCell.self, for: indexPath)
-//			cell.configure(with: viewModel.qrCodeCellViewModel)
-//			return cell
+		case .qrCode:
+			let cell = tableView.dequeueReusableCell(cellType: HealthCertificateQRCodeCell.self, for: indexPath)
+			cell.configure(with: viewModel.qrCodeCellViewModel)
+			return cell
 
 		case .person:
 			let cell = tableView.dequeueReusableCell(cellType: SimpleTextCell.self, for: indexPath)
@@ -184,8 +184,14 @@ class HealthCertificatePersonViewController: UIViewController, UITableViewDataSo
 		tableView.delegate = self
 		tableView.dataSource = self
 		tableView.separatorStyle = .none
-		tableView.register(SimpleTextCell.self, forCellReuseIdentifier: SimpleTextCell.reuseIdentifier)
-		tableView.register(QRCodeCell.self, forCellReuseIdentifier: QRCodeCell.reuseIdentifier)
+		tableView.register(
+			SimpleTextCell.self,
+			forCellReuseIdentifier: SimpleTextCell.reuseIdentifier
+		)
+		tableView.register(
+			HealthCertificateQRCodeCell.self,
+			forCellReuseIdentifier: HealthCertificateQRCodeCell.reuseIdentifier
+		)
 	}
 
 }

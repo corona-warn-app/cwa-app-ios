@@ -1010,6 +1010,8 @@
 		BAF5B3CD2604E1D700DF8149 /* SelectTraceLocationTypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF5B3CC2604E1D700DF8149 /* SelectTraceLocationTypeCell.swift */; };
 		BAF959212640960600672494 /* HealthCertificateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF9591F264095E900672494 /* HealthCertificateViewController.swift */; };
 		BAF959222640961900672494 /* HealthCertificateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF95920264095EA00672494 /* HealthCertificateViewModel.swift */; };
+		BAF959252640A1A700672494 /* HealthCertificateQRCodeCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF959242640A1A700672494 /* HealthCertificateQRCodeCellViewModel.swift */; };
+		BAF959272640A31C00672494 /* HealthCertificateQRCodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF959262640A31C00672494 /* HealthCertificateQRCodeCell.swift */; };
 		BAFBF36925ADE0F1003F5DC2 /* HomeInfoCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFBF36825ADE0F1003F5DC2 /* HomeInfoCellModelTests.swift */; };
 		CD2EC329247D82EE00C6B3F9 /* NotificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2EC328247D82EE00C6B3F9 /* NotificationSettingsViewController.swift */; };
 		CD678F6F246C43FC00B6A0F8 /* MockURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD678F6E246C43FC00B6A0F8 /* MockURLSession.swift */; };
@@ -2157,6 +2159,8 @@
 		BAF5B3CC2604E1D700DF8149 /* SelectTraceLocationTypeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTraceLocationTypeCell.swift; sourceTree = "<group>"; };
 		BAF9591F264095E900672494 /* HealthCertificateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateViewController.swift; sourceTree = "<group>"; };
 		BAF95920264095EA00672494 /* HealthCertificateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateViewModel.swift; sourceTree = "<group>"; };
+		BAF959242640A1A700672494 /* HealthCertificateQRCodeCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateQRCodeCellViewModel.swift; sourceTree = "<group>"; };
+		BAF959262640A31C00672494 /* HealthCertificateQRCodeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateQRCodeCell.swift; sourceTree = "<group>"; };
 		BAFBF36825ADE0F1003F5DC2 /* HomeInfoCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInfoCellModelTests.swift; sourceTree = "<group>"; };
 		CD2EC328247D82EE00C6B3F9 /* NotificationSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsViewController.swift; sourceTree = "<group>"; };
 		CD678F6A246C43E200B6A0F8 /* MockExposureManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockExposureManager.swift; sourceTree = "<group>"; };
@@ -5708,6 +5712,7 @@
 		BA5307222640359400991A12 /* HealthCertificaterPerson */ = {
 			isa = PBXGroup;
 			children = (
+				BAF959232640A18800672494 /* Cells */,
 				BA530723264035C300991A12 /* HealthCertificatePersonViewController.swift */,
 				BA5307252640376B00991A12 /* HealthCertificatePersonViewModel.swift */,
 			);
@@ -6220,6 +6225,15 @@
 				BAF95920264095EA00672494 /* HealthCertificateViewModel.swift */,
 			);
 			path = HealthCertificate;
+			sourceTree = "<group>";
+		};
+		BAF959232640A18800672494 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				BAF959262640A31C00672494 /* HealthCertificateQRCodeCell.swift */,
+				BAF959242640A1A700672494 /* HealthCertificateQRCodeCellViewModel.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		BAFBF36725ADE0AA003F5DC2 /* __tests__ */ = {
@@ -6830,6 +6844,7 @@
 				504BB0AC25EE204A006B0E54 /* ErrorReportDetailInformationViewController.swift in Sources */,
 				34FE15C2260914030002CB69 /* QRCodePosterTemplateProviding.swift in Sources */,
 				34FE15C3260914030002CB69 /* QRCodePosterTemplateMetadata.swift in Sources */,
+				BAF959272640A31C00672494 /* HealthCertificateQRCodeCell.swift in Sources */,
 				34FE15C4260914030002CB69 /* QRCodePosterTemplateProvider.swift in Sources */,
 				ABE9612D25EFEB4E00D0F699 /* DMInstallationDateViewController.swift in Sources */,
 				50BD2E6224FE1E8700932566 /* AppInformationModel.swift in Sources */,
@@ -7082,6 +7097,7 @@
 				A16714AF248CA1B70031B111 /* Bundle+ReadPlist.swift in Sources */,
 				2F80CFDB247EDDB3000F06AF /* ExposureSubmissionHotlineViewController.swift in Sources */,
 				BA6D163A255AD35900ED3492 /* DMSwitchTableViewCell.swift in Sources */,
+				BAF959252640A1A700672494 /* HealthCertificateQRCodeCellViewModel.swift in Sources */,
 				941ADDB02518C2B200E421D9 /* EuTracingTableViewCell.swift in Sources */,
 				BA0F6C61263186E50046BA48 /* CreateAntigenTestProfileViewModel.swift in Sources */,
 				A3C4F96024812CD20047F23E /* ExposureSubmissionWarnOthersViewController.swift in Sources */,

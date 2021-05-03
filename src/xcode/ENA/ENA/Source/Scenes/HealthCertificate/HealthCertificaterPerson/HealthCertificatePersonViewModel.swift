@@ -60,6 +60,13 @@ final class HealthCertificatePersonViewModel {
 		)
 	}()
 
+	let qrCodeCellViewModel: HealthCertificateQRCodeCellViewModel = {
+		HealthCertificateQRCodeCellViewModel(
+			backgroundColor: .enaColor(for: .background),
+			borderColor: .enaColor(for: .hairline)
+		)
+	}()
+
 	var personCellViewModel: SimpleTextCellViewModel {
 		let attributedName = NSAttributedString(
 			string: friendlyName,
@@ -97,7 +104,7 @@ final class HealthCertificatePersonViewModel {
 	enum TableViewSection: Int, CaseIterable {
 		case header
 		case incompleteVaccination
-//		case qrCode
+		case qrCode
 		case person
 //		case certificates
 
