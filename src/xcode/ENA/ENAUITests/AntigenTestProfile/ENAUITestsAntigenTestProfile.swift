@@ -25,20 +25,18 @@ class ENAUITestsAntigenTestProfile: XCTestCase {
 	
 	// MARK: - Tests
 	
-	func test_() throws {
+	func testCreateAntigenTestProfile() throws {
 		
 		app.launch()
 		
 		/// Home Screen
 
 		let registerTestButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.Home.submitCardButton])
-		//XCTAssertTrue(registerTestButton.waitForExistence(timeout: .short))
 		registerTestButton.tap()
 		
 		/// Register Test Screen
 
 		let createProfileButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.createProfileTile_Description])
-		//XCTAssertTrue(createProfileButton.waitForExistence(timeout: .short))
 		createProfileButton.tap()
 		
 		/// Antigen Test Information Screen
@@ -71,8 +69,8 @@ class ENAUITestsAntigenTestProfile: XCTestCase {
 		
 		_ = try XCTUnwrap(app.images[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Information.imageDescription])
 		
-		let saveButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton])
-		XCTAssertFalse(saveButton.isEnabled)
+		let saveProfileButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton])
+		XCTAssertFalse(saveProfileButton.isEnabled)
 		
 		let firstNameTextField = try XCTUnwrap(app.cells.textFields[AccessibilityIdentifiers.AntigenProfile.Create.firstNameTextField])
 		firstNameTextField.tap()
@@ -106,7 +104,33 @@ class ENAUITestsAntigenTestProfile: XCTestCase {
 		emailAddressTextField.tap()
 		emailAddressTextField.typeText("bastian@bastian.codes")
 		
-		XCTAssertTrue(saveButton.isEnabled)
-		saveButton.tap()
+		XCTAssertTrue(saveProfileButton.isEnabled)
+		saveProfileButton.tap()
+		
+		/// Antigen Test Profile Screen
+		
+		// header text exists
+		_ = try XCTUnwrap(app.cells["AppStrings.ExposureSubmission.AntigenTest.Profile.headerText"])
+		// notice text exists
+		_ = try XCTUnwrap(app.cells["AppStrings.ExposureSubmission.AntigenTest.Profile.noticeText"])
+		// notice text exists
+		_ = try XCTUnwrap(app.cells.images.firstMatch)
+		// continues button exists
+		_ = try XCTUnwrap(app.buttons["AppStrings.ExposureSubmission.AntigenTest.Profile.primaryButton"])
+		// delete profile button exists
+		_ = try XCTUnwrap(app.buttons["AppStrings.ExposureSubmission.AntigenTest.Profile.secondaryButton"])
+		
+		let closeButton = try XCTUnwrap(app.navigationBars.buttons.element(boundBy: 1))
+		closeButton.tap()
+		
+		/// -> Home Screen
+
+		registerTestButton.tap()
+		
+		/// Register Test Screen
+		
+		// test profile button exists
+		let testProfileButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.profileTile_Description])
+		testProfileButton.tap()
 	}
 }
