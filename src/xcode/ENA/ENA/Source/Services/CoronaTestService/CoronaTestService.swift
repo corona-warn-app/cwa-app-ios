@@ -535,7 +535,7 @@ class CoronaTestService {
 
 				// For error code 400 (.qrDoesNotExist) we set the test result to expired
 				if error == .qrDoesNotExist {
-					Log.error("[CoronaTestService] Error Code 400 when getting test result, setting expired test result", log: .api)
+					Log.info("[CoronaTestService] Error Code 400 when getting test result, setting expired test result", log: .api)
 
 					switch coronaTestType {
 					case .pcr:
@@ -546,7 +546,7 @@ class CoronaTestService {
 
 					// For tests older than 21 days this should not be handled as an error
 					if ageInDays >= 21 {
-						Log.error("[CoronaTestService] Test older than 21 days, no error is returned", log: .api)
+						Log.info("[CoronaTestService] Test older than 21 days, no error is returned", log: .api)
 
 						completion(.success(.expired))
 					} else {
