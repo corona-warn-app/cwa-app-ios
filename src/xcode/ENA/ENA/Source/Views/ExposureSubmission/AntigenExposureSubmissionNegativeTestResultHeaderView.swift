@@ -71,15 +71,7 @@ class AntigenExposureSubmissionNegativeTestResultHeaderView: DynamicTableViewHea
 		descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
 		descriptionLabel.numberOfLines = 0
 		wrapperView.addSubview(descriptionLabel)
-		
-		dateLabel = ENALabel()
-		dateLabel.style = .subheadline
-		dateLabel.textColor = .enaColor(for: .textPrimary2)
-		dateLabel.numberOfLines = 0
-		dateLabel.adjustsFontSizeToFitWidth = true
-		dateLabel.translatesAutoresizingMaskIntoConstraints = false
-		wrapperView.addSubview(dateLabel)
-		
+				
 		lineView = UIView()
 		lineView.layer.masksToBounds = true
 		lineView.layer.cornerRadius = 2
@@ -90,9 +82,33 @@ class AntigenExposureSubmissionNegativeTestResultHeaderView: DynamicTableViewHea
 		separatorLineView.backgroundColor = .enaColor(for: .hairline)
 		separatorLineView.translatesAutoresizingMaskIntoConstraints = false
 		wrapperView.addSubview(separatorLineView)
+				
+		dateLabel = ENALabel()
+		dateLabel.font = UIFont.systemFont(ofSize: 34, weight: .bold)
+		dateLabel.textColor = .enaColor(for: .textPrimary1)
+		dateLabel.numberOfLines = 0
+		dateLabel.adjustsFontSizeToFitWidth = true
+		dateLabel.translatesAutoresizingMaskIntoConstraints = false
 		
-		counterView = TestResultCounterView()
-		wrapperView.addSubview(counterView)
+		let regDateTitleLabel = ENALabel()
+		regDateTitleLabel.style = .footnote
+		regDateTitleLabel.textColor = .enaColor(for: .textPrimary1)
+		regDateTitleLabel.numberOfLines = 0
+		regDateTitleLabel.textAlignment = .center
+		regDateTitleLabel.adjustsFontSizeToFitWidth = true
+		regDateTitleLabel.text = AppStrings.ExposureSubmissionResult.Antigen.registrationDate
+		regDateTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+
+		let regDateStackView = UIStackView()
+		regDateStackView.translatesAutoresizingMaskIntoConstraints = false
+		regDateStackView.axis = .vertical
+		regDateStackView.alignment = .center
+		regDateStackView.spacing = 16
+		
+		regDateStackView.addArrangedSubview(regDateTitleLabel)
+		regDateStackView.addArrangedSubview(dateLabel)
+
+		wrapperView.addSubview(regDateStackView)
 		
 		let leadingInset: CGFloat = 43
 				
@@ -133,28 +149,23 @@ class AntigenExposureSubmissionNegativeTestResultHeaderView: DynamicTableViewHea
 			descriptionLabel.trailingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: -6),
 			descriptionLabel.topAnchor.constraint(equalTo: personLabel.bottomAnchor, constant: 8),
 			descriptionLabel.bottomAnchor.constraint(lessThanOrEqualTo: wrapperView.bottomAnchor, constant: -20),
-			// dateLabel
-			dateLabel.leadingAnchor.constraint(equalTo: wrapperView.leadingAnchor, constant: leadingInset),
-			dateLabel.trailingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: -6),
-			dateLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 8),
-			dateLabel.bottomAnchor.constraint(lessThanOrEqualTo: wrapperView.bottomAnchor, constant: -20),
 			// lineView
 			lineView.leadingAnchor.constraint(equalTo: wrapperView.leadingAnchor, constant: 15),
 			lineView.trailingAnchor.constraint(lessThanOrEqualTo: wrapperView.trailingAnchor, constant: -15),
 			lineView.topAnchor.constraint(equalTo: subtitleLabel.topAnchor),
-			lineView.bottomAnchor.constraint(equalTo: dateLabel.bottomAnchor),
+			lineView.bottomAnchor.constraint(equalTo: descriptionLabel.bottomAnchor),
 			lineView.widthAnchor.constraint(equalToConstant: 4),
 			// separatorLineView
 			separatorLineView.leadingAnchor.constraint(equalTo: wrapperView.leadingAnchor, constant: 15),
 			separatorLineView.trailingAnchor.constraint(equalTo: wrapperView.trailingAnchor, constant: -15),
-			separatorLineView.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 15),
+			separatorLineView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 15),
 			separatorLineView.bottomAnchor.constraint(lessThanOrEqualTo: wrapperView.bottomAnchor, constant: -20),
 			separatorLineView.heightAnchor.constraint(equalToConstant: 1),
-			// counterView
-			counterView.leadingAnchor.constraint(equalTo: wrapperView.leadingAnchor, constant: 15),
-			counterView.trailingAnchor.constraint(equalTo: wrapperView.trailingAnchor, constant: -15),
-			counterView.topAnchor.constraint(equalTo: separatorLineView.bottomAnchor, constant: 15),
-			counterView.bottomAnchor.constraint(equalTo: wrapperView.bottomAnchor, constant: -20)
+			// registrationDateView
+			regDateStackView.leadingAnchor.constraint(equalTo: wrapperView.leadingAnchor, constant: 15),
+			regDateStackView.trailingAnchor.constraint(equalTo: wrapperView.trailingAnchor, constant: -15),
+			regDateStackView.topAnchor.constraint(equalTo: separatorLineView.bottomAnchor, constant: 15),
+			regDateStackView.bottomAnchor.constraint(equalTo: wrapperView.bottomAnchor, constant: -20)
 		])
 		
 		updateIllustration(for: traitCollection)
@@ -168,13 +179,11 @@ class AntigenExposureSubmissionNegativeTestResultHeaderView: DynamicTableViewHea
 	
 	override func prepareForReuse() {
 		super.prepareForReuse()
-		counterView.beginDate = nil
 	}
 		
 	// MARK: - Internal
 	
 	func configure(coronaTest: AntigenTest, timeStamp: Int64?) {
-		counterView.beginDate = coronaTest.pointOfCareConsentDate
 		lineView.backgroundColor = coronaTest.testResult.color
 		imageView.image = coronaTest.testResult.image
 		subtitleLabel.text = AppStrings.ExposureSubmissionResult.Antigen.card_subtitle
@@ -203,7 +212,7 @@ class AntigenExposureSubmissionNegativeTestResultHeaderView: DynamicTableViewHea
 			formatter.dateStyle = .medium
 			formatter.timeStyle = .short
 			let date = Date(timeIntervalSince1970: TimeInterval(timeStamp))
-			dateLabel.text = "\(AppStrings.ExposureSubmissionResult.Antigen.registrationDate) \(formatter.string(from: date)) \(AppStrings.ExposureSubmissionResult.Antigen.registrationDateSuffix)"
+			dateLabel.text = formatter.string(from: date)
 		} else {
 			dateLabel.text = "\(AppStrings.ExposureSubmissionResult.registrationDateUnknown)"
 		}
@@ -217,8 +226,8 @@ class AntigenExposureSubmissionNegativeTestResultHeaderView: DynamicTableViewHea
 	private var resultTitleLabel: ENALabel!
 	private var personLabel: ENALabel!
 	private var dateLabel: ENALabel!
-	private var counterView: TestResultCounterView!
 	private var imageWidthConstraint: NSLayoutConstraint!
+	private var regDateStackView: UIStackView!
 	
 	private func updateIllustration(for traitCollection: UITraitCollection) {
 		if traitCollection.preferredContentSizeCategory >= .extraExtraExtraLarge {
@@ -229,135 +238,4 @@ class AntigenExposureSubmissionNegativeTestResultHeaderView: DynamicTableViewHea
 			imageView.isHidden = false
 		}
 	}
-}
-
-class TestResultCounterView: UIView, CountdownTimerDelegate {
-	
-	// MARK: - Init
-	
-	convenience init() {
-		self.init(frame: .zero)
-	}
-	
-	required init?(coder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
-	}
-	
-	
-	// MARK: - Overrides
-	
-	override init(frame: CGRect) {
-		super.init(frame: frame)
-		
-		translatesAutoresizingMaskIntoConstraints = false
-
-		let titleLabel = ENALabel()
-		titleLabel.style = .footnote
-		titleLabel.textColor = .enaColor(for: .textPrimary1)
-		titleLabel.numberOfLines = 0
-		titleLabel.textAlignment = .center
-		titleLabel.adjustsFontSizeToFitWidth = true
-		titleLabel.text = AppStrings.ExposureSubmissionResult.Antigen.timerTitle
-		titleLabel.translatesAutoresizingMaskIntoConstraints = false
-		addSubview(titleLabel)
-		
-		let timeLabelFont = UIFont.systemFont(ofSize: 34, weight: .bold)
-		let timeLabelSize = ("00" as NSString).size(withAttributes: [.font: timeLabelFont])
-		
-		timeLabel = ENALabel()
-		timeLabel.font = timeLabelFont
-		timeLabel.textColor = .enaColor(for: .textPrimary1)
-		timeLabel.numberOfLines = 1
-		timeLabel.textAlignment = .center
-		timeLabel.adjustsFontSizeToFitWidth = true
-		timeLabel.translatesAutoresizingMaskIntoConstraints = false
-		addSubview(timeLabel)
-		
-		let hourLabel = ENALabel()
-		hourLabel.style = .footnote
-		hourLabel.textColor = .enaColor(for: .textPrimary2)
-		hourLabel.numberOfLines = 1
-		hourLabel.textAlignment = .center
-		hourLabel.adjustsFontSizeToFitWidth = true
-		hourLabel.text = AppStrings.ExposureSubmissionResult.Antigen.hoursAbbreviation
-		hourLabel.translatesAutoresizingMaskIntoConstraints = false
-		addSubview(hourLabel)
-		
-		let minLabel = ENALabel()
-		minLabel.style = .footnote
-		minLabel.textColor = .enaColor(for: .textPrimary2)
-		minLabel.numberOfLines = 1
-		minLabel.textAlignment = .center
-		minLabel.adjustsFontSizeToFitWidth = true
-		minLabel.text = AppStrings.ExposureSubmissionResult.Antigen.minutesAbbreviation
-		minLabel.translatesAutoresizingMaskIntoConstraints = false
-		addSubview(minLabel)
-		
-		let secLabel = ENALabel()
-		secLabel.style = .footnote
-		secLabel.textColor = .enaColor(for: .textPrimary2)
-		secLabel.numberOfLines = 1
-		secLabel.textAlignment = .center
-		secLabel.adjustsFontSizeToFitWidth = true
-		secLabel.text = AppStrings.ExposureSubmissionResult.Antigen.secondsAbbreviation
-		secLabel.translatesAutoresizingMaskIntoConstraints = false
-		addSubview(secLabel)
-		
-		NSLayoutConstraint.activate([
-			// titleLabel
-			titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
-			titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-			titleLabel.topAnchor.constraint(equalTo: topAnchor),
-			titleLabel.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor),
-			// timeLabel
-			timeLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
-			timeLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-			timeLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4),
-			timeLabel.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor),
-			timeLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-			// hourLabel
-			hourLabel.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 2),
-			hourLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
-			hourLabel.centerXAnchor.constraint(equalTo: centerXAnchor, constant: -timeLabelSize.width),
-			// minLabel
-			minLabel.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 2),
-			minLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
-			minLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-			minLabel.widthAnchor.constraint(equalToConstant: timeLabelSize.width),
-			// secLabel
-			secLabel.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 2),
-			secLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
-			secLabel.centerXAnchor.constraint(equalTo: centerXAnchor, constant: timeLabelSize.width)
-		])
-	}
-	
-	// MARK: - Protocol CountdownTimerDelegate
-	
-	func countdownTimer(_ timer: CountdownTimer, didUpdate time: String) {
-		timeLabel.text = time
-	}
-	
-	func countdownTimer(_ timer: CountdownTimer, didEnd done: Bool) {
-		timeLabel.text = nil
-	}
-		
-	// MARK: - Internal
-	
-	var beginDate: Date? {
-		didSet {
-			// cleanup
-			countdownTimer?.invalidate()
-			// setup
-			if let date = beginDate {
-				countdownTimer = CountdownTimer(countUpFrom: date)
-				countdownTimer?.delegate = self
-				countdownTimer?.start()
-			}
-		}
-	}
-	
-	// MARK: - Private
-	
-	private var countdownTimer: CountdownTimer?
-	private var timeLabel: ENALabel!
 }
