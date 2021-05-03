@@ -251,6 +251,18 @@ extension HTTPClient {
 					"logs"
 			)
 		}
+		
+		var VaccinationValueSets: URL {
+			endpoints
+				.distribution
+				.appending(
+					"version",
+					apiVersion,
+					"ehn-dgc",
+					"value-sets",
+					Locale.current.languageCode ?? "de"
+				)
+		}
 	}
 }
 

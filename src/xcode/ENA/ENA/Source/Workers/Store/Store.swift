@@ -142,6 +142,10 @@ protocol EventRegistrationCaching: AnyObject {
 	var qrCodePosterTemplateMetadata: QRCodePosterTemplateMetadata? { get set }
 }
 
+protocol VaccinationCaching: AnyObject {
+	var vaccinationCertificateValueDataSets: VaccinationValueDataSets? { get set }
+}
+
 protocol WarnOthersTimeIntervalStoring {
 
 	/// Delay time in seconds, when the first notification to warn others will be shown,
@@ -218,6 +222,7 @@ protocol Store:
 	PrivacyPreservingProviding,
 	StatisticsCaching,
 	StoreProtocol,
-	WarnOthersTimeIntervalStoring
+	WarnOthersTimeIntervalStoring,
+	VaccinationCaching
 {}
 // swiftlint:enable all

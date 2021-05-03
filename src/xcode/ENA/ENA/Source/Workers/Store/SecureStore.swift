@@ -233,6 +233,13 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 		set { kvStore["antigenTestProfileInfoScreenShown"] = newValue }
 	}
 	
+	// MARK: - Protocol VaccinationCaching
+
+	var vaccinationCertificateValueDataSets: VaccinationValueDataSets? {
+		get { kvStore["vaccinationCertificateValueDataSets"] as VaccinationValueDataSets? ?? nil }
+		set { kvStore["vaccinationCertificateValueDataSets"] = newValue }
+	}
+	
 	#if !RELEASE
 
 	// Settings from the debug menu.
@@ -275,7 +282,7 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 
 	private let directoryURL: URL
 	private let environmentProvider: EnvironmentProviding
-
+	
 }
 
 extension SecureStore: EventRegistrationCaching {
