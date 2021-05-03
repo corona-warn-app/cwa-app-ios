@@ -59,10 +59,10 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		backgroundContainerView.translatesAutoresizingMaskIntoConstraints = false
 		contentView.addSubview(backgroundContainerView)
 
-		headlineTextLabel.translatesAutoresizingMaskIntoConstraints = false
+		headlineTextLabel.font = .enaFont(for: .headline)
 		headlineTextLabel.numberOfLines = 0
 
-		detailsTextLabel.translatesAutoresizingMaskIntoConstraints = false
+		detailsTextLabel.font = .enaFont(for: .subheadline)
 		detailsTextLabel.numberOfLines = 0
 
 		let vStackView = UIStackView(arrangedSubviews: [headlineTextLabel, detailsTextLabel])
@@ -82,6 +82,7 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		hStackView.axis = .horizontal
 		hStackView.spacing = 16.0
 		hStackView.distribution = .fillProportionally
+		hStackView.alignment = .top
 		backgroundContainerView.addSubview(hStackView)
 
 		NSLayoutConstraint.activate(
@@ -92,7 +93,7 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 				backgroundContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -30.0),
 
 				shieldImageView.widthAnchor.constraint(equalToConstant: 96.0),
-				shieldImageView.heightAnchor.constraint(equalToConstant: 96.0),
+				shieldImageView.heightAnchor.constraint(equalToConstant: 108.0),
 
 				hStackView.topAnchor.constraint(equalTo: backgroundContainerView.topAnchor, constant: 16.0),
 				hStackView.bottomAnchor.constraint(equalTo: backgroundContainerView.bottomAnchor, constant: -24.0),

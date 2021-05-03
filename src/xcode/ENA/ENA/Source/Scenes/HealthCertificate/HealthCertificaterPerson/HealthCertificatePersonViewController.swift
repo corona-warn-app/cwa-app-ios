@@ -98,7 +98,7 @@ class HealthCertificatePersonViewController: UIViewController, UITableViewDataSo
 			cell.configure(viewModel.healthCertificateCellViewModel)
 			return cell
 		}
-		
+
 	}
 
 	// MARK: - Public
@@ -124,7 +124,7 @@ class HealthCertificatePersonViewController: UIViewController, UITableViewDataSo
 		logoImageView.tintColor = .enaColor(for: .textContrast)
 
 		parent?.navigationController?.navigationBar.tintColor = .white
-		parent?.navigationItem.titleView = logoImageView
+		parent?.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: logoImageView)
 		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton(.contrast)
 		parent?.navigationItem.hidesBackButton = true
 
