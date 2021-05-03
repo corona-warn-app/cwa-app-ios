@@ -1105,10 +1105,6 @@ class CoronaTestServiceTests: XCTestCase {
 		waitForExpectations(timeout: .short)
 	}
 
-	// MARK: - Get Submission TAN
-
-	
-
 	// MARK: - Test Removal
 
 	func testDeletingCoronaTest() {
