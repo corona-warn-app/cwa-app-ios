@@ -10,7 +10,7 @@ class HealthCertificateQRCodeScannerViewController: UIViewController {
 	// MARK: - Init
 
 	init(
-		didScanVaccination: @escaping (String) -> Void,
+		didScanCertificate: @escaping (String) -> Void,
 		dismiss: @escaping () -> Void
 	) {
 		self.dismiss = dismiss
@@ -21,7 +21,7 @@ class HealthCertificateQRCodeScannerViewController: UIViewController {
 			onSuccess: { [weak self] qrCodeString in
 				AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
 				self?.viewModel?.deactivateScanning()
-				Log.debug("QR-Code \(qrCodeString)")
+				didScanCertificate(qrCodeString)
 			},
 			onError: { error in
 				switch error {
@@ -30,7 +30,9 @@ class HealthCertificateQRCodeScannerViewController: UIViewController {
 						self.dismiss()
 					}
 				case .simulator:
-					didScanVaccination("Vaccination found by simulator")
+					DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+						didScanCertificate("Vaccination found by simulator")
+					}
 				default:
 					DispatchQueue.main.async {
 						self.showErrorAlert(error: error)

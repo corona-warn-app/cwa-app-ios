@@ -12,6 +12,11 @@ final class CreateHealthCertificateCoordinatorViewModel {
 
 	// MARK: - Internal
 
+	// healthCertificate is a string a the moment, replace it with the real thing
+	func register(_ healthCertificate: String) {
+
+	}
+
 	let hasShownConsetScreem: Bool = false
 	let hasHealthCertificate: Bool = false
 
