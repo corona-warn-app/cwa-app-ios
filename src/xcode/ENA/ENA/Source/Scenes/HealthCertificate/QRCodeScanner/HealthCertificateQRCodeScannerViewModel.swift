@@ -51,7 +51,7 @@ class HealthCertificateQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutput
 		#if targetEnvironment(simulator)
 		onError?(.simulator)
 		return nil
-		#endif
+		#else
 		guard let currentCaptureDevice = captureDevice,
 			let captureDeviceInput = try? AVCaptureDeviceInput(device: currentCaptureDevice) else {
 			onError?(.cameraPermissionDenied)
@@ -66,6 +66,7 @@ class HealthCertificateQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutput
 		metadataOutput.metadataObjectTypes = [.qr]
 		metadataOutput.setMetadataObjectsDelegate(self, queue: .main)
 		return captureSession
+		#endif
 	}()
 
 	var onSuccess: (String) -> Void

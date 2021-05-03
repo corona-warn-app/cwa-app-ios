@@ -32,8 +32,8 @@ final class CreateHealthCertificateCoordinator {
 		}
 	}
 
-	func end() {
-		self.parentViewController.dismiss(animated: true)
+	func endCoordinator() {
+		parentViewController.dismiss(animated: true)
 	}
 
 	// MARK: - Private
@@ -44,7 +44,8 @@ final class CreateHealthCertificateCoordinator {
 
 	private func showConsetScreem() {
 		let consetScreen = HealthCertificateConsentViewController(
-			didTapConsetButton: showQRCodeScanner
+			didTapConsetButton: showQRCodeScanner,
+			dismiss: endCoordinator
 		)
 
 		let footerViewController = FooterViewController(
@@ -71,26 +72,23 @@ final class CreateHealthCertificateCoordinator {
 		let qrCodeScannerViewController = HealthCertificateQRCodeScannerViewController(
 			didScanCertificate: { payload in
 				// get healthCertificatePerson from sercvice here
-				self.showHealthCertificatePerson(payload)
+				self.showHealthCertificatePerson(payload, animated: false)
+				self.navigationController.dismiss(animated: true)
 			}, dismiss: {
-				self.end()
+				self.endCoordinator()
 			}
 		)
 
-		if !navigationController.viewControllers.isEmpty {
-			navigationController.pushViewController(qrCodeScannerViewController, animated: true)
-		} else {
-			navigationController.pushViewController(qrCodeScannerViewController, animated: false)
-			parentViewController.present(navigationController, animated: true)
-		}
+		let qrCodeNavigationControler = UINavigationController(rootViewController: qrCodeScannerViewController)
+		navigationController.present(qrCodeNavigationControler, animated: true)
 	}
 
 	// healthCertificatePerson is a string for the moment
-	private func showHealthCertificatePerson(_ healthCertificatePerson: String) {
+	private func showHealthCertificatePerson(_ healthCertificatePerson: String, animated: Bool) {
 		let consetScreen = HealthCertificatePersonViewController(
 			healthCertificatePerson: healthCertificatePerson,
 			dismiss: {
-				self.end()
+				self.endCoordinator()
 			},
 			didTapHealtCertificate: {
 				Log.debug("didTapHealtCertificate")
@@ -115,7 +113,7 @@ final class CreateHealthCertificateCoordinator {
 			bottomController: footerViewController
 		)
 
-		navigationController.pushViewController(topBottomContainerViewController, animated: true)
+		navigationController.pushViewController(topBottomContainerViewController, animated: animated)
 	}
 
 	// healthCertificate is a string for the moment

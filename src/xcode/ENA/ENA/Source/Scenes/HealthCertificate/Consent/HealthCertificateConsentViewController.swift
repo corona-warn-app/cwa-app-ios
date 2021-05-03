@@ -9,9 +9,11 @@ class HealthCertificateConsentViewController: UIViewController, FooterViewHandli
 	// MARK: - Init
 
 	init(
-		didTapConsetButton: @escaping () -> Void
+		didTapConsetButton: @escaping () -> Void,
+		dismiss: @escaping () -> Void
 	) {
 		self.didTapConsetButton = didTapConsetButton
+		self.dismiss = dismiss
 		self.viewModel = HealthCertificateConsentViewModel()
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -27,6 +29,12 @@ class HealthCertificateConsentViewController: UIViewController, FooterViewHandli
 
 		parent?.navigationItem.title = "Ihr Einverständnis"
 		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
+	}
+
+	// MARK: - Protocol DismissHandling
+
+	func wasAttemptedToBeDismissed() {
+		dismiss()
 	}
 
 	// MARK: - Protocol FooterViewHandling
@@ -46,5 +54,6 @@ class HealthCertificateConsentViewController: UIViewController, FooterViewHandli
 
 	private let viewModel: HealthCertificateConsentViewModel
 	private let didTapConsetButton: () -> Void
+	private let dismiss: () -> Void
 
 }
