@@ -27,6 +27,10 @@ public protocol HealthCertificateToolkitProtocol {
 
 public struct HealthCertificateToolkit: HealthCertificateToolkitProtocol {
 
+    // MARK: - Init
+
+    public init() { }
+
     // MARK: - Protocol HealthCertificateToolkitProtocol
 
     public func decodeHealthCertificate(base45: String) -> DecodeHealthCertificateResult {
