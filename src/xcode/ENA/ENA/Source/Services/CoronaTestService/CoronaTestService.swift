@@ -624,6 +624,11 @@ class CoronaTestService {
 	}
 
 	private func setupOutdatedPublisher(for antigenTest: AntigenTest) {
+		// Only rapid antigen tests with a negative test result can become outdated
+		guard antigenTest.testResult == .negative else {
+			return
+		}
+
 		appConfiguration.appConfiguration()
 			.sink { [weak self] in
 				let hoursToDeemTestOutdated = $0.coronaTestParameters.coronaRapidAntigenTestParameters.hoursToDeemTestOutdated
