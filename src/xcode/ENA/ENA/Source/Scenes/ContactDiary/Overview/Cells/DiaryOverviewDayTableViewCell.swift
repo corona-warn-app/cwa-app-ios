@@ -132,6 +132,7 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 		encountersVisitsContainerStackView.isHidden = encountersVisitsStackView.arrangedSubviews.isEmpty
 
 		accessibilityTraits = [.button]
+		accessibilityIdentifier = String(format: AccessibilityIdentifiers.ContactDiaryInformation.Overview.cell, cellViewModel.accessibilityIdentifierIndex)
 	}
 
 	// MARK: - Private

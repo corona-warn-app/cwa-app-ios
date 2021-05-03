@@ -376,9 +376,9 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 
 		
 		// Get the first overview table view cell.
-		let overviewCell = app.tables.firstMatch.cells.element(boundBy: 1)
+		let overviewCell = app.tables.firstMatch.cells[String(format: AccessibilityIdentifiers.ContactDiaryInformation.Overview.cell, 0)]
 		
-		// Check we have two locations.
+		// Check we have two locations
 		XCTAssertTrue(overviewCell.staticTexts[String(format: AccessibilityIdentifiers.ContactDiaryInformation.Overview.location, 0)].waitForExistence(timeout: .short))
 		XCTAssertTrue(overviewCell.staticTexts[String(format: AccessibilityIdentifiers.ContactDiaryInformation.Overview.location, 1)].waitForExistence(timeout: .short))
 	}
