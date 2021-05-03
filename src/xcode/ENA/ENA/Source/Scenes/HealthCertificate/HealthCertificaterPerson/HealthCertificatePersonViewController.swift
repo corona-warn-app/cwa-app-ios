@@ -67,8 +67,6 @@ class HealthCertificatePersonViewController: UIViewController, UITableViewDataSo
 		viewModel.numberOfItems(in: HealthCertificatePersonViewModel.TableViewSection.map(section))
 	}
 
-	// MARK: - Protocol UITableViewDelegate
-
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let section = HealthCertificatePersonViewModel.TableViewSection.map(indexPath.section)
 
@@ -98,7 +96,17 @@ class HealthCertificatePersonViewController: UIViewController, UITableViewDataSo
 			cell.configure(viewModel.healthCertificateCellViewModel)
 			return cell
 		}
+	}
 
+	// MARK: - Protocol UITableViewDelegate
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		let section = HealthCertificatePersonViewModel.TableViewSection.map(indexPath.section)
+		switch section {
+		case .certificates:
+			didTapHealthCertificate("submit certificate here")
+		default:
+			break
+		}
 	}
 
 	// MARK: - Public

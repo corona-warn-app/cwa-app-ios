@@ -58,7 +58,7 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 	// MARK: - Protocol UITableViewDateSource
 
 	func numberOfSections(in tableView: UITableView) -> Int {
-		HealthCertificatePersonViewModel.TableViewSection.numberOfSections
+		HealthCertificateViewModel.TableViewSection.numberOfSections
 	}
 
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
