@@ -1012,6 +1012,8 @@
 		BAF959222640961900672494 /* HealthCertificateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF95920264095EA00672494 /* HealthCertificateViewModel.swift */; };
 		BAF959252640A1A700672494 /* HealthCertificateQRCodeCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF959242640A1A700672494 /* HealthCertificateQRCodeCellViewModel.swift */; };
 		BAF959272640A31C00672494 /* HealthCertificateQRCodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF959262640A31C00672494 /* HealthCertificateQRCodeCell.swift */; };
+		BAF959292640A47200672494 /* HealthCertificateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF959282640A47200672494 /* HealthCertificateCell.swift */; };
+		BAF9592B2640A53500672494 /* HealthCertificateCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF9592A2640A53500672494 /* HealthCertificateCellViewModel.swift */; };
 		BAFBF36925ADE0F1003F5DC2 /* HomeInfoCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFBF36825ADE0F1003F5DC2 /* HomeInfoCellModelTests.swift */; };
 		CD2EC329247D82EE00C6B3F9 /* NotificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2EC328247D82EE00C6B3F9 /* NotificationSettingsViewController.swift */; };
 		CD678F6F246C43FC00B6A0F8 /* MockURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD678F6E246C43FC00B6A0F8 /* MockURLSession.swift */; };
@@ -2161,6 +2163,8 @@
 		BAF95920264095EA00672494 /* HealthCertificateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateViewModel.swift; sourceTree = "<group>"; };
 		BAF959242640A1A700672494 /* HealthCertificateQRCodeCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateQRCodeCellViewModel.swift; sourceTree = "<group>"; };
 		BAF959262640A31C00672494 /* HealthCertificateQRCodeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateQRCodeCell.swift; sourceTree = "<group>"; };
+		BAF959282640A47200672494 /* HealthCertificateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateCell.swift; sourceTree = "<group>"; };
+		BAF9592A2640A53500672494 /* HealthCertificateCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateCellViewModel.swift; sourceTree = "<group>"; };
 		BAFBF36825ADE0F1003F5DC2 /* HomeInfoCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInfoCellModelTests.swift; sourceTree = "<group>"; };
 		CD2EC328247D82EE00C6B3F9 /* NotificationSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsViewController.swift; sourceTree = "<group>"; };
 		CD678F6A246C43E200B6A0F8 /* MockExposureManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockExposureManager.swift; sourceTree = "<group>"; };
@@ -6230,6 +6234,8 @@
 		BAF959232640A18800672494 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				BAF959282640A47200672494 /* HealthCertificateCell.swift */,
+				BAF9592A2640A53500672494 /* HealthCertificateCellViewModel.swift */,
 				BAF959262640A31C00672494 /* HealthCertificateQRCodeCell.swift */,
 				BAF959242640A1A700672494 /* HealthCertificateQRCodeCellViewModel.swift */,
 			);
@@ -7061,6 +7067,7 @@
 				50C0298825E4067400460FA4 /* AgeGroup.swift in Sources */,
 				35EA684A25553B5C00335F73 /* DownloadedPackagesStoreV2.swift in Sources */,
 				BAA8BAED25CAD91700E29CFE /* DMStaticTextTableViewCell.swift in Sources */,
+				BAF9592B2640A53500672494 /* HealthCertificateCellViewModel.swift in Sources */,
 				2F26CE2E248B9C4F00BE30EE /* UIViewController+BackButton.swift in Sources */,
 				01D0271B258BC78100B6389A /* SettingsCoordinator.swift in Sources */,
 				8F95A1B225EFC5BE00506CF2 /* SendErrorLogsViewController.swift in Sources */,
@@ -7328,6 +7335,7 @@
 				BADD36EE260B4FBA00DD282A /* GradientNavigationView.swift in Sources */,
 				0138F54D25ECD44300A9B075 /* app_config_ios.pb.swift in Sources */,
 				0138F56125ECDC7700A9B075 /* TransmissionRiskValueMapping.swift in Sources */,
+				BAF959292640A47200672494 /* HealthCertificateCell.swift in Sources */,
 				94EAF87125B6CA9D00BE1F40 /* DeltaOnboardingNewVersionFeatures.swift in Sources */,
 				2FA9E39324D2F2920030561C /* TestResult.swift in Sources */,
 				347FBB752611C9F100672770 /* TraceLocationDetailsDateTimeCell.swift in Sources */,

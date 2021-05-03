@@ -93,16 +93,12 @@ class HealthCertificatePersonViewController: UIViewController, UITableViewDataSo
 			cell.configure(with: viewModel.personCellViewModel)
 			return cell
 
-//		case .certificates:
-//			let cell = tableView.dequeueReusableCell(cellType: SimpleTextCell.self, for: indexPath)
-//			cell.configure(with: viewModel.headerCellViewModel)
-//			return cell
+		case .certificates:
+			let cell = tableView.dequeueReusableCell(cellType: HealthCertificateCell.self, for: indexPath)
+			cell.configure(viewModel.healthCertificateCellViewModel)
+			return cell
 		}
-
-
-//		let cell = UITableViewCell(style: .default, reuseIdentifier: "DummyCell")
-//		cell.textLabel?.text = "Testcell"
-//		return cell
+		
 	}
 
 	// MARK: - Public
@@ -191,6 +187,10 @@ class HealthCertificatePersonViewController: UIViewController, UITableViewDataSo
 		tableView.register(
 			HealthCertificateQRCodeCell.self,
 			forCellReuseIdentifier: HealthCertificateQRCodeCell.reuseIdentifier
+		)
+		tableView.register(
+			HealthCertificateCell.self,
+			forCellReuseIdentifier: HealthCertificateCell.reuseIdentifier
 		)
 	}
 

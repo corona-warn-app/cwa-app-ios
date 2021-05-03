@@ -94,6 +94,10 @@ final class HealthCertificatePersonViewModel {
 		)
 	}
 
+	let healthCertificateCellViewModel: HealthCertificateCellViewModel = {
+		HealthCertificateCellViewModel()
+	}()
+
 	func numberOfItems(in section: TableViewSection) -> Int {
 		switch section {
 		default:
@@ -106,7 +110,7 @@ final class HealthCertificatePersonViewModel {
 		case incompleteVaccination
 		case qrCode
 		case person
-//		case certificates
+		case certificates
 
 		static var numberOfSections: Int {
 			allCases.count
