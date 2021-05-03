@@ -59,7 +59,7 @@ class VaccinationValueSetsProvider: VaccinationValueSetsProviding {
 	private func shouldFetch() -> Bool {
 		if store.vaccinationCertificateValueDataSets == nil { return true }
 
-		// naïve cache control
+		// naive cache control
 		guard let lastFetch = store.vaccinationCertificateValueDataSets?.lastValueDataSetsFetchDate else {
 			return true
 		}
