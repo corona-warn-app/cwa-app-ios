@@ -144,7 +144,7 @@ class CoronaTestService {
 						registrationDate: Date(),
 						registrationToken: registrationToken,
 						testResult: .positive,
-						finalTestResultReceivedDate: nil,
+						finalTestResultReceivedDate: Date(),
 						positiveTestResultWasShown: true,
 						isSubmissionConsentGiven: isSubmissionConsentGiven,
 						submissionTAN: nil,
@@ -185,6 +185,7 @@ class CoronaTestService {
 				case .success(let registrationToken):
 					self?.antigenTest = AntigenTest(
 						pointOfCareConsentDate: pointOfCareConsentDate,
+						registrationDate: Date(),
 						registrationToken: registrationToken,
 						testedPerson: TestedPerson(firstName: firstName, lastName: lastName, dateOfBirth: dateOfBirth),
 						testResult: .pending,
@@ -483,7 +484,18 @@ class CoronaTestService {
 			completion(.failure(.noRegistrationToken))
 			return
 		}
+
 		guard force || coronaTest.finalTestResultReceivedDate == nil else {
+			completion(.success(coronaTest.testResult))
+			return
+		}
+
+		let registrationDate = coronaTest.registrationDate ?? coronaTest.testDate
+		let ageInDays = Calendar.current.dateComponents([.day], from: registrationDate, to: Date()).day ?? 0
+
+		guard coronaTest.testResult != .expired || ageInDays < 21 else {
+			Log.error("[CoronaTestService] Expired test result older than 21 days returned", log: .api)
+
 			completion(.success(coronaTest.testResult))
 			return
 		}
@@ -521,7 +533,30 @@ class CoronaTestService {
 			case let .failure(error):
 				Log.error("[CoronaTestService] Getting test result failed: \(error.localizedDescription)", log: .api)
 
-				completion(.failure(.responseFailure(error)))
+				// For error code 400 (.qrDoesNotExist) we set the test result to expired
+				if error == .qrDoesNotExist {
+					Log.info("[CoronaTestService] Error Code 400 when getting test result, setting expired test result", log: .api)
+
+					switch coronaTestType {
+					case .pcr:
+						self.pcrTest?.testResult = .expired
+					case .antigen:
+						self.antigenTest?.testResult = .expired
+					}
+
+					// For tests older than 21 days this should not be handled as an error
+					if ageInDays >= 21 {
+						Log.info("[CoronaTestService] Test older than 21 days, no error is returned", log: .api)
+
+						completion(.success(.expired))
+					} else {
+						Log.error("[CoronaTestService] Test younger than 21 days, error is returned", log: .api)
+
+						completion(.failure(.responseFailure(error)))
+					}
+				} else {
+					completion(.failure(.responseFailure(error)))
+				}
 			case let .success(rawTestResult):
 				guard let testResult = TestResult(serverResponse: rawTestResult) else {
 					Log.error("[CoronaTestService] Getting test result failed: Unknown test result \(rawTestResult)", log: .api)
@@ -589,6 +624,11 @@ class CoronaTestService {
 	}
 
 	private func setupOutdatedPublisher(for antigenTest: AntigenTest) {
+		// Only rapid antigen tests with a negative test result can become outdated
+		guard antigenTest.testResult == .negative else {
+			return
+		}
+
 		appConfiguration.appConfiguration()
 			.sink { [weak self] in
 				let hoursToDeemTestOutdated = $0.coronaTestParameters.coronaRapidAntigenTestParameters.hoursToDeemTestOutdated
@@ -672,6 +712,7 @@ class CoronaTestService {
 		if let testResult = mockTestResult(for: .antigen) {
 			return AntigenTest(
 				pointOfCareConsentDate: Date(),
+				registrationDate: Date(),
 				registrationToken: "zxcv",
 				testedPerson: TestedPerson(firstName: "Erika", lastName: "Mustermann", dateOfBirth: "1964-08-12"),
 				testResult: testResult,
