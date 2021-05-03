@@ -682,7 +682,7 @@
 
 "ExposureSubmissionResult_antigenTestAdded" = "Testul dvs. rapid a fost adăugat.";
 
-"ExposureSubmissionResult_antigenTestAddedDesc" = "Rezultatul testului dvs. este afișat timp de 48 de ore. De asemenea, aplicația creează o intrare în jurnalul dvs. de contacte.";
+"ExposureSubmissionResult_antigenTestAddedDesc" = "Rezultatul testului dvs. este afișat timp de 48 de ore.";
 
 "ExposureSubmissionResult_warnOthers" = "Avertizați-i pe ceilalți";
 
@@ -2219,7 +2219,7 @@
 /* Error Reporting */
 "ErrorReport_Title" = "Rapoarte de erori";
 
-"ErrorReport_Analysis" = "Fehleranalyse";
+"ErrorReport_Analysis" = "Analiză erori";
 
 "ErrorReport_Description1" = "Pentru a ajuta echipa de suport tehnic a aplicației la analiza erorilor, puteți înregistra un raport de erori din aplicația Corona-Warn. Astfel, sunt înregistrate etapele tehnice individuale și rezultatele proceselor aplicației. Puteți trimite apoi raportul de erori la suportul tehnic și ajutați la identificarea și corectarea erorilor.\n\nPentru mai multe informații, consultați pagina noastră de întrebări frecvente:";
 
