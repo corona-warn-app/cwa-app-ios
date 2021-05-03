@@ -144,7 +144,7 @@ class CoronaTestService {
 						registrationDate: Date(),
 						registrationToken: registrationToken,
 						testResult: .positive,
-						finalTestResultReceivedDate: nil,
+						finalTestResultReceivedDate: Date(),
 						positiveTestResultWasShown: true,
 						isSubmissionConsentGiven: isSubmissionConsentGiven,
 						submissionTAN: nil,
