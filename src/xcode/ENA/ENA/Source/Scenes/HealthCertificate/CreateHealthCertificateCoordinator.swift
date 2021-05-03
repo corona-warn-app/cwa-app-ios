@@ -90,10 +90,10 @@ final class CreateHealthCertificateCoordinator {
 			dismiss: {
 				self.endCoordinator()
 			},
-			didTapHealtCertificate: {
-				Log.debug("didTapHealtCertificate")
+			didTapHealthCertificate: {
+				Log.debug("didTapHealthCertificate")
 			},
-			didTapRegisterAnotherHealtCertificate: {
+			didTapRegisterAnotherHealthCertificate: {
 				self.showQRCodeScanner()
 			}
 		)
