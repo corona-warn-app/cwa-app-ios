@@ -60,8 +60,8 @@ struct QRCodeCellViewModel {
 
 		return String(
 			format: placeholder,
-			convertStringForVCard(antigenTestProfile.firstName),
 			convertStringForVCard(antigenTestProfile.lastName),
+			convertStringForVCard(antigenTestProfile.firstName),
 			convertStringForVCard(friendlyName),
 			dataOfBirth,
 			convertStringForVCard(antigenTestProfile.email),
