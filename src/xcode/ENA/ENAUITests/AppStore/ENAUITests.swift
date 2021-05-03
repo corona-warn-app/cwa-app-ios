@@ -36,6 +36,8 @@ class ENAUITests: XCTestCase {
 		app.buttons["General.primaryFooterButton"].tap()
 	}
 
+	// MARK: - Screenshots
+
 	func test_0000_Generate_Screenshots_For_AppStore() throws {
 
 		let snapshotsActive = true

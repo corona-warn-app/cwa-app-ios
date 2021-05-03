@@ -22,6 +22,8 @@ class ENAUITests_04c_ExposureLogging: XCTestCase {
 		// Put teardown code here. This method is called after the invocation of each test method in the class.
 	}
 
+	// MARK: - Screenshots
+
 	func test_screenshot_exposureLogging() throws {
 		var screenshotCounter = 0
 		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)

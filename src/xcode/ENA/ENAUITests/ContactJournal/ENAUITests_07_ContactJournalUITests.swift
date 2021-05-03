@@ -448,7 +448,7 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 	
 	// MARK: - Screenshots
 	
-	func testScreenshotOverview() throws {
+	func test_screenshot_Overview() throws {
 		var screenshotCounter = 0
 		// setting up launch arguments
 		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
@@ -462,7 +462,7 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 		snapshot("contact_journal_overview_high_risks_\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
 	
-	func testScreenshotTwoPersonsOneLocationAndMessages() throws {
+	func test_screenshot_TwoPersonsOneLocationAndMessages() throws {
 		var screenshotCounter = 0
 		// setting up launch arguments
 		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
@@ -504,7 +504,7 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 		snapshot("contact_journal_listing1_\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
 
-	func testScreenshotAddTwoPersonsAndOneLocationToDate() throws {
+	func test_screenshot_AddTwoPersonsAndOneLocationToDate() throws {
 		var screenshotCounter = 0
 		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
 		app.launchArguments.append(contentsOf: ["-riskLevel", "high"])
@@ -558,7 +558,7 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 		XCTAssertFalse(dayCell.staticTexts["Erika Musterfrau"].exists)
 	}
 
-	func testScreenshotContactJournalInformation() throws {
+	func test_screenshot_ContactJournalInformation() throws {
 		var screenshotCounter = 0
 		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "NO"])
 
@@ -580,7 +580,7 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 		snapshot("contact_journal_information_screen_\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
 
-	func testScreenshotAddTwoPersonsTwoLocations() throws {
+	func test_screenshot_AddTwoPersonsTwoLocations() throws {
 		// setting up launch arguments
 		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
 		app.launchArguments.append(contentsOf: ["-riskLevel", "high"])
@@ -610,7 +610,7 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 		app.navigationBars.firstMatch.buttons.element(boundBy: 0).tap()
 	}
 
-	func testScreenshotEditPersonScreen() throws {
+	func test_screenshot_EditPersonScreen() throws {
 		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
 
 		// open sheet to edit persons
@@ -620,7 +620,7 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 		snapshot("contact_journal_listing_edit_persons")
 	}
 
-	func testScreenshotEditLocationScreen() throws {
+	func test_screenshot_EditLocationScreen() throws {
 		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
 
 		// open sheet to edit locations

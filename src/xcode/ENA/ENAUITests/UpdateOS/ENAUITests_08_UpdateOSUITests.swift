@@ -18,6 +18,8 @@ class ENAUITests_08_UpdateOS: XCTestCase {
 		app.launchArguments.append(contentsOf: ["-showUpdateOS", "YES"])
 	}
 	
+	// MARK: - Screenshots
+
 	func test_screenshot_UpdateOS() {
 		app.launch()
 		

@@ -69,6 +69,25 @@ class ENAUITests_01a_Home: XCTestCase {
 		// snapshot("ScreenShot_\(#function)")
 	}
 	
+	func test_riskCardHigh_details_faqLink() throws {
+		app.launchArguments.append(contentsOf: ["-riskLevel", "high"])
+		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
+		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
+		app.launch()
+
+		let riskCell = app.cells.element(boundBy: 1)
+		XCTAssertTrue(riskCell.waitForExistence(timeout: .medium))
+		riskCell.tap()
+
+		let faqCell = app.cells[AccessibilityIdentifiers.ExposureDetection.guideFAQ]
+		XCTAssertTrue(faqCell.waitForExistence(timeout: .medium))
+		faqCell.tap()
+
+		XCTAssertTrue(app.webViews.firstMatch.waitForExistence(timeout: .long))
+	}
+
+	// MARK: - Screenshots
+
 	func test_screenshot_homescreen_riskCardHigh_riskOneDay() throws {
 		var screenshotCounter = 0
 		let riskLevel = "high"
@@ -291,23 +310,6 @@ class ENAUITests_01a_Home: XCTestCase {
 		snapshot("homescreenrisk_level_\(riskLevel)_noExposureLogging_\(String(format: "%04d", (screenshotCounter.inc() )))")
 		app.swipeUp()
 		snapshot("homescreenrisk_level_\(riskLevel)_noExposureLogging_\(String(format: "%04d", (screenshotCounter.inc() )))")
-	}
-
-	func test_riskCardHigh_details_faqLink() throws {
-		app.launchArguments.append(contentsOf: ["-riskLevel", "high"])
-		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
-		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
-		app.launch()
-
-		let riskCell = app.cells.element(boundBy: 1)
-		XCTAssertTrue(riskCell.waitForExistence(timeout: .medium))
-		riskCell.tap()
-
-		let faqCell = app.cells[AccessibilityIdentifiers.ExposureDetection.guideFAQ]
-		XCTAssertTrue(faqCell.waitForExistence(timeout: .medium))
-		faqCell.tap()
-
-		XCTAssertTrue(app.webViews.firstMatch.waitForExistence(timeout: .long))
 	}
 	
 	func test_screenshot_details_riskCardHigh_riskOneDay_tracingNdays() throws {

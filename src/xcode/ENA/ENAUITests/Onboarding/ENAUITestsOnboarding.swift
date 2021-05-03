@@ -157,7 +157,7 @@ class ENAUITests_00_Onboarding: XCTestCase {
 	}
 
 	
-	// MARK: -
+	// MARK: - Screenshots
 
 	func test_0002_Screenshots_OnboardingFlow_EnablePermissions_normal_S() throws {
 		var screenshotCounter = 0

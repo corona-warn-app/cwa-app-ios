@@ -246,7 +246,6 @@ enum AccessibilityIdentifiers {
 		static let sectionHeadline = "AppStrings.ExposureSubmission_DispatchSectionHeadline"
 		static let sectionHeadline2 = "AppStrings.ExposureSubmission_DispatchSectionHeadline2"
 		static let qrCodeButtonDescription = "AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"
-		static let qrCodeAntigenButtonDescription = "AppStrings.ExposureSubmissionDispatch.qrCodeAntigenButtonDescription"
 		static let tanButtonDescription = "AppStrings.ExposureSubmissionDispatch.tanButtonDescription"
 		static let hotlineButtonDescription = "AppStrings.ExposureSubmissionDispatch.hotlineButtonDescription"
 	}
@@ -391,6 +390,11 @@ enum AccessibilityIdentifiers {
 				static let descriptionSubHeadline = "AppStrings.ExposureSubmission.AntigenTest.Information.descriptionSubHeadline"
 				static let acknowledgementTitle = "AntigenTest_Information_acknowledgement_title"
 				static let dataPrivacyTitle = "AppStrings.ExposureSubmission.AntigenTest.Information.dataPrivacyTitle"
+			}
+			
+			enum Profile {
+				static let profileTile_Description = "AppStrings.ExposureSubmission.AntigenTest.Profile.profileTile_Description"
+				static let createProfileTile_Description = "AppStrings.ExposureSubmission.AntigenTest.Profile.createProfileTile_Description"
 			}
 		}
 

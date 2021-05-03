@@ -20,51 +20,6 @@ class ENAUITests_10_CheckIns: XCTestCase {
 		
 	}
 	
-	func test_WHEN_scan_QRCode_THEN_checkin_and_checkout() {
-		// GIVEN
-		app.launchArguments.append(contentsOf: ["-checkinInfoScreenShown", "NO"])
-		app.launch()
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Tabbar.checkin].waitForExistence(timeout: .short))
-		
-		// Navigate to CheckIn
-		app.buttons[AccessibilityIdentifiers.Tabbar.checkin].tap()
-		
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Checkin.Information.acknowledgementTitle].exists)
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Checkin.Information.dataPrivacyTitle].exists)
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Checkin.Information.primaryButton].exists)
-		
-		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Information.descriptionTitle].exists)
-		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Information.descriptionSubHeadline].exists)
-		
-		screenshotCounter = 0
-		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_checkinInfoScreen")
-		app.swipeUp()
-		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_checkinInfoScreen")
-		app.swipeUp()
-		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_checkinInfoScreen")
-		app.buttons[AccessibilityIdentifiers.Checkin.Information.primaryButton].tap()
-		
-		// WHEN
-		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.Checkins.Overview.scanButtonTitle)].waitForExistence(timeout: .short))
-		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_mycheckins_emptyList")
-		app.buttons[AccessibilityLabels.localized(AppStrings.Checkins.Overview.scanButtonTitle)].tap()
-		
-		// THEN
-		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Details.checkinFor].waitForExistence(timeout: .short))
-		XCTAssertTrue(app.staticTexts["Supermarkt"].exists)
-		XCTAssertTrue(app.staticTexts["Walldorf"].exists)
-		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.permanent.title.retail)].exists)
-		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_mycheckins_checkin")
-		// check in
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.TraceLocation.Details.checkInButton].waitForExistence(timeout: .short))
-		app.buttons[AccessibilityIdentifiers.TraceLocation.Details.checkInButton].tap()
-
-		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_mycheckins")
-		
-		// check out and clean up; take screenshots
-		myCheckins_checkout()
-	}
-	
 	func testCheckinInfoScreen_navigate_to_dataPrivacy() throws {
 		app.launchArguments.append(contentsOf: ["-checkinInfoScreenShown", "NO"])
 		app.launch()
@@ -112,6 +67,53 @@ class ENAUITests_10_CheckIns: XCTestCase {
 		app.buttons[AccessibilityIdentifiers.Checkin.Information.primaryButton].tap()
 				
 		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.Checkins.Overview.title)].waitForExistence(timeout: .short))
+	}
+	
+	// MARK: - Screenshots
+
+	func test_screenshot_WHEN_scan_QRCode_THEN_checkin_and_checkout() {
+		// GIVEN
+		app.launchArguments.append(contentsOf: ["-checkinInfoScreenShown", "NO"])
+		app.launch()
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Tabbar.checkin].waitForExistence(timeout: .short))
+		
+		// Navigate to CheckIn
+		app.buttons[AccessibilityIdentifiers.Tabbar.checkin].tap()
+		
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Checkin.Information.acknowledgementTitle].exists)
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Checkin.Information.dataPrivacyTitle].exists)
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Checkin.Information.primaryButton].exists)
+		
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Information.descriptionTitle].exists)
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Information.descriptionSubHeadline].exists)
+		
+		screenshotCounter = 0
+		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_checkinInfoScreen")
+		app.swipeUp()
+		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_checkinInfoScreen")
+		app.swipeUp()
+		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_checkinInfoScreen")
+		app.buttons[AccessibilityIdentifiers.Checkin.Information.primaryButton].tap()
+		
+		// WHEN
+		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.Checkins.Overview.scanButtonTitle)].waitForExistence(timeout: .short))
+		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_mycheckins_emptyList")
+		app.buttons[AccessibilityLabels.localized(AppStrings.Checkins.Overview.scanButtonTitle)].tap()
+		
+		// THEN
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Details.checkinFor].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.staticTexts["Supermarkt"].exists)
+		XCTAssertTrue(app.staticTexts["Walldorf"].exists)
+		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.permanent.title.retail)].exists)
+		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_mycheckins_checkin")
+		// check in
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.TraceLocation.Details.checkInButton].waitForExistence(timeout: .short))
+		app.buttons[AccessibilityIdentifiers.TraceLocation.Details.checkInButton].tap()
+
+		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_mycheckins")
+		
+		// check out and clean up; take screenshots
+		myCheckins_checkout()
 	}
 	
 	// MARK: - Private
