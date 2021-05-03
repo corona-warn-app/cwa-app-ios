@@ -129,6 +129,10 @@ jobs:
           name: Run Fastlane smoke tests
           command: cd src/xcode && bundle exec fastlane test_community
           no_output_timeout: 10m
+      - store_test_results:
+          path: src/xcode/fastlane/test_output/
+      - store_artifacts:
+          path: src/xcode/fastlane/test_output/ENACommunity.xcresult.zip
   snapshot:
     macos:
       xcode: *xcode_version
