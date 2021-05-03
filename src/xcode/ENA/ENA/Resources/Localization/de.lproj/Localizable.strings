@@ -698,7 +698,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_antigenTestAdded" = "Ihr Schnelltest wurde hinzugefügt.";
 
-"ExposureSubmissionResult_antigenTestAddedDesc" = "Das Test-Ergebnis wird 48 Stunden hier angezeigt. Zusätzlich legt die App einen Eintrag in Ihrem Kontakt-Tagebuch an.";
+"ExposureSubmissionResult_antigenTestAddedDesc" = "Das Test-Ergebnis wird 48 Stunden hier angezeigt.";
 
 "ExposureSubmissionResult_warnOthers" = "Andere warnen";
 
@@ -853,7 +853,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_RegistrationDate_Antigen" = "Ausgestellt:";
 
-"ExposureSubmissionResult_RegistrationDate_Suffix_Antigen" = "Uhr";
+"ExposureSubmissionResult_RegistrationDate_Suffix_Antigen" = " Uhr";
 
 "ExposureSubmissionResult_Person_Birthday_Prefix" = "geb.";
 
@@ -1526,7 +1526,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeature_22_record_error_logs_title" = "Aufzeichnung von Fehleranalyse-Protokollen";
 
-"NewVersionFeature_22_record_error_logs_description" = "Sie können nun im Rahmen des technischen Supports für die App einen Fehlerprotokoll erstellen, das die Schritte aufzeichnet, die Sie in der App ausführen. Somit wird die Analyse von möglichen Fehlern erleichtert, welches zu einer schnelleren Fehlerbehebung führen kann.";
+"NewVersionFeature_22_record_error_logs_description" = "Sie können nun im Rahmen des technischen Supports für die App ein Fehlerprotokoll erstellen, das die Schritte aufzeichnet, die Sie in der App ausführen. Somit wird die Analyse von möglichen Fehlern erleichtert, welches zu einer schnelleren Fehlerbehebung führen kann.";
 
 "NewVersionFeature_22_antigen_profiles_title" = "Anlegen von Schnelltest-Profilen";
 
