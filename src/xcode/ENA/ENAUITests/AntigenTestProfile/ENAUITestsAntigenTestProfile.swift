@@ -25,7 +25,7 @@ class ENAUITestsAntigenTestProfile: XCTestCase {
 	
 	// MARK: - Tests
 	
-	func testCreateAntigenTestProfile() throws {
+	func test_FIRST_CreateAntigenTestProfile_THEN_DeleteProfile() throws {
 		
 		app.launch()
 		
@@ -37,18 +37,19 @@ class ENAUITestsAntigenTestProfile: XCTestCase {
 		/// Register Test Screen
 
 		let createProfileButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.createProfileTile_Description])
+		XCTAssertTrue(createProfileButton.waitForExistence(timeout: .short))
 		createProfileButton.tap()
 		
 		/// Antigen Test Information Screen
 		
 		// header image exists
-		_ = try XCTUnwrap(app.images[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Information.imageDescription])
+		XCTAssertTrue(app.images[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Information.imageDescription].exists)
 		// title exists
-		_ = try XCTUnwrap(app.staticTexts[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Information.descriptionTitle])
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Information.descriptionTitle].exists)
 		// subtitle exists
-		_ = try XCTUnwrap(app.staticTexts[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Information.descriptionSubHeadline])
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Information.descriptionSubHeadline].exists)
 		// legal text exists
-		_ = try XCTUnwrap(app.cells[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Information.acknowledgementTitle])
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Information.acknowledgementTitle].exists)
 		
 		let dataPrivacyButton = try XCTUnwrap(app.cells[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Information.dataPrivacyTitle])
 		dataPrivacyButton.tap()
@@ -66,9 +67,7 @@ class ENAUITestsAntigenTestProfile: XCTestCase {
 		continueButton.tap()
 		
 		/// Create Antigen Test Profile Screen
-		
-		_ = try XCTUnwrap(app.images[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Information.imageDescription])
-		
+
 		let saveProfileButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton])
 		XCTAssertFalse(saveProfileButton.isEnabled)
 		
@@ -108,17 +107,11 @@ class ENAUITestsAntigenTestProfile: XCTestCase {
 		saveProfileButton.tap()
 		
 		/// Antigen Test Profile Screen
-		
-		// header text exists
-		_ = try XCTUnwrap(app.cells["AppStrings.ExposureSubmission.AntigenTest.Profile.headerText"])
-		// notice text exists
-		_ = try XCTUnwrap(app.cells["AppStrings.ExposureSubmission.AntigenTest.Profile.noticeText"])
-		// notice text exists
-		_ = try XCTUnwrap(app.cells.images.firstMatch)
+
 		// continues button exists
-		_ = try XCTUnwrap(app.buttons["AppStrings.ExposureSubmission.AntigenTest.Profile.primaryButton"])
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].exists)
 		// delete profile button exists
-		_ = try XCTUnwrap(app.buttons["AppStrings.ExposureSubmission.AntigenTest.Profile.secondaryButton"])
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.General.secondaryFooterButton].exists)
 		
 		let closeButton = try XCTUnwrap(app.navigationBars.buttons.element(boundBy: 1))
 		closeButton.tap()
@@ -132,5 +125,17 @@ class ENAUITestsAntigenTestProfile: XCTestCase {
 		// test profile button exists
 		let testProfileButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.profileTile_Description])
 		testProfileButton.tap()
+		
+		/// Antigen Test Profile Screen
+		
+		// delete profile button exists
+		let deleteTestProfileButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.General.secondaryFooterButton])
+		XCTAssertTrue(deleteTestProfileButton.waitForExistence(timeout: .short))
+		deleteTestProfileButton.tap()
+		
+		/// -> Register Test Screen
+		
+		// create test profile button exists
+		_ = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.createProfileTile_Description])
 	}
 }
