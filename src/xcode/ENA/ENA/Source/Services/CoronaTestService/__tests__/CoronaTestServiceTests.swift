@@ -1386,6 +1386,204 @@ class CoronaTestServiceTests: XCTestCase {
 		waitForExpectations(timeout: .short)
 	}
 
+	func test_When_UpdatingPCRTestResultWithErrorCode400_And_RegistrationDateOlderThan21Days_Then_ExpiredTestResultIsSetAndReturnedWithoutError() throws {
+		let client = ClientMock()
+		client.onGetTestResult = { _, _, completion in
+			completion(.failure(.qrDoesNotExist))
+		}
+
+		let dateComponents = DateComponents(day: -21)
+		let registrationDate = try XCTUnwrap(Calendar.current.date(byAdding: dateComponents, to: Date()))
+
+		let testService = CoronaTestService(
+			client: client,
+			store: MockTestStore(),
+			appConfiguration: CachedAppConfigurationMock(),
+			notificationCenter: MockUserNotificationCenter()
+		)
+		testService.pcrTest = PCRTest.mock(
+			registrationToken: "regToken",
+			registrationDate: registrationDate,
+			testResult: .negative
+		)
+
+		let completionExpectation = expectation(description: "Completion should be called.")
+
+		testService.updateTestResult(for: .pcr, force: true, presentNotification: false) {
+			XCTAssertEqual($0, .success(.expired))
+			XCTAssertEqual(testService.pcrTest?.testResult, .expired)
+			completionExpectation.fulfill()
+		}
+
+		waitForExpectations(timeout: .short)
+	}
+
+	func test_When_UpdatingPCRTestResultWithErrorCode400_And_RegistrationDateYoungerThan21Days_Then_ExpiredTestResultIsSetAndErrorReturned() throws {
+		let client = ClientMock()
+		client.onGetTestResult = { _, _, completion in
+			completion(.failure(.qrDoesNotExist))
+		}
+
+		let registrationDate = try XCTUnwrap(Calendar.current.date(byAdding: DateComponents(day: -21, second: 10), to: Date()))
+
+		let testService = CoronaTestService(
+			client: client,
+			store: MockTestStore(),
+			appConfiguration: CachedAppConfigurationMock(),
+			notificationCenter: MockUserNotificationCenter()
+		)
+		testService.pcrTest = PCRTest.mock(
+			registrationToken: "regToken",
+			registrationDate: registrationDate,
+			testResult: .negative
+		)
+
+		let completionExpectation = expectation(description: "Completion should be called.")
+
+		testService.updateTestResult(for: .pcr, force: true, presentNotification: false) {
+			XCTAssertEqual($0, .failure(.responseFailure(.qrDoesNotExist)))
+			XCTAssertEqual(testService.pcrTest?.testResult, .expired)
+			completionExpectation.fulfill()
+		}
+
+		waitForExpectations(timeout: .short)
+	}
+
+	func test_When_UpdatingAntigenTestResultWithErrorCode400_And_RegistrationDateOlderThan21Days_Then_ExpiredTestResultIsSetAndReturnedWithoutError() throws {
+		let client = ClientMock()
+		client.onGetTestResult = { _, _, completion in
+			completion(.failure(.qrDoesNotExist))
+		}
+
+		let dateComponents = DateComponents(day: -21)
+		let registrationDate = try XCTUnwrap(Calendar.current.date(byAdding: dateComponents, to: Date()))
+		// Set point of care date to younger than 21 days to ensure that registration date wins
+		let pointOfCareConsentDate = try XCTUnwrap(Calendar.current.date(byAdding: DateComponents(day: -21, second: 10), to: Date()))
+
+		let testService = CoronaTestService(
+			client: client,
+			store: MockTestStore(),
+			appConfiguration: CachedAppConfigurationMock(),
+			notificationCenter: MockUserNotificationCenter()
+		)
+		testService.antigenTest = AntigenTest.mock(
+			registrationToken: "regToken",
+			pointOfCareConsentDate: pointOfCareConsentDate,
+			registrationDate: registrationDate,
+			testResult: .negative
+		)
+
+		let completionExpectation = expectation(description: "Completion should be called.")
+
+		testService.updateTestResult(for: .antigen, force: true, presentNotification: false) {
+			XCTAssertEqual($0, .success(.expired))
+			XCTAssertEqual(testService.antigenTest?.testResult, .expired)
+			completionExpectation.fulfill()
+		}
+
+		waitForExpectations(timeout: .short)
+	}
+
+	func test_When_UpdatingAntigenTestResultWithErrorCode400_And_RegistrationDateYoungerThan21Days_Then_ExpiredTestResultIsSetAndErrorReturned() throws {
+		let client = ClientMock()
+		client.onGetTestResult = { _, _, completion in
+			completion(.failure(.qrDoesNotExist))
+		}
+
+		let registrationDate = try XCTUnwrap(Calendar.current.date(byAdding: DateComponents(day: -21, second: 10), to: Date()))
+		// Set point of care date to older than 21 days to ensure that registration date wins
+		let pointOfCareConsentDate = try XCTUnwrap(Calendar.current.date(byAdding: DateComponents(day: -21), to: Date()))
+
+		let testService = CoronaTestService(
+			client: client,
+			store: MockTestStore(),
+			appConfiguration: CachedAppConfigurationMock(),
+			notificationCenter: MockUserNotificationCenter()
+		)
+		testService.antigenTest = AntigenTest.mock(
+			registrationToken: "regToken",
+			pointOfCareConsentDate: pointOfCareConsentDate,
+			registrationDate: registrationDate,
+			testResult: .negative
+		)
+
+		let completionExpectation = expectation(description: "Completion should be called.")
+
+		testService.updateTestResult(for: .antigen, force: true, presentNotification: false) {
+			XCTAssertEqual($0, .failure(.responseFailure(.qrDoesNotExist)))
+			XCTAssertEqual(testService.antigenTest?.testResult, .expired)
+			completionExpectation.fulfill()
+		}
+
+		waitForExpectations(timeout: .short)
+	}
+
+	func test_When_UpdatingAntigenTestResultWithErrorCode400_And_PointOfCareConsentDateOlderThan21Days_Then_ExpiredTestResultIsSetAndReturnedWithoutError() throws {
+		let client = ClientMock()
+		client.onGetTestResult = { _, _, completion in
+			completion(.failure(.qrDoesNotExist))
+		}
+
+		let dateComponents = DateComponents(day: -21)
+		let pointOfCareConsentDate = try XCTUnwrap(Calendar.current.date(byAdding: dateComponents, to: Date()))
+
+		let testService = CoronaTestService(
+			client: client,
+			store: MockTestStore(),
+			appConfiguration: CachedAppConfigurationMock(),
+			notificationCenter: MockUserNotificationCenter()
+		)
+		testService.antigenTest = AntigenTest.mock(
+			registrationToken: "regToken",
+			pointOfCareConsentDate: pointOfCareConsentDate,
+			registrationDate: nil,
+			testResult: .negative
+		)
+
+		let completionExpectation = expectation(description: "Completion should be called.")
+
+		testService.updateTestResult(for: .antigen, force: true, presentNotification: false) {
+			XCTAssertEqual($0, .success(.expired))
+			XCTAssertEqual(testService.antigenTest?.testResult, .expired)
+			completionExpectation.fulfill()
+		}
+
+		waitForExpectations(timeout: .short)
+	}
+
+	func test_When_UpdatingAntigenTestResultWithErrorCode400_And_PointOfCareConsentDateYoungerThan21Days_Then_ExpiredTestResultIsSetAndErrorReturned() throws {
+		let client = ClientMock()
+		client.onGetTestResult = { _, _, completion in
+			completion(.failure(.qrDoesNotExist))
+		}
+
+		let dateComponents = DateComponents(day: -21, second: 10)
+		let pointOfCareConsentDate = try XCTUnwrap(Calendar.current.date(byAdding: dateComponents, to: Date()))
+
+		let testService = CoronaTestService(
+			client: client,
+			store: MockTestStore(),
+			appConfiguration: CachedAppConfigurationMock(),
+			notificationCenter: MockUserNotificationCenter()
+		)
+		testService.antigenTest = AntigenTest.mock(
+			registrationToken: "regToken",
+			pointOfCareConsentDate: pointOfCareConsentDate,
+			registrationDate: nil,
+			testResult: .negative
+		)
+
+		let completionExpectation = expectation(description: "Completion should be called.")
+
+		testService.updateTestResult(for: .antigen, force: true, presentNotification: false) {
+			XCTAssertEqual($0, .failure(.responseFailure(.qrDoesNotExist)))
+			XCTAssertEqual(testService.antigenTest?.testResult, .expired)
+			completionExpectation.fulfill()
+		}
+
+		waitForExpectations(timeout: .short)
+	}
+
 	// MARK: - Test Removal
 
 	func testDeletingCoronaTest() {
