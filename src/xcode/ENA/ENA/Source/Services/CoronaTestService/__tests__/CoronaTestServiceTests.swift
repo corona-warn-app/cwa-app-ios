@@ -1355,6 +1355,37 @@ class CoronaTestServiceTests: XCTestCase {
 		waitForExpectations(timeout: .short)
 	}
 
+	func test_When_UpdatingExpiredAntigenTestResultWithoutRegistrationDateAndPointOfCareConsentDateYoungerThan21Days_Then_ClientIsCalled() throws {
+		let mockNotificationCenter = MockUserNotificationCenter()
+		let client = ClientMock()
+
+		let dateComponents = DateComponents(day: -21, second: 10)
+		let pointOfCareConsentDate = try XCTUnwrap(Calendar.current.date(byAdding: dateComponents, to: Date()))
+
+		let testService = CoronaTestService(
+			client: client,
+			store: MockTestStore(),
+			appConfiguration: CachedAppConfigurationMock(),
+			notificationCenter: mockNotificationCenter
+		)
+		testService.antigenTest = AntigenTest.mock(
+			registrationToken: "regToken",
+			registrationDate: pointOfCareConsentDate,
+			testResult: .expired
+		)
+
+		let getTestResultExpectation = expectation(description: "Get Test result should be called.")
+
+		client.onGetTestResult = { _, _, completion in
+			getTestResultExpectation.fulfill()
+			completion(.success(TestResult.expired.rawValue))
+		}
+
+		testService.updateTestResults(force: false, presentNotification: false) { _ in }
+
+		waitForExpectations(timeout: .short)
+	}
+
 	// MARK: - Test Removal
 
 	func testDeletingCoronaTest() {
