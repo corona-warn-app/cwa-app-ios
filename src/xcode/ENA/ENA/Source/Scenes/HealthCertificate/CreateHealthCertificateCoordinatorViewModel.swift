@@ -17,7 +17,7 @@ final class CreateHealthCertificateCoordinatorViewModel {
 
 	}
 
-	let hasShownConsetScreem: Bool = false
+	let hasShownConsentScreen: Bool = false
 	let hasHealthCertificate: Bool = false
 
 	// MARK: - Private

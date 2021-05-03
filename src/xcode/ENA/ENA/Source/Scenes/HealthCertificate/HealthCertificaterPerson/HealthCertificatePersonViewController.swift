@@ -86,7 +86,7 @@ class HealthCertificatePersonViewController: UIViewController, UITableViewDataSo
 	private let didTapRegisterAnotherHealthCertificate: () -> Void
 
 	private let viewModel: HealthCertificatePersonViewModel
-	private let backgroundView = GradientBackgroundView(type: .blueOnly)
+	private let backgroundView = GradientBackgroundView(type: .blueRedTilted)
 	private let tableView = UITableView(frame: .zero, style: .plain)
 
 	private var didCalculateGradientHeight: Bool = false

@@ -25,8 +25,8 @@ final class CreateHealthCertificateCoordinator {
 	// MARK: - Internal
 
 	func start() {
-		if !coordinatorViewModel.hasShownConsetScreem {
-			showConsetScreem()
+		if !coordinatorViewModel.hasShownConsentScreen {
+			showConsentScreen()
 		} else {
 			showQRCodeScanner()
 		}
@@ -42,9 +42,9 @@ final class CreateHealthCertificateCoordinator {
 	private let coordinatorViewModel: CreateHealthCertificateCoordinatorViewModel
 	private let navigationController: UINavigationController
 
-	private func showConsetScreem() {
-		let consetScreen = HealthCertificateConsentViewController(
-			didTapConsetButton: showQRCodeScanner,
+	private func showConsentScreen() {
+		let consentScreen = HealthCertificateConsentViewController(
+			didTapConsentButton: showQRCodeScanner,
 			dismiss: endCoordinator
 		)
 
@@ -59,7 +59,7 @@ final class CreateHealthCertificateCoordinator {
 		)
 
 		let topBottomContainerViewController = TopBottomContainerViewController(
-			topController: consetScreen,
+			topController: consentScreen,
 			bottomController: footerViewController
 		)
 
@@ -79,13 +79,13 @@ final class CreateHealthCertificateCoordinator {
 			}
 		)
 
-		let qrCodeNavigationControler = UINavigationController(rootViewController: qrCodeScannerViewController)
-		navigationController.present(qrCodeNavigationControler, animated: true)
+		let qrCodeNavigationController = UINavigationController(rootViewController: qrCodeScannerViewController)
+		navigationController.present(qrCodeNavigationController, animated: true)
 	}
 
 	// healthCertificatePerson is a string for the moment
 	private func showHealthCertificatePerson(_ healthCertificatePerson: String, animated: Bool) {
-		let consetScreen = HealthCertificatePersonViewController(
+		let consentScreen = HealthCertificatePersonViewController(
 			healthCertificatePerson: healthCertificatePerson,
 			dismiss: {
 				self.endCoordinator()
@@ -109,7 +109,7 @@ final class CreateHealthCertificateCoordinator {
 		)
 
 		let topBottomContainerViewController = TopBottomContainerViewController(
-			topController: consetScreen,
+			topController: consentScreen,
 			bottomController: footerViewController
 		)
 

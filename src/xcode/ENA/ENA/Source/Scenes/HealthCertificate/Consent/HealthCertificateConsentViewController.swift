@@ -9,10 +9,10 @@ class HealthCertificateConsentViewController: UIViewController, FooterViewHandli
 	// MARK: - Init
 
 	init(
-		didTapConsetButton: @escaping () -> Void,
+		didTapConsentButton: @escaping () -> Void,
 		dismiss: @escaping () -> Void
 	) {
-		self.didTapConsetButton = didTapConsetButton
+		self.didTapConsentButton = didTapConsentButton
 		self.dismiss = dismiss
 		self.viewModel = HealthCertificateConsentViewModel()
 		super.init(nibName: nil, bundle: nil)
@@ -43,7 +43,7 @@ class HealthCertificateConsentViewController: UIViewController, FooterViewHandli
 		guard type == .primary else {
 			return
 		}
-		didTapConsetButton()
+		didTapConsentButton()
 	}
 
 	// MARK: - Public
@@ -53,7 +53,7 @@ class HealthCertificateConsentViewController: UIViewController, FooterViewHandli
 	// MARK: - Private
 
 	private let viewModel: HealthCertificateConsentViewModel
-	private let didTapConsetButton: () -> Void
+	private let didTapConsentButton: () -> Void
 	private let dismiss: () -> Void
 
 }
