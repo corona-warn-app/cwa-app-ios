@@ -68,33 +68,39 @@ platform :ios do
       output_file: "swiftlint.result.json",
       config_file: "ENA/.swiftlint.yml",
       strict: true,
+      quiet: true,
       raise_if_swiftlint_error: true,
       reporter: "sonarqube"
     )
 
     begin
-
       # Combined Unit & UI Tests
       run_tests(
         scheme: "ENA",
         xcargs: "SWIFT_TREAT_WARNINGS_AS_ERRORS=NO",
-        testplan: "AllTests",
+        testplan: "SmokeTests",#{}"AllTests", # reduces dev time – remove before flight!
         only_test_configurations: ["DE"],
         devices: ["iPhone 11"],
         prelaunch_simulator: true,
         result_bundle: true,
-        code_coverage: true
+        code_coverage: true,
+        output_types: "",
+        fail_build: false
       )
-
     rescue
+      UI.user_error!("Tests did fail, please check logs above or ENA.xcresult.zip")
+    ensure
+      trainer(
+        output_directory: "fastlane/test_output/",
+        path: "fastlane/test_output/",
+        extension: ".junit"
+      )
 
       zip(
         path: "fastlane/test_output/ENA.xcresult",
         output_path: "fastlane/test_output/ENA.xcresult.zip",
         verbose: false
       )
-      UI.user_error!("Tests did fail, please check logs above or ENA.xcresult.zip")
-
     end
       # Needs to be done here and in rescue if test fails rescue will be executed if it succedes this will be called.
       zip(
