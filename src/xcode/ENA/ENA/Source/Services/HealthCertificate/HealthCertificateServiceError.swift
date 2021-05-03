@@ -11,10 +11,10 @@ extension HealthCertificateService {
 	enum RegistrationError: LocalizedError {
 		case decodingError(HealthCertificateDecodingError)
 		case jsonDecodingError(Error)
+		case noVaccinationEntry
 		case vaccinationCertificateAlreadyRegistered
 		case dateOfBirthMismatch
 		case nameMismatch
-		case noVaccinationEntry
 	}
 
 	enum ProofRequestError: LocalizedError {

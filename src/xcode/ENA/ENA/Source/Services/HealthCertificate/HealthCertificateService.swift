@@ -38,7 +38,35 @@ class HealthCertificateService {
 			do {
 				let healthCertificate = try HealthCertificate(representations: certificateRepresentations)
 
-				return .success((HealthCertifiedPerson(healthCertificates: [healthCertificate], proofCertificate: nil)))
+				guard let vaccinationCertificate = healthCertificate.vaccinationCertificates.first else {
+					return .failure(.noVaccinationEntry)
+				}
+
+				let healthCertifiedPerson = healthCertifiedPersons.first ?? HealthCertifiedPerson(healthCertificates: [], proofCertificate: nil)
+
+				let isDuplicate = healthCertifiedPerson.healthCertificates
+					.contains(where: { $0.vaccinationCertificates.first?.uniqueCertificateIdentifier == vaccinationCertificate.uniqueCertificateIdentifier })
+				if isDuplicate {
+					return .failure(.vaccinationCertificateAlreadyRegistered)
+				}
+
+				let hasDifferentName = healthCertifiedPerson.healthCertificates
+					.contains(where: { $0.name.standardizedName != healthCertificate.name.standardizedName })
+				if hasDifferentName {
+					return .failure(.nameMismatch)
+				}
+
+				let hasDifferentDateOfBirth = healthCertifiedPerson.healthCertificates
+					.contains(where: { $0.dateOfBirth != healthCertificate.dateOfBirth })
+				if hasDifferentDateOfBirth {
+					return .failure(.dateOfBirthMismatch)
+				}
+
+				if !healthCertifiedPersons.contains(healthCertifiedPerson) {
+					healthCertifiedPersons.append(healthCertifiedPerson)
+				}
+
+				return .success((healthCertifiedPerson))
 			} catch {
 				return .failure(.jsonDecodingError(error))
 			}
