@@ -32,7 +32,7 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 		
 		checkinsWithRiskStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 		
-		cellViewModel.checkinsWithRisk.forEach { riskyCheckin in
+		cellViewModel.checkinsWithRisk.enumerated().forEach { index, riskyCheckin in
 			let checkInLabel = ENALabel()
 			checkInLabel.adjustsFontForContentSizeCategory = true
 			checkInLabel.numberOfLines = 0
@@ -43,12 +43,14 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 			let checkinName = NSAttributedString(string: eventName).bulletPointString(bulletPointFont: .enaFont(for: .title2, weight: .bold, italic: false), bulletPointColor: riskColor)
 			
 			checkInLabel.attributedText = checkinName
+			checkInLabel.isAccessibilityElement = true
+			checkInLabel.accessibilityIdentifier = "CheckinWithRisk\(index)"
 			checkinsWithRiskStackView.addArrangedSubview(checkInLabel)
 		}
 		
 		encountersVisitsStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 
-		for entry in cellViewModel.selectedEntries {
+		cellViewModel.selectedEntries.enumerated().forEach { index, entry in
 			let imageView = UIImageView()
 			NSLayoutConstraint.activate([
 				imageView.widthAnchor.constraint(equalToConstant: 32),
@@ -81,6 +83,7 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 			case .contactPerson(let contactPerson):
 				imageView.image = UIImage(named: "Icons_Diary_ContactPerson")
 				entryLabel.text = contactPerson.name
+				entryLabel.accessibilityIdentifier = String(format: AccessibilityIdentifiers.ContactDiaryInformation.Overview.person, index)
 
 				if let personEncounter = contactPerson.encounter {
 					let detailLabelText = cellViewModel.entryDetailTextFor(personEncounter: personEncounter)
@@ -98,6 +101,7 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 			case .location(let location):
 				imageView.image = UIImage(named: "Icons_Diary_Location")
 				entryLabel.text = location.name
+				entryLabel.accessibilityIdentifier = String(format: AccessibilityIdentifiers.ContactDiaryInformation.Overview.location, index)
 
 				if let locationVisit = location.visit {
 					let detailLabelText = cellViewModel.entryDetailTextFor(locationVisit: locationVisit)
@@ -128,6 +132,7 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 		encountersVisitsContainerStackView.isHidden = encountersVisitsStackView.arrangedSubviews.isEmpty
 
 		accessibilityTraits = [.button]
+		accessibilityIdentifier = String(format: AccessibilityIdentifiers.ContactDiaryInformation.Overview.cell, cellViewModel.accessibilityIdentifierIndex)
 	}
 
 	// MARK: - Private

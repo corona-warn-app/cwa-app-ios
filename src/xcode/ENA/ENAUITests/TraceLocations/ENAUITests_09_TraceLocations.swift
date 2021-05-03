@@ -351,7 +351,7 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 		XCTAssertTrue(traceLocationsCardButton.waitForExistence(timeout: .extraLong))
 		traceLocationsCardButton.tap()
 
-		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.addButtonTitle)].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.addButtonTitle)].waitForExistence(timeout: .medium))
 		let event0 = "Mittagessen"
 		let event1 = "Team Meeting"
 		let event2 = "Sprint Planung"
@@ -372,20 +372,15 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 		// THEN
 		// switch to journal and check entries for events
 		app.tabBars.buttons[AccessibilityIdentifiers.Tabbar.diary].tap()
-		XCTAssertTrue(app.navigationBars[AccessibilityLabels.localized(AppStrings.ContactDiary.Overview.title)].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.navigationBars[AccessibilityLabels.localized(AppStrings.ContactDiary.Overview.title)].waitForExistence(timeout: .medium))
 
-		// count the number of entries on the screen
-		var eventcount = [0, 0, 0]
-		for i in 0...(app.cells.count - 1) {
-			let texts = app.cells.element(boundBy: i).staticTexts
-			eventcount[0] += texts["\(event0), \(traceLocations_checked_in[event0] ?? "")"].exists ? 1 : 0
-			eventcount[1] += texts["\(event1), \(traceLocations_checked_in[event1] ?? "")"].exists ? 1 : 0
-			eventcount[2] += texts["\(event2), \(traceLocations_not_checked_in[event2] ?? "")"].exists ? 1 : 0
-		}
 		
-		XCTAssertTrue(eventcount[0] == 1)
-		XCTAssertTrue(eventcount[1] == 1)
-		XCTAssertTrue(eventcount[2] == 0)
+		// Get the first overview table view cell.
+		let overviewCell = app.tables.firstMatch.cells[String(format: AccessibilityIdentifiers.ContactDiaryInformation.Overview.cell, 0)]
+		
+		// Check we have two locations
+		XCTAssertTrue(overviewCell.staticTexts[String(format: AccessibilityIdentifiers.ContactDiaryInformation.Overview.location, 0)].waitForExistence(timeout: .short))
+		XCTAssertTrue(overviewCell.staticTexts[String(format: AccessibilityIdentifiers.ContactDiaryInformation.Overview.location, 1)].waitForExistence(timeout: .short))
 	}
 	
 	func test_WHEN_navigate_to_TraceLocations_for_the_first_time_THEN_infoscreen_is_displayed() throws {
