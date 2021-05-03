@@ -70,9 +70,39 @@ class HealthCertificatePersonViewController: UIViewController, UITableViewDataSo
 	// MARK: - Protocol UITableViewDelegate
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = UITableViewCell(style: .default, reuseIdentifier: "DummyCell")
-		cell.textLabel?.text = "Testcell"
-		return cell
+		let section = HealthCertificatePersonViewModel.TableViewSection.map(indexPath.section)
+
+		switch section {
+		case .header:
+			let cell = tableView.dequeueReusableCell(cellType: SimpleTextCell.self, for: indexPath)
+			cell.configure(with: viewModel.headerCellViewModel)
+			return cell
+
+		case .incompleteVaccination:
+			let cell = tableView.dequeueReusableCell(cellType: SimpleTextCell.self, for: indexPath)
+			cell.configure(with: viewModel.incompleteVaccinationCellViewModel)
+			return cell
+
+//		case .qrCode:
+//			let cell = tableView.dequeueReusableCell(cellType: QRCodeCell.self, for: indexPath)
+//			cell.configure(with: viewModel.qrCodeCellViewModel)
+//			return cell
+
+		case .person:
+			let cell = tableView.dequeueReusableCell(cellType: SimpleTextCell.self, for: indexPath)
+			cell.configure(with: viewModel.personCellViewModel)
+			return cell
+
+//		case .certificates:
+//			let cell = tableView.dequeueReusableCell(cellType: SimpleTextCell.self, for: indexPath)
+//			cell.configure(with: viewModel.headerCellViewModel)
+//			return cell
+		}
+
+
+//		let cell = UITableViewCell(style: .default, reuseIdentifier: "DummyCell")
+//		cell.textLabel?.text = "Testcell"
+//		return cell
 	}
 
 	// MARK: - Public

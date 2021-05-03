@@ -2,7 +2,8 @@
 // 🦠 Corona-Warn-App
 //
 
-import Foundation
+import UIKit
+import Contacts
 
 final class HealthCertificatePersonViewModel {
 
@@ -20,6 +21,72 @@ final class HealthCertificatePersonViewModel {
 
 	// MARK: - Internal
 
+	let headerCellViewModel: SimpleTextCellViewModel = {
+		SimpleTextCellViewModel(
+			backgroundColor: .clear,
+			textColor: .enaColor(for: .textContrast),
+			textAlignment: .center,
+			text: "Digitaler Impfnachweis",
+			topSpace: 42.0,
+			font: .enaFont(for: .headline),
+			accessibilityTraits: .header
+		)
+	}()
+
+	let incompleteVaccinationCellViewModel: SimpleTextCellViewModel = {
+		let attributedName = NSAttributedString(
+			string: "SARS-CoV-2\nImpfung",
+			attributes: [
+				.font: UIFont.enaFont(for: .title1),
+				.foregroundColor: UIColor.enaColor(for: .textPrimary1)
+			]
+		)
+
+		let attributedDetails = NSAttributedString(
+			string: "Unvollständiger Impfschutz",
+			attributes: [
+				.font: UIFont.enaFont(for: .body),
+				.foregroundColor: UIColor.enaColor(for: .textPrimary1)
+			]
+		)
+
+		return SimpleTextCellViewModel(
+			backgroundColor: .enaColor(for: .background),
+			attributedText: [attributedName, attributedDetails].joined(with: "\n"),
+			topSpace: 18.0,
+			font: .enaFont(for: .headline),
+			boarderColor: .enaColor(for: .hairline),
+			accessibilityTraits: .staticText
+		)
+	}()
+
+	var personCellViewModel: SimpleTextCellViewModel {
+		let attributedName = NSAttributedString(
+			string: friendlyName,
+			attributes: [
+				.font: UIFont.enaFont(for: .headline),
+				.foregroundColor: UIColor.enaColor(for: .textPrimary1)
+			]
+		)
+
+		let attributedDetails = NSAttributedString(
+			string: dateOfBirth,
+			attributes: [
+				.font: UIFont.enaFont(for: .body),
+				.foregroundColor: UIColor.enaColor(for: .textPrimary1)
+			]
+		)
+
+		return SimpleTextCellViewModel(
+			backgroundColor: .enaColor(for: .background),
+			attributedText: [attributedName, attributedDetails].joined(with: "\n"),
+			topSpace: 18.0,
+			font: .enaFont(for: .headline),
+			boarderColor: .enaColor(for: .hairline),
+			accessibilityTraits: .staticText
+		)
+	}
+
 	func numberOfItems(in section: TableViewSection) -> Int {
 		switch section {
 		default:
@@ -30,9 +97,9 @@ final class HealthCertificatePersonViewModel {
 	enum TableViewSection: Int, CaseIterable {
 		case header
 		case incompleteVaccination
-		case qrCode
+//		case qrCode
 		case person
-		case certificates
+//		case certificates
 
 		static var numberOfSections: Int {
 			allCases.count
@@ -47,5 +114,24 @@ final class HealthCertificatePersonViewModel {
 	}
 
 	// MARK: - Private
+
+	private var friendlyName: String {
+		var components = PersonNameComponents()
+		components.givenName = "Max"
+		components.familyName = "Mustermann"
+
+		let formatter = PersonNameComponentsFormatter()
+		formatter.style = .medium
+		return formatter.string(from: components).trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+	}
+
+	private var dateOfBirth: String {
+		let dateOfBirth = Date(timeIntervalSince1970: 1457896523)
+		return String(
+			format: AppStrings.ExposureSubmission.AntigenTest.Profile.dateOfBirthFormatText,
+			DateFormatter.localizedString(from: dateOfBirth, dateStyle: .medium, timeStyle: .none)
+		)
+	}
+
 
 }
