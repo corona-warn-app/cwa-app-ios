@@ -102,7 +102,6 @@ platform :ios do
         verbose: false
       )
     end
-
   end
 
   desc "Run smoke tests (Community)"
@@ -112,8 +111,11 @@ platform :ios do
         scheme: "ENACommunity",
         xcargs: "SWIFT_TREAT_WARNINGS_AS_ERRORS=NO",
         testplan: "SmokeTests",
-        result_bundle: false,
-        code_coverage: false
+        result_bundle: true,
+        code_coverage: false,
+        fail_build: false,
+        output_types: "junit",
+        output_files: "report_community.junit"
       )
     rescue
       UI.user_error!("Tests did fail, please check logs above or ENA.xcresult.zip")
@@ -125,8 +127,8 @@ platform :ios do
       )
 
       zip(
-        path: "fastlane/test_output/ENA.xcresult",
-        output_path: "fastlane/test_output/ENA.xcresult.zip",
+        path: "fastlane/test_output/ENACommunity.xcresult",
+        output_path: "fastlane/test_output/ENAENACommunity.xcresult.zip",
         verbose: false
       )
     end
