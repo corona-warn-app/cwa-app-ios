@@ -845,9 +845,9 @@
 
 "ExposureSubmissionResult_Timer_Title" = "Rezultat disponibil de la";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Title" = "Caracteristica de verificare";
+"ExposureSubmissionResult_Negative_Antigen_Proof_Title" = " ";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "De asemenea, puteți utiliza rezultatul testului afișat aici ca dovadă a unui rezultat negativ la un test rapid. \n\nRețineți că trebuie să faceți dovada rezultatului testului dvs. rapid doar dacă acest lucru este cerut de lege. Puteți face dovada rezultatului utilizând aplicația sau într-un alt mod. Pentru mai multe informații, familiarizați-vă cu criteriile de acceptare a dovezii testării din statul dvs. federal.";
+"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Rezultatul testului dvs. este privat, deși unele legi vă pot solicita să îl partajați. Când vi se solicită acest lucru, îl puteți arăta prin intermediul unuia dintre modurile furnizate.";
 
 /* Exposure Submission */
 "ExposureSubmissionError_ErrorPrefix" = "A apărut o eroare tehnică la trimiterea datelor dvs. Contactați hotline-ul tehnic. Veți găsi numărul de telefon accesând Informații aplicație.";
