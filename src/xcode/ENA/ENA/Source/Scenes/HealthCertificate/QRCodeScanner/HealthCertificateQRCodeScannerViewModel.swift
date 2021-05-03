@@ -48,6 +48,10 @@ class HealthCertificateQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutput
 	// MARK: - Internal
 
 	lazy var captureSession: AVCaptureSession? = {
+		#if targetEnvironment(simulator)
+		onError?(.simulator)
+		return nil
+		#endif
 		guard let currentCaptureDevice = captureDevice,
 			let captureDeviceInput = try? AVCaptureDeviceInput(device: currentCaptureDevice) else {
 			onError?(.cameraPermissionDenied)

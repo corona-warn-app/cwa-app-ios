@@ -29,6 +29,8 @@ class HealthCertificateQRCodeScannerViewController: UIViewController {
 					DispatchQueue.main.async {
 						self.dismiss()
 					}
+				case .simulator:
+					didScanVaccination("Vaccination found by simulator")
 				default:
 					DispatchQueue.main.async {
 						self.showErrorAlert(error: error)

@@ -9,6 +9,7 @@ enum QRScannerError: Error, LocalizedError {
 	case cameraPermissionDenied
 	case codeNotFound
 	case other
+	case simulator
 
 	var errorDescription: String? {
 		switch self {

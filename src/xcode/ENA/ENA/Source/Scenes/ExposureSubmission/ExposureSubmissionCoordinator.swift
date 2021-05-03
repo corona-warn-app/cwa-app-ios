@@ -522,7 +522,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 							)
 							self?.presentedViewController?.present(alert, animated: true)
 						}
-					case .other:
+					default:
 						Log.error("QRScannerError.other occurred.", log: .ui)
 					}
 				},
