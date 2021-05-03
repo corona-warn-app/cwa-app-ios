@@ -277,10 +277,8 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 	let kvStore: SQLiteKeyValueStore
 
 	// MARK: - Private
-
 	private let directoryURL: URL
-	private let environmentProvider: EnvironmentProviding
-	
+
 }
 
 extension SecureStore: EventRegistrationCaching {
