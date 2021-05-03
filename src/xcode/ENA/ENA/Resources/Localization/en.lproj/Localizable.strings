@@ -483,7 +483,7 @@
 "ExposureSubmission_GeneralErrorTitle" = "Error";
 
 /* Exposure Submission Dispatch */
-"ExposureSubmission_DispatchTitle" = "Register your Test";
+"ExposureSubmission_DispatchTitle" = "Register Your Test";
 
 "ExposureSubmissionIntroduction_AccImageDescription" = "A device transmits an encrypted positive test diagnosis to the system.";
 
@@ -728,7 +728,7 @@
 
 "ExposureSubmissionResult_WarnOthersConsentNotGiven" = "Consent “Warn others” not granted";
 
-"ExposureSubmissionResult_testRemove" = "Delete test";
+"ExposureSubmissionResult_testRemove" = "Remove Test";
 
 "ExposureSubmissionResult_testRemoveDesc" = "Please delete the test from the Corona-Warn-App, so that you can save a new test code here if necessary.";
 
@@ -845,7 +845,7 @@
 
 "ExposureSubmissionResult_Timer_Title" = "Result available since";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Title" = "Verification Feature";
+"ExposureSubmissionResult_Negative_Antigen_Proof_Title" = " ";
 
 "ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Your test result is private, although some laws may require you to share it. When required, you may show it via any of the ways provided.";
 
@@ -2339,27 +2339,4 @@
 "Submission_Checkins_Alert_Share" = "Share";
 
 "Submission_Checkins_Alert_DontShare" = "Don’t Share";
-
-/* Create Antigen Profile */
-"AntigenProfile_Create_Title" = "Rapid Test Profile";
-
-"AntigenProfile_Create_Description" = "Save your personal data as a QR code to speed up registration at testing points.";
-
-"AntigenProfile_Create_FirstNamePlaceholder" = "First Name";
-
-"AntigenProfile_Create_LastNamePlaceholder" = "Last Name";
-
-"AntigenProfile_Create_BirthDatePlaceholder" = "Date of Birth";
-
-"AntigenProfile_Create_StreetPlaceholder" = "Street and House Number";
-
-"AntigenProfile_Create_PostalCodePlaceholder" = "Postal Code";
-
-"AntigenProfile_Create_CityPlaceholder" = "City";
-
-"AntigenProfile_Create_PhoneNumberPlaceholder" = "Phone";
-
-"AntigenProfile_Create_EmailAddressPlaceholder" = "E-Mail Address";
-
-"AntigenProfile_Create_Save_Button_Title" = "Save";
 
