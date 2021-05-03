@@ -4135,7 +4135,6 @@
 		85D759712457059A008175F0 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				017D8D96263ACD760009E91C /* HealthCertificate */,
 				BA3A79C22631B7AF00B6D6C0 /* AntigenTestProfileInformation */,
 				BA0F6C57263186690046BA48 /* CreateAntigenTestProfile */,
 				BA0F6C4C26317B7F0046BA48 /* AntigenTestProfile */,
@@ -4220,6 +4219,7 @@
 				EB0F740A25E93C65003BFAE7 /* Event Registration */,
 				2FA9E39124D2F2620030561C /* Exposure Submission */,
 				B14D0CD8246E939600D5BEBC /* Exposure Transaction */,
+				017D8D96263ACD760009E91C /* HealthCertificate */,
 				AB5F84AB24F8F6EB000400D4 /* Migration */,
 				504C9CC725C44BE60005875B /* OTP */,
 				BA07735A25C2FC5E00EAF6B8 /* PPAccessControl */,
