@@ -32,7 +32,6 @@ class ENAUITests_01a_Home: XCTestCase {
 		XCTAssertTrue(app.cells["AppStrings.Home.infoCardAboutTitle"].waitForExistence(timeout: .medium))
 		XCTAssertTrue(app.cells["AppStrings.Home.appInformationCardTitle"].waitForExistence(timeout: .medium))
 		XCTAssertTrue(app.cells["AppStrings.Home.settingsCardTitle"].waitForExistence(timeout: .medium))
-		// snapshot("ScreenShot_\(#function)")
 	}
 
 	func test_0011_HomeFlow_extrasmall() throws {
@@ -48,7 +47,6 @@ class ENAUITests_01a_Home: XCTestCase {
 		XCTAssertTrue(app.cells["AppStrings.Home.infoCardAboutTitle"].waitForExistence(timeout: .short))
 		XCTAssertTrue(app.cells["AppStrings.Home.appInformationCardTitle"].waitForExistence(timeout: .short))
 		XCTAssertTrue(app.cells["AppStrings.Home.settingsCardTitle"].waitForExistence(timeout: .short))
-		// snapshot("ScreenShot_\(#function)")
 	}
 
 	func test_0013_HomeFlow_extralarge() throws {
@@ -66,7 +64,6 @@ class ENAUITests_01a_Home: XCTestCase {
 		app.swipeUp()
 		XCTAssertTrue(app.cells["AppStrings.Home.appInformationCardTitle"].waitForExistence(timeout: .medium))
 		XCTAssertTrue(app.cells["AppStrings.Home.settingsCardTitle"].waitForExistence(timeout: .short))
-		// snapshot("ScreenShot_\(#function)")
 	}
 	
 	func test_riskCardHigh_details_faqLink() throws {
