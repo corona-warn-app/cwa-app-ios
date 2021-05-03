@@ -728,7 +728,7 @@
 
 "ExposureSubmissionResult_WarnOthersConsentNotGiven" = "“Diğer kullanıcıları uyar” onayı verilmedi";
 
-"ExposureSubmissionResult_testRemove" = "Testi sil";
+"ExposureSubmissionResult_testRemove" = "Testi Kaldır";
 
 "ExposureSubmissionResult_testRemoveDesc" = "Gerekirse yeni bir test kodu kaydedebilmeniz için lütfen testi Corona-Warn-App'ten silin.";
 
@@ -845,9 +845,9 @@
 
 "ExposureSubmissionResult_Timer_Title" = "Sonucun çıktığı tarih:";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Title" = "Doğrulama Özelliği";
+"ExposureSubmissionResult_Negative_Antigen_Proof_Title" = " ";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Burada görüntülenen test sonucunu da negatif bir hızlı test sonucu kanıtı olarak kullanabilirsiniz. \n\nYalnızca yasalarca gerekli kılındığı takdirde hızlı test sonucunuzu kanıtlamanız gerektiğini unutmayın. Sonucu, uygulamayı kullanarak veya farklı bir şekilde kanıtlayabilirsiniz. Daha fazla bilgi için lütfen federal eyaletinizde geçerli test kanıtı kabül ölçütlerini öğrenin.";
+"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Test sonucunuz özeldir ancak bazı yasalar nedeniyle paylaşmanız gerekebilir. Paylaşmanız gerekirse sunulan pek çok yöntemden birini kullanarak gösterebilirsiniz.";
 
 /* Exposure Submission */
 "ExposureSubmissionError_ErrorPrefix" = "Verilerinizi gönderirken teknik hata oluştu. Lütfen teknik yardım hattı ile iletişime geçin. Telefon numarasını Uygulama Bilgileri bölümünde bulabilirsiniz.";
