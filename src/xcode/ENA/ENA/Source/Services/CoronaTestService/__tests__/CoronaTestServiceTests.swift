@@ -1252,6 +1252,109 @@ class CoronaTestServiceTests: XCTestCase {
 		waitForExpectations(timeout: .short)
 	}
 
+	func test_When_UpdatingExpiredTestResultOlderThan21Days_Then_ClientIsNotCalled() throws {
+		let mockNotificationCenter = MockUserNotificationCenter()
+		let client = ClientMock()
+
+		let registrationDate = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: -21, to: Date()))
+
+		let testService = CoronaTestService(
+			client: client,
+			store: MockTestStore(),
+			appConfiguration: CachedAppConfigurationMock(),
+			notificationCenter: mockNotificationCenter
+		)
+		testService.antigenTest = AntigenTest.mock(
+			registrationToken: "regToken",
+			registrationDate: registrationDate,
+			testResult: .expired
+		)
+		testService.pcrTest = PCRTest.mock(
+			registrationToken: "regToken",
+			registrationDate: registrationDate,
+			testResult: .expired
+		)
+
+		let getTestResultExpectation = expectation(description: "Get Test result should NOT be called.")
+		getTestResultExpectation.isInverted = true
+
+		client.onGetTestResult = { _, _, _ in
+			getTestResultExpectation.fulfill()
+		}
+
+		testService.updateTestResults(force: false, presentNotification: false) { _ in }
+
+		waitForExpectations(timeout: .short)
+	}
+
+	func test_When_UpdatingExpiredAntigenTestResultWithoutRegistrationDateButPointOfCareConsentDateOlderThan21Days_Then_ClientIsNotCalled() throws {
+		let mockNotificationCenter = MockUserNotificationCenter()
+		let client = ClientMock()
+
+		let pointOfCareConsentDate = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: -21, to: Date()))
+
+		let testService = CoronaTestService(
+			client: client,
+			store: MockTestStore(),
+			appConfiguration: CachedAppConfigurationMock(),
+			notificationCenter: mockNotificationCenter
+		)
+		testService.antigenTest = AntigenTest.mock(
+			registrationToken: "regToken",
+			pointOfCareConsentDate: pointOfCareConsentDate,
+			registrationDate: nil,
+			testResult: .expired
+		)
+
+		let getTestResultExpectation = expectation(description: "Get Test result should NOT be called.")
+		getTestResultExpectation.isInverted = true
+
+		client.onGetTestResult = { _, _, _ in
+			getTestResultExpectation.fulfill()
+		}
+
+		testService.updateTestResults(force: false, presentNotification: false) { _ in }
+
+		waitForExpectations(timeout: .short)
+	}
+
+	func test_When_UpdatingExpiredTestResultYoungerThan21Days_Then_ClientIsCalled() throws {
+		let mockNotificationCenter = MockUserNotificationCenter()
+		let client = ClientMock()
+
+		let dateComponents = DateComponents(day: -21, second: 10)
+		let registrationDate = try XCTUnwrap(Calendar.current.date(byAdding: dateComponents, to: Date()))
+
+		let testService = CoronaTestService(
+			client: client,
+			store: MockTestStore(),
+			appConfiguration: CachedAppConfigurationMock(),
+			notificationCenter: mockNotificationCenter
+		)
+		testService.antigenTest = AntigenTest.mock(
+			registrationToken: "regToken",
+			registrationDate: registrationDate,
+			testResult: .expired
+		)
+		testService.pcrTest = PCRTest.mock(
+			registrationToken: "regToken",
+			registrationDate: registrationDate,
+			testResult: .expired
+		)
+
+		let getTestResultExpectation = expectation(description: "Get Test result should be called.")
+		getTestResultExpectation.expectedFulfillmentCount = 2
+
+		client.onGetTestResult = { _, _, completion in
+			getTestResultExpectation.fulfill()
+			completion(.success(TestResult.expired.rawValue))
+		}
+
+		testService.updateTestResults(force: false, presentNotification: false) { _ in }
+
+		waitForExpectations(timeout: .short)
+	}
+
 	// MARK: - Test Removal
 
 	func testDeletingCoronaTest() {
