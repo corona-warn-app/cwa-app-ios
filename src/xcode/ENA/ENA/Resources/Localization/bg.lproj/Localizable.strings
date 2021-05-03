@@ -728,7 +728,7 @@
 
 "ExposureSubmissionResult_WarnOthersConsentNotGiven" = "Съгласие „Предупредете другите“ не е дадено";
 
-"ExposureSubmissionResult_testRemove" = "Изтриване на тест";
+"ExposureSubmissionResult_testRemove" = "Премахване на теста";
 
 "ExposureSubmissionResult_testRemoveDesc" = "Моля, изтрийте теста от приложението Corona-Warn-App, за да можете да запазите нов код на тест, ако е необходимо.";
 
@@ -845,9 +845,9 @@
 
 "ExposureSubmissionResult_Timer_Title" = "Резултатът ще е достъпен след";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Title" = "Функция за проверка";
+"ExposureSubmissionResult_Negative_Antigen_Proof_Title" = " ";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Можете също така да използвате резултата от теста, който се показва тук, като доказателство за отрицателен резултат от бърз тест. \n\nМоля, имайте предвид, че сте задължени да докажете резултата от вашия бърз тест единствено ако законът изисква това. Може да докажете резултата си чрез приложението или по друг начин. За повече информация, моля запознайте се с критериите за приемане на доказателства за тестване във Вашата федерална провинция. ";
+"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Резултатът от Вашия тест е поверителен и не сте задължени да го споделяте. В случаите, когато това се изисква по закон, можете да да използвате който и да е от предоставените начини.";
 
 /* Exposure Submission */
 "ExposureSubmissionError_ErrorPrefix" = "Възникна техническа грешка при изпращането на данните Ви. Моля, обадете се на горещата линия за технически въпроси. Може да намерите телефонния номер в раздел „За приложението“.";

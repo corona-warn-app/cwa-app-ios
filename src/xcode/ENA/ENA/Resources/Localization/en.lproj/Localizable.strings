@@ -483,7 +483,7 @@
 "ExposureSubmission_GeneralErrorTitle" = "Error";
 
 /* Exposure Submission Dispatch */
-"ExposureSubmission_DispatchTitle" = "Register your Test";
+"ExposureSubmission_DispatchTitle" = "Register Your Test";
 
 "ExposureSubmissionIntroduction_AccImageDescription" = "A device transmits an encrypted positive test diagnosis to the system.";
 
@@ -682,7 +682,7 @@
 
 "ExposureSubmissionResult_antigenTestAdded" = "Your rapid test was added.";
 
-"ExposureSubmissionResult_antigenTestAddedDesc" = "The test result is displayed her for 48 hours.";
+"ExposureSubmissionResult_antigenTestAddedDesc" = "The test result is displayed here for 48 hours.";
 
 "ExposureSubmissionResult_warnOthers" = "Warn Others";
 
@@ -728,7 +728,7 @@
 
 "ExposureSubmissionResult_WarnOthersConsentNotGiven" = "Consent “Warn others” not granted";
 
-"ExposureSubmissionResult_testRemove" = "Delete test";
+"ExposureSubmissionResult_testRemove" = "Remove Test";
 
 "ExposureSubmissionResult_testRemoveDesc" = "Please delete the test from the Corona-Warn-App, so that you can save a new test code here if necessary.";
 
@@ -845,7 +845,7 @@
 
 "ExposureSubmissionResult_Timer_Title" = "Result available since";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Title" = "";
+"ExposureSubmissionResult_Negative_Antigen_Proof_Title" = " ";
 
 "ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Your test result is private, although some laws may require you to share it. When required, you may show it via any of the ways provided.";
 
@@ -2307,3 +2307,4 @@
 "Submission_Checkins_Alert_Share" = "Share";
 
 "Submission_Checkins_Alert_DontShare" = "Don’t Share";
+
