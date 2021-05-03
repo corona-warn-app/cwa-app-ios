@@ -4,21 +4,19 @@
 
 import UIKit
 
-class HealthCertificatePersonViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, DismissHandling, FooterViewHandling {
+class HealthCertificateViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, DismissHandling, FooterViewHandling {
 
 	// MARK: - Init
 
 	init(
-		// add real HealCertificatePerson
-		healthCertificatePerson: String,
+		// add real HealCertificate
+		healthCertificate: String,
 		dismiss: @escaping () -> Void,
-		didTapHealthCertificate: @escaping (String) -> Void,
-		didTapRegisterAnotherHealthCertificate: @escaping () -> Void
+		didTapDelete: @escaping () -> Void
 	) {
 		self.dismiss = dismiss
-		self.didTapHealthCertificate = didTapHealthCertificate
-		self.didTapRegisterAnotherHealthCertificate = didTapRegisterAnotherHealthCertificate
-		self.viewModel = HealthCertificatePersonViewModel()
+		self.didTapDelete = didTapDelete
+		self.viewModel = HealthCertificateViewModel()
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -54,7 +52,7 @@ class HealthCertificatePersonViewController: UIViewController, UITableViewDataSo
 		guard type == .primary else {
 			return
 		}
-		didTapRegisterAnotherHealthCertificate()
+		didTapDelete()
 	}
 
 	// MARK: - Protocol UITableViewDateSource
@@ -64,7 +62,7 @@ class HealthCertificatePersonViewController: UIViewController, UITableViewDataSo
 	}
 
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		viewModel.numberOfItems(in: HealthCertificatePersonViewModel.TableViewSection.map(section))
+		viewModel.numberOfItems(in: HealthCertificateViewModel.TableViewSection.map(section))
 	}
 
 	// MARK: - Protocol UITableViewDelegate
@@ -82,10 +80,9 @@ class HealthCertificatePersonViewController: UIViewController, UITableViewDataSo
 	// MARK: - Private
 
 	private let dismiss: () -> Void
-	private let didTapHealthCertificate: (String) -> Void
-	private let didTapRegisterAnotherHealthCertificate: () -> Void
+	private let didTapDelete: () -> Void
 
-	private let viewModel: HealthCertificatePersonViewModel
+	private let viewModel: HealthCertificateViewModel
 	private let backgroundView = GradientBackgroundView(type: .blueRedTilted)
 	private let tableView = UITableView(frame: .zero, style: .plain)
 
@@ -100,7 +97,6 @@ class HealthCertificatePersonViewController: UIViewController, UITableViewDataSo
 		parent?.navigationController?.navigationBar.tintColor = .white
 		parent?.navigationItem.titleView = logoImageView
 		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton(.contrast)
-		parent?.navigationItem.hidesBackButton = true
 
 		// create a transparent navigation bar
 		let emptyImage = UIImage()

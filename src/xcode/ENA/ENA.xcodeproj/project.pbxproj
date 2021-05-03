@@ -1008,6 +1008,8 @@
 		BAF5371625E7CC1B00C835E2 /* Sequence+NSAttributedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF5371525E7CC1B00C835E2 /* Sequence+NSAttributedText.swift */; };
 		BAF5371B25E7D1A300C835E2 /* UIImage+Resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF5371A25E7D1A300C835E2 /* UIImage+Resize.swift */; };
 		BAF5B3CD2604E1D700DF8149 /* SelectTraceLocationTypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF5B3CC2604E1D700DF8149 /* SelectTraceLocationTypeCell.swift */; };
+		BAF959212640960600672494 /* HealthCertificateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF9591F264095E900672494 /* HealthCertificateViewController.swift */; };
+		BAF959222640961900672494 /* HealthCertificateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF95920264095EA00672494 /* HealthCertificateViewModel.swift */; };
 		BAFBF36925ADE0F1003F5DC2 /* HomeInfoCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFBF36825ADE0F1003F5DC2 /* HomeInfoCellModelTests.swift */; };
 		CD2EC329247D82EE00C6B3F9 /* NotificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2EC328247D82EE00C6B3F9 /* NotificationSettingsViewController.swift */; };
 		CD678F6F246C43FC00B6A0F8 /* MockURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD678F6E246C43FC00B6A0F8 /* MockURLSession.swift */; };
@@ -2153,6 +2155,8 @@
 		BAF5371525E7CC1B00C835E2 /* Sequence+NSAttributedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+NSAttributedText.swift"; sourceTree = "<group>"; };
 		BAF5371A25E7D1A300C835E2 /* UIImage+Resize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Resize.swift"; sourceTree = "<group>"; };
 		BAF5B3CC2604E1D700DF8149 /* SelectTraceLocationTypeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTraceLocationTypeCell.swift; sourceTree = "<group>"; };
+		BAF9591F264095E900672494 /* HealthCertificateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateViewController.swift; sourceTree = "<group>"; };
+		BAF95920264095EA00672494 /* HealthCertificateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateViewModel.swift; sourceTree = "<group>"; };
 		BAFBF36825ADE0F1003F5DC2 /* HomeInfoCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInfoCellModelTests.swift; sourceTree = "<group>"; };
 		CD2EC328247D82EE00C6B3F9 /* NotificationSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsViewController.swift; sourceTree = "<group>"; };
 		CD678F6A246C43E200B6A0F8 /* MockExposureManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockExposureManager.swift; sourceTree = "<group>"; };
@@ -5675,6 +5679,7 @@
 				BA18075C263D7F32008AD370 /* CreateHealthCertificateCoordinatorViewModel.swift */,
 				BA180757263D6D75008AD370 /* Consent */,
 				BA5307222640359400991A12 /* HealthCertificaterPerson */,
+				BAF9591E264095DC00672494 /* HealthCertificate */,
 				8FE87F8C263AD0FF00A9C904 /* QRCodeScanner */,
 			);
 			path = HealthCertificate;
@@ -6206,6 +6211,15 @@
 				BAF5B3CC2604E1D700DF8149 /* SelectTraceLocationTypeCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		BAF9591E264095DC00672494 /* HealthCertificate */ = {
+			isa = PBXGroup;
+			children = (
+				BAF9591F264095E900672494 /* HealthCertificateViewController.swift */,
+				BAF95920264095EA00672494 /* HealthCertificateViewModel.swift */,
+			);
+			path = HealthCertificate;
 			sourceTree = "<group>";
 		};
 		BAFBF36725ADE0AA003F5DC2 /* __tests__ */ = {
@@ -6969,6 +6983,7 @@
 				B1175213248A83AB00C3325C /* Risk.swift in Sources */,
 				35EA615A258BC8E30062B50A /* CryptoKitFallbacks.swift in Sources */,
 				01F2A5DD25820EE700DA96A6 /* DiaryDayViewModel.swift in Sources */,
+				BAF959212640960600672494 /* HealthCertificateViewController.swift in Sources */,
 				BA3A79C42631B80600B6D6C0 /* AntigenTestProfileInformationViewController.swift in Sources */,
 				2F3D953C2518BCE9002B2C81 /* EUSettingsViewModel.swift in Sources */,
 				504BB0B525EE2392006B0E54 /* ErrorReportDetailInformationViewModel.swift in Sources */,
@@ -7273,6 +7288,7 @@
 				35BDAAF025F001F5004DFE32 /* ELSError.swift in Sources */,
 				BAC939D8261F5D08008BECED /* DismissHandlingNavigationController.swift in Sources */,
 				71FE1C80247AC2B500851FEB /* ExposureSubmissionNavigationController.swift in Sources */,
+				BAF959222640961900672494 /* HealthCertificateViewModel.swift in Sources */,
 				0105D8AA25B87920007E288B /* SAP_Internal_Stats_KeyFigure+Formatting.swift in Sources */,
 				2FA968CE24D8560B008EE367 /* String+Random.swift in Sources */,
 				019C9F32258951B900B26392 /* LocationVisit.swift in Sources */,

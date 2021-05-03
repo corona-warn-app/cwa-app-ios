@@ -63,7 +63,7 @@ final class CreateHealthCertificateCoordinator {
 			bottomController: footerViewController
 		)
 
-		// we do not animate here because this alwasy is the first screen
+		// we do not animate here because this always is the first screen
 		navigationController.pushViewController(topBottomContainerViewController, animated: false)
 		parentViewController.present(navigationController, animated: true)
 	}
@@ -74,9 +74,7 @@ final class CreateHealthCertificateCoordinator {
 				// get healthCertificatePerson from sercvice here
 				self.showHealthCertificatePerson(payload, animated: false)
 				self.navigationController.dismiss(animated: true)
-			}, dismiss: {
-				self.endCoordinator()
-			}
+			}, dismiss: endCoordinator
 		)
 
 		let qrCodeNavigationController = UINavigationController(rootViewController: qrCodeScannerViewController)
@@ -85,17 +83,11 @@ final class CreateHealthCertificateCoordinator {
 
 	// healthCertificatePerson is a string for the moment
 	private func showHealthCertificatePerson(_ healthCertificatePerson: String, animated: Bool) {
-		let consentScreen = HealthCertificatePersonViewController(
+		let healthCertificatePersonViewController = HealthCertificatePersonViewController(
 			healthCertificatePerson: healthCertificatePerson,
-			dismiss: {
-				self.endCoordinator()
-			},
-			didTapHealthCertificate: {
-				Log.debug("didTapHealthCertificate")
-			},
-			didTapRegisterAnotherHealthCertificate: {
-				self.showQRCodeScanner()
-			}
+			dismiss: endCoordinator,
+			didTapHealthCertificate: showHealthCertificate,
+			didTapRegisterAnotherHealthCertificate: showQRCodeScanner
 		)
 
 		let footerViewController = FooterViewController(
@@ -109,7 +101,7 @@ final class CreateHealthCertificateCoordinator {
 		)
 
 		let topBottomContainerViewController = TopBottomContainerViewController(
-			topController: consentScreen,
+			topController: healthCertificatePersonViewController,
 			bottomController: footerViewController
 		)
 
@@ -118,32 +110,32 @@ final class CreateHealthCertificateCoordinator {
 
 	// healthCertificate is a string for the moment
 	private func showHealthCertificate(_ healthCertificate: String) {
-//		let consetScreen = HealthCertificatePersonViewController(
-//			healthCertificatePerson: healthCertificate,
-//			dismiss: {
-//				self.parentViewController.dismiss(animated: true)
-//			},
-//			didTapHealtCertificate: {
-//				Log.debug("didTapHealtCertificate")
-//			},
-//			didTapRegisterHealtCertificate: <#T##() -> Void#>)
-//
-//		let footerViewController = FooterViewController(
-//			FooterViewModel(
-//				primaryButtonName: "Weitere Impfung registrieren",
-//				isPrimaryButtonEnabled: true,
-//				isSecondaryButtonEnabled: false,
-//				isSecondaryButtonHidden: true,
-//				backgroundColor: .enaColor(for: .background)
-//			)
-//		)
-//
-//		let topBottomContainerViewController = TopBottomContainerViewController(
-//			topController: consetScreen,
-//			bottomController: footerViewController
-//		)
-//
-//		navigationController.pushViewController(topBottomContainerViewController, animated: true)
+		let healthCertificateViewController = HealthCertificateViewController(
+			healthCertificate: healthCertificate,
+			dismiss: {
+				self.endCoordinator()
+			},
+			didTapDelete: {
+				Log.debug("didTapHealthCertificate")
+			}
+		)
+
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: "Impfzertifikat entfernen",
+				isPrimaryButtonEnabled: true,
+				isSecondaryButtonEnabled: false,
+				isSecondaryButtonHidden: true,
+				backgroundColor: .enaColor(for: .background)
+			)
+		)
+
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: healthCertificateViewController,
+			bottomController: footerViewController
+		)
+
+		navigationController.pushViewController(topBottomContainerViewController, animated: true)
 	}
 
 }
