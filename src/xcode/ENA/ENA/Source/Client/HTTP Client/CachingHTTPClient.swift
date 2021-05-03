@@ -153,7 +153,7 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, QRCodePos
 			headers = ["If-None-Match": etag]
 		}
 
-		session.GET(configuration.VaccinationValueSets, extraHeaders: headers) { result in
+		session.GET(configuration.vaccinationValueSets, extraHeaders: headers) { result in
 			switch result {
 			case .success(let response):
 				do {

@@ -252,7 +252,7 @@ extension HTTPClient {
 			)
 		}
 		
-		var VaccinationValueSets: URL {
+		var vaccinationValueSets: URL {
 			endpoints
 				.distribution
 				.appending(

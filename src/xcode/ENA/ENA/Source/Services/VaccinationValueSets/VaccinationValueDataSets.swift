@@ -4,7 +4,7 @@
 
 import Foundation
 
-struct VaccinationValueDataSets: Decodable, Equatable {
+struct VaccinationValueDataSets: Codable, Equatable {
 	
 	// MARK: - Init
 	
@@ -16,11 +16,11 @@ struct VaccinationValueDataSets: Decodable, Equatable {
 
 	init(
 		lastValueDataSetsETag: String,
-		lastValueDataSetsDate: Date,
+		lastValueDataSetsFetchDate: Date,
 		valueDataSets: SAP_Internal_Dgc_ValueSets
 	) {
 		self.lastValueDataSetsETag = lastValueDataSetsETag
-		self.lastValueDataSetsFetchDate = lastValueDataSetsDate
+		self.lastValueDataSetsFetchDate = lastValueDataSetsFetchDate
 		self.valueDataSets = valueDataSets
 	}
 	
@@ -42,6 +42,16 @@ struct VaccinationValueDataSets: Decodable, Equatable {
 		valueDataSets = try SAP_Internal_Dgc_ValueSets(serializedData: valueDataSetsData)
 	}
 		
+	func encode(to encoder: Encoder) throws {
+		var container = encoder.container(keyedBy: CodingKeys.self)
+		
+		try container.encode(lastValueDataSetsETag, forKey: .lastValueDataSetsETag)
+		try container.encode(lastValueDataSetsFetchDate, forKey: .lastValueDataSetsFetchDate)
+
+		let valueDataSetsData = try valueDataSets.serializedData()
+		try container.encode(valueDataSetsData, forKey: .valueDataSets)
+	}
+	
 	// MARK: - Internal
 	
 	var lastValueDataSetsETag: String?
