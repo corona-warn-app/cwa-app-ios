@@ -6,6 +6,7 @@ import Foundation
 import XCTest
 @testable import ENA
 import OpenCombine
+import HealthCertificateToolkit
 
 class HealthCertificateServiceTests: XCTestCase {
 
@@ -14,8 +15,8 @@ class HealthCertificateServiceTests: XCTestCase {
 		let service = HealthCertificateService(store: store)
 
 		let healthCertifiedPerson = HealthCertifiedPerson(
-			proofCertificate: nil,
-			healthCertificates: []
+			healthCertificates: [],
+			proofCertificate: nil
 		)
 
 		service.healthCertifiedPersons = [healthCertifiedPerson]
@@ -28,7 +29,10 @@ class HealthCertificateServiceTests: XCTestCase {
 				healthCertifiedPersonsExpectation.fulfill()
 			}
 
-		let proofCertificate = ProofCertificate(cborRepresentation: Data(), expirationDate: Date())
+		let json = try JSONEncoder().encode(ProofCertificateResponse(expirationDate: Date()))
+
+		let proofCertificate = try ProofCertificate(representations: CertificateRepresentations(base45: "", cbor: Data(), json: json))
+
 		healthCertifiedPerson.proofCertificate = proofCertificate
 
 		XCTAssertEqual(store.healthCertifiedPersons.first?.proofCertificate, proofCertificate)
@@ -42,8 +46,8 @@ class HealthCertificateServiceTests: XCTestCase {
 		let service = HealthCertificateService(store: MockTestStore())
 
 		let healthCertifiedPerson = HealthCertifiedPerson(
-			proofCertificate: nil,
-			healthCertificates: []
+			healthCertificates: [],
+			proofCertificate: nil
 		)
 
 		service.healthCertifiedPersons = [healthCertifiedPerson]
@@ -55,7 +59,8 @@ class HealthCertificateServiceTests: XCTestCase {
 				objectWillChangeExpectation.fulfill()
 			}
 
-		healthCertifiedPerson.proofCertificate = ProofCertificate(cborRepresentation: Data(), expirationDate: Date())
+		let json = try JSONEncoder().encode(ProofCertificateResponse(expirationDate: Date()))
+		healthCertifiedPerson.proofCertificate = try ProofCertificate(representations: CertificateRepresentations(base45: "", cbor: Data(), json: json))
 
 		waitForExpectations(timeout: 5)
 

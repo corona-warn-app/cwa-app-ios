@@ -12,7 +12,7 @@ class HealthCertificateService {
 
 	init(
 		store: HealthCertificateStoring,
-		healthCertificateToolkit: HealthCertificateToolkit
+		healthCertificateToolkit: HealthCertificateToolkit = HealthCertificateToolkit()
 	) {
 		self.store = store
 		self.healthCertificateToolkit = healthCertificateToolkit
@@ -60,10 +60,10 @@ class HealthCertificateService {
 				case .success(let proofCertificateRepresentations):
 					do {
 						healthCertifiedPerson.proofCertificate = try ProofCertificate(representations: proofCertificateRepresentations)
+						completion(.success(()))
 					} catch {
 						completion(.failure(.jsonDecodingError(error)))
 					}
-					completion(.success(()))
 				case .failure(let error):
 					completion(.failure(.fetchingError(error)))
 				}

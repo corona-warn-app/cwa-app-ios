@@ -6,7 +6,7 @@ import Foundation
 import OpenCombine
 import HealthCertificateToolkit
 
-struct ProofCertificate: Codable {
+struct ProofCertificate: Codable, Equatable {
 
 	// MARK: - Init
 
