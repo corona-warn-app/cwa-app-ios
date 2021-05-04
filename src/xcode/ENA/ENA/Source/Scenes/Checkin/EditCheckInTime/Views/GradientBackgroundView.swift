@@ -22,6 +22,7 @@ class GradientBackgroundView: UIView {
 	// MARK: - Internal
 
 	var gradientHeightConstraint: NSLayoutConstraint!
+	var type: GradientView.GradientType
 
 	func updatedTopLayout(with offset: CGFloat, limit: CGFloat) {
 		let height = gradientView.bounds.size.height
@@ -31,7 +32,6 @@ class GradientBackgroundView: UIView {
 	// MARK: - Private
 
 	private let gradientView = GradientView()
-	private let type: GradientView.GradientType
 	private var topLayoutConstraint: NSLayoutConstraint!
 
 	private func setupView() {

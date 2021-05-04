@@ -31,6 +31,7 @@ class GradientView: UIView {
 	enum GradientType {
 		case blueRedTilted
 		case blueOnly
+		case solidGrey
 	}
 
 	var type: GradientType = .blueRedTilted { didSet { setupLayer() } }
@@ -59,6 +60,14 @@ class GradientView: UIView {
 				UIColor(red: 16 / 255, green: 62 / 255, blue: 110 / 255, alpha: 1).cgColor
 			]
 			gradientLayer.locations = [0.0, 0.5, 1.0]
+			gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
+			gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
+		case .solidGrey:
+			gradientLayer.colors = [
+				UIColor(red: 0.38, green: 0.435, blue: 0.494, alpha: 1).cgColor,
+				UIColor(red: 0.38, green: 0.435, blue: 0.494, alpha: 1).cgColor
+			]
+			gradientLayer.locations = [0.0, 1.0]
 			gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
 			gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
 		}

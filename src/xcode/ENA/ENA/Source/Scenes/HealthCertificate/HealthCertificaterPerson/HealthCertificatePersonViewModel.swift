@@ -4,6 +4,7 @@
 
 import UIKit
 import Contacts
+import OpenCombine
 
 final class HealthCertificatePersonViewModel {
 
@@ -20,6 +21,25 @@ final class HealthCertificatePersonViewModel {
 	// MARK: - Public
 
 	// MARK: - Internal
+
+	enum TableViewSection: Int, CaseIterable {
+		case header
+		case incompleteVaccination
+		case qrCode
+		case person
+		case certificates
+
+		static var numberOfSections: Int {
+			allCases.count
+		}
+
+		static func map(_ section: Int) -> TableViewSection {
+			guard let section = TableViewSection(rawValue: section) else {
+				fatalError("unsupported tableView section")
+			}
+			return section
+		}
+	}
 
 	let headerCellViewModel: HealthCertificateSimpleTextCellViewModel = {
 		HealthCertificateSimpleTextCellViewModel(
@@ -67,6 +87,10 @@ final class HealthCertificatePersonViewModel {
 		)
 	}()
 
+	let healthCertificateCellViewModel: HealthCertificateCellViewModel = {
+		HealthCertificateCellViewModel()
+	}()
+
 	var personCellViewModel: HealthCertificateSimpleTextCellViewModel {
 		let attributedName = NSAttributedString(
 			string: friendlyName,
@@ -94,33 +118,13 @@ final class HealthCertificatePersonViewModel {
 		)
 	}
 
-	let healthCertificateCellViewModel: HealthCertificateCellViewModel = {
-		HealthCertificateCellViewModel()
-	}()
+	// view model should decide how the gradient looks
+	@OpenCombine.Published private(set) var gradientType: GradientView.GradientType = .solidGrey
 
 	func numberOfItems(in section: TableViewSection) -> Int {
 		switch section {
 		default:
 			return 1
-		}
-	}
-
-	enum TableViewSection: Int, CaseIterable {
-		case header
-		case incompleteVaccination
-		case qrCode
-		case person
-		case certificates
-
-		static var numberOfSections: Int {
-			allCases.count
-		}
-
-		static func map(_ section: Int) -> TableViewSection {
-			guard let section = TableViewSection(rawValue: section) else {
-				fatalError("unsupported tableView section")
-			}
-			return section
 		}
 	}
 

@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import OpenCombine
 
 class HealthCertificatePersonViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, DismissHandling, FooterViewHandling {
 
@@ -35,6 +36,7 @@ class HealthCertificatePersonViewController: UIViewController, UITableViewDataSo
 		setupBackground()
 		setupNavigationBar()
 		setupTableView()
+		setupViewModel()
 	}
 
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -120,9 +122,10 @@ class HealthCertificatePersonViewController: UIViewController, UITableViewDataSo
 	private let didTapRegisterAnotherHealthCertificate: () -> Void
 
 	private let viewModel: HealthCertificatePersonViewModel
-	private let backgroundView = GradientBackgroundView(type: .blueRedTilted)
+	private let backgroundView = GradientBackgroundView(type: .solidGrey)
 	private let tableView = UITableView(frame: .zero, style: .plain)
 
+	private var subscriptions = Set<AnyCancellable>()
 	private var didCalculateGradientHeight: Bool = false
 	private var tableContentObserver: NSKeyValueObservation!
 
@@ -200,6 +203,12 @@ class HealthCertificatePersonViewController: UIViewController, UITableViewDataSo
 			HealthCertificateCell.self,
 			forCellReuseIdentifier: HealthCertificateCell.reuseIdentifier
 		)
+	}
+
+	private func setupViewModel() {
+		viewModel.$gradientType
+			.assign(to: \.type, on: backgroundView)
+			.store(in: &subscriptions)
 	}
 
 }
