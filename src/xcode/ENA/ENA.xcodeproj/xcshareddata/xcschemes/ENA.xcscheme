@@ -86,6 +86,9 @@
             reference = "container:TestPlans/AllTests.xctestplan"
             default = "YES">
          </TestPlanReference>
+         <TestPlanReference
+            reference = "container:TestPlans/SmokeTests.xctestplan">
+         </TestPlanReference>
       </TestPlans>
       <Testables>
          <TestableReference
