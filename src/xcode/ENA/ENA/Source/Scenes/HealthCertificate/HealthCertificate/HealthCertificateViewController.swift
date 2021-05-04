@@ -150,7 +150,7 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 		tableView.delegate = self
 		tableView.dataSource = self
 		tableView.separatorStyle = .none
-		tableView.register(SimpleTextCell.self, forCellReuseIdentifier: SimpleTextCell.reuseIdentifier)
+		tableView.register(HealthCertificateSimpleTextCell.self, forCellReuseIdentifier: HealthCertificateSimpleTextCell.reuseIdentifier)
 		tableView.register(QRCodeCell.self, forCellReuseIdentifier: QRCodeCell.reuseIdentifier)
 	}
 

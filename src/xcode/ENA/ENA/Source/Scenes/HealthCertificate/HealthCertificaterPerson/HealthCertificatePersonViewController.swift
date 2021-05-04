@@ -72,12 +72,12 @@ class HealthCertificatePersonViewController: UIViewController, UITableViewDataSo
 
 		switch section {
 		case .header:
-			let cell = tableView.dequeueReusableCell(cellType: SimpleTextCell.self, for: indexPath)
+			let cell = tableView.dequeueReusableCell(cellType: HealthCertificateSimpleTextCell.self, for: indexPath)
 			cell.configure(with: viewModel.headerCellViewModel)
 			return cell
 
 		case .incompleteVaccination:
-			let cell = tableView.dequeueReusableCell(cellType: SimpleTextCell.self, for: indexPath)
+			let cell = tableView.dequeueReusableCell(cellType: HealthCertificateSimpleTextCell.self, for: indexPath)
 			cell.configure(with: viewModel.incompleteVaccinationCellViewModel)
 			return cell
 
@@ -87,7 +87,7 @@ class HealthCertificatePersonViewController: UIViewController, UITableViewDataSo
 			return cell
 
 		case .person:
-			let cell = tableView.dequeueReusableCell(cellType: SimpleTextCell.self, for: indexPath)
+			let cell = tableView.dequeueReusableCell(cellType: HealthCertificateSimpleTextCell.self, for: indexPath)
 			cell.configure(with: viewModel.personCellViewModel)
 			return cell
 
@@ -189,8 +189,8 @@ class HealthCertificatePersonViewController: UIViewController, UITableViewDataSo
 		tableView.dataSource = self
 		tableView.separatorStyle = .none
 		tableView.register(
-			SimpleTextCell.self,
-			forCellReuseIdentifier: SimpleTextCell.reuseIdentifier
+			HealthCertificateSimpleTextCell.self,
+			forCellReuseIdentifier: HealthCertificateSimpleTextCell.reuseIdentifier
 		)
 		tableView.register(
 			HealthCertificateQRCodeCell.self,

@@ -21,8 +21,8 @@ final class HealthCertificatePersonViewModel {
 
 	// MARK: - Internal
 
-	let headerCellViewModel: SimpleTextCellViewModel = {
-		SimpleTextCellViewModel(
+	let headerCellViewModel: HealthCertificateSimpleTextCellViewModel = {
+		HealthCertificateSimpleTextCellViewModel(
 			backgroundColor: .clear,
 			textColor: .enaColor(for: .textContrast),
 			textAlignment: .center,
@@ -33,7 +33,7 @@ final class HealthCertificatePersonViewModel {
 		)
 	}()
 
-	let incompleteVaccinationCellViewModel: SimpleTextCellViewModel = {
+	let incompleteVaccinationCellViewModel: HealthCertificateSimpleTextCellViewModel = {
 		let attributedName = NSAttributedString(
 			string: "SARS-CoV-2\nImpfung",
 			attributes: [
@@ -50,7 +50,7 @@ final class HealthCertificatePersonViewModel {
 			]
 		)
 
-		return SimpleTextCellViewModel(
+		return HealthCertificateSimpleTextCellViewModel(
 			backgroundColor: .enaColor(for: .background),
 			attributedText: [attributedName, attributedDetails].joined(with: "\n"),
 			topSpace: 18.0,
@@ -67,7 +67,7 @@ final class HealthCertificatePersonViewModel {
 		)
 	}()
 
-	var personCellViewModel: SimpleTextCellViewModel {
+	var personCellViewModel: HealthCertificateSimpleTextCellViewModel {
 		let attributedName = NSAttributedString(
 			string: friendlyName,
 			attributes: [
@@ -84,7 +84,7 @@ final class HealthCertificatePersonViewModel {
 			]
 		)
 
-		return SimpleTextCellViewModel(
+		return HealthCertificateSimpleTextCellViewModel(
 			backgroundColor: .enaColor(for: .background),
 			attributedText: [attributedName, attributedDetails].joined(with: "\n"),
 			topSpace: 18.0,
