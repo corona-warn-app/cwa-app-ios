@@ -40,7 +40,7 @@ class QRCodeCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.qrCodeImage(revDate: revDate).pngData(), qrCodeImage.pngData())
 	}
 
-	func testGIVEN_AntigenTestProfile_WHEN_getVCardV4Strong_THEN_FormatIsCorrect() {
+	func testGIVEN_AntigenTestProfile_WHEN_getVCardV4String_THEN_FormatIsCorrect() {
 		// GIVEN
 		let  antigenTestProfile = AntigenTestProfile(
 			firstName: "Max",
@@ -67,7 +67,7 @@ class QRCodeCellViewModelTests: XCTestCase {
 		XCTAssertEqual(vCardString, """
 		BEGIN:VCARD
 		VERSION:4.0
-		N:Max;Mustermann;;;
+		N:Mustermann;Max;;;
 		FN:Max Mustermann
 		BDAY:19820512
 		EMAIL;TYPE=home:sabine.schulz@gmx.com
