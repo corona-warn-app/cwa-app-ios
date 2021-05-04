@@ -88,7 +88,7 @@ final class OTPService: OTPServiceProviding {
 			completion(.success(otpToken.token))
 			return
 		}
-		Log.info("No existing OTP ELS was found. Generating new one.", log: .otp)
+		Log.info("No existing or valid OTP ELS was found. Generating new one.", log: .otp)
 		let otp = generateOTPToken()
 		authorizeEls(otp, with: ppacToken, completion: completion)
 	}
