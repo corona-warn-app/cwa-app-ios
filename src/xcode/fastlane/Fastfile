@@ -68,12 +68,12 @@ platform :ios do
       output_file: "swiftlint.result.json",
       config_file: "ENA/.swiftlint.yml",
       strict: true,
+      quiet: true,
       raise_if_swiftlint_error: true,
       reporter: "sonarqube"
     )
 
     begin
-
       # Combined Unit & UI Tests
       run_tests(
         scheme: "ENA",
@@ -83,37 +83,55 @@ platform :ios do
         devices: ["iPhone 11"],
         prelaunch_simulator: true,
         result_bundle: true,
-        code_coverage: true
+        code_coverage: true,
+        output_types: "",
+        fail_build: false
       )
-
     rescue
-
-      zip(
-        path: "fastlane/test_output/ENA.xcresult",
-        output_path: "fastlane/test_output/ENA.xcresult.zip",
-        verbose: false
-      )
       UI.user_error!("Tests did fail, please check logs above or ENA.xcresult.zip")
+    ensure
+      trainer(
+        output_directory: "fastlane/test_output/",
+        path: "fastlane/test_output/",
+        extension: ".junit"
+      )
 
-    end
-      # Needs to be done here and in rescue if test fails rescue will be executed if it succedes this will be called.
       zip(
         path: "fastlane/test_output/ENA.xcresult",
         output_path: "fastlane/test_output/ENA.xcresult.zip",
         verbose: false
       )
-
+    end
   end
 
   desc "Run smoke tests (Community)"
   lane :test_community do
-    run_tests(
-      scheme: "ENACommunity",
-      xcargs: "SWIFT_TREAT_WARNINGS_AS_ERRORS=NO",
-      testplan: "SmokeTests",
-      result_bundle: false,
-      code_coverage: false
-    )
+    begin
+      run_tests(
+        scheme: "ENACommunity",
+        xcargs: "SWIFT_TREAT_WARNINGS_AS_ERRORS=NO",
+        testplan: "SmokeTests",
+        result_bundle: true,
+        code_coverage: false,
+        fail_build: false,
+        output_types: "junit",
+        output_files: "report_community.junit"
+      )
+    rescue
+      UI.user_error!("Tests did fail, please check logs above or ENA.xcresult.zip")
+    ensure
+      trainer(
+        output_directory: "fastlane/test_output/",
+        path: "fastlane/test_output/",
+        extension: ".junit"
+      )
+
+      zip(
+        path: "fastlane/test_output/ENACommunity.xcresult",
+        output_path: "fastlane/test_output/ENAENACommunity.xcresult.zip",
+        verbose: false
+      )
+    end
   end
 
   desc "Build and upload for testing"
