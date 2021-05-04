@@ -282,7 +282,7 @@ class OTPServiceTests: XCTestCase {
 		XCTAssertEqual(expectedOtp, store.otpTokenEls?.token)
 	}
 
-	func testGIVEN_OTPService_WHEN_OldButValidOtpElsIsStored_THEN_SuccessAndStoredOtpElsIsReturned() throws {
+	func testGIVEN_OTPService_WHEN_ExistingOTPElsIsStore_THEN_SuccessAndNewOtpElsIsReturned() throws {
 		// GIVEN
 		let store = MockTestStore()
 		let client = ClientMock()
