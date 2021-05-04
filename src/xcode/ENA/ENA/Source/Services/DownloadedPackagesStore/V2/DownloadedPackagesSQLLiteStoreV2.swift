@@ -58,7 +58,11 @@ extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 
 	func open() { // might throw errors in future versions!
 		queue.sync {
-			self.database.open()
+			
+			guard self.database.open() else {
+				Log.error("Open database error", log: .localData, error: self.database.lastError())
+				fatalError("Developer error. Probably no database file accessible.")
+			}
 
 			if self.database.tableExists("Z_DOWNLOADED_PACKAGE") {
 				// tbd: what to do on errors?
@@ -546,8 +550,8 @@ private extension FMResultSet {
 extension DownloadedPackagesSQLLiteStoreV2 {
 	convenience init(fileName: String) {
 
-		let fileManager = FileManager()
-		guard let documentDir = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first else {
+		let fileManager = FileManager.default
+		guard let documentDir = try? fileManager.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true) else {
 			fatalError("unable to determine document dir")
 		}
 		let storeURL = documentDir
