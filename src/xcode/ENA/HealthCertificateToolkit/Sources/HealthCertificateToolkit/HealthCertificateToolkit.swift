@@ -56,7 +56,7 @@ public struct HealthCertificateToolkit: HealthCertificateToolkitProtocol {
             return .failure(.HC_CBOR_DECODING_FAILED)
         }
 
-        let certificateRepresentation = HealthCertificateRepresentations(
+        let certificateRepresentation = CertificateRepresentations(
             base45: base45,
             cbor: cborData,
             json: jsonData

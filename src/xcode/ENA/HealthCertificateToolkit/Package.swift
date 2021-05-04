@@ -24,6 +24,6 @@ let package = Package(
             dependencies: ["SwiftCBOR", "base45-swift"]),
         .testTarget(
             name: "HealthCertificateToolkitTests",
-            dependencies: ["HealthCertificateToolkit"]),
+            dependencies: ["HealthCertificateToolkit", "SwiftCBOR"]),
     ]
 )
