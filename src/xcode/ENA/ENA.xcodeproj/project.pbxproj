@@ -365,8 +365,6 @@
 		3535CD2A262C4E4E00A3CE38 /* TestEnvironments.json in Resources */ = {isa = PBXBuildFile; fileRef = AB1FCBDB2521FCD5005930BA /* TestEnvironments.json */; };
 		3539DAD1252B353C00489B1A /* CachedAppConfigurationMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3539DAD0252B353C00489B1A /* CachedAppConfigurationMock.swift */; };
 		3543135025DE992F00926575 /* ENAUITestsQuickActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3543134F25DE992F00926575 /* ENAUITestsQuickActions.swift */; };
-		3544BAD726399CAA00C68A9B /* els_otp_request_ios.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3544BAD526399CAA00C68A9B /* els_otp_request_ios.pb.swift */; };
-		3544BAD826399CAA00C68A9B /* els_otp.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3544BAD626399CAA00C68A9B /* els_otp.pb.swift */; };
 		354642F8262E07840004618A /* AccessibleStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FE67D226149C5F00A2B2E7 /* AccessibleStackView.swift */; };
 		354BB49A25B07DB000FBCFEE /* StatisticsProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354BB49925B07DB000FBCFEE /* StatisticsProviding.swift */; };
 		354E305924EFF26E00526C9F /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354E305824EFF26E00526C9F /* Country.swift */; };
@@ -579,6 +577,13 @@
 		8F1F9812263C028400373B24 /* HealthCertificateQRCodeScannerViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1F9811263C028400373B24 /* HealthCertificateQRCodeScannerViewModelTests.swift */; };
 		8F270194259B5BA700E48CFE /* ContactDiaryMigration1To2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F270193259B5BA700E48CFE /* ContactDiaryMigration1To2.swift */; };
 		8F3202442600C7BB00D6A224 /* TorchMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3202432600C7BB00D6A224 /* TorchMode.swift */; };
+		8F39D05E263C414A0096F4E2 /* VaccinationValueSetsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F39D05D263C414A0096F4E2 /* VaccinationValueSetsProvider.swift */; };
+		8F39D066263C41990096F4E2 /* VaccinationValueSetsProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F39D065263C41990096F4E2 /* VaccinationValueSetsProviding.swift */; };
+		8F39D06C263C4FDE0096F4E2 /* value_sets.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F39D06B263C4FDD0096F4E2 /* value_sets.pb.swift */; };
+		8F39D07D263F62A80096F4E2 /* els_otp_request_ios.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F39D07C263F62A80096F4E2 /* els_otp_request_ios.pb.swift */; };
+		8F39D084263F63420096F4E2 /* els_otp.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F39D083263F63420096F4E2 /* els_otp.pb.swift */; };
+		8F39D094263F6F5D0096F4E2 /* VaccinationValueDataSets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F39D093263F6F5D0096F4E2 /* VaccinationValueDataSets.swift */; };
+		8F39D09D26401E3E0096F4E2 /* VaccinationValueSetsProvidingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F39D09C26401E3E0096F4E2 /* VaccinationValueSetsProvidingTests.swift */; };
 		8F3D71AA25A86AD300D52CCD /* HomeExposureLoggingCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3D71A925A86AD300D52CCD /* HomeExposureLoggingCellModelTests.swift */; };
 		8F43A3CB25D55A3E008FD630 /* ppa_data.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F43A3C925D55A3D008FD630 /* ppa_data.pb.swift */; };
 		8F43A3CC25D55A3E008FD630 /* ppa_data_request_ios.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F43A3CA25D55A3E008FD630 /* ppa_data_request_ios.pb.swift */; };
@@ -1499,8 +1504,6 @@
 		35358DD325A23169004FD0CB /* HTTPClientCertificatePinningTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientCertificatePinningTests.swift; sourceTree = "<group>"; };
 		3539DAD0252B353C00489B1A /* CachedAppConfigurationMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedAppConfigurationMock.swift; sourceTree = "<group>"; };
 		3543134F25DE992F00926575 /* ENAUITestsQuickActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITestsQuickActions.swift; sourceTree = "<group>"; };
-		3544BAD526399CAA00C68A9B /* els_otp_request_ios.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = els_otp_request_ios.pb.swift; sourceTree = "<group>"; };
-		3544BAD626399CAA00C68A9B /* els_otp.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = els_otp.pb.swift; sourceTree = "<group>"; };
 		354BB49925B07DB000FBCFEE /* StatisticsProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsProviding.swift; sourceTree = "<group>"; };
 		354E305824EFF26E00526C9F /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
 		3558CC8625F6225500624F5E /* FileManager+FileSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+FileSize.swift"; sourceTree = "<group>"; };
@@ -1729,6 +1732,13 @@
 		8F27018E259B593700E48CFE /* ContactDiaryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryStore.swift; sourceTree = "<group>"; };
 		8F270193259B5BA700E48CFE /* ContactDiaryMigration1To2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryMigration1To2.swift; sourceTree = "<group>"; };
 		8F3202432600C7BB00D6A224 /* TorchMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TorchMode.swift; sourceTree = "<group>"; };
+		8F39D05D263C414A0096F4E2 /* VaccinationValueSetsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationValueSetsProvider.swift; sourceTree = "<group>"; };
+		8F39D065263C41990096F4E2 /* VaccinationValueSetsProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationValueSetsProviding.swift; sourceTree = "<group>"; };
+		8F39D06B263C4FDD0096F4E2 /* value_sets.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = value_sets.pb.swift; path = ../../../../gen/output/internal/dgc/value_sets.pb.swift; sourceTree = "<group>"; };
+		8F39D07C263F62A80096F4E2 /* els_otp_request_ios.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = els_otp_request_ios.pb.swift; sourceTree = "<group>"; };
+		8F39D083263F63420096F4E2 /* els_otp.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = els_otp.pb.swift; sourceTree = "<group>"; };
+		8F39D093263F6F5D0096F4E2 /* VaccinationValueDataSets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationValueDataSets.swift; sourceTree = "<group>"; };
+		8F39D09C26401E3E0096F4E2 /* VaccinationValueSetsProvidingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationValueSetsProvidingTests.swift; sourceTree = "<group>"; };
 		8F3D71A925A86AD300D52CCD /* HomeExposureLoggingCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeExposureLoggingCellModelTests.swift; sourceTree = "<group>"; };
 		8F43A3C925D55A3D008FD630 /* ppa_data.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ppa_data.pb.swift; sourceTree = "<group>"; };
 		8F43A3CA25D55A3E008FD630 /* ppa_data_request_ios.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ppa_data_request_ios.pb.swift; sourceTree = "<group>"; };
@@ -3319,16 +3329,6 @@
 			path = __tests__;
 			sourceTree = "<group>";
 		};
-		3544BAD426399CAA00C68A9B /* els */ = {
-			isa = PBXGroup;
-			children = (
-				3544BAD526399CAA00C68A9B /* els_otp_request_ios.pb.swift */,
-				3544BAD626399CAA00C68A9B /* els_otp.pb.swift */,
-			);
-			name = els;
-			path = ../../../gen/output/internal/els;
-			sourceTree = "<group>";
-		};
 		3554354025E788BB0016764A /* ErrorReporting */ = {
 			isa = PBXGroup;
 			children = (
@@ -3526,6 +3526,8 @@
 		505F506825C833A9004920EB /* ppdd */ = {
 			isa = PBXGroup;
 			children = (
+				8F39D083263F63420096F4E2 /* els_otp.pb.swift */,
+				8F39D07C263F62A80096F4E2 /* els_otp_request_ios.pb.swift */,
 				505F506925C833A9004920EB /* edus_otp_request_ios.pb.swift */,
 				505F506A25C833A9004920EB /* edus_otp.pb.swift */,
 				505F506D25C833A9004920EB /* ppac_ios.pb.swift */,
@@ -4338,6 +4340,7 @@
 				500DB4BB25CDDC4B0038DFED /* PPAnalyticsSubmitter */,
 				35BDAAED25F001BF004DFE32 /* ELS LoggingService */,
 				B1175211248A837300C3325C /* Risk */,
+				8F39D05C263C40DB0096F4E2 /* VaccinationValueSets */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -4374,6 +4377,33 @@
 				01C6AC31252B29C00052814D /* QRScannerError.swift */,
 			);
 			path = "QR Code Scanning";
+			sourceTree = "<group>";
+		};
+		8F39D05C263C40DB0096F4E2 /* VaccinationValueSets */ = {
+			isa = PBXGroup;
+			children = (
+				8F39D09B26401E130096F4E2 /* __tests__ */,
+				8F39D05D263C414A0096F4E2 /* VaccinationValueSetsProvider.swift */,
+				8F39D065263C41990096F4E2 /* VaccinationValueSetsProviding.swift */,
+				8F39D093263F6F5D0096F4E2 /* VaccinationValueDataSets.swift */,
+			);
+			path = VaccinationValueSets;
+			sourceTree = "<group>";
+		};
+		8F39D06A263C4FB90096F4E2 /* dgc */ = {
+			isa = PBXGroup;
+			children = (
+				8F39D06B263C4FDD0096F4E2 /* value_sets.pb.swift */,
+			);
+			path = dgc;
+			sourceTree = "<group>";
+		};
+		8F39D09B26401E130096F4E2 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				8F39D09C26401E3E0096F4E2 /* VaccinationValueSetsProvidingTests.swift */,
+			);
+			path = __tests__;
 			sourceTree = "<group>";
 		};
 		8F3D71A825A8634700D52CCD /* __tests__ */ = {
@@ -5088,10 +5118,10 @@
 				EB08F1762541CE3200D11FA9 /* app_version_config.pb.swift */,
 				EB08F1712541CE3200D11FA9 /* attenuation_duration.pb.swift */,
 				EB08F1852541CE5700D11FA9 /* diagnosis_key_batch.pb.swift */,
+				8F39D06A263C4FB90096F4E2 /* dgc */,
 				505F506825C833A9004920EB /* ppdd */,
 				EB513DF625FA34E60020C0B9 /* pt */,
 				B102BDC22460410600CD55A2 /* README.md */,
-				3544BAD426399CAA00C68A9B /* els */,
 				EB08F1722541CE3200D11FA9 /* risk_level.pb.swift */,
 				EB08F1702541CE3200D11FA9 /* risk_score_classification.pb.swift */,
 				EB08F1772541CE3200D11FA9 /* risk_score_parameters.pb.swift */,
@@ -6871,6 +6901,7 @@
 				B1A89F3B24819CE800DA1CEC /* SettingsLabelCell.swift in Sources */,
 				8F634084262DBB6900077240 /* Route+Equatable.swift in Sources */,
 				EB855EFD25EED0C900FEE17C /* PDFDocument+EmbedImage.swift in Sources */,
+				8F39D066263C41990096F4E2 /* VaccinationValueSetsProviding.swift in Sources */,
 				50B5057D25CAEF5C00EEA380 /* OTPToken.swift in Sources */,
 				01CBD884261B3CF700158B3E /* ClientMock.swift in Sources */,
 				B1A89F3924819CC200DA1CEC /* ExposureStateUpdating.swift in Sources */,
@@ -7161,6 +7192,7 @@
 				7154EB4C247E862100A467FF /* ExposureDetectionLoadingCell.swift in Sources */,
 				94EAF87925B6CAA300BE1F40 /* DeltaOnboardingNewVersionFeaturesViewModel.swift in Sources */,
 				01A4DD4325935D1F007D5794 /* HomeRiskCellModel.swift in Sources */,
+				8F39D06C263C4FDE0096F4E2 /* value_sets.pb.swift in Sources */,
 				0138F68F25F21C8000A9B075 /* EventTableViewCell.swift in Sources */,
 				504E8B3125D41CD400CAFBDF /* DMPPAnalyticsActualData.swift in Sources */,
 				94EAF87525B6CAA000BE1F40 /* DeltaOnboardingNewVersionFeaturesViewController.swift in Sources */,
@@ -7413,6 +7445,7 @@
 				AB190F1C25FFAF3400FBFF0D /* ContactDiaryStoreSchemaV2.swift in Sources */,
 				71CAB9D2248AACAD00F516A5 /* PixelPerfectLayoutConstraint.swift in Sources */,
 				710021E0248EAF9A001F0B63 /* ExposureSubmissionImageCardCell.swift in Sources */,
+				8F39D094263F6F5D0096F4E2 /* VaccinationValueDataSets.swift in Sources */,
 				B14D0CDF246E976400D5BEBC /* ExposureDetectionTransaction+DidEndPrematurelyReason.swift in Sources */,
 				AB190E8925FB608100FBFF0D /* DeleteTraceLocationQuery.swift in Sources */,
 				0138F62525F1147500A9B075 /* EmptyStateViewModel.swift in Sources */,
@@ -7421,13 +7454,12 @@
 				71FE1C69247A8FE100851FEB /* DynamicTableViewHeaderFooterView.swift in Sources */,
 				B18755D124DC45CA00A9202E /* DMStoreViewController.swift in Sources */,
 				353412CC2525EE4A0086D15C /* Globals.swift in Sources */,
-				3544BAD826399CAA00C68A9B /* els_otp.pb.swift in Sources */,
 				5093B9AB260DEB2D007C0B09 /* TraceLocationDetailViewModel.swift in Sources */,
 				EB08F1872541CE5700D11FA9 /* temporary_exposure_key_signature_list.pb.swift in Sources */,
 				B184A383248FFCE2007180F6 /* CodableExposureDetectionSummary.swift in Sources */,
 				BA941DCE25E5450D003F9653 /* TopBottomContainerViewController.swift in Sources */,
 				B111EE2C2465D9F7001AEBB4 /* String+Localization.swift in Sources */,
-				3544BAD726399CAA00C68A9B /* els_otp_request_ios.pb.swift in Sources */,
+				8F39D05E263C414A0096F4E2 /* VaccinationValueSetsProvider.swift in Sources */,
 				01B7232B24F815B00064C0EB /* MultipleChoiceOptionView.swift in Sources */,
 				351E6306256BEC8D00D89B29 /* LabeledCountriesView.swift in Sources */,
 				ABD2F634254C533200DC1958 /* KeyPackageDownload.swift in Sources */,
@@ -7522,6 +7554,7 @@
 				AB190E9925FB677800FBFF0D /* DeleteCheckinQuery.swift in Sources */,
 				506A2F2025D2A08900B7DDFB /* DataDonationDetailsViewController.swift in Sources */,
 				01C7665E25024A09002C9A5C /* DatePickerOptionView.swift in Sources */,
+				8F39D084263F63420096F4E2 /* els_otp.pb.swift in Sources */,
 				3558CC8725F6225500624F5E /* FileManager+FileSize.swift in Sources */,
 				BAEE121C25ECF7AB009A0284 /* CheckinQRCodeScannerViewModel.swift in Sources */,
 				CD99A3CA2461A47C00BF12AF /* AppStrings.swift in Sources */,
@@ -7568,6 +7601,7 @@
 				8F3202442600C7BB00D6A224 /* TorchMode.swift in Sources */,
 				01D02626258A769200B6389A /* HTTPURLResponse+Header.swift in Sources */,
 				EB3BCA882507B6C1003F27C7 /* ExposureSubmissionSymptomsOnsetViewController.swift in Sources */,
+				8F39D07D263F62A80096F4E2 /* els_otp_request_ios.pb.swift in Sources */,
 				FEDCE29E414945F14E7CE576 /* ENStateHandler+State.swift in Sources */,
 				FEDCE6E2763B0BABFADF36BA /* ExposureDetectionViewModel.swift in Sources */,
 				BA94BBA5260DF4CC005CF38F /* CheckInTimeCell.swift in Sources */,
@@ -7755,6 +7789,7 @@
 				A1E419462495479D0016E52A /* HTTPClient+MockNetworkStack.swift in Sources */,
 				AB7DE74F25C861A900C52B3F /* ExposureDetectionSurveyCellModelTests.swift in Sources */,
 				AB68530C25F8F6B900380F5A /* EventStoreSchemaV1Tests.swift in Sources */,
+				8F39D09D26401E3E0096F4E2 /* VaccinationValueSetsProvidingTests.swift in Sources */,
 				AB7BDF8325CC079B00E70744 /* SurveyConsentViewModelTests.swift in Sources */,
 				B1FE13ED24891D0400D012E5 /* RiskProviderTests.swift in Sources */,
 				AB7420DD251B8101006666AC /* DeltaOnboardingCoordinatorTests.swift in Sources */,
