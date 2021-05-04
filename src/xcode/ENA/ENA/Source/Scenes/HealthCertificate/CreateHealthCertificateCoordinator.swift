@@ -116,7 +116,13 @@ final class CreateHealthCertificateCoordinator {
 				self.endCoordinator()
 			},
 			didTapDelete: {
-				Log.debug("didTapHealthCertificate")
+				self.showDeleteAlert(
+					submitAction: UIAlertAction(
+						title: "Entfernen", style: .default, handler: { _ in
+							self.navigationController.popToRootViewController(animated: true)
+						}
+					)
+				)
 			}
 		)
 
@@ -134,8 +140,18 @@ final class CreateHealthCertificateCoordinator {
 			topController: healthCertificateViewController,
 			bottomController: footerViewController
 		)
-
 		navigationController.pushViewController(topBottomContainerViewController, animated: true)
+	}
+
+	private func showDeleteAlert(submitAction: UIAlertAction) {
+		let alert = UIAlertController(
+			title: "Wollen Sie das Impfzertifikat wirklich entfernen?",
+			message: "Wenn Sie das Impfzertifikat entfernen, kann die App die Impfung nicht mehr für die Prüfung Ihres Impfstatus berücksichtigen.",
+			preferredStyle: .alert
+		)
+		alert.addAction(UIAlertAction(title: "Abbrechen", style: .cancel, handler: nil))
+		alert.addAction(submitAction)
+		navigationController.present(alert, animated: true)
 	}
 
 }

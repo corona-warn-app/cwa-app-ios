@@ -5687,6 +5687,7 @@
 		BA3B011E263D67F600A2A25C /* HealthCertificate */ = {
 			isa = PBXGroup;
 			children = (
+				BAC741A026414E0500955311 /* Cells */,
 				BA3B011F263D681600A2A25C /* CreateHealthCertificateCoordinator.swift */,
 				BA18075C263D7F32008AD370 /* CreateHealthCertificateCoordinatorViewModel.swift */,
 				BA180757263D6D75008AD370 /* Consent */,
@@ -6088,6 +6089,15 @@
 			path = __tests__;
 			sourceTree = "<group>";
 		};
+		BAC741A026414E0500955311 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				BAC7419A26414CFF00955311 /* HealthCertificateSimpleTextCell.swift */,
+				BAC7419B26414CFF00955311 /* HealthCertificateSimpleTextCellViewModel.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		BAC939CB261F52C9008BECED /* TestOverwriteNotice */ = {
 			isa = PBXGroup;
 			children = (
@@ -6238,8 +6248,6 @@
 		BAF959232640A18800672494 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				BAC7419A26414CFF00955311 /* HealthCertificateSimpleTextCell.swift */,
-				BAC7419B26414CFF00955311 /* HealthCertificateSimpleTextCellViewModel.swift */,
 				BAF959282640A47200672494 /* HealthCertificateCell.swift */,
 				BAF9592A2640A53500672494 /* HealthCertificateCellViewModel.swift */,
 				BAF959262640A31C00672494 /* HealthCertificateQRCodeCell.swift */,
