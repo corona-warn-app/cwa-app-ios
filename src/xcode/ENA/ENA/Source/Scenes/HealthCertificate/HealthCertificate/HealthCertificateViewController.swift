@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import OpenCombine
 
 class HealthCertificateViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, DismissHandling, FooterViewHandling {
 
@@ -33,6 +34,7 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 		setupBackground()
 		setupNavigationBar()
 		setupTableView()
+		setupViewModel()
 	}
 
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -68,9 +70,20 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 	// MARK: - Protocol UITableViewDelegate
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = UITableViewCell(style: .default, reuseIdentifier: "DummyCell")
-		cell.textLabel?.text = "Testcell"
-		return cell
+		switch HealthCertificateViewModel.TableViewSection.map(indexPath.section) {
+		case .headline:
+			let cell = tableView.dequeueReusableCell(cellType: HealthCertificateSimpleTextCell.self, for: indexPath)
+			cell.configure(with: viewModel.headlineCellViewModel)
+			return cell
+		case .topCorner:
+			return tableView.dequeueReusableCell(cellType: HealthCertificateTopCornerCell.self, for: indexPath)
+		case .details:
+			let cell = tableView.dequeueReusableCell(cellType: HealthCertificateKeyValueTextCell.self, for: indexPath)
+			cell.configure(with: viewModel.healthCertificateKeyValueCellViewModel(row: indexPath.row))
+			return cell
+		case .bottomCorner:
+			return tableView.dequeueReusableCell(cellType: HealthCertificateBottomCornerCell.self, for: indexPath)
+		}
 	}
 
 	// MARK: - Public
@@ -83,9 +96,10 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 	private let didTapDelete: () -> Void
 
 	private let viewModel: HealthCertificateViewModel
-	private let backgroundView = GradientBackgroundView(type: .blueRedTilted)
+	private let backgroundView = GradientBackgroundView(type: .solidGrey)
 	private let tableView = UITableView(frame: .zero, style: .plain)
 
+	private var subscriptions = Set<AnyCancellable>()
 	private var didCalculateGradientHeight: Bool = false
 	private var tableContentObserver: NSKeyValueObservation!
 
@@ -150,8 +164,32 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 		tableView.delegate = self
 		tableView.dataSource = self
 		tableView.separatorStyle = .none
-		tableView.register(HealthCertificateSimpleTextCell.self, forCellReuseIdentifier: HealthCertificateSimpleTextCell.reuseIdentifier)
-		tableView.register(QRCodeCell.self, forCellReuseIdentifier: QRCodeCell.reuseIdentifier)
+
+		tableView.register(
+			HealthCertificateSimpleTextCell.self,
+			forCellReuseIdentifier: HealthCertificateSimpleTextCell.reuseIdentifier
+		)
+
+		tableView.register(
+			HealthCertificateKeyValueTextCell.self,
+			forCellReuseIdentifier: HealthCertificateKeyValueTextCell.reuseIdentifier
+		)
+
+		tableView.register(
+			HealthCertificateTopCornerCell.self,
+			forCellReuseIdentifier: HealthCertificateTopCornerCell.reuseIdentifier
+		)
+
+		tableView.register(
+			HealthCertificateBottomCornerCell.self,
+			forCellReuseIdentifier: HealthCertificateBottomCornerCell.reuseIdentifier
+		)
+	}
+
+	private func setupViewModel() {
+		viewModel.$gradientType
+			.assign(to: \.type, on: backgroundView)
+			.store(in: &subscriptions)
 	}
 
 }

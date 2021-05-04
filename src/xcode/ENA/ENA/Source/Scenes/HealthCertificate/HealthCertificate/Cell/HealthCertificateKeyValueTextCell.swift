@@ -1,0 +1,75 @@
+////
+// 🦠 Corona-Warn-App
+//
+
+import UIKit
+
+class HealthCertificateKeyValueTextCell: UITableViewCell, ReuseIdentifierProviding {
+
+	// MARK: - Init
+
+	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+		super.init(style: style, reuseIdentifier: reuseIdentifier)
+		setupView()
+		isAccessibilityElement = false
+		headlineTextLabel.isAccessibilityElement = true
+	}
+
+	@available(*, unavailable)
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+
+	// MARK: - Internal
+
+	func configure(with cellViewModel: HealthCertificateKeyValueCellViewModel) {
+		headlineTextLabel.font = cellViewModel.headlineFont
+		detailsTextLabel.font = cellViewModel.textFont
+		headlineTextLabel.textColor = cellViewModel.headlineTextColor
+		detailsTextLabel.textColor = cellViewModel.textTextColor
+		headlineTextLabel.text = cellViewModel.headline
+		detailsTextLabel.text = cellViewModel.text
+	}
+
+	// MARK: - Private
+
+	private let backgroundContainerView = UIView()
+	private let headlineTextLabel = ENALabel()
+	private let detailsTextLabel = ENALabel()
+	private var topSpaceLayoutConstraint: NSLayoutConstraint!
+
+	private func setupView() {
+		backgroundColor = .clear
+		contentView.backgroundColor = .clear
+		selectionStyle = .none
+
+		backgroundContainerView.backgroundColor = .enaColor(for: .background)
+		backgroundContainerView.translatesAutoresizingMaskIntoConstraints = false
+		contentView.addSubview(backgroundContainerView)
+
+		headlineTextLabel.numberOfLines = 0
+		detailsTextLabel.numberOfLines = 0
+
+		let stackView = UIStackView(arrangedSubviews: [headlineTextLabel, detailsTextLabel])
+		stackView.translatesAutoresizingMaskIntoConstraints = false
+		stackView.alignment = .leading
+		stackView.axis = .vertical
+		stackView.spacing = 8.0
+
+		backgroundContainerView.addSubview(stackView)
+
+		NSLayoutConstraint.activate(
+			[
+				backgroundContainerView.topAnchor.constraint(equalTo: contentView.topAnchor),
+				backgroundContainerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+				backgroundContainerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.0),
+				backgroundContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.0),
+
+				stackView.topAnchor.constraint(equalTo: backgroundContainerView.topAnchor, constant: 18.0),
+				stackView.bottomAnchor.constraint(equalTo: backgroundContainerView.bottomAnchor, constant: -18.0),
+				stackView.leadingAnchor.constraint(equalTo: backgroundContainerView.leadingAnchor, constant: 14.0),
+				stackView.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor, constant: -14.0)
+			]
+		)
+	}
+}
