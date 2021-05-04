@@ -845,9 +845,9 @@
 
 "ExposureSubmissionResult_Timer_Title" = "Wynik dostępny od";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Title" = "Funkcja weryfikacji";
+"ExposureSubmissionResult_Negative_Antigen_Proof_Title" = " ";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Wyświetlony tutaj wynik testu może również służyć jako dowód negatywnego wyniku szybkiego testu. \n\nPamiętaj, że wynik szybkiego testu musisz przedstawić tylko wtedy, gdy jest to wymagane przez prawo. Możesz przedstawić wynik za pomocą aplikacji lub w inny sposób. Aby uzyskać więcej informacji, zapoznaj się z kryteriami akceptacji dowodu przeprowadzenia testów w swoim kraju związkowym.";
+"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Wyświetlony tutaj wynik testu jest prywatny, ale niektóre przepisy prawne mogą wymagać jego udostępnienia. Jeśli to wymagane, możesz go udostępnić na jeden z podanych sposobów.";
 
 /* Exposure Submission */
 "ExposureSubmissionError_ErrorPrefix" = "Podczas wysyłania Twoim danych pojawił się błąd techniczny. Skontaktuj się z infolinią techniczną. Numer telefonu znajdziesz w sekcji Informacje o aplikacji.";
