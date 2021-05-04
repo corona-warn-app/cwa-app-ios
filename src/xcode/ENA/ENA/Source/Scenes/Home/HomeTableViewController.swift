@@ -26,7 +26,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		onAppInformationCellTap: @escaping () -> Void,
 		onSettingsCellTap: @escaping (ENStateHandler.State) -> Void,
 		showTestInformationResult: @escaping (Result<CoronaTestQRCodeInformation, QRCodeError>) -> Void,
-		onCreateHealtCertificateTap: @escaping () -> Void
+		onCreateHealthCertificateTap: @escaping () -> Void,
+		onCertifiedPersonTap: @escaping () -> Void
 	) {
 		self.viewModel = viewModel
 		self.appConfigurationProvider = appConfigurationProvider
@@ -43,7 +44,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		self.onAppInformationCellTap = onAppInformationCellTap
 		self.onSettingsCellTap = onSettingsCellTap
 		self.showTestInformationResult = showTestInformationResult
-		self.onCreateHealtCertificateTap = onCreateHealtCertificateTap
+		self.onCreateHealthCertificateTap = onCreateHealthCertificateTap
+		self.onCertifiedPersonTap = onCertifiedPersonTap
 
 		super.init(style: .plain)
 
@@ -288,7 +290,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			}
 
 		case .createHealthCertificate:
-			onCreateHealtCertificateTap()
+			onCreateHealthCertificateTap()
+
+		case .healthCertificate:
+			onCertifiedPersonTap()
 
 		default:
 			fatalError("Invalid section")
@@ -339,9 +344,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	private let onAppInformationCellTap: () -> Void
 	private let onSettingsCellTap: (ENStateHandler.State) -> Void
 	private let showTestInformationResult: (Result<CoronaTestQRCodeInformation, QRCodeError>) -> Void
-	private let onCreateHealtCertificateTap: () -> Void
-	private var deltaOnboardingCoordinator: DeltaOnboardingCoordinator?
+	private let onCreateHealthCertificateTap: () -> Void
+	private let onCertifiedPersonTap: () -> Void
 
+	private var deltaOnboardingCoordinator: DeltaOnboardingCoordinator?
 	private var riskCell: UITableViewCell?
 	private var pcrTestResultCell: UITableViewCell?
 	private var pcrTestShownPositiveResultCell: UITableViewCell?

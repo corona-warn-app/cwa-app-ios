@@ -5725,12 +5725,12 @@
 		BA3B011E263D67F600A2A25C /* HealthCertificate */ = {
 			isa = PBXGroup;
 			children = (
-				BAC741A026414E0500955311 /* Cells */,
 				BA3B011F263D681600A2A25C /* CreateHealthCertificateCoordinator.swift */,
 				BA18075C263D7F32008AD370 /* CreateHealthCertificateCoordinatorViewModel.swift */,
+				BAC741A026414E0500955311 /* Cells */,
 				BA180757263D6D75008AD370 /* Consent */,
-				BA5307222640359400991A12 /* HealthCertifiedPerson */,
 				BAF9591E264095DC00672494 /* HealthCertificate */,
+				BA5307222640359400991A12 /* HealthCertifiedPerson */,
 				8FE87F8C263AD0FF00A9C904 /* QRCodeScanner */,
 			);
 			path = HealthCertificate;

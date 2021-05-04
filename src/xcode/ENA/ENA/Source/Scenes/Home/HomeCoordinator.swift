@@ -104,8 +104,11 @@ class HomeCoordinator: RequiresAppDependencies {
 			showTestInformationResult: { [weak self] testInformationResult in
 			   self?.showExposureSubmission(testInformationResult: testInformationResult)
 			},
-			onCreateHealtCertificateTap: { [weak self] in
+			onCreateHealthCertificateTap: { [weak self] in
 				self?.showCreateHealthCertificate()
+			},
+			onCertifiedPersonTap: { [weak self] in
+				self?.showCertifiedPerson()
 			}
 		)
 
@@ -150,7 +153,6 @@ class HomeCoordinator: RequiresAppDependencies {
 	private var traceLocationsCoordinator: TraceLocationsCoordinator?
 	private var settingsCoordinator: SettingsCoordinator?
 	private var exposureDetectionCoordinator: ExposureDetectionCoordinator?
-	private var healthCertificatecoordinator: CreateHealthCertificateCoordinator?
 	private var enStateUpdateList = NSHashTable<AnyObject>.weakObjects()
 
 	private weak var delegate: CoordinatorDelegate?
@@ -361,11 +363,16 @@ class HomeCoordinator: RequiresAppDependencies {
 		}
 	}
 
-	// MARK: - HealthCerficitae
+	// MARK: - HealthCertificate
 
 	private func showCreateHealthCertificate() {
 		let coordinator = CreateHealthCertificateCoordinator(parentViewController: rootViewController)
 		coordinator.start()
+	}
+
+	private func showCertifiedPerson() {
+		let coordinator = CreateHealthCertificateCoordinator(parentViewController: rootViewController)
+		coordinator.startWithCertifiedPerson()
 	}
 
 	#if !RELEASE
