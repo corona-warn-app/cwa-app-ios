@@ -84,7 +84,7 @@ final class OTPService: OTPServiceProviding {
 		   let expirationDate = otpToken.expirationDate,
 		   expirationDate > Date(),
 		   store.otpElsAuthorizationDate == nil {
-			Log.info("Existing OTP ELS was not comsumed before and can be used again or submission.", log: .otp)
+			Log.info("Existing OTP ELS was not consumed before and can be used for submission.", log: .otp)
 			completion(.success(otpToken.token))
 			return
 		}
