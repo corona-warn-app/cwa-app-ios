@@ -354,7 +354,6 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 
 		// Click continue button.
 		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.primaryButton"].waitForExistence(timeout: .medium))
-		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.primaryButton"].isEnabled)
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 
 		// TAN tests are ALWAYS positive!
