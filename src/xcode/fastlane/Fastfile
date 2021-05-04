@@ -22,6 +22,8 @@ default_platform(:ios)
 
 platform :ios do
 
+### PRE-LANE ACTIONS ############################
+
   before_all do
     setup_circle_ci
 
@@ -29,6 +31,8 @@ platform :ios do
       xcversion(version: "~> 12.4.0")
     end
   end
+
+### LANES #######################################
 
   desc "Update license file"
   lane :update_licenses do
@@ -128,7 +132,35 @@ platform :ios do
 
       zip(
         path: "fastlane/test_output/ENACommunity.xcresult",
-        output_path: "fastlane/test_output/ENAENACommunity.xcresult.zip",
+        output_path: "fastlane/test_output/ENACommunity.xcresult.zip",
+        verbose: false
+      )
+    end
+  end
+
+  desc "Create (localized) screenshots"
+  lane :screenshot do |options|
+    begin
+      output_dir = "screenshots/screenshots-#{options[:mode]}"
+
+      capture_ios_screenshots(
+        languages:  options[:languages],
+        dark_mode: options[:mode] == "dark",
+        output_directory: output_dir,
+        result_bundle: true
+      )
+    rescue
+      UI.user_error!("Tests did fail, please check logs above or ENA.xcresult.zip")
+    ensure
+      trainer(
+        # output_directory: output_dir,
+        path: "#{output_dir}/test_output/#{options[:languages]}",
+        extension: ".junit"
+      )
+
+      zip(
+        path: "#{output_dir}/ENAScreenshots.xcresult",
+        output_path: "#{output_dir}/ENAScreenshots.xcresult.zip",
         verbose: false
       )
     end
