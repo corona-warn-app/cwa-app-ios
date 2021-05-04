@@ -4,7 +4,7 @@
 
 import Foundation
 
-public struct HealthCertificateRepresentations: Codable {
+public struct CertificateRepresentations: Codable {
 
     let base45: String
     let cbor: Data
