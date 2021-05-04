@@ -435,11 +435,11 @@ class CoronaTestService {
 					self?.warnOthersReminder.cancelNotifications(for: .antigen)
 				}
 
+				self?.antigenTestIsOutdated = false
+				self?.antigenTestOutdatedDate = nil
+
 				if let antigenTest = antigenTest {
 					self?.setupOutdatedPublisher(for: antigenTest)
-				} else {
-					self?.antigenTestIsOutdated = false
-					self?.antigenTestOutdatedDate = nil
 				}
 			}
 			.store(in: &subscriptions)
