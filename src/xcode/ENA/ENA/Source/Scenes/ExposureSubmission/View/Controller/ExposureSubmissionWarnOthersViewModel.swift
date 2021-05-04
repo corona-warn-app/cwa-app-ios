@@ -84,6 +84,7 @@ struct ExposureSubmissionWarnOthersViewModel {
 				.bulletPoint(text: AppStrings.ExposureSubmissionWarnOthers.consent_bullet2, alignment: .legal),
 				.bulletPoint(text: AppStrings.ExposureSubmissionWarnOthers.consent_bullet3, alignment: .legal),
 				.bulletPoint(text: AppStrings.ExposureSubmissionWarnOthers.consent_bullet4, alignment: .legal),
+				.bulletPoint(text: AppStrings.ExposureSubmissionWarnOthers.consent_bullet5, alignment: .legal),
 				.space(height: 16)
 			])
 		)
