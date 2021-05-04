@@ -13,7 +13,7 @@ final class CreateHealthCertificateCoordinator {
 	) {
 		self.parentViewController = parentViewController
 		self.coordinatorViewModel = CreateHealthCertificateCoordinatorViewModel()
-		self.navigationController = UINavigationController()
+		self.navigationController = DismissHandlingNavigationController()
 	}
 
 	// MARK: - Overrides

@@ -22,7 +22,11 @@ class GradientBackgroundView: UIView {
 	// MARK: - Internal
 
 	var gradientHeightConstraint: NSLayoutConstraint!
-	var type: GradientView.GradientType
+	var type: GradientView.GradientType {
+		didSet {
+			gradientView.type = type
+		}
+	}
 
 	func updatedTopLayout(with offset: CGFloat, limit: CGFloat) {
 		let height = gradientView.bounds.size.height
