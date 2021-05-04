@@ -32,6 +32,11 @@ final class CreateHealthCertificateCoordinator {
 		}
 	}
 
+	func startWithCertifiedPerson() {
+		showHealthCertifiedPerson("dummy", animated: false)
+		parentViewController.present(navigationController, animated: true)
+	}
+
 	func endCoordinator() {
 		parentViewController.dismiss(animated: true)
 	}
@@ -72,7 +77,7 @@ final class CreateHealthCertificateCoordinator {
 		let qrCodeScannerViewController = HealthCertificateQRCodeScannerViewController(
 			didScanCertificate: { payload in
 				// get healthCertificatePerson from sercvice here
-				self.showHealthCertificatePerson(payload, animated: false)
+				self.showHealthCertifiedPerson(payload, animated: false)
 				self.navigationController.dismiss(animated: true)
 			}, dismiss: endCoordinator
 		)
@@ -82,9 +87,9 @@ final class CreateHealthCertificateCoordinator {
 	}
 
 	// healthCertificatePerson is a string for the moment
-	private func showHealthCertificatePerson(_ healthCertificatePerson: String, animated: Bool) {
+	private func showHealthCertifiedPerson(_ healthCertifiedPerson: String, animated: Bool) {
 		let healthCertificatePersonViewController = HealthCertifiedPersonViewController(
-			healthCertificatePerson: healthCertificatePerson,
+			healthCertifiedPerson: healthCertifiedPerson,
 			dismiss: endCoordinator,
 			didTapHealthCertificate: showHealthCertificate,
 			didTapRegisterAnotherHealthCertificate: showQRCodeScanner
