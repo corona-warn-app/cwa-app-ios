@@ -34,7 +34,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	override init() {
 		self.environmentProvider = Environments()
 
+		#if DEBUG
+		if isUITesting {
+			self.store = MockTestStore()
+		}
 		self.store = SecureStore(subDirectory: "database", environmentProvider: environmentProvider)
+		#else
+		self.store = SecureStore(subDirectory: "database", environmentProvider: environmentProvider)
+		#endif
 
 		if store.appInstallationDate == nil {
 			store.appInstallationDate = InstallationDate.inferredFromDocumentDirectoryCreationDate()
