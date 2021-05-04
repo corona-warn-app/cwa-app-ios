@@ -6,9 +6,10 @@ import UIKit
 import Contacts
 import OpenCombine
 
-final class HealthCertificatePersonViewModel {
+final class HealthCertifiedPersonViewModel {
 
 	// MARK: - Init
+
 	init(
 		// add healthCertificatePerson model later
 	) {

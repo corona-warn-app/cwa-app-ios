@@ -83,7 +83,7 @@ final class CreateHealthCertificateCoordinator {
 
 	// healthCertificatePerson is a string for the moment
 	private func showHealthCertificatePerson(_ healthCertificatePerson: String, animated: Bool) {
-		let healthCertificatePersonViewController = HealthCertificatePersonViewController(
+		let healthCertificatePersonViewController = HealthCertifiedPersonViewController(
 			healthCertificatePerson: healthCertificatePerson,
 			dismiss: endCoordinator,
 			didTapHealthCertificate: showHealthCertificate,

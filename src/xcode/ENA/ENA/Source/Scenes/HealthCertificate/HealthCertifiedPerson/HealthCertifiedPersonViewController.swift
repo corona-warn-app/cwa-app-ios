@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-class HealthCertificatePersonViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, DismissHandling, FooterViewHandling {
+class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, DismissHandling, FooterViewHandling {
 
 	// MARK: - Init
 
@@ -19,7 +19,7 @@ class HealthCertificatePersonViewController: UIViewController, UITableViewDataSo
 		self.dismiss = dismiss
 		self.didTapHealthCertificate = didTapHealthCertificate
 		self.didTapRegisterAnotherHealthCertificate = didTapRegisterAnotherHealthCertificate
-		self.viewModel = HealthCertificatePersonViewModel()
+		self.viewModel = HealthCertifiedPersonViewModel()
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -62,15 +62,15 @@ class HealthCertificatePersonViewController: UIViewController, UITableViewDataSo
 	// MARK: - Protocol UITableViewDateSource
 
 	func numberOfSections(in tableView: UITableView) -> Int {
-		HealthCertificatePersonViewModel.TableViewSection.numberOfSections
+		HealthCertifiedPersonViewModel.TableViewSection.numberOfSections
 	}
 
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		viewModel.numberOfItems(in: HealthCertificatePersonViewModel.TableViewSection.map(section))
+		viewModel.numberOfItems(in: HealthCertifiedPersonViewModel.TableViewSection.map(section))
 	}
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let section = HealthCertificatePersonViewModel.TableViewSection.map(indexPath.section)
+		let section = HealthCertifiedPersonViewModel.TableViewSection.map(indexPath.section)
 
 		switch section {
 		case .header:
@@ -102,7 +102,7 @@ class HealthCertificatePersonViewController: UIViewController, UITableViewDataSo
 
 	// MARK: - Protocol UITableViewDelegate
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		let section = HealthCertificatePersonViewModel.TableViewSection.map(indexPath.section)
+		let section = HealthCertifiedPersonViewModel.TableViewSection.map(indexPath.section)
 		switch section {
 		case .certificates:
 			didTapHealthCertificate("submit certificate here")
@@ -121,7 +121,7 @@ class HealthCertificatePersonViewController: UIViewController, UITableViewDataSo
 	private let didTapHealthCertificate: (String) -> Void
 	private let didTapRegisterAnotherHealthCertificate: () -> Void
 
-	private let viewModel: HealthCertificatePersonViewModel
+	private let viewModel: HealthCertifiedPersonViewModel
 	private let backgroundView = GradientBackgroundView(type: .solidGrey)
 	private let tableView = UITableView(frame: .zero, style: .plain)
 
