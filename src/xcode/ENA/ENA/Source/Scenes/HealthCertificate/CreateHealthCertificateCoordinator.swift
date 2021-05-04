@@ -118,7 +118,9 @@ final class CreateHealthCertificateCoordinator {
 			didTapDelete: {
 				self.showDeleteAlert(
 					submitAction: UIAlertAction(
-						title: "Entfernen", style: .default, handler: { _ in
+						title: "Entfernen",
+						style: .default,
+						handler: { _ in
 							self.navigationController.popToRootViewController(animated: true)
 						}
 					)
