@@ -28,11 +28,15 @@ class GradientView: UIView {
 
 	// MARK: - Internal
 
-	enum GradientType {
+	enum GradientType: CaseIterable {
 		case blueRedTilted
 		case blueOnly
 		case solidGrey
 		case lightBlue
+
+		static func random() -> GradientType {
+			GradientView.GradientType.allCases.randomElement() ?? .solidGrey
+		}
 	}
 
 	var type: GradientType = .blueRedTilted { didSet { setupLayer() } }

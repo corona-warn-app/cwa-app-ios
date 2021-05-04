@@ -27,11 +27,10 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 	// MARK: - Internal
 
 	func configure(_ cellViewModel: HealthCertificateCellViewModel) {
-		// view model should provide all this data
-		shieldImageView.backgroundColor = UIColor(red: 0.38, green: 0.435, blue: 0.494, alpha: 1)
-		shieldImageView.image = UIImage(imageLiteralResourceName: "Icon - Teilschild")
-		headlineTextLabel.text = "Impfung 1 von 2"
-		detailsTextLabel.text = "durchgeführt am 12.04.2021"
+		gradientBackground.type = cellViewModel.gradientType
+		shieldImageView.image = cellViewModel.image
+		headlineTextLabel.text = cellViewModel.headline
+		detailsTextLabel.text = cellViewModel.detail
 	}
 
 	// MARK: - Private
@@ -40,6 +39,7 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 	private let headlineTextLabel = ENALabel()
 	private let detailsTextLabel = ENALabel()
 	private let shieldImageView = UIImageView()
+	private let gradientBackground = GradientView()
 
 	private func setupView() {
 		backgroundColor = .clear
@@ -70,14 +70,19 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		vStackView.axis = .vertical
 		vStackView.spacing = 8.0
 
-		shieldImageView.contentMode = .center
+		gradientBackground.type = .solidGrey
+		gradientBackground.translatesAutoresizingMaskIntoConstraints = false
 		if #available(iOS 13.0, *) {
-			shieldImageView.layer.cornerCurve = .continuous
+			gradientBackground.layer.cornerCurve = .continuous
 		}
-		shieldImageView.layer.cornerRadius = 15.0
-		shieldImageView.layer.masksToBounds = true
+		gradientBackground.layer.cornerRadius = 15.0
+		gradientBackground.layer.masksToBounds = true
 
-		let hStackView = UIStackView(arrangedSubviews: [shieldImageView, vStackView])
+		shieldImageView.contentMode = .center
+		shieldImageView.translatesAutoresizingMaskIntoConstraints = false
+		gradientBackground.addSubview(shieldImageView)
+
+		let hStackView = UIStackView(arrangedSubviews: [gradientBackground, vStackView])
 		hStackView.translatesAutoresizingMaskIntoConstraints = false
 		hStackView.axis = .horizontal
 		hStackView.spacing = 16.0
@@ -92,8 +97,13 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 				backgroundContainerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 30.0),
 				backgroundContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -30.0),
 
-				shieldImageView.widthAnchor.constraint(equalToConstant: 96.0),
-				shieldImageView.heightAnchor.constraint(equalToConstant: 96.0),
+				gradientBackground.widthAnchor.constraint(equalToConstant: 96.0),
+				gradientBackground.heightAnchor.constraint(equalToConstant: 96.0),
+
+				shieldImageView.widthAnchor.constraint(equalTo: gradientBackground.widthAnchor),
+				shieldImageView.heightAnchor.constraint(equalTo: gradientBackground.heightAnchor),
+				shieldImageView.centerXAnchor.constraint(equalTo: gradientBackground.centerXAnchor),
+				shieldImageView.centerYAnchor.constraint(equalTo: gradientBackground.centerYAnchor),
 
 				hStackView.topAnchor.constraint(equalTo: backgroundContainerView.topAnchor, constant: 16.0),
 				hStackView.bottomAnchor.constraint(equalTo: backgroundContainerView.bottomAnchor, constant: -24.0),

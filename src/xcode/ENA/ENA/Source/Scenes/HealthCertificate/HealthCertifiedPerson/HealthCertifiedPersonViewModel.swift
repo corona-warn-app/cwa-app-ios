@@ -88,9 +88,9 @@ final class HealthCertifiedPersonViewModel {
 		)
 	}()
 
-	let healthCertificateCellViewModel: HealthCertificateCellViewModel = {
-		HealthCertificateCellViewModel()
-	}()
+	var healthCertificateCellViewModel: HealthCertificateCellViewModel {
+		HealthCertificateCellViewModel(healthCertificate: "Dummy", type: gradientType)
+	}
 
 	var personCellViewModel: HealthCertificateSimpleTextCellViewModel {
 		let attributedName = NSAttributedString(
@@ -120,7 +120,7 @@ final class HealthCertifiedPersonViewModel {
 	}
 
 	// view model should decide how the gradient looks
-	@OpenCombine.Published private(set) var gradientType: GradientView.GradientType = .solidGrey
+	@OpenCombine.Published private(set) var gradientType: GradientView.GradientType = GradientView.GradientType.random()
 
 	func numberOfItems(in section: TableViewSection) -> Int {
 		switch section {
