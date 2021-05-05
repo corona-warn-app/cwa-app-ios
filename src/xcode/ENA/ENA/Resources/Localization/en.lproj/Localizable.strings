@@ -818,7 +818,7 @@
 
 "ExposureSubmissionWarnOthers_consent_bullet3" = "Your identity will remain secret. Other users will not find out who has shared a test result.";
 
-"ExposureSubmissionWarnOthers_consent_bullet4" = "You must be at least 16 years old to grant your consent.";
+"ExposureSubmissionWarnOthers_consent_bullet5" = "You must be at least 16 years old to grant your consent.";
 
 "ExposureSubmissionWarnOthers_continueButton" = "Accept";
 
