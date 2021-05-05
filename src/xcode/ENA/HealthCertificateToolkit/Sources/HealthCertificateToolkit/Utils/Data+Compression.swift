@@ -8,7 +8,11 @@ import Compression
 extension Data {
 
     func decompressZLib() throws -> Data {
+
+        // The maximum output size of the zlib decompression shall be set to 10 MB to protect against zip bomb attacks.
+
         let tenMBCapacityLimitInByte = 10_000_000
+
         let decodedDestinationBuffer = UnsafeMutablePointer<UInt8>.allocate(capacity: tenMBCapacityLimitInByte)
 
         // First 2 bytes needs to be dropped. Please see: https://stackoverflow.com/a/55558641/2585092

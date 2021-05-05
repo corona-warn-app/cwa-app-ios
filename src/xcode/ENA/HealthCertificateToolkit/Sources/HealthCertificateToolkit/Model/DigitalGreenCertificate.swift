@@ -5,7 +5,7 @@
 import Foundation
 import SwiftCBOR
 
-public struct HealthCertificate: Codable, Equatable {
+public struct DigitalGreenCertificate: Codable, Equatable {
 
     // MARK: - Protocol Codable
 
@@ -19,7 +19,7 @@ public struct HealthCertificate: Codable, Equatable {
     // MARK: - Internal
 
     let version: String
-    let name: HealthCertificateName
+    let name: Name
     let dateOfBirth: String
     let vaccinationCertificates: [VaccinationCertificate]
 }
@@ -57,7 +57,7 @@ public struct VaccinationCertificate: Codable, Equatable {
     let uniqueCertificateIdentifier: String
 }
 
-public struct HealthCertificateName: Codable, Equatable {
+public struct Name: Codable, Equatable {
 
     // MARK: - Protocol Codable
 

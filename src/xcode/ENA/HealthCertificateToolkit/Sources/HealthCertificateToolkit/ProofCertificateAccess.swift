@@ -12,6 +12,15 @@ public struct ProofCertificateAccess {
         return certificateAccess.extractHeader(from: cbor)
     }
 
+    public func extractHealthCertificate(cbor: Data) -> Result<DigitalGreenCertificate, HealthCertificateDecodingError> {
+        return certificateAccess.extractHealthCertificate(from: cbor)
+    }
+
+    public func fetchProofCertificate(for healthCertificates: [String]) -> Result<Data, ProofCertificateFetchingError> {
+
+        return.success(Data())
+    }
+
     // MARK: - Internal
 
     let certificateAccess = CertificateAccess()

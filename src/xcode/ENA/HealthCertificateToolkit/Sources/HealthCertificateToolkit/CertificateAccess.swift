@@ -30,6 +30,7 @@ struct CertificateAccess {
     }
 
     func extractHeader(from cborWebToken: CBOR) -> Result<CBORWebTokenHeader, HealthCertificateDecodingError> {
+        
         guard let issuerElement = cborWebToken[1],
               case let .utf8String(issuer) = issuerElement else {
             return .failure(.HC_CWT_NO_ISS)
@@ -53,7 +54,7 @@ struct CertificateAccess {
         ))
     }
 
-    func extractHealthCertificate(from cborData: Data) -> Result<HealthCertificate, HealthCertificateDecodingError> {
+    func extractHealthCertificate(from cborData: Data) -> Result<DigitalGreenCertificate, HealthCertificateDecodingError> {
         let webTokenResult = decodeCBORWebToken(cborData)
 
         switch webTokenResult {
@@ -73,7 +74,7 @@ struct CertificateAccess {
         }
     }
 
-    func extractHealthCertificate(from cborWebToken: CBOR) -> Result<HealthCertificate, HealthCertificateDecodingError> {
+    func extractHealthCertificate(from cborWebToken: CBOR) -> Result<DigitalGreenCertificate, HealthCertificateDecodingError> {
         guard let healthCertificateElement = cborWebToken[-260],
               case let .map(healthCertificateMap) = healthCertificateElement else {
             return .failure(.HC_CWT_NO_HCERT)
@@ -88,7 +89,7 @@ struct CertificateAccess {
 
         let codableDecoder = CodableCBORDecoder()
 
-        guard let healthCertificate = try? codableDecoder.decode(HealthCertificate.self, from: cborData) else {
+        guard let healthCertificate = try? codableDecoder.decode(DigitalGreenCertificate.self, from: cborData) else {
             return .failure(.HC_CBOR_DECODING_FAILED)
         }
 

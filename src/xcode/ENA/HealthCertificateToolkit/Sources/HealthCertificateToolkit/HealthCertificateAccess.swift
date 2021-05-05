@@ -20,7 +20,7 @@ public struct HealthCertificateAccess {
         }
     }
 
-    public func extractHealthCertificate(base45: String) -> Result<HealthCertificate, HealthCertificateDecodingError> {
+    public func extractHealthCertificate(base45: String) -> Result<DigitalGreenCertificate, HealthCertificateDecodingError> {
         let cborDataResult = extractCBOR(base45: base45)
 
         switch cborDataResult {
