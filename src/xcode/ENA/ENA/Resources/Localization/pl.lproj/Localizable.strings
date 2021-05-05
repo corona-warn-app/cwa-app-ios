@@ -818,7 +818,7 @@
 
 "ExposureSubmissionWarnOthers_consent_bullet3" = "Twoja tożsamość nie zostanie ujawniona. Inni użytkownicy nie dowiedzą się, kto udostępnił swoje wyniki testów.";
 
-"ExposureSubmissionWarnOthers_consent_bullet4" = "Aby wyrazić zgodę, musisz mieć ukończone 16 lat.";
+"ExposureSubmissionWarnOthers_consent_bullet5" = "Aby wyrazić zgodę, musisz mieć ukończone 16 lat.";
 
 "ExposureSubmissionWarnOthers_continueButton" = "Akceptuj";
 
@@ -1329,7 +1329,7 @@
 
 "ErrorReport_StopAndDeleteButtonTitle" = "Zatrzymaj i usuń";
 
-"ErrorReport_SaveButtonTitle" = "Zapisz lokalnie i kontynuuj";
+"ErrorReport_SaveButtonTitle" = "Udostępnij i kontynuuj";
 
 "ErrorReport_SendButtonTitle" = "Wyślij raport o błędzie";
 

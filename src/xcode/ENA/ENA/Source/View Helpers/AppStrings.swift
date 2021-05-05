@@ -391,6 +391,7 @@ enum AppStrings {
 		static let consent_bullet2 = NSLocalizedString("ExposureSubmissionWarnOthers_consent_bullet2", comment: "")
 		static let consent_bullet3 = NSLocalizedString("ExposureSubmissionWarnOthers_consent_bullet3", comment: "")
 		static let consent_bullet4 = NSLocalizedString("ExposureSubmissionWarnOthers_consent_bullet4", comment: "")
+		static let consent_bullet5 = NSLocalizedString("ExposureSubmissionWarnOthers_consent_bullet5", comment: "")
 	}
 
 	enum ExposureSubmissionSuccess {
@@ -1794,6 +1795,12 @@ enum AppStrings {
 			static let phoneNumberTextFieldPlaceholder = NSLocalizedString("AntigenProfile_Create_PhoneNumberPlaceholder", comment: "")
 			static let emailAddressTextFieldPlaceholder = NSLocalizedString("AntigenProfile_Create_EmailAddressPlaceholder", comment: "")
 			static let saveButtonTitle = NSLocalizedString("AntigenProfile_Create_Save_Button_Title", comment: "")
+		}
+		
+		enum Profile {
+			static let deleteAlertTitle = NSLocalizedString("AntigenProfile_Delete_Alert_Title", comment: "")
+			static let deleteAlertDescription = NSLocalizedString("AntigenProfile_Delete_Alert_Description", comment: "")
+			static let deleteAlertDeleteButtonTitle = NSLocalizedString("AntigenProfile_Delete_Alert_Delete_Button_Title", comment: "")
 		}
 	}
 	
