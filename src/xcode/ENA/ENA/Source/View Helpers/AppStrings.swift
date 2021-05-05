@@ -391,6 +391,7 @@ enum AppStrings {
 		static let consent_bullet2 = NSLocalizedString("ExposureSubmissionWarnOthers_consent_bullet2", comment: "")
 		static let consent_bullet3 = NSLocalizedString("ExposureSubmissionWarnOthers_consent_bullet3", comment: "")
 		static let consent_bullet4 = NSLocalizedString("ExposureSubmissionWarnOthers_consent_bullet4", comment: "")
+		static let consent_bullet5 = NSLocalizedString("ExposureSubmissionWarnOthers_consent_bullet5", comment: "")
 	}
 
 	enum ExposureSubmissionSuccess {
