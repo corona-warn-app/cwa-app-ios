@@ -25,7 +25,7 @@ extension Data {
 
             let read = compression_decode_buffer(
                 decodedDestinationBuffer,
-                decodedCapacity,
+                tenMBCapacityLimitInByte,
                 baseAddress,
                 count - 2, nil,
                 COMPRESSION_ZLIB
