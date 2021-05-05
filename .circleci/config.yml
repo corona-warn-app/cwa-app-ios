@@ -151,6 +151,7 @@ jobs:
       - run:
           name: Snapshot
           command: cd src/xcode && bundle exec fastlane screenshot languages:<<parameters.language>> mode:<<parameters.displaymode>>
+          no_output_timeout: 20m
       - store_test_results:
           # Fastlane's snapshot only defines one output path which is intended forscreenshots
           # test results also land here which is the reason of this weird path
