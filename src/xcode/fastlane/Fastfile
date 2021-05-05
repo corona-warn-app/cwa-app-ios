@@ -155,7 +155,7 @@ platform :ios do
       UI.user_error!("Tests did fail, please check logs above or ENA.xcresult.zip")
     ensure
       trainer(
-        output_directory: "fastlane/test_output/",
+        output_directory: "fastlane/test_output/#{options[:languages]}",
         path: "#{output_dir}/test_output/#{options[:languages]}",
         extension: ".junit",
         fail_build: false
