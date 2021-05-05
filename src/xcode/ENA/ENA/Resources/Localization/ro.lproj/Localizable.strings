@@ -728,7 +728,7 @@
 
 "ExposureSubmissionResult_WarnOthersConsentNotGiven" = "Consimțământ „Avertizați-i pe ceilalți” neacordat";
 
-"ExposureSubmissionResult_testRemove" = "Eliminare test";
+"ExposureSubmissionResult_testRemove" = "Ștergere test";
 
 "ExposureSubmissionResult_testRemoveDesc" = "Ștergeți testul din Corona-Warn-App pentru a salva un nou cod de test aici dacă este necesar.";
 
@@ -1329,7 +1329,7 @@
 
 "ErrorReport_StopAndDeleteButtonTitle" = "Oprire și ștergere";
 
-"ErrorReport_SaveButtonTitle" = "Salvare locală și continuare";
+"ErrorReport_SaveButtonTitle" = "Partajare și continuare";
 
 "ErrorReport_SendButtonTitle" = "Trimitere raport de erori";
 

@@ -728,7 +728,7 @@
 
 "ExposureSubmissionResult_WarnOthersConsentNotGiven" = "Съгласие „Предупредете другите“ не е дадено";
 
-"ExposureSubmissionResult_testRemove" = "Премахване на теста";
+"ExposureSubmissionResult_testRemove" = "Изтриване на тест";
 
 "ExposureSubmissionResult_testRemoveDesc" = "Моля, изтрийте теста от приложението Corona-Warn-App, за да можете да запазите нов код на тест, ако е необходимо.";
 
@@ -1329,7 +1329,7 @@
 
 "ErrorReport_StopAndDeleteButtonTitle" = "Спиране и изтриване";
 
-"ErrorReport_SaveButtonTitle" = "Локално запазване и продължаване";
+"ErrorReport_SaveButtonTitle" = "Споделяне и напред";
 
 "ErrorReport_SendButtonTitle" = "Изпращане на отчет за грешки";
 
