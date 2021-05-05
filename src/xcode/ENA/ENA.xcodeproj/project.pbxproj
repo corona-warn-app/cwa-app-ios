@@ -300,7 +300,7 @@
 		2E303E6625D50A3E00346FB8 /* ActionDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E303E6425D50A3E00346FB8 /* ActionDetailTableViewCell.swift */; };
 		2E303E7D25D52E0A00346FB8 /* SeperatorLineLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E303E7C25D52E0900346FB8 /* SeperatorLineLayer.swift */; };
 		2E4C3FE4263A91FD00E9FAFF /* CreateAntigenTestProfileViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4C3FE2263A882D00E9FAFF /* CreateAntigenTestProfileViewModelTests.swift */; };
-		2E4C3FE9263AA6B800E9FAFF /* ENAUITestsAntigenTestProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4C3FE8263AA6B800E9FAFF /* ENAUITestsAntigenTestProfile.swift */; };
+		2E4C3FE9263AA6B800E9FAFF /* ENAUITests_12_AntigenTestProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4C3FE8263AA6B800E9FAFF /* ENAUITests_12_AntigenTestProfile.swift */; };
 		2E67C3D525BAFFC8008C6C90 /* DiaryExportItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E67C3D425BAFFC8008C6C90 /* DiaryExportItem.swift */; };
 		2EA7A4F626398EAC0069E865 /* CreateAntigenTestProfileDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA7A4F526398EAC0069E865 /* CreateAntigenTestProfileDescriptionCell.swift */; };
 		2EA7A4F826398ED70069E865 /* CreateAntigenTestProfileInputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA7A4F726398ED70069E865 /* CreateAntigenTestProfileInputCell.swift */; };
@@ -1414,7 +1414,7 @@
 		2E303E6425D50A3E00346FB8 /* ActionDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionDetailTableViewCell.swift; sourceTree = "<group>"; };
 		2E303E7C25D52E0900346FB8 /* SeperatorLineLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeperatorLineLayer.swift; sourceTree = "<group>"; };
 		2E4C3FE2263A882D00E9FAFF /* CreateAntigenTestProfileViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAntigenTestProfileViewModelTests.swift; sourceTree = "<group>"; };
-		2E4C3FE8263AA6B800E9FAFF /* ENAUITestsAntigenTestProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITestsAntigenTestProfile.swift; sourceTree = "<group>"; };
+		2E4C3FE8263AA6B800E9FAFF /* ENAUITests_12_AntigenTestProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_12_AntigenTestProfile.swift; sourceTree = "<group>"; };
 		2E67C3D425BAFFC8008C6C90 /* DiaryExportItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiaryExportItem.swift; sourceTree = "<group>"; };
 		2EA7A4F526398EAC0069E865 /* CreateAntigenTestProfileDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAntigenTestProfileDescriptionCell.swift; sourceTree = "<group>"; };
 		2EA7A4F726398ED70069E865 /* CreateAntigenTestProfileInputCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAntigenTestProfileInputCell.swift; sourceTree = "<group>"; };
@@ -1582,7 +1582,6 @@
 		50B5057C25CAEF5C00EEA380 /* OTPToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPToken.swift; sourceTree = "<group>"; };
 		50B5058825CAF3EF00EEA380 /* DMOTPServiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMOTPServiceViewController.swift; sourceTree = "<group>"; };
 		50B5058D25CAF3FC00EEA380 /* DMOTPServiceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMOTPServiceViewModel.swift; sourceTree = "<group>"; };
-		50B89F2525FA210300FAE1C1 /* UITestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestHelper.swift; sourceTree = "<group>"; };
 		50BD1405260A1E840013983A /* TraceWarningSuccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceWarningSuccess.swift; sourceTree = "<group>"; };
 		50BD141F260B73CC0013983A /* Verification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Verification.swift; sourceTree = "<group>"; };
 		50BD1424260B74C20013983A /* VerificationMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationMock.swift; sourceTree = "<group>"; };
@@ -3135,7 +3134,7 @@
 		2E4C3FE7263AA69400E9FAFF /* AntigenTestProfile */ = {
 			isa = PBXGroup;
 			children = (
-				2E4C3FE8263AA6B800E9FAFF /* ENAUITestsAntigenTestProfile.swift */,
+				2E4C3FE8263AA6B800E9FAFF /* ENAUITests_12_AntigenTestProfile.swift */,
 			);
 			path = AntigenTestProfile;
 			sourceTree = "<group>";
@@ -3884,7 +3883,6 @@
 			isa = PBXGroup;
 			children = (
 				71176E2C24891BCF004B0C9F /* __tests__ */,
-				35AAA19026139FE500D3A4C1 /* Array+SaveAccess.swift */,
 				AB1886D0252DE51E00D39BBE /* Bundle+Identifier.swift */,
 				A16714AE248CA1B70031B111 /* Bundle+ReadPlist.swift */,
 				AB6289CE251BA01400CF61D2 /* Bundle+Version.swift */,
@@ -3920,8 +3918,6 @@
 				2FA968CD24D8560B008EE367 /* String+Random.swift */,
 				B14D0CDA246E968C00D5BEBC /* String+Today.swift */,
 				EB2FDF942639A75D00B2BBF0 /* StringInterpolation+Private.swift */,
-				013A5551260CEE330092B5B1 /* TimeInterval+Minutes.swift */,
-				34FE156926010A830002CB69 /* TraceLocation+GenerateQRCode.swift */,
 				34FE15A72604F99D0002CB69 /* UIColor+HEX.swift */,
 				71CC3EA2246D6C4000217F2C /* UIFont+DynamicType.swift */,
 				01C6AC39252B2A500052814D /* UIImage+Color.swift */,
@@ -7742,7 +7738,7 @@
 				948DCDC3252EFC9A00CDE020 /* ENAUITests_05_ExposureLogging.swift in Sources */,
 				85D7596424570491008175F0 /* ENAUITests.swift in Sources */,
 				EB1C221225B7140B00A5CA6E /* ENAUITests_08_UpdateOSUITests.swift in Sources */,
-				2E4C3FE9263AA6B800E9FAFF /* ENAUITestsAntigenTestProfile.swift in Sources */,
+				2E4C3FE9263AA6B800E9FAFF /* ENAUITests_12_AntigenTestProfile.swift in Sources */,
 				356153AD257FA8A300F6CD4D /* AccessibilityIdentifiers.swift in Sources */,
 				AB7DE70225C4547600C52B3F /* ENAUITestsExposureDetection.swift in Sources */,
 				941B68AE253F007100DC1962 /* Int+Increment.swift in Sources */,
