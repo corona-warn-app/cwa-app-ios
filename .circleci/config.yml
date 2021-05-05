@@ -150,18 +150,7 @@ jobs:
       - install-tools # chaching currently fails, needs some further tweaks
       - run:
           name: Snapshot
-          command: |
-            case <<parameters.displaymode>> in
-             "dark") use_dark_mode=true ;;
-             *) use_dark_mode=false ;;
-            esac
-            cd src/xcode
-            bundle exec fastlane run snapshot \
-              languages:<<parameters.language>> \
-              dark_mode:${use_dark_mode} \
-              clear_previous_screenshots:"false" \
-              output_directory:screenshots/screenshots-<<parameters.language>>-<<parameters.displaymode>>
-            cd -
+          command: cd src/xcode && bundle exec fastlane screenshot languages:<<parameters.language>> mode:<<parameters.displaymode>>
           no_output_timeout: 20m
       - persist_to_workspace:
           root: .
