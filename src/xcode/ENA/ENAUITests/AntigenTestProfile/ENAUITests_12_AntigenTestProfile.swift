@@ -63,7 +63,8 @@ class ENAUITests_12_AntigenTestProfile: XCTestCase {
 		
 		/// -> Antigen Test Information Screen
 		
-		let continueButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Information.continueButton])
+		let continueButton = app.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Information.continueButton]
+		XCTAssertTrue(continueButton.waitForExistence(timeout: .short))
 		continueButton.tap()
 		
 		/// Create Antigen Test Profile Screen
