@@ -2438,3 +2438,11 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "AntigenProfile_Create_EmailAddressPlaceholder" = "E-Mail-Adresse";
 
 "AntigenProfile_Create_Save_Button_Title" = "Speichern";
+
+/* Antigen Profile */
+
+"AntigenProfile_Delete_Alert_Title" = "Wollen Sie das Schnelltest-Profil wirklich entfernen?";
+
+"AntigenProfile_Delete_Alert_Description" = "Bitte denken Sie daran, dass der QR-Code danach nicht mehr zum Registrieren verwendet werden kann.";
+
+"AntigenProfile_Delete_Alert_Delete_Button_Title" = "Entfernen";
