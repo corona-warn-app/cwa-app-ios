@@ -836,8 +836,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ExposureSubmissionWarnOthers_consent_bullet2" = "Sie können Ihr Testergebnis auch abrufen, wenn Sie dies nicht teilen. Wenn Sie ihr Testergebnis teilen, helfen Sie jedoch mit, Ihre Mitmenschen vor Ansteckungen zu schützen.";
 
 "ExposureSubmissionWarnOthers_consent_bullet3" = "Ihre Identität bleibt geheim. Andere Nutzer erfahren nicht, wer sein Testergebnis geteilt hat.";
+"ExposureSubmissionWarnOthers_consent_bullet4" = "Unter „Meine Check-ins“ können Sie Ihre Events und Orte einsehen, deren eingecheckte Gäste gewarnt werden. Sie können einzelne Check-ins auch entfernen und so von der Warnung ausschließen.";
 
-"ExposureSubmissionWarnOthers_consent_bullet4" = "Sie können Ihr Einverständnis abgeben, wenn Sie mindestens 16 Jahre alt sind.";
+"ExposureSubmissionWarnOthers_consent_bullet5" = "Sie können Ihr Einverständnis abgeben, wenn Sie mindestens 16 Jahre alt sind.";
 
 "ExposureSubmissionWarnOthers_continueButton" = "Einverstanden";
 
@@ -1371,7 +1372,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ErrorReport_StopAndDeleteButtonTitle" = "Stoppen und löschen";
 
-"ErrorReport_SaveButtonTitle" = "Lokal speichern und fortsetzen";
+"ErrorReport_SaveButtonTitle" = "Teilen und fortsetzen";
 
 "ErrorReport_SendButtonTitle" = "Fehlerbericht senden";
 
@@ -2438,3 +2439,11 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "AntigenProfile_Create_EmailAddressPlaceholder" = "E-Mail-Adresse";
 
 "AntigenProfile_Create_Save_Button_Title" = "Speichern";
+
+/* Antigen Profile */
+
+"AntigenProfile_Delete_Alert_Title" = "Wollen Sie das Schnelltest-Profil wirklich entfernen?";
+
+"AntigenProfile_Delete_Alert_Description" = "Bitte denken Sie daran, dass der QR-Code danach nicht mehr zum Registrieren verwendet werden kann.";
+
+"AntigenProfile_Delete_Alert_Delete_Button_Title" = "Entfernen";

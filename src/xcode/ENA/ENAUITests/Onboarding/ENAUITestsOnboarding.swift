@@ -31,19 +31,18 @@ class ENAUITests_00_Onboarding: XCTestCase {
 		XCTAssertTrue(app.staticTexts["AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_title"].waitForExistence(timeout: 5.0))
 
 		// tap through the onboarding screens
-		// snapshot("ScreenShot_\(#function)_0000")
 		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingLetsGo"].waitForExistence(timeout: 5.0))
 		app.buttons["AppStrings.Onboarding.onboardingLetsGo"].tap()
-		// snapshot("ScreenShot_\(#function)_0001")
+
 		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingContinue"].waitForExistence(timeout: 5.0))
 		app.buttons["AppStrings.Onboarding.onboardingContinue"].tap()
-		// snapshot("ScreenShot_\(#function)_0002")
+
 		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_button"].waitForExistence(timeout: 5.0))
 		app.buttons["AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_button"].tap()
-		// snapshot("ScreenShot_\(#function)_0003")
+
 		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingContinue"].waitForExistence(timeout: 5.0))
 		app.buttons["AppStrings.Onboarding.onboardingContinue"].tap()
-		// snapshot("ScreenShot_\(#function)_0004")
+
 		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingDoNotAllow"].waitForExistence(timeout: 5.0))
 		app.buttons["AppStrings.Onboarding.onboardingDoNotAllow"].tap()
 		// data consent switch must only be visible on settings-data-donation.
@@ -98,19 +97,18 @@ class ENAUITests_00_Onboarding: XCTestCase {
 		XCTAssertTrue(app.staticTexts["AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_title"].waitForExistence(timeout: 5.0))
 
 		// tap through the onboarding screens
-		// snapshot("ScreenShot_\(#function)_0000")
 		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingLetsGo"].waitForExistence(timeout: 5.0))
 		app.buttons["AppStrings.Onboarding.onboardingLetsGo"].tap()
-		// snapshot("ScreenShot_\(#function)_0001")
+
 		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingContinue"].waitForExistence(timeout: 5.0))
 		app.buttons["AppStrings.Onboarding.onboardingContinue"].tap()
-		// snapshot("ScreenShot_\(#function)_0002")
+
 		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_button"].waitForExistence(timeout: 5.0))
 		app.buttons["AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_button"].tap()
-		// snapshot("ScreenShot_\(#function)_0003")
+
 		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingContinue"].waitForExistence(timeout: 5.0))
 		app.buttons["AppStrings.Onboarding.onboardingContinue"].tap()
-		// snapshot("ScreenShot_\(#function)_0004")
+
 		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingContinue"].waitForExistence(timeout: 5.0))
 		app.buttons["AppStrings.Onboarding.onboardingContinue"].tap()
 		// data consent switch must only be visible on settings-data-donation.
@@ -157,7 +155,7 @@ class ENAUITests_00_Onboarding: XCTestCase {
 	}
 
 	
-	// MARK: -
+	// MARK: - Screenshots
 
 	func test_0002_Screenshots_OnboardingFlow_EnablePermissions_normal_S() throws {
 		var screenshotCounter = 0
