@@ -6,7 +6,7 @@ import XCTest
 import ExposureNotification
 
 // swiftlint:disable:next type_body_length
-class ENAUITests_01_Home: XCTestCase {
+class ENAUITests_01a_Home: XCTestCase {
 	var app: XCUIApplication!
 
 	override func setUpWithError() throws {
@@ -32,7 +32,6 @@ class ENAUITests_01_Home: XCTestCase {
 		XCTAssertTrue(app.cells["AppStrings.Home.infoCardAboutTitle"].waitForExistence(timeout: .medium))
 		XCTAssertTrue(app.cells["AppStrings.Home.appInformationCardTitle"].waitForExistence(timeout: .medium))
 		XCTAssertTrue(app.cells["AppStrings.Home.settingsCardTitle"].waitForExistence(timeout: .medium))
-		// snapshot("ScreenShot_\(#function)")
 	}
 
 	func test_0011_HomeFlow_extrasmall() throws {
@@ -48,7 +47,6 @@ class ENAUITests_01_Home: XCTestCase {
 		XCTAssertTrue(app.cells["AppStrings.Home.infoCardAboutTitle"].waitForExistence(timeout: .short))
 		XCTAssertTrue(app.cells["AppStrings.Home.appInformationCardTitle"].waitForExistence(timeout: .short))
 		XCTAssertTrue(app.cells["AppStrings.Home.settingsCardTitle"].waitForExistence(timeout: .short))
-		// snapshot("ScreenShot_\(#function)")
 	}
 
 	func test_0013_HomeFlow_extralarge() throws {
@@ -66,9 +64,27 @@ class ENAUITests_01_Home: XCTestCase {
 		app.swipeUp()
 		XCTAssertTrue(app.cells["AppStrings.Home.appInformationCardTitle"].waitForExistence(timeout: .medium))
 		XCTAssertTrue(app.cells["AppStrings.Home.settingsCardTitle"].waitForExistence(timeout: .short))
-		// snapshot("ScreenShot_\(#function)")
 	}
 	
+	func test_riskCardHigh_details_faqLink() throws {
+		app.launchArguments.append(contentsOf: ["-riskLevel", "high"])
+		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
+		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
+		app.launch()
+
+		let riskCell = app.cells.element(boundBy: 1)
+		XCTAssertTrue(riskCell.waitForExistence(timeout: .medium))
+		riskCell.tap()
+
+		let faqCell = app.cells[AccessibilityIdentifiers.ExposureDetection.guideFAQ]
+		XCTAssertTrue(faqCell.waitForExistence(timeout: .medium))
+		faqCell.tap()
+
+		XCTAssertTrue(app.webViews.firstMatch.waitForExistence(timeout: .long))
+	}
+
+	// MARK: - Screenshots
+
 	func test_screenshot_homescreen_riskCardHigh_riskOneDay() throws {
 		var screenshotCounter = 0
 		let riskLevel = "high"
@@ -291,23 +307,6 @@ class ENAUITests_01_Home: XCTestCase {
 		snapshot("homescreenrisk_level_\(riskLevel)_noExposureLogging_\(String(format: "%04d", (screenshotCounter.inc() )))")
 		app.swipeUp()
 		snapshot("homescreenrisk_level_\(riskLevel)_noExposureLogging_\(String(format: "%04d", (screenshotCounter.inc() )))")
-	}
-
-	func test_riskCardHigh_details_faqLink() throws {
-		app.launchArguments.append(contentsOf: ["-riskLevel", "high"])
-		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
-		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
-		app.launch()
-
-		let riskCell = app.cells.element(boundBy: 1)
-		XCTAssertTrue(riskCell.waitForExistence(timeout: .medium))
-		riskCell.tap()
-
-		let faqCell = app.cells[AccessibilityIdentifiers.ExposureDetection.guideFAQ]
-		XCTAssertTrue(faqCell.waitForExistence(timeout: .medium))
-		faqCell.tap()
-
-		XCTAssertTrue(app.webViews.firstMatch.waitForExistence(timeout: .long))
 	}
 	
 	func test_screenshot_details_riskCardHigh_riskOneDay_tracingNdays() throws {

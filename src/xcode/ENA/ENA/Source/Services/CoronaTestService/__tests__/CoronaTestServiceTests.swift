@@ -154,6 +154,96 @@ class CoronaTestServiceTests: XCTestCase {
 		subscription.cancel()
 	}
 
+	func testOutdatedPublisherResetWhenReplacingOutdatedNegativeAntigenTest() {
+		var defaultAppConfig = CachedAppConfigurationMock.defaultAppConfiguration
+		defaultAppConfig.coronaTestParameters.coronaRapidAntigenTestParameters.hoursToDeemTestOutdated = 48
+		let appConfig = CachedAppConfigurationMock(with: defaultAppConfig)
+
+		let service = CoronaTestService(
+			client: ClientMock(),
+			store: MockTestStore(),
+			appConfiguration: appConfig
+		)
+
+		service.antigenTest = AntigenTest.mock(
+			registrationToken: "1",
+			pointOfCareConsentDate: Date(timeIntervalSinceNow: -(60 * 60 * 48)),
+			testResult: .negative
+		)
+
+		let publisherExpectation = expectation(description: "")
+		publisherExpectation.expectedFulfillmentCount = 3
+
+		let expectedValues = [false, true, false]
+
+		var receivedValues = [Bool]()
+		let subscription = service.$antigenTestIsOutdated
+			.sink { antigenTestIsOutdated in
+				receivedValues.append(antigenTestIsOutdated)
+				publisherExpectation.fulfill()
+
+				// Replace test as soon as outdated state is set
+				if antigenTestIsOutdated && service.antigenTest?.registrationToken == "1" {
+					service.antigenTest = AntigenTest.mock(
+						registrationToken: "2",
+						pointOfCareConsentDate: Date(),
+						testResult: .pending
+					)
+				}
+			}
+
+		waitForExpectations(timeout: .short)
+
+		XCTAssertEqual(receivedValues, expectedValues)
+
+		subscription.cancel()
+	}
+
+	func testOutdatedPublisherStillOutdatedWhenReplacingOutdatedNegativeAntigenTestWithAnotherOutdatedOne() {
+		var defaultAppConfig = CachedAppConfigurationMock.defaultAppConfiguration
+		defaultAppConfig.coronaTestParameters.coronaRapidAntigenTestParameters.hoursToDeemTestOutdated = 48
+		let appConfig = CachedAppConfigurationMock(with: defaultAppConfig)
+
+		let service = CoronaTestService(
+			client: ClientMock(),
+			store: MockTestStore(),
+			appConfiguration: appConfig
+		)
+
+		service.antigenTest = AntigenTest.mock(
+			registrationToken: "1",
+			pointOfCareConsentDate: Date(timeIntervalSinceNow: -(60 * 60 * 48)),
+			testResult: .negative
+		)
+
+		let publisherExpectation = expectation(description: "")
+		publisherExpectation.expectedFulfillmentCount = 4
+
+		let expectedValues = [false, true, false, true]
+
+		var receivedValues = [Bool]()
+		let subscription = service.$antigenTestIsOutdated
+			.sink { antigenTestIsOutdated in
+				receivedValues.append(antigenTestIsOutdated)
+				publisherExpectation.fulfill()
+
+				// Replace test as soon as outdated state is set
+				if antigenTestIsOutdated && service.antigenTest?.registrationToken == "1" {
+					service.antigenTest = AntigenTest.mock(
+						registrationToken: "2",
+						pointOfCareConsentDate: Date(timeIntervalSinceNow: -(60 * 60 * 48)),
+						testResult: .negative
+					)
+				}
+			}
+
+		waitForExpectations(timeout: .short)
+
+		XCTAssertEqual(receivedValues, expectedValues)
+
+		subscription.cancel()
+	}
+
 	func testOutdatedPublisherNotSetForNonNegativeAntigenTests() {
 		let testResults: [TestResult] = [.pending, .positive, .invalid, .expired]
 		for testResult in testResults {
