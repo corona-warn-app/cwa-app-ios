@@ -23,4 +23,8 @@ struct HealthCertificateResponse: Codable, Equatable {
 	let dateOfBirth: String
 	let vaccinationCertificates: [VaccinationCertificate]
 
+	var isEligibleForProofCertificate: Bool {
+		vaccinationCertificates[0].isEligibleForProofCertificate
+	}
+
 }

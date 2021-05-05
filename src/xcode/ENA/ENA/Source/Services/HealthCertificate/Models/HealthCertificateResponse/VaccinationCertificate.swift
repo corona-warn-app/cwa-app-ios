@@ -37,4 +37,8 @@ struct VaccinationCertificate: Codable, Equatable {
 	let certificateIssuer: String
 	let uniqueCertificateIdentifier: String
 
+	var isEligibleForProofCertificate: Bool {
+		doseNumber == totalSeriesOfDoses
+	}
+
 }
