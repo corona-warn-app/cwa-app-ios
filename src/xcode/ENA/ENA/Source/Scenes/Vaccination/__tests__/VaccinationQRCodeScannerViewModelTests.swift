@@ -62,7 +62,7 @@ class VaccinationQRCodeScannerViewModelTests: XCTestCase {
 			}
 		)
 
-		let metaDataObject = FakeMetadataMachineReadableCodeObject(stringValue: "https://example/?\(guid)")
+		let metaDataObject = FakeMetadataMachineReadableCodeObject(stringValue: "HC1:\(guid)")
 		viewModel.activateScanning()
 		viewModel.didScan(metadataObjects: [metaDataObject])
 
@@ -71,7 +71,8 @@ class VaccinationQRCodeScannerViewModelTests: XCTestCase {
 
 		waitForExpectations(timeout: .short)
 	}
-	func testUnsuccessfulScan() {
+	
+	func testUnsuccessfulScan_emptyBase45String() {
 		let emptyGuid = ""
 
 		let onSuccessExpectation = expectation(description: "onSuccess not called")
@@ -90,7 +91,7 @@ class VaccinationQRCodeScannerViewModelTests: XCTestCase {
 		)
 
 		viewModel.activateScanning()
-		let metaDataObject = FakeMetadataMachineReadableCodeObject(stringValue: emptyGuid)
+		let metaDataObject = FakeMetadataMachineReadableCodeObject(stringValue: "HC1:\(emptyGuid)")
 		viewModel.didScan(metadataObjects: [metaDataObject])
 
 		// Check that scanning is deactivated after one unsuccessful scan
@@ -99,7 +100,35 @@ class VaccinationQRCodeScannerViewModelTests: XCTestCase {
 		waitForExpectations(timeout: .short)
 		XCTAssertFalse(viewModel.isScanningActivated)
 	}
+	
+	func testUnsuccessfulScan_invalidPrefix() {
+		let validGuid = "3D6D08-3567F3F2-4DCF-43A3-8737-4CD1F87D6FDA"
 
+		let onSuccessExpectation = expectation(description: "onSuccess not called")
+		onSuccessExpectation.isInverted = true
+
+		let onErrorExpectation = expectation(description: "onError called")
+		onErrorExpectation.expectedFulfillmentCount = 1
+
+		let viewModel = TestableVaccinationQRCodeScannerViewModelTests(
+			onSuccess: { _ in
+				onSuccessExpectation.fulfill()
+			},
+			onError: { _ in
+				onErrorExpectation.fulfill()
+			}
+		)
+
+		viewModel.activateScanning()
+		let metaDataObject = FakeMetadataMachineReadableCodeObject(stringValue: "HC:\(validGuid)")
+		viewModel.didScan(metadataObjects: [metaDataObject])
+
+		// Check that scanning is deactivated after one unsuccessful scan
+		viewModel.didScan(metadataObjects: [metaDataObject])
+
+		waitForExpectations(timeout: .short)
+		XCTAssertFalse(viewModel.isScanningActivated)
+	}
 
 	func testInitalUnsuccessfulScanWithSuccessfulRetry() {
 		let validGuid = "3D6D08-3567F3F2-4DCF-43A3-8737-4CD1F87D6FDA"
@@ -133,7 +162,7 @@ class VaccinationQRCodeScannerViewModelTests: XCTestCase {
 		
 		wait(for: [onErrorExpectation], timeout: .short)
 		
-		let validMetaDataObject = FakeMetadataMachineReadableCodeObject(stringValue: validGuid)
+		let validMetaDataObject = FakeMetadataMachineReadableCodeObject(stringValue: "HC1:\(validGuid)")
 		viewModel.activateScanning()
 		viewModel.didScan(metadataObjects: [validMetaDataObject])
 		
