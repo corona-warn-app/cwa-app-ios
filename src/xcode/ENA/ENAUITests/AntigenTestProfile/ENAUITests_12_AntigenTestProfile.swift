@@ -63,12 +63,12 @@ class ENAUITests_12_AntigenTestProfile: XCTestCase {
 		
 		/// -> Antigen Test Information Screen
 		
-		let continueButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton])
+		let continueButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Information.continueButton])
 		continueButton.tap()
 		
 		/// Create Antigen Test Profile Screen
 
-		let saveProfileButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton])
+		let saveProfileButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Create.saveButton])
 		XCTAssertFalse(saveProfileButton.isEnabled)
 		
 		let firstNameTextField = try XCTUnwrap(app.cells.textFields[AccessibilityIdentifiers.AntigenProfile.Create.firstNameTextField])
@@ -109,9 +109,9 @@ class ENAUITests_12_AntigenTestProfile: XCTestCase {
 		/// Antigen Test Profile Screen
 
 		// continues button exists
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].exists)
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.continueButton].exists)
 		// delete profile button exists
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.General.secondaryFooterButton].exists)
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.deleteButton].exists)
 		
 		let closeButton = try XCTUnwrap(app.navigationBars.buttons.element(boundBy: 1))
 		closeButton.tap()
@@ -129,7 +129,7 @@ class ENAUITests_12_AntigenTestProfile: XCTestCase {
 		/// Antigen Test Profile Screen
 		
 		// delete profile button exists
-		let deleteTestProfileButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.General.secondaryFooterButton])
+		let deleteTestProfileButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.deleteButton])
 		XCTAssertTrue(deleteTestProfileButton.waitForExistence(timeout: .short))
 		deleteTestProfileButton.tap()
 		
