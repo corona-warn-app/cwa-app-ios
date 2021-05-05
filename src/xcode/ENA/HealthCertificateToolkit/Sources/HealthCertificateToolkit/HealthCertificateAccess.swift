@@ -12,29 +12,23 @@ public struct HealthCertificateAccess {
     public func extractCBORWebTokenHeader(base45: String) -> Result<CBORWebTokenHeader, HealthCertificateDecodingError> {
         let cborDataResult = extractCBOR(base45: base45)
 
-        guard case let .success(cborData) = cborDataResult else {
-            if case let .failure(error) = cborDataResult {
-                return .failure(error)
-            } else {
-                fatalError("Has to be an error at this point.")
-            }
+        switch cborDataResult {
+        case let .success(cborData):
+            return certificateAccess.extractHeader(from: cborData)
+        case let .failure(error):
+            return .failure(error)
         }
-
-        return certificateAccess.extractHeader(cborData)
     }
 
     public func extractHealthCertificate(base45: String) -> Result<HealthCertificate, HealthCertificateDecodingError> {
         let cborDataResult = extractCBOR(base45: base45)
 
-        guard case let .success(cborData) = cborDataResult else {
-            if case let .failure(error) = cborDataResult {
-                return .failure(error)
-            } else {
-                fatalError("Has to be an error at this point.")
-            }
+        switch cborDataResult {
+        case let .success(cborData):
+            return certificateAccess.extractHealthCertificate(from: cborData)
+        case let .failure(error):
+            return .failure(error)
         }
-
-        return certificateAccess.extractHealthCertificate(cborData)
     }
 
     // MARK: - Internal

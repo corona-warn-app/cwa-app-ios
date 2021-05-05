@@ -9,29 +9,39 @@ struct CertificateAccess {
 
     // MARK: - Internal
 
-    func extractHeader(_ cborData: Data) -> Result<CBORWebTokenHeader, HealthCertificateDecodingError> {
-        let cborWebTokenResult = decodeCBORWebToken(cborData)
+    func extractHeader(from cborData: Data) -> Result<CBORWebTokenHeader, HealthCertificateDecodingError> {
+        let webTokenResult = decodeCBORWebToken(cborData)
 
-        guard case let .success(cborWenToken) = cborWebTokenResult else {
-            if case let .failure(error) = cborWebTokenResult {
+        switch webTokenResult {
+        case let .success(cborWebToken):
+
+            let headerResult = extractHeader(from: cborWebToken)
+
+            switch headerResult {
+            case let .success(tokenHeader):
+                return .success(tokenHeader)
+            case let .failure(error):
                 return .failure(error)
-            } else {
-                fatalError("Has to be an error at this point.")
             }
-        }
 
-        guard let issuerElement = cborWenToken[1],
+        case let .failure(error):
+            return .failure(error)
+        }
+    }
+
+    func extractHeader(from cborWebToken: CBOR) -> Result<CBORWebTokenHeader, HealthCertificateDecodingError> {
+        guard let issuerElement = cborWebToken[1],
               case let .utf8String(issuer) = issuerElement else {
             return .failure(.HC_CWT_NO_ISS)
         }
 
-        guard let expirationTimeElement = cborWenToken[6],
+        guard let expirationTimeElement = cborWebToken[6],
               case let .unsignedInt(expirationTime) = expirationTimeElement else {
             return .failure(.HC_CWT_NO_EXP)
         }
 
         var issuedAt: UInt64?
-        if let issuedAtElement = cborWenToken[4],
+        if let issuedAtElement = cborWebToken[4],
            case let .unsignedInt(_issuedAt) = issuedAtElement {
             issuedAt = _issuedAt
         }
@@ -43,18 +53,28 @@ struct CertificateAccess {
         ))
     }
 
-    func extractHealthCertificate(_ cborData: Data) -> Result<HealthCertificate, HealthCertificateDecodingError> {
-        let cborWebTokenResult = decodeCBORWebToken(cborData)
+    func extractHealthCertificate(from cborData: Data) -> Result<HealthCertificate, HealthCertificateDecodingError> {
+        let webTokenResult = decodeCBORWebToken(cborData)
 
-        guard case let .success(cborWenToken) = cborWebTokenResult else {
-            if case let .failure(error) = cborWebTokenResult {
+        switch webTokenResult {
+        case let .success(cborWebToken):
+
+            let certificateResult = extractHealthCertificate(from: cborWebToken)
+
+            switch certificateResult {
+            case let .success(certificate):
+                return .success(certificate)
+            case let .failure(error):
                 return .failure(error)
-            } else {
-                fatalError("Has to be an error at this point.")
             }
-        }
 
-        guard let healthCertificateElement = cborWenToken[-260],
+        case let .failure(error):
+            return .failure(error)
+        }
+    }
+
+    func extractHealthCertificate(from cborWebToken: CBOR) -> Result<HealthCertificate, HealthCertificateDecodingError> {
+        guard let healthCertificateElement = cborWebToken[-260],
               case let .map(healthCertificateMap) = healthCertificateElement else {
             return .failure(.HC_CWT_NO_HCERT)
         }

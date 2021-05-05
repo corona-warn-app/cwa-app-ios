@@ -9,7 +9,7 @@ public struct ProofCertificateAccess {
     // MARK: - Public
 
     public func extractCBORWebTokenHeader(cbor: Data) -> Result<CBORWebTokenHeader, HealthCertificateDecodingError> {
-        return certificateAccess.extractHeader(cbor)
+        return certificateAccess.extractHeader(from: cbor)
     }
 
     // MARK: - Internal
