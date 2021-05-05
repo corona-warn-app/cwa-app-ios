@@ -1372,7 +1372,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ErrorReport_StopAndDeleteButtonTitle" = "Stoppen und löschen";
 
-"ErrorReport_SaveButtonTitle" = "Lokal speichern und fortsetzen";
+"ErrorReport_SaveButtonTitle" = "Teilen und fortsetzen";
 
 "ErrorReport_SendButtonTitle" = "Fehlerbericht senden";
 
