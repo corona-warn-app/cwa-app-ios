@@ -97,7 +97,8 @@ platform :ios do
       trainer(
         output_directory: "fastlane/test_output/",
         path: "fastlane/test_output/",
-        extension: ".junit"
+        extension: ".junit",
+        fail_build: false
       )
 
       zip(
@@ -127,7 +128,8 @@ platform :ios do
       trainer(
         output_directory: "fastlane/test_output/",
         path: "fastlane/test_output/",
-        extension: ".junit"
+        extension: ".junit",
+        fail_build: false
       )
 
       zip(
@@ -153,14 +155,15 @@ platform :ios do
       UI.user_error!("Tests did fail, please check logs above or ENA.xcresult.zip")
     ensure
       trainer(
-        # output_directory: output_dir,
+        output_directory: "fastlane/test_output/",
         path: "#{output_dir}/test_output/#{options[:languages]}",
-        extension: ".junit"
+        extension: ".junit",
+        fail_build: false
       )
 
       zip(
-        path: "#{output_dir}/ENAScreenshots.xcresult",
-        output_path: "#{output_dir}/ENAScreenshots.xcresult.zip",
+        path: "#{output_dir}/test_output/#{options[:languages]}/ENAScreenshots.xcresult",
+        output_path: "fastlane/test_output/ENAScreenshots.xcresult.zip",
         verbose: false
       )
     end
