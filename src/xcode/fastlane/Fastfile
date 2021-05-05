@@ -163,7 +163,7 @@ platform :ios do
 
       zip(
         path: "#{output_dir}/test_output/#{options[:languages]}/ENAScreenshots.xcresult",
-        output_path: "fastlane/test_output/ENAScreenshots.xcresult.zip",
+        output_path: "fastlane/test_output/ENAScreenshots-#{options[:languages]}.xcresult.zip",
         verbose: false
       )
     end
