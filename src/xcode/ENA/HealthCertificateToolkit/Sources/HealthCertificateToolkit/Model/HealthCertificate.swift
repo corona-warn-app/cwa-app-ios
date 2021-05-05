@@ -3,38 +3,7 @@
 //
 
 import Foundation
-
-public struct ProofCertificateRepresentations: Codable {
-
-    let base45: String
-    let cbor: Data
-    let header: HealthCertificateHeader
-}
-
-public struct HealthCertificateRepresentations: Codable {
-
-    let base45: String
-    let cbor: Data
-    let header: HealthCertificateHeader
-    let certificate: HealthCertificate
-}
-
-public struct HealthCertificateHeader: Codable, Equatable {
-
-    // MARK: - Protocol Codable
-
-    enum CodingKeys: String, CodingKey {
-        case issuer = "iss"
-        case issuedAt = "iat"
-        case expirationTime = "exp"
-    }
-
-    // MARK: - Internal
-
-    let issuer: String
-    let issuedAt: UInt64?
-    let expirationTime: UInt64
-}
+import SwiftCBOR
 
 public struct HealthCertificate: Codable, Equatable {
 

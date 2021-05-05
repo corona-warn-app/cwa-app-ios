@@ -7,19 +7,19 @@ import XCTest
 import SwiftCBOR
 @testable import HealthCertificateToolkit
 
-final class HealthCertificateToolkitTests: XCTestCase {
+final class HealthCertificateAccessTests: XCTestCase {
 
     func test_When_decodeSucceeds_Then_CorrectDataIsReturned() throws {
-        let healthCertificateToolkit = HealthCertificateToolkit()
+        let healthCertificateAccess = HealthCertificateAccess()
 
-        let result = healthCertificateToolkit.decodeHealthCertificate(base45: testData.input)
+        let result = healthCertificateAccess.extractHealthCertificate(base45: testData.input)
 
-        guard case let .success(certificateRepresentations) = result else {
+        guard case let .success(healthCertificate) = result else {
             XCTFail("Success expected.")
             return
         }
 
-        XCTAssertEqual(certificateRepresentations.certificate, testData.output)
+        XCTAssertEqual(healthCertificate, testData.output)
     }
 
     lazy var testData: TestData = {
