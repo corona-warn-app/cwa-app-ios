@@ -17,7 +17,6 @@ class ENAUITests_10_CheckIns: XCTestCase {
 		app.setDefaults()
 		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
 		app.launchArguments.append(contentsOf: ["-setCurrentOnboardingVersion", "YES"])
-		
 	}
 	
 	func testCheckinInfoScreen_navigate_to_dataPrivacy() throws {
