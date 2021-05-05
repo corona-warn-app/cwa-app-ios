@@ -4,7 +4,7 @@
 
 import XCTest
 
-class ENAUITestsDataDonation: XCTestCase {
+class ENAUITests_05_DataDonation: XCTestCase {
 	var app: XCUIApplication!
 
 	override func setUp() {
