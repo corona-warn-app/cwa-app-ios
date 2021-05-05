@@ -297,7 +297,7 @@ workflows:
                 ignore: /.*/
         - testflight-release:
             requires:
-              - test
+              - dependencies
             filters:
               tags:
                 only:

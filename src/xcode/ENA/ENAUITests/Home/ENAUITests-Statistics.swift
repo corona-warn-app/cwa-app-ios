@@ -5,7 +5,7 @@
 import XCTest
 import ExposureNotification
 
-class ENAUITests_Statistics: XCTestCase {
+class ENAUITests_01b_Statistics: XCTestCase {
 	var app: XCUIApplication!
 	
 	override func setUp() {
@@ -97,6 +97,8 @@ class ENAUITests_Statistics: XCTestCase {
 		}
 	}
 	
+	// MARK: - Screenshots
+
 	func test_screenshot_statistics_card_titles() throws {
 		// GIVEN
 		let infectionsTitle = AccessibilityIdentifiers.Statistics.Infections.title
