@@ -46,13 +46,13 @@
     "licensor": "unrelentingtech",
     "website": "https://github.com/unrelentingtech/SwiftCBOR",
     "license": "Unlicense",
-    "licenseUrl": "https://github.com/unrelentingtech/SwiftCBOR/blob/master/UNLICENSE"
+    "licenseUrl": "https://raw.githubusercontent.com/unrelentingtech/SwiftCBOR/master/UNLICENSE"
   },
   {
     "component": "base45-swift",
     "licensor": "Dirk-Willem van Gulik",
     "website": "https://github.com/ehn-digital-green-development/base45-swift",
     "license": "Apache 2.0 License",
-    "licenseUrl": "https://github.com/ehn-digital-green-development/base45-swift/blob/distribution/swiftpackage/LICENSE-ASF-2.0.txt"
+    "licenseUrl": "https://raw.githubusercontent.com/ehn-digital-green-development/base45-swift/distribution/swiftpackage/LICENSE-ASF-2.0.txt"
   }
 ]
