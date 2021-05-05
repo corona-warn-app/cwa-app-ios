@@ -11,15 +11,15 @@ import HealthCertificateToolkit
 class HealthCertificateServiceTests: XCTestCase {
 
 	func testHealthCertifiedPersonsPublisherTriggeredAndStoreUpdated() throws {
-		let store = MockTestStore()
-		let service = HealthCertificateService(store: store)
-
 		let healthCertifiedPerson = HealthCertifiedPerson(
 			healthCertificates: [],
 			proofCertificate: nil
 		)
 
-		service.healthCertifiedPersons = [healthCertifiedPerson]
+		let store = MockTestStore()
+		store.healthCertifiedPersons = [healthCertifiedPerson]
+
+		let service = HealthCertificateService(store: store)
 
 		let healthCertifiedPersonsExpectation = expectation(description: "healthCertifiedPersons publisher updated")
 
@@ -43,14 +43,10 @@ class HealthCertificateServiceTests: XCTestCase {
 	}
 
 	func testHealthCertifiedPersonObjectWillChangeTriggered() throws {
-		let service = HealthCertificateService(store: MockTestStore())
-
 		let healthCertifiedPerson = HealthCertifiedPerson(
 			healthCertificates: [],
 			proofCertificate: nil
 		)
-
-		service.healthCertifiedPersons = [healthCertifiedPerson]
 
 		let objectWillChangeExpectation = expectation(description: "objectWillChange publisher updated")
 

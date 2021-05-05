@@ -22,7 +22,7 @@ class HealthCertificateService {
 
 	// MARK: - Internal
 
-	@OpenCombine.Published var healthCertifiedPersons: [HealthCertifiedPerson] = [] {
+	@OpenCombine.Published private(set) var healthCertifiedPersons: [HealthCertifiedPerson] = [] {
 		didSet {
 			store.healthCertifiedPersons = healthCertifiedPersons
 
