@@ -60,7 +60,7 @@ extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 		queue.sync {
 			
 			guard self.database.open() else {
-				Log.error("Open database error", log: .localData, error: self.database.lastError())
+				Log.error("Error at opening the database", log: .localData, error: self.database.lastError())
 				fatalError("Developer error. Probably no database file accessible.")
 			}
 
