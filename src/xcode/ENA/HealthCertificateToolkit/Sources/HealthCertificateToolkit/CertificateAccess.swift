@@ -4,6 +4,7 @@
 
 import Foundation
 import SwiftCBOR
+import JSONSchema
 
 struct CertificateAccess {
 
@@ -74,6 +75,7 @@ struct CertificateAccess {
     }
 
     func extractHealthCertificate(from cborWebToken: CBOR) -> Result<DigitalGreenCertificate, HealthCertificateDecodingError> {
+
         guard let healthCertificateElement = cborWebToken[-260],
               case let .map(healthCertificateMap) = healthCertificateElement else {
             return .failure(.HC_CWT_NO_HCERT)
@@ -83,19 +85,37 @@ struct CertificateAccess {
             return .failure(.HC_CWT_NO_DGC)
         }
 
-        let _cborData = healthCertificateCBOR.encode()
-        let cborData = Data(_cborData)
+        switch validateSchema(of: healthCertificateCBOR) {
+        case .success:
+            let _cborData = healthCertificateCBOR.encode()
+            let cborData = Data(_cborData)
+            let codableDecoder = CodableCBORDecoder()
 
-        let codableDecoder = CodableCBORDecoder()
+            guard let healthCertificate = try? codableDecoder.decode(DigitalGreenCertificate.self, from: cborData) else {
+                return .failure(.HC_CBOR_DECODING_FAILED)
+            }
+            return .success(healthCertificate)
 
-        guard let healthCertificate = try? codableDecoder.decode(DigitalGreenCertificate.self, from: cborData) else {
-            return .failure(.HC_CBOR_DECODING_FAILED)
+        case let .failure(error):
+            return .failure(error)
         }
-
-        return .success(healthCertificate)
     }
 
     // MARK: - Private
+
+    private func validateSchema(of certificate: CBOR) -> Result<Void, HealthCertificateDecodingError> {
+        guard case let CBOR.map(certificateMap) = certificate,
+              let schemaURL = Bundle.module.url(forResource: "CertificateSchema", withExtension: "json"),
+              let schemaData = FileManager.default.contents(atPath: schemaURL.path),
+              let schemaDict = try? JSONSerialization.jsonObject(with: schemaData) as? [String: Any],
+              let validationResult = try? JSONSchema.validate(certificateMap, schema: schemaDict),
+              case .valid = validationResult else {
+
+            return .failure(.HC_JSON_SCHEMA_INVALID)
+        }
+
+        return .success(())
+    }
 
     private func decodeCBORWebToken(_ cborData: Data) -> Result<CBOR, HealthCertificateDecodingError>  {
         let cborDecoder = CBORDecoder(input: [UInt8](cborData))

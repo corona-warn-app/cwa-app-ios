@@ -19,4 +19,5 @@ public enum HealthCertificateDecodingError: Error {
     case HC_CWT_NO_EXP
     case HC_CWT_NO_HCERT
     case HC_CWT_NO_DGC
+    case HC_JSON_SCHEMA_INVALID
 }
