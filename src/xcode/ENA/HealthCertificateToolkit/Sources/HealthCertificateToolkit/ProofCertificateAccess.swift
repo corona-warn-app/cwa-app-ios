@@ -14,5 +14,5 @@ public struct ProofCertificateAccess {
 
     // MARK: - Internal
 
-    private let certificateAccess = CertificateAccess()
+    let certificateAccess = CertificateAccess()
 }
