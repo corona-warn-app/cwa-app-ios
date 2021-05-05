@@ -5,7 +5,7 @@
 import Foundation
 import base45_swift
 
-public struct HealthCertificateAccess {
+public struct DigitalGreenCertificateAccess {
 
     // MARK: - Public
 
@@ -20,7 +20,11 @@ public struct HealthCertificateAccess {
         }
     }
 
-    public func extractHealthCertificate(base45: String) -> Result<DigitalGreenCertificate, HealthCertificateDecodingError> {
+    public func extractCBORWebTokenHeader(cbor: Data) -> Result<CBORWebTokenHeader, HealthCertificateDecodingError> {
+        return certificateAccess.extractHeader(from: cbor)
+    }
+
+    public func extractCertificate(base45: String) -> Result<DigitalGreenCertificate, HealthCertificateDecodingError> {
         let cborDataResult = extractCBOR(base45: base45)
 
         switch cborDataResult {
@@ -29,6 +33,10 @@ public struct HealthCertificateAccess {
         case let .failure(error):
             return .failure(error)
         }
+    }
+
+    public func extractCertificate(cbor: Data) -> Result<DigitalGreenCertificate, HealthCertificateDecodingError> {
+        return certificateAccess.extractHealthCertificate(from: cbor)
     }
 
     // MARK: - Internal

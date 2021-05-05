@@ -30,7 +30,6 @@ struct CertificateAccess {
     }
 
     func extractHeader(from cborWebToken: CBOR) -> Result<CBORWebTokenHeader, HealthCertificateDecodingError> {
-        
         guard let issuerElement = cborWebToken[1],
               case let .utf8String(issuer) = issuerElement else {
             return .failure(.HC_CWT_NO_ISS)
