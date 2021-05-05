@@ -10,7 +10,16 @@
             ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
             <ActionContent
                title = "Run Script"
-               scriptText = "# check for environment file&#10;if [! -a ${ENV_PATH}]; then&#10;  echo &quot;No environment file present. Aborting.&quot;&#10;  exit 1&#10;fi&#10;">
+               scriptText = "# check for environment file&#10;if [ ! -f ${ENV_PATH} ]; then&#10;  echo &quot;[Schema pre-action] No environment file present. Aborting.&quot;&#10;  exit 1&#10;fi&#10;">
+               <EnvironmentBuildable>
+                  <BuildableReference
+                     BuildableIdentifier = "primary"
+                     BlueprintIdentifier = "85D7593A2457048F008175F0"
+                     BuildableName = "ENA.app"
+                     BlueprintName = "ENA"
+                     ReferencedContainer = "container:ENA.xcodeproj">
+                  </BuildableReference>
+               </EnvironmentBuildable>
             </ActionContent>
          </ExecutionAction>
       </PreActions>
@@ -76,6 +85,9 @@
          <TestPlanReference
             reference = "container:TestPlans/AllTests.xctestplan"
             default = "YES">
+         </TestPlanReference>
+         <TestPlanReference
+            reference = "container:TestPlans/SmokeTests.xctestplan">
          </TestPlanReference>
       </TestPlans>
       <Testables>

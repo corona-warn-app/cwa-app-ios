@@ -15,7 +15,7 @@ enum Route {
 		}
 		self.init(url: url)
 	}
-
+	// swiftlint:disable:next cyclomatic_complexity
 	init?(url: URL) {
 		let components = URLComponents(url: url, resolvingAgainstBaseURL: true)
 		guard let host = components?.host?.lowercased() else {
@@ -32,25 +32,47 @@ enum Route {
 			}
 
 			// extract payload
-			guard let testInformation = AntigenTestInformation(payload: payloadUrl),
-				  testInformation.hash.range(
-					of: #"^[0-9A-Fa-f]{64}$"#,
-					options: .regularExpression
-				  ) != nil,
-				  testInformation.timestamp >= 0
-			else {
-				self = .rapidAntigen( .failure(.invalidTestCode))
-				Log.error("Antigen test data is not, either timeStamp is -ve or the hash is invalid", log: .qrCode)
+			guard let testInformation = AntigenTestInformation(payload: payloadUrl) else {
+				self = .rapidAntigen( .failure(.invalidTestCode(.invalidPayload)))
+				Log.error("Antigen test data is nil, either timeStamp is -ve or the hash is invalid", log: .qrCode)
 				return
 			}
-			let allIsNil = testInformation.firstName == nil && testInformation.firstName == nil && testInformation.dateOfBirthString == nil
+			guard testInformation.hash.range(of: #"^[0-9A-Fa-f]{64}$"#, options: .regularExpression) != nil  else {
+				self = .rapidAntigen( .failure(.invalidTestCode(.invalidHash)))
+				Log.error("Antigen test data is nil, either timeStamp is -ve or the hash is invalid", log: .qrCode)
+				return
+			}
+			guard  testInformation.timestamp >= 0 else {
+				self = .rapidAntigen( .failure(.invalidTestCode(.invalidTimeStamp)))
+				Log.error("Antigen test data is nil, either timeStamp is -ve or the hash is invalid", log: .qrCode)
+				return
+			}
+			let allIsNil = testInformation.firstName == nil && testInformation.lastName == nil && testInformation.dateOfBirthString == nil
 			// dateOfBirth is nil if dateOfBirthString is nil OR if dateOfBirthString is invalid
-			let allIsValid = testInformation.firstName != nil && testInformation.firstName != nil && testInformation.dateOfBirth != nil
+			let allIsValid = testInformation.firstName != nil && testInformation.lastName != nil && testInformation.dateOfBirth != nil
 			
 			guard allIsNil || allIsValid else {
-				self = .rapidAntigen( .failure(.invalidTestCode))
+				self = .rapidAntigen( .failure(.invalidTestCode(.invalidTestedPersonInformation)))
 				Log.error("Antigen test data is not valid: all values are nil? \(allIsNil), all values are valid? \(allIsValid)", log: .qrCode)
 				return
+			}
+			
+			if allIsValid {
+				var informationArray = [String]()
+				informationArray.append(testInformation.dateOfBirthString ?? "")
+				informationArray.append(testInformation.firstName ?? "")
+				informationArray.append(testInformation.lastName ?? "")
+				informationArray.append(String(testInformation.timestamp))
+				informationArray.append(testInformation.testID ?? "")
+				informationArray.append(testInformation.cryptographicSalt ?? "")
+
+				let informationString = informationArray.joined(separator: "#")
+				let recomputedHashString = ENAHasher.sha256(informationString)
+				guard recomputedHashString == testInformation.hash else {
+					self = .rapidAntigen( .failure(.invalidTestCode(.hashMismatch)))
+					Log.error("recomputed hash: \(recomputedHashString) Doesn't match the original hash \(testInformation.hash)", log: .qrCode)
+					return
+				}
 			}
 			self = .rapidAntigen(.success(.antigen(testInformation)))
 

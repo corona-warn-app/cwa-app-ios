@@ -6,28 +6,6 @@ import Foundation
 import OpenCombine
 import UIKit
 
-enum CoronaTestServiceError: LocalizedError, Equatable {
-	case responseFailure(URLSession.Response.Failure)
-	case unknownTestResult
-	case testExpired
-	case noRegistrationToken
-	case noCoronaTestOfRequestedType
-
-	var errorDescription: String? {
-		switch self {
-		case let .responseFailure(responseFailure):
-			return responseFailure.errorDescription
-		case .noRegistrationToken:
-			return AppStrings.ExposureSubmissionError.noRegistrationToken
-		case .testExpired:
-			return AppStrings.ExposureSubmission.qrCodeExpiredAlertText
-		default:
-			Log.error("\(self)", log: .api)
-			return AppStrings.ExposureSubmissionError.defaultError
-		}
-	}
-}
-
 // swiftlint:disable:next type_body_length
 class CoronaTestService {
 
@@ -45,44 +23,36 @@ class CoronaTestService {
 		appConfiguration: AppConfigurationProviding,
 		notificationCenter: UserNotificationCenter = UNUserNotificationCenter.current()
 	) {
+		#if DEBUG
+		if isUITesting {
+			self.client = ClientMock()
+			self.store = MockTestStore()
+			self.appConfiguration = CachedAppConfigurationMock()
+
+			self.notificationCenter = notificationCenter
+
+			self.fakeRequestService = FakeRequestService(client: client)
+			self.warnOthersReminder = WarnOthersReminder(store: store)
+
+			setup()
+
+			pcrTest = mockPCRTest
+			antigenTest = mockAntigenTest
+
+			return
+		}
+		#endif
+
 		self.client = client
 		self.store = store
 		self.appConfiguration = appConfiguration
+
 		self.notificationCenter = notificationCenter
 
 		self.fakeRequestService = FakeRequestService(client: client)
 		self.warnOthersReminder = WarnOthersReminder(store: store)
 
-		updatePublishersFromStore()
-
-		$pcrTest
-			.sink { [weak self] pcrTest in
-				self?.store.pcrTest = pcrTest
-				self?.tests.pcr = pcrTest
-
-				if pcrTest?.keysSubmitted == true {
-					self?.warnOthersReminder.cancelNotifications(for: .pcr)
-				}
-			}
-			.store(in: &subscriptions)
-
-		$antigenTest
-			.sink { [weak self] antigenTest in
-				self?.store.antigenTest = antigenTest
-				self?.tests.antigen = antigenTest
-
-				if antigenTest?.keysSubmitted == true {
-					self?.warnOthersReminder.cancelNotifications(for: .antigen)
-				}
-
-				if let antigenTest = antigenTest {
-					self?.setupOutdatedPublisher(for: antigenTest)
-				} else {
-					self?.antigenTestIsOutdated = false
-					self?.antigenTestOutdatedDate = nil
-				}
-			}
-			.store(in: &subscriptions)
+		setup()
 	}
 
 	// MARK: - Protocol CoronaTestServiceProviding
@@ -174,7 +144,7 @@ class CoronaTestService {
 						registrationDate: Date(),
 						registrationToken: registrationToken,
 						testResult: .positive,
-						finalTestResultReceivedDate: nil,
+						finalTestResultReceivedDate: Date(),
 						positiveTestResultWasShown: true,
 						isSubmissionConsentGiven: isSubmissionConsentGiven,
 						submissionTAN: nil,
@@ -215,6 +185,7 @@ class CoronaTestService {
 				case .success(let registrationToken):
 					self?.antigenTest = AntigenTest(
 						pointOfCareConsentDate: pointOfCareConsentDate,
+						registrationDate: Date(),
 						registrationToken: registrationToken,
 						testedPerson: TestedPerson(firstName: firstName, lastName: lastName, dateOfBirth: dateOfBirth),
 						testResult: .pending,
@@ -248,32 +219,15 @@ class CoronaTestService {
 		var errors = [CoronaTestServiceError]()
 
 		for coronaTestType in CoronaTestType.allCases {
-			Log.info("[CoronaTestService] Requesting TestResult for test type \(coronaTestType)…", log: .api)
-
 			group.enter()
-			updateTestResult(for: coronaTestType, force: force) { [weak self] result in
+
+			updateTestResult(for: coronaTestType, force: force, presentNotification: presentNotification) { result in
 				switch result {
 				case .failure(let error):
 					Log.error(error.localizedDescription, log: .api)
 					errors.append(error)
-				case .success(.pending), .success(.expired):
-					// Do not trigger notifications for pending or expired results.
-					Log.info("[CoronaTestService] TestResult pending or expired", log: .api)
-				case .success(let testResult):
-					Log.info("[CoronaTestService] Triggering Notification to inform user about TestResult: \(testResult.stringValue)", log: .api)
-
-					if presentNotification {
-						// We attach the test result and type to determine which screen to show when user taps the notification
-						self?.notificationCenter.presentNotification(
-							title: AppStrings.LocalNotifications.testResultsTitle,
-							body: AppStrings.LocalNotifications.testResultsBody,
-							identifier: ActionableNotificationIdentifier.testResult.identifier,
-							info: [
-								ActionableNotificationIdentifier.testResult.identifier: testResult.rawValue,
-								ActionableNotificationIdentifier.testResultType.identifier: coronaTestType.rawValue
-							]
-						)
-					}
+				case .success:
+					break
 				}
 
 				group.leave()
@@ -289,10 +243,15 @@ class CoronaTestService {
 		}
 	}
 
-	func updateTestResult(for coronaTestType: CoronaTestType, force: Bool = true, completion: @escaping TestResultHandler) {
+	func updateTestResult(
+		for coronaTestType: CoronaTestType,
+		force: Bool = true,
+		presentNotification: Bool = false,
+		completion: @escaping TestResultHandler
+	) {
 		Log.info("[CoronaTestService] Updating test result (coronaTestType: \(coronaTestType))", log: .api)
 
-		getTestResult(for: coronaTestType, force: force, duringRegistration: false) { result in
+		getTestResult(for: coronaTestType, force: force, duringRegistration: false, presentNotification: presentNotification) { result in
 			self.fakeRequestService.fakeVerificationAndSubmissionServerRequest {
 				completion(result)
 			}
@@ -453,6 +412,39 @@ class CoronaTestService {
 
 	private var subscriptions = Set<AnyCancellable>()
 
+	private func setup() {
+		updatePublishersFromStore()
+
+		$pcrTest
+			.sink { [weak self] pcrTest in
+				self?.store.pcrTest = pcrTest
+				self?.tests.pcr = pcrTest
+
+				if pcrTest?.keysSubmitted == true {
+					self?.warnOthersReminder.cancelNotifications(for: .pcr)
+				}
+			}
+			.store(in: &subscriptions)
+
+		$antigenTest
+			.sink { [weak self] antigenTest in
+				self?.store.antigenTest = antigenTest
+				self?.tests.antigen = antigenTest
+
+				if antigenTest?.keysSubmitted == true {
+					self?.warnOthersReminder.cancelNotifications(for: .antigen)
+				}
+
+				self?.antigenTestIsOutdated = false
+				self?.antigenTestOutdatedDate = nil
+
+				if let antigenTest = antigenTest {
+					self?.setupOutdatedPublisher(for: antigenTest)
+				}
+			}
+			.store(in: &subscriptions)
+	}
+
 	private func getRegistrationToken(
 		forKey key: String,
 		withType type: String,
@@ -473,6 +465,7 @@ class CoronaTestService {
 		for coronaTestType: CoronaTestType,
 		force: Bool = true,
 		duringRegistration: Bool,
+		presentNotification: Bool = false,
 		_ completion: @escaping TestResultHandler
 	) {
 		Log.info("[CoronaTestService] Getting test result (coronaTestType: \(coronaTestType), duringRegistration: \(duringRegistration))", log: .api)
@@ -490,7 +483,18 @@ class CoronaTestService {
 			completion(.failure(.noRegistrationToken))
 			return
 		}
+
 		guard force || coronaTest.finalTestResultReceivedDate == nil else {
+			completion(.success(coronaTest.testResult))
+			return
+		}
+
+		let registrationDate = coronaTest.registrationDate ?? coronaTest.testDate
+		let ageInDays = Calendar.current.dateComponents([.day], from: registrationDate, to: Date()).day ?? 0
+
+		guard coronaTest.testResult != .expired || ageInDays < 21 else {
+			Log.error("[CoronaTestService] Expired test result older than 21 days returned", log: .api)
+
 			completion(.success(coronaTest.testResult))
 			return
 		}
@@ -512,11 +516,46 @@ class CoronaTestService {
 				self.antigenTestResultIsLoading = false
 			}
 
+			#if DEBUG
+			if isUITesting {
+				completion(
+					self.mockTestResultResponse(for: coronaTestType).flatMap { .success($0) } ??
+					self.mockTestResult(for: coronaTestType).flatMap { .success($0) } ??
+						.failure(.noCoronaTestOfRequestedType)
+				)
+
+				return
+			}
+			#endif
+
 			switch result {
 			case let .failure(error):
 				Log.error("[CoronaTestService] Getting test result failed: \(error.localizedDescription)", log: .api)
 
-				completion(.failure(.responseFailure(error)))
+				// For error code 400 (.qrDoesNotExist) we set the test result to expired
+				if error == .qrDoesNotExist {
+					Log.info("[CoronaTestService] Error Code 400 when getting test result, setting expired test result", log: .api)
+
+					switch coronaTestType {
+					case .pcr:
+						self.pcrTest?.testResult = .expired
+					case .antigen:
+						self.antigenTest?.testResult = .expired
+					}
+
+					// For tests older than 21 days this should not be handled as an error
+					if ageInDays >= 21 {
+						Log.info("[CoronaTestService] Test older than 21 days, no error is returned", log: .api)
+
+						completion(.success(.expired))
+					} else {
+						Log.error("[CoronaTestService] Test younger than 21 days, error is returned", log: .api)
+
+						completion(.failure(.responseFailure(error)))
+					}
+				} else {
+					completion(.failure(.responseFailure(error)))
+				}
 			case let .success(rawTestResult):
 				guard let testResult = TestResult(serverResponse: rawTestResult) else {
 					Log.error("[CoronaTestService] Getting test result failed: Unknown test result \(rawTestResult)", log: .api)
@@ -545,6 +584,21 @@ class CoronaTestService {
 						case .antigen:
 							self.antigenTest?.finalTestResultReceivedDate = Date()
 						}
+
+						if presentNotification {
+							Log.info("[CoronaTestService] Triggering Notification (coronaTestType: \(coronaTestType), testResult: \(testResult))", log: .api)
+
+							// We attach the test result and type to determine which screen to show when user taps the notification
+							self.notificationCenter.presentNotification(
+								title: AppStrings.LocalNotifications.testResultsTitle,
+								body: AppStrings.LocalNotifications.testResultsBody,
+								identifier: ActionableNotificationIdentifier.testResult.identifier,
+								info: [
+									ActionableNotificationIdentifier.testResult.identifier: testResult.rawValue,
+									ActionableNotificationIdentifier.testResultType.identifier: coronaTestType.rawValue
+								]
+							)
+						}
 					}
 
 					if coronaTestType == .pcr && duringRegistration {
@@ -569,6 +623,11 @@ class CoronaTestService {
 	}
 
 	private func setupOutdatedPublisher(for antigenTest: AntigenTest) {
+		// Only rapid antigen tests with a negative test result can become outdated
+		guard antigenTest.testResult == .negative else {
+			return
+		}
+
 		appConfiguration.appConfiguration()
 			.sink { [weak self] in
 				let hoursToDeemTestOutdated = $0.coronaTestParameters.coronaRapidAntigenTestParameters.hoursToDeemTestOutdated
@@ -627,6 +686,66 @@ class CoronaTestService {
 
 		antigenTestIsOutdated = Date() >= antigenTestOutdatedDate
 	}
+
+	#if DEBUG
+
+	private var mockPCRTest: PCRTest? {
+		if let testResult = mockTestResult(for: .pcr) {
+			return PCRTest(
+				registrationDate: Date(),
+				registrationToken: "asdf",
+				testResult: testResult,
+				finalTestResultReceivedDate: testResult == .pending ? nil : Date(),
+				positiveTestResultWasShown: UserDefaults.standard.string(forKey: "pcrPositiveTestResultWasShown") == "YES",
+				isSubmissionConsentGiven: UserDefaults.standard.string(forKey: "isPCRSubmissionConsentGiven") == "YES",
+				submissionTAN: nil,
+				keysSubmitted: UserDefaults.standard.string(forKey: "pcrKeysSubmitted") == "YES",
+				journalEntryCreated: false
+			)
+		} else {
+			return nil
+		}
+	}
+
+	private var mockAntigenTest: AntigenTest? {
+		if let testResult = mockTestResult(for: .antigen) {
+			return AntigenTest(
+				pointOfCareConsentDate: Date(),
+				registrationDate: Date(),
+				registrationToken: "zxcv",
+				testedPerson: TestedPerson(firstName: "Erika", lastName: "Mustermann", dateOfBirth: "1964-08-12"),
+				testResult: testResult,
+				finalTestResultReceivedDate: testResult == .pending ? nil : Date(),
+				positiveTestResultWasShown: UserDefaults.standard.string(forKey: "antigenPositiveTestResultWasShown") == "YES",
+				isSubmissionConsentGiven: UserDefaults.standard.string(forKey: "isAntigenSubmissionConsentGiven") == "YES",
+				submissionTAN: nil,
+				keysSubmitted: UserDefaults.standard.string(forKey: "antigenKeysSubmitted") == "YES",
+				journalEntryCreated: false
+			)
+		} else {
+			return nil
+		}
+	}
+
+	private func mockTestResult(for coronaTestType: CoronaTestType) -> TestResult? {
+		switch coronaTestType {
+		case .pcr:
+			return UserDefaults.standard.string(forKey: "pcrTestResult").flatMap { TestResult(stringValue: $0) }
+		case .antigen:
+			return UserDefaults.standard.string(forKey: "antigenTestResult").flatMap { TestResult(stringValue: $0) }
+		}
+	}
+
+	private func mockTestResultResponse(for coronaTestType: CoronaTestType) -> TestResult? {
+		switch coronaTestType {
+		case .pcr:
+			return UserDefaults.standard.string(forKey: "pcrTestResultResponse").flatMap { TestResult(stringValue: $0) }
+		case .antigen:
+			return UserDefaults.standard.string(forKey: "antigenTestResultResponse").flatMap { TestResult(stringValue: $0) }
+		}
+	}
+
+	#endif
 
 	// swiftlint:disable:next file_length
 }

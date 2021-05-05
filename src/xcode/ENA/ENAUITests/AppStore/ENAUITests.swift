@@ -36,6 +36,8 @@ class ENAUITests: XCTestCase {
 		app.buttons["General.primaryFooterButton"].tap()
 	}
 
+	// MARK: - Screenshots
+
 	func test_0000_Generate_Screenshots_For_AppStore() throws {
 
 		let snapshotsActive = true
@@ -101,7 +103,25 @@ class ENAUITests: XCTestCase {
 
 	}
 	
-	func test_0003_Generate_Screenshot_For_AppStore_Statistics() throws {
+	func test_0001_Generate_Screenshots_For_AppStore_Submission() throws {
+
+		let snapshotsActive = true
+
+		app.setPreferredContentSizeCategory(accessibility: .normal, size: .M)
+		app.launchArguments.append(contentsOf: ["-isOnboarded", "NO"])
+		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
+		app.launchArguments.append(contentsOf: ["-pcrTestResult", TestResult.negative.stringValue])
+		app.launch()
+
+		// ScreenShot_0006: Negative result
+		try navigateThroughOnboarding()
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .medium))
+		app.buttons[AccessibilityIdentifiers.Home.submitCardButton].tap()
+
+		if snapshotsActive { snapshot("AppStore_0006") }
+	}
+
+	func test_0002_Generate_Screenshot_For_AppStore_Statistics() throws {
 
 		app.setPreferredContentSizeCategory(accessibility: .normal, size: .M)
 		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
@@ -113,24 +133,6 @@ class ENAUITests: XCTestCase {
 		// ScreenShot_0008: Statistics on Home screen
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Statistics.Infections.title].exists)
 		snapshot("AppStore_0008")
-	}
-
-	func test_0001_Generate_Screenshots_For_AppStore_Submission() throws {
-
-		let snapshotsActive = true
-
-		app.setPreferredContentSizeCategory(accessibility: .normal, size: .M)
-		app.launchArguments.append(contentsOf: ["-isOnboarded", "NO"])
-		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
-		app.launchArguments.append(contentsOf: ["-testResult", TestResult.negative.stringValue])
-		app.launch()
-
-		// ScreenShot_0006: Negative result
-		try navigateThroughOnboarding()
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .medium))
-		app.buttons[AccessibilityIdentifiers.Home.submitCardButton].firstMatch.tap()
-
-		if snapshotsActive { snapshot("AppStore_0006") }
 	}
 
 }

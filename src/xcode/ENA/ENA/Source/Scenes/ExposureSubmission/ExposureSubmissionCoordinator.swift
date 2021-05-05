@@ -50,7 +50,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 					let qrInfoScreen = self.makeQRInfoScreen(supportedCountries: supportedCountries, testInformation: testInformation)
 					self.start(with: qrInfoScreen)
 				case let .failure(qrCodeError):
-					if qrCodeError == .invalidTestCode {
+					switch qrCodeError {
+					case .invalidTestCode:
 						self.showRATInvalidQQCode()
 					}
 				}
@@ -751,13 +752,12 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			},
 			dismiss: { [weak self] in self?.dismiss() }
 		)
-		// showSecondaryButton for testing data-privacy at the moment
 
 		let footerViewModel = FooterViewModel(
-			primaryButtonName: "Weiter",
-			secondaryButtonName: "Datenschutz",
+			primaryButtonName: AppStrings.ExposureSubmission.AntigenTest.Information.primaryButton,
 			isPrimaryButtonEnabled: true,
-			isSecondaryButtonEnabled: true
+			isSecondaryButtonEnabled: false,
+			isSecondaryButtonHidden: true
 		)
 		let footerViewController = FooterViewController(footerViewModel)
 		let topBottomContainerViewController = TopBottomContainerViewController(
@@ -783,8 +783,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		)
 
 		let footerViewModel = FooterViewModel(
-			primaryButtonName: "Weiter",
-			isPrimaryButtonEnabled: true,
+			primaryButtonName: AppStrings.AntigenProfile.Create.saveButtonTitle,
+			isPrimaryButtonEnabled: false,
 			isSecondaryButtonEnabled: false,
 			isSecondaryButtonHidden: true
 		)
@@ -816,10 +816,12 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		)
 
 		let footerViewModel = FooterViewModel(
-			primaryButtonName: "Weiter",
-			secondaryButtonName: "Schnelltest-Profil entfernen",
+			primaryButtonName: AppStrings.ExposureSubmission.AntigenTest.Profile.primaryButton,
+			secondaryButtonName: AppStrings.ExposureSubmission.AntigenTest.Profile.secondaryButton,
 			isPrimaryButtonEnabled: true,
-			isSecondaryButtonEnabled: true
+			isSecondaryButtonEnabled: true,
+			secondaryButtonInverted: true,
+			backgroundColor: .enaColor(for: .cellBackground)
 		)
 		let footerViewController = FooterViewController(footerViewModel)
 		let topBottomContainerViewController = TopBottomContainerViewController(

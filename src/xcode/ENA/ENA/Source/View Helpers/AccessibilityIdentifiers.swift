@@ -22,25 +22,49 @@ enum AccessibilityIdentifiers {
 	}
 	
 	enum Home {
-		static let submitCardButton = "AppStrings.Home.submitCardButton"
+		static let leftBarButtonDescription = "AppStrings.Home.leftBarButtonDescription"
+		static let rightBarButtonDescription = "AppStrings.Home.rightBarButtonDescription"
 		static let activateCardOnTitle = "AppStrings.Home.activateCardOnTitle"
 		static let activateCardOffTitle = "AppStrings.Home.activateCardOffTitle"
 		static let activateCardBluetoothOffTitle = "AppStrings.Home.activateCardBluetoothOffTitle"
 		static let riskCardIntervalUpdateTitle = "AppStrings.Home.riskCardIntervalUpdateTitle"
-		static let leftBarButtonDescription = "AppStrings.Home.leftBarButtonDescription"
-		static let rightBarButtonDescription = "AppStrings.Home.rightBarButtonDescription"
-		static let infoCardShareTitle = "AppStrings.Home.infoCardShareTitle"
-		static let infoCardAboutTitle = "AppStrings.Home.infoCardAboutTitle"
-		static let appInformationCardTitle = "AppStrings.Home.appInformationCardTitle"
-		static let settingsCardTitle = "AppStrings.Home.settingsCardTitle"
-		static let thankYouCard = "AppStrings.Home.thankYouCard"
-		static let traceLocationsCardButton = "AppStrings.Home.traceLocationsCardButton"
-		
+
 		enum RiskTableViewCell {
 			static let topContainer = "[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer]"
 			static let bodyLabel = "HomeRiskTableViewCell.bodyLabel"
 			static let updateButton = "HomeRiskTableViewCell.updateButton"
 		}
+
+		enum TestResultCell {
+			static let pendingPCRButton = "AccessibilityIdentifiers.Home.pendingPCRButton"
+			static let pendingAntigenButton = "AccessibilityIdentifiers.Home.pendingAntigenButton"
+			static let negativePCRButton = "AccessibilityIdentifiers.Home.negativePCRButton"
+			static let negativeAntigenButton = "AccessibilityIdentifiers.Home.negativeAntigenButton"
+			static let availablePCRButton = "AccessibilityIdentifiers.Home.availablePCRButton"
+			static let availableAntigenButton = "AccessibilityIdentifiers.Home.availableAntigenButton"
+			static let invalidPCRButton = "AccessibilityIdentifiers.Home.invalidPCRButton"
+			static let invalidAntigenButton = "AccessibilityIdentifiers.Home.invalidAntigenButton"
+			static let expiredPCRButton = "AccessibilityIdentifiers.Home.expiredPCRButton"
+			static let expiredAntigenButton = "AccessibilityIdentifiers.Home.expiredAntigenButton"
+			static let outdatedAntigenButton = "AccessibilityIdentifiers.Home.outdatedAntigenButton"
+			static let loadingPCRButton = "AccessibilityIdentifiers.Home.loadingPCRButton"
+			static let loadingAntigenButton = "AccessibilityIdentifiers.Home.loadingAntigenButton"
+			static let unconfiguredButton = "AccessibilityIdentifiers.Home.unconfiguredButton"
+		}
+
+		enum ShownPositiveTestResultCell {
+			static let pcrCell = "AccessibilityIdentifiers.Home.pcrCell"
+			static let antigenCell = "AccessibilityIdentifiers.Home.antigenCell"
+			static let submittedPCRCell = "AccessibilityIdentifiers.Home.submittedPCRCell"
+			static let submittedAntigenCell = "AccessibilityIdentifiers.Home.submittedAntigenCell"
+		}
+
+		static let submitCardButton = "AppStrings.Home.submitCardButton"
+		static let traceLocationsCardButton = "AppStrings.Home.traceLocationsCardButton"
+		static let infoCardShareTitle = "AppStrings.Home.infoCardShareTitle"
+		static let infoCardAboutTitle = "AppStrings.Home.infoCardAboutTitle"
+		static let appInformationCardTitle = "AppStrings.Home.appInformationCardTitle"
+		static let settingsCardTitle = "AppStrings.Home.settingsCardTitle"
 	}
 	
 	enum ContactDiary {
@@ -78,6 +102,9 @@ enum AccessibilityIdentifiers {
 			static let checkinRiskLevelLow = "AppStrings.ContactDiary.Overview.CheckinEncounter.titleLowRisk"
 			static let checkinRiskLevelHigh = "AppStrings.ContactDiary.Overview.CheckinEncounter.titleHighRisk"
 			static let checkinTableView = "AppStrings.ContactDiary.Overview.CheckinEncounter.tableView"
+			static let cell = "ContactDiary_Overview_cell-%d"
+			static let person = "ContactDiary_Overview_personEntry-%d"
+			static let location = "ContactDiary_Overview_locationEntry-%d"
 		}
 		
 		enum NotesInformation {
@@ -356,6 +383,21 @@ enum AccessibilityIdentifiers {
 			}
 		}
 
+		enum AntigenTest {
+			enum Information {
+				static let imageDescription = "AppStrings.ExposureSubmission.AntigenTest.Information.imageDescription"
+				static let descriptionTitle = "AppStrings.ExposureSubmission.AntigenTest.Information.descriptionTitle"
+				static let descriptionSubHeadline = "AppStrings.ExposureSubmission.AntigenTest.Information.descriptionSubHeadline"
+				static let acknowledgementTitle = "AntigenTest_Information_acknowledgement_title"
+				static let dataPrivacyTitle = "AppStrings.ExposureSubmission.AntigenTest.Information.dataPrivacyTitle"
+			}
+			
+			enum Profile {
+				static let profileTile_Description = "AppStrings.ExposureSubmission.AntigenTest.Profile.profileTile_Description"
+				static let createProfileTile_Description = "AppStrings.ExposureSubmission.AntigenTest.Profile.createProfileTile_Description"
+			}
+		}
+
 	}
 	
 	enum Reset {
@@ -434,6 +476,33 @@ enum AccessibilityIdentifiers {
 		static let regionCell = "DataDonation.Region.Identifier"
 		static let ageGroupCell = "DataDonation.AgeGroup.Identifier"
 	}
+
+	enum ErrorReport {
+		// Main Error Logging Screen
+		// - top ViewController
+		static let navigation = "AppStrings.ErrorReport.navigation"
+		static let topBody = "AppStrings.ErrorReport.topBody"
+		static let faq = "AppStrings.ErrorReport.faq"
+		static let privacyInformation = "AppStrings.ErrorReport.privacyInformation"
+		static let privacyNavigation = "AppStrings.ErrorReport.privacyNavigation"
+		static let historyNavigation = "AppStrings.ErrorReport.historyNavigation"
+
+		static let historyTitle = "AppStrings.ErrorReport.historyTitle"
+		static let historyDescription = "AppStrings.ErrorReport.historyDescription"
+		
+		static let startButton = "AppStrings.ErrorReport.startButtonTitle"
+		static let sendReportButton = "AppStrings.ErrorReport.sendButtontitle"
+		static let saveLocallyButton = "AppStrings.ErrorReport.saveButtonTitle"
+		static let stopAndDeleteButton = "AppStrings.ErrorReport.stopAndDeleteButtonTitle"
+
+		static let legalSendReports = "AppStrings.ErrorReport.Legal.sendReports_Headline"
+		static let sendReportsDetails = "AccessibilityIdentifiers.ErrorReport.sendReportsDetails"
+		static let detailedInformationTitle = "AccessibilityIdentifiers.ErrorReport.detailedInformationTitle"
+		static let detailedInformationSubHeadline = "AccessibilityIdentifiers.ErrorReport.detailedInformationSubHeadline"
+		static let detailedInformationContent2 = "AccessibilityIdentifiers.ErrorReport.detailedInformationContent2"
+		
+		static let agreeAndSendButton = "AccessibilityIdentifiers.ErrorReport.agreeAndSendButton"
+	}
 	
 	enum TraceLocation {
 		static let imageDescription = "AppStrings.TraceLocations.imageDescription"
@@ -484,14 +553,30 @@ enum AccessibilityIdentifiers {
 		}
 		
 		enum Information {
-			static let imageDescription = "AppStrings.CheckInInformation.imageDescription"
-			static let descriptionTitle = "AppStrings.CheckInInformation.descriptionTitle"
-			static let descriptionSubHeadline = "AppStrings.CheckInInformation.descriptionSubHeadline"
-			static let dataPrivacyTitle = "AppStrings.CheckInInformation.dataPrivacyTitle"
-			static let primaryButton = "AppStrings.CheckInInformation.primaryButton"
-			static let acknowledgementTitle = "CheckInInformation.acknowledgement_title"
+			static let imageDescription = "AppStrings.Checkins.Information.imageDescription"
+			static let descriptionTitle = "AppStrings.Checkins.Information.descriptionTitle"
+			static let descriptionSubHeadline = "AppStrings.Checkins.Information.descriptionSubHeadline"
+			static let dataPrivacyTitle = "AppStrings.Checkins.Information.dataPrivacyTitle"
+			static let primaryButton = "AppStrings.Checkins.Information.primaryButton"
+			static let acknowledgementTitle = "Checkins.Information.acknowledgement_title"
 		}
 		
 	}
 	
+	enum AntigenProfile {
+		
+		enum Create {
+			static let title = "AppStrings.AntigenProfile.Create.title"
+			static let description = "AppStrings.AntigenProfile.Create.description"
+			static let firstNameTextField = "AppStrings.AntigenProfile.Create.firstNameTextFieldPlaceholder"
+			static let lastNameTextField = "AppStrings.AntigenProfile.Create.lastNameTextFieldPlaceholder"
+			static let birthDateTextField = "AppStrings.AntigenProfile.Create.birthDateTextFieldPlaceholder"
+			static let streetTextField = "AppStrings.AntigenProfile.Create.streetTextFieldPlaceholder"
+			static let postalCodeTextField = "AppStrings.AntigenProfile.Create.postalCodeTextFieldPlaceholder"
+			static let cityTextField = "AppStrings.AntigenProfile.Create.cityTextFieldPlaceholder"
+			static let phoneNumberTextField = "AppStrings.AntigenProfile.Create.phoneNumberTextFieldPlaceholder"
+			static let emailAddressTextField = "AppStrings.AntigenProfile.Create.emailAddressTextFieldPlaceholder"
+			static let saveButtonTitle = "AppStrings.AntigenProfile.Create.saveButtonTitle"
+		}
+	}
 }

@@ -38,6 +38,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Fo
 		super.viewDidAppear(animated)
 		
 		viewModel.updateWarnOthers()
+		viewModel.updateTestResultIfPossible()
 	}
 	
 	// MARK: - Protocol ENANavigationControllerWithFooterChild

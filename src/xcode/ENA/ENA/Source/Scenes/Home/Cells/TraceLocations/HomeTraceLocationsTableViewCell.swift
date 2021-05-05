@@ -41,8 +41,6 @@ class HomeTraceLocationsTableViewCell: UITableViewCell {
 		illustrationView.image = cellModel.image
 
 		button.setTitle(cellModel.buttonTitle, for: .normal)
-		button.accessibilityIdentifier = AccessibilityIdentifiers.Home.submitCardButton
-
 		button.accessibilityIdentifier = cellModel.accessibilityIdentifier
 
 		self.tintColor = tintColor

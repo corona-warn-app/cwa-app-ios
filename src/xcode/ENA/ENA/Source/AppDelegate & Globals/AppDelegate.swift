@@ -34,7 +34,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	override init() {
 		self.environmentProvider = Environments()
 
+		#if DEBUG
+		if isUITesting {
+			self.store = MockTestStore()
+		}
 		self.store = SecureStore(subDirectory: "database", environmentProvider: environmentProvider)
+		#else
+		self.store = SecureStore(subDirectory: "database", environmentProvider: environmentProvider)
+		#endif
 
 		if store.appInstallationDate == nil {
 			store.appInstallationDate = InstallationDate.inferredFromDocumentDirectoryCreationDate()
@@ -165,52 +172,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	var store: Store
 
 	lazy var coronaTestService: CoronaTestService = {
-		#if DEBUG
-		if isUITesting {
-			var testResult: TestResult?
-			if let testResultStringValue = UserDefaults.standard.string(forKey: "testResult") {
-				testResult = TestResult(stringValue: testResultStringValue)
-			}
-
-			let showTestResultAvailableViewController = UserDefaults.standard.string(forKey: "showTestResultAvailableViewController") == "YES"
-
-			let store = MockTestStore()
-
-			if testResult != nil || showTestResultAvailableViewController {
-				let unwrappedTestResult = testResult ?? .pending
-				store.pcrTest = PCRTest(
-					registrationDate: Date(),
-					registrationToken: "asdf",
-					testResult: unwrappedTestResult,
-					finalTestResultReceivedDate: unwrappedTestResult == .pending ? nil : Date(),
-					positiveTestResultWasShown: !showTestResultAvailableViewController,
-					isSubmissionConsentGiven: UserDefaults.standard.string(forKey: "isSubmissionConsentGiven") == "YES",
-					submissionTAN: nil,
-					keysSubmitted: false,
-					journalEntryCreated: false
-				)
-			}
-
-			var testResultResponse: TestResult?
-			if let testResultStringValue = UserDefaults.standard.string(forKey: "testResultResponse") {
-				testResultResponse = TestResult(stringValue: testResultStringValue)
-			}
-
-			let client = ClientMock()
-			client.onGetTestResult = { _, _, completion in
-				completion(.success(testResultResponse?.rawValue ?? testResult?.rawValue ?? TestResult.pending.rawValue))
-			}
-
-			let appConfiguration = CachedAppConfigurationMock()
-
-			return CoronaTestService(
-				client: client,
-				store: store,
-				appConfiguration: appConfiguration
-			)
-		}
-		#endif
-
 		return CoronaTestService(
 			client: client,
 			store: store,
@@ -300,7 +261,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			store: store,
 			client: client,
 			appConfig: appConfigurationProvider,
-			coronaTestService: coronaTestService
+			coronaTestService: coronaTestService,
+			ppacService: ppacService
 		)
 	}()
 
@@ -308,6 +270,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		store: store,
 		client: client,
 		riskProvider: riskProvider
+	)
+	
+	private lazy var ppacService: PrivacyPreservingAccessControl = PPACService(
+		store: store,
+		deviceCheck: PPACDeviceCheck()
 	)
 
 	#if targetEnvironment(simulator) || COMMUNITY
@@ -393,14 +360,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			/// - App installation date
 			///
 			/// read values from the current store
-			let ppacAPIToken = store.ppacApiToken
+			let ppacEdusApiToken = store.ppacApiTokenEdus
 			let installationDate = store.appInstallationDate
 
 			let newKey = try KeychainHelper().generateDatabaseKey()
 			store.clearAll(key: newKey)
 
 			/// write excluded values back to the 'new' store
-			store.ppacApiToken = ppacAPIToken
+			store.ppacApiTokenEdus = ppacEdusApiToken
 			store.appInstallationDate = installationDate
             Analytics.collect(.submissionMetadata(.lastAppReset(Date())))
 		} catch {
@@ -568,7 +535,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		contactDiaryStore: contactDiaryStore,
 		eventStore: eventStore,
 		eventCheckoutService: eventCheckoutService,
-		otpService: otpService
+		otpService: otpService,
+		ppacService: ppacService
 	)
 
 	private lazy var appUpdateChecker = AppUpdateCheckHelper(appConfigurationProvider: self.appConfigurationProvider, store: self.store)
