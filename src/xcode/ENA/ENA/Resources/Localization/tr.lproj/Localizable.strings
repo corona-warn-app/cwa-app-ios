@@ -728,7 +728,7 @@
 
 "ExposureSubmissionResult_WarnOthersConsentNotGiven" = "“Diğer kullanıcıları uyar” onayı verilmedi";
 
-"ExposureSubmissionResult_testRemove" = "Testi Kaldır";
+"ExposureSubmissionResult_testRemove" = "Testi sil";
 
 "ExposureSubmissionResult_testRemoveDesc" = "Gerekirse yeni bir test kodu kaydedebilmeniz için lütfen testi Corona-Warn-App'ten silin.";
 
@@ -1329,7 +1329,7 @@
 
 "ErrorReport_StopAndDeleteButtonTitle" = "Durdur ve Sil";
 
-"ErrorReport_SaveButtonTitle" = "Yerel Olarak Kaydet ve Devam Et";
+"ErrorReport_SaveButtonTitle" = "Paylaş ve Devam Et";
 
 "ErrorReport_SendButtonTitle" = "Hata Raporu Gönder";
 

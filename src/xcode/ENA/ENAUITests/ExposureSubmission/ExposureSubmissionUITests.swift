@@ -7,7 +7,7 @@ import ExposureNotification
 
 // swiftlint:disable file_length
 // swiftlint:disable:next type_body_length
-class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
+class ENAUITests_04a_ExposureSubmission: XCTestCase {
 
 	// MARK: - Attributes.
 	
@@ -105,19 +105,6 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		
 		let consentGivenCell = app.cells[AccessibilityIdentifiers.ExposureSubmissionResult.warnOthersConsentGivenCell]
 		XCTAssertTrue(consentGivenCell.waitForExistence(timeout: .long))
-	}
-	
-	func test_screenshot_SymptomsOptionYes() {
-		var screenshotCounter = 0
-
-		launchAndNavigateToSymptomsScreen()
-		
-		// capturing and selecting Yes button
-		let optionYes = app.buttons["AppStrings.ExposureSubmissionSymptoms.answerOptionYes"]
-		optionYes.tap()
-
-		// take snapshot of the selection
-		snapshot("tan_submissionflow_symptoms_selection\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
 	
 	func test_SymptomsOptionNo() {
@@ -371,6 +358,102 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 	}
 	
+	// Navigate to the Thank You screen after getting the positive test result.
+	func test_ThankYouScreen_withWarnOthers() {
+		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
+		app.launchArguments.append(contentsOf: ["-pcrTestResult", TestResult.positive.stringValue])
+		app.launchArguments.append(contentsOf: ["-pcrPositiveTestResultWasShown", "YES"])
+		launch()
+		
+		// Open Intro screen.
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.pcrCell].waitForExistence(timeout: .long))
+		app.cells[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.pcrCell].tap()
+		
+		// Open Warn Others screen.
+		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
+		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
+
+		// Open Thank You screen.
+		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
+		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
+		app.navigationBars["ExposureSubmissionNavigationController"].buttons.element(boundBy: 0).tap()
+		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
+		// quick hack - can't easily use `addUIInterruptionMonitor` in this test
+		app.alerts.firstMatch.buttons.element(boundBy: 1).tap() // no
+		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
+		// quick hack - can't easily use `addUIInterruptionMonitor` in this test
+		app.alerts.firstMatch.buttons.firstMatch.tap() // yes
+		
+		// Back to homescreen
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.submittedPCRCell].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.submittedPCRCell].isHittable)
+	}
+
+	// Navigate to the Thank You screen with alert on Test Result Screen.
+	func test_ThankYouScreen_WarnOthersFromAlert() {
+		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
+		app.launchArguments.append(contentsOf: ["-pcrTestResult", TestResult.positive.stringValue])
+		launch()
+		
+		// Open Intro screen.
+		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.TestResultCell.availablePCRButton].waitForExistence(timeout: .long))
+		app.cells.buttons[AccessibilityIdentifiers.Home.TestResultCell.availablePCRButton].tap()
+
+		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
+		app.buttons["General.primaryFooterButton"].tap()
+		
+		// Open Test Result screen.
+		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
+		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
+
+		// quick hack - can't easily use `addUIInterruptionMonitor` in this test
+		app.alerts.firstMatch.buttons.element(boundBy: 1).tap() // don't warn
+
+		// Back to homescreen
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.pcrCell].waitForExistence(timeout: .long))
+		app.cells[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.pcrCell].tap()
+
+		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
+		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
+
+		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
+		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
+
+		// quick hack - can't easily use `addUIInterruptionMonitor` in this test
+		app.alerts.firstMatch.buttons.element(boundBy: 1).tap() // warn
+		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
+		
+		app.navigationBars["ExposureSubmissionNavigationController"].buttons.element(boundBy: 0).tap()
+		
+		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
+
+		// quick hack - can't easily use `addUIInterruptionMonitor` in this test
+		app.alerts.firstMatch.buttons.element(boundBy: 1).tap() // no
+		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
+
+		// quick hack - can't easily use `addUIInterruptionMonitor` in this test
+		app.alerts.firstMatch.buttons.firstMatch.tap() // yes
+
+		// Back to homescreen
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].isHittable)
+	}
+	
+	// MARK: - Screenshots
+
+	func test_screenshot_SymptomsOptionYes() {
+		var screenshotCounter = 0
+
+		launchAndNavigateToSymptomsScreen()
+		
+		// capturing and selecting Yes button
+		let optionYes = app.buttons["AppStrings.ExposureSubmissionSymptoms.answerOptionYes"]
+		optionYes.tap()
+
+		// take snapshot of the selection
+		snapshot("tan_submissionflow_symptoms_selection\(String(format: "%04d", (screenshotCounter.inc() )))")
+	}
+
 	func test_screenshot_SubmitTAN() {
 		var screenshotCounter = 0
 
@@ -508,87 +591,6 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		snapshot("error_submissionflow_\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
 	
-	// Navigate to the Thank You screen after getting the positive test result.
-	func test_ThankYouScreen_withWarnOthers() {
-		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
-		app.launchArguments.append(contentsOf: ["-pcrTestResult", TestResult.positive.stringValue])
-		app.launchArguments.append(contentsOf: ["-pcrPositiveTestResultWasShown", "YES"])
-		launch()
-		
-		// Open Intro screen.
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.pcrCell].waitForExistence(timeout: .long))
-		app.cells[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.pcrCell].tap()
-		
-		// Open Warn Others screen.
-		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
-		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
-
-		// Open Thank You screen.
-		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
-		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
-		app.navigationBars["ExposureSubmissionNavigationController"].buttons.element(boundBy: 0).tap()
-		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
-		// quick hack - can't easily use `addUIInterruptionMonitor` in this test
-		app.alerts.firstMatch.buttons.element(boundBy: 1).tap() // no
-		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
-		// quick hack - can't easily use `addUIInterruptionMonitor` in this test
-		app.alerts.firstMatch.buttons.firstMatch.tap() // yes
-		
-		// Back to homescreen
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.submittedPCRCell].waitForExistence(timeout: .long))
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.submittedPCRCell].isHittable)
-	}
-
-	// Navigate to the Thank You screen with alert on Test Result Screen.
-	func test_ThankYouScreen_WarnOthersFromAlert() {
-		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
-		app.launchArguments.append(contentsOf: ["-pcrTestResult", TestResult.positive.stringValue])
-		launch()
-		
-		// Open Intro screen.
-		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.TestResultCell.availablePCRButton].waitForExistence(timeout: .long))
-		app.cells.buttons[AccessibilityIdentifiers.Home.TestResultCell.availablePCRButton].tap()
-
-		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
-		app.buttons["General.primaryFooterButton"].tap()
-		
-		// Open Test Result screen.
-		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
-		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
-
-		// quick hack - can't easily use `addUIInterruptionMonitor` in this test
-		app.alerts.firstMatch.buttons.element(boundBy: 1).tap() // don't warn
-
-		// Back to homescreen
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.pcrCell].waitForExistence(timeout: .long))
-		app.cells[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.pcrCell].tap()
-
-		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
-		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
-
-		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
-		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
-
-		// quick hack - can't easily use `addUIInterruptionMonitor` in this test
-		app.alerts.firstMatch.buttons.element(boundBy: 1).tap() // warn
-		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
-		
-		app.navigationBars["ExposureSubmissionNavigationController"].buttons.element(boundBy: 0).tap()
-		
-		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
-
-		// quick hack - can't easily use `addUIInterruptionMonitor` in this test
-		app.alerts.firstMatch.buttons.element(boundBy: 1).tap() // no
-		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
-
-		// quick hack - can't easily use `addUIInterruptionMonitor` in this test
-		app.alerts.firstMatch.buttons.firstMatch.tap() // yes
-
-		// Back to homescreen
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].waitForExistence(timeout: .long))
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].isHittable)
-	}
-	
 	func test_screenshot_test_result_available() {
 		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
 		app.launchArguments.append(contentsOf: ["-pcrTestResult", TestResult.positive.stringValue])
@@ -681,7 +683,7 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 
 // MARK: - Helpers.
 
-extension ENAUITests_04_ExposureSubmissionUITests {
+extension ENAUITests_04a_ExposureSubmission {
 
 	private func type(_ app: XCUIApplication, text: String) {
 		text.forEach {
@@ -698,7 +700,7 @@ extension ENAUITests_04_ExposureSubmissionUITests {
 	/// Use this method to grab localized strings correctly.
 	private func localized(_ string: String) -> String {
 		if let path =
-			Bundle(for: ENAUITests_04_ExposureSubmissionUITests.self)
+			Bundle(for: ENAUITests_04a_ExposureSubmission.self)
 				.path(
 					forResource: deviceLanguage,
 					ofType: "lproj"
