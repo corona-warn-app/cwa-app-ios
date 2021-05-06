@@ -56,8 +56,27 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 		case .primary:
 			didTapContinue({ _ in Log.debug("is loading closure here") })
 		case .secondary:
-			viewModel.deleteProfile()
-			didTapDeleteProfile()
+			
+			let alert = UIAlertController(
+				title: AppStrings.AntigenProfile.Profile.deleteAlertTitle,
+				message: AppStrings.AntigenProfile.Profile.deleteAlertDescription,
+				preferredStyle: .alert
+			)
+			
+			let deleteAction = UIAlertAction(
+				title: AppStrings.AntigenProfile.Profile.deleteAlertDeleteButtonTitle,
+				style: .destructive,
+				handler: { [weak self] _ in
+					self?.viewModel.deleteProfile()
+					self?.didTapDeleteProfile()
+				}
+			)
+			alert.addAction(deleteAction)
+			
+			let cancelAction = UIAlertAction(title: AppStrings.Common.alertActionCancel, style: .cancel)
+			alert.addAction(cancelAction)
+			
+			present(alert, animated: true, completion: nil)
 		}
 	}
 

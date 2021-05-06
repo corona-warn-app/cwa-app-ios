@@ -818,7 +818,9 @@
 
 "ExposureSubmissionWarnOthers_consent_bullet3" = "Вашата самоличност няма да бъде разкрита. Другите потребители няма да узнаят кой е споделил резултата от теста си.";
 
-"ExposureSubmissionWarnOthers_consent_bullet4" = "За да дадете съгласието си, трябва да имате навършени 16 години.";
+"ExposureSubmissionWarnOthers_consent_bullet4" = "В раздела „Моите регистрации“ виждате събитията и местата, чиито регистрирани гости ще бъдат предупредени. Можете да изтриете отделни регистрации от списъка, за да ги изключите от процеса на предупреждаване.";
+
+"ExposureSubmissionWarnOthers_consent_bullet5" = "За да дадете съгласието си, трябва да имате навършени 16 години.";
 
 "ExposureSubmissionWarnOthers_continueButton" = "Приемам";
 
@@ -2362,4 +2364,11 @@
 "AntigenProfile_Create_EmailAddressPlaceholder" = "Имейл адрес";
 
 "AntigenProfile_Create_Save_Button_Title" = "Запазване";
+
+/* Antigen Profile */
+"AntigenProfile_Delete_Alert_Title" = "Желаете ли да премахнете профила си за бързи тестове?";
+
+"AntigenProfile_Delete_Alert_Description" = "Моля, имайте предвид, че ако го направите, този код повече няма да може да се използва за регистрации.";
+
+"AntigenProfile_Delete_Alert_Delete_Button_Title" = "Премахване";
 

@@ -83,11 +83,12 @@ final class ErrorLogSubmissionService: ErrorLogSubmitting {
 		authenticate(completion: { [weak self] result in
 			switch result {
 			case let .success(otpEls):
-				Log.debug("Successfully authenticated ppac and otp for els. Proceed with uploading error log file.")
+				Log.debug("Successfully authenticated ppac and OTP: \(private: otpEls, public: "--OTP Value--") for els. Proceed with uploading error log file.")
 				self?.client.submit(errorLogFile: errorLogFiledata as Data, otpEls: otpEls, completion: { result in
 					switch result {
 					case let .success(errorFileLogResponse):
 						Log.debug("Successfully uploaded error file log to server.")
+						self?.store.otpElsAuthorizationDate = Date()
 						completion(.success(errorFileLogResponse))
 					case let .failure(error):
 						Log.error("Uploading error file log failed.", log: .els, error: error)

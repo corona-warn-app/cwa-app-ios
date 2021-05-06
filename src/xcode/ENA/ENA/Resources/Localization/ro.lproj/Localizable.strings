@@ -818,7 +818,9 @@
 
 "ExposureSubmissionWarnOthers_consent_bullet3" = "Identitatea dvs. va rămâne secretă. Alți utilizatori nu vor afla cine a partajat rezultatul testului.";
 
-"ExposureSubmissionWarnOthers_consent_bullet4" = "Trebuie să aveți cel puțin 16 ani pentru a vă acorda consimțământul.";
+"ExposureSubmissionWarnOthers_consent_bullet4" = "La „Check-inurile mele”, puteți vedea evenimentele și locurile ale căror invitați cu check-inul făcut vor fi avertizați. Puteți elimina check-inuri individuale din listă pentru a le exclude din procesul de avertizare.";
+
+"ExposureSubmissionWarnOthers_consent_bullet5" = "Trebuie să aveți cel puțin 16 ani pentru a vă acorda consimțământul.";
 
 "ExposureSubmissionWarnOthers_continueButton" = "Accept";
 
@@ -2362,4 +2364,11 @@
 "AntigenProfile_Create_EmailAddressPlaceholder" = "Adresă e-mail";
 
 "AntigenProfile_Create_Save_Button_Title" = "Salvare";
+
+/* Antigen Profile */
+"AntigenProfile_Delete_Alert_Title" = "Doriți să eliminați profilul de test rapid?";
+
+"AntigenProfile_Delete_Alert_Description" = "Luați în considerare că dacă îl ștergeți, codul QR nu mai poate fi utilizat pentru înregistrare.";
+
+"AntigenProfile_Delete_Alert_Delete_Button_Title" = "Eliminare";
 

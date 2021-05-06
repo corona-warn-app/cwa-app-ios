@@ -818,7 +818,9 @@
 
 "ExposureSubmissionWarnOthers_consent_bullet3" = "Kimliğiniz gizli tutulacaktır. Diğer kullanıcılar, kimin test sonucunu paylaştığını öğrenmeyecektir.";
 
-"ExposureSubmissionWarnOthers_consent_bullet4" = "Onay vermek için 16 yaşın üzerinde olmanız gerekir.";
+"ExposureSubmissionWarnOthers_consent_bullet4" = "“Check-In’lerim” bölümünde check-in yapan konuklarına uyarı gönderilecek etkinlikleri ve yerleri görebilirsiniz. Uyarı işlemlerinin dışında tutmak için listeden ayrı ayrı check-in’leri kaldırabilirsiniz.";
+
+"ExposureSubmissionWarnOthers_consent_bullet5" = "Onay vermek için 16 yaşın üzerinde olmanız gerekir.";
 
 "ExposureSubmissionWarnOthers_continueButton" = "Kabul Et";
 
@@ -2362,4 +2364,11 @@
 "AntigenProfile_Create_EmailAddressPlaceholder" = "E-posta Adresi";
 
 "AntigenProfile_Create_Save_Button_Title" = "Kaydet";
+
+/* Antigen Profile */
+"AntigenProfile_Delete_Alert_Title" = "Hızlı test profilini kaldırmak istiyor musunuz?";
+
+"AntigenProfile_Delete_Alert_Description" = "Lütfen unutmayın; QR kodu silerseniz artık kayıt yaparken bunu kullanamazsınız.";
+
+"AntigenProfile_Delete_Alert_Delete_Button_Title" = "Kaldır";
 
