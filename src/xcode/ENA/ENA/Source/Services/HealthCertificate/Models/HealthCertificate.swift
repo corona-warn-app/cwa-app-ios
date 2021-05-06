@@ -50,7 +50,7 @@ struct HealthCertificate: Codable, Equatable {
 		case .success(let cborWebTokenHeader):
 			return cborWebTokenHeader
 		case .failure:
-			fatalError("This")
+			fatalError("Decoding the cborWebTokenHeader failed even though decodability was checked at initialization.")
 		}
 	}
 
@@ -61,7 +61,7 @@ struct HealthCertificate: Codable, Equatable {
 		case .success(let digitalGreenCertificate):
 			return digitalGreenCertificate
 		case .failure:
-			fatalError("This")
+			fatalError("Decoding the digitalGreenCertificate failed even though decodability was checked at initialization.")
 		}
 	}
 
