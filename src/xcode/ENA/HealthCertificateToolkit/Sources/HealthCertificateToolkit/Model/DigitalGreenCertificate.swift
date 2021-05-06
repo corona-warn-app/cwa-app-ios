@@ -18,10 +18,11 @@ public struct DigitalGreenCertificate: Codable, Equatable {
 
     // MARK: - Internal
 
-    let version: String
-    let name: Name
-    let dateOfBirth: String
-    let vaccinationCertificates: [VaccinationCertificate]
+    public let version: String
+    public let name: Name
+    public let dateOfBirth: String
+    public let vaccinationCertificates: [VaccinationCertificate]
+
 }
 
 public struct VaccinationCertificate: Codable, Equatable {
@@ -43,18 +44,19 @@ public struct VaccinationCertificate: Codable, Equatable {
 
     // MARK: - Internal
 
-    let diseaseOrAgentTargeted: String
-    let vaccineOrProphylaxis: String
-    let vaccineMedicinalProduct: String
-    let marketingAuthorizationHolder: String
+    public let diseaseOrAgentTargeted: String
+    public let vaccineOrProphylaxis: String
+    public let vaccineMedicinalProduct: String
+    public let marketingAuthorizationHolder: String
 
-    let doseNumber: Int
-    let totalSeriesOfDoses: Int
+    public let doseNumber: Int
+    public let totalSeriesOfDoses: Int
 
-    let dateOfVaccination: String
-    let countryOfVaccination: String
-    let certificateIssuer: String
-    let uniqueCertificateIdentifier: String
+    public let dateOfVaccination: String
+    public let countryOfVaccination: String
+    public let certificateIssuer: String
+    public let uniqueCertificateIdentifier: String
+
 }
 
 public struct Name: Codable, Equatable {
@@ -70,8 +72,9 @@ public struct Name: Codable, Equatable {
 
     // MARK: - Internal
 
-    let familyName: String
-    let givenName: String
-    let standardizedFamilyName: String
-    let standardizedGivenName: String
+    public let familyName: String?
+    public let givenName: String?
+    public let standardizedFamilyName: String
+    public let standardizedGivenName: String?
+
 }

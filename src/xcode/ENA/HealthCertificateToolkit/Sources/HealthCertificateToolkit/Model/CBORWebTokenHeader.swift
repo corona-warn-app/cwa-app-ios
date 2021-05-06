@@ -16,7 +16,8 @@ public struct CBORWebTokenHeader: Codable, Equatable {
 
     // MARK: - Internal
 
-    let issuer: String
-    let issuedAt: UInt64?
-    let expirationTime: UInt64
+    public let issuer: String
+    public let issuedAt: UInt64?
+    public let expirationTime: UInt64
+
 }
