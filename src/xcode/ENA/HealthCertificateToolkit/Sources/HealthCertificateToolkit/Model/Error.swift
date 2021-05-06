@@ -5,8 +5,8 @@
 import Foundation
 
 public enum ProofCertificateFetchingError: Error {
-    case something
-    case general
+    case PC_NETWORK_ERROR
+    case PC_SERVER_ERROR
 }
 
 public enum CertificateDecodingError: Error {

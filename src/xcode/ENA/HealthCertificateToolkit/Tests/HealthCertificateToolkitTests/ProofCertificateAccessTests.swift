@@ -15,6 +15,12 @@ final class ProofCertificateAccessTests: XCTestCase {
         let resultExpectation = expectation(description: "Fetch should return a result.")
 
         proofCertificateAccess.fetchProofCertificate(for: [testData.input]) { result in
+            guard case let .success(proofCertificateData) = result else {
+                XCTFail("Success expected.")
+                return
+            }
+
+            let result = proofCertificateAccess.extractDigitalGreenCertificate(from: proofCertificateData)
             guard case let .success(proofCertificate) = result else {
                 XCTFail("Success expected.")
                 return
