@@ -9,10 +9,10 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 	// MARK: - Init
 
 	init(
-		onSecondaryButtonTap: @escaping () -> Void,
+		onPrimaryButtonTap: @escaping () -> Void,
 		dismiss: @escaping () -> Void
 	) {
-		self.onSecondaryButtonTap = onSecondaryButtonTap
+		self.onPrimaryButtonTap = onPrimaryButtonTap
 
 		super.init(nibName: nil, bundle: nil)
 		navigationItem.rightBarButtonItem = CloseBarButtonItem(onTap: dismiss)
@@ -35,7 +35,6 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 		setupBackButton()
 		
 		footerView?.primaryButton.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmissionHotline.primaryButton
-		footerView?.secondaryButton.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmissionHotline.secondaryButton
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -50,24 +49,20 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 	// MARK: - Protocol ENANavigationControllerWithFooterChild
 
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		callHotline()
-	}
-
-	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapSecondaryButton button: UIButton) {
-		self.onSecondaryButtonTap()
+		self.onPrimaryButtonTap()
 	}
 
 	// MARK: - Private
 	
-	private let onSecondaryButtonTap: () -> Void
+	private let onPrimaryButtonTap: () -> Void
 
 	private lazy var navigationFooterItem: ENANavigationFooterItem = {
 		let item = ENANavigationFooterItem()
-		item.primaryButtonTitle = AppStrings.ExposureSubmissionHotline.callButtonTitle
+		item.primaryButtonTitle = AppStrings.ExposureSubmissionHotline.tanInputButtonTitle
 		item.isPrimaryButtonEnabled = true
 		item.secondaryButtonTitle = AppStrings.ExposureSubmissionHotline.tanInputButtonTitle
-		item.isSecondaryButtonEnabled = true
-		item.isSecondaryButtonHidden = false
+		item.isSecondaryButtonEnabled = false
+		item.isSecondaryButtonHidden = true
 		item.title = AppStrings.ExposureSubmissionHotline.title
 		return item
 	}()
