@@ -4,6 +4,7 @@
 
 import Foundation
 import UIKit
+import OpenCombine
 
 class ExposureSubmissionIntroViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
 	
@@ -28,6 +29,12 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, ENANavi
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		setupView()
+
+		viewModel.$dynamicTableModel.dropFirst().sink { [weak self] dynamicTableViewModel in
+			self?.dynamicTableViewModel = dynamicTableViewModel
+			self?.tableView.reloadData()
+		}.store(in: &subscriptions)
+
 		footerView?.isHidden = true
 		footerView?.primaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.primaryButton
 		footerView?.secondaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.secondaryButton
@@ -44,8 +51,9 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, ENANavi
 	}
 
 	// MARK: - Private
-	
+
 	private let viewModel: ExposureSubmissionIntroViewModel
+	private var subscriptions = Set<AnyCancellable>()
 
 	private lazy var navigationFooterItem: ENANavigationFooterItem = {
 		let item = ENANavigationFooterItem()

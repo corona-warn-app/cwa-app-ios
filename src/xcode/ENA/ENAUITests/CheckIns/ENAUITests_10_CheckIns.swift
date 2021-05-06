@@ -20,7 +20,58 @@ class ENAUITests_10_CheckIns: XCTestCase {
 		
 	}
 	
-	func test_WHEN_scan_QRCode_THEN_checkin_and_checkout() {
+	func testCheckinInfoScreen_navigate_to_dataPrivacy() throws {
+		app.launchArguments.append(contentsOf: ["-checkinInfoScreenShown", "NO"])
+		app.launch()
+		
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Tabbar.checkin].waitForExistence(timeout: .short))
+		
+		// Navigate to CheckIn
+		app.buttons[AccessibilityIdentifiers.Tabbar.checkin].tap()
+		
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Checkin.Information.acknowledgementTitle].exists)
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Checkin.Information.dataPrivacyTitle].exists)
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Checkin.Information.primaryButton].exists)
+		
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Information.descriptionTitle].exists)
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Information.descriptionSubHeadline].exists)
+		
+		// find data privacy cell (last cell) and tap it
+		guard let lastCell = app.tables.firstMatch.cells.allElementsBoundByIndex.last,
+			  lastCell.identifier == AccessibilityIdentifiers.Checkin.Information.dataPrivacyTitle else {
+			XCTFail("Could not find last table view cell")
+			return
+		}
+		
+		let maxTries = 10
+		var actualTry = 0
+		while lastCell.isHittable == false && actualTry < maxTries {
+			app.swipeUp()
+			actualTry += 1
+		}
+		lastCell.tap()
+		
+		XCTAssertTrue(app.staticTexts["AppStrings.AppInformation.privacyTitle"].waitForExistence(timeout: .short))
+	}
+	
+	func testCheckinInfoScreen_confirmConsent() throws {
+		app.launchArguments.append(contentsOf: ["-checkinInfoScreenShown", "NO"])
+		app.launch()
+		
+		// Navigate to CheckIn
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Tabbar.checkin].waitForExistence(timeout: .short))
+		app.buttons[AccessibilityIdentifiers.Tabbar.checkin].tap()
+		
+		// Confirm consent
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Checkin.Information.primaryButton].waitForExistence(timeout: .short))
+		app.buttons[AccessibilityIdentifiers.Checkin.Information.primaryButton].tap()
+				
+		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.Checkins.Overview.title)].waitForExistence(timeout: .short))
+	}
+	
+	// MARK: - Screenshots
+
+	func test_screenshot_WHEN_scan_QRCode_THEN_checkin_and_checkout() {
 		// GIVEN
 		app.launchArguments.append(contentsOf: ["-checkinInfoScreenShown", "NO"])
 		app.launch()
@@ -63,44 +114,6 @@ class ENAUITests_10_CheckIns: XCTestCase {
 		
 		// check out and clean up; take screenshots
 		myCheckins_checkout()
-	}
-	
-	func testCheckinInfoScreen_navigate_to_dataPrivacy() throws {
-		app.launchArguments.append(contentsOf: ["-checkinInfoScreenShown", "NO"])
-		app.launch()
-		
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Tabbar.checkin].waitForExistence(timeout: .extraLong))
-		
-		// Navigate to CheckIn
-		app.buttons[AccessibilityIdentifiers.Tabbar.checkin].tap()
-		
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Checkin.Information.acknowledgementTitle].exists)
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Checkin.Information.dataPrivacyTitle].exists)
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Checkin.Information.primaryButton].exists)
-		
-		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Information.descriptionTitle].exists)
-		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Information.descriptionSubHeadline].exists)
-
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Checkin.Information.dataPrivacyTitle].waitForExistence(timeout: .extraLong))
-
-		app.cells[AccessibilityIdentifiers.Checkin.Information.dataPrivacyTitle].tap()
-		
-		XCTAssertTrue(app.staticTexts["AppStrings.AppInformation.privacyTitle"].waitForExistence(timeout: .extraLong))
-	}
-	
-	func testCheckinInfoScreen_confirmConsent() throws {
-		app.launchArguments.append(contentsOf: ["-checkinInfoScreenShown", "NO"])
-		app.launch()
-		
-		// Navigate to CheckIn
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Tabbar.checkin].waitForExistence(timeout: .short))
-		app.buttons[AccessibilityIdentifiers.Tabbar.checkin].tap()
-		
-		// Confirm consent
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Checkin.Information.primaryButton].waitForExistence(timeout: .short))
-		app.buttons[AccessibilityIdentifiers.Checkin.Information.primaryButton].tap()
-				
-		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.Checkins.Overview.title)].waitForExistence(timeout: .short))
 	}
 	
 	// MARK: - Private

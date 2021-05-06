@@ -13,12 +13,15 @@ final class DiaryOverviewDayCellModel {
 		diaryDay: DiaryDay,
 		historyExposure: HistoryExposure,
 		minimumDistinctEncountersWithHighRisk: Int,
-		checkinsWithRisk: [CheckinWithRisk]
+		checkinsWithRisk: [CheckinWithRisk],
+		// only needed for UI Testing purposes
+		accessibilityIdentifierIndex: Int = 0
 	) {
 		self.diaryDay = diaryDay
 		self.historyExposure = historyExposure
 		self.minimumDistinctEncountersWithHighRisk = minimumDistinctEncountersWithHighRisk
 		self.checkinsWithRisk = checkinsWithRisk
+		self.accessibilityIdentifierIndex = accessibilityIdentifierIndex
 	}
 
 	// MARK: - Public
@@ -27,6 +30,7 @@ final class DiaryOverviewDayCellModel {
 
 	let historyExposure: HistoryExposure
 	let checkinsWithRisk: [CheckinWithRisk]
+	let accessibilityIdentifierIndex: Int
 
 	func entryDetailTextFor(personEncounter: ContactPersonEncounter) -> String {
 		var detailComponents = [String]()

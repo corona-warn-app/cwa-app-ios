@@ -8,6 +8,7 @@ import OpenCombineDispatch
 import ExposureNotification
 import FMDB
 import UIKit
+import HealthCertificateToolkit
 
 protocol CoronaWarnAppDelegate: AnyObject {
 
@@ -34,7 +35,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	override init() {
 		self.environmentProvider = Environments()
 
+		#if DEBUG
+		if isUITesting {
+			self.store = MockTestStore()
+		}
 		self.store = SecureStore(subDirectory: "database", environmentProvider: environmentProvider)
+		#else
+		self.store = SecureStore(subDirectory: "database", environmentProvider: environmentProvider)
+		#endif
 
 		if store.appInstallationDate == nil {
 			store.appInstallationDate = InstallationDate.inferredFromDocumentDirectoryCreationDate()
@@ -254,7 +262,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			store: store,
 			client: client,
 			appConfig: appConfigurationProvider,
-			coronaTestService: coronaTestService
+			coronaTestService: coronaTestService,
+			ppacService: ppacService
 		)
 	}()
 
@@ -262,6 +271,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		store: store,
 		client: client,
 		riskProvider: riskProvider
+	)
+	
+	private lazy var ppacService: PrivacyPreservingAccessControl = PPACService(
+		store: store,
+		deviceCheck: PPACDeviceCheck()
 	)
 
 	#if targetEnvironment(simulator) || COMMUNITY
@@ -347,14 +361,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			/// - App installation date
 			///
 			/// read values from the current store
-			let ppacAPIToken = store.ppacApiToken
+			let ppacEdusApiToken = store.ppacApiTokenEdus
 			let installationDate = store.appInstallationDate
 
 			let newKey = try KeychainHelper().generateDatabaseKey()
 			store.clearAll(key: newKey)
 
 			/// write excluded values back to the 'new' store
-			store.ppacApiToken = ppacAPIToken
+			store.ppacApiTokenEdus = ppacEdusApiToken
 			store.appInstallationDate = installationDate
             Analytics.collect(.submissionMetadata(.lastAppReset(Date())))
 		} catch {
@@ -522,7 +536,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		contactDiaryStore: contactDiaryStore,
 		eventStore: eventStore,
 		eventCheckoutService: eventCheckoutService,
-		otpService: otpService
+		otpService: otpService,
+		ppacService: ppacService
 	)
 
 	private lazy var appUpdateChecker = AppUpdateCheckHelper(appConfigurationProvider: self.appConfigurationProvider, store: self.store)

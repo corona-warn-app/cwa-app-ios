@@ -102,6 +102,9 @@ enum AccessibilityIdentifiers {
 			static let checkinRiskLevelLow = "AppStrings.ContactDiary.Overview.CheckinEncounter.titleLowRisk"
 			static let checkinRiskLevelHigh = "AppStrings.ContactDiary.Overview.CheckinEncounter.titleHighRisk"
 			static let checkinTableView = "AppStrings.ContactDiary.Overview.CheckinEncounter.tableView"
+			static let cell = "ContactDiary_Overview_cell-%d"
+			static let person = "ContactDiary_Overview_personEntry-%d"
+			static let location = "ContactDiary_Overview_locationEntry-%d"
 		}
 		
 		enum NotesInformation {
@@ -380,6 +383,21 @@ enum AccessibilityIdentifiers {
 			}
 		}
 
+		enum AntigenTest {
+			enum Information {
+				static let imageDescription = "AppStrings.ExposureSubmission.AntigenTest.Information.imageDescription"
+				static let descriptionTitle = "AppStrings.ExposureSubmission.AntigenTest.Information.descriptionTitle"
+				static let descriptionSubHeadline = "AppStrings.ExposureSubmission.AntigenTest.Information.descriptionSubHeadline"
+				static let acknowledgementTitle = "AntigenTest_Information_acknowledgement_title"
+				static let dataPrivacyTitle = "AppStrings.ExposureSubmission.AntigenTest.Information.dataPrivacyTitle"
+			}
+			
+			enum Profile {
+				static let profileTile_Description = "AppStrings.ExposureSubmission.AntigenTest.Profile.profileTile_Description"
+				static let createProfileTile_Description = "AppStrings.ExposureSubmission.AntigenTest.Profile.createProfileTile_Description"
+			}
+		}
+
 	}
 	
 	enum Reset {
@@ -458,6 +476,33 @@ enum AccessibilityIdentifiers {
 		static let regionCell = "DataDonation.Region.Identifier"
 		static let ageGroupCell = "DataDonation.AgeGroup.Identifier"
 	}
+
+	enum ErrorReport {
+		// Main Error Logging Screen
+		// - top ViewController
+		static let navigation = "AppStrings.ErrorReport.navigation"
+		static let topBody = "AppStrings.ErrorReport.topBody"
+		static let faq = "AppStrings.ErrorReport.faq"
+		static let privacyInformation = "AppStrings.ErrorReport.privacyInformation"
+		static let privacyNavigation = "AppStrings.ErrorReport.privacyNavigation"
+		static let historyNavigation = "AppStrings.ErrorReport.historyNavigation"
+
+		static let historyTitle = "AppStrings.ErrorReport.historyTitle"
+		static let historyDescription = "AppStrings.ErrorReport.historyDescription"
+		
+		static let startButton = "AppStrings.ErrorReport.startButtonTitle"
+		static let sendReportButton = "AppStrings.ErrorReport.sendButtontitle"
+		static let saveLocallyButton = "AppStrings.ErrorReport.saveButtonTitle"
+		static let stopAndDeleteButton = "AppStrings.ErrorReport.stopAndDeleteButtonTitle"
+
+		static let legalSendReports = "AppStrings.ErrorReport.Legal.sendReports_Headline"
+		static let sendReportsDetails = "AccessibilityIdentifiers.ErrorReport.sendReportsDetails"
+		static let detailedInformationTitle = "AccessibilityIdentifiers.ErrorReport.detailedInformationTitle"
+		static let detailedInformationSubHeadline = "AccessibilityIdentifiers.ErrorReport.detailedInformationSubHeadline"
+		static let detailedInformationContent2 = "AccessibilityIdentifiers.ErrorReport.detailedInformationContent2"
+		
+		static let agreeAndSendButton = "AccessibilityIdentifiers.ErrorReport.agreeAndSendButton"
+	}
 	
 	enum TraceLocation {
 		static let imageDescription = "AppStrings.TraceLocations.imageDescription"
@@ -508,12 +553,12 @@ enum AccessibilityIdentifiers {
 		}
 		
 		enum Information {
-			static let imageDescription = "AppStrings.CheckInInformation.imageDescription"
-			static let descriptionTitle = "AppStrings.CheckInInformation.descriptionTitle"
-			static let descriptionSubHeadline = "AppStrings.CheckInInformation.descriptionSubHeadline"
-			static let dataPrivacyTitle = "AppStrings.CheckInInformation.dataPrivacyTitle"
-			static let primaryButton = "AppStrings.CheckInInformation.primaryButton"
-			static let acknowledgementTitle = "CheckInInformation.acknowledgement_title"
+			static let imageDescription = "AppStrings.Checkins.Information.imageDescription"
+			static let descriptionTitle = "AppStrings.Checkins.Information.descriptionTitle"
+			static let descriptionSubHeadline = "AppStrings.Checkins.Information.descriptionSubHeadline"
+			static let dataPrivacyTitle = "AppStrings.Checkins.Information.dataPrivacyTitle"
+			static let primaryButton = "AppStrings.Checkins.Information.primaryButton"
+			static let acknowledgementTitle = "Checkins.Information.acknowledgement_title"
 		}
 		
 	}

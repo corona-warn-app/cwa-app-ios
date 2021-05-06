@@ -4,8 +4,8 @@
 
 import Foundation
 
-enum OTPError: Error {
-	case generalError
+enum OTPError: Error, Equatable {
+	case generalError(underlyingError: Error? = nil)
 	case invalidResponseError
 	case internalServerError
 	case otpAlreadyUsedThisMonth
@@ -19,8 +19,12 @@ enum OTPError: Error {
 
 	var description: String {
 		switch self {
-		case .generalError:
-			return "generalError"
+		case .generalError(let error):
+			if let e = error?.localizedDescription {
+				return "generalError with underlying: \(e)"
+			} else {
+				return "generalError"
+			}
 		case .invalidResponseError:
 			return "invalidResponseError"
 		case .internalServerError:
@@ -42,5 +46,9 @@ enum OTPError: Error {
 		case .deviceTokenSyntaxError:
 			return "deviceTokenSyntaxError"
 		}
+	}
+
+	static func == (lhs: OTPError, rhs: OTPError) -> Bool {
+		return lhs.description == rhs.description
 	}
 }

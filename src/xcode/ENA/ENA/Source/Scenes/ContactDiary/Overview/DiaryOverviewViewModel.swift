@@ -66,7 +66,8 @@ class DiaryOverviewViewModel {
 			diaryDay: diaryDay,
 			historyExposure: currentHistoryExposure,
 			minimumDistinctEncountersWithHighRisk: minimumDistinctEncountersWithHighRisk,
-			checkinsWithRisk: checkinsWithRisk
+			checkinsWithRisk: checkinsWithRisk,
+			accessibilityIdentifierIndex: indexPath.row
 		)
 	}
 
