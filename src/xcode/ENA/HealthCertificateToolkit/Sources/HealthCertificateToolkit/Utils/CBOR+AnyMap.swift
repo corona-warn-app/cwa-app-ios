@@ -46,9 +46,7 @@ extension CBOR {
             return arrayValue.map { $0.anyValue }
         case .map(let mapValue):
             return mapValue.anyMap as Any
-        case .null, .undefined:
-            return nil as Any?
-        default:
+        case .null, .undefined, .tagged, .break:
             return nil as Any?
         }
     }

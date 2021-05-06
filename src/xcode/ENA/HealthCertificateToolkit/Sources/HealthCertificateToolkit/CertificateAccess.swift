@@ -10,7 +10,7 @@ struct CertificateAccess {
 
     // MARK: - Internal
 
-    func extractHeader(from cborData: Data) -> Result<CBORWebTokenHeader, HealthCertificateDecodingError> {
+    func extractHeader(from cborData: CBORData) -> Result<CBORWebTokenHeader, CertificateDecodingError> {
         let webTokenResult = decodeCBORWebToken(cborData)
 
         switch webTokenResult {
@@ -18,27 +18,22 @@ struct CertificateAccess {
 
             let headerResult = extractHeader(from: cborWebToken)
 
-            switch headerResult {
-            case let .success(tokenHeader):
-                return .success(tokenHeader)
-            case let .failure(error):
-                return .failure(error)
-            }
+            return headerResult
 
         case let .failure(error):
             return .failure(error)
         }
     }
 
-    func extractHeader(from cborWebToken: CBOR) -> Result<CBORWebTokenHeader, HealthCertificateDecodingError> {
+    func extractHeader(from cborWebToken: CBOR) -> Result<CBORWebTokenHeader, CertificateDecodingError> {
         guard let issuerElement = cborWebToken[1],
               case let .utf8String(issuer) = issuerElement else {
-            return .failure(.HC_CWT_NO_ISS)
+            return .failure(.HC_CBORWEBTOKEN_NO_ISSUER)
         }
 
         guard let expirationTimeElement = cborWebToken[6],
               case let .unsignedInt(expirationTime) = expirationTimeElement else {
-            return .failure(.HC_CWT_NO_EXP)
+            return .failure(.HC_CBORWEBTOKEN_NO_EXPIRATIONTIME)
         }
 
         var issuedAt: UInt64?
@@ -54,34 +49,29 @@ struct CertificateAccess {
         ))
     }
 
-    func extractHealthCertificate(from cborData: Data) -> Result<DigitalGreenCertificate, HealthCertificateDecodingError> {
+    func extractDigitalGreenCertificate(from cborData: CBORData) -> Result<DigitalGreenCertificate, CertificateDecodingError> {
         let webTokenResult = decodeCBORWebToken(cborData)
 
         switch webTokenResult {
         case let .success(cborWebToken):
 
-            let certificateResult = extractHealthCertificate(from: cborWebToken)
+            let certificateResult = extractDigitalGreenCertificate(from: cborWebToken)
 
-            switch certificateResult {
-            case let .success(certificate):
-                return .success(certificate)
-            case let .failure(error):
-                return .failure(error)
-            }
+            return certificateResult
 
         case let .failure(error):
             return .failure(error)
         }
     }
 
-    func extractHealthCertificate(from cborWebToken: CBOR) -> Result<DigitalGreenCertificate, HealthCertificateDecodingError> {
+    func extractDigitalGreenCertificate(from cborWebToken: CBOR) -> Result<DigitalGreenCertificate, CertificateDecodingError> {
         guard let healthCertificateElement = cborWebToken[-260],
               case let .map(healthCertificateMap) = healthCertificateElement else {
-            return .failure(.HC_CWT_NO_HCERT)
+            return .failure(.HC_CBORWEBTOKEN_NO_HEALTHCERTIFICATE)
         }
 
         guard  let healthCertificateCBOR = healthCertificateMap[1] else {
-            return .failure(.HC_CWT_NO_DGC)
+            return .failure(.HC_CBORWEBTOKEN_NO_DIGITALGREENCERTIFICATE)
         }
 
         switch validateSchema(of: healthCertificateCBOR) {
@@ -102,7 +92,7 @@ struct CertificateAccess {
 
     // MARK: - Private
 
-    private func validateSchema(of certificate: CBOR) -> Result<Void, HealthCertificateDecodingError> {
+    private func validateSchema(of certificate: CBOR) -> Result<Void, CertificateDecodingError> {
         guard case let CBOR.map(certificateMap) = certificate,
               let schemaURL = Bundle.module.url(forResource: "CertificateSchema", withExtension: "json"),
               let schemaData = FileManager.default.contents(atPath: schemaURL.path),
@@ -116,7 +106,7 @@ struct CertificateAccess {
         return .success(())
     }
 
-    private func decodeCBORWebToken(_ cborData: Data) -> Result<CBOR, HealthCertificateDecodingError>  {
+    private func decodeCBORWebToken(_ cborData: CBORData) -> Result<CBOR, CertificateDecodingError>  {
         let cborDecoder = CBORDecoder(input: [UInt8](cborData))
 
         guard
