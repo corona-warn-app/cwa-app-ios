@@ -38,7 +38,17 @@ class ENAUITests_06_DeltaOnboarding: XCTestCase {
 		checkNewFeaturesAndDataDonationScreen()
 	}
 	
-	func test_screenshotDeltaOnboardingV15() throws {
+	func testDeltaOnboardingNewVersionFeatures() throws {
+		app.launchArguments.append(contentsOf: ["-onboardingVersion", "1.12"])
+		
+		app.launch()
+
+		checkNewFeaturesAndDataDonationScreen()
+	}
+
+	// MARK: - Screenshots
+
+	func test_screenshot_DeltaOnboardingV15() throws {
 		app.launchArguments.append(contentsOf: ["-onboardingVersion", "1.4"])
 		
 		app.launch()
@@ -58,15 +68,7 @@ class ENAUITests_06_DeltaOnboarding: XCTestCase {
 		app.swipeUp()
 	}
 	
-	func testDeltaOnboardingNewVersionFeatures() throws {
-		app.launchArguments.append(contentsOf: ["-onboardingVersion", "1.12"])
-		
-		app.launch()
-
-		checkNewFeaturesAndDataDonationScreen()
-	}
-	
-	func test_screenshotDeltaOnboardingNewVersionFeatures() throws {
+	func test_screenshot_DeltaOnboardingNewVersionFeatures() throws {
 		app.launchArguments.append(contentsOf: ["-onboardingVersion", "1.13"])
 		
 		app.launch()

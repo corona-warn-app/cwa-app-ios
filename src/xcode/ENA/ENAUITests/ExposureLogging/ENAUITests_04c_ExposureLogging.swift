@@ -5,7 +5,7 @@
 import XCTest
 import ExposureNotification
 
-class ENAUITests_05_ExposureLogging: XCTestCase {
+class ENAUITests_04c_ExposureLogging: XCTestCase {
 	
 	var app: XCUIApplication!
 
@@ -21,6 +21,8 @@ class ENAUITests_05_ExposureLogging: XCTestCase {
 	override func tearDownWithError() throws {
 		// Put teardown code here. This method is called after the invocation of each test method in the class.
 	}
+
+	// MARK: - Screenshots
 
 	func test_screenshot_exposureLogging() throws {
 		var screenshotCounter = 0

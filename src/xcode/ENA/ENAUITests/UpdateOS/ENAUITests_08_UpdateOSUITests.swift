@@ -4,7 +4,7 @@
 
 import XCTest
 
-class ENAUITests_08_UpdateOSUITests: XCTestCase {
+class ENAUITests_08_UpdateOS: XCTestCase {
 
 	var app: XCUIApplication!
 
@@ -18,6 +18,8 @@ class ENAUITests_08_UpdateOSUITests: XCTestCase {
 		app.launchArguments.append(contentsOf: ["-showUpdateOS", "YES"])
 	}
 	
+	// MARK: - Screenshots
+
 	func test_screenshot_UpdateOS() {
 		app.launch()
 		

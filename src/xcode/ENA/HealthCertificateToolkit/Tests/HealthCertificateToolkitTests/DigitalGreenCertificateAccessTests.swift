@@ -10,9 +10,9 @@ import SwiftCBOR
 final class DigitalGreenCertificateAccessTests: XCTestCase {
 
     func test_When_decodeSucceeds_Then_CorrectDataIsReturned() throws {
-        let certificateAccess = HealthCertificateAccess()
+        let healthCertificateAccess = HealthCertificateAccess()
 
-        let result = certificateAccess.extractHealthCertificate(base45: testData.input)
+        let result = healthCertificateAccess.extractHealthCertificate(from: testData.input)
 
         guard case let .success(healthCertificate) = result else {
             XCTFail("Success expected.")

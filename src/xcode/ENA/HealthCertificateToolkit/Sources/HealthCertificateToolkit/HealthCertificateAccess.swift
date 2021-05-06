@@ -37,7 +37,7 @@ public struct HealthCertificateAccess {
 
     var certificateAccess = CertificateAccess()
 
-    func extractCBOR(from base45: Base45) -> Result<Data, CertificateDecodingError> {
+    func extractCBOR(from base45: Base45) -> Result<CBORData, CertificateDecodingError> {
         guard let zipData = try? base45.fromBase45() else {
             return .failure(.HC_BASE45_DECODING_FAILED)
         }
