@@ -155,17 +155,12 @@ platform :ios do
       UI.user_error!("Tests did fail, please check logs above or ENA.xcresult.zip")
     ensure
       trainer(
-        output_directory: "fastlane/test_output/#{options[:languages]}",
+        output_directory: "fastlane/test_output/#{options[:languages]}-#{options[:mode]}",
         path: "#{output_dir}/test_output/#{options[:languages]}",
         extension: ".junit",
         fail_build: false
       )
-
-      zip(
-        path: "#{output_dir}/test_output/#{options[:languages]}/ENAScreenshots.xcresult",
-        output_path: "fastlane/test_output/ENAScreenshots-#{options[:languages]}.xcresult.zip",
-        verbose: false
-      )
+      # no xcresult created, so no zip like in the other lanes
     end
   end
 
