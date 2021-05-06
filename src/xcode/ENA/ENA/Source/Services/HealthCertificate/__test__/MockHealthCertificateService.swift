@@ -2,11 +2,12 @@
 // 🦠 Corona-Warn-App
 //
 
-import Foundation
 import OpenCombine
 import HealthCertificateToolkit
 
 class MockHealthCertificateService: HealthCertificateServiceProviding {
+
+	// MARK: - Protocol HealthCertificateServiceProviding
 
 	var healthCertifiedPersons = CurrentValueSubject<[HealthCertifiedPerson], Never>([])
 

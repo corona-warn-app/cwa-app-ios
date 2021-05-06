@@ -3,8 +3,6 @@
 //
 
 import Foundation
-import OpenCombine
-import HealthCertificateToolkit
 
 enum FetchProofCertificateTrigger {
 	case automatic

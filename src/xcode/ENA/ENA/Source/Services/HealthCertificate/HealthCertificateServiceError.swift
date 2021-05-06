@@ -3,7 +3,6 @@
 //
 
 import Foundation
-import OpenCombine
 import HealthCertificateToolkit
 
 enum HealthCertificateServiceError {

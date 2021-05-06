@@ -7,6 +7,8 @@ import OpenCombine
 
 class HealthCertifiedPerson: OpenCombine.ObservableObject, Codable, Equatable {
 
+	// MARK: - Init
+
 	init(healthCertificates: [HealthCertificate], proofCertificate: ProofCertificate?) {
 		self.healthCertificates = healthCertificates
 		self.proofCertificate = proofCertificate
