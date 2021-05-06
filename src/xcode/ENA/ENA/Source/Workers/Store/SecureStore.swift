@@ -220,6 +220,16 @@ final class SecureStore: Store {
 		get { kvStore["healthCertifiedPersons"] as [HealthCertifiedPerson]? ?? [] }
 		set { kvStore["healthCertifiedPersons"] = newValue }
 	}
+
+	var lastProofCertificateUpdate: Date? {
+		get { kvStore["lastProofCertificateUpdate"] as Date? }
+		set { kvStore["lastProofCertificateUpdate"] = newValue }
+	}
+
+	var proofCertificateUpdatePending: Bool {
+		get { kvStore["proofCertificateUpdatePending"] as Bool? ?? false }
+		set { kvStore["proofCertificateUpdatePending"] = newValue }
+	}
 	
 	#if !RELEASE
 

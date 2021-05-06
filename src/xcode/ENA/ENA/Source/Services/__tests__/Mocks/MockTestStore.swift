@@ -101,7 +101,6 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var pcrTest: PCRTest?
 	var antigenTest: AntigenTest?
 
-
 	// MARK: - AntigenTestProfileStoring
 	var antigenTestProfile: AntigenTestProfile?
 	var antigenTestProfileInfoScreenShown: Bool = false
@@ -109,6 +108,8 @@ final class MockTestStore: Store, PPAnalyticsData {
 	// MARK: - HealthCertificateStoring
 
 	var healthCertifiedPersons: [HealthCertifiedPerson] = []
+	var lastProofCertificateUpdate: Date?
+	var proofCertificateUpdatePending: Bool = false
 
 	// MARK: - CoronaTestStoringLegacy
 
