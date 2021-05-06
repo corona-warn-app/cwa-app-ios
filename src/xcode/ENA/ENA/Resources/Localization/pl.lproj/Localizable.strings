@@ -818,6 +818,8 @@
 
 "ExposureSubmissionWarnOthers_consent_bullet3" = "Twoja tożsamość nie zostanie ujawniona. Inni użytkownicy nie dowiedzą się, kto udostępnił swoje wyniki testów.";
 
+"ExposureSubmissionWarnOthers_consent_bullet4" = "W sekcji „Moje zameldowania” znajdują się wydarzenia i miejsca, których zameldowani goście zostaną ostrzeżeni. Możesz usunąć pojedyncze zameldowania z listy, aby wykluczyć je z procesu ostrzegania.";
+
 "ExposureSubmissionWarnOthers_consent_bullet5" = "Aby wyrazić zgodę, musisz mieć ukończone 16 lat.";
 
 "ExposureSubmissionWarnOthers_continueButton" = "Akceptuj";
@@ -2362,4 +2364,11 @@
 "AntigenProfile_Create_EmailAddressPlaceholder" = "Adres e-mail";
 
 "AntigenProfile_Create_Save_Button_Title" = "Zapisz";
+
+/* Antigen Profile */
+"AntigenProfile_Delete_Alert_Title" = "Czy chcesz usunąć profil szybkiego testu?";
+
+"AntigenProfile_Delete_Alert_Description" = "Pamiętaj, że jeśli to zrobisz, ten kod QR nie będzie mógł być już używany do rejestracji.";
+
+"AntigenProfile_Delete_Alert_Delete_Button_Title" = "Usuń";
 
