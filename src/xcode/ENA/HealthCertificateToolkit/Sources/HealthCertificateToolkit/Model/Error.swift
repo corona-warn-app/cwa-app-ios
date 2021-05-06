@@ -23,4 +23,5 @@ public enum CertificateDecodingError: Error {
     case HC_CBORWEBTOKEN_NO_HEALTHCERTIFICATE
     // HC_CWT_NO_DGC
     case HC_CBORWEBTOKEN_NO_DIGITALGREENCERTIFICATE
+    case HC_JSON_SCHEMA_INVALID
 }

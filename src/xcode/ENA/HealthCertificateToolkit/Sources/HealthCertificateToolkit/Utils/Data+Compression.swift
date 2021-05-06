@@ -8,7 +8,6 @@ import Compression
 extension Data {
 
     func decompressZLib() throws -> Data {
-
         // The maximum output size of the zlib decompression shall be set to 10 MB to protect against zip bomb attacks.
         let tenMBCapacityLimitInByte = 10_485_760 //10 * 1024 * 1024
 
