@@ -18,7 +18,7 @@ public struct ProofCertificateAccess {
         return certificateAccess.extractDigitalGreenCertificate(from: cborData)
     }
 
-    public func fetchProofCertificate(for healthCertificates: [String]) -> Result<CBORData, ProofCertificateFetchingError> {
+    public func fetchProofCertificate(for healthCertificates: [Base45]) -> Result<CBORData, ProofCertificateFetchingError> {
         return.success(CBORData())
     }
 
