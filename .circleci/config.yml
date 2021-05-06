@@ -155,7 +155,7 @@ jobs:
       - store_test_results:
           # Fastlane's snapshot only defines one output path which is intended forscreenshots
           # test results also land here which is the reason of this weird path
-          path: src/xcode/fastlane/test_output-<<parameters.language>>-<<parameters.displaymode>>/
+          path: src/xcode/fastlane/test_output/<<parameters.language>>-<<parameters.displaymode>>/
       - persist_to_workspace:
           root: .
           paths:
