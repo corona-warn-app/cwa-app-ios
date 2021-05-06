@@ -8,6 +8,10 @@ public typealias CBORData = Data
 
 public struct ProofCertificateAccess {
 
+    // MARK: - Init
+
+    public init() {}
+
     // MARK: - Public
 
     public func extractCBORWebTokenHeader(from cborData: CBORData) -> Result<CBORWebTokenHeader, CertificateDecodingError> {
@@ -18,9 +22,9 @@ public struct ProofCertificateAccess {
         return certificateAccess.extractDigitalGreenCertificate(from: cborData)
     }
 
-    public func fetchProofCertificate(for healthCertificates: [String]) -> Result<Data, ProofCertificateFetchingError> {
+    public func fetchProofCertificate(for healthCertificates: [Base45], completion: (Result<CBORData, ProofCertificateFetchingError>) -> Void) {
 
-        return.success(Data())
+        completion(.success(Data()))
     }
 
     // MARK: - Internal

@@ -56,13 +56,13 @@ class ExposureSubmissionImageCardCell: UITableViewCell {
 		descriptionLabel.text = description
 		illustrationView?.image = image
 
-		if let textColor = textColor {
-			titleLabel.textColor = textColor
-			descriptionLabel.textColor = textColor
-		}
+		titleLabel.textColor = textColor ?? .enaColor(for: .textPrimary1)
+		descriptionLabel.textColor = textColor ?? .enaColor(for: .textPrimary1)
 
 		if let bgView = bgView {
 			addBackgroundView(bgView)
+		} else {
+			removeBackgrundView()
 		}
 
 		if let attributedDescription = attributedDescription {
@@ -125,9 +125,13 @@ class ExposureSubmissionImageCardCell: UITableViewCell {
 			illustrationView.superview?.isHidden = false
 		}
 	}
+	
+	private func removeBackgrundView() {
+		cardBackgroundContainer.subviews.forEach { $0.removeFromSuperview() }
+	}
 
 	private func addBackgroundView(_ bgView: UIView) {
-		cardBackgroundContainer.subviews.forEach { $0.removeFromSuperview() }
+		removeBackgrundView()
 		cardBackgroundContainer.addSubview(bgView)
 
 		bgView.translatesAutoresizingMaskIntoConstraints = false
