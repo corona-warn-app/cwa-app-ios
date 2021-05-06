@@ -57,12 +57,7 @@ struct CertificateAccess {
 
             let certificateResult = extractHealthCertificate(from: cborWebToken)
 
-            switch certificateResult {
-            case let .success(certificate):
-                return .success(certificate)
-            case let .failure(error):
-                return .failure(error)
-            }
+            return certificateResult
 
         case let .failure(error):
             return .failure(error)
