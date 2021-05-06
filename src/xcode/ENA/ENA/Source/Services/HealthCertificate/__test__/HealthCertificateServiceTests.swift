@@ -23,7 +23,7 @@ class HealthCertificateServiceTests: XCTestCase {
 
 		let healthCertifiedPersonsExpectation = expectation(description: "healthCertifiedPersons publisher updated")
 
-		let subscription = service.$healthCertifiedPersons
+		let subscription = service.healthCertifiedPersons
 			.dropFirst()
 			.sink { _ in
 				healthCertifiedPersonsExpectation.fulfill()

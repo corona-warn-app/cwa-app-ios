@@ -5,7 +5,7 @@
 import Foundation
 import HealthCertificateToolkit
 
-extension HealthCertificateToolkit.Name {
+extension Name {
 
 	var fullName: String {
 		var givenName = self.givenName

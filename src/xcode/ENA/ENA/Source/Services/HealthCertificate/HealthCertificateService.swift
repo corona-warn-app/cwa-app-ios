@@ -6,7 +6,7 @@ import Foundation
 import OpenCombine
 import HealthCertificateToolkit
 
-class HealthCertificateService {
+class HealthCertificateService: HealthCertificateServiceProviding {
 
 	// MARK: - Init
 
@@ -20,15 +20,9 @@ class HealthCertificateService {
 
 	// MARK: - Internal
 
-	enum FetchProofCertificateTrigger {
-		case automatic
-		case manual
-		case certificatesChanged
-	}
-
-	@OpenCombine.Published private(set) var healthCertifiedPersons: [HealthCertifiedPerson] = [] {
+	private(set) var healthCertifiedPersons = CurrentValueSubject<[HealthCertifiedPerson], Never>([]) {
 		didSet {
-			store.healthCertifiedPersons = healthCertifiedPersons
+			store.healthCertifiedPersons = healthCertifiedPersons.value
 
 			updateSubscriptions()
 		}
@@ -48,7 +42,7 @@ class HealthCertificateService {
 				return
 			}
 
-			let healthCertifiedPerson = healthCertifiedPersons.first ?? HealthCertifiedPerson(healthCertificates: [], proofCertificate: nil)
+			let healthCertifiedPerson = healthCertifiedPersons.value.first ?? HealthCertifiedPerson(healthCertificates: [], proofCertificate: nil)
 
 			let isDuplicate = healthCertifiedPerson.healthCertificates
 				.contains(where: { $0.vaccinationCertificates.first?.uniqueCertificateIdentifier == vaccinationCertificate.uniqueCertificateIdentifier })
@@ -71,8 +65,8 @@ class HealthCertificateService {
 				return
 			}
 
-			if !healthCertifiedPersons.contains(healthCertifiedPerson) {
-				healthCertifiedPersons.append(healthCertifiedPerson)
+			if !healthCertifiedPersons.value.contains(healthCertifiedPerson) {
+				healthCertifiedPersons.value.append(healthCertifiedPerson)
 			}
 
 			completion(.success((healthCertifiedPerson)))
@@ -121,7 +115,7 @@ class HealthCertificateService {
 	func updatePublishersFromStore() {
 		Log.info("[HealthCertificateService] Updating publishers from store", log: .api)
 
-		healthCertifiedPersons = store.healthCertifiedPersons
+		healthCertifiedPersons.value = store.healthCertifiedPersons
 	}
 
 	// MARK: - Private
@@ -156,13 +150,13 @@ class HealthCertificateService {
 	private func updateSubscriptions() {
 		subscriptions = []
 
-		healthCertifiedPersons.forEach { healthCertifiedPerson in
+		healthCertifiedPersons.value.forEach { healthCertifiedPerson in
 			healthCertifiedPerson.objectWillChange
 				.receive(on: DispatchQueue.main.ocombine)
 				.sink { [weak self] in
 					guard let self = self else { return }
 					// Trigger publisher to inform subscribers and update store
-					self.healthCertifiedPersons = self.healthCertifiedPersons
+					self.healthCertifiedPersons.value = self.healthCertifiedPersons.value
 				}
 				.store(in: &subscriptions)
 		}
