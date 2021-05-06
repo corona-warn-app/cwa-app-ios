@@ -10,15 +10,10 @@ final class HealthCertificateViewModel {
 	// MARK: - Init
 
 	init(
-		// add healthCertificatePerson model later
+		healthCertificate: HealthCertificate
 	) {
+		self.healthCertificate = healthCertificate
 	}
-
-	// MARK: - Overrides
-
-	// MARK: - Protocol <#Name#>
-
-	// MARK: - Public
 
 	// MARK: - Internal
 
@@ -91,6 +86,8 @@ final class HealthCertificateViewModel {
 	}
 
 	// MARK: - Private
+
+	private let healthCertificate: HealthCertificate
 
 	// remove later if we have correct data
 	struct DummyModel {

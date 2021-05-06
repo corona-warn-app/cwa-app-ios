@@ -886,7 +886,6 @@
 		BA11D5BA2588D590005DCD6B /* DiaryAddAndEditEntryViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA11D5B92588D590005DCD6B /* DiaryAddAndEditEntryViewModelTest.swift */; };
 		BA180759263D7213008AD370 /* HealthCertificateConsentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA180758263D7213008AD370 /* HealthCertificateConsentViewController.swift */; };
 		BA18075B263D7222008AD370 /* HealthCertificateConsentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA18075A263D7222008AD370 /* HealthCertificateConsentViewModel.swift */; };
-		BA18075D263D7F32008AD370 /* CreateHealthCertificateCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA18075C263D7F32008AD370 /* CreateHealthCertificateCoordinatorViewModel.swift */; };
 		BA27993B255995E100C3B64D /* DMWifiClientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA27993A255995E100C3B64D /* DMWifiClientViewController.swift */; };
 		BA288AF42582616E0071009A /* DiaryInfoViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA288AF32582616E0071009A /* DiaryInfoViewModelTest.swift */; };
 		BA2B393A25F7C6F700374CF1 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2B393925F7C6F700374CF1 /* GradientView.swift */; };
@@ -2058,7 +2057,6 @@
 		BA11D5B92588D590005DCD6B /* DiaryAddAndEditEntryViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryAddAndEditEntryViewModelTest.swift; sourceTree = "<group>"; };
 		BA180758263D7213008AD370 /* HealthCertificateConsentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateConsentViewController.swift; sourceTree = "<group>"; };
 		BA18075A263D7222008AD370 /* HealthCertificateConsentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateConsentViewModel.swift; sourceTree = "<group>"; };
-		BA18075C263D7F32008AD370 /* CreateHealthCertificateCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateHealthCertificateCoordinatorViewModel.swift; sourceTree = "<group>"; };
 		BA27993A255995E100C3B64D /* DMWifiClientViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMWifiClientViewController.swift; sourceTree = "<group>"; };
 		BA288AF32582616E0071009A /* DiaryInfoViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryInfoViewModelTest.swift; sourceTree = "<group>"; };
 		BA2B393925F7C6F700374CF1 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
@@ -5797,7 +5795,6 @@
 			isa = PBXGroup;
 			children = (
 				BA3B011F263D681600A2A25C /* HealthCertificateCoordinator.swift */,
-				BA18075C263D7F32008AD370 /* CreateHealthCertificateCoordinatorViewModel.swift */,
 				BAC741A026414E0500955311 /* Cells */,
 				BA180757263D6D75008AD370 /* Consent */,
 				BAF9591E264095DC00672494 /* HealthCertificate */,
@@ -7097,7 +7094,6 @@
 				0144BDE1250924CC00B0857C /* SymptomsOnset.swift in Sources */,
 				BA00740025D1A1810036DFDD /* District.swift in Sources */,
 				01C6AC26252B23D70052814D /* QRScannerFocusView.swift in Sources */,
-				BA18075D263D7F32008AD370 /* CreateHealthCertificateCoordinatorViewModel.swift in Sources */,
 				01B7232424F812500064C0EB /* DynamicTableViewOptionGroupCell.swift in Sources */,
 				AB190EE525FF5B0D00FBFF0D /* ContactDiaryStoreSchemaV4.swift in Sources */,
 				ABF574DF25C308DF0098E315 /* SurveyConsentViewModel.swift in Sources */,

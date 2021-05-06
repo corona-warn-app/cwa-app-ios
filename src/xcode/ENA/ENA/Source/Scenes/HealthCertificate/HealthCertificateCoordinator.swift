@@ -14,24 +14,13 @@ final class HealthCertificateCoordinator {
 	) {
 		self.parentViewController = parentViewController
 		self.healthCertificateService = healthCertificateService
-		self.coordinatorViewModel = CreateHealthCertificateCoordinatorViewModel()
 		self.navigationController = DismissHandlingNavigationController()
 	}
-
-	// MARK: - Overrides
-
-	// MARK: - Protocol <#Name#>
-
-	// MARK: - Public
 
 	// MARK: - Internal
 
 	func start() {
-		if !coordinatorViewModel.hasShownConsentScreen {
-			showConsentScreen()
-		} else {
-			showQRCodeScanner()
-		}
+		showConsentScreen()
 	}
 
 	func start(with healthCertifiedPerson: HealthCertifiedPerson) {
@@ -46,7 +35,6 @@ final class HealthCertificateCoordinator {
 	// MARK: - Private
 
 	private let parentViewController: UIViewController
-	private let coordinatorViewModel: CreateHealthCertificateCoordinatorViewModel
 	private let navigationController: UINavigationController
 	private let healthCertificateService: HealthCertificateServiceProviding
 
@@ -91,6 +79,7 @@ final class HealthCertificateCoordinator {
 
 	private func showHealthCertifiedPerson(_ healthCertifiedPerson: HealthCertifiedPerson) {
 		let healthCertificatePersonViewController = HealthCertifiedPersonViewController(
+			healthCertificateService: healthCertificateService,
 			healthCertifiedPerson: healthCertifiedPerson,
 			dismiss: endCoordinator,
 			didTapHealthCertificate: showHealthCertificate,
@@ -115,8 +104,7 @@ final class HealthCertificateCoordinator {
 		navigationController.pushViewController(topBottomContainerViewController, animated: false)
 	}
 
-	// healthCertificate is a string for the moment
-	private func showHealthCertificate(_ healthCertificate: String) {
+	private func showHealthCertificate(_ healthCertificate: HealthCertificate) {
 		let healthCertificateViewController = HealthCertificateViewController(
 			healthCertificate: healthCertificate,
 			dismiss: {

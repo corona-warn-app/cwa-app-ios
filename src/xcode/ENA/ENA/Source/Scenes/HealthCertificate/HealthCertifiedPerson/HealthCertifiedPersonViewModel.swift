@@ -11,15 +11,12 @@ final class HealthCertifiedPersonViewModel {
 	// MARK: - Init
 
 	init(
-		// add healthCertificatePerson model later
+		healthCertificateService: HealthCertificateServiceProviding,
+		healthCertifiedPerson: HealthCertifiedPerson
 	) {
+		self.healthCertificateService = healthCertificateService
+		self.healthCertifiedPerson = healthCertifiedPerson
 	}
-
-	// MARK: - Overrides
-
-	// MARK: - Protocol <#Name#>
-
-	// MARK: - Public
 
 	// MARK: - Internal
 
@@ -129,7 +126,18 @@ final class HealthCertifiedPersonViewModel {
 		}
 	}
 
+	func healthCertificate(for indexPath: IndexPath) -> HealthCertificate? {
+		guard TableViewSection.map(indexPath.section) == .certificates,
+			  healthCertifiedPerson.healthCertificates.indices.contains(indexPath.row) else {
+			return nil
+		}
+		return healthCertifiedPerson.healthCertificates[indexPath.row]
+	}
+
 	// MARK: - Private
+
+	private let healthCertifiedPerson: HealthCertifiedPerson
+	private let healthCertificateService: HealthCertificateServiceProviding
 
 	private var friendlyName: String {
 		var components = PersonNameComponents()

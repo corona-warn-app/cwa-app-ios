@@ -10,15 +10,19 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 	// MARK: - Init
 
 	init(
+		healthCertificateService: HealthCertificateServiceProviding,
 		healthCertifiedPerson: HealthCertifiedPerson,
 		dismiss: @escaping () -> Void,
-		didTapHealthCertificate: @escaping (String) -> Void,
+		didTapHealthCertificate: @escaping (HealthCertificate) -> Void,
 		didTapRegisterAnotherHealthCertificate: @escaping () -> Void
 	) {
 		self.dismiss = dismiss
 		self.didTapHealthCertificate = didTapHealthCertificate
 		self.didTapRegisterAnotherHealthCertificate = didTapRegisterAnotherHealthCertificate
-		self.viewModel = HealthCertifiedPersonViewModel()
+		self.viewModel = HealthCertifiedPersonViewModel(
+			healthCertificateService: healthCertificateService,
+			healthCertifiedPerson: healthCertifiedPerson
+		)
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -104,20 +108,18 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		let section = HealthCertifiedPersonViewModel.TableViewSection.map(indexPath.section)
 		switch section {
 		case .certificates:
-			didTapHealthCertificate("submit certificate here")
+			if let healthCertificate = viewModel.healthCertificate(for: indexPath) {
+				didTapHealthCertificate(healthCertificate)
+			}
 		default:
 			break
 		}
 	}
 
-	// MARK: - Public
-
-	// MARK: - Internal
-
 	// MARK: - Private
 
 	private let dismiss: () -> Void
-	private let didTapHealthCertificate: (String) -> Void
+	private let didTapHealthCertificate: (HealthCertificate) -> Void
 	private let didTapRegisterAnotherHealthCertificate: () -> Void
 
 	private let viewModel: HealthCertifiedPersonViewModel
