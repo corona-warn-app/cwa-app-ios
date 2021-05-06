@@ -10,7 +10,8 @@ class HealthCertificateQRCodeScannerViewController: UIViewController {
 	// MARK: - Init
 
 	init(
-		didScanCertificate: @escaping (String) -> Void,
+		healthCertificateService: HealthCertificateServiceProviding,
+		didScanCertificate: @escaping (HealthCertifiedPerson) -> Void,
 		dismiss: @escaping () -> Void
 	) {
 		self.dismiss = dismiss
@@ -18,10 +19,11 @@ class HealthCertificateQRCodeScannerViewController: UIViewController {
 		super.init(nibName: nil, bundle: nil)
 		
 		viewModel = HealthCertificateQRCodeScannerViewModel(
-			onSuccess: { [weak self] qrCodeString in
+			healthCertificateService: healthCertificateService,
+			onSuccess: { [weak self] healthCertifiedPerson in
 				AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
 				self?.viewModel?.deactivateScanning()
-				didScanCertificate(qrCodeString)
+				didScanCertificate(healthCertifiedPerson)
 			},
 			onError: { error in
 				switch error {
@@ -30,8 +32,10 @@ class HealthCertificateQRCodeScannerViewController: UIViewController {
 						self.dismiss()
 					}
 				case .simulator:
+					// create an empty healthCertifiedPerson for simulator scanner
+					let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [], proofCertificate: nil)
 					DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-						didScanCertificate("Vaccination found by simulator")
+						didScanCertificate(healthCertifiedPerson)
 					}
 				default:
 					DispatchQueue.main.async {

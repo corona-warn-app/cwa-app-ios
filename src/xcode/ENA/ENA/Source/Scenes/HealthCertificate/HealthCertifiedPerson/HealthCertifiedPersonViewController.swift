@@ -10,8 +10,7 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 	// MARK: - Init
 
 	init(
-		// add real HealCertificatePerson
-		healthCertifiedPerson: String,
+		healthCertifiedPerson: HealthCertifiedPerson,
 		dismiss: @escaping () -> Void,
 		didTapHealthCertificate: @escaping (String) -> Void,
 		didTapRegisterAnotherHealthCertificate: @escaping () -> Void

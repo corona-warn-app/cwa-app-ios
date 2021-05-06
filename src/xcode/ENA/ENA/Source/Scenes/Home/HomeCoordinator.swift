@@ -13,13 +13,15 @@ class HomeCoordinator: RequiresAppDependencies {
 		otpService: OTPServiceProviding,
 		ppacService: PrivacyPreservingAccessControl,
 		eventStore: EventStoringProviding,
-		coronaTestService: CoronaTestService
+		coronaTestService: CoronaTestService,
+		healthCertifiedService: HealthCertificateServiceProviding
 	) {
 		self.delegate = delegate
 		self.otpService = otpService
 		self.ppacService = ppacService
 		self.eventStore = eventStore
 		self.coronaTestService = coronaTestService
+		self.healthCertifiedService = healthCertifiedService
 	}
 
 	deinit {
@@ -63,7 +65,8 @@ class HomeCoordinator: RequiresAppDependencies {
 				coronaTestService: coronaTestService,
 				onTestResultCellTap: { [weak self] coronaTestType in
 					self?.showExposureSubmission(testType: coronaTestType)
-				}
+				},
+				healthCertifiedService: healthCertifiedService
 			),
 			appConfigurationProvider: appConfigurationProvider,
 			route: route,
@@ -107,8 +110,8 @@ class HomeCoordinator: RequiresAppDependencies {
 			onCreateHealthCertificateTap: { [weak self] in
 				self?.showCreateHealthCertificate()
 			},
-			onCertifiedPersonTap: { [weak self] in
-				self?.showCertifiedPerson()
+			onCertifiedPersonTap: { [weak self] healthCertifiedPerson in
+				self?.showCertifiedPerson(healthCertifiedPerson)
 			}
 		)
 
@@ -146,6 +149,7 @@ class HomeCoordinator: RequiresAppDependencies {
 	private let otpService: OTPServiceProviding
 	private let eventStore: EventStoringProviding
 	private let coronaTestService: CoronaTestService
+	private let healthCertifiedService: HealthCertificateServiceProviding
 
 	private var homeController: HomeTableViewController?
 	private var homeState: HomeState?
@@ -366,13 +370,17 @@ class HomeCoordinator: RequiresAppDependencies {
 	// MARK: - HealthCertificate
 
 	private func showCreateHealthCertificate() {
-		let coordinator = CreateHealthCertificateCoordinator(parentViewController: rootViewController)
+		let coordinator = HealthCertificateCoordinator(
+			healthCertificateService: healthCertifiedService,
+			parentViewController: rootViewController)
 		coordinator.start()
 	}
 
-	private func showCertifiedPerson() {
-		let coordinator = CreateHealthCertificateCoordinator(parentViewController: rootViewController)
-		coordinator.startWithCertifiedPerson()
+	private func showCertifiedPerson( _ healthCertifiedPerson: HealthCertifiedPerson) {
+		let coordinator = HealthCertificateCoordinator(
+			healthCertificateService: healthCertifiedService,
+			parentViewController: rootViewController)
+		coordinator.start(with: healthCertifiedPerson)
 	}
 
 	#if !RELEASE

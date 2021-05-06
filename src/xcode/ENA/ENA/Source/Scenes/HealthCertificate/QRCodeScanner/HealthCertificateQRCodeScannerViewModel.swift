@@ -10,9 +10,11 @@ class HealthCertificateQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutput
 	// MARK: - Init
 
 	init(
-		onSuccess: @escaping (String) -> Void,
+		healthCertificateService: HealthCertificateServiceProviding,
+		onSuccess: @escaping (HealthCertifiedPerson) -> Void,
 		onError: ((QRScannerError) -> Void)?
 	) {
+		self.healthCertificateService = healthCertificateService
 		self.captureDevice = AVCaptureDevice.default(for: .video)
 		self.onSuccess = onSuccess
 		self.onError = onError
@@ -37,13 +39,23 @@ class HealthCertificateQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutput
 
 		deactivateScanning()
 		guard let code = metadataObjects.first(where: { $0 is MetadataMachineReadableCodeObject }) as? MetadataMachineReadableCodeObject,
-			  let url = code.stringValue,
-			  !url.isEmpty
+			  let payload = code.stringValue,
+			  !payload.isEmpty
 		else {
 			onError?(QRScannerError.codeNotFound)
 			return
 		}
-		self.onSuccess(url)
+		healthCertificateService.registerHealthCertificate(
+			base45: payload) { result  in
+			// Result<HealthCertifiedPerson, HealthCertificateServiceError.RegistrationError>
+			switch result {
+			case .success(let healthCertifiedPerson):
+				self.onSuccess(healthCertifiedPerson)
+			case .failure(let registrationError):
+				// wrap RegistrationError into an QRScannerError.other error
+				self.onError?(QRScannerError.other(registrationError))
+			}
+		}
 	}
 	// MARK: - Internal
 
@@ -69,8 +81,13 @@ class HealthCertificateQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutput
 		#endif
 	}()
 
-	var onSuccess: (String) -> Void
+	var onSuccess: (HealthCertifiedPerson) -> Void
 	var onError: ((QRScannerError) -> Void)?
+
+	var isScanningActivated: Bool {
+		captureSession?.isRunning ?? false
+	}
+
 	/// get current torchMode by device state
 	var torchMode: TorchMode {
 		guard let device = captureDevice,
@@ -140,8 +157,6 @@ class HealthCertificateQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutput
 
 	// MARK: - Private
 
+	private let healthCertificateService: HealthCertificateServiceProviding
 	private let captureDevice: AVCaptureDevice?
-	var isScanningActivated: Bool {
-		captureSession?.isRunning ?? false
-	}
 }

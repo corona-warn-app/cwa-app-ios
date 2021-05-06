@@ -4,14 +4,16 @@
 
 import UIKit
 
-final class CreateHealthCertificateCoordinator {
+final class HealthCertificateCoordinator {
 
 	// MARK: - Init
 
 	init(
+		healthCertificateService: HealthCertificateServiceProviding,
 		parentViewController: UIViewController
 	) {
 		self.parentViewController = parentViewController
+		self.healthCertificateService = healthCertificateService
 		self.coordinatorViewModel = CreateHealthCertificateCoordinatorViewModel()
 		self.navigationController = DismissHandlingNavigationController()
 	}
@@ -32,8 +34,8 @@ final class CreateHealthCertificateCoordinator {
 		}
 	}
 
-	func startWithCertifiedPerson() {
-		showHealthCertifiedPerson("dummy", animated: false)
+	func start(with healthCertifiedPerson: HealthCertifiedPerson) {
+		showHealthCertifiedPerson(healthCertifiedPerson)
 		parentViewController.present(navigationController, animated: true)
 	}
 
@@ -46,6 +48,7 @@ final class CreateHealthCertificateCoordinator {
 	private let parentViewController: UIViewController
 	private let coordinatorViewModel: CreateHealthCertificateCoordinatorViewModel
 	private let navigationController: UINavigationController
+	private let healthCertificateService: HealthCertificateServiceProviding
 
 	private func showConsentScreen() {
 		let consentScreen = HealthCertificateConsentViewController(
@@ -75,9 +78,9 @@ final class CreateHealthCertificateCoordinator {
 
 	private func showQRCodeScanner() {
 		let qrCodeScannerViewController = HealthCertificateQRCodeScannerViewController(
-			didScanCertificate: { payload in
-				// get healthCertificatePerson from sercvice here
-				self.showHealthCertifiedPerson(payload, animated: false)
+			healthCertificateService: healthCertificateService,
+			didScanCertificate: { healthCertifiedPerson in
+				self.showHealthCertifiedPerson(healthCertifiedPerson)
 				self.navigationController.dismiss(animated: true)
 			}, dismiss: endCoordinator
 		)
@@ -86,8 +89,7 @@ final class CreateHealthCertificateCoordinator {
 		navigationController.present(qrCodeNavigationController, animated: true)
 	}
 
-	// healthCertificatePerson is a string for the moment
-	private func showHealthCertifiedPerson(_ healthCertifiedPerson: String, animated: Bool) {
+	private func showHealthCertifiedPerson(_ healthCertifiedPerson: HealthCertifiedPerson) {
 		let healthCertificatePersonViewController = HealthCertifiedPersonViewController(
 			healthCertifiedPerson: healthCertifiedPerson,
 			dismiss: endCoordinator,
@@ -110,7 +112,7 @@ final class CreateHealthCertificateCoordinator {
 			bottomController: footerViewController
 		)
 
-		navigationController.pushViewController(topBottomContainerViewController, animated: animated)
+		navigationController.pushViewController(topBottomContainerViewController, animated: false)
 	}
 
 	// healthCertificate is a string for the moment

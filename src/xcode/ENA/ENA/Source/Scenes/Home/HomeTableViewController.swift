@@ -27,7 +27,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		onSettingsCellTap: @escaping (ENStateHandler.State) -> Void,
 		showTestInformationResult: @escaping (Result<CoronaTestQRCodeInformation, QRCodeError>) -> Void,
 		onCreateHealthCertificateTap: @escaping () -> Void,
-		onCertifiedPersonTap: @escaping () -> Void
+		onCertifiedPersonTap: @escaping (HealthCertifiedPerson) -> Void
 	) {
 		self.viewModel = viewModel
 		self.appConfigurationProvider = appConfigurationProvider
@@ -293,7 +293,9 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			onCreateHealthCertificateTap()
 
 		case .healthCertificate:
-			onCertifiedPersonTap()
+			if let healthCertifiedPerson = viewModel.healthCertifiedPerson(at: indexPath) {
+				onCertifiedPersonTap(healthCertifiedPerson)
+			}
 
 		default:
 			fatalError("Invalid section")
@@ -345,7 +347,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	private let onSettingsCellTap: (ENStateHandler.State) -> Void
 	private let showTestInformationResult: (Result<CoronaTestQRCodeInformation, QRCodeError>) -> Void
 	private let onCreateHealthCertificateTap: () -> Void
-	private let onCertifiedPersonTap: () -> Void
+	private let onCertifiedPersonTap: (HealthCertifiedPerson) -> Void
 
 	private var deltaOnboardingCoordinator: DeltaOnboardingCoordinator?
 	private var riskCell: UITableViewCell?
