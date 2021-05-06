@@ -9,7 +9,7 @@ public struct HealthCertificateAccess {
 
     // MARK: - Public
 
-    public func extractCBORWebTokenHeader(base45: String) -> Result<CBORWebTokenHeader, HealthCertificateDecodingError> {
+    public func extractCBORWebTokenHeader(base45: String) -> Result<CBORWebTokenHeader, CertificateDecodingError> {
         let cborDataResult = extractCBOR(base45: base45)
 
         switch cborDataResult {
@@ -20,12 +20,12 @@ public struct HealthCertificateAccess {
         }
     }
 
-    public func extractHealthCertificate(base45: String) -> Result<DigitalGreenCertificate, HealthCertificateDecodingError> {
+    public func extractHealthCertificate(base45: String) -> Result<DigitalGreenCertificate, CertificateDecodingError> {
         let cborDataResult = extractCBOR(base45: base45)
 
         switch cborDataResult {
         case let .success(cborData):
-            return certificateAccess.extractHealthCertificate(from: cborData)
+            return certificateAccess.extractDigitalGreenCertificate(from: cborData)
         case let .failure(error):
             return .failure(error)
         }
@@ -35,7 +35,7 @@ public struct HealthCertificateAccess {
 
     var certificateAccess = CertificateAccess()
 
-    func extractCBOR(base45: String) -> Result<Data, HealthCertificateDecodingError> {
+    func extractCBOR(base45: String) -> Result<Data, CertificateDecodingError> {
         guard let zipData = try? base45.fromBase45() else {
             return .failure(.HC_BASE45_DECODING_FAILED)
         }
