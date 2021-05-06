@@ -75,7 +75,6 @@ struct CertificateAccess {
     }
 
     func extractHealthCertificate(from cborWebToken: CBOR) -> Result<DigitalGreenCertificate, HealthCertificateDecodingError> {
-
         guard let healthCertificateElement = cborWebToken[-260],
               case let .map(healthCertificateMap) = healthCertificateElement else {
             return .failure(.HC_CWT_NO_HCERT)
