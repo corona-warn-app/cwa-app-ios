@@ -7,6 +7,7 @@ import ExposureNotification
 import UIKit
 import OpenCombine
 
+// swiftlint:disable:next type_body_length
 final class RiskProvider: RiskProviding {
 
 	// MARK: - Init
@@ -107,11 +108,28 @@ final class RiskProvider: RiskProviding {
 
 			// Keep downloading key packages and trace warning packages for plausible deniability
 
-			downloadKeyPackages()
-
-			appConfigurationProvider.appConfiguration().sink { [weak self] appConfiguration in
-				self?.downloadTraceWarningPackages(with: appConfiguration, completion: { _ in })
-			}.store(in: &subscriptions)
+			downloadKeyPackages { [weak self] _ in
+				guard let self = self else {
+					return
+				}
+				self.appConfigurationProvider.appConfiguration().sink { [weak self] appConfiguration in
+					self?.downloadTraceWarningPackages(with: appConfiguration, completion: { [weak self] result in
+						guard let self = self else {
+							return
+						}
+						switch result {
+						case .success:
+							if let risk = self.previousRiskIfExistingAndNotExpired(userInitiated: userInitiated) {
+								self.successOnTargetQueue(risk: risk)
+							} else {
+								assertionFailure("This should never happen. At this point there should be a risk to use available.")
+							}
+						case .failure(let error):
+							self.failOnTargetQueue(error: error)
+						}
+					})
+				}.store(in: &self.subscriptions)
+			}
 
 			return
 		}
