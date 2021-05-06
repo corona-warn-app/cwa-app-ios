@@ -150,19 +150,14 @@ jobs:
       - install-tools # chaching currently fails, needs some further tweaks
       - run:
           name: Snapshot
-          command: |
-            case <<parameters.displaymode>> in
-             "dark") use_dark_mode=true ;;
-             *) use_dark_mode=false ;;
-            esac
-            cd src/xcode
-            bundle exec fastlane run snapshot \
-              languages:<<parameters.language>> \
-              dark_mode:${use_dark_mode} \
-              clear_previous_screenshots:"false" \
-              output_directory:screenshots/screenshots-<<parameters.language>>-<<parameters.displaymode>>
-            cd -
+          command: cd src/xcode && bundle exec fastlane screenshot languages:<<parameters.language>> mode:<<parameters.displaymode>>
           no_output_timeout: 20m
+      - store_test_results:
+          # Fastlane's snapshot only defines one output path which is intended forscreenshots
+          # test results also land here which is the reason of this weird path
+          path: src/xcode/screenshots/screenshots-<<parameters.displaymode>>/test_output/<<parameters.language>>/
+      - store_artifacts:
+          path: src/xcode/fastlane/test_output/ENAScreenshots-<<parameters.language>>/ENAScreenshots.xcresult.zip
       - persist_to_workspace:
           root: .
           paths:

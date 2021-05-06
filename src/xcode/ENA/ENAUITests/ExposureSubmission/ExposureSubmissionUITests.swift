@@ -624,7 +624,7 @@ class ENAUITests_04a_ExposureSubmission: XCTestCase {
 		launch()
 
 		// Open test result screen.
-		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.TestResultCell.negativePCRButton].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.cells.buttons [AccessibilityIdentifiers.Home.TestResultCell.negativePCRButton].waitForExistence(timeout: .long))
 		app.cells.buttons[AccessibilityIdentifiers.Home.TestResultCell.negativePCRButton].tap()
 		XCTAssertTrue(app.staticTexts["AppStrings.ExposureSubmissionResult.procedure"].waitForExistence(timeout: .medium))
 
