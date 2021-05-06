@@ -818,6 +818,8 @@
 
 "ExposureSubmissionWarnOthers_consent_bullet3" = "Your identity will remain secret. Other users will not find out who has shared a test result.";
 
+"ExposureSubmissionWarnOthers_consent_bullet4" = "Under “My Check-Ins”, you can see the events and places whose checked-in guests will be warned. You can remove individual check-ins from the list to exclude them from the warning process.";
+
 "ExposureSubmissionWarnOthers_consent_bullet5" = "You must be at least 16 years old to grant your consent.";
 
 "ExposureSubmissionWarnOthers_continueButton" = "Accept";
@@ -2362,4 +2364,11 @@
 "AntigenProfile_Create_EmailAddressPlaceholder" = "E-Mail Address";
 
 "AntigenProfile_Create_Save_Button_Title" = "Save";
+
+/* Antigen Profile */
+"AntigenProfile_Delete_Alert_Title" = "Do you want to remove the rapid test profile?";
+
+"AntigenProfile_Delete_Alert_Description" = "Please consider that if you do, the QR code can no longer be used for registration.";
+
+"AntigenProfile_Delete_Alert_Delete_Button_Title" = "Remove";
 
