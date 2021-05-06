@@ -30,7 +30,10 @@ class HealthCertificateService {
 		}
 	}
 
-	func register(payload: String) -> Result<HealthCertifiedPerson, RegistrationError> {
+	func register(
+		payload: String,
+		completion: (Result<HealthCertifiedPerson, RegistrationError>) -> Void
+	) {
 		Log.info("[HealthCertificateService] Registering health certificate from payload: \(private: payload)", log: .api)
 
 		switch healthCertificateToolkit.decodeHealthCertificate(base45: payload) {
@@ -39,7 +42,8 @@ class HealthCertificateService {
 				let healthCertificate = try HealthCertificate(representations: certificateRepresentations)
 
 				guard let vaccinationCertificate = healthCertificate.vaccinationCertificates.first else {
-					return .failure(.noVaccinationEntry)
+					completion(.failure(.noVaccinationEntry))
+					return
 				}
 
 				let healthCertifiedPerson = healthCertifiedPersons.first ?? HealthCertifiedPerson(healthCertificates: [], proofCertificate: nil)
@@ -47,31 +51,34 @@ class HealthCertificateService {
 				let isDuplicate = healthCertifiedPerson.healthCertificates
 					.contains(where: { $0.vaccinationCertificates.first?.uniqueCertificateIdentifier == vaccinationCertificate.uniqueCertificateIdentifier })
 				if isDuplicate {
-					return .failure(.vaccinationCertificateAlreadyRegistered)
+					completion(.failure(.vaccinationCertificateAlreadyRegistered))
+					return
 				}
 
 				let hasDifferentName = healthCertifiedPerson.healthCertificates
 					.contains(where: { $0.name.standardizedName != healthCertificate.name.standardizedName })
 				if hasDifferentName {
-					return .failure(.nameMismatch)
+					completion(.failure(.nameMismatch))
+					return
 				}
 
 				let hasDifferentDateOfBirth = healthCertifiedPerson.healthCertificates
 					.contains(where: { $0.dateOfBirth != healthCertificate.dateOfBirth })
 				if hasDifferentDateOfBirth {
-					return .failure(.dateOfBirthMismatch)
+					completion(.failure(.dateOfBirthMismatch))
+					return
 				}
 
 				if !healthCertifiedPersons.contains(healthCertifiedPerson) {
 					healthCertifiedPersons.append(healthCertifiedPerson)
 				}
 
-				return .success((healthCertifiedPerson))
+				completion(.success((healthCertifiedPerson)))
 			} catch {
-				return .failure(.jsonDecodingError(error))
+				completion(.failure(.jsonDecodingError(error)))
 			}
 		case .failure(let error):
-			return .failure(.decodingError(error))
+			completion(.failure(.decodingError(error)))
 		}
 	}
 
