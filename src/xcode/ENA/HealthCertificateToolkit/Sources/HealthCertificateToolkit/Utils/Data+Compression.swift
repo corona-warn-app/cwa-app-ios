@@ -26,7 +26,8 @@ extension Data {
                 decodedDestinationBuffer,
                 tenMBCapacityLimitInByte,
                 baseAddress,
-                count - 2, nil,
+                count - 2, 
+                nil,
                 COMPRESSION_ZLIB
             )
 
