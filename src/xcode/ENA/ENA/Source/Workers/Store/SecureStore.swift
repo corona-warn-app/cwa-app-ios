@@ -212,7 +212,7 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 		set { kvStore["journalWithExposureHistoryInfoScreenShown"] = newValue }
 	}
 
-	// MARK: - Protocol AntigenTestProfileStoring
+    // MARK: - Protocol AntigenTestProfileStoring
 
 	lazy var antigenTestProfileSubject = {
 		CurrentValueSubject<AntigenTestProfile?, Never>(antigenTestProfile)
@@ -230,6 +230,23 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 		get { kvStore["antigenTestProfileInfoScreenShown"] as Bool? ?? false }
 		set { kvStore["antigenTestProfileInfoScreenShown"] = newValue }
 	}
+
+    // MARK: - Protocol HealthCertificateStoring
+
+    var healthCertifiedPersons: [HealthCertifiedPerson] {
+        get { kvStore["healthCertifiedPersons"] as [HealthCertifiedPerson]? ?? [] }
+        set { kvStore["healthCertifiedPersons"] = newValue }
+    }
+
+    var lastProofCertificateUpdate: Date? {
+        get { kvStore["lastProofCertificateUpdate"] as Date? }
+        set { kvStore["lastProofCertificateUpdate"] = newValue }
+    }
+
+    var proofCertificateUpdatePending: Bool {
+        get { kvStore["proofCertificateUpdatePending"] as Bool? ?? false }
+        set { kvStore["proofCertificateUpdatePending"] = newValue }
+    }
 	
 	// MARK: - Protocol VaccinationCaching
 

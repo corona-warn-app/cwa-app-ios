@@ -174,6 +174,16 @@ protocol AntigenTestProfileStoring: AnyObject {
 
 }
 
+protocol HealthCertificateStoring {
+
+	var healthCertifiedPersons: [HealthCertifiedPerson] { get set }
+
+	var lastProofCertificateUpdate: Date? { get set }
+
+	var proofCertificateUpdatePending: Bool { get set }
+
+}
+
 /// this section contains only deprecated stuff, please do not add new things here
 protocol CoronaTestStoringLegacy {
 
@@ -223,6 +233,7 @@ protocol Store:
 	StatisticsCaching,
 	StoreProtocol,
 	WarnOthersTimeIntervalStoring,
+	HealthCertificateStoring,
 	VaccinationCaching
 {}
 // swiftlint:enable all
