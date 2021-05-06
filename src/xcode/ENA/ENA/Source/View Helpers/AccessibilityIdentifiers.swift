@@ -582,7 +582,7 @@ enum AccessibilityIdentifiers {
 
 	enum HealthCertificate {
 		enum Info {
-			static let imageDescription = NSLocalizedString("AppStrings.HealthCertificate.Info.imageDescription", comment: "")
+			static let imageDescription = "AppStrings.HealthCertificate.Info.imageDescription"
 
 			enum Register {
 				static let headline = "AppStrings.HealthCertificate.Info.Register.headline"
