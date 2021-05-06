@@ -11,11 +11,9 @@ class HealthCertificateService {
 	// MARK: - Init
 
 	init(
-		store: HealthCertificateStoring,
-		healthCertificateToolkit: HealthCertificateToolkit = HealthCertificateToolkit()
+		store: HealthCertificateStoring
 	) {
 		self.store = store
-		self.healthCertificateToolkit = healthCertificateToolkit
 
 		updatePublishersFromStore()
 	}
@@ -30,55 +28,50 @@ class HealthCertificateService {
 		}
 	}
 
-	func register(
-		payload: String,
+	func registerHealthCertificate(
+		base45: Base45,
 		completion: (Result<HealthCertifiedPerson, RegistrationError>) -> Void
 	) {
-		Log.info("[HealthCertificateService] Registering health certificate from payload: \(private: payload)", log: .api)
+		Log.info("[HealthCertificateService] Registering health certificate from payload: \(private: base45)", log: .api)
 
-		switch healthCertificateToolkit.decodeHealthCertificate(base45: payload) {
-		case .success(let certificateRepresentations):
-			do {
-				let healthCertificate = try HealthCertificate(representations: certificateRepresentations)
+		do {
+			let healthCertificate = try HealthCertificate(base45: base45)
 
-				guard let vaccinationCertificate = healthCertificate.vaccinationCertificates.first else {
-					completion(.failure(.noVaccinationEntry))
-					return
-				}
-
-				let healthCertifiedPerson = healthCertifiedPersons.first ?? HealthCertifiedPerson(healthCertificates: [], proofCertificate: nil)
-
-				let isDuplicate = healthCertifiedPerson.healthCertificates
-					.contains(where: { $0.vaccinationCertificates.first?.uniqueCertificateIdentifier == vaccinationCertificate.uniqueCertificateIdentifier })
-				if isDuplicate {
-					completion(.failure(.vaccinationCertificateAlreadyRegistered))
-					return
-				}
-
-				let hasDifferentName = healthCertifiedPerson.healthCertificates
-					.contains(where: { $0.name.standardizedName != healthCertificate.name.standardizedName })
-				if hasDifferentName {
-					completion(.failure(.nameMismatch))
-					return
-				}
-
-				let hasDifferentDateOfBirth = healthCertifiedPerson.healthCertificates
-					.contains(where: { $0.dateOfBirth != healthCertificate.dateOfBirth })
-				if hasDifferentDateOfBirth {
-					completion(.failure(.dateOfBirthMismatch))
-					return
-				}
-
-				if !healthCertifiedPersons.contains(healthCertifiedPerson) {
-					healthCertifiedPersons.append(healthCertifiedPerson)
-				}
-
-				completion(.success((healthCertifiedPerson)))
-			} catch {
-				completion(.failure(.jsonDecodingError(error)))
+			guard let vaccinationCertificate = healthCertificate.vaccinationCertificates.first else {
+				completion(.failure(.noVaccinationEntry))
+				return
 			}
-		case .failure(let error):
-			completion(.failure(.decodingError(error)))
+
+			let healthCertifiedPerson = healthCertifiedPersons.first ?? HealthCertifiedPerson(healthCertificates: [], proofCertificate: nil)
+
+			let isDuplicate = healthCertifiedPerson.healthCertificates
+				.contains(where: { $0.vaccinationCertificates.first?.uniqueCertificateIdentifier == vaccinationCertificate.uniqueCertificateIdentifier })
+			if isDuplicate {
+				completion(.failure(.vaccinationCertificateAlreadyRegistered))
+				return
+			}
+
+			let hasDifferentName = healthCertifiedPerson.healthCertificates
+				.contains(where: { $0.name.standardizedName != healthCertificate.name.standardizedName })
+			if hasDifferentName {
+				completion(.failure(.nameMismatch))
+				return
+			}
+
+			let hasDifferentDateOfBirth = healthCertifiedPerson.healthCertificates
+				.contains(where: { $0.dateOfBirth != healthCertificate.dateOfBirth })
+			if hasDifferentDateOfBirth {
+				completion(.failure(.dateOfBirthMismatch))
+				return
+			}
+
+			if !healthCertifiedPersons.contains(healthCertifiedPerson) {
+				healthCertifiedPersons.append(healthCertifiedPerson)
+			}
+
+			completion(.success((healthCertifiedPerson)))
+		} catch {
+//			completion(.failure(.decodingError(error)))
 		}
 	}
 
@@ -95,16 +88,16 @@ class HealthCertificateService {
 
 		Log.info("[HealthCertificateService] Requesting proof for health certified person: \(private: healthCertifiedPerson). (proofCertificateUpdatePending: \(proofCertificateUpdatePending), lastProofCertificateUpdate: \(String(describing: lastProofCertificateUpdate)), force: \(force)", log: .api)
 
-		healthCertificateToolkit.fetchProofCertificate(
-			for: healthCertifiedPerson.healthCertificates.map { $0.representations },
+		ProofCertificateAccess().fetchProofCertificate(
+			for: healthCertifiedPerson.healthCertificates.map { $0.base45 },
 			completion: { result in
 				switch result {
-				case .success(let proofCertificateRepresentations):
+				case .success(let cborData):
 					do {
-						healthCertifiedPerson.proofCertificate = try ProofCertificate(representations: proofCertificateRepresentations)
+						healthCertifiedPerson.proofCertificate = try ProofCertificate(cborData: cborData)
 						completion(.success(()))
 					} catch {
-						completion(.failure(.jsonDecodingError(error)))
+//						completion(.failure(.decodingError(error)))
 					}
 				case .failure(let error):
 					completion(.failure(.fetchingError(error)))
@@ -122,7 +115,6 @@ class HealthCertificateService {
 	// MARK: - Private
 
 	private var store: HealthCertificateStoring
-	private var healthCertificateToolkit: HealthCertificateToolkit
 	private var subscriptions = Set<AnyCancellable>()
 
 	// LAST_SUCCESSFUL_PC_RUN_TIMESTAMP

@@ -9,6 +9,10 @@ public typealias Base45 = String
 
 public struct HealthCertificateAccess {
 
+    // MARK: - Init
+
+    public init() {}
+
     // MARK: - Public
 
     public func extractCBORWebTokenHeader(from base45: Base45) -> Result<CBORWebTokenHeader, CertificateDecodingError> {
@@ -22,7 +26,7 @@ public struct HealthCertificateAccess {
         }
     }
 
-    public func extractHealthCertificate(from base45: Base45) -> Result<DigitalGreenCertificate, CertificateDecodingError> {
+    public func extractDigitalGreenCertificate(from base45: Base45) -> Result<DigitalGreenCertificate, CertificateDecodingError> {
         let cborDataResult = extractCBOR(from: base45)
 
         switch cborDataResult {

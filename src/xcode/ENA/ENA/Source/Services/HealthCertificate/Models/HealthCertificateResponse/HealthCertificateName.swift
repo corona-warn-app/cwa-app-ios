@@ -3,25 +3,9 @@
 //
 
 import Foundation
-import OpenCombine
+import HealthCertificateToolkit
 
-struct HealthCertificateName: Codable, Equatable {
-
-	// MARK: - Protocol Codable
-
-	enum CodingKeys: String, CodingKey {
-		case familyName = "fn"
-		case givenName = "gn"
-		case standardizedFamilyName = "fnt"
-		case standardizedGivenName = "gnt"
-	}
-
-	// MARK: - Internal
-
-	let familyName: String?
-	let givenName: String?
-	let standardizedFamilyName: String
-	let standardizedGivenName: String?
+extension HealthCertificateToolkit.Name {
 
 	var fullName: String {
 		var givenName = self.givenName

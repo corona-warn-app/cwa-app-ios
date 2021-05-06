@@ -29,9 +29,7 @@ class HealthCertificateServiceTests: XCTestCase {
 				healthCertifiedPersonsExpectation.fulfill()
 			}
 
-		let json = try JSONEncoder().encode(ProofCertificateResponse(expirationDate: Date()))
-
-		let proofCertificate = try ProofCertificate(representations: CertificateRepresentations(base45: "", cbor: Data(), json: json))
+		let proofCertificate = try ProofCertificate(cborData: CBORData())
 
 		healthCertifiedPerson.proofCertificate = proofCertificate
 
@@ -55,8 +53,7 @@ class HealthCertificateServiceTests: XCTestCase {
 				objectWillChangeExpectation.fulfill()
 			}
 
-		let json = try JSONEncoder().encode(ProofCertificateResponse(expirationDate: Date()))
-		healthCertifiedPerson.proofCertificate = try ProofCertificate(representations: CertificateRepresentations(base45: "", cbor: Data(), json: json))
+		healthCertifiedPerson.proofCertificate = try ProofCertificate(cborData: CBORData())
 
 		waitForExpectations(timeout: 5)
 

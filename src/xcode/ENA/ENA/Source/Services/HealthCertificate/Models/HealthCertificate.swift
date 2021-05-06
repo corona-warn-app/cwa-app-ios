@@ -10,34 +10,59 @@ struct HealthCertificate: Codable, Equatable {
 
 	// MARK: - Init
 
-	init(representations: CertificateRepresentations) throws {
-		self.representations = representations
+	init(base45: Base45) throws {
+		// Ensure the data will be decodable on the fly later on, even though we don't store the decoded data
+		if case .failure(let error) = HealthCertificateAccess().extractCBORWebTokenHeader(from: base45) {
+			throw error
+		}
 
-		self.healthCertificateResponse = try JSONDecoder().decode(HealthCertificateResponse.self, from: representations.json)
+		if case .failure(let error) = HealthCertificateAccess().extractDigitalGreenCertificate(from: base45) {
+			throw error
+		}
+
+		self.base45 = base45
 	}
 
 	// MARK: - Internal
 
-	let representations: CertificateRepresentations
+	let base45: Base45
 
 	var version: String {
-		healthCertificateResponse.version
+		digitalGreenCertificate.version
 	}
 
-	var name: HealthCertificateName {
-		healthCertificateResponse.name
+	var name: HealthCertificateToolkit.Name {
+		digitalGreenCertificate.name
 	}
 
 	var dateOfBirth: String {
-		healthCertificateResponse.dateOfBirth
+		digitalGreenCertificate.dateOfBirth
 	}
 
 	var vaccinationCertificates: [VaccinationCertificate] {
-		healthCertificateResponse.vaccinationCertificates
+		digitalGreenCertificate.vaccinationCertificates
 	}
 
-	// MARK: - Private
+	private var cborWebTokenHeader: CBORWebTokenHeader {
+		let result = HealthCertificateAccess().extractCBORWebTokenHeader(from: base45)
 
-	private let healthCertificateResponse: HealthCertificateResponse
+		switch result {
+		case .success(let cborWebTokenHeader):
+			return cborWebTokenHeader
+		case .failure:
+			fatalError("This")
+		}
+	}
+
+	private var digitalGreenCertificate: DigitalGreenCertificate {
+		let result = HealthCertificateAccess().extractDigitalGreenCertificate(from: base45)
+
+		switch result {
+		case .success(let digitalGreenCertificate):
+			return digitalGreenCertificate
+		case .failure:
+			fatalError("This")
+		}
+	}
 
 }

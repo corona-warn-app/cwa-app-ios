@@ -10,22 +10,49 @@ struct ProofCertificate: Codable, Equatable {
 
 	// MARK: - Init
 
-	init(representations: CertificateRepresentations) throws {
-		self.representations = representations
+	init(cborData: CBORData) throws {
+		// Ensure the data will be decodable on the fly later on, even though we don't store the decoded data
+		if case .failure(let error) = ProofCertificateAccess().extractCBORWebTokenHeader(from: cborData) {
+			throw error
+		}
 
-		self.proofCertificateResponse = try JSONDecoder().decode(ProofCertificateResponse.self, from: representations.json)
+		if case .failure(let error) = ProofCertificateAccess().extractDigitalGreenCertificate(from: cborData) {
+			throw error
+		}
+
+		self.cborData = cborData
 	}
 
 	// MARK: - Internal
 
-	let representations: CertificateRepresentations
-
 	var expirationDate: Date {
-		proofCertificateResponse.expirationDate
+		Date(timeIntervalSince1970: Double(cborWebTokenHeader.expirationTime))
 	}
 
 	// MARK: - Private
 
-	private let proofCertificateResponse: ProofCertificateResponse
+	private let cborData: CBORData
+
+	private var cborWebTokenHeader: CBORWebTokenHeader {
+		let result = ProofCertificateAccess().extractCBORWebTokenHeader(from: cborData)
+
+		switch result {
+		case .success(let cborWebTokenHeader):
+			return cborWebTokenHeader
+		case .failure:
+			fatalError("This")
+		}
+	}
+
+	private var digitalGreenCertificate: DigitalGreenCertificate {
+		let result = ProofCertificateAccess().extractDigitalGreenCertificate(from: cborData)
+
+		switch result {
+		case .success(let digitalGreenCertificate):
+			return digitalGreenCertificate
+		case .failure:
+			fatalError("This")
+		}
+	}
 
 }
