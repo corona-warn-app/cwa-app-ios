@@ -30,7 +30,7 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 
 	func registerHealthCertificate(
 		base45: Base45,
-		completion: (Result<HealthCertifiedPerson, RegistrationError>) -> Void
+		completion: (Result<HealthCertifiedPerson, HealthCertificateServiceError.RegistrationError>) -> Void
 	) {
 		Log.info("[HealthCertificateService] Registering health certificate from payload: \(private: base45)", log: .api)
 
@@ -74,14 +74,14 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 			completion(.failure(.decodingError(error)))
 		} catch {
 			// TODO!
-			completion(.failure(.decodingError(nil)))
+//			completion(.failure(.decodingError(nil)))
 		}
 	}
 
 	func updateProofCertificate(
 		for healthCertifiedPerson: HealthCertifiedPerson,
 		trigger: FetchProofCertificateTrigger,
-		completion: (Result<Void, ProofRequestError>) -> Void
+		completion: (Result<Void, HealthCertificateServiceError.ProofRequestError>) -> Void
 	) {
 		guard shouldAutomaticallyUpdateProofCertificate || trigger != .automatic else {
 			Log.info("[HealthCertificateService] Not requesting proof for health certified person: \(private: healthCertifiedPerson). (proofCertificateUpdatePending: \(proofCertificateUpdatePending), lastProofCertificateUpdate: \(String(describing: lastProofCertificateUpdate)), trigger: \(trigger))", log: .api)
@@ -103,7 +103,7 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 						completion(.failure(.decodingError(error)))
 					} catch {
 						// TODO!
-						completion(.failure(.decodingError(nil)))
+//						completion(.failure(.decodingError(nil)))
 					}
 				case .failure(let error):
 					completion(.failure(.fetchingError(error)))
