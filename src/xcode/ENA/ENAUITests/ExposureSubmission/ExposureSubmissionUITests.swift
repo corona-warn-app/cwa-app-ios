@@ -327,7 +327,7 @@ class ENAUITests_04a_ExposureSubmission: XCTestCase {
 		addUIInterruptionMonitor(withDescription: "System Dialog") { _ -> Bool in
 			return false
 		}
-		//TEST
+		
 		// Start Submission Flow
 		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .long))
 		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].tap()
