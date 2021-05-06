@@ -113,8 +113,6 @@
 		017AD16525A4559300FA2B3F /* UITableView+Dequeue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514EE99A246D4C4C00DE4884 /* UITableView+Dequeue.swift */; };
 		017AD17F25A5A30500FA2B3F /* DynamicHeader+ExposureDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017AD17E25A5A30500FA2B3F /* DynamicHeader+ExposureDetection.swift */; };
 		017AD18725A5C70700FA2B3F /* DynamicCell+ExposureDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017AD18625A5C70700FA2B3F /* DynamicCell+ExposureDetection.swift */; };
-		017D8D9A263AF3730009E91C /* HealthCertificateServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017D8D99263AF3730009E91C /* HealthCertificateServiceTests.swift */; };
-		017D8D9D263B02870009E91C /* HealthCertificateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017D8D9C263B02860009E91C /* HealthCertificateService.swift */; };
 		017D8DA0263B02DB0009E91C /* ProofCertificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017D8D9F263B02DA0009E91C /* ProofCertificate.swift */; };
 		017D8DA2263B02E10009E91C /* DigitalGreenCertificate+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017D8DA1263B02E00009E91C /* DigitalGreenCertificate+Extension.swift */; };
 		017D8DA6263B02F70009E91C /* HealthCertificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017D8DA4263B02F40009E91C /* HealthCertificate.swift */; };
@@ -1242,8 +1240,6 @@
 		017AD13525A3235B00FA2B3F /* iOS13TestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOS13TestCase.swift; sourceTree = "<group>"; };
 		017AD17E25A5A30500FA2B3F /* DynamicHeader+ExposureDetection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DynamicHeader+ExposureDetection.swift"; sourceTree = "<group>"; };
 		017AD18625A5C70700FA2B3F /* DynamicCell+ExposureDetection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DynamicCell+ExposureDetection.swift"; sourceTree = "<group>"; };
-		017D8D99263AF3730009E91C /* HealthCertificateServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateServiceTests.swift; sourceTree = "<group>"; };
-		017D8D9C263B02860009E91C /* HealthCertificateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateService.swift; sourceTree = "<group>"; };
 		017D8D9F263B02DA0009E91C /* ProofCertificate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProofCertificate.swift; sourceTree = "<group>"; };
 		017D8DA1263B02E00009E91C /* DigitalGreenCertificate+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DigitalGreenCertificate+Extension.swift"; sourceTree = "<group>"; };
 		017D8DA3263B02F30009E91C /* HealthCertifiedPerson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertifiedPerson.swift; sourceTree = "<group>"; };
@@ -2591,7 +2587,6 @@
 			isa = PBXGroup;
 			children = (
 				017D8D9B263B02520009E91C /* __test__ */,
-				017D8D9C263B02860009E91C /* HealthCertificateService.swift */,
 				014D803C2644210B0077898D /* HealthCertificateServiceProviding.swift */,
 				017D8DAB263BEF920009E91C /* HealthCertificateServiceError.swift */,
 				014D803E2644211B0077898D /* FetchProofCertificateTrigger.swift */,
@@ -2604,7 +2599,6 @@
 			isa = PBXGroup;
 			children = (
 				014D80402644219A0077898D /* MockHealthCertificateService.swift */,
-				017D8D99263AF3730009E91C /* HealthCertificateServiceTests.swift */,
 			);
 			path = __test__;
 			sourceTree = "<group>";
@@ -7431,7 +7425,6 @@
 				71FE1C86247AC33D00851FEB /* ExposureSubmissionTestResultHeaderView.swift in Sources */,
 				3456D95725EFD51900A62F5D /* ErrorReportHistoryViewModel.swift in Sources */,
 				1309194F247972C40066E329 /* PrivacyProtectionViewController.swift in Sources */,
-				017D8D9D263B02870009E91C /* HealthCertificateService.swift in Sources */,
 				CDCE11DB247D64D600F30825 /* NotificationSettingsOffTableViewCell.swift in Sources */,
 				8F4E624225EE879B00FF4F0A /* TopErrorReportViewController.swift in Sources */,
 				EB08F17C2541CE3300D11FA9 /* submission_payload.pb.swift in Sources */,
@@ -7780,7 +7773,6 @@
 				AB5F84B424F8FA26000400D4 /* SerialMigratorTests.swift in Sources */,
 				AB190EED25FF6C3700FBFF0D /* ContactDiaryMigration3To4Tests.swift in Sources */,
 				B17A44A22464906A00CB195E /* KeyTests.swift in Sources */,
-				017D8D9A263AF3730009E91C /* HealthCertificateServiceTests.swift in Sources */,
 				B19FD7152491A4A300A9D56A /* SAP_SemanticVersionTests.swift in Sources */,
 				941F5ED02518E82800785F06 /* ENSettingEuTracingViewModelTests.swift in Sources */,
 				01D16C6224ED6DB3007DB387 /* MockLowPowerModeStatusProvider.swift in Sources */,
