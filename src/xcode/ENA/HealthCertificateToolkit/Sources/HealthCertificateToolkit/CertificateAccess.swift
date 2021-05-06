@@ -9,8 +9,8 @@ struct CertificateAccess {
 
     // MARK: - Internal
 
-    func extractHeader(from cborData: Data) -> Result<CBORWebTokenHeader, CertificateDecodingError> {
-        let webTokenResult = decodeCBORWebToken(cborData)
+    func extractHeader(from cborData: CBORData) -> Result<CBORWebTokenHeader, CertificateDecodingError> {
+        let webTokenResult = decodeCBORWebToken(from: cborData)
 
         switch webTokenResult {
         case let .success(cborWebToken):
@@ -49,8 +49,8 @@ struct CertificateAccess {
         ))
     }
 
-    func extractDigitalGreenCertificate(from cborData: Data) -> Result<DigitalGreenCertificate, CertificateDecodingError> {
-        let webTokenResult = decodeCBORWebToken(cborData)
+    func extractDigitalGreenCertificate(from cborData: CBORData) -> Result<DigitalGreenCertificate, CertificateDecodingError> {
+        let webTokenResult = decodeCBORWebToken(from: cborData)
 
         switch webTokenResult {
         case let .success(cborWebToken):
@@ -88,7 +88,7 @@ struct CertificateAccess {
 
     // MARK: - Private
 
-    private func decodeCBORWebToken(_ cborData: Data) -> Result<CBOR, CertificateDecodingError>  {
+    private func decodeCBORWebToken(from cborData: CBORData) -> Result<CBOR, CertificateDecodingError>  {
         let cborDecoder = CBORDecoder(input: [UInt8](cborData))
 
         guard

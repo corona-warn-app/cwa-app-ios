@@ -5,12 +5,14 @@
 import Foundation
 import base45_swift
 
+public typealias Base45 = String
+
 public struct HealthCertificateAccess {
 
     // MARK: - Public
 
-    public func extractCBORWebTokenHeader(base45: String) -> Result<CBORWebTokenHeader, CertificateDecodingError> {
-        let cborDataResult = extractCBOR(base45: base45)
+    public func extractCBORWebTokenHeader(from base45: Base45) -> Result<CBORWebTokenHeader, CertificateDecodingError> {
+        let cborDataResult = extractCBOR(from: base45)
 
         switch cborDataResult {
         case let .success(cborData):
@@ -20,8 +22,8 @@ public struct HealthCertificateAccess {
         }
     }
 
-    public func extractHealthCertificate(base45: String) -> Result<DigitalGreenCertificate, CertificateDecodingError> {
-        let cborDataResult = extractCBOR(base45: base45)
+    public func extractHealthCertificate(from base45: Base45) -> Result<DigitalGreenCertificate, CertificateDecodingError> {
+        let cborDataResult = extractCBOR(from: base45)
 
         switch cborDataResult {
         case let .success(cborData):
@@ -35,7 +37,7 @@ public struct HealthCertificateAccess {
 
     var certificateAccess = CertificateAccess()
 
-    func extractCBOR(base45: String) -> Result<Data, CertificateDecodingError> {
+    func extractCBOR(from base45: Base45) -> Result<CBORData, CertificateDecodingError> {
         guard let zipData = try? base45.fromBase45() else {
             return .failure(.HC_BASE45_DECODING_FAILED)
         }
