@@ -20,6 +20,12 @@ class HealthCertificateService {
 
 	// MARK: - Internal
 
+	enum FetchProofCertificateTrigger {
+		case automatic
+		case manual
+		case certificatesChanged
+	}
+
 	@OpenCombine.Published private(set) var healthCertifiedPersons: [HealthCertifiedPerson] = [] {
 		didSet {
 			store.healthCertifiedPersons = healthCertifiedPersons
@@ -70,23 +76,26 @@ class HealthCertificateService {
 			}
 
 			completion(.success((healthCertifiedPerson)))
+		} catch let error as CertificateDecodingError {
+			completion(.failure(.decodingError(error)))
 		} catch {
-//			completion(.failure(.decodingError(error)))
+			// TODO!
+			completion(.failure(.decodingError(nil)))
 		}
 	}
 
 	func updateProofCertificate(
 		for healthCertifiedPerson: HealthCertifiedPerson,
-		force: Bool,
+		trigger: FetchProofCertificateTrigger,
 		completion: (Result<Void, ProofRequestError>) -> Void
 	) {
-		guard shouldUpdateProofCertificate || force else {
-			Log.info("[HealthCertificateService] Not requesting proof for health certified person: \(private: healthCertifiedPerson). (proofCertificateUpdatePending: \(proofCertificateUpdatePending), lastProofCertificateUpdate: \(String(describing: lastProofCertificateUpdate)))", log: .api)
+		guard shouldAutomaticallyUpdateProofCertificate || trigger != .automatic else {
+			Log.info("[HealthCertificateService] Not requesting proof for health certified person: \(private: healthCertifiedPerson). (proofCertificateUpdatePending: \(proofCertificateUpdatePending), lastProofCertificateUpdate: \(String(describing: lastProofCertificateUpdate)), trigger: \(trigger))", log: .api)
 
 			return
 		}
 
-		Log.info("[HealthCertificateService] Requesting proof for health certified person: \(private: healthCertifiedPerson). (proofCertificateUpdatePending: \(proofCertificateUpdatePending), lastProofCertificateUpdate: \(String(describing: lastProofCertificateUpdate)), force: \(force)", log: .api)
+		Log.info("[HealthCertificateService] Requesting proof for health certified person: \(private: healthCertifiedPerson). (proofCertificateUpdatePending: \(proofCertificateUpdatePending), lastProofCertificateUpdate: \(String(describing: lastProofCertificateUpdate)), trigger: \(trigger)", log: .api)
 
 		ProofCertificateAccess().fetchProofCertificate(
 			for: healthCertifiedPerson.healthCertificates.map { $0.base45 },
@@ -96,8 +105,11 @@ class HealthCertificateService {
 					do {
 						healthCertifiedPerson.proofCertificate = try ProofCertificate(cborData: cborData)
 						completion(.success(()))
+					} catch let error as CertificateDecodingError {
+						completion(.failure(.decodingError(error)))
 					} catch {
-//						completion(.failure(.decodingError(error)))
+						// TODO!
+						completion(.failure(.decodingError(nil)))
 					}
 				case .failure(let error):
 					completion(.failure(.fetchingError(error)))
@@ -129,7 +141,7 @@ class HealthCertificateService {
 		set { store.proofCertificateUpdatePending = newValue }
 	}
 
-	private var shouldUpdateProofCertificate: Bool {
+	private var shouldAutomaticallyUpdateProofCertificate: Bool {
 		if proofCertificateUpdatePending {
 			return true
 		}

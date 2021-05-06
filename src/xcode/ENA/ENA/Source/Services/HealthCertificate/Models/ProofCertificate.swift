@@ -26,7 +26,11 @@ struct ProofCertificate: Codable, Equatable {
 	// MARK: - Internal
 
 	var expirationDate: Date {
-		Date(timeIntervalSince1970: Double(cborWebTokenHeader.expirationTime))
+		Date(timeIntervalSince1970: TimeInterval(cborWebTokenHeader.expirationTime))
+	}
+
+	var isExpired: Bool {
+		Date() >= expirationDate
 	}
 
 	// MARK: - Private

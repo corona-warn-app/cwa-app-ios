@@ -9,7 +9,7 @@ import HealthCertificateToolkit
 extension HealthCertificateService {
 
 	enum RegistrationError: LocalizedError {
-		case decodingError(CertificateDecodingError)
+		case decodingError(CertificateDecodingError?)
 		case noVaccinationEntry
 		case vaccinationCertificateAlreadyRegistered
 		case dateOfBirthMismatch
@@ -19,6 +19,7 @@ extension HealthCertificateService {
 
 	enum ProofRequestError: LocalizedError {
 		case fetchingError(ProofCertificateFetchingError)
+		case decodingError(CertificateDecodingError?)
 	}
 
 }
