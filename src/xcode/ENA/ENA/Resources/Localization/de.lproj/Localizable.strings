@@ -2466,8 +2466,4 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Info_register_section03" = "Ihr Impfnachweis wird in regelmäßigen Abständen automatisch überprüft.";
 
-"HealthCertificate_Info_Countries_headline" = "Lassen Sie sich impfen, um auch die zu schützen, die es selbst nicht können!";
-
-"HealthCertificate_Info_Countries_text" = "Folgende Länder erkennen den digitalen Impfnachweis der Corona-Warn-App an. Bedenken Sie bei Ihrer Urlaubsplanung.";
-
 "HealthCertificate_Info_disclaimer" = "Ausführliche Informationen zur Datenverarbeitung und Ihrem Einverständnis.";
