@@ -32,7 +32,9 @@ clear_previous_screenshots(false)
 
 # Because the simulator is a wonderful but unstable tool
 stop_after_first_error(true)
-number_of_retries(0)
+
+# Keep this above zero to mitigate random failues from bugs in the testing framework!
+number_of_retries(1)
 
 headless(false)
 erase_simulator(true)
