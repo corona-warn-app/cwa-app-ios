@@ -17,12 +17,7 @@ struct CertificateAccess {
 
             let headerResult = extractHeader(from: cborWebToken)
 
-            switch headerResult {
-            case let .success(tokenHeader):
-                return .success(tokenHeader)
-            case let .failure(error):
-                return .failure(error)
-            }
+            return headerResult
 
         case let .failure(error):
             return .failure(error)
