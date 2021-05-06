@@ -8,6 +8,7 @@ import OpenCombineDispatch
 import ExposureNotification
 import FMDB
 import UIKit
+import HealthCertificateToolkit
 
 protocol CoronaWarnAppDelegate: AnyObject {
 

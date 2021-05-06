@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "base45-swift",
+        "repositoryURL": "https://github.com/ehn-digital-green-development/base45-swift",
+        "state": {
+          "branch": "distribution/swiftpackage",
+          "revision": "7c5d3e0640c7f0b949bba1905306867d06f2dbb3",
+          "version": null
+        }
+      },
+      {
         "package": "FMDB",
         "repositoryURL": "https://github.com/ccgus/fmdb.git",
         "state": {
@@ -26,6 +35,15 @@
           "branch": null,
           "revision": "0279688c9fc5a40028e1b5bb0cb56534a45a6020",
           "version": "1.12.0"
+        }
+      },
+      {
+        "package": "SwiftCBOR",
+        "repositoryURL": "https://github.com/unrelentingtech/SwiftCBOR",
+        "state": {
+          "branch": null,
+          "revision": "668c26fc3373d5f1bccbaad7665ca6048797e324",
+          "version": "0.4.3"
         }
       },
       {
