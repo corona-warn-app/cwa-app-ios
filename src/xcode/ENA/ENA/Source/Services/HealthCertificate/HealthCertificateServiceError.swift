@@ -15,6 +15,7 @@ extension HealthCertificateService {
 		case vaccinationCertificateAlreadyRegistered
 		case dateOfBirthMismatch
 		case nameMismatch
+		case proofRequestError(ProofRequestError)
 	}
 
 	enum ProofRequestError: LocalizedError {

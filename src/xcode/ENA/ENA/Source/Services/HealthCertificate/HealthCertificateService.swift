@@ -84,9 +84,16 @@ class HealthCertificateService {
 
 	func updateProofCertificate(
 		for healthCertifiedPerson: HealthCertifiedPerson,
+		force: Bool,
 		completion: (Result<Void, ProofRequestError>) -> Void
 	) {
-		Log.info("[HealthCertificateService] Requesting proof for health certified person: \(private: healthCertifiedPerson)", log: .api)
+		guard shouldUpdateProofCertificate || force else {
+			Log.info("[HealthCertificateService] Not requesting proof for health certified person: \(private: healthCertifiedPerson). (proofCertificateUpdatePending: \(proofCertificateUpdatePending), lastProofCertificateUpdate: \(String(describing: lastProofCertificateUpdate)))", log: .api)
+
+			return
+		}
+
+		Log.info("[HealthCertificateService] Requesting proof for health certified person: \(private: healthCertifiedPerson). (proofCertificateUpdatePending: \(proofCertificateUpdatePending), lastProofCertificateUpdate: \(String(describing: lastProofCertificateUpdate)), force: \(force)", log: .api)
 
 		healthCertificateToolkit.fetchProofCertificate(
 			for: healthCertifiedPerson.healthCertificates.map { $0.representations },
@@ -117,6 +124,30 @@ class HealthCertificateService {
 	private var store: HealthCertificateStoring
 	private var healthCertificateToolkit: HealthCertificateToolkit
 	private var subscriptions = Set<AnyCancellable>()
+
+	// LAST_SUCCESSFUL_PC_RUN_TIMESTAMP
+	private var lastProofCertificateUpdate: Date? {
+		get { store.lastProofCertificateUpdate }
+		set { store.lastProofCertificateUpdate = newValue }
+	}
+
+	// PC_RUN_PENDING
+	private var proofCertificateUpdatePending: Bool {
+		get { store.proofCertificateUpdatePending }
+		set { store.proofCertificateUpdatePending = newValue }
+	}
+
+	private var shouldUpdateProofCertificate: Bool {
+		if proofCertificateUpdatePending {
+			return true
+		}
+
+		guard let lastProofCertificateUpdate = lastProofCertificateUpdate else {
+			return true
+		}
+
+		return !Calendar.utc().isDateInToday(lastProofCertificateUpdate)
+	}
 
 	private func updateSubscriptions() {
 		subscriptions = []
