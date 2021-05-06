@@ -9,7 +9,7 @@ struct CertificateAccess {
 
     // MARK: - Internal
 
-    func extractHeader(from cborData: Data) -> Result<CBORWebTokenHeader, HealthCertificateDecodingError> {
+    func extractHeader(from cborData: Data) -> Result<CBORWebTokenHeader, CertificateDecodingError> {
         let webTokenResult = decodeCBORWebToken(cborData)
 
         switch webTokenResult {
