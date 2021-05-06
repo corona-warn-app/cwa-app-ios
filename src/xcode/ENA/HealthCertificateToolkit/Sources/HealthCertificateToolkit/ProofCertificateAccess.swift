@@ -12,7 +12,7 @@ public struct ProofCertificateAccess {
         return certificateAccess.extractHeader(from: cbor)
     }
 
-    public func extractHealthCertificate(cbor: Data) -> Result<DigitalGreenCertificate, HealthCertificateDecodingError> {
+    public func extractDigitalGreenCertificate(cbor: Data) -> Result<DigitalGreenCertificate, HealthCertificateDecodingError> {
         return certificateAccess.extractHealthCertificate(from: cbor)
     }
 
