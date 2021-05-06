@@ -49,7 +49,7 @@ struct CertificateAccess {
         ))
     }
 
-    func extractHealthCertificate(from cborData: Data) -> Result<DigitalGreenCertificate, HealthCertificateDecodingError> {
+    func extractDigitalGreenCertificate(from cborData: Data) -> Result<DigitalGreenCertificate, HealthCertificateDecodingError> {
         let webTokenResult = decodeCBORWebToken(cborData)
 
         switch webTokenResult {
