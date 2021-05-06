@@ -60,10 +60,8 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 		let item = ENANavigationFooterItem()
 		item.primaryButtonTitle = AppStrings.ExposureSubmissionHotline.tanInputButtonTitle
 		item.isPrimaryButtonEnabled = true
-		item.secondaryButtonTitle = AppStrings.ExposureSubmissionHotline.tanInputButtonTitle
 		item.isSecondaryButtonEnabled = false
 		item.isSecondaryButtonHidden = true
-		item.title = AppStrings.ExposureSubmissionHotline.title
 		return item
 	}()
 
