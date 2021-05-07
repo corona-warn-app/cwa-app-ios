@@ -41,6 +41,7 @@ final class HealthCertificateCoordinator {
 	private func showConsentScreen() {
 		let consentScreen = HealthCertificateConsentViewController(
 			didTapConsentButton: showQRCodeScanner,
+			didTapDataPrivacy: showDisclaimer,
 			dismiss: endCoordinator
 		)
 
@@ -62,6 +63,16 @@ final class HealthCertificateCoordinator {
 		// we do not animate here because this always is the first screen
 		navigationController.pushViewController(topBottomContainerViewController, animated: false)
 		parentViewController.present(navigationController, animated: true)
+	}
+
+	private func showDisclaimer() {
+		let htmlDisclaimerViewController = HTMLViewController(model: AppInformationModel.privacyModel)
+		htmlDisclaimerViewController.title = AppStrings.AppInformation.privacyTitle
+		htmlDisclaimerViewController.isDismissable = false
+		if #available(iOS 13.0, *) {
+			htmlDisclaimerViewController.isModalInPresentation = true
+		}
+		navigationController.pushViewController(htmlDisclaimerViewController, animated: true)
 	}
 
 	private func showQRCodeScanner() {
