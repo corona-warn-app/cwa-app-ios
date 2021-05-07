@@ -6,8 +6,9 @@ import Foundation
 import base45_swift
 
 public typealias Base45 = String
+public typealias CBORData = Data
 
-public struct HealthCertificateAccess {
+public struct DigitalGreenCertificateAccess {
 
     // MARK: - Public
 
@@ -22,7 +23,11 @@ public struct HealthCertificateAccess {
         }
     }
 
-    public func extractHealthCertificate(from base45: Base45) -> Result<DigitalGreenCertificate, CertificateDecodingError> {
+    public func extractCBORWebTokenHeader(from cborData: CBORData) -> Result<CBORWebTokenHeader, CertificateDecodingError> {
+        return certificateAccess.extractHeader(from: cborData)
+    }
+
+    public func extractDigitalGreenCertificate(from base45: Base45) -> Result<DigitalGreenCertificate, CertificateDecodingError> {
         let cborDataResult = extractCBOR(from: base45)
 
         switch cborDataResult {
@@ -31,6 +36,10 @@ public struct HealthCertificateAccess {
         case let .failure(error):
             return .failure(error)
         }
+    }
+
+    public func extractDigitalGreenCertificate(from cborData: CBORData) -> Result<DigitalGreenCertificate, CertificateDecodingError> {
+        return certificateAccess.extractDigitalGreenCertificate(from: cborData)
     }
 
     // MARK: - Internal

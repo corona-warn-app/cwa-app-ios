@@ -4,19 +4,9 @@
 
 import Foundation
 
-public typealias CBORData = Data
-
-public struct ProofCertificateAccess {
+public struct ProofCertificateDownload {
 
     // MARK: - Public
-
-    public func extractCBORWebTokenHeader(from cborData: CBORData) -> Result<CBORWebTokenHeader, CertificateDecodingError> {
-        return certificateAccess.extractHeader(from: cborData)
-    }
-
-    public func extractDigitalGreenCertificate(from cborData: CBORData) -> Result<DigitalGreenCertificate, CertificateDecodingError> {
-        return certificateAccess.extractDigitalGreenCertificate(from: cborData)
-    }
 
     public func fetchProofCertificate(
         for healthCertificates: [Base45],
@@ -24,12 +14,11 @@ public struct ProofCertificateAccess {
         completion: @escaping (Result<CBORData?, ProofCertificateFetchingError>
     ) -> Void) {
 
-        let healthCertificateAccess = HealthCertificateAccess()
-        let proofCertificateAccess = ProofCertificateAccess()
+        let certificateAccess = DigitalGreenCertificateAccess()
 
         let eligibleCertificates =
             healthCertificates.compactMap { (base45) -> CBORData? in
-                let result = healthCertificateAccess.extractCBOR(from: base45)
+                let result = certificateAccess.extractCBOR(from: base45)
                 switch result {
                 case .success(let healthCertificateCBORData):
                     return healthCertificateCBORData
@@ -37,7 +26,7 @@ public struct ProofCertificateAccess {
                     return nil
                 }
             }.filter {
-                switch proofCertificateAccess.extractDigitalGreenCertificate(from: $0) {
+                switch certificateAccess.extractDigitalGreenCertificate(from: $0) {
                 case .success(let certificate):
                     return certificate.vaccinationCertificates[0].isEligibleForProofCertificate
                 case .failure:

@@ -7,10 +7,11 @@ import XCTest
 import SwiftCBOR
 @testable import HealthCertificateToolkit
 
-final class ProofCertificateAccessTests: XCTestCase {
+final class ProofCertificateDownloadTests: XCTestCase {
 
     func test_When_fetchProofCertificate_Then_CorrectDataIsReturned() throws {
-        let proofCertificateAccess = ProofCertificateAccess()
+        let proofCertificateDownload = ProofCertificateDownload()
+        let certificateAccess = DigitalGreenCertificateAccess()
 
         let httpServiceStub = HTTPServiceStub(completions: [
             HTTPServiceStub.Completion(
@@ -22,14 +23,14 @@ final class ProofCertificateAccessTests: XCTestCase {
 
         let resultExpectation = expectation(description: "Fetch should return a result.")
 
-        proofCertificateAccess.fetchProofCertificate(for: [testData.input], with: httpServiceStub) { [weak self] result in
+        proofCertificateDownload.fetchProofCertificate(for: [testData.input], with: httpServiceStub) { [weak self] result in
             guard case let .success(_proofCertificateData) = result,
                   let proofCertificateData = _proofCertificateData else {
                 XCTFail("Success expected.")
                 return
             }
 
-            let result = proofCertificateAccess.extractDigitalGreenCertificate(from: proofCertificateData)
+            let result = certificateAccess.extractDigitalGreenCertificate(from: proofCertificateData)
             guard case let .success(proofCertificate) = result else {
                 XCTFail("Success expected.")
                 return
@@ -43,13 +44,13 @@ final class ProofCertificateAccessTests: XCTestCase {
     }
 
     func test_When_fetchWithBrokenBase45_Then_NilSuccessIsReturned() throws {
-        let proofCertificateAccess = ProofCertificateAccess()
+        let proofCertificateDownload = ProofCertificateDownload()
 
         let httpServiceStub = HTTPServiceStub(completions: [])
 
         let resultExpectation = expectation(description: "Fetch should return a result.")
 
-        proofCertificateAccess.fetchProofCertificate(for: ["==NOBase45=="], with: httpServiceStub) {result in
+        proofCertificateDownload.fetchProofCertificate(for: ["==NOBase45=="], with: httpServiceStub) {result in
             guard case let .success(proofCertificateData) = result else {
                 XCTFail("Success expected.")
                 resultExpectation.fulfill()
@@ -64,7 +65,7 @@ final class ProofCertificateAccessTests: XCTestCase {
     }
 
     func test_fetchProofCertificate_When_ServerErrorOccurs_Then_ServerErrorReturned() throws {
-        let proofCertificateAccess = ProofCertificateAccess()
+        let proofCertificateDownload = ProofCertificateDownload()
 
         let httpServiceStub = HTTPServiceStub(completions: [
             HTTPServiceStub.Completion(
@@ -76,7 +77,7 @@ final class ProofCertificateAccessTests: XCTestCase {
 
         let resultExpectation = expectation(description: "Fetch should return a result.")
 
-        proofCertificateAccess.fetchProofCertificate(for: [testData.input], with: httpServiceStub) { result in
+        proofCertificateDownload.fetchProofCertificate(for: [testData.input], with: httpServiceStub) { result in
             guard case let .failure(error) = result else {
                 XCTFail("Error expected.")
                 return
@@ -90,7 +91,7 @@ final class ProofCertificateAccessTests: XCTestCase {
     }
 
     func test_fetchProofCertificate_When_TransportErrorOccurs_Then_NetworkErrorReturned() throws {
-        let proofCertificateAccess = ProofCertificateAccess()
+        let proofCertificateDownload = ProofCertificateDownload()
 
         let httpServiceStub = HTTPServiceStub(completions: [
             // Error != nil, means that there was a transport error.
@@ -99,7 +100,7 @@ final class ProofCertificateAccessTests: XCTestCase {
 
         let resultExpectation = expectation(description: "Fetch should return a result.")
 
-        proofCertificateAccess.fetchProofCertificate(for: [testData.input], with: httpServiceStub) { result in
+        proofCertificateDownload.fetchProofCertificate(for: [testData.input], with: httpServiceStub) { result in
             guard case let .failure(error) = result else {
                 XCTFail("Error expected.")
                 return
@@ -113,7 +114,7 @@ final class ProofCertificateAccessTests: XCTestCase {
     }
 
     func test_fetchProofCertificate_When_ResponseNil_Then_NetworkErrorReturned() throws {
-        let proofCertificateAccess = ProofCertificateAccess()
+        let proofCertificateDownload = ProofCertificateDownload()
 
         let httpServiceStub = HTTPServiceStub(completions: [
             HTTPServiceStub.Completion(data: nil, response: nil, error: nil)
@@ -121,7 +122,7 @@ final class ProofCertificateAccessTests: XCTestCase {
 
         let resultExpectation = expectation(description: "Fetch should return a result.")
 
-        proofCertificateAccess.fetchProofCertificate(for: [testData.input], with: httpServiceStub) { result in
+        proofCertificateDownload.fetchProofCertificate(for: [testData.input], with: httpServiceStub) { result in
             guard case let .failure(error) = result else {
                 XCTFail("Error expected.")
                 return
@@ -135,7 +136,9 @@ final class ProofCertificateAccessTests: XCTestCase {
     }
 
     func test_When_fetchSucceedsWithAtLeastOneCertificate_Then_proofCertIsReturned() throws {
-        let proofCertificateAccess = ProofCertificateAccess()
+
+        let proofCertificateDownload = ProofCertificateDownload()
+        let certificateAccess = DigitalGreenCertificateAccess()
 
         let httpServiceStub = HTTPServiceStub(completions: [
             HTTPServiceStub.Completion(
@@ -159,14 +162,14 @@ final class ProofCertificateAccessTests: XCTestCase {
 
         let resultExpectation = expectation(description: "Fetch should return a result.")
 
-        proofCertificateAccess.fetchProofCertificate(for: [testData.input, testData.input, testData.input], with: httpServiceStub) { [weak self] result in
+        proofCertificateDownload.fetchProofCertificate(for: [testData.input, testData.input, testData.input], with: httpServiceStub) { [weak self] result in
             guard case let .success(_proofCertificateData) = result,
                   let proofCertificateData = _proofCertificateData else {
                 XCTFail("Success expected.")
                 return
             }
 
-            let result = proofCertificateAccess.extractDigitalGreenCertificate(from: proofCertificateData)
+            let result = certificateAccess.extractDigitalGreenCertificate(from: proofCertificateData)
             guard case let .success(proofCertificate) = result else {
                 XCTFail("Success expected.")
                 return
@@ -184,7 +187,7 @@ final class ProofCertificateAccessTests: XCTestCase {
     }
 
     func test_When_fetchFailsWithSeveralCertificates_Then_FetchReturnsNil() throws {
-        let proofCertificateAccess = ProofCertificateAccess()
+        let proofCertificateDownload = ProofCertificateDownload()
 
         let httpServiceStub = HTTPServiceStub(completions: [
             HTTPServiceStub.Completion(
@@ -203,7 +206,7 @@ final class ProofCertificateAccessTests: XCTestCase {
 
         let resultExpectation = expectation(description: "Fetch should return a result.")
 
-        proofCertificateAccess.fetchProofCertificate(for: [testData.input, testData.input], with: httpServiceStub) { result in
+        proofCertificateDownload.fetchProofCertificate(for: [testData.input, testData.input], with: httpServiceStub) { result in
             guard case let .success(proofCertificateData) = result else {
                 XCTFail("Success expected.")
                 resultExpectation.fulfill()
@@ -218,7 +221,7 @@ final class ProofCertificateAccessTests: XCTestCase {
     }
 
     func test_When_fetchWithNotEligibleCertificates_Then_FetchReturnsNilSuccess() throws {
-        let proofCertificateAccess = ProofCertificateAccess()
+        let proofCertificateDownload = ProofCertificateDownload()
 
         let httpServiceStub = HTTPServiceStub(completions: [
             HTTPServiceStub.Completion(
@@ -237,7 +240,7 @@ final class ProofCertificateAccessTests: XCTestCase {
 
         let resultExpectation = expectation(description: "Fetch should return a result.")
 
-        proofCertificateAccess.fetchProofCertificate(for: [testData.input, testData.input], with: httpServiceStub) { result in
+        proofCertificateDownload.fetchProofCertificate(for: [testData.input, testData.input], with: httpServiceStub) { result in
             guard case let .success(proofCertificateData) = result else {
                 XCTFail("Success expected.")
                 resultExpectation.fulfill()
@@ -282,7 +285,7 @@ final class ProofCertificateAccessTests: XCTestCase {
     }()
 
     private var cborTestData: CBORData? {
-        let certificateAccess = HealthCertificateAccess()
+        let certificateAccess = DigitalGreenCertificateAccess()
         let result = certificateAccess.extractCBOR(from: testData.input)
         switch result {
         case .success(let cborData):
