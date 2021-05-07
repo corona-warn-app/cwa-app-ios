@@ -82,7 +82,12 @@ final class HealthCertificateCoordinator {
 			healthCertificateService: healthCertificateService,
 			healthCertifiedPerson: healthCertifiedPerson,
 			dismiss: endCoordinator,
-			didTapHealthCertificate: showHealthCertificate,
+			didTapHealthCertificate: { healthCertificate in
+				self.showHealthCertificate(
+					healthCertifiedPerson: healthCertifiedPerson,
+					healthCertificate: healthCertificate
+				)
+			},
 			didTapRegisterAnotherHealthCertificate: showQRCodeScanner
 		)
 
@@ -104,8 +109,12 @@ final class HealthCertificateCoordinator {
 		navigationController.pushViewController(topBottomContainerViewController, animated: false)
 	}
 
-	private func showHealthCertificate(_ healthCertificate: HealthCertificate) {
+	private func showHealthCertificate(
+		healthCertifiedPerson: HealthCertifiedPerson,
+		healthCertificate: HealthCertificate
+	) {
 		let healthCertificateViewController = HealthCertificateViewController(
+			healthCertifiedPerson: healthCertifiedPerson,
 			healthCertificate: healthCertificate,
 			dismiss: {
 				self.endCoordinator()

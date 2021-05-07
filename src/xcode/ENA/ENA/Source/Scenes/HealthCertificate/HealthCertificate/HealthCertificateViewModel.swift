@@ -10,9 +10,16 @@ final class HealthCertificateViewModel {
 	// MARK: - Init
 
 	init(
+		healthCertifiedPerson: HealthCertifiedPerson,
 		healthCertificate: HealthCertificate
 	) {
 		self.healthCertificate = healthCertificate
+
+		healthCertifiedPerson.$proofCertificate
+			.sink { [weak self] proofCertificate in
+				self?.gradientType = proofCertificate != nil ? .blueOnly : .solidGrey
+			}
+			.store(in: &subscriptions)
 	}
 
 	// MARK: - Internal
@@ -67,8 +74,6 @@ final class HealthCertificateViewModel {
 		)
 	}()
 
-
-	// view model should decide how the gradient looks
 	@OpenCombine.Published private(set) var gradientType: GradientView.GradientType = .solidGrey
 
 	func numberOfItems(in section: TableViewSection) -> Int {
@@ -88,6 +93,7 @@ final class HealthCertificateViewModel {
 	// MARK: - Private
 
 	private let healthCertificate: HealthCertificate
+	private var subscriptions = Set<AnyCancellable>()
 
 	// remove later if we have correct data
 	struct DummyModel {

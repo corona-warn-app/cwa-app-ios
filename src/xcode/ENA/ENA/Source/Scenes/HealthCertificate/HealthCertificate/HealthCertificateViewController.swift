@@ -10,13 +10,17 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 	// MARK: - Init
 
 	init(
+		healthCertifiedPerson: HealthCertifiedPerson,
 		healthCertificate: HealthCertificate,
 		dismiss: @escaping () -> Void,
 		didTapDelete: @escaping () -> Void
 	) {
 		self.dismiss = dismiss
 		self.didTapDelete = didTapDelete
-		self.viewModel = HealthCertificateViewModel(healthCertificate: healthCertificate)
+		self.viewModel = HealthCertificateViewModel(
+			healthCertifiedPerson: healthCertifiedPerson,
+			healthCertificate: healthCertificate
+		)
 		super.init(nibName: nil, bundle: nil)
 	}
 
