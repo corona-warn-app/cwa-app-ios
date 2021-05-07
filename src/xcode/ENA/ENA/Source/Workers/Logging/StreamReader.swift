@@ -29,7 +29,7 @@ class StreamReader {
 				let delimData = delimiter.data(using: encoding),
 				let buffer = NSMutableData(capacity: chunkSize)
 			else {
-				preconditionFailure("Cannot initialize StreamReader for file at \(url)")
+				Log.error("Cannot initialize StreamReader for file at \(url)", log: .localData)
 				return nil
 			}
 			self.chunkSize = chunkSize
@@ -38,7 +38,7 @@ class StreamReader {
 			self.delimData = delimData
 			self.buffer = buffer
 		} catch {
-			preconditionFailure(error.localizedDescription)
+			Log.error("StreamReader error: \(error.localizedDescription)", log: .localData, error: error)
 			return nil
 		}
 	}
