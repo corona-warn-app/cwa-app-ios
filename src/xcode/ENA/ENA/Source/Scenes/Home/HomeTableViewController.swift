@@ -47,7 +47,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		self.onCreateHealthCertificateTap = onCreateHealthCertificateTap
 		self.onCertifiedPersonTap = onCertifiedPersonTap
 
-		super.init(style: .plain)
+		super.init(style: .grouped)
 
 		viewModel.$riskAndTestResultsRows
 			.receive(on: DispatchQueue.OCombine(.main))
