@@ -43,7 +43,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		self.onSettingsCellTap = onSettingsCellTap
 		self.showTestInformationResult = showTestInformationResult
 
-		super.init(style: .plain)
+		super.init(style: .grouped)
 
 		viewModel.$riskAndTestResultsRows
 			.receive(on: DispatchQueue.OCombine(.main))
