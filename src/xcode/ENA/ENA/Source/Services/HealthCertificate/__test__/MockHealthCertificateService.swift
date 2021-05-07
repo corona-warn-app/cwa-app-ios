@@ -15,8 +15,19 @@ class MockHealthCertificateService: HealthCertificateServiceProviding {
 		base45: Base45,
 		completion: (Result<HealthCertifiedPerson, HealthCertificateServiceError.RegistrationError>) -> Void
 	) {
-		let healthCertificate = try? HealthCertificate(base45: base45)
-		completion(.success(HealthCertifiedPerson(healthCertificates: [healthCertificate].compactMap { $0 }, proofCertificate: nil)))
+		var healthCertificates = healthCertifiedPersons.value.first?.healthCertificates ?? []
+
+		if let healthCertificate = try? HealthCertificate(base45: base45) {
+			healthCertificates.append(healthCertificate)
+		}
+
+		completion(.success(HealthCertifiedPerson(healthCertificates: healthCertificates, proofCertificate: nil)))
+	}
+
+	func removeHealthCertificate(_ healthCertificate: HealthCertificate) {
+		if let index = healthCertifiedPersons.value.first?.healthCertificates.firstIndex(of: healthCertificate) {
+			healthCertifiedPersons.value.first?.healthCertificates.remove(at: index)
+		}
 	}
 
 	func updateProofCertificate(
