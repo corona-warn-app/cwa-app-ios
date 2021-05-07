@@ -18,14 +18,19 @@ public struct ProofCertificateAccess {
         return certificateAccess.extractDigitalGreenCertificate(from: cborData)
     }
 
-    public func fetchProofCertificate(for healthCertificates: [Base45], completion: @escaping (Result<CBORData?, ProofCertificateFetchingError>) -> Void) {
+    public func fetchProofCertificate(
+        for healthCertificates: [Base45],
+        with httpService: HTTPServiceProtocol = HTTPService(),
+        completion: @escaping (Result<CBORData?, ProofCertificateFetchingError>
+    ) -> Void) {
 
         let healthCertificateAccess = HealthCertificateAccess()
         let proofCertificateAccess = ProofCertificateAccess()
 
         let eligibleCertificates =
             healthCertificates.compactMap { (base45) -> CBORData? in
-                switch healthCertificateAccess.extractCBOR(from: base45) {
+                let result = healthCertificateAccess.extractCBOR(from: base45)
+                switch result {
                 case .success(let healthCertificateCBORData):
                     return healthCertificateCBORData
                 case .failure:
@@ -46,9 +51,9 @@ public struct ProofCertificateAccess {
             return
         }
 
-        // Fetch the proof certificate in sequence.
-        // The operation is completed, as soon as the first proof certificate is returned from the backend.
-        fetchProofCertificateRecursion(for: eligibleCertificates, completion: completion)
+        // This call recursively posts the eligible health certificates one after the other.
+        // The operation completes, as soon as the first proof certificate is returned from the backend.
+        fetchProofCertificateRecursion(for: eligibleCertificates, with: httpService, completion: completion)
     }
 
     // MARK: - Internal
@@ -57,7 +62,11 @@ public struct ProofCertificateAccess {
 
     // MARK: - Private
 
-    private func fetchProofCertificateRecursion(for healthCertificates: [CBORData], completion: @escaping (Result<CBORData?, ProofCertificateFetchingError>) -> Void) {
+    private func fetchProofCertificateRecursion(
+        for healthCertificates: [CBORData],
+        with httpService: HTTPServiceProtocol = HTTPService(),
+        completion: @escaping (Result<CBORData?, ProofCertificateFetchingError>) -> Void
+    ) {
 
         let url = URL(string: "https://api.certify.demo.ubirch.com/api/certify/v2/reissue/cbor")
         guard let requestUrl = url else {
@@ -67,32 +76,44 @@ public struct ProofCertificateAccess {
         var request = URLRequest(url: requestUrl)
         request.httpMethod = "POST"
 
-        guard let healthCertificate = healthCertificates.last else {
+        guard let healthCertificate = healthCertificates.first else {
+            // Exit of recursion.
+            // At this point all health certificates where send to the server and not one proof certificate was returned. In this case the fetch counts as success without a proof certificate (nil).
             completion(.success(nil))
             return
         }
 
         request.httpBody = healthCertificate
 
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-            guard let response = response as? HTTPURLResponse else {
+        httpService.execute(request: request) { (data, response, error) in
+            // If there is an error or response is nil, it indicates a transport problem and PC_NETWORK_ERROR is returned.
+            guard error == nil,
+                  let response = response as? HTTPURLResponse else {
                 completion(.failure(.PC_NETWORK_ERROR))
                 return
             }
 
+            // Remove the first certificate and pass the rest into the recursion.
+            var _healthCertificates = healthCertificates
+            _healthCertificates.removeFirst()
+
             switch response.statusCode {
+            case 200:
+                if let data = data {
+                    // Exit of recursion.
+                    // We exit the recursion if the server returns the first proof certificate. Ignoring the rest of the health certificates.
+                    completion(.success(data))
+                } else {
+                    // If there is no data returned, we try our luck with the next health certificate.
+                    fetchProofCertificateRecursion(for: _healthCertificates, with: httpService, completion: completion)
+                }
+            // If status code indicates an internal server error, PC_SERVER_ERROR is returned.
             case 500...599:
                 completion(.failure(.PC_SERVER_ERROR))
+            // All other status codes are indicating, that no proof certificate can be obtained. In this case, we try our luck with the next health certificate.
             default:
-                fetchProofCertificateRecursion(for: healthCertificates.dropLast(), completion: completion)
-            }
-
-            if let data = data {
-                completion(.success(data))
-            } else {
-                fetchProofCertificateRecursion(for: healthCertificates.dropLast(), completion: completion)
+                fetchProofCertificateRecursion(for: _healthCertificates, with: httpService, completion: completion)
             }
         }
-        task.resume()
     }
 }
