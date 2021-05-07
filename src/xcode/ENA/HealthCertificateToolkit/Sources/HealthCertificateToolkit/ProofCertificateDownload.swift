@@ -39,7 +39,6 @@ public struct ProofCertificateDownload {
             }
 
         guard !eligibleCertificates.isEmpty else {
-            // ToDo: At the moment this point is tbd in the spec.
             completion(.success(nil))
             return
         }
