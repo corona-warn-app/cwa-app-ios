@@ -41,6 +41,11 @@ Run tests
 fastlane ios test_community
 ```
 Run smoke tests (Community)
+### ios screenshot
+```
+fastlane ios screenshot
+```
+Create (localized) screenshots
 ### ios betaRelease
 ```
 fastlane ios betaRelease
