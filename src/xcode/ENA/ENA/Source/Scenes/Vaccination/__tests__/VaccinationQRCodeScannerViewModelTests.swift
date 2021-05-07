@@ -31,12 +31,6 @@ final class TestableVaccinationQRCodeScannerViewModelTests: VaccinationQRCodeSca
 		}
 	}
 	
-	override func setupCaptureSession() {
-		guard isScanningActivated else {
-			onError(.cameraPermissionDenied, {})
-			return
-		}
-	}
 	#endif
 }
 
