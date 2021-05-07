@@ -10,6 +10,8 @@ import JSONSchema
 public typealias Base45 = String
 public typealias CBORData = Data
 
+let hcPrefix = "HC1:"
+
 public struct DigitalGreenCertificateAccess {
 
     // MARK: - Init
@@ -29,29 +31,23 @@ public struct DigitalGreenCertificateAccess {
         }
     }
 
-    public func extractCBORWebTokenHeader(from cborData: CBORData) -> Result<CBORWebTokenHeader, CertificateDecodingError> {
-        return extractHeader(from: cborData)
-    }
-
     public func extractDigitalGreenCertificate(from base45: Base45) -> Result<DigitalGreenCertificate, CertificateDecodingError> {
         let cborDataResult = extractCBOR(from: base45)
 
         switch cborDataResult {
         case let .success(cborData):
-            return extractDigitalGreenCertificate(from: cborData)
+            return extractCertificate(from: cborData)
         case let .failure(error):
             return .failure(error)
         }
     }
 
-    public func extractDigitalGreenCertificate(from cborData: CBORData) -> Result<DigitalGreenCertificate, CertificateDecodingError> {
-        return extractCertificate(from: cborData)
-    }
-
     // MARK: - Internal
 
     func extractCBOR(from base45: Base45) -> Result<CBORData, CertificateDecodingError> {
-        guard let zipData = try? base45.fromBase45() else {
+        let base45WithoutPrefix = base45.dropPrefix(hcPrefix)
+
+        guard let zipData = try? base45WithoutPrefix.fromBase45() else {
             return .failure(.HC_BASE45_DECODING_FAILED)
         }
 
