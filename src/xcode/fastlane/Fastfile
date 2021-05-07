@@ -22,6 +22,8 @@ default_platform(:ios)
 
 platform :ios do
 
+### PRE-LANE ACTIONS ############################
+
   before_all do
     setup_circle_ci
 
@@ -29,6 +31,8 @@ platform :ios do
       xcversion(version: "~> 12.4.0")
     end
   end
+
+### LANES #######################################
 
   desc "Update license file"
   lane :update_licenses do
@@ -93,7 +97,8 @@ platform :ios do
       trainer(
         output_directory: "fastlane/test_output/",
         path: "fastlane/test_output/",
-        extension: ".junit"
+        extension: ".junit",
+        fail_build: false
       )
 
       zip(
@@ -123,14 +128,39 @@ platform :ios do
       trainer(
         output_directory: "fastlane/test_output/",
         path: "fastlane/test_output/",
-        extension: ".junit"
+        extension: ".junit",
+        fail_build: false
       )
 
       zip(
         path: "fastlane/test_output/ENACommunity.xcresult",
-        output_path: "fastlane/test_output/ENAENACommunity.xcresult.zip",
+        output_path: "fastlane/test_output/ENACommunity.xcresult.zip",
         verbose: false
       )
+    end
+  end
+
+  desc "Create (localized) screenshots"
+  lane :screenshot do |options|
+    begin
+      output_dir = "screenshots/screenshots-#{options[:languages]}-#{options[:mode]}"
+
+      capture_ios_screenshots(
+        languages:  options[:languages],
+        dark_mode: options[:mode] == "dark",
+        output_directory: output_dir,
+        result_bundle: true
+      )
+    rescue
+      UI.user_error!("Tests did fail, please check logs above or ENA.xcresult.zip")
+    ensure
+      trainer(
+        output_directory: "fastlane/test_output/#{options[:languages]}-#{options[:mode]}",
+        path: "#{output_dir}/test_output/#{options[:languages]}",
+        extension: ".junit",
+        fail_build: false
+      )
+      # no xcresult created, so no zip like in the other lanes
     end
   end
 
@@ -170,7 +200,12 @@ platform :ios do
     )
 
     # Upload to Mobile Device Cloud
-    sh("curl --location --request POST '#{ENV["TSI_CLOUD_URL"]}' --header 'Authorization: Bearer #{ENV["TSI_CLOUD_TOKEN"]}' --form 'file=@../ENA.ipa'")
+    sh("curl \
+      --location \
+      --request POST '#{ENV["TSI_CLOUD_URL"]}' \
+      --header 'Authorization: Bearer #{ENV["TSI_CLOUD_TOKEN"]}' \
+      --form 'file=@../ENA.ipa'"
+    )
 
     appcenter_upload(
       api_token: ENV["MS_APP_CENTER_TOKEN"],

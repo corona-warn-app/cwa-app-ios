@@ -12,6 +12,10 @@ public typealias CBORData = Data
 
 public struct DigitalGreenCertificateAccess {
 
+    // MARK: - Init
+
+    public init() {}
+
     // MARK: - Public
 
     public func extractCBORWebTokenHeader(from base45: Base45) -> Result<CBORWebTokenHeader, CertificateDecodingError> {

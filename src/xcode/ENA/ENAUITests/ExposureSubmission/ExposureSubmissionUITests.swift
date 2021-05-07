@@ -40,25 +40,6 @@ class ENAUITests_04a_ExposureSubmission: XCTestCase {
 		XCTAssertTrue(app.images["ExposureSubmissionIntroViewController.image"].waitForExistence(timeout: .medium))
 	}
 
-	func test_NavigateToHotlineVC() throws {
-		launch()
-
-		// Open Intro screen.
-		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .long))
-		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].tap()
-
-		// Select hotline button.
-		XCTAssertTrue(app
-			.buttons["AppStrings.ExposureSubmissionDispatch.hotlineButtonDescription"]
-			.waitForExistence(timeout: .medium)
-		)
-		app.buttons["AppStrings.ExposureSubmissionDispatch.hotlineButtonDescription"].tap()
-		XCTAssertNotNil(app.navigationBars.firstMatch.title)
-
-		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmissionHotline.callButtonTitle"].waitForExistence(timeout: 2.0))
-		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmissionHotline.tanInputButtonTitle"].waitForExistence(timeout: 2.0))
-	}
-
 	func test_QRCodeScanOpened() throws {
 		launch()
 
@@ -292,12 +273,16 @@ class ENAUITests_04a_ExposureSubmission: XCTestCase {
 		)
 		app.buttons["AppStrings.ExposureSubmissionDispatch.tanButtonDescription"].tap()
 
+		let continueButton = app.buttons["AppStrings.ExposureSubmission.primaryButton"]
+		XCTAssertTrue(continueButton.waitForExistence(timeout: .medium))
+		XCTAssertFalse(continueButton.isEnabled)
+
 		// Fill in dummy TAN.
-		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.primaryButton"].waitForExistence(timeout: .medium))
 		type(app, text: "qwdzxcsrhe")
 
 		// Click continue button.
-		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.primaryButton"].isEnabled)
+		XCTAssertTrue(continueButton.waitForExistence(timeout: .medium))
+		XCTAssertTrue(continueButton.isEnabled)
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 
 		// TAN tests are ALWAYS positive!
@@ -485,12 +470,16 @@ class ENAUITests_04a_ExposureSubmission: XCTestCase {
 		snapshot("tan_submissionflow_tan_\(String(format: "%04d", (screenshotCounter.inc())))")
 		
 		// Fill in dummy TAN.
-		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.primaryButton"].waitForExistence(timeout: .medium))
+		let continueButton = app.buttons["AppStrings.ExposureSubmission.primaryButton"]
+		XCTAssertTrue(continueButton.waitForExistence(timeout: .medium))
+		XCTAssertFalse(continueButton.isEnabled)
+		
 		type(app, text: "qwdzxcsrhe")
 		snapshot("tan_submissionflow_tan_\(String(format: "%04d", (screenshotCounter.inc())))")
 		
 		// Click continue button.
-		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.primaryButton"].isEnabled)
+		XCTAssertTrue(continueButton.waitForExistence(timeout: .medium))
+		XCTAssertTrue(continueButton.isEnabled)
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 		
 		// TAN tests are ALWAYS positive!
@@ -575,12 +564,16 @@ class ENAUITests_04a_ExposureSubmission: XCTestCase {
 		)
 		app.buttons["AppStrings.ExposureSubmissionDispatch.tanButtonDescription"].tap()
 
+		let continueButton = app.buttons["AppStrings.ExposureSubmission.primaryButton"]
+		XCTAssertTrue(continueButton.waitForExistence(timeout: .medium))
+		XCTAssertFalse(continueButton.isEnabled)
+
 		// Fill in dummy TAN.
-		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.primaryButton"].waitForExistence(timeout: .medium))
 		type(app, text: "qwdzxcsrhe")
 
 		// Click continue button.
-		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.primaryButton"].isEnabled)
+		XCTAssertTrue(continueButton.waitForExistence(timeout: .medium))
+		XCTAssertTrue(continueButton.isEnabled)
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 
 		// TAN tests are ALWAYS positive!

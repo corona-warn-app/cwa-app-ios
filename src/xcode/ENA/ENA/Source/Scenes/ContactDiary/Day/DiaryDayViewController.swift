@@ -83,7 +83,7 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 				var targetRect: CGRect?
 				if let currentResponder = self.view.firstResponder as? UIView {
 					let rect = currentResponder.convert(currentResponder.frame, to: self.view)
-					if keyboardFrame.contains(rect) {
+					if keyboardFrame.intersects(rect) {
 						targetRect = currentResponder.convert(currentResponder.frame, to: self.tableView)
 					}
 				}

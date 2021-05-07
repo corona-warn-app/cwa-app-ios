@@ -6,6 +6,10 @@ import Foundation
 
 public struct ProofCertificateDownload {
 
+    // MARK: - Init
+
+    public init() {}
+
     // MARK: - Public
 
     public func fetchProofCertificate(
