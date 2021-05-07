@@ -19,7 +19,7 @@ protocol CoronaWarnAppDelegate: AnyObject {
 	var riskProvider: RiskProvider { get }
 	var exposureManager: ExposureManager { get }
 	var taskScheduler: ENATaskScheduler { get }
-	var serverEnvironment: ServerEnvironment { get }
+	var environmentProvider: EnvironmentProviding { get }
 	var contactDiaryStore: DiaryStoringProviding { get }
 
 	func requestUpdatedExposureState()
@@ -32,17 +32,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	// MARK: - Init
 
 	override init() {
-		self.serverEnvironment = ServerEnvironment()
+		self.environmentProvider = Environments()
 
-		self.store = SecureStore(subDirectory: "database", serverEnvironment: serverEnvironment)
+		#if DEBUG
+		if isUITesting {
+			self.store = MockTestStore()
+		}
+		self.store = SecureStore(subDirectory: "database", environmentProvider: environmentProvider)
+		#else
+		self.store = SecureStore(subDirectory: "database", environmentProvider: environmentProvider)
+		#endif
 
 		if store.appInstallationDate == nil {
 			store.appInstallationDate = InstallationDate.inferredFromDocumentDirectoryCreationDate()
 			Log.debug("App installation date: \(String(describing: store.appInstallationDate))")
 		}
 
-		self.client = HTTPClient(serverEnvironmentProvider: store)
-		self.wifiClient = WifiOnlyHTTPClient(serverEnvironmentProvider: store)
+		self.client = HTTPClient(environmentProvider: environmentProvider)
+		self.wifiClient = WifiOnlyHTTPClient(environmentProvider: environmentProvider)
 
 		self.downloadedPackagesStore.keyValueStore = self.store
 
@@ -161,7 +168,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
 	let contactDiaryStore: DiaryStoringProviding = ContactDiaryStore.make()
 	let eventStore: EventStoringProviding = EventStore.make()
-	let serverEnvironment: ServerEnvironment
+    let environmentProvider: EnvironmentProviding
 	var store: Store
 
 	lazy var coronaTestService: CoronaTestService = {
@@ -193,7 +200,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		}
 		#endif
 		// use a custom http client that uses/recognized caching mechanisms
-		let appFetchingClient = CachingHTTPClient(serverEnvironmentProvider: store)
+		let appFetchingClient = CachingHTTPClient(environmentProvider: environmentProvider)
 
 		let provider = CachedAppConfiguration(client: appFetchingClient, store: store)
 		// used to remove invalidated key packages
@@ -254,7 +261,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			store: store,
 			client: client,
 			appConfig: appConfigurationProvider,
-			coronaTestService: coronaTestService
+			coronaTestService: coronaTestService,
+			ppacService: ppacService
 		)
 	}()
 
@@ -262,6 +270,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		store: store,
 		client: client,
 		riskProvider: riskProvider
+	)
+	
+	private lazy var ppacService: PrivacyPreservingAccessControl = PPACService(
+		store: store,
+		deviceCheck: PPACDeviceCheck()
 	)
 
 	#if targetEnvironment(simulator) || COMMUNITY
@@ -345,21 +358,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			/// Following values are excluded from reset:
 			/// - PPAC API Token
 			/// - App installation date
-			/// - Environment setting
 			///
 			/// read values from the current store
-			let ppacAPIToken = store.ppacApiToken
+			let ppacEdusApiToken = store.ppacApiTokenEdus
 			let installationDate = store.appInstallationDate
-			let environment = store.selectedServerEnvironment
 
 			let newKey = try KeychainHelper().generateDatabaseKey()
 			store.clearAll(key: newKey)
 
 			/// write excluded values back to the 'new' store
-			store.ppacApiToken = ppacAPIToken
+			store.ppacApiTokenEdus = ppacEdusApiToken
 			store.appInstallationDate = installationDate
-			store.selectedServerEnvironment = environment
-			Analytics.collect(.submissionMetadata(.lastAppReset(Date())))
+            Analytics.collect(.submissionMetadata(.lastAppReset(Date())))
 		} catch {
 			fatalError("Creating new database key failed")
 		}
@@ -525,7 +535,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		contactDiaryStore: contactDiaryStore,
 		eventStore: eventStore,
 		eventCheckoutService: eventCheckoutService,
-		otpService: otpService
+		otpService: otpService,
+		ppacService: ppacService
 	)
 
 	private lazy var appUpdateChecker = AppUpdateCheckHelper(appConfigurationProvider: self.appConfigurationProvider, store: self.store)
@@ -581,7 +592,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		if exposureManager.exposureManagerState.status == .unknown {
 			exposureManager.activate { [weak self] error in
 				if let error = error {
-					Log.error("Cannot activate the  ENManager. The reason is \(error)", log: .api)
+					Log.error("Cannot activate the ENManager. The reason is \(error)", log: .api)
 				}
 				self?.presentHomeVC(route)
 			}

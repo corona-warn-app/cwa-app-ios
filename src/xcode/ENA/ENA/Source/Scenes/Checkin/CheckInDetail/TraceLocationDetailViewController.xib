@@ -21,6 +21,7 @@
                 <outlet property="bottomCardView" destination="Ek6-qj-gRz" id="zPW-8o-d4S"/>
                 <outlet property="checkInButton" destination="LzL-ri-WCR" id="nhq-cH-UN3"/>
                 <outlet property="checkInForLabel" destination="qe2-Cr-Hsf" id="2Cc-Rz-KNx"/>
+                <outlet property="checkOutView" destination="GDB-JB-hDV" id="k1Q-bf-2zE"/>
                 <outlet property="closeButton" destination="5Yh-SR-IVJ" id="Meh-7O-Sat"/>
                 <outlet property="countDownDatePicker" destination="yid-Kg-xeK" id="adm-pi-5xT"/>
                 <outlet property="descriptionLabel" destination="qEg-yG-yRz" id="iEe-il-h37"/>
@@ -32,6 +33,7 @@
                 <outlet property="pickerSwitch" destination="FeX-e0-F2d" id="65a-lv-RG8"/>
                 <outlet property="saveToDiaryLabel" destination="M1z-st-0w7" id="c4n-cg-hT7"/>
                 <outlet property="scrollView" destination="lQK-F5-RWF" id="vqc-py-cXH"/>
+                <outlet property="switchView" destination="T3S-Zc-NqF" id="b6e-uu-nG5"/>
                 <outlet property="view" destination="iN0-l3-epB" id="vGI-7O-PiC"/>
             </connections>
         </placeholder>
@@ -205,6 +207,9 @@ deutschen SAP Anwendergruppe</string>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nach dem Auschecken in mein Tagebuch eintragen? " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M1z-st-0w7" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                                                     <rect key="frame" x="0.0" y="18" width="292" height="273"/>
+                                                                    <accessibility key="accessibilityConfiguration">
+                                                                        <bool key="isElement" value="NO"/>
+                                                                    </accessibility>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <color key="textColor" name="ENA Text Primary 1 Color"/>
                                                                     <nil key="highlightedColor"/>
@@ -214,6 +219,9 @@ deutschen SAP Anwendergruppe</string>
                                                                 </label>
                                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FeX-e0-F2d" customClass="ENASwitch" customModule="ENA" customModuleProvider="target">
                                                                     <rect key="frame" x="300" y="139" width="52" height="31"/>
+                                                                    <accessibility key="accessibilityConfiguration">
+                                                                        <bool key="isElement" value="NO"/>
+                                                                    </accessibility>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="50" id="Ui2-tM-k69"/>
                                                                     </constraints>
@@ -222,6 +230,9 @@ deutschen SAP Anwendergruppe</string>
                                                                     </connections>
                                                                 </switch>
                                                             </subviews>
+                                                            <accessibility key="accessibilityConfiguration">
+                                                                <bool key="isElement" value="YES"/>
+                                                            </accessibility>
                                                             <gestureRecognizers/>
                                                             <constraints>
                                                                 <constraint firstItem="M1z-st-0w7" firstAttribute="centerY" secondItem="T3S-Zc-NqF" secondAttribute="centerY" id="8MD-gS-ZHi"/>
@@ -251,6 +262,9 @@ deutschen SAP Anwendergruppe</string>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Automatisch auschecken nach" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UBN-wb-TKy" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                                                             <rect key="frame" x="0.0" y="0.0" width="241" height="72"/>
+                                                                            <accessibility key="accessibilityConfiguration">
+                                                                                <bool key="isElement" value="NO"/>
+                                                                            </accessibility>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
@@ -260,6 +274,9 @@ deutschen SAP Anwendergruppe</string>
                                                                         </label>
                                                                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KL2-pg-6XN" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
                                                                             <rect key="frame" x="249" y="0.0" width="101" height="72"/>
+                                                                            <accessibility key="accessibilityConfiguration">
+                                                                                <bool key="isElement" value="NO"/>
+                                                                            </accessibility>
                                                                             <color key="tintColor" name="ENA Text Contrast Color"/>
                                                                             <state key="normal" title="03:00 Std.">
                                                                                 <color key="titleColor" name="ENA Text Primary 1 Color"/>
@@ -274,6 +291,9 @@ deutschen SAP Anwendergruppe</string>
                                                                     </subviews>
                                                                 </stackView>
                                                             </subviews>
+                                                            <accessibility key="accessibilityConfiguration">
+                                                                <bool key="isElement" value="YES"/>
+                                                            </accessibility>
                                                             <gestureRecognizers/>
                                                             <constraints>
                                                                 <constraint firstAttribute="bottom" secondItem="fXe-5X-qHh" secondAttribute="bottom" id="3N7-mC-EoC"/>

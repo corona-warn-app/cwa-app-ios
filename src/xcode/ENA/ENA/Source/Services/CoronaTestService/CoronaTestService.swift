@@ -86,7 +86,7 @@ class CoronaTestService {
 		isSubmissionConsentGiven: Bool,
 		completion: @escaping TestResultHandler
 	) {
-		Log.info("[CoronaTestService] Registering PCR test (guid: \(guid), isSubmissionConsentGiven: \(isSubmissionConsentGiven))", log: .api)
+		Log.info("[CoronaTestService] Registering PCR test (guid: \(private: guid, public: "GUID ID"), isSubmissionConsentGiven: \(isSubmissionConsentGiven))", log: .api)
 
 		getRegistrationToken(
 			forKey: ENAHasher.sha256(guid),
@@ -106,7 +106,7 @@ class CoronaTestService {
 						journalEntryCreated: false
 					)
 
-					Log.info("[CoronaTestService] PCR test registered: \(String(describing: self?.pcrTest))", log: .api)
+					Log.info("[CoronaTestService] PCR test registered: \(private: String(describing: self?.pcrTest), public: "PCR Test result")", log: .api)
 
 					Analytics.collect(.testResultMetadata(.registerNewTestMetadata(Date(), registrationToken)))
 					Analytics.collect(.keySubmissionMetadata(.submittedWithTeletan(false)))
@@ -130,7 +130,7 @@ class CoronaTestService {
 		isSubmissionConsentGiven: Bool,
 		completion: @escaping VoidResultHandler
 	) {
-		Log.info("[CoronaTestService] Registering PCR test (teleTAN: \(teleTAN), isSubmissionConsentGiven: \(isSubmissionConsentGiven))", log: .api)
+		Log.info("[CoronaTestService] Registering PCR test (teleTAN: \(private: teleTAN, public: "teleTAN ID"), isSubmissionConsentGiven: \(isSubmissionConsentGiven))", log: .api)
 
 		getRegistrationToken(
 			forKey: teleTAN,
@@ -144,7 +144,7 @@ class CoronaTestService {
 						registrationDate: Date(),
 						registrationToken: registrationToken,
 						testResult: .positive,
-						finalTestResultReceivedDate: nil,
+						finalTestResultReceivedDate: Date(),
 						positiveTestResultWasShown: true,
 						isSubmissionConsentGiven: isSubmissionConsentGiven,
 						submissionTAN: nil,
@@ -152,7 +152,7 @@ class CoronaTestService {
 						journalEntryCreated: false
 					)
 
-					Log.info("[CoronaTestService] PCR test registered: \(String(describing: self?.pcrTest))", log: .api)
+					Log.info("[CoronaTestService] PCR test registered: \(private: String(describing: self?.pcrTest), public: "PCR Test result")", log: .api)
 
 					Analytics.collect(.keySubmissionMetadata(.submittedWithTeletan(true)))
 
@@ -185,6 +185,7 @@ class CoronaTestService {
 				case .success(let registrationToken):
 					self?.antigenTest = AntigenTest(
 						pointOfCareConsentDate: pointOfCareConsentDate,
+						registrationDate: Date(),
 						registrationToken: registrationToken,
 						testedPerson: TestedPerson(firstName: firstName, lastName: lastName, dateOfBirth: dateOfBirth),
 						testResult: .pending,
@@ -195,8 +196,7 @@ class CoronaTestService {
 						keysSubmitted: false,
 						journalEntryCreated: false
 					)
-
-					Log.info("[CoronaTestService] Antigen test registered: \(String(describing: self?.antigenTest))", log: .api)
+					Log.info("[CoronaTestService] Antigen test registered: \(private: String(describing: self?.antigenTest), public: "Antigen test result")", log: .api)
 
 					self?.getTestResult(for: .antigen, duringRegistration: true) { result in
 						completion(result)
@@ -288,12 +288,12 @@ class CoronaTestService {
 					self.pcrTest?.submissionTAN = submissionTAN
 					self.pcrTest?.registrationToken = nil
 
-					Log.info("[CoronaTestService] Received submission tan for PCR test: \(String(describing: self.pcrTest))", log: .api)
+					Log.info("[CoronaTestService] Received submission tan for PCR test: \(private: String(describing: self.pcrTest), public: "PCR Test result")", log: .api)
 				case .antigen:
 					self.antigenTest?.submissionTAN = submissionTAN
 					self.antigenTest?.registrationToken = nil
 
-					Log.info("[CoronaTestService] Received submission tan for antigen test: \(String(describing: self.antigenTest))", log: .api)
+					Log.info("[CoronaTestService] Received submission tan for antigen test: \(private: String(describing: self.antigenTest), public: "TAN for antigen test")", log: .api)
 				}
 
 				completion(.success(submissionTAN))
@@ -378,9 +378,9 @@ class CoronaTestService {
 				journalEntryCreated: false
 			)
 
-			Log.info("[CoronaTestService] Migrated preexisting PCR test: \(String(describing: pcrTest))", log: .api)
+			Log.info("[CoronaTestService] Migrated preexisting PCR test: \(private: String(describing: pcrTest), public: "PCR Test result")", log: .api)
 		} else {
-			Log.info("[CoronaTestService] No migration required (store.registrationToken: \(String(describing: store.registrationToken)), store.lastSuccessfulSubmitDiagnosisKeyTimestamp: \(String(describing: store.lastSuccessfulSubmitDiagnosisKeyTimestamp)), store.devicePairingConsentAcceptTimestamp: \(String(describing: store.devicePairingConsentAcceptTimestamp))", log: .api)
+			Log.info("[CoronaTestService] No migration required (store.registrationToken: \(private: String(describing: store.registrationToken), public: "registration token ID"), store.lastSuccessfulSubmitDiagnosisKeyTimestamp: \(String(describing: store.lastSuccessfulSubmitDiagnosisKeyTimestamp)), store.devicePairingConsentAcceptTimestamp: \(String(describing: store.devicePairingConsentAcceptTimestamp))", log: .api)
 		}
 
 		store.registrationToken = nil
@@ -435,11 +435,11 @@ class CoronaTestService {
 					self?.warnOthersReminder.cancelNotifications(for: .antigen)
 				}
 
+				self?.antigenTestIsOutdated = false
+				self?.antigenTestOutdatedDate = nil
+
 				if let antigenTest = antigenTest {
 					self?.setupOutdatedPublisher(for: antigenTest)
-				} else {
-					self?.antigenTestIsOutdated = false
-					self?.antigenTestOutdatedDate = nil
 				}
 			}
 			.store(in: &subscriptions)
@@ -483,7 +483,18 @@ class CoronaTestService {
 			completion(.failure(.noRegistrationToken))
 			return
 		}
+
 		guard force || coronaTest.finalTestResultReceivedDate == nil else {
+			completion(.success(coronaTest.testResult))
+			return
+		}
+
+		let registrationDate = coronaTest.registrationDate ?? coronaTest.testDate
+		let ageInDays = Calendar.current.dateComponents([.day], from: registrationDate, to: Date()).day ?? 0
+
+		guard coronaTest.testResult != .expired || ageInDays < 21 else {
+			Log.error("[CoronaTestService] Expired test result older than 21 days returned", log: .api)
+
 			completion(.success(coronaTest.testResult))
 			return
 		}
@@ -521,7 +532,30 @@ class CoronaTestService {
 			case let .failure(error):
 				Log.error("[CoronaTestService] Getting test result failed: \(error.localizedDescription)", log: .api)
 
-				completion(.failure(.responseFailure(error)))
+				// For error code 400 (.qrDoesNotExist) we set the test result to expired
+				if error == .qrDoesNotExist {
+					Log.info("[CoronaTestService] Error Code 400 when getting test result, setting expired test result", log: .api)
+
+					switch coronaTestType {
+					case .pcr:
+						self.pcrTest?.testResult = .expired
+					case .antigen:
+						self.antigenTest?.testResult = .expired
+					}
+
+					// For tests older than 21 days this should not be handled as an error
+					if ageInDays >= 21 {
+						Log.info("[CoronaTestService] Test older than 21 days, no error is returned", log: .api)
+
+						completion(.success(.expired))
+					} else {
+						Log.error("[CoronaTestService] Test younger than 21 days, error is returned", log: .api)
+
+						completion(.failure(.responseFailure(error)))
+					}
+				} else {
+					completion(.failure(.responseFailure(error)))
+				}
 			case let .success(rawTestResult):
 				guard let testResult = TestResult(serverResponse: rawTestResult) else {
 					Log.error("[CoronaTestService] Getting test result failed: Unknown test result \(rawTestResult)", log: .api)
@@ -589,6 +623,11 @@ class CoronaTestService {
 	}
 
 	private func setupOutdatedPublisher(for antigenTest: AntigenTest) {
+		// Only rapid antigen tests with a negative test result can become outdated
+		guard antigenTest.testResult == .negative else {
+			return
+		}
+
 		appConfiguration.appConfiguration()
 			.sink { [weak self] in
 				let hoursToDeemTestOutdated = $0.coronaTestParameters.coronaRapidAntigenTestParameters.hoursToDeemTestOutdated
@@ -672,6 +711,7 @@ class CoronaTestService {
 		if let testResult = mockTestResult(for: .antigen) {
 			return AntigenTest(
 				pointOfCareConsentDate: Date(),
+				registrationDate: Date(),
 				registrationToken: "zxcv",
 				testedPerson: TestedPerson(firstName: "Erika", lastName: "Mustermann", dateOfBirth: "1964-08-12"),
 				testResult: testResult,

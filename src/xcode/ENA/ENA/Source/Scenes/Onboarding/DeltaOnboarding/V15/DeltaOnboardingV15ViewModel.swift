@@ -123,14 +123,16 @@ struct DeltaOnboardingV15ViewModel {
 				),
 				.body(
 					text: AppStrings.DeltaOnboarding.participatingCountriesListUnavailable,
-						 accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.participatingCountriesListUnavailable
-					 )
+					accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.participatingCountriesListUnavailable
+				)
 			]
 		} else {
-			cells.append(.headline(
-				text: AppStrings.ExposureSubmissionWarnOthers.supportedCountriesTitle,
-						 accessibilityIdentifier: nil
-					 ))
+			cells.append(
+				.headline(
+					text: AppStrings.ExposureSubmissionWarnOthers.supportedCountriesTitle,
+					accessibilityIdentifier: nil
+				)
+			)
 		}
 		return cells
 	}

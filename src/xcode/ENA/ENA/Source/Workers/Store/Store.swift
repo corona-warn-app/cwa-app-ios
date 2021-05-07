@@ -4,6 +4,7 @@
 
 import Foundation
 import ExposureNotification
+import OpenCombine
 
 protocol StoreProtocol: AnyObject {
 
@@ -93,10 +94,6 @@ protocol StoreProtocol: AnyObject {
 
 }
 
-protocol ServerEnvironmentProviding {
-	var selectedServerEnvironment: ServerEnvironmentData { get set }
-}
-
 protocol AppConfigCaching: AnyObject {
 	var appConfigMetadata: AppConfigMetadata? { get set }
 }
@@ -110,12 +107,26 @@ protocol PrivacyPreservingProviding: AnyObject {
 	var isPrivacyPreservingAnalyticsConsentGiven: Bool { get set }
 	// Do not mix up this property with the real UserMetadata in the PPAnalyticsData protocol
 	var userData: UserMetadata? { get set }
-	/// OTP for user survey link generation
-	var otpToken: OTPToken? { get set }
+	/// OTP for user survey link generation (Edus)
+	var otpTokenEdus: OTPToken? { get set }
 	/// Date of last otp authorization
-	var otpAuthorizationDate: Date? { get set }
-	/// PPAC Token storage
-	var ppacApiToken: TimestampedToken? { get set }
+	var otpEdusAuthorizationDate: Date? { get set }
+	/// PPAC Edus token
+	var ppacApiTokenEdus: TimestampedToken? { get set }
+}
+
+protocol ErrorLogProviding: AnyObject {
+	/// PPAC token for error log support (Els)
+	var ppacApiTokenEls: TimestampedToken? { get set }
+	/// OTP for error log support (Els)
+	var otpTokenEls: OTPToken? { get set }
+	/// Date of last otp authorization
+	var otpElsAuthorizationDate: Date? { get set }
+}
+
+protocol ErrorLogUploadHistoryProviding {
+	/// Collection of previous upload 'receipts'
+	var elsUploadHistory: [ErrorLogUploadReceipt] { get set }
 }
 
 protocol EventRegistrationCaching: AnyObject {
@@ -149,6 +160,17 @@ protocol CoronaTestStoring {
 
 }
 
+protocol AntigenTestProfileStoring: AnyObject {
+
+	var antigenTestProfileSubject: CurrentValueSubject<AntigenTestProfile?, Never> { get }
+
+	var antigenTestProfile: AntigenTestProfile? { get set }
+
+	var antigenTestProfileInfoScreenShown: Bool { get set }
+
+}
+
+/// this section contains only deprecated stuff, please do not add new things here
 protocol CoronaTestStoringLegacy {
 
 	var registrationToken: String? { get set }
@@ -183,5 +205,19 @@ protocol CoronaTestStoringLegacy {
 
 }
 
+// swiftlint:disable all
 /// Wrapper protocol
-protocol Store: StoreProtocol, AppConfigCaching, StatisticsCaching, ServerEnvironmentProviding, PrivacyPreservingProviding, EventRegistrationCaching, WarnOthersTimeIntervalStoring, CoronaTestStoring, CoronaTestStoringLegacy {}
+protocol Store:
+    AntigenTestProfileStoring,
+	AppConfigCaching,
+	CoronaTestStoring,
+	CoronaTestStoringLegacy,
+	ErrorLogProviding,
+	ErrorLogUploadHistoryProviding,
+	EventRegistrationCaching,
+	PrivacyPreservingProviding,
+	StatisticsCaching,
+	StoreProtocol,
+	WarnOthersTimeIntervalStoring
+{}
+// swiftlint:enable all

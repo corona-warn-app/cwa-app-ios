@@ -105,7 +105,6 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 		app.alerts.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.DeleteOneAlert.confirmButtonTitle)].tap()
 		
 		XCTAssertTrue(app.cells.count == 1) // assumption: only one cell remains
-		
 	}
 	
 	func test_WHEN_tapCreateQRCode_THEN_traceLocation_input_screen_is_displayed() throws {
@@ -135,7 +134,6 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 		XCTAssertFalse(app.staticTexts[AccessibilityIdentifiers.TraceLocation.Configuration.temporaryDefaultLengthFootnoteLabel].exists)
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.TraceLocation.Configuration.permanentDefaultLengthTitleLabel].exists)
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.TraceLocation.Configuration.permanentDefaultLengthFootnoteLabel].exists)
-		
 	}
 	
 	func test_WHEN_traceLocation_is_tapped_THEN_details_of_traceLocation_are_displayed() throws {
@@ -221,9 +219,124 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 		myCheckins_checkout(traceLocations: traceLocations)
 		myCheckins_display_details(traceLocations: traceLocations)
 		myCheckins_delete_all()
+	}
+
+	func test_WHEN_navigate_to_TraceLocations_for_the_first_time_THEN_infoscreen_is_displayed() throws {
+		// GIVEN
+		app.launchArguments.append(contentsOf: ["-TraceLocationsInfoScreenShown", "NO"])
 		
+		// WHEN
+		app.launch()
+
+		let traceLocationsCardButton = app.buttons[AccessibilityIdentifiers.Home.traceLocationsCardButton]
+		XCTAssertTrue(traceLocationsCardButton.waitForExistence(timeout: .extraLong))
+		traceLocationsCardButton.tap()
+		
+		// THEN
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.TraceLocation.dataPrivacyTitle].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.images[AccessibilityIdentifiers.TraceLocation.imageDescription].exists)
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].exists)
 	}
 	
+	func test_WHEN_navigate_to_TraceLocations_for_the_second_time_THEN_no_infoscreen_is_displayed() throws {
+		// GIVEN
+		app.launchArguments.append(contentsOf: ["-TraceLocationsInfoScreenShown", "YES"])
+		
+		// WHEN
+		app.launch()
+
+		let traceLocationsCardButton = app.buttons[AccessibilityIdentifiers.Home.traceLocationsCardButton]
+		XCTAssertTrue(traceLocationsCardButton.waitForExistence(timeout: .extraLong))
+		traceLocationsCardButton.tap()
+		
+		// THEN
+		XCTAssertFalse(app.cells[AccessibilityIdentifiers.TraceLocation.dataPrivacyTitle].waitForExistence(timeout: .short))
+		XCTAssertFalse(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].exists)
+	}
+
+	func test_events_in_contact_journal() throws {
+		// GIVEN
+		app.launchArguments.append(contentsOf: ["-TraceLocationsInfoScreenShown", "YES"])
+		app.launchArguments.append(contentsOf: ["-checkinInfoScreenShown", "YES"])
+		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
+		app.launch()
+		
+		// WHEN
+
+		let traceLocationsCardButton = app.buttons[AccessibilityIdentifiers.Home.traceLocationsCardButton]
+		XCTAssertTrue(traceLocationsCardButton.waitForExistence(timeout: .extraLong))
+		traceLocationsCardButton.tap()
+
+		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.addButtonTitle)].waitForExistence(timeout: .medium))
+		let event0 = "Mittagessen"
+		let event1 = "Team Meeting"
+		let event2 = "Sprint Planung"
+		let traceLocations_checked_in: [String: String] = [event0: "Kantine", event1: "Office"]
+		let traceLocations_not_checked_in: [String: String] = [event2: "Walldorf"]
+
+		createEventAndCheckin(event0, traceLocations_checked_in)
+		createEventAndCheckin(event1, traceLocations_checked_in)
+		createTraceLocation(event: event2, location: traceLocations_not_checked_in[event2] ?? "")
+
+		removeAllTraceLocationsAtOnce()
+
+		// MyCheckins: check out of all events
+		app.tabBars.buttons[AccessibilityIdentifiers.Tabbar.checkin].tap()
+		myCheckins_checkout(traceLocations: traceLocations_checked_in)
+		myCheckins_delete_all()
+		
+		// THEN
+		// switch to journal and check entries for events
+		app.tabBars.buttons[AccessibilityIdentifiers.Tabbar.diary].tap()
+		XCTAssertTrue(app.navigationBars[AccessibilityLabels.localized(AppStrings.ContactDiary.Overview.title)].waitForExistence(timeout: .medium))
+
+		
+		// Get the first overview table view cell.
+		let overviewCell = app.tables.firstMatch.cells[String(format: AccessibilityIdentifiers.ContactDiaryInformation.Overview.cell, 0)]
+		
+		// Check we have two locations
+		XCTAssertTrue(overviewCell.staticTexts[String(format: AccessibilityIdentifiers.ContactDiaryInformation.Overview.location, 0)].waitForExistence(timeout: .short))
+		XCTAssertTrue(overviewCell.staticTexts[String(format: AccessibilityIdentifiers.ContactDiaryInformation.Overview.location, 1)].waitForExistence(timeout: .short))
+	}
+
+	func test_WHEN_event_checkout_THEN_display_details() throws {
+		// GIVEN
+		app.launchArguments.append(contentsOf: ["-TraceLocationsInfoScreenShown", "YES"])
+		app.launchArguments.append(contentsOf: ["-checkinInfoScreenShown", "YES"])
+		app.launch()
+
+		let traceLocationsCardButton = app.buttons[AccessibilityIdentifiers.Home.traceLocationsCardButton]
+		XCTAssertTrue(traceLocationsCardButton.waitForExistence(timeout: .extraLong))
+		traceLocationsCardButton.tap()
+		
+		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.addButtonTitle)].waitForExistence(timeout: .short))
+		let event1 = "Mittagessen"
+		let event2 = "Team Meeting"
+		let traceLocations: [String: String] = [event1: "Kantine", event2: "Office"]
+		
+		createEventAndCheckin(event1, traceLocations)
+		createEventAndCheckin(event2, traceLocations)
+		removeAllTraceLocationsAtOnce()
+		
+		// switch to "My Checkins" and checkout of the event
+		app.tabBars.buttons[AccessibilityIdentifiers.Tabbar.checkin].tap()
+		
+		myCheckins_checkout(traceLocations: traceLocations)
+		myCheckins_display_details(traceLocations: traceLocations)
+		
+		XCTAssertTrue(app.staticTexts[String(format: AccessibilityLabels.localized(AppStrings.Checkins.Overview.itemPrefixCheckedOut), event2)].exists)
+		app.staticTexts[String(format: AccessibilityLabels.localized(AppStrings.Checkins.Overview.itemPrefixCheckedOut), event2)].tap()
+		
+		// tap "Speichern" to go back to overview
+		let buttons = app.buttons
+		XCTAssertTrue(buttons.element(matching: .button, identifier: AccessibilityIdentifiers.General.primaryFooterButton).exists)
+		buttons.element(matching: .button, identifier: AccessibilityIdentifiers.General.primaryFooterButton).tap()
+		
+		myCheckins_delete_all()
+	}
+
+	// MARK: - Screenshots
+
 	func test_screenshots_of_traceLocation_print_flow() throws {
 		app.launchArguments.append(contentsOf: ["-TraceLocationsInfoScreenShown", "NO"])
 		app.launchArguments.append(contentsOf: ["-checkinInfoScreenShown", "YES"])
@@ -296,130 +409,6 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 		app.tabBars.buttons[AccessibilityIdentifiers.Tabbar.checkin].tap()
 		myCheckins_delete_all()
 
-	}
-	
-	func test_WHEN_event_checkout_THEN_display_details() throws {
-		// GIVEN
-		app.launchArguments.append(contentsOf: ["-TraceLocationsInfoScreenShown", "YES"])
-		app.launchArguments.append(contentsOf: ["-checkinInfoScreenShown", "YES"])
-		app.launch()
-
-		let traceLocationsCardButton = app.buttons[AccessibilityIdentifiers.Home.traceLocationsCardButton]
-		XCTAssertTrue(traceLocationsCardButton.waitForExistence(timeout: .extraLong))
-		traceLocationsCardButton.tap()
-		
-		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.addButtonTitle)].waitForExistence(timeout: .short))
-		let event1 = "Mittagessen"
-		let event2 = "Team Meeting"
-		let traceLocations: [String: String] = [event1: "Kantine", event2: "Office"]
-		
-		createEventAndCheckin(event1, traceLocations)
-		createEventAndCheckin(event2, traceLocations)
-		removeAllTraceLocationsAtOnce()
-		
-		// switch to "My Checkins" and checkout of the event
-		app.tabBars.buttons[AccessibilityIdentifiers.Tabbar.checkin].tap()
-		
-//		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_mycheckins_overview")
-		myCheckins_checkout(traceLocations: traceLocations)
-//		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_mycheckins_allCheckedOut")
-		myCheckins_display_details(traceLocations: traceLocations)
-		
-		XCTAssertTrue(app.staticTexts[String(format: AccessibilityLabels.localized(AppStrings.Checkins.Overview.itemPrefixCheckedOut), event2)].exists)
-		app.staticTexts[String(format: AccessibilityLabels.localized(AppStrings.Checkins.Overview.itemPrefixCheckedOut), event2)].tap()
-//		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_mycheckins_details")
-		
-		// tap "Speichern" to go back to overview
-		let buttons = app.buttons
-		XCTAssertTrue(buttons.element(matching: .button, identifier: AccessibilityIdentifiers.General.primaryFooterButton).exists)
-		buttons.element(matching: .button, identifier: AccessibilityIdentifiers.General.primaryFooterButton).tap()
-		
-		myCheckins_delete_all()
-		
-	}
-	
-	func test_events_in_contact_journal() throws {
-		// GIVEN
-		app.launchArguments.append(contentsOf: ["-TraceLocationsInfoScreenShown", "YES"])
-		app.launchArguments.append(contentsOf: ["-checkinInfoScreenShown", "YES"])
-		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
-		app.launch()
-		
-		// WHEN
-
-		let traceLocationsCardButton = app.buttons[AccessibilityIdentifiers.Home.traceLocationsCardButton]
-		XCTAssertTrue(traceLocationsCardButton.waitForExistence(timeout: .extraLong))
-		traceLocationsCardButton.tap()
-
-		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.addButtonTitle)].waitForExistence(timeout: .short))
-		let event0 = "Mittagessen"
-		let event1 = "Team Meeting"
-		let event2 = "Sprint Planung"
-		let traceLocations_checked_in: [String: String] = [event0: "Kantine", event1: "Office"]
-		let traceLocations_not_checked_in: [String: String] = [event2: "Walldorf"]
-
-		createEventAndCheckin(event0, traceLocations_checked_in)
-		createEventAndCheckin(event1, traceLocations_checked_in)
-		createTraceLocation(event: event2, location: traceLocations_not_checked_in[event2] ?? "")
-
-		removeAllTraceLocationsAtOnce()
-
-		// MyCheckins: check out of all events
-		app.tabBars.buttons[AccessibilityIdentifiers.Tabbar.checkin].tap()
-		myCheckins_checkout(traceLocations: traceLocations_checked_in)
-		myCheckins_delete_all()
-		
-		// THEN
-		// switch to journal and check entries for events
-		app.tabBars.buttons[AccessibilityIdentifiers.Tabbar.diary].tap()
-		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.ContactDiary.Overview.title)].waitForExistence(timeout: .short))
-
-		// count the number of entries on the screen
-		var eventcount = [0, 0, 0]
-		for i in 0...(app.cells.count - 1) {
-			let texts = app.cells.element(boundBy: i).staticTexts
-			eventcount[0] += texts["\(event0), \(traceLocations_checked_in[event0] ?? "")"].exists ? 1 : 0
-			eventcount[1] += texts["\(event1), \(traceLocations_checked_in[event1] ?? "")"].exists ? 1 : 0
-			eventcount[2] += texts["\(event2), \(traceLocations_not_checked_in[event2] ?? "")"].exists ? 1 : 0
-		}
-		
-		XCTAssertTrue(eventcount[0] == 1)
-		XCTAssertTrue(eventcount[1] == 1)
-		XCTAssertTrue(eventcount[2] == 0)
-	}
-	
-	func test_WHEN_navigate_to_TraceLocations_for_the_first_time_THEN_infoscreen_is_displayed() throws {
-		// GIVEN
-		app.launchArguments.append(contentsOf: ["-TraceLocationsInfoScreenShown", "NO"])
-		
-		// WHEN
-		app.launch()
-
-		let traceLocationsCardButton = app.buttons[AccessibilityIdentifiers.Home.traceLocationsCardButton]
-		XCTAssertTrue(traceLocationsCardButton.waitForExistence(timeout: .extraLong))
-		traceLocationsCardButton.tap()
-		
-		// THEN
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.TraceLocation.dataPrivacyTitle].waitForExistence(timeout: .short))
-		XCTAssertTrue(app.images[AccessibilityIdentifiers.TraceLocation.imageDescription].exists)
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].exists)
-
-	}
-	
-	func test_WHEN_navigate_to_TraceLocations_for_the_second_time_THEN_no_infoscreen_is_displayed() throws {
-		// GIVEN
-		app.launchArguments.append(contentsOf: ["-TraceLocationsInfoScreenShown", "YES"])
-		
-		// WHEN
-		app.launch()
-
-		let traceLocationsCardButton = app.buttons[AccessibilityIdentifiers.Home.traceLocationsCardButton]
-		XCTAssertTrue(traceLocationsCardButton.waitForExistence(timeout: .extraLong))
-		traceLocationsCardButton.tap()
-		
-		// THEN
-		XCTAssertFalse(app.cells[AccessibilityIdentifiers.TraceLocation.dataPrivacyTitle].waitForExistence(timeout: .short))
-		XCTAssertFalse(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].exists)
 	}
 
 	// MARK: - Private

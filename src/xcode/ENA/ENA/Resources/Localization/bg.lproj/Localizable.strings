@@ -682,7 +682,7 @@
 
 "ExposureSubmissionResult_antigenTestAdded" = "Бързият Ви тест е добавен.";
 
-"ExposureSubmissionResult_antigenTestAddedDesc" = "Резултатът от теста ще се показва тук в рамките на 48 часа. Приложението ще направи запис и в дневника Ви на контактите.";
+"ExposureSubmissionResult_antigenTestAddedDesc" = "Резултатът от теста ще се показва тук в рамките на 48 часа.";
 
 "ExposureSubmissionResult_warnOthers" = "Предупредете другите";
 
@@ -818,7 +818,9 @@
 
 "ExposureSubmissionWarnOthers_consent_bullet3" = "Вашата самоличност няма да бъде разкрита. Другите потребители няма да узнаят кой е споделил резултата от теста си.";
 
-"ExposureSubmissionWarnOthers_consent_bullet4" = "За да дадете съгласието си, трябва да имате навършени 16 години.";
+"ExposureSubmissionWarnOthers_consent_bullet4" = "В раздела „Моите регистрации“ виждате събитията и местата, чиито регистрирани гости ще бъдат предупредени. Можете да изтриете отделни регистрации от списъка, за да ги изключите от процеса на предупреждаване.";
+
+"ExposureSubmissionWarnOthers_consent_bullet5" = "За да дадете съгласието си, трябва да имате навършени 16 години.";
 
 "ExposureSubmissionWarnOthers_continueButton" = "Приемам";
 
@@ -845,9 +847,9 @@
 
 "ExposureSubmissionResult_Timer_Title" = "Резултатът ще е достъпен след";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Title" = "Функция за проверка";
+"ExposureSubmissionResult_Negative_Antigen_Proof_Title" = " ";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Можете също така да използвате резултата от теста, който се показва тук, като доказателство за отрицателен резултат от бърз тест. \n\nМоля, имайте предвид, че сте задължени да докажете резултата от вашия бърз тест единствено ако законът изисква това. Може да докажете резултата си чрез приложението или по друг начин. За повече информация, моля запознайте се с критериите за приемане на доказателства за тестване във Вашата федерална провинция. ";
+"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Резултатът от Вашия тест е поверителен и не сте задължени да го споделяте. В случаите, когато това се изисква по закон, можете да да използвате който и да е от предоставените начини.";
 
 /* Exposure Submission */
 "ExposureSubmissionError_ErrorPrefix" = "Възникна техническа грешка при изпращането на данните Ви. Моля, обадете се на горещата линия за технически въпроси. Може да намерите телефонния номер в раздел „За приложението“.";
@@ -904,6 +906,41 @@
 "ExposureSubmission_OverwriteNotice_Antigen_Headline" = "Вече сте регистрирали бърз тест.";
 
 "ExposureSubmission_OverwriteNotice_Antigen_Text" = "Вече сте регистрирали бърз тест. Приложението може да обработва едновременно само един бърз тест и един PCR тест. Ако регистрирате друг бърз тест, предходният бърз тест ще бъде изтрит.";
+
+/* ExposureSubmission AntigenTest Profile Information */
+"ExposureSubmission_Antigen_Profile_Information_Title" = "Профил за бързи тестове";
+
+"ExposureSubmission_Antigen_Profile_Information_Image_Description" = "Жена със смартфон в ръката стои пред сграда. QR кодът символизира профила за бързи тестове, който трябва да се сканира.";
+
+"ExposureSubmission_Antigen_Profile_Information_Description_Title" = "Запазете личните си данни като QR код, за да ускорите регистрацията в пунктовете за тестване.";
+
+"ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline" = "Ако си създадете профил за бързи тестове, няма да се налага да попълвате личните си данни наново при всеки антигенен тест.";
+
+"ExposureSubmission_Antigen_Profile_Information_PrimaryButton" = "Напред";
+
+"ExposureSubmission_Antigen_Profile_Information_Dataprivacy_Title" = "За повече информация прочетете декларацията за поверителност.";
+
+/* ExposureSubmission AntigenTest Profile */
+"ExposureSubmission_Antigen_Profile_Header_Text" = "Профил за бързи тестове";
+
+"ExposureSubmission_Antigen_Profile_QRCode_Image_Description" = "QR код с Вашия профил за бързи тестове";
+
+"ExposureSubmission_Antigen_Profile_Noice_Text" = "Представете този QR код в пункта за тестване, за да ускорите снемането на личните си данни. Дръжте и личната си ката подръка.";
+
+"ExposureSubmission_Antigen_Profile_DateOfBirth_Format" = "Дата на раждане %@";
+
+"ExposureSubmission_Antigen_Profile_Primary_Button" = "Напред";
+
+"ExposureSubmission_Antigen_Profile_Secondary_Button" = "Премахване на профила за бързи тестове";
+
+/* ExposureSubmission AntigenTest */
+"ExposureSubmission_Profile_CreateProfileTile_Title" = "Създаване на профил за бързи тестове";
+
+"ExposureSubmission_Profile_CreateProfileTile_Description" = "Можете да създадете профил с личните си данни, който да представяте под формата на QR код при всеки бърз тест.";
+
+"ExposureSubmission_Profile_ProfileTile_Title" = "Профил за бързи тестове";
+
+"ExposureSubmission_Profile_ProfileTile_Description" = "Спестете време като представите профила си в пункта за тестване.";
 
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Регистриране на излаганията на риск";
@@ -1294,7 +1331,7 @@
 
 "ErrorReport_StopAndDeleteButtonTitle" = "Спиране и изтриване";
 
-"ErrorReport_SaveButtonTitle" = "Локално запазване и продължаване";
+"ErrorReport_SaveButtonTitle" = "Споделяне и напред";
 
 "ErrorReport_SendButtonTitle" = "Изпращане на отчет за грешки";
 
@@ -1443,27 +1480,14 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Може да видите промените в тази версия в подраздела „Нови функции“ на информацията за приложението.";
 
-/* Version 2.1 */
-"NewVersionFeature_21_reg_antigen_title" = "Регистрация на бързи антигенни тестове";
+/* Version 2.2 */
+"NewVersionFeature_22_record_error_logs_title" = "Водене на журнали за анализ на грешки";
 
-"NewVersionFeature_21_reg_antigen_description" = "Освен резултатите от PCR тестовете, вече можете да показвате в приложението и резултатите от бързи антигенни тестове, с които да предупреждавате останалите.";
+"NewVersionFeature_22_record_error_logs_description" = "Вече можете да генерирате отчети за грешките чрез функцията за техническа поддръжка. В тях се записват действията Ви в приложението, за да можем по-лесно да анализираме евентуални проблеми и да ги отстраним по-бързо.";
 
-"NewVersionFeature_21_show_proof_title" = "Показване на доказателство";
+"NewVersionFeature_22_antigen_profiles_title" = "Създаване на профили за бързи тестове";
 
-"NewVersionFeature_21_show_proof_description" = "Ако желаете, може да използвате приложението за доказване на личния ви статус на заразяване (например отрицателен бърз тест). Но имайте предвид, че по никакъв начин не сте задължени да използвате приложението за тази цел. Може да докажете статуса си и по друг начин, съобразен с правните разпоредби на вашето място на пребиваване.";
-
-"NewVersionFeature_21_tech_hotline_foreign_countries_title" = "Вече е достъпна и гореща линия за технически въпроси за обаждания извън територията на Германия";
-
-"NewVersionFeature_21_tech_hotline_foreign_countries_description" = "Вече имате достъп до техническата гореща линия за обаждания извън Германия на номер +49 30 498 75401. Важат тарифите на телефонния ви оператор.";
-
-"NewVersionFeature_21_tan_hotline_foreign_countries_title" = "Вече е налична и гореща линия с ТАН кодове за обаждания извън Германия";
-
-"NewVersionFeature_21_tan_hotline_foreign_countries_description" = "Ако Ви е поставена диагноза „коронавирус“, вече можете да заявите ТАН код извън Германия на номер +49 30 498 75401. Важат тарифите на телефонния ви оператор.";
-
-/* Version 2.0 */
-"NewVersionFeature_200_event_checkin_title" = "Прекъснете успешно веригите на заразяване чрез регистрация с QR код";
-
-"NewVersionFeature_200_event_checkin_description" = "CWA Ви позволява да се регистрирате, когато пристигате на определени места и събития. Организаторите на събития и собствениците на магазини могат да използват приложението за създаване на QR код, който посетителите да сканират, когато пристигат, за да регистрират присъствието си. При поискване приложението може също да създава запис в дневника. Ако на някой от посетителите на съответното място или събитие бъде поставена диагноза коронавирус на по-късен етап, другите лица, които са се регистрирали на същото място по същото време, ще могат да бъдат предупредени.";
+"NewVersionFeature_22_antigen_profiles_description" = "Вече можете да си създадете профил с личните данни, необходими при бързи тестове. Информацията се преобразува в QR код, който лесно и бързо се сканира в пунктовете за тестване.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Международно регистриране на излаганията";
@@ -2026,6 +2050,8 @@
 
 "Checkins_Overview_DurationTitle" = "Продължителност";
 
+"Checkins_Overview_CheckinDateTemplate" = "На %@";
+
 "Checkins_Overview_CheckinTimeTemplate" = "%@ - автоматично прекратяване на регистрацията след %@";
 
 "Checkins_Overview_CheckoutButtonTitle" = "Прекрати регистрацията сега";
@@ -2195,6 +2221,8 @@
 /* Error Reporting */
 "ErrorReport_Title" = "Отчети за грешки";
 
+"ErrorReport_Analysis" = "Анализ на грешките";
+
 "ErrorReport_Description1" = "За да помогнете на екипа за техническа поддръжка на приложението да анализира грешките, можете да запишете отчет за грешките в CWA. Когато го направите, отделните технически стъпки и резултатите от процесите в приложението се записват. Можете да изпратите отчета за грешките на екипа за техническа поддръжка, за да им помогнете да установят и поправят грешката.\n\nЗа повече информация разгледайте нашата страницата за ЧЗВ.";
 
 "ErrorReport_FAQ" = "ЧЗВ за отчетите за грешки";
@@ -2281,6 +2309,12 @@
 
 "Checkin_Details_SaveToDiary" = "Да се създаде ли запис дневника на контактите след прекратяване на регистрацията?";
 
+"Checkin_Details_SaveSwitch" = "Превключване";
+
+"Checkin_Details_SaveSwitch_On" = "Включено";
+
+"Checkin_Details_SaveSwitch_Off" = "Изключено";
+
 "Checkin_Details_AutomaticCheckout" = "Автоматично прекратяване на регистрацията след";
 
 "Checkin_Details_EventNotStartedYet" = "Това събитие започва в %@ на %@. Желаете ли да се регистрирате още сега?";
@@ -2307,4 +2341,34 @@
 "Submission_Checkins_Alert_Share" = "Споделяне";
 
 "Submission_Checkins_Alert_DontShare" = "Да не се споделя";
+
+/* Create Antigen Profile */
+"AntigenProfile_Create_Title" = "Профил за бързи тестове";
+
+"AntigenProfile_Create_Description" = "Запазете личните си данни като QR код, за да ускорите регистрацията в пунктовете за тестване.";
+
+"AntigenProfile_Create_FirstNamePlaceholder" = "Име";
+
+"AntigenProfile_Create_LastNamePlaceholder" = "Фамилия";
+
+"AntigenProfile_Create_BirthDatePlaceholder" = "Дата на раждане";
+
+"AntigenProfile_Create_StreetPlaceholder" = "Улица и номер";
+
+"AntigenProfile_Create_PostalCodePlaceholder" = "Пощенски код";
+
+"AntigenProfile_Create_CityPlaceholder" = "Град";
+
+"AntigenProfile_Create_PhoneNumberPlaceholder" = "Телефон";
+
+"AntigenProfile_Create_EmailAddressPlaceholder" = "Имейл адрес";
+
+"AntigenProfile_Create_Save_Button_Title" = "Запазване";
+
+/* Antigen Profile */
+"AntigenProfile_Delete_Alert_Title" = "Желаете ли да премахнете профила си за бързи тестове?";
+
+"AntigenProfile_Delete_Alert_Description" = "Моля, имайте предвид, че ако го направите, този код повече няма да може да се използва за регистрации.";
+
+"AntigenProfile_Delete_Alert_Delete_Button_Title" = "Премахване";
 

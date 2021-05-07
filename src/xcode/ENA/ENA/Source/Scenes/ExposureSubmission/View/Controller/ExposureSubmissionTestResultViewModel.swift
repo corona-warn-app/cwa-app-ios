@@ -81,11 +81,7 @@ class ExposureSubmissionTestResultViewModel {
 		case .negative, .invalid, .expired:
 			shouldShowDeletionConfirmationAlert = true
 		case .pending:
-			primaryButtonIsLoading = true
-			
-			refreshTest { [weak self] in
-				self?.primaryButtonIsLoading = false
-			}
+			refreshTest()
 		}
 	}
 	
@@ -107,6 +103,14 @@ class ExposureSubmissionTestResultViewModel {
 	
 	func updateWarnOthers() {
 		coronaTestService.evaluateShowingTest(ofType: coronaTestType)
+	}
+	
+	func updateTestResultIfPossible() {
+		guard coronaTest.testResult == .pending else {
+			Log.info("Not refreshing test because status is pending")
+			return
+		}
+		refreshTest()
 	}
 	
 	// MARK: - Private
@@ -191,18 +195,19 @@ class ExposureSubmissionTestResultViewModel {
 		footerViewModel = ExposureSubmissionTestResultViewModel.footerViewModel(coronaTest: coronaTest)
 	}
 	
-	private func refreshTest(completion: @escaping () -> Void) {
+	private func refreshTest() {
+		primaryButtonIsLoading = true
 		coronaTestService.updateTestResult(for: coronaTestType) { [weak self] result in
 			guard let self = self else { return }
-
+			
+			self.primaryButtonIsLoading = false
+			
 			switch result {
 			case let .failure(error):
 				self.error = error
 			case .success:
 				break
 			}
-
-			completion()
 		}
 	}
 }
@@ -315,8 +320,10 @@ extension ExposureSubmissionTestResultViewModel {
 				),
 				separators: .none,
 				cells: [
-					.title2(text: AppStrings.ExposureSubmissionPositiveTestResult.noConsentTitle,
-							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionPositiveTestResult.noConsentTitle),
+					.title2(
+						text: AppStrings.ExposureSubmissionPositiveTestResult.noConsentTitle,
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionPositiveTestResult.noConsentTitle
+					),
 					
 					ExposureSubmissionDynamicCell.stepCell(
 						title: AppStrings.ExposureSubmissionPositiveTestResult.noConsentInfo1,
@@ -360,11 +367,18 @@ extension ExposureSubmissionTestResultViewModel {
 				),
 				separators: .none,
 				cells: [
-					.title2(text: AppStrings.ExposureSubmissionPositiveTestResult.withConsentTitle,
-							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionPositiveTestResult.withConsentTitle),
-					.headline(text: AppStrings.ExposureSubmissionPositiveTestResult.withConsentInfo1,
-							  accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionPositiveTestResult.withConsentInfo1),
-					.body(text: AppStrings.ExposureSubmissionPositiveTestResult.withConsentInfo2, accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionPositiveTestResult.withConsentInfo2)
+					.title2(
+						text: AppStrings.ExposureSubmissionPositiveTestResult.withConsentTitle,
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionPositiveTestResult.withConsentTitle
+					),
+					.headline(
+						text: AppStrings.ExposureSubmissionPositiveTestResult.withConsentInfo1,
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionPositiveTestResult.withConsentInfo1
+					),
+					.body(
+						text: AppStrings.ExposureSubmissionPositiveTestResult.withConsentInfo2,
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionPositiveTestResult.withConsentInfo2
+					)
 				]
 			)
 		]
@@ -499,17 +513,16 @@ extension ExposureSubmissionTestResultViewModel {
 				icon: UIImage(named: "Icons_Grey_Error"),
 				hairline: .topAttached
 			),
-			
 			ExposureSubmissionDynamicCell.stepCell(
 				title: AppStrings.ExposureSubmissionResult.testRemove,
 				description: AppStrings.ExposureSubmissionResult.testRemoveDesc,
 				icon: UIImage(named: "Icons_Grey_Entfernen"),
 				hairline: .none
 			),
-			
-			.title2(text: AppStrings.ExposureSubmissionResult.furtherInfos_Title,
-					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.furtherInfos_Title),
-			
+			.title2(
+				text: AppStrings.ExposureSubmissionResult.furtherInfos_Title,
+				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.furtherInfos_Title
+			),
 			.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem1, spacing: .large),
 			.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem2, spacing: .large),
 			.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem3, spacing: .large),
@@ -528,53 +541,54 @@ extension ExposureSubmissionTestResultViewModel {
 	private func negativeAntigenTestResultSections(test: AntigenTest) -> [DynamicSection] {
 		[
 			.section(
-			 header: .identifier(
-				 ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.antigenTestResult,
-				 configure: { view, _ in
-					(view as? AntigenExposureSubmissionNegativeTestResultHeaderView)?.configure(coronaTest: test, timeStamp: self.timeStamp)
-				 }
-			 ),
-			 separators: .none,
-			 cells: [
-				.title2(text: AppStrings.ExposureSubmissionResult.Antigen.proofTitle,
-						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.Antigen.proofTitle),
-				
-				.body(text: AppStrings.ExposureSubmissionResult.Antigen.proofDesc,
-					  accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.Antigen.proofDesc),
-				
-				.title2(text: AppStrings.ExposureSubmissionResult.procedure,
-						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure),
-				
-				ExposureSubmissionDynamicCell.stepCell(
-					title: AppStrings.ExposureSubmissionResult.Antigen.testAdded,
-					description: AppStrings.ExposureSubmissionResult.Antigen.testAddedDesc,
-					icon: UIImage(named: "Icons_Grey_Check"),
-					hairline: .iconAttached
-				 ),
-				
-				ExposureSubmissionDynamicCell.stepCell(
-					title: AppStrings.ExposureSubmissionResult.testNegative,
-					description: AppStrings.ExposureSubmissionResult.Antigen.testNegativeDesc,
-					icon: UIImage(named: "Icons_Grey_Error"),
-					hairline: .topAttached
-				 ),
-				
-				ExposureSubmissionDynamicCell.stepCell(
-					title: AppStrings.ExposureSubmissionResult.testRemove,
-					description: AppStrings.ExposureSubmissionResult.testRemoveDesc,
-					icon: UIImage(named: "Icons_Grey_Entfernen"),
-					hairline: .none
-				 ),
-				
-				.title2(text: AppStrings.ExposureSubmissionResult.furtherInfos_Title,
-						 accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.furtherInfos_Title),
-				
-				.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem1, spacing: .large),
-				.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem2, spacing: .large),
-				.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem3, spacing: .large),
-				.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_TestAgain, spacing: .large)
-			 ]
-		 )
+				header: .identifier(
+					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.antigenTestResult,
+					configure: { view, _ in
+						(view as? AntigenExposureSubmissionNegativeTestResultHeaderView)?.configure(coronaTest: test, timeStamp: self.timeStamp)
+					}
+				),
+				separators: .none,
+				cells: [
+					.title2(
+						text: AppStrings.ExposureSubmissionResult.Antigen.proofTitle,
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.Antigen.proofTitle
+					),
+					.body(
+						text: AppStrings.ExposureSubmissionResult.Antigen.proofDesc,
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.Antigen.proofDesc
+					),
+					.title2(
+						text: AppStrings.ExposureSubmissionResult.procedure,
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure
+					),
+					ExposureSubmissionDynamicCell.stepCell(
+						title: AppStrings.ExposureSubmissionResult.Antigen.testAdded,
+						description: AppStrings.ExposureSubmissionResult.Antigen.testAddedDesc,
+						icon: UIImage(named: "Icons_Grey_Check"),
+						hairline: .iconAttached
+					),
+					ExposureSubmissionDynamicCell.stepCell(
+						title: AppStrings.ExposureSubmissionResult.testNegative,
+						description: AppStrings.ExposureSubmissionResult.Antigen.testNegativeDesc,
+						icon: UIImage(named: "Icons_Grey_Error"),
+						hairline: .topAttached
+					),
+					ExposureSubmissionDynamicCell.stepCell(
+						title: AppStrings.ExposureSubmissionResult.testRemove,
+						description: AppStrings.ExposureSubmissionResult.testRemoveDesc,
+						icon: UIImage(named: "Icons_Grey_Entfernen"),
+						hairline: .none
+					),
+					.title2(
+						text: AppStrings.ExposureSubmissionResult.furtherInfos_Title,
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.furtherInfos_Title
+					),
+					.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem1, spacing: .large),
+					.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem2, spacing: .large),
+					.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem3, spacing: .large),
+					.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_TestAgain, spacing: .large)
+				]
+			)
 		]
 	}
 }

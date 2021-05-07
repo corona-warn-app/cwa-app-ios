@@ -13,26 +13,16 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		
 		// ADD NEW FEATURES HERE
 		
-		self.featureVersion = "2.1"
+		self.featureVersion = "2.2"
 		
-		// Antigen Registration
+		// Record error log
 		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature21RegAntigenTitle, description: AppStrings.NewVersionFeatures.feature21RegAntigenDescription)
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature22RecordErrorLogsTitle, description: AppStrings.NewVersionFeatures.feature22RecordErrorLogsDescription)
 		)
 		
-		// Show proof
+		// Antigen Profiles
 		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature21ShowProofTitle, description: AppStrings.NewVersionFeatures.feature21ShowProofDescription)
-		)
-		
-		// New international tech hotline
-		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature21NewIntTechHotlineTitle, description: AppStrings.NewVersionFeatures.feature21NewIntTechHotlineDescription)
-		)
-		
-		// New international tan hotline
-		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature21NewIntTanHotlineTitle, description: AppStrings.NewVersionFeatures.feature21NewIntTanHotlineDescription)
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature22AntiGenProfileTitle, description: AppStrings.NewVersionFeatures.feature22AntiGenProfileDescription)
 		)
 		
 	}
@@ -46,8 +36,10 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 			$0.add(
 				.section(
 					cells: [
-						.subheadline(text: "\(AppStrings.NewVersionFeatures.release) \(self.featureVersion)",
-									 color: UIColor.enaColor(for: .textPrimary1), accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.newVersionFeaturesVersionInfo)
+						.subheadline(
+							text: "\(AppStrings.NewVersionFeatures.release) \(self.featureVersion)",
+							color: UIColor.enaColor(for: .textPrimary1), accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.newVersionFeaturesVersionInfo
+						)
 					]
 				)
 			)
@@ -73,9 +65,11 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 			$0.add(
 				.section(
 					cells: [
-						.body(text: AppStrings.NewVersionFeatures.aboutAppInformation,
-							  color: .enaColor(for: .textPrimary1),
-							  accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.newVersionFeaturesGeneralAboutAppInformation)
+						.body(
+							text: AppStrings.NewVersionFeatures.aboutAppInformation,
+							color: .enaColor(for: .textPrimary1),
+							accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.newVersionFeaturesGeneralAboutAppInformation
+						)
 					]
 				)
 			)

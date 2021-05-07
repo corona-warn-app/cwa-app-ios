@@ -4,21 +4,20 @@
 
 import Foundation
 import ExposureNotification
+import OpenCombine
 
 /// The `SecureStore` class implements the `Store` protocol that defines all required storage attributes.
 /// It uses an SQLite Database that still needs to be encrypted
-final class SecureStore: Store {
+final class SecureStore: Store, AntigenTestProfileStoring {
 
 	// MARK: - Init
 
 	init(
 		at directoryURL: URL,
-		key: String,
-		serverEnvironment: ServerEnvironment
+		key: String
 	) throws {
 		self.directoryURL = directoryURL
 		self.kvStore = try SQLiteKeyValueStore(with: directoryURL, key: key)
-		self.serverEnvironment = serverEnvironment
 	}
 
 	// MARK: - Protocol Store
@@ -152,11 +151,6 @@ final class SecureStore: Store {
 		set { kvStore["firstPlaybookExecution"] = newValue }
 	}
 
-	var selectedServerEnvironment: ServerEnvironmentData {
-		get { kvStore["selectedServerEnvironment"] as ServerEnvironmentData? ?? serverEnvironment.defaultEnvironment() }
-		set { kvStore["selectedServerEnvironment"] = newValue }
-	}
-
 	var wasRecentDayKeyDownloadSuccessful: Bool {
 		get { kvStore["wasRecentDayKeyDownloadSuccessful"] as Bool? ?? false }
 		set { kvStore["wasRecentDayKeyDownloadSuccessful"] = newValue }
@@ -203,7 +197,6 @@ final class SecureStore: Store {
 		set { kvStore["submissionCheckins"] = newValue }
 	}
 
-
 	var submissionCountries: [Country] {
 		get { kvStore["submissionCountries"] as [Country]? ?? [.defaultCountry()] }
 		set { kvStore["submissionCountries"] = newValue }
@@ -217,6 +210,25 @@ final class SecureStore: Store {
 	var journalWithExposureHistoryInfoScreenShown: Bool {
 		get { kvStore["journalWithExposureHistoryInfoScreenShown"] as Bool? ?? false }
 		set { kvStore["journalWithExposureHistoryInfoScreenShown"] = newValue }
+	}
+
+	// MARK: - Protocol AntigenTestProfileStoring
+
+	lazy var antigenTestProfileSubject = {
+		CurrentValueSubject<AntigenTestProfile?, Never>(antigenTestProfile)
+	}()
+
+	var antigenTestProfile: AntigenTestProfile? {
+		get { kvStore["antigenTestProfile"] as AntigenTestProfile? }
+		set {
+			kvStore["antigenTestProfile"] = newValue
+			antigenTestProfileSubject.value = newValue
+		}
+	}
+
+	var antigenTestProfileInfoScreenShown: Bool {
+		get { kvStore["antigenTestProfileInfoScreenShown"] as Bool? ?? false }
+		set { kvStore["antigenTestProfileInfoScreenShown"] = newValue }
 	}
 	
 	#if !RELEASE
@@ -253,7 +265,6 @@ final class SecureStore: Store {
 		set { kvStore["recentTraceLocationCheckedInto"] = newValue }
 	}
 
-
 	#endif
 
 	let kvStore: SQLiteKeyValueStore
@@ -261,7 +272,6 @@ final class SecureStore: Store {
 	// MARK: - Private
 
 	private let directoryURL: URL
-	private var serverEnvironment: ServerEnvironment
 
 }
 
@@ -339,19 +349,45 @@ extension SecureStore: PrivacyPreservingProviding {
 		}
 	}
 
-	var otpToken: OTPToken? {
+	var otpTokenEdus: OTPToken? {
 		get { kvStore["otpToken"] as OTPToken? }
 		set { kvStore["otpToken"] = newValue }
 	}
 
-	var otpAuthorizationDate: Date? {
+	var otpEdusAuthorizationDate: Date? {
 		get { kvStore["otpAuthorizationDate"] as Date? }
 		set { kvStore["otpAuthorizationDate"] = newValue }
 	}
 
-	var ppacApiToken: TimestampedToken? {
+	var ppacApiTokenEdus: TimestampedToken? {
 		get { kvStore["ppacApiToken"] as TimestampedToken? }
 		set { kvStore["ppacApiToken"] = newValue }
+	}
+}
+
+extension SecureStore: ErrorLogProviding {
+	
+	var ppacApiTokenEls: TimestampedToken? {
+		get { kvStore["ppacApiTokenEls"] as TimestampedToken? }
+		set { kvStore["ppacApiTokenEls"] = newValue }
+	}
+	
+	var otpTokenEls: OTPToken? {
+		get { kvStore["otpTokenEls"] as OTPToken? }
+		set { kvStore["otpTokenEls"] = newValue }
+	}
+	
+	var otpElsAuthorizationDate: Date? {
+		get { kvStore["otpElsAuthorizationDate"] as Date? }
+		set { kvStore["otpElsAuthorizationDate"] = newValue }
+	}
+}
+
+extension SecureStore: ErrorLogUploadHistoryProviding {
+	
+	var elsUploadHistory: [ErrorLogUploadReceipt] {
+		get { kvStore["elsHistory"] as [ErrorLogUploadReceipt]? ?? [ErrorLogUploadReceipt]() }
+		set { kvStore["elsHistory"] = newValue }
 	}
 }
 
@@ -438,14 +474,13 @@ extension SecureStore {
 
 	static let keychainDatabaseKey = "secureStoreDatabaseKey"
 
-	convenience init(subDirectory: String, serverEnvironment: ServerEnvironment) {
-		self.init(subDirectory: subDirectory, isRetry: false, serverEnvironment: serverEnvironment)
+	convenience init(subDirectory: String, environmentProvider: EnvironmentProviding = Environments()) {
+		self.init(subDirectory: subDirectory, isRetry: false, environmentProvider: environmentProvider)
 	}
 
-	private convenience init(subDirectory: String, isRetry: Bool, serverEnvironment: ServerEnvironment) {
-		// swiftlint:disable:next force_try
-		let keychain = try! KeychainHelper()
+	private convenience init(subDirectory: String, isRetry: Bool, environmentProvider: EnvironmentProviding = Environments()) {
 		do {
+			let keychain = try KeychainHelper()
 			let directoryURL = try SecureStore.databaseDirectory(at: subDirectory)
 			let fileManager = FileManager.default
 			if fileManager.fileExists(atPath: directoryURL.path) {
@@ -456,7 +491,7 @@ extension SecureStore {
 					if isUITesting, ProcessInfo.processInfo.arguments.contains(UITestingParameters.SecureStoreHandling.simulateMismatchingKey.rawValue) {
 						// injecting a wrong key to simulate a mismatch, e.g. because of backup restoration or other reasons
 						key = "wrong 🔑"
-						try self.init(at: directoryURL, key: key, serverEnvironment: serverEnvironment)
+						try self.init(at: directoryURL, key: key)
 						return
 					}
 					#endif
@@ -465,15 +500,15 @@ extension SecureStore {
 				} else {
 					key = try keychain.generateDatabaseKey()
 				}
-				try self.init(at: directoryURL, key: key, serverEnvironment: serverEnvironment)
+				try self.init(at: directoryURL, key: key)
 			} else {
 				try fileManager.createDirectory(atPath: directoryURL.path, withIntermediateDirectories: true, attributes: nil)
 				let key = try keychain.generateDatabaseKey()
-				try self.init(at: directoryURL, key: key, serverEnvironment: serverEnvironment)
+				try self.init(at: directoryURL, key: key)
 			}
 		} catch is SQLiteStoreError where isRetry == false {
 			SecureStore.performHardDatabaseReset(at: subDirectory)
-			self.init(subDirectory: subDirectory, isRetry: true, serverEnvironment: serverEnvironment)
+			self.init(subDirectory: subDirectory, isRetry: true, environmentProvider: environmentProvider)
 		} catch {
 			fatalError("Creating the Database failed (\(error)")
 		}

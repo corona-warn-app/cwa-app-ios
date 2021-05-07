@@ -1,22 +1,19 @@
 #!/usr/bin/env zsh
+
 set -euo pipefail
 
-script_dir=${0:a:h}
-cd $script_dir/../src/xcode/ENA/ENA/Resources/ServerEnvironment
+SCRIPT_PATH=${0:A:h}
+ENV_PATH=`realpath "${SCRIPT_PATH}/../src/xcode/ENA/ENA/Resources/Environment/Environments.json"`
 
-serverEnvironments="{
-	\"ServerEnvironments\":[
-		{
-			\"name\": \"Default\",
-			\"distributionURL\": \"${SECRET_DIST_URL}\",
-			\"submissionURL\": \"${SECRET_SUBM_URL}\",
-			\"verificationURL\": \"${SECRET_VERIF_URL}\",
-			\"dataDonationURL\": \"${SECRET_DATAD_URL}\"
-		}
-	]
-}
-"
+# fetch CI configuration and overwrite local environments file
+curl \
+  --header "Authorization: token ${GITHUB_ACCESS_TOKEN}" \
+  --header "Accept: application/vnd.github.v3.raw" \
+  --silent \
+  --fail \
+  --location "${ENVIRONMENTS_WRU_FILE_URL}" > ${ENV_PATH}
 
-echo $serverEnvironments > ServerEnvironments.json
-
-cd -
+if [ ! -f ${ENV_PATH} ]; then
+  echo "No environment file present. Aborting."
+  exit 1
+fi

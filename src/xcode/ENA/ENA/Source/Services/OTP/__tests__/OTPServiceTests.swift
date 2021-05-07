@@ -5,11 +5,12 @@
 import XCTest
 @testable import ENA
 
+// swiftlint:disable:next type_body_length
 class OTPServiceTests: XCTestCase {
 
-	// MARK: - getValidOTP
+	// MARK: - getValidOTPEdus
 
-	func testGIVEN_OTPService_WHEN_NoOtpIsStored_THEN_SuccessAndOtpIsGeneratedAndReturned() {
+	func testGIVEN_OTPService_WHEN_NoOtpEdusIsStored_THEN_SuccessAndOtpEdusIsGeneratedAndReturned() {
 		// GIVEN
 		let store = MockTestStore()
 		let client = ClientMock()
@@ -21,7 +22,7 @@ class OTPServiceTests: XCTestCase {
 		var expectedOtp: String?
 
 		// WHEN
-		otpService.getOTP(ppacToken: ppacToken, completion: { result in
+		otpService.getOTPEdus(ppacToken: ppacToken, completion: { result in
 			switch result {
 			case .success(let otp):
 				expectedOtp = otp
@@ -35,11 +36,11 @@ class OTPServiceTests: XCTestCase {
 		waitForExpectations(timeout: .short)
 
 		XCTAssertNotNil(expectedOtp)
-		XCTAssertNotNil(store.otpToken)
-		XCTAssertEqual(expectedOtp, store.otpToken?.token)
+		XCTAssertNotNil(store.otpTokenEdus)
+		XCTAssertEqual(expectedOtp, store.otpTokenEdus?.token)
 	}
 
-	func testGIVEN_OTPService_WHEN_OldButValidOtpIsStored_THEN_SuccessAndStoredOtpIsReturned() throws {
+	func testGIVEN_OTPService_WHEN_ExistingButValidOtpEdusIsStored_THEN_SuccessAndStoredOtpEdusIsReturned() throws {
 		// GIVEN
 		let store = MockTestStore()
 		let client = ClientMock()
@@ -49,13 +50,13 @@ class OTPServiceTests: XCTestCase {
 
 		let expectation = self.expectation(description: "completion handler is called without an error")
 		let oldToken = OTPToken(token: "otpTokenFake", timestamp: Date(), expirationDate: Date())
-		store.otpToken = oldToken
+		store.otpTokenEdus = oldToken
 		var expectedOtp: String?
 
-		XCTAssertTrue(otpService.isOTPAvailable)
+		XCTAssertTrue(otpService.isOTPEdusAvailable)
 
 		// WHEN
-		otpService.getOTP(ppacToken: ppacToken, completion: { result in
+		otpService.getOTPEdus(ppacToken: ppacToken, completion: { result in
 			switch result {
 			case .success(let otp):
 				expectedOtp = otp
@@ -69,13 +70,13 @@ class OTPServiceTests: XCTestCase {
 		waitForExpectations(timeout: .short)
 
 		let responseOtp = try XCTUnwrap(expectedOtp)
-		XCTAssertNotNil(store.otpToken)
-		XCTAssertEqual(responseOtp, store.otpToken?.token)
+		XCTAssertNotNil(store.otpTokenEdus)
+		XCTAssertEqual(responseOtp, store.otpTokenEdus?.token)
 		XCTAssertEqual(responseOtp, oldToken.token)
-		XCTAssertEqual(oldToken.token, store.otpToken?.token)
+		XCTAssertEqual(oldToken.token, store.otpTokenEdus?.token)
 	}
 
-	func testGIVEN_OTPService_WHEN_OtpIsNotAvailable_AND_AuthorizedLastMonth_THEN_NewOTPIsReturned() throws {
+	func testGIVEN_OTPService_WHEN_OtpEdusIsNotAvailable_AND_AuthorizedLastMonth_THEN_NewOTPEdusIsReturned() throws {
 		let store = MockTestStore()
 		let client = ClientMock()
 		let riskProvider = MockRiskProvider()
@@ -86,10 +87,10 @@ class OTPServiceTests: XCTestCase {
 
 		let currentMonth = Calendar.current.component(.month, from: Date())
 		let lastMonthDate = Calendar.current.date(from: DateComponents(calendar: Calendar.current, month: currentMonth - 1))
-		store.otpAuthorizationDate = lastMonthDate
+		store.otpEdusAuthorizationDate = lastMonthDate
 
 		// WHEN
-		otpService.getOTP(ppacToken: ppacToken, completion: { result in
+		otpService.getOTPEdus(ppacToken: ppacToken, completion: { result in
 			switch result {
 			case .success:
 				expectation.fulfill()
@@ -99,10 +100,10 @@ class OTPServiceTests: XCTestCase {
 		})
 
 		waitForExpectations(timeout: .short)
-		XCTAssertNotNil(store.otpToken)
+		XCTAssertNotNil(store.otpTokenEdus)
 	}
 
-	func testGIVEN_OTPService_WHEN_OtpIsNotAvailable_AND_AuthorizedThisMonth_THEN_ErrorIsReturned() throws {
+	func testGIVEN_OTPService_WHEN_OtpEdusIsNotAvailable_AND_AuthorizedThisMonth_THEN_ErrorIsReturned() throws {
 		let store = MockTestStore()
 		let client = ClientMock()
 		let riskProvider = MockRiskProvider()
@@ -110,10 +111,10 @@ class OTPServiceTests: XCTestCase {
 		let ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
 
 		let expectation = self.expectation(description: "completion handler is called with an error")
-		store.otpAuthorizationDate = Date()
+		store.otpEdusAuthorizationDate = Date()
 
 		// WHEN
-		otpService.getOTP(ppacToken: ppacToken, completion: { result in
+		otpService.getOTPEdus(ppacToken: ppacToken, completion: { result in
 			switch result {
 			case .success:
 				XCTFail("getOTP should not succeed.")
@@ -124,12 +125,12 @@ class OTPServiceTests: XCTestCase {
 		})
 
 		waitForExpectations(timeout: .short)
-		XCTAssertNil(store.otpToken)
+		XCTAssertNil(store.otpTokenEdus)
 	}
 
-	// MARK: - discardOTP
+	// MARK: - discardOTPEdus
 
-	func testGIVEN_StoredOtp_WHEN_RiskChangesToLow_THEN_OtpIsDiscarded() {
+	func testGIVEN_StoredOtp_WHEN_RiskChangesToLow_THEN_OtpEdusIsDiscarded() {
 		// GIVEN
 		let store = MockTestStore()
 		let client = ClientMock()
@@ -137,7 +138,7 @@ class OTPServiceTests: XCTestCase {
 		let otpService = OTPService(store: store, client: client, riskProvider: riskProvider)
 
 		let otpToken = OTPToken(token: "otpTokenFake", timestamp: Date(), expirationDate: nil)
-		store.otpToken = otpToken
+		store.otpTokenEdus = otpToken
 
 		riskProvider.result = .success(Risk.mocked(level: .low))
 
@@ -151,11 +152,11 @@ class OTPServiceTests: XCTestCase {
 		riskProvider.requestRisk(userInitiated: true, timeoutInterval: 1.0)
 
 		waitForExpectations(timeout: 1.0)
-		XCTAssertNil(store.otpToken)
-		XCTAssertFalse(otpService.isOTPAvailable)
+		XCTAssertNil(store.otpTokenEdus)
+		XCTAssertFalse(otpService.isOTPEdusAvailable)
 	}
 
-	func testGIVEN_StoredOtp_WHEN_OtpIsDiscarded_THEN_OtpIsNil() {
+	func testGIVEN_StoredOtp_WHEN_OtpEdusIsDiscarded_THEN_OtpEdusIsNil() {
 		// GIVEN
 		let store = MockTestStore()
 		let client = ClientMock()
@@ -166,7 +167,7 @@ class OTPServiceTests: XCTestCase {
 		let expectation = self.expectation(description: "completion handler is called without an error")
 		var expectedOtp: String?
 
-		otpService.getOTP(ppacToken: ppacToken, completion: { result in
+		otpService.getOTPEdus(ppacToken: ppacToken, completion: { result in
 			switch result {
 			case .success(let otp):
 				expectedOtp = otp
@@ -178,34 +179,34 @@ class OTPServiceTests: XCTestCase {
 
 		waitForExpectations(timeout: .short)
 		XCTAssertNotNil(expectedOtp)
-		XCTAssertNotNil(store.otpToken)
-		XCTAssertEqual(expectedOtp, store.otpToken?.token)
+		XCTAssertNotNil(store.otpTokenEdus)
+		XCTAssertEqual(expectedOtp, store.otpTokenEdus?.token)
 
 		// WHEN
-		otpService.discardOTP()
+		otpService.discardOTPEdus()
 
 		// THEN
-		XCTAssertNil(store.otpToken)
+		XCTAssertNil(store.otpTokenEdus)
 	}
 
-	func testGIVEN_NoStoredOtp_WHEN_OtpIsDiscarded_THEN_OtpIsStillNil() {
+	func testGIVEN_NoStoredOtp_WHEN_OtpEdusIsDiscarded_THEN_OtpEdusIsStillNil() {
 		// GIVEN
 		let store = MockTestStore()
 		let client = ClientMock()
 		let riskProvider = MockRiskProvider()
 		let otpService = OTPService(store: store, client: client, riskProvider: riskProvider)
-		XCTAssertNil(store.otpToken)
+		XCTAssertNil(store.otpTokenEdus)
 
 		// WHEN
-		otpService.discardOTP()
+		otpService.discardOTPEdus()
 
 		// THEN
-		XCTAssertNil(store.otpToken)
+		XCTAssertNil(store.otpTokenEdus)
 	}
 
-	// MARK: - isOTPAvailable
+	// MARK: - isOTPEdusAvailable
 
-	func testGIVEN_StoredAndAuthorizedOTP_WHEN_isOTPAvailable_THEN_TrueIsReturned() {
+	func testGIVEN_StoredAndAuthorizedOTPEdus_WHEN_isOTPEdusAvailable_THEN_TrueIsReturned() {
 		// GIVEN
 		let store = MockTestStore()
 		let client = ClientMock()
@@ -217,7 +218,7 @@ class OTPServiceTests: XCTestCase {
 		var expectedOtp: String?
 
 
-		otpService.getOTP(ppacToken: ppacToken, completion: { result in
+		otpService.getOTPEdus(ppacToken: ppacToken, completion: { result in
 			switch result {
 			case .success(let otp):
 				expectedOtp = otp
@@ -229,14 +230,14 @@ class OTPServiceTests: XCTestCase {
 
 		waitForExpectations(timeout: .short)
 		XCTAssertNotNil(expectedOtp)
-		XCTAssertNotNil(store.otpToken)
-		XCTAssertEqual(expectedOtp, store.otpToken?.token)
+		XCTAssertNotNil(store.otpTokenEdus)
+		XCTAssertEqual(expectedOtp, store.otpTokenEdus?.token)
 
 		// WHEN, THEN
-		XCTAssertTrue(otpService.isOTPAvailable)
+		XCTAssertTrue(otpService.isOTPEdusAvailable)
 	}
 
-	func testGIVEN_StoredButNotAuthorizedOTP_WHEN_isStoredOTPAuthorized_THEN_FalseIsReturned() throws {
+	func testGIVEN_StoredButNotAuthorizedOTPEdus_WHEN_isStoredOTPEdusAuthorized_THEN_FalseIsReturned() throws {
 		// GIVEN
 		let store = MockTestStore()
 		let client = ClientMock()
@@ -244,9 +245,295 @@ class OTPServiceTests: XCTestCase {
 		let otpService = OTPService(store: store, client: client, riskProvider: riskProvider)
 		
 		// WHEN
-		let isAuthorized = otpService.isOTPAvailable
+		let isAuthorized = otpService.isOTPEdusAvailable
 
 		// THEN
 		XCTAssertFalse(isAuthorized)
+	}
+	
+	// MARK: - getValidOTPEdus
+	
+	func testGIVEN_OTPService_WHEN_NoOtpElsIsStored_THEN_SuccessAndOtpElsIsGeneratedAndReturned() {
+		// GIVEN
+		let store = MockTestStore()
+		let client = ClientMock()
+		let riskProvider = MockRiskProvider()
+		let otpService = OTPService(store: store, client: client, riskProvider: riskProvider)
+		let ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
+
+		let expectation = self.expectation(description: "completion handler is called without an error")
+		var expectedOtp: String?
+
+		// WHEN
+		otpService.getOTPEls(ppacToken: ppacToken, completion: { result in
+			switch result {
+			case .success(let otp):
+				expectedOtp = otp
+				expectation.fulfill()
+			case .failure:
+				XCTFail("Test should not fail")
+			}
+		})
+
+		// THEN
+		waitForExpectations(timeout: .short)
+
+		XCTAssertNotNil(expectedOtp)
+		XCTAssertNotNil(store.otpTokenEls)
+		XCTAssertEqual(expectedOtp, store.otpTokenEls?.token)
+	}
+	
+	func testGIVEN_OTPService_WHEN_ExistingOTPElsExpirationDateIsNil_THEN_SuccessAndNewOtpElsIsReturned() throws {
+		// GIVEN
+		let store = MockTestStore()
+		let client = ClientMock()
+		let riskProvider = MockRiskProvider()
+		let otpService = OTPService(store: store, client: client, riskProvider: riskProvider)
+		let ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
+
+		let expectation = self.expectation(description: "completion handler is called without an error")
+		let oldToken = OTPToken(token: "otpTokenFake", timestamp: Date(), expirationDate: nil)
+		store.otpTokenEls = oldToken
+		var expectedOtp: String?
+
+		// WHEN
+		otpService.getOTPEls(ppacToken: ppacToken, completion: { result in
+			switch result {
+			case .success(let otp):
+				expectedOtp = otp
+			case .failure:
+				XCTFail("Test should not fail")
+			}
+			expectation.fulfill()
+		})
+
+		// THEN
+		waitForExpectations(timeout: .short)
+
+		let responseOtp = try XCTUnwrap(expectedOtp)
+		XCTAssertEqual(responseOtp, store.otpTokenEls?.token)
+		XCTAssertNotEqual(responseOtp, oldToken.token)
+		XCTAssertNotEqual(oldToken.token, store.otpTokenEls?.token)
+	}
+
+	func testGIVEN_OTPService_WHEN_ExistingOTPElsNotExceededAndNotAuthorized_THEN_SuccessAndOldOtpElsIsReturned() throws {
+		// GIVEN
+		let store = MockTestStore()
+		let client = ClientMock()
+		let riskProvider = MockRiskProvider()
+		let otpService = OTPService(store: store, client: client, riskProvider: riskProvider)
+		let ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
+
+		let expectation = self.expectation(description: "completion handler is called without an error")
+		let dateInFuture = Calendar.current.date(byAdding: .day, value: 10, to: Date())
+		let oldToken = OTPToken(token: "otpTokenFake", timestamp: Date(), expirationDate: dateInFuture)
+		store.otpTokenEls = oldToken
+		var expectedOtp: String?
+
+		// WHEN
+		otpService.getOTPEls(ppacToken: ppacToken, completion: { result in
+			switch result {
+			case .success(let otp):
+				expectedOtp = otp
+			case .failure:
+				XCTFail("Test should not fail")
+			}
+			expectation.fulfill()
+		})
+
+		// THEN
+		waitForExpectations(timeout: .short)
+
+		let responseOtp = try XCTUnwrap(expectedOtp)
+		XCTAssertEqual(responseOtp, store.otpTokenEls?.token)
+		XCTAssertEqual(responseOtp, oldToken.token)
+		XCTAssertEqual(oldToken.token, store.otpTokenEls?.token)
+	}
+	
+	func testGIVEN_OTPService_WHEN_ExistingOTPElsExceededAndNotAuthorized_THEN_SuccessAndNewOtpElsIsReturned() throws {
+		// GIVEN
+		let store = MockTestStore()
+		let client = ClientMock()
+		let riskProvider = MockRiskProvider()
+		let otpService = OTPService(store: store, client: client, riskProvider: riskProvider)
+		let ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
+
+		let expectation = self.expectation(description: "completion handler is called without an error")
+		let dateInPast = Calendar.current.date(byAdding: .day, value: -10, to: Date())
+		let oldToken = OTPToken(token: "otpTokenFake", timestamp: Date(), expirationDate: dateInPast)
+		store.otpTokenEls = oldToken
+		var expectedOtp: String?
+
+		// WHEN
+		otpService.getOTPEls(ppacToken: ppacToken, completion: { result in
+			switch result {
+			case .success(let otp):
+				expectedOtp = otp
+			case .failure:
+				XCTFail("Test should not fail")
+			}
+			expectation.fulfill()
+		})
+
+		// THEN
+		waitForExpectations(timeout: .short)
+
+		let responseOtp = try XCTUnwrap(expectedOtp)
+		XCTAssertEqual(responseOtp, store.otpTokenEls?.token)
+		XCTAssertNotEqual(responseOtp, oldToken.token)
+		XCTAssertNotEqual(oldToken.token, store.otpTokenEls?.token)
+	}
+	
+	func testGIVEN_OTPService_WHEN_ExistingOTPElsNotExceededAndAuthorized_THEN_SuccessAndNewOtpElsIsReturned() throws {
+		// GIVEN
+		let store = MockTestStore()
+		let client = ClientMock()
+		let riskProvider = MockRiskProvider()
+		let otpService = OTPService(store: store, client: client, riskProvider: riskProvider)
+		let ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
+
+		let expectation = self.expectation(description: "completion handler is called without an error")
+		let dateInFuture = Calendar.current.date(byAdding: .day, value: 10, to: Date())
+		let oldToken = OTPToken(token: "otpTokenFake", timestamp: Date(), expirationDate: dateInFuture)
+		store.otpTokenEls = oldToken
+		store.otpElsAuthorizationDate = Date()
+		var expectedOtp: String?
+
+		// WHEN
+		otpService.getOTPEls(ppacToken: ppacToken, completion: { result in
+			switch result {
+			case .success(let otp):
+				expectedOtp = otp
+			case .failure:
+				XCTFail("Test should not fail")
+			}
+			expectation.fulfill()
+		})
+
+		// THEN
+		waitForExpectations(timeout: .short)
+
+		let responseOtp = try XCTUnwrap(expectedOtp)
+		XCTAssertEqual(responseOtp, store.otpTokenEls?.token)
+		XCTAssertNotEqual(responseOtp, oldToken.token)
+		XCTAssertNotEqual(oldToken.token, store.otpTokenEls?.token)
+	}
+	func testGIVEN_OTPService_WHEN_ExistingOTPElsExceededAndAuthorized_THEN_SuccessAndNewOtpElsIsReturned() throws {
+		// GIVEN
+		let store = MockTestStore()
+		let client = ClientMock()
+		let riskProvider = MockRiskProvider()
+		let otpService = OTPService(store: store, client: client, riskProvider: riskProvider)
+		let ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
+
+		let expectation = self.expectation(description: "completion handler is called without an error")
+		let dateInPast = Calendar.current.date(byAdding: .day, value: -10, to: Date())
+		let oldToken = OTPToken(token: "otpTokenFake", timestamp: Date(), expirationDate: dateInPast)
+		store.otpTokenEls = oldToken
+		store.otpElsAuthorizationDate = Date()
+		var expectedOtp: String?
+
+		// WHEN
+		otpService.getOTPEls(ppacToken: ppacToken, completion: { result in
+			switch result {
+			case .success(let otp):
+				expectedOtp = otp
+				expectation.fulfill()
+			case .failure:
+				XCTFail("Test should not fail")
+			}
+		})
+
+		// THEN
+		waitForExpectations(timeout: .short)
+
+		let responseOtp = try XCTUnwrap(expectedOtp)
+		XCTAssertNotNil(store.otpTokenEls)
+		XCTAssertEqual(responseOtp, store.otpTokenEls?.token)
+		XCTAssertNotEqual(responseOtp, oldToken.token)
+		XCTAssertNotEqual(oldToken.token, store.otpTokenEls?.token)
+	}
+
+	func testGIVEN_OTPService_WHEN_AuthorizedThisMonth_THEN_SameOTPElsIsReturned() throws {
+		let store = MockTestStore()
+		let client = ClientMock()
+		let riskProvider = MockRiskProvider()
+		let otpService = OTPService(store: store, client: client, riskProvider: riskProvider)
+		let ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
+
+		let expectation = self.expectation(description: "completion handler is called without an error")
+
+		let existingToken = OTPToken(token: "otpTokenFake", timestamp: Date(), expirationDate: nil)
+		store.otpTokenEls = existingToken
+		
+		let currentMonth = Calendar.current.component(.month, from: Date())
+		let currentMonthDate = Calendar.current.date(from: DateComponents(calendar: Calendar.current, month: currentMonth))
+		store.otpElsAuthorizationDate = currentMonthDate
+		
+		var expectedOtp: String?
+		
+		// WHEN
+		otpService.getOTPEls(ppacToken: ppacToken, completion: { result in
+			switch result {
+			case .success(let otp):
+				expectedOtp = otp
+				expectation.fulfill()
+			case .failure:
+				XCTFail("Test should not fail")
+			}
+		})
+
+		waitForExpectations(timeout: .short)
+		XCTAssertEqual(store.otpTokenEls?.token, expectedOtp)
+	}
+	
+	// MARK: - discardOTPEls
+	
+	func testGIVEN_StoredOtp_WHEN_OtpElsIsDiscarded_THEN_OtpElsIsNil() {
+		// GIVEN
+		let store = MockTestStore()
+		let client = ClientMock()
+		let riskProvider = MockRiskProvider()
+		let otpService = OTPService(store: store, client: client, riskProvider: riskProvider)
+		let ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
+
+		let expectation = self.expectation(description: "completion handler is called without an error")
+		var expectedOtp: String?
+
+		otpService.getOTPEls(ppacToken: ppacToken, completion: { result in
+			switch result {
+			case .success(let otp):
+				expectedOtp = otp
+				expectation.fulfill()
+			case .failure:
+				XCTFail("Test should not fail")
+			}
+		})
+
+		waitForExpectations(timeout: .short)
+		XCTAssertNotNil(expectedOtp)
+		XCTAssertNotNil(store.otpTokenEls)
+		XCTAssertEqual(expectedOtp, store.otpTokenEls?.token)
+
+		// WHEN
+		otpService.discardOTPEls()
+
+		// THEN
+		XCTAssertNil(store.otpTokenEls)
+	}
+
+	func testGIVEN_NoStoredOtp_WHEN_OtpElsIsDiscarded_THEN_OtpElsIsStillNil() {
+		// GIVEN
+		let store = MockTestStore()
+		let client = ClientMock()
+		let riskProvider = MockRiskProvider()
+		let otpService = OTPService(store: store, client: client, riskProvider: riskProvider)
+		XCTAssertNil(store.otpTokenEls)
+
+		// WHEN
+		otpService.discardOTPEls()
+
+		// THEN
+		XCTAssertNil(store.otpTokenEls)
 	}
 }

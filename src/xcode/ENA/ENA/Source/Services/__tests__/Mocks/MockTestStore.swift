@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import OpenCombine
 
 #if DEBUG
 
@@ -29,7 +30,7 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var allowTestsStatusNotification: Bool = true
 	var appInstallationDate: Date? = Date()
 	var userNeedsToBeInformedAboutHowRiskDetectionWorks = false
-	var selectedServerEnvironment: ServerEnvironmentData = ServerEnvironment().defaultEnvironment()
+	var selectedServerEnvironment: EnvironmentData = Environments().defaultEnvironment()
 	var wasRecentDayKeyDownloadSuccessful = false
 	var wasRecentHourKeyDownloadSuccessful = false
 	var lastKeyPackageDownloadDate: Date = .distantPast
@@ -64,9 +65,9 @@ final class MockTestStore: Store, PPAnalyticsData {
 	// MARK: - PrivacyPreservingProviding
 
 	var isPrivacyPreservingAnalyticsConsentGiven: Bool = false
-	var otpToken: OTPToken?
-	var otpAuthorizationDate: Date?
-	var ppacApiToken: TimestampedToken?
+	var otpTokenEdus: OTPToken?
+	var otpEdusAuthorizationDate: Date?
+	var ppacApiTokenEdus: TimestampedToken?
 	var userData: UserMetadata?
 
 	// MARK: - PPAnalyticsData
@@ -82,6 +83,16 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var keySubmissionMetadata: KeySubmissionMetadata?
 	var testResultMetadata: TestResultMetadata?
 	var exposureWindowsMetadata: ExposureWindowsMetadata?
+
+	// MARK: - ErrorLogProviding
+	
+	var ppacApiTokenEls: TimestampedToken?
+	var otpTokenEls: OTPToken?
+	var otpElsAuthorizationDate: Date?
+
+	// MARK: - ErrorLogHistory
+
+	var elsUploadHistory: [ErrorLogUploadReceipt] = []
 	
 	// MARK: - EventRegistrationCaching
 	
@@ -101,6 +112,18 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var pcrTest: PCRTest?
 	var antigenTest: AntigenTest?
 
+	// MARK: - AntigenTestProfileStoring
+	
+	lazy var antigenTestProfileSubject = {
+		CurrentValueSubject<AntigenTestProfile?, Never>(antigenTestProfile)
+	}()
+	var antigenTestProfile: AntigenTestProfile? {
+		didSet {
+			antigenTestProfileSubject.value = antigenTestProfile
+		}
+	}
+	var antigenTestProfileInfoScreenShown: Bool = false
+
 	// MARK: - CoronaTestStoringLegacy
 
 	var registrationToken: String?
@@ -115,7 +138,6 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var lastSuccessfulSubmitDiagnosisKeyTimestamp: Int64?
 	var positiveTestResultWasShown: Bool = false
 	var isSubmissionConsentGiven = false
-
 }
 
 #endif

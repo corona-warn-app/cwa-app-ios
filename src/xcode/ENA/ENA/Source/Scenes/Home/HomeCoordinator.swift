@@ -5,81 +5,19 @@
 import UIKit
 
 class HomeCoordinator: RequiresAppDependencies {
-	private weak var delegate: CoordinatorDelegate?
-	private let otpService: OTPServiceProviding
-	private let eventStore: EventStoringProviding
-	private let coronaTestService: CoronaTestService
 
-	let rootViewController: UINavigationController = AppNavigationController(rootViewController: UIViewController())
-
-	private var homeController: HomeTableViewController?
-	private var homeState: HomeState?
-
-	private var settingsController: SettingsViewController?
-
-	private var traceLocationsCoordinator: TraceLocationsCoordinator?
-	private var settingsCoordinator: SettingsCoordinator?
-
-	private var exposureDetectionCoordinator: ExposureDetectionCoordinator?
-	
-	private lazy var exposureSubmissionService: ExposureSubmissionService = {
-		#if DEBUG
-		if isUITesting {
-			return ENAExposureSubmissionService(
-				diagnosisKeysRetrieval: exposureManager,
-				appConfigurationProvider: CachedAppConfigurationMock(with: CachedAppConfigurationMock.screenshotConfiguration),
-				client: ClientMock(),
-				store: MockTestStore(),
-				eventStore: eventStore,
-				coronaTestService: coronaTestService
-			)
-		}
-		#endif
-
-		return ENAExposureSubmissionService(
-			diagnosisKeysRetrieval: exposureManager,
-			appConfigurationProvider: appConfigurationProvider,
-			client: client,
-			store: store,
-			eventStore: eventStore,
-			coronaTestService: coronaTestService
-		)
-	}()
-
-	private lazy var statisticsProvider: StatisticsProvider = {
-		#if DEBUG
-		let useMockDataForStatistics = UserDefaults.standard.string(forKey: "useMockDataForStatistics")
-		if isUITesting, useMockDataForStatistics != "NO" {
-			return StatisticsProvider(
-				client: CachingHTTPClientMock(store: store),
-				store: store
-			)
-		}
-		#endif
-
-		return StatisticsProvider(
-			client: CachingHTTPClient(serverEnvironmentProvider: store),
-			store: store
-		)
-	}()
-	
-	private lazy var qrCodePosterTemplateProvider: QRCodePosterTemplateProvider = {
-		return QRCodePosterTemplateProvider(
-			client: CachingHTTPClient(serverEnvironmentProvider: store),
-			store: store
-		)
-	}()
-	
-	private var enStateUpdateList = NSHashTable<AnyObject>.weakObjects()
+	// MARK: - Init
 
 	init(
 		_ delegate: CoordinatorDelegate,
 		otpService: OTPServiceProviding,
+		ppacService: PrivacyPreservingAccessControl,
 		eventStore: EventStoringProviding,
 		coronaTestService: CoronaTestService
 	) {
 		self.delegate = delegate
 		self.otpService = otpService
+		self.ppacService = ppacService
 		self.eventStore = eventStore
 		self.coronaTestService = coronaTestService
 	}
@@ -88,20 +26,15 @@ class HomeCoordinator: RequiresAppDependencies {
 		enStateUpdateList.removeAllObjects()
 	}
 
+	// MARK: - Overrides
 
-	private func selectHomeTabSection(route: Route?) {
-		DispatchQueue.main.async { [weak self] in
-			guard let rootViewController = self?.rootViewController,
-				let index = self?.homeController?.tabBarController?.viewControllers?.firstIndex(of: rootViewController) else {
-				Log.debug("Failed to find tabBarController and select correct tab")
-				return
-			}
-			self?.homeController?.tabBarController?.dismiss(animated: false)
-			self?.homeController?.tabBarController?.selectedIndex = index
-			self?.homeController?.route = route
-			self?.homeController?.showDeltaOnboardingAndAlertsIfNeeded()
-		}
-	}
+	// MARK: - Protocol <#Name#>
+
+	// MARK: - Public
+
+	// MARK: - Internal
+
+	let rootViewController: UINavigationController = AppNavigationController(rootViewController: UIViewController())
 
 	func showHome(enStateHandler: ENStateHandler, route: Route?) {
 		guard homeController == nil else {
@@ -184,7 +117,7 @@ class HomeCoordinator: RequiresAppDependencies {
 			#endif
 		})
 	}
-	
+
 	func showTestResultFromNotification(with testType: CoronaTestType) {
 		if let presentedViewController = rootViewController.presentedViewController {
 			presentedViewController.dismiss(animated: true) {
@@ -194,7 +127,7 @@ class HomeCoordinator: RequiresAppDependencies {
 			self.showExposureSubmission(testType: testType)
 		}
 	}
-	
+
 	func updateDetectionMode(
 		_ detectionMode: DetectionMode
 	) {
@@ -203,26 +136,82 @@ class HomeCoordinator: RequiresAppDependencies {
 
 	// MARK: - Private
 
-	#if !RELEASE
-	private var developerMenu: DMDeveloperMenu?
-	private func enableDeveloperMenuIfAllowed(in controller: UIViewController) {
-		developerMenu = DMDeveloperMenu(
-			presentingViewController: controller,
+	private let ppacService: PrivacyPreservingAccessControl
+	private let otpService: OTPServiceProviding
+	private let eventStore: EventStoringProviding
+	private let coronaTestService: CoronaTestService
+
+	private var homeController: HomeTableViewController?
+	private var homeState: HomeState?
+	private var settingsController: SettingsViewController?
+	private var traceLocationsCoordinator: TraceLocationsCoordinator?
+	private var settingsCoordinator: SettingsCoordinator?
+	private var exposureDetectionCoordinator: ExposureDetectionCoordinator?
+	private var enStateUpdateList = NSHashTable<AnyObject>.weakObjects()
+
+	private weak var delegate: CoordinatorDelegate?
+
+	private lazy var exposureSubmissionService: ExposureSubmissionService = {
+		#if DEBUG
+		if isUITesting {
+			return ENAExposureSubmissionService(
+				diagnosisKeysRetrieval: exposureManager,
+				appConfigurationProvider: CachedAppConfigurationMock(with: CachedAppConfigurationMock.screenshotConfiguration),
+				client: ClientMock(),
+				store: MockTestStore(),
+				eventStore: eventStore,
+				coronaTestService: coronaTestService
+			)
+		}
+		#endif
+
+		return ENAExposureSubmissionService(
+			diagnosisKeysRetrieval: exposureManager,
+			appConfigurationProvider: appConfigurationProvider,
 			client: client,
-			wifiClient: wifiClient,
 			store: store,
-			exposureManager: exposureManager,
-			developerStore: UserDefaults.standard,
-			exposureSubmissionService: exposureSubmissionService,
-			serverEnvironment: serverEnvironment,
-			otpService: otpService,
-			coronaTestService: coronaTestService,
 			eventStore: eventStore,
-			qrCodePosterTemplateProvider: qrCodePosterTemplateProvider
+			coronaTestService: coronaTestService
 		)
-		developerMenu?.enableIfAllowed()
+	}()
+
+	private lazy var statisticsProvider: StatisticsProvider = {
+			#if DEBUG
+			let useMockDataForStatistics = UserDefaults.standard.string(forKey: "useMockDataForStatistics")
+			if isUITesting, useMockDataForStatistics != "NO" {
+				return StatisticsProvider(
+					client: CachingHTTPClientMock(),
+					store: store
+				)
+			}
+			#endif
+
+			return StatisticsProvider(
+				client: CachingHTTPClient(),
+				store: store
+			)
+		}()
+		
+		private lazy var qrCodePosterTemplateProvider: QRCodePosterTemplateProvider = {
+			return QRCodePosterTemplateProvider(
+				client: CachingHTTPClient(),
+				store: store
+			)
+		}()
+
+	private func selectHomeTabSection(route: Route?) {
+		DispatchQueue.main.async { [weak self] in
+			guard let rootViewController = self?.rootViewController,
+				let index = self?.homeController?.tabBarController?.viewControllers?.firstIndex(of: rootViewController) else {
+				Log.debug("Failed to find tabBarController and select correct tab")
+				return
+			}
+			self?.homeController?.tabBarController?.dismiss(animated: false)
+			self?.homeController?.tabBarController?.selectedIndex = index
+			self?.homeController?.route = route
+			self?.homeController?.showDeltaOnboardingAndAlertsIfNeeded()
+		}
 	}
-	#endif
 
 	private func setExposureManagerEnabled(_ enabled: Bool, then completion: @escaping (ExposureNotificationError?) -> Void) {
 		if enabled {
@@ -269,7 +258,8 @@ class HomeCoordinator: RequiresAppDependencies {
 			homeState: homeState,
 			exposureManager: exposureManager,
 			appConfigurationProvider: appConfigurationProvider,
-			otpService: otpService
+			otpService: otpService,
+			ppacService: ppacService
 		)
 		exposureDetectionCoordinator?.start()
 	}
@@ -282,7 +272,8 @@ class HomeCoordinator: RequiresAppDependencies {
 			parentNavigationController: rootViewController,
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: coronaTestService,
-			eventProvider: eventStore
+			eventProvider: eventStore,
+			antigenTestProfileStore: store
 		)
 
 		if let testInformationResult = testInformationResult {
@@ -330,7 +321,10 @@ class HomeCoordinator: RequiresAppDependencies {
 
 	private func showAppInformation() {
 		rootViewController.pushViewController(
-			AppInformationViewController(),
+			AppInformationViewController(
+				ppacService: ppacService,
+				otpService: otpService
+			),
 			animated: true
 		)
 	}
@@ -363,6 +357,27 @@ class HomeCoordinator: RequiresAppDependencies {
 		}
 	}
 
+	#if !RELEASE
+	private var developerMenu: DMDeveloperMenu?
+	private func enableDeveloperMenuIfAllowed(in controller: UIViewController) {
+		developerMenu = DMDeveloperMenu(
+			presentingViewController: controller,
+			client: client,
+			wifiClient: wifiClient,
+			store: store,
+			exposureManager: exposureManager,
+			developerStore: UserDefaults.standard,
+			exposureSubmissionService: exposureSubmissionService,
+			environmentProvider: Environments(),
+			otpService: otpService,
+			coronaTestService: coronaTestService,
+			eventStore: eventStore,
+			qrCodePosterTemplateProvider: qrCodePosterTemplateProvider,
+			ppacService: ppacService
+		)
+		developerMenu?.enableIfAllowed()
+	}
+	#endif
 }
 
 extension HomeCoordinator: ExposureStateUpdating {

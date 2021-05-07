@@ -84,9 +84,10 @@ final class TestResultAvailableViewModel {
 			.section(
 				separators: .all,
 				cells: [
-					.icon(UIImage(named: "Icons_Grey_Warnen"),
-						  text: .string(consentStateString),
-						  action: .execute { [weak self] _, cell in
+					.icon(
+						UIImage(named: "Icons_Grey_Warnen"),
+						text: .string(consentStateString),
+						action: .execute { [weak self] _, cell in
 							guard let self = self else { return }
 
 							self.onSubmissionConsentCellTap { [weak self] isLoading in
@@ -96,10 +97,10 @@ final class TestResultAvailableViewModel {
 								cell?.accessoryView = isLoading ? activityIndicatorView : nil
 								cell?.isUserInteractionEnabled = !isLoading
 							}
-						  },
-						  configure: { _, cell, _ in
+						},
+						configure: { _, cell, _ in
 							cell.accessoryType = .disclosureIndicator
-						  }
+						}
 					)
 				]
 			),

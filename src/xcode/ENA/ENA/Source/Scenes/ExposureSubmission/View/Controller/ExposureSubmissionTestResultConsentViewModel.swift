@@ -75,42 +75,43 @@ class ExposureSubmissionTestResultConsentViewModel {
 						.custom(
 							withIdentifier: ExposureSubmissionTestResultConsentViewController.CustomCellReuseIdentifiers.consentCell,
 							action: .none,
-							accessoryAction: .none) {[weak self] _, cell, _ in
-								guard let self = self else {
-									return
+							accessoryAction: .none
+						) { [weak self] _, cell, _ in
+							guard let self = self else {
+								return
+							}
+							if let consentCell = cell as? DynamicTableViewConsentCell {
+								// We use this model in two places but require one super important sentence just once. This HACK figures out which 'mode' we use.
+								// For reference
+								// text needed here: https://www.figma.com/file/BpLyzxHZVa6a8BbSdcL76V/CWA_Submission_Flow_v02?node-id=388%3A3251
+								// but not here: https://www.figma.com/file/BpLyzxHZVa6a8BbSdcL76V/CWA_Submission_Flow_v02?node-id=388%3A3183
+								var part4: String = AppStrings.AutomaticSharingConsent.consentDescriptionPart4
+								if self.testResultAvailability == .availableAndPositive {
+									part4.append(" \(AppStrings.AutomaticSharingConsent.consentDescriptionPart5)")
 								}
-								if let consentCell = cell as? DynamicTableViewConsentCell {
-									// We use this model in two places but require one super important sentence just once. This HACK figures out which 'mode' we use.
-									// For reference
-									// text needed here: https://www.figma.com/file/BpLyzxHZVa6a8BbSdcL76V/CWA_Submission_Flow_v02?node-id=388%3A3251
-									// but not here: https://www.figma.com/file/BpLyzxHZVa6a8BbSdcL76V/CWA_Submission_Flow_v02?node-id=388%3A3183
-									var part4: String = AppStrings.AutomaticSharingConsent.consentDescriptionPart4
-									if self.testResultAvailability == .availableAndPositive {
-										part4.append(" \(AppStrings.AutomaticSharingConsent.consentDescriptionPart5)")
-									}
 
-									switch self.coronaTestType {
-									case .pcr:
-										consentCell.configure(
-											subTitleLabel: NSMutableAttributedString(string: AppStrings.AutomaticSharingConsent.consentSubTitle),
-											descriptionPart1Label: NSMutableAttributedString(string: AppStrings.AutomaticSharingConsent.consentDescriptionPCRPart1),
-											descriptionPart2Label: NSMutableAttributedString(string: AppStrings.AutomaticSharingConsent.consentDescriptionPCRPart2),
-											countries: self.supportedCountries,
-											descriptionPart3Label: NSMutableAttributedString(string: AppStrings.AutomaticSharingConsent.consentDescriptionPCRPart3),
-											descriptionPart4Label: NSMutableAttributedString(string: part4)
-										)
-									case .antigen:
-										consentCell.configure(
-											subTitleLabel: NSMutableAttributedString(string: AppStrings.AutomaticSharingConsent.consentSubTitle),
-											descriptionPart1Label: NSMutableAttributedString(string: AppStrings.AutomaticSharingConsent.consentDescriptionRATPart1),
-											descriptionPart2Label: NSMutableAttributedString(string: AppStrings.AutomaticSharingConsent.consentDescriptionRATPart2),
-											countries: self.supportedCountries,
-											descriptionPart3Label: NSMutableAttributedString(string: AppStrings.AutomaticSharingConsent.consentDescriptionRATPart3),
-											descriptionPart4Label: NSMutableAttributedString(string: part4)
-										)
-									}
+								switch self.coronaTestType {
+								case .pcr:
+									consentCell.configure(
+										subTitleLabel: NSMutableAttributedString(string: AppStrings.AutomaticSharingConsent.consentSubTitle),
+										descriptionPart1Label: NSMutableAttributedString(string: AppStrings.AutomaticSharingConsent.consentDescriptionPCRPart1),
+										descriptionPart2Label: NSMutableAttributedString(string: AppStrings.AutomaticSharingConsent.consentDescriptionPCRPart2),
+										countries: self.supportedCountries,
+										descriptionPart3Label: NSMutableAttributedString(string: AppStrings.AutomaticSharingConsent.consentDescriptionPCRPart3),
+										descriptionPart4Label: NSMutableAttributedString(string: part4)
+									)
+								case .antigen:
+									consentCell.configure(
+										subTitleLabel: NSMutableAttributedString(string: AppStrings.AutomaticSharingConsent.consentSubTitle),
+										descriptionPart1Label: NSMutableAttributedString(string: AppStrings.AutomaticSharingConsent.consentDescriptionRATPart1),
+										descriptionPart2Label: NSMutableAttributedString(string: AppStrings.AutomaticSharingConsent.consentDescriptionRATPart2),
+										countries: self.supportedCountries,
+										descriptionPart3Label: NSMutableAttributedString(string: AppStrings.AutomaticSharingConsent.consentDescriptionRATPart3),
+										descriptionPart4Label: NSMutableAttributedString(string: part4)
+									)
 								}
-							},
+							}
+						},
 						.space(height: 20)
 					]
 				)
@@ -139,7 +140,7 @@ class ExposureSubmissionTestResultConsentViewModel {
 			)
 			$0.add(
 				.section(
-					cells:[
+					cells: [
 						.space(height: 50)
 					]
 

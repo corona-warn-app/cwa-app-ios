@@ -58,6 +58,64 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 				}
 			}
 			.store(in: &subscriptions)
+
+		NotificationCenter.default.ocombine.publisher(for: UIApplication.keyboardWillShowNotification)
+			.append(NotificationCenter.default.ocombine.publisher(for: UIApplication.keyboardWillChangeFrameNotification))
+			.sink { [weak self] notification in
+
+				guard let self = self,
+					  let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
+					  let animationDuration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double,
+					  let animationCurve = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? Int else {
+					return
+				}
+
+				let baseInset = self.view.safeAreaInsets.bottom - self.additionalSafeAreaInsets.bottom
+				let localOrigin = self.view.convert(keyboardFrame, from: nil)
+				var keyboardInset = self.view.bounds.height - localOrigin.minY
+				if keyboardInset > baseInset {
+					keyboardInset -= baseInset
+				}
+
+				// this is such a beautiful piece of code by me - Bastian Kohlbauer - that fixes an iOS bug
+				// where the tableview will not automatically scroll to the position of the first responder
+				// if it is a UIDatePicker. please acknowledge and admire!
+				var targetRect: CGRect?
+				if let currentResponder = self.view.firstResponder as? UIView {
+					let rect = currentResponder.convert(currentResponder.frame, to: self.view)
+					if keyboardFrame.intersects(rect) {
+						targetRect = currentResponder.convert(currentResponder.frame, to: self.tableView)
+					}
+				}
+								
+				let options = UIView.AnimationOptions(rawValue: ((UInt(animationCurve << 16))))
+				UIView.animate(withDuration: animationDuration, delay: 0, options: options, animations: { [weak self] in
+					self?.tableView.scrollIndicatorInsets.bottom = keyboardInset
+					self?.tableView.contentInset.bottom = keyboardInset
+					if let targetRect = targetRect {
+						self?.tableView.scrollRectToVisible(targetRect, animated: false)
+					}
+					
+				}, completion: nil)
+			}
+			.store(in: &subscriptions)
+
+		NotificationCenter.default.ocombine.publisher(for: UIApplication.keyboardWillHideNotification)
+			.sink { [weak self] notification in
+				
+				guard let self = self,
+					  let animationDuration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double,
+					  let animationCurve = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? Int else {
+					return
+				}
+				
+				let options = UIView.AnimationOptions(rawValue: ((UInt(animationCurve << 16))))
+				UIView.animate(withDuration: animationDuration, delay: 0, options: options, animations: { [weak self] in
+					self?.tableView.scrollIndicatorInsets.bottom = 0
+					self?.tableView.contentInset.bottom = 0
+				}, completion: nil)
+			}
+			.store(in: &subscriptions)
 	}
 
 	// MARK: - Protocol UITableViewDataSource

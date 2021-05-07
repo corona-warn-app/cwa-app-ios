@@ -71,17 +71,20 @@ struct ExposureSubmissionWarnOthersViewModel {
 		// Ihr Einverständnis
 		model.add(
 			.section(cells: [
-				.legal(title: NSAttributedString(string: AppStrings.ExposureSubmissionWarnOthers.acknowledgementTitle),
-					   description: NSAttributedString(string: AppStrings.ExposureSubmissionWarnOthers.acknowledgementBody),
-					   textBlocks: [
+				.legal(
+					title: NSAttributedString(string: AppStrings.ExposureSubmissionWarnOthers.acknowledgementTitle),
+					description: NSAttributedString(string: AppStrings.ExposureSubmissionWarnOthers.acknowledgementBody),
+					textBlocks: [
 						acknowledgementString,
 						NSAttributedString(string: AppStrings.ExposureSubmissionWarnOthers.acknowledgement_footer)
-					   ],
-					   accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnOthers.acknowledgementTitle),
+					],
+					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnOthers.acknowledgementTitle
+				),
 				.bulletPoint(text: AppStrings.ExposureSubmissionWarnOthers.consent_bullet1, alignment: .legal),
 				.bulletPoint(text: AppStrings.ExposureSubmissionWarnOthers.consent_bullet2, alignment: .legal),
 				.bulletPoint(text: AppStrings.ExposureSubmissionWarnOthers.consent_bullet3, alignment: .legal),
 				.bulletPoint(text: AppStrings.ExposureSubmissionWarnOthers.consent_bullet4, alignment: .legal),
+				.bulletPoint(text: AppStrings.ExposureSubmissionWarnOthers.consent_bullet5, alignment: .legal),
 				.space(height: 16)
 			])
 		)

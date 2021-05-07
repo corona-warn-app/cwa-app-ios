@@ -58,7 +58,11 @@ extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 
 	func open() { // might throw errors in future versions!
 		queue.sync {
-			self.database.open()
+			
+			guard self.database.open() else {
+				Log.error("Error at opening the database", log: .localData, error: self.database.lastError())
+				fatalError("Developer error. Probably no database file accessible.")
+			}
 
 			if self.database.tableExists("Z_DOWNLOADED_PACKAGE") {
 				// tbd: what to do on errors?
@@ -546,14 +550,15 @@ private extension FMResultSet {
 extension DownloadedPackagesSQLLiteStoreV2 {
 	convenience init(fileName: String) {
 
-		let fileManager = FileManager()
-		guard let documentDir = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first else {
+		let fileManager = FileManager.default
+		guard let documentDir = try? fileManager.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true) else {
 			fatalError("unable to determine document dir")
 		}
 		let storeURL = documentDir
 				.appendingPathComponent(fileName)
 				.appendingPathExtension("sqlite3")
 
+		Self.migrate(fileName: fileName, to: storeURL)
 		let db = FMDatabase(url: storeURL)
 
 		let latestDBVersion = 2
@@ -561,5 +566,24 @@ extension DownloadedPackagesSQLLiteStoreV2 {
 		let migrator = SerialMigrator(latestVersion: latestDBVersion, database: db, migrations: migrations)
 		self.init(database: db, migrator: migrator, latestVersion: latestDBVersion)
 		self.open()
+	}
+
+	// Quick and dirty
+	private static func migrate(fileName: String, to newURL: URL) {
+		let fileManager = FileManager.default
+		guard let documentDir = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first else {
+			fatalError("unable to determine document dir")
+		}
+		let oldStoreURL = documentDir
+				.appendingPathComponent(fileName)
+				.appendingPathExtension("sqlite3")
+
+		if fileManager.fileExists(atPath: oldStoreURL.path) {
+			do {
+				try fileManager.moveItem(atPath: oldStoreURL.path, toPath: newURL.path)
+			} catch {
+				Log.error("Cannot move file to new location. Error: \(error)", log: .localData, error: error)
+			}
+		}
 	}
 }
