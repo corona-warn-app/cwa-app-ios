@@ -230,7 +230,7 @@ enum AccessibilityIdentifiers {
 	}
 	
 	enum ExposureSubmissionQRScanner {
-		static let flash = "AppStrings.ExposureSubmissionQRScanner.flash"
+		static let flash = "ExposureSubmissionQRScanner_flash"
 	}
 	
 	enum ExposureSubmissionQRInfo {
