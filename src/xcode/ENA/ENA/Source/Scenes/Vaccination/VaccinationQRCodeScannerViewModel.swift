@@ -37,22 +37,19 @@ class VaccinationQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObject
 
 		deactivateScanning()
 		guard let code = metadataObjects.first(where: { $0 is MetadataMachineReadableCodeObject }) as? MetadataMachineReadableCodeObject,
-			  let fullUrlString = code.stringValue
+			  let scannedQRCodeString = code.stringValue
 		else {
 			Log.error("Vaccination QRCode verification Failed, invalid metadataObject", log: .vaccination)
 			onError?(QRScannerError.codeNotFound)
 			return
 		}
-		let componentsArray = fullUrlString.split(separator: ":", maxSplits: 1, omittingEmptySubsequences: false)
-		guard fullUrlString.count > 4,
-			componentsArray.first == "HC1",
-			let base45String = componentsArray.last else {
+		let prefix = "HC1:"
+		guard scannedQRCodeString.hasPrefix(prefix) else {
 			Log.error("Vaccination QRCode verification Failed, invalid Prefix", log: .vaccination)
 			onError?(QRScannerError.codeNotFound)
 			return
 		}
-
-		self.onSuccess(String(base45String))
+		self.onSuccess(String(scannedQRCodeString.dropFirst(prefix.count)))
 	}
 	// MARK: - Internal
 
