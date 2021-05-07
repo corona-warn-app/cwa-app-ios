@@ -14,12 +14,10 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 
 	init(
 		at directoryURL: URL,
-		key: String,
-		environmentProvider: EnvironmentProviding = Environments()
+		key: String
 	) throws {
 		self.directoryURL = directoryURL
 		self.kvStore = try SQLiteKeyValueStore(with: directoryURL, key: key)
-		self.environmentProvider = environmentProvider
 	}
 
 	// MARK: - Protocol Store
@@ -214,7 +212,7 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 		set { kvStore["journalWithExposureHistoryInfoScreenShown"] = newValue }
 	}
 
-	// MARK: - Protocol AntigenTestProfileStoring
+    // MARK: - Protocol AntigenTestProfileStoring
 
 	lazy var antigenTestProfileSubject = {
 		CurrentValueSubject<AntigenTestProfile?, Never>(antigenTestProfile)
@@ -231,6 +229,30 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 	var antigenTestProfileInfoScreenShown: Bool {
 		get { kvStore["antigenTestProfileInfoScreenShown"] as Bool? ?? false }
 		set { kvStore["antigenTestProfileInfoScreenShown"] = newValue }
+	}
+
+    // MARK: - Protocol HealthCertificateStoring
+
+    var healthCertifiedPersons: [HealthCertifiedPerson] {
+        get { kvStore["healthCertifiedPersons"] as [HealthCertifiedPerson]? ?? [] }
+        set { kvStore["healthCertifiedPersons"] = newValue }
+    }
+
+    var lastProofCertificateUpdate: Date? {
+        get { kvStore["lastProofCertificateUpdate"] as Date? }
+        set { kvStore["lastProofCertificateUpdate"] = newValue }
+    }
+
+    var proofCertificateUpdatePending: Bool {
+        get { kvStore["proofCertificateUpdatePending"] as Bool? ?? false }
+        set { kvStore["proofCertificateUpdatePending"] = newValue }
+    }
+	
+	// MARK: - Protocol VaccinationCaching
+
+	var vaccinationCertificateValueDataSets: VaccinationValueDataSets? {
+		get { kvStore["vaccinationCertificateValueDataSets"] as VaccinationValueDataSets? ?? nil }
+		set { kvStore["vaccinationCertificateValueDataSets"] = newValue }
 	}
 	
 	#if !RELEASE
@@ -272,9 +294,7 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 	let kvStore: SQLiteKeyValueStore
 
 	// MARK: - Private
-
 	private let directoryURL: URL
-	private let environmentProvider: EnvironmentProviding
 
 }
 
@@ -494,7 +514,7 @@ extension SecureStore {
 					if isUITesting, ProcessInfo.processInfo.arguments.contains(UITestingParameters.SecureStoreHandling.simulateMismatchingKey.rawValue) {
 						// injecting a wrong key to simulate a mismatch, e.g. because of backup restoration or other reasons
 						key = "wrong 🔑"
-						try self.init(at: directoryURL, key: key, environmentProvider: environmentProvider)
+						try self.init(at: directoryURL, key: key)
 						return
 					}
 					#endif
@@ -503,11 +523,11 @@ extension SecureStore {
 				} else {
 					key = try keychain.generateDatabaseKey()
 				}
-				try self.init(at: directoryURL, key: key, environmentProvider: environmentProvider)
+				try self.init(at: directoryURL, key: key)
 			} else {
 				try fileManager.createDirectory(atPath: directoryURL.path, withIntermediateDirectories: true, attributes: nil)
 				let key = try keychain.generateDatabaseKey()
-				try self.init(at: directoryURL, key: key, environmentProvider: environmentProvider)
+				try self.init(at: directoryURL, key: key)
 			}
 		} catch is SQLiteStoreError where isRetry == false {
 			SecureStore.performHardDatabaseReset(at: subDirectory)

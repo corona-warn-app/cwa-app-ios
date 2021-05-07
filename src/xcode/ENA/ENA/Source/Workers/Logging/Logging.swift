@@ -39,7 +39,6 @@ extension OSLog {
 	static let qrCode = OSLog(subsystem: subsystem, category: "qrCode")
 	/// Vaccination
 	static let vaccination = OSLog(subsystem: subsystem, category: "vaccination")
-
 }
 
 /// Logging

@@ -8,7 +8,7 @@ import XCTest
 class ExposureSubmissionHotlineViewControllerTest: XCTestCase {
 
 	func testSetupView() {
-		let vc = ExposureSubmissionHotlineViewController(onSecondaryButtonTap: {}, dismiss: {})
+		let vc = ExposureSubmissionHotlineViewController(onPrimaryButtonTap: {}, dismiss: {})
 
 		_ = vc.view
 		XCTAssertNotNil(vc.tableView)

@@ -710,7 +710,7 @@
 
 "ExposureSubmissionResult_testExpiredDesc" = "Podczas ustalania wyniku testu pojawił się błąd. Twój kod QR wygasł.";
 
-"ExposureSubmissionResult_testPending" = "Twój wynik testu nie jest jeszcze dostępny.";
+"ExposureSubmissionResult_testPending" = "Wynik Twojego testu nie jest jeszcze dostępny.";
 
 "ExposureSubmissionResult_testPendingDesc" = "Wynik testu zostanie wyświetlony w aplikacji, jak tylko będzie dostępny.\n\nWynik testu otrzymasz również poza aplikacją. Organ ds. zdrowia publicznego powiadomi Cię, jeśli wynik testu będzie pozytywny.\n\nJeśli otrzymasz powiadomienie o pozytywnym wyniku testu poza aplikacją, usuń test aktualnie zarejestrowany w aplikacji. Zadzwoń na numer podany w sekcji „Poproś o TAN”, aby otrzymać numer TAN. Będziesz mieć wówczas możliwość zarejestrowania swojego wyniku w aplikacji za pomocą tego numeru, aby ostrzegać innych.";
 
@@ -818,7 +818,9 @@
 
 "ExposureSubmissionWarnOthers_consent_bullet3" = "Twoja tożsamość nie zostanie ujawniona. Inni użytkownicy nie dowiedzą się, kto udostępnił swoje wyniki testów.";
 
-"ExposureSubmissionWarnOthers_consent_bullet4" = "Aby wyrazić zgodę, musisz mieć ukończone 16 lat.";
+"ExposureSubmissionWarnOthers_consent_bullet4" = "W sekcji „Moje zameldowania” znajdują się wydarzenia i miejsca, których zameldowani goście zostaną ostrzeżeni. Możesz usunąć pojedyncze zameldowania z listy, aby wykluczyć je z procesu ostrzegania.";
+
+"ExposureSubmissionWarnOthers_consent_bullet5" = "Aby wyrazić zgodę, musisz mieć ukończone 16 lat.";
 
 "ExposureSubmissionWarnOthers_continueButton" = "Akceptuj";
 
@@ -845,9 +847,9 @@
 
 "ExposureSubmissionResult_Timer_Title" = "Wynik dostępny od";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Title" = "Funkcja weryfikacji";
+"ExposureSubmissionResult_Negative_Antigen_Proof_Title" = " ";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Wyświetlony tutaj wynik testu może również służyć jako dowód negatywnego wyniku szybkiego testu. \n\nPamiętaj, że wynik szybkiego testu musisz przedstawić tylko wtedy, gdy jest to wymagane przez prawo. Możesz przedstawić wynik za pomocą aplikacji lub w inny sposób. Aby uzyskać więcej informacji, zapoznaj się z kryteriami akceptacji dowodu przeprowadzenia testów w swoim kraju związkowym.";
+"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Wyświetlony tutaj wynik testu jest prywatny, ale niektóre przepisy prawne mogą wymagać jego udostępnienia. Jeśli to wymagane, możesz go udostępnić na jeden z podanych sposobów.";
 
 /* Exposure Submission */
 "ExposureSubmissionError_ErrorPrefix" = "Podczas wysyłania Twoim danych pojawił się błąd techniczny. Skontaktuj się z infolinią techniczną. Numer telefonu znajdziesz w sekcji Informacje o aplikacji.";
@@ -904,6 +906,41 @@
 "ExposureSubmission_OverwriteNotice_Antigen_Headline" = "Zarejestrowano już szybki test.";
 
 "ExposureSubmission_OverwriteNotice_Antigen_Text" = "Zarejestrowano już szybki test. Aplikacja może zarządzać maksymalnie jednym szybkim testem i jednym testem PCR jednocześnie. Jeśli zarejestrujesz kolejny szybki test, pierwszy szybki test zostanie usunięty z aplikacji.";
+
+/* ExposureSubmission AntigenTest Profile Information */
+"ExposureSubmission_Antigen_Profile_Information_Title" = "Profil szybkiego testu";
+
+"ExposureSubmission_Antigen_Profile_Information_Image_Description" = "Przed budynkiem stoi kobieta ze smartfonem w dłoni. Kod QR symbolizuje profil szybkiego testu do zeskanowania.";
+
+"ExposureSubmission_Antigen_Profile_Information_Description_Title" = "Zapisz swoje dane osobowe w postaci kodu QR, aby przyspieszyć rejestrację w punktach testowania.";
+
+"ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline" = "Dzięki utworzeniu profilu szybkiego testu, nie będziesz musiał(a) ponownie wypełniać swoich danych osobowych przed wykonaniem szybkiego testu.";
+
+"ExposureSubmission_Antigen_Profile_Information_PrimaryButton" = "Kontynuuj";
+
+"ExposureSubmission_Antigen_Profile_Information_Dataprivacy_Title" = "Więcej informacji znajduje się w oświadczeniu o ochronie prywatności.";
+
+/* ExposureSubmission AntigenTest Profile */
+"ExposureSubmission_Antigen_Profile_Header_Text" = "Profil szybkiego testu";
+
+"ExposureSubmission_Antigen_Profile_QRCode_Image_Description" = "Kod QR z Twoim profilem szybkiego testu";
+
+"ExposureSubmission_Antigen_Profile_Noice_Text" = "Pokaż ten kodu QR w punkcie testowania, aby przyśpieszyć rejestrację danych osobowych. Miej też pod ręką swój dowód osobisty.";
+
+"ExposureSubmission_Antigen_Profile_DateOfBirth_Format" = "Data urodzenia %@";
+
+"ExposureSubmission_Antigen_Profile_Primary_Button" = "Kontynuuj";
+
+"ExposureSubmission_Antigen_Profile_Secondary_Button" = "Usuń profil szybkiego testu";
+
+/* ExposureSubmission AntigenTest */
+"ExposureSubmission_Profile_CreateProfileTile_Title" = "Utwórz profil szybkiego testu";
+
+"ExposureSubmission_Profile_CreateProfileTile_Description" = "Możesz utworzyć profil ze swoimi danymi osobowymi, który będziesz przesyłać za pomocą kodu QR podczas wykonywania każdego szybkiego testu.";
+
+"ExposureSubmission_Profile_ProfileTile_Title" = "Profil szybkiego testu";
+
+"ExposureSubmission_Profile_ProfileTile_Description" = "Zaoszczędź czas i przedstaw swój profil szybkiego testu w punkcie testowania.";
 
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Rejestrowanie narażenia";
@@ -1294,7 +1331,7 @@
 
 "ErrorReport_StopAndDeleteButtonTitle" = "Zatrzymaj i usuń";
 
-"ErrorReport_SaveButtonTitle" = "Zapisz lokalnie i kontynuuj";
+"ErrorReport_SaveButtonTitle" = "Udostępnij i kontynuuj";
 
 "ErrorReport_SendButtonTitle" = "Wyślij raport o błędzie";
 
@@ -1443,27 +1480,14 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Dane o zmianach w tej wersji można znaleźć w informacjach o aplikacji w sekcji „Nowe funkcje”.";
 
-/* Version 2.1 */
-"NewVersionFeature_21_reg_antigen_title" = "Rejestracja szybkich testów antygenowych";
+/* Version 2.2 */
+"NewVersionFeature_22_record_error_logs_title" = "Rejestruj dzienniki rozwiązywania problemów";
 
-"NewVersionFeature_21_reg_antigen_description" = "Oprócz wyników testów PCR, w aplikacji można teraz wyświetlać również wyniki szybkich testów antygenowych i wykorzystywać je do ostrzegania innych.";
+"NewVersionFeature_22_record_error_logs_description" = "Możesz teraz wygenerować dziennik błędów w funkcji pomocy technicznej dla aplikacji. Rejestruje on kroki, które wykonujesz w aplikacji, aby uprościć analizę potencjalnych błędów i pomóc nam szybciej je poprawić.";
 
-"NewVersionFeature_21_show_proof_title" = "Przedstawienie dowodu";
+"NewVersionFeature_22_antigen_profiles_title" = "Utwórz profile szybkich testów";
 
-"NewVersionFeature_21_show_proof_description" = "Jeśli chcesz, możesz użyć aplikacji, aby udowodnić swój osobisty status dotyczący zakażenia (na przykład negatywny wynik szybkiego testu). Pamiętaj jednak, że nie masz obowiązku korzystania z aplikacji w celu potwierdzenia swojego statusu dotyczącego zakażenia. Możesz również udowodnić swój status dotyczący zakażenia w inny sposób, zgodny z przepisami prawnymi obowiązującymi w Twoim miejscu zamieszkania.";
-
-"NewVersionFeature_21_tech_hotline_foreign_countries_title" = "Infolinia techniczna już dostępna poza granicami Niemiec";
-
-"NewVersionFeature_21_tech_hotline_foreign_countries_description" = "Z infolinią techniczną można się teraz połączyć również poza terytorium Niemiec, pod numerem +49 30 498 75401. W takim przypadku obowiązują opłaty pobierane przez operatora telefonicznego.";
-
-"NewVersionFeature_21_tan_hotline_foreign_countries_title" = "Infolinia TAN już dostępna poza granicami Niemiec";
-
-"NewVersionFeature_21_tan_hotline_foreign_countries_description" = "Jeśli zdiagnozowano u Ciebie koronawirusa, możesz teraz poprosić o numer TAN poza terytorium Niemiec, dzwoniąc na numer +49 30 498 75401. W takim przypadku obowiązują opłaty pobierane przez operatora telefonicznego.";
-
-/* Version 2.0 */
-"NewVersionFeature_200_event_checkin_title" = "Meldowanie się za pomocą kodu QR w celu skutecznego śledzenia łańcuchów zakażeń";
-
-"NewVersionFeature_200_event_checkin_description" = "CWA umożliwia teraz meldowanie obecności w wydarzeniach i miejscach. Organizatorzy wydarzeń i właściciele sklepów mogą wykorzystać tę aplikację do utworzenia kodu QR. Goście mogą zeskanować ten kod QR po przybyciu na miejsce, aby zarejestrować swoją obecność. Na życzenie aplikacja może również utworzyć wpis w dzienniku. Jeśli u osoby, która zameldowała swoją obecność w danym wydarzeniu lub miejscu, zostanie później zdiagnozowany koronawirus, inne osoby, które zameldowały się w tym samym czasie, otrzymają ostrzeżenie.";
+"NewVersionFeature_22_antigen_profiles_description" = "Możesz teraz utworzyć profil szybkiego testu w swoich danych osobowych. Twój profil będzie można później w szybki i łatwy sposób zeskanować w punktach testowania za pomocą kodu QR.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Rejestrowanie narażenia w różnych krajach";
@@ -2026,6 +2050,8 @@
 
 "Checkins_Overview_DurationTitle" = "Czas trwania";
 
+"Checkins_Overview_CheckinDateTemplate" = "Dnia %@";
+
 "Checkins_Overview_CheckinTimeTemplate" = "%@ - wymelduj automatycznie po %@";
 
 "Checkins_Overview_CheckoutButtonTitle" = "Wymelduj się teraz";
@@ -2195,6 +2221,8 @@
 /* Error Reporting */
 "ErrorReport_Title" = "Raporty o błędach";
 
+"ErrorReport_Analysis" = "Analiza błędu";
+
 "ErrorReport_Description1" = "Aby pomóc zespołowi pomocy technicznej aplikacji w analizie błędów, możesz zarejestrować raport o błędzie z CWA. Gdy to zrobisz, poszczególne kroki techniczne i wyniki procesów aplikacji zostaną zarejestrowane. Następnie możesz wysłać raport o błędzie do pomocy technicznej i pomóc w zidentyfikowaniu i usunięciu błędu.\n\nWięcej informacji znajduje się na naszej stronie „Często zadawane pytania”:";
 
 "ErrorReport_FAQ" = "Często zadawane pytania dotyczące raportów o błędach";
@@ -2281,6 +2309,12 @@
 
 "Checkin_Details_SaveToDiary" = "Zapisać w dzienniku kontaktów po wymeldowaniu?";
 
+"Checkin_Details_SaveSwitch" = "Przełącznik";
+
+"Checkin_Details_SaveSwitch_On" = "Wł.";
+
+"Checkin_Details_SaveSwitch_Off" = "Wył.";
+
 "Checkin_Details_AutomaticCheckout" = "Wymelduj automatycznie po";
 
 "Checkin_Details_EventNotStartedYet" = "To wydarzenie zaczyna się dopiero %@ w dniu %@. Czy chcesz się zameldować już teraz?";
@@ -2307,4 +2341,34 @@
 "Submission_Checkins_Alert_Share" = "Udostępnij";
 
 "Submission_Checkins_Alert_DontShare" = "Nie udostępniaj";
+
+/* Create Antigen Profile */
+"AntigenProfile_Create_Title" = "Profil szybkiego testu";
+
+"AntigenProfile_Create_Description" = "Zapisz swoje dane osobowe w postaci kodu QR, aby przyspieszyć rejestrację w punktach testowania.";
+
+"AntigenProfile_Create_FirstNamePlaceholder" = "Imię";
+
+"AntigenProfile_Create_LastNamePlaceholder" = "Nazwisko";
+
+"AntigenProfile_Create_BirthDatePlaceholder" = "Data urodzenia";
+
+"AntigenProfile_Create_StreetPlaceholder" = "Ulica i numer domu";
+
+"AntigenProfile_Create_PostalCodePlaceholder" = "Kod pocztowy";
+
+"AntigenProfile_Create_CityPlaceholder" = "Miasto";
+
+"AntigenProfile_Create_PhoneNumberPlaceholder" = "Telefon";
+
+"AntigenProfile_Create_EmailAddressPlaceholder" = "Adres e-mail";
+
+"AntigenProfile_Create_Save_Button_Title" = "Zapisz";
+
+/* Antigen Profile */
+"AntigenProfile_Delete_Alert_Title" = "Czy chcesz usunąć profil szybkiego testu?";
+
+"AntigenProfile_Delete_Alert_Description" = "Pamiętaj, że jeśli to zrobisz, ten kod QR nie będzie mógł być już używany do rejestracji.";
+
+"AntigenProfile_Delete_Alert_Delete_Button_Title" = "Usuń";
 

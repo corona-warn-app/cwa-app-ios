@@ -102,6 +102,9 @@ enum AccessibilityIdentifiers {
 			static let checkinRiskLevelLow = "AppStrings.ContactDiary.Overview.CheckinEncounter.titleLowRisk"
 			static let checkinRiskLevelHigh = "AppStrings.ContactDiary.Overview.CheckinEncounter.titleHighRisk"
 			static let checkinTableView = "AppStrings.ContactDiary.Overview.CheckinEncounter.tableView"
+			static let cell = "ContactDiary_Overview_cell-%d"
+			static let person = "ContactDiary_Overview_personEntry-%d"
+			static let location = "ContactDiary_Overview_locationEntry-%d"
 		}
 		
 		enum NotesInformation {
@@ -289,9 +292,7 @@ enum AccessibilityIdentifiers {
 		static let imageDescription = "AppStrings.ExposureSubmissionHotline.imageDescription"
 		static let description = "AppStrings.ExposureSubmissionHotline.description"
 		static let sectionTitle = "AppStrings.ExposureSubmissionHotline.sectionTitle"
-		static let primaryButton = "AppStrings.ExposureSubmissionHotline.callButtonTitle"
-		static let secondaryButton = "AppStrings.ExposureSubmissionHotline.tanInputButtonTitle"
-		
+		static let primaryButton = "AppStrings.ExposureSubmissionHotline.tanInputButtonTitle"
 	}
 	
 	enum ExposureSubmissionIntroduction {
@@ -387,6 +388,11 @@ enum AccessibilityIdentifiers {
 				static let descriptionSubHeadline = "AppStrings.ExposureSubmission.AntigenTest.Information.descriptionSubHeadline"
 				static let acknowledgementTitle = "AntigenTest_Information_acknowledgement_title"
 				static let dataPrivacyTitle = "AppStrings.ExposureSubmission.AntigenTest.Information.dataPrivacyTitle"
+			}
+			
+			enum Profile {
+				static let profileTile_Description = "AppStrings.ExposureSubmission.AntigenTest.Profile.profileTile_Description"
+				static let createProfileTile_Description = "AppStrings.ExposureSubmission.AntigenTest.Profile.createProfileTile_Description"
 			}
 		}
 

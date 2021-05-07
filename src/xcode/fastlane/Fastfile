@@ -22,6 +22,8 @@ default_platform(:ios)
 
 platform :ios do
 
+### PRE-LANE ACTIONS ############################
+
   before_all do
     setup_circle_ci
 
@@ -29,6 +31,8 @@ platform :ios do
       xcversion(version: "~> 12.4.0")
     end
   end
+
+### LANES #######################################
 
   desc "Update license file"
   lane :update_licenses do
@@ -68,12 +72,12 @@ platform :ios do
       output_file: "swiftlint.result.json",
       config_file: "ENA/.swiftlint.yml",
       strict: true,
+      quiet: true,
       raise_if_swiftlint_error: true,
       reporter: "sonarqube"
     )
 
     begin
-
       # Combined Unit & UI Tests
       run_tests(
         scheme: "ENA",
@@ -83,37 +87,81 @@ platform :ios do
         devices: ["iPhone 11"],
         prelaunch_simulator: true,
         result_bundle: true,
-        code_coverage: true
+        code_coverage: true,
+        output_types: "",
+        fail_build: false
       )
-
     rescue
-
-      zip(
-        path: "fastlane/test_output/ENA.xcresult",
-        output_path: "fastlane/test_output/ENA.xcresult.zip",
-        verbose: false
-      )
       UI.user_error!("Tests did fail, please check logs above or ENA.xcresult.zip")
+    ensure
+      trainer(
+        output_directory: "fastlane/test_output/",
+        path: "fastlane/test_output/",
+        extension: ".junit",
+        fail_build: false
+      )
 
-    end
-      # Needs to be done here and in rescue if test fails rescue will be executed if it succedes this will be called.
       zip(
         path: "fastlane/test_output/ENA.xcresult",
         output_path: "fastlane/test_output/ENA.xcresult.zip",
         verbose: false
       )
-
+    end
   end
 
   desc "Run smoke tests (Community)"
   lane :test_community do
-    run_tests(
-      scheme: "ENACommunity",
-      xcargs: "SWIFT_TREAT_WARNINGS_AS_ERRORS=NO",
-      testplan: "SmokeTests",
-      result_bundle: false,
-      code_coverage: false
-    )
+    begin
+      run_tests(
+        scheme: "ENACommunity",
+        xcargs: "SWIFT_TREAT_WARNINGS_AS_ERRORS=NO",
+        testplan: "SmokeTests",
+        result_bundle: true,
+        code_coverage: false,
+        fail_build: false,
+        output_types: "junit",
+        output_files: "report_community.junit"
+      )
+    rescue
+      UI.user_error!("Tests did fail, please check logs above or ENA.xcresult.zip")
+    ensure
+      trainer(
+        output_directory: "fastlane/test_output/",
+        path: "fastlane/test_output/",
+        extension: ".junit",
+        fail_build: false
+      )
+
+      zip(
+        path: "fastlane/test_output/ENACommunity.xcresult",
+        output_path: "fastlane/test_output/ENACommunity.xcresult.zip",
+        verbose: false
+      )
+    end
+  end
+
+  desc "Create (localized) screenshots"
+  lane :screenshot do |options|
+    begin
+      output_dir = "screenshots/screenshots-#{options[:languages]}-#{options[:mode]}"
+
+      capture_ios_screenshots(
+        languages:  options[:languages],
+        dark_mode: options[:mode] == "dark",
+        output_directory: output_dir,
+        result_bundle: true
+      )
+    rescue
+      UI.user_error!("Tests did fail, please check logs above or ENA.xcresult.zip")
+    ensure
+      trainer(
+        output_directory: "fastlane/test_output/#{options[:languages]}-#{options[:mode]}",
+        path: "#{output_dir}/test_output/#{options[:languages]}",
+        extension: ".junit",
+        fail_build: false
+      )
+      # no xcresult created, so no zip like in the other lanes
+    end
   end
 
   desc "Build and upload for testing"
@@ -152,7 +200,12 @@ platform :ios do
     )
 
     # Upload to Mobile Device Cloud
-    sh("curl --location --request POST '#{ENV["TSI_CLOUD_URL"]}' --header 'Authorization: Bearer #{ENV["TSI_CLOUD_TOKEN"]}' --form 'file=@../ENA.ipa'")
+    sh("curl \
+      --location \
+      --request POST '#{ENV["TSI_CLOUD_URL"]}' \
+      --header 'Authorization: Bearer #{ENV["TSI_CLOUD_TOKEN"]}' \
+      --form 'file=@../ENA.ipa'"
+    )
 
     appcenter_upload(
       api_token: ENV["MS_APP_CENTER_TOKEN"],
