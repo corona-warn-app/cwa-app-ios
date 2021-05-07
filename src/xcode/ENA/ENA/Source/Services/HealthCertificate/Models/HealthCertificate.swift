@@ -11,11 +11,11 @@ struct HealthCertificate: Codable, Equatable {
 
 	init(base45: Base45) throws {
 		// Ensure the data will be decodable on the fly later on, even though we don't store the decoded data
-		if case .failure(let error) = HealthCertificateAccess().extractCBORWebTokenHeader(from: base45) {
+		if case .failure(let error) = DigitalGreenCertificateAccess().extractCBORWebTokenHeader(from: base45) {
 			throw error
 		}
 
-		if case .failure(let error) = HealthCertificateAccess().extractDigitalGreenCertificate(from: base45) {
+		if case .failure(let error) = DigitalGreenCertificateAccess().extractDigitalGreenCertificate(from: base45) {
 			throw error
 		}
 
@@ -43,7 +43,7 @@ struct HealthCertificate: Codable, Equatable {
 	}
 
 	private var cborWebTokenHeader: CBORWebTokenHeader {
-		let result = HealthCertificateAccess().extractCBORWebTokenHeader(from: base45)
+		let result = DigitalGreenCertificateAccess().extractCBORWebTokenHeader(from: base45)
 
 		switch result {
 		case .success(let cborWebTokenHeader):
@@ -54,7 +54,7 @@ struct HealthCertificate: Codable, Equatable {
 	}
 
 	private var digitalGreenCertificate: DigitalGreenCertificate {
-		let result = HealthCertificateAccess().extractDigitalGreenCertificate(from: base45)
+		let result = DigitalGreenCertificateAccess().extractDigitalGreenCertificate(from: base45)
 
 		switch result {
 		case .success(let digitalGreenCertificate):
