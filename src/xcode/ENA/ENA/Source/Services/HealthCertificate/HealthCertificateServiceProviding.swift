@@ -15,6 +15,8 @@ protocol HealthCertificateServiceProviding {
 		completion: (Result<HealthCertifiedPerson, HealthCertificateServiceError.RegistrationError>) -> Void
 	)
 
+	func removeHealthCertificate(_ healthCertificate: HealthCertificate)
+
 	func updateProofCertificate(
 		for healthCertifiedPerson: HealthCertifiedPerson,
 		trigger: FetchProofCertificateTrigger,

@@ -12,7 +12,7 @@ final class HealthCertificateAccessTests: XCTestCase {
     func test_When_decodeSucceeds_Then_CorrectDataIsReturned() throws {
         let healthCertificateAccess = HealthCertificateAccess()
 
-        let result = healthCertificateAccess.extractHealthCertificate(from: testData.input)
+        let result = healthCertificateAccess.extractDigitalGreenCertificate(from: testData.input)
 
         guard case let .success(healthCertificate) = result else {
             XCTFail("Success expected.")
