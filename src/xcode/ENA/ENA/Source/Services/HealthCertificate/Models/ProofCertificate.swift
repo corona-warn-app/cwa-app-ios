@@ -11,11 +11,11 @@ struct ProofCertificate: Codable, Equatable {
 
 	init(cborData: CBORData) throws {
 		// Ensure the data will be decodable on the fly later on, even though we don't store the decoded data
-		if case .failure(let error) = ProofCertificateAccess().extractCBORWebTokenHeader(from: cborData) {
+		if case .failure(let error) = DigitalGreenCertificateAccess().extractCBORWebTokenHeader(from: cborData) {
 			throw error
 		}
 
-		if case .failure(let error) = ProofCertificateAccess().extractDigitalGreenCertificate(from: cborData) {
+		if case .failure(let error) = DigitalGreenCertificateAccess().extractDigitalGreenCertificate(from: cborData) {
 			throw error
 		}
 
@@ -37,7 +37,7 @@ struct ProofCertificate: Codable, Equatable {
 	private let cborData: CBORData
 
 	private var cborWebTokenHeader: CBORWebTokenHeader {
-		let result = ProofCertificateAccess().extractCBORWebTokenHeader(from: cborData)
+		let result = DigitalGreenCertificateAccess().extractCBORWebTokenHeader(from: cborData)
 
 		switch result {
 		case .success(let cborWebTokenHeader):
@@ -48,7 +48,7 @@ struct ProofCertificate: Codable, Equatable {
 	}
 
 	private var digitalGreenCertificate: DigitalGreenCertificate {
-		let result = ProofCertificateAccess().extractDigitalGreenCertificate(from: cborData)
+		let result = DigitalGreenCertificateAccess().extractDigitalGreenCertificate(from: cborData)
 
 		switch result {
 		case .success(let digitalGreenCertificate):
