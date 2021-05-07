@@ -948,7 +948,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_Antigen_Profile_QRCode_Image_Description" = "Ein QR-Code mit Ihrem Schnelltest-Profil";
 
-"ExposureSubmission_Antigen_Profile_Noice_Text" = "Bitte zeigen Sie diesen QR-Code an der Teststelle vor, um Ihre persönlichen Daten schnell erfassen zu lassen. Bitte halten zusätzlich Sie Ihren Personalausweis bereit.";
+"ExposureSubmission_Antigen_Profile_Noice_Text" = "Bitte zeigen Sie diesen QR-Code an der Teststelle vor, um Ihre persönlichen Daten schnell erfassen zu lassen. Bitte halten Sie zusätzlich Ihren Personalausweis bereit.";
 
 "ExposureSubmission_Antigen_Profile_DateOfBirth_Format" = "geboren %@";
 

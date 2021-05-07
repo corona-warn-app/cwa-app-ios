@@ -402,7 +402,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 	private func showHotlineScreen() {
 		let vc = ExposureSubmissionHotlineViewController(
-			onSecondaryButtonTap: { [weak self] in
+			onPrimaryButtonTap: { [weak self] in
 				self?.showTanScreen()
 			},
 			dismiss: { [weak self] in self?.dismiss() }
