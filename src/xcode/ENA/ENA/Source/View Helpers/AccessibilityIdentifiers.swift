@@ -577,4 +577,19 @@ enum AccessibilityIdentifiers {
 			static let saveButtonTitle = "AppStrings.AntigenProfile.Create.saveButtonTitle"
 		}
 	}
+
+	enum HealthCertificate {
+		enum Info {
+			static let imageDescription = "AppStrings.HealthCertificate.Info.imageDescription"
+
+			enum Register {
+				static let headline = "AppStrings.HealthCertificate.Info.Register.headline"
+				static let text = "AppStrings.HealthCertificate.Info.Register.text"
+			}
+
+			static let disclaimer = "AppStrings.HealthCertificate.Info.disclaimer"
+			static let acknowledgementTitle = "HealthCertificate.Info.acknowledgement"
+		}
+	}
+
 }

@@ -194,3 +194,19 @@
 "ExposureSubmission_Antigen_Profile_Legal_Text06" = "Kare kodu kişisel verilerinizi içerir. Verilerinizin okunmasını istemiyorsanız kişisel kare kodunuzu kimseyle paylaşmayın. Kişisel kare kodunuzu paylaşmamanızı ve e-posta üzerinden göndermemenizi öneriyoruz.";
 
 "ExposureSubmission_Antigen_Profile_Legal_Text07" = "Özel şahıslar ya da şirketler hızlı test profilinizi göstermenizi talep edemezler.";
+
+/* Health Certificate Information */
+
+"HealthCertificate_Info_Legal_headline" = "NYD: Ihr Einverständnis";
+
+"HealthCertificate_Info_Legal_subHeadline" = "NYD: Durch Antippen von „Einverstanden“ willigen Sie in folgende Schritte ein:";
+
+"HealthCertificate_Info_Legal_section01" = "NYD: Die App legal";
+
+"HealthCertificate_Info_Legal_section02" = "NYD: Wenn Sie es sich später anders überlegen, können Sie den Test in der App entfernen.";
+
+"HealthCertificate_Info_Legal_section03" = "NYD: Wenn Sie positiv auf Corona getestet wurden, teilt die App Ihr Testergebnis, um Nutzer, denen Sie begegnet sind, zu warnen. Dies betrifft Nutzer von Corona-Apps der oben genannten Länder und Nutzer, die zeitgleich am selben Event oder Ort wie Sie eingecheckt waren. Im Falle von Schnelltests werden nur Nutzer der Corona-Warn-App gewarnt.";
+
+"HealthCertificate_Info_Legal_section04" = "NYD: Wenn Sie zusätzlich Angaben zum Beginn Ihrer Symptome machen, werden auch diese geteilt.";
+
+"HealthCertificate_Info_Legal_subHeadline2" = "NYD: Sie können Ihr Einverständnis jederzeit zurücknehmen. Die Einstellung hierfür finden Sie unter „Test anzeigen“. Vor dem Teilen werden Sie nochmal auf Ihr Einverständnis hingewiesen.";
