@@ -32,7 +32,6 @@ class MockHealthCertificateService: HealthCertificateServiceProviding {
 
 	func updateProofCertificate(
 		for healthCertifiedPerson: HealthCertifiedPerson,
-		trigger: FetchProofCertificateTrigger,
 		completion: (Result<Void, HealthCertificateServiceError.ProofRequestError>) -> Void
 	) {
 		completion(.success(()))

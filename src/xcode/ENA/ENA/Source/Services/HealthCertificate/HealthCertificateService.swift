@@ -2,7 +2,7 @@
 // 🦠 Corona-Warn-App
 //
 
-import Foundation
+import UIKit
 import OpenCombine
 import HealthCertificateToolkit
 
@@ -16,6 +16,20 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 		self.store = store
 
 		updatePublishersFromStore()
+
+		NotificationCenter.default.ocombine
+			.publisher(for: UIApplication.didBecomeActiveNotification)
+			.sink { [weak self] _ in
+				self?.healthCertifiedPersons.value.forEach { healthCertifiedPerson in
+					self?.updateProofCertificate(
+						for: healthCertifiedPerson,
+						trigger: .automatic,
+						completion: { _ in }
+					)
+				}
+			}
+			.store(in: &subscriptions)
+
 	}
 
 	// MARK: - Internal
@@ -65,8 +79,18 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 				return
 			}
 
+			healthCertifiedPerson.healthCertificates.append(healthCertificate)
+
 			if !healthCertifiedPersons.value.contains(healthCertifiedPerson) {
 				healthCertifiedPersons.value.append(healthCertifiedPerson)
+			}
+
+			if healthCertificate.isEligibleForProofCertificate == true {
+				updateProofCertificate(
+					for: healthCertifiedPerson,
+					trigger: .certificatesChanged,
+					completion: { _ in }
+				)
 			}
 
 			completion(.success((healthCertifiedPerson)))
@@ -78,10 +102,35 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 		}
 	}
 
+	func removeHealthCertificate(_ healthCertificate: HealthCertificate) {
+		for healthCertifiedPerson in healthCertifiedPersons.value {
+			if let index = healthCertifiedPerson.healthCertificates.firstIndex(of: healthCertificate) {
+				healthCertifiedPersons.value.first?.healthCertificates.remove(at: index)
+
+				if healthCertificate.isEligibleForProofCertificate == true {
+					updateProofCertificate(
+						for: healthCertifiedPerson,
+						trigger: .certificatesChanged,
+						completion: { _ in }
+					)
+				}
+
+				break
+			}
+		}
+	}
+
+	func updateProofCertificate(
+		for healthCertifiedPerson: HealthCertifiedPerson,
+		completion: @escaping (Result<Void, HealthCertificateServiceError.ProofRequestError>) -> Void
+	) {
+		updateProofCertificate(for: healthCertifiedPerson, trigger: .manual, completion: completion)
+	}
+
 	func updateProofCertificate(
 		for healthCertifiedPerson: HealthCertifiedPerson,
 		trigger: FetchProofCertificateTrigger,
-		completion: (Result<Void, HealthCertificateServiceError.ProofRequestError>) -> Void
+		completion: @escaping (Result<Void, HealthCertificateServiceError.ProofRequestError>) -> Void
 	) {
 		guard shouldAutomaticallyUpdateProofCertificate || trigger != .automatic else {
 			Log.info("[HealthCertificateService] Not requesting proof for health certified person: \(private: healthCertifiedPerson). (proofCertificateUpdatePending: \(proofCertificateUpdatePending), lastProofCertificateUpdate: \(String(describing: lastProofCertificateUpdate)), trigger: \(trigger))", log: .api)
@@ -91,8 +140,12 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 
 		Log.info("[HealthCertificateService] Requesting proof for health certified person: \(private: healthCertifiedPerson). (proofCertificateUpdatePending: \(proofCertificateUpdatePending), lastProofCertificateUpdate: \(String(describing: lastProofCertificateUpdate)), trigger: \(trigger)", log: .api)
 
+		let healthCertificates = healthCertifiedPerson.healthCertificates
+			.filter { $0.isEligibleForProofCertificate }
+			.map { $0.base45 }
+
 		ProofCertificateAccess().fetchProofCertificate(
-			for: healthCertifiedPerson.healthCertificates.map { $0.base45 },
+			for: healthCertificates,
 			completion: { result in
 				switch result {
 				case .success(let cborData):
@@ -119,6 +172,12 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 	}
 
 	// MARK: - Private
+
+	private enum FetchProofCertificateTrigger {
+		case automatic
+		case manual
+		case certificatesChanged
+	}
 
 	private var store: HealthCertificateStoring
 	private var subscriptions = Set<AnyCancellable>()
