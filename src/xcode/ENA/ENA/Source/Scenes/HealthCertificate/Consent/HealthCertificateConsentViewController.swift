@@ -4,17 +4,20 @@
 
 import UIKit
 
-class HealthCertificateConsentViewController: UIViewController, FooterViewHandling, DismissHandling {
+class HealthCertificateConsentViewController: DynamicTableViewController, FooterViewHandling, DismissHandling {
 
 	// MARK: - Init
 
 	init(
 		didTapConsentButton: @escaping () -> Void,
+		didTapDataPrivacy: @escaping () -> Void,
 		dismiss: @escaping () -> Void
 	) {
 		self.didTapConsentButton = didTapConsentButton
 		self.dismiss = dismiss
-		self.viewModel = HealthCertificateConsentViewModel()
+		self.viewModel = HealthCertificateConsentViewModel(
+			didTapDataPrivacy: didTapDataPrivacy
+		)
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -26,9 +29,10 @@ class HealthCertificateConsentViewController: UIViewController, FooterViewHandli
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
-		parent?.navigationItem.title = "Ihr Einverständnis"
 		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
+
+		parent?.navigationItem.title = viewModel.title
+		setupView()
 	}
 
 	// MARK: - Protocol DismissHandling
@@ -46,14 +50,26 @@ class HealthCertificateConsentViewController: UIViewController, FooterViewHandli
 		didTapConsentButton()
 	}
 
-	// MARK: - Public
-
-	// MARK: - Internal
-
 	// MARK: - Private
 
 	private let viewModel: HealthCertificateConsentViewModel
 	private let didTapConsentButton: () -> Void
 	private let dismiss: () -> Void
 
+	private func setupView() {
+		view.backgroundColor = .enaColor(for: .background)
+
+		tableView.register(
+			UINib(nibName: String(describing: DynamicLegalExtendedCell.self), bundle: nil),
+			forCellReuseIdentifier: DynamicLegalExtendedCell.reuseIdentifier
+		)
+
+		tableView.register(
+			HealthCertificateAttributedTextCell.self,
+			forCellReuseIdentifier: HealthCertificateAttributedTextCell.reuseIdentifier
+		)
+
+		dynamicTableViewModel = viewModel.dynamicTableViewModel
+		tableView.separatorStyle = .none
+	}
 }
