@@ -45,10 +45,6 @@ public struct ProofCertificateDownload {
         fetchProofCertificateRecursion(for: eligibleCertificates, with: httpService, completion: completion)
     }
 
-    // MARK: - Internal
-
-    let certificateAccess = CertificateAccess()
-
     // MARK: - Private
 
     private func fetchProofCertificateRecursion(
