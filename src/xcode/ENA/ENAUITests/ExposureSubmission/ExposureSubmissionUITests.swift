@@ -334,12 +334,12 @@ class ENAUITests_04a_ExposureSubmission: XCTestCase {
 
 		// Overview Screen: click TAN button.
 		XCTAssertTrue(app
-			.buttons["AppStrings.ExposureSubmissionDispatch.tanButtonDescription"]
+						.buttons[AccessibilityIdentifiers.ExposureSubmissionDispatch.tanButtonDescription]
 			.waitForExistence(timeout: .medium)
 		)
-		app.buttons["AppStrings.ExposureSubmissionDispatch.tanButtonDescription"].tap()
+		app.buttons[AccessibilityIdentifiers.ExposureSubmissionDispatch.tanButtonDescription].tap()
 		
-		let continueButton = app.buttons["AppStrings.ExposureSubmission.primaryButton"]
+		let continueButton = app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton]
 		XCTAssertTrue(continueButton.waitForExistence(timeout: .medium))
 		XCTAssertFalse(continueButton.isEnabled)
 
@@ -349,21 +349,21 @@ class ENAUITests_04a_ExposureSubmission: XCTestCase {
 		// Click continue button.
 		XCTAssertTrue(continueButton.waitForExistence(timeout: .long))
 		XCTAssertTrue(continueButton.isEnabled)
-		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
+		app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton].tap()
 
 		// TAN tests are ALWAYS positive!
 
 		// Click secondary button to skip symptoms screens and immediately go to warn others screen.
-		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.secondaryButton"].waitForExistence(timeout: .medium))
-		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ExposureSubmission.secondaryButton].waitForExistence(timeout: .medium))
+		app.buttons[AccessibilityIdentifiers.ExposureSubmission.secondaryButton].tap()
 
-		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
+		app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton].tap()
 		
-		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
-		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
+		XCTAssertTrue(app.navigationBars[AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle].waitForExistence(timeout: .medium))
+		app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton].tap()
 
-		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
-		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
+		XCTAssertTrue(app.navigationBars[AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle].waitForExistence(timeout: .medium))
+		app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton].tap()
 	}
 	
 	// Navigate to the Thank You screen after getting the positive test result.
