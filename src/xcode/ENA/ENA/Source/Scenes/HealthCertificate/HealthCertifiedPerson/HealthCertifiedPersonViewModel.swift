@@ -16,6 +16,13 @@ final class HealthCertifiedPersonViewModel {
 	) {
 		self.healthCertificateService = healthCertificateService
 		self.healthCertifiedPerson = healthCertifiedPerson
+
+		// setup gradient update
+		healthCertifiedPerson.$proofCertificate
+			.sink { [weak self] proofCertificate in
+				self?.gradientType = proofCertificate != nil ? .blueOnly : .solidGrey
+			}
+			.store(in: &subscriptions)
 	}
 
 	// MARK: - Internal
@@ -85,6 +92,8 @@ final class HealthCertifiedPersonViewModel {
 		)
 	}()
 
+	@OpenCombine.Published private(set) var gradientType: GradientView.GradientType = .solidGrey
+
 	var healthCertificateCellViewModel: HealthCertificateCellViewModel {
 		HealthCertificateCellViewModel(healthCertificate: "Dummy", type: gradientType)
 	}
@@ -116,9 +125,6 @@ final class HealthCertifiedPersonViewModel {
 		)
 	}
 
-	// view model should decide how the gradient looks
-	@OpenCombine.Published private(set) var gradientType: GradientView.GradientType = GradientView.GradientType.random()
-
 	func numberOfItems(in section: TableViewSection) -> Int {
 		switch section {
 		default:
@@ -138,6 +144,7 @@ final class HealthCertifiedPersonViewModel {
 
 	private let healthCertifiedPerson: HealthCertifiedPerson
 	private let healthCertificateService: HealthCertificateServiceProviding
+	private var subscriptions = Set<AnyCancellable>()
 
 	private var friendlyName: String {
 		var components = PersonNameComponents()

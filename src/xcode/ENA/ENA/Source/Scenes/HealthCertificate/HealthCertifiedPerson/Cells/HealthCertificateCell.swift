@@ -18,12 +18,6 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	// MARK: - Overrides
-
-	// MARK: - Protocol <#Name#>
-
-	// MARK: - Public
-
 	// MARK: - Internal
 
 	func configure(_ cellViewModel: HealthCertificateCellViewModel) {
