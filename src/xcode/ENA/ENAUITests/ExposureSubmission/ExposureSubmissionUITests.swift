@@ -347,7 +347,7 @@ class ENAUITests_04a_ExposureSubmission: XCTestCase {
 		type(app, text: "qwdzxcsrhe")
 
 		// Click continue button.
-		XCTAssertTrue(continueButton.waitForExistence(timeout: .medium))
+		XCTAssertTrue(continueButton.waitForExistence(timeout: .long))
 		XCTAssertTrue(continueButton.isEnabled)
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 
