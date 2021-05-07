@@ -50,10 +50,6 @@ class HealthCertificateConsentViewController: DynamicTableViewController, Footer
 		didTapConsentButton()
 	}
 
-	// MARK: - Public
-
-	// MARK: - Internal
-
 	// MARK: - Private
 
 	private let viewModel: HealthCertificateConsentViewModel

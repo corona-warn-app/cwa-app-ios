@@ -11,7 +11,7 @@ class HealthCertificateConsentViewModelTests: XCTestCase {
 		// GIVEN
 		let viewModel = HealthCertificateConsentViewModel(didTapDataPrivacy: {})
 
-		// WEHEN
+		// WHEN
 		let dynamicTableViewModel = viewModel.dynamicTableViewModel
 
 		// THEN
