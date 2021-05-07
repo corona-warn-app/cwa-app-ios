@@ -119,10 +119,14 @@ final class RiskProvider: RiskProviding {
 						}
 						switch result {
 						case .success:
-							if let risk = self.previousRiskIfExistingAndNotExpired(userInitiated: userInitiated) {
-								self.successOnTargetQueue(risk: risk)
-							} else {
-								assertionFailure("This should never happen. At this point there should be a risk to use available.")
+							// this should not actually determine risk but use a previous, still valid risk and return that
+							self.determineRisk(userInitiated: userInitiated, appConfiguration: appConfiguration) { result in
+								switch result {
+								case .success(let risk):
+									self.successOnTargetQueue(risk: risk)
+								case .failure(let error):
+									self.failOnTargetQueue(error: error)
+								}
 							}
 						case .failure(let error):
 							self.failOnTargetQueue(error: error)
