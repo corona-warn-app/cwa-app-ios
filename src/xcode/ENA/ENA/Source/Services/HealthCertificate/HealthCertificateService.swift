@@ -94,12 +94,6 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 			if let index = healthCertifiedPerson.healthCertificates.firstIndex(of: healthCertificate) {
 				healthCertifiedPerson.healthCertificates.remove(at: index)
 
-				if healthCertificate.isEligibleForProofCertificate == true {
-					updateProofCertificate(
-						for: healthCertifiedPerson,
-						trigger: .certificatesChanged,
-						completion: { _ in }
-					)
 				}
 
 				break
