@@ -80,6 +80,10 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 				healthCertifiedPersons.value.append(healthCertifiedPerson)
 			}
 
+			if healthCertificate.isEligibleForProofCertificate {
+				healthCertifiedPerson.proofCertificateUpdatePending = true
+			}
+
 			return .success((healthCertifiedPerson))
 		} catch let error as CertificateDecodingError {
 			return .failure(.decodingError(error))
@@ -95,6 +99,8 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 
 				if healthCertifiedPerson.healthCertificates.isEmpty {
 					healthCertifiedPersons.value.removeAll(where: { $0 == healthCertifiedPerson })
+				} else if healthCertificate.isEligibleForProofCertificate {
+					healthCertifiedPerson.proofCertificateUpdatePending = true
 				}
 
 				break
