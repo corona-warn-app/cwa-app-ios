@@ -94,6 +94,8 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 			if let index = healthCertifiedPerson.healthCertificates.firstIndex(of: healthCertificate) {
 				healthCertifiedPerson.healthCertificates.remove(at: index)
 
+				if healthCertifiedPerson.healthCertificates.isEmpty {
+					healthCertifiedPersons.value.removeAll(where: { $0 == healthCertifiedPerson })
 				}
 
 				break
