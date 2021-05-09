@@ -16,20 +16,7 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 		self.store = store
 
 		updatePublishersFromStore()
-
-		NotificationCenter.default.ocombine
-			.publisher(for: UIApplication.didBecomeActiveNotification)
-			.sink { [weak self] _ in
-				self?.healthCertifiedPersons.value.forEach { healthCertifiedPerson in
-					self?.updateProofCertificate(
-						for: healthCertifiedPerson,
-						trigger: .automatic,
-						completion: { _ in }
-					)
-				}
-			}
-			.store(in: &subscriptions)
-
+		updateProofCertificateOnDidBecomeActive()
 	}
 
 	// MARK: - Internal
@@ -182,6 +169,21 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 				}
 				.store(in: &subscriptions)
 		}
+	}
+
+	private func updateProofCertificateOnDidBecomeActive() {
+		NotificationCenter.default.ocombine
+			.publisher(for: UIApplication.didBecomeActiveNotification)
+			.sink { [weak self] _ in
+				self?.healthCertifiedPersons.value.forEach { healthCertifiedPerson in
+					self?.updateProofCertificate(
+						for: healthCertifiedPerson,
+						trigger: .automatic,
+						completion: { _ in }
+					)
+				}
+			}
+			.store(in: &subscriptions)
 	}
 
 }

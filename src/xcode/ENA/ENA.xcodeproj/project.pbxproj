@@ -293,6 +293,8 @@
 		01FD3EDB25D2F0DF0049497A /* UserNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FD3EDA25D2F0DF0049497A /* UserNotificationCenter.swift */; };
 		01FD3EE325D2F1020049497A /* DeadmanNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FD3EE225D2F1020049497A /* DeadmanNotificationManager.swift */; };
 		01FE5E52264842B000155906 /* FetchProofCertificateTrigger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FE5E51264842B000155906 /* FetchProofCertificateTrigger.swift */; };
+		01FE5E582648514300155906 /* HealthCertifiedPersonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FE5E552648511100155906 /* HealthCertifiedPersonTests.swift */; };
+		01FE5E5A2648546800155906 /* HealthCertificate+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FE5E592648546800155906 /* HealthCertificate+Mock.swift */; };
 		0D5611B4247F852C00B5B094 /* SQLiteKeyValueStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5611B3247F852C00B5B094 /* SQLiteKeyValueStore.swift */; };
 		0DD260FF248D549B007C3B2C /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD260FE248D549B007C3B2C /* KeychainHelper.swift */; };
 		0DF6BB97248AD616007E8B0C /* AppUpdateCheckHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF6BB96248AD616007E8B0C /* AppUpdateCheckHelper.swift */; };
@@ -1425,6 +1427,8 @@
 		01FD3EDA25D2F0DF0049497A /* UserNotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNotificationCenter.swift; sourceTree = "<group>"; };
 		01FD3EE225D2F1020049497A /* DeadmanNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeadmanNotificationManager.swift; sourceTree = "<group>"; };
 		01FE5E51264842B000155906 /* FetchProofCertificateTrigger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchProofCertificateTrigger.swift; sourceTree = "<group>"; };
+		01FE5E552648511100155906 /* HealthCertifiedPersonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertifiedPersonTests.swift; sourceTree = "<group>"; };
+		01FE5E592648546800155906 /* HealthCertificate+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HealthCertificate+Mock.swift"; sourceTree = "<group>"; };
 		0D5611B3247F852C00B5B094 /* SQLiteKeyValueStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteKeyValueStore.swift; sourceTree = "<group>"; };
 		0DD260FE248D549B007C3B2C /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		0DF6BB96248AD616007E8B0C /* AppUpdateCheckHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUpdateCheckHelper.swift; sourceTree = "<group>"; };
@@ -2618,6 +2622,7 @@
 		017D8D9E263B02C40009E91C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				01FE5E532648511100155906 /* __test__ */,
 				017D8DA3263B02F30009E91C /* HealthCertifiedPerson.swift */,
 				017D8DA4263B02F40009E91C /* HealthCertificate.swift */,
 				017D8D9F263B02DA0009E91C /* ProofCertificate.swift */,
@@ -3163,6 +3168,15 @@
 				01FD3EDA25D2F0DF0049497A /* UserNotificationCenter.swift */,
 			);
 			path = DeadmanNotification;
+			sourceTree = "<group>";
+		};
+		01FE5E532648511100155906 /* __test__ */ = {
+			isa = PBXGroup;
+			children = (
+				01FE5E552648511100155906 /* HealthCertifiedPersonTests.swift */,
+				01FE5E592648546800155906 /* HealthCertificate+Mock.swift */,
+			);
+			path = __test__;
 			sourceTree = "<group>";
 		};
 		13091950247972CF0066E329 /* PrivacyProtectionViewController */ = {
@@ -7622,6 +7636,7 @@
 				016961B32549649900FF92E3 /* ExposureSubmissionTestResultViewModelTests.swift in Sources */,
 				015692E424B48C3F0033F35E /* TimeInterval+Convenience.swift in Sources */,
 				50E8F1282626C735000056EE /* ExposureSubmissionSuccessViewControllerTest.swift in Sources */,
+				01FE5E5A2648546800155906 /* HealthCertificate+Mock.swift in Sources */,
 				01A1B467252E19D000841B63 /* ExposureSubmissionCoordinatorModelTests.swift in Sources */,
 				BA7F15A12629D3F200CA4783 /* RouteTests.swift in Sources */,
 				B1EAEC8F247118D1003BE9A2 /* URLSession+ConvenienceTests.swift in Sources */,
@@ -7827,6 +7842,7 @@
 				014086B82588F9FD00E9E5B2 /* DiaryEditEntriesViewModelTest.swift in Sources */,
 				01BA06D3261F41E100237DD8 /* ExposureSubmissionServiceTests.swift in Sources */,
 				0DF6BB9D248AE232007E8B0C /* AppUpdateCheckerHelperTests.swift in Sources */,
+				01FE5E582648514300155906 /* HealthCertifiedPersonTests.swift in Sources */,
 				35C0C883261492D5004BF509 /* ArrayExtensionTests.swift in Sources */,
 				50C029B625E406A400460FA4 /* RiskExposureMetadataTests.swift in Sources */,
 				A328425D248E82BC006B1F09 /* ExposureSubmissionTestResultViewControllerTests.swift in Sources */,

@@ -29,33 +29,12 @@ class HealthCertificateServiceTests: XCTestCase {
 				healthCertifiedPersonsExpectation.fulfill()
 			}
 
-		let proofCertificate = try ProofCertificate(cborData: CBORData())
+		let healthCertificate = HealthCertificate.mock()
+		healthCertifiedPerson.healthCertificates = [healthCertificate]
 
-		healthCertifiedPerson.proofCertificate = proofCertificate
+		waitForExpectations(timeout: .short)
 
-		XCTAssertEqual(store.healthCertifiedPersons.first?.proofCertificate, proofCertificate)
-
-		waitForExpectations(timeout: 5)
-
-		subscription.cancel()
-	}
-
-	func testHealthCertifiedPersonObjectWillChangeTriggered() throws {
-		let healthCertifiedPerson = HealthCertifiedPerson(
-			healthCertificates: [],
-			proofCertificate: nil
-		)
-
-		let objectWillChangeExpectation = expectation(description: "objectWillChange publisher updated")
-
-		let subscription = healthCertifiedPerson.objectWillChange
-			.sink {
-				objectWillChangeExpectation.fulfill()
-			}
-
-		healthCertifiedPerson.proofCertificate = try ProofCertificate(cborData: CBORData())
-
-		waitForExpectations(timeout: 5)
+		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [healthCertificate])
 
 		subscription.cancel()
 	}
