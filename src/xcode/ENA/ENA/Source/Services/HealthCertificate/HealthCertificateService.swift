@@ -92,7 +92,7 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 	func removeHealthCertificate(_ healthCertificate: HealthCertificate) {
 		for healthCertifiedPerson in healthCertifiedPersons.value {
 			if let index = healthCertifiedPerson.healthCertificates.firstIndex(of: healthCertificate) {
-				healthCertifiedPersons.value.first?.healthCertificates.remove(at: index)
+				healthCertifiedPerson.healthCertificates.remove(at: index)
 
 				if healthCertificate.isEligibleForProofCertificate == true {
 					updateProofCertificate(
