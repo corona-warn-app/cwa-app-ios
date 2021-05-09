@@ -35,6 +35,12 @@ class HealthCertifiedPerson: OpenCombine.ObservableObject, Codable, Equatable {
 		try container.encode(proofCertificate, forKey: .proofCertificate)
 	}
 
+	func removeProofCertificateIfExpired() {
+		if proofCertificate?.isExpired == true {
+			proofCertificate = nil
+		}
+	}
+
 	// MARK: - Protocol Equatable
 
 	static func == (lhs: HealthCertifiedPerson, rhs: HealthCertifiedPerson) -> Bool {

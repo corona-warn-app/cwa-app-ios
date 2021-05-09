@@ -105,13 +105,6 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 
 	func updateProofCertificate(
 		for healthCertifiedPerson: HealthCertifiedPerson,
-		completion: @escaping (Result<Void, HealthCertificateServiceError.ProofRequestError>) -> Void
-	) {
-		updateProofCertificate(for: healthCertifiedPerson, trigger: .manual, completion: completion)
-	}
-
-	func updateProofCertificate(
-		for healthCertifiedPerson: HealthCertifiedPerson,
 		trigger: FetchProofCertificateTrigger,
 		completion: @escaping (Result<Void, HealthCertificateServiceError.ProofRequestError>) -> Void
 	) {
@@ -127,13 +120,26 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 			.filter { $0.isEligibleForProofCertificate }
 			.map { $0.base45 }
 
+		if healthCertificates.isEmpty {
+			healthCertifiedPerson.removeProofCertificateIfExpired()
+			completion(.success(()))
+		}
+
 		ProofCertificateAccess().fetchProofCertificate(
 			for: healthCertificates,
-			completion: { result in
+			completion: { [weak self] result in
 				switch result {
 				case .success(let cborData):
 					do {
-						healthCertifiedPerson.proofCertificate = try ProofCertificate(cborData: cborData)
+						self?.lastProofCertificateUpdate = Date()
+						self?.proofCertificateUpdatePending = false
+
+						healthCertifiedPerson.removeProofCertificateIfExpired()
+
+						if let cborData = cborData {
+							healthCertifiedPerson.proofCertificate = try ProofCertificate(cborData: cborData)
+						}
+
 						completion(.success(()))
 					} catch let error as CertificateDecodingError {
 						completion(.failure(.decodingError(error)))
@@ -155,12 +161,6 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 	}
 
 	// MARK: - Private
-
-	private enum FetchProofCertificateTrigger {
-		case automatic
-		case manual
-		case certificatesChanged
-	}
 
 	private var store: HealthCertificateStoring
 	private var subscriptions = Set<AnyCancellable>()

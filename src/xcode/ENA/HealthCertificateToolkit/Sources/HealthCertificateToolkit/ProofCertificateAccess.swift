@@ -22,7 +22,7 @@ public struct ProofCertificateAccess {
         return certificateAccess.extractDigitalGreenCertificate(from: cborData)
     }
 
-    public func fetchProofCertificate(for healthCertificates: [Base45], completion: @escaping (Result<CBORData, ProofCertificateFetchingError>) -> Void) {
+    public func fetchProofCertificate(for healthCertificates: [Base45], completion: @escaping (Result<CBORData?, ProofCertificateFetchingError>) -> Void) {
         completion(.success(CBORData()))
     }
 
