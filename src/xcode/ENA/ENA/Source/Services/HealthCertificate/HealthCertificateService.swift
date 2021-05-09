@@ -130,7 +130,7 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 			completion(.success(()))
 		}
 
-		ProofCertificateAccess().fetchProofCertificate(
+		ProofCertificateDownload().fetchProofCertificate(
 			for: healthCertificates,
 			completion: { result in
 				switch result {
