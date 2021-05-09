@@ -3,12 +3,64 @@
 //
 
 import Foundation
+import base45_swift
 import SwiftCBOR
 import JSONSchema
 
-struct CertificateAccess {
+public typealias Base45 = String
+public typealias CBORData = Data
+
+public struct DigitalGreenCertificateAccess {
+
+    // MARK: - Init
+
+    public init() {}
+
+    // MARK: - Public
+
+    public func extractCBORWebTokenHeader(from base45: Base45) -> Result<CBORWebTokenHeader, CertificateDecodingError> {
+        let cborDataResult = extractCBOR(from: base45)
+
+        switch cborDataResult {
+        case let .success(cborData):
+            return extractHeader(from: cborData)
+        case let .failure(error):
+            return .failure(error)
+        }
+    }
+
+    public func extractCBORWebTokenHeader(from cborData: CBORData) -> Result<CBORWebTokenHeader, CertificateDecodingError> {
+        return extractHeader(from: cborData)
+    }
+
+    public func extractDigitalGreenCertificate(from base45: Base45) -> Result<DigitalGreenCertificate, CertificateDecodingError> {
+        let cborDataResult = extractCBOR(from: base45)
+
+        switch cborDataResult {
+        case let .success(cborData):
+            return extractDigitalGreenCertificate(from: cborData)
+        case let .failure(error):
+            return .failure(error)
+        }
+    }
+
+    public func extractDigitalGreenCertificate(from cborData: CBORData) -> Result<DigitalGreenCertificate, CertificateDecodingError> {
+        return extractCertificate(from: cborData)
+    }
 
     // MARK: - Internal
+
+    func extractCBOR(from base45: Base45) -> Result<CBORData, CertificateDecodingError> {
+        guard let zipData = try? base45.fromBase45() else {
+            return .failure(.HC_BASE45_DECODING_FAILED)
+        }
+
+        guard let cborData =  try? zipData.decompressZLib() else {
+            return .failure(.HC_ZLIB_DECOMPRESSION_FAILED)
+        }
+
+        return .success(cborData)
+    }
 
     func extractHeader(from cborData: CBORData) -> Result<CBORWebTokenHeader, CertificateDecodingError> {
         let webTokenResult = decodeCBORWebToken(from: cborData)
@@ -49,14 +101,12 @@ struct CertificateAccess {
         ))
     }
 
-    func extractDigitalGreenCertificate(from cborData: CBORData) -> Result<DigitalGreenCertificate, CertificateDecodingError> {
+    func extractCertificate(from cborData: CBORData) -> Result<DigitalGreenCertificate, CertificateDecodingError> {
         let webTokenResult = decodeCBORWebToken(from: cborData)
 
         switch webTokenResult {
         case let .success(cborWebToken):
-
             let certificateResult = extractDigitalGreenCertificate(from: cborWebToken)
-
             return certificateResult
 
         case let .failure(error):

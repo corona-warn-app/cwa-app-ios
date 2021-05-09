@@ -140,7 +140,6 @@
         "ENAUITests_10_TraceLocations\/test_WHEN_two_QRCodes_are_created_THEN_list_displays_two_traceLocations()",
         "ENAUITests_10_TraceLocations\/test_events_in_contact_journal()",
         "ENAUITests_10_TraceLocations\/test_screenshot_traceLocation_print_flow()",
-        "ENAUITests_10_TraceLocations\/test_screenshots_of_traceLocation_print_flow()",
         "ENAUITests_10_TraceLocations\/test_traceLocation_print_flow()",
         "ENAUITests_Statistics\/testScreenshot_statisticsCardTitles()",
         "ENAUITests_Statistics\/test_screenshot_statisticsCardTitles()",
