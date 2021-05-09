@@ -19,6 +19,8 @@ class HealthCertifiedPerson: OpenCombine.ObservableObject, Codable, Equatable {
 	enum CodingKeys: String, CodingKey {
 		case healthCertificates
 		case proofCertificate
+		case lastProofCertificateUpdate
+		case proofCertificateUpdatePending
 	}
 
 	required init(from decoder: Decoder) throws {
@@ -26,6 +28,8 @@ class HealthCertifiedPerson: OpenCombine.ObservableObject, Codable, Equatable {
 
 		healthCertificates = try container.decode([HealthCertificate].self, forKey: .healthCertificates)
 		proofCertificate = try container.decode(ProofCertificate.self, forKey: .proofCertificate)
+		lastProofCertificateUpdate = try container.decodeIfPresent(Date.self, forKey: .healthCertificates)
+		proofCertificateUpdatePending = try container.decode(Bool.self, forKey: .healthCertificates)
 	}
 
 	func encode(to encoder: Encoder) throws {
@@ -33,12 +37,8 @@ class HealthCertifiedPerson: OpenCombine.ObservableObject, Codable, Equatable {
 
 		try container.encode(healthCertificates, forKey: .healthCertificates)
 		try container.encode(proofCertificate, forKey: .proofCertificate)
-	}
-
-	func removeProofCertificateIfExpired() {
-		if proofCertificate?.isExpired == true {
-			proofCertificate = nil
-		}
+		try container.encode(lastProofCertificateUpdate, forKey: .lastProofCertificateUpdate)
+		try container.encode(proofCertificateUpdatePending, forKey: .proofCertificateUpdatePending)
 	}
 
 	// MARK: - Protocol Equatable
@@ -51,5 +51,29 @@ class HealthCertifiedPerson: OpenCombine.ObservableObject, Codable, Equatable {
 
 	@OpenCombine.Published var healthCertificates: [HealthCertificate]
 	@OpenCombine.Published var proofCertificate: ProofCertificate?
+
+	// LAST_SUCCESSFUL_PC_RUN_TIMESTAMP
+	var lastProofCertificateUpdate: Date?
+
+	// PC_RUN_PENDING
+	var proofCertificateUpdatePending: Bool = false
+
+	var shouldAutomaticallyUpdateProofCertificate: Bool {
+		if proofCertificateUpdatePending {
+			return true
+		}
+
+		guard let lastProofCertificateUpdate = lastProofCertificateUpdate else {
+			return true
+		}
+
+		return !Calendar.utc().isDateInToday(lastProofCertificateUpdate)
+	}
+
+	func removeProofCertificateIfExpired() {
+		if proofCertificate?.isExpired == true {
+			proofCertificate = nil
+		}
+	}
 
 }

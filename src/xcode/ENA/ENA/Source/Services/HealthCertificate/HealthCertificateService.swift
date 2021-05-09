@@ -1,4 +1,4 @@
-////
+//
 // 🦠 Corona-Warn-App
 //
 
@@ -107,13 +107,13 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 		trigger: FetchProofCertificateTrigger,
 		completion: @escaping (Result<Void, HealthCertificateServiceError.ProofRequestError>) -> Void
 	) {
-		guard shouldAutomaticallyUpdateProofCertificate || trigger != .automatic else {
-			Log.info("[HealthCertificateService] Not requesting proof for health certified person: \(private: healthCertifiedPerson). (proofCertificateUpdatePending: \(proofCertificateUpdatePending), lastProofCertificateUpdate: \(String(describing: lastProofCertificateUpdate)), trigger: \(trigger))", log: .api)
+		guard healthCertifiedPerson.shouldAutomaticallyUpdateProofCertificate || trigger != .automatic else {
+			Log.info("[HealthCertificateService] Not requesting proof for health certified person: \(private: healthCertifiedPerson). (proofCertificateUpdatePending: \(healthCertifiedPerson.proofCertificateUpdatePending), lastProofCertificateUpdate: \(String(describing: healthCertifiedPerson.lastProofCertificateUpdate)), trigger: \(trigger))", log: .api)
 
 			return
 		}
 
-		Log.info("[HealthCertificateService] Requesting proof for health certified person: \(private: healthCertifiedPerson). (proofCertificateUpdatePending: \(proofCertificateUpdatePending), lastProofCertificateUpdate: \(String(describing: lastProofCertificateUpdate)), trigger: \(trigger)", log: .api)
+		Log.info("[HealthCertificateService] Requesting proof for health certified person: \(private: healthCertifiedPerson). (proofCertificateUpdatePending: \(healthCertifiedPerson.proofCertificateUpdatePending), lastProofCertificateUpdate: \(String(describing: healthCertifiedPerson.lastProofCertificateUpdate)), trigger: \(trigger)", log: .api)
 
 		let healthCertificates = healthCertifiedPerson.healthCertificates
 			.filter { $0.isEligibleForProofCertificate }
@@ -126,12 +126,12 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 
 		ProofCertificateAccess().fetchProofCertificate(
 			for: healthCertificates,
-			completion: { [weak self] result in
+			completion: { result in
 				switch result {
 				case .success(let cborData):
 					do {
-						self?.lastProofCertificateUpdate = Date()
-						self?.proofCertificateUpdatePending = false
+						healthCertifiedPerson.lastProofCertificateUpdate = Date()
+						healthCertifiedPerson.proofCertificateUpdatePending = false
 
 						healthCertifiedPerson.removeProofCertificateIfExpired()
 
@@ -162,30 +162,6 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 
 	private var store: HealthCertificateStoring
 	private var subscriptions = Set<AnyCancellable>()
-
-	// LAST_SUCCESSFUL_PC_RUN_TIMESTAMP
-	private var lastProofCertificateUpdate: Date? {
-		get { store.lastProofCertificateUpdate }
-		set { store.lastProofCertificateUpdate = newValue }
-	}
-
-	// PC_RUN_PENDING
-	private var proofCertificateUpdatePending: Bool {
-		get { store.proofCertificateUpdatePending }
-		set { store.proofCertificateUpdatePending = newValue }
-	}
-
-	private var shouldAutomaticallyUpdateProofCertificate: Bool {
-		if proofCertificateUpdatePending {
-			return true
-		}
-
-		guard let lastProofCertificateUpdate = lastProofCertificateUpdate else {
-			return true
-		}
-
-		return !Calendar.utc().isDateInToday(lastProofCertificateUpdate)
-	}
 
 	private func updateSubscriptions() {
 		subscriptions = []

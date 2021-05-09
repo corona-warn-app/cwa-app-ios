@@ -12,16 +12,15 @@ class MockHealthCertificateService: HealthCertificateServiceProviding {
 	var healthCertifiedPersons = CurrentValueSubject<[HealthCertifiedPerson], Never>([])
 
 	func registerHealthCertificate(
-		base45: Base45,
-		completion: (Result<HealthCertifiedPerson, HealthCertificateServiceError.RegistrationError>) -> Void
-	) {
+		base45: Base45
+	) -> Result<HealthCertifiedPerson, HealthCertificateServiceError.RegistrationError> {
 		var healthCertificates = healthCertifiedPersons.value.first?.healthCertificates ?? []
 
 		if let healthCertificate = try? HealthCertificate(base45: base45) {
 			healthCertificates.append(healthCertificate)
 		}
 
-		completion(.success(HealthCertifiedPerson(healthCertificates: healthCertificates, proofCertificate: nil)))
+		return .success(HealthCertifiedPerson(healthCertificates: healthCertificates, proofCertificate: nil))
 	}
 
 	func removeHealthCertificate(_ healthCertificate: HealthCertificate) {

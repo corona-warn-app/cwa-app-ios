@@ -1,4 +1,4 @@
-////
+//
 // 🦠 Corona-Warn-App
 //
 
@@ -8,4 +8,3 @@ enum FetchProofCertificateTrigger {
 	case automatic
 	case manual
 }
-
