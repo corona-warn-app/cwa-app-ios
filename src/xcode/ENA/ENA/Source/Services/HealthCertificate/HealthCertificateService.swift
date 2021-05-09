@@ -84,8 +84,7 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 		} catch let error as CertificateDecodingError {
 			return .failure(.decodingError(error))
 		} catch {
-			// TODO!
-//			completion(.failure(.decodingError(nil)))
+			return .failure(.other(error))
 		}
 	}
 
@@ -144,8 +143,7 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 					} catch let error as CertificateDecodingError {
 						completion(.failure(.decodingError(error)))
 					} catch {
-						// TODO!
-//						completion(.failure(.decodingError(nil)))
+						completion(.failure(.other(error)))
 					}
 				case .failure(let error):
 					completion(.failure(.fetchingError(error)))
