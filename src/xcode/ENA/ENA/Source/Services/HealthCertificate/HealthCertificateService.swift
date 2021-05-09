@@ -43,17 +43,15 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 	}
 
 	func registerHealthCertificate(
-		base45: Base45,
-		completion: (Result<HealthCertifiedPerson, HealthCertificateServiceError.RegistrationError>) -> Void
-	) {
+		base45: Base45
+	) -> Result<HealthCertifiedPerson, HealthCertificateServiceError.RegistrationError> {
 		Log.info("[HealthCertificateService] Registering health certificate from payload: \(private: base45)", log: .api)
 
 		do {
 			let healthCertificate = try HealthCertificate(base45: base45)
 
 			guard let vaccinationCertificate = healthCertificate.vaccinationCertificates.first else {
-				completion(.failure(.noVaccinationEntry))
-				return
+				return .failure(.noVaccinationEntry)
 			}
 
 			let healthCertifiedPerson = healthCertifiedPersons.value.first ?? HealthCertifiedPerson(healthCertificates: [], proofCertificate: nil)
@@ -61,22 +59,19 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 			let isDuplicate = healthCertifiedPerson.healthCertificates
 				.contains(where: { $0.vaccinationCertificates.first?.uniqueCertificateIdentifier == vaccinationCertificate.uniqueCertificateIdentifier })
 			if isDuplicate {
-				completion(.failure(.vaccinationCertificateAlreadyRegistered))
-				return
+				return .failure(.vaccinationCertificateAlreadyRegistered)
 			}
 
 			let hasDifferentName = healthCertifiedPerson.healthCertificates
 				.contains(where: { $0.name.standardizedName != healthCertificate.name.standardizedName })
 			if hasDifferentName {
-				completion(.failure(.nameMismatch))
-				return
+				return .failure(.nameMismatch)
 			}
 
 			let hasDifferentDateOfBirth = healthCertifiedPerson.healthCertificates
 				.contains(where: { $0.dateOfBirth != healthCertificate.dateOfBirth })
 			if hasDifferentDateOfBirth {
-				completion(.failure(.dateOfBirthMismatch))
-				return
+				return .failure(.dateOfBirthMismatch)
 			}
 
 			healthCertifiedPerson.healthCertificates.append(healthCertificate)
@@ -85,17 +80,9 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 				healthCertifiedPersons.value.append(healthCertifiedPerson)
 			}
 
-			if healthCertificate.isEligibleForProofCertificate == true {
-				updateProofCertificate(
-					for: healthCertifiedPerson,
-					trigger: .certificatesChanged,
-					completion: { _ in }
-				)
-			}
-
-			completion(.success((healthCertifiedPerson)))
+			return .success((healthCertifiedPerson))
 		} catch let error as CertificateDecodingError {
-			completion(.failure(.decodingError(error)))
+			return .failure(.decodingError(error))
 		} catch {
 			// TODO!
 //			completion(.failure(.decodingError(nil)))
