@@ -388,11 +388,18 @@ enum AccessibilityIdentifiers {
 				static let descriptionSubHeadline = "AppStrings.ExposureSubmission.AntigenTest.Information.descriptionSubHeadline"
 				static let acknowledgementTitle = "AntigenTest_Information_acknowledgement_title"
 				static let dataPrivacyTitle = "AppStrings.ExposureSubmission.AntigenTest.Information.dataPrivacyTitle"
+				static let continueButton = "AppStrings.ExposureSubmission.AntigenTest.Information.primaryButton"
+			}
+			
+			enum Create {
+				static let saveButton = "AppStrings.AntigenProfile.Create.saveButtonTitle"
 			}
 			
 			enum Profile {
 				static let profileTile_Description = "AppStrings.ExposureSubmission.AntigenTest.Profile.profileTile_Description"
 				static let createProfileTile_Description = "AppStrings.ExposureSubmission.AntigenTest.Profile.createProfileTile_Description"
+				static let continueButton = "AppStrings.ExposureSubmission.AntigenTest.Profile.primaryButton"
+				static let deleteButton = "AppStrings.ExposureSubmission.AntigenTest.Profile.secondaryButton"
 			}
 		}
 
