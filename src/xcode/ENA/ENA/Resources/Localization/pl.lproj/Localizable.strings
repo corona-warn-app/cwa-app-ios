@@ -446,7 +446,7 @@
 "ExposureSubmission_Hotline_Number" = "08007540002";
 
 /* phone number; no spacing allowed */
-"ExposureSubmission_Hotline_Number_Foreign" = "+493049875401";
+"ExposureSubmission_Hotline_Number_Foreign" = "+493049875402";
 
 "ExposureSubmission_DataPrivacyTitle" = "Zgoda";
 
@@ -523,11 +523,11 @@
 
 "ExposureSubmission_PhoneDetailsDomestic" = "Dla połączeń z terytorium Niemiec.\nPołączenie jest bezpłatne.";
 
-"ExposureSubmission_PhoneNumberForeign" = "+49 30 498 75401";
+"ExposureSubmission_PhoneNumberForeign" = "+49 30 498 75402";
 
 "ExposureSubmission_PhoneDetailsForeign" = "Dla połączeń spoza Niemiec.\nObowiązują opłaty podane przez operatora telefonicznego.";
 
-"ExposureSubmission_PhoneDetailDescription" = "Zapewniamy obsługę klienta w następujących językach: \nangielskim, niemieckim, tureckim\n\nGodziny pracy:\nod poniedziałku do soboty w godzinach 7:00 - 22:00 (CET)\n\nW razie jakichkolwiek pytań związanych ze zdrowiem skontaktuj się z lekarzem rodzinnym lub lekarzem dyżurnym pod numerem: 116 117.";
+"ExposureSubmission_PhoneDetailDescription" = "Zapewniamy obsługę klienta w następujących językach: \nangielskim, niemieckim, tureckim\n\nGodziny pracy:\n24/7\n\nW razie jakichkolwiek pytań związanych ze zdrowiem skontaktuj się z lekarzem rodzinnym lub lekarzem dyżurnym pod numerem telefonu: 116 117.";
 
 "ExposureSubmission_SectionDescription2" = "Zarejestruj swój test PCR poprzez wpisanie numeru TAN w aplikacji.";
 
@@ -1272,7 +1272,7 @@
 
 "App_Information_Contact_Hotline_Details_Foreign" = "Dla połączeń spoza Niemiec.\nObowiązują opłaty podane przez operatora telefonicznego.";
 
-"App_Information_Contact_Hotline_Terms" = "Zapewniamy obsługę klienta w następujących językach: \nangielskim, niemieckim, tureckim\n\nGodziny pracy:\nod poniedziałku do soboty w godzinach 7:00 - 22:00 (CET)\n\nW razie jakichkolwiek pytań związanych ze zdrowiem skontaktuj się z lekarzem rodzinnym lub lekarzem dyżurnym pod numerem: 116 117.";
+"App_Information_Contact_Hotline_Terms" = "Zapewniamy obsługę klienta w następujących językach: \nangielskim, niemieckim, tureckim\n\nGodziny pracy:\nod poniedziałku do soboty w godzinach 7:00 - 22:00 (CET)\n(z wyjątkiem świąt)\n\nW razie jakichkolwiek pytań związanych ze zdrowiem skontaktuj się z lekarzem rodzinnym lub lekarzem dyżurnym pod numerem telefonu: 116 117.";
 
 /* App Information - Imprint */
 "App_Information_New_Features_Navigation" = "Nowe funkcje";
