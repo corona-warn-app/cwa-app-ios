@@ -15,6 +15,7 @@ public struct ProofCertificateDownload {
     public func fetchProofCertificate(
         for healthCertificates: [Base45],
         with httpService: HTTPServiceProtocol = HTTPService(),
+        baseURL: URL,
         completion: @escaping (Result<CBORData?, ProofCertificateFetchingError>
     ) -> Void) {
 
@@ -46,7 +47,12 @@ public struct ProofCertificateDownload {
 
         // This call recursively posts the eligible health certificates one after the other.
         // The operation completes, as soon as the first proof certificate is returned from the backend.
-        fetchProofCertificateRecursion(for: eligibleCertificates, with: httpService, completion: completion)
+        fetchProofCertificateRecursion(
+            for: eligibleCertificates,
+            with: httpService,
+            baseURL: baseURL,
+            completion: completion
+        )
     }
 
     // MARK: - Private
@@ -54,15 +60,12 @@ public struct ProofCertificateDownload {
     private func fetchProofCertificateRecursion(
         for healthCertificates: [CBORData],
         with httpService: HTTPServiceProtocol = HTTPService(),
+        baseURL: URL,
         completion: @escaping (Result<CBORData?, ProofCertificateFetchingError>) -> Void
     ) {
 
-        let url = URL(string: "https://www.test.de")
-        guard let requestUrl = url else {
-            fatalError()
-        }
-
-        var request = URLRequest(url: requestUrl)
+        let url = baseURL.appendingPathComponent("/api/certify/v2/reissue/cbor", isDirectory: false)
+        var request = URLRequest(url: url)
         request.httpMethod = "POST"
 
         guard let healthCertificate = healthCertificates.first else {
@@ -94,14 +97,24 @@ public struct ProofCertificateDownload {
                     completion(.success(data))
                 } else {
                     // If there is no data returned, we try our luck with the next health certificate.
-                    fetchProofCertificateRecursion(for: _healthCertificates, with: httpService, completion: completion)
+                    fetchProofCertificateRecursion(
+                        for: _healthCertificates,
+                        with: httpService,
+                        baseURL: baseURL,
+                        completion: completion
+                    )
                 }
             // If status code indicates an internal server error, PC_SERVER_ERROR is returned.
             case 500...599:
                 completion(.failure(.PC_SERVER_ERROR))
             // All other status codes are indicating, that no proof certificate can be obtained. In this case, we try our luck with the next health certificate.
             default:
-                fetchProofCertificateRecursion(for: _healthCertificates, with: httpService, completion: completion)
+                fetchProofCertificateRecursion(
+                    for: _healthCertificates,
+                    with: httpService,
+                    baseURL: baseURL,
+                    completion: completion
+                )
             }
         }
     }

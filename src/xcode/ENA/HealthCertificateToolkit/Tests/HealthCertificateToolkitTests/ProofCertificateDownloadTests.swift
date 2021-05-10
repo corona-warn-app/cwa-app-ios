@@ -23,7 +23,11 @@ final class ProofCertificateDownloadTests: XCTestCase {
 
         let resultExpectation = expectation(description: "Fetch should return a result.")
 
-        proofCertificateDownload.fetchProofCertificate(for: [testData.input], with: httpServiceStub) { [weak self] result in
+        proofCertificateDownload.fetchProofCertificate(
+            for: [testData.input],
+            with: httpServiceStub,
+            baseURL: URL(fileURLWithPath: "dummy")) { [weak self] result in
+
             guard case let .success(_proofCertificateData) = result,
                   let proofCertificateData = _proofCertificateData else {
                 XCTFail("Success expected.")
@@ -50,7 +54,11 @@ final class ProofCertificateDownloadTests: XCTestCase {
 
         let resultExpectation = expectation(description: "Fetch should return a result.")
 
-        proofCertificateDownload.fetchProofCertificate(for: ["==NOBase45=="], with: httpServiceStub) {result in
+        proofCertificateDownload.fetchProofCertificate(
+            for: ["==NOBase45=="],
+            with: httpServiceStub,
+            baseURL: URL(fileURLWithPath: "dummy")) {result in
+
             guard case let .success(proofCertificateData) = result else {
                 XCTFail("Success expected.")
                 resultExpectation.fulfill()
@@ -77,7 +85,11 @@ final class ProofCertificateDownloadTests: XCTestCase {
 
         let resultExpectation = expectation(description: "Fetch should return a result.")
 
-        proofCertificateDownload.fetchProofCertificate(for: [testData.input], with: httpServiceStub) { result in
+        proofCertificateDownload.fetchProofCertificate(
+            for: [testData.input],
+            with: httpServiceStub,
+            baseURL: URL(fileURLWithPath: "dummy")) { result in
+
             guard case let .failure(error) = result else {
                 XCTFail("Error expected.")
                 return
@@ -100,7 +112,11 @@ final class ProofCertificateDownloadTests: XCTestCase {
 
         let resultExpectation = expectation(description: "Fetch should return a result.")
 
-        proofCertificateDownload.fetchProofCertificate(for: [testData.input], with: httpServiceStub) { result in
+        proofCertificateDownload.fetchProofCertificate(
+            for: [testData.input],
+            with: httpServiceStub,
+            baseURL: URL(fileURLWithPath: "dummy")) { result in
+
             guard case let .failure(error) = result else {
                 XCTFail("Error expected.")
                 return
@@ -122,7 +138,11 @@ final class ProofCertificateDownloadTests: XCTestCase {
 
         let resultExpectation = expectation(description: "Fetch should return a result.")
 
-        proofCertificateDownload.fetchProofCertificate(for: [testData.input], with: httpServiceStub) { result in
+        proofCertificateDownload.fetchProofCertificate(
+            for: [testData.input],
+            with: httpServiceStub,
+            baseURL: URL(fileURLWithPath: "dummy")) { result in
+
             guard case let .failure(error) = result else {
                 XCTFail("Error expected.")
                 return
@@ -162,7 +182,11 @@ final class ProofCertificateDownloadTests: XCTestCase {
 
         let resultExpectation = expectation(description: "Fetch should return a result.")
 
-        proofCertificateDownload.fetchProofCertificate(for: [testData.input, testData.input, testData.input], with: httpServiceStub) { [weak self] result in
+        proofCertificateDownload.fetchProofCertificate(
+            for: [testData.input, testData.input, testData.input],
+            with: httpServiceStub,
+            baseURL: URL(fileURLWithPath: "dummy")) { [weak self] result in
+
             guard case let .success(_proofCertificateData) = result,
                   let proofCertificateData = _proofCertificateData else {
                 XCTFail("Success expected.")
@@ -206,7 +230,11 @@ final class ProofCertificateDownloadTests: XCTestCase {
 
         let resultExpectation = expectation(description: "Fetch should return a result.")
 
-        proofCertificateDownload.fetchProofCertificate(for: [testData.input, testData.input], with: httpServiceStub) { result in
+        proofCertificateDownload.fetchProofCertificate(
+            for: [testData.input, testData.input],
+            with: httpServiceStub,
+            baseURL: URL(fileURLWithPath: "dummy")) { result in
+
             guard case let .success(proofCertificateData) = result else {
                 XCTFail("Success expected.")
                 resultExpectation.fulfill()
@@ -240,7 +268,11 @@ final class ProofCertificateDownloadTests: XCTestCase {
 
         let resultExpectation = expectation(description: "Fetch should return a result.")
 
-        proofCertificateDownload.fetchProofCertificate(for: [testData.input, testData.input], with: httpServiceStub) { result in
+        proofCertificateDownload.fetchProofCertificate(
+            for: [testData.input, testData.input],
+            with: httpServiceStub,
+            baseURL: URL(fileURLWithPath: "dummy")) { result in
+
             guard case let .success(proofCertificateData) = result else {
                 XCTFail("Success expected.")
                 resultExpectation.fulfill()
