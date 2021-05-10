@@ -23,17 +23,12 @@ class ENAUITests: XCTestCase {
 	}
 
 	func navigateThroughOnboarding() throws {
-		app.buttons["AppStrings.Onboarding.onboardingLetsGo"].tap()
-		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingContinue"].waitForExistence(timeout: .medium))
-		app.buttons["AppStrings.Onboarding.onboardingContinue"].tap()
-		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_button"].waitForExistence(timeout: .medium))
-		app.buttons["AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_button"].tap()
-		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingContinue"].waitForExistence(timeout: .medium))
-		app.buttons["AppStrings.Onboarding.onboardingContinue"].tap()
-		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingContinue"].waitForExistence(timeout: .medium))
-		app.buttons["AppStrings.Onboarding.onboardingContinue"].tap()
-		XCTAssertTrue(app.buttons["General.primaryFooterButton"].waitForExistence(timeout: .medium))
-		app.buttons["General.primaryFooterButton"].tap()
+		app.buttons["AppStrings.Onboarding.onboardingLetsGo"].waitAndTap()
+		app.buttons["AppStrings.Onboarding.onboardingContinue"].waitAndTap()
+		app.buttons["AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_button"].waitAndTap()
+		app.buttons["AppStrings.Onboarding.onboardingContinue"].waitAndTap()
+		app.buttons["AppStrings.Onboarding.onboardingContinue"].waitAndTap()
+		app.buttons["General.primaryFooterButton"].waitAndTap()
 	}
 
 	// MARK: - Screenshots
@@ -57,45 +52,37 @@ class ENAUITests: XCTestCase {
 		if snapshotsActive { snapshot("AppStore_0002") }
 
 		// ScreenShot_0003: Risk view (low risk)
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer].waitForExistence(timeout: .medium))
-		app.buttons[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer].tap()
+		app.buttons[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer].waitAndTap()
 		XCTAssertTrue(app.buttons["AppStrings.AccessibilityLabel.close"].waitForExistence(timeout: .medium))
 		if snapshotsActive { snapshot("AppStore_0003") }
 
 		// ScreenShot_0004: Settings > Risk exposure
-		app.buttons["AppStrings.AccessibilityLabel.close"].tap()
+		app.buttons["AppStrings.AccessibilityLabel.close"].waitAndTap()
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .medium))
 		app.swipeUp(velocity: .slow)
 		// ScreenShot_0004: Settings > Risk exposure
 		app.swipeUp() // the home screen got loger and for some reason we have to scroll to `tap()`
-		XCTAssertTrue(app.cells["AppStrings.Home.settingsCardTitle"].waitForExistence(timeout: .extraLong))
-		app.cells["AppStrings.Home.settingsCardTitle"].tap()
-		XCTAssertTrue(app.cells["AppStrings.Settings.tracingLabel"].waitForExistence(timeout: .extraLong))
-		app.cells["AppStrings.Settings.tracingLabel"].tap()
+		app.cells["AppStrings.Home.settingsCardTitle"].waitAndTap(.extraLong)
+		app.cells["AppStrings.Settings.tracingLabel"].waitAndTap(.extraLong)
 		XCTAssertTrue(app.images["AppStrings.ExposureNotificationSetting.accLabelEnabled"].waitForExistence(timeout: .medium))
 		if snapshotsActive { snapshot("AppStore_0004") }
 
 		// ScreenShot_0005: Test Options
 		// todo: need accessibility for Settings (navigation bar back button)
-		XCTAssertTrue(app.navigationBars.buttons.element(boundBy: 0).waitForExistence(timeout: .medium))
-		app.navigationBars.buttons.element(boundBy: 0).tap()
-		XCTAssertTrue(app.navigationBars.buttons.element(boundBy: 0).waitForExistence(timeout: .medium))
-		app.navigationBars.buttons.element(boundBy: 0).tap()
+		app.navigationBars.buttons.element(boundBy: 0).waitAndTap()
+		app.navigationBars.buttons.element(boundBy: 0).waitAndTap()
 		app.swipeDown()
 		// todo: need accessibility for Notify and Help
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .medium))
-		app.buttons[AccessibilityIdentifiers.Home.submitCardButton].tap()
+		app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitAndTap()
 
 		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"].waitForExistence(timeout: .medium))
 		if snapshotsActive { snapshot("AppStore_0005") }
 
 		// ScreenShot_0007: Share screen
 		// todo: need accessibility for Back (navigation bar back button)
-		XCTAssertTrue(app.buttons["AppStrings.AccessibilityLabel.close"].waitForExistence(timeout: .medium))
-		app.buttons["AppStrings.AccessibilityLabel.close"].tap()
+		app.buttons["AppStrings.AccessibilityLabel.close"].waitAndTap()
 		app.swipeUp()
-		XCTAssertTrue(app.cells["AppStrings.Home.infoCardShareTitle"].waitForExistence(timeout: .medium))
-		app.cells["AppStrings.Home.infoCardShareTitle"].tap()
+		app.cells["AppStrings.Home.infoCardShareTitle"].waitAndTap()
 		if snapshotsActive { snapshot("AppStore_0007") }
 
 		print("Snapshot.screenshotsDirectory")
@@ -115,8 +102,7 @@ class ENAUITests: XCTestCase {
 
 		// ScreenShot_0006: Negative result
 		try navigateThroughOnboarding()
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .medium))
-		app.buttons[AccessibilityIdentifiers.Home.submitCardButton].tap()
+		app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitAndTap()
 
 		if snapshotsActive { snapshot("AppStore_0006") }
 	}
