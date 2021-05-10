@@ -84,7 +84,7 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 			return tableView.dequeueReusableCell(cellType: HealthCertificateTopCornerCell.self, for: indexPath)
 		case .details:
 			let cell = tableView.dequeueReusableCell(cellType: HealthCertificateKeyValueTextCell.self, for: indexPath)
-			cell.configure(with: viewModel.healthCertificateKeyValueCellViewModel(row: indexPath.row))
+			cell.configure(with: viewModel.healthCertificateKeyValueCellViewModel[indexPath.row])
 			return cell
 		case .bottomCorner:
 			return tableView.dequeueReusableCell(cellType: HealthCertificateBottomCornerCell.self, for: indexPath)
@@ -194,6 +194,13 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 	private func setupViewModel() {
 		viewModel.$gradientType
 			.assign(to: \.type, on: backgroundView)
+			.store(in: &subscriptions)
+
+		viewModel.$healthCertificateKeyValueCellViewModel
+			.receive(on: DispatchQueue.main.ocombine)
+			.sink { _ in
+				self.tableView.reloadSections([HealthCertificateViewModel.TableViewSection.details.rawValue], with: .automatic)
+			}
 			.store(in: &subscriptions)
 	}
 

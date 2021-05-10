@@ -69,5 +69,4 @@ struct HealthCertificate: Codable, Equatable {
 			fatalError("Decoding the digitalGreenCertificate failed even though decodability was checked at initialization.")
 		}
 	}
-
 }

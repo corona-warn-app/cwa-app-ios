@@ -5899,10 +5899,10 @@
 		BA5B7FBA26458EF400502087 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				BA5B7FBB26458EF400502087 /* HealthCertificateKeyValueTextCell.swift */,
 				BA5B7FBC26458EF400502087 /* HealthCertificateBottomCornerCell.swift */,
-				BA5B7FBD26458EF400502087 /* HealthCertificateTopCornerCell.swift */,
 				BA5B7FBE26458EF400502087 /* HealthCertificateKeyValueCellViewModel.swift */,
+				BA5B7FBB26458EF400502087 /* HealthCertificateKeyValueTextCell.swift */,
+				BA5B7FBD26458EF400502087 /* HealthCertificateTopCornerCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";

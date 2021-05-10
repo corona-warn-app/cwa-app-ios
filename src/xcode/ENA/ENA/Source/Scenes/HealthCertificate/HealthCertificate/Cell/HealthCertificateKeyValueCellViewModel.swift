@@ -8,16 +8,18 @@ struct HealthCertificateKeyValueCellViewModel {
 
 	// MARK: - Init
 
-	init(_ model: HealthCertificateViewModel.DummyModel ) {
-		self.headline = model.key
-		self.text = model.value
+	init?(
+		key: String?,
+		value: String?
+	) {
+		guard let key = key,
+			  let value = value
+		else {
+			return nil
+		}
+		self.headline = key
+		self.text = value
 	}
-
-	// MARK: - Overrides
-
-	// MARK: - Protocol <#Name#>
-
-	// MARK: - Public
 
 	// MARK: - Internal
 
@@ -29,5 +31,4 @@ struct HealthCertificateKeyValueCellViewModel {
 	let headline: String
 	let text: String
 
-	// MARK: - Private
 }

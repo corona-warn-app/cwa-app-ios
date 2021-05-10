@@ -36,8 +36,9 @@ final class HealthCertificateViewModel {
 						}
 						Log.error("Could not fetch Vaccination value sets protobuf.", log: .vaccination, error: error)
 					}
-				}, receiveValue: { [weak self] valueSet in
-//					self?.valueSet = valueSet
+				}, receiveValue: { [weak self] valueSets in
+					self?.valueSets = valueSets
+					self?.setupHealthCertificateKeyValueCellViewModel()
 				}
 			)
 			.store(in: &subscriptions)
@@ -64,12 +65,19 @@ final class HealthCertificateViewModel {
 		}
 	}
 
-	let headlineCellViewModel: HealthCertificateSimpleTextCellViewModel = {
+	@OpenCombine.Published private(set) var gradientType: GradientView.GradientType = .solidGrey
+	@OpenCombine.Published private(set) var healthCertificateKeyValueCellViewModel: [HealthCertificateKeyValueCellViewModel] = []
+
+	var headlineCellViewModel: HealthCertificateSimpleTextCellViewModel {
+		guard let vaccinationCertificate = healthCertificate.vaccinationCertificates.first else {
+			preconditionFailure("should should never happen")
+		}
+
 		let centerParagraphStyle = NSMutableParagraphStyle()
 		centerParagraphStyle.alignment = .center
 
 		let attributedName = NSAttributedString(
-			string: "Impfung 1 von 2",
+			string: String(format: "Impfung %i von %i", vaccinationCertificate.doseNumber, vaccinationCertificate.totalSeriesOfDoses),
 			attributes: [
 				.font: UIFont.enaFont(for: .headline),
 				.foregroundColor: UIColor.enaColor(for: .textContrast),
@@ -94,43 +102,80 @@ final class HealthCertificateViewModel {
 			font: .enaFont(for: .headline),
 			accessibilityTraits: .staticText
 		)
-	}()
-
-	@OpenCombine.Published private(set) var gradientType: GradientView.GradientType = .solidGrey
+	}
 
 	func numberOfItems(in section: TableViewSection) -> Int {
 		switch section {
+		case .headline:
+			return healthCertificate.vaccinationCertificates.isEmpty ? 0 : 1
 		case .details:
-			return values.count
+			return healthCertificateKeyValueCellViewModel.count
 		default:
-			return 1
+			return healthCertificateKeyValueCellViewModel.isEmpty ? 0 : 1
 		}
-	}
-
-	func healthCertificateKeyValueCellViewModel(row: Int) -> HealthCertificateKeyValueCellViewModel {
-		let model = values[row]
-		return HealthCertificateKeyValueCellViewModel(model)
 	}
 
 	// MARK: - Private
 
 	private let healthCertificate: HealthCertificate
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProvider
+	private let dateFormatter: DateFormatter = {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateFormat = "YYYY-MM-dd"
+		return dateFormatter
+	}()
 
-	private(set) var valueSets: SAP_Internal_Dgc_ValueSets?
-
+	private var valueSets: SAP_Internal_Dgc_ValueSets?
 	private var subscriptions = Set<AnyCancellable>()
 
-	// remove later if we have correct data
-	struct DummyModel {
-		let key: String
-		let value: String
-	}
+	private func setupHealthCertificateKeyValueCellViewModel() {
 
-	private let values = [
-		DummyModel(key: "Andrea Schneider", value: "geboren 18.04.1943"),
-		DummyModel(key: "Datum der Impfung", value: "12.04.2021"),
-		DummyModel(key: "Impfstoff", value: "ID123")
-	]
+		var nameCellViewModel: HealthCertificateKeyValueCellViewModel?
+		if let date = dateFormatter.date(from: healthCertificate.dateOfBirth) {
+			nameCellViewModel = HealthCertificateKeyValueCellViewModel(
+				key: healthCertificate.name.fullName,
+				value: String(format: "geboren %@", DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .none))
+			)
+		}
+
+		var dateCellViewModel: HealthCertificateKeyValueCellViewModel?
+		if	let dateString = healthCertificate.vaccinationCertificates.first?.dateOfVaccination,
+			let date = dateFormatter.date(from: dateString) {
+			dateCellViewModel = HealthCertificateKeyValueCellViewModel(
+				key: "Datum der Impfung",
+				value: DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .none)
+			)
+		}
+
+		// addd valuesets data here
+
+		let issuerCellViewModel = HealthCertificateKeyValueCellViewModel(
+			key: "Aussteller",
+			value: healthCertificate.vaccinationCertificates.first?.certificateIssuer
+		)
+
+		var countryCellViewModel: HealthCertificateKeyValueCellViewModel?
+		if	let countryCode = healthCertificate.vaccinationCertificates.first?.countryOfVaccination,
+			let country = Country(countryCode: countryCode) {
+			countryCellViewModel = HealthCertificateKeyValueCellViewModel(
+				key: "Land",
+				value: country.localizedName
+			)
+		}
+
+		let certificateNumberCellViewModel = HealthCertificateKeyValueCellViewModel(
+			key: "Zertifikationsnummer",
+			value: healthCertificate.vaccinationCertificates.first?.uniqueCertificateIdentifier
+		)
+
+		healthCertificateKeyValueCellViewModel = [
+			nameCellViewModel,
+			dateCellViewModel,
+			issuerCellViewModel,
+			countryCellViewModel,
+			certificateNumberCellViewModel
+		]
+		.compactMap { $0 }
+	}
 
 }
