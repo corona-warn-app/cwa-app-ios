@@ -83,6 +83,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		setupOnboardingForTesting()
 		setupDatadonationForTesting()
 		setupInstallationDateForTesting()
+		setupAntigenTestProfileForTesting()
 		#endif
 
 		if AppDelegate.isAppDisabled() {
@@ -651,6 +652,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		}
 	}
 
+	private func setupAntigenTestProfileForTesting() {
+		store.antigenTestProfileInfoScreenShown = UserDefaults.standard.bool(forKey: "antigenTestProfileInfoScreenShown")
+		if UserDefaults.standard.bool(forKey: "removeAntigenTestProfile") {
+			store.antigenTestProfile = nil
+		}
+	}
+	
 	#endif
 
 	@objc
