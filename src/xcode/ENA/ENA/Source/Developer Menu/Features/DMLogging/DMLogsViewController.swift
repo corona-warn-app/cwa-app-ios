@@ -178,31 +178,45 @@ final class DMLogsViewController: UIViewController {
 			return
 		}
 
-		let fileLogger = FileLogger()
-		let reader: StreamReader
+		// Run asynchronously to prevent any performance issues.
+		// Also, log truncation should reduce the need of this but better have it when dealing with
+		// 'larger' logs - for mobile standards.
+		DispatchQueue(label: "log-update", qos: .userInitiated).async { [weak self] in
+			guard let self = self else { return }
 
-		do {
-			if let osLogType = selectedSegment.osLogType {
-				reader = try fileLogger.logReader(for: osLogType)
-			} else {
-				Log.warning("the osLogType for the selected segment is nil", log: .default)
-				reader = try fileLogger.logReader()
-			}
-			var text = ""
-			while let line = reader.nextLine() {
-				// why not `append`? https://twitter.com/nicklockwood/status/972215130825154561
-				text += line
-				text += "\n"
-			}
-			textView.text = text
+			do {
+				let fileLogger = FileLogger()
+				let reader: StreamReader
 
-			// Does NOT fully scroll to bottom. I assume it's because of the custom font size and the way UIKit calculates the contentOffset.
-			// However I leave it in for two reasons:
-			// 1. this view might get a refactoring later™ (https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-5426)
-			// 2. this is better than the current start at the top of a potentially very long log
-			textView.scrollRangeToVisible(NSRange(location: textView.text.count, length: 0))
-		} catch {
-			Log.error("Error while displaying logs: \(error)", log: .default, error: error)
+				if let osLogType = selectedSegment.osLogType {
+					reader = try fileLogger.logReader(for: osLogType)
+				} else {
+					Log.warning("the osLogType for the selected segment is nil", log: .default)
+					reader = try fileLogger.logReader()
+				}
+				var text = ""
+				// simple handling of trucated logs
+				if reader.isLogTruncated {
+					text += "============\nLog output is truncated, to see all contents export the logs and use proper tools\n============\n\n"
+				}
+
+				while let line = reader.nextLine() {
+					// why not `append`? https://twitter.com/nicklockwood/status/972215130825154561
+					text += line
+					text += "\n"
+				}
+
+				DispatchQueue.main.sync {
+					self.textView.text = text
+					// Does NOT fully scroll to bottom. I assume it's because of the custom font size and the way UIKit calculates the contentOffset.
+					// However I leave it in for two reasons:
+					// 1. this view might get a refactoring later™ (https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-5426)
+					// 2. this is better than the current start at the top of a potentially very long log
+					self.textView.scrollRangeToVisible(NSRange(location: self.textView.text.count, length: 0))
+				}
+			} catch {
+				Log.error("Error while displaying logs: \(error)", log: .default, error: error)
+			}
 		}
 	}
 }
