@@ -2,7 +2,7 @@
 // 🦠 Corona-Warn-App
 //
 
-import Foundation
+import UIKit
 import OpenCombine
 
 class HealthCertifiedPerson: OpenCombine.ObservableObject, Codable, Equatable {
@@ -12,6 +12,8 @@ class HealthCertifiedPerson: OpenCombine.ObservableObject, Codable, Equatable {
 	init(healthCertificates: [HealthCertificate], proofCertificate: ProofCertificate?) {
 		self.healthCertificates = healthCertificates
 		self.proofCertificate = proofCertificate
+
+		hasValidProofCertificate = proofCertificate?.isExpired == false
 	}
 
 	// MARK: - Protocol Codable
@@ -30,6 +32,8 @@ class HealthCertifiedPerson: OpenCombine.ObservableObject, Codable, Equatable {
 		proofCertificate = try container.decode(ProofCertificate.self, forKey: .proofCertificate)
 		lastProofCertificateUpdate = try container.decodeIfPresent(Date.self, forKey: .healthCertificates)
 		proofCertificateUpdatePending = try container.decode(Bool.self, forKey: .healthCertificates)
+
+		hasValidProofCertificate = proofCertificate?.isExpired == false
 	}
 
 	func encode(to encoder: Encoder) throws {
@@ -63,6 +67,12 @@ class HealthCertifiedPerson: OpenCombine.ObservableObject, Codable, Equatable {
 
 	var objectDidChange = OpenCombine.PassthroughSubject<HealthCertifiedPerson, Never>()
 
+	@OpenCombine.Published var hasValidProofCertificate: Bool = false {
+		didSet {
+			objectDidChange.send(self)
+		}
+	}
+
 	var fullName: String? {
 		proofCertificate?.fullName ?? healthCertificates.first?.name.fullName
 	}
@@ -93,6 +103,56 @@ class HealthCertifiedPerson: OpenCombine.ObservableObject, Codable, Equatable {
 		if proofCertificate?.isExpired == true {
 			proofCertificate = nil
 		}
+	}
+
+	// MARK: - Private
+
+	private var expiredStateTimer: Timer?
+
+	private func setupExpiredPublisher(for proofCertificate: ProofCertificate) {
+		hasValidProofCertificate = !proofCertificate.isExpired
+
+		if hasValidProofCertificate {
+			scheduleExpiredStateTimer(for: proofCertificate)
+		}
+	}
+
+	private func scheduleExpiredStateTimer(for proofCertificate: ProofCertificate) {
+		expiredStateTimer?.invalidate()
+		NotificationCenter.default.removeObserver(self, name: UIApplication.didEnterBackgroundNotification, object: nil)
+		NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
+
+		// Schedule new timer.
+		NotificationCenter.default.addObserver(self, selector: #selector(invalidateTimer), name: UIApplication.didEnterBackgroundNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(refreshUpdateTimerAfterResumingFromBackground), name: UIApplication.didBecomeActiveNotification, object: nil)
+
+		expiredStateTimer = Timer(fireAt: proofCertificate.expirationDate, interval: 0, target: self, selector: #selector(updateFromTimer), userInfo: nil, repeats: false)
+
+		guard let expiredStateTimer = expiredStateTimer else { return }
+		RunLoop.current.add(expiredStateTimer, forMode: .common)
+	}
+
+	@objc
+	private func invalidateTimer() {
+		expiredStateTimer?.invalidate()
+	}
+
+	@objc
+	private func refreshUpdateTimerAfterResumingFromBackground() {
+		updateFromTimer()
+
+		if let proofCertificate = proofCertificate {
+			setupExpiredPublisher(for: proofCertificate)
+		}
+	}
+
+	@objc
+	private func updateFromTimer() {
+		guard let proofCertificate = proofCertificate else {
+			return
+		}
+
+		hasValidProofCertificate = !proofCertificate.isExpired
 	}
 
 }

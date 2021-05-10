@@ -20,9 +20,15 @@ final class HealthCertifiedPersonViewModel {
 		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
 
 		// setup gradient update
-		healthCertifiedPerson.$proofCertificate
-			.sink { [weak self] proofCertificate in
-				self?.gradientType = proofCertificate != nil ? .blueOnly : .solidGrey
+		healthCertifiedPerson.$hasValidProofCertificate
+			.sink { [weak self] in
+				self?.gradientType = $0 ? .blueOnly : .solidGrey
+			}
+			.store(in: &subscriptions)
+
+		healthCertifiedPerson.objectDidChange
+			.sink { [weak self] _ in
+				self?.triggerReload = true
 			}
 			.store(in: &subscriptions)
 
@@ -103,6 +109,7 @@ final class HealthCertifiedPersonViewModel {
 	}()
 
 	@OpenCombine.Published private(set) var gradientType: GradientView.GradientType = .solidGrey
+	@OpenCombine.Published private(set) var triggerReload: Bool = false
 
 	var healthCertificateCellViewModel: HealthCertificateCellViewModel {
 		HealthCertificateCellViewModel(healthCertificate: "Dummy", type: gradientType)
@@ -137,8 +144,16 @@ final class HealthCertifiedPersonViewModel {
 
 	func numberOfItems(in section: TableViewSection) -> Int {
 		switch section {
-		default:
+		case .header:
 			return 1
+		case .incompleteVaccination:
+			return !healthCertifiedPerson.hasValidProofCertificate ? 1 : 0
+		case .qrCode:
+			return healthCertifiedPerson.hasValidProofCertificate ? 1 : 0
+		case .person:
+			return 1
+		case .certificates:
+			return healthCertifiedPerson.healthCertificates.count
 		}
 	}
 

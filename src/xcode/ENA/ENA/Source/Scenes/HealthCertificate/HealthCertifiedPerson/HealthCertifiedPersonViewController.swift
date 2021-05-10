@@ -25,6 +25,7 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 			healthCertifiedPerson: healthCertifiedPerson,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider
 		)
+
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -212,6 +213,15 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 	private func setupViewModel() {
 		viewModel.$gradientType
 			.assign(to: \.type, on: backgroundView)
+			.store(in: &subscriptions)
+
+		viewModel.$triggerReload
+			.receive(on: DispatchQueue.main.ocombine)
+			.sink { [weak self] shouldReload in
+				guard shouldReload else { return }
+
+				self?.tableView.reloadData()
+			}
 			.store(in: &subscriptions)
 	}
 
