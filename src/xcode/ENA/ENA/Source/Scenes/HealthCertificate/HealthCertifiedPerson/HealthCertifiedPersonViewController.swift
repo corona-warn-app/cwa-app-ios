@@ -106,6 +106,7 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 	}
 
 	// MARK: - Protocol UITableViewDelegate
+
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let section = HealthCertifiedPersonViewModel.TableViewSection.map(indexPath.section)
 		switch section {
@@ -116,6 +117,10 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		default:
 			break
 		}
+	}
+
+	func testWithPublisher(healthCertificate: HealthCertificate, publisher: OpenCombine.AnyPublisher<SAP_Internal_Dgc_ValueSets, Error>) {
+
 	}
 
 	// MARK: - Private

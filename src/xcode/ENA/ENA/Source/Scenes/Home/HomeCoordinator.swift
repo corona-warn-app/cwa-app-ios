@@ -374,7 +374,7 @@ class HomeCoordinator: RequiresAppDependencies {
 			parentViewController: rootViewController,
 			healthCertificateService: healthCertifiedService,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider
-			)
+		)
 		coordinator.start()
 	}
 
@@ -383,7 +383,7 @@ class HomeCoordinator: RequiresAppDependencies {
 			parentViewController: rootViewController,
 			healthCertificateService: healthCertifiedService,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider
-			)
+		)
 		coordinator.start(with: healthCertifiedPerson)
 	}
 

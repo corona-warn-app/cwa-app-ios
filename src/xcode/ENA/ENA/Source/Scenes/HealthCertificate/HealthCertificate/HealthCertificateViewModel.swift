@@ -11,15 +11,37 @@ final class HealthCertificateViewModel {
 
 	init(
 		healthCertifiedPerson: HealthCertifiedPerson,
-		healthCertificate: HealthCertificate
+		healthCertificate: HealthCertificate,
+		vaccinationValueSetsProvider: VaccinationValueSetsProvider
 	) {
 		self.healthCertificate = healthCertificate
+		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
 
 		healthCertifiedPerson.$proofCertificate
 			.sink { [weak self] proofCertificate in
 				self?.gradientType = proofCertificate != nil ? .blueOnly : .solidGrey
 			}
 			.store(in: &subscriptions)
+
+		// load certificate value sets
+		vaccinationValueSetsProvider.latestVaccinationCertificateValueSets()
+			.sink(
+				receiveCompletion: { result in
+					switch result {
+					case .finished:
+						break
+					case .failure(let error):
+						if case CachingHTTPClient.CacheError.dataVerificationError = error {
+							Log.error("Signature verification error.", log: .vaccination, error: error)
+						}
+						Log.error("Could not fetch Vaccination value sets protobuf.", log: .vaccination, error: error)
+					}
+				}, receiveValue: { [weak self] valueSet in
+//					self?.valueSet = valueSet
+				}
+			)
+			.store(in: &subscriptions)
+
 	}
 
 	// MARK: - Internal
@@ -93,6 +115,7 @@ final class HealthCertificateViewModel {
 	// MARK: - Private
 
 	private let healthCertificate: HealthCertificate
+	private let vaccinationValueSetsProvider: VaccinationValueSetsProvider
 	private var subscriptions = Set<AnyCancellable>()
 
 	// remove later if we have correct data

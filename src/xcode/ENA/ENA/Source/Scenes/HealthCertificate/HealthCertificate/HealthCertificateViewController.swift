@@ -12,6 +12,7 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 	init(
 		healthCertifiedPerson: HealthCertifiedPerson,
 		healthCertificate: HealthCertificate,
+		vaccinationValueSetsProvider: VaccinationValueSetsProvider,
 		dismiss: @escaping () -> Void,
 		didTapDelete: @escaping () -> Void
 	) {
@@ -19,7 +20,8 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 		self.didTapDelete = didTapDelete
 		self.viewModel = HealthCertificateViewModel(
 			healthCertifiedPerson: healthCertifiedPerson,
-			healthCertificate: healthCertificate
+			healthCertificate: healthCertificate,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider
 		)
 		super.init(nibName: nil, bundle: nil)
 	}

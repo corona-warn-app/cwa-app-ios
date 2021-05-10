@@ -131,6 +131,7 @@ final class HealthCertificateCoordinator {
 		let healthCertificateViewController = HealthCertificateViewController(
 			healthCertifiedPerson: healthCertifiedPerson,
 			healthCertificate: healthCertificate,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			dismiss: {
 				self.endCoordinator()
 			},

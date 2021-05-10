@@ -29,19 +29,8 @@ final class HealthCertifiedPersonViewModel {
 		// load certificate value sets
 		vaccinationValueSetsProvider.latestVaccinationCertificateValueSets()
 			.sink(
-				receiveCompletion: { result in
-					switch result {
-					case .finished:
-						break
-					case .failure(let error):
-						if case CachingHTTPClient.CacheError.dataVerificationError = error {
-							Log.error("Signature verification error.", log: .vaccination, error: error)
-						}
-						Log.error("Could not fetch Vaccination value sets protobuf.", log: .vaccination, error: error)
-					}
-				}, receiveValue: { [weak self] valueSet in
-					self?.valueSet = valueSet
-				}
+				receiveCompletion: { _ in },
+				receiveValue: { _ in }
 			)
 			.store(in: &subscriptions)
 	}
@@ -114,7 +103,6 @@ final class HealthCertifiedPersonViewModel {
 	}()
 
 	@OpenCombine.Published private(set) var gradientType: GradientView.GradientType = .solidGrey
-	@OpenCombine.Published private(set) var valueSet: SAP_Internal_Dgc_ValueSets?
 
 	var healthCertificateCellViewModel: HealthCertificateCellViewModel {
 		HealthCertificateCellViewModel(healthCertificate: "Dummy", type: gradientType)
