@@ -610,12 +610,11 @@ class ENAUITests_04a_ExposureSubmission: XCTestCase {
 	func test_screenshot_test_result_available() {
 		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
 		app.launchArguments.append(contentsOf: ["-pcrTestResult", TestResult.positive.stringValue])
-		app.launchArguments.append(contentsOf: ["-showTestResultAvailableViewController", "YES"])
 		launch()
 
 		// Open test result available screen.
-		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .long))
-		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].tap()
+		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.TestResultCell.availablePCRButton].waitForExistence(timeout: .long))
+		app.cells.buttons[AccessibilityIdentifiers.Home.TestResultCell.availablePCRButton].tap()
 		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .long))
 
 		snapshot("submissionflow_screenshot_test_result_available")
@@ -650,14 +649,19 @@ class ENAUITests_04a_ExposureSubmission: XCTestCase {
 	func test_screenshot_test_result_positive() {
 		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
 		app.launchArguments.append(contentsOf: ["-isPCRSubmissionConsentGiven", "YES"])
+		app.launchArguments.append(contentsOf: ["-pcrPositiveTestResultWasShown", "NO"])
 		app.launchArguments.append(contentsOf: ["-pcrTestResult", TestResult.positive.stringValue])
 		launch()
 
 		// Open test result screen.
-		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .long))
-		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].tap()
-		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.TestResultCell.availablePCRButton].waitForExistence(timeout: .long))
+		app.cells.buttons[AccessibilityIdentifiers.Home.TestResultCell.availablePCRButton].tap()
 
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitForExistence(timeout: .long))
+		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].tap()
+		
+		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.primaryButton"].waitForExistence(timeout: .long))
+		
 		snapshot("submissionflow_screenshot_test_result_positive_constent_given")
 	}
 
