@@ -4,7 +4,6 @@
 
 import XCTest
 
-// swiftlint:disable:next type_body_length
 class ENAUITests_09_TraceLocations: XCTestCase {
 	
 	// MARK: - Setup.
@@ -311,7 +310,7 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 		app.staticTexts[String(format: AccessibilityLabels.localized(AppStrings.Checkins.Overview.itemPrefixCheckedOut), event2)].waitAndTap()
 		
 		// tap "Speichern" to go back to overview
-		let buttons = app.buttons		buttons.element(matching: .button, identifier: AccessibilityIdentifiers.General.primaryFooterButton).waitAndTap()
+		app.buttons.element(matching: .button, identifier: AccessibilityIdentifiers.General.primaryFooterButton).waitAndTap()
 		
 		myCheckins_delete_all()
 	}
