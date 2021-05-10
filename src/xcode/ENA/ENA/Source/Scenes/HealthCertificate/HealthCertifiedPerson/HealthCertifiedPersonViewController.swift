@@ -108,6 +108,22 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 
 	// MARK: - Protocol UITableViewDelegate
 
+	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+		// we are only interested in QRCode cell once if the traitCollectionDidChange - to update gradientHeightConstraint
+		guard
+			didCalculateGradientHeight == false,
+			(HealthCertifiedPersonViewModel.TableViewSection.map(indexPath.section) == .incompleteVaccination ||
+			HealthCertifiedPersonViewModel.TableViewSection.map(indexPath.section) == .qrCode)
+		else {
+			return
+		}
+
+		let cellRect = tableView.rectForRow(at: indexPath)
+		let result = view.convert(cellRect, from: tableView)
+		backgroundView.gradientHeightConstraint.constant = result.midY
+		didCalculateGradientHeight = true
+	}
+
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let section = HealthCertifiedPersonViewModel.TableViewSection.map(indexPath.section)
 		switch section {
