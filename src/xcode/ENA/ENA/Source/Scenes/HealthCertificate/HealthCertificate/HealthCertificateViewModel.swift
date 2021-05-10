@@ -147,6 +147,26 @@ final class HealthCertificateViewModel {
 			)
 		}
 
+		var vaccinationCellViewModel: HealthCertificateKeyValueCellViewModel?
+		if let valueSet = valueSet(by: "mp"),
+		   let key = healthCertificate.vaccinationCertificates.first?.vaccineMedicinalProduct {
+			let value = determineValue(key: key, valueSet: valueSet)
+			vaccinationCellViewModel = HealthCertificateKeyValueCellViewModel(
+				key: "Impfstoff",
+				value: value
+			)
+		}
+
+		var manufacturerCellViewModel: HealthCertificateKeyValueCellViewModel?
+		if let valueSet = valueSet(by: "ma"),
+		   let key = healthCertificate.vaccinationCertificates.first?.marketingAuthorizationHolder {
+			let value = determineValue(key: key, valueSet: valueSet)
+			manufacturerCellViewModel = HealthCertificateKeyValueCellViewModel(
+				key: "Hersteller",
+				value: value
+			)
+		}
+
 		// addd valuesets data here
 
 		let issuerCellViewModel = HealthCertificateKeyValueCellViewModel(
@@ -171,11 +191,36 @@ final class HealthCertificateViewModel {
 		healthCertificateKeyValueCellViewModel = [
 			nameCellViewModel,
 			dateCellViewModel,
+			vaccinationCellViewModel,
+			manufacturerCellViewModel,
 			issuerCellViewModel,
 			countryCellViewModel,
 			certificateNumberCellViewModel
 		]
 		.compactMap { $0 }
+	}
+
+	func valueSet(by type: String) -> SAP_Internal_Dgc_ValueSet? {
+		switch type {
+		case "vp":
+			return valueSets?.hasVp ?? false ? valueSets?.vp : nil
+		case "mp":
+			return valueSets?.hasMp ?? false ? valueSets?.mp : nil
+		case "ma":
+			return valueSets?.hasMa ?? false ? valueSets?.ma : nil
+		default:
+			return nil
+		}
+	}
+
+	func determineValue(key: String, valueSet: SAP_Internal_Dgc_ValueSet) -> String {
+		for item in valueSet.items {
+			if item.key == key {
+				return item.displayText
+				break
+			}
+		}
+		return key
 	}
 
 }
