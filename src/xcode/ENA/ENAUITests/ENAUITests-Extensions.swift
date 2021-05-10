@@ -32,6 +32,11 @@ extension XCUIElement {
 		guard exists, !frame.isEmpty else { return false }
 		return XCUIApplication().windows.element(boundBy: 0).frame.contains(frame)
 	}
+	
+	func waitAndTap(_ timeout: Double = .short) {
+		XCTAssertTrue(self.waitForExistence(timeout: timeout))
+		self.tap()
+	}
 }
 
 extension XCUIElementQuery {
