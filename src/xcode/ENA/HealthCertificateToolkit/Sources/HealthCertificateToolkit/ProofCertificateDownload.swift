@@ -57,7 +57,7 @@ public struct ProofCertificateDownload {
         completion: @escaping (Result<CBORData?, ProofCertificateFetchingError>) -> Void
     ) {
 
-        let url = URL(string: "")
+        let url = URL(string: "https://www.test.de")
         guard let requestUrl = url else {
             fatalError()
         }
