@@ -43,9 +43,9 @@ final class HealthCertificateCoordinator {
 
 	private func showConsentScreen() {
 		let consentScreen = HealthCertificateConsentViewController(
-			didTapConsentButton: showQRCodeScanner,
-			didTapDataPrivacy: showDisclaimer,
-			dismiss: endCoordinator
+			didTapConsentButton: { [weak self] in self?.showQRCodeScanner() },
+			didTapDataPrivacy: { [weak self] in self?.showDisclaimer() },
+			dismiss: { [weak self] in self?.endCoordinator() }
 		)
 
 		let footerViewController = FooterViewController(
@@ -81,10 +81,10 @@ final class HealthCertificateCoordinator {
 	private func showQRCodeScanner() {
 		let qrCodeScannerViewController = HealthCertificateQRCodeScannerViewController(
 			healthCertificateService: healthCertificateService,
-			didScanCertificate: { healthCertifiedPerson in
-				self.showHealthCertifiedPerson(healthCertifiedPerson)
-				self.navigationController.dismiss(animated: true)
-			}, dismiss: endCoordinator
+			didScanCertificate: { [weak self] healthCertifiedPerson in
+				self?.showHealthCertifiedPerson(healthCertifiedPerson)
+				self?.navigationController.dismiss(animated: true)
+			}, dismiss: { [weak self] in self?.endCoordinator() }
 		)
 
 		let qrCodeNavigationController = UINavigationController(rootViewController: qrCodeScannerViewController)
@@ -96,14 +96,14 @@ final class HealthCertificateCoordinator {
 			healthCertificateService: healthCertificateService,
 			healthCertifiedPerson: healthCertifiedPerson,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			dismiss: endCoordinator,
-			didTapHealthCertificate: { healthCertificate in
-				self.showHealthCertificate(
+			dismiss: { [weak self] in self?.endCoordinator() },
+			didTapHealthCertificate: { [weak self] healthCertificate in
+				self?.showHealthCertificate(
 					healthCertifiedPerson: healthCertifiedPerson,
 					healthCertificate: healthCertificate
 				)
 			},
-			didTapRegisterAnotherHealthCertificate: showQRCodeScanner
+			didTapRegisterAnotherHealthCertificate: { [weak self] in self?.showQRCodeScanner() }
 		)
 
 		let footerViewController = FooterViewController(
@@ -132,16 +132,14 @@ final class HealthCertificateCoordinator {
 			healthCertifiedPerson: healthCertifiedPerson,
 			healthCertificate: healthCertificate,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			dismiss: {
-				self.endCoordinator()
-			},
-			didTapDelete: {
-				self.showDeleteAlert(
+			dismiss: { [weak self] in self?.endCoordinator() },
+			didTapDelete: { [weak self] in
+				self?.showDeleteAlert(
 					submitAction: UIAlertAction(
 						title: "Entfernen",
 						style: .default,
 						handler: { _ in
-							self.navigationController.popToRootViewController(animated: true)
+							self?.navigationController.popToRootViewController(animated: true)
 						}
 					)
 				)
