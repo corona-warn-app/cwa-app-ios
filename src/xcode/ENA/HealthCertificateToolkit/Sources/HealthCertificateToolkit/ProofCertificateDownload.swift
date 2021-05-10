@@ -20,8 +20,8 @@ public struct ProofCertificateDownload {
 
         let certificateAccess = DigitalGreenCertificateAccess()
 
-        let eligibleCertificates =
-            healthCertificates.compactMap { (base45) -> CBORData? in
+        let eligibleCertificates = healthCertificates
+            .compactMap { (base45) -> CBORData? in
                 let result = certificateAccess.extractCBOR(from: base45)
                 switch result {
                 case .success(let healthCertificateCBORData):
@@ -29,7 +29,8 @@ public struct ProofCertificateDownload {
                 case .failure:
                     return nil
                 }
-            }.filter {
+            }
+            .filter {
                 switch certificateAccess.extractDigitalGreenCertificate(from: $0) {
                 case .success(let certificate):
                     return certificate.vaccinationCertificates[0].isEligibleForProofCertificate
