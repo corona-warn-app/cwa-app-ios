@@ -44,7 +44,9 @@ class TraceLocationDetailsViewController: UIViewController, UITableViewDataSourc
 
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
-		navigationController?.setNavigationBarHidden(false, animated: animated)
+		if navigationController?.isBeingDismissed == false {
+			navigationController?.setNavigationBarHidden(false, animated: animated)
+		}
 	}
 
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
