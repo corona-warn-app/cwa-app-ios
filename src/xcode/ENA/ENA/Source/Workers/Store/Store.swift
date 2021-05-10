@@ -178,10 +178,6 @@ protocol HealthCertificateStoring {
 
 	var healthCertifiedPersons: [HealthCertifiedPerson] { get set }
 
-	var lastProofCertificateUpdate: Date? { get set }
-
-	var proofCertificateUpdatePending: Bool { get set }
-
 }
 
 /// this section contains only deprecated stuff, please do not add new things here

@@ -38,25 +38,22 @@ class HealthCertificateQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutput
 		}
 		deactivateScanning()
 
-		let prefix = "HC1:"
-		guard let code = metadataObjects.first(where: { $0 is MetadataMachineReadableCodeObject }) as? MetadataMachineReadableCodeObject,
-			  let scannedQRCodeString = code.stringValue,
-			  scannedQRCodeString.hasPrefix(prefix)
+		guard
+			let code = metadataObjects.first(where: { $0 is MetadataMachineReadableCodeObject }) as? MetadataMachineReadableCodeObject,
+			let scannedQRCodeString = code.stringValue
 		else {
 			Log.error("Vaccination QRCode verification Failed, invalid metadataObject", log: .vaccination)
 			onError?(QRScannerError.codeNotFound)
 			return
 		}
 
-		healthCertificateService.registerHealthCertificate(
-			base45: String(scannedQRCodeString.dropFirst(prefix.count))) { result  in
-			switch result {
-			case .success(let healthCertifiedPerson):
-				self.onSuccess(healthCertifiedPerson)
-			case .failure(let registrationError):
-				// wrap RegistrationError into an QRScannerError.other error
-				self.onError?(QRScannerError.other(registrationError))
-			}
+		let result = healthCertificateService.registerHealthCertificate(base45: scannedQRCodeString)
+		switch result {
+		case .success(let healthCertifiedPerson):
+			self.onSuccess(healthCertifiedPerson)
+		case .failure(let registrationError):
+			// wrap RegistrationError into an QRScannerError.other error
+			self.onError?(QRScannerError.other(registrationError))
 		}
 	}
 

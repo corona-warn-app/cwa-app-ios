@@ -59,6 +59,13 @@ public struct VaccinationCertificate: Codable, Equatable {
 
 }
 
+public extension VaccinationCertificate {
+
+    var isEligibleForProofCertificate: Bool {
+        doseNumber == totalSeriesOfDoses
+    }
+}
+
 public struct Name: Codable, Equatable {
 
     // MARK: - Protocol Codable
