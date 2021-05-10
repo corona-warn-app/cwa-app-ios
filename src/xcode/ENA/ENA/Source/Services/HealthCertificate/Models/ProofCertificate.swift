@@ -9,20 +9,22 @@ struct ProofCertificate: Codable, Equatable {
 
 	// MARK: - Init
 
-	init(cborData: CBORData) throws {
+	init(base45: Base45) throws {
 		// Ensure the data will be decodable on the fly later on, even though we don't store the decoded data
-		if case .failure(let error) = DigitalGreenCertificateAccess().extractCBORWebTokenHeader(from: cborData) {
+		if case .failure(let error) = DigitalGreenCertificateAccess().extractCBORWebTokenHeader(from: base45) {
 			throw error
 		}
 
-		if case .failure(let error) = DigitalGreenCertificateAccess().extractDigitalGreenCertificate(from: cborData) {
+		if case .failure(let error) = DigitalGreenCertificateAccess().extractDigitalGreenCertificate(from: base45) {
 			throw error
 		}
 
-		self.cborData = cborData
+		self.base45 = base45
 	}
 
 	// MARK: - Internal
+
+	let base45: Base45
 
 	var expirationDate: Date {
 		Date(timeIntervalSince1970: TimeInterval(cborWebTokenHeader.expirationTime))
@@ -34,10 +36,8 @@ struct ProofCertificate: Codable, Equatable {
 
 	// MARK: - Private
 
-	private let cborData: CBORData
-
 	private var cborWebTokenHeader: CBORWebTokenHeader {
-		let result = DigitalGreenCertificateAccess().extractCBORWebTokenHeader(from: cborData)
+		let result = DigitalGreenCertificateAccess().extractCBORWebTokenHeader(from: base45)
 
 		switch result {
 		case .success(let cborWebTokenHeader):
@@ -48,7 +48,7 @@ struct ProofCertificate: Codable, Equatable {
 	}
 
 	private var digitalGreenCertificate: DigitalGreenCertificate {
-		let result = DigitalGreenCertificateAccess().extractDigitalGreenCertificate(from: cborData)
+		let result = DigitalGreenCertificateAccess().extractDigitalGreenCertificate(from: base45)
 
 		switch result {
 		case .success(let digitalGreenCertificate):

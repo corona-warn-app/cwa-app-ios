@@ -122,15 +122,15 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 			for: healthCertificates,
 			completion: { result in
 				switch result {
-				case .success(let cborData):
+				case .success(let base45):
 					do {
 						healthCertifiedPerson.lastProofCertificateUpdate = Date()
 						healthCertifiedPerson.proofCertificateUpdatePending = false
 
 						healthCertifiedPerson.removeProofCertificateIfExpired()
 
-						if let cborData = cborData {
-							healthCertifiedPerson.proofCertificate = try ProofCertificate(cborData: cborData)
+						if let base45 = base45 {
+							healthCertifiedPerson.proofCertificate = try ProofCertificate(base45: base45)
 						}
 
 						completion(.success(()))
