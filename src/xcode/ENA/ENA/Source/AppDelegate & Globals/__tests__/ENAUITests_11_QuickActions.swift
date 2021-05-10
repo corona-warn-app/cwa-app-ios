@@ -56,7 +56,7 @@ class ENAUITests_11_QuickActions: XCTestCase {
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .medium))
 
 		let quickAction = try checkAppMenu(expectNewDiaryItem: true)
-		quickAction.tap()
+		quickAction.waitAndTap()
 
 		// we expect the info screen
 		XCTAssertFalse(app.segmentedControls[AccessibilityIdentifiers.ContactDiary.segmentedControl].waitForExistence(timeout: .short))
@@ -74,7 +74,7 @@ class ENAUITests_11_QuickActions: XCTestCase {
 		// On home screen?
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .medium))
 		let quickAction = try checkAppMenu(expectNewDiaryItem: true)
-		quickAction.tap()
+		quickAction.waitAndTap()
 
 		XCTAssertTrue(app.segmentedControls[AccessibilityIdentifiers.ContactDiary.segmentedControl].waitForExistence(timeout: .short))
 	}
@@ -91,13 +91,10 @@ class ENAUITests_11_QuickActions: XCTestCase {
 		app.launch()
 
 		// Open Intro screen ("Testergebnis abrufen")
-		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .long))
-		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].tap()
+		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitAndTap()
 
 		// TAN
-		let tanButton = app.buttons["AppStrings.ExposureSubmissionDispatch.tanButtonDescription"]
-		XCTAssertTrue(tanButton.waitForExistence(timeout: .medium))
-		tanButton.tap()
+		app.buttons["AppStrings.ExposureSubmissionDispatch.tanButtonDescription"].waitAndTap()
 
 		// Fill in dummy TAN.
 		
@@ -105,12 +102,12 @@ class ENAUITests_11_QuickActions: XCTestCase {
 		XCTAssertTrue(tanSubmityButton.waitForExistence(timeout: .medium))
 
 		"qwdzxcsrhe".forEach {
-			app.keyboards.keys[String($0)].tap()
+			app.keyboards.keys[String($0)].waitAndTap()
 		}
 		try checkAppMenu(expectNewDiaryItem: true, expectEventCheckin: true)
 		// Submit TAN
 		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.primaryButton"].isEnabled)
-		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
+		app.buttons["AppStrings.ExposureSubmission.primaryButton"].waitAndTap()
 		// remember: TAN tests are ALWAYS positive!
 
 		// Result Screen
@@ -118,11 +115,10 @@ class ENAUITests_11_QuickActions: XCTestCase {
 		try checkAppMenu(expectNewDiaryItem: false, expectEventCheckin: false) // !!! Quick action should be disabled until we leave the submission flow
 
 		// We currently back out of the submission flow. This might be extended in future, feel free to add tests for the following views :)
-		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.secondaryButton"].waitForExistence(timeout: .medium))
-		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
+		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].waitAndTap()
 
 		// don't warn
-		app.alerts.firstMatch.buttons[AccessibilityIdentifiers.General.defaultButton].tap()
+		app.alerts.firstMatch.buttons[AccessibilityIdentifiers.General.defaultButton].waitAndTap()
 
 		// Back on home screen?
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .medium))
@@ -166,7 +162,7 @@ class ENAUITests_11_QuickActions: XCTestCase {
 		// discard menu and return to app w/o quick action
 		XCUIDevice.shared.press(.home)
 		// reference to `appIcon` fails for unknown reasons
-		springboard.icons[cwaBundleDisplayName].tap()
+		springboard.icons[cwaBundleDisplayName].waitAndTap()
 	}
 	
 	@discardableResult
@@ -204,17 +200,15 @@ class ENAUITests_11_QuickActions: XCTestCase {
 		appIcon.press(forDuration: 1.5)
 
 		// 1. action menu
-		springboard.collectionViews.firstMatch.buttons.lastMatch.tap()
+		springboard.collectionViews.firstMatch.buttons.lastMatch.waitAndTap()
 
 		// 2. `„Corona-Warn“ entfernen?` alert
 		let firstAlert = springboard.alerts.firstMatch
-		XCTAssertTrue(firstAlert.waitForExistence(timeout: .short))
-		firstAlert.buttons.firstMatch.tap()
+		firstAlert.buttons.firstMatch.waitAndTap()
 
 		// 3. `„Corona-Warn“ löschen?` alert
 		let finalAlert = springboard.alerts.firstMatch
-		XCTAssertTrue(finalAlert.waitForExistence(timeout: .short))
-		finalAlert.buttons.lastMatch.tap()
+		finalAlert.buttons.lastMatch.waitAndTap()
 	}
 
 	/// Installs the host app and terminates it right after launch to simulate a (nearly) 'fresh' installation
