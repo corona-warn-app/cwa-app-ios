@@ -1073,7 +1073,7 @@ enum AppStrings {
 		
 		static let feature23digitalVaccinationCertificateTitle = NSLocalizedString("NewVersionFeature_23_digital_vaccination_certificate_title", comment: "")
 		
-		static let feature23digitalVaccinationCertificateDescription = NSLocalizedString("", comment: "NewVersionFeature_23_digital_vaccination_certificate_description")
+		static let feature23digitalVaccinationCertificateDescription = NSLocalizedString("NewVersionFeature_23_digital_vaccination_certificate_description", comment: "")
 
 	}
 	
