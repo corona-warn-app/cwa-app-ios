@@ -5871,9 +5871,9 @@
 		BA5B7FB226458EF400502087 /* QRCodeScanner */ = {
 			isa = PBXGroup;
 			children = (
+				BA5B7FB526458EF400502087 /* __tests__ */,
 				BA5B7FB326458EF400502087 /* HealthCertificateQRCodeScannerViewController.swift */,
 				BA5B7FB426458EF400502087 /* HealthCertificateQRCodeScannerViewModel.swift */,
-				BA5B7FB526458EF400502087 /* __tests__ */,
 			);
 			path = QRCodeScanner;
 			sourceTree = "<group>";
@@ -5889,9 +5889,9 @@
 		BA5B7FB726458EF400502087 /* HealthCertificate */ = {
 			isa = PBXGroup;
 			children = (
-				BA5B7FB826458EF400502087 /* HealthCertificateViewModel.swift */,
-				BA5B7FB926458EF400502087 /* HealthCertificateViewController.swift */,
 				BA5B7FBA26458EF400502087 /* Cell */,
+				BA5B7FB926458EF400502087 /* HealthCertificateViewController.swift */,
+				BA5B7FB826458EF400502087 /* HealthCertificateViewModel.swift */,
 			);
 			path = HealthCertificate;
 			sourceTree = "<group>";

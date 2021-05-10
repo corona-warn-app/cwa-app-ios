@@ -116,6 +116,9 @@ final class HealthCertificateViewModel {
 
 	private let healthCertificate: HealthCertificate
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProvider
+
+	private(set) var valueSets: SAP_Internal_Dgc_ValueSets?
+
 	private var subscriptions = Set<AnyCancellable>()
 
 	// remove later if we have correct data
