@@ -63,11 +63,7 @@ public struct DigitalGreenCertificateAccess {
 
         switch webTokenResult {
         case let .success(cborWebToken):
-
-            let headerResult = extractHeader(from: cborWebToken)
-
-            return headerResult
-
+            return extractHeader(from: cborWebToken)
         case let .failure(error):
             return .failure(error)
         }
@@ -102,9 +98,7 @@ public struct DigitalGreenCertificateAccess {
 
         switch webTokenResult {
         case let .success(cborWebToken):
-            let certificateResult = extractDigitalGreenCertificate(from: cborWebToken)
-            return certificateResult
-
+            return extractDigitalGreenCertificate(from: cborWebToken)
         case let .failure(error):
             return .failure(error)
         }
