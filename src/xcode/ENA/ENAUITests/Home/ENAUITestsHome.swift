@@ -377,19 +377,6 @@ class ENAUITests_01a_Home: XCTestCase {
 		snapshot("homescreenrisk_show_pcr_rat_negative")
 	}
 	
-	func test_screenshot_homescreen_thankyou_screen() throws {
-		var screenshotCounter = 0
-		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
-		app.launchArguments.append(contentsOf: ["-showThankYouScreen", "YES"])
-		app.launch()
-
-		snapshot("homescreenrisk_show_thankyou_screen_\(String(format: "%04d", (screenshotCounter.inc() )))")
-		app.swipeUp(velocity: .slow)
-		snapshot("homescreenrisk_show_thankyou_screen_\(String(format: "%04d", (screenshotCounter.inc() )))")
-		app.swipeUp(velocity: .slow)
-		snapshot("homescreenrisk_show_thankyou_screen_\(String(format: "%04d", (screenshotCounter.inc() )))")
-    }
-	
 	func test_screenshot_homescreen_invalid_test_result() throws {
 		var screenshotCounter = 0
 		let riskLevel = "low"
@@ -397,31 +384,13 @@ class ENAUITests_01a_Home: XCTestCase {
 		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
 		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
 		app.launchArguments.append(contentsOf: ["-numberOfDaysWithRiskLevel", numberOfDaysWithLowRisk])
-		app.launchArguments.append(contentsOf: ["-showTestResultScreen", "YES"])
-		app.launchArguments.append(contentsOf: ["-showInvalidTestResult", "YES"])
+		app.launchArguments.append(contentsOf: ["-pcrTestResult", TestResult.invalid.stringValue])
 		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
 		app.launch()
 
 		snapshot("homescreenrisk_show_invalid_test_result_\(String(format: "%04d", (screenshotCounter.inc() )))")
 		app.swipeUp(velocity: .slow)
 		snapshot("homescreenrisk_show_invalid_test_result_\(String(format: "%04d", (screenshotCounter.inc() )))")
-	}
-	
-	func test_screenshot_homescreen_loading_test_result() throws {
-		var screenshotCounter = 0
-		let riskLevel = "low"
-		let numberOfDaysWithLowRisk = "1"
-		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
-		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
-		app.launchArguments.append(contentsOf: ["-numberOfDaysWithRiskLevel", numberOfDaysWithLowRisk])
-		app.launchArguments.append(contentsOf: ["-showTestResultScreen", "YES"])
-		app.launchArguments.append(contentsOf: ["-showLoadingTestResult", "YES"])
-		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
-		app.launch()
-
-		snapshot("homescreenrisk_show_loading_test_result_\(String(format: "%04d", (screenshotCounter.inc() )))")
-		app.swipeUp(velocity: .slow)
-		snapshot("homescreenrisk_show_loading_test_result_\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
 
 	func test_screenshot_homescreen_pending_test_result() throws {
@@ -431,8 +400,7 @@ class ENAUITests_01a_Home: XCTestCase {
 		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
 		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
 		app.launchArguments.append(contentsOf: ["-numberOfDaysWithRiskLevel", numberOfDaysWithLowRisk])
-		app.launchArguments.append(contentsOf: ["-showTestResultScreen", "YES"])
-		app.launchArguments.append(contentsOf: ["-showPendingTestResult", "YES"])
+		app.launchArguments.append(contentsOf: ["-pcrTestResult", TestResult.pending.stringValue])
 		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
 		app.launch()
 
@@ -448,8 +416,7 @@ class ENAUITests_01a_Home: XCTestCase {
 		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
 		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
 		app.launchArguments.append(contentsOf: ["-numberOfDaysWithRiskLevel", numberOfDaysWithLowRisk])
-		app.launchArguments.append(contentsOf: ["-showTestResultScreen", "YES"])
-		app.launchArguments.append(contentsOf: ["-showNegativeTestResult", "YES"])
+		app.launchArguments.append(contentsOf: ["-pcrTestResult", TestResult.negative.stringValue])
 		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
 		app.launch()
 
@@ -462,7 +429,8 @@ class ENAUITests_01a_Home: XCTestCase {
 		var screenshotCounter = 0
 		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
 		// we just need one launch argument because it is handled separately
-		app.launchArguments.append(contentsOf: ["-showPositiveTestResult", "YES"])
+		app.launchArguments.append(contentsOf: ["-pcrTestResult", TestResult.positive.stringValue])
+		app.launchArguments.append(contentsOf: ["-pcrPositiveTestResultWasShown", "YES"])
 		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
 		app.launch()
 
