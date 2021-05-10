@@ -57,7 +57,7 @@ public struct ProofCertificateDownload {
         completion: @escaping (Result<CBORData?, ProofCertificateFetchingError>) -> Void
     ) {
 
-        let url = URL(string: "https://api.certify.demo.ubirch.com/api/certify/v2/reissue/cbor")
+        let url = URL(string: "")
         guard let requestUrl = url else {
             fatalError()
         }
