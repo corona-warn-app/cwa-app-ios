@@ -653,13 +653,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	}
 
 	private func setupAntigenTestProfileForTesting() {
-		if let antigenTestProfileInfoScreenShown = UserDefaults.standard.string(forKey: "antigenTestProfileInfoScreenShown") {
-			store.antigenTestProfileInfoScreenShown = antigenTestProfileInfoScreenShown != "NO"
-		}
-		if let removeAntigenTestProfile = UserDefaults.standard.string(forKey: "removeAntigenTestProfile") {
-			if removeAntigenTestProfile == "YES" {
-				store.antigenTestProfile = nil
-			}
+		store.antigenTestProfileInfoScreenShown = UserDefaults.standard.bool(forKey: "antigenTestProfileInfoScreenShown")
+		if UserDefaults.standard.bool(forKey: "removeAntigenTestProfile") {
+			store.antigenTestProfile = nil
 		}
 	}
 	
