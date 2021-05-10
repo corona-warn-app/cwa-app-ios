@@ -14,13 +14,13 @@ class HomeTableViewModel {
 		store: Store,
 		coronaTestService: CoronaTestService,
 		onTestResultCellTap: @escaping (CoronaTestType?) -> Void,
-		healthCertifiedService: HealthCertificateServiceProviding
+		healthCertificateService: HealthCertificateServiceProviding
 	) {
 		self.state = state
 		self.store = store
 		self.coronaTestService = coronaTestService
 		self.onTestResultCellTap = onTestResultCellTap
-		self.healthCertifiedService = healthCertifiedService
+		self.healthCertificateService = healthCertificateService
 
 		coronaTestService.$tests
 			.sink { [weak self] in
@@ -179,17 +179,17 @@ class HomeTableViewModel {
 
 	func healthCertifiedPerson(at indexPath: IndexPath) -> HealthCertifiedPerson? {
 		guard Section(rawValue: indexPath.section) == .healthCertificate,
-			healthCertifiedService.healthCertifiedPersons.value.indices.contains(indexPath.row) else {
+			  healthCertificateService.healthCertifiedPersons.value.indices.contains(indexPath.row) else {
 			Log.debug("Tried to access unknown healthCertifiedPersons - stop")
 			return nil
 		}
-		return healthCertifiedService.healthCertifiedPersons.value[indexPath.row]
+		return healthCertificateService.healthCertifiedPersons.value[indexPath.row]
 	}
 
 	// MARK: - Private
 
 	private let onTestResultCellTap: (CoronaTestType?) -> Void
-	private let healthCertifiedService: HealthCertificateServiceProviding
+	private let healthCertificateService: HealthCertificateServiceProviding
 	private var subscriptions = Set<AnyCancellable>()
 
 	private func update(pcrTest: PCRTest?, antigenTest: AntigenTest?) {

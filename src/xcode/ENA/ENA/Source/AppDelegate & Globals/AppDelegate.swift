@@ -278,7 +278,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		deviceCheck: PPACDeviceCheck()
 	)
 
-	private lazy var healthCertifiedService: HealthCertificateServiceProviding = MockHealthCertificateService()
+	private lazy var healthCertificateService: HealthCertificateServiceProviding = HealthCertificateService(store: store)
 
 	#if targetEnvironment(simulator) || COMMUNITY
 	// Enable third party contributors that do not have the required
@@ -540,7 +540,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		eventCheckoutService: eventCheckoutService,
 		otpService: otpService,
 		ppacService: ppacService,
-		healthCertifiedService: healthCertifiedService
+		healthCertificateService: healthCertificateService
 	)
 
 	private lazy var appUpdateChecker = AppUpdateCheckHelper(appConfigurationProvider: self.appConfigurationProvider, store: self.store)
