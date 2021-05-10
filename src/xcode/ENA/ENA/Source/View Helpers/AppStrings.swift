@@ -1069,6 +1069,12 @@ enum AppStrings {
 		
 		static let aboutAppInformation = NSLocalizedString("NewVersionFeatures_Info_about_abb_information", comment: "")
 		
+		/* Version 2.3 */
+		
+		static let feature23digitalVaccinationCertificateTitle = NSLocalizedString("NewVersionFeature_23_digital_vaccination_certificate_title", comment: "")
+		
+		static let feature23digitalVaccinationCertificateDescription = NSLocalizedString("", comment: "NewVersionFeature_23_digital_vaccination_certificate_description")
+		
 		/* Version 2.2 */
 		
 		static let feature22RecordErrorLogsTitle = NSLocalizedString("NewVersionFeature_22_record_error_logs_title", comment: "")
