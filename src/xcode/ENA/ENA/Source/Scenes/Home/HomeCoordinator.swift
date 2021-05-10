@@ -157,6 +157,8 @@ class HomeCoordinator: RequiresAppDependencies {
 	private var traceLocationsCoordinator: TraceLocationsCoordinator?
 	private var settingsCoordinator: SettingsCoordinator?
 	private var exposureDetectionCoordinator: ExposureDetectionCoordinator?
+	private var healthCertificateCoordinator: HealthCertificateCoordinator?
+
 	private var enStateUpdateList = NSHashTable<AnyObject>.weakObjects()
 
 	private weak var delegate: CoordinatorDelegate?
@@ -370,21 +372,21 @@ class HomeCoordinator: RequiresAppDependencies {
 	// MARK: - HealthCertificate
 
 	private func showCreateHealthCertificate() {
-		let coordinator = HealthCertificateCoordinator(
+		healthCertificateCoordinator = HealthCertificateCoordinator(
 			parentViewController: rootViewController,
 			healthCertificateService: healthCertifiedService,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider
 		)
-		coordinator.start()
+		healthCertificateCoordinator?.start()
 	}
 
 	private func showCertifiedPerson( _ healthCertifiedPerson: HealthCertifiedPerson) {
-		let coordinator = HealthCertificateCoordinator(
+		healthCertificateCoordinator = HealthCertificateCoordinator(
 			parentViewController: rootViewController,
 			healthCertificateService: healthCertifiedService,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider
 		)
-		coordinator.start(with: healthCertifiedPerson)
+		healthCertificateCoordinator?.start(with: healthCertifiedPerson)
 	}
 
 	private var vaccinationValueSetsProvider: VaccinationValueSetsProvider {

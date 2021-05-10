@@ -119,10 +119,6 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		}
 	}
 
-	func testWithPublisher(healthCertificate: HealthCertificate, publisher: OpenCombine.AnyPublisher<SAP_Internal_Dgc_ValueSets, Error>) {
-
-	}
-
 	// MARK: - Private
 
 	private let dismiss: () -> Void
