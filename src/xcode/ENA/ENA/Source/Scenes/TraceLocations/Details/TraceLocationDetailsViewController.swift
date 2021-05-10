@@ -129,7 +129,6 @@ class TraceLocationDetailsViewController: UIViewController, UITableViewDataSourc
 	private var tableContentObserver: NSKeyValueObservation!
 
 	private func setupView() {
-		parent?.view.backgroundColor = .clear
 		backgroundView.translatesAutoresizingMaskIntoConstraints = false
 		view.addSubview(backgroundView)
 

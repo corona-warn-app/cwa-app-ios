@@ -77,7 +77,7 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 		bottomView.translatesAutoresizingMaskIntoConstraints = false
 
 		bottomViewHeightAnchorConstraint = bottomView.safeAreaLayoutGuide.heightAnchor.constraint(equalToConstant: initialHeight)
-		bottomViewBottomAnchorConstraint = bottomView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+		bottomViewBottomAnchorConstraint = bottomView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
 		
 		view.addSubview(bottomView)
 		NSLayoutConstraint.activate(
