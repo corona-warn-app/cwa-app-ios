@@ -49,8 +49,19 @@ class HealthCertifiedPerson: OpenCombine.ObservableObject, Codable, Equatable {
 
 	// MARK: - Internal
 
-	@OpenCombine.Published var healthCertificates: [HealthCertificate]
-	@OpenCombine.Published var proofCertificate: ProofCertificate?
+	@OpenCombine.Published var healthCertificates: [HealthCertificate] {
+		didSet {
+			objectDidChange.send(self)
+		}
+	}
+
+	@OpenCombine.Published var proofCertificate: ProofCertificate? {
+		didSet {
+			objectDidChange.send(self)
+		}
+	}
+
+	var objectDidChange = OpenCombine.PassthroughSubject<HealthCertifiedPerson, Never>()
 
 	// LAST_SUCCESSFUL_PC_RUN_TIMESTAMP
 	var lastProofCertificateUpdate: Date?

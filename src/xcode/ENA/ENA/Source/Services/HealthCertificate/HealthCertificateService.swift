@@ -16,6 +16,7 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 		self.store = store
 
 		updatePublishersFromStore()
+		updateHealthCertifiedPersonSubscriptions()
 		updateProofCertificateOnDidBecomeActive()
 	}
 
@@ -25,7 +26,7 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 		didSet {
 			store.healthCertifiedPersons = healthCertifiedPersons.value
 
-			updateSubscriptions()
+			updateHealthCertifiedPersonSubscriptions()
 		}
 	}
 
@@ -154,25 +155,25 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 	// MARK: - Private
 
 	private var store: HealthCertificateStoring
-	private var subscriptions = Set<AnyCancellable>()
+	private var healthCertifiedPersonSubscriptions = Set<AnyCancellable>()
+	private var didBecomeActiveSubscription: AnyCancellable?
 
-	private func updateSubscriptions() {
-		subscriptions = []
+	private func updateHealthCertifiedPersonSubscriptions() {
+		healthCertifiedPersonSubscriptions = []
 
 		healthCertifiedPersons.value.forEach { healthCertifiedPerson in
-			healthCertifiedPerson.objectWillChange
-				.receive(on: DispatchQueue.main.ocombine)
-				.sink { [weak self] in
+			healthCertifiedPerson.objectDidChange
+				.sink { [weak self] _ in
 					guard let self = self else { return }
 					// Trigger publisher to inform subscribers and update store
 					self.healthCertifiedPersons.value = self.healthCertifiedPersons.value
 				}
-				.store(in: &subscriptions)
+				.store(in: &healthCertifiedPersonSubscriptions)
 		}
 	}
 
 	private func updateProofCertificateOnDidBecomeActive() {
-		NotificationCenter.default.ocombine
+		didBecomeActiveSubscription = NotificationCenter.default.ocombine
 			.publisher(for: UIApplication.didBecomeActiveNotification)
 			.sink { [weak self] _ in
 				self?.healthCertifiedPersons.value.forEach { healthCertifiedPerson in
@@ -183,7 +184,6 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 					)
 				}
 			}
-			.store(in: &subscriptions)
 	}
 
 }
