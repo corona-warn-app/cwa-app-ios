@@ -73,12 +73,10 @@ class ENAUITests_01a_Home: XCTestCase {
 		app.launch()
 
 		let riskCell = app.cells.element(boundBy: 1)
-		XCTAssertTrue(riskCell.waitForExistence(timeout: .medium))
-		riskCell.tap()
+		riskCell.waitAndTap()
 
 		let faqCell = app.cells[AccessibilityIdentifiers.ExposureDetection.guideFAQ]
-		XCTAssertTrue(faqCell.waitForExistence(timeout: .medium))
-		faqCell.tap()
+		faqCell.waitAndTap()
 
 		XCTAssertTrue(app.webViews.firstMatch.waitForExistence(timeout: .long))
 	}
@@ -321,8 +319,7 @@ class ENAUITests_01a_Home: XCTestCase {
 		app.launch()
 
 		let riskCell = app.cells.element(boundBy: 1)
-		XCTAssertTrue(riskCell.waitForExistence(timeout: .medium))
-		riskCell.tap()
+		riskCell.waitAndTap()
 
 		snapshot("details_screen_risk_level_\(riskLevel)_risk_one_day_active_tracing_\(activeTracingDays)days_\(String(format: "%04d", (screenshotCounter.inc() )))")
     }
@@ -340,8 +337,7 @@ class ENAUITests_01a_Home: XCTestCase {
 		app.launch()
 		
 		let riskCell = app.cells.element(boundBy: 1)
-		XCTAssertTrue(riskCell.waitForExistence(timeout: .medium))
-		riskCell.tap()
+		riskCell.waitAndTap()
 		
 		snapshot("details_screen_risk_level_\(riskLevel)_risk_one_day_active_tracing_\(activeTracingDays)days_\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
@@ -359,8 +355,7 @@ class ENAUITests_01a_Home: XCTestCase {
 		app.launch()
 		
 		let riskCell = app.cells.element(boundBy: 1)
-		XCTAssertTrue(riskCell.waitForExistence(timeout: .medium))
-		riskCell.tap()
+		riskCell.waitAndTap()
 		
 		snapshot("details_screen_risk_level_\(riskLevel)_risk_one_day_installation_\(installationDays)days_\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
