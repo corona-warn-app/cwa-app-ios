@@ -34,6 +34,14 @@ struct ProofCertificate: Codable, Equatable {
 		Date() >= expirationDate
 	}
 
+	var fullName: String {
+		digitalGreenCertificate.name.fullName
+	}
+
+	var dateOfBirth: String {
+		digitalGreenCertificate.dateOfBirth
+	}
+
 	// MARK: - Private
 
 	private var cborWebTokenHeader: CBORWebTokenHeader {

@@ -110,7 +110,7 @@ final class HealthCertifiedPersonViewModel {
 
 	var personCellViewModel: HealthCertificateSimpleTextCellViewModel {
 		let attributedName = NSAttributedString(
-			string: friendlyName,
+			string: healthCertifiedPerson.fullName ?? "",
 			attributes: [
 				.font: UIFont.enaFont(for: .headline),
 				.foregroundColor: UIColor.enaColor(for: .textPrimary1)
@@ -118,7 +118,7 @@ final class HealthCertifiedPersonViewModel {
 		)
 
 		let attributedDetails = NSAttributedString(
-			string: dateOfBirth,
+			string: dateOfBirth ?? "",
 			attributes: [
 				.font: UIFont.enaFont(for: .body),
 				.foregroundColor: UIColor.enaColor(for: .textPrimary1)
@@ -157,23 +157,18 @@ final class HealthCertifiedPersonViewModel {
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProvider
 	private var subscriptions = Set<AnyCancellable>()
 
-	private var friendlyName: String {
-		var components = PersonNameComponents()
-		components.givenName = "Max"
-		components.familyName = "Mustermann"
+	private var dateOfBirth: String? {
+		guard
+			let dateOfBirthString = healthCertifiedPerson.dateOfBirth,
+			let dateOfBirthDate = ISO8601DateFormatter.contactDiaryFormatter.date(from: dateOfBirthString)
+		else {
+			return nil
+		}
 
-		let formatter = PersonNameComponentsFormatter()
-		formatter.style = .medium
-		return formatter.string(from: components).trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-	}
-
-	private var dateOfBirth: String {
-		let dateOfBirth = Date(timeIntervalSince1970: 1457896523)
 		return String(
 			format: AppStrings.ExposureSubmission.AntigenTest.Profile.dateOfBirthFormatText,
-			DateFormatter.localizedString(from: dateOfBirth, dateStyle: .medium, timeStyle: .none)
+			DateFormatter.localizedString(from: dateOfBirthDate, dateStyle: .medium, timeStyle: .none)
 		)
 	}
-
 
 }

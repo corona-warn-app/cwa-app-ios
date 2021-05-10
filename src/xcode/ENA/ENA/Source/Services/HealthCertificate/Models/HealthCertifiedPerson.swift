@@ -63,6 +63,14 @@ class HealthCertifiedPerson: OpenCombine.ObservableObject, Codable, Equatable {
 
 	var objectDidChange = OpenCombine.PassthroughSubject<HealthCertifiedPerson, Never>()
 
+	var fullName: String? {
+		proofCertificate?.fullName ?? healthCertificates.first?.name.fullName
+	}
+
+	var dateOfBirth: String? {
+		proofCertificate?.dateOfBirth ?? healthCertificates.first?.dateOfBirth
+	}
+
 	// LAST_SUCCESSFUL_PC_RUN_TIMESTAMP
 	var lastProofCertificateUpdate: Date?
 
