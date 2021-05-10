@@ -371,17 +371,30 @@ class HomeCoordinator: RequiresAppDependencies {
 
 	private func showCreateHealthCertificate() {
 		let coordinator = HealthCertificateCoordinator(
+			parentViewController: rootViewController,
 			healthCertificateService: healthCertifiedService,
-			parentViewController: rootViewController)
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider
+			)
 		coordinator.start()
 	}
 
 	private func showCertifiedPerson( _ healthCertifiedPerson: HealthCertifiedPerson) {
 		let coordinator = HealthCertificateCoordinator(
+			parentViewController: rootViewController,
 			healthCertificateService: healthCertifiedService,
-			parentViewController: rootViewController)
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider
+			)
 		coordinator.start(with: healthCertifiedPerson)
 	}
+
+	private var vaccinationValueSetsProvider: VaccinationValueSetsProvider {
+		#if DEBUG
+		return VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: store)
+		#else
+		return VaccinationValueSetsProvider(client: CachingHTTPClient(), store: store)
+		#endif
+	}
+
 
 	#if !RELEASE
 	private var developerMenu: DMDeveloperMenu?

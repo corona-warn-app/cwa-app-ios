@@ -9,11 +9,13 @@ final class HealthCertificateCoordinator {
 	// MARK: - Init
 
 	init(
+		parentViewController: UIViewController,
 		healthCertificateService: HealthCertificateServiceProviding,
-		parentViewController: UIViewController
+		vaccinationValueSetsProvider: VaccinationValueSetsProvider
 	) {
 		self.parentViewController = parentViewController
 		self.healthCertificateService = healthCertificateService
+		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
 		self.navigationController = DismissHandlingNavigationController()
 	}
 
@@ -37,6 +39,7 @@ final class HealthCertificateCoordinator {
 	private let parentViewController: UIViewController
 	private let navigationController: UINavigationController
 	private let healthCertificateService: HealthCertificateServiceProviding
+	private let vaccinationValueSetsProvider: VaccinationValueSetsProvider
 
 	private func showConsentScreen() {
 		let consentScreen = HealthCertificateConsentViewController(
@@ -92,6 +95,7 @@ final class HealthCertificateCoordinator {
 		let healthCertificatePersonViewController = HealthCertifiedPersonViewController(
 			healthCertificateService: healthCertificateService,
 			healthCertifiedPerson: healthCertifiedPerson,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			dismiss: endCoordinator,
 			didTapHealthCertificate: { healthCertificate in
 				self.showHealthCertificate(

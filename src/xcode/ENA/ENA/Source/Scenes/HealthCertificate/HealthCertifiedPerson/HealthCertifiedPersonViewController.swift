@@ -12,6 +12,7 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 	init(
 		healthCertificateService: HealthCertificateServiceProviding,
 		healthCertifiedPerson: HealthCertifiedPerson,
+		vaccinationValueSetsProvider: VaccinationValueSetsProvider,
 		dismiss: @escaping () -> Void,
 		didTapHealthCertificate: @escaping (HealthCertificate) -> Void,
 		didTapRegisterAnotherHealthCertificate: @escaping () -> Void
@@ -21,7 +22,8 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		self.didTapRegisterAnotherHealthCertificate = didTapRegisterAnotherHealthCertificate
 		self.viewModel = HealthCertifiedPersonViewModel(
 			healthCertificateService: healthCertificateService,
-			healthCertifiedPerson: healthCertifiedPerson
+			healthCertifiedPerson: healthCertifiedPerson,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider
 		)
 		super.init(nibName: nil, bundle: nil)
 	}

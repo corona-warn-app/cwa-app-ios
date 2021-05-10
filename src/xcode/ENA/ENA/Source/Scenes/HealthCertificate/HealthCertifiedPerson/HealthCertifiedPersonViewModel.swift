@@ -12,10 +12,12 @@ final class HealthCertifiedPersonViewModel {
 
 	init(
 		healthCertificateService: HealthCertificateServiceProviding,
-		healthCertifiedPerson: HealthCertifiedPerson
+		healthCertifiedPerson: HealthCertifiedPerson,
+		vaccinationValueSetsProvider: VaccinationValueSetsProvider
 	) {
 		self.healthCertificateService = healthCertificateService
 		self.healthCertifiedPerson = healthCertifiedPerson
+		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
 
 		// setup gradient update
 		healthCertifiedPerson.$proofCertificate
@@ -144,6 +146,7 @@ final class HealthCertifiedPersonViewModel {
 
 	private let healthCertifiedPerson: HealthCertifiedPerson
 	private let healthCertificateService: HealthCertificateServiceProviding
+	private let vaccinationValueSetsProvider: VaccinationValueSetsProvider
 	private var subscriptions = Set<AnyCancellable>()
 
 	private var friendlyName: String {
