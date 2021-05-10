@@ -1523,6 +1523,12 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Informationen unter dem Menüpunkt „Neue Funktionen”.";
 
+/* Version 2.3 */
+
+"NewVersionFeature_23_digital_vaccination_certificate_title" = "Digitaler Impfnachweis";
+
+"NewVersionFeature_23_digital_vaccination_certificate_description" = "Sie können nun Ihre Impfzertifikate in der App registrieren. Sobald Sie alle notwendigen Impfungen haben, können Sie den vollständigen Impfnachweis per QR-Code in der App vorweisen.";
+
 /* Version 2.2 */
 
 "NewVersionFeature_22_record_error_logs_title" = "Aufzeichnung von Fehleranalyse-Protokollen";
