@@ -78,6 +78,7 @@ class ENAUITests_11_QuickActions: XCTestCase {
 
 		XCTAssertTrue(app.segmentedControls[AccessibilityIdentifiers.ContactDiary.segmentedControl].waitForExistence(timeout: .short))
 	}
+	
 
 	func testShortcutAvailabilityDuringSubmissionFlow() throws {
 		let app = XCUIApplication()
