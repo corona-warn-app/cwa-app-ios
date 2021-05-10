@@ -315,12 +315,12 @@ class ENAUITests_04a_ExposureSubmission: XCTestCase {
 
 		// Overview Screen: click TAN button.
 		XCTAssertTrue(app
-			.buttons["AppStrings.ExposureSubmissionDispatch.tanButtonDescription"]
+						.buttons[AccessibilityIdentifiers.ExposureSubmissionDispatch.tanButtonDescription]
 			.waitForExistence(timeout: .medium)
 		)
-		app.buttons["AppStrings.ExposureSubmissionDispatch.tanButtonDescription"].tap()
+		app.buttons[AccessibilityIdentifiers.ExposureSubmissionDispatch.tanButtonDescription].tap()
 		
-		let continueButton = app.buttons["AppStrings.ExposureSubmission.primaryButton"]
+		let continueButton = app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton]
 		XCTAssertTrue(continueButton.waitForExistence(timeout: .medium))
 		XCTAssertFalse(continueButton.isEnabled)
 
@@ -328,23 +328,23 @@ class ENAUITests_04a_ExposureSubmission: XCTestCase {
 		type(app, text: "qwdzxcsrhe")
 
 		// Click continue button.
-		XCTAssertTrue(continueButton.waitForExistence(timeout: .medium))
+		XCTAssertTrue(continueButton.waitForExistence(timeout: .long))
 		XCTAssertTrue(continueButton.isEnabled)
-		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
+		app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton].tap()
 
 		// TAN tests are ALWAYS positive!
 
 		// Click secondary button to skip symptoms screens and immediately go to warn others screen.
-		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.secondaryButton"].waitForExistence(timeout: .medium))
-		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ExposureSubmission.secondaryButton].waitForExistence(timeout: .medium))
+		app.buttons[AccessibilityIdentifiers.ExposureSubmission.secondaryButton].tap()
 
-		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
+		app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton].tap()
 		
-		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
-		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
+		XCTAssertTrue(app.navigationBars[AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle].waitForExistence(timeout: .medium))
+		app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton].tap()
 
-		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
-		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
+		XCTAssertTrue(app.navigationBars[AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle].waitForExistence(timeout: .medium))
+		app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton].tap()
 	}
 	
 	// Navigate to the Thank You screen after getting the positive test result.
@@ -510,7 +510,7 @@ class ENAUITests_04a_ExposureSubmission: XCTestCase {
 		}
 		launch()
 
-		// monitor system dialogues and use default handler to simply dismiss any alert – we don't care for the result
+		// monitor system dialogues and use default handler to simply dismiss any alert
 		// see https://developer.apple.com/videos/play/wwdc2020/10220/
 		addUIInterruptionMonitor(withDescription: "System Dialog") { _ -> Bool in
 			return false
@@ -518,28 +518,31 @@ class ENAUITests_04a_ExposureSubmission: XCTestCase {
 
 		snapshot("tan_submissionflow_\(String(format: "%04d", (screenshotCounter.inc() )))")
 
-		// Open Intro screen.
-		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .long))
+		/// Home Screen
+		
+		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .short))
 		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].tap()
 		snapshot("tan_submissionflow_qr_\(String(format: "%04d", (screenshotCounter.inc() )))")
 
-		// Overview Screen: click TAN button.
-		XCTAssertTrue(app
-			.buttons["AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"]
-			.waitForExistence(timeout: .medium)
-		)
-		app.buttons["AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"].tap()
-
-		// QR Info screen
+		/// Register your test screen
+		
+		let scanQRCodeButton = app.buttons[AccessibilityIdentifiers.ExposureSubmissionDispatch.qrCodeButtonDescription]
+		XCTAssertTrue(scanQRCodeButton.waitForExistence(timeout: .short))
+		scanQRCodeButton.tap()
+		
+		/// Your consent screen
+		
+		XCTAssertTrue(app.images[AccessibilityIdentifiers.ExposureSubmissionWarnOthers.accImageDescription].waitForExistence(timeout: .short))
 		snapshot("tan_submissionflow_qr_\(String(format: "%04d", (screenshotCounter.inc() )))")
-		// "Einverstanden"
-		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.primaryButton"].waitForExistence(timeout: .medium))
-		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
+		let continueButton = app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton]
+		XCTAssertTrue(continueButton.waitForExistence(timeout: .medium))
+		continueButton.tap()
 
-		// QR view
+		/// Camera mode
+		
 		// fake tap to trigger interruption handler in case of privacy alerts
-		let flashButton = app.buttons["AppStrings.ExposureSubmissionQRScanner.flash"]
-		if flashButton.waitForExistence(timeout: .long) {
+		let flashButton = app.buttons[AccessibilityIdentifiers.ExposureSubmissionQRScanner.flash]
+		if flashButton.waitForExistence(timeout: .short) {
 			flashButton.tap()
 		}
 		snapshot("tan_submissionflow_qr_\(String(format: "%04d", (screenshotCounter.inc() )))")
@@ -591,12 +594,11 @@ class ENAUITests_04a_ExposureSubmission: XCTestCase {
 	func test_screenshot_test_result_available() {
 		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
 		app.launchArguments.append(contentsOf: ["-pcrTestResult", TestResult.positive.stringValue])
-		app.launchArguments.append(contentsOf: ["-showTestResultAvailableViewController", "YES"])
 		launch()
 
 		// Open test result available screen.
-		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .long))
-		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].tap()
+		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.TestResultCell.availablePCRButton].waitForExistence(timeout: .long))
+		app.cells.buttons[AccessibilityIdentifiers.Home.TestResultCell.availablePCRButton].tap()
 		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .long))
 
 		snapshot("submissionflow_screenshot_test_result_available")
@@ -631,14 +633,19 @@ class ENAUITests_04a_ExposureSubmission: XCTestCase {
 	func test_screenshot_test_result_positive() {
 		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
 		app.launchArguments.append(contentsOf: ["-isPCRSubmissionConsentGiven", "YES"])
+		app.launchArguments.append(contentsOf: ["-pcrPositiveTestResultWasShown", "NO"])
 		app.launchArguments.append(contentsOf: ["-pcrTestResult", TestResult.positive.stringValue])
 		launch()
 
 		// Open test result screen.
-		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .long))
-		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].tap()
-		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.TestResultCell.availablePCRButton].waitForExistence(timeout: .long))
+		app.cells.buttons[AccessibilityIdentifiers.Home.TestResultCell.availablePCRButton].tap()
 
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitForExistence(timeout: .long))
+		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].tap()
+		
+		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.primaryButton"].waitForExistence(timeout: .long))
+		
 		snapshot("submissionflow_screenshot_test_result_positive_constent_given")
 	}
 

@@ -4,6 +4,9 @@
 
 import XCTest
 
+let YES = "YES"
+let NO = "NO"
+
 enum SizeCategory: String {
 	case XS
 	case S
