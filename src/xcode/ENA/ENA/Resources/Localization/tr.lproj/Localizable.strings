@@ -523,11 +523,11 @@
 
 "ExposureSubmission_PhoneDetailsDomestic" = "Almanya’dan yapılan aramalar içindir.\nArama ücretsizdir.";
 
-"ExposureSubmission_PhoneNumberForeign" = "+49 30 498 75401";
+"ExposureSubmission_PhoneNumberForeign" = "+49 30 498 75402";
 
 "ExposureSubmission_PhoneDetailsForeign" = "Almanya dışından yapılan aramalar içindir.\nTelefon sağlayıcınız tarafından uygulanan ücretler geçerlidir.";
 
-"ExposureSubmission_PhoneDetailDescription" = "Müşteri hizmetlerimiz şu dillerde size yardımcı olmaya hazır: \nİngilizce, Almanca, Türkçe\n\nMesai saatleri:\nPts-Cts: 7.00 - 22.00 (CET)\n\nSağlıkla ilgili tüm sorularınız için lütfen aile hekiminizle veya tıbbi acil servis yardım hattı ile iletişime geçin. Telefon: 116 117.";
+"ExposureSubmission_PhoneDetailDescription" = "Müşteri hizmetlerimiz şu dillerde size yardımcı olmaya hazır: \nİngilizce, Almanca, Türkçe\n\nMesai saatleri:\n7 gün 24 saat\n\nSağlıkla ilgili tüm sorularınız için lütfen aile hekiminizle veya tıbbi acil servis yardım hattı ile iletişime geçin. Telefon: 116 117.";
 
 "ExposureSubmission_SectionDescription2" = "Uygulamaya TAN girerek PCR testinizi kaydedin.";
 
@@ -1272,7 +1272,7 @@
 
 "App_Information_Contact_Hotline_Details_Foreign" = "Almanya dışından yapılan aramalar içindir.\nTelefon sağlayıcınız tarafından uygulanan ücretler geçerlidir.";
 
-"App_Information_Contact_Hotline_Terms" = "Müşteri hizmetlerimiz şu dillerde size yardımcı olmaya hazır: \nİngilizce, Almanca, Türkçe\n\nMesai saatleri:\nPts-Cts: 7.00 - 22.00 (CET)\n\nSağlıkla ilgili tüm sorularınız için lütfen aile hekiminizle veya tıbbi acil servis yardım hattı ile iletişime geçin. Telefon: 116 117.";
+"App_Information_Contact_Hotline_Terms" = "Müşteri hizmetlerimiz şu dillerde size yardımcı olmaya hazır: \nİngilizce, Almanca, Türkçe\n\nMesai saatleri:\nPts-Cts: 7.00 - 22.00 (CET)\n(ulusal tatiller hariçtir)\n\nSağlıkla ilgili tüm sorularınız için lütfen aile hekiminizle veya tıbbi acil servis yardım hattı ile iletişime geçin. Telefon: 116 117.";
 
 /* App Information - Imprint */
 "App_Information_New_Features_Navigation" = "Yeni Özellikler";

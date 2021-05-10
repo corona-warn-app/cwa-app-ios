@@ -523,11 +523,11 @@
 
 "ExposureSubmission_PhoneDetailsDomestic" = "Pentru apeluri din Germania.\nApelul este gratuit.";
 
-"ExposureSubmission_PhoneNumberForeign" = "+49 30 498 75401";
+"ExposureSubmission_PhoneNumberForeign" = "+49 30 498 75402";
 
 "ExposureSubmission_PhoneDetailsForeign" = "Pentru apeluri din afara Germaniei.\nSe vor aplica tarifele furnizorului dvs. de servicii de telefonie.";
 
-"ExposureSubmission_PhoneDetailDescription" = "Serviciul clienți vă stă la dispoziție în următoarele limbi: \nengleză, germană, turcă\n\nProgram de lucru:\nluni - sâmbătă: 07:00 - 22:00 (CET)\n\nDacă aveți întrebări legate de starea de sănătate, vă rugăm să contactați medicul de familie sau hotline-ul pentru servicii medicale de urgență, la numărul de telefon: 116 117.";
+"ExposureSubmission_PhoneDetailDescription" = "Serviciul clienți vă stă la dispoziție în următoarele limbi: \nengleză, germană, turcă\n\nProgram de lucru:\n24/7\n\nDacă aveți întrebări legate de starea de sănătate, vă rugăm să contactați medicul de familie sau hotline-ul pentru servicii medicale de urgență, la numărul de telefon: 116 117.";
 
 "ExposureSubmission_SectionDescription2" = "Înregistrați testul dvs. PCR introducând codul TAN în aplicație.";
 
@@ -1272,7 +1272,7 @@
 
 "App_Information_Contact_Hotline_Details_Foreign" = "Pentru apeluri din afara Germaniei.\nSe vor aplica tarifele furnizorului dvs. de servicii de telefonie.";
 
-"App_Information_Contact_Hotline_Terms" = "Serviciul clienți vă stă la dispoziție în următoarele limbi: \nengleză, germană, turcă\n\nProgram de lucru:\nluni - sâmbătă: 07:00 - 22:00 (CET)\n\nDacă aveți întrebări legate de starea de sănătate, vă rugăm să contactați medicul de familie sau hotline-ul pentru servicii medicale de urgență, la numărul de telefon: 116 117.";
+"App_Information_Contact_Hotline_Terms" = "Serviciul clienți vă stă la dispoziție în următoarele limbi: \nengleză, germană, turcă\n\nProgram de lucru:\nluni - sâmbătă: 07:00 - 22:00 (CET)\n(exceptând sărbătorile naționale)\n\nDacă aveți întrebări legate de starea de sănătate, vă rugăm să contactați medicul de familie sau hotline-ul pentru servicii medicale de urgență, la numărul de telefon: 116 117.";
 
 /* App Information - Imprint */
 "App_Information_New_Features_Navigation" = "Caracteristici noi";
