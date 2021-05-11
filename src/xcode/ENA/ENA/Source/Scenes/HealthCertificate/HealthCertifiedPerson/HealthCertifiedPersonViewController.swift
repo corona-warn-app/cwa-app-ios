@@ -274,6 +274,7 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 			.sink { [weak self] triggerReload in
 				guard triggerReload, let self = self, !self.isAnimatingChanges else { return }
 
+				self.didCalculateGradientHeight = false
 				self.tableView.reloadData()
 			}
 			.store(in: &subscriptions)
