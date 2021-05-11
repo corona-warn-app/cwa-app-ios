@@ -4,6 +4,9 @@
 
 import XCTest
 
+let YES = "YES"
+let NO = "NO"
+
 enum SizeCategory: String {
 	case XS
 	case S
@@ -35,6 +38,7 @@ extension XCUIElement {
 	
 	func waitAndTap(_ timeout: Double = .short) {
 		// Need XCTAssertEqual() here because we can append a message, this is not possible for XCTAssertTrue()
+		// swiftlint:disable:next xct_specific_matcher
 		XCTAssertEqual(self.waitForExistence(timeout: timeout), true, "Could not find XCUIElement: \(self) before tapping it.")
 		self.tap()
 	}

@@ -90,27 +90,36 @@ class ENAUITests_11_QuickActions: XCTestCase {
 		app.launchArguments.append(contentsOf: ["-testResultResponse", TestResult.positive.stringValue])
 		app.launch()
 
-		// Open Intro screen ("Testergebnis abrufen")
+		/// Now on Home screen. Go to "Register your test" screen.
 		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitAndTap()
 
-		// TAN
+		/// Now on "Register your Test" screen. Go to "Enter TAN for PCR Test" screen.
+		
 		app.buttons["AppStrings.ExposureSubmissionDispatch.tanButtonDescription"].waitAndTap()
 
-		// Fill in dummy TAN.
+		/// Now on "Enter TAN" screen. Enter TAN, but not submit it.
 		
-		let tanSubmityButton = app.buttons["AppStrings.ExposureSubmission.primaryButton"]
-		XCTAssertTrue(tanSubmityButton.waitForExistence(timeout: .medium))
+		let continueButton = app.buttons["AppStrings.ExposureSubmission.primaryButton"]
+		XCTAssertTrue(continueButton.waitForExistence(timeout: .medium))
+		XCTAssertFalse(continueButton.isEnabled)
 
 		"qwdzxcsrhe".forEach {
 			app.keyboards.keys[String($0)].waitAndTap()
 		}
+
+		XCTAssertTrue(continueButton.waitForExistence(timeout: .medium))
+		XCTAssertTrue(continueButton.isEnabled)
+		
 		try checkAppMenu(expectNewDiaryItem: true, expectEventCheckin: true)
-		// Submit TAN
+		
+		/// Submit TAN
+		
 		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.primaryButton"].isEnabled)
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].waitAndTap()
 		// remember: TAN tests are ALWAYS positive!
 
-		// Result Screen
+		/// Result Screen
+		
 		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.primaryButton"].waitForExistence(timeout: .medium))
 		try checkAppMenu(expectNewDiaryItem: false, expectEventCheckin: false) // !!! Quick action should be disabled until we leave the submission flow
 
