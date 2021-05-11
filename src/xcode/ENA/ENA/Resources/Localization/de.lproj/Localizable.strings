@@ -2400,7 +2400,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "Submission_Checkins_Title" = "Check-ins teilen?";
 
-"Submission_Checkins_Description" = "Teilen Sie Ihre Check-ins, um andere zu warnen, die in Ihrer Nähe waren. Ihre Identität bleibt geheim.";
+"Submission_Checkins_Description" = "Teilen Sie Ihre Check-ins, um andere zu warnen, die mit Ihnen eingecheckt waren. Ihre Identität bleibt geheim.";
 
 "Submission_Checkins_SelectAll" = "Alle auswählen";
 
@@ -2410,7 +2410,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "Submission_Checkins_Alert_Title" = "Sind Sie sicher, dass Sie Ihre Check-ins nicht teilen wollen?";
 
-"Submission_Checkins_Alert_Message" = "Dadurch werden andere nicht gewarnt, die in Ihrer Nähe waren.";
+"Submission_Checkins_Alert_Message" = "Dadurch werden andere nicht gewarnt, die mit Ihnen eingecheckt waren.";
 
 "Submission_Checkins_Alert_Share" = "Teilen";
 
