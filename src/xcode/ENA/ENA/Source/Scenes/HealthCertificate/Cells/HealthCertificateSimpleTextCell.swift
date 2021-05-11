@@ -66,8 +66,8 @@ class HealthCertificateSimpleTextCell: UITableViewCell, ReuseIdentifierProviding
 
 		NSLayoutConstraint.activate(
 			[
-				backgroundContainerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8.0),
-				backgroundContainerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8.0),
+				backgroundContainerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 4.0),
+				backgroundContainerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4.0),
 				backgroundContainerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.0),
 				backgroundContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.0),
 
