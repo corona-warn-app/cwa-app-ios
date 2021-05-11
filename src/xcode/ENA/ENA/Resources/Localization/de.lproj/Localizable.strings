@@ -2470,9 +2470,9 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "VaccinationCertificates_Home_Title" = "Digitaler Impfnachweis";
 
-"VaccinationCertificates_Home_Body" = "SARS-CoV-2\nImpfschutz";
+"VaccinationCertificates_Home_Body" = "SARS-CoV-2 Impfschutz";
 
-"VaccinationCertificates_Home_InProgress" = "Unvollständiger\nImpfschutz";
+"VaccinationCertificates_Home_InProgress" = "Unvollständiger Impfschutz";
 
 "HealthCertificate_Info_registerCard_title" = "Impfzertifikat registrieren";
 
