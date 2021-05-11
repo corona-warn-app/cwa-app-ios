@@ -2519,3 +2519,19 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "HealthCertificate_Alert_deleteButton" = "Entfernen";
 
 "HealthCertificate_Alert_cancelButton" = "Abbrechen";
+
+/* Errors */
+
+"HealthCertificate_Error_Title" = "Fehler";
+
+"HealthCertificate_Error_PC_TRY_AGAIN_LATER" = "Das Impfzertifikat kann aktuell nicht überprüft werden. Bitte versuchen Sie es später noch einmal.";
+
+"HealthCertificate_Error_VC_ALREADY_REGISTERED" = "Das Impfzertifikat ist bereits in Ihrer App registriert.";
+
+"HealthCertificate_Error_VC_DIFFERENT_PERSON" = "Die persönlichen Daten dieses Impfzertifikats stimmen nicht mit denen der bereits registrierten Zertifikate überein. Sie können in der App nur Zertifikate einer Person registrieren.";
+
+"HealthCertificate_Error_VC_INVALID" = "Dieser QR-Code ist kein gültiges Impfzertifikat.";
+
+"HealthCertificate_Error_VC_NOT_YET_SUPPORTED" = "Dieses Impfzertifikat wird in Ihrer App-Version noch nicht unterstützt. Bitte aktualisieren Sie Ihre App oder wenden Sie sich an die technische Hotline unter „App-Informationen“.";
+
+"HealthCertificate_Error_VC_SCAN_AGAIN" = "Das Impfzertifikat konnte nicht auf Ihrem Smartphone gespeichert werden. Bitte versuchen Sie es später noch einmal oder wenden Sie sich an die technische Hotline unter „App-Informationen“.";

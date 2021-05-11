@@ -1861,6 +1861,16 @@ enum AppStrings {
 			static let cancelButton = NSLocalizedString("HealthCertificate_Alert_cancelButton", comment: "")
 		}
 
+		enum Error {
+			static let title = NSLocalizedString("HealthCertificate_Error_Title", comment: "")
+			static let pcTryAgainLater = NSLocalizedString("HealthCertificate_Error_PC_TRY_AGAIN_LATER", comment: "")
+			static let vcAlreadyRegistered = NSLocalizedString("HealthCertificate_Error_VC_ALREADY_REGISTERED", comment: "")
+			static let vcDifferentPerson = NSLocalizedString("HealthCertificate_Error_VC_DIFFERENT_PERSON", comment: "")
+			static let vcInvalid = NSLocalizedString("HealthCertificate_Error_VC_INVALID", comment: "")
+			static let vcNotYetSupported = NSLocalizedString("HealthCertificate_Error_VC_NOT_YET_SUPPORTED", comment: "")
+			static let vcScanAgain = NSLocalizedString("HealthCertificate_Error_VC_SCAN_AGAIN", comment: "")
+		}
+
 	}
 
 	// swiftlint:disable:next file_length

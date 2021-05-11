@@ -91,7 +91,7 @@ final class HealthCertificateCoordinator {
 
 		let qrCodeNavigationController = UINavigationController(rootViewController: qrCodeScannerViewController)
 		qrCodeNavigationController.modalPresentationStyle = .fullScreen
-		
+
 		navigationController.present(qrCodeNavigationController, animated: true)
 	}
 	

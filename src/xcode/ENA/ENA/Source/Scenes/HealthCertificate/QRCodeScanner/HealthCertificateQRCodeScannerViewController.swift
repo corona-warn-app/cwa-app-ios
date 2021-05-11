@@ -210,7 +210,7 @@ class HealthCertificateQRCodeScannerViewController: UIViewController {
 		viewModel?.deactivateScanning()
 
 		let alert = UIAlertController(
-			title: AppStrings.Checkins.QRScanner.Error.title,
+			title: AppStrings.HealthCertificate.Error.title,
 			message: error.localizedDescription,
 			preferredStyle: .alert
 		)
