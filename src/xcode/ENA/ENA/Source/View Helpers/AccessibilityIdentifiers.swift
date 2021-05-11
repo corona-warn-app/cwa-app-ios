@@ -230,7 +230,7 @@ enum AccessibilityIdentifiers {
 	}
 	
 	enum ExposureSubmissionQRScanner {
-		static let flash = "AppStrings.ExposureSubmissionQRScanner.flash"
+		static let flash = "ExposureSubmissionQRScanner_flash"
 	}
 	
 	enum ExposureSubmissionQRInfo {
@@ -388,11 +388,18 @@ enum AccessibilityIdentifiers {
 				static let descriptionSubHeadline = "AppStrings.ExposureSubmission.AntigenTest.Information.descriptionSubHeadline"
 				static let acknowledgementTitle = "AntigenTest_Information_acknowledgement_title"
 				static let dataPrivacyTitle = "AppStrings.ExposureSubmission.AntigenTest.Information.dataPrivacyTitle"
+				static let continueButton = "AppStrings.ExposureSubmission.AntigenTest.Information.primaryButton"
+			}
+			
+			enum Create {
+				static let saveButton = "AppStrings.AntigenProfile.Create.saveButtonTitle"
 			}
 			
 			enum Profile {
 				static let profileTile_Description = "AppStrings.ExposureSubmission.AntigenTest.Profile.profileTile_Description"
 				static let createProfileTile_Description = "AppStrings.ExposureSubmission.AntigenTest.Profile.createProfileTile_Description"
+				static let continueButton = "AppStrings.ExposureSubmission.AntigenTest.Profile.primaryButton"
+				static let deleteButton = "AppStrings.ExposureSubmission.AntigenTest.Profile.secondaryButton"
 			}
 		}
 
@@ -577,4 +584,20 @@ enum AccessibilityIdentifiers {
 			static let saveButtonTitle = "AppStrings.AntigenProfile.Create.saveButtonTitle"
 		}
 	}
+
+	enum HealthCertificate {
+		enum Info {
+			static let imageDescription = "AppStrings.HealthCertificate.Info.imageDescription"
+
+			enum Register {
+				static let headline = "AppStrings.HealthCertificate.Info.Register.headline"
+				static let text = "AppStrings.HealthCertificate.Info.Register.text"
+			}
+
+			static let disclaimer = "AppStrings.HealthCertificate.Info.disclaimer"
+			static let acknowledgementTitle = "HealthCertificate.Info.acknowledgement"
+		}
+	}
+
+// swiftlint:disable:next file_length
 }
