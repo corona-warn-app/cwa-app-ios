@@ -48,6 +48,7 @@ class HealthCertificateQRCodeScannerViewModelTests: XCTestCase {
 		onErrorExpectation.expectedFulfillmentCount = 1
 
 		let viewModel = TestableHealthCertificateQRCodeScannerViewModelTests(
+			healthCertificateService: MockHealthCertificateService(),
 			onSuccess: { _ in
 				onSuccessExpectation.fulfill()
 			},
@@ -76,6 +77,7 @@ class HealthCertificateQRCodeScannerViewModelTests: XCTestCase {
 		onErrorExpectation.expectedFulfillmentCount = 1
 
 		let viewModel = TestableHealthCertificateQRCodeScannerViewModelTests(
+			healthCertificateService: MockHealthCertificateService(),
 			onSuccess: { _ in
 				onSuccessExpectation.fulfill()
 			},
@@ -106,6 +108,7 @@ class HealthCertificateQRCodeScannerViewModelTests: XCTestCase {
 		onErrorExpectation.expectedFulfillmentCount = 1
 
 		let viewModel = TestableHealthCertificateQRCodeScannerViewModelTests(
+			healthCertificateService: MockHealthCertificateService(),
 			onSuccess: { _ in
 				onSuccessExpectation.fulfill()
 			},
