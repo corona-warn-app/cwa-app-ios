@@ -5693,12 +5693,12 @@
 		BA01BA5E264423B000D906B6 /* HealthCertificate */ = {
 			isa = PBXGroup;
 			children = (
-				BA5B7FC026458EF400502087 /* Cells */,
-				BA5B7FB726458EF400502087 /* HealthCertificate */,
 				BA5B7FBF26458EF400502087 /* HealthCertificateCoordinator.swift */,
+				BA5B7FC026458EF400502087 /* Cells */,
+				BA01BA5F264423CF00D906B6 /* Consent */,
+				BA5B7FB726458EF400502087 /* HealthCertificate */,
 				BA5B7FC326458EF400502087 /* HealthCertifiedPerson */,
 				BA5B7FB226458EF400502087 /* QRCodeScanner */,
-				BA01BA5F264423CF00D906B6 /* Consent */,
 			);
 			path = HealthCertificate;
 			sourceTree = "<group>";

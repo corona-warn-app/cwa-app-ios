@@ -70,7 +70,7 @@ final class HealthCertificateViewModel {
 
 	var headlineCellViewModel: HealthCertificateSimpleTextCellViewModel {
 		guard let vaccinationCertificate = healthCertificate.vaccinationCertificates.first else {
-			Log.error("Failed to setup certificate details without vaccinationCertificates")
+			Log.error("Failed to setup certificate details without vaccinationCertificates", log: .vaccination)
 			fatalError("missing vaccinationCertificates")
 		}
 
@@ -136,17 +136,21 @@ final class HealthCertificateViewModel {
 	private var subscriptions = Set<AnyCancellable>()
 
 	private func setupHealthCertificateKeyValueCellViewModel() {
-		var nameCellViewModel: HealthCertificateKeyValueCellViewModel?
+		// person cell - always visible
+		var dateOfBirth: String = ""
 		if let date = dateFormatter.date(from: healthCertificate.dateOfBirth) {
-			nameCellViewModel = HealthCertificateKeyValueCellViewModel(
-				key: healthCertificate.name.fullName,
-				value: String(format: AppStrings.HealthCertificate.Details.dateOfBirth, DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .none)),
-				topSpace: 2.0
-			)
+			dateOfBirth = DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .none)
 		}
+		let nameCellViewModel = HealthCertificateKeyValueCellViewModel(
+			key: healthCertificate.name.fullName,
+			value: String(format: AppStrings.HealthCertificate.Details.dateOfBirth, dateOfBirth),
+			topSpace: 2.0
+		)
 
+		// all vaccinationCertificate cell data - optional values
+		let vaccinationCertificate = healthCertificate.vaccinationCertificates.first
 		var dateCellViewModel: HealthCertificateKeyValueCellViewModel?
-		if	let dateString = healthCertificate.vaccinationCertificates.first?.dateOfVaccination,
+		if	let dateString = vaccinationCertificate?.dateOfVaccination,
 			let date = dateFormatter.date(from: dateString) {
 			dateCellViewModel = HealthCertificateKeyValueCellViewModel(
 				key: AppStrings.HealthCertificate.Details.dateOfVaccination,
@@ -156,7 +160,7 @@ final class HealthCertificateViewModel {
 
 		var vaccinationCellViewModel: HealthCertificateKeyValueCellViewModel?
 		if let valueSet = valueSet(by: .mp),
-		   let key = healthCertificate.vaccinationCertificates.first?.vaccineMedicinalProduct {
+		   let key = vaccinationCertificate?.vaccineMedicinalProduct {
 			let value = determineValue(key: key, valueSet: valueSet)
 			vaccinationCellViewModel = HealthCertificateKeyValueCellViewModel(
 				key: AppStrings.HealthCertificate.Details.vaccine,
@@ -166,7 +170,7 @@ final class HealthCertificateViewModel {
 
 		var manufacturerCellViewModel: HealthCertificateKeyValueCellViewModel?
 		if let valueSet = valueSet(by: .ma),
-		   let key = healthCertificate.vaccinationCertificates.first?.marketingAuthorizationHolder {
+		   let key = vaccinationCertificate?.marketingAuthorizationHolder {
 			let value = determineValue(key: key, valueSet: valueSet)
 			manufacturerCellViewModel = HealthCertificateKeyValueCellViewModel(
 				key: AppStrings.HealthCertificate.Details.manufacture,
@@ -176,11 +180,11 @@ final class HealthCertificateViewModel {
 
 		let issuerCellViewModel = HealthCertificateKeyValueCellViewModel(
 			key: AppStrings.HealthCertificate.Details.issuer,
-			value: healthCertificate.vaccinationCertificates.first?.certificateIssuer
+			value: vaccinationCertificate?.certificateIssuer
 		)
 
 		var countryCellViewModel: HealthCertificateKeyValueCellViewModel?
-		if	let countryCode = healthCertificate.vaccinationCertificates.first?.countryOfVaccination,
+		if	let countryCode = vaccinationCertificate?.countryOfVaccination,
 			let country = Country(countryCode: countryCode) {
 			countryCellViewModel = HealthCertificateKeyValueCellViewModel(
 				key: AppStrings.HealthCertificate.Details.country,
@@ -190,7 +194,7 @@ final class HealthCertificateViewModel {
 
 		let certificateNumberCellViewModel = HealthCertificateKeyValueCellViewModel(
 			key: AppStrings.HealthCertificate.Details.identifier,
-			value: healthCertificate.vaccinationCertificates.first?.uniqueCertificateIdentifier,
+			value: vaccinationCertificate?.uniqueCertificateIdentifier,
 			isBottomSeparatorHidden: true,
 			bottomSpace: 2.0
 		)
@@ -208,13 +212,17 @@ final class HealthCertificateViewModel {
 	}
 
 	private func valueSet(by type: valueSetType) -> SAP_Internal_Dgc_ValueSet? {
+		guard let valueSets = valueSets else {
+			Log.error("tried to read from unavailable valuesets", log: .vaccination)
+			return nil
+		}
 		switch type {
 		case .vp:
-			return valueSets?.hasVp ?? false ? valueSets?.vp : nil
+			return valueSets.hasVp ? valueSets.vp : nil
 		case .mp:
-			return valueSets?.hasMp ?? false ? valueSets?.mp : nil
+			return valueSets.hasMp ? valueSets.mp : nil
 		case .ma:
-			return valueSets?.hasMa ?? false ? valueSets?.ma : nil
+			return valueSets.hasMa ? valueSets.ma : nil
 		}
 	}
 
