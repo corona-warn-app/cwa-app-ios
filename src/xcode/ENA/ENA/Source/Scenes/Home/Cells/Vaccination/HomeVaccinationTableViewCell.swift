@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-class HomeVaccinationTableViewCell: UITableViewCell {
+class HomeVaccinationTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 	
 	// MARK: - Overrides
 
@@ -28,22 +28,13 @@ class HomeVaccinationTableViewCell: UITableViewCell {
 		guard !isConfigured else { return }
 
 		cellModel.$vaccinatedPersonName.assign(to: \.text, on: nameLabel).store(in: &subscriptions)
-
-		cellModel.$isVerified.sink { [weak self] isVerified in
+		cellModel.$isProgressLabelHidden.assign(to: \.isHidden, on: inProgressLabel).store(in: &subscriptions)
+		cellModel.$iconimage.assign(to: \.image, on: iconView).store(in: &subscriptions)
+		cellModel.$backgroundColor.sink { [weak self] color in
 			DispatchQueue.main.async {
-				if isVerified {
-					self?.containerView.backgroundColor = .enaColor(for: .buttonPrimary)
-					self?.inProgressLabel.isHidden = true
-					self?.iconView.image = UIImage(named: "Vaccination_full")
-				} else {
-					self?.containerView.backgroundColor = .enaColor(for: .riskNeutral)
-					self?.inProgressLabel.isHidden = false
-					self?.iconView.image = UIImage(named: "Vacc_Incomplete")
-				}
+				self?.containerView.backgroundColor = color
 			}
-			
 		}.store(in: &subscriptions)
-		
 		isConfigured = true
 	}
 	

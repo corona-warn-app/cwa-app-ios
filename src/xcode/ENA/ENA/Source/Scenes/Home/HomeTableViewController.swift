@@ -388,7 +388,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		)
 		tableView.register(
 			UINib(nibName: String(describing: HomeVaccinationTableViewCell.self), bundle: nil),
-			forCellReuseIdentifier: String(describing: HomeVaccinationTableViewCell.self)
+			forCellReuseIdentifier: HomeVaccinationTableViewCell.reuseIdentifier
 		)
 		tableView.register(
 			UINib(nibName: String(describing: VaccinationRegistrationTableViewCell.self), bundle: nil),

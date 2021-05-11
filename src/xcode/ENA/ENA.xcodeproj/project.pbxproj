@@ -629,6 +629,7 @@
 		8FE26666264A9DEF00C2B432 /* VaccinationRegistrationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE26664264A9DEF00C2B432 /* VaccinationRegistrationTableViewCell.swift */; };
 		8FE26667264A9DEF00C2B432 /* VaccinationRegistrationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FE26665264A9DEF00C2B432 /* VaccinationRegistrationTableViewCell.xib */; };
 		8FE2666F264A9E0300C2B432 /* VaccinationRegistrationCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE2666E264A9E0300C2B432 /* VaccinationRegistrationCellModel.swift */; };
+		8FE26696264AC7DF00C2B432 /* HomeVaccinationCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE26695264AC7DF00C2B432 /* HomeVaccinationCellModelTests.swift */; };
 		8FE6CEFD2617482C006BFB82 /* CheckinQRCodeScannerViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE6CEFC2617482C006BFB82 /* CheckinQRCodeScannerViewModelTests.swift */; };
 		940109F225DFB5EF0017355C /* DiaryDayNotesInfoViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940109ED25DFB40E0017355C /* DiaryDayNotesInfoViewModelTest.swift */; };
 		94092541254BFE6800FE61A2 /* DMWarnOthersNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94092540254BFE6800FE61A2 /* DMWarnOthersNotificationViewController.swift */; };
@@ -1807,6 +1808,7 @@
 		8FE26664264A9DEF00C2B432 /* VaccinationRegistrationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationRegistrationTableViewCell.swift; sourceTree = "<group>"; };
 		8FE26665264A9DEF00C2B432 /* VaccinationRegistrationTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VaccinationRegistrationTableViewCell.xib; sourceTree = "<group>"; };
 		8FE2666E264A9E0300C2B432 /* VaccinationRegistrationCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationRegistrationCellModel.swift; sourceTree = "<group>"; };
+		8FE26695264AC7DF00C2B432 /* HomeVaccinationCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVaccinationCellModelTests.swift; sourceTree = "<group>"; };
 		8FE6CEFC2617482C006BFB82 /* CheckinQRCodeScannerViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinQRCodeScannerViewModelTests.swift; sourceTree = "<group>"; };
 		8FF9B2B1259B6B030080770D /* ContactDiaryStoreSchemaV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryStoreSchemaV2.swift; sourceTree = "<group>"; };
 		940109ED25DFB40E0017355C /* DiaryDayNotesInfoViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayNotesInfoViewModelTest.swift; sourceTree = "<group>"; };
@@ -4590,11 +4592,20 @@
 		8FE2667C264AA70300C2B432 /* Vaccination */ = {
 			isa = PBXGroup;
 			children = (
+				8FE2669D264AE11A00C2B432 /* __tests__ */,
 				8F5B5C0C26456B1F00456381 /* HomeVaccinationTableViewCell.swift */,
 				8F5B5C0D26456B1F00456381 /* HomeVaccinationTableViewCell.xib */,
 				8F5B5C162648CD3800456381 /* HomeVaccinationCellModel.swift */,
 			);
 			path = Vaccination;
+			sourceTree = "<group>";
+		};
+		8FE2669D264AE11A00C2B432 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				8FE26695264AC7DF00C2B432 /* HomeVaccinationCellModelTests.swift */,
+			);
+			path = __tests__;
 			sourceTree = "<group>";
 		};
 		941B68AD253F005600DC1962 /* Helper */ = {
@@ -7964,6 +7975,7 @@
 				01CF95DD253083B2007B72F7 /* CodableExposureDetectionSummary+Helpers.swift in Sources */,
 				01A1B452252DFDC400841B63 /* FakeMetadataMachineReadableObject.swift in Sources */,
 				3598D99A24FE280700483F1F /* CountryTests.swift in Sources */,
+				8FE26696264AC7DF00C2B432 /* HomeVaccinationCellModelTests.swift in Sources */,
 				50AA526825FBA0CC000C77BB /* HTTPClient+TraceWarningPackageDiscoveryTests.swift in Sources */,
 				B163D1102499068D001A322C /* SettingsViewModelTests.swift in Sources */,
 				5017F65F25FFC1E8003A812E /* ClientMetadataTests.swift in Sources */,

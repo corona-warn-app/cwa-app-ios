@@ -15,25 +15,20 @@ class HomeVaccinationCellModel {
 	) {
 		self.healthCertifiedPerson = healthCertifiedPerson
 		healthCertifiedPerson.$hasValidProofCertificate.sink { isValid in
-			self.isVerified = isValid
+			self.isProgressLabelHidden = isValid
+			self.backgroundColor = isValid ? .enaColor(for: .buttonPrimary) : .enaColor(for: .riskNeutral)
+			self.iconimage = isValid ? UIImage(named: "Vaccination_full") : UIImage(named: "Vacc_Incomplete")
+			self.vaccinatedPersonName = healthCertifiedPerson.fullName
 			onUpdate()
 		}.store(in: &subscriptions)
-		healthCertifiedPerson.$proofCertificate.sink(receiveValue: { proofCertificate in
-			guard let proofCertificate = proofCertificate else {
-				self.vaccinatedPersonName = healthCertifiedPerson.healthCertificates.first?.name.fullName
-				onUpdate()
-				return
-			}
-			self.vaccinatedPersonName = proofCertificate.name.fullName
-			onUpdate()
-		})
-			.store(in: &self.subscriptions)
 	}
 	
 	// MARK: - Internal
 
 	@OpenCombine.Published var vaccinatedPersonName: String?
-	@OpenCombine.Published var isVerified: Bool = false
+	@OpenCombine.Published var isProgressLabelHidden: Bool = false
+	@OpenCombine.Published var backgroundColor: UIColor = .enaColor(for: .riskNeutral)
+	@OpenCombine.Published var iconimage: UIImage?
 
 	// MARK: - Private
 
