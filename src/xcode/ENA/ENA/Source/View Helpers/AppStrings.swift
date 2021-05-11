@@ -1831,15 +1831,15 @@ enum AppStrings {
 		}
 
 		enum Details {
-			static let vaccinationCount = NSLocalizedString("HealthCertificate_Certificate_vaccinationCount", comment: "")
-			static let certificate = NSLocalizedString("HealthCertificate_Certificate_certificate", comment: "")
-			static let dateOfBirth = NSLocalizedString("HealthCertificate_Certificate_dateOfBirth", comment: "")
-			static let dateOfVaccination = NSLocalizedString("HealthCertificate_Certificate_dateOfVaccination", comment: "")
-			static let vaccine = NSLocalizedString("HealthCertificate_Certificate_vaccine", comment: "")
-			static let manufacture = NSLocalizedString("HealthCertificate_Certificate_manufacture", comment: "")
-			static let issuer = NSLocalizedString("HealthCertificate_Certificate_issuer", comment: "")
-			static let country = NSLocalizedString("HealthCertificate_Certificate_country", comment: "")
-			static let identifier = NSLocalizedString("HealthCertificate_Certificate_identifier", comment: "")
+			static let vaccinationCount = NSLocalizedString("HealthCertificate_Details_vaccinationCount", comment: "")
+			static let certificate = NSLocalizedString("HealthCertificate_Details_certificate", comment: "")
+			static let dateOfBirth = NSLocalizedString("HealthCertificate_Details_dateOfBirth", comment: "")
+			static let dateOfVaccination = NSLocalizedString("HealthCertificate_Details_dateOfVaccination", comment: "")
+			static let vaccine = NSLocalizedString("HealthCertificate_Details_vaccine", comment: "")
+			static let manufacture = NSLocalizedString("HealthCertificate_Details_manufacture", comment: "")
+			static let issuer = NSLocalizedString("HealthCertificate_Details_issuer", comment: "")
+			static let country = NSLocalizedString("HealthCertificate_Details_country", comment: "")
+			static let identifier = NSLocalizedString("HealthCertificate_Details_identifier", comment: "")
 		}
 
 	}
