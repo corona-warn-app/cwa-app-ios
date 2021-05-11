@@ -107,7 +107,19 @@ final class HealthCertificateCoordinator {
 					healthCertificate: healthCertificate
 				)
 			},
-			didTapRegisterAnotherHealthCertificate: { [weak self] in self?.showQRCodeScanner() }
+			didTapRegisterAnotherHealthCertificate: { [weak self] in self?.showQRCodeScanner() },
+			didSwipeToDelete: { [weak self] healthCertificate, confirmDeletion in
+				self?.showDeleteAlert(
+					submitAction: UIAlertAction(
+						title: AppStrings.HealthCertificate.Alert.deleteButton,
+						style: .default,
+						handler: { _ in
+							self?.healthCertificateService.removeHealthCertificate(healthCertificate)
+							confirmDeletion()
+						}
+					)
+				)
+			}
 		)
 		
 		let footerViewController = FooterViewController(

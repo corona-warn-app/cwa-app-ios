@@ -15,11 +15,14 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		vaccinationValueSetsProvider: VaccinationValueSetsProvider,
 		dismiss: @escaping () -> Void,
 		didTapHealthCertificate: @escaping (HealthCertificate) -> Void,
-		didTapRegisterAnotherHealthCertificate: @escaping () -> Void
+		didTapRegisterAnotherHealthCertificate: @escaping () -> Void,
+		didSwipeToDelete: @escaping (HealthCertificate, @escaping () -> Void) -> Void
 	) {
 		self.dismiss = dismiss
 		self.didTapHealthCertificate = didTapHealthCertificate
 		self.didTapRegisterAnotherHealthCertificate = didTapRegisterAnotherHealthCertificate
+		self.didSwipeToDelete = didSwipeToDelete
+
 		self.viewModel = HealthCertifiedPersonViewModel(
 			healthCertificateService: healthCertificateService,
 			healthCertifiedPerson: healthCertifiedPerson,
@@ -150,25 +153,17 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 	}
 
 	func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-		guard editingStyle == .delete else { return }
+		guard editingStyle == .delete, let healthCertificate = viewModel.healthCertificate(for: indexPath) else { return }
 
-		showAlert(
-			title: AppStrings.TraceLocations.Overview.DeleteOneAlert.title,
-			message: AppStrings.TraceLocations.Overview.DeleteOneAlert.message,
-			cancelButtonTitle: AppStrings.TraceLocations.Overview.DeleteOneAlert.cancelButtonTitle,
-			confirmButtonTitle: AppStrings.TraceLocations.Overview.DeleteOneAlert.confirmButtonTitle,
-			confirmAction: { [weak self] in
-				guard let self = self else { return }
+		self.didSwipeToDelete(healthCertificate) { [weak self] in
+			self?.isAnimatingChanges = true
 
-				self.isAnimatingChanges = true
-				self.viewModel.removeHealthCertificate(at: indexPath)
-				tableView.performBatchUpdates({
-					tableView.deleteRows(at: [indexPath], with: .automatic)
-				}, completion: { _ in
-					self.isAnimatingChanges = false
-				})
-			}
-		)
+			tableView.performBatchUpdates({
+				tableView.deleteRows(at: [indexPath], with: .automatic)
+			}, completion: { _ in
+				self?.isAnimatingChanges = false
+			})
+		}
 	}
 
 	// MARK: - Private
@@ -176,6 +171,7 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 	private let dismiss: () -> Void
 	private let didTapHealthCertificate: (HealthCertificate) -> Void
 	private let didTapRegisterAnotherHealthCertificate: () -> Void
+	private let didSwipeToDelete: (HealthCertificate, @escaping () -> Void) -> Void
 
 	private let viewModel: HealthCertifiedPersonViewModel
 	private let backgroundView = GradientBackgroundView(type: .solidGrey)
@@ -278,39 +274,6 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 				self.tableView.reloadData()
 			}
 			.store(in: &subscriptions)
-	}
-
-	private func showAlert(
-		title: String,
-		message: String,
-		cancelButtonTitle: String,
-		confirmButtonTitle: String,
-		confirmAction: @escaping () -> Void
-	) {
-		let alert = UIAlertController(
-			title: title,
-			message: message,
-			preferredStyle: .alert
-		)
-
-		alert.addAction(
-			UIAlertAction(
-				title: cancelButtonTitle,
-				style: .cancel
-			)
-		)
-
-		alert.addAction(
-			UIAlertAction(
-				title: confirmButtonTitle,
-				style: .destructive,
-				handler: { _ in
-					confirmAction()
-				}
-			)
-		)
-
-		present(alert, animated: true, completion: nil)
 	}
 
 }
