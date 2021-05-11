@@ -2,6 +2,7 @@
 // 🦠 Corona-Warn-App
 //
 
+// swiftlint:disable file_length
 // swiftlint:disable:next type_body_length
 enum AccessibilityIdentifiers {
 	
@@ -460,7 +461,7 @@ enum AccessibilityIdentifiers {
 		static let title = "UpdateOSScreen.title"
 		static let text = "UpdateOSScreen.text"
 	}
-	
+
 	enum Tabbar {
 		static let home = "Tabbar.home"
 		static let diary = "Tabbar.diary"
