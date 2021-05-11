@@ -13,14 +13,14 @@ class HomeTableViewModel {
 		state: HomeState,
 		store: Store,
 		coronaTestService: CoronaTestService,
-		onTestResultCellTap: @escaping (CoronaTestType?) -> Void,
-		healthCertificateService: HealthCertificateServiceProviding
+		healthCertificateService: HealthCertificateServiceProviding,
+		onTestResultCellTap: @escaping (CoronaTestType?) -> Void
 	) {
 		self.state = state
 		self.store = store
 		self.coronaTestService = coronaTestService
-		self.onTestResultCellTap = onTestResultCellTap
 		self.healthCertificateService = healthCertificateService
+		self.onTestResultCellTap = onTestResultCellTap
 
 		coronaTestService.$tests
 			.sink { [weak self] in

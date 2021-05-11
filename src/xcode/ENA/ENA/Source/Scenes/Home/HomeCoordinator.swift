@@ -63,10 +63,10 @@ class HomeCoordinator: RequiresAppDependencies {
 				state: homeState,
 				store: store,
 				coronaTestService: coronaTestService,
+				healthCertificateService: healthCertificateService,
 				onTestResultCellTap: { [weak self] coronaTestType in
 					self?.showExposureSubmission(testType: coronaTestType)
-				},
-				healthCertificateService: healthCertificateService
+				}
 			),
 			appConfigurationProvider: appConfigurationProvider,
 			route: route,
