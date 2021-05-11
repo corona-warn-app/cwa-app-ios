@@ -15,12 +15,12 @@ public struct ProofCertificateDownload {
     public func fetchProofCertificate(
         for healthCertificates: [Base45],
         with httpService: HTTPServiceProtocol = HTTPService(),
-        completion: @escaping (Result<CBORData?, ProofCertificateFetchingError>
+        completion: @escaping (Result<Base45?, ProofCertificateFetchingError>
     ) -> Void) {
-
         let certificateAccess = DigitalGreenCertificateAccess()
 
-        let eligibleCertificates = healthCertificates
+        let eligibleCertificates =
+            healthCertificates
             .compactMap { (base45) -> CBORData? in
                 let result = certificateAccess.extractCBOR(from: base45)
                 switch result {
@@ -31,7 +31,7 @@ public struct ProofCertificateDownload {
                 }
             }
             .filter {
-                switch certificateAccess.extractDigitalGreenCertificate(from: $0) {
+                switch certificateAccess.extractCertificate(from: $0) {
                 case .success(let certificate):
                     return certificate.vaccinationCertificates[0].isEligibleForProofCertificate
                 case .failure:
@@ -54,7 +54,7 @@ public struct ProofCertificateDownload {
     private func fetchProofCertificateRecursion(
         for healthCertificates: [CBORData],
         with httpService: HTTPServiceProtocol = HTTPService(),
-        completion: @escaping (Result<CBORData?, ProofCertificateFetchingError>) -> Void
+        completion: @escaping (Result<Base45?, ProofCertificateFetchingError>) -> Void
     ) {
 
         let url = URL(string: "https://www.test.de")
@@ -64,6 +64,8 @@ public struct ProofCertificateDownload {
 
         var request = URLRequest(url: requestUrl)
         request.httpMethod = "POST"
+        request.addValue("application/cbor", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/cbor+base45", forHTTPHeaderField: "Accept")
 
         guard let healthCertificate = healthCertificates.first else {
             // Exit of recursion.
@@ -91,7 +93,8 @@ public struct ProofCertificateDownload {
                 if let data = data {
                     // Exit of recursion.
                     // We exit the recursion if the server returns the first proof certificate. Ignoring the rest of the health certificates.
-                    completion(.success(data))
+                    let base45 = Base45(data: data, encoding: .utf8)
+                    completion(.success(base45))
                 } else {
                     // If there is no data returned, we try our luck with the next health certificate.
                     fetchProofCertificateRecursion(for: _healthCertificates, with: httpService, completion: completion)

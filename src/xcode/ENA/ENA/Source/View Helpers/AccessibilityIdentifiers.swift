@@ -599,4 +599,5 @@ enum AccessibilityIdentifiers {
 		}
 	}
 
+// swiftlint:disable:next file_length
 }
