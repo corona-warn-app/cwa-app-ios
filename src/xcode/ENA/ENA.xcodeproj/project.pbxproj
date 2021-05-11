@@ -606,6 +606,9 @@
 		8F4E623A25EE878E00FF4F0A /* BottomErrorReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4E623825EE878E00FF4F0A /* BottomErrorReportViewController.swift */; };
 		8F4E623B25EE878E00FF4F0A /* BottomErrorReportViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F4E623925EE878E00FF4F0A /* BottomErrorReportViewController.xib */; };
 		8F4E624225EE879B00FF4F0A /* TopErrorReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4E624025EE879B00FF4F0A /* TopErrorReportViewController.swift */; };
+		8F5B5C0E26456B1F00456381 /* HomeVaccinationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5B5C0C26456B1F00456381 /* HomeVaccinationTableViewCell.swift */; };
+		8F5B5C0F26456B1F00456381 /* HomeVaccinationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F5B5C0D26456B1F00456381 /* HomeVaccinationTableViewCell.xib */; };
+		8F5B5C172648CD3800456381 /* HomeVaccinationCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5B5C162648CD3800456381 /* HomeVaccinationCellModel.swift */; };
 		8F63407C262D8F4400077240 /* AntigenTestInformation+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F634077262D8EAA00077240 /* AntigenTestInformation+Mock.swift */; };
 		8F634084262DBB6900077240 /* Route+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F634083262DBB6900077240 /* Route+Equatable.swift */; };
 		8F7AB89F25F106A50043A3C8 /* SendErrorLogsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7AB89E25F106A50043A3C8 /* SendErrorLogsViewModel.swift */; };
@@ -1782,6 +1785,9 @@
 		8F4E623825EE878E00FF4F0A /* BottomErrorReportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomErrorReportViewController.swift; sourceTree = "<group>"; };
 		8F4E623925EE878E00FF4F0A /* BottomErrorReportViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BottomErrorReportViewController.xib; sourceTree = "<group>"; };
 		8F4E624025EE879B00FF4F0A /* TopErrorReportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopErrorReportViewController.swift; sourceTree = "<group>"; };
+		8F5B5C0C26456B1F00456381 /* HomeVaccinationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVaccinationTableViewCell.swift; sourceTree = "<group>"; };
+		8F5B5C0D26456B1F00456381 /* HomeVaccinationTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeVaccinationTableViewCell.xib; sourceTree = "<group>"; };
+		8F5B5C162648CD3800456381 /* HomeVaccinationCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVaccinationCellModel.swift; sourceTree = "<group>"; };
 		8F634077262D8EAA00077240 /* AntigenTestInformation+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AntigenTestInformation+Mock.swift"; sourceTree = "<group>"; };
 		8F634083262DBB6900077240 /* Route+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Route+Equatable.swift"; sourceTree = "<group>"; };
 		8F7AB89E25F106A50043A3C8 /* SendErrorLogsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendErrorLogsViewModel.swift; sourceTree = "<group>"; };
@@ -2810,6 +2816,9 @@
 			isa = PBXGroup;
 			children = (
 				010B3D8425ADE5EC00EB44AB /* __tests__ */,
+				8F5B5C0C26456B1F00456381 /* HomeVaccinationTableViewCell.swift */,
+				8F5B5C0D26456B1F00456381 /* HomeVaccinationTableViewCell.xib */,
+				8F5B5C162648CD3800456381 /* HomeVaccinationCellModel.swift */,
 				01A4DC5D25922EB2007D5794 /* HomeRiskTableViewCell.swift */,
 				01A4DC5925922EB1007D5794 /* HomeRiskTableViewCell.xib */,
 				01A4DD4225935D1F007D5794 /* HomeRiskCellModel.swift */,
@@ -6881,6 +6890,7 @@
 				3529BC2725D6BA930097E492 /* sample_stats.bin in Resources */,
 				01EA17BB2591344F00E98E02 /* HomeExposureLoggingTableViewCell.xib in Resources */,
 				01B72C032583B71100A3E3BC /* DiaryEditEntriesViewController.xib in Resources */,
+				8F5B5C0F26456B1F00456381 /* HomeVaccinationTableViewCell.xib in Resources */,
 				01D026C2258BACCE00B6389A /* ExposureDetectionLinkCell.xib in Resources */,
 				01D02692258BA0AD00B6389A /* ExposureDetectionLongGuideCell.xib in Resources */,
 				01D026BF258BACCE00B6389A /* ExposureDetectionGuideCell.xib in Resources */,
@@ -7175,6 +7185,7 @@
 				ABDA2792251CE308006BAE84 /* DMServerEnvironmentViewController.swift in Sources */,
 				3494D927261DD49100EC532C /* DMPosterGenerationViewModel.swift in Sources */,
 				BA5B7FD526458EF400502087 /* HealthCertificateSimpleTextCell.swift in Sources */,
+				8F5B5C172648CD3800456381 /* HomeVaccinationCellModel.swift in Sources */,
 				354642F8262E07840004618A /* AccessibleStackView.swift in Sources */,
 				85E33444247EB357006E74EC /* CircularProgressView.swift in Sources */,
 				AB1886D1252DE51E00D39BBE /* Bundle+Identifier.swift in Sources */,
@@ -7381,6 +7392,7 @@
 				94427A5025502B8900C36BE6 /* WarnOthersNotificationsTimeInterval.swift in Sources */,
 				713EA25D24798A7000AB7EE8 /* ExposureDetectionRoundedView.swift in Sources */,
 				AB5F84B224F8F7E3000400D4 /* Migration0To1.swift in Sources */,
+				8F5B5C0E26456B1F00456381 /* HomeVaccinationTableViewCell.swift in Sources */,
 				5017F64D25FFAD11003A812E /* PPASubmissionState.swift in Sources */,
 				01A4DC7025922EB4007D5794 /* HomeItemView.swift in Sources */,
 				BAC7419E26414D4700955311 /* SimpleTextCell.swift in Sources */,
