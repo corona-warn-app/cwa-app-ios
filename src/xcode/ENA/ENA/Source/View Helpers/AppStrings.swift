@@ -1830,6 +1830,26 @@ enum AppStrings {
 			static let disclaimer = NSLocalizedString("HealthCertificate_Info_disclaimer", comment: "")
 		}
 
+		enum Details {
+			static let vaccinationCount = NSLocalizedString("HealthCertificate_Details_vaccinationCount", comment: "")
+			static let certificate = NSLocalizedString("HealthCertificate_Details_certificate", comment: "")
+			static let dateOfBirth = NSLocalizedString("HealthCertificate_Details_dateOfBirth", comment: "")
+			static let dateOfVaccination = NSLocalizedString("HealthCertificate_Details_dateOfVaccination", comment: "")
+			static let vaccine = NSLocalizedString("HealthCertificate_Details_vaccine", comment: "")
+			static let manufacture = NSLocalizedString("HealthCertificate_Details_manufacture", comment: "")
+			static let issuer = NSLocalizedString("HealthCertificate_Details_issuer", comment: "")
+			static let country = NSLocalizedString("HealthCertificate_Details_country", comment: "")
+			static let identifier = NSLocalizedString("HealthCertificate_Details_identifier", comment: "")
+			static let primaryButton = NSLocalizedString("HealthCertificate_Details_primaryButton", comment: "")
+		}
+
+		enum Alert {
+			static let title = NSLocalizedString("HealthCertificate_Alert_title", comment: "")
+			static let message = NSLocalizedString("HealthCertificate_Alert_message", comment: "")
+			static let deleteButton = NSLocalizedString("HealthCertificate_Alert_deleteButton", comment: "")
+			static let cancelButton = NSLocalizedString("HealthCertificate_Alert_cancelButton", comment: "")
+		}
+
 	}
 
 	// swiftlint:disable:next file_length
