@@ -195,7 +195,7 @@ final class DMLogsViewController: UIViewController {
 					reader = try fileLogger.logReader()
 				}
 				var text = ""
-				// simple handling of trucated logs
+				// simple handling of truncated logs
 				if reader.isLogTruncated {
 					text += "============\nLog output is truncated, to see all contents export the logs and use proper tools\n============\n\n"
 				}
