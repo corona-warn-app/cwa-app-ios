@@ -2487,3 +2487,5 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "HealthCertificate_Certificate_country" = "Land";
 
 "HealthCertificate_Certificate_identifier" = "Zertifikationsnummer";
+
+"HealthCertificate_Certificate_primaryButton" = "Impfzertifikat entfernen";
