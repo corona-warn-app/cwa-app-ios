@@ -40,6 +40,7 @@ enum AppStrings {
 		static let appFaqENError11 = NSLocalizedString("General_moreInfo_URL_EN11", tableName: "Localizable.links", comment: "")
 		static let appFaqENError13 = NSLocalizedString("General_moreInfo_URL_EN13", tableName: "Localizable.links", comment: "")
 		static let exposureDetectionFAQ = NSLocalizedString("ExposureDetection_high_faq_URL", tableName: "Localizable.links", comment: "")
+		static let healthCertificateFAQ = NSLocalizedString("HealthCertificate_Info_register_FAQLink", tableName: "Localizable.links", comment: "")
 	}
 
 	enum QuickActions {
@@ -1117,12 +1118,9 @@ enum AppStrings {
 		static let switchTitle = NSLocalizedString("AutomaticSharingConsent_SwitchTitle", comment: "")
 		static let switchTitleDescription = NSLocalizedString("AutomaticSharingConsent_SwitchTitleDesc", comment: "")
 		static let consentSubTitle = NSLocalizedString("AutomaticSharingConsent_Subtitle", tableName: "Localizable.legal", comment: "")
-		static let consentDescriptionPCRPart1 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart1_PCR", tableName: "Localizable.legal", comment: "")
-		static let consentDescriptionPCRPart2 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart2_PCR", tableName: "Localizable.legal", comment: "")
-		static let consentDescriptionPCRPart3 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart3_PCR", tableName: "Localizable.legal", comment: "")
-		static let consentDescriptionRATPart1 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart1_RAT", tableName: "Localizable.legal", comment: "")
-		static let consentDescriptionRATPart2 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart2_RAT", tableName: "Localizable.legal", comment: "")
-		static let consentDescriptionRATPart3 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart3_RAT", tableName: "Localizable.legal", comment: "")
+		static let consentDescriptionPart1 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart1", tableName: "Localizable.legal", comment: "")
+		static let consentDescriptionPart2 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart2", tableName: "Localizable.legal", comment: "")
+		static let consentDescriptionPart3 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart3", tableName: "Localizable.legal", comment: "")
 		static let consentDescriptionPart4 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart4", tableName: "Localizable.legal", comment: "")
 		static let consentDescriptionPart5 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart5", tableName: "Localizable.legal", comment: "")
 		static let dataProcessingDetailInfo = NSLocalizedString("AutomaticSharingConsent_DataProcessingDetailInfo", comment: "")
@@ -1803,6 +1801,33 @@ enum AppStrings {
 			static let deleteAlertDeleteButtonTitle = NSLocalizedString("AntigenProfile_Delete_Alert_Delete_Button_Title", comment: "")
 		}
 	}
-	
+
+	enum HealthCertificate {
+		enum Info {
+			static let title = NSLocalizedString("HealthCertificate_Info_Title", comment: "")
+			static let imageDescription = NSLocalizedString("HealthCertificate_Info_imageDescription", comment: "")
+			enum Register {
+				static let headline = NSLocalizedString("HealthCertificate_Info_register_headline", comment: "")
+				static let text = NSLocalizedString("HealthCertificate_Info_register_title", comment: "")
+				static let FAQLinkText = NSLocalizedString("HealthCertificate_Info_register_FAQLinkText", comment: "")
+				static let section01 = NSLocalizedString("HealthCertificate_Info_register_section01", comment: "")
+				static let section02 = NSLocalizedString("HealthCertificate_Info_register_section02", comment: "")
+				static let section03 = NSLocalizedString("HealthCertificate_Info_register_section03", comment: "")
+			}
+			
+			enum Legal {
+				static let headline = NSLocalizedString("HealthCertificate_Info_Legal_headline", tableName: "Localizable.legal", comment: "")
+				static let subHeadline = NSLocalizedString("HealthCertificate_Info_Legal_subHeadline", tableName: "Localizable.legal", comment: "")
+				static let section01 = NSLocalizedString("HealthCertificate_Info_Legal_section01", tableName: "Localizable.legal", comment: "")
+				static let section02 = NSLocalizedString("HealthCertificate_Info_Legal_section02", tableName: "Localizable.legal", comment: "")
+				static let section03 = NSLocalizedString("HealthCertificate_Info_Legal_section03", tableName: "Localizable.legal", comment: "")
+				static let section04 = NSLocalizedString("HealthCertificate_Info_Legal_section04", tableName: "Localizable.legal", comment: "")
+				static let subHeadline2 = NSLocalizedString("HealthCertificate_Info_Legal_subHeadline2", tableName: "Localizable.legal", comment: "")
+			}
+			static let disclaimer = NSLocalizedString("HealthCertificate_Info_disclaimer", comment: "")
+		}
+
+	}
+
 	// swiftlint:disable:next file_length
 }
