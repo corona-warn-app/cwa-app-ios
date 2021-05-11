@@ -16,6 +16,7 @@ public struct ProofCertificateDownload {
         for healthCertificates: [Base45],
         with httpService: HTTPServiceProtocol = HTTPService(),
         baseURL: URL,
+        urlSession: URLSession,
         completion: @escaping (Result<CBORData?, ProofCertificateFetchingError>
     ) -> Void) {
 
@@ -51,6 +52,7 @@ public struct ProofCertificateDownload {
             for: eligibleCertificates,
             with: httpService,
             baseURL: baseURL,
+            urlSession: urlSession,
             completion: completion
         )
     }
@@ -61,6 +63,7 @@ public struct ProofCertificateDownload {
         for healthCertificates: [CBORData],
         with httpService: HTTPServiceProtocol = HTTPService(),
         baseURL: URL,
+        urlSession: URLSession,
         completion: @escaping (Result<CBORData?, ProofCertificateFetchingError>) -> Void
     ) {
 
@@ -77,7 +80,11 @@ public struct ProofCertificateDownload {
 
         request.httpBody = healthCertificate
 
-        httpService.execute(request: request) { (data, response, error) in
+        httpService.execute(
+            request: request,
+            urlSession: urlSession
+        ) { (data, response, error) in
+
             // If there is an error or response is nil, it indicates a transport problem and PC_NETWORK_ERROR is returned.
             guard error == nil,
                   let response = response as? HTTPURLResponse else {
@@ -101,6 +108,7 @@ public struct ProofCertificateDownload {
                         for: _healthCertificates,
                         with: httpService,
                         baseURL: baseURL,
+                        urlSession: urlSession,
                         completion: completion
                     )
                 }
@@ -113,6 +121,7 @@ public struct ProofCertificateDownload {
                     for: _healthCertificates,
                     with: httpService,
                     baseURL: baseURL,
+                    urlSession: urlSession,
                     completion: completion
                 )
             }

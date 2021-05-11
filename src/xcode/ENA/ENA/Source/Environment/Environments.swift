@@ -15,6 +15,9 @@ struct EnvironmentData: Codable {
 	// Hosts
 	let distributionURL, submissionURL, verificationURL, dataDonationURL, errorLogSubmissionURL, healthCertificateProofURL: URL
 
+	/// Used for certificate pinning of the health certificate API.
+	let healthCertificatePinningKeyHash: String
+
 	/// String representation of the package validation (public) key.
 	///
 	/// Note that the values are taken from the regular public key in PEM format but without the first 36 characters,
