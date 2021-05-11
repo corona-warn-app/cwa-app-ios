@@ -136,7 +136,7 @@ final class HealthCertificateCoordinator {
 			didTapDelete: { [weak self] in
 				self?.showDeleteAlert(
 					submitAction: UIAlertAction(
-						title: "Entfernen",
+						title: AppStrings.HealthCertificate.Alert.deleteButton,
 						style: .default,
 						handler: { _ in
 							self?.navigationController.popToRootViewController(animated: true)
@@ -148,7 +148,7 @@ final class HealthCertificateCoordinator {
 
 		let footerViewController = FooterViewController(
 			FooterViewModel(
-				primaryButtonName: "Impfzertifikat entfernen",
+				primaryButtonName: AppStrings.HealthCertificate.Details.primaryButton,
 				isPrimaryButtonEnabled: true,
 				isSecondaryButtonEnabled: false,
 				isSecondaryButtonHidden: true,
@@ -165,11 +165,17 @@ final class HealthCertificateCoordinator {
 
 	private func showDeleteAlert(submitAction: UIAlertAction) {
 		let alert = UIAlertController(
-			title: "Wollen Sie das Impfzertifikat wirklich entfernen?",
-			message: "Wenn Sie das Impfzertifikat entfernen, kann die App die Impfung nicht mehr für die Prüfung Ihres Impfstatus berücksichtigen.",
+			title: AppStrings.HealthCertificate.Alert.title,
+			message: AppStrings.HealthCertificate.Alert.message,
 			preferredStyle: .alert
 		)
-		alert.addAction(UIAlertAction(title: "Abbrechen", style: .cancel, handler: nil))
+		alert.addAction(
+			UIAlertAction(
+							title: AppStrings.HealthCertificate.Alert.cancelButton,
+							style: .cancel,
+							handler: nil
+			)
+		)
 		alert.addAction(submitAction)
 		navigationController.present(alert, animated: true)
 	}
