@@ -70,14 +70,15 @@ final class HealthCertificateViewModel {
 
 	var headlineCellViewModel: HealthCertificateSimpleTextCellViewModel {
 		guard let vaccinationCertificate = healthCertificate.vaccinationCertificates.first else {
-			preconditionFailure("should should never happen")
+			Log.error("Failed to setup certificate details without vaccinationCertificates")
+			fatalError()
 		}
 
 		let centerParagraphStyle = NSMutableParagraphStyle()
 		centerParagraphStyle.alignment = .center
 
 		let attributedName = NSAttributedString(
-			string: String(format: "Impfung %i von %i", vaccinationCertificate.doseNumber, vaccinationCertificate.totalSeriesOfDoses),
+			string: String(format: AppStrings.HealthCertificate.Details.vaccinationCount, vaccinationCertificate.doseNumber, vaccinationCertificate.totalSeriesOfDoses),
 			attributes: [
 				.font: UIFont.enaFont(for: .headline),
 				.foregroundColor: UIColor.enaColor(for: .textContrast),
@@ -86,7 +87,7 @@ final class HealthCertificateViewModel {
 		)
 
 		let attributedDetails = NSAttributedString(
-			string: "Impfzertifikat",
+			string: AppStrings.HealthCertificate.Details.certificate,
 			attributes: [
 				.font: UIFont.enaFont(for: .body),
 				.foregroundColor: UIColor.enaColor(for: .textContrast),
@@ -139,7 +140,7 @@ final class HealthCertificateViewModel {
 		if let date = dateFormatter.date(from: healthCertificate.dateOfBirth) {
 			nameCellViewModel = HealthCertificateKeyValueCellViewModel(
 				key: healthCertificate.name.fullName,
-				value: String(format: "geboren %@", DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .none))
+				value: String(format: AppStrings.HealthCertificate.Details.dateOfBirth, DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .none))
 			)
 		}
 
@@ -147,7 +148,7 @@ final class HealthCertificateViewModel {
 		if	let dateString = healthCertificate.vaccinationCertificates.first?.dateOfVaccination,
 			let date = dateFormatter.date(from: dateString) {
 			dateCellViewModel = HealthCertificateKeyValueCellViewModel(
-				key: "Datum der Impfung",
+				key: AppStrings.HealthCertificate.Details.dateOfVaccination,
 				value: DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .none)
 			)
 		}
@@ -157,7 +158,7 @@ final class HealthCertificateViewModel {
 		   let key = healthCertificate.vaccinationCertificates.first?.vaccineMedicinalProduct {
 			let value = determineValue(key: key, valueSet: valueSet)
 			vaccinationCellViewModel = HealthCertificateKeyValueCellViewModel(
-				key: "Impfstoff",
+				key: AppStrings.HealthCertificate.Details.vaccine,
 				value: value
 			)
 		}
@@ -167,13 +168,13 @@ final class HealthCertificateViewModel {
 		   let key = healthCertificate.vaccinationCertificates.first?.marketingAuthorizationHolder {
 			let value = determineValue(key: key, valueSet: valueSet)
 			manufacturerCellViewModel = HealthCertificateKeyValueCellViewModel(
-				key: "Hersteller",
+				key: AppStrings.HealthCertificate.Details.manufacture,
 				value: value
 			)
 		}
 
 		let issuerCellViewModel = HealthCertificateKeyValueCellViewModel(
-			key: "Aussteller",
+			key: AppStrings.HealthCertificate.Details.issuer,
 			value: healthCertificate.vaccinationCertificates.first?.certificateIssuer
 		)
 
@@ -181,13 +182,13 @@ final class HealthCertificateViewModel {
 		if	let countryCode = healthCertificate.vaccinationCertificates.first?.countryOfVaccination,
 			let country = Country(countryCode: countryCode) {
 			countryCellViewModel = HealthCertificateKeyValueCellViewModel(
-				key: "Land",
+				key: AppStrings.HealthCertificate.Details.country,
 				value: country.localizedName
 			)
 		}
 
 		let certificateNumberCellViewModel = HealthCertificateKeyValueCellViewModel(
-			key: "Zertifikationsnummer",
+			key: AppStrings.HealthCertificate.Details.identifier,
 			value: healthCertificate.vaccinationCertificates.first?.uniqueCertificateIdentifier
 		)
 

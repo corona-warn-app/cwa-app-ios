@@ -1830,6 +1830,18 @@ enum AppStrings {
 			static let disclaimer = NSLocalizedString("HealthCertificate_Info_disclaimer", comment: "")
 		}
 
+		enum Details {
+			static let vaccinationCount = NSLocalizedString("HealthCertificate_Certificate_vaccinationCount", comment: "")
+			static let certificate = NSLocalizedString("HealthCertificate_Certificate_certificate", comment: "")
+			static let dateOfBirth = NSLocalizedString("HealthCertificate_Certificate_dateOfBirth", comment: "")
+			static let dateOfVaccination = NSLocalizedString("HealthCertificate_Certificate_dateOfVaccination", comment: "")
+			static let vaccine = NSLocalizedString("HealthCertificate_Certificate_vaccine", comment: "")
+			static let manufacture = NSLocalizedString("HealthCertificate_Certificate_manufacture", comment: "")
+			static let issuer = NSLocalizedString("HealthCertificate_Certificate_issuer", comment: "")
+			static let country = NSLocalizedString("HealthCertificate_Certificate_country", comment: "")
+			static let identifier = NSLocalizedString("HealthCertificate_Certificate_identifier", comment: "")
+		}
+
 	}
 
 	// swiftlint:disable:next file_length
