@@ -16,19 +16,19 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 		self.store = store
 
 		updatePublishersFromStore()
-		updateHealthCertifiedPersonSubscriptions()
 		updateProofCertificateOnDidBecomeActive()
+
+		healthCertifiedPersons
+			.sink { [weak self] healthCertifiedPersons in
+				self?.store.healthCertifiedPersons = healthCertifiedPersons
+				self?.updateHealthCertifiedPersonSubscriptions(for: healthCertifiedPersons)
+			}
+			.store(in: &subscriptions)
 	}
 
 	// MARK: - Internal
 
-	private(set) var healthCertifiedPersons = CurrentValueSubject<[HealthCertifiedPerson], Never>([]) {
-		didSet {
-			store.healthCertifiedPersons = healthCertifiedPersons.value
-
-			updateHealthCertifiedPersonSubscriptions()
-		}
-	}
+	private(set) var healthCertifiedPersons = CurrentValueSubject<[HealthCertifiedPerson], Never>([])
 
 	func registerHealthCertificate(
 		base45: Base45
@@ -156,12 +156,12 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 
 	private var store: HealthCertificateStoring
 	private var healthCertifiedPersonSubscriptions = Set<AnyCancellable>()
-	private var didBecomeActiveSubscription: AnyCancellable?
+	private var subscriptions = Set<AnyCancellable>()
 
-	private func updateHealthCertifiedPersonSubscriptions() {
+	private func updateHealthCertifiedPersonSubscriptions(for healthCertifiedPersons: [HealthCertifiedPerson]) {
 		healthCertifiedPersonSubscriptions = []
 
-		healthCertifiedPersons.value.forEach { healthCertifiedPerson in
+		healthCertifiedPersons.forEach { healthCertifiedPerson in
 			healthCertifiedPerson.objectDidChange
 				.sink { [weak self] _ in
 					guard let self = self else { return }
@@ -173,7 +173,7 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 	}
 
 	private func updateProofCertificateOnDidBecomeActive() {
-		didBecomeActiveSubscription = NotificationCenter.default.ocombine
+		NotificationCenter.default.ocombine
 			.publisher(for: UIApplication.didBecomeActiveNotification)
 			.sink { [weak self] _ in
 				self?.healthCertifiedPersons.value.forEach { healthCertifiedPerson in
@@ -184,6 +184,7 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 					)
 				}
 			}
+			.store(in: &subscriptions)
 	}
 
 }
