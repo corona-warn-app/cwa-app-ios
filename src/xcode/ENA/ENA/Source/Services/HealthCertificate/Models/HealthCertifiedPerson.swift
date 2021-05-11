@@ -13,7 +13,7 @@ class HealthCertifiedPerson: OpenCombine.ObservableObject, Codable, Equatable {
 		self.healthCertificates = healthCertificates
 		self.proofCertificate = proofCertificate
 
-		hasValidProofCertificate = proofCertificate?.isExpired == false
+		setupExpiredPublisher(for: proofCertificate)
 	}
 
 	// MARK: - Protocol Codable
@@ -33,7 +33,7 @@ class HealthCertifiedPerson: OpenCombine.ObservableObject, Codable, Equatable {
 		lastProofCertificateUpdate = try container.decodeIfPresent(Date.self, forKey: .lastProofCertificateUpdate)
 		proofCertificateUpdatePending = try container.decode(Bool.self, forKey: .proofCertificateUpdatePending)
 
-		hasValidProofCertificate = proofCertificate?.isExpired == false
+		setupExpiredPublisher(for: proofCertificate)
 	}
 
 	func encode(to encoder: Encoder) throws {
@@ -61,6 +61,7 @@ class HealthCertifiedPerson: OpenCombine.ObservableObject, Codable, Equatable {
 
 	@OpenCombine.Published var proofCertificate: ProofCertificate? {
 		didSet {
+			setupExpiredPublisher(for: proofCertificate)
 			objectDidChange.send(self)
 		}
 	}
@@ -109,7 +110,12 @@ class HealthCertifiedPerson: OpenCombine.ObservableObject, Codable, Equatable {
 
 	private var expiredStateTimer: Timer?
 
-	private func setupExpiredPublisher(for proofCertificate: ProofCertificate) {
+	private func setupExpiredPublisher(for proofCertificate: ProofCertificate?) {
+		guard let proofCertificate = proofCertificate else {
+			hasValidProofCertificate = false
+			return
+		}
+
 		hasValidProofCertificate = !proofCertificate.isExpired
 
 		if hasValidProofCertificate {
@@ -141,9 +147,7 @@ class HealthCertifiedPerson: OpenCombine.ObservableObject, Codable, Equatable {
 	private func refreshUpdateTimerAfterResumingFromBackground() {
 		updateFromTimer()
 
-		if let proofCertificate = proofCertificate {
-			setupExpiredPublisher(for: proofCertificate)
-		}
+		setupExpiredPublisher(for: proofCertificate)
 	}
 
 	@objc
