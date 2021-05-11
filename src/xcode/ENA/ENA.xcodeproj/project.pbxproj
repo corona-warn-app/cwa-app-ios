@@ -2816,9 +2816,6 @@
 			isa = PBXGroup;
 			children = (
 				010B3D8425ADE5EC00EB44AB /* __tests__ */,
-				8F5B5C0C26456B1F00456381 /* HomeVaccinationTableViewCell.swift */,
-				8F5B5C0D26456B1F00456381 /* HomeVaccinationTableViewCell.xib */,
-				8F5B5C162648CD3800456381 /* HomeVaccinationCellModel.swift */,
 				01A4DC5D25922EB2007D5794 /* HomeRiskTableViewCell.swift */,
 				01A4DC5925922EB1007D5794 /* HomeRiskTableViewCell.xib */,
 				01A4DD4225935D1F007D5794 /* HomeRiskCellModel.swift */,
@@ -3134,6 +3131,7 @@
 				8FE26663264A9DC900C2B432 /* VaccinationRegistration */,
 				0138F5EC25EFDBC300A9B075 /* TraceLocations */,
 				01EA17BF2591346300E98E02 /* ExposureLogging */,
+				8FE2667C264AA70300C2B432 /* Vaccination */,
 				01A4DC5525922EB0007D5794 /* Risk */,
 				01A4DC8025922EC3007D5794 /* TestResult */,
 				01A6C2E12626D71600B6E95A /* TestRegistration */,
@@ -4587,6 +4585,16 @@
 				8FE2666E264A9E0300C2B432 /* VaccinationRegistrationCellModel.swift */,
 			);
 			path = VaccinationRegistration;
+			sourceTree = "<group>";
+		};
+		8FE2667C264AA70300C2B432 /* Vaccination */ = {
+			isa = PBXGroup;
+			children = (
+				8F5B5C0C26456B1F00456381 /* HomeVaccinationTableViewCell.swift */,
+				8F5B5C0D26456B1F00456381 /* HomeVaccinationTableViewCell.xib */,
+				8F5B5C162648CD3800456381 /* HomeVaccinationCellModel.swift */,
+			);
+			path = Vaccination;
 			sourceTree = "<group>";
 		};
 		941B68AD253F005600DC1962 /* Helper */ = {
