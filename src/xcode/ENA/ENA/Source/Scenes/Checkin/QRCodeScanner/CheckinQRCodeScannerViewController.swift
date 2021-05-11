@@ -86,6 +86,7 @@ class CheckinQRCodeScannerViewController: UIViewController {
 
 		let instructionLabel = ENALabel()
 		instructionLabel.style = .headline
+		instructionLabel.numberOfLines = 0
 		instructionLabel.textAlignment = .center
 		instructionLabel.textColor = .enaColor(for: .textContrast)
 		instructionLabel.font = .enaFont(for: .body)

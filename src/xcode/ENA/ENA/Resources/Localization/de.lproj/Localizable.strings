@@ -2468,6 +2468,14 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Info_disclaimer" = "Ausführliche Informationen zur Datenverarbeitung und Ihrem Einverständnis.";
 
+/* QR Scanner */
+
+"HealthCertificate_QRScanner_title" = "QR-Code Scan";
+
+"HealthCertificate_QRScanner_instruction" = "QR-Code scannen und registrieren";
+
+/* Home */
+
 "VaccinationCertificates_Home_Title" = "Digitaler Impfnachweis";
 
 "VaccinationCertificates_Home_Body" = "SARS-CoV-2 Impfschutz";

@@ -86,8 +86,12 @@ final class HealthCertificateCoordinator {
 				self?.navigationController.dismiss(animated: true)
 			}, dismiss: { [weak self] in self?.endCoordinator() }
 		)
-		
+
+		qrCodeScannerViewController.definesPresentationContext = true
+
 		let qrCodeNavigationController = UINavigationController(rootViewController: qrCodeScannerViewController)
+		qrCodeNavigationController.modalPresentationStyle = .fullScreen
+		
 		navigationController.present(qrCodeNavigationController, animated: true)
 	}
 	

@@ -1836,6 +1836,11 @@ enum AppStrings {
 			static let disclaimer = NSLocalizedString("HealthCertificate_Info_disclaimer", comment: "")
 		}
 
+		enum QRScanner {
+			static let title = NSLocalizedString("HealthCertificate_QRScanner_title", comment: "")
+			static let instruction = NSLocalizedString("HealthCertificate_QRScanner_instruction", comment: "")
+		}
+
 		enum Details {
 			static let vaccinationCount = NSLocalizedString("HealthCertificate_Details_vaccinationCount", comment: "")
 			static let certificate = NSLocalizedString("HealthCertificate_Details_certificate", comment: "")

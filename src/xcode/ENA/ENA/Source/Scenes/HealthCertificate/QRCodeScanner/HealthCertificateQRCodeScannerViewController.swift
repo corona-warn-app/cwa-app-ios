@@ -89,7 +89,7 @@ class HealthCertificateQRCodeScannerViewController: UIViewController {
 	private var previewLayer: AVCaptureVideoPreviewLayer! { didSet { updatePreviewMask() } }
 
 	private func setupView() {
-		navigationItem.title = AppStrings.ExposureSubmissionQRScanner.title
+		navigationItem.title = AppStrings.HealthCertificate.QRScanner.title
 		view.backgroundColor = .enaColor(for: .background)
 
 		focusView.backdropOpacity = 0.2
@@ -99,10 +99,11 @@ class HealthCertificateQRCodeScannerViewController: UIViewController {
 
 		let instructionLabel = ENALabel()
 		instructionLabel.style = .headline
+		instructionLabel.numberOfLines = 0
 		instructionLabel.textAlignment = .center
 		instructionLabel.textColor = .enaColor(for: .textContrast)
 		instructionLabel.font = .enaFont(for: .body)
-		instructionLabel.text = AppStrings.ExposureSubmissionQRScanner.instruction
+		instructionLabel.text = AppStrings.HealthCertificate.QRScanner.instruction
 		instructionLabel.layer.shadowColor = UIColor.enaColor(for: .textPrimary1Contrast).cgColor
 		instructionLabel.layer.shadowOpacity = 1
 		instructionLabel.layer.shadowRadius = 3

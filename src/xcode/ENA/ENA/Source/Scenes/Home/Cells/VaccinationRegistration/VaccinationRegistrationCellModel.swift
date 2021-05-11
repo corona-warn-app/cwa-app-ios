@@ -11,7 +11,7 @@ class VaccinationRegistrationCellModel {
 	let title = AppStrings.HealthCertificate.Info.RegisterCard.title
 	let description = AppStrings.HealthCertificate.Info.RegisterCard.description
 	let buttonTitle = AppStrings.HealthCertificate.Info.RegisterCard.buttonTitle
-	let image = UIImage(named: "Vacc_Register")
+	let image = UIImage(named: "Vaccination_Register")
 	let tintColor: UIColor = .enaColor(for: .textPrimary1)
 	let accessibilityIdentifier = AccessibilityIdentifiers.Home.registerVaccinationButton
 }
