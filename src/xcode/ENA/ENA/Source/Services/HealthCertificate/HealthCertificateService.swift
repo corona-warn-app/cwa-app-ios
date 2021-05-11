@@ -11,9 +11,11 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 	// MARK: - Init
 
 	init(
-		store: HealthCertificateStoring
+		store: HealthCertificateStoring,
+		proofCertificateDownload: ProofCertificateDownload = ProofCertificateDownload()
 	) {
 		self.store = store
+		self.proofCertificateDownload = proofCertificateDownload
 
 		updatePublishersFromStore()
 		updateProofCertificateOnDidBecomeActive()
@@ -109,7 +111,7 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 
 		Log.info("[HealthCertificateService] Requesting proof for health certified person: \(private: healthCertifiedPerson). (proofCertificateUpdatePending: \(healthCertifiedPerson.proofCertificateUpdatePending), lastProofCertificateUpdate: \(String(describing: healthCertifiedPerson.lastProofCertificateUpdate)), trigger: \(trigger)", log: .api)
 
-		ProofCertificateDownload().fetchProofCertificate(
+		proofCertificateDownload.fetchProofCertificate(
 			for: healthCertifiedPerson.healthCertificates.map { $0.base45 },
 			completion: { result in
 				switch result {
@@ -146,6 +148,8 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 	// MARK: - Private
 
 	private var store: HealthCertificateStoring
+	private let proofCertificateDownload: ProofCertificateDownload
+
 	private var healthCertifiedPersonSubscriptions = Set<AnyCancellable>()
 	private var subscriptions = Set<AnyCancellable>()
 
