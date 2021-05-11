@@ -108,11 +108,12 @@ final class HealthCertificateCoordinator {
 
 		let footerViewController = FooterViewController(
 			FooterViewModel(
-				primaryButtonName: "Weitere Impfung registrieren",
+				primaryButtonName: "Aktualisieren",
+				secondaryButtonName: "Weitere Impfung registrieren",
 				isPrimaryButtonEnabled: true,
-				isSecondaryButtonEnabled: false,
-				isSecondaryButtonHidden: true,
-				backgroundColor: .enaColor(for: .background)
+				isSecondaryButtonEnabled: true,
+				isSecondaryButtonHidden: false,
+				backgroundColor: .enaColor(for: .backgroundLightGray)
 			)
 		)
 

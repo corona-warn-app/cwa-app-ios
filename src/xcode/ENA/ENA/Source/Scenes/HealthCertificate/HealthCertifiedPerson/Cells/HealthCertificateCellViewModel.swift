@@ -8,44 +8,56 @@ final class HealthCertificateCellViewModel {
 
 	// MARK: - Init
 	init(
-		healthCertificate: String,
-		type: GradientView.GradientType
+		healthCertificate: HealthCertificate,
+		gradientType: GradientView.GradientType
 	) {
 		self.healthCertificate = healthCertificate
-		self.type = type
+		self.gradientType = gradientType
 	}
-
-	// MARK: - Overrides
-
-	// MARK: - Protocol <#Name#>
-
-	// MARK: - Public
 
 	// MARK: - Internal
 
-	var headline: String {
-		// depending on certificate
-		return "Impfung 1 von 2"
+	let gradientType: GradientView.GradientType
+
+	var headline: String? {
+		guard
+			let doseNumber = healthCertificate.vaccinationCertificates.first?.doseNumber,
+			let totalSeriesOfDoses = healthCertificate.vaccinationCertificates.first?.totalSeriesOfDoses
+		else {
+			return nil
+		}
+
+		return String(
+			format: "Impfung %d von %d",
+			doseNumber,
+			totalSeriesOfDoses
+		)
 	}
 
-	var detail: String {
-		// depending on certificate
-		return "durchgeführt am 12.04.2021"
-	}
+	var detail: String? {
+		guard
+			let dateOfVaccinationString = healthCertificate.vaccinationCertificates.first?.dateOfVaccination,
+			let dateOfVaccinationDate = ISO8601DateFormatter.contactDiaryFormatter.date(from: dateOfVaccinationString)
+		else {
+			return nil
+		}
 
-	var gradientType: GradientView.GradientType {
-		// grey or light blue depending on certificate
-		return type
+		return String(
+			format: "durchgeführt am %@",
+			DateFormatter.localizedString(from: dateOfVaccinationDate, dateStyle: .medium, timeStyle: .none)
+		)
 	}
 
 	var image: UIImage {
-		// image depending on certificate
-		return UIImage(imageLiteralResourceName: "Icon - Teilschild")
+		if healthCertificate.isEligibleForProofCertificate {
+			return UIImage(imageLiteralResourceName: "Icon - Vollschild")
+		} else {
+			return UIImage(imageLiteralResourceName: "Icon - Teilschild")
+		}
 	}
 
 	// MARK: - Private
 
-	private let healthCertificate: String
-	private let type: GradientView.GradientType
+	private let healthCertificate: HealthCertificate
 
 }

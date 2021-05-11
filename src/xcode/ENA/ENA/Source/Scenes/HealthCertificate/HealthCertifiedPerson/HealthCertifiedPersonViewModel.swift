@@ -13,7 +13,8 @@ final class HealthCertifiedPersonViewModel {
 	init(
 		healthCertificateService: HealthCertificateServiceProviding,
 		healthCertifiedPerson: HealthCertifiedPerson,
-		vaccinationValueSetsProvider: VaccinationValueSetsProvider
+		vaccinationValueSetsProvider: VaccinationValueSetsProvider,
+		dismiss: @escaping () -> Void
 	) {
 		self.healthCertificateService = healthCertificateService
 		self.healthCertifiedPerson = healthCertifiedPerson
@@ -27,7 +28,12 @@ final class HealthCertifiedPersonViewModel {
 			.store(in: &subscriptions)
 
 		healthCertifiedPerson.objectDidChange
-			.sink { [weak self] _ in
+			.sink { [weak self] healthCertifiedPerson in
+				guard !healthCertifiedPerson.healthCertificates.isEmpty else {
+					dismiss()
+					return
+				}
+
 				self?.triggerReload = true
 			}
 			.store(in: &subscriptions)
@@ -110,10 +116,7 @@ final class HealthCertifiedPersonViewModel {
 
 	@OpenCombine.Published private(set) var gradientType: GradientView.GradientType = .solidGrey
 	@OpenCombine.Published private(set) var triggerReload: Bool = false
-
-	var healthCertificateCellViewModel: HealthCertificateCellViewModel {
-		HealthCertificateCellViewModel(healthCertificate: "Dummy", type: gradientType)
-	}
+	@OpenCombine.Published private(set) var updateError: Error?
 
 	var personCellViewModel: HealthCertificateSimpleTextCellViewModel {
 		let attributedName = NSAttributedString(
@@ -157,12 +160,43 @@ final class HealthCertifiedPersonViewModel {
 		}
 	}
 
+	func healthCertificateCellViewModel(row: Int) -> HealthCertificateCellViewModel {
+		HealthCertificateCellViewModel(
+			healthCertificate: healthCertifiedPerson.healthCertificates[row],
+			gradientType: gradientType
+		)
+	}
+
 	func healthCertificate(for indexPath: IndexPath) -> HealthCertificate? {
 		guard TableViewSection.map(indexPath.section) == .certificates,
 			  healthCertifiedPerson.healthCertificates.indices.contains(indexPath.row) else {
 			return nil
 		}
 		return healthCertifiedPerson.healthCertificates[indexPath.row]
+	}
+
+	func updateProofCertificate(trigger: FetchProofCertificateTrigger) {
+		healthCertificateService.updateProofCertificate(
+			for: healthCertifiedPerson,
+			trigger: trigger,
+			completion: { [weak self] result in
+				if case .failure(let error) = result {
+					self?.updateError = error
+				}
+			}
+		)
+	}
+
+	func canEditRow(at indexPath: IndexPath) -> Bool {
+		return TableViewSection.map(indexPath.section) == .certificates
+	}
+
+	func removeHealthCertificate(at indexPath: IndexPath) {
+		guard TableViewSection.map(indexPath.section) == .certificates else {
+			return
+		}
+
+		healthCertificateService.removeHealthCertificate(healthCertifiedPerson.healthCertificates[indexPath.row])
 	}
 
 	// MARK: - Private
