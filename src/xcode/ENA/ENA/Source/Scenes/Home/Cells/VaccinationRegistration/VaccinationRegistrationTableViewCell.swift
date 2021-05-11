@@ -50,11 +50,11 @@ class VaccinationRegistrationTableViewCell: UITableViewCell {
 	
 	// MARK: - Private
 	
-	@IBOutlet private var titleLabel: ENALabel!
-	@IBOutlet private var descriptionLabel: ENALabel!
-	@IBOutlet private var illustrationView: UIImageView!
-	@IBOutlet private var button: ENAButton!
-	@IBOutlet weak var cardView: HomeCardView!
+	@IBOutlet private weak var titleLabel: ENALabel!
+	@IBOutlet private weak var descriptionLabel: ENALabel!
+	@IBOutlet private weak var illustrationView: UIImageView!
+	@IBOutlet private weak var button: ENAButton!
+	@IBOutlet private weak var cardView: HomeCardView!
 	
 	private var onPrimaryAction: (() -> Void)?
 	

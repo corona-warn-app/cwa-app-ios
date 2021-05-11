@@ -18,10 +18,6 @@ class HomeVaccinationCellModel {
 			self.isVerified = isValid
 			onUpdate()
 		}.store(in: &subscriptions)
-		DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-			self.isVerified = true
-			onUpdate()
-		}
 		healthCertifiedPerson.$proofCertificate.sink(receiveValue: { proofCertificate in
 			guard let proofCertificate = proofCertificate else {
 				self.vaccinatedPersonName = healthCertifiedPerson.healthCertificates.first?.name.fullName
