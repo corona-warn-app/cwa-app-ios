@@ -117,6 +117,12 @@ final class HealthCertificateViewModel {
 
 	// MARK: - Private
 
+	private enum valueSetType: String {
+		case vp
+		case mp
+		case ma
+	}
+
 	private let healthCertificate: HealthCertificate
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProvider
 	private let dateFormatter: DateFormatter = {
@@ -129,7 +135,6 @@ final class HealthCertificateViewModel {
 	private var subscriptions = Set<AnyCancellable>()
 
 	private func setupHealthCertificateKeyValueCellViewModel() {
-
 		var nameCellViewModel: HealthCertificateKeyValueCellViewModel?
 		if let date = dateFormatter.date(from: healthCertificate.dateOfBirth) {
 			nameCellViewModel = HealthCertificateKeyValueCellViewModel(
@@ -148,7 +153,7 @@ final class HealthCertificateViewModel {
 		}
 
 		var vaccinationCellViewModel: HealthCertificateKeyValueCellViewModel?
-		if let valueSet = valueSet(by: "mp"),
+		if let valueSet = valueSet(by: .mp),
 		   let key = healthCertificate.vaccinationCertificates.first?.vaccineMedicinalProduct {
 			let value = determineValue(key: key, valueSet: valueSet)
 			vaccinationCellViewModel = HealthCertificateKeyValueCellViewModel(
@@ -158,7 +163,7 @@ final class HealthCertificateViewModel {
 		}
 
 		var manufacturerCellViewModel: HealthCertificateKeyValueCellViewModel?
-		if let valueSet = valueSet(by: "ma"),
+		if let valueSet = valueSet(by: .ma),
 		   let key = healthCertificate.vaccinationCertificates.first?.marketingAuthorizationHolder {
 			let value = determineValue(key: key, valueSet: valueSet)
 			manufacturerCellViewModel = HealthCertificateKeyValueCellViewModel(
@@ -166,8 +171,6 @@ final class HealthCertificateViewModel {
 				value: value
 			)
 		}
-
-		// addd valuesets data here
 
 		let issuerCellViewModel = HealthCertificateKeyValueCellViewModel(
 			key: "Aussteller",
@@ -200,16 +203,14 @@ final class HealthCertificateViewModel {
 		.compactMap { $0 }
 	}
 
-	private func valueSet(by type: String) -> SAP_Internal_Dgc_ValueSet? {
+	private func valueSet(by type: valueSetType) -> SAP_Internal_Dgc_ValueSet? {
 		switch type {
-		case "vp":
+		case .vp:
 			return valueSets?.hasVp ?? false ? valueSets?.vp : nil
-		case "mp":
+		case .mp:
 			return valueSets?.hasMp ?? false ? valueSets?.mp : nil
-		case "ma":
+		case .ma:
 			return valueSets?.hasMa ?? false ? valueSets?.ma : nil
-		default:
-			return nil
 		}
 	}
 
