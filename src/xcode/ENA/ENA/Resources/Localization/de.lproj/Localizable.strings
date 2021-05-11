@@ -2467,3 +2467,23 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "HealthCertificate_Info_register_section03" = "Ihr Impfnachweis wird in regelmäßigen Abständen automatisch überprüft.";
 
 "HealthCertificate_Info_disclaimer" = "Ausführliche Informationen zur Datenverarbeitung und Ihrem Einverständnis.";
+
+/* Health Certificate Details */
+
+"HealthCertificate_Certificate_vaccinationCount" = "Impfung %i von %i";
+
+"HealthCertificate_Certificate_certificate" = "Impfzertifikat";
+
+"HealthCertificate_Certificate_dateOfBirth" = "geboren %@";
+
+"HealthCertificate_Certificate_dateOfVaccination" = "Datum der Impfung";
+
+"HealthCertificate_Certificate_vaccine" = "Impfstoff";
+
+"HealthCertificate_Certificate_manufacture" = "Hersteller";
+
+"HealthCertificate_Certificate_issuer" = "Aussteller";
+
+"HealthCertificate_Certificate_country" = "Land";
+
+"HealthCertificate_Certificate_identifier" = "Zertifikationsnummer";
