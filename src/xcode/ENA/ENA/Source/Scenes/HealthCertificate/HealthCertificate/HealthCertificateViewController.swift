@@ -69,7 +69,10 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 	}
 
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		viewModel.numberOfItems(in: HealthCertificateViewModel.TableViewSection.map(section))
+		guard let section = HealthCertificateViewModel.TableViewSection.map(section) else {
+			return 0
+		}
+		return viewModel.numberOfItems(in: section)
 	}
 
 	// MARK: - Protocol UITableViewDelegate
@@ -88,6 +91,8 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 			return cell
 		case .bottomCorner:
 			return tableView.dequeueReusableCell(cellType: HealthCertificateBottomCornerCell.self, for: indexPath)
+		case .none:
+			fatalError("can't dequeue a cell for an unknown section")
 		}
 	}
 
@@ -208,6 +213,7 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 
 	private func setupViewModel() {
 		viewModel.$gradientType
+			.receive(on: DispatchQueue.main.ocombine)
 			.assign(to: \.type, on: backgroundView)
 			.store(in: &subscriptions)
 

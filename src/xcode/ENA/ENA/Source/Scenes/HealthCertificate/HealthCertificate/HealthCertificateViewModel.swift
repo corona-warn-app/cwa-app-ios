@@ -11,7 +11,7 @@ final class HealthCertificateViewModel {
 
 	init(
 		healthCertifiedPerson: HealthCertifiedPerson,
-		healthCertificate: HealthCertificate,
+		healthCertificate: HealthCertificateData,
 		vaccinationValueSetsProvider: VaccinationValueSetsProvider
 	) {
 		self.healthCertificate = healthCertificate
@@ -57,9 +57,10 @@ final class HealthCertificateViewModel {
 			allCases.count
 		}
 
-		static func map(_ section: Int) -> TableViewSection {
+		static func map(_ section: Int) -> TableViewSection? {
 			guard let section = TableViewSection(rawValue: section) else {
-				fatalError("unsupported tableView section")
+				Log.error("unknown TableViewSection", log: .vaccination)
+				return nil
 			}
 			return section
 		}
@@ -69,23 +70,21 @@ final class HealthCertificateViewModel {
 	@OpenCombine.Published private(set) var healthCertificateKeyValueCellViewModel: [HealthCertificateKeyValueCellViewModel] = []
 
 	var headlineCellViewModel: HealthCertificateSimpleTextCellViewModel {
-		guard let vaccinationCertificate = healthCertificate.vaccinationCertificates.first else {
-			Log.error("Failed to setup certificate details without vaccinationCertificates", log: .vaccination)
-			fatalError("missing vaccinationCertificates")
-		}
-
 		let centerParagraphStyle = NSMutableParagraphStyle()
 		centerParagraphStyle.alignment = .center
 		centerParagraphStyle.lineSpacing = 10.0
 
-		let attributedName = NSAttributedString(
-			string: String(format: AppStrings.HealthCertificate.Details.vaccinationCount, vaccinationCertificate.doseNumber, vaccinationCertificate.totalSeriesOfDoses),
-			attributes: [
-				.font: UIFont.enaFont(for: .headline),
-				.foregroundColor: UIColor.enaColor(for: .textContrast),
-				.paragraphStyle: centerParagraphStyle
-			]
-		)
+		var attributedName: NSAttributedString?
+		if let vaccinationCertificate = healthCertificate.vaccinationCertificates.first {
+			attributedName = NSAttributedString(
+				string: String(format: AppStrings.HealthCertificate.Details.vaccinationCount, vaccinationCertificate.doseNumber, vaccinationCertificate.totalSeriesOfDoses),
+				attributes: [
+					.font: UIFont.enaFont(for: .headline),
+					.foregroundColor: UIColor.enaColor(for: .textContrast),
+					.paragraphStyle: centerParagraphStyle
+				]
+			)
+		}
 
 		let attributedDetails = NSAttributedString(
 			string: AppStrings.HealthCertificate.Details.certificate,
@@ -99,7 +98,9 @@ final class HealthCertificateViewModel {
 		return HealthCertificateSimpleTextCellViewModel(
 			backgroundColor: .clear,
 			textAlignment: .center,
-			attributedText: [attributedName, attributedDetails].joined(with: "\n"),
+			attributedText: [attributedName, attributedDetails]
+				.compactMap { $0 }
+				.joined(with: "\n"),
 			topSpace: 18.0,
 			font: .enaFont(for: .headline),
 			accessibilityTraits: .staticText
@@ -125,7 +126,7 @@ final class HealthCertificateViewModel {
 		case ma
 	}
 
-	private let healthCertificate: HealthCertificate
+	private let healthCertificate: HealthCertificateData
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProvider
 	private let dateFormatter: DateFormatter = {
 		let dateFormatter = DateFormatter()

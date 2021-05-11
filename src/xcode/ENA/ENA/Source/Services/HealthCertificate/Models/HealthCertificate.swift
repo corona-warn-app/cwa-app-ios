@@ -5,7 +5,16 @@
 import Foundation
 import HealthCertificateToolkit
 
-struct HealthCertificate: Codable, Equatable {
+protocol HealthCertificateData {
+	var base45: Base45 { get }
+	var version: String { get }
+	var name: HealthCertificateToolkit.Name { get }
+	var dateOfBirth: String { get }
+	var vaccinationCertificates: [VaccinationCertificate] { get }
+	var isEligibleForProofCertificate: Bool { get }
+}
+
+struct HealthCertificate: HealthCertificateData, Codable, Equatable {
 
 	// MARK: - Init
 

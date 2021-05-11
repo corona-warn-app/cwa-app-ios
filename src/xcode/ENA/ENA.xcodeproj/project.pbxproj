@@ -963,6 +963,7 @@
 		BA811B4D25D422B600C9BC98 /* DataDonationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA811B4C25D422B600C9BC98 /* DataDonationModel.swift */; };
 		BA8824D725D2A88800AD9B11 /* ppdd-ppa-administrative-unit-set-ua-approved.json in Resources */ = {isa = PBXBuildFile; fileRef = BA8824D625D2A88800AD9B11 /* ppdd-ppa-administrative-unit-set-ua-approved.json */; };
 		BA8848C0264AC18D00EEA542 /* HealthCertificateSimpleTextCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8848BF264AC18D00EEA542 /* HealthCertificateSimpleTextCellViewModelTests.swift */; };
+		BA8848C3264AC6C000EEA542 /* HealthCertificateViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8848C2264AC6C000EEA542 /* HealthCertificateViewModelTests.swift */; };
 		BA887F962608B5C800623FF6 /* SelectTraceLocationTypeFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA887F952608B5C800623FF6 /* SelectTraceLocationTypeFooterView.swift */; };
 		BA8BBA08255A90690034D4BC /* WifiHTTPClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8BBA07255A90690034D4BC /* WifiHTTPClientTests.swift */; };
 		BA904C9E25769D1800692110 /* TanInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA904C9D25769D1800692110 /* TanInputView.swift */; };
@@ -2145,6 +2146,7 @@
 		BA811B4C25D422B600C9BC98 /* DataDonationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDonationModel.swift; sourceTree = "<group>"; };
 		BA8824D625D2A88800AD9B11 /* ppdd-ppa-administrative-unit-set-ua-approved.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "ppdd-ppa-administrative-unit-set-ua-approved.json"; sourceTree = "<group>"; };
 		BA8848BF264AC18D00EEA542 /* HealthCertificateSimpleTextCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateSimpleTextCellViewModelTests.swift; sourceTree = "<group>"; };
+		BA8848C2264AC6C000EEA542 /* HealthCertificateViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateViewModelTests.swift; sourceTree = "<group>"; };
 		BA887F952608B5C800623FF6 /* SelectTraceLocationTypeFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTraceLocationTypeFooterView.swift; sourceTree = "<group>"; };
 		BA8BBA07255A90690034D4BC /* WifiHTTPClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WifiHTTPClientTests.swift; sourceTree = "<group>"; };
 		BA904C9D25769D1800692110 /* TanInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanInputView.swift; sourceTree = "<group>"; };
@@ -5906,6 +5908,7 @@
 		BA5B7FB726458EF400502087 /* HealthCertificate */ = {
 			isa = PBXGroup;
 			children = (
+				BA8848C1264AC6A300EEA542 /* __tests__ */,
 				BA5B7FBA26458EF400502087 /* Cell */,
 				BA5B7FB926458EF400502087 /* HealthCertificateViewController.swift */,
 				BA5B7FB826458EF400502087 /* HealthCertificateViewModel.swift */,
@@ -6135,6 +6138,14 @@
 			isa = PBXGroup;
 			children = (
 				BA8848BF264AC18D00EEA542 /* HealthCertificateSimpleTextCellViewModelTests.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
+		BA8848C1264AC6A300EEA542 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				BA8848C2264AC6C000EEA542 /* HealthCertificateViewModelTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -7883,6 +7894,7 @@
 				01BA06F2261F536100237DD8 /* FakeRequestServiceTests.swift in Sources */,
 				BADE38092608D9EC00E07890 /* TraceLocationTypeTest.swift in Sources */,
 				01BA07122620918200237DD8 /* CheckInTests.swift in Sources */,
+				BA8848C3264AC6C000EEA542 /* HealthCertificateViewModelTests.swift in Sources */,
 				AB68883A25DACD5B00907465 /* SerialDatabaseQueueMigratorTests.swift in Sources */,
 				BA5B7FDD26458F7800502087 /* HealthCertificateQRCodeScannerViewModelTests.swift in Sources */,
 				01EBC9BE25B706AF0003496F /* HomeStatisticsCardViewModelTests.swift in Sources */,
