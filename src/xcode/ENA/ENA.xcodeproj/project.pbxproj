@@ -964,6 +964,7 @@
 		BA8824D725D2A88800AD9B11 /* ppdd-ppa-administrative-unit-set-ua-approved.json in Resources */ = {isa = PBXBuildFile; fileRef = BA8824D625D2A88800AD9B11 /* ppdd-ppa-administrative-unit-set-ua-approved.json */; };
 		BA8848C0264AC18D00EEA542 /* HealthCertificateSimpleTextCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8848BF264AC18D00EEA542 /* HealthCertificateSimpleTextCellViewModelTests.swift */; };
 		BA8848C3264AC6C000EEA542 /* HealthCertificateViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8848C2264AC6C000EEA542 /* HealthCertificateViewModelTests.swift */; };
+		BA8848C6264AD91500EEA542 /* HealthCertificateKeyValueCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8848C5264AD91500EEA542 /* HealthCertificateKeyValueCellViewModelTests.swift */; };
 		BA887F962608B5C800623FF6 /* SelectTraceLocationTypeFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA887F952608B5C800623FF6 /* SelectTraceLocationTypeFooterView.swift */; };
 		BA8BBA08255A90690034D4BC /* WifiHTTPClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8BBA07255A90690034D4BC /* WifiHTTPClientTests.swift */; };
 		BA904C9E25769D1800692110 /* TanInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA904C9D25769D1800692110 /* TanInputView.swift */; };
@@ -2147,6 +2148,7 @@
 		BA8824D625D2A88800AD9B11 /* ppdd-ppa-administrative-unit-set-ua-approved.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "ppdd-ppa-administrative-unit-set-ua-approved.json"; sourceTree = "<group>"; };
 		BA8848BF264AC18D00EEA542 /* HealthCertificateSimpleTextCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateSimpleTextCellViewModelTests.swift; sourceTree = "<group>"; };
 		BA8848C2264AC6C000EEA542 /* HealthCertificateViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateViewModelTests.swift; sourceTree = "<group>"; };
+		BA8848C5264AD91500EEA542 /* HealthCertificateKeyValueCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateKeyValueCellViewModelTests.swift; sourceTree = "<group>"; };
 		BA887F952608B5C800623FF6 /* SelectTraceLocationTypeFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTraceLocationTypeFooterView.swift; sourceTree = "<group>"; };
 		BA8BBA07255A90690034D4BC /* WifiHTTPClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WifiHTTPClientTests.swift; sourceTree = "<group>"; };
 		BA904C9D25769D1800692110 /* TanInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanInputView.swift; sourceTree = "<group>"; };
@@ -4373,7 +4375,6 @@
 		85D759712457059A008175F0 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				8FE87F8C263AD0FF00A9C904 /* Vaccination */,
 				BA0F6C4C26317B7F0046BA48 /* AntigenTestProfile */,
 				BA3A79C22631B7AF00B6D6C0 /* AntigenTestProfileInformation */,
 				71176E30248957B1004B0C9F /* App */,
@@ -5919,6 +5920,7 @@
 		BA5B7FBA26458EF400502087 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				BA8848C4264AD8FC00EEA542 /* __tests__ */,
 				BA5B7FBC26458EF400502087 /* HealthCertificateBottomCornerCell.swift */,
 				BA5B7FBE26458EF400502087 /* HealthCertificateKeyValueCellViewModel.swift */,
 				BA5B7FBB26458EF400502087 /* HealthCertificateKeyValueTextCell.swift */,
@@ -6146,6 +6148,14 @@
 			isa = PBXGroup;
 			children = (
 				BA8848C2264AC6C000EEA542 /* HealthCertificateViewModelTests.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
+		BA8848C4264AD8FC00EEA542 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				BA8848C5264AD91500EEA542 /* HealthCertificateKeyValueCellViewModelTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -7972,6 +7982,7 @@
 				BAC7291226037BB6006D83C7 /* MissingPermissionsCellModelTests.swift in Sources */,
 				0185DDDE25B77786001FBEA7 /* HomeStatisticsCellModelTests.swift in Sources */,
 				A1654F0224B43E8500C0E115 /* DynamicTableViewTextViewCellTests.swift in Sources */,
+				BA8848C6264AD91500EEA542 /* HealthCertificateKeyValueCellViewModelTests.swift in Sources */,
 				AB68882A25DA786500907465 /* ContactDiaryStoreSchemaV2Tests.swift in Sources */,
 				A1E419462495479D0016E52A /* HTTPClient+MockNetworkStack.swift in Sources */,
 				AB7DE74F25C861A900C52B3F /* ExposureDetectionSurveyCellModelTests.swift in Sources */,
