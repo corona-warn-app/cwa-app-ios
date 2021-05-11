@@ -59,6 +59,7 @@ enum AccessibilityIdentifiers {
 			static let submittedAntigenCell = "AccessibilityIdentifiers.Home.submittedAntigenCell"
 		}
 
+		static let registerVaccinationButton = "AppStrings.Home.registerVaccinationButton"
 		static let submitCardButton = "AppStrings.Home.submitCardButton"
 		static let traceLocationsCardButton = "AppStrings.Home.traceLocationsCardButton"
 		static let infoCardShareTitle = "AppStrings.Home.infoCardShareTitle"
