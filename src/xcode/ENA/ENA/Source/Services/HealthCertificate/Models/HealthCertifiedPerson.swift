@@ -28,7 +28,7 @@ class HealthCertifiedPerson: OpenCombine.ObservableObject, Codable, Equatable {
 
 		healthCertificates = try container.decode([HealthCertificate].self, forKey: .healthCertificates)
 		proofCertificate = try container.decode(ProofCertificate.self, forKey: .proofCertificate)
-		lastProofCertificateUpdate = try container.decodeIfPresent(Date.self, forKey: .healthCertificates)
+		lastProofCertificateUpdate = try container.decodeIfPresent(Date.self, forKey: .lastProofCertificateUpdate)
 		proofCertificateUpdatePending = try container.decode(Bool.self, forKey: .healthCertificates)
 	}
 
