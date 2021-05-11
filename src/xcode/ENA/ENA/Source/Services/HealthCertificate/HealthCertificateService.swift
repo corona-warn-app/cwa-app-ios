@@ -101,7 +101,7 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 		trigger: FetchProofCertificateTrigger,
 		completion: @escaping (Result<Void, HealthCertificateServiceError.ProofRequestError>) -> Void
 	) {
-		guard healthCertifiedPerson.shouldAutomaticallyUpdateProofCertificate || trigger != .automatic else {
+		guard healthCertifiedPerson.shouldAutomaticallyUpdateProofCertificate || trigger == .manual else {
 			Log.info("[HealthCertificateService] Not requesting proof for health certified person: \(private: healthCertifiedPerson). (proofCertificateUpdatePending: \(healthCertifiedPerson.proofCertificateUpdatePending), lastProofCertificateUpdate: \(String(describing: healthCertifiedPerson.lastProofCertificateUpdate)), trigger: \(trigger))", log: .api)
 
 			return
