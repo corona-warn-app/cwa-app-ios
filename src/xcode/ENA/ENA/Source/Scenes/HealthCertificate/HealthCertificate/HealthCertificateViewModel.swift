@@ -19,7 +19,7 @@ final class HealthCertificateViewModel {
 
 		healthCertifiedPerson.$hasValidProofCertificate
 			.sink { [weak self] isValid in
-				self?.gradientType = isValid ? .blueOnly : .solidGrey
+				self?.gradientType = isValid ? .lightBlue : .solidGrey
 			}
 			.store(in: &subscriptions)
 

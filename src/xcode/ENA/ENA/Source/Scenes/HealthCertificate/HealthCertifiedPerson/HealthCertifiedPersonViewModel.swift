@@ -23,7 +23,7 @@ final class HealthCertifiedPersonViewModel {
 		// setup gradient update
 		healthCertifiedPerson.$hasValidProofCertificate
 			.sink { [weak self] in
-				self?.gradientType = $0 ? .blueOnly : .solidGrey
+				self?.gradientType = $0 ? .lightBlue : .solidGrey
 			}
 			.store(in: &subscriptions)
 
