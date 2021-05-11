@@ -2489,3 +2489,13 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "HealthCertificate_Details_identifier" = "Zertifikationsnummer";
 
 "HealthCertificate_Details_primaryButton" = "Impfzertifikat entfernen";
+
+/* Health Certificate Alert delete */
+
+"HealthCertificate_Alert_title" = "Wollen Sie das Impfzertifikat wirklich entfernen?";
+
+"HealthCertificate_Alert_message" = "Wenn Sie das Impfzertifikat entfernen, kann die App die Impfung nicht mehr für die Prüfung Ihres Impfstatus berücksichtigen.";
+
+"HealthCertificate_Alert_deleteButton" = "Entfernen";
+
+"HealthCertificate_Alert_cancelButton" = "Abbrechen";
