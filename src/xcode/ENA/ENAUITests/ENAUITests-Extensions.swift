@@ -34,7 +34,8 @@ extension XCUIElement {
 	}
 	
 	func waitAndTap(_ timeout: Double = .short) {
-		XCTAssertTrue(self.waitForExistence(timeout: timeout))
+		// Need XCTAssertEqual() here because we can append a message, this is not possible for XCTAssertTrue()
+		XCTAssertEqual(self.waitForExistence(timeout: timeout), true, "Could not find XCUIElement: \(self) before tapping it.")
 		self.tap()
 	}
 }
