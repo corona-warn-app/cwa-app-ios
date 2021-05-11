@@ -45,6 +45,9 @@ public struct DigitalGreenCertificateAccess {
     // MARK: - Internal
 
     func extractCBOR(from base45: Base45) -> Result<CBORData, CertificateDecodingError> {
+        guard base45.hasPrefix(hcPrefix) else {
+            return .failure(.HC_PREFIX_INVALID)
+        }
         let base45WithoutPrefix = base45.dropPrefix(hcPrefix)
 
         guard let zipData = try? base45WithoutPrefix.fromBase45() else {

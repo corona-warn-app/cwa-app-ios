@@ -17,13 +17,10 @@ public struct ProofCertificateDownload {
         with httpService: HTTPServiceProtocol = HTTPService(),
         completion: @escaping (Result<Base45?, ProofCertificateFetchingError>
     ) -> Void) {
-
         let certificateAccess = DigitalGreenCertificateAccess()
 
         let eligibleCertificates =
-            healthCertificates.map {
-                $0.dropPrefix(hcPrefix)
-            }
+            healthCertificates
             .compactMap { (base45) -> CBORData? in
                 let result = certificateAccess.extractCBOR(from: base45)
                 switch result {

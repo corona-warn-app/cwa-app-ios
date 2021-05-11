@@ -42,17 +42,11 @@
 
 "AutomaticSharingConsent_Subtitle" = "Rıza Beyanı";
 
-"AutomaticSharingConsent_DescriptionPart1_PCR" = "Korona testiniz pozitif çıkmışsa, Uygulama karşılaştığınız kullanıcıları uyarmak üzere test sonucunuzu paylaşır.";
+"AutomaticSharingConsent_DescriptionPart1" = "Korona testiniz pozitif çıktıysa Uygulama test sonucunuzu, karşılaştığınız kullanıcıları yarmak için paylaşır.";
 
-"AutomaticSharingConsent_DescriptionPart1_RAT" = "Korona testiniz pozitif çıktıysa Uygulama test sonucunuzu, karşılaştığınız kullanıcıları yarmak için paylaşır.";
+"AutomaticSharingConsent_DescriptionPart2" = "Uyarı sizinle aynı etkinlikteki ya da yerdeki kullanıcılara ve aşağıdaki ülkelerdeki Korona Uygulaması kullanıcılarına gönderilir:";
 
-"AutomaticSharingConsent_DescriptionPart2_PCR" = "Bu uyarı, yukarıda belirtilen ülkelerdeki resmi Korona uygulamalarının kullanıcılarına ulaşabilir:";
-
-"AutomaticSharingConsent_DescriptionPart2_RAT" = "Uyarı sizinle aynı etkinlikteki ya da yerdeki kullanıcılara ve aşağıdaki ülkelerdeki Korona Uygulaması kullanıcılarına gönderilir:";
-
-"AutomaticSharingConsent_DescriptionPart3_PCR" = "Ayrıca semptomlarınızın başlangıcı hakkında bilgi verirseniz, bu veri de paylaşılacaktır.";
-
-"AutomaticSharingConsent_DescriptionPart3_RAT" = "Hızlı test durumunda sadece Korona Uyarı Uygulamasının kullanıcıları uyarılır. Semptomlarınızın başladığına ilişkin ek bilgiler verirseniz bu veriler de paylaşılır.";
+"AutomaticSharingConsent_DescriptionPart3" = "Hızlı test durumunda sadece Korona Uyarı Uygulamasının kullanıcıları uyarılır. Semptomlarınızın başladığına ilişkin ek bilgiler verirseniz bu veriler de paylaşılır.";
 
 "AutomaticSharingConsent_DescriptionPart4" = "Yukarıdaki “Diğer Kullanıcıları Uyarın” seçeneğini devre dışı bırakarak, verdiğiniz rıza beyanını geri alabilirsiniz.";
 

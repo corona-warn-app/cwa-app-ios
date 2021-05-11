@@ -316,6 +316,7 @@
 		2E303E6625D50A3E00346FB8 /* ActionDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E303E6425D50A3E00346FB8 /* ActionDetailTableViewCell.swift */; };
 		2E303E7D25D52E0A00346FB8 /* SeperatorLineLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E303E7C25D52E0900346FB8 /* SeperatorLineLayer.swift */; };
 		2E4C3FE4263A91FD00E9FAFF /* CreateAntigenTestProfileViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4C3FE2263A882D00E9FAFF /* CreateAntigenTestProfileViewModelTests.swift */; };
+		2E4C3FE9263AA6B800E9FAFF /* ENAUITests_12_AntigenTestProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4C3FE8263AA6B800E9FAFF /* ENAUITests_12_AntigenTestProfile.swift */; };
 		2E67C3D525BAFFC8008C6C90 /* DiaryExportItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E67C3D425BAFFC8008C6C90 /* DiaryExportItem.swift */; };
 		2EA7A4F626398EAC0069E865 /* CreateAntigenTestProfileDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA7A4F526398EAC0069E865 /* CreateAntigenTestProfileDescriptionCell.swift */; };
 		2EA7A4F826398ED70069E865 /* CreateAntigenTestProfileInputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA7A4F726398ED70069E865 /* CreateAntigenTestProfileInputCell.swift */; };
@@ -1471,6 +1472,7 @@
 		2E303E6425D50A3E00346FB8 /* ActionDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionDetailTableViewCell.swift; sourceTree = "<group>"; };
 		2E303E7C25D52E0900346FB8 /* SeperatorLineLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeperatorLineLayer.swift; sourceTree = "<group>"; };
 		2E4C3FE2263A882D00E9FAFF /* CreateAntigenTestProfileViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAntigenTestProfileViewModelTests.swift; sourceTree = "<group>"; };
+		2E4C3FE8263AA6B800E9FAFF /* ENAUITests_12_AntigenTestProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_12_AntigenTestProfile.swift; sourceTree = "<group>"; };
 		2E67C3D425BAFFC8008C6C90 /* DiaryExportItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiaryExportItem.swift; sourceTree = "<group>"; };
 		2EA7A4F526398EAC0069E865 /* CreateAntigenTestProfileDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAntigenTestProfileDescriptionCell.swift; sourceTree = "<group>"; };
 		2EA7A4F726398ED70069E865 /* CreateAntigenTestProfileInputCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAntigenTestProfileInputCell.swift; sourceTree = "<group>"; };
@@ -3275,6 +3277,14 @@
 			path = __tests__;
 			sourceTree = "<group>";
 		};
+		2E4C3FE7263AA69400E9FAFF /* AntigenTestProfile */ = {
+			isa = PBXGroup;
+			children = (
+				2E4C3FE8263AA6B800E9FAFF /* ENAUITests_12_AntigenTestProfile.swift */,
+			);
+			path = AntigenTestProfile;
+			sourceTree = "<group>";
+		};
 		2F3D95352518BCBA002B2C81 /* EUSettings */ = {
 			isa = PBXGroup;
 			children = (
@@ -4329,6 +4339,7 @@
 		85D7596224570491008175F0 /* ENAUITests */ = {
 			isa = PBXGroup;
 			children = (
+				2E4C3FE7263AA69400E9FAFF /* AntigenTestProfile */,
 				340421DB263DDF6D00155BC6 /* AppStore */,
 				130CB19A246D92F800ADE602 /* Onboarding */,
 				134F0DB8247578FF00D88934 /* Home */,
@@ -8047,6 +8058,7 @@
 				948DCDC3252EFC9A00CDE020 /* ENAUITests_04c_ExposureLogging.swift in Sources */,
 				85D7596424570491008175F0 /* ENAUITests.swift in Sources */,
 				EB1C221225B7140B00A5CA6E /* ENAUITests_08_UpdateOSUITests.swift in Sources */,
+				2E4C3FE9263AA6B800E9FAFF /* ENAUITests_12_AntigenTestProfile.swift in Sources */,
 				356153AD257FA8A300F6CD4D /* AccessibilityIdentifiers.swift in Sources */,
 				941B68AE253F007100DC1962 /* Int+Increment.swift in Sources */,
 				5081EF0E25FFDEC7004B8FDE /* ENAUITests_10_CheckIns.swift in Sources */,
