@@ -200,7 +200,7 @@ final class HealthCertificateViewModel {
 		.compactMap { $0 }
 	}
 
-	func valueSet(by type: String) -> SAP_Internal_Dgc_ValueSet? {
+	private func valueSet(by type: String) -> SAP_Internal_Dgc_ValueSet? {
 		switch type {
 		case "vp":
 			return valueSets?.hasVp ?? false ? valueSets?.vp : nil
@@ -213,12 +213,9 @@ final class HealthCertificateViewModel {
 		}
 	}
 
-	func determineValue(key: String, valueSet: SAP_Internal_Dgc_ValueSet) -> String {
-		for item in valueSet.items {
-			if item.key == key {
-				return item.displayText
-				break
-			}
+	private func determineValue(key: String, valueSet: SAP_Internal_Dgc_ValueSet) -> String {
+		for item in valueSet.items where item.key == key {
+			return item.displayText
 		}
 		return key
 	}
