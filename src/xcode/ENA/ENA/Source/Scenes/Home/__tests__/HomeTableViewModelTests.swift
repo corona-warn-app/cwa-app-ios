@@ -27,7 +27,8 @@ class HomeTableViewModelTests: XCTestCase {
 				store: store,
 				appConfiguration: CachedAppConfigurationMock()
 			),
-			onTestResultCellTap: { _ in }
+			onTestResultCellTap: { _ in },
+			healthCertificateService: MockHealthCertificateService()
 		)
 
 		// Number of Sections
@@ -91,7 +92,8 @@ class HomeTableViewModelTests: XCTestCase {
 				store: store,
 				appConfiguration: CachedAppConfigurationMock()
 			),
-			onTestResultCellTap: { _ in }
+			onTestResultCellTap: { _ in },
+			healthCertificateService: MockHealthCertificateService()
 		)
 		
 		XCTAssertEqual(viewModel.numberOfRows(in: 1), 1)
@@ -124,7 +126,8 @@ class HomeTableViewModelTests: XCTestCase {
 				store: store,
 				appConfiguration: CachedAppConfigurationMock()
 			),
-			onTestResultCellTap: { _ in }
+			onTestResultCellTap: { _ in },
+			healthCertificateService: MockHealthCertificateService()
 		)
 		
 		XCTAssertEqual(viewModel.numberOfRows(in: 1), 1)
@@ -151,7 +154,8 @@ class HomeTableViewModelTests: XCTestCase {
 				store: store,
 				appConfiguration: CachedAppConfigurationMock()
 			),
-			onTestResultCellTap: { _ in }
+			onTestResultCellTap: { _ in },
+			healthCertificateService: MockHealthCertificateService()
 		)
 		viewModel.state.statistics.keyFigureCards = []
 
@@ -185,7 +189,8 @@ class HomeTableViewModelTests: XCTestCase {
 				store: store,
 				appConfiguration: CachedAppConfigurationMock()
 			),
-			onTestResultCellTap: { _ in }
+			onTestResultCellTap: { _ in },
+			healthCertificateService: MockHealthCertificateService()
 		)
 		viewModel.state.updateStatistics()
 
