@@ -50,7 +50,7 @@ class HealthCertificateQRCodeScannerViewController: UIViewController {
 					}
 
 				default:
-					break
+					self.showErrorAlert(error: error)
 				}
 			}
 		)
@@ -206,13 +206,12 @@ class HealthCertificateQRCodeScannerViewController: UIViewController {
 		view.layer.insertSublayer(previewLayer, at: 0)
 	}
 
-	private func showErrorAlert(error: QRScannerError) {
-
+	private func showErrorAlert(error: Error) {
 		viewModel?.deactivateScanning()
 
 		let alert = UIAlertController(
 			title: AppStrings.Checkins.QRScanner.Error.title,
-			message: error.errorDescription,
+			message: error.localizedDescription,
 			preferredStyle: .alert
 		)
 		alert.addAction(

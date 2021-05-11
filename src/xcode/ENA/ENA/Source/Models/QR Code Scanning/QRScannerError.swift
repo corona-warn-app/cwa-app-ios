@@ -15,6 +15,8 @@ enum QRScannerError: Error, LocalizedError {
 		switch self {
 		case .cameraPermissionDenied:
 			return AppStrings.ExposureSubmissionQRScanner.cameraPermissionDenied
+		case .other(let error):
+			return error.localizedDescription
 		default:
 			return AppStrings.ExposureSubmissionQRScanner.otherError
 		}
