@@ -265,6 +265,7 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 
 	private func setupViewModel() {
 		viewModel.$gradientType
+			.receive(on: DispatchQueue.main.ocombine)
 			.assign(to: \.type, on: backgroundView)
 			.store(in: &subscriptions)
 
