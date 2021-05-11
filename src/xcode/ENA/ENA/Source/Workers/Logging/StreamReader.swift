@@ -16,7 +16,7 @@ class StreamReader {
 	private let delimData: Data
 
 	private var fileHandle: FileHandle
-	private var atEof = false
+	private var atEOF = false
 
 	/// Simple indicator if the log is truncated
 	private(set) var isLogTruncated = false
@@ -80,7 +80,7 @@ class StreamReader {
 
 	/// Return next line, or nil on EOF.
 	func nextLine() -> String? {
-		if atEof {
+		if atEOF {
 			return nil
 		}
 
@@ -90,7 +90,7 @@ class StreamReader {
 			let tmpData = fileHandle.readData(ofLength: chunkSize)
 			if tmpData.isEmpty {
 				// EOF or read error.
-				atEof = true
+				atEOF = true
 				if buffer.length > 0 {
 					// Buffer contains last line in file (not terminated by delimiter).
 					let line = String(data: buffer as Data, encoding: encoding)
@@ -118,7 +118,7 @@ class StreamReader {
 	func rewind() {
 		fileHandle.seek(toFileOffset: 0)
 		buffer.length = 0
-		atEof = false
+		atEOF = false
 	}
 
 	/// Close the underlying file. No reading must be done after calling this method.
