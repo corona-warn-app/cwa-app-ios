@@ -33,6 +33,10 @@ struct ProofCertificate: Codable, Equatable {
 	var isExpired: Bool {
 		Date() >= expirationDate
 	}
+	
+	var name: HealthCertificateToolkit.Name {
+		digitalGreenCertificate.name
+	}
 
 	var fullName: String {
 		digitalGreenCertificate.name.fullName

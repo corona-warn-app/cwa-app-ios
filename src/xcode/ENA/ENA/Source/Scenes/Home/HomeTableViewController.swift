@@ -56,6 +56,14 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				self?.viewModel.isUpdating = false
 			}
 			.store(in: &subscriptions)
+		
+		viewModel.$healthCertifiedPersons
+			.receive(on: DispatchQueue.OCombine(.main))
+			.sink { [weak self] _ in
+				self?.tableView.reloadSections([HomeTableViewModel.Section.healthCertificate.rawValue], with: .none)
+				self?.viewModel.isUpdating = false
+			}
+			.store(in: &subscriptions)
 
 		viewModel.$testResultLoadingError
 			.receive(on: DispatchQueue.OCombine(.main))
@@ -187,16 +195,9 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			return infoCell(forRowAt: indexPath)
 
 		case .healthCertificate:
-			let placeHolderCell = UITableViewCell(style: .default, reuseIdentifier: "placeHolderCell")
-			placeHolderCell.textLabel?.text = "Digitaler Impfnachweis\nSARS-CoV-2 Impfschutz"
-			placeHolderCell.textLabel?.numberOfLines = 0
-			return placeHolderCell
-
+			return healthCertificateCell(forRowAt: indexPath)
 		case .createHealthCertificate:
-			let placeHolderCell = UITableViewCell(style: .default, reuseIdentifier: "placeHolderCell")
-			placeHolderCell.textLabel?.text = "Test registrieren"
-			return placeHolderCell
-
+			return vaccinationRegistrationCell(forRowAt: indexPath)
 		default:
 			fatalError("Invalid section")
 		}
@@ -351,6 +352,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 	private var deltaOnboardingCoordinator: DeltaOnboardingCoordinator?
 	private var riskCell: UITableViewCell?
+	private var healthCertificateCell: UITableViewCell?
 	private var pcrTestResultCell: UITableViewCell?
 	private var pcrTestShownPositiveResultCell: UITableViewCell?
 	private var antigenTestResultCell: UITableViewCell?
@@ -383,6 +385,14 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		tableView.register(
 			UINib(nibName: String(describing: HomeRiskTableViewCell.self), bundle: nil),
 			forCellReuseIdentifier: String(describing: HomeRiskTableViewCell.self)
+		)
+		tableView.register(
+			UINib(nibName: String(describing: HomeVaccinationTableViewCell.self), bundle: nil),
+			forCellReuseIdentifier: HomeVaccinationTableViewCell.reuseIdentifier
+		)
+		tableView.register(
+			UINib(nibName: String(describing: VaccinationRegistrationTableViewCell.self), bundle: nil),
+			forCellReuseIdentifier: String(describing: VaccinationRegistrationTableViewCell.self)
 		)
 		tableView.register(
 			UINib(nibName: String(describing: HomeTestResultTableViewCell.self), bundle: nil),
@@ -441,6 +451,26 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		}
 
 		cell.configure(with: HomeExposureLoggingCellModel(state: viewModel.state))
+
+		return cell
+	}
+	
+	private func healthCertificateCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+		if let healthCertificateCell = healthCertificateCell {
+			return healthCertificateCell
+		}
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeVaccinationTableViewCell.self), for: indexPath) as? HomeVaccinationTableViewCell else {
+			fatalError("Could not dequeue HomeVaccinationTableViewCell")
+		}
+		let healthCertifiedPerson = viewModel.healthCertifiedPersons[indexPath.row]
+		let cellModel = HomeVaccinationCellModel(
+			healthCertifiedPerson: healthCertifiedPerson,
+			onUpdate: { [weak self] in
+				self?.animateChanges(of: cell)
+			}
+		)
+		cell.configure(with: cellModel)
+		healthCertificateCell = cell
 
 		return cell
 	}
@@ -554,6 +584,20 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		case .antigen:
 			antigenTestShownPositiveResultCell = cell
 		}
+
+		return cell
+	}
+	private func vaccinationRegistrationCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: VaccinationRegistrationTableViewCell.self), for: indexPath) as? VaccinationRegistrationTableViewCell else {
+			fatalError("Could not dequeue VaccinationRegistrationTableViewCell")
+		}
+
+		cell.configure(
+			with: VaccinationRegistrationCellModel(),
+			onPrimaryAction: { [weak self] in
+				self?.onCreateHealthCertificateTap()
+			}
+		)
 
 		return cell
 	}

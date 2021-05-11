@@ -13,20 +13,25 @@ class HomeTableViewModel {
 		state: HomeState,
 		store: Store,
 		coronaTestService: CoronaTestService,
-		onTestResultCellTap: @escaping (CoronaTestType?) -> Void,
-		healthCertificateService: HealthCertificateServiceProviding
+		healthCertificateService: HealthCertificateServiceProviding,
+		onTestResultCellTap: @escaping (CoronaTestType?) -> Void
 	) {
 		self.state = state
 		self.store = store
 		self.coronaTestService = coronaTestService
-		self.onTestResultCellTap = onTestResultCellTap
 		self.healthCertificateService = healthCertificateService
+		self.onTestResultCellTap = onTestResultCellTap
 
 		coronaTestService.$tests
 			.sink { [weak self] in
 				self?.update(pcrTest: $0.pcr, antigenTest: $0.antigen)
 			}
 			.store(in: &subscriptions)
+		
+		healthCertificateService.healthCertifiedPersons.sink { healthCertifiedPersons in
+			self.healthCertifiedPersons = healthCertifiedPersons
+		}
+		.store(in: &subscriptions)
 	}
 
 	// MARK: - Internal
@@ -61,6 +66,7 @@ class HomeTableViewModel {
 
 	@OpenCombine.Published var testResultLoadingError: Error?
 	@OpenCombine.Published var riskAndTestResultsRows: [RiskAndTestResultsRow] = []
+	@OpenCombine.Published var healthCertifiedPersons: [HealthCertifiedPerson] = []
 
 	var numberOfSections: Int {
 		Section.allCases.count
@@ -75,7 +81,7 @@ class HomeTableViewModel {
 		case .testRegistration:
 			return 1
 		case .healthCertificate:
-			return 1
+			return healthCertifiedPersons.count
 		case .createHealthCertificate:
 			return 1
 		case .statistics:

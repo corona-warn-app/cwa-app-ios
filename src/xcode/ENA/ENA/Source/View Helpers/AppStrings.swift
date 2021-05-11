@@ -1814,7 +1814,16 @@ enum AppStrings {
 				static let section02 = NSLocalizedString("HealthCertificate_Info_register_section02", comment: "")
 				static let section03 = NSLocalizedString("HealthCertificate_Info_register_section03", comment: "")
 			}
-			
+			enum RegisterCard {
+				static let title = NSLocalizedString("HealthCertificate_Info_registerCard_title", comment: "")
+				static let description = NSLocalizedString("HealthCertificate_Info_registerCard_description", comment: "")
+				static let buttonTitle = NSLocalizedString("HealthCertificate_Info_registerCard_buttonTitle", comment: "")
+			}
+			enum Home {
+				static let title = NSLocalizedString("VaccinationCertificates_Home_Title", comment: "")
+				static let body = NSLocalizedString("VaccinationCertificates_Home_Body", comment: "")
+				static let inProgress = NSLocalizedString("VaccinationCertificates_Home_InProgress", comment: "")
+			}
 			enum Legal {
 				static let headline = NSLocalizedString("HealthCertificate_Info_Legal_headline", tableName: "Localizable.legal", comment: "")
 				static let subHeadline = NSLocalizedString("HealthCertificate_Info_Legal_subHeadline", tableName: "Localizable.legal", comment: "")

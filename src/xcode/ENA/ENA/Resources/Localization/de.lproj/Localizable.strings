@@ -2468,6 +2468,18 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Info_disclaimer" = "Ausführliche Informationen zur Datenverarbeitung und Ihrem Einverständnis.";
 
+"VaccinationCertificates_Home_Title" = "Digitaler Impfnachweis";
+
+"VaccinationCertificates_Home_Body" = "SARS-CoV-2 Impfschutz";
+
+"VaccinationCertificates_Home_InProgress" = "Unvollständiger Impfschutz";
+
+"HealthCertificate_Info_registerCard_title" = "Impfzertifikat registrieren";
+
+"HealthCertificate_Info_registerCard_description" = "Registrieren Sie Impfzertifikate um einen Impfnachweis zu ehalten. Scannen Sie dafür die QR-Codes Ihres Dokuments.";
+
+"HealthCertificate_Info_registerCard_buttonTitle" = "Registrieren";
+
 /* Health Certificate Details */
 
 "HealthCertificate_Details_vaccinationCount" = "Impfung %i von %i";
