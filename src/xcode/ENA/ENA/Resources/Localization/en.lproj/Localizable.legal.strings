@@ -43,17 +43,11 @@
 
 "AutomaticSharingConsent_Subtitle" = "Consent";
 
-"AutomaticSharingConsent_DescriptionPart1_PCR" = "If you have tested positive for coronavirus, the app will share your test result in order to warn other users whom you have encountered.";
+"AutomaticSharingConsent_DescriptionPart1" = "If you have tested positive for coronavirus, the app will share your test result in order to warn other users whom you have encountered.";
 
-"AutomaticSharingConsent_DescriptionPart1_RAT" = "If you have tested positive for coronavirus, the app will share your test result in order to warn other users whom you have encountered.";
+"AutomaticSharingConsent_DescriptionPart2" = "This warning only affects users who were simultaneously checked in at the same event or place as you and users of coronavirus apps in the following countries:";
 
-"AutomaticSharingConsent_DescriptionPart2_PCR" = "The warning will reach users of the official coronavirus apps of the following participating countries:";
-
-"AutomaticSharingConsent_DescriptionPart2_RAT" = "This warning only affects users who were simultaneously checked in at the same event or place as you and users of coronavirus apps in the following countries:";
-
-"AutomaticSharingConsent_DescriptionPart3_PCR" = "If you provide additional information about the onset of your symptoms, this will also be shared.";
-
-"AutomaticSharingConsent_DescriptionPart3_RAT" = "In the case of rapid tests, only users of the Corona-Warn-App will be warned. If you provide additional information about the onset of symptoms, this will be also shared.";
+"AutomaticSharingConsent_DescriptionPart3" = "In the case of rapid tests, only users of the Corona-Warn-App will be warned. If you provide additional information about the onset of symptoms, this will be also shared.";
 
 "AutomaticSharingConsent_DescriptionPart4" = "You can withdraw your consent by disabling “Warn Others” above.";
 

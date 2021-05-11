@@ -1069,15 +1069,12 @@ enum AppStrings {
 		
 		static let aboutAppInformation = NSLocalizedString("NewVersionFeatures_Info_about_abb_information", comment: "")
 		
-		/* Version 2.2 */
+		/* Version 2.3 */
 		
-		static let feature22RecordErrorLogsTitle = NSLocalizedString("NewVersionFeature_22_record_error_logs_title", comment: "")
+		static let feature23digitalVaccinationCertificateTitle = NSLocalizedString("NewVersionFeature_23_digital_vaccination_certificate_title", comment: "")
 		
-		static let feature22RecordErrorLogsDescription = NSLocalizedString("NewVersionFeature_22_record_error_logs_description", comment: "")
-		
-		static let feature22AntiGenProfileTitle = NSLocalizedString("NewVersionFeature_22_antigen_profiles_title", comment: "")
-		
-		static let feature22AntiGenProfileDescription = NSLocalizedString("NewVersionFeature_22_antigen_profiles_description", comment: "")
+		static let feature23digitalVaccinationCertificateDescription = NSLocalizedString("NewVersionFeature_23_digital_vaccination_certificate_description", comment: "")
+
 	}
 	
 	enum DeltaOnboarding {
@@ -1117,12 +1114,9 @@ enum AppStrings {
 		static let switchTitle = NSLocalizedString("AutomaticSharingConsent_SwitchTitle", comment: "")
 		static let switchTitleDescription = NSLocalizedString("AutomaticSharingConsent_SwitchTitleDesc", comment: "")
 		static let consentSubTitle = NSLocalizedString("AutomaticSharingConsent_Subtitle", tableName: "Localizable.legal", comment: "")
-		static let consentDescriptionPCRPart1 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart1_PCR", tableName: "Localizable.legal", comment: "")
-		static let consentDescriptionPCRPart2 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart2_PCR", tableName: "Localizable.legal", comment: "")
-		static let consentDescriptionPCRPart3 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart3_PCR", tableName: "Localizable.legal", comment: "")
-		static let consentDescriptionRATPart1 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart1_RAT", tableName: "Localizable.legal", comment: "")
-		static let consentDescriptionRATPart2 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart2_RAT", tableName: "Localizable.legal", comment: "")
-		static let consentDescriptionRATPart3 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart3_RAT", tableName: "Localizable.legal", comment: "")
+		static let consentDescriptionPart1 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart1", tableName: "Localizable.legal", comment: "")
+		static let consentDescriptionPart2 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart2", tableName: "Localizable.legal", comment: "")
+		static let consentDescriptionPart3 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart3", tableName: "Localizable.legal", comment: "")
 		static let consentDescriptionPart4 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart4", tableName: "Localizable.legal", comment: "")
 		static let consentDescriptionPart5 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart5", tableName: "Localizable.legal", comment: "")
 		static let dataProcessingDetailInfo = NSLocalizedString("AutomaticSharingConsent_DataProcessingDetailInfo", comment: "")
