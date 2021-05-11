@@ -2470,22 +2470,22 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Health Certificate Details */
 
-"HealthCertificate_Certificate_vaccinationCount" = "Impfung %i von %i";
+"HealthCertificate_Details_vaccinationCount" = "Impfung %i von %i";
 
-"HealthCertificate_Certificate_certificate" = "Impfzertifikat";
+"HealthCertificate_Details_certificate" = "Impfzertifikat";
 
-"HealthCertificate_Certificate_dateOfBirth" = "geboren %@";
+"HealthCertificate_Details_dateOfBirth" = "geboren %@";
 
-"HealthCertificate_Certificate_dateOfVaccination" = "Datum der Impfung";
+"HealthCertificate_Details_dateOfVaccination" = "Datum der Impfung";
 
-"HealthCertificate_Certificate_vaccine" = "Impfstoff";
+"HealthCertificate_Details_vaccine" = "Impfstoff";
 
-"HealthCertificate_Certificate_manufacture" = "Hersteller";
+"HealthCertificate_Details_manufacture" = "Hersteller";
 
-"HealthCertificate_Certificate_issuer" = "Aussteller";
+"HealthCertificate_Details_issuer" = "Aussteller";
 
-"HealthCertificate_Certificate_country" = "Land";
+"HealthCertificate_Details_country" = "Land";
 
-"HealthCertificate_Certificate_identifier" = "Zertifikationsnummer";
+"HealthCertificate_Details_identifier" = "Zertifikationsnummer";
 
-"HealthCertificate_Certificate_primaryButton" = "Impfzertifikat entfernen";
+"HealthCertificate_Details_primaryButton" = "Impfzertifikat entfernen";
