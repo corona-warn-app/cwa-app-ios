@@ -107,16 +107,17 @@ final class HealthCertifiedPersonViewModel {
 		)
 	}()
 
-	let qrCodeCellViewModel: HealthCertificateQRCodeCellViewModel = {
-		HealthCertificateQRCodeCellViewModel(
-			backgroundColor: .enaColor(for: .background),
-			borderColor: .enaColor(for: .hairline)
-		)
-	}()
-
 	@OpenCombine.Published private(set) var gradientType: GradientView.GradientType = .solidGrey
 	@OpenCombine.Published private(set) var triggerReload: Bool = false
 	@OpenCombine.Published private(set) var updateError: Error?
+
+	var qrCodeCellViewModel: HealthCertificateQRCodeCellViewModel {
+		guard let proofCertificate = healthCertifiedPerson.proofCertificate else {
+			fatalError("Cell cannot be shown without a proof certificate")
+		}
+
+		return HealthCertificateQRCodeCellViewModel(proofCertificate: proofCertificate)
+	}
 
 	var personCellViewModel: HealthCertificateSimpleTextCellViewModel {
 		let attributedName = NSAttributedString(
