@@ -2476,6 +2476,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Info_registerCard_title" = "Impfzertifikat registrieren";
 
-"HealthCertificate_Info_registerCard_description" = "Registrieren Sie Impfzertifikate um einen Impfnachweis zu ehalten. Scannen Sie dafür die QR Codes Ihres Dokuments.";
+"HealthCertificate_Info_registerCard_description" = "Registrieren Sie Impfzertifikate um einen Impfnachweis zu ehalten. Scannen Sie dafür die QR-Codes Ihres Dokuments.";
 
 "HealthCertificate_Info_registerCard_buttonTitle" = "Registrieren";
