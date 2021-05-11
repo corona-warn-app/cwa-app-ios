@@ -140,6 +140,7 @@ final class HealthCertificateCoordinator {
 						title: AppStrings.HealthCertificate.Alert.deleteButton,
 						style: .default,
 						handler: { _ in
+							self?.healthCertificateService.removeHealthCertificate(healthCertificate)
 							self?.navigationController.popToRootViewController(animated: true)
 						}
 					)
