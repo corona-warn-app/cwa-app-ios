@@ -11,7 +11,9 @@ struct HealthCertificateKeyValueCellViewModel {
 	init?(
 		key: String?,
 		value: String?,
-		isBottomSeparatorHidden: Bool = false
+		isBottomSeparatorHidden: Bool = false,
+		topSpace: CGFloat? = nil,
+		bottomSpace: CGFloat? = nil
 	) {
 		guard let key = key,
 			  let value = value
@@ -21,6 +23,8 @@ struct HealthCertificateKeyValueCellViewModel {
 		self.headline = key
 		self.text = value
 		self.isBottomSeparatorHidden = isBottomSeparatorHidden
+		self.topSpace = topSpace
+		self.bottomSpace = bottomSpace
 	}
 
 	// MARK: - Internal
@@ -33,5 +37,7 @@ struct HealthCertificateKeyValueCellViewModel {
 	let headline: String
 	let text: String
 	let isBottomSeparatorHidden: Bool
+	let topSpace: CGFloat?
+	let bottomSpace: CGFloat?
 
 }

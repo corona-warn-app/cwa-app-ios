@@ -140,7 +140,8 @@ final class HealthCertificateViewModel {
 		if let date = dateFormatter.date(from: healthCertificate.dateOfBirth) {
 			nameCellViewModel = HealthCertificateKeyValueCellViewModel(
 				key: healthCertificate.name.fullName,
-				value: String(format: AppStrings.HealthCertificate.Details.dateOfBirth, DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .none))
+				value: String(format: AppStrings.HealthCertificate.Details.dateOfBirth, DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .none)),
+				topSpace: 2.0
 			)
 		}
 
@@ -190,7 +191,8 @@ final class HealthCertificateViewModel {
 		let certificateNumberCellViewModel = HealthCertificateKeyValueCellViewModel(
 			key: AppStrings.HealthCertificate.Details.identifier,
 			value: healthCertificate.vaccinationCertificates.first?.uniqueCertificateIdentifier,
-			isBottomSeparatorHidden: true
+			isBottomSeparatorHidden: true,
+			bottomSpace: 2.0
 		)
 
 		healthCertificateKeyValueCellViewModel = [
