@@ -23,7 +23,8 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		self.viewModel = HealthCertifiedPersonViewModel(
 			healthCertificateService: healthCertificateService,
 			healthCertifiedPerson: healthCertifiedPerson,
-			vaccinationValueSetsProvider: vaccinationValueSetsProvider
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			dismiss: dismiss
 		)
 
 		super.init(nibName: nil, bundle: nil)
@@ -45,6 +46,12 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		setupViewModel()
 	}
 
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+
+		viewModel.updateProofCertificate(trigger: .automatic)
+	}
+
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 		super.traitCollectionDidChange(previousTraitCollection)
 		didCalculateGradientHeight = false
@@ -59,10 +66,12 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 	// MARK: - Protocol FooterViewHandling
 
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
-		guard type == .primary else {
-			return
+		switch type {
+		case .primary:
+			viewModel.updateProofCertificate(trigger: .manual)
+		case .secondary:
+			didTapRegisterAnotherHealthCertificate()
 		}
-		didTapRegisterAnotherHealthCertificate()
 	}
 
 	// MARK: - Protocol UITableViewDateSource
@@ -101,7 +110,7 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 
 		case .certificates:
 			let cell = tableView.dequeueReusableCell(cellType: HealthCertificateCell.self, for: indexPath)
-			cell.configure(viewModel.healthCertificateCellViewModel)
+			cell.configure(viewModel.healthCertificateCellViewModel(row: indexPath.row))
 			return cell
 		}
 	}
@@ -136,6 +145,32 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		}
 	}
 
+	func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+		viewModel.canEditRow(at: indexPath)
+	}
+
+	func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+		guard editingStyle == .delete else { return }
+
+		showAlert(
+			title: AppStrings.TraceLocations.Overview.DeleteOneAlert.title,
+			message: AppStrings.TraceLocations.Overview.DeleteOneAlert.message,
+			cancelButtonTitle: AppStrings.TraceLocations.Overview.DeleteOneAlert.cancelButtonTitle,
+			confirmButtonTitle: AppStrings.TraceLocations.Overview.DeleteOneAlert.confirmButtonTitle,
+			confirmAction: { [weak self] in
+				guard let self = self else { return }
+
+				self.isAnimatingChanges = true
+				self.viewModel.removeHealthCertificate(at: indexPath)
+				tableView.performBatchUpdates({
+					tableView.deleteRows(at: [indexPath], with: .automatic)
+				}, completion: { _ in
+					self.isAnimatingChanges = false
+				})
+			}
+		)
+	}
+
 	// MARK: - Private
 
 	private let dismiss: () -> Void
@@ -149,6 +184,8 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 	private var subscriptions = Set<AnyCancellable>()
 	private var didCalculateGradientHeight: Bool = false
 	private var tableContentObserver: NSKeyValueObservation!
+
+	private var isAnimatingChanges = false
 
 	private func setupNavigationBar() {
 		let logoImage = UIImage(imageLiteralResourceName: "Corona-Warn-App").withRenderingMode(.alwaysTemplate)
@@ -228,17 +265,52 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 
 	private func setupViewModel() {
 		viewModel.$gradientType
+			.receive(on: DispatchQueue.main.ocombine)
 			.assign(to: \.type, on: backgroundView)
 			.store(in: &subscriptions)
 
 		viewModel.$triggerReload
 			.receive(on: DispatchQueue.main.ocombine)
-			.sink { [weak self] shouldReload in
-				guard shouldReload else { return }
+			.sink { [weak self] triggerReload in
+				guard triggerReload, let self = self, !self.isAnimatingChanges else { return }
 
-				self?.tableView.reloadData()
+				self.didCalculateGradientHeight = false
+				self.tableView.reloadData()
 			}
 			.store(in: &subscriptions)
+	}
+
+	private func showAlert(
+		title: String,
+		message: String,
+		cancelButtonTitle: String,
+		confirmButtonTitle: String,
+		confirmAction: @escaping () -> Void
+	) {
+		let alert = UIAlertController(
+			title: title,
+			message: message,
+			preferredStyle: .alert
+		)
+
+		alert.addAction(
+			UIAlertAction(
+				title: cancelButtonTitle,
+				style: .cancel
+			)
+		)
+
+		alert.addAction(
+			UIAlertAction(
+				title: confirmButtonTitle,
+				style: .destructive,
+				handler: { _ in
+					confirmAction()
+				}
+			)
+		)
+
+		present(alert, animated: true, completion: nil)
 	}
 
 }

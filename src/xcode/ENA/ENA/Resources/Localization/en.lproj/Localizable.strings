@@ -446,7 +446,7 @@
 "ExposureSubmission_Hotline_Number" = "08007540002";
 
 /* phone number; no spacing allowed */
-"ExposureSubmission_Hotline_Number_Foreign" = "+493049875401";
+"ExposureSubmission_Hotline_Number_Foreign" = "+493049875402";
 
 "ExposureSubmission_DataPrivacyTitle" = "Consent";
 
@@ -523,11 +523,11 @@
 
 "ExposureSubmission_PhoneDetailsDomestic" = "For calls from within Germany.\nThe call is free of charge.";
 
-"ExposureSubmission_PhoneNumberForeign" = "+49 30 498 75401";
+"ExposureSubmission_PhoneNumberForeign" = "+49 30 498 75402";
 
 "ExposureSubmission_PhoneDetailsForeign" = "For calls from outside Germany.\nThe fees from your telephone provider will apply.";
 
-"ExposureSubmission_PhoneDetailDescription" = "Our customer service is available in the following languages: \nEnglish, German, Turkish\n\nBusiness hours:\nMo-Sa: 7:00 a.m. - 10:00 p.m. (CET)\n\nIf you have any health-related questions, please contact your general practitioner or the medical emergency service hotline; telephone: 116 117.";
+"ExposureSubmission_PhoneDetailDescription" = "Our customer service is available in the following languages: \nEnglish, German, Turkish\n\nBusiness hours:\n24/7\n\nIf you have any health-related questions, please contact your general practitioner or the medical emergency service hotline; telephone: 116 117.";
 
 "ExposureSubmission_SectionDescription2" = "Register your PCR test by entering the TAN in the app.";
 
@@ -1272,7 +1272,7 @@
 
 "App_Information_Contact_Hotline_Details_Foreign" = "For calls from outside Germany.\nThe fees from your telephone provider will apply.";
 
-"App_Information_Contact_Hotline_Terms" = "Our customer service is available in the following languages: \nEnglish, German, Turkish\n\nBusiness hours:\nMo-Sa: 7:00 a.m. - 10:00 p.m. (CET)\n\nIf you have any health-related questions, please contact your general practitioner or the medical emergency service hotline; telephone: 116 117.";
+"App_Information_Contact_Hotline_Terms" = "Our customer service is available in the following languages: \nEnglish, German, Turkish\n\nBusiness hours:\nMo-Sa: 7:00 a.m. - 10:00 p.m. (CET)\n(except national holidays)\n\nIf you have any health-related questions, please contact your general practitioner or the medical emergency service hotline; telephone: 116 117.";
 
 /* App Information - Imprint */
 "App_Information_New_Features_Navigation" = "New Features";

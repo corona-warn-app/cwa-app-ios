@@ -69,7 +69,10 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 	}
 
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		viewModel.numberOfItems(in: HealthCertificateViewModel.TableViewSection.map(section))
+		guard let section = HealthCertificateViewModel.TableViewSection.map(section) else {
+			return 0
+		}
+		return viewModel.numberOfItems(in: section)
 	}
 
 	// MARK: - Protocol UITableViewDelegate
@@ -88,7 +91,24 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 			return cell
 		case .bottomCorner:
 			return tableView.dequeueReusableCell(cellType: HealthCertificateBottomCornerCell.self, for: indexPath)
+		case .none:
+			fatalError("can't dequeue a cell for an unknown section")
 		}
+	}
+
+	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+		// we are only interested in detail cell with person name once if the traitCollectionDidChange - to update gradientHeightConstraint
+		guard didCalculateGradientHeight == false,
+			  HealthCertificateViewModel.TableViewSection.map(indexPath.section)  == .details,
+			  indexPath.row == 0
+		else {
+			return
+		}
+
+		let cellRect = tableView.rectForRow(at: indexPath)
+		let result = view.convert(cellRect, from: tableView)
+		backgroundView.gradientHeightConstraint.constant = result.maxY
+		didCalculateGradientHeight = true
 	}
 
 	// MARK: - Public
@@ -193,6 +213,7 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 
 	private func setupViewModel() {
 		viewModel.$gradientType
+			.receive(on: DispatchQueue.main.ocombine)
 			.assign(to: \.type, on: backgroundView)
 			.store(in: &subscriptions)
 

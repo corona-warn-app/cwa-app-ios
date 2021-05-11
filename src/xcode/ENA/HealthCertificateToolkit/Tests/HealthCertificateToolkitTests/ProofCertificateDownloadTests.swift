@@ -4,6 +4,7 @@
 
 
 import XCTest
+import Foundation
 import SwiftCBOR
 @testable import HealthCertificateToolkit
 
@@ -23,7 +24,13 @@ final class ProofCertificateDownloadTests: XCTestCase {
 
         let resultExpectation = expectation(description: "Fetch should return a result.")
 
-        proofCertificateDownload.fetchProofCertificate(for: [testData.input], with: httpServiceStub) { [weak self] result in
+        proofCertificateDownload.fetchProofCertificate(
+            for: [testData.input],
+            with: httpServiceStub,
+            baseURL: URL(fileURLWithPath: "dummy"),
+            urlSession: URLSession.shared
+        ) { [weak self] result in
+
             guard case let .success(_base45) = result,
                   let base45 = _base45 else {
                 XCTFail("Success expected.")
@@ -50,7 +57,13 @@ final class ProofCertificateDownloadTests: XCTestCase {
 
         let resultExpectation = expectation(description: "Fetch should return a result.")
 
-        proofCertificateDownload.fetchProofCertificate(for: ["==NOBase45=="], with: httpServiceStub) {result in
+        proofCertificateDownload.fetchProofCertificate(
+            for: ["==NOBase45=="],
+            with: httpServiceStub,
+            baseURL: URL(fileURLWithPath: "dummy"),
+            urlSession: URLSession.shared
+        ) {result in
+
             guard case let .success(proofCertificateData) = result else {
                 XCTFail("Success expected.")
                 resultExpectation.fulfill()
@@ -77,7 +90,13 @@ final class ProofCertificateDownloadTests: XCTestCase {
 
         let resultExpectation = expectation(description: "Fetch should return a result.")
 
-        proofCertificateDownload.fetchProofCertificate(for: [testData.input], with: httpServiceStub) { result in
+        proofCertificateDownload.fetchProofCertificate(
+            for: [testData.input],
+            with: httpServiceStub,
+            baseURL: URL(fileURLWithPath: "dummy"),
+            urlSession: URLSession.shared
+        ) { result in
+
             guard case let .failure(error) = result else {
                 XCTFail("Error expected.")
                 return
@@ -100,7 +119,13 @@ final class ProofCertificateDownloadTests: XCTestCase {
 
         let resultExpectation = expectation(description: "Fetch should return a result.")
 
-        proofCertificateDownload.fetchProofCertificate(for: [testData.input], with: httpServiceStub) { result in
+        proofCertificateDownload.fetchProofCertificate(
+            for: [testData.input],
+            with: httpServiceStub,
+            baseURL: URL(fileURLWithPath: "dummy"),
+            urlSession: URLSession.shared
+        ) { result in
+
             guard case let .failure(error) = result else {
                 XCTFail("Error expected.")
                 return
@@ -122,7 +147,13 @@ final class ProofCertificateDownloadTests: XCTestCase {
 
         let resultExpectation = expectation(description: "Fetch should return a result.")
 
-        proofCertificateDownload.fetchProofCertificate(for: [testData.input], with: httpServiceStub) { result in
+        proofCertificateDownload.fetchProofCertificate(
+            for: [testData.input],
+            with: httpServiceStub,
+            baseURL: URL(fileURLWithPath: "dummy"),
+            urlSession: URLSession.shared
+        ) { result in
+
             guard case let .failure(error) = result else {
                 XCTFail("Error expected.")
                 return
@@ -162,7 +193,13 @@ final class ProofCertificateDownloadTests: XCTestCase {
 
         let resultExpectation = expectation(description: "Fetch should return a result.")
 
-        proofCertificateDownload.fetchProofCertificate(for: [testData.input, testData.input, testData.input], with: httpServiceStub) { [weak self] result in
+        proofCertificateDownload.fetchProofCertificate(
+            for: [testData.input, testData.input, testData.input],
+            with: httpServiceStub,
+            baseURL: URL(fileURLWithPath: "dummy"),
+            urlSession: URLSession.shared
+        ) { [weak self] result in
+
             guard case let .success(_proofCertificateData) = result,
                   let proofCertificateData = _proofCertificateData else {
                 XCTFail("Success expected.")
@@ -206,7 +243,13 @@ final class ProofCertificateDownloadTests: XCTestCase {
 
         let resultExpectation = expectation(description: "Fetch should return a result.")
 
-        proofCertificateDownload.fetchProofCertificate(for: [testData.input, testData.input], with: httpServiceStub) { result in
+        proofCertificateDownload.fetchProofCertificate(
+            for: [testData.input, testData.input],
+            with: httpServiceStub,
+            baseURL: URL(fileURLWithPath: "dummy"),
+            urlSession: URLSession.shared
+        ) { result in
+
             guard case let .success(proofCertificateData) = result else {
                 XCTFail("Success expected.")
                 resultExpectation.fulfill()
@@ -240,7 +283,13 @@ final class ProofCertificateDownloadTests: XCTestCase {
 
         let resultExpectation = expectation(description: "Fetch should return a result.")
 
-        proofCertificateDownload.fetchProofCertificate(for: [testData.input, testData.input], with: httpServiceStub) { result in
+        proofCertificateDownload.fetchProofCertificate(
+            for: [testData.input, testData.input],
+            with: httpServiceStub,
+            baseURL: URL(fileURLWithPath: "dummy"),
+            urlSession: URLSession.shared
+        ) { result in
+
             guard case let .success(proofCertificateData) = result else {
                 XCTFail("Success expected.")
                 resultExpectation.fulfill()
@@ -256,7 +305,7 @@ final class ProofCertificateDownloadTests: XCTestCase {
 
     private lazy var testData: TestData = {
         TestData (
-            input: "HC1:6BFOXN*TS0BI$ZD4N9:9S6RCVN5+O30K3/XIV0W23NTDEXWK G2EP4J0BGJLFX3R3VHXK.PJ:2DPF6R:5SVBHABVCNN95SWMPHQUHQN%A0SOE+QQAB-HQ/HQ7IR.SQEEOK9SAI4- 7Y15KBPD34  QWSP0WRGTQFNPLIR.KQNA7N95U/3FJCTG90OARH9P1J4HGZJKBEG%123ZC$0BCI757TLXKIBTV5TN%2LXK-$CH4TSXKZ4S/$K%0KPQ1HEP9.PZE9Q$95:UENEUW6646936HRTO$9KZ56DE/.QC$Q3J62:6LZ6O59++9-G9+E93ZM$96TV6NRN3T59YLQM1VRMP$I/XK$M8PK66YBTJ1ZO8B-S-*O5W41FD$ 81JP%KNEV45G1H*KESHMN2/TU3UQQKE*QHXSMNV25$1PK50C9B/9OK5NE1 9V2:U6A1ELUCT16DEETUM/UIN9P8Q:KPFY1W+UN MUNU8T1PEEG%5TW5A 6YO67N6BBEWED/3LS3N6YU.:KJWKPZ9+CQP2IOMH.PR97QC:ACZAH.SYEDK3EL-FIK9J8JRBC7ADHWQYSK48UNZGG NAVEHWEOSUI2L.9OR8FHB0T5HM7I",
+            input: hcPrefix+"6BFOXN*TS0BI$ZD4N9:9S6RCVN5+O30K3/XIV0W23NTDEXWK G2EP4J0BGJLFX3R3VHXK.PJ:2DPF6R:5SVBHABVCNN95SWMPHQUHQN%A0SOE+QQAB-HQ/HQ7IR.SQEEOK9SAI4- 7Y15KBPD34  QWSP0WRGTQFNPLIR.KQNA7N95U/3FJCTG90OARH9P1J4HGZJKBEG%123ZC$0BCI757TLXKIBTV5TN%2LXK-$CH4TSXKZ4S/$K%0KPQ1HEP9.PZE9Q$95:UENEUW6646936HRTO$9KZ56DE/.QC$Q3J62:6LZ6O59++9-G9+E93ZM$96TV6NRN3T59YLQM1VRMP$I/XK$M8PK66YBTJ1ZO8B-S-*O5W41FD$ 81JP%KNEV45G1H*KESHMN2/TU3UQQKE*QHXSMNV25$1PK50C9B/9OK5NE1 9V2:U6A1ELUCT16DEETUM/UIN9P8Q:KPFY1W+UN MUNU8T1PEEG%5TW5A 6YO67N6BBEWED/3LS3N6YU.:KJWKPZ9+CQP2IOMH.PR97QC:ACZAH.SYEDK3EL-FIK9J8JRBC7ADHWQYSK48UNZGG NAVEHWEOSUI2L.9OR8FHB0T5HM7I",
             output: DigitalGreenCertificate(
                 version: "1.0.0",
                 name: Name(
@@ -293,6 +342,7 @@ final class ProofCertificateDownloadTests: XCTestCase {
 struct DummyError: Error {}
 
 class HTTPServiceStub: HTTPServiceProtocol {
+
     struct Completion {
         let data: Data?
         let response: URLResponse?
@@ -307,7 +357,7 @@ class HTTPServiceStub: HTTPServiceProtocol {
 
     var completions: [Completion]
 
-    public func execute(request: URLRequest, completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
+    public func execute(request: URLRequest, urlSession: URLSession, completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
         let nextCompletion = completions.first
         completions.removeFirst()
         completion(nextCompletion?.data, nextCompletion?.response, nextCompletion?.error)

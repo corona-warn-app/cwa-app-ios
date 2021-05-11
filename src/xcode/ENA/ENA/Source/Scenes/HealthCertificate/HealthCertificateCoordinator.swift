@@ -5,9 +5,9 @@
 import UIKit
 
 final class HealthCertificateCoordinator {
-
+	
 	// MARK: - Init
-
+	
 	init(
 		parentViewController: UIViewController,
 		healthCertificateService: HealthCertificateServiceProviding,
@@ -18,36 +18,36 @@ final class HealthCertificateCoordinator {
 		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
 		self.navigationController = DismissHandlingNavigationController()
 	}
-
+	
 	// MARK: - Internal
-
+	
 	func start() {
 		showConsentScreen()
 	}
-
+	
 	func start(with healthCertifiedPerson: HealthCertifiedPerson) {
 		showHealthCertifiedPerson(healthCertifiedPerson)
 		parentViewController.present(navigationController, animated: true)
 	}
-
+	
 	func endCoordinator() {
 		parentViewController.dismiss(animated: true)
 	}
-
+	
 	// MARK: - Private
-
+	
 	private let parentViewController: UIViewController
 	private let navigationController: UINavigationController
 	private let healthCertificateService: HealthCertificateServiceProviding
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProvider
-
+	
 	private func showConsentScreen() {
 		let consentScreen = HealthCertificateConsentViewController(
 			didTapConsentButton: { [weak self] in self?.showQRCodeScanner() },
 			didTapDataPrivacy: { [weak self] in self?.showDisclaimer() },
 			dismiss: { [weak self] in self?.endCoordinator() }
 		)
-
+		
 		let footerViewController = FooterViewController(
 			FooterViewModel(
 				primaryButtonName: "Einverstanden",
@@ -57,17 +57,17 @@ final class HealthCertificateCoordinator {
 				backgroundColor: .enaColor(for: .background)
 			)
 		)
-
+		
 		let topBottomContainerViewController = TopBottomContainerViewController(
 			topController: consentScreen,
 			bottomController: footerViewController
 		)
-
+		
 		// we do not animate here because this always is the first screen
 		navigationController.pushViewController(topBottomContainerViewController, animated: false)
 		parentViewController.present(navigationController, animated: true)
 	}
-
+	
 	private func showDisclaimer() {
 		let htmlDisclaimerViewController = HTMLViewController(model: AppInformationModel.privacyModel)
 		htmlDisclaimerViewController.title = AppStrings.AppInformation.privacyTitle
@@ -77,7 +77,7 @@ final class HealthCertificateCoordinator {
 		}
 		navigationController.pushViewController(htmlDisclaimerViewController, animated: true)
 	}
-
+	
 	private func showQRCodeScanner() {
 		let qrCodeScannerViewController = HealthCertificateQRCodeScannerViewController(
 			healthCertificateService: healthCertificateService,
@@ -86,11 +86,11 @@ final class HealthCertificateCoordinator {
 				self?.navigationController.dismiss(animated: true)
 			}, dismiss: { [weak self] in self?.endCoordinator() }
 		)
-
+		
 		let qrCodeNavigationController = UINavigationController(rootViewController: qrCodeScannerViewController)
 		navigationController.present(qrCodeNavigationController, animated: true)
 	}
-
+	
 	private func showHealthCertifiedPerson(_ healthCertifiedPerson: HealthCertifiedPerson) {
 		let healthCertificatePersonViewController = HealthCertifiedPersonViewController(
 			healthCertificateService: healthCertificateService,
@@ -105,25 +105,26 @@ final class HealthCertificateCoordinator {
 			},
 			didTapRegisterAnotherHealthCertificate: { [weak self] in self?.showQRCodeScanner() }
 		)
-
+		
 		let footerViewController = FooterViewController(
 			FooterViewModel(
-				primaryButtonName: "Weitere Impfung registrieren",
+				primaryButtonName: "Aktualisieren",
+				secondaryButtonName: "Weitere Impfung registrieren",
 				isPrimaryButtonEnabled: true,
-				isSecondaryButtonEnabled: false,
-				isSecondaryButtonHidden: true,
-				backgroundColor: .enaColor(for: .background)
+				isSecondaryButtonEnabled: true,
+				isSecondaryButtonHidden: false,
+				backgroundColor: .enaColor(for: .backgroundLightGray)
 			)
 		)
-
+		
 		let topBottomContainerViewController = TopBottomContainerViewController(
 			topController: healthCertificatePersonViewController,
 			bottomController: footerViewController
 		)
-
+		
 		navigationController.pushViewController(topBottomContainerViewController, animated: false)
 	}
-
+	
 	private func showHealthCertificate(
 		healthCertifiedPerson: HealthCertifiedPerson,
 		healthCertificate: HealthCertificate
@@ -139,30 +140,31 @@ final class HealthCertificateCoordinator {
 						title: AppStrings.HealthCertificate.Alert.deleteButton,
 						style: .default,
 						handler: { _ in
+							self?.healthCertificateService.removeHealthCertificate(healthCertificate)
 							self?.navigationController.popToRootViewController(animated: true)
 						}
 					)
 				)
 			}
 		)
-
+		
 		let footerViewController = FooterViewController(
 			FooterViewModel(
 				primaryButtonName: AppStrings.HealthCertificate.Details.primaryButton,
 				isPrimaryButtonEnabled: true,
 				isSecondaryButtonEnabled: false,
 				isSecondaryButtonHidden: true,
-				backgroundColor: .enaColor(for: .background)
+				backgroundColor: .enaColor(for: .cellBackground)
 			)
 		)
-
+		
 		let topBottomContainerViewController = TopBottomContainerViewController(
 			topController: healthCertificateViewController,
 			bottomController: footerViewController
 		)
 		navigationController.pushViewController(topBottomContainerViewController, animated: true)
 	}
-
+	
 	private func showDeleteAlert(submitAction: UIAlertAction) {
 		let alert = UIAlertController(
 			title: AppStrings.HealthCertificate.Alert.title,
@@ -171,13 +173,13 @@ final class HealthCertificateCoordinator {
 		)
 		alert.addAction(
 			UIAlertAction(
-							title: AppStrings.HealthCertificate.Alert.cancelButton,
-							style: .cancel,
-							handler: nil
+				title: AppStrings.HealthCertificate.Alert.cancelButton,
+				style: .cancel,
+				handler: nil
 			)
 		)
 		alert.addAction(submitAction)
 		navigationController.present(alert, animated: true)
 	}
-
+	
 }

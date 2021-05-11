@@ -195,7 +195,6 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 	private var tableContentObserver: NSKeyValueObservation!
 
 	private func setupView() {
-		parent?.view.backgroundColor = .clear
 		backgroundView.translatesAutoresizingMaskIntoConstraints = false
 		view.addSubview(backgroundView)
 

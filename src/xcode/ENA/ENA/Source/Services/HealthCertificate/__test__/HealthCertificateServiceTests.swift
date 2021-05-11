@@ -11,13 +11,7 @@ import HealthCertificateToolkit
 class HealthCertificateServiceTests: XCTestCase {
 
 	func testHealthCertifiedPersonsPublisherTriggeredAndStoreUpdated() throws {
-		let healthCertifiedPerson = HealthCertifiedPerson(
-			healthCertificates: [],
-			proofCertificate: nil
-		)
-
 		let store = MockTestStore()
-		store.healthCertifiedPersons = [healthCertifiedPerson]
 
 		let service = HealthCertificateService(store: store)
 
@@ -29,12 +23,18 @@ class HealthCertificateServiceTests: XCTestCase {
 				healthCertifiedPersonsExpectation.fulfill()
 			}
 
-		let healthCertificate = HealthCertificate.mock()
-		healthCertifiedPerson.healthCertificates = [healthCertificate]
+		let result = service.registerHealthCertificate(base45: HealthCertificate.mockBase45)
+
+		switch result {
+		case.success(let healthCertifiedPerson):
+			XCTAssertEqual(healthCertifiedPerson.healthCertificates, [HealthCertificate.mock()])
+		case .failure:
+			XCTFail("Registration should succeed")
+		}
 
 		waitForExpectations(timeout: .short)
 
-		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [healthCertificate])
+		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [HealthCertificate.mock()])
 
 		subscription.cancel()
 	}

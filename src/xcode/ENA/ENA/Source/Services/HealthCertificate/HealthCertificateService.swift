@@ -11,24 +11,26 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 	// MARK: - Init
 
 	init(
-		store: HealthCertificateStoring
+		store: HealthCertificateStoring,
+		proofCertificateDownload: ProofCertificateDownload = ProofCertificateDownload()
 	) {
 		self.store = store
+		self.proofCertificateDownload = proofCertificateDownload
 
 		updatePublishersFromStore()
-		updateHealthCertifiedPersonSubscriptions()
 		updateProofCertificateOnDidBecomeActive()
+
+		healthCertifiedPersons
+			.sink { [weak self] healthCertifiedPersons in
+				self?.store.healthCertifiedPersons = healthCertifiedPersons
+				self?.updateHealthCertifiedPersonSubscriptions(for: healthCertifiedPersons)
+			}
+			.store(in: &subscriptions)
 	}
 
 	// MARK: - Internal
 
-	private(set) var healthCertifiedPersons = CurrentValueSubject<[HealthCertifiedPerson], Never>([]) {
-		didSet {
-			store.healthCertifiedPersons = healthCertifiedPersons.value
-
-			updateHealthCertifiedPersonSubscriptions()
-		}
-	}
+	private(set) var healthCertifiedPersons = CurrentValueSubject<[HealthCertifiedPerson], Never>([])
 
 	func registerHealthCertificate(
 		base45: Base45
@@ -101,7 +103,7 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 		trigger: FetchProofCertificateTrigger,
 		completion: @escaping (Result<Void, HealthCertificateServiceError.ProofRequestError>) -> Void
 	) {
-		guard healthCertifiedPerson.shouldAutomaticallyUpdateProofCertificate || trigger != .automatic else {
+		guard healthCertifiedPerson.shouldAutomaticallyUpdateProofCertificate || trigger == .manual else {
 			Log.info("[HealthCertificateService] Not requesting proof for health certified person: \(private: healthCertifiedPerson). (proofCertificateUpdatePending: \(healthCertifiedPerson.proofCertificateUpdatePending), lastProofCertificateUpdate: \(String(describing: healthCertifiedPerson.lastProofCertificateUpdate)), trigger: \(trigger))", log: .api)
 
 			return
@@ -109,17 +111,8 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 
 		Log.info("[HealthCertificateService] Requesting proof for health certified person: \(private: healthCertifiedPerson). (proofCertificateUpdatePending: \(healthCertifiedPerson.proofCertificateUpdatePending), lastProofCertificateUpdate: \(String(describing: healthCertifiedPerson.lastProofCertificateUpdate)), trigger: \(trigger)", log: .api)
 
-		let healthCertificates = healthCertifiedPerson.healthCertificates
-			.filter { $0.isEligibleForProofCertificate }
-			.map { $0.base45 }
-
-		if healthCertificates.isEmpty {
-			healthCertifiedPerson.removeProofCertificateIfExpired()
-			completion(.success(()))
-		}
-
-		ProofCertificateDownload().fetchProofCertificate(
-			for: healthCertificates,
+		proofCertificateDownload.fetchProofCertificate(
+			for: healthCertifiedPerson.healthCertificates.map { $0.base45 },
 			completion: { result in
 				switch result {
 				case .success(let base45):
@@ -155,13 +148,15 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 	// MARK: - Private
 
 	private var store: HealthCertificateStoring
-	private var healthCertifiedPersonSubscriptions = Set<AnyCancellable>()
-	private var didBecomeActiveSubscription: AnyCancellable?
+	private let proofCertificateDownload: ProofCertificateDownload
 
-	private func updateHealthCertifiedPersonSubscriptions() {
+	private var healthCertifiedPersonSubscriptions = Set<AnyCancellable>()
+	private var subscriptions = Set<AnyCancellable>()
+
+	private func updateHealthCertifiedPersonSubscriptions(for healthCertifiedPersons: [HealthCertifiedPerson]) {
 		healthCertifiedPersonSubscriptions = []
 
-		healthCertifiedPersons.value.forEach { healthCertifiedPerson in
+		healthCertifiedPersons.forEach { healthCertifiedPerson in
 			healthCertifiedPerson.objectDidChange
 				.sink { [weak self] _ in
 					guard let self = self else { return }
@@ -173,7 +168,7 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 	}
 
 	private func updateProofCertificateOnDidBecomeActive() {
-		didBecomeActiveSubscription = NotificationCenter.default.ocombine
+		NotificationCenter.default.ocombine
 			.publisher(for: UIApplication.didBecomeActiveNotification)
 			.sink { [weak self] _ in
 				self?.healthCertifiedPersons.value.forEach { healthCertifiedPerson in
@@ -184,6 +179,7 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 					)
 				}
 			}
+			.store(in: &subscriptions)
 	}
 
 }

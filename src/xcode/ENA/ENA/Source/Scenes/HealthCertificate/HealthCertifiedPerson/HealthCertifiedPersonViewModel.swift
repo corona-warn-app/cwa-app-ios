@@ -13,7 +13,8 @@ final class HealthCertifiedPersonViewModel {
 	init(
 		healthCertificateService: HealthCertificateServiceProviding,
 		healthCertifiedPerson: HealthCertifiedPerson,
-		vaccinationValueSetsProvider: VaccinationValueSetsProvider
+		vaccinationValueSetsProvider: VaccinationValueSetsProvider,
+		dismiss: @escaping () -> Void
 	) {
 		self.healthCertificateService = healthCertificateService
 		self.healthCertifiedPerson = healthCertifiedPerson
@@ -22,12 +23,17 @@ final class HealthCertifiedPersonViewModel {
 		// setup gradient update
 		healthCertifiedPerson.$hasValidProofCertificate
 			.sink { [weak self] in
-				self?.gradientType = $0 ? .blueOnly : .solidGrey
+				self?.gradientType = $0 ? .lightBlue : .solidGrey
 			}
 			.store(in: &subscriptions)
 
 		healthCertifiedPerson.objectDidChange
-			.sink { [weak self] _ in
+			.sink { [weak self] healthCertifiedPerson in
+				guard !healthCertifiedPerson.healthCertificates.isEmpty else {
+					dismiss()
+					return
+				}
+
 				self?.triggerReload = true
 			}
 			.store(in: &subscriptions)
@@ -101,18 +107,16 @@ final class HealthCertifiedPersonViewModel {
 		)
 	}()
 
-	let qrCodeCellViewModel: HealthCertificateQRCodeCellViewModel = {
-		HealthCertificateQRCodeCellViewModel(
-			backgroundColor: .enaColor(for: .background),
-			borderColor: .enaColor(for: .hairline)
-		)
-	}()
-
 	@OpenCombine.Published private(set) var gradientType: GradientView.GradientType = .solidGrey
 	@OpenCombine.Published private(set) var triggerReload: Bool = false
+	@OpenCombine.Published private(set) var updateError: Error?
 
-	var healthCertificateCellViewModel: HealthCertificateCellViewModel {
-		HealthCertificateCellViewModel(healthCertificate: "Dummy", type: gradientType)
+	var qrCodeCellViewModel: HealthCertificateQRCodeCellViewModel {
+		guard let proofCertificate = healthCertifiedPerson.proofCertificate else {
+			fatalError("Cell cannot be shown without a proof certificate")
+		}
+
+		return HealthCertificateQRCodeCellViewModel(proofCertificate: proofCertificate)
 	}
 
 	var personCellViewModel: HealthCertificateSimpleTextCellViewModel {
@@ -157,12 +161,43 @@ final class HealthCertifiedPersonViewModel {
 		}
 	}
 
+	func healthCertificateCellViewModel(row: Int) -> HealthCertificateCellViewModel {
+		HealthCertificateCellViewModel(
+			healthCertificate: healthCertifiedPerson.healthCertificates[row],
+			gradientType: gradientType
+		)
+	}
+
 	func healthCertificate(for indexPath: IndexPath) -> HealthCertificate? {
 		guard TableViewSection.map(indexPath.section) == .certificates,
 			  healthCertifiedPerson.healthCertificates.indices.contains(indexPath.row) else {
 			return nil
 		}
 		return healthCertifiedPerson.healthCertificates[indexPath.row]
+	}
+
+	func updateProofCertificate(trigger: FetchProofCertificateTrigger) {
+		healthCertificateService.updateProofCertificate(
+			for: healthCertifiedPerson,
+			trigger: trigger,
+			completion: { [weak self] result in
+				if case .failure(let error) = result {
+					self?.updateError = error
+				}
+			}
+		)
+	}
+
+	func canEditRow(at indexPath: IndexPath) -> Bool {
+		return TableViewSection.map(indexPath.section) == .certificates
+	}
+
+	func removeHealthCertificate(at indexPath: IndexPath) {
+		guard TableViewSection.map(indexPath.section) == .certificates else {
+			return
+		}
+
+		healthCertificateService.removeHealthCertificate(healthCertifiedPerson.healthCertificates[indexPath.row])
 	}
 
 	// MARK: - Private

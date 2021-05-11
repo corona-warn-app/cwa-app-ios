@@ -45,6 +45,9 @@ public struct DigitalGreenCertificateAccess {
     // MARK: - Internal
 
     func extractCBOR(from base45: Base45) -> Result<CBORData, CertificateDecodingError> {
+        guard base45.hasPrefix(hcPrefix) else {
+            return .failure(.HC_PREFIX_INVALID)
+        }
         let base45WithoutPrefix = base45.dropPrefix(hcPrefix)
 
         guard let zipData = try? base45WithoutPrefix.fromBase45() else {
@@ -75,13 +78,13 @@ public struct DigitalGreenCertificateAccess {
             return .failure(.HC_CBORWEBTOKEN_NO_ISSUER)
         }
 
-        guard let expirationTimeElement = cborWebToken[6],
+        guard let expirationTimeElement = cborWebToken[4],
               case let .unsignedInt(expirationTime) = expirationTimeElement else {
             return .failure(.HC_CBORWEBTOKEN_NO_EXPIRATIONTIME)
         }
 
         var issuedAt: UInt64?
-        if let issuedAtElement = cborWebToken[4],
+        if let issuedAtElement = cborWebToken[6],
            case let .unsignedInt(_issuedAt) = issuedAtElement {
             issuedAt = _issuedAt
         }
