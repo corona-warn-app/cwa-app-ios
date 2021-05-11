@@ -76,6 +76,7 @@ final class HealthCertificateViewModel {
 
 		let centerParagraphStyle = NSMutableParagraphStyle()
 		centerParagraphStyle.alignment = .center
+		centerParagraphStyle.lineSpacing = 10.0
 
 		let attributedName = NSAttributedString(
 			string: String(format: AppStrings.HealthCertificate.Details.vaccinationCount, vaccinationCertificate.doseNumber, vaccinationCertificate.totalSeriesOfDoses),
