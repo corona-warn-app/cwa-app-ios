@@ -29,6 +29,7 @@ class HealthCertificateKeyValueTextCell: UITableViewCell, ReuseIdentifierProvidi
 		detailsTextLabel.textColor = cellViewModel.textTextColor
 		headlineTextLabel.text = cellViewModel.headline
 		detailsTextLabel.text = cellViewModel.text
+		bottomSeparatorView.isHidden = cellViewModel.isBottomSeparatorHidden
 	}
 
 	// MARK: - Private
@@ -37,6 +38,7 @@ class HealthCertificateKeyValueTextCell: UITableViewCell, ReuseIdentifierProvidi
 	private let headlineTextLabel = ENALabel()
 	private let detailsTextLabel = ENALabel()
 	private var topSpaceLayoutConstraint: NSLayoutConstraint!
+	private let bottomSeparatorView = UIView()
 
 	private func setupView() {
 		backgroundColor = .clear
@@ -54,9 +56,12 @@ class HealthCertificateKeyValueTextCell: UITableViewCell, ReuseIdentifierProvidi
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		stackView.alignment = .leading
 		stackView.axis = .vertical
-		stackView.spacing = 8.0
-
+		stackView.spacing = 0.0
 		backgroundContainerView.addSubview(stackView)
+
+		bottomSeparatorView.translatesAutoresizingMaskIntoConstraints = false
+		bottomSeparatorView.backgroundColor = .enaColor(for: .hairline)
+		backgroundContainerView.addSubview(bottomSeparatorView)
 
 		NSLayoutConstraint.activate(
 			[
@@ -65,10 +70,16 @@ class HealthCertificateKeyValueTextCell: UITableViewCell, ReuseIdentifierProvidi
 				backgroundContainerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.0),
 				backgroundContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.0),
 
-				stackView.topAnchor.constraint(equalTo: backgroundContainerView.topAnchor, constant: 18.0),
-				stackView.bottomAnchor.constraint(equalTo: backgroundContainerView.bottomAnchor, constant: -18.0),
+				stackView.topAnchor.constraint(equalTo: backgroundContainerView.topAnchor, constant: 12.0),
+				stackView.bottomAnchor.constraint(equalTo: backgroundContainerView.bottomAnchor, constant: -6.0),
 				stackView.leadingAnchor.constraint(equalTo: backgroundContainerView.leadingAnchor, constant: 14.0),
-				stackView.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor, constant: -14.0)
+				stackView.trailingAnchor.constraint(equalTo: bottomSeparatorView.trailingAnchor, constant: -14.0),
+
+//				bottomSeparatorView.topAnchor.constraint(greaterThanOrEqualTo: stackView.bottomAnchor, constant: 0.0),
+				bottomSeparatorView.heightAnchor.constraint(equalToConstant: 1),
+				bottomSeparatorView.bottomAnchor.constraint(equalTo: backgroundContainerView.bottomAnchor),
+				bottomSeparatorView.leadingAnchor.constraint(equalTo: backgroundContainerView.leadingAnchor, constant: 7.0),
+				bottomSeparatorView.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor, constant: -7.0)
 			]
 		)
 	}

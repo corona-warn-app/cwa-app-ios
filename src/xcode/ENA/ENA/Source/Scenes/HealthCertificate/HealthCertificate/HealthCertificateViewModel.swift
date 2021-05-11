@@ -71,7 +71,7 @@ final class HealthCertificateViewModel {
 	var headlineCellViewModel: HealthCertificateSimpleTextCellViewModel {
 		guard let vaccinationCertificate = healthCertificate.vaccinationCertificates.first else {
 			Log.error("Failed to setup certificate details without vaccinationCertificates")
-			fatalError()
+			fatalError("missing vaccinationCertificates")
 		}
 
 		let centerParagraphStyle = NSMutableParagraphStyle()
@@ -189,7 +189,8 @@ final class HealthCertificateViewModel {
 
 		let certificateNumberCellViewModel = HealthCertificateKeyValueCellViewModel(
 			key: AppStrings.HealthCertificate.Details.identifier,
-			value: healthCertificate.vaccinationCertificates.first?.uniqueCertificateIdentifier
+			value: healthCertificate.vaccinationCertificates.first?.uniqueCertificateIdentifier,
+			isBottomSeparatorHidden: true
 		)
 
 		healthCertificateKeyValueCellViewModel = [
