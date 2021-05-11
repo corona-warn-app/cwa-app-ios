@@ -109,17 +109,8 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 
 		Log.info("[HealthCertificateService] Requesting proof for health certified person: \(private: healthCertifiedPerson). (proofCertificateUpdatePending: \(healthCertifiedPerson.proofCertificateUpdatePending), lastProofCertificateUpdate: \(String(describing: healthCertifiedPerson.lastProofCertificateUpdate)), trigger: \(trigger)", log: .api)
 
-		let healthCertificates = healthCertifiedPerson.healthCertificates
-			.filter { $0.isEligibleForProofCertificate }
-			.map { $0.base45 }
-
-		if healthCertificates.isEmpty {
-			healthCertifiedPerson.removeProofCertificateIfExpired()
-			completion(.success(()))
-		}
-
 		ProofCertificateDownload().fetchProofCertificate(
-			for: healthCertificates,
+			for: healthCertifiedPerson.healthCertificates.map { $0.base45 },
 			completion: { result in
 				switch result {
 				case .success(let base45):
