@@ -49,7 +49,7 @@ class StreamReader {
 			let offset = UInt64(max(data.count - StreamReader.logSizeThreshold, 0))
 			if offset > 0 {
 				isLogTruncated = true
-				// offset the handle to show jsut the last `logSizeThreshold` bytes
+				// offset the handle to show just the last `logSizeThreshold` bytes
 				if #available(iOS 13.0, *) {
 					try fileHandle.seek(toOffset: offset)
 				} else {
