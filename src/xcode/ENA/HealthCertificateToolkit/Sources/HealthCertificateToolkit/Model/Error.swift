@@ -24,4 +24,5 @@ public enum CertificateDecodingError: Error {
     // HC_CWT_NO_DGC
     case HC_CBORWEBTOKEN_NO_DIGITALGREENCERTIFICATE
     case HC_JSON_SCHEMA_INVALID
+    case HC_PREFIX_INVALID
 }

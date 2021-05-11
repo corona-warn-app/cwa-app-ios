@@ -9,7 +9,7 @@ extension ProofCertificateDownload {
 
 	func fetchProofCertificate(
 		for healthCertificates: [Base45],
-		completion: @escaping (Result<CBORData?, ProofCertificateFetchingError>) -> Void
+		completion: @escaping (Result<Base45?, ProofCertificateFetchingError>) -> Void
 	) {
 		let pinningKeyHash = Environments().currentEnvironment().healthCertificatePinningKeyHash
 		let session = URLSession.coronaWarnSession(
