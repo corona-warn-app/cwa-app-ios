@@ -78,13 +78,13 @@ public struct DigitalGreenCertificateAccess {
             return .failure(.HC_CBORWEBTOKEN_NO_ISSUER)
         }
 
-        guard let expirationTimeElement = cborWebToken[6],
+        guard let expirationTimeElement = cborWebToken[4],
               case let .unsignedInt(expirationTime) = expirationTimeElement else {
             return .failure(.HC_CBORWEBTOKEN_NO_EXPIRATIONTIME)
         }
 
         var issuedAt: UInt64?
-        if let issuedAtElement = cborWebToken[4],
+        if let issuedAtElement = cborWebToken[6],
            case let .unsignedInt(_issuedAt) = issuedAtElement {
             issuedAt = _issuedAt
         }

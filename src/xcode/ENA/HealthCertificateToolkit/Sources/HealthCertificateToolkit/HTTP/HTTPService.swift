@@ -5,15 +5,23 @@
 import Foundation
 
 public protocol HTTPServiceProtocol {
-    func execute(request: URLRequest, completion: @escaping (Data?, URLResponse?, Error?) -> Void)
+    func execute(
+        request: URLRequest,
+        urlSession: URLSession,
+        completion: @escaping (Data?, URLResponse?, Error?) -> Void
+    )
 }
 
 public struct HTTPService: HTTPServiceProtocol {
 
     public init() {}
 
-    public func execute(request: URLRequest, completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
-        let task = URLSession.shared.dataTask(with: request, completionHandler: completion)
+    public func execute(
+        request: URLRequest,
+        urlSession: URLSession,
+        completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
+
+        let task = urlSession.dataTask(with: request, completionHandler: completion)
         task.resume()
     }
 }
