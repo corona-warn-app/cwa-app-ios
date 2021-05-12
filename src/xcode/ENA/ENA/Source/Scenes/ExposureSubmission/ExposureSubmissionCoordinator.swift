@@ -92,6 +92,32 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	func showTanScreen() {
 		let tanInputViewModel = TanInputViewModel(
 			coronaTestService: model.coronaTestService,
+			presentOverrideTestNotice: { [weak self] testType, feedbackHandler in
+				
+				let footerViewModel = FooterViewModel(
+					primaryButtonName: AppStrings.ExposureSubmission.OverwriteNotice.primaryButton,
+					isSecondaryButtonHidden: true
+				)
+
+				let overwriteNoticeViewController = TestOverwriteNoticeViewController(
+					testType: testType,
+					didTapPrimaryButton: {
+						self?.navigationController?.dismiss(animated: true) {
+							feedbackHandler(true)
+						}
+					},
+					didTapCloseButton: { [weak self] in
+						self?.navigationController?.dismiss(animated: true) {
+							feedbackHandler(false)
+						}
+					}
+				)
+
+				let footerViewController = FooterViewController(footerViewModel)
+				let topBottomViewController = TopBottomContainerViewController(topController: overwriteNoticeViewController, bottomController: footerViewController)
+				let nc = UINavigationController(rootViewController: topBottomViewController)
+				self?.navigationController?.present(nc, animated: true)
+			},
 			presentInvalidTanAlert: { [weak self] localizedDescription, completion  in
 				self?.presentTanInvalidAlert(localizedDescription: localizedDescription, completion: completion)
 			},

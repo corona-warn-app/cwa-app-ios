@@ -11,11 +11,13 @@ final class TanInputViewModel {
 	
 	init(
 		coronaTestService: CoronaTestService,
+		presentOverrideTestNotice: @escaping (CoronaTestType, @escaping (Bool) -> Void) -> Void,
 		presentInvalidTanAlert: @escaping (String, @escaping () -> Void) -> Void,
 		tanSuccessfullyTransferred: @escaping () -> Void,
 		givenTan: String? = nil
 	) {
 		self.coronaTestService = coronaTestService
+		self.presentOverrideTestNotice = presentOverrideTestNotice
 		self.presentInvalidTanAlert = presentInvalidTanAlert
 		self.tanSuccessfullyTransferred = tanSuccessfullyTransferred
 		self.text = givenTan ?? ""
@@ -63,20 +65,14 @@ final class TanInputViewModel {
 			return
 		}
 
-		isPrimaryButtonEnabled = false
-		isPrimaryBarButtonIsLoading = true
-		coronaTestService.registerPCRTest(teleTAN: text, isSubmissionConsentGiven: false) { [weak self] result in
-			switch result {
-			case let .failure(error):
-				// If teleTAN is incorrect, show Alert Controller
-				self?.isPrimaryButtonEnabled = true
-				self?.isPrimaryBarButtonIsLoading = false
-				self?.presentInvalidTanAlert(error.localizedDescription) {
-					self?.didDissMissInvalidTanAlert?()
+		if let test = coronaTestService.coronaTest(ofType: .pcr) {
+			presentOverrideTestNotice(test.type, { [weak self] overrideTest in
+				if overrideTest {
+					self?.registerPCRTest()
 				}
-			case .success:
-				self?.tanSuccessfullyTransferred()
-			}
+			})
+		} else {
+			registerPCRTest()
 		}
 	}
 
@@ -101,6 +97,7 @@ final class TanInputViewModel {
 	}
 
 	private let coronaTestService: CoronaTestService
+	private let presentOverrideTestNotice: (CoronaTestType, @escaping (Bool) -> Void) -> Void
 	private let presentInvalidTanAlert: (String, @escaping () -> Void) -> Void
 	private let tanSuccessfullyTransferred: () -> Void
 
@@ -116,5 +113,22 @@ final class TanInputViewModel {
 		default: return nil
 		}
 	}
-
+	
+	private func registerPCRTest() {
+		isPrimaryButtonEnabled = false
+		isPrimaryBarButtonIsLoading = true
+		coronaTestService.registerPCRTest(teleTAN: text, isSubmissionConsentGiven: false) { [weak self] result in
+			switch result {
+			case let .failure(error):
+				// If teleTAN is incorrect, show Alert Controller
+				self?.isPrimaryButtonEnabled = true
+				self?.isPrimaryBarButtonIsLoading = false
+				self?.presentInvalidTanAlert(error.localizedDescription) {
+					self?.didDissMissInvalidTanAlert?()
+				}
+			case .success:
+				self?.tanSuccessfullyTransferred()
+			}
+		}
+	}
 }
