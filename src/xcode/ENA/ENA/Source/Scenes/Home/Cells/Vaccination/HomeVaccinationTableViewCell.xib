@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -33,7 +33,7 @@
                                 <rect key="frame" x="20" y="16" width="280" height="222"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Digitaler Impfnachweis" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QPs-Ho-64x" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="280" height="16"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="280" height="14.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" name="ENA Text Contrast Color"/>
                                         <nil key="highlightedColor"/>
@@ -42,7 +42,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="SARS-CoV-2 Impfschutz" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="51j-mV-sZS" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="62" width="280" height="26.5"/>
+                                        <rect key="frame" x="0.0" y="64" width="280" height="23"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" name="ENA Text Contrast Color"/>
                                         <nil key="highlightedColor"/>
@@ -51,7 +51,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unvollständiger Impfschutz" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="01t-BK-4b5" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="135" width="280" height="20.5"/>
+                                        <rect key="frame" x="0.0" y="136.5" width="280" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" name="ENA Text Contrast Color"/>
                                         <nil key="highlightedColor"/>
@@ -60,7 +60,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Andrea Schneider" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bx0-F9-UYS" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="201.5" width="280" height="20.5"/>
+                                        <rect key="frame" x="0.0" y="204" width="280" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" name="ENA Text Contrast Color"/>
                                         <nil key="highlightedColor"/>
@@ -70,7 +70,7 @@
                                     </label>
                                 </subviews>
                             </stackView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Vacc_half" translatesAutoresizingMaskIntoConstraints="NO" id="gEG-vY-s6G">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Vacc_Incomplete" translatesAutoresizingMaskIntoConstraints="NO" id="gEG-vY-s6G">
                                 <rect key="frame" x="310" y="62" width="90" height="90"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="gEG-vY-s6G" secondAttribute="height" multiplier="1:1" id="GeU-Mu-GFF"/>
@@ -118,21 +118,21 @@
     </objects>
     <designables>
         <designable name="01t-BK-4b5">
-            <size key="intrinsicContentSize" width="208" height="20.5"/>
+            <size key="intrinsicContentSize" width="187.5" height="18"/>
         </designable>
         <designable name="51j-mV-sZS">
-            <size key="intrinsicContentSize" width="253.5" height="26.5"/>
+            <size key="intrinsicContentSize" width="223" height="23"/>
         </designable>
         <designable name="QPs-Ho-64x">
-            <size key="intrinsicContentSize" width="137.5" height="16"/>
+            <size key="intrinsicContentSize" width="128.5" height="14.5"/>
         </designable>
         <designable name="bx0-F9-UYS">
-            <size key="intrinsicContentSize" width="136" height="20.5"/>
+            <size key="intrinsicContentSize" width="122.5" height="18"/>
         </designable>
     </designables>
     <resources>
         <image name="Icons_Chevron" width="30" height="30"/>
-        <image name="Vacc_half" width="90" height="75"/>
+        <image name="Vacc_Incomplete" width="90" height="75"/>
         <namedColor name="ENA Risk Neutral Color">
             <color red="0.36470588235294116" green="0.43529411764705883" blue="0.50196078431372548" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
