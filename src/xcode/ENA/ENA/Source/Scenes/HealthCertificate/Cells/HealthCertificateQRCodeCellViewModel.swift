@@ -11,9 +11,26 @@ struct HealthCertificateQRCodeCellViewModel {
 	init(
 		healthCertificate: HealthCertificateData
 	) {
-		self.healthCertificate = healthCertificate
-		self.certificate = "Impfzertifikat 2 von 2"
-		self.validity = "Geimpft 24.04.21 - gültig bis 24.04.22"
+		var dateOfVaccination: String = ""
+		if let vaccinationDate = healthCertificate.dateOfVaccination {
+			dateOfVaccination = DateFormatter.localizedString(from: vaccinationDate, dateStyle: .medium, timeStyle: .none)
+		}
+		let expirationDate = DateFormatter.localizedString(from: healthCertificate.expirationDate, dateStyle: .medium, timeStyle: .none)
+		self.validity = String(
+			format: AppStrings.HealthCertificate.Details.validity,
+			dateOfVaccination, expirationDate
+		)
+		self.certificate = String(
+			format: AppStrings.HealthCertificate.Details.certificateCount,
+			healthCertificate.doseNumber, healthCertificate.totalSeriesOfDoses
+		)
+
+		self.qrCodeImage = UIImage.qrCode(
+			with: healthCertificate.base45,
+			encoding: .utf8,
+			size: CGSize(width: 280.0, height: 280.0),
+			qrCodeErrorCorrectionLevel: .medium
+		) ?? UIImage()
 	}
 
 	// MARK: - Internal
@@ -22,24 +39,6 @@ struct HealthCertificateQRCodeCellViewModel {
 	let borderColor: UIColor = .enaColor(for: .hairline)
 	let certificate: String
 	let validity: String
-
-	// QRCode image with data inside
-	func qrCodeImage(revDate: Date = Date()) -> UIImage {
-		guard let QRCodeImage = UIImage.qrCode(
-			with: healthCertificate.base45,
-			encoding: .utf8,
-			size: CGSize(width: 280.0, height: 280.0),
-			qrCodeErrorCorrectionLevel: .medium
-		)
-		else {
-			Log.error("Failed to create QRCode image for proof certificate")
-			return UIImage()
-		}
-		return QRCodeImage
-	}
-
-	// MARK: - Private
-
-	let healthCertificate: HealthCertificateData
+	let qrCodeImage: UIImage
 
 }

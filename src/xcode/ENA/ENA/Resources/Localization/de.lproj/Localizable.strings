@@ -2494,11 +2494,17 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Details_certificate" = "Impfzertifikat";
 
+"HealthCertificate_Details_certificateCount" = "Impfzertifikat %i von %i";
+
+"HealthCertificate_Details_validity" = "Geimpft %@ - gültig bis %@";
+
 "HealthCertificate_Details_dateOfBirth" = "geboren %@";
 
 "HealthCertificate_Details_dateOfVaccination" = "Datum der Impfung";
 
 "HealthCertificate_Details_vaccine" = "Impfstoff";
+
+"HealthCertificate_Details_vaccineType" = "Impfstoffart";
 
 "HealthCertificate_Details_manufacture" = "Hersteller";
 

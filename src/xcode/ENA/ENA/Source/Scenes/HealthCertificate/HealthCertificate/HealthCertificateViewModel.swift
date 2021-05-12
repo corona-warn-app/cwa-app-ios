@@ -68,6 +68,8 @@ final class HealthCertificateViewModel {
 		}
 	}
 
+	let qrCodeCellViewModel: HealthCertificateQRCodeCellViewModel
+
 	@OpenCombine.Published private(set) var gradientType: GradientView.GradientType = .solidGrey
 	@OpenCombine.Published private(set) var healthCertificateKeyValueCellViewModel: [HealthCertificateKeyValueCellViewModel] = []
 
@@ -76,17 +78,14 @@ final class HealthCertificateViewModel {
 		centerParagraphStyle.alignment = .center
 		centerParagraphStyle.lineSpacing = 10.0
 
-		var attributedName: NSAttributedString?
-		if let vaccinationCertificate = healthCertificate.vaccinationCertificates.first {
-			attributedName = NSAttributedString(
-				string: String(format: AppStrings.HealthCertificate.Details.vaccinationCount, vaccinationCertificate.doseNumber, vaccinationCertificate.totalSeriesOfDoses),
-				attributes: [
-					.font: UIFont.enaFont(for: .headline),
-					.foregroundColor: UIColor.enaColor(for: .textContrast),
-					.paragraphStyle: centerParagraphStyle
-				]
-			)
-		}
+		let attributedName = NSAttributedString(
+			string: String(format: AppStrings.HealthCertificate.Details.vaccinationCount, healthCertificate.doseNumber, healthCertificate.totalSeriesOfDoses),
+			attributes: [
+				.font: UIFont.enaFont(for: .headline),
+				.foregroundColor: UIColor.enaColor(for: .textContrast),
+				.paragraphStyle: centerParagraphStyle
+			]
+		)
 
 		let attributedDetails = NSAttributedString(
 			string: AppStrings.HealthCertificate.Details.certificate,
@@ -101,15 +100,12 @@ final class HealthCertificateViewModel {
 			backgroundColor: .clear,
 			textAlignment: .center,
 			attributedText: [attributedName, attributedDetails]
-				.compactMap { $0 }
 				.joined(with: "\n"),
 			topSpace: 18.0,
 			font: .enaFont(for: .headline),
 			accessibilityTraits: .staticText
 		)
 	}
-
-	let qrCodeCellViewModel: HealthCertificateQRCodeCellViewModel
 
 	func numberOfItems(in section: TableViewSection) -> Int {
 		switch section {
@@ -132,11 +128,6 @@ final class HealthCertificateViewModel {
 
 	private let healthCertificate: HealthCertificateData
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProvider
-	private let dateFormatter: DateFormatter = {
-		let dateFormatter = DateFormatter()
-		dateFormatter.dateFormat = "YYYY-MM-dd"
-		return dateFormatter
-	}()
 
 	private var valueSets: SAP_Internal_Dgc_ValueSets?
 	private var subscriptions = Set<AnyCancellable>()
@@ -144,7 +135,7 @@ final class HealthCertificateViewModel {
 	private func setupHealthCertificateKeyValueCellViewModel() {
 		// person cell - always visible
 		var dateOfBirth: String = ""
-		if let date = dateFormatter.date(from: healthCertificate.dateOfBirth) {
+		if let date = healthCertificate.dateOfBirthDate {
 			dateOfBirth = DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .none)
 		}
 		let nameCellViewModel = HealthCertificateKeyValueCellViewModel(
@@ -156,19 +147,18 @@ final class HealthCertificateViewModel {
 		// all vaccinationCertificate cell data - optional values
 		let vaccinationCertificate = healthCertificate.vaccinationCertificates.first
 		var dateCellViewModel: HealthCertificateKeyValueCellViewModel?
-		if	let dateString = vaccinationCertificate?.dateOfVaccination,
-			let date = dateFormatter.date(from: dateString) {
+		if	let date = healthCertificate.dateOfVaccination {
 			dateCellViewModel = HealthCertificateKeyValueCellViewModel(
 				key: AppStrings.HealthCertificate.Details.dateOfVaccination,
 				value: DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .none)
 			)
 		}
 
-		var vaccinationCellViewModel: HealthCertificateKeyValueCellViewModel?
+		var vaccineCellViewModel: HealthCertificateKeyValueCellViewModel?
 		if let valueSet = valueSet(by: .mp),
 		   let key = vaccinationCertificate?.vaccineMedicinalProduct {
 			let value = determineValue(key: key, valueSet: valueSet)
-			vaccinationCellViewModel = HealthCertificateKeyValueCellViewModel(
+			vaccineCellViewModel = HealthCertificateKeyValueCellViewModel(
 				key: AppStrings.HealthCertificate.Details.vaccine,
 				value: value
 			)
@@ -180,6 +170,16 @@ final class HealthCertificateViewModel {
 			let value = determineValue(key: key, valueSet: valueSet)
 			manufacturerCellViewModel = HealthCertificateKeyValueCellViewModel(
 				key: AppStrings.HealthCertificate.Details.manufacture,
+				value: value
+			)
+		}
+
+		var vaccineTypeCellViewModel: HealthCertificateKeyValueCellViewModel?
+		if let valueSet = valueSet(by: .vp),
+		   let key = vaccinationCertificate?.vaccineOrProphylaxis {
+			let value = determineValue(key: key, valueSet: valueSet)
+			vaccineTypeCellViewModel = HealthCertificateKeyValueCellViewModel(
+				key: AppStrings.HealthCertificate.Details.vaccineType,
 				value: value
 			)
 		}
@@ -208,8 +208,9 @@ final class HealthCertificateViewModel {
 		healthCertificateKeyValueCellViewModel = [
 			nameCellViewModel,
 			dateCellViewModel,
-			vaccinationCellViewModel,
+			vaccineCellViewModel,
 			manufacturerCellViewModel,
+			vaccineTypeCellViewModel,
 			issuerCellViewModel,
 			countryCellViewModel,
 			certificateNumberCellViewModel
