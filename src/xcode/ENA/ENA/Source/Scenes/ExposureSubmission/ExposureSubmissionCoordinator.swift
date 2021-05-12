@@ -115,7 +115,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 				let footerViewController = FooterViewController(footerViewModel)
 				let topBottomViewController = TopBottomContainerViewController(topController: overwriteNoticeViewController, bottomController: footerViewController)
-				let nc = UINavigationController(rootViewController: topBottomViewController)
+				let nc = DismissHandlingNavigationController(rootViewController: topBottomViewController)
 				self?.navigationController?.present(nc, animated: true)
 			},
 			presentInvalidTanAlert: { [weak self] localizedDescription, completion  in
