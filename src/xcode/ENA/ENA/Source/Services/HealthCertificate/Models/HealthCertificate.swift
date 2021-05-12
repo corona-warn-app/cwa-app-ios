@@ -12,7 +12,7 @@ protocol HealthCertificateData {
 	var dateOfBirth: String { get }
 	var dateOfBirthDate: Date? { get }
 	var vaccinationCertificates: [VaccinationCertificate] { get }
-	var isEligibleForProofCertificate: Bool { get }
+	var isLastDoseInASeries: Bool { get }
 	var expirationDate: Date { get }
 	var dateOfVaccination: Date? { get }
 	var doseNumber: Int { get }
@@ -73,8 +73,8 @@ struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable 
 		digitalGreenCertificate.vaccinationCertificates
 	}
 
-	var isEligibleForProofCertificate: Bool {
-		digitalGreenCertificate.isEligibleForProofCertificate
+	var isLastDoseInASeries: Bool {
+		digitalGreenCertificate.isLastDoseInASeries
 	}
 
 	var expirationDate: Date {

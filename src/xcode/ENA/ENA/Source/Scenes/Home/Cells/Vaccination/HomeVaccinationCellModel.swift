@@ -14,13 +14,17 @@ class HomeVaccinationCellModel {
 		onUpdate: @escaping () -> Void
 	) {
 		self.healthCertifiedPerson = healthCertifiedPerson
-		healthCertifiedPerson.$hasValidProofCertificate.sink { isValid in
-			self.isProgressLabelHidden = isValid
-			self.backgroundColor = isValid ? .enaColor(for: .buttonPrimary) : .enaColor(for: .riskNeutral)
-			self.iconimage = isValid ? UIImage(named: "Vaccination_full") : UIImage(named: "Vacc_Incomplete")
-			self.vaccinatedPersonName = healthCertifiedPerson.fullName
-			onUpdate()
-		}.store(in: &subscriptions)
+
+		healthCertifiedPerson.$vaccinationState
+			.sink { [weak self] in
+				self?.isProgressLabelHidden = $0 == .completelyProtected
+				self?.backgroundColor = $0 == .completelyProtected ? .enaColor(for: .buttonPrimary) : .enaColor(for: .riskNeutral)
+				self?.iconimage = $0 == .completelyProtected ? UIImage(named: "Vaccination_full") : UIImage(named: "Vacc_Incomplete")
+				self?.vaccinatedPersonName = healthCertifiedPerson.fullName
+
+				onUpdate()
+			}
+			.store(in: &subscriptions)
 	}
 	
 	// MARK: - Internal

@@ -9,49 +9,46 @@ class HealthCertifiedPerson: Codable, Equatable {
 
 	// MARK: - Init
 
-	init(healthCertificates: [HealthCertificate], proofCertificate: ProofCertificate?) {
+	init(healthCertificates: [HealthCertificate]) {
 		self.healthCertificates = healthCertificates
-		self.proofCertificate = proofCertificate
 
-		setupExpiredPublisher(for: proofCertificate)
+		updateVaccinationState()
+		subscribeToNotifications()
 	}
 
 	// MARK: - Protocol Codable
 
 	enum CodingKeys: String, CodingKey {
 		case healthCertificates
-		case proofCertificate
-		case lastProofCertificateUpdate
-		case proofCertificateUpdatePending
 	}
 
 	required init(from decoder: Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 
 		healthCertificates = try container.decode([HealthCertificate].self, forKey: .healthCertificates)
-		proofCertificate = try container.decodeIfPresent(ProofCertificate.self, forKey: .proofCertificate)
-		lastProofCertificateUpdate = try container.decodeIfPresent(Date.self, forKey: .lastProofCertificateUpdate)
-		proofCertificateUpdatePending = try container.decode(Bool.self, forKey: .proofCertificateUpdatePending)
 
-		setupExpiredPublisher(for: proofCertificate)
+		updateVaccinationState()
 	}
 
 	func encode(to encoder: Encoder) throws {
 		var container = encoder.container(keyedBy: CodingKeys.self)
 
 		try container.encode(healthCertificates, forKey: .healthCertificates)
-		try container.encodeIfPresent(proofCertificate, forKey: .proofCertificate)
-		try container.encodeIfPresent(lastProofCertificateUpdate, forKey: .lastProofCertificateUpdate)
-		try container.encode(proofCertificateUpdatePending, forKey: .proofCertificateUpdatePending)
 	}
 
 	// MARK: - Protocol Equatable
 
 	static func == (lhs: HealthCertifiedPerson, rhs: HealthCertifiedPerson) -> Bool {
-		lhs.proofCertificate == rhs.proofCertificate && lhs.healthCertificates == rhs.healthCertificates
+		lhs.healthCertificates == rhs.healthCertificates
 	}
 
 	// MARK: - Internal
+
+	enum VaccinationState: Equatable {
+		case partiallyVaccinated
+		case fullyVaccinated(daysUntilCompleteProtection: Int)
+		case completelyProtected
+	}
 
 	var healthCertificates: [HealthCertificate] {
 		didSet {
@@ -59,104 +56,68 @@ class HealthCertifiedPerson: Codable, Equatable {
 		}
 	}
 
-	var proofCertificate: ProofCertificate? {
+	@OpenCombine.Published var vaccinationState: VaccinationState = .partiallyVaccinated {
 		didSet {
-			setupExpiredPublisher(for: proofCertificate)
 			objectDidChange.send(self)
 		}
 	}
 
 	var objectDidChange = OpenCombine.PassthroughSubject<HealthCertifiedPerson, Never>()
 
-	@OpenCombine.Published var hasValidProofCertificate: Bool = false {
-		didSet {
-			objectDidChange.send(self)
-		}
-	}
-
 	var fullName: String? {
-		proofCertificate?.fullName ?? healthCertificates.first?.name.fullName
+		healthCertificates.first?.name.fullName
 	}
 
 	var dateOfBirth: String? {
-		proofCertificate?.dateOfBirth ?? healthCertificates.first?.dateOfBirth
-	}
-
-	// LAST_SUCCESSFUL_PC_RUN_TIMESTAMP
-	var lastProofCertificateUpdate: Date?
-
-	// PC_RUN_PENDING
-	var proofCertificateUpdatePending: Bool = false
-
-	var shouldAutomaticallyUpdateProofCertificate: Bool {
-		if proofCertificateUpdatePending {
-			return true
-		}
-
-		guard let lastProofCertificateUpdate = lastProofCertificateUpdate else {
-			return true
-		}
-
-		return !Calendar.utc().isDateInToday(lastProofCertificateUpdate)
-	}
-
-	func removeProofCertificateIfExpired() {
-		if proofCertificate?.isExpired == true {
-			proofCertificate = nil
-		}
+		healthCertificates.first?.dateOfBirth
 	}
 
 	// MARK: - Private
 
-	private var expiredStateTimer: Timer?
+	private var subscriptions = Set<AnyCancellable>()
 
-	private func setupExpiredPublisher(for proofCertificate: ProofCertificate?) {
-		guard let proofCertificate = proofCertificate else {
-			hasValidProofCertificate = false
-			return
+	private var completeVaccinationProtectionDate: Date? {
+		guard
+			let lastVaccination = healthCertificates.last, lastVaccination.isLastDoseInASeries,
+			let vaccinationDateString = lastVaccination.vaccinationCertificates.first?.dateOfVaccination,
+			let vaccinationDate = ISO8601DateFormatter.contactDiaryFormatter.date(from: vaccinationDateString)
+		else {
+			return nil
 		}
 
-		hasValidProofCertificate = !proofCertificate.isExpired
+		return Calendar.current.date(byAdding: .day, value: 14, to: vaccinationDate)
+	}
 
-		if hasValidProofCertificate {
-			scheduleExpiredStateTimer(for: proofCertificate)
+	private func updateVaccinationState() {
+		if let completeVaccinationProtectionDate = completeVaccinationProtectionDate {
+			if completeVaccinationProtectionDate > Date() {
+				guard let daysUntilCompleteProtection = Calendar.current.dateComponents([.day], from: Date(), to: completeVaccinationProtectionDate).day else {
+					fatalError("Could not get days until complete protection")
+				}
+
+				vaccinationState = .fullyVaccinated(daysUntilCompleteProtection: daysUntilCompleteProtection)
+			} else {
+				vaccinationState = .completelyProtected
+			}
+		} else {
+			vaccinationState = .partiallyVaccinated
 		}
 	}
 
-	private func scheduleExpiredStateTimer(for proofCertificate: ProofCertificate) {
-		expiredStateTimer?.invalidate()
-		NotificationCenter.default.removeObserver(self, name: UIApplication.didEnterBackgroundNotification, object: nil)
-		NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
+	private func subscribeToNotifications() {
+		NotificationCenter.default.ocombine
+			.publisher(for: UIApplication.didBecomeActiveNotification)
+			.sink { [weak self] _ in
+				self?.updateVaccinationState()
+			}
+			.store(in: &subscriptions)
 
-		// Schedule new timer.
-		NotificationCenter.default.addObserver(self, selector: #selector(invalidateTimer), name: UIApplication.didEnterBackgroundNotification, object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(refreshUpdateTimerAfterResumingFromBackground), name: UIApplication.didBecomeActiveNotification, object: nil)
-
-		expiredStateTimer = Timer(fireAt: proofCertificate.expirationDate, interval: 0, target: self, selector: #selector(updateFromTimer), userInfo: nil, repeats: false)
-
-		guard let expiredStateTimer = expiredStateTimer else { return }
-		RunLoop.current.add(expiredStateTimer, forMode: .common)
-	}
-
-	@objc
-	private func invalidateTimer() {
-		expiredStateTimer?.invalidate()
-	}
-
-	@objc
-	private func refreshUpdateTimerAfterResumingFromBackground() {
-		updateFromTimer()
-
-		setupExpiredPublisher(for: proofCertificate)
-	}
-
-	@objc
-	private func updateFromTimer() {
-		guard let proofCertificate = proofCertificate else {
-			return
-		}
-
-		hasValidProofCertificate = !proofCertificate.isExpired
+		NotificationCenter.default.ocombine
+			.publisher(for: UIApplication.significantTimeChangeNotification)
+			.sink { [weak self] _ in
+				self?.updateVaccinationState()
+			}
+			.store(in: &subscriptions)
 	}
 
 }

@@ -20,7 +20,7 @@ class MockHealthCertificateService: HealthCertificateServiceProviding {
 			healthCertificates.append(healthCertificate)
 		}
 
-		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: healthCertificates, proofCertificate: nil)
+		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: healthCertificates)
 		healthCertifiedPersons.value = [healthCertifiedPerson]
 		return .success(healthCertifiedPerson)
 	}
@@ -29,14 +29,6 @@ class MockHealthCertificateService: HealthCertificateServiceProviding {
 		if let index = healthCertifiedPersons.value.first?.healthCertificates.firstIndex(of: healthCertificate) {
 			healthCertifiedPersons.value.first?.healthCertificates.remove(at: index)
 		}
-	}
-
-	func updateProofCertificate(
-		for healthCertifiedPerson: HealthCertifiedPerson,
-		trigger: FetchProofCertificateTrigger,
-		completion: (Result<Void, HealthCertificateServiceError.ProofRequestError>) -> Void
-	) {
-		completion(.success(()))
 	}
 
 }

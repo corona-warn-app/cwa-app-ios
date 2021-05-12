@@ -11,11 +11,7 @@ import HealthCertificateToolkit
 class HealthCertifiedPersonTests: XCTestCase {
 
 	func testHealthCertifiedPersonObjectDidChangeTriggered() throws {
-		let healthCertifiedPerson = HealthCertifiedPerson(
-			healthCertificates: [],
-			proofCertificate: nil
-		)
-
+		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [])
 		let healthCertificate = HealthCertificate.mock()
 
 		let objectDidChangeExpectation = expectation(description: "objectDidChange publisher updated")

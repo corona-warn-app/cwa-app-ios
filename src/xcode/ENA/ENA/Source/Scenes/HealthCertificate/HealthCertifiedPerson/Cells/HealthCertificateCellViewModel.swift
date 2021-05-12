@@ -49,7 +49,7 @@ final class HealthCertificateCellViewModel {
 	}
 
 	var image: UIImage {
-		if healthCertificate.isEligibleForProofCertificate {
+		if healthCertificate.isLastDoseInASeries {
 			return UIImage(imageLiteralResourceName: "Icon - Vollschild")
 		} else {
 			return UIImage(imageLiteralResourceName: "Icon - Teilschild")

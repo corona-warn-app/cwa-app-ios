@@ -21,9 +21,9 @@ final class HealthCertifiedPersonViewModel {
 		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
 
 		// setup gradient update
-		healthCertifiedPerson.$hasValidProofCertificate
+		healthCertifiedPerson.$vaccinationState
 			.sink { [weak self] in
-				self?.gradientType = $0 ? .lightBlue : .solidGrey
+				self?.gradientType = $0 == .completelyProtected ? .lightBlue : .solidGrey
 			}
 			.store(in: &subscriptions)
 
@@ -51,8 +51,8 @@ final class HealthCertifiedPersonViewModel {
 
 	enum TableViewSection: Int, CaseIterable {
 		case header
-		case incompleteVaccination
 		case qrCode
+		case fullyVaccinatedHint
 		case person
 		case certificates
 
@@ -101,33 +101,6 @@ final class HealthCertifiedPersonViewModel {
 		)
 	}()
 
-	let incompleteVaccinationCellViewModel: HealthCertificateSimpleTextCellViewModel = {
-		let attributedName = NSAttributedString(
-			string: "SARS-CoV-2\nImpfung",
-			attributes: [
-				.font: UIFont.enaFont(for: .title1),
-				.foregroundColor: UIColor.enaColor(for: .textPrimary1)
-			]
-		)
-
-		let attributedDetails = NSAttributedString(
-			string: "Unvollständiger Impfschutz",
-			attributes: [
-				.font: UIFont.enaFont(for: .body),
-				.foregroundColor: UIColor.enaColor(for: .textPrimary1)
-			]
-		)
-
-		return HealthCertificateSimpleTextCellViewModel(
-			backgroundColor: .enaColor(for: .background),
-			attributedText: [attributedName, attributedDetails].joined(with: "\n"),
-			topSpace: 18.0,
-			font: .enaFont(for: .headline),
-			boarderColor: .enaColor(for: .hairline),
-			accessibilityTraits: .staticText
-		)
-	}()
-
 	@OpenCombine.Published private(set) var gradientType: GradientView.GradientType = .solidGrey
 	@OpenCombine.Published private(set) var triggerReload: Bool = false
 	@OpenCombine.Published private(set) var updateError: Error?
@@ -139,6 +112,21 @@ final class HealthCertifiedPersonViewModel {
 		}
 
 		return HealthCertificateQRCodeCellViewModel(healthCertificate: latestHealthCertificate)
+	}
+
+	var fullyVaccinatedHintCellViewModel: HealthCertificateSimpleTextCellViewModel {
+		guard case .fullyVaccinated(daysUntilCompleteProtection: let daysUntilCompleteProtection) = healthCertifiedPerson.vaccinationState else {
+			fatalError("Cell cannot be shown in any other vaccination state than .fullyVaccinated")
+		}
+
+		return HealthCertificateSimpleTextCellViewModel(
+			backgroundColor: .enaColor(for: .background),
+			text: "Sie haben nun alle derzeit geplanten Impfungen erhalten. Allerdings ist der Impfschutz erst in \(daysUntilCompleteProtection) Tagen vollständig.",
+			topSpace: 18.0,
+			font: .enaFont(for: .headline),
+			boarderColor: .enaColor(for: .hairline),
+			accessibilityTraits: .staticText
+		)
 	}
 
 	var personCellViewModel: HealthCertificateSimpleTextCellViewModel {
@@ -172,10 +160,14 @@ final class HealthCertifiedPersonViewModel {
 		switch section {
 		case .header:
 			return 1
-		case .incompleteVaccination:
-			return !healthCertifiedPerson.hasValidProofCertificate ? 1 : 0
 		case .qrCode:
-			return healthCertifiedPerson.hasValidProofCertificate ? 1 : 0
+			return 1
+		case .fullyVaccinatedHint:
+			if case .fullyVaccinated = healthCertifiedPerson.vaccinationState {
+				return 1
+			} else {
+				return 0
+			}
 		case .person:
 			return 1
 		case .certificates:
@@ -196,18 +188,6 @@ final class HealthCertifiedPersonViewModel {
 			return nil
 		}
 		return healthCertifiedPerson.healthCertificates[indexPath.row]
-	}
-
-	func updateProofCertificate(trigger: FetchProofCertificateTrigger) {
-		healthCertificateService.updateProofCertificate(
-			for: healthCertifiedPerson,
-			trigger: trigger,
-			completion: { [weak self] result in
-				if case .failure(let error) = result {
-					self?.updateError = error
-				}
-			}
-		)
 	}
 
 	func canEditRow(at indexPath: IndexPath) -> Bool {

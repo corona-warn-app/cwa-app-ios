@@ -18,9 +18,9 @@ final class HealthCertificateViewModel {
 		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
 		self.qrCodeCellViewModel = HealthCertificateQRCodeCellViewModel(healthCertificate: healthCertificate)
 
-		healthCertifiedPerson.$hasValidProofCertificate
-			.sink { [weak self] isValid in
-				self?.gradientType = isValid ? .lightBlue : .solidGrey
+		healthCertifiedPerson.$vaccinationState
+			.sink { [weak self] in
+				self?.gradientType = $0 == .completelyProtected ? .lightBlue : .solidGrey
 			}
 			.store(in: &subscriptions)
 

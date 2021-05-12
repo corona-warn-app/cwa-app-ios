@@ -11,14 +11,11 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 	// MARK: - Init
 
 	init(
-		store: HealthCertificateStoring,
-		proofCertificateDownload: ProofCertificateDownload = ProofCertificateDownload()
+		store: HealthCertificateStoring
 	) {
 		self.store = store
-		self.proofCertificateDownload = proofCertificateDownload
 
 		updatePublishersFromStore()
-		updateProofCertificateOnDidBecomeActive()
 
 		healthCertifiedPersons
 			.sink { [weak self] healthCertifiedPersons in
@@ -44,7 +41,7 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 				return .failure(.noVaccinationEntry)
 			}
 
-			let healthCertifiedPerson = healthCertifiedPersons.value.first ?? HealthCertifiedPerson(healthCertificates: [], proofCertificate: nil)
+			let healthCertifiedPerson = healthCertifiedPersons.value.first ?? HealthCertifiedPerson(healthCertificates: [])
 
 			let isDuplicate = healthCertifiedPerson.healthCertificates
 				.contains(where: { $0.vaccinationCertificates.first?.uniqueCertificateIdentifier == vaccinationCertificate.uniqueCertificateIdentifier })
@@ -71,10 +68,6 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 				healthCertifiedPersons.value.append(healthCertifiedPerson)
 			}
 
-			if healthCertificate.isEligibleForProofCertificate {
-				healthCertifiedPerson.proofCertificateUpdatePending = true
-			}
-
 			return .success((healthCertifiedPerson))
 		} catch let error as CertificateDecodingError {
 			return .failure(.decodingError(error))
@@ -90,54 +83,11 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 
 				if healthCertifiedPerson.healthCertificates.isEmpty {
 					healthCertifiedPersons.value.removeAll(where: { $0 == healthCertifiedPerson })
-				} else if healthCertificate.isEligibleForProofCertificate {
-					healthCertifiedPerson.proofCertificateUpdatePending = true
 				}
 
 				break
 			}
 		}
-	}
-
-	func updateProofCertificate(
-		for healthCertifiedPerson: HealthCertifiedPerson,
-		trigger: FetchProofCertificateTrigger,
-		completion: @escaping (Result<Void, HealthCertificateServiceError.ProofRequestError>) -> Void
-	) {
-		guard healthCertifiedPerson.shouldAutomaticallyUpdateProofCertificate || trigger == .manual else {
-			Log.info("[HealthCertificateService] Not requesting proof for health certified person: \(private: healthCertifiedPerson). (proofCertificateUpdatePending: \(healthCertifiedPerson.proofCertificateUpdatePending), lastProofCertificateUpdate: \(String(describing: healthCertifiedPerson.lastProofCertificateUpdate)), trigger: \(trigger))", log: .api)
-
-			return
-		}
-
-		Log.info("[HealthCertificateService] Requesting proof for health certified person: \(private: healthCertifiedPerson). (proofCertificateUpdatePending: \(healthCertifiedPerson.proofCertificateUpdatePending), lastProofCertificateUpdate: \(String(describing: healthCertifiedPerson.lastProofCertificateUpdate)), trigger: \(trigger)", log: .api)
-
-		proofCertificateDownload.fetchProofCertificate(
-			for: healthCertifiedPerson.healthCertificates.map { $0.base45 },
-			completion: { result in
-				switch result {
-				case .success(let base45):
-					do {
-						healthCertifiedPerson.lastProofCertificateUpdate = Date()
-						healthCertifiedPerson.proofCertificateUpdatePending = false
-
-						healthCertifiedPerson.removeProofCertificateIfExpired()
-
-						if let base45 = base45 {
-							healthCertifiedPerson.proofCertificate = try ProofCertificate(base45: base45)
-						}
-
-						completion(.success(()))
-					} catch let error as CertificateDecodingError {
-						completion(.failure(.decodingError(error)))
-					} catch {
-						completion(.failure(.other(error)))
-					}
-				case .failure(let error):
-					completion(.failure(.fetchingError(error)))
-				}
-			}
-		)
 	}
 
 	func updatePublishersFromStore() {
@@ -149,7 +99,6 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 	// MARK: - Private
 
 	private var store: HealthCertificateStoring
-	private let proofCertificateDownload: ProofCertificateDownload
 
 	private var healthCertifiedPersonSubscriptions = Set<AnyCancellable>()
 	private var subscriptions = Set<AnyCancellable>()
@@ -166,21 +115,6 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 				}
 				.store(in: &healthCertifiedPersonSubscriptions)
 		}
-	}
-
-	private func updateProofCertificateOnDidBecomeActive() {
-		NotificationCenter.default.ocombine
-			.publisher(for: UIApplication.didBecomeActiveNotification)
-			.sink { [weak self] _ in
-				self?.healthCertifiedPersons.value.forEach { healthCertifiedPerson in
-					self?.updateProofCertificate(
-						for: healthCertifiedPerson,
-						trigger: .automatic,
-						completion: { _ in }
-					)
-				}
-			}
-			.store(in: &subscriptions)
 	}
 
 }
