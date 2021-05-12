@@ -48,12 +48,6 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 			parent?.navigationController?.navigationBar.tintColor = .enaColor(for: .tint)
 		}
 	}
-
-//	override func viewDidAppear(_ animated: Bool) {
-//		super.viewDidAppear(animated)
-//
-//		setupNavigationBar()
-//	}
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
