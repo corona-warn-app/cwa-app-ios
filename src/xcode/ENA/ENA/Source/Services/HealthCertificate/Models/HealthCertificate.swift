@@ -15,6 +15,8 @@ protocol HealthCertificateData {
 	var isEligibleForProofCertificate: Bool { get }
 	var expirationDate: Date { get }
 	var dateOfVaccination: Date? { get }
+	var doseNumber: Int { get }
+	var totalSeriesOfDoses: Int { get }
 }
 
 struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable {
@@ -84,6 +86,20 @@ struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable 
 			return nil
 		}
 		return Self.dateFormatter.date(from: dateString)
+	}
+
+	var doseNumber: Int {
+		guard let vaccinationCertificate = vaccinationCertificates.last else {
+			return 0
+		}
+		return vaccinationCertificate.doseNumber
+	}
+	
+	var totalSeriesOfDoses: Int {
+		guard let vaccinationCertificate = vaccinationCertificates.last else {
+			return 0
+		}
+		return vaccinationCertificate.totalSeriesOfDoses
 	}
 
 	// MARK: - Private

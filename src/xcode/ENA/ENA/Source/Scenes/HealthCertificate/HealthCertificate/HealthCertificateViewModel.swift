@@ -78,17 +78,14 @@ final class HealthCertificateViewModel {
 		centerParagraphStyle.alignment = .center
 		centerParagraphStyle.lineSpacing = 10.0
 
-		var attributedName: NSAttributedString?
-		if let vaccinationCertificate = healthCertificate.vaccinationCertificates.first {
-			attributedName = NSAttributedString(
-				string: String(format: AppStrings.HealthCertificate.Details.vaccinationCount, vaccinationCertificate.doseNumber, vaccinationCertificate.totalSeriesOfDoses),
-				attributes: [
-					.font: UIFont.enaFont(for: .headline),
-					.foregroundColor: UIColor.enaColor(for: .textContrast),
-					.paragraphStyle: centerParagraphStyle
-				]
-			)
-		}
+		let attributedName = NSAttributedString(
+			string: String(format: AppStrings.HealthCertificate.Details.vaccinationCount, healthCertificate.doseNumber, healthCertificate.totalSeriesOfDoses),
+			attributes: [
+				.font: UIFont.enaFont(for: .headline),
+				.foregroundColor: UIColor.enaColor(for: .textContrast),
+				.paragraphStyle: centerParagraphStyle
+			]
+		)
 
 		let attributedDetails = NSAttributedString(
 			string: AppStrings.HealthCertificate.Details.certificate,
@@ -103,7 +100,6 @@ final class HealthCertificateViewModel {
 			backgroundColor: .clear,
 			textAlignment: .center,
 			attributedText: [attributedName, attributedDetails]
-				.compactMap { $0 }
 				.joined(with: "\n"),
 			topSpace: 18.0,
 			font: .enaFont(for: .headline),
