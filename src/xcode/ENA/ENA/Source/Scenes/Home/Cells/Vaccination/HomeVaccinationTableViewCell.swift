@@ -22,20 +22,35 @@ class HomeVaccinationTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 
 		containerView.setHighlighted(highlighted, animated: animated)
 	}
+
+	override func prepareForReuse() {
+		super.prepareForReuse()
+
+		subscriptions = []
+	}
+
 	// MARK: - Internal
 
 	func configure(with cellModel: HomeVaccinationCellModel) {
-		guard !isConfigured else { return }
+		cellModel.$vaccinatedPersonName
+			.receive(on: DispatchQueue.main.ocombine)
+			.assign(to: \.text, on: nameLabel)
+			.store(in: &subscriptions)
 
-		cellModel.$vaccinatedPersonName.assign(to: \.text, on: nameLabel).store(in: &subscriptions)
-		cellModel.$isProgressLabelHidden.assign(to: \.isHidden, on: inProgressLabel).store(in: &subscriptions)
-		cellModel.$iconimage.assign(to: \.image, on: iconView).store(in: &subscriptions)
-		cellModel.$backgroundColor.sink { [weak self] color in
-			DispatchQueue.main.async {
-				self?.containerView.backgroundColor = color
-			}
-		}.store(in: &subscriptions)
-		isConfigured = true
+		cellModel.$isProgressLabelHidden
+			.receive(on: DispatchQueue.main.ocombine)
+			.assign(to: \.isHidden, on: inProgressLabel)
+			.store(in: &subscriptions)
+
+		cellModel.$iconimage
+			.receive(on: DispatchQueue.main.ocombine)
+			.assign(to: \.image, on: iconView)
+			.store(in: &subscriptions)
+
+		cellModel.$backgroundColor
+			.receive(on: DispatchQueue.main.ocombine)
+			.assign(to: \.backgroundColor, on: containerView)
+			.store(in: &subscriptions)
 	}
 	
 	// MARK: - Private

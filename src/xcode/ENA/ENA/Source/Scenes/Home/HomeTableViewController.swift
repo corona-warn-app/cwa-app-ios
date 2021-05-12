@@ -352,7 +352,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 	private var deltaOnboardingCoordinator: DeltaOnboardingCoordinator?
 	private var riskCell: UITableViewCell?
-	private var healthCertificateCell: UITableViewCell?
 	private var pcrTestResultCell: UITableViewCell?
 	private var pcrTestShownPositiveResultCell: UITableViewCell?
 	private var antigenTestResultCell: UITableViewCell?
@@ -456,12 +455,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	}
 	
 	private func healthCertificateCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-		if let healthCertificateCell = healthCertificateCell {
-			return healthCertificateCell
-		}
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeVaccinationTableViewCell.self), for: indexPath) as? HomeVaccinationTableViewCell else {
 			fatalError("Could not dequeue HomeVaccinationTableViewCell")
 		}
+
 		let healthCertifiedPerson = viewModel.healthCertifiedPersons[indexPath.row]
 		let cellModel = HomeVaccinationCellModel(
 			healthCertifiedPerson: healthCertifiedPerson,
@@ -470,7 +467,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			}
 		)
 		cell.configure(with: cellModel)
-		healthCertificateCell = cell
 
 		return cell
 	}

@@ -27,7 +27,7 @@ class HomeVaccinationCellModel {
 
 	@OpenCombine.Published var vaccinatedPersonName: String?
 	@OpenCombine.Published var isProgressLabelHidden: Bool = false
-	@OpenCombine.Published var backgroundColor: UIColor = .enaColor(for: .riskNeutral)
+	@OpenCombine.Published var backgroundColor: UIColor! = .enaColor(for: .riskNeutral)
 	@OpenCombine.Published var iconimage: UIImage?
 
 	// MARK: - Private
