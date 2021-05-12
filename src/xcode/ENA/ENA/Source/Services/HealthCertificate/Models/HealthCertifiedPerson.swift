@@ -92,7 +92,8 @@ class HealthCertifiedPerson: Codable, Equatable {
 	private func updateVaccinationState() {
 		if let completeVaccinationProtectionDate = completeVaccinationProtectionDate {
 			if completeVaccinationProtectionDate > Date() {
-				guard let daysUntilCompleteProtection = Calendar.current.dateComponents([.day], from: Date(), to: completeVaccinationProtectionDate).day else {
+				let startOfToday = Calendar.current.startOfDay(for: Date())
+				guard let daysUntilCompleteProtection = Calendar.current.dateComponents([.day], from: startOfToday, to: completeVaccinationProtectionDate).day else {
 					fatalError("Could not get days until complete protection")
 				}
 
