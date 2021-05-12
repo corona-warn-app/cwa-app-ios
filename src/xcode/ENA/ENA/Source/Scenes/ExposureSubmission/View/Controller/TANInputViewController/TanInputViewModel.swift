@@ -66,6 +66,7 @@ final class TanInputViewModel {
 		}
 
 		if let test = coronaTestService.coronaTest(ofType: .pcr) {
+			Log.info("Present overwrite view contrller because another PCR test is already registered", log: .ui)
 			presentOverrideTestNotice(test.type, { [weak self] overrideTest in
 				if overrideTest {
 					self?.registerPCRTest()
