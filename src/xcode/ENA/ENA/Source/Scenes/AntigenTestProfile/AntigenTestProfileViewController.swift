@@ -43,6 +43,11 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 		navigationController?.navigationBar.shadowImage = originalShadowImage
 	}
 
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+		
+	}
+	
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 		super.traitCollectionDidChange(previousTraitCollection)
 		didCalculateGradientHeight = false
