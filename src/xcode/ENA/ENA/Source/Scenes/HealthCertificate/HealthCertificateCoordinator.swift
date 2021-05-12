@@ -176,6 +176,7 @@ final class HealthCertificateCoordinator {
 				isPrimaryButtonEnabled: true,
 				isSecondaryButtonEnabled: false,
 				isSecondaryButtonHidden: true,
+				primaryButtonInverted: true,
 				backgroundColor: .enaColor(for: .cellBackground)
 			)
 		)
