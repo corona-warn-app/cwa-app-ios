@@ -34,10 +34,7 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, QRCodePos
 	///   - signatureVerifier: The signatureVerifier to use for package validation.
 	init(
 		environmentProvider: EnvironmentProviding = Environments(),
-		session: URLSession = URLSession.coronaWarnSession(
-			pinningKeyHash: Environments().currentEnvironment().pinningKeyHash,
-			configuration: .cachingSessionConfiguration()
-		),
+		session: URLSession = URLSession(configuration: .cachingSessionConfiguration()),
 		signatureVerifier: SignatureVerifier = SignatureVerifier()
 	) {
 		self.session = session

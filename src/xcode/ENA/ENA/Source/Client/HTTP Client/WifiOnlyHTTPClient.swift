@@ -9,12 +9,10 @@ import ZIPFoundation
 final class WifiOnlyHTTPClient: ClientWifiOnly {
 
 	// MARK: - Init
+
 	init(
 		environmentProvider: EnvironmentProviding = Environments(),
-		session: URLSession = URLSession.coronaWarnSession(
-			pinningKeyHash: Environments().currentEnvironment().pinningKeyHash,
-			configuration: .coronaWarnSessionConfigurationWifiOnly()
-		)
+		session: URLSession = URLSession(configuration: .coronaWarnSessionConfigurationWifiOnly())
 	) {
 		self.environmentProvider = environmentProvider
 		self.session = session
