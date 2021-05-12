@@ -32,10 +32,6 @@ class ExposureSubmissionQRInfoViewController: DynamicTableViewController, Footer
 		setupView()
 	}
 
-	override func viewWillDisappear(_ animated: Bool) {
-		super.viewWillDisappear(animated)
-	}
-
 	// MARK: - Protocol FooterViewHandling
 
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
