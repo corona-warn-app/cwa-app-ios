@@ -14,7 +14,7 @@ protocol HealthCertificateData {
 	var isEligibleForProofCertificate: Bool { get }
 }
 
-struct HealthCertificate: HealthCertificateData, Codable, Equatable {
+struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable {
 
 	// MARK: - Init
 
@@ -29,6 +29,19 @@ struct HealthCertificate: HealthCertificateData, Codable, Equatable {
 		}
 
 		self.base45 = base45
+	}
+
+	// MARK: - Protocol Comparable
+
+	static func < (lhs: HealthCertificate, rhs: HealthCertificate) -> Bool {
+		guard
+			let lhsVaccinationDate = lhs.vaccinationCertificates.first?.dateOfVaccination,
+			let rhsVaccinationDate = rhs.vaccinationCertificates.first?.dateOfVaccination
+		else {
+			return false
+		}
+
+		return lhsVaccinationDate < rhsVaccinationDate
 	}
 
 	// MARK: - Internal

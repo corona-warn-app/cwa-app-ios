@@ -65,6 +65,7 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 			}
 
 			healthCertifiedPerson.healthCertificates.append(healthCertificate)
+			healthCertifiedPerson.healthCertificates.sort(by: <)
 
 			if !healthCertifiedPersons.value.contains(healthCertifiedPerson) {
 				healthCertifiedPersons.value.append(healthCertifiedPerson)
