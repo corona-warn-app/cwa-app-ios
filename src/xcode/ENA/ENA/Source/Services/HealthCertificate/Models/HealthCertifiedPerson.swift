@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-class HealthCertifiedPerson: OpenCombine.ObservableObject, Codable, Equatable {
+class HealthCertifiedPerson: Codable, Equatable {
 
 	// MARK: - Init
 
@@ -53,13 +53,13 @@ class HealthCertifiedPerson: OpenCombine.ObservableObject, Codable, Equatable {
 
 	// MARK: - Internal
 
-	@OpenCombine.Published var healthCertificates: [HealthCertificate] {
+	var healthCertificates: [HealthCertificate] {
 		didSet {
 			objectDidChange.send(self)
 		}
 	}
 
-	@OpenCombine.Published var proofCertificate: ProofCertificate? {
+	var proofCertificate: ProofCertificate? {
 		didSet {
 			setupExpiredPublisher(for: proofCertificate)
 			objectDidChange.send(self)
