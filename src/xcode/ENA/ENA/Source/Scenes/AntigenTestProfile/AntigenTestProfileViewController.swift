@@ -49,12 +49,18 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 		}
 	}
 
-	override func viewDidAppear(_ animated: Bool) {
-		super.viewWillDisappear(animated)
-		
+//	override func viewDidAppear(_ animated: Bool) {
+//		super.viewDidAppear(animated)
+//
+//		setupNavigationBar()
+//	}
+	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+
 		setupNavigationBar()
 	}
-	
+
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 		super.traitCollectionDidChange(previousTraitCollection)
 		didCalculateGradientHeight = false
