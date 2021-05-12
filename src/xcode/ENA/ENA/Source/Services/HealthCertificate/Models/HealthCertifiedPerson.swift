@@ -28,6 +28,7 @@ class HealthCertifiedPerson: Codable, Equatable {
 		healthCertificates = try container.decode([HealthCertificate].self, forKey: .healthCertificates)
 
 		updateVaccinationState()
+		subscribeToNotifications()
 	}
 
 	func encode(to encoder: Encoder) throws {
