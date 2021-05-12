@@ -69,14 +69,35 @@ final class HealthCertifiedPersonViewModel {
 	}
 
 	let headerCellViewModel: HealthCertificateSimpleTextCellViewModel = {
-		HealthCertificateSimpleTextCellViewModel(
+		let centerParagraphStyle = NSMutableParagraphStyle()
+		centerParagraphStyle.alignment = .center
+		centerParagraphStyle.lineSpacing = 10.0
+
+		let attributedHeadline = NSAttributedString(
+			string: "Digitaler Impfnachweis",
+			attributes: [
+				.font: UIFont.enaFont(for: .headline),
+				.foregroundColor: UIColor.enaColor(for: .textContrast),
+				.paragraphStyle: centerParagraphStyle
+			]
+		)
+
+		let attributedSubheadline = NSAttributedString(
+			string: "SARS-CoV-2-Impfschutz",
+			attributes: [
+				.font: UIFont.enaFont(for: .body),
+				.foregroundColor: UIColor.enaColor(for: .textContrast),
+				.paragraphStyle: centerParagraphStyle
+			]
+		)
+
+		return HealthCertificateSimpleTextCellViewModel(
 			backgroundColor: .clear,
-			textColor: .enaColor(for: .textContrast),
 			textAlignment: .center,
-			text: "Digitaler Impfnachweis",
+			attributedText: [attributedHeadline, attributedSubheadline].joined(with: "\n"),
 			topSpace: 42.0,
 			font: .enaFont(for: .headline),
-			accessibilityTraits: .header
+			accessibilityTraits: .staticText
 		)
 	}()
 
