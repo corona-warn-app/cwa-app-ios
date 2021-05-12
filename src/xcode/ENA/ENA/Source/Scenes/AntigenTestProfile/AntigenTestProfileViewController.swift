@@ -41,6 +41,8 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 		navigationController?.navigationBar.setBackgroundImage(originalBackgroundImage, for: .default)
 		navigationController?.navigationBar.shadowImage = originalShadowImage
 		
+		parent?.navigationController?.navigationBar.prefersLargeTitles = true
+
 		if traitCollection.userInterfaceStyle == .dark {
 			parent?.navigationController?.navigationBar.tintColor = .enaColor(for: .textContrast)
 		} else {
@@ -189,6 +191,10 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 		navigationController?.navigationBar.shadowImage = emptyImage
 		navigationController?.navigationBar.isTranslucent = true
 		navigationController?.view.backgroundColor = .clear
+		
+		parent?.navigationController?.navigationBar.prefersLargeTitles = false
+		parent?.navigationController?.navigationBar.sizeToFit()
+		parent?.navigationItem.largeTitleDisplayMode = .never
 	}
 
 	private func setupBackground() {
