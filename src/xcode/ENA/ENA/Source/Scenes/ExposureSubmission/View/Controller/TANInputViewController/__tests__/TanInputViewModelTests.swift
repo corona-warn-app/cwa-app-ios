@@ -15,6 +15,7 @@ class TanInputViewModelTests: XCTestCase {
 				store: MockTestStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
+			presentOverrideTestNotice: { _, _  in },
 			presentInvalidTanAlert: { _, _  in },
 			tanSuccessfullyTransferred: { },
 			givenTan: "234567893D"
@@ -37,6 +38,7 @@ class TanInputViewModelTests: XCTestCase {
 				store: MockTestStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
+			presentOverrideTestNotice: { _, _  in },
 			presentInvalidTanAlert: { _, _  in },
 			tanSuccessfullyTransferred: { },
 			givenTan: "ZBYKEVDBNU"
@@ -59,6 +61,7 @@ class TanInputViewModelTests: XCTestCase {
 				store: MockTestStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
+			presentOverrideTestNotice: { _, _  in },
 			presentInvalidTanAlert: { _, _  in },
 			tanSuccessfullyTransferred: { },
 			givenTan: "ZBYKEVDBNL"
