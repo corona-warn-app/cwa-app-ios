@@ -43,7 +43,7 @@ final class HealthCertificateCoordinator {
 	
 	private func showConsentScreen() {
 		let consentScreen = HealthCertificateConsentViewController(
-			didTapConsentButton: { [weak self] in self?.showQRCodeScanner() },
+			didTapConsentButton: { [weak self] in self?.showQRCodeScanner(endOnDismiss: true) },
 			didTapDataPrivacy: { [weak self] in self?.showDisclaimer() },
 			dismiss: { [weak self] in self?.endCoordinator() }
 		)
@@ -78,13 +78,20 @@ final class HealthCertificateCoordinator {
 		navigationController.pushViewController(htmlDisclaimerViewController, animated: true)
 	}
 	
-	private func showQRCodeScanner() {
+	private func showQRCodeScanner(endOnDismiss: Bool) {
 		let qrCodeScannerViewController = HealthCertificateQRCodeScannerViewController(
 			healthCertificateService: healthCertificateService,
 			didScanCertificate: { [weak self] healthCertifiedPerson in
 				self?.showHealthCertifiedPerson(healthCertifiedPerson)
 				self?.navigationController.dismiss(animated: true)
-			}, dismiss: { [weak self] in self?.endCoordinator() }
+			},
+			dismiss: { [weak self] in
+				if endOnDismiss {
+					self?.endCoordinator()
+				} else {
+					self?.navigationController.dismiss(animated: true)
+				}
+			}
 		)
 
 		qrCodeScannerViewController.definesPresentationContext = true
@@ -107,7 +114,7 @@ final class HealthCertificateCoordinator {
 					healthCertificate: healthCertificate
 				)
 			},
-			didTapRegisterAnotherHealthCertificate: { [weak self] in self?.showQRCodeScanner() },
+			didTapRegisterAnotherHealthCertificate: { [weak self] in self?.showQRCodeScanner(endOnDismiss: false) },
 			didSwipeToDelete: { [weak self] healthCertificate, confirmDeletion in
 				self?.showDeleteAlert(
 					submitAction: UIAlertAction(
