@@ -10,8 +10,11 @@ protocol HealthCertificateData {
 	var version: String { get }
 	var name: HealthCertificateToolkit.Name { get }
 	var dateOfBirth: String { get }
+	var dateOfBirthDate: Date? { get }
 	var vaccinationCertificates: [VaccinationCertificate] { get }
 	var isEligibleForProofCertificate: Bool { get }
+	var expirationDate: Date { get }
+	var dateOfVaccination: Date? { get }
 }
 
 struct HealthCertificate: HealthCertificateData, Codable, Equatable {
@@ -47,6 +50,10 @@ struct HealthCertificate: HealthCertificateData, Codable, Equatable {
 		digitalGreenCertificate.dateOfBirth
 	}
 
+	var dateOfBirthDate: Date? {
+		return Self.dateFormatter.date(from: digitalGreenCertificate.dateOfBirth)
+	}
+
 	var vaccinationCertificates: [VaccinationCertificate] {
 		digitalGreenCertificate.vaccinationCertificates
 	}
@@ -55,7 +62,24 @@ struct HealthCertificate: HealthCertificateData, Codable, Equatable {
 		digitalGreenCertificate.isEligibleForProofCertificate
 	}
 
+	var expirationDate: Date {
+		Date(timeIntervalSince1970: TimeInterval(cborWebTokenHeader.expirationTime))
+	}
+
+	var dateOfVaccination: Date? {
+		guard let dateString = vaccinationCertificates.first?.dateOfVaccination else {
+			return nil
+		}
+		return Self.dateFormatter.date(from: dateString)
+	}
+
 	// MARK: - Private
+
+	private static let dateFormatter: DateFormatter = {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateFormat = "YYYY-MM-dd"
+		return dateFormatter
+	}()
 
 	private var cborWebTokenHeader: CBORWebTokenHeader {
 		let result = DigitalGreenCertificateAccess().extractCBORWebTokenHeader(from: base45)

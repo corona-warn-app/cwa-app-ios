@@ -59,7 +59,7 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 			}
 
 			let hasDifferentDateOfBirth = healthCertifiedPerson.healthCertificates
-				.contains(where: { $0.dateOfBirth != healthCertificate.dateOfBirth })
+				.contains(where: { $0.dateOfBirthDate != healthCertificate.dateOfBirthDate })
 			if hasDifferentDateOfBirth {
 				return .failure(.dateOfBirthMismatch)
 			}

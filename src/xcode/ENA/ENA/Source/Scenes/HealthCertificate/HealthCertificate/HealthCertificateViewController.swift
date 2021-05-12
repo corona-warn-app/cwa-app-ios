@@ -103,7 +103,7 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
 		// we are only interested in detail cell with person name once if the traitCollectionDidChange - to update gradientHeightConstraint
 		guard didCalculateGradientHeight == false,
-			  HealthCertificateViewModel.TableViewSection.map(indexPath.section)  == .details,
+			  HealthCertificateViewModel.TableViewSection.map(indexPath.section)  == .qrCode,
 			  indexPath.row == 0
 		else {
 			return
@@ -111,7 +111,7 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 
 		let cellRect = tableView.rectForRow(at: indexPath)
 		let result = view.convert(cellRect, from: tableView)
-		backgroundView.gradientHeightConstraint.constant = result.maxY
+		backgroundView.gradientHeightConstraint.constant = result.midY
 		didCalculateGradientHeight = true
 	}
 

@@ -25,15 +25,19 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 	// MARK: - Internal
 
 	func configure(with cellViewModel: HealthCertificateQRCodeCellViewModel) {
-		qrCodeImageView.image = cellViewModel.qrCodeImage()
+		qrCodeImageView.image = cellViewModel.qrCodeImage
 		backgroundContainerView.backgroundColor = cellViewModel.backgroundColor
 		backgroundContainerView.layer.borderColor = cellViewModel.borderColor.cgColor
+		certificateCountLabel.text = cellViewModel.certificate
+		validityLabel.text = cellViewModel.validity
 	}
 
 	// MARK: - Private
 
 	private let backgroundContainerView = UIView()
 	private let qrCodeImageView = UIImageView()
+	private let certificateCountLabel = ENALabel()
+	private let validityLabel = ENALabel()
 
 	private func setupView() {
 		backgroundColor = .clear
@@ -54,18 +58,35 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 		qrCodeImageView.contentMode = .scaleAspectFit
 		backgroundContainerView.addSubview(qrCodeImageView)
 
+		certificateCountLabel.translatesAutoresizingMaskIntoConstraints = false
+		certificateCountLabel.font = .enaFont(for: .body)
+
+		validityLabel.translatesAutoresizingMaskIntoConstraints = false
+		validityLabel.font = .enaFont(for: .subheadline)
+
+		let stackView = UIStackView(arrangedSubviews: [certificateCountLabel, validityLabel])
+		stackView.translatesAutoresizingMaskIntoConstraints = false
+		stackView.alignment = .leading
+		stackView.axis = .vertical
+		stackView.spacing = 4.0
+		backgroundContainerView.addSubview(stackView)
+
 		NSLayoutConstraint.activate(
 			[
 				backgroundContainerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0.0),
 				backgroundContainerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4.0),
 				backgroundContainerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.0),
 				backgroundContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.0),
-				backgroundContainerView.heightAnchor.constraint(equalTo: backgroundContainerView.widthAnchor),
 
-				qrCodeImageView.topAnchor.constraint(equalTo: backgroundContainerView.topAnchor, constant: 16.0),
-				qrCodeImageView.bottomAnchor.constraint(equalTo: backgroundContainerView.bottomAnchor, constant: -16.0),
-				qrCodeImageView.leadingAnchor.constraint(equalTo: backgroundContainerView.leadingAnchor, constant: 16.0),
-				qrCodeImageView.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor, constant: -16.0)
+				qrCodeImageView.leadingAnchor.constraint(equalTo: backgroundContainerView.leadingAnchor, constant: 14.0),
+				qrCodeImageView.topAnchor.constraint(equalTo: backgroundContainerView.topAnchor, constant: 14.0),
+				qrCodeImageView.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor, constant: -14.0),
+				qrCodeImageView.widthAnchor.constraint(equalTo: qrCodeImageView.heightAnchor),
+
+				stackView.leadingAnchor.constraint(equalTo: backgroundContainerView.leadingAnchor, constant: 14.0),
+				stackView.topAnchor.constraint(equalTo: qrCodeImageView.bottomAnchor, constant: 4.0),
+				stackView.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor, constant: -14.0),
+				stackView.bottomAnchor.constraint(equalTo: backgroundContainerView.bottomAnchor, constant: -14.0)
 			]
 		)
 

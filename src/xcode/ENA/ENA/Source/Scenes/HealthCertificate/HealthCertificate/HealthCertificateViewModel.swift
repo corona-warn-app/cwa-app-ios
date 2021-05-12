@@ -68,6 +68,8 @@ final class HealthCertificateViewModel {
 		}
 	}
 
+	let qrCodeCellViewModel: HealthCertificateQRCodeCellViewModel
+
 	@OpenCombine.Published private(set) var gradientType: GradientView.GradientType = .solidGrey
 	@OpenCombine.Published private(set) var healthCertificateKeyValueCellViewModel: [HealthCertificateKeyValueCellViewModel] = []
 
@@ -109,8 +111,6 @@ final class HealthCertificateViewModel {
 		)
 	}
 
-	let qrCodeCellViewModel: HealthCertificateQRCodeCellViewModel
-
 	func numberOfItems(in section: TableViewSection) -> Int {
 		switch section {
 		case .headline:
@@ -132,11 +132,6 @@ final class HealthCertificateViewModel {
 
 	private let healthCertificate: HealthCertificateData
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProvider
-	private let dateFormatter: DateFormatter = {
-		let dateFormatter = DateFormatter()
-		dateFormatter.dateFormat = "YYYY-MM-dd"
-		return dateFormatter
-	}()
 
 	private var valueSets: SAP_Internal_Dgc_ValueSets?
 	private var subscriptions = Set<AnyCancellable>()
@@ -144,7 +139,7 @@ final class HealthCertificateViewModel {
 	private func setupHealthCertificateKeyValueCellViewModel() {
 		// person cell - always visible
 		var dateOfBirth: String = ""
-		if let date = dateFormatter.date(from: healthCertificate.dateOfBirth) {
+		if let date = healthCertificate.dateOfBirthDate {
 			dateOfBirth = DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .none)
 		}
 		let nameCellViewModel = HealthCertificateKeyValueCellViewModel(
@@ -156,8 +151,7 @@ final class HealthCertificateViewModel {
 		// all vaccinationCertificate cell data - optional values
 		let vaccinationCertificate = healthCertificate.vaccinationCertificates.first
 		var dateCellViewModel: HealthCertificateKeyValueCellViewModel?
-		if	let dateString = vaccinationCertificate?.dateOfVaccination,
-			let date = dateFormatter.date(from: dateString) {
+		if	let date = healthCertificate.dateOfVaccination {
 			dateCellViewModel = HealthCertificateKeyValueCellViewModel(
 				key: AppStrings.HealthCertificate.Details.dateOfVaccination,
 				value: DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .none)
