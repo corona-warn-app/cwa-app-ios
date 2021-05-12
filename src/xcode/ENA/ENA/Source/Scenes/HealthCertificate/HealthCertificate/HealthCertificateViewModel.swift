@@ -16,6 +16,7 @@ final class HealthCertificateViewModel {
 	) {
 		self.healthCertificate = healthCertificate
 		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
+		self.qrCodeCellViewModel = HealthCertificateQRCodeCellViewModel(healthCertificate: healthCertificate)
 
 		healthCertifiedPerson.$hasValidProofCertificate
 			.sink { [weak self] isValid in
@@ -49,6 +50,7 @@ final class HealthCertificateViewModel {
 
 	enum TableViewSection: Int, CaseIterable {
 		case headline
+		case qrCode
 		case topCorner
 		case details
 		case bottomCorner
@@ -106,6 +108,8 @@ final class HealthCertificateViewModel {
 			accessibilityTraits: .staticText
 		)
 	}
+
+	let qrCodeCellViewModel: HealthCertificateQRCodeCellViewModel
 
 	func numberOfItems(in section: TableViewSection) -> Int {
 		switch section {

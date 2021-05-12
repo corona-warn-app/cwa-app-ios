@@ -9,7 +9,7 @@ struct HealthCertificateQRCodeCellViewModel {
 	// MARK: - Init
 
 	init(
-		healthCertificate: HealthCertificate
+		healthCertificate: HealthCertificateData
 	) {
 		self.healthCertificate = healthCertificate
 		self.certificate = "Impfzertifikat 2 von 2"
@@ -40,6 +40,6 @@ struct HealthCertificateQRCodeCellViewModel {
 
 	// MARK: - Private
 
-	let healthCertificate: HealthCertificate
+	let healthCertificate: HealthCertificateData
 
 }
