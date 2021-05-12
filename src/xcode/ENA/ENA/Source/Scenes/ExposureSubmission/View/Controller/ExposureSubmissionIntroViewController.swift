@@ -40,13 +40,6 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, ENANavi
 		footerView?.secondaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.secondaryButton
 	}
 
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
-		
-		navigationItem.largeTitleDisplayMode = .automatic
-		setupView()
-	}
-
 	override var navigationItem: UINavigationItem {
 		navigationFooterItem
 	}
