@@ -21,8 +21,7 @@ class ENAUITests_03_Settings: XCTestCase {
 		
 		app.swipeUp(velocity: .fast)
 
-		XCTAssertTrue(app.cells["AppStrings.Home.settingsCardTitle"].waitForExistence(timeout: 5.0))
-		app.cells["AppStrings.Home.settingsCardTitle"].tap()
+		app.cells["AppStrings.Home.settingsCardTitle"].waitAndTap()
 		
 		XCTAssertTrue(app.cells["AppStrings.Settings.tracingLabel"].waitForExistence(timeout: 5.0))
 		XCTAssertTrue(app.cells["AppStrings.Settings.notificationLabel"].waitForExistence(timeout: 5.0))
@@ -36,11 +35,9 @@ class ENAUITests_03_Settings: XCTestCase {
 		
 		app.swipeUp(velocity: .fast)
 
-		XCTAssertTrue(app.cells["AppStrings.Home.settingsCardTitle"].waitForExistence(timeout: 5.0))
-		app.cells["AppStrings.Home.settingsCardTitle"].tap()
+		app.cells["AppStrings.Home.settingsCardTitle"].waitAndTap()
 		
-		XCTAssertTrue(app.cells["AppStrings.Settings.backgroundAppRefreshLabel"].waitForExistence(timeout: 5.0))
-		app.cells["AppStrings.Settings.backgroundAppRefreshLabel"].tap()
+		app.cells["AppStrings.Settings.backgroundAppRefreshLabel"].waitAndTap()
 		
 		XCTAssertTrue(app.images["AppStrings.Settings.backgroundAppRefreshImageDescription"].waitForExistence(timeout: 5.0))
 	}

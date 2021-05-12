@@ -22,18 +22,15 @@ class ENAUITests_04b_ExposureDetection: XCTestCase {
 		launch()
 
 		// Tap risk card and wait for exposure details.
-		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer].waitForExistence(timeout: .long))
-		app.cells.buttons[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer].tap()
+		app.cells.buttons[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer].waitAndTap()
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.AccessibilityLabel.close].waitForExistence(timeout: .long))
 
 		// Scroll to and tap survey card.
 		let surveyCard = app.cells[AccessibilityIdentifiers.ExposureDetection.surveyCardCell]
-		XCTAssertTrue(surveyCard.waitForExistence(timeout: .long))
-		surveyCard.tap()
+		surveyCard.waitAndTap()
 
 		// Tap the survey start button.
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.SurveyConsent.acceptButton].waitForExistence(timeout: .long))
-		app.buttons[AccessibilityIdentifiers.SurveyConsent.acceptButton].tap()
+		app.buttons[AccessibilityIdentifiers.SurveyConsent.acceptButton].waitAndTap()
 	}
 
 	private func launch() {
