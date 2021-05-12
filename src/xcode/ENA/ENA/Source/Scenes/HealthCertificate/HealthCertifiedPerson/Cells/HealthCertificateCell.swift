@@ -30,6 +30,8 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 	// MARK: - Private
 
 	private let backgroundContainerView = UIView()
+	private let disclosureContainerView = UIView()
+	private let disclosureImageView = UIImageView()
 	private let headlineTextLabel = ENALabel()
 	private let detailsTextLabel = ENALabel()
 	private let shieldImageView = UIImageView()
@@ -55,12 +57,25 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 
 		headlineTextLabel.font = .enaFont(for: .headline)
 		headlineTextLabel.numberOfLines = 0
+		headlineTextLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
+
+		disclosureImageView.image = UIImage(named: "Icons_Chevron_plain")
+		disclosureImageView.contentMode = .scaleAspectFit
+		disclosureImageView.translatesAutoresizingMaskIntoConstraints = false
+
+		disclosureContainerView.addSubview(disclosureImageView)
+		disclosureContainerView.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+
+		let headlineStackView = UIStackView(arrangedSubviews: [headlineTextLabel, disclosureContainerView])
+		headlineStackView.alignment = .bottom
+		headlineStackView.distribution = .fill
+		headlineStackView.axis = .horizontal
+		headlineStackView.spacing = 8.0
 
 		detailsTextLabel.font = .enaFont(for: .subheadline)
 		detailsTextLabel.numberOfLines = 0
 
-		let vStackView = UIStackView(arrangedSubviews: [headlineTextLabel, detailsTextLabel])
-		vStackView.translatesAutoresizingMaskIntoConstraints = false
+		let vStackView = UIStackView(arrangedSubviews: [headlineStackView, detailsTextLabel])
 		vStackView.axis = .vertical
 		vStackView.spacing = 8.0
 
@@ -101,8 +116,14 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 
 				hStackView.topAnchor.constraint(equalTo: backgroundContainerView.topAnchor, constant: 16.0),
 				hStackView.bottomAnchor.constraint(equalTo: backgroundContainerView.bottomAnchor, constant: -24.0),
-				hStackView.leadingAnchor.constraint(equalTo: backgroundContainerView.leadingAnchor, constant: 14.0),
-				hStackView.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor, constant: -14.0)
+				hStackView.leadingAnchor.constraint(equalTo: backgroundContainerView.leadingAnchor, constant: 16.0),
+				hStackView.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor, constant: -16.0),
+
+				disclosureContainerView.leadingAnchor.constraint(equalTo: disclosureImageView.leadingAnchor),
+				disclosureContainerView.trailingAnchor.constraint(equalTo: disclosureImageView.trailingAnchor),
+
+				disclosureImageView.bottomAnchor.constraint(equalTo: headlineTextLabel.firstBaselineAnchor),
+				disclosureImageView.widthAnchor.constraint(equalToConstant: 7)
 			]
 		)
 	}

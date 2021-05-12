@@ -29,7 +29,7 @@ class HealthCertifiedPerson: Codable, Equatable {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 
 		healthCertificates = try container.decode([HealthCertificate].self, forKey: .healthCertificates)
-		proofCertificate = try container.decode(ProofCertificate.self, forKey: .proofCertificate)
+		proofCertificate = try container.decodeIfPresent(ProofCertificate.self, forKey: .proofCertificate)
 		lastProofCertificateUpdate = try container.decodeIfPresent(Date.self, forKey: .lastProofCertificateUpdate)
 		proofCertificateUpdatePending = try container.decode(Bool.self, forKey: .proofCertificateUpdatePending)
 
@@ -40,8 +40,8 @@ class HealthCertifiedPerson: Codable, Equatable {
 		var container = encoder.container(keyedBy: CodingKeys.self)
 
 		try container.encode(healthCertificates, forKey: .healthCertificates)
-		try container.encode(proofCertificate, forKey: .proofCertificate)
-		try container.encode(lastProofCertificateUpdate, forKey: .lastProofCertificateUpdate)
+		try container.encodeIfPresent(proofCertificate, forKey: .proofCertificate)
+		try container.encodeIfPresent(lastProofCertificateUpdate, forKey: .lastProofCertificateUpdate)
 		try container.encode(proofCertificateUpdatePending, forKey: .proofCertificateUpdatePending)
 	}
 
