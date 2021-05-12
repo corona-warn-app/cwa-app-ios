@@ -964,7 +964,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_Profile_ProfileTile_Title" = "Schnelltest-Profil";
 
-"ExposureSubmission_Profile_ProfileTile_Description" = "Sparen Sie Zeit und zeigen Sie Ihr Schnelltest-Profil bei der Teststelle vor.";
+"ExposureSubmission_Profile_ProfileTile_Description" = "Sparen Sie Zeit und zeigen Sie Ihr Schnelltest-Profil an der Teststelle vor.";
 
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Risiko-Ermittlung";
