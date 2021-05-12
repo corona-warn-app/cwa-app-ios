@@ -16,7 +16,7 @@ struct HealthCertificateQRCodeCellViewModel {
 			dateOfVaccination = DateFormatter.localizedString(from: vaccinationDate, dateStyle: .medium, timeStyle: .none)
 		}
 		let expirationDate = DateFormatter.localizedString(from: healthCertificate.expirationDate, dateStyle: .medium, timeStyle: .none)
-		self.validity = String(format: "Geimpft %@ - gültig bis %@", dateOfVaccination, expirationDate)
+		self.validity = String(format: AppStrings.HealthCertificate.Details.validity, dateOfVaccination, expirationDate)
 		self.certificate = "Impfzertifikat 2 von 2"
 
 		self.qrCodeImage = UIImage.qrCode(

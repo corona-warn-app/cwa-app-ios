@@ -1844,9 +1844,12 @@ enum AppStrings {
 		enum Details {
 			static let vaccinationCount = NSLocalizedString("HealthCertificate_Details_vaccinationCount", comment: "")
 			static let certificate = NSLocalizedString("HealthCertificate_Details_certificate", comment: "")
+			static let certificateCount = NSLocalizedString("HealthCertificate_Details_certificateCount", comment: "")
+			static let validity = NSLocalizedString("HealthCertificate_Details_validity", comment: "")
 			static let dateOfBirth = NSLocalizedString("HealthCertificate_Details_dateOfBirth", comment: "")
 			static let dateOfVaccination = NSLocalizedString("HealthCertificate_Details_dateOfVaccination", comment: "")
 			static let vaccine = NSLocalizedString("HealthCertificate_Details_vaccine", comment: "")
+			static let vaccineType = NSLocalizedString("HealthCertificate_Details_vaccineType", comment: "")
 			static let manufacture = NSLocalizedString("HealthCertificate_Details_manufacture", comment: "")
 			static let issuer = NSLocalizedString("HealthCertificate_Details_issuer", comment: "")
 			static let country = NSLocalizedString("HealthCertificate_Details_country", comment: "")

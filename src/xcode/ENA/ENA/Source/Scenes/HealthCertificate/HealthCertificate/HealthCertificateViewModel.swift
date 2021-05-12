@@ -158,11 +158,11 @@ final class HealthCertificateViewModel {
 			)
 		}
 
-		var vaccinationCellViewModel: HealthCertificateKeyValueCellViewModel?
+		var vaccineCellViewModel: HealthCertificateKeyValueCellViewModel?
 		if let valueSet = valueSet(by: .mp),
 		   let key = vaccinationCertificate?.vaccineMedicinalProduct {
 			let value = determineValue(key: key, valueSet: valueSet)
-			vaccinationCellViewModel = HealthCertificateKeyValueCellViewModel(
+			vaccineCellViewModel = HealthCertificateKeyValueCellViewModel(
 				key: AppStrings.HealthCertificate.Details.vaccine,
 				value: value
 			)
@@ -174,6 +174,16 @@ final class HealthCertificateViewModel {
 			let value = determineValue(key: key, valueSet: valueSet)
 			manufacturerCellViewModel = HealthCertificateKeyValueCellViewModel(
 				key: AppStrings.HealthCertificate.Details.manufacture,
+				value: value
+			)
+		}
+
+		var vaccineTypeCellViewModel: HealthCertificateKeyValueCellViewModel?
+		if let valueSet = valueSet(by: .vp),
+		   let key = vaccinationCertificate?.vaccineOrProphylaxis {
+			let value = determineValue(key: key, valueSet: valueSet)
+			vaccineTypeCellViewModel = HealthCertificateKeyValueCellViewModel(
+				key: AppStrings.HealthCertificate.Details.vaccineType,
 				value: value
 			)
 		}
@@ -202,8 +212,9 @@ final class HealthCertificateViewModel {
 		healthCertificateKeyValueCellViewModel = [
 			nameCellViewModel,
 			dateCellViewModel,
-			vaccinationCellViewModel,
+			vaccineCellViewModel,
 			manufacturerCellViewModel,
+			vaccineTypeCellViewModel,
 			issuerCellViewModel,
 			countryCellViewModel,
 			certificateNumberCellViewModel
