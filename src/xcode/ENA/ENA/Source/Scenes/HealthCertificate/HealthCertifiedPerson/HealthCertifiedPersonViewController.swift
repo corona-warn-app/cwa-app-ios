@@ -49,12 +49,6 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		setupViewModel()
 	}
 
-	override func viewDidAppear(_ animated: Bool) {
-		super.viewDidAppear(animated)
-
-		viewModel.updateProofCertificate(trigger: .automatic)
-	}
-
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 		super.traitCollectionDidChange(previousTraitCollection)
 		didCalculateGradientHeight = false
@@ -69,12 +63,11 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 	// MARK: - Protocol FooterViewHandling
 
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
-		switch type {
-		case .primary:
-			viewModel.updateProofCertificate(trigger: .manual)
-		case .secondary:
-			didTapRegisterAnotherHealthCertificate()
+		guard type == .primary else {
+			return
 		}
+
+		didTapRegisterAnotherHealthCertificate()
 	}
 
 	// MARK: - Protocol UITableViewDateSource
@@ -96,14 +89,14 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 			cell.configure(with: viewModel.headerCellViewModel)
 			return cell
 
-		case .incompleteVaccination:
-			let cell = tableView.dequeueReusableCell(cellType: HealthCertificateSimpleTextCell.self, for: indexPath)
-			cell.configure(with: viewModel.incompleteVaccinationCellViewModel)
-			return cell
-
 		case .qrCode:
 			let cell = tableView.dequeueReusableCell(cellType: HealthCertificateQRCodeCell.self, for: indexPath)
 			cell.configure(with: viewModel.qrCodeCellViewModel)
+			return cell
+
+		case .fullyVaccinatedHint:
+			let cell = tableView.dequeueReusableCell(cellType: HealthCertificateSimpleTextCell.self, for: indexPath)
+			cell.configure(with: viewModel.fullyVaccinatedHintCellViewModel)
 			return cell
 
 		case .person:
@@ -124,8 +117,7 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		// we are only interested in QRCode cell once if the traitCollectionDidChange - to update gradientHeightConstraint
 		guard
 			didCalculateGradientHeight == false,
-			(HealthCertifiedPersonViewModel.TableViewSection.map(indexPath.section) == .incompleteVaccination ||
-			HealthCertifiedPersonViewModel.TableViewSection.map(indexPath.section) == .qrCode)
+			HealthCertifiedPersonViewModel.TableViewSection.map(indexPath.section) == .qrCode
 		else {
 			return
 		}
@@ -270,7 +262,6 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 			.sink { [weak self] triggerReload in
 				guard triggerReload, let self = self, !self.isAnimatingChanges else { return }
 
-				self.didCalculateGradientHeight = false
 				self.tableView.reloadData()
 			}
 			.store(in: &subscriptions)

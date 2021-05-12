@@ -21,7 +21,7 @@ class HealthCertificateViewModelTests: XCTestCase {
 	func testGIVEN_HealthCertificate_WHEN_CreateViewModel_THEN_IsSetup() throws {
 		// GIVEN
 		let healthCertificate = HealthCertificateMock()
-		let certifiedPerson = HealthCertifiedPerson(healthCertificates: [], proofCertificate: nil)
+		let certifiedPerson = HealthCertifiedPerson(healthCertificates: [])
 		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore())
 
 		// WHEN
@@ -63,7 +63,7 @@ struct HealthCertificateMock: HealthCertificateData {
 		)
 		self.dateOfBirth = "1981-12-24"
 		self.vaccinationCertificates = []
-		self.isEligibleForProofCertificate = false
+		self.isLastDoseInASeries = false
 	}
 
 	// MARK: - Internal
@@ -73,6 +73,6 @@ struct HealthCertificateMock: HealthCertificateData {
 	let name: Name
 	let dateOfBirth: String
 	let vaccinationCertificates: [VaccinationCertificate]
-	let isEligibleForProofCertificate: Bool
+	let isLastDoseInASeries: Bool
 
 }

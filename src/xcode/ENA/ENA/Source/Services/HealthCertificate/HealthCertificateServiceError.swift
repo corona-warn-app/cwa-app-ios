@@ -13,7 +13,6 @@ enum HealthCertificateServiceError {
 		case vaccinationCertificateAlreadyRegistered
 		case dateOfBirthMismatch
 		case nameMismatch
-		case proofRequestError(ProofRequestError)
 		case other(Error)
 
 		var errorDescription: String? {
@@ -51,18 +50,10 @@ enum HealthCertificateServiceError {
 				return "\(AppStrings.HealthCertificate.Error.vcDifferentPerson) (VC_DOB_MISMATCH)."
 			case .nameMismatch:
 				return "\(AppStrings.HealthCertificate.Error.vcDifferentPerson) (VC_NAME_MISMATCH)."
-			case .proofRequestError:
-				return nil
 			case .other(let error):
 				return error.localizedDescription
 			}
 		}
-	}
-
-	enum ProofRequestError: LocalizedError {
-		case fetchingError(ProofCertificateFetchingError)
-		case decodingError(CertificateDecodingError)
-		case other(Error)
 	}
 
 }

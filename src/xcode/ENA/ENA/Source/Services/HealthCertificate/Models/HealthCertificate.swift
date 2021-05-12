@@ -11,7 +11,7 @@ protocol HealthCertificateData {
 	var name: HealthCertificateToolkit.Name { get }
 	var dateOfBirth: String { get }
 	var vaccinationCertificates: [VaccinationCertificate] { get }
-	var isEligibleForProofCertificate: Bool { get }
+	var isLastDoseInASeries: Bool { get }
 }
 
 struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable {
@@ -64,8 +64,8 @@ struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable 
 		digitalGreenCertificate.vaccinationCertificates
 	}
 
-	var isEligibleForProofCertificate: Bool {
-		digitalGreenCertificate.isEligibleForProofCertificate
+	var isLastDoseInASeries: Bool {
+		digitalGreenCertificate.isLastDoseInASeries
 	}
 
 	// MARK: - Private
