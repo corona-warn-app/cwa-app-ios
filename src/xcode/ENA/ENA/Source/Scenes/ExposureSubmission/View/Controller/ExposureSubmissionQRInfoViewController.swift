@@ -34,8 +34,6 @@ class ExposureSubmissionQRInfoViewController: DynamicTableViewController, Footer
 
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
-		
-		restoreNavigationBar()
 	}
 
 	// MARK: - Protocol FooterViewHandling
@@ -87,17 +85,5 @@ class ExposureSubmissionQRInfoViewController: DynamicTableViewController, Footer
 
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
 		tableView.separatorStyle = .none
-	}
-	
-	private func restoreNavigationBar() {
-		// set the bar tint to white
-		parent?.navigationController?.navigationBar.tintColor = .enaColor(for: .textContrast)
-
-		// create a transparent navigation bar
-		let emptyImage = UIImage()
-		navigationController?.navigationBar.setBackgroundImage(emptyImage, for: .default)
-		navigationController?.navigationBar.shadowImage = emptyImage
-		navigationController?.navigationBar.isTranslucent = true
-		navigationController?.view.backgroundColor = .clear
 	}
 }

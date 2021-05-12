@@ -46,6 +46,7 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 		
+		setupNavigationBar()
 	}
 	
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
