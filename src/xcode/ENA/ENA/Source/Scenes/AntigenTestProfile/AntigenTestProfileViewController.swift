@@ -41,6 +41,12 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 		super.viewWillDisappear(animated)
 		navigationController?.navigationBar.setBackgroundImage(originalBackgroundImage, for: .default)
 		navigationController?.navigationBar.shadowImage = originalShadowImage
+		
+		if traitCollection.userInterfaceStyle == .dark {
+			parent?.navigationController?.navigationBar.tintColor = .enaColor(for: .textContrast)
+		} else {
+			parent?.navigationController?.navigationBar.tintColor = .enaColor(for: .tint)
+		}
 	}
 
 	override func viewDidAppear(_ animated: Bool) {
