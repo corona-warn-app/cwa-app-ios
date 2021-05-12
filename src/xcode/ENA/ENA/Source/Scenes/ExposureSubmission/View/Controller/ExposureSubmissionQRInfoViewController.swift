@@ -32,6 +32,12 @@ class ExposureSubmissionQRInfoViewController: DynamicTableViewController, Footer
 		setupView()
 	}
 
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+		
+		setupNavigationBar()
+	}
+
 	// MARK: - Protocol FooterViewHandling
 
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
@@ -60,6 +66,7 @@ class ExposureSubmissionQRInfoViewController: DynamicTableViewController, Footer
 		
 		parent?.navigationItem.title = AppStrings.ExposureSubmissionQRInfo.title
 		parent?.navigationItem.rightBarButtonItem = CloseBarButtonItem(onTap: dismiss)
+		parent?.navigationController?.navigationBar.tintColor = .enaColor(for: .tint)
 		
 		view.backgroundColor = .enaColor(for: .background)
 
@@ -75,5 +82,17 @@ class ExposureSubmissionQRInfoViewController: DynamicTableViewController, Footer
 
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
 		tableView.separatorStyle = .none
+	}
+	
+	private func setupNavigationBar() {
+		// set the bar tint to white
+		parent?.navigationController?.navigationBar.tintColor = .white
+
+		// create a transparent navigation bar
+		let emptyImage = UIImage()
+		navigationController?.navigationBar.setBackgroundImage(emptyImage, for: .default)
+		navigationController?.navigationBar.shadowImage = emptyImage
+		navigationController?.navigationBar.isTranslucent = true
+		navigationController?.view.backgroundColor = .clear
 	}
 }
