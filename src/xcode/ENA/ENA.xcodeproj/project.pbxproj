@@ -5975,6 +5975,8 @@
 			isa = PBXGroup;
 			children = (
 				BA8848BE264AC17700EEA542 /* __tests__ */,
+				BA5B7FC826458EF400502087 /* HealthCertificateQRCodeCell.swift */,
+				BA5B7FC726458EF400502087 /* HealthCertificateQRCodeCellViewModel.swift */,
 				BA5B7FC126458EF400502087 /* HealthCertificateSimpleTextCell.swift */,
 				BA5B7FC226458EF400502087 /* HealthCertificateSimpleTextCellViewModel.swift */,
 			);
@@ -5996,8 +5998,6 @@
 			children = (
 				BA5B7FC526458EF400502087 /* HealthCertificateCellViewModel.swift */,
 				BA5B7FC626458EF400502087 /* HealthCertificateCell.swift */,
-				BA5B7FC726458EF400502087 /* HealthCertificateQRCodeCellViewModel.swift */,
-				BA5B7FC826458EF400502087 /* HealthCertificateQRCodeCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
