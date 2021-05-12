@@ -24,6 +24,8 @@ struct ProofCertificate: Codable, Equatable {
 
 	// MARK: - Internal
 
+	let base45: Base45
+
 	var expirationDate: Date {
 		Date(timeIntervalSince1970: TimeInterval(cborWebTokenHeader.expirationTime))
 	}
@@ -33,8 +35,6 @@ struct ProofCertificate: Codable, Equatable {
 	}
 
 	// MARK: - Private
-
-	private let base45: Base45
 
 	private var cborWebTokenHeader: CBORWebTokenHeader {
 		let result = DigitalGreenCertificateAccess().extractCBORWebTokenHeader(from: base45)

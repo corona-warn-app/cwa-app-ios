@@ -28,8 +28,7 @@ class ENAUITests_02_AppInformation: XCTestCase {
 
 		app.swipeUp(velocity: .fast)
 		// assert cells
-		XCTAssertTrue(app.cells["AppStrings.Home.appInformationCardTitle"].waitForExistence(timeout: .medium))
-		app.cells["AppStrings.Home.appInformationCardTitle"].tap()
+		app.cells["AppStrings.Home.appInformationCardTitle"].waitAndTap()
 
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.AppInformation.aboutNavigation].waitForExistence(timeout: .medium))
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.AppInformation.faqNavigation].waitForExistence(timeout: .medium))
@@ -47,11 +46,9 @@ class ENAUITests_02_AppInformation: XCTestCase {
 
 		app.swipeUp(velocity: .fast)
 		// assert cells
-		XCTAssertTrue(app.cells["AppStrings.Home.appInformationCardTitle"].waitForExistence(timeout: .medium))
-		app.cells["AppStrings.Home.appInformationCardTitle"].tap()
+		app.cells["AppStrings.Home.appInformationCardTitle"].waitAndTap()
 
-		XCTAssertTrue(app.cells["AppStrings.AppInformation.aboutNavigation"].waitForExistence(timeout: .medium))
-		app.cells["AppStrings.AppInformation.aboutNavigation"].tap()
+		app.cells["AppStrings.AppInformation.aboutNavigation"].waitAndTap()
 
 		XCTAssertTrue(app.staticTexts["AppStrings.AppInformation.aboutTitle"].waitForExistence(timeout: .medium))
 	}
@@ -64,11 +61,9 @@ class ENAUITests_02_AppInformation: XCTestCase {
 
 		app.swipeUp(velocity: .fast)
 		// assert cells
-		XCTAssertTrue(app.cells["AppStrings.Home.appInformationCardTitle"].waitForExistence(timeout: .medium))
-		app.cells["AppStrings.Home.appInformationCardTitle"].tap()
+		app.cells["AppStrings.Home.appInformationCardTitle"].waitAndTap()
 
-		XCTAssertTrue(app.cells["AppStrings.AppInformation.faqNavigation"].waitForExistence(timeout: .medium))
-		app.cells["AppStrings.AppInformation.faqNavigation"].tap()
+		app.cells["AppStrings.AppInformation.faqNavigation"].waitAndTap()
 
 		XCTAssertTrue(app.webViews.firstMatch.waitForExistence(timeout: .long)) // web is slow :p
 	}
@@ -81,11 +76,9 @@ class ENAUITests_02_AppInformation: XCTestCase {
 
 		app.swipeUp(velocity: .fast)
 		// assert cells
-		XCTAssertTrue(app.cells["AppStrings.Home.appInformationCardTitle"].waitForExistence(timeout: .medium))
-		app.cells["AppStrings.Home.appInformationCardTitle"].tap()
+		app.cells["AppStrings.Home.appInformationCardTitle"].waitAndTap()
 
-		XCTAssertTrue(app.cells["AppStrings.AppInformation.contactNavigation"].waitForExistence(timeout: .medium))
-		app.cells["AppStrings.AppInformation.contactNavigation"].tap()
+		app.cells["AppStrings.AppInformation.contactNavigation"].waitAndTap()
 
 		XCTAssertTrue(app.staticTexts["AppStrings.AppInformation.contactTitle"].waitForExistence(timeout: .medium))
 	}
@@ -98,11 +91,9 @@ class ENAUITests_02_AppInformation: XCTestCase {
 
 		app.swipeUp(velocity: .fast)
 		// assert cells
-		XCTAssertTrue(app.cells["AppStrings.Home.appInformationCardTitle"].waitForExistence(timeout: .medium))
-		app.cells["AppStrings.Home.appInformationCardTitle"].tap()
+		app.cells["AppStrings.Home.appInformationCardTitle"].waitAndTap()
 
-		XCTAssertTrue(app.cells["AppStrings.AppInformation.privacyNavigation"].waitForExistence(timeout: .medium))
-		app.cells["AppStrings.AppInformation.privacyNavigation"].tap()
+		app.cells["AppStrings.AppInformation.privacyNavigation"].waitAndTap()
 
 		XCTAssertTrue(app.images["AppStrings.AppInformation.privacyImageDescription"].waitForExistence(timeout: .medium))
 	}
@@ -115,11 +106,9 @@ class ENAUITests_02_AppInformation: XCTestCase {
 
 		app.swipeUp(velocity: .fast)
 		// assert cells
-		XCTAssertTrue(app.cells["AppStrings.Home.appInformationCardTitle"].waitForExistence(timeout: .medium))
-		app.cells["AppStrings.Home.appInformationCardTitle"].tap()
+		app.cells["AppStrings.Home.appInformationCardTitle"].waitAndTap()
 
-		XCTAssertTrue(app.cells["AppStrings.AppInformation.termsNavigation"].waitForExistence(timeout: .medium))
-		app.cells["AppStrings.AppInformation.termsNavigation"].tap()
+		app.cells["AppStrings.AppInformation.termsNavigation"].waitAndTap()
 
 		XCTAssertTrue(app.images["AppStrings.AppInformation.termsImageDescription"].waitForExistence(timeout: .medium))
 	}
@@ -140,7 +129,7 @@ class ENAUITests_02_AppInformation: XCTestCase {
 		// The accessibility identifier for the button looks weird.
 		// There is also the accessibility identifier AccessibilityIdentifiers.ErrorReport.privacyNavigation
 		//   which looks more appropriate. Please check > A. Vogel
-		app.cells[AccessibilityIdentifiers.ErrorReport.privacyInformation].tap()
+		app.cells[AccessibilityIdentifiers.ErrorReport.privacyInformation].waitAndTap()
 		
 		XCTAssertTrue(app.staticTexts["AppStrings.AppInformation.privacyTitle"].waitForExistence(timeout: .short))
 	}
@@ -157,14 +146,14 @@ class ENAUITests_02_AppInformation: XCTestCase {
 		XCTAssertFalse(app.buttons[AccessibilityIdentifiers.ErrorReport.stopAndDeleteButton].exists)
 		XCTAssertFalse(app.buttons[AccessibilityIdentifiers.ErrorReport.sendReportButton].exists)
 
-		app.buttons[AccessibilityIdentifiers.ErrorReport.startButton].tap()
+		app.buttons[AccessibilityIdentifiers.ErrorReport.startButton].waitAndTap()
 		
 		XCTAssertFalse(app.buttons[AccessibilityIdentifiers.ErrorReport.startButton].exists)
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ErrorReport.saveLocallyButton].exists)
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ErrorReport.stopAndDeleteButton].exists)
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ErrorReport.sendReportButton].exists)
 		
-		app.buttons[AccessibilityIdentifiers.ErrorReport.stopAndDeleteButton].tap()
+		app.buttons[AccessibilityIdentifiers.ErrorReport.stopAndDeleteButton].waitAndTap()
 
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ErrorReport.startButton].exists)
 		XCTAssertFalse(app.buttons[AccessibilityIdentifiers.ErrorReport.saveLocallyButton].exists)
@@ -179,8 +168,7 @@ class ENAUITests_02_AppInformation: XCTestCase {
 		navigateToErrorReporting()
 		
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.ErrorReport.topBody].waitForExistence(timeout: .short))
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.ErrorReport.privacyInformation].exists)
-		app.cells[AccessibilityIdentifiers.ErrorReport.privacyInformation].tap()
+		app.cells[AccessibilityIdentifiers.ErrorReport.privacyInformation].waitAndTap()
 		XCTAssertTrue(app.images[AccessibilityIdentifiers.AppInformation.privacyImageDescription].waitForExistence(timeout: .short))
 
 	}
@@ -191,12 +179,10 @@ class ENAUITests_02_AppInformation: XCTestCase {
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .short))
 		navigateToErrorReporting()
 		
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ErrorReport.startButton].waitForExistence(timeout: .short))
-		app.buttons[AccessibilityIdentifiers.ErrorReport.startButton].tap()
-		app.buttons[AccessibilityIdentifiers.ErrorReport.sendReportButton].tap()
+		app.buttons[AccessibilityIdentifiers.ErrorReport.startButton].waitAndTap()
+		app.buttons[AccessibilityIdentifiers.ErrorReport.sendReportButton].waitAndTap()
 		
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.ErrorReport.sendReportsDetails].waitForExistence(timeout: .short))
-		app.cells[AccessibilityIdentifiers.ErrorReport.sendReportsDetails].tap()
+		app.cells[AccessibilityIdentifiers.ErrorReport.sendReportsDetails].waitAndTap()
 		
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.ErrorReport.detailedInformationTitle].exists)
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.ErrorReport.detailedInformationSubHeadline].exists)
@@ -211,8 +197,7 @@ class ENAUITests_02_AppInformation: XCTestCase {
 		navigateToErrorReporting()
 		
 		// Test Navigation to History
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.ErrorReport.historyNavigation].exists)
-		app.cells[AccessibilityIdentifiers.ErrorReport.historyNavigation].tap()
+		app.cells[AccessibilityIdentifiers.ErrorReport.historyNavigation].waitAndTap()
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.ErrorReport.historyTitle].exists)
 	}
 	
@@ -220,11 +205,9 @@ class ENAUITests_02_AppInformation: XCTestCase {
 		app.swipeUp(velocity: .fast)
 		
 		// navigate to App Information
-		XCTAssertTrue(app.cells["AppStrings.Home.appInformationCardTitle"].waitForExistence(timeout: 5.0))
-		app.cells["AppStrings.Home.appInformationCardTitle"].tap()
+		app.cells["AppStrings.Home.appInformationCardTitle"].waitAndTap()
 
 		// navigate to Error Reporting
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.ErrorReport.navigation].waitForExistence(timeout: 5.0))
-		app.cells[AccessibilityIdentifiers.ErrorReport.navigation].tap()
+		app.cells[AccessibilityIdentifiers.ErrorReport.navigation].waitAndTap()
 	}
 }

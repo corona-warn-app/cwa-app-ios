@@ -127,8 +127,6 @@ final class MockTestStore: Store, PPAnalyticsData {
 	// MARK: - HealthCertificateStoring
 
 	var healthCertifiedPersons: [HealthCertifiedPerson] = []
-	var lastProofCertificateUpdate: Date?
-	var proofCertificateUpdatePending: Bool = false
 
 	// MARK: - Protocol VaccinationCaching
 

@@ -22,11 +22,9 @@ class ENAUITests_10_CheckIns: XCTestCase {
 	func testCheckinInfoScreen_navigate_to_dataPrivacy() throws {
 		app.launchArguments.append(contentsOf: ["-checkinInfoScreenShown", "NO"])
 		app.launch()
-		
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Tabbar.checkin].waitForExistence(timeout: .short))
-		
+			
 		// Navigate to CheckIn
-		app.buttons[AccessibilityIdentifiers.Tabbar.checkin].tap()
+		app.buttons[AccessibilityIdentifiers.Tabbar.checkin].waitAndTap()
 		
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Checkin.Information.acknowledgementTitle].exists)
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Checkin.Information.dataPrivacyTitle].exists)
@@ -48,7 +46,7 @@ class ENAUITests_10_CheckIns: XCTestCase {
 			app.swipeUp()
 			actualTry += 1
 		}
-		lastCell.tap()
+		lastCell.waitAndTap()
 		
 		XCTAssertTrue(app.staticTexts["AppStrings.AppInformation.privacyTitle"].waitForExistence(timeout: .short))
 	}
@@ -58,12 +56,10 @@ class ENAUITests_10_CheckIns: XCTestCase {
 		app.launch()
 		
 		// Navigate to CheckIn
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Tabbar.checkin].waitForExistence(timeout: .short))
-		app.buttons[AccessibilityIdentifiers.Tabbar.checkin].tap()
+		app.buttons[AccessibilityIdentifiers.Tabbar.checkin].waitAndTap()
 		
 		// Confirm consent
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Checkin.Information.primaryButton].waitForExistence(timeout: .short))
-		app.buttons[AccessibilityIdentifiers.Checkin.Information.primaryButton].tap()
+		app.buttons[AccessibilityIdentifiers.Checkin.Information.primaryButton].waitAndTap()
 				
 		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.Checkins.Overview.title)].waitForExistence(timeout: .short))
 	}
@@ -74,10 +70,9 @@ class ENAUITests_10_CheckIns: XCTestCase {
 		// GIVEN
 		app.launchArguments.append(contentsOf: ["-checkinInfoScreenShown", "NO"])
 		app.launch()
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Tabbar.checkin].waitForExistence(timeout: .short))
 		
 		// Navigate to CheckIn
-		app.buttons[AccessibilityIdentifiers.Tabbar.checkin].tap()
+		app.buttons[AccessibilityIdentifiers.Tabbar.checkin].waitAndTap()
 		
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Checkin.Information.acknowledgementTitle].exists)
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Checkin.Information.dataPrivacyTitle].exists)
@@ -92,12 +87,12 @@ class ENAUITests_10_CheckIns: XCTestCase {
 		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_checkinInfoScreen")
 		app.swipeUp()
 		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_checkinInfoScreen")
-		app.buttons[AccessibilityIdentifiers.Checkin.Information.primaryButton].tap()
+		app.buttons[AccessibilityIdentifiers.Checkin.Information.primaryButton].waitAndTap()
 		
 		// WHEN
 		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.Checkins.Overview.scanButtonTitle)].waitForExistence(timeout: .short))
 		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_mycheckins_emptyList")
-		app.buttons[AccessibilityLabels.localized(AppStrings.Checkins.Overview.scanButtonTitle)].tap()
+		app.buttons[AccessibilityLabels.localized(AppStrings.Checkins.Overview.scanButtonTitle)].waitAndTap()
 		
 		// THEN
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Details.checkinFor].waitForExistence(timeout: .short))
@@ -106,8 +101,7 @@ class ENAUITests_10_CheckIns: XCTestCase {
 		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.permanent.title.retail)].exists)
 		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_mycheckins_checkin")
 		// check in
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.TraceLocation.Details.checkInButton].waitForExistence(timeout: .short))
-		app.buttons[AccessibilityIdentifiers.TraceLocation.Details.checkInButton].tap()
+		app.buttons[AccessibilityIdentifiers.TraceLocation.Details.checkInButton].waitAndTap()
 
 		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_mycheckins")
 		
@@ -135,13 +129,13 @@ class ENAUITests_10_CheckIns: XCTestCase {
 		
 		// tap checkout button
 		XCTAssertTrue(query.element(boundBy: 1).identifier == AccessibilityIdentifiers.TraceLocation.Configuration.eventTableViewCellButton)
-		query.element(boundBy: 1).tap()
+		query.element(boundBy: 1).waitAndTap()
 		var screenshotCounter = 3
 		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_checkinList")
 		
 		// tap the event, verify the detail screen
 		XCTAssertTrue(initialNumberOfCells == app.cells.count) // assumption: number of cells has not changed
-		query.element(boundBy: 1).tap()
+		query.element(boundBy: 1).waitAndTap()
 		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_checkinDetails")
 		
 		let staticTexts = app.cells.staticTexts
@@ -158,7 +152,7 @@ class ENAUITests_10_CheckIns: XCTestCase {
 		
 		for i in 0...(app.staticTexts.count - 1) {
 			if app.staticTexts.element(boundBy: i).identifier == AccessibilityIdentifiers.Checkin.Details.typeLabel {
-				app.staticTexts.element(boundBy: i).tap()
+				app.staticTexts.element(boundBy: i).waitAndTap()
 				break
 			}
 		}
@@ -169,12 +163,11 @@ class ENAUITests_10_CheckIns: XCTestCase {
 		
 		// tap "Speichern" to go back to overview
 		let buttons = app.buttons
-		XCTAssertTrue(buttons.element(matching: .button, identifier: AccessibilityIdentifiers.General.primaryFooterButton).exists)
-		buttons.element(matching: .button, identifier: AccessibilityIdentifiers.General.primaryFooterButton).tap()
+		buttons.element(matching: .button, identifier: AccessibilityIdentifiers.General.primaryFooterButton).waitAndTap()
 		
 		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_checkinList")
 		// tap the "more" button
-		app.navigationBars.buttons[AccessibilityIdentifiers.Checkin.Overview.menueButton].tap()
+		app.navigationBars.buttons[AccessibilityIdentifiers.Checkin.Overview.menueButton].waitAndTap()
 		
 		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_checkinActionSheet")
 		// verify the buttons
@@ -182,17 +175,15 @@ class ENAUITests_10_CheckIns: XCTestCase {
 		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.Checkins.Overview.ActionSheet.infoTitle)].exists)
 		
 		// tap "Edit" button
-		app.buttons[AccessibilityLabels.localized(AppStrings.Checkins.Overview.ActionSheet.editTitle)].tap()
+		app.buttons[AccessibilityLabels.localized(AppStrings.Checkins.Overview.ActionSheet.editTitle)].waitAndTap()
 
 		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_checkinDeleteAll")
 		// button "Alle entfernen"
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitForExistence(timeout: .short))
-		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].tap()
+		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitAndTap()
 
 		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_checkinDeleteAllAlert")
 		// Alert: tap "Entfernen"
-		XCTAssertTrue(app.alerts.buttons[AccessibilityLabels.localized(AppStrings.Checkins.Overview.DeleteAllAlert.confirmButtonTitle)].waitForExistence(timeout: .short))
-		app.alerts.buttons[AccessibilityLabels.localized(AppStrings.Checkins.Overview.DeleteOneAlert.confirmButtonTitle)].tap()
+		app.alerts.buttons[AccessibilityLabels.localized(AppStrings.Checkins.Overview.DeleteOneAlert.confirmButtonTitle)].waitAndTap()
 		
 		XCTAssertTrue(app.cells.count == 1) // assumption: only one cell remains
 	}

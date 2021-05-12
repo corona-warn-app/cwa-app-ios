@@ -1480,14 +1480,10 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Dane o zmianach w tej wersji można znaleźć w informacjach o aplikacji w sekcji „Nowe funkcje”.";
 
-/* Version 2.2 */
-"NewVersionFeature_22_record_error_logs_title" = "Rejestruj dzienniki rozwiązywania problemów";
+/* Version 2.3 */
+"NewVersionFeature_23_digital_vaccination_certificate_title" = "Cyfrowy dowód szczepienia";
 
-"NewVersionFeature_22_record_error_logs_description" = "Możesz teraz wygenerować dziennik błędów w funkcji pomocy technicznej dla aplikacji. Rejestruje on kroki, które wykonujesz w aplikacji, aby uprościć analizę potencjalnych błędów i pomóc nam szybciej je poprawić.";
-
-"NewVersionFeature_22_antigen_profiles_title" = "Utwórz profile szybkich testów";
-
-"NewVersionFeature_22_antigen_profiles_description" = "Możesz teraz utworzyć profil szybkiego testu w swoich danych osobowych. Twój profil będzie można później w szybki i łatwy sposób zeskanować w punktach testowania za pomocą kodu QR.";
+"NewVersionFeature_23_digital_vaccination_certificate_description" = "Możesz teraz zarejestrować swoje świadectwa szczepień w aplikacji. Po otrzymaniu wszystkich niezbędnych szczepień możesz przedstawić dowód pełnego szczepienia za pomocą kodu QR w aplikacji.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Rejestrowanie narażenia w różnych krajach";
@@ -2326,7 +2322,7 @@
 /* Submission Check-in */
 "Submission_Checkins_Title" = "Udostępnić zameldowania w lokalizacji?";
 
-"Submission_Checkins_Description" = "Ostrzegaj inne osoby, które się zameldowały w pobliżu. Twoje dane osobowe nie będą udostępniane.";
+"Submission_Checkins_Description" = "Ostrzegaj inne osoby, które się zameldowały wraz z Tobą. Twoje dane osobowe nie będą udostępniane.";
 
 "Submission_Checkins_SelectAll" = "Wybierz wszystkie";
 
@@ -2336,7 +2332,7 @@
 
 "Submission_Checkins_Alert_Title" = "Czy na pewno nie chcesz udostępniać swoich zameldowań?";
 
-"Submission_Checkins_Alert_Message" = "W przypadku pominięcia tej operacji żadne kontakty zameldowane w pobliżu nie otrzymają ostrzeżenia.";
+"Submission_Checkins_Alert_Message" = "W przypadku pominięcia tej operacji żadne kontakty zameldowane wraz z Tobą nie otrzymają ostrzeżenia.";
 
 "Submission_Checkins_Alert_Share" = "Udostępnij";
 

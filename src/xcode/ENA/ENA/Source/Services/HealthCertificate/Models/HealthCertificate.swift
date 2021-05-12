@@ -42,6 +42,12 @@ struct HealthCertificate: Codable, Equatable {
 		digitalGreenCertificate.vaccinationCertificates
 	}
 
+	var isEligibleForProofCertificate: Bool {
+		digitalGreenCertificate.isEligibleForProofCertificate
+	}
+
+	// MARK: - Private
+
 	private var cborWebTokenHeader: CBORWebTokenHeader {
 		let result = DigitalGreenCertificateAccess().extractCBORWebTokenHeader(from: base45)
 
