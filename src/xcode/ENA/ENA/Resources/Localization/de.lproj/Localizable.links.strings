@@ -25,4 +25,7 @@
 "NewVersion_Feature_114_Screenshot_URL" = "https://www.coronawarn.app/de/screenshots";
 
 "errorReport_FAQ_URL" = "https://www.coronawarn.app/de/faq/#error_log";
+
 "Risk_Encounter_Low_FAQ_URL" = "https://www.coronawarn.app/de/faq/";
+
+"HealthCertificate_Info_register_FAQLink" = "https://www.coronawarn.app/de/faq/";

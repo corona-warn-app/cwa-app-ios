@@ -212,7 +212,7 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 		set { kvStore["journalWithExposureHistoryInfoScreenShown"] = newValue }
 	}
 
-	// MARK: - Protocol AntigenTestProfileStoring
+    // MARK: - Protocol AntigenTestProfileStoring
 
 	lazy var antigenTestProfileSubject = {
 		CurrentValueSubject<AntigenTestProfile?, Never>(antigenTestProfile)
@@ -229,6 +229,20 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 	var antigenTestProfileInfoScreenShown: Bool {
 		get { kvStore["antigenTestProfileInfoScreenShown"] as Bool? ?? false }
 		set { kvStore["antigenTestProfileInfoScreenShown"] = newValue }
+	}
+
+    // MARK: - Protocol HealthCertificateStoring
+
+    var healthCertifiedPersons: [HealthCertifiedPerson] {
+        get { kvStore["healthCertifiedPersons"] as [HealthCertifiedPerson]? ?? [] }
+        set { kvStore["healthCertifiedPersons"] = newValue }
+    }
+	
+	// MARK: - Protocol VaccinationCaching
+
+	var vaccinationCertificateValueDataSets: VaccinationValueDataSets? {
+		get { kvStore["vaccinationCertificateValueDataSets"] as VaccinationValueDataSets? ?? nil }
+		set { kvStore["vaccinationCertificateValueDataSets"] = newValue }
 	}
 	
 	#if !RELEASE
@@ -270,7 +284,6 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 	let kvStore: SQLiteKeyValueStore
 
 	// MARK: - Private
-
 	private let directoryURL: URL
 
 }
