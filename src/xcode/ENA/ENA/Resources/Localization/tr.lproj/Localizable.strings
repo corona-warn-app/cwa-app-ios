@@ -1480,14 +1480,10 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Bu sürümdeki değişiklikleri uygulama bilgilerinde “Yeni Özellikler” bölümünde bulabilirsiniz.";
 
-/* Version 2.2 */
-"NewVersionFeature_22_record_error_logs_title" = "Sorun Giderme Günlüklerini Kaydet";
+/* Version 2.3 */
+"NewVersionFeature_23_digital_vaccination_certificate_title" = "Dijital Aşı Kanıtı";
 
-"NewVersionFeature_22_record_error_logs_description" = "Artık uygulamanın teknik destek özelliğinde bir hata günlüğü oluşturabilirsiniz. Bu günlük, potansiyel hataların analizini basitleştirmek ve bu hataları daha hızlı düzeltmemize yardımcı olmak için uygulamada gerçekleştirdiğiniz adımları kaydeder.";
-
-"NewVersionFeature_22_antigen_profiles_title" = "Hızlı Test Profilleri Oluştur";
-
-"NewVersionFeature_22_antigen_profiles_description" = "Artık kişisel verilerinizde bir hızlı test profili oluşturabilirsiniz. Ardından QR kod ile hızlı ve kolay bir biçimde test noktalarında profiliniz taranabilir.";
+"NewVersionFeature_23_digital_vaccination_certificate_description" = "Artık aşı sertifikalarınızı uygulamaya kaydedebilirsiniz. Gereken tüm aşılar uygulanır uygulanmaz QR kod ile tam aşılamanızın kanıtını uygulamada sunabilirsiniz.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Uluslararası Maruz Kalma Günlüğü";
@@ -2326,7 +2322,7 @@
 /* Submission Check-in */
 "Submission_Checkins_Title" = "Konum Check-In’leri Paylaşılsın Mı?";
 
-"Submission_Checkins_Description" = "Sizin yakınınızda check in yapmış olan diğer kullanıcıları uyarın. Kişisel verileriniz paylaşılmayacaktır.";
+"Submission_Checkins_Description" = "Sizinle birlikte check in yapmış olan diğer kullanıcıları uyarın. Kişisel verileriniz paylaşılmayacaktır.";
 
 "Submission_Checkins_SelectAll" = "Tümünü seç";
 
@@ -2336,7 +2332,7 @@
 
 "Submission_Checkins_Alert_Title" = "Check-in’lerinizi paylaşmak istemediğinizden emin misiniz?";
 
-"Submission_Checkins_Alert_Message" = "Bu adımı atladığınızda sizin yakınınızda check in yapmış olan hiç kimseye uyarı gönderilmeyecektir.";
+"Submission_Checkins_Alert_Message" = "Bu adımı atladığınızda sizinle birlikte check in yapmış olan hiç kimseye uyarı gönderilmeyecektir.";
 
 "Submission_Checkins_Alert_Share" = "Paylaş";
 

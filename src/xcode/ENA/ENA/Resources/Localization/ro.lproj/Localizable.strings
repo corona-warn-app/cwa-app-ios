@@ -1480,14 +1480,10 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Modificările din această versiune pot fi găsite în informațiile aplicației, la „Caracteristici noi”.";
 
-/* Version 2.2 */
-"NewVersionFeature_22_record_error_logs_title" = "Înregistrarea jurnalelor de depanare";
+/* Version 2.3 */
+"NewVersionFeature_23_digital_vaccination_certificate_title" = "Dovada digitală a vaccinării";
 
-"NewVersionFeature_22_record_error_logs_description" = "Acum puteți genera un jurnal de erori în caracteristica de suport tehnic pentru aplicație. Aceasta înregistrează etapele pe care le efectuați în aplicație, pentru a simplifica analiza de erori potențiale și pentru a ne ajuta să le corectăm mai rapid.";
-
-"NewVersionFeature_22_antigen_profiles_title" = "Crearea profilurilor de test rapid";
-
-"NewVersionFeature_22_antigen_profiles_description" = "Acum puteți crea un profil de test rapid în datele dvs. personale. Apoi, profilul dvs. poate fi scanat în punctele de testare, rapid și ușor, prin intermediul codului QR.";
+"NewVersionFeature_23_digital_vaccination_certificate_description" = "Acum vă puteți înregistra certificatele de vaccinare în aplicație. De îndată ce primiți toate vaccinările necesare puteți prezenta dovada vaccinării dvs. complete prin intermediul codului QR din aplicație.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Înregistrare transnațională a expunerilor în jurnal";
@@ -2326,7 +2322,7 @@
 /* Submission Check-in */
 "Submission_Checkins_Title" = "Partajați check-inurile locației?";
 
-"Submission_Checkins_Description" = "Avertizați-i pe ceilalți care au făcut check-in în aproprierea dvs. Datele dvs. personale nu vor fi partajate.";
+"Submission_Checkins_Description" = "Avertizați-i pe ceilalți care au făcut check-in cu dvs. Datele dvs. personale nu vor fi partajate.";
 
 "Submission_Checkins_SelectAll" = "Selectare tot";
 
@@ -2336,7 +2332,7 @@
 
 "Submission_Checkins_Alert_Title" = "Sigur nu doriți să partajați check-inurile dvs.?";
 
-"Submission_Checkins_Alert_Message" = "Omiterea nu va avertiza contactele care au făcut check-in în apropierea dvs.";
+"Submission_Checkins_Alert_Message" = "Omiterea nu va avertiza contactele care au făcut check-in cu dvs.";
 
 "Submission_Checkins_Alert_Share" = "Partajare";
 
