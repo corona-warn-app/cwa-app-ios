@@ -34,7 +34,7 @@ class ENAUITests_04c_ExposureLogging: XCTestCase {
 		// only run if home screen is present
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: 5.0))
 		
-		app.cells["AppStrings.Home.activateCardOnTitle"].tap()
+		app.cells["AppStrings.Home.activateCardOnTitle"].waitAndTap()
 		snapshot("exposureloggingscreen_\(String(format: "%04d", (screenshotCounter.inc() )))")
 		
 		app.swipeUp()
@@ -51,7 +51,7 @@ class ENAUITests_04c_ExposureLogging: XCTestCase {
 		// only run if home screen is present
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: 5.0))
 
-		app.cells["AppStrings.Home.activateCardOffTitle"].tap()
+		app.cells["AppStrings.Home.activateCardOffTitle"].waitAndTap()
 		snapshot("exposureloggingscreen_\(String(format: "%04d", (screenshotCounter.inc() )))")
 
 		app.swipeUp()
