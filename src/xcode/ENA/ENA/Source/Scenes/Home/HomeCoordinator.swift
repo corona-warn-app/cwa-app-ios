@@ -28,12 +28,6 @@ class HomeCoordinator: RequiresAppDependencies {
 		enStateUpdateList.removeAllObjects()
 	}
 
-	// MARK: - Overrides
-
-	// MARK: - Protocol <#Name#>
-
-	// MARK: - Public
-
 	// MARK: - Internal
 
 	let rootViewController: UINavigationController = AppNavigationController(rootViewController: UIViewController())
