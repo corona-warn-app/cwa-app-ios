@@ -154,6 +154,7 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 				tableView.deleteRows(at: [indexPath], with: .automatic)
 			}, completion: { _ in
 				self?.isAnimatingChanges = false
+				self?.tableView.reloadData()
 			})
 		}
 	}

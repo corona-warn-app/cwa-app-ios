@@ -53,6 +53,8 @@ class HealthCertifiedPerson: Codable, Equatable {
 
 	var healthCertificates: [HealthCertificate] {
 		didSet {
+			updateVaccinationState()
+
 			objectDidChange.send(self)
 		}
 	}
