@@ -1800,6 +1800,20 @@ enum AppStrings {
 	}
 
 	enum HealthCertificate {
+		enum Home {
+			enum Registration {
+				static let title = NSLocalizedString("HealthCertificate_Home_Registration_title", comment: "")
+				static let description = NSLocalizedString("HealthCertificate_Home_Registration_description", comment: "")
+				static let buttonTitle = NSLocalizedString("HealthCertificate_Home_Registration_buttonTitle", comment: "")
+			}
+			enum Person {
+				static let caption = NSLocalizedString("HealthCertificate_Home_Person_caption", comment: "")
+				static let title = NSLocalizedString("HealthCertificate_Home_Person_title", comment: "")
+				static let partiallyVaccinated = NSLocalizedString("HealthCertificate_Home_Person_partiallyVaccinated", comment: "")
+				static let daysUntilCompleteProtection = NSLocalizedString("HealthCertificate_Home_Person_daysUntilCompleteProtection", comment: "")
+			}
+		}
+
 		enum Info {
 			static let title = NSLocalizedString("HealthCertificate_Info_Title", comment: "")
 			static let imageDescription = NSLocalizedString("HealthCertificate_Info_imageDescription", comment: "")
@@ -1810,16 +1824,6 @@ enum AppStrings {
 				static let section01 = NSLocalizedString("HealthCertificate_Info_register_section01", comment: "")
 				static let section02 = NSLocalizedString("HealthCertificate_Info_register_section02", comment: "")
 				static let section03 = NSLocalizedString("HealthCertificate_Info_register_section03", comment: "")
-			}
-			enum RegisterCard {
-				static let title = NSLocalizedString("HealthCertificate_Info_registerCard_title", comment: "")
-				static let description = NSLocalizedString("HealthCertificate_Info_registerCard_description", comment: "")
-				static let buttonTitle = NSLocalizedString("HealthCertificate_Info_registerCard_buttonTitle", comment: "")
-			}
-			enum Home {
-				static let title = NSLocalizedString("VaccinationCertificates_Home_Title", comment: "")
-				static let body = NSLocalizedString("VaccinationCertificates_Home_Body", comment: "")
-				static let inProgress = NSLocalizedString("VaccinationCertificates_Home_InProgress", comment: "")
 			}
 			enum Legal {
 				static let headline = NSLocalizedString("HealthCertificate_Info_Legal_headline", tableName: "Localizable.legal", comment: "")
