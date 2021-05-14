@@ -14,6 +14,12 @@ class HomeHealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierPr
 
 		captionLabel.text = AppStrings.HealthCertificate.Home.Person.caption
 		titleLabel.text = AppStrings.HealthCertificate.Home.Person.title
+
+		backgroundGradientView.layer.cornerRadius = 14
+
+		if #available(iOS 13.0, *) {
+			backgroundGradientView.layer.cornerCurve = .continuous
+		}
 	}
 	
 	override func setHighlighted(_ highlighted: Bool, animated: Bool) {
