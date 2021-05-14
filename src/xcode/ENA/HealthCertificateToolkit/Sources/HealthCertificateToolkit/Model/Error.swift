@@ -4,11 +4,6 @@
 
 import Foundation
 
-public enum ProofCertificateFetchingError: Error {
-    case PC_NETWORK_ERROR
-    case PC_SERVER_ERROR
-}
-
 public enum CertificateDecodingError: Error {
     case HC_BASE45_DECODING_FAILED
     case HC_ZLIB_DECOMPRESSION_FAILED
