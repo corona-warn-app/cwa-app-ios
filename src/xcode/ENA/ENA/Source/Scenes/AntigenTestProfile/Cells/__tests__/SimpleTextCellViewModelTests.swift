@@ -9,7 +9,7 @@ class SimpleTextCellViewModelTests: XCTestCase {
 
 	func testGIVEN_SimpleTextCellViewModel_THEN_AllValuesDidSetCorrect() {
 		// GIVEN
-		let simpleTextCellModel = HealthCertificateSimpleTextCellViewModel(
+		let simpleTextCellModel = SimpleTextCellViewModel(
 			backgroundColor: .white,
 			textColor: .red,
 			textAlignment: .left,
@@ -33,7 +33,7 @@ class SimpleTextCellViewModelTests: XCTestCase {
 
 	func testGIVEN_SimpleTextCellViewModelWithMissingValues_THEN_AllValuesDidSetCorrect() {
 		// GIVEN
-		let simpleTextCellModel = HealthCertificateSimpleTextCellViewModel(
+		let simpleTextCellModel = SimpleTextCellViewModel(
 			backgroundColor: .white,
 			topSpace: 100.0,
 			font: .systemFont(ofSize: 12.0),
