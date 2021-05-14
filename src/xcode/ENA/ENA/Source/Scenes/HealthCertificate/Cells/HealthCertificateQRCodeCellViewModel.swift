@@ -29,7 +29,7 @@ struct HealthCertificateQRCodeCellViewModel {
 			with: healthCertificate.base45,
 			encoding: .utf8,
 			size: CGSize(width: 280.0, height: 280.0),
-			qrCodeErrorCorrectionLevel: .medium
+			qrCodeErrorCorrectionLevel: .quartile
 		) ?? UIImage()
 	}
 
