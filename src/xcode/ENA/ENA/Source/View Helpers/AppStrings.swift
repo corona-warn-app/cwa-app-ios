@@ -1817,23 +1817,19 @@ enum AppStrings {
 		enum Info {
 			static let title = NSLocalizedString("HealthCertificate_Info_Title", comment: "")
 			static let imageDescription = NSLocalizedString("HealthCertificate_Info_imageDescription", comment: "")
-			enum Register {
-				static let headline = NSLocalizedString("HealthCertificate_Info_register_headline", comment: "")
-				static let text = NSLocalizedString("HealthCertificate_Info_register_title", comment: "")
-				static let FAQLinkText = NSLocalizedString("HealthCertificate_Info_register_FAQLinkText", comment: "")
-				static let section01 = NSLocalizedString("HealthCertificate_Info_register_section01", comment: "")
-				static let section02 = NSLocalizedString("HealthCertificate_Info_register_section02", comment: "")
-				static let section03 = NSLocalizedString("HealthCertificate_Info_register_section03", comment: "")
-			}
+			static let description = NSLocalizedString("HealthCertificate_Info_description", comment: "")
+			static let section01 = NSLocalizedString("HealthCertificate_Info_section01", comment: "")
+			static let section02 = NSLocalizedString("HealthCertificate_Info_section02", comment: "")
+			static let section03 = NSLocalizedString("HealthCertificate_Info_section03", comment: "")
+
 			enum Legal {
 				static let headline = NSLocalizedString("HealthCertificate_Info_Legal_headline", tableName: "Localizable.legal", comment: "")
-				static let subHeadline = NSLocalizedString("HealthCertificate_Info_Legal_subHeadline", tableName: "Localizable.legal", comment: "")
 				static let section01 = NSLocalizedString("HealthCertificate_Info_Legal_section01", tableName: "Localizable.legal", comment: "")
 				static let section02 = NSLocalizedString("HealthCertificate_Info_Legal_section02", tableName: "Localizable.legal", comment: "")
 				static let section03 = NSLocalizedString("HealthCertificate_Info_Legal_section03", tableName: "Localizable.legal", comment: "")
 				static let section04 = NSLocalizedString("HealthCertificate_Info_Legal_section04", tableName: "Localizable.legal", comment: "")
-				static let subHeadline2 = NSLocalizedString("HealthCertificate_Info_Legal_subHeadline2", tableName: "Localizable.legal", comment: "")
 			}
+
 			static let disclaimer = NSLocalizedString("HealthCertificate_Info_disclaimer", comment: "")
 		}
 

@@ -33,40 +33,22 @@ struct HealthCertificateConsentViewModel {
 						height: 184.0
 					),
 				cells: [
-					.title2(
-						text: AppStrings.HealthCertificate.Info.Register.headline,
-						accessibilityIdentifier: AccessibilityIdentifiers.HealthCertificate.Info.Register.headline
-					),
-					.attributedText(
-						text: faqLinkText(),
-						link: URL(string: AppStrings.Links.healthCertificateFAQ),
-						accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.guideFAQ
-					),
-					.space(
-						height: 15.0,
-						color: .enaColor(for: .background)
+					.body(
+						text: AppStrings.HealthCertificate.Info.description
 					),
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons - FaceID"),
-						text: .string(AppStrings.HealthCertificate.Info.Register.section01),
+						text: .string(AppStrings.HealthCertificate.Info.section01),
 						alignment: .top
-					),
-					.space(
-						height: 15.0,
-						color: .enaColor(for: .background)
 					),
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons_QR5"),
-						text: .string(AppStrings.HealthCertificate.Info.Register.section02),
+						text: .string(AppStrings.HealthCertificate.Info.section02),
 						alignment: .top
-					),
-					.space(
-						height: 15.0,
-						color: .enaColor(for: .background)
 					),
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons_Shield"),
-						text: .string(AppStrings.HealthCertificate.Info.Register.section03),
+						text: .string(AppStrings.HealthCertificate.Info.section03),
 						alignment: .top
 					)
 				]
@@ -75,15 +57,12 @@ struct HealthCertificateConsentViewModel {
 			.section(cells: [
 				.legalExtended(
 					title: NSAttributedString(string: AppStrings.HealthCertificate.Info.Legal.headline),
-					subheadline1: NSAttributedString(
-						string: AppStrings.HealthCertificate.Info.Legal.subHeadline,
-						attributes: [
-							.font: UIFont.preferredFont(forTextStyle: .body)
-						]
-					),
+					subheadline1: nil,
 					bulletPoints1: [
-						bulletPointCellWithBoldHeadline(
-							title: AppStrings.HealthCertificate.Info.Legal.section01,
+						bulletPointCellWithBoldText(
+							text: AppStrings.HealthCertificate.Info.Legal.section01
+						),
+						bulletPointCellWithBoldText(
 							text: AppStrings.HealthCertificate.Info.Legal.section02
 						),
 						bulletPointCellWithBoldText(
@@ -92,13 +71,8 @@ struct HealthCertificateConsentViewModel {
 						bulletPointCellWithBoldText(
 							text: AppStrings.HealthCertificate.Info.Legal.section04
 						)
-						],
-					subheadline2: NSAttributedString(
-						string: AppStrings.HealthCertificate.Info.Legal.subHeadline2,
-						attributes: [
-							.font: UIFont.preferredFont(forTextStyle: .body)
-						]
-					),
+					],
+					subheadline2: nil,
 					accessibilityIdentifier: AccessibilityIdentifiers.HealthCertificate.Info.acknowledgementTitle,
 					configure: { _, cell, _ in
 						cell.backgroundColor = .enaColor(for: .background)
@@ -148,15 +122,4 @@ struct HealthCertificateConsentViewModel {
 		return NSMutableAttributedString(string: "\(text)", attributes: boldTextAttribute)
 	}
 
-	private func faqLinkText(tintColor: UIColor = .enaColor(for: .textTint)) -> NSAttributedString {
-		let rawString = String(format: AppStrings.HealthCertificate.Info.Register.text, AppStrings.HealthCertificate.Info.Register.FAQLinkText)
-		let string = NSMutableAttributedString(string: rawString)
-		let range = string.mutableString.range(of: AppStrings.HealthCertificate.Info.Register.FAQLinkText)
-		if range.location != NSNotFound {
-			// Links don't work in UILabels so we fake it here. Link handling in done in view controller on cell tap.
-			string.addAttribute(.foregroundColor, value: tintColor, range: range)
-			string.addAttribute(.underlineColor, value: UIColor.clear, range: range)
-		}
-		return string
-	}
 }

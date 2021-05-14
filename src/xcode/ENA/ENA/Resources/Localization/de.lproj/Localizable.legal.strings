@@ -192,16 +192,12 @@
 
 /* Health Certificate Information */
 
-"HealthCertificate_Info_Legal_headline" = "Ihr Einverständnis";
+"HealthCertificate_Info_Legal_headline" = "Datenschutz und Datensicherheit";
 
-"HealthCertificate_Info_Legal_subHeadline" = "Durch Antippen von „Einverstanden“ willigen Sie in folgende Schritte ein:";
+"HealthCertificate_Info_Legal_section01" = "​Die Verwendung des digitalen Impfnachweises ist freiwillig. Der Nachweis des vollständigen Impfschutzes kann auch auf andere Weise erbracht werden (z.B. mit dem gelben Impfausweis).";
 
-"HealthCertificate_Info_Legal_section01" = "Die App legal";
+"HealthCertificate_Info_Legal_section02" = "Das Impfzertifikat enthält die Daten über Ihre Corona-Impfung. Zum Nachweis Ihres Impfschutzes in den gesetzlich vorgesehenen Fällen genügt das Vorzeigen des QR-Codes in der App. Stellen Sie die Impfzertifikate und QR-Codes niemandem zur Verfügung, wenn Sie nicht wollen, dass die Daten ausgelesen werden.";
 
-"HealthCertificate_Info_Legal_section02" = "Wenn Sie es sich später anders überlegen, können Sie den Test in der App entfernen.";
+"HealthCertificate_Info_Legal_section03" = "Wenn Sie den QR-Code in der App vorzeigen und dieser mit der Prüf-App gescannt wird, können andere Personen nachvollziehen, ob Ihr Impfschutz vollständig ist. Bei der Prüfung werden in der offiziellen Prüf-App auch Ihr Name und ihr Geburtsdatum angezeigt.";
 
-"HealthCertificate_Info_Legal_section03" = "Wenn Sie positiv auf Corona getestet wurden, teilt die App Ihr Testergebnis, um Nutzer, denen Sie begegnet sind, zu warnen. Dies betrifft Nutzer von Corona-Apps der oben genannten Länder und Nutzer, die zeitgleich am selben Event oder Ort wie Sie eingecheckt waren. Im Falle von Schnelltests werden nur Nutzer der Corona-Warn-App gewarnt.";
-
-"HealthCertificate_Info_Legal_section04" = "Wenn Sie zusätzlich Angaben zum Beginn Ihrer Symptome machen, werden auch diese geteilt.";
-
-"HealthCertificate_Info_Legal_subHeadline2" = "Sie können Ihr Einverständnis jederzeit zurücknehmen. Die Einstellung hierfür finden Sie unter „Test anzeigen“. Vor dem Teilen werden Sie nochmal auf Ihr Einverständnis hingewiesen.";
+"HealthCertificate_Info_Legal_section04" = "Sie haben jederzeit die Möglichkeit, Impfzertifikate in der App wieder zu entfernen. Bis dahin bleiben die Impfzertifikate auf Ihrem Smartphone gespeichert.";
