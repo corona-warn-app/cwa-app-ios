@@ -16,10 +16,4 @@ protocol HealthCertificateServiceProviding {
 
 	func removeHealthCertificate(_ healthCertificate: HealthCertificate)
 
-	func updateProofCertificate(
-		for healthCertifiedPerson: HealthCertifiedPerson,
-		trigger: FetchProofCertificateTrigger,
-		completion: @escaping (Result<Void, HealthCertificateServiceError.ProofRequestError>) -> Void
-	)
-
 }
