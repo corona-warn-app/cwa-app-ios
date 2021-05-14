@@ -4,7 +4,15 @@
 
 import Foundation
 
-public struct ProofCertificateDownload {
+public protocol ProofCertificateDownloadProtocol {
+    func fetchProofCertificate(
+        for healthCertificates: [Base45],
+        with httpService: HTTPServiceProtocol,
+        completion: @escaping (Result<Base45?, ProofCertificateFetchingError>) -> Void
+    )
+}
+
+public struct ProofCertificateDownload: ProofCertificateDownloadProtocol {
 
     // MARK: - Init
 
@@ -15,8 +23,8 @@ public struct ProofCertificateDownload {
     public func fetchProofCertificate(
         for healthCertificates: [Base45],
         with httpService: HTTPServiceProtocol = HTTPService(),
-        completion: @escaping (Result<Base45?, ProofCertificateFetchingError>
-    ) -> Void) {
+        completion: @escaping (Result<Base45?, ProofCertificateFetchingError>) -> Void
+    ) {
         let certificateAccess = DigitalGreenCertificateAccess()
 
         let eligibleCertificates =
