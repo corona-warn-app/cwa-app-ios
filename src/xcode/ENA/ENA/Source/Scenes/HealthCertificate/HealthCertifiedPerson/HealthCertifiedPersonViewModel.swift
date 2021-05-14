@@ -121,9 +121,10 @@ final class HealthCertifiedPersonViewModel {
 
 		return HealthCertificateSimpleTextCellViewModel(
 			backgroundColor: .enaColor(for: .background),
+			textAlignment: .left,
 			text: "Sie haben nun alle derzeit geplanten Impfungen erhalten. Allerdings ist der Impfschutz erst in \(daysUntilCompleteProtection) Tagen vollständig.",
 			topSpace: 18.0,
-			font: .enaFont(for: .headline),
+			font: .enaFont(for: .body),
 			boarderColor: .enaColor(for: .hairline),
 			accessibilityTraits: .staticText
 		)

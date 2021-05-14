@@ -60,10 +60,12 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 		backgroundContainerView.addSubview(qrCodeImageView)
 
 		certificateCountLabel.translatesAutoresizingMaskIntoConstraints = false
-		certificateCountLabel.font = .enaFont(for: .body)
+		certificateCountLabel.font = .enaFont(for: .headline)
+		certificateCountLabel.numberOfLines = 0
 
 		validityLabel.translatesAutoresizingMaskIntoConstraints = false
-		validityLabel.font = .enaFont(for: .subheadline)
+		validityLabel.font = .enaFont(for: .body)
+		validityLabel.numberOfLines = 0
 
 		let stackView = UIStackView(arrangedSubviews: [certificateCountLabel, validityLabel])
 		stackView.translatesAutoresizingMaskIntoConstraints = false
