@@ -235,7 +235,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 					onErrorExpectation.fulfill()
 					reactivateScanning()
 
-				case .other, .simulator:
+				case .other:
 					XCTFail("unexpected error")
 				}
 			}

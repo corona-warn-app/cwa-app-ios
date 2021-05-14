@@ -18,6 +18,7 @@ class HealthCertificateQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutput
 		self.captureDevice = AVCaptureDevice.default(for: .video)
 		self.onSuccess = onSuccess
 		self.onError = onError
+
 		super.init()
 	}
 
@@ -61,7 +62,6 @@ class HealthCertificateQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutput
 
 	lazy var captureSession: AVCaptureSession? = {
 		#if targetEnvironment(simulator)
-		onError?(.simulator)
 		return nil
 		#else
 		guard let currentCaptureDevice = captureDevice,

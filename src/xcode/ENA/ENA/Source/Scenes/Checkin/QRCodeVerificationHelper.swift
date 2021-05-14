@@ -38,7 +38,7 @@ class QRCodeVerificationHelper {
 			}
 			
 			// Extract ENCODED_PAYLOAD
-			// for some reason we get an extra match at index 0 which is the entire URL so  we need to add an offset of 1 to each index after that to get the correct corresponding parts
+			// for some reason we get an extra match at index 0 which is the entire URL so we need to add an offset of 1 to each index after that to get the correct corresponding parts
 			guard let unWrappedMatch = match, let qrDescriptor = descriptor else {
 				Log.error("the QRCode matched none of the regular expressions", log: .checkin)
 				onError(CheckinQRScannerError.codeNotFound)

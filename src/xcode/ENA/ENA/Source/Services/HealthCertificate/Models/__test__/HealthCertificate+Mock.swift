@@ -3,7 +3,6 @@
 //
 
 import Foundation
-@testable import ENA
 
 extension HealthCertificate {
 
