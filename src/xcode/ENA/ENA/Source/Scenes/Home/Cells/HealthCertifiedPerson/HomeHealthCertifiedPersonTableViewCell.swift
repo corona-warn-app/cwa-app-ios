@@ -5,16 +5,15 @@
 import UIKit
 import OpenCombine
 
-class HomeVaccinationTableViewCell: UITableViewCell, ReuseIdentifierProviding {
+class HomeHealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 	
 	// MARK: - Overrides
 
 	override func awakeFromNib() {
 		super.awakeFromNib()
 
-		certificateTitle.text = AppStrings.HealthCertificate.Info.Home.title
-		certificateBody.text = AppStrings.HealthCertificate.Info.Home.body
-		inProgressLabel.text = AppStrings.HealthCertificate.Info.Home.inProgress
+		captionLabel.text = AppStrings.HealthCertificate.Home.Person.caption
+		titleLabel.text = AppStrings.HealthCertificate.Home.Person.title
 	}
 	
 	override func setHighlighted(_ highlighted: Bool, animated: Bool) {
@@ -31,36 +30,45 @@ class HomeVaccinationTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 
 	// MARK: - Internal
 
-	func configure(with cellModel: HomeVaccinationCellModel) {
-		cellModel.$vaccinatedPersonName
+	func configure(with cellModel: HomeHealthCertifiedPersonCellModel) {
+		cellModel.$vaccinationState
+			.receive(on: DispatchQueue.main.ocombine)
+			.assign(to: \.text, on: vaccinationStateLabel)
+			.store(in: &subscriptions)
+
+		cellModel.$vaccinationState
+			.receive(on: DispatchQueue.main.ocombine)
+			.map { $0 == nil }
+			.assign(to: \.isHidden, on: vaccinationStateLabel)
+			.store(in: &subscriptions)
+
+		cellModel.$name
 			.receive(on: DispatchQueue.main.ocombine)
 			.assign(to: \.text, on: nameLabel)
 			.store(in: &subscriptions)
 
-		cellModel.$isProgressLabelHidden
-			.receive(on: DispatchQueue.main.ocombine)
-			.assign(to: \.isHidden, on: inProgressLabel)
-			.store(in: &subscriptions)
-
-		cellModel.$iconimage
+		cellModel.$iconImage
 			.receive(on: DispatchQueue.main.ocombine)
 			.assign(to: \.image, on: iconView)
 			.store(in: &subscriptions)
 
-		cellModel.$backgroundColor
+		cellModel.$backgroundGradientType
 			.receive(on: DispatchQueue.main.ocombine)
-			.assign(to: \.backgroundColor, on: containerView)
+			.assign(to: \.type, on: backgroundGradientView)
 			.store(in: &subscriptions)
 	}
 	
 	// MARK: - Private
 
-	@IBOutlet private weak var certificateTitle: ENALabel!
-	@IBOutlet private weak var certificateBody: ENALabel!
-	@IBOutlet private weak var inProgressLabel: ENALabel!
+	@IBOutlet private weak var captionLabel: ENALabel!
+	@IBOutlet private weak var titleLabel: ENALabel!
+	@IBOutlet private weak var vaccinationStateLabel: ENALabel!
 	@IBOutlet private weak var nameLabel: ENALabel!
+
 	@IBOutlet private weak var iconView: UIImageView!
+
 	@IBOutlet private weak var containerView: HomeCardView!
+	@IBOutlet private weak var backgroundGradientView: GradientView!
 
 	private var isConfigured: Bool = false
 	private var subscriptions = Set<AnyCancellable>()
