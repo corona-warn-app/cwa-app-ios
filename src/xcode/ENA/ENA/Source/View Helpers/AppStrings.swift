@@ -1831,11 +1831,22 @@ enum AppStrings {
 			}
 
 			static let disclaimer = NSLocalizedString("HealthCertificate_Info_disclaimer", comment: "")
+			static let primaryButton = NSLocalizedString("HealthCertificate_Info_primaryButton", comment: "")
 		}
 
 		enum QRScanner {
 			static let title = NSLocalizedString("HealthCertificate_QRScanner_title", comment: "")
 			static let instruction = NSLocalizedString("HealthCertificate_QRScanner_instruction", comment: "")
+		}
+
+		enum Person {
+			static let title = NSLocalizedString("HealthCertifiedPerson_title", comment: "")
+			static let subtitle = NSLocalizedString("HealthCertifiedPerson_subtitle", comment: "")
+			static let daysUntilCompleteProtection = NSLocalizedString("HealthCertifiedPerson_daysUntilCompleteProtection", comment: "")
+			static let dateOfBirth = NSLocalizedString("HealthCertifiedPerson_dateOfBirth", comment: "")
+			static let vaccinationCount = NSLocalizedString("HealthCertifiedPerson_vaccinationCount", comment: "")
+			static let vaccinationDate = NSLocalizedString("HealthCertifiedPerson_vaccinationDate", comment: "")
+			static let primaryButton = NSLocalizedString("HealthCertifiedPerson_primaryButton", comment: "")
 		}
 
 		enum Details {

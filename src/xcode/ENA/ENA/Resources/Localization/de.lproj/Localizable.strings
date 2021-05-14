@@ -2460,6 +2460,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Info_disclaimer" = "Ausführliche Informationen zur Datenverarbeitung finden Sie in der Datenschutzerklärung.";
 
+"HealthCertificate_Info_primaryButton" = "Weiter";
+
 /* QR Scanner */
 
 "HealthCertificate_QRScanner_title" = "QR-Code Scan";
@@ -2484,7 +2486,19 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Home_Person_partiallyVaccinated" = "Unvollständiger Impfschutz";
 
-"HealthCertificate_Home_Person_daysUntilCompleteProtection" = "Vollständiger Impfschutz in %i Tagen";
+/* Health Certified Person Screen */
+
+"HealthCertifiedPerson_title" = "Digitaler Impfnachweis";
+
+"HealthCertifiedPerson_subtitle" = "SARS-CoV-2-Impfschutz";
+
+"HealthCertifiedPerson_dateOfBirth" = "geboren %@";
+
+"HealthCertifiedPerson_vaccinationCount" = "Impfung %i von %i";
+
+"HealthCertifiedPerson_vaccinationDate" = "durchgeführt am %@";
+
+"HealthCertifiedPerson_primaryButton" = "Weitere Impfung registrieren";
 
 /* Health Certificate Details */
 
@@ -2524,7 +2538,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Alert_cancelButton" = "Abbrechen";
 
-/* Errors */
+/* Health Certificate Errors */
 
 "HealthCertificate_Error_Title" = "Fehler";
 

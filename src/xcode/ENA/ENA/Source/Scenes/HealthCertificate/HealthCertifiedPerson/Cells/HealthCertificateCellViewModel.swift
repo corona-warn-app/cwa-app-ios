@@ -28,7 +28,7 @@ final class HealthCertificateCellViewModel {
 		}
 
 		return String(
-			format: "Impfung %d von %d",
+			format: AppStrings.HealthCertificate.Person.vaccinationCount,
 			doseNumber,
 			totalSeriesOfDoses
 		)
@@ -43,7 +43,7 @@ final class HealthCertificateCellViewModel {
 		}
 
 		return String(
-			format: "durchgeführt am %@",
+			format: AppStrings.HealthCertificate.Person.vaccinationDate,
 			DateFormatter.localizedString(from: dateOfVaccinationDate, dateStyle: .medium, timeStyle: .none)
 		)
 	}

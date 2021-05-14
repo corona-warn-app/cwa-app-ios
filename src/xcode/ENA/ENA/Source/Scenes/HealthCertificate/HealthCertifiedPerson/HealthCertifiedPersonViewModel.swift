@@ -74,7 +74,7 @@ final class HealthCertifiedPersonViewModel {
 		centerParagraphStyle.lineSpacing = 10.0
 
 		let attributedHeadline = NSAttributedString(
-			string: "Digitaler Impfnachweis",
+			string: AppStrings.HealthCertificate.Person.title,
 			attributes: [
 				.font: UIFont.enaFont(for: .headline),
 				.foregroundColor: UIColor.enaColor(for: .textContrast),
@@ -83,7 +83,7 @@ final class HealthCertifiedPersonViewModel {
 		)
 
 		let attributedSubheadline = NSAttributedString(
-			string: "SARS-CoV-2-Impfschutz",
+			string: AppStrings.HealthCertificate.Person.subtitle,
 			attributes: [
 				.font: UIFont.enaFont(for: .body),
 				.foregroundColor: UIColor.enaColor(for: .textContrast),
@@ -122,7 +122,10 @@ final class HealthCertifiedPersonViewModel {
 		return HealthCertificateSimpleTextCellViewModel(
 			backgroundColor: .enaColor(for: .background),
 			textAlignment: .left,
-			text: "Sie haben nun alle derzeit geplanten Impfungen erhalten. Allerdings ist der Impfschutz erst in \(daysUntilCompleteProtection) Tagen vollständig.",
+			text: String(
+				format: AppStrings.HealthCertificate.Person.daysUntilCompleteProtection,
+				daysUntilCompleteProtection
+			),
 			topSpace: 18.0,
 			font: .enaFont(for: .body),
 			boarderColor: .enaColor(for: .hairline),
@@ -219,7 +222,7 @@ final class HealthCertifiedPersonViewModel {
 		}
 
 		return String(
-			format: AppStrings.ExposureSubmission.AntigenTest.Profile.dateOfBirthFormatText,
+			format: AppStrings.HealthCertificate.Person.dateOfBirth,
 			DateFormatter.localizedString(from: dateOfBirthDate, dateStyle: .medium, timeStyle: .none)
 		)
 	}

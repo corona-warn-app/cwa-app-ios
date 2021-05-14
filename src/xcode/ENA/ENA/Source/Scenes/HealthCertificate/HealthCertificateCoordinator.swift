@@ -50,7 +50,7 @@ final class HealthCertificateCoordinator {
 		
 		let footerViewController = FooterViewController(
 			FooterViewModel(
-				primaryButtonName: "Einverstanden",
+				primaryButtonName: AppStrings.HealthCertificate.Info.primaryButton,
 				isPrimaryButtonEnabled: true,
 				isSecondaryButtonEnabled: false,
 				isSecondaryButtonHidden: true,
@@ -131,7 +131,7 @@ final class HealthCertificateCoordinator {
 		
 		let footerViewController = FooterViewController(
 			FooterViewModel(
-				primaryButtonName: "Weitere Impfung registrieren",
+				primaryButtonName: AppStrings.HealthCertificate.Person.primaryButton,
 				isPrimaryButtonEnabled: true,
 				isSecondaryButtonEnabled: false,
 				isSecondaryButtonHidden: true,
