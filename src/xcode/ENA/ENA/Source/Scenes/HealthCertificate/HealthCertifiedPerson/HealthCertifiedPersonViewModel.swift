@@ -108,7 +108,7 @@ final class HealthCertifiedPersonViewModel {
 	var qrCodeCellViewModel: HealthCertificateQRCodeCellViewModel {
 		guard let latestHealthCertificate = healthCertifiedPerson.healthCertificates.last
 			else {
-			fatalError("Cell cannot be shown without a proof certificate")
+			fatalError("Cell cannot be shown without a health certificate")
 		}
 
 		return HealthCertificateQRCodeCellViewModel(healthCertificate: latestHealthCertificate)
