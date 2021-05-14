@@ -133,6 +133,14 @@ final class HealthCertifiedPersonViewModel {
 		)
 	}
 
+	var fullyVaccinatedHintIsVisible: Bool {
+		if case .fullyVaccinated = healthCertifiedPerson.vaccinationState {
+			return true
+		} else {
+			return false
+		}
+	}
+
 	var personCellViewModel: HealthCertificateSimpleTextCellViewModel {
 		let attributedName = NSAttributedString(
 			string: healthCertifiedPerson.fullName ?? "",
@@ -167,11 +175,7 @@ final class HealthCertifiedPersonViewModel {
 		case .qrCode:
 			return 1
 		case .fullyVaccinatedHint:
-			if case .fullyVaccinated = healthCertifiedPerson.vaccinationState {
-				return 1
-			} else {
-				return 0
-			}
+			return fullyVaccinatedHintIsVisible ? 1 : 0
 		case .person:
 			return 1
 		case .certificates:

@@ -147,14 +147,27 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 	func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
 		guard editingStyle == .delete, let healthCertificate = viewModel.healthCertificate(for: indexPath) else { return }
 
+		let fullyVaccinatedHintWasVisible = viewModel.fullyVaccinatedHintIsVisible
+
 		self.didSwipeToDelete(healthCertificate) { [weak self] in
-			self?.isAnimatingChanges = true
+			guard let self = self else { return }
+
+			self.isAnimatingChanges = true
 
 			tableView.performBatchUpdates({
-				tableView.deleteRows(at: [indexPath], with: .automatic)
+				var indexPaths = [indexPath]
+
+				if fullyVaccinatedHintWasVisible && !self.viewModel.fullyVaccinatedHintIsVisible {
+					indexPaths.append(IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.fullyVaccinatedHint.rawValue))
+				}
+
+				tableView.deleteRows(at: indexPaths, with: .automatic)
 			}, completion: { _ in
-				self?.isAnimatingChanges = false
-				self?.tableView.reloadData()
+				self.isAnimatingChanges = false
+
+				if self.viewModel.numberOfItems(in: .certificates) > 0 {
+					self.tableView.reloadData()
+				}
 			})
 		}
 	}
