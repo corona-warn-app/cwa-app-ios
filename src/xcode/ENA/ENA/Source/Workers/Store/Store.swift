@@ -174,9 +174,11 @@ protocol AntigenTestProfileStoring: AnyObject {
 
 }
 
-protocol HealthCertificateStoring {
+protocol HealthCertificateStoring: AnyObject {
 
 	var healthCertifiedPersons: [HealthCertifiedPerson] { get set }
+
+	var healthCertificateInfoScreenShown: Bool { get set }
 
 }
 

@@ -237,6 +237,11 @@ final class SecureStore: Store, AntigenTestProfileStoring {
         get { kvStore["healthCertifiedPersons"] as [HealthCertifiedPerson]? ?? [] }
         set { kvStore["healthCertifiedPersons"] = newValue }
     }
+
+	var healthCertificateInfoScreenShown: Bool {
+		get { kvStore["healthCertificateInfoScreenShown"] as Bool? ?? false }
+		set { kvStore["healthCertificateInfoScreenShown"] = newValue }
+	}
 	
 	// MARK: - Protocol VaccinationCaching
 
