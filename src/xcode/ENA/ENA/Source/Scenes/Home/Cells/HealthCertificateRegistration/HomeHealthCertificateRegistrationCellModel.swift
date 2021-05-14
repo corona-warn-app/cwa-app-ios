@@ -4,7 +4,7 @@
 
 import UIKit
 
-class VaccinationRegistrationCellModel {
+class HomeHealthCertificateRegistrationCellModel {
 
 	// MARK: - Internal
 
@@ -14,4 +14,5 @@ class VaccinationRegistrationCellModel {
 	let image = UIImage(named: "Vaccination_Register")
 	let tintColor: UIColor = .enaColor(for: .textPrimary1)
 	let accessibilityIdentifier = AccessibilityIdentifiers.Home.registerVaccinationButton
+
 }

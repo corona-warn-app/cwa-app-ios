@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-class VaccinationRegistrationTableViewCell: UITableViewCell {
+class HomeHealthCertificateRegistrationTableViewCell: UITableViewCell {
 	
 	// MARK: - Overrides
 	
@@ -35,7 +35,7 @@ class VaccinationRegistrationTableViewCell: UITableViewCell {
 	
 	// MARK: - Internal
 	
-	func configure(with cellModel: VaccinationRegistrationCellModel, onPrimaryAction: @escaping () -> Void) {
+	func configure(with cellModel: HomeHealthCertificateRegistrationCellModel, onPrimaryAction: @escaping () -> Void) {
 		titleLabel.text = cellModel.title
 		descriptionLabel.text = cellModel.description
 		illustrationView.image = cellModel.image

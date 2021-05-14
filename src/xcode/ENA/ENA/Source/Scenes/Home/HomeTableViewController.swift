@@ -390,8 +390,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			forCellReuseIdentifier: HomeVaccinationTableViewCell.reuseIdentifier
 		)
 		tableView.register(
-			UINib(nibName: String(describing: VaccinationRegistrationTableViewCell.self), bundle: nil),
-			forCellReuseIdentifier: String(describing: VaccinationRegistrationTableViewCell.self)
+			UINib(nibName: String(describing: HomeHealthCertificateRegistrationTableViewCell.self), bundle: nil),
+			forCellReuseIdentifier: String(describing: HomeHealthCertificateRegistrationTableViewCell.self)
 		)
 		tableView.register(
 			UINib(nibName: String(describing: HomeTestResultTableViewCell.self), bundle: nil),
@@ -584,12 +584,12 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		return cell
 	}
 	private func vaccinationRegistrationCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: VaccinationRegistrationTableViewCell.self), for: indexPath) as? VaccinationRegistrationTableViewCell else {
-			fatalError("Could not dequeue VaccinationRegistrationTableViewCell")
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeHealthCertificateRegistrationTableViewCell.self), for: indexPath) as? HomeHealthCertificateRegistrationTableViewCell else {
+			fatalError("Could not dequeue HomeHealthCertificateRegistrationTableViewCell")
 		}
 
 		cell.configure(
-			with: VaccinationRegistrationCellModel(),
+			with: HomeHealthCertificateRegistrationCellModel(),
 			onPrimaryAction: { [weak self] in
 				self?.onCreateHealthCertificateTap()
 			}
