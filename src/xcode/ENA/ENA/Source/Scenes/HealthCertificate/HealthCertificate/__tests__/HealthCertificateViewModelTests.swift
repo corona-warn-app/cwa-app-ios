@@ -62,8 +62,13 @@ struct HealthCertificateMock: HealthCertificateData {
 			standardizedGivenName: "maxi"
 		)
 		self.dateOfBirth = "1981-12-24"
+		self.dateOfBirthDate = Date()
 		self.vaccinationCertificates = []
 		self.isLastDoseInASeries = false
+		self.expirationDate = Date()
+		self.dateOfVaccination = Date()
+		self.doseNumber = 1
+		self.totalSeriesOfDoses = 2
 	}
 
 	// MARK: - Internal
@@ -72,7 +77,12 @@ struct HealthCertificateMock: HealthCertificateData {
 	let version: String
 	let name: Name
 	let dateOfBirth: String
+	var dateOfBirthDate: Date?
 	let vaccinationCertificates: [VaccinationCertificate]
 	let isLastDoseInASeries: Bool
+	var expirationDate: Date
+	var dateOfVaccination: Date?
+	var doseNumber: Int
+	var totalSeriesOfDoses: Int
 
 }
