@@ -25,10 +25,12 @@ struct HealthCertificateQRCodeCellViewModel {
 			healthCertificate.doseNumber, healthCertificate.totalSeriesOfDoses
 		)
 
+		let qrCodeSize = UIScreen.main.bounds.width - 60
+
 		self.qrCodeImage = UIImage.qrCode(
 			with: healthCertificate.base45,
 			encoding: .utf8,
-			size: CGSize(width: 280.0, height: 280.0),
+			size: CGSize(width: qrCodeSize, height: qrCodeSize),
 			qrCodeErrorCorrectionLevel: .quartile
 		) ?? UIImage()
 	}
