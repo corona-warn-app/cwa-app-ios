@@ -2474,11 +2474,11 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* - Registration */
 
-"HealthCertificate_Home_Registration_title" = "Impfzertifikat registrieren";
+"HealthCertificate_Home_Registration_title" = "Impfzertifikat hinzufügen";
 
-"HealthCertificate_Home_Registration_description" = "Registrieren Sie Impfzertifikate um einen Impfnachweis zu ehalten. Scannen Sie dafür die QR-Codes Ihres Dokuments.";
+"HealthCertificate_Home_Registration_description" = "Fügen Sie Ihre Impfzertifikate in die App hinzu, um sie immer bei sich zu haben. Scannen Sie dafür den QR Code Ihres Dokuments.";
 
-"HealthCertificate_Home_Registration_buttonTitle" = "Registrieren";
+"HealthCertificate_Home_Registration_buttonTitle" = "Hinzufügen";
 
 /* - Person */
 
