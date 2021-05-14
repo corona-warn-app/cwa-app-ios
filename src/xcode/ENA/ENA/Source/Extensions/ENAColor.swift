@@ -50,9 +50,6 @@ public enum ENAColor: String, CaseIterable {
 	case textSemanticRed = "ENA Text Semantic Red Color"
 	case textTint = "ENA Text Tint Color"
 
-	// MARK: - Vaccination Colors
-	case vaccinationLightBlue = "ENA Vaccination Blue"
-
 	// MARK: - Textfield
 	case textField = "ENA Textfield Color"
 }

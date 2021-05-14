@@ -137,8 +137,6 @@ private extension ENAColor {
 
 		// MARK: - Textfiled Colors
 		case .textField: return "text-field"
-			
-		case .vaccinationLightBlue: return "vaccinationLightBlue"
 		}
 	}
 }
