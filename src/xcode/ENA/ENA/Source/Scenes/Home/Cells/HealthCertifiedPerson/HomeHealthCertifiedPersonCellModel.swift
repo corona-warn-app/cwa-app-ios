@@ -18,7 +18,7 @@ class HomeHealthCertifiedPersonCellModel {
 		healthCertifiedPerson.$vaccinationState
 			.sink { [weak self] in
 				self?.backgroundGradientType = $0 == .completelyProtected ? .lightBlue : .solidGrey
-				self?.iconImage = $0 == .completelyProtected ? UIImage(named: "Vaccination_full") : UIImage(named: "Vacc_Incomplete")
+				self?.iconImage = $0 == .partiallyVaccinated ? UIImage(named: "Vacc_Incomplete") : UIImage(named: "Vaccination_full")
 				self?.name = healthCertifiedPerson.fullName
 
 				switch $0 {
