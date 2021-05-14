@@ -40,7 +40,6 @@ class HomeHealthCertifiedPersonCellModel {
 	
 	// MARK: - Internal
 
-
 	@OpenCombine.Published var vaccinationState: String?
 	@OpenCombine.Published var backgroundGradientType: GradientView.GradientType = .solidGrey
 	@OpenCombine.Published var iconImage: UIImage?

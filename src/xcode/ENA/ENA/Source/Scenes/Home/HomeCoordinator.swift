@@ -397,7 +397,6 @@ class HomeCoordinator: RequiresAppDependencies {
 		#endif
 	}
 
-
 	#if !RELEASE
 	private var developerMenu: DMDeveloperMenu?
 	private func enableDeveloperMenuIfAllowed(in controller: UIViewController) {
