@@ -401,7 +401,7 @@ enum AppStrings {
 		static let button = NSLocalizedString("ExposureSubmissionSuccess_Button", comment: "")
 		static let description = NSLocalizedString("ExposureSubmissionSuccess_Description", comment: "")
 		static let listTitle = NSLocalizedString("ExposureSubmissionSuccess_listTitle", comment: "")
-		static let listItem0 = NSLocalizedString("ExposureSubmissionSuccess_listItem1", comment: "")
+		static let listItem0 = NSLocalizedString("ExposureSubmissionSuccess_listItem0", comment: "")
 		static let listItem1 = NSLocalizedString("ExposureSubmissionSuccess_listItem1", comment: "")
 		static let listItem2 = NSLocalizedString("ExposureSubmissionSuccess_listItem2", comment: "")
 		static let subTitle = NSLocalizedString("ExposureSubmissionSuccess_subTitle", comment: "")
@@ -1070,15 +1070,12 @@ enum AppStrings {
 		
 		static let aboutAppInformation = NSLocalizedString("NewVersionFeatures_Info_about_abb_information", comment: "")
 		
-		/* Version 2.2 */
+		/* Version 2.3 */
 		
-		static let feature22RecordErrorLogsTitle = NSLocalizedString("NewVersionFeature_22_record_error_logs_title", comment: "")
+		static let feature23digitalVaccinationCertificateTitle = NSLocalizedString("NewVersionFeature_23_digital_vaccination_certificate_title", comment: "")
 		
-		static let feature22RecordErrorLogsDescription = NSLocalizedString("NewVersionFeature_22_record_error_logs_description", comment: "")
-		
-		static let feature22AntiGenProfileTitle = NSLocalizedString("NewVersionFeature_22_antigen_profiles_title", comment: "")
-		
-		static let feature22AntiGenProfileDescription = NSLocalizedString("NewVersionFeature_22_antigen_profiles_description", comment: "")
+		static let feature23digitalVaccinationCertificateDescription = NSLocalizedString("NewVersionFeature_23_digital_vaccination_certificate_description", comment: "")
+
 	}
 	
 	enum DeltaOnboarding {

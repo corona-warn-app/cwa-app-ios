@@ -391,6 +391,7 @@
 		357B1858255A7F5C00584548 /* AppConfig+CacheInvalidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357B1857255A7F5C00584548 /* AppConfig+CacheInvalidation.swift */; };
 		358249EE25E910AF00BFF303 /* LogDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 358249EA25E910AF00BFF303 /* LogDataItem.swift */; };
 		358249EF25E910AF00BFF303 /* DMLogsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 358249EB25E910AF00BFF303 /* DMLogsViewController.swift */; };
+		3583490C264AAE5600C4888D /* StreamReaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3583490B264AAE5500C4888D /* StreamReaderTests.swift */; };
 		3583F428260CBE46000B51D3 /* ContactDiaryStoreSchemaV1Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAE0A36257FA88D0030ED47 /* ContactDiaryStoreSchemaV1Tests.swift */; };
 		358D780C2632FA7C00070BED /* HTTPClient+SubmitErrorLogFileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5089F9692632D4CB00E722D2 /* HTTPClient+SubmitErrorLogFileTests.swift */; };
 		3598D99A24FE280700483F1F /* CountryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3598D99924FE280700483F1F /* CountryTests.swift */; };
@@ -1554,6 +1555,7 @@
 		357B1857255A7F5C00584548 /* AppConfig+CacheInvalidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppConfig+CacheInvalidation.swift"; sourceTree = "<group>"; };
 		358249EA25E910AF00BFF303 /* LogDataItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogDataItem.swift; sourceTree = "<group>"; };
 		358249EB25E910AF00BFF303 /* DMLogsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DMLogsViewController.swift; sourceTree = "<group>"; };
+		3583490B264AAE5500C4888D /* StreamReaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamReaderTests.swift; sourceTree = "<group>"; };
 		3598D99924FE280700483F1F /* CountryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryTests.swift; sourceTree = "<group>"; };
 		35A7F080250A7CF8005E6C33 /* KeychainHelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelperTests.swift; sourceTree = "<group>"; };
 		35A99564262877080023104A /* MockPublicKeyStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPublicKeyStore.swift; sourceTree = "<group>"; };
@@ -3448,6 +3450,7 @@
 		3525AC2F25E7BDAF002DDC82 /* Logging */ = {
 			isa = PBXGroup;
 			children = (
+				3583490A264AAE3D00C4888D /* __tests__ */,
 				AB1886C3252DE1AE00D39BBE /* Logging.swift */,
 				3525AC3325E7BDC3002DDC82 /* StreamReader.swift */,
 			);
@@ -3483,6 +3486,14 @@
 				358249EB25E910AF00BFF303 /* DMLogsViewController.swift */,
 			);
 			path = DMLogging;
+			sourceTree = "<group>";
+		};
+		3583490A264AAE3D00C4888D /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				3583490B264AAE5500C4888D /* StreamReaderTests.swift */,
+			);
+			path = __tests__;
 			sourceTree = "<group>";
 		};
 		35AA4AF2259B40DF00D32306 /* __tests__ */ = {
@@ -8034,6 +8045,7 @@
 				ABD0828F260E08D6007C4B24 /* TraceWarningMatcherTests.swift in Sources */,
 				01DF186E2603B28200A002E4 /* TraceLocationsOverviewViewModelTest.swift in Sources */,
 				AB5F84BB24F92876000400D4 /* Migration0To1Tests.swift in Sources */,
+				3583490C264AAE5600C4888D /* StreamReaderTests.swift in Sources */,
 				504E8AD125D2CE0600CAFBDF /* PPAnalyticsSubmitterTests.swift in Sources */,
 				50DC527B24FEB5CA00F6D8EB /* AppInformationModelTest.swift in Sources */,
 				BA8BBA08255A90690034D4BC /* WifiHTTPClientTests.swift in Sources */,
