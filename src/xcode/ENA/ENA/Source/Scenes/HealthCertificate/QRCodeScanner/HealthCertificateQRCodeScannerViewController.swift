@@ -29,10 +29,7 @@ class HealthCertificateQRCodeScannerViewController: UIViewController {
 			onError: { error in
 				switch error {
 				case .cameraPermissionDenied:
-					DispatchQueue.main.async {
-						self.dismiss()
-					}
-
+					self.showCameraPermissionErrorAlert(error: error)
 				default:
 					self.showErrorAlert(error: error)
 				}
@@ -222,6 +219,27 @@ class HealthCertificateQRCodeScannerViewController: UIViewController {
 				style: .default,
 				handler: { [weak self] _ in
 					self?.viewModel?.activateScanning()
+				}
+			)
+		)
+
+		DispatchQueue.main.async { [weak self] in
+			self?.present(alert, animated: true)
+		}
+	}
+
+	private func showCameraPermissionErrorAlert(error: Error) {
+		let alert = UIAlertController(
+			title: AppStrings.HealthCertificate.Error.title,
+			message: error.localizedDescription,
+			preferredStyle: .alert
+		)
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.Common.alertActionOk,
+				style: .cancel,
+				handler: { [weak self] _ in
+					self?.dismiss()
 				}
 			)
 		)
