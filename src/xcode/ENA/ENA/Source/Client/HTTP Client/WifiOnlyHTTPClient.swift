@@ -12,7 +12,9 @@ final class WifiOnlyHTTPClient: ClientWifiOnly {
 
 	init(
 		environmentProvider: EnvironmentProviding = Environments(),
-		session: URLSession = URLSession(configuration: .coronaWarnSessionConfigurationWifiOnly())
+		session: URLSession = .coronaWarnSession(
+			configuration: .coronaWarnSessionConfigurationWifiOnly()
+		)
 	) {
 		self.environmentProvider = environmentProvider
 		self.session = session
