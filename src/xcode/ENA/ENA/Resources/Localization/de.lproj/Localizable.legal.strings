@@ -201,3 +201,5 @@
 "HealthCertificate_Info_Legal_section03" = "Wenn Sie den QR-Code in der App vorzeigen und dieser mit der Prüf-App gescannt wird, können andere Personen nachvollziehen, ob Ihr Impfschutz vollständig ist. Bei der Prüfung werden in der offiziellen Prüf-App auch Ihr Name und ihr Geburtsdatum angezeigt.";
 
 "HealthCertificate_Info_Legal_section04" = "Sie haben jederzeit die Möglichkeit, Impfzertifikate in der App wieder zu entfernen. Bis dahin bleiben die Impfzertifikate auf Ihrem Smartphone gespeichert.";
+
+"HealthCertificate_Info_disclaimer" = "Ausführliche Informationen zur Datenverarbeitung finden Sie in der Datenschutzerklärung.";

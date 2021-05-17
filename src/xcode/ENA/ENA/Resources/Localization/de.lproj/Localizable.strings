@@ -2458,8 +2458,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Info_section03" = "Die Daten bleiben auf Ihrem Smartphone. Eine Übertragung an andere Personen findet nur statt, wenn Sie diesen Ihr Impfzertifikat zur Überprüfung vorzeigen.";
 
-"HealthCertificate_Info_disclaimer" = "Ausführliche Informationen zur Datenverarbeitung finden Sie in der Datenschutzerklärung.";
-
 "HealthCertificate_Info_primaryButton" = "Weiter";
 
 /* QR Scanner */
