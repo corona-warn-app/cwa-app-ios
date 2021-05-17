@@ -53,7 +53,7 @@ jobs:
           root: .
           paths:
             - .
-  build:
+  build: # TODO: review usage!
     macos:
       xcode: *xcode_version
     resource_class: *resource_class
@@ -64,6 +64,21 @@ jobs:
       - run:
           name: Build
           command: cd src/xcode && bundle exec fastlane build
+  build-for_testing:
+    macos:
+      xcode: *xcode_version
+    resource_class: *resource_class
+    steps:
+      - attach_workspace:
+          at: .
+      - install-tools # chaching currently fails, needs some further tweaks
+      - run:
+          name: Build
+          command: cd src/xcode && bundle exec fastlane build
+      - persist_to_workspace:
+          root: .
+          paths:
+            - "src/xcode/DerivedData/**/*"
   test:
     macos:
       xcode: *xcode_version

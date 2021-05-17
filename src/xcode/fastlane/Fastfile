@@ -41,16 +41,20 @@ platform :ios do
 
   desc "Build project"
   lane :build do
-    build_ios_app(
-      skip_codesigning: true,
-      export_method: "ad-hoc",
-      skip_package_ipa: true,
-      destination: "platform=iOS Simulator,OS=14.4,name=iPhone 11",
-      scheme: "ENA"
-    )
+    # TODO: still needed?
+    # build_ios_app(
+    #   skip_codesigning: true,
+    #   export_method: "ad-hoc",
+    #   skip_package_ipa: true,
+    #   destination: "platform=iOS Simulator,OS=14.4,name=iPhone 11",
+    #   scheme: "ENA"
+    # )
+
+    # build only, no tests
     run_tests(
-      build_for_testing: true, # build only, no tests
-      scheme: "ENA"
+      build_for_testing: true,
+      scheme: "ENA",
+      derived_data_path: "./DerivedData"
     )
   end
 
@@ -81,6 +85,8 @@ platform :ios do
       # Combined Unit & UI Tests
       run_tests(
         scheme: "ENA",
+        derived_data_path: "./DerivedData",
+        test_without_building: true,
         xcargs: "SWIFT_TREAT_WARNINGS_AS_ERRORS=NO",
         testplan: "AllTests",
         only_test_configurations: ["DE"],
