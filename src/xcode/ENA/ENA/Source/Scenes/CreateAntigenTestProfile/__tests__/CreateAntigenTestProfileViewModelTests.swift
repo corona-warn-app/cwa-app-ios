@@ -100,4 +100,42 @@ class CreateAntigenTestProfileViewModelTests: XCTestCase {
 			XCTFail(error.localizedDescription)
 		}
 	}
+	
+	func testGIVEN_AntigenTestProfile_THENEncodeAndDecode() {
+		// GIVEN
+		let store = MockTestStore()
+		let viewModel = CreateAntigenTestProfileViewModel(store: store)
+		// THEN
+		let day: Int = 17
+		var components = DateComponents()
+		components.day = day
+		components.month = 5
+		components.year = 1900
+		components.hour = 0
+		components.minute = 30
+		components.calendar = Calendar.current
+		components.timeZone = TimeZone(secondsFromGMT: 7200)
+		
+		do {
+			let date = try XCTUnwrap(components.date).addingTimeInterval(TimeInterval(components.timeZone?.secondsFromGMT() ?? 0))
+			
+			viewModel.update(date, keyPath: \.dateOfBirth)
+			viewModel.save()
+			
+			let savedAntigenTestProfile = try XCTUnwrap(store.antigenTestProfile)
+			
+			let encoder = JSONEncoder()
+			let encodedData = try encoder.encode(savedAntigenTestProfile)
+			
+			let decoder = JSONDecoder()
+			let decodedAntigenTestProfile = try decoder.decode(AntigenTestProfile.self, from: encodedData)
+			let decodedDate = try XCTUnwrap(decodedAntigenTestProfile.dateOfBirth)
+			
+			XCTAssertTrue(Calendar.current.component(.day, from: decodedDate) == day, "\(Calendar.current.component(.day, from: decodedDate)) != \(day)")
+			XCTAssertTrue(Calendar.current.isDate(decodedDate, equalTo: date, toGranularity: .day))
+			
+		} catch {
+			XCTFail(error.localizedDescription)
+		}
+	}
 }
