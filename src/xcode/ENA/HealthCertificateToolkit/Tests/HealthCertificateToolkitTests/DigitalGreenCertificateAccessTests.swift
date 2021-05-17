@@ -9,7 +9,7 @@ import SwiftCBOR
 
 final class DigitalGreenCertificateAccessTests: XCTestCase {
 
-    func test_When_decodeSucceeds_Then_CorrectCertificateIsReturned() {
+    func test_When_DecodeSucceeds_Then_CorrectCertificateIsReturned() {
         let certificateAccess = DigitalGreenCertificateAccess()
         
         let result = certificateAccess.extractDigitalGreenCertificate(from: testData.input)
@@ -22,7 +22,7 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
         XCTAssertEqual(healthCertificate, testData.certificate)
     }
 
-    func test_When_decodeCertificateFails_Then_PrefixInvalidErrorIsReturned() {
+    func test_When_DecodeCertificateFails_Then_PrefixInvalidErrorIsReturned() {
         let certificateAccess = DigitalGreenCertificateAccess()
         // "%69 VDL2" == "Hello"
         let base45WithoutPrefix = "%69 VDL2"
@@ -40,7 +40,7 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
         }
     }
 
-    func test_When_decodeCertificateFails_Then_Base45DecodingErrorIsReturned() {
+    func test_When_DecodeCertificateFails_Then_Base45DecodingErrorIsReturned() {
         let certificateAccess = DigitalGreenCertificateAccess()
         let nonBase45WithPrefix = hcPrefix+"==="
 
@@ -57,7 +57,7 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
         }
     }
 
-    func test_When_decodeCertificateFails_Then_CompressionErrorIsReturned() {
+    func test_When_DecodeCertificateFails_Then_CompressionErrorIsReturned() {
         let certificateAccess = DigitalGreenCertificateAccess()
         // "%69 VDL2" == "Hello"
         let base45NoZip = hcPrefix+"%69 VDL2"
@@ -75,7 +75,7 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
         }
     }
 
-    func test_When_decodeCertificateFails_Then_SchemaInvalidErrorIsReturned() {
+    func test_When_DecodeCertificateFails_Then_SchemaInvalidErrorIsReturned() {
         let certificateAccess = DigitalGreenCertificateAccess()
 
         let result = certificateAccess.extractDigitalGreenCertificate(from: testDataForSchemaError.input)
@@ -113,7 +113,7 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
         XCTAssertTrue(containsLengthError)
     }
 
-    func test_When_decodeSucceeds_Then_CorrectHeaderIsReturned() throws {
+    func test_When_DecodeSucceeds_Then_CorrectHeaderIsReturned() throws {
         let certificateAccess = DigitalGreenCertificateAccess()
 
         let result = certificateAccess.extractCBORWebTokenHeader(from: testData.input)
