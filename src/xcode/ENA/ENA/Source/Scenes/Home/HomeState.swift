@@ -100,7 +100,13 @@ class HomeState: ENStateHandlerUpdating {
 	}
 
 	var daysSinceInstallation: Int {
-		store.appInstallationDate?.ageInDays ?? 0
+		guard let appInstallationDate = store.appInstallationDate else {
+			return 0
+		}
+		if Calendar.current.isDateInYesterday(appInstallationDate) {
+			return 1
+		}
+		return appInstallationDate.ageInDays ?? 0
 	}
 
 	func updateDetectionMode(_ detectionMode: DetectionMode) {
