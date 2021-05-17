@@ -7,6 +7,7 @@ import UIKit
 final class HealthCertificateCellViewModel {
 
 	// MARK: - Init
+	
 	init(
 		healthCertificate: HealthCertificate,
 		gradientType: GradientView.GradientType
