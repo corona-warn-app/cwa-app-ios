@@ -2218,7 +2218,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TraceLocations_Section_Title_Temporary" = "EVENT";
 
-"TraceLocations_Type_Title_PermanentOther" = "anderer Ort";
+"TraceLocations_Type_Title_PermanentOther" = "Anderer Ort";
 
 "TraceLocations_Type_Title_PermanentRetail" = "Einzelhandel";
 
@@ -2230,7 +2230,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TraceLocations_Type_Title_PermanentEducationalInstitution" = "Bildungsstätte";
 
-"TraceLocations_Type_Title_PermanentPublicBuilding" = "öffentliches Gebäude";
+"TraceLocations_Type_Title_PermanentPublicBuilding" = "Öffentliches Gebäude";
 
 "TraceLocations_Type_Subtitle_PermanentRetail" = "Geschäft, Verkaufsraum";
 
@@ -2244,13 +2244,13 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TraceLocations_Type_Subtitle_PermanentPublicBuilding" = "Bürgeramt, Museum";
 
-"TraceLocations_Type_Title_TemporaryOther" = "anderes Event";
+"TraceLocations_Type_Title_TemporaryOther" = "Anderes Event";
 
 "TraceLocations_Type_Title_TemporaryCulturalEvent" = "Kulturveranstaltung";
 
 "TraceLocations_Type_Title_TemporaryClubActivity" = "Vereinsaktivität";
 
-"TraceLocations_Type_Title_TemporaryPrivateEvent" = "private Feier";
+"TraceLocations_Type_Title_TemporaryPrivateEvent" = "Private Feier";
 
 "TraceLocations_Type_Title_TemporaryWorshipService" = "Gottesdienst";
 
