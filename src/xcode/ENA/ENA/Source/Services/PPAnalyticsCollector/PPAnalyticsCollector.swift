@@ -178,8 +178,8 @@ enum PPAnalyticsCollector {
 
 	// MARK: - TestResultMetadata
 
-	private static func logTestResultMetadata(_ TestResultMetadata: PPATestResultMetadata) {
-		switch TestResultMetadata {
+	private static func logTestResultMetadata(_ testResultMetadata: PPATestResultMetadata) {
+		switch testResultMetadata {
 		case let .create(metaData):
 			store?.testResultMetadata = metaData
 		case let .testResult(testResult):
@@ -188,17 +188,17 @@ enum PPAnalyticsCollector {
 			store?.testResultMetadata?.hoursSinceTestRegistration = hoursSinceTestRegistration
 		case let .updateTestResult(testResult, token):
 			Analytics.updateTestResult(testResult, token)
-		case let .registerNewTestMetadata(date, token):
-			Analytics.registerNewTestMetadata(date, token)
+		case let .registerNewTestMetadata(date, token, type):
+			Analytics.registerNewTestMetadata(date, token, type: type)
 		}
 	}
 
-	private static func registerNewTestMetadata(_ date: Date = Date(), _ token: String) {
+	private static func registerNewTestMetadata(_ date: Date = Date(), _ token: String, type: TestResultMetadata.TestType) {
 		guard let riskCalculationResult = store?.enfRiskCalculationResult else {
 			Log.warning("Could not register new test meta data due to riskCalculationResult is nil", log: .ppa)
 			return
 		}
-		var testResultMetadata = TestResultMetadata(registrationToken: token)
+		var testResultMetadata = TestResultMetadata(registrationToken: token, type: type)
 		testResultMetadata.testRegistrationDate = date
 		testResultMetadata.riskLevelAtTestRegistration = riskCalculationResult.riskLevel
 		

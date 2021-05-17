@@ -108,7 +108,7 @@ class CoronaTestService {
 
 					Log.info("[CoronaTestService] PCR test registered: \(private: String(describing: self?.pcrTest), public: "PCR Test result")", log: .api)
 
-					Analytics.collect(.testResultMetadata(.registerNewTestMetadata(Date(), registrationToken)))
+					Analytics.collect(.testResultMetadata(.registerNewTestMetadata(Date(), registrationToken, .pcr)))
 					Analytics.collect(.keySubmissionMetadata(.submittedWithTeletan(false)))
 
 					self?.getTestResult(for: .pcr, duringRegistration: true) { result in

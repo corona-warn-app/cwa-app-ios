@@ -46,7 +46,7 @@ enum PPATestResultMetadata {
 	case testResult(TestResult)
 	case testResultHoursSinceTestRegistration(Int?)
 	case updateTestResult(TestResult, String)
-	case registerNewTestMetadata(Date, String)
+	case registerNewTestMetadata(Date, String, TestResultMetadata.TestType)
 }
 
 enum PPAKeySubmissionMetadata {

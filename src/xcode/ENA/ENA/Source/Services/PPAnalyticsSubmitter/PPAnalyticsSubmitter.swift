@@ -488,7 +488,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		
 		let resultProtobuf = SAP_Internal_Ppdd_PPATestResultMetadata.with {
 			
-			if let testResult = metadata?.testResult?.protobuf {
+			if let testResult = metadata?.protobuf {
 				$0.testResult = testResult
 			}
 			if let hoursSinceTestRegistration = metadata?.hoursSinceTestRegistration {
