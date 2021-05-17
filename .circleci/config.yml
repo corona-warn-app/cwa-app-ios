@@ -11,20 +11,6 @@ configuration:
 ###
 
 commands:
-  # install-tools:
-  #   steps:
-  #     - run:
-  #         name: Install swiftlint
-  #         command: |
-  #           if ! command -v swiftlint &> /dev/null
-  #           then
-  #             brew install swiftlint coreutils
-  #           fi
-  #           swiftlint version
-  #     - run:
-  #         name: Install Bundler
-  #         command: sudo gem install rake bundler:2.1.4
-
   prepare-dependencies:
     steps:
       - checkout
@@ -33,8 +19,6 @@ commands:
           command: for ip in $(dig @8.8.8.8 github.com +short); do ssh-keyscan github.com,$ip; ssh-keyscan $ip; done 2>/dev/null >> ~/.ssh/known_hosts
       - restore_cache:
           key: *cache_key
-      # --- from install-tools ----
-      # - install-tools
       - restore_cache:
           key: *tools_cache_key
       - run:
@@ -54,8 +38,6 @@ commands:
             - /Users/distiller/Library/Caches/Homebrew
             - /usr/local/Homebrew
             - /Users/distiller/.rubies/ruby-*/bin/
-      # --- from install-tools ----
-
       - run:
           name: Install dependencies
           command: cd src/xcode && bundle install --path=vendor --jobs=8
@@ -84,17 +66,6 @@ jobs:
           root: .
           paths:
             - .
-  # build: # TODO: review usage!
-  #   macos:
-  #     xcode: *xcode_version
-  #   resource_class: *resource_class
-  #   steps:
-  #     - attach_workspace:
-  #         at: .
-  #     - install-tools # chaching currently fails, needs some further tweaks
-  #     - run:
-  #         name: Build
-  #         command: cd src/xcode && bundle exec fastlane build
   build-for-testing:
     macos:
       xcode: *xcode_version
@@ -102,7 +73,6 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      #- install-tools # chaching currently fails, needs some further tweaks
       - run:
           name: Build for testing
           command: cd src/xcode && bundle exec fastlane build
@@ -110,6 +80,19 @@ jobs:
           root: .
           paths:
             - "src/xcode/DerivedData/**/*"
+  swiftlint:
+    macos:
+      xcode: *xcode_version
+    resource_class: small
+    steps:
+      - checkout
+      - run:
+          name: Swiftlint
+          command: cd src/xcode && bundle exec fastlane lint
+      - store_artifacts:
+          path: src/xcode/swiftlint.result.json
+      - store_test_results: # FIXME: a test
+          path: src/xcode/swiftlint.result.json
   test:
     macos:
       xcode: *xcode_version
@@ -117,7 +100,6 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      #- install-tools # chaching currently fails, needs some further tweaks
       - restore_cache:
           key: *tools_cache_key
       - run:
@@ -131,15 +113,15 @@ jobs:
           shell: /bin/zsh
           command: |
             ./scripts/cococo src/xcode/fastlane/test_output/ENA.xcresult > src/xcode/fastlane/test_output/coverage.xml
-      - run:
-          name: Fix SwiftLint output for SonarCloud
-          shell: /bin/zsh
-          command: |
-            ./scripts/fix_swiftlint_output.sh src/xcode/swiftlint.result.json
+      # - run:
+      #     name: Fix SwiftLint output for SonarCloud
+      #     shell: /bin/zsh
+      #     command: |
+      #       ./scripts/fix_swiftlint_output.sh src/xcode/swiftlint.result.json
       - store_test_results:
           path: src/xcode/fastlane/test_output/
-      - store_artifacts:
-          path: src/xcode/swiftlint.result.json
+      # - store_artifacts:
+      #     path: src/xcode/swiftlint.result.json
       - store_artifacts:
           path: src/xcode/fastlane/test_output/ENA.xcresult.zip
       - run:
@@ -247,7 +229,7 @@ jobs:
   update-docs:
     macos:
       xcode: *xcode_version
-    resource_class: *resource_class
+    resource_class: small
     shell: /bin/zsh
     steps:
       - attach_workspace:
@@ -270,6 +252,9 @@ workflows:
     build-and-test:
       jobs:
         - dependencies
+        - swiftlint:
+            requires:
+              - dependencies
         - build-for-testing:
             requires:
               - dependencies

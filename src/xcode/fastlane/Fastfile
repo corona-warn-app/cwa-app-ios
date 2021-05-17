@@ -69,18 +69,21 @@ platform :ios do
     )
   end
 
-  desc "Run tests"
-  lane :test do
+  desc "Lint code"
+  lane :lint do
     swiftlint(
       mode: :lint,
       output_file: "swiftlint.result.json",
       config_file: "ENA/.swiftlint.yml",
       strict: true,
-      quiet: true,
+      quiet: false,
       raise_if_swiftlint_error: true,
       reporter: "sonarqube"
     )
+  end
 
+  desc "Run tests"
+  lane :test do
     begin
       # Combined Unit & UI Tests
       run_tests(
