@@ -6,6 +6,10 @@ configuration:
   - xcode_version: &xcode_version 12.4.0
   - resource_class: &resource_class large
 
+###
+### COMMANDS ###
+###
+
 commands:
   # install-tools:
   #   steps:
@@ -47,7 +51,7 @@ commands:
       - save_cache:
           key: *tools_cache_key
           paths:
-            - /usr/local/bin/swiftlint
+            - /usr/local/bin/*
             - ~/.rubies/ruby-*/bin/
       # --- from install-tools ----
 
@@ -61,6 +65,10 @@ commands:
             - /usr/local/Cellar/
             - /usr/local/opt/
             - /usr/local/bin/
+
+###
+### JOBS ###
+###
 
 jobs:
   dependencies:
@@ -252,6 +260,10 @@ jobs:
       - run:
           name: Run lane for doc update
           command: cd src/xcode && bundle exec fastlane updateDocs
+
+###
+### WORKFLOWS ###
+###
 
 workflows:
     build-and-test:
