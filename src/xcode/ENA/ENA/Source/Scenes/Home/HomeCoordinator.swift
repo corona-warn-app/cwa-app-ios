@@ -368,7 +368,6 @@ class HomeCoordinator: RequiresAppDependencies {
 	private func showCreateHealthCertificate() {
 		healthCertificateCoordinator = HealthCertificateCoordinator(
 			parentViewController: rootViewController,
-			store: store,
 			healthCertificateService: healthCertificateService,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider
 		)
@@ -378,7 +377,6 @@ class HomeCoordinator: RequiresAppDependencies {
 	private func showCertifiedPerson( _ healthCertifiedPerson: HealthCertifiedPerson) {
 		healthCertificateCoordinator = HealthCertificateCoordinator(
 			parentViewController: rootViewController,
-			store: store,
 			healthCertificateService: healthCertificateService,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider
 		)

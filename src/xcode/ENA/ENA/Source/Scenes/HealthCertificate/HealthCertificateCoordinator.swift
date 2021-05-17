@@ -10,27 +10,19 @@ final class HealthCertificateCoordinator {
 	
 	init(
 		parentViewController: UIViewController,
-		store: HealthCertificateStoring,
 		healthCertificateService: HealthCertificateServiceProviding,
 		vaccinationValueSetsProvider: VaccinationValueSetsProvider
 	) {
 		self.parentViewController = parentViewController
-
-		self.store = store
 		self.healthCertificateService = healthCertificateService
 		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
-
 		self.navigationController = DismissHandlingNavigationController()
 	}
 	
 	// MARK: - Internal
 	
 	func start() {
-		if !store.healthCertificateInfoScreenShown {
-			showConsentScreen()
-		} else {
-			showQRCodeScanner(from: parentViewController)
-		}
+		showConsentScreen()
 	}
 	
 	func start(with healthCertifiedPerson: HealthCertifiedPerson) {
@@ -46,19 +38,12 @@ final class HealthCertificateCoordinator {
 	
 	private let parentViewController: UIViewController
 	private let navigationController: UINavigationController
-
-	private let store: HealthCertificateStoring
 	private let healthCertificateService: HealthCertificateServiceProviding
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProvider
 	
 	private func showConsentScreen() {
 		let consentScreen = HealthCertificateConsentViewController(
-			didTapConsentButton: { [weak self] in
-				guard let self = self else { return }
-
-				self.store.healthCertificateInfoScreenShown = true
-				self.showQRCodeScanner(from: self.navigationController)
-			},
+			didTapConsentButton: { [weak self] in self?.showQRCodeScanner(endOnDismiss: true) },
 			didTapDataPrivacy: { [weak self] in self?.showDisclaimer() },
 			dismiss: { [weak self] in self?.endCoordinator() }
 		)
@@ -93,15 +78,19 @@ final class HealthCertificateCoordinator {
 		navigationController.pushViewController(htmlDisclaimerViewController, animated: true)
 	}
 	
-	private func showQRCodeScanner(from parentViewController: UIViewController) {
+	private func showQRCodeScanner(endOnDismiss: Bool) {
 		let qrCodeScannerViewController = HealthCertificateQRCodeScannerViewController(
 			healthCertificateService: healthCertificateService,
 			didScanCertificate: { [weak self] healthCertifiedPerson in
 				self?.showHealthCertifiedPerson(healthCertifiedPerson)
-				parentViewController.dismiss(animated: true)
+				self?.navigationController.dismiss(animated: true)
 			},
-			dismiss: {
-				parentViewController.dismiss(animated: true)
+			dismiss: { [weak self] in
+				if endOnDismiss {
+					self?.endCoordinator()
+				} else {
+					self?.navigationController.dismiss(animated: true)
+				}
 			}
 		)
 
@@ -110,7 +99,7 @@ final class HealthCertificateCoordinator {
 		let qrCodeNavigationController = UINavigationController(rootViewController: qrCodeScannerViewController)
 		qrCodeNavigationController.modalPresentationStyle = .fullScreen
 
-		parentViewController.present(qrCodeNavigationController, animated: true)
+		navigationController.present(qrCodeNavigationController, animated: true)
 	}
 	
 	private func showHealthCertifiedPerson(_ healthCertifiedPerson: HealthCertifiedPerson) {
@@ -125,11 +114,7 @@ final class HealthCertificateCoordinator {
 					healthCertificate: healthCertificate
 				)
 			},
-			didTapRegisterAnotherHealthCertificate: { [weak self] in
-				guard let self = self else { return }
-
-				self.showQRCodeScanner(from: self.navigationController)
-			},
+			didTapRegisterAnotherHealthCertificate: { [weak self] in self?.showQRCodeScanner(endOnDismiss: false) },
 			didSwipeToDelete: { [weak self] healthCertificate, confirmDeletion in
 				self?.showDeleteAlert(
 					submitAction: UIAlertAction(
