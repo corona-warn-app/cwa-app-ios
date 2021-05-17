@@ -88,14 +88,14 @@ class HealthCertifiedPerson: Codable, Equatable {
 			return nil
 		}
 
-		return Calendar.current.date(byAdding: .day, value: 14, to: vaccinationDate)
+		return Calendar.autoupdatingCurrent.date(byAdding: .day, value: 14, to: vaccinationDate)
 	}
 
 	private func updateVaccinationState() {
 		if let completeVaccinationProtectionDate = completeVaccinationProtectionDate {
 			if completeVaccinationProtectionDate > Date() {
-				let startOfToday = Calendar.current.startOfDay(for: Date())
-				guard let daysUntilCompleteProtection = Calendar.current.dateComponents([.day], from: startOfToday, to: completeVaccinationProtectionDate).day else {
+				let startOfToday = Calendar.autoupdatingCurrent.startOfDay(for: Date())
+				guard let daysUntilCompleteProtection = Calendar.autoupdatingCurrent.dateComponents([.day], from: startOfToday, to: completeVaccinationProtectionDate).day else {
 					fatalError("Could not get days until complete protection")
 				}
 
