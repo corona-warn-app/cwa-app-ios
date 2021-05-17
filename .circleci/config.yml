@@ -32,15 +32,15 @@ commands:
       - run:
           name: Install Bundler
           command: sudo gem install rake bundler:2.1.4
+      - run:
+          name: Install dependencies
+          command: cd src/xcode && bundle install --path=vendor --jobs=8
       - save_cache:
           key: *tools_cache_key
           paths:
             - /Users/distiller/Library/Caches/Homebrew
             - /usr/local/Homebrew
             - /Users/distiller/.rubies/ruby-*/bin/
-      - run:
-          name: Install dependencies
-          command: cd src/xcode && bundle install --path=vendor --jobs=8
       - save_cache:
           key: *cache_key
           paths:
@@ -85,7 +85,8 @@ jobs:
       xcode: *xcode_version
     resource_class: medium
     steps:
-      - checkout
+      - attach_workspace:
+          at: .
       - restore_cache:
           key: *cache_key
       - restore_cache:
