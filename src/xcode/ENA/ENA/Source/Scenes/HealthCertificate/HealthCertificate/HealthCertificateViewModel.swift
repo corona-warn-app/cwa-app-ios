@@ -120,7 +120,7 @@ final class HealthCertificateViewModel {
 
 	// MARK: - Private
 
-	private enum valueSetType: String {
+	private enum ValueSetType: String {
 		case vp
 		case mp
 		case ma
@@ -218,7 +218,7 @@ final class HealthCertificateViewModel {
 		.compactMap { $0 }
 	}
 
-	private func valueSet(by type: valueSetType) -> SAP_Internal_Dgc_ValueSet? {
+	private func valueSet(by type: ValueSetType) -> SAP_Internal_Dgc_ValueSet? {
 		guard let valueSets = valueSets else {
 			Log.error("tried to read from unavailable valuesets", log: .vaccination)
 			return nil
