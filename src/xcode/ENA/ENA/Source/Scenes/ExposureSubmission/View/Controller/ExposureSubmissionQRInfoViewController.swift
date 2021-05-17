@@ -61,6 +61,12 @@ class ExposureSubmissionQRInfoViewController: DynamicTableViewController, Footer
 		parent?.navigationItem.title = AppStrings.ExposureSubmissionQRInfo.title
 		parent?.navigationItem.rightBarButtonItem = CloseBarButtonItem(onTap: dismiss)
 		
+		if traitCollection.userInterfaceStyle == .dark {
+			parent?.navigationController?.navigationBar.tintColor = .enaColor(for: .textContrast)
+		} else {
+			parent?.navigationController?.navigationBar.tintColor = .enaColor(for: .tint)
+		}
+		
 		view.backgroundColor = .enaColor(for: .background)
 
 		tableView.register(
