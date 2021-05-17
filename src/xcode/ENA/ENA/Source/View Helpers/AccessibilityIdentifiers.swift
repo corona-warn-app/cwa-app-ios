@@ -599,6 +599,10 @@ enum AccessibilityIdentifiers {
 			static let disclaimer = "AppStrings.HealthCertificate.Info.disclaimer"
 			static let acknowledgementTitle = "HealthCertificate.Info.acknowledgement"
 		}
+
+		enum Person {
+			static let title = "AppStrings.HealthCertificate.Person.title"
+		}
 	}
 
 }
