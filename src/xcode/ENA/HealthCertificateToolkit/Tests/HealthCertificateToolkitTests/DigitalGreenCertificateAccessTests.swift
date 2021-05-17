@@ -163,6 +163,7 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
         )
     }()
 
+    /// This data contains data which leads to validation errors.
     /// Schema validation errors:
     /// -Wrong format for dateOfBirth
     /// -Wrong format for dateOfVaccination
