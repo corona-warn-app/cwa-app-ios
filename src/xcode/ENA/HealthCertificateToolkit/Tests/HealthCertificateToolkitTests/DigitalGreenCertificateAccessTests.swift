@@ -190,7 +190,7 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
                         dateOfVaccination: "NODateOfVaccination",
                         countryOfVaccination: "DE",
                         certificateIssuer: "Bundesministerium für Gesundheit",
-                        uniqueCertificateIdentifier: "01DE/84503/1119349007/DXSGWLWL40SU8ZFKIYIBK39A3#S"
+                        uniqueCertificateIdentifier: "Lorem ipsum dolor sit amet, consetetur sadipscing e"
                     )
                 ]
             ),
