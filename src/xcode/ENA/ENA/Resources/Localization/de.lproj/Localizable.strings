@@ -580,7 +580,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionQRInfo_acknowledgement_4" = "Ihre Identität bleibt geheim. Andere Nutzer erfahren nicht, wer sein Testergebnis geteilt hat.";
 
-"ExposureSubmissionQRInfo_acknowledgement_5" = "Unter „Meine Check-ins“ können Sie Ihre Events und Orte einsehen, deren eingecheckte Gäste gewarnt werden. Sie können einzelne Check-Ins auch entfernen und so von der Warnung ausschließen.";
+"ExposureSubmissionQRInfo_acknowledgement_5" = "Unter „Meine Check-ins“ können Sie Ihre Events und Orte einsehen, deren eingecheckte Gäste gewarnt werden. Sie können einzelne Check-ins auch entfernen und so von der Warnung ausschließen.";
 
 "ExposureSubmissionQRInfo_acknowledgement_6" = "Sie können Ihr Einverständnis abgeben, wenn Sie mindestens 16 Jahre alt sind.";
 
@@ -964,7 +964,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_Profile_ProfileTile_Title" = "Schnelltest-Profil";
 
-"ExposureSubmission_Profile_ProfileTile_Description" = "Sparen Sie Zeit und zeigen Sie Ihr Schnelltest-Profil bei der Teststelle vor.";
+"ExposureSubmission_Profile_ProfileTile_Description" = "Sparen Sie Zeit und zeigen Sie Ihr Schnelltest-Profil an der Teststelle vor.";
 
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Risiko-Ermittlung";
@@ -1523,15 +1523,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Informationen unter dem Menüpunkt „Neue Funktionen”.";
 
-/* Version 2.2 */
+/* Version 2.3 */
 
-"NewVersionFeature_22_record_error_logs_title" = "Aufzeichnung von Fehleranalyse-Protokollen";
+"NewVersionFeature_23_digital_vaccination_certificate_title" = "Digitaler Impfnachweis";
 
-"NewVersionFeature_22_record_error_logs_description" = "Sie können nun im Rahmen des technischen Supports für die App ein Fehlerprotokoll erstellen, das die Schritte aufzeichnet, die Sie in der App ausführen. Somit wird die Analyse von möglichen Fehlern erleichtert, welches zu einer schnelleren Fehlerbehebung führen kann.";
-
-"NewVersionFeature_22_antigen_profiles_title" = "Anlegen von Schnelltest-Profilen";
-
-"NewVersionFeature_22_antigen_profiles_description" = "Sie können nun ein Schnelltest-Profil mit Ihren persönlichen Daten anlegen. Ihr Profil kann dann an Teststellen per QR-Code schnell und einfach gescannt werden.";
+"NewVersionFeature_23_digital_vaccination_certificate_description" = "Sie können nun Ihre Impfzertifikate in der App registrieren. Sobald Sie alle notwendigen Impfungen haben, können Sie den vollständigen Impfnachweis per QR-Code in der App vorweisen.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
@@ -2149,7 +2145,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "Checkins_Overview_QRScanner_Instruction" = "QR-Code scannen und einchecken";
 
-"Checkins_Overview_Item_Prefix_CheckIn" = "Check-In für %@.";
+"Checkins_Overview_Item_Prefix_CheckIn" = "Check-in für %@.";
 
 "Checkins_Overview_Item_Prefix_CheckedOut" = "Checked-Out für %@.";
 
@@ -2222,7 +2218,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TraceLocations_Section_Title_Temporary" = "EVENT";
 
-"TraceLocations_Type_Title_PermanentOther" = "anderer Ort";
+"TraceLocations_Type_Title_PermanentOther" = "Anderer Ort";
 
 "TraceLocations_Type_Title_PermanentRetail" = "Einzelhandel";
 
@@ -2234,7 +2230,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TraceLocations_Type_Title_PermanentEducationalInstitution" = "Bildungsstätte";
 
-"TraceLocations_Type_Title_PermanentPublicBuilding" = "öffentliches Gebäude";
+"TraceLocations_Type_Title_PermanentPublicBuilding" = "Öffentliches Gebäude";
 
 "TraceLocations_Type_Subtitle_PermanentRetail" = "Geschäft, Verkaufsraum";
 
@@ -2248,13 +2244,13 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TraceLocations_Type_Subtitle_PermanentPublicBuilding" = "Bürgeramt, Museum";
 
-"TraceLocations_Type_Title_TemporaryOther" = "anderes Event";
+"TraceLocations_Type_Title_TemporaryOther" = "Anderes Event";
 
 "TraceLocations_Type_Title_TemporaryCulturalEvent" = "Kulturveranstaltung";
 
 "TraceLocations_Type_Title_TemporaryClubActivity" = "Vereinsaktivität";
 
-"TraceLocations_Type_Title_TemporaryPrivateEvent" = "private Feier";
+"TraceLocations_Type_Title_TemporaryPrivateEvent" = "Private Feier";
 
 "TraceLocations_Type_Title_TemporaryWorshipService" = "Gottesdienst";
 
@@ -2400,7 +2396,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "Submission_Checkins_Title" = "Check-ins teilen?";
 
-"Submission_Checkins_Description" = "Teilen Sie Ihre Check-ins, um andere zu warnen, die in Ihrer Nähe waren. Ihre Identität bleibt geheim.";
+"Submission_Checkins_Description" = "Teilen Sie Ihre Check-ins, um andere zu warnen, die mit Ihnen eingecheckt waren. Ihre Identität bleibt geheim.";
 
 "Submission_Checkins_SelectAll" = "Alle auswählen";
 
@@ -2410,7 +2406,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "Submission_Checkins_Alert_Title" = "Sind Sie sicher, dass Sie Ihre Check-ins nicht teilen wollen?";
 
-"Submission_Checkins_Alert_Message" = "Dadurch werden andere nicht gewarnt, die in Ihrer Nähe waren.";
+"Submission_Checkins_Alert_Message" = "Dadurch werden andere nicht gewarnt, die mit Ihnen eingecheckt waren.";
 
 "Submission_Checkins_Alert_Share" = "Teilen";
 
@@ -2447,3 +2443,55 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "AntigenProfile_Delete_Alert_Description" = "Bitte denken Sie daran, dass der QR-Code danach nicht mehr zum Registrieren verwendet werden kann.";
 
 "AntigenProfile_Delete_Alert_Delete_Button_Title" = "Entfernen";
+
+/* Health Certificate Information */
+
+"HealthCertificate_Info_Title" = "Ihr Einverständnis";
+
+"HealthCertificate_Info_imageDescription" = "Eine geschützte Person schaut auf ein Smartphone";
+
+"HealthCertificate_Info_register_headline" = "Impfzertifikat registrieren";
+
+"HealthCertificate_Info_register_title" = "Erstellen Sie Ihren digitalen Impfnachweis. Weitere Informationen finden Sie in der %@";
+
+"HealthCertificate_Info_register_FAQLinkText" = "FAQ zum Impfen.";
+
+"HealthCertificate_Info_register_section01" = "Scannen Sie den QR-Code auf Ihrem Impfzertifikat, um das Zertifikat zu registrieren.";
+
+"HealthCertificate_Info_register_section02" = "Die App erstellt einen Impfnachweis. Den QR-Code zum vollständigen Impfnachweis erhalten Sie, wenn Sie alle Impfungen erhalten haben. Je nach Impfstoff können mehrere Impfungen notwendig sein.";
+
+"HealthCertificate_Info_register_section03" = "Ihr Impfnachweis wird in regelmäßigen Abständen automatisch überprüft.";
+
+"HealthCertificate_Info_disclaimer" = "Ausführliche Informationen zur Datenverarbeitung und Ihrem Einverständnis.";
+
+/* Health Certificate Details */
+
+"HealthCertificate_Details_vaccinationCount" = "Impfung %i von %i";
+
+"HealthCertificate_Details_certificate" = "Impfzertifikat";
+
+"HealthCertificate_Details_dateOfBirth" = "geboren %@";
+
+"HealthCertificate_Details_dateOfVaccination" = "Datum der Impfung";
+
+"HealthCertificate_Details_vaccine" = "Impfstoff";
+
+"HealthCertificate_Details_manufacture" = "Hersteller";
+
+"HealthCertificate_Details_issuer" = "Aussteller";
+
+"HealthCertificate_Details_country" = "Land";
+
+"HealthCertificate_Details_identifier" = "Zertifikationsnummer";
+
+"HealthCertificate_Details_primaryButton" = "Impfzertifikat entfernen";
+
+/* Health Certificate Alert delete */
+
+"HealthCertificate_Alert_title" = "Wollen Sie das Impfzertifikat wirklich entfernen?";
+
+"HealthCertificate_Alert_message" = "Wenn Sie das Impfzertifikat entfernen, kann die App die Impfung nicht mehr für die Prüfung Ihres Impfstatus berücksichtigen.";
+
+"HealthCertificate_Alert_deleteButton" = "Entfernen";
+
+"HealthCertificate_Alert_cancelButton" = "Abbrechen";

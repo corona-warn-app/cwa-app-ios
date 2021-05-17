@@ -1480,14 +1480,10 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Changes in this release can be found in the app information, under “New Features”.";
 
-/* Version 2.2 */
-"NewVersionFeature_22_record_error_logs_title" = "Record Troubleshooting Logs";
+/* Version 2.3 */
+"NewVersionFeature_23_digital_vaccination_certificate_title" = "Digital Proof of Vaccination";
 
-"NewVersionFeature_22_record_error_logs_description" = "You can now generate an error log in the technical support feature for the app. It records the steps that you perform in the app, to simplify the analysis of potential errors and help us correct them more quickly.";
-
-"NewVersionFeature_22_antigen_profiles_title" = "Create Rapid Test Profiles";
-
-"NewVersionFeature_22_antigen_profiles_description" = "You can now create a rapid test profile in your personal data. Your profile can then be scanned at testing points quickly and easily via QR code.";
+"NewVersionFeature_23_digital_vaccination_certificate_description" = "You can now register your vaccination certificates in the app. As soon as you have received all the necessary vaccinations, you can present proof of your full vaccination via QR code in the app.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Transnational Exposure Logging";
@@ -2326,7 +2322,7 @@
 /* Submission Check-in */
 "Submission_Checkins_Title" = "Share Location Check-Ins?";
 
-"Submission_Checkins_Description" = "Warn others who checked in near you. Your personal data will not be shared.";
+"Submission_Checkins_Description" = "Warn others who checked in with you. Your personal data will not be shared.";
 
 "Submission_Checkins_SelectAll" = "Select all";
 
@@ -2336,7 +2332,7 @@
 
 "Submission_Checkins_Alert_Title" = "Are you sure you don’t want to share your check-ins?";
 
-"Submission_Checkins_Alert_Message" = "Skipping will not warn any contacts who checked in near you.";
+"Submission_Checkins_Alert_Message" = "Skipping will not warn any contacts who checked in with you.";
 
 "Submission_Checkins_Alert_Share" = "Share";
 

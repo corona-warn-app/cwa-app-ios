@@ -402,7 +402,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 	private func showHotlineScreen() {
 		let vc = ExposureSubmissionHotlineViewController(
-			onSecondaryButtonTap: { [weak self] in
+			onPrimaryButtonTap: { [weak self] in
 				self?.showTanScreen()
 			},
 			dismiss: { [weak self] in self?.dismiss() }
@@ -755,6 +755,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 		let footerViewModel = FooterViewModel(
 			primaryButtonName: AppStrings.ExposureSubmission.AntigenTest.Information.primaryButton,
+			primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Information.continueButton,
 			isPrimaryButtonEnabled: true,
 			isSecondaryButtonEnabled: false,
 			isSecondaryButtonHidden: true
@@ -784,6 +785,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 		let footerViewModel = FooterViewModel(
 			primaryButtonName: AppStrings.AntigenProfile.Create.saveButtonTitle,
+			primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Create.saveButton,
 			isPrimaryButtonEnabled: false,
 			isSecondaryButtonEnabled: false,
 			isSecondaryButtonHidden: true
@@ -818,6 +820,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		let footerViewModel = FooterViewModel(
 			primaryButtonName: AppStrings.ExposureSubmission.AntigenTest.Profile.primaryButton,
 			secondaryButtonName: AppStrings.ExposureSubmission.AntigenTest.Profile.secondaryButton,
+			primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.continueButton,
+			secondaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.deleteButton,
 			isPrimaryButtonEnabled: true,
 			isSecondaryButtonEnabled: true,
 			secondaryButtonInverted: true,

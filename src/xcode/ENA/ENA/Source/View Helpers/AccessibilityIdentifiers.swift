@@ -292,9 +292,7 @@ enum AccessibilityIdentifiers {
 		static let imageDescription = "AppStrings.ExposureSubmissionHotline.imageDescription"
 		static let description = "AppStrings.ExposureSubmissionHotline.description"
 		static let sectionTitle = "AppStrings.ExposureSubmissionHotline.sectionTitle"
-		static let primaryButton = "AppStrings.ExposureSubmissionHotline.callButtonTitle"
-		static let secondaryButton = "AppStrings.ExposureSubmissionHotline.tanInputButtonTitle"
-		
+		static let primaryButton = "AppStrings.ExposureSubmissionHotline.tanInputButtonTitle"
 	}
 	
 	enum ExposureSubmissionIntroduction {
@@ -390,11 +388,18 @@ enum AccessibilityIdentifiers {
 				static let descriptionSubHeadline = "AppStrings.ExposureSubmission.AntigenTest.Information.descriptionSubHeadline"
 				static let acknowledgementTitle = "AntigenTest_Information_acknowledgement_title"
 				static let dataPrivacyTitle = "AppStrings.ExposureSubmission.AntigenTest.Information.dataPrivacyTitle"
+				static let continueButton = "AppStrings.ExposureSubmission.AntigenTest.Information.primaryButton"
+			}
+			
+			enum Create {
+				static let saveButton = "AppStrings.AntigenProfile.Create.saveButtonTitle"
 			}
 			
 			enum Profile {
 				static let profileTile_Description = "AppStrings.ExposureSubmission.AntigenTest.Profile.profileTile_Description"
 				static let createProfileTile_Description = "AppStrings.ExposureSubmission.AntigenTest.Profile.createProfileTile_Description"
+				static let continueButton = "AppStrings.ExposureSubmission.AntigenTest.Profile.primaryButton"
+				static let deleteButton = "AppStrings.ExposureSubmission.AntigenTest.Profile.secondaryButton"
 			}
 		}
 
@@ -455,7 +460,7 @@ enum AccessibilityIdentifiers {
 		static let title = "UpdateOSScreen.title"
 		static let text = "UpdateOSScreen.text"
 	}
-	
+
 	enum Tabbar {
 		static let home = "Tabbar.home"
 		static let diary = "Tabbar.diary"
@@ -579,4 +584,20 @@ enum AccessibilityIdentifiers {
 			static let saveButtonTitle = "AppStrings.AntigenProfile.Create.saveButtonTitle"
 		}
 	}
+
+	enum HealthCertificate {
+		enum Info {
+			static let imageDescription = "AppStrings.HealthCertificate.Info.imageDescription"
+
+			enum Register {
+				static let headline = "AppStrings.HealthCertificate.Info.Register.headline"
+				static let text = "AppStrings.HealthCertificate.Info.Register.text"
+			}
+
+			static let disclaimer = "AppStrings.HealthCertificate.Info.disclaimer"
+			static let acknowledgementTitle = "HealthCertificate.Info.acknowledgement"
+		}
+	}
+
+// swiftlint:disable:next file_length
 }
