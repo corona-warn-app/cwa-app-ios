@@ -230,6 +230,7 @@ workflows:
               - dependencies
         - test:
             requires:
+              - build
               - dependencies
         - test-community:
             requires:
