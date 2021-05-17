@@ -189,7 +189,10 @@ class CreateAntigenTestProfileViewController: UITableViewController, FooterViewH
 	
 	@objc
 	private func dateOfBirthDidChange(datePicker: UIDatePicker) {
-		viewModel.update(datePicker.date, keyPath: \.dateOfBirth)
+		let offset = datePicker.timeZone?.secondsFromGMT() ?? 0
+		let utcDate = datePicker.date
+		let date = utcDate.addingTimeInterval(TimeInterval(offset))
+		viewModel.update(date, keyPath: \.dateOfBirth)
 		if let cell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? CreateAntigenTestProfileInputCell {
 			cell.textFields[2].text = DateFormatter.localizedString(from: datePicker.date, dateStyle: .medium, timeStyle: .none)
 		}
