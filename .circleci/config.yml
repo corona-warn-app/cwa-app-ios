@@ -53,7 +53,18 @@ jobs:
           root: .
           paths:
             - .
-  build: # TODO: review usage!
+  # build: # TODO: review usage!
+  #   macos:
+  #     xcode: *xcode_version
+  #   resource_class: *resource_class
+  #   steps:
+  #     - attach_workspace:
+  #         at: .
+  #     - install-tools # chaching currently fails, needs some further tweaks
+  #     - run:
+  #         name: Build
+  #         command: cd src/xcode && bundle exec fastlane build
+  build-for-testing:
     macos:
       xcode: *xcode_version
     resource_class: *resource_class
@@ -62,18 +73,7 @@ jobs:
           at: .
       - install-tools # chaching currently fails, needs some further tweaks
       - run:
-          name: Build
-          command: cd src/xcode && bundle exec fastlane build
-  build-for_testing:
-    macos:
-      xcode: *xcode_version
-    resource_class: *resource_class
-    steps:
-      - attach_workspace:
-          at: .
-      - install-tools # chaching currently fails, needs some further tweaks
-      - run:
-          name: Build
+          name: Build for testing
           command: cd src/xcode && bundle exec fastlane build
       - persist_to_workspace:
           root: .
@@ -225,13 +225,12 @@ workflows:
     build-and-test:
       jobs:
         - dependencies
-        - build:
+        - build-for-testing:
             requires:
               - dependencies
         - test:
             requires:
-              - build
-              - dependencies
+              - build-for-testing
         - test-community:
             requires:
               - dependencies
@@ -275,15 +274,15 @@ workflows:
                   - /^v.*/
               branches:
                 ignore: /.*/
-        - build:
-            requires:
-              - dependencies
-            filters:
-              tags:
-                only:
-                  - /^v.*/
-              branches:
-                ignore: /.*/
+        # - build:
+        #     requires:
+        #       - dependencies
+        #     filters:
+        #       tags:
+        #         only:
+        #           - /^v.*/
+        #       branches:
+        #         ignore: /.*/
         - snapshot:
             matrix:
               parameters:
