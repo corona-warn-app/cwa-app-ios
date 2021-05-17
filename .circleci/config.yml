@@ -43,11 +43,12 @@ commands:
             swiftlint version
       - run:
           name: Install Bundler
-          command: sudo gem install rake bundler:2.1.4 && which bundle && which bundler
+          command: sudo gem install rake bundler:2.1.4
       - save_cache:
           key: *tools_cache_key
           paths:
             - /usr/local/bin/swiftlint
+            - ~/.rubies/ruby-*/bin/
       # --- from install-tools ----
 
       - run:
@@ -108,6 +109,8 @@ jobs:
       - attach_workspace:
           at: .
       #- install-tools # chaching currently fails, needs some further tweaks
+      - restore_cache:
+          key: *tools_cache_key
       - run:
           name: Run Fastlane tests
           command: cd src/xcode && bundle exec fastlane test
@@ -160,6 +163,8 @@ jobs:
     steps:
       - attach_workspace:
           at: .
+      - restore_cache:
+          key: *tools_cache_key
       #- install-tools # chaching currently fails, needs some further tweaks
       - run:
           name: Run Fastlane smoke tests
@@ -183,6 +188,8 @@ jobs:
     steps:
       - attach_workspace:
           at: .
+      - restore_cache:
+          key: *tools_cache_key
       #- install-tools # chaching currently fails, needs some further tweaks
       - run:
           name: Snapshot
@@ -218,6 +225,8 @@ jobs:
     steps:
       - attach_workspace:
           at: .
+      - restore_cache:
+          key: *tools_cache_key
       #- install-tools # chaching currently fails, needs some further tweaks
       - run: ./scripts/switch_to_dev_env.sh
       - run:
@@ -234,6 +243,8 @@ jobs:
     steps:
       - attach_workspace:
           at: .
+      - restore_cache:
+          key: *tools_cache_key
       #- install-tools # chaching currently fails, needs some further tweaks
       - add_ssh_keys:
           fingerprints:
