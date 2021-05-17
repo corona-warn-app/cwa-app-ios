@@ -122,6 +122,7 @@ final class TanInputViewModel {
 			switch result {
 			case let .failure(error):
 				// If teleTAN is incorrect, show Alert Controller
+				Log.debug("Failure to register PCR test: \(error.localizedDescription)", log: .api)
 				self?.isPrimaryButtonEnabled = true
 				self?.isPrimaryBarButtonIsLoading = false
 				self?.presentInvalidTanAlert(error.localizedDescription) {
