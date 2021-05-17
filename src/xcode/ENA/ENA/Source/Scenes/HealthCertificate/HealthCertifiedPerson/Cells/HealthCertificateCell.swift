@@ -18,6 +18,14 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		fatalError("init(coder:) has not been implemented")
 	}
 
+	// MARK: - Overrides
+
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+
+		updateBorderWidth()
+	}
+
 	// MARK: - Internal
 
 	func configure(_ cellViewModel: HealthCertificateCellViewModel) {
@@ -50,7 +58,7 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		}
 		backgroundContainerView.layer.cornerRadius = 15.0
 		backgroundContainerView.layer.masksToBounds = true
-		backgroundContainerView.layer.borderWidth = 1.0
+		updateBorderWidth()
 
 		backgroundContainerView.translatesAutoresizingMaskIntoConstraints = false
 		contentView.addSubview(backgroundContainerView)
@@ -126,6 +134,10 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 				disclosureImageView.widthAnchor.constraint(equalToConstant: 7)
 			]
 		)
+	}
+
+	private func updateBorderWidth() {
+		backgroundContainerView.layer.borderWidth = traitCollection.userInterfaceStyle == .dark ? 0 : 1
 	}
 
 }
