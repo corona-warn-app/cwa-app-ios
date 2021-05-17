@@ -964,7 +964,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_Profile_ProfileTile_Title" = "Schnelltest-Profil";
 
-"ExposureSubmission_Profile_ProfileTile_Description" = "Sparen Sie Zeit und zeigen Sie Ihr Schnelltest-Profil bei der Teststelle vor.";
+"ExposureSubmission_Profile_ProfileTile_Description" = "Sparen Sie Zeit und zeigen Sie Ihr Schnelltest-Profil an der Teststelle vor.";
 
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Risiko-Ermittlung";
@@ -2396,7 +2396,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "Submission_Checkins_Title" = "Check-ins teilen?";
 
-"Submission_Checkins_Description" = "Teilen Sie Ihre Check-ins, um andere zu warnen, die in Ihrer Nähe waren. Ihre Identität bleibt geheim.";
+"Submission_Checkins_Description" = "Teilen Sie Ihre Check-ins, um andere zu warnen, die mit Ihnen eingecheckt waren. Ihre Identität bleibt geheim.";
 
 "Submission_Checkins_SelectAll" = "Alle auswählen";
 
@@ -2406,7 +2406,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "Submission_Checkins_Alert_Title" = "Sind Sie sicher, dass Sie Ihre Check-ins nicht teilen wollen?";
 
-"Submission_Checkins_Alert_Message" = "Dadurch werden andere nicht gewarnt, die in Ihrer Nähe waren.";
+"Submission_Checkins_Alert_Message" = "Dadurch werden andere nicht gewarnt, die mit Ihnen eingecheckt waren.";
 
 "Submission_Checkins_Alert_Share" = "Teilen";
 
@@ -2443,3 +2443,55 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "AntigenProfile_Delete_Alert_Description" = "Bitte denken Sie daran, dass der QR-Code danach nicht mehr zum Registrieren verwendet werden kann.";
 
 "AntigenProfile_Delete_Alert_Delete_Button_Title" = "Entfernen";
+
+/* Health Certificate Information */
+
+"HealthCertificate_Info_Title" = "Ihr Einverständnis";
+
+"HealthCertificate_Info_imageDescription" = "Eine geschützte Person schaut auf ein Smartphone";
+
+"HealthCertificate_Info_register_headline" = "Impfzertifikat registrieren";
+
+"HealthCertificate_Info_register_title" = "Erstellen Sie Ihren digitalen Impfnachweis. Weitere Informationen finden Sie in der %@";
+
+"HealthCertificate_Info_register_FAQLinkText" = "FAQ zum Impfen.";
+
+"HealthCertificate_Info_register_section01" = "Scannen Sie den QR-Code auf Ihrem Impfzertifikat, um das Zertifikat zu registrieren.";
+
+"HealthCertificate_Info_register_section02" = "Die App erstellt einen Impfnachweis. Den QR-Code zum vollständigen Impfnachweis erhalten Sie, wenn Sie alle Impfungen erhalten haben. Je nach Impfstoff können mehrere Impfungen notwendig sein.";
+
+"HealthCertificate_Info_register_section03" = "Ihr Impfnachweis wird in regelmäßigen Abständen automatisch überprüft.";
+
+"HealthCertificate_Info_disclaimer" = "Ausführliche Informationen zur Datenverarbeitung und Ihrem Einverständnis.";
+
+/* Health Certificate Details */
+
+"HealthCertificate_Details_vaccinationCount" = "Impfung %i von %i";
+
+"HealthCertificate_Details_certificate" = "Impfzertifikat";
+
+"HealthCertificate_Details_dateOfBirth" = "geboren %@";
+
+"HealthCertificate_Details_dateOfVaccination" = "Datum der Impfung";
+
+"HealthCertificate_Details_vaccine" = "Impfstoff";
+
+"HealthCertificate_Details_manufacture" = "Hersteller";
+
+"HealthCertificate_Details_issuer" = "Aussteller";
+
+"HealthCertificate_Details_country" = "Land";
+
+"HealthCertificate_Details_identifier" = "Zertifikationsnummer";
+
+"HealthCertificate_Details_primaryButton" = "Impfzertifikat entfernen";
+
+/* Health Certificate Alert delete */
+
+"HealthCertificate_Alert_title" = "Wollen Sie das Impfzertifikat wirklich entfernen?";
+
+"HealthCertificate_Alert_message" = "Wenn Sie das Impfzertifikat entfernen, kann die App die Impfung nicht mehr für die Prüfung Ihres Impfstatus berücksichtigen.";
+
+"HealthCertificate_Alert_deleteButton" = "Entfernen";
+
+"HealthCertificate_Alert_cancelButton" = "Abbrechen";
