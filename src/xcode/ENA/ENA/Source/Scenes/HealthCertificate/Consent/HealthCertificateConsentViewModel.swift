@@ -59,16 +59,16 @@ struct HealthCertificateConsentViewModel {
 					title: NSAttributedString(string: AppStrings.HealthCertificate.Info.Legal.headline),
 					subheadline1: nil,
 					bulletPoints1: [
-						bulletPointCellWithBoldText(
+						bulletPointCellWithNormalText(
 							text: AppStrings.HealthCertificate.Info.Legal.section01
 						),
-						bulletPointCellWithBoldText(
+						bulletPointCellWithNormalText(
 							text: AppStrings.HealthCertificate.Info.Legal.section02
 						),
-						bulletPointCellWithBoldText(
+						bulletPointCellWithNormalText(
 							text: AppStrings.HealthCertificate.Info.Legal.section03
 						),
-						bulletPointCellWithBoldText(
+						bulletPointCellWithNormalText(
 							text: AppStrings.HealthCertificate.Info.Legal.section04
 						)
 					],
@@ -118,8 +118,8 @@ struct HealthCertificateConsentViewModel {
 		return bulletPoint
 	}
 
-	private func bulletPointCellWithBoldText(text: String) -> NSMutableAttributedString {
-		return NSMutableAttributedString(string: "\(text)", attributes: boldTextAttribute)
+	private func bulletPointCellWithNormalText(text: String) -> NSMutableAttributedString {
+		return NSMutableAttributedString(string: "\(text)", attributes: normalTextAttribute)
 	}
 
 }
