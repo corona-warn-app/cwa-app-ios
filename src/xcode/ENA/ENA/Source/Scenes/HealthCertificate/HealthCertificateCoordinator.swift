@@ -43,7 +43,7 @@ final class HealthCertificateCoordinator {
 	
 	private func showConsentScreen() {
 		let consentScreen = HealthCertificateConsentViewController(
-			didTapConsentButton: { [weak self] in self?.showQRCodeScanner(endOnDismiss: true) },
+			didTapConsentButton: { [weak self] in self?.showQRCodeScanner() },
 			didTapDataPrivacy: { [weak self] in self?.showDisclaimer() },
 			dismiss: { [weak self] in self?.endCoordinator() }
 		)
@@ -78,7 +78,7 @@ final class HealthCertificateCoordinator {
 		navigationController.pushViewController(htmlDisclaimerViewController, animated: true)
 	}
 	
-	private func showQRCodeScanner(endOnDismiss: Bool) {
+	private func showQRCodeScanner() {
 		let qrCodeScannerViewController = HealthCertificateQRCodeScannerViewController(
 			healthCertificateService: healthCertificateService,
 			didScanCertificate: { [weak self] healthCertifiedPerson in
@@ -86,11 +86,7 @@ final class HealthCertificateCoordinator {
 				self?.navigationController.dismiss(animated: true)
 			},
 			dismiss: { [weak self] in
-				if endOnDismiss {
-					self?.endCoordinator()
-				} else {
-					self?.navigationController.dismiss(animated: true)
-				}
+				self?.navigationController.dismiss(animated: true)
 			}
 		)
 
@@ -107,14 +103,18 @@ final class HealthCertificateCoordinator {
 			healthCertificateService: healthCertificateService,
 			healthCertifiedPerson: healthCertifiedPerson,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			dismiss: { [weak self] in self?.endCoordinator() },
+			dismiss: { [weak self] in
+				self?.endCoordinator()
+			},
 			didTapHealthCertificate: { [weak self] healthCertificate in
 				self?.showHealthCertificate(
 					healthCertifiedPerson: healthCertifiedPerson,
 					healthCertificate: healthCertificate
 				)
 			},
-			didTapRegisterAnotherHealthCertificate: { [weak self] in self?.showQRCodeScanner(endOnDismiss: false) },
+			didTapRegisterAnotherHealthCertificate: { [weak self] in
+				self?.showQRCodeScanner()
+			},
 			didSwipeToDelete: { [weak self] healthCertificate, confirmDeletion in
 				self?.showDeleteAlert(
 					submitAction: UIAlertAction(
@@ -155,7 +155,9 @@ final class HealthCertificateCoordinator {
 			healthCertifiedPerson: healthCertifiedPerson,
 			healthCertificate: healthCertificate,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			dismiss: { [weak self] in self?.endCoordinator() },
+			dismiss: { [weak self] in
+				self?.endCoordinator()
+			},
 			didTapDelete: { [weak self] in
 				self?.showDeleteAlert(
 					submitAction: UIAlertAction(
