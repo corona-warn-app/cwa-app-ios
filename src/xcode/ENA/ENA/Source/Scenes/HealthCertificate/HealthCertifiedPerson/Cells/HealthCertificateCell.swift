@@ -42,7 +42,7 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		contentView.backgroundColor = .clear
 		selectionStyle = .none
 
-		backgroundContainerView.backgroundColor = .enaColor(for: .background)
+		backgroundContainerView.backgroundColor = .enaColor(for: .cellBackground2)
 		backgroundContainerView.layer.borderColor = UIColor.enaColor(for: .hairline).cgColor
 
 		if #available(iOS 13.0, *) {

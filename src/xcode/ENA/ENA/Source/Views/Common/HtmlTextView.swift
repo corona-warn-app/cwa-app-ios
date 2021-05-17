@@ -96,6 +96,7 @@ private extension ENAColor {
 		case .backgroundLightGray: return "lightGrayBackground"
 		case .darkBackground: return "darkBackground"
 		case .cellBackground: return "cellBackground"
+		case .cellBackground2: return "cellBackground2"
 		case .hairline: return "hairline"
 		case .hairlineContrast: return "hairline-contrast"
 		case .separator: return "separator"
