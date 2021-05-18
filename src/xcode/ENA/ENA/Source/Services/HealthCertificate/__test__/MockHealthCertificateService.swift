@@ -20,7 +20,9 @@ class MockHealthCertificateService: HealthCertificateServiceProviding {
 			healthCertificates.append(healthCertificate)
 		}
 
-		return .success(HealthCertifiedPerson(healthCertificates: healthCertificates, proofCertificate: nil))
+		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: healthCertificates)
+		healthCertifiedPersons.value = [healthCertifiedPerson]
+		return .success(healthCertifiedPerson)
 	}
 
 	func removeHealthCertificate(_ healthCertificate: HealthCertificate) {
