@@ -2862,6 +2862,16 @@
 			path = TestResult;
 			sourceTree = "<group>";
 		};
+		01A4DFD12653D3DE00F13432 /* AntigenTestProfile */ = {
+			isa = PBXGroup;
+			children = (
+				BA0F6C4C26317B7F0046BA48 /* AntigenTestProfile */,
+				BA3A79C22631B7AF00B6D6C0 /* AntigenTestProfileInformation */,
+				BA0F6C57263186690046BA48 /* CreateAntigenTestProfile */,
+			);
+			path = AntigenTestProfile;
+			sourceTree = "<group>";
+		};
 		01A6C2E12626D71600B6E95A /* TestRegistration */ = {
 			isa = PBXGroup;
 			children = (
@@ -4391,14 +4401,12 @@
 		85D759712457059A008175F0 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				BA0F6C4C26317B7F0046BA48 /* AntigenTestProfile */,
-				BA3A79C22631B7AF00B6D6C0 /* AntigenTestProfileInformation */,
+				01A4DFD12653D3DE00F13432 /* AntigenTestProfile */,
 				71176E30248957B1004B0C9F /* App */,
 				EE85998B2462EFD4002E7AE2 /* AppInformation */,
 				BAA4D72E25E95B1D00821B5C /* Checkin */,
 				0190982A257E5A9D0065D050 /* ContactDiary */,
 				BA63815825E69D1000A642BB /* Containers */,
-				BA0F6C57263186690046BA48 /* CreateAntigenTestProfile */,
 				BA0073BB25D189E50036DFDD /* DataDonation */,
 				BA7D17D025D5947B006B9EBF /* DataDonationDetails */,
 				BAC939D6261F5CC9008BECED /* DismissHandlingNavigationController */,
@@ -5893,7 +5901,7 @@
 			path = DMPPACService;
 			sourceTree = "<group>";
 		};
-		BA4C269D25EE9DA600E0505F /* CheckInDetail */ = {
+		BA4C269D25EE9DA600E0505F /* TraceLocationCheckin */ = {
 			isa = PBXGroup;
 			children = (
 				8FA88FDE261668EE00FD36DA /* __tests__ */,
@@ -5901,7 +5909,7 @@
 				5093B9A6260DEB2D007C0B09 /* TraceLocationCheckinViewController.xib */,
 				5093B9A8260DEB2D007C0B09 /* TraceLocationCheckinViewModel.swift */,
 			);
-			path = CheckInDetail;
+			path = TraceLocationCheckin;
 			sourceTree = "<group>";
 		};
 		BA573D5C2608CBB6006ED1A6 /* __tests_ */ = {
@@ -6238,7 +6246,7 @@
 				BA38183325CB104900C1DB6C /* ConfigureableCell.swift */,
 				01F6702125FF80470069C4F9 /* Overview */,
 				5081EEF525FF74A5004B8FDE /* Info */,
-				BA4C269D25EE9DA600E0505F /* CheckInDetail */,
+				BA4C269D25EE9DA600E0505F /* TraceLocationCheckin */,
 				BADD36DE260B4FBA00DD282A /* EditCheckInTime */,
 				BAA4D73425E960FC00821B5C /* QRCodeScanner */,
 			);
