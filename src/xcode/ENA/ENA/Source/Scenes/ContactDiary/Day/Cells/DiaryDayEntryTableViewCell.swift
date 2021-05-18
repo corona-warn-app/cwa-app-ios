@@ -14,9 +14,8 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(headerTapped))
 		headerStackView.addGestureRecognizer(tapGestureRecognizer)
 		headerStackView.isUserInteractionEnabled = true
-
 		headerStackView.isAccessibilityElement = true
-		headerStackView.accessibilityTraits = UIAccessibilityTraits.allowsDirectInteraction
+		headerStackView.accessibilityTraits = [.button]
 	}
 
 	// MARK: - Protocol UITextFieldDelegate
@@ -46,6 +45,8 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 		checkboxImageView.image = cellModel.image
 		label.text = cellModel.text
 		label.font = cellModel.font
+		
+		headerStackView.accessibilityLabel = cellModel.text
 
 		setUpParameterViews()
 
@@ -173,14 +174,14 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 
 		switch cellModel.entryType {
 		case .contactPerson:
-			// adding this because of known issue in first element in arrangedSubview in terms of accessibilty
+			// adding this because of known issue in first element of arrangedSubview in terms of accessibilty
 		    let emptySpacer = UIView()
 			parametersStackView.addArrangedSubview(emptySpacer)
 			parametersStackView.addArrangedSubview(durationSegmentedControl)
 			parametersStackView.addArrangedSubview(maskSituationSegmentedControl)
 			parametersStackView.addArrangedSubview(settingSegmentedControl)
 
-			parametersStackView.setCustomSpacing(18, after: settingSegmentedControl)
+			parametersStackView.setCustomSpacing(20, after: settingSegmentedControl)
 
 			notesTextField.placeholder = AppStrings.ContactDiary.Day.Encounter.notesPlaceholder
 		case .location:
