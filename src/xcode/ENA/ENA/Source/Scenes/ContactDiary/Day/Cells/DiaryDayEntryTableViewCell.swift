@@ -181,7 +181,7 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 			parametersStackView.addArrangedSubview(maskSituationSegmentedControl)
 			parametersStackView.addArrangedSubview(settingSegmentedControl)
 
-			parametersStackView.setCustomSpacing(20, after: settingSegmentedControl)
+			parametersStackView.setCustomSpacing(16, after: settingSegmentedControl)
 
 			notesTextField.placeholder = AppStrings.ContactDiary.Day.Encounter.notesPlaceholder
 		case .location:
