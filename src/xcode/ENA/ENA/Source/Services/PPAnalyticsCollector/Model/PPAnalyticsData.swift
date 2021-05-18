@@ -30,6 +30,8 @@ protocol PPAnalyticsData: AnyObject {
 	/// Analytics data.
 	var testResultMetadata: TestResultMetadata? { get set }
 	/// Analytics data.
+	var antigenTestResultMetadata: TestResultMetadata? { get set }
+	/// Analytics data.
 	var exposureWindowsMetadata: ExposureWindowsMetadata? { get set }
 }
 
@@ -73,6 +75,11 @@ extension SecureStore: PPAnalyticsData {
 	var testResultMetadata: TestResultMetadata? {
 		get { kvStore["testResultaMetadata"] as TestResultMetadata? ?? nil }
 		set { kvStore["testResultaMetadata"] = newValue }
+	}
+
+	var antigenTestResultMetadata: TestResultMetadata? {
+		get { kvStore["antigenTestResultMetadata"] as TestResultMetadata? ?? nil }
+		set { kvStore["antigenTestResultMetadata"] = newValue }
 	}
 
 	var clientMetadata: ClientMetadata? {

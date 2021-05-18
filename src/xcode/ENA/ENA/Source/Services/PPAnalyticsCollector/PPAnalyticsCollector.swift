@@ -15,7 +15,7 @@ enum PPAnalyticsCollector {
 	static func setup(
 		store: Store,
 		coronaTestService: CoronaTestService,
-		submitter: PPAnalyticsSubmitter
+		submitter: PPAnalyticsSubmitting
 	) {
 		// Make sure the secure store now also implements the PPAnalyticsData protocol with the properties defined there (the analytics data proporties).
 		guard let store = store as? (Store & PPAnalyticsData) else {
@@ -100,7 +100,7 @@ enum PPAnalyticsCollector {
 	// The real store property.
 	private static var _store: (Store & PPAnalyticsData)?
 	private static var coronaTestService: CoronaTestService?
-	private static var submitter: PPAnalyticsSubmitter?
+	private static var submitter: PPAnalyticsSubmitting?
 
 	// MARK: - UserMetada
 	
@@ -180,25 +180,46 @@ enum PPAnalyticsCollector {
 
 	private static func logTestResultMetadata(_ testResultMetadata: PPATestResultMetadata) {
 		switch testResultMetadata {
-		case let .create(metaData):
-			store?.testResultMetadata = metaData
-		case let .testResult(testResult):
-			store?.testResultMetadata?.testResult = testResult
-		case let .testResultHoursSinceTestRegistration(hoursSinceTestRegistration):
-			store?.testResultMetadata?.hoursSinceTestRegistration = hoursSinceTestRegistration
-		case let .updateTestResult(testResult, token):
-			Analytics.updateTestResult(testResult, token)
+		case let .updateTestResult(testResult, token, type):
+			Analytics.updateTestResult(testResult, token, type)
 		case let .registerNewTestMetadata(date, token, type):
-			Analytics.registerNewTestMetadata(date, token, type: type)
+			Analytics.registerNewTestMetadata(date, token, type)
 		}
 	}
 
-	private static func registerNewTestMetadata(_ date: Date = Date(), _ token: String, type: TestResultMetadata.TestType) {
+	private static func createTestResultMetadata(_ metaData: TestResultMetadata) {
+		switch metaData.testType {
+		case .pcr:
+			store?.testResultMetadata = metaData
+		case .antigen:
+			store?.antigenTestResultMetadata = metaData
+		}
+	}
+
+	private static func persistTestResult(testResult: TestResult, testType: TestResultMetadata.TestType) {
+		switch testType {
+		case .pcr:
+			store?.testResultMetadata?.testResult = testResult
+		case .antigen:
+			store?.antigenTestResultMetadata?.testResult = testResult
+		}
+	}
+
+	private static func updateTestResultHoursSinceTestRegistration(_ hours: Int?, testType: TestResultMetadata.TestType) {
+		switch testType {
+		case .pcr:
+			store?.testResultMetadata?.hoursSinceTestRegistration = hours
+		case .antigen:
+			store?.antigenTestResultMetadata?.hoursSinceTestRegistration = hours
+		}
+	}
+
+	private static func registerNewTestMetadata(_ date: Date = Date(), _ token: String, _ type: TestResultMetadata.TestType) {
 		guard let riskCalculationResult = store?.enfRiskCalculationResult else {
 			Log.warning("Could not register new test meta data due to riskCalculationResult is nil", log: .ppa)
 			return
 		}
-		var testResultMetadata = TestResultMetadata(registrationToken: token, type: type)
+		var testResultMetadata = TestResultMetadata(registrationToken: token, testType: type)
 		testResultMetadata.testRegistrationDate = date
 		testResultMetadata.riskLevelAtTestRegistration = riskCalculationResult.riskLevel
 		
@@ -211,7 +232,7 @@ enum PPAnalyticsCollector {
 			Log.warning("daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1", log: .ppa)
 		}
 
-		Analytics.collect(.testResultMetadata(.create(testResultMetadata)))
+		createTestResultMetadata(testResultMetadata)
 
 		switch riskCalculationResult.riskLevel {
 		case .high:
@@ -220,20 +241,32 @@ enum PPAnalyticsCollector {
 				return
 			}
 			let differenceInHours = Calendar.current.dateComponents([.hour], from: timeOfRiskChangeToHigh, to: date)
-			store?.testResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration = differenceInHours.hour
+			updateHoursSinceHighRiskWarningAtTestRegistration(hours: differenceInHours.hour, testType: type)
 		case .low:
-			store?.testResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration = -1
+			updateHoursSinceHighRiskWarningAtTestRegistration(hours: -1, testType: type)
 		}
 	}
-	private static func updateTestResult(_ testResult: TestResult, _ token: String) {
+
+	private static func updateHoursSinceHighRiskWarningAtTestRegistration(hours: Int?, testType: TestResultMetadata.TestType) {
+		switch testType {
+		case .pcr:
+			store?.testResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration = hours
+		case .antigen:
+			store?.antigenTestResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration = hours
+		}
+	}
+
+	private static func updateTestResult(_ testResult: TestResult, _ token: String, _ type: TestResultMetadata.TestType) {
 		// we only save metadata for tests submitted on QR code,and there is the only place in the app where we set the registration date
-		guard store?.testResultMetadata?.testRegistrationToken == token,
-			  let registrationDate = store?.testResultMetadata?.testRegistrationDate else {
-			Log.warning("Could not update test meta data result due to testRegistrationDate is nil", log: .ppa)
+		guard shouldUpdateTestResult(token: token, type: type),
+			  let registrationDate = testRegistrationDate(for: type) else {
+			Log.warning("Could not update test meta data result of type: \(type), due to testRegistrationDate is nil.", log: .ppa)
 			return
 		}
 
-		let storedTestResult = store?.testResultMetadata?.testResult
+
+		let storedTestResultMetaData = storedTestResultMetadata(for: type)
+		let storedTestResult = storedTestResultMetaData?.testResult
 		// if storedTestResult != newTestResult ---> update persisted testResult and the hoursSinceTestRegistration
 		// if storedTestResult == nil ---> update persisted testResult and the hoursSinceTestRegistration
 		// if storedTestResult == newTestResult ---> do nothing
@@ -241,26 +274,50 @@ enum PPAnalyticsCollector {
 		if storedTestResult == nil || storedTestResult != testResult {
 			switch testResult {
 			case .positive, .negative, .pending:
-				Log.info("update TestResultMetadata with testResult: \(testResult.stringValue)", log: .ppa)
-				Analytics.collect(.testResultMetadata(.testResult(testResult)))
+				Log.info("update TestResultMetadata of type: \(type), with testResult: \(testResult.stringValue)", log: .ppa)
 
-				switch store?.testResultMetadata?.testResult {
-				case .positive, .negative, .pending:
-					let diffComponents = Calendar.current.dateComponents([.hour], from: registrationDate, to: Date())
-					Analytics.collect(.testResultMetadata(.testResultHoursSinceTestRegistration(diffComponents.hour)))
-					Log.info("update TestResultMetadata with HoursSinceTestRegistration: \(String(describing: diffComponents.hour))", log: .ppa)
-				default:
-					Analytics.collect(.testResultMetadata(.testResultHoursSinceTestRegistration(nil)))
-				}
+				persistTestResult(testResult: testResult, testType: type)
+
+				let diffComponents = Calendar.current.dateComponents([.hour], from: registrationDate, to: Date())
+
+				updateTestResultHoursSinceTestRegistration(diffComponents.hour, testType: type)
+
+				Log.info("update TestResultMetadataof type: \(type), with HoursSinceTestRegistration: \(String(describing: diffComponents.hour))", log: .ppa)
 
 			case .expired, .invalid:
 				break
 			}
 		} else {
-			Log.warning("will not update same TestResultMetadata, oldResult: \(storedTestResult?.stringValue ?? "") newResult: \(testResult.stringValue)", log: .ppa)
+			Log.warning("will not update same TestResultMetadata, oldResult: \(storedTestResult?.stringValue ?? "") newResult: \(testResult.stringValue) of type: \(type)", log: .ppa)
 		}
 	}
 
+	private static func shouldUpdateTestResult(token: String, type: TestResultMetadata.TestType) -> Bool {
+		switch type {
+		case .pcr:
+			return store?.testResultMetadata?.testRegistrationToken == token
+		case .antigen:
+			return store?.antigenTestResultMetadata?.testRegistrationToken == token
+		}
+	}
+
+	private static func testRegistrationDate(for type: TestResultMetadata.TestType) -> Date? {
+		switch type {
+		case .pcr:
+			return store?.testResultMetadata?.testRegistrationDate
+		case .antigen:
+			return store?.antigenTestResultMetadata?.testRegistrationDate
+		}
+	}
+
+	private static func storedTestResultMetadata(for type: TestResultMetadata.TestType) -> TestResultMetadata? {
+		switch type {
+		case .pcr:
+			return store?.testResultMetadata
+		case .antigen:
+			return store?.antigenTestResultMetadata
+		}
+	}
 
 	// MARK: - KeySubmissionMetadata
 

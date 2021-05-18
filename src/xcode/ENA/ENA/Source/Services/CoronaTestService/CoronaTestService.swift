@@ -566,7 +566,12 @@ class CoronaTestService {
 
 				Log.info("[CoronaTestService] Got test result (coronaTestType: \(coronaTestType), testResult: \(testResult))", log: .api)
 
-				Analytics.collect(.testResultMetadata(.updateTestResult(testResult, registrationToken)))
+				switch coronaTestType {
+				case .pcr:
+					Analytics.collect(.testResultMetadata(.updateTestResult(testResult, registrationToken, .pcr)))
+				case .antigen:
+					Analytics.collect(.testResultMetadata(.updateTestResult(testResult, registrationToken, .antigen)))
+				}
 
 				switch coronaTestType {
 				case .pcr:

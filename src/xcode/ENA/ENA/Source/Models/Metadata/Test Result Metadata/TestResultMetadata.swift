@@ -13,9 +13,9 @@ struct TestResultMetadata: Codable {
 	
 	// MARK: - Init
 	
-	init(registrationToken: String, type: TestType) {
+	init(registrationToken: String, testType: TestType) {
 		self.testRegistrationToken = registrationToken
-		self.type = type
+		self.testType = testType
 	}
 
 	// MARK: - Protocol Codable
@@ -39,10 +39,10 @@ struct TestResultMetadata: Codable {
 
 		// TestType was introduced at a later time, thus it can be nil.
 		// To assure backwards compatibility, assign .pcr if its nil.
-		if let _type = try? container.decode(TestType.self, forKey: .type) {
-			type = _type
+		if let _type = try? container.decode(TestType.self, forKey: .testType) {
+			testType = _type
 		} else {
-			type = .pcr
+			testType = .pcr
 		}
 	}
 	
@@ -54,7 +54,7 @@ struct TestResultMetadata: Codable {
 		case hoursSinceHighRiskWarningAtTestRegistration
 		case testRegistrationDate
 		case testRegistrationToken
-		case type
+		case testType
 	}
 	
 	// MARK: - Internal
@@ -83,10 +83,10 @@ struct TestResultMetadata: Codable {
 	// We need a copy of the token to compare it everytime we fetch a testResult to make sure it is a result for the QRCode test and not a TAN test submission
 	let testRegistrationToken: String
 
-	let type: TestType
+	let testType: TestType
 
 	var protobuf: SAP_Internal_Ppdd_PPATestResult? {
-		switch (type, testResult) {
+		switch (testType, testResult) {
 		case (.pcr, .pending):
 			return .testResultPending
 		case (.pcr, .negative):
