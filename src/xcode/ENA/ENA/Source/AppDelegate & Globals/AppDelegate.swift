@@ -60,7 +60,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		Analytics.setup(
 			store: store,
 			coronaTestService: coronaTestService,
-			submitter: self.analyticsSubmitter
+			submitter: analyticsSubmitter,
+			testResultCollector: testResultCollector
 		)
 
 		// Migrate the old pcr test structure from versions older than v2.1
@@ -265,6 +266,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			appConfig: appConfigurationProvider,
 			coronaTestService: coronaTestService,
 			ppacService: ppacService
+		)
+	}()
+
+	private lazy var testResultCollector: PPAAnalyticsTestResultCollector = {
+		return PPAAnalyticsTestResultCollector(
+			store: store
 		)
 	}()
 

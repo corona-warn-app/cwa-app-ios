@@ -125,6 +125,8 @@ class PPAnalyticsCollectorTests: XCTestCase {
 		countOfDeletedProperties += 1
 		XCTAssertNil(store.testResultMetadata)
 		countOfDeletedProperties += 1
+		XCTAssertNil(store.antigenTestResultMetadata)
+		countOfDeletedProperties += 1
 		XCTAssertNil(store.keySubmissionMetadata)
 		countOfDeletedProperties += 1
 		XCTAssertNil(store.exposureWindowsMetadata)
