@@ -44,13 +44,17 @@ class CreateHealthCertificate: XCTestCase {
 		XCTAssertTrue(backButton.waitForExistence(timeout: .short))
 		backButton.tap()
 
-		// HealthCertificate consent screen -> qr code scanner
+		// HealthCertificate consent screen
 		let primaryButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton])
 		XCTAssertTrue(primaryButton.waitForExistence(timeout: .short))
 		primaryButton.tap()
 
-		// will disappear in simulator automatically
-		let headline = try XCTUnwrap(app.staticTexts[AccessibilityIdentifiers.HealthCertificate.Person.title])
-		XCTAssertTrue(headline.waitForExistence(timeout: .short))
+		// QRCode Scanner - close via flash will submit a healthCertificate
+		let flashBarButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.ExposureSubmissionQRScanner.flash])
+		flashBarButton.waitAndTap(.short)
+
+		let continuePrimaryButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton])
+		XCTAssertTrue(continuePrimaryButton.waitForExistence(timeout: .short))
+		continuePrimaryButton.tap()
 	}
 }

@@ -97,8 +97,7 @@ final class HealthCertifiedPersonViewModel {
 			attributedText: [attributedHeadline, attributedSubheadline].joined(with: "\n"),
 			topSpace: 42.0,
 			font: .enaFont(for: .headline),
-			accessibilityTraits: .staticText,
-			accessibilityIdentifier: AccessibilityIdentifiers.HealthCertificate.Person.title
+			accessibilityTraits: .staticText
 		)
 	}()
 
