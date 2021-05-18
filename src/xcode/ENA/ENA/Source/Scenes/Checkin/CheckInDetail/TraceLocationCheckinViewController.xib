@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TraceLocationDetailViewController" customModule="ENA" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TraceLocationCheckinViewController" customModule="ENA" customModuleProvider="target">
             <connections>
                 <outlet property="activityLabel" destination="Jzq-Fo-8cl" id="DiN-Y3-Vfn"/>
                 <outlet property="additionalInfoLabel" destination="b0x-6m-KuJ" id="qdp-N3-dyH"/>
@@ -95,7 +95,7 @@
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xZq-JQ-gwq">
                                                     <rect key="frame" x="0.0" y="0.0" width="382" height="221.5"/>
-                                                    <color key="backgroundColor" name="ENA Hairline Contrast Color"/>
+                                                    <color key="backgroundColor" name="ENA Cell Background Color 2"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                             <integer key="value" value="15"/>
@@ -106,7 +106,7 @@
                                                     <rect key="frame" x="16" y="30" width="350" height="161.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vereinsaktivität " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jzq-Fo-8cl" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="0.0" width="350" height="20.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="350" height="80"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" name="ENA Text Primary 2 Color"/>
                                                             <nil key="highlightedColor"/>
@@ -115,7 +115,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qEg-yG-yRz" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="30.5" width="350" height="100.5"/>
+                                                            <rect key="frame" x="0.0" y="90" width="350" height="41"/>
                                                             <string key="text">Jahrestreffen der 
 deutschen SAP Anwendergruppe</string>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -156,7 +156,7 @@ deutschen SAP Anwendergruppe</string>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ThY-E1-8vl">
                                                     <rect key="frame" x="0.0" y="0.0" width="382" height="40"/>
-                                                    <color key="backgroundColor" name="ENA Hairline Contrast Color"/>
+                                                    <color key="backgroundColor" name="ENA Cell Background Color 2"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                             <integer key="value" value="15"/>
@@ -192,7 +192,7 @@ deutschen SAP Anwendergruppe</string>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yTk-ou-MeT">
                                                     <rect key="frame" x="0.0" y="0.0" width="382" height="382"/>
-                                                    <color key="backgroundColor" name="ENA Hairline Contrast Color"/>
+                                                    <color key="backgroundColor" name="ENA Cell Background Color 2"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                             <integer key="value" value="15"/>
@@ -261,7 +261,7 @@ deutschen SAP Anwendergruppe</string>
                                                                     <rect key="frame" x="0.0" y="0.0" width="350" height="72"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Automatisch auschecken nach" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UBN-wb-TKy" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="241" height="72"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="269" height="72"/>
                                                                             <accessibility key="accessibilityConfiguration">
                                                                                 <bool key="isElement" value="NO"/>
                                                                             </accessibility>
@@ -273,7 +273,7 @@ deutschen SAP Anwendergruppe</string>
                                                                             </userDefinedRuntimeAttributes>
                                                                         </label>
                                                                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KL2-pg-6XN" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
-                                                                            <rect key="frame" x="249" y="0.0" width="101" height="72"/>
+                                                                            <rect key="frame" x="277" y="0.0" width="73" height="72"/>
                                                                             <accessibility key="accessibilityConfiguration">
                                                                                 <bool key="isElement" value="NO"/>
                                                                             </accessibility>
@@ -420,13 +420,13 @@ deutschen SAP Anwendergruppe</string>
             <size key="intrinsicContentSize" width="121" height="20.5"/>
         </designable>
         <designable name="KL2-pg-6XN">
-            <size key="intrinsicContentSize" width="101" height="50"/>
+            <size key="intrinsicContentSize" width="73" height="30"/>
         </designable>
         <designable name="LzL-ri-WCR">
-            <size key="intrinsicContentSize" width="108" height="50"/>
+            <size key="intrinsicContentSize" width="79" height="30"/>
         </designable>
         <designable name="M1z-st-0w7">
-            <size key="intrinsicContentSize" width="362" height="18"/>
+            <size key="intrinsicContentSize" width="402" height="20.5"/>
         </designable>
         <designable name="UBN-wb-TKy">
             <size key="intrinsicContentSize" width="209" height="18"/>
@@ -435,10 +435,10 @@ deutschen SAP Anwendergruppe</string>
             <size key="intrinsicContentSize" width="614.5" height="20.5"/>
         </designable>
         <designable name="qEg-yG-yRz">
-            <size key="intrinsicContentSize" width="434.5" height="67"/>
+            <size key="intrinsicContentSize" width="252" height="41"/>
         </designable>
         <designable name="qe2-Cr-Hsf">
-            <size key="intrinsicContentSize" width="123.5" height="20.5"/>
+            <size key="intrinsicContentSize" width="117.5" height="20.5"/>
         </designable>
     </designables>
     <resources>
@@ -447,11 +447,11 @@ deutschen SAP Anwendergruppe</string>
         <namedColor name="ENA Background Color">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <namedColor name="ENA Cell Background Color 2">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="ENA Hairline Color">
             <color red="0.090196078431372548" green="0.098039215686274508" blue="0.10196078431372549" alpha="0.10000000149011612" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="ENA Hairline Contrast Color">
-            <color red="1" green="1" blue="1" alpha="0.20000000298023224" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="ENA Text Contrast Color">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

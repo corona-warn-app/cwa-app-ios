@@ -5,12 +5,12 @@
 import UIKit
 import OpenCombine
 
-class TraceLocationDetailViewController: UIViewController {
+class TraceLocationCheckinViewController: UIViewController {
 
 	// MARK: - Init
 
 	init(
-		_ viewModel: TraceLocationDetailViewModel,
+		_ viewModel: TraceLocationCheckinViewModel,
 		dismiss: @escaping () -> Void
 	) {
 		self.dismiss = dismiss
@@ -39,12 +39,12 @@ class TraceLocationDetailViewController: UIViewController {
 	
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
-		updateGradienViewLayout()
+		updateGradientViewLayout()
 	}
 	
 	// MARK: - Private
 
-	private let viewModel: TraceLocationDetailViewModel
+	private let viewModel: TraceLocationCheckinViewModel
 	private let dismiss: () -> Void
 
 	private var backgroundView: GradientBackgroundView!
@@ -102,7 +102,6 @@ class TraceLocationDetailViewController: UIViewController {
 	}
 	
 	private func setupGradientView() {
-	
 		backgroundView = GradientBackgroundView()
 		backgroundView.translatesAutoresizingMaskIntoConstraints = false
 		view.insertSubview(backgroundView, at: 0)
@@ -124,7 +123,7 @@ class TraceLocationDetailViewController: UIViewController {
 		}
 	}
 	
-	private func updateGradienViewLayout() {
+	private func updateGradientViewLayout() {
 		backgroundView.updatedTopLayout(with: 0, limit: scrollView.frame.origin.y)
 		backgroundView.gradientHeightConstraint.constant = barGradientView.bounds.height + 160
 	}
@@ -204,7 +203,6 @@ class TraceLocationDetailViewController: UIViewController {
 	}
 
 	@IBAction private func togglePickerButtonVisibility(_ sender: Any) {
-		
 		let isHidden = !pickerContainerView.isHidden
 		
 		UIView.animate(withDuration: 0.15) { [weak self] in
@@ -221,7 +219,6 @@ class TraceLocationDetailViewController: UIViewController {
 			self.pickerButton.setTitleColor(color, for: .normal)
 
 		} completion: { _ in
-			
 			if !isHidden {
 				self.countDownDatePicker.removeTarget(self, action: nil, for: .allEvents)
 				self.setupPicker()
@@ -249,4 +246,5 @@ class TraceLocationDetailViewController: UIViewController {
 			}
 		}
 	}
+
 }
