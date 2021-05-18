@@ -198,6 +198,8 @@ class CoronaTestService {
 					)
 					Log.info("[CoronaTestService] Antigen test registered: \(private: String(describing: self?.antigenTest), public: "Antigen test result")", log: .api)
 
+					Analytics.collect(.testResultMetadata(.registerNewTestMetadata(Date(), registrationToken, .antigen)))
+
 					self?.getTestResult(for: .antigen, duringRegistration: true) { result in
 						completion(result)
 					}
@@ -569,14 +571,9 @@ class CoronaTestService {
 				switch coronaTestType {
 				case .pcr:
 					Analytics.collect(.testResultMetadata(.updateTestResult(testResult, registrationToken, .pcr)))
-				case .antigen:
-					Analytics.collect(.testResultMetadata(.updateTestResult(testResult, registrationToken, .antigen)))
-				}
-
-				switch coronaTestType {
-				case .pcr:
 					self.pcrTest?.testResult = testResult
 				case .antigen:
+					Analytics.collect(.testResultMetadata(.updateTestResult(testResult, registrationToken, .antigen)))
 					self.antigenTest?.testResult = testResult
 				}
 
