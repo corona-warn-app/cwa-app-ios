@@ -1527,7 +1527,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeature_23_digital_vaccination_certificate_title" = "Digitaler Impfnachweis";
 
-"NewVersionFeature_23_digital_vaccination_certificate_description" = "Sie können nun Ihre Impfzertifikate in der App hinzufügen. Sobald Sie alle notwendigen Impfungen haben, können Sie den QR-Code in der App verwenden, um Ihren Impfschutz nachzuweisen.";
+"NewVersionFeature_23_digital_vaccination_certificate_description" = "Sie können jetzt Ihre Impfzertifikate in der App hinzufügen und per QR-Code vorweisen. 14 Tage nach der letzten Impfung zeigt die App den vollständigen Impfschutz an";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
