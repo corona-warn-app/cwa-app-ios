@@ -87,7 +87,7 @@ struct HealthCertificateConsentViewModel {
 						text: AppStrings.HealthCertificate.Info.disclaimer,
 						style: DynamicCell.TextCellStyle.label,
 						accessibilityIdentifier: AccessibilityIdentifiers.HealthCertificate.Info.disclaimer,
-						accessibilityTraits: UIAccessibilityTraits.link,
+						accessibilityTraits: .button,
 						action: .execute { _, _ in
 							didTapDataPrivacy()
 						},
