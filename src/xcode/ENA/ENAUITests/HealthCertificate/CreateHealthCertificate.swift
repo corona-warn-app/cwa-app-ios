@@ -53,8 +53,11 @@ class CreateHealthCertificate: XCTestCase {
 		let flashBarButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.ExposureSubmissionQRScanner.flash])
 		flashBarButton.waitAndTap(.short)
 
-		let continuePrimaryButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton])
-		XCTAssertTrue(continuePrimaryButton.waitForExistence(timeout: .short))
-		continuePrimaryButton.tap()
+		// Certified Person screen
+		let continuePrimaryButton = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Person.certificateCell])
+		continuePrimaryButton.waitAndTap(.short)
+
+		// Certificate Screen
+
 	}
 }

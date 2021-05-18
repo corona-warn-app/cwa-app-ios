@@ -601,7 +601,7 @@ enum AccessibilityIdentifiers {
 		}
 
 		enum Person {
-			static let title = "AppStrings.HealthCertificate.Person.title"
+			static let certificateCell = "HealthCertificate.Person.cell"
 		}
 	}
 
