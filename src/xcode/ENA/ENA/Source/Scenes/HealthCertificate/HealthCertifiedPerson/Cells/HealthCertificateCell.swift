@@ -11,6 +11,7 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		setupView()
+		setupAccessibility()
 	}
 
 	@available(*, unavailable)
@@ -25,6 +26,8 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		shieldImageView.image = cellViewModel.image
 		headlineTextLabel.text = cellViewModel.headline
 		detailsTextLabel.text = cellViewModel.detail
+
+		backgroundContainerView.accessibilityLabel = [cellViewModel.headline, cellViewModel.detail].compactMap { $0 }.joined(separator: "\n")
 	}
 
 	// MARK: - Private
@@ -126,6 +129,12 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 				disclosureImageView.widthAnchor.constraint(equalToConstant: 7)
 			]
 		)
+	}
+
+	private func setupAccessibility() {
+		isAccessibilityElement = false
+		backgroundContainerView.isAccessibilityElement = true
+		backgroundContainerView.accessibilityTraits = .button
 	}
 
 }
