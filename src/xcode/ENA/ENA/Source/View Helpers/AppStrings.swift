@@ -1830,7 +1830,7 @@ enum AppStrings {
 				static let section04 = NSLocalizedString("HealthCertificate_Info_Legal_section04", tableName: "Localizable.legal", comment: "")
 			}
 
-			static let disclaimer = NSLocalizedString("HealthCertificate_Info_disclaimer", comment: "")
+			static let disclaimer = NSLocalizedString("HealthCertificate_Info_disclaimer", tableName: "Localizable.legal", comment: "")
 			static let primaryButton = NSLocalizedString("HealthCertificate_Info_primaryButton", comment: "")
 		}
 

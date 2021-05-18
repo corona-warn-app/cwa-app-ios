@@ -115,10 +115,6 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 		didCalculateGradientHeight = true
 	}
 
-	// MARK: - Public
-
-	// MARK: - Internal
-
 	// MARK: - Private
 
 	private let dismiss: () -> Void

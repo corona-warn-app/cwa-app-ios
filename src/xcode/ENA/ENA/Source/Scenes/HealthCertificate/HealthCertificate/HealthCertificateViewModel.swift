@@ -121,9 +121,9 @@ final class HealthCertificateViewModel {
 	// MARK: - Private
 
 	private enum ValueSetType: String {
-		case vp
-		case mp
-		case ma
+		case vaccineOrProphylaxis
+		case vaccineMedicinalProduct
+		case marketingAuthorizationHolder
 	}
 
 	private let healthCertificate: HealthCertificateData
@@ -155,7 +155,7 @@ final class HealthCertificateViewModel {
 		}
 
 		var vaccineCellViewModel: HealthCertificateKeyValueCellViewModel?
-		if let valueSet = valueSet(by: .mp),
+		if let valueSet = valueSet(by: .vaccineMedicinalProduct),
 		   let key = vaccinationCertificate?.vaccineMedicinalProduct {
 			let value = determineValue(key: key, valueSet: valueSet)
 			vaccineCellViewModel = HealthCertificateKeyValueCellViewModel(
@@ -165,7 +165,7 @@ final class HealthCertificateViewModel {
 		}
 
 		var manufacturerCellViewModel: HealthCertificateKeyValueCellViewModel?
-		if let valueSet = valueSet(by: .ma),
+		if let valueSet = valueSet(by: .marketingAuthorizationHolder),
 		   let key = vaccinationCertificate?.marketingAuthorizationHolder {
 			let value = determineValue(key: key, valueSet: valueSet)
 			manufacturerCellViewModel = HealthCertificateKeyValueCellViewModel(
@@ -175,7 +175,7 @@ final class HealthCertificateViewModel {
 		}
 
 		var vaccineTypeCellViewModel: HealthCertificateKeyValueCellViewModel?
-		if let valueSet = valueSet(by: .vp),
+		if let valueSet = valueSet(by: .vaccineOrProphylaxis),
 		   let key = vaccinationCertificate?.vaccineOrProphylaxis {
 			let value = determineValue(key: key, valueSet: valueSet)
 			vaccineTypeCellViewModel = HealthCertificateKeyValueCellViewModel(
@@ -220,15 +220,15 @@ final class HealthCertificateViewModel {
 
 	private func valueSet(by type: ValueSetType) -> SAP_Internal_Dgc_ValueSet? {
 		guard let valueSets = valueSets else {
-			Log.error("tried to read from unavailable valuesets", log: .vaccination)
+			Log.error("tried to read from unavailable value sets", log: .vaccination)
 			return nil
 		}
 		switch type {
-		case .vp:
+		case .vaccineOrProphylaxis:
 			return valueSets.hasVp ? valueSets.vp : nil
-		case .mp:
+		case .vaccineMedicinalProduct:
 			return valueSets.hasMp ? valueSets.mp : nil
-		case .ma:
+		case .marketingAuthorizationHolder:
 			return valueSets.hasMa ? valueSets.ma : nil
 		}
 	}
