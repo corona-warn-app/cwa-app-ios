@@ -632,17 +632,17 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionSuccess_listItem0" = "Machen Sie einen PCR-Test, um dieses Test-Ergebnis zu verifizieren. ";
 
-"ExposureSubmissionSuccess_listItem1" = "Das Gesundheitsamt wird sich in den nächsten Tagen telefonisch oder schriftlich bei Ihnen melden.";
+"ExposureSubmissionSuccess_listItem1" = "Das Gesundheitsamt wird sich möglicherweise in den nächsten Tagen bei Ihnen melden.";
 
-"ExposureSubmissionSuccess_listItem2" = "Sie sind ansteckend. Isolieren Sie sich von anderen Personen.";
+"ExposureSubmissionSuccess_listItem2" = "Sie sind sehr wahrscheinlich ansteckend. Isolieren Sie sich von anderen Personen.";
 
-"ExposureSubmissionSuccess_listItem2_1" = "Die Quarantänezeit beträgt in der Regel 14 Tage. Bitte beobachten Sie genau, wie sich Ihre Symptome entwickeln.";
+"ExposureSubmissionSuccess_listItem2_1" = "Die Isolationszeit beträgt in der Regel 14 Tage. Bitte beobachten Sie genau, wie sich Ihre Symptome entwickeln.";
 
 "ExposureSubmissionSuccess_listItem2_2" = "Sie werden von Ihrem Gesundheitsamt gebeten, eine Liste Ihrer Kontaktpersonen zu erstellen. Erfassen Sie dabei alle Personen, zu denen Sie in den zwei Tagen vor Erkrankungsbeginn engen Kontakt (unter 2 Meter, direktes Gespräch) über insgesamt 15 Minuten hatten. Nutzen Sie hierfür Ihr Kontakt-Tagebuch. Sie können die Einträge einfach exportieren und ausdrucken oder als E-Mail verschicken.";
 
 "ExposureSubmissionSuccess_listItem2_3" = "Bitte denken Sie hier auch besonders an Personen, die nicht automatisch durch die App informiert werden, da sie kein Smartphone besitzen oder die App nicht installiert haben.";
 
-"ExposureSubmissionSuccess_listItem2_4" = "Auch wenn Sie keine Symptome (mehr) haben, können Sie ansteckend sein. Bitte halten Sie die angeordnete Quarantänezeit in jedem Fall ein.";
+"ExposureSubmissionSuccess_listItem2_4" = "Auch wenn Sie keine Symptome (mehr) haben, können Sie ansteckend sein. Bitte halten Sie die angeordnete Isolationszeit in jedem Fall ein.";
 
 /* Exposure Submission Testresult available*/
 "ExposureSubmissionTestresultAvailable_Title" = "Ihr Testergebnis liegt vor";
@@ -1226,9 +1226,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Home_Finding_Positive_Card_Verify_Item_Title" = "Machen Sie einen PCR-Test, um dieses Test-Ergebnis zu verifizieren. ";
 
-"Home_Finding_Positive_Card_Phone_Item_Title" = "Das Gesundheitsamt wird sich in den nächsten Tagen telefonisch oder schriftlich bei Ihnen melden.";
+"Home_Finding_Positive_Card_Phone_Item_Title" = "Das Gesundheitsamt wird sich möglicherweise in den nächsten Tagen bei Ihnen melden.";
 
-"Home_Finding_Positive_Card_Home_Item_Title" = "Sie sind ansteckend. Isolieren Sie sich von anderen Personen.";
+"Home_Finding_Positive_Card_Home_Item_Title" = "Sie sind sehr wahrscheinlich ansteckend. Isolieren Sie sich von anderen Personen.";
 
 "Home_Finding_Positive_Card_Share_Item_Title" = "Teilen Sie Ihre Zufalls-IDs, damit andere gewarnt werden können.";
 
@@ -1615,19 +1615,19 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "TestResultPositive_KeysSubmitted_Info1" = "Machen Sie einen PCR-Test, um dieses Test-Ergebnis zu verifizieren.";
 
-"TestResultPositive_KeysSubmitted_Info2" = "Das Gesundheitsamt wird sich in den nächsten Tagen telefonisch oder schriftlich bei Ihnen melden.";
+"TestResultPositive_KeysSubmitted_Info2" = "Das Gesundheitsamt wird sich möglicherweise in den nächsten Tagen bei Ihnen melden.";
 
 "TestResultPositive_KeysSubmitted_Info3" = "Sie sind sehr warscheinlich ansteckend. Isolieren Sie sich von anderen Personen.";
 
 "TestResultPositive_KeysSubmitted_Title2" = "Weitere Infos:";
 
-"TestResultPositive_KeysSubmitted_FurtherInfo1" = "Die Quarantänezeit beträgt in der Regel 14 Tage. Bitte beobachten Sie genau, wie sich Ihre Symptome entwickeln.";
+"TestResultPositive_KeysSubmitted_FurtherInfo1" = "Die Isolationszeit beträgt in der Regel 14 Tage. Bitte beobachten Sie genau, wie sich Ihre Symptome entwickeln.";
 
 "TestResultPositive_KeysSubmitted_FurtherInfo2" = "Sie werden von Ihrem Gesundheitsamt gebeten, eine Liste Ihrer Kontaktpersonen zu erstellen. Erfassen Sie dabei alle Personen, zu denen Sie in den zwei Tagen vor Erkrankungsbeginn engen Kontakt (unter 2 Meter, direktes Gespräch) über insgesamt 15 Minuten hatten. Nutzen Sie hierfür Ihr Kontakt-Tagebuch. Sie können die Einträge einfach exportieren und ausdrucken oder als E-Mail verschicken.";
 
 "TestResultPositive_KeysSubmitted_FurtherInfo3" = "Bitte denken Sie hier auch besonders an Personen, die nicht automatisch durch die App informiert werden, da sie kein Smartphone besitzen oder die App nicht installiert haben.";
 
-"TestResultPositive_KeysSubmitted_FurtherInfo4" = "Auch wenn Sie keine Symptome (mehr) haben, können Sie ansteckend sein. Bitte halten Sie die angeordnete Quarantänezeit in jedem Fall ein.";
+"TestResultPositive_KeysSubmitted_FurtherInfo4" = "Auch wenn Sie keine Symptome (mehr) haben, können Sie ansteckend sein. Bitte halten Sie die angeordnete Isolationszeit in jedem Fall ein.";
 
 "TestResultPositive_KeysSubmitted_PrimaryButton" = "Test entfernen";
 
