@@ -87,6 +87,7 @@ class ExposureSubmissionStepCell: UITableViewCell {
 	
 	private func setup() {
 		backgroundColor = .enaColor(for: .background)
+		selectionStyle = .none
 		contentView.preservesSuperviewLayoutMargins = false
 		contentView.layoutMargins.top = 0
 		// iconView
