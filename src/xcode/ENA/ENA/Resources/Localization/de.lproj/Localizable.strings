@@ -934,7 +934,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_Antigen_Profile_Information_Image_Description" = "Eine Frau mit einem Smartphone in der Hand steht vor einem Gebäude. Ein QR-Code symbolisiert das zu scannende Schnelltest-Profil.";
 
-"ExposureSubmission_Antigen_Profile_Information_Description_Title" = "Legen Sie Ihre persönlichen Daten als QR-Code ab, um die Registrierung an der Teststelle  zu beschleunigen.";
+"ExposureSubmission_Antigen_Profile_Information_Description_Title" = "Legen Sie ein Profil mit Ihren persönlichen Daten an, das Sie per QR-Code bei jeder teilnehmenden Teststelle vorlegen können.";
 
 "ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline" = "Mit Ihrem eigenen Schnelltest-Profil müssen Sie Ihre persönlichen Daten nicht bei jedem neuen Schnelltest erneut ausfüllen.";
 
@@ -960,7 +960,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_Profile_CreateProfileTile_Title" = "Schnelltest-Profil anlegen";
 
-"ExposureSubmission_Profile_CreateProfileTile_Description" = "Legen Sie ein Profil mit Ihren persönlichen Daten an, die Sie dann per QR-Code bei jedem Schnelltest vorlegen können.";
+"ExposureSubmission_Profile_CreateProfileTile_Description" = "Legen Sie ein Profil mit Ihren persönlichen Daten an, das Sie per QR-Code bei jeder teilnehmenden Teststelle vorlegen können.";
 
 "ExposureSubmission_Profile_ProfileTile_Title" = "Schnelltest-Profil";
 
@@ -2416,7 +2416,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "AntigenProfile_Create_Title" = "Schnelltest-Profil";
 
-"AntigenProfile_Create_Description" = "Legen Sie Ihre persönlichen Daten als QR-Code ab, um die Registrierung an der Teststelle zu beschleunigen.";
+"AntigenProfile_Create_Description" = "Legen Sie ein Profil mit Ihren persönlichen Daten an, das Sie per QR-Code bei jeder teilnehmenden Teststelle vorlegen können.";
 
 "AntigenProfile_Create_FirstNamePlaceholder" = "Vorname";
 
