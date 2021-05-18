@@ -16,12 +16,6 @@ struct AntigenTestProfileInformationViewModel {
 		self.showDisclaimer = showDisclaimer
 	}
 
-	// MARK: - Overrides
-
-	// MARK: - Protocol <#Name#>
-
-	// MARK: - Public
-
 	// MARK: - Internal
 
 	let title: String = AppStrings.ExposureSubmission.AntigenTest.Information.title

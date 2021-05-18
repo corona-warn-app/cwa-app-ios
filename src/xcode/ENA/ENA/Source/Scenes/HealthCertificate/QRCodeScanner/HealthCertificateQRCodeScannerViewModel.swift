@@ -5,17 +5,20 @@
 import Foundation
 import AVFoundation
 
-class VaccinationQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
+class HealthCertificateQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
 
 	// MARK: - Init
 
 	init(
-		onSuccess: @escaping (String) -> Void,
+		healthCertificateService: HealthCertificateServiceProviding,
+		onSuccess: @escaping (HealthCertifiedPerson) -> Void,
 		onError: ((QRScannerError) -> Void)?
 	) {
+		self.healthCertificateService = healthCertificateService
 		self.captureDevice = AVCaptureDevice.default(for: .video)
 		self.onSuccess = onSuccess
 		self.onError = onError
+
 		super.init()
 	}
 
@@ -34,26 +37,33 @@ class VaccinationQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObject
 			Log.info("Scanning not stopped from previous run")
 			return
 		}
-
 		deactivateScanning()
-		guard let code = metadataObjects.first(where: { $0 is MetadataMachineReadableCodeObject }) as? MetadataMachineReadableCodeObject,
-			  let scannedQRCodeString = code.stringValue
+
+		guard
+			let code = metadataObjects.first(where: { $0 is MetadataMachineReadableCodeObject }) as? MetadataMachineReadableCodeObject,
+			let scannedQRCodeString = code.stringValue
 		else {
 			Log.error("Vaccination QRCode verification Failed, invalid metadataObject", log: .vaccination)
 			onError?(QRScannerError.codeNotFound)
 			return
 		}
-		let prefix = "HC1:"
-		guard scannedQRCodeString.hasPrefix(prefix) else {
-			Log.error("Vaccination QRCode verification Failed, invalid Prefix", log: .vaccination)
-			onError?(QRScannerError.codeNotFound)
-			return
+
+		let result = healthCertificateService.registerHealthCertificate(base45: scannedQRCodeString)
+		switch result {
+		case .success(let healthCertifiedPerson):
+			self.onSuccess(healthCertifiedPerson)
+		case .failure(let registrationError):
+			// wrap RegistrationError into an QRScannerError.other error
+			self.onError?(QRScannerError.other(registrationError))
 		}
-		self.onSuccess(String(scannedQRCodeString.dropFirst(prefix.count)))
 	}
+
 	// MARK: - Internal
 
 	lazy var captureSession: AVCaptureSession? = {
+		#if targetEnvironment(simulator)
+		return nil
+		#else
 		guard let currentCaptureDevice = captureDevice,
 			let captureDeviceInput = try? AVCaptureDeviceInput(device: currentCaptureDevice) else {
 			onError?(.cameraPermissionDenied)
@@ -68,10 +78,16 @@ class VaccinationQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObject
 		metadataOutput.metadataObjectTypes = [.qr]
 		metadataOutput.setMetadataObjectsDelegate(self, queue: .main)
 		return captureSession
+		#endif
 	}()
 
-	var onSuccess: (String) -> Void
+	var onSuccess: (HealthCertifiedPerson) -> Void
 	var onError: ((QRScannerError) -> Void)?
+
+	var isScanningActivated: Bool {
+		captureSession?.isRunning ?? false
+	}
+
 	/// get current torchMode by device state
 	var torchMode: TorchMode {
 		guard let device = captureDevice,
@@ -141,8 +157,6 @@ class VaccinationQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObject
 
 	// MARK: - Private
 
+	private let healthCertificateService: HealthCertificateServiceProviding
 	private let captureDevice: AVCaptureDevice?
-	var isScanningActivated: Bool {
-		captureSession?.isRunning ?? false
-	}
 }
