@@ -603,6 +603,10 @@ enum AccessibilityIdentifiers {
 		enum Person {
 			static let certificateCell = "HealthCertificate.Person.cell"
 		}
+
+		enum Certificate {
+			static let headline = "HealthCertificate.title"
+		}
 	}
 
 }

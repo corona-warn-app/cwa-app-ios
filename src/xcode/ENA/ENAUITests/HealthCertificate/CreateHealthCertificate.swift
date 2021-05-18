@@ -58,6 +58,7 @@ class CreateHealthCertificate: XCTestCase {
 		continuePrimaryButton.waitAndTap(.short)
 
 		// Certificate Screen
-
+		let headlineCell = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Certificate.headline])
+		XCTAssertTrue(headlineCell.waitForExistence(timeout: .short))
 	}
 }
