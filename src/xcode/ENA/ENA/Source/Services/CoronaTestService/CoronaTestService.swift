@@ -668,7 +668,7 @@ class CoronaTestService {
 	}
 
 	@objc
-	func invalidateTimer() {
+	private func invalidateTimer() {
 		outdatedStateTimer?.invalidate()
 	}
 
