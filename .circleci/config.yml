@@ -75,7 +75,17 @@ jobs:
           at: .
       - run:
           name: Build for testing
-          command: cd src/xcode && bundle exec fastlane build
+          command: |
+            cd src/xcode && \
+            xcodebuild \
+              -workspace "ENA.xcworkspace" \
+              -scheme ENA \
+              -destination "platform=iOS Simulator,OS=14.5,name=iPhone 11" \
+              -testPlan AllTests \
+              -only-test-configuration "DE" \
+              -derivedDataPath "./DerivedData" \
+              -quiet \
+              build-for-testing
       - persist_to_workspace:
           root: .
           paths:
@@ -108,8 +118,21 @@ jobs:
       - restore_cache:
           key: *tools_cache_key
       - run:
-          name: Run Fastlane tests
-          command: cd src/xcode && bundle exec fastlane test
+          name: Run tests
+          command: |
+            cd src/xcode && \
+            xcodebuild \
+              -workspace "ENA.xcworkspace" \
+              -scheme ENA \
+              -destination "platform=iOS Simulator,OS=14.5,name=iPhone 11" \
+              -testPlan AllTests \
+              -only-test-configuration "DE" \
+              -derivedDataPath "./DerivedData" \
+              -enableCodeCoverage YES \
+              -resultBundlePath "fastlane/test_output/ENA.xcresult" \
+              -parallel-testing-worker-count 4 \
+              -parallelize-tests-among-destinations \
+              test-without-building
           no_output_timeout: 25m
       - restore_cache:
           key: sonar-cloud-v2
