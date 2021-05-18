@@ -252,6 +252,7 @@
 		01D69491250272CE00B45BEA /* DatePickerDayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D69490250272CE00B45BEA /* DatePickerDayViewModel.swift */; };
 		01DB708525068167008F7244 /* Calendar+GregorianLocale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DB708425068167008F7244 /* Calendar+GregorianLocale.swift */; };
 		01DDF44426541CEC0043B4E1 /* DidSetPublished.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DDF44326541CEC0043B4E1 /* DidSetPublished.swift */; };
+		01DDF4462654221A0043B4E1 /* DidSetPublishedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DDF4452654221A0043B4E1 /* DidSetPublishedTests.swift */; };
 		01DF186E2603B28200A002E4 /* TraceLocationsOverviewViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DF186A2603B17000A002E4 /* TraceLocationsOverviewViewModelTest.swift */; };
 		01DF188E2608D3BB00A002E4 /* TraceLocationConfigurationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01DF188D2608D3BB00A002E4 /* TraceLocationConfigurationViewController.xib */; };
 		01E4298E251DCDC90057FCBE /* Localizable.legal.strings in Resources */ = {isa = PBXBuildFile; fileRef = 01E42990251DCDC90057FCBE /* Localizable.legal.strings */; };
@@ -1412,6 +1413,7 @@
 		01D69490250272CE00B45BEA /* DatePickerDayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerDayViewModel.swift; sourceTree = "<group>"; };
 		01DB708425068167008F7244 /* Calendar+GregorianLocale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Calendar+GregorianLocale.swift"; sourceTree = "<group>"; };
 		01DDF44326541CEC0043B4E1 /* DidSetPublished.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DidSetPublished.swift; sourceTree = "<group>"; };
+		01DDF4452654221A0043B4E1 /* DidSetPublishedTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DidSetPublishedTests.swift; sourceTree = "<group>"; };
 		01DF186A2603B17000A002E4 /* TraceLocationsOverviewViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationsOverviewViewModelTest.swift; sourceTree = "<group>"; };
 		01DF188D2608D3BB00A002E4 /* TraceLocationConfigurationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TraceLocationConfigurationViewController.xib; sourceTree = "<group>"; };
 		01E25C6F24A3B52F007E33F8 /* Info_Testflight.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info_Testflight.plist; sourceTree = "<group>"; };
@@ -4995,6 +4997,7 @@
 			isa = PBXGroup;
 			children = (
 				AB68531825F9233200380F5A /* Store */,
+				01DDF4452654221A0043B4E1 /* DidSetPublishedTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -8022,6 +8025,7 @@
 				AB2F094F25D169DC00C16309 /* SurveyURLServiceTests.swift in Sources */,
 				BAA19D652612151B00CBBDDD /* CheckInTimeModelTests.swift in Sources */,
 				BAC7291226037BB6006D83C7 /* MissingPermissionsCellModelTests.swift in Sources */,
+				01DDF4462654221A0043B4E1 /* DidSetPublishedTests.swift in Sources */,
 				0185DDDE25B77786001FBEA7 /* HomeStatisticsCellModelTests.swift in Sources */,
 				A1654F0224B43E8500C0E115 /* DynamicTableViewTextViewCellTests.swift in Sources */,
 				BA8848C6264AD91500EEA542 /* HealthCertificateKeyValueCellViewModelTests.swift in Sources */,
