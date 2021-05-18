@@ -78,7 +78,7 @@ class PPAnalyticsCollectorTests: XCTestCase {
 		store.lastAppReset = Date()
 		store.lastSubmissionAnalytics = Date()
 		store.clientMetadata = ClientMetadata(etag: "FakeTag")
-		store.testResultMetadata = TestResultMetadata(registrationToken: "FakeToken")
+		store.testResultMetadata = TestResultMetadata(registrationToken: "FakeToken", testType: .pcr)
 		store.keySubmissionMetadata = KeySubmissionMetadata(
 			submitted: true,
 			submittedInBackground: false,

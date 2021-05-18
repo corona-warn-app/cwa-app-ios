@@ -19,7 +19,7 @@ class TestResultMetadataTests: XCTestCase {
 		secureStore.dateOfConversionToHighRisk = Calendar.current.date(byAdding: .day, value: -1, to: today)
 		secureStore.enfRiskCalculationResult = riskCalculationResult
 
-		Analytics.collect(.testResultMetadata(.registerNewTestMetadata(today, "")))
+		Analytics.collect(.testResultMetadata(.registerNewTestMetadata(today, "", .pcr)))
 
 		XCTAssertNotNil(secureStore.testResultMetadata, "The testResultMetadata should be initialized")
 		XCTAssertEqual(secureStore.testResultMetadata?.testRegistrationDate, today, "incorrect RegistrationDate")
@@ -45,7 +45,7 @@ class TestResultMetadataTests: XCTestCase {
 		let riskCalculationResult = mockRiskCalculationResult(risk: .low, mostRecentDateLowRisk: mostRecentDateLowRisk)
 		secureStore.enfRiskCalculationResult = riskCalculationResult
 
-		Analytics.collect(.testResultMetadata(.registerNewTestMetadata(today, "")))
+		Analytics.collect(.testResultMetadata(.registerNewTestMetadata(today, "", .pcr)))
 
 		XCTAssertNotNil(secureStore.testResultMetadata, "The testResultMetadata should be initialized")
 		XCTAssertEqual(secureStore.testResultMetadata?.testRegistrationDate, today, "incorrect RegistrationDate")
@@ -70,7 +70,7 @@ class TestResultMetadataTests: XCTestCase {
 		let riskCalculationResult = mockRiskCalculationResult(risk: .low)
 		secureStore.enfRiskCalculationResult = riskCalculationResult
 
-		Analytics.collect(.testResultMetadata(.registerNewTestMetadata(today, "")))
+		Analytics.collect(.testResultMetadata(.registerNewTestMetadata(today, "", .pcr)))
 
 		XCTAssertNotNil(secureStore.testResultMetadata, "The testResultMetadata should be initialized")
 		XCTAssertEqual(secureStore.testResultMetadata?.testRegistrationDate, today, "incorrect RegistrationDate")
@@ -96,8 +96,8 @@ class TestResultMetadataTests: XCTestCase {
 			XCTFail("registration date is nil")
 			return
 		}
-		Analytics.collect(.testResultMetadata(.registerNewTestMetadata(registrationDate, "")))
-		Analytics.collect(.testResultMetadata(.updateTestResult(.positive, "")))
+		Analytics.collect(.testResultMetadata(.registerNewTestMetadata(registrationDate, "", .pcr)))
+		Analytics.collect(.testResultMetadata(.updateTestResult(.positive, "", .pcr)))
 		
 		XCTAssertEqual(secureStore.testResultMetadata?.testResult, TestResult.positive, "incorrect testResult")
 		
@@ -112,14 +112,14 @@ class TestResultMetadataTests: XCTestCase {
 		secureStore.enfRiskCalculationResult = riskCalculationResult
 
 		if let registrationDate = Calendar.current.date(byAdding: .day, value: -4, to: Date()) {
-			Analytics.collect(.testResultMetadata(.registerNewTestMetadata(registrationDate, "Token")))
-			Analytics.collect(.testResultMetadata(.updateTestResult(.positive, "Token")))
-			Analytics.collect(.testResultMetadata(.testResultHoursSinceTestRegistration(0)))
+			Analytics.collect(.testResultMetadata(.registerNewTestMetadata(registrationDate, "Token", .pcr)))
+			Analytics.collect(.testResultMetadata(.updateTestResult(.positive, "Token", .pcr)))
+//			Analytics.collect(.testResultMetadata(.testResultHoursSinceTestRegistration(0)))
 		} else {
 			XCTFail("registration date is nil")
 		}
 
-		Analytics.collect(.testResultMetadata(.updateTestResult(.positive, "Token")))
+		Analytics.collect(.testResultMetadata(.updateTestResult(.positive, "Token", .pcr)))
 		XCTAssertEqual(secureStore.testResultMetadata?.testResult, TestResult.positive, "incorrect testResult")
 
 		/* The date shouldn't be updated if the test result is the same as the old one
@@ -135,14 +135,14 @@ class TestResultMetadataTests: XCTestCase {
 		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
 		let riskCalculationResult = mockRiskCalculationResult(risk: .low)
 		secureStore.enfRiskCalculationResult = riskCalculationResult
-		Analytics.collect(.testResultMetadata(.updateTestResult(.pending, "")))
+		Analytics.collect(.testResultMetadata(.updateTestResult(.pending, "", .pcr)))
 		
 		guard let registrationDate = Calendar.utcCalendar.date(byAdding: .day, value: -4, to: Date()) else {
 			XCTFail("registration date is nil")
 			return
 		}
-		Analytics.collect(.testResultMetadata(.registerNewTestMetadata(registrationDate, "")))
-		Analytics.collect(.testResultMetadata(.updateTestResult(.positive, "")))
+		Analytics.collect(.testResultMetadata(.registerNewTestMetadata(registrationDate, "", .pcr)))
+		Analytics.collect(.testResultMetadata(.updateTestResult(.positive, "", .pcr)))
 		XCTAssertEqual(secureStore.testResultMetadata?.testResult, TestResult.positive, "incorrect testResult")
 		
 		// The the date is updated if the risk results changes e.g from pending to positive
@@ -155,15 +155,15 @@ class TestResultMetadataTests: XCTestCase {
 		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
 		let riskCalculationResult = mockRiskCalculationResult(risk: .low)
 		secureStore.enfRiskCalculationResult = riskCalculationResult
-		Analytics.collect(.testResultMetadata(.updateTestResult(.pending, "")))
+		Analytics.collect(.testResultMetadata(.updateTestResult(.pending, "", .pcr)))
 
 		if let registrationDate = Calendar.current.date(byAdding: .day, value: -4, to: Date()) {
-			Analytics.collect(.testResultMetadata(.registerNewTestMetadata(registrationDate, "")))
+			Analytics.collect(.testResultMetadata(.registerNewTestMetadata(registrationDate, "", .pcr)))
 		} else {
 			XCTFail("registration date is nil")
 		}
 
-		Analytics.collect(.testResultMetadata(.updateTestResult(.invalid, "")))
+		Analytics.collect(.testResultMetadata(.updateTestResult(.invalid, "", .pcr)))
 
 		// The if the value is invalid  testResult shouldn't be updated
 		XCTAssertNil(secureStore.testResultMetadata?.testResult, "incorrect testResult")
@@ -180,19 +180,19 @@ class TestResultMetadataTests: XCTestCase {
 		secureStore.enfRiskCalculationResult = riskCalculationResult
 
 		if let registrationDate = Calendar.current.date(byAdding: .day, value: -4, to: Date()) {
-			Analytics.collect(.testResultMetadata(.registerNewTestMetadata(registrationDate, "Token")))
-			Analytics.collect(.testResultMetadata(.updateTestResult(.pending, "Token")))
+			Analytics.collect(.testResultMetadata(.registerNewTestMetadata(registrationDate, "Token", .pcr)))
+			Analytics.collect(.testResultMetadata(.updateTestResult(.pending, "Token", .pcr)))
 		} else {
 			XCTFail("registration date is nil")
 		}
 
 		// trying to update a test with a different token shouldn't work
-		Analytics.collect(.testResultMetadata(.updateTestResult(.positive, "Different Token")))
+		Analytics.collect(.testResultMetadata(.updateTestResult(.positive, "Different Token", .pcr)))
 		// The if the value is valid but the token is different then the testResult shouldn't be updated
 		XCTAssertEqual(secureStore.testResultMetadata?.testResult, .pending, "testResult shouldn't be updated")
 
 		// trying to update a test with the correct token should work
-		Analytics.collect(.testResultMetadata(.updateTestResult(.positive, "Token")))
+		Analytics.collect(.testResultMetadata(.updateTestResult(.positive, "Token", .pcr)))
 		// The if the value is valid and the token the same then the testResult should be updated
 		XCTAssertEqual(secureStore.testResultMetadata?.testResult, .positive, "testResult should be updated")
 	}
