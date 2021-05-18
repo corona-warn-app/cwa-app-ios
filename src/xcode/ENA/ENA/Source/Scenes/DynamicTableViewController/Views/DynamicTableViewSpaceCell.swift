@@ -8,6 +8,15 @@ import UIKit
 class DynamicTableViewSpaceCell: UITableViewCell {
 	private lazy var heightConstraint: NSLayoutConstraint = self.contentView.heightAnchor.constraint(equalToConstant: 0)
 
+	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+		super.init(style: style, reuseIdentifier: reuseIdentifier)
+		setupView()
+	}
+
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+
 	var height: CGFloat {
 		get { heightConstraint.isActive ? heightConstraint.constant : UITableView.automaticDimension }
 		set {
@@ -22,6 +31,10 @@ class DynamicTableViewSpaceCell: UITableViewCell {
 				heightConstraint.isActive = true
 			}
 		}
+	}
+
+	private func setupView() {
+		selectionStyle = .none
 	}
 
 	override func prepareForReuse() {
