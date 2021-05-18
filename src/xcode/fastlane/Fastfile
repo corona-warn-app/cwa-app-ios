@@ -88,8 +88,7 @@ platform :ios do
         prelaunch_simulator: true,
         result_bundle: true,
         code_coverage: true,
-        output_types: "",
-        fail_build: false
+        output_types: ""
       )
     rescue
       UI.user_error!("Tests did fail, please check logs above or ENA.xcresult.zip")
