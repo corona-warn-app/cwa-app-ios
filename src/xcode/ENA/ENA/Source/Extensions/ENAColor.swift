@@ -12,6 +12,7 @@ public enum ENAColor: String, CaseIterable {
 	case darkBackground = "ENA Dark Background Color"
 	case cellBackground = "ENA Cell Background Color"
 	case cellBackground2 = "ENA Cell Background Color 2"
+	case cellBackground3 = "ENA Cell Background Color 3"
 	case hairline = "ENA Hairline Color"
 	case hairlineContrast = "ENA Hairline Contrast Color"
 	case separator = "ENA Separator Color"
