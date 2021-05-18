@@ -2,60 +2,64 @@
 // 🦠 Corona-Warn-App
 //
 
-import Foundation
+import UIKit
 import OpenCombine
 
-class HealthCertifiedPerson: OpenCombine.ObservableObject, Codable, Equatable {
+class HealthCertifiedPerson: Codable, Equatable {
 
 	// MARK: - Init
 
-	init(healthCertificates: [HealthCertificate], proofCertificate: ProofCertificate?) {
+	init(healthCertificates: [HealthCertificate]) {
 		self.healthCertificates = healthCertificates
-		self.proofCertificate = proofCertificate
+
+		updateVaccinationState()
+		subscribeToNotifications()
 	}
 
 	// MARK: - Protocol Codable
 
 	enum CodingKeys: String, CodingKey {
 		case healthCertificates
-		case proofCertificate
-		case lastProofCertificateUpdate
-		case proofCertificateUpdatePending
 	}
 
 	required init(from decoder: Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 
 		healthCertificates = try container.decode([HealthCertificate].self, forKey: .healthCertificates)
-		proofCertificate = try container.decode(ProofCertificate.self, forKey: .proofCertificate)
-		lastProofCertificateUpdate = try container.decodeIfPresent(Date.self, forKey: .lastProofCertificateUpdate)
-		proofCertificateUpdatePending = try container.decode(Bool.self, forKey: .proofCertificateUpdatePending)
+
+		updateVaccinationState()
+		subscribeToNotifications()
 	}
 
 	func encode(to encoder: Encoder) throws {
 		var container = encoder.container(keyedBy: CodingKeys.self)
 
 		try container.encode(healthCertificates, forKey: .healthCertificates)
-		try container.encode(proofCertificate, forKey: .proofCertificate)
-		try container.encode(lastProofCertificateUpdate, forKey: .lastProofCertificateUpdate)
-		try container.encode(proofCertificateUpdatePending, forKey: .proofCertificateUpdatePending)
 	}
 
 	// MARK: - Protocol Equatable
 
 	static func == (lhs: HealthCertifiedPerson, rhs: HealthCertifiedPerson) -> Bool {
-		lhs.proofCertificate == rhs.proofCertificate && lhs.healthCertificates == rhs.healthCertificates
+		lhs.healthCertificates == rhs.healthCertificates
 	}
 
 	// MARK: - Internal
 
-	@OpenCombine.Published var healthCertificates: [HealthCertificate] {
+	enum VaccinationState: Equatable {
+		case partiallyVaccinated
+		case fullyVaccinated(daysUntilCompleteProtection: Int)
+		case completelyProtected
+	}
+
+	var healthCertificates: [HealthCertificate] {
 		didSet {
+			updateVaccinationState()
+
 			objectDidChange.send(self)
 		}
 	}
 
-	@OpenCombine.Published var proofCertificate: ProofCertificate? {
+	@OpenCombine.Published var vaccinationState: VaccinationState = .partiallyVaccinated {
 		didSet {
 			objectDidChange.send(self)
 		}
@@ -63,28 +67,61 @@ class HealthCertifiedPerson: OpenCombine.ObservableObject, Codable, Equatable {
 
 	var objectDidChange = OpenCombine.PassthroughSubject<HealthCertifiedPerson, Never>()
 
-	// LAST_SUCCESSFUL_PC_RUN_TIMESTAMP
-	var lastProofCertificateUpdate: Date?
-
-	// PC_RUN_PENDING
-	var proofCertificateUpdatePending: Bool = false
-
-	var shouldAutomaticallyUpdateProofCertificate: Bool {
-		if proofCertificateUpdatePending {
-			return true
-		}
-
-		guard let lastProofCertificateUpdate = lastProofCertificateUpdate else {
-			return true
-		}
-
-		return !Calendar.utc().isDateInToday(lastProofCertificateUpdate)
+	var fullName: String? {
+		healthCertificates.first?.name.fullName
 	}
 
-	func removeProofCertificateIfExpired() {
-		if proofCertificate?.isExpired == true {
-			proofCertificate = nil
+	var dateOfBirth: String? {
+		healthCertificates.first?.dateOfBirth
+	}
+
+	// MARK: - Private
+
+	private var subscriptions = Set<AnyCancellable>()
+
+	private var completeVaccinationProtectionDate: Date? {
+		guard
+			let lastVaccination = healthCertificates.last, lastVaccination.isLastDoseInASeries,
+			let vaccinationDateString = lastVaccination.vaccinationCertificates.first?.dateOfVaccination,
+			let vaccinationDate = ISO8601DateFormatter.contactDiaryFormatter.date(from: vaccinationDateString)
+		else {
+			return nil
 		}
+
+		return Calendar.autoupdatingCurrent.date(byAdding: .day, value: 14, to: vaccinationDate)
+	}
+
+	private func updateVaccinationState() {
+		if let completeVaccinationProtectionDate = completeVaccinationProtectionDate {
+			if completeVaccinationProtectionDate > Date() {
+				let startOfToday = Calendar.autoupdatingCurrent.startOfDay(for: Date())
+				guard let daysUntilCompleteProtection = Calendar.autoupdatingCurrent.dateComponents([.day], from: startOfToday, to: completeVaccinationProtectionDate).day else {
+					fatalError("Could not get days until complete protection")
+				}
+
+				vaccinationState = .fullyVaccinated(daysUntilCompleteProtection: daysUntilCompleteProtection)
+			} else {
+				vaccinationState = .completelyProtected
+			}
+		} else {
+			vaccinationState = .partiallyVaccinated
+		}
+	}
+
+	private func subscribeToNotifications() {
+		NotificationCenter.default.ocombine
+			.publisher(for: UIApplication.didBecomeActiveNotification)
+			.sink { [weak self] _ in
+				self?.updateVaccinationState()
+			}
+			.store(in: &subscriptions)
+
+		NotificationCenter.default.ocombine
+			.publisher(for: UIApplication.significantTimeChangeNotification)
+			.sink { [weak self] _ in
+				self?.updateVaccinationState()
+			}
+			.store(in: &subscriptions)
 	}
 
 }

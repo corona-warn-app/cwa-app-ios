@@ -102,8 +102,6 @@ struct AntigenTestProfileViewModel {
 		}
 	}
 
-	// MARK: - Private
-
 	enum TableViewSection: Int, CaseIterable {
 		case header
 		case qrCode
@@ -117,6 +115,8 @@ struct AntigenTestProfileViewModel {
 			return section
 		}
 	}
+
+	// MARK: - Private
 
 	private let store: AntigenTestProfileStoring
 	private var antigenTestProfile: AntigenTestProfile

@@ -109,7 +109,7 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 		viewModel.numberOfItems(in: AntigenTestProfileViewModel.TableViewSection.map(section))
 	}
 
-	// MARK: - UITableViewdelegate
+	// MARK: - UITableViewDelegate
 
 	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
 		// we are only interested in QRCode cell once if the traitCollectionDidChange - to update gradientHeightConstraint
