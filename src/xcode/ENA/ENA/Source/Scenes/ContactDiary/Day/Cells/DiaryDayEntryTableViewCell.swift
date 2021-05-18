@@ -14,6 +14,9 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(headerTapped))
 		headerStackView.addGestureRecognizer(tapGestureRecognizer)
 		headerStackView.isUserInteractionEnabled = true
+
+		headerStackView.isAccessibilityElement = true
+		headerStackView.accessibilityTraits = UIAccessibilityTraits.allowsDirectInteraction
 	}
 
 	// MARK: - Protocol UITextFieldDelegate
@@ -67,7 +70,7 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 	@IBOutlet private weak var headerStackView: UIStackView!
 	@IBOutlet private weak var parametersContainerStackView: UIStackView!
 	@IBOutlet private weak var parametersStackView: UIStackView!
-
+	
 	private lazy var durationSegmentedControl: DiarySegmentedControl = {
 		let segmentedControl = DiarySegmentedControl(items: cellModel.durationValues.map { $0.title })
 		segmentedControl.addTarget(self, action: #selector(durationValueChanged(sender:)), for: .valueChanged)
@@ -170,11 +173,14 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 
 		switch cellModel.entryType {
 		case .contactPerson:
+			// adding this because of known issue in first element in arrangedSubview in terms of accessibilty
+		    let emptySpacer = UIView()
+			parametersStackView.addArrangedSubview(emptySpacer)
 			parametersStackView.addArrangedSubview(durationSegmentedControl)
 			parametersStackView.addArrangedSubview(maskSituationSegmentedControl)
 			parametersStackView.addArrangedSubview(settingSegmentedControl)
 
-			parametersStackView.setCustomSpacing(16, after: settingSegmentedControl)
+			parametersStackView.setCustomSpacing(18, after: settingSegmentedControl)
 
 			notesTextField.placeholder = AppStrings.ContactDiary.Day.Encounter.notesPlaceholder
 		case .location:
