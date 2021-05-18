@@ -174,7 +174,7 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 
 		switch cellModel.entryType {
 		case .contactPerson:
-			// adding this because of known issue in first element of arrangedSubview in terms of accessibilty
+			// adding this because of a known issue in first element of arrangedSubview in terms of accessibilty
 		    let emptySpacer = UIView()
 			parametersStackView.addArrangedSubview(emptySpacer)
 			parametersStackView.addArrangedSubview(durationSegmentedControl)
