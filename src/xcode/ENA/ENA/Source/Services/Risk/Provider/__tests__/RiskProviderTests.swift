@@ -584,16 +584,23 @@ final class RiskProviderTests: XCTestCase {
 		let didCalculateRiskExpectation = expectation(description: "expect didCalculateRisk not to be called")
 		didCalculateRiskExpectation.isInverted = true
 
-		let didFailCalculateRiskExpectation = expectation(description: "expect didFailCalculateRisk not to be called")
-		didFailCalculateRiskExpectation.isInverted = true
+		let didFailCalculateRiskExpectation = expectation(description: "expect didFailCalculateRisk to be called")
 
-		let didChangeActivityStateExpectation = expectation(description: "expect didChangeActivityState to be called")
-		didChangeActivityStateExpectation.expectedFulfillmentCount = 2
+		let didChangeActivityStateExpectation = expectation(description: "expect didChangeActivityState not to be called")
+		didChangeActivityStateExpectation.isInverted = true
 
 		consumer.didCalculateRisk = { _ in
 			didCalculateRiskExpectation.fulfill()
 		}
-		consumer.didFailCalculateRisk = { _ in
+		consumer.didFailCalculateRisk = { error in
+			// Make sure that exposure windows where NOT requested.
+			XCTAssertFalse(exposureDetectionDelegateStub.exposureWindowsWereDetected)
+
+			guard case .deactivatedDueToActiveTest = error else {
+				XCTFail("deactivatedDueToActiveTest error expected.")
+				didFailCalculateRiskExpectation.fulfill()
+				return
+			}
 			didFailCalculateRiskExpectation.fulfill()
 		}
 		consumer.didChangeActivityState = { _ in
@@ -643,16 +650,23 @@ final class RiskProviderTests: XCTestCase {
 		let didCalculateRiskExpectation = expectation(description: "expect didCalculateRisk not to be called")
 		didCalculateRiskExpectation.isInverted = true
 
-		let didFailCalculateRiskExpectation = expectation(description: "expect didFailCalculateRisk not to be called")
-		didFailCalculateRiskExpectation.isInverted = true
+		let didFailCalculateRiskExpectation = expectation(description: "expect didFailCalculateRisk to be called")
 
-		let didChangeActivityStateExpectation = expectation(description: "expect didChangeActivityState to be called")
-		didChangeActivityStateExpectation.expectedFulfillmentCount = 2
+		let didChangeActivityStateExpectation = expectation(description: "expect didChangeActivityState not to be called")
+		didChangeActivityStateExpectation.isInverted = true
 
 		consumer.didCalculateRisk = { _ in
 			didCalculateRiskExpectation.fulfill()
 		}
-		consumer.didFailCalculateRisk = { _ in
+		consumer.didFailCalculateRisk = { error in
+			// Make sure that exposure windows where NOT requested.
+			XCTAssertFalse(exposureDetectionDelegateStub.exposureWindowsWereDetected)
+
+			guard case .deactivatedDueToActiveTest = error else {
+				XCTFail("deactivatedDueToActiveTest error expected.")
+				didFailCalculateRiskExpectation.fulfill()
+				return
+			}
 			didFailCalculateRiskExpectation.fulfill()
 		}
 		consumer.didChangeActivityState = { _ in
