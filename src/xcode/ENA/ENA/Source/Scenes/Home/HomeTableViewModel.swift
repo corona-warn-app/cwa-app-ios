@@ -13,11 +13,13 @@ class HomeTableViewModel {
 		state: HomeState,
 		store: Store,
 		coronaTestService: CoronaTestService,
+		healthCertificateService: HealthCertificateServiceProviding,
 		onTestResultCellTap: @escaping (CoronaTestType?) -> Void
 	) {
 		self.state = state
 		self.store = store
 		self.coronaTestService = coronaTestService
+		self.healthCertificateService = healthCertificateService
 		self.onTestResultCellTap = onTestResultCellTap
 
 		coronaTestService.$tests
@@ -25,6 +27,11 @@ class HomeTableViewModel {
 				self?.update(pcrTest: $0.pcr, antigenTest: $0.antigen)
 			}
 			.store(in: &subscriptions)
+		
+		healthCertificateService.healthCertifiedPersons.sink { healthCertifiedPersons in
+			self.healthCertifiedPersons = healthCertifiedPersons
+		}
+		.store(in: &subscriptions)
 	}
 
 	// MARK: - Internal
@@ -32,7 +39,9 @@ class HomeTableViewModel {
 	enum Section: Int, CaseIterable {
 		case exposureLogging
 		case riskAndTestResults
+		case healthCertificate
 		case testRegistration
+		case createHealthCertificate
 		case statistics
 		case traceLocations
 		case infos
@@ -57,6 +66,7 @@ class HomeTableViewModel {
 
 	@OpenCombine.Published var testResultLoadingError: Error?
 	@OpenCombine.Published var riskAndTestResultsRows: [RiskAndTestResultsRow] = []
+	@OpenCombine.Published var healthCertifiedPersons: [HealthCertifiedPerson] = []
 
 	var numberOfSections: Int {
 		Section.allCases.count
@@ -69,6 +79,10 @@ class HomeTableViewModel {
 		case .riskAndTestResults:
 			return riskAndTestResultsRows.count
 		case .testRegistration:
+			return 1
+		case .healthCertificate:
+			return healthCertifiedPersons.count
+		case .createHealthCertificate:
 			return 1
 		case .statistics:
 			return 1
@@ -93,7 +107,7 @@ class HomeTableViewModel {
 
 	func heightForHeader(in section: Int) -> CGFloat {
 		switch Section(rawValue: section) {
-		case .exposureLogging, .riskAndTestResults, .testRegistration, .statistics, .traceLocations:
+		case .exposureLogging, .riskAndTestResults, .testRegistration, .statistics, .traceLocations, .healthCertificate, .createHealthCertificate:
 			return 0
 		case .infos, .settings:
 			return 16
@@ -104,7 +118,7 @@ class HomeTableViewModel {
 
 	func heightForFooter(in section: Int) -> CGFloat {
 		switch Section(rawValue: section) {
-		case .exposureLogging, .riskAndTestResults, .testRegistration, .statistics, .traceLocations:
+		case .exposureLogging, .riskAndTestResults, .testRegistration, .statistics, .traceLocations, .healthCertificate, .createHealthCertificate:
 			return 0
 		case .infos:
 			return 12
@@ -169,9 +183,19 @@ class HomeTableViewModel {
 		}
 	}
 
+	func healthCertifiedPerson(at indexPath: IndexPath) -> HealthCertifiedPerson? {
+		guard Section(rawValue: indexPath.section) == .healthCertificate,
+			  healthCertificateService.healthCertifiedPersons.value.indices.contains(indexPath.row) else {
+			Log.debug("Tried to access unknown healthCertifiedPersons - stop")
+			return nil
+		}
+		return healthCertificateService.healthCertifiedPersons.value[indexPath.row]
+	}
+
 	// MARK: - Private
 
 	private let onTestResultCellTap: (CoronaTestType?) -> Void
+	private let healthCertificateService: HealthCertificateServiceProviding
 	private var subscriptions = Set<AnyCancellable>()
 
 	private func update(pcrTest: PCRTest?, antigenTest: AntigenTest?) {

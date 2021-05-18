@@ -5,37 +5,38 @@
 import UIKit
 import AVFoundation
 
-class VaccinationQRCodeScannerViewController: UIViewController {
+class HealthCertificateQRCodeScannerViewController: UIViewController {
+
 	// MARK: - Init
 
 	init(
-		didScanVaccination: @escaping (String) -> Void,
+		healthCertificateService: HealthCertificateServiceProviding,
+		didScanCertificate: @escaping (HealthCertifiedPerson) -> Void,
 		dismiss: @escaping () -> Void
 	) {
+		self.didScanCertificate = didScanCertificate
 		self.dismiss = dismiss
 		
 		super.init(nibName: nil, bundle: nil)
 		
-		self.viewModel = VaccinationQRCodeScannerViewModel(
-			onSuccess: { [weak self] qrCodeString in
+		viewModel = HealthCertificateQRCodeScannerViewModel(
+			healthCertificateService: healthCertificateService,
+			onSuccess: { [weak self] healthCertifiedPerson in
 				AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
 				self?.viewModel?.deactivateScanning()
-				Log.debug("QR-Code \(qrCodeString)")
+				didScanCertificate(healthCertifiedPerson)
 			},
 			onError: { error in
 				switch error {
 				case .cameraPermissionDenied:
-					DispatchQueue.main.async {
-						self.dismiss()
-					}
+					self.showCameraPermissionErrorAlert(error: error)
 				default:
-					DispatchQueue.main.async {
-						self.showErrorAlert(error: error)
-					}
+					self.showErrorAlert(error: error)
 				}
 			}
 		)
 	}
+
 	@available(*, unavailable)
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
@@ -55,6 +56,14 @@ class VaccinationQRCodeScannerViewController: UIViewController {
 		updatePreviewMask()
 	}
 
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+
+		#if targetEnvironment(simulator)
+		didScanCertificate(HealthCertifiedPerson(healthCertificates: [HealthCertificate.mock()]))
+		#endif
+	}
+
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 		viewModel?.deactivateScanning()
@@ -63,14 +72,14 @@ class VaccinationQRCodeScannerViewController: UIViewController {
 	// MARK: - Private
 
 	private let focusView = QRScannerFocusView()
-
+	private let didScanCertificate: (HealthCertifiedPerson) -> Void
 	private let dismiss: () -> Void
 
-	private var viewModel: VaccinationQRCodeScannerViewModel?
+	private var viewModel: HealthCertificateQRCodeScannerViewModel?
 	private var previewLayer: AVCaptureVideoPreviewLayer! { didSet { updatePreviewMask() } }
 
 	private func setupView() {
-		navigationItem.title = AppStrings.ExposureSubmissionQRScanner.title
+		navigationItem.title = AppStrings.HealthCertificate.QRScanner.title
 		view.backgroundColor = .enaColor(for: .background)
 
 		focusView.backdropOpacity = 0.2
@@ -80,10 +89,11 @@ class VaccinationQRCodeScannerViewController: UIViewController {
 
 		let instructionLabel = ENALabel()
 		instructionLabel.style = .headline
+		instructionLabel.numberOfLines = 0
 		instructionLabel.textAlignment = .center
 		instructionLabel.textColor = .enaColor(for: .textContrast)
 		instructionLabel.font = .enaFont(for: .body)
-		instructionLabel.text = AppStrings.ExposureSubmissionQRScanner.instruction
+		instructionLabel.text = AppStrings.HealthCertificate.QRScanner.instruction
 		instructionLabel.layer.shadowColor = UIColor.enaColor(for: .textPrimary1Contrast).cgColor
 		instructionLabel.layer.shadowOpacity = 1
 		instructionLabel.layer.shadowRadius = 3
@@ -186,13 +196,12 @@ class VaccinationQRCodeScannerViewController: UIViewController {
 		view.layer.insertSublayer(previewLayer, at: 0)
 	}
 
-	private func showErrorAlert(error: QRScannerError) {
-
+	private func showErrorAlert(error: Error) {
 		viewModel?.deactivateScanning()
 
 		let alert = UIAlertController(
-			title: AppStrings.Checkins.QRScanner.Error.title,
-			message: error.errorDescription,
+			title: AppStrings.HealthCertificate.Error.title,
+			message: error.localizedDescription,
 			preferredStyle: .alert
 		)
 		alert.addAction(
@@ -210,6 +219,27 @@ class VaccinationQRCodeScannerViewController: UIViewController {
 				style: .default,
 				handler: { [weak self] _ in
 					self?.viewModel?.activateScanning()
+				}
+			)
+		)
+
+		DispatchQueue.main.async { [weak self] in
+			self?.present(alert, animated: true)
+		}
+	}
+
+	private func showCameraPermissionErrorAlert(error: Error) {
+		let alert = UIAlertController(
+			title: AppStrings.HealthCertificate.Error.title,
+			message: error.localizedDescription,
+			preferredStyle: .alert
+		)
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.Common.alertActionOk,
+				style: .cancel,
+				handler: { [weak self] _ in
+					self?.dismiss()
 				}
 			)
 		)
