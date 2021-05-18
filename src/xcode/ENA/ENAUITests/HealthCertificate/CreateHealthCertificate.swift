@@ -15,8 +15,6 @@ class CreateHealthCertificate: XCTestCase {
 		app.setDefaults()
 		app.launchArguments.append(contentsOf: ["-isOnboarded", YES])
 		app.launchArguments.append(contentsOf: ["-setCurrentOnboardingVersion", YES])
-		app.launchArguments.append(contentsOf: ["-antigenTestProfileInfoScreenShown", NO])
-		app.launchArguments.append(contentsOf: ["-removeAntigenTestProfile", YES])
 	}
 
 	// MARK: - Internal
@@ -62,8 +60,8 @@ class CreateHealthCertificate: XCTestCase {
 		flashBarButton.waitAndTap(.short)
 
 		// Certified Person screen
-		let continuePrimaryButton = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Person.certificateCell])
-		continuePrimaryButton.waitAndTap(.short)
+		let certificateCell = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Person.certificateCell])
+		certificateCell.waitAndTap(.short)
 
 		// Certificate Screen
 		let headlineCell = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Certificate.headline])
@@ -73,7 +71,6 @@ class CreateHealthCertificate: XCTestCase {
 	func test_CreateAntigenTestProfileWithLastCertificate_THEN_DeleteProfile() throws {
 
 		app.launchArguments.append(contentsOf: ["-firstHealthCertificate", YES])
-//		"firstAndSecondHealthCertificate"
 		app.launch()
 
 		/// Home Screen
@@ -91,12 +88,28 @@ class CreateHealthCertificate: XCTestCase {
 		flashBarButton.waitAndTap(.short)
 
 		// Certified Person screen
-		let continuePrimaryButton = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Person.certificateCell])
-		continuePrimaryButton.waitAndTap(.short)
+		let certificateCell = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Person.certificateCell])
+		certificateCell.waitAndTap(.short)
 
 		// Certificate Screen
 		let headlineCell = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Certificate.headline])
 		XCTAssertTrue(headlineCell.waitForExistence(timeout: .short))
+	}
+
+	func test_ShowCertificate() throws {
+		app.launchArguments.append(contentsOf: ["-firstAndSecondHealthCertificate", YES])
+
+		app.launch()
+
+		/// Home Screen
+		let certificateTitle = try XCTUnwrap(app.cells[AccessibilityIdentifiers.Home.healthCertificateButton])
+		XCTAssertTrue(certificateTitle.waitForExistence(timeout: .short))
+		certificateTitle.tap()
+
+		// Certified Person screen
+		let certificateCells = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Person.certificateCell])
+		XCTAssertTrue(certificateCells.waitForExistence(timeout: .short))
+		XCTAssertEqual(app.cells.matching(identifier: AccessibilityIdentifiers.HealthCertificate.Person.certificateCell).count, 2)
 	}
 
 }
