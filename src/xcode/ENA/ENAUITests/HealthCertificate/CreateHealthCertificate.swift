@@ -27,6 +27,7 @@ class CreateHealthCertificate: XCTestCase {
 
 	func test_FIRST_CreateAntigenTestProfile_THEN_DeleteProfile() throws {
 
+		app.launchArguments.append(contentsOf: ["-firstHealthCertificate", YES])
 		app.launch()
 
 		/// Home Screen

@@ -167,7 +167,6 @@
 		01A4DD0D25926A73007D5794 /* HomeLoadingItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A4DD0C25926A72007D5794 /* HomeLoadingItemViewModel.swift */; };
 		01A4DD3825935AC1007D5794 /* CellPositionInSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A4DD3725935AC1007D5794 /* CellPositionInSection.swift */; };
 		01A4DD4325935D1F007D5794 /* HomeRiskCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A4DD4225935D1F007D5794 /* HomeRiskCellModel.swift */; };
-		01A4DFD0264EBBBF00F13432 /* HealthCertificate+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FE5E592648546800155906 /* HealthCertificate+Mock.swift */; };
 		01A6C2F62626DE1300B6E95A /* HomeTestRegistrationCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A6C2E82626D71700B6E95A /* HomeTestRegistrationCellModel.swift */; };
 		01A6C2FA2626DE1800B6E95A /* HomeTestRegistrationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A6C2E72626D71700B6E95A /* HomeTestRegistrationTableViewCell.swift */; };
 		01A6C2FE2626DE2200B6E95A /* HomeTestRegistrationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01A6C2E92626D71700B6E95A /* HomeTestRegistrationTableViewCell.xib */; };
@@ -884,6 +883,7 @@
 		BA01BA6B2644284100D906B6 /* HealthCertificateConsentViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA01BA6A2644284100D906B6 /* HealthCertificateConsentViewModelTests.swift */; };
 		BA02641325E6A0800019CD55 /* FooterViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA02641225E6A0800019CD55 /* FooterViewModelTests.swift */; };
 		BA056F1B259B89B50022B0A4 /* RiskLegendDotBodyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA056F19259B89B50022B0A4 /* RiskLegendDotBodyCell.swift */; };
+		BA05ED712653F60100A103AC /* HealthCertificate+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FE5E592648546800155906 /* HealthCertificate+Mock.swift */; };
 		BA06D5A825DBE0910039D1DB /* TextFieldManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA06D5A725DBE0910039D1DB /* TextFieldManager.swift */; };
 		BA06D5B325DC11C60039D1DB /* DiaryAddAndEditEntryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA06D5B225DC11C60039D1DB /* DiaryAddAndEditEntryModel.swift */; };
 		BA06D5BB25DC2E910039D1DB /* TextFieldsManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA06D5BA25DC2E910039D1DB /* TextFieldsManagerTests.swift */; };
@@ -7567,7 +7567,7 @@
 				506A2F1B25D2A06D00B7DDFB /* DataDonationDetailsViewModel.swift in Sources */,
 				BA6C8ACC254D6537008344F5 /* TrlEncoding.swift in Sources */,
 				35BDAB2225F10094004DFE32 /* Data+Appending.swift in Sources */,
-				01A4DFD0264EBBBF00F13432 /* HealthCertificate+Mock.swift in Sources */,
+				BA05ED712653F60100A103AC /* HealthCertificate+Mock.swift in Sources */,
 				EB513DFC25FA34E60020C0B9 /* qr_code_poster_template.pb.swift in Sources */,
 				2FA9E39724D2F3C70030561C /* ExposureSubmissionError.swift in Sources */,
 				941ADDB22518C3FB00E421D9 /* ENSettingEuTracingViewModel.swift in Sources */,

@@ -59,9 +59,9 @@ class HealthCertificateQRCodeScannerViewController: UIViewController {
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 
-		#if targetEnvironment(simulator)
+		#if targetEnvironment(simulator) && DEBUG
 			if !isUITesting {
-				didScanCertificate(HealthCertifiedPerson(healthCertificates: [HealthCertificate.mock()]))
+				didScanCertificate(HealthCertifiedPerson(healthCertificates: [HealthCertificate.mock(base45: HealthCertificate.lastBase45Mock)]))
 			}
 		#endif
 	}
