@@ -84,6 +84,8 @@ jobs:
               -testPlan AllTests \
               -only-test-configuration "DE" \
               -derivedDataPath "./DerivedData" \
+              -jobs `sysctl -n hw.ncpu` \
+              -parallelizeTargets \
               -quiet \
               build-for-testing
       - persist_to_workspace:
@@ -119,6 +121,8 @@ jobs:
           name: Run tests
           command: |
             cd src/xcode
+
+            CORE_COUNT=`sysctl -n hw.ncpu`
             xcodebuild \
               -workspace "ENA.xcworkspace" \
               -scheme ENA \
@@ -128,8 +132,8 @@ jobs:
               -derivedDataPath "./DerivedData" \
               -enableCodeCoverage YES \
               -resultBundlePath "fastlane/test_output/ENA.xcresult" \
-              -parallel-testing-worker-count 4 \
-              -parallelize-tests-among-destinations \
+              -parallel-testing-worker-count "${CORE_COUNT}" \
+              -maximum-concurrent-test-simulator-destinations "${CORE_COUNT}" \
               test-without-building
             zip -r -q fastlane/test_output/ENA.xcresult.zip fastlane/test_output/ENA.xcresult
           no_output_timeout: 5m
