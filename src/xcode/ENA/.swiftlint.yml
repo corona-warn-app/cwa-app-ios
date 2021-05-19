@@ -274,3 +274,11 @@ custom_rules:
       - identifier
     message: "Please use `Log` for printing messages to the console"
     severity: error
+  no_direct_tap:
+    name: "Do not use `tap()` directly on XCUIElelements"
+    regex: "tap\\(\\)"
+    capture_group: 0
+    match_kinds:
+      - identifier
+    message: "Please use `TapAndWait()`. This includes waitForExistence()."
+    severity: error
