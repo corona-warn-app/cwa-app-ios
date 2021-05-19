@@ -50,8 +50,16 @@ class ENAUITests_12_AntigenTestProfile: XCTestCase {
 		// legal text exists
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Information.acknowledgementTitle].waitForExistence(timeout: .long))
 		
+		// find data privacy cell (last cell) and tap it
 		let dataPrivacyButton = try XCTUnwrap(app.cells[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Information.dataPrivacyTitle])
-		dataPrivacyButton.waitAndTap(.long)
+		
+		let maxTries = 10
+		var actualTry = 0
+		while dataPrivacyButton.isHittable == false && actualTry < maxTries {
+			app.swipeUp()
+			actualTry += 1
+		}
+		dataPrivacyButton.waitAndTap()
 		
 		/// Legal Text Screen
 
