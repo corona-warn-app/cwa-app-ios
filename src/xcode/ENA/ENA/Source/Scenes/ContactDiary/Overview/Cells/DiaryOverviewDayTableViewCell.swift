@@ -144,7 +144,19 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 	@IBOutlet private weak var exposureHistoryNoticeImageView: UIImageView!
 	@IBOutlet private weak var exposureHistoryTitleLabel: ENALabel!
 	@IBOutlet private weak var exposureHistoryDetailLabel: ENALabel!
-	
+
+	// pcr tests
+	@IBOutlet private weak var pcrTestStackView: UIStackView!
+	@IBOutlet private weak var pcrImageView: UIImageView!
+	@IBOutlet private weak var pcrTitlelLabel: ENALabel!
+	@IBOutlet private weak var pcrDetailLabel: ENALabel!
+
+	// antigen tests
+	@IBOutlet private weak var antigenTestStackView: UIStackView!
+	@IBOutlet private weak var antigenImageView: UIImageView!
+	@IBOutlet private weak var antigenTitleLabel: ENALabel!
+	@IBOutlet private weak var antigenDetailLabel: ENALabel!
+
 	// Check-Ins with risk
 	@IBOutlet private weak var checkinHistoryStackView: UIStackView!
 	@IBOutlet private weak var checkinHistoryNoticeImageView: UIImageView!
