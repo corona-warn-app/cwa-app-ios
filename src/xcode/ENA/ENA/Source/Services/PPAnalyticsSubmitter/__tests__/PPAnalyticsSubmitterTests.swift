@@ -571,9 +571,9 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		
 		Analytics.collect(.testResultMetadata(.registerNewTestMetadata(registrationDate, registrationToken)))
 		XCTAssertEqual(store.testResultMetadata?.testRegistrationDate, registrationDate, "Wrong Registration date")
-		XCTAssertEqual(store.testResultMetadata?.riskLevelAtTestRegistration, riskLevel, "Wrong Risk Level")
-		XCTAssertEqual(store.testResultMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, differenceBetweenMostRecentRiskDateAndRegistrationDate, "Wrong number of days with this risk level")
-		XCTAssertEqual(store.testResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration, differenceInHoursBetweenChangeToHighRiskAndRegistrationDate, "Wrong difference hoursSinceHighRiskWarningAtTestRegistration")
+		XCTAssertEqual(store.testResultMetadata?.eNFriskLevelAtTestRegistration, riskLevel, "Wrong Risk Level")
+		XCTAssertEqual(store.testResultMetadata?.daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration, differenceBetweenMostRecentRiskDateAndRegistrationDate, "Wrong number of days with this risk level")
+		XCTAssertEqual(store.testResultMetadata?.hoursSinceHighENFRiskWarningAtTestRegistration, differenceInHoursBetweenChangeToHighRiskAndRegistrationDate, "Wrong difference hoursSinceENFHighRiskWarningAtTestRegistration")
 
 		Analytics.collect(.testResultMetadata(.updateTestResult(testResult, registrationToken)))
 		XCTAssertEqual(store.testResultMetadata?.testResult, testResult, "Wrong TestResult")
@@ -592,19 +592,19 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 			"Wrong hoursSinceTestRegistration protobuf mapping"
 		)
 		XCTAssertEqual(
-			store.testResultMetadata?.riskLevelAtTestRegistration?.protobuf,
+			store.testResultMetadata?.eNFriskLevelAtTestRegistration?.protobuf,
 			protobuf?.riskLevelAtTestRegistration,
-			"Wrong riskLevelAtTestRegistration protobuf mapping"
+			"Wrong enfRiskLevelAtTestRegistration protobuf mapping"
 		)
 		XCTAssertEqual(
-			store.testResultMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration,
+			store.testResultMetadata?.daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration,
 			Int(protobuf?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration ?? -1),
-			"Wrong daysSinceMostRecentDateAtRiskLevelAtTestRegistration protobuf mapping"
+			"Wrong daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration protobuf mapping"
 		)
 		XCTAssertEqual(
-			store.testResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration,
+			store.testResultMetadata?.hoursSinceHighENFRiskWarningAtTestRegistration,
 			Int(protobuf?.hoursSinceHighRiskWarningAtTestRegistration ?? -1),
-			"Wrong hoursSinceHighRiskWarningAtTestRegistration protobuf mapping"
+			"Wrong hoursSinceENFHighRiskWarningAtTestRegistration protobuf mapping"
 		)
 	}
 	
@@ -752,8 +752,8 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		XCTAssertEqual(protobuf?.lastSubmissionFlowScreen, metadata?.lastSubmissionFlowScreen?.protobuf, "Wrong lastSubmissionFlowScreen")
 		XCTAssertEqual(protobuf?.hoursSinceTestResult, metadata?.hoursSinceTestResult, "Wrong hoursSinceTestResult")
 		XCTAssertEqual(protobuf?.hoursSinceTestRegistration, metadata?.hoursSinceTestRegistration, "Wrong hoursSinceTestRegistration")
-		XCTAssertEqual(protobuf?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, metadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, "Wrong daysSinceMostRecentDateAtRiskLevelAtTestRegistration")
-		XCTAssertEqual(protobuf?.hoursSinceHighRiskWarningAtTestRegistration, metadata?.hoursSinceHighRiskWarningAtTestRegistration, "Wrong hoursSinceHighRiskWarningAtTestRegistration")
+		XCTAssertEqual(protobuf?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, metadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, "Wrong daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration")
+		XCTAssertEqual(protobuf?.hoursSinceHighRiskWarningAtTestRegistration, metadata?.hoursSinceHighRiskWarningAtTestRegistration, "Wrong hoursSinceENFHighRiskWarningAtTestRegistration")
 		XCTAssertNotEqual(protobuf?.submittedWithTeleTan, store.submittedWithQR, "Wrong submittedWithTeleTan")
 	}
 	

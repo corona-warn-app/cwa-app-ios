@@ -19,14 +19,14 @@ struct TestResultMetadata: Codable {
 		
 		testResult = try container.decodeIfPresent(TestResult.self, forKey: .testResult)
 		hoursSinceTestRegistration = try container.decodeIfPresent(Int.self, forKey: .hoursSinceTestRegistration)
-		riskLevelAtTestRegistration = try container.decodeIfPresent(RiskLevel.self, forKey: .riskLevelAtTestRegistration)
-		daysSinceMostRecentDateAtRiskLevelAtTestRegistration = try container.decodeIfPresent(
+		enfRiskLevelAtTestRegistration = try container.decodeIfPresent(RiskLevel.self, forKey: .enfRiskLevelAtTestRegistration)
+		daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration = try container.decodeIfPresent(
 			Int.self,
-			forKey: .daysSinceMostRecentDateAtRiskLevelAtTestRegistration
+			forKey: .daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration
 		)
-		hoursSinceHighRiskWarningAtTestRegistration = try container.decodeIfPresent(
+		hoursSinceENFHighRiskWarningAtTestRegistration = try container.decodeIfPresent(
 			Int.self,
-			forKey: .hoursSinceHighRiskWarningAtTestRegistration
+			forKey: .hoursSinceENFHighRiskWarningAtTestRegistration
 		)
 		testRegistrationDate = try container.decodeIfPresent(Date.self, forKey: .testRegistrationDate)
 		testRegistrationToken = try container.decode(String.self, forKey: .testRegistrationToken)
@@ -35,9 +35,12 @@ struct TestResultMetadata: Codable {
 	enum CodingKeys: String, CodingKey {
 		case testResult
 		case hoursSinceTestRegistration
-		case riskLevelAtTestRegistration
-		case daysSinceMostRecentDateAtRiskLevelAtTestRegistration
-		case hoursSinceHighRiskWarningAtTestRegistration
+		case enfRiskLevelAtTestRegistration
+		case daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration
+		case hoursSinceENFHighRiskWarningAtTestRegistration
+		case checkinRiskLevelAtTestRegistration
+		case daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration
+		case hoursSinceCheckinHighRiskWarningAtTestRegistration
 		case testRegistrationDate
 		case testRegistrationToken
 	}
@@ -51,17 +54,29 @@ struct TestResultMetadata: Codable {
 	// Pending: "everytime" current timestamp - time of test registration
 	var hoursSinceTestRegistration: Int? = 0
 	
-	// the risk level on the riskcard i.e totalRiskLevel
-	var riskLevelAtTestRegistration: RiskLevel?
+	// the ENF risk level at test registration
+	var enfRiskLevelAtTestRegistration: RiskLevel?
 	
-	// test registration date - Most Recent Date at RiskLevel
-	var daysSinceMostRecentDateAtRiskLevelAtTestRegistration: Int?
+	// test registration date - Most Recent Date at ENF RiskLevel.
+	// set to -1 when no most recent data is available
+	var daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration: Int?
 	
-	// if high = timestamp of when the risk card turned red -  timestamp of test registration
+	// if high = timestamp of when the ENF risk got high -  timestamp of test registration
 	// if low = -1
-	var hoursSinceHighRiskWarningAtTestRegistration: Int?
+	var hoursSinceENFHighRiskWarningAtTestRegistration: Int?
 	
-	// The following variables are not part of the submitted data but we need them For calculating the saved data
+	// the checkin risk level at test registration
+	var checkinRiskLevelAtTestRegistration: RiskLevel?
+	
+	// test registration date - Most Recent Date at checkin RiskLevel
+	// set to -1 when no most recent data is available
+	var daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration: Int?
+	
+	// if high = timestamp of when the checkin risk got high -  timestamp of test registration
+	// if low = -1
+	var hoursSinceCheckinHighRiskWarningAtTestRegistration: Int?
+	
+	// The following variables are not part of the submitted data but we need them for calculating the saved data
 	
 	var testRegistrationDate: Date?
 	

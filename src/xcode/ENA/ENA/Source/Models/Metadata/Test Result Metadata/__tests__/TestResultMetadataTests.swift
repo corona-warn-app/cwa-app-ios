@@ -23,15 +23,15 @@ class TestResultMetadataTests: XCTestCase {
 
 		XCTAssertNotNil(secureStore.testResultMetadata, "The testResultMetadata should be initialized")
 		XCTAssertEqual(secureStore.testResultMetadata?.testRegistrationDate, today, "incorrect RegistrationDate")
-		XCTAssertEqual(secureStore.testResultMetadata?.riskLevelAtTestRegistration, riskCalculationResult.riskLevel, "incorrect risk level")
+		XCTAssertEqual(secureStore.testResultMetadata?.eNFriskLevelAtTestRegistration, riskCalculationResult.riskLevel, "incorrect risk level")
 		XCTAssertEqual(
-			secureStore.testResultMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration,
+			secureStore.testResultMetadata?.daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration,
 			expectedDaysSinceRecentAtRiskLevelAtTestRegistration,
 			"incorrect days since recent riskLevel"
 		)
 
 		// the difference from dateOfConversionToENFHighRisk should be one day so 24 hours
-		XCTAssertEqual(secureStore.testResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration, 24, "incorrect hours")
+		XCTAssertEqual(secureStore.testResultMetadata?.hoursSinceHighENFRiskWarningAtTestRegistration, 24, "incorrect hours")
 	}
 
 	func testRegisteringNewTestMetadata_LowRisk() {
@@ -49,15 +49,15 @@ class TestResultMetadataTests: XCTestCase {
 
 		XCTAssertNotNil(secureStore.testResultMetadata, "The testResultMetadata should be initialized")
 		XCTAssertEqual(secureStore.testResultMetadata?.testRegistrationDate, today, "incorrect RegistrationDate")
-		XCTAssertEqual(secureStore.testResultMetadata?.riskLevelAtTestRegistration, riskCalculationResult.riskLevel, "incorrect risk level")
+		XCTAssertEqual(secureStore.testResultMetadata?.eNFriskLevelAtTestRegistration, riskCalculationResult.riskLevel, "incorrect risk level")
 		XCTAssertEqual(
-			secureStore.testResultMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration,
+			secureStore.testResultMetadata?.daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration,
 			expectedDaysSinceRecentAtRiskLevelAtTestRegistration,
 			"incorrect days since recent riskLevel"
 		)
 
 		// the for low risk the value should always be -1
-		XCTAssertEqual(secureStore.testResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration, -1, "incorrect hours")
+		XCTAssertEqual(secureStore.testResultMetadata?.hoursSinceHighENFRiskWarningAtTestRegistration, -1, "incorrect hours")
 	}
 
 	func testRegisteringNewTestMetadata_NoRecentRiskDate() {
@@ -74,15 +74,15 @@ class TestResultMetadataTests: XCTestCase {
 
 		XCTAssertNotNil(secureStore.testResultMetadata, "The testResultMetadata should be initialized")
 		XCTAssertEqual(secureStore.testResultMetadata?.testRegistrationDate, today, "incorrect RegistrationDate")
-		XCTAssertEqual(secureStore.testResultMetadata?.riskLevelAtTestRegistration, riskCalculationResult.riskLevel, "incorrect risk level")
+		XCTAssertEqual(secureStore.testResultMetadata?.eNFriskLevelAtTestRegistration, riskCalculationResult.riskLevel, "incorrect risk level")
 		XCTAssertEqual(
-			secureStore.testResultMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration,
+			secureStore.testResultMetadata?.daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration,
 			expectedDaysSinceRecentAtRiskLevelAtTestRegistration,
 			"should be -1 if there is no recentDate for riskLevel"
 		)
 
 		// the for low risk the value should always be -1
-		XCTAssertEqual(secureStore.testResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration, -1, "incorrect hours")
+		XCTAssertEqual(secureStore.testResultMetadata?.hoursSinceHighENFRiskWarningAtTestRegistration, -1, "incorrect hours")
 	}
 	
 	func testUpdatingTestResult_ValidResult_NotPreviousTestResultStored() {
