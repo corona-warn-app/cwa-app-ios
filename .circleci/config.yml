@@ -118,7 +118,11 @@ jobs:
       - restore_cache:
           key: *tools_cache_key
       - run:
-          name: Run tests
+          name: Prelaunch Simulator
+          command: open -b com.apple.iphonesimulator
+      - run:
+          name: Run Tests
+          shell: /bin/bash -o pipefail
           command: |
             cd src/xcode
 
