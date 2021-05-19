@@ -120,24 +120,7 @@ jobs:
       - run:
           name: Run Tests
           shell: /bin/bash -o pipefail
-          command: |
-            cd src/xcode
-
-            CORE_COUNT=`sysctl -n hw.ncpu`
-            xcodebuild \
-              -workspace "ENA.xcworkspace" \
-              -scheme ENA \
-              -destination "platform=iOS Simulator,OS=14.4,name=iPhone 11" \
-              -testPlan SmokeTests \
-              -only-test-configuration "DE" \
-              -derivedDataPath "./DerivedData" \
-              -enableCodeCoverage YES \
-              -resultBundlePath "fastlane/test_output/ENA.xcresult" \
-              -parallel-testing-enabled YES \
-              -parallel-testing-worker-count "${CORE_COUNT}" \
-              -maximum-concurrent-test-simulator-destinations "${CORE_COUNT}" \
-              test-without-building
-            zip -r -q fastlane/test_output/ENA.xcresult.zip fastlane/test_output/ENA.xcresult
+          command: ./scripts/run_tests.sh
           no_output_timeout: 5m
       - restore_cache:
           key: sonar-cloud-v2
