@@ -336,9 +336,12 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 				switch result {
 				case .success:
 					Log.info("Analytics data succesfully submitted", log: .ppa)
-					// after succesful submission, store the current risk exposure metadata as the previous one to get the next time a comparison.
+					// after succesful submission, store the current enf risk exposure metadata as the previous one to get the next time a comparison.
 					self?.store.previousENFRiskExposureMetadata = self?.store.currentENFRiskExposureMetadata
 					self?.store.currentENFRiskExposureMetadata = nil
+					// after succesful submission, store the current event risk exposure metadata as the previous one to get the next time a comparison.
+					self?.store.previousEventRiskExposureMetadata = self?.store.currentEventRiskExposureMetadata
+					self?.store.currentEventRiskExposureMetadata = nil
 					if let shouldIncludeTestResultMetadata = self?.shouldIncludeTestResultMetadata, shouldIncludeTestResultMetadata {
 						self?.store.testResultMetadata = nil
 					}
