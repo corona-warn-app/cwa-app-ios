@@ -52,7 +52,7 @@ class HealthCertificateKeyValueTextCell: UITableViewCell, ReuseIdentifierProvidi
 		contentView.backgroundColor = .clear
 		selectionStyle = .none
 
-		backgroundContainerView.backgroundColor = .enaColor(for: .background)
+		backgroundContainerView.backgroundColor = .enaColor(for: .cellBackground2)
 		backgroundContainerView.translatesAutoresizingMaskIntoConstraints = false
 		contentView.addSubview(backgroundContainerView)
 
