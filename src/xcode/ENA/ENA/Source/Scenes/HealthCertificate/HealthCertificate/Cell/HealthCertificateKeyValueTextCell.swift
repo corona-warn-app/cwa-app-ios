@@ -12,7 +12,9 @@ class HealthCertificateKeyValueTextCell: UITableViewCell, ReuseIdentifierProvidi
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		setupView()
 		isAccessibilityElement = false
-		headlineTextLabel.isAccessibilityElement = true
+		backgroundContainerView.isAccessibilityElement = true
+//		headlineTextLabel.isAccessibilityElement = true
+//		detailsTextLabel.isAccessibilityElement = true
 	}
 
 	@available(*, unavailable)
@@ -32,6 +34,7 @@ class HealthCertificateKeyValueTextCell: UITableViewCell, ReuseIdentifierProvidi
 		bottomSeparatorView.isHidden = cellViewModel.isBottomSeparatorHidden
 		topSpaceLayoutConstraint.constant = cellViewModel.topSpace ?? 12.0
 		bottomSpaceLayoutConstraint.constant = cellViewModel.bottomSpace ?? -6.0
+		backgroundContainerView.accessibilityLabel = [cellViewModel.headline, cellViewModel.text].joined(separator: "\n")
 	}
 
 	// MARK: - Private
