@@ -2506,7 +2506,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Details_certificate" = "Impfzertifikat";
 
-"HealthCertificate_Details_QRCode_Image_Description" = "QR-Code mit Ihrem Impfzertifikat %i von %i";
+"HealthCertificate_Details_QRCode_Image_Description" = "Ein QR-Code mit Ihrem Impfzertifikat %i von %i";
 
 "HealthCertificate_Details_certificateCount" = "Impfzertifikat %i von %i";
 
