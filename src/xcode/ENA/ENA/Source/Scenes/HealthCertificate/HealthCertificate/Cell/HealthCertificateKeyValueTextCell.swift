@@ -11,10 +11,7 @@ class HealthCertificateKeyValueTextCell: UITableViewCell, ReuseIdentifierProvidi
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		setupView()
-		isAccessibilityElement = false
-		backgroundContainerView.isAccessibilityElement = true
-//		headlineTextLabel.isAccessibilityElement = true
-//		detailsTextLabel.isAccessibilityElement = true
+		setupAccessibility()
 	}
 
 	@available(*, unavailable)
@@ -34,7 +31,6 @@ class HealthCertificateKeyValueTextCell: UITableViewCell, ReuseIdentifierProvidi
 		bottomSeparatorView.isHidden = cellViewModel.isBottomSeparatorHidden
 		topSpaceLayoutConstraint.constant = cellViewModel.topSpace ?? 12.0
 		bottomSpaceLayoutConstraint.constant = cellViewModel.bottomSpace ?? -6.0
-		backgroundContainerView.accessibilityLabel = [cellViewModel.headline, cellViewModel.text].joined(separator: "\n")
 	}
 
 	// MARK: - Private
@@ -91,4 +87,12 @@ class HealthCertificateKeyValueTextCell: UITableViewCell, ReuseIdentifierProvidi
 			]
 		)
 	}
+
+	private func setupAccessibility() {
+		accessibilityElements = [backgroundContainerView as Any]
+		backgroundContainerView.accessibilityElements = [headlineTextLabel as Any, detailsTextLabel as Any]
+		headlineTextLabel.accessibilityTraits = .staticText
+		detailsTextLabel.accessibilityTraits = .staticText
+	}
+
 }
