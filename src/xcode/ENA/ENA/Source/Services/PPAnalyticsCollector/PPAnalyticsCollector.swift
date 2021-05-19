@@ -201,36 +201,65 @@ enum PPAnalyticsCollector {
 	}
 
 	private static func registerNewTestMetadata(_ date: Date = Date(), _ token: String) {
-		guard let enfRiskCalculationResult = store?.enfRiskCalculationResult else {
-			Log.warning("Could not register new test meta data due to riskCalculationResult is nil", log: .ppa)
+		guard store?.enfRiskCalculationResult != nil || store?.checkinRiskCalculationResult != nil else {
+			Log.warning("Could not register new test meta data due to enfRiskCalculationResult and checkinRiskCalculationResult are both nil", log: .ppa)
 			return
 		}
+		
 		var testResultMetadata = TestResultMetadata(registrationToken: token)
 		testResultMetadata.testRegistrationDate = date
-		testResultMetadata.enfRiskLevelAtTestRegistration = enfRiskCalculationResult.riskLevel
 		
-		if let mostRecentRiskCalculationDate = enfRiskCalculationResult.mostRecentDateWithCurrentRiskLevel {
-			let daysSinceMostRecentDateAtRiskLevelAtTestRegistration = Calendar.current.dateComponents([.day], from: mostRecentRiskCalculationDate, to: date).day
-			testResultMetadata.daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration = daysSinceMostRecentDateAtRiskLevelAtTestRegistration
-			Log.debug("daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration: \(String(describing: daysSinceMostRecentDateAtRiskLevelAtTestRegistration))", log: .ppa)
-		} else {
-			testResultMetadata.daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration = -1
-			Log.warning("daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration: -1", log: .ppa)
+		if let enfRiskCalculationResult = store?.enfRiskCalculationResult {
+			testResultMetadata.enfRiskLevelAtTestRegistration = enfRiskCalculationResult.riskLevel
+			
+			if let mostRecentRiskCalculationDate = enfRiskCalculationResult.mostRecentDateWithCurrentRiskLevel {
+				let daysSinceMostRecentDateAtRiskLevelAtTestRegistration = Calendar.current.dateComponents([.day], from: mostRecentRiskCalculationDate, to: date).day
+				testResultMetadata.daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration = daysSinceMostRecentDateAtRiskLevelAtTestRegistration
+				Log.debug("daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration: \(String(describing: daysSinceMostRecentDateAtRiskLevelAtTestRegistration))", log: .ppa)
+			} else {
+				testResultMetadata.daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration = -1
+				Log.warning("daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration: -1", log: .ppa)
+			}
+			
+			switch enfRiskCalculationResult.riskLevel {
+			case .high:
+				guard let timeOfRiskChangeToHigh = store?.dateOfConversionToENFHighRisk else {
+					Log.warning("Could not log enf risk calculation result due to timeOfRiskChangeToHigh is nil", log: .ppa)
+					return
+				}
+				let differenceInHours = Calendar.current.dateComponents([.hour], from: timeOfRiskChangeToHigh, to: date)
+				store?.testResultMetadata?.hoursSinceENFHighRiskWarningAtTestRegistration = differenceInHours.hour
+			case .low:
+				store?.testResultMetadata?.hoursSinceENFHighRiskWarningAtTestRegistration = -1
+			}
+		}
+		
+		if let checkinRiskCalculationResult = store?.checkinRiskCalculationResult {
+			testResultMetadata.checkinRiskLevelAtTestRegistration = checkinRiskCalculationResult.riskLevel
+			
+			if let mostRecentRiskCalculationDate = checkinRiskCalculationResult.mostRecentDateWithCurrentRiskLevel {
+				let daysSinceMostRecentDateAtRiskLevelAtTestRegistration = Calendar.current.dateComponents([.day], from: mostRecentRiskCalculationDate, to: date).day
+				testResultMetadata.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration = daysSinceMostRecentDateAtRiskLevelAtTestRegistration
+				Log.debug("daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration: \(String(describing: daysSinceMostRecentDateAtRiskLevelAtTestRegistration))", log: .ppa)
+			} else {
+				testResultMetadata.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration = -1
+				Log.warning("daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration: -1", log: .ppa)
+			}
+			
+			switch checkinRiskCalculationResult.riskLevel {
+			case .high:
+				guard let timeOfRiskChangeToHigh = store?.dateOfConversionToCheckinHighRisk else {
+					Log.warning("Could not log checkin risk calculation result due to timeOfRiskChangeToHigh is nil", log: .ppa)
+					return
+				}
+				let differenceInHours = Calendar.current.dateComponents([.hour], from: timeOfRiskChangeToHigh, to: date)
+				store?.testResultMetadata?.hoursSinceCheckinHighRiskWarningAtTestRegistration = differenceInHours.hour
+			case .low:
+				store?.testResultMetadata?.hoursSinceCheckinHighRiskWarningAtTestRegistration = -1
+			}
 		}
 
 		Analytics.collect(.testResultMetadata(.create(testResultMetadata)))
-
-		switch enfRiskCalculationResult.riskLevel {
-		case .high:
-			guard let timeOfRiskChangeToHigh = store?.dateOfConversionToENFHighRisk else {
-				Log.warning("Could not log risk calculation result due to timeOfRiskChangeToHigh is nil", log: .ppa)
-				return
-			}
-			let differenceInHours = Calendar.current.dateComponents([.hour], from: timeOfRiskChangeToHigh, to: date)
-			store?.testResultMetadata?.hoursSinceENFHighRiskWarningAtTestRegistration = differenceInHours.hour
-		case .low:
-			store?.testResultMetadata?.hoursSinceENFHighRiskWarningAtTestRegistration = -1
-		}
 	}
 	
 	private static func updateTestResult(_ testResult: TestResult, _ token: String) {
