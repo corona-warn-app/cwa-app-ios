@@ -58,6 +58,8 @@ class ENAUITests_12_AntigenTestProfile: XCTestCase {
 		
 		/// Legal Text Screen
 
+		XCTAssertTrue(app.images[AccessibilityIdentifiers.AppInformation.privacyImageDescription].waitForExistence(timeout: .short))
+
 		let backButton = try XCTUnwrap(app.navigationBars.buttons.element(boundBy: 0))
 		XCTAssertTrue(backButton.waitForExistence(timeout: .short))
 		backButton.tap()
