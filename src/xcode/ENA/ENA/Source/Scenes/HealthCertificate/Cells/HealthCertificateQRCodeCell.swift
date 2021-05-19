@@ -15,7 +15,6 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 
 		qrCodeImageView.isAccessibilityElement = true
 		qrCodeImageView.accessibilityTraits = .image
-		qrCodeImageView.accessibilityLabel = AppStrings.ExposureSubmission.AntigenTest.Profile.QRCodeImageDescription
 		certificateCountLabel.isAccessibilityElement = true
 		validityLabel.isAccessibilityElement = true
 	}
@@ -33,6 +32,7 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 		backgroundContainerView.layer.borderColor = cellViewModel.borderColor.cgColor
 		certificateCountLabel.text = cellViewModel.certificate
 		validityLabel.text = cellViewModel.validity
+		qrCodeImageView.accessibilityLabel = cellViewModel.accessibility
 	}
 
 	// MARK: - Private
