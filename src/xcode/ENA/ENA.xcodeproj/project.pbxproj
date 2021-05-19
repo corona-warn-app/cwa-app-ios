@@ -13,7 +13,7 @@
 		0109DB9A26037E6A00624BB3 /* TraceLocation+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0109DB9926037E6A00624BB3 /* TraceLocation+Mock.swift */; };
 		010B3D3B25A8667C00EB44AB /* ExposureDetectionViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010B3D3A25A8667C00EB44AB /* ExposureDetectionViewModelTests.swift */; };
 		010B3DA225ADEBFF00EB44AB /* HomeRiskCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010B3D8525ADE5FD00EB44AB /* HomeRiskCellModelTests.swift */; };
-		010F27912631C923004CBE35 /* ExposureSubmissionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32842642491136E006B1F09 /* ExposureSubmissionUITests.swift */; };
+		010F27912631C923004CBE35 /* ENAUITests_04a_ExposureSubmission.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32842642491136E006B1F09 /* ENAUITests_04a_ExposureSubmission.swift */; };
 		010F27DE26370AB7004CBE35 /* CoronaTestServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010F27DD26370AA5004CBE35 /* CoronaTestServiceError.swift */; };
 		011216FA2617363D00320745 /* CoronaTestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011216F92617363D00320745 /* CoronaTestService.swift */; };
 		011217052617446500320745 /* CoronaTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011217012617412300320745 /* CoronaTest.swift */; };
@@ -1839,7 +1839,7 @@
 		A3284256248E7431006B1F09 /* MockExposureSubmissionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockExposureSubmissionService.swift; sourceTree = "<group>"; };
 		A328425B248E82B5006B1F09 /* ExposureSubmissionTestResultViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionTestResultViewControllerTests.swift; sourceTree = "<group>"; };
 		A32842602490E2AC006B1F09 /* ExposureSubmissionWarnOthersViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionWarnOthersViewControllerTests.swift; sourceTree = "<group>"; };
-		A32842642491136E006B1F09 /* ExposureSubmissionUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionUITests.swift; sourceTree = "<group>"; };
+		A32842642491136E006B1F09 /* ENAUITests_04a_ExposureSubmission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_04a_ExposureSubmission.swift; sourceTree = "<group>"; };
 		A32842662492359E006B1F09 /* MockExposureSubmissionNavigationControllerChild.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockExposureSubmissionNavigationControllerChild.swift; sourceTree = "<group>"; };
 		A32C046424D96348005BEA61 /* HTTPClient+PlausibeDeniabilityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClient+PlausibeDeniabilityTests.swift"; sourceTree = "<group>"; };
 		A36FACC324C5EA1500DED947 /* ExposureDetectionViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionViewControllerTests.swift; sourceTree = "<group>"; };
@@ -3401,6 +3401,14 @@
 			name = TestPlans;
 			sourceTree = "<group>";
 		};
+		35178CC626553E1E00FFB31E /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				014D80382644077B0077898D /* ENAUITests_11_QuickActions.swift */,
+			);
+			path = AppDelegate;
+			sourceTree = "<group>";
+		};
 		3525AC2F25E7BDAF002DDC82 /* Logging */ = {
 			isa = PBXGroup;
 			children = (
@@ -3414,7 +3422,6 @@
 		3543134E25DE990B00926575 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
-				014D80382644077B0077898D /* ENAUITests_11_QuickActions.swift */,
 				BA7F15A02629D3F200CA4783 /* RouteTests.swift */,
 			);
 			path = __tests__;
@@ -4320,6 +4327,7 @@
 		85D7596224570491008175F0 /* ENAUITests */ = {
 			isa = PBXGroup;
 			children = (
+				35178CC626553E1E00FFB31E /* AppDelegate */,
 				2E4C3FE7263AA69400E9FAFF /* AntigenTestProfile */,
 				340421DB263DDF6D00155BC6 /* AppStore */,
 				130CB19A246D92F800ADE602 /* Onboarding */,
@@ -5820,7 +5828,7 @@
 		BA2E569725DEC1E600331C10 /* ExposureSubmission */ = {
 			isa = PBXGroup;
 			children = (
-				A32842642491136E006B1F09 /* ExposureSubmissionUITests.swift */,
+				A32842642491136E006B1F09 /* ENAUITests_04a_ExposureSubmission.swift */,
 			);
 			path = ExposureSubmission;
 			sourceTree = "<group>";
@@ -7984,7 +7992,7 @@
 				509C69FE25B5D920000F2A4C /* ENAUITests-Statistics.swift in Sources */,
 				347FBB18260C9C4600672770 /* ENAUITests_09_TraceLocations.swift in Sources */,
 				505F2E522587738900697CC2 /* AccessibilityLabels.swift in Sources */,
-				010F27912631C923004CBE35 /* ExposureSubmissionUITests.swift in Sources */,
+				010F27912631C923004CBE35 /* ENAUITests_04a_ExposureSubmission.swift in Sources */,
 				014D803B26440E010077898D /* ENAUITests_11_QuickActions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
