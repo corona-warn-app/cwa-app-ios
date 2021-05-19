@@ -12,8 +12,8 @@ class DidSetPublishedTests: XCTestCase {
 
 		let expectedValues = [false, false, true, true, false]
 
-		let expectation = expectation(description: "Received value")
-		expectation.expectedFulfillmentCount = expectedValues.count
+		let publishingExpectation = expectation(description: "Received value")
+		publishingExpectation.expectedFulfillmentCount = expectedValues.count
 
 		var receivedValues = [Bool]()
 		let subscription = publishingStruct.$publishingBool
@@ -22,7 +22,7 @@ class DidSetPublishedTests: XCTestCase {
 				XCTAssertEqual($0, publishingStruct.publishingBool)
 				receivedValues.append($0)
 
-				expectation.fulfill()
+				publishingExpectation.fulfill()
 			}
 
 		publishingStruct.publishingBool = false
