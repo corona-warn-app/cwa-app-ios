@@ -5,7 +5,7 @@
 
 			<title>Veri Gizliliği Beyanı &bull; Corona-Warn-App</title>
 
-			<script src="/ruxitagentjs_ICA27SVfqrux_10213210506081349.js" data-dtconfig="app=ea7c4b59f27d43eb|rcdec=1209600000|featureHash=ICA27SVfqrux|vcv=2|rdnt=1|uxrgce=1|srcss=1|bp=3|srmcrv=10|cuc=cuve8t91|mel=100000|dpvc=1|ssv=4|lastModification=1620323184441|dtVersion=10213210506081349|srmcrl=1|tp=500,50,0,1|uxdcw=1500|vs=2|agentUri=/ruxitagentjs_ICA27SVfqrux_10213210506081349.js|reportUrl=/rb_3cbfc0c9-a571-451d-b533-3ebd26e9f5f5|rid=RID_486396302|rpid=1779570708|domain=net.sap"></script><script src="/ruxitagentjs_ICA27SVfqrux_10207210127152629.js" data-dtconfig="app=ea7c4b59f27d43eb|featureHash=ICA27SVfqrux|vcv=2|rdnt=1|uxrgce=1|bp=3|cuc=cuve8t91|mel=100000|dpvc=1|lastModification=1613706421428|dtVersion=10207210127152629|tp=500,50,0,1|uxdcw=1500|vs=2|agentUri=/ruxitagentjs_ICA27SVfqrux_10207210127152629.js|reportUrl=/rb_3cbfc0c9-a571-451d-b533-3ebd26e9f5f5|rid=RID_572501457|rpid=-1507620304|domain=net.sap"></script><script src="/ruxitagentjs_ICA27SVfqrux_10205201218101503.js" data-dtconfig="app=ea7c4b59f27d43eb|featureHash=ICA27SVfqrux|vcv=2|rdnt=1|uxrgce=1|bp=3|cuc=cuve8t91|dpvc=1|lastModification=1608313592462|dtVersion=10205201218101503|tp=500,50,0,1|uxdcw=1500|vs=2|agentUri=/ruxitagentjs_ICA27SVfqrux_10205201218101503.js|reportUrl=/rb_3cbfc0c9-a571-451d-b533-3ebd26e9f5f5|rid=RID_-883486362|rpid=746598318|domain=net.sap"></script><style>
+			<style>
 			a {
 				text-decoration: underline;
 			}
@@ -219,7 +219,7 @@
 		</p>
 		
 		<p>
-			Dolayısıyla Uygulama, standart olarak analiz araçları üzerinden kullanıcı davranışınızın herhangi bir değerlendirmesini yapmaz. Sadece isteğe bağlı veri bağışına açıkça onay vermeniz durumunda, Uygulama kullanımınıza ilişkin belirli veriler, RKI’ye aktarılacaktır (bkz. Madde 5 h.).
+			Dolayısıyla Uygulama, standart olarak analiz araçları üzerinden kullanıcı davranışınızın herhangi bir değerlendirmesini yapmaz.  Sadece isteğe bağlı veri bağışına açıkça onay vermeniz veya bir hata raporu kaydetmeniz ve bunu RKI’ye iletmeniz durumunda, Uygulama kullanımınıza ilişkin belirli veriler, RKI’ye aktarılacaktır (bkz. Madde 5 i ve Madde 5 k.).
 		</p>
 		
 		<p>
@@ -354,7 +354,10 @@
 				Karşılaşmalarınızı ve eş zamanlı bulunulan olaylardaki veya konumlardaki konukları, Uygulama üzerinden olası bir enfeksiyon konusunda uyarırsanız
 			</li>
 			<li>
-				Olası Korona semptomların başlangıcına ilişkin beyanda bulunursanız
+				Olası Korona semptomlarının başlangıcına ilişkin beyanda bulunursanız veya
+			</li>
+			<li>
+				Uygulamaya dijital aşı sertifikaları eklediğinizde.
 			</li>
 		</ul>
 		<p>
@@ -373,9 +376,31 @@
 
 		</p>
 		<h3>
-			h. Kullanım verileri (veri bağışı)
+			h. Korona aşılarınıza ilişkin veriler
 		</h3>
-		
+		<p>
+			Aşı olduğunuzda size sağlanan aşı sertifikalarınızı Uygulamaya ekleyebilirsiniz. Dijital aşı sertifikasını talep etmeniz isteğe bağlıdır. Bu olanaktan yararlanmak isterseniz, aşı olduktan sonra size QR kodlu bir çıktı verilir. Bu kod, Korona aşılamanızla ilgili şu verileri içerir:
+		</p>
+		<ul>
+			<li>
+				Kişisel veriler (adı, soyadı, doğum tarihi)
+			</li>
+			<li>
+				Aşıya ilişkin bilgiler (hastalık, aşı maddesi, ürün, üretici firma)
+			</li>
+			<li>
+				Aşılamaya ilişkin bilgiler (doz numarası, toplam doz sayısı, aşılama tarihi, ülke, düzenleyen kurum)
+			</li>
+			<li>
+				Aşı sertifikasının benzersiz kimlik kodu.
+			</li>
+		</ul>
+		<p>
+			Aşı olduğunuzda toplanan bu veriler, dijital aşı sertifikası için QR kodu taradığınız anda Uygulamaya kaydedilir.
+		</p>
+		<h3>
+			i. Kullanım verileri (veri bağışı)
+		</h3>
 		<p>
 			Veri bağışını etkinleştirdiğinizde Uygulama, Uygulama kullanımınıza ilişkin belirli verileri günde bir kez RKI’ye aktarır (bundan böyle: Kullanım verileri). Bu kullanım verileri, Uygulama tarafından görüntülenen riskli karşılaşmalar, alınan ve tetiklenen uyarılar, alınan test sonuçları ve akıllı telefonunuzun işletim sistemine ilişkin verilerdir. Kullanım verileri ayrıntılarıyla şunlardır:
 
@@ -414,10 +439,10 @@
 			RKI, Uygulamanın etki gücünü ve işlevselliğini değerlendirmek ve pandemi hakkında yeni çıkarımlar elde etmek için, kullanım verilerini olası opsiyonel veriler ile birleştirecek ve anonimleştirilmiş istatistikler olarak değerlendirecektir
 		</p>
 		<p>
-			Veri bağışına katılım, gönüllü olarak gerçekleşmektedir. Veri bağışının etkinleştirilmesi, Uygulamanızın orijinalliğinin doğrulanmasını gerektirir (bu konuyla ilgili daha fazla bilgi için bkz. Madde 5&nbsp;j. ve 11.).
+			Veri bağışına katılım, gönüllü olarak gerçekleşmektedir. Veri bağışının etkinleştirilmesi, Uygulamanızın orijinalliğinin doğrulanmasını gerektirir (bu konuyla ilgili daha fazla bilgi için bkz. Madde 5&nbsp;l. ve 11.).
 		</p>
 		<h3>
-			i. Ankete katılım
+			j. Ankete katılım
 		</h3>
 		
 		<p>
@@ -428,7 +453,44 @@
 			Ankete katılım isteğe bağlıdır. Bir ankete katılmaya ve kullanım verilerinin RKI’ye aktarılmasına, siz kendiniz karar verirsiniz. Bu anketler, yönlendirileceğiniz Uygulama dışındaki bir web sitesinde gerçekleştirilir. Ankete katılım, Uygulamanızın orijinalliğinin doğrulanmasını gerektirir (bu konuyla ilgili daha fazla bilgi için bkz. Madde 5&nbsp;j. ve 11.).
 		</p>
 		<h3>
-			j. Uygulamanızın orijinalliğinin doğrulanması
+			k. Hata raporlarının içerikleri
+		</h3>
+		<p>
+			Hata analizi ile ilgili olarak Uygulama teknik desteğine yardımcı olmak için Uygulamanızda hata raporu kaydedebilirsiniz. Hata raporunu kaydetmeye başladığınızda,
+		</p>
+		<ul>
+			<li>
+				Uygulamadaki kullanım adımlarınız,
+			</li>
+			<li>
+				teknik adımlar ve süreçler ile durum raporları
+				<ul>
+					<li>
+						risk değerlendirmesi (örneğin, maruz kalma verilerinin nasıl işlendiği, enfeksiyon riskinin hesaplanması, pozitif listelerin güncellenmesi, hesaplanan risk durumunun görüntülenmesi),
+					</li>
+					<li>
+						test sonuçlarını çağrılması ve görüntülenmesi ve
+					</li>
+					<li>
+						başkalarını uyarmak için olası prosedürler (örneğin akıllı telefonunuz tarafından taşıma riski değerlerinin hesaplanması ve rastgele kimlik numaralarınızın tekniksel açıdan sağlanması)
+					</li>
+				</ul>
+			</li>
+		</ul>
+		<p>
+			akıllı telefonunuzda kapsamlı bir şekilde kaydedilir ve saklanır. Bir hata raporu sağlık verileri de içerebilir, çünkü bir riskli karşılaşmanın saptanmasına yönelik teknik adımlar ve süreçler de kaydedilmektedir.
+		</p>
+		<p>
+			Ancak hata raporu, test kaydı QR kodları ile Uygulamanızda depolanan belirteç, hızlı test sonuçları, aşı sertifikaları ve temas günlüğünüzdeki veri girişlerine ilişkin herhangi bir bilgi içermez. Hata raporu, adınızı ve RKI tarafından kimliğinizin tanımlanmasını sağlayacak diğer verileri içermez.
+		</p>
+		<p>
+			İstediğiniz zaman hata raporunu kaydını durdurabilir ve hata raporunu silebilirsiniz. Hata raporunu RKI ile paylaşmaya karar verdiğinizde, size Uygulama üzerinden hata raporu bir kimlik kodu (hata raporu kimlik numarası) gönderilir. Hata raporu kimlik numarası üzerinden RKI, hata raporunuzu, teknik desteğe örneğin hatanın bir açıklamasını e-posta ile ilettiğinizde ayrı olarak sağladığınız diğer bilgilere atayabilir. Hata raporu kimlik numaranızı teknik desteğe aktardığınızda, onların diğer bazı veriler aracılığıyla sizin kimliğinize bağlantı kurması mümkün olabilir.
+		</p>
+		<p>
+			Bir hata raporunun oluşturulması ve RKI’ye gönderimi isteğe bağlı gerçekleşir. Bir hata raporu kaydetmek ve bunu Uygulama teknik desteğe göndermek isteyip istemediğinize siz kendiniz karar verirsiniz. Veri bağışının gönderiminin etkinleştirilmesi, Uygulamanızın orijinalliğinin doğrulanmasını gerektirir (bu konuyla ilgili daha fazla bilgi için bkz. Madde 5 l ve Madde 11).
+		</p>
+		<h3>
+			l. Uygulamanızın orijinalliğinin doğrulanması
 		</h3>
 		
 		<p>
@@ -577,7 +639,25 @@
 			Belli bir gün yüksek risk altında olduğunuzun saptanması halinde, böyle bir günde sizin için hesaplanan riskin görüntülenmesi, temas ettiğiniz kişileri veya size eşlik etmiş olan kişileri uyarmanıza yardımcı olabilir. Bu sayede temaslı kişileriniz, gerektiğinde kendi temas davranışlarını bu duruma ayarlayabilir ve böylece kendi çevrelerinde henüz saptanmamış olası enfeksiyonların önüne geçebilir.
 		</p>
 		<h3>
-			h. Veri bağışı
+			h. Dijital aşı sertifikası
+		</h3>
+		<p>
+			Uygulama, aşı sertifikalarınızı kaydetmenizi ve dijital olarak yanınızda bulundurmanızı mümkün kılar. Gerekli olduğunda, yasal açıdan zorunlu durumlarda, Koronavirüse karşı aşılamanızı eksiksiz olarak tamamladığınızı kanıtlamak için Uygulamayı kullanabilirsiniz.
+		</p>
+		<p>
+			Uygulamaya bir aşı sertifikası eklemek için, aşı ile birlikte size sağlanan QR kodu tarayın. Bu sayede Uygulama, aşılamanıza ilişkin verileri QR kod üzerinden okur ve bunları akıllı telefonunuzun güvenli bir alanına saklar.
+		</p>
+		<p>
+			Gerekli son aşılamanızdan 14 gün sonra Uygulama, ana ekranda aşı korumanızın eksiksiz olarak tamamlandığını gösterir. Uygulamada gösterilen dijital aşı sertifikasının QR kodu gerektiğinde kanıt olarak gösterebilirsiniz. Bu QR kod, resmi kontrol uygulamasıyla taranabilir ve Korona aşılamanıza ilişkin veriler buradan okunabilir. Bunun ardından kontrol uygulamasında aşı korumanızın tamamlanıp tamamlanmadığı gösterilir. Ayrıca adınız ve doğum tarihiniz de görüntülenir, bu sayede kontrol eden kişi bu bilgileri resmi kimlik belgenizdeki bilgiler ile karşılaştırabilir.
+		</p>
+		<p>
+			Uygulamadaki aşı sertifikalarınızı kaydetme işlevini kullanmanın isteğe bağlı olduğunu göz önünde bulundurun. Aşı koruması yaptırdığınızı, yasal açıdan zorunlu durumlarda diğer yöntemlerle de kanıtlayabilirsiniz.
+		</p>
+		<p>
+			Dijital aşı sertifikanızdaki QR kodun Korona aşılarınıza ilişkin veriler içerdiğini lütfen unutmayın. Yalnızca aşı durumunuzu kanıtlamanız gerektiğinde bunu gösterin. Söz konusu verilerin okunmasını istemiyorsanız, aşı sertifikasını ve QR kodu hiç kimseye göstermeyin.
+		</p>
+		<h3>
+			i. Veri bağışı
 		</h3>
 		
 		<p>
@@ -601,14 +681,24 @@
 			Kullanım verileri ve diğer isteğe bağlı veriler, adınız veya kimliğinizle herhangi bir bağlantı olmaksızın saklanır ve değerlendirilir. RKI, kim olduğunuzu veya kiminle karşılaştığınızı öğrenmez.
 		</p>
 		<h3>
-			i. Anketler
+			j. Hata raporları
+		</h3>
+		
+		<p>
+			RKI, hatasız bir Uygulama sunmayı hedeflemektedir. Ancak, çok sayıda farklı sistem nedeniyle bu hedefe her zaman ulaşılmayabilmektedir. Hata analizi ile ilgili olarak Uygulama teknik desteğine yardımcı olmak için, Uygulamanızda hata raporu oluşturup RKI’ye aktarabilirsiniz. RKI, Uygulamanızda ortaya çıkan hataların nedenlerini belirlemek ve bunları gidermek için hata raporunu değerlendirmeye alacaktır.
+		</p>
+		<p>
+			Bu hata raporları, adınız ve kimliğiniz ile herhangi bir bağlam olmaksızın geçici olarak saklanır ve hata analizi kapsamında değerlendirilir. RKI, kim olduğunuzu veya kiminle karşılaştığınızı öğrenmez. Ancak hata raporunu teknik desteğe iletirken, hata raporu kimlik numarasını ifşa ederseniz (örn. e-posta yoluyla), bu işlemin kimliğiniz hakkında ipuçları ortaya çıkarabileceğini göz önünde bulundurun.
+		</p>
+		<h3>
+			k. Anketler
 		</h3>
 		
 		<p>
 			Anketler, Uygulama dışında yönlendirileceğiniz bir web sitesinde gerçekleştirilir. Uygulama, anketlerle bağlantılı olarak RKI’ye veri aktarımı sağlamaz. RKI tarafından yürütülen anketlerin amaçları, anket web sitesinde anketteki bilgilerde yer almaktadır.
 		</p>
 		<h3>
-			j. Uygulamanızın orijinalliğinin doğrulanması
+			l. Uygulamanızın orijinalliğinin doğrulanması
 		</h3>
 		
 		<p>
@@ -726,7 +816,7 @@
 		</h3>
 		
 		<p>
-			Pozitif listeler 14 gün geçtikten sonra Uygulama belleğinden silinir. “Giriş denetimlerim” alanındaki olay verileri 14 gün sonra otomatik olarak silinecektir. Alternatif olarak, “Giriş denetimlerim” alanındaki veri girişlerini istediğiniz zaman manuel olarak da silebilirsiniz. Sizin için Uygulamada hesaplanan enfeksiyon riski (örn. “düşük risk”), her güncellemeden sonra, ancak en geç 14 gün sonra Uygulama belleğinden silinir. Çağırdığınız Korona testi pozitif ise ve siz bir uyarı tetikledikten hemen sonra belirteç, Uygulama belleğinden silinir. Temas günlüğündeki veriler akıllı telefonunuzda 16 gün boyunca saklanır ve ardından otomatik olarak silinir. Ancak bu verileri istediğiniz zaman, daha erken de silebilirsiniz. Bir olaya veya bir konuma giriş denetimi yaptırdığınızda, ilgili giriş denetimi kaydı silindikten sonra bile temas günlüğündeki verilerin hâlâ orada saklı kaldıklarını lütfen unutmayın. Bir kez hızlı test profili oluşturduysanız bu, siz tekrar silene kadar uygulamada kalır.
+			Pozitif listeler 14 gün geçtikten sonra Uygulama belleğinden silinir. “Giriş denetimlerim” alanındaki olay verileri 14 gün sonra otomatik olarak silinecektir. Alternatif olarak, “Giriş denetimlerim” alanındaki veri girişlerini istediğiniz zaman manuel olarak da silebilirsiniz. Sizin için Uygulamada hesaplanan enfeksiyon riski (örn. “düşük risk”), her güncellemeden sonra, ancak en geç 14 gün sonra Uygulama belleğinden silinir. Çağırdığınız Korona testi pozitif ise ve siz bir uyarı tetikledikten hemen sonra belirteç, Uygulama belleğinden silinir. Temas günlüğündeki veriler akıllı telefonunuzda 16 gün boyunca saklanır ve ardından otomatik olarak silinir. Ancak bu verileri istediğiniz zaman, daha erken de silebilirsiniz. Bir olaya veya bir konuma giriş denetimi yaptırdığınızda, ilgili giriş denetimi kaydı silindikten sonra bile temas günlüğündeki verilerin hâlâ orada saklı kaldıklarını lütfen unutmayın. Bir kez hızlı test profili oluşturduysanız bu, siz tekrar silene kadar uygulamada kalır. Aşı sertifikalarını taradıysanız, bu veriler siz onları silene kadar Uygulamada kayıtlı kalacaktır.
 		</p>
 		<h3>
 			b. Sunucu sistemlerindeki veriler
@@ -742,7 +832,13 @@
 		<p>
 			Veri bağışı kapsamında RKI’ye aktarılan kullanım verileri ve diğer isteğe bağlı veriler 180 gün sonra silinir.</p>
 		<h3>
-			d. Uygulamanızın orijinalliğinin doğrulanması
+			d. Hata raporları
+		</h3>
+		<p>
+			Akıllı telefonunuzda kaydedilmiş bir hata raporunu istediğiniz zaman silebilirsiniz. Teknik desteğe göndermiş olduğunuz hata raporları ise en geç 14 gün sonra silinecektir.
+		</p>
+		<h3>
+			e. Uygulamanızın orijinalliğinin doğrulanması
 		</h3>
 		
 		<p>
@@ -824,14 +920,20 @@
 			Uygulamanın ayarlarından “Verileri bağışla” seçeneğini devre dışı bırakarak, istediğiniz zaman vermiş olduğunuz rızayı geri alabilirsiniz. Bunun ardından Uygulama, artık kullanım verilerinizi ve diğer isteğe bağlı verileri günlük olarak RKI’ye aktarmayacaktır. Daha sonra veri bağışına yeniden izin vermek isterseniz, ilgili işlevi ayarlardan yeniden etkinleştirebilirsiniz.
 		</p>
 		<h3>
-			f. “Anket” rıza beyanı
+			f. “Hata raporları” rıza beyanı
+		</h3>
+		<p>
+			Daha önceden RKI’ye gönderdiğiniz hata raporlarının analizi için olan rıza beyanınızı geri çekebilirsiniz, bunun için teknik desteğe hata raporu kimlik numaranızı belirterek, hata raporunun artık analiz edilmesini istemediğinizi bildirmeniz yeterlidir. Bunun üzerine hata raporunuz silinir. RKI’nin bu prosedürde kimliğinizi öğrenebileceğini göz önünde bulundurun. Hata raporu kimlik numaranızı teknik destek aktarmazsanız, gönderilen hata raporu 14 gün sonra otomatik olarak silinecektir.
+		</p>
+		<h3>
+			g. “Anket” rıza beyanı
 		</h3>
 		
 		<p>
 			Bir RKI anketine katılmak için gereken rızanızı, Uygulamada değil, anketin gerçekleştirildiği web sitesi üzerinden verirsiniz. Orada, verdiğiniz rızayı nasıl geri alabileceğinize ilişkin bir açıklama da bulunmaktadır.
 		</p>
 		<h3>
-			g. “Uygulamanızın orijinalliğinin doğrulanması” rıza beyanı
+			h. “Uygulamanızın orijinalliğinin doğrulanması” rıza beyanı
 		</h3>
 		
 		<p>
@@ -873,7 +975,7 @@
 			Veri gizliliğine ilişkin sorularınızı ve endişelerinizi RKI’nin resmi veri koruma görevlisine gönderebilirsiniz: Robert Koch-Institut, z.&nbsp;H. des Datenschutzbeauftragten (veri koruma görevlisi), Nordufer 20,13353 Berlin veya e-posta yoluyla: <a href="mailto:datenschutz@rki.de">datenschutz@rki.de</a>.
 		</p>
 		<p>
-				Baskı 12.05.2021
+				Baskı 28.05.2021
 		</p>
 		
 	</body>
