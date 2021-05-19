@@ -26,10 +26,12 @@ struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable 
 	init(base45: Base45) throws {
 		// Ensure the data will be decodable on the fly later on, even though we don't store the decoded data
 		if case .failure(let error) = DigitalGreenCertificateAccess().extractCBORWebTokenHeader(from: base45) {
+			Log.error("Failed to decode header of health certificate with error", log: .vaccination, error: error)
 			throw error
 		}
 
 		if case .failure(let error) = DigitalGreenCertificateAccess().extractDigitalGreenCertificate(from: base45) {
+			Log.error("Failed to decode health certificate with error", log: .vaccination, error: error)
 			throw error
 		}
 
@@ -116,7 +118,8 @@ struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable 
 		switch result {
 		case .success(let cborWebTokenHeader):
 			return cborWebTokenHeader
-		case .failure:
+		case .failure(let error):
+			Log.error("Failed to decode header of health certificate with error", log: .vaccination, error: error)
 			fatalError("Decoding the cborWebTokenHeader failed even though decodability was checked at initialization.")
 		}
 	}
@@ -127,7 +130,8 @@ struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable 
 		switch result {
 		case .success(let digitalGreenCertificate):
 			return digitalGreenCertificate
-		case .failure:
+		case .failure(let error):
+			Log.error("Failed to decode health certificate with error", log: .vaccination, error: error)
 			fatalError("Decoding the digitalGreenCertificate failed even though decodability was checked at initialization.")
 		}
 	}
