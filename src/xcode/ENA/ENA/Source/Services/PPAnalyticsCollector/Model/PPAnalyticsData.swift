@@ -21,10 +21,10 @@ protocol PPAnalyticsData: AnyObject {
 	var currentENFRiskExposureMetadata: RiskExposureMetadata? { get set }
 	/// Analytics data ENF.
 	var previousENFRiskExposureMetadata: RiskExposureMetadata? { get set }
-	/// Analytics data Events.
-	var currentEventRiskExposureMetadata: RiskExposureMetadata? { get set }
-	/// Analytics data Events.
-	var previousEventRiskExposureMetadata: RiskExposureMetadata? { get set }
+	/// Analytics data Checkin.
+	var currentCheckinRiskExposureMetadata: RiskExposureMetadata? { get set }
+	/// Analytics data Checkin.
+	var previousCheckinRiskExposureMetadata: RiskExposureMetadata? { get set }
 	/// Analytics data.
 	var userMetadata: UserMetadata? { get set }
 	/// Analytics data.
@@ -36,9 +36,9 @@ protocol PPAnalyticsData: AnyObject {
 	/// Analytics data.
 	var exposureWindowsMetadata: ExposureWindowsMetadata? { get set }
 	/// Date when the ENF risk was changed to high
-	var dateOfConversionToHighRisk: Date? { get set }
+	var dateOfConversionToENFHighRisk: Date? { get set }
 	/// Date when the event risk was changed to high
-	var dateOfConversionToEventHighRisk: Date? { get set }
+	var dateOfConversionToCheckinHighRisk: Date? { get set }
 
 
 }
@@ -75,12 +75,12 @@ extension SecureStore: PPAnalyticsData {
 		set { kvStore["previousRiskExposureMetadata"] = newValue }
 	}
 	
-	var currentEventRiskExposureMetadata: RiskExposureMetadata? {
+	var currentCheckinRiskExposureMetadata: RiskExposureMetadata? {
 		get { kvStore["currentEventRiskExposureMetadata"] as RiskExposureMetadata? ?? nil }
 		set { kvStore["currentEventRiskExposureMetadata"] = newValue }
 	}
 
-	var previousEventRiskExposureMetadata: RiskExposureMetadata? {
+	var previousCheckinRiskExposureMetadata: RiskExposureMetadata? {
 		get { kvStore["previousEventRiskExposureMetadata"] as RiskExposureMetadata? ?? nil }
 		set { kvStore["previousEventRiskExposureMetadata"] = newValue }
 	}
@@ -110,13 +110,14 @@ extension SecureStore: PPAnalyticsData {
 		set { kvStore["exposureWindowsMetadata"] = newValue }
 	}
 	
-	var dateOfConversionToHighRisk: Date? {
+	var dateOfConversionToENFHighRisk: Date? {
+		// old named key matches not to property name to avoid migration
 		get { kvStore["dateOfConversionToHighRisk"] as Date? ?? nil }
 		set { kvStore["dateOfConversionToHighRisk"] = newValue }
 	}
 	
-	var dateOfConversionToEventHighRisk: Date? {
-		get { kvStore["dateOfConversionToHighRisk"] as Date? ?? nil }
-		set { kvStore["dateOfConversionToHighRisk"] = newValue }
+	var dateOfConversionToCheckinHighRisk: Date? {
+		get { kvStore["dateOfConversionToCheckinHighRisk"] as Date? ?? nil }
+		set { kvStore["dateOfConversionToCheckinHighRisk"] = newValue }
 	}
 }

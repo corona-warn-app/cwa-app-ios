@@ -76,15 +76,15 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var submittedWithQR: Bool = false
 	var currentENFRiskExposureMetadata: RiskExposureMetadata?
 	var previousENFRiskExposureMetadata: RiskExposureMetadata?
-	var currentEventRiskExposureMetadata: RiskExposureMetadata?
-	var previousEventRiskExposureMetadata: RiskExposureMetadata?
+	var currentCheckinRiskExposureMetadata: RiskExposureMetadata?
+	var previousCheckinRiskExposureMetadata: RiskExposureMetadata?
 	var userMetadata: UserMetadata?
 	var clientMetadata: ClientMetadata?
 	var keySubmissionMetadata: KeySubmissionMetadata?
 	var testResultMetadata: TestResultMetadata?
 	var exposureWindowsMetadata: ExposureWindowsMetadata?
-	var dateOfConversionToHighRisk: Date?
-	var dateOfConversionToEventHighRisk: Date?
+	var dateOfConversionToENFHighRisk: Date?
+	var dateOfConversionToCheckinHighRisk: Date?
 
 	// MARK: - ErrorLogProviding
 	

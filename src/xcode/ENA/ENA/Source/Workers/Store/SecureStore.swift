@@ -116,7 +116,7 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 	}
 
 	var enfRiskCalculationResult: ENFRiskCalculationResult? {
-		// After renaming "riskCalculationResult" to "enfRiskCalculationResult" the key for the kvStore was NOT renamed intentionally to avoid a migration.
+		// Old named key matches not to property name to avoid migration.
 		get { kvStore["riskCalculationResult"] as ENFRiskCalculationResult? ?? nil }
 		set { kvStore["riskCalculationResult"] = newValue }
 	}

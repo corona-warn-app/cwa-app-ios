@@ -567,7 +567,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 		store.enfRiskCalculationResult = enfRiskCalculationResult
-		store.dateOfConversionToHighRisk = dateOfRiskChangeToHigh
+		store.dateOfConversionToENFHighRisk = dateOfRiskChangeToHigh
 		
 		Analytics.collect(.testResultMetadata(.registerNewTestMetadata(registrationDate, registrationToken)))
 		XCTAssertEqual(store.testResultMetadata?.testRegistrationDate, registrationDate, "Wrong Registration date")

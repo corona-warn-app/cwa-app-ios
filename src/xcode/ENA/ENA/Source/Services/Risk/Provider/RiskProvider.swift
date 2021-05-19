@@ -14,7 +14,7 @@ final class RiskProvider: RiskProviding {
 
 	init(
 		configuration: RiskProvidingConfiguration,
-		store: Store & PPAnalyticsData,
+		store: Store,
 		appConfigurationProvider: AppConfigurationProviding,
 		exposureManagerState: ExposureManagerState,
 		targetQueue: DispatchQueue = .main,
@@ -431,7 +431,7 @@ final class RiskProvider: RiskProviding {
 				store.shouldShowRiskStatusLoweredAlert = true
 			case .high:
 				store.shouldShowRiskStatusLoweredAlert = false
-				store.dateOfConversionToHighRisk = Date()
+				Analytics.collect(.testResultMetadata(.dateOfConversionToENFHighRisk(Date())))
 			}
 		}
 	}

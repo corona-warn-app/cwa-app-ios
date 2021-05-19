@@ -190,6 +190,8 @@ enum PPAnalyticsCollector {
 			Analytics.updateTestResult(testResult, token)
 		case let .registerNewTestMetadata(date, token):
 			Analytics.registerNewTestMetadata(date, token)
+		case let .dateOfConversionToENFHighRisk(date):
+			store?.dateOfConversionToENFHighRisk = date
 		}
 	}
 
@@ -215,7 +217,7 @@ enum PPAnalyticsCollector {
 
 		switch riskCalculationResult.riskLevel {
 		case .high:
-			guard let timeOfRiskChangeToHigh = store?.dateOfConversionToHighRisk else {
+			guard let timeOfRiskChangeToHigh = store?.dateOfConversionToENFHighRisk else {
 				Log.warning("Could not log risk calculation result due to timeOfRiskChangeToHigh is nil", log: .ppa)
 				return
 			}
@@ -350,7 +352,7 @@ enum PPAnalyticsCollector {
 		}
 		switch riskLevel {
 		case .high:
-			guard let timeOfRiskChangeToHigh = store?.dateOfConversionToHighRisk,
+			guard let timeOfRiskChangeToHigh = store?.dateOfConversionToENFHighRisk,
 				  let registrationTime = coronaTestService?.pcrTest?.registrationDate else {
 				Log.warning("Could not log risk calculation result due to timeOfRiskChangeToHigh is nil", log: .ppa)
 				return

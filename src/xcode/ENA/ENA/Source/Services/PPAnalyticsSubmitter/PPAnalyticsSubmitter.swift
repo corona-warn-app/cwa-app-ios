@@ -340,8 +340,8 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 					self?.store.previousENFRiskExposureMetadata = self?.store.currentENFRiskExposureMetadata
 					self?.store.currentENFRiskExposureMetadata = nil
 					// after succesful submission, store the current event risk exposure metadata as the previous one to get the next time a comparison.
-					self?.store.previousEventRiskExposureMetadata = self?.store.currentEventRiskExposureMetadata
-					self?.store.currentEventRiskExposureMetadata = nil
+					self?.store.previousCheckinRiskExposureMetadata = self?.store.currentCheckinRiskExposureMetadata
+					self?.store.currentCheckinRiskExposureMetadata = nil
 					if let shouldIncludeTestResultMetadata = self?.shouldIncludeTestResultMetadata, shouldIncludeTestResultMetadata {
 						self?.store.testResultMetadata = nil
 					}
@@ -377,18 +377,18 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			if let enfDateChangedComparedToPreviousSubmission = store.currentENFRiskExposureMetadata?.dateChangedComparedToPreviousSubmission {
 				$0.dateChangedComparedToPreviousSubmission = enfDateChangedComparedToPreviousSubmission
 			}
-			// Event ppa
-			if let eventRiskLevel = store.currentEventRiskExposureMetadata?.riskLevel {
-				$0.ptRiskLevel = eventRiskLevel.protobuf
+			// Checkin ppa
+			if let checkinRiskLevel = store.currentCheckinRiskExposureMetadata?.riskLevel {
+				$0.ptRiskLevel = checkinRiskLevel.protobuf
 			}
-			if let eventRiskLevelChangedComparedToPreviousSubmission = store.currentEventRiskExposureMetadata?.riskLevelChangedComparedToPreviousSubmission {
-				$0.ptRiskLevelChangedComparedToPreviousSubmission = eventRiskLevelChangedComparedToPreviousSubmission
+			if let checkinRiskLevelChangedComparedToPreviousSubmission = store.currentCheckinRiskExposureMetadata?.riskLevelChangedComparedToPreviousSubmission {
+				$0.ptRiskLevelChangedComparedToPreviousSubmission = checkinRiskLevelChangedComparedToPreviousSubmission
 			}
-			if let eventMostRecentDateAtRiskLevel = store.currentEventRiskExposureMetadata?.mostRecentDateAtRiskLevel {
-				$0.ptMostRecentDateAtRiskLevel = formatToUnixTimestamp(for: eventMostRecentDateAtRiskLevel)
+			if let checkinMostRecentDateAtRiskLevel = store.currentCheckinRiskExposureMetadata?.mostRecentDateAtRiskLevel {
+				$0.ptMostRecentDateAtRiskLevel = formatToUnixTimestamp(for: checkinMostRecentDateAtRiskLevel)
 			}
-			if let eventDateChangedComparedToPreviousSubmission = store.currentEventRiskExposureMetadata?.dateChangedComparedToPreviousSubmission {
-				$0.ptDateChangedComparedToPreviousSubmission = eventDateChangedComparedToPreviousSubmission
+			if let checkinDateChangedComparedToPreviousSubmission = store.currentCheckinRiskExposureMetadata?.dateChangedComparedToPreviousSubmission {
+				$0.ptDateChangedComparedToPreviousSubmission = checkinDateChangedComparedToPreviousSubmission
 			}
 		}]
 	}

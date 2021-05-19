@@ -16,7 +16,7 @@ class TestResultMetadataTests: XCTestCase {
 		let expectedDaysSinceRecentAtRiskLevelAtTestRegistration = 5
 		let mostRecentDateHighRisk = Calendar.current.date(byAdding: .day, value: -expectedDaysSinceRecentAtRiskLevelAtTestRegistration, to: today)
 		let riskCalculationResult = mockRiskCalculationResult(risk: .high, mostRecentDateHighRisk: mostRecentDateHighRisk)
-		secureStore.dateOfConversionToHighRisk = Calendar.current.date(byAdding: .day, value: -1, to: today)
+		secureStore.dateOfConversionToENFHighRisk = Calendar.current.date(byAdding: .day, value: -1, to: today)
 		secureStore.enfRiskCalculationResult = riskCalculationResult
 
 		Analytics.collect(.testResultMetadata(.registerNewTestMetadata(today, "")))
@@ -30,7 +30,7 @@ class TestResultMetadataTests: XCTestCase {
 			"incorrect days since recent riskLevel"
 		)
 
-		// the difference from dateOfConversionToHighRisk should be one day so 24 hours
+		// the difference from dateOfConversionToENFHighRisk should be one day so 24 hours
 		XCTAssertEqual(secureStore.testResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration, 24, "incorrect hours")
 	}
 
