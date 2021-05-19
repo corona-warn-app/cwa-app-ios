@@ -61,7 +61,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] _ in
 				self?.tableView.reloadSections([HomeTableViewModel.Section.healthCertificate.rawValue], with: .none)
-				self?.viewModel.isUpdating = false
 			}
 			.store(in: &subscriptions)
 
@@ -461,10 +460,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 		let healthCertifiedPerson = viewModel.healthCertifiedPersons[indexPath.row]
 		let cellModel = HomeHealthCertifiedPersonCellModel(
-			healthCertifiedPerson: healthCertifiedPerson,
-			onUpdate: { [weak self] in
-				self?.animateChanges(of: cell)
-			}
+			healthCertifiedPerson: healthCertifiedPerson
 		)
 		cell.configure(with: cellModel)
 
