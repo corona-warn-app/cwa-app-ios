@@ -118,7 +118,7 @@ jobs:
       - run:
           name: Run tests
           command: |
-            cd src/xcode \
+            cd src/xcode
             xcodebuild \
               -workspace "ENA.xcworkspace" \
               -scheme ENA \
@@ -130,7 +130,7 @@ jobs:
               -resultBundlePath "fastlane/test_output/ENA.xcresult" \
               -parallel-testing-worker-count 4 \
               -parallelize-tests-among-destinations \
-              test-without-building \
+              test-without-building
             zip -r -q fastlane/test_output/ENA.xcresult.zip fastlane/test_output/ENA.xcresult
           no_output_timeout: 5m
       - restore_cache:
