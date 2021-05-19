@@ -226,8 +226,8 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		}
 		return isSubmitted || timeDifferenceFulfillsCriteria
 	}
-	
-	private var shouldIncludeTestResultMetadata: Bool {
+
+	private func shouldIncludeTestResultMetadata(for type: TestResultMetadata.TestType) -> Bool {
 		/* Conditions for submitting the data:
 		- testResult = positive
 		OR
@@ -235,20 +235,29 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		OR
 		- differenceBetweenRegistrationAndCurrentDateInHours "Registration is stored In TestMetadata" >= hoursSinceTestRegistrationToSubmitTestResultMetadata "stored in appConfiguration"
 		*/
-		
+
+		let metadata: TestResultMetadata?
+
+		switch type {
+		case .pcr:
+			metadata = store.testResultMetadata
+		case .antigen:
+			metadata = store.antigenTestResultMetadata
+		}
+
 		// If for some reason there is no registrationDate we should not submit the testMetadata
-		guard let registrationDate = store.testResultMetadata?.testRegistrationDate else {
+		guard let registrationDate = metadata?.testRegistrationDate else {
 			return false
 		}
-		
-		switch store.testResultMetadata?.testResult {
+
+		switch metadata?.testResult {
 		case .positive, .negative:
 			return true
 		default:
 			break
 		}
 		let differenceBetweenRegistrationAndCurrentDate = Calendar.current.dateComponents([.hour], from: registrationDate, to: Date())
-		
+
 		if let differenceBetweenRegistrationAndCurrentDateInHours = differenceBetweenRegistrationAndCurrentDate.hour,
 		   differenceBetweenRegistrationAndCurrentDateInHours >= hoursSinceTestRegistrationToSubmitTestResultMetadata {
 			return true
@@ -278,7 +287,8 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		let userMetadata = gatherUserMetadata()
 		let clientMetadata = gatherClientMetadata()
 		let keySubmissionMetadata = gatherKeySubmissionMetadata()
-		let testResultMetadata = gatherTestResultMetadata()
+		let pcrTestResultMetadata = gatherTestResultMetadata(for: .pcr)
+		let antigenTestResultMetadata = gatherTestResultMetadata(for: .antigen)
 		let newExposureWindows = gatherNewExposureWindows()
 		
 		let payload = SAP_Internal_Ppdd_PPADataIOS.with {
@@ -290,9 +300,16 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			if shouldIncludeKeySubmissionMetadata {
 				$0.keySubmissionMetadataSet = keySubmissionMetadata
 			}
-			if shouldIncludeTestResultMetadata {
-				$0.testResultMetadataSet = testResultMetadata
+
+			var testResultMetadataSet = [SAP_Internal_Ppdd_PPATestResultMetadata]()
+			if shouldIncludeTestResultMetadata(for: .pcr) {
+				testResultMetadataSet.append(pcrTestResultMetadata)
 			}
+			if shouldIncludeTestResultMetadata(for: .antigen) {
+				testResultMetadataSet.append(antigenTestResultMetadata)
+			}
+			$0.testResultMetadataSet = testResultMetadataSet
+
 			/*
 			Exposure Windows are included in the next submission if:
 			- a generated random number between 0 and 1 is lower than or equal the value of Configuration Parameter .probabilityToSubmitExposureWindows.
@@ -345,8 +362,13 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 					// after succesful submission, store the current risk exposure metadata as the previous one to get the next time a comparison.
 					self?.store.previousRiskExposureMetadata = self?.store.currentRiskExposureMetadata
 					self?.store.currentRiskExposureMetadata = nil
-					if let shouldIncludeTestResultMetadata = self?.shouldIncludeTestResultMetadata, shouldIncludeTestResultMetadata {
+					if let shouldIncludeTestResultMetadata = self?.shouldIncludeTestResultMetadata(for: .pcr),
+					   shouldIncludeTestResultMetadata {
 						self?.store.testResultMetadata = nil
+					}
+					if let shouldIncludeTestResultMetadata = self?.shouldIncludeTestResultMetadata(for: .antigen),
+					   shouldIncludeTestResultMetadata {
+						self?.store.antigenTestResultMetadata = nil
 					}
 					if let shouldIncludeKeySubmissionMetadata = self?.shouldIncludeKeySubmissionMetadata, shouldIncludeKeySubmissionMetadata {
 						self?.store.keySubmissionMetadata = nil
@@ -489,9 +511,16 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		}]
 	}
 	
-	func gatherTestResultMetadata() -> [SAP_Internal_Ppdd_PPATestResultMetadata] {
-		let metadata = store.testResultMetadata
-		
+	func gatherTestResultMetadata(for type: TestResultMetadata.TestType) -> SAP_Internal_Ppdd_PPATestResultMetadata {
+		let metadata: TestResultMetadata?
+
+		switch type {
+		case .pcr:
+			metadata = store.testResultMetadata
+		case .antigen:
+			metadata = store.antigenTestResultMetadata
+		}
+
 		let resultProtobuf = SAP_Internal_Ppdd_PPATestResultMetadata.with {
 			
 			if let testResult = metadata?.protobuf {
@@ -510,7 +539,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 				$0.hoursSinceHighRiskWarningAtTestRegistration = Int32(hoursSinceHighRiskWarningAtTestRegistration)
 			}
 		}
-		return [resultProtobuf]
+		return resultProtobuf
 	}
 	
 	private func formatToUnixTimestamp(for date: Date?) -> Int64 {
