@@ -59,8 +59,8 @@ enum PPAnalyticsCollector {
 
 	/// This removes all stored analytics data that we collected.
 	static func deleteAnalyticsData() {
-		store?.currentRiskExposureMetadata = nil
-		store?.previousRiskExposureMetadata = nil
+		store?.currentENFRiskExposureMetadata = nil
+		store?.previousENFRiskExposureMetadata = nil
 		store?.userMetadata = nil
 		store?.lastSubmittedPPAData = nil
 		store?.submittedWithQR = false
@@ -116,7 +116,7 @@ enum PPAnalyticsCollector {
 	private static func logRiskExposureMetadata(_ riskExposureMetadata: PPARiskExposureMetadata) {
 		switch riskExposureMetadata {
 		case let .create(metaData):
-			store?.currentRiskExposureMetadata = metaData
+			store?.currentENFRiskExposureMetadata = metaData
 		case let .updateRiskExposureMetadata(riskCalculationResult):
 			Analytics.updateRiskExposureMetadata(riskCalculationResult)
 		}
@@ -128,9 +128,9 @@ enum PPAnalyticsCollector {
 		let dateChangedComparedToPreviousSubmission: Bool
 
 		// if there is a risk level value stored for previous submission
-		if store?.previousRiskExposureMetadata?.riskLevel != nil {
+		if store?.previousENFRiskExposureMetadata?.riskLevel != nil {
 			if riskLevel !=
-				store?.previousRiskExposureMetadata?.riskLevel {
+				store?.previousENFRiskExposureMetadata?.riskLevel {
 				// if there is a change in risk level
 				riskLevelChangedComparedToPreviousSubmission = true
 			} else {
@@ -143,9 +143,9 @@ enum PPAnalyticsCollector {
 		}
 
 		// if there is most recent date store for previous submission
-		if store?.previousRiskExposureMetadata?.mostRecentDateAtRiskLevel != nil {
+		if store?.previousENFRiskExposureMetadata?.mostRecentDateAtRiskLevel != nil {
 			if enfRiskCalculationResult.mostRecentDateWithCurrentRiskLevel !=
-				store?.previousRiskExposureMetadata?.mostRecentDateAtRiskLevel {
+				store?.previousENFRiskExposureMetadata?.mostRecentDateAtRiskLevel {
 				// if there is a change in date
 				dateChangedComparedToPreviousSubmission = true
 			} else {

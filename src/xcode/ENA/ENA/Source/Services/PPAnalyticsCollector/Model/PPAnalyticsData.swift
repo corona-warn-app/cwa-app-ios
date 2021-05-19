@@ -17,10 +17,14 @@ protocol PPAnalyticsData: AnyObject {
 	var lastSubmittedPPAData: String? { get set }
 	/// A boolean to keep a track if the submission is done via QR
 	var submittedWithQR: Bool { get set }
-	/// Analytics data.
-	var currentRiskExposureMetadata: RiskExposureMetadata? { get set }
-	/// Analytics data.
-	var previousRiskExposureMetadata: RiskExposureMetadata? { get set }
+	/// Analytics data ENF.
+	var currentENFRiskExposureMetadata: RiskExposureMetadata? { get set }
+	/// Analytics data ENF.
+	var previousENFRiskExposureMetadata: RiskExposureMetadata? { get set }
+	/// Analytics data Events.
+	var currentEventRiskExposureMetadata: RiskExposureMetadata? { get set }
+	/// Analytics data Events.
+	var previousEventRiskExposureMetadata: RiskExposureMetadata? { get set }
 	/// Analytics data.
 	var userMetadata: UserMetadata? { get set }
 	/// Analytics data.
@@ -55,14 +59,24 @@ extension SecureStore: PPAnalyticsData {
 		set { kvStore["submittedWithQR"] = newValue }
 	}
 
-	var currentRiskExposureMetadata: RiskExposureMetadata? {
+	var currentENFRiskExposureMetadata: RiskExposureMetadata? {
 		get { kvStore["currentRiskExposureMetadata"] as RiskExposureMetadata? ?? nil }
 		set { kvStore["currentRiskExposureMetadata"] = newValue }
 	}
 
-	var previousRiskExposureMetadata: RiskExposureMetadata? {
+	var previousENFRiskExposureMetadata: RiskExposureMetadata? {
 		get { kvStore["previousRiskExposureMetadata"] as RiskExposureMetadata? ?? nil }
 		set { kvStore["previousRiskExposureMetadata"] = newValue }
+	}
+	
+	var currentEventRiskExposureMetadata: RiskExposureMetadata? {
+		get { kvStore["currentEventRiskExposureMetadata"] as RiskExposureMetadata? ?? nil }
+		set { kvStore["currentEventRiskExposureMetadata"] = newValue }
+	}
+
+	var previousEventRiskExposureMetadata: RiskExposureMetadata? {
+		get { kvStore["previousEventRiskExposureMetadata"] as RiskExposureMetadata? ?? nil }
+		set { kvStore["previousEventRiskExposureMetadata"] = newValue }
 	}
 
 	var userMetadata: UserMetadata? {

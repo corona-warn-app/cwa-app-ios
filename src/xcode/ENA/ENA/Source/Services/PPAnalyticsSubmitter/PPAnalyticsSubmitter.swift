@@ -337,8 +337,8 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 				case .success:
 					Log.info("Analytics data succesfully submitted", log: .ppa)
 					// after succesful submission, store the current risk exposure metadata as the previous one to get the next time a comparison.
-					self?.store.previousRiskExposureMetadata = self?.store.currentRiskExposureMetadata
-					self?.store.currentRiskExposureMetadata = nil
+					self?.store.previousENFRiskExposureMetadata = self?.store.currentENFRiskExposureMetadata
+					self?.store.currentENFRiskExposureMetadata = nil
 					if let shouldIncludeTestResultMetadata = self?.shouldIncludeTestResultMetadata, shouldIncludeTestResultMetadata {
 						self?.store.testResultMetadata = nil
 					}
@@ -360,14 +360,33 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	}
 	
 	func gatherExposureRiskMetadata() -> [SAP_Internal_Ppdd_ExposureRiskMetadata] {
-		guard let storedUsageData = store.currentRiskExposureMetadata else {
-			return []
-		}
 		return [SAP_Internal_Ppdd_ExposureRiskMetadata.with {
-			$0.riskLevel = storedUsageData.riskLevel.protobuf
-			$0.riskLevelChangedComparedToPreviousSubmission = storedUsageData.riskLevelChangedComparedToPreviousSubmission
-			$0.mostRecentDateAtRiskLevel = formatToUnixTimestamp(for: storedUsageData.mostRecentDateAtRiskLevel)
-			$0.dateChangedComparedToPreviousSubmission = storedUsageData.dateChangedComparedToPreviousSubmission
+			// ENF ppa
+			if let enfRiskLevel = store.currentENFRiskExposureMetadata?.riskLevel {
+				$0.riskLevel = enfRiskLevel.protobuf
+			}
+			if let enfRiskLevelChangedComparedToPreviousSubmission = store.currentENFRiskExposureMetadata?.riskLevelChangedComparedToPreviousSubmission {
+				$0.riskLevelChangedComparedToPreviousSubmission = enfRiskLevelChangedComparedToPreviousSubmission
+			}
+			if let enfMostRecentDateAtRiskLevel = store.currentENFRiskExposureMetadata?.mostRecentDateAtRiskLevel {
+				$0.mostRecentDateAtRiskLevel = formatToUnixTimestamp(for: enfMostRecentDateAtRiskLevel)
+			}
+			if let enfDateChangedComparedToPreviousSubmission = store.currentENFRiskExposureMetadata?.dateChangedComparedToPreviousSubmission {
+				$0.dateChangedComparedToPreviousSubmission = enfDateChangedComparedToPreviousSubmission
+			}
+			// Event ppa
+			if let eventRiskLevel = store.currentEventRiskExposureMetadata?.riskLevel {
+				$0.ptRiskLevel = eventRiskLevel.protobuf
+			}
+			if let eventRiskLevelChangedComparedToPreviousSubmission = store.currentEventRiskExposureMetadata?.riskLevelChangedComparedToPreviousSubmission {
+				$0.ptRiskLevelChangedComparedToPreviousSubmission = eventRiskLevelChangedComparedToPreviousSubmission
+			}
+			if let eventMostRecentDateAtRiskLevel = store.currentEventRiskExposureMetadata?.mostRecentDateAtRiskLevel {
+				$0.ptMostRecentDateAtRiskLevel = formatToUnixTimestamp(for: eventMostRecentDateAtRiskLevel)
+			}
+			if let eventDateChangedComparedToPreviousSubmission = store.currentEventRiskExposureMetadata?.dateChangedComparedToPreviousSubmission {
+				$0.ptDateChangedComparedToPreviousSubmission = eventDateChangedComparedToPreviousSubmission
+			}
 		}]
 	}
 	

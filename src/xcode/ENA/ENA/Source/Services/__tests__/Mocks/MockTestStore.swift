@@ -8,7 +8,6 @@ import OpenCombine
 #if DEBUG
 
 final class MockTestStore: Store, PPAnalyticsData {
-
 	var firstPlaybookExecution: Date?
 	var lastBackgroundFakeRequest: Date = .init()
 	var hasSeenBackgroundFetchAlert: Bool = false
@@ -76,8 +75,10 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var lastAppReset: Date?
 	var lastSubmittedPPAData: String?
 	var submittedWithQR: Bool = false
-	var currentRiskExposureMetadata: RiskExposureMetadata?
-	var previousRiskExposureMetadata: RiskExposureMetadata?
+	var currentENFRiskExposureMetadata: RiskExposureMetadata?
+	var previousENFRiskExposureMetadata: RiskExposureMetadata?
+	var currentEventRiskExposureMetadata: RiskExposureMetadata?
+	var previousEventRiskExposureMetadata: RiskExposureMetadata?
 	var userMetadata: UserMetadata?
 	var clientMetadata: ClientMetadata?
 	var keySubmissionMetadata: KeySubmissionMetadata?

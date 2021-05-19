@@ -44,7 +44,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		store.lastAppReset = Calendar.current.date(byAdding: .day, value: -5, to: Date())
 		let ppacToken = PPACToken(apiToken: "FakeApiToken", deviceToken: "FakeDeviceToken")
 		
-		let currentRiskExposureMetadata = store.currentRiskExposureMetadata
+		let currentRiskExposureMetadata = store.currentENFRiskExposureMetadata
 
 		// WHEN
 		analyticsSubmitter.triggerSubmitData(ppacToken: ppacToken, completion: { result in
@@ -60,8 +60,8 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		waitForExpectations(timeout: .medium)
 		
 		/// Check that store is setup correctly after successful submission
-		XCTAssertEqual(store.previousRiskExposureMetadata, currentRiskExposureMetadata)
-		XCTAssertNil(store.currentRiskExposureMetadata)
+		XCTAssertEqual(store.previousENFRiskExposureMetadata, currentRiskExposureMetadata)
+		XCTAssertNil(store.currentENFRiskExposureMetadata)
 		XCTAssertNil(store.testResultMetadata)
 		XCTAssertNil(store.keySubmissionMetadata)
 		XCTAssertNil(store.exposureWindowsMetadata?.newExposureWindowsQueue)
@@ -635,18 +635,18 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		)
 
 		Analytics.collect(.riskExposureMetadata(.updateRiskExposureMetadata(riskCalculationResult)))
-		XCTAssertNotNil(store.currentRiskExposureMetadata, "riskMetadata should be allocated")
-		XCTAssertEqual(store.currentRiskExposureMetadata?.riskLevel, riskLevel, "Wrong riskLevel")
-		XCTAssertEqual(store.currentRiskExposureMetadata?.riskLevelChangedComparedToPreviousSubmission, false, "should be false as this is the first submission")
-		XCTAssertEqual(store.currentRiskExposureMetadata?.dateChangedComparedToPreviousSubmission, false, "should be false as this is the first submission")
+		XCTAssertNotNil(store.currentENFRiskExposureMetadata, "riskMetadata should be allocated")
+		XCTAssertEqual(store.currentENFRiskExposureMetadata?.riskLevel, riskLevel, "Wrong riskLevel")
+		XCTAssertEqual(store.currentENFRiskExposureMetadata?.riskLevelChangedComparedToPreviousSubmission, false, "should be false as this is the first submission")
+		XCTAssertEqual(store.currentENFRiskExposureMetadata?.dateChangedComparedToPreviousSubmission, false, "should be false as this is the first submission")
 		
 		// Mapping to protobuf
 		let protobuf = analyticsSubmitter.gatherExposureRiskMetadata()
 		XCTAssertFalse(protobuf.isEmpty, "There should be at least one item in the array")
 		XCTAssertEqual(protobuf.first?.riskLevel, riskLevel.protobuf, "Wrong riskLevel mapped")
-		XCTAssertEqual(protobuf.first?.riskLevelChangedComparedToPreviousSubmission, store.currentRiskExposureMetadata?.riskLevelChangedComparedToPreviousSubmission, "Wrong riskLevelChangedComparedToPreviousSubmission")
-		XCTAssertEqual(protobuf.first?.mostRecentDateAtRiskLevel, formatToUnixTimestamp(for: store.currentRiskExposureMetadata?.mostRecentDateAtRiskLevel), "Wrong mostRecentDateAtRiskLevel")
-		XCTAssertEqual(protobuf.first?.dateChangedComparedToPreviousSubmission, store.currentRiskExposureMetadata?.dateChangedComparedToPreviousSubmission, "Wrong dateChangedComparedToPreviousSubmission")
+		XCTAssertEqual(protobuf.first?.riskLevelChangedComparedToPreviousSubmission, store.currentENFRiskExposureMetadata?.riskLevelChangedComparedToPreviousSubmission, "Wrong riskLevelChangedComparedToPreviousSubmission")
+		XCTAssertEqual(protobuf.first?.mostRecentDateAtRiskLevel, formatToUnixTimestamp(for: store.currentENFRiskExposureMetadata?.mostRecentDateAtRiskLevel), "Wrong mostRecentDateAtRiskLevel")
+		XCTAssertEqual(protobuf.first?.dateChangedComparedToPreviousSubmission, store.currentENFRiskExposureMetadata?.dateChangedComparedToPreviousSubmission, "Wrong dateChangedComparedToPreviousSubmission")
 	}
 	
 	func testGatherExposureWindowsMetadata() {

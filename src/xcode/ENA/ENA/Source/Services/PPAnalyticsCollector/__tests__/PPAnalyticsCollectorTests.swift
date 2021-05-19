@@ -71,8 +71,8 @@ class PPAnalyticsCollectorTests: XCTestCase {
 			dateChangedComparedToPreviousSubmission: false
 		)
 		
-		store.currentRiskExposureMetadata = exposureRiskMetadata
-		store.previousRiskExposureMetadata = exposureRiskMetadata
+		store.currentENFRiskExposureMetadata = exposureRiskMetadata
+		store.previousENFRiskExposureMetadata = exposureRiskMetadata
 		store.userMetadata = UserMetadata(federalState: .hessen, administrativeUnit: 91, ageGroup: .ageBelow29)
 		store.lastSubmittedPPAData = "Some Fake Data"
 		store.lastAppReset = Date()
@@ -107,9 +107,9 @@ class PPAnalyticsCollectorTests: XCTestCase {
 		Analytics.deleteAnalyticsData()
 		
 		// THEN
-		XCTAssertNil(store.currentRiskExposureMetadata)
+		XCTAssertNil(store.currentENFRiskExposureMetadata)
 		countOfDeletedProperties += 1
-		XCTAssertNil(store.previousRiskExposureMetadata)
+		XCTAssertNil(store.previousENFRiskExposureMetadata)
 		countOfDeletedProperties += 1
 		XCTAssertNil(store.userMetadata)
 		countOfDeletedProperties += 1

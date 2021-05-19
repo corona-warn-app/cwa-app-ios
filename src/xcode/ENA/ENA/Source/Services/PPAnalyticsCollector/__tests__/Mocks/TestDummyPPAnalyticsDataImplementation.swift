@@ -11,8 +11,8 @@ final class TestDummyPPAnalyticsDataImplementation: PPAnalyticsData {
 	var lastAppReset: Date?
 	var lastSubmittedPPAData: String?
 	var submittedWithQR: Bool = false
-	var currentRiskExposureMetadata: RiskExposureMetadata?
-	var previousRiskExposureMetadata: RiskExposureMetadata?
+	var currentENFRiskExposureMetadata: RiskExposureMetadata?
+	var previousENFRiskExposureMetadata: RiskExposureMetadata?
 	var userMetadata: UserMetadata?
 	var clientMetadata: ClientMetadata?
 	var keySubmissionMetadata: KeySubmissionMetadata?
