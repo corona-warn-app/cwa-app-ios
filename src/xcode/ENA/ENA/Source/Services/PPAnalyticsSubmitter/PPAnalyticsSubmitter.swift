@@ -508,10 +508,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 				$0.hoursSinceHighRiskWarningAtTestRegistration = hoursSinceHighRiskWarningAtTestRegistration
 			}
 			$0.submittedWithTeleTan = !store.submittedWithQR
-
-			if let submittedAfterRapidAntigenTest = store.submittedAfterRapidAntigenTest {
-				$0.submittedAfterRapidAntigenTest = submittedAfterRapidAntigenTest
-			}
+			$0.submittedAfterRapidAntigenTest = store.submittedAfterRapidAntigenTest
 		}]
 	}
 	
