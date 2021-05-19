@@ -110,8 +110,7 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 		}
 
 		let cellRect = tableView.rectForRow(at: indexPath)
-		let result = view.convert(cellRect, from: tableView)
-		backgroundView.gradientHeightConstraint.constant = result.midY
+		backgroundView.gradientHeightConstraint.constant = cellRect.midY + (tableView.contentOffset.y / 2) + view.safeAreaInsets.top
 		didCalculateGradientHeight = true
 	}
 
