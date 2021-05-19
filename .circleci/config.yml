@@ -132,6 +132,7 @@ jobs:
               -derivedDataPath "./DerivedData" \
               -enableCodeCoverage YES \
               -resultBundlePath "fastlane/test_output/ENA.xcresult" \
+              -parallel-testing-enabled YES \
               -parallel-testing-worker-count "${CORE_COUNT}" \
               -maximum-concurrent-test-simulator-destinations "${CORE_COUNT}" \
               test-without-building
