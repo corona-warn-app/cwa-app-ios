@@ -9,6 +9,7 @@ extension Data {
 
     enum ZLibDecompressError: Error {
         case BindMemoryError
+        case DecompressionFailedError
     }
 
     func decompressZLib() throws -> Data {
@@ -38,6 +39,10 @@ extension Data {
         }) as Data
 
         decodedDestinationBuffer.deallocate()
+
+        guard result.count > 0 else {
+            throw ZLibDecompressError.DecompressionFailedError
+        }
         return result
     }
 }

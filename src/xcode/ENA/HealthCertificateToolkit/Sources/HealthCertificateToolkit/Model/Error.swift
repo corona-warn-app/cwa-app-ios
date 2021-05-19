@@ -5,6 +5,9 @@
 import Foundation
 import JSONSchema
 
+// Makes ValidationError represantable with "print()".
+extension ValidationError: CustomStringConvertible {}
+
 public enum JSONSchemaValidationError: Error {
     case FILE_NOT_FOUND
     case DECODING_FAILED
@@ -13,6 +16,7 @@ public enum JSONSchemaValidationError: Error {
 }
 
 public enum CertificateDecodingError: Error {
+
     case HC_BASE45_DECODING_FAILED(Error)
     case HC_ZLIB_DECOMPRESSION_FAILED(Error)
     case HC_COSE_TAG_INVALID

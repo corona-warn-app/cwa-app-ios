@@ -184,7 +184,7 @@ public struct DigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtoc
 
         let _validationResult: ValidationResult?
         do {
-            _validationResult = try JSONSchema.validate(certificateMap, schema: schemaDict)
+            _validationResult = try JSONSchema.validate(certificateMap.anyMap, schema: schemaDict)
         } catch {
             return .failure(.HC_JSON_SCHEMA_INVALID(.VALIDATION_FAILED(error)))
         }
