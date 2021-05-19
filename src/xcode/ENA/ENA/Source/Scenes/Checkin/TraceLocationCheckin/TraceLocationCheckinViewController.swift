@@ -5,12 +5,12 @@
 import UIKit
 import OpenCombine
 
-class TraceLocationDetailViewController: UIViewController {
+class TraceLocationCheckinViewController: UIViewController {
 
 	// MARK: - Init
 
 	init(
-		_ viewModel: TraceLocationDetailViewModel,
+		_ viewModel: TraceLocationCheckinViewModel,
 		dismiss: @escaping () -> Void
 	) {
 		self.dismiss = dismiss
@@ -39,12 +39,18 @@ class TraceLocationDetailViewController: UIViewController {
 	
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
-		updateGradienViewLayout()
+		updateGradientViewLayout()
+	}
+
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+
+		updateBorderWidths()
 	}
 	
 	// MARK: - Private
 
-	private let viewModel: TraceLocationDetailViewModel
+	private let viewModel: TraceLocationCheckinViewModel
 	private let dismiss: () -> Void
 
 	private var backgroundView: GradientBackgroundView!
@@ -88,21 +94,28 @@ class TraceLocationDetailViewController: UIViewController {
 
 	private func setupView() {
 		view.backgroundColor = .enaColor(for: .backgroundLightGray)
+
 		pickerButton.setTitleColor(.enaColor(for: .textPrimary1), for: .normal)
+
 		logoImageView.image = logoImageView.image?.withRenderingMode(.alwaysTemplate)
 		logoImageView.tintColor = .enaColor(for: .textContrast)
+
 		pickerSwitch.setOn(viewModel.shouldSaveToContactJournal, animated: false)
-		addBorderAndColorToView(descriptionView, color: .enaColor(for: .hairline))
-		addBorderAndColorToView(bottomCardView, color: .enaColor(for: .hairline))
-		addBorderAndColorToView(additionalInfoView, color: .enaColor(for: .hairline))
+
+		let borderColor = UIColor.enaColor(for: .hairline).cgColor
+		descriptionView.layer.borderColor = borderColor
+		bottomCardView.layer.borderColor = borderColor
+		additionalInfoView.layer.borderColor = borderColor
+		updateBorderWidths()
+
 		checkInButton.setTitle(AppStrings.Checkins.Details.checkInButton, for: .normal)
 		checkInButton.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Details.checkInButton
+
 		closeButton.accessibilityLabel = AppStrings.AccessibilityLabel.close
 		closeButton.accessibilityIdentifier = AccessibilityIdentifiers.AccessibilityLabel.close
 	}
 	
 	private func setupGradientView() {
-	
 		backgroundView = GradientBackgroundView()
 		backgroundView.translatesAutoresizingMaskIntoConstraints = false
 		view.insertSubview(backgroundView, at: 0)
@@ -124,7 +137,7 @@ class TraceLocationDetailViewController: UIViewController {
 		}
 	}
 	
-	private func updateGradienViewLayout() {
+	private func updateGradientViewLayout() {
 		backgroundView.updatedTopLayout(with: 0, limit: scrollView.frame.origin.y)
 		backgroundView.gradientHeightConstraint.constant = barGradientView.bounds.height + 160
 	}
@@ -177,11 +190,6 @@ class TraceLocationDetailViewController: UIViewController {
 		let duration = datePicker.countDownDuration
 		viewModel.duration = duration
 	}
-
-	private func addBorderAndColorToView(_ view: UIView, color: UIColor) {
-		view.layer.borderColor = color.cgColor
-		view.layer.borderWidth = 1
-	}
 	
 	@IBAction private func checkInPressed(_ sender: Any) {
 		viewModel.saveCheckinToDatabase()
@@ -204,7 +212,6 @@ class TraceLocationDetailViewController: UIViewController {
 	}
 
 	@IBAction private func togglePickerButtonVisibility(_ sender: Any) {
-		
 		let isHidden = !pickerContainerView.isHidden
 		
 		UIView.animate(withDuration: 0.15) { [weak self] in
@@ -221,7 +228,6 @@ class TraceLocationDetailViewController: UIViewController {
 			self.pickerButton.setTitleColor(color, for: .normal)
 
 		} completion: { _ in
-			
 			if !isHidden {
 				self.countDownDatePicker.removeTarget(self, action: nil, for: .allEvents)
 				self.setupPicker()
@@ -249,4 +255,14 @@ class TraceLocationDetailViewController: UIViewController {
 			}
 		}
 	}
+
+	private func updateBorderWidths() {
+		let borderWidth: CGFloat = traitCollection.userInterfaceStyle == .dark ? 0 : 1
+
+		descriptionView.layer.borderWidth = borderWidth
+		bottomCardView.layer.borderWidth = borderWidth
+		additionalInfoView.layer.borderWidth = borderWidth
+
+	}
+
 }
