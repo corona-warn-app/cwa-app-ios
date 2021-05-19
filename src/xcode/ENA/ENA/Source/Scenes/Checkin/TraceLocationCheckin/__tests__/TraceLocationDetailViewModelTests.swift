@@ -6,11 +6,11 @@ import XCTest
 import OpenCombine
 @testable import ENA
 
-class TraceLocationDetailViewModelTests: XCTestCase {
+class TraceLocationCheckinViewModelTests: XCTestCase {
 
 	private var subscriptions = Set<AnyCancellable>()
 		
-	func testTraceLocationViewModel_initialization_PropertiesAreCorrect() {
+	func testTraceLocationCheckinViewModel_initialization_PropertiesAreCorrect() {
 		guard let id = Data(base64Encoded: "Test") else {
 			XCTFail("Failed to encode id into data")
 			return
@@ -29,7 +29,7 @@ class TraceLocationDetailViewModelTests: XCTestCase {
 		)
 
 		let store = MockTestStore()
-		let sut = TraceLocationDetailViewModel(traceLocation, eventStore: MockEventStore(), store: store)
+		let sut = TraceLocationCheckinViewModel(traceLocation, eventStore: MockEventStore(), store: store)
 		
 		XCTAssertEqual(sut.locationType, TraceLocationType.locationTypePermanentFoodService.title)
 		XCTAssertEqual(sut.locationDescription, "Los Pollos Hermanos")
@@ -39,7 +39,7 @@ class TraceLocationDetailViewModelTests: XCTestCase {
 		XCTAssertEqual(sut.shouldSaveToContactJournal, store.shouldAddCheckinToContactDiaryByDefault)
 	}
 
-	func testTraceLocationViewModel_initialization_suggestedCheckoutIsLessThanADay() {
+	func testTraceLocationCheckinViewModel_initialization_suggestedCheckoutIsLessThanADay() {
 		guard let id = Data(base64Encoded: "Test") else {
 			XCTFail("Failed to encode id into data")
 			return
@@ -63,7 +63,7 @@ class TraceLocationDetailViewModelTests: XCTestCase {
 		)
 
 		let store = MockTestStore()
-		let sut = TraceLocationDetailViewModel(traceLocation, eventStore: MockEventStore(), store: store)
+		let sut = TraceLocationCheckinViewModel(traceLocation, eventStore: MockEventStore(), store: store)
 		
 		XCTAssertEqual(sut.locationType, TraceLocationType.locationTypePermanentFoodService.title)
 		XCTAssertEqual(sut.locationDescription, "Los Pollos Hermanos")
@@ -71,7 +71,7 @@ class TraceLocationDetailViewModelTests: XCTestCase {
 		// max checkout Duration should be clipped to 23:45 to match the picker
 		XCTAssertEqual(sut.duration, ((23 * 60) + 45) * 60)
 	}
-    func testTraceLocationViewModel_EventStatus_EventWithNoStartAndEndDate() {
+    func testTraceLocationCheckinViewModel_EventStatus_EventWithNoStartAndEndDate() {
 		guard let id = Data(base64Encoded: "Test") else {
 			XCTFail("Failed to encode id into data")
 			return
@@ -89,12 +89,12 @@ class TraceLocationDetailViewModelTests: XCTestCase {
 			cnPublicKey: Data()
 		)
 
-		let sut = TraceLocationDetailViewModel(traceLocation, eventStore: MockEventStore(), store: MockTestStore())
+		let sut = TraceLocationCheckinViewModel(traceLocation, eventStore: MockEventStore(), store: MockTestStore())
 
 		XCTAssertNil(sut.traceLocationStatus, "status should be nil as there is no start and end dates")
     }
 	
-	func testTraceLocationViewModel_EventStatus_EventNotStarted() {
+	func testTraceLocationCheckinViewModel_EventStatus_EventNotStarted() {
 		guard let id = Data(base64Encoded: "Test") else {
 			XCTFail("Failed to encode id into data")
 			return
@@ -118,12 +118,12 @@ class TraceLocationDetailViewModelTests: XCTestCase {
 			cnPublicKey: Data()
 		)
 
-		let sut = TraceLocationDetailViewModel(traceLocation, eventStore: MockEventStore(), store: MockTestStore())
+		let sut = TraceLocationCheckinViewModel(traceLocation, eventStore: MockEventStore(), store: MockTestStore())
 
-		XCTAssertEqual(sut.traceLocationStatus, TraceLocationDetailViewModel.TraceLocationDateStatus.notStarted)
+		XCTAssertEqual(sut.traceLocationStatus, TraceLocationCheckinViewModel.TraceLocationDateStatus.notStarted)
 	}
 	
-	func testTraceLocationViewModel_EventStatus_EventEnded() {
+	func testTraceLocationCheckinViewModel_EventStatus_EventEnded() {
 		guard let id = Data(base64Encoded: "Test") else {
 			XCTFail("Failed to encode id into data")
 			return
@@ -147,11 +147,11 @@ class TraceLocationDetailViewModelTests: XCTestCase {
 			cnPublicKey: Data()
 		)
 
-		let sut = TraceLocationDetailViewModel(traceLocation, eventStore: MockEventStore(), store: MockTestStore())
+		let sut = TraceLocationCheckinViewModel(traceLocation, eventStore: MockEventStore(), store: MockTestStore())
 
-		XCTAssertEqual(sut.traceLocationStatus, TraceLocationDetailViewModel.TraceLocationDateStatus.ended)
+		XCTAssertEqual(sut.traceLocationStatus, TraceLocationCheckinViewModel.TraceLocationDateStatus.ended)
 	}
-	func testTraceLocationViewModel_EventStatus_EventInProgress() {
+	func testTraceLocationCheckinViewModel_EventStatus_EventInProgress() {
 		guard let id = Data(base64Encoded: "Test") else {
 			XCTFail("Failed to encode id into data")
 			return
@@ -175,12 +175,12 @@ class TraceLocationDetailViewModelTests: XCTestCase {
 			cnPublicKey: Data()
 		)
 
-		let sut = TraceLocationDetailViewModel(traceLocation, eventStore: MockEventStore(), store: MockTestStore())
+		let sut = TraceLocationCheckinViewModel(traceLocation, eventStore: MockEventStore(), store: MockTestStore())
 
-		XCTAssertEqual(sut.traceLocationStatus, TraceLocationDetailViewModel.TraceLocationDateStatus.inProgress)
+		XCTAssertEqual(sut.traceLocationStatus, TraceLocationCheckinViewModel.TraceLocationDateStatus.inProgress)
 	}
 	
-	func testTraceLocationViewModel_formattedStartDateString() {
+	func testTraceLocationCheckinViewModel_formattedStartDateString() {
 		guard let id = Data(base64Encoded: "Test") else {
 			XCTFail("Failed to encode id into data")
 			return
@@ -204,7 +204,7 @@ class TraceLocationDetailViewModelTests: XCTestCase {
 			cnPublicKey: Data()
 		)
 
-		let sut = TraceLocationDetailViewModel(traceLocation, eventStore: MockEventStore(), store: MockTestStore())
+		let sut = TraceLocationCheckinViewModel(traceLocation, eventStore: MockEventStore(), store: MockTestStore())
 
 		// we need to test using the formatter because using hard coded strings will be wrong in other locals formatting
 		let dateFormatter = DateFormatter()
@@ -218,7 +218,7 @@ class TraceLocationDetailViewModelTests: XCTestCase {
 		XCTAssertEqual(sut.formattedStartTimeString, expectedTime)
 	}
 	
-	func testTraceLocationViewModel_DidSelectDuration() throws {
+	func testTraceLocationCheckinViewModel_DidSelectDuration() throws {
 		guard let id = Data(base64Encoded: "Test") else {
 			XCTFail("Failed to encode id into data")
 			return
@@ -236,7 +236,7 @@ class TraceLocationDetailViewModelTests: XCTestCase {
 			cnPublicKey: Data()
 		)
 
-		let sut = TraceLocationDetailViewModel(traceLocation, eventStore: MockEventStore(), store: MockTestStore())
+		let sut = TraceLocationCheckinViewModel(traceLocation, eventStore: MockEventStore(), store: MockTestStore())
 		
 		let durationToBeSelected = 150
 		sut.duration = TimeInterval(durationToBeSelected * 60)
@@ -256,7 +256,7 @@ class TraceLocationDetailViewModelTests: XCTestCase {
 		XCTAssertEqual(sut.pickerButtonTitle, String(format: AppStrings.Checkins.Details.hoursShortVersion, expectedDuration), "The title should be correctly formatted")
 	}
 	
-	func testTraceLocationViewModel_SavingCheckin() throws {
+	func testTraceLocationCheckinViewModel_SavingCheckin() throws {
 		let currentDate = Date()
 
 		guard let id = Data(base64Encoded: "Test") else {
@@ -287,7 +287,7 @@ class TraceLocationDetailViewModelTests: XCTestCase {
 		)
 
 		let eventStore = MockEventStore()
-		let sut = TraceLocationDetailViewModel(traceLocation, eventStore: eventStore, store: MockTestStore())
+		let sut = TraceLocationCheckinViewModel(traceLocation, eventStore: eventStore, store: MockTestStore())
 		sut.shouldSaveToContactJournal = false
 		sut.saveCheckinToDatabase()
 		

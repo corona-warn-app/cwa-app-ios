@@ -37,7 +37,7 @@ struct HealthCertificateQRCodeCellViewModel {
 
 	// MARK: - Internal
 
-	let backgroundColor: UIColor = .enaColor(for: .background)
+	let backgroundColor: UIColor = .enaColor(for: .cellBackground2)
 	let borderColor: UIColor = .enaColor(for: .hairline)
 	let certificate: String
 	let validity: String

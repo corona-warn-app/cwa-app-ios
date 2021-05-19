@@ -18,7 +18,13 @@ class CheckInDescriptionCell: UITableViewCell, ReuseIdentifierProviding {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	// MARK: - Public
+	// MARK: - Overrides
+
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+
+		updateBorderWidth()
+	}
 
 	// MARK: - Internal
 
@@ -36,6 +42,7 @@ class CheckInDescriptionCell: UITableViewCell, ReuseIdentifierProviding {
 	private let traceLocationTypeLabel = ENALabel()
 	private let traceLocationDescriptionLabel = ENALabel()
 	private let traceLocationAddressLabel = ENALabel()
+	private let tileView = UIView()
 
 	private func setupView() {
 		selectionStyle = .none
@@ -54,13 +61,12 @@ class CheckInDescriptionCell: UITableViewCell, ReuseIdentifierProviding {
 		traceLocationAddressLabel.textColor = .enaColor(for: .textPrimary2)
 		traceLocationAddressLabel.numberOfLines = 0
 
-		let tileView = UIView()
 		tileView.translatesAutoresizingMaskIntoConstraints = false
-		tileView.backgroundColor = .enaColor(for: .darkBackground)
+		tileView.backgroundColor = .enaColor(for: .cellBackground2)
 		tileView.layer.cornerRadius = 12.0
 		tileView.layer.masksToBounds = true
-		tileView.layer.borderWidth = 1.0
 		tileView.layer.borderColor = UIColor.enaColor(for: .hairline).cgColor
+		updateBorderWidth()
 		contentView.addSubview(tileView)
 
 		let stackView = UIStackView(
@@ -79,7 +85,7 @@ class CheckInDescriptionCell: UITableViewCell, ReuseIdentifierProviding {
 		NSLayoutConstraint.activate(
 			[
 				tileView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 6.0),
-				tileView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -3.0),
+				tileView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4.0),
 				tileView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.0),
 				tileView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.0),
 
@@ -89,6 +95,10 @@ class CheckInDescriptionCell: UITableViewCell, ReuseIdentifierProviding {
 				stackView.trailingAnchor.constraint(equalTo: tileView.trailingAnchor, constant: -16.0)
 			]
 		)
+	}
+
+	private func updateBorderWidth() {
+		tileView.layer.borderWidth = traitCollection.userInterfaceStyle == .dark ? 0 : 1
 	}
 
 }
