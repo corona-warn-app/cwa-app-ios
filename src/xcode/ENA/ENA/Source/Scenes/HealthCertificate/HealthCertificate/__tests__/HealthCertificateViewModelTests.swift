@@ -11,11 +11,12 @@ class HealthCertificateViewModelTests: XCTestCase {
 	func testGIVEN_HealthCertificateViewModel_TableViewSection_THEN_SectionsAreCorrect() {
 
 		// THEN
-		XCTAssertEqual(HealthCertificateViewModel.TableViewSection.numberOfSections, 4)
+		XCTAssertEqual(HealthCertificateViewModel.TableViewSection.numberOfSections, 5)
 		XCTAssertEqual(HealthCertificateViewModel.TableViewSection.map(0), .headline)
-		XCTAssertEqual(HealthCertificateViewModel.TableViewSection.map(1), .topCorner)
-		XCTAssertEqual(HealthCertificateViewModel.TableViewSection.map(2), .details)
-		XCTAssertEqual(HealthCertificateViewModel.TableViewSection.map(3), .bottomCorner)
+		XCTAssertEqual(HealthCertificateViewModel.TableViewSection.map(1), .qrCode)
+		XCTAssertEqual(HealthCertificateViewModel.TableViewSection.map(2), .topCorner)
+		XCTAssertEqual(HealthCertificateViewModel.TableViewSection.map(3), .details)
+		XCTAssertEqual(HealthCertificateViewModel.TableViewSection.map(4), .bottomCorner)
 	}
 
 	func testGIVEN_HealthCertificate_WHEN_CreateViewModel_THEN_IsSetup() throws {
@@ -41,8 +42,9 @@ class HealthCertificateViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.headlineCellViewModel.font, .enaFont(for: .headline))
 		XCTAssertEqual(viewModel.headlineCellViewModel.accessibilityTraits, .staticText)
 		XCTAssertEqual(viewModel.numberOfItems(in: .headline), 0)
+		XCTAssertEqual(viewModel.numberOfItems(in: .qrCode), 1)
 		XCTAssertEqual(viewModel.numberOfItems(in: .topCorner), 1)
-		XCTAssertEqual(viewModel.numberOfItems(in: .details), 1)
+		XCTAssertEqual(viewModel.numberOfItems(in: .details), 2)
 		XCTAssertEqual(viewModel.numberOfItems(in: .bottomCorner), 1)
 	}
 
