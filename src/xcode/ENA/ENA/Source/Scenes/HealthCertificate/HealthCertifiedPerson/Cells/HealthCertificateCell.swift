@@ -26,8 +26,6 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		shieldImageView.image = cellViewModel.image
 		headlineTextLabel.text = cellViewModel.headline
 		detailsTextLabel.text = cellViewModel.detail
-
-		backgroundContainerView.accessibilityLabel = [cellViewModel.headline, cellViewModel.detail].compactMap { $0 }.joined(separator: "\n")
 	}
 
 	// MARK: - Private
@@ -132,9 +130,10 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 	}
 
 	private func setupAccessibility() {
-		isAccessibilityElement = false
-		backgroundContainerView.isAccessibilityElement = true
-		backgroundContainerView.accessibilityTraits = .button
+		accessibilityElements = [backgroundContainerView as Any]
+
+		backgroundContainerView.accessibilityElements = [headlineTextLabel as Any, detailsTextLabel as Any]
+		headlineTextLabel.accessibilityTraits = [.staticText, .button]
 	}
 
 }
