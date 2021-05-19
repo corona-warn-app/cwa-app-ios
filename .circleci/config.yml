@@ -106,8 +106,6 @@ jobs:
           command: cd src/xcode && bundle exec fastlane lint
       - store_artifacts:
           path: src/xcode/swiftlint.result.json
-      - store_test_results: # FIXME: a test
-          path: src/xcode/swiftlint.result.json
   test:
     macos:
       xcode: *xcode_version
@@ -140,16 +138,11 @@ jobs:
           name: Convert coverage information to SonarCloud format
           shell: /bin/zsh
           command: |
-            ./scripts/cococo src/xcode/fastlane/test_output/ENA.xcresult > src/xcode/fastlane/test_output/coverage.xml
-      # - run:
-      #     name: Fix SwiftLint output for SonarCloud
-      #     shell: /bin/zsh
-      #     command: |
-      #       ./scripts/fix_swiftlint_output.sh src/xcode/swiftlint.result.json
+            ./scripts/cococo \
+              src/xcode/fastlane/test_output/ENA.xcresult > \
+              src/xcode/fastlane/test_output/coverage.xml
       - store_test_results:
           path: src/xcode/fastlane/test_output/
-      # - store_artifacts:
-      #     path: src/xcode/swiftlint.result.json
       - store_artifacts:
           path: src/xcode/fastlane/test_output/ENA.xcresult.zip
       - run:
