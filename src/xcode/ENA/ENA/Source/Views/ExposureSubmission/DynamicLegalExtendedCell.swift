@@ -139,5 +139,7 @@ class DynamicLegalExtendedCell: UITableViewCell, ReuseIdentifierProviding {
 
 	private func setup() {
 		cardView.layer.cornerRadius = 16
+		backgroundColor = .enaColor(for: .background)
 	}
+
 }
