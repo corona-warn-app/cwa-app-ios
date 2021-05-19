@@ -46,12 +46,12 @@ class ENAUITests_12_AntigenTestProfile: XCTestCase {
 		// title exists
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Information.descriptionTitle].waitForExistence(timeout: .short))
 		// subtitle exists
-		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Information.descriptionSubHeadline].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Information.descriptionSubHeadline].waitForExistence(timeout: .long))
 		// legal text exists
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Information.acknowledgementTitle].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Information.acknowledgementTitle].waitForExistence(timeout: .long))
 		
 		let dataPrivacyButton = try XCTUnwrap(app.cells[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Information.dataPrivacyTitle])
-		dataPrivacyButton.waitAndTap()
+		dataPrivacyButton.waitAndTap(.long)
 		
 		/// Legal Text Screen
 
