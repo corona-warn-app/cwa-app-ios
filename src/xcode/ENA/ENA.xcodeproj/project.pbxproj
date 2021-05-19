@@ -1510,6 +1510,8 @@
 		35075C092526378D00DE92F7 /* AllTests.xctestplan */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = AllTests.xctestplan; path = TestPlans/AllTests.xctestplan; sourceTree = "<group>"; };
 		35075C0E252637C300DE92F7 /* SmokeTests.xctestplan */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SmokeTests.xctestplan; path = TestPlans/SmokeTests.xctestplan; sourceTree = "<group>"; };
 		35163D23251CFCCB00D220CA /* CachingHTTPClientMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachingHTTPClientMock.swift; sourceTree = "<group>"; };
+		35178CCA26553EDC00FFB31E /* UITests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = UITests.xctestplan; path = TestPlans/UITests.xctestplan; sourceTree = "<group>"; };
+		35178CCB26553EDC00FFB31E /* UnitTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = UnitTests.xctestplan; path = TestPlans/UnitTests.xctestplan; sourceTree = "<group>"; };
 		3518DD6425BA2D060090A26B /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		351E6305256BEC8D00D89B29 /* LabeledCountriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabeledCountriesView.swift; sourceTree = "<group>"; };
 		351E630A256C5B9C00D89B29 /* LabeledCountriesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabeledCountriesCell.swift; sourceTree = "<group>"; };
@@ -3397,6 +3399,8 @@
 				35075C092526378D00DE92F7 /* AllTests.xctestplan */,
 				35075C0E252637C300DE92F7 /* SmokeTests.xctestplan */,
 				3523CA31252DC617002E6DEC /* Screenshots.xctestplan */,
+				35178CCA26553EDC00FFB31E /* UITests.xctestplan */,
+				35178CCB26553EDC00FFB31E /* UnitTests.xctestplan */,
 			);
 			name = TestPlans;
 			sourceTree = "<group>";

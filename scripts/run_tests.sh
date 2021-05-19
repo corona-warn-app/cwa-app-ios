@@ -24,8 +24,8 @@ fi
 xcodebuild \
   -workspace "ENA.xcworkspace" \
   -scheme ENA \
-  -destination "platform=iOS Simulator,OS=14.5,name=iPhone 11" \
-  -testPlan AllTests \
+  -destination "platform=iOS Simulator,OS=14.4,name=iPhone 11" \
+  -testPlan $1 \
   -only-test-configuration "DE" \
   -derivedDataPath "./DerivedData" \
   -enableCodeCoverage YES \

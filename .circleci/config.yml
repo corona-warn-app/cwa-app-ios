@@ -112,6 +112,10 @@ jobs:
     macos:
       xcode: *xcode_version
     resource_class: *resource_class
+    parameters:
+      testplan:
+        default: "AllTests"
+        type: string
     steps:
       - attach_workspace:
           at: .
@@ -120,7 +124,7 @@ jobs:
       - run:
           name: Run Tests
           shell: /bin/bash -o pipefail
-          command: ./scripts/run_tests.sh
+          command: ./scripts/run_tests.sh <<parameters.testplan>>
           no_output_timeout: 5m
       - restore_cache:
           key: sonar-cloud-v2
@@ -270,6 +274,9 @@ workflows:
             requires:
               - dependencies
         - test:
+            matrix:
+              parameters:
+                testplan: ["UITests", "UnitTests"]
             requires:
               - build-for-testing
         - test-community:
