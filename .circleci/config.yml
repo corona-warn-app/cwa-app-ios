@@ -118,9 +118,6 @@ jobs:
       - restore_cache:
           key: *tools_cache_key
       - run:
-          name: Prelaunch Simulator
-          command: xcrun instruments -w "iPhone 11 (14.4)" || true
-      - run:
           name: Run Tests
           shell: /bin/bash -o pipefail
           command: |
