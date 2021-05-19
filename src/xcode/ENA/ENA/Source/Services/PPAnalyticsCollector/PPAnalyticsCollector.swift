@@ -18,6 +18,13 @@ enum PPAnalyticsCollector {
 		submitter: PPAnalyticsSubmitting,
 		testResultCollector: PPAAnalyticsTestResultCollector
 	) {
+		// We put the PPAnalyticsData protocol and its implementation in a seperate file because this protocol is only used by the collector. And only the collector should use it!
+		// This way we avoid the direct asscess of analytics data at other places over the store.
+		guard let store = store as? (Store & PPAnalyticsData) else {
+			Log.error("I will never submit any analytics data. Could not cast to correct store protocol", log: .ppa)
+			fatalError("I will never submit any analytics data. Could not cast to correct store protocol")
+		}
+
 		PPAnalyticsCollector.store = store
 		PPAnalyticsCollector.coronaTestService = coronaTestService
 		PPAnalyticsCollector.submitter = submitter

@@ -93,9 +93,7 @@ struct TestResultMetadata: Codable {
 			return .testResultNegative
 		case (.pcr, .positive):
 			return .testResultPositive
-		case (.pcr, .invalid):
-			return .testResultInvalid
-		case (.pcr, .expired):
+		case (.pcr, .expired), (.pcr, .invalid):
 			return nil
 		case (.antigen, .pending):
 			return .testResultRatPending
@@ -103,9 +101,7 @@ struct TestResultMetadata: Codable {
 			return .testResultRatNegative
 		case (.antigen, .positive):
 			return .testResultRatPositive
-		case (.antigen, .invalid):
-			return .testResultRatInvalid
-		case (.antigen, .expired):
+		case (.antigen, .expired), (.antigen, .invalid):
 			return nil
 		case (_, .none):
 			return nil

@@ -57,6 +57,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		super.init()
 
 		// Make the analytics working. Should not be called later than at this moment of app initialisation.
+		
+		let testResultCollector = PPAAnalyticsTestResultCollector(
+			store: store
+		)
+
 		Analytics.setup(
 			store: store,
 			coronaTestService: coronaTestService,
@@ -266,12 +271,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			appConfig: appConfigurationProvider,
 			coronaTestService: coronaTestService,
 			ppacService: ppacService
-		)
-	}()
-
-	private lazy var testResultCollector: PPAAnalyticsTestResultCollector = {
-		return PPAAnalyticsTestResultCollector(
-			store: store
 		)
 	}()
 

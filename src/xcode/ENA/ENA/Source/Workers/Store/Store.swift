@@ -230,7 +230,6 @@ protocol Store:
 	StoreProtocol,
 	WarnOthersTimeIntervalStoring,
 	HealthCertificateStoring,
-	VaccinationCaching,
-	PPAnalyticsData
+	VaccinationCaching
 {}
 // swiftlint:enable all
