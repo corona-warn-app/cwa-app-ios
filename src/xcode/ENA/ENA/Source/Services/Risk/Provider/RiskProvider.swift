@@ -14,7 +14,7 @@ final class RiskProvider: RiskProviding {
 
 	init(
 		configuration: RiskProvidingConfiguration,
-		store: Store,
+		store: Store & PPAnalyticsData,
 		appConfigurationProvider: AppConfigurationProviding,
 		exposureManagerState: ExposureManagerState,
 		targetQueue: DispatchQueue = .main,

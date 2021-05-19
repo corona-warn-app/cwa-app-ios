@@ -14,7 +14,6 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var enfRiskCalculationResult: ENFRiskCalculationResult?
 	var checkinRiskCalculationResult: CheckinRiskCalculationResult?
 	var shouldShowRiskStatusLoweredAlert: Bool = false
-	func clearAll(key: String?) {}
 	var exposureActivationConsentAcceptTimestamp: Int64?
 	var exposureActivationConsentAccept: Bool = false
 	var isOnboarded: Bool = false
@@ -41,8 +40,8 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var submissionCountries: [Country] = [.defaultCountry()]
 	var submissionSymptomsOnset: SymptomsOnset = .noInformation
 	var journalWithExposureHistoryInfoScreenShown: Bool = false
-	var dateOfConversionToHighRisk: Date?
-
+	
+	func clearAll(key: String?) {}
 	#if !RELEASE
 	// Settings from the debug menu.
 	var fakeSQLiteError: Int32?
@@ -84,6 +83,8 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var keySubmissionMetadata: KeySubmissionMetadata?
 	var testResultMetadata: TestResultMetadata?
 	var exposureWindowsMetadata: ExposureWindowsMetadata?
+	var dateOfConversionToHighRisk: Date?
+	var dateOfConversionToEventHighRisk: Date?
 
 	// MARK: - ErrorLogProviding
 	

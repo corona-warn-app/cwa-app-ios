@@ -35,6 +35,12 @@ protocol PPAnalyticsData: AnyObject {
 	var testResultMetadata: TestResultMetadata? { get set }
 	/// Analytics data.
 	var exposureWindowsMetadata: ExposureWindowsMetadata? { get set }
+	/// Date when the ENF risk was changed to high
+	var dateOfConversionToHighRisk: Date? { get set }
+	/// Date when the event risk was changed to high
+	var dateOfConversionToEventHighRisk: Date? { get set }
+
+
 }
 
 extension SecureStore: PPAnalyticsData {
@@ -102,5 +108,15 @@ extension SecureStore: PPAnalyticsData {
 	var exposureWindowsMetadata: ExposureWindowsMetadata? {
 		get { kvStore["exposureWindowsMetadata"] as ExposureWindowsMetadata? ?? nil }
 		set { kvStore["exposureWindowsMetadata"] = newValue }
+	}
+	
+	var dateOfConversionToHighRisk: Date? {
+		get { kvStore["dateOfConversionToHighRisk"] as Date? ?? nil }
+		set { kvStore["dateOfConversionToHighRisk"] = newValue }
+	}
+	
+	var dateOfConversionToEventHighRisk: Date? {
+		get { kvStore["dateOfConversionToHighRisk"] as Date? ?? nil }
+		set { kvStore["dateOfConversionToHighRisk"] = newValue }
 	}
 }

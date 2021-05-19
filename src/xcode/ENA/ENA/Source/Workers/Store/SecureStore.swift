@@ -126,11 +126,6 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 		set { kvStore["checkinRiskCalculationResult"] = newValue }
 	}
 
-	var dateOfConversionToHighRisk: Date? {
-		get { kvStore["dateOfConversionToHighRisk"] as Date? ?? nil }
-		set { kvStore["dateOfConversionToHighRisk"] = newValue }
-	}
-
 	var shouldShowRiskStatusLoweredAlert: Bool {
 		get { kvStore["shouldShowRiskStatusLoweredAlert"] as Bool? ?? false }
 		set { kvStore["shouldShowRiskStatusLoweredAlert"] = newValue }

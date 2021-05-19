@@ -225,6 +225,7 @@ enum PPAnalyticsCollector {
 			store?.testResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration = -1
 		}
 	}
+	
 	private static func updateTestResult(_ testResult: TestResult, _ token: String) {
 		// we only save metadata for tests submitted on QR code,and there is the only place in the app where we set the registration date
 		guard store?.testResultMetadata?.testRegistrationToken == token,
