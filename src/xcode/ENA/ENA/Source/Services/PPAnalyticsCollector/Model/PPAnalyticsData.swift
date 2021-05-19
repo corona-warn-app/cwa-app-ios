@@ -17,6 +17,8 @@ protocol PPAnalyticsData: AnyObject {
 	var lastSubmittedPPAData: String? { get set }
 	/// A boolean to keep a track if the submission is done via QR
 	var submittedWithQR: Bool { get set }
+	/// Is set to true if the respective test is a rapid antigen test and is set to false in any other case.
+	var submittedAfterRapidAntigenTest: Bool? { get set }
 	/// Analytics data.
 	var currentRiskExposureMetadata: RiskExposureMetadata? { get set }
 	/// Analytics data.
@@ -55,6 +57,11 @@ extension SecureStore: PPAnalyticsData {
 	var submittedWithQR: Bool {
 		get { kvStore["submittedWithQR"] as Bool? ?? false }
 		set { kvStore["submittedWithQR"] = newValue }
+	}
+
+	var submittedAfterRapidAntigenTest: Bool? {
+		get { kvStore["submittedAfterRapidAntigenTest"] }
+		set { kvStore["submittedAfterRapidAntigenTest"] = newValue }
 	}
 
 	var currentRiskExposureMetadata: RiskExposureMetadata? {

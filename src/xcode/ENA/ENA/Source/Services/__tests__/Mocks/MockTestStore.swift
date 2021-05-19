@@ -76,6 +76,7 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var lastAppReset: Date?
 	var lastSubmittedPPAData: String?
 	var submittedWithQR: Bool = false
+	var submittedAfterRapidAntigenTest: Bool? = false
 	var currentRiskExposureMetadata: RiskExposureMetadata?
 	var previousRiskExposureMetadata: RiskExposureMetadata?
 	var userMetadata: UserMetadata?

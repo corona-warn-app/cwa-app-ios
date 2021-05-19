@@ -53,6 +53,7 @@ enum PPAKeySubmissionMetadata {
 	case submittedAfterCancel(Bool)
 	case submittedAfterSymptomFlow(Bool)
 	case submittedWithTeletan(Bool)
+	case submittedAfterRapidAntigenTest(Bool)
 	case lastSubmissionFlowScreen(LastSubmissionFlowScreen?)
 	case advancedConsentGiven(Bool)
 	case hoursSinceTestResult(Int32)
