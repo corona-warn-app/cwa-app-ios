@@ -23,7 +23,7 @@ class CreateHealthCertificate: XCTestCase {
 
 	// MARK: - Tests
 
-	func test_shownConsentScreemAndDisclaimer() throws {
+	func test_shownConsentScreenAndDisclaimer() throws {
 		app.launch()
 
 		/// Home Screen
