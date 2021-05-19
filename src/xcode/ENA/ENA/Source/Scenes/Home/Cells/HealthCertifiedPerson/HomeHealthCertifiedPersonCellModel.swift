@@ -10,8 +10,7 @@ class HomeHealthCertifiedPersonCellModel {
 	// MARK: - Init
 
 	init(
-		healthCertifiedPerson: HealthCertifiedPerson,
-		onUpdate: @escaping () -> Void
+		healthCertifiedPerson: HealthCertifiedPerson
 	) {
 		self.healthCertifiedPerson = healthCertifiedPerson
 
@@ -32,8 +31,6 @@ class HomeHealthCertifiedPersonCellModel {
 				case .completelyProtected:
 					self?.vaccinationState = nil
 				}
-
-				onUpdate()
 			}
 			.store(in: &subscriptions)
 	}
@@ -49,4 +46,5 @@ class HomeHealthCertifiedPersonCellModel {
 
 	private let healthCertifiedPerson: HealthCertifiedPerson
 	private var subscriptions = Set<AnyCancellable>()
+
 }

@@ -78,7 +78,7 @@ class CheckInTimeCell: UITableViewCell, ReuseIdentifierProviding {
 
 		let tileView = UIView()
 		tileView.translatesAutoresizingMaskIntoConstraints = false
-		tileView.backgroundColor = .enaColor(for: .darkBackground)
+		tileView.backgroundColor = .enaColor(for: .cellBackground2)
 		contentView.addSubview(tileView)
 
 		topSeparatorView.translatesAutoresizingMaskIntoConstraints = false
