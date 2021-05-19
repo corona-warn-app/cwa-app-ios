@@ -654,7 +654,7 @@ struct SAP_Internal_Ppdd_PPAKeySubmissionMetadata {
 
   var ptHoursSinceHighRiskWarningAtTestRegistration: Int32 = 0
 
-  var submittedWithCheckIns: Bool = false
+  var submittedWithCheckIns: SAP_Internal_Ppdd_TriStateBoolean = .tsbUnspecified
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -1246,7 +1246,7 @@ extension SAP_Internal_Ppdd_PPAKeySubmissionMetadata: SwiftProtobuf.Message, Swi
       case 12: try { try decoder.decodeSingularBoolField(value: &self.submittedAfterRapidAntigenTest) }()
       case 13: try { try decoder.decodeSingularInt32Field(value: &self.ptDaysSinceMostRecentDateAtRiskLevelAtTestRegistration) }()
       case 14: try { try decoder.decodeSingularInt32Field(value: &self.ptHoursSinceHighRiskWarningAtTestRegistration) }()
-      case 15: try { try decoder.decodeSingularBoolField(value: &self.submittedWithCheckIns) }()
+      case 15: try { try decoder.decodeSingularEnumField(value: &self.submittedWithCheckIns) }()
       default: break
       }
     }
@@ -1295,8 +1295,8 @@ extension SAP_Internal_Ppdd_PPAKeySubmissionMetadata: SwiftProtobuf.Message, Swi
     if self.ptHoursSinceHighRiskWarningAtTestRegistration != 0 {
       try visitor.visitSingularInt32Field(value: self.ptHoursSinceHighRiskWarningAtTestRegistration, fieldNumber: 14)
     }
-    if self.submittedWithCheckIns != false {
-      try visitor.visitSingularBoolField(value: self.submittedWithCheckIns, fieldNumber: 15)
+    if self.submittedWithCheckIns != .tsbUnspecified {
+      try visitor.visitSingularEnumField(value: self.submittedWithCheckIns, fieldNumber: 15)
     }
     try unknownFields.traverse(visitor: &visitor)
   }

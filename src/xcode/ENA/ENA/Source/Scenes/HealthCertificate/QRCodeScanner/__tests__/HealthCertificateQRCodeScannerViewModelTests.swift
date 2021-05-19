@@ -6,7 +6,7 @@ import XCTest
 import AVFoundation
 @testable import ENA
 
-final class TestableVaccinationQRCodeScannerViewModelTests: VaccinationQRCodeScannerViewModel {
+final class TestableHealthCertificateQRCodeScannerViewModelTests: HealthCertificateQRCodeScannerViewModel {
 
 	private var fakeIsScanning: Bool = false
 
@@ -30,11 +30,11 @@ final class TestableVaccinationQRCodeScannerViewModelTests: VaccinationQRCodeSca
 			activateScanning()
 		}
 	}
-	
 	#endif
 }
 
-class VaccinationQRCodeScannerViewModelTests: XCTestCase {
+class HealthCertificateQRCodeScannerViewModelTests: XCTestCase {
+
 	func testSuccessfulPcrScan() {
 		let guid = "3D6D08-3567F3F2-4DCF-43A3-8737-4CD1F87D6FDA"
 
@@ -47,7 +47,8 @@ class VaccinationQRCodeScannerViewModelTests: XCTestCase {
 		// first onError call will happen on ViewModel init
 		onErrorExpectation.expectedFulfillmentCount = 1
 
-		let viewModel = TestableVaccinationQRCodeScannerViewModelTests(
+		let viewModel = TestableHealthCertificateQRCodeScannerViewModelTests(
+			healthCertificateService: MockHealthCertificateService(),
 			onSuccess: { _ in
 				onSuccessExpectation.fulfill()
 			},
@@ -75,7 +76,8 @@ class VaccinationQRCodeScannerViewModelTests: XCTestCase {
 		let onErrorExpectation = expectation(description: "onError called")
 		onErrorExpectation.expectedFulfillmentCount = 1
 
-		let viewModel = TestableVaccinationQRCodeScannerViewModelTests(
+		let viewModel = TestableHealthCertificateQRCodeScannerViewModelTests(
+			healthCertificateService: MockHealthCertificateService(),
 			onSuccess: { _ in
 				onSuccessExpectation.fulfill()
 			},
@@ -105,7 +107,8 @@ class VaccinationQRCodeScannerViewModelTests: XCTestCase {
 		let onErrorExpectation = expectation(description: "onError called")
 		onErrorExpectation.expectedFulfillmentCount = 1
 
-		let viewModel = TestableVaccinationQRCodeScannerViewModelTests(
+		let viewModel = TestableHealthCertificateQRCodeScannerViewModelTests(
+			healthCertificateService: MockHealthCertificateService(),
 			onSuccess: { _ in
 				onSuccessExpectation.fulfill()
 			},

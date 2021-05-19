@@ -102,6 +102,9 @@ class DynamicLegalExtendedCell: UITableViewCell, ReuseIdentifierProviding {
 		titleLabel.attributedText = title
 		descriptionLabel1.attributedText = description1
 		descriptionLabel2.attributedText = description2
+
+		descriptionLabel1.isHidden = description1 == nil
+		descriptionLabel2.isHidden = description2 == nil
 		
 		self.accessibilityIdentifier = accessibilityIdentifier
 		

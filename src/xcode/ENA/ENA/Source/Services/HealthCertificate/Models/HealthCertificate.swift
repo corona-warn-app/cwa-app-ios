@@ -5,7 +5,21 @@
 import Foundation
 import HealthCertificateToolkit
 
-struct HealthCertificate: Codable, Equatable {
+protocol HealthCertificateData {
+	var base45: Base45 { get }
+	var version: String { get }
+	var name: HealthCertificateToolkit.Name { get }
+	var dateOfBirth: String { get }
+	var dateOfBirthDate: Date? { get }
+	var vaccinationCertificates: [VaccinationCertificate] { get }
+	var isLastDoseInASeries: Bool { get }
+	var expirationDate: Date { get }
+	var dateOfVaccination: Date? { get }
+	var doseNumber: Int { get }
+	var totalSeriesOfDoses: Int { get }
+}
+
+struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable {
 
 	// MARK: - Init
 
@@ -20,6 +34,19 @@ struct HealthCertificate: Codable, Equatable {
 		}
 
 		self.base45 = base45
+	}
+
+	// MARK: - Protocol Comparable
+
+	static func < (lhs: HealthCertificate, rhs: HealthCertificate) -> Bool {
+		guard
+			let lhsVaccinationDate = lhs.vaccinationCertificates.first?.dateOfVaccination,
+			let rhsVaccinationDate = rhs.vaccinationCertificates.first?.dateOfVaccination
+		else {
+			return false
+		}
+
+		return lhsVaccinationDate < rhsVaccinationDate
 	}
 
 	// MARK: - Internal
@@ -38,15 +65,50 @@ struct HealthCertificate: Codable, Equatable {
 		digitalGreenCertificate.dateOfBirth
 	}
 
+	var dateOfBirthDate: Date? {
+		return Self.dateFormatter.date(from: digitalGreenCertificate.dateOfBirth)
+	}
+
 	var vaccinationCertificates: [VaccinationCertificate] {
 		digitalGreenCertificate.vaccinationCertificates
 	}
 
-	var isEligibleForProofCertificate: Bool {
-		digitalGreenCertificate.isEligibleForProofCertificate
+	var isLastDoseInASeries: Bool {
+		digitalGreenCertificate.isLastDoseInASeries
+	}
+
+	var expirationDate: Date {
+		Date(timeIntervalSince1970: TimeInterval(cborWebTokenHeader.expirationTime))
+	}
+
+	var dateOfVaccination: Date? {
+		guard let dateString = vaccinationCertificates.first?.dateOfVaccination else {
+			return nil
+		}
+		return Self.dateFormatter.date(from: dateString)
+	}
+
+	var doseNumber: Int {
+		guard let vaccinationCertificate = vaccinationCertificates.last else {
+			return 0
+		}
+		return vaccinationCertificate.doseNumber
+	}
+	
+	var totalSeriesOfDoses: Int {
+		guard let vaccinationCertificate = vaccinationCertificates.last else {
+			return 0
+		}
+		return vaccinationCertificate.totalSeriesOfDoses
 	}
 
 	// MARK: - Private
+
+	private static let dateFormatter: DateFormatter = {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateFormat = "YYYY-MM-dd"
+		return dateFormatter
+	}()
 
 	private var cborWebTokenHeader: CBORWebTokenHeader {
 		let result = DigitalGreenCertificateAccess().extractCBORWebTokenHeader(from: base45)
@@ -69,5 +131,4 @@ struct HealthCertificate: Codable, Equatable {
 			fatalError("Decoding the digitalGreenCertificate failed even though decodability was checked at initialization.")
 		}
 	}
-
 }

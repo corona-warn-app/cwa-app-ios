@@ -6,7 +6,7 @@ import Foundation
 import OpenCombine
 
 protocol VaccinationValueSetsProviding {
-	func latestVaccinationCertificateValueSets(with etag: String?) -> AnyPublisher<SAP_Internal_Dgc_ValueSets, Error>
+	func latestVaccinationCertificateValueSets() -> AnyPublisher<SAP_Internal_Dgc_ValueSets, Error>
 }
 
 protocol VaccinationValueSetsFetching {

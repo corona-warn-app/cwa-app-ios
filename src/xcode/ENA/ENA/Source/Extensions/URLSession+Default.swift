@@ -5,7 +5,10 @@
 import Foundation
 
 extension URLSession {
-	class func coronaWarnSession() -> URLSession {
+	class func coronaWarnSession(
+		configuration: URLSessionConfiguration,
+		delegateQueue: OperationQueue? = nil
+	) -> URLSession {
 		#if DISABLE_CERTIFICATE_PINNING
 		/// Disable certificate pinning while app is running on:
 		/// Community, Debug, TestFlight, UITesting modes
@@ -16,10 +19,9 @@ extension URLSession {
 		)
 		#endif
 		return URLSession(
-			configuration: .coronaWarnSessionConfiguration(),
+			configuration: configuration,
 			delegate: coronaWarnURLSessionDelegate,
-			delegateQueue: .main
+			delegateQueue: delegateQueue
 		)
-		
 	}
 }
