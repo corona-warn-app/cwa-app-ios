@@ -7,7 +7,7 @@ import HealthCertificateToolkit
 
 extension VaccinationCertificate {
 
-	var isEligibleForProofCertificate: Bool {
+	var isLastDoseInASeries: Bool {
 		doseNumber == totalSeriesOfDoses
 	}
 

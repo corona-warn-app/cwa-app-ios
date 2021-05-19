@@ -41,7 +41,7 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 				return .failure(.noVaccinationEntry)
 			}
 
-			let healthCertifiedPerson = healthCertifiedPersons.value.first ?? HealthCertifiedPerson(healthCertificates: [], proofCertificate: nil)
+			let healthCertifiedPerson = healthCertifiedPersons.value.first ?? HealthCertifiedPerson(healthCertificates: [])
 
 			let isDuplicate = healthCertifiedPerson.healthCertificates
 				.contains(where: { $0.vaccinationCertificates.first?.uniqueCertificateIdentifier == vaccinationCertificate.uniqueCertificateIdentifier })
@@ -56,19 +56,16 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 			}
 
 			let hasDifferentDateOfBirth = healthCertifiedPerson.healthCertificates
-				.contains(where: { $0.dateOfBirth != healthCertificate.dateOfBirth })
+				.contains(where: { $0.dateOfBirthDate != healthCertificate.dateOfBirthDate })
 			if hasDifferentDateOfBirth {
 				return .failure(.dateOfBirthMismatch)
 			}
 
 			healthCertifiedPerson.healthCertificates.append(healthCertificate)
+			healthCertifiedPerson.healthCertificates.sort(by: <)
 
 			if !healthCertifiedPersons.value.contains(healthCertifiedPerson) {
 				healthCertifiedPersons.value.append(healthCertifiedPerson)
-			}
-
-			if healthCertificate.isEligibleForProofCertificate {
-				healthCertifiedPerson.proofCertificateUpdatePending = true
 			}
 
 			return .success((healthCertifiedPerson))
@@ -86,8 +83,6 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 
 				if healthCertifiedPerson.healthCertificates.isEmpty {
 					healthCertifiedPersons.value.removeAll(where: { $0 == healthCertifiedPerson })
-				} else if healthCertificate.isEligibleForProofCertificate {
-					healthCertifiedPerson.proofCertificateUpdatePending = true
 				}
 
 				break
