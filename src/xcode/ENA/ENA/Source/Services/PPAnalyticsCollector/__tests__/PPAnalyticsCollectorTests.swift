@@ -111,6 +111,10 @@ class PPAnalyticsCollectorTests: XCTestCase {
 		countOfDeletedProperties += 1
 		XCTAssertNil(store.previousENFRiskExposureMetadata)
 		countOfDeletedProperties += 1
+		XCTAssertNil(store.currentCheckinRiskExposureMetadata)
+		countOfDeletedProperties += 1
+		XCTAssertNil(store.previousCheckinRiskExposureMetadata)
+		countOfDeletedProperties += 1
 		XCTAssertNil(store.userMetadata)
 		countOfDeletedProperties += 1
 		XCTAssertNil(store.lastSubmittedPPAData)
@@ -128,6 +132,10 @@ class PPAnalyticsCollectorTests: XCTestCase {
 		XCTAssertNil(store.keySubmissionMetadata)
 		countOfDeletedProperties += 1
 		XCTAssertNil(store.exposureWindowsMetadata)
+		countOfDeletedProperties += 1
+		XCTAssertNil(store.dateOfConversionToENFHighRisk)
+		countOfDeletedProperties += 1
+		XCTAssertNil(store.dateOfConversionToCheckinHighRisk)
 		countOfDeletedProperties += 1
 		
 		XCTAssertEqual(countOfPropertiesToDelete, countOfDeletedProperties, "The count must match. Did you perhaps forget to delete a property in Analytics.deleteAnalyticsData()?")

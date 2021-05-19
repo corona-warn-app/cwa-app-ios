@@ -39,8 +39,6 @@ protocol PPAnalyticsData: AnyObject {
 	var dateOfConversionToENFHighRisk: Date? { get set }
 	/// Date when the event risk was changed to high
 	var dateOfConversionToCheckinHighRisk: Date? { get set }
-
-
 }
 
 extension SecureStore: PPAnalyticsData {

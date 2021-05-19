@@ -61,6 +61,8 @@ enum PPAnalyticsCollector {
 	static func deleteAnalyticsData() {
 		store?.currentENFRiskExposureMetadata = nil
 		store?.previousENFRiskExposureMetadata = nil
+		store?.currentCheckinRiskExposureMetadata = nil
+		store?.previousCheckinRiskExposureMetadata = nil
 		store?.userMetadata = nil
 		store?.lastSubmittedPPAData = nil
 		store?.submittedWithQR = false
@@ -70,6 +72,9 @@ enum PPAnalyticsCollector {
 		store?.testResultMetadata = nil
 		store?.keySubmissionMetadata = nil
 		store?.exposureWindowsMetadata = nil
+		store?.dateOfConversionToENFHighRisk = nil
+		store?.dateOfConversionToCheckinHighRisk = nil
+
 		Log.info("Deleted all analytics data in the store", log: .ppa)
 	}
 
