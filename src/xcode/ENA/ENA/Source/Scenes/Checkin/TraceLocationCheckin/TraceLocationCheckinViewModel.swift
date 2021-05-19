@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-final class TraceLocationDetailViewModel {
+final class TraceLocationCheckinViewModel {
 
 	// MARK: - Init
 	

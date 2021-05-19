@@ -20,6 +20,14 @@ class HealthCertificateSimpleTextCell: UITableViewCell, ReuseIdentifierProviding
 		fatalError("init(coder:) has not been implemented")
 	}
 
+	// MARK: - Overrides
+
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+
+		updateBorderWidth()
+	}
+
 	// MARK: - Internal
 
 	func configure(with cellViewModel: HealthCertificateSimpleTextCellViewModel) {
@@ -53,7 +61,7 @@ class HealthCertificateSimpleTextCell: UITableViewCell, ReuseIdentifierProviding
 		}
 		backgroundContainerView.layer.cornerRadius = 15.0
 		backgroundContainerView.layer.masksToBounds = true
-		backgroundContainerView.layer.borderWidth = 1.0
+		updateBorderWidth()
 
 		backgroundContainerView.translatesAutoresizingMaskIntoConstraints = false
 		contentView.addSubview(backgroundContainerView)
@@ -78,4 +86,9 @@ class HealthCertificateSimpleTextCell: UITableViewCell, ReuseIdentifierProviding
 			]
 		)
 	}
+
+	private func updateBorderWidth() {
+		backgroundContainerView.layer.borderWidth = traitCollection.userInterfaceStyle == .dark ? 0 : 1
+	}
+
 }
