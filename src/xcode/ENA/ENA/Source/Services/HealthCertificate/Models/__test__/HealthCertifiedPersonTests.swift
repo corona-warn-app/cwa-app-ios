@@ -12,7 +12,7 @@ class HealthCertifiedPersonTests: XCTestCase {
 
 	func testHealthCertifiedPersonObjectDidChangeTriggered() throws {
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [])
-		let healthCertificate = HealthCertificate.mock()
+		let healthCertificate = HealthCertificate.mock(base45: HealthCertificate.firstBase45Mock)
 
 		let objectDidChangeExpectation = expectation(description: "objectDidChange publisher updated")
 
