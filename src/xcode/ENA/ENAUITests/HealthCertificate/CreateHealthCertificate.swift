@@ -28,8 +28,7 @@ class CreateHealthCertificate: XCTestCase {
 
 		/// Home Screen
 		let registerCertificateTitle = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.Home.registerHealthCertificateButton])
-		XCTAssertTrue(registerCertificateTitle.waitForExistence(timeout: .short))
-		registerCertificateTitle.tap()
+		registerCertificateTitle.waitAndTap()
 
 		// HealthCertificate consent screen tap on disclaimer
 		let disclaimerButton = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Info.disclaimer])
@@ -45,8 +44,7 @@ class CreateHealthCertificate: XCTestCase {
 
 		/// Home Screen
 		let registerCertificateTitle = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.Home.registerHealthCertificateButton])
-		XCTAssertTrue(registerCertificateTitle.waitForExistence(timeout: .short))
-		registerCertificateTitle.tap()
+		registerCertificateTitle.waitAndTap()
 
 		// HealthCertificate consent screen
 		let primaryButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton])
@@ -80,11 +78,11 @@ class CreateHealthCertificate: XCTestCase {
 
 		// QRCode Scanner - close via flash will submit a healthCertificate
 		let flashBarButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.ExposureSubmissionQRScanner.flash])
-		flashBarButton.waitAndTap(.short)
+		flashBarButton.waitAndTap()
 
 		// Certified Person screen
 		let certificateCell = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Person.certificateCell])
-		certificateCell.waitAndTap(.short)
+		certificateCell.waitAndTap()
 
 		// Certificate Screen
 		let headlineCell = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Certificate.headline])
