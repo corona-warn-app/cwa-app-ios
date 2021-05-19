@@ -47,7 +47,6 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 		label.font = cellModel.font
 		
 		headerStackView.accessibilityLabel = cellModel.text
-		headerStackView.accessibilityIdentifier = "test"
 
 		setUpParameterViews()
 

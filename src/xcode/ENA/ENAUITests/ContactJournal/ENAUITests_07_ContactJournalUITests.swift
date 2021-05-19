@@ -532,6 +532,7 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 
 		XCTAssertTrue(dayCell.staticTexts["Max Mustermann"].exists)
 		XCTAssertTrue(dayCell.staticTexts["Bäckerei"].exists)
+		// XCTAssertFalse(dayCell.staticTexts["Erika Musterfrau"].exists)
 	}
 
 	func test_screenshot_ContactJournalInformation() throws {
