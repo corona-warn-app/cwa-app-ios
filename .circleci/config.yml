@@ -119,7 +119,7 @@ jobs:
           key: *tools_cache_key
       - run:
           name: Prelaunch Simulator
-          command: open -b com.apple.iphonesimulator
+          command: xcrun instruments -w "iPhone 11 (14.4)" || true
       - run:
           name: Run Tests
           shell: /bin/bash -o pipefail
