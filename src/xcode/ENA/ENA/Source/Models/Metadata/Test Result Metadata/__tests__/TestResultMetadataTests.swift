@@ -114,7 +114,7 @@ class TestResultMetadataTests: XCTestCase {
 		if let registrationDate = Calendar.current.date(byAdding: .day, value: -4, to: Date()) {
 			Analytics.collect(.testResultMetadata(.registerNewTestMetadata(registrationDate, "Token", .pcr)))
 			Analytics.collect(.testResultMetadata(.updateTestResult(.positive, "Token", .pcr)))
-//			Analytics.collect(.testResultMetadata(.testResultHoursSinceTestRegistration(0)))
+			secureStore.testResultMetadata?.hoursSinceTestRegistration = 0
 		} else {
 			XCTFail("registration date is nil")
 		}

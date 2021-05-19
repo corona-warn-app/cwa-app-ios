@@ -371,6 +371,11 @@ extension PPAnalyticsCollector {
 		PPAnalyticsCollector.store = store
 		PPAnalyticsCollector.submitter = submitter
 		PPAnalyticsCollector.coronaTestService = coronaTestService
+
+		if let store = store {
+			let testResultCollector = PPAAnalyticsTestResultCollector(store: store)
+			PPAnalyticsCollector.testResultCollector = testResultCollector
+		}
 	}
 
 	/// ONLY FOR TESTING. Returns the last successful submitted data.
