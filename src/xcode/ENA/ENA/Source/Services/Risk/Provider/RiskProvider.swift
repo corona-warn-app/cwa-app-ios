@@ -229,6 +229,7 @@ final class RiskProvider: RiskProviding {
 		guard group.wait(timeout: DispatchTime.now() + timeoutInterval) == .success else {
 			updateActivityState(.idle)
 			exposureDetection?.cancel()
+			exposureDetection = nil
 			Log.info("RiskProvider: Canceled risk calculation due to timeout", log: .riskDetection)
 			failOnTargetQueue(error: .timeout)
 			return
@@ -364,13 +365,13 @@ final class RiskProvider: RiskProviding {
 		
 		self.updateActivityState(.detecting)
 
-		let _exposureDetection = ExposureDetection(
+		exposureDetection = ExposureDetection(
 			delegate: exposureDetectionExecutor,
 			appConfiguration: appConfiguration,
 			deviceTimeCheck: DeviceTimeCheck(store: store)
 		)
 
-		_exposureDetection.start { result in
+		exposureDetection?.start { [weak self] result in
 			switch result {
 			case .success(let detectedExposureWindows):
 				Log.info("RiskProvider: Detect exposure completed", log: .riskDetection)
@@ -382,9 +383,8 @@ final class RiskProvider: RiskProviding {
 
 				completion(.failure(.failedRiskDetection(error)))
 			}
+			self?.exposureDetection = nil
 		}
-
-		self.exposureDetection = _exposureDetection
 	}
 
 	private func calculateRiskLevel(exposureWindows: [ExposureWindow], appConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS, completion: Completion) {
