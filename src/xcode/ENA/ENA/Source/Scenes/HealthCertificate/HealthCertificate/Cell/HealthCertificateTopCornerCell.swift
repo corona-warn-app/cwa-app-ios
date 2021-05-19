@@ -31,7 +31,7 @@ class HealthCertificateTopCornerCell: UITableViewCell, ReuseIdentifierProviding 
 
 		let tileView = UIView()
 		tileView.translatesAutoresizingMaskIntoConstraints = false
-		tileView.backgroundColor = .enaColor(for: .darkBackground)
+		tileView.backgroundColor = .enaColor(for: .cellBackground2)
 		tileView.layer.borderWidth = 0.0
 		tileView.layer.cornerRadius = 12.0
 		tileView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
@@ -41,7 +41,7 @@ class HealthCertificateTopCornerCell: UITableViewCell, ReuseIdentifierProviding 
 		contentView.addSubview(tileView)
 
 		NSLayoutConstraint.activate([
-			tileView.topAnchor.constraint(equalTo: contentView.topAnchor),
+			tileView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 4.0),
 			tileView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
 			tileView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.0),
 			tileView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.0),
