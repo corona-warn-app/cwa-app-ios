@@ -356,6 +356,12 @@ final class RiskProvider: RiskProviding {
 		appConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS,
 		completion: @escaping (Result<[ExposureWindow], RiskProviderError>) -> Void
 	) {
+		guard exposureDetection == nil else {
+			// exposureDetection was already set and is therefor running so there is nothing to do here.
+			// in the future someone should debug why this funtion is called twice in the first place.
+			return
+		}
+		
 		self.updateActivityState(.detecting)
 
 		let _exposureDetection = ExposureDetection(
