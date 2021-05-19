@@ -131,7 +131,7 @@ jobs:
               -workspace "ENA.xcworkspace" \
               -scheme ENA \
               -destination "platform=iOS Simulator,OS=14.4,name=iPhone 11" \
-              -testPlan AllTests \
+              -testPlan SmokeTests \
               -only-test-configuration "DE" \
               -derivedDataPath "./DerivedData" \
               -enableCodeCoverage YES \
