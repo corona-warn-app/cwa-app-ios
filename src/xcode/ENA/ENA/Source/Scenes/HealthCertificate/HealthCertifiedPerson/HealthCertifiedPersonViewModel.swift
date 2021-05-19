@@ -120,7 +120,7 @@ final class HealthCertifiedPersonViewModel {
 		}
 
 		return HealthCertificateSimpleTextCellViewModel(
-			backgroundColor: .enaColor(for: .background),
+			backgroundColor: .enaColor(for: .cellBackground2),
 			textAlignment: .left,
 			text: String(
 				format: AppStrings.HealthCertificate.Person.daysUntilCompleteProtection,
@@ -159,7 +159,7 @@ final class HealthCertifiedPersonViewModel {
 		)
 
 		return HealthCertificateSimpleTextCellViewModel(
-			backgroundColor: .enaColor(for: .background),
+			backgroundColor: .enaColor(for: .cellBackground2),
 			attributedText: [attributedName, attributedDetails].joined(with: "\n"),
 			topSpace: 18.0,
 			font: .enaFont(for: .headline),
