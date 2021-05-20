@@ -42,7 +42,7 @@ class DynamicTableViewConsentCell: UITableViewCell {
 		backgroundColor = .enaColor(for: .background)
 		
 		// MARK: - Add consent view
-		consentView.backgroundColor = .enaColor(for: .separator)
+		consentView.backgroundColor = .enaColor(for: .cellBackground3)
 		consentView.layer.cornerRadius = 16.0
 		contentView.addSubview(consentView)
 		

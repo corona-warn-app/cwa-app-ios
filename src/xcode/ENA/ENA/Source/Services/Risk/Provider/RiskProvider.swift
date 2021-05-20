@@ -119,15 +119,17 @@ final class RiskProvider: RiskProviding {
 						}
 						switch result {
 						case .success:
-							// this should not actually determine risk but use a previous, still valid risk and return that
-							self.determineRisk(userInitiated: userInitiated, appConfiguration: appConfiguration) { result in
-								switch result {
-								case .success(let risk):
-									self.successOnTargetQueue(risk: risk)
-								case .failure(let error):
-									self.failOnTargetQueue(error: error)
-								}
+
+							// Try to obtain already calculated risk.
+							if let risk = self.previousRiskIfExistingAndNotExpired(userInitiated: userInitiated) {
+								Log.info("RiskProvider: Using risk from previous detection", log: .riskDetection)
+
+								self.successOnTargetQueue(risk: risk)
+							} else {
+								self.failOnTargetQueue(error: .deactivatedDueToActiveTest)
 							}
+							return
+
 						case .failure(let error):
 							self.failOnTargetQueue(error: error)
 						}
@@ -479,6 +481,10 @@ final class RiskProvider: RiskProviding {
 
 	private func updateActivityState(_ state: RiskProviderActivityState) {
 		Log.info("RiskProvider: Update activity state to: \(state)", log: .riskDetection)
+
+		guard self.activityState != state else {
+			return
+		}
 
 		self.activityState = state
 

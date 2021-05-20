@@ -603,8 +603,7 @@ class ENAUITests_04a_ExposureSubmission: XCTestCase {
 
 		app.cells.buttons[AccessibilityIdentifiers.Home.TestResultCell.availablePCRButton].waitAndTap()
 
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitForExistence(timeout: .long))
-		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].tap()
+		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitAndTap(.long)
 		
 		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.primaryButton"].waitForExistence(timeout: .long))
 		
