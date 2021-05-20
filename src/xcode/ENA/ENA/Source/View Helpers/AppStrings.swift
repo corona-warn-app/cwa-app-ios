@@ -1145,6 +1145,13 @@ enum AppStrings {
 			static let riskTextLowRiskEncountersCause = NSLocalizedString("ContactDiary_Overview_Risk_Text_LowRiskEncountersCause", comment: "")
 			static let riskTextDisclaimer = NSLocalizedString("ContactDiary_Overview_Risk_Text_Disclaimer", comment: "")
 
+			enum tests {
+				static let PCRRegistered = NSLocalizedString("ContactDiary_Overview_Tests_PCR_Registered", comment: "")
+				static let AntigenDone = NSLocalizedString("ContactDiary_Overview_Tests_Antigen_Done", comment: "")
+				static let negativeResult = NSLocalizedString("ContactDiary_Overview_Tests_Negative_Result", comment: "")
+				static let positiveResult = NSLocalizedString("ContactDiary_Overview_Tests_Positive_Result", comment: "")
+			}
+
 			enum ActionSheet {
 				static let infoActionTitle = NSLocalizedString("ContactDiary_Overview_ActionSheet_InfoActionTitle", comment: "")
 				static let exportActionTitle = NSLocalizedString("ContactDiary_Overview_ActionSheet_ExportActionTitle", comment: "")
