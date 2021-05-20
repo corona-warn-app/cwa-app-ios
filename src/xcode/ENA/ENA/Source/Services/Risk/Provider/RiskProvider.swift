@@ -295,11 +295,8 @@ final class RiskProvider: RiskProviding {
 		// 2. There is a previous risk that is still valid and should not be recalculated
 		if let risk = previousRiskIfExistingAndNotExpired(userInitiated: userInitiated) {
 			Log.info("RiskProvider: Using risk from previous detection", log: .riskDetection)
-			
-			// fill in the risk exposure metadata if new risk calculation is not done in the meanwhile
-			if let riskCalculationResult = store.enfRiskCalculationResult {
-				Analytics.collect(.riskExposureMetadata(.updateENFRiskExposureMetadata(riskCalculationResult)))
-			}
+			// update the risk exposure metadatas if new risk calculations are not done in the meanwhile
+			Analytics.collect(.riskExposureMetadata(.update))
 			completion(.success(risk))
 			return
 		}
@@ -404,8 +401,7 @@ final class RiskProvider: RiskProviding {
 		store.checkinRiskCalculationResult = checkinRiskCalculationResult
 
 		checkIfRiskStatusLoweredAlertShouldBeShown(risk)
-		Analytics.collect(.riskExposureMetadata(.updateENFRiskExposureMetadata(riskCalculationResult)))
-
+		Analytics.collect(.riskExposureMetadata(.update))
 		completion(.success(risk))
 
 		/// We were able to calculate a risk so we have to reset the DeadMan Notification

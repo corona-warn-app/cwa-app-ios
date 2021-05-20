@@ -122,10 +122,17 @@ enum PPAnalyticsCollector {
 
 	private static func logRiskExposureMetadata(_ riskExposureMetadata: PPARiskExposureMetadata) {
 		switch riskExposureMetadata {
-		case let .updateENFRiskExposureMetadata(riskCalculationResult):
-			Analytics.updateENFRiskExposureMetadata(riskCalculationResult)
-		case let .updateCheckinRiskExposureMetadata(riskCalculationResult):
-			Analytics.updateCheckinRiskExposureMetadata(riskCalculationResult)
+		case .update:
+			Analytics.gatherRisksAndUpdateMetadata()
+		}
+	}
+	
+	private static func gatherRisksAndUpdateMetadata() {
+		if let enfRiskCalculationResult = store?.enfRiskCalculationResult {
+			updateENFRiskExposureMetadata(enfRiskCalculationResult)
+		}
+		if let checkinRiskCalculationResult = store?.checkinRiskCalculationResult {
+			updateCheckinRiskExposureMetadata(checkinRiskCalculationResult)
 		}
 	}
 
