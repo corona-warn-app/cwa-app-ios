@@ -40,7 +40,7 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 		backgroundContainerView.layer.borderColor = cellViewModel.borderColor.cgColor
 		certificateCountLabel.text = cellViewModel.certificate
 		validityLabel.text = cellViewModel.validity
-		qrCodeImageView.accessibilityLabel = cellViewModel.accessibility
+		qrCodeImageView.accessibilityLabel = cellViewModel.accessibilityText
 	}
 
 	// MARK: - Private

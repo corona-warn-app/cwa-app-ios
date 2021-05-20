@@ -113,7 +113,7 @@ final class HealthCertifiedPersonViewModel {
 
 		return HealthCertificateQRCodeCellViewModel(
 			healthCertificate: latestHealthCertificate,
-			accessibility: AppStrings.HealthCertificate.Person.QRCodeImageDescription
+			accessibilityText: AppStrings.HealthCertificate.Person.QRCodeImageDescription
 		)
 	}
 

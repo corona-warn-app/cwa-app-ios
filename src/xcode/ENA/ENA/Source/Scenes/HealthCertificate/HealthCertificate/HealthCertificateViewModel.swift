@@ -18,7 +18,7 @@ final class HealthCertificateViewModel {
 		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
 		self.qrCodeCellViewModel = HealthCertificateQRCodeCellViewModel(
 			healthCertificate: healthCertificate,
-			accessibility: String(
+			accessibilityText: String(
 				format: AppStrings.HealthCertificate.Details.QRCodeImageDescription,
 				healthCertificate.doseNumber, healthCertificate.totalSeriesOfDoses
 			)

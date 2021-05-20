@@ -10,7 +10,7 @@ struct HealthCertificateQRCodeCellViewModel {
 
 	init(
 		healthCertificate: HealthCertificateData,
-		accessibility: String?
+		accessibilityText: String?
 	) {
 		var dateOfVaccination: String = ""
 		if let vaccinationDate = healthCertificate.dateOfVaccination {
@@ -34,7 +34,7 @@ struct HealthCertificateQRCodeCellViewModel {
 			size: CGSize(width: qrCodeSize, height: qrCodeSize),
 			qrCodeErrorCorrectionLevel: .quartile
 		) ?? UIImage()
-		self.accessibility = accessibility
+		self.accessibilityText = accessibilityText
 	}
 
 	// MARK: - Internal
@@ -44,5 +44,5 @@ struct HealthCertificateQRCodeCellViewModel {
 	let certificate: String
 	let validity: String
 	let qrCodeImage: UIImage
-	let accessibility: String?
+	let accessibilityText: String?
 }
