@@ -355,6 +355,9 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 					completion?(result)
 				case let .failure(error):
 					Log.error("Analytics data were not submitted. Error: \(error)", log: .ppa, error: error)
+					// tech spec says, we want a fresh state if submission fails
+					self?.store.currentENFRiskExposureMetadata = nil
+					self?.store.currentCheckinRiskExposureMetadata = nil
 					self?.submissionState = .readyForSubmission
 					completion?(result)
 				}

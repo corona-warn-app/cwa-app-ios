@@ -121,14 +121,18 @@ enum PPAnalyticsCollector {
 
 	private static func logRiskExposureMetadata(_ riskExposureMetadata: PPARiskExposureMetadata) {
 		switch riskExposureMetadata {
-		case let .create(metaData):
+		case let .createENF(metaData):
 			store?.currentENFRiskExposureMetadata = metaData
-		case let .updateRiskExposureMetadata(riskCalculationResult):
-			Analytics.updateRiskExposureMetadata(riskCalculationResult)
+		case let .updateENFRiskExposureMetadata(riskCalculationResult):
+			Analytics.updateENFRiskExposureMetadata(riskCalculationResult)
+		case let .createCheckin(metaData):
+			store?.currentCheckinRiskExposureMetadata = metaData
+		case let .updateCheckinRiskExposureMetadata(riskCalculationResult):
+			Analytics.updateCheckinRiskExposureMetadata(riskCalculationResult)
 		}
 	}
 
-	private static func updateRiskExposureMetadata(_ enfRiskCalculationResult: ENFRiskCalculationResult) {
+	private static func updateENFRiskExposureMetadata(_ enfRiskCalculationResult: ENFRiskCalculationResult) {
 		let riskLevel = enfRiskCalculationResult.riskLevel
 		let riskLevelChangedComparedToPreviousSubmission: Bool
 		let dateChangedComparedToPreviousSubmission: Bool
@@ -170,7 +174,7 @@ enum PPAnalyticsCollector {
 				riskLevelChangedComparedToPreviousSubmission: riskLevelChangedComparedToPreviousSubmission,
 				dateChangedComparedToPreviousSubmission: dateChangedComparedToPreviousSubmission
 			)
-			Analytics.collect(.riskExposureMetadata(.create(newRiskExposureMetadata)))
+			Analytics.collect(.riskExposureMetadata(.createENF(newRiskExposureMetadata)))
 			return
 		}
 		let newRiskExposureMetadata = RiskExposureMetadata(
@@ -179,7 +183,61 @@ enum PPAnalyticsCollector {
 			mostRecentDateAtRiskLevel: mostRecentDateWithCurrentRiskLevel,
 			dateChangedComparedToPreviousSubmission: dateChangedComparedToPreviousSubmission
 		)
-		Analytics.collect(.riskExposureMetadata(.create(newRiskExposureMetadata)))
+		Analytics.collect(.riskExposureMetadata(.createENF(newRiskExposureMetadata)))
+	}
+	
+	private static func updateCheckinRiskExposureMetadata(_ checkinRiskCalculationResult: CheckinRiskCalculationResult) {
+		let riskLevel = checkinRiskCalculationResult.riskLevel
+		let riskLevelChangedComparedToPreviousSubmission: Bool
+		let dateChangedComparedToPreviousSubmission: Bool
+
+		// if there is a risk level value stored for previous submission
+		if store?.previousCheckinRiskExposureMetadata?.riskLevel != nil {
+			if riskLevel !=
+				store?.previousCheckinRiskExposureMetadata?.riskLevel {
+				// if there is a change in risk level
+				riskLevelChangedComparedToPreviousSubmission = true
+			} else {
+				// if there is no change in risk level
+				riskLevelChangedComparedToPreviousSubmission = false
+			}
+		} else {
+			// for the first time, the field is set to false
+			riskLevelChangedComparedToPreviousSubmission = false
+		}
+
+		// if there is most recent date store for previous submission
+		if store?.previousCheckinRiskExposureMetadata?.mostRecentDateAtRiskLevel != nil {
+			if checkinRiskCalculationResult.mostRecentDateWithCurrentRiskLevel !=
+				store?.previousCheckinRiskExposureMetadata?.mostRecentDateAtRiskLevel {
+				// if there is a change in date
+				dateChangedComparedToPreviousSubmission = true
+			} else {
+				// if there is no change in date
+				dateChangedComparedToPreviousSubmission = false
+			}
+		} else {
+			// for the first time, the field is set to false
+			dateChangedComparedToPreviousSubmission = false
+		}
+
+		guard let mostRecentDateWithCurrentRiskLevel = checkinRiskCalculationResult.mostRecentDateWithCurrentRiskLevel else {
+			// most recent date is not available because of no exposure
+			let newRiskExposureMetadata = RiskExposureMetadata(
+				riskLevel: riskLevel,
+				riskLevelChangedComparedToPreviousSubmission: riskLevelChangedComparedToPreviousSubmission,
+				dateChangedComparedToPreviousSubmission: dateChangedComparedToPreviousSubmission
+			)
+			Analytics.collect(.riskExposureMetadata(.createCheckin(newRiskExposureMetadata)))
+			return
+		}
+		let newRiskExposureMetadata = RiskExposureMetadata(
+			riskLevel: riskLevel,
+			riskLevelChangedComparedToPreviousSubmission: riskLevelChangedComparedToPreviousSubmission,
+			mostRecentDateAtRiskLevel: mostRecentDateWithCurrentRiskLevel,
+			dateChangedComparedToPreviousSubmission: dateChangedComparedToPreviousSubmission
+		)
+		Analytics.collect(.riskExposureMetadata(.createCheckin(newRiskExposureMetadata)))
 	}
 
 	// MARK: - TestResultMetadata

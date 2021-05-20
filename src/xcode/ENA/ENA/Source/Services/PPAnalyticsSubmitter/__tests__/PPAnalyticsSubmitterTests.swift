@@ -634,7 +634,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 
-		Analytics.collect(.riskExposureMetadata(.updateRiskExposureMetadata(riskCalculationResult)))
+		Analytics.collect(.riskExposureMetadata(.updateENFRiskExposureMetadata(riskCalculationResult)))
 		XCTAssertNotNil(store.currentENFRiskExposureMetadata, "riskMetadata should be allocated")
 		XCTAssertEqual(store.currentENFRiskExposureMetadata?.riskLevel, riskLevel, "Wrong riskLevel")
 		XCTAssertEqual(store.currentENFRiskExposureMetadata?.riskLevelChangedComparedToPreviousSubmission, false, "should be false as this is the first submission")

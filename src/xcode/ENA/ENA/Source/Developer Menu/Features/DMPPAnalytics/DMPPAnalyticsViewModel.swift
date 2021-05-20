@@ -60,7 +60,7 @@ final class DMPPAnalyticsViewModel {
 				action: { [weak self] in
 					// it's added for the testers in case of force submission
 					if let enfRiskCalculationResult = self?.store.enfRiskCalculationResult {
-						Analytics.collect(.riskExposureMetadata(.updateRiskExposureMetadata(enfRiskCalculationResult)))
+						Analytics.collect(.riskExposureMetadata(.updateENFRiskExposureMetadata(enfRiskCalculationResult)))
 					}
 					Analytics.forcedAnalyticsSubmission(completion: { [weak self] result in
 						switch result {

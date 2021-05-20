@@ -298,7 +298,7 @@ final class RiskProvider: RiskProviding {
 			
 			// fill in the risk exposure metadata if new risk calculation is not done in the meanwhile
 			if let riskCalculationResult = store.enfRiskCalculationResult {
-				Analytics.collect(.riskExposureMetadata(.updateRiskExposureMetadata(riskCalculationResult)))
+				Analytics.collect(.riskExposureMetadata(.updateENFRiskExposureMetadata(riskCalculationResult)))
 			}
 			completion(.success(risk))
 			return
@@ -404,7 +404,7 @@ final class RiskProvider: RiskProviding {
 		store.checkinRiskCalculationResult = checkinRiskCalculationResult
 
 		checkIfRiskStatusLoweredAlertShouldBeShown(risk)
-		Analytics.collect(.riskExposureMetadata(.updateRiskExposureMetadata(riskCalculationResult)))
+		Analytics.collect(.riskExposureMetadata(.updateENFRiskExposureMetadata(riskCalculationResult)))
 
 		completion(.success(risk))
 
