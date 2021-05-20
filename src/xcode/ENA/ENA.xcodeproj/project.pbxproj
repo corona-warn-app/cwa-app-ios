@@ -1050,6 +1050,7 @@
 		BAEFB3562656A79700497F79 /* ContactDiaryMigration4To5.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEFB3552656A74900497F79 /* ContactDiaryMigration4To5.swift */; };
 		BAEFB3572656A79700497F79 /* ContactDiaryStoreSchemaV5.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEFB3542656A74900497F79 /* ContactDiaryStoreSchemaV5.swift */; };
 		BAEFB35A2656B07A00497F79 /* ContactDiaryStoreSchemaV5Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEFB3592656B07A00497F79 /* ContactDiaryStoreSchemaV5Tests.swift */; };
+		BAEFB35C2656B20A00497F79 /* ContactDiaryMigration4To5Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEFB35B2656B20A00497F79 /* ContactDiaryMigration4To5Tests.swift */; };
 		BAF2DD5225C9BABA00D7DFB7 /* DMButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF2DD5125C9BABA00D7DFB7 /* DMButtonTableViewCell.swift */; };
 		BAF2DD5725C9BAF700D7DFB7 /* DMButtonCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF2DD5625C9BAF700D7DFB7 /* DMButtonCellViewModel.swift */; };
 		BAF5371625E7CC1B00C835E2 /* Sequence+NSAttributedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF5371525E7CC1B00C835E2 /* Sequence+NSAttributedText.swift */; };
@@ -2242,6 +2243,7 @@
 		BAEFB3542656A74900497F79 /* ContactDiaryStoreSchemaV5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryStoreSchemaV5.swift; sourceTree = "<group>"; };
 		BAEFB3552656A74900497F79 /* ContactDiaryMigration4To5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryMigration4To5.swift; sourceTree = "<group>"; };
 		BAEFB3592656B07A00497F79 /* ContactDiaryStoreSchemaV5Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryStoreSchemaV5Tests.swift; sourceTree = "<group>"; };
+		BAEFB35B2656B20A00497F79 /* ContactDiaryMigration4To5Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryMigration4To5Tests.swift; sourceTree = "<group>"; };
 		BAF2DD5125C9BABA00D7DFB7 /* DMButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMButtonTableViewCell.swift; sourceTree = "<group>"; };
 		BAF2DD5625C9BAF700D7DFB7 /* DMButtonCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMButtonCellViewModel.swift; sourceTree = "<group>"; };
 		BAF5371525E7CC1B00C835E2 /* Sequence+NSAttributedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+NSAttributedText.swift"; sourceTree = "<group>"; };
@@ -6529,6 +6531,7 @@
 			isa = PBXGroup;
 			children = (
 				BAEFB3592656B07A00497F79 /* ContactDiaryStoreSchemaV5Tests.swift */,
+				BAEFB35B2656B20A00497F79 /* ContactDiaryMigration4To5Tests.swift */,
 			);
 			path = StoreV5;
 			sourceTree = "<group>";
@@ -7918,6 +7921,7 @@
 				015692E424B48C3F0033F35E /* TimeInterval+Convenience.swift in Sources */,
 				50E8F1282626C735000056EE /* ExposureSubmissionSuccessViewControllerTest.swift in Sources */,
 				01A1B467252E19D000841B63 /* ExposureSubmissionCoordinatorModelTests.swift in Sources */,
+				BAEFB35C2656B20A00497F79 /* ContactDiaryMigration4To5Tests.swift in Sources */,
 				BA7F15A12629D3F200CA4783 /* RouteTests.swift in Sources */,
 				B1EAEC8F247118D1003BE9A2 /* URLSession+ConvenienceTests.swift in Sources */,
 				A32C046524D96348005BEA61 /* HTTPClient+PlausibeDeniabilityTests.swift in Sources */,
