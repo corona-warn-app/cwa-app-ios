@@ -140,7 +140,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		super.viewDidAppear(animated)
 
 		#if DEBUG
-		if isUITesting && UserDefaults.standard.string(forKey: "showTestResultCards") == "YES" {
+		if isUITesting && UserDefaults.standard.bool(forKey: UITestingLaunchArguments.test.common.showTestResultCards.remove(prefix: "-")) {
 			tableView.scrollToRow(at: IndexPath(row: 1, section: 1), at: .top, animated: false)
 		}
 		#endif
@@ -739,8 +739,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 	private func showInformationHowRiskDetectionWorksIfNeeded(completion: @escaping () -> Void = {}) {
 		#if DEBUG
-		if isUITesting, let showInfo = UserDefaults.standard.string(forKey: "userNeedsToBeInformedAboutHowRiskDetectionWorks") {
-			viewModel.store.userNeedsToBeInformedAboutHowRiskDetectionWorks = (showInfo == "YES")
+		if isUITesting {
+			viewModel.store.userNeedsToBeInformedAboutHowRiskDetectionWorks = UserDefaults.standard.bool(forKey: UITestingLaunchArguments.infoScreen.userNeedsToBeInformedAboutHowRiskDetectionWorks.remove(prefix: "-"))
 		}
 		#endif
 

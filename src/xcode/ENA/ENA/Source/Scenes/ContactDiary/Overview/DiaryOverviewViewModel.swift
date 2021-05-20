@@ -95,9 +95,9 @@ class DiaryOverviewViewModel {
 	
 	private func checkinsWithRiskFor(day: Date) -> [CheckinWithRisk] {
 		#if DEBUG
-		// ui test data for launch argument "-checkinRiskLevel"
+		// ui test data for launch argument UITestingLaunchArguments.risk.checkinRiskLevel
 		if isUITesting {
-			if let checkinRisk = UserDefaults.standard.string(forKey: "checkinRiskLevel") {
+			if let checkinRisk = UserDefaults.standard.string(forKey: UITestingLaunchArguments.risk.checkinRiskLevel.remove(prefix: "-")) {
 				let rawValue = checkinRisk == "high" ? 2 : 1
 				let riskLevel = RiskLevel(rawValue: rawValue)
                 return createFakeDataForCheckin(with: riskLevel ?? .low)

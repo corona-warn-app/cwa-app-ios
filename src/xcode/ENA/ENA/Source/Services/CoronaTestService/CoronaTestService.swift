@@ -697,7 +697,7 @@ class CoronaTestService {
 				testResult: testResult,
 				finalTestResultReceivedDate: testResult == .pending ? nil : Date(),
 				positiveTestResultWasShown: UserDefaults.standard.string(forKey: "pcrPositiveTestResultWasShown") == "YES",
-				isSubmissionConsentGiven: UserDefaults.standard.string(forKey: "isPCRSubmissionConsentGiven") == "YES",
+				isSubmissionConsentGiven: UserDefaults.standard.bool(forKey: UITestingLaunchArguments.consent.isPCRSubmissionConsentGiven.remove(prefix: "-")),
 				submissionTAN: nil,
 				keysSubmitted: UserDefaults.standard.string(forKey: "pcrKeysSubmitted") == "YES",
 				journalEntryCreated: false
@@ -730,18 +730,18 @@ class CoronaTestService {
 	private func mockTestResult(for coronaTestType: CoronaTestType) -> TestResult? {
 		switch coronaTestType {
 		case .pcr:
-			return UserDefaults.standard.string(forKey: "pcrTestResult").flatMap { TestResult(stringValue: $0) }
+			return UserDefaults.standard.string(forKey: UITestingLaunchArguments.test.pcr.pcrTestResult.remove(prefix: "-")).flatMap { TestResult(stringValue: $0) }
 		case .antigen:
-			return UserDefaults.standard.string(forKey: "antigenTestResult").flatMap { TestResult(stringValue: $0) }
+			return UserDefaults.standard.string(forKey: UITestingLaunchArguments.test.antigen.antigenTestResult.remove(prefix: "-")).flatMap { TestResult(stringValue: $0) }
 		}
 	}
 
 	private func mockTestResultResponse(for coronaTestType: CoronaTestType) -> TestResult? {
 		switch coronaTestType {
 		case .pcr:
-			return UserDefaults.standard.string(forKey: "pcrTestResultResponse").flatMap { TestResult(stringValue: $0) }
+			return UserDefaults.standard.string(forKey: UITestingLaunchArguments.test.pcr.pcrTestResultResponse.remove(prefix: "-")).flatMap { TestResult(stringValue: $0) }
 		case .antigen:
-			return UserDefaults.standard.string(forKey: "antigenTestResultResponse").flatMap { TestResult(stringValue: $0) }
+			return UserDefaults.standard.string(forKey: UITestingLaunchArguments.test.antigen.antigenTestResultResponse.remove(prefix: "-")).flatMap { TestResult(stringValue: $0) }
 		}
 	}
 

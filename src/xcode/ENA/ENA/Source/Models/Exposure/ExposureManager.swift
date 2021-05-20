@@ -38,7 +38,7 @@ struct ExposureManagerState: Equatable {
 			self.authorized = true
 			self.enabled = true
 
-			switch UserDefaults.standard.integer(forKey: "ENStatus") {
+			switch UserDefaults.standard.integer(forKey: UITestingLaunchArguments.common.ENStatus.remove(prefix: "-")) {
 			case ENStatus.active.rawValue:
 				self.status = .active
 			case ENStatus.disabled.rawValue:

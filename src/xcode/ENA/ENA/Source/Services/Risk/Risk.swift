@@ -90,11 +90,11 @@ extension Risk {
 
 #if DEBUG
 extension Risk {
-	static let numberOfDaysWithRiskLevel = (UserDefaults.standard.string(forKey: "numberOfDaysWithRiskLevel") as NSString?)?.integerValue
-	static let numberOfDaysWithRiskLevelDefaultValue: Int = UserDefaults.standard.string(forKey: "riskLevel") == "high" ? 1 : 0
+	static let numberOfDaysWithRiskLevel = (UserDefaults.standard.string(forKey: UITestingLaunchArguments.risk.numberOfDaysWithRiskLevel.remove(prefix: "-")) as NSString?)?.integerValue
+	static let numberOfDaysWithRiskLevelDefaultValue: Int = UserDefaults.standard.string(forKey: UITestingLaunchArguments.risk.riskLevel.remove(prefix: "-")) == "high" ? 1 : 0
 	static let mocked = Risk(
-		// UITests can set app.launchArguments "-riskLevel"
-		level: UserDefaults.standard.string(forKey: "riskLevel") == "high" ? .high : .low,
+		// UITests can set app.launchArguments UITestingLaunchArguments.risk.riskLevel
+		level: UserDefaults.standard.string(forKey: UITestingLaunchArguments.risk.riskLevel.remove(prefix: "-")) == "high" ? .high : .low,
 		details: Risk.Details(
 			mostRecentDateWithRiskLevel: Date(timeIntervalSinceNow: -24 * 3600),
 			numberOfDaysWithRiskLevel: numberOfDaysWithRiskLevel ?? numberOfDaysWithRiskLevelDefaultValue,

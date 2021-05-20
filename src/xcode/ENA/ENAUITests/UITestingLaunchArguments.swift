@@ -32,31 +32,30 @@ enum UITestingLaunchArguments {
 		static let isDatadonationConsentGiven = "-isDatadonationConsentGiven"
 		static let isPCRSubmissionConsentGiven = "-isPCRSubmissionConsentGiven"
 	}
-	enum testResult {
+	enum test {
 		enum common {
-			static let testResultResponse = "-testResultResponse"
 			static let showTestResultCards = "-showTestResultCards"
 		}
 		enum pcr {
 			static let pcrTestResult = "-pcrTestResult"
+			static let pcrTestResultResponse = "-pcrTestResultResponse"
 			static let pcrPositiveTestResultWasShown = "-pcrPositiveTestResultWasShown"
 		}
 		enum antigen {
 			static let antigenTestResult = "-antigenTestResult"
+			static let antigenTestResultResponse = "-antigenTestResultResponse"
+			static let removeAntigenTestProfile = "-removeAntigenTestProfile"
 		}
-	}
-	enum testProfile {
-		static let removeAntigenTestProfile = "-removeAntigenTestProfile"
 	}
 	enum statistics {
 		static let useMockDataForStatistics = "-useMockDataForStatistics"
 	}
 	enum errorReport {
-		static elsLogActive = "-elsLogActive"
-		static elsCreateFakeHistory = "-elsCreateFakeHistory"
+		static let elsLogActive = "-elsLogActive"
+		static let elsCreateFakeHistory = "-elsCreateFakeHistory"
 	}
 	enum contactJournal {
-		static journalRemoveAllPersons = "-journalRemoveAllPersons"
-		static journalRemoveAllLocations = "-journalRemoveAllLocations"
+		static let journalRemoveAllPersons = "-journalRemoveAllPersons"
+		static let journalRemoveAllLocations = "-journalRemoveAllLocations"
 	}
 }

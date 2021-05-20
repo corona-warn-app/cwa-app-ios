@@ -20,8 +20,8 @@ class ENAUITests_04a_ExposureSubmission: XCTestCase {
 		app = XCUIApplication()
 		setupSnapshot(app)
 		app.setDefaults()
-		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
-		app.launchArguments.append(contentsOf: ["-setCurrentOnboardingVersion", "YES"])
+		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.onboarding.isOnboarded, YES])
+		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.onboarding.setCurrentOnboardingVersion, YES])
 	}
 
 	// MARK: - Test cases.
@@ -61,8 +61,8 @@ class ENAUITests_04a_ExposureSubmission: XCTestCase {
 	}
 	
 	func test_Switch_consentSubmission() {
-		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
-		app.launchArguments.append(contentsOf: ["-pcrTestResult", TestResult.pending.stringValue])
+		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.common.ENStatus, ENStatus.active.stringValue])
+		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.test.pcr.pcrTestResult, TestResult.pending.stringValue])
 		launch()
 		
 		// Open pending test result screen.
@@ -247,7 +247,7 @@ class ENAUITests_04a_ExposureSubmission: XCTestCase {
 	}
 
 	func test_SubmitTAN_CancelOnTestResultScreen() {
-		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
+		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.common.ENStatus, ENStatus.active.stringValue])
 		launch()
 
 		// monitor system dialogues and use default handler to simply dismiss any alert – we don't care for the result
@@ -287,7 +287,7 @@ class ENAUITests_04a_ExposureSubmission: XCTestCase {
 	}
 	
 	func test_SubmitTAN_SecondaryFlowWithoutSymptomsScreens() {
-		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
+		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.common.ENStatus, ENStatus.active.stringValue])
 		launch()
 
 		// monitor system dialogues and use default handler to simply dismiss any alert – we don't care for the result
@@ -332,9 +332,9 @@ class ENAUITests_04a_ExposureSubmission: XCTestCase {
 	
 	// Navigate to the Thank You screen after getting the positive test result.
 	func test_ThankYouScreen_withWarnOthers() {
-		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
-		app.launchArguments.append(contentsOf: ["-pcrTestResult", TestResult.positive.stringValue])
-		app.launchArguments.append(contentsOf: ["-pcrPositiveTestResultWasShown", "YES"])
+		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.common.ENStatus, ENStatus.active.stringValue])
+		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.test.pcr.pcrTestResult, TestResult.positive.stringValue])
+		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.test.pcr.pcrPositiveTestResultWasShown, YES])
 		launch()
 		
 		// Open Intro screen.
@@ -362,8 +362,8 @@ class ENAUITests_04a_ExposureSubmission: XCTestCase {
 
 	// Navigate to the Thank You screen with alert on Test Result Screen.
 	func test_ThankYouScreen_WarnOthersFromAlert() {
-		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
-		app.launchArguments.append(contentsOf: ["-pcrTestResult", TestResult.positive.stringValue])
+		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.common.ENStatus, ENStatus.active.stringValue])
+		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.test.pcr.pcrTestResult, TestResult.positive.stringValue])
 		launch()
 		
 		// Open Intro screen.
@@ -426,7 +426,7 @@ class ENAUITests_04a_ExposureSubmission: XCTestCase {
 	func test_screenshot_SubmitTAN() {
 		var screenshotCounter = 0
 
-		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
+		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.common.ENStatus, ENStatus.active.stringValue])
 		launch()
 
 		// monitor system dialogues and use default handler to simply dismiss any alert – we don't care for the result
@@ -476,7 +476,7 @@ class ENAUITests_04a_ExposureSubmission: XCTestCase {
 	func test_screenshot_SubmitQR() {
 		var screenshotCounter = 0
 
-		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
+		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.common.ENStatus, ENStatus.active.stringValue])
 
 		if #available(iOS 13.4, *) {
 			app.resetAuthorizationStatus(for: .camera)
@@ -523,7 +523,7 @@ class ENAUITests_04a_ExposureSubmission: XCTestCase {
 		try XCTSkipIf(Locale.current.identifier == "bg_BG") // temporary hack!
 		var screenshotCounter = 0
 
-		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.disabled.stringValue])
+		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.common.ENStatus, ENStatus.disabled.stringValue])
 		launch()
 		snapshot("tan_submissionflow_\(String(format: "%04d", (screenshotCounter.inc() )))")
 
@@ -556,8 +556,8 @@ class ENAUITests_04a_ExposureSubmission: XCTestCase {
 	}
 	
 	func test_screenshot_test_result_available() {
-		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
-		app.launchArguments.append(contentsOf: ["-pcrTestResult", TestResult.positive.stringValue])
+		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.common.ENStatus, ENStatus.active.stringValue])
+		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.test.pcr.pcrTestResult, TestResult.positive.stringValue])
 		launch()
 
 		// Open test result available screen.
@@ -569,8 +569,8 @@ class ENAUITests_04a_ExposureSubmission: XCTestCase {
 	}
 
 	func test_screenshot_test_result_pending() {
-		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
-		app.launchArguments.append(contentsOf: ["-pcrTestResult", TestResult.pending.stringValue])
+		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.common.ENStatus, ENStatus.active.stringValue])
+		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.test.pcr.pcrTestResult, TestResult.pending.stringValue])
 		launch()
 
 		// Open test result screen.
@@ -581,8 +581,8 @@ class ENAUITests_04a_ExposureSubmission: XCTestCase {
 	}
 
 	func test_screenshot_test_result_negative() {
-		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
-		app.launchArguments.append(contentsOf: ["-pcrTestResult", TestResult.negative.stringValue])
+		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.common.ENStatus, ENStatus.active.stringValue])
+		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.test.pcr.pcrTestResult, TestResult.negative.stringValue])
 		launch()
 
 		// Open test result screen.
@@ -593,10 +593,10 @@ class ENAUITests_04a_ExposureSubmission: XCTestCase {
 	}
 
 	func test_screenshot_test_result_positive() {
-		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
-		app.launchArguments.append(contentsOf: ["-isPCRSubmissionConsentGiven", "YES"])
-		app.launchArguments.append(contentsOf: ["-pcrPositiveTestResultWasShown", "NO"])
-		app.launchArguments.append(contentsOf: ["-pcrTestResult", TestResult.positive.stringValue])
+		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.common.ENStatus, ENStatus.active.stringValue])
+		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.consent.isPCRSubmissionConsentGiven, YES])
+		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.test.pcr.pcrPositiveTestResultWasShown, NO])
+		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.test.pcr.pcrTestResult, TestResult.positive.stringValue])
 		launch()
 
 		// Open test result screen.
@@ -682,9 +682,9 @@ extension ENAUITests_04a_ExposureSubmission {
 	}
 
 	func launchAndNavigateToSymptomsScreen() {
-		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
-		app.launchArguments.append(contentsOf: ["-pcrTestResult", TestResult.positive.stringValue])
-		app.launchArguments.append(contentsOf: ["-pcrPositiveTestResultWasShown", "YES"])
+		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.common.ENStatus, ENStatus.active.stringValue])
+		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.test.pcr.pcrTestResult, TestResult.positive.stringValue])
+		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.test.pcr.pcrPositiveTestResultWasShown, YES])
 		launch()
 
 		app.cells[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.pcrCell].waitAndTap()

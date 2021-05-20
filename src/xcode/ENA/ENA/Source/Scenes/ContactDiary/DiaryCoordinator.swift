@@ -21,17 +21,13 @@ class DiaryCoordinator {
 		
 		#if DEBUG
 		if isUITesting {
-			if let journalWithExposureHistoryInfoScreenShown = UserDefaults.standard.string(forKey: "diaryInfoScreenShown") {
-				store.journalWithExposureHistoryInfoScreenShown = (journalWithExposureHistoryInfoScreenShown != "NO")
-			}
+			store.journalWithExposureHistoryInfoScreenShown = UserDefaults.standard.bool(forKey: UITestingLaunchArguments.infoScreen.diaryInfoScreenShown.remove(prefix: "-"))
 
-			if let journalRemoveAllPersons = UserDefaults.standard.string(forKey: "journalRemoveAllPersons"),
-			   journalRemoveAllPersons == "YES" {
+			if UserDefaults.standard.bool(forKey: UITestingLaunchArguments.contactJournal.journalRemoveAllPersons.remove(prefix: "-")) {
 				diaryStore.removeAllContactPersons()
 			}
 
-			if let journalRemoveAllLocations = UserDefaults.standard.string(forKey: "journalRemoveAllLocations"),
-			   journalRemoveAllLocations == "YES" {
+			if UserDefaults.standard.bool(forKey: UITestingLaunchArguments.contactJournal.journalRemoveAllLocations.remove(prefix: "-")) {
 				diaryStore.removeAllLocations()
 			}
 
