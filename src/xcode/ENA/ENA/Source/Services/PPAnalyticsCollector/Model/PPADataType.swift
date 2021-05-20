@@ -37,9 +37,7 @@ enum PPAUserMetadata {
 }
 
 enum PPARiskExposureMetadata {
-	case createENF(RiskExposureMetadata)
 	case updateENFRiskExposureMetadata(ENFRiskCalculationResult)
-	case createCheckin(RiskExposureMetadata)
 	case updateCheckinRiskExposureMetadata(CheckinRiskCalculationResult)
 }
 

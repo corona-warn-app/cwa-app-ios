@@ -121,12 +121,8 @@ enum PPAnalyticsCollector {
 
 	private static func logRiskExposureMetadata(_ riskExposureMetadata: PPARiskExposureMetadata) {
 		switch riskExposureMetadata {
-		case let .createENF(metaData):
-			store?.currentENFRiskExposureMetadata = metaData
 		case let .updateENFRiskExposureMetadata(riskCalculationResult):
 			Analytics.updateENFRiskExposureMetadata(riskCalculationResult)
-		case let .createCheckin(metaData):
-			store?.currentCheckinRiskExposureMetadata = metaData
 		case let .updateCheckinRiskExposureMetadata(riskCalculationResult):
 			Analytics.updateCheckinRiskExposureMetadata(riskCalculationResult)
 		}
@@ -174,7 +170,7 @@ enum PPAnalyticsCollector {
 				riskLevelChangedComparedToPreviousSubmission: riskLevelChangedComparedToPreviousSubmission,
 				dateChangedComparedToPreviousSubmission: dateChangedComparedToPreviousSubmission
 			)
-			Analytics.collect(.riskExposureMetadata(.createENF(newRiskExposureMetadata)))
+			store?.currentENFRiskExposureMetadata = newRiskExposureMetadata
 			return
 		}
 		let newRiskExposureMetadata = RiskExposureMetadata(
@@ -183,7 +179,7 @@ enum PPAnalyticsCollector {
 			mostRecentDateAtRiskLevel: mostRecentDateWithCurrentRiskLevel,
 			dateChangedComparedToPreviousSubmission: dateChangedComparedToPreviousSubmission
 		)
-		Analytics.collect(.riskExposureMetadata(.createENF(newRiskExposureMetadata)))
+		store?.currentENFRiskExposureMetadata = newRiskExposureMetadata
 	}
 	
 	private static func updateCheckinRiskExposureMetadata(_ checkinRiskCalculationResult: CheckinRiskCalculationResult) {
@@ -228,7 +224,7 @@ enum PPAnalyticsCollector {
 				riskLevelChangedComparedToPreviousSubmission: riskLevelChangedComparedToPreviousSubmission,
 				dateChangedComparedToPreviousSubmission: dateChangedComparedToPreviousSubmission
 			)
-			Analytics.collect(.riskExposureMetadata(.createCheckin(newRiskExposureMetadata)))
+			store?.currentCheckinRiskExposureMetadata = newRiskExposureMetadata
 			return
 		}
 		let newRiskExposureMetadata = RiskExposureMetadata(
@@ -237,7 +233,8 @@ enum PPAnalyticsCollector {
 			mostRecentDateAtRiskLevel: mostRecentDateWithCurrentRiskLevel,
 			dateChangedComparedToPreviousSubmission: dateChangedComparedToPreviousSubmission
 		)
-		Analytics.collect(.riskExposureMetadata(.createCheckin(newRiskExposureMetadata)))
+		store?.currentCheckinRiskExposureMetadata = newRiskExposureMetadata
+		
 	}
 
 	// MARK: - TestResultMetadata
