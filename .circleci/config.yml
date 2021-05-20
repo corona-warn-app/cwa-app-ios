@@ -171,7 +171,6 @@ jobs:
           at: .
       - restore_cache:
           key: *tools_cache_key
-      #- install-tools # chaching currently fails, needs some further tweaks
       - run:
           name: Run Fastlane smoke tests
           command: cd src/xcode && bundle exec fastlane test_community
@@ -196,7 +195,6 @@ jobs:
           at: .
       - restore_cache:
           key: *tools_cache_key
-      #- install-tools # chaching currently fails, needs some further tweaks
       - run:
           name: Snapshot
           command: cd src/xcode && bundle exec fastlane screenshot languages:<<parameters.language>> mode:<<parameters.displaymode>>
@@ -322,15 +320,6 @@ workflows:
                   - /^v.*/
               branches:
                 ignore: /.*/
-        # - build:
-        #     requires:
-        #       - dependencies
-        #     filters:
-        #       tags:
-        #         only:
-        #           - /^v.*/
-        #       branches:
-        #         ignore: /.*/
         - snapshot:
             matrix:
               parameters:
