@@ -11,8 +11,7 @@ class HealthCertificateKeyValueTextCell: UITableViewCell, ReuseIdentifierProvidi
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		setupView()
-		isAccessibilityElement = false
-		headlineTextLabel.isAccessibilityElement = true
+		setupAccessibility()
 	}
 
 	@available(*, unavailable)
@@ -88,4 +87,12 @@ class HealthCertificateKeyValueTextCell: UITableViewCell, ReuseIdentifierProvidi
 			]
 		)
 	}
+
+	private func setupAccessibility() {
+		accessibilityElements = [backgroundContainerView as Any]
+		backgroundContainerView.accessibilityElements = [headlineTextLabel as Any, detailsTextLabel as Any]
+		headlineTextLabel.accessibilityTraits = .staticText
+		detailsTextLabel.accessibilityTraits = .staticText
+	}
+
 }
