@@ -16,7 +16,13 @@ final class HealthCertificateViewModel {
 	) {
 		self.healthCertificate = healthCertificate
 		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
-		self.qrCodeCellViewModel = HealthCertificateQRCodeCellViewModel(healthCertificate: healthCertificate)
+		self.qrCodeCellViewModel = HealthCertificateQRCodeCellViewModel(
+			healthCertificate: healthCertificate,
+			accessibilityText: String(
+				format: AppStrings.HealthCertificate.Details.QRCodeImageDescription,
+				healthCertificate.doseNumber, healthCertificate.totalSeriesOfDoses
+			)
+		)
 
 		healthCertifiedPerson.$vaccinationState
 			.sink { [weak self] in
@@ -103,7 +109,8 @@ final class HealthCertificateViewModel {
 				.joined(with: "\n"),
 			topSpace: 18.0,
 			font: .enaFont(for: .headline),
-			accessibilityTraits: .staticText
+			accessibilityTraits: .staticText,
+			accessibilityIdentifier: AccessibilityIdentifiers.HealthCertificate.Certificate.headline
 		)
 	}
 

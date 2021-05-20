@@ -13,7 +13,11 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 	init(
 		store: HealthCertificateStoring
 	) {
+		#if DEBUG
+		self.store = isUITesting ? MockTestStore() : store
+		#else
 		self.store = store
+		#endif
 
 		updatePublishersFromStore()
 
@@ -23,12 +27,25 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 				self?.updateHealthCertifiedPersonSubscriptions(for: healthCertifiedPersons)
 			}
 			.store(in: &subscriptions)
+
+		#if DEBUG
+		if isUITesting {
+			// check launch arguments ->
+			if UserDefaults.standard.bool(forKey: "firstHealthCertificate") {
+				registerHealthCertificate(base45: HealthCertificate.firstBase45Mock)
+			} else if UserDefaults.standard.bool(forKey: "firstAndSecondHealthCertificate") {
+				registerHealthCertificate(base45: HealthCertificate.firstBase45Mock)
+				registerHealthCertificate(base45: HealthCertificate.lastBase45Mock)
+			}
+		}
+		#endif
 	}
 
 	// MARK: - Internal
 
 	private(set) var healthCertifiedPersons = CurrentValueSubject<[HealthCertifiedPerson], Never>([])
 
+	@discardableResult
 	func registerHealthCertificate(
 		base45: Base45
 	) -> Result<HealthCertifiedPerson, HealthCertificateServiceError.RegistrationError> {
