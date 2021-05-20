@@ -11,7 +11,7 @@ final class TanInputViewModel {
 	
 	init(
 		coronaTestService: CoronaTestService,
-		onSuccess: @escaping (CoronaTestQRCodeInformation, @escaping (Bool) -> Void) -> Void,
+		onSuccess: @escaping (CoronaTestInformation, @escaping (Bool) -> Void) -> Void,
 		givenTan: String? = nil
 	) {
 		self.coronaTestService = coronaTestService
@@ -88,7 +88,7 @@ final class TanInputViewModel {
 	}
 
 	private let coronaTestService: CoronaTestService
-	private let onSuccess: (CoronaTestQRCodeInformation, @escaping (Bool) -> Void) -> Void
+	private let onSuccess: (CoronaTestInformation, @escaping (Bool) -> Void) -> Void
 
 	private func calculateChecksum(input: String) -> Character? {
 		let hash = ENAHasher.sha256(input)

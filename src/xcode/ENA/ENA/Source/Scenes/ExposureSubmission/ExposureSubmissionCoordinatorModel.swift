@@ -117,7 +117,7 @@ class ExposureSubmissionCoordinatorModel {
 	}
 
 	func registerTestAndGetResult(
-		for testType: CoronaTestQRCodeInformation,
+		for testType: CoronaTestInformation,
 		isSubmissionConsentGiven: Bool,
 		isLoading: @escaping (Bool) -> Void,
 		onSuccess: @escaping (TestResult) -> Void,

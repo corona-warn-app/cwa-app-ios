@@ -15,7 +15,7 @@ enum RatError {
 	case hashMismatch
 }
 
-enum CoronaTestQRCodeInformation {
+enum CoronaTestInformation {
 	case pcr(String)
 	case antigen(AntigenTestInformation)
 	case pcrTeleTAN(String) // tan string
@@ -32,8 +32,8 @@ enum CoronaTestQRCodeInformation {
 	}
 }
 
-extension CoronaTestQRCodeInformation: Equatable {
-	static func == (lhs: CoronaTestQRCodeInformation, rhs: CoronaTestQRCodeInformation) -> Bool {
+extension CoronaTestInformation: Equatable {
+	static func == (lhs: CoronaTestInformation, rhs: CoronaTestInformation) -> Bool {
 		switch (lhs, rhs) {
 		case (.pcr(let lhsGuid), .pcr(let rhsGuid)):
 			return lhsGuid == rhsGuid

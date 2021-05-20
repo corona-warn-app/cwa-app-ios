@@ -11,7 +11,7 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 	// MARK: - Init
 
 	init(
-		onSuccess: @escaping (CoronaTestQRCodeInformation) -> Void,
+		onSuccess: @escaping (CoronaTestInformation) -> Void,
 		onError: @escaping (QRScannerError, _ reactivateScanning: @escaping () -> Void) -> Void
 	) {
 		self.onSuccess = onSuccess
@@ -25,7 +25,7 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 
 		#if DEBUG
 		if isUITesting {
-			onSuccess(CoronaTestQRCodeInformation.pcr("guid"))
+			onSuccess(CoronaTestInformation.pcr("guid"))
 		}
 		#endif
 	}
@@ -173,7 +173,7 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 	/// - the guid contains only the following characters: a-f, A-F, 0-9,-
 	/// - the guid is a well formatted string (6-8-4-4-4-12) with length 43
 	///   (6 chars encode a random number, 32 chars for the uuid, 5 chars are separators)
-	func coronaTestQRCodeInformation(from input: String) -> CoronaTestQRCodeInformation? {
+	func coronaTestQRCodeInformation(from input: String) -> CoronaTestInformation? {
 		// general checks for both PCR and Rapid tests
 		guard !input.isEmpty,
 			  let urlComponents = URLComponents(string: input),
@@ -195,10 +195,10 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 
 	// MARK: - Private
 
-	private let onSuccess: (CoronaTestQRCodeInformation) -> Void
+	private let onSuccess: (CoronaTestInformation) -> Void
 	private let captureDevice: AVCaptureDevice?
 	
-	private func pcrTestInformation(from guidURL: String, urlComponents: URLComponents) -> CoronaTestQRCodeInformation? {
+	private func pcrTestInformation(from guidURL: String, urlComponents: URLComponents) -> CoronaTestInformation? {
 		guard guidURL.count <= 150,
 			  urlComponents.path.components(separatedBy: "/").count == 2,	// one / will separate into two components
 			  let candidate = urlComponents.query,
