@@ -253,34 +253,6 @@ enum PPAnalyticsCollector {
 					store?.antigenKeySubmissionMetadata?.advancedConsentGiven = false
 				}
 			}
-		case let .hoursSinceTestResult(hours, type):
-			switch type {
-			case .pcr:
-				store?.keySubmissionMetadata?.hoursSinceTestResult = hours
-			case .antigen:
-				store?.antigenKeySubmissionMetadata?.hoursSinceTestResult = hours
-			}
-		case let .keySubmissionHoursSinceTestRegistration(hours, type):
-			switch type {
-			case .pcr:
-				store?.keySubmissionMetadata?.hoursSinceTestRegistration = hours
-			case .antigen:
-				store?.antigenKeySubmissionMetadata?.hoursSinceTestRegistration = hours
-			}
-		case let .daysSinceMostRecentDateAtRiskLevelAtTestRegistration(date, type):
-			switch type {
-			case .pcr:
-				store?.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = date
-			case .antigen:
-				store?.antigenKeySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = date
-			}
-		case let .hoursSinceHighRiskWarningAtTestRegistration(hours, type):
-			switch type {
-			case .pcr:
-				store?.keySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration = hours
-			case .antigen:
-				store?.antigenKeySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration = hours
-			}
 		case let .setHoursSinceTestResult(type):
 			Analytics.setHoursSinceTestResult(type: type)
 		case let .setHoursSinceTestRegistration(type):
