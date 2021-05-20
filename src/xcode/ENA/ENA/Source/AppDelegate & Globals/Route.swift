@@ -87,6 +87,6 @@ enum Route {
 	// MARK: - Internal
 
 	case checkIn(String)
-	case rapidAntigen(Result<CoronaTestInformation, QRCodeError>)
+	case rapidAntigen(Result<CoronaTestRegistrationInformation, QRCodeError>)
 
 }

@@ -169,17 +169,10 @@ class CoronaTestService {
 		isSubmissionConsentGiven: Bool,
 		completion: @escaping TestResultHandler
 	) {
-		registerPCRTest(teleTAN: teleTAN, isSubmissionConsentGiven: isSubmissionConsentGiven) { [weak self] result in
+		registerPCRTest(teleTAN: teleTAN, isSubmissionConsentGiven: isSubmissionConsentGiven) { result in
 			switch result {
 			case .success:
-				self?.getTestResult(for: .pcr, duringRegistration: true, { result in
-					switch result {
-					case .success(let testResult):
-						completion(.success(testResult))
-					case .failure(let error):
-						completion(.failure(error))
-					}
-				})
+				completion(.success(.positive))
 			case .failure(let error):
 				completion(.failure(error))
 			}

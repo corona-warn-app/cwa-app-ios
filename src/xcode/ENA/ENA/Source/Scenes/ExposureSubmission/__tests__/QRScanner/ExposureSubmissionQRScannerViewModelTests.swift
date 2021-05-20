@@ -60,7 +60,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 					XCTAssertEqual(scannedGuid, guid)
 				case .antigen:
 					XCTFail("Expected PCR test")
-				case .pcrTeleTAN:
+				case .teleTAN:
 					XCTFail("Expected PCR test")
 				}
 				onSuccessExpectation.fulfill()
@@ -98,7 +98,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 					XCTAssertEqual(testInformation.hash, validAntigenHash)
 				case .pcr:
 					XCTFail("Expected antigen test")
-				case .pcrTeleTAN:
+				case .teleTAN:
 					XCTFail("Expected antigen test")
 				}
 
@@ -136,7 +136,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 					XCTAssertEqual(testInformation.hash, validAntigenHash)
 				case .pcr:
 					XCTFail("Expected antigen test")
-				case .pcrTeleTAN:
+				case .teleTAN:
 					XCTFail("Expected antigen test")
 				}
 
@@ -228,7 +228,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 					XCTAssertEqual(scannedGuid, validGuid)
 				case .antigen:
 					XCTFail("Expected PCR test")
-				case .pcrTeleTAN:
+				case .teleTAN:
 					XCTFail("Expected PCR test")
 				}
 				onSuccessExpectation.fulfill()
@@ -357,7 +357,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 			XCTFail("Expected PCR test")
 		case .pcr(let result):
 			XCTAssertEqual(result, validPcrGuid)
-		case .pcrTeleTAN:
+		case .teleTAN:
 			XCTFail("Expected PCR test")
 		}
 	}
@@ -374,7 +374,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 			XCTFail("Expected PCR test")
 		case .pcr(let result):
 			XCTAssertEqual(result, validPcrGuid.lowercased())
-		case .pcrTeleTAN:
+		case .teleTAN:
 			XCTFail("Expected PCR test")
 		}
 	}
@@ -393,7 +393,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 			XCTFail("Expected PCR test")
 		case .pcr(let result):
 			XCTAssertEqual(result, mixedCaseGuid)
-		case .pcrTeleTAN:
+		case .teleTAN:
 			XCTFail("Expected PCR test")
 		}
 	}

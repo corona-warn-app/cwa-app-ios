@@ -11,7 +11,7 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 	// MARK: - Init
 
 	init(
-		onSuccess: @escaping (CoronaTestInformation) -> Void,
+		onSuccess: @escaping (CoronaTestRegistrationInformation) -> Void,
 		onError: @escaping (QRScannerError, _ reactivateScanning: @escaping () -> Void) -> Void,
 		onCancel: @escaping () -> Void
 	) {

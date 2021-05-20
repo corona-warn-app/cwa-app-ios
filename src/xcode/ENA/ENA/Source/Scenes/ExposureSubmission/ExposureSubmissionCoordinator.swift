@@ -41,7 +41,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		start(with: self.getInitialViewController())
 	}
 
-	func start(with testInformationResult: Result<CoronaTestInformation, QRCodeError>) {
+	func start(with testInformationResult: Result<CoronaTestRegistrationInformation, QRCodeError>) {
 		model.exposureSubmissionService.loadSupportedCountries(
 			isLoading: { _ in },
 			onSuccess: { supportedCountries in
@@ -93,8 +93,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 		let tanInputViewModel = TanInputViewModel(
 			coronaTestService: model.coronaTestService,
-			onSuccess: { [weak self] testQRCodeInformation, isLoading in
-				self?.handleCoronaTestQRCodeInformation(testQRCodeInformation, isLoading: isLoading)
+			onSuccess: { [weak self] testRegistrationInformation, isLoading in
+				self?.handleCoronaTestQRCodeInformation(testRegistrationInformation, isLoading: isLoading)
 			}
 		)
 
@@ -406,7 +406,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		push(vc)
 	}
 
-	private func makeQRInfoScreen(supportedCountries: [Country], testInformation: CoronaTestInformation?) -> UIViewController {
+	private func makeQRInfoScreen(supportedCountries: [Country], testInformation: CoronaTestRegistrationInformation?) -> UIViewController {
 		let vc = ExposureSubmissionQRInfoViewController(
 			supportedCountries: supportedCountries,
 			onPrimaryButtonTap: { [weak self] isLoading in
@@ -460,14 +460,14 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		push(makeQRInfoScreen(supportedCountries: supportedCountries, testInformation: nil))
 	}
 
-	private func showQRScreen(testInformation: CoronaTestInformation?, isLoading: @escaping (Bool) -> Void) {
+	private func showQRScreen(testInformation: CoronaTestRegistrationInformation?, isLoading: @escaping (Bool) -> Void) {
 		if let testInformation = testInformation {
 			handleCoronaTestQRCodeInformation(testInformation, isLoading: isLoading)
 		} else {
 			let scannerViewController = ExposureSubmissionQRScannerViewController(
 				onSuccess: { testQRCodeInformation in
 					DispatchQueue.main.async { [weak self] in
-						self?.presentedViewController?.dismiss(animated: true) {  [weak self] in
+						self?.presentedViewController?.dismiss(animated: true) {
 							self?.handleCoronaTestQRCodeInformation(testQRCodeInformation, isLoading: isLoading)
 						}
 					}
@@ -513,7 +513,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 	}
 	
-	private func handleCoronaTestQRCodeInformation(_ testQRCodeInformation: CoronaTestInformation, isLoading: @escaping (Bool) -> Void) {
+	private func handleCoronaTestQRCodeInformation(_ testQRCodeInformation: CoronaTestRegistrationInformation, isLoading: @escaping (Bool) -> Void) {
 		if let oldTest = model.coronaTestService.coronaTest(ofType: testQRCodeInformation.testType),
 		   oldTest.testResult != .expired && oldTest.testResult != .invalid {
 			showOverrideTestNotice(testQRCodeInformation: testQRCodeInformation, submissionConsentGiven: true)
@@ -1039,7 +1039,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	// show a overwrite notice screen if a test of give type was registered before
 	// registerTestAndGetResult will update the loading state of the primary button
 	private func showOverrideTestNotice(
-		testQRCodeInformation: CoronaTestInformation,
+		testQRCodeInformation: CoronaTestRegistrationInformation,
 		submissionConsentGiven: Bool
 	) {
 
@@ -1068,7 +1068,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	}
 
 	private func registerTestAndGetResult(
-		with testQRCodeInformation: CoronaTestInformation,
+		with testQRCodeInformation: CoronaTestRegistrationInformation,
 		submissionConsentGiven: Bool,
 		isLoading: @escaping (Bool) -> Void
 	) {

@@ -117,7 +117,7 @@ class ExposureSubmissionCoordinatorModel {
 	}
 
 	func registerTestAndGetResult(
-		for testType: CoronaTestInformation,
+		for testType: CoronaTestRegistrationInformation,
 		isSubmissionConsentGiven: Bool,
 		isLoading: @escaping (Bool) -> Void,
 		onSuccess: @escaping (TestResult) -> Void,
@@ -160,7 +160,7 @@ class ExposureSubmissionCoordinatorModel {
 					}
 				}
 			)
-		case .pcrTeleTAN(let teleTAN):
+		case .teleTAN(let teleTAN):
 			coronaTestService.registerPCRTestAndGetResult(
 				teleTAN: teleTAN,
 				isSubmissionConsentGiven: isSubmissionConsentGiven,

@@ -11,7 +11,7 @@ final class TanInputViewModel {
 	
 	init(
 		coronaTestService: CoronaTestService,
-		onSuccess: @escaping (CoronaTestInformation, @escaping (Bool) -> Void) -> Void,
+		onSuccess: @escaping (CoronaTestRegistrationInformation, @escaping (Bool) -> Void) -> Void,
 		givenTan: String? = nil
 	) {
 		self.coronaTestService = coronaTestService
@@ -61,7 +61,7 @@ final class TanInputViewModel {
 			return
 		}
 		
-		onSuccess(.pcrTeleTAN(text), { [weak self] isLoading in
+		onSuccess(.teleTAN(text), { [weak self] isLoading in
 			self?.isPrimaryButtonEnabled = !isLoading
 			self?.isPrimaryBarButtonIsLoading = isLoading
 		})
@@ -88,7 +88,7 @@ final class TanInputViewModel {
 	}
 
 	private let coronaTestService: CoronaTestService
-	private let onSuccess: (CoronaTestInformation, @escaping (Bool) -> Void) -> Void
+	private let onSuccess: (CoronaTestRegistrationInformation, @escaping (Bool) -> Void) -> Void
 
 	private func calculateChecksum(input: String) -> Character? {
 		let hash = ENAHasher.sha256(input)
