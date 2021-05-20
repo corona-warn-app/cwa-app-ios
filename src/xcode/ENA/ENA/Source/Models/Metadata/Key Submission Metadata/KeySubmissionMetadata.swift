@@ -17,8 +17,11 @@ struct KeySubmissionMetadata: Codable {
 		advancedConsentGiven: Bool,
 		hoursSinceTestResult: Int32,
 		hoursSinceTestRegistration: Int32,
-		daysSinceMostRecentDateAtRiskLevelAtTestRegistration: Int32,
-		hoursSinceHighRiskWarningAtTestRegistration: Int32
+		daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration: Int32,
+		hoursSinceENFHighRiskWarningAtTestRegistration: Int32,
+		daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration: Int32,
+		hoursSinceCheckinHighRiskWarningAtTestRegistration: Int32,
+		submittedWithCheckIns: Bool?
 	) {
 		self.submitted = submitted
 		self.submittedInBackground = submittedInBackground
@@ -28,8 +31,9 @@ struct KeySubmissionMetadata: Codable {
 		self.advancedConsentGiven = advancedConsentGiven
 		self.hoursSinceTestResult = hoursSinceTestResult
 		self.hoursSinceTestRegistration = hoursSinceTestRegistration
-		self.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = daysSinceMostRecentDateAtRiskLevelAtTestRegistration
-		self.hoursSinceHighRiskWarningAtTestRegistration = hoursSinceHighRiskWarningAtTestRegistration
+		self.daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration = daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration
+		self.hoursSinceENFHighRiskWarningAtTestRegistration = hoursSinceENFHighRiskWarningAtTestRegistration
+		self.submittedWithCheckIns = submittedWithCheckIns
 	}
 
 	// MARK: - Protocol Codable
@@ -45,8 +49,11 @@ struct KeySubmissionMetadata: Codable {
 		advancedConsentGiven = try container.decodeIfPresent(Bool.self, forKey: .advancedConsentGiven)
 		hoursSinceTestResult = try container.decodeIfPresent(Int32.self, forKey: .hoursSinceTestResult)
 		hoursSinceTestRegistration = try container.decodeIfPresent(Int32.self, forKey: .hoursSinceTestRegistration)
-		daysSinceMostRecentDateAtRiskLevelAtTestRegistration = try container.decodeIfPresent(Int32.self, forKey: .daysSinceMostRecentDateAtRiskLevelAtTestRegistration)
-		hoursSinceHighRiskWarningAtTestRegistration = try container.decodeIfPresent(Int32.self, forKey: .hoursSinceHighRiskWarningAtTestRegistration)
+		daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration = try container.decodeIfPresent(Int32.self, forKey: .daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration)
+		hoursSinceENFHighRiskWarningAtTestRegistration = try container.decodeIfPresent(Int32.self, forKey: .hoursSinceENFHighRiskWarningAtTestRegistration)
+		daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration = try container.decodeIfPresent(Int32.self, forKey: .daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration)
+		hoursSinceCheckinHighRiskWarningAtTestRegistration = try container.decodeIfPresent(Int32.self, forKey: .hoursSinceCheckinHighRiskWarningAtTestRegistration)
+		submittedWithCheckIns = try container.decodeIfPresent(Bool.self, forKey: .submittedWithCheckIns)
 	}
 	
 	enum CodingKeys: String, CodingKey {
@@ -58,9 +65,12 @@ struct KeySubmissionMetadata: Codable {
 		case advancedConsentGiven
 		case hoursSinceTestResult
 		case hoursSinceTestRegistration
-		case daysSinceMostRecentDateAtRiskLevelAtTestRegistration
-		case hoursSinceHighRiskWarningAtTestRegistration
+		case daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration
+		case hoursSinceENFHighRiskWarningAtTestRegistration
+		case daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration
+		case hoursSinceCheckinHighRiskWarningAtTestRegistration
 		case submittedWithTeleTAN
+		case submittedWithCheckIns
 	}
 	
 	// MARK: - Internal
@@ -73,7 +83,10 @@ struct KeySubmissionMetadata: Codable {
 	var advancedConsentGiven: Bool?
 	var hoursSinceTestResult: Int32?
 	var hoursSinceTestRegistration: Int32?
-	var daysSinceMostRecentDateAtRiskLevelAtTestRegistration: Int32?
-	var hoursSinceHighRiskWarningAtTestRegistration: Int32?
+	var daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration: Int32?
+	var hoursSinceENFHighRiskWarningAtTestRegistration: Int32?
+	var daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration: Int32?
+	var hoursSinceCheckinHighRiskWarningAtTestRegistration: Int32?
 	var submittedWithTeleTAN: Bool?
+	var submittedWithCheckIns: Bool?
 }

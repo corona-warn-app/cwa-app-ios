@@ -321,6 +321,8 @@ enum PPAnalyticsCollector {
 			store?.keySubmissionMetadata?.submittedAfterSymptomFlow = afterSymptomFlow
 		case let .submittedWithTeletan(withTeletan):
 			store?.submittedWithQR = !withTeletan
+		case let .submittedWithCheckins(withCheckins):
+			store?.keySubmissionMetadata?.submittedWithCheckIns = withCheckins
 		case let .lastSubmissionFlowScreen(flowScreen):
 			store?.keySubmissionMetadata?.lastSubmissionFlowScreen = flowScreen
 		case let .advancedConsentGiven(advanceConsent):
@@ -335,19 +337,23 @@ enum PPAnalyticsCollector {
 		case let .keySubmissionHoursSinceTestRegistration(hours):
 			store?.keySubmissionMetadata?.hoursSinceTestRegistration = hours
 		case let .daysSinceMostRecentDateAtRiskLevelAtTestRegistration(date):
-			store?.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = date
+			store?.keySubmissionMetadata?.daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration = date
 		case let .hoursSinceHighRiskWarningAtTestRegistration(hours):
-			store?.keySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration = hours
+			store?.keySubmissionMetadata?.hoursSinceENFHighRiskWarningAtTestRegistration = hours
 		case .updateSubmittedWithTeletan:
 			store?.keySubmissionMetadata?.submittedWithTeleTAN = !(store?.submittedWithQR ?? false)
 		case .setHoursSinceTestResult:
 			Analytics.setHoursSinceTestResult()
 		case .setHoursSinceTestRegistration:
 			Analytics.setHoursSinceTestRegistration()
-		case .setHoursSinceHighRiskWarningAtTestRegistration:
-			Analytics.setHoursSinceHighRiskWarningAtTestRegistration()
-		case .setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration:
-			Analytics.setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration()
+		case .setHoursSinceENFHighRiskWarningAtTestRegistration:
+			Analytics.setHoursSinceENFHighRiskWarningAtTestRegistration()
+		case .setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration:
+			Analytics.setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration()
+		case .setHoursSinceCheckinHighRiskWarningAtTestRegistration:
+			Analytics.setHoursSinceCheckinHighRiskWarningAtTestRegistration()
+		case .setDaysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration:
+			Analytics.setDaysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration()
 		}
 	}
 
@@ -371,20 +377,20 @@ enum PPAnalyticsCollector {
 		store?.keySubmissionMetadata?.hoursSinceTestRegistration = Int32(diffComponents.hour ?? 0)
 	}
 
-	private static func setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration() {
+	private static func setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration() {
 		guard let registrationDate = coronaTestService?.pcrTest?.registrationDate else {
-			store?.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = -1
+			store?.keySubmissionMetadata?.daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration = -1
 			return
 		}
 		if let mostRecentRiskCalculationDate = store?.enfRiskCalculationResult?.mostRecentDateWithCurrentRiskLevel {
 			let daysSinceMostRecentDateAtRiskLevelAtTestRegistration = Calendar.utcCalendar.dateComponents([.day], from: mostRecentRiskCalculationDate, to: registrationDate).day
-			store?.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = Int32(daysSinceMostRecentDateAtRiskLevelAtTestRegistration ?? -1)
+			store?.keySubmissionMetadata?.daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration = Int32(daysSinceMostRecentDateAtRiskLevelAtTestRegistration ?? -1)
 		} else {
-			store?.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = -1
+			store?.keySubmissionMetadata?.daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration = -1
 		}
 	}
 
-	private static func setHoursSinceHighRiskWarningAtTestRegistration() {
+	private static func setHoursSinceENFHighRiskWarningAtTestRegistration() {
 		guard let riskLevel = store?.enfRiskCalculationResult?.riskLevel  else {
 			Log.warning("Could not log hoursSinceENFHighRiskWarningAtTestRegistration due to riskLevel is nil", log: .ppa)
 			return
@@ -393,13 +399,45 @@ enum PPAnalyticsCollector {
 		case .high:
 			guard let timeOfRiskChangeToHigh = store?.dateOfConversionToENFHighRisk,
 				  let registrationTime = coronaTestService?.pcrTest?.registrationDate else {
-				Log.warning("Could not log risk calculation result due to timeOfRiskChangeToHigh is nil", log: .ppa)
+				Log.warning("Could not log ENF risk calculation result due to timeOfRiskChangeToHigh is nil", log: .ppa)
 				return
 			}
 			let differenceInHours = Calendar.current.dateComponents([.hour], from: timeOfRiskChangeToHigh, to: registrationTime)
-			store?.keySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration = Int32(differenceInHours.hour ?? -1)
+			store?.keySubmissionMetadata?.hoursSinceENFHighRiskWarningAtTestRegistration = Int32(differenceInHours.hour ?? -1)
 		case .low:
-			store?.keySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration = -1
+			store?.keySubmissionMetadata?.hoursSinceENFHighRiskWarningAtTestRegistration = -1
+		}
+	}
+	
+	private static func setDaysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration() {
+		guard let registrationDate = coronaTestService?.pcrTest?.registrationDate else {
+			store?.keySubmissionMetadata?.daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration = -1
+			return
+		}
+		if let mostRecentRiskCalculationDate = store?.checkinRiskCalculationResult?.mostRecentDateWithCurrentRiskLevel {
+			let daysSinceMostRecentDateAtRiskLevelAtTestRegistration = Calendar.utcCalendar.dateComponents([.day], from: mostRecentRiskCalculationDate, to: registrationDate).day
+			store?.keySubmissionMetadata?.daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration = Int32(daysSinceMostRecentDateAtRiskLevelAtTestRegistration ?? -1)
+		} else {
+			store?.keySubmissionMetadata?.daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration = -1
+		}
+	}
+
+	private static func setHoursSinceCheckinHighRiskWarningAtTestRegistration() {
+		guard let riskLevel = store?.checkinRiskCalculationResult?.riskLevel  else {
+			Log.warning("Could not log hoursSinceCheckinHighRiskWarningAtTestRegistration due to riskLevel is nil", log: .ppa)
+			return
+		}
+		switch riskLevel {
+		case .high:
+			guard let timeOfRiskChangeToHigh = store?.dateOfConversionToCheckinHighRisk,
+				  let registrationTime = coronaTestService?.pcrTest?.registrationDate else {
+				Log.warning("Could not log Checkin risk calculation result due to timeOfRiskChangeToHigh is nil", log: .ppa)
+				return
+			}
+			let differenceInHours = Calendar.current.dateComponents([.hour], from: timeOfRiskChangeToHigh, to: registrationTime)
+			store?.keySubmissionMetadata?.hoursSinceENFHighRiskWarningAtTestRegistration = Int32(differenceInHours.hour ?? -1)
+		case .low:
+			store?.keySubmissionMetadata?.hoursSinceENFHighRiskWarningAtTestRegistration = -1
 		}
 	}
 

@@ -57,6 +57,7 @@ enum PPAKeySubmissionMetadata {
 	case submittedAfterCancel(Bool)
 	case submittedAfterSymptomFlow(Bool)
 	case submittedWithTeletan(Bool)
+	case submittedWithCheckins(Bool?)
 	case lastSubmissionFlowScreen(LastSubmissionFlowScreen?)
 	case advancedConsentGiven(Bool)
 	case hoursSinceTestResult(Int32)
@@ -66,8 +67,10 @@ enum PPAKeySubmissionMetadata {
 	case updateSubmittedWithTeletan
 	case setHoursSinceTestResult
 	case setHoursSinceTestRegistration
-	case setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration
-	case setHoursSinceHighRiskWarningAtTestRegistration
+	case setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration
+	case setHoursSinceENFHighRiskWarningAtTestRegistration
+	case setDaysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration
+	case setHoursSinceCheckinHighRiskWarningAtTestRegistration
 }
 
 enum PPAExposureWindowsMetadata {
