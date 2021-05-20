@@ -71,4 +71,5 @@ class DynamicLegalCell: UITableViewCell {
 		cardView.layer.cornerRadius = 16
 		backgroundColor = .enaColor(for: .background)
 	}
+
 }

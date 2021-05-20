@@ -25,7 +25,9 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		onFAQCellTap: @escaping () -> Void,
 		onAppInformationCellTap: @escaping () -> Void,
 		onSettingsCellTap: @escaping (ENStateHandler.State) -> Void,
-		showTestInformationResult: @escaping (Result<CoronaTestQRCodeInformation, QRCodeError>) -> Void
+		showTestInformationResult: @escaping (Result<CoronaTestQRCodeInformation, QRCodeError>) -> Void,
+		onCreateHealthCertificateTap: @escaping () -> Void,
+		onCertifiedPersonTap: @escaping (HealthCertifiedPerson) -> Void
 	) {
 		self.viewModel = viewModel
 		self.appConfigurationProvider = appConfigurationProvider
@@ -42,6 +44,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		self.onAppInformationCellTap = onAppInformationCellTap
 		self.onSettingsCellTap = onSettingsCellTap
 		self.showTestInformationResult = showTestInformationResult
+		self.onCreateHealthCertificateTap = onCreateHealthCertificateTap
+		self.onCertifiedPersonTap = onCertifiedPersonTap
 
 		super.init(style: .grouped)
 
@@ -50,6 +54,13 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			.sink { [weak self] _ in
 				self?.tableView.reloadSections([HomeTableViewModel.Section.riskAndTestResults.rawValue], with: .none)
 				self?.viewModel.isUpdating = false
+			}
+			.store(in: &subscriptions)
+		
+		viewModel.$healthCertifiedPersons
+			.receive(on: DispatchQueue.OCombine(.main))
+			.sink { [weak self] _ in
+				self?.tableView.reloadSections([HomeTableViewModel.Section.healthCertificate.rawValue], with: .none)
 			}
 			.store(in: &subscriptions)
 
@@ -181,6 +192,11 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			return infoCell(forRowAt: indexPath)
 		case .settings:
 			return infoCell(forRowAt: indexPath)
+
+		case .healthCertificate:
+			return healthCertificateCell(forRowAt: indexPath)
+		case .createHealthCertificate:
+			return vaccinationRegistrationCell(forRowAt: indexPath)
 		default:
 			fatalError("Invalid section")
 		}
@@ -272,6 +288,15 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			} else {
 				onSettingsCellTap(viewModel.state.enState)
 			}
+
+		case .createHealthCertificate:
+			onCreateHealthCertificateTap()
+
+		case .healthCertificate:
+			if let healthCertifiedPerson = viewModel.healthCertifiedPerson(at: indexPath) {
+				onCertifiedPersonTap(healthCertifiedPerson)
+			}
+
 		default:
 			fatalError("Invalid section")
 		}
@@ -321,8 +346,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	private let onAppInformationCellTap: () -> Void
 	private let onSettingsCellTap: (ENStateHandler.State) -> Void
 	private let showTestInformationResult: (Result<CoronaTestQRCodeInformation, QRCodeError>) -> Void
-	private var deltaOnboardingCoordinator: DeltaOnboardingCoordinator?
+	private let onCreateHealthCertificateTap: () -> Void
+	private let onCertifiedPersonTap: (HealthCertifiedPerson) -> Void
 
+	private var deltaOnboardingCoordinator: DeltaOnboardingCoordinator?
 	private var riskCell: UITableViewCell?
 	private var pcrTestResultCell: UITableViewCell?
 	private var pcrTestShownPositiveResultCell: UITableViewCell?
@@ -356,6 +383,14 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		tableView.register(
 			UINib(nibName: String(describing: HomeRiskTableViewCell.self), bundle: nil),
 			forCellReuseIdentifier: String(describing: HomeRiskTableViewCell.self)
+		)
+		tableView.register(
+			UINib(nibName: String(describing: HomeHealthCertifiedPersonTableViewCell.self), bundle: nil),
+			forCellReuseIdentifier: HomeHealthCertifiedPersonTableViewCell.reuseIdentifier
+		)
+		tableView.register(
+			UINib(nibName: String(describing: HomeHealthCertificateRegistrationTableViewCell.self), bundle: nil),
+			forCellReuseIdentifier: String(describing: HomeHealthCertificateRegistrationTableViewCell.self)
 		)
 		tableView.register(
 			UINib(nibName: String(describing: HomeTestResultTableViewCell.self), bundle: nil),
@@ -414,6 +449,20 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		}
 
 		cell.configure(with: HomeExposureLoggingCellModel(state: viewModel.state))
+
+		return cell
+	}
+	
+	private func healthCertificateCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeHealthCertifiedPersonTableViewCell.self), for: indexPath) as? HomeHealthCertifiedPersonTableViewCell else {
+			fatalError("Could not dequeue HomeHealthCertifiedPersonTableViewCell")
+		}
+
+		let healthCertifiedPerson = viewModel.healthCertifiedPersons[indexPath.row]
+		let cellModel = HomeHealthCertifiedPersonCellModel(
+			healthCertifiedPerson: healthCertifiedPerson
+		)
+		cell.configure(with: cellModel)
 
 		return cell
 	}
@@ -527,6 +576,20 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		case .antigen:
 			antigenTestShownPositiveResultCell = cell
 		}
+
+		return cell
+	}
+	private func vaccinationRegistrationCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeHealthCertificateRegistrationTableViewCell.self), for: indexPath) as? HomeHealthCertificateRegistrationTableViewCell else {
+			fatalError("Could not dequeue HomeHealthCertificateRegistrationTableViewCell")
+		}
+
+		cell.configure(
+			with: HomeHealthCertificateRegistrationCellModel(),
+			onPrimaryAction: { [weak self] in
+				self?.onCreateHealthCertificateTap()
+			}
+		)
 
 		return cell
 	}

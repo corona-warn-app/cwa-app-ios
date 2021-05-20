@@ -395,7 +395,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "OnboardingInfo_togetherAgainstCoronaPage_boldText" = "Mehr Schutz für Sie und uns alle. Mit der Corona-Warn-App durchbrechen wir Infektionsketten schneller.";
 
-"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Machen Sie Ihr Smartphone zum Corona-Warn-System. Überblicken Sie Ihren Risikostatus und erfahren Sie, ob in den letzten 14 Tagen Corona-positiv getestete Personen in Ihrer Nähe waren.\n\nLassen Sie sich Ihre Testergebnisse (PCR-Test oder Antigen-Schnelltest) in der App anzeigen und warnen Sie andere, wenn Sie ein positives Testergebnis erhalten.\n\nAuf Wunsch können Sie mit der App Ihren persönlichen Infektionsstatus nachweisen (z. B. negativer Schnelltest). Bitte beachten Sie, dass Sie grundsätzlich nicht zum Nachweis Ihres Infektionsstatus per App verpflichtet sind. Sie können Ihren Infektionsstatus im Rahmen der rechtlichen Bestimmungen an Ihrem Aufenthaltsort auch auf andere Weise nachweisen.\n\nDie App merkt sich Begegnungen zwischen Menschen, indem ihre Smartphones verschlüsselte Zufalls-IDs austauschen. Persönliche Daten werden dabei nicht ausgetauscht.";
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Machen Sie Ihr Smartphone zum Corona-Warn-System. Überblicken Sie Ihren Risikostatus und erfahren Sie, ob in den letzten 14 Tagen Corona-positiv getestete Personen in Ihrer Nähe waren.\n\nLassen Sie sich Ihre Testergebnisse (PCR-Test oder Antigen-Schnelltest) in der App anzeigen und warnen Sie andere, wenn Sie ein positives Testergebnis erhalten.\n\nAuf Wunsch können Sie mit der App Ihren persönlichen Infektionsstatus nachweisen (z. B. negativer Schnelltest). Bitte beachten Sie, dass Sie grundsätzlich nicht zum Nachweis Ihres Infektionsstatus per App verpflichtet sind. Sie können Ihren Infektionsstatus im Rahmen der rechtlichen Bestimmungen an Ihrem Aufenthaltsort auch auf andere Weise nachweisen.\n\nEbenso können Sie Ihren persönlichen Impfstatus nachweisen.\n\nDie App merkt sich Begegnungen zwischen Menschen, indem ihre Smartphones verschlüsselte Zufalls-IDs austauschen. Persönliche Daten werden dabei nicht ausgetauscht.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_linkText" = "Informationen zur App in leichter Sprache und Gebärdensprache";
 
@@ -1527,7 +1527,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeature_23_digital_vaccination_certificate_title" = "Digitaler Impfnachweis";
 
-"NewVersionFeature_23_digital_vaccination_certificate_description" = "Sie können nun Ihre Impfzertifikate in der App registrieren. Sobald Sie alle notwendigen Impfungen haben, können Sie den vollständigen Impfnachweis per QR-Code in der App vorweisen.";
+"NewVersionFeature_23_digital_vaccination_certificate_description" = "Sie können jetzt Ihre Impfzertifikate in der App hinzufügen und per QR-Code vorweisen. 14 Tage nach der letzten Impfung zeigt die App den vollständigen Impfschutz an.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
@@ -2446,23 +2446,59 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Health Certificate Information */
 
-"HealthCertificate_Info_Title" = "Ihr Einverständnis";
+"HealthCertificate_Info_Title" = "Impfzertifikat hinzufügen";
 
 "HealthCertificate_Info_imageDescription" = "Eine geschützte Person schaut auf ein Smartphone";
 
-"HealthCertificate_Info_register_headline" = "Impfzertifikat registrieren";
+"HealthCertificate_Info_description" = "Fügen Sie Ihren digitalen Impfnachweis in der App hinzu. Sobald Ihr Impfschutz vollständig ist, können Sie den QR-Code in der App vorzeigen, um Ihren Impfschutz nachzuweisen.";
 
-"HealthCertificate_Info_register_title" = "Erstellen Sie Ihren digitalen Impfnachweis. Weitere Informationen finden Sie in der %@";
+"HealthCertificate_Info_section01" = "Um ein Impfzertifikat in die App hinzuzufügen, scannen Sie den QR-Code, den Sie bei der Impfung erhalten haben.";
 
-"HealthCertificate_Info_register_FAQLinkText" = "FAQ zum Impfen.";
+"HealthCertificate_Info_section02" = "Die App liest die Informationen aus dem QR-Code aus und speichert diese in einem sicheren Bereich Ihres Smartphones.";
 
-"HealthCertificate_Info_register_section01" = "Scannen Sie den QR-Code auf Ihrem Impfzertifikat, um das Zertifikat zu registrieren.";
+"HealthCertificate_Info_section03" = "Die Daten bleiben auf Ihrem Smartphone. Eine Übertragung an andere Personen findet nur statt, wenn Sie diesen Ihr Impfzertifikat zur Überprüfung vorzeigen.";
 
-"HealthCertificate_Info_register_section02" = "Die App erstellt einen Impfnachweis. Den QR-Code zum vollständigen Impfnachweis erhalten Sie, wenn Sie alle Impfungen erhalten haben. Je nach Impfstoff können mehrere Impfungen notwendig sein.";
+"HealthCertificate_Info_primaryButton" = "Weiter";
 
-"HealthCertificate_Info_register_section03" = "Ihr Impfnachweis wird in regelmäßigen Abständen automatisch überprüft.";
+/* QR Scanner */
 
-"HealthCertificate_Info_disclaimer" = "Ausführliche Informationen zur Datenverarbeitung und Ihrem Einverständnis.";
+"HealthCertificate_QRScanner_title" = "QR-Code Scan";
+
+"HealthCertificate_QRScanner_instruction" = "QR-Code scannen und registrieren";
+
+/* Home */
+
+/* - Registration */
+
+"HealthCertificate_Home_Registration_title" = "Impfzertifikat hinzufügen";
+
+"HealthCertificate_Home_Registration_description" = "Fügen Sie Ihre Impfzertifikate in die App hinzu, um sie immer bei sich zu haben. Scannen Sie dafür den QR Code Ihres Dokuments.";
+
+"HealthCertificate_Home_Registration_buttonTitle" = "Hinzufügen";
+
+/* - Person */
+
+"HealthCertificate_Home_Person_caption" = "Digitaler Impfnachweis";
+
+"HealthCertificate_Home_Person_title" = "SARS-CoV-2 Impfschutz";
+
+"HealthCertificate_Home_Person_partiallyVaccinated" = "Unvollständiger Impfschutz";
+
+/* Health Certified Person Screen */
+
+"HealthCertifiedPerson_title" = "Digitaler Impfnachweis";
+
+"HealthCertifiedPerson_subtitle" = "SARS-CoV-2-Impfschutz";
+
+"HealthCertifiedPerson_dateOfBirth" = "geboren %@";
+
+"HealthCertifiedPerson_vaccinationCount" = "Impfung %i von %i";
+
+"HealthCertifiedPerson_vaccinationDate" = "durchgeführt am %@";
+
+"HealthCertifiedPerson_QRCode_Image_Description" = "Ein QR-Code mit dem Status Ihrer Impfung";
+
+"HealthCertifiedPerson_primaryButton" = "Weitere Impfung registrieren";
 
 /* Health Certificate Details */
 
@@ -2470,11 +2506,19 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Details_certificate" = "Impfzertifikat";
 
+"HealthCertificate_Details_QRCode_Image_Description" = "Ein QR-Code mit Ihrem Impfzertifikat %i von %i";
+
+"HealthCertificate_Details_certificateCount" = "Impfzertifikat %i von %i";
+
+"HealthCertificate_Details_validity" = "Geimpft %@ - gültig bis %@";
+
 "HealthCertificate_Details_dateOfBirth" = "geboren %@";
 
 "HealthCertificate_Details_dateOfVaccination" = "Datum der Impfung";
 
 "HealthCertificate_Details_vaccine" = "Impfstoff";
+
+"HealthCertificate_Details_vaccineType" = "Impfstoffart";
 
 "HealthCertificate_Details_manufacture" = "Hersteller";
 
@@ -2495,3 +2539,19 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "HealthCertificate_Alert_deleteButton" = "Entfernen";
 
 "HealthCertificate_Alert_cancelButton" = "Abbrechen";
+
+/* Health Certificate Errors */
+
+"HealthCertificate_Error_Title" = "Fehler";
+
+"HealthCertificate_Error_PC_TRY_AGAIN_LATER" = "Das Impfzertifikat kann aktuell nicht überprüft werden. Bitte versuchen Sie es später noch einmal.";
+
+"HealthCertificate_Error_VC_ALREADY_REGISTERED" = "Das Impfzertifikat ist bereits in Ihrer App registriert.";
+
+"HealthCertificate_Error_VC_DIFFERENT_PERSON" = "Die persönlichen Daten dieses Impfzertifikats stimmen nicht mit denen der bereits registrierten Zertifikate überein. Sie können in der App nur Zertifikate einer Person registrieren.";
+
+"HealthCertificate_Error_VC_INVALID" = "Dieser QR-Code ist kein gültiges Impfzertifikat.";
+
+"HealthCertificate_Error_VC_NOT_YET_SUPPORTED" = "Dieses Impfzertifikat wird in Ihrer App-Version noch nicht unterstützt. Bitte aktualisieren Sie Ihre App oder wenden Sie sich an die technische Hotline unter „App-Informationen“.";
+
+"HealthCertificate_Error_VC_SCAN_AGAIN" = "Das Impfzertifikat konnte nicht auf Ihrem Smartphone gespeichert werden. Bitte versuchen Sie es später noch einmal oder wenden Sie sich an die technische Hotline unter „App-Informationen“.";

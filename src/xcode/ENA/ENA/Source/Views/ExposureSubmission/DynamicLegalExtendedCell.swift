@@ -102,6 +102,9 @@ class DynamicLegalExtendedCell: UITableViewCell, ReuseIdentifierProviding {
 		titleLabel.attributedText = title
 		descriptionLabel1.attributedText = description1
 		descriptionLabel2.attributedText = description2
+
+		descriptionLabel1.isHidden = description1 == nil
+		descriptionLabel2.isHidden = description2 == nil
 		
 		self.accessibilityIdentifier = accessibilityIdentifier
 		
@@ -116,6 +119,7 @@ class DynamicLegalExtendedCell: UITableViewCell, ReuseIdentifierProviding {
 			label.lineBreakMode = .byWordWrapping
 			label.attributedText = string
 			label.setContentCompressionResistancePriority(.required, for: .vertical)
+			label.setContentHuggingPriority(.required, for: .vertical)
 			contentStackView1.addArrangedSubview(label)
 		}
 		
@@ -126,6 +130,7 @@ class DynamicLegalExtendedCell: UITableViewCell, ReuseIdentifierProviding {
 			label.lineBreakMode = .byWordWrapping
 			label.attributedText = string
 			label.setContentCompressionResistancePriority(.required, for: .vertical)
+			label.setContentHuggingPriority(.required, for: .vertical)
 			contentStackView2.addArrangedSubview(label)
 		}
 		
@@ -134,5 +139,7 @@ class DynamicLegalExtendedCell: UITableViewCell, ReuseIdentifierProviding {
 
 	private func setup() {
 		cardView.layer.cornerRadius = 16
+		backgroundColor = .enaColor(for: .background)
 	}
+
 }
