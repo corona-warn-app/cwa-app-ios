@@ -483,6 +483,15 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 		return _result
 	}
 
+	func addCoronaTest(
+		coronaTestType: CoronaTestType,
+		result: TestResult,
+		date: String
+	) -> SecureSQLStore.IdResult {
+		// dummy at the moment
+		return .success(0)
+	}
+
 	func updateContactPerson(
 		id: Int,
 		name: String,
