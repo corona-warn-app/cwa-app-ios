@@ -1049,6 +1049,7 @@
 		BAEE121C25ECF7AB009A0284 /* CheckinQRCodeScannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEE121B25ECF7AB009A0284 /* CheckinQRCodeScannerViewModel.swift */; };
 		BAEFB3562656A79700497F79 /* ContactDiaryMigration4To5.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEFB3552656A74900497F79 /* ContactDiaryMigration4To5.swift */; };
 		BAEFB3572656A79700497F79 /* ContactDiaryStoreSchemaV5.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEFB3542656A74900497F79 /* ContactDiaryStoreSchemaV5.swift */; };
+		BAEFB35A2656B07A00497F79 /* ContactDiaryStoreSchemaV5Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEFB3592656B07A00497F79 /* ContactDiaryStoreSchemaV5Tests.swift */; };
 		BAF2DD5225C9BABA00D7DFB7 /* DMButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF2DD5125C9BABA00D7DFB7 /* DMButtonTableViewCell.swift */; };
 		BAF2DD5725C9BAF700D7DFB7 /* DMButtonCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF2DD5625C9BAF700D7DFB7 /* DMButtonCellViewModel.swift */; };
 		BAF5371625E7CC1B00C835E2 /* Sequence+NSAttributedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF5371525E7CC1B00C835E2 /* Sequence+NSAttributedText.swift */; };
@@ -2240,6 +2241,7 @@
 		BAEE122325ED027F009A0284 /* apple-app-site-association */ = {isa = PBXFileReference; lastKnownFileType = text; path = "apple-app-site-association"; sourceTree = "<group>"; };
 		BAEFB3542656A74900497F79 /* ContactDiaryStoreSchemaV5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryStoreSchemaV5.swift; sourceTree = "<group>"; };
 		BAEFB3552656A74900497F79 /* ContactDiaryMigration4To5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryMigration4To5.swift; sourceTree = "<group>"; };
+		BAEFB3592656B07A00497F79 /* ContactDiaryStoreSchemaV5Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryStoreSchemaV5Tests.swift; sourceTree = "<group>"; };
 		BAF2DD5125C9BABA00D7DFB7 /* DMButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMButtonTableViewCell.swift; sourceTree = "<group>"; };
 		BAF2DD5625C9BAF700D7DFB7 /* DMButtonCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMButtonCellViewModel.swift; sourceTree = "<group>"; };
 		BAF5371525E7CC1B00C835E2 /* Sequence+NSAttributedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+NSAttributedText.swift"; sourceTree = "<group>"; };
@@ -5148,14 +5150,15 @@
 		ABAE0A35257FA85B0030ED47 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
+				AB68881D25DA734100907465 /* ContactDiaryAccess.swift */,
+				ABAE0A3E257FAC970030ED47 /* ContactDiaryStoreTests.swift */,
+				019C9F0725894BE900B26392 /* MockDiaryStore.swift */,
+				BA0E5C3925B5CF5D00C219DE /* RiskLevelPerDay.swift */,
 				AB68882825DA767F00907465 /* StoreV1 */,
 				AB68881425DA6EFE00907465 /* StoreV2 */,
 				AB6887F525D6AA2200907465 /* StoreV3 */,
 				AB190EE925FF5BD200FBFF0D /* StoreV4 */,
-				ABAE0A3E257FAC970030ED47 /* ContactDiaryStoreTests.swift */,
-				019C9F0725894BE900B26392 /* MockDiaryStore.swift */,
-				BA0E5C3925B5CF5D00C219DE /* RiskLevelPerDay.swift */,
-				AB68881D25DA734100907465 /* ContactDiaryAccess.swift */,
+				BAEFB3582656B05A00497F79 /* StoreV5 */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -6518,6 +6521,14 @@
 			children = (
 				BAEFB3552656A74900497F79 /* ContactDiaryMigration4To5.swift */,
 				BAEFB3542656A74900497F79 /* ContactDiaryStoreSchemaV5.swift */,
+			);
+			path = StoreV5;
+			sourceTree = "<group>";
+		};
+		BAEFB3582656B05A00497F79 /* StoreV5 */ = {
+			isa = PBXGroup;
+			children = (
+				BAEFB3592656B07A00497F79 /* ContactDiaryStoreSchemaV5Tests.swift */,
 			);
 			path = StoreV5;
 			sourceTree = "<group>";
@@ -8137,6 +8148,7 @@
 				8FA88FE02616692000FD36DA /* TraceLocationDetailViewModelTests.swift in Sources */,
 				0109DB9A26037E6A00624BB3 /* TraceLocation+Mock.swift in Sources */,
 				0144DD9725D40CC600CFB1D1 /* MockDeadmanNotificationManager.swift in Sources */,
+				BAEFB35A2656B07A00497F79 /* ContactDiaryStoreSchemaV5Tests.swift in Sources */,
 				B1FE13FE24896EF700D012E5 /* CachedAppConfigurationTests.swift in Sources */,
 				50352C9F25C96687007193D2 /* HTTPClient+AuthorizationOTPEdusTests.swift in Sources */,
 				524C4292256587B900EBC3B0 /* ExposureSubmissionTestResultConsentViewModelTests.swift in Sources */,
