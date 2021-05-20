@@ -571,9 +571,9 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		
 		Analytics.collect(.testResultMetadata(.registerNewTestMetadata(registrationDate, registrationToken)))
 		XCTAssertEqual(store.testResultMetadata?.testRegistrationDate, registrationDate, "Wrong Registration date")
-		XCTAssertEqual(store.testResultMetadata?.eNFriskLevelAtTestRegistration, riskLevel, "Wrong Risk Level")
+		XCTAssertEqual(store.testResultMetadata?.enfRiskLevelAtTestRegistration, riskLevel, "Wrong Risk Level")
 		XCTAssertEqual(store.testResultMetadata?.daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration, differenceBetweenMostRecentRiskDateAndRegistrationDate, "Wrong number of days with this risk level")
-		XCTAssertEqual(store.testResultMetadata?.hoursSinceHighENFRiskWarningAtTestRegistration, differenceInHoursBetweenChangeToHighRiskAndRegistrationDate, "Wrong difference hoursSinceENFHighRiskWarningAtTestRegistration")
+		XCTAssertEqual(store.testResultMetadata?.hoursSinceENFHighRiskWarningAtTestRegistration, differenceInHoursBetweenChangeToHighRiskAndRegistrationDate, "Wrong difference hoursSinceENFHighRiskWarningAtTestRegistration")
 
 		Analytics.collect(.testResultMetadata(.updateTestResult(testResult, registrationToken)))
 		XCTAssertEqual(store.testResultMetadata?.testResult, testResult, "Wrong TestResult")
@@ -592,7 +592,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 			"Wrong hoursSinceTestRegistration protobuf mapping"
 		)
 		XCTAssertEqual(
-			store.testResultMetadata?.eNFriskLevelAtTestRegistration?.protobuf,
+			store.testResultMetadata?.enfRiskLevelAtTestRegistration?.protobuf,
 			protobuf?.riskLevelAtTestRegistration,
 			"Wrong enfRiskLevelAtTestRegistration protobuf mapping"
 		)
@@ -602,7 +602,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 			"Wrong daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration protobuf mapping"
 		)
 		XCTAssertEqual(
-			store.testResultMetadata?.hoursSinceHighENFRiskWarningAtTestRegistration,
+			store.testResultMetadata?.hoursSinceENFHighRiskWarningAtTestRegistration,
 			Int(protobuf?.hoursSinceHighRiskWarningAtTestRegistration ?? -1),
 			"Wrong hoursSinceENFHighRiskWarningAtTestRegistration protobuf mapping"
 		)
@@ -712,7 +712,10 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 			hoursSinceTestResult: 0,
 			hoursSinceTestRegistration: 0,
 			daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration: -1,
-			hoursSinceENFHighRiskWarningAtTestRegistration: -1
+			hoursSinceENFHighRiskWarningAtTestRegistration: -1,
+			daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration: -1,
+			hoursSinceCheckinHighRiskWarningAtTestRegistration: -1,
+			submittedWithCheckIns: nil
 		)
 		
 		let lastScreen: LastSubmissionFlowScreen = .submissionFlowScreenOther
