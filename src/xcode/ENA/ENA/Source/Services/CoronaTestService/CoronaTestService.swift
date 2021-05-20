@@ -456,7 +456,7 @@ class CoronaTestService {
 			.store(in: &subscriptions)
 	}
 
-	func getRegistrationToken(
+	private func getRegistrationToken(
 		forKey key: String,
 		withType type: String,
 		completion: @escaping RegistrationResultHandler
