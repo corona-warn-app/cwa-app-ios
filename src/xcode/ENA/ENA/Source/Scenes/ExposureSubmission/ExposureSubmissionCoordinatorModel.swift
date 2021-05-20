@@ -160,8 +160,22 @@ class ExposureSubmissionCoordinatorModel {
 					}
 				}
 			)
+		case .pcrTeleTAN(let teleTAN):
+			coronaTestService.registerPCRTestAndGetResult(
+				teleTAN: teleTAN,
+				isSubmissionConsentGiven: isSubmissionConsentGiven,
+				completion: { result in
+					isLoading(false)
+					
+					switch result {
+					case let .failure(error):
+						onError(error)
+					case let .success(testResult):
+						onSuccess(testResult)
+					}
+				}
+			)
 		}
-
 	}
 
 	func setSubmissionConsentGiven(_ isSubmissionConsentGiven: Bool) {

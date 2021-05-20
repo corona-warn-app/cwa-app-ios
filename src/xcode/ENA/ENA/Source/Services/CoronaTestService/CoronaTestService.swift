@@ -163,6 +163,28 @@ class CoronaTestService {
 			}
 		)
 	}
+	
+	func registerPCRTestAndGetResult(
+		teleTAN: String,
+		isSubmissionConsentGiven: Bool,
+		completion: @escaping TestResultHandler
+	) {
+		registerPCRTest(teleTAN: teleTAN, isSubmissionConsentGiven: isSubmissionConsentGiven) { [weak self] result in
+			switch result {
+			case .success:
+				self?.getTestResult(for: .pcr, duringRegistration: true, { result in
+					switch result {
+					case .success(let testResult):
+						completion(.success(testResult))
+					case .failure(let error):
+						completion(.failure(error))
+					}
+				})
+			case .failure(let error):
+				completion(.failure(error))
+			}
+		}
+	}
 
 	func registerAntigenTestAndGetResult(
 		with hash: String,
@@ -441,7 +463,7 @@ class CoronaTestService {
 			.store(in: &subscriptions)
 	}
 
-	private func getRegistrationToken(
+	func getRegistrationToken(
 		forKey key: String,
 		withType type: String,
 		completion: @escaping RegistrationResultHandler

@@ -11,15 +11,11 @@ final class TanInputViewModel {
 	
 	init(
 		coronaTestService: CoronaTestService,
-		presentOverrideTestNotice: @escaping (CoronaTestType, @escaping (Bool) -> Void) -> Void,
-		presentInvalidTanAlert: @escaping (String, @escaping () -> Void) -> Void,
-		tanSuccessfullyTransferred: @escaping () -> Void,
+		onSuccess: @escaping (CoronaTestQRCodeInformation, @escaping (Bool) -> Void) -> Void,
 		givenTan: String? = nil
 	) {
 		self.coronaTestService = coronaTestService
-		self.presentOverrideTestNotice = presentOverrideTestNotice
-		self.presentInvalidTanAlert = presentInvalidTanAlert
-		self.tanSuccessfullyTransferred = tanSuccessfullyTransferred
+		self.onSuccess = onSuccess
 		self.text = givenTan ?? ""
 	}
 	
@@ -64,17 +60,11 @@ final class TanInputViewModel {
 			Log.debug("tried to submit tan \(private: text, public: "TeleTan ID"), but it is invalid")
 			return
 		}
-
-		if let test = coronaTestService.coronaTest(ofType: .pcr) {
-			Log.info("Present overwrite view contrller because another PCR test is already registered", log: .ui)
-			presentOverrideTestNotice(test.type, { [weak self] overrideTest in
-				if overrideTest {
-					self?.registerPCRTest()
-				}
-			})
-		} else {
-			registerPCRTest()
-		}
+		
+		onSuccess(.pcrTeleTAN(text), { [weak self] isLoading in
+			self?.isPrimaryButtonEnabled = !isLoading
+			self?.isPrimaryBarButtonIsLoading = isLoading
+		})
 	}
 
 	func addCharacter(_ char: String) {
@@ -98,9 +88,7 @@ final class TanInputViewModel {
 	}
 
 	private let coronaTestService: CoronaTestService
-	private let presentOverrideTestNotice: (CoronaTestType, @escaping (Bool) -> Void) -> Void
-	private let presentInvalidTanAlert: (String, @escaping () -> Void) -> Void
-	private let tanSuccessfullyTransferred: () -> Void
+	private let onSuccess: (CoronaTestQRCodeInformation, @escaping (Bool) -> Void) -> Void
 
 	private func calculateChecksum(input: String) -> Character? {
 		let hash = ENAHasher.sha256(input)
@@ -112,25 +100,6 @@ final class TanInputViewModel {
 		case .some(let c):
 			return Character(c)
 		default: return nil
-		}
-	}
-	
-	private func registerPCRTest() {
-		isPrimaryButtonEnabled = false
-		isPrimaryBarButtonIsLoading = true
-		coronaTestService.registerPCRTest(teleTAN: text, isSubmissionConsentGiven: false) { [weak self] result in
-			switch result {
-			case let .failure(error):
-				// If teleTAN is incorrect, show Alert Controller
-				Log.debug("Failure to register PCR test: \(error.localizedDescription)", log: .api)
-				self?.isPrimaryButtonEnabled = true
-				self?.isPrimaryBarButtonIsLoading = false
-				self?.presentInvalidTanAlert(error.localizedDescription) {
-					self?.didDissMissInvalidTanAlert?()
-				}
-			case .success:
-				self?.tanSuccessfullyTransferred()
-			}
 		}
 	}
 }

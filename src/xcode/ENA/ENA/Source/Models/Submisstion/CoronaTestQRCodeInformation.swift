@@ -18,12 +18,13 @@ enum RatError {
 enum CoronaTestQRCodeInformation {
 	case pcr(String)
 	case antigen(AntigenTestInformation)
+	case pcrTeleTAN(String) // tan string
 	
 	// we cant declare the enum type to Int because we have properties inside the cases
 	
 	var testType: CoronaTestType {
 		switch self {
-		case .pcr:
+		case .pcr, .pcrTeleTAN:
 			return .pcr
 		case .antigen:
 			return .antigen
@@ -38,7 +39,9 @@ extension CoronaTestQRCodeInformation: Equatable {
 			return lhsGuid == rhsGuid
 		case (.antigen(let lhsAntigenTestInformation), .antigen(let rhsAntigenTestInformation)):
 			return lhsAntigenTestInformation == rhsAntigenTestInformation
-		case (.antigen, .pcr), (.pcr, .antigen):
+		case (.pcrTeleTAN(let lhsTAN), .pcrTeleTAN(let thsTAN)):
+			return lhsTAN == thsTAN
+		default:
 			return false
 		}
 	}
