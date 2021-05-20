@@ -2,7 +2,7 @@
 
 set -o pipefail
 
-CORE_COUNT=`sysctl -n hw.ncpu`
+CORE_COUNT=$(sysctl -n hw.ncpu)
 RESULT_PATH="fastlane/test_output/ENA.xcresult"
 
 EXIT_STATUS=0
@@ -13,7 +13,7 @@ defer() {
 }
 trap defer EXIT
 
-cd src/xcode
+cd src/xcode || exit
 
 # local cleanup
 if [ -e ${RESULT_PATH} ]; then
@@ -25,14 +25,14 @@ xcodebuild \
   -workspace "ENA.xcworkspace" \
   -scheme ENA \
   -destination "platform=iOS Simulator,OS=14.4,name=iPhone 11" \
-  -testPlan $1 \
+  -testPlan "$1" \
   -only-test-configuration "DE" \
   -derivedDataPath "./DerivedData" \
   -enableCodeCoverage YES \
   -resultBundlePath "fastlane/test_output/ENA.xcresult" \
   -parallel-testing-enabled YES \
-  -parallel-testing-worker-count "${CORE_COUNT}" \
-  -maximum-concurrent-test-simulator-destinations "${CORE_COUNT}" \
+  -parallel-testing-worker-count "$((CORE_COUNT-1))" \
+  -maximum-concurrent-test-simulator-destinations "$((CORE_COUNT-1))" \
   test-without-building
 
 EXIT_STATUS=$?
