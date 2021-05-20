@@ -1047,6 +1047,8 @@
 		BAEB174525E567830012FEF9 /* FooterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEB174425E567830012FEF9 /* FooterViewModel.swift */; };
 		BAEC99C7258B714300B98ECA /* ENAUITests_07_ContactJournalUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEC99BF258B705500B98ECA /* ENAUITests_07_ContactJournalUITests.swift */; };
 		BAEE121C25ECF7AB009A0284 /* CheckinQRCodeScannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEE121B25ECF7AB009A0284 /* CheckinQRCodeScannerViewModel.swift */; };
+		BAEFB3562656A79700497F79 /* ContactDiaryMigration4To5.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEFB3552656A74900497F79 /* ContactDiaryMigration4To5.swift */; };
+		BAEFB3572656A79700497F79 /* ContactDiaryStoreSchemaV5.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEFB3542656A74900497F79 /* ContactDiaryStoreSchemaV5.swift */; };
 		BAF2DD5225C9BABA00D7DFB7 /* DMButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF2DD5125C9BABA00D7DFB7 /* DMButtonTableViewCell.swift */; };
 		BAF2DD5725C9BAF700D7DFB7 /* DMButtonCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF2DD5625C9BAF700D7DFB7 /* DMButtonCellViewModel.swift */; };
 		BAF5371625E7CC1B00C835E2 /* Sequence+NSAttributedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF5371525E7CC1B00C835E2 /* Sequence+NSAttributedText.swift */; };
@@ -2236,6 +2238,8 @@
 		BAEC99BF258B705500B98ECA /* ENAUITests_07_ContactJournalUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_07_ContactJournalUITests.swift; sourceTree = "<group>"; };
 		BAEE121B25ECF7AB009A0284 /* CheckinQRCodeScannerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinQRCodeScannerViewModel.swift; sourceTree = "<group>"; };
 		BAEE122325ED027F009A0284 /* apple-app-site-association */ = {isa = PBXFileReference; lastKnownFileType = text; path = "apple-app-site-association"; sourceTree = "<group>"; };
+		BAEFB3542656A74900497F79 /* ContactDiaryStoreSchemaV5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryStoreSchemaV5.swift; sourceTree = "<group>"; };
+		BAEFB3552656A74900497F79 /* ContactDiaryMigration4To5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryMigration4To5.swift; sourceTree = "<group>"; };
 		BAF2DD5125C9BABA00D7DFB7 /* DMButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMButtonTableViewCell.swift; sourceTree = "<group>"; };
 		BAF2DD5625C9BAF700D7DFB7 /* DMButtonCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMButtonCellViewModel.swift; sourceTree = "<group>"; };
 		BAF5371525E7CC1B00C835E2 /* Sequence+NSAttributedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+NSAttributedText.swift"; sourceTree = "<group>"; };
@@ -5136,6 +5140,7 @@
 				8F27018D259B58D700E48CFE /* StoreV2 */,
 				AB6887E725D6754C00907465 /* StoreV3 */,
 				AB190EE125FF5AC500FBFF0D /* StoreV4 */,
+				BAEFB3532656A73400497F79 /* StoreV5 */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -6508,6 +6513,15 @@
 			path = __test__;
 			sourceTree = "<group>";
 		};
+		BAEFB3532656A73400497F79 /* StoreV5 */ = {
+			isa = PBXGroup;
+			children = (
+				BAEFB3552656A74900497F79 /* ContactDiaryMigration4To5.swift */,
+				BAEFB3542656A74900497F79 /* ContactDiaryStoreSchemaV5.swift */,
+			);
+			path = StoreV5;
+			sourceTree = "<group>";
+		};
 		BAF5B3CB2604E1AD00DF8149 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -7536,6 +7550,7 @@
 				A1BABD1024A57D03000ED515 /* ENTemporaryExposureKey+Processing.swift in Sources */,
 				0120ECDD25875D8B00F78944 /* DiaryDayEntryCellModel.swift in Sources */,
 				8FE2666F264A9E0300C2B432 /* HomeHealthCertificateRegistrationCellModel.swift in Sources */,
+				BAEFB3572656A79700497F79 /* ContactDiaryStoreSchemaV5.swift in Sources */,
 				01A1B44A252DFD7800841B63 /* MetadataObject.swift in Sources */,
 				01BA07432620938E00237DD8 /* DurationFilter.swift in Sources */,
 				51C737BD245B349700286105 /* OnboardingInfoViewController.swift in Sources */,
@@ -7647,6 +7662,7 @@
 				01EA176A2590EF4F00E98E02 /* HomeTableViewModel.swift in Sources */,
 				71FE1C7F247AC2B500851FEB /* ExposureSubmissionTestResultViewController.swift in Sources */,
 				011216FA2617363D00320745 /* CoronaTestService.swift in Sources */,
+				BAEFB3562656A79700497F79 /* ContactDiaryMigration4To5.swift in Sources */,
 				8F015FF325DD62BA004FEF04 /* ExposureSubmission+TestResult+Extenstion.swift in Sources */,
 				50C0298925E4067400460FA4 /* ClientMetadata.swift in Sources */,
 				50B5058925CAF3EF00EEA380 /* DMOTPServiceViewController.swift in Sources */,
