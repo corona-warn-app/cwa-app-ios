@@ -172,6 +172,36 @@ final class DiaryOverviewDayCellModel {
 	var formattedDate: String {
 		diaryDay.formattedDate
 	}
+
+	var isPCRTestHidden: Bool {
+		return false
+	}
+
+	var PCRTestImage: UIImage {
+		return UIImage(imageLiteralResourceName: "Test_green")
+	}
+
+	var PCRTestTitle: String? {
+		return AppStrings.ContactDiary.Overview.Tests.PCRRegistered
+	}
+	var PCRTestResult: String? {
+		return AppStrings.ContactDiary.Overview.Tests.negativeResult
+	}
+
+	var isAntigenTestHidden: Bool {
+		return false
+	}
+
+	var antigenTestImage: UIImage {
+		return UIImage(imageLiteralResourceName: "Test_red")
+	}
+
+	var antigenTestTitle: String? {
+		return AppStrings.ContactDiary.Overview.Tests.AntigenDone
+	}
+	var antigenTestResult: String? {
+		return AppStrings.ContactDiary.Overview.Tests.positiveResult
+	}
 	
 	func checkInDespription(checkinWithRisk: CheckinWithRisk) -> String {
 		let checkinName = checkinWithRisk.checkIn.traceLocationDescription

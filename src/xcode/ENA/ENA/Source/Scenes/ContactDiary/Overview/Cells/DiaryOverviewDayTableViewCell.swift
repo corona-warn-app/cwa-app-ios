@@ -21,19 +21,21 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 		exposureHistoryDetailLabel.textColor = .enaColor(for: .textPrimary2)
 
 		// antigen & PCR tests results
-		pcrTitlelLabel.text = AppStrings.ContactDiary.Overview.Tests.PCRRegistered
+		pcrTitlelLabel.text = cellViewModel.PCRTestTitle
 		pcrTitlelLabel.style = .body
-		pcrDetailLabel.text = AppStrings.ContactDiary.Overview.Tests.negativeResult
+		pcrDetailLabel.text = cellViewModel.PCRTestResult
 		pcrDetailLabel.style = .subheadline
 		pcrDetailLabel.textColor = .enaColor(for: .textPrimary2)
-		pcrTestStackView.isHidden = false
+		pcrImageView.image = cellViewModel.PCRTestImage
+		pcrTestStackView.isHidden = cellViewModel.isPCRTestHidden
 
-		antigenTitleLabel.text = AppStrings.ContactDiary.Overview.Tests.AntigenDone
+		antigenTitleLabel.text = cellViewModel.antigenTestTitle
 		antigenTitleLabel.style = .body
-		antigenDetailLabel.text = AppStrings.ContactDiary.Overview.Tests.positiveResult
+		antigenDetailLabel.text = cellViewModel.antigenTestResult
 		antigenDetailLabel.style = .subheadline
 		antigenDetailLabel.textColor = .enaColor(for: .textPrimary2)
-		antigenTestStackView.isHidden = false
+		antigenImageView.image = cellViewModel.antigenTestImage
+		antigenTestStackView.isHidden = cellViewModel.isAntigenTestHidden
 
 		// Check-Ins with risk
 		checkinHistoryStackView.isHidden = cellViewModel.hideCheckinRisk
