@@ -28,6 +28,15 @@ struct TestResultMetadata: Codable {
 			Int.self,
 			forKey: .hoursSinceENFHighRiskWarningAtTestRegistration
 		)
+		checkinRiskLevelAtTestRegistration = try container.decodeIfPresent(RiskLevel.self, forKey: .checkinRiskLevelAtTestRegistration)
+		daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration = try container.decodeIfPresent(
+			Int.self,
+			forKey: .daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration
+		)
+		hoursSinceCheckinHighRiskWarningAtTestRegistration = try container.decodeIfPresent(
+			Int.self,
+			forKey: .hoursSinceCheckinHighRiskWarningAtTestRegistration
+		)
 		testRegistrationDate = try container.decodeIfPresent(Date.self, forKey: .testRegistrationDate)
 		testRegistrationToken = try container.decode(String.self, forKey: .testRegistrationToken)
 	}

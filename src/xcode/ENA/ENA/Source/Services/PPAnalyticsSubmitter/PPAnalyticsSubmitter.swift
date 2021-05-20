@@ -390,6 +390,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			if let checkinDateChangedComparedToPreviousSubmission = store.currentCheckinRiskExposureMetadata?.dateChangedComparedToPreviousSubmission {
 				$0.ptDateChangedComparedToPreviousSubmission = checkinDateChangedComparedToPreviousSubmission
 			}
+			
 		}]
 	}
 	

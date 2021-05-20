@@ -7,6 +7,7 @@ import Foundation
 typealias Analytics = PPAnalyticsCollector
 
 /// To avoid that someone instantiate this, we made a enum. This collects the analytics data, makes in some cases some calculations and to save it to the database, to load it from the database, to remove every analytics data from the store. This enum also triggers a submission and grants that nothing can be logged if the user did not give his consent.
+// swiftlint:disable type_body_length
 enum PPAnalyticsCollector {
 
 	// MARK: - Internal
@@ -200,6 +201,7 @@ enum PPAnalyticsCollector {
 		}
 	}
 
+	// swiftlint:disable:next cyclomatic_complexity
 	private static func registerNewTestMetadata(_ date: Date = Date(), _ token: String) {
 		guard store?.enfRiskCalculationResult != nil || store?.checkinRiskCalculationResult != nil else {
 			Log.warning("Could not register new test meta data due to enfRiskCalculationResult and checkinRiskCalculationResult are both nil", log: .ppa)
@@ -209,6 +211,8 @@ enum PPAnalyticsCollector {
 		var testResultMetadata = TestResultMetadata(registrationToken: token)
 		testResultMetadata.testRegistrationDate = date
 		
+		// Differ now between ENF and checkin risk calculation results.
+
 		if let enfRiskCalculationResult = store?.enfRiskCalculationResult {
 			testResultMetadata.enfRiskLevelAtTestRegistration = enfRiskCalculationResult.riskLevel
 			
@@ -228,9 +232,9 @@ enum PPAnalyticsCollector {
 					return
 				}
 				let differenceInHours = Calendar.current.dateComponents([.hour], from: timeOfRiskChangeToHigh, to: date)
-				store?.testResultMetadata?.hoursSinceENFHighRiskWarningAtTestRegistration = differenceInHours.hour
+				testResultMetadata.hoursSinceENFHighRiskWarningAtTestRegistration = differenceInHours.hour
 			case .low:
-				store?.testResultMetadata?.hoursSinceENFHighRiskWarningAtTestRegistration = -1
+				testResultMetadata.hoursSinceENFHighRiskWarningAtTestRegistration = -1
 			}
 		}
 		
@@ -253,12 +257,13 @@ enum PPAnalyticsCollector {
 					return
 				}
 				let differenceInHours = Calendar.current.dateComponents([.hour], from: timeOfRiskChangeToHigh, to: date)
-				store?.testResultMetadata?.hoursSinceCheckinHighRiskWarningAtTestRegistration = differenceInHours.hour
+				testResultMetadata.hoursSinceCheckinHighRiskWarningAtTestRegistration = differenceInHours.hour
 			case .low:
-				store?.testResultMetadata?.hoursSinceCheckinHighRiskWarningAtTestRegistration = -1
+				testResultMetadata.hoursSinceCheckinHighRiskWarningAtTestRegistration = -1
 			}
 		}
-
+		
+		// at the end, create the filled new test result metadata.
 		Analytics.collect(.testResultMetadata(.create(testResultMetadata)))
 	}
 	
