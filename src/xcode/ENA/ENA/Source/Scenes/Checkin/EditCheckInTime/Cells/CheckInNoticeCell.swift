@@ -18,7 +18,13 @@ class CheckInNoticeCell: UITableViewCell, ReuseIdentifierProviding {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	// MARK: - Public
+	// MARK: - Overrides
+
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+
+		updateBorderWidth()
+	}
 
 	// MARK: - Internal
 
@@ -28,8 +34,8 @@ class CheckInNoticeCell: UITableViewCell, ReuseIdentifierProviding {
 
 	// MARK: - Private
 
+	private let tileView = UIView()
 	private let typeLabel = ENALabel()
-
 	private let noticeLabel = ENALabel()
 
 	private func setupView() {
@@ -37,16 +43,15 @@ class CheckInNoticeCell: UITableViewCell, ReuseIdentifierProviding {
 		backgroundColor = .clear
 		contentView.backgroundColor = .clear
 
-		let tileView = UIView()
 		tileView.translatesAutoresizingMaskIntoConstraints = false
-		tileView.backgroundColor = .enaColor(for: .darkBackground)
+		tileView.backgroundColor = .enaColor(for: .cellBackground2)
 		tileView.layer.cornerRadius = 12.0
 		if #available(iOS 13.0, *) {
 			tileView.layer.cornerCurve = .continuous
 		}
 		tileView.layer.masksToBounds = true
-		tileView.layer.borderWidth = 1.0
 		tileView.layer.borderColor = UIColor.enaColor(for: .hairline).cgColor
+		updateBorderWidth()
 		contentView.addSubview(tileView)
 
 		noticeLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -57,7 +62,7 @@ class CheckInNoticeCell: UITableViewCell, ReuseIdentifierProviding {
 		noticeLabel.numberOfLines = 0
 
 		NSLayoutConstraint.activate([
-			tileView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 3.0),
+			tileView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 4.0),
 			tileView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
 			tileView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.0),
 			tileView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.0),
@@ -67,6 +72,10 @@ class CheckInNoticeCell: UITableViewCell, ReuseIdentifierProviding {
 			noticeLabel.leadingAnchor.constraint(equalTo: tileView.leadingAnchor, constant: 16.0),
 			noticeLabel.trailingAnchor.constraint(equalTo: tileView.trailingAnchor, constant: -16.0)
 		])
+	}
+
+	private func updateBorderWidth() {
+		tileView.layer.borderWidth = traitCollection.userInterfaceStyle == .dark ? 0 : 1
 	}
 
 }
