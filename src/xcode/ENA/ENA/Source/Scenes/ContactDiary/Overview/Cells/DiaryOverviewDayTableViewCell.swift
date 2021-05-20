@@ -21,16 +21,16 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 		exposureHistoryDetailLabel.textColor = .enaColor(for: .textPrimary2)
 
 		// antigen & PCR tests results
-		pcrTitlelLabel.text = AppStrings.ContactDiary.Overview.tests.PCRRegistered
+		pcrTitlelLabel.text = AppStrings.ContactDiary.Overview.Tests.PCRRegistered
 		pcrTitlelLabel.style = .body
-		pcrDetailLabel.text = AppStrings.ContactDiary.Overview.tests.negativeResult
+		pcrDetailLabel.text = AppStrings.ContactDiary.Overview.Tests.negativeResult
 		pcrDetailLabel.style = .subheadline
 		pcrDetailLabel.textColor = .enaColor(for: .textPrimary2)
 		pcrTestStackView.isHidden = false
 
-		antigenTitleLabel.text = AppStrings.ContactDiary.Overview.tests.AntigenDone
+		antigenTitleLabel.text = AppStrings.ContactDiary.Overview.Tests.AntigenDone
 		antigenTitleLabel.style = .body
-		antigenDetailLabel.text = AppStrings.ContactDiary.Overview.tests.positiveResult
+		antigenDetailLabel.text = AppStrings.ContactDiary.Overview.Tests.positiveResult
 		antigenDetailLabel.style = .subheadline
 		antigenDetailLabel.textColor = .enaColor(for: .textPrimary2)
 		antigenTestStackView.isHidden = false
