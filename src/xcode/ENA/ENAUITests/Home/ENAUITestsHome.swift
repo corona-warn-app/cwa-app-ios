@@ -306,41 +306,6 @@ class ENAUITests_01a_Home: XCTestCase {
 		snapshot("homescreenrisk_level_\(riskLevel)_noExposureLogging_\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
 	
-	func test_screenshot_details_riskCardHigh_riskOneDay_tracingNdays() throws {
-		var screenshotCounter = 0
-		let riskLevel = "high"
-		// change the value based on N
-		let activeTracingDays = "5"
-		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.risk.riskLevel, riskLevel])
-		app.launchArguments.append(contentsOf: ["-activeTracingDays", activeTracingDays])
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.common.ENStatus, ENStatus.active.stringValue])
-		app.launch()
-
-		let riskCell = app.cells.element(boundBy: 1)
-		riskCell.waitAndTap()
-
-		snapshot("details_screen_risk_level_\(riskLevel)_risk_one_day_active_tracing_\(activeTracingDays)days_\(String(format: "%04d", (screenshotCounter.inc() )))")
-    }
-
-	func test_screenshot_details_riskCardLow_riskOneDay_tracingNdays() throws {
-		var screenshotCounter = 0
-		let riskLevel = "low"
-		// change the value based on N
-		let activeTracingDays = "5"
-		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.risk.riskLevel, riskLevel])
-		app.launchArguments.append(contentsOf: ["-activeTracingDays", activeTracingDays])
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.risk.numberOfDaysWithRiskLevel, "1"])
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.common.ENStatus, ENStatus.active.stringValue])
-		app.launch()
-		
-		let riskCell = app.cells.element(boundBy: 1)
-		riskCell.waitAndTap()
-		
-		snapshot("details_screen_risk_level_\(riskLevel)_risk_one_day_active_tracing_\(activeTracingDays)days_\(String(format: "%04d", (screenshotCounter.inc() )))")
-	}
-	
 	
 	func test_screenshot_details_riskCardLow_riskOneDay_Ndays() throws {
 		var screenshotCounter = 0
