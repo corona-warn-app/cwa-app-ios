@@ -59,8 +59,10 @@ class HealthCertificateQRCodeScannerViewController: UIViewController {
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 
-		#if targetEnvironment(simulator)
-		didScanCertificate(HealthCertifiedPerson(healthCertificates: [HealthCertificate.mock()]))
+		#if targetEnvironment(simulator) && DEBUG
+			if !isUITesting {
+				didScanCertificate(HealthCertifiedPerson(healthCertificates: [HealthCertificate.mock(base45: HealthCertificate.lastBase45Mock)]))
+			}
 		#endif
 	}
 
@@ -150,6 +152,12 @@ class HealthCertificateQRCodeScannerViewController: UIViewController {
 	
 	@objc
 	private func didToggleFlash() {
+		#if DEBUG
+		if isUITesting {
+			didScanCertificate(HealthCertifiedPerson(healthCertificates: [HealthCertificate.mock()]))
+			return
+		}
+		#endif
 		viewModel?.toggleFlash()
 		updateToggleFlashAccessibility()
 	}
