@@ -11,6 +11,7 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		setupView()
+		setupAccessibility()
 	}
 
 	@available(*, unavailable)
@@ -135,6 +136,13 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 				disclosureImageView.widthAnchor.constraint(equalToConstant: 7)
 			]
 		)
+	}
+
+	private func setupAccessibility() {
+		accessibilityElements = [backgroundContainerView as Any]
+
+		backgroundContainerView.accessibilityElements = [headlineTextLabel as Any, detailsTextLabel as Any]
+		headlineTextLabel.accessibilityTraits = [.staticText, .button]
 	}
 
 	private func updateBorderWidth() {

@@ -21,6 +21,7 @@ class HomeHealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierPr
 		if #available(iOS 13.0, *) {
 			backgroundGradientView.layer.cornerCurve = .continuous
 		}
+		setupAccessibility()
 	}
 	
 	override func setHighlighted(_ highlighted: Bool, animated: Bool) {
@@ -79,4 +80,11 @@ class HomeHealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierPr
 
 	private var isConfigured: Bool = false
 	private var subscriptions = Set<AnyCancellable>()
+
+	private func setupAccessibility() {
+		containerView.accessibilityElements = [captionLabel as Any, titleLabel as Any, vaccinationStateLabel as Any, nameLabel as Any]
+
+		captionLabel.accessibilityTraits = [.header, .button]
+
+	}
 }
