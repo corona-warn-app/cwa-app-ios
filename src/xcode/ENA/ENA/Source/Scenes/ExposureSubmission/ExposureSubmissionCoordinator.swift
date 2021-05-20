@@ -262,6 +262,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		
 		let footerViewModel = FooterViewModel(
 			primaryButtonName: AppStrings.ExposureSubmissionTestResultAvailable.primaryButtonTitle,
+			primaryIdentifier: AccessibilityIdentifiers.ExposureSubmissionTestResultAvailable.primaryButton,
 			isSecondaryButtonEnabled: false,
 			isSecondaryButtonHidden: true
 		)

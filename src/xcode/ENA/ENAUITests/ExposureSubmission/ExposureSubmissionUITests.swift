@@ -274,6 +274,8 @@ class ENAUITests_04a_ExposureSubmission: XCTestCase {
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].waitAndTap()
 
 		// TAN tests are ALWAYS positive!
+		
+		app.buttons[AccessibilityIdentifiers.ExposureSubmissionTestResultAvailable.primaryButton].waitAndTap()
 
 		// Click secondary button to skip symptoms screens and immediately go to warn others screen.
 		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].waitAndTap()
@@ -317,6 +319,8 @@ class ENAUITests_04a_ExposureSubmission: XCTestCase {
 		
 		// TAN tests are ALWAYS positive!
 
+		app.buttons[AccessibilityIdentifiers.ExposureSubmissionTestResultAvailable.primaryButton].waitAndTap()
+		
 		// Click secondary button to skip symptoms screens and immediately go to warn others screen.
 
 		app.buttons[AccessibilityIdentifiers.ExposureSubmission.secondaryButton].waitAndTap()
@@ -458,6 +462,9 @@ class ENAUITests_04a_ExposureSubmission: XCTestCase {
 		
 		// TAN tests are ALWAYS positive!
 		
+		app.buttons[AccessibilityIdentifiers.ExposureSubmissionTestResultAvailable.primaryButton].waitAndTap()
+		snapshot("tan_submissionflow_tan_\(String(format: "%04d", (screenshotCounter.inc())))")
+		
 		// Click secondary button to skip symptoms screens and immediately go to warn others screen.
 		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].waitAndTap()
 		snapshot("tan_submissionflow_tan_\(String(format: "%04d", (screenshotCounter.inc())))")
@@ -545,6 +552,8 @@ class ENAUITests_04a_ExposureSubmission: XCTestCase {
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].waitAndTap()
 
 		// TAN tests are ALWAYS positive!
+		
+		app.buttons[AccessibilityIdentifiers.ExposureSubmissionTestResultAvailable.primaryButton].waitAndTap()
 
 		// Click secondary button to skip symptoms screens and immediately go to warn others screen.
 		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].waitAndTap()
