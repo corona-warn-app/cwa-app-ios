@@ -485,7 +485,9 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			if let hoursSinceHighRiskWarningAtTestRegistration = storedUsageData.hoursSinceHighRiskWarningAtTestRegistration {
 				$0.hoursSinceHighRiskWarningAtTestRegistration = hoursSinceHighRiskWarningAtTestRegistration
 			}
-			$0.submittedWithTeleTan = !store.submittedWithQR
+			if let submittedWithTeleTan = storedUsageData.submittedWithTeleTAN {
+				$0.submittedWithTeleTan = submittedWithTeleTan
+			}
 		}]
 	}
 	

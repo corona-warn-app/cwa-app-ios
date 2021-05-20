@@ -67,13 +67,13 @@ enum PPAnalyticsCollector {
 		store?.previousRiskExposureMetadata = nil
 		store?.userMetadata = nil
 		store?.lastSubmittedPPAData = nil
-		store?.submittedWithQR = false
 		store?.lastAppReset = nil
 		store?.lastSubmissionAnalytics = nil
 		store?.clientMetadata = nil
 		store?.testResultMetadata = nil
 		store?.antigenTestResultMetadata = nil
 		store?.keySubmissionMetadata = nil
+		store?.antigenKeySubmissionMetadata = nil
 		store?.exposureWindowsMetadata = nil
 		Log.info("Deleted all analytics data in the store", log: .ppa)
 	}
@@ -187,82 +187,193 @@ enum PPAnalyticsCollector {
 	// swiftlint:disable:next cyclomatic_complexity
 	private static func logKeySubmissionMetadata(_ keySubmissionMetadata: PPAKeySubmissionMetadata) {
 		switch keySubmissionMetadata {
-		case let .create(metadata):
-			store?.keySubmissionMetadata = metadata
-		case let .submitted(submitted):
-			store?.keySubmissionMetadata?.submitted = submitted
-		case let .submittedInBackground(inBackground):
-			store?.keySubmissionMetadata?.submittedInBackground = inBackground
-		case let .submittedAfterCancel(afterCancel):
-			store?.keySubmissionMetadata?.submittedAfterCancel = afterCancel
-		case let .submittedAfterSymptomFlow(afterSymptomFlow):
-			store?.keySubmissionMetadata?.submittedAfterSymptomFlow = afterSymptomFlow
-		case let .submittedWithTeletan(withTeletan):
-			store?.submittedWithQR = !withTeletan
-		case let .lastSubmissionFlowScreen(flowScreen):
-			store?.keySubmissionMetadata?.lastSubmissionFlowScreen = flowScreen
-		case let .advancedConsentGiven(advanceConsent):
-			// this is as per techspecs, this value is false in case TAN submission
-			if store?.submittedWithQR == true && advanceConsent == true {
-				store?.keySubmissionMetadata?.advancedConsentGiven = advanceConsent
-			} else {
-				store?.keySubmissionMetadata?.advancedConsentGiven = false
+		case let .create(metadata, type):
+			switch type {
+			case .pcr:
+				store?.keySubmissionMetadata = metadata
+			case .antigen:
+				store?.antigenKeySubmissionMetadata = metadata
 			}
-		case let .hoursSinceTestResult(hours):
-			store?.keySubmissionMetadata?.hoursSinceTestResult = hours
-		case let .keySubmissionHoursSinceTestRegistration(hours):
-			store?.keySubmissionMetadata?.hoursSinceTestRegistration = hours
-		case let .daysSinceMostRecentDateAtRiskLevelAtTestRegistration(date):
-			store?.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = date
-		case let .hoursSinceHighRiskWarningAtTestRegistration(hours):
-			store?.keySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration = hours
-		case .updateSubmittedWithTeletan:
-			store?.keySubmissionMetadata?.submittedWithTeleTAN = !(store?.submittedWithQR ?? false)
-		case .setHoursSinceTestResult:
-			Analytics.setHoursSinceTestResult()
-		case .setHoursSinceTestRegistration:
-			Analytics.setHoursSinceTestRegistration()
-		case .setHoursSinceHighRiskWarningAtTestRegistration:
-			Analytics.setHoursSinceHighRiskWarningAtTestRegistration()
-		case .setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration:
-			Analytics.setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration()
+		case let .submitted(submitted, type):
+			switch type {
+			case .pcr:
+				store?.keySubmissionMetadata?.submitted = submitted
+			case .antigen:
+				store?.antigenKeySubmissionMetadata?.submitted = submitted
+			}
+		case let .submittedInBackground(inBackground, type):
+			switch type {
+			case .pcr:
+				store?.keySubmissionMetadata?.submittedInBackground = inBackground
+			case .antigen:
+				store?.antigenKeySubmissionMetadata?.submittedInBackground = inBackground
+			}
+		case let .submittedAfterCancel(afterCancel, type):
+			switch type {
+			case .pcr:
+				store?.keySubmissionMetadata?.submittedAfterCancel = afterCancel
+			case .antigen:
+				store?.antigenKeySubmissionMetadata?.submittedAfterCancel = afterCancel
+			}
+		case let .submittedAfterSymptomFlow(afterSymptomFlow, type):
+			switch type {
+			case .pcr:
+				store?.keySubmissionMetadata?.submittedAfterSymptomFlow = afterSymptomFlow
+			case .antigen:
+				store?.antigenKeySubmissionMetadata?.submittedAfterSymptomFlow = afterSymptomFlow
+			}
+		case let .submittedWithTeletan(withTeletan, type):
+			switch type {
+			case .pcr:
+				store?.keySubmissionMetadata?.submittedWithTeleTAN = withTeletan
+			case .antigen:
+				store?.antigenKeySubmissionMetadata?.submittedWithTeleTAN = withTeletan
+			}
+		case let .lastSubmissionFlowScreen(flowScreen, type):
+			switch type {
+			case .pcr:
+				store?.keySubmissionMetadata?.lastSubmissionFlowScreen = flowScreen
+			case .antigen:
+				store?.antigenKeySubmissionMetadata?.lastSubmissionFlowScreen = flowScreen
+			}
+		case let .advancedConsentGiven(advanceConsent, type):
+			switch type {
+			case .pcr:
+				// this is as per techspecs, this value is false in case TAN submission
+				if store?.keySubmissionMetadata?.submittedWithTeleTAN == false && advanceConsent == true {
+					store?.keySubmissionMetadata?.advancedConsentGiven = advanceConsent
+				} else {
+					store?.keySubmissionMetadata?.advancedConsentGiven = false
+				}
+			case .antigen:
+				// this is as per techspecs, this value is false in case TAN submission
+				if store?.antigenKeySubmissionMetadata?.submittedWithTeleTAN == false && advanceConsent == true {
+					store?.antigenKeySubmissionMetadata?.advancedConsentGiven = advanceConsent
+				} else {
+					store?.antigenKeySubmissionMetadata?.advancedConsentGiven = false
+				}
+			}
+		case let .hoursSinceTestResult(hours, type):
+			switch type {
+			case .pcr:
+				store?.keySubmissionMetadata?.hoursSinceTestResult = hours
+			case .antigen:
+				store?.antigenKeySubmissionMetadata?.hoursSinceTestResult = hours
+			}
+		case let .keySubmissionHoursSinceTestRegistration(hours, type):
+			switch type {
+			case .pcr:
+				store?.keySubmissionMetadata?.hoursSinceTestRegistration = hours
+			case .antigen:
+				store?.antigenKeySubmissionMetadata?.hoursSinceTestRegistration = hours
+			}
+		case let .daysSinceMostRecentDateAtRiskLevelAtTestRegistration(date, type):
+			switch type {
+			case .pcr:
+				store?.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = date
+			case .antigen:
+				store?.antigenKeySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = date
+			}
+		case let .hoursSinceHighRiskWarningAtTestRegistration(hours, type):
+			switch type {
+			case .pcr:
+				store?.keySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration = hours
+			case .antigen:
+				store?.antigenKeySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration = hours
+			}
+		case let .setHoursSinceTestResult(type):
+			Analytics.setHoursSinceTestResult(type: type)
+		case let .setHoursSinceTestRegistration(type):
+			Analytics.setHoursSinceTestRegistration(type: type)
+		case let .setHoursSinceHighRiskWarningAtTestRegistration(type):
+			Analytics.setHoursSinceHighRiskWarningAtTestRegistration(type: type)
+		case let .setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration(type):
+			Analytics.setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration(type: type)
 		}
 	}
 
-	private static func setHoursSinceTestResult() {
-		guard let testResultReceivedDate = coronaTestService?.pcrTest?.finalTestResultReceivedDate else {
+	private static func setHoursSinceTestResult(type: CoronaTestType) {
+		guard let testResultReceivedDate = testResultReceivedDate(for: type) else {
 			Log.warning("Could not log hoursSinceTestResult due to testResultReceivedTimeStamp is nil", log: .ppa)
 			return
 		}
 
 		let diffComponents = Calendar.current.dateComponents([.hour], from: testResultReceivedDate, to: Date())
-		store?.keySubmissionMetadata?.hoursSinceTestResult = Int32(diffComponents.hour ?? 0)
+		let hours = Int32(diffComponents.hour ?? 0)
+		persistHoursSinceTestResult(hours, for: type)
 	}
 
-	private static func setHoursSinceTestRegistration() {
-		guard let registrationDate = coronaTestService?.pcrTest?.registrationDate else {
+	private static func testResultReceivedDate(for type: CoronaTestType) -> Date? {
+		switch type {
+		case .pcr:
+			return coronaTestService?.pcrTest?.finalTestResultReceivedDate
+		case .antigen:
+			return coronaTestService?.antigenTest?.finalTestResultReceivedDate
+		}
+	}
+
+	private static func persistHoursSinceTestResult(_ hours: Int32, for type: CoronaTestType) {
+		switch type {
+		case .pcr:
+			store?.keySubmissionMetadata?.hoursSinceTestResult = hours
+		case .antigen:
+			store?.antigenKeySubmissionMetadata?.hoursSinceTestResult = hours
+		}
+	}
+
+	private static func setHoursSinceTestRegistration(type: CoronaTestType) {
+		guard let registrationDate = testRegistrationDate(for: type) else {
 			Log.warning("Could not log hoursSinceTestRegistration due to testRegistrationDate is nil", log: .ppa)
 			return
 		}
 
 		let diffComponents = Calendar.current.dateComponents([.hour], from: registrationDate, to: Date())
-		store?.keySubmissionMetadata?.hoursSinceTestRegistration = Int32(diffComponents.hour ?? 0)
+		let hours = Int32(diffComponents.hour ?? 0)
+		persistHoursSinceTestRegistration(hours, for: type)
 	}
 
-	private static func setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration() {
-		guard let registrationDate = coronaTestService?.pcrTest?.registrationDate else {
+	private static func testRegistrationDate(for type: CoronaTestType) -> Date? {
+		switch type {
+		case .pcr:
+			return coronaTestService?.pcrTest?.registrationDate
+		case .antigen:
+			return coronaTestService?.antigenTest?.registrationDate
+		}
+	}
+
+	private static func persistHoursSinceTestRegistration(_ hours: Int32, for type: CoronaTestType) {
+		switch type {
+		case .pcr:
+			store?.keySubmissionMetadata?.hoursSinceTestRegistration = hours
+		case .antigen:
+			store?.antigenKeySubmissionMetadata?.hoursSinceTestRegistration = hours
+		}
+	}
+
+	private static func setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration(type: CoronaTestType) {
+		guard let registrationDate = testRegistrationDate(for: type) else {
 			store?.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = -1
 			return
 		}
 		if let mostRecentRiskCalculationDate = store?.enfRiskCalculationResult?.mostRecentDateWithCurrentRiskLevel {
 			let daysSinceMostRecentDateAtRiskLevelAtTestRegistration = Calendar.utcCalendar.dateComponents([.day], from: mostRecentRiskCalculationDate, to: registrationDate).day
-			store?.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = Int32(daysSinceMostRecentDateAtRiskLevelAtTestRegistration ?? -1)
+			let days = Int32(daysSinceMostRecentDateAtRiskLevelAtTestRegistration ?? -1)
+			persistDaysSinceMostRecentDateAtRiskLevelAtTestRegistration(days, for: type)
 		} else {
-			store?.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = -1
+			persistDaysSinceMostRecentDateAtRiskLevelAtTestRegistration(-1, for: type)
 		}
 	}
 
-	private static func setHoursSinceHighRiskWarningAtTestRegistration() {
+	private static func persistDaysSinceMostRecentDateAtRiskLevelAtTestRegistration(_ days: Int32, for type: CoronaTestType) {
+		switch type {
+		case .pcr:
+			store?.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = days
+		case .antigen:
+			store?.antigenKeySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = days
+		}
+	}
+
+	private static func setHoursSinceHighRiskWarningAtTestRegistration(type: CoronaTestType) {
 		guard let riskLevel = store?.enfRiskCalculationResult?.riskLevel  else {
 			Log.warning("Could not log hoursSinceHighRiskWarningAtTestRegistration due to riskLevel is nil", log: .ppa)
 			return
@@ -275,9 +386,19 @@ enum PPAnalyticsCollector {
 				return
 			}
 			let differenceInHours = Calendar.current.dateComponents([.hour], from: timeOfRiskChangeToHigh, to: registrationTime)
-			store?.keySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration = Int32(differenceInHours.hour ?? -1)
+			let hours = Int32(differenceInHours.hour ?? -1)
+			persistHoursSinceHighRiskWarningAtTestRegistration(hours, for: type)
 		case .low:
-			store?.keySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration = -1
+			persistHoursSinceHighRiskWarningAtTestRegistration(-1, for: type)
+		}
+	}
+
+	private static func persistHoursSinceHighRiskWarningAtTestRegistration(_ hours: Int32, for type: CoronaTestType) {
+		switch type {
+		case .pcr:
+			store?.keySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration = hours
+		case .antigen:
+			store?.keySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration = hours
 		}
 	}
 

@@ -109,7 +109,7 @@ class CoronaTestService {
 					Log.info("[CoronaTestService] PCR test registered: \(private: String(describing: self?.pcrTest), public: "PCR Test result")", log: .api)
 
 					Analytics.collect(.testResultMetadata(.registerNewTestMetadata(Date(), registrationToken, .pcr)))
-					Analytics.collect(.keySubmissionMetadata(.submittedWithTeletan(false)))
+					Analytics.collect(.keySubmissionMetadata(.submittedWithTeletan(false, .pcr)))
 
 					self?.getTestResult(for: .pcr, duringRegistration: true) { result in
 						completion(result)
@@ -154,7 +154,7 @@ class CoronaTestService {
 
 					Log.info("[CoronaTestService] PCR test registered: \(private: String(describing: self?.pcrTest), public: "PCR Test result")", log: .api)
 
-					Analytics.collect(.keySubmissionMetadata(.submittedWithTeletan(true)))
+					Analytics.collect(.keySubmissionMetadata(.submittedWithTeletan(true, .pcr)))
 
 					completion(.success(()))
 				case .failure(let error):
@@ -199,6 +199,7 @@ class CoronaTestService {
 					Log.info("[CoronaTestService] Antigen test registered: \(private: String(describing: self?.antigenTest), public: "Antigen test result")", log: .api)
 
 					Analytics.collect(.testResultMetadata(.registerNewTestMetadata(Date(), registrationToken, .antigen)))
+					Analytics.collect(.keySubmissionMetadata(.submittedWithTeletan(false, .antigen)))
 
 					self?.getTestResult(for: .antigen, duringRegistration: true) { result in
 						completion(result)
@@ -603,9 +604,9 @@ class CoronaTestService {
 						}
 					}
 
-					if coronaTestType == .pcr && duringRegistration {
-						Analytics.collect(.keySubmissionMetadata(.setHoursSinceHighRiskWarningAtTestRegistration))
-						Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration))
+					if duringRegistration {
+						Analytics.collect(.keySubmissionMetadata(.setHoursSinceHighRiskWarningAtTestRegistration(coronaTestType)))
+						Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration(coronaTestType)))
 					}
 
 					completion(.success(testResult))
