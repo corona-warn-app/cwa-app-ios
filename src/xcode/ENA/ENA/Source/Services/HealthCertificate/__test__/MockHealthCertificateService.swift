@@ -4,6 +4,7 @@
 
 import OpenCombine
 import HealthCertificateToolkit
+@testable import ENA
 
 class MockHealthCertificateService: HealthCertificateServiceProviding {
 
