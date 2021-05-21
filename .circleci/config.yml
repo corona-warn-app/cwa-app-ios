@@ -272,8 +272,6 @@ workflows:
             requires:
               - dependencies
         - test:
-            parameters:
-              testplan: "AllTests"
             requires:
               - build-for-testing
         - test-community:
