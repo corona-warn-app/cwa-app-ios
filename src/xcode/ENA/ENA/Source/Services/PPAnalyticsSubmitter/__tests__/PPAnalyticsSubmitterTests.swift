@@ -699,7 +699,17 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		let analyticsSubmitter = createMockSubmitter(with: store)
 
 		// Setup Collector
-		Analytics.setupMock(store: store, submitter: analyticsSubmitter)
+		let coronaTestService = CoronaTestService(
+			client: ClientMock(),
+			store: MockTestStore(),
+			appConfiguration: CachedAppConfigurationMock()
+		)
+
+		Analytics.setupMock(
+			store: store,
+			submitter: analyticsSubmitter,
+			coronaTestService: coronaTestService
+		)
 		
 		// collect keySubmissionMetadata
 		let keySubmissionMetadata = KeySubmissionMetadata(
