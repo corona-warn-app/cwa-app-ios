@@ -11,7 +11,7 @@
 
 "Alert_ActionCancel" = "Anulare";
 
-"Alert_ActionRemove" = "Eliminare";
+"Alert_ActionRemove" = "Ștergere";
 
 "Alert_BluetoothOff_Title" = "Porniți Bluetooth";
 
@@ -383,7 +383,7 @@
 
 "OnboardingInfo_togetherAgainstCoronaPage_boldText" = "Mai multă protecție pentru dvs. și pentru noi toți. Utilizând Corona-Warn-App putem întrerupe mai ușor lanțurile de infectare.";
 
-"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Transformați-vă dispozitivul într-un sistem de avertizare împotriva coronavirusului. Obțineți un sumar al stării de risc și aflați dacă ați intrat în contact strâns cu persoane diagnosticate cu coronavirus în ultimele 14 zile. \n\nAplicația înregistrează în jurnal întâlnirile dintre persoane prin smartphone-urile acestora, care schimbă ID-uri aleatorii criptate, fără a accesa niciun fel de date personale.\n\nDacă doriți, puteți utiliza aplicația pentru a dovedi starea de infectare personală (de exemplu, un test rapid negativ). Rețineți, totuși, că nu aveți nicio obligație de a utiliza aplicația pentru a dovedi starea dvs. de infectare. De asemenea, puteți dovedi starea dvs. de infectare într-un alt mod care respectă reglementările legale din localitatea dvs. de domiciliu.\n\nAplicația înregistrează în jurnal întâlnirile dintre persoane prin smartphone-urile acestora, care schimbă ID-uri aleatorii criptate, fără a accesa niciun fel de date personale.";
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Transformați-vă dispozitivul într-un sistem de avertizare împotriva coronavirusului. Obțineți un sumar al stării de risc și aflați dacă ați intrat în contact strâns cu persoane diagnosticate cu coronavirus în ultimele 14 zile. \n\nAplicația înregistrează în jurnal întâlnirile dintre persoane prin smartphone-urile acestora, care schimbă ID-uri aleatorii criptate, fără a accesa niciun fel de date personale.\n\nDacă doriți, puteți utiliza aplicația pentru a dovedi starea de infectare personală (de exemplu, un test rapid negativ). Rețineți, totuși, că nu aveți nicio obligație de a utiliza aplicația pentru a dovedi starea dvs. de infectare. De asemenea, puteți dovedi starea dvs. de infectare într-un alt mod care respectă reglementările legale din localitatea dvs. de domiciliu.\n\nDe asemenea, puteți verifica starea vaccinării personale.\n\nAplicația înregistrează în jurnal întâlnirile dintre persoane prin smartphone-urile acestora, care schimbă ID-uri aleatorii criptate, fără a accesa niciun fel de date personale.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_linkText" = "Informații despre aplicație în limbaj simplificat și în limbajul semnelor";
 
@@ -564,7 +564,7 @@
 
 "ExposureSubmissionQRInfo_acknowledgement_4" = "Identitatea dvs. va rămâne secretă. Alți utilizatori nu vor afla cine a partajat rezultatul testului.";
 
-"ExposureSubmissionQRInfo_acknowledgement_5" = "La „Check-inurile mele”, puteți vedea evenimentele și locurile ale căror invitați cu check-inul făcut vor fi avertizați. Puteți elimina check-inuri individuale din listă pentru a le exclude din procesul de avertizare.";
+"ExposureSubmissionQRInfo_acknowledgement_5" = "La „Check-inurile mele”, puteți vedea evenimentele și locurile ale căror invitați cu check-inul făcut vor fi avertizați. Puteți șterge check-inuri individuale din listă pentru a le exclude din procesul de avertizare.";
 
 "ExposureSubmissionQRInfo_acknowledgement_6" = "Trebuie să aveți cel puțin 16 ani pentru a vă acorda consimțământul.";
 
@@ -616,17 +616,17 @@
 
 "ExposureSubmissionSuccess_listItem0" = "Efectuați un test PCR pentru a verifica rezultatul acestui test. ";
 
-"ExposureSubmissionSuccess_listItem1" = "Autoritatea de sănătate publică vă va contacta în următoarele zile telefonic sau în scris.";
+"ExposureSubmissionSuccess_listItem1" = "Autoritatea de sănătate publică vă poate contacta în următoarele zile.";
 
-"ExposureSubmissionSuccess_listItem2" = "Sunteți infectat. Izolați-vă de alte persoane.";
+"ExposureSubmissionSuccess_listItem2" = "Există o probabilitate mare să fiți contagios. Izolați-vă de alte persoane.";
 
-"ExposureSubmissionSuccess_listItem2_1" = "Perioada de carantină este de obicei de 14 zile. Monitorizați cu atenție modul în care evoluează simptomele dvs.";
+"ExposureSubmissionSuccess_listItem2_1" = "Perioada de izolare este de obicei de 14 zile. Monitorizați cu atenție modul în care evoluează simptomele dvs.";
 
 "ExposureSubmissionSuccess_listItem2_2" = "Autoritatea dvs. de sănătate publică vă va solicita să întocmiți o listă a persoanelor cu care ați intrat în contact. Aceasta trebuie să cuprindă toate persoanele cu care ați avut contact strâns (mai puțin de 2 metri, conversații față în față) timp de peste 15 minute începând cu două zile înainte de a vă îmbolnăvi. Puteți utiliza jurnalul de contacte în acest scop: trebuie doar să exportați intrările și apoi să le tipăriți sau să le expediați pe e-mail.";
 
 "ExposureSubmissionSuccess_listItem2_3" = "Luați în considerare în special persoanele care nu vor fi notificate direct de aplicație dacă nu au un smartphone sau dacă nu și-au instalat aplicația.";
 
-"ExposureSubmissionSuccess_listItem2_4" = "Chiar și când nu mai aveți simptome și vă simțiți din nou bine, tot puteți să fiți contagios. Vă rugăm să respectați perioada de carantină indicată.";
+"ExposureSubmissionSuccess_listItem2_4" = "Chiar și când nu mai aveți simptome și vă simțiți din nou bine, tot puteți să fiți contagios. Vă rugăm să respectați perioada de izolare indicată.";
 
 /* Exposure Submission Testresult available */
 "ExposureSubmissionTestresultAvailable_Title" = "Rezultatul testului dvs. este disponibil";
@@ -712,7 +712,7 @@
 
 "ExposureSubmissionResult_testPending" = "Rezultatul testului dvs. nu este încă disponibil.";
 
-"ExposureSubmissionResult_testPendingDesc" = "Imediat ce devine disponibil, rezultatul testului dvs. va fi afișat în aplicație.\n\nDe asemenea, veți primi rezultatul testului în afara aplicației. Autoritățile de sănătate publică vă vor anunța dacă testul dvs. este pozitiv.\n\nDacă sunteți notificat privind un rezultat pozitiv al testului în afara aplicației, eliminați testul curent înregistrat în aplicație. Apelați numărul indicat la „Solicitare TAN” pentru a obține un număr TAN. Apoi, puteți utiliza acest TAN pentru a vă înregistra rezultatul în aplicație și pentru a-i avertiza pe ceilalți.";
+"ExposureSubmissionResult_testPendingDesc" = "Imediat ce devine disponibil, rezultatul testului dvs. va fi afișat în aplicație.\n\nDe asemenea, veți primi rezultatul testului în afara aplicației. Autoritățile de sănătate publică vă vor anunța dacă testul dvs. este pozitiv.\n\nDacă sunteți notificat privind un rezultat pozitiv al testului în afara aplicației, ștergeți testul curent înregistrat în aplicație. Apelați numărul indicat la „Solicitare TAN” pentru a obține un număr TAN. Apoi, puteți utiliza acest TAN pentru a vă înregistra rezultatul în aplicație și pentru a-i avertiza pe ceilalți.";
 
 "ExposureSubmissionResult_antigenTestPending" = "Rezultatul testului dvs. nu este încă disponibil.";
 
@@ -818,7 +818,7 @@
 
 "ExposureSubmissionWarnOthers_consent_bullet3" = "Identitatea dvs. va rămâne secretă. Alți utilizatori nu vor afla cine a partajat rezultatul testului.";
 
-"ExposureSubmissionWarnOthers_consent_bullet4" = "La „Check-inurile mele”, puteți vedea evenimentele și locurile ale căror invitați cu check-inul făcut vor fi avertizați. Puteți elimina check-inuri individuale din listă pentru a le exclude din procesul de avertizare.";
+"ExposureSubmissionWarnOthers_consent_bullet4" = "La „Check-inurile mele”, puteți vedea evenimentele și locurile ale căror invitați cu check-inul făcut vor fi avertizați. Puteți șterge check-inuri individuale din listă pentru a le exclude din procesul de avertizare.";
 
 "ExposureSubmissionWarnOthers_consent_bullet5" = "Trebuie să aveți cel puțin 16 ani pentru a vă acorda consimțământul.";
 
@@ -827,7 +827,7 @@
 /* Exposure Submission Result */
 "ExposureSubmissionResult_RemoveAlert_Title" = "Testul poate fi scanat o singură dată.";
 
-"ExposureSubmissionResult_RemoveAlert_Text" = "Dacă eliminați testul, nu veți mai putea afla rezultatul testului. Veți primi rezultatul testului dvs. de la centrul sau laboratorul de testare, indiferent de valabilitatea codului QR. Dacă sunteți diagnosticat cu coronavirus, autoritatea de sănătate publică va fi notificată prin canalul de comunicare prevăzut în mod legal și vă va contacta.";
+"ExposureSubmissionResult_RemoveAlert_Text" = "Dacă ștergeți testul, nu veți mai putea afla rezultatul testului. Veți primi rezultatul testului dvs. de la centrul sau laboratorul de testare, indiferent de valabilitatea codului QR. Dacă sunteți diagnosticat cu coronavirus, autoritatea de sănătate publică va fi notificată prin canalul de comunicare prevăzut în mod legal și vă va contacta.";
 
 "ExposureSubmissionResult_RegistrationDateUnknown" = "Data înregistrării este necunoscută";
 
@@ -874,7 +874,7 @@
 
 "ExposureSubmissionError_QRNotExist_Title" = "Codul QR a expirat";
 
-"ExposureSubmissionError_QRNotExist" = "Vă rugăm să eliminați testul din aplicație.\nApoi puteți adăuga un test nou în aplicație.";
+"ExposureSubmissionError_QRNotExist" = "Vă rugăm să ștergeți testul din aplicație.\nApoi puteți adăuga un test nou în aplicație.";
 
 "ExposureSubmissionError_RegTokenNotExist" = "Un cod TAN de transmis nu poate fi generat. Contactați hotline-ul tehnic accesând Informații aplicație -> Hotline tehnic.";
 
@@ -912,7 +912,7 @@
 
 "ExposureSubmission_Antigen_Profile_Information_Image_Description" = "O femeie cu un smartphone în mână stă în fața unei clădiri. Un cod QR simbolizează profilul de test rapid de scanat.";
 
-"ExposureSubmission_Antigen_Profile_Information_Description_Title" = "Salvați datele dvs. personale sub formă de cod QR pentru a grăbi înregistrarea în punctele de testare.";
+"ExposureSubmission_Antigen_Profile_Information_Description_Title" = "Puteți crea un profil cu datele dvs. personale, pe care îl puteți transmite prin intermediul codului QR la fiecare punct de testare participant.";
 
 "ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline" = "Când creați un profil de test rapid nu va trebui să completați din nou datele dvs. înainte de fiecare test rapid.";
 
@@ -931,12 +931,12 @@
 
 "ExposureSubmission_Antigen_Profile_Primary_Button" = "Continuare";
 
-"ExposureSubmission_Antigen_Profile_Secondary_Button" = "Eliminare profil de test rapid";
+"ExposureSubmission_Antigen_Profile_Secondary_Button" = "Ștergerea profilului de test rapid";
 
 /* ExposureSubmission AntigenTest */
 "ExposureSubmission_Profile_CreateProfileTile_Title" = "Crearea profilului de test rapid";
 
-"ExposureSubmission_Profile_CreateProfileTile_Description" = "Puteți crea un profil cu datele dvs. personale, pe care îl puteți transmite prin intermediul codului QR la fiecare test rapid.";
+"ExposureSubmission_Profile_CreateProfileTile_Description" = "Puteți crea un profil cu datele dvs. personale, pe care îl puteți transmite prin intermediul codului QR la fiecare punct de testare participant.";
 
 "ExposureSubmission_Profile_ProfileTile_Title" = "Profil de test rapid";
 
@@ -1189,9 +1189,9 @@
 
 "Home_Finding_Positive_Card_Verify_Item_Title" = "Efectuați un test PCR pentru a verifica rezultatul acestui test.";
 
-"Home_Finding_Positive_Card_Phone_Item_Title" = "Autoritatea de sănătate publică vă va contacta în următoarele zile telefonic sau în scris.";
+"Home_Finding_Positive_Card_Phone_Item_Title" = "Autoritatea de sănătate publică vă poate contacta în următoarele zile.";
 
-"Home_Finding_Positive_Card_Home_Item_Title" = "Sunteți infectat. Izolați-vă de alte persoane.";
+"Home_Finding_Positive_Card_Home_Item_Title" = "Există o probabilitate mare să fiți contagios. Izolați-vă de alte persoane.";
 
 "Home_Finding_Positive_Card_Share_Item_Title" = "Trimiteți ID-ul dvs. aleatoriu pentru a-i avertiza și pe alții.";
 
@@ -1483,7 +1483,7 @@
 /* Version 2.3 */
 "NewVersionFeature_23_digital_vaccination_certificate_title" = "Dovada digitală a vaccinării";
 
-"NewVersionFeature_23_digital_vaccination_certificate_description" = "Acum vă puteți înregistra certificatele de vaccinare în aplicație. De îndată ce primiți toate vaccinările necesare puteți prezenta dovada vaccinării dvs. complete prin intermediul codului QR din aplicație.";
+"NewVersionFeature_23_digital_vaccination_certificate_description" = "Acum puteți adăuga certificatele dvs. de vaccinare în aplicație și le puteți prezenta prin codul QR. Aplicația arată protecția prin vaccinarea completă la 14 zile de la vaccinarea finală.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Înregistrare transnațională a expunerilor în jurnal";
@@ -1572,19 +1572,19 @@
 
 "TestResultPositive_KeysSubmitted_Info1" = "Efectuați un test PCR pentru a verifica rezultatul acestui test.";
 
-"TestResultPositive_KeysSubmitted_Info2" = "Autoritatea de sănătate publică vă va contacta în următoarele zile telefonic sau în scris.";
+"TestResultPositive_KeysSubmitted_Info2" = "Autoritatea de sănătate publică vă poate contacta în următoarele zile.";
 
 "TestResultPositive_KeysSubmitted_Info3" = "Există o probabilitate mare să fiți contagios. Izolați-vă de alte persoane.";
 
 "TestResultPositive_KeysSubmitted_Title2" = "Alte informații:";
 
-"TestResultPositive_KeysSubmitted_FurtherInfo1" = "Perioada de carantină este de obicei de 14 zile. Monitorizați cu atenție modul în care evoluează simptomele dvs.";
+"TestResultPositive_KeysSubmitted_FurtherInfo1" = "Perioada de izolare este de obicei de 14 zile. Monitorizați cu atenție modul în care evoluează simptomele dvs.";
 
 "TestResultPositive_KeysSubmitted_FurtherInfo2" = "Autoritatea dvs. de sănătate publică vă va solicita să întocmiți o listă a persoanelor cu care ați intrat în contact. Aceasta trebuie să cuprindă toate persoanele cu care ați avut contact strâns (mai puțin de 2 metri, conversații față în față) timp de peste 15 minute începând cu două zile înainte de a vă îmbolnăvi. Puteți utiliza jurnalul de contacte în acest scop: trebuie doar să exportați intrările și apoi să le tipăriți sau să le expediați pe e-mail.";
 
 "TestResultPositive_KeysSubmitted_FurtherInfo3" = "Luați în considerare în special persoanele care nu vor fi notificate direct de aplicație dacă nu au un smartphone sau dacă nu și-au instalat aplicația.";
 
-"TestResultPositive_KeysSubmitted_FurtherInfo4" = "Chiar și când nu mai aveți simptome și vă simțiți din nou bine, tot puteți să fiți contagios. Vă rugăm să respectați perioada de carantină indicată.";
+"TestResultPositive_KeysSubmitted_FurtherInfo4" = "Chiar și când nu mai aveți simptome și vă simțiți din nou bine, tot puteți să fiți contagios. Vă rugăm să respectați perioada de izolare indicată.";
 
 "TestResultPositive_KeysSubmitted_PrimaryButton" = "Ștergere test";
 
@@ -2320,7 +2320,7 @@
 "Checkin_Details_CheckIn_Button" = "Check-in";
 
 /* Submission Check-in */
-"Submission_Checkins_Title" = "Partajați check-inurile locației?";
+"Submission_Checkins_Title" = "Partajați check-inurile?";
 
 "Submission_Checkins_Description" = "Avertizați-i pe ceilalți care au făcut check-in cu dvs. Datele dvs. personale nu vor fi partajate.";
 
@@ -2341,7 +2341,7 @@
 /* Create Antigen Profile */
 "AntigenProfile_Create_Title" = "Profil de test rapid";
 
-"AntigenProfile_Create_Description" = "Salvați datele dvs. personale sub formă de cod QR pentru a grăbi înregistrarea în punctele de testare.";
+"AntigenProfile_Create_Description" = "Puteți crea un profil cu datele dvs. personale, pe care îl puteți transmite prin intermediul codului QR la fiecare punct de testare participant.";
 
 "AntigenProfile_Create_FirstNamePlaceholder" = "Prenume";
 
@@ -2362,9 +2362,111 @@
 "AntigenProfile_Create_Save_Button_Title" = "Salvare";
 
 /* Antigen Profile */
-"AntigenProfile_Delete_Alert_Title" = "Doriți să eliminați profilul de test rapid?";
+"AntigenProfile_Delete_Alert_Title" = "Doriți să ștergeți profilul de test rapid?";
 
 "AntigenProfile_Delete_Alert_Description" = "Luați în considerare că dacă îl ștergeți, codul QR nu mai poate fi utilizat pentru înregistrare.";
 
 "AntigenProfile_Delete_Alert_Delete_Button_Title" = "Eliminare";
+
+/* Health Certificate Information */
+"HealthCertificate_Info_Title" = "Adăugare certificat de vaccinare";
+
+"HealthCertificate_Info_imageDescription" = "O persoană imunizată se uită pe smartphone";
+
+"HealthCertificate_Info_description" = "Adăugați certificatul de vaccinare digital în aplicație. De îndată ce protecția prin vaccinare este completă, puteți prezenta codul QR în aplicație ca dovadă a vaccinării.";
+
+"HealthCertificate_Info_section01" = "Pentru a adăuga un certificat de vaccinare în aplicație, scanați codul QR pe care l-ați primit la vaccinare.";
+
+"HealthCertificate_Info_section02" = "Aplicația citește informațiile de la codul QR și le salvează într-o zonă securizată pe smartphone-ul dvs.";
+
+"HealthCertificate_Info_section03" = "Datele vor rămâne pe smartphone. Vor fi transmise altor persoane doar dacă prezentați certificatul de vaccinare pentru verificare.";
+
+"HealthCertificate_Info_primaryButton" = "Continuare";
+
+/* QR Scanner */
+"HealthCertificate_QRScanner_title" = "Scanare cod QR";
+
+"HealthCertificate_QRScanner_instruction" = "Scanare cod QR și înregistrare";
+
+/* - Registration */
+"HealthCertificate_Home_Registration_title" = "Adăugare certificat de vaccinare";
+
+"HealthCertificate_Home_Registration_description" = "Adăugați certificate de vaccinare în aplicație pentru a le avea mereu cu dvs. Pentru aceasta, scanați codul QR din documentul dvs.";
+
+"HealthCertificate_Home_Registration_buttonTitle" = "Adăugare";
+
+/* - Person */
+"HealthCertificate_Home_Person_caption" = "Dovada digitală a vaccinării";
+
+"HealthCertificate_Home_Person_title" = "Vaccinare SARS-CoV-2";
+
+"HealthCertificate_Home_Person_partiallyVaccinated" = "Vaccinare incompletă";
+
+/* Health Certified Person Screen */
+"HealthCertifiedPerson_title" = "Dovada digitală a vaccinării";
+
+"HealthCertifiedPerson_subtitle" = "Protecție prin vaccinare împotriva SARS-CoV-2";
+
+"HealthCertifiedPerson_dateOfBirth" = "Născut(ă) pe %@";
+
+"HealthCertifiedPerson_vaccinationCount" = "Vaccinarea %i din %i";
+
+"HealthCertifiedPerson_vaccinationDate" = "Efectuată pe %@";
+
+"HealthCertifiedPerson_QRCode_Image_Description" = "Un cod QR cu starea vaccinării dvs.";
+
+"HealthCertifiedPerson_primaryButton" = "Înregistrare altă vaccinare";
+
+/* Health Certificate Details */
+"HealthCertificate_Details_vaccinationCount" = "Vaccinarea %i din %i";
+
+"HealthCertificate_Details_certificate" = "Certificat de vaccinare";
+
+"HealthCertificate_Details_QRCode_Image_Description" = "Un cod QR cu certificatul dvs. de vaccinare %i din %i";
+
+"HealthCertificate_Details_certificateCount" = "Certificatul de vaccinare %i din %i";
+
+"HealthCertificate_Details_validity" = "Vaccinat la %@ - valabil până la %@";
+
+"HealthCertificate_Details_dateOfBirth" = "Născut(ă) pe %@";
+
+"HealthCertificate_Details_dateOfVaccination" = "Data vaccinării";
+
+"HealthCertificate_Details_vaccine" = "Vaccin";
+
+"HealthCertificate_Details_vaccineType" = "Tip de vaccin";
+
+"HealthCertificate_Details_manufacture" = "Fabricant";
+
+"HealthCertificate_Details_issuer" = "Emitent";
+
+"HealthCertificate_Details_country" = "Țara";
+
+"HealthCertificate_Details_identifier" = "Număr de certificare";
+
+"HealthCertificate_Details_primaryButton" = "Ștergere certificat de vaccinare";
+
+/* Health Certificate Alert delete */
+"HealthCertificate_Alert_title" = "Doriți să ștergeți certificatul de vaccinare?";
+
+"HealthCertificate_Alert_message" = "Dacă ștergeți certificatul de vaccinare, aplicația nu mai poate utiliza vaccinarea pentru a verifica starea vaccinării dvs.";
+
+"HealthCertificate_Alert_deleteButton" = "Ștergere";
+
+"HealthCertificate_Alert_cancelButton" = "Anulare";
+
+/* Health Certificate Errors */
+"HealthCertificate_Error_Title" = "Eroare";
+
+"HealthCertificate_Error_PC_TRY_AGAIN_LATER" = "Certificatul de vaccinare nu poate fi verificat chiar acum. Încercați din nou mai târziu.";
+
+"HealthCertificate_Error_VC_ALREADY_REGISTERED" = "Certificatul de vaccinare este deja înregistrat în aplicația dvs.";
+
+"HealthCertificate_Error_VC_DIFFERENT_PERSON" = "Informațiile personale din acest certificat de vaccinare nu corespund cu cele din certificatele deja înregistrate. Puteți înregistra certificate pentru o singură persoană în aplicație.";
+
+"HealthCertificate_Error_VC_INVALID" = "Acest cod QR nu este un certificat de vaccinare valabil.";
+
+"HealthCertificate_Error_VC_NOT_YET_SUPPORTED" = "Acest certificat de vaccinare nu este încă acceptat de versiunea aplicației dvs. Actualizați-vă aplicația sau contactați hotline-ul tehnic din „Informații aplicație”.";
+
+"HealthCertificate_Error_VC_SCAN_AGAIN" = "Certificatul de vaccinare nu a putut fi salvat pe smartphone-ul dvs. Încercați din nou mai târziu sau contactați hotline-ul tehnic din „Informații aplicație”.";
 
