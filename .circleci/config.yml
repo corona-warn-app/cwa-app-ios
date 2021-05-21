@@ -272,9 +272,8 @@ workflows:
             requires:
               - dependencies
         - test:
-            matrix:
-              parameters:
-                testplan: ["UITests", "UnitTests"]
+            parameters:
+              testplan: "AllTests"
             requires:
               - build-for-testing
         - test-community:
