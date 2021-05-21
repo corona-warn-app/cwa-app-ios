@@ -1,4 +1,4 @@
-////
+//
 // 🦠 Corona-Warn-App
 //
 
@@ -10,8 +10,6 @@ enum UITestingLaunchArguments {
 		static let ENStatus = "-ENStatus"
 		// Number of days the app is installed, shown on home / detail screens
 		static let appInstallationDays = "-appInstallationDays"
-		//
-		static let showUpdateOS = "-showUpdateOS"
 	}
 	enum onboarding {
 		// If user has already been onboarded
@@ -30,6 +28,7 @@ enum UITestingLaunchArguments {
 		static let traceLocationsInfoScreenShown = "-traceLocationsInfoScreenShown"
 		static let checkinInfoScreenShown = "-checkinInfoScreenShown"
 		static let userNeedsToBeInformedAboutHowRiskDetectionWorks = "-userNeedsToBeInformedAboutHowRiskDetectionWorks"
+		static let showUpdateOS = "-showUpdateOS"
 	}
 	enum risk {
 		// Set the level of risk

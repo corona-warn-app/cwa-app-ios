@@ -709,7 +709,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	/// - Returns: Returns `true` if the app is in the *disabled* state and requires the user to upgrade the os.
 	private static func isAppDisabled() -> Bool {
 		#if DEBUG
-		if isUITesting && UserDefaults.standard.bool(forKey: UITestingLaunchArguments.common.showUpdateOS.remove(prefix: "-")) == true {
+		if isUITesting && UserDefaults.standard.bool(forKey: UITestingLaunchArguments.infoScreen.showUpdateOS.remove(prefix: "-")) == true {
 			return true
 		}
 		#endif
