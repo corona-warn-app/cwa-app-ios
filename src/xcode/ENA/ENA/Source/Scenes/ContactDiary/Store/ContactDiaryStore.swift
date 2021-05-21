@@ -1057,6 +1057,42 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 		return .success(locations)
 	}
 
+	private func fetchCoronaTests(for date: String, in database: FMDatabase) -> Result<[DiaryDayTest], SecureSQLStoreError> {
+		var diaryDayTests = [DiaryDayTest]()
+
+		let sql = """
+				SELECT *
+				FROM CoronaTest
+				ORDER BY id
+			"""
+
+		do {
+			let queryResult = try database.executeQuery(sql, values: [date])
+			defer {
+				queryResult.close()
+			}
+
+			while queryResult.next() {
+				let coronaTestID = Int(queryResult.int(forColumn: "id"))
+				let testDate = queryResult.string(forColumn: "date") ?? ""
+				let testType = Int(queryResult.int(forColumn: "testType"))
+				let testResult = Int(queryResult.int(forColumn: "testResult"))
+				if let diaryDayTest = DiaryDayTest(id: coronaTestID, date: testDate, type: testType, result: testResult) {
+					diaryDayTests.append(diaryDayTest)
+				} else {
+					Log.error("Failed to create DiaryDayTest from database data")
+				}
+			}
+		} catch {
+			logLastErrorCode(from: database)
+			return .failure(dbError(from: database))
+		}
+
+		return .success(diaryDayTests)
+	}
+
+	// MARK: - update
+
 	@discardableResult
 	private func updateDiaryDays(with database: FMDatabase) -> SecureSQLStore.VoidResult {
 		var diaryDays = [DiaryDay]()
@@ -1091,8 +1127,16 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 				return .failure(error)
 			}
 
+			let diaryCoronaTests = fetchCoronaTests(for: dateString, in: database)
+			var diaryDayTests: [DiaryDayTest]
+			switch diaryCoronaTests {
+			case .success(let coronaTests):
+				diaryDayTests = coronaTests
+			case .failure(let error):
+				return .failure(error)
+			}
+
 			let diaryEntries = personDiaryEntries + locationDiaryEntries
-			let diaryDayTests: [DiaryDayTest] = []
 			let diaryDay = DiaryDay(dateString: dateString, entries: diaryEntries, tests: diaryDayTests)
 			diaryDays.append(diaryDay)
 		}
