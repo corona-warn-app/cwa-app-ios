@@ -40,16 +40,7 @@ platform :ios do
   end
 
   desc "Build project"
-  lane :build do
-    # TODO: still needed?
-    # build_ios_app(
-    #   skip_codesigning: true,
-    #   export_method: "ad-hoc",
-    #   skip_package_ipa: true,
-    #   destination: "platform=iOS Simulator,OS=14.4,name=iPhone 11",
-    #   scheme: "ENA"
-    # )
-
+  lane :build_for_testing do
     # build only, no tests
     run_tests(
       build_for_testing: true,
@@ -83,15 +74,17 @@ platform :ios do
   end
 
   desc "Run tests"
-  lane :test do
+  lane :test do | options |
     begin
-      # Combined Unit & UI Tests
+      # Execute tests for given test plan
+      testPlan = options[:testplan] || "AllTests"
+
       run_tests(
         scheme: "ENA",
         derived_data_path: "./DerivedData",
-        test_without_building: true,
+        test_without_building: false, #`build_for_testing` is required if this is set to `true`!
         xcargs: "SWIFT_TREAT_WARNINGS_AS_ERRORS=NO",
-        testplan: "AllTests",
+        testplan: testPlan,
         only_test_configurations: ["DE"],
         devices: ["iPhone 11"],
         prelaunch_simulator: true,
