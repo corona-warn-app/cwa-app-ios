@@ -249,10 +249,6 @@ enum PPAnalyticsCollector {
 
 	private static func logTestResultMetadata(_ TestResultMetadata: PPATestResultMetadata) {
 		switch TestResultMetadata {
-		case let .create(metaData):
-			store?.testResultMetadata = metaData
-		case let .testResult(testResult):
-			store?.testResultMetadata?.testResult = testResult
 		case let .testResultHoursSinceTestRegistration(hoursSinceTestRegistration):
 			store?.testResultMetadata?.hoursSinceTestRegistration = hoursSinceTestRegistration
 		case let .updateTestResult(testResult, token):
@@ -261,6 +257,8 @@ enum PPAnalyticsCollector {
 			Analytics.registerNewTestMetadata(date, token)
 		case let .dateOfConversionToENFHighRisk(date):
 			store?.dateOfConversionToENFHighRisk = date
+		case let .dateOfConversionToCheckinHighRisk(date):
+			store?.dateOfConversionToCheckinHighRisk = date
 		}
 	}
 
@@ -327,7 +325,7 @@ enum PPAnalyticsCollector {
 		}
 		
 		// at the end, create the filled new test result metadata.
-		Analytics.collect(.testResultMetadata(.create(testResultMetadata)))
+		store?.testResultMetadata = testResultMetadata
 	}
 	
 	private static func updateTestResult(_ testResult: TestResult, _ token: String) {
@@ -347,7 +345,7 @@ enum PPAnalyticsCollector {
 			switch testResult {
 			case .positive, .negative, .pending:
 				Log.info("update TestResultMetadata with testResult: \(testResult.stringValue)", log: .ppa)
-				Analytics.collect(.testResultMetadata(.testResult(testResult)))
+				store?.testResultMetadata?.testResult = testResult
 
 				switch store?.testResultMetadata?.testResult {
 				case .positive, .negative, .pending:

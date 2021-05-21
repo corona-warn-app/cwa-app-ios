@@ -383,21 +383,20 @@ final class RiskProvider: RiskProviding {
 
 		let configuration = RiskCalculationConfiguration(from: appConfiguration.riskCalculationParameters)
 
-
-		let riskCalculationResult = enfRiskCalculation.calculateRisk(exposureWindows: exposureWindows, configuration: configuration)
+		let enfRiskCalculationResult = enfRiskCalculation.calculateRisk(exposureWindows: exposureWindows, configuration: configuration)
 		let mappedWindows = exposureWindows.map { RiskCalculationExposureWindow(exposureWindow: $0, configuration: configuration) }
 		Analytics.collect(.exposureWindowsMetadata(.collectExposureWindows(mappedWindows)))
 
 		let checkinRiskCalculationResult = checkinRiskCalculation.calculateRisk(with: appConfiguration)
 
 		let risk = Risk(
-			enfRiskCalculationResult: riskCalculationResult,
+			enfRiskCalculationResult: enfRiskCalculationResult,
 			previousENFRiskCalculationResult: store.enfRiskCalculationResult,
 			checkinCalculationResult: checkinRiskCalculationResult,
 			previousCheckinCalculationResult: store.checkinRiskCalculationResult
 		)
 
-		store.enfRiskCalculationResult = riskCalculationResult
+		store.enfRiskCalculationResult = enfRiskCalculationResult
 		store.checkinRiskCalculationResult = checkinRiskCalculationResult
 
 		checkIfRiskStatusLoweredAlertShouldBeShown(risk)
@@ -429,7 +428,6 @@ final class RiskProvider: RiskProviding {
 				store.shouldShowRiskStatusLoweredAlert = true
 			case .high:
 				store.shouldShowRiskStatusLoweredAlert = false
-				Analytics.collect(.testResultMetadata(.dateOfConversionToENFHighRisk(Date())))
 			}
 		}
 	}
