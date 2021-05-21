@@ -383,7 +383,7 @@
 
 "OnboardingInfo_togetherAgainstCoronaPage_boldText" = "Większa ochrona dla Ciebie i dla nas wszystkich. Korzystając z aplikacji Corona-Warn-App, możemy znacznie szybciej przerwać łańcuchy zakażeń.";
 
-"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Zmień swoje urządzenie w system ostrzegania przed koronawirusem. Zapoznaj się ze swoim statusem ryzyka i dowiedz się, czy miałeś(-aś) bliski kontakt z osobą, u której w ciągu ostatnich 14 dni zdiagnozowano koronawirusa. \n\nAplikacja rejestruje kontakty między osobami poprzez wymianę zaszyfrowanych, losowych identyfikatorów między ich smartfonami bez uzyskiwania dostępu do danych osobowych.\n\nJeśli chcesz, możesz użyć aplikacji, aby udowodnić swój osobisty status dotyczący zakażenia (na przykład negatywny wynik szybkiego testu). Pamiętaj jednak, że nie masz obowiązku korzystania z aplikacji w celu potwierdzenia swojego statusu dotyczącego zakażenia. Możesz również udowodnić swój status dotyczący zakażenia w inny sposób, zgodny z przepisami prawnymi obowiązującymi w Twoim miejscu zamieszkania.\n\nAplikacja rejestruje kontakty między osobami poprzez wymianę zaszyfrowanych, losowych identyfikatorów między ich smartfonami bez uzyskiwania dostępu do danych osobowych.";
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Zmień swoje urządzenie w system ostrzegania przed koronawirusem. Zapoznaj się ze swoim statusem ryzyka i dowiedz się, czy miałeś(-aś) bliski kontakt z osobą, u której w ciągu ostatnich 14 dni zdiagnozowano koronawirusa. \n\nAplikacja rejestruje kontakty między osobami poprzez wymianę zaszyfrowanych, losowych identyfikatorów między ich smartfonami bez uzyskiwania dostępu do danych osobowych.\n\nJeśli chcesz, możesz użyć aplikacji, aby udowodnić swój osobisty status dotyczący zakażenia (na przykład negatywny wynik szybkiego testu). Pamiętaj jednak, że nie masz obowiązku korzystania z aplikacji w celu potwierdzenia swojego statusu dotyczącego zakażenia. Możesz również udowodnić swój status dotyczący zakażenia w inny sposób, zgodny z przepisami prawnymi obowiązującymi w Twoim miejscu zamieszkania.\n\nPonadto masz możliwość weryfikacji swojego osobistego statusu szczepienia.\n\nAplikacja rejestruje kontakty między osobami poprzez wymianę zaszyfrowanych, losowych identyfikatorów między ich smartfonami bez uzyskiwania dostępu do danych osobowych.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_linkText" = "Informacja o aplikacji w języku uproszczonym i języku migowym";
 
@@ -616,17 +616,17 @@
 
 "ExposureSubmissionSuccess_listItem0" = "Wykonaj test PCR, aby zweryfikować wynik tego testu. ";
 
-"ExposureSubmissionSuccess_listItem1" = "Organ ds. zdrowia publicznego skontaktuje się z Tobą w ciągu kilku najbliższych dni telefonicznie lub listownie.";
+"ExposureSubmissionSuccess_listItem1" = "Organ ds. zdrowia publicznego może skontaktować się z Tobą w ciągu kilku najbliższych dni.";
 
-"ExposureSubmissionSuccess_listItem2" = "Możesz zarażać. Izoluj się od innych osób.";
+"ExposureSubmissionSuccess_listItem2" = "Istnieje duże prawdopodobieństwo, że możesz zakażać. Odizoluj się od innych ludzi.";
 
-"ExposureSubmissionSuccess_listItem2_1" = "Okres kwarantanny wynosi zazwyczaj 14 dni. Obserwuj swoje objawy i monitoruj ich rozwój.";
+"ExposureSubmissionSuccess_listItem2_1" = "Okres izolacji wynosi zazwyczaj 14 dni. Obserwuj swoje objawy i monitoruj ich rozwój.";
 
 "ExposureSubmissionSuccess_listItem2_2" = "Zostaniesz poproszony(-a) przez organ ds. zdrowia publicznego o stworzenie listy osób, z którymi miałeś(-aś) kontakt. Powinna ona obejmować wszystkie osoby, z którymi miałeś(-aś) bliski kontakt (w odległości mniejszej niż 2 metry, rozmowa twarzą w twarz) przez ponad 15 minut w ciągu dwóch dni poprzedzających zachorowanie. Możesz do tego celu wykorzystać swój dziennik kontaktów: po prostu wyeksportuj wpisy, a następnie wydrukuj je lub wyślij pocztą e-mail.";
 
 "ExposureSubmissionSuccess_listItem2_3" = "Zwróć szczególną uwagę na osoby, które nie zostaną powiadomione bezpośrednio przez aplikację, ponieważ nie posiadają smartfonów lub nie zainstalowały aplikacji.";
 
-"ExposureSubmissionSuccess_listItem2_4" = "Nawet jeśli nie masz już żadnych objawów i znów czujesz się dobrze, możesz nadal zarażać, dlatego prosimy o przestrzeganie wyznaczonego okresu kwarantanny.";
+"ExposureSubmissionSuccess_listItem2_4" = "Nawet jeśli nie masz już żadnych objawów i znów czujesz się dobrze, możesz nadal zarażać, dlatego prosimy o przestrzeganie wyznaczonego okresu izolacji.";
 
 /* Exposure Submission Testresult available */
 "ExposureSubmissionTestresultAvailable_Title" = "Twój wynik testu jest dostępny";
@@ -912,7 +912,7 @@
 
 "ExposureSubmission_Antigen_Profile_Information_Image_Description" = "Przed budynkiem stoi kobieta ze smartfonem w dłoni. Kod QR symbolizuje profil szybkiego testu do zeskanowania.";
 
-"ExposureSubmission_Antigen_Profile_Information_Description_Title" = "Zapisz swoje dane osobowe w postaci kodu QR, aby przyspieszyć rejestrację w punktach testowania.";
+"ExposureSubmission_Antigen_Profile_Information_Description_Title" = "Możesz utworzyć profil ze swoimi danymi osobowymi, który będziesz przesyłać za pomocą kodu QR do każdego uczestniczącego punktu testowania.";
 
 "ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline" = "Dzięki utworzeniu profilu szybkiego testu, nie będziesz musiał(a) ponownie wypełniać swoich danych osobowych przed wykonaniem szybkiego testu.";
 
@@ -936,7 +936,7 @@
 /* ExposureSubmission AntigenTest */
 "ExposureSubmission_Profile_CreateProfileTile_Title" = "Utwórz profil szybkiego testu";
 
-"ExposureSubmission_Profile_CreateProfileTile_Description" = "Możesz utworzyć profil ze swoimi danymi osobowymi, który będziesz przesyłać za pomocą kodu QR podczas wykonywania każdego szybkiego testu.";
+"ExposureSubmission_Profile_CreateProfileTile_Description" = "Możesz utworzyć profil ze swoimi danymi osobowymi, który będziesz przesyłać za pomocą kodu QR do każdego uczestniczącego punktu testowania.";
 
 "ExposureSubmission_Profile_ProfileTile_Title" = "Profil szybkiego testu";
 
@@ -1189,9 +1189,9 @@
 
 "Home_Finding_Positive_Card_Verify_Item_Title" = "Wykonaj test PCR, aby zweryfikować wynik tego testu.";
 
-"Home_Finding_Positive_Card_Phone_Item_Title" = "Organ ds. zdrowia publicznego skontaktuje się z Tobą w ciągu kilku najbliższych dni telefonicznie lub listownie.";
+"Home_Finding_Positive_Card_Phone_Item_Title" = "Organ ds. zdrowia publicznego może skontaktować się z Tobą w ciągu kilku najbliższych dni.";
 
-"Home_Finding_Positive_Card_Home_Item_Title" = "Możesz zarażać. Izoluj się od innych osób.";
+"Home_Finding_Positive_Card_Home_Item_Title" = "Istnieje duże prawdopodobieństwo, że możesz zakażać. Odizoluj się od innych ludzi.";
 
 "Home_Finding_Positive_Card_Share_Item_Title" = "Udostępnij swoje losowe identyfikatory, aby umożliwić ostrzeganie innych osób.";
 
@@ -1483,7 +1483,7 @@
 /* Version 2.3 */
 "NewVersionFeature_23_digital_vaccination_certificate_title" = "Cyfrowy dowód szczepienia";
 
-"NewVersionFeature_23_digital_vaccination_certificate_description" = "Możesz teraz zarejestrować swoje świadectwa szczepień w aplikacji. Po otrzymaniu wszystkich niezbędnych szczepień możesz przedstawić dowód pełnego szczepienia za pomocą kodu QR w aplikacji.";
+"NewVersionFeature_23_digital_vaccination_certificate_description" = "Teraz możesz dodać swoje świadectwa szczepień w aplikacji i okazywać je za pomocą kodu QR. Aplikacja wyświetla pełną ochronę poszczepienną 14 dni po ostatnim szczepieniu.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Rejestrowanie narażenia w różnych krajach";
@@ -1572,19 +1572,19 @@
 
 "TestResultPositive_KeysSubmitted_Info1" = "Wykonaj test PCR, aby zweryfikować wynik tego testu.";
 
-"TestResultPositive_KeysSubmitted_Info2" = "Organ ds. zdrowia publicznego skontaktuje się z Tobą w ciągu kilku najbliższych dni telefonicznie lub listownie.";
+"TestResultPositive_KeysSubmitted_Info2" = "Organ ds. zdrowia publicznego może skontaktować się z Tobą w ciągu kilku najbliższych dni.";
 
 "TestResultPositive_KeysSubmitted_Info3" = "Istnieje duże prawdopodobieństwo, że możesz zakażać. Odizoluj się od innych ludzi.";
 
 "TestResultPositive_KeysSubmitted_Title2" = "Inne informacje:";
 
-"TestResultPositive_KeysSubmitted_FurtherInfo1" = "Okres kwarantanny wynosi zazwyczaj 14 dni. Obserwuj swoje objawy i monitoruj ich rozwój.";
+"TestResultPositive_KeysSubmitted_FurtherInfo1" = "Okres izolacji wynosi zazwyczaj 14 dni. Obserwuj swoje objawy i monitoruj ich rozwój.";
 
 "TestResultPositive_KeysSubmitted_FurtherInfo2" = "Zostaniesz poproszony(-a) przez organ ds. zdrowia publicznego o stworzenie listy osób, z którymi miałeś(-aś) kontakt. Powinna ona obejmować wszystkie osoby, z którymi miałeś(-aś) bliski kontakt (w odległości mniejszej niż 2 metry, rozmowa twarzą w twarz) przez ponad 15 minut w ciągu dwóch dni poprzedzających zachorowanie. Możesz do tego celu wykorzystać swój dziennik kontaktów: po prostu wyeksportuj wpisy, a następnie wydrukuj je lub wyślij pocztą e-mail.";
 
 "TestResultPositive_KeysSubmitted_FurtherInfo3" = "Zwróć szczególną uwagę na osoby, które nie zostaną powiadomione bezpośrednio przez aplikację, ponieważ nie posiadają smartfonów lub nie zainstalowały aplikacji.";
 
-"TestResultPositive_KeysSubmitted_FurtherInfo4" = "Nawet jeśli nie masz już żadnych objawów i znów czujesz się dobrze, możesz nadal zarażać, dlatego prosimy o przestrzeganie wyznaczonego okresu kwarantanny.";
+"TestResultPositive_KeysSubmitted_FurtherInfo4" = "Nawet jeśli nie masz już żadnych objawów i znów czujesz się dobrze, możesz nadal zarażać, dlatego prosimy o przestrzeganie wyznaczonego okresu izolacji.";
 
 "TestResultPositive_KeysSubmitted_PrimaryButton" = "Usuń test";
 
@@ -2320,7 +2320,7 @@
 "Checkin_Details_CheckIn_Button" = "Zamelduj się";
 
 /* Submission Check-in */
-"Submission_Checkins_Title" = "Udostępnić zameldowania w lokalizacji?";
+"Submission_Checkins_Title" = "Udostępnić Twoje zameldowania?";
 
 "Submission_Checkins_Description" = "Ostrzegaj inne osoby, które się zameldowały wraz z Tobą. Twoje dane osobowe nie będą udostępniane.";
 
@@ -2341,7 +2341,7 @@
 /* Create Antigen Profile */
 "AntigenProfile_Create_Title" = "Profil szybkiego testu";
 
-"AntigenProfile_Create_Description" = "Zapisz swoje dane osobowe w postaci kodu QR, aby przyspieszyć rejestrację w punktach testowania.";
+"AntigenProfile_Create_Description" = "Możesz utworzyć profil ze swoimi danymi osobowymi, który będziesz przesyłać za pomocą kodu QR do każdego uczestniczącego punktu testowania.";
 
 "AntigenProfile_Create_FirstNamePlaceholder" = "Imię";
 
@@ -2367,4 +2367,106 @@
 "AntigenProfile_Delete_Alert_Description" = "Pamiętaj, że jeśli to zrobisz, ten kod QR nie będzie mógł być już używany do rejestracji.";
 
 "AntigenProfile_Delete_Alert_Delete_Button_Title" = "Usuń";
+
+/* Health Certificate Information */
+"HealthCertificate_Info_Title" = "Dodaj świadectwo szczepienia";
+
+"HealthCertificate_Info_imageDescription" = "Uodporniona osoba patrzy na swój smartfon";
+
+"HealthCertificate_Info_description" = "Dodaj cyfrowe świadectwo szczepienia w aplikacji. Gdy uzyskasz pełną ochronę poszczepienną, będziesz mógł (mogła) okazywać kod QR z aplikacji jako dowód szczepienia.";
+
+"HealthCertificate_Info_section01" = "Aby dodać świadectwo szczepienia w aplikacji, zeskanuj kod QR, który otrzymałeś(-aś) podczas szczepienia.";
+
+"HealthCertificate_Info_section02" = "Aplikacja odczytuje informacje z kodu QR i zapisuje je w bezpiecznym miejscu na Twoim smartfonie.";
+
+"HealthCertificate_Info_section03" = "Dane pozostaną na smartfonie. Będą one przekazywane innym osobom tylko wtedy, gdy będziesz przedstawiać świadectwo szczepienia do weryfikacji.";
+
+"HealthCertificate_Info_primaryButton" = "Kontynuuj";
+
+/* QR Scanner */
+"HealthCertificate_QRScanner_title" = "Skan kodu QR";
+
+"HealthCertificate_QRScanner_instruction" = "Zeskanuj kod QR i zarejestruj się";
+
+/* - Registration */
+"HealthCertificate_Home_Registration_title" = "Dodaj świadectwo szczepienia";
+
+"HealthCertificate_Home_Registration_description" = "Dodaj świadectwa szczepienia w aplikacji, aby mieć je zawsze przy sobie. W tym celu zeskanuj kod QR znajdujący się na dokumencie.";
+
+"HealthCertificate_Home_Registration_buttonTitle" = "Dodaj";
+
+/* - Person */
+"HealthCertificate_Home_Person_caption" = "Cyfrowy dowód szczepienia";
+
+"HealthCertificate_Home_Person_title" = "Szczepienie przeciwko SARS-CoV-2";
+
+"HealthCertificate_Home_Person_partiallyVaccinated" = "Niepełne zaszczepienie";
+
+/* Health Certified Person Screen */
+"HealthCertifiedPerson_title" = "Cyfrowy dowód szczepienia";
+
+"HealthCertifiedPerson_subtitle" = "Ochrona poszczepienna przed SARS-CoV-2";
+
+"HealthCertifiedPerson_dateOfBirth" = "Data urodzenia %@";
+
+"HealthCertifiedPerson_vaccinationCount" = "Szczepienie %i %i";
+
+"HealthCertifiedPerson_vaccinationDate" = "Wykonano dnia %@";
+
+"HealthCertifiedPerson_QRCode_Image_Description" = "Kod QR ze statusem Twojego szczepienia";
+
+"HealthCertifiedPerson_primaryButton" = "Zarejestruj kolejne szczepienie";
+
+/* Health Certificate Details */
+"HealthCertificate_Details_vaccinationCount" = "Szczepienie %i %i";
+
+"HealthCertificate_Details_certificate" = "Świadectwo szczepienia";
+
+"HealthCertificate_Details_QRCode_Image_Description" = "Kod QR ze świadectwem Twojego szczepienia %i %i";
+
+"HealthCertificate_Details_certificateCount" = "Świadectwo szczepienia %i %i";
+
+"HealthCertificate_Details_validity" = "Zaszczepiony(-a) %@ - ważne do %@";
+
+"HealthCertificate_Details_dateOfBirth" = "Data urodzenia %@";
+
+"HealthCertificate_Details_dateOfVaccination" = "Data szczepienia";
+
+"HealthCertificate_Details_vaccine" = "Szczepionka";
+
+"HealthCertificate_Details_vaccineType" = "Typ szczepionki";
+
+"HealthCertificate_Details_manufacture" = "Producent";
+
+"HealthCertificate_Details_issuer" = "Wystawca";
+
+"HealthCertificate_Details_country" = "Kraj";
+
+"HealthCertificate_Details_identifier" = "Numer świadectwa";
+
+"HealthCertificate_Details_primaryButton" = "Usuń świadectwo szczepienia";
+
+/* Health Certificate Alert delete */
+"HealthCertificate_Alert_title" = "Czy chcesz usunąć świadectwo szczepienia?";
+
+"HealthCertificate_Alert_message" = "Jeśli usuniesz świadectwo szczepienia, aplikacja nie będzie już mogła używać szczepienia do weryfikacji statusu szczepienia.";
+
+"HealthCertificate_Alert_deleteButton" = "Usuń";
+
+"HealthCertificate_Alert_cancelButton" = "Anuluj";
+
+/* Health Certificate Errors */
+"HealthCertificate_Error_Title" = "Błąd";
+
+"HealthCertificate_Error_PC_TRY_AGAIN_LATER" = "W tej chwili nie można zweryfikować świadectwa szczepienia. Spróbuj ponownie później.";
+
+"HealthCertificate_Error_VC_ALREADY_REGISTERED" = "Świadectwo szczepienia jest już zarejestrowane w Twojej aplikacji.";
+
+"HealthCertificate_Error_VC_DIFFERENT_PERSON" = "Dane osobowe tego świadectwa szczepienia nie są zgodne z danymi już zarejestrowanych świadectw. W aplikacji można rejestrować świadectwa tylko dla jednej osoby.";
+
+"HealthCertificate_Error_VC_INVALID" = "Ten kod QR nie jest ważnym świadectwem szczepienia.";
+
+"HealthCertificate_Error_VC_NOT_YET_SUPPORTED" = "To świadectwo szczepienia nie jest jeszcze obsługiwane w Twojej wersji aplikacji. Zaktualizuj aplikację lub skontaktuj się z infolinią techniczną dostępną w sekcji „Informacje o aplikacji”.";
+
+"HealthCertificate_Error_VC_SCAN_AGAIN" = "Świadectwo szczepienia nie mogło zostać zapisane na Twoim smartfonie. Spróbuj ponownie później lub skontaktuj się z infolinią techniczną dostępną w sekcji „Informacje o aplikacji”.";
 

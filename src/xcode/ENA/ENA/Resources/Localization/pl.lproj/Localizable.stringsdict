@@ -232,10 +232,70 @@ Sprawdzanie narażeń jest wiarygodne tylko wtedy, gdy rejestrowanie narażenia 
 			<string>Rejestrowanie narażenia jest aktywne od %u dni. Sprawdzanie narażeń jest wiarygodne tylko wtedy, gdy rejestrowanie narażenia jest aktywowane na stałe.</string>
 			<key>two</key>
 			<!--Plural form for TWO.-->
-			<string>Rejestrowanie narażenia jest aktywne od %u dnia. Sprawdzanie narażeń jest wiarygodne tylko wtedy, gdy rejestrowanie narażenia jest aktywowane na stałe.</string>
+			<string>Rejestrowanie narażenia jest aktywne od %u dni. Sprawdzanie narażeń jest wiarygodne tylko wtedy, gdy rejestrowanie narażenia jest aktywowane na stałe.</string>
 			<key>other</key>
 			<!--Plural form for OTHER.-->
 			<string>Rejestrowanie narażenia jest aktywne od %u dnia. Sprawdzanie narażeń jest wiarygodne tylko wtedy, gdy rejestrowanie narażenia jest aktywowane na stałe.</string>
+		</dict>
+	</dict>
+	<key>HealthCertificate_Home_Person_daysUntilCompleteProtection</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!--Plural form for ZERO.-->
+			<string>Pełna ochrona poszczepienna za %u dni</string>
+			<key>one</key>
+			<!--Plural form for ONE.-->
+			<string>Pełna ochrona poszczepienna za %u dzień</string>
+			<key>two</key>
+			<!--Plural form for TWO.-->
+			<string>Pełna ochrona poszczepienna za %u dni</string>
+			<key>few</key>
+			<!--Plural form for FEW.-->
+			<string>Pełna ochrona poszczepienna za %u dni</string>
+			<key>many</key>
+			<!--Plural form for MANY.-->
+			<string>Pełna ochrona poszczepienna za %u dni</string>
+			<key>other</key>
+			<!--Plural form for OTHER.-->
+			<string>Pełna ochrona poszczepienna za %u dni</string>
+		</dict>
+	</dict>
+	<key>HealthCertifiedPerson_daysUntilCompleteProtection</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!--Plural form for ZERO.-->
+			<string>Otrzymałeś(-aś) już wszystkie zaplanowane dotychczas szczepienia, jednak pełną ochronę poszczepienną uzyskasz dopiero za %u dni.</string>
+			<key>one</key>
+			<!--Plural form for ONE.-->
+			<string>Otrzymałeś(-aś) już wszystkie zaplanowane dotychczas szczepienia, jednak pełną ochronę poszczepienną uzyskasz dopiero za %u dzień.</string>
+			<key>two</key>
+			<!--Plural form for TWO.-->
+			<string>Otrzymałeś(-aś) już wszystkie zaplanowane dotychczas szczepienia, jednak pełną ochronę poszczepienną uzyskasz dopiero za %u dni.</string>
+			<key>few</key>
+			<!--Plural form for FEW.-->
+			<string>Otrzymałeś(-aś) już wszystkie zaplanowane dotychczas szczepienia, jednak pełną ochronę poszczepienną uzyskasz dopiero za %u dni.</string>
+			<key>many</key>
+			<!--Plural form for MANY.-->
+			<string>Otrzymałeś(-aś) już wszystkie zaplanowane dotychczas szczepienia, jednak pełną ochronę poszczepienną uzyskasz dopiero za %u dni.</string>
+			<key>other</key>
+			<!--Plural form for OTHER.-->
+			<string>Otrzymałeś(-aś) już wszystkie zaplanowane dotychczas szczepienia, jednak pełną ochronę poszczepienną uzyskasz dopiero za %u dni.</string>
 		</dict>
 	</dict>
 </dict>
