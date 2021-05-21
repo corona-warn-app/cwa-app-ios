@@ -33,7 +33,7 @@ class CreateHealthCertificate: XCTestCase {
 		// HealthCertificate consent screen tap on disclaimer
 		let disclaimerButton = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Info.disclaimer])
 		// screenshot certificate consent screen
-		snapshot("screenshot_certificate_consent_screen")
+		snapshot("screenshot_health_certificate_consent_screen")
 		disclaimerButton.waitAndTap()
 
 		// data privacy
@@ -65,7 +65,7 @@ class CreateHealthCertificate: XCTestCase {
 		let headlineCell = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Certificate.headline])
 		XCTAssertTrue(headlineCell.waitForExistence(timeout: .short))
 		
-		snapshot("screenshot_first_certificate_antigen_test")
+		snapshot("screenshot_first_health_certificate")
 	}
 
 	func test_CreateAntigenTestProfileWithLastCertificate_THEN_DeleteProfile() throws {
@@ -92,7 +92,7 @@ class CreateHealthCertificate: XCTestCase {
 		let headlineCell = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Certificate.headline])
 		XCTAssertTrue(headlineCell.waitForExistence(timeout: .short))
 		
-		snapshot("screenshot_second_certificate_antigen_test")
+		snapshot("screenshot_second_health_certificate")
 	}
 
 	func test_ShowCertificate() throws {
