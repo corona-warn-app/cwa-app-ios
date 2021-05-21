@@ -356,6 +356,29 @@ class ContactDiaryStoreTests: XCTestCase {
 		XCTAssertNil(locationVisit.string(forColumn: "checkinId"))
 	}
 
+	func test_WHEN_AddCoronaTest_THEN_CoronaTestIsPersisted() throws {
+		// GIVEN
+		let databaseQueue = makeDatabaseQueue()
+		let schemaV5 = ContactDiaryStoreSchemaV5(databaseQueue: databaseQueue)
+		let store = makeContactDiaryStore(with: databaseQueue, schema: schemaV5)
+
+		let result = store.addCoronaTest(testDate: "2021-05-21", testType: 0, testResult: 1)
+
+		guard case let .success(id) = result,
+			  let coronaTest = fetchEntries(for: "CoronaTest", with: id, from: databaseQueue) else {
+			XCTFail("Failed to fetch ContactPerson")
+			return
+		}
+
+		let date = try XCTUnwrap(coronaTest.string(forColumn: "date"))
+		let circumstances = coronaTest.int(forColumn: "testType")
+		let testResult = coronaTest.int(forColumn: "testResult")
+
+		XCTAssertEqual(date, "2021-05-21")
+		XCTAssertEqual(circumstances, 0)
+		XCTAssertEqual(testResult, 1)
+	}
+
 	func test_When_updateLocationVisit_Then_LocationVisitIsUpdated() {
 		let databaseQueue = makeDatabaseQueue()
 		let store = makeContactDiaryStore(with: databaseQueue)

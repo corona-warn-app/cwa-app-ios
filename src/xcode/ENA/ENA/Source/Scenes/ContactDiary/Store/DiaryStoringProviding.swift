@@ -18,7 +18,7 @@ protocol DiaryStoring {
 	@discardableResult
 	func addLocationVisit(locationId: Int, date: String, durationInMinutes: Int, circumstances: String, checkinId: Int?) -> SecureSQLStore.IdResult
 	@discardableResult
-	func addCoronaTest(coronaTestType: CoronaTestType, result: TestResult, date: String) -> SecureSQLStore.IdResult
+	func addCoronaTest(testDate: String, testType: Int, testResult: Int) -> SecureSQLStore.IdResult
 
 	@discardableResult
 	func updateContactPerson(id: Int, name: String, phoneNumber: String, emailAddress: String) -> SecureSQLStore.VoidResult

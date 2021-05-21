@@ -26,10 +26,10 @@ final class ContactDiaryMigration4To5: Migration {
 				BEGIN TRANSACTION;
 
 				CREATE TABLE IF NOT EXISTS CoronaTest (
-					id INTEGER PRIMARY KEY NOT NULL,
+					id INTEGER PRIMARY KEY,
 					date TEXT NOT NULL,
-					TestType INTEGER NOT NULL,
-					TestResult INTEGER NOT NULL
+					testType INTEGER NOT NULL,
+					testResult INTEGER NOT NULL
 				);
 
 				COMMIT;

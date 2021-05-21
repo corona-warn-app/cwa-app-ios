@@ -484,12 +484,53 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 	}
 
 	func addCoronaTest(
-		coronaTestType: CoronaTestType,
-		result: TestResult,
-		date: String
+		testDate: String,
+		testType: Int,
+		testResult: Int
 	) -> SecureSQLStore.IdResult {
-		// dummy at the moment
-		return .success(0)
+		var result: SecureSQLStore.IdResult?
+
+		databaseQueue.inDatabase { database in
+			Log.info("[ContactDiaryStore] Add CoronaTest.", log: .localData)
+
+			let sql = """
+				INSERT INTO CoronaTest (
+					date,
+					testType,
+					testResult
+				)
+				VALUES (
+					:date,
+					:testType,
+					:testResult
+				);
+			"""
+			let parameters: [String: Any] = [
+				"date": testDate,
+				"testType": testType,
+				"testResult": testResult
+			]
+			guard database.executeUpdate(sql, withParameterDictionary: parameters) else {
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
+				return
+			}
+
+			let updateDiaryDaysResult = updateDiaryDays(with: database)
+			guard case .success = updateDiaryDaysResult else {
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
+				return
+			}
+
+			result = .success(Int(database.lastInsertRowId))
+		}
+
+		guard let _result = result else {
+			fatalError("[ContactDiaryStore] Result should not be nil.")
+		}
+
+		return _result
 	}
 
 	func updateContactPerson(
@@ -1051,7 +1092,8 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 			}
 
 			let diaryEntries = personDiaryEntries + locationDiaryEntries
-			let diaryDay = DiaryDay(dateString: dateString, entries: diaryEntries)
+			let diaryDayTests: [DiaryDayTest] = []
+			let diaryDay = DiaryDay(dateString: dateString, entries: diaryEntries, tests: diaryDayTests)
 			diaryDays.append(diaryDay)
 		}
 

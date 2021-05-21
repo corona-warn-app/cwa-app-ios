@@ -69,8 +69,7 @@ class MockDiaryStore: DiaryStoringProviding {
 	}
 
 	@discardableResult
-	func addCoronaTest(coronaTestType: CoronaTestType, result: TestResult, date: String) -> SecureSQLStore.IdResult {
-
+	func addCoronaTest(testDate: String, testType: Int, testResult: Int) -> Result<Int, SecureSQLStoreError> {
 		return .success(0)
 	}
 
@@ -248,7 +247,8 @@ class MockDiaryStore: DiaryStoringProviding {
 			diaryDays.append(
 				DiaryDay(
 					dateString: dateString,
-					entries: contactPersonEntries + locationEntries
+					entries: contactPersonEntries + locationEntries,
+					tests: []
 				)
 			)
 		}
