@@ -384,10 +384,12 @@ class HomeCoordinator: RequiresAppDependencies {
 
 	private var vaccinationValueSetsProvider: VaccinationValueSetsProvider {
 		#if DEBUG
-		return VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: store)
-		#else
-		return VaccinationValueSetsProvider(client: CachingHTTPClient(), store: store)
+		if isUITesting {
+			return VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: store)
+		}
 		#endif
+
+		return VaccinationValueSetsProvider(client: CachingHTTPClient(), store: store)
 	}
 
 	#if !RELEASE
