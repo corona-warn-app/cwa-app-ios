@@ -455,6 +455,8 @@ enum AppStrings {
 		static let outdatedText = NSLocalizedString("ExposureDetection_OutdatedText", comment: "")
 		static let unknownText = NSLocalizedString("ExposureDetection_UnknownText", comment: "")
 		static let loadingText = NSLocalizedString("ExposureDetection_LoadingText", comment: "")
+		
+		static let contactJournalText = NSLocalizedString("ExposureDetection_Contact_Journal_Text", comment: "")
 
 		static let behaviorTitle = NSLocalizedString("ExposureDetection_Behavior_Title", comment: "")
 		static let behaviorSubtitle = NSLocalizedString("ExposureDetection_Behavior_Subtitle", comment: "")
