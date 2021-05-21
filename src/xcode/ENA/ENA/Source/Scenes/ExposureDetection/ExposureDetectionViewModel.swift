@@ -538,6 +538,7 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 			header: .backgroundSpace(height: 8),
 			footer: .backgroundSpace(height: 16),
 			cells: [
+				.body(text: AppStrings.ExposureDetection.contactJournalText),
 				.header(
 					title: AppStrings.ExposureDetection.lowRiskExposureTitle,
 					subtitle: AppStrings.ExposureDetection.lowRiskExposureSubtitle
