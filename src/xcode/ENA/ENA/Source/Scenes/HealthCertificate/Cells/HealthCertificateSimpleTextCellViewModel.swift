@@ -18,7 +18,8 @@ struct HealthCertificateSimpleTextCellViewModel {
 		topSpace: CGFloat,
 		font: UIFont,
 		boarderColor: UIColor = .clear,
-		accessibilityTraits: UIAccessibilityTraits = .none
+		accessibilityTraits: UIAccessibilityTraits = .none,
+		accessibilityIdentifier: String? = nil
 	) {
 		self.backgroundColor = backgroundColor
 		self.textColor = textColor
@@ -29,6 +30,7 @@ struct HealthCertificateSimpleTextCellViewModel {
 		self.font = font
 		self.boarderColor = boarderColor
 		self.accessibilityTraits = accessibilityTraits
+		self.accessibilityIdentifier = accessibilityIdentifier
 	}
 
 	// MARK: - Internal
@@ -42,5 +44,6 @@ struct HealthCertificateSimpleTextCellViewModel {
 	let font: UIFont
 	let boarderColor: UIColor
 	let accessibilityTraits: UIAccessibilityTraits
+	let accessibilityIdentifier: String?
 
 }
