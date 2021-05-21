@@ -621,7 +621,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		let riskLevel: RiskLevel = .high
 		let mostRecentDayWithRisk = Calendar.current.date(byAdding: .day, value: -5, to: Date())
 
-		let riskCalculationResult = ENFRiskCalculationResult(
+		store.enfRiskCalculationResult = ENFRiskCalculationResult(
 			riskLevel: riskLevel,
 			minimumDistinctEncountersWithLowRisk: 6,
 			minimumDistinctEncountersWithHighRisk: 2,
@@ -634,7 +634,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 
-		Analytics.collect(.riskExposureMetadata(.updateENFRiskExposureMetadata(riskCalculationResult)))
+		Analytics.collect(.riskExposureMetadata(.update))
 		XCTAssertNotNil(store.currentENFRiskExposureMetadata, "riskMetadata should be allocated")
 		XCTAssertEqual(store.currentENFRiskExposureMetadata?.riskLevel, riskLevel, "Wrong riskLevel")
 		XCTAssertEqual(store.currentENFRiskExposureMetadata?.riskLevelChangedComparedToPreviousSubmission, false, "should be false as this is the first submission")
@@ -727,7 +727,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		Analytics.collect(.keySubmissionMetadata(.submittedWithTeletan(false)))
 		Analytics.collect(.keySubmissionMetadata(.lastSubmissionFlowScreen(lastScreen)))
 		Analytics.collect(.keySubmissionMetadata(.advancedConsentGiven(true)))
-		Analytics.collect(.keySubmissionMetadata(.hoursSinceTestResult(5)))
+		Analytics.collect(.keySubmissionMetadata(.setHoursSinceTestResult))
 		Analytics.collect(.keySubmissionMetadata(.keySubmissionHoursSinceTestRegistration(9)))
 		Analytics.collect(.keySubmissionMetadata(.daysSinceMostRecentDateAtRiskLevelAtTestRegistration(74)))
 		Analytics.collect(.keySubmissionMetadata(.hoursSinceHighRiskWarningAtTestRegistration(53)))

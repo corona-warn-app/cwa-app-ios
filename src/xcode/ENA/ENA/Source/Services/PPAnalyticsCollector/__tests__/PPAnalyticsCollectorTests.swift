@@ -89,7 +89,10 @@ class PPAnalyticsCollectorTests: XCTestCase {
 			hoursSinceTestResult: 0901,
 			hoursSinceTestRegistration: 0901,
 			daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration: 0901,
-			hoursSinceENFHighRiskWarningAtTestRegistration: 0901
+			hoursSinceENFHighRiskWarningAtTestRegistration: 0901,
+			daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration: -1,
+			hoursSinceCheckinHighRiskWarningAtTestRegistration: -1,
+			submittedWithCheckIns: nil
 		)
 		store.exposureWindowsMetadata = ExposureWindowsMetadata(
 			newExposureWindowsQueue: [],

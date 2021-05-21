@@ -37,7 +37,10 @@ class KeySubmissionMetadataTests: XCTestCase {
 			hoursSinceTestResult: 0,
 			hoursSinceTestRegistration: 0,
 			daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration: -1,
-			hoursSinceENFHighRiskWarningAtTestRegistration: -1
+			hoursSinceENFHighRiskWarningAtTestRegistration: -1,
+			daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration: -1,
+			hoursSinceCheckinHighRiskWarningAtTestRegistration: -1,
+			submittedWithCheckIns: nil
 		)
 		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata)))
 		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration))
@@ -80,7 +83,11 @@ class KeySubmissionMetadataTests: XCTestCase {
 			hoursSinceTestResult: 0,
 			hoursSinceTestRegistration: 0,
 			daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration: -1,
-			hoursSinceENFHighRiskWarningAtTestRegistration: -1)
+			hoursSinceENFHighRiskWarningAtTestRegistration: -1,
+			daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration: -1,
+			hoursSinceCheckinHighRiskWarningAtTestRegistration: -1,
+			submittedWithCheckIns: nil
+		)
 		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata)))
 		Analytics.collect(.keySubmissionMetadata(.setHoursSinceTestRegistration))
 		Analytics.collect(.keySubmissionMetadata(.setHoursSinceTestResult))
@@ -109,7 +116,11 @@ class KeySubmissionMetadataTests: XCTestCase {
 			hoursSinceTestResult: 0,
 			hoursSinceTestRegistration: 0,
 			daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration: -1,
-			hoursSinceENFHighRiskWarningAtTestRegistration: -1)
+			hoursSinceENFHighRiskWarningAtTestRegistration: -1,
+			daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration: -1,
+			hoursSinceCheckinHighRiskWarningAtTestRegistration: -1,
+			submittedWithCheckIns: nil
+		)
 		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata)))
 		Analytics.collect(.keySubmissionMetadata(.submitted(true)))
 		Analytics.collect(.keySubmissionMetadata(.submittedInBackground(true)))
@@ -139,7 +150,10 @@ class KeySubmissionMetadataTests: XCTestCase {
 			hoursSinceTestResult: 0,
 			hoursSinceTestRegistration: 0,
 			daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration: -1,
-			hoursSinceENFHighRiskWarningAtTestRegistration: -1
+			hoursSinceENFHighRiskWarningAtTestRegistration: -1,
+			daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration: -1,
+			hoursSinceCheckinHighRiskWarningAtTestRegistration: -1,
+			submittedWithCheckIns: nil
 		)
 		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata)))
 		
@@ -188,7 +202,11 @@ class KeySubmissionMetadataTests: XCTestCase {
 			hoursSinceTestResult: 0,
 			hoursSinceTestRegistration: 0,
 			daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration: -1,
-			hoursSinceENFHighRiskWarningAtTestRegistration: -1)
+			hoursSinceENFHighRiskWarningAtTestRegistration: -1,
+			daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration: -1,
+			hoursSinceCheckinHighRiskWarningAtTestRegistration: -1,
+			submittedWithCheckIns: nil
+		)
 		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata)))
 		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration))
 		Analytics.collect(.keySubmissionMetadata(.setHoursSinceENFHighRiskWarningAtTestRegistration))
