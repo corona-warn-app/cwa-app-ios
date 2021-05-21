@@ -393,8 +393,6 @@ enum PPAnalyticsCollector {
 			} else {
 				store?.keySubmissionMetadata?.advancedConsentGiven = false
 			}
-		case let .hoursSinceTestResult(hours):
-			store?.keySubmissionMetadata?.hoursSinceTestResult = hours
 		case let .keySubmissionHoursSinceTestRegistration(hours):
 			store?.keySubmissionMetadata?.hoursSinceTestRegistration = hours
 		case let .daysSinceMostRecentDateAtRiskLevelAtTestRegistration(date):

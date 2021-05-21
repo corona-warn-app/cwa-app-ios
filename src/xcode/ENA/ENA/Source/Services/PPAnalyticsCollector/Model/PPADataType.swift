@@ -58,7 +58,6 @@ enum PPAKeySubmissionMetadata {
 	case submittedWithCheckins(Bool?)
 	case lastSubmissionFlowScreen(LastSubmissionFlowScreen?)
 	case advancedConsentGiven(Bool)
-	case hoursSinceTestResult(Int32)
 	case keySubmissionHoursSinceTestRegistration(Int32?)
 	case daysSinceMostRecentDateAtRiskLevelAtTestRegistration(Int32)
 	case hoursSinceHighRiskWarningAtTestRegistration(Int32)

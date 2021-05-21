@@ -1054,6 +1054,9 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata)))
 		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration))
 		Analytics.collect(.keySubmissionMetadata(.setHoursSinceENFHighRiskWarningAtTestRegistration))
+		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration))
+		Analytics.collect(.keySubmissionMetadata(.setHoursSinceCheckinHighRiskWarningAtTestRegistration))
+		
 	}
 
 	// MARK: Test Result Helper

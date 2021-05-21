@@ -256,6 +256,9 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				Analytics.collect(.keySubmissionMetadata(.setHoursSinceTestResult))
 				Analytics.collect(.keySubmissionMetadata(.setHoursSinceTestRegistration))
 				Analytics.collect(.keySubmissionMetadata(.submitted(true)))
+				if !checkins.isEmpty {
+					Analytics.collect(.keySubmissionMetadata(.submittedWithCheckins(true)))
+				}
 				self.submitExposureCleanup(coronaTestType: coronaTest.type)
 				Log.info("Successfully completed exposure submission.", log: .api)
 				completion(nil)
