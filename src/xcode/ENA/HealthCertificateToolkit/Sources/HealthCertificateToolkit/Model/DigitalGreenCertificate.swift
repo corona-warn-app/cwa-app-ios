@@ -61,6 +61,20 @@ public struct VaccinationCertificate: Codable, Equatable {
 
 public struct Name: Codable, Equatable {
 
+    // MARK: - Init
+    
+    public init(
+        familyName: String?,
+        givenName: String?,
+        standardizedFamilyName: String,
+        standardizedGivenName: String?
+    ) {
+        self.familyName = familyName
+        self.givenName = givenName
+        self.standardizedFamilyName = standardizedFamilyName
+        self.standardizedGivenName = standardizedGivenName
+    }
+
     // MARK: - Protocol Codable
 
     enum CodingKeys: String, CodingKey {

@@ -72,5 +72,4 @@ class HealthCertificateConsentViewController: DynamicTableViewController, Footer
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
 		tableView.separatorStyle = .none
 	}
-
 }

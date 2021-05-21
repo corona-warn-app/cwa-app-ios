@@ -13,24 +13,20 @@ class HomeCoordinator: RequiresAppDependencies {
 		otpService: OTPServiceProviding,
 		ppacService: PrivacyPreservingAccessControl,
 		eventStore: EventStoringProviding,
-		coronaTestService: CoronaTestService
+		coronaTestService: CoronaTestService,
+		healthCertificateService: HealthCertificateServiceProviding
 	) {
 		self.delegate = delegate
 		self.otpService = otpService
 		self.ppacService = ppacService
 		self.eventStore = eventStore
 		self.coronaTestService = coronaTestService
+		self.healthCertificateService = healthCertificateService
 	}
 
 	deinit {
 		enStateUpdateList.removeAllObjects()
 	}
-
-	// MARK: - Overrides
-
-	// MARK: - Protocol <#Name#>
-
-	// MARK: - Public
 
 	// MARK: - Internal
 
@@ -61,6 +57,7 @@ class HomeCoordinator: RequiresAppDependencies {
 				state: homeState,
 				store: store,
 				coronaTestService: coronaTestService,
+				healthCertificateService: healthCertificateService,
 				onTestResultCellTap: { [weak self] coronaTestType in
 					self?.showExposureSubmission(testType: coronaTestType)
 				}
@@ -103,6 +100,12 @@ class HomeCoordinator: RequiresAppDependencies {
 			},
 			showTestInformationResult: { [weak self] testInformationResult in
 			   self?.showExposureSubmission(testInformationResult: testInformationResult)
+			},
+			onCreateHealthCertificateTap: { [weak self] in
+				self?.showCreateHealthCertificate()
+			},
+			onCertifiedPersonTap: { [weak self] healthCertifiedPerson in
+				self?.showCertifiedPerson(healthCertifiedPerson)
 			}
 		)
 
@@ -140,6 +143,7 @@ class HomeCoordinator: RequiresAppDependencies {
 	private let otpService: OTPServiceProviding
 	private let eventStore: EventStoringProviding
 	private let coronaTestService: CoronaTestService
+	private let healthCertificateService: HealthCertificateServiceProviding
 
 	private var homeController: HomeTableViewController?
 	private var homeState: HomeState?
@@ -147,6 +151,8 @@ class HomeCoordinator: RequiresAppDependencies {
 	private var traceLocationsCoordinator: TraceLocationsCoordinator?
 	private var settingsCoordinator: SettingsCoordinator?
 	private var exposureDetectionCoordinator: ExposureDetectionCoordinator?
+	private var healthCertificateCoordinator: HealthCertificateCoordinator?
+
 	private var enStateUpdateList = NSHashTable<AnyObject>.weakObjects()
 
 	private weak var delegate: CoordinatorDelegate?
@@ -355,6 +361,36 @@ class HomeCoordinator: RequiresAppDependencies {
 		   anyObject is ENStateHandlerUpdating {
 			enStateUpdateList.add(anyObject)
 		}
+	}
+
+	// MARK: - HealthCertificate
+
+	private func showCreateHealthCertificate() {
+		healthCertificateCoordinator = HealthCertificateCoordinator(
+			parentViewController: rootViewController,
+			healthCertificateService: healthCertificateService,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider
+		)
+		healthCertificateCoordinator?.start()
+	}
+
+	private func showCertifiedPerson( _ healthCertifiedPerson: HealthCertifiedPerson) {
+		healthCertificateCoordinator = HealthCertificateCoordinator(
+			parentViewController: rootViewController,
+			healthCertificateService: healthCertificateService,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider
+		)
+		healthCertificateCoordinator?.start(with: healthCertifiedPerson)
+	}
+
+	private var vaccinationValueSetsProvider: VaccinationValueSetsProvider {
+		#if DEBUG
+		if isUITesting {
+			return VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: store)
+		}
+		#endif
+
+		return VaccinationValueSetsProvider(client: CachingHTTPClient(), store: store)
 	}
 
 	#if !RELEASE

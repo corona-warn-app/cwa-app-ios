@@ -191,16 +191,14 @@
 
 /* Health Certificate Information */
 
-"HealthCertificate_Info_Legal_headline" = "NYD: Ihr Einverständnis";
+"HealthCertificate_Info_Legal_headline" = "Veri gizliliği ve veri güvenliği";
 
-"HealthCertificate_Info_Legal_subHeadline" = "NYD: Durch Antippen von „Einverstanden“ willigen Sie in folgende Schritte ein:";
+"HealthCertificate_Info_Legal_section01" = "Dijital aşı sertifikasının kullanımı isteğe bağlıdır. Tam aşı korumasının gerçekleştirildiğine ilişkin kanıt, diğer yöntemlerle de sağlanabilir (örn. sarı aşı kartı ile).";
 
-"HealthCertificate_Info_Legal_section01" = "NYD: Die App legal";
+"HealthCertificate_Info_Legal_section02" = "Aşı sertifikası, yaptırdığınız Korona aşılarınıza ilişkin veriler içerir. Yasal açıdan zorunlu durumlarda aşı koruması yaptırdığınızı kanıtlamak için Uygulamada QR kodu göstermeniz yeterli olacaktır. Söz konusu verilerin okunmasını istemiyorsanız, aşı sertifikasını ve QR kodu hiç kimseye göstermeyin.";
 
-"HealthCertificate_Info_Legal_section02" = "NYD: Wenn Sie es sich später anders überlegen, können Sie den Test in der App entfernen.";
+"HealthCertificate_Info_Legal_section03" = "QR kodu Uygulamada gösterirseniz ve bu kod, kontrol uygulamasıyla taranırsa, diğer kişiler sizin tam aşı koruması aldığınızı anlayabilir. Kontrol işlemi sırasında adınız ve doğum tarihiniz de resmi kontrol uygulamasında görüntülenecektir.";
 
-"HealthCertificate_Info_Legal_section03" = "NYD: Wenn Sie positiv auf Corona getestet wurden, teilt die App Ihr Testergebnis, um Nutzer, denen Sie begegnet sind, zu warnen. Dies betrifft Nutzer von Corona-Apps der oben genannten Länder und Nutzer, die zeitgleich am selben Event oder Ort wie Sie eingecheckt waren. Im Falle von Schnelltests werden nur Nutzer der Corona-Warn-App gewarnt.";
+"HealthCertificate_Info_Legal_section04" = "Aşı sertifikasını istediğiniz zaman Uygulamadan kaldırma seçeneğiniz vardır. Bunu yapıncaya kadar aşı sertifikaları akıllı telefonunuzda kayıtlı kalacaktır.";
 
-"HealthCertificate_Info_Legal_section04" = "NYD: Wenn Sie zusätzlich Angaben zum Beginn Ihrer Symptome machen, werden auch diese geteilt.";
-
-"HealthCertificate_Info_Legal_subHeadline2" = "NYD: Sie können Ihr Einverständnis jederzeit zurücknehmen. Die Einstellung hierfür finden Sie unter „Test anzeigen“. Vor dem Teilen werden Sie nochmal auf Ihr Einverständnis hingewiesen.";
+"HealthCertificate_Info_disclaimer" = "Veri işleme ile ilgili ayrıntılı bilgileri Veri Gizliliği Beyanında bulabilirsiniz";

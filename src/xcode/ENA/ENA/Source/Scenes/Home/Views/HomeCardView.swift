@@ -33,6 +33,11 @@ class HomeCardView: UIView {
 			highlightView.trailingAnchor.constraint(equalTo: trailingAnchor),
 			highlightView.bottomAnchor.constraint(equalTo: bottomAnchor)
 		])
+
+		if #available(iOS 13.0, *) {
+			layer.cornerCurve = .continuous
+			highlightView.layer.cornerCurve = .continuous
+		}
 	}
 
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
