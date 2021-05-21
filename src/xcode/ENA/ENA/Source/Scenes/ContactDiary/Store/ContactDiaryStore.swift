@@ -1061,9 +1061,13 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 		var diaryDayTests = [DiaryDayTest]()
 
 		let sql = """
-				SELECT *
+				SELECT id,
+					date,
+					testType,
+					testResult
 				FROM CoronaTest
-				ORDER BY id
+				WHERE date = ?
+				ORDER BY id ASC
 			"""
 
 		do {
