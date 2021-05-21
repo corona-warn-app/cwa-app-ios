@@ -32,7 +32,7 @@ class CreateHealthCertificate: XCTestCase {
 
 		// HealthCertificate consent screen tap on disclaimer
 		let disclaimerButton = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Info.disclaimer])
-		// screenshot certificate consent screen
+		
 		snapshot("screenshot_health_certificate_consent_screen")
 		disclaimerButton.waitAndTap()
 
@@ -74,6 +74,8 @@ class CreateHealthCertificate: XCTestCase {
 
 		/// Home Screen
 		let registerCertificateTitle = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.Home.registerHealthCertificateButton])
+		
+		snapshot("screenshot_certificate_home_screen_grey")
 		registerCertificateTitle.waitAndTap()
 
 		// HealthCertificate consent screen
@@ -102,7 +104,7 @@ class CreateHealthCertificate: XCTestCase {
 		/// Home Screen
 		let certificateTitle = try XCTUnwrap(app.cells[AccessibilityIdentifiers.Home.healthCertificateButton])
 		
-		snapshot("screenshot_certificate_home_screen")
+		snapshot("screenshot_certificate_home_screen_blue")
 		certificateTitle.waitAndTap()
 
 		// Certified Person screen
