@@ -14,12 +14,14 @@ class HomeHealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierPr
 
 		captionLabel.text = AppStrings.HealthCertificate.Home.Person.caption
 		titleLabel.text = AppStrings.HealthCertificate.Home.Person.title
-
+		backgroundGradientView.type = .solidGrey
 		backgroundGradientView.layer.cornerRadius = 14
+		accessibilityIdentifier = AccessibilityIdentifiers.Home.healthCertificateButton
 
 		if #available(iOS 13.0, *) {
 			backgroundGradientView.layer.cornerCurve = .continuous
 		}
+		setupAccessibility()
 	}
 	
 	override func setHighlighted(_ highlighted: Bool, animated: Bool) {
@@ -78,4 +80,11 @@ class HomeHealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierPr
 
 	private var isConfigured: Bool = false
 	private var subscriptions = Set<AnyCancellable>()
+
+	private func setupAccessibility() {
+		containerView.accessibilityElements = [captionLabel as Any, titleLabel as Any, vaccinationStateLabel as Any, nameLabel as Any]
+
+		captionLabel.accessibilityTraits = [.header, .button]
+
+	}
 }

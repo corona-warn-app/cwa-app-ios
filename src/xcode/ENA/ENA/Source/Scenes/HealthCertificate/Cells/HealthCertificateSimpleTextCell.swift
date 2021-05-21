@@ -43,6 +43,7 @@ class HealthCertificateSimpleTextCell: UITableViewCell, ReuseIdentifierProviding
 		}
 		topSpaceLayoutConstraint.constant = cellViewModel.topSpace
 		backgroundContainerView.layer.borderColor = cellViewModel.boarderColor.cgColor
+		accessibilityIdentifier = cellViewModel.accessibilityIdentifier
 	}
 
 	// MARK: - Private
