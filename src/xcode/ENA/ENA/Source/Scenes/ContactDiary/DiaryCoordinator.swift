@@ -38,6 +38,13 @@ class DiaryCoordinator {
 		}
 		#endif
 
+/* 		helps to inject some fake data for the moment
+
+		diaryStore.addCoronaTest(testDate: "2021-05-21", testType: 0, testResult: 0)
+		diaryStore.addCoronaTest(testDate: "2021-05-20", testType: 0, testResult: 1)
+		diaryStore.addCoronaTest(testDate: "2021-05-19", testType: 1, testResult: 0)
+		diaryStore.addCoronaTest(testDate: "2021-05-18", testType: 1, testResult: 1)
+*/
 	}
 
 	// MARK: - Internal
