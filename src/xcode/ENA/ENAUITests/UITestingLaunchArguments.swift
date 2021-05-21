@@ -51,15 +51,20 @@ enum UITestingLaunchArguments {
 			static let showTestResultCards = "-showTestResultCards"
 		}
 		enum pcr {
-			
+			// Set the PCR Test Result
 			static let pcrTestResult = "-pcrTestResult"
-			static let pcrTestResultResponse = "-pcrTestResultResponse"
-			// To
+			// Flag to set if positive result was shown for PCR, set it to true for positive PCR
 			static let pcrPositiveTestResultWasShown = "-pcrPositiveTestResultWasShown"
+			// Flag to set if the keys are submitted for PCR
+			static let pcrKeysSubmitted = "-pcrKeysSubmitted"
 		}
 		enum antigen {
+			// Set the Antigen Test Result
 			static let antigenTestResult = "-antigenTestResult"
-			static let antigenTestResultResponse = "-antigenTestResultResponse"
+			// Flag to set if positive result was shown for Antigen, set it to true for positive Antigen
+			static let antigenPositiveTestResultWasShown = "-antigenPositiveTestResultWasShown"
+			// Flag to set if the keys are submitted for Antigen
+			static let antigenKeysSubmitted = "-antigenKeysSubmitted"
 			// To remove the antigen test profile
 			static let removeAntigenTestProfile = "-removeAntigenTestProfile"
 		}

@@ -695,7 +695,7 @@ class CoronaTestService {
 				positiveTestResultWasShown: UserDefaults.standard.bool(forKey: UITestingLaunchArguments.test.pcr.pcrPositiveTestResultWasShown.remove(prefix: "-")),
 				isSubmissionConsentGiven: UserDefaults.standard.bool(forKey: UITestingLaunchArguments.consent.isPCRSubmissionConsentGiven.remove(prefix: "-")),
 				submissionTAN: nil,
-				keysSubmitted: UserDefaults.standard.string(forKey: "pcrKeysSubmitted") == "YES",
+				keysSubmitted: UserDefaults.standard.bool(forKey: UITestingLaunchArguments.test.pcr.pcrKeysSubmitted.remove(prefix: "-")),
 				journalEntryCreated: false
 			)
 		} else {
@@ -712,10 +712,10 @@ class CoronaTestService {
 				testedPerson: TestedPerson(firstName: "Erika", lastName: "Mustermann", dateOfBirth: "1964-08-12"),
 				testResult: testResult,
 				finalTestResultReceivedDate: testResult == .pending ? nil : Date(),
-				positiveTestResultWasShown: UserDefaults.standard.bool(forKey: UITestingLaunchArguments.test.antigen.antigenTestResultResponse.remove(prefix: "-")),
+				positiveTestResultWasShown: UserDefaults.standard.bool(forKey: UITestingLaunchArguments.test.antigen.antigenPositiveTestResultWasShown.remove(prefix: "-")),
 				isSubmissionConsentGiven: UserDefaults.standard.bool(forKey: UITestingLaunchArguments.consent.isAntigenSubmissionConsentGiven.remove(prefix: "-")),
 				submissionTAN: nil,
-				keysSubmitted: UserDefaults.standard.string(forKey: "antigenKeysSubmitted") == "YES",
+				keysSubmitted: UserDefaults.standard.bool(forKey: UITestingLaunchArguments.test.antigen.antigenKeysSubmitted.remove(prefix: "-")),
 				journalEntryCreated: false
 			)
 		} else {
@@ -735,9 +735,9 @@ class CoronaTestService {
 	private func mockTestResultResponse(for coronaTestType: CoronaTestType) -> TestResult? {
 		switch coronaTestType {
 		case .pcr:
-			return UserDefaults.standard.string(forKey: UITestingLaunchArguments.test.pcr.pcrTestResultResponse.remove(prefix: "-")).flatMap { TestResult(stringValue: $0) }
+			return UserDefaults.standard.string(forKey: "pcrTestResultResponse").flatMap { TestResult(stringValue: $0) }
 		case .antigen:
-			return UserDefaults.standard.string(forKey: UITestingLaunchArguments.test.antigen.antigenTestResultResponse.remove(prefix: "-")).flatMap { TestResult(stringValue: $0) }
+			return UserDefaults.standard.string(forKey: "antigenTestResultResponse").flatMap { TestResult(stringValue: $0) }
 		}
 	}
 
