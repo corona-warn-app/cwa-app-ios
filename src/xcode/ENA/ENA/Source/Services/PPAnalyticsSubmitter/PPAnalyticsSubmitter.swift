@@ -204,15 +204,8 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		OR
 		- differenceBetweenTestResultAndCurrentDateInHours >= hoursSinceTestResultToSubmitKeySubmissionMetadata
 		*/
-		var isSubmitted = false
 		var timeDifferenceFulfillsCriteria = false
-		
-		// if submitted is true
-		if store.keySubmissionMetadata?.submitted == true {
-			isSubmitted = true
-		} else {
-			isSubmitted = false
-		}
+		let isSubmitted = store.keySubmissionMetadata?.submitted ?? false
 		
 		// if there is no test result time stamp
 		guard let testResultReceivedDate = coronaTestService.pcrTest?.finalTestResultReceivedDate else {

@@ -306,8 +306,6 @@ class CoronaTestServiceTests: XCTestCase {
 		Analytics.setupMock(store: store)
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 
-		createDefaultKeySubmissionMetadata(for: .pcr)
-
 		let client = ClientMock()
 		client.onGetRegistrationToken = { _, _, _, completion in
 			completion(.success("registrationToken"))
@@ -366,7 +364,6 @@ class CoronaTestServiceTests: XCTestCase {
 			Date().timeIntervalSince1970,
 			accuracy: 10
 		)
-		XCTAssertFalse(store.keySubmissionMetadata?.submittedWithTeleTAN ?? true)
 	}
 
 	func testRegisterPCRTestAndGetResult_successWithSubmissionConsentGiven() {
@@ -375,8 +372,6 @@ class CoronaTestServiceTests: XCTestCase {
 
 		Analytics.setupMock(store: store)
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
-
-		createDefaultKeySubmissionMetadata(for: .pcr)
 
 		let client = ClientMock()
 		client.onGetRegistrationToken = { _, _, _, completion in
@@ -440,7 +435,6 @@ class CoronaTestServiceTests: XCTestCase {
 			Date().timeIntervalSince1970,
 			accuracy: 10
 		)
-		XCTAssertFalse(store.keySubmissionMetadata?.submittedWithTeleTAN ?? true)
 	}
 
 	func testRegisterPCRTestAndGetResult_RegistrationFails() {
@@ -449,8 +443,6 @@ class CoronaTestServiceTests: XCTestCase {
 
 		Analytics.setupMock(store: store)
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
-
-		createDefaultKeySubmissionMetadata(for: .pcr)
 
 		let client = ClientMock()
 		client.onGetRegistrationToken = { _, _, _, completion in
@@ -483,7 +475,6 @@ class CoronaTestServiceTests: XCTestCase {
 
 		XCTAssertNil(service.pcrTest)
 		XCTAssertNil(store.testResultMetadata)
-		XCTAssertFalse(store.keySubmissionMetadata?.submittedWithTeleTAN ?? true)
 	}
 
 	func testRegisterPCRTestAndGetResult_RegistrationSucceedsGettingTestResultFails() {
@@ -492,8 +483,6 @@ class CoronaTestServiceTests: XCTestCase {
 
 		Analytics.setupMock(store: store)
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
-
-		createDefaultKeySubmissionMetadata(for: .pcr)
 
 		let client = ClientMock()
 		client.onGetRegistrationToken = { _, _, _, completion in
@@ -553,7 +542,6 @@ class CoronaTestServiceTests: XCTestCase {
 			Date().timeIntervalSince1970,
 			accuracy: 10
 		)
-		XCTAssertFalse(store.keySubmissionMetadata?.submittedWithTeleTAN ?? true)
 	}
 
 	func testRegisterPCRTestWithTeleTAN_successWithoutSubmissionConsentGiven() {
@@ -562,8 +550,6 @@ class CoronaTestServiceTests: XCTestCase {
 
 		Analytics.setupMock(store: store)
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
-
-		createDefaultKeySubmissionMetadata(for: .pcr)
 
 		let client = ClientMock()
 		client.onGetRegistrationToken = { _, _, _, completion in
@@ -616,8 +602,6 @@ class CoronaTestServiceTests: XCTestCase {
 		XCTAssertNil(pcrTest.submissionTAN)
 		XCTAssertFalse(pcrTest.keysSubmitted)
 		XCTAssertFalse(pcrTest.journalEntryCreated)
-
-		XCTAssertTrue(store.keySubmissionMetadata?.submittedWithTeleTAN ?? true)
 	}
 
 	func testRegisterPCRTestWithTeleTAN_successWithSubmissionConsentGiven() {
@@ -626,8 +610,6 @@ class CoronaTestServiceTests: XCTestCase {
 
 		Analytics.setupMock(store: store)
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
-
-		createDefaultKeySubmissionMetadata(for: .pcr)
 
 		let client = ClientMock()
 		client.onGetRegistrationToken = { _, _, _, completion in
@@ -680,8 +662,6 @@ class CoronaTestServiceTests: XCTestCase {
 		XCTAssertNil(pcrTest.submissionTAN)
 		XCTAssertFalse(pcrTest.keysSubmitted)
 		XCTAssertFalse(pcrTest.journalEntryCreated)
-
-		XCTAssertTrue(store.keySubmissionMetadata?.submittedWithTeleTAN ?? true)
 	}
 
 	func testRegisterPCRTestWithTeleTAN_RegistrationFails() {
@@ -690,8 +670,6 @@ class CoronaTestServiceTests: XCTestCase {
 
 		Analytics.setupMock(store: store)
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
-
-		createDefaultKeySubmissionMetadata(for: .pcr)
 
 		let client = ClientMock()
 		client.onGetRegistrationToken = { _, _, _, completion in
@@ -724,7 +702,6 @@ class CoronaTestServiceTests: XCTestCase {
 
 		XCTAssertNil(service.pcrTest)
 		XCTAssertNil(store.testResultMetadata)
-		XCTAssertFalse(store.keySubmissionMetadata?.submittedWithTeleTAN ?? true)
 	}
 
 	func testRegisterAntigenTestAndGetResult_successWithoutSubmissionConsentGivenWithTestedPerson() {
@@ -1813,33 +1790,6 @@ class CoronaTestServiceTests: XCTestCase {
 	}
 
 	// MARK: - Private
-
-	private func createDefaultKeySubmissionMetadata(for type: CoronaTestType) {
-		let submittedAfterRapidAntigenTest: Bool
-		switch type {
-		case .pcr:
-			submittedAfterRapidAntigenTest = false
-		case .antigen:
-			submittedAfterRapidAntigenTest = true
-		}
-
-		let keySubmissionMetadata = KeySubmissionMetadata(
-			submitted: false,
-			submittedInBackground: false,
-			submittedAfterCancel: false,
-			submittedAfterSymptomFlow: false,
-			lastSubmissionFlowScreen: .submissionFlowScreenUnknown,
-			advancedConsentGiven: false,
-			hoursSinceTestResult: 0,
-			hoursSinceTestRegistration: 0,
-			daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1,
-			submittedWithTeleTAN: false,
-			hoursSinceHighRiskWarningAtTestRegistration: -1,
-			submittedAfterRapidAntigenTest: submittedAfterRapidAntigenTest
-		)
-
-		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, type)))
-	}
 
 	private func getTestResultPlaybookTest(for coronaTestType: CoronaTestType, with testResult: TestResult) {
 		// Counter to track the execution order.

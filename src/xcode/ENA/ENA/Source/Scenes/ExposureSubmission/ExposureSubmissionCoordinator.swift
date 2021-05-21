@@ -81,8 +81,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		})
 	}
 
-	func showTestResultScreen() {
-		let vc = createTestResultViewController()
+	func showTestResultScreen(triggeredFromTeletan: Bool = false) {
+		let vc = createTestResultViewController(triggeredFromTeletan: triggeredFromTeletan)
 		push(vc)
 
 		// If a TAN was entered, we skip `showTestResultAvailableScreen(with:)`, so we notify (again) about the new state
@@ -99,7 +99,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				self?.model.coronaTestType = .pcr
 
 				// A TAN always indicates a positive test result.
-				self?.showTestResultScreen()
+				self?.showTestResultScreen(triggeredFromTeletan: true)
 			}
 		)
 
@@ -279,14 +279,14 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		return topBottomContainerViewController
 	}
 
-	private func createTestResultViewController() -> TopBottomContainerViewController<ExposureSubmissionTestResultViewController, FooterViewController> {
+	private func createTestResultViewController(triggeredFromTeletan: Bool = false) -> TopBottomContainerViewController<ExposureSubmissionTestResultViewController, FooterViewController> {
 		guard let coronaTestType = model.coronaTestType, let coronaTest = model.coronaTest else {
 			fatalError("Could not find corona test to create test result view controller for.")
 		}
 
 		// store is only initialized when a positive test result is received and not yet submitted
 		if coronaTest.testResult == .positive && !coronaTest.keysSubmitted {
-            updateStoreWithKeySubmissionMetadataDefaultValues(for: coronaTest)
+			updateStoreWithKeySubmissionMetadataDefaultValues(for: coronaTest, submittedWithTeletan: triggeredFromTeletan)
 			QuickAction.exposureSubmissionFlowTestResult = coronaTest.testResult
 		}
 		Analytics.collect(.keySubmissionMetadata(.lastSubmissionFlowScreen(.submissionFlowScreenTestResult, coronaTestType)))
@@ -1050,7 +1050,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		navigationController?.present(alert, animated: true)
 	}
 
-	private func updateStoreWithKeySubmissionMetadataDefaultValues(for coronaTest: CoronaTest) {
+	private func updateStoreWithKeySubmissionMetadataDefaultValues(for coronaTest: CoronaTest, submittedWithTeletan: Bool) {
 
 		let submittedAfterRapidAntigenTest: Bool
 		switch coronaTest {
@@ -1070,7 +1070,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			hoursSinceTestResult: 0,
 			hoursSinceTestRegistration: 0,
 			daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1,
-			submittedWithTeleTAN: false,
+			submittedWithTeleTAN: submittedWithTeletan,
 			hoursSinceHighRiskWarningAtTestRegistration: -1,
 			submittedAfterRapidAntigenTest: submittedAfterRapidAntigenTest
 		)
