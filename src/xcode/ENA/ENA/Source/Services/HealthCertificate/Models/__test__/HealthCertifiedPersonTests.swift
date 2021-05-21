@@ -10,20 +10,18 @@ import HealthCertificateToolkit
 
 class HealthCertifiedPersonTests: XCTestCase {
 
-	func testHealthCertifiedPersonObjectWillChangeTriggered() throws {
-		let healthCertifiedPerson = HealthCertifiedPerson(
-			healthCertificates: [],
-			proofCertificate: nil
-		)
+	func testHealthCertifiedPersonObjectDidChangeTriggered() throws {
+		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [])
+		let healthCertificate = HealthCertificate.mock(base45: HealthCertificate.firstBase45Mock)
 
-		let objectWillChangeExpectation = expectation(description: "objectWillChange publisher updated")
+		let objectDidChangeExpectation = expectation(description: "objectDidChange publisher updated")
 
-		let subscription = healthCertifiedPerson.objectWillChange
+		let subscription = healthCertifiedPerson.objectDidChange
 			.sink {
-				objectWillChangeExpectation.fulfill()
+				XCTAssertEqual($0.healthCertificates, [healthCertificate])
+				objectDidChangeExpectation.fulfill()
 			}
 
-		let healthCertificate = HealthCertificate.mock()
 		healthCertifiedPerson.healthCertificates = [healthCertificate]
 
 		waitForExpectations(timeout: 5)

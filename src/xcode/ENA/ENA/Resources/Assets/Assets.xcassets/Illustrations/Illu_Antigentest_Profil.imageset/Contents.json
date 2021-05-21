@@ -3,6 +3,16 @@
     {
       "filename" : "Illu_Antigentest_Profil.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "Illu_Antigentest_Profil_dark.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

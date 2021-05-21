@@ -7,7 +7,7 @@ import Foundation
 enum MappedErrorCorrectionType: Int {
 	case medium
 	case large
-	case quantile
+	case quartile
 	case high
 	
 	var mappedValue: String {
@@ -16,7 +16,7 @@ enum MappedErrorCorrectionType: Int {
 			return "M"
 		case .large:
 			return "L"
-		case .quantile:
+		case .quartile:
 			return "Q"
 		case .high:
 			return "H"

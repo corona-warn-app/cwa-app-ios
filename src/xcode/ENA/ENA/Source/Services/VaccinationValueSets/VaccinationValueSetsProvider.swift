@@ -16,7 +16,9 @@ class VaccinationValueSetsProvider: VaccinationValueSetsProviding {
 
 	// MARK: - Internal
 
-	func latestVaccinationCertificateValueSets(with etag: String? = nil) -> AnyPublisher<SAP_Internal_Dgc_ValueSets, Error> {
+	func latestVaccinationCertificateValueSets() -> AnyPublisher<SAP_Internal_Dgc_ValueSets, Error> {
+		let etag = store.vaccinationCertificateValueDataSets?.lastValueDataSetsETag
+
 		guard let cached = store.vaccinationCertificateValueDataSets, !shouldFetch() else {
 			return fetchVaccinationValueSets(with: etag).eraseToAnyPublisher()
 		}

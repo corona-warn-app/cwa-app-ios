@@ -13,16 +13,30 @@ class HomeTableViewModel {
 		state: HomeState,
 		store: Store,
 		coronaTestService: CoronaTestService,
+		healthCertificateService: HealthCertificateServiceProviding,
 		onTestResultCellTap: @escaping (CoronaTestType?) -> Void
 	) {
 		self.state = state
 		self.store = store
 		self.coronaTestService = coronaTestService
+		self.healthCertificateService = healthCertificateService
 		self.onTestResultCellTap = onTestResultCellTap
 
-		coronaTestService.$tests
-			.sink { [weak self] in
-				self?.update(pcrTest: $0.pcr, antigenTest: $0.antigen)
+		coronaTestService.$pcrTest
+			.sink { [weak self] _ in
+				self?.update()
+			}
+			.store(in: &subscriptions)
+
+		coronaTestService.$antigenTest
+			.sink { [weak self] _ in
+				self?.update()
+			}
+			.store(in: &subscriptions)
+		
+		healthCertificateService.healthCertifiedPersons
+			.sink { healthCertifiedPersons in
+				self.healthCertifiedPersons = healthCertifiedPersons
 			}
 			.store(in: &subscriptions)
 	}
@@ -32,7 +46,9 @@ class HomeTableViewModel {
 	enum Section: Int, CaseIterable {
 		case exposureLogging
 		case riskAndTestResults
+		case healthCertificate
 		case testRegistration
+		case createHealthCertificate
 		case statistics
 		case traceLocations
 		case infos
@@ -57,6 +73,7 @@ class HomeTableViewModel {
 
 	@OpenCombine.Published var testResultLoadingError: Error?
 	@OpenCombine.Published var riskAndTestResultsRows: [RiskAndTestResultsRow] = []
+	@OpenCombine.Published var healthCertifiedPersons: [HealthCertifiedPerson] = []
 
 	var numberOfSections: Int {
 		Section.allCases.count
@@ -69,6 +86,10 @@ class HomeTableViewModel {
 		case .riskAndTestResults:
 			return riskAndTestResultsRows.count
 		case .testRegistration:
+			return 1
+		case .healthCertificate:
+			return healthCertifiedPersons.count
+		case .createHealthCertificate:
 			return 1
 		case .statistics:
 			return 1
@@ -93,7 +114,7 @@ class HomeTableViewModel {
 
 	func heightForHeader(in section: Int) -> CGFloat {
 		switch Section(rawValue: section) {
-		case .exposureLogging, .riskAndTestResults, .testRegistration, .statistics, .traceLocations:
+		case .exposureLogging, .riskAndTestResults, .testRegistration, .statistics, .traceLocations, .healthCertificate, .createHealthCertificate:
 			return 0
 		case .infos, .settings:
 			return 16
@@ -104,7 +125,7 @@ class HomeTableViewModel {
 
 	func heightForFooter(in section: Int) -> CGFloat {
 		switch Section(rawValue: section) {
-		case .exposureLogging, .riskAndTestResults, .testRegistration, .statistics, .traceLocations:
+		case .exposureLogging, .riskAndTestResults, .testRegistration, .statistics, .traceLocations, .healthCertificate, .createHealthCertificate:
 			return 0
 		case .infos:
 			return 12
@@ -169,34 +190,29 @@ class HomeTableViewModel {
 		}
 	}
 
+	func healthCertifiedPerson(at indexPath: IndexPath) -> HealthCertifiedPerson? {
+		guard Section(rawValue: indexPath.section) == .healthCertificate,
+			  healthCertificateService.healthCertifiedPersons.value.indices.contains(indexPath.row) else {
+			Log.debug("Tried to access unknown healthCertifiedPersons - stop")
+			return nil
+		}
+		return healthCertificateService.healthCertifiedPersons.value[indexPath.row]
+	}
+
 	// MARK: - Private
 
 	private let onTestResultCellTap: (CoronaTestType?) -> Void
+	private let healthCertificateService: HealthCertificateServiceProviding
 	private var subscriptions = Set<AnyCancellable>()
 
-	private func update(pcrTest: PCRTest?, antigenTest: AntigenTest?) {
-		let updatedRiskAndTestResultsRows = self.computedRiskAndTestResultsRows(pcrTest: pcrTest, antigenTest: antigenTest)
-
-		if updatedRiskAndTestResultsRows.contains(.risk) && !self.riskAndTestResultsRows.contains(.risk) {
-			self.state.requestRisk(userInitiated: true)
-		}
-
-		if updatedRiskAndTestResultsRows != self.riskAndTestResultsRows {
-			isUpdating = true
-			self.riskAndTestResultsRows = updatedRiskAndTestResultsRows
-		}
-	}
-
-	private func computedRiskAndTestResultsRows(pcrTest: PCRTest?, antigenTest: AntigenTest?) -> [RiskAndTestResultsRow] {
+	private var computedRiskAndTestResultsRows: [RiskAndTestResultsRow] {
 		var riskAndTestResultsRows = [RiskAndTestResultsRow]()
 
-		let hasAtLeastOneShownPositiveOrSubmittedTest = pcrTest?.positiveTestResultWasShown == true || pcrTest?.keysSubmitted == true || antigenTest?.positiveTestResultWasShown == true || antigenTest?.keysSubmitted == true
-
-		if !hasAtLeastOneShownPositiveOrSubmittedTest {
+		if !coronaTestService.hasAtLeastOneShownPositiveOrSubmittedTest {
 			riskAndTestResultsRows.append(.risk)
 		}
 
-		if let pcrTest = pcrTest {
+		if let pcrTest = coronaTestService.pcrTest {
 			let testResultState: TestResultState
 			if pcrTest.testResult == .positive && pcrTest.positiveTestResultWasShown {
 				testResultState = .positiveResultWasShown
@@ -206,7 +222,7 @@ class HomeTableViewModel {
 			riskAndTestResultsRows.append(.pcrTestResult(testResultState))
 		}
 
-		if let antigenTest = antigenTest {
+		if let antigenTest = coronaTestService.antigenTest {
 			let testResultState: TestResultState
 			if antigenTest.testResult == .positive && antigenTest.positiveTestResultWasShown {
 				testResultState = .positiveResultWasShown
@@ -217,6 +233,19 @@ class HomeTableViewModel {
 		}
 
 		return riskAndTestResultsRows
+	}
+
+	private func update() {
+		let updatedRiskAndTestResultsRows = self.computedRiskAndTestResultsRows
+
+		if updatedRiskAndTestResultsRows.contains(.risk) && !self.riskAndTestResultsRows.contains(.risk) {
+			self.state.requestRisk(userInitiated: true)
+		}
+
+		if updatedRiskAndTestResultsRows != self.riskAndTestResultsRows {
+			isUpdating = true
+			self.riskAndTestResultsRows = updatedRiskAndTestResultsRows
+		}
 	}
 
 }
