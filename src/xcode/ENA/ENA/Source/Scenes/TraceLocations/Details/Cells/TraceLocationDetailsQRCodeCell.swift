@@ -34,20 +34,16 @@ class TraceLocationDetailsQRCodeCell: UITableViewCell, ReuseIdentifierProviding 
 		contentView.backgroundColor = .clear
 
 		let tileView = UIView()
-		tileView.backgroundColor = .enaColor(for: .darkBackground)
+		tileView.backgroundColor = .enaColor(for: .cellBackground2)
 		tileView.layer.cornerRadius = 12.0
 		if #available(iOS 13.0, *) {
 			tileView.layer.cornerCurve = .continuous
 		}
 		tileView.translatesAutoresizingMaskIntoConstraints = false
 		contentView.addSubview(tileView)
-		
-		qrCodeView.layer.cornerRadius = 12.0
-		qrCodeView.layer.masksToBounds = true
-		if #available(iOS 13.0, *) {
-			qrCodeView.layer.cornerCurve = .continuous
-		}
+
 		qrCodeView.translatesAutoresizingMaskIntoConstraints = false
+		qrCodeView.layer.magnificationFilter = CALayerContentsFilter.nearest
 		tileView.addSubview(qrCodeView)
 		
 		NSLayoutConstraint.activate([
@@ -56,10 +52,10 @@ class TraceLocationDetailsQRCodeCell: UITableViewCell, ReuseIdentifierProviding 
 			tileView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 32.0),
 			tileView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -32.0),
 
-			qrCodeView.topAnchor.constraint(equalTo: tileView.topAnchor),
-			qrCodeView.bottomAnchor.constraint(equalTo: tileView.bottomAnchor),
-			qrCodeView.leadingAnchor.constraint(equalTo: tileView.leadingAnchor),
-			qrCodeView.trailingAnchor.constraint(equalTo: tileView.trailingAnchor),
+			qrCodeView.topAnchor.constraint(equalTo: tileView.topAnchor, constant: 14.0),
+			qrCodeView.bottomAnchor.constraint(equalTo: tileView.bottomAnchor, constant: -14.0),
+			qrCodeView.leadingAnchor.constraint(equalTo: tileView.leadingAnchor, constant: 14.0),
+			qrCodeView.trailingAnchor.constraint(equalTo: tileView.trailingAnchor, constant: -14.0),
 			qrCodeView.widthAnchor.constraint(equalTo: qrCodeView.heightAnchor)
 		])
 	}

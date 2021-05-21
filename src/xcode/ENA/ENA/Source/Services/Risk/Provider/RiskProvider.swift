@@ -119,15 +119,17 @@ final class RiskProvider: RiskProviding {
 						}
 						switch result {
 						case .success:
-							// this should not actually determine risk but use a previous, still valid risk and return that
-							self.determineRisk(userInitiated: userInitiated, appConfiguration: appConfiguration) { result in
-								switch result {
-								case .success(let risk):
-									self.successOnTargetQueue(risk: risk)
-								case .failure(let error):
-									self.failOnTargetQueue(error: error)
-								}
+
+							// Try to obtain already calculated risk.
+							if let risk = self.previousRiskIfExistingAndNotExpired(userInitiated: userInitiated) {
+								Log.info("RiskProvider: Using risk from previous detection", log: .riskDetection)
+
+								self.successOnTargetQueue(risk: risk)
+							} else {
+								self.failOnTargetQueue(error: .deactivatedDueToActiveTest)
 							}
+							return
+
 						case .failure(let error):
 							self.failOnTargetQueue(error: error)
 						}
@@ -227,6 +229,7 @@ final class RiskProvider: RiskProviding {
 		guard group.wait(timeout: DispatchTime.now() + timeoutInterval) == .success else {
 			updateActivityState(.idle)
 			exposureDetection?.cancel()
+			exposureDetection = nil
 			Log.info("RiskProvider: Canceled risk calculation due to timeout", log: .riskDetection)
 			failOnTargetQueue(error: .timeout)
 			return
@@ -354,15 +357,21 @@ final class RiskProvider: RiskProviding {
 		appConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS,
 		completion: @escaping (Result<[ExposureWindow], RiskProviderError>) -> Void
 	) {
+		guard exposureDetection == nil else {
+			// in the future someone should debug why this funtion is called twice in the first place.
+			completion(.failure(.riskProviderIsRunning))
+			return
+		}
+		
 		self.updateActivityState(.detecting)
 
-		let _exposureDetection = ExposureDetection(
+		exposureDetection = ExposureDetection(
 			delegate: exposureDetectionExecutor,
 			appConfiguration: appConfiguration,
 			deviceTimeCheck: DeviceTimeCheck(store: store)
 		)
 
-		_exposureDetection.start { result in
+		exposureDetection?.start { [weak self] result in
 			switch result {
 			case .success(let detectedExposureWindows):
 				Log.info("RiskProvider: Detect exposure completed", log: .riskDetection)
@@ -374,9 +383,8 @@ final class RiskProvider: RiskProviding {
 
 				completion(.failure(.failedRiskDetection(error)))
 			}
+			self?.exposureDetection = nil
 		}
-
-		self.exposureDetection = _exposureDetection
 	}
 
 	private func calculateRiskLevel(exposureWindows: [ExposureWindow], appConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS, completion: Completion) {
@@ -479,6 +487,10 @@ final class RiskProvider: RiskProviding {
 
 	private func updateActivityState(_ state: RiskProviderActivityState) {
 		Log.info("RiskProvider: Update activity state to: \(state)", log: .riskDetection)
+
+		guard self.activityState != state else {
+			return
+		}
 
 		self.activityState = state
 

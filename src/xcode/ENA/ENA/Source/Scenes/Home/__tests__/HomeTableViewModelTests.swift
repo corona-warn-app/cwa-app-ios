@@ -27,20 +27,23 @@ class HomeTableViewModelTests: XCTestCase {
 				store: store,
 				appConfiguration: CachedAppConfigurationMock()
 			),
+			healthCertificateService: MockHealthCertificateService(),
 			onTestResultCellTap: { _ in }
 		)
 
 		// Number of Sections
-		XCTAssertEqual(viewModel.numberOfSections, 7)
+		XCTAssertEqual(viewModel.numberOfSections, 9)
 		
 		// Number of Rows per Section
 		XCTAssertEqual(viewModel.numberOfRows(in: 0), 1)
 		XCTAssertEqual(viewModel.numberOfRows(in: 1), 1)
-		XCTAssertEqual(viewModel.numberOfRows(in: 2), 1)
+		XCTAssertEqual(viewModel.numberOfRows(in: 2), 0) // HealthCertificates
 		XCTAssertEqual(viewModel.numberOfRows(in: 3), 1)
-		XCTAssertEqual(viewModel.numberOfRows(in: 4), 1)
-		XCTAssertEqual(viewModel.numberOfRows(in: 5), 2)
-		XCTAssertEqual(viewModel.numberOfRows(in: 6), 2)
+		XCTAssertEqual(viewModel.numberOfRows(in: 4), 1) // createHealthCertificate
+		XCTAssertEqual(viewModel.numberOfRows(in: 5), 1)
+		XCTAssertEqual(viewModel.numberOfRows(in: 6), 1)
+		XCTAssertEqual(viewModel.numberOfRows(in: 7), 2)
+		XCTAssertEqual(viewModel.numberOfRows(in: 8), 2)
 
 		// Check riskAndTestResultsRows
 		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.risk])
@@ -51,8 +54,10 @@ class HomeTableViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.heightForHeader(in: 2), 0)
 		XCTAssertEqual(viewModel.heightForHeader(in: 3), 0)
 		XCTAssertEqual(viewModel.heightForHeader(in: 4), 0)
-		XCTAssertEqual(viewModel.heightForHeader(in: 5), 16)
-		XCTAssertEqual(viewModel.heightForHeader(in: 6), 16)
+		XCTAssertEqual(viewModel.heightForHeader(in: 5), 0)
+		XCTAssertEqual(viewModel.heightForHeader(in: 6), 0)
+		XCTAssertEqual(viewModel.heightForHeader(in: 7), 16)
+		XCTAssertEqual(viewModel.heightForHeader(in: 8), 16)
 		
 		// Height for Footer
 		XCTAssertEqual(viewModel.heightForFooter(in: 0), 0)
@@ -60,8 +65,10 @@ class HomeTableViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.heightForFooter(in: 2), 0)
 		XCTAssertEqual(viewModel.heightForFooter(in: 3), 0)
 		XCTAssertEqual(viewModel.heightForFooter(in: 4), 0)
-		XCTAssertEqual(viewModel.heightForFooter(in: 5), 12)
-		XCTAssertEqual(viewModel.heightForFooter(in: 6), 24)
+		XCTAssertEqual(viewModel.heightForFooter(in: 5), 0)
+		XCTAssertEqual(viewModel.heightForFooter(in: 6), 0)
+		XCTAssertEqual(viewModel.heightForFooter(in: 7), 12)
+		XCTAssertEqual(viewModel.heightForFooter(in: 8), 24)
 		
 	}
 
@@ -91,6 +98,7 @@ class HomeTableViewModelTests: XCTestCase {
 				store: store,
 				appConfiguration: CachedAppConfigurationMock()
 			),
+			healthCertificateService: MockHealthCertificateService(),
 			onTestResultCellTap: { _ in }
 		)
 		
@@ -124,6 +132,7 @@ class HomeTableViewModelTests: XCTestCase {
 				store: store,
 				appConfiguration: CachedAppConfigurationMock()
 			),
+			healthCertificateService: MockHealthCertificateService(),
 			onTestResultCellTap: { _ in }
 		)
 		
@@ -151,6 +160,7 @@ class HomeTableViewModelTests: XCTestCase {
 				store: store,
 				appConfiguration: CachedAppConfigurationMock()
 			),
+			healthCertificateService: MockHealthCertificateService(),
 			onTestResultCellTap: { _ in }
 		)
 		viewModel.state.statistics.keyFigureCards = []
@@ -185,6 +195,7 @@ class HomeTableViewModelTests: XCTestCase {
 				store: store,
 				appConfiguration: CachedAppConfigurationMock()
 			),
+			healthCertificateService: MockHealthCertificateService(),
 			onTestResultCellTap: { _ in }
 		)
 		viewModel.state.updateStatistics()
@@ -197,6 +208,36 @@ class HomeTableViewModelTests: XCTestCase {
 				)
 			}
 		}
+	}
+
+	func test_WhenHealthCertifiedPersonIsAdded() {
+		let healthCertificateService = MockHealthCertificateService()
+		let store = MockTestStore()
+
+		let viewModel = HomeTableViewModel(
+			state: .init(
+				store: store,
+				riskProvider: MockRiskProvider(),
+				exposureManagerState: .init(authorized: true, enabled: true, status: .active),
+				enState: .enabled,
+				statisticsProvider: StatisticsProvider(
+					client: CachingHTTPClientMock(),
+					store: store
+				)
+			),
+			store: store,
+			coronaTestService: CoronaTestService(
+				client: ClientMock(),
+				store: store,
+				appConfiguration: CachedAppConfigurationMock()
+			),
+			healthCertificateService: healthCertificateService, onTestResultCellTap: { _ in }
+		)
+		XCTAssertEqual(viewModel.numberOfRows(in: 2), 0) // HealthCertificates
+
+		_ = healthCertificateService.registerHealthCertificate(base45: HealthCertificate.mockBase45)
+
+		XCTAssertEqual(viewModel.numberOfRows(in: 2), 1) // HealthCertificates
 	}
 
 }

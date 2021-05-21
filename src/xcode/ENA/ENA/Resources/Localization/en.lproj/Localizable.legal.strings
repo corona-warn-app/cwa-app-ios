@@ -192,16 +192,14 @@
 
 /* Health Certificate Information */
 
-"HealthCertificate_Info_Legal_headline" = "NYD: Ihr Einverständnis";
+"HealthCertificate_Info_Legal_headline" = "Data protection and data security";
 
-"HealthCertificate_Info_Legal_subHeadline" = "NYD: Durch Antippen von „Einverstanden“ willigen Sie in folgende Schritte ein:";
+"HealthCertificate_Info_Legal_section01" = "Using the digital vaccination certificate feature is voluntary. There are other ways to prove that you are fully vaccinated (e.g. using a yellow vaccination booklet).";
 
-"HealthCertificate_Info_Legal_section01" = "NYD: Die App legal";
+"HealthCertificate_Info_Legal_section02" = "The vaccination certificate contains your COVID-19 vaccination details. In cases where you are required by law to prove that you have been vaccinated, it is sufficient to show the QR code in the app. Do not provide vaccination certificates or QR codes to anyone if you do not want the data to be read.";
 
-"HealthCertificate_Info_Legal_section02" = "NYD: Wenn Sie es sich später anders überlegen, können Sie den Test in der App entfernen.";
+"HealthCertificate_Info_Legal_section03" = "If you present the QR code in the app and it is scanned using the verification app, others will be able to tell whether you are fully vaccinated. During verification, the official verification app will also display your name and date of birth.";
 
-"HealthCertificate_Info_Legal_section03" = "NYD: Wenn Sie positiv auf Corona getestet wurden, teilt die App Ihr Testergebnis, um Nutzer, denen Sie begegnet sind, zu warnen. Dies betrifft Nutzer von Corona-Apps der oben genannten Länder und Nutzer, die zeitgleich am selben Event oder Ort wie Sie eingecheckt waren. Im Falle von Schnelltests werden nur Nutzer der Corona-Warn-App gewarnt.";
+"HealthCertificate_Info_Legal_section04" = "You have the possibility to delete vaccination certificates in the app at any time. Until then, the vaccination certificates will be stored on your smartphone.";
 
-"HealthCertificate_Info_Legal_section04" = "NYD: Wenn Sie zusätzlich Angaben zum Beginn Ihrer Symptome machen, werden auch diese geteilt.";
-
-"HealthCertificate_Info_Legal_subHeadline2" = "NYD: Sie können Ihr Einverständnis jederzeit zurücknehmen. Die Einstellung hierfür finden Sie unter „Test anzeigen“. Vor dem Teilen werden Sie nochmal auf Ihr Einverständnis hingewiesen.";
+"HealthCertificate_Info_disclaimer" = "Detailed information about this data processing is available in the privacy notice";

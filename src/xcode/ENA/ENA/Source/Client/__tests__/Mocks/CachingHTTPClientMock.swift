@@ -87,7 +87,7 @@ final class CachingHTTPClientMock: CachingHTTPClient {
 		handler(etag, completion)
 	}
 	
-//	// MARK: - VaccinationValueSetsFetching
+	// MARK: - VaccinationValueSetsFetching
 	
 	var onFetchVaccinationValueSets: ((String?, @escaping CachingHTTPClient.VaccinationValueSetsCompletionHandler) -> Void)?
 		

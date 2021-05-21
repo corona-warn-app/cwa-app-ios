@@ -31,12 +31,6 @@ final class ExposureDetectionCoordinator {
 		)
 	}
 	
-	// MARK: - Overrides
-	
-	// MARK: - Protocol <#Name#>
-	
-	// MARK: - Public
-	
 	// MARK: - Internal
 	
 	func start() {
