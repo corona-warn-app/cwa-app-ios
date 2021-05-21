@@ -111,7 +111,10 @@ final class HealthCertifiedPersonViewModel {
 			fatalError("Cell cannot be shown without a health certificate")
 		}
 
-		return HealthCertificateQRCodeCellViewModel(healthCertificate: latestHealthCertificate)
+		return HealthCertificateQRCodeCellViewModel(
+			healthCertificate: latestHealthCertificate,
+			accessibilityText: AppStrings.HealthCertificate.Person.QRCodeImageDescription
+		)
 	}
 
 	var fullyVaccinatedHintCellViewModel: HealthCertificateSimpleTextCellViewModel {

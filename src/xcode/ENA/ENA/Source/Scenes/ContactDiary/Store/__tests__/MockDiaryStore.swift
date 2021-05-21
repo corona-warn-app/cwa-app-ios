@@ -69,6 +69,11 @@ class MockDiaryStore: DiaryStoringProviding {
 	}
 
 	@discardableResult
+	func addCoronaTest(testDate: String, testType: Int, testResult: Int) -> Result<Int, SecureSQLStoreError> {
+		return .success(0)
+	}
+
+	@discardableResult
 	func updateContactPerson(id: Int, name: String, phoneNumber: String, emailAddress: String) -> SecureSQLStore.VoidResult {
 		guard let index = contactPersons.firstIndex(where: { $0.id == id }) else { return .success(()) }
 		contactPersons[index] = DiaryContactPerson(id: id, name: name, phoneNumber: phoneNumber, emailAddress: emailAddress)
@@ -242,7 +247,8 @@ class MockDiaryStore: DiaryStoringProviding {
 			diaryDays.append(
 				DiaryDay(
 					dateString: dateString,
-					entries: contactPersonEntries + locationEntries
+					entries: contactPersonEntries + locationEntries,
+					tests: []
 				)
 			)
 		}

@@ -773,6 +773,7 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 					DROP TABLE TraceLocation;
 					DROP TABLE TraceTimeIntervalMatch;
 					DROP TABLE TraceWarningPackageMetadata;
+					DROP TABLE CoronaTest
 					VACUUM;
 				"""
 

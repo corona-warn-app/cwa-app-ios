@@ -10,16 +10,19 @@ struct DiaryDay: Equatable {
 
 	init(
 		dateString: String,
-		entries: [DiaryEntry]
+		entries: [DiaryEntry],
+		tests: [DiaryDayTest]
 	) {
 		self.dateString = dateString
 		self.entries = entries
+		self.tests = tests
 	}
 
 	// MARK: - Internal
 
 	let dateString: String
 	let entries: [DiaryEntry]
+	let tests: [DiaryDayTest]
 
 	var selectedEntries: [DiaryEntry] {
 		entries.filter { $0.isSelected }
