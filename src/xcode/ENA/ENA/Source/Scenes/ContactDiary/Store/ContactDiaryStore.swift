@@ -1145,6 +1145,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 					DROP TABLE LocationVisit;
 					DROP TABLE ContactPerson;
 					DROP TABLE ContactPersonEncounter;
+					DROP TABLE CoronaTest;
 					VACUUM;
 				"""
 

@@ -359,8 +359,7 @@ class ContactDiaryStoreTests: XCTestCase {
 	func test_WHEN_AddCoronaTest_THEN_CoronaTestIsPersisted() throws {
 		// GIVEN
 		let databaseQueue = makeDatabaseQueue()
-		let schemaV5 = ContactDiaryStoreSchemaV5(databaseQueue: databaseQueue)
-		let store = makeContactDiaryStore(with: databaseQueue, schema: schemaV5)
+		let store = makeContactDiaryStore(with: databaseQueue)
 
 		let result = store.addCoronaTest(testDate: "2021-05-21", testType: 0, testResult: 1)
 
@@ -978,7 +977,7 @@ class ContactDiaryStoreTests: XCTestCase {
 		let store = makeContactDiaryStore(with: databaseQueue)
 
 		databaseQueue.inDatabase { database in
-			XCTAssertEqual(database.numberOfTables, 4, "Looks like there is a new table. Please extend this test and add the new table to the dropTables() function.")
+			XCTAssertEqual(database.numberOfTables, 5, "Looks like there is a new table. Please extend this test and add the new table to the dropTables() function.")
 		}
 
 		// Add data and check if its persisted.
@@ -987,11 +986,13 @@ class ContactDiaryStoreTests: XCTestCase {
 		addPersonEncounter(personId: personId, date: Date(), store: store)
 		let locationId = addLocation(name: "Some Location", to: store)
 		addLocationVisit(locationId: locationId, date: Date(), store: store)
+		let coronaTestID = addCoronaTest(testDate: "2021-05-21", to: store)
 
 		XCTAssertNotNil(fetchEntries(for: "Location", with: locationId, from: databaseQueue))
 		XCTAssertNotNil(fetchEntries(for: "LocationVisit", with: locationId, from: databaseQueue))
 		XCTAssertNotNil(fetchEntries(for: "ContactPerson", with: locationId, from: databaseQueue))
 		XCTAssertNotNil(fetchEntries(for: "ContactPersonEncounter", with: locationId, from: databaseQueue))
+		XCTAssertNotNil(fetchEntries(for: "CoronaTest", with: coronaTestID, from: databaseQueue))
 
 		// Reset store and check if date was removed.
 
@@ -1007,18 +1008,22 @@ class ContactDiaryStoreTests: XCTestCase {
 		XCTAssertNil(fetchEntries(for: "LocationVisit", with: locationId, from: databaseQueue))
 		XCTAssertNil(fetchEntries(for: "ContactPerson", with: locationId, from: databaseQueue))
 		XCTAssertNil(fetchEntries(for: "ContactPersonEncounter", with: locationId, from: databaseQueue))
+		XCTAssertNil(fetchEntries(for: "CoronaTest", with: coronaTestID, from: databaseQueue))
 
-		// Add again some data an check if persistence is working again.
+		// Add again some data and check if persistence is working again.
 
 		let person1Id = addContactPerson(name: "Some Person", to: store)
 		addPersonEncounter(personId: person1Id, date: Date(), store: store)
 		let location1Id = addLocation(name: "Some Location", to: store)
 		addLocationVisit(locationId: location1Id, date: Date(), store: store)
+		let coronaTest1ID = addCoronaTest(testDate: "2021-05-21", to: store)
 
-		XCTAssertNotNil(fetchEntries(for: "Location", with: locationId, from: databaseQueue))
-		XCTAssertNotNil(fetchEntries(for: "LocationVisit", with: locationId, from: databaseQueue))
-		XCTAssertNotNil(fetchEntries(for: "ContactPerson", with: locationId, from: databaseQueue))
-		XCTAssertNotNil(fetchEntries(for: "ContactPersonEncounter", with: locationId, from: databaseQueue))
+		XCTAssertNotNil(fetchEntries(for: "Location", with: location1Id, from: databaseQueue))
+		XCTAssertNotNil(fetchEntries(for: "LocationVisit", with: location1Id, from: databaseQueue))
+		XCTAssertNotNil(fetchEntries(for: "ContactPerson", with: location1Id, from: databaseQueue))
+		XCTAssertNotNil(fetchEntries(for: "ContactPersonEncounter", with: location1Id, from: databaseQueue))
+		XCTAssertNotNil(fetchEntries(for: "CoronaTest", with: coronaTest1ID, from: databaseQueue))
+
 	}
 
 	func test_when_storeIsCorrupted_then_makeDeletesAndRecreatesStore() throws {
@@ -1209,6 +1214,20 @@ class ContactDiaryStoreTests: XCTestCase {
 		return encounterId
 	}
 
+	@discardableResult
+	private func addCoronaTest(
+		testDate: String,
+		testType: Int = 0,
+		testResult: Int = 0,
+		to store: ContactDiaryStore
+	) -> Int {
+		let addCoronaTestResult = store.addCoronaTest(testDate: testDate, testType: testType, testResult: testResult)
+		guard case let .success(locationId) = addCoronaTestResult else {
+			fatalError("Failed to add Location")
+		}
+		return locationId
+	}
+
 	private func makeDatabaseQueue() -> FMDatabaseQueue {
 		guard let databaseQueue = FMDatabaseQueue(path: "file::memory:") else {
 			fatalError("Could not create FMDatabaseQueue.")
@@ -1227,14 +1246,14 @@ class ContactDiaryStoreTests: XCTestCase {
 		if let schema = schema {
 			_schema = schema
 		} else {
-			_schema = ContactDiaryStoreSchemaV4(databaseQueue: databaseQueue)
+			_schema = ContactDiaryStoreSchemaV5(databaseQueue: databaseQueue)
 		}
 
 		let _migrator: SerialMigratorProtocol
 		if let migrator = migrator {
 			_migrator = migrator
 		} else {
-			_migrator = SerialDatabaseQueueMigrator(queue: databaseQueue, latestVersion: 4, migrations: [])
+			_migrator = SerialDatabaseQueueMigrator(queue: databaseQueue, latestVersion: 5, migrations: [])
 		}
 
 		guard let store = ContactDiaryStore(
