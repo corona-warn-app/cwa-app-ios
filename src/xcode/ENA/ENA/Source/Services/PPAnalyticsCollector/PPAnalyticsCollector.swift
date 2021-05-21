@@ -288,12 +288,12 @@ enum PPAnalyticsCollector {
 			
 			switch enfRiskCalculationResult.riskLevel {
 			case .high:
-				guard let timeOfRiskChangeToHigh = store?.dateOfConversionToENFHighRisk else {
+				if let timeOfRiskChangeToHigh = store?.dateOfConversionToENFHighRisk {
+					let differenceInHours = Calendar.current.dateComponents([.hour], from: timeOfRiskChangeToHigh, to: date)
+					testResultMetadata.hoursSinceENFHighRiskWarningAtTestRegistration = differenceInHours.hour
+				} else {
 					Log.warning("Could not log enf risk calculation result due to timeOfRiskChangeToHigh is nil", log: .ppa)
-					return
 				}
-				let differenceInHours = Calendar.current.dateComponents([.hour], from: timeOfRiskChangeToHigh, to: date)
-				testResultMetadata.hoursSinceENFHighRiskWarningAtTestRegistration = differenceInHours.hour
 			case .low:
 				testResultMetadata.hoursSinceENFHighRiskWarningAtTestRegistration = -1
 			}
@@ -313,12 +313,13 @@ enum PPAnalyticsCollector {
 			
 			switch checkinRiskCalculationResult.riskLevel {
 			case .high:
-				guard let timeOfRiskChangeToHigh = store?.dateOfConversionToCheckinHighRisk else {
-					Log.warning("Could not log checkin risk calculation result due to timeOfRiskChangeToHigh is nil", log: .ppa)
-					return
-				}
+				if let timeOfRiskChangeToHigh = store?.dateOfConversionToCheckinHighRisk {
+
 				let differenceInHours = Calendar.current.dateComponents([.hour], from: timeOfRiskChangeToHigh, to: date)
 				testResultMetadata.hoursSinceCheckinHighRiskWarningAtTestRegistration = differenceInHours.hour
+				} else {
+					Log.warning("Could not log checkin risk calculation result due to timeOfRiskChangeToHigh is nil", log: .ppa)
+				}
 			case .low:
 				testResultMetadata.hoursSinceCheckinHighRiskWarningAtTestRegistration = -1
 			}

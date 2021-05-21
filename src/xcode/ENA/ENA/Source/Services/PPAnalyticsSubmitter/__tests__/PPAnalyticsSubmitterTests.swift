@@ -697,9 +697,25 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		let store = MockTestStore()
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		let analyticsSubmitter = createMockSubmitter(with: store)
-
+		let coronaTestService = CoronaTestService(
+			client: ClientMock(),
+			store: store,
+			appConfiguration: CachedAppConfigurationMock()
+		)
+		coronaTestService.registerPCRTest(
+			teleTAN: "tele-tan",
+			isSubmissionConsentGiven: true,
+			completion: { _ in }
+		)
+		
+		let fiveHoursBefore = Calendar.current.date(byAdding: .hour, value: -5, to: Date())
+		coronaTestService.pcrTest?.finalTestResultReceivedDate = fiveHoursBefore ?? Date()
 		// Setup Collector
-		Analytics.setupMock(store: store, submitter: analyticsSubmitter)
+		Analytics.setupMock(
+			store: store,
+			submitter: analyticsSubmitter,
+			coronaTestService: coronaTestService
+		)
 		
 		// collect keySubmissionMetadata
 		let keySubmissionMetadata = KeySubmissionMetadata(

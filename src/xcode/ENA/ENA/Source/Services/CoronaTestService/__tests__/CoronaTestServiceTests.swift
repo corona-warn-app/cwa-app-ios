@@ -538,7 +538,6 @@ class CoronaTestServiceTests: XCTestCase {
 		XCTAssertNil(pcrTest.submissionTAN)
 		XCTAssertFalse(pcrTest.keysSubmitted)
 		XCTAssertFalse(pcrTest.journalEntryCreated)
-
 		XCTAssertNil(store.testResultMetadata?.testResult)
 		XCTAssertEqual(
 			try XCTUnwrap(store.testResultMetadata?.testRegistrationDate).timeIntervalSince1970,
