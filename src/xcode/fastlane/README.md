@@ -31,6 +31,11 @@ Build project
 fastlane ios build_community
 ```
 Build project (Community)
+### ios lint
+```
+fastlane ios lint
+```
+Lint code
 ### ios test
 ```
 fastlane ios test
