@@ -4,7 +4,7 @@
 
 import XCTest
 
-class CreateHealthCertificate: XCTestCase {
+class ENAUITests_13_CreateHealthCertificate: XCTestCase {
 
 	// MARK: - Overrides
 
@@ -13,8 +13,8 @@ class CreateHealthCertificate: XCTestCase {
 		continueAfterFailure = false
 		app = XCUIApplication()
 		app.setDefaults()
-		app.launchArguments.append(contentsOf: ["-isOnboarded", YES])
-		app.launchArguments.append(contentsOf: ["-setCurrentOnboardingVersion", YES])
+		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.onboarding.isOnboarded, YES])
+		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.onboarding.setCurrentOnboardingVersion, YES])
 	}
 
 	// MARK: - Internal
@@ -65,7 +65,7 @@ class CreateHealthCertificate: XCTestCase {
 
 	func test_CreateAntigenTestProfileWithLastCertificate_THEN_DeleteProfile() throws {
 
-		app.launchArguments.append(contentsOf: ["-firstHealthCertificate", YES])
+		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.healthCertificate.firstHealthCertificate, YES])
 		app.launch()
 
 		/// Home Screen
@@ -90,7 +90,7 @@ class CreateHealthCertificate: XCTestCase {
 	}
 
 	func test_ShowCertificate() throws {
-		app.launchArguments.append(contentsOf: ["-firstAndSecondHealthCertificate", YES])
+		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.healthCertificate.firstAndSecondHealthCertificate, YES])
 
 		app.launch()
 

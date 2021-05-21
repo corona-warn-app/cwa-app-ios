@@ -84,4 +84,9 @@ enum UITestingLaunchArguments {
 		// To remove all the locations from contact journal
 		static let journalRemoveAllLocations = "-journalRemoveAllLocations"
 	}
+	enum healthCertificate {
+		// Flag to set first and second health certificates
+		static let firstHealthCertificate = "-firstHealthCertificate"
+		static let firstAndSecondHealthCertificate = "-firstAndSecondHealthCertificate"
+	}
 }
