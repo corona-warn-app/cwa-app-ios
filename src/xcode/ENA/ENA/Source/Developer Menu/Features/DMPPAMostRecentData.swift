@@ -6,7 +6,7 @@
 
 import UIKit
 
-class DMPPAnalyticsMostRecent: UIViewController {
+class DMPPAMostRecentData: UIViewController {
 
 	// MARK: - Init
 
