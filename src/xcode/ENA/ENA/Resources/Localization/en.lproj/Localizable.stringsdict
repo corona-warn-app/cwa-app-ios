@@ -236,5 +236,65 @@
 			<string>Exposure logging has been active for %u days. An exposure check can only be reliable if exposure logging is permanently activated.</string>
 		</dict>
 	</dict>
+	<key>HealthCertificate_Home_Person_daysUntilCompleteProtection</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!--Plural form for ZERO.-->
+			<string>Full vaccination protection in %u days</string>
+			<key>one</key>
+			<!--Plural form for ONE.-->
+			<string>Full vaccination protection in %u day</string>
+			<key>two</key>
+			<!--Plural form for TWO.-->
+			<string>Full vaccination protection in %u days</string>
+			<key>few</key>
+			<!--Plural form for FEW.-->
+			<string>Full vaccination protection in %u days</string>
+			<key>many</key>
+			<!--Plural form for MANY.-->
+			<string>Full vaccination protection in %u days</string>
+			<key>other</key>
+			<!--Plural form for OTHER.-->
+			<string>Full vaccination protection in %u days</string>
+		</dict>
+	</dict>
+	<key>HealthCertifiedPerson_daysUntilCompleteProtection</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!--Plural form for ZERO.-->
+			<string>You have now received all currently planned vaccinations, however, your vaccination protection will not be complete for another %u days.</string>
+			<key>one</key>
+			<!--Plural form for ONE.-->
+			<string>You have now received all the currently planned vaccinations, however, your vaccination protection will not be complete for another %u day.</string>
+			<key>two</key>
+			<!--Plural form for TWO.-->
+			<string>You have now received all the currently planned vaccinations, however, your vaccination protection will not be complete for another %u days.</string>
+			<key>few</key>
+			<!--Plural form for FEW.-->
+			<string>You have now received all the currently planned vaccinations, however, your vaccination protection will not be complete for another %u days.</string>
+			<key>many</key>
+			<!--Plural form for MANY.-->
+			<string>You have now received all the currently planned vaccinations, however, your vaccination protection will not be complete for another %u days.</string>
+			<key>other</key>
+			<!--Plural form for OTHER.-->
+			<string>You have now received all the currently planned vaccinations, however, your vaccination protection will not be complete for another %u days.</string>
+		</dict>
+	</dict>
 </dict>
 </plist>

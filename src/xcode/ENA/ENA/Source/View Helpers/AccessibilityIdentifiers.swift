@@ -60,6 +60,7 @@ enum AccessibilityIdentifiers {
 			static let submittedAntigenCell = "AccessibilityIdentifiers.Home.submittedAntigenCell"
 		}
 
+		static let healthCertificateButton = "AccessibilityIdentifiers.Home.HealthCertificateButton"
 		static let registerHealthCertificateButton = "AppStrings.Home.registerHealthCertificateButton"
 		static let submitCardButton = "AppStrings.Home.submitCardButton"
 		static let traceLocationsCardButton = "AppStrings.Home.traceLocationsCardButton"
@@ -598,6 +599,14 @@ enum AccessibilityIdentifiers {
 
 			static let disclaimer = "AppStrings.HealthCertificate.Info.disclaimer"
 			static let acknowledgementTitle = "HealthCertificate.Info.acknowledgement"
+		}
+
+		enum Person {
+			static let certificateCell = "HealthCertificate.Person.cell"
+		}
+
+		enum Certificate {
+			static let headline = "HealthCertificate.title"
 		}
 	}
 
