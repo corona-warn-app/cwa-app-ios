@@ -434,6 +434,7 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 			.section(
 				header: .backgroundSpace(height: 16),
 				cells: [
+					.body(text: AppStrings.ExposureDetection.contactJournalText),
 					.header(title: AppStrings.ExposureDetection.behaviorTitle, subtitle: AppStrings.ExposureDetection.behaviorSubtitle),
 					.guide(text: AppStrings.ExposureDetection.guideHome, image: UIImage(named: "Icons - Home")),
 					.guide(text: AppStrings.ExposureDetection.guideDistance, image: UIImage(named: "Icons - Abstand")),
@@ -537,6 +538,7 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 			header: .backgroundSpace(height: 8),
 			footer: .backgroundSpace(height: 16),
 			cells: [
+				.body(text: AppStrings.ExposureDetection.contactJournalText),
 				.header(
 					title: AppStrings.ExposureDetection.lowRiskExposureTitle,
 					subtitle: AppStrings.ExposureDetection.lowRiskExposureSubtitle
