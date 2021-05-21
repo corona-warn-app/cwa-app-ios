@@ -83,7 +83,8 @@ class DMPPAnalyticsActualData: UIViewController {
 			view.bottomAnchor.constraint(equalTo: textView.bottomAnchor)
 		])
 
-		textView.text = Analytics.getPPADataMessage()?.textFormatString()
+		let text = store.isPrivacyPreservingAnalyticsConsentGiven ? Analytics.getPPADataMessage()?.textFormatString() : "User consent for ppa is not given. No data to see."
+		textView.text = text
 		Log.info("Analytics actual data: \(String(describing: textView.text))", log: .ppa)
 	}
 
