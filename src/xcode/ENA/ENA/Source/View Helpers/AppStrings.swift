@@ -455,6 +455,8 @@ enum AppStrings {
 		static let outdatedText = NSLocalizedString("ExposureDetection_OutdatedText", comment: "")
 		static let unknownText = NSLocalizedString("ExposureDetection_UnknownText", comment: "")
 		static let loadingText = NSLocalizedString("ExposureDetection_LoadingText", comment: "")
+		
+		static let contactJournalText = NSLocalizedString("ExposureDetection_Contact_Journal_Text", comment: "")
 
 		static let behaviorTitle = NSLocalizedString("ExposureDetection_Behavior_Title", comment: "")
 		static let behaviorSubtitle = NSLocalizedString("ExposureDetection_Behavior_Subtitle", comment: "")
@@ -1847,11 +1849,13 @@ enum AppStrings {
 			static let vaccinationCount = NSLocalizedString("HealthCertifiedPerson_vaccinationCount", comment: "")
 			static let vaccinationDate = NSLocalizedString("HealthCertifiedPerson_vaccinationDate", comment: "")
 			static let primaryButton = NSLocalizedString("HealthCertifiedPerson_primaryButton", comment: "")
+			static let QRCodeImageDescription = NSLocalizedString("HealthCertifiedPerson_QRCode_Image_Description", comment: "")
 		}
 
 		enum Details {
 			static let vaccinationCount = NSLocalizedString("HealthCertificate_Details_vaccinationCount", comment: "")
 			static let certificate = NSLocalizedString("HealthCertificate_Details_certificate", comment: "")
+			static let QRCodeImageDescription = NSLocalizedString("HealthCertificate_Details_QRCode_Image_Description", comment: "")
 			static let certificateCount = NSLocalizedString("HealthCertificate_Details_certificateCount", comment: "")
 			static let validity = NSLocalizedString("HealthCertificate_Details_validity", comment: "")
 			static let dateOfBirth = NSLocalizedString("HealthCertificate_Details_dateOfBirth", comment: "")
