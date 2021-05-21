@@ -89,6 +89,8 @@
 
 "ExposureDetection_LoadingText" = "Aktuelle Daten werden heruntergeladen und geprüft. Dies kann mehrere Minuten dauern.";
 
+"ExposureDetection_Contact_Journal_Text" = "Weitere Informationen zu Ihren Risiko-Begegnungen finden Sie in Ihrem Kontakt-Tagebuch.";
+
 "ExposureDetection_Behavior_Title" = "Verhalten";
 
 "ExposureDetection_Behavior_Subtitle" = "So verhalten Sie sich richtig.";
