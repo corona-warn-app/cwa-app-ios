@@ -370,11 +370,11 @@ class ContactDiaryStoreTests: XCTestCase {
 		}
 
 		let date = try XCTUnwrap(coronaTest.string(forColumn: "date"))
-		let circumstances = coronaTest.int(forColumn: "testType")
+		let testType = coronaTest.int(forColumn: "testType")
 		let testResult = coronaTest.int(forColumn: "testResult")
 
 		XCTAssertEqual(date, "2021-05-21")
-		XCTAssertEqual(circumstances, 0)
+		XCTAssertEqual(testType, 0)
 		XCTAssertEqual(testResult, 1)
 	}
 
