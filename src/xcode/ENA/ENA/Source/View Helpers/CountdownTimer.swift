@@ -8,17 +8,26 @@ import Foundation
 
 /// Helper class that wraps a Timer and provides convenience methods.
 class CountdownTimer {
+	
+	enum Direction {
+		case to(Date)
+		case from(Date)
+	}
 
 	// MARK: - Attributes.
 
 	weak var delegate: CountdownTimerDelegate?
 	private var timer: Timer?
-	private(set) var end: Date
+	private(set) var direction: Direction
 
 	// MARK: - Public Methods.
 
 	init(countdownTo date: Date) {
-		self.end = date
+		self.direction = .to(date)
+	}
+	
+	init(countUpFrom date: Date) {
+		self.direction = .from(date)
 	}
 
 	deinit {
@@ -45,21 +54,38 @@ class CountdownTimer {
 	// MARK: - Private Helpers.
 
 	private func action(_ timer: Timer? = nil) {
-		guard end >= Date() else {
-			timer?.invalidate()
-			delegate?.countdownTimer(self, didEnd: true)
-			return
+		switch direction {
+		case .to(let end):
+			guard end >= Date() else {
+				timer?.invalidate()
+				delegate?.countdownTimer(self, didEnd: true)
+				return
+			}
+		case .from:
+			break
 		}
-
+		
 		update()
 	}
 
 	private func update() {
-		let components = Calendar.current.dateComponents(
-			[.hour, .minute, .second],
-			from: Date(),
-			to: end
-		)
+		let components: DateComponents
+		
+		switch direction {
+		case .to(let end):
+			components = Calendar.current.dateComponents(
+			   [.hour, .minute, .second],
+			   from: Date(),
+			   to: end
+			)
+		case .from(let start):
+			components = Calendar.current.dateComponents(
+			   [.hour, .minute, .second],
+			   from: start,
+			   to: Date()
+			)
+		}
+		
 		delegate?.countdownTimer(self, didUpdate: CountdownTimer.format(components))
 	}
 
@@ -74,7 +100,7 @@ class CountdownTimer {
 // MARK: - CountdownTimerDelegate.
 
 /// Provides callback methods that are called once per second (`update(_)`) until the countdown has finished.
-protocol CountdownTimerDelegate: class {
+protocol CountdownTimerDelegate: AnyObject {
 	func countdownTimer(_ timer: CountdownTimer, didUpdate time: String)
 	func countdownTimer(_ timer: CountdownTimer, didEnd done: Bool)
 }

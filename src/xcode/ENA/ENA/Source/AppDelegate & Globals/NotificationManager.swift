@@ -6,9 +6,15 @@ import Foundation
 import NotificationCenter
 
 final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
+
 	weak var appDelegate: AppDelegate?
 
-	func userNotificationCenter(_: UNUserNotificationCenter, willPresent _: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+	func userNotificationCenter(_: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+		// Checkout a event checkin.
+		if notification.request.identifier.contains(EventCheckoutService.notificationIdentifierPrefix) {
+			appDelegate?.eventCheckoutService.checkoutOverdueCheckins()
+		}
+
 		completionHandler([.alert, .badge, .sound])
 	}
 
@@ -18,21 +24,29 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 			 ActionableNotificationIdentifier.deviceTimeCheck.identifier:
 			appDelegate?.showHome()
 
-		case ActionableNotificationIdentifier.warnOthersReminder1.identifier,
-			 ActionableNotificationIdentifier.warnOthersReminder2.identifier:
-			showPositiveTestResultIfNeeded()
+		case ActionableNotificationIdentifier.pcrWarnOthersReminder1.identifier,
+			 ActionableNotificationIdentifier.pcrWarnOthersReminder2.identifier:
+			showPositivePCRTestResultIfNeeded()
+
+		case ActionableNotificationIdentifier.antigenWarnOthersReminder1.identifier,
+			 ActionableNotificationIdentifier.antigenWarnOthersReminder2.identifier:
+			showPositiveAntigenTestResultIfNeeded()
 
 		case ActionableNotificationIdentifier.testResult.identifier:
-			let testIdenifier = ActionableNotificationIdentifier.testResult.identifier
-			guard let testResultRawValue = response.notification.request.content.userInfo[testIdenifier] as? Int,
-				  let testResult = TestResult(rawValue: testResultRawValue) else {
+			let testIdentifier = ActionableNotificationIdentifier.testResult.identifier
+			let testTypeIdentifier = ActionableNotificationIdentifier.testResultType.identifier
+
+			guard let testResultRawValue = response.notification.request.content.userInfo[testIdentifier] as? Int,
+				  let testResult = TestResult(serverResponse: testResultRawValue),
+				  let testResultTypeRawValue = response.notification.request.content.userInfo[testTypeIdentifier] as? Int,
+				  let testResultType = CoronaTestType(rawValue: testResultTypeRawValue) else {
 				appDelegate?.showHome()
 				return
 			}
 
 			switch testResult {
 			case .positive, .negative:
-				showTestResultFromNotification(with: testResult)
+				showTestResultFromNotification(with: testResultType)
 			case .invalid:
 				appDelegate?.showHome()
 			case .expired, .pending:
@@ -45,21 +59,22 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 		completionHandler()
 	}
 
-	private func showPositiveTestResultIfNeeded() {
-		guard let store = appDelegate?.store else {
-			// this should be a unit test
-			return
+	private func showPositivePCRTestResultIfNeeded() {
+		if let pcrTest = appDelegate?.coronaTestService.pcrTest,
+		   pcrTest.positiveTestResultWasShown {
+			showTestResultFromNotification(with: .pcr)
 		}
-		let warnOthersReminder = WarnOthersReminder(store: store)
-		guard warnOthersReminder.positiveTestResultWasShown else {
-			return
-		}
-
-		showTestResultFromNotification(with: .positive)
 	}
 
-	private func showTestResultFromNotification(with testResult: TestResult) {
+	private func showPositiveAntigenTestResultIfNeeded() {
+		if let antigenTest = appDelegate?.coronaTestService.antigenTest,
+		   antigenTest.positiveTestResultWasShown {
+			showTestResultFromNotification(with: .antigen)
+		}
+	}
+
+	private func showTestResultFromNotification(with testType: CoronaTestType) {
 		// we should show screens based on test result regardless wether positiveTestResultWasShown before or not
-		appDelegate?.coordinator.showTestResultFromNotification(with: testResult)
+		appDelegate?.coordinator.showTestResultFromNotification(with: testType)
 	}
 }

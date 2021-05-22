@@ -13,7 +13,7 @@ commands:
           command: |
             if ! command -v swiftlint &> /dev/null
             then
-              brew install swiftlint
+              brew install swiftlint coreutils
             fi
             swiftlint version
       - run:
@@ -45,6 +45,8 @@ jobs:
     macos:
       xcode: *xcode_version
     resource_class: *resource_class
+    environment:
+      HOMEBREW_NO_AUTO_UPDATE: 1
     steps:
       - prepare-dependencies
       - persist_to_workspace:
@@ -73,7 +75,7 @@ jobs:
       - run:
           name: Run Fastlane tests
           command: cd src/xcode && bundle exec fastlane test
-          no_output_timeout: 20m
+          no_output_timeout: 25m
       - restore_cache:
           key: sonar-cloud-v2
       - run:
@@ -127,6 +129,10 @@ jobs:
           name: Run Fastlane smoke tests
           command: cd src/xcode && bundle exec fastlane test_community
           no_output_timeout: 10m
+      - store_test_results:
+          path: src/xcode/fastlane/test_output/
+      - store_artifacts:
+          path: src/xcode/fastlane/test_output/ENACommunity.xcresult.zip
   snapshot:
     macos:
       xcode: *xcode_version
@@ -144,19 +150,12 @@ jobs:
       - install-tools # chaching currently fails, needs some further tweaks
       - run:
           name: Snapshot
-          command: |
-            case <<parameters.displaymode>> in
-             "dark") use_dark_mode=true ;;
-             *) use_dark_mode=false ;;
-            esac
-            cd src/xcode
-            bundle exec fastlane run snapshot \
-              languages:<<parameters.language>> \
-              dark_mode:${use_dark_mode} \
-              clear_previous_screenshots:"false" \
-              output_directory:screenshots/screenshots-<<parameters.language>>-<<parameters.displaymode>>
-            cd -
-          no_output_timeout: 20m
+          command: cd src/xcode && bundle exec fastlane screenshot languages:<<parameters.language>> mode:<<parameters.displaymode>>
+          no_output_timeout: 25m
+      - store_test_results:
+          # Fastlane's snapshot only defines one output path which is intended forscreenshots
+          # test results also land here which is the reason of this weird path
+          path: src/xcode/fastlane/test_output/<<parameters.language>>-<<parameters.displaymode>>/
       - persist_to_workspace:
           root: .
           paths:
@@ -170,7 +169,7 @@ jobs:
           at: .
       - run:
           name: Package Screenshots
-          command: cd src/xcode && tar -czf screenshots/screenshots.tar.gz --exclude='*.tar.gz' screenshots && cd -
+          command: cd src/xcode && tar -czf screenshots/screenshots.tar.gz --exclude='*.tar.gz' --exclude='test_output' screenshots && cd -
       - store_artifacts:
           path: src/xcode/screenshots/screenshots.tar.gz
       - run:
@@ -291,7 +290,7 @@ workflows:
                 ignore: /.*/
         - testflight-release:
             requires:
-              - test
+              - dependencies
             filters:
               tags:
                 only:

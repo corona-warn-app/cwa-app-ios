@@ -4,9 +4,9 @@
 
 import Foundation
 
-class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, QRCodePosterTemplateFetching {
+class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, QRCodePosterTemplateFetching, VaccinationValueSetsFetching {
 
-	private let serverEnvironmentProvider: ServerEnvironmentProviding
+	private let environmentProvider: EnvironmentProviding
 
 	enum CacheError: Error {
 		case dataFetchError(message: String?)
@@ -16,29 +16,32 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, QRCodePos
 	/// The client configuration - mostly server endpoints per environment
 	var configuration: HTTPClient.Configuration {
 		HTTPClient.Configuration.makeDefaultConfiguration(
-			serverEnvironmentProvider: serverEnvironmentProvider
+			environmentProvider: environmentProvider
 		)
 	}
 
 	/// The underlying URLSession for all network requests
 	let session: URLSession
 
-	/// Verifier for the fetched & signed protobuf packages
-	let packageVerifier: SAPDownloadedPackage.Verifier
+	/// SignatureVerifier for the fetched & signed protobuf packages
+	let signatureVerifier: SignatureVerifier
 
 	/// Initializer for the caching client.
 	///
 	/// - Parameters:
 	///   - clientConfiguration: The client configuration for the client.
 	///   - session: An optional session to use for network requests. Default is based on a predefined configuration.
-	///   - packageVerifier: The verifier to use for package validation.
+	///   - signatureVerifier: The signatureVerifier to use for package validation.
 	init(
-		serverEnvironmentProvider: ServerEnvironmentProviding,
-		session: URLSession = URLSession(configuration: .cachingSessionConfiguration()),
-		packageVerifier: SAPDownloadedPackage.Verifier = SAPDownloadedPackage.Verifier()) {
+		environmentProvider: EnvironmentProviding = Environments(),
+		session: URLSession = .coronaWarnSession(
+			configuration: .cachingSessionConfiguration()
+		),
+		signatureVerifier: SignatureVerifier = SignatureVerifier()
+	) {
 		self.session = session
-		self.serverEnvironmentProvider = serverEnvironmentProvider
-		self.packageVerifier = packageVerifier
+		self.environmentProvider = environmentProvider
+		self.signatureVerifier = signatureVerifier
 	}
 
 	// MARK: - AppConfigurationFetching
@@ -140,6 +143,36 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, QRCodePos
 		}
 	}
 	
+	// MARK: VaccinationValueSetsFetching
+	
+	func fetchVaccinationValueSets(
+		etag: String?,
+		completion: @escaping VaccinationValueSetsCompletionHandler
+	) {
+		// Manual ETagging because we don't use native cache
+		var headers: [String: String]?
+		if let etag = etag {
+			headers = ["If-None-Match": etag]
+		}
+
+		session.GET(configuration.vaccinationValueSets, extraHeaders: headers) { result in
+			switch result {
+			case .success(let response):
+				do {
+					let package = try self.verifyPackage(in: response)
+					let vaccinationValueSetsData = try SAP_Internal_Dgc_ValueSets(serializedData: package.bin)
+					let responseETag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag")
+					let vaccinationValueSetsResponse = VaccinationValueSetsResponse(vaccinationValueSetsData, responseETag)
+					Log.info("Received value sets: \(try vaccinationValueSetsData.jsonString())", log: .vaccination)
+					completion(.success(vaccinationValueSetsResponse))
+				} catch {
+					completion(.failure(error))
+				}
+			case .failure(let error):
+				completion(.failure(error))
+			}
+		}
+	}
 	// MARK: - Helpers
 
 	private func verifyPackage(in response: URLSession.Response) throws -> SAPDownloadedPackage {
@@ -158,7 +191,7 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, QRCodePos
 		}
 
 		// data verified?
-		guard self.packageVerifier(package) else {
+		guard self.signatureVerifier(package) else {
 			let error = CacheError.dataVerificationError(message: "Failed to verify signature.")
 			throw error
 		}

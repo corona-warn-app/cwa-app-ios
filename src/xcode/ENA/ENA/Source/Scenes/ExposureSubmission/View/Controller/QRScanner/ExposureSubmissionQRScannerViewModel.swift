@@ -11,15 +11,23 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 	// MARK: - Init
 
 	init(
-		onSuccess: @escaping (DeviceRegistrationKey) -> Void,
+		onSuccess: @escaping (CoronaTestQRCodeInformation) -> Void,
 		onError: @escaping (QRScannerError, _ reactivateScanning: @escaping () -> Void) -> Void
 	) {
 		self.onSuccess = onSuccess
 		self.onError = onError
 		self.captureSession = AVCaptureSession()
 		self.captureDevice = AVCaptureDevice.default(for: .video)
+
 		super.init()
+
 		setupCaptureSession()
+
+		#if DEBUG
+		if isUITesting {
+			onSuccess(CoronaTestQRCodeInformation.pcr("guid"))
+		}
+		#endif
 	}
 
 	// MARK: - Protocol AVCaptureMetadataOutputObjectsDelegate
@@ -149,13 +157,13 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 		deactivateScanning()
 
 		if let code = metadataObjects.first(where: { $0 is MetadataMachineReadableCodeObject }) as? MetadataMachineReadableCodeObject, let stringValue = code.stringValue {
-			guard let extractedGuid = extractGuid(from: stringValue) else {
+			guard let coronaTestQRCodeInformation = coronaTestQRCodeInformation(from: stringValue) else {
 				onError(.codeNotFound) { [weak self] in
 					self?.activateScanning()
 				}
 				return
 			}
-			onSuccess(.guid(extractedGuid))
+			onSuccess(coronaTestQRCodeInformation)
 		}
 	}
 
@@ -165,14 +173,34 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 	/// - the guid contains only the following characters: a-f, A-F, 0-9,-
 	/// - the guid is a well formatted string (6-8-4-4-4-12) with length 43
 	///   (6 chars encode a random number, 32 chars for the uuid, 5 chars are separators)
-	func extractGuid(from input: String) -> String? {
+	func coronaTestQRCodeInformation(from input: String) -> CoronaTestQRCodeInformation? {
+		// general checks for both PCR and Rapid tests
 		guard !input.isEmpty,
-			  input.count <= 150,
 			  let urlComponents = URLComponents(string: input),
 			  !urlComponents.path.contains(" "),
+			  urlComponents.scheme?.lowercased() == "https" else {
+			return nil
+		}
+		// specific checks based on test type
+		if urlComponents.host?.lowercased() == "localhost" {
+			return pcrTestInformation(from: input, urlComponents: urlComponents)
+		} else if let route = Route(input),
+				  case .rapidAntigen(let testInformationResult) = route,
+				  case let .success(testInformation) = testInformationResult {
+			return testInformation
+		} else {
+			return nil
+		}
+	}
+
+	// MARK: - Private
+
+	private let onSuccess: (CoronaTestQRCodeInformation) -> Void
+	private let captureDevice: AVCaptureDevice?
+	
+	private func pcrTestInformation(from guidURL: String, urlComponents: URLComponents) -> CoronaTestQRCodeInformation? {
+		guard guidURL.count <= 150,
 			  urlComponents.path.components(separatedBy: "/").count == 2,	// one / will separate into two components
-			  urlComponents.scheme?.lowercased() == "https",
-			  urlComponents.host?.lowercased() == "localhost",
 			  let candidate = urlComponents.query,
 			  candidate.count == 43,
 			  let matchings = candidate.range(
@@ -181,12 +209,7 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 			  ) else {
 			return nil
 		}
-		return matchings.isEmpty ? nil : candidate
+		return matchings.isEmpty ? nil : .pcr(candidate)
 	}
-
-	// MARK: - Private
-
-	private let onSuccess: (DeviceRegistrationKey) -> Void
-	private let captureDevice: AVCaptureDevice?
 
 }

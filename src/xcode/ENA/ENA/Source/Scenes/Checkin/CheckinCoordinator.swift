@@ -10,10 +10,14 @@ final class CheckinCoordinator {
 	// MARK: - Init
 	init(
 		store: Store,
-		eventStore: EventStoringProviding
+		eventStore: EventStoringProviding,
+		appConfiguration: AppConfigurationProviding,
+		eventCheckoutService: EventCheckoutService
 	) {
 		self.store = store
 		self.eventStore = eventStore
+		self.appConfiguration = appConfiguration
+		self.eventCheckoutService = eventCheckoutService
 		
 		#if DEBUG
 		if isUITesting {
@@ -66,6 +70,11 @@ final class CheckinCoordinator {
 				// Set as the only controller on the navigation stack to avoid back gesture etc.
 				self.viewController.setViewControllers([topBottomContainerViewController], animated: false)
 				self.infoScreenShown = true // remember and don't show it again
+				// open trace location details screen if necessary
+				if let qrCode = self.qrCodeAfterInfoScreen {
+					self.qrCodeAfterInfoScreen = nil
+					self.showTraceLocationDetailsFromExternalCamera(qrCode)
+				}
 			},
 			showDetail: { detailViewController in
 				self.viewController.pushViewController(detailViewController, animated: true)
@@ -77,29 +86,11 @@ final class CheckinCoordinator {
 		}
 	}()
 	
-	// MARK: - Private
-	private let store: Store
-	private let eventStore: EventStoringProviding
-	
-	private var subscriptions: [AnyCancellable] = []
-	
-	private var infoScreenShown: Bool {
-		get { store.checkinInfoScreenShown }
-		set { store.checkinInfoScreenShown = newValue }
-	}
-	
-	private lazy var checkinsOverviewViewModel: CheckinsOverviewViewModel = {
-		CheckinsOverviewViewModel(
-			store: eventStore,
-			onEntryCellTap: { checkin in
-				Log.debug("Checkin cell tapped: \(checkin)")
-			}
-		)
-	}()
-	
-	private func showQRCodeScanner() {
+	func showQRCodeScanner() {
+		
 		let qrCodeScanner = CheckinQRCodeScannerViewController(
-
+			qrCodeVerificationHelper: verificationService,
+			appConfiguration: appConfiguration,
 			didScanCheckin: { [weak self] traceLocation in
 				self?.viewController.dismiss(animated: true, completion: {
 					self?.showTraceLocationDetails(traceLocation)
@@ -118,16 +109,110 @@ final class CheckinCoordinator {
 		}
 	}
 	
+	func showTraceLocationDetailsFromExternalCamera(_ qrCodeString: String) {
+		// Info view MUST be shown
+		guard infoScreenShown else {
+			Log.debug("Checkin info screen not shown. Skipping further navigation", log: .ui)
+			// set this to true to open trace location details screen after info screen has been dismissed
+			qrCodeAfterInfoScreen = qrCodeString
+			return
+		}
+		verificationService.verifyQrCode(
+			qrCodeString: qrCodeString,
+			appConfigurationProvider: self.appConfiguration,
+			onSuccess: { [weak self] traceLocation in
+				self?.showTraceLocationDetails(traceLocation)
+				self?.verificationService.subscriptions.removeAll()
+			},
+			onError: { [weak self] error in
+				let alert = UIAlertController(
+					title: AppStrings.Checkins.QRScanner.Error.title,
+					message: error.errorDescription,
+					preferredStyle: .alert
+				)
+				alert.addAction(
+					UIAlertAction(
+						title: AppStrings.Common.alertActionOk,
+						style: .default,
+						handler: { _ in
+							alert.dismiss(animated: true, completion: nil)
+						}
+					)
+				)
+				self?.viewController.present(alert, animated: true)
+				self?.verificationService.subscriptions.removeAll()
+			}
+		)
+	}
+	
+	// MARK: - Private
+
+	private let store: Store
+	private let eventStore: EventStoringProviding
+	private let appConfiguration: AppConfigurationProviding
+	private let eventCheckoutService: EventCheckoutService
+	private var subscriptions: [AnyCancellable] = []
+	private let verificationService = QRCodeVerificationHelper()
+
+	private var infoScreenShown: Bool {
+		get { store.checkinInfoScreenShown }
+		set { store.checkinInfoScreenShown = newValue }
+	}
+	private var qrCodeAfterInfoScreen: String?
+	
+	private lazy var checkinsOverviewViewModel: CheckinsOverviewViewModel = {
+		CheckinsOverviewViewModel(
+			store: eventStore,
+			eventCheckoutService: eventCheckoutService,
+			onEntryCellTap: { [weak self] checkin in
+				guard checkin.checkinCompleted else {
+					Log.debug("Editing uncompleted checkin is not allowed", log: .default)
+					return
+				}
+				self?.showEditCheckIn(checkin)
+			}
+		)
+	}()
+
+	private func showEditCheckIn(_ checkIn: Checkin) {
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: AppStrings.Checkins.Edit.primaryButtonTitle,
+				secondaryButtonName: nil,
+				isPrimaryButtonEnabled: true,
+				isSecondaryButtonEnabled: false,
+				isPrimaryButtonHidden: false,
+				isSecondaryButtonHidden: true,
+				backgroundColor: .enaColor(for: .cellBackground)
+			)
+		)
+
+		let editCheckInViewController = EditCheckinDetailViewController(
+			eventStore: eventStore,
+			checkIn: checkIn,
+			dismiss: { [weak self] in
+				self?.viewController.dismiss(animated: true)
+			}
+		)
+
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: editCheckInViewController,
+			bottomController: footerViewController
+		)
+		viewController.present(topBottomContainerViewController, animated: true)
+	}
+	
 	private func showTraceLocationDetails(_ traceLocation: TraceLocation) {
-		let viewModel = TraceLocationDetailViewModel(traceLocation, eventStore: eventStore, store: store)
-		let traceLocationDetailViewController = TraceLocationDetailViewController(
+		let viewModel = TraceLocationCheckinViewModel(traceLocation, eventStore: self.eventStore, store: self.store)
+		let traceLocationCheckinViewController = TraceLocationCheckinViewController(
 			viewModel,
 			dismiss: { [weak self] in
 				self?.viewController.dismiss(animated: true)
 			}
 		)
-		viewController.present(traceLocationDetailViewController, animated: true)
+		self.viewController.present(traceLocationCheckinViewController, animated: true)
 	}
+
 	
 	private func showSettings() {
 		guard let url = URL(string: UIApplication.openSettingsURLString),
@@ -149,6 +234,10 @@ final class CheckinCoordinator {
 				presentDisclaimer: {
 					let detailViewController = HTMLViewController(model: AppInformationModel.privacyModel)
 					detailViewController.title = AppStrings.AppInformation.privacyTitle
+					detailViewController.isDismissable = false
+					if #available(iOS 13.0, *) {
+						detailViewController.isModalInPresentation = true
+					}
 					showDetail(detailViewController)
 				},
 				hidesCloseButton: hidesCloseButton
@@ -161,7 +250,7 @@ final class CheckinCoordinator {
 		let footerViewController = FooterViewController(
 			FooterViewModel(
 				primaryButtonName: AppStrings.Checkins.Information.primaryButtonTitle,
-				primaryIdentifier: AccessibilityIdentifiers.CheckinInformation.primaryButton,
+				primaryIdentifier: AccessibilityIdentifiers.Checkin.Information.primaryButton,
 				isSecondaryButtonEnabled: false,
 				isPrimaryButtonHidden: false,
 				isSecondaryButtonHidden: true

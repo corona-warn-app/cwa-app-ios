@@ -6,14 +6,6 @@ import Foundation
 import ExposureNotification
 
 enum UITestingParameters {
-	enum ExposureSubmission: String {
-		case useMock = "UI:ExposureSubmission:useMock"
-		case getRegistrationTokenSuccess = "UI:ExposureSubmission:getRegistrationTokenSuccess"
-		case loadSupportedCountriesSuccess = "UI:ExposureSubmission:loadSupportedCountriesSuccess"
-		case getTemporaryExposureKeysSuccess = "UI:ExposureSubmission:getTemporaryExposureKeysSuccess"
-		case submitExposureSuccess = "UI:ExposureSubmission:submitExposureSuccess"
-	}
-
 	enum SecureStoreHandling: String {
 		case simulateMismatchingKey = "UI:SecureStoreHandling:simulateMismatchingKey"
 	}
@@ -33,7 +25,7 @@ extension TestResult {
 			fatalError("Could not convert String to Int")
 		}
 		
-		self.init(rawValue: rawValue)
+		self.init(serverResponse: rawValue)
 	}
 	
 	var stringValue: String {

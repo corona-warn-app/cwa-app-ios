@@ -26,14 +26,22 @@ class RootCoordinator: RequiresAppDependencies {
 	
 	init(
 		_ delegate: CoordinatorDelegate,
+		coronaTestService: CoronaTestService,
 		contactDiaryStore: DiaryStoringProviding,
 		eventStore: EventStoringProviding,
-		otpService: OTPServiceProviding
+		eventCheckoutService: EventCheckoutService,
+		otpService: OTPServiceProviding,
+		ppacService: PrivacyPreservingAccessControl,
+		healthCertificateService: HealthCertificateServiceProviding
 	) {
 		self.delegate = delegate
+		self.coronaTestService = coronaTestService
 		self.contactDiaryStore = contactDiaryStore
 		self.eventStore = eventStore
+		self.eventCheckoutService = eventCheckoutService
 		self.otpService = otpService
+		self.ppacService = ppacService
+		self.healthCertificateService = healthCertificateService
 	}
 
 	deinit {
@@ -48,33 +56,55 @@ class RootCoordinator: RequiresAppDependencies {
 		return viewController
 	}()
 
-	func showHome(enStateHandler: ENStateHandler) {
-		viewController.clearChildViewController()
-		
-		// Home
-		guard let delegate = delegate else {
+	func showHome(enStateHandler: ENStateHandler, route: Route?) {
+		// only create and init the whole view stack if not done before
+		// there for we check if the homeCoordinator exists
+		defer {
+			// dispatch event route handling to showEvent
+			if case let .checkIn(guid) = route {
+				showEvent(guid)
+			}
+		}
+
+		guard let delegate = delegate,
+			  homeCoordinator == nil else {
+			homeCoordinator?.showHome(
+				enStateHandler: enStateHandler,
+				route: route
+			)
 			return
 		}
 		
 		let homeCoordinator = HomeCoordinator(
 			delegate,
 			otpService: otpService,
-			eventStore: eventStore
+			ppacService: ppacService,
+			eventStore: eventStore,
+			coronaTestService: coronaTestService,
+			healthCertificateService: healthCertificateService
 		)
 		self.homeCoordinator = homeCoordinator
-		homeCoordinator.showHome(enStateHandler: enStateHandler)
-		
-		
+		homeCoordinator.showHome(
+			enStateHandler: enStateHandler,
+			route: route
+		)
+
 		// ContactJournal
 		let diaryCoordinator = DiaryCoordinator(
 			store: store,
 			diaryStore: contactDiaryStore,
+			eventStore: eventStore,
 			homeState: homeState
 		)
 		self.diaryCoordinator = diaryCoordinator
 		
 		// Setup checkin coordinator after app reset
-		let checkInCoordinator = CheckinCoordinator(store: store, eventStore: eventStore)
+		let checkInCoordinator = CheckinCoordinator(
+			store: store,
+			eventStore: eventStore,
+			appConfiguration: appConfigurationProvider,
+			eventCheckoutService: eventCheckoutService
+		)
 		self.checkInCoordinator = checkInCoordinator
 
 		// Tabbar
@@ -93,14 +123,14 @@ class RootCoordinator: RequiresAppDependencies {
 		tabBarController.tabBar.tintColor = .enaColor(for: .tint)
 		tabBarController.tabBar.barTintColor = .enaColor(for: .background)
 		tabBarController.setViewControllers([homeCoordinator.rootViewController, checkInCoordinator.viewController, diaryCoordinator.viewController], animated: false)
-
+		
+		viewController.clearChildViewController()
 		viewController.embedViewController(childViewController: tabBarController)
 	}
 
-	func showTestResultFromNotification(with result: TestResult) {
-		homeCoordinator?.showTestResultFromNotification(with: result)
+	func showTestResultFromNotification(with testType: CoronaTestType) {
+		homeCoordinator?.showTestResultFromNotification(with: testType)
 	}
-	
 	
 	func showOnboarding() {
 		let onboardingVC = OnboardingInfoViewController(
@@ -114,25 +144,27 @@ class RootCoordinator: RequiresAppDependencies {
 		
 		navigationVC.setViewControllers([onboardingVC], animated: false)
 		
+		tabBarController.clearChildViewController()
+		tabBarController.setViewControllers([], animated: false)
+		
+		homeCoordinator = nil
+		diaryCoordinator = nil
+		checkInCoordinator = nil
+		
 		viewController.clearChildViewController()
 		viewController.embedViewController(childViewController: navigationVC)
 	}
 
 	func showEvent(_ guid: String) {
-		let checkInNavigationController = checkInCoordinator.viewController
-		guard checkInNavigationController.topViewController as? UITableViewController != nil,
+		guard let checkInNavigationController = checkInCoordinator?.viewController,
 			  let index = tabBarController.viewControllers?.firstIndex(of: checkInNavigationController) else {
 			return
 		}
-		tabBarController.selectedIndex = index
 
-		DispatchQueue.main.asyncAfter(wallDeadline: .now() + 0.5) {
-			let alert = UIAlertController(title: "Event found", message: "Event on launch arguments found", preferredStyle: .alert)
-			alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in
-				Log.debug("Did tap even ok")
-			}))
-			checkInNavigationController.present(alert, animated: true)
-		}
+		// Close all modal screens that would prevent showing the checkin screen first.
+		tabBarController.dismiss(animated: false)
+		tabBarController.selectedIndex = index
+		checkInCoordinator?.showTraceLocationDetailsFromExternalCamera(guid)
 	}
 
 	func updateDetectionMode(
@@ -146,30 +178,20 @@ class RootCoordinator: RequiresAppDependencies {
 
 	private weak var delegate: CoordinatorDelegate?
 
+	private let coronaTestService: CoronaTestService
 	private let contactDiaryStore: DiaryStoringProviding
 	private let eventStore: EventStoringProviding
+	private let eventCheckoutService: EventCheckoutService
 	private let otpService: OTPServiceProviding
+	private let ppacService: PrivacyPreservingAccessControl
+	private let healthCertificateService: HealthCertificateServiceProviding
 	private let tabBarController = UITabBarController()
 
 	private var homeCoordinator: HomeCoordinator?
 	private var homeState: HomeState?
-
+	
 	private(set) var diaryCoordinator: DiaryCoordinator?
-	private(set) lazy var checkInCoordinator: CheckinCoordinator = {
-		CheckinCoordinator(
-			store: store,
-			eventStore: eventStore
-		)
-	}()
-
-	private lazy var exposureSubmissionService: ExposureSubmissionService = {
-		ExposureSubmissionServiceFactory.create(
-			diagnosisKeysRetrieval: self.exposureManager,
-			appConfigurationProvider: appConfigurationProvider,
-			client: self.client,
-			store: self.store
-		)
-	}()
+	private(set) var checkInCoordinator: CheckinCoordinator?
 	
 	private var enStateUpdateList = NSHashTable<AnyObject>.weakObjects()
 

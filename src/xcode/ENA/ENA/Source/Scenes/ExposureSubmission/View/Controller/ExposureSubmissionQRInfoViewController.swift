@@ -46,6 +46,7 @@ class ExposureSubmissionQRInfoViewController: DynamicTableViewController, Footer
 
 	enum ReuseIdentifiers: String, TableViewCellReuseIdentifiers {
 		case legal = "DynamicLegalCell"
+		case legalExtended = "DynamicLegalExtendedCell"
 		case countries = "LabeledCountriesCell"
 	}
 
@@ -60,11 +61,17 @@ class ExposureSubmissionQRInfoViewController: DynamicTableViewController, Footer
 		parent?.navigationItem.title = AppStrings.ExposureSubmissionQRInfo.title
 		parent?.navigationItem.rightBarButtonItem = CloseBarButtonItem(onTap: dismiss)
 		
+		if traitCollection.userInterfaceStyle == .dark {
+			parent?.navigationController?.navigationBar.tintColor = .enaColor(for: .textContrast)
+		} else {
+			parent?.navigationController?.navigationBar.tintColor = .enaColor(for: .tint)
+		}
+		
 		view.backgroundColor = .enaColor(for: .background)
 
 		tableView.register(
-			UINib(nibName: String(describing: DynamicLegalCell.self), bundle: nil),
-			forCellReuseIdentifier: ReuseIdentifiers.legal.rawValue
+			UINib(nibName: String(describing: DynamicLegalExtendedCell.self), bundle: nil),
+			forCellReuseIdentifier: ReuseIdentifiers.legalExtended.rawValue
 		)
 
 		tableView.register(

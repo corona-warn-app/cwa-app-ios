@@ -14,6 +14,7 @@ enum PPAnalyticsCollector {
 	/// Setup Analytics for regular use. We expect here a secure store.
 	static func setup(
 		store: Store,
+		coronaTestService: CoronaTestService,
 		submitter: PPAnalyticsSubmitter
 	) {
 		// Make sure the secure store now also implements the PPAnalyticsData protocol with the properties defined there (the analytics data proporties).
@@ -22,12 +23,12 @@ enum PPAnalyticsCollector {
 			fatalError("I will never submit any analytics data. Could not cast to correct store protocol")
 		}
 		PPAnalyticsCollector.store = store
+		PPAnalyticsCollector.coronaTestService = coronaTestService
 		PPAnalyticsCollector.submitter = submitter
 	}
 
 	/// The main purpose for the collector. Call this method to log some analytics data and pass the corresponding enums.
 	static func collect(_ dataType: PPADataType) {
-
 		// Make sure the user consent is given. If not, we must not log something.
 		guard let consent = store?.isPrivacyPreservingAnalyticsConsentGiven,
 			  consent == true else {
@@ -35,7 +36,8 @@ enum PPAnalyticsCollector {
 			return
 		}
 
-		Log.debug("Logging analytics data: \(dataType)", log: .ppa)
+		Log.debug("Logging analytics data: \(private: dataType, public: "Some private analytics data")", log: .ppa)
+
 		switch dataType {
 		case let .userData(userMetadata):
 			Analytics.logUserMetadata(userMetadata)
@@ -97,7 +99,7 @@ enum PPAnalyticsCollector {
 
 	// The real store property.
 	private static var _store: (Store & PPAnalyticsData)?
-
+	private static var coronaTestService: CoronaTestService?
 	private static var submitter: PPAnalyticsSubmitter?
 
 	// MARK: - UserMetada
@@ -120,8 +122,8 @@ enum PPAnalyticsCollector {
 		}
 	}
 
-	private static func updateRiskExposureMetadata(_ riskCalculationResult: RiskCalculationResult) {
-		let riskLevel = riskCalculationResult.riskLevel
+	private static func updateRiskExposureMetadata(_ enfRiskCalculationResult: ENFRiskCalculationResult) {
+		let riskLevel = enfRiskCalculationResult.riskLevel
 		let riskLevelChangedComparedToPreviousSubmission: Bool
 		let dateChangedComparedToPreviousSubmission: Bool
 
@@ -142,7 +144,7 @@ enum PPAnalyticsCollector {
 
 		// if there is most recent date store for previous submission
 		if store?.previousRiskExposureMetadata?.mostRecentDateAtRiskLevel != nil {
-			if riskCalculationResult.mostRecentDateWithCurrentRiskLevel !=
+			if enfRiskCalculationResult.mostRecentDateWithCurrentRiskLevel !=
 				store?.previousRiskExposureMetadata?.mostRecentDateAtRiskLevel {
 				// if there is a change in date
 				dateChangedComparedToPreviousSubmission = true
@@ -155,7 +157,7 @@ enum PPAnalyticsCollector {
 			dateChangedComparedToPreviousSubmission = false
 		}
 
-		guard let mostRecentDateWithCurrentRiskLevel = riskCalculationResult.mostRecentDateWithCurrentRiskLevel else {
+		guard let mostRecentDateWithCurrentRiskLevel = enfRiskCalculationResult.mostRecentDateWithCurrentRiskLevel else {
 			// most recent date is not available because of no exposure
 			let newRiskExposureMetadata = RiskExposureMetadata(
 				riskLevel: riskLevel,
@@ -192,7 +194,7 @@ enum PPAnalyticsCollector {
 	}
 
 	private static func registerNewTestMetadata(_ date: Date = Date(), _ token: String) {
-		guard let riskCalculationResult = store?.riskCalculationResult else {
+		guard let riskCalculationResult = store?.enfRiskCalculationResult else {
 			Log.warning("Could not register new test meta data due to riskCalculationResult is nil", log: .ppa)
 			return
 		}
@@ -308,19 +310,17 @@ enum PPAnalyticsCollector {
 	}
 
 	private static func setHoursSinceTestResult() {
-		guard let resultDateTimeStamp = store?.testResultReceivedTimeStamp else {
+		guard let testResultReceivedDate = coronaTestService?.pcrTest?.finalTestResultReceivedDate else {
 			Log.warning("Could not log hoursSinceTestResult due to testResultReceivedTimeStamp is nil", log: .ppa)
 			return
 		}
 
-		let timeInterval = TimeInterval(resultDateTimeStamp)
-		let resultDate = Date(timeIntervalSince1970: timeInterval)
-		let diffComponents = Calendar.current.dateComponents([.hour], from: resultDate, to: Date())
+		let diffComponents = Calendar.current.dateComponents([.hour], from: testResultReceivedDate, to: Date())
 		store?.keySubmissionMetadata?.hoursSinceTestResult = Int32(diffComponents.hour ?? 0)
 	}
 
 	private static func setHoursSinceTestRegistration() {
-		guard let registrationDate = store?.testRegistrationDate else {
+		guard let registrationDate = coronaTestService?.pcrTest?.registrationDate else {
 			Log.warning("Could not log hoursSinceTestRegistration due to testRegistrationDate is nil", log: .ppa)
 			return
 		}
@@ -330,22 +330,27 @@ enum PPAnalyticsCollector {
 	}
 
 	private static func setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration() {
-		guard let numberOfDaysWithCurrentRiskLevel = store?.riskCalculationResult?.numberOfDaysWithCurrentRiskLevel  else {
-			Log.warning("Could not log daysSinceMostRecentDateAtRiskLevelAtTestRegistration due to numberOfDaysWithCurrentRiskLevel is nil", log: .ppa)
+		guard let registrationDate = coronaTestService?.pcrTest?.registrationDate else {
+			store?.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = -1
 			return
 		}
-		store?.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = Int32(numberOfDaysWithCurrentRiskLevel)
+		if let mostRecentRiskCalculationDate = store?.enfRiskCalculationResult?.mostRecentDateWithCurrentRiskLevel {
+			let daysSinceMostRecentDateAtRiskLevelAtTestRegistration = Calendar.utcCalendar.dateComponents([.day], from: mostRecentRiskCalculationDate, to: registrationDate).day
+			store?.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = Int32(daysSinceMostRecentDateAtRiskLevelAtTestRegistration ?? -1)
+		} else {
+			store?.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = -1
+		}
 	}
 
 	private static func setHoursSinceHighRiskWarningAtTestRegistration() {
-		guard let riskLevel = store?.riskCalculationResult?.riskLevel  else {
+		guard let riskLevel = store?.enfRiskCalculationResult?.riskLevel  else {
 			Log.warning("Could not log hoursSinceHighRiskWarningAtTestRegistration due to riskLevel is nil", log: .ppa)
 			return
 		}
 		switch riskLevel {
 		case .high:
 			guard let timeOfRiskChangeToHigh = store?.dateOfConversionToHighRisk,
-				  let registrationTime = store?.testRegistrationDate else {
+				  let registrationTime = coronaTestService?.pcrTest?.registrationDate else {
 				Log.warning("Could not log risk calculation result due to timeOfRiskChangeToHigh is nil", log: .ppa)
 				return
 			}
@@ -367,9 +372,9 @@ enum PPAnalyticsCollector {
 	}
 
 	private static func collectExposureWindows(_ riskCalculationWindows: [RiskCalculationExposureWindow]) {
+		
 		self.clearReportedExposureWindowsQueueIfNeeded()
-
-		let mappedSubmissionExposureWindows: [SubmissionExposureWindow] = riskCalculationWindows.map {
+		var mappedSubmissionExposureWindows: [SubmissionExposureWindow] = riskCalculationWindows.map {
 			SubmissionExposureWindow(
 				exposureWindow: $0.exposureWindow,
 				transmissionRiskLevel: $0.transmissionRiskLevel,
@@ -382,12 +387,11 @@ enum PPAnalyticsCollector {
 		if let metadata = store?.exposureWindowsMetadata {
 			// if store is initialized:
 			// - Queue if new: if the hash of the Exposure Window not included in reportedExposureWindowsQueue, the Exposure Window is added to reportedExposureWindowsQueue.
-			for exposureWindow in mappedSubmissionExposureWindows {
-				if !metadata.reportedExposureWindowsQueue.contains(where: { $0.hash == exposureWindow.hash }) {
-					store?.exposureWindowsMetadata?.newExposureWindowsQueue.append(exposureWindow)
-					store?.exposureWindowsMetadata?.reportedExposureWindowsQueue.append(exposureWindow)
-				}
-			}
+			mappedSubmissionExposureWindows.removeAll(where: { window -> Bool in
+				return metadata.reportedExposureWindowsQueue.contains(where: { $0.hash == window.hash })
+			})
+			store?.exposureWindowsMetadata?.newExposureWindowsQueue.append(contentsOf: mappedSubmissionExposureWindows)
+			store?.exposureWindowsMetadata?.reportedExposureWindowsQueue.append(contentsOf: mappedSubmissionExposureWindows)
 		} else {
 			// if store is not initialized:
 			// - Initialize and add all of the exposure windows to both "newExposureWindowsQueue" and "reportedExposureWindowsQueue" arrays
@@ -441,10 +445,12 @@ extension PPAnalyticsCollector {
 	/// Setup Analytics for testing. The store or the submitter can be nil for testing purposes.
 	static func setupMock(
 		store: (Store & PPAnalyticsData)? = nil,
-		submitter: PPAnalyticsSubmitter? = nil
+		submitter: PPAnalyticsSubmitter? = nil,
+		coronaTestService: CoronaTestService? = nil
 	) {
 		PPAnalyticsCollector.store = store
 		PPAnalyticsCollector.submitter = submitter
+		PPAnalyticsCollector.coronaTestService = coronaTestService
 	}
 
 	/// ONLY FOR TESTING. Returns the last successful submitted data.

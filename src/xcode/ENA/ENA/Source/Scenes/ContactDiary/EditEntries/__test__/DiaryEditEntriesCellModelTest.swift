@@ -30,7 +30,7 @@ class DiaryEditEntriesCellModelTest: XCTestCase {
 				DiaryLocation(
 					id: 0,
 					name: name,
-					traceLocationGUID: nil
+					traceLocationId: nil
 				)
 			)
 		)

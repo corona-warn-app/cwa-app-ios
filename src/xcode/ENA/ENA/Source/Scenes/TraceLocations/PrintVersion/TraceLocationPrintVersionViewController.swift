@@ -4,8 +4,9 @@
 
 import UIKit
 import PDFKit
+import LinkPresentation
 
-class TraceLocationPrintVersionViewController: UIViewController {
+class TraceLocationPrintVersionViewController: UIViewController, UIActivityItemSource {
 
 	// MARK: - Init
 
@@ -25,9 +26,11 @@ class TraceLocationPrintVersionViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		self.view = viewModel.pdfView
+		view = viewModel.pdfView
+		view.backgroundColor = .enaColor(for: .background)
+		navigationController?.navigationBar.prefersLargeTitles = false
 
-		let printButton = UIBarButtonItem(image: UIImage(named: "Icons_Print"), style: .plain, target: self, action: #selector(didTapPrintButton))
+		let printButton = UIBarButtonItem(image: UIImage(named: "Icons_Printer"), style: .plain, target: self, action: #selector(didTapPrintButton))
 		let shareButton = UIBarButtonItem(image: UIImage(named: "Icons_Share"), style: .plain, target: self, action: #selector(didTapShareButton))
 		
 		if UIPrintInteractionController.isPrintingAvailable {
@@ -37,6 +40,31 @@ class TraceLocationPrintVersionViewController: UIViewController {
 		}
 	}
 
+	// MARK: - Protocol UIActivityItemSource
+
+	func activityViewControllerPlaceholderItem(_: UIActivityViewController) -> Any {
+		return viewModel.shareTitle
+	}
+
+	func activityViewController(_: UIActivityViewController, itemForActivityType activityType: UIActivity.ActivityType?) -> Any? {
+		if activityType == .mail {
+			return ""
+		}
+
+		return viewModel.shareTitle
+	}
+
+	@available(iOS 13.0, *)
+	func activityViewControllerLinkMetadata(_: UIActivityViewController) -> LPLinkMetadata? {
+		let metadata = LPLinkMetadata()
+		metadata.title = viewModel.shareTitle
+		return metadata
+	}
+
+	func activityViewController(_: UIActivityViewController, subjectForActivityType _: UIActivity.ActivityType?) -> String {
+		return viewModel.shareTitle
+	}
+
 	// MARK: - Private
 
 	private let viewModel: TraceLocationPrintVersionViewModel
@@ -44,7 +72,18 @@ class TraceLocationPrintVersionViewController: UIViewController {
 	@objc
 	private func didTapShareButton() {
 		guard let data = viewModel.pdfView.document?.dataRepresentation() else { return }
-		let activityViewController = UIActivityViewController(activityItems: [data], applicationActivities: nil)
+		let temporaryFolder = FileManager.default.temporaryDirectory
+		let pdfFileName = "cwa-qr-code.pdf"
+		let pdfFileURL = temporaryFolder.appendingPathComponent(pdfFileName)
+		
+		do {
+			try data.write(to: pdfFileURL)
+		} catch {
+			Log.error("Could not write the template data to the pdf file.", log: .qrCode, error: error)
+		}
+		
+		let exportItem = PDFExportItem(subject: viewModel.shareTitle, fileURL: pdfFileURL)
+		let activityViewController = UIActivityViewController(activityItems: [exportItem], applicationActivities: nil)
 		present(activityViewController, animated: true, completion: nil)
 	}
 
@@ -56,4 +95,38 @@ class TraceLocationPrintVersionViewController: UIViewController {
 		printController.printingItem = data
 		printController.present(animated: true, completionHandler: nil)
 	}
+}
+
+class PDFExportItem: NSObject, UIActivityItemSource {
+
+	// MARK: - Init
+	
+	init(subject: String, fileURL: URL) {
+		self.subject = subject
+		self.fileURL = fileURL
+	}
+	
+	// MARK: - Protocol UIActivityItemSource
+	
+	func activityViewControllerPlaceholderItem(_ activityViewController: UIActivityViewController) -> Any {
+		return ""
+	}
+	
+	func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivity.ActivityType?) -> Any? {
+		return fileURL
+	}
+	
+	func activityViewController(_ activityViewController: UIActivityViewController, subjectForActivityType activityType: UIActivity.ActivityType?) -> String {
+		switch activityType {
+		case .mail?:
+			return subject
+		default:
+			return ""
+		}
+	}
+	
+	// MARK: - Private
+	
+	private let subject: String
+	private let fileURL: URL
 }

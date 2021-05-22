@@ -11,10 +11,11 @@ class CheckinCellModel: EventCellModel {
 
 	init(
 		checkin: Checkin,
-		eventProvider: EventProviding,
+		eventCheckoutService: EventCheckoutService,
 		onUpdate: @escaping () -> Void
 	) {
 		self.checkin = checkin
+		self.eventCheckoutService = eventCheckoutService
 		self.onUpdate = onUpdate
 
 		updateForActiveState()
@@ -28,15 +29,14 @@ class CheckinCellModel: EventCellModel {
 	var isInactiveIconHiddenPublisher = CurrentValueSubject<Bool, Never>(true)
 	var isActiveContainerViewHiddenPublisher = CurrentValueSubject<Bool, Never>(true)
 	var isButtonHiddenPublisher = CurrentValueSubject<Bool, Never>(true)
+	var titleAccessibilityLabelPublisher = CurrentValueSubject<String?, Never>(nil)
 	var durationPublisher = CurrentValueSubject<String?, Never>(nil)
+	var durationAccessibilityPublisher = CurrentValueSubject<String?, Never>(nil)
 	var timePublisher = CurrentValueSubject<String?, Never>(nil)
+	var timeAccessibilityPublisher = CurrentValueSubject<String?, Never>(nil)
 
 	var isActiveIconHidden: Bool = true
 	var isDurationStackViewHidden: Bool = false
-
-	var date: String? {
-		DateFormatter.localizedString(from: checkin.checkinStartDate, dateStyle: .short, timeStyle: .none)
-	}
 
 	var title: String {
 		checkin.traceLocationDescription
@@ -58,8 +58,14 @@ class CheckinCellModel: EventCellModel {
 		onUpdate()
 	}
 
+	@objc
+	func invalidateTimer() {
+		updateTimer?.invalidate()
+	}
+
 	// MARK: - Private
 
+	private let eventCheckoutService: EventCheckoutService
 	private let onUpdate: () -> Void
 
 	private var subscriptions = Set<AnyCancellable>()
@@ -71,14 +77,24 @@ class CheckinCellModel: EventCellModel {
 		isActiveContainerViewHiddenPublisher.value = checkin.checkinCompleted
 		isButtonHiddenPublisher.value = checkin.checkinCompleted
 
-		if !checkin.checkinCompleted {
+		if checkin.checkinCompleted {
 			let dateFormatter = DateIntervalFormatter()
 			dateFormatter.dateStyle = .short
 			dateFormatter.timeStyle = .short
 
 			timePublisher.value = dateFormatter.string(from: checkin.checkinStartDate, to: checkin.checkinEndDate)
+			titleAccessibilityLabelPublisher.value = String(format: AppStrings.Checkins.Overview.itemPrefixCheckedOut, checkin.traceLocationDescription)
+			
+			let timeAccessibilityDateFormatter = DateIntervalFormatter()
+			timeAccessibilityDateFormatter.dateStyle = .long
+			timeAccessibilityDateFormatter.timeStyle = .medium
+			let formattedAccessibilityCheckinTime = timeAccessibilityDateFormatter.string(from: checkin.checkinStartDate, to: checkin.checkinEndDate)
+			timeAccessibilityPublisher.value = String(format: AppStrings.Checkins.Overview.checkinDateTemplate, formattedAccessibilityCheckinTime)
 		} else {
-			let formattedCheckinTime = DateFormatter.localizedString(from: checkin.checkinStartDate, dateStyle: .none, timeStyle: .short)
+			let formattedCheckinTime = DateFormatter.localizedString(from: checkin.checkinStartDate, dateStyle: .short, timeStyle: .short)
+			
+			var formattedAccessibilityCheckinTime = DateFormatter.localizedString(from: checkin.checkinStartDate, dateStyle: .long, timeStyle: .medium)
+			formattedAccessibilityCheckinTime = String(format: AppStrings.Checkins.Overview.checkinDateTemplate, formattedAccessibilityCheckinTime)
 
 			let dateComponentsFormatter = DateComponentsFormatter()
 			dateComponentsFormatter.allowedUnits = [.hour, .minute]
@@ -86,9 +102,12 @@ class CheckinCellModel: EventCellModel {
 
 			if let formattedAutomaticCheckoutDuration = dateComponentsFormatter.string(from: checkin.checkinEndDate.timeIntervalSince(checkin.checkinStartDate)) {
 				timePublisher.value = String(format: AppStrings.Checkins.Overview.checkinTimeTemplate, formattedCheckinTime, formattedAutomaticCheckoutDuration)
+				timeAccessibilityPublisher.value = String(format: AppStrings.Checkins.Overview.checkinTimeTemplate, formattedAccessibilityCheckinTime, formattedAutomaticCheckoutDuration)
 			} else {
 				timePublisher.value = formattedCheckinTime
+				timeAccessibilityPublisher.value = formattedAccessibilityCheckinTime
 			}
+			titleAccessibilityLabelPublisher.value = String(format: AppStrings.Checkins.Overview.itemPrefixCheckIn, checkin.traceLocationDescription)
 		}
 
 		let duration = Date().timeIntervalSince(checkin.checkinStartDate)
@@ -99,6 +118,9 @@ class CheckinCellModel: EventCellModel {
 		dateComponentsFormatter.zeroFormattingBehavior = .pad
 
 		durationPublisher.value = dateComponentsFormatter.string(from: duration)
+
+		let components = Calendar.utcCalendar.dateComponents([.hour, .minute], from: Date(timeIntervalSinceReferenceDate: duration))
+		durationAccessibilityPublisher.value = DateComponentsFormatter.localizedString(from: components, unitsStyle: .spellOut)
 	}
 
 	private func scheduleUpdateTimer() {
@@ -111,7 +133,7 @@ class CheckinCellModel: EventCellModel {
 		}
 
 		// Schedule new timer.
-		NotificationCenter.default.addObserver(self, selector: #selector(invalidateUpdatedTimer), name: UIApplication.didEnterBackgroundNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(invalidateTimer), name: UIApplication.didEnterBackgroundNotification, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(refreshUpdateTimerAfterResumingFromBackground), name: UIApplication.didBecomeActiveNotification, object: nil)
 
 		let now = Date()
@@ -126,17 +148,14 @@ class CheckinCellModel: EventCellModel {
 	}
 
 	@objc
-	private func invalidateUpdatedTimer() {
-		updateTimer?.invalidate()
-	}
-
-	@objc
 	private func refreshUpdateTimerAfterResumingFromBackground() {
+		updateFromTimer()
 		scheduleUpdateTimer()
 	}
 
 	@objc
 	private func updateFromTimer() {
+		eventCheckoutService.checkoutOverdueCheckins()
 		updateForActiveState()
 		onUpdate()
 	}

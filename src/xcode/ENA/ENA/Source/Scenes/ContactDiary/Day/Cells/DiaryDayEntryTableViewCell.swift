@@ -14,12 +14,19 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(headerTapped))
 		headerStackView.addGestureRecognizer(tapGestureRecognizer)
 		headerStackView.isUserInteractionEnabled = true
+		headerStackView.isAccessibilityElement = true
+		headerStackView.accessibilityTraits = [.button]
 	}
 
 	// MARK: - Protocol UITextFieldDelegate
 
 	func textFieldDidEndEditing(_ textField: UITextField) {
-		cellModel.updateCircumstances(textField.text ?? "")
+		switch cellModel.entryType {
+		case .contactPerson:
+			updateContactPersonEncounter()
+		case .location:
+			updateLocationVisit()
+		}
 	}
 
 	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -38,6 +45,8 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 		checkboxImageView.image = cellModel.image
 		label.text = cellModel.text
 		label.font = cellModel.font
+		
+		headerStackView.accessibilityLabel = cellModel.text
 
 		setUpParameterViews()
 
@@ -62,7 +71,7 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 	@IBOutlet private weak var headerStackView: UIStackView!
 	@IBOutlet private weak var parametersContainerStackView: UIStackView!
 	@IBOutlet private weak var parametersStackView: UIStackView!
-
+	
 	private lazy var durationSegmentedControl: DiarySegmentedControl = {
 		let segmentedControl = DiarySegmentedControl(items: cellModel.durationValues.map { $0.title })
 		segmentedControl.addTarget(self, action: #selector(durationValueChanged(sender:)), for: .valueChanged)
@@ -84,8 +93,8 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 		return segmentedControl
 	}()
 
-	private lazy var notesTextField: DiaryEntryTextField = {
-		let textField = DiaryEntryTextField(frame: .zero)
+	private lazy var notesTextField: ENATextField = {
+		let textField = ENATextField(frame: .zero)
 		textField.accessibilityIdentifier = AccessibilityIdentifiers.ContactDiaryInformation.Day.notesTextField
 		textField.backgroundColor = .enaColor(for: .darkBackground)
 		textField.clearButtonMode = .whileEditing
@@ -125,10 +134,10 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 		if #available(iOS 14.0, *) {
 			// UIDatePickers behave differently on iOS 14+. The .valueChanged event would be called too early and reload the cell before the animation is finished.
 			// The .editingDidEnd event is triggered after the animation is finished.
-			durationPicker.addTarget(self, action: #selector(didSelectDuration(datePicker:)), for: .editingDidEnd)
+			durationPicker.addTarget(self, action: #selector(updateLocationVisit), for: .editingDidEnd)
 		} else {
 			// Before iOS 14 .editingDidEnd was not called at all, therefore we use .valueChanged, which was called after the animation is finished.
-			durationPicker.addTarget(self, action: #selector(didSelectDuration(datePicker:)), for: .valueChanged)
+			durationPicker.addTarget(self, action: #selector(updateLocationVisit), for: .valueChanged)
 		}
 		// German locale ensures 24h format.
 		durationPicker.locale = Locale(identifier: "de_DE")
@@ -165,6 +174,9 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 
 		switch cellModel.entryType {
 		case .contactPerson:
+			// adding this because of a known issue in first element of arrangedSubview in terms of accessibilty
+			let emptySpacer = UIView()
+			parametersStackView.addArrangedSubview(emptySpacer)
 			parametersStackView.addArrangedSubview(durationSegmentedControl)
 			parametersStackView.addArrangedSubview(maskSituationSegmentedControl)
 			parametersStackView.addArrangedSubview(settingSegmentedControl)
@@ -180,10 +192,25 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 
 		parametersStackView.addArrangedSubview(notesStackView)
 	}
-
+	
+	private func updateContactPersonEncounter() {
+		let circumstances = notesTextField.text ?? ""
+		guard cellModel.circumstances != circumstances else {
+			// no need to trigger an update if nothing changed
+			return
+		}
+		cellModel.updateContactPersonEncounter(circumstances: circumstances)
+	}
+	
 	@objc
-	private func didSelectDuration(datePicker: UIDatePicker) {
-		cellModel.updateLocationVisit(durationInMinutes: datePicker.date.todaysMinutes)
+	private func updateLocationVisit() {
+		let circumstances = notesTextField.text ?? ""
+		let duration = visitDurationPicker.date.todaysMinutes
+		guard duration != cellModel.locationVisitDuration || cellModel.circumstances != circumstances else {
+			// no need to trigger an update if nothing changed
+			return
+		}
+		cellModel.updateLocationVisit(durationInMinutes: visitDurationPicker.date.todaysMinutes, circumstances: notesTextField.text ?? "")
 	}
 
 	@objc

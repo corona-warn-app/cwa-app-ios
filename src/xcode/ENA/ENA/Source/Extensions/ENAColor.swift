@@ -8,8 +8,11 @@ import UIKit
 public enum ENAColor: String, CaseIterable {
 	// MARK: - Background Colors
 	case background = "ENA Background Color"
+	case backgroundLightGray = "ENA Background Light Gray Color"
 	case darkBackground = "ENA Dark Background Color"
 	case cellBackground = "ENA Cell Background Color"
+	case cellBackground2 = "ENA Cell Background Color 2"
+	case cellBackground3 = "ENA Cell Background Color 3"
 	case hairline = "ENA Hairline Color"
 	case hairlineContrast = "ENA Hairline Contrast Color"
 	case separator = "ENA Separator Color"
@@ -67,6 +70,7 @@ public extension UIColor {
 	static func enaColor(for style: ENAColor, interface: UIUserInterfaceStyle = .unspecified) -> UIColor {
 		switch style {
 		case .background: return UIColor(rgb: 0xFFFFFF, alpha: 1.0)
+		case .backgroundLightGray: return UIColor(rgb: 0xF8F8F8, alpha: 1.0)
 		case .buttonPrimary: return UIColor(rgb: 0x007FAD, alpha: 1.0)
 		case .buttonHighlight: return UIColor(rgb: 0x17191A, alpha: 0.1)
 		case .listHighlight: return UIColor(rgb: 0x17191A, alpha: 0.2)

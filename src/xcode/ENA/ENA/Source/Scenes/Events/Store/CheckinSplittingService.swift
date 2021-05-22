@@ -2,6 +2,9 @@
 // 🦠 Corona-Warn-App
 //
 
+// This implementation is based on the following technical specification.
+// For more details please see: https://github.com/corona-warn-app/cwa-app-tech-spec/blob/e87ef2851c91141573d5714fd24485219280543e/docs/spec/event-registration-client.md
+
 import Foundation
 
 class CheckinSplittingService {
@@ -30,19 +33,19 @@ class CheckinSplittingService {
 
 		var checkins = [Checkin]()
 		(0..<durationInDays).forEach { index in
-			if isFirst(index) && !isLast(index) {
+			if isFirst(index) && !isLast(index) { // First
 				let startDate = checkin.checkinStartDate
 				let endDate = Date(timeIntervalSince1970: intervalToMidnightUTC(from: checkin.checkinStartDate.timeIntervalSince1970) + nDaysInterval(index + 1))
 				checkins.append(checkin.updatedWith(startDate: startDate, endDate: endDate))
-			} else if !isFirst(index) && isLast(index) {
+			} else if !isFirst(index) && isLast(index) { // Last
 				let startDate = Date(timeIntervalSince1970: intervalToMidnightUTC(from: checkin.checkinEndDate.timeIntervalSince1970))
 				let endDate = checkin.checkinEndDate
 				checkins.append(checkin.updatedWith(startDate: startDate, endDate: endDate))
-			} else if !isFirst(index) && !isLast(index) {
+			} else if !isFirst(index) && !isLast(index) { // Inbetween
 				let startDate = Date(timeIntervalSince1970: intervalToMidnightUTC(from: startTimeInterval) + nDaysInterval(index))
 				let endDate = Date(timeIntervalSince1970: intervalToMidnightUTC(from: startTimeInterval) + nDaysInterval(index + 1))
 				checkins.append(checkin.updatedWith(startDate: startDate, endDate: endDate))
-			} else {
+			} else { // No split
 				checkins.append(checkin)
 			}
 		}
@@ -63,11 +66,11 @@ class CheckinSplittingService {
 
 private extension Checkin {
 
-	func updatedWith(startDate: Date?, endDate: Date?) -> Checkin {
+	func updatedWith(startDate: Date, endDate: Date) -> Checkin {
 		Checkin(
 			id: self.id,
-			traceLocationGUID: self.traceLocationGUID,
-			traceLocationGUIDHash: self.traceLocationGUIDHash,
+			traceLocationId: self.traceLocationId,
+			traceLocationIdHash: self.traceLocationIdHash,
 			traceLocationVersion: self.traceLocationVersion,
 			traceLocationType: self.traceLocationType,
 			traceLocationDescription: self.traceLocationDescription,
@@ -75,11 +78,13 @@ private extension Checkin {
 			traceLocationStartDate: self.traceLocationStartDate,
 			traceLocationEndDate: self.traceLocationEndDate,
 			traceLocationDefaultCheckInLengthInMinutes: self.traceLocationDefaultCheckInLengthInMinutes,
-			traceLocationSignature: self.traceLocationSignature,
-			checkinStartDate: startDate ?? self.checkinStartDate,
-			checkinEndDate: endDate ?? self.checkinEndDate,
+			cryptographicSeed: self.cryptographicSeed,
+			cnPublicKey: self.cnPublicKey,
+			checkinStartDate: startDate,
+			checkinEndDate: endDate,
 			checkinCompleted: self.checkinCompleted,
-			createJournalEntry: self.createJournalEntry
+			createJournalEntry: self.createJournalEntry,
+			checkinSubmitted: self.checkinSubmitted
 		)
 	}
 }

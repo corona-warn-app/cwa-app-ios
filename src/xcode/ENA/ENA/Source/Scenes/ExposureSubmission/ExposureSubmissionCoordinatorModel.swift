@@ -10,8 +10,14 @@ class ExposureSubmissionCoordinatorModel {
 
 	// MARK: - Init
 
-	init(exposureSubmissionService: ExposureSubmissionService) {
+	init(
+		exposureSubmissionService: ExposureSubmissionService,
+		coronaTestService: CoronaTestService,
+		eventProvider: EventProviding
+	) {
 		self.exposureSubmissionService = exposureSubmissionService
+		self.coronaTestService = coronaTestService
+		self.eventProvider = eventProvider
 
 		// Try to load current country list initially to make it virtually impossible the user has to wait for it later.
 		exposureSubmissionService.loadSupportedCountries { _ in
@@ -24,7 +30,20 @@ class ExposureSubmissionCoordinatorModel {
 	// MARK: - Internal
 
 	let exposureSubmissionService: ExposureSubmissionService
+	let coronaTestService: CoronaTestService
 
+	var coronaTestType: CoronaTestType?
+
+	var coronaTest: CoronaTest? {
+		guard let coronaTestType = coronaTestType else {
+			return nil
+		}
+
+		return coronaTestService.coronaTest(ofType: coronaTestType)
+	}
+
+	let eventProvider: EventProviding
+	
 	var shouldShowSymptomsOnsetScreen = false
 
 	func symptomsOptionSelected(
@@ -66,9 +85,14 @@ class ExposureSubmissionCoordinatorModel {
 		onSuccess: @escaping () -> Void,
 		onError: @escaping (ExposureSubmissionError) -> Void
 	) {
+		guard let coronaTestType = coronaTestType else {
+			onError(.noCoronaTestTypeGiven)
+			return
+		}
+
 		isLoading(true)
 
-		exposureSubmissionService.submitExposure { error in
+		exposureSubmissionService.submitExposure(coronaTestType: coronaTestType) { error in
 			isLoading(false)
 
 			switch error {
@@ -92,23 +116,63 @@ class ExposureSubmissionCoordinatorModel {
 		}
 	}
 
-	func getTestResults(
-		for key: DeviceRegistrationKey,
+	func registerTestAndGetResult(
+		for testType: CoronaTestQRCodeInformation,
+		isSubmissionConsentGiven: Bool,
 		isLoading: @escaping (Bool) -> Void,
 		onSuccess: @escaping (TestResult) -> Void,
-		onError: @escaping (ExposureSubmissionError) -> Void
+		onError: @escaping (CoronaTestServiceError) -> Void
 	) {
 		isLoading(true)
 		// QR code test fetch
-		exposureSubmissionService.getTestResult(forKey: key, useStoredRegistration: false, completion: { result in
-			isLoading(false)
+		switch testType {
+		case .pcr(let guid):
+			coronaTestService.registerPCRTestAndGetResult(
+				guid: guid,
+				isSubmissionConsentGiven: isSubmissionConsentGiven,
+				completion: { result in
+					isLoading(false)
+					
+					switch result {
+					case let .failure(error):
+						onError(error)
+					case let .success(testResult):
+						onSuccess(testResult)
+					}
+				}
+			)
+		case .antigen(let antigenTest):
+			coronaTestService.registerAntigenTestAndGetResult(
+				with: antigenTest.hash,
+				pointOfCareConsentDate: antigenTest.pointOfCareConsentDate,
+				firstName: antigenTest.firstName,
+				lastName: antigenTest.lastName,
+				dateOfBirth: antigenTest.dateOfBirthString,
+				isSubmissionConsentGiven: isSubmissionConsentGiven,
+				completion: { result in
+					isLoading(false)
+					
+					switch result {
+					case let .failure(error):
+						onError(error)
+					case let .success(testResult):
+						onSuccess(testResult)
+					}
+				}
+			)
+		}
 
-			switch result {
-			case let .failure(error):
-				onError(error)
-			case let .success(testResult):
-				onSuccess(testResult)
-			}
-		})
 	}
+
+	func setSubmissionConsentGiven(_ isSubmissionConsentGiven: Bool) {
+		switch coronaTestType {
+		case .pcr:
+			coronaTestService.pcrTest?.isSubmissionConsentGiven = isSubmissionConsentGiven
+		case .antigen:
+			coronaTestService.antigenTest?.isSubmissionConsentGiven = isSubmissionConsentGiven
+		case .none:
+			fatalError("Cannot set submission consent, no corona test type is set")
+		}
+	}
+
 }

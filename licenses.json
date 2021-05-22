@@ -42,10 +42,24 @@
     "licenseUrl": "https://raw.githubusercontent.com/OpenCombine/OpenCombine/master/LICENSE"
   },
   {
-    "component": "Base32",
-    "licensor": "Norio Nomura",
-    "website": "https://github.com/norio-nomura/Base32",
-    "license": "MIT License",
-    "licenseUrl": "https://raw.githubusercontent.com/norio-nomura/Base32/master/LICENSE"
+    "component": "SwiftCBOR",
+    "licensor": "unrelentingtech",
+    "website": "https://github.com/unrelentingtech/SwiftCBOR",
+    "license": "Unlicense",
+    "licenseUrl": "https://raw.githubusercontent.com/unrelentingtech/SwiftCBOR/master/UNLICENSE"
+  },
+  {
+    "component": "base45-swift",
+    "licensor": "Dirk-Willem van Gulik",
+    "website": "https://github.com/ehn-digital-green-development/base45-swift",
+    "license": "Apache 2.0 License",
+    "licenseUrl": "https://raw.githubusercontent.com/ehn-digital-green-development/base45-swift/distribution/swiftpackage/LICENSE-ASF-2.0.txt"
+  },
+  {
+    "component": "JSONSchema.swift",
+    "licensor": "Kyle Fuller",
+    "website": "https://github.com/kylef/JSONSchema.swift",
+    "license": "3-Clause BSD License",
+    "licenseUrl": "https://raw.githubusercontent.com/kylef/JSONSchema.swift/master/LICENSE"
   }
 ]

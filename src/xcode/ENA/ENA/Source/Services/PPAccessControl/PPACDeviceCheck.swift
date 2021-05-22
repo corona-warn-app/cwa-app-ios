@@ -26,7 +26,7 @@ final class PPACDeviceCheck: DeviceCheckable {
 				case .none:
 					Log.error("DeviceCheck token base64 encoding failed", log: .ppa)
 				case .some(let error):
-					Log.error("Failed to creatd DeviceCheck token, error: \(error.localizedDescription)", log: .ppac)
+					Log.error("Failed to create DeviceCheck token, error: \(error.localizedDescription)", log: .ppac)
 				}
 				completion(.failure(.generationFailed))
 				return

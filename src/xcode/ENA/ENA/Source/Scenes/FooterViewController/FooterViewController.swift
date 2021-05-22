@@ -11,6 +11,9 @@ import OpenCombine
 */
 protocol FooterViewHandling {
 	var footerView: FooterViewUpdating? { get }
+
+	func didShowKeyboard(_ size: CGRect)
+	func didHideKeyboard()
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType)
 }
 
@@ -18,6 +21,9 @@ extension FooterViewHandling where Self: UIViewController {
 	var footerView: FooterViewUpdating? {
 		return parent as? FooterViewUpdating
 	}
+
+	func didShowKeyboard(_ size: CGRect) {}
+	func didHideKeyboard() {}
 }
 
 class FooterViewController: UIViewController {
@@ -56,10 +62,12 @@ class FooterViewController: UIViewController {
 		view.addSubview(primaryButton)
 		view.addSubview(secondaryButton)
 
+		primaryButton.disabledBackgroundColor = viewModel.primaryCustomDisableBackgroundColor
 		primaryButton.hasBackground = true
 		primaryButton.addTarget(self, action: #selector(didHitPrimaryButton), for: .primaryActionTriggered)
 		primaryButton.translatesAutoresizingMaskIntoConstraints = false
 		
+		secondaryButton.disabledBackgroundColor = viewModel.secondaryCustomDisableBackgroundColor
 		secondaryButton.hasBackground = true
 		secondaryButton.addTarget(self, action: #selector(didHitSecondaryButton), for: .primaryActionTriggered)
 		secondaryButton.translatesAutoresizingMaskIntoConstraints = false
@@ -120,7 +128,7 @@ class FooterViewController: UIViewController {
 		
 		// primary button
 		
-		primaryButton.color = viewModel.primaryButtonColor
+		primaryButton.enabledBackgroundColor = viewModel.primaryButtonColor
 		primaryButton.hasBackground = !viewModel.primaryButtonInverted
 		primaryButton.setTitle(viewModel.primaryButtonName, for: .normal)
 		primaryButton.accessibilityIdentifier = viewModel.primaryIdentifier
@@ -130,7 +138,7 @@ class FooterViewController: UIViewController {
 		
 		// secondary button
 		
-		secondaryButton.color = viewModel.secondaryButtonColor
+		secondaryButton.enabledBackgroundColor = viewModel.secondaryButtonColor
 		secondaryButton.hasBackground = !viewModel.secondaryButtonInverted
 		secondaryButton.setTitle(viewModel.secondaryButtonName, for: .normal)
 		secondaryButton.accessibilityIdentifier = viewModel.secondaryIdentifier
@@ -179,40 +187,41 @@ class FooterViewController: UIViewController {
 
 		viewModel.$isPrimaryLoading
 			.receive(on: DispatchQueue.main.ocombine)
-			.sink { [weak self] show in
-				self?.primaryButton.isLoading = show
-			}
+			.assign(to: \.isLoading, on: primaryButton)
 			.store(in: &subscription)
 
 		viewModel.$isSecondaryLoading
 			.receive(on: DispatchQueue.main.ocombine)
-			.sink { [weak self] show in
-				self?.secondaryButton.isLoading = show
-			}
+			.assign(to: \.isLoading, on: secondaryButton)
 			.store(in: &subscription)
 
 		// update enabled state on model change
 
 		viewModel.$isPrimaryButtonEnabled
 			.receive(on: DispatchQueue.main.ocombine)
-			.sink { [weak self] isEnabled in
-				self?.primaryButton.isEnabled = isEnabled
-			}
+			.assign(to: \.isEnabled, on: primaryButton)
 			.store(in: &subscription)
 
 		viewModel.$isSecondaryButtonEnabled
 			.receive(on: DispatchQueue.main.ocombine)
-			.sink { [weak self] isEnabled in
-				self?.secondaryButton.isEnabled = isEnabled
-			}
+			.assign(to: \.isEnabled, on: secondaryButton)
+			.store(in: &subscription)
+
+		// update hidden state on model change
+
+		viewModel.$isPrimaryButtonHidden
+			.receive(on: DispatchQueue.main.ocombine)
+			.assign(to: \.isHidden, on: primaryButton)
+			.store(in: &subscription)
+
+		viewModel.$isSecondaryButtonHidden
+			.receive(on: DispatchQueue.main.ocombine)
+			.assign(to: \.isHidden, on: secondaryButton)
 			.store(in: &subscription)
 
 		viewModel.$backgroundColor
 			.receive(on: DispatchQueue.main.ocombine)
-			.sink { [weak self] color in
-				self?.view.backgroundColor = color
-			}
+			.assign(to: \.backgroundColor, on: view)
 			.store(in: &subscription)
-		
 	}
 }

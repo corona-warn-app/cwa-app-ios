@@ -14,7 +14,10 @@ protocol DismissHandling {
 
 	/// default close button to respect the dismissHandling protocol
 	var dismissHandlingCloseBarButton: UIBarButtonItem { get }
+	/// close button to respect display mode and dismissHandling protocol
+	func dismissHandlingCloseBarButton(_ mode: CloseBarButtonItem.Mode) -> UIBarButtonItem
 }
+
 
 extension DismissHandling {
 
@@ -23,12 +26,19 @@ extension DismissHandling {
 
 	/// default implementation of dismissHandlingCloseButton
 	var dismissHandlingCloseBarButton: UIBarButtonItem {
+		dismissHandlingCloseBarButton(.normal)
+	}
+
+	/// default implementation of dismissHandling CloseButton with display mode
+	func dismissHandlingCloseBarButton(_ mode: CloseBarButtonItem.Mode) -> UIBarButtonItem {
 		CloseBarButtonItem(
+			mode: mode,
 			onTap: {
 				self.wasAttemptedToBeDismissed()
 			}
 		)
 	}
+
 }
 
 final class ExposureSubmissionNavigationController: ENANavigationControllerWithFooter {
@@ -36,7 +46,7 @@ final class ExposureSubmissionNavigationController: ENANavigationControllerWithF
 	// MARK: - Init
 
 	init(
-		coordinator: ExposureSubmissionCoordinating? = nil,
+		coordinator: ExposureSubmissionCoordinator? = nil,
 		dismissClosure: @escaping () -> Void,
 		rootViewController: UIViewController
 	) {
@@ -59,15 +69,6 @@ final class ExposureSubmissionNavigationController: ENANavigationControllerWithF
 		navigationBar.prefersLargeTitles = true
 	}
 
-	override func viewWillDisappear(_ animated: Bool) {
-		super.viewWillDisappear(animated)
-
-		// Check if the ExposureSubmissionNavigationController is popped from its parent.
-		guard self.isMovingFromParent || self.isBeingDismissed,
-			  let coordinator = coordinator else { return }
-		coordinator.delegate?.exposureSubmissionCoordinatorWillDisappear(coordinator)
-	}
-
 	// MARK: - Protocol UIAdaptivePresentationControllerDelegate
 
 	/// override to implement an other default handling - call dismissClosure()
@@ -84,7 +85,7 @@ final class ExposureSubmissionNavigationController: ENANavigationControllerWithF
 
 	// MARK: - Private
 
-	private let coordinator: ExposureSubmissionCoordinating?
+	private let coordinator: ExposureSubmissionCoordinator?
 	private let dismissClosure: () -> Void
 
 }

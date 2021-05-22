@@ -18,10 +18,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P9r-4c-lUv" userLabel="Container View" customClass="HomeCardView" customModule="ENA" customModuleProvider="target">
-                        <rect key="frame" x="16" y="16" width="386" height="303"/>
+                        <rect key="frame" x="16" y="12" width="386" height="311"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="vPX-Xb-EeD">
-                                <rect key="frame" x="16" y="16" width="354" height="271"/>
+                                <rect key="frame" x="16" y="16" width="354" height="279"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="pke-Vc-HHn">
                                         <rect key="frame" x="0.0" y="0.0" width="354" height="52"/>
@@ -66,7 +66,7 @@
                                         </constraints>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="749" insetsLayoutMarginsFromSafeArea="NO" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Sq-Fu-7Ci" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="68" width="354" height="121"/>
+                                        <rect key="frame" x="0.0" y="68" width="354" height="129"/>
                                         <string key="text">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -76,10 +76,10 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" insetsLayoutMarginsFromSafeArea="NO" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="1VM-pd-4gu">
-                                        <rect key="frame" x="0.0" y="205" width="354" height="0.0"/>
+                                        <rect key="frame" x="0.0" y="213" width="354" height="0.0"/>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b20-mf-cB4" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="221" width="354" height="50"/>
+                                        <rect key="frame" x="0.0" y="229" width="354" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="50" id="ZQb-Lf-ezw"/>
                                         </constraints>
@@ -105,8 +105,8 @@
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="P9r-4c-lUv" secondAttribute="trailing" constant="16" id="DAA-iI-Vrn"/>
                     <constraint firstItem="P9r-4c-lUv" firstAttribute="leading" secondItem="Pbi-6d-q3n" secondAttribute="leading" constant="16" id="al5-Ja-yPH"/>
-                    <constraint firstAttribute="bottom" secondItem="P9r-4c-lUv" secondAttribute="bottom" constant="16" id="bh7-0j-Q9j"/>
-                    <constraint firstItem="P9r-4c-lUv" firstAttribute="top" secondItem="Pbi-6d-q3n" secondAttribute="top" constant="16" id="bpE-BD-Wai"/>
+                    <constraint firstAttribute="bottom" secondItem="P9r-4c-lUv" secondAttribute="bottom" constant="12" id="bh7-0j-Q9j"/>
+                    <constraint firstItem="P9r-4c-lUv" firstAttribute="top" secondItem="Pbi-6d-q3n" secondAttribute="top" constant="12" id="bpE-BD-Wai"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -83,7 +83,7 @@ final class DMSubmissionStateViewController: UITableViewController {
 			}
 			self.client.fetchAllKeys(wifiClient: self.wifiClient) { downloadedPackages in
 				let allPackages = downloadedPackages.allKeyPackages
-				let allRemoteKeys = Array(allPackages.compactMap { try? $0.package.keys() }.joined())
+				let allRemoteKeys = Array(allPackages.compactMap { try? $0.package?.keys() }.joined())
 
 				var foundKeys = [ENTemporaryExposureKey]()
 				var missingKeys = [ENTemporaryExposureKey]()

@@ -32,9 +32,8 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
-			exposureSubmissionService: MockExposureSubmissionService(),
 			statisticsProvider: StatisticsProvider(
-				client: CachingHTTPClientMock(store: store),
+				client: CachingHTTPClientMock(),
 				store: store
 			)
 		)
@@ -73,26 +72,32 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			Risk.Details(
 				mostRecentDateWithRiskLevel: nil,
 				numberOfDaysWithRiskLevel: 0,
-				exposureDetectionDate: nil
+				calculationDate: nil
 			)
 		)
 	}
 
 	func testLowRiskStateWithEncounters() {
+		let mostRecentDateWithLowRisk = Calendar.utcCalendar.startOfDay(for: Date())
 
-		let mostRecentDateWithLowRisk = Date()
 		let calculationDate = Date()
-		store.riskCalculationResult = RiskCalculationResult(
+		store.enfRiskCalculationResult = ENFRiskCalculationResult(
 			riskLevel: .low,
-			minimumDistinctEncountersWithLowRisk: 2,
+			minimumDistinctEncountersWithLowRisk: 1,
 			minimumDistinctEncountersWithHighRisk: 0,
 			mostRecentDateWithLowRisk: mostRecentDateWithLowRisk,
 			mostRecentDateWithHighRisk: nil,
-			numberOfDaysWithLowRisk: 2,
+			numberOfDaysWithLowRisk: 1,
 			numberOfDaysWithHighRisk: 0,
 			calculationDate: calculationDate,
 			riskLevelPerDate: [mostRecentDateWithLowRisk: .low],
 			minimumDistinctEncountersWithHighRiskPerDate: [:]
+		)
+
+		store.checkinRiskCalculationResult = CheckinRiskCalculationResult(
+			calculationDate: calculationDate,
+			checkinIdsWithRiskPerDate: [:],
+			riskLevelPerDate: [mostRecentDateWithLowRisk: .low]
 		)
 
 		let homeState = HomeState(
@@ -100,9 +105,8 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
-			exposureSubmissionService: MockExposureSubmissionService(),
 			statisticsProvider: StatisticsProvider(
-				client: CachingHTTPClientMock(store: store),
+				client: CachingHTTPClientMock(),
 				store: store
 			)
 		)
@@ -140,8 +144,8 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			viewModel.riskDetails,
 			Risk.Details(
 				mostRecentDateWithRiskLevel: mostRecentDateWithLowRisk,
-				numberOfDaysWithRiskLevel: 2,
-				exposureDetectionDate: calculationDate
+				numberOfDaysWithRiskLevel: 1,
+				calculationDate: calculationDate
 			)
 		)
 
@@ -207,7 +211,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 				
 		let mostRecentDateWithHighRisk = Date()
 		let calculationDate = Date()
-		store.riskCalculationResult = RiskCalculationResult(
+		store.enfRiskCalculationResult = ENFRiskCalculationResult(
 			riskLevel: .high,
 			minimumDistinctEncountersWithLowRisk: 0,
 			minimumDistinctEncountersWithHighRisk: 1,
@@ -219,15 +223,20 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			riskLevelPerDate: [mostRecentDateWithHighRisk: .high],
 			minimumDistinctEncountersWithHighRiskPerDate: [Date(): 1]
 		)
+
+		store.checkinRiskCalculationResult = CheckinRiskCalculationResult(
+			calculationDate: calculationDate,
+			checkinIdsWithRiskPerDate: [:],
+			riskLevelPerDate: [mostRecentDateWithHighRisk: .high]
+		)
 		
 		let homeState = HomeState(
 			store: store,
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
-			exposureSubmissionService: MockExposureSubmissionService(),
 			statisticsProvider: StatisticsProvider(
-				client: CachingHTTPClientMock(store: store),
+				client: CachingHTTPClientMock(),
 				store: store
 			)
 		)
@@ -266,7 +275,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		
 		let mostRecentDateWithHighRisk = Date()
 		let calculationDate = Date()
-		store.riskCalculationResult = RiskCalculationResult(
+		store.enfRiskCalculationResult = ENFRiskCalculationResult(
 			riskLevel: .high,
 			minimumDistinctEncountersWithLowRisk: 0,
 			minimumDistinctEncountersWithHighRisk: 1,
@@ -279,14 +288,19 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			minimumDistinctEncountersWithHighRiskPerDate: [Date(): 1]
 		)
 
+		store.checkinRiskCalculationResult = CheckinRiskCalculationResult(
+			calculationDate: calculationDate,
+			checkinIdsWithRiskPerDate: [:],
+			riskLevelPerDate: [mostRecentDateWithHighRisk: .high]
+		)
+
 		let homeState = HomeState(
 			store: store,
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
-			exposureSubmissionService: MockExposureSubmissionService(),
 			statisticsProvider: StatisticsProvider(
-				client: CachingHTTPClientMock(store: store),
+				client: CachingHTTPClientMock(),
 				store: store
 			)
 		)
@@ -343,7 +357,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			Risk.Details(
 				mostRecentDateWithRiskLevel: mostRecentDateWithHighRisk,
 				numberOfDaysWithRiskLevel: 1,
-				exposureDetectionDate: calculationDate
+				calculationDate: calculationDate
 			)
 		)
 
@@ -365,7 +379,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 
 		let mostRecentDateWithHighRisk = Date()
 		let calculationDate = Date()
-		store.riskCalculationResult = RiskCalculationResult(
+		store.enfRiskCalculationResult = ENFRiskCalculationResult(
 			riskLevel: .high,
 			minimumDistinctEncountersWithLowRisk: 0,
 			minimumDistinctEncountersWithHighRisk: 1,
@@ -378,14 +392,19 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			minimumDistinctEncountersWithHighRiskPerDate: [Date(): 1]
 		)
 
+		store.checkinRiskCalculationResult = CheckinRiskCalculationResult(
+			calculationDate: calculationDate,
+			checkinIdsWithRiskPerDate: [:],
+			riskLevelPerDate: [mostRecentDateWithHighRisk: .high]
+		)
+
 		let homeState = HomeState(
 			store: store,
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
-			exposureSubmissionService: MockExposureSubmissionService(),
 			statisticsProvider: StatisticsProvider(
-				client: CachingHTTPClientMock(store: store),
+				client: CachingHTTPClientMock(),
 				store: store
 			)
 		)
@@ -483,9 +502,8 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
-			exposureSubmissionService: MockExposureSubmissionService(),
 			statisticsProvider: StatisticsProvider(
-				client: CachingHTTPClientMock(store: store),
+				client: CachingHTTPClientMock(),
 				store: store
 			)
 		)
@@ -560,9 +578,8 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
-			exposureSubmissionService: MockExposureSubmissionService(),
 			statisticsProvider: StatisticsProvider(
-				client: CachingHTTPClientMock(store: store),
+				client: CachingHTTPClientMock(),
 				store: store
 			)
 		)
@@ -632,17 +649,24 @@ class ExposureDetectionViewModelTests: XCTestCase {
 	}
 	
 	func testOnButtonTapInLowRiskStateAndManualMode() {
-		store.riskCalculationResult = RiskCalculationResult(
+		let date = Calendar.utcCalendar.startOfDay(for: Date())
+		store.enfRiskCalculationResult = ENFRiskCalculationResult(
 			riskLevel: .low,
-			minimumDistinctEncountersWithLowRisk: 2,
+			minimumDistinctEncountersWithLowRisk: 1,
 			minimumDistinctEncountersWithHighRisk: 0,
 			mostRecentDateWithLowRisk: Date(),
 			mostRecentDateWithHighRisk: nil,
-			numberOfDaysWithLowRisk: 2,
+			numberOfDaysWithLowRisk: 1,
 			numberOfDaysWithHighRisk: 0,
-			calculationDate: Date(),
-			riskLevelPerDate: [Date(): .low],
+			calculationDate: date,
+			riskLevelPerDate: [date: .low],
 			minimumDistinctEncountersWithHighRiskPerDate: [:]
+		)
+
+		store.checkinRiskCalculationResult = CheckinRiskCalculationResult(
+			calculationDate: date,
+			checkinIdsWithRiskPerDate: [:],
+			riskLevelPerDate: [date: .low]
 		)
 
 		let homeState = HomeState(
@@ -650,9 +674,8 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
-			exposureSubmissionService: MockExposureSubmissionService(),
 			statisticsProvider: StatisticsProvider(
-				client: CachingHTTPClientMock(store: store),
+				client: CachingHTTPClientMock(),
 				store: store
 			)
 		)
@@ -692,17 +715,25 @@ class ExposureDetectionViewModelTests: XCTestCase {
 	}
 
 	func testOnButtonTapInHighRiskStateAndManualMode() {
-		store.riskCalculationResult = RiskCalculationResult(
+		let date = Calendar.utcCalendar.startOfDay(for: Date())
+
+		store.enfRiskCalculationResult = ENFRiskCalculationResult(
 			riskLevel: .high,
 			minimumDistinctEncountersWithLowRisk: 0,
-			minimumDistinctEncountersWithHighRisk: 2,
+			minimumDistinctEncountersWithHighRisk: 1,
 			mostRecentDateWithLowRisk: nil,
 			mostRecentDateWithHighRisk: Date(),
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 1,
-			calculationDate: Date(),
-			riskLevelPerDate: [Date(): .high],
+			calculationDate: date,
+			riskLevelPerDate: [date: .high],
 			minimumDistinctEncountersWithHighRiskPerDate: [Date(): 1]
+		)
+
+		store.checkinRiskCalculationResult = CheckinRiskCalculationResult(
+			calculationDate: date,
+			checkinIdsWithRiskPerDate: [:],
+			riskLevelPerDate: [date: .low]
 		)
 
 		let homeState = HomeState(
@@ -710,9 +741,8 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
-			exposureSubmissionService: MockExposureSubmissionService(),
 			statisticsProvider: StatisticsProvider(
-				client: CachingHTTPClientMock(store: store),
+				client: CachingHTTPClientMock(),
 				store: store
 			)
 		)
@@ -757,9 +787,8 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
-			exposureSubmissionService: MockExposureSubmissionService(),
 			statisticsProvider: StatisticsProvider(
-				client: CachingHTTPClientMock(store: store),
+				client: CachingHTTPClientMock(),
 				store: store
 			)
 		)
@@ -803,9 +832,8 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
-			exposureSubmissionService: MockExposureSubmissionService(),
 			statisticsProvider: StatisticsProvider(
-				client: CachingHTTPClientMock(store: store),
+				client: CachingHTTPClientMock(),
 				store: store
 			)
 		)
@@ -876,9 +904,10 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		// Low risk exposure section
 		section = dynamicTableViewModel.section(2)
 		if hasAtLeastOneDayWithLowRiskLevel {
-			XCTAssertEqual(section.cells.count, 2)
-			XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "headerCell")
-			XCTAssertEqual(section.cells[1].cellReuseIdentifier.rawValue, "labelCell")
+			XCTAssertEqual(section.cells.count, 3)
+			XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "labelCell")
+			XCTAssertEqual(section.cells[1].cellReuseIdentifier.rawValue, "headerCell")
+			XCTAssertEqual(section.cells[2].cellReuseIdentifier.rawValue, "labelCell")
 		} else {
 			XCTAssertEqual(section.cells.count, 0)
 		}
@@ -932,11 +961,12 @@ class ExposureDetectionViewModelTests: XCTestCase {
 
 		// Behaviour section
 		section = dynamicTableViewModel.section(2)
-		XCTAssertEqual(section.cells.count, 5)
-		XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "headerCell")
-		XCTAssertEqual(section.cells[1].cellReuseIdentifier.rawValue, "guideCell")
+		XCTAssertEqual(section.cells.count, 6)
+		XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "labelCell")
+		XCTAssertEqual(section.cells[1].cellReuseIdentifier.rawValue, "headerCell")
 		XCTAssertEqual(section.cells[2].cellReuseIdentifier.rawValue, "guideCell")
-		XCTAssertEqual(section.cells[3].cellReuseIdentifier.rawValue, "longGuideCell")
+		XCTAssertEqual(section.cells[3].cellReuseIdentifier.rawValue, "guideCell")
+		XCTAssertEqual(section.cells[4].cellReuseIdentifier.rawValue, "longGuideCell")
 
 		// Tracing section
 		section = dynamicTableViewModel.section(3)
@@ -972,11 +1002,12 @@ class ExposureDetectionViewModelTests: XCTestCase {
 
 		// Behaviour section
 		section = dynamicTableViewModel.section(2)
-		XCTAssertEqual(section.cells.count, 5)
-		XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "headerCell")
-		XCTAssertEqual(section.cells[1].cellReuseIdentifier.rawValue, "guideCell")
+		XCTAssertEqual(section.cells.count, 6)
+		XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "labelCell")
+		XCTAssertEqual(section.cells[1].cellReuseIdentifier.rawValue, "headerCell")
 		XCTAssertEqual(section.cells[2].cellReuseIdentifier.rawValue, "guideCell")
-		XCTAssertEqual(section.cells[3].cellReuseIdentifier.rawValue, "longGuideCell")
+		XCTAssertEqual(section.cells[3].cellReuseIdentifier.rawValue, "guideCell")
+		XCTAssertEqual(section.cells[4].cellReuseIdentifier.rawValue, "longGuideCell")
 
 		// Survey section
 		section = dynamicTableViewModel.section(3)

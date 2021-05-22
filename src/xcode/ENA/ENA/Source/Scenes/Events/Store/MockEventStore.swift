@@ -2,6 +2,7 @@
 // 🦠 Corona-Warn-App
 //
 
+import Foundation
 import OpenCombine
 
 class MockEventStore: EventStoring, EventProviding {
@@ -10,26 +11,13 @@ class MockEventStore: EventStoring, EventProviding {
 
 	@discardableResult
 	func createTraceLocation(_ traceLocation: TraceLocation) -> SecureSQLStore.VoidResult {
-		traceLocationsPublisher.value.append(traceLocation)
+		traceLocationsPublisher.value = appendTraceLocationAndSort(traceLocation)
 		return .success(())
 	}
 
 	@discardableResult
-	func updateTraceLocation(_ traceLocation: TraceLocation) -> SecureSQLStore.VoidResult {
-		var traceLocations = traceLocationsPublisher.value
-		guard let oldTraceLocation = (traceLocations.first { $0.guid == traceLocation.guid }) else {
-			return .failure(.database(.unknown))
-		}
-		let updatedTraceLocation = oldTraceLocation.updatedWith(traceLocation: traceLocation)
-		traceLocations.removeAll { $0.guid == oldTraceLocation.guid }
-		traceLocations.append(updatedTraceLocation)
-		traceLocationsPublisher.send(traceLocations)
-		return .success(())
-	}
-
-	@discardableResult
-	func deleteTraceLocation(guid: String) -> SecureSQLStore.VoidResult {
-		traceLocationsPublisher.value.removeAll { $0.guid == guid }
+	func deleteTraceLocation(id: Data) -> SecureSQLStore.VoidResult {
+		traceLocationsPublisher.value.removeAll { $0.id == id }
 		return .success(())
 	}
 
@@ -43,20 +31,17 @@ class MockEventStore: EventStoring, EventProviding {
 	func createCheckin(_ checkin: Checkin) -> SecureSQLStore.IdResult {
 		let id = UUID().hashValue
 		let checkinWithId = checkin.updatedWith(id: id)
-		checkinsPublisher.value.append(checkinWithId)
+		checkinsPublisher.value = appendCheckInAndSort(checkinWithId)
 		return .success(id)
 	}
 
 	@discardableResult
 	func updateCheckin(_ checkin: Checkin) -> SecureSQLStore.VoidResult {
-		var checkins = checkinsPublisher.value
-		guard let oldCheckin = (checkins.first { $0.id == checkin.id }) else {
+		guard let oldCheckin = (checkinsPublisher.value.first { $0.id == checkin.id }) else {
 			return .failure(.database(.unknown))
 		}
 		let updatedCheckin = oldCheckin.updatedWith(checkin: checkin)
-		checkins.removeAll { $0.id == oldCheckin.id }
-		checkins.append(updatedCheckin)
-		checkinsPublisher.send(checkins)
+		checkinsPublisher.value = appendCheckInAndSort(updatedCheckin)
 		return .success(())
 	}
 
@@ -133,6 +118,25 @@ class MockEventStore: EventStoring, EventProviding {
 
 	var traceWarningPackageMetadatasPublisher = OpenCombine.CurrentValueSubject<[TraceWarningPackageMetadata], Never>([])
 
+	private func appendCheckInAndSort(_ checkIn: Checkin) -> [Checkin] {
+		var currentValues = checkinsPublisher.value
+		currentValues.removeAll { $0.id == checkIn.id }
+		currentValues.append(checkIn)
+		currentValues.sort {
+			$0.checkinEndDate > $1.checkinEndDate
+		}
+		return currentValues
+	}
+
+	private func appendTraceLocationAndSort(_ traceLocation: TraceLocation) -> [TraceLocation] {
+		var currentValues = traceLocationsPublisher.value
+		currentValues.append(traceLocation)
+		currentValues.sort {
+			$0.description < $1.description
+		}
+		return currentValues
+	}
+
 }
 
 private extension TraceTimeIntervalMatch {
@@ -142,7 +146,7 @@ private extension TraceTimeIntervalMatch {
 			id: id,
 			checkinId: self.checkinId,
 			traceWarningPackageId: self.traceWarningPackageId,
-			traceLocationGUID: self.traceLocationGUID,
+			traceLocationId: self.traceLocationId,
 			transmissionRiskLevel: self.transmissionRiskLevel,
 			startIntervalNumber: self.startIntervalNumber,
 			endIntervalNumber: self.endIntervalNumber
@@ -164,7 +168,7 @@ private extension TraceWarningPackageMetadata {
 private extension TraceLocation {
 	func updatedWith(traceLocation: TraceLocation) -> TraceLocation {
 		TraceLocation(
-			guid: guid,
+			id: id,
 			version: traceLocation.version,
 			type: traceLocation.type,
 			description: traceLocation.description,
@@ -172,8 +176,8 @@ private extension TraceLocation {
 			startDate: traceLocation.startDate,
 			endDate: traceLocation.endDate,
 			defaultCheckInLengthInMinutes: traceLocation.defaultCheckInLengthInMinutes,
-			byteRepresentation: traceLocation.byteRepresentation,
-			signature: traceLocation.signature
+			cryptographicSeed: traceLocation.cryptographicSeed,
+			cnPublicKey: traceLocation.cnPublicKey
 		)
 	}
 }
@@ -182,8 +186,8 @@ private extension Checkin {
 	func updatedWith(id: Int) -> Checkin {
 		Checkin(
 			id: id,
-			traceLocationGUID: self.traceLocationGUID,
-			traceLocationGUIDHash: self.traceLocationGUIDHash,
+			traceLocationId: self.traceLocationId,
+			traceLocationIdHash: self.traceLocationIdHash,
 			traceLocationVersion: self.traceLocationVersion,
 			traceLocationType: self.traceLocationType,
 			traceLocationDescription: self.traceLocationDescription,
@@ -191,19 +195,21 @@ private extension Checkin {
 			traceLocationStartDate: self.traceLocationStartDate,
 			traceLocationEndDate: self.traceLocationEndDate,
 			traceLocationDefaultCheckInLengthInMinutes: self.traceLocationDefaultCheckInLengthInMinutes,
-			traceLocationSignature: self.traceLocationSignature,
+			cryptographicSeed: self.cryptographicSeed,
+			cnPublicKey: self.cnPublicKey,
 			checkinStartDate: self.checkinStartDate,
 			checkinEndDate: self.checkinEndDate,
 			checkinCompleted: self.checkinCompleted,
-			createJournalEntry: self.createJournalEntry
+			createJournalEntry: self.createJournalEntry,
+			checkinSubmitted: self.checkinSubmitted
 		)
 	}
 
 	func updatedWith(checkin: Checkin) -> Checkin {
 		Checkin(
 			id: self.id,
-			traceLocationGUID: checkin.traceLocationGUID,
-			traceLocationGUIDHash: checkin.traceLocationGUIDHash,
+			traceLocationId: checkin.traceLocationId,
+			traceLocationIdHash: checkin.traceLocationIdHash,
 			traceLocationVersion: checkin.traceLocationVersion,
 			traceLocationType: checkin.traceLocationType,
 			traceLocationDescription: checkin.traceLocationDescription,
@@ -211,11 +217,13 @@ private extension Checkin {
 			traceLocationStartDate: checkin.traceLocationStartDate,
 			traceLocationEndDate: checkin.traceLocationEndDate,
 			traceLocationDefaultCheckInLengthInMinutes: checkin.traceLocationDefaultCheckInLengthInMinutes,
-			traceLocationSignature: checkin.traceLocationSignature,
+			cryptographicSeed: checkin.cryptographicSeed,
+			cnPublicKey: checkin.cnPublicKey,
 			checkinStartDate: checkin.checkinStartDate,
 			checkinEndDate: checkin.checkinEndDate,
 			checkinCompleted: checkin.checkinCompleted,
-			createJournalEntry: checkin.createJournalEntry
+			createJournalEntry: checkin.createJournalEntry,
+			checkinSubmitted: checkin.checkinSubmitted
 		)
 	}
 }

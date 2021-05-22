@@ -1,11 +1,14 @@
 /* ExposureSubmissionWarnOthers */
 
-"ExposureSubmissionWarnOthers_acknowledgement_1_1" = "Die App teilt Ihr Testergebnis, um Nutzer von offiziellen Corona-Apps, denen Sie begegnet sind, zu warnen. Die Warnung funktioniert in den oben genannten Ländern. Wenn Sie zusätzlich Angaben zum Beginn Ihrer Symptome machen, werden auch diese geteilt.";
+"ExposureSubmissionWarnOthers_acknowledgementTitle" = "Ihr Einverständnis";
 
-"ExposureSubmissionWarnOthers_acknowledgement_1_2" = "Bitte geben Sie Ihr Testergebnis (genauer gesagt: Ihre Zufalls-IDs der letzten 14 Tage) im nächsten Schritt frei, indem Sie „Teilen“ antippen.";
+"ExposureSubmissionWarnOthers_acknowledgementBody" = "Durch Antippen von „Einverstanden“ willigen Sie in folgende Schritte ein:";
+
+"ExposureSubmissionWarnOthers_acknowledgement_1_1" = "Die App teilt Ihr Testergebnis, um Nutzer, denen Sie begegnet sind, zu warnen. Dies betrifft Nutzer von Corona-Apps der oben genannten Länder und Nutzer, die zeitgleich am selben Event oder Ort wie Sie eingecheckt waren. Im Falle von Schnelltests werden nur Nutzer der Corona-Warn-App gewarnt. Wenn Sie zusätzlich Angaben zum Beginn Ihrer Symptome machen, werden auch diese Daten geteilt.";
+
+"ExposureSubmissionWarnOthers_acknowledgement_1_2" = "Erteilen Sie im nächsten Schritt bitte Ihre Erlaubnis zum Zugriff auf die Zufalls-IDs.";
 
 "ExposureSubmissionWarnOthers_acknowledgement_footer" = "Sie können Ihr Einverständnis nach bereits erfolgter Warnung zurücknehmen, indem Sie die App löschen.";
-
 
 /* DeltaOnboarding */
 
@@ -19,29 +22,31 @@
 
 "OnboardingInfo_enableLoggingOfContactsPage_panelBody" = "Um zu erfahren, ob Sie Risiko-Begegnungen mit App-Nutzern der teilnehmenden Länder hatten und für Sie ein Ansteckungsrisiko besteht, müssen Sie die Risiko-Ermittlung aktivieren. Der Aktivierung der Risiko-Ermittlung und der damit im Zusammenhang stehenden Datenverarbeitung durch die App stimmen Sie mit Antippen des Buttons „Risiko-Ermittlung aktivieren“ zu.\n\nUm die Risiko-Ermittlung nutzen zu können, müssen Sie zudem auf Ihrem iPhone die von Apple bereitgestellte Funktion „Begegnungsmitteilungen“ aktivieren und für die Corona-Warn-App freigeben.\n\nAnschließend erzeugt Ihr iPhone kontinuierlich Zufalls-IDs und versendet diese per Bluetooth, damit diese von Smartphones in Ihrer Umgebung empfangen werden können. Umgekehrt empfängt Ihr iPhone die Zufalls-IDs von anderen Smartphones. Die eigenen und die von anderen Smartphones empfangenen Zufalls-IDs werden von Ihrem iPhone aufgezeichnet und dort für 14 Tage gespeichert.\n\nFür die Risiko-Ermittlung lädt die App täglich aktuelle Listen mit den Zufalls-IDs aller Nutzer herunter, die ihr Testergebnis (genauer gesagt: die eigenen Zufalls-IDs) zur Warnung anderer über ihre offizielle Corona-App geteilt haben. Diese Listen werden dann mit den von Ihrem iPhone aufgezeichneten Zufalls-IDs anderer Nutzer verglichen.\n\nWenn dabei eine Risiko-Begegnung festgestellt wird, werden Sie von der App informiert. In diesem Fall erhält die App Zugriff auf die von Ihrem iPhone zu der Risiko-Begegnung aufgezeichneten Daten (Datum, Dauer und Bluetooth-Signalstärke des Kontakts). Aus der Bluetooth-Signalstärke wird der räumliche Abstand zu dem anderen Nutzer abgeleitet (je stärker das Signal, desto geringer der Abstand). Diese Angaben werden von der App ausgewertet, um Ihr Ansteckungsrisiko zu berechnen und Ihnen Verhaltensempfehlungen zu geben. Diese Auswertung wird ausschließlich lokal auf Ihrem iPhone durchgeführt.\n\nAußer Ihnen erfährt niemand (auch nicht das RKI oder die Gesundheitsbehörden teilnehmender Länder), ob Sie eine Risiko-Begegnung hatten und welches Ansteckungsrisiko für Sie ermittelt wird.\n\nSie können Ihr Einverständnis zur Risiko-Ermittlung jederzeit zurücknehmen, indem Sie die Funktion über den Schieberegler innerhalb der App deaktivieren oder die App löschen. Wenn Sie die Risiko-Ermittlung wieder nutzen möchten, können Sie den Schieberegler erneut aktivieren oder die App erneut installieren. Wenn Sie die Risiko-Ermittlung deaktivieren, prüft die App nicht mehr, ob Sie Risiko-Begegnungen hatten. Um auch das Aussenden und den Empfang der Zufalls-IDs anzuhalten, müssen Sie die Funktion „Begegnungsmitteilungen“ in den Einstellungen Ihres iPhones deaktivieren. Bitte beachten Sie, dass die durch diese Funktion von Ihrem iPhone aufgezeichneten fremden und eigenen Zufalls-IDs nicht von der App gelöscht werden. Diese können Sie nur in den Einstellungen Ihres iPhones dauerhaft löschen.\n\nDie Datenschutzerklärung der App (einschließlich Informationen zur Datenverarbeitung für die länderübergreifende Risiko-Ermittlung) finden Sie unter dem Menüpunkt „App-Informationen“ > „Datenschutz“.";
 
-/* Exposure Submission QR Code Info */
+/* Exposure Submission QR Code Info Screen */
 
-"ExposureSubmissionQRInfo_acknowledgement_title" = "Ihr Einverständnis";
+"ExposureSubmissionQRInfo_acknowledgement_legal_title" = "Ihr Einverständnis";
 
-"ExposureSubmissionQRInfo_acknowledgement_body" = "Durch Antippen von „Einverstanden“ willigen Sie in folgende Schritte ein:";
+"ExposureSubmissionQRInfo_acknowledgement_legal_body" = "Durch Antippen von „Einverstanden“ willigen Sie in folgende Schritte ein:";
 
-"ExposureSubmissionQRInfo_acknowledgement_1_1" = "Die App ruft Ihr Testergebnis ab.";
+"ExposureSubmissionQRInfo_acknowledgement_legal_Bullet1_1" = "Die App ruft Ihr Testergebnis ab.";
 
-"ExposureSubmissionQRInfo_acknowledgement_1_2" = "Wenn Sie es sich später anders überlegen, können Sie den Test in der App entfernen.";
+"ExposureSubmissionQRInfo_acknowledgement_legal_Bullet1_2" = "Wenn Sie es sich später anders überlegen, können Sie den Test in der App entfernen.";
 
-"ExposureSubmissionQRInfo_acknowledgement_2_1" = "Wenn Sie positiv auf Corona getestet wurden, teilt die App Ihr Testergebnis, um Nutzer, denen Sie begegnet sind, zu warnen. Dies betrifft Nutzer von offiziellen Corona-Apps der oben genannten Länder. Wenn Sie zusätzlich Angaben zum Beginn Ihrer Symptome machen, werden auch diese geteilt.";
+"ExposureSubmissionQRInfo_acknowledgement_legal_Bullet2" = "Wenn Sie positiv auf Corona getestet wurden, teilt die App Ihr Testergebnis, um Nutzer, denen Sie begegnet sind, zu warnen. Dies betrifft Nutzer von Corona-Apps der oben genannten Länder und Nutzer, die zeitgleich am selben Event oder Ort wie Sie eingecheckt waren. Im Falle von Schnelltests werden nur Nutzer der Corona-Warn-App gewarnt.";
 
-"ExposureSubmissionQRInfo_acknowledgement_2_2" = "Sie können Ihr Einverständnis jederzeit zurücknehmen. Die Einstellung hierfür finden Sie unter „Test anzeigen“. Vor dem Teilen werden Sie nochmal auf Ihr Einverständnis hingewiesen und um Freigabe Ihres Testergebnisses gebeten.";
+"ExposureSubmissionQRInfo_acknowledgement_legal_Bullet3" = "Wenn Sie zusätzlich Angaben zum Beginn Ihrer Symptome machen, werden auch diese geteilt.";
+
+"ExposureSubmissionQRInfo_acknowledgement_legal_WithdrawConsent" = "Sie können Ihr Einverständnis jederzeit zurücknehmen. Die Einstellung hierfür finden Sie unter „Test anzeigen“. Vor dem Teilen werden Sie nochmal auf Ihr Einverständnis hingewiesen.";
 
 /* Automatic share submission result consent */
 
 "AutomaticSharingConsent_Subtitle" = "Einverständnis";
 
-"AutomaticSharingConsent_DescriptionPart1" = "Wenn Sie positiv auf Corona getestet wurden, teilt die App Ihr Testergebnis, um Nutzer zu warnen, denen Sie begegnet sind.";
+"AutomaticSharingConsent_DescriptionPart1" = "Wenn Sie positiv auf Corona getestet wurden, teilt die App Ihr Testergebnis, um Nutzer, denen Sie begegnet sind, zu warnen.";
 
-"AutomaticSharingConsent_DescriptionPart2" = "Die Warnung erreicht Nutzer von offiziellen Corona-Apps der folgenden teilnehmenden Länder:";
+"AutomaticSharingConsent_DescriptionPart2" = "Die Warnung betrifft Nutzer, die zeitgleich am selben Event oder Ort wie Sie eingecheckt waren und Nutzer der Corona-Apps der folgenden Länder:";
 
-"AutomaticSharingConsent_DescriptionPart3" = "Wenn Sie zusätzlich Angaben zum Beginn Ihrer Symptome machen, werden auch diese geteilt.";
+"AutomaticSharingConsent_DescriptionPart3" = "Im Falle von Schnelltests werden nur Nutzer der Corona-Warn-App gewarnt. Wenn Sie zusätzlich Angaben zum Beginn Ihrer Symptome machen, werden auch diese Daten geteilt.";
 
 "AutomaticSharingConsent_DescriptionPart4" = "Sie können Ihr Einverständnis zurücknehmen, indem Sie oben „Andere warnen“ deaktivieren.";
 
@@ -107,6 +112,32 @@
 
 "ppa_settings_privacy_information_body" = "Indem Sie oben „Datenspende“ aktivieren, willigen Sie ein:\n\nDie App übermittelt täglich von ihr erfasste Angaben an das RKI. Die Daten betreffen angezeigte Risiko-Begegnungen und Warnungen, durch Sie abgerufene Testergebnisse, ob Sie andere Nutzer gewarnt haben sowie Angaben über das Betriebssystem Ihres Smartphones. Wenn Sie oben weitere Angaben gemacht haben (Region, Altersgruppe), werden auch diese an das RKI übermittelt.\n\nDas RKI wird diese Daten zu Statistiken zusammenfassen und auswerten, um die Wirksamkeit und Funktionsweise der App zu bewerten und Rückschlüsse auf das Pandemiegeschehen zu ziehen. Die dabei gefundenen Erkenntnisse helfen bei der Verbesserung der Funktionen und Nutzerfreundlichkeit der App sowie bei der Steuerung anderer Maßnahmen der Pandemiebekämpfung.\n\nBevor Ihre Daten ausgewertet werden, muss sichergestellt sein, dass jede an der Datenspende teilnehmende App nur einmal gezählt wird und die Statistiken nicht verfälscht werden. Hierfür muss die Echtheit Ihrer App geprüft werden. Dazu wird durch Ihr Smartphone eine eindeutige Kennung erzeugt und an Apple in die USA oder andere Drittländer übermittelt, damit Apple die Echtheit Ihrer App gegenüber dem RKI bestätigen kann. Die Kennung enthält Informationen über die Version Ihres Smartphones und der App. Apple kann damit möglicherweise auf Ihre Identität schließen und nachvollziehen, dass die Echtheitsprüfung Ihres Smartphones stattgefunden hat. Weitere Angaben aus der App erhält Apple hierbei nicht.\n\nSie können Ihr Einverständnis jederzeit zurücknehmen, indem Sie oben „Datenspende“ deaktivieren.";
 
+/* Error Reports */
+
+"errorReport_Legal_DataPrivacy_Headline" = "Datenschutz und Datensicherheit";
+
+"errorReport_Legal_DataPrivacy_Bullet1" = "Die Aufzeichnung des Fehlerberichts ist freiwillig.";
+
+"errorReport_Legal_DataPrivacy_Bullet2" = "Auf den Fehlerbericht haben zunächst nur Sie Zugriff. Sie können im Anschluss entscheiden, ob Sie den Fehlerbericht an den technischen Support senden, ob Sie den Fehlerbericht zunächst auf Ihrem Smartphone speichern oder die Aufzeichnung stoppen und löschen wollen. Wenn Sie den Fehlerbericht zunächst lokal speichern, haben Sie die Möglichkeit, sich den Fehlerbericht selbst anzuschauen, bevor Sie diesen an den Support übermitteln.";
+
+"errorReport_Legal_DataPrivacy_Bullet3" = "Der Fehlerbericht enthält sensible Informationen, zum Beispiel Angaben über Ihr Testergebnis oder das für Sie ermittelte Ansteckungsrisiko. Er enthält keine Informationen über die QR-Codes, die Sie bei der Testregistrierung verwendet haben, über Angaben, die Sie im Kontakt-Tagebuch erfasst haben oder Angaben zu Ihrer Identität.";
+
+"errorReport_Legal_DataPrivacy_Bullet4" = "Wir empfehlen die Fehlerberichte nicht zu veröffentlichen und nicht per E-Mail zu versenden.";
+
+"errorReport_Legal_DataPrivacy_Bullet5" = "Private Personen oder Unternehmen dürfen von Ihnen nicht die Weitergabe eines aufgezeichneten Fehlerberichtes verlangen.";
+
+"errorReport_Legal_SendReports_Headline" = "Ihr Einverständnis";
+
+"errorReport_Legal_SendReports_Subline" = "Durch Antippen von „Einverstanden und senden“ willigen Sie in folgende Schritte ein:";
+
+"errorReport_Legal_SendReports_Bullet1_Part1" = "Der von Ihnen erstellte Fehlerbericht wird zu Zwecken der Fehleranalyse an das RKI übermittelt.";
+
+"errorReport_Legal_SendReports_Bullet1_Part2" = "Das RKI wird den Fehlerbericht auswerten, um mögliche Ursachen der in Ihrer App auftretenden Fehler erkennen und beheben zu können. Wenn Sie dem technischen Support die Fehlerbericht-ID mitteilen, kann das RKI den Fehlerbericht Ihrer Person zuordnen.";
+
+"errorReport_Legal_SendReports_Bullet2" = "Bevor der Bericht an das RKI übersendet wird, wird die Echtheit Ihrer App einmalig geprüft. Dazu wird durch Ihr Smartphone eine eindeutige Kennung erzeugt und an Apple in die USA oder andere Drittländer übermittelt, damit Apple die Echtheit Ihrer App gegenüber dem RKI bestätigen kann. Die Kennung enthält Informationen über die Version Ihres Smartphones und der App. Apple kann damit möglicherweise auf Ihre Identität schließen und nachvollziehen, dass die Echtheitsprüfung Ihres Smartphones stattgefunden hat. Weitere Angaben aus der App oder dem Fehlerbericht erhält Apple hierbei nicht.";
+
+"errorReport_Legal_SendReports_Paragraph" = "Sollten Sie dem technischen Support nach der Übersendung Ihre Fehlerbericht-ID mitgeteilt haben, können Sie auch jederzeit die Löschung der weiteren mitgeteilten Informationen, der Fehlerbericht-ID und des Fehlerberichtes verlangen. Andernfalls wird der Fehlerbericht automatisch nach 14 Tagen gelöscht.";
+
 /* Checkin */
 
 "Checkin_Information_Legal_Headline_1" = "Ihr Einverständnis";
@@ -139,4 +170,36 @@
 
 "TraceLocation_Information_Legal_Text_4" = "Bitte stellen Sie den QR-Code so zur Verfügung, dass alle Ihre Gäste ihn unter Einhaltung der Abstands- und Hygieneregeln (mindestens 1,5 Meter) scannen können.";
 
-"TraceLocation_Information_Legal_Text_5" = "Wir empfehlen die QR-Codes für Orte in einmal täglich außerhalb der Öffnungszeiten neu zu erstellen, um dauerhaft zuverlässige Warnungen zu ermöglichen und Missbrauch der QR-Codes zu verhindern.";
+"TraceLocation_Information_Legal_Text_5" = "Wir empfehlen die QR-Codes für Orte in regelmäßigen Abständen neu zu erstellen, um dauerhaft zuverlässige Warnungen zu ermöglichen und Missbrauch der QR-Codes zu verhindern.";
+
+/* ExposureSubmission - AntigenTest Profile */
+
+"ExposureSubmission_Antigen_Profile_Legal_Headline" = "Datenschutz und Datensicherheit";
+
+"ExposureSubmission_Antigen_Profile_Legal_Text01" = "Das Anlegen eines Schnelltest-Profils in der App und dessen Verwendung sind freiwillig.";
+
+"ExposureSubmission_Antigen_Profile_Legal_Text02" = "Die App wandelt die Daten, die Sie für Ihr Schnelltest-Profil eingeben, in Ihren persönlichen QR-Code um. Im QR-Code sind dann alle eingegebenen Daten enthalten.";
+
+"ExposureSubmission_Antigen_Profile_Legal_Text03" = "In der Teststelle können Sie den QR-Code Ihres Schnelltest-Profils scannen lassen, um der Teststelle Ihre Daten schnell und sicher bereitzustellen. Die Teststelle benötigt Ihre Daten zur Durchführung des Tests. Sie können die Daten aber auch ohne die App bereitstellen. Sie entscheiden selbst, welche Daten im QR-Code enthalten sind und welche Sie der Teststelle auf andere Weise mitteilen.";
+
+"ExposureSubmission_Antigen_Profile_Legal_Text04" = "Auf Ihr persönliches Schnelltest-Profil haben zunächst nur Sie Zugriff. Nur wenn Sie den QR-Code des Schnelltest-Profils anderen Personen zeigen, können diese Zugriff auf die persönlichen Daten Ihres Schnelltest-Profils erhalten. Ein Zugriff auf andere Daten aus der App erfolgt dabei nicht (z.B. Ihre Check-ins oder Angaben im Kontakt-Tagebuch).";
+
+"ExposureSubmission_Antigen_Profile_Legal_Text05" = "Sie haben jederzeit die Möglichkeit, Ihr Schnelltest-Profil wieder zu entfernen. Bis dahin bleibt es in der App auf Ihrem Smartphone gespeichert.";
+
+"ExposureSubmission_Antigen_Profile_Legal_Text06" = "Der QR-Code enthält Ihre persönlichen Angaben. Stellen Sie Ihren persönlichen QR-Code niemandem zur Verfügung, wenn Sie nicht wollen, dass die Daten ausgelesen werden. Wir empfehlen Ihren persönlichen QR-Code nicht zu veröffentlichen und nicht per E-Mail zu versenden.";
+
+"ExposureSubmission_Antigen_Profile_Legal_Text07" = "Private Personen oder Unternehmen dürfen von Ihnen nicht verlangen, dass Sie Ihr Schnelltest-Profil vorzeigen.";
+
+/* Health Certificate Information */
+
+"HealthCertificate_Info_Legal_headline" = "Datenschutz und Datensicherheit";
+
+"HealthCertificate_Info_Legal_section01" = "​Die Verwendung des digitalen Impfnachweises ist freiwillig. Der Nachweis des vollständigen Impfschutzes kann auch auf andere Weise erbracht werden (z.B. mit dem gelben Impfausweis).";
+
+"HealthCertificate_Info_Legal_section02" = "Das Impfzertifikat enthält die Daten über Ihre Corona-Impfung. Zum Nachweis Ihres Impfschutzes in den gesetzlich vorgesehenen Fällen genügt das Vorzeigen des QR-Codes in der App. Stellen Sie die Impfzertifikate und QR-Codes niemandem zur Verfügung, wenn Sie nicht wollen, dass die Daten ausgelesen werden.";
+
+"HealthCertificate_Info_Legal_section03" = "Wenn Sie den QR-Code in der App vorzeigen und dieser mit der Prüf-App gescannt wird, können andere Personen nachvollziehen, ob Ihr Impfschutz vollständig ist. Bei der Prüfung werden in der offiziellen Prüf-App auch Ihr Name und ihr Geburtsdatum angezeigt.";
+
+"HealthCertificate_Info_Legal_section04" = "Sie haben jederzeit die Möglichkeit, Impfzertifikate in der App wieder zu entfernen. Bis dahin bleiben die Impfzertifikate auf Ihrem Smartphone gespeichert.";
+
+"HealthCertificate_Info_disclaimer" = "Ausführliche Informationen zur Datenverarbeitung finden Sie in der Datenschutzerklärung.";

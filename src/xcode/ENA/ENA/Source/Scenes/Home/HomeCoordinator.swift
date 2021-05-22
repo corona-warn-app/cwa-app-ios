@@ -5,176 +5,219 @@
 import UIKit
 
 class HomeCoordinator: RequiresAppDependencies {
-	private weak var delegate: CoordinatorDelegate?
-	private let otpService: OTPServiceProviding
-	private let eventStore: EventStoringProviding
 
-	let rootViewController: UINavigationController = AppNavigationController(rootViewController: UIViewController())
-
-	private var homeController: HomeTableViewController?
-	private var homeState: HomeState?
-
-	private var settingsController: SettingsViewController?
-
-	private var traceLocationsCoordinator: TraceLocationsCoordinator?
-	private var settingsCoordinator: SettingsCoordinator?
-
-	private var exposureDetectionCoordinator: ExposureDetectionCoordinator?
-	
-	private lazy var exposureSubmissionService: ExposureSubmissionService = {
-		ExposureSubmissionServiceFactory.create(
-			diagnosisKeysRetrieval: self.exposureManager,
-			appConfigurationProvider: appConfigurationProvider,
-			client: self.client,
-			store: self.store
-		)
-	}()
-
-	private lazy var statisticsProvider: StatisticsProvider = {
-		#if DEBUG
-		let useMockDataForStatistics = UserDefaults.standard.string(forKey: "useMockDataForStatistics")
-		if isUITesting, useMockDataForStatistics != "NO" {
-			return StatisticsProvider(
-				client: CachingHTTPClientMock(store: store),
-				store: store
-			)
-		}
-		#endif
-
-		return StatisticsProvider(
-			client: CachingHTTPClient(serverEnvironmentProvider: store),
-			store: store
-		)
-	}()
-	
-	private lazy var qrCodePosterTemplateProvider: QRCodePosterTemplateProvider = {
-		return QRCodePosterTemplateProvider(
-			client: CachingHTTPClient(serverEnvironmentProvider: store),
-			store: store
-		)
-	}()
-	
-	private var enStateUpdateList = NSHashTable<AnyObject>.weakObjects()
+	// MARK: - Init
 
 	init(
 		_ delegate: CoordinatorDelegate,
 		otpService: OTPServiceProviding,
-		eventStore: EventStoringProviding
+		ppacService: PrivacyPreservingAccessControl,
+		eventStore: EventStoringProviding,
+		coronaTestService: CoronaTestService,
+		healthCertificateService: HealthCertificateServiceProviding
 	) {
 		self.delegate = delegate
 		self.otpService = otpService
+		self.ppacService = ppacService
 		self.eventStore = eventStore
+		self.coronaTestService = coronaTestService
+		self.healthCertificateService = healthCertificateService
 	}
 
 	deinit {
 		enStateUpdateList.removeAllObjects()
 	}
 
-	func showHome(enStateHandler: ENStateHandler) {
-		if homeController == nil {
-			let homeState = HomeState(
-				store: store,
-				riskProvider: riskProvider,
-				exposureManagerState: exposureManager.exposureManagerState,
-				enState: enStateHandler.state,
-				exposureSubmissionService: exposureSubmissionService,
-				statisticsProvider: statisticsProvider
-			)
+	// MARK: - Internal
 
-			let homeController = HomeTableViewController(
-				viewModel: HomeTableViewModel(
-					state: homeState,
-					store: store
-				),
-				appConfigurationProvider: appConfigurationProvider,
-				onInfoBarButtonItemTap: { [weak self] in
-					self?.showRiskLegend()
-				},
-				onExposureLoggingCellTap: { [weak self] enState in
-					self?.showExposureNotificationSetting(enState: enState)
-				},
-				onRiskCellTap: { [weak self] homeState in
-					self?.showExposureDetection(state: homeState)
-				},
-				onInactiveCellButtonTap: { [weak self] enState in
-					self?.showExposureNotificationSetting(enState: enState)
-				},
-				onTestResultCellTap: { [weak self] testResult in
-					self?.showExposureSubmission(with: testResult)
-				},
-				onStatisticsInfoButtonTap: { [weak self] in
-					self?.showStatisticsInfo()
-				},
-				onTraceLocationsCellTap: { [weak self] in
-					self?.showTraceLocations()
-				},
-				onInviteFriendsCellTap: { [weak self] in
-					self?.showInviteFriends()
-				},
-				onFAQCellTap: { [weak self] in
-					guard let self = self else { return }
-					self.showWebPage(from: self.rootViewController, urlString: AppStrings.SafariView.targetURL)
-				},
-				onAppInformationCellTap: { [weak self] in
-					self?.showAppInformation()
-				},
-				onSettingsCellTap: { [weak self] enState in
-					self?.showSettings(enState: enState)
-				}
-			)
+	let rootViewController: UINavigationController = AppNavigationController(rootViewController: UIViewController())
 
-			self.homeState = homeState
-			self.homeController = homeController
-			addToEnStateUpdateList(homeState)
-
-			UIView.transition(with: rootViewController.view, duration: CATransaction.animationDuration(), options: [.transitionCrossDissolve], animations: {
-				self.rootViewController.setViewControllers([homeController], animated: false)
-				#if !RELEASE
-				self.enableDeveloperMenuIfAllowed(in: homeController)
-				#endif
-			})
-		} else {
-			rootViewController.dismiss(animated: false)
-			rootViewController.popToRootViewController(animated: false)
-
-			homeController?.scrollToTop(animated: false)
+	func showHome(enStateHandler: ENStateHandler, route: Route?) {
+		guard homeController == nil else {
+			guard case .rapidAntigen = route else {
+				rootViewController.dismiss(animated: false)
+				rootViewController.popToRootViewController(animated: false)
+				homeController?.scrollToTop(animated: false)
+				return
+			}
+			// only select tab if route is .rapidAntigen
+			selectHomeTabSection(route: route)
+			return
 		}
+		let homeState = HomeState(
+			store: store,
+			riskProvider: riskProvider,
+			exposureManagerState: exposureManager.exposureManagerState,
+			enState: enStateHandler.state,
+			statisticsProvider: statisticsProvider
+		)
+
+		let homeController = HomeTableViewController(
+			viewModel: HomeTableViewModel(
+				state: homeState,
+				store: store,
+				coronaTestService: coronaTestService,
+				healthCertificateService: healthCertificateService,
+				onTestResultCellTap: { [weak self] coronaTestType in
+					self?.showExposureSubmission(testType: coronaTestType)
+				}
+			),
+			appConfigurationProvider: appConfigurationProvider,
+			route: route,
+			onInfoBarButtonItemTap: { [weak self] in
+				self?.showRiskLegend()
+			},
+			onExposureLoggingCellTap: { [weak self] enState in
+				self?.showExposureNotificationSetting(enState: enState)
+			},
+			onRiskCellTap: { [weak self] homeState in
+				self?.showExposureDetection(state: homeState)
+			},
+			onInactiveCellButtonTap: { [weak self] enState in
+				self?.showExposureNotificationSetting(enState: enState)
+			},
+			onTestRegistrationCellTap: { [weak self] in
+				self?.showExposureSubmission()
+			},
+			onStatisticsInfoButtonTap: { [weak self] in
+				self?.showStatisticsInfo()
+			},
+			onTraceLocationsCellTap: { [weak self] in
+				self?.showTraceLocations()
+			},
+			onInviteFriendsCellTap: { [weak self] in
+				self?.showInviteFriends()
+			},
+			onFAQCellTap: { [weak self] in
+				guard let self = self else { return }
+				self.showWebPage(from: self.rootViewController, urlString: AppStrings.SafariView.targetURL)
+			},
+			onAppInformationCellTap: { [weak self] in
+				self?.showAppInformation()
+			},
+			onSettingsCellTap: { [weak self] enState in
+				self?.showSettings(enState: enState)
+			},
+			showTestInformationResult: { [weak self] testInformationResult in
+			   self?.showExposureSubmission(testInformationResult: testInformationResult)
+			},
+			onCreateHealthCertificateTap: { [weak self] in
+				self?.showCreateHealthCertificate()
+			},
+			onCertifiedPersonTap: { [weak self] healthCertifiedPerson in
+				self?.showCertifiedPerson(healthCertifiedPerson)
+			}
+		)
+
+		self.homeState = homeState
+		self.homeController = homeController
+		addToEnStateUpdateList(homeState)
+
+		UIView.transition(with: rootViewController.view, duration: CATransaction.animationDuration(), options: [.transitionCrossDissolve], animations: {
+			self.rootViewController.setViewControllers([homeController], animated: false)
+			#if !RELEASE
+			self.enableDeveloperMenuIfAllowed(in: homeController)
+			#endif
+		})
 	}
-	
-	func showTestResultFromNotification(with result: TestResult) {
+
+	func showTestResultFromNotification(with testType: CoronaTestType) {
 		if let presentedViewController = rootViewController.presentedViewController {
 			presentedViewController.dismiss(animated: true) {
-				self.showExposureSubmission(with: result)
+				self.showExposureSubmission(testType: testType)
 			}
 		} else {
-			self.showExposureSubmission(with: result)
+			self.showExposureSubmission(testType: testType)
 		}
 	}
-	
+
 	func updateDetectionMode(
 		_ detectionMode: DetectionMode
 	) {
 		homeState?.updateDetectionMode(detectionMode)
 	}
 
-	#if !RELEASE
-	private var developerMenu: DMDeveloperMenu?
-	private func enableDeveloperMenuIfAllowed(in controller: UIViewController) {
+	// MARK: - Private
 
-		developerMenu = DMDeveloperMenu(
-			presentingViewController: controller,
+	private let ppacService: PrivacyPreservingAccessControl
+	private let otpService: OTPServiceProviding
+	private let eventStore: EventStoringProviding
+	private let coronaTestService: CoronaTestService
+	private let healthCertificateService: HealthCertificateServiceProviding
+
+	private var homeController: HomeTableViewController?
+	private var homeState: HomeState?
+	private var settingsController: SettingsViewController?
+	private var traceLocationsCoordinator: TraceLocationsCoordinator?
+	private var settingsCoordinator: SettingsCoordinator?
+	private var exposureDetectionCoordinator: ExposureDetectionCoordinator?
+	private var healthCertificateCoordinator: HealthCertificateCoordinator?
+
+	private var enStateUpdateList = NSHashTable<AnyObject>.weakObjects()
+
+	private weak var delegate: CoordinatorDelegate?
+
+	private lazy var exposureSubmissionService: ExposureSubmissionService = {
+		#if DEBUG
+		if isUITesting {
+			return ENAExposureSubmissionService(
+				diagnosisKeysRetrieval: exposureManager,
+				appConfigurationProvider: CachedAppConfigurationMock(with: CachedAppConfigurationMock.screenshotConfiguration),
+				client: ClientMock(),
+				store: MockTestStore(),
+				eventStore: eventStore,
+				coronaTestService: coronaTestService
+			)
+		}
+		#endif
+
+		return ENAExposureSubmissionService(
+			diagnosisKeysRetrieval: exposureManager,
+			appConfigurationProvider: appConfigurationProvider,
 			client: client,
-			wifiClient: wifiClient,
 			store: store,
-			exposureManager: exposureManager,
-			developerStore: UserDefaults.standard,
-			exposureSubmissionService: exposureSubmissionService,
-			serverEnvironment: serverEnvironment,
-			otpService: otpService
+			eventStore: eventStore,
+			coronaTestService: coronaTestService
 		)
-		developerMenu?.enableIfAllowed()
+	}()
+
+	private lazy var statisticsProvider: StatisticsProvider = {
+			#if DEBUG
+			let useMockDataForStatistics = UserDefaults.standard.string(forKey: "useMockDataForStatistics")
+			if isUITesting, useMockDataForStatistics != "NO" {
+				return StatisticsProvider(
+					client: CachingHTTPClientMock(),
+					store: store
+				)
+			}
+			#endif
+
+			return StatisticsProvider(
+				client: CachingHTTPClient(),
+				store: store
+			)
+		}()
+		
+		private lazy var qrCodePosterTemplateProvider: QRCodePosterTemplateProvider = {
+			return QRCodePosterTemplateProvider(
+				client: CachingHTTPClient(),
+				store: store
+			)
+		}()
+
+	private func selectHomeTabSection(route: Route?) {
+		DispatchQueue.main.async { [weak self] in
+			guard let rootViewController = self?.rootViewController,
+				let index = self?.homeController?.tabBarController?.viewControllers?.firstIndex(of: rootViewController) else {
+				Log.debug("Failed to find tabBarController and select correct tab")
+				return
+			}
+			self?.homeController?.tabBarController?.dismiss(animated: false)
+			self?.homeController?.tabBarController?.selectedIndex = index
+			self?.homeController?.route = route
+			self?.homeController?.showDeltaOnboardingAndAlertsIfNeeded()
+		}
 	}
-	#endif
 
 	private func setExposureManagerEnabled(_ enabled: Bool, then completion: @escaping (ExposureNotificationError?) -> Void) {
 		if enabled {
@@ -221,28 +264,32 @@ class HomeCoordinator: RequiresAppDependencies {
 			homeState: homeState,
 			exposureManager: exposureManager,
 			appConfigurationProvider: appConfigurationProvider,
-			otpService: otpService
+			otpService: otpService,
+			ppacService: ppacService
 		)
 		exposureDetectionCoordinator?.start()
 	}
 
-
-	private func showExposureSubmission(with result: TestResult? = nil) {
+	private func showExposureSubmission(testType: CoronaTestType? = nil, testInformationResult: Result<CoronaTestQRCodeInformation, QRCodeError>? = nil) {
 		// A strong reference to the coordinator is passed to the exposure submission navigation controller
 		// when .start() is called. The coordinator is then bound to the lifecycle of this navigation controller
 		// which is managed by UIKit.
 		let coordinator = ExposureSubmissionCoordinator(
-			warnOthersReminder: WarnOthersReminder(store: store),
 			parentNavigationController: rootViewController,
 			exposureSubmissionService: exposureSubmissionService,
-			store: self.store,
-			delegate: self
+			coronaTestService: coronaTestService,
+			eventProvider: eventStore,
+			antigenTestProfileStore: store
 		)
 
-		coordinator.start(with: result)
+		if let testInformationResult = testInformationResult {
+			coordinator.start(with: testInformationResult)
+		} else {
+			coordinator.start(with: testType)
+		}
 	}
 
-	func showStatisticsInfo() {
+	private func showStatisticsInfo() {
 		let statisticsInfoController = StatisticsInfoViewController(
 			onDismiss: { [weak rootViewController] in
 				rootViewController?.dismiss(animated: true)
@@ -258,6 +305,7 @@ class HomeCoordinator: RequiresAppDependencies {
 	private func showTraceLocations() {
 		traceLocationsCoordinator = TraceLocationsCoordinator(
 			store: store,
+			appConfig: appConfigurationProvider,
 			qrCodePosterTemplateProvider: qrCodePosterTemplateProvider,
 			eventStore: eventStore,
 			parentNavigationController: rootViewController
@@ -279,7 +327,10 @@ class HomeCoordinator: RequiresAppDependencies {
 
 	private func showAppInformation() {
 		rootViewController.pushViewController(
-			AppInformationViewController(),
+			AppInformationViewController(
+				ppacService: ppacService,
+				otpService: otpService
+			),
 			animated: true
 		)
 	}
@@ -312,13 +363,57 @@ class HomeCoordinator: RequiresAppDependencies {
 		}
 	}
 
-}
+	// MARK: - HealthCertificate
 
-extension HomeCoordinator: ExposureSubmissionCoordinatorDelegate {
-	func exposureSubmissionCoordinatorWillDisappear(_ coordinator: ExposureSubmissionCoordinating) {
-		homeController?.reload()
-		homeState?.updateTestResult()
+	private func showCreateHealthCertificate() {
+		healthCertificateCoordinator = HealthCertificateCoordinator(
+			parentViewController: rootViewController,
+			healthCertificateService: healthCertificateService,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider
+		)
+		healthCertificateCoordinator?.start()
 	}
+
+	private func showCertifiedPerson( _ healthCertifiedPerson: HealthCertifiedPerson) {
+		healthCertificateCoordinator = HealthCertificateCoordinator(
+			parentViewController: rootViewController,
+			healthCertificateService: healthCertificateService,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider
+		)
+		healthCertificateCoordinator?.start(with: healthCertifiedPerson)
+	}
+
+	private var vaccinationValueSetsProvider: VaccinationValueSetsProvider {
+		#if DEBUG
+		if isUITesting {
+			return VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: store)
+		}
+		#endif
+
+		return VaccinationValueSetsProvider(client: CachingHTTPClient(), store: store)
+	}
+
+	#if !RELEASE
+	private var developerMenu: DMDeveloperMenu?
+	private func enableDeveloperMenuIfAllowed(in controller: UIViewController) {
+		developerMenu = DMDeveloperMenu(
+			presentingViewController: controller,
+			client: client,
+			wifiClient: wifiClient,
+			store: store,
+			exposureManager: exposureManager,
+			developerStore: UserDefaults.standard,
+			exposureSubmissionService: exposureSubmissionService,
+			environmentProvider: Environments(),
+			otpService: otpService,
+			coronaTestService: coronaTestService,
+			eventStore: eventStore,
+			qrCodePosterTemplateProvider: qrCodePosterTemplateProvider,
+			ppacService: ppacService
+		)
+		developerMenu?.enableIfAllowed()
+	}
+	#endif
 }
 
 extension HomeCoordinator: ExposureStateUpdating {

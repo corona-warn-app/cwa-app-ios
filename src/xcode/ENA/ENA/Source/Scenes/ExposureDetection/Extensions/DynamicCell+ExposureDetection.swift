@@ -73,7 +73,7 @@ extension DynamicCell {
 
 	static func riskStored(daysSinceInstallation: Int) -> DynamicCell {
 		.risk { _, cell, _ in
-			cell.textLabel?.text = String(format: AppStrings.ExposureDetection.daysSinceInstallation, daysSinceInstallation)
+			cell.textLabel?.text = String(format: AppStrings.Home.daysSinceInstallation, daysSinceInstallation)
 			cell.imageView?.image = UIImage(named: "Icons-DaysSinceInstall")
 		}
 	}
@@ -81,7 +81,11 @@ extension DynamicCell {
 	static func riskRefreshed(text: String, image: UIImage?) -> DynamicCell {
 		.risk { viewController, cell, _ in
 			var valueText: String
-			if let date: Date = viewController.store.riskCalculationResult?.calculationDate {
+
+			if	let enfRiskCalulationResult = viewController.store.enfRiskCalculationResult,
+				  let checkinRiskCalculationResult = viewController.store.checkinRiskCalculationResult,
+				  let date = Risk(enfRiskCalculationResult: enfRiskCalulationResult, checkinCalculationResult: checkinRiskCalculationResult).details.calculationDate {
+				
 				valueText = relativeDateTimeFormatter.string(from: date)
 			} else {
 				valueText = AppStrings.ExposureDetection.refreshedNever
@@ -157,9 +161,10 @@ extension DynamicCell {
 		}
 	}
 
-	static func link(text: String, url: URL?) -> DynamicCell {
+	static func link(text: String, url: URL?, accessibilityIdentifier: String? = nil) -> DynamicCell {
 		.custom(withIdentifier: ExposureDetectionViewController.ReusableCellIdentifier.link, action: .open(url: url)) { _, cell, _ in
 			cell.textLabel?.text = text
+			cell.textLabel?.accessibilityIdentifier = accessibilityIdentifier
 		}
 	}
 

@@ -13,7 +13,9 @@ class DMPPAnalyticsMostRecent: UIViewController {
 	init(
 		store: Store,
 		client: Client,
-		appConfig: AppConfigurationProviding
+		appConfig: AppConfigurationProviding,
+		coronaTestService: CoronaTestService,
+		ppacService: PrivacyPreservingAccessControl
 	) {
 		self.store = store
 		self.client = client
@@ -21,7 +23,10 @@ class DMPPAnalyticsMostRecent: UIViewController {
 		self.submitter = PPAnalyticsSubmitter(
 			store: store,
 			client: client,
-			appConfig: appConfig)
+			appConfig: appConfig,
+			coronaTestService: coronaTestService,
+			ppacService: ppacService
+		)
 
 		super.init(nibName: nil, bundle: nil)
 	}

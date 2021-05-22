@@ -13,12 +13,13 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		
 		// ADD NEW FEATURES HERE
 		
-		self.featureVersion = "2.0"
+		self.featureVersion = "2.3"
 		
-		// Event registration
+		// Digital Vaccination Certificate
 		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature200EventRegistrationTitle, description: AppStrings.NewVersionFeatures.feature200EventRegistrationDescription)
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature23digitalVaccinationCertificateTitle, description: AppStrings.NewVersionFeatures.feature23digitalVaccinationCertificateDescription)
 		)
+		
 	}
 
 	// MARK: - Internal
@@ -30,8 +31,10 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 			$0.add(
 				.section(
 					cells: [
-						.subheadline(text: "\(AppStrings.NewVersionFeatures.release) \(self.featureVersion)",
-									 color: UIColor.enaColor(for: .textPrimary1), accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.newVersionFeaturesVersionInfo)
+						.subheadline(
+							text: "\(AppStrings.NewVersionFeatures.release) \(self.featureVersion)",
+							color: UIColor.enaColor(for: .textPrimary1), accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.newVersionFeaturesVersionInfo
+						)
 					]
 				)
 			)
@@ -57,9 +60,11 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 			$0.add(
 				.section(
 					cells: [
-						.body(text: AppStrings.NewVersionFeatures.aboutAppInformation,
-							  color: .enaColor(for: .textPrimary1),
-							  accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.newVersionFeaturesGeneralAboutAppInformation)
+						.body(
+							text: AppStrings.NewVersionFeatures.aboutAppInformation,
+							color: .enaColor(for: .textPrimary1),
+							accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.newVersionFeaturesGeneralAboutAppInformation
+						)
 					]
 				)
 			)

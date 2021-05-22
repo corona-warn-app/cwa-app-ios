@@ -20,9 +20,37 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 		exposureHistoryDetailLabel.style = .subheadline
 		exposureHistoryDetailLabel.textColor = .enaColor(for: .textPrimary2)
 
+		// Check-Ins with risk
+		checkinHistoryStackView.isHidden = cellViewModel.hideCheckinRisk
+		checkinHistoryNoticeImageView.image = cellViewModel.checkinImage
+		checkinHistoryTitleLabel.text = cellViewModel.checkinTitleHeadlineText
+		checkinHistoryTitleLabel.accessibilityIdentifier = cellViewModel.checkinTitleAccessibilityIdentifier
+		checkinHistoryTitleLabel.style = .body
+		checkinHistoryDetailLabel.text = cellViewModel.checkinDetailDescription
+		checkinHistoryDetailLabel.style = .subheadline
+		checkinHistoryDetailLabel.textColor = .enaColor(for: .textPrimary2)
+		
+		checkinsWithRiskStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+		
+		cellViewModel.checkinsWithRisk.enumerated().forEach { index, riskyCheckin in
+			let checkInLabel = ENALabel()
+			checkInLabel.adjustsFontForContentSizeCategory = true
+			checkInLabel.numberOfLines = 0
+			checkInLabel.style = .subheadline
+			checkInLabel.textColor = .enaColor(for: .textPrimary2)
+			let riskColor = cellViewModel.colorFor(riskLevel: riskyCheckin.risk)
+			let eventName = cellViewModel.checkInDespription(checkinWithRisk: riskyCheckin)
+			let checkinName = NSAttributedString(string: eventName).bulletPointString(bulletPointFont: .enaFont(for: .title2, weight: .bold, italic: false), bulletPointColor: riskColor)
+			
+			checkInLabel.attributedText = checkinName
+			checkInLabel.isAccessibilityElement = true
+			checkInLabel.accessibilityIdentifier = "CheckinWithRisk\(index)"
+			checkinsWithRiskStackView.addArrangedSubview(checkInLabel)
+		}
+		
 		encountersVisitsStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 
-		for entry in cellViewModel.selectedEntries {
+		cellViewModel.selectedEntries.enumerated().forEach { index, entry in
 			let imageView = UIImageView()
 			NSLayoutConstraint.activate([
 				imageView.widthAnchor.constraint(equalToConstant: 32),
@@ -55,6 +83,7 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 			case .contactPerson(let contactPerson):
 				imageView.image = UIImage(named: "Icons_Diary_ContactPerson")
 				entryLabel.text = contactPerson.name
+				entryLabel.accessibilityIdentifier = String(format: AccessibilityIdentifiers.ContactDiaryInformation.Overview.person, index)
 
 				if let personEncounter = contactPerson.encounter {
 					let detailLabelText = cellViewModel.entryDetailTextFor(personEncounter: personEncounter)
@@ -72,6 +101,7 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 			case .location(let location):
 				imageView.image = UIImage(named: "Icons_Diary_Location")
 				entryLabel.text = location.name
+				entryLabel.accessibilityIdentifier = String(format: AccessibilityIdentifiers.ContactDiaryInformation.Overview.location, index)
 
 				if let locationVisit = location.visit {
 					let detailLabelText = cellViewModel.entryDetailTextFor(locationVisit: locationVisit)
@@ -102,6 +132,7 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 		encountersVisitsContainerStackView.isHidden = encountersVisitsStackView.arrangedSubviews.isEmpty
 
 		accessibilityTraits = [.button]
+		accessibilityIdentifier = String(format: AccessibilityIdentifiers.ContactDiaryInformation.Overview.cell, cellViewModel.accessibilityIdentifierIndex)
 	}
 
 	// MARK: - Private
@@ -113,4 +144,11 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 	@IBOutlet private weak var exposureHistoryNoticeImageView: UIImageView!
 	@IBOutlet private weak var exposureHistoryTitleLabel: ENALabel!
 	@IBOutlet private weak var exposureHistoryDetailLabel: ENALabel!
+	
+	// Check-Ins with risk
+	@IBOutlet private weak var checkinHistoryStackView: UIStackView!
+	@IBOutlet private weak var checkinHistoryNoticeImageView: UIImageView!
+	@IBOutlet private weak var checkinHistoryTitleLabel: ENALabel!
+	@IBOutlet private weak var checkinHistoryDetailLabel: ENALabel!
+	@IBOutlet private weak var checkinsWithRiskStackView: UIStackView!
 }

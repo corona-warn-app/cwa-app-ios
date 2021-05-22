@@ -17,7 +17,7 @@ class QRCodePosterTemplateProviderTests: XCTestCase {
 		let store = MockTestStore()
 		XCTAssertNil(store.qrCodePosterTemplateMetadata)
 
-		let client = CachingHTTPClientMock(store: store)
+		let client = CachingHTTPClientMock()
 		client.fetchQRCodePosterTemplateData(etag: "fake") { result in
 			switch result {
 			case .success(let response):
@@ -38,7 +38,7 @@ class QRCodePosterTemplateProviderTests: XCTestCase {
 		valueReceived.expectedFulfillmentCount = 1
 
 		let store = MockTestStore()
-		let client = CachingHTTPClientMock(store: store)
+		let client = CachingHTTPClientMock()
 		let provider = QRCodePosterTemplateProvider(client: client, store: store)
 		provider.latestQRCodePosterTemplate()
 			.sink(receiveCompletion: { result in
@@ -59,11 +59,10 @@ class QRCodePosterTemplateProviderTests: XCTestCase {
 	}
 	
 	func testQRCodePosterTemplateProvidingHTTPErrors() throws {
-		let responseReceived = expectation(description: "Response received")
-		responseReceived.expectedFulfillmentCount = 1
+		let defaultTemplateReceived = expectation(description: "Default template received")
 
 		let store = MockTestStore()
-		let client = CachingHTTPClientMock(store: store)
+		let client = CachingHTTPClientMock()
 		client.onFetchQRCodePosterTemplateData = { _, completeWith in
 			// fake a broken backend
 			let error = URLSessionError.serverError(503)
@@ -75,18 +74,14 @@ class QRCodePosterTemplateProviderTests: XCTestCase {
 			.sink(receiveCompletion: { result in
 				switch result {
 				case .finished:
-					XCTFail("Did not expect a success")
-				case .failure(let error):
-					switch error {
-					case URLSessionError.serverError(let code):
-						XCTAssertEqual(code, 503)
-						responseReceived.fulfill()
-					default:
-						XCTFail("Expected a different error")
-					}
+					break
+				case .failure:
+					XCTFail("Did not expect an error")
 				}
-			}, receiveValue: { _ in
-				XCTFail("Did not expect a value")
+			}, receiveValue: { qrCodePosterTemplate in
+				XCTAssertNotNil(qrCodePosterTemplate)
+				XCTAssertNotNil(qrCodePosterTemplate.template)
+				defaultTemplateReceived.fulfill()
 			})
 			.store(in: &subscriptions)
 
@@ -104,7 +99,7 @@ class QRCodePosterTemplateProviderTests: XCTestCase {
 			qrCodePosterTemplate: CachingHTTPClientMock.staticQRCodeTemplate)
 		
 		// Fake, backend returns HTTP 304
-		let client = CachingHTTPClientMock(store: store)
+		let client = CachingHTTPClientMock()
 		client.onFetchQRCodePosterTemplateData = { _, completeWith in
 			let error = URLSessionError.notModified
 			completeWith(.failure(error))
@@ -131,16 +126,16 @@ class QRCodePosterTemplateProviderTests: XCTestCase {
 	}
 	
 	func testQRCodePosterTemplateProvidingInvalidCacheState() throws {
-		let checkpoint = expectation(description: "Value received")
-		checkpoint.expectedFulfillmentCount = 2
+		let defaultTemplateReceived = expectation(description: "Default template received")
+		defaultTemplateReceived.expectedFulfillmentCount = 2
 
 		let store = MockTestStore()
 
-		let client = CachingHTTPClientMock(store: store)
+		let client = CachingHTTPClientMock()
 		client.onFetchQRCodePosterTemplateData = { _, completeWith in
 			let error = URLSessionError.notModified
 			completeWith(.failure(error))
-			checkpoint.fulfill()
+			defaultTemplateReceived.fulfill()
 		}
 
 		let provider = QRCodePosterTemplateProvider(client: client, store: store)
@@ -148,17 +143,14 @@ class QRCodePosterTemplateProviderTests: XCTestCase {
 			.sink(receiveCompletion: { result in
 				switch result {
 				case .finished:
-					XCTFail("Expected an error!")
-				case .failure(let error):
-					switch error {
-					case URLSessionError.notModified:
-						checkpoint.fulfill()
-					default:
-						XCTFail("Expected a different error")
-					}
+					break
+				case .failure:
+					XCTFail("Did not expect an error")
 				}
-			}, receiveValue: { _ in
-				XCTFail("not expected")
+			}, receiveValue: { qrCodePosterTemplate in
+				XCTAssertNotNil(qrCodePosterTemplate)
+				XCTAssertNotNil(qrCodePosterTemplate.template)
+				defaultTemplateReceived.fulfill()
 			})
 			.store(in: &subscriptions)
 

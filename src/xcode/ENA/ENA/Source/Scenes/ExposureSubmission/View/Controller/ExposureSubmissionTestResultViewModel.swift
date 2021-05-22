@@ -10,53 +10,66 @@ class ExposureSubmissionTestResultViewModel {
 	// MARK: - Init
 	
 	init(
-		testResult: TestResult,
-		exposureSubmissionService: ExposureSubmissionService,
-		warnOthersReminder: WarnOthersRemindable,
+		coronaTestType: CoronaTestType,
+		coronaTestService: CoronaTestService,
 		onSubmissionConsentCellTap: @escaping (@escaping (Bool) -> Void) -> Void,
 		onContinueWithSymptomsFlowButtonTap: @escaping () -> Void,
 		onContinueWarnOthersButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
 		onChangeToPositiveTestResult: @escaping () -> Void,
 		onTestDeleted: @escaping () -> Void
 	) {
-		self.testResult = testResult
-		self.exposureSubmissionService = exposureSubmissionService
-		self.warnOthersReminder = warnOthersReminder
+		self.coronaTestType = coronaTestType
+		self.coronaTestService = coronaTestService
 		self.onSubmissionConsentCellTap = onSubmissionConsentCellTap
 		self.onContinueWithSymptomsFlowButtonTap = onContinueWithSymptomsFlowButtonTap
 		self.onContinueWarnOthersButtonTap = onContinueWarnOthersButtonTap
 		self.onChangeToPositiveTestResult = onChangeToPositiveTestResult
 		self.onTestDeleted = onTestDeleted
 
-		updateForCurrentTestResult()
-		bindToSubmissionConsent()
+		guard let coronaTest = coronaTestService.coronaTest(ofType: coronaTestType) else {
+			onTestDeleted()
+			return
+		}
+
+		self.coronaTest = coronaTest
+		bindToCoronaTestUpdates()
 	}
 	
 	// MARK: - Internal
 	
+	let onSubmissionConsentCellTap: (@escaping (Bool) -> Void) -> Void
+	
 	@OpenCombine.Published var dynamicTableViewModel: DynamicTableViewModel = DynamicTableViewModel([])
 	@OpenCombine.Published var shouldShowDeletionConfirmationAlert: Bool = false
-	@OpenCombine.Published var error: ExposureSubmissionError?
+	@OpenCombine.Published var error: CoronaTestServiceError?
 	@OpenCombine.Published var shouldAttemptToDismiss: Bool = false
 	@OpenCombine.Published var footerViewModel: FooterViewModel?
-
-	var testResult: TestResult {
-		didSet {
-			updateForCurrentTestResult()
+	
+	var coronaTest: CoronaTest!
+	
+	var timeStamp: Int64? {
+		coronaTestService.coronaTest(ofType: coronaTestType).map { Int64($0.testDate.timeIntervalSince1970) }
+	}
+	
+	var title: String {
+		if showSpecialCaseForNegativeAntigenTest {
+			return AppStrings.ExposureSubmissionResult.Antigen.title
+		} else {
+			return AppStrings.ExposureSubmissionResult.PCR.title
 		}
 	}
 	
-	var timeStamp: Int64? {
-		exposureSubmissionService.devicePairingSuccessfulTimestamp
-	}
-	
 	func didTapPrimaryButton() {
-		switch testResult {
+		switch coronaTest.testResult {
 		case .positive:
-			// Determine next step based on consent state. In case the user has given exposure
-			// submission consent, we continue with collecting onset of symptoms.
-			// Otherwise we continue with the warn others process
-			if isSubmissionConsentGiven {
+			// Determine next step based on consent and submission state.
+			// If the keys were submitted, the test is supposed to be deleted and the alert is shown.
+			// If the keys were not yet submitted, the following scenarios can occur:
+			// In case the user has given exposure submission consent, we continue with collecting onset of symptoms.
+			// Otherwise we continue with the warn others process.
+			if coronaTest.keysSubmitted {
+				shouldShowDeletionConfirmationAlert = true
+			} else if coronaTest.isSubmissionConsentGiven {
 				Log.info("Positive Test Result: Next -> 'onset of symptoms'.")
 				onContinueWithSymptomsFlowButtonTap()
 			} else {
@@ -65,20 +78,15 @@ class ExposureSubmissionTestResultViewModel {
 					self?.primaryButtonIsLoading = isLoading
 				}
 			}
-			
 		case .negative, .invalid, .expired:
 			shouldShowDeletionConfirmationAlert = true
 		case .pending:
-			primaryButtonIsLoading = true
-			
-			refreshTest { [weak self] in
-				self?.primaryButtonIsLoading = false
-			}
+			refreshTest()
 		}
 	}
 	
 	func didTapSecondaryButton() {
-		switch testResult {
+		switch coronaTest.testResult {
 		case .positive:
 			self.shouldAttemptToDismiss = true
 		case .pending:
@@ -89,33 +97,35 @@ class ExposureSubmissionTestResultViewModel {
 	}
 	
 	func deleteTest() {
-		exposureSubmissionService.deleteTest()
+		coronaTestService.removeTest(coronaTestType)
 		onTestDeleted()
-		
-		// Update warn others model
-		self.warnOthersReminder.reset()
 	}
 	
 	func updateWarnOthers() {
-		warnOthersReminder.evaluateShowingTestResult(testResult)
+		coronaTestService.evaluateShowingTest(ofType: coronaTestType)
+	}
+	
+	func updateTestResultIfPossible() {
+		guard coronaTest.testResult == .pending else {
+			Log.info("Not refreshing test because status is pending")
+			return
+		}
+		refreshTest()
 	}
 	
 	// MARK: - Private
 	
-	private var exposureSubmissionService: ExposureSubmissionService
-	private var warnOthersReminder: WarnOthersRemindable
+	private var coronaTestService: CoronaTestService
 
-	private let onSubmissionConsentCellTap: (@escaping (Bool) -> Void) -> Void
+	private let coronaTestType: CoronaTestType
+
 	private let onContinueWithSymptomsFlowButtonTap: () -> Void
 	private let onContinueWarnOthersButtonTap: (@escaping (Bool) -> Void) -> Void
 
 	private let onChangeToPositiveTestResult: () -> Void
 	private let onTestDeleted: () -> Void
 
-	private var isSubmissionConsentGiven: Bool = false
-
-	private var cancellables: Set<AnyCancellable> = []
-	
+	private var subscriptions = Set<AnyCancellable>()
 	
 	private var primaryButtonIsLoading: Bool = false {
 		didSet {
@@ -123,65 +133,179 @@ class ExposureSubmissionTestResultViewModel {
 			footerViewModel?.setLoadingIndicator(false, disable: primaryButtonIsLoading, button: .secondary)
 		}
 	}
+	
+	private var showSpecialCaseForNegativeAntigenTest: Bool {
+		return coronaTest.type == .antigen && coronaTest.testResult == .negative
+	}
 
-	private func updateForCurrentTestResult() {
-		self.dynamicTableViewModel = DynamicTableViewModel(currentTestResultSections)
-		footerViewModel = ExposureSubmissionTestResultViewModel.footerViewModel(testResult: testResult, isSubmissionConsentGiven: isSubmissionConsentGiven)
+	private func bindToCoronaTestUpdates() {
+		switch coronaTestType {
+		case .pcr:
+			coronaTestService.$pcrTest
+				.sink { [weak self] pcrTest in
+					guard let pcrTest = pcrTest else {
+						return
+					}
+
+					self?.updateForCurrentTestResult(coronaTest: .pcr(pcrTest))
+				}
+				.store(in: &subscriptions)
+		case .antigen:
+			coronaTestService.$antigenTest
+				.sink { [weak self] antigenTest in
+					guard let antigenTest = antigenTest else {
+						return
+					}
+
+					self?.updateForCurrentTestResult(coronaTest: .antigen(antigenTest))
+				}
+				.store(in: &subscriptions)
+		}
+	}
+
+	private func updateForCurrentTestResult(coronaTest: CoronaTest) {
+		// Positive test results are not shown immediately
+		if coronaTest.testResult == .positive && self.coronaTest.testResult != .positive {
+			self.onChangeToPositiveTestResult()
+		}
+
+		self.coronaTest = coronaTest
+
+		let sections: [DynamicSection]
+		switch coronaTest.testResult {
+		case .positive where coronaTest.keysSubmitted:
+			sections = positiveTestResultWithSubmittedKeys
+		case .positive:
+			sections = coronaTest.isSubmissionConsentGiven ? positiveTestResultSectionsWithSubmissionConsent : positiveTestResultSectionsWithoutSubmissionConsent
+		case .negative:
+			if let test = coronaTest.antigenTest, showSpecialCaseForNegativeAntigenTest {
+				sections = negativeAntigenTestResultSections(test: test)
+			} else {
+				sections = negativeTestResultSections
+			}
+		case .invalid:
+			sections = invalidTestResultSections
+		case .pending:
+			sections = pendingTestResultSections
+		case .expired:
+			sections = expiredTestResultSections
+		}
+		dynamicTableViewModel = DynamicTableViewModel(sections)
+		
+		footerViewModel = ExposureSubmissionTestResultViewModel.footerViewModel(coronaTest: coronaTest)
 	}
 	
-	private func refreshTest(completion: @escaping () -> Void) {
-		exposureSubmissionService.getTestResult { [weak self] result in
+	private func refreshTest() {
+		primaryButtonIsLoading = true
+		coronaTestService.updateTestResult(for: coronaTestType) { [weak self] result in
+			guard let self = self else { return }
+			
+			self.primaryButtonIsLoading = false
+			
 			switch result {
 			case let .failure(error):
-				self?.error = error
-			// Positive test results are not shown immediately
-			case let .success(testResult) where testResult == .positive:
-				self?.onChangeToPositiveTestResult()
-			case let .success(testResult):
-				self?.testResult = testResult
-				self?.updateWarnOthers()
+				self.error = error
+			case .success:
+				break
 			}
-			completion()
 		}
 	}
+}
+
+// MARK: - Pending
+extension ExposureSubmissionTestResultViewModel {
 	
-	private var currentTestResultSections: [DynamicSection] {
-		switch testResult {
-		case .positive:
-			return isSubmissionConsentGiven ? positiveTestResultSectionsWithSubmissionConsent : positiveTestResultSectionsWithoutSubmissionConsent
-		case .negative:
-			return negativeTestResultSections
-		case .invalid:
-			return invalidTestResultSections
-		case .pending:
-			return pendingTestResultSections
-		case .expired:
-			return expiredTestResultSections
+	private var pendingTestResultSections: [DynamicSection] {
+		
+		var cells = [DynamicCell.title2(
+						text: AppStrings.ExposureSubmissionResult.procedure,
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure
+		)]
+		
+		switch coronaTest.type {
+		case .pcr:
+			cells.append(contentsOf: [
+							ExposureSubmissionDynamicCell.stepCell(
+								title: AppStrings.ExposureSubmissionResult.PCR.testAdded,
+								description: nil,
+								icon: UIImage(named: "Icons_Grey_Check"),
+								hairline: .iconAttached
+							),
+							
+							ExposureSubmissionDynamicCell.stepCell(
+								title: AppStrings.ExposureSubmissionResult.PCR.testPending,
+								description: AppStrings.ExposureSubmissionResult.PCR.testPendingDesc,
+								icon: UIImage(named: "Icons_Grey_Wait"),
+								hairline: .none
+							)
+			])
+		case .antigen:
+			cells.append(contentsOf: [
+							ExposureSubmissionDynamicCell.stepCell(
+								title: AppStrings.ExposureSubmissionResult.Antigen.testAdded,
+								description: nil,
+								icon: UIImage(named: "Icons_Grey_Check"),
+								hairline: .iconAttached
+							),
+							
+							ExposureSubmissionDynamicCell.stepCell(
+								title: AppStrings.ExposureSubmissionResult.Antigen.testPending,
+								description: AppStrings.ExposureSubmissionResult.Antigen.testPendingDesc,
+								icon: UIImage(named: "Icons_Grey_Wait"),
+								hairline: .none
+							)
+			])
 		}
-	}
-	
-	/// This is the positive result section which will be shown, if the user
-	/// has GIVEN submission consent to share the positive test result with others
-	private var positiveTestResultSectionsWithSubmissionConsent: [DynamicSection] {
-		[
+		
+		return [
 			.section(
 				header: .identifier(
-					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
+					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.pcrTestResult,
 					configure: { view, _ in
-						(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .positive, timeStamp: self.timeStamp)
+						(view as? ExposureSubmissionTestResultHeaderView)?.configure(coronaTest: self.coronaTest, timeStamp: self.timeStamp)
 					}
 				),
-				separators: .none,
+				cells: cells
+			),
+			.section(
+				separators: .all,
 				cells: [
-					.title2(text: AppStrings.ExposureSubmissionPositiveTestResult.withConsentTitle,
-							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionPositiveTestResult.withConsentTitle),
-					.headline(text: AppStrings.ExposureSubmissionPositiveTestResult.withConsentInfo1,
-							  accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionPositiveTestResult.withConsentInfo1),
-					.body(text: AppStrings.ExposureSubmissionPositiveTestResult.withConsentInfo2, accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionPositiveTestResult.withConsentInfo2)
+					.icon(
+						UIImage(imageLiteralResourceName: "Icons_Grey_Warnen"),
+						text: .string(
+							coronaTest.isSubmissionConsentGiven ?
+										AppStrings.ExposureSubmissionResult.warnOthersConsentGiven :
+										AppStrings.ExposureSubmissionResult.warnOthersConsentNotGiven
+						),
+						action: .execute {[weak self] _, cell in
+							guard let self = self else {
+								return
+							}
+							self.onSubmissionConsentCellTap { [weak self] isLoading in
+								let activityIndicatorView = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+								activityIndicatorView.startAnimating()
+								cell?.accessoryView = isLoading ? activityIndicatorView : nil
+								cell?.isUserInteractionEnabled = !isLoading
+								self?.footerViewModel?.setEnabled(!isLoading, button: .primary)
+								self?.footerViewModel?.setEnabled(!isLoading, button: .secondary)
+							}
+						},
+						configure: { _, cell, _ in
+							cell.accessoryType = .disclosureIndicator
+							cell.selectionStyle = .default
+							cell.accessibilityIdentifier = self.coronaTest.isSubmissionConsentGiven ?
+								AccessibilityIdentifiers.ExposureSubmissionResult.warnOthersConsentGivenCell :
+								AccessibilityIdentifiers.ExposureSubmissionResult.warnOthersConsentNotGivenCell
+						}
+					)
 				]
 			)
 		]
 	}
+}
+
+// MARK: - Positiv
+extension ExposureSubmissionTestResultViewModel {
 	
 	/// This is the positive result section which will be shown, if the user
 	/// has NOT GIVEN submission consent to share the positive test result with others
@@ -189,15 +313,17 @@ class ExposureSubmissionTestResultViewModel {
 		[
 			.section(
 				header: .identifier(
-					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
+					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.pcrTestResult,
 					configure: { view, _ in
-						(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .positive, timeStamp: self.timeStamp)
+						(view as? ExposureSubmissionTestResultHeaderView)?.configure(coronaTest: self.coronaTest, timeStamp: self.timeStamp)
 					}
 				),
 				separators: .none,
 				cells: [
-					.title2(text: AppStrings.ExposureSubmissionPositiveTestResult.noConsentTitle,
-							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionPositiveTestResult.noConsentTitle),
+					.title2(
+						text: AppStrings.ExposureSubmissionPositiveTestResult.noConsentTitle,
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionPositiveTestResult.noConsentTitle
+					),
 					
 					ExposureSubmissionDynamicCell.stepCell(
 						title: AppStrings.ExposureSubmissionPositiveTestResult.noConsentInfo1,
@@ -228,45 +354,235 @@ class ExposureSubmissionTestResultViewModel {
 		]
 	}
 	
-	private var negativeTestResultSections: [DynamicSection] {
+	/// This is the positive result section which will be shown, if the user
+	/// has GIVEN submission consent to share the positive test result with others
+	private var positiveTestResultSectionsWithSubmissionConsent: [DynamicSection] {
 		[
 			.section(
 				header: .identifier(
-					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
+					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.pcrTestResult,
 					configure: { view, _ in
-						(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .negative, timeStamp: self.timeStamp)
+						(view as? ExposureSubmissionTestResultHeaderView)?.configure(coronaTest: self.coronaTest, timeStamp: self.timeStamp)
 					}
 				),
 				separators: .none,
 				cells: [
-					.title2(text: AppStrings.ExposureSubmissionResult.procedure,
-							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure),
-					
-					
+					.title2(
+						text: AppStrings.ExposureSubmissionPositiveTestResult.withConsentTitle,
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionPositiveTestResult.withConsentTitle
+					),
+					.headline(
+						text: AppStrings.ExposureSubmissionPositiveTestResult.withConsentInfo1,
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionPositiveTestResult.withConsentInfo1
+					),
+					.body(
+						text: AppStrings.ExposureSubmissionPositiveTestResult.withConsentInfo2,
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionPositiveTestResult.withConsentInfo2
+					)
+				]
+			)
+		]
+	}
+
+	/// This is the positive result section which will be shown, if the user
+	/// has NOT GIVEN submission consent to share the positive test result with others
+	private var positiveTestResultWithSubmittedKeys: [DynamicSection] {
+		var cells: [DynamicCell] = [
+			.body(text: AppStrings.ExposureSubmissionPositiveTestResult.keysSubmittedDescription),
+			.title2(text: AppStrings.ExposureSubmissionPositiveTestResult.keysSubmittedTitle1)
+		]
+
+		if coronaTest.type == .antigen {
+			cells.append(
+				ExposureSubmissionDynamicCell.stepCell(
+					style: .body,
+					title: AppStrings.ExposureSubmissionPositiveTestResult.keysSubmittedInfo1,
+					icon: UIImage(named: "Icons - Test Tube"),
+					iconTint: .enaColor(for: .riskHigh),
+					hairline: .none,
+					bottomSpacing: .medium
+				)
+			)
+		}
+
+		cells.append(contentsOf: [
+			ExposureSubmissionDynamicCell.stepCell(
+				style: .body,
+				title: AppStrings.ExposureSubmissionPositiveTestResult.keysSubmittedInfo2,
+				icon: UIImage(named: "Icons - Hotline"),
+				iconTint: .enaColor(for: .riskHigh),
+				hairline: .none,
+				bottomSpacing: .medium
+			),
+			ExposureSubmissionDynamicCell.stepCell(
+				style: .body,
+				title: AppStrings.ExposureSubmissionPositiveTestResult.keysSubmittedInfo3,
+				icon: UIImage(named: "Icons - Home"),
+				iconTint: .enaColor(for: .riskHigh),
+				hairline: .none,
+				bottomSpacing: .medium
+			),
+			.title2(text: AppStrings.ExposureSubmissionPositiveTestResult.keysSubmittedTitle2),
+			.bulletPoint(
+				text: AppStrings.ExposureSubmissionPositiveTestResult.keysSubmittedFurtherInfo1,
+				spacing: .large
+			),
+			.bulletPoint(
+				text: AppStrings.ExposureSubmissionPositiveTestResult.keysSubmittedFurtherInfo2,
+				spacing: .large
+			),
+			.bulletPoint(
+				text: AppStrings.ExposureSubmissionPositiveTestResult.keysSubmittedFurtherInfo3,
+				spacing: .large
+			),
+			.bulletPoint(
+				text: AppStrings.ExposureSubmissionPositiveTestResult.keysSubmittedFurtherInfo4,
+				spacing: .large
+			)
+		])
+
+		return [
+			.section(
+				header: .identifier(
+					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.pcrTestResult,
+					configure: { view, _ in
+						(view as? ExposureSubmissionTestResultHeaderView)?.configure(coronaTest: self.coronaTest, timeStamp: self.timeStamp)
+					}
+				),
+				separators: .none,
+				cells: cells
+			)
+		]
+	}
+}
+
+// MARK: - Negative
+extension ExposureSubmissionTestResultViewModel {
+	
+	private var negativeTestResultSections: [DynamicSection] {
+		
+		let header: DynamicHeader
+		
+		if let test = coronaTest.antigenTest, showSpecialCaseForNegativeAntigenTest {
+			header = .identifier(
+				ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.antigenTestResult,
+				configure: { view, _ in
+					(view as? AntigenExposureSubmissionNegativeTestResultHeaderView)?.configure(coronaTest: test, timeStamp: self.timeStamp)
+				}
+			)
+		} else {
+			header = .identifier(
+				ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.pcrTestResult,
+				configure: { view, _ in
+					(view as? ExposureSubmissionTestResultHeaderView)?.configure(coronaTest: self.coronaTest, timeStamp: self.timeStamp)
+				}
+			)
+		}
+		
+		var cells = [DynamicCell.title2(
+			text: AppStrings.ExposureSubmissionResult.procedure,
+			accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure
+		)]
+		
+		switch coronaTest.type {
+		case .pcr:
+			cells.append(
+				ExposureSubmissionDynamicCell.stepCell(
+					title: AppStrings.ExposureSubmissionResult.PCR.testAdded,
+					description: nil,
+					icon: UIImage(named: "Icons_Grey_Check"),
+					hairline: .iconAttached
+				)
+			)
+			
+		case .antigen:
+			cells.append(
+				ExposureSubmissionDynamicCell.stepCell(
+					title: AppStrings.ExposureSubmissionResult.Antigen.testAdded,
+					description: nil,
+					icon: UIImage(named: "Icons_Grey_Check"),
+					hairline: .iconAttached
+				)
+			)
+		}
+		
+		cells.append(contentsOf: [
+			ExposureSubmissionDynamicCell.stepCell(
+				title: AppStrings.ExposureSubmissionResult.testNegative,
+				description: AppStrings.ExposureSubmissionResult.testNegativeDesc,
+				icon: UIImage(named: "Icons_Grey_Error"),
+				hairline: .topAttached
+			),
+			ExposureSubmissionDynamicCell.stepCell(
+				title: AppStrings.ExposureSubmissionResult.testRemove,
+				description: AppStrings.ExposureSubmissionResult.testRemoveDesc,
+				icon: UIImage(named: "Icons_Grey_Entfernen"),
+				hairline: .none
+			),
+			.title2(
+				text: AppStrings.ExposureSubmissionResult.furtherInfos_Title,
+				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.furtherInfos_Title
+			),
+			.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem1, spacing: .large),
+			.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem2, spacing: .large),
+			.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem3, spacing: .large),
+			.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_TestAgain, spacing: .large)
+		])
+		
+		return [
+			.section(
+				header: header,
+				separators: .none,
+				cells: cells
+			)
+		]
+	}
+	
+	private func negativeAntigenTestResultSections(test: AntigenTest) -> [DynamicSection] {
+		[
+			.section(
+				header: .identifier(
+					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.antigenTestResult,
+					configure: { view, _ in
+						(view as? AntigenExposureSubmissionNegativeTestResultHeaderView)?.configure(coronaTest: test, timeStamp: self.timeStamp)
+					}
+				),
+				separators: .none,
+				cells: [
+					.title2(
+						text: AppStrings.ExposureSubmissionResult.Antigen.proofTitle,
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.Antigen.proofTitle
+					),
+					.body(
+						text: AppStrings.ExposureSubmissionResult.Antigen.proofDesc,
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.Antigen.proofDesc
+					),
+					.title2(
+						text: AppStrings.ExposureSubmissionResult.procedure,
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure
+					),
 					ExposureSubmissionDynamicCell.stepCell(
-						title: AppStrings.ExposureSubmissionResult.testAdded,
-						description: nil,
+						title: AppStrings.ExposureSubmissionResult.Antigen.testAdded,
+						description: AppStrings.ExposureSubmissionResult.Antigen.testAddedDesc,
 						icon: UIImage(named: "Icons_Grey_Check"),
 						hairline: .iconAttached
 					),
-					
 					ExposureSubmissionDynamicCell.stepCell(
 						title: AppStrings.ExposureSubmissionResult.testNegative,
-						description: AppStrings.ExposureSubmissionResult.testNegativeDesc,
+						description: AppStrings.ExposureSubmissionResult.Antigen.testNegativeDesc,
 						icon: UIImage(named: "Icons_Grey_Error"),
 						hairline: .topAttached
 					),
-					
 					ExposureSubmissionDynamicCell.stepCell(
 						title: AppStrings.ExposureSubmissionResult.testRemove,
 						description: AppStrings.ExposureSubmissionResult.testRemoveDesc,
 						icon: UIImage(named: "Icons_Grey_Entfernen"),
 						hairline: .none
 					),
-					
-					.title2(text: AppStrings.ExposureSubmissionResult.furtherInfos_Title,
-							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.furtherInfos_Title),
-					
+					.title2(
+						text: AppStrings.ExposureSubmissionResult.furtherInfos_Title,
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.furtherInfos_Title
+					),
 					.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem1, spacing: .large),
 					.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem2, spacing: .large),
 					.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem3, spacing: .large),
@@ -275,168 +591,154 @@ class ExposureSubmissionTestResultViewModel {
 			)
 		]
 	}
-	
-	private var invalidTestResultSections: [DynamicSection] {
-		[
-			.section(
-				header: .identifier(
-					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
-					configure: { view, _ in
-						(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .invalid, timeStamp: self.timeStamp)
-					}
-				),
-				separators: .none,
-				cells: [
-					.title2(text: AppStrings.ExposureSubmissionResult.procedure,
-							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure),
-					
-					ExposureSubmissionDynamicCell.stepCell(
-						title: AppStrings.ExposureSubmissionResult.testAdded,
-						description: nil,
-						icon: UIImage(named: "Icons_Grey_Check"),
-						hairline: .iconAttached
-					),
-					
-					ExposureSubmissionDynamicCell.stepCell(
-						title: AppStrings.ExposureSubmissionResult.testInvalid,
-						description: AppStrings.ExposureSubmissionResult.testInvalidDesc,
-						icon: UIImage(named: "Icons_Grey_Error"),
-						hairline: .topAttached
-					),
-					
-					ExposureSubmissionDynamicCell.stepCell(
-						title: AppStrings.ExposureSubmissionResult.testRemove,
-						description: AppStrings.ExposureSubmissionResult.testRemoveDesc,
-						icon: UIImage(named: "Icons_Grey_Entfernen"),
-						hairline: .none
-					)
-				]
-			)
-		]
-	}
-	
-	private var pendingTestResultSections: [DynamicSection] {
-		[
-			.section(
-				header: .identifier(
-					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
-					configure: { view, _ in
-						(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .pending, timeStamp: self.timeStamp)
-					}
-				),
-				cells: [
-					.title2(text: AppStrings.ExposureSubmissionResult.procedure,
-							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure),
-					
-					ExposureSubmissionDynamicCell.stepCell(
-						title: AppStrings.ExposureSubmissionResult.testAdded,
-						description: nil,
-						icon: UIImage(named: "Icons_Grey_Check"),
-						hairline: .iconAttached
-					),
-					
-					ExposureSubmissionDynamicCell.stepCell(
-						title: AppStrings.ExposureSubmissionResult.testPending,
-						description: AppStrings.ExposureSubmissionResult.testPendingDesc,
-						icon: UIImage(named: "Icons_Grey_Wait"),
-						hairline: .none
-					)]
-			),
-			.section(
-				separators: .all,
-				cells: [
-					.icon(
-						UIImage(imageLiteralResourceName: "Icons_Grey_Warnen"),
-						text: .string(
-							isSubmissionConsentGiven ?
-										AppStrings.ExposureSubmissionResult.warnOthersConsentGiven :
-										AppStrings.ExposureSubmissionResult.warnOthersConsentNotGiven
-						),
-						action: .execute {[weak self] _, cell in
-							guard let self = self else {
-								return
-							}
-							self.onSubmissionConsentCellTap { [weak self] isLoading in
-								let activityIndicatorView = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
-								activityIndicatorView.startAnimating()
-								cell?.accessoryView = isLoading ? activityIndicatorView : nil
-								cell?.isUserInteractionEnabled = !isLoading
-								self?.footerViewModel?.setLoadingIndicator(true, disable: isLoading, button: .primary)
-								self?.footerViewModel?.setLoadingIndicator(true, disable: isLoading, button: .secondary)
-							}
-						},
-						configure: { _, cell, _ in
-							cell.accessoryType = .disclosureIndicator
-							cell.selectionStyle = .default
-							cell.accessibilityIdentifier = self.isSubmissionConsentGiven ?
-								AccessibilityIdentifiers.ExposureSubmissionResult.warnOthersConsentGivenCell :
-								AccessibilityIdentifiers.ExposureSubmissionResult.warnOthersConsentNotGivenCell
-						}
-					)
-				]
-			)
-		]
-	}
+}
+
+
+// MARK: - Expired
+extension ExposureSubmissionTestResultViewModel {
 	
 	private var expiredTestResultSections: [DynamicSection] {
-		[
+		var cells = [
+			DynamicCell.title2(
+				text: AppStrings.ExposureSubmissionResult.procedure,
+				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure
+			)
+		]
+
+		switch coronaTest.type {
+		case .pcr:
+			cells.append(contentsOf: [
+				ExposureSubmissionDynamicCell.stepCell(
+					title: AppStrings.ExposureSubmissionResult.PCR.testAdded,
+					description: nil,
+					icon: UIImage(named: "Icons_Grey_Check"),
+					hairline: .iconAttached
+				)
+			])
+		case .antigen:
+			cells.append(contentsOf: [
+				ExposureSubmissionDynamicCell.stepCell(
+					title: AppStrings.ExposureSubmissionResult.Antigen.testAdded,
+					description: nil,
+					icon: UIImage(named: "Icons_Grey_Check"),
+					hairline: .iconAttached
+				)
+			])
+		}
+
+		cells.append(contentsOf: [
+			ExposureSubmissionDynamicCell.stepCell(
+				title: AppStrings.ExposureSubmissionResult.testExpired,
+				description: AppStrings.ExposureSubmissionResult.testExpiredDesc,
+				icon: UIImage(named: "Icons_Grey_Error"),
+				hairline: .topAttached
+			),
+			ExposureSubmissionDynamicCell.stepCell(
+				title: AppStrings.ExposureSubmissionResult.testRemove,
+				description: AppStrings.ExposureSubmissionResult.testRemoveDesc,
+				icon: UIImage(named: "Icons_Grey_Entfernen"),
+				hairline: .none
+			)
+		])
+
+		return [
 			.section(
 				header: .identifier(
-					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
+					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.pcrTestResult,
 					configure: { view, _ in
-						(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .invalid, timeStamp: self.timeStamp)
+						(view as? ExposureSubmissionTestResultHeaderView)?.configure(coronaTest: self.coronaTest, timeStamp: self.timeStamp)
 					}
 				),
 				separators: .none,
-				cells: [
-					.title2(text: AppStrings.ExposureSubmissionResult.procedure,
-							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure),
-					
-					ExposureSubmissionDynamicCell.stepCell(
-						title: AppStrings.ExposureSubmissionResult.testAdded,
-						description: nil,
-						icon: UIImage(named: "Icons_Grey_Check"),
-						hairline: .iconAttached
-					),
-					
-					ExposureSubmissionDynamicCell.stepCell(
-						title: AppStrings.ExposureSubmissionResult.testExpired,
-						description: AppStrings.ExposureSubmissionResult.testExpiredDesc,
-						icon: UIImage(named: "Icons_Grey_Error"),
-						hairline: .topAttached
-					),
-					
-					ExposureSubmissionDynamicCell.stepCell(
-						title: AppStrings.ExposureSubmissionResult.testRemove,
-						description: AppStrings.ExposureSubmissionResult.testRemoveDesc,
-						icon: UIImage(named: "Icons_Grey_Entfernen"),
-						hairline: .none
-					)
-				]
+				cells: cells
 			)
 		]
-	}
-	
-	private func bindToSubmissionConsent() {
-		self.exposureSubmissionService.isSubmissionConsentGivenPublisher.sink { isSubmissionConsentGiven in
-			Log.info("TestResult Screen: Update content for submission consent given = \(isSubmissionConsentGiven)")
-			self.isSubmissionConsentGiven = isSubmissionConsentGiven
-			self.updateForCurrentTestResult()
-		}.store(in: &cancellables)
 	}
 
 }
 
+
+// MARK: - Invalid
 extension ExposureSubmissionTestResultViewModel {
 	
-	static func footerViewModel(testResult: TestResult, isSubmissionConsentGiven: Bool) -> FooterViewModel {
-		switch testResult {
+	private var invalidTestResultSections: [DynamicSection] {
+		var cells = [
+			DynamicCell.title2(
+				text: AppStrings.ExposureSubmissionResult.procedure,
+				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure
+			)
+		]
+
+		switch coronaTest.type {
+		case .pcr:
+			cells.append(contentsOf: [
+				ExposureSubmissionDynamicCell.stepCell(
+					title: AppStrings.ExposureSubmissionResult.PCR.testAdded,
+					description: nil,
+					icon: UIImage(named: "Icons_Grey_Check"),
+					hairline: .iconAttached
+				)
+			])
+		case .antigen:
+			cells.append(contentsOf: [
+				ExposureSubmissionDynamicCell.stepCell(
+					title: AppStrings.ExposureSubmissionResult.Antigen.testAdded,
+					description: nil,
+					icon: UIImage(named: "Icons_Grey_Check"),
+					hairline: .iconAttached
+				)
+			])
+		}
+
+		cells.append(contentsOf: [
+			ExposureSubmissionDynamicCell.stepCell(
+				title: AppStrings.ExposureSubmissionResult.testInvalid,
+				description: AppStrings.ExposureSubmissionResult.testInvalidDesc,
+				icon: UIImage(named: "Icons_Grey_Error"),
+				hairline: .topAttached
+			),
+			ExposureSubmissionDynamicCell.stepCell(
+				title: AppStrings.ExposureSubmissionResult.testRemove,
+				description: AppStrings.ExposureSubmissionResult.testRemoveDesc,
+				icon: UIImage(named: "Icons_Grey_Entfernen"),
+				hairline: .none
+			)
+		])
+
+		return [
+			.section(
+				header: .identifier(
+					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.pcrTestResult,
+					configure: { view, _ in
+						(view as? ExposureSubmissionTestResultHeaderView)?.configure(coronaTest: self.coronaTest, timeStamp: self.timeStamp)
+					}
+				),
+				separators: .none,
+				cells: cells
+			)
+		]
+	}
+}
+
+// MARK: - Footer view helper
+extension ExposureSubmissionTestResultViewModel {
+	
+	static func footerViewModel(coronaTest: CoronaTest) -> FooterViewModel {
+		switch coronaTest.testResult {
+		case .positive where coronaTest.keysSubmitted:
+			return FooterViewModel(
+				primaryButtonName:
+					AppStrings.ExposureSubmissionPositiveTestResult.keysSubmittedPrimaryButtonTitle,
+				primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
+				isSecondaryButtonEnabled: true,
+				isSecondaryButtonHidden: true
+			)
 		case .positive:
 			return FooterViewModel(
-				primaryButtonName: isSubmissionConsentGiven ?
+				primaryButtonName: coronaTest.isSubmissionConsentGiven ?
 					AppStrings.ExposureSubmissionPositiveTestResult.withConsentPrimaryButtonTitle :
 				 AppStrings.ExposureSubmissionPositiveTestResult.noConsentPrimaryButtonTitle,
-				secondaryButtonName: isSubmissionConsentGiven ?
+				secondaryButtonName: coronaTest.isSubmissionConsentGiven ?
 					AppStrings.ExposureSubmissionPositiveTestResult.withConsentSecondaryButtonTitle :
 					AppStrings.ExposureSubmissionPositiveTestResult.noConsentSecondaryButtonTitle,
 				primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
@@ -461,4 +763,6 @@ extension ExposureSubmissionTestResultViewModel {
 			)
 		}
 	}
+	
+	// swiftlint:disable:next file_length
 }

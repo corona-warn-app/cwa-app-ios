@@ -32,13 +32,22 @@ class ENAUITests_06_DeltaOnboarding: XCTestCase {
 		XCTAssertTrue(app.tables.images["AppStrings.DeltaOnboarding.accImageLabel"].waitForExistence(timeout: .medium))
 
 		let closeButton = app.buttons[AccessibilityIdentifiers.AccessibilityLabel.close]
-		XCTAssertTrue(closeButton.waitForExistence(timeout: .medium))
-		closeButton.tap()
+		closeButton.waitAndTap()
 
 		checkNewFeaturesAndDataDonationScreen()
 	}
 	
-	func test_screenshotDeltaOnboardingV15() throws {
+	func testDeltaOnboardingNewVersionFeatures() throws {
+		app.launchArguments.append(contentsOf: ["-onboardingVersion", "1.12"])
+		
+		app.launch()
+
+		checkNewFeaturesAndDataDonationScreen()
+	}
+
+	// MARK: - Screenshots
+
+	func test_screenshot_DeltaOnboardingV15() throws {
 		app.launchArguments.append(contentsOf: ["-onboardingVersion", "1.4"])
 		
 		app.launch()
@@ -58,15 +67,7 @@ class ENAUITests_06_DeltaOnboarding: XCTestCase {
 		app.swipeUp()
 	}
 	
-	func testDeltaOnboardingNewVersionFeatures() throws {
-		app.launchArguments.append(contentsOf: ["-onboardingVersion", "1.12"])
-		
-		app.launch()
-
-		checkNewFeaturesAndDataDonationScreen()
-	}
-	
-	func test_screenshotDeltaOnboardingNewVersionFeatures() throws {
+	func test_screenshot_DeltaOnboardingNewVersionFeatures() throws {
 		app.launchArguments.append(contentsOf: ["-onboardingVersion", "1.13"])
 		
 		app.launch()
@@ -84,7 +85,7 @@ class ENAUITests_06_DeltaOnboarding: XCTestCase {
 	func checkNewFeaturesAndDataDonationScreen() {
 //		// - New Features Screen
 //		XCTAssertTrue(app.tables.images[AccessibilityIdentifiers.DeltaOnboarding.newVersionFeaturesAccImageDescription].waitForExistence(timeout: .medium))
-//		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].tap()
+//		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitAndTap()
 //
 //		// - Data Donation Screen
 //		XCTAssertFalse(app.switches[AccessibilityIdentifiers.DataDonation.consentSwitch].waitForExistence(timeout: .short))
@@ -95,11 +96,11 @@ class ENAUITests_06_DeltaOnboarding: XCTestCase {
 //		XCTAssertTrue(app.cells[AccessibilityIdentifiers.DataDonation.ageGroup].waitForExistence(timeout: .short))
 //
 //		// Tap on federalState cell. Now we should see the key-value screen and select some.
-//		app.cells[AccessibilityIdentifiers.DataDonation.federalStateName].tap()
+//		app.cells[AccessibilityIdentifiers.DataDonation.federalStateName].waitAndTap()
 //		XCTAssertTrue(app.tables[AccessibilityIdentifiers.DataDonation.federalStateCell].waitForExistence(timeout: .short))
 //
 //		// Tap on some data entry. Then we should be back on the data donation screen.
-//		app.cells.element(boundBy: 7).tap()
+//		app.cells.element(boundBy: 7).waitAndTap()
 //
 //		// Now we should see the three data fields.
 //		XCTAssertTrue(app.cells[AccessibilityIdentifiers.DataDonation.federalStateName].waitForExistence(timeout: .short))
@@ -107,22 +108,21 @@ class ENAUITests_06_DeltaOnboarding: XCTestCase {
 //		XCTAssertTrue(app.cells[AccessibilityIdentifiers.DataDonation.ageGroup].waitForExistence(timeout: .short))
 //
 //		// Now we want to select a district. So tap onto the district cell, choose one and return to dataDonation.
-//		app.cells[AccessibilityIdentifiers.DataDonation.regionName].tap()
+//		app.cells[AccessibilityIdentifiers.DataDonation.regionName].waitAndTap()
 //		XCTAssertTrue(app.tables[AccessibilityIdentifiers.DataDonation.regionCell].waitForExistence(timeout: .short))
-//		app.cells.element(boundBy: 8).tap()
-//		XCTAssertTrue(app.cells[AccessibilityIdentifiers.DataDonation.ageGroup].waitForExistence(timeout: .short))
+//		app.cells.element(boundBy: 8).waitAndTap()
 //
 //		// Now we want to select a ageGroup. So tap onto the ageGroup cell, choose one and return to dataDonation.
-//		app.cells[AccessibilityIdentifiers.DataDonation.ageGroup].tap()
+//		app.cells[AccessibilityIdentifiers.DataDonation.ageGroup].waitAndTap()
 //		XCTAssertTrue(app.tables[AccessibilityIdentifiers.DataDonation.ageGroupCell].waitForExistence(timeout: .short))
-//		app.cells.element(boundBy: 7).tap()
+//		app.cells.element(boundBy: 7).waitAndTap()
 //		XCTAssertTrue(app.cells[AccessibilityIdentifiers.DataDonation.ageGroup].waitForExistence(timeout: .short))
 //
 //		XCTAssertFalse(app.switches[AccessibilityIdentifiers.DataDonation.consentSwitch].waitForExistence(timeout: .short))
 //
 //
 //		// Now proceed with delta onboarding
-//		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].tap()
+//		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitAndTap()
 //
 //		// - On Home Screen?
 //		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .short))

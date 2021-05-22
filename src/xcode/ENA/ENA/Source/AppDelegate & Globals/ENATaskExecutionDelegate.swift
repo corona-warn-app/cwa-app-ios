@@ -49,70 +49,77 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 
 		group.enter()
 		DispatchQueue.global().async {
-			Log.info("Trying to submit TEKs…", log: .background)
-			self.executeSubmitTemporaryExposureKeys { _ in
-				group.leave()
-				Log.info("Done submitting TEKs…", log: .background)
-			}
-		}
-
-		group.enter()
-		DispatchQueue.global().async {
-			Log.info("Trying to fetch TestResults…", log: .background)
-			self.executeFetchTestResults { _ in
-				group.leave()
-				Log.info("Done fetching TestResults…", log: .background)
-			}
-		}
-
-		group.enter()
-		DispatchQueue.global().async {
 			Log.info("Starting ExposureDetection…", log: .background)
 			self.executeExposureDetectionRequest { _ in
-				group.leave()
 				Log.info("Done detecting Exposures…", log: .background)
+				
+				/// ExposureDetection should be our highest Priority if we run all other tasks simultaneously we might get killed by the Watchdog while the Detection is running.
+				/// This could leave us in a dirty state which causes the ExposureDetection to run too often. This will then lead to Error 13. (https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-5836)
+				group.enter()
+				DispatchQueue.global().async {
+					Log.info("Trying to submit TEKs…", log: .background)
+					self.executeSubmitTemporaryExposureKeys { _ in
+						group.leave()
+						Log.info("Done submitting TEKs…", log: .background)
+					}
+				}
+
+				group.enter()
+				DispatchQueue.global().async {
+					Log.info("Trying to fetch TestResults…", log: .background)
+					self.executeFetchTestResults { _ in
+						group.leave()
+						Log.info("Done fetching TestResults…", log: .background)
+					}
+				}
+
+				group.enter()
+				DispatchQueue.global().async {
+					Log.info("Starting FakeRequests…", log: .background)
+					self.pdService.executeFakeRequests {
+						group.leave()
+						Log.info("Done sending FakeRequests…", log: .background)
+					}
+				}
+
+				group.enter()
+				DispatchQueue.global().async {
+					Log.info("Cleanup contact diary store.", log: .background)
+					self.contactDiaryStore.cleanup(timeout: 10.0)
+					Log.info("Done cleaning up contact diary store.", log: .background)
+					group.leave()
+				}
+
+				group.enter()
+				DispatchQueue.global().async {
+					Log.info("Cleanup event store.", log: .background)
+					self.eventStore.cleanup(timeout: 10.0)
+					Log.info("Done cleaning up contact event store.", log: .background)
+					group.leave()
+				}
+
+				group.enter()
+				DispatchQueue.global().async {
+					Log.info("Checkout overdue checkins.", log: .background)
+					self.eventCheckoutService.checkoutOverdueCheckins()
+					Log.info("Done checkin out overdue checkins.", log: .background)
+					group.leave()
+				}
+
+				group.enter()
+				DispatchQueue.global().async {
+					Log.info("Trigger analytics submission.", log: .background)
+					self.executeAnalyticsSubmission {
+						group.leave()
+						Log.info("Done triggering analytics submission…", log: .background)
+					}
+				}
+				
+				group.leave() // Leave from the Exposure detection
+
 			}
 		}
-
-		group.enter()
-		DispatchQueue.global().async {
-			Log.info("Starting FakeRequests…", log: .background)
-			self.pdService.executeFakeRequests {
-				group.leave()
-				Log.info("Done sending FakeRequests…", log: .background)
-			}
-		}
-
-		group.enter()
-		DispatchQueue.global().async {
-			Log.info("Cleanup contact diary store.", log: .background)
-			self.contactDiaryStore.cleanup(timeout: 10.0)
-			group.leave()
-		}
-
-		group.enter()
-		DispatchQueue.global().async {
-			Log.info("Cleanup event store.", log: .background)
-			self.eventStore.cleanup(timeout: 10.0)
-			group.leave()
-		}
-
-		group.enter()
-		DispatchQueue.global().async {
-			Log.info("Checkout overdue checkins.", log: .background)
-			self.eventCheckoutService.checkoutOverdueCheckins()
-			group.leave()
-		}
-
-		group.enter()
-		DispatchQueue.global().async {
-			Log.info("Trigger analytics submission.", log: .background)
-			self.executeAnalyticsSubmission {
-				group.leave()
-				Log.info("Done triggering analytics submission…", log: .background)
-			}
-		}
-
+		
 		group.notify(queue: .main) {
 			completion(true)
 		}
@@ -139,25 +146,38 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 			appConfigurationProvider: dependencies.appConfigurationProvider,
 			client: dependencies.client,
 			store: dependencies.store,
-			warnOthersReminder: WarnOthersReminder(store: dependencies.store)
+			eventStore: dependencies.eventStore,
+			coronaTestService: dependencies.coronaTestService
 		)
 
-		service.submitExposure { error in
-			switch error {
-			case .noSubmissionConsent:
-				Analytics.collect(.keySubmissionMetadata(.submittedInBackground(false)))
-				Log.info("[ENATaskExecutionDelegate] Submission: no consent given", log: .api)
-			case .noKeysCollected:
-				Analytics.collect(.keySubmissionMetadata(.submittedInBackground(false)))
-				Log.info("[ENATaskExecutionDelegate] Submission: no keys to submit", log: .api)
-			case .some(let error):
-				Analytics.collect(.keySubmissionMetadata(.submittedInBackground(false)))
-				Log.error("[ENATaskExecutionDelegate] Submission error: \(error.localizedDescription)", log: .api)
-			case .none:
-				Analytics.collect(.keySubmissionMetadata(.submittedInBackground(true)))
-				Log.info("[ENATaskExecutionDelegate] Submission successful", log: .api)
-			}
+		let group = DispatchGroup()
 
+		for coronaTestType in CoronaTestType.allCases {
+			group.enter()
+			service.submitExposure(coronaTestType: coronaTestType) { error in
+				switch error {
+				case .noCoronaTestOfGivenType:
+					Analytics.collect(.keySubmissionMetadata(.submittedInBackground(false)))
+					Log.info("[ENATaskExecutionDelegate] Submission: no corona test of type \(coronaTestType) registered", log: .api)
+				case .noSubmissionConsent:
+					Analytics.collect(.keySubmissionMetadata(.submittedInBackground(false)))
+					Log.info("[ENATaskExecutionDelegate] Submission: no consent given", log: .api)
+				case .noKeysCollected:
+					Analytics.collect(.keySubmissionMetadata(.submittedInBackground(false)))
+					Log.info("[ENATaskExecutionDelegate] Submission: no keys to submit", log: .api)
+				case .some(let error):
+					Analytics.collect(.keySubmissionMetadata(.submittedInBackground(false)))
+					Log.error("[ENATaskExecutionDelegate] Submission error: \(error.localizedDescription)", log: .api)
+				case .none:
+					Analytics.collect(.keySubmissionMetadata(.submittedInBackground(true)))
+					Log.info("[ENATaskExecutionDelegate] Submission successful", log: .api)
+				}
+
+				group.leave()
+			}
+		}
+
+		group.notify(queue: .main) {
 			completion(true)
 		}
 	}
@@ -170,39 +190,14 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 			completion(false)
 			return
 		}
-		
-		let service = ENAExposureSubmissionService(
-			diagnosisKeysRetrieval: dependencies.exposureManager,
-			appConfigurationProvider: dependencies.appConfigurationProvider,
-			client: dependencies.client,
-			store: dependencies.store,
-			warnOthersReminder: WarnOthersReminder(store: dependencies.store)
-		)
 
-		guard dependencies.store.registrationToken != nil && dependencies.store.testResultReceivedTimeStamp == nil else {
-			completion(false)
-			return
-		}
-		Log.info("Requesting TestResult…", log: .api)
-		service.getTestResult { result in
+		dependencies.coronaTestService.updateTestResults(force: false, presentNotification: true) { result in
 			switch result {
-			case .failure(let error):
-				Log.error(error.localizedDescription, log: .api)
-			case .success(.pending), .success(.expired):
-				// Do not trigger notifications for pending or expired results.
-				Log.info("TestResult pending or expired", log: .api)
-			case .success(let testResult):
-				Log.info("Triggering Notification to inform user about TestResult: \(testResult.stringValue)", log: .api)
-				// We attach the test result to determine which screen to show when user taps the notification
-				UNUserNotificationCenter.current().presentNotification(
-					title: AppStrings.LocalNotifications.testResultsTitle,
-					body: AppStrings.LocalNotifications.testResultsBody,
-					identifier: ActionableNotificationIdentifier.testResult.identifier,
-					info: [ActionableNotificationIdentifier.testResult.identifier: testResult.rawValue]
-				)
+			case .success:
+				completion(true)
+			case .failure:
+				completion(false)
 			}
-
-			completion(true)
 		}
 	}
 
@@ -273,15 +268,15 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 
 	private func executeAnalyticsSubmission(completion: @escaping () -> Void) {
 		// fill in the risk exposure metadata if new risk calculation is not done in the meanwhile
-		if let riskCalculationResult = store.riskCalculationResult {
-			Analytics.collect(.riskExposureMetadata(.updateRiskExposureMetadata(riskCalculationResult)))
+		if let enfRiskCalculationResult = store.enfRiskCalculationResult {
+			Analytics.collect(.riskExposureMetadata(.updateRiskExposureMetadata(enfRiskCalculationResult)))
 		}
 		Analytics.triggerAnalyticsSubmission(completion: { result in
 			switch result {
 			case .success:
-				Log.info("[ENATaskExecutionDelegate] Analytics submission was triggered succesfully from background", log: .ppa)
+				Log.info("[ENATaskExecutionDelegate] Analytics submission was triggered successfully from background", log: .ppa)
 			case let .failure(error):
-				Log.error("[ENATaskExecutionDelegate] Analytics submission was triggered not succesfully from background with error: \(error)", log: .ppa, error: error)
+				Log.error("[ENATaskExecutionDelegate] Analytics submission was triggered not successfully from background with error: \(error)", log: .ppa, error: error)
 			}
 			completion()
 		})

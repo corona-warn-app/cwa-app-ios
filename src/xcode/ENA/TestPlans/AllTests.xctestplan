@@ -88,8 +88,7 @@
       "parallelizable" : true,
       "skippedTests" : [
         "ENAUITests",
-        "ENAUITestsQuickActions\/testLaunchViaShortcutFromFreshInstall()",
-        "ENAUITests_06_DeltaOnboarding\/testDeltaOnboardingV15View()"
+        "ENAUITests_11_QuickActions\/testLaunchViaShortcutFromFreshInstall()"
       ],
       "target" : {
         "containerPath" : "container:ENA.xcodeproj",

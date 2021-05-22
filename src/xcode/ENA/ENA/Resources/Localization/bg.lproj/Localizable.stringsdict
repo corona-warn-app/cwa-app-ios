@@ -1,6 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>Home_Risk_Days_Since_Installation_Title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!--Plural form for ZERO.-->
+			<string>Инсталирано днес</string>
+			<key>one</key>
+			<!--Plural form for ONE.-->
+			<string>Инсталирано преди %u ден</string>
+			<key>few</key>
+			<!--Plural form for FEW.-->
+			<string>Инсталирано преди %u дни</string>
+			<key>many</key>
+			<!--Plural form for MANY.-->
+			<string>Инсталирано преди %u дни</string>
+			<key>two</key>
+			<!--Plural form for TWO.-->
+			<string>Инсталирано преди %u дни</string>
+			<key>other</key>
+			<!--Plural form for OTHER.-->
+			<string>Инсталирано преди %u дни</string>
+		</dict>
+	</dict>
 	<key>Home_Risk_Low_Number_Contacts_Item_Title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -116,6 +146,66 @@
 			<string>%02u</string>
 		</dict>
 	</dict>
+	<key>ExposureDetection_ActiveTracingSection_Text_Paragraph1a</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!--Plural form for ZERO.-->
+			<string>Приложението Corona-Warn-App е инсталирано днес. Рискът да сте се заразили се изчислява за периодите, през които е било активно регистрирането на контактите Ви. Ако сте били в близост до други хора и регистрирането на излаганията е било активно, рискът да сте се заразили ще бъде изчислен.</string>
+			<key>one</key>
+			<!--Plural form for ONE.-->
+			<string>Приложението Corona-Warn-App е инсталирано преди %u ден. Рискът да сте се заразили се изчислява за периодите, през които е било активно регистрирането на контактите Ви. Ако сте били в близост до други хора и регистрирането на излаганията е било активно, рискът да сте се заразили ще бъде изчислен.</string>
+			<key>few</key>
+			<!--Plural form for FEW.-->
+			<string>Приложението Corona-Warn-App е инсталирано преди %u дни. Рискът да сте се заразили се изчислява за периодите, през които е било активно регистрирането на контактите Ви. Ако сте били в близост до други хора и регистрирането на излаганията е било активно, рискът да сте се заразили ще бъде изчислен.</string>
+			<key>many</key>
+			<!--Plural form for MANY.-->
+			<string>Приложението Corona-Warn-App е инсталирано преди %u дни. Рискът да сте се заразили се изчислява за периодите, през които е било активно регистрирането на контактите Ви. Ако сте били в близост до други хора и регистрирането на излаганията е било активно, рискът да сте се заразили ще бъде изчислен.</string>
+			<key>two</key>
+			<!--Plural form for TWO.-->
+			<string>Приложението Corona-Warn-App е инсталирано преди %u дни. Рискът да сте се заразили се изчислява за периодите, през които е било активно регистрирането на контактите Ви. Ако сте били в близост до други хора и регистрирането на излаганията е било активно, рискът да сте се заразили ще бъде изчислен.</string>
+			<key>other</key>
+			<!--Plural form for OTHER.-->
+			<string>Приложението Corona-Warn-App е инсталирано преди %u дни. Рискът да сте се заразили се изчислява за периодите, през които е било активно регистрирането на контактите Ви. Ако сте били в близост до други хора и регистрирането на излаганията е било активно, рискът да сте се заразили ще бъде изчислен.</string>
+		</dict>
+	</dict>
+	<key>Settings_DaysSinceInstall_P2a</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!--Plural form for ZERO.-->
+			<string>Приложението Corona-Warn-App е инсталирано днес. Рискът да сте се заразили се изчислява за периодите, през които е било активно регистрирането на контактите Ви. Ако сте били в близост до други хора и регистрирането на излаганията е било активно, рискът да сте се заразили ще бъде изчислен.</string>
+			<key>one</key>
+			<!--Plural form for ONE.-->
+			<string>Приложението Corona-Warn-App е инсталирано преди %u ден. Рискът да сте се заразили се изчислява за периодите, през които е било активно регистрирането на контактите Ви. Ако сте били в близост до други хора и регистрирането на излаганията е било активно, рискът да сте се заразили ще бъде изчислен.</string>
+			<key>few</key>
+			<!--Plural form for FEW.-->
+			<string>Приложението Corona-Warn-App е инсталирано преди %u дни. Рискът да сте се заразили се изчислява за периодите, през които е било активно регистрирането на контактите Ви. Ако сте били в близост до други хора и регистрирането на излаганията е било активно, рискът да сте се заразили ще бъде изчислен.</string>
+			<key>many</key>
+			<!--Plural form for MANY.-->
+			<string>Приложението Corona-Warn-App е инсталирано преди %u дни. Рискът да сте се заразили се изчислява за периодите, през които е било активно регистрирането на контактите Ви. Ако сте били в близост до други хора и регистрирането на излаганията е било активно, рискът да сте се заразили ще бъде изчислен.</string>
+			<key>two</key>
+			<!--Plural form for TWO.-->
+			<string>Приложението Corona-Warn-App е инсталирано преди %u дни. Рискът да сте се заразили се изчислява за периодите, през които е било активно регистрирането на контактите Ви. Ако сте били в близост до други хора и регистрирането на излаганията е било активно, рискът да сте се заразили ще бъде изчислен.</string>
+			<key>other</key>
+			<!--Plural form for OTHER.-->
+			<string>Приложението Corona-Warn-App е инсталирано преди %u дни. Рискът да сте се заразили се изчислява за периодите, през които е било активно регистрирането на контактите Ви. Ако сте били в близост до други хора и регистрирането на излаганията е било активно, рискът да сте се заразили ще бъде изчислен.</string>
+		</dict>
+	</dict>
 	<key>ENSetting_Tracing_History</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -144,6 +234,66 @@
 			<key>other</key>
 			<!--Plural form for OTHER.-->
 			<string>Регистрирането на излаганията на риск е активно от %u дни. Проверката за излагане на риск може да бъде надеждна само ако регистрирането е постоянно активирано.</string>
+		</dict>
+	</dict>
+	<key>HealthCertificate_Home_Person_daysUntilCompleteProtection</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!--Plural form for ZERO.-->
+			<string>Пълна защита от ваксиниране след %u дни</string>
+			<key>one</key>
+			<!--Plural form for ONE.-->
+			<string>Пълна защита от ваксиниране след %u ден</string>
+			<key>two</key>
+			<!--Plural form for TWO.-->
+			<string>Пълна защита от ваксиниране след %u дни</string>
+			<key>few</key>
+			<!--Plural form for FEW.-->
+			<string>Пълна защита от ваксиниране след %u дни</string>
+			<key>many</key>
+			<!--Plural form for MANY.-->
+			<string>Пълна защита от ваксиниране след %u дни</string>
+			<key>other</key>
+			<!--Plural form for OTHER.-->
+			<string>Пълна защита от ваксиниране след %u дни</string>
+		</dict>
+	</dict>
+	<key>HealthCertifiedPerson_daysUntilCompleteProtection</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!--Plural form for ZERO.-->
+			<string>Получихте всички планирани за момента ваксинации, но защитата ви от ваксиниране ще е пълна едва след %u дни.</string>
+			<key>one</key>
+			<!--Plural form for ONE.-->
+			<string>Получихте всички планирани за момента ваксинации, но защитата ви от ваксиниране ще е пълна едва след %u ден.</string>
+			<key>two</key>
+			<!--Plural form for TWO.-->
+			<string>Получихте всички планирани за момента ваксинации, но защитата ви от ваксиниране ще е пълна едва след %u дни.</string>
+			<key>few</key>
+			<!--Plural form for FEW.-->
+			<string>Получихте всички планирани за момента ваксинации, но защитата ви от ваксиниране ще е пълна едва след %u дни.</string>
+			<key>many</key>
+			<!--Plural form for MANY.-->
+			<string>Получихте всички планирани за момента ваксинации, но защитата ви от ваксиниране ще е пълна едва след %u дни.</string>
+			<key>other</key>
+			<!--Plural form for OTHER.-->
+			<string>Получихте всички планирани за момента ваксинации, но защитата ви от ваксиниране ще е пълна едва след %u дни.</string>
 		</dict>
 	</dict>
 </dict>

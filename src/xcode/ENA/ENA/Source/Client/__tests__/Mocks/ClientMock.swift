@@ -2,8 +2,9 @@
 // 🦠 Corona-Warn-App
 //
 
-@testable import ENA
 import ExposureNotification
+
+#if DEBUG
 
 final class ClientMock {
 	
@@ -55,8 +56,14 @@ final class ClientMock {
 	var onGetRegistrationToken: ((String, String, Bool, @escaping RegistrationHandler) -> Void)?
 	var onGetTANForExposureSubmit: ((String, Bool, @escaping TANHandler) -> Void)?
 	var onSupportedCountries: ((@escaping CountryFetchCompletion) -> Void)?
-	var onGetOTP: ((String, PPACToken, Bool, @escaping OTPAuthorizationCompletionHandler) -> Void)?
+	var onGetOTPEdus: ((String, PPACToken, Bool, @escaping OTPAuthorizationCompletionHandler) -> Void)?
+	var onGetOTPEls: ((String, PPACToken, @escaping OTPAuthorizationCompletionHandler) -> Void)?
+	var onSubmitErrorLog: ((Data, @escaping ErrorLogSubmitting.ELSSubmissionResponse) -> Void)?
 	var onSubmitAnalytics: ((SAP_Internal_Ppdd_PPADataIOS, PPACToken, Bool, @escaping PPAnalyticsSubmitionCompletionHandler) -> Void)?
+	var onTraceWarningDiscovery: ((String, @escaping TraceWarningPackageDiscoveryCompletionHandler) -> Void)?
+	var onTraceWarningDownload: ((String, Int, @escaping TraceWarningPackageDownloadCompletionHandler) -> Void)?
+
+
 }
 
 extension ClientMock: ClientWifiOnly {
@@ -161,18 +168,30 @@ extension ClientMock: Client {
 	}
 
 	func authorize(
-		otp: String,
+		otpEdus: String,
 		ppacToken: PPACToken,
 		isFake: Bool,
 		forceApiTokenHeader: Bool = false,
 		completion: @escaping OTPAuthorizationCompletionHandler
 	) {
-		guard let onGetOTP = self.onGetOTP else {
+		guard let onGetOTPEdus = self.onGetOTPEdus else {
+			completion(.success(Date()))
+			return
+		}
+		onGetOTPEdus(otpEdus, ppacToken, isFake, completion)
+	}
+
+	func authorize(
+		otpEls: String,
+		ppacToken: PPACToken,
+		completion: @escaping OTPAuthorizationCompletionHandler
+	) {
+		guard let onGetOTPEls = self.onGetOTPEls else {
 			completion(.success(Date()))
 			return
 		}
 
-		onGetOTP(otp, ppacToken, isFake, completion)
+		onGetOTPEls(otpEls, ppacToken, completion)
 	}
 
 	func submit(
@@ -186,8 +205,43 @@ extension ClientMock: Client {
 			completion(.success(()))
 			return
 		}
-
 		onSubmitAnalytics(payload, ppacToken, isFake, completion)
+	}
+	
+	func traceWarningPackageDiscovery(
+		country: String,
+		completion: @escaping TraceWarningPackageDiscoveryCompletionHandler
+	) {
+		guard let onTraceWarningDiscovery = self.onTraceWarningDiscovery else {
+			completion(.success((TraceWarningDiscovery(oldest: 448163, latest: 448522, eTag: "FakeETag"))))
+			return
+		}
+		onTraceWarningDiscovery(country, completion)
+	}
+	
+	func traceWarningPackageDownload(
+		country: String,
+		packageId: Int,
+		completion: @escaping TraceWarningPackageDownloadCompletionHandler
+	) {
+		guard let onTraceWarningDownload = self.onTraceWarningDownload else {
+			completion(.success(downloadedPackage ?? ClientMock.dummyResponse))
+			return
+		}
+		onTraceWarningDownload(country, packageId, completion)
+	}
 
+	func submit(
+		errorLogFile: Data,
+		otpEls: String,
+		completion: @escaping ErrorLogSubmitting.ELSSubmissionResponse
+	) {
+		guard let onSubmitErrorLog = self.onSubmitErrorLog else {
+			completion(.success(LogUploadResponse(id: "\(Int.random(in: 0..<Int.max))", hash: errorLogFile.sha256String())))
+			return
+		}
+
+		onSubmitErrorLog(errorLogFile, completion)
 	}
 }
+#endif

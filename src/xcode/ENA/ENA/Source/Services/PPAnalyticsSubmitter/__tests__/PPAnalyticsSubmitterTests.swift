@@ -20,10 +20,21 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		// probability will always succeed
 		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
+		#if targetEnvironment(simulator)
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
+		#else
+		let deviceCheck = PPACDeviceCheck()
+		#endif
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
 			client: client,
-			appConfig: appConfigurationProvider
+			appConfig: appConfigurationProvider,
+			coronaTestService: CoronaTestService(
+				client: client,
+				store: store,
+				appConfiguration: CachedAppConfigurationMock()
+			),
+			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 
 		let expectation = self.expectation(description: "completion handler is called without an error")
@@ -70,10 +81,21 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		let client = ClientMock()
 		let config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
+		#if targetEnvironment(simulator)
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
+		#else
+		let deviceCheck = PPACDeviceCheck()
+		#endif
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
 			client: client,
-			appConfig: appConfigurationProvider
+			appConfig: appConfigurationProvider,
+			coronaTestService: CoronaTestService(
+				client: client,
+				store: store,
+				appConfiguration: CachedAppConfigurationMock()
+			),
+			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 
 		let expectation = self.expectation(description: "completion handler is called with an error")
@@ -104,10 +126,21 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		let client = ClientMock()
 		let config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
+		#if targetEnvironment(simulator)
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
+		#else
+		let deviceCheck = PPACDeviceCheck()
+		#endif
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
 			client: client,
-			appConfig: appConfigurationProvider
+			appConfig: appConfigurationProvider,
+			coronaTestService: CoronaTestService(
+				client: client,
+				store: store,
+				appConfiguration: CachedAppConfigurationMock()
+			),
+			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 
 		let expectation = self.expectation(description: "completion handler is called with an error")
@@ -138,10 +171,21 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		// probability will always fail
 		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = -1
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
+		#if targetEnvironment(simulator)
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
+		#else
+		let deviceCheck = PPACDeviceCheck()
+		#endif
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
 			client: client,
-			appConfig: appConfigurationProvider
+			appConfig: appConfigurationProvider,
+			coronaTestService: CoronaTestService(
+				client: client,
+				store: store,
+				appConfiguration: CachedAppConfigurationMock()
+			),
+			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 
 		let expectation = self.expectation(description: "completion handler is called with an error")
@@ -171,10 +215,21 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
+		#if targetEnvironment(simulator)
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
+		#else
+		let deviceCheck = PPACDeviceCheck()
+		#endif
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
 			client: client,
-			appConfig: appConfigurationProvider
+			appConfig: appConfigurationProvider,
+			coronaTestService: CoronaTestService(
+				client: client,
+				store: store,
+				appConfiguration: CachedAppConfigurationMock()
+			),
+			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 
 		let expectation = self.expectation(description: "completion handler is called with an error")
@@ -205,10 +260,21 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
+		#if targetEnvironment(simulator)
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
+		#else
+		let deviceCheck = PPACDeviceCheck()
+		#endif
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
 			client: client,
-			appConfig: appConfigurationProvider
+			appConfig: appConfigurationProvider,
+			coronaTestService: CoronaTestService(
+				client: client,
+				store: store,
+				appConfiguration: CachedAppConfigurationMock()
+			),
+			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 
 		let expectation = self.expectation(description: "completion handler is called with an error")
@@ -240,10 +306,21 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
+		#if targetEnvironment(simulator)
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
+		#else
+		let deviceCheck = PPACDeviceCheck()
+		#endif
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
 			client: client,
-			appConfig: appConfigurationProvider
+			appConfig: appConfigurationProvider,
+			coronaTestService: CoronaTestService(
+				client: client,
+				store: store,
+				appConfiguration: CachedAppConfigurationMock()
+			),
+			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 
 		let expectation = self.expectation(description: "completion handler is called with an error")
@@ -276,10 +353,21 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
+		#if targetEnvironment(simulator)
+		let deviceCheck = PPACDeviceCheckMock(false, deviceToken: "iPhone")
+		#else
+		let deviceCheck = PPACDeviceCheck()
+		#endif
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
 			client: client,
-			appConfig: appConfigurationProvider
+			appConfig: appConfigurationProvider,
+			coronaTestService: CoronaTestService(
+				client: client,
+				store: store,
+				appConfiguration: CachedAppConfigurationMock()
+			),
+			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 
 		let expectation = self.expectation(description: "completion handler is called with an error")
@@ -292,7 +380,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		analyticsSubmitter.triggerSubmitData(ppacToken: nil, completion: { result in
 			switch result {
 			case .success:
-				XCTFail("Test should not success")
+				XCTFail("Test should not succeed")
 			case let .failure(error):
 				ppasError = error
 				expectation.fulfill()
@@ -310,10 +398,21 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		let client = ClientMock()
 		let appConfigurationProvider = CachedAppConfigurationMock()
+		#if targetEnvironment(simulator)
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
+		#else
+		let deviceCheck = PPACDeviceCheck()
+		#endif
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
 			client: client,
-			appConfig: appConfigurationProvider
+			appConfig: appConfigurationProvider,
+			coronaTestService: CoronaTestService(
+				client: client,
+				store: store,
+				appConfiguration: CachedAppConfigurationMock()
+			),
+			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 
 		let expectation = self.expectation(description: "completion handler is called with an error")
@@ -321,29 +420,31 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 
 		// WHEN
 		var ppasErrors: [PPASError] = []
+		var ppasSuccess: [Void] = []
 		analyticsSubmitter.triggerSubmitData(ppacToken: nil, completion: { result in
 			switch result {
-			case .success:
-				XCTFail("Test should not success")
+			case let .success(success):
+				ppasSuccess.append(success)
 			case let .failure(error):
 				ppasErrors.append(error)
-				expectation.fulfill()
 			}
+			expectation.fulfill()
 		})
 		
 		analyticsSubmitter.triggerSubmitData(ppacToken: nil, completion: { result in
 			switch result {
-			case .success:
-				XCTFail("Test should not success")
+			case let .success(success):
+				ppasSuccess.append(success)
 			case let .failure(error):
 				ppasErrors.append(error)
-				expectation.fulfill()
 			}
+			expectation.fulfill()
 		})
 		
 		// THEN
 		waitForExpectations(timeout: .medium)
-		XCTAssertEqual(ppasErrors.count, 2)
+		XCTAssertEqual(ppasSuccess.count, 1)
+		XCTAssertEqual(ppasErrors.count, 1)
 		XCTAssertTrue(ppasErrors.contains(.submissionInProgress))
 	}
 
@@ -453,7 +554,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		let differenceInHoursBetweenChangeToHighRiskAndRegistrationDate = Calendar.current.dateComponents([.hour], from: dateOfRiskChangeToHigh ?? Date(), to: registrationDate).hour
 		let differenceInHoursBetweenRegistrationDateAndTestResult = Calendar.current.dateComponents([.hour], from: registrationDate, to: today).hour
 
-		let riskCalculationResult = RiskCalculationResult(
+		let enfRiskCalculationResult = ENFRiskCalculationResult(
 			riskLevel: riskLevel,
 			minimumDistinctEncountersWithLowRisk: 6,
 			minimumDistinctEncountersWithHighRisk: 2,
@@ -465,7 +566,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 			riskLevelPerDate: [:],
 			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
-		store.riskCalculationResult = riskCalculationResult
+		store.enfRiskCalculationResult = enfRiskCalculationResult
 		store.dateOfConversionToHighRisk = dateOfRiskChangeToHigh
 		
 		Analytics.collect(.testResultMetadata(.registerNewTestMetadata(registrationDate, registrationToken)))
@@ -520,7 +621,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		let riskLevel: RiskLevel = .high
 		let mostRecentDayWithRisk = Calendar.current.date(byAdding: .day, value: -5, to: Date())
 
-		let riskCalculationResult = RiskCalculationResult(
+		let riskCalculationResult = ENFRiskCalculationResult(
 			riskLevel: riskLevel,
 			minimumDistinctEncountersWithLowRisk: 6,
 			minimumDistinctEncountersWithHighRisk: 2,
@@ -662,10 +763,21 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		let client = ClientMock()
 		let config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
+		#if targetEnvironment(simulator)
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
+		#else
+		let deviceCheck = PPACDeviceCheck()
+		#endif
 		return PPAnalyticsSubmitter(
 			store: store,
 			client: client,
-			appConfig: appConfigurationProvider
+			appConfig: appConfigurationProvider,
+			coronaTestService: CoronaTestService(
+				client: client,
+				store: store,
+				appConfiguration: CachedAppConfigurationMock()
+			),
+			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 	}
 

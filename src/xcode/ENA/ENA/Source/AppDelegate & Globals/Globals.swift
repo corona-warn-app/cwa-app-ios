@@ -4,6 +4,7 @@
 
 import Foundation
 
+#if DEBUG
 
 /// Global flag if UI testing is enabled or not
 var isUITesting: Bool {
@@ -15,3 +16,5 @@ var isUITesting: Bool {
 var isScreenshotMode: Bool {
 	return UserDefaults.standard.bool(forKey: "FASTLANE_SNAPSHOT")
 }
+
+#endif

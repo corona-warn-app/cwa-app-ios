@@ -26,7 +26,7 @@ final class ContactDiaryMigration3To4: Migration {
 				BEGIN TRANSACTION;
 
 				ALTER TABLE Location
-					ADD traceLocationGUID TEXT NULL;
+					ADD traceLocationId BLOB NULL;
 
 				ALTER TABLE LocationVisit
 					ADD checkinId INTEGER NULL;

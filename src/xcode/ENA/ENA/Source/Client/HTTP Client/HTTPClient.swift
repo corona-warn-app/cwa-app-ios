@@ -4,7 +4,6 @@
 
 import ExposureNotification
 import Foundation
-import ZIPFoundation
 
 // swiftlint:disable:next type_body_length
 final class HTTPClient: Client {
@@ -12,13 +11,14 @@ final class HTTPClient: Client {
 	// MARK: - Init
 
 	init(
-		serverEnvironmentProvider: ServerEnvironmentProviding,
-		packageVerifier: @escaping SAPDownloadedPackage.Verification = SAPDownloadedPackage.Verifier().verify,
-		session: URLSession = .coronaWarnSession()
+		environmentProvider: EnvironmentProviding = Environments(),
+		session: URLSession = .coronaWarnSession(
+			configuration: .coronaWarnSessionConfiguration(),
+			delegateQueue: .main
+		)
 	) {
-		self.serverEnvironmentProvider = serverEnvironmentProvider
+		self.environmentProvider = environmentProvider
 		self.session = session
-		self.packageVerifier = packageVerifier
 	}
 
 	// MARK: - Overrides
@@ -203,10 +203,6 @@ final class HTTPClient: Client {
 	}
 
 	func submit(payload: CountrySubmissionPayload, isFake: Bool, completion: @escaping KeySubmissionResponse) {
-		let keys = payload.exposureKeys
-		let countries = payload.visitedCountries
-		let tan = payload.tan
-		let payload = CountrySubmissionPayload(exposureKeys: keys, visitedCountries: countries, tan: tan)
 		guard let request = try? URLRequest.keySubmissionRequest(configuration: configuration, payload: payload, isFake: isFake) else {
 			completion(.failure(SubmissionError.requestCouldNotBeBuilt))
 			return
@@ -232,7 +228,7 @@ final class HTTPClient: Client {
 	}
 
 	func authorize(
-		otp: String,
+		otpEdus: String,
 		ppacToken: PPACToken,
 		isFake: Bool,
 		forceApiTokenHeader: Bool = false,
@@ -240,9 +236,8 @@ final class HTTPClient: Client {
 	) {
 		guard let request = try? URLRequest.authorizeOTPRequest(
 				configuration: configuration,
-				otp: otp,
+				otpEdus: otpEdus,
 				ppacToken: ppacToken,
-				isFake: isFake,
 				forceApiTokenHeader: forceApiTokenHeader) else {
 			completion(.failure(.invalidResponseError))
 			return
@@ -271,6 +266,42 @@ final class HTTPClient: Client {
 		})
 	}
 
+	func authorize(
+		otpEls: String,
+		ppacToken: PPACToken,
+		completion: @escaping OTPAuthorizationCompletionHandler
+	) {
+		guard let request = try? URLRequest.authorizeOTPRequest(
+				configuration: configuration,
+				otpEls: otpEls,
+				ppacToken: ppacToken) else {
+			completion(.failure(.invalidResponseError))
+			return
+		}
+
+		session.response(for: request, isFake: false, completion: { [weak self] result in
+			switch result {
+			case let .success(response):
+				switch response.statusCode {
+				case 200:
+					self?.otpAuthorizationSuccessHandler(for: response, completion: completion)
+				case 400, 401, 403:
+					self?.otpAuthorizationFailureHandler(for: response, completion: completion)
+				case 500:
+					Log.error("Failed to get authorized OTP - 500 status code", log: .api)
+					completion(.failure(.internalServerError))
+				default:
+					Log.error("Failed to authorize OTP - response error", log: .api)
+					Log.error(String(response.statusCode), log: .api)
+					completion(.failure(.internalServerError))
+				}
+			case let .failure(error):
+				Log.error("Failed to authorize OTP due to error: \(error).", log: .api)
+				completion(.failure(.invalidResponseError))
+			}
+		})
+	}
+
 	func submit(
 		payload: SAP_Internal_Ppdd_PPADataIOS,
 		ppacToken: PPACToken,
@@ -282,7 +313,6 @@ final class HTTPClient: Client {
 				configuration: configuration,
 				payload: payload,
 				ppacToken: ppacToken,
-				isFake: isFake,
 				forceApiTokenHeader: forceApiTokenHeader) else {
 			completion(.failure(.urlCreationError))
 			return
@@ -329,23 +359,132 @@ final class HTTPClient: Client {
 			}
 		})
 	}
+	
+	func traceWarningPackageDiscovery(
+		country: String,
+		completion: @escaping TraceWarningPackageDiscoveryCompletionHandler
+	) {
+		guard let request = try? URLRequest.traceWarningPackageDiscovery(
+				configuration: configuration,
+				country: country) else {
+			completion(.failure(.requestCreationError))
+			return
+		}
+		
+		session.response(for: request, completion: { result in
+			switch result {
+			case let .success(response):
+				switch response.statusCode {
+				case 200:
+					guard let body = response.body else {
+						Log.error("Failed to unpack response body of trace warning discovery with http status code: \(String(response.statusCode))", log: .api)
+						completion(.failure(.invalidResponseError(response.statusCode)))
+						return
+					}
+					
+					do {
+						let decoder = JSONDecoder()
+						let decodedResponse = try decoder.decode(
+							TraceWarningDiscoveryResponse.self,
+							from: body
+						)
+						let eTag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag")
+						
+						guard let oldest = decodedResponse.oldest,
+							  let latest = decodedResponse.latest else {
+							Log.info("Succesfully discovered that there are no availablePackagesOnCDN", log: .api)
+							// create false package with latest < oldest, then computed property availablePackagesOnCDN will be empty for the downloading check later.
+							completion(.success(TraceWarningDiscovery(oldest: 0, latest: -1, eTag: eTag)))
+							return
+						}
+						
+						let traceWarningDiscovery = TraceWarningDiscovery(oldest: oldest, latest: latest, eTag: eTag)
+						Log.info("Succesfully downloaded availablePackagesOnCDN", log: .api)
+						completion(.success(traceWarningDiscovery))
+					} catch {
+						Log.error("Failed to decode response json", log: .api)
+						completion(.failure(.decodingJsonError(response.statusCode)))
+					}
+				default:
+					Log.error("Wrong http status code: \(String(response.statusCode))", log: .api)
+					completion(.failure(.invalidResponseError(response.statusCode)))
+				}
+			case let .failure(error):
+				Log.error("Error in response body", log: .api, error: error)
+				completion(.failure(.defaultServerError(error)))
+			}
+		})
+	}
+	
+	func traceWarningPackageDownload(
+		country: String,
+		packageId: Int,
+		completion: @escaping TraceWarningPackageDownloadCompletionHandler
+	) {
+		let url = configuration.traceWarningPackageDownloadURL(country: country, packageId: packageId)
+		traceWarningPackageDownload(country: country, packageId: packageId, url: url, completion: completion)
+	}
+
+	func submit(
+		errorLogFile: Data,
+		otpEls: String,
+		completion: @escaping ErrorLogSubmitting.ELSSubmissionResponse
+	) {
+		guard let request = try? URLRequest.errorLogSubmit(
+				configuration: configuration,
+				payload: errorLogFile,
+				otpEls: otpEls) else {
+			completion(.failure(.urlCreationError))
+			return
+		}
+
+		session.response(for: request, completion: { result in
+			switch result {
+			case let .success(response):
+				switch response.statusCode {
+				case 201:
+					guard let responseBody = response.body else {
+						Log.error("Error in response body: \(response.statusCode)", log: .api)
+						completion(.failure(.responseError(response.statusCode)))
+						return
+					}
+					do {
+						let decodedResponse = try JSONDecoder().decode(
+							LogUploadResponse.self,
+							from: responseBody
+						)
+						completion(.success(decodedResponse))
+					} catch {
+						Log.error("Failed to decode response json", log: .api, error: error)
+						completion(.failure(.jsonError))
+					}
+				case 500:
+					Log.error("Internal server error at uploading error log file.", log: .api)
+					completion(.failure(.responseError(500)))
+				default:
+					Log.error("Wrong http status code: \(String(response.statusCode))", log: .api)
+					completion(.failure(.responseError(response.statusCode)))
+				}
+			case let .failure(error):
+				Log.error("Error in response: \(error)", log: .api)
+				completion(.failure(.defaultServerError(error)))
+			}
+		})
+	}
+
 
 	// MARK: - Public
 
 	// MARK: - Internal
 
-	var configuration: Configuration {
-		Configuration.makeDefaultConfiguration(
-			serverEnvironmentProvider: serverEnvironmentProvider
-		)
-	}
+	lazy var configuration: Configuration = Configuration.makeDefaultConfiguration(environmentProvider: environmentProvider)
 
 	// MARK: - Private
 
-	private let serverEnvironmentProvider: ServerEnvironmentProviding
+	private let environmentProvider: EnvironmentProviding
 	private let session: URLSession
-	private let packageVerifier: SAPDownloadedPackage.Verification
-	private var retries: [URL: Int] = [:]
+	private var fetchDayRetries: [URL: Int] = [:]
+	private var traceWarningPackageDownloadRetries: [URL: Int] = [:]
 
 	private let queue = DispatchQueue(label: "com.sap.HTTPClient")
 
@@ -364,17 +503,17 @@ final class HTTPClient: Client {
 				defer {
 					// no guard in defer!
 					if let error = responseError {
-						let retryCount = self.retries[url] ?? 0
+						let retryCount = self.fetchDayRetries[url] ?? 0
 						if retryCount > 2 {
 							completeWith(.failure(error))
 						} else {
-							self.retries[url] = retryCount.advanced(by: 1)
+							self.fetchDayRetries[url] = retryCount.advanced(by: 1)
 							Log.debug("\(url) received: \(error) – retry (\(retryCount.advanced(by: 1)) of 3)", log: .api)
 							self.fetchDay(from: url, completion: completeWith)
 						}
 					} else {
 						// no error, no retry - clean up
-						self.retries[url] = nil
+						self.fetchDayRetries[url] = nil
 					}
 				}
 
@@ -476,12 +615,14 @@ final class HTTPClient: Client {
 			return
 		}
 		do {
-			let decodedResponse = try JSONDecoder().decode(
+			let decoder = JSONDecoder()
+			decoder.dateDecodingStrategy = .iso8601
+			let decodedResponse = try decoder.decode(
 				OTPResponseProperties.self,
 				from: responseBody
 			)
 			guard let errorCode = decodedResponse.errorCode else {
-				Log.error("Failed to get errorCode because of invalid response payload structure", log: .api)
+				Log.error("Failed to get errorCode because it is nil", log: .api)
 				completion(.failure(.invalidResponseError))
 				return
 			}
@@ -507,6 +648,81 @@ final class HTTPClient: Client {
 			completion(.failure(.invalidResponseError))
 		}
 	}
+	
+	private func traceWarningPackageDownload(
+		country: String,
+		packageId: Int,
+		url: URL,
+		completion: @escaping TraceWarningPackageDownloadCompletionHandler
+	) {
+		var responseError: TraceWarningError?
+		
+		session.GET(url) { [weak self] result in
+			self?.queue.async {
+				
+				guard let self = self else {
+					Log.error("TraceWarningDownload failed due to strong self creation", log: .api)
+					completion(.failure(.generalError))
+					return
+				}
+				
+				defer {
+					// no guard in defer!
+					if let error = responseError {
+						let retryCount = self.traceWarningPackageDownloadRetries[url] ?? 0
+						if retryCount > 2 {
+							completion(.failure(error))
+						} else {
+							self.traceWarningPackageDownloadRetries[url] = retryCount.advanced(by: 1)
+							Log.debug("TraceWarningDownload url: \(url) received: \(error) – retry (\(retryCount.advanced(by: 1)) of 3)", log: .api)
+							self.traceWarningPackageDownload(country: country, packageId: packageId, url: url, completion: completion)
+						}
+					} else {
+						// no error, no retry - clean up
+						self.traceWarningPackageDownloadRetries[url] = nil
+					}
+				}
+				
+				switch result {
+				case let .success(response):
+					switch response.statusCode {
+					case 200:
+						guard let body = response.body else {
+							Log.error("Failed to unpack response body of trace warning download with http status code: \(String(response.statusCode))", log: .api)
+							responseError = .invalidResponseError(response.statusCode)
+							return
+						}
+						let eTag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag")
+						
+						// First look if the response is empty. (i.e. no zip file, to extract).
+						// "expectedContentLength" will be -1 if the "content-length" header field is missing.
+						if response.httpResponse.expectedContentLength <= 0 {
+							let emptyPackage = PackageDownloadResponse(package: nil, etag: eTag)
+							Log.info("Succesfully downloaded empty traceWarningPackage", log: .api)
+							completion(.success(emptyPackage))
+						} else {
+							guard let package = SAPDownloadedPackage(compressedData: body) else {
+								Log.error("Failed to create signed package for trace warning download", log: .api)
+								responseError = .invalidResponseError(response.statusCode)
+								return
+							}
+							let downloadedZippedPackage = PackageDownloadResponse(package: package, etag: eTag)
+							Log.info("Succesfully downloaded zipped traceWarningPackage", log: .api)
+							completion(.success(downloadedZippedPackage))
+						}
+					default:
+						Log.error("Error in response with status code: \(String(response.statusCode))", log: .api)
+						responseError = .invalidResponseError(response.statusCode)
+					}
+				case let .failure(error):
+					Log.error("Error in response body", log: .api, error: error)
+					responseError = .defaultServerError(error)
+				}
+				
+			}
+		}
+	}
+
 }
 
 // MARK: Extensions
@@ -536,9 +752,11 @@ private extension URLRequest {
 		let submPayload = SAP_Internal_SubmissionPayload.with {
 			$0.requestPadding = self.getSubmissionPadding(for: payload.exposureKeys)
 			$0.keys = payload.exposureKeys
-			/// Consent needs always set to be true https://jira.itc.sap.com/browse/EXPOSUREAPP-3125?focusedCommentId=1022122&page=com.atlassian.jira.plugin.system.issuetabpanels%3Acomment-tabpanel#comment-1022122
+			$0.checkIns = payload.checkins
+			/// Consent needs always set to be true
 			$0.consentToFederation = true
 			$0.visitedCountries = payload.visitedCountries.map { $0.id }
+			$0.submissionType = payload.submissionType
 		}
 		let payloadData = try submPayload.serializedData()
 		let url = configuration.submissionURL
@@ -571,7 +789,7 @@ private extension URLRequest {
 			forHTTPHeaderField: "Content-Type"
 		)
 		
-		request.httpMethod = "POST"
+		request.httpMethod = HttpMethod.post
 		request.httpBody = payloadData
 		
 		return request
@@ -604,7 +822,7 @@ private extension URLRequest {
 			forHTTPHeaderField: "Content-Type"
 		)
 		
-		request.httpMethod = "POST"
+		request.httpMethod = HttpMethod.post
 		
 		// Add body padding to request.
 		let originalBody = ["registrationToken": registrationToken]
@@ -641,7 +859,7 @@ private extension URLRequest {
 			forHTTPHeaderField: "Content-Type"
 		)
 		
-		request.httpMethod = "POST"
+		request.httpMethod = HttpMethod.post
 		
 		// Add body padding to request.
 		let originalBody = ["registrationToken": registrationToken]
@@ -679,7 +897,7 @@ private extension URLRequest {
 			forHTTPHeaderField: "Content-Type"
 		)
 		
-		request.httpMethod = "POST"
+		request.httpMethod = HttpMethod.post
 		
 		// Add body padding to request.
 		let originalBody = ["key": key, "keyType": type]
@@ -691,19 +909,18 @@ private extension URLRequest {
 
 	static func authorizeOTPRequest(
 		configuration: HTTPClient.Configuration,
-		otp: String,
+		otpEdus: String,
 		ppacToken: PPACToken,
-		isFake: Bool,
-		forceApiTokenHeader: Bool
+		forceApiTokenHeader: Bool,
+		isFake: Bool = false
 	) throws -> URLRequest {
-
 		let ppacIos = SAP_Internal_Ppdd_PPACIOS.with {
 			$0.apiToken = ppacToken.apiToken
 			$0.deviceToken = ppacToken.deviceToken
 		}
 
 		let payload = SAP_Internal_Ppdd_EDUSOneTimePassword.with {
-			$0.otp = otp
+			$0.otp = otpEdus
 		}
 
 		let protoBufRequest = SAP_Internal_Ppdd_EDUSOneTimePasswordRequestIOS.with {
@@ -711,15 +928,20 @@ private extension URLRequest {
 			$0.authentication = ppacIos
 		}
 
-		let url = configuration.otpAuthorizationURL
+		let url = configuration.otpEdusAuthorizationURL
 		let body = try protoBufRequest.serializedData()
 		var request = URLRequest(url: url)
 
-		request.httpMethod = "POST"
+		request.httpMethod = HttpMethod.post
 
 		request.setValue(
 			"application/x-protobuf",
 			forHTTPHeaderField: "Content-Type"
+		)
+
+		request.setValue(
+			isFake ? "1" : "0",
+			forHTTPHeaderField: "cwa-fake"
 		)
 
 		#if !RELEASE
@@ -735,11 +957,50 @@ private extension URLRequest {
 		return request
 	}
 
+	static func authorizeOTPRequest(
+		configuration: HTTPClient.Configuration,
+		otpEls: String,
+		ppacToken: PPACToken
+	) throws -> URLRequest {
+		let ppacIos = SAP_Internal_Ppdd_PPACIOS.with {
+			$0.apiToken = ppacToken.apiToken
+			$0.deviceToken = ppacToken.deviceToken
+		}
+
+		let payload = SAP_Internal_Ppdd_ELSOneTimePassword.with {
+			$0.otp = otpEls
+		}
+
+		let protoBufRequest = SAP_Internal_Ppdd_ELSOneTimePasswordRequestIOS.with {
+			$0.payload = payload
+			$0.authentication = ppacIos
+		}
+		
+		let url = configuration.otpElsAuthorizationURL
+		let body = try protoBufRequest.serializedData()
+		var request = URLRequest(url: url)
+
+		request.httpMethod = HttpMethod.post
+
+		// Headers
+		request.setValue(
+			"application/x-protobuf",
+			forHTTPHeaderField: "Content-Type"
+		)
+		
+		request.setValue(
+			"0",
+			forHTTPHeaderField: "cwa-fake"
+		)
+		
+		request.httpBody = body
+		return request
+	}
+
 	static func ppaSubmit(
 		configuration: HTTPClient.Configuration,
 		payload: SAP_Internal_Ppdd_PPADataIOS,
 		ppacToken: PPACToken,
-		isFake: Bool,
 		forceApiTokenHeader: Bool
 	) throws -> URLRequest {
 
@@ -757,7 +1018,7 @@ private extension URLRequest {
 		let body = try protoBufRequest.serializedData()
 		var request = URLRequest(url: url)
 
-		request.httpMethod = "POST"
+		request.httpMethod = HttpMethod.post
 
 		request.setValue(
 			"application/x-protobuf",
@@ -777,6 +1038,66 @@ private extension URLRequest {
 		return request
 	}
 
+	static func errorLogSubmit(
+		configuration: HTTPClient.Configuration,
+		payload: Data,
+		otpEls: String
+	) throws -> URLRequest {
+		let boundary = UUID().uuidString
+		var request = URLRequest(url: configuration.logUploadURL)
+		request.httpMethod = HttpMethod.post
+		
+		// Create multipart body
+		
+		// prevent potential file collisions on backend
+		let fileName = "ErrorLog-\(UUID().uuidString).zip"
+		
+		var body = Data()
+
+		try body.append("\r\n--\(boundary)\r\n")
+		try body.append("Content-Disposition:form-data; name=\"file\"; filename=\"\(fileName)\"\r\n")
+		try body.append("Content-Type:application/zip\r\n")
+		try body.append("Content-Length: \(payload.count)\r\n")
+		try body.append("\r\n")
+		body.append(payload)
+		try body.append("\r\n")
+		try body.append("--\(boundary)--\r\n")
+		
+		request.httpBody = body
+		
+		// Create headers
+		
+		request.setValue(
+			"multipart/form-data; boundary=\(boundary)",
+			forHTTPHeaderField: "Content-Type"
+		)
+		
+		request.setValue(
+			otpEls,
+			forHTTPHeaderField: "cwa-otp"
+		)
+		
+		request.setValue(
+			"\(body.count)",
+			forHTTPHeaderField: "Content-Length"
+		)
+		
+		return request
+	}
+
+	
+	static func traceWarningPackageDiscovery(
+		configuration: HTTPClient.Configuration,
+		country: String
+	) throws -> URLRequest {
+
+		let url = configuration.traceWarningPackageDiscoveryURL(country: country)
+		var request = URLRequest(url: url)
+
+		request.httpMethod = HttpMethod.get
+		
+		return request
+	}
 	
 	// MARK: - Helper methods for adding padding to the requests.
 	
@@ -809,5 +1130,6 @@ private extension URLRequest {
 		guard let data = (String.getRandomString(of: 28 * paddedKeysAmount)).data(using: .ascii) else { return Data() }
 		return data
 	}
+
 	// swiftlint:disable:next file_length
 }

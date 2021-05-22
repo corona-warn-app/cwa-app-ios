@@ -9,8 +9,7 @@ final class StoreTests: XCTestCase {
 	private var store: SecureStore!
 
 	override func setUpWithError() throws {
-		XCTAssertNoThrow(try SecureStore(at: URL(staticString: ":memory:"), key: "123456", serverEnvironment: ServerEnvironment()))
-		store = try SecureStore(at: URL(staticString: ":memory:"), key: "123456", serverEnvironment: ServerEnvironment())
+		store = try SecureStore(at: URL(staticString: ":memory:"), key: "123456")
 	}
 
 	func testResultReceivedTimeStamp_Success() {
@@ -27,22 +26,6 @@ final class StoreTests: XCTestCase {
 		XCTAssertEqual(store.lastSuccessfulSubmitDiagnosisKeyTimestamp, Int64.max)
 		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = Int64.min
 		XCTAssertEqual(store.lastSuccessfulSubmitDiagnosisKeyTimestamp, Int64.min)
-	}
-
-	func testNumberOfSuccesfulSubmissions_Success() {
-		XCTAssertEqual(store.numberOfSuccesfulSubmissions, 0)
-		store.numberOfSuccesfulSubmissions = Int64.max
-		XCTAssertEqual(store.numberOfSuccesfulSubmissions, Int64.max)
-		store.numberOfSuccesfulSubmissions = Int64.min
-		XCTAssertEqual(store.numberOfSuccesfulSubmissions, Int64.min)
-	}
-
-	func testInitialSubmitCompleted_Success() {
-		XCTAssertFalse(store.initialSubmitCompleted)
-		store.initialSubmitCompleted = true
-		XCTAssertTrue(store.initialSubmitCompleted)
-		store.initialSubmitCompleted = false
-		XCTAssertFalse(store.initialSubmitCompleted)
 	}
 
 	func testRegistrationToken_Success() {
@@ -69,7 +52,7 @@ final class StoreTests: XCTestCase {
 		XCTAssertFalse(fileManager.fileExists(atPath: testStoreTargetURL.path))
 		try fileManager.copyItem(at: testStoreSourceURL, to: testStoreTargetURL)
 
-		let tmpStore: Store = try SecureStore(at: directoryURL, key: "12345678", serverEnvironment: ServerEnvironment())
+		let tmpStore: Store = try SecureStore(at: directoryURL, key: "12345678")
 
 		// Prepare data
 		let testTimeStamp: Int64 = 1466467200  // 21.06.2016
@@ -77,20 +60,8 @@ final class StoreTests: XCTestCase {
 
 		XCTAssertTrue(tmpStore.isOnboarded)
 		XCTAssertEqual(tmpStore.dateOfAcceptedPrivacyNotice?.description, testDate1.description)
-		XCTAssertEqual(tmpStore.teleTan, "97RR2D5644")
-		XCTAssertEqual(tmpStore.tan, "97RR2D5644")
-		XCTAssertEqual(tmpStore.testGUID, "00000000-0000-4000-8000-000000000000")
-		XCTAssertTrue(tmpStore.devicePairingConsentAccept)
-		XCTAssertEqual(tmpStore.devicePairingConsentAcceptTimestamp, testTimeStamp)
-		XCTAssertEqual(tmpStore.devicePairingSuccessfulTimestamp, testTimeStamp)
 		XCTAssertTrue(tmpStore.allowRiskChangesNotification)
 		XCTAssertTrue(tmpStore.allowTestsStatusNotification)
-		XCTAssertEqual(tmpStore.registrationToken, "")
-		XCTAssertTrue(tmpStore.hasSeenSubmissionExposureTutorial)
-		XCTAssertEqual(tmpStore.testResultReceivedTimeStamp, testTimeStamp)
-		XCTAssertEqual(tmpStore.lastSuccessfulSubmitDiagnosisKeyTimestamp, testTimeStamp)
-		XCTAssertEqual(tmpStore.numberOfSuccesfulSubmissions, 1)
-		XCTAssertTrue(tmpStore.initialSubmitCompleted)
 		XCTAssertEqual(tmpStore.exposureActivationConsentAcceptTimestamp, testTimeStamp)
 		XCTAssertTrue(tmpStore.exposureActivationConsentAccept)
 	}
@@ -107,7 +78,7 @@ final class StoreTests: XCTestCase {
 	}
 
 	func testValueToggles() throws {
-		let store = try SecureStore(at: URL(staticString: ":memory:"), key: "123456", serverEnvironment: ServerEnvironment())
+		let store = try SecureStore(at: URL(staticString: ":memory:"), key: "123456")
 
 		let isOnboarded = store.isOnboarded
 		store.isOnboarded.toggle()
@@ -126,7 +97,7 @@ final class StoreTests: XCTestCase {
 		try keychain.clearInKeychain(key: SecureStore.keychainDatabaseKey)
 
 		// 1. create store and store db key in keychain
-		let store = SecureStore(subDirectory: "test", serverEnvironment: ServerEnvironment())
+		let store = SecureStore(subDirectory: "test")
 		XCTAssertFalse(store.isOnboarded)
 		// user finished onboarding and used the app…
 		store.isOnboarded.toggle()
@@ -139,7 +110,7 @@ final class StoreTests: XCTestCase {
 
 		// 2. restored with db key in keychain
 		// This simulates iCloud keychain
-		let restore = SecureStore(subDirectory: "test", serverEnvironment: ServerEnvironment())
+		let restore = SecureStore(subDirectory: "test")
 		XCTAssertTrue(restore.isOnboarded)
 		XCTAssertEqual(restore.testGUID, store.testGUID)
 		// still the same key?
@@ -148,7 +119,7 @@ final class StoreTests: XCTestCase {
 		// 3. db key in keychain 'changed' for some reason
 		// swiftlint:disable:next force_unwrapping
 		try keychain.saveToKeychain(key: SecureStore.keychainDatabaseKey, data: "corrupted".data(using: .utf8)!)
-		let restore2 = SecureStore(subDirectory: "test", serverEnvironment: ServerEnvironment())
+		let restore2 = SecureStore(subDirectory: "test")
 		// database reset?
 		XCTAssertFalse(restore2.isOnboarded)
 		XCTAssertEqual(restore2.testGUID, "") // init values…
@@ -159,7 +130,7 @@ final class StoreTests: XCTestCase {
 	}
 
 	func testConfigCaching() throws {
-		let store = SecureStore(subDirectory: "test", serverEnvironment: ServerEnvironment())
+		let store = SecureStore(subDirectory: "test")
 		store.appConfigMetadata = nil
 		XCTAssertNil(store.appConfigMetadata)
 
@@ -172,7 +143,7 @@ final class StoreTests: XCTestCase {
 	}
 	
 	func testConsentForAutomaticSharingTestResults_initial() throws {
-		let store = SecureStore(subDirectory: "test", serverEnvironment: ServerEnvironment())
+		let store = SecureStore(subDirectory: "test")
 		XCTAssertFalse(store.isSubmissionConsentGiven, "isAllowedToAutomaticallyShareTestResults should be 'false' after initialization")
 
 	}

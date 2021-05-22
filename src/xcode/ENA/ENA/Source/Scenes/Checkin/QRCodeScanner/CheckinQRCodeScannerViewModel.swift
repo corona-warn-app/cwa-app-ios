@@ -4,14 +4,39 @@
 
 import Foundation
 import AVFoundation
-import OpenCombine
 
-final class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
+class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
 
 	// MARK: - Init
 
-	override init() {
+	init(
+		verificationHelper: QRCodeVerificationHelper,
+		appConfiguration: AppConfigurationProviding,
+		onSuccess: @escaping (TraceLocation) -> Void,
+		onError: ((CheckinQRScannerError) -> Void)?
+	) {
+		#if DEBUG
+		if isUITesting {
+			let traceLocation = TraceLocation(
+				id: UUID().uuidString.data(using: .utf8) ?? Data(),
+				version: 0,
+				type: .locationTypePermanentRetail,
+				description: "Supermarkt",
+				address: "Walldorf",
+				startDate: nil,
+				endDate: nil,
+				defaultCheckInLengthInMinutes: nil,
+				cryptographicSeed: Data(),
+				cnPublicKey: Data()
+			)
+			onSuccess(traceLocation)
+		}
+		#endif
+		self.appConfiguration = appConfiguration
+		self.verificationHelper = verificationHelper
 		self.captureDevice = AVCaptureDevice.default(for: .video)
+		self.onSuccess = onSuccess
+		self.onError = onError
 		super.init()
 	}
 
@@ -22,40 +47,43 @@ final class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 		didOutput metadataObjects: [AVMetadataObject],
 		from _: AVCaptureConnection
 	) {
-		guard let code = metadataObjects.first(where: { $0 is MetadataMachineReadableCodeObject }) as? MetadataMachineReadableCodeObject,
-			  let route = Route(code.stringValue),
-			  case let Route.checkin(key) = route
-		else {
-			onError?(QRScannerError.codeNotFound)
+		didScan(metadataObjects: metadataObjects)
+	}
+	
+	func didScan(metadataObjects: [MetadataObject]) {
+		guard isScanningActivated else {
+			Log.info("Scanning not stopped from previous run")
 			return
 		}
 
-		let data = key.base32DecodedString()
-		Log.debug("Data found: \(String(describing: data))")
-
-		// creates a fake event for the moment
-		let traceLocation = TraceLocation(
-			guid: "",
-			version: 0,
-			type: .locationTypePermanentCraft,
-			description: "Jahrestreffen derdeutschen SAP Anwendergruppe",
-			address: "Lenaustr.6, 69115, Heidelberg",
-			startDate: Date(),
-			endDate: Calendar.current.date(byAdding: .hour, value: 3, to: Date(), wrappingComponents: false),
-			defaultCheckInLengthInMinutes: nil,
-			byteRepresentation: Data(),
-			signature: ""
+		deactivateScanning()
+		guard let code = metadataObjects.first(where: { $0 is MetadataMachineReadableCodeObject }) as? MetadataMachineReadableCodeObject,
+			  let url = code.stringValue,
+			  !url.isEmpty
+		else {
+			onError?(CheckinQRScannerError.codeNotFound)
+			return
+		}
+		verificationHelper.verifyQrCode(
+			qrCodeString: url,
+			appConfigurationProvider: appConfiguration,
+			onSuccess: { [weak self] traceLocation in
+				self?.onSuccess(traceLocation)
+				self?.verificationHelper.subscriptions.removeAll()
+			},
+			onError: { [weak self] error in
+				self?.onError?(error)
+				self?.verificationHelper.subscriptions.removeAll()
+			}
 		)
-		onSuccess?(traceLocation)
 	}
-
 	// MARK: - Internal
 
 	lazy var captureSession: AVCaptureSession? = {
-		
 		guard let currentCaptureDevice = captureDevice,
 			let captureDeviceInput = try? AVCaptureDeviceInput(device: currentCaptureDevice) else {
 			onError?(.cameraPermissionDenied)
+			Log.error("Failed to setup AVCaptureDeviceInput", log: .ui)
 			return nil
 		}
 
@@ -68,8 +96,10 @@ final class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 		return captureSession
 	}()
 
-	var onSuccess: ((TraceLocation) -> Void)?
-	var onError: ((QRScannerError) -> Void)?
+	private let appConfiguration: AppConfigurationProviding
+	private let verificationHelper: QRCodeVerificationHelper
+	var onSuccess: (TraceLocation) -> Void
+	var onError: ((CheckinQRScannerError) -> Void)?
 	/// get current torchMode by device state
 	var torchMode: TorchMode {
 		guard let device = captureDevice,
@@ -121,8 +151,7 @@ final class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 	// MARK: - Private
 
 	private let captureDevice: AVCaptureDevice?
-
-	private var isScanningActivated: Bool {
+	var isScanningActivated: Bool {
 		captureSession?.isRunning ?? false
 	}
 
@@ -135,13 +164,14 @@ final class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 			AVCaptureDevice.requestAccess(for: .video) { [weak self] isAllowed in
 				guard isAllowed else {
 					self?.onError?(.cameraPermissionDenied)
+					Log.error("camera requestAccess denied - stop here we can't go on", log: .ui)
 					return
 				}
 				self?.activateScanning()
 			}
 		default:
 			onError?(.cameraPermissionDenied)
+			Log.info(".cameraPermissionDenied - stop here we can't go on", log: .ui)
 		}
 	}
-
 }

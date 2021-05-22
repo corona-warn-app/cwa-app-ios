@@ -1,11 +1,14 @@
 /* ExposureSubmissionWarnOthers */
 
-"ExposureSubmissionWarnOthers_acknowledgement_1_1" = "Uygulama, karşılaştığınız resmi Korona uygulamaları kullanıcıları uyarmak üzere onlara test sonucunuzu paylaşır. Uyarı, yukarıda sözü geçen ülkelerde çalışır. Ayrıca semptomlarınızın başlangıcı hakkında bilgi verirseniz, bu veri de paylaşılacaktır.";
+"ExposureSubmissionWarnOthers_acknowledgementTitle" = "Rıza Beyanınız";
 
-"ExposureSubmissionWarnOthers_acknowledgement_1_2" = "Lütfen bir sonraki adımda “Paylaş”a tıklayarak test sonucunuzu (daha doğrusu: Son 14 güne ait rastgele kimlik no'larınız) paylaşın.";
+"ExposureSubmissionWarnOthers_acknowledgementBody" = "“Kabul ediyorum”a tıklayarak aşağıdaki adımlara onay vermiş olursunuz:";
+
+"ExposureSubmissionWarnOthers_acknowledgement_1_1" = "Uygulama test sonucunuzu, karşılaştığınız kullanıcıları uyarmak için paylaşır. Bu yukarıda belirtilen ülkelerdeki Korona Uygulamasının kullanıcıları ve aynı zamanda aynı etkinlikte ya da yerde bulunduğunuz kullanıcılar için geçerlidir. Hızlı test durumunda sadece Korona Uyarı Uygulamasının kullanıcıları uyarılır. Semptomlarınızın başladığına ilişkin ek bilgiler verirseniz bu veriler de paylaşılır.";
+
+"ExposureSubmissionWarnOthers_acknowledgement_1_2" = "Sonraki adımada, rastgele kimiliklerinize erişim onayı verin.";
 
 "ExposureSubmissionWarnOthers_acknowledgement_footer" = "Uyarı gerçekleştikten sonra, Uygulamayı silerek verdiğiniz rıza beyanını da geri alabilirsiniz.";
-
 
 /* DeltaOnboarding */
 
@@ -21,32 +24,33 @@
 
 /* Exposure Submission QR Code Info */
 
-"ExposureSubmissionQRInfo_acknowledgement_title" = "Rıza Beyanınız";
+"ExposureSubmissionQRInfo_acknowledgement_legal_title" = "Rıza Beyanınız";
 
-"ExposureSubmissionQRInfo_acknowledgement_body" = "“Kabul ediyorum”a tıklayarak aşağıdaki adımlara onay vermiş olursunuz:";
+"ExposureSubmissionQRInfo_acknowledgement_legal_body" = "“Kabul ediyorum”a tıklayarak aşağıdaki adımlara onay vermiş olursunuz:";
 
-"ExposureSubmissionQRInfo_acknowledgement_1_1" = "Uygulama, test sonucunuzu çağırır.";
+"ExposureSubmissionQRInfo_acknowledgement_legal_Bullet1_1" = "Uygulama, test sonucunuzu çağırır.";
 
-"ExposureSubmissionQRInfo_acknowledgement_1_2" = "Daha sonra fikrinizi değiştirirseniz, söz konusu testi Uygulamadan kaldırabilirsiniz.";
+"ExposureSubmissionQRInfo_acknowledgement_legal_Bullet1_2" = "Daha sonra fikrinizi değiştirirseniz, söz konusu testi Uygulamadan kaldırabilirsiniz.";
 
-"ExposureSubmissionQRInfo_acknowledgement_2_1" = "Korona testiniz pozitif çıkmışsa, Uygulama karşılaştığınız kullanıcıları uyarmak üzere test sonucunuzu paylaşır. Bu, yukarıda belirtilen ülkelerdeki resmi Korona uygulamalarının kullanıcıları için geçerlidir. Ayrıca semptomlarınızın başlangıcı hakkında bilgi verirseniz, bu veri de paylaşılacaktır.";
+"ExposureSubmissionQRInfo_acknowledgement_legal_Bullet2" = "Korona testiniz pozitif çıkmışsa, Uygulama karşılaştığınız kullanıcıları uyarmak üzere test sonucunuzu paylaşır. Bu, yukarıda belirtilen ülkelerdeki resmi Korona uygulamalarının kullanıcıları için geçerlidir. Ayrıca semptomlarınızın başlangıcı hakkında bilgi verirseniz, bu veri de paylaşılacaktır.";
 
-"ExposureSubmissionQRInfo_acknowledgement_2_2" = "Verdiğiniz rıza beyanını istediğiniz zaman geri alabilirsiniz. Bunun ayarını, “Testi Göster” altında bulabilirsiniz. Paylaşmadan önce, rıza beyanınıza ilişkin yeniden bilgilendirilecek ve test sonucunuzu yayınlamaya izin vermeniz istenecektir.";
+"ExposureSubmissionQRInfo_acknowledgement_legal_Bullet3" = "Ayrıca semptomlarınızın başlangıcı hakkında bilgi verirseniz, bu veri de paylaşılacaktır.";
+
+"ExposureSubmissionQRInfo_acknowledgement_legal_WithdrawConsent" = "Onay beyanınızı istediğiniz zaman geri çekebilirsiniz. İlgili ayar “Testleri göster” altında yer alır. Bilgiler paylaşılmadan önce tekrar onayınız alınır.";
 
 /* Automatic share submission result consent */
 
 "AutomaticSharingConsent_Subtitle" = "Rıza Beyanı";
 
-"AutomaticSharingConsent_DescriptionPart1" = "Korona testiniz pozitif çıkmışsa, Uygulama karşılaştığınız kullanıcıları uyarmak üzere test sonucunuzu paylaşır.";
+"AutomaticSharingConsent_DescriptionPart1" = "Korona testiniz pozitif çıktıysa Uygulama test sonucunuzu, karşılaştığınız kullanıcıları yarmak için paylaşır.";
 
-"AutomaticSharingConsent_DescriptionPart2" = "Bu uyarı, yukarıda belirtilen ülkelerdeki resmi Korona uygulamalarının kullanıcılarına ulaşabilir:";
+"AutomaticSharingConsent_DescriptionPart2" = "Uyarı sizinle aynı etkinlikteki ya da yerdeki kullanıcılara ve aşağıdaki ülkelerdeki Korona Uygulaması kullanıcılarına gönderilir:";
 
-"AutomaticSharingConsent_DescriptionPart3" = "Ayrıca semptomlarınızın başlangıcı hakkında bilgi verirseniz, bu veri de paylaşılacaktır.";
+"AutomaticSharingConsent_DescriptionPart3" = "Hızlı test durumunda sadece Korona Uyarı Uygulamasının kullanıcıları uyarılır. Semptomlarınızın başladığına ilişkin ek bilgiler verirseniz bu veriler de paylaşılır.";
 
 "AutomaticSharingConsent_DescriptionPart4" = "Yukarıdaki “Diğer Kullanıcıları Uyarın” seçeneğini devre dışı bırakarak, verdiğiniz rıza beyanını geri alabilirsiniz.";
 
 "AutomaticSharingConsent_DescriptionPart5" = "Bunun ardından test sonucunuz size görüntülenir.";
-
 
 /* Contact journal information */
 
@@ -106,3 +110,95 @@
 /* Data Donation App Settings*/
 
 "ppa_settings_privacy_information_body" = "Yukarıdaki “Veri bağışı” seçeneğini etkinleştirerek, şunlara onay vermiş olursunuz:\n\nUygulama, topladığı bilgileri her gün RKI’ye aktarır. Bunlar, görüntülenen riskli karşılaşmalar ve uyarılar, size gönderilen test sonuçları, diğer kullanıcıları uyarıp uyarmadığınız ve akıllı telefonunuzun işletim sistemine ilişkin verilerdir. Ayrıca başka bilgiler de verdiyseniz (bölge, yaş grubu gibi), bunlar da RKI’ye aktarılır.\n\nRKI, Uygulamanın etki gücünü ve işlevselliğini değerlendirmek ve pandemi hakkında yeni çıkarımlar elde etmek için, bu verileri birleştirecek ve istatistikler olarak değerlendirecektir. Bu süreçte edinilen bulgular, Uygulamanın işlevlerini ve kullanım kolaylığını iyileştirmenin yanı sıra pandemiye karşı mücadele için diğer önlemlerin yönlendirilmesine yardımcı olmaktadır.\n\nVerilerinizin değerlendirilmesinden önce, veri bağışına katılan her Uygulamanın yalnızca bir kez sayıma alındığı ve istatistiklerin tahrif edilmediği kontrol edilir. Bu bağlamda Uygulamanızın orijinal olduğunun incelenmesi gerekmektedir. Bunun için, akıllı telefonunuz tarafından benzersiz bir kimlik kodu oluşturulur ve Apple’ın Uygulamanızın orijinal ürün olduğunu RKI’ye doğrulaması için ABD’deki veya diğer bir üçüncü ülkeye Apple’a aktarılır. Bu kimlik kodu, akıllı telefonunuzun sürümü ve Uygulama hakkında veriler içerir. Apple, böylece kim olduğunuzu ortaya çıkarabilir ve akıllı telefonunuzun orijinallik kontrolünün yapıldığını anlayabilir. Apple, Uygulamadan daha fazla bilgi almaz.\n\nYukarıdaki “Veri bağışı” seçeneğini devre dışı bırakarak, verdiğiniz rıza beyanını geri alabilirsiniz.";
+
+/* Error Reports */
+
+"errorReport_Legal_DataPrivacy_Headline" = "Veri gizliliği ve veri güvenliği";
+
+"errorReport_Legal_DataPrivacy_Bullet1" = "Hata raporunun kaydedilmesi isteğe bağlı gerçekleşmektedir.";
+
+"errorReport_Legal_DataPrivacy_Bullet2" = "Hata raporuna öncelikle yalnızca siz erişebilirsiniz. Ancak daha sonra, hata raporunu teknik desteğe gönderme, hata raporunu ilk önce akıllı telefonunuza kaydetme veya kaydı durdurup silme kararını vermek size kalmıştır. Hata raporunu ilk önce yerel olarak cihazınıza kaydederseniz, teknik desteğe göndermeden önce hata raporunu kendiniz görüntüleme olanağınız da bulunmaktadır.";
+
+"errorReport_Legal_DataPrivacy_Bullet3" = "Hata raporu, örneğin test sonucunuz veya sizin için belirlenen enfeksiyon riskine ilişkin veriler gibi hassas bilgiler içerir. Ancak bu rapor, test kaydı sırasında kullandığınız kare kodları, temas günlüğüne girdiğiniz veriler veya kimliğiniz hakkında herhangi bir bilgi içermez.";
+
+"errorReport_Legal_DataPrivacy_Bullet4" = "Hata raporlarını yayınlamanızı ve e-posta ile göndermenizi tavsiye etmiyoruz.";
+
+"errorReport_Legal_DataPrivacy_Bullet5" = "Özel kişiler veya şirketler, sizden topladığınız verileri başkalarına aktarmanızı talep etme hakkına sahip değillerdir.";
+
+"errorReport_Legal_SendReports_Headline" = "Rıza beyanınız";
+
+"errorReport_Legal_SendReports_Subline" = "“Kabul ediyorum”a tıklayarak aşağıdaki adımlara onay vermiş olursunuz:";
+
+"errorReport_Legal_SendReports_Bullet1_Part1" = "Tarafınızdan oluşturulan hata raporu, hata analizinin gerçekleştirilmesi için RKI’ye aktarılır.";
+
+"errorReport_Legal_SendReports_Bullet1_Part2" = "RKI, Uygulamanızda ortaya çıkan hataların olası nedenlerini belirlemek ve bunları gidermek için hata raporunu inceleyecektir. Hata raporu kimlik numarasını teknik destek birimine sağladığınızda, RKI bu hata raporunu size kişisel olarak atayabilir.";
+
+"errorReport_Legal_SendReports_Bullet2" = "Rapor RKI’ye gönderilmeden önce, Uygulamanızın orijinal olduğu bir kez kontrol edilir. Bunun için, akıllı telefonunuz tarafından benzersiz bir kimlik kodu oluşturulur ve Apple’ın Uygulamanızın orijinal ürün olduğunu RKI’ye doğrulaması için ABD veya diğer bir üçüncü ülkedeki Apple’a aktarılır. Bu kimlik kodu, akıllı telefonunuzun sürümü ve Uygulama hakkında veriler içerir. Apple, böylece kim olduğunuzu ortaya çıkarabilir ve akıllı telefonunuzun orijinallik kontrolünün yapıldığını anlayabilir. Apple, Uygulamadan daha fazla bilgi almaz.";
+
+"errorReport_Legal_SendReports_Paragraph" = "Gönderimden sonra hata raporu kimlik numarasını teknik desteğe bildirirseniz, sağlanan diğer bilgilerin, hata raporu kimliğinin ve hata raporunun silinmesini istediğiniz zaman talep edebilirsiniz. Aksi halde bu hata raporu 14 gün sonra otomatik olarak silinecektir.";
+
+/* Checkin */
+
+"Checkin_Information_Legal_Headline_1" = "Rıza beyanınız";
+
+"Checkin_Information_Legal_SubHeadline_1" = "“Kabul ediyorum”a tıklayarak aşağıdaki adımlara onay vermiş olursunuz:";
+
+"Checkin_Information_Legal_Text_1_bold" = "Uygulama, 16 gün boyunca hangi olaylarda veya konumlarda giriş denetimi yaptırdığınızı hatırlar.";
+
+"Checkin_Information_Legal_Text_1_normal" = "Bir giriş denetimi sırasında QR kodu taradığınızda, akıllı telefonunuzda olay veya konum için bir veri girişi oluşturulur.";
+
+"Checkin_Information_Legal_Text_2" = "Sizinle birlikte giriş denetimi yapan bir kullanıcının daha sonraki testi pozitif çıkarsa ve kendisi bir uyarı tetiklerse, akıllı telefonunuz testi pozitif çıkan bu kullanıcıdan rastgele kimlik numaraları almamış olsa bile, olay kimliği üzerinden otomatik olarak uyarılırsınız.";
+
+"Checkin_Information_Legal_Text_3" = "Eğer kendiniz daha sonra bir uyarıyı tetiklerseniz, “Giriş denetimlerim” altında girilen bir olay veya konumda sizinle eş zamanlı giriş yapmış olan diğer tüm kullanıcılar, olay kimliği üzerinden otomatik olarak uyarılacaktır.";
+
+"Checkin_Information_Legal_SubHeadline_2" = "“Giriş denetimlerim” altındaki bir giriş denetimini istediğiniz zaman silebilirsiniz.  Bu durumda akıllı telefonunuz yalnızca, bir riskli karşılaşmada testi pozitif çıkan bir kullanıcının rastgele kimlik numaralarını alırsa uyarılırsınız.";
+
+/* TraceLocation */
+
+"TraceLocation_Information_Legal_Headline_1" = "Veri gizliliği ve veri güvenliği";
+
+"TraceLocation_Information_Legal_Text_1" = "“Devam”a tıklarsanız, konuklarınız için bir QR kodu oluşturabilirsiniz.";
+
+"TraceLocation_Information_Legal_Text_2_bold" = "Olay veya konumla ilgili verileriniz, yazdırılabilir biçimde bir QR kodunda kaydedilecektir.";
+
+"TraceLocation_Information_Legal_Text_2" = "Daha sonra konuklarınız, Uygulama ile QR kodu tarayabilir.";
+
+"TraceLocation_Information_Legal_Text_3_bold" = "Lütfen olayınızın veya konumunuzun adı, kategorisi ve saati ve kalış süresi ile ilgili olarak mümkün olduğunca kesin bilgi sağlayın.";
+
+"TraceLocation_Information_Legal_Text_3" = "Verdiğinizi bilgiler ne kadar kesin olursa, konuklarınız da o kadar güvenilir bir biçimde uyarılabilir.";
+
+"TraceLocation_Information_Legal_Text_4" = "Lütfen tüm konuklarınızın QR kodu, mesafe ve hijyen kuralları çerçevesinde (en az 1,5 metre) tarayabilmesi için gerekli ortamı sağlayın.";
+
+"TraceLocation_Information_Legal_Text_5" = "Kalıcı ve güvenilir uyarılar tetiklemek ve QR kodların suistimal edilmesinin önüne geçmek adına, konumlar için olan QR kodları düzenli aralıklarla yeniden oluşturmanızı öneririz.";
+
+/* ExposureSubmission - AntigenTest Profile */
+
+"ExposureSubmission_Antigen_Profile_Legal_Headline" = "Veri koruma ve veri güvenliği";
+
+"ExposureSubmission_Antigen_Profile_Legal_Text01" = "Uygulamada hızlı test profillerinin oluşturulması ve bunların kullanılması isteğe bağlıdır.";
+
+"ExposureSubmission_Antigen_Profile_Legal_Text02" = "Uygulama hızlı test profiliniz için girdiğiniz verileri kişisel kare kodunuza dönüştürür. Verilen tüm bilgiler kare kodunda mevcuttur.";
+
+"ExposureSubmission_Antigen_Profile_Legal_Text03" = "Test merkezine verilerinizi hızlı ve güvenli bir şekilde hazırlamak için test merkezinde hızlı test profilinizin kare kodunu taratabilirsiniz. Test merkezi verilerinizi test uygulamak için kullanır. Verilerinizi uygulama olmadan da sunabilirsiniz. Kare kodunda bulunan ve test merkezine başka şekilde sunacağınız verileri kendiniz belirlersiniz.";
+
+"ExposureSubmission_Antigen_Profile_Legal_Text04" = "Kişisel hızlı test profilinize öncelikle sadece siz erişebilirsiniz. Hızlı test profilinizin kare kodunu başkalarına gösterirseniz ancak o zaman bu kişiler hızlı test profilinizdeki kişisel verilere erişebilir. Bu sırada uygulamadaki diğer verilere erişim sağlanmaz (örn. Check-ins ya da rehber bilgileri gibi).";
+
+"ExposureSubmission_Antigen_Profile_Legal_Text05" = "Hızlı test profilinizi istediğiniz zaman tekrar kaldırabilirsiniz. O zamana kadar akıllı telefonunuzdaki uygulamada kayıtlı kalır.";
+
+"ExposureSubmission_Antigen_Profile_Legal_Text06" = "Kare kodu kişisel verilerinizi içerir. Verilerinizin okunmasını istemiyorsanız kişisel kare kodunuzu kimseyle paylaşmayın. Kişisel kare kodunuzu paylaşmamanızı ve e-posta üzerinden göndermemenizi öneriyoruz.";
+
+"ExposureSubmission_Antigen_Profile_Legal_Text07" = "Özel şahıslar ya da şirketler hızlı test profilinizi göstermenizi talep edemezler.";
+
+/* Health Certificate Information */
+
+"HealthCertificate_Info_Legal_headline" = "Veri gizliliği ve veri güvenliği";
+
+"HealthCertificate_Info_Legal_section01" = "Dijital aşı sertifikasının kullanımı isteğe bağlıdır. Tam aşı korumasının gerçekleştirildiğine ilişkin kanıt, diğer yöntemlerle de sağlanabilir (örn. sarı aşı kartı ile).";
+
+"HealthCertificate_Info_Legal_section02" = "Aşı sertifikası, yaptırdığınız Korona aşılarınıza ilişkin veriler içerir. Yasal açıdan zorunlu durumlarda aşı koruması yaptırdığınızı kanıtlamak için Uygulamada QR kodu göstermeniz yeterli olacaktır. Söz konusu verilerin okunmasını istemiyorsanız, aşı sertifikasını ve QR kodu hiç kimseye göstermeyin.";
+
+"HealthCertificate_Info_Legal_section03" = "QR kodu Uygulamada gösterirseniz ve bu kod, kontrol uygulamasıyla taranırsa, diğer kişiler sizin tam aşı koruması aldığınızı anlayabilir. Kontrol işlemi sırasında adınız ve doğum tarihiniz de resmi kontrol uygulamasında görüntülenecektir.";
+
+"HealthCertificate_Info_Legal_section04" = "Aşı sertifikasını istediğiniz zaman Uygulamadan kaldırma seçeneğiniz vardır. Bunu yapıncaya kadar aşı sertifikaları akıllı telefonunuzda kayıtlı kalacaktır.";
+
+"HealthCertificate_Info_disclaimer" = "Veri işleme ile ilgili ayrıntılı bilgileri Veri Gizliliği Beyanında bulabilirsiniz";

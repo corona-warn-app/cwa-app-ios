@@ -11,10 +11,12 @@ class DiaryCoordinator {
 	init(
 		store: Store,
 		diaryStore: DiaryStoringProviding,
+		eventStore: EventStoringProviding,
 		homeState: HomeState?
 	) {
 		self.store = store
 		self.diaryStore = diaryStore
+		self.eventStore = eventStore
 		self.homeState = homeState
 		
 		#if DEBUG
@@ -41,9 +43,9 @@ class DiaryCoordinator {
 
 	// MARK: - Internal
 
-	lazy var viewController: ENANavigationControllerWithFooter = {
+	lazy var viewController: UINavigationController = {
 		if !infoScreenShown {
-			return ENANavigationControllerWithFooter(rootViewController: infoScreen(hidesCloseButton: true, dismissAction: { [weak self] in
+			return UINavigationController(rootViewController: infoScreen(hidesCloseButton: true, dismissAction: { [weak self] in
 				guard let self = self else { return }
 				self.viewController.pushViewController(self.overviewScreen, animated: true)	// Push Overview
 				self.viewController.setViewControllers([self.overviewScreen], animated: false) // Set Overview as the only Controller on the navigation stack to avoid back gesture etc.
@@ -58,7 +60,7 @@ class DiaryCoordinator {
 				self.viewController.pushViewController(detailViewController, animated: true)
 			}))
 		} else {
-			return ENANavigationControllerWithFooter(rootViewController: overviewScreen)
+			return UINavigationController(rootViewController: overviewScreen)
 		}
 	}()
 
@@ -83,6 +85,7 @@ class DiaryCoordinator {
 			let model = DiaryOverviewViewModel(
 				diaryStore: self.diaryStore,
 				store: self.store,
+				eventStore: self.eventStore,
 				homeState: self.homeState
 			)
 			guard let today = model.days.first else {
@@ -98,6 +101,7 @@ class DiaryCoordinator {
 
 	private let store: Store
 	private let diaryStore: DiaryStoringProviding
+	private let eventStore: EventStoringProviding
 	private let homeState: HomeState?
 
 	private var infoScreenShown: Bool {
@@ -113,6 +117,7 @@ class DiaryCoordinator {
 			viewModel: DiaryOverviewViewModel(
 				diaryStore: diaryStore,
 				store: store,
+				eventStore: eventStore,
 				homeState: homeState
 			),
 			onCellSelection: { [weak self] day in
@@ -145,6 +150,10 @@ class DiaryCoordinator {
 				presentDisclaimer: {
 					let detailViewController = HTMLViewController(model: AppInformationModel.privacyModel)
 					detailViewController.title = AppStrings.AppInformation.privacyTitle
+					detailViewController.isDismissable = false
+					if #available(iOS 13.0, *) {
+						detailViewController.isModalInPresentation = true
+					}
 					showDetail(detailViewController)
 				},
 				hidesCloseButton: hidesCloseButton
@@ -230,8 +239,22 @@ class DiaryCoordinator {
 				presentingViewController.dismiss(animated: true)
 			}
 		)
-		let navigationController = ENANavigationControllerWithFooter(rootViewController: viewController)
 
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: AppStrings.ContactDiary.AddEditEntry.primaryButtonTitle,
+				primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
+				isSecondaryButtonEnabled: false,
+				isSecondaryButtonHidden: true
+			)
+		)
+
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: viewController,
+			bottomController: footerViewController
+		)
+
+		let navigationController = UINavigationController(rootViewController: topBottomContainerViewController)
 		presentingViewController.present(navigationController, animated: true)
 	}
 

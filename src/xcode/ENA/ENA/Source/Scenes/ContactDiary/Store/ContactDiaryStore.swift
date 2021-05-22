@@ -8,11 +8,28 @@ import FMDB
 import OpenCombine
 
 protocol DateProviding {
-	var today: Date { get set }
+	var today: Date { get }
 }
 
 struct DateProvider: DateProviding {
-	var today: Date = Date()
+	
+	// MARK: - Init
+	
+	init(date: Date) {
+		_date = date
+	}
+	
+	init() { }
+	
+	// MARK: - Internal
+	
+	var today: Date {
+		return _date ?? Date()
+	}
+	
+	// MARK: - Private
+	
+	private var _date: Date?
 }
 
 private struct ExportEntry {
@@ -155,7 +172,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 	// MARK: - Protocol SecureSQLStore
 
 	let databaseQueue: FMDatabaseQueue
-	let key: String
+	var key: String
 	let schema: StoreSchemaProtocol
 	let migrator: SerialMigratorProtocol
 	let logIdentifier = "ContactDiaryStore"
@@ -293,7 +310,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 		name: String,
 		phoneNumber: String,
 		emailAddress: String,
-		traceLocationGUID: String?
+		traceLocationId: Data?
 	) -> SecureSQLStore.IdResult {
 		var result: SecureSQLStore.IdResult?
 
@@ -305,13 +322,13 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 					name,
 					phoneNumber,
 					emailAddress,
-					traceLocationGUID
+					traceLocationId
 				)
 				VALUES (
 					SUBSTR(:name, 1, \(maxTextLength)),
 					SUBSTR(:phoneNumber, 1, \(maxTextLength)),
 					SUBSTR(:emailAddress, 1, \(maxTextLength)),
-					:traceLocationGUID
+					:traceLocationId
 				);
 			"""
 
@@ -319,7 +336,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 				"name": name,
 				"phoneNumber": phoneNumber,
 				"emailAddress": emailAddress,
-				"traceLocationGUID": traceLocationGUID as Any
+				"traceLocationId": traceLocationId as Any
 			]
 			guard database.executeUpdate(sql, withParameterDictionary: parameters) else {
 				logLastErrorCode(from: database)
@@ -814,6 +831,10 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 		if case let .failure(error) = dropTablesResult {
 			return .failure(error)
 		}
+		
+		if let newKey = try? ContactDiaryStore.resetEncryptionKey() {
+			key = newKey
+		}
 
 		let openAndSetupResult = openAndSetup()
 		if case .failure = openAndSetupResult {
@@ -932,10 +953,12 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 						Location.name,
 						Location.phoneNumber,
 						Location.emailAddress,
+						Location.traceLocationId,
 						LocationVisit.id AS locationVisitId,
 						LocationVisit.date as locationVisitDate,
 						LocationVisit.durationInMinutes as locationVisitDuration,
-						LocationVisit.circumstances as locationVisitCircumstances
+						LocationVisit.circumstances as locationVisitCircumstances,
+						LocationVisit.checkinId as checkinId
 				FROM Location
 				LEFT JOIN LocationVisit
 				ON Location.id = LocationVisit.locationId
@@ -965,12 +988,13 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 					circumstances: queryResult.string(forColumn: "locationVisitCircumstances") ?? "",
 					checkinId: checkinId
 				)
+
 				let location = DiaryLocation(
 					id: Int(queryResult.int(forColumn: "locationId")),
 					name: queryResult.string(forColumn: "name") ?? "",
 					phoneNumber: queryResult.string(forColumn: "phoneNumber") ?? "",
 					emailAddress: queryResult.string(forColumn: "emailAddress") ?? "",
-					traceLocationGUID: queryResult.string(forColumn: "traceLocationGUID"),
+					traceLocationId: queryResult.data(forColumn: "traceLocationId"),
 					visit: locationVisit
 				)
 				locations.append(location)
@@ -1031,7 +1055,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 		var result: SecureSQLStore.VoidResult?
 
 		databaseQueue.inDatabase { database in
-			Log.info("[ContactDiaryStore] Remove all entires from \(tableName)", log: .localData)
+			Log.info("[ContactDiaryStore] Remove all entries from \(tableName)", log: .localData)
 
 			let sql = """
 				DELETE FROM \(tableName)

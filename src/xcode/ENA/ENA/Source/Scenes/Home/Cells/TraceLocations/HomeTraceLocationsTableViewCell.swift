@@ -41,8 +41,6 @@ class HomeTraceLocationsTableViewCell: UITableViewCell {
 		illustrationView.image = cellModel.image
 
 		button.setTitle(cellModel.buttonTitle, for: .normal)
-		button.accessibilityIdentifier = AccessibilityIdentifiers.Home.submitCardButton
-
 		button.accessibilityIdentifier = cellModel.accessibilityIdentifier
 
 		self.tintColor = tintColor
@@ -56,7 +54,7 @@ class HomeTraceLocationsTableViewCell: UITableViewCell {
 	@IBOutlet private var descriptionLabel: ENALabel!
 	@IBOutlet private var illustrationView: UIImageView!
 	@IBOutlet private var button: ENAButton!
-	@IBOutlet weak var cardView: HomeCardView!
+	@IBOutlet private weak var cardView: HomeCardView!
 	
 	private var onPrimaryAction: (() -> Void)?
 

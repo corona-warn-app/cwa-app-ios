@@ -10,7 +10,11 @@ class TanInputViewModelTests: XCTestCase {
 	func testGIVEN_ValidFormattedTanWithValidChecksum_WHEN_isValidIsChecksumValid_THEN_isInvalidChcksumIsValid() {
 		// GIVEN
 		let viewModel = TanInputViewModel(
-			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTestService: CoronaTestService(
+				client: ClientMock(),
+				store: MockTestStore(),
+				appConfiguration: CachedAppConfigurationMock()
+			),
 			presentInvalidTanAlert: { _, _  in },
 			tanSuccessfullyTransferred: { },
 			givenTan: "234567893D"
@@ -28,7 +32,11 @@ class TanInputViewModelTests: XCTestCase {
 	func testGIVEN_ValidFormattedTanWithInvalidChecksum_WHEN_isValidIsChecksumValid_THEN_isInvalidChcksumIsInvalid() {
 		// GIVEN
 		let viewModel = TanInputViewModel(
-			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTestService: CoronaTestService(
+				client: ClientMock(),
+				store: MockTestStore(),
+				appConfiguration: CachedAppConfigurationMock()
+			),
 			presentInvalidTanAlert: { _, _  in },
 			tanSuccessfullyTransferred: { },
 			givenTan: "ZBYKEVDBNU"
@@ -46,7 +54,11 @@ class TanInputViewModelTests: XCTestCase {
 	func testGIVEN_wrongCharacterTanString_WHEN_isValidCheck_THEN_isInvalidChecksumIsInvalid() {
 		// GIVEN
 		let viewModel = TanInputViewModel(
-			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTestService: CoronaTestService(
+				client: ClientMock(),
+				store: MockTestStore(),
+				appConfiguration: CachedAppConfigurationMock()
+			),
 			presentInvalidTanAlert: { _, _  in },
 			tanSuccessfullyTransferred: { },
 			givenTan: "ZBYKEVDBNL"

@@ -15,7 +15,7 @@ class CheckinTests: XCTestCase {
 			return
 		}
 
-		let checkin = makeDummyCheckin(
+		let checkin = Checkin.mock(
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
@@ -31,7 +31,7 @@ class CheckinTests: XCTestCase {
 			return
 		}
 
-		let checkin = makeDummyCheckin(
+		let checkin = Checkin.mock(
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
@@ -47,7 +47,7 @@ class CheckinTests: XCTestCase {
 			return
 		}
 
-		let checkin = makeDummyCheckin(
+		let checkin = Checkin.mock(
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
@@ -63,7 +63,7 @@ class CheckinTests: XCTestCase {
 			return
 		}
 
-		let checkin = makeDummyCheckin(
+		let checkin = Checkin.mock(
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
@@ -79,43 +79,12 @@ class CheckinTests: XCTestCase {
 			return
 		}
 
-		let checkin = makeDummyCheckin(
+		let checkin = Checkin.mock(
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
 
 		XCTAssertEqual(checkin.roundedDurationIn15mSteps, 30)
-	}
-
-	func makeDummyCheckin(
-		id: Int = 42,
-		checkinStartDate: Date = Date(),
-		checkinEndDate: Date = Date(),
-		checkinCompleted: Bool = false,
-		targetCheckinEndDate: Date = Date(),
-		traceLocationGUID: String = "0",
-		traceLocationDescription: String = "",
-		traceLocationAddress: String = "",
-		traceLocationStartDate: Date = Date(),
-		traceLocationEndDate: Date = Date()
-	) -> Checkin {
-		Checkin(
-			id: id,
-			traceLocationGUID: traceLocationGUID,
-			traceLocationGUIDHash: traceLocationGUID.data(using: .utf8) ?? Data(),
-			traceLocationVersion: 0,
-			traceLocationType: .locationTypePermanentCraft,
-			traceLocationDescription: traceLocationDescription,
-			traceLocationAddress: traceLocationAddress,
-			traceLocationStartDate: traceLocationStartDate,
-			traceLocationEndDate: traceLocationEndDate,
-			traceLocationDefaultCheckInLengthInMinutes: 0,
-			traceLocationSignature: "",
-			checkinStartDate: checkinStartDate,
-			checkinEndDate: checkinEndDate,
-			checkinCompleted: checkinCompleted,
-			createJournalEntry: true
-		)
 	}
 
 	var utcFormatter: ISO8601DateFormatter = {

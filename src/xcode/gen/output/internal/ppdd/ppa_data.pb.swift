@@ -173,9 +173,18 @@ extension SAP_Internal_Ppdd_PPAExposureWindowInfectiousness: CaseIterable {
 enum SAP_Internal_Ppdd_PPATestResult: SwiftProtobuf.Enum {
   typealias RawValue = Int
   case testResultUnknown // = 0
+
+  /// PCR Test
   case testResultPending // = 1
   case testResultNegative // = 2
   case testResultPositive // = 3
+  case testResultInvalid // = 4
+
+  /// Rapid Antigen Test
+  case testResultRatPending // = 5
+  case testResultRatNegative // = 6
+  case testResultRatPositive // = 7
+  case testResultRatInvalid // = 8
   case UNRECOGNIZED(Int)
 
   init() {
@@ -188,6 +197,11 @@ enum SAP_Internal_Ppdd_PPATestResult: SwiftProtobuf.Enum {
     case 1: self = .testResultPending
     case 2: self = .testResultNegative
     case 3: self = .testResultPositive
+    case 4: self = .testResultInvalid
+    case 5: self = .testResultRatPending
+    case 6: self = .testResultRatNegative
+    case 7: self = .testResultRatPositive
+    case 8: self = .testResultRatInvalid
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
@@ -198,6 +212,11 @@ enum SAP_Internal_Ppdd_PPATestResult: SwiftProtobuf.Enum {
     case .testResultPending: return 1
     case .testResultNegative: return 2
     case .testResultPositive: return 3
+    case .testResultInvalid: return 4
+    case .testResultRatPending: return 5
+    case .testResultRatNegative: return 6
+    case .testResultRatPositive: return 7
+    case .testResultRatInvalid: return 8
     case .UNRECOGNIZED(let i): return i
     }
   }
@@ -213,6 +232,11 @@ extension SAP_Internal_Ppdd_PPATestResult: CaseIterable {
     .testResultPending,
     .testResultNegative,
     .testResultPositive,
+    .testResultInvalid,
+    .testResultRatPending,
+    .testResultRatNegative,
+    .testResultRatPositive,
+    .testResultRatInvalid,
   ]
 }
 
@@ -436,10 +460,10 @@ struct SAP_Internal_Ppdd_PPADataIOS {
   /// 0..n entries expected
   var newExposureWindows: [SAP_Internal_Ppdd_PPANewExposureWindow] = []
 
-  /// 0..1 entries expected
+  /// 0..2 entries expected
   var testResultMetadataSet: [SAP_Internal_Ppdd_PPATestResultMetadata] = []
 
-  /// 0..1 entries expected
+  /// 0..2 entries expected
   var keySubmissionMetadataSet: [SAP_Internal_Ppdd_PPAKeySubmissionMetadata] = []
 
   var clientMetadata: SAP_Internal_Ppdd_PPAClientMetadataIOS {
@@ -476,16 +500,16 @@ struct SAP_Internal_Ppdd_PPADataAndroid {
   /// for Plausible Deniability; can be ignored by the server
   var requestPadding: Data = Data()
 
-  /// 0..n entries expected
+  /// 0..1 entries expected
   var exposureRiskMetadataSet: [SAP_Internal_Ppdd_ExposureRiskMetadata] = []
 
   /// 0..n entries expected
   var newExposureWindows: [SAP_Internal_Ppdd_PPANewExposureWindow] = []
 
-  /// 0..1 entries expected
+  /// 0..2 entries expected
   var testResultMetadataSet: [SAP_Internal_Ppdd_PPATestResultMetadata] = []
 
-  /// 0..1 entries expected
+  /// 0..2 entries expected
   var keySubmissionMetadataSet: [SAP_Internal_Ppdd_PPAKeySubmissionMetadata] = []
 
   var clientMetadata: SAP_Internal_Ppdd_PPAClientMetadataAndroid {
@@ -519,6 +543,7 @@ struct SAP_Internal_Ppdd_ExposureRiskMetadata {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// BLE-based proximity tracing
   var riskLevel: SAP_Internal_Ppdd_PPARiskLevel = .riskLevelUnknown
 
   var riskLevelChangedComparedToPreviousSubmission: Bool = false
@@ -526,6 +551,15 @@ struct SAP_Internal_Ppdd_ExposureRiskMetadata {
   var mostRecentDateAtRiskLevel: Int64 = 0
 
   var dateChangedComparedToPreviousSubmission: Bool = false
+
+  /// check-in-based presence tracing
+  var ptRiskLevel: SAP_Internal_Ppdd_PPARiskLevel = .riskLevelUnknown
+
+  var ptRiskLevelChangedComparedToPreviousSubmission: Bool = false
+
+  var ptMostRecentDateAtRiskLevel: Int64 = 0
+
+  var ptDateChangedComparedToPreviousSubmission: Bool = false
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -566,11 +600,19 @@ struct SAP_Internal_Ppdd_PPATestResultMetadata {
 
   var hoursSinceTestRegistration: Int32 = 0
 
+  /// BLE-based proximity tracing
   var riskLevelAtTestRegistration: SAP_Internal_Ppdd_PPARiskLevel = .riskLevelUnknown
 
   var daysSinceMostRecentDateAtRiskLevelAtTestRegistration: Int32 = 0
 
   var hoursSinceHighRiskWarningAtTestRegistration: Int32 = 0
+
+  /// check-in-based presence tracing
+  var ptRiskLevelAtTestRegistration: SAP_Internal_Ppdd_PPARiskLevel = .riskLevelUnknown
+
+  var ptDaysSinceMostRecentDateAtRiskLevelAtTestRegistration: Int32 = 0
+
+  var ptHoursSinceHighRiskWarningAtTestRegistration: Int32 = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -598,11 +640,21 @@ struct SAP_Internal_Ppdd_PPAKeySubmissionMetadata {
 
   var hoursSinceTestRegistration: Int32 = 0
 
+  /// BLE-based proximity tracing
   var daysSinceMostRecentDateAtRiskLevelAtTestRegistration: Int32 = 0
 
   var hoursSinceHighRiskWarningAtTestRegistration: Int32 = 0
 
   var submittedWithTeleTan: Bool = false
+
+  var submittedAfterRapidAntigenTest: Bool = false
+
+  /// check-in-based presence tracing
+  var ptDaysSinceMostRecentDateAtRiskLevelAtTestRegistration: Int32 = 0
+
+  var ptHoursSinceHighRiskWarningAtTestRegistration: Int32 = 0
+
+  var submittedWithCheckIns: SAP_Internal_Ppdd_TriStateBoolean = .tsbUnspecified
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -776,6 +828,11 @@ extension SAP_Internal_Ppdd_PPATestResult: SwiftProtobuf._ProtoNameProviding {
     1: .same(proto: "TEST_RESULT_PENDING"),
     2: .same(proto: "TEST_RESULT_NEGATIVE"),
     3: .same(proto: "TEST_RESULT_POSITIVE"),
+    4: .same(proto: "TEST_RESULT_INVALID"),
+    5: .same(proto: "TEST_RESULT_RAT_PENDING"),
+    6: .same(proto: "TEST_RESULT_RAT_NEGATIVE"),
+    7: .same(proto: "TEST_RESULT_RAT_POSITIVE"),
+    8: .same(proto: "TEST_RESULT_RAT_INVALID"),
   ]
 }
 
@@ -964,6 +1021,10 @@ extension SAP_Internal_Ppdd_ExposureRiskMetadata: SwiftProtobuf.Message, SwiftPr
     2: .same(proto: "riskLevelChangedComparedToPreviousSubmission"),
     3: .same(proto: "mostRecentDateAtRiskLevel"),
     4: .same(proto: "dateChangedComparedToPreviousSubmission"),
+    5: .same(proto: "ptRiskLevel"),
+    6: .same(proto: "ptRiskLevelChangedComparedToPreviousSubmission"),
+    7: .same(proto: "ptMostRecentDateAtRiskLevel"),
+    8: .same(proto: "ptDateChangedComparedToPreviousSubmission"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -976,6 +1037,10 @@ extension SAP_Internal_Ppdd_ExposureRiskMetadata: SwiftProtobuf.Message, SwiftPr
       case 2: try { try decoder.decodeSingularBoolField(value: &self.riskLevelChangedComparedToPreviousSubmission) }()
       case 3: try { try decoder.decodeSingularInt64Field(value: &self.mostRecentDateAtRiskLevel) }()
       case 4: try { try decoder.decodeSingularBoolField(value: &self.dateChangedComparedToPreviousSubmission) }()
+      case 5: try { try decoder.decodeSingularEnumField(value: &self.ptRiskLevel) }()
+      case 6: try { try decoder.decodeSingularBoolField(value: &self.ptRiskLevelChangedComparedToPreviousSubmission) }()
+      case 7: try { try decoder.decodeSingularInt64Field(value: &self.ptMostRecentDateAtRiskLevel) }()
+      case 8: try { try decoder.decodeSingularBoolField(value: &self.ptDateChangedComparedToPreviousSubmission) }()
       default: break
       }
     }
@@ -994,6 +1059,18 @@ extension SAP_Internal_Ppdd_ExposureRiskMetadata: SwiftProtobuf.Message, SwiftPr
     if self.dateChangedComparedToPreviousSubmission != false {
       try visitor.visitSingularBoolField(value: self.dateChangedComparedToPreviousSubmission, fieldNumber: 4)
     }
+    if self.ptRiskLevel != .riskLevelUnknown {
+      try visitor.visitSingularEnumField(value: self.ptRiskLevel, fieldNumber: 5)
+    }
+    if self.ptRiskLevelChangedComparedToPreviousSubmission != false {
+      try visitor.visitSingularBoolField(value: self.ptRiskLevelChangedComparedToPreviousSubmission, fieldNumber: 6)
+    }
+    if self.ptMostRecentDateAtRiskLevel != 0 {
+      try visitor.visitSingularInt64Field(value: self.ptMostRecentDateAtRiskLevel, fieldNumber: 7)
+    }
+    if self.ptDateChangedComparedToPreviousSubmission != false {
+      try visitor.visitSingularBoolField(value: self.ptDateChangedComparedToPreviousSubmission, fieldNumber: 8)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -1002,6 +1079,10 @@ extension SAP_Internal_Ppdd_ExposureRiskMetadata: SwiftProtobuf.Message, SwiftPr
     if lhs.riskLevelChangedComparedToPreviousSubmission != rhs.riskLevelChangedComparedToPreviousSubmission {return false}
     if lhs.mostRecentDateAtRiskLevel != rhs.mostRecentDateAtRiskLevel {return false}
     if lhs.dateChangedComparedToPreviousSubmission != rhs.dateChangedComparedToPreviousSubmission {return false}
+    if lhs.ptRiskLevel != rhs.ptRiskLevel {return false}
+    if lhs.ptRiskLevelChangedComparedToPreviousSubmission != rhs.ptRiskLevelChangedComparedToPreviousSubmission {return false}
+    if lhs.ptMostRecentDateAtRiskLevel != rhs.ptMostRecentDateAtRiskLevel {return false}
+    if lhs.ptDateChangedComparedToPreviousSubmission != rhs.ptDateChangedComparedToPreviousSubmission {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -1059,6 +1140,9 @@ extension SAP_Internal_Ppdd_PPATestResultMetadata: SwiftProtobuf.Message, SwiftP
     3: .same(proto: "riskLevelAtTestRegistration"),
     4: .same(proto: "daysSinceMostRecentDateAtRiskLevelAtTestRegistration"),
     5: .same(proto: "hoursSinceHighRiskWarningAtTestRegistration"),
+    6: .same(proto: "ptRiskLevelAtTestRegistration"),
+    7: .same(proto: "ptDaysSinceMostRecentDateAtRiskLevelAtTestRegistration"),
+    8: .same(proto: "ptHoursSinceHighRiskWarningAtTestRegistration"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -1072,6 +1156,9 @@ extension SAP_Internal_Ppdd_PPATestResultMetadata: SwiftProtobuf.Message, SwiftP
       case 3: try { try decoder.decodeSingularEnumField(value: &self.riskLevelAtTestRegistration) }()
       case 4: try { try decoder.decodeSingularInt32Field(value: &self.daysSinceMostRecentDateAtRiskLevelAtTestRegistration) }()
       case 5: try { try decoder.decodeSingularInt32Field(value: &self.hoursSinceHighRiskWarningAtTestRegistration) }()
+      case 6: try { try decoder.decodeSingularEnumField(value: &self.ptRiskLevelAtTestRegistration) }()
+      case 7: try { try decoder.decodeSingularInt32Field(value: &self.ptDaysSinceMostRecentDateAtRiskLevelAtTestRegistration) }()
+      case 8: try { try decoder.decodeSingularInt32Field(value: &self.ptHoursSinceHighRiskWarningAtTestRegistration) }()
       default: break
       }
     }
@@ -1093,6 +1180,15 @@ extension SAP_Internal_Ppdd_PPATestResultMetadata: SwiftProtobuf.Message, SwiftP
     if self.hoursSinceHighRiskWarningAtTestRegistration != 0 {
       try visitor.visitSingularInt32Field(value: self.hoursSinceHighRiskWarningAtTestRegistration, fieldNumber: 5)
     }
+    if self.ptRiskLevelAtTestRegistration != .riskLevelUnknown {
+      try visitor.visitSingularEnumField(value: self.ptRiskLevelAtTestRegistration, fieldNumber: 6)
+    }
+    if self.ptDaysSinceMostRecentDateAtRiskLevelAtTestRegistration != 0 {
+      try visitor.visitSingularInt32Field(value: self.ptDaysSinceMostRecentDateAtRiskLevelAtTestRegistration, fieldNumber: 7)
+    }
+    if self.ptHoursSinceHighRiskWarningAtTestRegistration != 0 {
+      try visitor.visitSingularInt32Field(value: self.ptHoursSinceHighRiskWarningAtTestRegistration, fieldNumber: 8)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -1102,6 +1198,9 @@ extension SAP_Internal_Ppdd_PPATestResultMetadata: SwiftProtobuf.Message, SwiftP
     if lhs.riskLevelAtTestRegistration != rhs.riskLevelAtTestRegistration {return false}
     if lhs.daysSinceMostRecentDateAtRiskLevelAtTestRegistration != rhs.daysSinceMostRecentDateAtRiskLevelAtTestRegistration {return false}
     if lhs.hoursSinceHighRiskWarningAtTestRegistration != rhs.hoursSinceHighRiskWarningAtTestRegistration {return false}
+    if lhs.ptRiskLevelAtTestRegistration != rhs.ptRiskLevelAtTestRegistration {return false}
+    if lhs.ptDaysSinceMostRecentDateAtRiskLevelAtTestRegistration != rhs.ptDaysSinceMostRecentDateAtRiskLevelAtTestRegistration {return false}
+    if lhs.ptHoursSinceHighRiskWarningAtTestRegistration != rhs.ptHoursSinceHighRiskWarningAtTestRegistration {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -1121,6 +1220,10 @@ extension SAP_Internal_Ppdd_PPAKeySubmissionMetadata: SwiftProtobuf.Message, Swi
     9: .same(proto: "daysSinceMostRecentDateAtRiskLevelAtTestRegistration"),
     10: .same(proto: "hoursSinceHighRiskWarningAtTestRegistration"),
     11: .same(proto: "submittedWithTeleTAN"),
+    12: .same(proto: "submittedAfterRapidAntigenTest"),
+    13: .same(proto: "ptDaysSinceMostRecentDateAtRiskLevelAtTestRegistration"),
+    14: .same(proto: "ptHoursSinceHighRiskWarningAtTestRegistration"),
+    15: .same(proto: "submittedWithCheckIns"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -1140,6 +1243,10 @@ extension SAP_Internal_Ppdd_PPAKeySubmissionMetadata: SwiftProtobuf.Message, Swi
       case 9: try { try decoder.decodeSingularInt32Field(value: &self.daysSinceMostRecentDateAtRiskLevelAtTestRegistration) }()
       case 10: try { try decoder.decodeSingularInt32Field(value: &self.hoursSinceHighRiskWarningAtTestRegistration) }()
       case 11: try { try decoder.decodeSingularBoolField(value: &self.submittedWithTeleTan) }()
+      case 12: try { try decoder.decodeSingularBoolField(value: &self.submittedAfterRapidAntigenTest) }()
+      case 13: try { try decoder.decodeSingularInt32Field(value: &self.ptDaysSinceMostRecentDateAtRiskLevelAtTestRegistration) }()
+      case 14: try { try decoder.decodeSingularInt32Field(value: &self.ptHoursSinceHighRiskWarningAtTestRegistration) }()
+      case 15: try { try decoder.decodeSingularEnumField(value: &self.submittedWithCheckIns) }()
       default: break
       }
     }
@@ -1179,6 +1286,18 @@ extension SAP_Internal_Ppdd_PPAKeySubmissionMetadata: SwiftProtobuf.Message, Swi
     if self.submittedWithTeleTan != false {
       try visitor.visitSingularBoolField(value: self.submittedWithTeleTan, fieldNumber: 11)
     }
+    if self.submittedAfterRapidAntigenTest != false {
+      try visitor.visitSingularBoolField(value: self.submittedAfterRapidAntigenTest, fieldNumber: 12)
+    }
+    if self.ptDaysSinceMostRecentDateAtRiskLevelAtTestRegistration != 0 {
+      try visitor.visitSingularInt32Field(value: self.ptDaysSinceMostRecentDateAtRiskLevelAtTestRegistration, fieldNumber: 13)
+    }
+    if self.ptHoursSinceHighRiskWarningAtTestRegistration != 0 {
+      try visitor.visitSingularInt32Field(value: self.ptHoursSinceHighRiskWarningAtTestRegistration, fieldNumber: 14)
+    }
+    if self.submittedWithCheckIns != .tsbUnspecified {
+      try visitor.visitSingularEnumField(value: self.submittedWithCheckIns, fieldNumber: 15)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -1194,6 +1313,10 @@ extension SAP_Internal_Ppdd_PPAKeySubmissionMetadata: SwiftProtobuf.Message, Swi
     if lhs.daysSinceMostRecentDateAtRiskLevelAtTestRegistration != rhs.daysSinceMostRecentDateAtRiskLevelAtTestRegistration {return false}
     if lhs.hoursSinceHighRiskWarningAtTestRegistration != rhs.hoursSinceHighRiskWarningAtTestRegistration {return false}
     if lhs.submittedWithTeleTan != rhs.submittedWithTeleTan {return false}
+    if lhs.submittedAfterRapidAntigenTest != rhs.submittedAfterRapidAntigenTest {return false}
+    if lhs.ptDaysSinceMostRecentDateAtRiskLevelAtTestRegistration != rhs.ptDaysSinceMostRecentDateAtRiskLevelAtTestRegistration {return false}
+    if lhs.ptHoursSinceHighRiskWarningAtTestRegistration != rhs.ptHoursSinceHighRiskWarningAtTestRegistration {return false}
+    if lhs.submittedWithCheckIns != rhs.submittedWithCheckIns {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

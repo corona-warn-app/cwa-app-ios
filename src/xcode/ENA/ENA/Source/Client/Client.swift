@@ -5,7 +5,7 @@
 import ExposureNotification
 import Foundation
 
-/// Describes how to interfact with the backend.
+/// Describes how to interact with the backend.
 protocol Client {
 	// MARK: Types
 
@@ -21,7 +21,9 @@ protocol Client {
 	typealias CountryFetchCompletion = (Result<[Country], Failure>) -> Void
 	typealias OTPAuthorizationCompletionHandler = (Result<Date, OTPError>) -> Void
 	typealias PPAnalyticsSubmitionCompletionHandler = (Result<Void, PPASError>) -> Void
-
+	typealias TraceWarningPackageDiscoveryCompletionHandler = (Result<TraceWarningDiscovery, TraceWarningError>) -> Void
+	typealias TraceWarningPackageDownloadCompletionHandler = (Result<PackageDownloadResponse, TraceWarningError>) -> Void
+	
 	// MARK: Interacting with a Client
 
 	/// Determines days that can be downloaded.
@@ -84,18 +86,30 @@ protocol Client {
 
 	// MARK: OTP Authorization
 
-	/// Authorizes an otp at our servers with a tuple of device token and api token as authentication and the otp as payload.
+	/// Authorizes an edus otp at our servers with a tuple of device token and api token as authentication and the otp as payload.
 	/// - Parameters:
-	///   - otp: the otp to authorize
+	///   - otpEdus: the edus otp to authorize
 	///   - ppacToken: the ppac token which is generated previously by the PPACService
 	///   - isFake: Flag to indicate a fake request
 	///   - forceApiTokenHeader: A Flag that indicates, if a special header flag is send to enforce to accept the API Token. ONLY executable for non release builds
 	///   - completion: The completion handler of the submission call, which contains the expirationDate of the otp as String
 	func authorize(
-		otp: String,
+		otpEdus: String,
 		ppacToken: PPACToken,
 		isFake: Bool,
 		forceApiTokenHeader: Bool,
+		completion: @escaping OTPAuthorizationCompletionHandler
+	)
+
+
+	/// Authorizes an els otp at our servers with a tuple of device token and api token as authentication and the otp as payload.
+	/// - Parameters:
+	///   - otpEls: the els otp to authorize
+	///   - ppacToken: The ppac token which is generated previously by the PPACService
+	///   - completion: The completion handler of the submission call, which contains the expirationDate of the otp as String
+	func authorize(
+		otpEls: String,
+		ppacToken: PPACToken,
 		completion: @escaping OTPAuthorizationCompletionHandler
 	)
 
@@ -104,7 +118,7 @@ protocol Client {
 	/// Authorizes an otp at our servers with a tuple of device token and api token as authentication and the otp as payload.
 	/// - Parameters:
 	///   - payload: SAP_Internal_Ppdd_PPADataRequestIOS, which contains several metrics data
-	///   - ppacToken: the ppac token which is generated previously by the PPACService
+	///   - ppacToken: The ppac token which is generated previously by the PPACService
 	///   - isFake: Flag to indicate a fake request
 	///   - forceApiTokenHeader: A Flag that indicates, if a special header flag is send to enforce to accept the API Token. ONLY executable for non release builds
 	///   - completion: The completion handler of the submission call, which contains the expirationDate of the otp as String
@@ -114,6 +128,41 @@ protocol Client {
 		isFake: Bool,
 		forceApiTokenHeader: Bool,
 		completion: @escaping PPAnalyticsSubmitionCompletionHandler
+	)
+
+	// MARK: ELS Submit (Error Log Sharing)
+
+	/// Log file upload for the ELS  Service
+	/// - Parameters:
+	///   - logFile: The compressed log `Data` to upload
+	///   - uploadToken: The 'ota token'; used for grouping multiple uploads per installation
+	///   - completion: He completion handler of the submission call, which contains the log `id` and `hash` value of the uploaded item
+	func submit(
+		errorLogFile: Data,
+		otpEls: String,
+		completion: @escaping ErrorLogSubmitting.ELSSubmissionResponse
+	)
+	
+	// MARK: Event / Check-In (aka traceWarning)
+	
+	/// GET call to load the IDs from the traceWarnings from CDN. It eventually returns the ID of the the first and last TraceWarningPackage that is available on CDN. The return is the set of all integers between (and including) first and last.
+	/// - Parameters:
+	///   - country: The country.ID for which country we want the IDs.
+	///   - completion: The completion handler of the get call, which contains the set of availbalePackagesOnCDN.
+	func traceWarningPackageDiscovery(
+		country: String,
+		completion: @escaping TraceWarningPackageDiscoveryCompletionHandler
+	)
+	
+	/// GET call to load the packge to the corresponding ID of a traceWarning from CDN. It returns the downloaded package. But it can also be empty. This is indicates by a specific http header field and is mapped into a property of the PackageDownloadResponse.
+	/// - Parameters:
+	///   - country: The country.ID for which country we want the IDs.
+	///   - packageId: The packageID for the package we want to download
+	///   - completion: The completion handler of the get call, which contains a PackageDownloadResponse
+	func traceWarningPackageDownload(
+		country: String,
+		packageId: Int,
+		completion: @escaping TraceWarningPackageDownloadCompletionHandler
 	)
 }
 
@@ -164,12 +213,16 @@ extension SubmissionError: LocalizedError {
 
 /// A container for a downloaded `SAPDownloadedPackage` and its corresponding `ETag`, if given.
 struct PackageDownloadResponse {
-	let package: SAPDownloadedPackage
+	let package: SAPDownloadedPackage?
 
 	/// The response ETag
 	///
 	/// This is used to identify and revoke packages.
 	let etag: String?
+	
+	var isEmpty: Bool {
+		return package == nil
+	}
 }
 
 /// Combined model for a submit keys request
@@ -181,8 +234,12 @@ struct CountrySubmissionPayload {
 	/// the list of countries to check for any exposures
 	let visitedCountries: [Country]
 
+	let checkins: [SAP_Internal_Pt_CheckIn]
+
 	/// a transaction number
 	let tan: String
+
+	let submissionType: SAP_Internal_SubmissionPayload.SubmissionType
 }
 
 struct DaysResult {

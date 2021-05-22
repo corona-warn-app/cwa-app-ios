@@ -33,46 +33,83 @@ class EventTableViewCell: UITableViewCell {
 		cellModel = nil
 		onButtonTap = nil
 	}
+	
+	override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+		super.setHighlighted(highlighted, animated: animated)
+		if highlighted {
+			containerView.backgroundColor = .enaColor(for: .listHighlight)
+		} else {
+			containerView.backgroundColor = .enaColor(for: .cellBackground)
+		}
+	}
 
 	// MARK: - Internal
 
 	func configure(cellModel: EventCellModel, onButtonTap: @escaping () -> Void) {
+		inactiveIconImageView.isHidden = cellModel.isInactiveIconHiddenPublisher.value
 		cellModel.isInactiveIconHiddenPublisher
+			.receive(on: DispatchQueue.main.ocombine)
 			.assign(to: \.isHidden, on: inactiveIconImageView)
 			.store(in: &subscriptions)
 
+		activeContainerView.isHidden = cellModel.isActiveContainerViewHiddenPublisher.value
 		cellModel.isActiveContainerViewHiddenPublisher
+			.receive(on: DispatchQueue.main.ocombine)
 			.assign(to: \.isHidden, on: activeContainerView)
 			.store(in: &subscriptions)
 
+		button.isHidden = cellModel.isButtonHiddenPublisher.value
 		cellModel.isButtonHiddenPublisher
+			.receive(on: DispatchQueue.main.ocombine)
 			.assign(to: \.isHidden, on: button)
 			.store(in: &subscriptions)
 
+		durationLabel.text = cellModel.durationPublisher.value
 		cellModel.durationPublisher
+			.receive(on: DispatchQueue.main.ocombine)
 			.assign(to: \.text, on: durationLabel)
 			.store(in: &subscriptions)
-
+		
+		durationLabel.accessibilityLabel = cellModel.durationAccessibilityPublisher.value
+		cellModel.durationAccessibilityPublisher
+			.receive(on: DispatchQueue.main.ocombine)
+			.assign(to: \.accessibilityLabel, on: durationLabel)
+			.store(in: &subscriptions)
+		
+		timeLabel.text = cellModel.timePublisher.value
 		cellModel.timePublisher
+			.receive(on: DispatchQueue.main.ocombine)
 			.assign(to: \.text, on: timeLabel)
 			.store(in: &subscriptions)
-
+		
+		timeLabel.isHidden = cellModel.timePublisher.value == nil
 		cellModel.timePublisher
+			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] in
 				self?.timeLabel.isHidden = $0 == nil
 			}
 			.store(in: &subscriptions)
 
+		timeLabel.accessibilityLabel = cellModel.timeAccessibilityPublisher.value
+		cellModel.timeAccessibilityPublisher
+			.receive(on: DispatchQueue.main.ocombine)
+			.assign(to: \.accessibilityLabel, on: timeLabel)
+			.store(in: &subscriptions)
+		
 		activeIconImageView.isHidden = cellModel.isActiveIconHidden
 		durationStackView.isHidden = cellModel.isDurationStackViewHidden
 
 		titleLabel.text = cellModel.title
+		titleLabel.accessibilityLabel = cellModel.titleAccessibilityLabelPublisher.value
+		cellModel.titleAccessibilityLabelPublisher
+			.receive(on: DispatchQueue.main.ocombine)
+			.assign(to: \.accessibilityLabel, on: titleLabel)
+			.store(in: &subscriptions)
+		
 		addressLabel.text = cellModel.address
 
-		dateContainerView.isHidden = cellModel.date == nil
-		dateLabel.text = cellModel.date
-
 		button.setTitle(cellModel.buttonTitle, for: .normal)
+		button.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Configuration.eventTableViewCellButton
 
 		self.onButtonTap = onButtonTap
 
@@ -92,9 +129,6 @@ class EventTableViewCell: UITableViewCell {
 	@IBOutlet private weak var durationStackView: UIStackView!
 	@IBOutlet private weak var durationTitleLabel: ENALabel!
 	@IBOutlet private weak var durationLabel: ENALabel!
-
-	@IBOutlet private weak var dateContainerView: UIView!
-	@IBOutlet private weak var dateLabel: ENALabel!
 
 	@IBOutlet private weak var titleLabel: ENALabel!
 	@IBOutlet private weak var addressLabel: ENALabel!

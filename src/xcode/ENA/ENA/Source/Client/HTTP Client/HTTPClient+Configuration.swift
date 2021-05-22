@@ -9,22 +9,26 @@ extension HTTPClient {
 		
 		// MARK: Default Instances
 
-		static func makeDefaultConfiguration(serverEnvironmentProvider: ServerEnvironmentProviding) -> Configuration {
+		static func makeDefaultConfiguration(environmentProvider: EnvironmentProviding) -> Configuration {
 			let endpoints = Configuration.Endpoints(
 				distribution: .init(
-					baseURL: serverEnvironmentProvider.selectedServerEnvironment.distributionURL,
+					baseURL: environmentProvider.currentEnvironment().distributionURL,
 					requiresTrailingSlash: false
 				),
 				submission: .init(
-					baseURL: serverEnvironmentProvider.selectedServerEnvironment.submissionURL,
+					baseURL: environmentProvider.currentEnvironment().submissionURL,
 					requiresTrailingSlash: false
 				),
 				verification: .init(
-					baseURL: serverEnvironmentProvider.selectedServerEnvironment.verificationURL,
+					baseURL: environmentProvider.currentEnvironment().verificationURL,
 					requiresTrailingSlash: false
 				),
 				dataDonation: .init(
-					baseURL: serverEnvironmentProvider.selectedServerEnvironment.dataDonationURL,
+					baseURL: environmentProvider.currentEnvironment().dataDonationURL,
+					requiresTrailingSlash: false
+				),
+				errorLogSubmission: .init(
+					baseURL: environmentProvider.currentEnvironment().errorLogSubmissionURL,
 					requiresTrailingSlash: false
 				)
 			)
@@ -169,7 +173,7 @@ extension HTTPClient {
 			)
 		}
 
-		var otpAuthorizationURL: URL {
+		var otpEdusAuthorizationURL: URL {
 			endpoints
 				.dataDonation
 				.appending(
@@ -177,6 +181,17 @@ extension HTTPClient {
 					apiVersion,
 					"ios",
 					"otp"
+				)
+		}
+
+		var otpElsAuthorizationURL: URL {
+			endpoints
+				.dataDonation
+				.appending(
+					"version",
+					apiVersion,
+					"ios",
+					"els"
 			)
 		}
 
@@ -188,7 +203,34 @@ extension HTTPClient {
 					apiVersion,
 					"ios",
 					"dat"
-			)
+				)
+		}
+		
+		func traceWarningPackageDiscoveryURL(country: String) -> URL {
+			endpoints
+				.distribution
+				.appending(
+					"version",
+					apiVersion,
+					"twp",
+					"country",
+					country,
+					"hour"
+				)
+		}
+		
+		func traceWarningPackageDownloadURL(country: String, packageId: Int) -> URL {
+			endpoints
+				.distribution
+				.appending(
+					"version",
+					apiVersion,
+					"twp",
+					"country",
+					country,
+					"hour",
+					String(packageId)
+				)
 		}
 		
 		var qrCodePosterTemplateURL: URL {
@@ -199,6 +241,27 @@ extension HTTPClient {
 					apiVersion,
 					"qr_code_poster_template_ios"
 			)
+		}
+
+		var logUploadURL: URL {
+			endpoints
+				.errorLogSubmission
+				.appending(
+					"api",
+					"logs"
+			)
+		}
+		
+		var vaccinationValueSets: URL {
+			endpoints
+				.distribution
+				.appending(
+					"version",
+					apiVersion,
+					"ehn-dgc",
+					Locale.current.languageCodeIfSupported ?? "en",
+					"value-sets"
+				)
 		}
 	}
 }
@@ -243,5 +306,6 @@ extension HTTPClient.Configuration {
 		let submission: Endpoint
 		let verification: Endpoint
 		let dataDonation: Endpoint
+		let errorLogSubmission: Endpoint
 	}
 }

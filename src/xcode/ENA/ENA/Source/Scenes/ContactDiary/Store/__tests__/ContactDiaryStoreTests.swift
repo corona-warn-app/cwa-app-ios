@@ -50,7 +50,7 @@ class ContactDiaryStoreTests: XCTestCase {
 			name: "Hinterm Mond",
 			phoneNumber: "123456",
 			emailAddress: "some@mail.de",
-			traceLocationGUID: "Some Id"
+			traceLocationId: "Some Id".data(using: .utf8) ?? Data()
 		)
 
 		if case let .failure(error) = result {
@@ -58,11 +58,11 @@ class ContactDiaryStoreTests: XCTestCase {
 		}
 
 		guard case let .success(id) = result,
-			  let location = fetchEntries(for: "Location", with: id, from: databaseQueue),
-			  let name = location.string(forColumn: "name"),
-			  let phoneNumber = location.string(forColumn: "phoneNumber"),
-			  let emailAddress = location.string(forColumn: "emailAddress"),
-			  let traceLocationGUID = location.string(forColumn: "traceLocationGUID") else {
+			  let locationResultSet = fetchEntries(for: "Location", with: id, from: databaseQueue),
+			  let name = locationResultSet.string(forColumn: "name"),
+			  let phoneNumber = locationResultSet.string(forColumn: "phoneNumber"),
+			  let emailAddress = locationResultSet.string(forColumn: "emailAddress"),
+			  let traceLocationId = locationResultSet.data(forColumn: "traceLocationId") else {
 			XCTFail("Failed to fetch ContactPerson")
 			return
 		}
@@ -70,7 +70,17 @@ class ContactDiaryStoreTests: XCTestCase {
 		XCTAssertEqual(name, "Hinterm Mond")
 		XCTAssertEqual(phoneNumber, "123456")
 		XCTAssertEqual(emailAddress, "some@mail.de")
-		XCTAssertEqual(traceLocationGUID, "Some Id")
+		XCTAssertEqual(traceLocationId, "Some Id".data(using: .utf8))
+
+		guard case let .location(publisherLocation) = store.diaryDaysPublisher.value[0].entries[0] else {
+			XCTFail("Expected a location.")
+			return
+		}
+
+		XCTAssertEqual(publisherLocation.name, "Hinterm Mond")
+		XCTAssertEqual(publisherLocation.phoneNumber, "123456")
+		XCTAssertEqual(publisherLocation.emailAddress, "some@mail.de")
+		XCTAssertEqual(publisherLocation.traceLocationId, "Some Id".data(using: .utf8))
 	}
 
 	func test_When_addLocationWithNilValues_Then_LocationIsPersisted() {
@@ -81,7 +91,7 @@ class ContactDiaryStoreTests: XCTestCase {
 			name: "Hinterm Mond",
 			phoneNumber: "123456",
 			emailAddress: "some@mail.de",
-			traceLocationGUID: nil
+			traceLocationId: nil
 		)
 
 		if case let .failure(error) = result {
@@ -100,7 +110,7 @@ class ContactDiaryStoreTests: XCTestCase {
 		XCTAssertEqual(name, "Hinterm Mond")
 		XCTAssertEqual(phoneNumber, "123456")
 		XCTAssertEqual(emailAddress, "some@mail.de")
-		XCTAssertNil(location.string(forColumn: "traceLocationGUID"))
+		XCTAssertNil(location.data(forColumn: "traceLocationId"))
 	}
 	
 	func test_When_addZeroPrefixedLocation_Then_LocationIsPersistedCorrectly() {
@@ -249,6 +259,8 @@ class ContactDiaryStoreTests: XCTestCase {
 	}
 
 	func test_When_addLocationVisit_Then_LocationVisitIsPersisted() {
+		let todayString = dateFormatter.string(from: Date())
+
 		let databaseQueue = makeDatabaseQueue()
 		let store = makeContactDiaryStore(with: databaseQueue)
 
@@ -261,7 +273,7 @@ class ContactDiaryStoreTests: XCTestCase {
 
 		let result = store.addLocationVisit(
 			locationId: locationId,
-			date: "2020-12-10",
+			date: todayString,
 			durationInMinutes: 42,
 			circumstances: "Some circumstances.",
 			checkinId: 42
@@ -284,11 +296,21 @@ class ContactDiaryStoreTests: XCTestCase {
 		let fetchedLocationId = Int(locationVisit.int(forColumn: "locationId"))
 		let checkinId = Int(locationVisit.int(forColumn: "checkinId"))
 
-		XCTAssertEqual(date, "2020-12-10")
+		XCTAssertEqual(date, todayString)
 		XCTAssertEqual(fetchedLocationId, locationId)
 		XCTAssertEqual(circumstances, "Some circumstances.")
 		XCTAssertEqual(durationInMinutes, 42)
 		XCTAssertEqual(checkinId, 42)
+
+		guard case let .location(publisherLocation) = store.diaryDaysPublisher.value[0].entries[0] else {
+			XCTFail("Expected a location.")
+			return
+		}
+
+		XCTAssertEqual(publisherLocation.visit?.date, todayString)
+		XCTAssertEqual(publisherLocation.visit?.circumstances, "Some circumstances.")
+		XCTAssertEqual(publisherLocation.visit?.durationInMinutes, 42)
+		XCTAssertEqual(publisherLocation.visit?.checkinId, 42)
 	}
 
 	func test_When_addLocationVisitWithNilValues_Then_LocationVisitIsPersisted() {
@@ -431,7 +453,7 @@ class ContactDiaryStoreTests: XCTestCase {
 			name: "Woanders",
 			phoneNumber: "123456",
 			emailAddress: "some@mail.de",
-			traceLocationGUID: nil
+			traceLocationId: nil
 		)
 
 		guard case let .success(id) = result else {
@@ -1109,7 +1131,7 @@ class ContactDiaryStoreTests: XCTestCase {
 		eMail: String = "",
 		to store: ContactDiaryStore
 	) -> Int {
-		let addLocationResult = store.addLocation(name: name, phoneNumber: phoneNumber, emailAddress: eMail, traceLocationGUID: nil)
+		let addLocationResult = store.addLocation(name: name, phoneNumber: phoneNumber, emailAddress: eMail, traceLocationId: nil)
 		guard case let .success(locationId) = addLocationResult else {
 			fatalError("Failed to add Location")
 		}

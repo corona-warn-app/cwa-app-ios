@@ -12,17 +12,18 @@ class CheckinsOverviewViewModel {
 
 	init(
 		store: EventStoringProviding,
+		eventCheckoutService: EventCheckoutService,
 		onEntryCellTap: @escaping (Checkin) -> Void,
 		cameraAuthorizationStatus: @escaping () -> AVAuthorizationStatus = {
 			AVCaptureDevice.authorizationStatus(for: .video)
 		}
 	) {
 		self.store = store
+		self.eventCheckoutService = eventCheckoutService
 		self.onEntryCellTap = onEntryCellTap
         self.cameraAuthorizationStatus = cameraAuthorizationStatus
 
 		store.checkinsPublisher
-			.map { $0.sorted { $0.checkinStartDate < $1.checkinStartDate } }
 			.sink { [weak self] in
 				self?.update(from: $0)
 			}
@@ -37,7 +38,7 @@ class CheckinsOverviewViewModel {
 		case entries
 	}
 
-	@OpenCombine.Published private(set) var shouldReload: Bool = false
+	@OpenCombine.Published var triggerReload: Bool = false
 
 	var onUpdate: (() -> Void)?
 
@@ -85,26 +86,10 @@ class CheckinsOverviewViewModel {
 			fatalError("didTapEntryCell can only be called from the entries section")
 		}
 
-		let checkin = checkinCellModels[indexPath.row].checkin
-		let updatedChecking = Checkin(
-			id: checkin.id,
-			traceLocationGUID: checkin.traceLocationGUID,
-			traceLocationGUIDHash: checkin.traceLocationGUIDHash,
-			traceLocationVersion: checkin.traceLocationVersion,
-			traceLocationType: checkin.traceLocationType,
-			traceLocationDescription: checkin.traceLocationDescription,
-			traceLocationAddress: checkin.traceLocationAddress,
-			traceLocationStartDate: checkin.traceLocationStartDate,
-			traceLocationEndDate: checkin.traceLocationEndDate,
-			traceLocationDefaultCheckInLengthInMinutes: checkin.traceLocationDefaultCheckInLengthInMinutes,
-			traceLocationSignature: checkin.traceLocationSignature,
-			checkinStartDate: checkin.checkinStartDate,
-			checkinEndDate: checkin.checkinEndDate,
-			checkinCompleted: true,
-			createJournalEntry: checkin.createJournalEntry
+		eventCheckoutService.checkout(
+			checkin: checkinCellModels[indexPath.row].checkin,
+			manually: true
 		)
-
-		store.updateCheckin(updatedChecking)
 	}
 
 	func removeEntry(at indexPath: IndexPath) {
@@ -116,12 +101,17 @@ class CheckinsOverviewViewModel {
 	}
 
 	func updateForCameraPermission() {
-		shouldReload = true
+		triggerReload = true
+	}
+
+	func checkoutOverdueCheckins() {
+		eventCheckoutService.checkoutOverdueCheckins()
 	}
 
 	// MARK: - Private
 
 	private let store: EventStoringProviding
+	private let eventCheckoutService: EventCheckoutService
 	private let onEntryCellTap: (Checkin) -> Void
 	private let cameraAuthorizationStatus: () -> AVAuthorizationStatus
 
@@ -135,17 +125,21 @@ class CheckinsOverviewViewModel {
 
 	private func update(from checkins: [Checkin]) {
 		if checkins.map({ $0.id }) != checkinCellModels.map({ $0.checkin.id }) {
+			checkinCellModels.forEach {
+				$0.invalidateTimer()
+			}
+
 			checkinCellModels = checkins.map { checkin in
 				CheckinCellModel(
 					checkin: checkin,
-					eventProvider: store,
+					eventCheckoutService: eventCheckoutService,
 					onUpdate: { [weak self] in
 						self?.onUpdate?()
 					}
 				)
 			}
 
-			shouldReload = true
+			triggerReload = true
 		} else {
 			checkinCellModels.forEach { cellModel in
 				guard let checkin = checkins.first(where: { $0.id == cellModel.checkin.id }) else {

@@ -22,16 +22,18 @@ class SelectTraceLocationTypeCell: UITableViewCell, ReuseIdentifierProviding {
 
 	func configure(cellModel: TraceLocationType) {
 		titleLabel.text = cellModel.title
-		subTitleLabel.text = cellModel.subtitle
+		subtitleLabel.text = cellModel.subtitle
+
+		subtitleLabel.isHidden = cellModel.subtitle == nil
 	}
 
-	// MARK: - Private#
+	// MARK: - Private
 
 	private let titleLabel = ENALabel()
-	private let subTitleLabel = ENALabel()
+	private let subtitleLabel = ENALabel()
 
 	private func setupView() {
-		backgroundColor = .enaColor(for: .cellBackground)
+		backgroundColor = .enaColor(for: .darkBackground)
 
 		accessibilityTraits = .button
 		titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -39,14 +41,14 @@ class SelectTraceLocationTypeCell: UITableViewCell, ReuseIdentifierProviding {
 		titleLabel.textColor = .enaColor(for: .textPrimary1)
 		titleLabel.numberOfLines = 0
 
-		subTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-		subTitleLabel.font = .enaFont(for: .subheadline)
-		subTitleLabel.textColor = .enaColor(for: .textSemanticGray)
-		subTitleLabel.numberOfLines = 0
+		subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
+		subtitleLabel.font = .enaFont(for: .subheadline)
+		subtitleLabel.textColor = .enaColor(for: .textSemanticGray)
+		subtitleLabel.numberOfLines = 0
 
 		let stackView = UIStackView(arrangedSubviews: [
 			titleLabel,
-			subTitleLabel
+			subtitleLabel
 		])
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		stackView.axis = .vertical

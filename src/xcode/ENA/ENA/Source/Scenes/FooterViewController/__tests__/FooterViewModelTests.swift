@@ -49,7 +49,7 @@ class FooterViewModelTests: XCTestCase {
 
 		// THEN
 		XCTAssertEqual(initialHeight, bothHidden)
-		XCTAssertEqual(primaryOnlyVisible, viewModel.buttonHeight + viewModel.spacer + viewModel.topBottomInset * 2)
+		XCTAssertEqual(primaryOnlyVisible, viewModel.buttonHeight + viewModel.topBottomInset * 2)
 		XCTAssertEqual(bothVisible, viewModel.buttonHeight * 2 + viewModel.spacer + viewModel.topBottomInset * 2)
 	}
 

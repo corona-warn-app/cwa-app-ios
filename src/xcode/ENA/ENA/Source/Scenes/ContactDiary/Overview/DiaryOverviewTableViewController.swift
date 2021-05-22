@@ -25,10 +25,6 @@ class DiaryOverviewTableViewController: UITableViewController {
 		self.onEditLocationsButtonTap = onEditLocationsButtonTap
 
 		super.init(style: .plain)
-
-		self.viewModel.refreshTableView = { [weak self] in
-			self?.tableView.reloadData()
-		}
 	}
 
 	@available(*, unavailable)
@@ -41,6 +37,7 @@ class DiaryOverviewTableViewController: UITableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
+		setupBindings()
 		setupTableView()
 
 		navigationItem.largeTitleDisplayMode = .always
@@ -103,6 +100,22 @@ class DiaryOverviewTableViewController: UITableViewController {
 	private let onEditLocationsButtonTap: () -> Void
 
 	private var subscriptions = [AnyCancellable]()
+	
+	private func setupBindings() {
+		viewModel.$days
+			.receive(on: DispatchQueue.main.ocombine)
+			.sink { [weak self] _ in
+				self?.tableView.reloadData()
+			}
+			.store(in: &subscriptions)
+		
+		viewModel.homeState?.$riskState
+			.receive(on: DispatchQueue.main.ocombine)
+			.sink { [weak self] _ in
+				self?.tableView.reloadData()
+			}
+			.store(in: &subscriptions)
+	}
 
 	private func setupTableView() {
 		tableView.register(

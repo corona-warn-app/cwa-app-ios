@@ -87,6 +87,7 @@ class ExposureSubmissionStepCell: UITableViewCell {
 	
 	private func setup() {
 		backgroundColor = .enaColor(for: .background)
+		selectionStyle = .none
 		contentView.preservesSuperviewLayoutMargins = false
 		contentView.layoutMargins.top = 0
 		// iconView
@@ -143,6 +144,8 @@ extension ExposureSubmissionStepCell {
 
 	enum Spacing: CGFloat {
 		case large = 32
+		case medium = 16
 		case normal = 12
+		case small = 4
 	}
 }

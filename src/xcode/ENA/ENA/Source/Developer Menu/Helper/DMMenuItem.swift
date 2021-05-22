@@ -16,7 +16,6 @@ enum DMMenuItem: Int, CaseIterable {
 	case manuallyRequestRisk
 	case debugRiskCalculation
 	case errorLog
-	case purgeRegistrationToken
 	case sendFakeRequest
 	case store
 	case onboardingVersion
@@ -31,6 +30,9 @@ enum DMMenuItem: Int, CaseIterable {
 	case ppaActual
 	case ppaSubmission
 	case installationDate
+    case allTraceLocations
+	case mostRecentTraceLocationCheckedInto
+	case adHocPosterGeneration
 }
 
 extension DMMenuItem {
@@ -56,7 +58,6 @@ extension DMMenuItem {
 		case .manuallyRequestRisk: return "Manually Request Risk"
 		case .debugRiskCalculation: return "Debug Risk Calculation"
 		case .errorLog: return "Error Log"
-		case .purgeRegistrationToken: return "Purge Registration Token"
 		case .sendFakeRequest: return "Send fake Request"
 		case .store: return "Store Contents"
 		case .onboardingVersion: return "Onboarding Version"
@@ -66,11 +67,14 @@ extension DMMenuItem {
 		case .warnOthersNotifications: return "Warn Others Notifications"
 		case .deviceTimeCheck: return "Device Time Check"
 		case .ppacService: return "PPAC Service / API Token"
-		case .otpService: return "OTP Token"
+		case .otpService: return "OTP Tokens"
 		case .ppaMostRecent: return "PPA Most Recent Data"
 		case .ppaActual: return "PPA Actual Data"
 		case .ppaSubmission: return "PPA Submission"
 		case .installationDate: return "Installation Date"
+		case .allTraceLocations: return "All created trace locations"
+		case .mostRecentTraceLocationCheckedInto: return "Most recent trace location checked into"
+		case .adHocPosterGeneration: return "Ad-Hoc Poster Generation"
 		}
 	}
 	var subtitle: String {
@@ -84,7 +88,6 @@ extension DMMenuItem {
 		case .manuallyRequestRisk: return "Manually requests the current risk"
 		case .debugRiskCalculation: return "See the most recent risk calculation values"
 		case .errorLog: return "View all errors logged by the app"
-		case .purgeRegistrationToken: return "Purge Registration Token"
 		case .sendFakeRequest: return "Sends a fake request for testing plausible deniability"
 		case .store: return "See the contents of the encrypted store used by the app"
 		case .onboardingVersion: return "Set the onboarding version"
@@ -94,11 +97,14 @@ extension DMMenuItem {
 		case .warnOthersNotifications: return "Settings for the warn others notifications"
 		case .deviceTimeCheck: return "Enable or Disable Device Time Check"
 		case .ppacService: return "Inspect and force updates to the PPAC Token"
-		case .otpService: return "Inspect the OTP Token"
+		case .otpService: return "Inspect the OTP Token for EDUS and ELS"
 		case .ppaMostRecent: return "See the last successful submitted ppa data"
 		case .ppaActual: return "See current analytics data as they were submitted now"
 		case .ppaSubmission: return "Analytics data submission settings"
 		case .installationDate: return "Installation date setup"
+		case .allTraceLocations: return "See the data of the created trace locations"
+		case .mostRecentTraceLocationCheckedInto: return "See the calculated ID of the trace location most recently checked into"
+		case .adHocPosterGeneration: return "Generate QR code poster by providing the customized values"
 		}
 	}
 }

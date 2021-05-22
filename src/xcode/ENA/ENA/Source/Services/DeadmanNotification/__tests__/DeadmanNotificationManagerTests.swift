@@ -12,7 +12,11 @@ class DeadmanNotificationManagerTests: XCTestCase {
 		let notificationCenter = MockUserNotificationCenter()
 
 		let manager = DeadmanNotificationManager(
-			store: store,
+			coronaTestService: CoronaTestService(
+				client: ClientMock(),
+				store: store,
+				appConfiguration: CachedAppConfigurationMock()
+			),
 			userNotificationCenter: notificationCenter
 		)
 
@@ -47,7 +51,11 @@ class DeadmanNotificationManagerTests: XCTestCase {
 		notificationCenter.notificationRequests = [deadmanNotificationRequest]
 
 		let manager = DeadmanNotificationManager(
-			store: store,
+			coronaTestService: CoronaTestService(
+				client: ClientMock(),
+				store: store,
+				appConfiguration: CachedAppConfigurationMock()
+			),
 			userNotificationCenter: notificationCenter
 		)
 
@@ -65,7 +73,11 @@ class DeadmanNotificationManagerTests: XCTestCase {
 		notificationCenter.notificationRequests = [deadmanNotificationRequest]
 
 		let manager = DeadmanNotificationManager(
-			store: store,
+			coronaTestService: CoronaTestService(
+				client: ClientMock(),
+				store: store,
+				appConfiguration: CachedAppConfigurationMock()
+			),
 			userNotificationCenter: notificationCenter
 		)
 
@@ -78,12 +90,16 @@ class DeadmanNotificationManagerTests: XCTestCase {
 
 	func testDeadmanNotificationIsNotScheduledIfPositiveTestResultWasShown() {
 		let store = MockTestStore()
-		store.positiveTestResultWasShown = true
+		store.pcrTest = PCRTest.mock(positiveTestResultWasShown: true)
 
 		let notificationCenter = MockUserNotificationCenter()
 
 		let manager = DeadmanNotificationManager(
-			store: store,
+			coronaTestService: CoronaTestService(
+				client: ClientMock(),
+				store: store,
+				appConfiguration: CachedAppConfigurationMock()
+			),
 			userNotificationCenter: notificationCenter
 		)
 
@@ -96,13 +112,17 @@ class DeadmanNotificationManagerTests: XCTestCase {
 
 	func testDeadmanNotificationIsNotRescheduledIfPositiveTestResultWasShown() {
 		let store = MockTestStore()
-		store.positiveTestResultWasShown = true
+		store.pcrTest = PCRTest.mock(positiveTestResultWasShown: true)
 
 		let notificationCenter = MockUserNotificationCenter()
 		notificationCenter.notificationRequests = [deadmanNotificationRequest]
 
 		let manager = DeadmanNotificationManager(
-			store: store,
+			coronaTestService: CoronaTestService(
+				client: ClientMock(),
+				store: store,
+				appConfiguration: CachedAppConfigurationMock()
+			),
 			userNotificationCenter: notificationCenter
 		)
 
@@ -115,12 +135,16 @@ class DeadmanNotificationManagerTests: XCTestCase {
 
 	func testDeadmanNotificationIsNotScheduledIfKeysWereSubmitted() {
 		let store = MockTestStore()
-		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = 12345678
+		store.pcrTest = PCRTest.mock(keysSubmitted: true)
 
 		let notificationCenter = MockUserNotificationCenter()
 
 		let manager = DeadmanNotificationManager(
-			store: store,
+			coronaTestService: CoronaTestService(
+				client: ClientMock(),
+				store: store,
+				appConfiguration: CachedAppConfigurationMock()
+			),
 			userNotificationCenter: notificationCenter
 		)
 
@@ -133,13 +157,17 @@ class DeadmanNotificationManagerTests: XCTestCase {
 
 	func testDeadmanNotificationIsNotRescheduledIfKeysWereSubmitted() {
 		let store = MockTestStore()
-		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = 12345678
+		store.pcrTest = PCRTest.mock(keysSubmitted: true)
 
 		let notificationCenter = MockUserNotificationCenter()
 		notificationCenter.notificationRequests = [deadmanNotificationRequest]
 
 		let manager = DeadmanNotificationManager(
-			store: store,
+			coronaTestService: CoronaTestService(
+				client: ClientMock(),
+				store: store,
+				appConfiguration: CachedAppConfigurationMock()
+			),
 			userNotificationCenter: notificationCenter
 		)
 

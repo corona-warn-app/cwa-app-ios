@@ -231,7 +231,7 @@ class DiaryAddAndEditEntryViewModelTest: XCTestCase {
 	
 	func testGIVEN_Location_WHEN_createEditModeViewModel_THEN_NameIsTextInput() {
 		// GIVEN
-		let entry: DiaryEntry = .location(DiaryLocation(id: 0, name: "Office", phoneNumber: "+49123456789", emailAddress: "office@office.test", traceLocationGUID: nil))
+		let entry: DiaryEntry = .location(DiaryLocation(id: 0, name: "Office", phoneNumber: "+49123456789", emailAddress: "office@office.test", traceLocationId: nil))
 		let viewModel = DiaryAddAndEditEntryViewModel(
 			mode: .edit(entry),
 			store: MockDiaryStore()
@@ -335,13 +335,13 @@ class DiaryAddAndEditEntryViewModelTest: XCTestCase {
 		let name = "Office"
 		let phone = "+1"
 		let email = "office@test.ui"
-		let result = mockStore.addLocation(name: name, phoneNumber: phone, emailAddress: email, traceLocationGUID: nil)
+		let result = mockStore.addLocation(name: name, phoneNumber: phone, emailAddress: email, traceLocationId: nil)
 
 		guard case let .success(id) = result else {
 			fatalError("Failure not expected")
 		}
 
-		let entry: DiaryEntry = .location(.init(id: id, name: name, phoneNumber: phone, emailAddress: email, traceLocationGUID: nil))
+		let entry: DiaryEntry = .location(.init(id: id, name: name, phoneNumber: phone, emailAddress: email, traceLocationId: nil))
 		
 		let viewModel = DiaryAddAndEditEntryViewModel(
 			mode: .edit(entry),

@@ -9,11 +9,13 @@ typealias RiskProviderResult = Result<Risk, RiskProviderError>
 
 enum RiskProviderError: Error {
 	case inactive
+	case deactivatedDueToActiveTest
 	case timeout
 	case riskProviderIsRunning
 	case missingAppConfig
 	case failedKeyPackageDownload(KeyPackageDownloadError)
 	case failedRiskDetection(ExposureDetection.DidEndPrematurelyReason)
+	case failedTraceWarningPackageDownload(TraceWarningError)
 
 	var isAlreadyRunningError: Bool {
 		switch self {
@@ -49,7 +51,7 @@ enum RiskProviderError: Error {
 	}
 }
 
-enum RiskProviderActivityState {
+enum RiskProviderActivityState: Int {
 	case idle
 	case riskRequested
 	case downloading

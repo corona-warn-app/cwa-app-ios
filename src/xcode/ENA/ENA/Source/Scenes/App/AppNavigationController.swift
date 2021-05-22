@@ -160,7 +160,7 @@ private extension Array {
 	}
 }
 
-protocol NavigationBarOpacityDelegate: class {
+protocol NavigationBarOpacityDelegate: AnyObject {
 	var preferredNavigationBarOpacity: CGFloat { get }
 	var preferredLargeTitleBlurEffect: UIBlurEffect.Style? { get }
 	var preferredLargeTitleBackgroundColor: UIColor? { get }

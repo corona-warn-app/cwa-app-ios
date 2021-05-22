@@ -105,7 +105,7 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 	@OpenCombine.Published var isButtonHidden: Bool = true
 
 	var previousRiskTitle: String {
-		switch homeState.lastRiskCalculationResult?.riskLevel {
+		switch homeState.risk?.level {
 		case .low:
 			return AppStrings.ExposureDetection.low
 		case .high:
@@ -173,7 +173,7 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 	private var subscriptions = Set<AnyCancellable>()
 
 	private var lastUpdateDateString: String {
-		if let lastUpdateDate = homeState.lastRiskCalculationResult?.calculationDate {
+		if let lastUpdateDate = homeState.riskCalculationDate {
 			return Self.lastUpdateDateFormatter.string(from: lastUpdateDate)
 		} else {
 			return AppStrings.Home.riskCardNoDateTitle
@@ -434,6 +434,7 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 			.section(
 				header: .backgroundSpace(height: 16),
 				cells: [
+					.body(text: AppStrings.ExposureDetection.contactJournalText),
 					.header(title: AppStrings.ExposureDetection.behaviorTitle, subtitle: AppStrings.ExposureDetection.behaviorSubtitle),
 					.guide(text: AppStrings.ExposureDetection.guideHome, image: UIImage(named: "Icons - Home")),
 					.guide(text: AppStrings.ExposureDetection.guideDistance, image: UIImage(named: "Icons - Abstand")),
@@ -537,6 +538,7 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 			header: .backgroundSpace(height: 8),
 			footer: .backgroundSpace(height: 16),
 			cells: [
+				.body(text: AppStrings.ExposureDetection.contactJournalText),
 				.header(
 					title: AppStrings.ExposureDetection.lowRiskExposureTitle,
 					subtitle: AppStrings.ExposureDetection.lowRiskExposureSubtitle
@@ -578,10 +580,7 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 
 		let p1: String
 		if homeState.shouldShowDaysSinceInstallation && risk.details.numberOfDaysWithRiskLevel == 0 {
-			p1 = String(
-				format: AppStrings.ExposureDetection.tracingParagraph1a,
-				homeState.daysSinceInstallation
-			)
+			p1 = String(format: AppStrings.ExposureDetection.tracingParagraph1a, homeState.daysSinceInstallation)
 		} else {
 			p1 = AppStrings.ExposureDetection.tracingParagraph1b
 		}

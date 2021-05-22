@@ -10,7 +10,7 @@ class TraceLocationsInfoViewController: DynamicTableViewController, FooterViewHa
 	
 	init(
 		viewModel: TraceLocationsInfoViewModel,
-		onDismiss: @escaping () -> Void
+		onDismiss: @escaping (Bool) -> Void
 	) {
 		self.viewModel = viewModel
 		self.onDismiss = onDismiss
@@ -30,11 +30,9 @@ class TraceLocationsInfoViewController: DynamicTableViewController, FooterViewHa
 		setupView()
 
 		if !viewModel.hidesCloseButton {
-			navigationItem.rightBarButtonItem = CloseBarButtonItem(
-				onTap: { [weak self] in
-					self?.onDismiss()
-				}
-			)
+			parent?.navigationItem.rightBarButtonItem = CloseBarButtonItem(onTap: { [weak self] in
+				self?.onDismiss(false)
+			})
 		}
 		parent?.navigationItem.title = AppStrings.TraceLocations.Information.title
 		navigationController?.navigationBar.prefersLargeTitles = true
@@ -44,7 +42,7 @@ class TraceLocationsInfoViewController: DynamicTableViewController, FooterViewHa
 
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
 		if type == .primary {
-			onDismiss()
+			onDismiss(true)
 		}
 	}
 
@@ -57,7 +55,7 @@ class TraceLocationsInfoViewController: DynamicTableViewController, FooterViewHa
 	// MARK: - Private
 
 	private let viewModel: TraceLocationsInfoViewModel
-	private let onDismiss: () -> Void
+	private let onDismiss: (Bool) -> Void
 
 	private func setupView() {
 		view.backgroundColor = .enaColor(for: .background)

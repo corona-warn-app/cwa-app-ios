@@ -85,7 +85,7 @@ class TraceLocationsOverviewViewModel {
 	}
 
 	func removeEntry(at indexPath: IndexPath) {
-		store.deleteTraceLocation(guid: traceLocations[indexPath.row].guid)
+		store.deleteTraceLocation(id: traceLocations[indexPath.row].id)
 	}
 
 	func removeAll() {

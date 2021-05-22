@@ -8,6 +8,7 @@ import OpenCombineDispatch
 import ExposureNotification
 import FMDB
 import UIKit
+import HealthCertificateToolkit
 
 protocol CoronaWarnAppDelegate: AnyObject {
 
@@ -19,7 +20,7 @@ protocol CoronaWarnAppDelegate: AnyObject {
 	var riskProvider: RiskProvider { get }
 	var exposureManager: ExposureManager { get }
 	var taskScheduler: ENATaskScheduler { get }
-	var serverEnvironment: ServerEnvironment { get }
+	var environmentProvider: EnvironmentProviding { get }
 	var contactDiaryStore: DiaryStoringProviding { get }
 
 	func requestUpdatedExposureState()
@@ -32,24 +33,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	// MARK: - Init
 
 	override init() {
-		self.serverEnvironment = ServerEnvironment()
+		self.environmentProvider = Environments()
 
-		self.store = SecureStore(subDirectory: "database", serverEnvironment: serverEnvironment)
+		#if DEBUG
+		if isUITesting {
+			self.store = MockTestStore()
+		}
+		self.store = SecureStore(subDirectory: "database", environmentProvider: environmentProvider)
+		#else
+		self.store = SecureStore(subDirectory: "database", environmentProvider: environmentProvider)
+		#endif
 
 		if store.appInstallationDate == nil {
 			store.appInstallationDate = InstallationDate.inferredFromDocumentDirectoryCreationDate()
 			Log.debug("App installation date: \(String(describing: store.appInstallationDate))")
 		}
 
-		self.client = HTTPClient(serverEnvironmentProvider: store)
-		self.wifiClient = WifiOnlyHTTPClient(serverEnvironmentProvider: store)
+		self.client = HTTPClient(environmentProvider: environmentProvider)
+		self.wifiClient = WifiOnlyHTTPClient(environmentProvider: environmentProvider)
 
 		self.downloadedPackagesStore.keyValueStore = self.store
 
 		super.init()
 
 		// Make the analytics working. Should not be called later than at this moment of app initialisation.
-		Analytics.setup(store: store, submitter: self.analyticsSubmitter)
+		Analytics.setup(
+			store: store,
+			coronaTestService: coronaTestService,
+			submitter: self.analyticsSubmitter
+		)
+
+		// Migrate the old pcr test structure from versions older than v2.1
+		coronaTestService.migrate()
 	}
 
 	deinit {
@@ -65,12 +80,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		_: UIApplication,
 		didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
 	) -> Bool {
-
-
 		#if DEBUG
 		setupOnboardingForTesting()
 		setupDatadonationForTesting()
 		setupInstallationDateForTesting()
+		setupAntigenTestProfileForTesting()
 		#endif
 
 		if AppDelegate.isAppDisabled() {
@@ -79,20 +93,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			return true
 		}
 
-		// Check for any URLs passed into the app – most likely via scanning a QR code
-		var route: Route?
-		if let activityDictionary = launchOptions?[.userActivityDictionary] as? [AnyHashable: Any] {
-			for key in activityDictionary.keys {
-				if let userActivity = activityDictionary[key] as? NSUserActivity {
-					if userActivity.activityType == NSUserActivityTypeBrowsingWeb, let url = userActivity.webpageURL {
-						route = Route(url: url)
-						break
-					}
-				}
-			}
-		}
+		// Check for any URLs passed into the app – most likely via scanning a QR code from event or antigen rapid test
+		let route = routeFromLaunchOptions(launchOptions)
 		setupUI(route)
-		setupQuickActions()
+		QuickAction.setup()
 
 		UIDevice.current.isBatteryMonitoringEnabled = true
 
@@ -101,7 +105,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		UNUserNotificationCenter.current().delegate = notificationManager
 
 		/// Setup DeadmanNotification after AppLaunch
-		DeadmanNotificationManager(store: store).scheduleDeadmanNotificationIfNeeded()
+		DeadmanNotificationManager(coronaTestService: coronaTestService).scheduleDeadmanNotificationIfNeeded()
 
 		consumer.didFailCalculateRisk = { [weak self] error in
 			self?.showError(error)
@@ -144,6 +148,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		Log.info("Application did enter background.", log: .background)
 	}
 
+	func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
+		// handle QR cdes scanned in the camera app
+		var route: Route?
+		if userActivity.activityType == NSUserActivityTypeBrowsingWeb, let incomingURL = userActivity.webpageURL {
+			route = Route(url: incomingURL)
+		}
+		guard store.isOnboarded else {
+			postOnboardingRoute = route
+			return false
+		}
+		showHome(route)
+		return true
+	}
+
 	// MARK: - Protocol CoronaWarnAppDelegate
 
 	let client: HTTPClient
@@ -152,16 +170,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
 	let contactDiaryStore: DiaryStoringProviding = ContactDiaryStore.make()
 	let eventStore: EventStoringProviding = EventStore.make()
-    let serverEnvironment: ServerEnvironment
+    let environmentProvider: EnvironmentProviding
 	var store: Store
+
+	lazy var coronaTestService: CoronaTestService = {
+		return CoronaTestService(
+			client: client,
+			store: store,
+			appConfiguration: appConfigurationProvider
+		)
+	}()
+
+	lazy var eventCheckoutService: EventCheckoutService = EventCheckoutService(
+		eventStore: eventStore,
+		contactDiaryStore: contactDiaryStore
+	)
 
 	lazy var plausibleDeniabilityService: PlausibleDeniabilityService = {
 		PlausibleDeniabilityService(
-			exposureManager: self.exposureManager,
-			appConfigurationProvider: self.appConfigurationProvider,
 			client: self.client,
 			store: self.store,
-			warnOthersReminder: WarnOthersReminder(store: self.store)
+			coronaTestService: coronaTestService
 		)
 	}()
 
@@ -173,7 +202,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		}
 		#endif
 		// use a custom http client that uses/recognized caching mechanisms
-		let appFetchingClient = CachingHTTPClient(serverEnvironmentProvider: store)
+		let appFetchingClient = CachingHTTPClient(environmentProvider: environmentProvider)
 
 		let provider = CachedAppConfiguration(client: appFetchingClient, store: store)
 		// used to remove invalidated key packages
@@ -188,6 +217,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			wifiClient: wifiClient,
 			store: store
 		)
+		
+		let traceWarningPackageDownload = TraceWarningPackageDownload(
+			client: client,
+			store: store,
+			eventStore: eventStore
+		)
+
+		let checkinRiskCalculation = CheckinRiskCalculation(
+			eventStore: eventStore,
+			checkinSplittingService: CheckinSplittingService(),
+			traceWarningMatcher: TraceWarningMatcher(eventStore: eventStore)
+		)
 
 		#if !RELEASE
 		return RiskProvider(
@@ -195,9 +236,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			store: store,
 			appConfigurationProvider: appConfigurationProvider,
 			exposureManagerState: exposureManager.exposureManagerState,
-			riskCalculation: DebugRiskCalculation(riskCalculation: RiskCalculation(), store: store),
+			enfRiskCalculation: DebugRiskCalculation(riskCalculation: ENFRiskCalculation(), store: store),
+			checkinRiskCalculation: checkinRiskCalculation,
 			keyPackageDownload: keyPackageDownload,
-			exposureDetectionExecutor: exposureDetectionExecutor
+			traceWarningPackageDownload: traceWarningPackageDownload,
+			exposureDetectionExecutor: exposureDetectionExecutor,
+			coronaTestService: coronaTestService
 		)
 		#else
 		return RiskProvider(
@@ -205,8 +249,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			store: store,
 			appConfigurationProvider: appConfigurationProvider,
 			exposureManagerState: exposureManager.exposureManagerState,
+			checkinRiskCalculation: checkinRiskCalculation,
 			keyPackageDownload: keyPackageDownload,
-			exposureDetectionExecutor: exposureDetectionExecutor
+			traceWarningPackageDownload: traceWarningPackageDownload,
+			exposureDetectionExecutor: exposureDetectionExecutor,
+			coronaTestService: coronaTestService
 		)
 		#endif
 	}()
@@ -215,7 +262,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		return PPAnalyticsSubmitter(
 			store: store,
 			client: client,
-			appConfig: appConfigurationProvider
+			appConfig: appConfigurationProvider,
+			coronaTestService: coronaTestService,
+			ppacService: ppacService
 		)
 	}()
 
@@ -224,11 +273,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		client: client,
 		riskProvider: riskProvider
 	)
-
-	private lazy var eventCheckoutService: EventCheckoutService = EventCheckoutService(
-		eventStore: eventStore,
-		contactDiaryStore: contactDiaryStore
+	
+	private lazy var ppacService: PrivacyPreservingAccessControl = PPACService(
+		store: store,
+		deviceCheck: PPACDeviceCheck()
 	)
+
+	private lazy var healthCertificateService: HealthCertificateServiceProviding = HealthCertificateService(store: store)
 
 	#if targetEnvironment(simulator) || COMMUNITY
 	// Enable third party contributors that do not have the required
@@ -252,7 +303,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			appConfigurationProvider: self.appConfigurationProvider,
 			client: self.client,
 			store: self.store,
-			warnOthersReminder: WarnOthersReminder(store: store))
+			eventStore: self.eventStore,
+			coronaTestService: coronaTestService)
 	}
 
 	func requestUpdatedExposureState() {
@@ -276,7 +328,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		)
 	}()
 
-	var notificationManager: NotificationManager! = NotificationManager()
+	lazy var notificationManager: NotificationManager = {
+		let notificationManager = NotificationManager()
+		notificationManager.appDelegate = self
+
+		return notificationManager
+	}()
 
 	// MARK: - Protocol ENAExposureManagerObserver
 
@@ -300,27 +357,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	/// Resets all stores and notifies the Onboarding and resets all pending notifications
 	func coordinatorUserDidRequestReset(exposureSubmissionService: ExposureSubmissionService) {
-		exposureSubmissionService.reset()
-
-		// Reset key value store. Preserve environment settings.
-
+		// Reset key value store. Preserve some values.
 		do {
 			/// Following values are excluded from reset:
 			/// - PPAC API Token
 			/// - App installation date
 			///
 			/// read values from the current store
-			let ppacAPIToken = store.ppacApiToken
+			let ppacEdusApiToken = store.ppacApiTokenEdus
 			let installationDate = store.appInstallationDate
-			let environment = store.selectedServerEnvironment
 
 			let newKey = try KeychainHelper().generateDatabaseKey()
 			store.clearAll(key: newKey)
 
 			/// write excluded values back to the 'new' store
-			store.ppacApiToken = ppacAPIToken
+			store.ppacApiTokenEdus = ppacEdusApiToken
 			store.appInstallationDate = installationDate
-			store.selectedServerEnvironment = environment
             Analytics.collect(.submissionMetadata(.lastAppReset(Date())))
 		} catch {
 			fatalError("Creating new database key failed")
@@ -344,6 +396,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		// Reset event store
 		eventStore.reset()
+
+		coronaTestService.updatePublishersFromStore()
 	}
 
 	// MARK: - Protocol ExposureStateUpdating
@@ -366,7 +420,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	private var exposureDetection: ExposureDetection?
 	private let consumer = RiskConsumer()
-
+	private var postOnboardingRoute: Route?
+	
 	private lazy var exposureDetectionExecutor: ExposureDetectionExecutor = {
 		ExposureDetectionExecutor(
 			client: self.client,
@@ -376,14 +431,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		)
 	}()
 
+	/// - Parameter launchOptions: Launch options passed on app launch
+	/// - Returns: A `Route` if a valid URL is passed in the launch options
+	private func routeFromLaunchOptions(_ launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Route? {
+		guard let activityDictionary = launchOptions?[.userActivityDictionary] as? [AnyHashable: Any] else {
+			return nil
+		}
+
+		for key in activityDictionary.keys {
+			if let userActivity = activityDictionary[key] as? NSUserActivity,
+			   userActivity.activityType == NSUserActivityTypeBrowsingWeb,
+			   let url = userActivity.webpageURL {
+				return Route(url: url)
+			}
+		}
+
+		return nil
+	}
+
 	private func showError(_ riskProviderError: RiskProviderError) {
 		guard let rootController = window?.rootViewController else {
 			return
 		}
 
 		guard let alert = makeErrorAlert(
-				riskProviderError: riskProviderError,
-				rootController: rootController
+			riskProviderError: riskProviderError,
+			rootController: rootController
 		) else {
 			return
 		}
@@ -462,9 +535,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	lazy var coordinator = RootCoordinator(
 		self,
+		coronaTestService: coronaTestService,
 		contactDiaryStore: contactDiaryStore,
 		eventStore: eventStore,
-		otpService: otpService
+		eventCheckoutService: eventCheckoutService,
+		otpService: otpService,
+		ppacService: ppacService,
+		healthCertificateService: healthCertificateService
 	)
 
 	private lazy var appUpdateChecker = AppUpdateCheckHelper(appConfigurationProvider: self.appConfigurationProvider, store: self.store)
@@ -480,6 +557,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		if store.isOnboarded {
 			showHome(route)
 		} else {
+			postOnboardingRoute = route
 			showOnboarding()
 		}
 		UIImageView.appearance().accessibilityIgnoresInvertColors = true
@@ -519,7 +597,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		if exposureManager.exposureManagerState.status == .unknown {
 			exposureManager.activate { [weak self] error in
 				if let error = error {
-					Log.error("Cannot activate the  ENManager. The reason is \(error)", log: .api)
+					Log.error("Cannot activate the ENManager. The reason is \(error)", log: .api)
 				}
 				self?.presentHomeVC(route)
 			}
@@ -538,15 +616,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			fatalError("It should not happen.")
 		}
 
-		coordinator.showHome(enStateHandler: enStateHandler)
-
-		if let eventRoute = route {
-			switch eventRoute {
-			case .checkin(let guid):
-				coordinator.showEvent(guid)
-			}
-		}
-
+		coordinator.showHome(enStateHandler: enStateHandler, route: route)
 	}
 
 	private func showOnboarding() {
@@ -586,12 +656,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		}
 	}
 
+	private func setupAntigenTestProfileForTesting() {
+		store.antigenTestProfileInfoScreenShown = UserDefaults.standard.bool(forKey: "antigenTestProfileInfoScreenShown")
+		if UserDefaults.standard.bool(forKey: "removeAntigenTestProfile") {
+			store.antigenTestProfile = nil
+		}
+	}
+	
 	#endif
 
 	@objc
 	private func isOnboardedDidChange(_: NSNotification) {
-		store.isOnboarded ? showHome() : showOnboarding()
-		updateQuickActions()
+		if store.isOnboarded {
+			showHome(postOnboardingRoute)
+			postOnboardingRoute = nil
+		} else {
+			showOnboarding()
+		}
 	}
 
 	@objc

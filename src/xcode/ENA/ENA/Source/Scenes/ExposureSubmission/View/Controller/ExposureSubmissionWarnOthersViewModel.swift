@@ -14,7 +14,7 @@ struct ExposureSubmissionWarnOthersViewModel {
 	private let acknowledgementString: NSAttributedString = {
 		let boldText = AppStrings.ExposureSubmissionWarnOthers.acknowledgement_1_1
 		let normalText = AppStrings.ExposureSubmissionWarnOthers.acknowledgement_1_2
-		let string = NSMutableAttributedString(string: "\(boldText) \(normalText)")
+		let string = NSMutableAttributedString(string: "\(boldText)\n\n\(normalText)")
 
 		// highlighted text
 		let attributes: [NSAttributedString.Key: Any] = [
@@ -55,11 +55,6 @@ struct ExposureSubmissionWarnOthersViewModel {
 						text: AppStrings.ExposureSubmissionWarnOthers.description,
 						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnOthers.description
 					),
-					.space(height: 12),
-					.body(
-						text: AppStrings.ExposureSubmissionWarnOthers.supportedCountriesTitle,
-						accessibilityIdentifier: nil
-					),
 					.space(height: 12)
 				]
 			)
@@ -68,7 +63,7 @@ struct ExposureSubmissionWarnOthersViewModel {
 		// 'Flags'
 		model.add(
 			.section(separators: .all, cells: [
-				.countries(countries: countries, accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.countryList),
+				.countries(countries: countries, accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnOthers.countryList),
 				.space(height: 8)
 			])
 		)
@@ -76,27 +71,31 @@ struct ExposureSubmissionWarnOthersViewModel {
 		// Ihr Einverständnis
 		model.add(
 			.section(cells: [
-				.legal(title: NSAttributedString(string: AppStrings.ExposureSubmissionQRInfo.acknowledgementTitle),
-					   description: NSAttributedString(string: AppStrings.ExposureSubmissionQRInfo.acknowledgementBody),
-					   textBlocks: [
+				.legal(
+					title: NSAttributedString(string: AppStrings.ExposureSubmissionWarnOthers.acknowledgementTitle),
+					description: NSAttributedString(string: AppStrings.ExposureSubmissionWarnOthers.acknowledgementBody),
+					textBlocks: [
 						acknowledgementString,
 						NSAttributedString(string: AppStrings.ExposureSubmissionWarnOthers.acknowledgement_footer)
-					   ],
-					   accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.acknowledgementTitle),
-				.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement3, alignment: .legal),
-				.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement5, alignment: .legal),
-				.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement6, alignment: .legal),
+					],
+					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnOthers.acknowledgementTitle
+				),
+				.bulletPoint(text: AppStrings.ExposureSubmissionWarnOthers.consent_bullet1, alignment: .legal),
+				.bulletPoint(text: AppStrings.ExposureSubmissionWarnOthers.consent_bullet2, alignment: .legal),
+				.bulletPoint(text: AppStrings.ExposureSubmissionWarnOthers.consent_bullet3, alignment: .legal),
+				.bulletPoint(text: AppStrings.ExposureSubmissionWarnOthers.consent_bullet4, alignment: .legal),
+				.bulletPoint(text: AppStrings.ExposureSubmissionWarnOthers.consent_bullet5, alignment: .legal),
 				.space(height: 16)
 			])
 		)
 
-		// Even more info
+		// Button: detailed information
 		model.add(
 			.section(separators: .all, cells: [
 				.body(
 					text: AppStrings.AutomaticSharingConsent.dataProcessingDetailInfo,
 					style: DynamicCell.TextCellStyle.label,
-					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.dataProcessingDetailInfo,
+					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnOthers.dataProcessingDetailInfo,
 					accessibilityTraits: UIAccessibilityTraits.link,
 					action: .push(
 						htmlModel: AppInformationModel.privacyModel,
@@ -132,7 +131,7 @@ extension DynamicCell {
 		accessibilityIdentifier: String? = nil,
 		configure: CellConfigurator? = nil
 	) -> Self {
-		.identifier(ExposureSubmissionQRInfoViewController.ReuseIdentifiers.legal) { viewController, cell, indexPath in
+		.identifier(ExposureSubmissionWarnOthersViewController.ReuseIdentifiers.acknowledgement) { viewController, cell, indexPath in
 			guard let cell = cell as? DynamicLegalCell else {
 				fatalError("could not initialize cell of type `DynamicLegalCell`")
 			}

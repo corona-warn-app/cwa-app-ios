@@ -324,7 +324,7 @@ private extension UIViewController {
 	var firstResponder: UIResponder? { view.firstResponder }
 }
 
-private extension UIView {
+extension UIView {
 	var firstResponder: UIResponder? {
 		if self.isFirstResponder { return self }
 		for subview in subviews {

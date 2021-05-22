@@ -6,12 +6,12 @@
 
 import Foundation
 
-final class DebugRiskCalculation: RiskCalculationProtocol {
+final class DebugRiskCalculation: ENFRiskCalculationProtocol {
 
 	// MARK: - Init
 
 	init(
-		riskCalculation: RiskCalculation,
+		riskCalculation: ENFRiskCalculation,
 		store: Store
 	) {
 		self.riskCalculation = riskCalculation
@@ -24,7 +24,7 @@ final class DebugRiskCalculation: RiskCalculationProtocol {
 	func calculateRisk(
 		exposureWindows: [ExposureWindow],
 		configuration: RiskCalculationConfiguration
-	) -> RiskCalculationResult {
+	) -> ENFRiskCalculationResult {
 		let riskCalculationResult = riskCalculation.calculateRisk(exposureWindows: exposureWindows, configuration: configuration)
 
 		store.mostRecentRiskCalculation = riskCalculation
@@ -39,7 +39,7 @@ final class DebugRiskCalculation: RiskCalculationProtocol {
 	
 	// MARK: - Private
 
-	private let riskCalculation: RiskCalculation
+	private let riskCalculation: ENFRiskCalculation
 	private let store: Store
 
 }

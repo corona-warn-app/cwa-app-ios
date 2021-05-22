@@ -20,6 +20,8 @@ final class FooterViewModel {
 		isSecondaryButtonHidden: Bool = false,
 		primaryButtonColor: UIColor = .enaColor(for: .buttonPrimary),
 		secondaryButtonColor: UIColor = .enaColor(for: .buttonPrimary),
+		primaryCustomDisableBackgroundColor: UIColor? = nil,
+		secondaryCustomDisableBackgroundColor: UIColor? = nil,
 		primaryButtonInverted: Bool = false,
 		secondaryButtonInverted: Bool = false,
 		backgroundColor: UIColor = .enaColor(for: .background)
@@ -34,6 +36,8 @@ final class FooterViewModel {
 		self.isSecondaryButtonHidden = isSecondaryButtonHidden
 		self.primaryButtonColor = primaryButtonColor
 		self.secondaryButtonColor = secondaryButtonColor
+		self.primaryCustomDisableBackgroundColor = primaryCustomDisableBackgroundColor
+		self.secondaryCustomDisableBackgroundColor = secondaryCustomDisableBackgroundColor
 		self.primaryButtonInverted = primaryButtonInverted
 		self.secondaryButtonInverted = secondaryButtonInverted
 		self.backgroundColor = backgroundColor
@@ -60,13 +64,15 @@ final class FooterViewModel {
 	let leftRightInset: CGFloat = 16.0
 	let primaryButtonColor: UIColor?
 	let secondaryButtonColor: UIColor?
+	let primaryCustomDisableBackgroundColor: UIColor?
+	let secondaryCustomDisableBackgroundColor: UIColor?
 	let primaryButtonInverted: Bool
 	let secondaryButtonInverted: Bool
 	let primaryIdentifier: String
 	let secondaryIdentifier: String
 
-	private(set) var isPrimaryButtonHidden: Bool
-	private(set) var isSecondaryButtonHidden: Bool
+	@OpenCombine.Published private(set) var isPrimaryButtonHidden: Bool
+	@OpenCombine.Published private(set) var isSecondaryButtonHidden: Bool
 
 	@OpenCombine.Published private(set) var height: CGFloat = 0.0
 	@OpenCombine.Published private(set) var isPrimaryLoading: Bool = false
@@ -94,6 +100,15 @@ final class FooterViewModel {
 		updateHeight()
 	}
 
+	func setEnabled(_ isEnabled: Bool, button: FooterViewModel.ButtonType) {
+		switch button {
+		case .primary:
+			isPrimaryButtonEnabled = isEnabled
+		case .secondary:
+			isSecondaryButtonEnabled = isEnabled
+		}
+	}
+
 	func setLoadingIndicator(_ show: Bool, disable: Bool, button: FooterViewModel.ButtonType) {
 		switch button {
 		case .primary:
@@ -113,7 +128,7 @@ final class FooterViewModel {
 		case(false, false):
 			height = buttonHeight * 2 + spacer + topBottomInset * 2
 		case(true, false), (false, true):
-			height = buttonHeight + spacer + topBottomInset * 2
+			height = buttonHeight + topBottomInset * 2
 		case(true, true):
 			height = 0.0
 		}
