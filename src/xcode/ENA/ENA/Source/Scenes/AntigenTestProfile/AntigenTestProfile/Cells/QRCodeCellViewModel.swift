@@ -55,7 +55,7 @@ struct QRCodeCellViewModel {
 
 		var dataOfBirth = ""
 		if let date = antigenTestProfile.dateOfBirth {
-			dataOfBirth = DateFormatter.VCard.justUTCDateFormatter.string(from: date)
+			dataOfBirth = DateFormatter.VCard.justDate.string(from: date)
 		}
 
 		return String(
