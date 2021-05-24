@@ -113,9 +113,9 @@ final class RiskProvider: RiskProviding {
 				guard let self = self else {
 					return
 				}
-				self.appConfigurationProvider.appConfiguration().sink { [weak self] appConfiguration in
-					self?.downloadTraceWarningPackages(with: appConfiguration, completion: { [weak self] result in
-						guard let self = self else {
+
+				self.appConfigurationProvider.appConfiguration().sink { appConfiguration in
+					self.downloadTraceWarningPackages(with: appConfiguration) { result in
 							return
 						}
 						switch result {
@@ -129,12 +129,10 @@ final class RiskProvider: RiskProviding {
 							} else {
 								self.failOnTargetQueue(error: .deactivatedDueToActiveTest)
 							}
-							return
-
 						case .failure(let error):
 							self.failOnTargetQueue(error: error)
 						}
-					})
+					}
 				}.store(in: &self.subscriptions)
 			}
 
