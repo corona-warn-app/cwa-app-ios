@@ -5,7 +5,6 @@
 import Foundation
 
 struct LaunchArgument {
-
 	let name: String
 
 	var boolValue: Bool {
@@ -19,9 +18,14 @@ struct LaunchArgument {
 	var intValue: Int {
 		UserDefaults.standard.integer(forKey: name)
 	}
-
 }
 
+/*
+ * To add a launch argument for UI testing simply add an entry here
+ * Setup in UI test will be like app.setLaunchArgument(LaunchArguments.xyz.abc, to: <value>)
+ * Access the value like LaunchArguments.xyz.abc.intValue
+ * Please write a comment if you introduce a new launch argument
+ */
 enum LaunchArguments {
 	enum common {
 		// Coming from ENF and used to set exposure notification to active
