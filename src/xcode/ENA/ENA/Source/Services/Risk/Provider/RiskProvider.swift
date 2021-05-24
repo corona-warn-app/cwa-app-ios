@@ -118,9 +118,9 @@ final class RiskProvider: RiskProviding {
 					self.downloadTraceWarningPackages(with: appConfiguration) { result in
 							return
 						}
+
 						switch result {
 						case .success:
-
 							// Try to obtain already calculated risk.
 							if let risk = self.previousRiskIfExistingAndNotExpired(userInitiated: userInitiated) {
 								Log.info("RiskProvider: Using risk from previous detection", log: .riskDetection)
@@ -196,7 +196,7 @@ final class RiskProvider: RiskProviding {
 			self.updateRiskProvidingConfiguration(with: appConfiguration)
 			
 			// First, download the diagnosis keys
-			self.downloadKeyPackages {result in
+			self.downloadKeyPackages { result in
 				switch result {
 				case .success:
 					// If key download succeeds, continue with the download of the trace warning packages
