@@ -11,6 +11,7 @@ class HomeCardView: UIView {
 	override func awakeFromNib() {
 		super.awakeFromNib()
 
+		translatesAutoresizingMaskIntoConstraints = false
 		clipsToBounds = false
 		layer.cornerRadius = cornerRadius
 
