@@ -116,6 +116,8 @@ final class RiskProvider: RiskProviding {
 
 				self.appConfigurationProvider.appConfiguration().sink { appConfiguration in
 					self.downloadTraceWarningPackages(with: appConfiguration) { result in
+						self.updateActivityState(.idle)
+
 						// Check that the shown positive or submitted test wasn't deleted in the meantime.
 						// If it was deleted, start a new risk detection.
 						guard self.coronaTestService.hasAtLeastOneShownPositiveOrSubmittedTest else {
@@ -537,9 +539,6 @@ final class RiskProvider: RiskProviding {
 	private func updateRiskProviderActivityState() {
 		if keyPackageDownloadStatus == .downloading || traceWarningDownloadStatus == .downloading {
 			self.updateActivityState(.downloading)
-		} else if keyPackageDownloadStatus == .idle && coronaTestService.hasAtLeastOneShownPositiveOrSubmittedTest &&
-					traceWarningDownloadStatus == .idle {
-			self.updateActivityState(.idle)
 		}
 	}
 }
