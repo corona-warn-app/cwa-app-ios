@@ -85,9 +85,10 @@ class ENAUITests_01a_Home: XCTestCase {
 	func test_screenshot_homescreen_riskCardHigh_riskOneDay() throws {
 		var screenshotCounter = 0
 		let riskLevel = "high"
-		let numberOfDaysWithHighRisk = 1
+		let numberOfDaysWithHighRisk = "1"
 		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
 		app.setLaunchArgument(LaunchArguments.risk.riskLevel, to: riskLevel)
+		app.setLaunchArgument(LaunchArguments.risk.numberOfDaysWithRiskLevel, to: numberOfDaysWithHighRisk)
 		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
 		app.launch()
 		
@@ -99,7 +100,7 @@ class ENAUITests_01a_Home: XCTestCase {
 		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.Home.riskCardHighTitle)].waitForExistence(timeout: .short))
 		
 		// find an element with localized text "Begegnungen an 1 Tag mit erhöhtem Risiko"
-		let highRiskTitle = String(format: AccessibilityLabels.localized(AppStrings.Home.riskCardHighNumberContactsItemTitle), numberOfDaysWithHighRisk)
+		let highRiskTitle = String(format: AccessibilityLabels.localized(AppStrings.Home.riskCardHighNumberContactsItemTitle), 1)
 		XCTAssertTrue(app.otherElements[highRiskTitle].waitForExistence(timeout: .short))
 		
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .short))
