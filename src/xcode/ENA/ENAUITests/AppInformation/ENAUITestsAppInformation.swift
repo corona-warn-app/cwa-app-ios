@@ -12,8 +12,8 @@ class ENAUITests_02_AppInformation: XCTestCase {
 		app = XCUIApplication()
 		setupSnapshot(app)
 		app.setDefaults()
-		app.launchArguments.append(contentsOf: [LaunchArguments.onboarding.isOnboarded, YES])
-		app.launchArguments.append(contentsOf: [LaunchArguments.onboarding.setCurrentOnboardingVersion, YES])
+		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: YES)
+		app.setLaunchArgument(LaunchArguments.onboarding.setCurrentOnboardingVersion, to: YES)
 	}
 	
 	override func tearDownWithError() throws {
@@ -114,7 +114,7 @@ class ENAUITests_02_AppInformation: XCTestCase {
 	}
 	
 	func test_0026_AppInformationFlow_ErrorReports() throws {
-		app.launchArguments.append(contentsOf: [LaunchArguments.errorReport.elsLogActive, NO])
+		app.setLaunchArgument(LaunchArguments.errorReport.elsLogActive, to: NO)
 		app.launch()
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .short))
 		navigateToErrorReporting()
@@ -135,7 +135,7 @@ class ENAUITests_02_AppInformation: XCTestCase {
 	}
 
 	func test_0027_AppInformationFlow_ErrorReportsStart() throws {
-		app.launchArguments.append(contentsOf: [LaunchArguments.errorReport.elsLogActive, NO])
+		app.setLaunchArgument(LaunchArguments.errorReport.elsLogActive, to: NO)
 		app.launch()
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .short))
 		navigateToErrorReporting()
@@ -162,7 +162,7 @@ class ENAUITests_02_AppInformation: XCTestCase {
 	}
 	
 	func test_0028_AppInformationFlow_PrivacyScreen() throws {
-		app.launchArguments.append(contentsOf: [LaunchArguments.errorReport.elsLogActive, NO])
+		app.setLaunchArgument(LaunchArguments.errorReport.elsLogActive, to: NO)
 		app.launch()
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .short))
 		navigateToErrorReporting()
@@ -174,7 +174,7 @@ class ENAUITests_02_AppInformation: XCTestCase {
 	}
 	
 	func test_0029_AppInformationFlow_ConfirmationScreen_ErrorReportDetailScreen() throws {
-		app.launchArguments.append(contentsOf: [LaunchArguments.errorReport.elsLogActive, NO])
+		app.setLaunchArgument(LaunchArguments.errorReport.elsLogActive, to: NO)
 		app.launch()
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .short))
 		navigateToErrorReporting()
@@ -190,8 +190,8 @@ class ENAUITests_02_AppInformation: XCTestCase {
 	}
 	
 	func test_0030_AppInformationFlow_ConfirmationScreen_HistoryScreen() throws {
-		app.launchArguments.append(contentsOf: [LaunchArguments.errorReport.elsLogActive, NO])
-		app.launchArguments.append(contentsOf: [LaunchArguments.errorReport.elsCreateFakeHistory, YES])
+		app.setLaunchArgument(LaunchArguments.errorReport.elsLogActive, to: NO)
+		app.setLaunchArgument(LaunchArguments.errorReport.elsCreateFakeHistory, to: YES)
 		app.launch()
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .short))
 		navigateToErrorReporting()

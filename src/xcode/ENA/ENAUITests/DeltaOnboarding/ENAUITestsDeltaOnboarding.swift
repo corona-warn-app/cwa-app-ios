@@ -17,14 +17,14 @@ class ENAUITests_06_DeltaOnboarding: XCTestCase {
 		app = XCUIApplication()
 		setupSnapshot(app)
 		app.setDefaults()
-		app.launchArguments.append(contentsOf: [LaunchArguments.onboarding.isOnboarded, YES])
-		app.launchArguments.append(contentsOf: [LaunchArguments.onboarding.resetFinishedDeltaOnboardings, YES])
-		app.launchArguments.append(contentsOf: [LaunchArguments.infoScreen.userNeedsToBeInformedAboutHowRiskDetectionWorks, NO])
-		app.launchArguments.append(contentsOf: [LaunchArguments.consent.isDatadonationConsentGiven, NO])
+		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: YES)
+		app.setLaunchArgument(LaunchArguments.onboarding.resetFinishedDeltaOnboardings, to: YES)
+		app.setLaunchArgument(LaunchArguments.infoScreen.userNeedsToBeInformedAboutHowRiskDetectionWorks, to: NO)
+		app.setLaunchArgument(LaunchArguments.consent.isDatadonationConsentGiven, to: NO)
 	}
 
     func testDeltaOnboardingV15NewFeaturesAndDataDonation() throws {
-		app.launchArguments.append(contentsOf: [LaunchArguments.onboarding.onboardingVersion, "1.4"])
+		app.setLaunchArgument(LaunchArguments.onboarding.onboardingVersion, to: "1.4")
 		
 		app.launch()
 
@@ -38,7 +38,7 @@ class ENAUITests_06_DeltaOnboarding: XCTestCase {
 	}
 	
 	func testDeltaOnboardingNewVersionFeatures() throws {
-		app.launchArguments.append(contentsOf: [LaunchArguments.onboarding.onboardingVersion, "1.12"])
+		app.setLaunchArgument(LaunchArguments.onboarding.onboardingVersion, to: "1.12")
 		
 		app.launch()
 
@@ -48,7 +48,7 @@ class ENAUITests_06_DeltaOnboarding: XCTestCase {
 	// MARK: - Screenshots
 
 	func test_screenshot_DeltaOnboardingV15() throws {
-		app.launchArguments.append(contentsOf: [LaunchArguments.onboarding.onboardingVersion, "1.4"])
+		app.setLaunchArgument(LaunchArguments.onboarding.onboardingVersion, to: "1.4")
 		
 		app.launch()
 		
@@ -68,7 +68,7 @@ class ENAUITests_06_DeltaOnboarding: XCTestCase {
 	}
 	
 	func test_screenshot_DeltaOnboardingNewVersionFeatures() throws {
-		app.launchArguments.append(contentsOf: [LaunchArguments.onboarding.onboardingVersion, "1.13"])
+		app.setLaunchArgument(LaunchArguments.onboarding.onboardingVersion, to: "1.13")
 		
 		app.launch()
 		

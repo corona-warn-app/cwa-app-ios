@@ -13,9 +13,9 @@ class ENAUITests_01b_Statistics: XCTestCase {
 		continueAfterFailure = false
 		app = XCUIApplication()
 		app.setDefaults()
-		app.launchArguments.append(contentsOf: [LaunchArguments.onboarding.isOnboarded, YES])
-		app.launchArguments.append(contentsOf: [LaunchArguments.onboarding.setCurrentOnboardingVersion, YES])
-		app.launchArguments.append(contentsOf: [LaunchArguments.infoScreen.userNeedsToBeInformedAboutHowRiskDetectionWorks, NO])
+		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: YES)
+		app.setLaunchArgument(LaunchArguments.onboarding.setCurrentOnboardingVersion, to: YES)
+		app.setLaunchArgument(LaunchArguments.infoScreen.userNeedsToBeInformedAboutHowRiskDetectionWorks, to: NO)
 	}
 	
 	func test_StatisticsCardTitles() throws {
