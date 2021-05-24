@@ -107,6 +107,7 @@ final class RiskProvider: RiskProviding {
 			Log.info("RiskProvider: At least one registered test has an already shown positive test result or keys submitted. Don't start new risk detection.", log: .riskDetection)
 
 			// Keep downloading key packages and trace warning packages for plausible deniability
+			updateActivityState(.onlyDownloadsRequested)
 
 			downloadKeyPackages { [weak self] _ in
 				guard let self = self else {
