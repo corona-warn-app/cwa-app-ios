@@ -116,6 +116,10 @@ final class RiskProvider: RiskProviding {
 
 				self.appConfigurationProvider.appConfiguration().sink { appConfiguration in
 					self.downloadTraceWarningPackages(with: appConfiguration) { result in
+						// Check that the shown positive or submitted test wasn't deleted in the meantime.
+						// If it was deleted, start a new risk detection.
+						guard self.coronaTestService.hasAtLeastOneShownPositiveOrSubmittedTest else {
+							self.requestRisk(userInitiated: userInitiated, timeoutInterval: timeoutInterval)
 							return
 						}
 
