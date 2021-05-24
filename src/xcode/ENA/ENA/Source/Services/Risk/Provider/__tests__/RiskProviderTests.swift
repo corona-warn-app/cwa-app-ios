@@ -951,7 +951,7 @@ final class RiskProviderTests: XCTestCase {
 		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore.inMemory()
 		downloadedPackagesStore.open()
 
-		let client = ClientMock(availableDaysAndHours: DaysAndHours(days: [], hours: [0]))
+		let client = ClientMock(availableDaysAndHours: DaysAndHours(days: ["day"], hours: [0]))
 		return KeyPackageDownload(
 			downloadedPackagesStore: downloadedPackagesStore,
 			client: client,
