@@ -13,9 +13,9 @@ class ENAUITests_01b_Statistics: XCTestCase {
 		continueAfterFailure = false
 		app = XCUIApplication()
 		app.setDefaults()
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.onboarding.isOnboarded, YES])
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.onboarding.setCurrentOnboardingVersion, YES])
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.infoScreen.userNeedsToBeInformedAboutHowRiskDetectionWorks, NO])
+		app.launchArguments.append(contentsOf: [LaunchArguments.onboarding.isOnboarded, YES])
+		app.launchArguments.append(contentsOf: [LaunchArguments.onboarding.setCurrentOnboardingVersion, YES])
+		app.launchArguments.append(contentsOf: [LaunchArguments.infoScreen.userNeedsToBeInformedAboutHowRiskDetectionWorks, NO])
 	}
 	
 	func test_StatisticsCardTitles() throws {

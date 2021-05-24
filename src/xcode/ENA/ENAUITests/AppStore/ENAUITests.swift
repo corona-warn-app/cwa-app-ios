@@ -15,7 +15,7 @@ class ENAUITests: XCTestCase {
 		setupSnapshot(app)
 		app.setDefaults()
 		app.launchEnvironment["IsOnboarded"] = "NO"
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.infoScreen.userNeedsToBeInformedAboutHowRiskDetectionWorks, NO])
+		app.launchArguments.append(contentsOf: [LaunchArguments.infoScreen.userNeedsToBeInformedAboutHowRiskDetectionWorks, NO])
 	}
 
 	override func tearDownWithError() throws {
@@ -38,8 +38,8 @@ class ENAUITests: XCTestCase {
 		let snapshotsActive = true
 
 		app.setPreferredContentSizeCategory(accessibility: .normal, size: .M)
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.onboarding.isOnboarded, NO])
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.common.ENStatus, ENStatus.active.stringValue])
+		app.launchArguments.append(contentsOf: [LaunchArguments.onboarding.isOnboarded, NO])
+		app.launchArguments.append(contentsOf: [LaunchArguments.common.ENStatus, ENStatus.active.stringValue])
 		app.launch()
 
 		// ScreenShot_0001: Onboarding screen 1
@@ -95,9 +95,9 @@ class ENAUITests: XCTestCase {
 		let snapshotsActive = true
 
 		app.setPreferredContentSizeCategory(accessibility: .normal, size: .M)
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.onboarding.isOnboarded, NO])
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.common.ENStatus, ENStatus.active.stringValue])
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.test.pcr.pcrTestResult, TestResult.negative.stringValue])
+		app.launchArguments.append(contentsOf: [LaunchArguments.onboarding.isOnboarded, NO])
+		app.launchArguments.append(contentsOf: [LaunchArguments.common.ENStatus, ENStatus.active.stringValue])
+		app.launchArguments.append(contentsOf: [LaunchArguments.test.pcr.pcrTestResult, TestResult.negative.stringValue])
 		app.launch()
 
 		// ScreenShot_0006: Negative result
@@ -110,9 +110,9 @@ class ENAUITests: XCTestCase {
 	func test_0002_Generate_Screenshot_For_AppStore_Statistics() throws {
 
 		app.setPreferredContentSizeCategory(accessibility: .normal, size: .M)
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.onboarding.isOnboarded, YES])
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.common.ENStatus, ENStatus.active.stringValue])
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.statistics.useMockDataForStatistics, YES]) // prevent failing tests for 1.11; use "NO" for 1.12
+		app.launchArguments.append(contentsOf: [LaunchArguments.onboarding.isOnboarded, YES])
+		app.launchArguments.append(contentsOf: [LaunchArguments.common.ENStatus, ENStatus.active.stringValue])
+		app.launchArguments.append(contentsOf: [LaunchArguments.statistics.useMockDataForStatistics, YES]) // prevent failing tests for 1.11; use "NO" for 1.12
 		app.launch()
 
 		app.swipeUp(velocity: .slow)

@@ -31,9 +31,9 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 		#if DEBUG
 		if isUITesting {
 			// check launch arguments ->
-			if UserDefaults.standard.bool(forKey: UITestingLaunchArguments.healthCertificate.firstHealthCertificate.remove(prefix: "-")) {
+			if LaunchArguments.healthCertificate.firstHealthCertificate.boolValue {
 				registerHealthCertificate(base45: HealthCertificate.firstBase45Mock)
-			} else if UserDefaults.standard.bool(forKey: UITestingLaunchArguments.healthCertificate.firstAndSecondHealthCertificate.remove(prefix: "-")) {
+			} else if LaunchArguments.healthCertificate.firstAndSecondHealthCertificate.boolValue {
 				registerHealthCertificate(base45: HealthCertificate.firstBase45Mock)
 				registerHealthCertificate(base45: HealthCertificate.lastBase45Mock)
 			}

@@ -421,7 +421,7 @@ final class RiskProvider: RiskProviding {
 
 	private func _provideRiskResult(_ result: RiskProviderResult, to consumer: RiskConsumer?) {
 		#if DEBUG
-		if isUITesting && UserDefaults.standard.string(forKey: UITestingLaunchArguments.risk.riskLevel.remove(prefix: "-")) == "inactive" {
+		if isUITesting && LaunchArguments.risk.riskLevel.stringValue == "inactive" {
 			consumer?.provideRiskCalculationResult(.failure(.inactive))
 			return
 		}

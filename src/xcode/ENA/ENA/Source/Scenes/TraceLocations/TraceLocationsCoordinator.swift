@@ -30,7 +30,7 @@ class TraceLocationsCoordinator {
 		
 		#if DEBUG
 		if isUITesting {
-			store.traceLocationsInfoScreenShown = UserDefaults.standard.bool(forKey: UITestingLaunchArguments.infoScreen.traceLocationsInfoScreenShown.remove(prefix: "-"))
+			store.traceLocationsInfoScreenShown = LaunchArguments.infoScreen.traceLocationsInfoScreenShown.boolValue
 		}
 		#endif
 		

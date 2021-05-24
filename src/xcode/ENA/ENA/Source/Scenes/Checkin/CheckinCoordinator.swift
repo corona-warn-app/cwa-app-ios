@@ -21,7 +21,7 @@ final class CheckinCoordinator {
 		
 		#if DEBUG
 		if isUITesting {
-			store.checkinInfoScreenShown = UserDefaults.standard.bool(forKey: UITestingLaunchArguments.infoScreen.checkinInfoScreenShown.remove(prefix: "-"))
+			store.checkinInfoScreenShown = LaunchArguments.infoScreen.checkinInfoScreenShown.boolValue
 		}
 		#endif
 		

@@ -15,7 +15,7 @@ class ENAUITests_08_UpdateOS: XCTestCase {
 		app = XCUIApplication()
 		setupSnapshot(app)
 		app.setDefaults()
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.infoScreen.showUpdateOS, YES])
+		app.launchArguments.append(contentsOf: [LaunchArguments.infoScreen.showUpdateOS, YES])
 	}
 	
 	// MARK: - Screenshots

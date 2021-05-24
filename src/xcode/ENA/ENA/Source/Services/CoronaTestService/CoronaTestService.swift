@@ -692,10 +692,10 @@ class CoronaTestService {
 				registrationToken: "asdf",
 				testResult: testResult,
 				finalTestResultReceivedDate: testResult == .pending ? nil : Date(),
-				positiveTestResultWasShown: UserDefaults.standard.bool(forKey: UITestingLaunchArguments.test.pcr.pcrPositiveTestResultWasShown.remove(prefix: "-")),
-				isSubmissionConsentGiven: UserDefaults.standard.bool(forKey: UITestingLaunchArguments.consent.isPCRSubmissionConsentGiven.remove(prefix: "-")),
+				positiveTestResultWasShown: LaunchArguments.test.pcr.pcrPositiveTestResultWasShown.boolValue,
+				isSubmissionConsentGiven: LaunchArguments.consent.isPCRSubmissionConsentGiven.boolValue,
 				submissionTAN: nil,
-				keysSubmitted: UserDefaults.standard.bool(forKey: UITestingLaunchArguments.test.pcr.pcrKeysSubmitted.remove(prefix: "-")),
+				keysSubmitted: LaunchArguments.test.pcr.pcrKeysSubmitted.boolValue,
 				journalEntryCreated: false
 			)
 		} else {
@@ -712,10 +712,10 @@ class CoronaTestService {
 				testedPerson: TestedPerson(firstName: "Erika", lastName: "Mustermann", dateOfBirth: "1964-08-12"),
 				testResult: testResult,
 				finalTestResultReceivedDate: testResult == .pending ? nil : Date(),
-				positiveTestResultWasShown: UserDefaults.standard.bool(forKey: UITestingLaunchArguments.test.antigen.antigenPositiveTestResultWasShown.remove(prefix: "-")),
-				isSubmissionConsentGiven: UserDefaults.standard.bool(forKey: UITestingLaunchArguments.consent.isAntigenSubmissionConsentGiven.remove(prefix: "-")),
+				positiveTestResultWasShown: LaunchArguments.test.antigen.antigenPositiveTestResultWasShown.boolValue,
+				isSubmissionConsentGiven: LaunchArguments.consent.isAntigenSubmissionConsentGiven.boolValue,
 				submissionTAN: nil,
-				keysSubmitted: UserDefaults.standard.bool(forKey: UITestingLaunchArguments.test.antigen.antigenKeysSubmitted.remove(prefix: "-")),
+				keysSubmitted: LaunchArguments.test.antigen.antigenKeysSubmitted.boolValue,
 				journalEntryCreated: false
 			)
 		} else {
@@ -726,9 +726,9 @@ class CoronaTestService {
 	private func mockTestResult(for coronaTestType: CoronaTestType) -> TestResult? {
 		switch coronaTestType {
 		case .pcr:
-			return UserDefaults.standard.string(forKey: UITestingLaunchArguments.test.pcr.pcrTestResult.remove(prefix: "-")).flatMap { TestResult(stringValue: $0) }
+			return LaunchArguments.test.pcr.pcrTestResult.stringValue.flatMap { TestResult(stringValue: $0) }
 		case .antigen:
-			return UserDefaults.standard.string(forKey: UITestingLaunchArguments.test.antigen.antigenTestResult.remove(prefix: "-")).flatMap { TestResult(stringValue: $0) }
+			return LaunchArguments.test.antigen.antigenTestResult.stringValue.flatMap { TestResult(stringValue: $0) }
 		}
 	}
 

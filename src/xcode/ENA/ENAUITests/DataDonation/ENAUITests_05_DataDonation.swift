@@ -12,14 +12,14 @@ class ENAUITests_05_DataDonation: XCTestCase {
 		continueAfterFailure = false
 		app = XCUIApplication()
 		app.setDefaults()
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.onboarding.resetFinishedDeltaOnboardings, YES])
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.infoScreen.userNeedsToBeInformedAboutHowRiskDetectionWorks, NO])
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.consent.isDatadonationConsentGiven, NO])
+		app.launchArguments.append(contentsOf: [LaunchArguments.onboarding.resetFinishedDeltaOnboardings, YES])
+		app.launchArguments.append(contentsOf: [LaunchArguments.infoScreen.userNeedsToBeInformedAboutHowRiskDetectionWorks, NO])
+		app.launchArguments.append(contentsOf: [LaunchArguments.consent.isDatadonationConsentGiven, NO])
 	}
 
 	func test_dataDonationInSettingsWorksCorrectly() {
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.onboarding.isOnboarded, YES])
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.onboarding.setCurrentOnboardingVersion, YES])
+		app.launchArguments.append(contentsOf: [LaunchArguments.onboarding.isOnboarded, YES])
+		app.launchArguments.append(contentsOf: [LaunchArguments.onboarding.setCurrentOnboardingVersion, YES])
 
 		app.launch()
 		app.swipeUp(velocity: .fast)

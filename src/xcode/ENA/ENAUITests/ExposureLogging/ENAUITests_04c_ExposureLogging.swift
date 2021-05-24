@@ -14,8 +14,8 @@ class ENAUITests_04c_ExposureLogging: XCTestCase {
 		app = XCUIApplication()
 		setupSnapshot(app)
 		app.setDefaults()
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.onboarding.isOnboarded, NO])
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.onboarding.setCurrentOnboardingVersion, YES])
+		app.launchArguments.append(contentsOf: [LaunchArguments.onboarding.isOnboarded, NO])
+		app.launchArguments.append(contentsOf: [LaunchArguments.onboarding.setCurrentOnboardingVersion, YES])
 	}
 
 	override func tearDownWithError() throws {
@@ -27,8 +27,8 @@ class ENAUITests_04c_ExposureLogging: XCTestCase {
 	func test_screenshot_exposureLogging() throws {
 		var screenshotCounter = 0
 		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.onboarding.isOnboarded, YES])
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.common.ENStatus, ENStatus.active.stringValue])
+		app.launchArguments.append(contentsOf: [LaunchArguments.onboarding.isOnboarded, YES])
+		app.launchArguments.append(contentsOf: [LaunchArguments.common.ENStatus, ENStatus.active.stringValue])
 		app.launch()
 
 		// only run if home screen is present
@@ -44,8 +44,8 @@ class ENAUITests_04c_ExposureLogging: XCTestCase {
 	func test_screenshot_exposureLoggingOff() throws {
 		var screenshotCounter = 0
 		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.onboarding.isOnboarded, YES])
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.common.ENStatus, ENStatus.unknown.stringValue])
+		app.launchArguments.append(contentsOf: [LaunchArguments.onboarding.isOnboarded, YES])
+		app.launchArguments.append(contentsOf: [LaunchArguments.common.ENStatus, ENStatus.unknown.stringValue])
 		app.launch()
 
 		// only run if home screen is present

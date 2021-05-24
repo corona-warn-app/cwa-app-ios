@@ -13,9 +13,9 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 		app = XCUIApplication()
 		setupSnapshot(app)
 		app.setDefaults()
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.onboarding.isOnboarded, YES])
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.onboarding.setCurrentOnboardingVersion, YES])
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.infoScreen.userNeedsToBeInformedAboutHowRiskDetectionWorks, NO])
+		app.launchArguments.append(contentsOf: [LaunchArguments.onboarding.isOnboarded, YES])
+		app.launchArguments.append(contentsOf: [LaunchArguments.onboarding.setCurrentOnboardingVersion, YES])
+		app.launchArguments.append(contentsOf: [LaunchArguments.infoScreen.userNeedsToBeInformedAboutHowRiskDetectionWorks, NO])
 	}
 	
 	// MARK: - Attributes.
@@ -28,7 +28,7 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 	
 	func test_WHEN_QRCode_is_created_THEN_list_contains_traceLocation() throws {
 		// GIVEN
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.infoScreen.traceLocationsInfoScreenShown, YES])
+		app.launchArguments.append(contentsOf: [LaunchArguments.infoScreen.traceLocationsInfoScreenShown, YES])
 		
 		// WHEN
 		app.launch()
@@ -56,7 +56,7 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 	
 	func test_WHEN_list_contains_traceLocations_THEN_delete_all_entries_via_menu_function() throws {
 		// GIVEN
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.infoScreen.traceLocationsInfoScreenShown, YES])
+		app.launchArguments.append(contentsOf: [LaunchArguments.infoScreen.traceLocationsInfoScreenShown, YES])
 		
 		// WHEN
 		app.launch()
@@ -103,7 +103,7 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 	
 	func test_WHEN_tapCreateQRCode_THEN_traceLocation_input_screen_is_displayed() throws {
 		// GIVEN
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.infoScreen.traceLocationsInfoScreenShown, YES])
+		app.launchArguments.append(contentsOf: [LaunchArguments.infoScreen.traceLocationsInfoScreenShown, YES])
 		
 		// WHEN
 		app.launch()
@@ -128,7 +128,7 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 	
 	func test_WHEN_traceLocation_is_tapped_THEN_details_of_traceLocation_are_displayed() throws {
 		// GIVEN
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.infoScreen.traceLocationsInfoScreenShown, YES])
+		app.launchArguments.append(contentsOf: [LaunchArguments.infoScreen.traceLocationsInfoScreenShown, YES])
 		
 		// WHEN
 		app.launch()
@@ -175,8 +175,8 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 	
 	func test_WHEN_traceLocation_exists_THEN_checkin_and_checkout() throws {
 		// GIVEN
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.infoScreen.traceLocationsInfoScreenShown, YES])
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.infoScreen.checkinInfoScreenShown, YES])
+		app.launchArguments.append(contentsOf: [LaunchArguments.infoScreen.traceLocationsInfoScreenShown, YES])
+		app.launchArguments.append(contentsOf: [LaunchArguments.infoScreen.checkinInfoScreenShown, YES])
 		
 		// WHEN
 		app.launch()
@@ -209,7 +209,7 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 
 	func test_WHEN_navigate_to_TraceLocations_for_the_first_time_THEN_infoscreen_is_displayed() throws {
 		// GIVEN
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.infoScreen.traceLocationsInfoScreenShown, NO])
+		app.launchArguments.append(contentsOf: [LaunchArguments.infoScreen.traceLocationsInfoScreenShown, NO])
 		
 		// WHEN
 		app.launch()
@@ -225,7 +225,7 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 	
 	func test_WHEN_navigate_to_TraceLocations_for_the_second_time_THEN_no_infoscreen_is_displayed() throws {
 		// GIVEN
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.infoScreen.traceLocationsInfoScreenShown, YES])
+		app.launchArguments.append(contentsOf: [LaunchArguments.infoScreen.traceLocationsInfoScreenShown, YES])
 		
 		// WHEN
 		app.launch()
@@ -240,9 +240,9 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 
 	func test_events_in_contact_journal() throws {
 		// GIVEN
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.infoScreen.traceLocationsInfoScreenShown, YES])
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.infoScreen.checkinInfoScreenShown, YES])
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.infoScreen.diaryInfoScreenShown, YES])
+		app.launchArguments.append(contentsOf: [LaunchArguments.infoScreen.traceLocationsInfoScreenShown, YES])
+		app.launchArguments.append(contentsOf: [LaunchArguments.infoScreen.checkinInfoScreenShown, YES])
+		app.launchArguments.append(contentsOf: [LaunchArguments.infoScreen.diaryInfoScreenShown, YES])
 		app.launch()
 		
 		// WHEN
@@ -284,8 +284,8 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 
 	func test_WHEN_event_checkout_THEN_display_details() throws {
 		// GIVEN
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.infoScreen.traceLocationsInfoScreenShown, YES])
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.infoScreen.checkinInfoScreenShown, YES])
+		app.launchArguments.append(contentsOf: [LaunchArguments.infoScreen.traceLocationsInfoScreenShown, YES])
+		app.launchArguments.append(contentsOf: [LaunchArguments.infoScreen.checkinInfoScreenShown, YES])
 		app.launch()
 
 		let traceLocationsCardButton = app.buttons[AccessibilityIdentifiers.Home.traceLocationsCardButton]
@@ -318,8 +318,8 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 	// MARK: - Screenshots
 
 	func test_screenshots_of_traceLocation_print_flow() throws {
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.infoScreen.traceLocationsInfoScreenShown, NO])
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.infoScreen.checkinInfoScreenShown, YES])
+		app.launchArguments.append(contentsOf: [LaunchArguments.infoScreen.traceLocationsInfoScreenShown, NO])
+		app.launchArguments.append(contentsOf: [LaunchArguments.infoScreen.checkinInfoScreenShown, YES])
 		app.launch()
 		
 		// navigate to "Create QR Code"

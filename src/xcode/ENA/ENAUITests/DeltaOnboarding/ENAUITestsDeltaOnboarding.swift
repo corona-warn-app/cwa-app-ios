@@ -17,14 +17,14 @@ class ENAUITests_06_DeltaOnboarding: XCTestCase {
 		app = XCUIApplication()
 		setupSnapshot(app)
 		app.setDefaults()
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.onboarding.isOnboarded, YES])
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.onboarding.resetFinishedDeltaOnboardings, YES])
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.infoScreen.userNeedsToBeInformedAboutHowRiskDetectionWorks, NO])
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.consent.isDatadonationConsentGiven, NO])
+		app.launchArguments.append(contentsOf: [LaunchArguments.onboarding.isOnboarded, YES])
+		app.launchArguments.append(contentsOf: [LaunchArguments.onboarding.resetFinishedDeltaOnboardings, YES])
+		app.launchArguments.append(contentsOf: [LaunchArguments.infoScreen.userNeedsToBeInformedAboutHowRiskDetectionWorks, NO])
+		app.launchArguments.append(contentsOf: [LaunchArguments.consent.isDatadonationConsentGiven, NO])
 	}
 
     func testDeltaOnboardingV15NewFeaturesAndDataDonation() throws {
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.onboarding.onboardingVersion, "1.4"])
+		app.launchArguments.append(contentsOf: [LaunchArguments.onboarding.onboardingVersion, "1.4"])
 		
 		app.launch()
 
@@ -38,7 +38,7 @@ class ENAUITests_06_DeltaOnboarding: XCTestCase {
 	}
 	
 	func testDeltaOnboardingNewVersionFeatures() throws {
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.onboarding.onboardingVersion, "1.12"])
+		app.launchArguments.append(contentsOf: [LaunchArguments.onboarding.onboardingVersion, "1.12"])
 		
 		app.launch()
 
@@ -48,7 +48,7 @@ class ENAUITests_06_DeltaOnboarding: XCTestCase {
 	// MARK: - Screenshots
 
 	func test_screenshot_DeltaOnboardingV15() throws {
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.onboarding.onboardingVersion, "1.4"])
+		app.launchArguments.append(contentsOf: [LaunchArguments.onboarding.onboardingVersion, "1.4"])
 		
 		app.launch()
 		
@@ -68,7 +68,7 @@ class ENAUITests_06_DeltaOnboarding: XCTestCase {
 	}
 	
 	func test_screenshot_DeltaOnboardingNewVersionFeatures() throws {
-		app.launchArguments.append(contentsOf: [UITestingLaunchArguments.onboarding.onboardingVersion, "1.13"])
+		app.launchArguments.append(contentsOf: [LaunchArguments.onboarding.onboardingVersion, "1.13"])
 		
 		app.launch()
 		

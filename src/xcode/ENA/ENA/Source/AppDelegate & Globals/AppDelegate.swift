@@ -625,27 +625,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	#if DEBUG
 	private func setupOnboardingForTesting() {
-		store.isOnboarded = UserDefaults.standard.bool(forKey: UITestingLaunchArguments.onboarding.isOnboarded.remove(prefix: "-"))
+		store.isOnboarded = LaunchArguments.onboarding.isOnboarded.boolValue
 
-		if let onboardingVersion = UserDefaults.standard.string(forKey: UITestingLaunchArguments.onboarding.onboardingVersion.remove(prefix: "-")) {
+		if let onboardingVersion = LaunchArguments.onboarding.onboardingVersion.stringValue {
 			store.onboardingVersion = onboardingVersion
 		}
 
-		if UserDefaults.standard.bool(forKey: UITestingLaunchArguments.onboarding.resetFinishedDeltaOnboardings.remove(prefix: "-")) {
+		if LaunchArguments.onboarding.resetFinishedDeltaOnboardings.boolValue {
 			store.finishedDeltaOnboardings = [:]
 		}
 
-		if UserDefaults.standard.bool(forKey: UITestingLaunchArguments.onboarding.setCurrentOnboardingVersion.remove(prefix: "-")) {
+		if LaunchArguments.onboarding.setCurrentOnboardingVersion.boolValue {
 			store.onboardingVersion = Bundle.main.appVersion
 		}
 	}
 
 	private func setupDatadonationForTesting() {
-		store.isPrivacyPreservingAnalyticsConsentGiven = UserDefaults.standard.bool(forKey: UITestingLaunchArguments.consent.isDatadonationConsentGiven)
+		store.isPrivacyPreservingAnalyticsConsentGiven = LaunchArguments.consent.isDatadonationConsentGiven.boolValue
 	}
 
 	private func setupInstallationDateForTesting() {
-		if let installationDaysString = UserDefaults.standard.string(forKey: UITestingLaunchArguments.common.appInstallationDays.remove(prefix: "-")) {
+		if let installationDaysString = LaunchArguments.common.appInstallationDays.stringValue {
 			let installationDays = Int(installationDaysString) ?? 0
 			let date = Calendar.current.date(byAdding: .day, value: -installationDays, to: Date())
 			store.appInstallationDate = date
@@ -653,8 +653,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	}
 
 	private func setupAntigenTestProfileForTesting() {
-		store.antigenTestProfileInfoScreenShown = UserDefaults.standard.bool(forKey: UITestingLaunchArguments.infoScreen.antigenTestProfileInfoScreenShown.remove(prefix: "-"))
-		if UserDefaults.standard.bool(forKey: UITestingLaunchArguments.test.antigen.removeAntigenTestProfile.remove(prefix: "-")) {
+		store.antigenTestProfileInfoScreenShown = LaunchArguments.infoScreen.antigenTestProfileInfoScreenShown.boolValue
+		if LaunchArguments.test.antigen.removeAntigenTestProfile.boolValue {
 			store.antigenTestProfile = nil
 		}
 	}
@@ -709,7 +709,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	/// - Returns: Returns `true` if the app is in the *disabled* state and requires the user to upgrade the os.
 	private static func isAppDisabled() -> Bool {
 		#if DEBUG
-		if isUITesting && UserDefaults.standard.bool(forKey: UITestingLaunchArguments.infoScreen.showUpdateOS.remove(prefix: "-")) == true {
+		if isUITesting && LaunchArguments.infoScreen.showUpdateOS.boolValue == true {
 			return true
 		}
 		#endif

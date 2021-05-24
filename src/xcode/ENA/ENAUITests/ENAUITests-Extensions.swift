@@ -59,6 +59,10 @@ extension XCUIApplication {
 		launchArguments += ["-UIPreferredContentSizeCategoryName", "UICTContentSizeCategory\(accessibility.description())\(size)"]
 	}
 
+	func setLaunchArgument(_ launchArgument: LaunchArgument, to value: String) {
+		launchArguments.append(contentsOf: ["-\(launchArgument.name)", value])
+	}
+
 	func localized(_ key: String) -> String {
 		let testBundle = Bundle(for: Snapshot.self)
 		if let currentLanguage = currentLanguage,
