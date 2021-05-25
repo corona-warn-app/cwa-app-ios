@@ -1060,6 +1060,7 @@ class ContactDiaryStoreTests: XCTestCase {
 		XCTAssertFalse(migratorSpy.migrateWasCalled)
 	}
 
+
 	func test_when_DatabaseUserVersionIsNot0_then_MigrationIsCalled_and_SchemaCreateIsNOTCalled() throws {
 
 		let tempDatabaseURL = try makeTempDatabaseURL()
@@ -1313,7 +1314,7 @@ private class MigratorSpy: SerialDatabaseQueueMigrator {
 	}
 }
 
-private class ContactDiarySchemaSpy: ContactDiaryStoreSchemaV4 {
+private class ContactDiarySchemaSpy: ContactDiaryStoreSchemaV5 {
 	var createWasCalled = false
 
 	override func create() -> SecureSQLStore.VoidResult {
