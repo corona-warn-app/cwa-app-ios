@@ -198,7 +198,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		return lastTwentyFourHours.contains(lastResetDate)
 	}
 
-	private func shouldIncludeKeySubmissionMetadata(for type: TestResultMetadata.TestType) -> Bool {
+	private func shouldIncludeKeySubmissionMetadata(for type: CoronaTestType) -> Bool {
 		/* Conditions for submitting the data:
 		submitted is true
 		OR
@@ -232,7 +232,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		return isSubmitted || timeDifferenceFulfillsCriteria
 	}
 
-	private func shouldIncludeTestResultMetadata(for type: TestResultMetadata.TestType) -> Bool {
+	private func shouldIncludeTestResultMetadata(for type: CoronaTestType) -> Bool {
 		/* Conditions for submitting the data:
 		- testResult = positive
 		OR
@@ -488,7 +488,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	}
 	
 	// swiftlint:disable:next cyclomatic_complexity
-	func gatherKeySubmissionMetadata(for type: TestResultMetadata.TestType) -> SAP_Internal_Ppdd_PPAKeySubmissionMetadata? {
+	func gatherKeySubmissionMetadata(for type: CoronaTestType) -> SAP_Internal_Ppdd_PPAKeySubmissionMetadata? {
 
 		let _metadata: KeySubmissionMetadata?
 		switch type {
@@ -539,7 +539,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		}
 	}
 	
-	func gatherTestResultMetadata(for type: TestResultMetadata.TestType) -> SAP_Internal_Ppdd_PPATestResultMetadata {
+	func gatherTestResultMetadata(for type: CoronaTestType) -> SAP_Internal_Ppdd_PPATestResultMetadata {
 		let metadata: TestResultMetadata?
 
 		switch type {
