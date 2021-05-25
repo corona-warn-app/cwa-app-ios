@@ -35,7 +35,7 @@ struct AntigenTestProfile: Codable {
 		try container.encodeIfPresent(firstName, forKey: .firstName)
 		try container.encodeIfPresent(lastName, forKey: .lastName)
 		if let dateOfBirth = dateOfBirth {
-			try? container.encodeIfPresent(ISO8601DateFormatter().string(from: dateOfBirth), forKey: .dateOfBirth)
+			try? container.encodeIfPresent(ISO8601DateFormatter.justDate.string(from: dateOfBirth), forKey: .dateOfBirth)
 		}
 		try container.encodeIfPresent(addressLine, forKey: .addressLine)
 		try container.encodeIfPresent(zipCode, forKey: .zipCode)
@@ -49,7 +49,7 @@ struct AntigenTestProfile: Codable {
 		firstName = try? container.decode(String.self, forKey: .firstName)
 		lastName = try? container.decode(String.self, forKey: .lastName)
 		if let validFromString = try? container.decode(String.self, forKey: .dateOfBirth) {
-			dateOfBirth = ISO8601DateFormatter().date(from: validFromString)
+			dateOfBirth = ISO8601DateFormatter.justDate.date(from: validFromString)
 		} else {
 			dateOfBirth = nil
 		}
