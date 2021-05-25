@@ -63,8 +63,6 @@ enum LaunchArguments {
 	enum consent {
 		// To set the various consent flags
 		static let isDatadonationConsentGiven = LaunchArgument(name: "isDatadonationConsentGiven")
-		static let isPCRSubmissionConsentGiven = LaunchArgument(name: "isPCRSubmissionConsentGiven")
-		static let isAntigenSubmissionConsentGiven = LaunchArgument(name: "isAntigenSubmissionConsentGiven")
 	}
 	enum test {
 		enum common {
@@ -73,19 +71,23 @@ enum LaunchArguments {
 		}
 		enum pcr {
 			// Set the PCR Test Result
-			static let pcrTestResult = LaunchArgument(name: "pcrTestResult")
+			static let testResult = LaunchArgument(name: "pcrTestResult")
 			// Flag to set if positive result was shown for PCR, set it to true for positive PCR
-			static let pcrPositiveTestResultWasShown = LaunchArgument(name: "pcrPositiveTestResultWasShown")
+			static let positiveTestResultWasShown = LaunchArgument(name: "pcrPositiveTestResultWasShown")
+			//
+			static let isSubmissionConsentGiven = LaunchArgument(name: "isPCRSubmissionConsentGiven")
 			// Flag to set if the keys are submitted for PCR
-			static let pcrKeysSubmitted = LaunchArgument(name: "pcrKeysSubmitted")
+			static let keysSubmitted = LaunchArgument(name: "pcrKeysSubmitted")
 		}
 		enum antigen {
 			// Set the Antigen Test Result
-			static let antigenTestResult = LaunchArgument(name: "antigenTestResult")
+			static let testResult = LaunchArgument(name: "antigenTestResult")
 			// Flag to set if positive result was shown for Antigen, set it to true for positive Antigen
-			static let antigenPositiveTestResultWasShown = LaunchArgument(name: "antigenPositiveTestResultWasShown")
+			static let positiveTestResultWasShown = LaunchArgument(name: "antigenPositiveTestResultWasShown")
+			//
+			static let isSubmissionConsentGiven = LaunchArgument(name: "isAntigenSubmissionConsentGiven")
 			// Flag to set if the keys are submitted for Antigen
-			static let antigenKeysSubmitted = LaunchArgument(name: "antigenKeysSubmitted")
+			static let keysSubmitted = LaunchArgument(name: "antigenKeysSubmitted")
 			// To remove the antigen test profile
 			static let removeAntigenTestProfile = LaunchArgument(name: "removeAntigenTestProfile")
 		}
