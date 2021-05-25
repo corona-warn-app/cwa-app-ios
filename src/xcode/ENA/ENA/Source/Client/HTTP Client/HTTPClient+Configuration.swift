@@ -259,8 +259,8 @@ extension HTTPClient {
 					"version",
 					apiVersion,
 					"ehn-dgc",
-					"value-sets",
-					Locale.current.languageCode ?? "de"
+					Locale.current.languageCodeIfSupported ?? "en",
+					"value-sets"
 				)
 		}
 	}
