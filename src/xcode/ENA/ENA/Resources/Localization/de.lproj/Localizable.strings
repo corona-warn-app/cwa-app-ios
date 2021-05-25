@@ -1666,6 +1666,14 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ContactDiary_Overview_LocationVisit_Abbreviation_Hours" = "Std.";
 
+"ContactDiary_Overview_Tests_PCR_Registered" = "PCR-Test registriert";
+
+"ContactDiary_Overview_Tests_Antigen_Done" = "Schnelltest durchgeführt";
+
+"ContactDiary_Overview_Tests_Negative_Result" = "Befund negativ";
+
+"ContactDiary_Overview_Tests_Positive_Result" = "Befund positiv";
+
 /* ActionSheet */
 "ContactDiary_Overview_ActionSheet_InfoActionTitle" = "Informationen";
 
