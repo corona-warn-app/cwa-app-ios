@@ -520,11 +520,11 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			if let hoursSinceTestRegistration = storedUsageData.hoursSinceTestRegistration {
 				$0.hoursSinceTestRegistration = hoursSinceTestRegistration
 			}
-			if let daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration = storedUsageData.daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration {
-				$0.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration
+			if let daysSinceMostRecentDateAtRiskLevelAtTestRegistration = storedUsageData.daysSinceMostRecentDateAtRiskLevelAtTestRegistration {
+				$0.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = daysSinceMostRecentDateAtRiskLevelAtTestRegistration
 			}
-			if let hoursSinceENFHighRiskWarningAtTestRegistration = storedUsageData.hoursSinceENFHighRiskWarningAtTestRegistration {
-				$0.hoursSinceHighRiskWarningAtTestRegistration = hoursSinceENFHighRiskWarningAtTestRegistration
+			if let hoursSinceHighRiskWarningAtTestRegistration = storedUsageData.hoursSinceHighRiskWarningAtTestRegistration {
+				$0.hoursSinceHighRiskWarningAtTestRegistration = hoursSinceHighRiskWarningAtTestRegistration
 			}
 			
 			if let daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration = storedUsageData.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration {
@@ -536,11 +536,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			
 			// special handling for the triStateBool
 			if let submittedWithCheckins = storedUsageData.submittedWithCheckIns {
-				if submittedWithCheckins == true {
-					$0.submittedWithCheckIns = .tsbTrue
-				} else {
-					$0.submittedWithCheckIns = .tsbFalse
-				}
+				$0.submittedWithCheckIns = submittedWithCheckins ? .tsbTrue : .tsbFalse
 			} else {
 				$0.submittedWithCheckIns = .tsbUnspecified
 			}
@@ -558,14 +554,14 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			if let hoursSinceTestRegistration = metadata?.hoursSinceTestRegistration {
 				$0.hoursSinceTestRegistration = Int32(hoursSinceTestRegistration)
 			}
-			if let enfRiskLevel = metadata?.enfRiskLevelAtTestRegistration?.protobuf {
+			if let enfRiskLevel = metadata?.riskLevelAtTestRegistration?.protobuf {
 				$0.riskLevelAtTestRegistration = enfRiskLevel
 			}
-			if let daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration = metadata?.daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration {
-				$0.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = Int32(daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration)
+			if let daysSinceMostRecentDateAtRiskLevelAtTestRegistration = metadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration {
+				$0.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = Int32(daysSinceMostRecentDateAtRiskLevelAtTestRegistration)
 			}
-			if let hoursSinceENFHighRiskWarningAtTestRegistration = metadata?.hoursSinceENFHighRiskWarningAtTestRegistration {
-				$0.hoursSinceHighRiskWarningAtTestRegistration = Int32(hoursSinceENFHighRiskWarningAtTestRegistration)
+			if let hoursSinceHighRiskWarningAtTestRegistration = metadata?.hoursSinceHighRiskWarningAtTestRegistration {
+				$0.hoursSinceHighRiskWarningAtTestRegistration = Int32(hoursSinceHighRiskWarningAtTestRegistration)
 			}
 			if let checkinRiskLevel = metadata?.checkinRiskLevelAtTestRegistration?.protobuf {
 				$0.ptRiskLevelAtTestRegistration = checkinRiskLevel

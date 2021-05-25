@@ -88,8 +88,8 @@ class PPAnalyticsCollectorTests: XCTestCase {
 			advancedConsentGiven: true,
 			hoursSinceTestResult: 0901,
 			hoursSinceTestRegistration: 0901,
-			daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration: 0901,
-			hoursSinceENFHighRiskWarningAtTestRegistration: 0901,
+			daysSinceMostRecentDateAtRiskLevelAtTestRegistration: 0901,
+			hoursSinceHighRiskWarningAtTestRegistration: 0901,
 			daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration: -1,
 			hoursSinceCheckinHighRiskWarningAtTestRegistration: -1,
 			submittedWithCheckIns: nil

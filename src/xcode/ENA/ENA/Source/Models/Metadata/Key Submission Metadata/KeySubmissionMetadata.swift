@@ -17,8 +17,8 @@ struct KeySubmissionMetadata: Codable {
 		advancedConsentGiven: Bool,
 		hoursSinceTestResult: Int32,
 		hoursSinceTestRegistration: Int32,
-		daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration: Int32,
-		hoursSinceENFHighRiskWarningAtTestRegistration: Int32,
+		daysSinceMostRecentDateAtRiskLevelAtTestRegistration: Int32,
+		hoursSinceHighRiskWarningAtTestRegistration: Int32,
 		daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration: Int32,
 		hoursSinceCheckinHighRiskWarningAtTestRegistration: Int32,
 		submittedWithCheckIns: Bool?
@@ -31,8 +31,8 @@ struct KeySubmissionMetadata: Codable {
 		self.advancedConsentGiven = advancedConsentGiven
 		self.hoursSinceTestResult = hoursSinceTestResult
 		self.hoursSinceTestRegistration = hoursSinceTestRegistration
-		self.daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration = daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration
-		self.hoursSinceENFHighRiskWarningAtTestRegistration = hoursSinceENFHighRiskWarningAtTestRegistration
+		self.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = daysSinceMostRecentDateAtRiskLevelAtTestRegistration
+		self.hoursSinceHighRiskWarningAtTestRegistration = hoursSinceHighRiskWarningAtTestRegistration
 		self.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration = daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration
 		self.hoursSinceCheckinHighRiskWarningAtTestRegistration = hoursSinceCheckinHighRiskWarningAtTestRegistration
 		self.submittedWithCheckIns = submittedWithCheckIns
@@ -51,8 +51,8 @@ struct KeySubmissionMetadata: Codable {
 		advancedConsentGiven = try container.decodeIfPresent(Bool.self, forKey: .advancedConsentGiven)
 		hoursSinceTestResult = try container.decodeIfPresent(Int32.self, forKey: .hoursSinceTestResult)
 		hoursSinceTestRegistration = try container.decodeIfPresent(Int32.self, forKey: .hoursSinceTestRegistration)
-		daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration = try container.decodeIfPresent(Int32.self, forKey: .daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration)
-		hoursSinceENFHighRiskWarningAtTestRegistration = try container.decodeIfPresent(Int32.self, forKey: .hoursSinceENFHighRiskWarningAtTestRegistration)
+		daysSinceMostRecentDateAtRiskLevelAtTestRegistration = try container.decodeIfPresent(Int32.self, forKey: .daysSinceMostRecentDateAtRiskLevelAtTestRegistration)
+		hoursSinceHighRiskWarningAtTestRegistration = try container.decodeIfPresent(Int32.self, forKey: .hoursSinceHighRiskWarningAtTestRegistration)
 		daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration = try container.decodeIfPresent(Int32.self, forKey: .daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration)
 		hoursSinceCheckinHighRiskWarningAtTestRegistration = try container.decodeIfPresent(Int32.self, forKey: .hoursSinceCheckinHighRiskWarningAtTestRegistration)
 		submittedWithCheckIns = try container.decodeIfPresent(Bool.self, forKey: .submittedWithCheckIns)
@@ -67,8 +67,8 @@ struct KeySubmissionMetadata: Codable {
 		case advancedConsentGiven
 		case hoursSinceTestResult
 		case hoursSinceTestRegistration
-		case daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration
-		case hoursSinceENFHighRiskWarningAtTestRegistration
+		case daysSinceMostRecentDateAtRiskLevelAtTestRegistration
+		case hoursSinceHighRiskWarningAtTestRegistration
 		case daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration
 		case hoursSinceCheckinHighRiskWarningAtTestRegistration
 		case submittedWithTeleTAN
@@ -85,9 +85,13 @@ struct KeySubmissionMetadata: Codable {
 	var advancedConsentGiven: Bool?
 	var hoursSinceTestResult: Int32?
 	var hoursSinceTestRegistration: Int32?
-	var daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration: Int32?
-	var hoursSinceENFHighRiskWarningAtTestRegistration: Int32?
+	// the enf risk version. Note: Do not rename or write migration
+	var daysSinceMostRecentDateAtRiskLevelAtTestRegistration: Int32?
+	// the enf risk  version. Note: Do not rename or write migration
+	var hoursSinceHighRiskWarningAtTestRegistration: Int32?
+	// the checkin risk version
 	var daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration: Int32?
+	// the checkin risk version
 	var hoursSinceCheckinHighRiskWarningAtTestRegistration: Int32?
 	var submittedWithTeleTAN: Bool?
 	var submittedWithCheckIns: Bool?

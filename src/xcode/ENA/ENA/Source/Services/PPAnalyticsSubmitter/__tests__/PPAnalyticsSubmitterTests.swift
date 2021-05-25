@@ -571,9 +571,9 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		
 		Analytics.collect(.testResultMetadata(.registerNewTestMetadata(registrationDate, registrationToken)))
 		XCTAssertEqual(store.testResultMetadata?.testRegistrationDate, registrationDate, "Wrong Registration date")
-		XCTAssertEqual(store.testResultMetadata?.enfRiskLevelAtTestRegistration, riskLevel, "Wrong Risk Level")
-		XCTAssertEqual(store.testResultMetadata?.daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration, differenceBetweenMostRecentRiskDateAndRegistrationDate, "Wrong number of days with this risk level")
-		XCTAssertEqual(store.testResultMetadata?.hoursSinceENFHighRiskWarningAtTestRegistration, differenceInHoursBetweenChangeToHighRiskAndRegistrationDate, "Wrong difference hoursSinceENFHighRiskWarningAtTestRegistration")
+		XCTAssertEqual(store.testResultMetadata?.riskLevelAtTestRegistration, riskLevel, "Wrong Risk Level")
+		XCTAssertEqual(store.testResultMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, differenceBetweenMostRecentRiskDateAndRegistrationDate, "Wrong number of days with this risk level")
+		XCTAssertEqual(store.testResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration, differenceInHoursBetweenChangeToHighRiskAndRegistrationDate, "Wrong difference hoursSinceHighRiskWarningAtTestRegistration")
 
 		Analytics.collect(.testResultMetadata(.updateTestResult(testResult, registrationToken)))
 		XCTAssertEqual(store.testResultMetadata?.testResult, testResult, "Wrong TestResult")
@@ -592,19 +592,19 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 			"Wrong hoursSinceTestRegistration protobuf mapping"
 		)
 		XCTAssertEqual(
-			store.testResultMetadata?.enfRiskLevelAtTestRegistration?.protobuf,
+			store.testResultMetadata?.riskLevelAtTestRegistration?.protobuf,
 			protobuf?.riskLevelAtTestRegistration,
-			"Wrong enfRiskLevelAtTestRegistration protobuf mapping"
+			"Wrong riskLevelAtTestRegistration protobuf mapping"
 		)
 		XCTAssertEqual(
-			store.testResultMetadata?.daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration,
+			store.testResultMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration,
 			Int(protobuf?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration ?? -1),
-			"Wrong daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration protobuf mapping"
+			"Wrong daysSinceMostRecentDateAtRiskLevelAtTestRegistration protobuf mapping"
 		)
 		XCTAssertEqual(
-			store.testResultMetadata?.hoursSinceENFHighRiskWarningAtTestRegistration,
+			store.testResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration,
 			Int(protobuf?.hoursSinceHighRiskWarningAtTestRegistration ?? -1),
-			"Wrong hoursSinceENFHighRiskWarningAtTestRegistration protobuf mapping"
+			"Wrong hoursSinceHighRiskWarningAtTestRegistration protobuf mapping"
 		)
 	}
 	
@@ -727,8 +727,8 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 			advancedConsentGiven: true,
 			hoursSinceTestResult: 0,
 			hoursSinceTestRegistration: 0,
-			daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration: -1,
-			hoursSinceENFHighRiskWarningAtTestRegistration: -1,
+			daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1,
+			hoursSinceHighRiskWarningAtTestRegistration: -1,
 			daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration: -1,
 			hoursSinceCheckinHighRiskWarningAtTestRegistration: -1,
 			submittedWithCheckIns: nil
@@ -758,8 +758,8 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		XCTAssertEqual(metadata?.advancedConsentGiven, true, "Wrong keySubmissionMetadata")
 		XCTAssertEqual(metadata?.hoursSinceTestResult, 5, "Wrong keySubmissionMetadata")
 		XCTAssertEqual(metadata?.hoursSinceTestRegistration, 9, "Wrong keySubmissionMetadata")
-		XCTAssertEqual(metadata?.daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration, 74, "Wrong keySubmissionMetadata")
-		XCTAssertEqual(metadata?.hoursSinceENFHighRiskWarningAtTestRegistration, 53, "Wrong keySubmissionMetadata")
+		XCTAssertEqual(metadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, 74, "Wrong keySubmissionMetadata")
+		XCTAssertEqual(metadata?.hoursSinceHighRiskWarningAtTestRegistration, 53, "Wrong keySubmissionMetadata")
 		
 		// Mapping to protobuf
 		let protobuf = analyticsSubmitter.gatherKeySubmissionMetadata().first
@@ -771,8 +771,8 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		XCTAssertEqual(protobuf?.lastSubmissionFlowScreen, metadata?.lastSubmissionFlowScreen?.protobuf, "Wrong lastSubmissionFlowScreen")
 		XCTAssertEqual(protobuf?.hoursSinceTestResult, metadata?.hoursSinceTestResult, "Wrong hoursSinceTestResult")
 		XCTAssertEqual(protobuf?.hoursSinceTestRegistration, metadata?.hoursSinceTestRegistration, "Wrong hoursSinceTestRegistration")
-		XCTAssertEqual(protobuf?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, metadata?.daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration, "Wrong daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration")
-		XCTAssertEqual(protobuf?.hoursSinceHighRiskWarningAtTestRegistration, metadata?.hoursSinceENFHighRiskWarningAtTestRegistration, "Wrong hoursSinceENFHighRiskWarningAtTestRegistration")
+		XCTAssertEqual(protobuf?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, metadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, "Wrong daysSinceMostRecentDateAtRiskLevelAtTestRegistration")
+		XCTAssertEqual(protobuf?.hoursSinceHighRiskWarningAtTestRegistration, metadata?.hoursSinceHighRiskWarningAtTestRegistration, "Wrong hoursSinceHighRiskWarningAtTestRegistration")
 		XCTAssertNotEqual(protobuf?.submittedWithTeleTan, store.submittedWithQR, "Wrong submittedWithTeleTan")
 	}
 	
