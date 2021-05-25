@@ -560,7 +560,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 			jsonDecoder.dateDecodingStrategy = .custom({ decoder -> Date in
 				let container = try decoder.singleValueContainer()
 				let stringDate = try container.decode(String.self)
-				guard let date = ISO8601DateFormatter.justDate.date(from: stringDate) else {
+				guard let date = ISO8601DateFormatter.justUTCDateFormatter.date(from: stringDate) else {
 					throw DecodingError.dataCorruptedError(in: container, debugDescription: "failed to decode date \(stringDate)")
 				}
 				return date

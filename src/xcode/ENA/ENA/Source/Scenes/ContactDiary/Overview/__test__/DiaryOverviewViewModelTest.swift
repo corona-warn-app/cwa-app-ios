@@ -142,7 +142,7 @@ class DiaryOverviewViewModelTest: XCTestCase {
 	func testGIVEN_DiaryOverviewViewModel_WHEN_lowHistoryExposureIsInStore_THEN_LowHistoryExposureIsReturned() throws {
 
 		// GIVEN
-		let dateFormatter = ISO8601DateFormatter.contactDiaryUTCFormatter
+		let dateFormatter = ISO8601DateFormatter.justUTCDateFormatter
 		let todayString = dateFormatter.string(from: Date())
 		let today = try XCTUnwrap(dateFormatter.date(from: todayString))
 
@@ -179,7 +179,7 @@ class DiaryOverviewViewModelTest: XCTestCase {
 	func testGIVEN_DiaryOverviewViewModel_WHEN_highHistoryExposureIsInStore_THEN_HighHistoryExposureIsReturned() throws {
 
 		// GIVEN
-		let dateFormatter = ISO8601DateFormatter.contactDiaryUTCFormatter
+		let dateFormatter = ISO8601DateFormatter.justUTCDateFormatter
 		let todayString = dateFormatter.string(from: Date())
 		let today = try XCTUnwrap(dateFormatter.date(from: todayString))
 
@@ -220,7 +220,7 @@ class DiaryOverviewViewModelTest: XCTestCase {
 	func testGIVEN_DiaryOverviewViewModel_WHEN_someCheckinsWithRiskAreInStore_THEN_CheckinsWithRiskAreReturned() throws {
 
 		// GIVEN
-		let dateFormatter = ISO8601DateFormatter.contactDiaryUTCFormatter
+		let dateFormatter = ISO8601DateFormatter.justUTCDateFormatter
 
 		let todayString = dateFormatter.string(from: Date())
 		let today = try XCTUnwrap(dateFormatter.date(from: todayString))
