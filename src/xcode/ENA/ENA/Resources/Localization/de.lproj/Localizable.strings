@@ -2496,13 +2496,17 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertifiedPerson_vaccinationDate" = "durchgeführt am %@";
 
-"HealthCertifiedPerson_primaryButton" = "Weitere Impfung registrieren";
+"HealthCertifiedPerson_QRCode_Image_Description" = "Ein QR-Code mit dem Status Ihrer Impfung";
+
+"HealthCertifiedPerson_primaryButton" = "Weitere Impfung hinzufügen";
 
 /* Health Certificate Details */
 
 "HealthCertificate_Details_vaccinationCount" = "Impfung %i von %i";
 
 "HealthCertificate_Details_certificate" = "Impfzertifikat";
+
+"HealthCertificate_Details_QRCode_Image_Description" = "Ein QR-Code mit Ihrem Impfzertifikat %i von %i";
 
 "HealthCertificate_Details_certificateCount" = "Impfzertifikat %i von %i";
 

@@ -229,6 +229,7 @@ final class RiskProvider: RiskProviding {
 		guard group.wait(timeout: DispatchTime.now() + timeoutInterval) == .success else {
 			updateActivityState(.idle)
 			exposureDetection?.cancel()
+			exposureDetection = nil
 			Log.info("RiskProvider: Canceled risk calculation due to timeout", log: .riskDetection)
 			failOnTargetQueue(error: .timeout)
 			return
@@ -356,15 +357,21 @@ final class RiskProvider: RiskProviding {
 		appConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS,
 		completion: @escaping (Result<[ExposureWindow], RiskProviderError>) -> Void
 	) {
+		guard exposureDetection == nil else {
+			// in the future someone should debug why this funtion is called twice in the first place.
+			completion(.failure(.riskProviderIsRunning))
+			return
+		}
+		
 		self.updateActivityState(.detecting)
 
-		let _exposureDetection = ExposureDetection(
+		exposureDetection = ExposureDetection(
 			delegate: exposureDetectionExecutor,
 			appConfiguration: appConfiguration,
 			deviceTimeCheck: DeviceTimeCheck(store: store)
 		)
 
-		_exposureDetection.start { result in
+		exposureDetection?.start { [weak self] result in
 			switch result {
 			case .success(let detectedExposureWindows):
 				Log.info("RiskProvider: Detect exposure completed", log: .riskDetection)
@@ -376,9 +383,8 @@ final class RiskProvider: RiskProviding {
 
 				completion(.failure(.failedRiskDetection(error)))
 			}
+			self?.exposureDetection = nil
 		}
-
-		self.exposureDetection = _exposureDetection
 	}
 
 	private func calculateRiskLevel(exposureWindows: [ExposureWindow], appConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS, completion: Completion) {
@@ -554,7 +560,7 @@ private extension RiskConsumer {
 extension RiskProvider {
 	private func _requestRiskLevel_Mock(userInitiated: Bool) {
 		let risk = Risk.mocked
-		let dateFormatter = ISO8601DateFormatter.contactDiaryUTCFormatter
+		let dateFormatter = ISO8601DateFormatter.justUTCDateFormatter
 		let todayString = dateFormatter.string(from: Date())
 		guard let today = dateFormatter.date(from: todayString),
 			  let someDaysAgo = Calendar.current.date(byAdding: .day, value: -3, to: today) else {

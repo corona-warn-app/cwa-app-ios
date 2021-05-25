@@ -111,7 +111,10 @@ final class HealthCertifiedPersonViewModel {
 			fatalError("Cell cannot be shown without a health certificate")
 		}
 
-		return HealthCertificateQRCodeCellViewModel(healthCertificate: latestHealthCertificate)
+		return HealthCertificateQRCodeCellViewModel(
+			healthCertificate: latestHealthCertificate,
+			accessibilityText: AppStrings.HealthCertificate.Person.QRCodeImageDescription
+		)
 	}
 
 	var fullyVaccinatedHintCellViewModel: HealthCertificateSimpleTextCellViewModel {
@@ -120,7 +123,7 @@ final class HealthCertifiedPersonViewModel {
 		}
 
 		return HealthCertificateSimpleTextCellViewModel(
-			backgroundColor: .enaColor(for: .background),
+			backgroundColor: .enaColor(for: .cellBackground2),
 			textAlignment: .left,
 			text: String(
 				format: AppStrings.HealthCertificate.Person.daysUntilCompleteProtection,
@@ -159,7 +162,7 @@ final class HealthCertifiedPersonViewModel {
 		)
 
 		return HealthCertificateSimpleTextCellViewModel(
-			backgroundColor: .enaColor(for: .background),
+			backgroundColor: .enaColor(for: .cellBackground2),
 			attributedText: [attributedName, attributedDetails].joined(with: "\n"),
 			topSpace: 18.0,
 			font: .enaFont(for: .headline),
@@ -220,7 +223,7 @@ final class HealthCertifiedPersonViewModel {
 	private var dateOfBirth: String? {
 		guard
 			let dateOfBirthString = healthCertifiedPerson.dateOfBirth,
-			let dateOfBirthDate = ISO8601DateFormatter.contactDiaryFormatter.date(from: dateOfBirthString)
+			let dateOfBirthDate = ISO8601DateFormatter.justLocalDateFormatter.date(from: dateOfBirthString)
 		else {
 			return nil
 		}

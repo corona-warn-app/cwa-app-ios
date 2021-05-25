@@ -26,10 +26,12 @@ struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable 
 	init(base45: Base45) throws {
 		// Ensure the data will be decodable on the fly later on, even though we don't store the decoded data
 		if case .failure(let error) = DigitalGreenCertificateAccess().extractCBORWebTokenHeader(from: base45) {
+			Log.error("Failed to decode header of health certificate with error", log: .vaccination, error: error)
 			throw error
 		}
 
 		if case .failure(let error) = DigitalGreenCertificateAccess().extractDigitalGreenCertificate(from: base45) {
+			Log.error("Failed to decode health certificate with error", log: .vaccination, error: error)
 			throw error
 		}
 
@@ -66,7 +68,7 @@ struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable 
 	}
 
 	var dateOfBirthDate: Date? {
-		return Self.dateFormatter.date(from: digitalGreenCertificate.dateOfBirth)
+		return ISO8601DateFormatter.justLocalDateFormatter.date(from: digitalGreenCertificate.dateOfBirth)
 	}
 
 	var vaccinationCertificates: [VaccinationCertificate] {
@@ -85,7 +87,7 @@ struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable 
 		guard let dateString = vaccinationCertificates.first?.dateOfVaccination else {
 			return nil
 		}
-		return Self.dateFormatter.date(from: dateString)
+		return ISO8601DateFormatter.justLocalDateFormatter.date(from: dateString)
 	}
 
 	var doseNumber: Int {
@@ -104,19 +106,14 @@ struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable 
 
 	// MARK: - Private
 
-	private static let dateFormatter: DateFormatter = {
-		let dateFormatter = DateFormatter()
-		dateFormatter.dateFormat = "YYYY-MM-dd"
-		return dateFormatter
-	}()
-
 	private var cborWebTokenHeader: CBORWebTokenHeader {
 		let result = DigitalGreenCertificateAccess().extractCBORWebTokenHeader(from: base45)
 
 		switch result {
 		case .success(let cborWebTokenHeader):
 			return cborWebTokenHeader
-		case .failure:
+		case .failure(let error):
+			Log.error("Failed to decode header of health certificate with error", log: .vaccination, error: error)
 			fatalError("Decoding the cborWebTokenHeader failed even though decodability was checked at initialization.")
 		}
 	}
@@ -127,7 +124,8 @@ struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable 
 		switch result {
 		case .success(let digitalGreenCertificate):
 			return digitalGreenCertificate
-		case .failure:
+		case .failure(let error):
+			Log.error("Failed to decode health certificate with error", log: .vaccination, error: error)
 			fatalError("Decoding the digitalGreenCertificate failed even though decodability was checked at initialization.")
 		}
 	}

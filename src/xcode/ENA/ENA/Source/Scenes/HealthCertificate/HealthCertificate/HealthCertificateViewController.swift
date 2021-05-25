@@ -110,8 +110,7 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 		}
 
 		let cellRect = tableView.rectForRow(at: indexPath)
-		let result = view.convert(cellRect, from: tableView)
-		backgroundView.gradientHeightConstraint.constant = result.midY
+		backgroundView.gradientHeightConstraint.constant = cellRect.midY + (tableView.contentOffset.y / 2) + view.safeAreaInsets.top
 		didCalculateGradientHeight = true
 	}
 
@@ -225,7 +224,14 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 		viewModel.$healthCertificateKeyValueCellViewModel
 			.receive(on: DispatchQueue.main.ocombine)
 			.sink { _ in
-				self.tableView.reloadSections([HealthCertificateViewModel.TableViewSection.details.rawValue], with: .automatic)
+				self.tableView.reloadSections(
+					[
+						HealthCertificateViewModel.TableViewSection.topCorner.rawValue,
+						HealthCertificateViewModel.TableViewSection.details.rawValue,
+						HealthCertificateViewModel.TableViewSection.bottomCorner.rawValue
+					],
+					with: .none
+				)
 			}
 			.store(in: &subscriptions)
 	}

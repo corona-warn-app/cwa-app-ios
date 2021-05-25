@@ -4,6 +4,7 @@
 
 import Foundation
 
+#if DEBUG
 extension HealthCertificate {
 
 	// swiftlint:disable line_length
@@ -21,3 +22,4 @@ extension HealthCertificate {
 		}
 	}
 }
+#endif

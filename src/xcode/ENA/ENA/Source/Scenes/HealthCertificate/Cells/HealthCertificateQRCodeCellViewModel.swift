@@ -9,7 +9,8 @@ struct HealthCertificateQRCodeCellViewModel {
 	// MARK: - Init
 
 	init(
-		healthCertificate: HealthCertificateData
+		healthCertificate: HealthCertificateData,
+		accessibilityText: String?
 	) {
 		var dateOfVaccination: String = ""
 		if let vaccinationDate = healthCertificate.dateOfVaccination {
@@ -33,14 +34,15 @@ struct HealthCertificateQRCodeCellViewModel {
 			size: CGSize(width: qrCodeSize, height: qrCodeSize),
 			qrCodeErrorCorrectionLevel: .quartile
 		) ?? UIImage()
+		self.accessibilityText = accessibilityText
 	}
 
 	// MARK: - Internal
 
-	let backgroundColor: UIColor = .enaColor(for: .background)
+	let backgroundColor: UIColor = .enaColor(for: .cellBackground2)
 	let borderColor: UIColor = .enaColor(for: .hairline)
 	let certificate: String
 	let validity: String
 	let qrCodeImage: UIImage
-
+	let accessibilityText: String?
 }
