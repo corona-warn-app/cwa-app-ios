@@ -223,7 +223,7 @@ final class HealthCertifiedPersonViewModel {
 	private var dateOfBirth: String? {
 		guard
 			let dateOfBirthString = healthCertifiedPerson.dateOfBirth,
-			let dateOfBirthDate = ISO8601DateFormatter.contactDiaryFormatter.date(from: dateOfBirthString)
+			let dateOfBirthDate = ISO8601DateFormatter.justLocalDateFormatter.date(from: dateOfBirthString)
 		else {
 			return nil
 		}
