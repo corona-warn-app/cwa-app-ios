@@ -480,7 +480,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 	private func showQRScreen(testInformation: CoronaTestQRCodeInformation?, isLoading: @escaping (Bool) -> Void) {
 		let testInformationSuccess: (CoronaTestQRCodeInformation) -> Void = { [weak self] testQRCodeInformation in
-			if self?.model.coronaTestService.coronaTest(ofType: testQRCodeInformation.testType) != nil {
+			if let oldTest = self?.model.coronaTestService.coronaTest(ofType: testQRCodeInformation.testType), oldTest.testResult != .expired {
 				self?.showOverrideTestNotice(testQRCodeInformation: testQRCodeInformation, submissionConsentGiven: true)
 			} else {
 				self?.registerTestAndGetResult(with: testQRCodeInformation, submissionConsentGiven: true, isLoading: isLoading)
