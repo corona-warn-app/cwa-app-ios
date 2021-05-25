@@ -13,8 +13,8 @@ class CreateHealthCertificate: XCTestCase {
 		continueAfterFailure = false
 		app = XCUIApplication()
 		app.setDefaults()
-		app.launchArguments.append(contentsOf: ["-isOnboarded", YES])
-		app.launchArguments.append(contentsOf: ["-setCurrentOnboardingVersion", YES])
+		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
+		app.launchArguments.append(contentsOf: ["-setCurrentOnboardingVersion", "YES"])
 	}
 
 	// MARK: - Internal
@@ -42,7 +42,7 @@ class CreateHealthCertificate: XCTestCase {
 	}
 
 	func test_CreateAntigenTestProfileWithFirstCertificate_THEN_DeleteProfile() throws {
-		app.launchArguments.append(contentsOf: ["-noHealthCertificate", YES])
+		app.launchArguments.append(contentsOf: ["-noHealthCertificate", "YES"])
 		app.launch()
 
 		/// Home Screen
@@ -69,7 +69,7 @@ class CreateHealthCertificate: XCTestCase {
 	}
 
 	func test_CreateAntigenTestProfileWithLastCertificate_THEN_DeleteProfile() throws {
-		app.launchArguments.append(contentsOf: ["-firstHealthCertificate", YES])
+		app.launchArguments.append(contentsOf: ["-firstHealthCertificate", "YES"])
 		app.launch()
 
 		/// Home Screen
@@ -98,7 +98,7 @@ class CreateHealthCertificate: XCTestCase {
 	}
 
 	func test_ShowCertificate() throws {
-		app.launchArguments.append(contentsOf: ["-firstAndSecondHealthCertificate", YES])
+		app.launchArguments.append(contentsOf: ["-firstAndSecondHealthCertificate", "YES"])
 		app.launch()
 
 		/// Home Screen
