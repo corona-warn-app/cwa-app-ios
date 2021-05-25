@@ -74,7 +74,7 @@ enum LaunchArguments {
 			static let testResult = LaunchArgument(name: "pcrTestResult")
 			// Flag to set if positive result was shown for PCR, set it to true for positive PCR
 			static let positiveTestResultWasShown = LaunchArgument(name: "pcrPositiveTestResultWasShown")
-			//
+			// Flag to set if the submission consent was given for PCR
 			static let isSubmissionConsentGiven = LaunchArgument(name: "isPCRSubmissionConsentGiven")
 			// Flag to set if the keys are submitted for PCR
 			static let keysSubmitted = LaunchArgument(name: "pcrKeysSubmitted")
@@ -84,7 +84,7 @@ enum LaunchArguments {
 			static let testResult = LaunchArgument(name: "antigenTestResult")
 			// Flag to set if positive result was shown for Antigen, set it to true for positive Antigen
 			static let positiveTestResultWasShown = LaunchArgument(name: "antigenPositiveTestResultWasShown")
-			//
+			// Flag to set if the submission consent was given for Antigen
 			static let isSubmissionConsentGiven = LaunchArgument(name: "isAntigenSubmissionConsentGiven")
 			// Flag to set if the keys are submitted for Antigen
 			static let keysSubmitted = LaunchArgument(name: "antigenKeysSubmitted")

@@ -691,10 +691,10 @@ class CoronaTestService {
 				registrationToken: "asdf",
 				testResult: testResult,
 				finalTestResultReceivedDate: testResult == .pending ? nil : Date(),
-				positiveTestResultWasShown: LaunchArguments.test.pcr.pcrPositiveTestResultWasShown.boolValue,
-				isSubmissionConsentGiven: LaunchArguments.consent.isPCRSubmissionConsentGiven.boolValue,
+				positiveTestResultWasShown: LaunchArguments.test.pcr.positiveTestResultWasShown.boolValue,
+				isSubmissionConsentGiven: LaunchArguments.test.pcr.isSubmissionConsentGiven.boolValue,
 				submissionTAN: nil,
-				keysSubmitted: LaunchArguments.test.pcr.pcrKeysSubmitted.boolValue,
+				keysSubmitted: LaunchArguments.test.pcr.keysSubmitted.boolValue,
 				journalEntryCreated: false
 			)
 		} else {
@@ -711,10 +711,10 @@ class CoronaTestService {
 				testedPerson: TestedPerson(firstName: "Erika", lastName: "Mustermann", dateOfBirth: "1964-08-12"),
 				testResult: testResult,
 				finalTestResultReceivedDate: testResult == .pending ? nil : Date(),
-				positiveTestResultWasShown: LaunchArguments.test.antigen.antigenPositiveTestResultWasShown.boolValue,
-				isSubmissionConsentGiven: LaunchArguments.consent.isAntigenSubmissionConsentGiven.boolValue,
+				positiveTestResultWasShown: LaunchArguments.test.antigen.positiveTestResultWasShown.boolValue,
+				isSubmissionConsentGiven: LaunchArguments.test.antigen.isSubmissionConsentGiven.boolValue,
 				submissionTAN: nil,
-				keysSubmitted: LaunchArguments.test.antigen.antigenKeysSubmitted.boolValue,
+				keysSubmitted: LaunchArguments.test.antigen.keysSubmitted.boolValue,
 				journalEntryCreated: false
 			)
 		} else {
@@ -725,9 +725,9 @@ class CoronaTestService {
 	private func mockTestResult(for coronaTestType: CoronaTestType) -> TestResult? {
 		switch coronaTestType {
 		case .pcr:
-			return LaunchArguments.test.pcr.pcrTestResult.stringValue.flatMap { TestResult(stringValue: $0) }
+			return LaunchArguments.test.pcr.testResult.stringValue.flatMap { TestResult(stringValue: $0) }
 		case .antigen:
-			return LaunchArguments.test.antigen.antigenTestResult.stringValue.flatMap { TestResult(stringValue: $0) }
+			return LaunchArguments.test.antigen.testResult.stringValue.flatMap { TestResult(stringValue: $0) }
 		}
 	}
 

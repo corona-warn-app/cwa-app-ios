@@ -97,7 +97,7 @@ class ENAUITests: XCTestCase {
 		app.setPreferredContentSizeCategory(accessibility: .normal, size: .M)
 		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: NO)
 		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
-		app.setLaunchArgument(LaunchArguments.test.pcr.pcrTestResult, to: TestResult.negative.stringValue)
+		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.negative.stringValue)
 		app.launch()
 
 		// ScreenShot_0006: Negative result
