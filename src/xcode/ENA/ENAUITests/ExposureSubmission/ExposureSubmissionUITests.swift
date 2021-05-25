@@ -262,7 +262,7 @@ class ENAUITests_04a_ExposureSubmission: XCTestCase {
 		// Overview Screen: click TAN button.
 		app.buttons["AppStrings.ExposureSubmissionDispatch.tanButtonDescription"].waitAndTap()
 
-		let continueButton = app.buttons["AppStrings.ExposureSubmission.primaryButton"]
+		let continueButton = app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton]
 		XCTAssertTrue(continueButton.waitForExistence(timeout: .medium))
 		XCTAssertFalse(continueButton.isEnabled)
 
@@ -271,7 +271,7 @@ class ENAUITests_04a_ExposureSubmission: XCTestCase {
 
 		// Click continue button.
 		XCTAssertTrue(continueButton.isEnabled)
-		app.buttons["AppStrings.ExposureSubmission.primaryButton"].waitAndTap()
+		continueButton.waitAndTap()
 
 		// TAN tests are ALWAYS positive!
 		
