@@ -205,6 +205,7 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 				imageView.widthAnchor.constraint(equalToConstant: 32),
 				horizontalStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 18.0),
 				horizontalStackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 12.0),
+				horizontalStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -8.0),
 				horizontalStackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -8.0)
 			]
 		)
