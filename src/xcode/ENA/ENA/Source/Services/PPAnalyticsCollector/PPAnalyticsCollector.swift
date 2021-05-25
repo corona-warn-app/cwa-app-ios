@@ -138,39 +138,18 @@ enum PPAnalyticsCollector {
 
 	private static func updateENFRiskExposureMetadata(_ enfRiskCalculationResult: ENFRiskCalculationResult) {
 		let riskLevel = enfRiskCalculationResult.riskLevel
+		let previousRiskLevel = store?.previousENFRiskExposureMetadata?.riskLevel
+		let mostRecentDateWithCurrentRiskLevel = enfRiskCalculationResult.mostRecentDateWithCurrentRiskLevel
+		let previousMostRecentDateWithCurrentRiskLevel = store?.previousENFRiskExposureMetadata?.mostRecentDateAtRiskLevel
 		let riskLevelChangedComparedToPreviousSubmission: Bool
 		let dateChangedComparedToPreviousSubmission: Bool
 
-		// if there is a risk level value stored for previous submission
-		if store?.previousENFRiskExposureMetadata?.riskLevel != nil {
-			if riskLevel !=
-				store?.previousENFRiskExposureMetadata?.riskLevel {
-				// if there is a change in risk level
-				riskLevelChangedComparedToPreviousSubmission = true
-			} else {
-				// if there is no change in risk level
-				riskLevelChangedComparedToPreviousSubmission = false
-			}
-		} else {
-			// for the first time, the field is set to false
-			riskLevelChangedComparedToPreviousSubmission = false
-		}
-
-		// if there is most recent date store for previous submission
-		if store?.previousENFRiskExposureMetadata?.mostRecentDateAtRiskLevel != nil {
-			if enfRiskCalculationResult.mostRecentDateWithCurrentRiskLevel !=
-				store?.previousENFRiskExposureMetadata?.mostRecentDateAtRiskLevel {
-				// if there is a change in date
-				dateChangedComparedToPreviousSubmission = true
-			} else {
-				// if there is no change in date
-				dateChangedComparedToPreviousSubmission = false
-			}
-		} else {
-			// for the first time, the field is set to false
-			dateChangedComparedToPreviousSubmission = false
-		}
-
+		// If risk level is nil, set to false. Otherwise, set it when it changed compared to previous submission.
+		riskLevelChangedComparedToPreviousSubmission = riskLevel != previousRiskLevel || !(previousRiskLevel == nil)
+		
+		// If mostRecentDateAtRiskLevel is nil, set to false. Otherwise, change itt when it changed compared to previous submission.
+		dateChangedComparedToPreviousSubmission = mostRecentDateWithCurrentRiskLevel != previousMostRecentDateWithCurrentRiskLevel || !(previousMostRecentDateWithCurrentRiskLevel == nil)
+		
 		guard let mostRecentDateWithCurrentRiskLevel = enfRiskCalculationResult.mostRecentDateWithCurrentRiskLevel else {
 			// most recent date is not available because of no exposure
 			let newRiskExposureMetadata = RiskExposureMetadata(
@@ -192,38 +171,17 @@ enum PPAnalyticsCollector {
 	
 	private static func updateCheckinRiskExposureMetadata(_ checkinRiskCalculationResult: CheckinRiskCalculationResult) {
 		let riskLevel = checkinRiskCalculationResult.riskLevel
+		let previousRiskLevel = store?.previousCheckinRiskExposureMetadata?.riskLevel
+		let mostRecentDateWithCurrentRiskLevel = checkinRiskCalculationResult.mostRecentDateWithCurrentRiskLevel
+		let previousMostRecentDateWithCurrentRiskLevel = store?.previousCheckinRiskExposureMetadata?.mostRecentDateAtRiskLevel
 		let riskLevelChangedComparedToPreviousSubmission: Bool
 		let dateChangedComparedToPreviousSubmission: Bool
 
-		// if there is a risk level value stored for previous submission
-		if store?.previousCheckinRiskExposureMetadata?.riskLevel != nil {
-			if riskLevel !=
-				store?.previousCheckinRiskExposureMetadata?.riskLevel {
-				// if there is a change in risk level
-				riskLevelChangedComparedToPreviousSubmission = true
-			} else {
-				// if there is no change in risk level
-				riskLevelChangedComparedToPreviousSubmission = false
-			}
-		} else {
-			// for the first time, the field is set to false
-			riskLevelChangedComparedToPreviousSubmission = false
-		}
-
-		// if there is most recent date store for previous submission
-		if store?.previousCheckinRiskExposureMetadata?.mostRecentDateAtRiskLevel != nil {
-			if checkinRiskCalculationResult.mostRecentDateWithCurrentRiskLevel !=
-				store?.previousCheckinRiskExposureMetadata?.mostRecentDateAtRiskLevel {
-				// if there is a change in date
-				dateChangedComparedToPreviousSubmission = true
-			} else {
-				// if there is no change in date
-				dateChangedComparedToPreviousSubmission = false
-			}
-		} else {
-			// for the first time, the field is set to false
-			dateChangedComparedToPreviousSubmission = false
-		}
+		// If risk level is nil, set to false. Otherwise, set it when it changed compared to previous submission.
+		riskLevelChangedComparedToPreviousSubmission = riskLevel != previousRiskLevel || !(previousRiskLevel == nil)
+		
+		// If mostRecentDateAtRiskLevel is nil, set to false. Otherwise, change itt when it changed compared to previous submission.
+		dateChangedComparedToPreviousSubmission = mostRecentDateWithCurrentRiskLevel != previousMostRecentDateWithCurrentRiskLevel || !(previousMostRecentDateWithCurrentRiskLevel == nil)
 
 		guard let mostRecentDateWithCurrentRiskLevel = checkinRiskCalculationResult.mostRecentDateWithCurrentRiskLevel else {
 			// most recent date is not available because of no exposure

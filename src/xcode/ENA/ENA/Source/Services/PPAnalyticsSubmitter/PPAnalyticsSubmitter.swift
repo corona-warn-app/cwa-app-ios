@@ -518,11 +518,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			
 			// special handling for the triStateBool
 			if let submittedWithCheckins = storedUsageData.submittedWithCheckIns {
-				if submittedWithCheckins == true {
-					$0.submittedWithCheckIns = .tsbTrue
-				} else {
-					$0.submittedWithCheckIns = .tsbFalse
-				}
+				$0.submittedWithCheckIns = submittedWithCheckins ? .tsbTrue : .tsbFalse
 			} else {
 				$0.submittedWithCheckIns = .tsbUnspecified
 			}
