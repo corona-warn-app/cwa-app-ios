@@ -404,6 +404,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		eventStore.reset()
 
 		coronaTestService.updatePublishersFromStore()
+		healthCertificateService.updatePublishersFromStore()
 	}
 
 	// MARK: - Protocol ExposureStateUpdating
