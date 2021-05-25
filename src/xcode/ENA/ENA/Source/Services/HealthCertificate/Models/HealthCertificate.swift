@@ -68,7 +68,7 @@ struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable 
 	}
 
 	var dateOfBirthDate: Date? {
-		return ISO8601DateFormatter.contactDiaryFormatter.date(from: digitalGreenCertificate.dateOfBirth)
+		return ISO8601DateFormatter.justLocalDateFormatter.date(from: digitalGreenCertificate.dateOfBirth)
 	}
 
 	var vaccinationCertificates: [VaccinationCertificate] {
@@ -87,7 +87,7 @@ struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable 
 		guard let dateString = vaccinationCertificates.first?.dateOfVaccination else {
 			return nil
 		}
-		return ISO8601DateFormatter.contactDiaryFormatter.date(from: dateString)
+		return ISO8601DateFormatter.justLocalDateFormatter.date(from: dateString)
 	}
 
 	var doseNumber: Int {
