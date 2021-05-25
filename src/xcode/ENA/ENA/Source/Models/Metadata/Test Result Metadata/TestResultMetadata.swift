@@ -19,14 +19,14 @@ struct TestResultMetadata: Codable {
 		
 		testResult = try container.decodeIfPresent(TestResult.self, forKey: .testResult)
 		hoursSinceTestRegistration = try container.decodeIfPresent(Int.self, forKey: .hoursSinceTestRegistration)
-		enfRiskLevelAtTestRegistration = try container.decodeIfPresent(RiskLevel.self, forKey: .enfRiskLevelAtTestRegistration)
-		daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration = try container.decodeIfPresent(
+		riskLevelAtTestRegistration = try container.decodeIfPresent(RiskLevel.self, forKey: .riskLevelAtTestRegistration)
+		daysSinceMostRecentDateAtRiskLevelAtTestRegistration = try container.decodeIfPresent(
 			Int.self,
-			forKey: .daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration
+			forKey: .daysSinceMostRecentDateAtRiskLevelAtTestRegistration
 		)
-		hoursSinceENFHighRiskWarningAtTestRegistration = try container.decodeIfPresent(
+		hoursSinceHighRiskWarningAtTestRegistration = try container.decodeIfPresent(
 			Int.self,
-			forKey: .hoursSinceENFHighRiskWarningAtTestRegistration
+			forKey: .hoursSinceHighRiskWarningAtTestRegistration
 		)
 		checkinRiskLevelAtTestRegistration = try container.decodeIfPresent(RiskLevel.self, forKey: .checkinRiskLevelAtTestRegistration)
 		daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration = try container.decodeIfPresent(
@@ -44,9 +44,9 @@ struct TestResultMetadata: Codable {
 	enum CodingKeys: String, CodingKey {
 		case testResult
 		case hoursSinceTestRegistration
-		case enfRiskLevelAtTestRegistration
-		case daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration
-		case hoursSinceENFHighRiskWarningAtTestRegistration
+		case riskLevelAtTestRegistration
+		case daysSinceMostRecentDateAtRiskLevelAtTestRegistration
+		case hoursSinceHighRiskWarningAtTestRegistration
 		case checkinRiskLevelAtTestRegistration
 		case daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration
 		case hoursSinceCheckinHighRiskWarningAtTestRegistration
@@ -63,16 +63,19 @@ struct TestResultMetadata: Codable {
 	// Pending: "everytime" current timestamp - time of test registration
 	var hoursSinceTestRegistration: Int? = 0
 	
-	// the ENF risk level at test registration
-	var enfRiskLevelAtTestRegistration: RiskLevel?
+	// the ENF risk level at test registration.
+	// Note: Do not rename or write migration
+	var riskLevelAtTestRegistration: RiskLevel?
 	
 	// test registration date - Most Recent Date at ENF RiskLevel.
 	// set to -1 when no most recent data is available
-	var daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration: Int?
+	// Note: Do not rename or write migration
+	var daysSinceMostRecentDateAtRiskLevelAtTestRegistration: Int?
 	
 	// if high = timestamp of when the ENF risk got high -  timestamp of test registration
 	// if low = -1
-	var hoursSinceENFHighRiskWarningAtTestRegistration: Int?
+	// Note: Do not rename or write migration
+	var hoursSinceHighRiskWarningAtTestRegistration: Int?
 	
 	// the checkin risk level at test registration
 	var checkinRiskLevelAtTestRegistration: RiskLevel?

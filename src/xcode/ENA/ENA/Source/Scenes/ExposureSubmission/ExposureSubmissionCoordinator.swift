@@ -1045,8 +1045,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			advancedConsentGiven: coronaTest.isSubmissionConsentGiven,
 			hoursSinceTestResult: 0,
 			hoursSinceTestRegistration: 0,
-			daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration: -1,
-			hoursSinceENFHighRiskWarningAtTestRegistration: -1,
+			daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1,
+			hoursSinceHighRiskWarningAtTestRegistration: -1,
 			daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration: -1,
 			hoursSinceCheckinHighRiskWarningAtTestRegistration: -1,
 			submittedWithCheckIns: nil

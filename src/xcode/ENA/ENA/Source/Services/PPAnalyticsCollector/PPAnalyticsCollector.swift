@@ -8,7 +8,6 @@ typealias Analytics = PPAnalyticsCollector
 
 /// To avoid that someone instantiate this, we made a enum. This collects the analytics data, makes in some cases some calculations and to save it to the database, to load it from the database, to remove every analytics data from the store. This enum also triggers a submission and grants that nothing can be logged if the user did not give his consent.
 // swiftlint:disable type_body_length
-// swiftlint:disable file_length
 enum PPAnalyticsCollector {
 
 	// MARK: - Internal
@@ -138,39 +137,18 @@ enum PPAnalyticsCollector {
 
 	private static func updateENFRiskExposureMetadata(_ enfRiskCalculationResult: ENFRiskCalculationResult) {
 		let riskLevel = enfRiskCalculationResult.riskLevel
+		let previousRiskLevel = store?.previousENFRiskExposureMetadata?.riskLevel
+		let mostRecentDateWithCurrentRiskLevel = enfRiskCalculationResult.mostRecentDateWithCurrentRiskLevel
+		let previousMostRecentDateWithCurrentRiskLevel = store?.previousENFRiskExposureMetadata?.mostRecentDateAtRiskLevel
 		let riskLevelChangedComparedToPreviousSubmission: Bool
 		let dateChangedComparedToPreviousSubmission: Bool
 
-		// if there is a risk level value stored for previous submission
-		if store?.previousENFRiskExposureMetadata?.riskLevel != nil {
-			if riskLevel !=
-				store?.previousENFRiskExposureMetadata?.riskLevel {
-				// if there is a change in risk level
-				riskLevelChangedComparedToPreviousSubmission = true
-			} else {
-				// if there is no change in risk level
-				riskLevelChangedComparedToPreviousSubmission = false
-			}
-		} else {
-			// for the first time, the field is set to false
-			riskLevelChangedComparedToPreviousSubmission = false
-		}
-
-		// if there is most recent date store for previous submission
-		if store?.previousENFRiskExposureMetadata?.mostRecentDateAtRiskLevel != nil {
-			if enfRiskCalculationResult.mostRecentDateWithCurrentRiskLevel !=
-				store?.previousENFRiskExposureMetadata?.mostRecentDateAtRiskLevel {
-				// if there is a change in date
-				dateChangedComparedToPreviousSubmission = true
-			} else {
-				// if there is no change in date
-				dateChangedComparedToPreviousSubmission = false
-			}
-		} else {
-			// for the first time, the field is set to false
-			dateChangedComparedToPreviousSubmission = false
-		}
-
+		// If risk level is nil, set to false. Otherwise, set it when it changed compared to previous submission.
+		riskLevelChangedComparedToPreviousSubmission = riskLevel != previousRiskLevel || !(previousRiskLevel == nil)
+		
+		// If mostRecentDateAtRiskLevel is nil, set to false. Otherwise, change itt when it changed compared to previous submission.
+		dateChangedComparedToPreviousSubmission = mostRecentDateWithCurrentRiskLevel != previousMostRecentDateWithCurrentRiskLevel || !(previousMostRecentDateWithCurrentRiskLevel == nil)
+		
 		guard let mostRecentDateWithCurrentRiskLevel = enfRiskCalculationResult.mostRecentDateWithCurrentRiskLevel else {
 			// most recent date is not available because of no exposure
 			let newRiskExposureMetadata = RiskExposureMetadata(
@@ -192,38 +170,17 @@ enum PPAnalyticsCollector {
 	
 	private static func updateCheckinRiskExposureMetadata(_ checkinRiskCalculationResult: CheckinRiskCalculationResult) {
 		let riskLevel = checkinRiskCalculationResult.riskLevel
+		let previousRiskLevel = store?.previousCheckinRiskExposureMetadata?.riskLevel
+		let mostRecentDateWithCurrentRiskLevel = checkinRiskCalculationResult.mostRecentDateWithCurrentRiskLevel
+		let previousMostRecentDateWithCurrentRiskLevel = store?.previousCheckinRiskExposureMetadata?.mostRecentDateAtRiskLevel
 		let riskLevelChangedComparedToPreviousSubmission: Bool
 		let dateChangedComparedToPreviousSubmission: Bool
 
-		// if there is a risk level value stored for previous submission
-		if store?.previousCheckinRiskExposureMetadata?.riskLevel != nil {
-			if riskLevel !=
-				store?.previousCheckinRiskExposureMetadata?.riskLevel {
-				// if there is a change in risk level
-				riskLevelChangedComparedToPreviousSubmission = true
-			} else {
-				// if there is no change in risk level
-				riskLevelChangedComparedToPreviousSubmission = false
-			}
-		} else {
-			// for the first time, the field is set to false
-			riskLevelChangedComparedToPreviousSubmission = false
-		}
-
-		// if there is most recent date store for previous submission
-		if store?.previousCheckinRiskExposureMetadata?.mostRecentDateAtRiskLevel != nil {
-			if checkinRiskCalculationResult.mostRecentDateWithCurrentRiskLevel !=
-				store?.previousCheckinRiskExposureMetadata?.mostRecentDateAtRiskLevel {
-				// if there is a change in date
-				dateChangedComparedToPreviousSubmission = true
-			} else {
-				// if there is no change in date
-				dateChangedComparedToPreviousSubmission = false
-			}
-		} else {
-			// for the first time, the field is set to false
-			dateChangedComparedToPreviousSubmission = false
-		}
+		// If risk level is nil, set to false. Otherwise, set it when it changed compared to previous submission.
+		riskLevelChangedComparedToPreviousSubmission = riskLevel != previousRiskLevel || !(previousRiskLevel == nil)
+		
+		// If mostRecentDateAtRiskLevel is nil, set to false. Otherwise, change itt when it changed compared to previous submission.
+		dateChangedComparedToPreviousSubmission = mostRecentDateWithCurrentRiskLevel != previousMostRecentDateWithCurrentRiskLevel || !(previousMostRecentDateWithCurrentRiskLevel == nil)
 
 		guard let mostRecentDateWithCurrentRiskLevel = checkinRiskCalculationResult.mostRecentDateWithCurrentRiskLevel else {
 			// most recent date is not available because of no exposure
@@ -272,30 +229,30 @@ enum PPAnalyticsCollector {
 		var testResultMetadata = TestResultMetadata(registrationToken: token)
 		testResultMetadata.testRegistrationDate = date
 		
-		// Differ now between ENF and checkin risk calculation results.
+		// Differ between ENF and checkin risk calculation results.
 
 		if let enfRiskCalculationResult = store?.enfRiskCalculationResult {
-			testResultMetadata.enfRiskLevelAtTestRegistration = enfRiskCalculationResult.riskLevel
+			testResultMetadata.riskLevelAtTestRegistration = enfRiskCalculationResult.riskLevel
 			
 			if let mostRecentRiskCalculationDate = enfRiskCalculationResult.mostRecentDateWithCurrentRiskLevel {
 				let daysSinceMostRecentDateAtRiskLevelAtTestRegistration = Calendar.current.dateComponents([.day], from: mostRecentRiskCalculationDate, to: date).day
-				testResultMetadata.daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration = daysSinceMostRecentDateAtRiskLevelAtTestRegistration
-				Log.debug("daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration: \(String(describing: daysSinceMostRecentDateAtRiskLevelAtTestRegistration))", log: .ppa)
+				testResultMetadata.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = daysSinceMostRecentDateAtRiskLevelAtTestRegistration
+				Log.debug("daysSinceMostRecentDateAtRiskLevelAtTestRegistration: \(String(describing: daysSinceMostRecentDateAtRiskLevelAtTestRegistration))", log: .ppa)
 			} else {
-				testResultMetadata.daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration = -1
-				Log.warning("daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration: -1", log: .ppa)
+				testResultMetadata.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = -1
+				Log.warning("daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1", log: .ppa)
 			}
 			
 			switch enfRiskCalculationResult.riskLevel {
 			case .high:
 				if let timeOfRiskChangeToHigh = store?.dateOfConversionToENFHighRisk {
 					let differenceInHours = Calendar.current.dateComponents([.hour], from: timeOfRiskChangeToHigh, to: date)
-					testResultMetadata.hoursSinceENFHighRiskWarningAtTestRegistration = differenceInHours.hour
+					testResultMetadata.hoursSinceHighRiskWarningAtTestRegistration = differenceInHours.hour
 				} else {
 					Log.warning("Could not log enf risk calculation result due to timeOfRiskChangeToHigh is nil", log: .ppa)
 				}
 			case .low:
-				testResultMetadata.hoursSinceENFHighRiskWarningAtTestRegistration = -1
+				testResultMetadata.hoursSinceHighRiskWarningAtTestRegistration = -1
 			}
 		}
 		
@@ -397,9 +354,9 @@ enum PPAnalyticsCollector {
 		case let .keySubmissionHoursSinceTestRegistration(hours):
 			store?.keySubmissionMetadata?.hoursSinceTestRegistration = hours
 		case let .daysSinceMostRecentDateAtRiskLevelAtTestRegistration(date):
-			store?.keySubmissionMetadata?.daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration = date
+			store?.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = date
 		case let .hoursSinceHighRiskWarningAtTestRegistration(hours):
-			store?.keySubmissionMetadata?.hoursSinceENFHighRiskWarningAtTestRegistration = hours
+			store?.keySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration = hours
 		case .updateSubmittedWithTeletan:
 			store?.keySubmissionMetadata?.submittedWithTeleTAN = !(store?.submittedWithQR ?? false)
 		case .setHoursSinceTestResult:
@@ -439,20 +396,20 @@ enum PPAnalyticsCollector {
 
 	private static func setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration() {
 		guard let registrationDate = coronaTestService?.pcrTest?.registrationDate else {
-			store?.keySubmissionMetadata?.daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration = -1
+			store?.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = -1
 			return
 		}
 		if let mostRecentRiskCalculationDate = store?.enfRiskCalculationResult?.mostRecentDateWithCurrentRiskLevel {
 			let daysSinceMostRecentDateAtRiskLevelAtTestRegistration = Calendar.utcCalendar.dateComponents([.day], from: mostRecentRiskCalculationDate, to: registrationDate).day
-			store?.keySubmissionMetadata?.daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration = Int32(daysSinceMostRecentDateAtRiskLevelAtTestRegistration ?? -1)
+			store?.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = Int32(daysSinceMostRecentDateAtRiskLevelAtTestRegistration ?? -1)
 		} else {
-			store?.keySubmissionMetadata?.daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration = -1
+			store?.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = -1
 		}
 	}
 
 	private static func setHoursSinceENFHighRiskWarningAtTestRegistration() {
 		guard let riskLevel = store?.enfRiskCalculationResult?.riskLevel  else {
-			Log.warning("Could not log hoursSinceENFHighRiskWarningAtTestRegistration due to riskLevel is nil", log: .ppa)
+			Log.warning("Could not log hoursSinceHighRiskWarningAtTestRegistration due to riskLevel is nil", log: .ppa)
 			return
 		}
 		switch riskLevel {
@@ -463,9 +420,9 @@ enum PPAnalyticsCollector {
 				return
 			}
 			let differenceInHours = Calendar.current.dateComponents([.hour], from: timeOfRiskChangeToHigh, to: registrationTime)
-			store?.keySubmissionMetadata?.hoursSinceENFHighRiskWarningAtTestRegistration = Int32(differenceInHours.hour ?? -1)
+			store?.keySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration = Int32(differenceInHours.hour ?? -1)
 		case .low:
-			store?.keySubmissionMetadata?.hoursSinceENFHighRiskWarningAtTestRegistration = -1
+			store?.keySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration = -1
 		}
 	}
 	

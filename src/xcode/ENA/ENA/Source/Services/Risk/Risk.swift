@@ -34,7 +34,7 @@ extension Risk {
 
 		Log.debug("[Risk] riskLevelHasChanged: \(riskLevelHasChanged)", log: .riskDetection)
 		
-		// now check for each risk source (enf and checkin) if one of them got high. Only needed for PPA.
+		// Check for each risk source (enf and checkin) if one of them got high. Only needed for PPA.
 		if previousENFRiskCalculationResult?.riskLevel == .low &&
 			enfRiskCalculationResult.riskLevel == .high {
 			Log.debug("[Risk] ENF riskLevel has changed to high.", log: .riskDetection)
