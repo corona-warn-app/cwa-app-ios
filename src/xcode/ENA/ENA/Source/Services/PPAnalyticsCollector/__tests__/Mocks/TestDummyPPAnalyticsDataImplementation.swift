@@ -17,5 +17,6 @@ final class TestDummyPPAnalyticsDataImplementation: PPAnalyticsData {
 	var clientMetadata: ClientMetadata?
 	var keySubmissionMetadata: KeySubmissionMetadata?
 	var testResultMetadata: TestResultMetadata?
+	var antigenTestResultMetadata: TestResultMetadata?
 	var exposureWindowsMetadata: ExposureWindowsMetadata?
 }

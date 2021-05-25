@@ -569,20 +569,20 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		store.enfRiskCalculationResult = enfRiskCalculationResult
 		store.dateOfConversionToHighRisk = dateOfRiskChangeToHigh
 		
-		Analytics.collect(.testResultMetadata(.registerNewTestMetadata(registrationDate, registrationToken)))
+		Analytics.collect(.testResultMetadata(.registerNewTestMetadata(registrationDate, registrationToken, .pcr)))
 		XCTAssertEqual(store.testResultMetadata?.testRegistrationDate, registrationDate, "Wrong Registration date")
 		XCTAssertEqual(store.testResultMetadata?.riskLevelAtTestRegistration, riskLevel, "Wrong Risk Level")
 		XCTAssertEqual(store.testResultMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, differenceBetweenMostRecentRiskDateAndRegistrationDate, "Wrong number of days with this risk level")
 		XCTAssertEqual(store.testResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration, differenceInHoursBetweenChangeToHighRiskAndRegistrationDate, "Wrong difference hoursSinceHighRiskWarningAtTestRegistration")
 
-		Analytics.collect(.testResultMetadata(.updateTestResult(testResult, registrationToken)))
+		Analytics.collect(.testResultMetadata(.updateTestResult(testResult, registrationToken, .pcr)))
 		XCTAssertEqual(store.testResultMetadata?.testResult, testResult, "Wrong TestResult")
 		XCTAssertEqual(store.testResultMetadata?.hoursSinceTestRegistration, differenceInHoursBetweenRegistrationDateAndTestResult, "Wrong difference hoursSinceTestRegistration")
 
 		// Mapping to protobuf
 		let protobuf = analyticsSubmitter.gatherTestResultMetadata().first
 		XCTAssertEqual(
-			store.testResultMetadata?.testResult?.protobuf,
+			store.testResultMetadata?.protobuf,
 			protobuf?.testResult,
 			"Wrong testResult protobuf mapping"
 		)
