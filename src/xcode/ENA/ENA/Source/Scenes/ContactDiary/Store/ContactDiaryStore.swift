@@ -1058,6 +1058,11 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 	}
 
 	private func fetchCoronaTests(for date: String, in database: FMDatabase) -> Result<[DiaryDayTest], SecureSQLStoreError> {
+		// database schema v5 is required here, if not available return success with empty data
+		guard database.userVersion >= 5 else {
+			return .success([])
+		}
+
 		var diaryDayTests = [DiaryDayTest]()
 
 		let sql = """
