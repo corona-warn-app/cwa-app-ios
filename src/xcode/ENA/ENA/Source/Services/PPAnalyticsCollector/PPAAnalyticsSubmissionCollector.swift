@@ -95,9 +95,9 @@ final class PPAAnalyticsSubmissionCollector {
 		case let .submittedAfterRapidAntigenTest(type):
 			switch type {
 			case .pcr:
-				store.submittedAfterRapidAntigenTest = false
+				store.keySubmissionMetadata?.submittedAfterRapidAntigenTest = false
 			case .antigen:
-				store.submittedAfterRapidAntigenTest = true
+				store.antigenKeySubmissionMetadata?.submittedAfterRapidAntigenTest = true
 			}
 		case let .setHoursSinceTestResult(type):
 			setHoursSinceTestResult(type: type)
