@@ -36,7 +36,7 @@ struct DiaryDay: Equatable {
 	}
 
 	var utcMidnightDate: Date {
-		let dateFormatter = ISO8601DateFormatter.contactDiaryUTCFormatter
+		let dateFormatter = ISO8601DateFormatter.justUTCDateFormatter
 
 		guard let date = dateFormatter.date(from: dateString) else {
 			Log.error("Could not get date from date string", log: .contactdiary)
@@ -49,7 +49,7 @@ struct DiaryDay: Equatable {
 	// MARK: - Private
 
 	private var localMidnightDate: Date {
-		let dateFormatter = ISO8601DateFormatter.contactDiaryFormatter
+		let dateFormatter = ISO8601DateFormatter.justLocalDateFormatter
 
 		guard let date = dateFormatter.date(from: dateString) else {
 			Log.error("Could not get date from date string", log: .contactdiary)

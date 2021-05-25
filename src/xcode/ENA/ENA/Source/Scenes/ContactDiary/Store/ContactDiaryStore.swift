@@ -912,7 +912,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 	}
 
 	private var dateFormatter: ISO8601DateFormatter = {
-		let dateFormatter = ISO8601DateFormatter.contactDiaryFormatter
+		let dateFormatter = ISO8601DateFormatter.justLocalDateFormatter
 		return dateFormatter
 	}()
 

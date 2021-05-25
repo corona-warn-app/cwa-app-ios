@@ -3,10 +3,10 @@
     "pins": [
       {
         "package": "base45-swift",
-        "repositoryURL": "https://github.com/ehn-digital-green-development/base45-swift",
+        "repositoryURL": "https://github.com/corona-warn-app/base45-swift",
         "state": {
           "branch": "distribution/swiftpackage",
-          "revision": "7c5d3e0640c7f0b949bba1905306867d06f2dbb3",
+          "revision": "56f4129457b904e2805a919f0961c0e5d362166e",
           "version": null
         }
       },
