@@ -196,8 +196,17 @@ final class PPAAnalyticsSubmissionCollector {
 		}
 		switch riskLevel {
 		case .high:
+
+			let _registrationTime: Date?
+			switch type {
+			case .pcr:
+				_registrationTime = coronaTestService.pcrTest?.registrationDate
+			case .antigen:
+				_registrationTime = coronaTestService.antigenTest?.registrationDate
+			}
+
 			guard let timeOfRiskChangeToHigh = store.dateOfConversionToHighRisk,
-				  let registrationTime = coronaTestService.pcrTest?.registrationDate else {
+				  let registrationTime = _registrationTime else {
 				Log.warning("Could not log risk calculation result due to timeOfRiskChangeToHigh is nil", log: .ppa)
 				return
 			}
@@ -214,7 +223,7 @@ final class PPAAnalyticsSubmissionCollector {
 		case .pcr:
 			store.keySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration = hours
 		case .antigen:
-			store.keySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration = hours
+			store.antigenKeySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration = hours
 		}
 	}
 }
