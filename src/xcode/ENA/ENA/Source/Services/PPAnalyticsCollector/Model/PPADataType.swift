@@ -42,11 +42,8 @@ enum PPARiskExposureMetadata {
 }
 
 enum PPATestResultMetadata {
-	case create(TestResultMetadata)
-	case testResult(TestResult)
-	case testResultHoursSinceTestRegistration(Int?)
-	case updateTestResult(TestResult, String)
-	case registerNewTestMetadata(Date, String)
+	case registerNewTestMetadata(Date, String, CoronaTestType)
+	case updateTestResult(TestResult, String, CoronaTestType)
 }
 
 enum PPAKeySubmissionMetadata {

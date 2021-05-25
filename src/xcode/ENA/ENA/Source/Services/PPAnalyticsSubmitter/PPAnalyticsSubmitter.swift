@@ -21,6 +21,12 @@ protocol PPAnalyticsSubmitting {
 	#endif
 }
 
+extension PPAnalyticsSubmitting {
+	func triggerSubmitData(completion: ((Result<Void, PPASError>) -> Void)?) {
+		triggerSubmitData(ppacToken: nil, completion: completion)
+	}
+}
+
 // swiftlint:disable:next type_body_length
 final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	
@@ -119,7 +125,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 				completion?(.failure(.appResetError))
 				return
 			}
-			
+
 			if let token = ppacToken {
 				Log.info("Analytics submission has an injected ppac token.", log: .ppa)
 				strongSelf.submitData(with: token, completion: completion)
@@ -488,7 +494,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		
 		let resultProtobuf = SAP_Internal_Ppdd_PPATestResultMetadata.with {
 			
-			if let testResult = metadata?.testResult?.protobuf {
+			if let testResult = metadata?.protobuf {
 				$0.testResult = testResult
 			}
 			if let hoursSinceTestRegistration = metadata?.hoursSinceTestRegistration {

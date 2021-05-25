@@ -106,7 +106,7 @@ class CoronaTestService {
 
 					Log.info("[CoronaTestService] PCR test registered: \(private: String(describing: self?.pcrTest), public: "PCR Test result")", log: .api)
 
-					Analytics.collect(.testResultMetadata(.registerNewTestMetadata(Date(), registrationToken)))
+					Analytics.collect(.testResultMetadata(.registerNewTestMetadata(Date(), registrationToken, .pcr)))
 					Analytics.collect(.keySubmissionMetadata(.submittedWithTeletan(false)))
 
 					self?.getTestResult(for: .pcr, duringRegistration: true) { result in
@@ -195,6 +195,8 @@ class CoronaTestService {
 						journalEntryCreated: false
 					)
 					Log.info("[CoronaTestService] Antigen test registered: \(private: String(describing: self?.antigenTest), public: "Antigen test result")", log: .api)
+
+					Analytics.collect(.testResultMetadata(.registerNewTestMetadata(Date(), registrationToken, .antigen)))
 
 					self?.getTestResult(for: .antigen, duringRegistration: true) { result in
 						completion(result)
@@ -562,12 +564,12 @@ class CoronaTestService {
 
 				Log.info("[CoronaTestService] Got test result (coronaTestType: \(coronaTestType), testResult: \(testResult))", log: .api)
 
-				Analytics.collect(.testResultMetadata(.updateTestResult(testResult, registrationToken)))
-
 				switch coronaTestType {
 				case .pcr:
+					Analytics.collect(.testResultMetadata(.updateTestResult(testResult, registrationToken, .pcr)))
 					self.pcrTest?.testResult = testResult
 				case .antigen:
+					Analytics.collect(.testResultMetadata(.updateTestResult(testResult, registrationToken, .antigen)))
 					self.antigenTest?.testResult = testResult
 				}
 

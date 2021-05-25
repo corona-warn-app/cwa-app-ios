@@ -57,10 +57,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		super.init()
 
 		// Make the analytics working. Should not be called later than at this moment of app initialisation.
+		
+		let testResultCollector = PPAAnalyticsTestResultCollector(
+			store: store
+		)
+
 		Analytics.setup(
 			store: store,
 			coronaTestService: coronaTestService,
-			submitter: self.analyticsSubmitter
+			submitter: analyticsSubmitter,
+			testResultCollector: testResultCollector
 		)
 
 		// Migrate the old pcr test structure from versions older than v2.1
@@ -258,7 +264,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		#endif
 	}()
 
-	private lazy var analyticsSubmitter: PPAnalyticsSubmitter = {
+	private lazy var analyticsSubmitter: PPAnalyticsSubmitting = {
 		return PPAnalyticsSubmitter(
 			store: store,
 			client: client,

@@ -82,6 +82,7 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var clientMetadata: ClientMetadata?
 	var keySubmissionMetadata: KeySubmissionMetadata?
 	var testResultMetadata: TestResultMetadata?
+	var antigenTestResultMetadata: TestResultMetadata?
 	var exposureWindowsMetadata: ExposureWindowsMetadata?
 
 	// MARK: - ErrorLogProviding
