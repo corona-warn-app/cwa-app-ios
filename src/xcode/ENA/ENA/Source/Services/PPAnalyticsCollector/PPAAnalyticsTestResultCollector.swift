@@ -61,7 +61,7 @@ final class PPAAnalyticsTestResultCollector {
 
 	private func registerNewTestMetadata(_ date: Date = Date(), _ token: String, _ type: TestResultMetadata.TestType) {
 		guard let riskCalculationResult = store.enfRiskCalculationResult else {
-			Log.warning("Could not register new test meta data due to riskCalculationResult is nil", log: .ppa)
+			Log.warning("Could not register new test meta data because riskCalculationResult being nil", log: .ppa)
 			return
 		}
 		var testResultMetadata = TestResultMetadata(registrationToken: token, testType: type)
