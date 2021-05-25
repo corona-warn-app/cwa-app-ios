@@ -36,8 +36,8 @@ class KeySubmissionMetadataTests: XCTestCase {
 			advancedConsentGiven: isSubmissionConsentGiven,
 			hoursSinceTestResult: 0,
 			hoursSinceTestRegistration: 0,
-			daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration: -1,
-			hoursSinceENFHighRiskWarningAtTestRegistration: -1,
+			daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1,
+			hoursSinceHighRiskWarningAtTestRegistration: -1,
 			daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration: -1,
 			hoursSinceCheckinHighRiskWarningAtTestRegistration: -1,
 			submittedWithCheckIns: nil
@@ -47,8 +47,8 @@ class KeySubmissionMetadataTests: XCTestCase {
 		Analytics.collect(.keySubmissionMetadata(.setHoursSinceENFHighRiskWarningAtTestRegistration))
 
 		XCTAssertNotNil(secureStore.keySubmissionMetadata, "keySubmissionMetadata should be initialized with default values")
-		XCTAssertEqual(secureStore.keySubmissionMetadata?.daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration, 2, "number of days should be 2")
-		XCTAssertEqual(secureStore.keySubmissionMetadata?.hoursSinceENFHighRiskWarningAtTestRegistration, 24, "the difference is one day so it should be 24")
+		XCTAssertEqual(secureStore.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, 2, "number of days should be 2")
+		XCTAssertEqual(secureStore.keySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration, 24, "the difference is one day so it should be 24")
 	}
 
 	func testKeySubmissionMetadataValues_HighRisk_testHours() {
@@ -82,8 +82,8 @@ class KeySubmissionMetadataTests: XCTestCase {
 			advancedConsentGiven: isSubmissionConsentGiven,
 			hoursSinceTestResult: 0,
 			hoursSinceTestRegistration: 0,
-			daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration: -1,
-			hoursSinceENFHighRiskWarningAtTestRegistration: -1,
+			daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1,
+			hoursSinceHighRiskWarningAtTestRegistration: -1,
 			daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration: -1,
 			hoursSinceCheckinHighRiskWarningAtTestRegistration: -1,
 			submittedWithCheckIns: nil
@@ -115,8 +115,8 @@ class KeySubmissionMetadataTests: XCTestCase {
 			advancedConsentGiven: isSubmissionConsentGiven,
 			hoursSinceTestResult: 0,
 			hoursSinceTestRegistration: 0,
-			daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration: -1,
-			hoursSinceENFHighRiskWarningAtTestRegistration: -1,
+			daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1,
+			hoursSinceHighRiskWarningAtTestRegistration: -1,
 			daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration: -1,
 			hoursSinceCheckinHighRiskWarningAtTestRegistration: -1,
 			submittedWithCheckIns: nil
@@ -149,8 +149,8 @@ class KeySubmissionMetadataTests: XCTestCase {
 			advancedConsentGiven: isSubmissionConsentGiven,
 			hoursSinceTestResult: 0,
 			hoursSinceTestRegistration: 0,
-			daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration: -1,
-			hoursSinceENFHighRiskWarningAtTestRegistration: -1,
+			daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1,
+			hoursSinceHighRiskWarningAtTestRegistration: -1,
 			daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration: -1,
 			hoursSinceCheckinHighRiskWarningAtTestRegistration: -1,
 			submittedWithCheckIns: nil
@@ -201,8 +201,8 @@ class KeySubmissionMetadataTests: XCTestCase {
 			advancedConsentGiven: isSubmissionConsentGiven,
 			hoursSinceTestResult: 0,
 			hoursSinceTestRegistration: 0,
-			daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration: -1,
-			hoursSinceENFHighRiskWarningAtTestRegistration: -1,
+			daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1,
+			hoursSinceHighRiskWarningAtTestRegistration: -1,
 			daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration: -1,
 			hoursSinceCheckinHighRiskWarningAtTestRegistration: -1,
 			submittedWithCheckIns: nil
@@ -212,8 +212,8 @@ class KeySubmissionMetadataTests: XCTestCase {
 		Analytics.collect(.keySubmissionMetadata(.setHoursSinceENFHighRiskWarningAtTestRegistration))
 
 		XCTAssertNotNil(secureStore.keySubmissionMetadata, "keySubmissionMetadata should be initialized with default values")
-		XCTAssertEqual(secureStore.keySubmissionMetadata?.daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration, 3, "number of days should be 3")
-		XCTAssertEqual(secureStore.keySubmissionMetadata?.hoursSinceENFHighRiskWarningAtTestRegistration, -1, "the value should be default value i.e., -1 as the risk is low")
+		XCTAssertEqual(secureStore.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, 3, "number of days should be 3")
+		XCTAssertEqual(secureStore.keySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration, -1, "the value should be default value i.e., -1 as the risk is low")
 	}
 
 	private func mockHighRiskCalculationResult(risk: RiskLevel = .high) -> ENFRiskCalculationResult {
