@@ -6,10 +6,6 @@
 import XCTest
 
 class TestResultMetadataTests: XCTestCase {
-	
-	// TODO: - test erweitern für differenzierung zw PT und BLE risk in RiskMetadata
-	// TODO: - test erweitern für current und previous risk
-	
 	/// Testpattern:
 	/// ENF empty risk, Checkin empty risk
 	/// ENF low, Checkin none
