@@ -25,10 +25,10 @@
                                 <rect key="frame" x="0.0" y="16" width="288" height="323"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="5ET-0H-Nib">
-                                        <rect key="frame" x="0.0" y="0.0" width="288" height="28"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="288" height="33"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UAS-Bk-PQl" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="8" width="240" height="12"/>
+                                                <rect key="frame" x="16" y="8" width="240" height="17"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -37,7 +37,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icons_Chevron_plain" translatesAutoresizingMaskIntoConstraints="NO" id="sfU-18-vBs">
-                                                <rect key="frame" x="264" y="8" width="8" height="12"/>
+                                                <rect key="frame" x="264" y="10.5" width="8" height="12"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="8" id="laU-9V-PD8"/>
                                                     <constraint firstAttribute="height" priority="999" constant="12" id="poU-Yj-4uo"/>
@@ -47,7 +47,7 @@
                                         <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="16" bottom="8" trailing="16"/>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="j6E-VI-Q9V">
-                                        <rect key="frame" x="0.0" y="28" width="288" height="72.5"/>
+                                        <rect key="frame" x="0.0" y="33" width="288" height="72.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NxM-BO-PmY">
                                                 <rect key="frame" x="0.0" y="0.0" width="288" height="1"/>
@@ -91,91 +91,14 @@ Nur der Mann im Mo schaut zu</string>
                                         <directionalEdgeInsets key="directionalLayoutMargins" top="0.0" leading="0.0" bottom="0.0" trailing="0.0"/>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Gob-eJ-UZU" userLabel="PCR Test Stack View">
-                                        <rect key="frame" x="0.0" y="100.5" width="288" height="56.5"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H5u-AA-Hv0">
-                                                <rect key="frame" x="0.0" y="0.0" width="288" height="1"/>
-                                                <color key="backgroundColor" name="ENA Hairline Color"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="1" id="1T6-qm-DYT"/>
-                                                </constraints>
-                                            </view>
-                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="QLd-G0-fut">
-                                                <rect key="frame" x="0.0" y="1" width="288" height="55.5"/>
-                                                <subviews>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" image="Test_green" translatesAutoresizingMaskIntoConstraints="NO" id="Nxv-px-fQU" userLabel="PCR Test State Image">
-                                                        <rect key="frame" x="16" y="12" width="32" height="32"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="32" id="DQe-IQ-GwG"/>
-                                                        </constraints>
-                                                    </imageView>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ZwK-03-3Yd">
-                                                        <rect key="frame" x="63" y="8" width="209" height="39.5"/>
-                                                        <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jC5-3n-bMW" userLabel="PCR Title Label" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="0.0" width="209" height="17"/>
-                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                                                <nil key="textColor"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Befunde negativ" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mBK-g5-LuP" userLabel="PCR Detail Label" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="25" width="209" height="14.5"/>
-                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
-                                                                <nil key="textColor"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
-                                                        </subviews>
-                                                    </stackView>
-                                                </subviews>
-                                                <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="16" bottom="8" trailing="16"/>
-                                            </stackView>
-                                        </subviews>
-                                        <directionalEdgeInsets key="directionalLayoutMargins" top="0.0" leading="0.0" bottom="0.0" trailing="0.0"/>
-                                    </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Nr3-bb-VCG" userLabel="Antigen Test Stack View">
-                                        <rect key="frame" x="0.0" y="157" width="288" height="56.5"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K6m-xv-9au">
-                                                <rect key="frame" x="0.0" y="0.0" width="288" height="1"/>
-                                                <color key="backgroundColor" name="ENA Hairline Color"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="1" id="PcJ-g2-DVY"/>
-                                                </constraints>
-                                            </view>
-                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="9Xa-G6-qdK">
-                                                <rect key="frame" x="0.0" y="1" width="288" height="55.5"/>
-                                                <subviews>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" image="Test_red" translatesAutoresizingMaskIntoConstraints="NO" id="RH3-K0-XGR" userLabel="Antigen Test State Image">
-                                                        <rect key="frame" x="16" y="12" width="32" height="32"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="32" id="x3H-tC-VaK"/>
-                                                        </constraints>
-                                                    </imageView>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="5WB-Oe-83M">
-                                                        <rect key="frame" x="63" y="8" width="209" height="39.5"/>
-                                                        <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8W2-xx-AlN" userLabel="Antigen Title Label" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="0.0" width="209" height="17"/>
-                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                                                <nil key="textColor"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Befunde positiv" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sPC-y2-kpk" userLabel="Antigen Detail Label" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="25" width="209" height="14.5"/>
-                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
-                                                                <nil key="textColor"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
-                                                        </subviews>
-                                                    </stackView>
-                                                </subviews>
-                                                <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="16" bottom="8" trailing="16"/>
-                                            </stackView>
-                                        </subviews>
+                                        <rect key="frame" x="0.0" y="105.5" width="288" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" placeholder="YES" id="Rvc-5X-Wc2"/>
+                                        </constraints>
                                         <directionalEdgeInsets key="directionalLayoutMargins" top="0.0" leading="0.0" bottom="0.0" trailing="0.0"/>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="8TA-t5-hG7" userLabel="CheckIn History Stack View">
-                                        <rect key="frame" x="0.0" y="213.5" width="288" height="80.5"/>
+                                        <rect key="frame" x="0.0" y="155.5" width="288" height="112.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qdg-B6-8si">
                                                 <rect key="frame" x="0.0" y="0.0" width="288" height="1"/>
@@ -185,16 +108,16 @@ Nur der Mann im Mo schaut zu</string>
                                                 </constraints>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="6PC-KR-Fhz">
-                                                <rect key="frame" x="0.0" y="1" width="288" height="79.5"/>
+                                                <rect key="frame" x="0.0" y="1" width="288" height="111.5"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" image="Icons_Attention_high" translatesAutoresizingMaskIntoConstraints="NO" id="bqu-yO-Qy4" userLabel="Checkin History Notice Image View">
-                                                        <rect key="frame" x="16" y="8" width="32" height="63.5"/>
+                                                        <rect key="frame" x="16" y="8" width="32" height="95.5"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="32" id="ZLg-dW-jqE"/>
                                                         </constraints>
                                                     </imageView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="IpT-5K-GbX">
-                                                        <rect key="frame" x="63" y="8" width="209" height="63.5"/>
+                                                        <rect key="frame" x="63" y="8" width="209" height="95.5"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DhW-nb-RWO" userLabel="Checkin History Title Label" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="209" height="17"/>
@@ -211,7 +134,7 @@ Nur der Mann im Mo schaut zu</string>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="clK-BJ-qDX">
-                                                                <rect key="frame" x="0.0" y="63.5" width="209" height="0.0"/>
+                                                                <rect key="frame" x="0.0" y="63.5" width="209" height="32"/>
                                                             </stackView>
                                                         </subviews>
                                                     </stackView>
@@ -222,7 +145,7 @@ Nur der Mann im Mo schaut zu</string>
                                         <directionalEdgeInsets key="directionalLayoutMargins" top="0.0" leading="0.0" bottom="0.0" trailing="0.0"/>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="yux-ar-fw9">
-                                        <rect key="frame" x="0.0" y="294" width="288" height="29"/>
+                                        <rect key="frame" x="0.0" y="268" width="288" height="55"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="deb-kv-rqF">
                                                 <rect key="frame" x="0.0" y="4" width="288" height="1"/>
@@ -232,7 +155,7 @@ Nur der Mann im Mo schaut zu</string>
                                                 </constraints>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="Qc1-jl-ZTB">
-                                                <rect key="frame" x="0.0" y="5" width="288" height="24"/>
+                                                <rect key="frame" x="0.0" y="5" width="288" height="50"/>
                                                 <directionalEdgeInsets key="directionalLayoutMargins" top="20" leading="16" bottom="4" trailing="8"/>
                                             </stackView>
                                         </subviews>
@@ -268,10 +191,6 @@ Nur der Mann im Mo schaut zu</string>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="24" bottom="8" trailing="24"/>
             <connections>
-                <outlet property="antigenDetailLabel" destination="sPC-y2-kpk" id="FdS-gN-Nyo"/>
-                <outlet property="antigenImageView" destination="RH3-K0-XGR" id="uiD-cg-Zkc"/>
-                <outlet property="antigenTestStackView" destination="Nr3-bb-VCG" id="1Qn-4l-cFv"/>
-                <outlet property="antigenTitleLabel" destination="8W2-xx-AlN" id="E8h-pI-hs0"/>
                 <outlet property="checkinHistoryDetailLabel" destination="ETM-Eq-rvE" id="u3Q-Jj-rDz"/>
                 <outlet property="checkinHistoryNoticeImageView" destination="bqu-yO-Qy4" id="vrO-8I-3ba"/>
                 <outlet property="checkinHistoryStackView" destination="8TA-t5-hG7" id="VNy-WF-fCZ"/>
@@ -284,18 +203,12 @@ Nur der Mann im Mo schaut zu</string>
                 <outlet property="exposureHistoryNoticeImageView" destination="csw-4j-F6h" id="6ZO-BT-Ncc"/>
                 <outlet property="exposureHistoryStackView" destination="j6E-VI-Q9V" id="waw-PO-4MY"/>
                 <outlet property="exposureHistoryTitleLabel" destination="iRf-oL-SUw" id="Tdh-Bj-n7N"/>
-                <outlet property="pcrDetailLabel" destination="mBK-g5-LuP" id="HZK-mu-59E"/>
-                <outlet property="pcrImageView" destination="Nxv-px-fQU" id="f1B-eW-jOX"/>
-                <outlet property="pcrTestStackView" destination="Gob-eJ-UZU" id="O46-1I-tar"/>
-                <outlet property="pcrTitlelLabel" destination="jC5-3n-bMW" id="P3X-jB-mv0"/>
+                <outlet property="testsStackView" destination="Gob-eJ-UZU" id="t7k-fv-s5I"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="244.08482142857142"/>
         </tableViewCell>
     </objects>
     <designables>
-        <designable name="8W2-xx-AlN">
-            <size key="intrinsicContentSize" width="37" height="17"/>
-        </designable>
         <designable name="DhW-nb-RWO">
             <size key="intrinsicContentSize" width="37" height="17"/>
         </designable>
@@ -311,21 +224,10 @@ Nur der Mann im Mo schaut zu</string>
         <designable name="iRf-oL-SUw">
             <size key="intrinsicContentSize" width="37" height="17"/>
         </designable>
-        <designable name="jC5-3n-bMW">
-            <size key="intrinsicContentSize" width="37" height="17"/>
-        </designable>
-        <designable name="mBK-g5-LuP">
-            <size key="intrinsicContentSize" width="92.5" height="14.5"/>
-        </designable>
-        <designable name="sPC-y2-kpk">
-            <size key="intrinsicContentSize" width="88.5" height="14.5"/>
-        </designable>
     </designables>
     <resources>
         <image name="Icons_Attention_high" width="32" height="32"/>
         <image name="Icons_Chevron_plain" width="7" height="12"/>
-        <image name="Test_green" width="32" height="32"/>
-        <image name="Test_red" width="32" height="32"/>
         <namedColor name="ENA Cell Background Color">
             <color red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
