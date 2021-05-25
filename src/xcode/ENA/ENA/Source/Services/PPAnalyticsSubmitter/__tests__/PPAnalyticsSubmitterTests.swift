@@ -44,8 +44,26 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		store.lastAppReset = Calendar.current.date(byAdding: .day, value: -5, to: Date())
 		let ppacToken = PPACToken(apiToken: "FakeApiToken", deviceToken: "FakeDeviceToken")
 		
-		let currentRiskExposureMetadata = store.currentENFRiskExposureMetadata
-
+		let twoDaysBefore = Calendar.current.date(byAdding: .day, value: -2, to: Date())
+		let currentENFRiskExposureMetadata = RiskExposureMetadata(
+			riskLevel: .high,
+			riskLevelChangedComparedToPreviousSubmission: true,
+			mostRecentDateAtRiskLevel: twoDaysBefore ?? Date(),
+			dateChangedComparedToPreviousSubmission: true
+		)
+		
+		let currentCheckinRiskExposureMetadata = RiskExposureMetadata(
+			riskLevel: .low,
+			riskLevelChangedComparedToPreviousSubmission: false,
+			mostRecentDateAtRiskLevel: twoDaysBefore ?? Date(),
+			dateChangedComparedToPreviousSubmission: false
+		)
+		store.currentENFRiskExposureMetadata = currentENFRiskExposureMetadata
+		store.currentCheckinRiskExposureMetadata = currentCheckinRiskExposureMetadata
+		
+		XCTAssertNil(store.previousENFRiskExposureMetadata)
+		XCTAssertNil(store.previousCheckinRiskExposureMetadata)
+		
 		// WHEN
 		analyticsSubmitter.triggerSubmitData(ppacToken: ppacToken, completion: { result in
 			switch result {
@@ -60,8 +78,10 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		waitForExpectations(timeout: .medium)
 		
 		/// Check that store is setup correctly after successful submission
-		XCTAssertEqual(store.previousENFRiskExposureMetadata, currentRiskExposureMetadata)
+		XCTAssertEqual(store.previousENFRiskExposureMetadata, currentENFRiskExposureMetadata)
+		XCTAssertEqual(store.previousCheckinRiskExposureMetadata, currentCheckinRiskExposureMetadata)
 		XCTAssertNil(store.currentENFRiskExposureMetadata)
+		XCTAssertNil(store.currentCheckinRiskExposureMetadata)
 		XCTAssertNil(store.testResultMetadata)
 		XCTAssertNil(store.keySubmissionMetadata)
 		XCTAssertNil(store.exposureWindowsMetadata?.newExposureWindowsQueue)
@@ -446,6 +466,87 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		XCTAssertEqual(ppasSuccess.count, 1)
 		XCTAssertEqual(ppasErrors.count, 1)
 		XCTAssertTrue(ppasErrors.contains(.submissionInProgress))
+	}
+	
+	func testGIVEN_SubmissionIsTriggered_WHEN_EverythingIsGiven_THEN_FailureAtServer() throws {
+		// GIVEN
+		let store = MockTestStore()
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
+		let client = ClientMock()
+		client.onSubmitAnalytics = { _, _, _, completion in
+			completion(.failure(.generalError))
+		}
+		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
+		// probability will always succeed
+		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
+		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
+		#if targetEnvironment(simulator)
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
+		#else
+		let deviceCheck = PPACDeviceCheck()
+		#endif
+		let analyticsSubmitter = PPAnalyticsSubmitter(
+			store: store,
+			client: client,
+			appConfig: appConfigurationProvider,
+			coronaTestService: CoronaTestService(
+				client: client,
+				store: store,
+				appConfiguration: CachedAppConfigurationMock()
+			),
+			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
+		)
+
+		let expectation = self.expectation(description: "completion handler is called without an error")
+
+		store.lastSubmissionAnalytics = Calendar.current.date(byAdding: .day, value: -5, to: Date())
+		store.dateOfAcceptedPrivacyNotice = Calendar.current.date(byAdding: .day, value: -5, to: Date())
+		store.lastAppReset = Calendar.current.date(byAdding: .day, value: -5, to: Date())
+		let ppacToken = PPACToken(apiToken: "FakeApiToken", deviceToken: "FakeDeviceToken")
+		
+		let twoDaysBefore = Calendar.current.date(byAdding: .day, value: -2, to: Date())
+		let currentENFRiskExposureMetadata = RiskExposureMetadata(
+			riskLevel: .high,
+			riskLevelChangedComparedToPreviousSubmission: true,
+			mostRecentDateAtRiskLevel: twoDaysBefore ?? Date(),
+			dateChangedComparedToPreviousSubmission: true
+		)
+		
+		let currentCheckinRiskExposureMetadata = RiskExposureMetadata(
+			riskLevel: .low,
+			riskLevelChangedComparedToPreviousSubmission: false,
+			mostRecentDateAtRiskLevel: twoDaysBefore ?? Date(),
+			dateChangedComparedToPreviousSubmission: false
+		)
+		store.currentENFRiskExposureMetadata = currentENFRiskExposureMetadata
+		store.currentCheckinRiskExposureMetadata = currentCheckinRiskExposureMetadata
+		
+		XCTAssertNil(store.previousENFRiskExposureMetadata)
+		XCTAssertNil(store.previousCheckinRiskExposureMetadata)
+		
+		// WHEN
+		analyticsSubmitter.triggerSubmitData(ppacToken: ppacToken, completion: { result in
+			switch result {
+			case .success:
+				XCTFail("Test should not success")
+			case .failure:
+				expectation.fulfill()
+			}
+		})
+
+		// THEN
+		waitForExpectations(timeout: .medium)
+		
+		/// Check that store is setup correctly after successful submission
+		XCTAssertNil(store.currentENFRiskExposureMetadata)
+		XCTAssertNil(store.currentCheckinRiskExposureMetadata)
+		XCTAssertNil(store.previousENFRiskExposureMetadata)
+		XCTAssertNil(store.previousCheckinRiskExposureMetadata)
+				
+		let someTimeAgo = Calendar.current.date(byAdding: .second, value: -20, to: Date())
+		let someTimeAgoTimeRange = try XCTUnwrap(someTimeAgo)...Date()
+		XCTAssertFalse(someTimeAgoTimeRange.contains(try XCTUnwrap(store.lastSubmissionAnalytics)))
+		
 	}
 
 	// MARK: - Conversion to protobuf
