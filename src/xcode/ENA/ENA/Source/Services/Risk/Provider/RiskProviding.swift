@@ -53,6 +53,7 @@ enum RiskProviderError: Error {
 
 enum RiskProviderActivityState: Int {
 	case idle
+	case onlyDownloadsRequested
 	case riskRequested
 	case downloading
 	case detecting
