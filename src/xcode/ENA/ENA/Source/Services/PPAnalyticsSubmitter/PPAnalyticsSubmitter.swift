@@ -204,15 +204,8 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		OR
 		- differenceBetweenTestResultAndCurrentDateInHours >= hoursSinceTestResultToSubmitKeySubmissionMetadata
 		*/
-		var isSubmitted = false
 		var timeDifferenceFulfillsCriteria = false
-		
-		// if submitted is true
-		if store.keySubmissionMetadata?.submitted == true {
-			isSubmitted = true
-		} else {
-			isSubmitted = false
-		}
+		let isSubmitted = store.keySubmissionMetadata?.submitted ?? false
 		
 		// if there is no test result time stamp
 		guard let testResultReceivedDate = coronaTestService.pcrTest?.finalTestResultReceivedDate else {
@@ -507,8 +500,9 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			if let hoursSinceHighRiskWarningAtTestRegistration = storedUsageData.hoursSinceHighRiskWarningAtTestRegistration {
 				$0.hoursSinceHighRiskWarningAtTestRegistration = hoursSinceHighRiskWarningAtTestRegistration
 			}
-			$0.submittedWithTeleTan = !store.submittedWithQR
-			$0.submittedAfterRapidAntigenTest = store.submittedAfterRapidAntigenTest
+			if let submittedWithTeleTan = storedUsageData.submittedWithTeleTAN {
+				$0.submittedWithTeleTan = submittedWithTeleTan
+			}
 		}]
 	}
 	
