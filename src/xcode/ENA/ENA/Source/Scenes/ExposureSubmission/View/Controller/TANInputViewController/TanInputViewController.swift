@@ -75,19 +75,6 @@ class TanInputViewController: UIViewController, FooterViewHandling {
 		scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 55, right: 0.0)
 		scrollView.translatesAutoresizingMaskIntoConstraints = false
 		view.addSubview(scrollView)
-
-		// Scrollview content size will change if we set the errorLabel to a text.
-		// We need to scroll the content area to show the error, if the footer view intersects with the error label.
-		// If the error label resets to empty we will scroll back to a negative top value to make sure scrollview
-		// is in top position (-103 is basically the default value).
-		observer = scrollView.observe(\UIScrollView.contentSize, options: .new, changeHandler: { [weak self] scrollView, _ in
-			var y = scrollView.safeAreaInsets.top
-			if let errorText = self?.errorLabel.text, !errorText.isEmpty {
-				Log.debug("ContentSize changed - we might need to scroll to the visible rect by now")
-				y += scrollView.contentSize.height
-			}
-			scrollView.scrollRectToVisible(CGRect(x: 0, y: y, width: 1, height: 1), animated: true)
-		})
 		
 		NSLayoutConstraint.activate([
 			view.safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
@@ -131,6 +118,19 @@ class TanInputViewController: UIViewController, FooterViewHandling {
 		stackView.addArrangedSubview(descriptionLabel)
 		stackView.addArrangedSubview(tanInputView)
 		stackView.addArrangedSubview(errorLabel)
+		
+		// Scrollview content size will change if we set the errorLabel to a text.
+		// We need to scroll the content area to show the error, if the footer view intersects with the error label.
+		// If the error label resets to empty we will scroll back to a negative top value to make sure scrollview
+		// is in top position (-103 is basically the default value).
+		observer = scrollView.observe(\UIScrollView.contentSize, options: .new, changeHandler: { [weak self] scrollView, _ in
+			var y = scrollView.safeAreaInsets.top
+			if let errorText = self?.errorLabel.text, !errorText.isEmpty {
+				Log.debug("ContentSize changed - we might need to scroll to the visible rect by now")
+				y += scrollView.contentSize.height
+			}
+			scrollView.scrollRectToVisible(CGRect(x: 0, y: y, width: 1, height: 1), animated: true)
+		})
 	}
 
 	private func setupViewModelBindings() {
