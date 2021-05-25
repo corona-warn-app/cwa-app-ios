@@ -515,7 +515,6 @@ class CoronaTestService {
 			#if DEBUG
 			if isUITesting {
 				completion(
-					self.mockTestResultResponse(for: coronaTestType).flatMap { .success($0) } ??
 					self.mockTestResult(for: coronaTestType).flatMap { .success($0) } ??
 						.failure(.noCoronaTestOfRequestedType)
 				)
@@ -729,15 +728,6 @@ class CoronaTestService {
 			return LaunchArguments.test.pcr.pcrTestResult.stringValue.flatMap { TestResult(stringValue: $0) }
 		case .antigen:
 			return LaunchArguments.test.antigen.antigenTestResult.stringValue.flatMap { TestResult(stringValue: $0) }
-		}
-	}
-
-	private func mockTestResultResponse(for coronaTestType: CoronaTestType) -> TestResult? {
-		switch coronaTestType {
-		case .pcr:
-			return UserDefaults.standard.string(forKey: "pcrTestResultResponse").flatMap { TestResult(stringValue: $0) }
-		case .antigen:
-			return UserDefaults.standard.string(forKey: "antigenTestResultResponse").flatMap { TestResult(stringValue: $0) }
 		}
 	}
 
