@@ -5,15 +5,10 @@
 import Foundation
 
 struct TestResultMetadata: Codable {
-
-	enum TestType: Int, Codable {
-		case pcr
-		case antigen
-	}
 	
 	// MARK: - Init
 	
-	init(registrationToken: String, testType: TestType) {
+	init(registrationToken: String, testType: CoronaTestType) {
 		self.testRegistrationToken = registrationToken
 		self.testType = testType
 	}
@@ -39,7 +34,7 @@ struct TestResultMetadata: Codable {
 
 		// TestType was introduced at a later time, thus it can be nil.
 		// To assure backwards compatibility, assign .pcr if its nil.
-		if let _type = try? container.decode(TestType.self, forKey: .testType) {
+		if let _type = try? container.decode(CoronaTestType.self, forKey: .testType) {
 			testType = _type
 		} else {
 			testType = .pcr
@@ -83,7 +78,7 @@ struct TestResultMetadata: Codable {
 	// We need a copy of the token to compare it everytime we fetch a testResult to make sure it is a result for the QRCode test and not a TAN test submission
 	let testRegistrationToken: String
 
-	let testType: TestType
+	let testType: CoronaTestType
 
 	var protobuf: SAP_Internal_Ppdd_PPATestResult? {
 		switch (testType, testResult) {

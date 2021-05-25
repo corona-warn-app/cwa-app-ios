@@ -41,7 +41,7 @@ final class PPAAnalyticsTestResultCollector {
 		}
 	}
 
-	private func persistTestResult(testResult: TestResult, testType: TestResultMetadata.TestType) {
+	private func persistTestResult(testResult: TestResult, testType: CoronaTestType) {
 		switch testType {
 		case .pcr:
 			store.testResultMetadata?.testResult = testResult
@@ -50,7 +50,7 @@ final class PPAAnalyticsTestResultCollector {
 		}
 	}
 
-	private func updateTestResultHoursSinceTestRegistration(_ hours: Int?, testType: TestResultMetadata.TestType) {
+	private func updateTestResultHoursSinceTestRegistration(_ hours: Int?, testType: CoronaTestType) {
 		switch testType {
 		case .pcr:
 			store.testResultMetadata?.hoursSinceTestRegistration = hours
@@ -59,7 +59,7 @@ final class PPAAnalyticsTestResultCollector {
 		}
 	}
 
-	private func registerNewTestMetadata(_ date: Date = Date(), _ token: String, _ type: TestResultMetadata.TestType) {
+	private func registerNewTestMetadata(_ date: Date = Date(), _ token: String, _ type: CoronaTestType) {
 		guard let riskCalculationResult = store.enfRiskCalculationResult else {
 			Log.warning("Could not register new test meta data because riskCalculationResult being nil", log: .ppa)
 			return
@@ -92,7 +92,7 @@ final class PPAAnalyticsTestResultCollector {
 		}
 	}
 
-	private func updateHoursSinceHighRiskWarningAtTestRegistration(hours: Int?, testType: TestResultMetadata.TestType) {
+	private func updateHoursSinceHighRiskWarningAtTestRegistration(hours: Int?, testType: CoronaTestType) {
 		switch testType {
 		case .pcr:
 			store.testResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration = hours
@@ -101,7 +101,7 @@ final class PPAAnalyticsTestResultCollector {
 		}
 	}
 
-	private func updateTestResult(_ testResult: TestResult, _ token: String, _ type: TestResultMetadata.TestType) {
+	private func updateTestResult(_ testResult: TestResult, _ token: String, _ type: CoronaTestType) {
 		// we only save metadata for tests submitted on QR code,and there is the only place in the app where we set the registration date
 		guard shouldUpdateTestResult(token: token, type: type),
 			  let registrationDate = testRegistrationDate(for: type) else {
@@ -137,7 +137,7 @@ final class PPAAnalyticsTestResultCollector {
 		}
 	}
 
-	private func shouldUpdateTestResult(token: String, type: TestResultMetadata.TestType) -> Bool {
+	private func shouldUpdateTestResult(token: String, type: CoronaTestType) -> Bool {
 		switch type {
 		case .pcr:
 			return store.testResultMetadata?.testRegistrationToken == token
@@ -146,7 +146,7 @@ final class PPAAnalyticsTestResultCollector {
 		}
 	}
 
-	private func testRegistrationDate(for type: TestResultMetadata.TestType) -> Date? {
+	private func testRegistrationDate(for type: CoronaTestType) -> Date? {
 		switch type {
 		case .pcr:
 			return store.testResultMetadata?.testRegistrationDate
@@ -155,7 +155,7 @@ final class PPAAnalyticsTestResultCollector {
 		}
 	}
 
-	private func storedTestResultMetadata(for type: TestResultMetadata.TestType) -> TestResultMetadata? {
+	private func storedTestResultMetadata(for type: CoronaTestType) -> TestResultMetadata? {
 		switch type {
 		case .pcr:
 			return store.testResultMetadata
