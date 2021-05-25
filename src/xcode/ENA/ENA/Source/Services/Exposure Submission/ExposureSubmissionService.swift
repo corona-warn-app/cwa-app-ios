@@ -251,7 +251,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		client.submit(payload: payload, isFake: false) { result in
 			switch result {
 			case .success:
-				Analytics.collect(.keySubmissionMetadata(.advancedConsentGiven(coronaTest.isSubmissionConsentGiven, coronaTest.type)))
 				Analytics.collect(.keySubmissionMetadata(.setHoursSinceTestResult(coronaTest.type)))
 				Analytics.collect(.keySubmissionMetadata(.setHoursSinceTestRegistration(coronaTest.type)))
 				Analytics.collect(.keySubmissionMetadata(.submitted(true, coronaTest.type)))
