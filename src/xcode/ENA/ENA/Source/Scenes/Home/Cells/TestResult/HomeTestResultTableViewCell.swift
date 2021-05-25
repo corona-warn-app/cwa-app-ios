@@ -24,8 +24,9 @@ final class HomeTestResultTableViewCell: UITableViewCell {
 
 	override func setHighlighted(_ highlighted: Bool, animated: Bool) {
 		super.setHighlighted(highlighted, animated: animated)
-
-		guard cellModel.isCellTappable else {
+		
+		// going optional here to prevent a crash if this gets loaded before a model is assigned
+		guard cellModel?.isCellTappable ?? false else {
 			return
 		}
 
