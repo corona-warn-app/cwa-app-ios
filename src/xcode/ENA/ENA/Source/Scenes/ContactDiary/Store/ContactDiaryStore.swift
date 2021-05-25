@@ -875,6 +875,10 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 		return removeAllEntries(from: "ContactPerson")
 	}
 
+	func removeAllCoronaTests() -> Result<Void, SecureSQLStoreError> {
+		return removeAllEntries(from: "CoronaTest")
+	}
+
 	@discardableResult
 	func reset() -> SecureSQLStore.VoidResult {
 		let dropTablesResult = dropTables()

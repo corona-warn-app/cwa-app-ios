@@ -185,6 +185,13 @@ class MockDiaryStore: DiaryStoringProviding {
 		return .success(())
 	}
 
+	@discardableResult
+	func removeAllCoronaTests() -> Result<Void, SecureSQLStoreError> {
+		coronaTests.removeAll()
+		updateDays()
+		return .success(())
+	}
+
 	func cleanup() -> SecureSQLStore.VoidResult {
 		// There is no cleanup implemented (deleting old entries) for the mock.
 		return .success(())
