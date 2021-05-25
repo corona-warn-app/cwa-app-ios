@@ -490,12 +490,6 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 	) -> SecureSQLStore.IdResult {
 		var result: SecureSQLStore.IdResult?
 
-		guard let testResult = TestResult(rawValue: testResult),
-			  testResult == .positive || testResult == .negative else {
-			Log.error("Only positive or negativ test results get added")
-			return .failure(.timeout)
-		}
-
 		databaseQueue.inDatabase { database in
 			Log.info("[ContactDiaryStore] Add CoronaTest.", log: .localData)
 
