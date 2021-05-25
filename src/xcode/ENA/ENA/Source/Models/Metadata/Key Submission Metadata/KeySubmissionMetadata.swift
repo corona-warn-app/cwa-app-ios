@@ -33,6 +33,8 @@ struct KeySubmissionMetadata: Codable {
 		self.hoursSinceTestRegistration = hoursSinceTestRegistration
 		self.daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration = daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration
 		self.hoursSinceENFHighRiskWarningAtTestRegistration = hoursSinceENFHighRiskWarningAtTestRegistration
+		self.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration = daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration
+		self.hoursSinceCheckinHighRiskWarningAtTestRegistration = hoursSinceCheckinHighRiskWarningAtTestRegistration
 		self.submittedWithCheckIns = submittedWithCheckIns
 	}
 
