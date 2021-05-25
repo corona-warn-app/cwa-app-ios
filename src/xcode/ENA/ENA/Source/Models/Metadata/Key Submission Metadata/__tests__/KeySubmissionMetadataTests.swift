@@ -97,7 +97,15 @@ class KeySubmissionMetadataTests: XCTestCase {
 
 	func testKeySubmissionMetadataValues_HighRisk_submittedInBackground() {
 		let secureStore = MockTestStore()
-		Analytics.setupMock(store: secureStore)
+		let coronaTestService = CoronaTestService(
+			client: ClientMock(),
+			store: secureStore,
+			appConfiguration: CachedAppConfigurationMock()
+		)
+		Analytics.setupMock(
+			store: secureStore,
+			coronaTestService: coronaTestService
+		)
 		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
 		let riskCalculationResult = mockHighRiskCalculationResult()
 		let isSubmissionConsentGiven = true
@@ -129,7 +137,15 @@ class KeySubmissionMetadataTests: XCTestCase {
 
 	func testKeySubmissionMetadataValues_HighRisk_testSubmitted() {
 		let secureStore = MockTestStore()
-		Analytics.setupMock(store: secureStore)
+		let coronaTestService = CoronaTestService(
+			client: ClientMock(),
+			store: secureStore,
+			appConfiguration: CachedAppConfigurationMock()
+		)
+		Analytics.setupMock(
+			store: secureStore,
+			coronaTestService: coronaTestService
+		)
 		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
 		let riskCalculationResult = mockHighRiskCalculationResult()
 		let isSubmissionConsentGiven = true
