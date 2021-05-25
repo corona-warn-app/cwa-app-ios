@@ -98,9 +98,8 @@ class DiaryOverviewViewModel {
 		// ui test data for launch argument LaunchArguments.risk.checkinRiskLevel
 		if isUITesting {
 			if let checkinRisk = LaunchArguments.risk.checkinRiskLevel.stringValue {
-				let rawValue = checkinRisk == "high" ? 2 : 1
-				let riskLevel = RiskLevel(rawValue: rawValue)
-                return createFakeDataForCheckin(with: riskLevel ?? .low)
+				let riskLevel: RiskLevel = checkinRisk == "high" ? .high : .low
+                return createFakeDataForCheckin(with: riskLevel)
 			}
 		}
 		#endif
