@@ -52,11 +52,6 @@ extension SecureStore: PPAnalyticsData {
 		set { kvStore["lastSubmittedPPAData"] = newValue }
 	}
 
-	var submittedAfterRapidAntigenTest: Bool {
-		get { kvStore["submittedAfterRapidAntigenTest"] as Bool? ?? false }
-		set { kvStore["submittedAfterRapidAntigenTest"] = newValue }
-	}
-
 	var currentRiskExposureMetadata: RiskExposureMetadata? {
 		get { kvStore["currentRiskExposureMetadata"] as RiskExposureMetadata? ?? nil }
 		set { kvStore["currentRiskExposureMetadata"] = newValue }
