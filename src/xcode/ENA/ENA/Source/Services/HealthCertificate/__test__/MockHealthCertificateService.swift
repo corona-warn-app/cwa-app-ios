@@ -32,4 +32,6 @@ class MockHealthCertificateService: HealthCertificateServiceProviding {
 		}
 	}
 
+	func updatePublishersFromStore() { }
+
 }
