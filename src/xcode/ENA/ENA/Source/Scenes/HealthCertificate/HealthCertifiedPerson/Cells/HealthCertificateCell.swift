@@ -11,11 +11,20 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		setupView()
+		setupAccessibility()
 	}
 
 	@available(*, unavailable)
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
+	}
+
+	// MARK: - Overrides
+
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+
+		updateBorderWidth()
 	}
 
 	// MARK: - Internal
@@ -41,8 +50,9 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		backgroundColor = .clear
 		contentView.backgroundColor = .clear
 		selectionStyle = .none
+		accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Person.certificateCell
 
-		backgroundContainerView.backgroundColor = .enaColor(for: .background)
+		backgroundContainerView.backgroundColor = .enaColor(for: .cellBackground2)
 		backgroundContainerView.layer.borderColor = UIColor.enaColor(for: .hairline).cgColor
 
 		if #available(iOS 13.0, *) {
@@ -50,7 +60,7 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		}
 		backgroundContainerView.layer.cornerRadius = 15.0
 		backgroundContainerView.layer.masksToBounds = true
-		backgroundContainerView.layer.borderWidth = 1.0
+		updateBorderWidth()
 
 		backgroundContainerView.translatesAutoresizingMaskIntoConstraints = false
 		contentView.addSubview(backgroundContainerView)
@@ -126,6 +136,17 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 				disclosureImageView.widthAnchor.constraint(equalToConstant: 7)
 			]
 		)
+	}
+
+	private func setupAccessibility() {
+		accessibilityElements = [backgroundContainerView as Any]
+
+		backgroundContainerView.accessibilityElements = [headlineTextLabel as Any, detailsTextLabel as Any]
+		headlineTextLabel.accessibilityTraits = [.staticText, .button]
+	}
+
+	private func updateBorderWidth() {
+		backgroundContainerView.layer.borderWidth = traitCollection.userInterfaceStyle == .dark ? 0 : 1
 	}
 
 }

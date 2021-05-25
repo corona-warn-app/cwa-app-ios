@@ -12,14 +12,24 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		setupView()
 		isAccessibilityElement = false
-		backgroundContainerView.isAccessibilityElement = true
-		backgroundContainerView.accessibilityTraits = .image
-		backgroundContainerView.accessibilityLabel = AppStrings.ExposureSubmission.AntigenTest.Profile.QRCodeImageDescription
+
+		qrCodeImageView.isAccessibilityElement = true
+		qrCodeImageView.accessibilityTraits = .image
+		certificateCountLabel.isAccessibilityElement = true
+		validityLabel.isAccessibilityElement = true
 	}
 
 	@available(*, unavailable)
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
+	}
+
+	// MARK: - Overrides
+
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+
+		updateBorderWidth()
 	}
 
 	// MARK: - Internal
@@ -30,6 +40,7 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 		backgroundContainerView.layer.borderColor = cellViewModel.borderColor.cgColor
 		certificateCountLabel.text = cellViewModel.certificate
 		validityLabel.text = cellViewModel.validity
+		qrCodeImageView.accessibilityLabel = cellViewModel.accessibilityText
 	}
 
 	// MARK: - Private
@@ -49,7 +60,7 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 		}
 		backgroundContainerView.layer.cornerRadius = 15.0
 		backgroundContainerView.layer.masksToBounds = true
-		backgroundContainerView.layer.borderWidth = 1.0
+		updateBorderWidth()
 
 		backgroundContainerView.translatesAutoresizingMaskIntoConstraints = false
 		contentView.addSubview(backgroundContainerView)
@@ -93,6 +104,10 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 			]
 		)
 
+	}
+
+	private func updateBorderWidth() {
+		backgroundContainerView.layer.borderWidth = traitCollection.userInterfaceStyle == .dark ? 0 : 1
 	}
 
 }

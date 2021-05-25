@@ -37,7 +37,7 @@ struct HealthCertificateConsentViewModel {
 						text: AppStrings.HealthCertificate.Info.description
 					),
 					.icon(
-						UIImage(imageLiteralResourceName: "Icons - FaceID"),
+						UIImage(imageLiteralResourceName: "Icons_FaceID"),
 						text: .string(AppStrings.HealthCertificate.Info.section01),
 						alignment: .top
 					),
@@ -87,7 +87,7 @@ struct HealthCertificateConsentViewModel {
 						text: AppStrings.HealthCertificate.Info.disclaimer,
 						style: DynamicCell.TextCellStyle.label,
 						accessibilityIdentifier: AccessibilityIdentifiers.HealthCertificate.Info.disclaimer,
-						accessibilityTraits: UIAccessibilityTraits.link,
+						accessibilityTraits: .button,
 						action: .execute { _, _ in
 							didTapDataPrivacy()
 						},
