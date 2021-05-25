@@ -57,15 +57,13 @@ class CoronaTestService {
 
 	// MARK: - Protocol CoronaTestServiceProviding
 
-	@OpenCombine.Published var pcrTest: PCRTest?
-	@OpenCombine.Published var antigenTest: AntigenTest?
+	@DidSetPublished var pcrTest: PCRTest?
+	@DidSetPublished var antigenTest: AntigenTest?
 
-	@OpenCombine.Published private(set) var tests: (pcr: PCRTest?, antigen: AntigenTest?)
+	@DidSetPublished var antigenTestIsOutdated: Bool = false
 
-	@OpenCombine.Published var antigenTestIsOutdated: Bool = false
-
-	@OpenCombine.Published var pcrTestResultIsLoading: Bool = false
-	@OpenCombine.Published var antigenTestResultIsLoading: Bool = false
+	@DidSetPublished var pcrTestResultIsLoading: Bool = false
+	@DidSetPublished var antigenTestResultIsLoading: Bool = false
 
 	var hasAtLeastOneShownPositiveOrSubmittedTest: Bool {
 		pcrTest?.positiveTestResultWasShown == true || pcrTest?.keysSubmitted == true ||
@@ -417,7 +415,6 @@ class CoronaTestService {
 		$pcrTest
 			.sink { [weak self] pcrTest in
 				self?.store.pcrTest = pcrTest
-				self?.tests.pcr = pcrTest
 
 				if pcrTest?.keysSubmitted == true {
 					self?.warnOthersReminder.cancelNotifications(for: .pcr)
@@ -428,7 +425,6 @@ class CoronaTestService {
 		$antigenTest
 			.sink { [weak self] antigenTest in
 				self?.store.antigenTest = antigenTest
-				self?.tests.antigen = antigenTest
 
 				if antigenTest?.keysSubmitted == true {
 					self?.warnOthersReminder.cancelNotifications(for: .antigen)
