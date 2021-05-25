@@ -483,7 +483,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			guard let self = self else { return }
 			if let oldTest = self.model.coronaTestService.coronaTest(ofType: testQRCodeInformation.testType),
 			   oldTest.testResult != .expired,
-			   (oldTest.type == .antigen && !self.model.coronaTestService.antigenTestIsOutdated) {
+			   !(oldTest.type == .antigen && self.model.coronaTestService.antigenTestIsOutdated) {
 				self.showOverrideTestNotice(testQRCodeInformation: testQRCodeInformation, submissionConsentGiven: true)
 			} else {
 				self.registerTestAndGetResult(with: testQRCodeInformation, submissionConsentGiven: true, isLoading: isLoading)
