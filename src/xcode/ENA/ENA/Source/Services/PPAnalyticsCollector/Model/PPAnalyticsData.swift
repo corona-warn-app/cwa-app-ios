@@ -52,32 +52,32 @@ extension SecureStore: PPAnalyticsData {
 	}
 
 	var currentRiskExposureMetadata: RiskExposureMetadata? {
-		get { kvStore["currentRiskExposureMetadata"] as RiskExposureMetadata? ?? nil }
+		get { kvStore["currentRiskExposureMetadata"] as RiskExposureMetadata? }
 		set { kvStore["currentRiskExposureMetadata"] = newValue }
 	}
 
 	var previousRiskExposureMetadata: RiskExposureMetadata? {
-		get { kvStore["previousRiskExposureMetadata"] as RiskExposureMetadata? ?? nil }
+		get { kvStore["previousRiskExposureMetadata"] as RiskExposureMetadata? }
 		set { kvStore["previousRiskExposureMetadata"] = newValue }
 	}
 
 	var userMetadata: UserMetadata? {
-		get { kvStore["userMetadataAnalytics"] as UserMetadata? ?? nil }
+		get { kvStore["userMetadataAnalytics"] as UserMetadata? }
 		set { kvStore["userMetadataAnalytics"] = newValue }
 	}
 
 	var testResultMetadata: TestResultMetadata? {
-		get { kvStore["testResultaMetadata"] as TestResultMetadata? ?? nil }
+		get { kvStore["testResultaMetadata"] as TestResultMetadata? }
 		set { kvStore["testResultaMetadata"] = newValue }
 	}
 
 	var antigenTestResultMetadata: TestResultMetadata? {
-		get { kvStore["antigenTestResultMetadata"] as TestResultMetadata? ?? nil }
+		get { kvStore["antigenTestResultMetadata"] as TestResultMetadata? }
 		set { kvStore["antigenTestResultMetadata"] = newValue }
 	}
 
 	var clientMetadata: ClientMetadata? {
-		get { kvStore["clientMetadata"] as ClientMetadata? ?? nil }
+		get { kvStore["clientMetadata"] as ClientMetadata? }
 		set { kvStore["clientMetadata"] = newValue }
 	}
 
@@ -109,7 +109,7 @@ extension SecureStore: PPAnalyticsData {
 	}
 
 	var exposureWindowsMetadata: ExposureWindowsMetadata? {
-		get { kvStore["exposureWindowsMetadata"] as ExposureWindowsMetadata? ?? nil }
+		get { kvStore["exposureWindowsMetadata"] as ExposureWindowsMetadata? }
 		set { kvStore["exposureWindowsMetadata"] = newValue }
 	}
 }

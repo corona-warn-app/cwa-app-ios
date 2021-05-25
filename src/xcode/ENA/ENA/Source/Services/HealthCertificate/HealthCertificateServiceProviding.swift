@@ -16,4 +16,6 @@ protocol HealthCertificateServiceProviding {
 
 	func removeHealthCertificate(_ healthCertificate: HealthCertificate)
 
+	func updatePublishersFromStore()
+
 }
