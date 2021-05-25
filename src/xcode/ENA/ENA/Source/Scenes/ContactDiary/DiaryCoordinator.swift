@@ -31,6 +31,9 @@ class DiaryCoordinator {
 				diaryStore.removeAllLocations()
 			}
 
+			if LaunchArguments.contactJournal.journalRemoveAllCoronaTests.boolValue {
+				diaryStore.removeAllCoronaTests()
+			}
 		}
 		#endif
 	}
