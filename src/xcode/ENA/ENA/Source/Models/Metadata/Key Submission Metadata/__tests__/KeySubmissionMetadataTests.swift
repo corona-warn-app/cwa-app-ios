@@ -107,8 +107,8 @@ class KeySubmissionMetadataTests: XCTestCase {
 		XCTAssertNotNil(secureStore.keySubmissionMetadata, "keySubmissionMetadata should be initialized with default values")
 		XCTAssertEqual(secureStore.keySubmissionMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration, 2, "number of days should be 2")
 		XCTAssertEqual(secureStore.keySubmissionMetadata?.hoursSinceCheckinHighRiskWarningAtTestRegistration, 24, "the difference is one day so it should be 24")
-		XCTAssertEqual(secureStore.keySubmissionMetadata?.daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration, -1, "property should not be changed from init param")
-		XCTAssertEqual(secureStore.keySubmissionMetadata?.hoursSinceENFHighRiskWarningAtTestRegistration, -1, "property should not be changed from init param")
+		XCTAssertEqual(secureStore.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, -1, "property should not be changed from init param")
+		XCTAssertEqual(secureStore.keySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration, -1, "property should not be changed from init param")
 		guard let submittedWithCheckIns = secureStore.keySubmissionMetadata?.submittedWithCheckIns else {
 			XCTFail("submittedWithCheckIns should not be nil.")
 			return
@@ -167,8 +167,8 @@ class KeySubmissionMetadataTests: XCTestCase {
 		Analytics.collect(.keySubmissionMetadata(.submittedWithCheckins(true)))
 
 		XCTAssertNotNil(secureStore.keySubmissionMetadata, "keySubmissionMetadata should be initialized with default values")
-		XCTAssertEqual(secureStore.keySubmissionMetadata?.daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration, 2, "number of days should be 2")
-		XCTAssertEqual(secureStore.keySubmissionMetadata?.hoursSinceENFHighRiskWarningAtTestRegistration, 24, "the difference is one day so it should be 24")
+		XCTAssertEqual(secureStore.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, 2, "number of days should be 2")
+		XCTAssertEqual(secureStore.keySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration, 24, "the difference is one day so it should be 24")
 		XCTAssertEqual(secureStore.keySubmissionMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration, 2, "number of days should be 2")
 		XCTAssertEqual(secureStore.keySubmissionMetadata?.hoursSinceCheckinHighRiskWarningAtTestRegistration, 24, "the difference is one day so it should be 24")
 		guard let submittedWithCheckIns = secureStore.keySubmissionMetadata?.submittedWithCheckIns else {
@@ -218,8 +218,8 @@ class KeySubmissionMetadataTests: XCTestCase {
 		Analytics.collect(.keySubmissionMetadata(.setHoursSinceENFHighRiskWarningAtTestRegistration))
 
 		XCTAssertNotNil(secureStore.keySubmissionMetadata, "keySubmissionMetadata should be initialized with default values")
-		XCTAssertEqual(secureStore.keySubmissionMetadata?.daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration, 3, "number of days should be 3")
-		XCTAssertEqual(secureStore.keySubmissionMetadata?.hoursSinceENFHighRiskWarningAtTestRegistration, -1, "the value should be default value i.e., -1 as the risk is low")
+		XCTAssertEqual(secureStore.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, 3, "number of days should be 3")
+		XCTAssertEqual(secureStore.keySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration, -1, "the value should be default value i.e., -1 as the risk is low")
 		XCTAssertEqual(secureStore.keySubmissionMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration, -1, "property should not be changed from init param")
 		XCTAssertEqual(secureStore.keySubmissionMetadata?.hoursSinceCheckinHighRiskWarningAtTestRegistration, -1, "property should not be changed from init param")
 		XCTAssertNil(secureStore.keySubmissionMetadata?.submittedWithCheckIns)
@@ -272,8 +272,8 @@ class KeySubmissionMetadataTests: XCTestCase {
 		XCTAssertNotNil(secureStore.keySubmissionMetadata, "keySubmissionMetadata should be initialized with default values")
 		XCTAssertEqual(secureStore.keySubmissionMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration, 3, "number of days should be 3")
 		XCTAssertEqual(secureStore.keySubmissionMetadata?.hoursSinceCheckinHighRiskWarningAtTestRegistration, -1, "the value should be default value i.e., -1 as the risk is low")
-		XCTAssertEqual(secureStore.keySubmissionMetadata?.daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration, -1, "property should not be changed from init param")
-		XCTAssertEqual(secureStore.keySubmissionMetadata?.hoursSinceENFHighRiskWarningAtTestRegistration, -1, "property should not be changed from init param")
+		XCTAssertEqual(secureStore.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, -1, "property should not be changed from init param")
+		XCTAssertEqual(secureStore.keySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration, -1, "property should not be changed from init param")
 		guard let submittedWithCheckIns = secureStore.keySubmissionMetadata?.submittedWithCheckIns else {
 			XCTFail("submittedWithCheckIns should not be nil.")
 			return
@@ -318,8 +318,8 @@ class KeySubmissionMetadataTests: XCTestCase {
 			advancedConsentGiven: isSubmissionConsentGiven,
 			hoursSinceTestResult: 0,
 			hoursSinceTestRegistration: 0,
-			daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration: -1,
-			hoursSinceENFHighRiskWarningAtTestRegistration: -1,
+			daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1,
+			hoursSinceHighRiskWarningAtTestRegistration: -1,
 			daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration: -1,
 			hoursSinceCheckinHighRiskWarningAtTestRegistration: -1,
 			submittedWithCheckIns: nil
@@ -374,8 +374,8 @@ class KeySubmissionMetadataTests: XCTestCase {
 			advancedConsentGiven: isSubmissionConsentGiven,
 			hoursSinceTestResult: 0,
 			hoursSinceTestRegistration: 0,
-			daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration: -1,
-			hoursSinceENFHighRiskWarningAtTestRegistration: -1,
+			daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1,
+			hoursSinceHighRiskWarningAtTestRegistration: -1,
 			daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration: -1,
 			hoursSinceCheckinHighRiskWarningAtTestRegistration: -1,
 			submittedWithCheckIns: nil
@@ -407,8 +407,8 @@ class KeySubmissionMetadataTests: XCTestCase {
 			advancedConsentGiven: isSubmissionConsentGiven,
 			hoursSinceTestResult: 0,
 			hoursSinceTestRegistration: 0,
-			daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration: -1,
-			hoursSinceENFHighRiskWarningAtTestRegistration: -1,
+			daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1,
+			hoursSinceHighRiskWarningAtTestRegistration: -1,
 			daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration: -1,
 			hoursSinceCheckinHighRiskWarningAtTestRegistration: -1,
 			submittedWithCheckIns: nil
@@ -441,8 +441,8 @@ class KeySubmissionMetadataTests: XCTestCase {
 			advancedConsentGiven: isSubmissionConsentGiven,
 			hoursSinceTestResult: 0,
 			hoursSinceTestRegistration: 0,
-			daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration: -1,
-			hoursSinceENFHighRiskWarningAtTestRegistration: -1,
+			daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1,
+			hoursSinceHighRiskWarningAtTestRegistration: -1,
 			daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration: -1,
 			hoursSinceCheckinHighRiskWarningAtTestRegistration: -1,
 			submittedWithCheckIns: nil
