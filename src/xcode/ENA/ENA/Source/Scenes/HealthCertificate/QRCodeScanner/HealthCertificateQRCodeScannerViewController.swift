@@ -214,15 +214,6 @@ class HealthCertificateQRCodeScannerViewController: UIViewController {
 		)
 		alert.addAction(
 			UIAlertAction(
-				title: AppStrings.Common.alertActionCancel,
-				style: .cancel,
-				handler: { [weak self] _ in
-					self?.dismiss()
-				}
-			)
-		)
-		alert.addAction(
-			UIAlertAction(
 				title: AppStrings.Common.alertActionOk,
 				style: .default,
 				handler: { [weak self] _ in
