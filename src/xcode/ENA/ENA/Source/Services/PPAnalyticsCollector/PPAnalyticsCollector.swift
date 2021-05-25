@@ -471,14 +471,14 @@ enum PPAnalyticsCollector {
 	
 	private static func setDaysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration() {
 		guard let registrationDate = coronaTestService?.pcrTest?.registrationDate else {
-			store?.keySubmissionMetadata?.daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration = -1
+			store?.keySubmissionMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration = -1
 			return
 		}
 		if let mostRecentRiskCalculationDate = store?.checkinRiskCalculationResult?.mostRecentDateWithCurrentRiskLevel {
 			let daysSinceMostRecentDateAtRiskLevelAtTestRegistration = Calendar.utcCalendar.dateComponents([.day], from: mostRecentRiskCalculationDate, to: registrationDate).day
-			store?.keySubmissionMetadata?.daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration = Int32(daysSinceMostRecentDateAtRiskLevelAtTestRegistration ?? -1)
+			store?.keySubmissionMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration = Int32(daysSinceMostRecentDateAtRiskLevelAtTestRegistration ?? -1)
 		} else {
-			store?.keySubmissionMetadata?.daysSinceMostRecentDateAtENFRiskLevelAtTestRegistration = -1
+			store?.keySubmissionMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration = -1
 		}
 	}
 
@@ -495,9 +495,9 @@ enum PPAnalyticsCollector {
 				return
 			}
 			let differenceInHours = Calendar.current.dateComponents([.hour], from: timeOfRiskChangeToHigh, to: registrationTime)
-			store?.keySubmissionMetadata?.hoursSinceENFHighRiskWarningAtTestRegistration = Int32(differenceInHours.hour ?? -1)
+			store?.keySubmissionMetadata?.hoursSinceCheckinHighRiskWarningAtTestRegistration = Int32(differenceInHours.hour ?? -1)
 		case .low:
-			store?.keySubmissionMetadata?.hoursSinceENFHighRiskWarningAtTestRegistration = -1
+			store?.keySubmissionMetadata?.hoursSinceCheckinHighRiskWarningAtTestRegistration = -1
 		}
 	}
 
