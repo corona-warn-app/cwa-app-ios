@@ -313,6 +313,8 @@
 		13E5046B248E3DF30086641C /* AppStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A3C92461A47C00BF12AF /* AppStrings.swift */; };
 		13E5046C248E434B0086641C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EE70C23A245B09E900AC9B2F /* Localizable.strings */; };
 		13E5046D248E434B0086641C /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = EE92A340245D96DA006B97B0 /* Localizable.stringsdict */; };
+		2E190D96265D058A00AA95D5 /* TANInputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E190D95265D058A00AA95D5 /* TANInputCell.swift */; };
+		2E190D98265D05A500AA95D5 /* TANErrorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E190D97265D05A500AA95D5 /* TANErrorCell.swift */; };
 		2E1C502A2625805A00188619 /* AntigenExposureSubmissionNegativeTestResultHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1C50292625805A00188619 /* AntigenExposureSubmissionNegativeTestResultHeaderView.swift */; };
 		2E303E6625D50A3E00346FB8 /* ActionDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E303E6425D50A3E00346FB8 /* ActionDetailTableViewCell.swift */; };
 		2E303E7D25D52E0A00346FB8 /* SeperatorLineLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E303E7C25D52E0900346FB8 /* SeperatorLineLayer.swift */; };
@@ -1483,6 +1485,8 @@
 		137846482488027500A50AB8 /* OnboardingInfoViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OnboardingInfoViewController+Extension.swift"; sourceTree = "<group>"; };
 		138910C4247A909000D739F6 /* ENATaskScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENATaskScheduler.swift; sourceTree = "<group>"; };
 		13E50468248E3CD20086641C /* ENAUITestsAppInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITestsAppInformation.swift; sourceTree = "<group>"; };
+		2E190D95265D058A00AA95D5 /* TANInputCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TANInputCell.swift; sourceTree = "<group>"; };
+		2E190D97265D05A500AA95D5 /* TANErrorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TANErrorCell.swift; sourceTree = "<group>"; };
 		2E1C50292625805A00188619 /* AntigenExposureSubmissionNegativeTestResultHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntigenExposureSubmissionNegativeTestResultHeaderView.swift; sourceTree = "<group>"; };
 		2E303E6425D50A3E00346FB8 /* ActionDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionDetailTableViewCell.swift; sourceTree = "<group>"; };
 		2E303E7C25D52E0900346FB8 /* SeperatorLineLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeperatorLineLayer.swift; sourceTree = "<group>"; };
@@ -3295,6 +3299,16 @@
 			);
 			path = AppInformation;
 			sourceTree = "<group>";
+		};
+		2E190D94265D057900AA95D5 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				2E190D95265D058A00AA95D5 /* TANInputCell.swift */,
+				2E190D97265D05A500AA95D5 /* TANErrorCell.swift */,
+			);
+			name = Cells;
+			path = ENA/Source/Scenes/ExposureSubmission/View/Controller/TANInputViewController/Cells;
+			sourceTree = SOURCE_ROOT;
 		};
 		2E27416A26398E5A00169E5C /* Cells */ = {
 			isa = PBXGroup;
@@ -6310,6 +6324,7 @@
 			isa = PBXGroup;
 			children = (
 				BAC0A4DC25768017002B5361 /* __tests__ */,
+				2E190D94265D057900AA95D5 /* Cells */,
 				BA904C9D25769D1800692110 /* TanInputView.swift */,
 				BAB1239B2572A06D00A179FB /* TanInputViewModel.swift */,
 				BAB123A02572A0B700A179FB /* TanInputViewController.swift */,
@@ -7287,6 +7302,7 @@
 				50C0299325E4067400460FA4 /* RiskExposureMetadata.swift in Sources */,
 				01F6702825FF80490069C4F9 /* CheckinsOverviewEmptyStateViewModel.swift in Sources */,
 				2FA9E39924D2F4350030561C /* ExposureSubmission+ErrorParsing.swift in Sources */,
+				2E190D96265D058A00AA95D5 /* TANInputCell.swift in Sources */,
 				BA94BBB5260DF507005CF38F /* CheckInDatePickerCell.swift in Sources */,
 				3523F8A82570F819004B0424 /* NSAttributedString+BulletPoint.swift in Sources */,
 				AB5F84AD24F8F7A1000400D4 /* SerialMigrator.swift in Sources */,
@@ -7690,6 +7706,7 @@
 				505F508325C897B3004920EB /* OTPError.swift in Sources */,
 				8FDB9403261FBA3800BA8CB1 /* AntigenTestInformation.swift in Sources */,
 				017D8DAC263BEF920009E91C /* HealthCertificateServiceError.swift in Sources */,
+				2E190D98265D05A500AA95D5 /* TANErrorCell.swift in Sources */,
 				EBDE11BB255EC34C008C0F51 /* DMDeviceTimeCheckViewModel.swift in Sources */,
 				5222AA68255ECFE100F338C7 /* ExposureSubmissionTestResultConsentViewController.swift in Sources */,
 				713EA25F24798A9100AB7EE8 /* ExposureDetectionRiskCell.swift in Sources */,
