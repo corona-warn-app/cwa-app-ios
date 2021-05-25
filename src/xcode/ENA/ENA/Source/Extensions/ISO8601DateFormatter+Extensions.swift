@@ -6,7 +6,7 @@ import Foundation
 
 extension ISO8601DateFormatter {
 
-	static var contactDiaryFormatter: ISO8601DateFormatter {
+	static var justLocalDateFormatter: ISO8601DateFormatter {
 		let dateFormatter = ISO8601DateFormatter()
 		dateFormatter.formatOptions = [.withFullDate]
 		dateFormatter.timeZone = TimeZone.autoupdatingCurrent
@@ -14,7 +14,7 @@ extension ISO8601DateFormatter {
 		return dateFormatter
 	}
 
-	static var contactDiaryUTCFormatter: ISO8601DateFormatter {
+	static var justUTCDateFormatter: ISO8601DateFormatter {
 		let dateFormatter = ISO8601DateFormatter()
 		dateFormatter.formatOptions = [.withFullDate]
 

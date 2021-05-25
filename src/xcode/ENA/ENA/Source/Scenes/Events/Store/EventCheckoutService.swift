@@ -238,7 +238,7 @@ final class EventCheckoutService {
 
 			// Find the day entry for the day of the checkin.
 			let diaryDayForTheSameDay = contactDiaryStore.diaryDaysPublisher.value.first(where: {
-				$0.dateString == contactDiaryFormatter.string(
+				$0.dateString == justLocalDateFormatter.string(
 					from: checkin.checkinStartDate
 				   )
 			})
@@ -267,7 +267,7 @@ final class EventCheckoutService {
 			if !locationVisitForSameDayExists {
 				contactDiaryStore.addLocationVisit(
 					locationId: locationId,
-					date: contactDiaryFormatter.string(
+					date: justLocalDateFormatter.string(
 						from: checkin.checkinStartDate
 					),
 					durationInMinutes: checkin.roundedDurationIn15mSteps,
@@ -291,8 +291,8 @@ final class EventCheckoutService {
 		checkoutOverdueCheckins()
 	}
 
-	private var contactDiaryFormatter: ISO8601DateFormatter = {
-		let dateFormatter = ISO8601DateFormatter.contactDiaryFormatter
+	private var justLocalDateFormatter: ISO8601DateFormatter = {
+		let dateFormatter = ISO8601DateFormatter.justLocalDateFormatter
 		return dateFormatter
 	}()
 }
