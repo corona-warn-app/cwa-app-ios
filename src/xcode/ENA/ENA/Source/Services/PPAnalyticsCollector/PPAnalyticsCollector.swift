@@ -272,7 +272,7 @@ enum PPAnalyticsCollector {
 		var testResultMetadata = TestResultMetadata(registrationToken: token)
 		testResultMetadata.testRegistrationDate = date
 		
-		// Differ now between ENF and checkin risk calculation results.
+		// Differ between ENF and checkin risk calculation results.
 
 		if let enfRiskCalculationResult = store?.enfRiskCalculationResult {
 			testResultMetadata.riskLevelAtTestRegistration = enfRiskCalculationResult.riskLevel
