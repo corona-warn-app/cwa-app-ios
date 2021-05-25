@@ -13,10 +13,10 @@ class ENAUITests_12_AntigenTestProfile: XCTestCase {
 		continueAfterFailure = false
 		app = XCUIApplication()
 		app.setDefaults()
-		app.launchArguments.append(contentsOf: ["-isOnboarded", YES])
-		app.launchArguments.append(contentsOf: ["-setCurrentOnboardingVersion", YES])
-		app.launchArguments.append(contentsOf: ["-antigenTestProfileInfoScreenShown", NO])
-		app.launchArguments.append(contentsOf: ["-removeAntigenTestProfile", YES])
+		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
+		app.launchArguments.append(contentsOf: ["-setCurrentOnboardingVersion", "YES"])
+		app.launchArguments.append(contentsOf: ["-antigenTestProfileInfoScreenShown", "NO"])
+		app.launchArguments.append(contentsOf: ["-removeAntigenTestProfile", "YES"])
 	}
 	
 	// MARK: - Internal

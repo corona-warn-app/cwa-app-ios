@@ -107,19 +107,26 @@ final class RiskProvider: RiskProviding {
 			Log.info("RiskProvider: At least one registered test has an already shown positive test result or keys submitted. Don't start new risk detection.", log: .riskDetection)
 
 			// Keep downloading key packages and trace warning packages for plausible deniability
+			updateActivityState(.onlyDownloadsRequested)
 
 			downloadKeyPackages { [weak self] _ in
 				guard let self = self else {
 					return
 				}
-				self.appConfigurationProvider.appConfiguration().sink { [weak self] appConfiguration in
-					self?.downloadTraceWarningPackages(with: appConfiguration, completion: { [weak self] result in
-						guard let self = self else {
+
+				self.appConfigurationProvider.appConfiguration().sink { appConfiguration in
+					self.downloadTraceWarningPackages(with: appConfiguration) { result in
+						self.updateActivityState(.idle)
+
+						// Check that the shown positive or submitted test wasn't deleted in the meantime.
+						// If it was deleted, start a new risk detection.
+						guard self.coronaTestService.hasAtLeastOneShownPositiveOrSubmittedTest else {
+							self.requestRisk(userInitiated: userInitiated, timeoutInterval: timeoutInterval)
 							return
 						}
+
 						switch result {
 						case .success:
-
 							// Try to obtain already calculated risk.
 							if let risk = self.previousRiskIfExistingAndNotExpired(userInitiated: userInitiated) {
 								Log.info("RiskProvider: Using risk from previous detection", log: .riskDetection)
@@ -128,12 +135,10 @@ final class RiskProvider: RiskProviding {
 							} else {
 								self.failOnTargetQueue(error: .deactivatedDueToActiveTest)
 							}
-							return
-
 						case .failure(let error):
 							self.failOnTargetQueue(error: error)
 						}
-					})
+					}
 				}.store(in: &self.subscriptions)
 			}
 
@@ -197,7 +202,7 @@ final class RiskProvider: RiskProviding {
 			self.updateRiskProvidingConfiguration(with: appConfiguration)
 			
 			// First, download the diagnosis keys
-			self.downloadKeyPackages {result in
+			self.downloadKeyPackages { result in
 				switch result {
 				case .success:
 					// If key download succeeds, continue with the download of the trace warning packages
@@ -534,9 +539,6 @@ final class RiskProvider: RiskProviding {
 	private func updateRiskProviderActivityState() {
 		if keyPackageDownloadStatus == .downloading || traceWarningDownloadStatus == .downloading {
 			self.updateActivityState(.downloading)
-		} else if keyPackageDownloadStatus == .idle && coronaTestService.hasAtLeastOneShownPositiveOrSubmittedTest &&
-					traceWarningDownloadStatus == .idle {
-			self.updateActivityState(.idle)
 		}
 	}
 }
