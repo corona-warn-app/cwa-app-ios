@@ -193,7 +193,6 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 		horizontalStackView.translatesAutoresizingMaskIntoConstraints = false
 		horizontalStackView.alignment = .center
 		horizontalStackView.spacing = 15.0
-		horizontalStackView.distribution = .equalCentering
 		containerView.addSubview(horizontalStackView)
 
 		NSLayoutConstraint.activate(
