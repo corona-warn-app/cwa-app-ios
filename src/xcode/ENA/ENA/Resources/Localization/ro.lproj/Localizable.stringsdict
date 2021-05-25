@@ -236,5 +236,65 @@
 			<string>Înregistrarea în jurnal a expunerilor a fost activă %u de zile. O verificare a expunerii poate fi de încredere doar dacă înregistrarea în jurnal a expunerilor este activată permanent.</string>
 		</dict>
 	</dict>
+	<key>HealthCertificate_Home_Person_daysUntilCompleteProtection</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!--Plural form for ZERO.-->
+			<string>Protecția prin vaccinare este completă în %u zile</string>
+			<key>one</key>
+			<!--Plural form for ONE.-->
+			<string>Protecția prin vaccinare este completă în %u zi</string>
+			<key>two</key>
+			<!--Plural form for TWO.-->
+			<string>Protecția prin vaccinare este completă în %u zile</string>
+			<key>few</key>
+			<!--Plural form for FEW.-->
+			<string>Protecția prin vaccinare este completă în %u zile</string>
+			<key>many</key>
+			<!--Plural form for MANY.-->
+			<string>Protecția prin vaccinare este completă în %u zile</string>
+			<key>other</key>
+			<!--Plural form for OTHER.-->
+			<string>Protecția prin vaccinare este completă în %u de zile</string>
+		</dict>
+	</dict>
+	<key>HealthCertifiedPerson_daysUntilCompleteProtection</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!--Plural form for ZERO.-->
+			<string>Acum ați efectuat toate vaccinările planificate curente. Totuși, protecția prin vaccinare nu va fi completă timp de încă %u zile.</string>
+			<key>one</key>
+			<!--Plural form for ONE.-->
+			<string>Acum ați efectuat toate vaccinările planificate curente. Totuși, protecția prin vaccinare nu va fi completă timp de încă %u zi.</string>
+			<key>two</key>
+			<!--Plural form for TWO.-->
+			<string>Acum ați efectuat toate vaccinările planificate curente. Totuși, protecția prin vaccinare nu va fi completă timp de încă %u zile.</string>
+			<key>few</key>
+			<!--Plural form for FEW.-->
+			<string>Acum ați efectuat toate vaccinările planificate curente. Totuși, protecția prin vaccinare nu va fi completă timp de încă %u zile.</string>
+			<key>many</key>
+			<!--Plural form for MANY.-->
+			<string>Acum ați efectuat toate vaccinările planificate curente. Totuși, protecția prin vaccinare nu va fi completă timp de încă %u zile.</string>
+			<key>other</key>
+			<!--Plural form for OTHER.-->
+			<string>Acum ați efectuat toate vaccinările planificate curente. Totuși, protecția prin vaccinare nu va fi completă timp de încă %u de zile.</string>
+		</dict>
+	</dict>
 </dict>
 </plist>

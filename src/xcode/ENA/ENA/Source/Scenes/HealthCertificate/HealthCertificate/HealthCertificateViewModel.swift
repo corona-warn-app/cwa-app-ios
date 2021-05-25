@@ -30,6 +30,8 @@ final class HealthCertificateViewModel {
 			}
 			.store(in: &subscriptions)
 
+		updateHealthCertificateKeyValueCellViewModels()
+
 		// load certificate value sets
 		vaccinationValueSetsProvider.latestVaccinationCertificateValueSets()
 			.sink(
@@ -45,7 +47,7 @@ final class HealthCertificateViewModel {
 					}
 				}, receiveValue: { [weak self] valueSets in
 					self?.valueSets = valueSets
-					self?.setupHealthCertificateKeyValueCellViewModel()
+					self?.updateHealthCertificateKeyValueCellViewModels()
 				}
 			)
 			.store(in: &subscriptions)
@@ -118,9 +120,11 @@ final class HealthCertificateViewModel {
 		switch section {
 		case .headline:
 			return healthCertificate.vaccinationCertificates.isEmpty ? 0 : 1
+		case .qrCode:
+			return 1
 		case .details:
 			return healthCertificateKeyValueCellViewModel.count
-		default:
+		case .topCorner, .bottomCorner:
 			return healthCertificateKeyValueCellViewModel.isEmpty ? 0 : 1
 		}
 	}
@@ -139,7 +143,7 @@ final class HealthCertificateViewModel {
 	private var valueSets: SAP_Internal_Dgc_ValueSets?
 	private var subscriptions = Set<AnyCancellable>()
 
-	private func setupHealthCertificateKeyValueCellViewModel() {
+	private func updateHealthCertificateKeyValueCellViewModels() {
 		// person cell - always visible
 		var dateOfBirth: String = ""
 		if let date = healthCertificate.dateOfBirthDate {
@@ -162,32 +166,26 @@ final class HealthCertificateViewModel {
 		}
 
 		var vaccineCellViewModel: HealthCertificateKeyValueCellViewModel?
-		if let valueSet = valueSet(by: .vaccineMedicinalProduct),
-		   let key = vaccinationCertificate?.vaccineMedicinalProduct {
-			let value = determineValue(key: key, valueSet: valueSet)
+		if let key = vaccinationCertificate?.vaccineMedicinalProduct {
 			vaccineCellViewModel = HealthCertificateKeyValueCellViewModel(
 				key: AppStrings.HealthCertificate.Details.vaccine,
-				value: value
+				value: determineValue(key: key, valueSet: valueSet(by: .vaccineMedicinalProduct))
 			)
 		}
 
 		var manufacturerCellViewModel: HealthCertificateKeyValueCellViewModel?
-		if let valueSet = valueSet(by: .marketingAuthorizationHolder),
-		   let key = vaccinationCertificate?.marketingAuthorizationHolder {
-			let value = determineValue(key: key, valueSet: valueSet)
+		if let key = vaccinationCertificate?.marketingAuthorizationHolder {
 			manufacturerCellViewModel = HealthCertificateKeyValueCellViewModel(
 				key: AppStrings.HealthCertificate.Details.manufacture,
-				value: value
+				value: determineValue(key: key, valueSet: valueSet(by: .marketingAuthorizationHolder))
 			)
 		}
 
 		var vaccineTypeCellViewModel: HealthCertificateKeyValueCellViewModel?
-		if let valueSet = valueSet(by: .vaccineOrProphylaxis),
-		   let key = vaccinationCertificate?.vaccineOrProphylaxis {
-			let value = determineValue(key: key, valueSet: valueSet)
+		if let key = vaccinationCertificate?.vaccineOrProphylaxis {
 			vaccineTypeCellViewModel = HealthCertificateKeyValueCellViewModel(
 				key: AppStrings.HealthCertificate.Details.vaccineType,
-				value: value
+				value: determineValue(key: key, valueSet: valueSet(by: .vaccineOrProphylaxis))
 			)
 		}
 
@@ -240,11 +238,12 @@ final class HealthCertificateViewModel {
 		}
 	}
 
-	private func determineValue(key: String, valueSet: SAP_Internal_Dgc_ValueSet) -> String {
-		for item in valueSet.items where item.key == key {
-			return item.displayText
-		}
-		return key
+	private func determineValue(key: String, valueSet: SAP_Internal_Dgc_ValueSet?) -> String {
+		let displayText = valueSet?.items
+			.first { $0.key == key }
+			.map { $0.displayText }
+
+		return displayText ?? key
 	}
 
 }
