@@ -224,7 +224,14 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 		viewModel.$healthCertificateKeyValueCellViewModel
 			.receive(on: DispatchQueue.main.ocombine)
 			.sink { _ in
-				self.tableView.reloadSections([HealthCertificateViewModel.TableViewSection.details.rawValue], with: .automatic)
+				self.tableView.reloadSections(
+					[
+						HealthCertificateViewModel.TableViewSection.topCorner.rawValue,
+						HealthCertificateViewModel.TableViewSection.details.rawValue,
+						HealthCertificateViewModel.TableViewSection.bottomCorner.rawValue
+					],
+					with: .none
+				)
 			}
 			.store(in: &subscriptions)
 	}
