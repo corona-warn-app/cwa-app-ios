@@ -552,9 +552,10 @@ class CoronaTestService {
 				} else {
 					completion(.failure(.responseFailure(error)))
 				}
-			case let .success(rawTestResult):
-				guard let testResult = TestResult(serverResponse: rawTestResult) else {
-					Log.error("[CoronaTestService] Getting test result failed: Unknown test result \(rawTestResult)", log: .api)
+			case let .success(response):
+				guard let rawTestResult = response.testResult,
+					  let testResult = TestResult(serverResponse: rawTestResult) else {
+					Log.error("[CoronaTestService] Getting test result failed: Unknown test result \(response)", log: .api)
 
 					completion(.failure(.unknownTestResult))
 					return
@@ -569,6 +570,9 @@ class CoronaTestService {
 					self.pcrTest?.testResult = testResult
 				case .antigen:
 					self.antigenTest?.testResult = testResult
+					self.antigenTest?.sampleCollectionDate = response.sc.map {
+						Date(timeIntervalSince1970: TimeInterval($0))
+					}
 				}
 
 				switch testResult {

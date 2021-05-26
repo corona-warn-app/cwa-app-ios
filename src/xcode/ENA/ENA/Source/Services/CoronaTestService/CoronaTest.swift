@@ -46,11 +46,7 @@ enum CoronaTest: Equatable {
 		case .pcr(let pcrTest):
 			return pcrTest.registrationDate
 		case .antigen(let antigenTest):
-			if let sampleCollectionDate = antigenTest.sampleCollectionDate {
-				return sampleCollectionDate
-			} else {
-				return antigenTest.pointOfCareConsentDate
-			}
+			return antigenTest.sampleCollectionDate ?? antigenTest.pointOfCareConsentDate
 		}
 	}
 

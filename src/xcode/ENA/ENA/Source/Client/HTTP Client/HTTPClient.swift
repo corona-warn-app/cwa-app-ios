@@ -135,7 +135,7 @@ final class HTTPClient: Client {
 						completeWith(.failure(.invalidResponse))
 						return
 					}
-					completeWith(.success(testResult))
+					completeWith(.success(response))
 				} catch {
 					Log.error("Failed to get test result with invalid response payload structure", log: .api)
 					completeWith(.failure(.invalidResponse))
@@ -725,10 +725,6 @@ final class HTTPClient: Client {
 // MARK: Extensions
 
 private extension HTTPClient {
-	struct FetchTestResultResponse: Codable {
-		let testResult: Int?
-	}
-	
 	struct GetRegistrationTokenResponse: Codable {
 		let registrationToken: String?
 	}

@@ -15,8 +15,7 @@ struct AntigenTestInformation: Codable, Equatable {
 		lastName: String?,
 		dateOfBirth: Date?,
 		testID: String?,
-		cryptographicSalt: String?,
-		sampleCollectionTimestamp: Int?
+		cryptographicSalt: String?
 	) {
 		self.hash = hash
 		self.timestamp = timestamp
@@ -25,7 +24,6 @@ struct AntigenTestInformation: Codable, Equatable {
 		self.dateOfBirth = dateOfBirth
 		self.testID = testID
 		self.cryptographicSalt = cryptographicSalt
-		self.sampleCollectionTimestamp = sampleCollectionTimestamp
 		guard let dateOfBirth = dateOfBirth else {
 			self.dateOfBirthString = nil
 			return
@@ -58,7 +56,6 @@ struct AntigenTestInformation: Codable, Equatable {
 			self.cryptographicSalt = decodedObject.cryptographicSalt?.isEmpty ?? true ? nil : decodedObject.cryptographicSalt
 			self.dateOfBirthString = decodedObject.dateOfBirthString?.isEmpty ?? true ? nil : decodedObject.dateOfBirthString
 			self.dateOfBirth = AntigenTestInformation.isoFormatter.date(from: decodedObject.dateOfBirthString ?? "")
-			self.sampleCollectionTimestamp = decodedObject.sampleCollectionTimestamp
 		} catch {
 			Log.debug("Failed to read / parse district json", log: .ppac)
 			return nil
@@ -75,7 +72,6 @@ struct AntigenTestInformation: Codable, Equatable {
 		case dateOfBirthString = "dob"
 		case testID = "testid"
 		case cryptographicSalt = "salt"
-		case sampleCollectionTimestamp = "sc"
 	}
 	
 	// MARK: - Internal
@@ -87,7 +83,6 @@ struct AntigenTestInformation: Codable, Equatable {
 	let testID: String?
 	let cryptographicSalt: String?
 	let dateOfBirthString: String?
-	let sampleCollectionTimestamp: Int?
 	var dateOfBirth: Date?
 	
 	var fullName: String? {
