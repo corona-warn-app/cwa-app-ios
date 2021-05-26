@@ -79,17 +79,17 @@ final class PPAAnalyticsSubmissionCollector {
 			switch type {
 			case .pcr:
 				// this is as per techspecs, this value is false in case TAN submission
-				if store.keySubmissionMetadata?.submittedWithTeleTAN == false && advanceConsent == true {
-					store.keySubmissionMetadata?.advancedConsentGiven = advanceConsent
-				} else {
+				if store.keySubmissionMetadata?.submittedWithTeleTAN == true {
 					store.keySubmissionMetadata?.advancedConsentGiven = false
+				} else {
+					store.keySubmissionMetadata?.advancedConsentGiven = advanceConsent
 				}
 			case .antigen:
 				// this is as per techspecs, this value is false in case TAN submission
-				if store.antigenKeySubmissionMetadata?.submittedWithTeleTAN == false && advanceConsent == true {
-					store.antigenKeySubmissionMetadata?.advancedConsentGiven = advanceConsent
-				} else {
+				if store.antigenKeySubmissionMetadata?.submittedWithTeleTAN == true {
 					store.antigenKeySubmissionMetadata?.advancedConsentGiven = false
+				} else {
+					store.antigenKeySubmissionMetadata?.advancedConsentGiven = advanceConsent
 				}
 			}
 		case let .setHoursSinceTestResult(type):
