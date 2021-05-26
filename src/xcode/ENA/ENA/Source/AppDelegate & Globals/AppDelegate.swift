@@ -183,6 +183,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		return CoronaTestService(
 			client: client,
 			store: store,
+			diaryStore: contactDiaryStore,
 			appConfiguration: appConfigurationProvider
 		)
 	}()
