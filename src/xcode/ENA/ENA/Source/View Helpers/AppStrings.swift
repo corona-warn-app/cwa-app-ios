@@ -1148,8 +1148,8 @@ enum AppStrings {
 			static let riskTextDisclaimer = NSLocalizedString("ContactDiary_Overview_Risk_Text_Disclaimer", comment: "")
 
 			enum Tests {
-				static let PCRRegistered = NSLocalizedString("ContactDiary_Overview_Tests_PCR_Registered", comment: "")
-				static let AntigenDone = NSLocalizedString("ContactDiary_Overview_Tests_Antigen_Done", comment: "")
+				static let pcrRegistered = NSLocalizedString("ContactDiary_Overview_Tests_PCR_Registered", comment: "")
+				static let antigenDone = NSLocalizedString("ContactDiary_Overview_Tests_Antigen_Done", comment: "")
 				static let negativeResult = NSLocalizedString("ContactDiary_Overview_Tests_Negative_Result", comment: "")
 				static let positiveResult = NSLocalizedString("ContactDiary_Overview_Tests_Positive_Result", comment: "")
 			}
