@@ -1282,7 +1282,7 @@ class CoronaTestServiceTests: XCTestCase {
 		XCTAssertTrue(try XCTUnwrap(testService.pcrTest?.journalEntryCreated))
 	}
 
-	func test_When_UpdateTestResultSuccessWithPending_Then_ContactJounalHasAnEntry() throws {
+	func test_When_UpdateTestResultSuccessWithPending_Then_ContactJournalHasAnEntry() throws {
 		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		client.onGetTestResult = { _, _, completion in
