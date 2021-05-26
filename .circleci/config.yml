@@ -268,7 +268,7 @@ workflows:
               - dependencies
         - test:
             requires:
-              - build-for-testing
+              - dependencies
         - test-community:
             requires:
               - dependencies
