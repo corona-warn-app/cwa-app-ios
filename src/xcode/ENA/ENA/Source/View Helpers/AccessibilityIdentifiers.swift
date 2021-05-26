@@ -612,6 +612,8 @@ enum AccessibilityIdentifiers {
 		enum Certificate {
 			static let headline = "HealthCertificate.title"
 		}
+
+		static let qrCodeCell = "HealthCertificate.qrCodeCell"
 	}
 
 }
