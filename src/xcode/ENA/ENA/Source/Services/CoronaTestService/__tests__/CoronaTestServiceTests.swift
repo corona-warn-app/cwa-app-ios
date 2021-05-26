@@ -720,7 +720,7 @@ class CoronaTestServiceTests: XCTestCase {
 		}
 
 		client.onGetTestResult = { _, _, completion in
-			completion(.success(FetchTestResultResponse(testResult: TestResult.pending.rawValue, sc: nil)))
+			completion(.success(FetchTestResultResponse(testResult: TestResult.pending.rawValue, sc: 123456789)))
 		}
 
 		let service = CoronaTestService(
@@ -762,6 +762,7 @@ class CoronaTestServiceTests: XCTestCase {
 		XCTAssertEqual(antigenTest.testedPerson.lastName, "Mustermann")
 		XCTAssertEqual(antigenTest.testedPerson.dateOfBirth, "1964-08-12")
 		XCTAssertEqual(antigenTest.testResult, .pending)
+		XCTAssertEqual(antigenTest.sampleCollectionDate, Date(timeIntervalSince1970: 123456789))
 		XCTAssertNil(antigenTest.finalTestResultReceivedDate)
 		XCTAssertFalse(antigenTest.positiveTestResultWasShown)
 		XCTAssertFalse(antigenTest.isSubmissionConsentGiven)
@@ -825,6 +826,7 @@ class CoronaTestServiceTests: XCTestCase {
 		XCTAssertNil(antigenTest.submissionTAN)
 		XCTAssertFalse(antigenTest.keysSubmitted)
 		XCTAssertFalse(antigenTest.journalEntryCreated)
+		XCTAssertNil(antigenTest.sampleCollectionDate)
 	}
 
 	func testRegisterAntigenTestAndGetResult_RegistrationFails() {
