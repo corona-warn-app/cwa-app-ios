@@ -104,7 +104,7 @@ extension SecureStore: PPAnalyticsData {
 	}
 
 	var antigenKeySubmissionMetadata: KeySubmissionMetadata? {
-		get { kvStore["antigenKeySubmissionMetadata"] as KeySubmissionMetadata? ?? nil }
+		get { kvStore["antigenKeySubmissionMetadata"] as KeySubmissionMetadata? }
 		set { kvStore["antigenKeySubmissionMetadata"] = newValue }
 	}
 
