@@ -241,7 +241,7 @@ class KeySubmissionMetadataTests: XCTestCase {
 			XCTFail("Could not create date for two days ago.")
 			return
 		}
-		let riskCalculationResult = mockCheckinRiskCalculationResult(dateForRisk: threeDaysAgo)
+		let riskCalculationResult = mockCheckinRiskCalculationResult(risk: .low, dateForRisk: threeDaysAgo)
 		let isSubmissionConsentGiven = true
 
 		secureStore.dateOfConversionToCheckinHighRisk = Calendar.current.date(byAdding: .day, value: -1, to: Date())
@@ -303,7 +303,7 @@ class KeySubmissionMetadataTests: XCTestCase {
 			XCTFail("Could not create date for two days ago.")
 			return
 		}
-		let checkinRiskCalculationResult = mockCheckinRiskCalculationResult(dateForRisk: threeDaysAgo)
+		let checkinRiskCalculationResult = mockCheckinRiskCalculationResult(risk: .low, dateForRisk: threeDaysAgo)
 		secureStore.dateOfConversionToCheckinHighRisk = yesterday
 		secureStore.checkinRiskCalculationResult = checkinRiskCalculationResult
 		
