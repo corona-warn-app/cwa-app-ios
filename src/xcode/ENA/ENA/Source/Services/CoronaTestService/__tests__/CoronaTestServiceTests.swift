@@ -438,7 +438,7 @@ class CoronaTestServiceTests: XCTestCase {
 		XCTAssertTrue(pcrTest.isSubmissionConsentGiven)
 		XCTAssertNil(pcrTest.submissionTAN)
 		XCTAssertFalse(pcrTest.keysSubmitted)
-		XCTAssertFalse(pcrTest.journalEntryCreated)
+		XCTAssertTrue(pcrTest.journalEntryCreated)
 
 		XCTAssertEqual(store.testResultMetadata?.testResult, .negative)
 		XCTAssertEqual(
@@ -1249,6 +1249,161 @@ class CoronaTestServiceTests: XCTestCase {
 		waitForExpectations(timeout: .short)
 
 		XCTAssertEqual(mockNotificationCenter.notificationRequests.count, 0)
+	}
+
+	func test_When_UpdateTestResultSuccessWithPositive_Then_ContactJounalHasAnEntry() throws {
+		let mockNotificationCenter = MockUserNotificationCenter()
+		let client = ClientMock()
+		client.onGetTestResult = { _, _, completion in
+			completion(.success(TestResult.positive.rawValue))
+		}
+
+		let diaryStore = MockDiaryStore()
+
+		let testService = CoronaTestService(
+			client: client,
+			store: MockTestStore(),
+			diaryStore: diaryStore,
+			appConfiguration: CachedAppConfigurationMock(),
+			notificationCenter: mockNotificationCenter
+		)
+
+		testService.antigenTest = AntigenTest.mock(registrationToken: "regToken")
+		testService.pcrTest = PCRTest.mock(registrationToken: "regToken")
+
+		let completionExpectation = expectation(description: "Completion should be called.")
+		testService.updateTestResults(presentNotification: true) { _ in
+			completionExpectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
+
+		XCTAssertEqual(diaryStore.coronaTests.count, 2)
+		XCTAssertTrue(try XCTUnwrap(testService.antigenTest?.journalEntryCreated))
+		XCTAssertTrue(try XCTUnwrap(testService.pcrTest?.journalEntryCreated))
+	}
+
+	func test_When_UpdateTestResultSuccessWithPending_Then_ContactJounalHasAnEntry() throws {
+		let mockNotificationCenter = MockUserNotificationCenter()
+		let client = ClientMock()
+		client.onGetTestResult = { _, _, completion in
+			completion(.success(TestResult.pending.rawValue))
+		}
+
+		let diaryStore = MockDiaryStore()
+
+		let testService = CoronaTestService(
+			client: client,
+			store: MockTestStore(),
+			diaryStore: diaryStore,
+			appConfiguration: CachedAppConfigurationMock(),
+			notificationCenter: mockNotificationCenter
+		)
+
+		testService.antigenTest = AntigenTest.mock(registrationToken: "regToken")
+		testService.pcrTest = PCRTest.mock(registrationToken: "regToken")
+
+		let completionExpectation = expectation(description: "Completion should be called.")
+		testService.updateTestResults(presentNotification: true) { _ in
+			completionExpectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
+
+		XCTAssertEqual(diaryStore.coronaTests.count, 0)
+		XCTAssertFalse(try XCTUnwrap(testService.antigenTest?.journalEntryCreated))
+		XCTAssertFalse(try XCTUnwrap(testService.pcrTest?.journalEntryCreated))
+	}
+
+	func test_When_UpdateTestResultSuccessWithExpired_Then_ContactJounalHasAnEntry() throws {
+		let mockNotificationCenter = MockUserNotificationCenter()
+		let client = ClientMock()
+		client.onGetTestResult = { _, _, completion in
+			completion(.success(TestResult.expired.rawValue))
+		}
+
+		let diaryStore = MockDiaryStore()
+
+		let testService = CoronaTestService(
+			client: client,
+			store: MockTestStore(),
+			diaryStore: diaryStore,
+			appConfiguration: CachedAppConfigurationMock(),
+			notificationCenter: mockNotificationCenter
+		)
+
+		testService.antigenTest = AntigenTest.mock(registrationToken: "regToken")
+		testService.pcrTest = PCRTest.mock(registrationToken: "regToken")
+
+		let completionExpectation = expectation(description: "Completion should be called.")
+		testService.updateTestResults(presentNotification: true) { _ in
+			completionExpectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
+
+		XCTAssertEqual(diaryStore.coronaTests.count, 0)
+		XCTAssertFalse(try XCTUnwrap(testService.antigenTest?.journalEntryCreated))
+		XCTAssertFalse(try XCTUnwrap(testService.pcrTest?.journalEntryCreated))
+	}
+
+	func test_When_UpdateTestResultSuccessWithInvalid_Then_ContactJounalHasAnEntry() throws {
+		let mockNotificationCenter = MockUserNotificationCenter()
+		let client = ClientMock()
+		client.onGetTestResult = { _, _, completion in
+			completion(.success(TestResult.invalid.rawValue))
+		}
+
+		let diaryStore = MockDiaryStore()
+
+		let testService = CoronaTestService(
+			client: client,
+			store: MockTestStore(),
+			diaryStore: diaryStore,
+			appConfiguration: CachedAppConfigurationMock(),
+			notificationCenter: mockNotificationCenter
+		)
+
+		testService.antigenTest = AntigenTest.mock(registrationToken: "regToken")
+		testService.pcrTest = PCRTest.mock(registrationToken: "regToken")
+
+		let completionExpectation = expectation(description: "Completion should be called.")
+		testService.updateTestResults(presentNotification: true) { _ in
+			completionExpectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
+
+		XCTAssertEqual(diaryStore.coronaTests.count, 0)
+		XCTAssertFalse(try XCTUnwrap(testService.antigenTest?.journalEntryCreated))
+		XCTAssertFalse(try XCTUnwrap(testService.pcrTest?.journalEntryCreated))
+	}
+
+	func test_When_UpdateTestResultSuccessWithNegativ_Then_ContactJounalHasAnEntry() throws {
+		let mockNotificationCenter = MockUserNotificationCenter()
+		let client = ClientMock()
+		client.onGetTestResult = { _, _, completion in
+			completion(.success(TestResult.negative.rawValue))
+		}
+
+		let diaryStore = MockDiaryStore()
+
+		let testService = CoronaTestService(
+			client: client,
+			store: MockTestStore(),
+			diaryStore: diaryStore,
+			appConfiguration: CachedAppConfigurationMock(),
+			notificationCenter: mockNotificationCenter
+		)
+
+		testService.antigenTest = AntigenTest.mock(registrationToken: "regToken")
+		testService.pcrTest = PCRTest.mock(registrationToken: "regToken")
+
+		let completionExpectation = expectation(description: "Completion should be called.")
+		testService.updateTestResults(presentNotification: true) { _ in
+			completionExpectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
+
+		XCTAssertEqual(diaryStore.coronaTests.count, 2)
+		XCTAssertTrue(try XCTUnwrap(testService.antigenTest?.journalEntryCreated))
+		XCTAssertTrue(try XCTUnwrap(testService.pcrTest?.journalEntryCreated))
 	}
 
 	func test_When_UpdateTestResultsSuccessWithExpired_Then_NoNotificationIsShown() {
