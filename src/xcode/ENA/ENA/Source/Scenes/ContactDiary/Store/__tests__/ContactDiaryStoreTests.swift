@@ -1089,7 +1089,7 @@ class ContactDiaryStoreTests: XCTestCase {
 		)
 
 		// Close and create database again.
-		// This time, migrator should be called, because a schema was allready created before and userVersion is >0.
+		// This time, migrator should be called, because a schema was already created before and userVersion is >0.
 
 		databaseQueue.close()
 
