@@ -85,7 +85,7 @@ class HealthCertifiedPerson: Codable, Equatable {
 
 	private var completeVaccinationProtectionDate: Date? {
 		guard
-			let lastVaccination = healthCertificates.last, lastVaccination.isLastDoseInASeries,
+			let lastVaccination = healthCertificates.last,
 			let vaccinationDateString = lastVaccination.vaccinationCertificates.first?.dateOfVaccination,
 			let vaccinationDate = ISO8601DateFormatter.justLocalDateFormatter.date(from: vaccinationDateString)
 		else {
