@@ -15,9 +15,9 @@ class CWATestCase: XCTestCase {
 		try super.tearDownWithError()
 
 		// swiftlint:disable:next force_unwrapping
-		if isCI, testRun!.totalFailureCount > 0 {
+		if /*isCI,*/ testRun!.totalFailureCount > 0 {
 			let pid = ProcessInfo.processInfo.processIdentifier
-			try "\(pid)".write(toFile: ".fail", atomically: true, encoding: .utf8)
+			try "\(pid)".write(toFile: "/Users/distiller/project/.fail", atomically: true, encoding: .utf8)
 		}
 	}
 

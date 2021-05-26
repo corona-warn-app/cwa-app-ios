@@ -90,6 +90,7 @@ platform :ios do
         prelaunch_simulator: true,
         result_bundle: true,
         code_coverage: true,
+        output_style: "raw", # prevents long periods of silence which makes the CI & devs nervous
         output_types: ""
       )
     rescue
