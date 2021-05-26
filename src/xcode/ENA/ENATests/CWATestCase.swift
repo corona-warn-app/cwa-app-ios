@@ -9,7 +9,7 @@ var isCI: Bool {
 	return ProcessInfo.processInfo.environment["CI"] == "YES"
 }
 
-final class CWATestCase: XCTestCase {
+class CWATestCase: XCTestCase {
 
 	override func tearDownWithError() throws {
 		try super.tearDownWithError()
