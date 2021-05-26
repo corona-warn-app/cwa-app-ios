@@ -368,6 +368,8 @@
 		34FE15C2260914030002CB69 /* QRCodePosterTemplateProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FE1580260126080002CB69 /* QRCodePosterTemplateProviding.swift */; };
 		34FE15C3260914030002CB69 /* QRCodePosterTemplateMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FE1585260131830002CB69 /* QRCodePosterTemplateMetadata.swift */; };
 		34FE15C4260914030002CB69 /* QRCodePosterTemplateProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FE158D260135E20002CB69 /* QRCodePosterTemplateProvider.swift */; };
+		350B26C5265E4E8D00180183 /* CWATestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350B26C4265E4E8D00180183 /* CWATestCase.swift */; };
+		350B26C6265E4E8D00180183 /* CWATestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350B26C4265E4E8D00180183 /* CWATestCase.swift */; };
 		3518DD6525BA2D060090A26B /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3518DD6425BA2D060090A26B /* NotificationManager.swift */; };
 		351E6306256BEC8D00D89B29 /* LabeledCountriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351E6305256BEC8D00D89B29 /* LabeledCountriesView.swift */; };
 		351E630C256C5B9C00D89B29 /* LabeledCountriesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351E630A256C5B9C00D89B29 /* LabeledCountriesCell.swift */; };
@@ -1540,6 +1542,7 @@
 		34FE15A72604F99D0002CB69 /* UIColor+HEX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+HEX.swift"; sourceTree = "<group>"; };
 		35075C092526378D00DE92F7 /* AllTests.xctestplan */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = AllTests.xctestplan; path = TestPlans/AllTests.xctestplan; sourceTree = "<group>"; };
 		35075C0E252637C300DE92F7 /* SmokeTests.xctestplan */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SmokeTests.xctestplan; path = TestPlans/SmokeTests.xctestplan; sourceTree = "<group>"; };
+		350B26C4265E4E8D00180183 /* CWATestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CWATestCase.swift; sourceTree = "<group>"; };
 		35163D23251CFCCB00D220CA /* CachingHTTPClientMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachingHTTPClientMock.swift; sourceTree = "<group>"; };
 		35178CCA26553EDC00FFB31E /* UITests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = UITests.xctestplan; path = TestPlans/UITests.xctestplan; sourceTree = "<group>"; };
 		35178CCB26553EDC00FFB31E /* UnitTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = UnitTests.xctestplan; path = TestPlans/UnitTests.xctestplan; sourceTree = "<group>"; };
@@ -4401,6 +4404,7 @@
 			children = (
 				B18C411A246DB2F000B8D8CB /* Helper */,
 				85D7595A24570491008175F0 /* Info.plist */,
+				350B26C4265E4E8D00180183 /* CWATestCase.swift */,
 			);
 			path = ENATests;
 			sourceTree = "<group>";
@@ -8099,6 +8103,7 @@
 				BA2D4F05263701950080FD77 /* SimpleTextCellViewModelTests.swift in Sources */,
 				AB86B2AF26026AC3007C77B3 /* EventCheckoutServiceTests.swift in Sources */,
 				347FBB08260B8FE000672770 /* TraceLocationDetailsViewModelTests.swift in Sources */,
+				350B26C5265E4E8D00180183 /* CWATestCase.swift in Sources */,
 				BA2D4EFC2636FDBC0080FD77 /* AntigenTestProfileViewModelTests.swift in Sources */,
 				BA06D5BB25DC2E910039D1DB /* TextFieldsManagerTests.swift in Sources */,
 				BA2D4F0D2637037C0080FD77 /* QRCodeCellViewModelTests.swift in Sources */,
@@ -8203,6 +8208,7 @@
 				941B68AE253F007100DC1962 /* Int+Increment.swift in Sources */,
 				5081EF0E25FFDEC7004B8FDE /* ENAUITests_10_CheckIns.swift in Sources */,
 				13E50469248E3CD20086641C /* ENAUITestsAppInformation.swift in Sources */,
+				350B26C6265E4E8D00180183 /* CWATestCase.swift in Sources */,
 				01A1B45C252E077600841B63 /* TimeInterval+Convenience.swift in Sources */,
 				130CB19C246D92F800ADE602 /* ENAUITestsOnboarding.swift in Sources */,
 				13E5046B248E3DF30086641C /* AppStrings.swift in Sources */,
