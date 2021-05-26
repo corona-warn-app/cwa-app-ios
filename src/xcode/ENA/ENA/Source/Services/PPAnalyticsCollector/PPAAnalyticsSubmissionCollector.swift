@@ -109,7 +109,7 @@ final class PPAAnalyticsSubmissionCollector {
 	private var coronaTestService: CoronaTestService
 
 	private func setHoursSinceTestResult(type: CoronaTestType) {
-		guard let testResultReceivedDate = testResultReceivedDate(for: type) else {
+		guard let testResultReceivedDate = coronaTestService.coronaTest(ofType: type)?.finalTestResultReceivedDate else {
 			Log.warning("Could not log hoursSinceTestResult due to testResultReceivedTimeStamp is nil", log: .ppa)
 			return
 		}
@@ -117,15 +117,6 @@ final class PPAAnalyticsSubmissionCollector {
 		let diffComponents = Calendar.current.dateComponents([.hour], from: testResultReceivedDate, to: Date())
 		let hours = Int32(diffComponents.hour ?? 0)
 		persistHoursSinceTestResult(hours, for: type)
-	}
-
-	private func testResultReceivedDate(for type: CoronaTestType) -> Date? {
-		switch type {
-		case .pcr:
-			return coronaTestService.pcrTest?.finalTestResultReceivedDate
-		case .antigen:
-			return coronaTestService.antigenTest?.finalTestResultReceivedDate
-		}
 	}
 
 	private func persistHoursSinceTestResult(_ hours: Int32, for type: CoronaTestType) {
@@ -138,7 +129,7 @@ final class PPAAnalyticsSubmissionCollector {
 	}
 
 	private func setHoursSinceTestRegistration(type: CoronaTestType) {
-		guard let registrationDate = testRegistrationDate(for: type) else {
+		guard let registrationDate = coronaTestService.coronaTest(ofType: type)?.registrationDate else {
 			Log.warning("Could not log hoursSinceTestRegistration due to testRegistrationDate is nil", log: .ppa)
 			return
 		}
@@ -146,15 +137,6 @@ final class PPAAnalyticsSubmissionCollector {
 		let diffComponents = Calendar.current.dateComponents([.hour], from: registrationDate, to: Date())
 		let hours = Int32(diffComponents.hour ?? 0)
 		persistHoursSinceTestRegistration(hours, for: type)
-	}
-
-	private func testRegistrationDate(for type: CoronaTestType) -> Date? {
-		switch type {
-		case .pcr:
-			return coronaTestService.pcrTest?.registrationDate
-		case .antigen:
-			return coronaTestService.antigenTest?.registrationDate
-		}
 	}
 
 	private func persistHoursSinceTestRegistration(_ hours: Int32, for type: CoronaTestType) {
@@ -167,7 +149,7 @@ final class PPAAnalyticsSubmissionCollector {
 	}
 
 	private func setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration(type: CoronaTestType) {
-		guard let registrationDate = testRegistrationDate(for: type) else {
+		guard let registrationDate = coronaTestService.coronaTest(ofType: type)?.registrationDate else {
 			store.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = -1
 			return
 		}
