@@ -17,10 +17,10 @@ class ENAUITests_06_DeltaOnboarding: XCTestCase {
 		app = XCUIApplication()
 		setupSnapshot(app)
 		app.setDefaults()
-		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: YES)
-		app.setLaunchArgument(LaunchArguments.onboarding.resetFinishedDeltaOnboardings, to: YES)
-		app.setLaunchArgument(LaunchArguments.infoScreen.userNeedsToBeInformedAboutHowRiskDetectionWorks, to: NO)
-		app.setLaunchArgument(LaunchArguments.consent.isDatadonationConsentGiven, to: NO)
+		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: true)
+		app.setLaunchArgument(LaunchArguments.onboarding.resetFinishedDeltaOnboardings, to: true)
+		app.setLaunchArgument(LaunchArguments.infoScreen.userNeedsToBeInformedAboutHowRiskDetectionWorks, to: false)
+		app.setLaunchArgument(LaunchArguments.consent.isDatadonationConsentGiven, to: false)
 	}
 
     func testDeltaOnboardingV15NewFeaturesAndDataDonation() throws {

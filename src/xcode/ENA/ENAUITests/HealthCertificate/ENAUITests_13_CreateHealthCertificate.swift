@@ -13,8 +13,8 @@ class ENAUITests_13_CreateHealthCertificate: XCTestCase {
 		continueAfterFailure = false
 		app = XCUIApplication()
 		app.setDefaults()
-		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: "YES")
-		app.setLaunchArgument(LaunchArguments.onboarding.setCurrentOnboardingVersion, to: "YES")
+		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: true)
+		app.setLaunchArgument(LaunchArguments.onboarding.setCurrentOnboardingVersion, to: true)
 	}
 
 	// MARK: - Internal
@@ -69,7 +69,7 @@ class ENAUITests_13_CreateHealthCertificate: XCTestCase {
 	}
 
 	func test_CreateAntigenTestProfileWithLastCertificate_THEN_DeleteProfile() throws {
-		app.setLaunchArgument(LaunchArguments.healthCertificate.firstHealthCertificate, to: "YES")
+		app.setLaunchArgument(LaunchArguments.healthCertificate.firstHealthCertificate, to: true)
 		app.launch()
 
 		/// Home Screen
@@ -98,7 +98,7 @@ class ENAUITests_13_CreateHealthCertificate: XCTestCase {
 	}
 
 	func test_ShowCertificate() throws {
-		app.setLaunchArgument(LaunchArguments.healthCertificate.firstAndSecondHealthCertificate, to: "YES")
+		app.setLaunchArgument(LaunchArguments.healthCertificate.firstAndSecondHealthCertificate, to: true)
 		app.launch()
 
 		/// Home Screen

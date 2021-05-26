@@ -15,7 +15,7 @@ class ENAUITests: XCTestCase {
 		setupSnapshot(app)
 		app.setDefaults()
 		app.launchEnvironment["IsOnboarded"] = "NO"
-		app.setLaunchArgument(LaunchArguments.infoScreen.userNeedsToBeInformedAboutHowRiskDetectionWorks, to: NO)
+		app.setLaunchArgument(LaunchArguments.infoScreen.userNeedsToBeInformedAboutHowRiskDetectionWorks, to: false)
 	}
 
 	override func tearDownWithError() throws {
@@ -38,7 +38,7 @@ class ENAUITests: XCTestCase {
 		let snapshotsActive = true
 
 		app.setPreferredContentSizeCategory(accessibility: .normal, size: .M)
-		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: NO)
+		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: false)
 		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
 		app.launch()
 
@@ -95,7 +95,7 @@ class ENAUITests: XCTestCase {
 		let snapshotsActive = true
 
 		app.setPreferredContentSizeCategory(accessibility: .normal, size: .M)
-		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: NO)
+		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: false)
 		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
 		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.negative.stringValue)
 		app.launch()
@@ -110,9 +110,9 @@ class ENAUITests: XCTestCase {
 	func test_0002_Generate_Screenshot_For_AppStore_Statistics() throws {
 
 		app.setPreferredContentSizeCategory(accessibility: .normal, size: .M)
-		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: YES)
+		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: true)
 		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
-		app.setLaunchArgument(LaunchArguments.statistics.useMockDataForStatistics, to: YES) // prevent failing tests for 1.11; use "NO" for 1.12
+		app.setLaunchArgument(LaunchArguments.statistics.useMockDataForStatistics, to: true) // prevent failing tests for 1.11; use "NO" for 1.12
 		app.launch()
 
 		app.swipeUp(velocity: .slow)

@@ -13,9 +13,9 @@ class ENAUITests_01a_Home: XCTestCase {
 		app = XCUIApplication()
 		setupSnapshot(app)
 		app.setDefaults()
-		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: YES)
-		app.setLaunchArgument(LaunchArguments.onboarding.setCurrentOnboardingVersion, to: YES)
-		app.setLaunchArgument(LaunchArguments.infoScreen.userNeedsToBeInformedAboutHowRiskDetectionWorks, to: NO)
+		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: true)
+		app.setLaunchArgument(LaunchArguments.onboarding.setCurrentOnboardingVersion, to: true)
+		app.setLaunchArgument(LaunchArguments.infoScreen.userNeedsToBeInformedAboutHowRiskDetectionWorks, to: false)
 	}
 
 	func test_0010_HomeFlow_medium() throws {
@@ -67,7 +67,7 @@ class ENAUITests_01a_Home: XCTestCase {
 	
 	func test_riskCardHigh_details_faqLink() throws {
 		app.setLaunchArgument(LaunchArguments.risk.riskLevel, to: "high")
-		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: YES)
+		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: true)
 		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
 		app.launch()
 
@@ -295,7 +295,7 @@ class ENAUITests_01a_Home: XCTestCase {
 		let riskLevel = "high"
 		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
 		app.setLaunchArgument(LaunchArguments.risk.riskLevel, to: riskLevel)
-		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: YES)
+		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: true)
 		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.disabled.stringValue)
 		app.launch()
 
@@ -327,7 +327,7 @@ class ENAUITests_01a_Home: XCTestCase {
 	
 	func test_screenshot_homescreen_pcr_rat_negative() throws {
 		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
-		app.setLaunchArgument(LaunchArguments.test.common.showTestResultCards, to: YES)
+		app.setLaunchArgument(LaunchArguments.test.common.showTestResultCards, to: true)
 		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.negative.stringValue)
 		app.setLaunchArgument(LaunchArguments.test.antigen.testResult, to: TestResult.negative.stringValue)
 		app.launch()
@@ -390,7 +390,7 @@ class ENAUITests_01a_Home: XCTestCase {
 		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
 		// we just need one launch argument because it is handled separately
 		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.positive.stringValue)
-		app.setLaunchArgument(LaunchArguments.test.pcr.positiveTestResultWasShown, to: YES)
+		app.setLaunchArgument(LaunchArguments.test.pcr.positiveTestResultWasShown, to: true)
 		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
 		app.launch()
 
