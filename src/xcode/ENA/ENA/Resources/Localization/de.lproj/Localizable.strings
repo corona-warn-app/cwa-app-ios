@@ -2434,7 +2434,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "AntigenProfile_Create_BirthDatePlaceholder" = "Geburtsdatum";
 
-"AntigenProfile_Create_StreetPlaceholder" = "Strasse und Hausnummer";
+"AntigenProfile_Create_StreetPlaceholder" = "Straße und Hausnummer";
 
 "AntigenProfile_Create_PostalCodePlaceholder" = "PLZ";
 
