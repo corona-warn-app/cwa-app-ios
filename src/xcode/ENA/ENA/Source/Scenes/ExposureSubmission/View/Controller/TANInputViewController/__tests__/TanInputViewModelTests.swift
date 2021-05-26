@@ -13,6 +13,7 @@ class TanInputViewModelTests: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: MockTestStore(),
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
 			presentInvalidTanAlert: { _, _  in },
@@ -35,6 +36,7 @@ class TanInputViewModelTests: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: MockTestStore(),
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
 			presentInvalidTanAlert: { _, _  in },
@@ -57,6 +59,7 @@ class TanInputViewModelTests: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: MockTestStore(),
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
 			presentInvalidTanAlert: { _, _  in },

@@ -13,6 +13,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let service = CoronaTestService(
 			client: ClientMock(),
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 
@@ -51,6 +52,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let service = CoronaTestService(
 			client: ClientMock(),
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfig
 		)
 
@@ -86,6 +88,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let service = CoronaTestService(
 			client: ClientMock(),
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfig
 		)
 
@@ -122,6 +125,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let service = CoronaTestService(
 			client: ClientMock(),
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfig
 		)
 
@@ -162,6 +166,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let service = CoronaTestService(
 			client: ClientMock(),
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfig
 		)
 
@@ -207,6 +212,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let service = CoronaTestService(
 			client: ClientMock(),
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfig
 		)
 
@@ -254,6 +260,7 @@ class CoronaTestServiceTests: XCTestCase {
 			let service = CoronaTestService(
 				client: ClientMock(),
 				store: MockTestStore(),
+				diaryStore: MockDiaryStore(),
 				appConfiguration: appConfig
 			)
 
@@ -284,6 +291,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let service = CoronaTestService(
 			client: ClientMock(),
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 
@@ -318,6 +326,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let service = CoronaTestService(
 			client: client,
 			store: store,
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		service.pcrTest = nil
@@ -386,6 +395,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let service = CoronaTestService(
 			client: client,
 			store: store,
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		service.pcrTest = nil
@@ -454,6 +464,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let service = CoronaTestService(
 			client: client,
 			store: store,
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		service.pcrTest = nil
@@ -499,6 +510,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let service = CoronaTestService(
 			client: client,
 			store: store,
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		service.pcrTest = nil
@@ -563,6 +575,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let service = CoronaTestService(
 			client: client,
 			store: store,
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		service.pcrTest = nil
@@ -625,6 +638,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let service = CoronaTestService(
 			client: client,
 			store: store,
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		service.pcrTest = nil
@@ -687,6 +701,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let service = CoronaTestService(
 			client: client,
 			store: store,
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		service.pcrTest = nil
@@ -726,6 +741,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let service = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		service.antigenTest = nil
@@ -783,6 +799,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let service = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		service.antigenTest = nil
@@ -836,6 +853,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let service = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		service.antigenTest = nil
@@ -877,6 +895,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let service = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		service.antigenTest = nil
@@ -932,6 +951,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let service = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		service.pcrTest = PCRTest.mock(registrationToken: "regToken")
@@ -972,6 +992,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let service = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		service.antigenTest = AntigenTest.mock(registrationToken: "regToken")
@@ -1007,6 +1028,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let service = CoronaTestService(
 			client: ClientMock(),
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		service.pcrTest = nil
@@ -1030,6 +1052,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let service = CoronaTestService(
 			client: ClientMock(),
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		service.antigenTest = nil
@@ -1053,6 +1076,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let service = CoronaTestService(
 			client: ClientMock(),
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		service.pcrTest = PCRTest.mock(registrationToken: nil)
@@ -1084,6 +1108,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let service = CoronaTestService(
 			client: ClientMock(),
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		service.antigenTest = AntigenTest.mock(registrationToken: nil)
@@ -1121,6 +1146,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: mockNotificationCenter
 		)
@@ -1157,6 +1183,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: mockNotificationCenter
 		)
@@ -1181,6 +1208,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: MockUserNotificationCenter()
 		)
@@ -1207,6 +1235,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: mockNotificationCenter
 		)
@@ -1232,6 +1261,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: mockNotificationCenter
 		)
@@ -1254,6 +1284,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: mockNotificationCenter
 		)
@@ -1286,6 +1317,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: mockNotificationCenter
 		)
@@ -1317,6 +1349,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: mockNotificationCenter
 		)
@@ -1351,6 +1384,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: mockNotificationCenter
 		)
@@ -1386,6 +1420,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: mockNotificationCenter
 		)
@@ -1418,6 +1453,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: mockNotificationCenter
 		)
@@ -1455,6 +1491,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: mockNotificationCenter
 		)
@@ -1488,6 +1525,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: MockUserNotificationCenter()
 		)
@@ -1519,6 +1557,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: MockUserNotificationCenter()
 		)
@@ -1553,6 +1592,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: MockUserNotificationCenter()
 		)
@@ -1587,6 +1627,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: MockUserNotificationCenter()
 		)
@@ -1620,6 +1661,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: MockUserNotificationCenter()
 		)
@@ -1653,6 +1695,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: MockUserNotificationCenter()
 		)
@@ -1680,6 +1723,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let service = CoronaTestService(
 			client: ClientMock(),
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 
@@ -1752,6 +1796,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let service = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		service.pcrTest = PCRTest.mock(registrationToken: "regToken")
@@ -1838,6 +1883,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let service = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		service.pcrTest = PCRTest.mock(registrationToken: "regToken")
