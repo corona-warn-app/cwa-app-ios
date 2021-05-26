@@ -14,6 +14,7 @@ class CWATestCase: XCTestCase {
 	override func tearDownWithError() throws {
 		try super.tearDownWithError()
 
+		// swiftlint:disable:next force_unwrapping
 		if isCI, testRun!.totalFailureCount > 0 {
 			let pid = ProcessInfo.processInfo.processIdentifier
 			try "\(pid)".write(toFile: ".fail", atomically: true, encoding: .utf8)
