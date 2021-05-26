@@ -181,7 +181,7 @@ class KeySubmissionMetadataTests: XCTestCase {
 		XCTAssertTrue((secureStore.keySubmissionMetadata?.submittedAfterCancel) != false)
 		XCTAssertTrue(((secureStore.keySubmissionMetadata?.submittedAfterSymptomFlow) != false))
 		XCTAssertEqual(secureStore.keySubmissionMetadata?.lastSubmissionFlowScreen, .submissionFlowScreenSymptoms)
-		XCTAssertTrue(((secureStore.keySubmissionMetadata?.submittedWithTeleTAN) == false))
+		XCTAssertTrue((secureStore.keySubmissionMetadata?.submittedWithTeleTAN) == false)
 	}
 
 	func testKeySubmissionMetadataValues_LowRisk() {
