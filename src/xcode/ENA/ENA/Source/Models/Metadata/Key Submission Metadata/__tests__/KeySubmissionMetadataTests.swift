@@ -45,18 +45,21 @@ class KeySubmissionMetadataTests: XCTestCase {
 		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, .pcr)))
 		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration(.pcr)))
 		Analytics.collect(.keySubmissionMetadata(.setHoursSinceHighRiskWarningAtTestRegistration(.pcr)))
+		Analytics.collect(.keySubmissionMetadata(.submittedAfterRapidAntigenTest(.pcr)))
 		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, .antigen)))
 		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration(.antigen)))
 		Analytics.collect(.keySubmissionMetadata(.setHoursSinceHighRiskWarningAtTestRegistration(.antigen)))
-
+		Analytics.collect(.keySubmissionMetadata(.submittedAfterRapidAntigenTest(.antigen)))
 
 		XCTAssertNotNil(secureStore.keySubmissionMetadata, "keySubmissionMetadata should be initialized with default values")
 		XCTAssertEqual(secureStore.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, 2, "number of days should be 2")
 		XCTAssertEqual(secureStore.keySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration, 24, "the difference is one day so it should be 24")
+		XCTAssertFalse(secureStore.keySubmissionMetadata?.submittedAfterRapidAntigenTest ?? true)
 
 		XCTAssertNotNil(secureStore.antigenKeySubmissionMetadata, "keySubmissionMetadata should be initialized with default values")
 		XCTAssertEqual(secureStore.antigenKeySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, 2, "number of days should be 2")
 		XCTAssertEqual(secureStore.antigenKeySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration, 24, "the difference is one day so it should be 24")
+		XCTAssertTrue(secureStore.antigenKeySubmissionMetadata?.submittedAfterRapidAntigenTest ?? false)
 	}
 
 	func testKeySubmissionMetadataValues_HighRisk_testHours() {
@@ -148,16 +151,20 @@ class KeySubmissionMetadataTests: XCTestCase {
 		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, .pcr)))
 		Analytics.collect(.keySubmissionMetadata(.submitted(true, .pcr)))
 		Analytics.collect(.keySubmissionMetadata(.submittedInBackground(true, .pcr)))
+		Analytics.collect(.keySubmissionMetadata(.advancedConsentGiven(true, .pcr)))
 		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, .antigen)))
 		Analytics.collect(.keySubmissionMetadata(.submitted(true, .antigen)))
 		Analytics.collect(.keySubmissionMetadata(.submittedInBackground(true, .antigen)))
+		Analytics.collect(.keySubmissionMetadata(.advancedConsentGiven(true, .antigen)))
 
 		XCTAssertNotNil(secureStore.keySubmissionMetadata, "keySubmissionMetadata should be initialized with default values")
 		XCTAssertTrue(((secureStore.keySubmissionMetadata?.submitted) != false))
 		XCTAssertTrue(((secureStore.keySubmissionMetadata?.submittedInBackground) != false))
+		XCTAssertTrue(secureStore.keySubmissionMetadata?.advancedConsentGiven ?? false)
 		XCTAssertNotNil(secureStore.antigenKeySubmissionMetadata, "keySubmissionMetadata should be initialized with default values")
 		XCTAssertTrue(((secureStore.antigenKeySubmissionMetadata?.submitted) != false))
 		XCTAssertTrue(((secureStore.antigenKeySubmissionMetadata?.submittedInBackground) != false))
+		XCTAssertTrue(secureStore.antigenKeySubmissionMetadata?.advancedConsentGiven ?? false)
 	}
 
 	func testKeySubmissionMetadataValues_HighRisk_testSubmitted() {
