@@ -122,10 +122,9 @@ jobs:
       - restore_cache:
           key: *tools_cache_key
       - run:
-          name: Run Tests
-          shell: /bin/bash -o pipefail
-          command: ./scripts/run_tests.sh <<parameters.testplan>>
-          no_output_timeout: 5m
+          name: Run Fastlane tests
+          command: cd src/xcode && bundle exec fastlane test
+          no_output_timeout: 25m
       - restore_cache:
           key: sonar-cloud-v2
       - run:
