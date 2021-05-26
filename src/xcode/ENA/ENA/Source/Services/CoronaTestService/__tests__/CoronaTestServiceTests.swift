@@ -364,7 +364,6 @@ class CoronaTestServiceTests: XCTestCase {
 			Date().timeIntervalSince1970,
 			accuracy: 10
 		)
-		XCTAssertTrue(store.submittedWithQR)
 	}
 
 	func testRegisterPCRTestAndGetResult_successWithSubmissionConsentGiven() {
@@ -436,7 +435,6 @@ class CoronaTestServiceTests: XCTestCase {
 			Date().timeIntervalSince1970,
 			accuracy: 10
 		)
-		XCTAssertTrue(store.submittedWithQR)
 	}
 
 	func testRegisterPCRTestAndGetResult_RegistrationFails() {
@@ -477,7 +475,6 @@ class CoronaTestServiceTests: XCTestCase {
 
 		XCTAssertNil(service.pcrTest)
 		XCTAssertNil(store.testResultMetadata)
-		XCTAssertFalse(store.submittedWithQR)
 	}
 
 	func testRegisterPCRTestAndGetResult_RegistrationSucceedsGettingTestResultFails() {
@@ -545,7 +542,6 @@ class CoronaTestServiceTests: XCTestCase {
 			Date().timeIntervalSince1970,
 			accuracy: 10
 		)
-		XCTAssertTrue(store.submittedWithQR)
 	}
 
 	func testRegisterPCRTestWithTeleTAN_successWithoutSubmissionConsentGiven() {
@@ -606,8 +602,6 @@ class CoronaTestServiceTests: XCTestCase {
 		XCTAssertNil(pcrTest.submissionTAN)
 		XCTAssertFalse(pcrTest.keysSubmitted)
 		XCTAssertFalse(pcrTest.journalEntryCreated)
-
-		XCTAssertFalse(store.submittedWithQR)
 	}
 
 	func testRegisterPCRTestWithTeleTAN_successWithSubmissionConsentGiven() {
@@ -668,8 +662,6 @@ class CoronaTestServiceTests: XCTestCase {
 		XCTAssertNil(pcrTest.submissionTAN)
 		XCTAssertFalse(pcrTest.keysSubmitted)
 		XCTAssertFalse(pcrTest.journalEntryCreated)
-
-		XCTAssertFalse(store.submittedWithQR)
 	}
 
 	func testRegisterPCRTestWithTeleTAN_RegistrationFails() {
@@ -710,7 +702,6 @@ class CoronaTestServiceTests: XCTestCase {
 
 		XCTAssertNil(service.pcrTest)
 		XCTAssertNil(store.testResultMetadata)
-		XCTAssertFalse(store.submittedWithQR)
 	}
 
 	func testRegisterAntigenTestAndGetResult_successWithoutSubmissionConsentGivenWithTestedPerson() {

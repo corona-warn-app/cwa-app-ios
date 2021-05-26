@@ -30,9 +30,7 @@ class TraceLocationsCoordinator {
 		
 		#if DEBUG
 		if isUITesting {
-			if let TraceLocationsInfoScreenShown = UserDefaults.standard.string(forKey: "TraceLocationsInfoScreenShown") {
-				store.traceLocationsInfoScreenShown = (TraceLocationsInfoScreenShown != "NO")
-			}
+			store.traceLocationsInfoScreenShown = LaunchArguments.infoScreen.traceLocationsInfoScreenShown.boolValue
 		}
 		#endif
 		
