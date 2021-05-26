@@ -149,6 +149,8 @@ class ExposureSubmissionTestResultConsentViewModel {
 
 	@objc
 	private func consentStateChanged(switchState: UISwitch) {
+		Analytics.collect(.keySubmissionMetadata(.advancedConsentGiven(switchState.isOn, coronaTestType)))
+
 		switch coronaTestType {
 		case .pcr:
 			coronaTestService.pcrTest?.isSubmissionConsentGiven = switchState.isOn
