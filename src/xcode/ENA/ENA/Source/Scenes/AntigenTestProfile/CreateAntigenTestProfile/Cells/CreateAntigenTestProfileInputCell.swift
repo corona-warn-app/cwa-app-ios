@@ -36,7 +36,8 @@ class CreateAntigenTestProfileInputCell: UITableViewCell, ReuseIdentifierProvidi
 		textFields.append(lastNameTextField)
 
 		birthdayPicker = UIDatePicker()
-		birthdayPicker.locale = Locale(identifier: "de_DE")
+		birthdayPicker.timeZone = .utcTimeZone
+		birthdayPicker.locale = Locale.autoupdatingCurrent
 		birthdayPicker.datePickerMode = .date
 		if #available(iOS 13.4, *) {
 			birthdayPicker.preferredDatePickerStyle = .wheels
