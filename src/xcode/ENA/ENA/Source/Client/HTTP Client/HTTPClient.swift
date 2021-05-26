@@ -130,7 +130,7 @@ final class HTTPClient: Client {
 						FetchTestResultResponse.self,
 						from: testResultResponseData
 					)
-					guard let testResult = response.testResult else {
+					guard response.testResult != nil else {
 						Log.error("Failed to get test result with invalid response payload structure", log: .api)
 						completeWith(.failure(.invalidResponse))
 						return
