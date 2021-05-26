@@ -177,7 +177,7 @@ class KeySubmissionMetadataTests: XCTestCase {
 
 		XCTAssertNotNil(secureStore.keySubmissionMetadata, "keySubmissionMetadata should be initialized with default values")
 		XCTAssertTrue((secureStore.keySubmissionMetadata?.submitted) != false)
-		XCTAssertTrue(((secureStore.keySubmissionMetadata?.submittedInBackground) != true))
+		XCTAssertTrue((secureStore.keySubmissionMetadata?.submittedInBackground) != true)
 		XCTAssertTrue(((secureStore.keySubmissionMetadata?.submittedAfterCancel) != false))
 		XCTAssertTrue(((secureStore.keySubmissionMetadata?.submittedAfterSymptomFlow) != false))
 		XCTAssertEqual(secureStore.keySubmissionMetadata?.lastSubmissionFlowScreen, .submissionFlowScreenSymptoms)
