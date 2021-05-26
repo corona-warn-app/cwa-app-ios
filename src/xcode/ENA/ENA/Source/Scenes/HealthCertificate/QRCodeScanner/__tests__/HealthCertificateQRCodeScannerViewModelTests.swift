@@ -33,7 +33,7 @@ final class TestableHealthCertificateQRCodeScannerViewModelTests: HealthCertific
 	#endif
 }
 
-class HealthCertificateQRCodeScannerViewModelTests: XCTestCase {
+class HealthCertificateQRCodeScannerViewModelTests: CWATestCase {
 
 	func testSuccessfulScan() {
 		let base45 = mockBase45

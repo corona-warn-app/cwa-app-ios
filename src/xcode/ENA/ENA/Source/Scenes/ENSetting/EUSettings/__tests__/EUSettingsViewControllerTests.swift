@@ -6,7 +6,7 @@ import XCTest
 import OpenCombine
 @testable import ENA
 
-class EUSettingsViewControllerTests: XCTestCase {
+class EUSettingsViewControllerTests: CWATestCase {
 
 	private var subscriptions: [AnyCancellable] = []
 

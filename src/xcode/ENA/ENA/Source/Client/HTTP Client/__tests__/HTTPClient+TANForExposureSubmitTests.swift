@@ -6,7 +6,7 @@
 import Foundation
 import XCTest
 
-final class HTTPClientTANForExposureSubmitTests: XCTestCase {
+final class HTTPClientTANForExposureSubmitTests: CWATestCase {
 	private let expectationsTimeout: TimeInterval = 2
 
 	func testGetTANForExposureSubmit_Success() throws {

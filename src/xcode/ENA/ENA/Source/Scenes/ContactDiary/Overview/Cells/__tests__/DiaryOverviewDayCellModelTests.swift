@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class DiaryOverviewDayCellModelTests: XCTestCase {
+class DiaryOverviewDayCellModelTests: CWATestCase {
 
 	func testGIVEN_NoEncounterDay_WHEN_getTitle_THEN_TextsAreNilAndAnEmptyImage() {
 		// GIVEN

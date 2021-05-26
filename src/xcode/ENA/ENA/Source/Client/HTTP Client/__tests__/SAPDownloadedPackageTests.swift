@@ -7,7 +7,7 @@ import XCTest
 import ZIPFoundation
 
 
-final class SAPDownloadedPackageTests: XCTestCase {
+final class SAPDownloadedPackageTests: CWATestCase {
 
 	private let defaultBundleId = Bundle.main.bundleIdentifier ?? "de.rki.coronawarnapp"
 

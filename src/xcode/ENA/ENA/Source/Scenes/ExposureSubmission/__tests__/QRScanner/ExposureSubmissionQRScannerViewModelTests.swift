@@ -41,7 +41,7 @@ final class TestableExposureSubmissionQRScannerViewModel: ExposureSubmissionQRSc
 	#endif
 }
 // swiftlint:disable:next type_body_length
-final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
+final class ExposureSubmissionQRScannerViewModelTests: CWATestCase {
 
 	func testSuccessfulPcrScan() {
 		let guid = "3D6D08-3567F3F2-4DCF-43A3-8737-4CD1F87D6FDA"

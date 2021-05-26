@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class ExposureSubmissionHotlineViewControllerTest: XCTestCase {
+class ExposureSubmissionHotlineViewControllerTest: CWATestCase {
 
 	func testSetupView() {
 		let vc = ExposureSubmissionHotlineViewController(onPrimaryButtonTap: {}, dismiss: {})

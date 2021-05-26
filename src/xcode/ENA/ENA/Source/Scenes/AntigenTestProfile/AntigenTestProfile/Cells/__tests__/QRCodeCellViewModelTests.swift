@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class QRCodeCellViewModelTests: XCTestCase {
+class QRCodeCellViewModelTests: CWATestCase {
 
 	func testGIVEN_CreateAntigenTestProfile_WHEN_vCardData_THEN_IsCorrect() throws {
 		// GIVEN

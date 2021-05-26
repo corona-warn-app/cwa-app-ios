@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class TestOverwriteNoticeViewModelTests: XCTestCase {
+class TestOverwriteNoticeViewModelTests: CWATestCase {
 
 	func testGIVEN_ViewModelWithPcr_THEN_IsInitializedCorrect() {
 		// GIVEN

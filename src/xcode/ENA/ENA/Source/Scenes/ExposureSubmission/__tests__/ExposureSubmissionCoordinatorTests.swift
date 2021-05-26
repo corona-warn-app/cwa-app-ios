@@ -6,7 +6,7 @@
 import Foundation
 import XCTest
 
-class ExposureSubmissionCoordinatorTests: XCTestCase {
+class ExposureSubmissionCoordinatorTests: CWATestCase {
 
 	// MARK: - Attributes.
 

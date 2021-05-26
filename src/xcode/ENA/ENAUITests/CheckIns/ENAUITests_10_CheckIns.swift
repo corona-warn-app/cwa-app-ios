@@ -4,7 +4,7 @@
 
 import XCTest
 
-class ENAUITests_10_CheckIns: XCTestCase {
+class ENAUITests_10_CheckIns: CWATestCase {
 	
 	var app: XCUIApplication!
 	var screenshotCounter = 0

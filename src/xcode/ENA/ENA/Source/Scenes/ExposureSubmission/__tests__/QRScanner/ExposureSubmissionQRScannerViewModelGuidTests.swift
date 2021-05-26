@@ -7,7 +7,7 @@ import Foundation
 import XCTest
 @testable import ENA
 
-final class ExposureSubmissionQRScannerViewModelGuidTests: XCTestCase {
+final class ExposureSubmissionQRScannerViewModelGuidTests: CWATestCase {
 
 	private func createViewModel() -> ExposureSubmissionQRScannerViewModel {
 		ExposureSubmissionQRScannerViewModel(onSuccess: { _ in }, onError: { _, _ in })

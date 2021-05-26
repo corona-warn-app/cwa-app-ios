@@ -4,7 +4,7 @@
 
 import XCTest
 
-class ENAUITests_06_DeltaOnboarding: XCTestCase {
+class ENAUITests_06_DeltaOnboarding: CWATestCase {
 
 	// MARK: - Attributes.
 	

@@ -8,7 +8,7 @@ import XCTest
 import OpenCombine
 
 // swiftlint:disable:next type_body_length
-class CheckinsOverviewViewModelTest: XCTestCase {
+class CheckinsOverviewViewModelTest: CWATestCase {
 
 	func testNumberOfSections() throws {
 		let eventStore = MockEventStore()

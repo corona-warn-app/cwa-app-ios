@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class TraceLocationTypeTest: XCTestCase {
+class TraceLocationTypeTest: CWATestCase {
 
 	func testGIVEN_locationTypeUnspecified_THEN_TitleAndSubtitleMatch() {
 		// GIVEN

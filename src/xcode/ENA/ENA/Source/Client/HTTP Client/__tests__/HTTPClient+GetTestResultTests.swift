@@ -6,7 +6,7 @@
 import Foundation
 import XCTest
 
-final class HTTPClientTestResultTests: XCTestCase {
+final class HTTPClientTestResultTests: CWATestCase {
 	private let expectationsTimeout: TimeInterval = 2
 
 	func testGetTestResult_Success() throws {

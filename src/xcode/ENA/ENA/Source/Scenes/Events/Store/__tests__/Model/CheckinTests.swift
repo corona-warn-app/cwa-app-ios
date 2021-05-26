@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class CheckinTests: XCTestCase {
+class CheckinTests: CWATestCase {
 
 	func test_When_DifferenceIs0m_Then_RoundedTo0() {
 		guard

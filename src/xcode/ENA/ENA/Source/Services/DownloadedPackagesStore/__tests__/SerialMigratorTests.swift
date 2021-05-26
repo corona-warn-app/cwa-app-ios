@@ -6,7 +6,7 @@ import XCTest
 import FMDB
 @testable import ENA
 
-final class SerialMigratorTests: XCTestCase {
+final class SerialMigratorTests: CWATestCase {
 
 	func testSerialMigratorWithNoMigrations() throws {
 		let database = makeDataBase()

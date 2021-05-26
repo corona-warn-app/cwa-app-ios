@@ -9,7 +9,7 @@ import CryptoKit
 @testable import ENA
 
 
-final class PublicKeyProviderTests: XCTestCase {
+final class PublicKeyProviderTests: CWATestCase {
 
 	func testThatKeysHaveNotBeenAlteredAccidentally() throws {
 		let environments = Environments()

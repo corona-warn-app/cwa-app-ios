@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class HomeTableViewModelTests: XCTestCase {
+class HomeTableViewModelTests: CWATestCase {
 
 	func testSectionsRowsAndHeights() throws {
 		let store = MockTestStore()

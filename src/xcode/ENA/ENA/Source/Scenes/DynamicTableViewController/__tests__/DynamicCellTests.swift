@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class DynamicCellTests: XCTestCase {
+class DynamicCellTests: CWATestCase {
 	// A `DynamicTableViewController` is required to test the `DynamicCell` configurations,
 	// as `CellConfigurator` require an instance of `DynamicTableViewController`
 	var dynamicVC: DynamicTableViewController!
@@ -24,6 +24,7 @@ class DynamicCellTests: XCTestCase {
 	}
 
 	override func tearDownWithError() throws {
+		try super.tearDownWithError()
 		dynamicVC = nil
 		window = nil
 	}

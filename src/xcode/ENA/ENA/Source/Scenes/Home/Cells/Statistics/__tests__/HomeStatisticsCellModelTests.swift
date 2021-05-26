@@ -7,7 +7,7 @@ import XCTest
 @testable import ENA
 import OpenCombine
 
-class HomeStatisticsCellModelTests: XCTestCase {
+class HomeStatisticsCellModelTests: CWATestCase {
 
 	func testForwardingSupportedKeyFigureCards() throws {
 		let store = MockTestStore()

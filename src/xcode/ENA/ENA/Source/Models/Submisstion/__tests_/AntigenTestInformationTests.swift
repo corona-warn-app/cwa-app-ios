@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class AntigenTestInformationTests: XCTestCase {
+class AntigenTestInformationTests: CWATestCase {
 
 	func testGIVEN_AntigenTestInformationPayload_WHEN_Parse_THEN_WillBeEqual() throws {
 

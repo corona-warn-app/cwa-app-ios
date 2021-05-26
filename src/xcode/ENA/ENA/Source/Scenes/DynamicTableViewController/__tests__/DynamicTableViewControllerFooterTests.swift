@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class DynamicTableViewControllerFooterTests: XCTestCase {
+class DynamicTableViewControllerFooterTests: CWATestCase {
 
 	var sut: DynamicTableViewController!
 	
@@ -16,6 +16,7 @@ class DynamicTableViewControllerFooterTests: XCTestCase {
 	}
 	
 	override func tearDownWithError() throws {
+		try super.tearDownWithError()
 		sut = nil
 	}
 }

@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class ExposureSubmissionIntroViewModelTests: XCTestCase {
+class ExposureSubmissionIntroViewModelTests: CWATestCase {
 
 	func test_When_StoreHasNOTestProfile_Then_CreateProfileTileIsReturned() {
 		let store = MockTestStore()

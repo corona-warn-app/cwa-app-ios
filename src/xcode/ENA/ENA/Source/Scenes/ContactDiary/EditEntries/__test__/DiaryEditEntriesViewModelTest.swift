@@ -7,7 +7,7 @@ import XCTest
 @testable import ENA
 import OpenCombine
 
-class DiaryEditEntriesViewModelTest: XCTestCase {
+class DiaryEditEntriesViewModelTest: CWATestCase {
 
 	func testContactPersonsStrings() throws {
 		let viewModel = DiaryEditEntriesViewModel(entryType: .contactPerson, store: MockDiaryStore())

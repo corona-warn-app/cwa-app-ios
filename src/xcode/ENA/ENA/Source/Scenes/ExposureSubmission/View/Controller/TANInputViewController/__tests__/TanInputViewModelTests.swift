@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class TanInputViewModelTests: XCTestCase {
+class TanInputViewModelTests: CWATestCase {
 
 	func testGIVEN_ValidFormattedTanWithValidChecksum_WHEN_isValidIsChecksumValid_THEN_isInvalidChcksumIsValid() {
 		// GIVEN
