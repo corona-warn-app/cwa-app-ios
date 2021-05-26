@@ -236,5 +236,65 @@
 			<string>Регистрирането на излаганията на риск е активно от %u дни. Проверката за излагане на риск може да бъде надеждна само ако регистрирането е постоянно активирано.</string>
 		</dict>
 	</dict>
+	<key>HealthCertificate_Home_Person_daysUntilCompleteProtection</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!--Plural form for ZERO.-->
+			<string>Пълна защита от ваксиниране след %u дни</string>
+			<key>one</key>
+			<!--Plural form for ONE.-->
+			<string>Пълна защита от ваксиниране след %u ден</string>
+			<key>two</key>
+			<!--Plural form for TWO.-->
+			<string>Пълна защита от ваксиниране след %u дни</string>
+			<key>few</key>
+			<!--Plural form for FEW.-->
+			<string>Пълна защита от ваксиниране след %u дни</string>
+			<key>many</key>
+			<!--Plural form for MANY.-->
+			<string>Пълна защита от ваксиниране след %u дни</string>
+			<key>other</key>
+			<!--Plural form for OTHER.-->
+			<string>Пълна защита от ваксиниране след %u дни</string>
+		</dict>
+	</dict>
+	<key>HealthCertifiedPerson_daysUntilCompleteProtection</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!--Plural form for ZERO.-->
+			<string>Получихте всички планирани за момента ваксинации, но защитата ви от ваксиниране ще е пълна едва след %u дни.</string>
+			<key>one</key>
+			<!--Plural form for ONE.-->
+			<string>Получихте всички планирани за момента ваксинации, но защитата ви от ваксиниране ще е пълна едва след %u ден.</string>
+			<key>two</key>
+			<!--Plural form for TWO.-->
+			<string>Получихте всички планирани за момента ваксинации, но защитата ви от ваксиниране ще е пълна едва след %u дни.</string>
+			<key>few</key>
+			<!--Plural form for FEW.-->
+			<string>Получихте всички планирани за момента ваксинации, но защитата ви от ваксиниране ще е пълна едва след %u дни.</string>
+			<key>many</key>
+			<!--Plural form for MANY.-->
+			<string>Получихте всички планирани за момента ваксинации, но защитата ви от ваксиниране ще е пълна едва след %u дни.</string>
+			<key>other</key>
+			<!--Plural form for OTHER.-->
+			<string>Получихте всички планирани за момента ваксинации, но защитата ви от ваксиниране ще е пълна едва след %u дни.</string>
+		</dict>
+	</dict>
 </dict>
 </plist>
