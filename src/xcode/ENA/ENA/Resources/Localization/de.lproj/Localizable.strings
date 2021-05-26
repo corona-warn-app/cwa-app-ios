@@ -1238,7 +1238,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Home_TestRegistration_Title" = "Test registrieren";
 
-"Home_TestRegistration_Body" = "Nutzen Sie die App, um Ihre Testergebnisse abrufen und schneller warnen zu können.";
+"Home_TestRegistration_Body" = "Nutzen Sie die App, um Ihre Tests zu registrieren und Testergebnisse abzurufen, um andere schneller warnen zu können.";
 
 "Home_TestRegistration_Button" = "Nächste Schritte";
 
