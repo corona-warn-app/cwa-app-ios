@@ -63,7 +63,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		XCTAssertEqual(store.previousRiskExposureMetadata, currentRiskExposureMetadata)
 		XCTAssertNil(store.currentRiskExposureMetadata)
 		XCTAssertNil(store.testResultMetadata)
-		XCTAssertNil(store.keySubmissionMetadata)
+		XCTAssertNil(store.pcrKeySubmissionMetadata)
 		XCTAssertNil(store.exposureWindowsMetadata?.newExposureWindowsQueue)
 		
 		/// Since the Date is super precise we have to be fuzzy here, and since we know our CI lets me a lot fuzzy here.
@@ -737,14 +737,14 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		Analytics.collect(.keySubmissionMetadata(.lastSubmissionFlowScreen(lastScreen, .pcr)))
 		Analytics.collect(.keySubmissionMetadata(.advancedConsentGiven(true, .pcr)))
 
-		let metadata = store.keySubmissionMetadata
-		XCTAssertNotNil(metadata, "keySubmissionMetadata should be allocated")
-		XCTAssertEqual(metadata?.submitted, true, "Wrong keySubmissionMetadata")
-		XCTAssertEqual(metadata?.submittedInBackground, true, "Wrong keySubmissionMetadata")
-		XCTAssertEqual(metadata?.submittedAfterCancel, true, "Wrong keySubmissionMetadata")
-		XCTAssertEqual(metadata?.submittedAfterSymptomFlow, true, "Wrong keySubmissionMetadata")
-		XCTAssertEqual(metadata?.lastSubmissionFlowScreen, lastScreen, "Wrong keySubmissionMetadata")
-		XCTAssertEqual(metadata?.advancedConsentGiven, true, "Wrong keySubmissionMetadata")
+		let metadata = store.pcrKeySubmissionMetadata
+		XCTAssertNotNil(metadata, "pcrKeySubmissionMetadata should be allocated")
+		XCTAssertEqual(metadata?.submitted, true, "Wrong pcrKeySubmissionMetadata")
+		XCTAssertEqual(metadata?.submittedInBackground, true, "Wrong pcrKeySubmissionMetadata")
+		XCTAssertEqual(metadata?.submittedAfterCancel, true, "Wrong pcrKeySubmissionMetadata")
+		XCTAssertEqual(metadata?.submittedAfterSymptomFlow, true, "Wrong pcrKeySubmissionMetadata")
+		XCTAssertEqual(metadata?.lastSubmissionFlowScreen, lastScreen, "Wrong pcrKeySubmissionMetadata")
+		XCTAssertEqual(metadata?.advancedConsentGiven, true, "Wrong pcrKeySubmissionMetadata")
 		
 		// Mapping to protobuf
 		let protobuf = analyticsSubmitter.gatherKeySubmissionMetadata(for: .pcr)

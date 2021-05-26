@@ -24,7 +24,7 @@ protocol PPAnalyticsData: AnyObject {
 	/// Analytics data.
 	var clientMetadata: ClientMetadata? { get set }
 	/// Analytics data
-	var keySubmissionMetadata: KeySubmissionMetadata? { get set }
+	var pcrKeySubmissionMetadata: KeySubmissionMetadata? { get set }
 	/// Analytics data
 	var antigenKeySubmissionMetadata: KeySubmissionMetadata? { get set }
 	/// Analytics data.
@@ -82,7 +82,7 @@ extension SecureStore: PPAnalyticsData {
 		set { kvStore["clientMetadata"] = newValue }
 	}
 
-	var keySubmissionMetadata: KeySubmissionMetadata? {
+	var pcrKeySubmissionMetadata: KeySubmissionMetadata? {
 		get {
 			var metadata = kvStore["keySubmissionMetadata"] as KeySubmissionMetadata? ?? nil
 

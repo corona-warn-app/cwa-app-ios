@@ -210,7 +210,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 
 		switch type {
 		case .pcr:
-			isSubmitted = store.keySubmissionMetadata?.submitted ?? false
+			isSubmitted = store.pcrKeySubmissionMetadata?.submitted ?? false
 			_testResultReceivedDate = coronaTestService.pcrTest?.finalTestResultReceivedDate
 		case .antigen:
 			isSubmitted = store.antigenKeySubmissionMetadata?.submitted ?? false
@@ -384,7 +384,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 						self?.store.antigenTestResultMetadata = nil
 					}
 					if let shouldIncludeKeySubmissionMetadata = self?.shouldIncludeKeySubmissionMetadata(for: .pcr), shouldIncludeKeySubmissionMetadata {
-						self?.store.keySubmissionMetadata = nil
+						self?.store.pcrKeySubmissionMetadata = nil
 					}
 					if let shouldIncludeAntigenKeySubmissionMetadata = self?.shouldIncludeKeySubmissionMetadata(for: .antigen), shouldIncludeAntigenKeySubmissionMetadata {
 						self?.store.antigenKeySubmissionMetadata = nil
@@ -493,7 +493,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		let _metadata: KeySubmissionMetadata?
 		switch type {
 		case .pcr:
-			_metadata = store.keySubmissionMetadata
+			_metadata = store.pcrKeySubmissionMetadata
 		case .antigen:
 			_metadata = store.antigenKeySubmissionMetadata
 		}

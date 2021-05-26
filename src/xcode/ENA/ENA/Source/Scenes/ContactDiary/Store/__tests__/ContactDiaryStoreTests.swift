@@ -755,7 +755,7 @@ class ContactDiaryStoreTests: XCTestCase {
 
 		let today = Date()
 
-		guard let daysRetentionAgoDate = Calendar.current.date(byAdding: .day, value: -(daysRetention + 1), to: today) else {
+		guard let daysRetentionAgoDate = Calendar.current.date(byAdding: .day, value: -daysRetention, to: today) else {
 			fatalError("Could not create test dates.")
 		}
 
