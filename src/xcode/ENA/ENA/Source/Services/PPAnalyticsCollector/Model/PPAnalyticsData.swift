@@ -28,7 +28,7 @@ protocol PPAnalyticsData: AnyObject {
 	/// Analytics data
 	var antigenKeySubmissionMetadata: KeySubmissionMetadata? { get set }
 	/// Analytics data.
-	var testResultMetadata: TestResultMetadata? { get set }
+	var pcrTestResultMetadata: TestResultMetadata? { get set }
 	/// Analytics data.
 	var antigenTestResultMetadata: TestResultMetadata? { get set }
 	/// Analytics data.
@@ -67,7 +67,7 @@ extension SecureStore: PPAnalyticsData {
 		set { kvStore["userMetadataAnalytics"] = newValue }
 	}
 
-	var testResultMetadata: TestResultMetadata? {
+	var pcrTestResultMetadata: TestResultMetadata? {
 		get { kvStore["testResultaMetadata"] as TestResultMetadata? }
 		set { kvStore["testResultaMetadata"] = newValue }
 	}

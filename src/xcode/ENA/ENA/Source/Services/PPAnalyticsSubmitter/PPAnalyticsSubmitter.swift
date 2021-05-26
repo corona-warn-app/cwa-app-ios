@@ -245,7 +245,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 
 		switch type {
 		case .pcr:
-			metadata = store.testResultMetadata
+			metadata = store.pcrTestResultMetadata
 		case .antigen:
 			metadata = store.antigenTestResultMetadata
 		}
@@ -377,7 +377,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 					self?.store.currentRiskExposureMetadata = nil
 					if let shouldIncludeTestResultMetadata = self?.shouldIncludeTestResultMetadata(for: .pcr),
 					   shouldIncludeTestResultMetadata {
-						self?.store.testResultMetadata = nil
+						self?.store.pcrTestResultMetadata = nil
 					}
 					if let shouldIncludeTestResultMetadata = self?.shouldIncludeTestResultMetadata(for: .antigen),
 					   shouldIncludeTestResultMetadata {
@@ -544,7 +544,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 
 		switch type {
 		case .pcr:
-			metadata = store.testResultMetadata
+			metadata = store.pcrTestResultMetadata
 		case .antigen:
 			metadata = store.antigenTestResultMetadata
 		}

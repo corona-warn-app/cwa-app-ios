@@ -78,7 +78,7 @@ class PPAnalyticsCollectorTests: XCTestCase {
 		store.lastAppReset = Date()
 		store.lastSubmissionAnalytics = Date()
 		store.clientMetadata = ClientMetadata(etag: "FakeTag")
-		store.testResultMetadata = TestResultMetadata(registrationToken: "FakeToken", testType: .pcr)
+		store.pcrTestResultMetadata = TestResultMetadata(registrationToken: "FakeToken", testType: .pcr)
 		store.pcrKeySubmissionMetadata = KeySubmissionMetadata(
 			submitted: true,
 			submittedInBackground: false,
@@ -123,7 +123,7 @@ class PPAnalyticsCollectorTests: XCTestCase {
 		countOfDeletedProperties += 1
 		XCTAssertNil(store.clientMetadata)
 		countOfDeletedProperties += 1
-		XCTAssertNil(store.testResultMetadata)
+		XCTAssertNil(store.pcrTestResultMetadata)
 		countOfDeletedProperties += 1
 		XCTAssertNil(store.antigenTestResultMetadata)
 		countOfDeletedProperties += 1

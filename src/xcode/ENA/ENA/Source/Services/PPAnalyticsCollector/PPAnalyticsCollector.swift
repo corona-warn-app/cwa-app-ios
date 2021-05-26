@@ -72,7 +72,7 @@ enum PPAnalyticsCollector {
 		store?.lastAppReset = nil
 		store?.lastSubmissionAnalytics = nil
 		store?.clientMetadata = nil
-		store?.testResultMetadata = nil
+		store?.pcrTestResultMetadata = nil
 		store?.antigenTestResultMetadata = nil
 		store?.pcrKeySubmissionMetadata = nil
 		store?.antigenKeySubmissionMetadata = nil
