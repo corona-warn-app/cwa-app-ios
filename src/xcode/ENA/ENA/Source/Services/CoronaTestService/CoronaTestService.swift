@@ -553,8 +553,7 @@ class CoronaTestService {
 					completion(.failure(.responseFailure(error)))
 				}
 			case let .success(response):
-				guard let rawTestResult = response.testResult,
-					  let testResult = TestResult(serverResponse: rawTestResult) else {
+				guard let testResult = TestResult(serverResponse: response.testResult) else {
 					Log.error("[CoronaTestService] Getting test result failed: Unknown test result \(response)", log: .api)
 
 					completion(.failure(.unknownTestResult))

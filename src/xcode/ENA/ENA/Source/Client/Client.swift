@@ -212,7 +212,7 @@ extension SubmissionError: LocalizedError {
 }
 
 struct FetchTestResultResponse: Codable {
-	let testResult: Int?
+	let testResult: Int
 	let sc: Int?
 }
 
