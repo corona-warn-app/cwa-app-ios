@@ -632,7 +632,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	#if DEBUG
 	private func setupOnboardingForTesting() {
-		store.isOnboarded = LaunchArguments.onboarding.isOnboarded.boolValue
+		// Only disable onboarding if it was explicitly set to "NO"
+		if let isOnboarded = LaunchArguments.onboarding.isOnboarded.stringValue {
+			store.isOnboarded = isOnboarded != "NO"
+		}
 
 		if let onboardingVersion = LaunchArguments.onboarding.onboardingVersion.stringValue {
 			store.onboardingVersion = onboardingVersion
