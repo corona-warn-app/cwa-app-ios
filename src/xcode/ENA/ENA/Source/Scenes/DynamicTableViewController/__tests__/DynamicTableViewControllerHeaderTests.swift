@@ -11,6 +11,7 @@ class DynamicTableViewControllerHeaderTests: CWATestCase {
 	var sut: DynamicTableViewController!
 	
 	override func setUpWithError() throws {
+		try super.setUpWithError()
 		sut = DynamicTableViewController()
 		// trigger viewDidLoad
 		sut.loadViewIfNeeded()

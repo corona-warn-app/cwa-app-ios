@@ -9,6 +9,7 @@ class ENAUITests_01a_Home: CWATestCase {
 	var app: XCUIApplication!
 
 	override func setUpWithError() throws {
+		try super.setUpWithError()
 		continueAfterFailure = false
 		app = XCUIApplication()
 		setupSnapshot(app)

@@ -8,6 +8,7 @@ import XCTest
 class StreamReaderTests: CWATestCase {
 
     override func setUpWithError() throws {
+		try super.setUpWithError()
         continueAfterFailure = false
     }
 

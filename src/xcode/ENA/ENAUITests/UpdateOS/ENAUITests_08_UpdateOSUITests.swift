@@ -11,6 +11,7 @@ class ENAUITests_08_UpdateOS: CWATestCase {
 	// MARK: - Setup.
 
 	override func setUpWithError() throws {
+		try super.setUpWithError()
 		continueAfterFailure = false
 		app = XCUIApplication()
 		setupSnapshot(app)

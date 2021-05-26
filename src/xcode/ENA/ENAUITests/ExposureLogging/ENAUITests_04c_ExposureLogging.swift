@@ -10,6 +10,7 @@ class ENAUITests_04c_ExposureLogging: CWATestCase {
 	var app: XCUIApplication!
 
     override func setUpWithError() throws {
+		try super.setUpWithError()
 		continueAfterFailure = false
 		app = XCUIApplication()
 		setupSnapshot(app)

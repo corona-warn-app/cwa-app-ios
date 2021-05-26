@@ -11,6 +11,7 @@ class ENAUITests_07_ContactJournal: CWATestCase {
 	// MARK: - Overrides
 
 	override func setUpWithError() throws {
+		try super.setUpWithError()
 		continueAfterFailure = false
 
 		app = XCUIApplication()

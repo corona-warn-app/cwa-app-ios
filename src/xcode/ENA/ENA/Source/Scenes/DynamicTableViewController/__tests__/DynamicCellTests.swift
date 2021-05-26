@@ -12,6 +12,7 @@ class DynamicCellTests: CWATestCase {
 	var window: UIWindow!
 
 	override func setUpWithError() throws {
+		try super.setUpWithError()
 		dynamicVC = DynamicTableViewController()
 
 		// trigger viewDidLoad

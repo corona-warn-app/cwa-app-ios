@@ -18,6 +18,7 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 	// MARK: - Setup and teardown methods.
 
 	override func setUpWithError() throws {
+		try super.setUpWithError()
 		store = MockTestStore()
 		parentNavigationController = UINavigationController()
 		exposureSubmissionService = MockExposureSubmissionService()

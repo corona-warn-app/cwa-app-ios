@@ -13,6 +13,7 @@ class DynamicTableViewModelTests: CWATestCase {
 	var cellsSection1: [DynamicCell] = []
 
 	override func setUpWithError() throws {
+		try super.setUpWithError()
 		cellsSection0 = [
 			DynamicCell.body(
 				text: "Foo",

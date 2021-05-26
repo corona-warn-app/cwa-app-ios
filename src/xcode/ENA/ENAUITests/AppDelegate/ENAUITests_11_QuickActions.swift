@@ -14,6 +14,7 @@ class ENAUITests_11_QuickActions: CWATestCase {
 	private lazy var eventCheckinLabel = XCUIApplication().localized(AppStrings.QuickActions.eventCheckin)
 
     override func setUpWithError() throws {
+		try super.setUpWithError()
         continueAfterFailure = false
 
 		// Clear potentially broken states by pressing the home button

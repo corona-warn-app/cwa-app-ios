@@ -12,6 +12,7 @@ class ExposureSubmissionViewControllerTests: CWATestCase {
 	
 	
 	override func setUpWithError() throws {
+		try super.setUpWithError()
 		store = MockTestStore()
 	}
 

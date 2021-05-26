@@ -11,6 +11,7 @@ class ENAUITests_10_CheckIns: CWATestCase {
 	let prefix = "event_checkin_"
 	
 	override func setUpWithError() throws {
+		try super.setUpWithError()
 		continueAfterFailure = false
 		app = XCUIApplication()
 		setupSnapshot(app)

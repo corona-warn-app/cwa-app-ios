@@ -11,6 +11,7 @@ class DynamicTableViewControllerRowsTests: CWATestCase {
 	var window: UIWindow!
 	
 	override func setUpWithError() throws {
+		try super.setUpWithError()
 		sut = DynamicTableViewController()
 		
 		// trigger viewDidLoad
