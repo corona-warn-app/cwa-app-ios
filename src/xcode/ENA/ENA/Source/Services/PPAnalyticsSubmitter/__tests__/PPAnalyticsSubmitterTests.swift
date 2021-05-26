@@ -926,8 +926,8 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		XCTAssertEqual(metadata?.hoursSinceTestRegistration, 9, "Wrong keySubmissionMetadata")
 		XCTAssertEqual(metadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, 74, "Wrong keySubmissionMetadata")
 		XCTAssertEqual(metadata?.hoursSinceHighRiskWarningAtTestRegistration, 53, "Wrong keySubmissionMetadata")
-		XCTAssertEqual(metadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration, 91, "Wrong keySubmissionMetadata")
-		XCTAssertEqual(metadata?.hoursSinceCheckinHighRiskWarningAtTestRegistration, 42, "Wrong keySubmissionMetadata")
+		XCTAssertEqual(metadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration, -1, "Wrong keySubmissionMetadata")
+		XCTAssertEqual(metadata?.hoursSinceCheckinHighRiskWarningAtTestRegistration, -1, "Wrong keySubmissionMetadata")
 		
 		// Mapping to protobuf
 		let protobuf = analyticsSubmitter.gatherKeySubmissionMetadata().first
