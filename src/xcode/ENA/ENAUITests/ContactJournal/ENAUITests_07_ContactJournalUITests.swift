@@ -20,6 +20,7 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 		app.setLaunchArgument(LaunchArguments.infoScreen.userNeedsToBeInformedAboutHowRiskDetectionWorks, to: NO)
 		app.setLaunchArgument(LaunchArguments.contactJournal.journalRemoveAllPersons, to: YES)
 		app.setLaunchArgument(LaunchArguments.contactJournal.journalRemoveAllLocations, to: YES)
+		app.setLaunchArgument(LaunchArguments.contactJournal.journalRemoveAllCoronaTests, to: YES)
 	}
 
 	// MARK: - Internal
@@ -424,6 +425,31 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 		let checkinCellEmpty = overviewCellEmpty.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.checkinRiskLevelHigh]
 		XCTAssertFalse(checkinCellEmpty.isHittable)
 	}
+
+	/// Tests: ENF Risk None, Checkin Risk None, CoronaTest Added
+	func testOverviewScenario4() throws {
+		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: YES)
+		app.setLaunchArgument(LaunchArguments.risk.riskLevel, to: "low")
+		app.setLaunchArgument(LaunchArguments.contactJournal.testsRiskLevel, to: "low")
+
+		navigateToJournalOverview()
+
+		// check if overview is visible
+		XCTAssertEqual(app.navigationBars.firstMatch.identifier, app.localized("ContactDiary_Overview_Title"))
+
+		// first cell should have the text for high risk, but none about checkin
+		let overviewCellWithEncounterRisk = app.descendants(matching: .table).firstMatch.cells.element(boundBy: 1)
+		let highRiskCell = overviewCellWithEncounterRisk.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.riskLevelLow]
+		XCTAssertTrue(highRiskCell.isHittable)
+		let checkinCell = overviewCellWithEncounterRisk.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.checkinRiskLevelLow]
+		XCTAssertFalse(checkinCell.isHittable)
+
+		let overviewCellEmpty = app.descendants(matching: .table).firstMatch.cells.element(boundBy: 4)
+		let highRiskCellEmpty = overviewCellEmpty.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.riskLevelHigh]
+		XCTAssertFalse(highRiskCellEmpty.isHittable)
+		let checkinCellEmpty = overviewCellEmpty.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.checkinRiskLevelHigh]
+		XCTAssertFalse(checkinCellEmpty.isHittable)
+	}
 	
 	// MARK: - Screenshots
 	
@@ -433,7 +459,8 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: YES)
 		app.setLaunchArgument(LaunchArguments.risk.riskLevel, to: "high")
 		app.setLaunchArgument(LaunchArguments.risk.checkinRiskLevel, to: "high")
-		
+		app.setLaunchArgument(LaunchArguments.contactJournal.testsRiskLevel, to: "high")
+
 		// navigate to desired screen
 		navigateToJournalOverview()
 		
