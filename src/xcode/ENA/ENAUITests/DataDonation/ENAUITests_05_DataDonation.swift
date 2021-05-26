@@ -12,14 +12,14 @@ class ENAUITests_05_DataDonation: XCTestCase {
 		continueAfterFailure = false
 		app = XCUIApplication()
 		app.setDefaults()
-		app.setLaunchArgument(LaunchArguments.onboarding.resetFinishedDeltaOnboardings, to: YES)
-		app.setLaunchArgument(LaunchArguments.infoScreen.userNeedsToBeInformedAboutHowRiskDetectionWorks, to: NO)
-		app.setLaunchArgument(LaunchArguments.consent.isDatadonationConsentGiven, to: NO)
+		app.setLaunchArgument(LaunchArguments.onboarding.resetFinishedDeltaOnboardings, to: true)
+		app.setLaunchArgument(LaunchArguments.infoScreen.userNeedsToBeInformedAboutHowRiskDetectionWorks, to: false)
+		app.setLaunchArgument(LaunchArguments.consent.isDatadonationConsentGiven, to: false)
 	}
 
 	func test_dataDonationInSettingsWorksCorrectly() {
-		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: YES)
-		app.setLaunchArgument(LaunchArguments.onboarding.setCurrentOnboardingVersion, to: YES)
+		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: true)
+		app.setLaunchArgument(LaunchArguments.onboarding.setCurrentOnboardingVersion, to: true)
 
 		app.launch()
 		app.swipeUp(velocity: .fast)

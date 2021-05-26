@@ -20,8 +20,8 @@ class ENAUITests_04a_ExposureSubmission: XCTestCase {
 		app = XCUIApplication()
 		setupSnapshot(app)
 		app.setDefaults()
-		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: YES)
-		app.setLaunchArgument(LaunchArguments.onboarding.setCurrentOnboardingVersion, to: YES)
+		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: true)
+		app.setLaunchArgument(LaunchArguments.onboarding.setCurrentOnboardingVersion, to: true)
 	}
 
 	// MARK: - Test cases.
@@ -334,7 +334,7 @@ class ENAUITests_04a_ExposureSubmission: XCTestCase {
 	func test_ThankYouScreen_withWarnOthers() {
 		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
 		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.positive.stringValue)
-		app.setLaunchArgument(LaunchArguments.test.pcr.positiveTestResultWasShown, to: YES)
+		app.setLaunchArgument(LaunchArguments.test.pcr.positiveTestResultWasShown, to: true)
 		launch()
 		
 		// Open Intro screen.
@@ -594,8 +594,8 @@ class ENAUITests_04a_ExposureSubmission: XCTestCase {
 
 	func test_screenshot_test_result_positive() {
 		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
-		app.setLaunchArgument(LaunchArguments.test.pcr.isSubmissionConsentGiven, to: YES)
-		app.setLaunchArgument(LaunchArguments.test.pcr.positiveTestResultWasShown, to: NO)
+		app.setLaunchArgument(LaunchArguments.test.pcr.isSubmissionConsentGiven, to: true)
+		app.setLaunchArgument(LaunchArguments.test.pcr.positiveTestResultWasShown, to: false)
 		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.positive.stringValue)
 		launch()
 
@@ -683,7 +683,7 @@ extension ENAUITests_04a_ExposureSubmission {
 	func launchAndNavigateToSymptomsScreen() {
 		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
 		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.positive.stringValue)
-		app.setLaunchArgument(LaunchArguments.test.pcr.positiveTestResultWasShown, to: YES)
+		app.setLaunchArgument(LaunchArguments.test.pcr.positiveTestResultWasShown, to: true)
 		launch()
 
 		app.cells[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.pcrCell].waitAndTap()

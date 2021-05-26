@@ -14,8 +14,8 @@ class ENAUITests_00_Onboarding: XCTestCase {
 		app = XCUIApplication()
 		setupSnapshot(app)
 		app.setDefaults()
-		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: NO)
-		app.setLaunchArgument(LaunchArguments.consent.isDatadonationConsentGiven, to: NO)
+		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: false)
+		app.setLaunchArgument(LaunchArguments.consent.isDatadonationConsentGiven, to: false)
 		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.unknown.stringValue)
 	}
 
@@ -148,7 +148,7 @@ class ENAUITests_00_Onboarding: XCTestCase {
 
 	func test_0002_Screenshots_OnboardingFlow_EnablePermissions_normal_S() throws {
 		var screenshotCounter = 0
-		app.setLaunchArgument(LaunchArguments.infoScreen.userNeedsToBeInformedAboutHowRiskDetectionWorks, to: YES)
+		app.setLaunchArgument(LaunchArguments.infoScreen.userNeedsToBeInformedAboutHowRiskDetectionWorks, to: true)
 		app.setPreferredContentSizeCategory(accessibility: .normal, size: .S)
 		app.launch()
 		

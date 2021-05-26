@@ -47,9 +47,9 @@ class ENAUITests_11_QuickActions: XCTestCase {
 	func testLaunchAfterOnboarding_diaryInfoRequred() throws {
 		let app = XCUIApplication()
 		app.setDefaults()
-		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: YES)
-		app.setLaunchArgument(LaunchArguments.onboarding.setCurrentOnboardingVersion, to: YES)
-		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: NO) // first launch of the contact diary
+		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: true)
+		app.setLaunchArgument(LaunchArguments.onboarding.setCurrentOnboardingVersion, to: true)
+		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: false) // first launch of the contact diary
 		app.launch()
 
 		// On home screen?
@@ -66,9 +66,9 @@ class ENAUITests_11_QuickActions: XCTestCase {
 	func testLaunchAfterOnboarding_diaryInfoPassed() throws {
 		let app = XCUIApplication()
 		app.setDefaults()
-		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: YES)
-		app.setLaunchArgument(LaunchArguments.onboarding.setCurrentOnboardingVersion, to: YES)
-		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: YES) // contact diary info stuff shown and accepted
+		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: true)
+		app.setLaunchArgument(LaunchArguments.onboarding.setCurrentOnboardingVersion, to: true)
+		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true) // contact diary info stuff shown and accepted
 		app.launch()
 
 		// On home screen?
@@ -84,8 +84,8 @@ class ENAUITests_11_QuickActions: XCTestCase {
 		let app = XCUIApplication()
 		app.setDefaults()
 
-		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: YES)
-		app.setLaunchArgument(LaunchArguments.onboarding.setCurrentOnboardingVersion, to: YES)
+		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: true)
+		app.setLaunchArgument(LaunchArguments.onboarding.setCurrentOnboardingVersion, to: true)
 		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
 		app.launch()
 

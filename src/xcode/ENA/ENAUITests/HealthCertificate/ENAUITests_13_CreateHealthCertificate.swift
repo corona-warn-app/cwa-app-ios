@@ -13,8 +13,8 @@ class ENAUITests_13_CreateHealthCertificate: XCTestCase {
 		continueAfterFailure = false
 		app = XCUIApplication()
 		app.setDefaults()
-		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: YES)
-		app.setLaunchArgument(LaunchArguments.onboarding.setCurrentOnboardingVersion, to: YES)
+		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: true)
+		app.setLaunchArgument(LaunchArguments.onboarding.setCurrentOnboardingVersion, to: true)
 	}
 
 	// MARK: - Internal
@@ -32,6 +32,8 @@ class ENAUITests_13_CreateHealthCertificate: XCTestCase {
 
 		// HealthCertificate consent screen tap on disclaimer
 		let disclaimerButton = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Info.disclaimer])
+		
+		snapshot("screenshot_health_certificate_consent_screen")
 		disclaimerButton.waitAndTap()
 
 		// data privacy
@@ -40,6 +42,7 @@ class ENAUITests_13_CreateHealthCertificate: XCTestCase {
 	}
 
 	func test_CreateAntigenTestProfileWithFirstCertificate_THEN_DeleteProfile() throws {
+		app.launchArguments.append(contentsOf: ["-noHealthCertificate", "YES"])
 		app.launch()
 
 		/// Home Screen
@@ -61,15 +64,18 @@ class ENAUITests_13_CreateHealthCertificate: XCTestCase {
 		// Certificate Screen
 		let headlineCell = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Certificate.headline])
 		XCTAssertTrue(headlineCell.waitForExistence(timeout: .short))
+		
+		snapshot("screenshot_first_health_certificate")
 	}
 
 	func test_CreateAntigenTestProfileWithLastCertificate_THEN_DeleteProfile() throws {
-
-		app.setLaunchArgument(LaunchArguments.healthCertificate.firstHealthCertificate, to: YES)
+		app.setLaunchArgument(LaunchArguments.healthCertificate.firstHealthCertificate, to: true)
 		app.launch()
 
 		/// Home Screen
 		let registerCertificateTitle = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.Home.registerHealthCertificateButton])
+		
+		snapshot("screenshot_certificate_home_screen_grey")
 		registerCertificateTitle.waitAndTap()
 
 		// HealthCertificate consent screen
@@ -87,15 +93,18 @@ class ENAUITests_13_CreateHealthCertificate: XCTestCase {
 		// Certificate Screen
 		let headlineCell = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Certificate.headline])
 		XCTAssertTrue(headlineCell.waitForExistence(timeout: .short))
+		
+		snapshot("screenshot_second_health_certificate")
 	}
 
 	func test_ShowCertificate() throws {
-		app.setLaunchArgument(LaunchArguments.healthCertificate.firstAndSecondHealthCertificate, to: YES)
-
+		app.setLaunchArgument(LaunchArguments.healthCertificate.firstAndSecondHealthCertificate, to: true)
 		app.launch()
 
 		/// Home Screen
 		let certificateTitle = try XCTUnwrap(app.cells[AccessibilityIdentifiers.Home.healthCertificateButton])
+		
+		snapshot("screenshot_certificate_home_screen_blue")
 		certificateTitle.waitAndTap()
 
 		// Certified Person screen

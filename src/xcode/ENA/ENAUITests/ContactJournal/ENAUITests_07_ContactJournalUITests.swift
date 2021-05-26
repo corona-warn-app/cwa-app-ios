@@ -15,12 +15,12 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 
 		app = XCUIApplication()
 		app.setDefaults()
-		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: YES)
-		app.setLaunchArgument(LaunchArguments.onboarding.setCurrentOnboardingVersion, to: YES)
-		app.setLaunchArgument(LaunchArguments.infoScreen.userNeedsToBeInformedAboutHowRiskDetectionWorks, to: NO)
-		app.setLaunchArgument(LaunchArguments.contactJournal.journalRemoveAllPersons, to: YES)
-		app.setLaunchArgument(LaunchArguments.contactJournal.journalRemoveAllLocations, to: YES)
-		app.setLaunchArgument(LaunchArguments.contactJournal.journalRemoveAllCoronaTests, to: YES)
+		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: true)
+		app.setLaunchArgument(LaunchArguments.onboarding.setCurrentOnboardingVersion, to: true)
+		app.setLaunchArgument(LaunchArguments.infoScreen.userNeedsToBeInformedAboutHowRiskDetectionWorks, to: false)
+		app.setLaunchArgument(LaunchArguments.contactJournal.journalRemoveAllPersons, to: true)
+		app.setLaunchArgument(LaunchArguments.contactJournal.journalRemoveAllLocations, to: true)
+		app.setLaunchArgument(LaunchArguments.contactJournal.journalRemoveAllCoronaTests, to: true)
 	}
 
 	// MARK: - Internal
@@ -30,7 +30,7 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 	// MARK: - Test cases.
 
 	func testOpenInformationScreenViaSheet() throws {
-		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: YES)
+		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
 
 		openInformationSheet()
 
@@ -41,7 +41,7 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 	}
 
 	func testOpenExportViaSheet() throws {
-		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: YES)
+		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
 
 		openInformationSheet()
 
@@ -52,7 +52,7 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 	}
 
 	func testDeleteAllPersons() throws {
-		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: YES)
+		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
 
 		openEditPersonViaSheet()
 
@@ -67,7 +67,7 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 	}
 
 	func testDeleteOnePersonAndEditOnePerson() throws {
-		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: YES)
+		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
 
 		openEditPersonViaSheet()
 
@@ -103,7 +103,7 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 	}
 
 	func testDeleteOneLocationAndEditOneLocation() throws {
-		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: YES)
+		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
 
 		openEditLocationsViaSheet()
 
@@ -143,7 +143,7 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 	}
 
 	func testAddPersonToDate() throws {
-		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: YES)
+		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
 
 		navigateToJournalOverview()
 
@@ -170,7 +170,7 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 	}
 
 	func testAddLocationToDate() throws {
-		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: YES)
+		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
 
 		navigateToJournalOverview()
 
@@ -200,7 +200,7 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 	}
 
 	func testDetailsSelectionOfPersonEncounter() {
-		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: YES)
+		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
 
 		navigateToJournalOverview()
 
@@ -236,7 +236,7 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 	}
 
 	func testDetailsSelectionOfLocationVisit() {
-		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: YES)
+		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
 
 		navigateToJournalOverview()
 
@@ -285,7 +285,7 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 	}
 
 	func testNavigateToPersonEncounterDayInfo() {
-		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: YES)
+		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
 
 		navigateToJournalOverview()
 
@@ -302,7 +302,7 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 	}
 
 	func testNavigateToLocationDayInfo() {
-		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: YES)
+		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
 
 		navigateToJournalOverview()
 
@@ -323,7 +323,7 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 	}
 
 	func testNavigationToInformationVC() throws {
-		app.setLaunchArgument(LaunchArguments.infoScreen.traceLocationsInfoScreenShown, to: NO)
+		app.setLaunchArgument(LaunchArguments.infoScreen.traceLocationsInfoScreenShown, to: false)
 
 		navigateToJournalOverview()
 
@@ -340,7 +340,7 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 	}
 
 	func testCloseInformationVC() throws {
-		app.setLaunchArgument(LaunchArguments.infoScreen.traceLocationsInfoScreenShown, to: NO)
+		app.setLaunchArgument(LaunchArguments.infoScreen.traceLocationsInfoScreenShown, to: false)
 
 		navigateToJournalOverview()
 
@@ -355,7 +355,7 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 
 	/// Tests: ENF Risk High, Checkin Risk None
 	func testOverviewScenario1() throws {
-		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: YES)
+		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
 		app.setLaunchArgument(LaunchArguments.risk.riskLevel, to: "low")
 
 		navigateToJournalOverview()
@@ -379,7 +379,7 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 	
 	/// Tests: ENF Risk High, Checkin Risk High
 	func testOverviewScenario2() throws {
-		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: YES)
+		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
 		app.setLaunchArgument(LaunchArguments.risk.riskLevel, to: "high")
 		app.setLaunchArgument(LaunchArguments.risk.checkinRiskLevel, to: "high")
 		
@@ -404,7 +404,7 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 	
 	/// Tests: ENF Risk None, Checkin Risk High
 	func testOverviewScenario3() throws {
-		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: YES)
+		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
 		app.setLaunchArgument(LaunchArguments.risk.checkinRiskLevel, to: "low")
 
 		navigateToJournalOverview()
@@ -428,7 +428,7 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 
 	/// Tests: ENF Risk None, Checkin Risk None, CoronaTest Added
 	func testOverviewScenario4() throws {
-		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: YES)
+		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
 		app.setLaunchArgument(LaunchArguments.risk.riskLevel, to: "low")
 		app.setLaunchArgument(LaunchArguments.contactJournal.testsRiskLevel, to: "low")
 
@@ -456,7 +456,7 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 	func test_screenshot_Overview() throws {
 		var screenshotCounter = 0
 		// setting up launch arguments
-		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: YES)
+		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
 		app.setLaunchArgument(LaunchArguments.risk.riskLevel, to: "high")
 		app.setLaunchArgument(LaunchArguments.risk.checkinRiskLevel, to: "high")
 		app.setLaunchArgument(LaunchArguments.contactJournal.testsRiskLevel, to: "high")
@@ -471,7 +471,7 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 	func test_screenshot_TwoPersonsOneLocationAndMessages() throws {
 		var screenshotCounter = 0
 		// setting up launch arguments
-		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: YES)
+		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
 		app.setLaunchArgument(LaunchArguments.risk.riskLevel, to: "high")
 		
 		// navigate to desired screen
@@ -512,7 +512,7 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 
 	func test_screenshot_AddTwoPersonsAndOneLocationToDate() throws {
 		var screenshotCounter = 0
-		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: YES)
+		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
 		app.setLaunchArgument(LaunchArguments.risk.riskLevel, to: "high")
 
 		navigateToJournalOverview()
@@ -564,7 +564,7 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 
 	func test_screenshot_ContactJournalInformation() throws {
 		var screenshotCounter = 0
-		app.setLaunchArgument(LaunchArguments.infoScreen.traceLocationsInfoScreenShown, to: NO)
+		app.setLaunchArgument(LaunchArguments.infoScreen.traceLocationsInfoScreenShown, to: false)
 
 		// navigate to desired screen
 		navigateToJournalOverview()
@@ -586,7 +586,7 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 
 	func test_screenshot_AddTwoPersonsTwoLocations() throws {
 		// setting up launch arguments
-		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: YES)
+		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
 		app.setLaunchArgument(LaunchArguments.risk.riskLevel, to: "high")
 
 		// navigate to desired screen
@@ -615,7 +615,7 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 	}
 
 	func test_screenshot_EditPersonScreen() throws {
-		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: YES)
+		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
 
 		// open sheet to edit persons
 		openEditPersonViaSheet()
@@ -625,7 +625,7 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 	}
 
 	func test_screenshot_EditLocationScreen() throws {
-		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: YES)
+		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
 
 		// open sheet to edit locations
 		openEditLocationsViaSheet()

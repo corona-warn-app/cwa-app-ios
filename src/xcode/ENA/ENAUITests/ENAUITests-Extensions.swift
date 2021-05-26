@@ -4,9 +4,6 @@
 
 import XCTest
 
-let YES = "YES"
-let NO = "NO"
-
 enum SizeCategory: String {
 	case XS
 	case S
@@ -61,6 +58,10 @@ extension XCUIApplication {
 
 	func setLaunchArgument(_ launchArgument: LaunchArgument, to value: String) {
 		launchArguments.append(contentsOf: ["-\(launchArgument.name)", value])
+	}
+
+	func setLaunchArgument(_ launchArgument: LaunchArgument, to bool: Bool) {
+		setLaunchArgument(launchArgument, to: bool ? "YES" : "NO")
 	}
 
 	func localized(_ key: String) -> String {
