@@ -94,7 +94,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		let tanInputViewModel = TanInputViewModel(
 			coronaTestService: model.coronaTestService,
 			onSuccess: { [weak self] testRegistrationInformation, isLoading in
-				self?.handleCoronaTestQRCodeInformation(testRegistrationInformation, isLoading: isLoading)
+				self?.handleCoronaTestRegistrationInformation(testRegistrationInformation, isLoading: isLoading)
 			}
 		)
 
@@ -463,13 +463,13 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 	private func showQRScreen(testInformation: CoronaTestRegistrationInformation?, isLoading: @escaping (Bool) -> Void) {
 		if let testInformation = testInformation {
-			handleCoronaTestQRCodeInformation(testInformation, isLoading: isLoading)
+			handleCoronaTestRegistrationInformation(testInformation, isLoading: isLoading)
 		} else {
 			let scannerViewController = ExposureSubmissionQRScannerViewController(
 				onSuccess: { testQRCodeInformation in
 					DispatchQueue.main.async { [weak self] in
 						self?.presentedViewController?.dismiss(animated: true) {
-							self?.handleCoronaTestQRCodeInformation(testQRCodeInformation, isLoading: isLoading)
+							self?.handleCoronaTestRegistrationInformation(testQRCodeInformation, isLoading: isLoading)
 						}
 					}
 				},
@@ -514,12 +514,13 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 	}
 	
-	private func handleCoronaTestQRCodeInformation(_ testQRCodeInformation: CoronaTestRegistrationInformation, isLoading: @escaping (Bool) -> Void) {
-		if let oldTest = model.coronaTestService.coronaTest(ofType: testQRCodeInformation.testType),
-		   oldTest.testResult != .expired && oldTest.testResult != .invalid {
-			showOverrideTestNotice(testQRCodeInformation: testQRCodeInformation, submissionConsentGiven: true)
+	private func handleCoronaTestRegistrationInformation(_ testRegistrationInformation: CoronaTestRegistrationInformation, isLoading: @escaping (Bool) -> Void) {
+		if let oldTest = self.model.coronaTestService.coronaTest(ofType: testRegistrationInformation.testType),
+		   oldTest.testResult != .expired,
+		   !(oldTest.type == .antigen && self.model.coronaTestService.antigenTestIsOutdated) {
+			self.showOverrideTestNotice(testQRCodeInformation: testRegistrationInformation, submissionConsentGiven: true)
 		} else {
-			registerTestAndGetResult(with: testQRCodeInformation, submissionConsentGiven: true, isLoading: isLoading)
+			self.registerTestAndGetResult(with: testRegistrationInformation, submissionConsentGiven: true, isLoading: isLoading)
 		}
 	}
 
