@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class HomeShownPositiveTestResultCellModelTest: XCTestCase {
+class HomeShownPositiveTestResultCellModelTest: CWATestCase {
 
     func testShownPositivePCRTest() throws {
 		let coronaTestService = CoronaTestService(

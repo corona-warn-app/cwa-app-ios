@@ -41,7 +41,7 @@ final class TestableExposureSubmissionQRScannerViewModel: ExposureSubmissionQRSc
 	#endif
 }
 // swiftlint:disable:next type_body_length
-final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
+final class ExposureSubmissionQRScannerViewModelTests: CWATestCase {
 
 	func testSuccessfulPcrScan() {
 		let guid = "3D6D08-3567F3F2-4DCF-43A3-8737-4CD1F87D6FDA"
@@ -546,7 +546,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 			jsonDecoder.dateDecodingStrategy = .custom({ decoder -> Date in
 				let container = try decoder.singleValueContainer()
 				let stringDate = try container.decode(String.self)
-				guard let date = ISO8601DateFormatter.justDate.date(from: stringDate) else {
+				guard let date = ISO8601DateFormatter.justUTCDateFormatter.date(from: stringDate) else {
 					throw DecodingError.dataCorruptedError(in: container, debugDescription: "failed to decode date \(stringDate)")
 				}
 				return date

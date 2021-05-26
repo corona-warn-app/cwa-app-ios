@@ -4,7 +4,7 @@
 
 import XCTest
 
-class ENAUITests_02_AppInformation: XCTestCase {
+class ENAUITests_02_AppInformation: CWATestCase {
 	var app: XCUIApplication!
 
 	override func setUpWithError() throws {
@@ -14,10 +14,6 @@ class ENAUITests_02_AppInformation: XCTestCase {
 		app.setDefaults()
 		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
 		app.launchArguments.append(contentsOf: ["-setCurrentOnboardingVersion", "YES"])
-	}
-	
-	override func tearDownWithError() throws {
-		// Put teardown code here. This method is called after the invocation of each test method in the class.
 	}
 
 	func test_0020_AppInformationFlow() throws {

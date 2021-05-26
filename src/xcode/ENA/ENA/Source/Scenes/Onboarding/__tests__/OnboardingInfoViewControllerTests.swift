@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class OnboardingInfoViewControllerTests: XCTestCase {
+class OnboardingInfoViewControllerTests: CWATestCase {
 
 	func test_createOnboardingInfoViewController() {
 		let mockExposureManager = MockExposureManager(exposureNotificationError: nil, diagnosisKeysResult: nil)

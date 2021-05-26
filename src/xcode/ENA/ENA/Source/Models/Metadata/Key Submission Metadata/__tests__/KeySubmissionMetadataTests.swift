@@ -5,7 +5,7 @@
 @testable import ENA
 import XCTest
 
-class KeySubmissionMetadataTests: XCTestCase {
+class KeySubmissionMetadataTests: CWATestCase {
 	
 	func testKeySubmissionMetadataValues_HighRisk() {
 		let secureStore = MockTestStore()

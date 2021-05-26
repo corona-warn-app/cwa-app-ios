@@ -5,7 +5,7 @@
 @testable import ENA
 import XCTest
 
-class KeyTests: XCTestCase {
+class KeyTests: CWATestCase {
 	// This is a very basic sanity test just to make sure that encoding and decoding of keys
 	// works. Currently this is needed by the developer menu in order to transfer keys from
 	// device to device.

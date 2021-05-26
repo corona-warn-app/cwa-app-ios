@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class RiskLegendeTest: XCTestCase {
+class RiskLegendeTest: CWATestCase {
 
 	func testGIVEN_riskLegendeViewController_WHEN_loaddynamicTableViewModel_THEN_SectionsMatch() {
 		// GIVEN

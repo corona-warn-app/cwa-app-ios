@@ -7,7 +7,7 @@ import XCTest
 @testable import ENA
 import OpenCombine
 
-class DiaryEditEntriesCellModelTest: XCTestCase {
+class DiaryEditEntriesCellModelTest: CWATestCase {
 
 	func testContactPersonText() throws {
 		let name = "Martin Hermes"

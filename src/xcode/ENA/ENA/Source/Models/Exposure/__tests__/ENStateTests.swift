@@ -6,7 +6,7 @@
 import ExposureNotification
 import XCTest
 
-final class ENStateTests: XCTestCase {
+final class ENStateTests: CWATestCase {
 
 	var stateHandler: ENStateHandler!
 	var exposureManagerState: ExposureManagerState!

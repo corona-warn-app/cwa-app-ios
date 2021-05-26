@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-final class DynamicTypeLabelTests: XCTestCase {
+final class DynamicTypeLabelTests: CWATestCase {
     func testDesignatedInitializer() {
 		XCTAssertNotNil(DynamicTypeLabel())
     }

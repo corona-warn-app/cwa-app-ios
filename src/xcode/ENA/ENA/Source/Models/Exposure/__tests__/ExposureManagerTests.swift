@@ -6,7 +6,7 @@ import XCTest
 import ExposureNotification
 @testable import ENA
 
-class ExposureManagerTests: XCTestCase {
+class ExposureManagerTests: CWATestCase {
 
 	func test_GIVEN_RunningDetection_When_StartNewDetection_Then_SameProgressReturned() {
 		let managerSpy = ManagerSpy()

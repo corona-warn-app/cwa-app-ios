@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class StreamReaderTests: XCTestCase {
+class StreamReaderTests: CWATestCase {
 
     override func setUpWithError() throws {
         continueAfterFailure = false

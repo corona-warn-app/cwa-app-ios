@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class ExposureSubmissionSymptomsOnsetViewControllerTests: XCTestCase {
+class ExposureSubmissionSymptomsOnsetViewControllerTests: CWATestCase {
 
 	private func createVC() -> ExposureSubmissionSymptomsOnsetViewController {
 		ExposureSubmissionSymptomsOnsetViewController(onPrimaryButtonTap: { _, _ in }, onDismiss: { _ in })

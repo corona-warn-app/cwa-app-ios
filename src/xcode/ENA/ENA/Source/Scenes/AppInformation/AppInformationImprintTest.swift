@@ -6,7 +6,7 @@ import Foundation
 import XCTest
 @testable import ENA
 
-class AppInformationImprintTest: XCTestCase {
+class AppInformationImprintTest: CWATestCase {
 
 	func testImprintViewModelDE() throws {
 		let imprintViewModel = AppInformationImprintViewModel(preferredLocalization: "de")
@@ -18,7 +18,7 @@ class AppInformationImprintTest: XCTestCase {
 			)
 		]
 		
-		XCTAssertEqual(model.count, 1)
+		XCTAssertEqual(model.count, 2)
 		let key = model.first?.key
 		XCTAssertEqual(key, .imprint)
 		

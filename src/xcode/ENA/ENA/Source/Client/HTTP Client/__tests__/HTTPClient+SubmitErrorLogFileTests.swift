@@ -6,7 +6,7 @@
 import Foundation
 import XCTest
 
-final class HTTPClientSubmitErrorLogFileTests: XCTestCase {
+final class HTTPClientSubmitErrorLogFileTests: CWATestCase {
 	
 	func testGIVEN_ErrorLog_WHEN_Submit_THEN_HappyCase_LogUploadResponseIsReturned() throws {
 		// GIVEN

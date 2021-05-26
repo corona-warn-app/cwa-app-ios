@@ -29,7 +29,7 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 		super.viewDidLoad()
 
 		view.backgroundColor = .enaColor(for: .background)
-		title = AppStrings.ExposureSubmissionHotline.title
+		navigationItem.title = AppStrings.ExposureSubmissionHotline.title
 
 		setupTableView()
 		setupBackButton()

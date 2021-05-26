@@ -6,7 +6,7 @@
 import Foundation
 import XCTest
 
-final class DayKeyPackageDownloadTest: XCTestCase {
+final class DayKeyPackageDownloadTest: CWATestCase {
 
 	private lazy var dummyResponse: [String: PackageDownloadResponse] = {
 		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())

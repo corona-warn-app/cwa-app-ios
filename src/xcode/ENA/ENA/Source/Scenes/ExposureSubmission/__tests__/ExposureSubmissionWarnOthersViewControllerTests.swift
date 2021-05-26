@@ -6,7 +6,7 @@ import Foundation
 import XCTest
 @testable import ENA
 
-class ExposureSubmissionWarnOthersViewControllerTests: XCTestCase {
+class ExposureSubmissionWarnOthersViewControllerTests: CWATestCase {
 	
 	private var store: Store!
 	

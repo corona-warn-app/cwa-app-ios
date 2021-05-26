@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class ENAColorTests: XCTestCase {
+class ENAColorTests: CWATestCase {
 
 	func testAvailableColors() {
 		for style in ENAColor.allCases {

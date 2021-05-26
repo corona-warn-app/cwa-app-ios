@@ -36,16 +36,13 @@ final class HealthCertificateCellViewModel {
 	}
 
 	var detail: String? {
-		guard
-			let dateOfVaccinationString = healthCertificate.vaccinationCertificates.first?.dateOfVaccination,
-			let dateOfVaccinationDate = ISO8601DateFormatter.contactDiaryFormatter.date(from: dateOfVaccinationString)
-		else {
+		guard let dateOfVaccination = healthCertificate.dateOfVaccination else {
 			return nil
 		}
 
 		return String(
 			format: AppStrings.HealthCertificate.Person.vaccinationDate,
-			DateFormatter.localizedString(from: dateOfVaccinationDate, dateStyle: .medium, timeStyle: .none)
+			DateFormatter.localizedString(from: dateOfVaccination, dateStyle: .medium, timeStyle: .none)
 		)
 	}
 

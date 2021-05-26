@@ -4,7 +4,7 @@
 
 import XCTest
 
-class ENAUITests_09_TraceLocations: XCTestCase {
+class ENAUITests_09_TraceLocations: CWATestCase {
 	
 	// MARK: - Setup.
 	

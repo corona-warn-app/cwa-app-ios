@@ -6,7 +6,7 @@ import XCTest
 import ExposureNotification
 @testable import ENA
 
-final class ConvertingKeysTests: XCTestCase {
+final class ConvertingKeysTests: CWATestCase {
 	func testToSapKeyConversion() {
 		let key = TemporaryExposureKeyMock(
 			keyData: Data("hello".utf8),

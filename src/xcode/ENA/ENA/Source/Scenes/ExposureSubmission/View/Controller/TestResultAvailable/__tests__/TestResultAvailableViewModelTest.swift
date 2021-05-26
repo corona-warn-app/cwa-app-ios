@@ -6,7 +6,7 @@ import XCTest
 import OpenCombine
 @testable import ENA
 
-class TestResultAvailableViewModelTest: XCTestCase {
+class TestResultAvailableViewModelTest: CWATestCase {
 	
 	func testGIVEN_ViewModel_WHEN_PrimaryButtonClosureCalled_THEN_ExpectationFulfill() {
 		// GIVEN

@@ -6,7 +6,7 @@ import XCTest
 @testable import ENA
 import OpenCombine
 
-class DiaryAddAndEditEntryViewModelTest: XCTestCase {
+class DiaryAddAndEditEntryViewModelTest: CWATestCase {
 	
 	// MARK: - ContactPerson
 	
