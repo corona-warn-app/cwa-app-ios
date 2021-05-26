@@ -1251,7 +1251,7 @@ class CoronaTestServiceTests: XCTestCase {
 		XCTAssertEqual(mockNotificationCenter.notificationRequests.count, 0)
 	}
 
-	func test_When_UpdateTestResultSuccessWithPositive_Then_ContactJounalHasAnEntry() throws {
+	func test_When_UpdateTestResultSuccessWithPositive_Then_ContactJournalHasAnEntry() throws {
 		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		client.onGetTestResult = { _, _, completion in
