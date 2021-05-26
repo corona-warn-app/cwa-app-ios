@@ -12,10 +12,10 @@ class ENAUITests_04b_ExposureDetection: XCTestCase {
 		continueAfterFailure = false
 		app = XCUIApplication()
 		app.setDefaults()
-		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
-		app.launchArguments.append(contentsOf: ["-setCurrentOnboardingVersion", "YES"])
-		app.launchArguments.append(contentsOf: ["-userNeedsToBeInformedAboutHowRiskDetectionWorks", "NO"])
-		app.launchArguments.append(contentsOf: ["-riskLevel", "high"])
+		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: true)
+		app.setLaunchArgument(LaunchArguments.onboarding.setCurrentOnboardingVersion, to: true)
+		app.setLaunchArgument(LaunchArguments.infoScreen.userNeedsToBeInformedAboutHowRiskDetectionWorks, to: false)
+		app.setLaunchArgument(LaunchArguments.risk.riskLevel, to: "high")
 	}
 
 	func test_NavigationToSurvey() throws {

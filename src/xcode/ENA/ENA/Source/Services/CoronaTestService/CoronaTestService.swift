@@ -107,7 +107,6 @@ class CoronaTestService {
 					Log.info("[CoronaTestService] PCR test registered: \(private: String(describing: self?.pcrTest), public: "PCR Test result")", log: .api)
 
 					Analytics.collect(.testResultMetadata(.registerNewTestMetadata(Date(), registrationToken, .pcr)))
-					Analytics.collect(.keySubmissionMetadata(.submittedWithTeletan(false)))
 
 					self?.getTestResult(for: .pcr, duringRegistration: true) { result in
 						completion(result)
@@ -151,8 +150,6 @@ class CoronaTestService {
 					)
 
 					Log.info("[CoronaTestService] PCR test registered: \(private: String(describing: self?.pcrTest), public: "PCR Test result")", log: .api)
-
-					Analytics.collect(.keySubmissionMetadata(.submittedWithTeletan(true)))
 
 					completion(.success(()))
 				case .failure(let error):
@@ -517,7 +514,6 @@ class CoronaTestService {
 			#if DEBUG
 			if isUITesting {
 				completion(
-					self.mockTestResultResponse(for: coronaTestType).flatMap { .success($0) } ??
 					self.mockTestResult(for: coronaTestType).flatMap { .success($0) } ??
 						.failure(.noCoronaTestOfRequestedType)
 				)
@@ -599,9 +595,9 @@ class CoronaTestService {
 						}
 					}
 
-					if coronaTestType == .pcr && duringRegistration {
-						Analytics.collect(.keySubmissionMetadata(.setHoursSinceHighRiskWarningAtTestRegistration))
-						Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration))
+					if duringRegistration {
+						Analytics.collect(.keySubmissionMetadata(.setHoursSinceHighRiskWarningAtTestRegistration(coronaTestType)))
+						Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration(coronaTestType)))
 					}
 
 					completion(.success(testResult))
@@ -694,10 +690,10 @@ class CoronaTestService {
 				registrationToken: "asdf",
 				testResult: testResult,
 				finalTestResultReceivedDate: testResult == .pending ? nil : Date(),
-				positiveTestResultWasShown: UserDefaults.standard.string(forKey: "pcrPositiveTestResultWasShown") == "YES",
-				isSubmissionConsentGiven: UserDefaults.standard.string(forKey: "isPCRSubmissionConsentGiven") == "YES",
+				positiveTestResultWasShown: LaunchArguments.test.pcr.positiveTestResultWasShown.boolValue,
+				isSubmissionConsentGiven: LaunchArguments.test.pcr.isSubmissionConsentGiven.boolValue,
 				submissionTAN: nil,
-				keysSubmitted: UserDefaults.standard.string(forKey: "pcrKeysSubmitted") == "YES",
+				keysSubmitted: LaunchArguments.test.pcr.keysSubmitted.boolValue,
 				journalEntryCreated: false
 			)
 		} else {
@@ -714,10 +710,10 @@ class CoronaTestService {
 				testedPerson: TestedPerson(firstName: "Erika", lastName: "Mustermann", dateOfBirth: "1964-08-12"),
 				testResult: testResult,
 				finalTestResultReceivedDate: testResult == .pending ? nil : Date(),
-				positiveTestResultWasShown: UserDefaults.standard.string(forKey: "antigenPositiveTestResultWasShown") == "YES",
-				isSubmissionConsentGiven: UserDefaults.standard.string(forKey: "isAntigenSubmissionConsentGiven") == "YES",
+				positiveTestResultWasShown: LaunchArguments.test.antigen.positiveTestResultWasShown.boolValue,
+				isSubmissionConsentGiven: LaunchArguments.test.antigen.isSubmissionConsentGiven.boolValue,
 				submissionTAN: nil,
-				keysSubmitted: UserDefaults.standard.string(forKey: "antigenKeysSubmitted") == "YES",
+				keysSubmitted: LaunchArguments.test.antigen.keysSubmitted.boolValue,
 				journalEntryCreated: false
 			)
 		} else {
@@ -728,18 +724,9 @@ class CoronaTestService {
 	private func mockTestResult(for coronaTestType: CoronaTestType) -> TestResult? {
 		switch coronaTestType {
 		case .pcr:
-			return UserDefaults.standard.string(forKey: "pcrTestResult").flatMap { TestResult(stringValue: $0) }
+			return LaunchArguments.test.pcr.testResult.stringValue.flatMap { TestResult(stringValue: $0) }
 		case .antigen:
-			return UserDefaults.standard.string(forKey: "antigenTestResult").flatMap { TestResult(stringValue: $0) }
-		}
-	}
-
-	private func mockTestResultResponse(for coronaTestType: CoronaTestType) -> TestResult? {
-		switch coronaTestType {
-		case .pcr:
-			return UserDefaults.standard.string(forKey: "pcrTestResultResponse").flatMap { TestResult(stringValue: $0) }
-		case .antigen:
-			return UserDefaults.standard.string(forKey: "antigenTestResultResponse").flatMap { TestResult(stringValue: $0) }
+			return LaunchArguments.test.antigen.testResult.stringValue.flatMap { TestResult(stringValue: $0) }
 		}
 	}
 

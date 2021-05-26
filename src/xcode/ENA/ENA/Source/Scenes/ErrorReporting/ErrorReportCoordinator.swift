@@ -29,8 +29,7 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating, RequiresAppDepend
 		#if DEBUG
 		if isUITesting {
 			// This ensures, that for any UI Test that sets the launch arguement, the logging is disabled (so that for example the test can start logging).
-			if let shouldElsLogginActive = UserDefaults.standard.string(forKey: "elsLogActive"),
-			   shouldElsLogginActive == "NO" {
+			if !LaunchArguments.errorReport.elsLogActive.boolValue {
 				do {
 					try elsService.stopAndDeleteLog()
 				} catch {
@@ -39,8 +38,7 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating, RequiresAppDepend
 			}
 			
 			// This ensures, that for any UI Test that sets the launch arguement, we create some history entries so that we simulate a succesfull els submission before.
-			if let journalRemoveAllPersons = UserDefaults.standard.string(forKey: "elsCreateFakeHistory"),
-			   journalRemoveAllPersons == "YES" {
+			if LaunchArguments.errorReport.elsCreateFakeHistory.boolValue {
 				var items = self.store.elsUploadHistory
 				items.append(ErrorLogUploadReceipt(id: "FakeReceiptID001", timestamp: Date()))
 				items.append(ErrorLogUploadReceipt(id: "FakeReceiptID002", timestamp: Date()))

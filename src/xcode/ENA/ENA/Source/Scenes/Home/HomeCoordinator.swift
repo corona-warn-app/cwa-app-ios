@@ -183,8 +183,7 @@ class HomeCoordinator: RequiresAppDependencies {
 
 	private lazy var statisticsProvider: StatisticsProvider = {
 			#if DEBUG
-			let useMockDataForStatistics = UserDefaults.standard.string(forKey: "useMockDataForStatistics")
-			if isUITesting, useMockDataForStatistics != "NO" {
+			if isUITesting, LaunchArguments.statistics.useMockDataForStatistics.boolValue {
 				return StatisticsProvider(
 					client: CachingHTTPClientMock(),
 					store: store
