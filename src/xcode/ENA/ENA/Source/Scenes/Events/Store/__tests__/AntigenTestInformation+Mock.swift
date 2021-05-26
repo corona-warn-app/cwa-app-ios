@@ -13,7 +13,8 @@ extension AntigenTestInformation {
 		lastName: String? = nil,
 		cryptographicSalt: String? = nil,
 		testID: String? = nil,
-		dateOfBirth: Date? = nil
+		dateOfBirth: Date? = nil,
+		sampleCollectionTimestamp: Int? = nil
 	) -> Self? {
 		AntigenTestInformation(
 			hash: hash,
@@ -22,7 +23,8 @@ extension AntigenTestInformation {
 			lastName: lastName,
 			dateOfBirth: dateOfBirth,
 			testID: testID,
-			cryptographicSalt: cryptographicSalt
+			cryptographicSalt: cryptographicSalt,
+			sampleCollectionTimestamp: sampleCollectionTimestamp
 		)
 	}
 }

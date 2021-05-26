@@ -46,7 +46,11 @@ enum CoronaTest: Equatable {
 		case .pcr(let pcrTest):
 			return pcrTest.registrationDate
 		case .antigen(let antigenTest):
-			return antigenTest.pointOfCareConsentDate
+			if let sampleCollectionDate = antigenTest.sampleCollectionDate {
+				return sampleCollectionDate
+			} else {
+				return antigenTest.pointOfCareConsentDate
+			}
 		}
 	}
 
@@ -164,6 +168,8 @@ struct AntigenTest: Equatable, Codable {
 
 	// The date of when the consent was provided by the tested person at the Point of Care.
 	var pointOfCareConsentDate: Date
+	// The date of when the test sample was collected.
+	var sampleCollectionDate: Date?
 	var registrationDate: Date?
 	var registrationToken: String?
 
