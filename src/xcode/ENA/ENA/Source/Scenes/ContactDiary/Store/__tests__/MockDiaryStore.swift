@@ -257,16 +257,14 @@ class MockDiaryStore: DiaryStoringProviding {
 					return DiaryEntry.location(location)
 				}
 
-			let coronaTests = coronaTests
-				.filter { diaryDayTest in
-					diaryDayTest.date == dateString
-				}
-
 			diaryDays.append(
 				DiaryDay(
 					dateString: dateString,
 					entries: contactPersonEntries + locationEntries,
 					tests: coronaTests
+						.filter { diaryDayTest in
+					  diaryDayTest.date == dateString
+				  }
 				)
 			)
 		}
