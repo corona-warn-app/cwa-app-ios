@@ -1200,7 +1200,7 @@
 /* Home Test Registration Card */
 "Home_TestRegistration_Title" = "Register your Test";
 
-"Home_TestRegistration_Body" = "Use the app to retrieve your test results, so you can warn others more quickly.";
+"Home_TestRegistration_Body" = "Use the app to register your tests and retrieve your test results, so you can warn others more quickly.";
 
 "Home_TestRegistration_Button" = "Next Steps";
 
