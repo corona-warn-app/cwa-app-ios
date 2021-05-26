@@ -115,12 +115,21 @@ struct AntigenTestProfileViewModel {
 			return section
 		}
 	}
+	
+	static func dateOfBirthFormatter() -> DateFormatter {
+		let dateFormatter = DateFormatter()
+		dateFormatter.timeZone = .utcTimeZone
+		dateFormatter.dateStyle = .medium
+		dateFormatter.timeStyle = .none
+		return dateFormatter
+	}
 
 	// MARK: - Private
 
 	private let store: AntigenTestProfileStoring
 	private var antigenTestProfile: AntigenTestProfile
-
+	private let dateOfBirthFormatter = AntigenTestProfileViewModel.dateOfBirthFormatter()
+	
 	private var friendlyName: String {
 		var components = PersonNameComponents()
 		components.givenName = antigenTestProfile.firstName
@@ -135,10 +144,10 @@ struct AntigenTestProfileViewModel {
 		guard let dateOfBirth = antigenTestProfile.dateOfBirth else {
 			return nil
 		}
-
+		
 		return String(
 			format: AppStrings.ExposureSubmission.AntigenTest.Profile.dateOfBirthFormatText,
-			DateFormatter.localizedString(from: dateOfBirth, dateStyle: .medium, timeStyle: .none)
+			dateOfBirthFormatter.string(from: dateOfBirth)
 		)
 	}
 
