@@ -462,7 +462,7 @@ class CoronaTestService {
 		}
 	}
 
-	// swiftlint:disable:next cyclomatic_complexity
+	// swiftlint:disable:next cyclomatic_complexity function_body_length
 	private func getTestResult(
 		for coronaTestType: CoronaTestType,
 		force: Bool = true,
