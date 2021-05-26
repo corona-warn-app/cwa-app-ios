@@ -115,10 +115,10 @@
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="kSS-6P-Ra0" secondAttribute="trailing" constant="16" id="J3W-BF-5Fc"/>
-                    <constraint firstItem="kSS-6P-Ra0" firstAttribute="top" secondItem="Izx-Es-kAF" secondAttribute="top" constant="12" id="Lqq-Zd-MJA"/>
-                    <constraint firstAttribute="bottom" secondItem="kSS-6P-Ra0" secondAttribute="bottom" constant="12" id="qmZ-u0-d9y"/>
-                    <constraint firstItem="kSS-6P-Ra0" firstAttribute="leading" secondItem="Izx-Es-kAF" secondAttribute="leading" constant="16" id="sV7-NE-mLG"/>
+                    <constraint firstAttribute="trailing" secondItem="kSS-6P-Ra0" secondAttribute="trailing" constant="16" identifier="tracelocation.card.trailing" id="J3W-BF-5Fc"/>
+                    <constraint firstItem="kSS-6P-Ra0" firstAttribute="top" secondItem="Izx-Es-kAF" secondAttribute="top" constant="12" identifier="tracelocation.card.top" id="Lqq-Zd-MJA"/>
+                    <constraint firstAttribute="bottom" secondItem="kSS-6P-Ra0" secondAttribute="bottom" constant="12" identifier="tracelocation.card.bottom" id="qmZ-u0-d9y"/>
+                    <constraint firstItem="kSS-6P-Ra0" firstAttribute="leading" secondItem="Izx-Es-kAF" secondAttribute="leading" constant="16" identifier="tracelocation.card.leading" id="sV7-NE-mLG"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
