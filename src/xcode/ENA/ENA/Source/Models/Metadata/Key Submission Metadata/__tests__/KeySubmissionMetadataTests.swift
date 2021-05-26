@@ -179,7 +179,7 @@ class KeySubmissionMetadataTests: XCTestCase {
 		XCTAssertTrue((secureStore.keySubmissionMetadata?.submitted) != false)
 		XCTAssertTrue((secureStore.keySubmissionMetadata?.submittedInBackground) != true)
 		XCTAssertTrue((secureStore.keySubmissionMetadata?.submittedAfterCancel) != false)
-		XCTAssertTrue(((secureStore.keySubmissionMetadata?.submittedAfterSymptomFlow) != false))
+		XCTAssertTrue((secureStore.keySubmissionMetadata?.submittedAfterSymptomFlow) != false)
 		XCTAssertEqual(secureStore.keySubmissionMetadata?.lastSubmissionFlowScreen, .submissionFlowScreenSymptoms)
 		XCTAssertTrue((secureStore.keySubmissionMetadata?.submittedWithTeleTAN) == false)
 	}
