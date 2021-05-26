@@ -1200,7 +1200,7 @@
 /* Home Test Registration Card */
 "Home_TestRegistration_Title" = "Testinizi Kaydedin";
 
-"Home_TestRegistration_Body" = "Diğer kullanıcıları daha hızlı uyarmak için test sonuçlarınızı almak üzere uygulamayı kullanın.";
+"Home_TestRegistration_Body" = "Diğer kullanıcıları daha hızlı uyarmak için testlerinizi kaydetmek ve test sonuçlarınızı almak üzere uygulamayı kullanın.";
 
 "Home_TestRegistration_Button" = "Sonraki Adımlar";
 
