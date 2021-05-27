@@ -55,6 +55,7 @@ enum PPAKeySubmissionMetadata {
 	case submittedWithTeletan(Bool, CoronaTestType)
 	case lastSubmissionFlowScreen(LastSubmissionFlowScreen?, CoronaTestType)
 	case advancedConsentGiven(Bool, CoronaTestType)
+	case submittedAfterRapidAntigenTest(CoronaTestType)
 	case setHoursSinceTestResult(CoronaTestType)
 	case setHoursSinceTestRegistration(CoronaTestType)
 	case setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration(CoronaTestType)
