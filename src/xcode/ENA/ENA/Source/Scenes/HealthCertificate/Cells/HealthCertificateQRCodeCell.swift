@@ -17,6 +17,8 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 		qrCodeImageView.accessibilityTraits = .image
 		certificateCountLabel.isAccessibilityElement = true
 		validityLabel.isAccessibilityElement = true
+
+		accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.qrCodeCell
 	}
 
 	@available(*, unavailable)

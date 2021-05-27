@@ -25,10 +25,10 @@ struct AntigenTestInformation: Codable, Equatable {
 		self.testID = testID
 		self.cryptographicSalt = cryptographicSalt
 		guard let dateOfBirth = dateOfBirth else {
-			dateOfBirthString = nil
+			self.dateOfBirthString = nil
 			return
 		}
-		dateOfBirthString = AntigenTestInformation.isoFormatter.string(from: dateOfBirth)
+		self.dateOfBirthString = AntigenTestInformation.isoFormatter.string(from: dateOfBirth)
 	}
 	
 	init?(payload: String) {

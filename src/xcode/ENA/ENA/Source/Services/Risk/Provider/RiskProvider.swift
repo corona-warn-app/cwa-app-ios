@@ -193,43 +193,46 @@ final class RiskProvider: RiskProviding {
 	private func _requestRiskLevel(userInitiated: Bool, timeoutInterval: TimeInterval) {
 		let group = DispatchGroup()
 		group.enter()
-		appConfigurationProvider.appConfiguration().sink { [weak self] appConfiguration in
-			guard let self = self else {
-				Log.error("RiskProvider: Error at creating self. Cancel download packages and calculate risk.", log: .riskDetection)
-				return
-			}
-			
-			self.updateRiskProvidingConfiguration(with: appConfiguration)
-			
-			// First, download the diagnosis keys
-			self.downloadKeyPackages { result in
-				switch result {
-				case .success:
-					// If key download succeeds, continue with the download of the trace warning packages
-					self.downloadTraceWarningPackages(with: appConfiguration, completion: { result in
-						switch result {
-						case .success:
-							// And only if both downloads succeeds, we can determine a risk.
-							self.determineRisk(userInitiated: userInitiated, appConfiguration: appConfiguration) { result in
-								switch result {
-								case .success(let risk):
-									self.successOnTargetQueue(risk: risk)
-								case .failure(let error):
-									self.failOnTargetQueue(error: error)
+		appConfigurationProvider
+			.appConfiguration()
+			.receive(on: DispatchQueue.main.ocombine)
+			.sink { [weak self] appConfiguration in
+				guard let self = self else {
+					Log.error("RiskProvider: Error at creating self. Cancel download packages and calculate risk.", log: .riskDetection)
+					return
+				}
+
+				self.updateRiskProvidingConfiguration(with: appConfiguration)
+
+				// First, download the diagnosis keys
+				self.downloadKeyPackages {result in
+					switch result {
+					case .success:
+						// If key download succeeds, continue with the download of the trace warning packages
+						self.downloadTraceWarningPackages(with: appConfiguration, completion: { result in
+							switch result {
+							case .success:
+								// And only if both downloads succeeds, we can determine a risk.
+								self.determineRisk(userInitiated: userInitiated, appConfiguration: appConfiguration) { result in
+									switch result {
+									case .success(let risk):
+										self.successOnTargetQueue(risk: risk)
+									case .failure(let error):
+										self.failOnTargetQueue(error: error)
+									}
+									group.leave()
 								}
+							case .failure(let error):
+								self.failOnTargetQueue(error: error)
 								group.leave()
 							}
-						case .failure(let error):
-							self.failOnTargetQueue(error: error)
-							group.leave()
-						}
-					})
-				case .failure(let error):
-					self.failOnTargetQueue(error: error)
-					group.leave()
+						})
+					case .failure(let error):
+						self.failOnTargetQueue(error: error)
+						group.leave()
+					}
 				}
-			}
-		}.store(in: &subscriptions)
+			}.store(in: &subscriptions)
 
 		guard group.wait(timeout: DispatchTime.now() + timeoutInterval) == .success else {
 			updateActivityState(.idle)
