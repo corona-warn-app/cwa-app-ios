@@ -23,8 +23,8 @@ final class HTTPClientTestResultTests: CWATestCase {
 		HTTPClient.makeWith(mock: stack).getTestResult(forDevice: "1234567890") { result in
 			defer { successExpectation.fulfill() }
 			switch result {
-			case .success(let responseCode):
-				XCTAssertEqual(testResult, responseCode)
+			case .success(let response):
+				XCTAssertEqual(testResult, response.testResult)
 			case .failure:
 				XCTFail("Encountered Error when receiving test result!")
 			}

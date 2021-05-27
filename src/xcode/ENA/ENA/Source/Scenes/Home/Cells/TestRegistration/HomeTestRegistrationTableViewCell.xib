@@ -17,7 +17,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="414" height="379"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="480-Cp-wyd" customClass="HomeCardView" customModule="ENA">
+                    <view contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" verticalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="480-Cp-wyd" customClass="HomeCardView" customModule="ENA">
                         <rect key="frame" x="16" y="12" width="382" height="355"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Sca-8L-7ai">
@@ -119,10 +119,10 @@
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="480-Cp-wyd" secondAttribute="trailing" constant="16" id="3hT-kt-lkw"/>
-                    <constraint firstItem="480-Cp-wyd" firstAttribute="top" secondItem="NkN-g1-Z80" secondAttribute="top" constant="12" id="DF4-DD-l53"/>
-                    <constraint firstItem="480-Cp-wyd" firstAttribute="leading" secondItem="NkN-g1-Z80" secondAttribute="leading" constant="16" id="eOc-NK-pQ2"/>
-                    <constraint firstAttribute="bottom" secondItem="480-Cp-wyd" secondAttribute="bottom" constant="12" id="uWL-tw-1Mh"/>
+                    <constraint firstAttribute="trailing" secondItem="480-Cp-wyd" secondAttribute="trailing" constant="16" identifier="registertest.card.trailing" id="3hT-kt-lkw"/>
+                    <constraint firstItem="480-Cp-wyd" firstAttribute="top" secondItem="NkN-g1-Z80" secondAttribute="top" constant="12" identifier="registertest.card.top" id="DF4-DD-l53"/>
+                    <constraint firstItem="480-Cp-wyd" firstAttribute="leading" secondItem="NkN-g1-Z80" secondAttribute="leading" constant="16" identifier="registertest.card.leading" id="eOc-NK-pQ2"/>
+                    <constraint firstAttribute="bottom" secondItem="480-Cp-wyd" secondAttribute="bottom" constant="12" identifier="registertest.card.bottom" id="uWL-tw-1Mh"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

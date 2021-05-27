@@ -163,6 +163,21 @@ class CoronaTestService {
 			}
 		)
 	}
+	
+	func registerPCRTestAndGetResult(
+		teleTAN: String,
+		isSubmissionConsentGiven: Bool,
+		completion: @escaping TestResultHandler
+	) {
+		registerPCRTest(teleTAN: teleTAN, isSubmissionConsentGiven: isSubmissionConsentGiven) { result in
+			switch result {
+			case .success:
+				completion(.success(.positive))
+			case .failure(let error):
+				completion(.failure(error))
+			}
+		}
+	}
 
 	func registerAntigenTestAndGetResult(
 		with hash: String,
@@ -552,9 +567,9 @@ class CoronaTestService {
 				} else {
 					completion(.failure(.responseFailure(error)))
 				}
-			case let .success(rawTestResult):
-				guard let testResult = TestResult(serverResponse: rawTestResult) else {
-					Log.error("[CoronaTestService] Getting test result failed: Unknown test result \(rawTestResult)", log: .api)
+			case let .success(response):
+				guard let testResult = TestResult(serverResponse: response.testResult) else {
+					Log.error("[CoronaTestService] Getting test result failed: Unknown test result \(response)", log: .api)
 
 					completion(.failure(.unknownTestResult))
 					return
@@ -569,6 +584,9 @@ class CoronaTestService {
 					self.pcrTest?.testResult = testResult
 				case .antigen:
 					self.antigenTest?.testResult = testResult
+					self.antigenTest?.sampleCollectionDate = response.sc.map {
+						Date(timeIntervalSince1970: TimeInterval($0))
+					}
 				}
 
 				switch testResult {

@@ -29,6 +29,8 @@ final class ExposureSubmissionQRScannerViewModelGuidTests: CWATestCase {
 			XCTAssertEqual("123456-12345678-1234-4DA7-B166-B86D85475064", guid)
 		case .antigen:
 			XCTFail("expected PCR test")
+		case .teleTAN:
+			XCTFail("expected PCR test")
 		}
 	}
 
@@ -47,6 +49,8 @@ final class ExposureSubmissionQRScannerViewModelGuidTests: CWATestCase {
 		case .pcr(let guid):
 			XCTAssertEqual("123456-12345678-1234-4DA7-B166-B86D85475064", guid)
 		case .antigen:
+			XCTFail("expected PCR test")
+		case .teleTAN:
 			XCTFail("expected PCR test")
 		}
 	}
@@ -100,6 +104,8 @@ final class ExposureSubmissionQRScannerViewModelGuidTests: CWATestCase {
 			XCTAssertEqual("123456-12345678-1234-4DA7-B166-B86D85475ABC", guid)
 		case .antigen:
 			XCTFail("expected PCR test")
+		case .teleTAN:
+			XCTFail("expected PCR test")
 		}
 	}
 
@@ -118,6 +124,8 @@ final class ExposureSubmissionQRScannerViewModelGuidTests: CWATestCase {
 		case .pcr(let guid):
 			XCTAssertEqual("123456-12345678-1234-4DA7-B166-B86D85475abc", guid)
 		case .antigen:
+			XCTFail("expected PCR test")
+		case .teleTAN:
 			XCTFail("expected PCR test")
 		}
 	}
@@ -138,6 +146,8 @@ final class ExposureSubmissionQRScannerViewModelGuidTests: CWATestCase {
 			XCTAssertEqual("123456-12345678-1234-4DA7-B166-B86D85475ABC", guid)
 		case .antigen:
 			XCTFail("expected PCR test")
+		case .teleTAN:
+			XCTFail("expected PCR test")
 		}
 	}
 
@@ -156,6 +166,8 @@ final class ExposureSubmissionQRScannerViewModelGuidTests: CWATestCase {
 		case .pcr(let guid):
 			XCTAssertEqual("123456-12345678-1234-4DA7-B166-B86D85475abc", guid)
 		case .antigen:
+			XCTFail("expected PCR test")
+		case .teleTAN:
 			XCTFail("expected PCR test")
 		}
 	}

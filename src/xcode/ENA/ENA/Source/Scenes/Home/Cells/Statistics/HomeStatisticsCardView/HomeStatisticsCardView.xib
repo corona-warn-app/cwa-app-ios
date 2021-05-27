@@ -28,15 +28,15 @@
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="4mw-Ym-LMM">
                                             <rect key="frame" x="0.0" y="0.0" width="387" height="72"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uqo-jL-P60" userLabel="Spacer">
+                                                <view contentMode="scaleToFill" verticalHuggingPriority="252" verticalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="uqo-jL-P60" userLabel="Spacer">
                                                     <rect key="frame" x="0.0" y="0.0" width="387" height="16"/>
                                                     <color key="backgroundColor" name="ENA Background Color"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="16" id="XNN-8V-Gqd"/>
                                                     </constraints>
                                                 </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YMo-tO-1AN" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="16" width="387" height="26.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" verticalCompressionResistancePriority="752" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YMo-tO-1AN" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="16" width="387" height="24"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -44,20 +44,20 @@
                                                         <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="title2"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xej-j2-vnc" userLabel="Spacer">
-                                                    <rect key="frame" x="0.0" y="42.5" width="387" height="29.5"/>
+                                                <view contentMode="scaleToFill" verticalHuggingPriority="750" verticalCompressionResistancePriority="754" translatesAutoresizingMaskIntoConstraints="NO" id="xej-j2-vnc" userLabel="Spacer">
+                                                    <rect key="frame" x="0.0" y="36.5" width="387" height="50"/>
                                                     <color key="backgroundColor" name="ENA Background Color"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="24" id="bWt-Ve-kBv"/>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="24" identifier="top.spacer.height" id="bWt-Ve-kBv"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
                                         </stackView>
-                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hme-UE-Bg6">
+                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hme-UE-Bg6" userLabel="Info Button">
                                             <rect key="frame" x="387" y="0.0" width="56" height="56"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="56" id="P7I-sH-y1z"/>
-                                                <constraint firstAttribute="height" constant="56" id="mcS-U0-41i"/>
+                                                <constraint firstAttribute="height" priority="999" constant="56" identifier="InfoButton.height" id="mcS-U0-41i"/>
                                             </constraints>
                                             <color key="tintColor" name="ENA Tint Color"/>
                                             <connections>
@@ -99,17 +99,17 @@
                                                                 <bool key="isElement" value="YES"/>
                                                             </accessibility>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="19" id="1EP-bJ-ysF"/>
-                                                                <constraint firstAttribute="height" constant="19" id="OPP-UR-cc6"/>
+                                                                <constraint firstAttribute="width" priority="999" constant="19" identifier="primary.trend.image.width" id="1EP-bJ-ysF"/>
+                                                                <constraint firstAttribute="height" priority="999" constant="19" identifier="primary.trend.image.height" id="OPP-UR-cc6"/>
                                                             </constraints>
                                                         </imageView>
                                                     </subviews>
                                                 </stackView>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vx6-82-ahH" userLabel="Spacer">
-                                                    <rect key="frame" x="0.0" y="54" width="50" height="16"/>
+                                                <view contentMode="scaleToFill" verticalHuggingPriority="252" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="Vx6-82-ahH" userLabel="Spacer">
+                                                    <rect key="frame" x="0.0" y="41" width="50" height="16"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="16" id="Bx2-JJ-4w4"/>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="16" identifier="spacer.16.height" id="Bx2-JJ-4w4"/>
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2mE-0i-O1G" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
@@ -136,8 +136,8 @@
                                                                 <bool key="isElement" value="YES"/>
                                                             </accessibility>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="19" id="0OK-Fn-BXm"/>
-                                                                <constraint firstAttribute="height" constant="19" id="Uba-Qk-Z49"/>
+                                                                <constraint firstAttribute="width" priority="999" constant="19" identifier="secondary.trend.image.width" id="0OK-Fn-BXm"/>
+                                                                <constraint firstAttribute="height" priority="999" constant="19" identifier="secondary.trend.image.height" id="Uba-Qk-Z49"/>
                                                             </constraints>
                                                         </imageView>
                                                     </subviews>
@@ -146,7 +146,7 @@
                                                     <rect key="frame" x="0.0" y="111" width="50" height="8"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="8" id="ihm-Gl-7fQ"/>
+                                                        <constraint firstAttribute="height" priority="999" constant="8" identifier="spacer.8.height" id="ihm-Gl-7fQ"/>
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nYx-Wq-bIZ" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
@@ -164,11 +164,11 @@
                                                         <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="headline"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Va3-o4-emk" userLabel="Spacer">
-                                                    <rect key="frame" x="0.0" y="160" width="299" height="16"/>
+                                                <view contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="Va3-o4-emk" userLabel="Spacer">
+                                                    <rect key="frame" x="0.0" y="145.5" width="299" height="16"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="16" id="8aT-SI-3DB"/>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="16" identifier="spacer.bottom.height" id="8aT-SI-3DB"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
@@ -193,8 +193,8 @@
                     <color key="backgroundColor" name="ENA Background Color"/>
                     <constraints>
                         <constraint firstItem="Ssi-15-Ma9" firstAttribute="top" secondItem="Vvk-0F-7Ew" secondAttribute="top" id="cku-vM-07y"/>
-                        <constraint firstItem="Ssi-15-Ma9" firstAttribute="leading" secondItem="Vvk-0F-7Ew" secondAttribute="leading" constant="16" id="l0s-6o-zST"/>
-                        <constraint firstAttribute="bottom" secondItem="Ssi-15-Ma9" secondAttribute="bottom" constant="16" id="ode-Qg-AZK"/>
+                        <constraint firstItem="Ssi-15-Ma9" firstAttribute="leading" secondItem="Vvk-0F-7Ew" secondAttribute="leading" constant="16" identifier="statCell.stack.leading" id="l0s-6o-zST"/>
+                        <constraint firstAttribute="bottom" secondItem="Ssi-15-Ma9" secondAttribute="bottom" constant="16" identifier="statCell.stack.bottom" id="ode-Qg-AZK"/>
                         <constraint firstAttribute="trailing" secondItem="Ssi-15-Ma9" secondAttribute="trailing" id="xf6-q8-BmW"/>
                     </constraints>
                 </view>
