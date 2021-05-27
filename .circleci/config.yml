@@ -123,9 +123,7 @@ jobs:
           key: *tools_cache_key
       - run:
           name: Run Fastlane tests
-          command: |
-            ./scripts/handle_test_failure.sh /Users/distiller/project/.fail &
-            cd src/xcode && bundle exec fastlane test
+          command: cd src/xcode && bundle exec fastlane test
           no_output_timeout: 5m
       - restore_cache:
           key: sonar-cloud-v2
