@@ -263,7 +263,7 @@ class MockDiaryStore: DiaryStoringProviding {
 					entries: contactPersonEntries + locationEntries,
 					tests: coronaTests
 						.filter { diaryDayTest in
-					  diaryDayTest.date == dateString
+							diaryDayTest.date == dateString
 				  }
 				)
 			)
