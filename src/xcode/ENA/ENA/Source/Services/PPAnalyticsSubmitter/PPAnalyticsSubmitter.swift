@@ -536,6 +536,8 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			if let submittedWithTeleTan = metadata.submittedWithTeleTAN {
 				$0.submittedWithTeleTan = submittedWithTeleTan
 			}
+
+			$0.submittedAfterRapidAntigenTest = metadata.submittedAfterRapidAntigenTest
 		}
 	}
 	
