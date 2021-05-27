@@ -42,7 +42,7 @@ class HealthCertificateOverviewViewModel {
 		case .healthCertificate:
 			return healthCertifiedPersons.count
 		case .createHealthCertificate:
-			return 1
+			return healthCertifiedPersons.isEmpty ? 1 : 0
 		case .none:
 			fatalError("Invalid section")
 		}
