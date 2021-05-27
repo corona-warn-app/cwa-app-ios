@@ -15,15 +15,16 @@ enum RatError {
 	case hashMismatch
 }
 
-enum CoronaTestQRCodeInformation {
+enum CoronaTestRegistrationInformation {
 	case pcr(String)
 	case antigen(AntigenTestInformation)
+	case teleTAN(String) // tan string
 	
 	// we cant declare the enum type to Int because we have properties inside the cases
 	
 	var testType: CoronaTestType {
 		switch self {
-		case .pcr:
+		case .pcr, .teleTAN:
 			return .pcr
 		case .antigen:
 			return .antigen
@@ -31,14 +32,16 @@ enum CoronaTestQRCodeInformation {
 	}
 }
 
-extension CoronaTestQRCodeInformation: Equatable {
-	static func == (lhs: CoronaTestQRCodeInformation, rhs: CoronaTestQRCodeInformation) -> Bool {
+extension CoronaTestRegistrationInformation: Equatable {
+	static func == (lhs: CoronaTestRegistrationInformation, rhs: CoronaTestRegistrationInformation) -> Bool {
 		switch (lhs, rhs) {
 		case (.pcr(let lhsGuid), .pcr(let rhsGuid)):
 			return lhsGuid == rhsGuid
 		case (.antigen(let lhsAntigenTestInformation), .antigen(let rhsAntigenTestInformation)):
 			return lhsAntigenTestInformation == rhsAntigenTestInformation
-		case (.antigen, .pcr), (.pcr, .antigen):
+		case (.teleTAN(let lhsTAN), .teleTAN(let thsTAN)):
+			return lhsTAN == thsTAN
+		default:
 			return false
 		}
 	}
