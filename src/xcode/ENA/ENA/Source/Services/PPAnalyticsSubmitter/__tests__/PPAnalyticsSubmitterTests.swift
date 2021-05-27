@@ -580,30 +580,30 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		XCTAssertEqual(store.testResultMetadata?.hoursSinceTestRegistration, differenceInHoursBetweenRegistrationDateAndTestResult, "Wrong difference hoursSinceTestRegistration")
 
 		// Mapping to protobuf
-		let protobuf = analyticsSubmitter.gatherTestResultMetadata().first
+		let protobuf = analyticsSubmitter.gatherTestResultMetadata(for: .pcr)
 		XCTAssertEqual(
 			store.testResultMetadata?.protobuf,
-			protobuf?.testResult,
+			protobuf.testResult,
 			"Wrong testResult protobuf mapping"
 		)
 		XCTAssertEqual(
 			store.testResultMetadata?.hoursSinceTestRegistration,
-			Int(protobuf?.hoursSinceTestRegistration ?? -1),
+			Int(protobuf.hoursSinceTestRegistration),
 			"Wrong hoursSinceTestRegistration protobuf mapping"
 		)
 		XCTAssertEqual(
 			store.testResultMetadata?.riskLevelAtTestRegistration?.protobuf,
-			protobuf?.riskLevelAtTestRegistration,
+			protobuf.riskLevelAtTestRegistration,
 			"Wrong riskLevelAtTestRegistration protobuf mapping"
 		)
 		XCTAssertEqual(
 			store.testResultMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration,
-			Int(protobuf?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration ?? -1),
+			Int(protobuf.daysSinceMostRecentDateAtRiskLevelAtTestRegistration),
 			"Wrong daysSinceMostRecentDateAtRiskLevelAtTestRegistration protobuf mapping"
 		)
 		XCTAssertEqual(
 			store.testResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration,
-			Int(protobuf?.hoursSinceHighRiskWarningAtTestRegistration ?? -1),
+			Int(protobuf.hoursSinceHighRiskWarningAtTestRegistration),
 			"Wrong hoursSinceHighRiskWarningAtTestRegistration protobuf mapping"
 		)
 	}
@@ -747,7 +747,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		XCTAssertEqual(metadata?.advancedConsentGiven, true, "Wrong keySubmissionMetadata")
 		
 		// Mapping to protobuf
-		let protobuf = analyticsSubmitter.gatherKeySubmissionMetadata().first
+		let protobuf = analyticsSubmitter.gatherKeySubmissionMetadata(for: .pcr)
 		XCTAssertEqual(protobuf?.submitted, metadata?.submitted, "Wrong submitted")
 		XCTAssertEqual(protobuf?.submittedInBackground, metadata?.submittedInBackground, "Wrong submittedInBackground")
 		XCTAssertEqual(protobuf?.submittedAfterCancel, metadata?.submittedAfterCancel, "Wrong submittedAfterCancel")
