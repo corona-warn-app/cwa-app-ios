@@ -107,6 +107,11 @@ class ENAUITests_13_CreateHealthCertificate: XCTestCase {
 		snapshot("screenshot_certificate_home_screen_blue")
 		certificateTitle.waitAndTap()
 
+		let qrCodeCell = app.cells[AccessibilityIdentifiers.HealthCertificate.qrCodeCell]
+		XCTAssertTrue(qrCodeCell.waitForExistence(timeout: .short))
+
+		snapshot("screenshot_health_certificate_blue")
+
 		// Certified Person screen
 		let certificateCells = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Person.certificateCell])
 		XCTAssertTrue(certificateCells.waitForExistence(timeout: .short))
