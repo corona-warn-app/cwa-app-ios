@@ -18,10 +18,10 @@ class HomeHealthCertifiedPersonCellModel {
 
 		switch healthCertifiedPerson.vaccinationState {
 		case .partiallyVaccinated:
-			vaccinationStateDescription = AppStrings.HealthCertificate.Home.Person.partiallyVaccinated
+			vaccinationStateDescription = AppStrings.HealthCertificate.Overview.Person.partiallyVaccinated
 		case .fullyVaccinated(daysUntilCompleteProtection: let daysUntilCompleteProtection):
 			vaccinationStateDescription = String(
-				format: AppStrings.HealthCertificate.Home.Person.daysUntilCompleteProtection,
+				format: AppStrings.HealthCertificate.Overview.Person.daysUntilCompleteProtection,
 				daysUntilCompleteProtection
 			)
 		case .completelyProtected:

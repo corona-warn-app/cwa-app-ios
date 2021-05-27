@@ -4,20 +4,17 @@
 
 import UIKit
 
-class HealthCertificateConsentViewController: DynamicTableViewController, FooterViewHandling, DismissHandling {
+class HealthCertificateInfoViewController: DynamicTableViewController, FooterViewHandling, DismissHandling {
 
 	// MARK: - Init
 
 	init(
-		didTapConsentButton: @escaping () -> Void,
-		didTapDataPrivacy: @escaping () -> Void,
+		viewModel: HealthCertificateInfoViewModel,
 		dismiss: @escaping () -> Void
 	) {
-		self.didTapConsentButton = didTapConsentButton
 		self.dismiss = dismiss
-		self.viewModel = HealthCertificateConsentViewModel(
-			didTapDataPrivacy: didTapDataPrivacy
-		)
+		self.viewModel = viewModel
+
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -29,7 +26,10 @@ class HealthCertificateConsentViewController: DynamicTableViewController, Footer
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
+
+		if !viewModel.hidesCloseButton {
+			parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
+		}
 
 		parent?.navigationItem.title = viewModel.title
 		setupView()
@@ -47,13 +47,13 @@ class HealthCertificateConsentViewController: DynamicTableViewController, Footer
 		guard type == .primary else {
 			return
 		}
-		didTapConsentButton()
+
+		dismiss()
 	}
 
 	// MARK: - Private
 
-	private let viewModel: HealthCertificateConsentViewModel
-	private let didTapConsentButton: () -> Void
+	private let viewModel: HealthCertificateInfoViewModel
 	private let dismiss: () -> Void
 
 	private func setupView() {

@@ -49,6 +49,7 @@ enum LaunchArguments {
 		static let antigenTestProfileInfoScreenShown = LaunchArgument(name: "antigenTestProfileInfoScreenShown")
 		static let traceLocationsInfoScreenShown = LaunchArgument(name: "traceLocationsInfoScreenShown")
 		static let checkinInfoScreenShown = LaunchArgument(name: "checkinInfoScreenShown")
+		static let healthCertificateInfoScreenShown = LaunchArgument(name: "healthCertificateInfoScreenShown")
 		static let userNeedsToBeInformedAboutHowRiskDetectionWorks = LaunchArgument(name: "userNeedsToBeInformedAboutHowRiskDetectionWorks")
 		static let showUpdateOS = LaunchArgument(name: "showUpdateOS")
 	}
