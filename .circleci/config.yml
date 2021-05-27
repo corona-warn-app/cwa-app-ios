@@ -123,7 +123,7 @@ jobs:
           key: *tools_cache_key
       - run:
           name: Run Fastlane tests
-          command: cd src/xcode && bundle exec fastlane test
+          command: cd src/xcode && bundle exec fastlane test testplan:<<parameters.testplan>>
           no_output_timeout: 5m
       - restore_cache:
           key: sonar-cloud-v2
