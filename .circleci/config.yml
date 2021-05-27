@@ -266,7 +266,9 @@ workflows:
             requires:
               - dependencies
         - test:
-            testplan: UnitTests
+            matrix:
+              parameters:
+                testplan: ["UnitTests"]
             requires:
               - dependencies
             filters:
@@ -274,7 +276,9 @@ workflows:
                 ignore:
                   - /release\/.*/
         - test:
-            testplan: AllTests
+            matrix:
+              parameters:
+                testplan: ["AllTests"]
             requires:
               - dependencies
             filters:
