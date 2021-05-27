@@ -1275,7 +1275,7 @@ class CoronaTestServiceTests: XCTestCase {
 		XCTAssertTrue(try XCTUnwrap(testService.pcrTest?.journalEntryCreated))
 	}
 
-	func test_When_UpdateTestResultSuccessWithPending_Then_ContactJournalHasAnEntry() throws {
+	func test_When_UpdateTestResultSuccessWithPending_Then_ContactJournalHasNoEntry() throws {
 		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		client.onGetTestResult = { _, _, completion in
