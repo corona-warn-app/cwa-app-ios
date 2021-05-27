@@ -266,6 +266,13 @@ workflows:
             requires:
               - dependencies
         - test:
+            parameters:
+              testplan: UnitTests
+            requires:
+              - dependencies
+        - test:
+            parameters:
+              testplan: UITests
             requires:
               - dependencies
         - test-community:
