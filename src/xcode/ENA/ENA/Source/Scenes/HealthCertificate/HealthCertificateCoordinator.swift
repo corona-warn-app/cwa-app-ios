@@ -39,6 +39,9 @@ final class HealthCertificateCoordinator {
 						self.viewController.setViewControllers([self.overviewScreen], animated: false)
 
 						self.infoScreenShown = true
+					},
+					showDetail: { detailViewController in
+						self.viewController.pushViewController(detailViewController, animated: true)
 					}
 				)
 			)
@@ -81,12 +84,23 @@ final class HealthCertificateCoordinator {
 
 	private func infoScreen(
 		hidesCloseButton: Bool = false,
-		dismissAction: @escaping (() -> Void)
+		dismissAction: @escaping (() -> Void),
+		showDetail: @escaping ((UIViewController) -> Void)
 	) -> TopBottomContainerViewController<HealthCertificateInfoViewController, FooterViewController> {
 		let consentScreen = HealthCertificateInfoViewController(
 			viewModel: HealthCertificateInfoViewModel(
 				hidesCloseButton: hidesCloseButton,
-				didTapDataPrivacy: { [weak self] in self?.showDisclaimer() }
+				didTapDataPrivacy: {
+					let detailViewController = HTMLViewController(model: AppInformationModel.privacyModel)
+					detailViewController.title = AppStrings.AppInformation.privacyTitle
+					detailViewController.isDismissable = false
+
+					if #available(iOS 13.0, *) {
+						detailViewController.isModalInPresentation = true
+					}
+
+					showDetail(detailViewController)
+				}
 			),
 			dismiss: dismissAction
 		)
@@ -108,17 +122,6 @@ final class HealthCertificateCoordinator {
 
 		return topBottomContainerViewController
 	}
-	
-	private func showDisclaimer(from navigationController: UINavigationController) {
-		let htmlDisclaimerViewController = HTMLViewController(model: AppInformationModel.privacyModel)
-		htmlDisclaimerViewController.title = AppStrings.AppInformation.privacyTitle
-		htmlDisclaimerViewController.isDismissable = false
-		if #available(iOS 13.0, *) {
-			htmlDisclaimerViewController.isModalInPresentation = true
-		}
-
-		navigationController.pushViewController(htmlDisclaimerViewController, animated: true)
-	}
 
 	private func presentInfoScreen() {
 		// Promise the navigation view controller will be available,
@@ -127,6 +130,9 @@ final class HealthCertificateCoordinator {
 		let infoVC = infoScreen(
 			dismissAction: {
 				navigationController.dismiss(animated: true)
+			},
+			showDetail: { detailViewController in
+				navigationController.pushViewController(detailViewController, animated: true)
 			}
 		)
 
