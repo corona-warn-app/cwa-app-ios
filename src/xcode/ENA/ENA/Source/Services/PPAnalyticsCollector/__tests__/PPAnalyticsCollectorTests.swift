@@ -78,7 +78,7 @@ class PPAnalyticsCollectorTests: XCTestCase {
 		store.lastAppReset = Date()
 		store.lastSubmissionAnalytics = Date()
 		store.clientMetadata = ClientMetadata(etag: "FakeTag")
-		store.testResultMetadata = TestResultMetadata(registrationToken: "FakeToken")
+		store.testResultMetadata = TestResultMetadata(registrationToken: "FakeToken", testType: .pcr)
 		store.keySubmissionMetadata = KeySubmissionMetadata(
 			submitted: true,
 			submittedInBackground: false,
@@ -89,7 +89,9 @@ class PPAnalyticsCollectorTests: XCTestCase {
 			hoursSinceTestResult: 0901,
 			hoursSinceTestRegistration: 0901,
 			daysSinceMostRecentDateAtRiskLevelAtTestRegistration: 0901,
-			hoursSinceHighRiskWarningAtTestRegistration: 0901
+			submittedWithTeleTAN: false,
+			hoursSinceHighRiskWarningAtTestRegistration: 0901,
+			submittedAfterRapidAntigenTest: false
 		)
 		store.exposureWindowsMetadata = ExposureWindowsMetadata(
 			newExposureWindowsQueue: [],
@@ -115,8 +117,6 @@ class PPAnalyticsCollectorTests: XCTestCase {
 		countOfDeletedProperties += 1
 		XCTAssertNil(store.lastSubmittedPPAData)
 		countOfDeletedProperties += 1
-		XCTAssertFalse(store.submittedWithQR)
-		countOfDeletedProperties += 1
 		XCTAssertNil(store.lastAppReset)
 		countOfDeletedProperties += 1
 		XCTAssertNil(store.lastSubmissionAnalytics)
@@ -125,7 +125,11 @@ class PPAnalyticsCollectorTests: XCTestCase {
 		countOfDeletedProperties += 1
 		XCTAssertNil(store.testResultMetadata)
 		countOfDeletedProperties += 1
+		XCTAssertNil(store.antigenTestResultMetadata)
+		countOfDeletedProperties += 1
 		XCTAssertNil(store.keySubmissionMetadata)
+		countOfDeletedProperties += 1
+		XCTAssertNil(store.antigenKeySubmissionMetadata)
 		countOfDeletedProperties += 1
 		XCTAssertNil(store.exposureWindowsMetadata)
 		countOfDeletedProperties += 1

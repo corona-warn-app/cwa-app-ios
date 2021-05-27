@@ -34,5 +34,4 @@ enum TestResult: Int, CaseIterable, Codable {
 	// On the server it's called "redeemed", but this state means that the test is expired.
 	// Actually redeemed tests return a code 400 when registered.
 	case expired = 4
-
 }

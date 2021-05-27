@@ -1240,7 +1240,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Home_TestRegistration_Title" = "Test registrieren";
 
-"Home_TestRegistration_Body" = "Nutzen Sie die App, um Ihre Testergebnisse abrufen und schneller warnen zu können.";
+"Home_TestRegistration_Body" = "Nutzen Sie die App, um Ihre Tests zu registrieren und Testergebnisse abzurufen, um andere schneller warnen zu können.";
 
 "Home_TestRegistration_Button" = "Nächste Schritte";
 
@@ -1665,6 +1665,14 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ContactDiary_Overview_PersonEncounter_Setting_Inside" = "drinnen";
 
 "ContactDiary_Overview_LocationVisit_Abbreviation_Hours" = "Std.";
+
+"ContactDiary_Overview_Tests_PCR_Registered" = "PCR-Test registriert";
+
+"ContactDiary_Overview_Tests_Antigen_Done" = "Schnelltest durchgeführt";
+
+"ContactDiary_Overview_Tests_Negative_Result" = "Befund negativ";
+
+"ContactDiary_Overview_Tests_Positive_Result" = "Befund positiv";
 
 /* ActionSheet */
 "ContactDiary_Overview_ActionSheet_InfoActionTitle" = "Informationen";
@@ -2500,7 +2508,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertifiedPerson_QRCode_Image_Description" = "Ein QR-Code mit dem Status Ihrer Impfung";
 
-"HealthCertifiedPerson_primaryButton" = "Weitere Impfung registrieren";
+"HealthCertifiedPerson_primaryButton" = "Weitere Impfung hinzufügen";
 
 /* Health Certificate Details */
 

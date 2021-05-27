@@ -47,9 +47,9 @@ class ENAUITests_11_QuickActions: XCTestCase {
 	func testLaunchAfterOnboarding_diaryInfoRequred() throws {
 		let app = XCUIApplication()
 		app.setDefaults()
-		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
-		app.launchArguments.append(contentsOf: ["-setCurrentOnboardingVersion", "YES"])
-		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "NO"]) // first launch of the contact diary
+		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: true)
+		app.setLaunchArgument(LaunchArguments.onboarding.setCurrentOnboardingVersion, to: true)
+		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: false) // first launch of the contact diary
 		app.launch()
 
 		// On home screen?
@@ -66,9 +66,9 @@ class ENAUITests_11_QuickActions: XCTestCase {
 	func testLaunchAfterOnboarding_diaryInfoPassed() throws {
 		let app = XCUIApplication()
 		app.setDefaults()
-		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
-		app.launchArguments.append(contentsOf: ["-setCurrentOnboardingVersion", "YES"])
-		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"]) // contact diary info stuff shown and accepted
+		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: true)
+		app.setLaunchArgument(LaunchArguments.onboarding.setCurrentOnboardingVersion, to: true)
+		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true) // contact diary info stuff shown and accepted
 		app.launch()
 
 		// On home screen?
@@ -84,10 +84,9 @@ class ENAUITests_11_QuickActions: XCTestCase {
 		let app = XCUIApplication()
 		app.setDefaults()
 
-		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
-		app.launchArguments.append(contentsOf: ["-setCurrentOnboardingVersion", "YES"])
-		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
-		app.launchArguments.append(contentsOf: ["-testResultResponse", TestResult.positive.stringValue])
+		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: true)
+		app.setLaunchArgument(LaunchArguments.onboarding.setCurrentOnboardingVersion, to: true)
+		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
 		app.launch()
 
 		/// Now on Home screen. Go to "Register your test" screen.
@@ -95,11 +94,11 @@ class ENAUITests_11_QuickActions: XCTestCase {
 
 		/// Now on "Register your Test" screen. Go to "Enter TAN for PCR Test" screen.
 		
-		app.buttons["AppStrings.ExposureSubmissionDispatch.tanButtonDescription"].waitAndTap()
+		app.buttons[AccessibilityIdentifiers.ExposureSubmissionDispatch.tanButtonDescription].waitAndTap()
 
 		/// Now on "Enter TAN" screen. Enter TAN, but not submit it.
 		
-		let continueButton = app.buttons["AppStrings.ExposureSubmission.primaryButton"]
+		let continueButton = app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton]
 		XCTAssertTrue(continueButton.waitForExistence(timeout: .medium))
 		XCTAssertFalse(continueButton.isEnabled)
 
@@ -114,20 +113,20 @@ class ENAUITests_11_QuickActions: XCTestCase {
 		
 		/// Submit TAN
 		
-		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.primaryButton"].isEnabled)
-		app.buttons["AppStrings.ExposureSubmission.primaryButton"].waitAndTap()
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton].isEnabled)
+		app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton].waitAndTap()
 		// remember: TAN tests are ALWAYS positive!
 
 		/// Result Screen
 		
-		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.primaryButton"].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ExposureSubmissionTestResultAvailable.primaryButton].waitForExistence(timeout: .medium))
 		try checkAppMenu(expectNewDiaryItem: false, expectEventCheckin: false) // !!! Quick action should be disabled until we leave the submission flow
 
 		// We currently back out of the submission flow. This might be extended in future, feel free to add tests for the following views :)
-		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].waitAndTap()
+		app.buttons[AccessibilityIdentifiers.AccessibilityLabel.close].waitAndTap()
 
 		// don't warn
-		app.alerts.firstMatch.buttons[AccessibilityIdentifiers.General.defaultButton].waitAndTap()
+		app.alerts.firstMatch.buttons.element(boundBy: 1).waitAndTap()
 
 		// Back on home screen?
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .medium))

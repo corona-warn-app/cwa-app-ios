@@ -4,7 +4,7 @@
 
 import Foundation
 
-enum CoronaTestType: Int, CaseIterable {
+enum CoronaTestType: Int, CaseIterable, Codable {
 	case pcr
 	case antigen
 }
@@ -46,7 +46,7 @@ enum CoronaTest: Equatable {
 		case .pcr(let pcrTest):
 			return pcrTest.registrationDate
 		case .antigen(let antigenTest):
-			return antigenTest.pointOfCareConsentDate
+			return antigenTest.sampleCollectionDate ?? antigenTest.pointOfCareConsentDate
 		}
 	}
 
@@ -164,6 +164,8 @@ struct AntigenTest: Equatable, Codable {
 
 	// The date of when the consent was provided by the tested person at the Point of Care.
 	var pointOfCareConsentDate: Date
+	// The date of when the test sample was collected.
+	var sampleCollectionDate: Date?
 	var registrationDate: Date?
 	var registrationToken: String?
 

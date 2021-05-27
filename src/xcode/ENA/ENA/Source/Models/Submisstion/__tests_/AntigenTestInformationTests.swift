@@ -8,9 +8,8 @@ import XCTest
 class AntigenTestInformationTests: XCTestCase {
 
 	func testGIVEN_AntigenTestInformationPayload_WHEN_Parse_THEN_WillBeEqual() throws {
-
 		let dateString = "2010-08-01"
-		let date = ISO8601DateFormatter.justDate.date(from: dateString)
+		let date = AntigenTestInformation.isoFormatter.date(from: dateString)
 
 		// GIVEN
 		let antigenTestInformation = AntigenTestInformation(
@@ -33,5 +32,4 @@ class AntigenTestInformationTests: XCTestCase {
 		XCTAssertEqual(checkTestInformation, antigenTestInformation)
 		XCTAssertEqual(checkTestInformation.dateOfBirthString, "2010-08-01")
 	}
-
 }

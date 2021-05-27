@@ -15,12 +15,12 @@ class ENAUITests_10_CheckIns: XCTestCase {
 		app = XCUIApplication()
 		setupSnapshot(app)
 		app.setDefaults()
-		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
-		app.launchArguments.append(contentsOf: ["-setCurrentOnboardingVersion", "YES"])
+		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: true)
+		app.setLaunchArgument(LaunchArguments.onboarding.setCurrentOnboardingVersion, to: true)
 	}
 	
 	func testCheckinInfoScreen_navigate_to_dataPrivacy() throws {
-		app.launchArguments.append(contentsOf: ["-checkinInfoScreenShown", "NO"])
+		app.setLaunchArgument(LaunchArguments.infoScreen.checkinInfoScreenShown, to: false)
 		app.launch()
 			
 		// Navigate to CheckIn
@@ -52,7 +52,7 @@ class ENAUITests_10_CheckIns: XCTestCase {
 	}
 	
 	func testCheckinInfoScreen_confirmConsent() throws {
-		app.launchArguments.append(contentsOf: ["-checkinInfoScreenShown", "NO"])
+		app.setLaunchArgument(LaunchArguments.infoScreen.checkinInfoScreenShown, to: false)
 		app.launch()
 		
 		// Navigate to CheckIn
@@ -68,7 +68,7 @@ class ENAUITests_10_CheckIns: XCTestCase {
 
 	func test_screenshot_WHEN_scan_QRCode_THEN_checkin_and_checkout() {
 		// GIVEN
-		app.launchArguments.append(contentsOf: ["-checkinInfoScreenShown", "NO"])
+		app.setLaunchArgument(LaunchArguments.infoScreen.checkinInfoScreenShown, to: false)
 		app.launch()
 		
 		// Navigate to CheckIn

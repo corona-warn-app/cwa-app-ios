@@ -60,6 +60,8 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 					XCTAssertEqual(scannedGuid, guid)
 				case .antigen:
 					XCTFail("Expected PCR test")
+				case .teleTAN:
+					XCTFail("Expected PCR test")
 				}
 				onSuccessExpectation.fulfill()
 			},
@@ -96,6 +98,8 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 					XCTAssertEqual(testInformation.hash, validAntigenHash)
 				case .pcr:
 					XCTFail("Expected antigen test")
+				case .teleTAN:
+					XCTFail("Expected antigen test")
 				}
 
 				onSuccessExpectation.fulfill()
@@ -131,6 +135,8 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 				case .antigen(let testInformation):
 					XCTAssertEqual(testInformation.hash, validAntigenHash)
 				case .pcr:
+					XCTFail("Expected antigen test")
+				case .teleTAN:
 					XCTFail("Expected antigen test")
 				}
 
@@ -221,6 +227,8 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 				case .pcr(let scannedGuid):
 					XCTAssertEqual(scannedGuid, validGuid)
 				case .antigen:
+					XCTFail("Expected PCR test")
+				case .teleTAN:
 					XCTFail("Expected PCR test")
 				}
 				onSuccessExpectation.fulfill()
@@ -349,6 +357,8 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 			XCTFail("Expected PCR test")
 		case .pcr(let result):
 			XCTAssertEqual(result, validPcrGuid)
+		case .teleTAN:
+			XCTFail("Expected PCR test")
 		}
 	}
 
@@ -364,6 +374,8 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 			XCTFail("Expected PCR test")
 		case .pcr(let result):
 			XCTAssertEqual(result, validPcrGuid.lowercased())
+		case .teleTAN:
+			XCTFail("Expected PCR test")
 		}
 	}
 
@@ -381,6 +393,8 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 			XCTFail("Expected PCR test")
 		case .pcr(let result):
 			XCTAssertEqual(result, mixedCaseGuid)
+		case .teleTAN:
+			XCTFail("Expected PCR test")
 		}
 	}
 
@@ -546,7 +560,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 			jsonDecoder.dateDecodingStrategy = .custom({ decoder -> Date in
 				let container = try decoder.singleValueContainer()
 				let stringDate = try container.decode(String.self)
-				guard let date = ISO8601DateFormatter.justDate.date(from: stringDate) else {
+				guard let date = ISO8601DateFormatter.justUTCDateFormatter.date(from: stringDate) else {
 					throw DecodingError.dataCorruptedError(in: container, debugDescription: "failed to decode date \(stringDate)")
 				}
 				return date

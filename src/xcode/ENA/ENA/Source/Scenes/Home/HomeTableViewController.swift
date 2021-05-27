@@ -25,7 +25,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		onFAQCellTap: @escaping () -> Void,
 		onAppInformationCellTap: @escaping () -> Void,
 		onSettingsCellTap: @escaping (ENStateHandler.State) -> Void,
-		showTestInformationResult: @escaping (Result<CoronaTestQRCodeInformation, QRCodeError>) -> Void,
+		showTestInformationResult: @escaping (Result<CoronaTestRegistrationInformation, QRCodeError>) -> Void,
 		onCreateHealthCertificateTap: @escaping () -> Void,
 		onCertifiedPersonTap: @escaping (HealthCertifiedPerson) -> Void
 	) {
@@ -139,7 +139,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		super.viewDidAppear(animated)
 
 		#if DEBUG
-		if isUITesting && UserDefaults.standard.string(forKey: "showTestResultCards") == "YES" {
+		if isUITesting && LaunchArguments.test.common.showTestResultCards.boolValue {
 			tableView.scrollToRow(at: IndexPath(row: 1, section: 1), at: .top, animated: false)
 		}
 		#endif
@@ -345,7 +345,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	private let onFAQCellTap: () -> Void
 	private let onAppInformationCellTap: () -> Void
 	private let onSettingsCellTap: (ENStateHandler.State) -> Void
-	private let showTestInformationResult: (Result<CoronaTestQRCodeInformation, QRCodeError>) -> Void
+	private let showTestInformationResult: (Result<CoronaTestRegistrationInformation, QRCodeError>) -> Void
 	private let onCreateHealthCertificateTap: () -> Void
 	private let onCertifiedPersonTap: (HealthCertifiedPerson) -> Void
 
@@ -735,8 +735,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 	private func showInformationHowRiskDetectionWorksIfNeeded(completion: @escaping () -> Void = {}) {
 		#if DEBUG
-		if isUITesting, let showInfo = UserDefaults.standard.string(forKey: "userNeedsToBeInformedAboutHowRiskDetectionWorks") {
-			viewModel.store.userNeedsToBeInformedAboutHowRiskDetectionWorks = (showInfo == "YES")
+		if isUITesting {
+			viewModel.store.userNeedsToBeInformedAboutHowRiskDetectionWorks = LaunchArguments.infoScreen.userNeedsToBeInformedAboutHowRiskDetectionWorks.boolValue
 		}
 		#endif
 

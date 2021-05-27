@@ -38,7 +38,7 @@ struct ExposureManagerState: Equatable {
 			self.authorized = true
 			self.enabled = true
 
-			switch UserDefaults.standard.integer(forKey: "ENStatus") {
+			switch LaunchArguments.common.ENStatus.intValue {
 			case ENStatus.active.rawValue:
 				self.status = .active
 			case ENStatus.disabled.rawValue:
@@ -190,6 +190,12 @@ final class ENAExposureManager: NSObject, ExposureManager {
 				}
 			}
 		}
+		
+		#if DEBUG
+		if isUITesting {
+			self.enable { _ in }
+		}
+		#endif
 	}
 
 	func observeExposureNotificationStatus(observer: ENAExposureManagerObserver) {
