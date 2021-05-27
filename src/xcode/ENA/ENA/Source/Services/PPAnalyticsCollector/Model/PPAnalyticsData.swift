@@ -74,13 +74,13 @@ extension SecureStore: PPAnalyticsData {
 	}
 	
 	var currentCheckinRiskExposureMetadata: RiskExposureMetadata? {
-		get { kvStore["currentEventRiskExposureMetadata"] as RiskExposureMetadata? ?? nil }
-		set { kvStore["currentEventRiskExposureMetadata"] = newValue }
+		get { kvStore["currentCheckinRiskExposureMetadata"] as RiskExposureMetadata? ?? nil }
+		set { kvStore["currentCheckinRiskExposureMetadata"] = newValue }
 	}
 
 	var previousCheckinRiskExposureMetadata: RiskExposureMetadata? {
-		get { kvStore["previousEventRiskExposureMetadata"] as RiskExposureMetadata? ?? nil }
-		set { kvStore["previousEventRiskExposureMetadata"] = newValue }
+		get { kvStore["previousCheckinRiskExposureMetadata"] as RiskExposureMetadata? ?? nil }
+		set { kvStore["previousCheckinRiskExposureMetadata"] = newValue }
 	}
 
 	var userMetadata: UserMetadata? {
