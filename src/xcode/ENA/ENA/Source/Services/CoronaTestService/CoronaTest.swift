@@ -46,7 +46,7 @@ enum CoronaTest: Equatable {
 		case .pcr(let pcrTest):
 			return pcrTest.registrationDate
 		case .antigen(let antigenTest):
-			return antigenTest.sampleCollectionDate ?? antigenTest.pointOfCareConsentDate
+			return antigenTest.testDate
 		}
 	}
 
@@ -181,6 +181,10 @@ struct AntigenTest: Equatable, Codable {
 	var keysSubmitted: Bool
 
 	var journalEntryCreated: Bool
+
+	var testDate: Date {
+		return sampleCollectionDate ?? pointOfCareConsentDate
+	}
 
 }
 
