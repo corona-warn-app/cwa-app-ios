@@ -15,6 +15,7 @@ protocol PPAnalyticsData: AnyObject {
 	var lastAppReset: Date? { get set }
 	/// Content of last submitted data. Needed for analytics submission dev menu.
 	var lastSubmittedPPAData: String? { get set }
+	/// Analytics data.
 	var currentRiskExposureMetadata: RiskExposureMetadata? { get set }
 	/// Analytics data.
 	var previousRiskExposureMetadata: RiskExposureMetadata? { get set }

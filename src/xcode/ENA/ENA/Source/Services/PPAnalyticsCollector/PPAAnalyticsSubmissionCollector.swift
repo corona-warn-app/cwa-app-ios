@@ -92,6 +92,13 @@ final class PPAAnalyticsSubmissionCollector {
 					store.antigenKeySubmissionMetadata?.advancedConsentGiven = advanceConsent
 				}
 			}
+		case let .submittedAfterRapidAntigenTest(type):
+			switch type {
+			case .pcr:
+				store.keySubmissionMetadata?.submittedAfterRapidAntigenTest = false
+			case .antigen:
+				store.antigenKeySubmissionMetadata?.submittedAfterRapidAntigenTest = true
+			}
 		case let .setHoursSinceTestResult(type):
 			setHoursSinceTestResult(type: type)
 		case let .setHoursSinceTestRegistration(type):
