@@ -172,7 +172,11 @@ final class DiaryOverviewDayCellModel {
 	var formattedDate: String {
 		diaryDay.formattedDate
 	}
-	
+
+	var diaryDayTests: [DiaryDayTest] {
+		return diaryDay.tests
+	}
+
 	func checkInDespription(checkinWithRisk: CheckinWithRisk) -> String {
 		let checkinName = checkinWithRisk.checkIn.traceLocationDescription
 		let riskLevel = checkinWithRisk.risk
