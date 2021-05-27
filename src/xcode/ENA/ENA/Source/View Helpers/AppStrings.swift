@@ -1391,8 +1391,9 @@ enum AppStrings {
 	
 	enum Tabbar {
 		static let homeTitle = NSLocalizedString("Tabbar_Home_Title", comment: "")
-		static let diaryTitle = NSLocalizedString("Tabbar_Diary_Title", comment: "")
+		static let certificatesTitle = NSLocalizedString("Tabbar_Certificates_Title", comment: "")
 		static let checkInTitle = NSLocalizedString("Tabbar_CheckIn_Title", comment: "")
+		static let diaryTitle = NSLocalizedString("Tabbar_Diary_Title", comment: "")
 	}
 	
 	enum DataDonation {

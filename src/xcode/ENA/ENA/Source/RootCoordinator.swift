@@ -118,7 +118,7 @@ class RootCoordinator: RequiresAppDependencies {
 		startTabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.TabBar.home
 		homeCoordinator.rootViewController.tabBarItem = startTabBarItem
 
-		let certificatesTabBarItem = UITabBarItem(title: AppStrings.Tabbar.homeTitle, image: UIImage(named: "Icons_Tabbar_Certificates"), selectedImage: nil)
+		let certificatesTabBarItem = UITabBarItem(title: AppStrings.Tabbar.certificatesTitle, image: UIImage(named: "Icons_Tabbar_Certificates"), selectedImage: nil)
 		certificatesTabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.TabBar.certificates
 		healthCertificatesCoordinator.viewController.tabBarItem = certificatesTabBarItem
 
