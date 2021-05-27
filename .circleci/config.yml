@@ -269,10 +269,18 @@ workflows:
             testplan: UnitTests
             requires:
               - dependencies
+            filters:
+              branches:
+                ignore:
+                  - /release\/.*/
         - test:
-            testplan: UITests
+            testplan: AllTests
             requires:
               - dependencies
+            filters:
+              branches:
+                only:
+                  - /release\/.*/
         - test-community:
             requires:
               - dependencies
