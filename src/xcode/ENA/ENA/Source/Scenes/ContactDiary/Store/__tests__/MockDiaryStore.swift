@@ -70,7 +70,12 @@ class MockDiaryStore: DiaryStoringProviding {
 
 	@discardableResult
 	func addCoronaTest(testDate: String, testType: Int, testResult: Int) -> Result<Int, SecureSQLStoreError> {
-		return .success(0)
+		let id = (coronaTests.map { $0.id }.max() ?? -1) + 1
+		guard  let diaryDayTest = DiaryDayTest(id: id, date: testDate, type: testType, result: testResult) else {
+			return .failure(.timeout)
+		}
+		coronaTests.append(diaryDayTest)
+		return .success(id)
 	}
 
 	@discardableResult
@@ -180,6 +185,13 @@ class MockDiaryStore: DiaryStoringProviding {
 		return .success(())
 	}
 
+	@discardableResult
+	func removeAllCoronaTests() -> Result<Void, SecureSQLStoreError> {
+		coronaTests.removeAll()
+		updateDays()
+		return .success(())
+	}
+
 	func cleanup() -> SecureSQLStore.VoidResult {
 		// There is no cleanup implemented (deleting old entries) for the mock.
 		return .success(())
@@ -214,6 +226,7 @@ class MockDiaryStore: DiaryStoringProviding {
 
 	private var contactPersons: [DiaryContactPerson] = []
 	private var contactPersonEncounters: [ContactPersonEncounter] = []
+	private var coronaTests: [DiaryDayTest] = []
 	private let dateProvider: DateProviding
 
 	private func updateDays() {

@@ -208,9 +208,17 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 				WHERE date < date('\(todayDateString)','-\(dataRetentionPeriodInDays - 1) days')
 			"""
 
+			let sqlCoronaTests = """
+				DELETE FROM CoronaTest
+				WHERE date < date('\(todayDateString)','-\(dataRetentionPeriodInDays - 1) days')
+			"""
+
 			do {
 				try database.executeUpdate(sqlContactPersonEncounter, values: nil)
 				try database.executeUpdate(sqlLocationVisit, values: nil)
+				if database.userVersion >= 5 {
+					try database.executeUpdate(sqlCoronaTests, values: nil)
+				}
 			} catch {
 				logLastErrorCode(from: database)
 				result = .failure(dbError(from: database))
@@ -873,6 +881,10 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 
 	func removeAllContactPersons() -> SecureSQLStore.VoidResult {
 		return removeAllEntries(from: "ContactPerson")
+	}
+
+	func removeAllCoronaTests() -> Result<Void, SecureSQLStoreError> {
+		return removeAllEntries(from: "CoronaTest")
 	}
 
 	@discardableResult

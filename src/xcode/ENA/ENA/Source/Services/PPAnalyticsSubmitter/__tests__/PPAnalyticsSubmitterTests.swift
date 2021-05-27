@@ -62,8 +62,8 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		/// Check that store is setup correctly after successful submission
 		XCTAssertEqual(store.previousRiskExposureMetadata, currentRiskExposureMetadata)
 		XCTAssertNil(store.currentRiskExposureMetadata)
-		XCTAssertNil(store.testResultMetadata)
-		XCTAssertNil(store.keySubmissionMetadata)
+		XCTAssertNil(store.pcrTestResultMetadata)
+		XCTAssertNil(store.pcrKeySubmissionMetadata)
 		XCTAssertNil(store.exposureWindowsMetadata?.newExposureWindowsQueue)
 		
 		/// Since the Date is super precise we have to be fuzzy here, and since we know our CI lets me a lot fuzzy here.
@@ -570,39 +570,39 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		store.dateOfConversionToHighRisk = dateOfRiskChangeToHigh
 		
 		Analytics.collect(.testResultMetadata(.registerNewTestMetadata(registrationDate, registrationToken, .pcr)))
-		XCTAssertEqual(store.testResultMetadata?.testRegistrationDate, registrationDate, "Wrong Registration date")
-		XCTAssertEqual(store.testResultMetadata?.riskLevelAtTestRegistration, riskLevel, "Wrong Risk Level")
-		XCTAssertEqual(store.testResultMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, differenceBetweenMostRecentRiskDateAndRegistrationDate, "Wrong number of days with this risk level")
-		XCTAssertEqual(store.testResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration, differenceInHoursBetweenChangeToHighRiskAndRegistrationDate, "Wrong difference hoursSinceHighRiskWarningAtTestRegistration")
+		XCTAssertEqual(store.pcrTestResultMetadata?.testRegistrationDate, registrationDate, "Wrong Registration date")
+		XCTAssertEqual(store.pcrTestResultMetadata?.riskLevelAtTestRegistration, riskLevel, "Wrong Risk Level")
+		XCTAssertEqual(store.pcrTestResultMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, differenceBetweenMostRecentRiskDateAndRegistrationDate, "Wrong number of days with this risk level")
+		XCTAssertEqual(store.pcrTestResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration, differenceInHoursBetweenChangeToHighRiskAndRegistrationDate, "Wrong difference hoursSinceHighRiskWarningAtTestRegistration")
 
 		Analytics.collect(.testResultMetadata(.updateTestResult(testResult, registrationToken, .pcr)))
-		XCTAssertEqual(store.testResultMetadata?.testResult, testResult, "Wrong TestResult")
-		XCTAssertEqual(store.testResultMetadata?.hoursSinceTestRegistration, differenceInHoursBetweenRegistrationDateAndTestResult, "Wrong difference hoursSinceTestRegistration")
+		XCTAssertEqual(store.pcrTestResultMetadata?.testResult, testResult, "Wrong TestResult")
+		XCTAssertEqual(store.pcrTestResultMetadata?.hoursSinceTestRegistration, differenceInHoursBetweenRegistrationDateAndTestResult, "Wrong difference hoursSinceTestRegistration")
 
 		// Mapping to protobuf
 		let protobuf = analyticsSubmitter.gatherTestResultMetadata(for: .pcr)
 		XCTAssertEqual(
-			store.testResultMetadata?.protobuf,
+			store.pcrTestResultMetadata?.protobuf,
 			protobuf.testResult,
 			"Wrong testResult protobuf mapping"
 		)
 		XCTAssertEqual(
-			store.testResultMetadata?.hoursSinceTestRegistration,
+			store.pcrTestResultMetadata?.hoursSinceTestRegistration,
 			Int(protobuf.hoursSinceTestRegistration),
 			"Wrong hoursSinceTestRegistration protobuf mapping"
 		)
 		XCTAssertEqual(
-			store.testResultMetadata?.riskLevelAtTestRegistration?.protobuf,
+			store.pcrTestResultMetadata?.riskLevelAtTestRegistration?.protobuf,
 			protobuf.riskLevelAtTestRegistration,
 			"Wrong riskLevelAtTestRegistration protobuf mapping"
 		)
 		XCTAssertEqual(
-			store.testResultMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration,
+			store.pcrTestResultMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration,
 			Int(protobuf.daysSinceMostRecentDateAtRiskLevelAtTestRegistration),
 			"Wrong daysSinceMostRecentDateAtRiskLevelAtTestRegistration protobuf mapping"
 		)
 		XCTAssertEqual(
-			store.testResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration,
+			store.pcrTestResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration,
 			Int(protobuf.hoursSinceHighRiskWarningAtTestRegistration),
 			"Wrong hoursSinceHighRiskWarningAtTestRegistration protobuf mapping"
 		)
@@ -737,14 +737,14 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		Analytics.collect(.keySubmissionMetadata(.lastSubmissionFlowScreen(lastScreen, .pcr)))
 		Analytics.collect(.keySubmissionMetadata(.advancedConsentGiven(true, .pcr)))
 
-		let metadata = store.keySubmissionMetadata
-		XCTAssertNotNil(metadata, "keySubmissionMetadata should be allocated")
-		XCTAssertEqual(metadata?.submitted, true, "Wrong keySubmissionMetadata")
-		XCTAssertEqual(metadata?.submittedInBackground, true, "Wrong keySubmissionMetadata")
-		XCTAssertEqual(metadata?.submittedAfterCancel, true, "Wrong keySubmissionMetadata")
-		XCTAssertEqual(metadata?.submittedAfterSymptomFlow, true, "Wrong keySubmissionMetadata")
-		XCTAssertEqual(metadata?.lastSubmissionFlowScreen, lastScreen, "Wrong keySubmissionMetadata")
-		XCTAssertEqual(metadata?.advancedConsentGiven, true, "Wrong keySubmissionMetadata")
+		let metadata = store.pcrKeySubmissionMetadata
+		XCTAssertNotNil(metadata, "pcrKeySubmissionMetadata should be allocated")
+		XCTAssertEqual(metadata?.submitted, true, "Wrong pcrKeySubmissionMetadata")
+		XCTAssertEqual(metadata?.submittedInBackground, true, "Wrong pcrKeySubmissionMetadata")
+		XCTAssertEqual(metadata?.submittedAfterCancel, true, "Wrong pcrKeySubmissionMetadata")
+		XCTAssertEqual(metadata?.submittedAfterSymptomFlow, true, "Wrong pcrKeySubmissionMetadata")
+		XCTAssertEqual(metadata?.lastSubmissionFlowScreen, lastScreen, "Wrong pcrKeySubmissionMetadata")
+		XCTAssertEqual(metadata?.advancedConsentGiven, true, "Wrong pcrKeySubmissionMetadata")
 		
 		// Mapping to protobuf
 		let protobuf = analyticsSubmitter.gatherKeySubmissionMetadata(for: .pcr)
