@@ -151,6 +151,9 @@ class CoronaTestService {
 
 					Log.info("[CoronaTestService] PCR test registered: \(private: String(describing: self?.pcrTest), public: "PCR Test result")", log: .api)
 
+					Analytics.collect(.testResultMetadata(.registerNewTestMetadata(Date(), registrationToken, .pcr)))
+					Analytics.collect(.testResultMetadata(.updateTestResult(.positive, registrationToken, .pcr)))
+
 					completion(.success(()))
 				case .failure(let error):
 					Log.error("[CoronaTestService] PCR test registration failed: \(error.localizedDescription)", log: .api)
