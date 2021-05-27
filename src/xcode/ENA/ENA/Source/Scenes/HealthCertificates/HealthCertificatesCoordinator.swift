@@ -74,7 +74,9 @@ final class HealthCertificatesCoordinator {
 				self?.presentInfoScreen()
 			},
 			onCreateHealthCertificateTap: { [weak self] in
-				self?.showQRCodeScanner()
+				guard let self = self else { return }
+
+				self.showQRCodeScanner(from: self.viewController)
 			},
 			onCertifiedPersonTap: { [weak self] healthCertifiedPerson in
 				self?.showHealthCertifiedPerson(healthCertifiedPerson)
@@ -142,16 +144,18 @@ final class HealthCertificatesCoordinator {
 		viewController.present(navigationController, animated: true)
 	}
 	
-	private func showQRCodeScanner() {
+	private func showQRCodeScanner(from presentingViewController: UIViewController) {
 		let qrCodeScannerViewController = HealthCertificateQRCodeScannerViewController(
 			healthCertificateService: healthCertificateService,
 			didScanCertificate: { [weak self] healthCertifiedPerson in
-				self?.viewController.dismiss(animated: true) {
-					self?.showHealthCertifiedPerson(healthCertifiedPerson)
+				presentingViewController.dismiss(animated: true) {
+					if presentingViewController == self?.viewController {
+						self?.showHealthCertifiedPerson(healthCertifiedPerson)
+					}
 				}
 			},
-			dismiss: { [weak self] in
-				self?.viewController.dismiss(animated: true)
+			dismiss: {
+				presentingViewController.dismiss(animated: true)
 			}
 		)
 
@@ -160,7 +164,7 @@ final class HealthCertificatesCoordinator {
 		let qrCodeNavigationController = UINavigationController(rootViewController: qrCodeScannerViewController)
 		qrCodeNavigationController.modalPresentationStyle = .fullScreen
 
-		viewController.present(qrCodeNavigationController, animated: true)
+		presentingViewController.present(qrCodeNavigationController, animated: true)
 	}
 	
 	private func showHealthCertifiedPerson(_ healthCertifiedPerson: HealthCertifiedPerson) {
@@ -178,7 +182,9 @@ final class HealthCertificatesCoordinator {
 				)
 			},
 			didTapRegisterAnotherHealthCertificate: { [weak self] in
-				self?.showQRCodeScanner()
+				guard let self = self else { return }
+
+				self.showQRCodeScanner(from: self.modalNavigationController)
 			},
 			didSwipeToDelete: { [weak self] healthCertificate, confirmDeletion in
 				self?.showDeleteAlert(
