@@ -216,7 +216,9 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 			do {
 				try database.executeUpdate(sqlContactPersonEncounter, values: nil)
 				try database.executeUpdate(sqlLocationVisit, values: nil)
-				try database.executeUpdate(sqlCoronaTests, values: nil)
+				if database.userVersion >= 5 {
+					try database.executeUpdate(sqlCoronaTests, values: nil)
+				}
 			} catch {
 				logLastErrorCode(from: database)
 				result = .failure(dbError(from: database))
