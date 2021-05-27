@@ -183,10 +183,10 @@
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="480-Cp-wyd" secondAttribute="trailing" constant="16" id="3hT-kt-lkw"/>
-                    <constraint firstItem="480-Cp-wyd" firstAttribute="top" secondItem="NkN-g1-Z80" secondAttribute="top" constant="12" id="DF4-DD-l53"/>
-                    <constraint firstItem="480-Cp-wyd" firstAttribute="leading" secondItem="NkN-g1-Z80" secondAttribute="leading" constant="16" id="eOc-NK-pQ2"/>
-                    <constraint firstAttribute="bottom" secondItem="480-Cp-wyd" secondAttribute="bottom" constant="12" id="uWL-tw-1Mh"/>
+                    <constraint firstAttribute="trailing" secondItem="480-Cp-wyd" secondAttribute="trailing" constant="16" identifier="testresult.card.trailing" id="3hT-kt-lkw"/>
+                    <constraint firstItem="480-Cp-wyd" firstAttribute="top" secondItem="NkN-g1-Z80" secondAttribute="top" constant="12" identifier="testresult.card.top" id="DF4-DD-l53"/>
+                    <constraint firstItem="480-Cp-wyd" firstAttribute="leading" secondItem="NkN-g1-Z80" secondAttribute="leading" constant="16" identifier="testresult.card.leading" id="eOc-NK-pQ2"/>
+                    <constraint firstAttribute="bottom" secondItem="480-Cp-wyd" secondAttribute="bottom" constant="12" identifier="testresult.card.bottom" id="uWL-tw-1Mh"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -33,8 +33,6 @@ class DiaryCoordinator {
 
 		}
 		#endif
-				
-		
 	}
 
 	// MARK: - Internal

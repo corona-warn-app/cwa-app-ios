@@ -14,7 +14,7 @@ protocol Client {
 	typealias AvailableDaysCompletionHandler = (Result<[String], Failure>) -> Void
 	typealias AvailableHoursCompletionHandler = (Result<[Int], Failure>) -> Void
 	typealias RegistrationHandler = (Result<String, Failure>) -> Void
-	typealias TestResultHandler = (Result<Int, Failure>) -> Void
+	typealias TestResultHandler = (Result<FetchTestResultResponse, Failure>) -> Void
 	typealias TANHandler = (Result<String, Failure>) -> Void
 	typealias DayCompletionHandler = (Result<PackageDownloadResponse, Failure>) -> Void
 	typealias HourCompletionHandler = (Result<PackageDownloadResponse, Failure>) -> Void
@@ -209,6 +209,11 @@ extension SubmissionError: LocalizedError {
 			return error.localizedDescription
 		}
 	}
+}
+
+struct FetchTestResultResponse: Codable {
+	let testResult: Int
+	let sc: Int?
 }
 
 /// A container for a downloaded `SAPDownloadedPackage` and its corresponding `ETag`, if given.
