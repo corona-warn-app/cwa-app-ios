@@ -44,11 +44,6 @@
             <point key="canvasLocation" x="137.68115942028987" y="142.96875"/>
         </tableViewCell>
     </objects>
-    <designables>
-        <designable name="UAS-Bk-PQl">
-            <size key="intrinsicContentSize" width="31" height="14.5"/>
-        </designable>
-    </designables>
     <resources>
         <namedColor name="ENA Text Primary 1 Color">
             <color red="0.090196078431372548" green="0.098039215686274508" blue="0.10196078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -25,7 +25,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		onFAQCellTap: @escaping () -> Void,
 		onAppInformationCellTap: @escaping () -> Void,
 		onSettingsCellTap: @escaping (ENStateHandler.State) -> Void,
-		showTestInformationResult: @escaping (Result<CoronaTestQRCodeInformation, QRCodeError>) -> Void
+		showTestInformationResult: @escaping (Result<CoronaTestRegistrationInformation, QRCodeError>) -> Void
 	) {
 		self.viewModel = viewModel
 		self.appConfigurationProvider = appConfigurationProvider
@@ -320,7 +320,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	private let onFAQCellTap: () -> Void
 	private let onAppInformationCellTap: () -> Void
 	private let onSettingsCellTap: (ENStateHandler.State) -> Void
-	private let showTestInformationResult: (Result<CoronaTestQRCodeInformation, QRCodeError>) -> Void
+	private let showTestInformationResult: (Result<CoronaTestRegistrationInformation, QRCodeError>) -> Void
 
 	private var deltaOnboardingCoordinator: DeltaOnboardingCoordinator?
 	private var riskCell: UITableViewCell?

@@ -91,6 +91,8 @@ class HomeTableViewModel {
 
 	func heightForRow(at indexPath: IndexPath) -> CGFloat {
 		if state.statistics.supportedCardIDSequence.isEmpty && HomeTableViewModel.Section(rawValue: indexPath.section) == .statistics {
+			Log.debug("[Autolayout] Layout issues due to preloading of statistics cell! ", log: .ui)
+			// if this causes (further?) crashes we have to refactor the preloading of the statistics cell
 			return 0
 		}
 

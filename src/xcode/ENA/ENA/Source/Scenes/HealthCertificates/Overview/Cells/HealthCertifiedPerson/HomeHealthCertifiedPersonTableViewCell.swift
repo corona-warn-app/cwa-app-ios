@@ -30,40 +30,15 @@ class HomeHealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierPr
 		containerView.setHighlighted(highlighted, animated: animated)
 	}
 
-	override func prepareForReuse() {
-		super.prepareForReuse()
-
-		subscriptions = []
-	}
-
 	// MARK: - Internal
 
 	func configure(with cellModel: HomeHealthCertifiedPersonCellModel) {
-		cellModel.$vaccinationState
-			.receive(on: DispatchQueue.main.ocombine)
-			.assign(to: \.text, on: vaccinationStateLabel)
-			.store(in: &subscriptions)
+		vaccinationStateLabel.text = cellModel.vaccinationStateDescription
+		vaccinationStateLabel.isHidden = cellModel.vaccinationStateDescription == nil
 
-		cellModel.$vaccinationState
-			.receive(on: DispatchQueue.main.ocombine)
-			.map { $0 == nil }
-			.assign(to: \.isHidden, on: vaccinationStateLabel)
-			.store(in: &subscriptions)
-
-		cellModel.$name
-			.receive(on: DispatchQueue.main.ocombine)
-			.assign(to: \.text, on: nameLabel)
-			.store(in: &subscriptions)
-
-		cellModel.$iconImage
-			.receive(on: DispatchQueue.main.ocombine)
-			.assign(to: \.image, on: iconView)
-			.store(in: &subscriptions)
-
-		cellModel.$backgroundGradientType
-			.receive(on: DispatchQueue.main.ocombine)
-			.assign(to: \.type, on: backgroundGradientView)
-			.store(in: &subscriptions)
+		nameLabel.text = cellModel.name
+		iconView.image = cellModel.iconImage
+		backgroundGradientView.type = cellModel.backgroundGradientType
 	}
 	
 	// MARK: - Private
@@ -77,9 +52,6 @@ class HomeHealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierPr
 
 	@IBOutlet private weak var containerView: HomeCardView!
 	@IBOutlet private weak var backgroundGradientView: GradientView!
-
-	private var isConfigured: Bool = false
-	private var subscriptions = Set<AnyCancellable>()
 
 	private func setupAccessibility() {
 		containerView.accessibilityElements = [captionLabel as Any, titleLabel as Any, vaccinationStateLabel as Any, nameLabel as Any]

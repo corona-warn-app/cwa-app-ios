@@ -20,6 +20,13 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 		exposureHistoryDetailLabel.style = .subheadline
 		exposureHistoryDetailLabel.textColor = .enaColor(for: .textPrimary2)
 
+		// pcr & antigen tests
+		testsStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+		cellViewModel.diaryDayTests.forEach { diaryDayTest in
+			let testView = arrangedView(for: diaryDayTest)
+			testsStackView.addArrangedSubview(testView)
+		}
+
 		// Check-Ins with risk
 		checkinHistoryStackView.isHidden = cellViewModel.hideCheckinRisk
 		checkinHistoryNoticeImageView.image = cellViewModel.checkinImage
@@ -144,11 +151,64 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 	@IBOutlet private weak var exposureHistoryNoticeImageView: UIImageView!
 	@IBOutlet private weak var exposureHistoryTitleLabel: ENALabel!
 	@IBOutlet private weak var exposureHistoryDetailLabel: ENALabel!
-	
+
+	// PCR & Antigen TestsStackView
+	@IBOutlet private weak var testsStackView: UIStackView!
+
 	// Check-Ins with risk
 	@IBOutlet private weak var checkinHistoryStackView: UIStackView!
 	@IBOutlet private weak var checkinHistoryNoticeImageView: UIImageView!
 	@IBOutlet private weak var checkinHistoryTitleLabel: ENALabel!
 	@IBOutlet private weak var checkinHistoryDetailLabel: ENALabel!
 	@IBOutlet private weak var checkinsWithRiskStackView: UIStackView!
+
+	private func arrangedView(for test: DiaryDayTest) -> UIView {
+		let containerView = UIView()
+		containerView.translatesAutoresizingMaskIntoConstraints = false
+
+		let separator = UIView()
+		separator.translatesAutoresizingMaskIntoConstraints = false
+		separator.backgroundColor = .enaColor(for: .hairline)
+		containerView.addSubview(separator)
+
+		let imageView = UIImageView()
+		imageView.translatesAutoresizingMaskIntoConstraints = false
+		imageView.contentMode = .center
+		imageView.image = test.result == .negative ? UIImage(imageLiteralResourceName: "Test_green") : UIImage(imageLiteralResourceName: "Test_red")
+
+		let titleLabel = ENALabel()
+		titleLabel.style = .body
+		titleLabel.text = test.type == .pcr ? AppStrings.ContactDiary.Overview.Tests.pcrRegistered : AppStrings.ContactDiary.Overview.Tests.antigenDone
+
+		let detailLabel = ENALabel()
+		detailLabel.style = .subheadline
+		detailLabel.textColor = .enaColor(for: .textPrimary2)
+		detailLabel.text = test.result == .negative ? AppStrings.ContactDiary.Overview.Tests.negativeResult : AppStrings.ContactDiary.Overview.Tests.positiveResult
+
+		let verticalStackView = UIStackView(arrangedSubviews: [titleLabel, detailLabel])
+		verticalStackView.axis = .vertical
+		verticalStackView.spacing = 8.0
+
+		let horizontalStackView = UIStackView(arrangedSubviews: [imageView, verticalStackView])
+		horizontalStackView.translatesAutoresizingMaskIntoConstraints = false
+		horizontalStackView.alignment = .center
+		horizontalStackView.spacing = 15.0
+		containerView.addSubview(horizontalStackView)
+
+		NSLayoutConstraint.activate(
+			[
+				separator.heightAnchor.constraint(equalToConstant: 1.0),
+				separator.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+				separator.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+
+				imageView.widthAnchor.constraint(equalToConstant: 32),
+				horizontalStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 18.0),
+				horizontalStackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 12.0),
+				horizontalStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -8.0),
+				horizontalStackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -8.0)
+			]
+		)
+		return containerView
+	}
+
 }

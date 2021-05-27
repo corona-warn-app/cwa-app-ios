@@ -117,7 +117,7 @@ class ExposureSubmissionCoordinatorModel {
 	}
 
 	func registerTestAndGetResult(
-		for testType: CoronaTestQRCodeInformation,
+		for testType: CoronaTestRegistrationInformation,
 		isSubmissionConsentGiven: Bool,
 		isLoading: @escaping (Bool) -> Void,
 		onSuccess: @escaping (TestResult) -> Void,
@@ -160,8 +160,22 @@ class ExposureSubmissionCoordinatorModel {
 					}
 				}
 			)
+		case .teleTAN(let teleTAN):
+			coronaTestService.registerPCRTestAndGetResult(
+				teleTAN: teleTAN,
+				isSubmissionConsentGiven: isSubmissionConsentGiven,
+				completion: { result in
+					isLoading(false)
+					
+					switch result {
+					case let .failure(error):
+						onError(error)
+					case let .success(testResult):
+						onSuccess(testResult)
+					}
+				}
+			)
 		}
-
 	}
 
 	func setSubmissionConsentGiven(_ isSubmissionConsentGiven: Bool) {
