@@ -48,7 +48,11 @@ class HealthCertificateQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutput
 			return
 		}
 
-		let result = healthCertificateService.registerHealthCertificate(base45: scannedQRCodeString)
+		didScan(base45: scannedQRCodeString)
+	}
+
+	func didScan(base45: String) {
+		let result = healthCertificateService.registerHealthCertificate(base45: base45)
 		switch result {
 		case .success(let healthCertifiedPerson):
 			self.onSuccess(healthCertifiedPerson)
@@ -154,6 +158,10 @@ class HealthCertificateQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutput
 			Log.info(".cameraPermissionDenied - stop here we can't go on", log: .ui)
 		}
 	}
+
+	#if DEBUG
+
+	#endif
 
 	// MARK: - Private
 

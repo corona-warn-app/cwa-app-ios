@@ -154,11 +154,12 @@ class HealthCertificateQRCodeScannerViewController: UIViewController {
 	private func didToggleFlash() {
 		#if DEBUG
 		if isUITesting {
-			if UserDefaults.standard.bool(forKey: "noHealthCertificate") {
-				didScanCertificate(HealthCertifiedPerson(healthCertificates: [HealthCertificate.mock(base45: HealthCertificate.firstBase45Mock)]))
+			if LaunchArguments.healthCertificate.firstHealthCertificate.boolValue {
+				viewModel?.didScan(base45: HealthCertificate.lastBase45Mock)
 			} else {
-				didScanCertificate(HealthCertifiedPerson(healthCertificates: [HealthCertificate.mock()]))
+				viewModel?.didScan(base45: HealthCertificate.firstBase45Mock)
 			}
+
 			return
 		}
 		#endif
