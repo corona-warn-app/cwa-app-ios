@@ -190,6 +190,12 @@ final class ENAExposureManager: NSObject, ExposureManager {
 				}
 			}
 		}
+		
+		#if DEBUG
+		if isUITesting {
+			self.enable { _ in }
+		}
+		#endif
 	}
 
 	func observeExposureNotificationStatus(observer: ENAExposureManagerObserver) {
