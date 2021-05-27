@@ -4,7 +4,7 @@
 
 import UIKit
 
-final class HealthCertificateCoordinator {
+final class HealthCertificatesCoordinator {
 	
 	// MARK: - Init
 	

@@ -88,12 +88,12 @@ class RootCoordinator: RequiresAppDependencies {
 			route: route
 		)
 
-		let healthCertificateCoordinator = HealthCertificateCoordinator(
+		let healthCertificatesCoordinator = HealthCertificatesCoordinator(
 			store: store,
 			healthCertificateService: healthCertificateService,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider
 		)
-		self.healthCertificateCoordinator = healthCertificateCoordinator
+		self.healthCertificatesCoordinator = healthCertificatesCoordinator
 
 		// Setup checkin coordinator after app reset
 		let checkInCoordinator = CheckinCoordinator(
@@ -120,7 +120,7 @@ class RootCoordinator: RequiresAppDependencies {
 
 		let certificatesTabBarItem = UITabBarItem(title: AppStrings.Tabbar.homeTitle, image: UIImage(named: "Icons_Tabbar_Certificates"), selectedImage: nil)
 		certificatesTabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.TabBar.certificates
-		healthCertificateCoordinator.viewController.tabBarItem = certificatesTabBarItem
+		healthCertificatesCoordinator.viewController.tabBarItem = certificatesTabBarItem
 
 		let eventsTabBarItem = UITabBarItem(title: AppStrings.Tabbar.checkInTitle, image: UIImage(named: "Icons_Tabbar_Checkin"), selectedImage: nil)
 		eventsTabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.TabBar.checkin
@@ -132,7 +132,7 @@ class RootCoordinator: RequiresAppDependencies {
 
 		tabBarController.tabBar.tintColor = .enaColor(for: .tint)
 		tabBarController.tabBar.barTintColor = .enaColor(for: .background)
-		tabBarController.setViewControllers([homeCoordinator.rootViewController, healthCertificateCoordinator.viewController, checkInCoordinator.viewController, diaryCoordinator.viewController], animated: false)
+		tabBarController.setViewControllers([homeCoordinator.rootViewController, healthCertificatesCoordinator.viewController, checkInCoordinator.viewController, diaryCoordinator.viewController], animated: false)
 		
 		viewController.clearChildViewController()
 		viewController.embedViewController(childViewController: tabBarController)
@@ -200,7 +200,7 @@ class RootCoordinator: RequiresAppDependencies {
 	private var homeCoordinator: HomeCoordinator?
 	private var homeState: HomeState?
 
-	private var healthCertificateCoordinator: HealthCertificateCoordinator?
+	private var healthCertificatesCoordinator: HealthCertificatesCoordinator?
 	private(set) var checkInCoordinator: CheckinCoordinator?
 	private(set) var diaryCoordinator: DiaryCoordinator?
 	

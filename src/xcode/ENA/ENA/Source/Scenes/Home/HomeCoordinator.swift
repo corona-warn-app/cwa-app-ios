@@ -141,7 +141,7 @@ class HomeCoordinator: RequiresAppDependencies {
 	private var traceLocationsCoordinator: TraceLocationsCoordinator?
 	private var settingsCoordinator: SettingsCoordinator?
 	private var exposureDetectionCoordinator: ExposureDetectionCoordinator?
-	private var healthCertificateCoordinator: HealthCertificateCoordinator?
+	private var healthCertificatesCoordinator: HealthCertificatesCoordinator?
 
 	private var enStateUpdateList = NSHashTable<AnyObject>.weakObjects()
 
