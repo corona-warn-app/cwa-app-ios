@@ -25,6 +25,7 @@ class HomeTableViewModelTests: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: store,
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
 			healthCertificateService: MockHealthCertificateService(),
@@ -96,6 +97,7 @@ class HomeTableViewModelTests: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: store,
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
 			healthCertificateService: MockHealthCertificateService(),
@@ -130,6 +132,7 @@ class HomeTableViewModelTests: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: store,
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
 			healthCertificateService: MockHealthCertificateService(),
@@ -158,6 +161,7 @@ class HomeTableViewModelTests: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: store,
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
 			healthCertificateService: MockHealthCertificateService(),
@@ -193,6 +197,7 @@ class HomeTableViewModelTests: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: store,
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
 			healthCertificateService: MockHealthCertificateService(),
@@ -229,6 +234,7 @@ class HomeTableViewModelTests: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: store,
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
 			healthCertificateService: healthCertificateService, onTestResultCellTap: { _ in }

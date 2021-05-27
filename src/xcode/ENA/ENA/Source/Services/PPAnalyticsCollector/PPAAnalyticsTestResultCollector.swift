@@ -35,7 +35,7 @@ final class PPAAnalyticsTestResultCollector {
 	private func createTestResultMetadata(_ metaData: TestResultMetadata) {
 		switch metaData.testType {
 		case .pcr:
-			store.testResultMetadata = metaData
+			store.pcrTestResultMetadata = metaData
 		case .antigen:
 			store.antigenTestResultMetadata = metaData
 		}
@@ -44,7 +44,7 @@ final class PPAAnalyticsTestResultCollector {
 	private func persistTestResult(testResult: TestResult, testType: CoronaTestType) {
 		switch testType {
 		case .pcr:
-			store.testResultMetadata?.testResult = testResult
+			store.pcrTestResultMetadata?.testResult = testResult
 		case .antigen:
 			store.antigenTestResultMetadata?.testResult = testResult
 		}
@@ -53,7 +53,7 @@ final class PPAAnalyticsTestResultCollector {
 	private func updateTestResultHoursSinceTestRegistration(_ hours: Int?, testType: CoronaTestType) {
 		switch testType {
 		case .pcr:
-			store.testResultMetadata?.hoursSinceTestRegistration = hours
+			store.pcrTestResultMetadata?.hoursSinceTestRegistration = hours
 		case .antigen:
 			store.antigenTestResultMetadata?.hoursSinceTestRegistration = hours
 		}
@@ -95,7 +95,7 @@ final class PPAAnalyticsTestResultCollector {
 	private func updateHoursSinceHighRiskWarningAtTestRegistration(hours: Int?, testType: CoronaTestType) {
 		switch testType {
 		case .pcr:
-			store.testResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration = hours
+			store.pcrTestResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration = hours
 		case .antigen:
 			store.antigenTestResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration = hours
 		}
@@ -140,7 +140,7 @@ final class PPAAnalyticsTestResultCollector {
 	private func shouldUpdateTestResult(token: String, type: CoronaTestType) -> Bool {
 		switch type {
 		case .pcr:
-			return store.testResultMetadata?.testRegistrationToken == token
+			return store.pcrTestResultMetadata?.testRegistrationToken == token
 		case .antigen:
 			return store.antigenTestResultMetadata?.testRegistrationToken == token
 		}
@@ -149,7 +149,7 @@ final class PPAAnalyticsTestResultCollector {
 	private func testRegistrationDate(for type: CoronaTestType) -> Date? {
 		switch type {
 		case .pcr:
-			return store.testResultMetadata?.testRegistrationDate
+			return store.pcrTestResultMetadata?.testRegistrationDate
 		case .antigen:
 			return store.antigenTestResultMetadata?.testRegistrationDate
 		}
@@ -158,7 +158,7 @@ final class PPAAnalyticsTestResultCollector {
 	private func storedTestResultMetadata(for type: CoronaTestType) -> TestResultMetadata? {
 		switch type {
 		case .pcr:
-			return store.testResultMetadata
+			return store.pcrTestResultMetadata
 		case .antigen:
 			return store.antigenTestResultMetadata
 		}

@@ -15,6 +15,7 @@ class ExposureSubmissionTestResultConsentViewModelTests: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: MockTestStore(),
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
 			testResultAvailability: .availableAndPositive,
@@ -50,6 +51,7 @@ class ExposureSubmissionTestResultConsentViewModelTests: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: MockTestStore(),
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
 			testResultAvailability: .availableAndPositive,
@@ -73,6 +75,7 @@ class ExposureSubmissionTestResultConsentViewModelTests: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: MockTestStore(),
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
 			testResultAvailability: .availableAndPositive,

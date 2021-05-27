@@ -235,6 +235,7 @@ final class OnboardingInfoViewController: UIViewController {
 			linkTextView.textContainerInset = .zero
 			linkTextView.textContainer.lineFragmentPadding = .zero
 			linkTextView.backgroundColor = .clear
+			linkTextView.delegate = self
 		} else {
 			linkTextView.isHidden = true
 		}

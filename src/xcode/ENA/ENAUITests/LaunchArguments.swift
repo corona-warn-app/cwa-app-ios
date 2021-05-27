@@ -107,6 +107,10 @@ enum LaunchArguments {
 		static let journalRemoveAllPersons = LaunchArgument(name: "journalRemoveAllPersons")
 		// To remove all the locations from contact journal
 		static let journalRemoveAllLocations = LaunchArgument(name: "journalRemoveAllLocations")
+		// to remove all the corona tests from the contact journal
+		static let journalRemoveAllCoronaTests = LaunchArgument(name: "journalRemoveAllCoronaTests")
+		// inject test data to journal
+		static let testsRiskLevel = LaunchArgument(name: "journalTestsRiskLevel")
 	}
 	enum healthCertificate {
 		// Flag to set health certificates
