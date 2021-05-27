@@ -3048,12 +3048,20 @@
 		01CBB825265FB9E20094CF8B /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				01CBB826265FBE790094CF8B /* HealthCertificateOverviewDescriptionTableViewCell.swift */,
-				01CBB827265FBE7A0094CF8B /* HealthCertificateOverviewDescriptionTableViewCell.xib */,
+				01CBB82A265FC4690094CF8B /* Description */,
 				8FE2667C264AA70300C2B432 /* HealthCertifiedPerson */,
 				8FE26663264A9DC900C2B432 /* HealthCertificateRegistration */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		01CBB82A265FC4690094CF8B /* Description */ = {
+			isa = PBXGroup;
+			children = (
+				01CBB826265FBE790094CF8B /* HealthCertificateOverviewDescriptionTableViewCell.swift */,
+				01CBB827265FBE7A0094CF8B /* HealthCertificateOverviewDescriptionTableViewCell.xib */,
+			);
+			path = Description;
 			sourceTree = "<group>";
 		};
 		01CBD88E261B3FB000158B3E /* __tests__ */ = {
