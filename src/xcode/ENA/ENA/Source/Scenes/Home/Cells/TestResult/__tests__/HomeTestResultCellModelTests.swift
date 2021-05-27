@@ -87,6 +87,7 @@ class HomeTestResultCellModelTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: ClientMock(),
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		coronaTestService.pcrTest = PCRTest.mock()
