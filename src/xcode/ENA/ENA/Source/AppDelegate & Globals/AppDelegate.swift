@@ -62,11 +62,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			store: store
 		)
 
+		let submissionCollector = PPAAnalyticsSubmissionCollector(
+			store: store,
+			coronaTestService: coronaTestService
+		)
+
 		Analytics.setup(
 			store: store,
 			coronaTestService: coronaTestService,
 			submitter: analyticsSubmitter,
-			testResultCollector: testResultCollector
+			testResultCollector: testResultCollector,
+			submissionCollector: submissionCollector
 		)
 
 		// Migrate the old pcr test structure from versions older than v2.1

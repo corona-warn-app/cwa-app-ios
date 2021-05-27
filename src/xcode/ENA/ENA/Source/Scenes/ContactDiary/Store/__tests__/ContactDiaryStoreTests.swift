@@ -1089,7 +1089,7 @@ class ContactDiaryStoreTests: XCTestCase {
 		)
 
 		// Close and create database again.
-		// This time, migrator should be called, because a schema was allready created before and userVersion is >0.
+		// This time, migrator should be called, because a schema was already created before and userVersion is >0.
 
 		databaseQueue.close()
 
@@ -1097,6 +1097,37 @@ class ContactDiaryStoreTests: XCTestCase {
 
 		XCTAssertFalse(schemaSpy.createWasCalled)
 		XCTAssertTrue(migratorSpy.migrateWasCalled)
+	}
+
+	func test_WHEN_RemoveAllCoronaTests_THEN_TableIsEmpty() throws {
+		// prepare database and insert a corona test
+		let databaseQueue = makeDatabaseQueue()
+		let store = makeContactDiaryStore(with: databaseQueue)
+
+		let result = store.addCoronaTest(testDate: "2021-05-21", testType: 0, testResult: 1)
+		guard case let .success(id) = result,
+			  let coronaTest = fetchEntries(for: "CoronaTest", with: id, from: databaseQueue) else {
+			XCTFail("Failed to fetch ContactPerson")
+			return
+		}
+		// check if corona test got persisted
+		let date = try XCTUnwrap(coronaTest.string(forColumn: "date"))
+		let testType = coronaTest.int(forColumn: "testType")
+		let testResult = coronaTest.int(forColumn: "testResult")
+
+		XCTAssertEqual(date, "2021-05-21")
+		XCTAssertEqual(testType, 0)
+		XCTAssertEqual(testResult, 1)
+
+		// remove all corona tests
+		let removeResult = store.removeAllCoronaTests()
+		if case let .failure(error) = removeResult {
+			XCTFail("Error not expected: \(error)")
+		}
+
+		// check if previous inserted corona test is no longer found
+		let fetchCoronaTestResult = fetchEntries(for: "CoronaTest", with: id, from: databaseQueue)
+		XCTAssertNil(fetchCoronaTestResult)
 	}
 
 	private func checkLocationEntry(entry: DiaryEntry, name: String, id: Int, isSelected: Bool) {

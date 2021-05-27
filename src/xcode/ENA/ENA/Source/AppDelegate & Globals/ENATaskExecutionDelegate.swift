@@ -157,19 +157,19 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 			service.submitExposure(coronaTestType: coronaTestType) { error in
 				switch error {
 				case .noCoronaTestOfGivenType:
-					Analytics.collect(.keySubmissionMetadata(.submittedInBackground(false)))
+					Analytics.collect(.keySubmissionMetadata(.submittedInBackground(false, coronaTestType)))
 					Log.info("[ENATaskExecutionDelegate] Submission: no corona test of type \(coronaTestType) registered", log: .api)
 				case .noSubmissionConsent:
-					Analytics.collect(.keySubmissionMetadata(.submittedInBackground(false)))
+					Analytics.collect(.keySubmissionMetadata(.submittedInBackground(false, coronaTestType)))
 					Log.info("[ENATaskExecutionDelegate] Submission: no consent given", log: .api)
 				case .noKeysCollected:
-					Analytics.collect(.keySubmissionMetadata(.submittedInBackground(false)))
+					Analytics.collect(.keySubmissionMetadata(.submittedInBackground(false, coronaTestType)))
 					Log.info("[ENATaskExecutionDelegate] Submission: no keys to submit", log: .api)
 				case .some(let error):
-					Analytics.collect(.keySubmissionMetadata(.submittedInBackground(false)))
+					Analytics.collect(.keySubmissionMetadata(.submittedInBackground(false, coronaTestType)))
 					Log.error("[ENATaskExecutionDelegate] Submission error: \(error.localizedDescription)", log: .api)
 				case .none:
-					Analytics.collect(.keySubmissionMetadata(.submittedInBackground(true)))
+					Analytics.collect(.keySubmissionMetadata(.submittedInBackground(true, coronaTestType)))
 					Log.info("[ENATaskExecutionDelegate] Submission successful", log: .api)
 				}
 

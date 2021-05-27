@@ -1200,7 +1200,7 @@
 /* Home Test Registration Card */
 "Home_TestRegistration_Title" = "Zarejestruj test";
 
-"Home_TestRegistration_Body" = "Korzystaj z aplikacji do pobierania wyników swoich badań, aby szybciej ostrzegać innych.";
+"Home_TestRegistration_Body" = "Korzystaj z aplikacji do rejestrowania swoich testów i pobierania ich wyników, aby szybciej ostrzegać innych.";
 
 "Home_TestRegistration_Button" = "Następne kroki";
 

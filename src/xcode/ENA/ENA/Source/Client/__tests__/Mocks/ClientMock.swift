@@ -151,7 +151,7 @@ extension ClientMock: Client {
 
 	func getTestResult(forDevice device: String, isFake: Bool, completion completeWith: @escaping TestResultHandler) {
 		guard let onGetTestResult = self.onGetTestResult else {
-			completeWith(.success(TestResult.positive.rawValue))
+			completeWith(.success(FetchTestResultResponse(testResult: TestResult.positive.rawValue, sc: nil)))
 			return
 		}
 

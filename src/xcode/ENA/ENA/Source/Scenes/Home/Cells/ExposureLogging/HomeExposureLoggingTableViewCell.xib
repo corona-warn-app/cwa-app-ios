@@ -53,17 +53,17 @@
                             <constraint firstAttribute="bottomMargin" secondItem="dHq-FZ-5U7" secondAttribute="bottom" id="KlE-pr-nVo"/>
                             <constraint firstItem="dHq-FZ-5U7" firstAttribute="leading" secondItem="omf-Yc-Mgx" secondAttribute="leadingMargin" id="mdS-bt-G2w"/>
                             <constraint firstItem="dHq-FZ-5U7" firstAttribute="top" secondItem="omf-Yc-Mgx" secondAttribute="topMargin" id="nLa-r2-4L9"/>
-                            <constraint firstItem="2Cb-Bg-07B" firstAttribute="centerY" secondItem="omf-Yc-Mgx" secondAttribute="centerY" id="nui-9h-GHu"/>
+                            <constraint firstItem="2Cb-Bg-07B" firstAttribute="centerY" secondItem="omf-Yc-Mgx" secondAttribute="centerY" identifier="icon.label.eqcenterY" id="nui-9h-GHu"/>
                         </constraints>
                         <edgeInsets key="layoutMargins" top="16" left="16" bottom="16" right="16"/>
                     </view>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
-                    <constraint firstItem="omf-Yc-Mgx" firstAttribute="leading" secondItem="B6J-ex-L0m" secondAttribute="leading" constant="16" id="4ex-dB-sTy"/>
-                    <constraint firstItem="omf-Yc-Mgx" firstAttribute="top" secondItem="B6J-ex-L0m" secondAttribute="top" constant="28" id="KEY-DB-nsn"/>
-                    <constraint firstAttribute="trailing" secondItem="omf-Yc-Mgx" secondAttribute="trailing" constant="16" id="MEY-yH-BQd"/>
-                    <constraint firstAttribute="bottom" secondItem="omf-Yc-Mgx" secondAttribute="bottom" constant="12" id="qbn-eb-L1V"/>
+                    <constraint firstItem="omf-Yc-Mgx" firstAttribute="leading" secondItem="B6J-ex-L0m" secondAttribute="leading" constant="16" identifier="cell.container.leading" id="4ex-dB-sTy"/>
+                    <constraint firstItem="omf-Yc-Mgx" firstAttribute="top" secondItem="B6J-ex-L0m" secondAttribute="top" constant="28" identifier="cell.container.top" id="KEY-DB-nsn"/>
+                    <constraint firstAttribute="trailing" secondItem="omf-Yc-Mgx" secondAttribute="trailing" constant="16" identifier="cell.container.trailing" id="MEY-yH-BQd"/>
+                    <constraint firstAttribute="bottom" secondItem="omf-Yc-Mgx" secondAttribute="bottom" constant="12" identifier="cell.container.bottom" id="qbn-eb-L1V"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

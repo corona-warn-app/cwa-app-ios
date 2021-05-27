@@ -366,15 +366,15 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 		// first cell should have the text for high risk, but none about checkin
 		let overviewCellWithEncounterRisk = app.descendants(matching: .table).firstMatch.cells.element(boundBy: 1)
 		let highRiskCell = overviewCellWithEncounterRisk.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.riskLevelLow]
-		XCTAssertTrue(highRiskCell.isHittable)
+		XCTAssertTrue(highRiskCell.waitForExistence(timeout: .short))
 		let checkinCell = overviewCellWithEncounterRisk.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.checkinRiskLevelLow]
-		XCTAssertFalse(checkinCell.isHittable)
+		XCTAssertFalse(checkinCell.waitForExistence(timeout: .short))
 		
 		let overviewCellEmpty = app.descendants(matching: .table).firstMatch.cells.element(boundBy: 4)
 		let highRiskCellEmpty = overviewCellEmpty.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.riskLevelHigh]
-		XCTAssertFalse(highRiskCellEmpty.isHittable)
+		XCTAssertFalse(highRiskCellEmpty.waitForExistence(timeout: .short))
 		let checkinCellEmpty = overviewCellEmpty.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.checkinRiskLevelHigh]
-		XCTAssertFalse(checkinCellEmpty.isHittable)
+		XCTAssertFalse(checkinCellEmpty.waitForExistence(timeout: .short))
 	}
 	
 	/// Tests: ENF Risk High, Checkin Risk High
@@ -391,15 +391,15 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 		// first cell should have the text for high risk, but none about checkin
 		let overviewCellWithEncounterRisk = app.descendants(matching: .table).firstMatch.cells.element(boundBy: 1)
 		let highRiskCell = overviewCellWithEncounterRisk.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.riskLevelHigh]
-		XCTAssertTrue(highRiskCell.isHittable)
+		XCTAssertTrue(highRiskCell.waitForExistence(timeout: .short))
 		let checkinCell = overviewCellWithEncounterRisk.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.checkinRiskLevelHigh]
-		XCTAssertTrue(checkinCell.isHittable)
+		XCTAssertTrue(checkinCell.waitForExistence(timeout: .short))
 		
 		let overviewCellEmpty = app.descendants(matching: .table).firstMatch.cells.element(boundBy: 4)
 		let highRiskCellEmpty = overviewCellEmpty.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.riskLevelHigh]
-		XCTAssertFalse(highRiskCellEmpty.isHittable)
+		XCTAssertFalse(highRiskCellEmpty.waitForExistence(timeout: .short))
 		let checkinCellEmpty = overviewCellEmpty.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.checkinRiskLevelHigh]
-		XCTAssertFalse(checkinCellEmpty.isHittable)
+		checkinCellEmpty.waitAndTap()
 	}
 	
 	/// Tests: ENF Risk None, Checkin Risk High
@@ -415,15 +415,15 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 		// first cell should have the text for high risk, but none about checkin
 		let overviewCellWithEncounterRisk = app.descendants(matching: .table).firstMatch.cells.element(boundBy: 1)
 		let highRiskCell = overviewCellWithEncounterRisk.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.riskLevelHigh]
-		XCTAssertFalse(highRiskCell.isHittable)
+		XCTAssertFalse(highRiskCell.waitForExistence(timeout: .short))
 		let checkinCell = overviewCellWithEncounterRisk.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.checkinRiskLevelLow]
-		XCTAssertTrue(checkinCell.isHittable)
+		XCTAssertTrue(checkinCell.waitForExistence(timeout: .short))
 		
 		let overviewCellEmpty = app.descendants(matching: .table).firstMatch.cells.element(boundBy: 4)
 		let highRiskCellEmpty = overviewCellEmpty.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.riskLevelHigh]
-		XCTAssertFalse(highRiskCellEmpty.isHittable)
+		XCTAssertFalse(highRiskCellEmpty.waitForExistence(timeout: .short))
 		let checkinCellEmpty = overviewCellEmpty.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.checkinRiskLevelHigh]
-		XCTAssertFalse(checkinCellEmpty.isHittable)
+		XCTAssertFalse(checkinCellEmpty.waitForExistence(timeout: .short))
 	}
 
 	/// Tests: ENF Risk None, Checkin Risk None, CoronaTest Added
@@ -439,16 +439,15 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 
 		// first cell should have the text for high risk, but none about checkin
 		let overviewCellWithEncounterRisk = app.descendants(matching: .table).firstMatch.cells.element(boundBy: 1)
-		let highRiskCell = overviewCellWithEncounterRisk.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.riskLevelLow]
-		XCTAssertTrue(highRiskCell.isHittable)
+		let lowRiskCell = overviewCellWithEncounterRisk.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.riskLevelLow]
+		XCTAssertTrue(lowRiskCell.waitForExistence(timeout: .short))
 		let checkinCell = overviewCellWithEncounterRisk.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.checkinRiskLevelLow]
-		XCTAssertFalse(checkinCell.isHittable)
-
+		XCTAssertFalse(checkinCell.waitForExistence(timeout: .short))
 		let overviewCellEmpty = app.descendants(matching: .table).firstMatch.cells.element(boundBy: 4)
 		let highRiskCellEmpty = overviewCellEmpty.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.riskLevelHigh]
-		XCTAssertFalse(highRiskCellEmpty.isHittable)
+		XCTAssertFalse(highRiskCellEmpty.waitForExistence(timeout: .short))
 		let checkinCellEmpty = overviewCellEmpty.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.checkinRiskLevelHigh]
-		XCTAssertFalse(checkinCellEmpty.isHittable)
+		XCTAssertFalse(checkinCellEmpty.waitForExistence(timeout: .short))
 	}
 	
 	// MARK: - Screenshots

@@ -178,7 +178,7 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 
 		let titleLabel = ENALabel()
 		titleLabel.style = .body
-		titleLabel.text = test.type == .pcr ? AppStrings.ContactDiary.Overview.Tests.PCRRegistered : AppStrings.ContactDiary.Overview.Tests.AntigenDone
+		titleLabel.text = test.type == .pcr ? AppStrings.ContactDiary.Overview.Tests.pcrRegistered : AppStrings.ContactDiary.Overview.Tests.antigenDone
 
 		let detailLabel = ENALabel()
 		detailLabel.style = .subheadline

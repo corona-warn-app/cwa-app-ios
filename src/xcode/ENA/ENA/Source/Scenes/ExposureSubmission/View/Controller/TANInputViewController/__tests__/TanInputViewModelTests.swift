@@ -16,8 +16,7 @@ class TanInputViewModelTests: XCTestCase {
 				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
-			presentInvalidTanAlert: { _, _  in },
-			tanSuccessfullyTransferred: { },
+			onSuccess: { _, _ in },
 			givenTan: "234567893D"
 		)
 
@@ -39,8 +38,7 @@ class TanInputViewModelTests: XCTestCase {
 				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
-			presentInvalidTanAlert: { _, _  in },
-			tanSuccessfullyTransferred: { },
+			onSuccess: { _, _ in },
 			givenTan: "ZBYKEVDBNU"
 		)
 
@@ -62,8 +60,7 @@ class TanInputViewModelTests: XCTestCase {
 				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
-			presentInvalidTanAlert: { _, _  in },
-			tanSuccessfullyTransferred: { },
+			onSuccess: { _, _ in },
 			givenTan: "ZBYKEVDBNL"
 		)
 

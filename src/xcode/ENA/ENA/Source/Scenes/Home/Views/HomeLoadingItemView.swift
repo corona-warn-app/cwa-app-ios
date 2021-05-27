@@ -30,6 +30,7 @@ final class HomeLoadingItemView: UIView, HomeItemView, HomeItemViewSeparatorable
 		activityIndicatorView.color = viewModel.titleColor
 		textLabel?.text = viewModel.title
 		textLabel?.textColor = viewModel.titleColor
+		textLabel?.setContentCompressionResistancePriority(UILayoutPriority.defaultHigh, for: .vertical)
 		separatorView?.backgroundColor = viewModel.separatorColor
 
 		if viewModel.isActivityIndicatorOn {
