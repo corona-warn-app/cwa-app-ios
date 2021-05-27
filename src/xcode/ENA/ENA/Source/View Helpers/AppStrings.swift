@@ -1803,7 +1803,10 @@ enum AppStrings {
 	}
 
 	enum HealthCertificate {
-		enum Home {
+		enum Overview {
+			static let title = NSLocalizedString("HealthCertificate_Overview_title", comment: "")
+			static let description = NSLocalizedString("HealthCertificate_Overview_description", comment: "")
+
 			enum Registration {
 				static let title = NSLocalizedString("HealthCertificate_Home_Registration_title", comment: "")
 				static let description = NSLocalizedString("HealthCertificate_Home_Registration_description", comment: "")

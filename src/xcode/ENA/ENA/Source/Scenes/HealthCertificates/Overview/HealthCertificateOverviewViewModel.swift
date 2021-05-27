@@ -24,6 +24,7 @@ class HealthCertificateOverviewViewModel {
 	// MARK: - Internal
 
 	enum Section: Int, CaseIterable {
+		case description
 		case healthCertificate
 		case createHealthCertificate
 	}
@@ -36,6 +37,8 @@ class HealthCertificateOverviewViewModel {
 
 	func numberOfRows(in section: Int) -> Int {
 		switch Section(rawValue: section) {
+		case .description:
+			return 1
 		case .healthCertificate:
 			return healthCertifiedPersons.count
 		case .createHealthCertificate:

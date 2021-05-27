@@ -12,8 +12,8 @@ class HomeHealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierPr
 	override func awakeFromNib() {
 		super.awakeFromNib()
 
-		captionLabel.text = AppStrings.HealthCertificate.Home.Person.caption
-		titleLabel.text = AppStrings.HealthCertificate.Home.Person.title
+		captionLabel.text = AppStrings.HealthCertificate.Overview.Person.caption
+		titleLabel.text = AppStrings.HealthCertificate.Overview.Person.title
 		backgroundGradientView.type = .solidGrey
 		backgroundGradientView.layer.cornerRadius = 14
 		accessibilityIdentifier = AccessibilityIdentifiers.Home.healthCertificateButton

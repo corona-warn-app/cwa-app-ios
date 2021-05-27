@@ -2456,6 +2456,12 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "AntigenProfile_Delete_Alert_Delete_Button_Title" = "Entfernen";
 
+/* Health Certificate Overview */
+
+"HealthCertificate_Overview_title" = "Nachweise";
+
+"HealthCertificate_Overview_description" = "Hier werden Ihre digitalen Impfzertifikate und Testzertifikate angezeigt.";
+
 /* Health Certificate Information */
 
 "HealthCertificate_Info_Title" = "Impfzertifikat hinzufügen";
