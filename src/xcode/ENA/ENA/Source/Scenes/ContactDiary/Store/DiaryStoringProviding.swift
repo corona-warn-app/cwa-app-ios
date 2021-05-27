@@ -42,6 +42,8 @@ protocol DiaryStoring {
 	@discardableResult
 	func removeAllContactPersons() -> SecureSQLStore.VoidResult
 	@discardableResult
+	func removeAllCoronaTests() -> SecureSQLStore.VoidResult
+	@discardableResult
 	func cleanup() -> SecureSQLStore.VoidResult
 	@discardableResult
 	func cleanup(timeout: TimeInterval) -> SecureSQLStore.VoidResult
