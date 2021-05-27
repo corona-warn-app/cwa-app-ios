@@ -221,12 +221,12 @@ class MockDiaryStore: DiaryStoringProviding {
 
 	var locations: [DiaryLocation] = []
 	var locationVisits: [LocationVisit] = []
+	var coronaTests: [DiaryDayTest] = []
 
 	// MARK: - Private
 
 	private var contactPersons: [DiaryContactPerson] = []
 	private var contactPersonEncounters: [ContactPersonEncounter] = []
-	private var coronaTests: [DiaryDayTest] = []
 	private let dateProvider: DateProviding
 
 	private func updateDays() {
@@ -261,7 +261,10 @@ class MockDiaryStore: DiaryStoringProviding {
 				DiaryDay(
 					dateString: dateString,
 					entries: contactPersonEntries + locationEntries,
-					tests: []
+					tests: coronaTests
+						.filter { diaryDayTest in
+							diaryDayTest.date == dateString
+				  }
 				)
 			)
 		}
