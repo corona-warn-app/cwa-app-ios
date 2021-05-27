@@ -21,16 +21,19 @@ class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
 
 	// MARK: - DynamicTableViewHeaderFooterView methods.
 
-	func configure(coronaTest: CoronaTest, timeStamp: Int64?) {
-
+	func configure(coronaTest: CoronaTest) {
 		barView.backgroundColor = coronaTest.testResult.color
 		imageView.image = coronaTest.testResult.image
+
+		let formattedTestDate = DateFormatter.localizedString(from: coronaTest.testDate, dateStyle: .medium, timeStyle: .none)
 		
 		switch coronaTest.type {
 		case .pcr:
 			subTitleLabel.text = AppStrings.ExposureSubmissionResult.PCR.card_subtitle
+			timeLabel.text = "\(AppStrings.ExposureSubmissionResult.PCR.registrationDate) \(formattedTestDate)"
 		case .antigen:
 			subTitleLabel.text = AppStrings.ExposureSubmissionResult.Antigen.card_subtitle
+			timeLabel.text = String(format: AppStrings.Home.TestResult.Negative.dateAntigen, formattedTestDate)
 		}
 		
 		switch coronaTest.testResult {
@@ -39,16 +42,6 @@ class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
 		case .invalid: titleLabel.text = AppStrings.ExposureSubmissionResult.card_invalid
 		case .pending: titleLabel.text = AppStrings.ExposureSubmissionResult.card_pending
 		case .expired: titleLabel.text = AppStrings.ExposureSubmissionResult.card_invalid
-		}
-
-		if let timeStamp = timeStamp {
-			let formatter = DateFormatter()
-			formatter.dateStyle = .medium
-			formatter.timeStyle = .none
-			let date = Date(timeIntervalSince1970: TimeInterval(timeStamp))
-			timeLabel.text = "\(AppStrings.ExposureSubmissionResult.PCR.registrationDate) \(formatter.string(from: date))"
-		} else {
-			timeLabel.text = "\(AppStrings.ExposureSubmissionResult.registrationDateUnknown)"
 		}
 	}
 
