@@ -12,6 +12,7 @@ class KeySubmissionMetadataTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: ClientMock(),
 			store: secureStore,
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 
@@ -51,10 +52,10 @@ class KeySubmissionMetadataTests: XCTestCase {
 		Analytics.collect(.keySubmissionMetadata(.setHoursSinceHighRiskWarningAtTestRegistration(.antigen)))
 		Analytics.collect(.keySubmissionMetadata(.submittedAfterRapidAntigenTest(.antigen)))
 
-		XCTAssertNotNil(secureStore.keySubmissionMetadata, "keySubmissionMetadata should be initialized with default values")
-		XCTAssertEqual(secureStore.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, 2, "number of days should be 2")
-		XCTAssertEqual(secureStore.keySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration, 24, "the difference is one day so it should be 24")
-		XCTAssertFalse(secureStore.keySubmissionMetadata?.submittedAfterRapidAntigenTest ?? true)
+		XCTAssertNotNil(secureStore.pcrKeySubmissionMetadata, "pcrKeySubmissionMetadata should be initialized with default values")
+		XCTAssertEqual(secureStore.pcrKeySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, 2, "number of days should be 2")
+		XCTAssertEqual(secureStore.pcrKeySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration, 24, "the difference is one day so it should be 24")
+		XCTAssertFalse(secureStore.pcrKeySubmissionMetadata?.submittedAfterRapidAntigenTest ?? true)
 
 		XCTAssertNotNil(secureStore.antigenKeySubmissionMetadata, "keySubmissionMetadata should be initialized with default values")
 		XCTAssertEqual(secureStore.antigenKeySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, 2, "number of days should be 2")
@@ -67,6 +68,7 @@ class KeySubmissionMetadataTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: ClientMock(),
 			store: secureStore,
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 
@@ -109,9 +111,9 @@ class KeySubmissionMetadataTests: XCTestCase {
 		Analytics.collect(.keySubmissionMetadata(.setHoursSinceTestRegistration(.antigen)))
 		Analytics.collect(.keySubmissionMetadata(.setHoursSinceTestResult(.antigen)))
 
-		XCTAssertNotNil(secureStore.keySubmissionMetadata, "keySubmissionMetadata should be initialized with default values")
-		XCTAssertEqual(secureStore.keySubmissionMetadata?.hoursSinceTestResult, 6, "number of hours should be 6")
-		XCTAssertEqual(secureStore.keySubmissionMetadata?.hoursSinceTestRegistration, 24, "the difference is one day so it should be 24")
+		XCTAssertNotNil(secureStore.pcrKeySubmissionMetadata, "pcrKeySubmissionMetadata should be initialized with default values")
+		XCTAssertEqual(secureStore.pcrKeySubmissionMetadata?.hoursSinceTestResult, 6, "number of hours should be 6")
+		XCTAssertEqual(secureStore.pcrKeySubmissionMetadata?.hoursSinceTestRegistration, 24, "the difference is one day so it should be 24")
 		XCTAssertNotNil(secureStore.antigenKeySubmissionMetadata, "keySubmissionMetadata should be initialized with default values")
 		XCTAssertEqual(secureStore.antigenKeySubmissionMetadata?.hoursSinceTestResult, 6, "number of hours should be 6")
 		XCTAssertEqual(secureStore.antigenKeySubmissionMetadata?.hoursSinceTestRegistration, 24, "the difference is one day so it should be 24")
@@ -122,6 +124,7 @@ class KeySubmissionMetadataTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: ClientMock(),
 			store: secureStore,
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		Analytics.setupMock(
@@ -157,10 +160,10 @@ class KeySubmissionMetadataTests: XCTestCase {
 		Analytics.collect(.keySubmissionMetadata(.submittedInBackground(true, .antigen)))
 		Analytics.collect(.keySubmissionMetadata(.advancedConsentGiven(true, .antigen)))
 
-		XCTAssertNotNil(secureStore.keySubmissionMetadata, "keySubmissionMetadata should be initialized with default values")
-		XCTAssertTrue(((secureStore.keySubmissionMetadata?.submitted) != false))
-		XCTAssertTrue(((secureStore.keySubmissionMetadata?.submittedInBackground) != false))
-		XCTAssertTrue(secureStore.keySubmissionMetadata?.advancedConsentGiven ?? false)
+		XCTAssertNotNil(secureStore.pcrKeySubmissionMetadata, "pcrKeySubmissionMetadata should be initialized with default values")
+		XCTAssertTrue(((secureStore.pcrKeySubmissionMetadata?.submitted) != false))
+		XCTAssertTrue(((secureStore.pcrKeySubmissionMetadata?.submittedInBackground) != false))
+		XCTAssertTrue(secureStore.pcrKeySubmissionMetadata?.advancedConsentGiven ?? false)
 		XCTAssertNotNil(secureStore.antigenKeySubmissionMetadata, "keySubmissionMetadata should be initialized with default values")
 		XCTAssertTrue(((secureStore.antigenKeySubmissionMetadata?.submitted) != false))
 		XCTAssertTrue(((secureStore.antigenKeySubmissionMetadata?.submittedInBackground) != false))
@@ -172,6 +175,7 @@ class KeySubmissionMetadataTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: ClientMock(),
 			store: secureStore,
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		Analytics.setupMock(
@@ -213,13 +217,13 @@ class KeySubmissionMetadataTests: XCTestCase {
 		Analytics.collect(.keySubmissionMetadata(.submittedAfterSymptomFlow(true, .antigen)))
 		Analytics.collect(.keySubmissionMetadata(.lastSubmissionFlowScreen(.submissionFlowScreenSymptoms, .antigen)))
 
-		XCTAssertNotNil(secureStore.keySubmissionMetadata, "keySubmissionMetadata should be initialized with default values")
-		XCTAssertTrue(secureStore.keySubmissionMetadata?.submitted != false)
-		XCTAssertTrue(secureStore.keySubmissionMetadata?.submittedInBackground != true)
-		XCTAssertTrue(secureStore.keySubmissionMetadata?.submittedAfterCancel != false)
-		XCTAssertTrue(secureStore.keySubmissionMetadata?.submittedAfterSymptomFlow != false)
-		XCTAssertEqual(secureStore.keySubmissionMetadata?.lastSubmissionFlowScreen, .submissionFlowScreenSymptoms)
-		XCTAssertTrue(secureStore.keySubmissionMetadata?.submittedWithTeleTAN == false)
+		XCTAssertNotNil(secureStore.pcrKeySubmissionMetadata, "pcrKeySubmissionMetadata should be initialized with default values")
+		XCTAssertTrue(secureStore.pcrKeySubmissionMetadata?.submitted != false)
+		XCTAssertTrue(secureStore.pcrKeySubmissionMetadata?.submittedInBackground != true)
+		XCTAssertTrue(secureStore.pcrKeySubmissionMetadata?.submittedAfterCancel != false)
+		XCTAssertTrue(secureStore.pcrKeySubmissionMetadata?.submittedAfterSymptomFlow != false)
+		XCTAssertEqual(secureStore.pcrKeySubmissionMetadata?.lastSubmissionFlowScreen, .submissionFlowScreenSymptoms)
+		XCTAssertTrue(secureStore.pcrKeySubmissionMetadata?.submittedWithTeleTAN == false)
 
 		XCTAssertNotNil(secureStore.antigenKeySubmissionMetadata, "keySubmissionMetadata should be initialized with default values")
 		XCTAssertTrue(secureStore.antigenKeySubmissionMetadata?.submitted != false)
@@ -237,6 +241,7 @@ class KeySubmissionMetadataTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: ClientMock(),
 			store: secureStore,
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 
@@ -272,9 +277,9 @@ class KeySubmissionMetadataTests: XCTestCase {
 		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration(.antigen)))
 		Analytics.collect(.keySubmissionMetadata(.setHoursSinceHighRiskWarningAtTestRegistration(.antigen)))
 
-		XCTAssertNotNil(secureStore.keySubmissionMetadata, "keySubmissionMetadata should be initialized with default values")
-		XCTAssertEqual(secureStore.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, 3, "number of days should be 3")
-		XCTAssertEqual(secureStore.keySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration, -1, "the value should be default value i.e., -1 as the risk is low")
+		XCTAssertNotNil(secureStore.pcrKeySubmissionMetadata, "pcrKeySubmissionMetadata should be initialized with default values")
+		XCTAssertEqual(secureStore.pcrKeySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, 3, "number of days should be 3")
+		XCTAssertEqual(secureStore.pcrKeySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration, -1, "the value should be default value i.e., -1 as the risk is low")
 
 		XCTAssertNotNil(secureStore.antigenKeySubmissionMetadata, "keySubmissionMetadata should be initialized with default values")
 		XCTAssertEqual(secureStore.antigenKeySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, 3, "number of days should be 3")
