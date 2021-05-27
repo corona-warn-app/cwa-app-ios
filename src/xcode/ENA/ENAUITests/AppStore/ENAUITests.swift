@@ -5,7 +5,7 @@
 import XCTest
 import ExposureNotification
 
-class ENAUITests: XCTestCase {
+class ENAUITests: CWATestCase {
 	var app: XCUIApplication!
 
 	override func setUp() {
@@ -16,10 +16,6 @@ class ENAUITests: XCTestCase {
 		app.setDefaults()
 		app.launchEnvironment["IsOnboarded"] = "NO"
 		app.launchArguments.append(contentsOf: ["-userNeedsToBeInformedAboutHowRiskDetectionWorks", "NO"])
-	}
-
-	override func tearDownWithError() throws {
-		// Put teardown code here. This method is called after the invocation of each test method in the class.
 	}
 
 	func navigateThroughOnboarding() throws {

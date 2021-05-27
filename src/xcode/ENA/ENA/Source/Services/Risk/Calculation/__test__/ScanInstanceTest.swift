@@ -7,7 +7,7 @@ import XCTest
 import ExposureNotification
 @testable import ENA
 
-class ScanInstanceTest: XCTestCase {
+class ScanInstanceTest: CWATestCase {
 
 	func testGIVEN_JsonScanInstance_WHEN_Converted_THEN_ValuesMatch() throws {
 		// GIVEN

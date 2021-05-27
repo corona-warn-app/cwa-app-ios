@@ -5,7 +5,7 @@
 @testable import ENA
 import XCTest
 
-class ClientMetadataTests: XCTestCase {
+class ClientMetadataTests: CWATestCase {
 
 	func testGIVEN_ClientMetadat_WHEN_AnalyticsCollectIsCalled_THEN_ClientMetadataAreLoggedCorrect() {
 		// GIVEN

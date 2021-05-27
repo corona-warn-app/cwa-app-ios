@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class EnvironmentTests: XCTestCase {
+class EnvironmentTests: CWATestCase {
 
 	override func tearDown() {
 		UserDefaults.standard.removeObject(forKey: Environments.selectedEnvironmentKey)

@@ -6,7 +6,7 @@ import XCTest
 @testable import ENA
 import OpenCombine
 
-class CheckInTimeModelTests: XCTestCase {
+class CheckInTimeModelTests: CWATestCase {
 
 	func testGIVEN_CheckInTimeModel_WHEN_DateChanges_THEN_InitialPublisherSubmit() {
 		// GIVEN

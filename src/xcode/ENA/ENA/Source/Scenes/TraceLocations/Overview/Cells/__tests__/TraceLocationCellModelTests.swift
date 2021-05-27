@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class TraceLocationCellModelTests: XCTestCase {
+class TraceLocationCellModelTests: CWATestCase {
 
 	func testGIVEN_CellModelWithPermanentTraceLocation_THEN_InitialStateIsAsExpected() {
 		// GIVEN

@@ -6,7 +6,7 @@
 import Foundation
 import XCTest
 
-final class BackendConfigurationTests: XCTestCase {
+final class BackendConfigurationTests: CWATestCase {
 	private typealias Configuration = HTTPClient.Configuration
 	private typealias Endpoint = HTTPClient.Configuration.Endpoint
 

@@ -8,7 +8,7 @@ import XCTest
 
 // swiftlint:disable file_length
 // swiftlint:disable:next type_body_length
-class DiaryDayEntryCellModelTest: XCTestCase {
+class DiaryDayEntryCellModelTest: CWATestCase {
 
 	func testContactPersonUnselected() throws {
 		let cellModel = contactPersonCellModelWithoutEncounter(name: "Nick Guendling")

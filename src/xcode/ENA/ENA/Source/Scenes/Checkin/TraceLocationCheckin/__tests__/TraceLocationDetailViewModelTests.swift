@@ -6,7 +6,7 @@ import XCTest
 import OpenCombine
 @testable import ENA
 
-class TraceLocationCheckinViewModelTests: XCTestCase {
+class TraceLocationCheckinViewModelTests: CWATestCase {
 
 	private var subscriptions = Set<AnyCancellable>()
 		

@@ -7,7 +7,7 @@ import ExposureNotification
 import XCTest
 
 // swiftlint:disable:next type_body_length
-class CoronaTestServiceTests: XCTestCase {
+class CoronaTestServiceTests: CWATestCase {
 
 	func testHasAtLeastOneShownPositiveOrSubmittedTest() {
 		let service = CoronaTestService(

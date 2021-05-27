@@ -6,7 +6,7 @@ import XCTest
 import OpenCombine
 @testable import ENA
 
-class OptionGroupViewModelTests: XCTestCase {
+class OptionGroupViewModelTests: CWATestCase {
 
     func testInitialSelectionNil() {
 		let viewModel = OptionGroupViewModel(

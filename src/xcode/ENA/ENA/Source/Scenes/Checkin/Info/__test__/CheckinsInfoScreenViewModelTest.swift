@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class CheckinsInfoScreenViewModelTest: XCTestCase {
+class CheckinsInfoScreenViewModelTest: CWATestCase {
 
 		/// test if the information screen has 3 sections (image, legal and disclaimer)
 		func testGIVEN_ViewModel_WHEN_GetNumberOfSections_THEN_CountMatchExpectations() {

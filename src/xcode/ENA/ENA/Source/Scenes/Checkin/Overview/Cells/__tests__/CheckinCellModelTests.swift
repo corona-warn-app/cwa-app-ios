@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class CheckinCellModelTests: XCTestCase {
+class CheckinCellModelTests: CWATestCase {
 
 	func testGIVEN_CheckInCellModel_THEN_InitialStateIsAsExpected() {
 		// GIVEN

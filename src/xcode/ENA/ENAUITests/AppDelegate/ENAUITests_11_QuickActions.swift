@@ -5,7 +5,7 @@
 import XCTest
 import ExposureNotification
 
-class ENAUITests_11_QuickActions: XCTestCase {
+class ENAUITests_11_QuickActions: CWATestCase {
 
 	private let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
 	private lazy var cwaBundleDisplayName = { XCUIApplication().label }() // "Corona-Warn"
@@ -14,6 +14,7 @@ class ENAUITests_11_QuickActions: XCTestCase {
 	private lazy var eventCheckinLabel = XCUIApplication().localized(AppStrings.QuickActions.eventCheckin)
 
     override func setUpWithError() throws {
+		try super.setUpWithError()
         continueAfterFailure = false
 
 		// Clear potentially broken states by pressing the home button
@@ -22,6 +23,7 @@ class ENAUITests_11_QuickActions: XCTestCase {
     }
 
 	override func tearDownWithError() throws {
+		try super.tearDownWithError()
 		XCUIDevice.shared.press(.home)
 	}
 

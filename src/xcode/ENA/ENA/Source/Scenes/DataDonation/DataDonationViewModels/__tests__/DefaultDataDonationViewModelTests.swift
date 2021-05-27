@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class DefaultDataDonationViewModelTests: XCTestCase {
+class DefaultDataDonationViewModelTests: CWATestCase {
 
 	func testGIVEN_DataDonationModel_WHEN_getDynamicTableViewModel_THEN_SectionsAndCellCountsMatch() throws {
 		// GIVEN

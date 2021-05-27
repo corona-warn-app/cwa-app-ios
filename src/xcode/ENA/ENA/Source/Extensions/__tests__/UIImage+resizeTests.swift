@@ -6,7 +6,7 @@ import XCTest
 import UIKit
 @testable import ENA
 
-class UIImage_resizeTests: XCTestCase {
+class UIImage_resizeTests: CWATestCase {
 
 	func testGIVEN_SquareImage_WHEN_Resize_THEN_AspectRatioGetsRespected() {
 		// GIVEN

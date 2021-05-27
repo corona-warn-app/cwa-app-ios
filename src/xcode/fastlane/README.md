@@ -21,9 +21,9 @@ or alternatively using `brew install fastlane`
 fastlane ios update_licenses
 ```
 Update license file
-### ios build
+### ios build_for_testing
 ```
-fastlane ios build
+fastlane ios build_for_testing
 ```
 Build project
 ### ios build_community
@@ -31,6 +31,11 @@ Build project
 fastlane ios build_community
 ```
 Build project (Community)
+### ios lint
+```
+fastlane ios lint
+```
+Lint code
 ### ios test
 ```
 fastlane ios test

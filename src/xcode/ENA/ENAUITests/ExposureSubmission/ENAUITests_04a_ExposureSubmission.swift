@@ -7,7 +7,7 @@ import ExposureNotification
 
 // swiftlint:disable file_length
 // swiftlint:disable:next type_body_length
-class ENAUITests_04a_ExposureSubmission: XCTestCase {
+class ENAUITests_04a_ExposureSubmission: CWATestCase {
 
 	// MARK: - Attributes.
 	
@@ -16,6 +16,7 @@ class ENAUITests_04a_ExposureSubmission: XCTestCase {
 	// MARK: - Setup.
 
 	override func setUpWithError() throws {
+		try super.setUpWithError()
 		continueAfterFailure = false
 		app = XCUIApplication()
 		setupSnapshot(app)

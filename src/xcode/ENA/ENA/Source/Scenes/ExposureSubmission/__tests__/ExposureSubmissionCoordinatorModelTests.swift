@@ -6,7 +6,7 @@ import XCTest
 @testable import ENA
 
 // swiftlint:disable:next type_body_length
-class ExposureSubmissionCoordinatorModelTests: XCTestCase {
+class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 
 	func testSymptomsOptionYesSelected() {
 		let model = ExposureSubmissionCoordinatorModel(

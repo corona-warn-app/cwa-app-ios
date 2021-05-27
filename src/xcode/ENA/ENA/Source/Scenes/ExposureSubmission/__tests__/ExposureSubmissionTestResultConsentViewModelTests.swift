@@ -6,7 +6,7 @@ import Foundation
 import XCTest
 @testable import ENA
 
-class ExposureSubmissionTestResultConsentViewModelTests: XCTestCase {
+class ExposureSubmissionTestResultConsentViewModelTests: CWATestCase {
 
 	func testCellsInSection0() {
 		let viewModel = ExposureSubmissionTestResultConsentViewModel(

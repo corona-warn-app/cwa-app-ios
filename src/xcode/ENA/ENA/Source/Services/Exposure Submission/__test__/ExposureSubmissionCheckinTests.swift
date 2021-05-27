@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class ExposureSubmissionCheckinTests: XCTestCase {
+class ExposureSubmissionCheckinTests: CWATestCase {
 
 	func testCheckinTransmissionPreparationFiltersSubmittedCheckins() throws {
 		let service = MockExposureSubmissionService()

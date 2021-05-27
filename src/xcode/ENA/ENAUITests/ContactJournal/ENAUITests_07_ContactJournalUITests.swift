@@ -6,11 +6,12 @@ import XCTest
 import ExposureNotification
 
 // swiftlint:disable:next type_body_length
-class ENAUITests_07_ContactJournal: XCTestCase {
+class ENAUITests_07_ContactJournal: CWATestCase {
 
 	// MARK: - Overrides
 
 	override func setUpWithError() throws {
+		try super.setUpWithError()
 		continueAfterFailure = false
 
 		app = XCUIApplication()

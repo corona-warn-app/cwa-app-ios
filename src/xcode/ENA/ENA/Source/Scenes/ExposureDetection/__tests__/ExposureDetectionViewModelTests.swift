@@ -9,7 +9,7 @@ import OpenCombine
 
 // swiftlint:disable file_length
 // swiftlint:disable:next type_body_length
-class ExposureDetectionViewModelTests: XCTestCase {
+class ExposureDetectionViewModelTests: CWATestCase {
 
 	private var otpService: OTPServiceProviding!
 	private var ppacToken: PPACToken!

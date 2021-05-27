@@ -4,7 +4,7 @@
 
 import XCTest
 
-class CreateHealthCertificate: XCTestCase {
+class CreateHealthCertificate: CWATestCase {
 
 	// MARK: - Overrides
 

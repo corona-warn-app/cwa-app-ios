@@ -6,7 +6,7 @@
 import Foundation
 import XCTest
 
-final class StringTodayTests: XCTestCase {
+final class StringTodayTests: CWATestCase {
 	func testTodayFormat_Now() {
 		let formatted = String.formattedToday()
 		XCTAssertNotNil(formatted.range(of: #"\d{4}-\d{2}-\d{2}"#, options: .regularExpression), "Expected format to be in yyyy-MM-dd")

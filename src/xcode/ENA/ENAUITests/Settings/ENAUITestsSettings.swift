@@ -4,10 +4,11 @@
 
 import XCTest
 
-class ENAUITests_03_Settings: XCTestCase {
+class ENAUITests_03_Settings: CWATestCase {
 	var app: XCUIApplication!
 	
 	override func setUpWithError() throws {
+		try super.setUpWithError()
 		continueAfterFailure = false
 		app = XCUIApplication()
 		setupSnapshot(app)

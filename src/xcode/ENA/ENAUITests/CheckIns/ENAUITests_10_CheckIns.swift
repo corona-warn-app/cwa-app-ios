@@ -4,13 +4,14 @@
 
 import XCTest
 
-class ENAUITests_10_CheckIns: XCTestCase {
+class ENAUITests_10_CheckIns: CWATestCase {
 	
 	var app: XCUIApplication!
 	var screenshotCounter = 0
 	let prefix = "event_checkin_"
 	
 	override func setUpWithError() throws {
+		try super.setUpWithError()
 		continueAfterFailure = false
 		app = XCUIApplication()
 		setupSnapshot(app)

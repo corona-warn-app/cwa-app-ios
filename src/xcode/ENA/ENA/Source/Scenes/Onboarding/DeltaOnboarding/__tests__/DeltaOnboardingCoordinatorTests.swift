@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class DeltaOnboardingCoordinatorTests: XCTestCase {
+class DeltaOnboardingCoordinatorTests: CWATestCase {
 
 	func test_When_NoOnboardingIsCurrent_Then_NoDeltaOnboardingIsShown() {
 		let mockStore = MockTestStore()

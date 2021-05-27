@@ -6,7 +6,7 @@ import XCTest
 import OpenCombine
 @testable import ENA
 
-class HomeTestResultCellModelTests: XCTestCase {
+class HomeTestResultCellModelTests: CWATestCase {
 	
 	// expected values arrays have to test the default flow values plus explicitly test setting the testResult into [.pending, .negative, .invalid, .positive, .expired]
 	// so the total test cases are [.pending, .negative, .invalid, .positive, .expired, (Loading)]

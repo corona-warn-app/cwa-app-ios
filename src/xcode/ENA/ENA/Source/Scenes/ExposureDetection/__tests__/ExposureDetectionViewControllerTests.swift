@@ -6,7 +6,7 @@ import Foundation
 import XCTest
 @testable import ENA
 
-class ExposureDetectionViewControllerTests: XCTestCase {
+class ExposureDetectionViewControllerTests: CWATestCase {
 
 	func testHighRiskState() {
 		let vc = createVC()
