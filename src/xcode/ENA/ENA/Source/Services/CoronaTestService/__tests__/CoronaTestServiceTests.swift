@@ -358,9 +358,9 @@ class CoronaTestServiceTests: XCTestCase {
 		XCTAssertFalse(pcrTest.keysSubmitted)
 		XCTAssertFalse(pcrTest.journalEntryCreated)
 
-		XCTAssertEqual(store.testResultMetadata?.testResult, .pending)
+		XCTAssertEqual(store.pcrTestResultMetadata?.testResult, .pending)
 		XCTAssertEqual(
-			try XCTUnwrap(store.testResultMetadata?.testRegistrationDate).timeIntervalSince1970,
+			try XCTUnwrap(store.pcrTestResultMetadata?.testRegistrationDate).timeIntervalSince1970,
 			Date().timeIntervalSince1970,
 			accuracy: 10
 		)
@@ -429,9 +429,9 @@ class CoronaTestServiceTests: XCTestCase {
 		XCTAssertFalse(pcrTest.keysSubmitted)
 		XCTAssertFalse(pcrTest.journalEntryCreated)
 
-		XCTAssertEqual(store.testResultMetadata?.testResult, .negative)
+		XCTAssertEqual(store.pcrTestResultMetadata?.testResult, .negative)
 		XCTAssertEqual(
-			try XCTUnwrap(store.testResultMetadata?.testRegistrationDate).timeIntervalSince1970,
+			try XCTUnwrap(store.pcrTestResultMetadata?.testRegistrationDate).timeIntervalSince1970,
 			Date().timeIntervalSince1970,
 			accuracy: 10
 		)
@@ -474,7 +474,7 @@ class CoronaTestServiceTests: XCTestCase {
 		waitForExpectations(timeout: .short)
 
 		XCTAssertNil(service.pcrTest)
-		XCTAssertNil(store.testResultMetadata)
+		XCTAssertNil(store.pcrTestResultMetadata)
 	}
 
 	func testRegisterPCRTestAndGetResult_RegistrationSucceedsGettingTestResultFails() {
@@ -536,9 +536,9 @@ class CoronaTestServiceTests: XCTestCase {
 		XCTAssertFalse(pcrTest.keysSubmitted)
 		XCTAssertFalse(pcrTest.journalEntryCreated)
 
-		XCTAssertNil(store.testResultMetadata?.testResult)
+		XCTAssertNil(store.pcrTestResultMetadata?.testResult)
 		XCTAssertEqual(
-			try XCTUnwrap(store.testResultMetadata?.testRegistrationDate).timeIntervalSince1970,
+			try XCTUnwrap(store.pcrTestResultMetadata?.testRegistrationDate).timeIntervalSince1970,
 			Date().timeIntervalSince1970,
 			accuracy: 10
 		)
@@ -701,7 +701,7 @@ class CoronaTestServiceTests: XCTestCase {
 		waitForExpectations(timeout: .short)
 
 		XCTAssertNil(service.pcrTest)
-		XCTAssertNil(store.testResultMetadata)
+		XCTAssertNil(store.pcrTestResultMetadata)
 	}
 
 	func testRegisterAntigenTestAndGetResult_successWithoutSubmissionConsentGivenWithTestedPerson() {
