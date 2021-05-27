@@ -17,6 +17,10 @@
     {
       "parallelizable" : true,
       "selectedTests" : [
+        "CreateHealthCertificate\/test_CreateAntigenTestProfileWithFirstCertificate_THEN_DeleteProfile()",
+        "CreateHealthCertificate\/test_CreateAntigenTestProfileWithLastCertificate_THEN_DeleteProfile()",
+        "CreateHealthCertificate\/test_ShowCertificate()",
+        "CreateHealthCertificate\/test_shownConsentScreenAndDisclaimer()",
         "ENAUITests\/test_0000_Generate_Screenshots_For_AppStore()",
         "ENAUITests\/test_0001_Generate_Screenshots_For_AppStore_Submission()",
         "ENAUITests\/test_0002_Generate_Screenshot_For_AppStore_Statistics()",
