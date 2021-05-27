@@ -210,7 +210,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 
 		switch type {
 		case .pcr:
-			isSubmitted = store.keySubmissionMetadata?.submitted ?? false
+			isSubmitted = store.pcrKeySubmissionMetadata?.submitted ?? false
 			_testResultReceivedDate = coronaTestService.pcrTest?.finalTestResultReceivedDate
 		case .antigen:
 			isSubmitted = store.antigenKeySubmissionMetadata?.submitted ?? false
@@ -245,7 +245,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 
 		switch type {
 		case .pcr:
-			metadata = store.testResultMetadata
+			metadata = store.pcrTestResultMetadata
 		case .antigen:
 			metadata = store.antigenTestResultMetadata
 		}
@@ -377,14 +377,14 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 					self?.store.currentRiskExposureMetadata = nil
 					if let shouldIncludeTestResultMetadata = self?.shouldIncludeTestResultMetadata(for: .pcr),
 					   shouldIncludeTestResultMetadata {
-						self?.store.testResultMetadata = nil
+						self?.store.pcrTestResultMetadata = nil
 					}
 					if let shouldIncludeTestResultMetadata = self?.shouldIncludeTestResultMetadata(for: .antigen),
 					   shouldIncludeTestResultMetadata {
 						self?.store.antigenTestResultMetadata = nil
 					}
 					if let shouldIncludeKeySubmissionMetadata = self?.shouldIncludeKeySubmissionMetadata(for: .pcr), shouldIncludeKeySubmissionMetadata {
-						self?.store.keySubmissionMetadata = nil
+						self?.store.pcrKeySubmissionMetadata = nil
 					}
 					if let shouldIncludeAntigenKeySubmissionMetadata = self?.shouldIncludeKeySubmissionMetadata(for: .antigen), shouldIncludeAntigenKeySubmissionMetadata {
 						self?.store.antigenKeySubmissionMetadata = nil
@@ -493,7 +493,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		let _metadata: KeySubmissionMetadata?
 		switch type {
 		case .pcr:
-			_metadata = store.keySubmissionMetadata
+			_metadata = store.pcrKeySubmissionMetadata
 		case .antigen:
 			_metadata = store.antigenKeySubmissionMetadata
 		}
@@ -536,6 +536,8 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			if let submittedWithTeleTan = metadata.submittedWithTeleTAN {
 				$0.submittedWithTeleTan = submittedWithTeleTan
 			}
+
+			$0.submittedAfterRapidAntigenTest = metadata.submittedAfterRapidAntigenTest
 		}
 	}
 	
@@ -544,7 +546,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 
 		switch type {
 		case .pcr:
-			metadata = store.testResultMetadata
+			metadata = store.pcrTestResultMetadata
 		case .antigen:
 			metadata = store.antigenTestResultMetadata
 		}
