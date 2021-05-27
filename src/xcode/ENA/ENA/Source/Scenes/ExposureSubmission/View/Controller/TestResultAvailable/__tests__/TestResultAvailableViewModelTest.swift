@@ -22,6 +22,7 @@ class TestResultAvailableViewModelTest: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: store,
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
 			onSubmissionConsentCellTap: { _ in
@@ -54,6 +55,7 @@ class TestResultAvailableViewModelTest: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: store,
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
 			onSubmissionConsentCellTap: { _ in
@@ -95,6 +97,7 @@ class TestResultAvailableViewModelTest: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: store,
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
 			onSubmissionConsentCellTap: { _ in
