@@ -18,7 +18,9 @@ struct KeySubmissionMetadata: Codable {
 		hoursSinceTestResult: Int32,
 		hoursSinceTestRegistration: Int32,
 		daysSinceMostRecentDateAtRiskLevelAtTestRegistration: Int32,
-		hoursSinceHighRiskWarningAtTestRegistration: Int32
+		submittedWithTeleTAN: Bool,
+		hoursSinceHighRiskWarningAtTestRegistration: Int32,
+		submittedAfterRapidAntigenTest: Bool
 	) {
 		self.submitted = submitted
 		self.submittedInBackground = submittedInBackground
@@ -29,7 +31,9 @@ struct KeySubmissionMetadata: Codable {
 		self.hoursSinceTestResult = hoursSinceTestResult
 		self.hoursSinceTestRegistration = hoursSinceTestRegistration
 		self.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = daysSinceMostRecentDateAtRiskLevelAtTestRegistration
+		self.submittedWithTeleTAN = submittedWithTeleTAN
 		self.hoursSinceHighRiskWarningAtTestRegistration = hoursSinceHighRiskWarningAtTestRegistration
+		self.submittedAfterRapidAntigenTest = submittedAfterRapidAntigenTest
 	}
 
 	// MARK: - Protocol Codable
@@ -47,6 +51,8 @@ struct KeySubmissionMetadata: Codable {
 		hoursSinceTestRegistration = try container.decodeIfPresent(Int32.self, forKey: .hoursSinceTestRegistration)
 		daysSinceMostRecentDateAtRiskLevelAtTestRegistration = try container.decodeIfPresent(Int32.self, forKey: .daysSinceMostRecentDateAtRiskLevelAtTestRegistration)
 		hoursSinceHighRiskWarningAtTestRegistration = try container.decodeIfPresent(Int32.self, forKey: .hoursSinceHighRiskWarningAtTestRegistration)
+		submittedWithTeleTAN = try container.decodeIfPresent(Bool.self, forKey: .submittedWithTeleTAN)
+		submittedAfterRapidAntigenTest = try container.decodeIfPresent(Bool.self, forKey: .submittedAfterRapidAntigenTest) ?? false
 	}
 	
 	enum CodingKeys: String, CodingKey {
@@ -61,6 +67,7 @@ struct KeySubmissionMetadata: Codable {
 		case daysSinceMostRecentDateAtRiskLevelAtTestRegistration
 		case hoursSinceHighRiskWarningAtTestRegistration
 		case submittedWithTeleTAN
+		case submittedAfterRapidAntigenTest
 	}
 	
 	// MARK: - Internal
@@ -76,4 +83,5 @@ struct KeySubmissionMetadata: Codable {
 	var daysSinceMostRecentDateAtRiskLevelAtTestRegistration: Int32?
 	var hoursSinceHighRiskWarningAtTestRegistration: Int32?
 	var submittedWithTeleTAN: Bool?
+	var submittedAfterRapidAntigenTest: Bool = false
 }

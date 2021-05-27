@@ -107,7 +107,6 @@ class CoronaTestService {
 					Log.info("[CoronaTestService] PCR test registered: \(private: String(describing: self?.pcrTest), public: "PCR Test result")", log: .api)
 
 					Analytics.collect(.testResultMetadata(.registerNewTestMetadata(Date(), registrationToken, .pcr)))
-					Analytics.collect(.keySubmissionMetadata(.submittedWithTeletan(false)))
 
 					self?.getTestResult(for: .pcr, duringRegistration: true) { result in
 						completion(result)
@@ -151,8 +150,6 @@ class CoronaTestService {
 					)
 
 					Log.info("[CoronaTestService] PCR test registered: \(private: String(describing: self?.pcrTest), public: "PCR Test result")", log: .api)
-
-					Analytics.collect(.keySubmissionMetadata(.submittedWithTeletan(true)))
 
 					completion(.success(()))
 				case .failure(let error):
@@ -598,9 +595,9 @@ class CoronaTestService {
 						}
 					}
 
-					if coronaTestType == .pcr && duringRegistration {
-						Analytics.collect(.keySubmissionMetadata(.setHoursSinceHighRiskWarningAtTestRegistration))
-						Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration))
+					if duringRegistration {
+						Analytics.collect(.keySubmissionMetadata(.setHoursSinceHighRiskWarningAtTestRegistration(coronaTestType)))
+						Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration(coronaTestType)))
 					}
 
 					completion(.success(testResult))
