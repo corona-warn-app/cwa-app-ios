@@ -464,10 +464,11 @@ enum AccessibilityIdentifiers {
 		static let text = "UpdateOSScreen.text"
 	}
 
-	enum Tabbar {
-		static let home = "Tabbar.home"
-		static let diary = "Tabbar.diary"
-		static let checkin = "Tabbar.checkin"
+	enum TabBar {
+		static let home = "TabBar.home"
+		static let certificates = "TabBar.certificates"
+		static let checkin = "TabBar.checkin"
+		static let diary = "TabBar.diary"
 	}
 	
 	enum DataDonation {

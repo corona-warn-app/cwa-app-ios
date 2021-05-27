@@ -84,7 +84,6 @@ final class CheckinCoordinator {
 	}()
 	
 	func showQRCodeScanner() {
-		
 		let qrCodeScanner = CheckinQRCodeScannerViewController(
 			qrCodeVerificationHelper: verificationService,
 			appConfiguration: appConfiguration,

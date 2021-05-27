@@ -4,19 +4,22 @@
 
 import UIKit
 
-struct HealthCertificateConsentViewModel {
+struct HealthCertificateInfoViewModel {
 
 	// MARK: - Init
 
 	init(
+		hidesCloseButton: Bool = false,
 		didTapDataPrivacy: @escaping () -> Void
 	) {
+		self.hidesCloseButton = hidesCloseButton
 		self.didTapDataPrivacy = didTapDataPrivacy
 	}
 
 	// MARK: - Internal
 
 	let title: String = AppStrings.HealthCertificate.Info.title
+	let hidesCloseButton: Bool
 
 	var dynamicTableViewModel: DynamicTableViewModel {
 		DynamicTableViewModel([

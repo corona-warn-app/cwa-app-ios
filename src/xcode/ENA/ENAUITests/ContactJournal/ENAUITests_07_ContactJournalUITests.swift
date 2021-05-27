@@ -611,7 +611,7 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 
 	private func navigateToJournalOverview() {
 		launch()
-		app.buttons[AccessibilityIdentifiers.Tabbar.diary].waitAndTap()
+		app.buttons[AccessibilityIdentifiers.TabBar.diary].waitAndTap()
 	}
 
 	private func addPersonToDayEntry(_ personName: String, phoneNumber: String = "", eMail: String = "") {

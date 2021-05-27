@@ -30,11 +30,8 @@ class DiaryCoordinator {
 			if LaunchArguments.contactJournal.journalRemoveAllLocations.boolValue {
 				diaryStore.removeAllLocations()
 			}
-
 		}
 		#endif
-				
-		
 	}
 
 	// MARK: - Internal
