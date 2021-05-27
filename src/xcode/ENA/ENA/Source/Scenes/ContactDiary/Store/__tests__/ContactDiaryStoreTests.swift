@@ -755,7 +755,7 @@ class ContactDiaryStoreTests: XCTestCase {
 
 		let today = Date()
 
-		guard let daysRetentionAgoDate = Calendar.current.date(byAdding: .day, value: -(daysRetention + 1), to: today) else {
+		guard let daysRetentionAgoDate = Calendar.current.date(byAdding: .day, value: -daysRetention, to: today) else {
 			fatalError("Could not create test dates.")
 		}
 
@@ -764,12 +764,16 @@ class ContactDiaryStoreTests: XCTestCase {
 
 		let personEncounterId = addPersonEncounter(personId: emmaHicksPersonId, date: daysRetentionAgoDate, store: store)
 		let locationVisitId = addLocationVisit(locationId: kincardineLocationId, date: daysRetentionAgoDate, store: store)
+		let coronaTestID = addCoronaTest(testDate: daysRetentionAgoDate, to: store)
 
-		let personEncouterBeforeCleanupResult = fetchEntries(for: "ContactPersonEncounter", with: personEncounterId, from: databaseQueue)
-		XCTAssertNotNil(personEncouterBeforeCleanupResult)
+		let personEncounterBeforeCleanupResult = fetchEntries(for: "ContactPersonEncounter", with: personEncounterId, from: databaseQueue)
+		XCTAssertNotNil(personEncounterBeforeCleanupResult)
 
 		let locationVisitBeforeCleanupResult = fetchEntries(for: "LocationVisit", with: locationVisitId, from: databaseQueue)
 		XCTAssertNotNil(locationVisitBeforeCleanupResult)
+
+		let coronaTestBeforeCleanupResult = fetchEntries(for: "CoronaTest", with: coronaTestID, from: databaseQueue)
+		XCTAssertNotNil(coronaTestBeforeCleanupResult)
 
 		let cleanupResult = store.cleanup()
 		guard case .success = cleanupResult else {
@@ -781,6 +785,9 @@ class ContactDiaryStoreTests: XCTestCase {
 
 		let locationVisitResult = fetchEntries(for: "LocationVisit", with: locationVisitId, from: databaseQueue)
 		XCTAssertNil(locationVisitResult)
+
+		let coronaTestResult = fetchEntries(for: "CoronaTest", with: locationVisitId, from: databaseQueue)
+		XCTAssertNil(coronaTestResult)
 	}
 
 	func test_OrderIsCorrect() {
@@ -986,7 +993,7 @@ class ContactDiaryStoreTests: XCTestCase {
 		addPersonEncounter(personId: personId, date: Date(), store: store)
 		let locationId = addLocation(name: "Some Location", to: store)
 		addLocationVisit(locationId: locationId, date: Date(), store: store)
-		let coronaTestID = addCoronaTest(testDate: "2021-05-21", to: store)
+		let coronaTestID = addCoronaTest(testDate: Date(), to: store)
 
 		XCTAssertNotNil(fetchEntries(for: "Location", with: locationId, from: databaseQueue))
 		XCTAssertNotNil(fetchEntries(for: "LocationVisit", with: locationId, from: databaseQueue))
@@ -1016,7 +1023,7 @@ class ContactDiaryStoreTests: XCTestCase {
 		addPersonEncounter(personId: person1Id, date: Date(), store: store)
 		let location1Id = addLocation(name: "Some Location", to: store)
 		addLocationVisit(locationId: location1Id, date: Date(), store: store)
-		let coronaTest1ID = addCoronaTest(testDate: "2021-05-21", to: store)
+		let coronaTest1ID = addCoronaTest(testDate: Date(), to: store)
 
 		XCTAssertNotNil(fetchEntries(for: "Location", with: location1Id, from: databaseQueue))
 		XCTAssertNotNil(fetchEntries(for: "LocationVisit", with: location1Id, from: databaseQueue))
@@ -1082,7 +1089,7 @@ class ContactDiaryStoreTests: XCTestCase {
 		)
 
 		// Close and create database again.
-		// This time, migrator should be called, because a schema was allready created before and userVersion is >0.
+		// This time, migrator should be called, because a schema was already created before and userVersion is >0.
 
 		databaseQueue.close()
 
@@ -1248,12 +1255,13 @@ class ContactDiaryStoreTests: XCTestCase {
 
 	@discardableResult
 	private func addCoronaTest(
-		testDate: String,
+		testDate: Date,
 		testType: Int = 0,
 		testResult: Int = 0,
 		to store: ContactDiaryStore
 	) -> Int {
-		let addCoronaTestResult = store.addCoronaTest(testDate: testDate, testType: testType, testResult: testResult)
+		let dateString = dateFormatter.string(from: testDate)
+		let addCoronaTestResult = store.addCoronaTest(testDate: dateString, testType: testType, testResult: testResult)
 		guard case let .success(locationId) = addCoronaTestResult else {
 			fatalError("Failed to add Location")
 		}
