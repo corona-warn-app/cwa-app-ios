@@ -147,7 +147,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 
 		let client = ClientMock()
 		client.onGetTestResult = { _, _, completion in
-			completion(.success(TestResult.negative.rawValue))
+			completion(.success(FetchTestResultResponse(testResult: TestResult.negative.rawValue, sc: nil)))
 			getTestResultExpectation.fulfill()
 		}
 
@@ -267,7 +267,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 				XCTFail(error.localizedDescription)
 			}
 
-			completion(.success(TestResult.pending.rawValue))
+			completion(.success(FetchTestResultResponse(testResult: TestResult.pending.rawValue, sc: nil)))
 
 			getTestResultExpectation.fulfill()
 		}

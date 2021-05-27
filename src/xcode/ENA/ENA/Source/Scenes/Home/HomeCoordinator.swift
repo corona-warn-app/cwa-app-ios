@@ -269,7 +269,7 @@ class HomeCoordinator: RequiresAppDependencies {
 		exposureDetectionCoordinator?.start()
 	}
 
-	private func showExposureSubmission(testType: CoronaTestType? = nil, testInformationResult: Result<CoronaTestQRCodeInformation, QRCodeError>? = nil) {
+	private func showExposureSubmission(testType: CoronaTestType? = nil, testInformationResult: Result<CoronaTestRegistrationInformation, QRCodeError>? = nil) {
 		// A strong reference to the coordinator is passed to the exposure submission navigation controller
 		// when .start() is called. The coordinator is then bound to the lifecycle of this navigation controller
 		// which is managed by UIKit.

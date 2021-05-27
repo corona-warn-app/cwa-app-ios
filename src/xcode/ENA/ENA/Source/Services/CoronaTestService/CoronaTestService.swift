@@ -151,6 +151,9 @@ class CoronaTestService {
 
 					Log.info("[CoronaTestService] PCR test registered: \(private: String(describing: self?.pcrTest), public: "PCR Test result")", log: .api)
 
+					Analytics.collect(.testResultMetadata(.registerNewTestMetadata(Date(), registrationToken, .pcr)))
+					Analytics.collect(.testResultMetadata(.updateTestResult(.positive, registrationToken, .pcr)))
+
 					completion(.success(()))
 				case .failure(let error):
 					Log.error("[CoronaTestService] PCR test registration failed: \(error.localizedDescription)", log: .api)
@@ -159,6 +162,21 @@ class CoronaTestService {
 				}
 			}
 		)
+	}
+	
+	func registerPCRTestAndGetResult(
+		teleTAN: String,
+		isSubmissionConsentGiven: Bool,
+		completion: @escaping TestResultHandler
+	) {
+		registerPCRTest(teleTAN: teleTAN, isSubmissionConsentGiven: isSubmissionConsentGiven) { result in
+			switch result {
+			case .success:
+				completion(.success(.positive))
+			case .failure(let error):
+				completion(.failure(error))
+			}
+		}
 	}
 
 	func registerAntigenTestAndGetResult(
@@ -170,7 +188,7 @@ class CoronaTestService {
 		isSubmissionConsentGiven: Bool,
 		completion: @escaping TestResultHandler
 	) {
-		Log.info("[CoronaTestService] Registering antigen test (hash: \(hash), pointOfCareConsentDate: \(pointOfCareConsentDate), firstName: \(String(describing: firstName)), lastName: \(String(describing: lastName)), dateOfBirth: \(String(describing: dateOfBirth)), isSubmissionConsentGiven: \(isSubmissionConsentGiven))", log: .api)
+		Log.info("[CoronaTestService] Registering antigen test (hash: \(private: hash), pointOfCareConsentDate: \(private: pointOfCareConsentDate), firstName: \(private: String(describing: firstName)), lastName: \(private: String(describing: lastName)), dateOfBirth: \(private: String(describing: dateOfBirth)), isSubmissionConsentGiven: \(isSubmissionConsentGiven))", log: .api)
 
 		getRegistrationToken(
 			forKey: ENAHasher.sha256(hash),
@@ -550,9 +568,9 @@ class CoronaTestService {
 				} else {
 					completion(.failure(.responseFailure(error)))
 				}
-			case let .success(rawTestResult):
-				guard let testResult = TestResult(serverResponse: rawTestResult) else {
-					Log.error("[CoronaTestService] Getting test result failed: Unknown test result \(rawTestResult)", log: .api)
+			case let .success(response):
+				guard let testResult = TestResult(serverResponse: response.testResult) else {
+					Log.error("[CoronaTestService] Getting test result failed: Unknown test result \(response)", log: .api)
 
 					completion(.failure(.unknownTestResult))
 					return
@@ -567,6 +585,9 @@ class CoronaTestService {
 				case .antigen:
 					Analytics.collect(.testResultMetadata(.updateTestResult(testResult, registrationToken, .antigen)))
 					self.antigenTest?.testResult = testResult
+					self.antigenTest?.sampleCollectionDate = response.sc.map {
+						Date(timeIntervalSince1970: TimeInterval($0))
+					}
 				}
 
 				switch testResult {
