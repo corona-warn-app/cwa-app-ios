@@ -312,7 +312,7 @@ class CoronaTestServiceTests: XCTestCase {
 		}
 
 		client.onGetTestResult = { _, _, completion in
-			completion(.success(TestResult.pending.rawValue))
+			completion(.success(FetchTestResultResponse(testResult: TestResult.pending.rawValue, sc: nil)))
 		}
 
 		let service = CoronaTestService(
@@ -380,7 +380,7 @@ class CoronaTestServiceTests: XCTestCase {
 		}
 
 		client.onGetTestResult = { _, _, completion in
-			completion(.success(TestResult.negative.rawValue))
+			completion(.success(FetchTestResultResponse(testResult: TestResult.negative.rawValue, sc: nil)))
 		}
 
 		let service = CoronaTestService(
@@ -720,7 +720,7 @@ class CoronaTestServiceTests: XCTestCase {
 		}
 
 		client.onGetTestResult = { _, _, completion in
-			completion(.success(TestResult.pending.rawValue))
+			completion(.success(FetchTestResultResponse(testResult: TestResult.pending.rawValue, sc: 123456789)))
 		}
 
 		let service = CoronaTestService(
@@ -762,6 +762,7 @@ class CoronaTestServiceTests: XCTestCase {
 		XCTAssertEqual(antigenTest.testedPerson.lastName, "Mustermann")
 		XCTAssertEqual(antigenTest.testedPerson.dateOfBirth, "1964-08-12")
 		XCTAssertEqual(antigenTest.testResult, .pending)
+		XCTAssertEqual(antigenTest.sampleCollectionDate, Date(timeIntervalSince1970: 123456789))
 		XCTAssertNil(antigenTest.finalTestResultReceivedDate)
 		XCTAssertFalse(antigenTest.positiveTestResultWasShown)
 		XCTAssertFalse(antigenTest.isSubmissionConsentGiven)
@@ -777,7 +778,7 @@ class CoronaTestServiceTests: XCTestCase {
 		}
 
 		client.onGetTestResult = { _, _, completion in
-			completion(.success(TestResult.pending.rawValue))
+			completion(.success(FetchTestResultResponse(testResult: TestResult.pending.rawValue, sc: nil)))
 		}
 
 		let service = CoronaTestService(
@@ -825,6 +826,7 @@ class CoronaTestServiceTests: XCTestCase {
 		XCTAssertNil(antigenTest.submissionTAN)
 		XCTAssertFalse(antigenTest.keysSubmitted)
 		XCTAssertFalse(antigenTest.journalEntryCreated)
+		XCTAssertNil(antigenTest.sampleCollectionDate)
 	}
 
 	func testRegisterAntigenTestAndGetResult_RegistrationFails() {
@@ -926,7 +928,7 @@ class CoronaTestServiceTests: XCTestCase {
 	func testUpdatePCRTestResult_success() {
 		let client = ClientMock()
 		client.onGetTestResult = { _, _, completion in
-			completion(.success(TestResult.positive.rawValue))
+			completion(.success(FetchTestResultResponse(testResult: TestResult.positive.rawValue, sc: nil)))
 		}
 
 		let service = CoronaTestService(
@@ -966,7 +968,7 @@ class CoronaTestServiceTests: XCTestCase {
 	func testUpdateAntigenTestResult_success() {
 		let client = ClientMock()
 		client.onGetTestResult = { _, _, completion in
-			completion(.success(TestResult.positive.rawValue))
+			completion(.success(FetchTestResultResponse(testResult: TestResult.positive.rawValue, sc: nil)))
 		}
 
 		let service = CoronaTestService(
@@ -1115,7 +1117,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		client.onGetTestResult = { _, _, completion in
-			completion(.success(TestResult.positive.rawValue))
+			completion(.success(FetchTestResultResponse(testResult: TestResult.positive.rawValue, sc: nil)))
 		}
 
 		let testService = CoronaTestService(
@@ -1151,7 +1153,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		client.onGetTestResult = { _, _, completion in
-			completion(.success(TestResult.positive.rawValue))
+			completion(.success(FetchTestResultResponse(testResult: TestResult.positive.rawValue, sc: nil)))
 		}
 
 		let testService = CoronaTestService(
@@ -1201,7 +1203,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		client.onGetTestResult = { _, _, completion in
-			completion(.success(TestResult.pending.rawValue))
+			completion(.success(FetchTestResultResponse(testResult: TestResult.pending.rawValue, sc: nil)))
 		}
 
 		let testService = CoronaTestService(
@@ -1226,7 +1228,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		client.onGetTestResult = { _, _, completion in
-			completion(.success(TestResult.expired.rawValue))
+			completion(.success(FetchTestResultResponse(testResult: TestResult.expired.rawValue, sc: nil)))
 		}
 
 		let testService = CoronaTestService(
@@ -1271,7 +1273,7 @@ class CoronaTestServiceTests: XCTestCase {
 
 		client.onGetTestResult = { _, _, completion in
 			getTestResultExpectation.fulfill()
-			completion(.success(TestResult.expired.rawValue))
+			completion(.success(FetchTestResultResponse(testResult: TestResult.expired.rawValue, sc: nil)))
 		}
 
 		testService.updateTestResults(force: true, presentNotification: false) { _ in }
@@ -1334,7 +1336,7 @@ class CoronaTestServiceTests: XCTestCase {
 
 		client.onGetTestResult = { _, _, completion in
 			getTestResultExpectation.fulfill()
-			completion(.success(TestResult.expired.rawValue))
+			completion(.success(FetchTestResultResponse(testResult: TestResult.expired.rawValue, sc: nil)))
 		}
 
 		testService.updateTestResults(force: false, presentNotification: false) { _ in }
@@ -1437,7 +1439,7 @@ class CoronaTestServiceTests: XCTestCase {
 
 		client.onGetTestResult = { _, _, completion in
 			getTestResultExpectation.fulfill()
-			completion(.success(TestResult.expired.rawValue))
+			completion(.success(FetchTestResultResponse(testResult: TestResult.expired.rawValue, sc: nil)))
 		}
 
 		testService.updateTestResults(force: false, presentNotification: false) { _ in }
@@ -1468,7 +1470,7 @@ class CoronaTestServiceTests: XCTestCase {
 
 		client.onGetTestResult = { _, _, completion in
 			getTestResultExpectation.fulfill()
-			completion(.success(TestResult.expired.rawValue))
+			completion(.success(FetchTestResultResponse(testResult: TestResult.expired.rawValue, sc: nil)))
 		}
 
 		testService.updateTestResults(force: false, presentNotification: false) { _ in }
@@ -1816,7 +1818,7 @@ class CoronaTestServiceTests: XCTestCase {
 			XCTAssertFalse(isFake)
 			XCTAssertEqual(count, 0)
 			count += 1
-			completion(.success(testResult.rawValue))
+			completion(.success(FetchTestResultResponse(testResult: testResult.rawValue, sc: nil)))
 		}
 
 		client.onGetTANForExposureSubmit = { _, isFake, completion in
