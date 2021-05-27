@@ -18,7 +18,7 @@ class AppInformationImprintTest: CWATestCase {
 			)
 		]
 		
-		XCTAssertEqual(model.count, 2)
+		XCTAssertEqual(model.count, 1)
 		let key = model.first?.key
 		XCTAssertEqual(key, .imprint)
 		
