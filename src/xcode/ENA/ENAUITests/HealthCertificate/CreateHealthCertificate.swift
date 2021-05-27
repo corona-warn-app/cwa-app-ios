@@ -12,6 +12,7 @@ class CreateHealthCertificate: CWATestCase {
 		super.setUp()
 		continueAfterFailure = false
 		app = XCUIApplication()
+		setupSnapshot(app)
 		app.setDefaults()
 		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
 		app.launchArguments.append(contentsOf: ["-setCurrentOnboardingVersion", "YES"])
