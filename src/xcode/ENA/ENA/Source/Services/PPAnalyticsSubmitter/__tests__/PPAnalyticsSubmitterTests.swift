@@ -711,6 +711,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: ClientMock(),
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 

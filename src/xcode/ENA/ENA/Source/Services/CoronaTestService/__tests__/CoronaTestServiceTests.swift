@@ -1248,7 +1248,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		client.onGetTestResult = { _, _, completion in
-			completion(.success(TestResult.positive.rawValue))
+			completion(.success(FetchTestResultResponse(testResult: TestResult.positive.rawValue, sc: nil)))
 		}
 
 		let diaryStore = MockDiaryStore()
@@ -1279,7 +1279,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		client.onGetTestResult = { _, _, completion in
-			completion(.success(TestResult.pending.rawValue))
+			completion(.success(FetchTestResultResponse(testResult: TestResult.pending.rawValue, sc: nil)))
 		}
 
 		let diaryStore = MockDiaryStore()
@@ -1310,7 +1310,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		client.onGetTestResult = { _, _, completion in
-			completion(.success(TestResult.expired.rawValue))
+			completion(.success(FetchTestResultResponse(testResult: TestResult.expired.rawValue, sc: nil)))
 		}
 
 		let diaryStore = MockDiaryStore()
@@ -1341,7 +1341,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		client.onGetTestResult = { _, _, completion in
-			completion(.success(TestResult.invalid.rawValue))
+			completion(.success(FetchTestResultResponse(testResult: TestResult.invalid.rawValue, sc: nil)))
 		}
 
 		let diaryStore = MockDiaryStore()
@@ -1372,7 +1372,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		client.onGetTestResult = { _, _, completion in
-			completion(.success(TestResult.negative.rawValue))
+			completion(.success(FetchTestResultResponse(testResult: TestResult.negative.rawValue, sc: nil)))
 		}
 
 		let diaryStore = MockDiaryStore()
