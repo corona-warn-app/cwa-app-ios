@@ -831,6 +831,34 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		push(topBottomContainerViewController)
 	}
 
+	// MARK: TestCertificateInfo
+
+	private func showTestCertificateInfo() {
+		let testCertificateInfoViewController = ExposureSubmissionTestCertificateInfoViewController(
+			ExposureSubmissionTestCertificateViewModel(name: "test"),
+			showCancelAlert: {}
+		)
+
+		let footerViewModel = FooterViewModel(
+			primaryButtonName: AppStrings.ExposureSubmission.TestCertificate.Info.primaryButton,
+			secondaryButtonName: AppStrings.ExposureSubmission.TestCertificate.Info.secondaryButton,
+			isPrimaryButtonEnabled: true,
+			isSecondaryButtonEnabled: true,
+			isPrimaryButtonHidden: false,
+			isSecondaryButtonHidden: false,
+			primaryButtonColor: .enaColor(for: .buttonPrimary),
+			secondaryButtonInverted: true,
+			backgroundColor: .enaColor(for: .background)
+		)
+
+		let footerViewController = FooterViewController(footerViewModel)
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: testCertificateInfoViewController,
+			bottomController: footerViewController
+		)
+		push(topBottomContainerViewController)
+	}
+
 	// MARK: Cancel Alerts
 
 	private func showTestResultAvailableCloseAlert() {

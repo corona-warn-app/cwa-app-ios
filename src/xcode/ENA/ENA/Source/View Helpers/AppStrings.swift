@@ -124,6 +124,14 @@ enum AppStrings {
 				static let profileTile_Description = NSLocalizedString("ExposureSubmission_Profile_ProfileTile_Description", comment: "")
 			}
 		}
+
+		enum TestCertificate {
+			enum Info {
+				static let title = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Title", comment: "")
+				static let primaryButton = NSLocalizedString("ExposureSubmission_TestCertificate_Information_PrimaryButton", comment: "")
+				static let secondaryButton = NSLocalizedString("ExposureSubmission_TestCertificate_Information_SecondaryButton", comment: "")
+			}
+		}
 	}
 
 	enum ExposureSubmissionTanEntry {
