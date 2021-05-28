@@ -8,7 +8,7 @@ import XCTest
 
 // swiftlint:disable file_length
 // swiftlint:disable:next type_body_length
-class ExposureSubmissionServiceTests: XCTestCase {
+class ExposureSubmissionServiceTests: CWATestCase {
 
 	let expectationsTimeout: TimeInterval = 2
 	let keys = [ENTemporaryExposureKey()]

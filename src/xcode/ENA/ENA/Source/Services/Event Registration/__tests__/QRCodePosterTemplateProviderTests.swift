@@ -6,7 +6,7 @@ import XCTest
 import OpenCombine
 @testable import ENA
 
-class QRCodePosterTemplateProviderTests: XCTestCase {
+class QRCodePosterTemplateProviderTests: CWATestCase {
 
 	private var subscriptions = [AnyCancellable]()
 	

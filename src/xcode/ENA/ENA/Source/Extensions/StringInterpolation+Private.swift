@@ -10,9 +10,11 @@ extension String.StringInterpolation {
 	///   - private: The sensitive data to be replaced in release builds with '🙈🙉🙊'.
 	///   - public: Additional explination text what should be logged as data but is censored.
 	mutating func appendInterpolation<T>(private value: T, public text: String = "") {
-		#if DEBUG
+		#if !RELEASE
+			// Community, Debug, TestFlight, AdHoc
 			appendLiteral(String(describing: value))
 		#else
+			// Release
 			text.isEmpty ? appendLiteral("🙈🙉🙊") : appendLiteral("🙈🙉🙊. (Censoring cause: " + text + ")")
 		#endif
 	}

@@ -6,7 +6,7 @@ import XCTest
 @testable import ENA
 import ExposureNotification
 
-final class ExposureDetection_FAQ_URL_Tests: XCTestCase {
+final class ExposureDetection_FAQ_URL_Tests: CWATestCase {
 
 	// MARK: - ENError FAQ URL mapping tests
 

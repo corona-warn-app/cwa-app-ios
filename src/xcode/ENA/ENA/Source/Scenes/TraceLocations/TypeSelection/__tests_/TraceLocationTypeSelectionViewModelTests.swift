@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class TraceLocationTypeSelectionViewModelTests: XCTestCase {
+class TraceLocationTypeSelectionViewModelTests: CWATestCase {
 
 	func testGIVEN_SectionNames_THEN_NamesMatch() {
 		// GIVEN

@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class AntigenTestProfileViewModelTests: XCTestCase {
+class AntigenTestProfileViewModelTests: CWATestCase {
 
 	func testGIVEN_AntigenTestProfileViewModel_THEN_NumberOfSectionsIMatches() {
 		// GIVEN

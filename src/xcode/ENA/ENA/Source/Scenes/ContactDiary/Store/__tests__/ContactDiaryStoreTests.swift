@@ -10,7 +10,7 @@ import OpenCombine
 @testable import ENA
 
 // swiftlint:disable:next type_body_length
-class ContactDiaryStoreTests: XCTestCase {
+class ContactDiaryStoreTests: CWATestCase {
 
 	private var subscriptions = [AnyCancellable]()
 

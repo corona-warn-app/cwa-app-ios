@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class SurveyURLServiceTests: XCTestCase {
+class SurveyURLServiceTests: CWATestCase {
 
 	func test_WHEN_getURLIsCalled_THEN_aURLIsReturned() {
 		let store = MockTestStore()

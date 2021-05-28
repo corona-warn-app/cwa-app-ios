@@ -6,7 +6,7 @@
 import ExposureNotification
 import XCTest
 
-class FakeRequestServiceTests: XCTestCase {
+class FakeRequestServiceTests: CWATestCase {
 
 	/// The fake registration token needs to comply to a format that is checked by the server.
 	func testFakeRegistrationTokenFormat() throws {

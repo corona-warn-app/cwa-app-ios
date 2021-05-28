@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class PPAnalyticsCollectorTests: XCTestCase {
+class PPAnalyticsCollectorTests: CWATestCase {
 	
 	func testGIVEN_NotSetupAnalytics_WHEN_SomethingIsLogged_THEN_NothingIsLogged() {
 		// GIVEN

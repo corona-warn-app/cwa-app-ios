@@ -6,7 +6,7 @@
 import Foundation
 import XCTest
 
-final class HTTPClientRegistrationTokenTests: XCTestCase {
+final class HTTPClientRegistrationTokenTests: CWATestCase {
 	private let expectationsTimeout: TimeInterval = 2
 
 	func testGetRegistrationToken_TeleTANSuccess() throws {

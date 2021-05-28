@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class Sequence_NSAttributedTextTests: XCTestCase {
+class Sequence_NSAttributedTextTests: CWATestCase {
 
 	func testGIVEN_sequenceOfAttrigbutedString_WHEN_joined_THEN_ANewAttributesStringGetsCreted() {
 		// GIVEN
