@@ -34,7 +34,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R1W-Fp-mqV" userLabel="Separator View">
                     <rect key="frame" x="36" y="154" width="539" height="1"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="1" id="56d-8l-OA4"/>
+                        <constraint firstAttribute="height" constant="1" identifier="SeparatorView.height" id="56d-8l-OA4"/>
                     </constraints>
                 </view>
             </subviews>
@@ -42,10 +42,10 @@
             <constraints>
                 <constraint firstItem="R1W-Fp-mqV" firstAttribute="leading" secondItem="4f7-Ob-Irx" secondAttribute="leading" id="51J-sM-FlQ"/>
                 <constraint firstAttribute="bottom" secondItem="7Mu-57-Rni" secondAttribute="bottom" id="I47-Ny-yoQ"/>
-                <constraint firstItem="7Mu-57-Rni" firstAttribute="leading" secondItem="yaG-SR-bEN" secondAttribute="leading" id="OM0-y1-Aek"/>
+                <constraint firstItem="7Mu-57-Rni" firstAttribute="leading" secondItem="yaG-SR-bEN" secondAttribute="leading" identifier="Stack.leading" id="OM0-y1-Aek"/>
                 <constraint firstAttribute="bottom" secondItem="R1W-Fp-mqV" secondAttribute="bottom" id="QAi-QQ-pyo"/>
                 <constraint firstItem="7Mu-57-Rni" firstAttribute="top" secondItem="yaG-SR-bEN" secondAttribute="top" id="eM2-wi-OIZ"/>
-                <constraint firstAttribute="trailing" secondItem="7Mu-57-Rni" secondAttribute="trailing" id="glK-D9-aco"/>
+                <constraint firstAttribute="trailing" secondItem="7Mu-57-Rni" secondAttribute="trailing" identifier="stack.trailing" id="glK-D9-aco"/>
                 <constraint firstAttribute="trailing" secondItem="R1W-Fp-mqV" secondAttribute="trailing" id="zfz-aa-ioT"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

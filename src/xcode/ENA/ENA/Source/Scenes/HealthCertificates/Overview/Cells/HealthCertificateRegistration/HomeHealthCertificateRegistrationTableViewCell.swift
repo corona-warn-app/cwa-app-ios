@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-class HomeHealthCertificateRegistrationTableViewCell: UITableViewCell {
+class HomeHealthCertificateRegistrationTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 	
 	// MARK: - Overrides
 	

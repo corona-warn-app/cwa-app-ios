@@ -20,6 +20,7 @@ class CoronaTestService {
 	init(
 		client: Client,
 		store: CoronaTestStoring & CoronaTestStoringLegacy & WarnOthersTimeIntervalStoring,
+		diaryStore: DiaryStoring,
 		appConfiguration: AppConfigurationProviding,
 		notificationCenter: UserNotificationCenter = UNUserNotificationCenter.current()
 	) {
@@ -27,6 +28,7 @@ class CoronaTestService {
 		if isUITesting {
 			self.client = ClientMock()
 			self.store = MockTestStore()
+			self.diaryStore = MockDiaryStore()
 			self.appConfiguration = CachedAppConfigurationMock()
 
 			self.notificationCenter = notificationCenter
@@ -45,6 +47,7 @@ class CoronaTestService {
 
 		self.client = client
 		self.store = store
+		self.diaryStore = diaryStore
 		self.appConfiguration = appConfiguration
 
 		self.notificationCenter = notificationCenter
@@ -151,6 +154,9 @@ class CoronaTestService {
 
 					Log.info("[CoronaTestService] PCR test registered: \(private: String(describing: self?.pcrTest), public: "PCR Test result")", log: .api)
 
+					Analytics.collect(.testResultMetadata(.registerNewTestMetadata(Date(), registrationToken, .pcr)))
+					Analytics.collect(.testResultMetadata(.updateTestResult(.positive, registrationToken, .pcr)))
+
 					completion(.success(()))
 				case .failure(let error):
 					Log.error("[CoronaTestService] PCR test registration failed: \(error.localizedDescription)", log: .api)
@@ -159,6 +165,21 @@ class CoronaTestService {
 				}
 			}
 		)
+	}
+	
+	func registerPCRTestAndGetResult(
+		teleTAN: String,
+		isSubmissionConsentGiven: Bool,
+		completion: @escaping TestResultHandler
+	) {
+		registerPCRTest(teleTAN: teleTAN, isSubmissionConsentGiven: isSubmissionConsentGiven) { result in
+			switch result {
+			case .success:
+				completion(.success(.positive))
+			case .failure(let error):
+				completion(.failure(error))
+			}
+		}
 	}
 
 	func registerAntigenTestAndGetResult(
@@ -170,7 +191,7 @@ class CoronaTestService {
 		isSubmissionConsentGiven: Bool,
 		completion: @escaping TestResultHandler
 	) {
-		Log.info("[CoronaTestService] Registering antigen test (hash: \(hash), pointOfCareConsentDate: \(pointOfCareConsentDate), firstName: \(String(describing: firstName)), lastName: \(String(describing: lastName)), dateOfBirth: \(String(describing: dateOfBirth)), isSubmissionConsentGiven: \(isSubmissionConsentGiven))", log: .api)
+		Log.info("[CoronaTestService] Registering antigen test (hash: \(private: hash), pointOfCareConsentDate: \(private: pointOfCareConsentDate), firstName: \(private: String(describing: firstName)), lastName: \(private: String(describing: lastName)), dateOfBirth: \(private: String(describing: dateOfBirth)), isSubmissionConsentGiven: \(isSubmissionConsentGiven))", log: .api)
 
 		getRegistrationToken(
 			forKey: ENAHasher.sha256(hash),
@@ -398,6 +419,7 @@ class CoronaTestService {
 
 	private let client: Client
 	private var store: CoronaTestStoring & CoronaTestStoringLegacy
+	private let diaryStore: DiaryStoring
 	private let appConfiguration: AppConfigurationProviding
 	private let notificationCenter: UserNotificationCenter
 
@@ -455,7 +477,7 @@ class CoronaTestService {
 		}
 	}
 
-	// swiftlint:disable:next cyclomatic_complexity
+	// swiftlint:disable:next cyclomatic_complexity function_body_length
 	private func getTestResult(
 		for coronaTestType: CoronaTestType,
 		force: Bool = true,
@@ -550,9 +572,9 @@ class CoronaTestService {
 				} else {
 					completion(.failure(.responseFailure(error)))
 				}
-			case let .success(rawTestResult):
-				guard let testResult = TestResult(serverResponse: rawTestResult) else {
-					Log.error("[CoronaTestService] Getting test result failed: Unknown test result \(rawTestResult)", log: .api)
+			case let .success(response):
+				guard let testResult = TestResult(serverResponse: response.testResult) else {
+					Log.error("[CoronaTestService] Getting test result failed: Unknown test result \(response)", log: .api)
 
 					completion(.failure(.unknownTestResult))
 					return
@@ -567,10 +589,27 @@ class CoronaTestService {
 				case .antigen:
 					Analytics.collect(.testResultMetadata(.updateTestResult(testResult, registrationToken, .antigen)))
 					self.antigenTest?.testResult = testResult
+					self.antigenTest?.sampleCollectionDate = response.sc.map {
+						Date(timeIntervalSince1970: TimeInterval($0))
+					}
 				}
 
 				switch testResult {
 				case .positive, .negative, .invalid:
+					// only store test result in diary if negative or positive
+					if (testResult == .positive || testResult == .negative) && !coronaTest.journalEntryCreated {
+						// -> store
+						let stringDate = DateFormatter.packagesDayDateFormatter.string(from: registrationDate)
+						self.diaryStore.addCoronaTest(testDate: stringDate, testType: coronaTestType.rawValue, testResult: testResult.rawValue)
+
+						switch coronaTestType {
+						case .pcr:
+							self.pcrTest?.journalEntryCreated = true
+						case .antigen:
+							self.antigenTest?.journalEntryCreated = true
+						}
+					}
+
 					if coronaTest.finalTestResultReceivedDate == nil {
 						switch coronaTestType {
 						case .pcr:

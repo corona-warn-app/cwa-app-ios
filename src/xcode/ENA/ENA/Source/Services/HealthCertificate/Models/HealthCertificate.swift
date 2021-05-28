@@ -80,7 +80,13 @@ struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable 
 	}
 
 	var expirationDate: Date {
-		Date(timeIntervalSince1970: TimeInterval(cborWebTokenHeader.expirationTime))
+		#if DEBUG
+		if isUITesting, let dateOfVaccination = dateOfVaccination {
+			return Calendar.current.date(byAdding: .year, value: 1, to: dateOfVaccination) ?? Date(timeIntervalSince1970: TimeInterval(cborWebTokenHeader.expirationTime))
+		}
+		#endif
+
+		return Date(timeIntervalSince1970: TimeInterval(cborWebTokenHeader.expirationTime))
 	}
 
 	var dateOfVaccination: Date? {

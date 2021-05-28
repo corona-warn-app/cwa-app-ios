@@ -29,49 +29,49 @@ final class PPAAnalyticsSubmissionCollector {
 		case let .create(metadata, type):
 			switch type {
 			case .pcr:
-				store.keySubmissionMetadata = metadata
+				store.pcrKeySubmissionMetadata = metadata
 			case .antigen:
 				store.antigenKeySubmissionMetadata = metadata
 			}
 		case let .submitted(submitted, type):
 			switch type {
 			case .pcr:
-				store.keySubmissionMetadata?.submitted = submitted
+				store.pcrKeySubmissionMetadata?.submitted = submitted
 			case .antigen:
 				store.antigenKeySubmissionMetadata?.submitted = submitted
 			}
 		case let .submittedInBackground(inBackground, type):
 			switch type {
 			case .pcr:
-				store.keySubmissionMetadata?.submittedInBackground = inBackground
+				store.pcrKeySubmissionMetadata?.submittedInBackground = inBackground
 			case .antigen:
 				store.antigenKeySubmissionMetadata?.submittedInBackground = inBackground
 			}
 		case let .submittedAfterCancel(afterCancel, type):
 			switch type {
 			case .pcr:
-				store.keySubmissionMetadata?.submittedAfterCancel = afterCancel
+				store.pcrKeySubmissionMetadata?.submittedAfterCancel = afterCancel
 			case .antigen:
 				store.antigenKeySubmissionMetadata?.submittedAfterCancel = afterCancel
 			}
 		case let .submittedAfterSymptomFlow(afterSymptomFlow, type):
 			switch type {
 			case .pcr:
-				store.keySubmissionMetadata?.submittedAfterSymptomFlow = afterSymptomFlow
+				store.pcrKeySubmissionMetadata?.submittedAfterSymptomFlow = afterSymptomFlow
 			case .antigen:
 				store.antigenKeySubmissionMetadata?.submittedAfterSymptomFlow = afterSymptomFlow
 			}
 		case let .submittedWithTeletan(withTeletan, type):
 			switch type {
 			case .pcr:
-				store.keySubmissionMetadata?.submittedWithTeleTAN = withTeletan
+				store.pcrKeySubmissionMetadata?.submittedWithTeleTAN = withTeletan
 			case .antigen:
 				store.antigenKeySubmissionMetadata?.submittedWithTeleTAN = withTeletan
 			}
 		case let .lastSubmissionFlowScreen(flowScreen, type):
 			switch type {
 			case .pcr:
-				store.keySubmissionMetadata?.lastSubmissionFlowScreen = flowScreen
+				store.pcrKeySubmissionMetadata?.lastSubmissionFlowScreen = flowScreen
 			case .antigen:
 				store.antigenKeySubmissionMetadata?.lastSubmissionFlowScreen = flowScreen
 			}
@@ -79,10 +79,10 @@ final class PPAAnalyticsSubmissionCollector {
 			switch type {
 			case .pcr:
 				// this is as per techspecs, this value is false in case TAN submission
-				if store.keySubmissionMetadata?.submittedWithTeleTAN == true {
-					store.keySubmissionMetadata?.advancedConsentGiven = false
+				if store.pcrKeySubmissionMetadata?.submittedWithTeleTAN == true {
+					store.pcrKeySubmissionMetadata?.advancedConsentGiven = false
 				} else {
-					store.keySubmissionMetadata?.advancedConsentGiven = advanceConsent
+					store.pcrKeySubmissionMetadata?.advancedConsentGiven = advanceConsent
 				}
 			case .antigen:
 				// this is as per techspecs, this value is false in case TAN submission
@@ -95,7 +95,7 @@ final class PPAAnalyticsSubmissionCollector {
 		case let .submittedAfterRapidAntigenTest(type):
 			switch type {
 			case .pcr:
-				store.keySubmissionMetadata?.submittedAfterRapidAntigenTest = false
+				store.pcrKeySubmissionMetadata?.submittedAfterRapidAntigenTest = false
 			case .antigen:
 				store.antigenKeySubmissionMetadata?.submittedAfterRapidAntigenTest = true
 			}
@@ -129,7 +129,7 @@ final class PPAAnalyticsSubmissionCollector {
 	private func persistHoursSinceTestResult(_ hours: Int32, for type: CoronaTestType) {
 		switch type {
 		case .pcr:
-			store.keySubmissionMetadata?.hoursSinceTestResult = hours
+			store.pcrKeySubmissionMetadata?.hoursSinceTestResult = hours
 		case .antigen:
 			store.antigenKeySubmissionMetadata?.hoursSinceTestResult = hours
 		}
@@ -149,7 +149,7 @@ final class PPAAnalyticsSubmissionCollector {
 	private func persistHoursSinceTestRegistration(_ hours: Int32, for type: CoronaTestType) {
 		switch type {
 		case .pcr:
-			store.keySubmissionMetadata?.hoursSinceTestRegistration = hours
+			store.pcrKeySubmissionMetadata?.hoursSinceTestRegistration = hours
 		case .antigen:
 			store.antigenKeySubmissionMetadata?.hoursSinceTestRegistration = hours
 		}
@@ -157,7 +157,7 @@ final class PPAAnalyticsSubmissionCollector {
 
 	private func setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration(type: CoronaTestType) {
 		guard let registrationDate = coronaTestService.coronaTest(ofType: type)?.registrationDate else {
-			store.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = -1
+			store.pcrKeySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = -1
 			return
 		}
 		if let mostRecentRiskCalculationDate = store.enfRiskCalculationResult?.mostRecentDateWithCurrentRiskLevel {
@@ -172,7 +172,7 @@ final class PPAAnalyticsSubmissionCollector {
 	private func persistDaysSinceMostRecentDateAtRiskLevelAtTestRegistration(_ days: Int32, for type: CoronaTestType) {
 		switch type {
 		case .pcr:
-			store.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = days
+			store.pcrKeySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = days
 		case .antigen:
 			store.antigenKeySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = days
 		}
@@ -210,7 +210,7 @@ final class PPAAnalyticsSubmissionCollector {
 	private func persistHoursSinceHighRiskWarningAtTestRegistration(_ hours: Int32, for type: CoronaTestType) {
 		switch type {
 		case .pcr:
-			store.keySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration = hours
+			store.pcrKeySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration = hours
 		case .antigen:
 			store.antigenKeySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration = hours
 		}

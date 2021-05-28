@@ -1147,6 +1147,13 @@ enum AppStrings {
 			static let riskTextLowRiskEncountersCause = NSLocalizedString("ContactDiary_Overview_Risk_Text_LowRiskEncountersCause", comment: "")
 			static let riskTextDisclaimer = NSLocalizedString("ContactDiary_Overview_Risk_Text_Disclaimer", comment: "")
 
+			enum Tests {
+				static let pcrRegistered = NSLocalizedString("ContactDiary_Overview_Tests_PCR_Registered", comment: "")
+				static let antigenDone = NSLocalizedString("ContactDiary_Overview_Tests_Antigen_Done", comment: "")
+				static let negativeResult = NSLocalizedString("ContactDiary_Overview_Tests_Negative_Result", comment: "")
+				static let positiveResult = NSLocalizedString("ContactDiary_Overview_Tests_Positive_Result", comment: "")
+			}
+
 			enum ActionSheet {
 				static let infoActionTitle = NSLocalizedString("ContactDiary_Overview_ActionSheet_InfoActionTitle", comment: "")
 				static let exportActionTitle = NSLocalizedString("ContactDiary_Overview_ActionSheet_ExportActionTitle", comment: "")
@@ -1391,8 +1398,9 @@ enum AppStrings {
 	
 	enum Tabbar {
 		static let homeTitle = NSLocalizedString("Tabbar_Home_Title", comment: "")
-		static let diaryTitle = NSLocalizedString("Tabbar_Diary_Title", comment: "")
+		static let certificatesTitle = NSLocalizedString("Tabbar_Certificates_Title", comment: "")
 		static let checkInTitle = NSLocalizedString("Tabbar_CheckIn_Title", comment: "")
+		static let diaryTitle = NSLocalizedString("Tabbar_Diary_Title", comment: "")
 	}
 	
 	enum DataDonation {
@@ -1802,7 +1810,10 @@ enum AppStrings {
 	}
 
 	enum HealthCertificate {
-		enum Home {
+		enum Overview {
+			static let title = NSLocalizedString("HealthCertificate_Overview_title", comment: "")
+			static let description = NSLocalizedString("HealthCertificate_Overview_description", comment: "")
+
 			enum Registration {
 				static let title = NSLocalizedString("HealthCertificate_Home_Registration_title", comment: "")
 				static let description = NSLocalizedString("HealthCertificate_Home_Registration_description", comment: "")
