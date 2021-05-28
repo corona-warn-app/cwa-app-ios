@@ -12,11 +12,10 @@ class HomeHealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierPr
 	override func awakeFromNib() {
 		super.awakeFromNib()
 
-		captionLabel.text = AppStrings.HealthCertificate.Overview.Person.caption
-		titleLabel.text = AppStrings.HealthCertificate.Overview.Person.title
+		titleLabel.text = AppStrings.HealthCertificate.Overview.VaccinationCertificate.title
 		backgroundGradientView.type = .solidGrey
 		backgroundGradientView.layer.cornerRadius = 14
-		accessibilityIdentifier = AccessibilityIdentifiers.Home.healthCertificateButton
+		accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Overview.vaccinationCertificateCell
 
 		if #available(iOS 13.0, *) {
 			backgroundGradientView.layer.cornerCurve = .continuous

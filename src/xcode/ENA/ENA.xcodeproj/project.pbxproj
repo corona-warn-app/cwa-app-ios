@@ -222,6 +222,7 @@
 		01CBB824265E74FF0094CF8B /* HealthCertificateOverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CBB821265E730F0094CF8B /* HealthCertificateOverviewViewController.swift */; };
 		01CBB828265FBF0D0094CF8B /* HealthCertificateOverviewDescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CBB826265FBE790094CF8B /* HealthCertificateOverviewDescriptionTableViewCell.swift */; };
 		01CBB829265FBF0D0094CF8B /* HealthCertificateOverviewDescriptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01CBB827265FBE7A0094CF8B /* HealthCertificateOverviewDescriptionTableViewCell.xib */; };
+		01CBB82C2660F3690094CF8B /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CBB82B2660F3690094CF8B /* CardView.swift */; };
 		01CBD880261B3C6800158B3E /* MockTestStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15382E3248273DC0010F007 /* MockTestStore.swift */; };
 		01CBD884261B3CF700158B3E /* ClientMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD678F6C246C43EE00B6A0F8 /* ClientMock.swift */; };
 		01CBD890261B402500158B3E /* PCRTest+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CBD88F261B3FBC00158B3E /* PCRTest+Mock.swift */; };
@@ -1401,6 +1402,7 @@
 		01CBB822265E730F0094CF8B /* HealthCertificateOverviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateOverviewViewModel.swift; sourceTree = "<group>"; };
 		01CBB826265FBE790094CF8B /* HealthCertificateOverviewDescriptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateOverviewDescriptionTableViewCell.swift; sourceTree = "<group>"; };
 		01CBB827265FBE7A0094CF8B /* HealthCertificateOverviewDescriptionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HealthCertificateOverviewDescriptionTableViewCell.xib; sourceTree = "<group>"; };
+		01CBB82B2660F3690094CF8B /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		01CBD88F261B3FBC00158B3E /* PCRTest+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PCRTest+Mock.swift"; sourceTree = "<group>"; };
 		01CF95DC25308346007B72F7 /* CodableExposureDetectionSummary+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodableExposureDetectionSummary+Helpers.swift"; sourceTree = "<group>"; };
 		01D02625258A769200B6389A /* HTTPURLResponse+Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPURLResponse+Header.swift"; sourceTree = "<group>"; };
@@ -4397,6 +4399,7 @@
 				2E303E7C25D52E0900346FB8 /* SeperatorLineLayer.swift */,
 				BA2B393925F7C6F700374CF1 /* GradientView.swift */,
 				01C6AC25252B23D70052814D /* QRScannerFocusView.swift */,
+				01CBB82B2660F3690094CF8B /* CardView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -7372,6 +7375,7 @@
 				AB1886D1252DE51E00D39BBE /* Bundle+Identifier.swift in Sources */,
 				BA7D17B725D59373006B9EBF /* SettingsDataDonationViewModel.swift in Sources */,
 				71FD8862246EB27F00E804D0 /* ExposureDetectionViewController.swift in Sources */,
+				01CBB82C2660F3690094CF8B /* CardView.swift in Sources */,
 				013C413D255463A400826C9F /* DMDebugRiskCalculationViewController.swift in Sources */,
 				BAB6C7EF25C4626100E042FB /* TimestampedToken.swift in Sources */,
 				2FC951FE24DC23B9008D39F4 /* DMConfigurationCell.swift in Sources */,

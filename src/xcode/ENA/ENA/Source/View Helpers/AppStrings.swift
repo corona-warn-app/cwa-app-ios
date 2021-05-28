@@ -1814,16 +1814,26 @@ enum AppStrings {
 			static let title = NSLocalizedString("HealthCertificate_Overview_title", comment: "")
 			static let description = NSLocalizedString("HealthCertificate_Overview_description", comment: "")
 
-			enum Registration {
-				static let title = NSLocalizedString("HealthCertificate_Home_Registration_title", comment: "")
-				static let description = NSLocalizedString("HealthCertificate_Home_Registration_description", comment: "")
-				static let buttonTitle = NSLocalizedString("HealthCertificate_Home_Registration_buttonTitle", comment: "")
+			enum VaccinationCertificateRegistration {
+				static let title = NSLocalizedString("VaccinationCertificate_Registration_title", comment: "")
+				static let description = NSLocalizedString("VaccinationCertificate_Registration_description", comment: "")
 			}
-			enum Person {
-				static let caption = NSLocalizedString("HealthCertificate_Home_Person_caption", comment: "")
-				static let title = NSLocalizedString("HealthCertificate_Home_Person_title", comment: "")
-				static let partiallyVaccinated = NSLocalizedString("HealthCertificate_Home_Person_partiallyVaccinated", comment: "")
-				static let daysUntilCompleteProtection = NSLocalizedString("HealthCertificate_Home_Person_daysUntilCompleteProtection", comment: "")
+
+			enum VaccinationCertificate {
+				static let title = NSLocalizedString("VaccinationCertificate_title", comment: "")
+				static let partiallyVaccinated = NSLocalizedString("VaccinationCertificate_partiallyVaccinated", comment: "")
+				static let daysUntilCompleteProtection = NSLocalizedString("VaccinationCertificate_daysUntilCompleteProtection", comment: "")
+			}
+
+			enum TestCertificateInfo {
+				static let title = NSLocalizedString("TestCertificate_Info_title", comment: "")
+				static let description = NSLocalizedString("TestCertificate_Info_description", comment: "")
+			}
+
+			enum TestCertificate {
+				static let title = NSLocalizedString("TestCertificate_title", comment: "")
+				static let testDate = NSLocalizedString("TestCertificate_testDate", comment: "")
+				static let daysUntilCompleteProtection = NSLocalizedString("VaccinationCertificate_daysUntilCompleteProtection", comment: "")
 			}
 		}
 

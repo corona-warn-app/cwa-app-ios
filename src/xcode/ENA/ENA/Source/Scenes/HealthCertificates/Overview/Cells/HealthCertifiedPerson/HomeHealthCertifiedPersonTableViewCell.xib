@@ -37,7 +37,7 @@
                                 <rect key="frame" x="20" y="16" width="280" height="226"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Digitaler Impfnachweis" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QPs-Ho-64x" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="280" height="14.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="280" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" name="ENA Text Contrast Color"/>
                                         <nil key="highlightedColor"/>
@@ -46,7 +46,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="SARS-CoV-2 Impfschutz" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="51j-mV-sZS" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="65.5" width="280" height="23"/>
+                                        <rect key="frame" x="0.0" y="68.5" width="280" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" name="ENA Text Contrast Color"/>
                                         <nil key="highlightedColor"/>
@@ -55,7 +55,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unvollständiger Impfschutz" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="01t-BK-4b5" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="139" width="280" height="18"/>
+                                        <rect key="frame" x="0.0" y="137" width="280" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" name="ENA Text Contrast Color"/>
                                         <nil key="highlightedColor"/>
@@ -64,7 +64,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Andrea Schneider" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bx0-F9-UYS" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="208" width="280" height="18"/>
+                                        <rect key="frame" x="0.0" y="205.5" width="280" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" name="ENA Text Contrast Color"/>
                                         <nil key="highlightedColor"/>

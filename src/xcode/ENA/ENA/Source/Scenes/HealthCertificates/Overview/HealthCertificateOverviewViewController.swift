@@ -162,10 +162,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		}
 
 		cell.configure(
-			with: HomeHealthCertificateRegistrationCellModel(),
-			onPrimaryAction: { [weak self] in
-				self?.onCreateHealthCertificateTap()
-			}
+			with: HomeHealthCertificateRegistrationCellModel()
 		)
 
 		return cell

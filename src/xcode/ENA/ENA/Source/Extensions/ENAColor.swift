@@ -28,6 +28,8 @@ public enum ENAColor: String, CaseIterable {
 	case buttonPrimary = "ENA Button Primary Color"
 
 	// MARK: - Miscellaneous Colors
+	case cardShadow = "ENA Card Shadow Color"
+	case cardBorder = "ENA Card Border Color"
 	case chevron = "ENA Chevron Color"
 	case shadow = "ENA Shadow Color"
 	case tint = "ENA Tint Color"
