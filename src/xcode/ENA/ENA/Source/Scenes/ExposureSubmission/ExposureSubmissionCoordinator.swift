@@ -836,7 +836,17 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	private func showTestCertificateInfo() {
 		let testCertificateInfoViewController = ExposureSubmissionTestCertificateInfoViewController(
 			ExposureSubmissionTestCertificateViewModel(name: "test"),
-			showCancelAlert: {}
+			showCancelAlert: { [weak self] in
+				self?.showEndRegistrationAlert(
+					submitAction: UIAlertAction(
+						title: AppStrings.ExposureSubmission.TestCertificate.Info.Alert.ok,
+						style: .default,
+						handler: { _ in
+							self?.navigationController?.dismiss(animated: true)
+						}
+					)
+				)
+			}
 		)
 
 		let footerViewModel = FooterViewModel(
@@ -857,6 +867,23 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			bottomController: footerViewController
 		)
 		push(topBottomContainerViewController)
+	}
+
+	private func showEndRegistrationAlert(submitAction: UIAlertAction) {
+		let alert = UIAlertController(
+			title: AppStrings.ExposureSubmission.TestCertificate.Info.Alert.title,
+			message: AppStrings.ExposureSubmission.TestCertificate.Info.Alert.message,
+			preferredStyle: .alert
+		)
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.ExposureSubmission.TestCertificate.Info.Alert.cancel,
+				style: .cancel,
+				handler: nil
+			)
+		)
+		alert.addAction(submitAction)
+		navigationController?.present(alert, animated: true)
 	}
 
 	// MARK: Cancel Alerts
