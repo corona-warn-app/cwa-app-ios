@@ -15,7 +15,6 @@ class ExposureSubmissionTestCertificateInfoViewController: DynamicTableViewContr
 		self.viewModel = viewModel
 		self.showCancelAlert = showCancelAlert
 		super.init(nibName: nil, bundle: nil)
-		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 	}
 
 	@available(*, unavailable)
@@ -28,7 +27,7 @@ class ExposureSubmissionTestCertificateInfoViewController: DynamicTableViewContr
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		// Do any additional setup after loading the view.
+		setupNavigationBar()
 	}
 
 	// MARK: - Protocol DismissHandling
@@ -45,5 +44,13 @@ class ExposureSubmissionTestCertificateInfoViewController: DynamicTableViewContr
 
 	private let viewModel: ExposureSubmissionTestCertificateViewModel
 	private let showCancelAlert: () -> Void
+
+	private func setupNavigationBar() {
+		parent?.navigationItem.title = AppStrings.ExposureSubmission.TestCertificate.Info.title
+		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
+		parent?.navigationItem.hidesBackButton = true
+
+		view.backgroundColor = .enaColor(for: .background)
+	}
 
 }
