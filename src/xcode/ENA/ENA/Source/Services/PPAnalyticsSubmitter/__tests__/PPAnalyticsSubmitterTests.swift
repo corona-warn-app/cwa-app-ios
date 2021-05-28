@@ -44,8 +44,26 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		store.lastAppReset = Calendar.current.date(byAdding: .day, value: -5, to: Date())
 		let ppacToken = PPACToken(apiToken: "FakeApiToken", deviceToken: "FakeDeviceToken")
 		
-		let currentRiskExposureMetadata = store.currentENFRiskExposureMetadata
-
+		let twoDaysBefore = Calendar.current.date(byAdding: .day, value: -2, to: Date())
+		let currentENFRiskExposureMetadata = RiskExposureMetadata(
+			riskLevel: .high,
+			riskLevelChangedComparedToPreviousSubmission: true,
+			mostRecentDateAtRiskLevel: twoDaysBefore ?? Date(),
+			dateChangedComparedToPreviousSubmission: true
+		)
+		
+		let currentCheckinRiskExposureMetadata = RiskExposureMetadata(
+			riskLevel: .low,
+			riskLevelChangedComparedToPreviousSubmission: false,
+			mostRecentDateAtRiskLevel: twoDaysBefore ?? Date(),
+			dateChangedComparedToPreviousSubmission: false
+		)
+		store.currentENFRiskExposureMetadata = currentENFRiskExposureMetadata
+		store.currentCheckinRiskExposureMetadata = currentCheckinRiskExposureMetadata
+		
+		XCTAssertNil(store.previousENFRiskExposureMetadata)
+		XCTAssertNil(store.previousCheckinRiskExposureMetadata)
+		
 		// WHEN
 		analyticsSubmitter.triggerSubmitData(ppacToken: ppacToken, completion: { result in
 			switch result {
@@ -60,8 +78,10 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		waitForExpectations(timeout: .medium)
 		
 		/// Check that store is setup correctly after successful submission
-		XCTAssertEqual(store.previousENFRiskExposureMetadata, currentRiskExposureMetadata)
+		XCTAssertEqual(store.previousENFRiskExposureMetadata, currentENFRiskExposureMetadata)
+		XCTAssertEqual(store.previousCheckinRiskExposureMetadata, currentCheckinRiskExposureMetadata)
 		XCTAssertNil(store.currentENFRiskExposureMetadata)
+		XCTAssertNil(store.currentCheckinRiskExposureMetadata)
 		XCTAssertNil(store.testResultMetadata)
 		XCTAssertNil(store.keySubmissionMetadata)
 		XCTAssertNil(store.exposureWindowsMetadata?.newExposureWindowsQueue)
@@ -447,6 +467,87 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		XCTAssertEqual(ppasErrors.count, 1)
 		XCTAssertTrue(ppasErrors.contains(.submissionInProgress))
 	}
+	
+	func testGIVEN_SubmissionIsTriggered_WHEN_EverythingIsGiven_THEN_FailureAtServer() throws {
+		// GIVEN
+		let store = MockTestStore()
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
+		let client = ClientMock()
+		client.onSubmitAnalytics = { _, _, _, completion in
+			completion(.failure(.generalError))
+		}
+		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
+		// probability will always succeed
+		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
+		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
+		#if targetEnvironment(simulator)
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
+		#else
+		let deviceCheck = PPACDeviceCheck()
+		#endif
+		let analyticsSubmitter = PPAnalyticsSubmitter(
+			store: store,
+			client: client,
+			appConfig: appConfigurationProvider,
+			coronaTestService: CoronaTestService(
+				client: client,
+				store: store,
+				appConfiguration: CachedAppConfigurationMock()
+			),
+			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
+		)
+
+		let expectation = self.expectation(description: "completion handler is called without an error")
+
+		store.lastSubmissionAnalytics = Calendar.current.date(byAdding: .day, value: -5, to: Date())
+		store.dateOfAcceptedPrivacyNotice = Calendar.current.date(byAdding: .day, value: -5, to: Date())
+		store.lastAppReset = Calendar.current.date(byAdding: .day, value: -5, to: Date())
+		let ppacToken = PPACToken(apiToken: "FakeApiToken", deviceToken: "FakeDeviceToken")
+		
+		let twoDaysBefore = Calendar.current.date(byAdding: .day, value: -2, to: Date())
+		let currentENFRiskExposureMetadata = RiskExposureMetadata(
+			riskLevel: .high,
+			riskLevelChangedComparedToPreviousSubmission: true,
+			mostRecentDateAtRiskLevel: twoDaysBefore ?? Date(),
+			dateChangedComparedToPreviousSubmission: true
+		)
+		
+		let currentCheckinRiskExposureMetadata = RiskExposureMetadata(
+			riskLevel: .low,
+			riskLevelChangedComparedToPreviousSubmission: false,
+			mostRecentDateAtRiskLevel: twoDaysBefore ?? Date(),
+			dateChangedComparedToPreviousSubmission: false
+		)
+		store.currentENFRiskExposureMetadata = currentENFRiskExposureMetadata
+		store.currentCheckinRiskExposureMetadata = currentCheckinRiskExposureMetadata
+		
+		XCTAssertNil(store.previousENFRiskExposureMetadata)
+		XCTAssertNil(store.previousCheckinRiskExposureMetadata)
+		
+		// WHEN
+		analyticsSubmitter.triggerSubmitData(ppacToken: ppacToken, completion: { result in
+			switch result {
+			case .success:
+				XCTFail("Test should not success")
+			case .failure:
+				expectation.fulfill()
+			}
+		})
+
+		// THEN
+		waitForExpectations(timeout: .medium)
+		
+		/// Check that store is setup correctly after successful submission
+		XCTAssertNil(store.currentENFRiskExposureMetadata)
+		XCTAssertNil(store.currentCheckinRiskExposureMetadata)
+		XCTAssertNil(store.previousENFRiskExposureMetadata)
+		XCTAssertNil(store.previousCheckinRiskExposureMetadata)
+				
+		let someTimeAgo = Calendar.current.date(byAdding: .second, value: -20, to: Date())
+		let someTimeAgoTimeRange = try XCTUnwrap(someTimeAgo)...Date()
+		XCTAssertFalse(someTimeAgoTimeRange.contains(try XCTUnwrap(store.lastSubmissionAnalytics)))
+		
+	}
 
 	// MARK: - Conversion to protobuf
 
@@ -546,7 +647,10 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		let today = Date()
 		let differenceBetweenMostRecentRiskDateAndRegistrationDate = 5
 		let registrationDate = Calendar.current.date(byAdding: .day, value: -10, to: today) ?? Date()
-		let mostRecentDayWithRisk = Calendar.current.date(byAdding: .day, value: -differenceBetweenMostRecentRiskDateAndRegistrationDate, to: registrationDate)
+		guard let mostRecentDayWithRisk = Calendar.current.date(byAdding: .day, value: -differenceBetweenMostRecentRiskDateAndRegistrationDate, to: registrationDate) else {
+			XCTFail("Could not create mostRecentDayWithRisk")
+			return
+		}
 		let dateOfRiskChangeToHigh = Calendar.current.date(byAdding: .day, value: -12, to: today)
 		let registrationToken = "123"
 		let testResult: TestResult = .negative
@@ -566,15 +670,35 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 			riskLevelPerDate: [:],
 			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
+		
+		let checkinIdWithRisk = CheckinIdWithRisk(
+			checkinId: 007,
+			riskLevel: riskLevel
+		)
+		
+		let checkinRiskCalculationResult = CheckinRiskCalculationResult(
+			calculationDate: Date(),
+			checkinIdsWithRiskPerDate: [mostRecentDayWithRisk: [checkinIdWithRisk]],
+			riskLevelPerDate: [mostRecentDayWithRisk: riskLevel]
+		)
+		
 		store.enfRiskCalculationResult = enfRiskCalculationResult
 		store.dateOfConversionToENFHighRisk = dateOfRiskChangeToHigh
+		store.checkinRiskCalculationResult = checkinRiskCalculationResult
+		store.dateOfConversionToCheckinHighRisk = dateOfRiskChangeToHigh
+		
 		
 		Analytics.collect(.testResultMetadata(.registerNewTestMetadata(registrationDate, registrationToken)))
 		XCTAssertEqual(store.testResultMetadata?.testRegistrationDate, registrationDate, "Wrong Registration date")
+		
 		XCTAssertEqual(store.testResultMetadata?.riskLevelAtTestRegistration, riskLevel, "Wrong Risk Level")
 		XCTAssertEqual(store.testResultMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, differenceBetweenMostRecentRiskDateAndRegistrationDate, "Wrong number of days with this risk level")
 		XCTAssertEqual(store.testResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration, differenceInHoursBetweenChangeToHighRiskAndRegistrationDate, "Wrong difference hoursSinceHighRiskWarningAtTestRegistration")
 
+		XCTAssertEqual(store.testResultMetadata?.checkinRiskLevelAtTestRegistration, riskLevel, "Wrong Risk Level")
+		XCTAssertEqual(store.testResultMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration, differenceBetweenMostRecentRiskDateAndRegistrationDate, "Wrong number of days with this risk level")
+		XCTAssertEqual(store.testResultMetadata?.hoursSinceCheckinHighRiskWarningAtTestRegistration, differenceInHoursBetweenChangeToHighRiskAndRegistrationDate, "Wrong difference hoursSinceHighRiskWarningAtTestRegistration")
+		
 		Analytics.collect(.testResultMetadata(.updateTestResult(testResult, registrationToken)))
 		XCTAssertEqual(store.testResultMetadata?.testResult, testResult, "Wrong TestResult")
 		XCTAssertEqual(store.testResultMetadata?.hoursSinceTestRegistration, differenceInHoursBetweenRegistrationDateAndTestResult, "Wrong difference hoursSinceTestRegistration")
@@ -606,6 +730,21 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 			Int(protobuf?.hoursSinceHighRiskWarningAtTestRegistration ?? -1),
 			"Wrong hoursSinceHighRiskWarningAtTestRegistration protobuf mapping"
 		)
+		XCTAssertEqual(
+			store.testResultMetadata?.checkinRiskLevelAtTestRegistration?.protobuf,
+			protobuf?.ptRiskLevelAtTestRegistration,
+			"Wrong riskLevelAtTestRegistration protobuf mapping"
+		)
+		XCTAssertEqual(
+			store.testResultMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration,
+			Int(protobuf?.ptDaysSinceMostRecentDateAtRiskLevelAtTestRegistration ?? -1),
+			"Wrong daysSinceMostRecentDateAtRiskLevelAtTestRegistration protobuf mapping"
+		)
+		XCTAssertEqual(
+			store.testResultMetadata?.hoursSinceCheckinHighRiskWarningAtTestRegistration,
+			Int(protobuf?.ptHoursSinceHighRiskWarningAtTestRegistration ?? -1),
+			"Wrong hoursSinceHighRiskWarningAtTestRegistration protobuf mapping"
+		)
 	}
 	
 	func testGatherRiskExposureMetadata() {
@@ -617,9 +756,12 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		Analytics.setupMock(store: store, submitter: analyticsSubmitter)
 		
 		// Collect RiskExposureMetadata
-		let numberOfDaysWithHightRisk = 25
+		let numberOfDaysWithHighRisk = 25
 		let riskLevel: RiskLevel = .high
-		let mostRecentDayWithRisk = Calendar.current.date(byAdding: .day, value: -5, to: Date())
+		guard let mostRecentDayWithRisk = Calendar.current.date(byAdding: .day, value: -5, to: Date()) else {
+			XCTFail("Could not create mostRecentDayWithRisk")
+			return
+		}
 
 		store.enfRiskCalculationResult = ENFRiskCalculationResult(
 			riskLevel: riskLevel,
@@ -628,10 +770,21 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 			mostRecentDateWithLowRisk: nil,
 			mostRecentDateWithHighRisk: mostRecentDayWithRisk,
 			numberOfDaysWithLowRisk: 0,
-			numberOfDaysWithHighRisk: numberOfDaysWithHightRisk,
+			numberOfDaysWithHighRisk: numberOfDaysWithHighRisk,
 			calculationDate: Date(),
 			riskLevelPerDate: [:],
 			minimumDistinctEncountersWithHighRiskPerDate: [:]
+		)
+		
+		let checkinIdWithRisk = CheckinIdWithRisk(
+			checkinId: 007,
+			riskLevel: riskLevel
+		)
+		
+		store.checkinRiskCalculationResult = CheckinRiskCalculationResult(
+			calculationDate: Date(),
+			checkinIdsWithRiskPerDate: [mostRecentDayWithRisk: [checkinIdWithRisk]],
+			riskLevelPerDate: [mostRecentDayWithRisk: riskLevel]
 		)
 
 		Analytics.collect(.riskExposureMetadata(.update))
@@ -640,6 +793,10 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		XCTAssertEqual(store.currentENFRiskExposureMetadata?.riskLevelChangedComparedToPreviousSubmission, false, "should be false as this is the first submission")
 		XCTAssertEqual(store.currentENFRiskExposureMetadata?.dateChangedComparedToPreviousSubmission, false, "should be false as this is the first submission")
 		
+		XCTAssertEqual(store.currentCheckinRiskExposureMetadata?.riskLevel, riskLevel, "Wrong riskLevel")
+		XCTAssertEqual(store.currentCheckinRiskExposureMetadata?.riskLevelChangedComparedToPreviousSubmission, false, "should be false as this is the first submission")
+		XCTAssertEqual(store.currentCheckinRiskExposureMetadata?.dateChangedComparedToPreviousSubmission, false, "should be false as this is the first submission")
+		
 		// Mapping to protobuf
 		let protobuf = analyticsSubmitter.gatherExposureRiskMetadata()
 		XCTAssertFalse(protobuf.isEmpty, "There should be at least one item in the array")
@@ -647,6 +804,11 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		XCTAssertEqual(protobuf.first?.riskLevelChangedComparedToPreviousSubmission, store.currentENFRiskExposureMetadata?.riskLevelChangedComparedToPreviousSubmission, "Wrong riskLevelChangedComparedToPreviousSubmission")
 		XCTAssertEqual(protobuf.first?.mostRecentDateAtRiskLevel, formatToUnixTimestamp(for: store.currentENFRiskExposureMetadata?.mostRecentDateAtRiskLevel), "Wrong mostRecentDateAtRiskLevel")
 		XCTAssertEqual(protobuf.first?.dateChangedComparedToPreviousSubmission, store.currentENFRiskExposureMetadata?.dateChangedComparedToPreviousSubmission, "Wrong dateChangedComparedToPreviousSubmission")
+		
+		XCTAssertEqual(protobuf.first?.ptRiskLevel, riskLevel.protobuf, "Wrong riskLevel mapped")
+		XCTAssertEqual(protobuf.first?.ptRiskLevelChangedComparedToPreviousSubmission, store.currentCheckinRiskExposureMetadata?.riskLevelChangedComparedToPreviousSubmission, "Wrong riskLevelChangedComparedToPreviousSubmission")
+		XCTAssertEqual(protobuf.first?.ptMostRecentDateAtRiskLevel, formatToUnixTimestamp(for: store.currentCheckinRiskExposureMetadata?.mostRecentDateAtRiskLevel), "Wrong mostRecentDateAtRiskLevel")
+		XCTAssertEqual(protobuf.first?.ptDateChangedComparedToPreviousSubmission, store.currentCheckinRiskExposureMetadata?.dateChangedComparedToPreviousSubmission, "Wrong dateChangedComparedToPreviousSubmission")
 	}
 	
 	func testGatherExposureWindowsMetadata() {
@@ -741,12 +903,15 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		Analytics.collect(.keySubmissionMetadata(.submittedAfterCancel(true)))
 		Analytics.collect(.keySubmissionMetadata(.submittedAfterSymptomFlow(true)))
 		Analytics.collect(.keySubmissionMetadata(.submittedWithTeletan(false)))
+		Analytics.collect(.keySubmissionMetadata(.submittedWithCheckins(true)))
 		Analytics.collect(.keySubmissionMetadata(.lastSubmissionFlowScreen(lastScreen)))
 		Analytics.collect(.keySubmissionMetadata(.advancedConsentGiven(true)))
 		Analytics.collect(.keySubmissionMetadata(.setHoursSinceTestResult))
 		Analytics.collect(.keySubmissionMetadata(.keySubmissionHoursSinceTestRegistration(9)))
 		Analytics.collect(.keySubmissionMetadata(.daysSinceMostRecentDateAtRiskLevelAtTestRegistration(74)))
 		Analytics.collect(.keySubmissionMetadata(.hoursSinceHighRiskWarningAtTestRegistration(53)))
+		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration))
+		Analytics.collect(.keySubmissionMetadata(.setHoursSinceCheckinHighRiskWarningAtTestRegistration))
 
 		let metadata = store.keySubmissionMetadata
 		XCTAssertNotNil(metadata, "keySubmissionMetadata should be allocated")
@@ -754,12 +919,15 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		XCTAssertEqual(metadata?.submittedInBackground, true, "Wrong keySubmissionMetadata")
 		XCTAssertEqual(metadata?.submittedAfterCancel, true, "Wrong keySubmissionMetadata")
 		XCTAssertEqual(metadata?.submittedAfterSymptomFlow, true, "Wrong keySubmissionMetadata")
+		XCTAssertEqual(metadata?.submittedWithCheckIns, true, "Wrong keySubmissionMetadata")
 		XCTAssertEqual(metadata?.lastSubmissionFlowScreen, lastScreen, "Wrong keySubmissionMetadata")
 		XCTAssertEqual(metadata?.advancedConsentGiven, true, "Wrong keySubmissionMetadata")
 		XCTAssertEqual(metadata?.hoursSinceTestResult, 5, "Wrong keySubmissionMetadata")
 		XCTAssertEqual(metadata?.hoursSinceTestRegistration, 9, "Wrong keySubmissionMetadata")
 		XCTAssertEqual(metadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, 74, "Wrong keySubmissionMetadata")
 		XCTAssertEqual(metadata?.hoursSinceHighRiskWarningAtTestRegistration, 53, "Wrong keySubmissionMetadata")
+		XCTAssertEqual(metadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration, -1, "Wrong keySubmissionMetadata")
+		XCTAssertEqual(metadata?.hoursSinceCheckinHighRiskWarningAtTestRegistration, -1, "Wrong keySubmissionMetadata")
 		
 		// Mapping to protobuf
 		let protobuf = analyticsSubmitter.gatherKeySubmissionMetadata().first
@@ -767,12 +935,15 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		XCTAssertEqual(protobuf?.submittedInBackground, metadata?.submittedInBackground, "Wrong submittedInBackground")
 		XCTAssertEqual(protobuf?.submittedAfterCancel, metadata?.submittedAfterCancel, "Wrong submittedAfterCancel")
 		XCTAssertEqual(protobuf?.submittedAfterSymptomFlow, metadata?.submittedAfterSymptomFlow, "Wrong submittedAfterSymptomFlow")
+		XCTAssertEqual(protobuf?.submittedWithCheckIns, .tsbTrue)
 		XCTAssertEqual(protobuf?.advancedConsentGiven, metadata?.advancedConsentGiven, "Wrong advancedConsentGiven")
 		XCTAssertEqual(protobuf?.lastSubmissionFlowScreen, metadata?.lastSubmissionFlowScreen?.protobuf, "Wrong lastSubmissionFlowScreen")
 		XCTAssertEqual(protobuf?.hoursSinceTestResult, metadata?.hoursSinceTestResult, "Wrong hoursSinceTestResult")
 		XCTAssertEqual(protobuf?.hoursSinceTestRegistration, metadata?.hoursSinceTestRegistration, "Wrong hoursSinceTestRegistration")
 		XCTAssertEqual(protobuf?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, metadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, "Wrong daysSinceMostRecentDateAtRiskLevelAtTestRegistration")
 		XCTAssertEqual(protobuf?.hoursSinceHighRiskWarningAtTestRegistration, metadata?.hoursSinceHighRiskWarningAtTestRegistration, "Wrong hoursSinceHighRiskWarningAtTestRegistration")
+		XCTAssertEqual(protobuf?.ptDaysSinceMostRecentDateAtRiskLevelAtTestRegistration, metadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration, "Wrong daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration")
+		XCTAssertEqual(protobuf?.ptHoursSinceHighRiskWarningAtTestRegistration, metadata?.hoursSinceCheckinHighRiskWarningAtTestRegistration, "Wrong hoursSinceCheckinHighRiskWarningAtTestRegistration")
 		XCTAssertNotEqual(protobuf?.submittedWithTeleTan, store.submittedWithQR, "Wrong submittedWithTeleTan")
 	}
 	
