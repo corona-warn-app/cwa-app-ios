@@ -280,9 +280,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			fatalError("Could not find corona test to create test result view controller for.")
 		}
 
-		// store is only initialized when a positive test result is received and not yet submitted
 		if coronaTest.testResult == .positive && !coronaTest.keysSubmitted {
-			updateStoreWithKeySubmissionMetadataDefaultValues(for: coronaTest, submittedWithTeletan: triggeredFromTeletan)
 			QuickAction.exposureSubmissionFlowTestResult = coronaTest.testResult
 		}
 		Analytics.collect(.keySubmissionMetadata(.lastSubmissionFlowScreen(.submissionFlowScreenTestResult, coronaTestType)))
@@ -1032,36 +1030,6 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		)
 
 		navigationController?.present(alert, animated: true)
-	}
-
-	private func updateStoreWithKeySubmissionMetadataDefaultValues(for coronaTest: CoronaTest, submittedWithTeletan: Bool) {
-
-		let submittedAfterRapidAntigenTest: Bool
-		switch coronaTest {
-		case .pcr:
-			submittedAfterRapidAntigenTest = false
-		case .antigen:
-			submittedAfterRapidAntigenTest = true
-		}
-
-		let keySubmissionMetadata = KeySubmissionMetadata(
-			submitted: false,
-			submittedInBackground: false,
-			submittedAfterCancel: false,
-			submittedAfterSymptomFlow: false,
-			lastSubmissionFlowScreen: .submissionFlowScreenUnknown,
-			advancedConsentGiven: coronaTest.isSubmissionConsentGiven,
-			hoursSinceTestResult: 0,
-			hoursSinceTestRegistration: 0,
-			daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1,
-			submittedWithTeleTAN: submittedWithTeletan,
-			hoursSinceHighRiskWarningAtTestRegistration: -1,
-			submittedAfterRapidAntigenTest: submittedAfterRapidAntigenTest
-		)
-
-		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, coronaTest.type)))
-		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration(coronaTest.type)))
-		Analytics.collect(.keySubmissionMetadata(.setHoursSinceHighRiskWarningAtTestRegistration(coronaTest.type)))
 	}
 
 	// MARK: Test Result Helper
