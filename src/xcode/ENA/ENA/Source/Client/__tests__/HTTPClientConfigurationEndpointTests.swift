@@ -5,7 +5,7 @@
 @testable import ENA
 import XCTest
 
-final class HTTPClientConfigurationEndpointTests: XCTestCase {
+final class HTTPClientConfigurationEndpointTests: CWATestCase {
 	private typealias Endpoint = HTTPClient.Configuration.Endpoint
 
 	func testEndpointThatRequiresTrailingSlash() {

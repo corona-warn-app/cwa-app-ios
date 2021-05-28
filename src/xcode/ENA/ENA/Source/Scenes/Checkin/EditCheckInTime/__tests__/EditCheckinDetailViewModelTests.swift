@@ -6,7 +6,7 @@ import XCTest
 @testable import ENA
 import OpenCombine
 
-class EditCheckinDetailViewModelTests: XCTestCase {
+class EditCheckinDetailViewModelTests: CWATestCase {
 
 	func testGIVEN_EditCheckinDetailViewModel_THEN_ValueMatch() {
 		let startDate = Date(timeIntervalSince1970: 1616074184)

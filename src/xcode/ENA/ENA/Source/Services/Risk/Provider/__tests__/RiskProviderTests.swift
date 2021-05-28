@@ -8,7 +8,7 @@ import ExposureNotification
 
 // swiftlint:disable file_length
 // swiftlint:disable:next type_body_length
-final class RiskProviderTests: XCTestCase {
+final class RiskProviderTests: CWATestCase {
 	
 	func testGIVEN_RiskCalculation_WHEN_ENFRiskHighAndCheckinRiskLow_THEN_RiskConsumerReturnsRiskHigh() {
 		// GIVEN

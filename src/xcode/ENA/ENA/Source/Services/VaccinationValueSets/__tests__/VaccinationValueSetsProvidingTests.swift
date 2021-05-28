@@ -6,7 +6,7 @@ import XCTest
 import OpenCombine
 @testable import ENA
 
-class VaccinationValueSetsProvidingTests: XCTestCase {
+class VaccinationValueSetsProvidingTests: CWATestCase {
 	
 	private var subscriptions = [AnyCancellable]()
 	

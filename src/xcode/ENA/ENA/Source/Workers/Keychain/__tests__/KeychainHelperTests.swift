@@ -5,12 +5,13 @@
 import XCTest
 @testable import ENA
 
-class KeychainHelperTests: XCTestCase {
+class KeychainHelperTests: CWATestCase {
 
 	let serviceID = "testservice"
 	let testKey = "test"
 
 	override func tearDownWithError() throws {
+		try super.tearDownWithError()
 		let keychain = try KeychainHelper(service: serviceID)
 		try keychain.clearInKeychain(key: testKey)
 	}

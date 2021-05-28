@@ -5,7 +5,7 @@
 @testable import ENA
 import XCTest
 
-final class URLSessionConvenienceTests: XCTestCase {
+final class URLSessionConvenienceTests: CWATestCase {
 	func testExecuteRequest_Success() {
 		let url = URL(staticString: "https://localhost:8080")
 		let dateFormatter = ENAFormatter.httpDateHeaderFormatter

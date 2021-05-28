@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class SimpleTextCellViewModelTests: XCTestCase {
+class SimpleTextCellViewModelTests: CWATestCase {
 
 	func testGIVEN_SimpleTextCellViewModel_THEN_AllValuesDidSetCorrect() {
 		// GIVEN

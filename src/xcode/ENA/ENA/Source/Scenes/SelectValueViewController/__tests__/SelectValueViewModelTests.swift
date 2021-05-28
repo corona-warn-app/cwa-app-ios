@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class SelectValueViewModelTests: XCTestCase {
+class SelectValueViewModelTests: CWATestCase {
 
 	func testGIVEN_emptyValues_WHEN_getCount_THEN_IsOne() {
 		// GIVEN

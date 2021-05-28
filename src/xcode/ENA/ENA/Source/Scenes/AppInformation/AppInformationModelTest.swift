@@ -6,7 +6,7 @@ import Foundation
 import XCTest
 @testable import ENA
 
-class AppInformationModelTest: XCTestCase {
+class AppInformationModelTest: CWATestCase {
 	
 	func testAboutModel() {
 		let dynamicTable = AppInformationModel.aboutModel

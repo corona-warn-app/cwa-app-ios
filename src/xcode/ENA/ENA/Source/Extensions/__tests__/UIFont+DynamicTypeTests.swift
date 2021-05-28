@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-final class UIFont_DynamicTypeTests: XCTestCase {
+final class UIFont_DynamicTypeTests: CWATestCase {
     func testWeightFromString() {
 		XCTAssertEqual(UIFont.Weight("ultraLight").rawValue, UIFont.Weight.ultraLight.rawValue, accuracy: .high)
 		XCTAssertEqual(UIFont.Weight("thin").rawValue, UIFont.Weight.thin.rawValue, accuracy: .high)

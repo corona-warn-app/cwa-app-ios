@@ -8,7 +8,7 @@ import OpenCombine
 @testable import ENA
 
 // swiftlint:disable:next type_body_length
-class EventStoreTests: XCTestCase {
+class EventStoreTests: CWATestCase {
 
 	var subscriptions = Set<AnyCancellable>()
 

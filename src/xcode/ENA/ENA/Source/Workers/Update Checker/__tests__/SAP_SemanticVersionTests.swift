@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-final class SAP_Internal_SemanticVersionTests: XCTestCase {
+final class SAP_Internal_SemanticVersionTests: CWATestCase {
 	func testParseVersionString_Success() {
 		let version = "1.2.3".semanticVersion
 		XCTAssertNotNil(version)

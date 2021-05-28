@@ -7,7 +7,7 @@ import XCTest
 import ExposureNotification
 @testable import ENA
 
-class ENARangeTest: XCTestCase {
+class ENARangeTest: CWATestCase {
 
 	func testGIVEN_RangeMinAndMaxInclusive_WHEN_CheckingContainedIntValues_THEN_CheckIsCorrect() {
 		// GIVEN

@@ -5,7 +5,7 @@
 @testable import ENA
 import XCTest
 
-class RiskExposureMetadataTests: XCTestCase {
+class RiskExposureMetadataTests: CWATestCase {
 
     func testHighRiskExposureMetadata() throws {
 		let store = MockTestStore()

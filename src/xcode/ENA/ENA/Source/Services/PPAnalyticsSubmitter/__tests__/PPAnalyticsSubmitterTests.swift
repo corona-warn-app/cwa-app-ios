@@ -7,7 +7,7 @@ import XCTest
 
 // swiftlint:disable file_length
 // swiftlint:disable:next type_body_length
-class PPAnalyticsSubmitterTests: XCTestCase {
+class PPAnalyticsSubmitterTests: CWATestCase {
 
 	// MARK: - Success
 

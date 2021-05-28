@@ -7,7 +7,7 @@ import XCTest
 @testable import ENA
 import OpenCombine
 
-class TraceLocationsConfigurationViewModelTest: XCTestCase {
+class TraceLocationsConfigurationViewModelTest: CWATestCase {
 
 	func testInitialValuesForNewTemporaryTraceLocation() {
 		for traceLocationType in TraceLocationType.temporaryTypes {

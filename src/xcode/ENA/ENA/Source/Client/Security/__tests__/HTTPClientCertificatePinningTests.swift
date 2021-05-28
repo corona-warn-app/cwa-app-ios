@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class HTTPClientCertificatePinningTests: XCTestCase {
+class HTTPClientCertificatePinningTests: CWATestCase {
 
     func testPinning() throws {
 		let coronaWarnURLSessionDelegate = CoronaWarnURLSessionDelegate(
