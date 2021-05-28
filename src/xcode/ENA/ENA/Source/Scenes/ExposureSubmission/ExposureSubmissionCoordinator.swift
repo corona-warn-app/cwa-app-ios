@@ -142,7 +142,9 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				self?.model.exposureSubmissionService.loadSupportedCountries(
 					isLoading: isLoading,
 					onSuccess: { supportedCountries in
-						self?.showQRInfoScreen(supportedCountries: supportedCountries)
+						self?.showTestCertificateInfo()
+//						fatalError()
+//						self?.showQRInfoScreen(supportedCountries: supportedCountries)
 					}
 				)
 			},
