@@ -7,7 +7,7 @@ import Foundation
 import ExposureNotification
 import XCTest
 
-final class SymptomsOnsetTests: XCTestCase {
+final class SymptomsOnsetTests: CWATestCase {
 
 	// MARK: - Transmission Risk Vector
 

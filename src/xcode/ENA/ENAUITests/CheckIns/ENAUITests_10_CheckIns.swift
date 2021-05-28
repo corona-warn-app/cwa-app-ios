@@ -4,13 +4,14 @@
 
 import XCTest
 
-class ENAUITests_10_CheckIns: XCTestCase {
+class ENAUITests_10_CheckIns: CWATestCase {
 	
 	var app: XCUIApplication!
 	var screenshotCounter = 0
 	let prefix = "event_checkin_"
 	
 	override func setUpWithError() throws {
+		try super.setUpWithError()
 		continueAfterFailure = false
 		app = XCUIApplication()
 		setupSnapshot(app)
@@ -24,7 +25,7 @@ class ENAUITests_10_CheckIns: XCTestCase {
 		app.launch()
 			
 		// Navigate to CheckIn
-		app.buttons[AccessibilityIdentifiers.Tabbar.checkin].waitAndTap()
+		app.buttons[AccessibilityIdentifiers.TabBar.checkin].waitAndTap()
 		
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Checkin.Information.acknowledgementTitle].exists)
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Checkin.Information.dataPrivacyTitle].exists)
@@ -56,7 +57,7 @@ class ENAUITests_10_CheckIns: XCTestCase {
 		app.launch()
 		
 		// Navigate to CheckIn
-		app.buttons[AccessibilityIdentifiers.Tabbar.checkin].waitAndTap()
+		app.buttons[AccessibilityIdentifiers.TabBar.checkin].waitAndTap()
 		
 		// Confirm consent
 		app.buttons[AccessibilityIdentifiers.Checkin.Information.primaryButton].waitAndTap()
@@ -72,7 +73,7 @@ class ENAUITests_10_CheckIns: XCTestCase {
 		app.launch()
 		
 		// Navigate to CheckIn
-		app.buttons[AccessibilityIdentifiers.Tabbar.checkin].waitAndTap()
+		app.buttons[AccessibilityIdentifiers.TabBar.checkin].waitAndTap()
 		
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Checkin.Information.acknowledgementTitle].exists)
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Checkin.Information.dataPrivacyTitle].exists)

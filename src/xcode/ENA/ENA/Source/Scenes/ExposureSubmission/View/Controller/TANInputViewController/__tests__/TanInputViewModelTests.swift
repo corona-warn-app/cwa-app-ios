@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class TanInputViewModelTests: XCTestCase {
+class TanInputViewModelTests: CWATestCase {
 
 	func testGIVEN_ValidFormattedTanWithValidChecksum_WHEN_isValidIsChecksumValid_THEN_isInvalidChcksumIsValid() {
 		// GIVEN
@@ -13,6 +13,7 @@ class TanInputViewModelTests: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: MockTestStore(),
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
 			onSuccess: { _, _ in },
@@ -34,6 +35,7 @@ class TanInputViewModelTests: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: MockTestStore(),
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
 			onSuccess: { _, _ in },
@@ -55,6 +57,7 @@ class TanInputViewModelTests: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: MockTestStore(),
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
 			onSuccess: { _, _ in },

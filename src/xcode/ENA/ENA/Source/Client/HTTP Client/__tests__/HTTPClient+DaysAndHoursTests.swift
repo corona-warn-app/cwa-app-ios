@@ -7,7 +7,7 @@ import ExposureNotification
 import XCTest
 
 // swiftlint:disable:next type_body_length
-final class HTTPClientDaysAndHoursTests: XCTestCase {
+final class HTTPClientDaysAndHoursTests: CWATestCase {
 	let binFileSize = 501
 	let sigFileSize = 144
 	let mockUrl = URL(staticString: "http://example.com")

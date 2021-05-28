@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class ENSettingEuTracingViewModelTests: XCTestCase {
+class ENSettingEuTracingViewModelTests: CWATestCase {
 	
 	func testENSettingEuTracingViewModelTests_Init() throws {
 		

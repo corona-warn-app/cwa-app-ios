@@ -6,7 +6,7 @@ import XCTest
 import OpenCombine
 @testable import ENA
 
-class TestResultAvailableViewModelTest: XCTestCase {
+class TestResultAvailableViewModelTest: CWATestCase {
 	
 	func testGIVEN_ViewModel_WHEN_PrimaryButtonClosureCalled_THEN_ExpectationFulfill() {
 		// GIVEN
@@ -22,6 +22,7 @@ class TestResultAvailableViewModelTest: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: store,
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
 			onSubmissionConsentCellTap: { _ in
@@ -54,6 +55,7 @@ class TestResultAvailableViewModelTest: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: store,
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
 			onSubmissionConsentCellTap: { _ in
@@ -95,6 +97,7 @@ class TestResultAvailableViewModelTest: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: store,
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
 			onSubmissionConsentCellTap: { _ in

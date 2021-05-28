@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class ExposureSubmissionSuccessViewControllerTest: XCTestCase {
+class ExposureSubmissionSuccessViewControllerTest: CWATestCase {
 
 	func testPCR() {
 		let vc = ExposureSubmissionSuccessViewController(coronaTestType: .pcr, dismiss: { })

@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class TextFieldsManagerTests: XCTestCase {
+class TextFieldsManagerTests: CWATestCase {
 
 	func testGIVEN_TextFieldManager_WHEN_GetKeyPath_THEN_IsFound() {
 		// GIVEN

@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-final class DetectionModeTests: XCTestCase {
+final class DetectionModeTests: CWATestCase {
     func testThatDefaultModeIsManual() {
 		XCTAssertEqual(DetectionMode.default, .manual)
     }

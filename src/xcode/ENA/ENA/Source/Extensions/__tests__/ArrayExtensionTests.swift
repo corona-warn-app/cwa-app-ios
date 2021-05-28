@@ -4,7 +4,7 @@
 
 import XCTest
 
-class ArrayExtensionTests: XCTestCase {
+class ArrayExtensionTests: CWATestCase {
 
     func testSafeSubscript() throws {
         let list = [0, 1, 2]

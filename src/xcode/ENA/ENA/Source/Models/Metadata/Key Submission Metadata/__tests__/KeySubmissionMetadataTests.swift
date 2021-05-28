@@ -5,13 +5,14 @@
 @testable import ENA
 import XCTest
 
-class KeySubmissionMetadataTests: XCTestCase {
+class KeySubmissionMetadataTests: CWATestCase {
 	
 	func testKeySubmissionMetadataValues_HighRisk() {
 		let secureStore = MockTestStore()
 		let coronaTestService = CoronaTestService(
 			client: ClientMock(),
 			store: secureStore,
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 
@@ -67,6 +68,7 @@ class KeySubmissionMetadataTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: ClientMock(),
 			store: secureStore,
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 
@@ -122,6 +124,7 @@ class KeySubmissionMetadataTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: ClientMock(),
 			store: secureStore,
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		Analytics.setupMock(
@@ -172,6 +175,7 @@ class KeySubmissionMetadataTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: ClientMock(),
 			store: secureStore,
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		Analytics.setupMock(
@@ -237,6 +241,7 @@ class KeySubmissionMetadataTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: ClientMock(),
 			store: secureStore,
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 

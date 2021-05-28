@@ -7,7 +7,7 @@ import XCTest
 @testable import ENA
 import OpenCombine
 
-class DiaryOverviewViewModelTest: XCTestCase {
+class DiaryOverviewViewModelTest: CWATestCase {
 	
 	var subscriptions = [AnyCancellable]()
 	

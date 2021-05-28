@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-final class SettingsViewModelTests: XCTestCase {
+final class SettingsViewModelTests: CWATestCase {
     func testStateIsNilInitially() {
 		XCTAssertNil(SettingsViewModel().notifications.state)
 		XCTAssertNil(SettingsViewModel().tracing.state)

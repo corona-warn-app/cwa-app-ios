@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class DistrictTests: XCTestCase {
+class DistrictTests: CWATestCase {
 
 	func testGIVEN_FederalStateName_THEN_MatchesLastKnownValues() {
 		// GIVEN

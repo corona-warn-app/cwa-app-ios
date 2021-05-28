@@ -6,7 +6,7 @@ import XCTest
 import OpenCombine
 @testable import ENA
 
-class BackgroundAppRefreshViewModelTests: XCTestCase {
+class BackgroundAppRefreshViewModelTests: CWATestCase {
 
     func testBackgroundRefreshStatusAvailableLowPowerModeDisabled() {
 		let viewModel = BackgroundAppRefreshViewModel(

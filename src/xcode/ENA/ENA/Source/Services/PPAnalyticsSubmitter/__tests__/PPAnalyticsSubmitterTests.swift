@@ -7,7 +7,7 @@ import XCTest
 
 // swiftlint:disable file_length
 // swiftlint:disable:next type_body_length
-class PPAnalyticsSubmitterTests: XCTestCase {
+class PPAnalyticsSubmitterTests: CWATestCase {
 
 	// MARK: - Success
 
@@ -32,6 +32,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: client,
 				store: store,
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
@@ -93,6 +94,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: client,
 				store: store,
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
@@ -138,6 +140,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: client,
 				store: store,
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
@@ -183,6 +186,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: client,
 				store: store,
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
@@ -227,6 +231,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: client,
 				store: store,
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
@@ -272,6 +277,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: client,
 				store: store,
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
@@ -318,6 +324,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: client,
 				store: store,
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
@@ -365,6 +372,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: client,
 				store: store,
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
@@ -410,6 +418,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: client,
 				store: store,
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
@@ -702,6 +711,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: ClientMock(),
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 
@@ -779,6 +789,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: client,
 				store: store,
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)

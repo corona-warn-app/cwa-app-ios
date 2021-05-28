@@ -6,7 +6,7 @@ import XCTest
 import OpenCombine
 @testable import ENA
 
-class DatePickerDayViewModelTests: XCTestCase {
+class DatePickerDayViewModelTests: CWATestCase {
 
     func testTodayNotSelected() {
 		let viewModel = DatePickerDayViewModel(

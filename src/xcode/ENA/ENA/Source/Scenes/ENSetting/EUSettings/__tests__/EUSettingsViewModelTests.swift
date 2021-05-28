@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class EUSettingsViewModelTests: XCTestCase {
+class EUSettingsViewModelTests: CWATestCase {
 
 	func testGIVEN_EUSettingsViewModel_WHEN_CountCountries_THEN_Match() {
 		// GIVEN

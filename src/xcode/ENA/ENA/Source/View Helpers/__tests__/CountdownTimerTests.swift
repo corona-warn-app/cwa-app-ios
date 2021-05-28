@@ -6,7 +6,7 @@ import Foundation
 import XCTest
 @testable import ENA
 
-class CountdownTimerTests: XCTestCase {
+class CountdownTimerTests: CWATestCase {
 
 	func test_callsDone() {
 		let end = Date().addingTimeInterval(1)

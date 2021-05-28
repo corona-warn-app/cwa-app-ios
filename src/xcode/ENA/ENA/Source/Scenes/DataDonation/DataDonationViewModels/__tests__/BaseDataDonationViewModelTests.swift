@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class BaseDataDonationViewModelTests: XCTestCase {
+class BaseDataDonationViewModelTests: CWATestCase {
 
 	/// test if the view model will format texts correct
 	func testGIVEN_ViewModelWithStoredData_WHEN_getFriendlyTexts_THEN_ValuesAreEqualToStore() throws {
