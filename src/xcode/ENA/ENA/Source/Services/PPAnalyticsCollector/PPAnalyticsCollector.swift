@@ -146,10 +146,10 @@ enum PPAnalyticsCollector {
 		// If risk level is nil, set to false. Otherwise, set it when it changed compared to previous submission.
 		riskLevelChangedComparedToPreviousSubmission = riskLevel != previousRiskLevel && previousRiskLevel != nil
 		
-		// If mostRecentDateAtRiskLevel is nil, set to false. Otherwise, change itt when it changed compared to previous submission.
+		// If mostRecentDateAtRiskLevel is nil, set to false. Otherwise, change it when it changed compared to previous submission.
 		dateChangedComparedToPreviousSubmission = mostRecentDateWithCurrentRiskLevel != previousMostRecentDateWithCurrentRiskLevel && previousMostRecentDateWithCurrentRiskLevel != nil
 		
-		guard let mostRecentDateWithCurrentRiskLevel = enfRiskCalculationResult.mostRecentDateWithCurrentRiskLevel else {
+		guard let mostRecentDate = mostRecentDateWithCurrentRiskLevel else {
 			// most recent date is not available because of no exposure
 			let newRiskExposureMetadata = RiskExposureMetadata(
 				riskLevel: riskLevel,
@@ -162,7 +162,7 @@ enum PPAnalyticsCollector {
 		let newRiskExposureMetadata = RiskExposureMetadata(
 			riskLevel: riskLevel,
 			riskLevelChangedComparedToPreviousSubmission: riskLevelChangedComparedToPreviousSubmission,
-			mostRecentDateAtRiskLevel: mostRecentDateWithCurrentRiskLevel,
+			mostRecentDateAtRiskLevel: mostRecentDate,
 			dateChangedComparedToPreviousSubmission: dateChangedComparedToPreviousSubmission
 		)
 		store?.currentENFRiskExposureMetadata = newRiskExposureMetadata
@@ -179,10 +179,10 @@ enum PPAnalyticsCollector {
 		// If risk level is nil, set to false. Otherwise, set it when it changed compared to previous submission.
 		riskLevelChangedComparedToPreviousSubmission = riskLevel != previousRiskLevel && previousRiskLevel != nil
 
-		// If mostRecentDateAtRiskLevel is nil, set to false. Otherwise, change itt when it changed compared to previous submission.
+		// If mostRecentDateAtRiskLevel is nil, set to false. Otherwise, change it when it changed compared to previous submission.
 		dateChangedComparedToPreviousSubmission = mostRecentDateWithCurrentRiskLevel != previousMostRecentDateWithCurrentRiskLevel && previousMostRecentDateWithCurrentRiskLevel != nil
 
-		guard let mostRecentDateWithCurrentRiskLevel = checkinRiskCalculationResult.mostRecentDateWithCurrentRiskLevel else {
+		guard let mostRecentDate = mostRecentDateWithCurrentRiskLevel else {
 			// most recent date is not available because of no exposure
 			let newRiskExposureMetadata = RiskExposureMetadata(
 				riskLevel: riskLevel,
@@ -195,7 +195,7 @@ enum PPAnalyticsCollector {
 		let newRiskExposureMetadata = RiskExposureMetadata(
 			riskLevel: riskLevel,
 			riskLevelChangedComparedToPreviousSubmission: riskLevelChangedComparedToPreviousSubmission,
-			mostRecentDateAtRiskLevel: mostRecentDateWithCurrentRiskLevel,
+			mostRecentDateAtRiskLevel: mostRecentDate,
 			dateChangedComparedToPreviousSubmission: dateChangedComparedToPreviousSubmission
 		)
 		store?.currentCheckinRiskExposureMetadata = newRiskExposureMetadata
