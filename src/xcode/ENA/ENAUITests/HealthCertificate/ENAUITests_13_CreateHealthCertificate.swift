@@ -26,9 +26,7 @@ class ENAUITests_13_CreateHealthCertificate: XCTestCase {
 	func test_shownConsentScreenAndDisclaimer() throws {
 		app.launch()
 
-		/// Home Screen
-		let registerCertificateTitle = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.Home.registerHealthCertificateButton])
-		registerCertificateTitle.waitAndTap()
+		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
 
 		// HealthCertificate consent screen tap on disclaimer
 		let disclaimerButton = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Info.disclaimer])
@@ -37,21 +35,28 @@ class ENAUITests_13_CreateHealthCertificate: XCTestCase {
 		disclaimerButton.waitAndTap()
 
 		// data privacy
+		XCTAssertTrue(app.images[AccessibilityIdentifiers.AppInformation.privacyImageDescription].waitForExistence(timeout: .extraLong))
+
 		let backButton = try XCTUnwrap(app.navigationBars.buttons.element(boundBy: 0))
 		backButton.waitAndTap()
+
+		// Close consent
+		let primaryButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton])
+		primaryButton.waitAndTap()
+
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.registerHealthCertificateButton].waitForExistence(timeout: .short))
 	}
 
-	func test_CreateAntigenTestProfileWithFirstCertificate_THEN_DeleteProfile() throws {
-		app.launchArguments.append(contentsOf: ["-noHealthCertificate", "YES"])
+	func test_CreateAntigenTestProfileWithFirstCertificate() throws {
+		app.setLaunchArgument(LaunchArguments.healthCertificate.noHealthCertificate, to: true)
+		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
 		app.launch()
+
+		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
 
 		/// Home Screen
 		let registerCertificateTitle = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.Home.registerHealthCertificateButton])
 		registerCertificateTitle.waitAndTap()
-
-		// HealthCertificate consent screen
-		let primaryButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton])
-		primaryButton.waitAndTap()
 
 		// QRCode Scanner - close via flash will submit a healthCertificate
 		let flashBarButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.ExposureSubmissionQRScanner.flash])
@@ -68,17 +73,20 @@ class ENAUITests_13_CreateHealthCertificate: XCTestCase {
 		snapshot("screenshot_first_health_certificate")
 	}
 
-	func test_CreateAntigenTestProfileWithLastCertificate_THEN_DeleteProfile() throws {
+	func test_CreateAntigenTestProfileWithLastCertificate() throws {
 		app.setLaunchArgument(LaunchArguments.healthCertificate.firstHealthCertificate, to: true)
+		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
 		app.launch()
 
-		/// Home Screen
-		let registerCertificateTitle = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.Home.registerHealthCertificateButton])
+		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
+
+		let healthCertificateCell = try XCTUnwrap(app.cells[AccessibilityIdentifiers.Home.healthCertificateButton])
+		XCTAssertTrue(healthCertificateCell.waitForExistence(timeout: .short))
 		
 		snapshot("screenshot_certificate_home_screen_grey")
-		registerCertificateTitle.waitAndTap()
+		healthCertificateCell.waitAndTap()
 
-		// HealthCertificate consent screen
+		// Certified person screen
 		let primaryButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton])
 		primaryButton.waitAndTap()
 
@@ -87,7 +95,7 @@ class ENAUITests_13_CreateHealthCertificate: XCTestCase {
 		flashBarButton.waitAndTap()
 
 		// Certified Person screen
-		let certificateCell = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Person.certificateCell])
+		let certificateCell = app.cells.matching(identifier: AccessibilityIdentifiers.HealthCertificate.Person.certificateCell).element(boundBy: 1)
 		certificateCell.waitAndTap()
 
 		// Certificate Screen
@@ -99,9 +107,11 @@ class ENAUITests_13_CreateHealthCertificate: XCTestCase {
 
 	func test_ShowCertificate() throws {
 		app.setLaunchArgument(LaunchArguments.healthCertificate.firstAndSecondHealthCertificate, to: true)
+		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
 		app.launch()
 
-		/// Home Screen
+		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
+
 		let certificateTitle = try XCTUnwrap(app.cells[AccessibilityIdentifiers.Home.healthCertificateButton])
 		
 		snapshot("screenshot_certificate_home_screen_blue")

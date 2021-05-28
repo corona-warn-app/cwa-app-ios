@@ -24,6 +24,7 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 		coronaTestService = CoronaTestService(
 			client: ClientMock(),
 			store: store,
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 	}

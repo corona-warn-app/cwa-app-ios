@@ -20,6 +20,7 @@ class CoronaTestService {
 	init(
 		client: Client,
 		store: CoronaTestStoring & CoronaTestStoringLegacy & WarnOthersTimeIntervalStoring,
+		diaryStore: DiaryStoring,
 		appConfiguration: AppConfigurationProviding,
 		notificationCenter: UserNotificationCenter = UNUserNotificationCenter.current()
 	) {
@@ -27,6 +28,7 @@ class CoronaTestService {
 		if isUITesting {
 			self.client = ClientMock()
 			self.store = MockTestStore()
+			self.diaryStore = MockDiaryStore()
 			self.appConfiguration = CachedAppConfigurationMock()
 
 			self.notificationCenter = notificationCenter
@@ -45,6 +47,7 @@ class CoronaTestService {
 
 		self.client = client
 		self.store = store
+		self.diaryStore = diaryStore
 		self.appConfiguration = appConfiguration
 
 		self.notificationCenter = notificationCenter
@@ -416,6 +419,7 @@ class CoronaTestService {
 
 	private let client: Client
 	private var store: CoronaTestStoring & CoronaTestStoringLegacy
+	private let diaryStore: DiaryStoring
 	private let appConfiguration: AppConfigurationProviding
 	private let notificationCenter: UserNotificationCenter
 
@@ -473,7 +477,7 @@ class CoronaTestService {
 		}
 	}
 
-	// swiftlint:disable:next cyclomatic_complexity
+	// swiftlint:disable:next cyclomatic_complexity function_body_length
 	private func getTestResult(
 		for coronaTestType: CoronaTestType,
 		force: Bool = true,
@@ -592,6 +596,20 @@ class CoronaTestService {
 
 				switch testResult {
 				case .positive, .negative, .invalid:
+					// only store test result in diary if negative or positive
+					if (testResult == .positive || testResult == .negative) && !coronaTest.journalEntryCreated {
+						// -> store
+						let stringDate = DateFormatter.packagesDayDateFormatter.string(from: registrationDate)
+						self.diaryStore.addCoronaTest(testDate: stringDate, testType: coronaTestType.rawValue, testResult: testResult.rawValue)
+
+						switch coronaTestType {
+						case .pcr:
+							self.pcrTest?.journalEntryCreated = true
+						case .antigen:
+							self.antigenTest?.journalEntryCreated = true
+						}
+					}
+
 					if coronaTest.finalTestResultReceivedDate == nil {
 						switch coronaTestType {
 						case .pcr:
