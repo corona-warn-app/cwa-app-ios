@@ -5,17 +5,19 @@
 import XCTest
 @testable import ENA
 
-class DynamicTableViewControllerFooterTests: XCTestCase {
+class DynamicTableViewControllerFooterTests: CWATestCase {
 
 	var sut: DynamicTableViewController!
 	
 	override func setUpWithError() throws {
+		try super.setUpWithError()
 		sut = DynamicTableViewController()
 		// trigger viewDidLoad
 		sut.loadViewIfNeeded()
 	}
 	
 	override func tearDownWithError() throws {
+		try super.tearDownWithError()
 		sut = nil
 	}
 }

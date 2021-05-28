@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-final class ExposureSubmissionNavigationControllerTest: XCTestCase {
+final class ExposureSubmissionNavigationControllerTest: CWATestCase {
 
 	private func createVC() -> ExposureSubmissionNavigationController {
 		// rootVC needs to be a ENANavigationControllerWithFooterChild to support buttons.

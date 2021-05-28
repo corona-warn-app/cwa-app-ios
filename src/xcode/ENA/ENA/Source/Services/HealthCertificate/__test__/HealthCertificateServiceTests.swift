@@ -8,7 +8,7 @@ import XCTest
 import OpenCombine
 import HealthCertificateToolkit
 
-class HealthCertificateServiceTests: XCTestCase {
+class HealthCertificateServiceTests: CWATestCase {
 
 	func testHealthCertifiedPersonsPublisherTriggeredAndStoreUpdated() throws {
 		let store = MockTestStore()

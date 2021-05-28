@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class ErrorReportDetailInformationViewModelTest: XCTestCase {
+class ErrorReportDetailInformationViewModelTest: CWATestCase {
 
 	let model = ErrorReportDetailInformationViewModel()
 	let totalNumberOfCells = 6

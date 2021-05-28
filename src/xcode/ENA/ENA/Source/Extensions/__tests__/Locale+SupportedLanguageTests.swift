@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class LocaleSupportedLanguageTests: XCTestCase {
+class LocaleSupportedLanguageTests: CWATestCase {
 
     func testOnlySupportedLanguagesAreReturned() throws {
 		XCTAssertEqual(Locale(identifier: "de").languageCodeIfSupported, "de")

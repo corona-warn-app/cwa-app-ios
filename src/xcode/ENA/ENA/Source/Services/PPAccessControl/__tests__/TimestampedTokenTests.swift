@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class TimestampedTokenTests: XCTestCase {
+class TimestampedTokenTests: CWATestCase {
 
 	func testGIVEN_TimestampedToken_THEN_EverythinIsSetCorrect() {
 		// GIVEN

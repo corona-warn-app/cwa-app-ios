@@ -6,7 +6,7 @@
 import Foundation
 import XCTest
 
-final class HTTPClientTraceWarningPackageDiscoveryTests: XCTestCase {
+final class HTTPClientTraceWarningPackageDiscoveryTests: CWATestCase {
 
 	let expectationsTimeout: TimeInterval = 2
 

@@ -89,6 +89,12 @@
          <TestPlanReference
             reference = "container:TestPlans/SmokeTests.xctestplan">
          </TestPlanReference>
+         <TestPlanReference
+            reference = "container:TestPlans/UITests.xctestplan">
+         </TestPlanReference>
+         <TestPlanReference
+            reference = "container:TestPlans/UnitTests.xctestplan">
+         </TestPlanReference>
       </TestPlans>
       <Testables>
          <TestableReference

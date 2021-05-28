@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-final class RiskProvidingConfigurationManualTriggerTests: XCTestCase {
+final class RiskProvidingConfigurationManualTriggerTests: CWATestCase {
 	private let calendar = Calendar(identifier: .iso8601)
 
     func testNoPreviousDetection() {

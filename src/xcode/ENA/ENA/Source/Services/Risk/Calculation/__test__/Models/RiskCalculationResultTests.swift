@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class RiskCalculationResultTests: XCTestCase {
+class RiskCalculationResultTests: CWATestCase {
 
 	/// Init a new model all values get stored as expected
 	func testGIVEN_InitRiskCalculationResult_THEN_AllValuesGetStored() {

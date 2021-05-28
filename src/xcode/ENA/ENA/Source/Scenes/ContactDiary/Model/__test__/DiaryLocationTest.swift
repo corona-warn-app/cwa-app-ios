@@ -6,7 +6,7 @@ import Foundation
 import XCTest
 @testable import ENA
 
-class DiaryLocationTest: XCTestCase {
+class DiaryLocationTest: CWATestCase {
 
 	func testUnselectedLocation() throws {
 		let location = DiaryLocation(

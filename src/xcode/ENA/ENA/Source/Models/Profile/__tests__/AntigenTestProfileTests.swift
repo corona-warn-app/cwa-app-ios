@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class AntigenTestProfileTests: XCTestCase {
+class AntigenTestProfileTests: CWATestCase {
 
 	let jsonEncoder = JSONEncoder()
 	let jsonDecoder = JSONDecoder()

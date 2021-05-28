@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class RouteTests: XCTestCase {
+class RouteTests: CWATestCase {
 
 	func testGIVEN_validRATUrl_WHEN_parseRoute_THEN_isValid() {
 		// GIVEN

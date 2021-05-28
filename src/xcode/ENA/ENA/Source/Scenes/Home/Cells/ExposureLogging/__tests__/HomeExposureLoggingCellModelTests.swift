@@ -6,7 +6,7 @@ import XCTest
 import OpenCombine
 @testable import ENA
 
-class HomeExposureLoggingCellModelTests: XCTestCase {
+class HomeExposureLoggingCellModelTests: CWATestCase {
 	
 	func test_whenHomeENStateChanges_then_changesAreReflectedInTheSubscription() {
 		

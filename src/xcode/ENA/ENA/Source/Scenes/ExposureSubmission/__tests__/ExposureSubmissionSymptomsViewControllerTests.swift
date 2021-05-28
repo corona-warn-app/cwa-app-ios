@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class ExposureSubmissionSymptomsViewControllerTests: XCTestCase {
+class ExposureSubmissionSymptomsViewControllerTests: CWATestCase {
 
 	private func createVC() -> ExposureSubmissionSymptomsViewController {
 		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionSymptomsViewController.self) { coder -> UIViewController? in

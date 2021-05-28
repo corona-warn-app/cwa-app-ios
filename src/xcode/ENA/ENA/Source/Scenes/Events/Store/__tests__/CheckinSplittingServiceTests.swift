@@ -7,7 +7,7 @@ import XCTest
 
 // Test scenarios from: https://github.com/corona-warn-app/cwa-app-tech-spec/blob/a053f23d4d33721ac98f70ccc05175fbcfc35632/test-cases/pt-split-check-in-by-midnight-utc-data.json
 
-class CheckinSplittingServiceTests: XCTestCase {
+class CheckinSplittingServiceTests: CWATestCase {
 
 	// does not split check-in with same start and end time
 	func test_Scenario1() {

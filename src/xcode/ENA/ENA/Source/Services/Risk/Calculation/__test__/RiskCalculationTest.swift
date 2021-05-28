@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class RiskCalculationTest: XCTestCase {
+class RiskCalculationTest: CWATestCase {
 
 	func testWHEN_LoadingJsonTestFile_THEN_AllTestCasesWithConfigurationAreReturned() {
 		// WHEN

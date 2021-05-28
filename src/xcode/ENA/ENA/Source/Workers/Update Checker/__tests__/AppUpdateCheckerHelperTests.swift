@@ -6,7 +6,7 @@
 import FMDB
 import XCTest
 
-final class AppUpdateCheckerHelperTests: XCTestCase {
+final class AppUpdateCheckerHelperTests: CWATestCase {
 
 	private var mockStore: MockTestStore!
 	private var sut: AppUpdateCheckHelper!

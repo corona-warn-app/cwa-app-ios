@@ -6,7 +6,7 @@ import Foundation
 import XCTest
 @testable import ENA
 
-class DiaryDayNotesInfoViewModelTest: XCTestCase {
+class DiaryDayNotesInfoViewModelTest: CWATestCase {
 	
 	private func createVC() -> DiaryDayNotesInfoViewController {
 		DiaryDayNotesInfoViewController(onDismiss: {})

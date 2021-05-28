@@ -47,10 +47,6 @@ class ExposureSubmissionTestResultViewModel {
 	
 	var coronaTest: CoronaTest!
 	
-	var timeStamp: Int64? {
-		coronaTestService.coronaTest(ofType: coronaTestType).map { Int64($0.testDate.timeIntervalSince1970) }
-	}
-	
 	var title: String {
 		if showSpecialCaseForNegativeAntigenTest {
 			return AppStrings.ExposureSubmissionResult.Antigen.title
@@ -262,7 +258,7 @@ extension ExposureSubmissionTestResultViewModel {
 				header: .identifier(
 					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.pcrTestResult,
 					configure: { view, _ in
-						(view as? ExposureSubmissionTestResultHeaderView)?.configure(coronaTest: self.coronaTest, timeStamp: self.timeStamp)
+						(view as? ExposureSubmissionTestResultHeaderView)?.configure(coronaTest: self.coronaTest)
 					}
 				),
 				cells: cells
@@ -315,7 +311,7 @@ extension ExposureSubmissionTestResultViewModel {
 				header: .identifier(
 					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.pcrTestResult,
 					configure: { view, _ in
-						(view as? ExposureSubmissionTestResultHeaderView)?.configure(coronaTest: self.coronaTest, timeStamp: self.timeStamp)
+						(view as? ExposureSubmissionTestResultHeaderView)?.configure(coronaTest: self.coronaTest)
 					}
 				),
 				separators: .none,
@@ -362,7 +358,7 @@ extension ExposureSubmissionTestResultViewModel {
 				header: .identifier(
 					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.pcrTestResult,
 					configure: { view, _ in
-						(view as? ExposureSubmissionTestResultHeaderView)?.configure(coronaTest: self.coronaTest, timeStamp: self.timeStamp)
+						(view as? ExposureSubmissionTestResultHeaderView)?.configure(coronaTest: self.coronaTest)
 					}
 				),
 				separators: .none,
@@ -446,7 +442,7 @@ extension ExposureSubmissionTestResultViewModel {
 				header: .identifier(
 					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.pcrTestResult,
 					configure: { view, _ in
-						(view as? ExposureSubmissionTestResultHeaderView)?.configure(coronaTest: self.coronaTest, timeStamp: self.timeStamp)
+						(view as? ExposureSubmissionTestResultHeaderView)?.configure(coronaTest: self.coronaTest)
 					}
 				),
 				separators: .none,
@@ -467,14 +463,14 @@ extension ExposureSubmissionTestResultViewModel {
 			header = .identifier(
 				ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.antigenTestResult,
 				configure: { view, _ in
-					(view as? AntigenExposureSubmissionNegativeTestResultHeaderView)?.configure(coronaTest: test, timeStamp: self.timeStamp)
+					(view as? AntigenExposureSubmissionNegativeTestResultHeaderView)?.configure(coronaTest: test)
 				}
 			)
 		} else {
 			header = .identifier(
 				ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.pcrTestResult,
 				configure: { view, _ in
-					(view as? ExposureSubmissionTestResultHeaderView)?.configure(coronaTest: self.coronaTest, timeStamp: self.timeStamp)
+					(view as? ExposureSubmissionTestResultHeaderView)?.configure(coronaTest: self.coronaTest)
 				}
 			)
 		}
@@ -544,7 +540,7 @@ extension ExposureSubmissionTestResultViewModel {
 				header: .identifier(
 					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.antigenTestResult,
 					configure: { view, _ in
-						(view as? AntigenExposureSubmissionNegativeTestResultHeaderView)?.configure(coronaTest: test, timeStamp: self.timeStamp)
+						(view as? AntigenExposureSubmissionNegativeTestResultHeaderView)?.configure(coronaTest: test)
 					}
 				),
 				separators: .none,
@@ -646,7 +642,7 @@ extension ExposureSubmissionTestResultViewModel {
 				header: .identifier(
 					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.pcrTestResult,
 					configure: { view, _ in
-						(view as? ExposureSubmissionTestResultHeaderView)?.configure(coronaTest: self.coronaTest, timeStamp: self.timeStamp)
+						(view as? ExposureSubmissionTestResultHeaderView)?.configure(coronaTest: self.coronaTest)
 					}
 				),
 				separators: .none,
@@ -710,7 +706,7 @@ extension ExposureSubmissionTestResultViewModel {
 				header: .identifier(
 					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.pcrTestResult,
 					configure: { view, _ in
-						(view as? ExposureSubmissionTestResultHeaderView)?.configure(coronaTest: self.coronaTest, timeStamp: self.timeStamp)
+						(view as? ExposureSubmissionTestResultHeaderView)?.configure(coronaTest: self.coronaTest)
 					}
 				),
 				separators: .none,

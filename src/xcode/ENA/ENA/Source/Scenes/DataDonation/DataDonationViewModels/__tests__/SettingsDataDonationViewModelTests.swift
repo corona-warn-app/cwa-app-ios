@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class SettingsDataDonationViewModelTests: XCTestCase {
+class SettingsDataDonationViewModelTests: CWATestCase {
 
 	/// test if the view model will format empty texts correct
 	func testGIVEN_ViewModelWithoutStoredData_WHEN_getFriendlyTexts_THEN_ValuesAreEqualToStore() throws {

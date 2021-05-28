@@ -7,7 +7,7 @@ import Foundation
 import XCTest
 
 // swiftlint:disable:next type_body_length
-class HourKeyPackagesDownloadTests: XCTestCase {
+class HourKeyPackagesDownloadTests: CWATestCase {
 
 	private lazy var dummyHourResponse: [Int: PackageDownloadResponse] = {
 		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
