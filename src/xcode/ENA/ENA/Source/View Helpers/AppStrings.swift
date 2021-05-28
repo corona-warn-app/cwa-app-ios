@@ -1398,8 +1398,9 @@ enum AppStrings {
 	
 	enum Tabbar {
 		static let homeTitle = NSLocalizedString("Tabbar_Home_Title", comment: "")
-		static let diaryTitle = NSLocalizedString("Tabbar_Diary_Title", comment: "")
+		static let certificatesTitle = NSLocalizedString("Tabbar_Certificates_Title", comment: "")
 		static let checkInTitle = NSLocalizedString("Tabbar_CheckIn_Title", comment: "")
+		static let diaryTitle = NSLocalizedString("Tabbar_Diary_Title", comment: "")
 	}
 	
 	enum DataDonation {
@@ -1809,7 +1810,10 @@ enum AppStrings {
 	}
 
 	enum HealthCertificate {
-		enum Home {
+		enum Overview {
+			static let title = NSLocalizedString("HealthCertificate_Overview_title", comment: "")
+			static let description = NSLocalizedString("HealthCertificate_Overview_description", comment: "")
+
 			enum Registration {
 				static let title = NSLocalizedString("HealthCertificate_Home_Registration_title", comment: "")
 				static let description = NSLocalizedString("HealthCertificate_Home_Registration_description", comment: "")

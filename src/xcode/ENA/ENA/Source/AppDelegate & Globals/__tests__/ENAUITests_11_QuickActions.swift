@@ -44,7 +44,7 @@ class ENAUITests_11_QuickActions: XCTestCase {
 		try checkAppMenu(expectNewDiaryItem: false, expectEventCheckin: false)
     }
 
-	func testLaunchAfterOnboarding_diaryInfoRequred() throws {
+	func testLaunchAfterOnboarding_diaryInfoRequired() throws {
 		let app = XCUIApplication()
 		app.setDefaults()
 		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: true)

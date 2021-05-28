@@ -9,7 +9,7 @@ class HealthCertificateConsentViewModelTests: XCTestCase {
 
 	func testGIVEN_ConsentViewModel_WHEN_getDynamicTableViewModel_THEN_CellsAndSectionsCountAreCorrect() {
 		// GIVEN
-		let viewModel = HealthCertificateConsentViewModel(didTapDataPrivacy: {})
+		let viewModel = HealthCertificateInfoViewModel(didTapDataPrivacy: {})
 
 		// WHEN
 		let dynamicTableViewModel = viewModel.dynamicTableViewModel
