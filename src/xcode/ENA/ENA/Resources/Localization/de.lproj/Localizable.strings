@@ -968,6 +968,22 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_Profile_ProfileTile_Description" = "Sparen Sie Zeit und zeigen Sie Ihr Schnelltest-Profil an der Teststelle vor.";
 
+/* ExposureSubmission TestCertificate */
+
+"ExposureSubmission_TestCertificate_Information_Title" = "COVID-19-Testzertifikat";
+
+"ExposureSubmission_TestCertificate_Information_PrimaryButton" = "Testzertifikat anfordern";
+
+"ExposureSubmission_TestCertificate_Information_SecondaryButton" = "Nein danke";
+
+"ExposureSubmission_TestCertificate_Information_Alert_Title" = "Registrierung abbrechen";
+
+"ExposureSubmission_TestCertificate_Information_Alert_Message" = "Wenn Sie die Test-Registrierung abbrechen, können Sie Ihr Testergebnis nicht in der App erhalten.";
+
+"ExposureSubmission_TestCertificate_Information_Alert_Cancel" = "Abbrechen";
+
+"ExposureSubmission_TestCertificate_Information_Alert_Ok" = "OK";
+
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Risiko-Ermittlung";
 
