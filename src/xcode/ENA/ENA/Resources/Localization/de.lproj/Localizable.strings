@@ -2464,7 +2464,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* - Vaccination Certificate Registration */
 
-"VaccinationCertificate_Registration_title" = "Digitalen\nImpfnachweis hinzufügen";
+"VaccinationCertificate_Registration_title" = "Digitalen\n**Impfnachweis hinzufügen**";
 
 "VaccinationCertificate_Registration_description" = "Fügen Sie Ihre Impfzertifikate in die App hinzu, um sie immer bei sich zu haben. Scannen Sie dafür den QR-Code Ihres Dokuments.";
 
