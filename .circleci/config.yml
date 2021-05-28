@@ -22,13 +22,9 @@ commands:
       - restore_cache:
           key: *tools_cache_key
       - run:
-          name: Install swiftlint
+          name: Brew bundle
           command: |
-            if ! command -v swiftlint &> /dev/null
-            then
-              brew bundle
-            fi
-            swiftlint version
+            brew bundle
       - run:
           name: Install Bundler
           command: sudo gem install rake bundler:2.1.4
