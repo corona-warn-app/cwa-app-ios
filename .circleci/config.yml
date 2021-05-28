@@ -226,6 +226,7 @@ jobs:
           at: .
       - restore_cache:
           key: *tools_cache_key
+      - run: brew bundle
       - run: ./scripts/switch_to_dev_env.sh
       - run:
           name: fastlane testflight
