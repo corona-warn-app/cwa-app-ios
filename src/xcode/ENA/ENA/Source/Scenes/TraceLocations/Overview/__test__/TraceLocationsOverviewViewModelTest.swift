@@ -7,7 +7,7 @@ import XCTest
 @testable import ENA
 import OpenCombine
 
-class TraceLocationsOverviewViewModelTest: XCTestCase {
+class TraceLocationsOverviewViewModelTest: CWATestCase {
 
 	func testNumberOfSections() throws {
 		let viewModel = TraceLocationsOverviewViewModel(

@@ -4,11 +4,12 @@
 
 import XCTest
 
-class ENAUITests_09_TraceLocations: XCTestCase {
+class ENAUITests_09_TraceLocations: CWATestCase {
 	
 	// MARK: - Setup.
 	
 	override func setUpWithError() throws {
+		try super.setUpWithError()
 		continueAfterFailure = false
 		app = XCUIApplication()
 		setupSnapshot(app)
@@ -201,7 +202,7 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 		removeTraceLocation(event: event)
 		
 		// switch to "My Checkins" and checkout of the event
-		app.tabBars.buttons[AccessibilityIdentifiers.Tabbar.checkin].waitAndTap()
+		app.tabBars.buttons[AccessibilityIdentifiers.TabBar.checkin].waitAndTap()
 		myCheckins_checkout(traceLocations: traceLocations)
 		myCheckins_display_details(traceLocations: traceLocations)
 		myCheckins_delete_all()
@@ -264,13 +265,13 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 		removeAllTraceLocationsAtOnce()
 
 		// MyCheckins: check out of all events
-		app.tabBars.buttons[AccessibilityIdentifiers.Tabbar.checkin].waitAndTap()
+		app.tabBars.buttons[AccessibilityIdentifiers.TabBar.checkin].waitAndTap()
 		myCheckins_checkout(traceLocations: traceLocations_checked_in)
 		myCheckins_delete_all()
 		
 		// THEN
 		// switch to journal and check entries for events
-		app.tabBars.buttons[AccessibilityIdentifiers.Tabbar.diary].waitAndTap()
+		app.tabBars.buttons[AccessibilityIdentifiers.TabBar.diary].waitAndTap()
 		XCTAssertTrue(app.navigationBars[AccessibilityLabels.localized(AppStrings.ContactDiary.Overview.title)].waitForExistence(timeout: .medium))
 
 		
@@ -301,7 +302,7 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 		removeAllTraceLocationsAtOnce()
 		
 		// switch to "My Checkins" and checkout of the event
-		app.tabBars.buttons[AccessibilityIdentifiers.Tabbar.checkin].waitAndTap()
+		app.tabBars.buttons[AccessibilityIdentifiers.TabBar.checkin].waitAndTap()
 		
 		myCheckins_checkout(traceLocations: traceLocations)
 		myCheckins_display_details(traceLocations: traceLocations)
@@ -382,7 +383,7 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 		removeAllTraceLocationsAtOnce()
 		
 		// MyCheckins: check out of all events
-		app.tabBars.buttons[AccessibilityIdentifiers.Tabbar.checkin].waitAndTap()
+		app.tabBars.buttons[AccessibilityIdentifiers.TabBar.checkin].waitAndTap()
 		myCheckins_delete_all()
 
 	}

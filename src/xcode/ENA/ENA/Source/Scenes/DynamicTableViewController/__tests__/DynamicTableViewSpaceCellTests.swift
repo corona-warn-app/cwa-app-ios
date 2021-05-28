@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class DynamicTableViewSpaceCellTests: XCTestCase {
+class DynamicTableViewSpaceCellTests: CWATestCase {
 	
 	func testHeight_whenHeightIsAutomaticDimension_isAutomaticDimentsion() {
 		let cell = DynamicTableViewSpaceCell()

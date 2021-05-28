@@ -1970,6 +1970,8 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Tabbar_Home_Title" = "Startseite";
 
+"Tabbar_Certificates_Title" = "Nachweise";
+
 "Tabbar_Diary_Title" = "Tagebuch";
 
 "Tabbar_CheckIn_Title" = "Check-in";
@@ -2434,13 +2436,13 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "AntigenProfile_Create_BirthDatePlaceholder" = "Geburtsdatum";
 
-"AntigenProfile_Create_StreetPlaceholder" = "Strasse und Hausnummer";
+"AntigenProfile_Create_StreetPlaceholder" = "Straße und Hausnummer";
 
 "AntigenProfile_Create_PostalCodePlaceholder" = "PLZ";
 
 "AntigenProfile_Create_CityPlaceholder" = "Ort";
 
-"AntigenProfile_Create_PhoneNumberPlaceholder" = "Tel. Nr.";
+"AntigenProfile_Create_PhoneNumberPlaceholder" = "Telefonnummer";
 
 "AntigenProfile_Create_EmailAddressPlaceholder" = "E-Mail-Adresse";
 
@@ -2453,6 +2455,12 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "AntigenProfile_Delete_Alert_Description" = "Bitte denken Sie daran, dass der QR-Code danach nicht mehr zum Registrieren verwendet werden kann.";
 
 "AntigenProfile_Delete_Alert_Delete_Button_Title" = "Entfernen";
+
+/* Health Certificate Overview */
+
+"HealthCertificate_Overview_title" = "Nachweise";
+
+"HealthCertificate_Overview_description" = "Hier werden Ihre digitalen Impfzertifikate und Testzertifikate angezeigt.";
 
 /* Health Certificate Information */
 

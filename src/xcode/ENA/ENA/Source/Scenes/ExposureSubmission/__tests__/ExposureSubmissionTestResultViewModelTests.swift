@@ -7,11 +7,12 @@ import XCTest
 
 // swiftlint:disable file_length
 // swiftlint:disable:next type_body_length
-class ExposureSubmissionTestResultViewModelTests: XCTestCase {
+class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 	
 	private var store: Store!
 	
 	override func setUpWithError() throws {
+		try super.setUpWithError()
 		store = MockTestStore()
 	}
 	
@@ -31,6 +32,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		coronaTestService.pcrTest = PCRTest.mock(testResult: .positive, isSubmissionConsentGiven: true)
@@ -75,6 +77,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			let coronaTestService = CoronaTestService(
 				client: client,
 				store: MockTestStore(),
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			)
 			coronaTestService.pcrTest = PCRTest.mock(testResult: testResult)
@@ -117,6 +120,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		coronaTestService.pcrTest = PCRTest.mock(registrationToken: "asdf", testResult: .pending)
@@ -154,6 +158,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		coronaTestService.pcrTest = PCRTest.mock(registrationToken: "asdf", testResult: .pending)
@@ -211,6 +216,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		coronaTestService.pcrTest = PCRTest.mock(registrationToken: "asdf", testResult: .pending)
@@ -241,6 +247,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		coronaTestService.pcrTest = PCRTest.mock(testResult: .pending)
@@ -293,6 +300,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: ClientMock(),
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		coronaTestService.pcrTest = PCRTest.mock(testResult: .pending)
@@ -322,6 +330,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			let coronaTestService = CoronaTestService(
 				client: ClientMock(),
 				store: MockTestStore(),
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			)
 			coronaTestService.pcrTest = PCRTest.mock(testResult: testResult)
@@ -352,6 +361,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: ClientMock(),
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		coronaTestService.pcrTest = PCRTest.mock(testResult: .expired)
@@ -380,6 +390,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			let coronaTestService = CoronaTestService(
 				client: ClientMock(),
 				store: MockTestStore(),
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			)
 			coronaTestService.pcrTest = PCRTest.mock(testResult: .pending)
@@ -416,6 +427,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			let coronaTestService = CoronaTestService(
 				client: ClientMock(),
 				store: MockTestStore(),
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			)
 			coronaTestService.pcrTest = PCRTest.mock(testResult: .positive)
@@ -453,6 +465,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 				let coronaTestService = CoronaTestService(
 					client: ClientMock(),
 					store: MockTestStore(),
+					diaryStore: MockDiaryStore(),
 					appConfiguration: CachedAppConfigurationMock()
 				)
 				coronaTestService.pcrTest = PCRTest.mock(testResult: testResult)
@@ -489,6 +502,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: ClientMock(),
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		coronaTestService.pcrTest = PCRTest.mock(testResult: .positive)
@@ -531,6 +545,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: ClientMock(),
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		coronaTestService.pcrTest = PCRTest.mock(testResult: .negative)
@@ -593,6 +608,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: ClientMock(),
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		coronaTestService.pcrTest = PCRTest.mock(testResult: .invalid)
@@ -635,6 +651,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: ClientMock(),
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		coronaTestService.pcrTest = PCRTest.mock(testResult: .pending)
@@ -681,6 +698,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: ClientMock(),
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		coronaTestService.pcrTest = PCRTest.mock(testResult: .expired)

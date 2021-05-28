@@ -6,11 +6,12 @@ import Foundation
 import XCTest
 @testable import ENA
 
-class ExposureSubmissionWarnOthersViewControllerTests: XCTestCase {
+class ExposureSubmissionWarnOthersViewControllerTests: CWATestCase {
 	
 	private var store: Store!
 	
 	override func setUpWithError() throws {
+		try super.setUpWithError()
 		store = MockTestStore()
 	}
 

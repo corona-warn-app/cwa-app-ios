@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class DeadmanNotificationManagerTests: XCTestCase {
+class DeadmanNotificationManagerTests: CWATestCase {
 
 	func testSchedulingDeadmanNotification() {
 		let store = MockTestStore()
@@ -15,6 +15,7 @@ class DeadmanNotificationManagerTests: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: store,
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
 			userNotificationCenter: notificationCenter
@@ -54,6 +55,7 @@ class DeadmanNotificationManagerTests: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: store,
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
 			userNotificationCenter: notificationCenter
@@ -76,6 +78,7 @@ class DeadmanNotificationManagerTests: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: store,
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
 			userNotificationCenter: notificationCenter
@@ -98,6 +101,7 @@ class DeadmanNotificationManagerTests: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: store,
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
 			userNotificationCenter: notificationCenter
@@ -121,6 +125,7 @@ class DeadmanNotificationManagerTests: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: store,
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
 			userNotificationCenter: notificationCenter
@@ -143,6 +148,7 @@ class DeadmanNotificationManagerTests: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: store,
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
 			userNotificationCenter: notificationCenter
@@ -166,6 +172,7 @@ class DeadmanNotificationManagerTests: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: store,
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
 			userNotificationCenter: notificationCenter

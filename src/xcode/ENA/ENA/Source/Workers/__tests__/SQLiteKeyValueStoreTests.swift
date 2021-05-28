@@ -6,7 +6,7 @@
 import FMDB
 import XCTest
 
-final class SQLiteKeyValueStoreTests: XCTestCase {
+final class SQLiteKeyValueStoreTests: CWATestCase {
 	private let storeDir = FileManager()
 		.temporaryDirectory
 		.appendingPathComponent(

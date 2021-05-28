@@ -8,7 +8,7 @@ import XCTest
 
 // swiftlint:disable file_length
 // swiftlint:disable:next type_body_length
-class ExposureSubmissionServiceTests: XCTestCase {
+class ExposureSubmissionServiceTests: CWATestCase {
 
 	let expectationsTimeout: TimeInterval = 2
 	let keys = [ENTemporaryExposureKey()]
@@ -24,6 +24,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
@@ -89,6 +90,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: ClientMock(),
 			store: mockStore,
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
@@ -131,6 +133,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
@@ -179,6 +182,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
@@ -221,6 +225,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
@@ -264,6 +269,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
@@ -309,6 +315,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
@@ -351,6 +358,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
@@ -393,6 +401,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
@@ -435,6 +444,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
@@ -473,6 +483,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
@@ -513,6 +524,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
@@ -559,6 +571,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
@@ -622,6 +635,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: client,
 				store: store,
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			)
 		)
@@ -666,6 +680,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: client,
 				store: store,
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			)
 		)
@@ -714,6 +729,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: client,
 				store: store,
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			)
 		)
@@ -761,6 +777,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		coronaTestService.pcrTest = PCRTest.mock(

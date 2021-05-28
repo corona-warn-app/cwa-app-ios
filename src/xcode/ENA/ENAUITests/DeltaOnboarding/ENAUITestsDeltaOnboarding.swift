@@ -4,7 +4,7 @@
 
 import XCTest
 
-class ENAUITests_06_DeltaOnboarding: XCTestCase {
+class ENAUITests_06_DeltaOnboarding: CWATestCase {
 
 	// MARK: - Attributes.
 	
@@ -13,6 +13,7 @@ class ENAUITests_06_DeltaOnboarding: XCTestCase {
 	// MARK: - Setup.
 
 	override func setUpWithError() throws {
+		try super.setUpWithError()
 		continueAfterFailure = false
 		app = XCUIApplication()
 		setupSnapshot(app)

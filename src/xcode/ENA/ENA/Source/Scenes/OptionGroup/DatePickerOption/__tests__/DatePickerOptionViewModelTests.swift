@@ -7,7 +7,7 @@ import OpenCombine
 @testable import ENA
 
 // swiftlint:disable force_unwrapping
-class DatePickerOptionViewModelTests: XCTestCase {
+class DatePickerOptionViewModelTests: CWATestCase {
 
     func testMonthAndYearChange() {
 		let referenceDate = Calendar.current.startOfDay(for: Date(timeIntervalSinceReferenceDate: 0))

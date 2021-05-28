@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class ExposureSubmissionErrorTests: XCTestCase {
+class ExposureSubmissionErrorTests: CWATestCase {
 
 	func testGetURLInternal() {
 		let url = ExposureSubmissionError.internal.faqURL

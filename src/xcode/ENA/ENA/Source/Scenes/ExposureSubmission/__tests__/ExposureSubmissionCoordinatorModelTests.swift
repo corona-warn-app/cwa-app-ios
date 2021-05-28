@@ -6,7 +6,7 @@ import XCTest
 @testable import ENA
 
 // swiftlint:disable:next type_body_length
-class ExposureSubmissionCoordinatorModelTests: XCTestCase {
+class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 
 	func testSymptomsOptionYesSelected() {
 		let model = ExposureSubmissionCoordinatorModel(
@@ -14,6 +14,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: MockTestStore(),
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
 			eventProvider: MockEventStore()
@@ -37,6 +38,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: MockTestStore(),
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
 			eventProvider: MockEventStore()
@@ -67,6 +69,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: MockTestStore(),
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
 			eventProvider: MockEventStore()
@@ -99,6 +102,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: MockTestStore(),
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
 			eventProvider: MockEventStore()
@@ -131,6 +135,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: MockTestStore(),
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
 			eventProvider: MockEventStore()
@@ -160,6 +165,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: MockTestStore(),
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
 			eventProvider: MockEventStore()
@@ -190,6 +196,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: MockTestStore(),
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
 			eventProvider: MockEventStore()
@@ -219,6 +226,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: MockTestStore(),
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
 			eventProvider: MockEventStore()
@@ -248,6 +256,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: MockTestStore(),
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
 			eventProvider: MockEventStore()
@@ -290,6 +299,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: MockTestStore(),
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
 			eventProvider: MockEventStore()
@@ -332,6 +342,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: MockTestStore(),
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
 			eventProvider: MockEventStore()
@@ -376,6 +387,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: MockTestStore(),
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
 			eventProvider: MockEventStore()
@@ -420,6 +432,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: client,
 				store: MockTestStore(),
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
 			eventProvider: MockEventStore()
@@ -470,6 +483,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: client,
 				store: MockTestStore(),
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
 			eventProvider: MockEventStore()

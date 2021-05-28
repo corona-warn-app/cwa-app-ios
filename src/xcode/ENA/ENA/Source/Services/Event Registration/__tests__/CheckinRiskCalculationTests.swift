@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class CheckinRiskCalculationTests: XCTestCase {
+class CheckinRiskCalculationTests: CWATestCase {
 
 	// For all the test szenarios, please consider the risk calculation parameters in the mocked app configuration.
 

@@ -6,7 +6,7 @@ import Foundation
 import XCTest
 @testable import ENA
 
-class SAP_Internal_Stats_StatisticsSupportedIDsTests: XCTestCase {
+class SAP_Internal_Stats_StatisticsSupportedIDsTests: CWATestCase {
 
 	func testSupportedIDs() {
 		var statistics = SAP_Internal_Stats_Statistics()

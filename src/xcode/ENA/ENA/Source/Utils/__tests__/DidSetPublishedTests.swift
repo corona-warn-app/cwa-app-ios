@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class DidSetPublishedTests: XCTestCase {
+class DidSetPublishedTests: CWATestCase {
 
     func testExample() throws {
 		let publishingStruct = PublishingStruct()

@@ -6,7 +6,7 @@
 import Foundation
 import XCTest
 
-final class HTTPClientSubmitAnalyticsDataTests: XCTestCase {
+final class HTTPClientSubmitAnalyticsDataTests: CWATestCase {
 
 	let expectationsTimeout: TimeInterval = 2
 

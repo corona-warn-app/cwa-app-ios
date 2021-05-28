@@ -7,7 +7,7 @@ import FMDB
 
 @testable import ENA
 
-final class Migration0To1Tests: XCTestCase {
+final class Migration0To1Tests: CWATestCase {
 
 	func testMigrationFromStoreVersion0To1() {
 		let database = FMDatabase.inMemory()

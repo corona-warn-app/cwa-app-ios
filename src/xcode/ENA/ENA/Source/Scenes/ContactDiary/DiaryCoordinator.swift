@@ -31,6 +31,41 @@ class DiaryCoordinator {
 				diaryStore.removeAllLocations()
 			}
 
+			if LaunchArguments.contactJournal.journalRemoveAllCoronaTests.boolValue {
+				diaryStore.removeAllCoronaTests()
+			}
+
+			if let testsLevel = LaunchArguments.contactJournal.testsRiskLevel.stringValue {
+
+				let today = Date()
+				let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: today) ?? Date()
+
+				let todayDateString = DateFormatter.packagesDayDateFormatter.string(from: today)
+				let yesterdayDateString = DateFormatter.packagesDayDateFormatter.string(from: yesterday)
+				var testResult: TestResult
+				switch testsLevel {
+				case "high":
+					testResult = TestResult.positive
+				default:
+					testResult = TestResult.negative
+				}
+
+				diaryStore.addCoronaTest(
+					testDate: todayDateString,
+					testType: CoronaTestType.antigen.rawValue,
+					testResult: testResult.rawValue
+				)
+				diaryStore.addCoronaTest(
+					testDate: yesterdayDateString,
+					testType: CoronaTestType.antigen.rawValue,
+					testResult: testResult.rawValue
+				)
+				diaryStore.addCoronaTest(
+					testDate: yesterdayDateString,
+					testType: CoronaTestType.pcr.rawValue,
+					testResult: testResult.rawValue
+				)
+			}
 		}
 		#endif
 	}

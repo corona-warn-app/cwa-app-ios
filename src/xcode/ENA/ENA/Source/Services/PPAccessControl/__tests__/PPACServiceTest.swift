@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class PPACServiceTest: XCTestCase {
+class PPACServiceTest: CWATestCase {
 
 	func testGIVEN_DeviceTimeIsIncorrect_WHEN_getPPACTokenEdus_THEN_FailWithError() {
 		// GIVEN
