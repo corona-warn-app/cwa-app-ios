@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class ErrorReportHistoryViewModelTests: XCTestCase {
+class ErrorReportHistoryViewModelTests: CWATestCase {
 	
 	func testSectionsOfViewModel() throws {
 		// GIVEN

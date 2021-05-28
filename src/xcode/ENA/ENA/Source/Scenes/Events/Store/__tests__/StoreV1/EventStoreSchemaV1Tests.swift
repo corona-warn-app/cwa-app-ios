@@ -6,7 +6,7 @@ import XCTest
 import FMDB
 @testable import ENA
 
-class EventStoreSchemaV1Tests: XCTestCase {
+class EventStoreSchemaV1Tests: CWATestCase {
 
 	func test_When_createIsCalled_Then_AllTablesAreCreated() {
 		guard let databaseQueue = FMDatabaseQueue(path: "file::memory:") else {

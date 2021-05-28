@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class CreateAntigenTestProfileViewModelTests: XCTestCase {
+class CreateAntigenTestProfileViewModelTests: CWATestCase {
 	
 	func testGIVEN_EmptyAntigenTestProfile_THEN_SetValues() {
 		// GIVEN

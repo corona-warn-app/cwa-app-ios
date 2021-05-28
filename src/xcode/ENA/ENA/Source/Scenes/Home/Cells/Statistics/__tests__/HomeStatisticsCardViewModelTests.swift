@@ -7,7 +7,7 @@ import XCTest
 @testable import ENA
 
 // swiftlint:disable:next type_body_length
-class HomeStatisticsCardViewModelTests: XCTestCase {
+class HomeStatisticsCardViewModelTests: CWATestCase {
 
 	func testFormattedValueWithoutDecimals() {
 		checkFormattedValue(value: 17.98, decimals: 0, expectedString: "18")

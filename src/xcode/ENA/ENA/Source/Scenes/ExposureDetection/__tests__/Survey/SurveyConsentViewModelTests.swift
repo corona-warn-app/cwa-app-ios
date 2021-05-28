@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class SurveyConsentViewModelTests: XCTestCase {
+class SurveyConsentViewModelTests: CWATestCase {
 
 	func test_WHEN_dynamicTableViewModel_THEN_CorrectModelIsReturned() throws {
 		let viewModel = SurveyConsentViewModel(

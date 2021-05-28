@@ -6,7 +6,7 @@ import Foundation
 import XCTest
 @testable import ENA
 
-class TraceLocationDetailsViewModelTests: XCTestCase {
+class TraceLocationDetailsViewModelTests: CWATestCase {
 
 	func testQRCodePosterTemplate() throws {
 		let store = MockTestStore()

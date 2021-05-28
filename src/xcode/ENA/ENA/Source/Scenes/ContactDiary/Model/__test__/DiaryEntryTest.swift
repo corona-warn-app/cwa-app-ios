@@ -6,7 +6,7 @@ import Foundation
 import XCTest
 @testable import ENA
 
-class DiaryEntryTest: XCTestCase {
+class DiaryEntryTest: CWATestCase {
 
 	func testUnselectedContactPerson() throws {
 		let entry: DiaryEntry = .contactPerson(

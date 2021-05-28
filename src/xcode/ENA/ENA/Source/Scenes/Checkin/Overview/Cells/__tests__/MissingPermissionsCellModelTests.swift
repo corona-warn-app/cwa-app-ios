@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class MissingPermissionsCellModelTests: XCTestCase {
+class MissingPermissionsCellModelTests: CWATestCase {
 
 	func testGIVEN_CellModel_THEN_InitialStateIsAsExpected() {
 		// GIVEN

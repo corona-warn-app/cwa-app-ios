@@ -6,7 +6,7 @@ import Foundation
 import XCTest
 @testable import ENA
 
-class DiaryDayEmptyViewModelTest: XCTestCase {
+class DiaryDayEmptyViewModelTest: CWATestCase {
 
 	func testContactPerson() throws {
 		let viewModel = DiaryDayEmptyStateViewModel(entryType: .contactPerson)

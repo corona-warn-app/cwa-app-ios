@@ -6,7 +6,7 @@ import XCTest
 import OpenCombine
 @testable import ENA
 
-final class CachedAppConfigurationTests: XCTestCase {
+final class CachedAppConfigurationTests: CWATestCase {
 
 	func testCachedRequests() {
 		var subscriptions = Set<AnyCancellable>()

@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class FooterViewModelTests: XCTestCase {
+class FooterViewModelTests: CWATestCase {
 
 	func testGIVEN_FooterViewModel_THEN_AllValuesSetAsGiven() {
 		// GIVEN

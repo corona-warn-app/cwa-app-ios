@@ -6,7 +6,7 @@ import Foundation
 import XCTest
 @testable import ENA
 
-class DiaryDayTest: XCTestCase {
+class DiaryDayTest: CWATestCase {
 
 	func testInitialization() throws {
 		let dateString = "2020-12-16"

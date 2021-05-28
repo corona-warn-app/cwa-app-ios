@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class HealthCertificateConsentViewModelTests: XCTestCase {
+class HealthCertificateConsentViewModelTests: CWATestCase {
 
 	func testGIVEN_ConsentViewModel_WHEN_getDynamicTableViewModel_THEN_CellsAndSectionsCountAreCorrect() {
 		// GIVEN
