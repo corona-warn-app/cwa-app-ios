@@ -42,8 +42,13 @@ final class HTTPClient: Client {
 		fetchDay(from: url, completion: completeWith)
 	}
 
-	func getRegistrationToken(forKey key: String, withType type: String, isFake: Bool = false, completion completeWith: @escaping RegistrationHandler) {
-
+	func getRegistrationToken(
+		forKey key: String,
+		withType type: String,
+		birthdate date: String?,
+		isFake: Bool = false,
+		completion completeWith: @escaping RegistrationHandler
+	) {
 		guard
 			let registrationTokenRequest = try? URLRequest.getRegistrationTokenRequest(
 				configuration: configuration,
