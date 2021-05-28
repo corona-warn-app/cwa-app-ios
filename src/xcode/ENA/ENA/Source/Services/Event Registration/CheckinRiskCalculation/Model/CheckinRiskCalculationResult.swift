@@ -2,6 +2,8 @@
 // 🦠 Corona-Warn-App
 //
 
+import Foundation
+
 struct CheckinRiskCalculationResult: Codable {
 	let calculationDate: Date
 	let checkinIdsWithRiskPerDate: [Date: [CheckinIdWithRisk]]

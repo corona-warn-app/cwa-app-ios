@@ -143,6 +143,24 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		return obtainUsageData(disableExposureWindowsProbability: true)
 	}
 	
+	// These 4 computed properties are only for the developer menu. These properties can only be accessed here or in the collector. Submitter is already injected in the DM, so it is the easiest way to read out these properties and to prevent to open the PPA Store.
+	
+	var currentENFRiskExposureMetadata: RiskExposureMetadata? {
+		return store.currentENFRiskExposureMetadata
+	}
+
+	var previousENFRiskExposureMetadata: RiskExposureMetadata? {
+		return store.previousENFRiskExposureMetadata
+	}
+	
+	var currentCheckinRiskExposureMetadata: RiskExposureMetadata? {
+		return store.currentCheckinRiskExposureMetadata
+	}
+
+	var previousCheckinRiskExposureMetadata: RiskExposureMetadata? {
+		return store.previousCheckinRiskExposureMetadata
+	}
+	
 	#endif
 	
 	// MARK: - Private
