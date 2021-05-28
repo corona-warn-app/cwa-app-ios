@@ -146,7 +146,7 @@ enum PPAnalyticsCollector {
 		// If risk level is nil, set to false. Otherwise, set it when it changed compared to previous submission.
 		riskLevelChangedComparedToPreviousSubmission = riskLevel != previousRiskLevel && previousRiskLevel != nil
 		
-		// If mostRecentDateAtRiskLevel is nil, set to false. Otherwise, change itt when it changed compared to previous submission.
+		// If mostRecentDateAtRiskLevel is nil, set to false. Otherwise, change it when it changed compared to previous submission.
 		dateChangedComparedToPreviousSubmission = mostRecentDateWithCurrentRiskLevel != previousMostRecentDateWithCurrentRiskLevel && previousMostRecentDateWithCurrentRiskLevel != nil
 		
 		guard let mostRecentDate = mostRecentDateWithCurrentRiskLevel else {
@@ -179,7 +179,7 @@ enum PPAnalyticsCollector {
 		// If risk level is nil, set to false. Otherwise, set it when it changed compared to previous submission.
 		riskLevelChangedComparedToPreviousSubmission = riskLevel != previousRiskLevel && previousRiskLevel != nil
 
-		// If mostRecentDateAtRiskLevel is nil, set to false. Otherwise, change itt when it changed compared to previous submission.
+		// If mostRecentDateAtRiskLevel is nil, set to false. Otherwise, change it when it changed compared to previous submission.
 		dateChangedComparedToPreviousSubmission = mostRecentDateWithCurrentRiskLevel != previousMostRecentDateWithCurrentRiskLevel && previousMostRecentDateWithCurrentRiskLevel != nil
 
 		guard let mostRecentDate = mostRecentDateWithCurrentRiskLevel else {
