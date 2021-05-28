@@ -25,28 +25,14 @@
                                 <rect key="frame" x="0.0" y="0.0" width="440" height="262"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="999" insetsLayoutMarginsFromSafeArea="NO" image="Icons_Chevron" translatesAutoresizingMaskIntoConstraints="NO" id="9G0-pR-6us">
-                                <rect key="frame" x="390" y="20" width="30" height="32"/>
-                                <color key="tintColor" systemColor="systemGray2Color"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="32" id="TvD-sU-j8x"/>
-                                    <constraint firstAttribute="width" constant="30" id="V9T-22-8dL"/>
-                                </constraints>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="VaccinationCertificate_PartiallyVaccinated_Background" translatesAutoresizingMaskIntoConstraints="NO" id="gEG-vY-s6G">
+                                <rect key="frame" x="324.5" y="0.0" width="115.5" height="262"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="IUb-Rz-I1N">
-                                <rect key="frame" x="20" y="16" width="280" height="226"/>
+                                <rect key="frame" x="16" y="20" width="408" height="222"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Digitaler Impfnachweis" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QPs-Ho-64x" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="280" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" name="ENA Text Contrast Color"/>
-                                        <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="footnote"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="SARS-CoV-2 Impfschutz" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="51j-mV-sZS" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="68.5" width="280" height="20.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="252" text="SARS-CoV-2 Impfschutz" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="51j-mV-sZS" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="408" height="23"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" name="ENA Text Contrast Color"/>
                                         <nil key="highlightedColor"/>
@@ -54,8 +40,8 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="title2"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unvollständiger Impfschutz" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="01t-BK-4b5" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="137" width="280" height="20.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" ambiguous="YES" text="Andrea Schneider" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bx0-F9-UYS" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="59.5" width="408" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" name="ENA Text Contrast Color"/>
                                         <nil key="highlightedColor"/>
@@ -63,38 +49,47 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="body"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Andrea Schneider" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bx0-F9-UYS" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="205.5" width="280" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" name="ENA Text Contrast Color"/>
-                                        <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="body"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
+                                    <view clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TAh-b3-2z2">
+                                        <rect key="frame" x="0.0" y="113.5" width="408" height="50"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ewq-gj-UjC">
+                                        <rect key="frame" x="0.0" y="200" width="408" height="22"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="255" verticalHuggingPriority="255" image="VaccinationCertificate_PartiallyVaccinated_Icon" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nHX-E7-l5N">
+                                                <rect key="frame" x="0.0" y="0.0" width="17" height="22"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="17" id="Iu8-gQ-DNT"/>
+                                                    <constraint firstAttribute="height" constant="22" id="LW3-Ke-7Dp"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="Unvollständiger Impfschutz" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="01t-BK-4b5" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                                <rect key="frame" x="27" y="0.0" width="381" height="22"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" name="ENA Text Contrast Color"/>
+                                                <nil key="highlightedColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="subheadline"/>
+                                                </userDefinedRuntimeAttributes>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                             </stackView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Vacc_Incomplete" translatesAutoresizingMaskIntoConstraints="NO" id="gEG-vY-s6G">
-                                <rect key="frame" x="310" y="62" width="90" height="90"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="gEG-vY-s6G" secondAttribute="height" multiplier="1:1" id="GeU-Mu-GFF"/>
-                                </constraints>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" name="ENA Risk Neutral Color"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="gEG-vY-s6G" secondAttribute="bottom" constant="20" id="243-KP-GoZ"/>
-                            <constraint firstItem="IUb-Rz-I1N" firstAttribute="leading" secondItem="DfM-oY-Tot" secondAttribute="leading" constant="20" id="3yh-VM-szb"/>
+                            <constraint firstItem="IUb-Rz-I1N" firstAttribute="leading" secondItem="DfM-oY-Tot" secondAttribute="leading" constant="16" id="3yh-VM-szb"/>
                             <constraint firstItem="98j-Fw-0Wm" firstAttribute="leading" secondItem="DfM-oY-Tot" secondAttribute="leading" id="6x5-FF-zRB"/>
-                            <constraint firstAttribute="trailing" secondItem="IUb-Rz-I1N" secondAttribute="trailing" constant="140" id="GWO-xN-SmW"/>
+                            <constraint firstAttribute="trailing" secondItem="IUb-Rz-I1N" secondAttribute="trailing" constant="16" id="GWO-xN-SmW"/>
+                            <constraint firstAttribute="bottom" secondItem="gEG-vY-s6G" secondAttribute="bottom" id="KsJ-JL-BHY"/>
                             <constraint firstItem="98j-Fw-0Wm" firstAttribute="top" secondItem="DfM-oY-Tot" secondAttribute="top" id="Mea-05-H1K"/>
-                            <constraint firstItem="IUb-Rz-I1N" firstAttribute="top" secondItem="DfM-oY-Tot" secondAttribute="top" constant="16" id="OTi-fc-9AU"/>
+                            <constraint firstItem="IUb-Rz-I1N" firstAttribute="top" secondItem="DfM-oY-Tot" secondAttribute="top" constant="20" id="OTi-fc-9AU"/>
                             <constraint firstAttribute="bottom" secondItem="98j-Fw-0Wm" secondAttribute="bottom" id="PJ9-Xd-cgx"/>
+                            <constraint firstAttribute="trailing" secondItem="gEG-vY-s6G" secondAttribute="trailing" id="Uuo-FZ-g97"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="200" id="VJP-2J-JqB"/>
                             <constraint firstAttribute="bottom" secondItem="IUb-Rz-I1N" secondAttribute="bottom" constant="20" id="WPc-Pl-f3R"/>
-                            <constraint firstAttribute="trailing" secondItem="9G0-pR-6us" secondAttribute="trailing" constant="20" id="Whz-mc-zUK"/>
-                            <constraint firstItem="9G0-pR-6us" firstAttribute="top" secondItem="DfM-oY-Tot" secondAttribute="top" constant="20" id="h58-hG-gDq"/>
-                            <constraint firstItem="gEG-vY-s6G" firstAttribute="top" secondItem="9G0-pR-6us" secondAttribute="bottom" constant="10" id="rKM-ET-4Al"/>
-                            <constraint firstAttribute="trailing" secondItem="gEG-vY-s6G" secondAttribute="trailing" constant="40" id="wWJ-OX-Jou"/>
+                            <constraint firstItem="gEG-vY-s6G" firstAttribute="top" secondItem="DfM-oY-Tot" secondAttribute="top" id="diI-b4-gwZ"/>
                             <constraint firstAttribute="trailing" secondItem="98j-Fw-0Wm" secondAttribute="trailing" id="zJ3-JJ-kHO"/>
                         </constraints>
                     </view>
@@ -110,33 +105,30 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="backgroundGradientView" destination="98j-Fw-0Wm" id="Nb3-Mr-5qV"/>
-                <outlet property="captionLabel" destination="QPs-Ho-64x" id="XS4-W7-Pai"/>
+                <outlet property="backgroundImageView" destination="gEG-vY-s6G" id="oXM-rP-5Ql"/>
                 <outlet property="containerView" destination="DfM-oY-Tot" id="P0K-cF-pDy"/>
-                <outlet property="iconView" destination="gEG-vY-s6G" id="lVR-xQ-WqZ"/>
+                <outlet property="iconView" destination="nHX-E7-l5N" id="SWA-2L-hA8"/>
                 <outlet property="nameLabel" destination="bx0-F9-UYS" id="aHC-i0-Ew8"/>
                 <outlet property="titleLabel" destination="51j-mV-sZS" id="6ev-fQ-QKz"/>
                 <outlet property="vaccinationStateLabel" destination="01t-BK-4b5" id="kpU-Mo-X2V"/>
             </connections>
-            <point key="canvasLocation" x="-278.26086956521743" y="266.51785714285711"/>
+            <point key="canvasLocation" x="-278.26086956521743" y="265.84821428571428"/>
         </tableViewCell>
     </objects>
     <designables>
         <designable name="01t-BK-4b5">
-            <size key="intrinsicContentSize" width="187.5" height="18"/>
+            <size key="intrinsicContentSize" width="155" height="14.5"/>
         </designable>
         <designable name="51j-mV-sZS">
             <size key="intrinsicContentSize" width="223" height="23"/>
-        </designable>
-        <designable name="QPs-Ho-64x">
-            <size key="intrinsicContentSize" width="128.5" height="14.5"/>
         </designable>
         <designable name="bx0-F9-UYS">
             <size key="intrinsicContentSize" width="122.5" height="18"/>
         </designable>
     </designables>
     <resources>
-        <image name="Icons_Chevron" width="30" height="30"/>
-        <image name="Vacc_Incomplete" width="90" height="75"/>
+        <image name="VaccinationCertificate_PartiallyVaccinated_Background" width="116" height="196"/>
+        <image name="VaccinationCertificate_PartiallyVaccinated_Icon" width="17" height="20"/>
         <namedColor name="ENA Risk Neutral Color">
             <color red="0.36470588235294116" green="0.43529411764705883" blue="0.50196078431372548" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
@@ -145,9 +137,6 @@
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemGray2Color">
-            <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

@@ -1823,6 +1823,7 @@ enum AppStrings {
 				static let title = NSLocalizedString("VaccinationCertificate_title", comment: "")
 				static let partiallyVaccinated = NSLocalizedString("VaccinationCertificate_partiallyVaccinated", comment: "")
 				static let daysUntilCompleteProtection = NSLocalizedString("VaccinationCertificate_daysUntilCompleteProtection", comment: "")
+				static let vaccinationValidUntil = NSLocalizedString("VaccinationCertificate_vaccinationValidUntil", comment: "")
 			}
 
 			enum TestCertificateInfo {

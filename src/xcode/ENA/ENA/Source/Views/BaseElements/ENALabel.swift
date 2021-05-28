@@ -79,8 +79,8 @@ class ENALabel: UILabel {
 		let attributedString = NSMutableAttributedString()
 
 		attributedText = sequence.reduce(into: attributedString) { string, pair in
-			let isBold = !pair.offset.isMultiple(of: 2)
-			let font = fontForCurrentTextStyle(weight: isBold ? .bold : .regular)
+			let isHighlighted = !pair.offset.isMultiple(of: 2)
+			let font = fontForCurrentTextStyle(weight: isHighlighted ? style.highlightedWeight : style.nonHighlightedWeight)
 
 			string.append(NSAttributedString(
 				string: pair.element,
@@ -137,25 +137,25 @@ extension ENALabel.Style {
 		}
 	}
 
-	var nonHighlightedWeight: String {
+	var nonHighlightedWeight: UIFont.Weight {
 		switch self {
-		case .title1: return "thin"
-		case .title2: return "thin"
-		case .headline: return "thin"
-		case .body: return "regular"
-		case .subheadline: return "regular"
-		case .footnote: return "regular"
+		case .title1: return .thin
+		case .title2: return .thin
+		case .headline: return .thin
+		case .body: return .regular
+		case .subheadline: return .regular
+		case .footnote: return .regular
 		}
 	}
 
-	var highlightedWeight: String {
+	var highlightedWeight: UIFont.Weight {
 		switch self {
-		case .title1: return "bold"
-		case .title2: return "bold"
-		case .headline: return "semibold"
-		case .body: return "bold"
-		case .subheadline: return "bold"
-		case .footnote: return "bold"
+		case .title1: return .bold
+		case .title2: return .bold
+		case .headline: return .semibold
+		case .body: return .bold
+		case .subheadline: return .bold
+		case .footnote: return .bold
 		}
 	}
 

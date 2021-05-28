@@ -2468,6 +2468,14 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "VaccinationCertificate_Registration_description" = "Fügen Sie Ihre Impfzertifikate in die App hinzu, um sie immer bei sich zu haben. Scannen Sie dafür den QR-Code Ihres Dokuments.";
 
+/* - Vaccination Certificate */
+
+"VaccinationCertificate_title" = "Digitaler\n**Impfnachweis**";
+
+"VaccinationCertificate_partiallyVaccinated" = "Unvollständiger Impfschutz";
+
+"VaccinationCertificate_vaccinationValidUntil" = "Gültig bis einschließlich %@";
+
 /* Health Certificate Information */
 
 "HealthCertificate_Info_Title" = "Impfzertifikat hinzufügen";
@@ -2491,22 +2499,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "HealthCertificate_QRScanner_instruction" = "QR-Code scannen und registrieren";
 
 /* Home */
-
-/* - Registration */
-
-"HealthCertificate_Home_Registration_title" = "Impfzertifikat hinzufügen";
-
-"HealthCertificate_Home_Registration_description" = "Fügen Sie Ihre Impfzertifikate in die App hinzu, um sie immer bei sich zu haben. Scannen Sie dafür den QR Code Ihres Dokuments.";
-
-"HealthCertificate_Home_Registration_buttonTitle" = "Hinzufügen";
-
-/* - Person */
-
-"HealthCertificate_Home_Person_caption" = "Digitaler Impfnachweis";
-
-"HealthCertificate_Home_Person_title" = "SARS-CoV-2 Impfschutz";
-
-"HealthCertificate_Home_Person_partiallyVaccinated" = "Unvollständiger Impfschutz";
 
 /* Health Certified Person Screen */
 

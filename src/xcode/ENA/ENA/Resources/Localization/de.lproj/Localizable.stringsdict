@@ -189,7 +189,7 @@
 			<string>Risiko-Ermittlung ist seit %u Tagen aktiv. Eine verlässliche Risiko-Überprüfung kann nur mit einer dauerhaft aktivierten Risiko-Ermittlung erfolgen.</string>
 		</dict>
 	</dict>
-	<key>HealthCertificate_Home_Person_daysUntilCompleteProtection</key>
+	<key>VaccinationCertificate_daysUntilCompleteProtection</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@VARIABLE@</string>
