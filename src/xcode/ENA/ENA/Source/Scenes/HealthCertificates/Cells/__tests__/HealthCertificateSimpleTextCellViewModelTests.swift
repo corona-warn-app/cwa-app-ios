@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class HealthCertificateSimpleTextCellViewModelTests: XCTestCase {
+class HealthCertificateSimpleTextCellViewModelTests: CWATestCase {
 
 	func testGIVEN_ViewModel_THEN_InitIsCorrect() {
 		// GIVEN

@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class HomeInfoCellModelTests: XCTestCase {
+class HomeInfoCellModelTests: CWATestCase {
 
 	func testGIVEN_HomeInfoCellModel_WHEN_TypeIsInviteFriends_THEN_InitilizedAsExpected() {
 		// GIVEN

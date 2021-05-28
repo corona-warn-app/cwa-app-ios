@@ -8,7 +8,7 @@ import XCTest
 import ExposureNotification
 
 
-class HTTPClientPlausibleDeniabilityTests: XCTestCase {
+class HTTPClientPlausibleDeniabilityTests: CWATestCase {
 
 	func test_getTestResult_requestPadding() {
 

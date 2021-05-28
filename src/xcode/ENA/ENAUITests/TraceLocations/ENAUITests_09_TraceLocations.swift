@@ -4,11 +4,12 @@
 
 import XCTest
 
-class ENAUITests_09_TraceLocations: XCTestCase {
+class ENAUITests_09_TraceLocations: CWATestCase {
 	
 	// MARK: - Setup.
 	
 	override func setUpWithError() throws {
+		try super.setUpWithError()
 		continueAfterFailure = false
 		app = XCUIApplication()
 		setupSnapshot(app)

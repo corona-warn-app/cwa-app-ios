@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class ExposureSubmissionQRInfoModelTests: XCTestCase {
+class ExposureSubmissionQRInfoModelTests: CWATestCase {
 
 	func testDynamicTableViewModel() {
 		let viewModel = ExposureSubmissionQRInfoViewModel(supportedCountries: [])

@@ -6,7 +6,7 @@
 import FMDB
 import XCTest
 
-final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
+final class DownloadedPackagesSQLLiteStoreTests: CWATestCase {
 
 	private var store: DownloadedPackagesSQLLiteStore = .inMemory()
 

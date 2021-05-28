@@ -6,7 +6,7 @@ import XCTest
 import OpenCombine
 @testable import ENA
 
-class EventCheckoutServiceTests: XCTestCase {
+class EventCheckoutServiceTests: CWATestCase {
 
 	var subscriptions = Set<AnyCancellable>()
 

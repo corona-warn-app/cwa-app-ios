@@ -5,12 +5,13 @@
 import XCTest
 @testable import ENA
 
-class DynamicTableViewControllerRowsTests: XCTestCase {
+class DynamicTableViewControllerRowsTests: CWATestCase {
 	
 	var sut: DynamicTableViewController!
 	var window: UIWindow!
 	
 	override func setUpWithError() throws {
+		try super.setUpWithError()
 		sut = DynamicTableViewController()
 		
 		// trigger viewDidLoad
@@ -24,6 +25,7 @@ class DynamicTableViewControllerRowsTests: XCTestCase {
 	}
 	
 	override func tearDownWithError() throws {
+		try super.tearDownWithError()
 		sut = nil
 		window = nil
 	}

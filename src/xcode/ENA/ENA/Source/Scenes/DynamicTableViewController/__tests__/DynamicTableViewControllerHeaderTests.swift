@@ -6,17 +6,19 @@ import XCTest
 @testable import ENA
 import UIKit
 
-class DynamicTableViewControllerHeaderTests: XCTestCase {
+class DynamicTableViewControllerHeaderTests: CWATestCase {
 	
 	var sut: DynamicTableViewController!
 	
 	override func setUpWithError() throws {
+		try super.setUpWithError()
 		sut = DynamicTableViewController()
 		// trigger viewDidLoad
 		sut.loadViewIfNeeded()
 	}
 	
 	override func tearDownWithError() throws {
+		try super.tearDownWithError()
 		sut = nil
 	}
 }

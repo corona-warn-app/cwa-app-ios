@@ -14,7 +14,6 @@ class HomeHealthCertifiedPersonCellModel {
 	) {
 		backgroundGradientType = healthCertifiedPerson.vaccinationState == .completelyProtected ? .lightBlue : .solidGrey
 		iconImage = healthCertifiedPerson.vaccinationState == .partiallyVaccinated ? UIImage(named: "Vacc_Incomplete") : UIImage(named: "Vaccination_full")
-		name = healthCertifiedPerson.fullName
 
 		switch healthCertifiedPerson.vaccinationState {
 		case .partiallyVaccinated:
@@ -35,6 +34,5 @@ class HomeHealthCertifiedPersonCellModel {
 	var vaccinationStateDescription: String?
 	var backgroundGradientType: GradientView.GradientType = .solidGrey
 	var iconImage: UIImage?
-	var name: String?
 
 }

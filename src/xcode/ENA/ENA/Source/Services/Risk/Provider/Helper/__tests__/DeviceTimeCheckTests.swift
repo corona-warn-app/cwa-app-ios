@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-final class DeviceTimeCheckTest: XCTestCase {
+final class DeviceTimeCheckTest: CWATestCase {
 
 	func test_WHEN_CorrectDeviceTime_THEN_DeviceTimeIsCorrectIsSavedToStore() {
 		let fakeStore = MockTestStore()

@@ -6,7 +6,7 @@
 import Foundation
 import XCTest
 
-final class HTTPClientAuthorizationOTPEdusTests: XCTestCase {
+final class HTTPClientAuthorizationOTPEdusTests: CWATestCase {
 
 	let expectationsTimeout: TimeInterval = 2
 

@@ -6,7 +6,7 @@ import Foundation
 import XCTest
 @testable import ENA
 
-class DiaryDayAddCellModelTest: XCTestCase {
+class DiaryDayAddCellModelTest: CWATestCase {
 
 	func testContactPerson() throws {
 		let cellModel = DiaryDayAddCellModel(entryType: .contactPerson)

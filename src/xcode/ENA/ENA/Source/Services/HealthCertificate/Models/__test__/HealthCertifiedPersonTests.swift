@@ -8,7 +8,7 @@ import XCTest
 import OpenCombine
 import HealthCertificateToolkit
 
-class HealthCertifiedPersonTests: XCTestCase {
+class HealthCertifiedPersonTests: CWATestCase {
 
 	func testHealthCertifiedPersonObjectDidChangeTriggered() throws {
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [])
