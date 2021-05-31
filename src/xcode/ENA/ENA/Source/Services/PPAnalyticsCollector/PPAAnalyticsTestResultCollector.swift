@@ -86,12 +86,12 @@ final class PPAAnalyticsTestResultCollector {
 
 			switch enfRiskCalculationResult.riskLevel {
 			case .high:
-				guard let timeOfRiskChangeToHigh = store.dateOfConversionToENFHighRisk else {
+				if let timeOfRiskChangeToHigh = store.dateOfConversionToENFHighRisk {
+					let differenceInHours = Calendar.current.dateComponents([.hour], from: timeOfRiskChangeToHigh, to: date)
+					testResultMetadata.hoursSinceHighRiskWarningAtTestRegistration = differenceInHours.hour
+				} else {
 					Log.warning("Could not log risk calculation result due to timeOfRiskChangeToHigh is nil", log: .ppa)
-					return
 				}
-				let differenceInHours = Calendar.current.dateComponents([.hour], from: timeOfRiskChangeToHigh, to: date)
-				testResultMetadata.hoursSinceHighRiskWarningAtTestRegistration = differenceInHours.hour
 			case .low:
 				testResultMetadata.hoursSinceHighRiskWarningAtTestRegistration = -1
 			}
@@ -111,12 +111,12 @@ final class PPAAnalyticsTestResultCollector {
 			
 			switch checkinRiskCalculationResult.riskLevel {
 			case .high:
-				guard let timeOfRiskChangeToHigh = store.dateOfConversionToCheckinHighRisk else {
+				if let timeOfRiskChangeToHigh = store.dateOfConversionToCheckinHighRisk {
+					let differenceInHours = Calendar.current.dateComponents([.hour], from: timeOfRiskChangeToHigh, to: date)
+					testResultMetadata.hoursSinceCheckinHighRiskWarningAtTestRegistration = differenceInHours.hour
+				} else {
 					Log.warning("Could not log checkin risk calculation result due to timeOfRiskChangeToHigh is nil", log: .ppa)
-					return
 				}
-				let differenceInHours = Calendar.current.dateComponents([.hour], from: timeOfRiskChangeToHigh, to: date)
-				testResultMetadata.hoursSinceCheckinHighRiskWarningAtTestRegistration = differenceInHours.hour
 			case .low:
 				testResultMetadata.hoursSinceCheckinHighRiskWarningAtTestRegistration = -1
 			}
