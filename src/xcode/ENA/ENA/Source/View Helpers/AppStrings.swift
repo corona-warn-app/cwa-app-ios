@@ -1189,6 +1189,7 @@ enum AppStrings {
 		enum Day {
 			static let contactPersonsSegment = NSLocalizedString("ContactDiary_Day_ContactPersonsSegment", comment: "")
 			static let addContactPerson = NSLocalizedString("ContactDiary_Day_AddContactPerson", comment: "")
+			static let personSelected = NSLocalizedString("ContactDiary_Day_PersonSelected", comment: "")
 			static let contactPersonsEmptyTitle = NSLocalizedString("ContactDiary_Day_ContactPersonsEmptyTitle", comment: "")
 			static let contactPersonsEmptyDescription = NSLocalizedString("ContactDiary_Day_ContactPersonsEmptyDescription", comment: "")
 			static let contactPersonsEmptyImageDescription = NSLocalizedString("ContactDiary_Day_ContactPersonsEmptyImageDescription", comment: "")
