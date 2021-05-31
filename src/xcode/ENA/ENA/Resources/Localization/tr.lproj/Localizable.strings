@@ -847,9 +847,13 @@
 
 "ExposureSubmissionResult_Timer_Title" = "Sonucun çıktığı tarih:";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Title" = " ";
+"ExposureSubmissionResult_Negative_Antigen_Proof_Title" = "Doğrulama Özelliği";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Test sonucunuz özeldir ancak bazı yasalar nedeniyle paylaşmanız gerekebilir. Paylaşmanız gerekirse sunulan pek çok yöntemden birini kullanarak gösterebilirsiniz.";
+"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Hızlı test sonucunun negatif olduğunun kanıtı olarak burada görüntülenen bulguyu kullanabilirsiniz.\n\nYalnızca yasalarca gerekli kılınması halinde hızlı test sonucunuzun kanıtını sunmanız gerektiğini lütfen unutmayın. Gerekli kılınması halinde uygulama aracılığıyla veya sunulan diğer yöntemlerden herhangi biriyle gösterebilirsiniz. Daha fazla bilgi için lütfen federal eyaletinizde geçerli olan test kanıtı kabul ölçütlerini öğrenin.";
+
+"ExposureSubmissionResult_Negative_Antigen_NoProof_Title" = "Doğrulama Özelliği Yok";
+
+"ExposureSubmissionResult_Negative_Antigen_NoProof_Desc" = "Buradaki bulgu anonimleştirildiğinden hızlı test sonucunun negatif olduğunun kanıtı olarak kullanılamaz.";
 
 /* Exposure Submission */
 "ExposureSubmissionError_ErrorPrefix" = "Verilerinizi gönderirken teknik hata oluştu. Lütfen teknik yardım hattı ile iletişime geçin. Telefon numarasını Uygulama Bilgileri bölümünde bulabilirsiniz.";
