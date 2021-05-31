@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-class BirthdayDatePicker: UITableViewCell, ReuseIdentifierProviding {
+class BirthdayDatePicker: UITableViewCell, ReuseIdentifierProviding, UITextFieldDelegate {
 
 	// MARK: - Init
 
@@ -21,7 +21,12 @@ class BirthdayDatePicker: UITableViewCell, ReuseIdentifierProviding {
 
 	// MARK: - Overrides
 
-	// MARK: - Protocol <#Name#>
+	// MARK: - Protocol UITextFieldDelegate
+
+	func textFieldShouldClear(_ textField: UITextField) -> Bool {
+		birthdayDate = nil
+		return true
+	}
 
 	// MARK: - Public
 
@@ -60,8 +65,10 @@ class BirthdayDatePicker: UITableViewCell, ReuseIdentifierProviding {
 			datePicker.preferredDatePickerStyle = .wheels
 		}
 		datePicker.addTarget(self, action: #selector(datePickerValueChanged(_:)), for: .valueChanged)
-
 		textField.inputView = datePicker
+
+		textField.clearButtonMode = .whileEditing
+		textField.delegate = self
 	}
 
 	private lazy var stringDateFormatter: DateFormatter = {
