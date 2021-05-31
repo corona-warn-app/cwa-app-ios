@@ -916,7 +916,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			submittedAfterRapidAntigenTest: false,
 			daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration: -1,
 			hoursSinceCheckinHighRiskWarningAtTestRegistration: -1,
-			submittedWithCheckIns: nil
+			submittedWithCheckIns: true
 		)
 		
 		let lastScreen: LastSubmissionFlowScreen = .submissionFlowScreenOther
