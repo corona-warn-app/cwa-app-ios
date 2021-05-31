@@ -5,7 +5,6 @@
 @testable import ENA
 import XCTest
 
-// TODO match pcr and antigen
 class TestResultMetadataTests: XCTestCase {
 	/// Testpattern:
 	/// ENF empty risk, Checkin empty risk
@@ -15,7 +14,8 @@ class TestResultMetadataTests: XCTestCase {
 	/// ENF none, Checkin high
 	/// ENF low, Checkin low
 	/// ENF high, Checkin high
-	/// Afterwards foloow the tests for the remaining properties
+	/// inside these tests, we alter for testType (pcr & antigen)
+	/// Afterwards follows the tests for the remaining properties
 	
 	func testGIVEN_RegisteringNewTestMetadata_WHEN_ENFEmptyRisk_CheckinEmptyRisk_THEN_BothDefaultValues() {
 		// GIVEN
@@ -44,6 +44,17 @@ class TestResultMetadataTests: XCTestCase {
 		XCTAssertEqual(secureStore.pcrTestResultMetadata?.checkinRiskLevelAtTestRegistration, checkinRiskCalculationResult.riskLevel, "incorrect risk level")
 		XCTAssertEqual(secureStore.pcrTestResultMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration, -1, "should be -1 if there is no recentDate for riskLevel")
 		XCTAssertEqual(secureStore.pcrTestResultMetadata?.hoursSinceCheckinHighRiskWarningAtTestRegistration, -1, "should be -1 if there is no recentDate for riskLevel")
+		
+		XCTAssertNotNil(secureStore.antigenTestResultMetadata, "The antigenTestResultMetadata should be initialized")
+		XCTAssertEqual(secureStore.antigenTestResultMetadata?.testRegistrationDate, today, "incorrect RegistrationDate")
+		
+		XCTAssertEqual(secureStore.antigenTestResultMetadata?.riskLevelAtTestRegistration, enfRiskCalculationResult.riskLevel, "incorrect risk level")
+		XCTAssertEqual(secureStore.antigenTestResultMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, -1, "should be -1 if there is no recentDate for riskLevel")
+		XCTAssertEqual(secureStore.antigenTestResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration, -1, "should be -1 if there is no recentDate for riskLevel")
+		
+		XCTAssertEqual(secureStore.antigenTestResultMetadata?.checkinRiskLevelAtTestRegistration, checkinRiskCalculationResult.riskLevel, "incorrect risk level")
+		XCTAssertEqual(secureStore.antigenTestResultMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration, -1, "should be -1 if there is no recentDate for riskLevel")
+		XCTAssertEqual(secureStore.antigenTestResultMetadata?.hoursSinceCheckinHighRiskWarningAtTestRegistration, -1, "should be -1 if there is no recentDate for riskLevel")
 	}
 	
 	func testGIVEN_RegisteringNewTestMetadata_WHEN_ENFLowRisk_CheckinNone_THEN_OnlyENFIsSet() {
@@ -76,6 +87,7 @@ class TestResultMetadataTests: XCTestCase {
 		XCTAssertNil(secureStore.pcrTestResultMetadata?.riskLevelAtTestRegistration, "value should not be set")
 		XCTAssertNil(secureStore.pcrTestResultMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, "value should not be set")
 		XCTAssertNil(secureStore.pcrTestResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration, "value should not be set")
+		XCTAssertNil(secureStore.antigenTestResultMetadata)
 	}
 	
 	func testGIVEN_RegisteringNewTestMetadata_WHEN_ENFHighRisk_CheckinNone_THEN_OnlyENFIsSet() {
@@ -96,19 +108,20 @@ class TestResultMetadataTests: XCTestCase {
 		secureStore.enfRiskCalculationResult = enfRiskCalculationResult
 		
 		// WHEN
-		Analytics.collect(.testResultMetadata(.registerNewTestMetadata(today, "", .pcr)))
+		Analytics.collect(.testResultMetadata(.registerNewTestMetadata(today, "", .antigen)))
 		
 		// THEN
-		XCTAssertNotNil(secureStore.pcrTestResultMetadata, "The testResultMetadata should be initialized")
-		XCTAssertEqual(secureStore.pcrTestResultMetadata?.testRegistrationDate, today, "incorrect RegistrationDate")
-		XCTAssertEqual(secureStore.pcrTestResultMetadata?.riskLevelAtTestRegistration, enfRiskCalculationResult.riskLevel, "incorrect risk level")
-		XCTAssertEqual(secureStore.pcrTestResultMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, expectedDaysSinceRecentAtRiskLevelAtTestRegistration, "incorrect days since recent riskLevel")
+		XCTAssertNotNil(secureStore.antigenTestResultMetadata, "The testResultMetadata should be initialized")
+		XCTAssertEqual(secureStore.antigenTestResultMetadata?.testRegistrationDate, today, "incorrect RegistrationDate")
+		XCTAssertEqual(secureStore.antigenTestResultMetadata?.riskLevelAtTestRegistration, enfRiskCalculationResult.riskLevel, "incorrect risk level")
+		XCTAssertEqual(secureStore.antigenTestResultMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, expectedDaysSinceRecentAtRiskLevelAtTestRegistration, "incorrect days since recent riskLevel")
 		// the difference from dateOfConversionToENFHighRisk should be one day so 24 hours
-		XCTAssertEqual(secureStore.pcrTestResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration, 24, "incorrect hours")
+		XCTAssertEqual(secureStore.antigenTestResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration, 24, "incorrect hours")
 		
-		XCTAssertNil(secureStore.pcrTestResultMetadata?.checkinRiskLevelAtTestRegistration, "value should not be set")
-		XCTAssertNil(secureStore.pcrTestResultMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration, "value should not be set")
-		XCTAssertNil(secureStore.pcrTestResultMetadata?.hoursSinceCheckinHighRiskWarningAtTestRegistration, "value should not be set")
+		XCTAssertNil(secureStore.antigenTestResultMetadata?.checkinRiskLevelAtTestRegistration, "value should not be set")
+		XCTAssertNil(secureStore.antigenTestResultMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration, "value should not be set")
+		XCTAssertNil(secureStore.antigenTestResultMetadata?.hoursSinceCheckinHighRiskWarningAtTestRegistration, "value should not be set")
+		XCTAssertNil(secureStore.pcrTestResultMetadata)
 	}
 	
 	func testGIVEN_RegisteringNewTestMetadata_WHEN_CheckinLowRisk_ENFNone_THEN_OnlyCheckinIsSet() {
@@ -141,6 +154,7 @@ class TestResultMetadataTests: XCTestCase {
 		XCTAssertEqual(secureStore.pcrTestResultMetadata?.checkinRiskLevelAtTestRegistration, checkinRiskCalculationResult.riskLevel, "incorrect risk level")
 		XCTAssertEqual(secureStore.pcrTestResultMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration, expectedDaysSinceRecentAtRiskLevelAtTestRegistration, "incorrect days since recent riskLevel")
 		XCTAssertEqual(secureStore.pcrTestResultMetadata?.hoursSinceCheckinHighRiskWarningAtTestRegistration, -1, "value should not be touched, so stay at default: -1")
+		XCTAssertNil(secureStore.antigenTestResultMetadata)
 	}
 	
 	func testGIVEN_RegisteringNewTestMetadata_WHEN_CheckinHighRisk_ENFNone_THEN_OnlyCheckinIsSet() {
@@ -162,19 +176,20 @@ class TestResultMetadataTests: XCTestCase {
 		secureStore.checkinRiskCalculationResult = checkinRiskCalculationResult
 		
 		// WHEN
-		Analytics.collect(.testResultMetadata(.registerNewTestMetadata(today, "", .pcr)))
+		Analytics.collect(.testResultMetadata(.registerNewTestMetadata(today, "", .antigen)))
 
 		// THEN
-		XCTAssertNotNil(secureStore.pcrTestResultMetadata, "The testResultMetadata should be initialized")
-		XCTAssertEqual(secureStore.pcrTestResultMetadata?.testRegistrationDate, today, "incorrect RegistrationDate")
+		XCTAssertNotNil(secureStore.antigenTestResultMetadata, "The testResultMetadata should be initialized")
+		XCTAssertEqual(secureStore.antigenTestResultMetadata?.testRegistrationDate, today, "incorrect RegistrationDate")
 		
-		XCTAssertNil(secureStore.pcrTestResultMetadata?.riskLevelAtTestRegistration, "value should not be set")
-		XCTAssertNil(secureStore.pcrTestResultMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, "value should not be set")
-		XCTAssertNil(secureStore.pcrTestResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration, "value should not be set")
+		XCTAssertNil(secureStore.antigenTestResultMetadata?.riskLevelAtTestRegistration, "value should not be set")
+		XCTAssertNil(secureStore.antigenTestResultMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, "value should not be set")
+		XCTAssertNil(secureStore.antigenTestResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration, "value should not be set")
 		
-		XCTAssertEqual(secureStore.pcrTestResultMetadata?.checkinRiskLevelAtTestRegistration, checkinRiskCalculationResult.riskLevel, "incorrect risk level")
-		XCTAssertEqual(secureStore.pcrTestResultMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration, expectedDaysSinceRecentAtRiskLevelAtTestRegistration, "incorrect days since recent riskLevel")
-		XCTAssertEqual(secureStore.pcrTestResultMetadata?.hoursSinceCheckinHighRiskWarningAtTestRegistration, 24, "incorrect hours")
+		XCTAssertEqual(secureStore.antigenTestResultMetadata?.checkinRiskLevelAtTestRegistration, checkinRiskCalculationResult.riskLevel, "incorrect risk level")
+		XCTAssertEqual(secureStore.antigenTestResultMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration, expectedDaysSinceRecentAtRiskLevelAtTestRegistration, "incorrect days since recent riskLevel")
+		XCTAssertEqual(secureStore.antigenTestResultMetadata?.hoursSinceCheckinHighRiskWarningAtTestRegistration, 24, "incorrect hours")
+		XCTAssertNil(secureStore.pcrTestResultMetadata)
 	}
 	
 	func testGIVEN_RegisteringNewTestMetadata_WHEN_ENFLowRisk_CheckinLowRisk_THEN_BothLowRisk() {
@@ -214,7 +229,7 @@ class TestResultMetadataTests: XCTestCase {
 		XCTAssertEqual(secureStore.pcrTestResultMetadata?.checkinRiskLevelAtTestRegistration, checkinRiskCalculationResult.riskLevel, "incorrect risk level")
 		XCTAssertEqual(secureStore.pcrTestResultMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration, expectedDaysSinceRecentAtRiskLevelAtTestRegistration, "incorrect days since recent riskLevel")
 		XCTAssertEqual(secureStore.pcrTestResultMetadata?.hoursSinceCheckinHighRiskWarningAtTestRegistration, -1, "value should not be touched, so stay at default: -1")
-		
+		XCTAssertNil(secureStore.antigenTestResultMetadata)
 	}
 	
 	func testGIVEN_RegisteringNewTestMetadata_WHEN_ENFHighRisk_CheckinHighRisk_THEN_BothHighRisk() {
@@ -242,9 +257,10 @@ class TestResultMetadataTests: XCTestCase {
 		
 		// WHEN
 		Analytics.collect(.testResultMetadata(.registerNewTestMetadata(today, "", .pcr)))
+		Analytics.collect(.testResultMetadata(.registerNewTestMetadata(today, "", .antigen)))
 		
 		// THEN
-		XCTAssertNotNil(secureStore.pcrTestResultMetadata, "The testResultMetadata should be initialized")
+		XCTAssertNotNil(secureStore.pcrTestResultMetadata, "The pcrTestResultMetadata should be initialized")
 		XCTAssertEqual(secureStore.pcrTestResultMetadata?.testRegistrationDate, today, "incorrect RegistrationDate")
 		
 		XCTAssertEqual(secureStore.pcrTestResultMetadata?.riskLevelAtTestRegistration, enfRiskCalculationResult.riskLevel, "incorrect risk level")
@@ -254,6 +270,17 @@ class TestResultMetadataTests: XCTestCase {
 		XCTAssertEqual(secureStore.pcrTestResultMetadata?.checkinRiskLevelAtTestRegistration, checkinRiskCalculationResult.riskLevel, "incorrect risk level")
 		XCTAssertEqual(secureStore.pcrTestResultMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration, expectedDaysSinceRecentAtRiskLevelAtTestRegistration, "incorrect days since recent riskLevel")
 		XCTAssertEqual(secureStore.pcrTestResultMetadata?.hoursSinceCheckinHighRiskWarningAtTestRegistration, 24, "incorrect hours")
+		
+		XCTAssertNotNil(secureStore.antigenTestResultMetadata, "The antigenTestResultMetadata should be initialized")
+		XCTAssertEqual(secureStore.antigenTestResultMetadata?.testRegistrationDate, today, "incorrect RegistrationDate")
+		
+		XCTAssertEqual(secureStore.antigenTestResultMetadata?.riskLevelAtTestRegistration, enfRiskCalculationResult.riskLevel, "incorrect risk level")
+		XCTAssertEqual(secureStore.antigenTestResultMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, expectedDaysSinceRecentAtRiskLevelAtTestRegistration, "incorrect days since recent riskLevel")
+		XCTAssertEqual(secureStore.antigenTestResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration, 24, "incorrect hours")
+		
+		XCTAssertEqual(secureStore.antigenTestResultMetadata?.checkinRiskLevelAtTestRegistration, checkinRiskCalculationResult.riskLevel, "incorrect risk level")
+		XCTAssertEqual(secureStore.antigenTestResultMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration, expectedDaysSinceRecentAtRiskLevelAtTestRegistration, "incorrect days since recent riskLevel")
+		XCTAssertEqual(secureStore.antigenTestResultMetadata?.hoursSinceCheckinHighRiskWarningAtTestRegistration, 24, "incorrect hours")
 	}
 	
 	func testUpdatingTestResult_ValidResult_NotPreviousTestResultStored() {
