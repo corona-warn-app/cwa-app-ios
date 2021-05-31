@@ -6,7 +6,7 @@
 import Foundation
 import XCTest
 
-class ExposureSubmissionCoordinatorTests: XCTestCase {
+class ExposureSubmissionCoordinatorTests: CWATestCase {
 
 	// MARK: - Attributes.
 
@@ -18,12 +18,14 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 	// MARK: - Setup and teardown methods.
 
 	override func setUpWithError() throws {
+		try super.setUpWithError()
 		store = MockTestStore()
 		parentNavigationController = UINavigationController()
 		exposureSubmissionService = MockExposureSubmissionService()
 		coronaTestService = CoronaTestService(
 			client: ClientMock(),
 			store: store,
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 	}

@@ -4,18 +4,19 @@
 
 import XCTest
 
-class ENAUITests_08_UpdateOS: XCTestCase {
+class ENAUITests_08_UpdateOS: CWATestCase {
 
 	var app: XCUIApplication!
 
 	// MARK: - Setup.
 
 	override func setUpWithError() throws {
+		try super.setUpWithError()
 		continueAfterFailure = false
 		app = XCUIApplication()
 		setupSnapshot(app)
 		app.setDefaults()
-		app.launchArguments.append(contentsOf: ["-showUpdateOS", "YES"])
+		app.setLaunchArgument(LaunchArguments.infoScreen.showUpdateOS, to: true)
 	}
 	
 	// MARK: - Screenshots

@@ -251,15 +251,18 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		client.submit(payload: payload, isFake: false) { result in
 			switch result {
 			case .success:
-				Analytics.collect(.keySubmissionMetadata(.advancedConsentGiven(coronaTest.isSubmissionConsentGiven)))
-				Analytics.collect(.keySubmissionMetadata(.updateSubmittedWithTeletan))
-				Analytics.collect(.keySubmissionMetadata(.setHoursSinceTestResult))
-				Analytics.collect(.keySubmissionMetadata(.setHoursSinceTestRegistration))
-				Analytics.collect(.keySubmissionMetadata(.submitted(true)))
+
+				Analytics.collect(.keySubmissionMetadata(.submittedAfterRapidAntigenTest(coronaTest.type)))
+				Analytics.collect(.keySubmissionMetadata(.setHoursSinceTestResult(coronaTest.type)))
+				Analytics.collect(.keySubmissionMetadata(.setHoursSinceTestRegistration(coronaTest.type)))
+				Analytics.collect(.keySubmissionMetadata(.submitted(true, coronaTest.type)))
+
 				if !checkins.isEmpty {
-					Analytics.collect(.keySubmissionMetadata(.submittedWithCheckins(true)))
+					Analytics.collect(.keySubmissionMetadata(.submittedWithCheckins(true, coronaTest.type)))
 				}
+
 				self.submitExposureCleanup(coronaTestType: coronaTest.type)
+				
 				Log.info("Successfully completed exposure submission.", log: .api)
 				completion(nil)
 			case .failure(let error):

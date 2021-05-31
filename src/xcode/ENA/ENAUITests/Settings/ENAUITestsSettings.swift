@@ -4,16 +4,17 @@
 
 import XCTest
 
-class ENAUITests_03_Settings: XCTestCase {
+class ENAUITests_03_Settings: CWATestCase {
 	var app: XCUIApplication!
 	
 	override func setUpWithError() throws {
+		try super.setUpWithError()
 		continueAfterFailure = false
 		app = XCUIApplication()
 		setupSnapshot(app)
 		app.setDefaults()
-		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
-		app.launchArguments.append(contentsOf: ["-setCurrentOnboardingVersion", "YES"])
+		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: true)
+		app.setLaunchArgument(LaunchArguments.onboarding.setCurrentOnboardingVersion, to: true)
 	}
 
 	func test_0030_SettingsFlow() throws {

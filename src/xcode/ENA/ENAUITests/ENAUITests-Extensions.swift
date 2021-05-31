@@ -4,9 +4,6 @@
 
 import XCTest
 
-let YES = "YES"
-let NO = "NO"
-
 enum SizeCategory: String {
 	case XS
 	case S
@@ -40,6 +37,7 @@ extension XCUIElement {
 		// Need XCTAssertEqual() here because we can append a message, this is not possible for XCTAssertTrue()
 		// swiftlint:disable:next xct_specific_matcher
 		XCTAssertEqual(self.waitForExistence(timeout: timeout), true, "Could not find XCUIElement: \(self) before tapping it.")
+		XCTAssertTrue(self.isEnabled)
 		// swiftlint:disable:next no_direct_tap
 		self.tap()
 	}
@@ -57,6 +55,14 @@ extension XCUIApplication {
 	func setPreferredContentSizeCategory(accessibility: SizeCategoryAccessibility, size: SizeCategory) {
 		// based on https://stackoverflow.com/questions/38316591/how-to-test-dynamic-type-larger-font-sizes-in-ios-simulator
 		launchArguments += ["-UIPreferredContentSizeCategoryName", "UICTContentSizeCategory\(accessibility.description())\(size)"]
+	}
+
+	func setLaunchArgument(_ launchArgument: LaunchArgument, to value: String) {
+		launchArguments.append(contentsOf: ["-\(launchArgument.name)", value])
+	}
+
+	func setLaunchArgument(_ launchArgument: LaunchArgument, to bool: Bool) {
+		setLaunchArgument(launchArgument, to: bool ? "YES" : "NO")
 	}
 
 	func localized(_ key: String) -> String {

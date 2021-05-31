@@ -6,7 +6,7 @@ import XCTest
 import FMDB
 @testable import ENA
 
-class ContactDiaryMigration1To2Tests: XCTestCase {
+class ContactDiaryMigration1To2Tests: CWATestCase {
 
 	func test_WHEN_migrationFrom1To2_THEN_PrefixedZerosAreRemoved() throws {
 		let contactDiaryAccess = ContactDiaryAccess()

@@ -6,20 +6,22 @@ import XCTest
 import ExposureNotification
 
 // swiftlint:disable:next type_body_length
-class ENAUITests_07_ContactJournal: XCTestCase {
+class ENAUITests_07_ContactJournal: CWATestCase {
 
 	// MARK: - Overrides
 
 	override func setUpWithError() throws {
+		try super.setUpWithError()
 		continueAfterFailure = false
 
 		app = XCUIApplication()
 		app.setDefaults()
-		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
-		app.launchArguments.append(contentsOf: ["-setCurrentOnboardingVersion", "YES"])
-		app.launchArguments.append(contentsOf: ["-userNeedsToBeInformedAboutHowRiskDetectionWorks", "NO"])
-		app.launchArguments.append(contentsOf: ["-journalRemoveAllPersons", "YES"])
-		app.launchArguments.append(contentsOf: ["-journalRemoveAllLocations", "YES"])
+		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: true)
+		app.setLaunchArgument(LaunchArguments.onboarding.setCurrentOnboardingVersion, to: true)
+		app.setLaunchArgument(LaunchArguments.infoScreen.userNeedsToBeInformedAboutHowRiskDetectionWorks, to: false)
+		app.setLaunchArgument(LaunchArguments.contactJournal.journalRemoveAllPersons, to: true)
+		app.setLaunchArgument(LaunchArguments.contactJournal.journalRemoveAllLocations, to: true)
+		app.setLaunchArgument(LaunchArguments.contactJournal.journalRemoveAllCoronaTests, to: true)
 	}
 
 	// MARK: - Internal
@@ -29,7 +31,7 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 	// MARK: - Test cases.
 
 	func testOpenInformationScreenViaSheet() throws {
-		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
+		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
 
 		openInformationSheet()
 
@@ -40,7 +42,7 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 	}
 
 	func testOpenExportViaSheet() throws {
-		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
+		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
 
 		openInformationSheet()
 
@@ -51,7 +53,7 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 	}
 
 	func testDeleteAllPersons() throws {
-		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
+		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
 
 		openEditPersonViaSheet()
 
@@ -66,7 +68,7 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 	}
 
 	func testDeleteOnePersonAndEditOnePerson() throws {
-		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
+		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
 
 		openEditPersonViaSheet()
 
@@ -102,7 +104,7 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 	}
 
 	func testDeleteOneLocationAndEditOneLocation() throws {
-		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
+		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
 
 		openEditLocationsViaSheet()
 
@@ -142,7 +144,7 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 	}
 
 	func testAddPersonToDate() throws {
-		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
+		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
 
 		navigateToJournalOverview()
 
@@ -169,7 +171,7 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 	}
 
 	func testAddLocationToDate() throws {
-		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
+		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
 
 		navigateToJournalOverview()
 
@@ -199,7 +201,7 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 	}
 
 	func testDetailsSelectionOfPersonEncounter() {
-		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
+		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
 
 		navigateToJournalOverview()
 
@@ -235,7 +237,7 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 	}
 
 	func testDetailsSelectionOfLocationVisit() {
-		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
+		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
 
 		navigateToJournalOverview()
 
@@ -284,7 +286,7 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 	}
 
 	func testNavigateToPersonEncounterDayInfo() {
-		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
+		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
 
 		navigateToJournalOverview()
 
@@ -301,7 +303,7 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 	}
 
 	func testNavigateToLocationDayInfo() {
-		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
+		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
 
 		navigateToJournalOverview()
 
@@ -322,7 +324,7 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 	}
 
 	func testNavigationToInformationVC() throws {
-		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "NO"])
+		app.setLaunchArgument(LaunchArguments.infoScreen.traceLocationsInfoScreenShown, to: false)
 
 		navigateToJournalOverview()
 
@@ -339,7 +341,7 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 	}
 
 	func testCloseInformationVC() throws {
-		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "NO"])
+		app.setLaunchArgument(LaunchArguments.infoScreen.traceLocationsInfoScreenShown, to: false)
 
 		navigateToJournalOverview()
 
@@ -354,8 +356,8 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 
 	/// Tests: ENF Risk High, Checkin Risk None
 	func testOverviewScenario1() throws {
-		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
-		app.launchArguments.append(contentsOf: ["-riskLevel", "low"])
+		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
+		app.setLaunchArgument(LaunchArguments.risk.riskLevel, to: "low")
 
 		navigateToJournalOverview()
 
@@ -365,22 +367,22 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 		// first cell should have the text for high risk, but none about checkin
 		let overviewCellWithEncounterRisk = app.descendants(matching: .table).firstMatch.cells.element(boundBy: 1)
 		let highRiskCell = overviewCellWithEncounterRisk.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.riskLevelLow]
-		XCTAssertTrue(highRiskCell.isHittable)
+		XCTAssertTrue(highRiskCell.waitForExistence(timeout: .short))
 		let checkinCell = overviewCellWithEncounterRisk.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.checkinRiskLevelLow]
-		XCTAssertFalse(checkinCell.isHittable)
+		XCTAssertFalse(checkinCell.waitForExistence(timeout: .short))
 		
 		let overviewCellEmpty = app.descendants(matching: .table).firstMatch.cells.element(boundBy: 4)
 		let highRiskCellEmpty = overviewCellEmpty.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.riskLevelHigh]
-		XCTAssertFalse(highRiskCellEmpty.isHittable)
+		XCTAssertFalse(highRiskCellEmpty.waitForExistence(timeout: .short))
 		let checkinCellEmpty = overviewCellEmpty.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.checkinRiskLevelHigh]
-		XCTAssertFalse(checkinCellEmpty.isHittable)
+		XCTAssertFalse(checkinCellEmpty.waitForExistence(timeout: .short))
 	}
 	
 	/// Tests: ENF Risk High, Checkin Risk High
 	func testOverviewScenario2() throws {
-		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
-		app.launchArguments.append(contentsOf: ["-riskLevel", "high"])
-		app.launchArguments.append(contentsOf: ["-checkinRiskLevel", "high"])
+		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
+		app.setLaunchArgument(LaunchArguments.risk.riskLevel, to: "high")
+		app.setLaunchArgument(LaunchArguments.risk.checkinRiskLevel, to: "high")
 		
 		navigateToJournalOverview()
 
@@ -390,21 +392,21 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 		// first cell should have the text for high risk, but none about checkin
 		let overviewCellWithEncounterRisk = app.descendants(matching: .table).firstMatch.cells.element(boundBy: 1)
 		let highRiskCell = overviewCellWithEncounterRisk.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.riskLevelHigh]
-		XCTAssertTrue(highRiskCell.isHittable)
+		XCTAssertTrue(highRiskCell.waitForExistence(timeout: .short))
 		let checkinCell = overviewCellWithEncounterRisk.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.checkinRiskLevelHigh]
-		XCTAssertTrue(checkinCell.isHittable)
+		XCTAssertTrue(checkinCell.waitForExistence(timeout: .short))
 		
 		let overviewCellEmpty = app.descendants(matching: .table).firstMatch.cells.element(boundBy: 4)
 		let highRiskCellEmpty = overviewCellEmpty.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.riskLevelHigh]
-		XCTAssertFalse(highRiskCellEmpty.isHittable)
+		XCTAssertFalse(highRiskCellEmpty.waitForExistence(timeout: .short))
 		let checkinCellEmpty = overviewCellEmpty.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.checkinRiskLevelHigh]
-		XCTAssertFalse(checkinCellEmpty.isHittable)
+		checkinCellEmpty.waitAndTap()
 	}
 	
 	/// Tests: ENF Risk None, Checkin Risk High
 	func testOverviewScenario3() throws {
-		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
-		app.launchArguments.append(contentsOf: ["-checkinRiskLevel", "low"])
+		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
+		app.setLaunchArgument(LaunchArguments.risk.checkinRiskLevel, to: "low")
 
 		navigateToJournalOverview()
 
@@ -414,15 +416,39 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 		// first cell should have the text for high risk, but none about checkin
 		let overviewCellWithEncounterRisk = app.descendants(matching: .table).firstMatch.cells.element(boundBy: 1)
 		let highRiskCell = overviewCellWithEncounterRisk.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.riskLevelHigh]
-		XCTAssertFalse(highRiskCell.isHittable)
+		XCTAssertFalse(highRiskCell.waitForExistence(timeout: .short))
 		let checkinCell = overviewCellWithEncounterRisk.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.checkinRiskLevelLow]
-		XCTAssertTrue(checkinCell.isHittable)
+		XCTAssertTrue(checkinCell.waitForExistence(timeout: .short))
 		
 		let overviewCellEmpty = app.descendants(matching: .table).firstMatch.cells.element(boundBy: 4)
 		let highRiskCellEmpty = overviewCellEmpty.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.riskLevelHigh]
-		XCTAssertFalse(highRiskCellEmpty.isHittable)
+		XCTAssertFalse(highRiskCellEmpty.waitForExistence(timeout: .short))
 		let checkinCellEmpty = overviewCellEmpty.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.checkinRiskLevelHigh]
-		XCTAssertFalse(checkinCellEmpty.isHittable)
+		XCTAssertFalse(checkinCellEmpty.waitForExistence(timeout: .short))
+	}
+
+	/// Tests: ENF Risk None, Checkin Risk None, CoronaTest Added
+	func testOverviewScenario4() throws {
+		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
+		app.setLaunchArgument(LaunchArguments.risk.riskLevel, to: "low")
+		app.setLaunchArgument(LaunchArguments.contactJournal.testsRiskLevel, to: "low")
+
+		navigateToJournalOverview()
+
+		// check if overview is visible
+		XCTAssertEqual(app.navigationBars.firstMatch.identifier, app.localized("ContactDiary_Overview_Title"))
+
+		// first cell should have the text for high risk, but none about checkin
+		let overviewCellWithEncounterRisk = app.descendants(matching: .table).firstMatch.cells.element(boundBy: 1)
+		let lowRiskCell = overviewCellWithEncounterRisk.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.riskLevelLow]
+		XCTAssertTrue(lowRiskCell.waitForExistence(timeout: .short))
+		let checkinCell = overviewCellWithEncounterRisk.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.checkinRiskLevelLow]
+		XCTAssertFalse(checkinCell.waitForExistence(timeout: .short))
+		let overviewCellEmpty = app.descendants(matching: .table).firstMatch.cells.element(boundBy: 4)
+		let highRiskCellEmpty = overviewCellEmpty.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.riskLevelHigh]
+		XCTAssertFalse(highRiskCellEmpty.waitForExistence(timeout: .short))
+		let checkinCellEmpty = overviewCellEmpty.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.checkinRiskLevelHigh]
+		XCTAssertFalse(checkinCellEmpty.waitForExistence(timeout: .short))
 	}
 	
 	// MARK: - Screenshots
@@ -430,10 +456,11 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 	func test_screenshot_Overview() throws {
 		var screenshotCounter = 0
 		// setting up launch arguments
-		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
-		app.launchArguments.append(contentsOf: ["-riskLevel", "high"])
-		app.launchArguments.append(contentsOf: ["-checkinRiskLevel", "high"])
-		
+		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
+		app.setLaunchArgument(LaunchArguments.risk.riskLevel, to: "high")
+		app.setLaunchArgument(LaunchArguments.risk.checkinRiskLevel, to: "high")
+		app.setLaunchArgument(LaunchArguments.contactJournal.testsRiskLevel, to: "high")
+
 		// navigate to desired screen
 		navigateToJournalOverview()
 		
@@ -444,8 +471,8 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 	func test_screenshot_TwoPersonsOneLocationAndMessages() throws {
 		var screenshotCounter = 0
 		// setting up launch arguments
-		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
-		app.launchArguments.append(contentsOf: ["-riskLevel", "high"])
+		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
+		app.setLaunchArgument(LaunchArguments.risk.riskLevel, to: "high")
 		
 		// navigate to desired screen
 		navigateToJournalOverview()
@@ -485,8 +512,8 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 
 	func test_screenshot_AddTwoPersonsAndOneLocationToDate() throws {
 		var screenshotCounter = 0
-		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
-		app.launchArguments.append(contentsOf: ["-riskLevel", "high"])
+		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
+		app.setLaunchArgument(LaunchArguments.risk.riskLevel, to: "high")
 
 		navigateToJournalOverview()
 
@@ -537,7 +564,7 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 
 	func test_screenshot_ContactJournalInformation() throws {
 		var screenshotCounter = 0
-		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "NO"])
+		app.setLaunchArgument(LaunchArguments.infoScreen.traceLocationsInfoScreenShown, to: false)
 
 		// navigate to desired screen
 		navigateToJournalOverview()
@@ -559,8 +586,8 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 
 	func test_screenshot_AddTwoPersonsTwoLocations() throws {
 		// setting up launch arguments
-		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
-		app.launchArguments.append(contentsOf: ["-riskLevel", "high"])
+		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
+		app.setLaunchArgument(LaunchArguments.risk.riskLevel, to: "high")
 
 		// navigate to desired screen
 		navigateToJournalOverview()
@@ -588,7 +615,7 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 	}
 
 	func test_screenshot_EditPersonScreen() throws {
-		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
+		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
 
 		// open sheet to edit persons
 		openEditPersonViaSheet()
@@ -598,7 +625,7 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 	}
 
 	func test_screenshot_EditLocationScreen() throws {
-		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
+		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
 
 		// open sheet to edit locations
 		openEditLocationsViaSheet()
@@ -611,7 +638,7 @@ class ENAUITests_07_ContactJournal: XCTestCase {
 
 	private func navigateToJournalOverview() {
 		launch()
-		app.buttons[AccessibilityIdentifiers.Tabbar.diary].waitAndTap()
+		app.buttons[AccessibilityIdentifiers.TabBar.diary].waitAndTap()
 	}
 
 	private func addPersonToDayEntry(_ personName: String, phoneNumber: String = "", eMail: String = "") {

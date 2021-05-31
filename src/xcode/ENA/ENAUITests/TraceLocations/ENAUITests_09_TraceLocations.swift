@@ -4,18 +4,19 @@
 
 import XCTest
 
-class ENAUITests_09_TraceLocations: XCTestCase {
+class ENAUITests_09_TraceLocations: CWATestCase {
 	
 	// MARK: - Setup.
 	
 	override func setUpWithError() throws {
+		try super.setUpWithError()
 		continueAfterFailure = false
 		app = XCUIApplication()
 		setupSnapshot(app)
 		app.setDefaults()
-		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
-		app.launchArguments.append(contentsOf: ["-setCurrentOnboardingVersion", "YES"])
-		app.launchArguments.append(contentsOf: ["-userNeedsToBeInformedAboutHowRiskDetectionWorks", "NO"])
+		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: true)
+		app.setLaunchArgument(LaunchArguments.onboarding.setCurrentOnboardingVersion, to: true)
+		app.setLaunchArgument(LaunchArguments.infoScreen.userNeedsToBeInformedAboutHowRiskDetectionWorks, to: false)
 	}
 	
 	// MARK: - Attributes.
@@ -28,7 +29,7 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 	
 	func test_WHEN_QRCode_is_created_THEN_list_contains_traceLocation() throws {
 		// GIVEN
-		app.launchArguments.append(contentsOf: ["-TraceLocationsInfoScreenShown", "YES"])
+		app.setLaunchArgument(LaunchArguments.infoScreen.traceLocationsInfoScreenShown, to: true)
 		
 		// WHEN
 		app.launch()
@@ -56,7 +57,7 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 	
 	func test_WHEN_list_contains_traceLocations_THEN_delete_all_entries_via_menu_function() throws {
 		// GIVEN
-		app.launchArguments.append(contentsOf: ["-TraceLocationsInfoScreenShown", "YES"])
+		app.setLaunchArgument(LaunchArguments.infoScreen.traceLocationsInfoScreenShown, to: true)
 		
 		// WHEN
 		app.launch()
@@ -103,7 +104,7 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 	
 	func test_WHEN_tapCreateQRCode_THEN_traceLocation_input_screen_is_displayed() throws {
 		// GIVEN
-		app.launchArguments.append(contentsOf: ["-TraceLocationsInfoScreenShown", "YES"])
+		app.setLaunchArgument(LaunchArguments.infoScreen.traceLocationsInfoScreenShown, to: true)
 		
 		// WHEN
 		app.launch()
@@ -128,7 +129,7 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 	
 	func test_WHEN_traceLocation_is_tapped_THEN_details_of_traceLocation_are_displayed() throws {
 		// GIVEN
-		app.launchArguments.append(contentsOf: ["-TraceLocationsInfoScreenShown", "YES"])
+		app.setLaunchArgument(LaunchArguments.infoScreen.traceLocationsInfoScreenShown, to: true)
 		
 		// WHEN
 		app.launch()
@@ -175,8 +176,8 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 	
 	func test_WHEN_traceLocation_exists_THEN_checkin_and_checkout() throws {
 		// GIVEN
-		app.launchArguments.append(contentsOf: ["-TraceLocationsInfoScreenShown", "YES"])
-		app.launchArguments.append(contentsOf: ["-checkinInfoScreenShown", "YES"])
+		app.setLaunchArgument(LaunchArguments.infoScreen.traceLocationsInfoScreenShown, to: true)
+		app.setLaunchArgument(LaunchArguments.infoScreen.checkinInfoScreenShown, to: true)
 		
 		// WHEN
 		app.launch()
@@ -201,7 +202,7 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 		removeTraceLocation(event: event)
 		
 		// switch to "My Checkins" and checkout of the event
-		app.tabBars.buttons[AccessibilityIdentifiers.Tabbar.checkin].waitAndTap()
+		app.tabBars.buttons[AccessibilityIdentifiers.TabBar.checkin].waitAndTap()
 		myCheckins_checkout(traceLocations: traceLocations)
 		myCheckins_display_details(traceLocations: traceLocations)
 		myCheckins_delete_all()
@@ -209,7 +210,7 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 
 	func test_WHEN_navigate_to_TraceLocations_for_the_first_time_THEN_infoscreen_is_displayed() throws {
 		// GIVEN
-		app.launchArguments.append(contentsOf: ["-TraceLocationsInfoScreenShown", "NO"])
+		app.setLaunchArgument(LaunchArguments.infoScreen.traceLocationsInfoScreenShown, to: false)
 		
 		// WHEN
 		app.launch()
@@ -225,7 +226,7 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 	
 	func test_WHEN_navigate_to_TraceLocations_for_the_second_time_THEN_no_infoscreen_is_displayed() throws {
 		// GIVEN
-		app.launchArguments.append(contentsOf: ["-TraceLocationsInfoScreenShown", "YES"])
+		app.setLaunchArgument(LaunchArguments.infoScreen.traceLocationsInfoScreenShown, to: true)
 		
 		// WHEN
 		app.launch()
@@ -240,9 +241,9 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 
 	func test_events_in_contact_journal() throws {
 		// GIVEN
-		app.launchArguments.append(contentsOf: ["-TraceLocationsInfoScreenShown", "YES"])
-		app.launchArguments.append(contentsOf: ["-checkinInfoScreenShown", "YES"])
-		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
+		app.setLaunchArgument(LaunchArguments.infoScreen.traceLocationsInfoScreenShown, to: true)
+		app.setLaunchArgument(LaunchArguments.infoScreen.checkinInfoScreenShown, to: true)
+		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
 		app.launch()
 		
 		// WHEN
@@ -264,13 +265,13 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 		removeAllTraceLocationsAtOnce()
 
 		// MyCheckins: check out of all events
-		app.tabBars.buttons[AccessibilityIdentifiers.Tabbar.checkin].waitAndTap()
+		app.tabBars.buttons[AccessibilityIdentifiers.TabBar.checkin].waitAndTap()
 		myCheckins_checkout(traceLocations: traceLocations_checked_in)
 		myCheckins_delete_all()
 		
 		// THEN
 		// switch to journal and check entries for events
-		app.tabBars.buttons[AccessibilityIdentifiers.Tabbar.diary].waitAndTap()
+		app.tabBars.buttons[AccessibilityIdentifiers.TabBar.diary].waitAndTap()
 		XCTAssertTrue(app.navigationBars[AccessibilityLabels.localized(AppStrings.ContactDiary.Overview.title)].waitForExistence(timeout: .medium))
 
 		
@@ -284,8 +285,8 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 
 	func test_WHEN_event_checkout_THEN_display_details() throws {
 		// GIVEN
-		app.launchArguments.append(contentsOf: ["-TraceLocationsInfoScreenShown", "YES"])
-		app.launchArguments.append(contentsOf: ["-checkinInfoScreenShown", "YES"])
+		app.setLaunchArgument(LaunchArguments.infoScreen.traceLocationsInfoScreenShown, to: true)
+		app.setLaunchArgument(LaunchArguments.infoScreen.checkinInfoScreenShown, to: true)
 		app.launch()
 
 		let traceLocationsCardButton = app.buttons[AccessibilityIdentifiers.Home.traceLocationsCardButton]
@@ -301,7 +302,7 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 		removeAllTraceLocationsAtOnce()
 		
 		// switch to "My Checkins" and checkout of the event
-		app.tabBars.buttons[AccessibilityIdentifiers.Tabbar.checkin].waitAndTap()
+		app.tabBars.buttons[AccessibilityIdentifiers.TabBar.checkin].waitAndTap()
 		
 		myCheckins_checkout(traceLocations: traceLocations)
 		myCheckins_display_details(traceLocations: traceLocations)
@@ -318,8 +319,8 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 	// MARK: - Screenshots
 
 	func test_screenshots_of_traceLocation_print_flow() throws {
-		app.launchArguments.append(contentsOf: ["-TraceLocationsInfoScreenShown", "NO"])
-		app.launchArguments.append(contentsOf: ["-checkinInfoScreenShown", "YES"])
+		app.setLaunchArgument(LaunchArguments.infoScreen.traceLocationsInfoScreenShown, to: false)
+		app.setLaunchArgument(LaunchArguments.infoScreen.checkinInfoScreenShown, to: true)
 		app.launch()
 		
 		// navigate to "Create QR Code"
@@ -382,7 +383,7 @@ class ENAUITests_09_TraceLocations: XCTestCase {
 		removeAllTraceLocationsAtOnce()
 		
 		// MyCheckins: check out of all events
-		app.tabBars.buttons[AccessibilityIdentifiers.Tabbar.checkin].waitAndTap()
+		app.tabBars.buttons[AccessibilityIdentifiers.TabBar.checkin].waitAndTap()
 		myCheckins_delete_all()
 
 	}

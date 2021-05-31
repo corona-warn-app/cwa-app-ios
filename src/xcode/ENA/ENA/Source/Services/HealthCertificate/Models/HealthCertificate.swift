@@ -68,7 +68,7 @@ struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable 
 	}
 
 	var dateOfBirthDate: Date? {
-		return Self.dateFormatter.date(from: digitalGreenCertificate.dateOfBirth)
+		return ISO8601DateFormatter.justLocalDateFormatter.date(from: digitalGreenCertificate.dateOfBirth)
 	}
 
 	var vaccinationCertificates: [VaccinationCertificate] {
@@ -80,14 +80,20 @@ struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable 
 	}
 
 	var expirationDate: Date {
-		Date(timeIntervalSince1970: TimeInterval(cborWebTokenHeader.expirationTime))
+		#if DEBUG
+		if isUITesting, let dateOfVaccination = dateOfVaccination {
+			return Calendar.current.date(byAdding: .year, value: 1, to: dateOfVaccination) ?? Date(timeIntervalSince1970: TimeInterval(cborWebTokenHeader.expirationTime))
+		}
+		#endif
+
+		return Date(timeIntervalSince1970: TimeInterval(cborWebTokenHeader.expirationTime))
 	}
 
 	var dateOfVaccination: Date? {
 		guard let dateString = vaccinationCertificates.first?.dateOfVaccination else {
 			return nil
 		}
-		return Self.dateFormatter.date(from: dateString)
+		return ISO8601DateFormatter.justLocalDateFormatter.date(from: dateString)
 	}
 
 	var doseNumber: Int {
@@ -105,12 +111,6 @@ struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable 
 	}
 
 	// MARK: - Private
-
-	private static let dateFormatter: DateFormatter = {
-		let dateFormatter = DateFormatter()
-		dateFormatter.dateFormat = "YYYY-MM-dd"
-		return dateFormatter
-	}()
 
 	private var cborWebTokenHeader: CBORWebTokenHeader {
 		let result = DigitalGreenCertificateAccess().extractCBORWebTokenHeader(from: base45)

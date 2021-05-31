@@ -4,7 +4,7 @@
 
 import XCTest
 
-class ENAUITests_12_AntigenTestProfile: XCTestCase {
+class ENAUITests_12_AntigenTestProfile: CWATestCase {
 	
 	// MARK: - Overrides
 	
@@ -13,10 +13,10 @@ class ENAUITests_12_AntigenTestProfile: XCTestCase {
 		continueAfterFailure = false
 		app = XCUIApplication()
 		app.setDefaults()
-		app.launchArguments.append(contentsOf: ["-isOnboarded", YES])
-		app.launchArguments.append(contentsOf: ["-setCurrentOnboardingVersion", YES])
-		app.launchArguments.append(contentsOf: ["-antigenTestProfileInfoScreenShown", NO])
-		app.launchArguments.append(contentsOf: ["-removeAntigenTestProfile", YES])
+		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: true)
+		app.setLaunchArgument(LaunchArguments.onboarding.setCurrentOnboardingVersion, to: true)
+		app.setLaunchArgument(LaunchArguments.infoScreen.antigenTestProfileInfoScreenShown, to: false)
+		app.setLaunchArgument(LaunchArguments.test.antigen.removeAntigenTestProfile, to: true)
 	}
 	
 	// MARK: - Internal

@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class ExposureDetectionSurveyCellModelTests: XCTestCase {
+class ExposureDetectionSurveyCellModelTests: CWATestCase {
 
 	func testGIVEN_ExposureDetectionSurveyCellModel_THEN_InitilizedAsExpected() {
 		// GIVEN

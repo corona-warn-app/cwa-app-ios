@@ -408,6 +408,10 @@ enum AccessibilityIdentifiers {
 
 	}
 	
+	enum ExposureSubmissionTestResultAvailable {
+		static let primaryButton = "AppStrings.ExposureSubmissionTestResultAvailable.primaryButtonTitle"
+	}
+	
 	enum Reset {
 		static let imageDescription = "AppString.Reset.imageDescription"
 	}
@@ -464,10 +468,11 @@ enum AccessibilityIdentifiers {
 		static let text = "UpdateOSScreen.text"
 	}
 
-	enum Tabbar {
-		static let home = "Tabbar.home"
-		static let diary = "Tabbar.diary"
-		static let checkin = "Tabbar.checkin"
+	enum TabBar {
+		static let home = "TabBar.home"
+		static let certificates = "TabBar.certificates"
+		static let checkin = "TabBar.checkin"
+		static let diary = "TabBar.diary"
 	}
 	
 	enum DataDonation {
@@ -608,6 +613,8 @@ enum AccessibilityIdentifiers {
 		enum Certificate {
 			static let headline = "HealthCertificate.title"
 		}
+
+		static let qrCodeCell = "HealthCertificate.qrCodeCell"
 	}
 
 }

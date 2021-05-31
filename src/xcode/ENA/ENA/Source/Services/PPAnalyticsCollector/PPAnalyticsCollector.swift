@@ -16,16 +16,22 @@ enum PPAnalyticsCollector {
 	static func setup(
 		store: Store,
 		coronaTestService: CoronaTestService,
-		submitter: PPAnalyticsSubmitter
+		submitter: PPAnalyticsSubmitting,
+		testResultCollector: PPAAnalyticsTestResultCollector,
+		submissionCollector: PPAAnalyticsSubmissionCollector
 	) {
-		// Make sure the secure store now also implements the PPAnalyticsData protocol with the properties defined there (the analytics data proporties).
+		// We put the PPAnalyticsData protocol and its implementation in a seperate file because this protocol is only used by the collector. And only the collector should use it!
+		// This way we avoid the direct access of analytics data at other places over the store.
 		guard let store = store as? (Store & PPAnalyticsData) else {
 			Log.error("I will never submit any analytics data. Could not cast to correct store protocol", log: .ppa)
 			fatalError("I will never submit any analytics data. Could not cast to correct store protocol")
 		}
+
 		PPAnalyticsCollector.store = store
 		PPAnalyticsCollector.coronaTestService = coronaTestService
 		PPAnalyticsCollector.submitter = submitter
+		PPAnalyticsCollector.testResultCollector = testResultCollector
+		PPAnalyticsCollector.submissionCollector = submissionCollector
 	}
 
 	/// The main purpose for the collector. Call this method to log some analytics data and pass the corresponding enums.
@@ -45,9 +51,9 @@ enum PPAnalyticsCollector {
 		case let .riskExposureMetadata(riskExposureMetadata):
 			Analytics.logRiskExposureMetadata(riskExposureMetadata)
 		case let .testResultMetadata(TestResultMetadata):
-			Analytics.logTestResultMetadata(TestResultMetadata)
+			testResultCollector?.logTestResultMetadata(TestResultMetadata)
 		case let .keySubmissionMetadata(keySubmissionMetadata):
-			Analytics.logKeySubmissionMetadata(keySubmissionMetadata)
+			submissionCollector?.logKeySubmissionMetadata(keySubmissionMetadata)
 		case let .exposureWindowsMetadata(exposureWindowsMetadata):
 			Analytics.logExposureWindowsMetadata(exposureWindowsMetadata)
 		case let .submissionMetadata(submissionMetadata):
@@ -66,12 +72,13 @@ enum PPAnalyticsCollector {
 		store?.previousCheckinRiskExposureMetadata = nil
 		store?.userMetadata = nil
 		store?.lastSubmittedPPAData = nil
-		store?.submittedWithQR = false
 		store?.lastAppReset = nil
 		store?.lastSubmissionAnalytics = nil
 		store?.clientMetadata = nil
-		store?.testResultMetadata = nil
-		store?.keySubmissionMetadata = nil
+		store?.pcrTestResultMetadata = nil
+		store?.antigenTestResultMetadata = nil
+		store?.pcrKeySubmissionMetadata = nil
+		store?.antigenKeySubmissionMetadata = nil
 		store?.exposureWindowsMetadata = nil
 		store?.dateOfConversionToENFHighRisk = nil
 		store?.dateOfConversionToCheckinHighRisk = nil
@@ -106,7 +113,9 @@ enum PPAnalyticsCollector {
 	// The real store property.
 	private static var _store: (Store & PPAnalyticsData)?
 	private static var coronaTestService: CoronaTestService?
-	private static var submitter: PPAnalyticsSubmitter?
+	private static var submitter: PPAnalyticsSubmitting?
+	private static var testResultCollector: PPAAnalyticsTestResultCollector?
+	private static var submissionCollector: PPAAnalyticsSubmissionCollector?
 
 	// MARK: - UserMetada
 	
@@ -201,263 +210,7 @@ enum PPAnalyticsCollector {
 		store?.currentCheckinRiskExposureMetadata = newRiskExposureMetadata
 		
 	}
-
-	// MARK: - TestResultMetadata
-
-	private static func logTestResultMetadata(_ TestResultMetadata: PPATestResultMetadata) {
-		switch TestResultMetadata {
-		case let .testResultHoursSinceTestRegistration(hoursSinceTestRegistration):
-			store?.testResultMetadata?.hoursSinceTestRegistration = hoursSinceTestRegistration
-		case let .updateTestResult(testResult, token):
-			Analytics.updateTestResult(testResult, token)
-		case let .registerNewTestMetadata(date, token):
-			Analytics.registerNewTestMetadata(date, token)
-		case let .dateOfConversionToENFHighRisk(date):
-			store?.dateOfConversionToENFHighRisk = date
-		case let .dateOfConversionToCheckinHighRisk(date):
-			store?.dateOfConversionToCheckinHighRisk = date
-		}
-	}
-
-	// swiftlint:disable:next cyclomatic_complexity
-	private static func registerNewTestMetadata(_ date: Date = Date(), _ token: String) {
-		guard store?.enfRiskCalculationResult != nil || store?.checkinRiskCalculationResult != nil else {
-			Log.warning("Could not register new test meta data due to enfRiskCalculationResult and checkinRiskCalculationResult are both nil", log: .ppa)
-			return
-		}
-		
-		var testResultMetadata = TestResultMetadata(registrationToken: token)
-		testResultMetadata.testRegistrationDate = date
-		
-		// Differ between ENF and checkin risk calculation results.
-
-		if let enfRiskCalculationResult = store?.enfRiskCalculationResult {
-			testResultMetadata.riskLevelAtTestRegistration = enfRiskCalculationResult.riskLevel
-			
-			if let mostRecentRiskCalculationDate = enfRiskCalculationResult.mostRecentDateWithCurrentRiskLevel {
-				let daysSinceMostRecentDateAtRiskLevelAtTestRegistration = Calendar.current.dateComponents([.day], from: mostRecentRiskCalculationDate, to: date).day
-				testResultMetadata.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = daysSinceMostRecentDateAtRiskLevelAtTestRegistration
-				Log.debug("daysSinceMostRecentDateAtRiskLevelAtTestRegistration: \(String(describing: daysSinceMostRecentDateAtRiskLevelAtTestRegistration))", log: .ppa)
-			} else {
-				testResultMetadata.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = -1
-				Log.warning("daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1", log: .ppa)
-			}
-			
-			switch enfRiskCalculationResult.riskLevel {
-			case .high:
-				if let timeOfRiskChangeToHigh = store?.dateOfConversionToENFHighRisk {
-					let differenceInHours = Calendar.current.dateComponents([.hour], from: timeOfRiskChangeToHigh, to: date)
-					testResultMetadata.hoursSinceHighRiskWarningAtTestRegistration = differenceInHours.hour
-				} else {
-					Log.warning("Could not log enf risk calculation result due to timeOfRiskChangeToHigh is nil", log: .ppa)
-				}
-			case .low:
-				testResultMetadata.hoursSinceHighRiskWarningAtTestRegistration = -1
-			}
-		}
-		
-		if let checkinRiskCalculationResult = store?.checkinRiskCalculationResult {
-			testResultMetadata.checkinRiskLevelAtTestRegistration = checkinRiskCalculationResult.riskLevel
-			
-			if let mostRecentRiskCalculationDate = checkinRiskCalculationResult.mostRecentDateWithCurrentRiskLevel {
-				let daysSinceMostRecentDateAtRiskLevelAtTestRegistration = Calendar.current.dateComponents([.day], from: mostRecentRiskCalculationDate, to: date).day
-				testResultMetadata.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration = daysSinceMostRecentDateAtRiskLevelAtTestRegistration
-				Log.debug("daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration: \(String(describing: daysSinceMostRecentDateAtRiskLevelAtTestRegistration))", log: .ppa)
-			} else {
-				testResultMetadata.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration = -1
-				Log.warning("daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration: -1", log: .ppa)
-			}
-			
-			switch checkinRiskCalculationResult.riskLevel {
-			case .high:
-				if let timeOfRiskChangeToHigh = store?.dateOfConversionToCheckinHighRisk {
-
-				let differenceInHours = Calendar.current.dateComponents([.hour], from: timeOfRiskChangeToHigh, to: date)
-				testResultMetadata.hoursSinceCheckinHighRiskWarningAtTestRegistration = differenceInHours.hour
-				} else {
-					Log.warning("Could not log checkin risk calculation result due to timeOfRiskChangeToHigh is nil", log: .ppa)
-				}
-			case .low:
-				testResultMetadata.hoursSinceCheckinHighRiskWarningAtTestRegistration = -1
-			}
-		}
-		
-		// at the end, create the filled new test result metadata.
-		store?.testResultMetadata = testResultMetadata
-	}
 	
-	private static func updateTestResult(_ testResult: TestResult, _ token: String) {
-		// we only save metadata for tests submitted on QR code,and there is the only place in the app where we set the registration date
-		guard store?.testResultMetadata?.testRegistrationToken == token,
-			  let registrationDate = store?.testResultMetadata?.testRegistrationDate else {
-			Log.warning("Could not update test meta data result due to testRegistrationDate is nil", log: .ppa)
-			return
-		}
-
-		let storedTestResult = store?.testResultMetadata?.testResult
-		// if storedTestResult != newTestResult ---> update persisted testResult and the hoursSinceTestRegistration
-		// if storedTestResult == nil ---> update persisted testResult and the hoursSinceTestRegistration
-		// if storedTestResult == newTestResult ---> do nothing
-
-		if storedTestResult == nil || storedTestResult != testResult {
-			switch testResult {
-			case .positive, .negative, .pending:
-				Log.info("update TestResultMetadata with testResult: \(testResult.stringValue)", log: .ppa)
-				store?.testResultMetadata?.testResult = testResult
-
-				switch store?.testResultMetadata?.testResult {
-				case .positive, .negative, .pending:
-					let diffComponents = Calendar.current.dateComponents([.hour], from: registrationDate, to: Date())
-					Analytics.collect(.testResultMetadata(.testResultHoursSinceTestRegistration(diffComponents.hour)))
-					Log.info("update TestResultMetadata with HoursSinceTestRegistration: \(String(describing: diffComponents.hour))", log: .ppa)
-				default:
-					Analytics.collect(.testResultMetadata(.testResultHoursSinceTestRegistration(nil)))
-				}
-
-			case .expired, .invalid:
-				break
-			}
-		} else {
-			Log.warning("will not update same TestResultMetadata, oldResult: \(storedTestResult?.stringValue ?? "") newResult: \(testResult.stringValue)", log: .ppa)
-		}
-	}
-
-
-	// MARK: - KeySubmissionMetadata
-
-	// swiftlint:disable:next cyclomatic_complexity
-	private static func logKeySubmissionMetadata(_ keySubmissionMetadata: PPAKeySubmissionMetadata) {
-		switch keySubmissionMetadata {
-		case let .create(metadata):
-			store?.keySubmissionMetadata = metadata
-		case let .submitted(submitted):
-			store?.keySubmissionMetadata?.submitted = submitted
-		case let .submittedInBackground(inBackground):
-			store?.keySubmissionMetadata?.submittedInBackground = inBackground
-		case let .submittedAfterCancel(afterCancel):
-			store?.keySubmissionMetadata?.submittedAfterCancel = afterCancel
-		case let .submittedAfterSymptomFlow(afterSymptomFlow):
-			store?.keySubmissionMetadata?.submittedAfterSymptomFlow = afterSymptomFlow
-		case let .submittedWithTeletan(withTeletan):
-			store?.submittedWithQR = !withTeletan
-		case let .submittedWithCheckins(withCheckins):
-			store?.keySubmissionMetadata?.submittedWithCheckIns = withCheckins
-		case let .lastSubmissionFlowScreen(flowScreen):
-			store?.keySubmissionMetadata?.lastSubmissionFlowScreen = flowScreen
-		case let .advancedConsentGiven(advanceConsent):
-			// this is as per techspecs, this value is false in case TAN submission
-			if store?.submittedWithQR == true && advanceConsent == true {
-				store?.keySubmissionMetadata?.advancedConsentGiven = advanceConsent
-			} else {
-				store?.keySubmissionMetadata?.advancedConsentGiven = false
-			}
-		case let .keySubmissionHoursSinceTestRegistration(hours):
-			store?.keySubmissionMetadata?.hoursSinceTestRegistration = hours
-		case let .daysSinceMostRecentDateAtRiskLevelAtTestRegistration(date):
-			store?.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = date
-		case let .hoursSinceHighRiskWarningAtTestRegistration(hours):
-			store?.keySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration = hours
-		case .updateSubmittedWithTeletan:
-			store?.keySubmissionMetadata?.submittedWithTeleTAN = !(store?.submittedWithQR ?? false)
-		case .setHoursSinceTestResult:
-			Analytics.setHoursSinceTestResult()
-		case .setHoursSinceTestRegistration:
-			Analytics.setHoursSinceTestRegistration()
-		case .setHoursSinceENFHighRiskWarningAtTestRegistration:
-			Analytics.setHoursSinceENFHighRiskWarningAtTestRegistration()
-		case .setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration:
-			Analytics.setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration()
-		case .setHoursSinceCheckinHighRiskWarningAtTestRegistration:
-			Analytics.setHoursSinceCheckinHighRiskWarningAtTestRegistration()
-		case .setDaysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration:
-			Analytics.setDaysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration()
-		}
-	}
-
-	private static func setHoursSinceTestResult() {
-		guard let testResultReceivedDate = coronaTestService?.pcrTest?.finalTestResultReceivedDate else {
-			Log.warning("Could not log hoursSinceTestResult due to testResultReceivedTimeStamp is nil", log: .ppa)
-			return
-		}
-
-		let diffComponents = Calendar.current.dateComponents([.hour], from: testResultReceivedDate, to: Date())
-		store?.keySubmissionMetadata?.hoursSinceTestResult = Int32(diffComponents.hour ?? 0)
-	}
-
-	private static func setHoursSinceTestRegistration() {
-		guard let registrationDate = coronaTestService?.pcrTest?.registrationDate else {
-			Log.warning("Could not log hoursSinceTestRegistration due to testRegistrationDate is nil", log: .ppa)
-			return
-		}
-
-		let diffComponents = Calendar.current.dateComponents([.hour], from: registrationDate, to: Date())
-		store?.keySubmissionMetadata?.hoursSinceTestRegistration = Int32(diffComponents.hour ?? 0)
-	}
-
-	private static func setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration() {
-		guard let registrationDate = coronaTestService?.pcrTest?.registrationDate else {
-			store?.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = -1
-			return
-		}
-		if let mostRecentRiskCalculationDate = store?.enfRiskCalculationResult?.mostRecentDateWithCurrentRiskLevel {
-			let daysSinceMostRecentDateAtRiskLevelAtTestRegistration = Calendar.utcCalendar.dateComponents([.day], from: mostRecentRiskCalculationDate, to: registrationDate).day
-			store?.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = Int32(daysSinceMostRecentDateAtRiskLevelAtTestRegistration ?? -1)
-		} else {
-			store?.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = -1
-		}
-	}
-
-	private static func setHoursSinceENFHighRiskWarningAtTestRegistration() {
-		guard let riskLevel = store?.enfRiskCalculationResult?.riskLevel  else {
-			Log.warning("Could not log hoursSinceHighRiskWarningAtTestRegistration due to riskLevel is nil", log: .ppa)
-			return
-		}
-		switch riskLevel {
-		case .high:
-			guard let timeOfRiskChangeToHigh = store?.dateOfConversionToENFHighRisk,
-				  let registrationTime = coronaTestService?.pcrTest?.registrationDate else {
-				Log.warning("Could not log ENF risk calculation result due to timeOfRiskChangeToHigh is nil", log: .ppa)
-				return
-			}
-			let differenceInHours = Calendar.current.dateComponents([.hour], from: timeOfRiskChangeToHigh, to: registrationTime)
-			store?.keySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration = Int32(differenceInHours.hour ?? -1)
-		case .low:
-			store?.keySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration = -1
-		}
-	}
-	
-	private static func setDaysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration() {
-		guard let registrationDate = coronaTestService?.pcrTest?.registrationDate else {
-			store?.keySubmissionMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration = -1
-			return
-		}
-		if let mostRecentRiskCalculationDate = store?.checkinRiskCalculationResult?.mostRecentDateWithCurrentRiskLevel {
-			let daysSinceMostRecentDateAtRiskLevelAtTestRegistration = Calendar.utcCalendar.dateComponents([.day], from: mostRecentRiskCalculationDate, to: registrationDate).day
-			store?.keySubmissionMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration = Int32(daysSinceMostRecentDateAtRiskLevelAtTestRegistration ?? -1)
-		} else {
-			store?.keySubmissionMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration = -1
-		}
-	}
-
-	private static func setHoursSinceCheckinHighRiskWarningAtTestRegistration() {
-		guard let riskLevel = store?.checkinRiskCalculationResult?.riskLevel  else {
-			Log.warning("Could not log hoursSinceCheckinHighRiskWarningAtTestRegistration due to riskLevel is nil", log: .ppa)
-			return
-		}
-		switch riskLevel {
-		case .high:
-			guard let timeOfRiskChangeToHigh = store?.dateOfConversionToCheckinHighRisk,
-				  let registrationTime = coronaTestService?.pcrTest?.registrationDate else {
-				Log.warning("Could not log Checkin risk calculation result due to timeOfRiskChangeToHigh is nil", log: .ppa)
-				return
-			}
-			let differenceInHours = Calendar.current.dateComponents([.hour], from: timeOfRiskChangeToHigh, to: registrationTime)
-			store?.keySubmissionMetadata?.hoursSinceCheckinHighRiskWarningAtTestRegistration = Int32(differenceInHours.hour ?? -1)
-		case .low:
-			store?.keySubmissionMetadata?.hoursSinceCheckinHighRiskWarningAtTestRegistration = -1
-		}
-	}
-
 	// MARK: - ExposureWindowsMetadata
 
 	private static func logExposureWindowsMetadata(_ exposureWindowsMetadata: PPAExposureWindowsMetadata) {
@@ -548,6 +301,19 @@ extension PPAnalyticsCollector {
 		PPAnalyticsCollector.store = store
 		PPAnalyticsCollector.submitter = submitter
 		PPAnalyticsCollector.coronaTestService = coronaTestService
+
+		if let store = store {
+			let testResultCollector = PPAAnalyticsTestResultCollector(store: store)
+			PPAnalyticsCollector.testResultCollector = testResultCollector
+		}
+
+		if let store = store, let coronaTestService = coronaTestService {
+			let submissionCollector = PPAAnalyticsSubmissionCollector(
+				store: store,
+				coronaTestService: coronaTestService
+			)
+			PPAnalyticsCollector.submissionCollector = submissionCollector
+		}
 	}
 
 	/// ONLY FOR TESTING. Returns the last successful submitted data.

@@ -15,8 +15,6 @@ protocol PPAnalyticsData: AnyObject {
 	var lastAppReset: Date? { get set }
 	/// Content of last submitted data. Needed for analytics submission dev menu.
 	var lastSubmittedPPAData: String? { get set }
-	/// A boolean to keep a track if the submission is done via QR
-	var submittedWithQR: Bool { get set }
 	/// Analytics data ENF.
 	var currentENFRiskExposureMetadata: RiskExposureMetadata? { get set }
 	/// Analytics data ENF.
@@ -30,9 +28,13 @@ protocol PPAnalyticsData: AnyObject {
 	/// Analytics data.
 	var clientMetadata: ClientMetadata? { get set }
 	/// Analytics data
-	var keySubmissionMetadata: KeySubmissionMetadata? { get set }
+	var pcrKeySubmissionMetadata: KeySubmissionMetadata? { get set }
+	/// Analytics data
+	var antigenKeySubmissionMetadata: KeySubmissionMetadata? { get set }
 	/// Analytics data.
-	var testResultMetadata: TestResultMetadata? { get set }
+	var pcrTestResultMetadata: TestResultMetadata? { get set }
+	/// Analytics data.
+	var antigenTestResultMetadata: TestResultMetadata? { get set }
 	/// Analytics data.
 	var exposureWindowsMetadata: ExposureWindowsMetadata? { get set }
 	/// Date when the ENF risk was changed to high
@@ -57,12 +59,7 @@ extension SecureStore: PPAnalyticsData {
 		get { kvStore["lastSubmittedPPAData"] as String? }
 		set { kvStore["lastSubmittedPPAData"] = newValue }
 	}
-
-	var submittedWithQR: Bool {
-		get { kvStore["submittedWithQR"] as Bool? ?? false }
-		set { kvStore["submittedWithQR"] = newValue }
-	}
-
+	
 	var currentENFRiskExposureMetadata: RiskExposureMetadata? {
 		get { kvStore["currentRiskExposureMetadata"] as RiskExposureMetadata? ?? nil }
 		set { kvStore["currentRiskExposureMetadata"] = newValue }
@@ -84,27 +81,54 @@ extension SecureStore: PPAnalyticsData {
 	}
 
 	var userMetadata: UserMetadata? {
-		get { kvStore["userMetadataAnalytics"] as UserMetadata? ?? nil }
+		get { kvStore["userMetadataAnalytics"] as UserMetadata? }
 		set { kvStore["userMetadataAnalytics"] = newValue }
 	}
 
-	var testResultMetadata: TestResultMetadata? {
-		get { kvStore["testResultaMetadata"] as TestResultMetadata? ?? nil }
+	var pcrTestResultMetadata: TestResultMetadata? {
+		get { kvStore["testResultaMetadata"] as TestResultMetadata? }
 		set { kvStore["testResultaMetadata"] = newValue }
 	}
 
+	var antigenTestResultMetadata: TestResultMetadata? {
+		get { kvStore["antigenTestResultMetadata"] as TestResultMetadata? }
+		set { kvStore["antigenTestResultMetadata"] = newValue }
+	}
+
 	var clientMetadata: ClientMetadata? {
-		get { kvStore["clientMetadata"] as ClientMetadata? ?? nil }
+		get { kvStore["clientMetadata"] as ClientMetadata? }
 		set { kvStore["clientMetadata"] = newValue }
 	}
 
-	var keySubmissionMetadata: KeySubmissionMetadata? {
-		get { kvStore["keySubmissionMetadata"] as KeySubmissionMetadata? ?? nil }
+	var pcrKeySubmissionMetadata: KeySubmissionMetadata? {
+		get {
+			var metadata = kvStore["keySubmissionMetadata"] as KeySubmissionMetadata? ?? nil
+
+			// Migrate data from old entry 'submittedWithQR'.
+			// 'submittedWithQR' was previously used to identify if a PCR test was registered via QR code.
+			// Since we now need this information for pcr and antigen tests, this field needs to me migrated to the 'keySubmissionMetadata'.
+			// According to the specs for 'Key Submission Metadata' its the other way arround, we have a field called 'submittedWithTeleTAN', which identifies if a test was registered via TAN.
+			// Since there are only 2 ways (TAN or QR code) to register a test, we can assume 'submittedWithTeleTAN = !submittedWithQR'
+			if let _submittedWithQR = kvStore["submittedWithQR"] as? Bool?,
+			   let submittedWithQR = _submittedWithQR,
+			   metadata?.submittedWithTeleTAN == nil {
+
+				metadata?.submittedWithTeleTAN = !submittedWithQR
+				kvStore["submittedWithQR"] = nil
+			}
+
+			return metadata
+		}
 		set { kvStore["keySubmissionMetadata"] = newValue }
 	}
 
+	var antigenKeySubmissionMetadata: KeySubmissionMetadata? {
+		get { kvStore["antigenKeySubmissionMetadata"] as KeySubmissionMetadata? }
+		set { kvStore["antigenKeySubmissionMetadata"] = newValue }
+	}
+
 	var exposureWindowsMetadata: ExposureWindowsMetadata? {
-		get { kvStore["exposureWindowsMetadata"] as ExposureWindowsMetadata? ?? nil }
+		get { kvStore["exposureWindowsMetadata"] as ExposureWindowsMetadata? }
 		set { kvStore["exposureWindowsMetadata"] = newValue }
 	}
 	

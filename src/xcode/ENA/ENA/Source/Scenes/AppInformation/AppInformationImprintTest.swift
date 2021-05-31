@@ -6,7 +6,7 @@ import Foundation
 import XCTest
 @testable import ENA
 
-class AppInformationImprintTest: XCTestCase {
+class AppInformationImprintTest: CWATestCase {
 
 	func testImprintViewModelDE() throws {
 		let imprintViewModel = AppInformationImprintViewModel(preferredLocalization: "de")

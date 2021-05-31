@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class QRCodeCellViewModelTests: XCTestCase {
+class QRCodeCellViewModelTests: CWATestCase {
 
 	func testGIVEN_CreateAntigenTestProfile_WHEN_vCardData_THEN_IsCorrect() throws {
 		// GIVEN
@@ -69,6 +69,84 @@ class QRCodeCellViewModelTests: XCTestCase {
 		VERSION:4.0
 		N:Mustermann;Max;;;
 		FN:Max Mustermann
+		BDAY:19820512
+		EMAIL;TYPE=home:sabine.schulz@gmx.com
+		TEL;TYPE="cell,home":0165434563
+		ADR;type=home:;;Blumenstraße 2;Berlin;;43923;
+		REV:\(revDateString)
+		END:VCARD
+		"""
+		)
+	}
+	
+	func testGIVEN_AntigenTestProfile_WHEN_getVCardV4String_THEN_CommaEscapingIsCorrect() {
+		// GIVEN
+		let  antigenTestProfile = AntigenTestProfile(
+			firstName: "Max",
+			lastName: "Muster,mann",
+			dateOfBirth: Date(timeIntervalSince1970: 390047238),
+			addressLine: "Blumenstraße 2",
+			zipCode: "43923",
+			city: "Berlin",
+			phoneNumber: "0165434563",
+			email: "sabine.schulz@gmx.com"
+		)
+		let viewModel = QRCodeCellViewModel(
+			antigenTestProfile: antigenTestProfile,
+			backgroundColor: .white,
+			borderColor: .red
+		)
+
+		// WHEN
+		let revDate = Date()
+		let revDateString = DateFormatter.VCard.revDate.string(from: revDate)
+		let vCardString = viewModel.vCardV4(revDate: revDate)
+
+		// THEN
+		XCTAssertEqual(vCardString, """
+		BEGIN:VCARD
+		VERSION:4.0
+		N:Muster\\,mann;Max;;;
+		FN:Max Muster\\,mann
+		BDAY:19820512
+		EMAIL;TYPE=home:sabine.schulz@gmx.com
+		TEL;TYPE="cell,home":0165434563
+		ADR;type=home:;;Blumenstraße 2;Berlin;;43923;
+		REV:\(revDateString)
+		END:VCARD
+		"""
+		)
+	}
+	
+	func testGIVEN_AntigenTestProfile_WHEN_getVCardV4String_THEN_SemicolonEscapingIsCorrect() {
+		// GIVEN
+		let  antigenTestProfile = AntigenTestProfile(
+			firstName: "Max",
+			lastName: "Muster;mann",
+			dateOfBirth: Date(timeIntervalSince1970: 390047238),
+			addressLine: "Blumenstraße 2",
+			zipCode: "43923",
+			city: "Berlin",
+			phoneNumber: "0165434563",
+			email: "sabine.schulz@gmx.com"
+		)
+		let viewModel = QRCodeCellViewModel(
+			antigenTestProfile: antigenTestProfile,
+			backgroundColor: .white,
+			borderColor: .red
+		)
+
+		// WHEN
+		let revDate = Date()
+		let revDateString = DateFormatter.VCard.revDate.string(from: revDate)
+		let vCardString = viewModel.vCardV4(revDate: revDate)
+
+		// THEN
+		XCTAssertEqual(vCardString, """
+		BEGIN:VCARD
+		VERSION:4.0
+		N:Muster\\;mann;Max;;;
+		FN:Max Muster\\;mann
 		BDAY:19820512
 		EMAIL;TYPE=home:sabine.schulz@gmx.com
 		TEL;TYPE="cell,home":0165434563

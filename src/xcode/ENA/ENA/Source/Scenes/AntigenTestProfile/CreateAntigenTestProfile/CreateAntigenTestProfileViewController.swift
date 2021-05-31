@@ -74,7 +74,7 @@ class CreateAntigenTestProfileViewController: UITableViewController, FooterViewH
 			cell.lastNameTextField.addTarget(self, action: #selector(lastNameTextFieldDidChange(textField:)), for: .editingChanged)
 			
 			if let date = viewModel.antigenTestProfile.dateOfBirth {
-				cell.birthDateNameTextField.text = DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .none)
+				cell.birthDateNameTextField.text = dateOfBirthFormatter.string(from: date)
 			}
 			cell.birthDateNameTextField.delegate = self
 			cell.birthDateNameTextField.addTarget(self, action: #selector(birthDateTextFieldDidChange(textField:)), for: .editingChanged)
@@ -148,7 +148,7 @@ class CreateAntigenTestProfileViewController: UITableViewController, FooterViewH
 	private var viewModel: CreateAntigenTestProfileViewModel
 	private let didTapSave: () -> Void
 	private let dismiss: () -> Void
-	
+	private let dateOfBirthFormatter = AntigenTestProfileViewModel.dateOfBirthFormatter()
 	private var cancellables = [OpenCombine.AnyCancellable]()
 
 	private func setupView() {
@@ -191,7 +191,7 @@ class CreateAntigenTestProfileViewController: UITableViewController, FooterViewH
 	private func dateOfBirthDidChange(datePicker: UIDatePicker) {
 		viewModel.update(datePicker.date, keyPath: \.dateOfBirth)
 		if let cell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? CreateAntigenTestProfileInputCell {
-			cell.textFields[2].text = DateFormatter.localizedString(from: datePicker.date, dateStyle: .medium, timeStyle: .none)
+			cell.textFields[2].text = dateOfBirthFormatter.string(from: datePicker.date)
 		}
 	}
 	

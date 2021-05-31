@@ -1,25 +1,16 @@
 version: 2.1
 
 configuration:
-  - cache_key: &cache_key v7-{{ checksum "src/xcode/Gemfile.lock" }}
+  - cache_key: &cache_key v8-{{ checksum "src/xcode/Gemfile.lock" }}
+  - tools_cache_key: &tools_cache_key v3-{{ checksum "Brewfile.lock.json" }}
   - xcode_version: &xcode_version 12.4.0
   - resource_class: &resource_class large
 
-commands:
-  install-tools:
-    steps:
-      - run:
-          name: Install swiftlint
-          command: |
-            if ! command -v swiftlint &> /dev/null
-            then
-              brew install swiftlint coreutils
-            fi
-            swiftlint version
-      - run:
-          name: Install Bundler
-          command: sudo gem install rake bundler:2.1.4
+###
+### COMMANDS ###
+###
 
+commands:
   prepare-dependencies:
     steps:
       - checkout
@@ -28,17 +19,35 @@ commands:
           command: for ip in $(dig @8.8.8.8 github.com +short); do ssh-keyscan github.com,$ip; ssh-keyscan $ip; done 2>/dev/null >> ~/.ssh/known_hosts
       - restore_cache:
           key: *cache_key
-      - install-tools
+      - restore_cache:
+          key: *tools_cache_key
+      - run:
+          name: Brew bundle
+          command: |
+            brew bundle
+      - run:
+          name: Install Bundler
+          command: sudo gem install rake bundler:2.1.4
       - run:
           name: Install dependencies
           command: cd src/xcode && bundle install --path=vendor --jobs=8
       - save_cache:
+          key: *tools_cache_key
+          paths:
+            - /Users/distiller/Library/Caches/Homebrew
+            - /usr/local/Homebrew
+            - /Users/distiller/.rubies/ruby-*/bin/
+      - save_cache:
           key: *cache_key
           paths:
-            - src/xcode/vendor
+            - src/xcode/vendor/
             - /usr/local/Cellar/
             - /usr/local/opt/
             - /usr/local/bin/
+
+###
+### JOBS ###
+###
 
 jobs:
   dependencies:
@@ -53,45 +62,76 @@ jobs:
           root: .
           paths:
             - .
-  build:
+  build-for-testing:
     macos:
       xcode: *xcode_version
     resource_class: *resource_class
     steps:
       - attach_workspace:
           at: .
-      - install-tools # chaching currently fails, needs some further tweaks
       - run:
-          name: Build
-          command: cd src/xcode && bundle exec fastlane build
+          name: Build for testing
+          command: |
+            cd src/xcode && \
+            xcodebuild \
+              -workspace "ENA.xcworkspace" \
+              -scheme ENA \
+              -destination "platform=iOS Simulator,OS=14.4,name=iPhone 11" \
+              -testPlan AllTests \
+              -only-test-configuration "DE" \
+              -derivedDataPath "./DerivedData" \
+              -jobs `sysctl -n hw.ncpu` \
+              -parallelizeTargets \
+              -quiet \
+              build-for-testing
+      - persist_to_workspace:
+          root: .
+          paths:
+            - "src/xcode/DerivedData/**/*"
+  swiftlint:
+    macos:
+      xcode: *xcode_version
+    resource_class: medium
+    steps:
+      - attach_workspace:
+          at: .
+      - restore_cache:
+          key: *cache_key
+      - restore_cache:
+          key: *tools_cache_key
+      - run:
+          name: Swiftlint
+          command: cd src/xcode && bundle exec fastlane lint
+      - store_artifacts:
+          path: src/xcode/swiftlint.result.json
   test:
     macos:
       xcode: *xcode_version
     resource_class: *resource_class
+    parameters:
+      testplan:
+        default: "AllTests"
+        type: string
     steps:
       - attach_workspace:
           at: .
-      - install-tools # chaching currently fails, needs some further tweaks
+      - restore_cache:
+          key: *tools_cache_key
       - run:
           name: Run Fastlane tests
-          command: cd src/xcode && bundle exec fastlane test
-          no_output_timeout: 25m
+          command: cd src/xcode && bundle exec fastlane test testplan:<<parameters.testplan>>
+          no_output_timeout: 5m
       - restore_cache:
           key: sonar-cloud-v2
       - run:
           name: Convert coverage information to SonarCloud format
           shell: /bin/zsh
           command: |
-            ./scripts/cococo src/xcode/fastlane/test_output/ENA.xcresult > src/xcode/fastlane/test_output/coverage.xml
-      - run:
-          name: Fix SwiftLint output for SonarCloud
-          shell: /bin/zsh
-          command: |
-            ./scripts/fix_swiftlint_output.sh src/xcode/swiftlint.result.json
+            ./scripts/cococo \
+              src/xcode/fastlane/test_output/ENA.xcresult > \
+              src/xcode/fastlane/test_output/coverage.xml
       - store_test_results:
           path: src/xcode/fastlane/test_output/
-      - store_artifacts:
-          path: src/xcode/swiftlint.result.json
       - store_artifacts:
           path: src/xcode/fastlane/test_output/ENA.xcresult.zip
       - run:
@@ -124,7 +164,8 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      - install-tools # chaching currently fails, needs some further tweaks
+      - restore_cache:
+          key: *tools_cache_key
       - run:
           name: Run Fastlane smoke tests
           command: cd src/xcode && bundle exec fastlane test_community
@@ -147,7 +188,8 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      - install-tools # chaching currently fails, needs some further tweaks
+      - restore_cache:
+          key: *tools_cache_key
       - run:
           name: Snapshot
           command: cd src/xcode && bundle exec fastlane screenshot languages:<<parameters.language>> mode:<<parameters.displaymode>>
@@ -182,7 +224,9 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      - install-tools # chaching currently fails, needs some further tweaks
+      - restore_cache:
+          key: *tools_cache_key
+      - run: brew bundle
       - run: ./scripts/switch_to_dev_env.sh
       - run:
           name: fastlane testflight
@@ -193,12 +237,13 @@ jobs:
   update-docs:
     macos:
       xcode: *xcode_version
-    resource_class: *resource_class
+    resource_class: medium
     shell: /bin/zsh
     steps:
       - attach_workspace:
           at: .
-      - install-tools # chaching currently fails, needs some further tweaks
+      - restore_cache:
+          key: *tools_cache_key
       - add_ssh_keys:
           fingerprints:
             - "2c:ea:55:72:82:d9:8a:35:02:ac:25:a6:39:3c:e4:23"
@@ -206,16 +251,37 @@ jobs:
           name: Run lane for doc update
           command: cd src/xcode && bundle exec fastlane updateDocs
 
+###
+### WORKFLOWS ###
+###
+
 workflows:
     build-and-test:
       jobs:
         - dependencies
-        - build:
+        - swiftlint:
             requires:
               - dependencies
         - test:
+            matrix:
+              parameters:
+                testplan: ["UnitTests"]
             requires:
               - dependencies
+            filters:
+              branches:
+                ignore:
+                  - /release\/.*/
+        - test:
+            matrix:
+              parameters:
+                testplan: ["AllTests"]
+            requires:
+              - dependencies
+            filters:
+              branches:
+                only:
+                  - /release\/.*/
         - test-community:
             requires:
               - dependencies
@@ -251,15 +317,6 @@ workflows:
               branches:
                 ignore: /.*/
         - test:
-            requires:
-              - dependencies
-            filters:
-              tags:
-                only:
-                  - /^v.*/
-              branches:
-                ignore: /.*/
-        - build:
             requires:
               - dependencies
             filters:

@@ -6,7 +6,7 @@
 import Foundation
 import XCTest
 
-final class HTTPClientTestResultTests: XCTestCase {
+final class HTTPClientTestResultTests: CWATestCase {
 	private let expectationsTimeout: TimeInterval = 2
 
 	func testGetTestResult_Success() throws {
@@ -23,8 +23,8 @@ final class HTTPClientTestResultTests: XCTestCase {
 		HTTPClient.makeWith(mock: stack).getTestResult(forDevice: "1234567890") { result in
 			defer { successExpectation.fulfill() }
 			switch result {
-			case .success(let responseCode):
-				XCTAssertEqual(testResult, responseCode)
+			case .success(let response):
+				XCTAssertEqual(testResult, response.testResult)
 			case .failure:
 				XCTFail("Encountered Error when receiving test result!")
 			}

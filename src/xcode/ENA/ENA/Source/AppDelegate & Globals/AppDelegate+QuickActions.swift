@@ -107,7 +107,7 @@ extension AppDelegate {
 		case QuickAction.diaryNewEntry.rawValue:
 			Log.info("Shortcut: Open new diary entry", log: .ui)
 			guard let tabBarController = coordinator.tabBarController else { return }
-			tabBarController.selectedIndex = 2
+			tabBarController.selectedIndex = 3
 
 			// dismiss an overlaying, modally presented view controller
 			coordinator.diaryCoordinator?.viewController.presentedViewController?.dismiss(animated: false, completion: nil)
@@ -117,7 +117,7 @@ extension AppDelegate {
 		case QuickAction.eventCheckin.rawValue:
 			Log.info("Shortcut: Event checkin 📷", log: .ui)
 			guard let tabBarController = coordinator.tabBarController else { return }
-			tabBarController.selectedIndex = 1
+			tabBarController.selectedIndex = 2
 			
 			// dismiss an overlaying, modally presented view controller
 			coordinator.checkInCoordinator?.viewController.presentedViewController?.dismiss(animated: false, completion: nil)

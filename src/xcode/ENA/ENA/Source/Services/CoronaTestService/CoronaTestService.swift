@@ -20,6 +20,8 @@ class CoronaTestService {
 	init(
 		client: Client,
 		store: CoronaTestStoring & CoronaTestStoringLegacy & WarnOthersTimeIntervalStoring,
+		eventStore: EventStoringProviding,
+		diaryStore: DiaryStoring,
 		appConfiguration: AppConfigurationProviding,
 		notificationCenter: UserNotificationCenter = UNUserNotificationCenter.current()
 	) {
@@ -27,6 +29,8 @@ class CoronaTestService {
 		if isUITesting {
 			self.client = ClientMock()
 			self.store = MockTestStore()
+			self.eventStore = MockEventStore()
+			self.diaryStore = MockDiaryStore()
 			self.appConfiguration = CachedAppConfigurationMock()
 
 			self.notificationCenter = notificationCenter
@@ -45,6 +49,8 @@ class CoronaTestService {
 
 		self.client = client
 		self.store = store
+		self.eventStore = eventStore
+		self.diaryStore = diaryStore
 		self.appConfiguration = appConfiguration
 
 		self.notificationCenter = notificationCenter
@@ -106,8 +112,7 @@ class CoronaTestService {
 
 					Log.info("[CoronaTestService] PCR test registered: \(private: String(describing: self?.pcrTest), public: "PCR Test result")", log: .api)
 
-					Analytics.collect(.testResultMetadata(.registerNewTestMetadata(Date(), registrationToken)))
-					Analytics.collect(.keySubmissionMetadata(.submittedWithTeletan(false)))
+					Analytics.collect(.testResultMetadata(.registerNewTestMetadata(Date(), registrationToken, .pcr)))
 
 					self?.getTestResult(for: .pcr, duringRegistration: true) { result in
 						completion(result)
@@ -138,7 +143,7 @@ class CoronaTestService {
 
 				switch result {
 				case .success(let registrationToken):
-					self?.pcrTest = PCRTest(
+					 let _pcrTest = PCRTest(
 						registrationDate: Date(),
 						registrationToken: registrationToken,
 						testResult: .positive,
@@ -149,10 +154,14 @@ class CoronaTestService {
 						keysSubmitted: false,
 						journalEntryCreated: false
 					)
+					self?.pcrTest = _pcrTest
 
 					Log.info("[CoronaTestService] PCR test registered: \(private: String(describing: self?.pcrTest), public: "PCR Test result")", log: .api)
 
-					Analytics.collect(.keySubmissionMetadata(.submittedWithTeletan(true)))
+					self?.createKeySubmissionMetadataDefaultValues(for: .pcr(_pcrTest))
+					Analytics.collect(.testResultMetadata(.registerNewTestMetadata(Date(), registrationToken, .pcr)))
+					Analytics.collect(.testResultMetadata(.updateTestResult(.positive, registrationToken, .pcr)))
+					Analytics.collect(.keySubmissionMetadata(.submittedWithTeletan(true, .pcr)))
 
 					completion(.success(()))
 				case .failure(let error):
@@ -162,6 +171,21 @@ class CoronaTestService {
 				}
 			}
 		)
+	}
+	
+	func registerPCRTestAndGetResult(
+		teleTAN: String,
+		isSubmissionConsentGiven: Bool,
+		completion: @escaping TestResultHandler
+	) {
+		registerPCRTest(teleTAN: teleTAN, isSubmissionConsentGiven: isSubmissionConsentGiven) { result in
+			switch result {
+			case .success:
+				completion(.success(.positive))
+			case .failure(let error):
+				completion(.failure(error))
+			}
+		}
 	}
 
 	func registerAntigenTestAndGetResult(
@@ -173,7 +197,7 @@ class CoronaTestService {
 		isSubmissionConsentGiven: Bool,
 		completion: @escaping TestResultHandler
 	) {
-		Log.info("[CoronaTestService] Registering antigen test (hash: \(hash), pointOfCareConsentDate: \(pointOfCareConsentDate), firstName: \(String(describing: firstName)), lastName: \(String(describing: lastName)), dateOfBirth: \(String(describing: dateOfBirth)), isSubmissionConsentGiven: \(isSubmissionConsentGiven))", log: .api)
+		Log.info("[CoronaTestService] Registering antigen test (hash: \(private: hash), pointOfCareConsentDate: \(private: pointOfCareConsentDate), firstName: \(private: String(describing: firstName)), lastName: \(private: String(describing: lastName)), dateOfBirth: \(private: String(describing: dateOfBirth)), isSubmissionConsentGiven: \(isSubmissionConsentGiven))", log: .api)
 
 		getRegistrationToken(
 			forKey: ENAHasher.sha256(hash),
@@ -195,6 +219,8 @@ class CoronaTestService {
 						journalEntryCreated: false
 					)
 					Log.info("[CoronaTestService] Antigen test registered: \(private: String(describing: self?.antigenTest), public: "Antigen test result")", log: .api)
+
+					Analytics.collect(.testResultMetadata(.registerNewTestMetadata(Date(), registrationToken, .antigen)))
 
 					self?.getTestResult(for: .antigen, duringRegistration: true) { result in
 						completion(result)
@@ -399,6 +425,8 @@ class CoronaTestService {
 
 	private let client: Client
 	private var store: CoronaTestStoring & CoronaTestStoringLegacy
+	private let eventStore: EventStoringProviding
+	private let diaryStore: DiaryStoring
 	private let appConfiguration: AppConfigurationProviding
 	private let notificationCenter: UserNotificationCenter
 
@@ -456,7 +484,7 @@ class CoronaTestService {
 		}
 	}
 
-	// swiftlint:disable:next cyclomatic_complexity
+	// swiftlint:disable:next cyclomatic_complexity function_body_length
 	private func getTestResult(
 		for coronaTestType: CoronaTestType,
 		force: Bool = true,
@@ -515,7 +543,6 @@ class CoronaTestService {
 			#if DEBUG
 			if isUITesting {
 				completion(
-					self.mockTestResultResponse(for: coronaTestType).flatMap { .success($0) } ??
 					self.mockTestResult(for: coronaTestType).flatMap { .success($0) } ??
 						.failure(.noCoronaTestOfRequestedType)
 				)
@@ -552,9 +579,9 @@ class CoronaTestService {
 				} else {
 					completion(.failure(.responseFailure(error)))
 				}
-			case let .success(rawTestResult):
-				guard let testResult = TestResult(serverResponse: rawTestResult) else {
-					Log.error("[CoronaTestService] Getting test result failed: Unknown test result \(rawTestResult)", log: .api)
+			case let .success(response):
+				guard let testResult = TestResult(serverResponse: response.testResult) else {
+					Log.error("[CoronaTestService] Getting test result failed: Unknown test result \(response)", log: .api)
 
 					completion(.failure(.unknownTestResult))
 					return
@@ -562,17 +589,38 @@ class CoronaTestService {
 
 				Log.info("[CoronaTestService] Got test result (coronaTestType: \(coronaTestType), testResult: \(testResult))", log: .api)
 
-				Analytics.collect(.testResultMetadata(.updateTestResult(testResult, registrationToken)))
-
 				switch coronaTestType {
 				case .pcr:
+					Analytics.collect(.testResultMetadata(.updateTestResult(testResult, registrationToken, .pcr)))
 					self.pcrTest?.testResult = testResult
 				case .antigen:
+					Analytics.collect(.testResultMetadata(.updateTestResult(testResult, registrationToken, .antigen)))
 					self.antigenTest?.testResult = testResult
+					self.antigenTest?.sampleCollectionDate = response.sc.map {
+						Date(timeIntervalSince1970: TimeInterval($0))
+					}
 				}
 
 				switch testResult {
 				case .positive, .negative, .invalid:
+					if case .positive = testResult, !coronaTest.keysSubmitted {
+						self.createKeySubmissionMetadataDefaultValues(for: coronaTest)
+					}
+
+					// only store test result in diary if negative or positive
+					if (testResult == .positive || testResult == .negative) && !coronaTest.journalEntryCreated {
+						// -> store
+						let stringDate = DateFormatter.packagesDayDateFormatter.string(from: registrationDate)
+						self.diaryStore.addCoronaTest(testDate: stringDate, testType: coronaTestType.rawValue, testResult: testResult.rawValue)
+
+						switch coronaTestType {
+						case .pcr:
+							self.pcrTest?.journalEntryCreated = true
+						case .antigen:
+							self.antigenTest?.journalEntryCreated = true
+						}
+					}
+
 					if coronaTest.finalTestResultReceivedDate == nil {
 						switch coronaTestType {
 						case .pcr:
@@ -597,11 +645,12 @@ class CoronaTestService {
 						}
 					}
 
-					if coronaTestType == .pcr && duringRegistration {
-						Analytics.collect(.keySubmissionMetadata(.setHoursSinceENFHighRiskWarningAtTestRegistration))
-						Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration))
-						Analytics.collect(.keySubmissionMetadata(.setHoursSinceCheckinHighRiskWarningAtTestRegistration))
-						Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration))
+
+					if duringRegistration {
+						Analytics.collect(.keySubmissionMetadata(.setHoursSinceENFHighRiskWarningAtTestRegistration(coronaTestType)))
+						Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration(coronaTestType)))
+						Analytics.collect(.keySubmissionMetadata(.setHoursSinceCheckinHighRiskWarningAtTestRegistration(coronaTestType)))
+						Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration(coronaTestType)))
 					}
 
 					completion(.success(testResult))
@@ -644,6 +693,40 @@ class CoronaTestService {
 				}
 			}
 			.store(in: &subscriptions)
+	}
+
+	private func createKeySubmissionMetadataDefaultValues(for coronaTest: CoronaTest) {
+		let submittedAfterRapidAntigenTest: Bool
+		switch coronaTest {
+		case .pcr:
+			submittedAfterRapidAntigenTest = false
+		case .antigen:
+			submittedAfterRapidAntigenTest = true
+		}
+
+		let submittedWithCheckIns = !eventStore.checkinsPublisher.value.isEmpty
+
+		let keySubmissionMetadata = KeySubmissionMetadata(
+			submitted: false,
+			submittedInBackground: false,
+			submittedAfterCancel: false,
+			submittedAfterSymptomFlow: false,
+			lastSubmissionFlowScreen: .submissionFlowScreenUnknown,
+			advancedConsentGiven: coronaTest.isSubmissionConsentGiven,
+			hoursSinceTestResult: 0,
+			hoursSinceTestRegistration: 0,
+			daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1,
+			hoursSinceHighRiskWarningAtTestRegistration: -1,
+			submittedWithTeleTAN: false,
+			submittedAfterRapidAntigenTest: submittedAfterRapidAntigenTest,
+			daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration: -1,
+			hoursSinceCheckinHighRiskWarningAtTestRegistration: -1,
+			submittedWithCheckIns: submittedWithCheckIns
+		)
+
+		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, coronaTest.type)))
+		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration(coronaTest.type)))
+		Analytics.collect(.keySubmissionMetadata(.setHoursSinceENFHighRiskWarningAtTestRegistration(coronaTest.type)))
 	}
 
 	private func scheduleOutdatedStateTimer() {
@@ -694,10 +777,10 @@ class CoronaTestService {
 				registrationToken: "asdf",
 				testResult: testResult,
 				finalTestResultReceivedDate: testResult == .pending ? nil : Date(),
-				positiveTestResultWasShown: UserDefaults.standard.string(forKey: "pcrPositiveTestResultWasShown") == "YES",
-				isSubmissionConsentGiven: UserDefaults.standard.string(forKey: "isPCRSubmissionConsentGiven") == "YES",
+				positiveTestResultWasShown: LaunchArguments.test.pcr.positiveTestResultWasShown.boolValue,
+				isSubmissionConsentGiven: LaunchArguments.test.pcr.isSubmissionConsentGiven.boolValue,
 				submissionTAN: nil,
-				keysSubmitted: UserDefaults.standard.string(forKey: "pcrKeysSubmitted") == "YES",
+				keysSubmitted: LaunchArguments.test.pcr.keysSubmitted.boolValue,
 				journalEntryCreated: false
 			)
 		} else {
@@ -714,10 +797,10 @@ class CoronaTestService {
 				testedPerson: TestedPerson(firstName: "Erika", lastName: "Mustermann", dateOfBirth: "1964-08-12"),
 				testResult: testResult,
 				finalTestResultReceivedDate: testResult == .pending ? nil : Date(),
-				positiveTestResultWasShown: UserDefaults.standard.string(forKey: "antigenPositiveTestResultWasShown") == "YES",
-				isSubmissionConsentGiven: UserDefaults.standard.string(forKey: "isAntigenSubmissionConsentGiven") == "YES",
+				positiveTestResultWasShown: LaunchArguments.test.antigen.positiveTestResultWasShown.boolValue,
+				isSubmissionConsentGiven: LaunchArguments.test.antigen.isSubmissionConsentGiven.boolValue,
 				submissionTAN: nil,
-				keysSubmitted: UserDefaults.standard.string(forKey: "antigenKeysSubmitted") == "YES",
+				keysSubmitted: LaunchArguments.test.antigen.keysSubmitted.boolValue,
 				journalEntryCreated: false
 			)
 		} else {
@@ -728,18 +811,9 @@ class CoronaTestService {
 	private func mockTestResult(for coronaTestType: CoronaTestType) -> TestResult? {
 		switch coronaTestType {
 		case .pcr:
-			return UserDefaults.standard.string(forKey: "pcrTestResult").flatMap { TestResult(stringValue: $0) }
+			return LaunchArguments.test.pcr.testResult.stringValue.flatMap { TestResult(stringValue: $0) }
 		case .antigen:
-			return UserDefaults.standard.string(forKey: "antigenTestResult").flatMap { TestResult(stringValue: $0) }
-		}
-	}
-
-	private func mockTestResultResponse(for coronaTestType: CoronaTestType) -> TestResult? {
-		switch coronaTestType {
-		case .pcr:
-			return UserDefaults.standard.string(forKey: "pcrTestResultResponse").flatMap { TestResult(stringValue: $0) }
-		case .antigen:
-			return UserDefaults.standard.string(forKey: "antigenTestResultResponse").flatMap { TestResult(stringValue: $0) }
+			return LaunchArguments.test.antigen.testResult.stringValue.flatMap { TestResult(stringValue: $0) }
 		}
 	}
 

@@ -5,6 +5,7 @@
 @testable import ENA
 import XCTest
 
+// TODO match pcr and antigen
 class TestResultMetadataTests: XCTestCase {
 	/// Testpattern:
 	/// ENF empty risk, Checkin empty risk
@@ -29,19 +30,20 @@ class TestResultMetadataTests: XCTestCase {
 		secureStore.checkinRiskCalculationResult = checkinRiskCalculationResult
 		
 		// WHEN
-		Analytics.collect(.testResultMetadata(.registerNewTestMetadata(today, "")))
+		Analytics.collect(.testResultMetadata(.registerNewTestMetadata(today, "", .pcr)))
+		Analytics.collect(.testResultMetadata(.registerNewTestMetadata(today, "", .antigen)))
 		
 		// THEN
-		XCTAssertNotNil(secureStore.testResultMetadata, "The testResultMetadata should be initialized")
-		XCTAssertEqual(secureStore.testResultMetadata?.testRegistrationDate, today, "incorrect RegistrationDate")
+		XCTAssertNotNil(secureStore.pcrTestResultMetadata, "The pcrTestResultMetadata should be initialized")
+		XCTAssertEqual(secureStore.pcrTestResultMetadata?.testRegistrationDate, today, "incorrect RegistrationDate")
 		
-		XCTAssertEqual(secureStore.testResultMetadata?.riskLevelAtTestRegistration, enfRiskCalculationResult.riskLevel, "incorrect risk level")
-		XCTAssertEqual( secureStore.testResultMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, -1, "should be -1 if there is no recentDate for riskLevel")
-		XCTAssertEqual(secureStore.testResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration, -1, "should be -1 if there is no recentDate for riskLevel")
+		XCTAssertEqual(secureStore.pcrTestResultMetadata?.riskLevelAtTestRegistration, enfRiskCalculationResult.riskLevel, "incorrect risk level")
+		XCTAssertEqual( secureStore.pcrTestResultMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, -1, "should be -1 if there is no recentDate for riskLevel")
+		XCTAssertEqual(secureStore.pcrTestResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration, -1, "should be -1 if there is no recentDate for riskLevel")
 		
-		XCTAssertEqual(secureStore.testResultMetadata?.checkinRiskLevelAtTestRegistration, checkinRiskCalculationResult.riskLevel, "incorrect risk level")
-		XCTAssertEqual( secureStore.testResultMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration, -1, "should be -1 if there is no recentDate for riskLevel")
-		XCTAssertEqual(secureStore.testResultMetadata?.hoursSinceCheckinHighRiskWarningAtTestRegistration, -1, "should be -1 if there is no recentDate for riskLevel")
+		XCTAssertEqual(secureStore.pcrTestResultMetadata?.checkinRiskLevelAtTestRegistration, checkinRiskCalculationResult.riskLevel, "incorrect risk level")
+		XCTAssertEqual( secureStore.pcrTestResultMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration, -1, "should be -1 if there is no recentDate for riskLevel")
+		XCTAssertEqual(secureStore.pcrTestResultMetadata?.hoursSinceCheckinHighRiskWarningAtTestRegistration, -1, "should be -1 if there is no recentDate for riskLevel")
 		
 	}
 	
@@ -79,13 +81,6 @@ class TestResultMetadataTests: XCTestCase {
 	
 	func testGIVEN_RegisteringNewTestMetadata_WHEN_ENFHighRisk_CheckinNone_THEN_OnlyENFIsSet() {
 		// GIVEN
-		let secureStore = MockTestStore()
-		Analytics.setupMock(store: secureStore)
-		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
-		
-		let today = Date()
-		let expectedDaysSinceRecentAtRiskLevelAtTestRegistration = 5
-		let mostRecentDateHighRisk = Calendar.current.date(byAdding: .day, value: -expectedDaysSinceRecentAtRiskLevelAtTestRegistration, to: today)
 		let enfRiskCalculationResult = mockENFRiskCalculationResult(risk: .high, mostRecentDateHighRisk: mostRecentDateHighRisk)
 		secureStore.dateOfConversionToENFHighRisk = Calendar.current.date(byAdding: .day, value: -1, to: today)
 		secureStore.enfRiskCalculationResult = enfRiskCalculationResult
@@ -262,12 +257,16 @@ class TestResultMetadataTests: XCTestCase {
 			XCTFail("registration date is nil")
 			return
 		}
-		Analytics.collect(.testResultMetadata(.registerNewTestMetadata(registrationDate, "")))
-		Analytics.collect(.testResultMetadata(.updateTestResult(.positive, "")))
-		
-		XCTAssertEqual(secureStore.testResultMetadata?.testResult, TestResult.positive, "incorrect testResult")
-		
-		XCTAssertEqual(secureStore.testResultMetadata?.hoursSinceTestRegistration, (24 * 4), "incorrect hoursSinceTestRegistration")
+		Analytics.collect(.testResultMetadata(.registerNewTestMetadata(registrationDate, "", .pcr)))
+		Analytics.collect(.testResultMetadata(.updateTestResult(.positive, "", .pcr)))
+		Analytics.collect(.testResultMetadata(.registerNewTestMetadata(registrationDate, "", .antigen)))
+		Analytics.collect(.testResultMetadata(.updateTestResult(.positive, "", .antigen)))
+
+		XCTAssertEqual(secureStore.pcrTestResultMetadata?.testResult, TestResult.positive, "incorrect testResult")
+		XCTAssertEqual(secureStore.pcrTestResultMetadata?.hoursSinceTestRegistration, (24 * 4), "incorrect hoursSinceTestRegistration")
+
+		XCTAssertEqual(secureStore.antigenTestResultMetadata?.testResult, TestResult.positive, "incorrect testResult")
+		XCTAssertEqual(secureStore.antigenTestResultMetadata?.hoursSinceTestRegistration, (24 * 4), "incorrect hoursSinceTestRegistration")
 	}
 
 	func testUpdatingTestResult_ValidResult_previouslyStoredWithSameValue() {
@@ -278,21 +277,28 @@ class TestResultMetadataTests: XCTestCase {
 		secureStore.enfRiskCalculationResult = riskCalculationResult
 
 		if let registrationDate = Calendar.current.date(byAdding: .day, value: -4, to: Date()) {
-			Analytics.collect(.testResultMetadata(.registerNewTestMetadata(registrationDate, "Token")))
-			Analytics.collect(.testResultMetadata(.updateTestResult(.positive, "Token")))
-			Analytics.collect(.testResultMetadata(.testResultHoursSinceTestRegistration(0)))
+			Analytics.collect(.testResultMetadata(.registerNewTestMetadata(registrationDate, "Token", .pcr)))
+			Analytics.collect(.testResultMetadata(.updateTestResult(.positive, "Token", .pcr)))
+			Analytics.collect(.testResultMetadata(.registerNewTestMetadata(registrationDate, "Token", .antigen)))
+			Analytics.collect(.testResultMetadata(.updateTestResult(.positive, "Token", .antigen)))
+			secureStore.pcrTestResultMetadata?.hoursSinceTestRegistration = 0
+			secureStore.antigenTestResultMetadata?.hoursSinceTestRegistration = 0
 		} else {
 			XCTFail("registration date is nil")
 		}
 
-		Analytics.collect(.testResultMetadata(.updateTestResult(.positive, "Token")))
-		XCTAssertEqual(secureStore.testResultMetadata?.testResult, TestResult.positive, "incorrect testResult")
+		Analytics.collect(.testResultMetadata(.updateTestResult(.positive, "Token", .pcr)))
+		Analytics.collect(.testResultMetadata(.updateTestResult(.positive, "Token", .antigen)))
+
+		XCTAssertEqual(secureStore.pcrTestResultMetadata?.testResult, TestResult.positive, "incorrect testResult")
+		XCTAssertEqual(secureStore.antigenTestResultMetadata?.testResult, TestResult.positive, "incorrect testResult")
 
 		/* The date shouldn't be updated if the test result is the same as the old one
 					- hoursSinceTestRegistration if updated should be (24 * 4)
 					- we explicitly set it into 0 in line 81, so we can see the change
 				*/
-		XCTAssertNotEqual(secureStore.testResultMetadata?.hoursSinceTestRegistration, (24 * 4), "incorrect hoursSinceTestRegistration")
+		XCTAssertNotEqual(secureStore.pcrTestResultMetadata?.hoursSinceTestRegistration, (24 * 4), "incorrect hoursSinceTestRegistration")
+		XCTAssertNotEqual(secureStore.antigenTestResultMetadata?.hoursSinceTestRegistration, (24 * 4), "incorrect hoursSinceTestRegistration")
 	}
 
 	func testUpdatingTestResult_ValidResult_previouslyStoredWithDifferentValue() {
@@ -301,18 +307,24 @@ class TestResultMetadataTests: XCTestCase {
 		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
 		let riskCalculationResult = mockENFRiskCalculationResult(risk: .low)
 		secureStore.enfRiskCalculationResult = riskCalculationResult
-		Analytics.collect(.testResultMetadata(.updateTestResult(.pending, "")))
-		
+		Analytics.collect(.testResultMetadata(.updateTestResult(.pending, "", .pcr)))
+		Analytics.collect(.testResultMetadata(.updateTestResult(.pending, "", .antigen)))
+
 		guard let registrationDate = Calendar.utcCalendar.date(byAdding: .day, value: -4, to: Date()) else {
 			XCTFail("registration date is nil")
 			return
 		}
-		Analytics.collect(.testResultMetadata(.registerNewTestMetadata(registrationDate, "")))
-		Analytics.collect(.testResultMetadata(.updateTestResult(.positive, "")))
-		XCTAssertEqual(secureStore.testResultMetadata?.testResult, TestResult.positive, "incorrect testResult")
-		
+		Analytics.collect(.testResultMetadata(.registerNewTestMetadata(registrationDate, "", .pcr)))
+		Analytics.collect(.testResultMetadata(.registerNewTestMetadata(registrationDate, "", .antigen)))
+		Analytics.collect(.testResultMetadata(.updateTestResult(.positive, "", .pcr)))
+		Analytics.collect(.testResultMetadata(.updateTestResult(.positive, "", .antigen)))
+
+		XCTAssertEqual(secureStore.pcrTestResultMetadata?.testResult, TestResult.positive, "incorrect testResult")
+		XCTAssertEqual(secureStore.antigenTestResultMetadata?.testResult, TestResult.positive, "incorrect testResult")
+
 		// The the date is updated if the risk results changes e.g from pending to positive
-		XCTAssertEqual(secureStore.testResultMetadata?.hoursSinceTestRegistration, (24 * 4), "incorrect hoursSinceTestRegistration")
+		XCTAssertEqual(secureStore.pcrTestResultMetadata?.hoursSinceTestRegistration, (24 * 4), "incorrect hoursSinceTestRegistration")
+		XCTAssertEqual(secureStore.antigenTestResultMetadata?.hoursSinceTestRegistration, (24 * 4), "incorrect hoursSinceTestRegistration")
 	}
 
 	func testUpdatingTestResult_Invalid() {
@@ -321,21 +333,25 @@ class TestResultMetadataTests: XCTestCase {
 		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
 		let riskCalculationResult = mockENFRiskCalculationResult(risk: .low)
 		secureStore.enfRiskCalculationResult = riskCalculationResult
-		Analytics.collect(.testResultMetadata(.updateTestResult(.pending, "")))
+		Analytics.collect(.testResultMetadata(.updateTestResult(.pending, "", .pcr)))
 
 		if let registrationDate = Calendar.current.date(byAdding: .day, value: -4, to: Date()) {
-			Analytics.collect(.testResultMetadata(.registerNewTestMetadata(registrationDate, "")))
+			Analytics.collect(.testResultMetadata(.registerNewTestMetadata(registrationDate, "", .pcr)))
+			Analytics.collect(.testResultMetadata(.registerNewTestMetadata(registrationDate, "", .antigen)))
 		} else {
 			XCTFail("registration date is nil")
 		}
 
-		Analytics.collect(.testResultMetadata(.updateTestResult(.invalid, "")))
+		Analytics.collect(.testResultMetadata(.updateTestResult(.invalid, "", .pcr)))
+		Analytics.collect(.testResultMetadata(.updateTestResult(.invalid, "", .antigen)))
 
 		// The if the value is invalid  testResult shouldn't be updated
-		XCTAssertNil(secureStore.testResultMetadata?.testResult, "incorrect testResult")
+		XCTAssertNil(secureStore.pcrTestResultMetadata?.testResult, "incorrect testResult")
+		XCTAssertNil(secureStore.pcrTestResultMetadata?.testResult, "incorrect testResult")
 
 		// The if the value is invalid  hoursSinceTestRegistration shouldnt be updated and should remain the default value: 0
-		XCTAssertEqual(secureStore.testResultMetadata?.hoursSinceTestRegistration, 0, "incorrect hoursSinceTestRegistration")
+		XCTAssertEqual(secureStore.antigenTestResultMetadata?.hoursSinceTestRegistration, 0, "incorrect hoursSinceTestRegistration")
+		XCTAssertEqual(secureStore.antigenTestResultMetadata?.hoursSinceTestRegistration, 0, "incorrect hoursSinceTestRegistration")
 	}
 
 	func testUpdatingTestResult_WithDifferentRegistrationToken_MetadataIsNotUpdated() {
@@ -346,21 +362,29 @@ class TestResultMetadataTests: XCTestCase {
 		secureStore.enfRiskCalculationResult = riskCalculationResult
 
 		if let registrationDate = Calendar.current.date(byAdding: .day, value: -4, to: Date()) {
-			Analytics.collect(.testResultMetadata(.registerNewTestMetadata(registrationDate, "Token")))
-			Analytics.collect(.testResultMetadata(.updateTestResult(.pending, "Token")))
+			Analytics.collect(.testResultMetadata(.registerNewTestMetadata(registrationDate, "Token", .pcr)))
+			Analytics.collect(.testResultMetadata(.updateTestResult(.pending, "Token", .pcr)))
+			Analytics.collect(.testResultMetadata(.registerNewTestMetadata(registrationDate, "Token", .antigen)))
+			Analytics.collect(.testResultMetadata(.updateTestResult(.pending, "Token", .antigen)))
 		} else {
 			XCTFail("registration date is nil")
 		}
 
 		// trying to update a test with a different token shouldn't work
-		Analytics.collect(.testResultMetadata(.updateTestResult(.positive, "Different Token")))
+		Analytics.collect(.testResultMetadata(.updateTestResult(.positive, "Different Token", .pcr)))
+		Analytics.collect(.testResultMetadata(.updateTestResult(.positive, "Different Token", .antigen)))
+
 		// The if the value is valid but the token is different then the testResult shouldn't be updated
-		XCTAssertEqual(secureStore.testResultMetadata?.testResult, .pending, "testResult shouldn't be updated")
+		XCTAssertEqual(secureStore.pcrTestResultMetadata?.testResult, .pending, "testResult shouldn't be updated")
+		XCTAssertEqual(secureStore.antigenTestResultMetadata?.testResult, .pending, "testResult shouldn't be updated")
 
 		// trying to update a test with the correct token should work
-		Analytics.collect(.testResultMetadata(.updateTestResult(.positive, "Token")))
+		Analytics.collect(.testResultMetadata(.updateTestResult(.positive, "Token", .pcr)))
+		Analytics.collect(.testResultMetadata(.updateTestResult(.positive, "Token", .antigen)))
+
 		// The if the value is valid and the token the same then the testResult should be updated
-		XCTAssertEqual(secureStore.testResultMetadata?.testResult, .positive, "testResult should be updated")
+		XCTAssertEqual(secureStore.pcrTestResultMetadata?.testResult, .positive, "testResult should be updated")
+		XCTAssertEqual(secureStore.antigenTestResultMetadata?.testResult, .positive, "testResult should be updated")
 	}
 
 	private func mockENFRiskCalculationResult(risk: RiskLevel = .high, mostRecentDateHighRisk: Date? = nil, mostRecentDateLowRisk: Date? = nil) -> ENFRiskCalculationResult {

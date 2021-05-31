@@ -19,6 +19,8 @@ struct KeySubmissionMetadata: Codable {
 		hoursSinceTestRegistration: Int32,
 		daysSinceMostRecentDateAtRiskLevelAtTestRegistration: Int32,
 		hoursSinceHighRiskWarningAtTestRegistration: Int32,
+		submittedWithTeleTAN: Bool,
+		submittedAfterRapidAntigenTest: Bool,
 		daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration: Int32,
 		hoursSinceCheckinHighRiskWarningAtTestRegistration: Int32,
 		submittedWithCheckIns: Bool?
@@ -32,6 +34,8 @@ struct KeySubmissionMetadata: Codable {
 		self.hoursSinceTestResult = hoursSinceTestResult
 		self.hoursSinceTestRegistration = hoursSinceTestRegistration
 		self.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = daysSinceMostRecentDateAtRiskLevelAtTestRegistration
+		self.submittedWithTeleTAN = submittedWithTeleTAN
+		self.submittedAfterRapidAntigenTest = submittedAfterRapidAntigenTest
 		self.hoursSinceHighRiskWarningAtTestRegistration = hoursSinceHighRiskWarningAtTestRegistration
 		self.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration = daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration
 		self.hoursSinceCheckinHighRiskWarningAtTestRegistration = hoursSinceCheckinHighRiskWarningAtTestRegistration
@@ -53,6 +57,8 @@ struct KeySubmissionMetadata: Codable {
 		hoursSinceTestRegistration = try container.decodeIfPresent(Int32.self, forKey: .hoursSinceTestRegistration)
 		daysSinceMostRecentDateAtRiskLevelAtTestRegistration = try container.decodeIfPresent(Int32.self, forKey: .daysSinceMostRecentDateAtRiskLevelAtTestRegistration)
 		hoursSinceHighRiskWarningAtTestRegistration = try container.decodeIfPresent(Int32.self, forKey: .hoursSinceHighRiskWarningAtTestRegistration)
+		submittedWithTeleTAN = try container.decodeIfPresent(Bool.self, forKey: .submittedWithTeleTAN)
+		submittedAfterRapidAntigenTest = try container.decodeIfPresent(Bool.self, forKey: .submittedAfterRapidAntigenTest) ?? false
 		daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration = try container.decodeIfPresent(Int32.self, forKey: .daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration)
 		hoursSinceCheckinHighRiskWarningAtTestRegistration = try container.decodeIfPresent(Int32.self, forKey: .hoursSinceCheckinHighRiskWarningAtTestRegistration)
 		submittedWithCheckIns = try container.decodeIfPresent(Bool.self, forKey: .submittedWithCheckIns)
@@ -69,10 +75,12 @@ struct KeySubmissionMetadata: Codable {
 		case hoursSinceTestRegistration
 		case daysSinceMostRecentDateAtRiskLevelAtTestRegistration
 		case hoursSinceHighRiskWarningAtTestRegistration
+		case submittedWithTeleTAN
+		case submittedAfterRapidAntigenTest
 		case daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration
 		case hoursSinceCheckinHighRiskWarningAtTestRegistration
-		case submittedWithTeleTAN
 		case submittedWithCheckIns
+
 	}
 	
 	// MARK: - Internal
@@ -89,10 +97,11 @@ struct KeySubmissionMetadata: Codable {
 	var daysSinceMostRecentDateAtRiskLevelAtTestRegistration: Int32?
 	// the enf risk  version. Note: Do not rename or write migration
 	var hoursSinceHighRiskWarningAtTestRegistration: Int32?
+	var submittedWithTeleTAN: Bool?
+	var submittedAfterRapidAntigenTest: Bool = false
 	// the checkin risk version
 	var daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration: Int32?
 	// the checkin risk version
 	var hoursSinceCheckinHighRiskWarningAtTestRegistration: Int32?
-	var submittedWithTeleTAN: Bool?
 	var submittedWithCheckIns: Bool?
 }

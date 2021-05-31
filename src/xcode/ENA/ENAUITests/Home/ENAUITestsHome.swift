@@ -5,17 +5,18 @@
 import XCTest
 import ExposureNotification
 
-class ENAUITests_01a_Home: XCTestCase {
+class ENAUITests_01a_Home: CWATestCase {
 	var app: XCUIApplication!
 
 	override func setUpWithError() throws {
+		try super.setUpWithError()
 		continueAfterFailure = false
 		app = XCUIApplication()
 		setupSnapshot(app)
 		app.setDefaults()
-		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
-		app.launchArguments.append(contentsOf: ["-setCurrentOnboardingVersion", "YES"])
-		app.launchArguments.append(contentsOf: ["-userNeedsToBeInformedAboutHowRiskDetectionWorks", "NO"])
+		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: true)
+		app.setLaunchArgument(LaunchArguments.onboarding.setCurrentOnboardingVersion, to: true)
+		app.setLaunchArgument(LaunchArguments.infoScreen.userNeedsToBeInformedAboutHowRiskDetectionWorks, to: false)
 	}
 
 	func test_0010_HomeFlow_medium() throws {
@@ -66,9 +67,9 @@ class ENAUITests_01a_Home: XCTestCase {
 	}
 	
 	func test_riskCardHigh_details_faqLink() throws {
-		app.launchArguments.append(contentsOf: ["-riskLevel", "high"])
-		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
-		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
+		app.setLaunchArgument(LaunchArguments.risk.riskLevel, to: "high")
+		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: true)
+		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
 		app.launch()
 
 		let riskCell = app.cells.element(boundBy: 1)
@@ -85,10 +86,11 @@ class ENAUITests_01a_Home: XCTestCase {
 	func test_screenshot_homescreen_riskCardHigh_riskOneDay() throws {
 		var screenshotCounter = 0
 		let riskLevel = "high"
-		let numberOfDaysWithHighRisk = 1
+		let numberOfDaysWithHighRisk = "1"
 		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
-		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
-		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
+		app.setLaunchArgument(LaunchArguments.risk.riskLevel, to: riskLevel)
+		app.setLaunchArgument(LaunchArguments.risk.numberOfDaysWithRiskLevel, to: numberOfDaysWithHighRisk)
+		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
 		app.launch()
 		
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer].waitForExistence(timeout: .medium))
@@ -99,7 +101,7 @@ class ENAUITests_01a_Home: XCTestCase {
 		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.Home.riskCardHighTitle)].waitForExistence(timeout: .short))
 		
 		// find an element with localized text "Begegnungen an 1 Tag mit erhöhtem Risiko"
-		let highRiskTitle = String(format: AccessibilityLabels.localized(AppStrings.Home.riskCardHighNumberContactsItemTitle), numberOfDaysWithHighRisk)
+		let highRiskTitle = String(format: AccessibilityLabels.localized(AppStrings.Home.riskCardHighNumberContactsItemTitle), 1)
 		XCTAssertTrue(app.otherElements[highRiskTitle].waitForExistence(timeout: .short))
 		
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .short))
@@ -113,9 +115,9 @@ class ENAUITests_01a_Home: XCTestCase {
 		let riskLevel = "high"
 		let numberOfDaysWithHighRisk = "4"
 		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
-		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
-		app.launchArguments.append(contentsOf: ["-numberOfDaysWithRiskLevel", numberOfDaysWithHighRisk])
-		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
+		app.setLaunchArgument(LaunchArguments.risk.riskLevel, to: riskLevel)
+		app.setLaunchArgument(LaunchArguments.risk.numberOfDaysWithRiskLevel, to: numberOfDaysWithHighRisk)
+		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
 		app.launch()
 		
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer].waitForExistence(timeout: .medium))
@@ -140,8 +142,8 @@ class ENAUITests_01a_Home: XCTestCase {
 		let riskLevel = "low"
 		let numberOfDaysWithLowRisk = 0
 		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
-		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
-		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
+		app.setLaunchArgument(LaunchArguments.risk.riskLevel, to: riskLevel)
+		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
 		app.launch()
 		
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer].waitForExistence(timeout: .medium))
@@ -166,9 +168,9 @@ class ENAUITests_01a_Home: XCTestCase {
 		let riskLevel = "low"
 		let numberOfDaysWithLowRisk = "1"
 		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
-		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
-		app.launchArguments.append(contentsOf: ["-numberOfDaysWithRiskLevel", numberOfDaysWithLowRisk])
-		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
+		app.setLaunchArgument(LaunchArguments.risk.riskLevel, to: riskLevel)
+		app.setLaunchArgument(LaunchArguments.risk.numberOfDaysWithRiskLevel, to: numberOfDaysWithLowRisk)
+		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
 		app.launch()
 		
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer].waitForExistence(timeout: .medium))
@@ -193,9 +195,9 @@ class ENAUITests_01a_Home: XCTestCase {
 		let riskLevel = "low"
 		let numberOfDaysWithLowRisk = "4"
 		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
-		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
-		app.launchArguments.append(contentsOf: ["-numberOfDaysWithRiskLevel", numberOfDaysWithLowRisk])
-		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
+		app.setLaunchArgument(LaunchArguments.risk.riskLevel, to: riskLevel)
+		app.setLaunchArgument(LaunchArguments.risk.numberOfDaysWithRiskLevel, to: numberOfDaysWithLowRisk)
+		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
 		app.launch()
 		
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer].waitForExistence(timeout: .medium))
@@ -220,9 +222,9 @@ class ENAUITests_01a_Home: XCTestCase {
 		let riskLevel = "low"
 		let installationDays = "14"
 		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
-		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
-		app.launchArguments.append(contentsOf: ["-appInstallationDays", installationDays])
-		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
+		app.setLaunchArgument(LaunchArguments.risk.riskLevel, to: riskLevel)
+		app.setLaunchArgument(LaunchArguments.common.appInstallationDays, to: installationDays)
+		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
 		app.launch()
 		
 		snapshot("homescreenrisk_level_\(riskLevel)_installation_14days_\(String(format: "%04d", (screenshotCounter.inc() )))")
@@ -234,9 +236,9 @@ class ENAUITests_01a_Home: XCTestCase {
 		// change the value based on N
 		let installationDays = "12"
 		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
-		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
-		app.launchArguments.append(contentsOf: ["-appInstallationDays", installationDays])
-		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
+		app.setLaunchArgument(LaunchArguments.risk.riskLevel, to: riskLevel)
+		app.setLaunchArgument(LaunchArguments.common.appInstallationDays, to: installationDays)
+		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
 		app.launch()
 		
 		snapshot("homescreenrisk_level_\(riskLevel)_installation_\(installationDays)days_\(String(format: "%04d", (screenshotCounter.inc() )))")
@@ -246,9 +248,9 @@ class ENAUITests_01a_Home: XCTestCase {
 		let riskLevel = "low"
 		let installationDays = "1"
 		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
-		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
-		app.launchArguments.append(contentsOf: ["-appInstallationDays", installationDays])
-		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
+		app.setLaunchArgument(LaunchArguments.risk.riskLevel, to: riskLevel)
+		app.setLaunchArgument(LaunchArguments.common.appInstallationDays, to: installationDays)
+		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
 		app.launch()
 		
 		snapshot("homescreenrisk_level_\(riskLevel)_installation_\(installationDays)day")
@@ -258,9 +260,9 @@ class ENAUITests_01a_Home: XCTestCase {
 		let riskLevel = "low"
 		let installationDays = "0"
 		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
-		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
-		app.launchArguments.append(contentsOf: ["-appInstallationDays", installationDays])
-		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
+		app.setLaunchArgument(LaunchArguments.risk.riskLevel, to: riskLevel)
+		app.setLaunchArgument(LaunchArguments.common.appInstallationDays, to: installationDays)
+		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
 		app.launch()
 		
 		snapshot("homescreenrisk_level_\(riskLevel)_installation_\(installationDays)days")
@@ -271,8 +273,8 @@ class ENAUITests_01a_Home: XCTestCase {
 		var screenshotCounter = 0
 		let riskLevel = "inactive"
 		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
-		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
-		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
+		app.setLaunchArgument(LaunchArguments.risk.riskLevel, to: riskLevel)
+		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
 		app.launch()
 
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .short))
@@ -293,9 +295,9 @@ class ENAUITests_01a_Home: XCTestCase {
 		var screenshotCounter = 0
 		let riskLevel = "high"
 		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
-		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
-		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
-		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.disabled.stringValue])
+		app.setLaunchArgument(LaunchArguments.risk.riskLevel, to: riskLevel)
+		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: true)
+		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.disabled.stringValue)
 		app.launch()
 
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer].waitForExistence(timeout: .medium))
@@ -306,41 +308,6 @@ class ENAUITests_01a_Home: XCTestCase {
 		snapshot("homescreenrisk_level_\(riskLevel)_noExposureLogging_\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
 	
-	func test_screenshot_details_riskCardHigh_riskOneDay_tracingNdays() throws {
-		var screenshotCounter = 0
-		let riskLevel = "high"
-		// change the value based on N
-		let activeTracingDays = "5"
-		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
-		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
-		app.launchArguments.append(contentsOf: ["-activeTracingDays", activeTracingDays])
-		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
-		app.launch()
-
-		let riskCell = app.cells.element(boundBy: 1)
-		riskCell.waitAndTap()
-
-		snapshot("details_screen_risk_level_\(riskLevel)_risk_one_day_active_tracing_\(activeTracingDays)days_\(String(format: "%04d", (screenshotCounter.inc() )))")
-    }
-
-	func test_screenshot_details_riskCardLow_riskOneDay_tracingNdays() throws {
-		var screenshotCounter = 0
-		let riskLevel = "low"
-		// change the value based on N
-		let activeTracingDays = "5"
-		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
-		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
-		app.launchArguments.append(contentsOf: ["-activeTracingDays", activeTracingDays])
-		app.launchArguments.append(contentsOf: ["-numberOfDaysWithRiskLevel", "1"])
-		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
-		app.launch()
-		
-		let riskCell = app.cells.element(boundBy: 1)
-		riskCell.waitAndTap()
-		
-		snapshot("details_screen_risk_level_\(riskLevel)_risk_one_day_active_tracing_\(activeTracingDays)days_\(String(format: "%04d", (screenshotCounter.inc() )))")
-	}
-	
 	
 	func test_screenshot_details_riskCardLow_riskOneDay_Ndays() throws {
 		var screenshotCounter = 0
@@ -348,9 +315,9 @@ class ENAUITests_01a_Home: XCTestCase {
 		let installationDays = "12"
 		// change the value based on N
 		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
-		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
-		app.launchArguments.append(contentsOf: ["-appInstallationDays", installationDays])
-		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
+		app.setLaunchArgument(LaunchArguments.risk.riskLevel, to: riskLevel)
+		app.setLaunchArgument(LaunchArguments.common.appInstallationDays, to: installationDays)
+		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
 		app.launch()
 		
 		let riskCell = app.cells.element(boundBy: 1)
@@ -361,9 +328,9 @@ class ENAUITests_01a_Home: XCTestCase {
 	
 	func test_screenshot_homescreen_pcr_rat_negative() throws {
 		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
-		app.launchArguments.append(contentsOf: ["-showTestResultCards", "YES"])
-		app.launchArguments.append(contentsOf: ["-pcrTestResult", TestResult.negative.stringValue])
-		app.launchArguments.append(contentsOf: ["-antigenTestResult", TestResult.negative.stringValue])
+		app.setLaunchArgument(LaunchArguments.test.common.showTestResultCards, to: true)
+		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.negative.stringValue)
+		app.setLaunchArgument(LaunchArguments.test.antigen.testResult, to: TestResult.negative.stringValue)
 		app.launch()
 
 		XCTAssertTrue(app.cells.element(boundBy: 2).waitForExistence(timeout: .medium))
@@ -376,10 +343,10 @@ class ENAUITests_01a_Home: XCTestCase {
 		let riskLevel = "low"
 		let numberOfDaysWithLowRisk = "1"
 		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
-		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
-		app.launchArguments.append(contentsOf: ["-numberOfDaysWithRiskLevel", numberOfDaysWithLowRisk])
-		app.launchArguments.append(contentsOf: ["-pcrTestResult", TestResult.invalid.stringValue])
-		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
+		app.setLaunchArgument(LaunchArguments.risk.riskLevel, to: riskLevel)
+		app.setLaunchArgument(LaunchArguments.risk.numberOfDaysWithRiskLevel, to: numberOfDaysWithLowRisk)
+		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.invalid.stringValue)
+		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
 		app.launch()
 
 		snapshot("homescreenrisk_show_invalid_test_result_\(String(format: "%04d", (screenshotCounter.inc() )))")
@@ -392,10 +359,10 @@ class ENAUITests_01a_Home: XCTestCase {
 		let riskLevel = "low"
 		let numberOfDaysWithLowRisk = "1"
 		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
-		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
-		app.launchArguments.append(contentsOf: ["-numberOfDaysWithRiskLevel", numberOfDaysWithLowRisk])
-		app.launchArguments.append(contentsOf: ["-pcrTestResult", TestResult.pending.stringValue])
-		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
+		app.setLaunchArgument(LaunchArguments.risk.riskLevel, to: riskLevel)
+		app.setLaunchArgument(LaunchArguments.risk.numberOfDaysWithRiskLevel, to: numberOfDaysWithLowRisk)
+		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.pending.stringValue)
+		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
 		app.launch()
 
 		snapshot("homescreenrisk_show_pending_test_result_\(String(format: "%04d", (screenshotCounter.inc() )))")
@@ -408,10 +375,10 @@ class ENAUITests_01a_Home: XCTestCase {
 		let riskLevel = "low"
 		let numberOfDaysWithLowRisk = "1"
 		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
-		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
-		app.launchArguments.append(contentsOf: ["-numberOfDaysWithRiskLevel", numberOfDaysWithLowRisk])
-		app.launchArguments.append(contentsOf: ["-pcrTestResult", TestResult.negative.stringValue])
-		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
+		app.setLaunchArgument(LaunchArguments.risk.riskLevel, to: riskLevel)
+		app.setLaunchArgument(LaunchArguments.risk.numberOfDaysWithRiskLevel, to: numberOfDaysWithLowRisk)
+		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.negative.stringValue)
+		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
 		app.launch()
 
 		snapshot("homescreenrisk_show_negative_test_result_\(String(format: "%04d", (screenshotCounter.inc() )))")
@@ -423,9 +390,9 @@ class ENAUITests_01a_Home: XCTestCase {
 		var screenshotCounter = 0
 		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
 		// we just need one launch argument because it is handled separately
-		app.launchArguments.append(contentsOf: ["-pcrTestResult", TestResult.positive.stringValue])
-		app.launchArguments.append(contentsOf: ["-pcrPositiveTestResultWasShown", "YES"])
-		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
+		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.positive.stringValue)
+		app.setLaunchArgument(LaunchArguments.test.pcr.positiveTestResultWasShown, to: true)
+		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
 		app.launch()
 
 		snapshot("homescreenrisk_show_positive_test_result_\(String(format: "%04d", (screenshotCounter.inc() )))")

@@ -6,7 +6,7 @@
 import ExposureNotification
 import XCTest
 
-class WarnOthersReminderTests: XCTestCase {
+class WarnOthersReminderTests: CWATestCase {
 	
 	func testTimeIntervalsAreInitializedCorrectly() throws {
 		let store = MockTestStore()

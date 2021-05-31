@@ -5,7 +5,7 @@
 import XCTest
 import ExposureNotification
 
-class ENAUITests_00_Onboarding: XCTestCase {
+class ENAUITests_00_Onboarding: CWATestCase {
 	var app: XCUIApplication!
 
 	override func setUp() {
@@ -14,13 +14,9 @@ class ENAUITests_00_Onboarding: XCTestCase {
 		app = XCUIApplication()
 		setupSnapshot(app)
 		app.setDefaults()
-		app.launchArguments.append(contentsOf: ["-isOnboarded", "NO"])
-		app.launchArguments.append(contentsOf: ["-isDatadonationConsentGiven", "NO"])
-		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.unknown.stringValue])
-	}
-
-	override func tearDownWithError() throws {
-		// Put teardown code here. This method is called after the invocation of each test method in the class.
+		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: false)
+		app.setLaunchArgument(LaunchArguments.consent.isDatadonationConsentGiven, to: false)
+		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.unknown.stringValue)
 	}
 
 	func test_0000_OnboardingFlow_DisablePermissions_normal_XXXL() throws {
@@ -148,7 +144,7 @@ class ENAUITests_00_Onboarding: XCTestCase {
 
 	func test_0002_Screenshots_OnboardingFlow_EnablePermissions_normal_S() throws {
 		var screenshotCounter = 0
-		app.launchArguments.append(contentsOf: ["-userNeedsToBeInformedAboutHowRiskDetectionWorks", "YES"])
+		app.setLaunchArgument(LaunchArguments.infoScreen.userNeedsToBeInformedAboutHowRiskDetectionWorks, to: true)
 		app.setPreferredContentSizeCategory(accessibility: .normal, size: .S)
 		app.launch()
 		

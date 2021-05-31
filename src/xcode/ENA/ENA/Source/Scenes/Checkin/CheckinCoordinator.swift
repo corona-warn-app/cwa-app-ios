@@ -21,10 +21,7 @@ final class CheckinCoordinator {
 		
 		#if DEBUG
 		if isUITesting {
-			// app launch argument
-			if let checkinInfoScreenShown = UserDefaults.standard.string(forKey: "checkinInfoScreenShown") {
-				store.checkinInfoScreenShown = (checkinInfoScreenShown != "NO")
-			}
+			store.checkinInfoScreenShown = LaunchArguments.infoScreen.checkinInfoScreenShown.boolValue
 		}
 		#endif
 		
@@ -87,7 +84,6 @@ final class CheckinCoordinator {
 	}()
 	
 	func showQRCodeScanner() {
-		
 		let qrCodeScanner = CheckinQRCodeScannerViewController(
 			qrCodeVerificationHelper: verificationService,
 			appConfiguration: appConfiguration,

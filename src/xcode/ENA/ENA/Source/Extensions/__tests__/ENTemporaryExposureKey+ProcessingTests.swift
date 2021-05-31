@@ -7,7 +7,7 @@ import Foundation
 import ExposureNotification
 import XCTest
 
-final class ExposureKeysProcessingTests: XCTestCase {
+final class ExposureKeysProcessingTests: CWATestCase {
 	
 	func testSubmissionPreprocess_ApplyNoInformationVectors() {
 		let symptomsOnset: SymptomsOnset = .noInformation

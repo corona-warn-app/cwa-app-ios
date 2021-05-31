@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class SelectValueCellViewModelTests: XCTestCase {
+class SelectValueCellViewModelTests: CWATestCase {
 
 
 	func testGIVEN_CellViewModel_WHEN_getText_THEN_isUnchanged() {

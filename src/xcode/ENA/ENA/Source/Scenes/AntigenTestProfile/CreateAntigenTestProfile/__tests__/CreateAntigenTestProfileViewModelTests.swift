@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class CreateAntigenTestProfileViewModelTests: XCTestCase {
+class CreateAntigenTestProfileViewModelTests: CWATestCase {
 	
 	func testGIVEN_EmptyAntigenTestProfile_THEN_SetValues() {
 		// GIVEN
@@ -100,4 +100,43 @@ class CreateAntigenTestProfileViewModelTests: XCTestCase {
 			XCTFail(error.localizedDescription)
 		}
 	}
+	
+	func testGIVEN_AntigenTestProfile_THENEncodeAndDecode() {
+		// GIVEN
+		let store = MockTestStore()
+		let viewModel = CreateAntigenTestProfileViewModel(store: store)
+		// THEN
+		let calendar = Calendar.current
+		let day: Int = 17
+		var components = DateComponents()
+		components.day = day
+		components.month = 5
+		components.year = 1900
+		components.hour = 0
+		components.minute = 30
+		components.calendar = calendar
+		components.timeZone = TimeZone(secondsFromGMT: 7200)
+		
+		do {
+			let date = try XCTUnwrap(components.date)
+			
+			viewModel.update(date, keyPath: \.dateOfBirth)
+			viewModel.save()
+			
+			let savedAntigenTestProfile = try XCTUnwrap(store.antigenTestProfile)
+			
+			let encoder = JSONEncoder()
+			let encodedData = try encoder.encode(savedAntigenTestProfile)
+			
+			let decoder = JSONDecoder()
+			let decodedAntigenTestProfile = try decoder.decode(AntigenTestProfile.self, from: encodedData)
+			let decodedDate = try XCTUnwrap(decodedAntigenTestProfile.dateOfBirth)
+			
+			XCTAssertTrue(calendar.isDate(decodedDate, equalTo: date, toGranularity: .day))
+			
+		} catch {
+			XCTFail(error.localizedDescription)
+		}
+	}
+
 }

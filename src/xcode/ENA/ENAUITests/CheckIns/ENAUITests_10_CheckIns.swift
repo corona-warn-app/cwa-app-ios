@@ -4,27 +4,28 @@
 
 import XCTest
 
-class ENAUITests_10_CheckIns: XCTestCase {
+class ENAUITests_10_CheckIns: CWATestCase {
 	
 	var app: XCUIApplication!
 	var screenshotCounter = 0
 	let prefix = "event_checkin_"
 	
 	override func setUpWithError() throws {
+		try super.setUpWithError()
 		continueAfterFailure = false
 		app = XCUIApplication()
 		setupSnapshot(app)
 		app.setDefaults()
-		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
-		app.launchArguments.append(contentsOf: ["-setCurrentOnboardingVersion", "YES"])
+		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: true)
+		app.setLaunchArgument(LaunchArguments.onboarding.setCurrentOnboardingVersion, to: true)
 	}
 	
 	func testCheckinInfoScreen_navigate_to_dataPrivacy() throws {
-		app.launchArguments.append(contentsOf: ["-checkinInfoScreenShown", "NO"])
+		app.setLaunchArgument(LaunchArguments.infoScreen.checkinInfoScreenShown, to: false)
 		app.launch()
 			
 		// Navigate to CheckIn
-		app.buttons[AccessibilityIdentifiers.Tabbar.checkin].waitAndTap()
+		app.buttons[AccessibilityIdentifiers.TabBar.checkin].waitAndTap()
 		
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Checkin.Information.acknowledgementTitle].exists)
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Checkin.Information.dataPrivacyTitle].exists)
@@ -52,11 +53,11 @@ class ENAUITests_10_CheckIns: XCTestCase {
 	}
 	
 	func testCheckinInfoScreen_confirmConsent() throws {
-		app.launchArguments.append(contentsOf: ["-checkinInfoScreenShown", "NO"])
+		app.setLaunchArgument(LaunchArguments.infoScreen.checkinInfoScreenShown, to: false)
 		app.launch()
 		
 		// Navigate to CheckIn
-		app.buttons[AccessibilityIdentifiers.Tabbar.checkin].waitAndTap()
+		app.buttons[AccessibilityIdentifiers.TabBar.checkin].waitAndTap()
 		
 		// Confirm consent
 		app.buttons[AccessibilityIdentifiers.Checkin.Information.primaryButton].waitAndTap()
@@ -68,11 +69,11 @@ class ENAUITests_10_CheckIns: XCTestCase {
 
 	func test_screenshot_WHEN_scan_QRCode_THEN_checkin_and_checkout() {
 		// GIVEN
-		app.launchArguments.append(contentsOf: ["-checkinInfoScreenShown", "NO"])
+		app.setLaunchArgument(LaunchArguments.infoScreen.checkinInfoScreenShown, to: false)
 		app.launch()
 		
 		// Navigate to CheckIn
-		app.buttons[AccessibilityIdentifiers.Tabbar.checkin].waitAndTap()
+		app.buttons[AccessibilityIdentifiers.TabBar.checkin].waitAndTap()
 		
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Checkin.Information.acknowledgementTitle].exists)
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Checkin.Information.dataPrivacyTitle].exists)

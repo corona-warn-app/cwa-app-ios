@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class DataDonationModelTests: XCTestCase {
+class DataDonationModelTests: CWATestCase {
 
 	func testGIVEN_ModelWithJson_WHEN_GetValues_THEN_ValuesAreEqualToDefault() throws {
 		// GIVEN

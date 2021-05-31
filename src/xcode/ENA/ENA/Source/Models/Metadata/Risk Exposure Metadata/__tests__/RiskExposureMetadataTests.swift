@@ -6,7 +6,7 @@
 import XCTest
 
 class RiskExposureMetadataTests: XCTestCase {
-		
+	
     func testGIVEN_RiskExposureMetadata_WHEN_ENF_Current_HighRisk_IsSaved_THEN_OnlyENFCurrentRiskExposureMetadataIsSaved() throws {
 		let store = MockTestStore()
 		let twoDaysBefore = Calendar.current.date(byAdding: .day, value: -2, to: Date())

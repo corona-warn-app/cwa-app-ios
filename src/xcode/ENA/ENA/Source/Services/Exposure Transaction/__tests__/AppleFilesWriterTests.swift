@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-final class AppleFilesWriterTests: XCTestCase {
+final class AppleFilesWriterTests: CWATestCase {
 
 	private class func createRootDir() throws -> URL {
 		let fm = FileManager()

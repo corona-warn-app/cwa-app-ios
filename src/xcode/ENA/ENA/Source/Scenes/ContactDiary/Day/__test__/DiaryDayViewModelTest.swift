@@ -7,7 +7,7 @@ import XCTest
 @testable import ENA
 import OpenCombine
 
-class DiaryDayViewModelTest: XCTestCase {
+class DiaryDayViewModelTest: CWATestCase {
 
 	func testInitialization() throws {
 		let day = makeDay()
@@ -203,7 +203,7 @@ class DiaryDayViewModelTest: XCTestCase {
 				.contactPerson(DiaryContactPerson(id: 8, name: "Puneet Mahali")),
 				.location(DiaryLocation(id: 1, name: "Bakery", traceLocationId: nil)),
 				.location(DiaryLocation(id: 0, name: "Supermarket", traceLocationId: nil))
-			]
+			], tests: []
 		)
 	}
 

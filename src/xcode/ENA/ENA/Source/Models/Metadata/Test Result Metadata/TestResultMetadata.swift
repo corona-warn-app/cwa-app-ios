@@ -8,8 +8,9 @@ struct TestResultMetadata: Codable {
 	
 	// MARK: - Init
 	
-	init(registrationToken: String) {
+	init(registrationToken: String, testType: CoronaTestType) {
 		self.testRegistrationToken = registrationToken
+		self.testType = testType
 	}
 
 	// MARK: - Protocol Codable
@@ -39,6 +40,14 @@ struct TestResultMetadata: Codable {
 		)
 		testRegistrationDate = try container.decodeIfPresent(Date.self, forKey: .testRegistrationDate)
 		testRegistrationToken = try container.decode(String.self, forKey: .testRegistrationToken)
+
+		// TestType was introduced at a later time, thus it can be nil.
+		// To assure backwards compatibility, assign .pcr if its nil.
+		if let _type = try? container.decode(CoronaTestType.self, forKey: .testType) {
+			testType = _type
+		} else {
+			testType = .pcr
+		}
 	}
 	
 	enum CodingKeys: String, CodingKey {
@@ -52,6 +61,7 @@ struct TestResultMetadata: Codable {
 		case hoursSinceCheckinHighRiskWarningAtTestRegistration
 		case testRegistrationDate
 		case testRegistrationToken
+		case testType
 	}
 	
 	// MARK: - Internal
@@ -94,4 +104,29 @@ struct TestResultMetadata: Codable {
 	
 	// We need a copy of the token to compare it everytime we fetch a testResult to make sure it is a result for the QRCode test and not a TAN test submission
 	let testRegistrationToken: String
+
+	let testType: CoronaTestType
+
+	var protobuf: SAP_Internal_Ppdd_PPATestResult? {
+		switch (testType, testResult) {
+		case (.pcr, .pending):
+			return .testResultPending
+		case (.pcr, .negative):
+			return .testResultNegative
+		case (.pcr, .positive):
+			return .testResultPositive
+		case (.pcr, .expired), (.pcr, .invalid):
+			return nil
+		case (.antigen, .pending):
+			return .testResultRatPending
+		case (.antigen, .negative):
+			return .testResultRatNegative
+		case (.antigen, .positive):
+			return .testResultRatPositive
+		case (.antigen, .expired), (.antigen, .invalid):
+			return nil
+		case (_, .none):
+			return nil
+		}
+	}
 }

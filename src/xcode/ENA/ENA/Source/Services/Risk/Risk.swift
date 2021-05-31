@@ -38,12 +38,12 @@ extension Risk {
 		if previousENFRiskCalculationResult?.riskLevel == .low &&
 			enfRiskCalculationResult.riskLevel == .high {
 			Log.debug("[Risk] ENF riskLevel has changed to high.", log: .riskDetection)
-			Analytics.collect(.testResultMetadata(.dateOfConversionToENFHighRisk(Date())))
+			Analytics.collect(.testResultMetadata(.setDateOfConversionToENFHighRisk(Date())))
 		}
 		if previousCheckinCalculationResult?.riskLevel == .low &&
 			checkinCalculationResult.riskLevel == .high {
 			Log.debug("[Risk] Checkin riskLevel has changed to high.", log: .riskDetection)
-			Analytics.collect(.testResultMetadata(.dateOfConversionToCheckinHighRisk(Date())))
+			Analytics.collect(.testResultMetadata(.setDateOfConversionToCheckinHighRisk(Date())))
 		}
 
 		let tracingRiskLevelPerDate = enfRiskCalculationResult.riskLevelPerDate
@@ -103,14 +103,14 @@ extension Risk {
 
 #if DEBUG
 extension Risk {
-	static let numberOfDaysWithRiskLevel = (UserDefaults.standard.string(forKey: "numberOfDaysWithRiskLevel") as NSString?)?.integerValue
-	static let numberOfDaysWithRiskLevelDefaultValue: Int = UserDefaults.standard.string(forKey: "riskLevel") == "high" ? 1 : 0
+	static let numberOfDaysWithRiskLevel = LaunchArguments.risk.numberOfDaysWithRiskLevel.intValue
+	static let numberOfDaysWithRiskLevelDefaultValue: Int = LaunchArguments.risk.riskLevel.stringValue == "high" ? 1 : 0
 	static let mocked = Risk(
-		// UITests can set app.launchArguments "-riskLevel"
-		level: UserDefaults.standard.string(forKey: "riskLevel") == "high" ? .high : .low,
+		// UITests can set app.launchArguments LaunchArguments.risk.riskLevel
+		level: LaunchArguments.risk.riskLevel.stringValue == "high" ? .high : .low,
 		details: Risk.Details(
 			mostRecentDateWithRiskLevel: Date(timeIntervalSinceNow: -24 * 3600),
-			numberOfDaysWithRiskLevel: numberOfDaysWithRiskLevel ?? numberOfDaysWithRiskLevelDefaultValue,
+			numberOfDaysWithRiskLevel: numberOfDaysWithRiskLevel,
 			calculationDate: Date()),
 		riskLevelHasChanged: true
 	)
@@ -121,7 +121,7 @@ extension Risk {
 			level: level,
 			details: Risk.Details(
 				mostRecentDateWithRiskLevel: Date(timeIntervalSinceNow: -24 * 3600),
-				numberOfDaysWithRiskLevel: numberOfDaysWithRiskLevel ?? numberOfDaysWithRiskLevelDefaultValue,
+				numberOfDaysWithRiskLevel: numberOfDaysWithRiskLevel,
 				calculationDate: Date()),
 			riskLevelHasChanged: true
 		)

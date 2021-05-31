@@ -7,7 +7,7 @@ import XCTest
 import ExposureNotification
 @testable import ENA
 
-class ExposureWindowTest: XCTestCase {
+class ExposureWindowTest: CWATestCase {
 
 	func testGIVEN_JsonExposureWindowWithAge1_WHEN_Converted_THEN_ValueMatch() throws {
 		// GIVEN

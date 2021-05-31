@@ -7,12 +7,13 @@ import ExposureNotification
 import XCTest
 
 // swiftlint:disable:next type_body_length
-class CoronaTestServiceTests: XCTestCase {
+class CoronaTestServiceTests: CWATestCase {
 
 	func testHasAtLeastOneShownPositiveOrSubmittedTest() {
 		let service = CoronaTestService(
 			client: ClientMock(),
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 
@@ -51,6 +52,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let service = CoronaTestService(
 			client: ClientMock(),
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfig
 		)
 
@@ -86,6 +88,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let service = CoronaTestService(
 			client: ClientMock(),
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfig
 		)
 
@@ -122,6 +125,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let service = CoronaTestService(
 			client: ClientMock(),
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfig
 		)
 
@@ -162,6 +166,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let service = CoronaTestService(
 			client: ClientMock(),
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfig
 		)
 
@@ -207,6 +212,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let service = CoronaTestService(
 			client: ClientMock(),
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfig
 		)
 
@@ -254,6 +260,7 @@ class CoronaTestServiceTests: XCTestCase {
 			let service = CoronaTestService(
 				client: ClientMock(),
 				store: MockTestStore(),
+				diaryStore: MockDiaryStore(),
 				appConfiguration: appConfig
 			)
 
@@ -284,6 +291,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let service = CoronaTestService(
 			client: ClientMock(),
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 
@@ -312,12 +320,13 @@ class CoronaTestServiceTests: XCTestCase {
 		}
 
 		client.onGetTestResult = { _, _, completion in
-			completion(.success(TestResult.pending.rawValue))
+			completion(.success(FetchTestResultResponse(testResult: TestResult.pending.rawValue, sc: nil)))
 		}
 
 		let service = CoronaTestService(
 			client: client,
 			store: store,
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		service.pcrTest = nil
@@ -358,13 +367,12 @@ class CoronaTestServiceTests: XCTestCase {
 		XCTAssertFalse(pcrTest.keysSubmitted)
 		XCTAssertFalse(pcrTest.journalEntryCreated)
 
-		XCTAssertEqual(store.testResultMetadata?.testResult, .pending)
+		XCTAssertEqual(store.pcrTestResultMetadata?.testResult, .pending)
 		XCTAssertEqual(
-			try XCTUnwrap(store.testResultMetadata?.testRegistrationDate).timeIntervalSince1970,
+			try XCTUnwrap(store.pcrTestResultMetadata?.testRegistrationDate).timeIntervalSince1970,
 			Date().timeIntervalSince1970,
 			accuracy: 10
 		)
-		XCTAssertTrue(store.submittedWithQR)
 	}
 
 	func testRegisterPCRTestAndGetResult_successWithSubmissionConsentGiven() {
@@ -380,12 +388,13 @@ class CoronaTestServiceTests: XCTestCase {
 		}
 
 		client.onGetTestResult = { _, _, completion in
-			completion(.success(TestResult.negative.rawValue))
+			completion(.success(FetchTestResultResponse(testResult: TestResult.negative.rawValue, sc: nil)))
 		}
 
 		let service = CoronaTestService(
 			client: client,
 			store: store,
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		service.pcrTest = nil
@@ -428,15 +437,14 @@ class CoronaTestServiceTests: XCTestCase {
 		XCTAssertTrue(pcrTest.isSubmissionConsentGiven)
 		XCTAssertNil(pcrTest.submissionTAN)
 		XCTAssertFalse(pcrTest.keysSubmitted)
-		XCTAssertFalse(pcrTest.journalEntryCreated)
+		XCTAssertTrue(pcrTest.journalEntryCreated)
 
-		XCTAssertEqual(store.testResultMetadata?.testResult, .negative)
+		XCTAssertEqual(store.pcrTestResultMetadata?.testResult, .negative)
 		XCTAssertEqual(
-			try XCTUnwrap(store.testResultMetadata?.testRegistrationDate).timeIntervalSince1970,
+			try XCTUnwrap(store.pcrTestResultMetadata?.testRegistrationDate).timeIntervalSince1970,
 			Date().timeIntervalSince1970,
 			accuracy: 10
 		)
-		XCTAssertTrue(store.submittedWithQR)
 	}
 
 	func testRegisterPCRTestAndGetResult_RegistrationFails() {
@@ -454,6 +462,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let service = CoronaTestService(
 			client: client,
 			store: store,
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		service.pcrTest = nil
@@ -476,8 +485,7 @@ class CoronaTestServiceTests: XCTestCase {
 		waitForExpectations(timeout: .short)
 
 		XCTAssertNil(service.pcrTest)
-		XCTAssertNil(store.testResultMetadata)
-		XCTAssertFalse(store.submittedWithQR)
+		XCTAssertNil(store.pcrTestResultMetadata)
 	}
 
 	func testRegisterPCRTestAndGetResult_RegistrationSucceedsGettingTestResultFails() {
@@ -499,6 +507,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let service = CoronaTestService(
 			client: client,
 			store: store,
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		service.pcrTest = nil
@@ -538,13 +547,12 @@ class CoronaTestServiceTests: XCTestCase {
 		XCTAssertNil(pcrTest.submissionTAN)
 		XCTAssertFalse(pcrTest.keysSubmitted)
 		XCTAssertFalse(pcrTest.journalEntryCreated)
-		XCTAssertNil(store.testResultMetadata?.testResult)
+		XCTAssertNil(store.pcrTestResultMetadata?.testResult)
 		XCTAssertEqual(
-			try XCTUnwrap(store.testResultMetadata?.testRegistrationDate).timeIntervalSince1970,
+			try XCTUnwrap(store.pcrTestResultMetadata?.testRegistrationDate).timeIntervalSince1970,
 			Date().timeIntervalSince1970,
 			accuracy: 10
 		)
-		XCTAssertTrue(store.submittedWithQR)
 	}
 
 	func testRegisterPCRTestWithTeleTAN_successWithoutSubmissionConsentGiven() {
@@ -562,6 +570,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let service = CoronaTestService(
 			client: client,
 			store: store,
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		service.pcrTest = nil
@@ -605,8 +614,6 @@ class CoronaTestServiceTests: XCTestCase {
 		XCTAssertNil(pcrTest.submissionTAN)
 		XCTAssertFalse(pcrTest.keysSubmitted)
 		XCTAssertFalse(pcrTest.journalEntryCreated)
-
-		XCTAssertFalse(store.submittedWithQR)
 	}
 
 	func testRegisterPCRTestWithTeleTAN_successWithSubmissionConsentGiven() {
@@ -624,6 +631,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let service = CoronaTestService(
 			client: client,
 			store: store,
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		service.pcrTest = nil
@@ -667,8 +675,6 @@ class CoronaTestServiceTests: XCTestCase {
 		XCTAssertNil(pcrTest.submissionTAN)
 		XCTAssertFalse(pcrTest.keysSubmitted)
 		XCTAssertFalse(pcrTest.journalEntryCreated)
-
-		XCTAssertFalse(store.submittedWithQR)
 	}
 
 	func testRegisterPCRTestWithTeleTAN_RegistrationFails() {
@@ -686,6 +692,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let service = CoronaTestService(
 			client: client,
 			store: store,
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		service.pcrTest = nil
@@ -708,8 +715,7 @@ class CoronaTestServiceTests: XCTestCase {
 		waitForExpectations(timeout: .short)
 
 		XCTAssertNil(service.pcrTest)
-		XCTAssertNil(store.testResultMetadata)
-		XCTAssertFalse(store.submittedWithQR)
+		XCTAssertNil(store.pcrTestResultMetadata)
 	}
 
 	func testRegisterAntigenTestAndGetResult_successWithoutSubmissionConsentGivenWithTestedPerson() {
@@ -719,12 +725,13 @@ class CoronaTestServiceTests: XCTestCase {
 		}
 
 		client.onGetTestResult = { _, _, completion in
-			completion(.success(TestResult.pending.rawValue))
+			completion(.success(FetchTestResultResponse(testResult: TestResult.pending.rawValue, sc: 123456789)))
 		}
 
 		let service = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		service.antigenTest = nil
@@ -761,6 +768,7 @@ class CoronaTestServiceTests: XCTestCase {
 		XCTAssertEqual(antigenTest.testedPerson.lastName, "Mustermann")
 		XCTAssertEqual(antigenTest.testedPerson.dateOfBirth, "1964-08-12")
 		XCTAssertEqual(antigenTest.testResult, .pending)
+		XCTAssertEqual(antigenTest.sampleCollectionDate, Date(timeIntervalSince1970: 123456789))
 		XCTAssertNil(antigenTest.finalTestResultReceivedDate)
 		XCTAssertFalse(antigenTest.positiveTestResultWasShown)
 		XCTAssertFalse(antigenTest.isSubmissionConsentGiven)
@@ -776,12 +784,13 @@ class CoronaTestServiceTests: XCTestCase {
 		}
 
 		client.onGetTestResult = { _, _, completion in
-			completion(.success(TestResult.pending.rawValue))
+			completion(.success(FetchTestResultResponse(testResult: TestResult.pending.rawValue, sc: nil)))
 		}
 
 		let service = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		service.antigenTest = nil
@@ -824,6 +833,7 @@ class CoronaTestServiceTests: XCTestCase {
 		XCTAssertNil(antigenTest.submissionTAN)
 		XCTAssertFalse(antigenTest.keysSubmitted)
 		XCTAssertFalse(antigenTest.journalEntryCreated)
+		XCTAssertNil(antigenTest.sampleCollectionDate)
 	}
 
 	func testRegisterAntigenTestAndGetResult_RegistrationFails() {
@@ -835,6 +845,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let service = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		service.antigenTest = nil
@@ -876,6 +887,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let service = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		service.antigenTest = nil
@@ -925,12 +937,13 @@ class CoronaTestServiceTests: XCTestCase {
 	func testUpdatePCRTestResult_success() {
 		let client = ClientMock()
 		client.onGetTestResult = { _, _, completion in
-			completion(.success(TestResult.positive.rawValue))
+			completion(.success(FetchTestResultResponse(testResult: TestResult.positive.rawValue, sc: nil)))
 		}
 
 		let service = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		service.pcrTest = PCRTest.mock(registrationToken: "regToken")
@@ -965,12 +978,13 @@ class CoronaTestServiceTests: XCTestCase {
 	func testUpdateAntigenTestResult_success() {
 		let client = ClientMock()
 		client.onGetTestResult = { _, _, completion in
-			completion(.success(TestResult.positive.rawValue))
+			completion(.success(FetchTestResultResponse(testResult: TestResult.positive.rawValue, sc: nil)))
 		}
 
 		let service = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		service.antigenTest = AntigenTest.mock(registrationToken: "regToken")
@@ -1006,6 +1020,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let service = CoronaTestService(
 			client: ClientMock(),
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		service.pcrTest = nil
@@ -1029,6 +1044,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let service = CoronaTestService(
 			client: ClientMock(),
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		service.antigenTest = nil
@@ -1052,6 +1068,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let service = CoronaTestService(
 			client: ClientMock(),
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		service.pcrTest = PCRTest.mock(registrationToken: nil)
@@ -1083,6 +1100,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let service = CoronaTestService(
 			client: ClientMock(),
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		service.antigenTest = AntigenTest.mock(registrationToken: nil)
@@ -1114,12 +1132,13 @@ class CoronaTestServiceTests: XCTestCase {
 		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		client.onGetTestResult = { _, _, completion in
-			completion(.success(TestResult.positive.rawValue))
+			completion(.success(FetchTestResultResponse(testResult: TestResult.positive.rawValue, sc: nil)))
 		}
 
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: mockNotificationCenter
 		)
@@ -1150,12 +1169,13 @@ class CoronaTestServiceTests: XCTestCase {
 		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		client.onGetTestResult = { _, _, completion in
-			completion(.success(TestResult.positive.rawValue))
+			completion(.success(FetchTestResultResponse(testResult: TestResult.positive.rawValue, sc: nil)))
 		}
 
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: mockNotificationCenter
 		)
@@ -1180,6 +1200,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: MockUserNotificationCenter()
 		)
@@ -1200,12 +1221,13 @@ class CoronaTestServiceTests: XCTestCase {
 		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		client.onGetTestResult = { _, _, completion in
-			completion(.success(TestResult.pending.rawValue))
+			completion(.success(FetchTestResultResponse(testResult: TestResult.pending.rawValue, sc: nil)))
 		}
 
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: mockNotificationCenter
 		)
@@ -1221,16 +1243,172 @@ class CoronaTestServiceTests: XCTestCase {
 		XCTAssertEqual(mockNotificationCenter.notificationRequests.count, 0)
 	}
 
+	func test_When_UpdateTestResultSuccessWithPositive_Then_ContactJournalHasAnEntry() throws {
+		let mockNotificationCenter = MockUserNotificationCenter()
+		let client = ClientMock()
+		client.onGetTestResult = { _, _, completion in
+			completion(.success(FetchTestResultResponse(testResult: TestResult.positive.rawValue, sc: nil)))
+		}
+
+		let diaryStore = MockDiaryStore()
+
+		let testService = CoronaTestService(
+			client: client,
+			store: MockTestStore(),
+			diaryStore: diaryStore,
+			appConfiguration: CachedAppConfigurationMock(),
+			notificationCenter: mockNotificationCenter
+		)
+
+		testService.antigenTest = AntigenTest.mock(registrationToken: "regToken")
+		testService.pcrTest = PCRTest.mock(registrationToken: "regToken")
+
+		let completionExpectation = expectation(description: "Completion should be called.")
+		testService.updateTestResults(presentNotification: true) { _ in
+			completionExpectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
+
+		XCTAssertEqual(diaryStore.coronaTests.count, 2)
+		XCTAssertTrue(try XCTUnwrap(testService.antigenTest?.journalEntryCreated))
+		XCTAssertTrue(try XCTUnwrap(testService.pcrTest?.journalEntryCreated))
+	}
+
+	func test_When_UpdateTestResultSuccessWithPending_Then_ContactJournalHasNoEntry() throws {
+		let mockNotificationCenter = MockUserNotificationCenter()
+		let client = ClientMock()
+		client.onGetTestResult = { _, _, completion in
+			completion(.success(FetchTestResultResponse(testResult: TestResult.pending.rawValue, sc: nil)))
+		}
+
+		let diaryStore = MockDiaryStore()
+
+		let testService = CoronaTestService(
+			client: client,
+			store: MockTestStore(),
+			diaryStore: diaryStore,
+			appConfiguration: CachedAppConfigurationMock(),
+			notificationCenter: mockNotificationCenter
+		)
+
+		testService.antigenTest = AntigenTest.mock(registrationToken: "regToken")
+		testService.pcrTest = PCRTest.mock(registrationToken: "regToken")
+
+		let completionExpectation = expectation(description: "Completion should be called.")
+		testService.updateTestResults(presentNotification: true) { _ in
+			completionExpectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
+
+		XCTAssertEqual(diaryStore.coronaTests.count, 0)
+		XCTAssertFalse(try XCTUnwrap(testService.antigenTest?.journalEntryCreated))
+		XCTAssertFalse(try XCTUnwrap(testService.pcrTest?.journalEntryCreated))
+	}
+
+	func test_When_UpdateTestResultSuccessWithExpired_Then_ContactJournalHasNoEntry() throws {
+		let mockNotificationCenter = MockUserNotificationCenter()
+		let client = ClientMock()
+		client.onGetTestResult = { _, _, completion in
+			completion(.success(FetchTestResultResponse(testResult: TestResult.expired.rawValue, sc: nil)))
+		}
+
+		let diaryStore = MockDiaryStore()
+
+		let testService = CoronaTestService(
+			client: client,
+			store: MockTestStore(),
+			diaryStore: diaryStore,
+			appConfiguration: CachedAppConfigurationMock(),
+			notificationCenter: mockNotificationCenter
+		)
+
+		testService.antigenTest = AntigenTest.mock(registrationToken: "regToken")
+		testService.pcrTest = PCRTest.mock(registrationToken: "regToken")
+
+		let completionExpectation = expectation(description: "Completion should be called.")
+		testService.updateTestResults(presentNotification: true) { _ in
+			completionExpectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
+
+		XCTAssertEqual(diaryStore.coronaTests.count, 0)
+		XCTAssertFalse(try XCTUnwrap(testService.antigenTest?.journalEntryCreated))
+		XCTAssertFalse(try XCTUnwrap(testService.pcrTest?.journalEntryCreated))
+	}
+
+	func test_When_UpdateTestResultSuccessWithInvalid_Then_ContactJournalHasNoEntry() throws {
+		let mockNotificationCenter = MockUserNotificationCenter()
+		let client = ClientMock()
+		client.onGetTestResult = { _, _, completion in
+			completion(.success(FetchTestResultResponse(testResult: TestResult.invalid.rawValue, sc: nil)))
+		}
+
+		let diaryStore = MockDiaryStore()
+
+		let testService = CoronaTestService(
+			client: client,
+			store: MockTestStore(),
+			diaryStore: diaryStore,
+			appConfiguration: CachedAppConfigurationMock(),
+			notificationCenter: mockNotificationCenter
+		)
+
+		testService.antigenTest = AntigenTest.mock(registrationToken: "regToken")
+		testService.pcrTest = PCRTest.mock(registrationToken: "regToken")
+
+		let completionExpectation = expectation(description: "Completion should be called.")
+		testService.updateTestResults(presentNotification: true) { _ in
+			completionExpectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
+
+		XCTAssertEqual(diaryStore.coronaTests.count, 0)
+		XCTAssertFalse(try XCTUnwrap(testService.antigenTest?.journalEntryCreated))
+		XCTAssertFalse(try XCTUnwrap(testService.pcrTest?.journalEntryCreated))
+	}
+
+	func test_When_UpdateTestResultSuccessWithNegative_Then_ContactJournalHasAnEntry() throws {
+		let mockNotificationCenter = MockUserNotificationCenter()
+		let client = ClientMock()
+		client.onGetTestResult = { _, _, completion in
+			completion(.success(FetchTestResultResponse(testResult: TestResult.negative.rawValue, sc: nil)))
+		}
+
+		let diaryStore = MockDiaryStore()
+
+		let testService = CoronaTestService(
+			client: client,
+			store: MockTestStore(),
+			diaryStore: diaryStore,
+			appConfiguration: CachedAppConfigurationMock(),
+			notificationCenter: mockNotificationCenter
+		)
+
+		testService.antigenTest = AntigenTest.mock(registrationToken: "regToken")
+		testService.pcrTest = PCRTest.mock(registrationToken: "regToken")
+
+		let completionExpectation = expectation(description: "Completion should be called.")
+		testService.updateTestResults(presentNotification: true) { _ in
+			completionExpectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
+
+		XCTAssertEqual(diaryStore.coronaTests.count, 2)
+		XCTAssertTrue(try XCTUnwrap(testService.antigenTest?.journalEntryCreated))
+		XCTAssertTrue(try XCTUnwrap(testService.pcrTest?.journalEntryCreated))
+	}
+
 	func test_When_UpdateTestResultsSuccessWithExpired_Then_NoNotificationIsShown() {
 		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		client.onGetTestResult = { _, _, completion in
-			completion(.success(TestResult.expired.rawValue))
+			completion(.success(FetchTestResultResponse(testResult: TestResult.expired.rawValue, sc: nil)))
 		}
 
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: mockNotificationCenter
 		)
@@ -1253,6 +1431,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: mockNotificationCenter
 		)
@@ -1270,7 +1449,7 @@ class CoronaTestServiceTests: XCTestCase {
 
 		client.onGetTestResult = { _, _, completion in
 			getTestResultExpectation.fulfill()
-			completion(.success(TestResult.expired.rawValue))
+			completion(.success(FetchTestResultResponse(testResult: TestResult.expired.rawValue, sc: nil)))
 		}
 
 		testService.updateTestResults(force: true, presentNotification: false) { _ in }
@@ -1285,6 +1464,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: mockNotificationCenter
 		)
@@ -1316,6 +1496,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: mockNotificationCenter
 		)
@@ -1333,7 +1514,7 @@ class CoronaTestServiceTests: XCTestCase {
 
 		client.onGetTestResult = { _, _, completion in
 			getTestResultExpectation.fulfill()
-			completion(.success(TestResult.expired.rawValue))
+			completion(.success(FetchTestResultResponse(testResult: TestResult.expired.rawValue, sc: nil)))
 		}
 
 		testService.updateTestResults(force: false, presentNotification: false) { _ in }
@@ -1350,6 +1531,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: mockNotificationCenter
 		)
@@ -1385,6 +1567,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: mockNotificationCenter
 		)
@@ -1417,6 +1600,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: mockNotificationCenter
 		)
@@ -1436,7 +1620,7 @@ class CoronaTestServiceTests: XCTestCase {
 
 		client.onGetTestResult = { _, _, completion in
 			getTestResultExpectation.fulfill()
-			completion(.success(TestResult.expired.rawValue))
+			completion(.success(FetchTestResultResponse(testResult: TestResult.expired.rawValue, sc: nil)))
 		}
 
 		testService.updateTestResults(force: false, presentNotification: false) { _ in }
@@ -1454,6 +1638,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: mockNotificationCenter
 		)
@@ -1467,7 +1652,7 @@ class CoronaTestServiceTests: XCTestCase {
 
 		client.onGetTestResult = { _, _, completion in
 			getTestResultExpectation.fulfill()
-			completion(.success(TestResult.expired.rawValue))
+			completion(.success(FetchTestResultResponse(testResult: TestResult.expired.rawValue, sc: nil)))
 		}
 
 		testService.updateTestResults(force: false, presentNotification: false) { _ in }
@@ -1487,6 +1672,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: MockUserNotificationCenter()
 		)
@@ -1518,6 +1704,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: MockUserNotificationCenter()
 		)
@@ -1552,6 +1739,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: MockUserNotificationCenter()
 		)
@@ -1586,6 +1774,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: MockUserNotificationCenter()
 		)
@@ -1619,6 +1808,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: MockUserNotificationCenter()
 		)
@@ -1652,6 +1842,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: MockUserNotificationCenter()
 		)
@@ -1679,6 +1870,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let service = CoronaTestService(
 			client: ClientMock(),
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 
@@ -1751,6 +1943,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let service = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		service.pcrTest = PCRTest.mock(registrationToken: "regToken")
@@ -1815,7 +2008,7 @@ class CoronaTestServiceTests: XCTestCase {
 			XCTAssertFalse(isFake)
 			XCTAssertEqual(count, 0)
 			count += 1
-			completion(.success(testResult.rawValue))
+			completion(.success(FetchTestResultResponse(testResult: testResult.rawValue, sc: nil)))
 		}
 
 		client.onGetTANForExposureSubmit = { _, isFake, completion in
@@ -1837,6 +2030,7 @@ class CoronaTestServiceTests: XCTestCase {
 		let service = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		service.pcrTest = PCRTest.mock(registrationToken: "regToken")

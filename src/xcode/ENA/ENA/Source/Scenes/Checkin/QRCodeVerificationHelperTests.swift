@@ -6,7 +6,7 @@ import XCTest
 @testable import ENA
 
 // IMPORTANT: THESE TESTS ARE BASED ON THE CURRENT EXPECTED REGEX, WE NEED TO UPDATE THEM IF THE REGEX IS UPDATED
-class QRCodeVerificationHelperTests: XCTestCase {
+class QRCodeVerificationHelperTests: CWATestCase {
 
     func testValidURL() {
 		let appConfig = CachedAppConfigurationMock()
