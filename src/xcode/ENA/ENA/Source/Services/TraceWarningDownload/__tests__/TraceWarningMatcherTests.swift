@@ -8,7 +8,7 @@ import XCTest
 // Test scenarios from: https://github.com/corona-warn-app/cwa-app-tech-spec/blob/proposal/event-registration-mvp/test-cases/pt-calculate-overlap-data.json
 
 // swiftlint:disable:next type_body_length
-class TraceWarningMatcherTests: XCTestCase {
+class TraceWarningMatcherTests: CWATestCase {
 
 	// returns 0 if guids do not match
 	func test_Scenario1() {

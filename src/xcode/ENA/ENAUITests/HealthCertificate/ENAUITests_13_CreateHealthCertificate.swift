@@ -4,7 +4,7 @@
 
 import XCTest
 
-class ENAUITests_13_CreateHealthCertificate: XCTestCase {
+class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 
 	// MARK: - Overrides
 
@@ -12,6 +12,7 @@ class ENAUITests_13_CreateHealthCertificate: XCTestCase {
 		super.setUp()
 		continueAfterFailure = false
 		app = XCUIApplication()
+		setupSnapshot(app)
 		app.setDefaults()
 		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: true)
 		app.setLaunchArgument(LaunchArguments.onboarding.setCurrentOnboardingVersion, to: true)

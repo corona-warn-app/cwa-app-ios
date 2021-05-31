@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class CFDictionary_KeychainQueryTests: XCTestCase {
+class CFDictionary_KeychainQueryTests: CWATestCase {
 
 
 	func testGet() {

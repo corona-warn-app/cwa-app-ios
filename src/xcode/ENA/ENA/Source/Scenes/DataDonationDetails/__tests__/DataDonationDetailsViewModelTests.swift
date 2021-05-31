@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class DataDonationDetailsViewModelTests: XCTestCase {
+class DataDonationDetailsViewModelTests: CWATestCase {
 
 	let totalNumberOfCells = 35
 	let indexOfBulletPointCells = [7, 8, 9, 10, 12, 13, 14, 15, 17, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 29, 31, 32, 33]

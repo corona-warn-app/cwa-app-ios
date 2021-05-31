@@ -5,7 +5,7 @@
 import Foundation
 import XCTest
 
-class iOS13TestCase: XCTestCase {
+class iOS13TestCase: CWATestCase {
 
 	override func invokeTest() {
 		if #available(iOS 13, *) {

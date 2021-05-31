@@ -7,7 +7,7 @@ import OpenCombine
 import ExposureNotification
 @testable import ENA
 
-final class ExposureDetectionTransactionTests: XCTestCase {
+final class ExposureDetectionTransactionTests: CWATestCase {
 
 	func testGivenThatEveryNeedIsSatisfiedTheDetectionFinishes() throws {
 		let rootDir = FileManager().temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)

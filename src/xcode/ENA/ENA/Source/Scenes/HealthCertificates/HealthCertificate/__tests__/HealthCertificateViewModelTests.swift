@@ -6,7 +6,7 @@ import XCTest
 import HealthCertificateToolkit
 @testable import ENA
 
-class HealthCertificateViewModelTests: XCTestCase {
+class HealthCertificateViewModelTests: CWATestCase {
 
 	func testGIVEN_HealthCertificateViewModel_TableViewSection_THEN_SectionsAreCorrect() {
 

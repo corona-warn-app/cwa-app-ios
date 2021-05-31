@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class RiskTests: XCTestCase {
+class RiskTests: CWATestCase {
 
 	func test_When_DateHasHighRiskFromTracing_And_DateHasLowRiskFromCheckin_Then_ResultIsHighRisk() {
 		let today = Calendar.utcCalendar.startOfDay(for: Date())

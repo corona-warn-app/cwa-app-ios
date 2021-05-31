@@ -7,7 +7,7 @@ import OpenCombine
 import ZIPFoundation
 @testable import ENA
 
-class CacheAppConfigMockTests: XCTestCase {
+class CacheAppConfigMockTests: CWATestCase {
 
 	func testDefaultConfig() throws {
 		let url = try XCTUnwrap(Bundle.main.url(forResource: "default_app_config_200", withExtension: ""))

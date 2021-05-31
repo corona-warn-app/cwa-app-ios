@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class TestResultTests: XCTestCase {
+class TestResultTests: CWATestCase {
 
 	func test_when_TestResultInitilized_Then_ModuloWorksAsExpected() {
 		XCTAssertEqual(TestResult(serverResponse: 0), .pending)

@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class TraceLocationTests: XCTestCase {
+class TraceLocationTests: CWATestCase {
 
 	// This test is aligend with a test on the backend side. To ensure that the hashing algorithm returns the same value. Backend test: https://github.com/corona-warn-app/cwa-server/pull/1302/commits/5ce7d27a74fbf4f2ed560772f97ac17e2189ad33#diff-756ac98ac622ebe84967e1057450c3042e440b3c13c1378f5ec592fe5e662983R141-R150
 

@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class ELSServiceTests: XCTestCase {
+class ELSServiceTests: CWATestCase {
 	
 	func testGIVEN_ELSService_WHEN_UploadIsTriggered_THEN_HappyCaseAllSucceeds() throws {
 		// GIVEN

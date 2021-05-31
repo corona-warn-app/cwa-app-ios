@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class DynamicTableViewModelTests: XCTestCase {
+class DynamicTableViewModelTests: CWATestCase {
 	
 	var sut: DynamicTableViewModel!
 	var sections: [DynamicSection] = []
@@ -13,6 +13,7 @@ class DynamicTableViewModelTests: XCTestCase {
 	var cellsSection1: [DynamicCell] = []
 
 	override func setUpWithError() throws {
+		try super.setUpWithError()
 		cellsSection0 = [
 			DynamicCell.body(
 				text: "Foo",
@@ -37,6 +38,7 @@ class DynamicTableViewModelTests: XCTestCase {
 	}
 
 	override func tearDownWithError() throws {
+		try super.tearDownWithError()
 		sut = nil
 		sections = []
 		cellsSection0 = []

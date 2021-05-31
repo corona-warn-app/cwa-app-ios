@@ -8,7 +8,7 @@ import XCTest
 import ExposureNotification
 
 
-class WifiHTTPClientTest: XCTestCase {
+class WifiHTTPClientTest: CWATestCase {
 
 	func testWHEN_WifiClient_THEN_wifiOnlyIsActive() {
 		// WHEN

@@ -5,21 +5,18 @@
 import XCTest
 import ExposureNotification
 
-class ENAUITests_04c_ExposureLogging: XCTestCase {
+class ENAUITests_04c_ExposureLogging: CWATestCase {
 	
 	var app: XCUIApplication!
 
     override func setUpWithError() throws {
+		try super.setUpWithError()
 		continueAfterFailure = false
 		app = XCUIApplication()
 		setupSnapshot(app)
 		app.setDefaults()
 		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: false)
 		app.setLaunchArgument(LaunchArguments.onboarding.setCurrentOnboardingVersion, to: true)
-	}
-
-	override func tearDownWithError() throws {
-		// Put teardown code here. This method is called after the invocation of each test method in the class.
 	}
 
 	// MARK: - Screenshots

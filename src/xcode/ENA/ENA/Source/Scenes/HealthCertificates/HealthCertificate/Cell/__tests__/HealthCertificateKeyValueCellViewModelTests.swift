@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class HealthCertificateKeyValueCellViewModelTests: XCTestCase {
+class HealthCertificateKeyValueCellViewModelTests: CWATestCase {
 
 	func testGIVEN_OnlyKeyString_THEN_isNil() {
 		// GIVEN

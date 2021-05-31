@@ -7,7 +7,7 @@ import Foundation
 import ExposureNotification
 import XCTest
 
-final class HTTPClientSubmitTests: XCTestCase {
+final class HTTPClientSubmitTests: CWATestCase {
 
 	let mockUrl = URL(staticString: "http://example.com")
 	let expectationsTimeout: TimeInterval = 2

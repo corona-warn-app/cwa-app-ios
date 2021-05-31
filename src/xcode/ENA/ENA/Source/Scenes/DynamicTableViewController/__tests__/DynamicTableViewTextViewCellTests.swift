@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class DynamicTableViewTextViewCellTests: XCTestCase {
+class DynamicTableViewTextViewCellTests: CWATestCase {
 
 	func testDataDetectors_DefaultNone() throws {
 		let sut = DynamicTableViewTextViewCell()

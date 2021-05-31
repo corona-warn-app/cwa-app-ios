@@ -5,7 +5,7 @@
 import XCTest
 import ExposureNotification
 
-class ENAUITests_00_Onboarding: XCTestCase {
+class ENAUITests_00_Onboarding: CWATestCase {
 	var app: XCUIApplication!
 
 	override func setUp() {
@@ -17,10 +17,6 @@ class ENAUITests_00_Onboarding: XCTestCase {
 		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: false)
 		app.setLaunchArgument(LaunchArguments.consent.isDatadonationConsentGiven, to: false)
 		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.unknown.stringValue)
-	}
-
-	override func tearDownWithError() throws {
-		// Put teardown code here. This method is called after the invocation of each test method in the class.
 	}
 
 	func test_0000_OnboardingFlow_DisablePermissions_normal_XXXL() throws {

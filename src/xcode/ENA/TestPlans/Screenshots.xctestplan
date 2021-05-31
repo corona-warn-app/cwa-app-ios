@@ -17,6 +17,10 @@
     {
       "parallelizable" : true,
       "selectedTests" : [
+        "CreateHealthCertificate\/test_CreateAntigenTestProfileWithFirstCertificate_THEN_DeleteProfile()",
+        "CreateHealthCertificate\/test_CreateAntigenTestProfileWithLastCertificate_THEN_DeleteProfile()",
+        "CreateHealthCertificate\/test_ShowCertificate()",
+        "CreateHealthCertificate\/test_shownConsentScreenAndDisclaimer()",
         "ENAUITests\/test_0000_Generate_Screenshots_For_AppStore()",
         "ENAUITests\/test_0001_Generate_Screenshots_For_AppStore_Submission()",
         "ENAUITests\/test_0002_Generate_Screenshot_For_AppStore_Statistics()",
@@ -64,7 +68,11 @@
         "ENAUITests_07_ContactJournal\/test_screenshot_TwoPersonsOneLocationAndMessages()",
         "ENAUITests_08_UpdateOS\/test_screenshot_UpdateOS()",
         "ENAUITests_09_TraceLocations\/test_screenshots_of_traceLocation_print_flow()",
-        "ENAUITests_10_CheckIns\/test_screenshot_WHEN_scan_QRCode_THEN_checkin_and_checkout()"
+        "ENAUITests_10_CheckIns\/test_screenshot_WHEN_scan_QRCode_THEN_checkin_and_checkout()",
+        "ENAUITests_13_CreateHealthCertificate\/test_CreateAntigenTestProfileWithFirstCertificate()",
+        "ENAUITests_13_CreateHealthCertificate\/test_CreateAntigenTestProfileWithLastCertificate()",
+        "ENAUITests_13_CreateHealthCertificate\/test_ShowCertificate()",
+        "ENAUITests_13_CreateHealthCertificate\/test_shownConsentScreenAndDisclaimer()"
       ],
       "target" : {
         "containerPath" : "container:ENA.xcodeproj",
