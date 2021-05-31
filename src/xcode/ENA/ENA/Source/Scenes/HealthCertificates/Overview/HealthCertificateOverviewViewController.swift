@@ -77,7 +77,9 @@ class HealthCertificateOverviewViewController: UITableViewController {
 			return healthCertificateCell(forRowAt: indexPath)
 		case .createHealthCertificate:
 			return vaccinationRegistrationCell(forRowAt: indexPath)
-		default:
+		case .testCertificateInfo:
+			return testCertificateInfoCell(forRowAt: indexPath)
+		case .none:
 			fatalError("Invalid section")
 		}
 	}
@@ -94,7 +96,9 @@ class HealthCertificateOverviewViewController: UITableViewController {
 			if let healthCertifiedPerson = viewModel.healthCertifiedPerson(at: indexPath) {
 				onCertifiedPersonTap(healthCertifiedPerson)
 			}
-		default:
+		case .testCertificateInfo:
+			break
+		case .none:
 			fatalError("Invalid section")
 		}
 	}
@@ -131,6 +135,10 @@ class HealthCertificateOverviewViewController: UITableViewController {
 			UINib(nibName: String(describing: HomeHealthCertificateRegistrationTableViewCell.self), bundle: nil),
 			forCellReuseIdentifier: HomeHealthCertificateRegistrationTableViewCell.reuseIdentifier
 		)
+		tableView.register(
+			UINib(nibName: String(describing: TestCertificateInfoTableViewCell.self), bundle: nil),
+			forCellReuseIdentifier: TestCertificateInfoTableViewCell.reuseIdentifier
+		)
 
 		tableView.separatorStyle = .none
 		tableView.rowHeight = UITableView.automaticDimension
@@ -162,10 +170,19 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		}
 
 		cell.configure(
-			with: HomeHealthCertificateRegistrationCellModel(),
-			onPrimaryAction: { [weak self] in
-				self?.onCreateHealthCertificateTap()
-			}
+			with: HomeHealthCertificateRegistrationCellModel()
+		)
+
+		return cell
+	}
+
+	private func testCertificateInfoCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: TestCertificateInfoTableViewCell.reuseIdentifier, for: indexPath) as? TestCertificateInfoTableViewCell else {
+			fatalError("Could not dequeue TestCertificateInfoTableViewCell")
+		}
+
+		cell.configure(
+			with: TestCertificateInfoCellModel()
 		)
 
 		return cell
