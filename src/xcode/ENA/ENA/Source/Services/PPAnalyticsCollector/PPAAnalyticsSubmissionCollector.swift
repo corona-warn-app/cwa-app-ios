@@ -115,9 +115,9 @@ final class PPAAnalyticsSubmissionCollector {
 		case let .setHoursSinceENFHighRiskWarningAtTestRegistration(type):
 			setHoursSinceENFHighRiskWarningAtTestRegistration(type: type)
 		case let .setDaysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration(type):
-			setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration(type: type)
+			setDaysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration(type: type)
 		case let .setHoursSinceCheckinHighRiskWarningAtTestRegistration(type):
-			setHoursSinceENFHighRiskWarningAtTestRegistration(type: type)
+			setHoursSinceCheckinHighRiskWarningAtTestRegistration(type: type)
 		}
 	}
 
@@ -168,7 +168,12 @@ final class PPAAnalyticsSubmissionCollector {
 
 	private func setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration(type: CoronaTestType) {
 		guard let registrationDate = coronaTestService.coronaTest(ofType: type)?.registrationDate else {
-			store.pcrKeySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = -1
+			switch type {
+			case .pcr:
+				store.pcrKeySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = -1
+			case .antigen:
+				store.antigenKeySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = -1
+			}
 			return
 		}
 		if let mostRecentRiskCalculationDate = store.enfRiskCalculationResult?.mostRecentDateWithCurrentRiskLevel {
@@ -229,7 +234,12 @@ final class PPAAnalyticsSubmissionCollector {
 	
 	private func setDaysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration(type: CoronaTestType) {
 		guard let registrationDate = coronaTestService.coronaTest(ofType: type)?.registrationDate else {
-			store.pcrKeySubmissionMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration = -1
+			switch type {
+			case .pcr:
+				store.pcrKeySubmissionMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration = -1
+			case .antigen:
+				store.antigenKeySubmissionMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration = -1
+			}
 			return
 		}
 		if let mostRecentRiskCalculationDate = store.checkinRiskCalculationResult?.mostRecentDateWithCurrentRiskLevel {
