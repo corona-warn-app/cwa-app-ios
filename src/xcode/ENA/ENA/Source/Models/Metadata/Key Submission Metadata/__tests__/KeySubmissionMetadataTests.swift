@@ -422,46 +422,6 @@ class KeySubmissionMetadataTests: XCTestCase {
 		XCTAssertTrue(secureStore.antigenKeySubmissionMetadata?.submittedWithTeleTAN == false)
 	}
 
-	func testKeySubmissionMetadataValues_LowRisk() {
-		let secureStore = MockTestStore()
-		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
-
-		let coronaTestService = CoronaTestService(
-			client: ClientMock(),
-			store: secureStore,
-			eventStore: MockEventStore(),
-			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock()
-		)
-
-		Analytics.setupMock(store: secureStore, coronaTestService: coronaTestService)
-
-		let riskCalculationResult = mockENFHighRiskCalculationResult(risk: .low)
-
-		secureStore.dateOfConversionToENFHighRisk = Calendar.current.date(byAdding: .day, value: -1, to: Date())
-		secureStore.enfRiskCalculationResult = riskCalculationResult
-
-		coronaTestService.pcrTest = PCRTest.mock(registrationDate: Date())
-		coronaTestService.antigenTest = AntigenTest.mock(registrationDate: Date())
-
-		let keySubmissionMetadata = mockEmptyKeySubmissionMetadata()
-		
-		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, .pcr)))
-		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration(.pcr)))
-		Analytics.collect(.keySubmissionMetadata(.setHoursSinceENFHighRiskWarningAtTestRegistration(.pcr)))
-		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, .antigen)))
-		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration(.antigen)))
-		Analytics.collect(.keySubmissionMetadata(.setHoursSinceCheckinHighRiskWarningAtTestRegistration(.antigen)))
-
-		XCTAssertNotNil(secureStore.pcrKeySubmissionMetadata, "pcrKeySubmissionMetadata should be initialized with default values")
-		XCTAssertEqual(secureStore.pcrKeySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, 3, "number of days should be 3")
-		XCTAssertEqual(secureStore.pcrKeySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration, -1, "the value should be default value i.e., -1 as the risk is low")
-
-		XCTAssertNotNil(secureStore.antigenKeySubmissionMetadata, "keySubmissionMetadata should be initialized with default values")
-		XCTAssertEqual(secureStore.antigenKeySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, 3, "number of days should be 3")
-		XCTAssertEqual(secureStore.antigenKeySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration, -1, "the value should be default value i.e., -1 as the risk is low")
-	}
-
 	private func mockENFHighRiskCalculationResult(risk: RiskLevel = .high) -> ENFRiskCalculationResult {
 		ENFRiskCalculationResult(
 			riskLevel: risk,
