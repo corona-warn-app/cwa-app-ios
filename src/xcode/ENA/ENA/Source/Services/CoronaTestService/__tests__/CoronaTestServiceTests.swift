@@ -403,7 +403,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let service = CoronaTestService(
 			client: client,
 			store: store,
-			eventStore: MockEventStore(),
+			eventStore: eventStore,
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
@@ -571,9 +571,10 @@ class CoronaTestServiceTests: CWATestCase {
 		let store = MockTestStore()
 		store.enfRiskCalculationResult = mockRiskCalculationResult()
 
-		Analytics.setupMock(store: store)
-		store.isPrivacyPreservingAnalyticsConsentGiven = true
-
+		let checkInMock = Checkin.mock()
+		let eventStore = MockEventStore()
+		eventStore.createCheckin(checkInMock)
+		
 		let client = ClientMock()
 		client.onGetRegistrationToken = { _, _, _, completion in
 			completion(.success("registrationToken"))
@@ -582,10 +583,16 @@ class CoronaTestServiceTests: CWATestCase {
 		let service = CoronaTestService(
 			client: client,
 			store: store,
-			eventStore: MockEventStore(),
+			eventStore: eventStore,
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
+		Analytics.setupMock(
+			store: store,
+			coronaTestService: service
+		)
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
+		
 		service.pcrTest = nil
 
 		let expectation = self.expectation(description: "Expect to receive a result.")
@@ -627,6 +634,7 @@ class CoronaTestServiceTests: CWATestCase {
 		XCTAssertNil(pcrTest.submissionTAN)
 		XCTAssertFalse(pcrTest.keysSubmitted)
 		XCTAssertFalse(pcrTest.journalEntryCreated)
+		XCTAssertEqual(store.pcrKeySubmissionMetadata?.submittedWithCheckIns, true)
 	}
 
 	func testRegisterPCRTestWithTeleTAN_successWithSubmissionConsentGiven() {
