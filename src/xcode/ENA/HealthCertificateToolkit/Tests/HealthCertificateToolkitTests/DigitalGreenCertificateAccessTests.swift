@@ -187,30 +187,30 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
 
     lazy var testDataTestCertificate: TestData = {
         TestData (
-            input: hcPrefix+"NCFOXN%TS3DH3ZSUZK+.V0ETD%65NL-AH9+UIOOP-IP1SX5J4G5WVP%4CAT4V22F/8X*G3M9BM9Z0BFU2P4JY73JC3KD34LT7A3523*BBXSJ$IJGX8R/S+:KLD3JJ3.+IJYCDN0TA3RK37MBZD3K%IO1BT6HN%20YCS*KNS4Y6TLXKF85-Y3Q1JGOJEII9JJN9CJZIR9K5TSJZILDBZ8D%JTQOL0EC7KD/ZL/8D:8DQVDLED0AC2AU872Q.T:USMD37.ST+C*2T$/TVPTM*SQYDLADYR3.XI/VBVGTKOJQMI-ZJYIJQBB6R6LTMU0BR3UR:J.X0A%QEAKKGQAOI0QIRR97I2HOAXCK+-C1W4/GJI+C7*4M:KCY07LPMIH-O9XZQSH9R$FXQGDVBK*RZP3:*DG1W7SGT$7S%RMSG2UQYI95N923LDU2O3J$NNP5S29F DQ/HLTNP8EFNC3P:HDD8B1MM1M9NTNC30GH.Z8VHL+KLF%CD 810H.+8Z1HZD5CC9T0HSCO/20PMICZG5SPZ:NW38F5H7U9KF4%556$I1I2YQ8Z1R6CTN.C4 3EL52C6ZLFWX8CD6+2NTRUOHLC6P50SORRHXLI$R2NP%1G2AI.7OFLV$8QL4VA0F41J",
+            input: hcPrefix+"6BFOXN%TSMAHN-HVN8J7UQMJ4/36 L-AHIT91RO4.S-OP %I83V8H9GJLUW5NW6SA3/-2E%5G%5TW5A 6YO6XL6Q3QR$P*NI92K*F2-8B0DJV1JD7U:CJX3CJ7J:ZJ83BTH2R638DJC0J*PIR8T3WS9.S*IJ5OI9YI:8DVFC%PD:NK8WCDAB2DNAHLW 70SO:GOLIROGO3T5ZXK9UO GOP*OSV8WP4K166K8A 6:-OGU6927CORX8Q6I4/$R/ER/ QXZOZZOWP4:/6F0P6HPE65V77ZJ82HPPEPHCRTWA+DPL*OCHP7IRZSP:WBW+QYQ6-B5B11XEDW33D8C. C290AQ5EPPQF67460R6646O59EB9:PE+.PTW5F$PI11UH97-5ZT5VZP0JEWYH:PIREGMCIGDB3LKDVAC7JLKB8UJ06JSVBDKBXEB0VL//ET2ADMG5JD*5ADK45TMN95ZTM+CSUHQN%A400H%UBT16Y5+Z9  38CRVS1I$6P+1VWU5:U2:UI36/8HTWU%/EYUUPWEBSHFKVHIM$AF5JRZ$FKCTYUD$PMYTF6%HJ29H/DA BT 36*N0FCZDRKWBGRINNNRAT94KZ5C95N38TBRJ*CF-7RBA1MOHQT1V472AV86O000*JCLCJ",
             certificate: DigitalGreenCertificate(
-                version: "1.2.1",
+                version: "1.0.0",
                 name: Name(
-                    familyName: "Musterfrau-Gößinger",
-                    givenName: "Gabriele",
-                    standardizedFamilyName: "MUSTERFRAU<GOESSINGER",
-                    standardizedGivenName: "GABRIELE"
+                    familyName: "Falorni",
+                    givenName: "Sara",
+                    standardizedFamilyName: "FALORNI",
+                    standardizedGivenName: "SARA"
                 ),
-                dateOfBirth: "1998-02-26",
+                dateOfBirth: "1987-04-22",
                 vaccinationCertificates: nil,
                 testCertificates: [
                     TestCertificate(
                         diseaseOrAgentTargeted: "840539006",
-                        typeOfTest: "LP217198-3",
+                        typeOfTest: "LP6464-4",
                         testResult: "260415000",
-                        naaTestName: nil,
-                        ratTestName: "1232",
-                        dateTimeOfSampleCollection: "2021-02-20T12:34:56Z",
-//                        dateTimeOfTestResult: "2021-02-22T12:34:56+00:00",
-                        testCenter: "Testing center Rödelheim 1",
+                        naaTestName: "EUDCUVMXCMNIXU7OS5UBT0T8T",
+                        ratTestName: "1242",
+                        dateTimeOfSampleCollection: "2021-05-29T22:34:17.595Z",
+                        dateTimeOfTestResult: "2021-05-31T08:58:17.595Z",
+                        testCenter: "General Practitioner 3",
                         countryOfTest: "DE",
                         certificateIssuer: "Bundesministerium für Gesundheit",
-                        uniqueCertificateIdentifier: "01DE/84503/1119349007/DXZSHDGEURJF8ZFKIYIBK39A3#S"
+                        uniqueCertificateIdentifier: "01DE/00000/1119349007/9QK4WRVMUOUIP7PYVNSFBK9GF"
                     )
                 ]
             ),

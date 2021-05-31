@@ -72,7 +72,7 @@ public struct TestCertificate: Codable, Equatable {
         case naaTestName = "nm"
         case ratTestName = "ma"
         case dateTimeOfSampleCollection = "sc"
-//        case dateTimeOfTestResult = "dr"
+        case dateTimeOfTestResult = "dr"
         case testCenter = "tc"
         case countryOfTest = "co"
         case certificateIssuer = "is"
@@ -87,7 +87,7 @@ public struct TestCertificate: Codable, Equatable {
     public let naaTestName: String?
     public let ratTestName: String?
     public let dateTimeOfSampleCollection: String
-//    public let dateTimeOfTestResult: String
+    public let dateTimeOfTestResult: String
     public let testCenter: String
     public let countryOfTest: String
     public let certificateIssuer: String
