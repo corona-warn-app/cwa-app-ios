@@ -47,6 +47,12 @@ public struct DigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtoc
         }
     }
 
+    public func extractDigitalGreenCertificate(from coseWithEncryptedDGC: Data, with dataEncryptionKey: String) -> Result<DigitalGreenCertificate, CertificateDecodingError> {
+
+
+        return .failure(.HC_CBORWEBTOKEN_NO_DIGITALGREENCERTIFICATE)
+    }
+
     // MARK: - Internal
 
     func extractCBOR(from base45: Base45) -> Result<CBORData, CertificateDecodingError> {
@@ -145,13 +151,15 @@ public struct DigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtoc
 
         switch validateSchema(of: healthCertificateCBOR) {
         case .success:
-            let _cborData = healthCertificateCBOR.encode()
-            let cborData = Data(_cborData)
-            let codableDecoder = CodableCBORDecoder()
+            guard case let CBOR.map(certificateMap) = healthCertificateCBOR else {
+                fatalError("healthCertificateCBOR should be a map at this point.")
+            }
+
+            let dictionary = certificateMap.anyMap
 
             let _healthCertificate: DigitalGreenCertificate?
             do {
-                _healthCertificate = try codableDecoder.decode(DigitalGreenCertificate.self, from: cborData)
+                _healthCertificate = try JSONDecoder().decode(DigitalGreenCertificate.self, from: JSONSerialization.data(withJSONObject: dictionary))
             } catch {
                 return .failure(.HC_CBOR_DECODING_FAILED(error))
             }
@@ -159,6 +167,7 @@ public struct DigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtoc
             guard let healthCertificate = _healthCertificate else {
                 fatalError("healthCertificate should not be nil at this point.")
             }
+
             return .success(healthCertificate)
 
         case let .failure(error):
