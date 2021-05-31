@@ -346,3 +346,69 @@ extension String {
 		}
 	}
 }
+
+
+// MARK: - Digital Green Certificate
+
+struct DGCRSAKeypair {
+	
+	enum DGCRSAKeypairError: Error {
+		case publicKey
+		case privateKey
+
+	}
+	
+	let publicKey: Data
+	let privateKey: Data
+
+	
+	init?() throws {
+		let tag = Bundle.main.bundleIdentifier ?? "de.rki.coronawarnapp"
+		
+		let publicKeyAttr: [NSObject: NSObject] = [
+					kSecAttrIsPermanent:true as NSObject,
+					kSecAttrApplicationTag:tag.data(using: String.Encoding.utf8)! as NSObject,
+					kSecClass: kSecClassKey,
+					kSecReturnData: kCFBooleanTrue]
+		
+		let privateKeyAttr: [NSObject: NSObject] = [
+					kSecAttrIsPermanent:true as NSObject,
+					kSecAttrApplicationTag:tag.data(using: String.Encoding.utf8)! as NSObject,
+					kSecClass: kSecClassKey,
+					kSecReturnData: kCFBooleanTrue]
+
+		var keyPairAttr = [NSObject: NSObject]()
+		keyPairAttr[kSecAttrKeyType] = kSecAttrKeyTypeRSA
+		keyPairAttr[kSecAttrKeySizeInBits] = 3072 as NSObject
+		keyPairAttr[kSecPublicKeyAttrs] = publicKeyAttr as NSObject
+		keyPairAttr[kSecPrivateKeyAttrs] = privateKeyAttr as NSObject
+		
+		var publicKey : SecKey?
+		var privateKey : SecKey?
+
+		let statusCode = SecKeyGeneratePair(keyPairAttr as CFDictionary, &publicKey, &privateKey)
+
+		guard statusCode == noErr && publicKey != nil && privateKey != nil else {
+			
+				Log.error("Error generating DGC RSA key pair: \(String(describing: statusCode))", log: .crypto)
+				throw DGCRSAKeypairError.publicKey
+		}
+		var resultPublicKey: AnyObject?
+		var resultPrivateKey: AnyObject?
+		let statusPublicKey = SecItemCopyMatching(publicKeyAttr as CFDictionary, &resultPublicKey)
+		let statusPrivateKey = SecItemCopyMatching(privateKeyAttr as CFDictionary, &resultPrivateKey)
+
+		guard statusPublicKey == noErr, let publicKey = resultPublicKey as? Data else {
+			Log.error("Cannot get Public key from DGCRSAKeypair", log: .crypto)
+			throw DGCRSAKeypairError.publicKey
+		}
+		self.publicKey = publicKey
+		
+
+		guard statusPrivateKey == noErr, let privateKey = resultPrivateKey as? Data else {
+			Log.error("Cannot get private key from DGCRSAKeypair", log: .crypto)
+			throw DGCRSAKeypairError.privateKey
+		}
+		self.privateKey = privateKey
+	}
+}
