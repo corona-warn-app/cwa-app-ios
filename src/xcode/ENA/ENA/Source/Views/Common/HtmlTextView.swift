@@ -112,9 +112,12 @@ private extension ENAColor {
 		case .buttonHighlight: return "button-highlight"
 		case .buttonPrimary: return "button-primary"
 
-		// MARK: - Miscellaneous Colors
+		// MARK: - Card Colors
+		case .dashedCardBorder: return "dashed-card-border-color"
 		case .cardBorder: return "card-border-color"
 		case .cardShadow: return "card-shadow-color"
+
+		// MARK: - Miscellaneous Colors
 		case .chevron: return "chevron-color"
 		case .shadow: return "shadow-color"
 		case .tint: return "tint-color"

@@ -19,8 +19,7 @@ class CardView: UIView {
 		layer.shadowRadius = 3.0
 		layer.shadowOpacity = 1
 
-		layer.borderWidth = 1
-
+		setBorderWidth()
 		setLayerColors()
 
 		highlightView.backgroundColor = .clear
@@ -52,6 +51,12 @@ class CardView: UIView {
 
 	// MARK: - Internal
 
+	@IBInspectable var hasBorder: Bool = true {
+		didSet {
+			setBorderWidth()
+		}
+	}
+
 	func setHighlighted(_ highlighted: Bool, animated: Bool) {
 		highlightView.backgroundColor = highlighted ? .enaColor(for: .listHighlight) : .clear
 	}
@@ -65,6 +70,10 @@ class CardView: UIView {
 	private func setLayerColors() {
 		layer.shadowColor = UIColor.enaColor(for: .cardShadow).cgColor
 		layer.borderColor = UIColor.enaColor(for: .cardShadow).cgColor
+	}
+
+	private func setBorderWidth() {
+		layer.borderWidth = hasBorder ? 1 : 0
 	}
 
 }

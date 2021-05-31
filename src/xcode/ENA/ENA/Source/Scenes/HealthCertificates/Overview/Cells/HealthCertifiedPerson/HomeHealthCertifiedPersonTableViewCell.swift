@@ -50,7 +50,7 @@ class HomeHealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierPr
 	@IBOutlet private weak var backgroundImageView: UIImageView!
 	@IBOutlet private weak var iconView: UIImageView!
 
-	@IBOutlet private weak var containerView: HomeCardView!
+	@IBOutlet private weak var containerView: CardView!
 	@IBOutlet private weak var backgroundGradientView: GradientView!
 
 	private func setupAccessibility() {

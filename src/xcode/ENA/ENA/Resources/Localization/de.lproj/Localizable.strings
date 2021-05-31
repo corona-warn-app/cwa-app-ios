@@ -2476,6 +2476,12 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "VaccinationCertificate_vaccinationValidUntil" = "Gültig bis einschließlich %@";
 
+/* - Test Certificate Info */
+
+"TestCertificate_Info_title" = "Digitales\n**COVID-19-Testzertifikat**";
+
+"TestCertificate_Info_description" = "Registrieren Sie einen Test auf der Startseite und stimmen Sie zu, ein digitales Testzertifikat zu erhalten. Sobald das Zertifikat vorliegt, wird es hier angezeigt.";
+
 /* Health Certificate Information */
 
 "HealthCertificate_Info_Title" = "Impfzertifikat hinzufügen";

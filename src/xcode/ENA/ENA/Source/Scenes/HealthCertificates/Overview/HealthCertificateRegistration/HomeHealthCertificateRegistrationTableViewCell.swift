@@ -40,7 +40,7 @@ class HomeHealthCertificateRegistrationTableViewCell: UITableViewCell, ReuseIden
 	
 	@IBOutlet private weak var titleLabel: ENALabel!
 	@IBOutlet private weak var descriptionLabel: ENALabel!
-	@IBOutlet private weak var cardView: HomeCardView!
+	@IBOutlet private weak var cardView: CardView!
 	
 	private var onPrimaryAction: (() -> Void)?
 	

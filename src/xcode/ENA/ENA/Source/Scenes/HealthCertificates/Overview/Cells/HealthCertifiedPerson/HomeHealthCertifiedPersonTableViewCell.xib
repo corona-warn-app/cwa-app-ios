@@ -18,7 +18,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="472" height="286"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DfM-oY-Tot" customClass="HomeCardView" customModule="ENA" customModuleProvider="target">
+                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DfM-oY-Tot" customClass="CardView" customModule="ENA" customModuleProvider="target">
                         <rect key="frame" x="16" y="12" width="440" height="262"/>
                         <subviews>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="98j-Fw-0Wm" customClass="GradientView" customModule="ENA" customModuleProvider="target">
@@ -92,6 +92,9 @@
                             <constraint firstItem="gEG-vY-s6G" firstAttribute="top" secondItem="DfM-oY-Tot" secondAttribute="top" id="diI-b4-gwZ"/>
                             <constraint firstAttribute="trailing" secondItem="98j-Fw-0Wm" secondAttribute="trailing" id="zJ3-JJ-kHO"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="hasBorder" value="NO"/>
+                        </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
