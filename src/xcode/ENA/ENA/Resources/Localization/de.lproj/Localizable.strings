@@ -1702,8 +1702,6 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ContactDiary_Day_AddContactPerson" = "Person hinzufügen";
 
-"ContactDiary_Day_PersonSelected" = "Auswahl %@";
-
 "ContactDiary_Day_ContactPersonsEmptyTitle" = "Noch keine Personen vorhanden";
 
 "ContactDiary_Day_ContactPersonsEmptyDescription" = "Legen Sie eine Person an und fügen Sie sie in Ihrem Kontakt-Tagebuch hinzu.";
