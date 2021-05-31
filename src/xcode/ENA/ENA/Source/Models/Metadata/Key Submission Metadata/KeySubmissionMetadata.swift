@@ -95,7 +95,7 @@ struct KeySubmissionMetadata: Codable {
 	var hoursSinceTestRegistration: Int32?
 	// the enf risk version. Note: Do not rename or write migration
 	var daysSinceMostRecentDateAtRiskLevelAtTestRegistration: Int32?
-	// the enf risk  version. Note: Do not rename or write migration
+	// the enf risk version. Note: Do not rename or write migration
 	var hoursSinceHighRiskWarningAtTestRegistration: Int32?
 	var submittedWithTeleTAN: Bool?
 	var submittedAfterRapidAntigenTest: Bool = false

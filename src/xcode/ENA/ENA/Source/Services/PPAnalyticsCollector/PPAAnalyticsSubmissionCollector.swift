@@ -210,12 +210,12 @@ final class PPAAnalyticsSubmissionCollector {
 				_registrationTime = coronaTestService.antigenTest?.registrationDate
 			}
 
-			guard let timeOfRiskChangeToHigh = store.dateOfConversionToENFHighRisk,
+			guard let dateOfRiskChangeToHigh = store.dateOfConversionToENFHighRisk,
 				  let registrationTime = _registrationTime else {
 				Log.warning("Could not log risk calculation result due to timeOfRiskChangeToHigh is nil", log: .ppa)
 				return
 			}
-			let differenceInHours = Calendar.current.dateComponents([.hour], from: timeOfRiskChangeToHigh, to: registrationTime)
+			let differenceInHours = Calendar.current.dateComponents([.hour], from: dateOfRiskChangeToHigh, to: registrationTime)
 			let hours = Int32(differenceInHours.hour ?? -1)
 			persistHoursSinceENFHighRiskWarningAtTestRegistration(hours, for: type)
 		case .low:
@@ -267,7 +267,6 @@ final class PPAAnalyticsSubmissionCollector {
 		}
 		switch riskLevel {
 		case .high:
-
 			let _registrationTime: Date?
 			switch type {
 			case .pcr:
@@ -276,12 +275,12 @@ final class PPAAnalyticsSubmissionCollector {
 				_registrationTime = coronaTestService.antigenTest?.registrationDate
 			}
 
-			guard let timeOfRiskChangeToHigh = store.dateOfConversionToCheckinHighRisk,
+			guard let dateOfRiskChangeToHigh = store.dateOfConversionToCheckinHighRisk,
 				  let registrationTime = _registrationTime else {
 				Log.warning("Could not log risk calculation result due to timeOfRiskChangeToHigh is nil", log: .ppa)
 				return
 			}
-			let differenceInHours = Calendar.current.dateComponents([.hour], from: timeOfRiskChangeToHigh, to: registrationTime)
+			let differenceInHours = Calendar.current.dateComponents([.hour], from: dateOfRiskChangeToHigh, to: registrationTime)
 			let hours = Int32(differenceInHours.hour ?? -1)
 			persistHoursSinceCheckinHighRiskWarningAtTestRegistration(hours, for: type)
 		case .low:
