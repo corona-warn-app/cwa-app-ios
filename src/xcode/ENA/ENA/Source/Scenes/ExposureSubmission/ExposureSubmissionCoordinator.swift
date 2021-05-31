@@ -835,7 +835,9 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 	private func showTestCertificateInfo() {
 		let testCertificateInfoViewController = ExposureSubmissionTestCertificateInfoViewController(
-			ExposureSubmissionTestCertificateViewModel(name: "test"),
+			ExposureSubmissionTestCertificateViewModel(
+				presentDisclaimer: {}
+			),
 			showCancelAlert: { [weak self] in
 				self?.showEndRegistrationAlert(
 					submitAction: UIAlertAction(

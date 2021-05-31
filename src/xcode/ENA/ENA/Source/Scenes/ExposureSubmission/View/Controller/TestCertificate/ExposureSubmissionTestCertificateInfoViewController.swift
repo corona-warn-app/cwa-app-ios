@@ -27,7 +27,7 @@ class ExposureSubmissionTestCertificateInfoViewController: DynamicTableViewContr
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		setupNavigationBar()
+		setupView()
 	}
 
 	// MARK: - Protocol DismissHandling
@@ -45,12 +45,20 @@ class ExposureSubmissionTestCertificateInfoViewController: DynamicTableViewContr
 	private let viewModel: ExposureSubmissionTestCertificateViewModel
 	private let showCancelAlert: () -> Void
 
-	private func setupNavigationBar() {
+	private func setupView() {
 		parent?.navigationItem.title = AppStrings.ExposureSubmission.TestCertificate.Info.title
 		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 		parent?.navigationItem.hidesBackButton = true
 
 		view.backgroundColor = .enaColor(for: .background)
+
+		tableView.register(
+			UINib(nibName: String(describing: DynamicLegalExtendedCell.self), bundle: nil),
+			forCellReuseIdentifier: ExposureSubmissionTestCertificateViewModel.ReuseIdentifiers.legalExtended.rawValue
+		)
+
+		dynamicTableViewModel = viewModel.dynamicTableViewModel
+		tableView.separatorStyle = .none
 	}
 
 }
