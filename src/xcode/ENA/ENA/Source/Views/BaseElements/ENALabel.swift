@@ -52,6 +52,8 @@ class ENALabel: UILabel {
 		}
 	}
 
+	private var wasJustHighlighted: Bool = false
+
 	private func fontForCurrentTextStyle(weight: UIFont.Weight? = nil) -> UIFont {
 		let metrics = UIFontMetrics(forTextStyle: style.textStyle)
 		let systemFont = UIFont.systemFont(ofSize: style.fontSize, weight: weight ?? UIFont.Weight(style.fontWeight))
@@ -60,11 +62,18 @@ class ENALabel: UILabel {
 	
 	private func applyStyle() {
 		adjustsFontForContentSizeCategory = true
-		self.font = fontForCurrentTextStyle()
 		applyHighlighting()
 	}
 
 	private func applyHighlighting() {
+		// `wasJustHighlighted` is set to true if the `attributedText` was just set from this func.
+		// Because setting `attributedText` automatically sets `text`, we need to make sure not to do the highlighting
+		// again with the "**" markers already removed, which would result in loosing the highlighting again.
+		guard !wasJustHighlighted else {
+			wasJustHighlighted = true
+			return
+		}
+
 		guard let text = text else {
 			return
 		}
@@ -72,12 +81,14 @@ class ENALabel: UILabel {
 		let components = text.components(separatedBy: "**")
 
 		guard components.count > 1 else {
+			self.font = fontForCurrentTextStyle()
 			return
 		}
 
 		let sequence = components.enumerated()
 		let attributedString = NSMutableAttributedString()
 
+		wasJustHighlighted = true
 		attributedText = sequence.reduce(into: attributedString) { string, pair in
 			let isHighlighted = !pair.offset.isMultiple(of: 2)
 			let font = fontForCurrentTextStyle(weight: isHighlighted ? style.highlightedWeight : style.nonHighlightedWeight)
@@ -139,9 +150,9 @@ extension ENALabel.Style {
 
 	var nonHighlightedWeight: UIFont.Weight {
 		switch self {
-		case .title1: return .thin
-		case .title2: return .thin
-		case .headline: return .thin
+		case .title1: return .light
+		case .title2: return .light
+		case .headline: return .light
 		case .body: return .regular
 		case .subheadline: return .regular
 		case .footnote: return .regular
