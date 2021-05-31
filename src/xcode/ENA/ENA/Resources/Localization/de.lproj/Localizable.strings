@@ -109,7 +109,7 @@
 
 "ExposureDetection_Guide_Hotline2" = "Ihre Hausarztpraxis";
 
-"ExposureDetection_Guide_Hotline3" = "den kassenärztlichen Bereitschaftsdienst unter der Telefonnummer: 116117";
+"ExposureDetection_Guide_Hotline3" = "Den kassenärztlichen Bereitschaftsdienst unter der Telefonnummer: 116117";
 
 "ExposureDetection_Guide_Hotline4" = "Ihr Gesundheitsamt";
 
@@ -2466,7 +2466,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Antigen Profile */
 
-"AntigenProfile_Delete_Alert_Title" = "Wollen Sie das Schnelltest-Profil wirklich entfernen?";
+"AntigenProfile_Delete_Alert_Title" = "Wollen Sie das Schnelltest-Profil entfernen?";
 
 "AntigenProfile_Delete_Alert_Description" = "Bitte denken Sie daran, dass der QR-Code danach nicht mehr zum Registrieren verwendet werden kann.";
 
