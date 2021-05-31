@@ -130,6 +130,11 @@ enum AppStrings {
 				static let title = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Title", comment: "")
 				static let primaryButton = NSLocalizedString("ExposureSubmission_TestCertificate_Information_PrimaryButton", comment: "")
 				static let secondaryButton = NSLocalizedString("ExposureSubmission_TestCertificate_Information_SecondaryButton", comment: "")
+				static let imageDescription = NSLocalizedString("ExposureSubmission_TestCertificate_Information_ImageDescription", comment: "")
+				static let subHeadline = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Subheadline", comment: "")
+				static let section01 = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Section01", comment: "")
+				static let section02 = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Section02", comment: "")
+
 				enum Alert {
 					static let title = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Alert_Title", comment: "")
 					static let message = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Alert_Message", comment: "")

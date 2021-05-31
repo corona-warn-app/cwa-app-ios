@@ -406,6 +406,13 @@ enum AccessibilityIdentifiers {
 			}
 		}
 
+		enum TestCertificate {
+			enum Info {
+				static let imageDescription = "AppStrings.ExposureSubmission.TestCertificate.Info.imageDescription"
+				static let subHeadline = "AppStrings.ExposureSubmission.TestCertificate.Info.subHeadline";
+			}
+		}
+
 	}
 	
 	enum ExposureSubmissionTestResultAvailable {

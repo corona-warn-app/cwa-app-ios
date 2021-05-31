@@ -38,26 +38,22 @@ struct ExposureSubmissionTestCertificateViewModel {
 						UIImage(
 							imageLiteralResourceName: "Illu_Test_Certificate"
 						),
-						accessibilityLabel: AppStrings.ContactDiary.Information.imageDescription,
-						accessibilityIdentifier: AccessibilityIdentifiers.ContactDiaryInformation.imageDescription,
+						accessibilityLabel: AppStrings.ExposureSubmission.TestCertificate.Info.imageDescription,
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.TestCertificate.Info.imageDescription,
 						height: 161
 					),
 				cells: [
-					.title2(
-						text: AppStrings.ContactDiary.Information.descriptionTitle,
-						accessibilityIdentifier: AccessibilityIdentifiers.ContactDiaryInformation.descriptionTitle
-					),
-					.subheadline(
-						text: AppStrings.ContactDiary.Information.descriptionSubHeadline,
-						accessibilityIdentifier: AccessibilityIdentifiers.ContactDiaryInformation.descriptionSubHeadline
+					.body(
+						text: AppStrings.ExposureSubmission.TestCertificate.Info.subHeadline,
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.TestCertificate.Info.subHeadline
 					),
 					.space(
 						height: 15.0,
 						color: .enaColor(for: .background)
 					),
 					.icon(
-						UIImage(imageLiteralResourceName: "Icons_Contact"),
-						text: .string(AppStrings.ContactDiary.Information.itemPersonTitle),
+						UIImage(imageLiteralResourceName: "Icons_Certificates_01"),
+						text: .string(AppStrings.ExposureSubmission.TestCertificate.Info.section01),
 						alignment: .top
 					),
 					.space(
@@ -65,44 +61,8 @@ struct ExposureSubmissionTestCertificateViewModel {
 						color: .enaColor(for: .background)
 					),
 					.icon(
-						UIImage(imageLiteralResourceName: "Icons_Location"),
-						text: .string(AppStrings.ContactDiary.Information.itemContactTitle),
-						alignment: .top
-					),
-					.space(
-						height: 15.0,
-						color: .enaColor(for: .background)
-					),
-					.icon(
-						UIImage(imageLiteralResourceName: "Icons_Lock"),
-						text: .string(AppStrings.ContactDiary.Information.itemLockTitle),
-						alignment: .top
-					),
-					.space(
-						height: 15.0,
-						color: .enaColor(for: .background)
-					),
-					.icon(
-						UIImage(imageLiteralResourceName: "Icons_Diary_Deleted_Automatically"),
-						text: .string(AppStrings.ContactDiary.Information.deletedAutomatically),
-						alignment: .top
-					),
-					.space(
-						height: 15.0,
-						color: .enaColor(for: .background)
-					),
-					.icon(
-						UIImage(imageLiteralResourceName: "Icons_Diary_Export_Textformat"),
-						text: .string(AppStrings.ContactDiary.Information.exportTextformat),
-						alignment: .top
-					),
-					.space(
-						height: 15.0,
-						color: .enaColor(for: .background)
-					),
-					.icon(
-						UIImage(imageLiteralResourceName: "Icons_Attention_high_small"),
-						text: .string(AppStrings.ContactDiary.Information.exposureHistory),
+						UIImage(imageLiteralResourceName: "Icons_Certificates_02"),
+						text: .string(AppStrings.ExposureSubmission.TestCertificate.Info.section02),
 						alignment: .top
 					)
 				]

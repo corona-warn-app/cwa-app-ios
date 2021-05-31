@@ -976,6 +976,14 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_TestCertificate_Information_SecondaryButton" = "Nein danke";
 
+"ExposureSubmission_TestCertificate_Information_ImageDescription" = "Eine Person schaut auf ein Smartphone und ist geschützt.";
+
+"ExposureSubmission_TestCertificate_Information_Section01" = "Das Testzertifikat wird nur bei einem negativen Testergebnis ausgestellt.";
+
+"ExposureSubmission_TestCertificate_Information_Section02" = "Das Testzertifikat gilt innerhalb der EU als gültiger Nachweis eines negativen Testergebnisses (z.B. für Reisen).";
+
+"ExposureSubmission_TestCertificate_Information_Subheadline" = "Sie können über die App ein offizielles digitales Testzertifikat anfordern, das anschließend in der App hinzugefügt wird.";
+
 "ExposureSubmission_TestCertificate_Information_Alert_Title" = "Registrierung abbrechen";
 
 "ExposureSubmission_TestCertificate_Information_Alert_Message" = "Wenn Sie die Test-Registrierung abbrechen, können Sie Ihr Testergebnis nicht in der App erhalten.";
