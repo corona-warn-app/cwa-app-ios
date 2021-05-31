@@ -34,7 +34,10 @@ class BirthdayDatePicker: UITableViewCell, ReuseIdentifierProviding, UITextField
 
 	@OpenCombine.Published private(set) var birthdayDate: String?
 
-	func configure(placeHolder: String, accessibilityIdentifier: String?) {
+	func configure(
+		placeHolder: String,
+		accessibilityIdentifier: String?
+	) {
 		textField.placeholder = placeHolder
 		self.accessibilityIdentifier = accessibilityIdentifier
 	}
@@ -82,24 +85,25 @@ class BirthdayDatePicker: UITableViewCell, ReuseIdentifierProviding, UITextField
 	private func datePickerValueChanged(_ datePicker: UIDatePicker) {
 		birthdayDate = stringDateFormatter.string(from: datePicker.date)
 		textField.text = DateFormatter.localizedString(from: datePicker.date, dateStyle: .medium, timeStyle: .none)
-		Log.debug("set birthdayDate value: \(birthdayDate)")
 	}
 }
 
 extension DynamicCell {
-	/// A `BirthDateInputCell` to display input picker for a date picker
+	/// A `BirthdayDatePicker` to display input picker for a date picker
 	/// - Parameters:
-	///   - placeholder: text show as a placeholder inside the testfield
+	///   - placeholder: text show as a placeholder inside the textField
 	/// - Returns: A `DynamicCell` to display legal texts
-	static func birthdayDateInputCell(
+	static func birthdayDatePicker(
 		placeholder: String,
-		accessibilityIdentifier: String? = nil
+		accessibilityIdentifier: String? = nil,
+		configure: CellConfigurator? = nil
 	) -> Self {
 		.identifier(ExposureSubmissionTestCertificateViewModel.ReuseIdentifiers.birthdayDatePicker) { viewController, cell, indexPath in
 			guard let cell = cell as? BirthdayDatePicker else {
 				fatalError("could not initialize cell of type `BirthdayDatePicker`")
 			}
 			cell.configure(placeHolder: placeholder, accessibilityIdentifier: accessibilityIdentifier)
+			configure?(viewController, cell, indexPath)
 		}
 	}
 

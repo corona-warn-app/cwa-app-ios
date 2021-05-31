@@ -93,7 +93,6 @@ class ExposureSubmissionTestCertificateInfoViewController: DynamicTableViewContr
 
 		let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapView))
 		view.addGestureRecognizer(tapGesture)
-
 	}
 
 	@objc
@@ -115,6 +114,4 @@ private extension UIView {
 			subView.dismissKeyboard()
 		}
 	}
-
-
 }

@@ -27,7 +27,11 @@ class ExposureSubmissionTestCertificateViewModel {
 	// MARK: - Internal
 
 	let testType: CoronaTestType
-	private(set) var birthDayDate: String?
+	private(set) var birthDayDate: String? {
+		didSet {
+			isPrimaryButtonEnabled = birthDayDate != nil
+		}
+	}
 
 	@OpenCombine.Published private(set) var isPrimaryButtonEnabled: Bool
 
@@ -54,9 +58,20 @@ class ExposureSubmissionTestCertificateViewModel {
 						text: AppStrings.ExposureSubmission.TestCertificate.Info.body,
 						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.TestCertificate.Info.body
 					),
-					testType == .antigen ? nil : .birthdayDateInputCell(
+					testType == .antigen ? nil : .birthdayDatePicker(
 						placeholder: AppStrings.ExposureSubmission.TestCertificate.Info.birthDayPlaceholder,
-						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.TestCertificate.Info.birthDayPlaceholder
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.TestCertificate.Info.birthDayPlaceholder,
+						configure: { [weak self] _, cell, _ in
+							guard let birthdayDateInputCell = cell as? BirthdayDatePicker,
+								  let self = self else {
+								return
+							}
+							birthdayDateInputCell.$birthdayDate
+								.sink { newValue in
+									self.birthDayDate = newValue
+								}
+								.store(in: &self.subscriptions)
+						}
 					),
 					testType == .antigen ? nil : .body(
 						text: AppStrings.ExposureSubmission.TestCertificate.Info.birthDayText,
@@ -125,5 +140,6 @@ class ExposureSubmissionTestCertificateViewModel {
 	// MARK: - Private
 
 	private let presentDisclaimer: () -> Void
+	private var subscriptions = Set<AnyCancellable>()
 
 }
