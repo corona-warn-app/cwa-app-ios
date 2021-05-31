@@ -45,7 +45,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		let primaryButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton])
 		primaryButton.waitAndTap()
 
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.registerHealthCertificateButton].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.vaccinationCertificateRegistrationCell].waitForExistence(timeout: .short))
 	}
 
 	func test_CreateAntigenTestProfileWithFirstCertificate() throws {
@@ -56,7 +56,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
 
 		/// Home Screen
-		let registerCertificateTitle = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.Home.registerHealthCertificateButton])
+		let registerCertificateTitle = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.vaccinationCertificateRegistrationCell])
 		registerCertificateTitle.waitAndTap()
 
 		// QRCode Scanner - close via flash will submit a healthCertificate
@@ -81,10 +81,10 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 
 		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
 
-		let healthCertificateCell = try XCTUnwrap(app.cells[AccessibilityIdentifiers.Home.healthCertificateButton])
+		let healthCertificateCell = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.vaccinationCertificateCell])
 		XCTAssertTrue(healthCertificateCell.waitForExistence(timeout: .short))
 		
-		snapshot("screenshot_certificate_home_screen_grey")
+		snapshot("screenshot_certificate_overview_vaccination_grey")
 		healthCertificateCell.waitAndTap()
 
 		// Certified person screen
@@ -113,9 +113,9 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 
 		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
 
-		let certificateTitle = try XCTUnwrap(app.cells[AccessibilityIdentifiers.Home.healthCertificateButton])
+		let certificateTitle = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.vaccinationCertificateCell])
 		
-		snapshot("screenshot_certificate_home_screen_blue")
+		snapshot("screenshot_certificate_overview_vaccination_blue")
 		certificateTitle.waitAndTap()
 
 		let qrCodeCell = app.cells[AccessibilityIdentifiers.HealthCertificate.qrCodeCell]
