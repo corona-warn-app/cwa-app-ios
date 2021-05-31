@@ -1078,11 +1078,16 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				
 				self?.model.coronaTestType = testQRCodeInformation.testType
 
-				switch testResult {
-				case .positive:
-					self?.showTestResultAvailableScreen()
-				case .pending, .negative, .invalid, .expired:
+				switch testQRCodeInformation {
+				case .teleTAN:
 					self?.showTestResultScreen()
+				case .antigen, .pcr:
+					switch testResult {
+					case .positive:
+						self?.showTestResultAvailableScreen()
+					case .pending, .negative, .invalid, .expired:
+						self?.showTestResultScreen()
+					}
 				}
 			},
 			onError: { [weak self] error in
