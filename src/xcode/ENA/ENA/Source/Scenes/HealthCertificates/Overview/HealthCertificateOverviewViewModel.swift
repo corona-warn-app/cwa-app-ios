@@ -27,6 +27,7 @@ class HealthCertificateOverviewViewModel {
 		case description
 		case healthCertificate
 		case createHealthCertificate
+		case testCertificateInfo
 	}
 
 	@OpenCombine.Published var healthCertifiedPersons: [HealthCertifiedPerson] = []
@@ -43,6 +44,8 @@ class HealthCertificateOverviewViewModel {
 			return healthCertifiedPersons.count
 		case .createHealthCertificate:
 			return healthCertifiedPersons.isEmpty ? 1 : 0
+		case .testCertificateInfo:
+			return 1
 		case .none:
 			fatalError("Invalid section")
 		}
