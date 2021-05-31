@@ -33,6 +33,7 @@ class ExposureSubmissionTestCertificateViewModel {
 
 	enum ReuseIdentifiers: String, TableViewCellReuseIdentifiers {
 		case legalExtended = "DynamicLegalExtendedCell"
+		case birthdayDatePicker = "BirthdayDatePicker"
 	}
 
 	var dynamicTableViewModel: DynamicTableViewModel {
@@ -53,6 +54,8 @@ class ExposureSubmissionTestCertificateViewModel {
 						text: AppStrings.ExposureSubmission.TestCertificate.Info.body,
 						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.TestCertificate.Info.body
 					),
+					.birthdayDateInputCell(placeholder: "Hallo Welt"),
+
 					.space(
 						height: 15.0,
 						color: .enaColor(for: .background)

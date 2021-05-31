@@ -77,6 +77,11 @@ class ExposureSubmissionTestCertificateInfoViewController: DynamicTableViewContr
 			forCellReuseIdentifier: ExposureSubmissionTestCertificateViewModel.ReuseIdentifiers.legalExtended.rawValue
 		)
 
+		tableView.register(
+			BirthdayDatePicker.self,
+			forCellReuseIdentifier: BirthdayDatePicker.reuseIdentifier
+		)
+
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
 		tableView.separatorStyle = .none
 
