@@ -836,6 +836,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	private func showTestCertificateInfo() {
 		let testCertificateInfoViewController = ExposureSubmissionTestCertificateInfoViewController(
 			ExposureSubmissionTestCertificateViewModel(
+				testType: .pcr,
 				presentDisclaimer: { [weak self] in
 					let detailViewController = HTMLViewController(model: AppInformationModel.privacyModel)
 					detailViewController.title = AppStrings.AppInformation.privacyTitle

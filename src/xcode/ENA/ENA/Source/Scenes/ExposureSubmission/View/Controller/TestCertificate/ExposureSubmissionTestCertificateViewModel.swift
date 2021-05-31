@@ -54,11 +54,11 @@ class ExposureSubmissionTestCertificateViewModel {
 						text: AppStrings.ExposureSubmission.TestCertificate.Info.body,
 						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.TestCertificate.Info.body
 					),
-					.birthdayDateInputCell(
+					testType == .antigen ? nil : .birthdayDateInputCell(
 						placeholder: AppStrings.ExposureSubmission.TestCertificate.Info.birthDayPlaceholder,
 						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.TestCertificate.Info.birthDayPlaceholder
 					),
-					.body(
+					testType == .antigen ? nil : .body(
 						text: AppStrings.ExposureSubmission.TestCertificate.Info.birthDayText,
 						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.TestCertificate.Info.birthDayText
 					),
@@ -80,7 +80,7 @@ class ExposureSubmissionTestCertificateViewModel {
 						text: .string(AppStrings.ExposureSubmission.TestCertificate.Info.section_2),
 						alignment: .top
 					)
-				]
+				].compactMap { $0 }
 			),
 			// Legal text
 			.section(cells: [
