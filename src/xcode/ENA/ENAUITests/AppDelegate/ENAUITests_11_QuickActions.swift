@@ -121,7 +121,7 @@ class ENAUITests_11_QuickActions: CWATestCase {
 
 		/// Result Screen
 		
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ExposureSubmissionTestResultAvailable.primaryButton].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ExposureSubmission.secondaryButton].waitForExistence(timeout: .medium))
 		try checkAppMenu(expectNewDiaryItem: false, expectEventCheckin: false) // !!! Quick action should be disabled until we leave the submission flow
 
 		// We currently back out of the submission flow. This might be extended in future, feel free to add tests for the following views :)
@@ -129,6 +129,7 @@ class ENAUITests_11_QuickActions: CWATestCase {
 
 		// don't warn
 		app.alerts.firstMatch.buttons.element(boundBy: 1).waitAndTap()
+		app.alerts.firstMatch.buttons.element(boundBy: 0).waitAndTap()
 
 		// Back on home screen?
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .medium))
