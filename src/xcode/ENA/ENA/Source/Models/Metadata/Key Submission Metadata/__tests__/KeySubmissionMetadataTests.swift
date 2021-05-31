@@ -4,6 +4,7 @@
 
 @testable import ENA
 import XCTest
+// TODO match pcr and antigen
 
 // swiftlint:disable:next type_body_length
 class KeySubmissionMetadataTests: XCTestCase {
@@ -13,6 +14,7 @@ class KeySubmissionMetadataTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: ClientMock(),
 			store: secureStore,
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
@@ -22,7 +24,6 @@ class KeySubmissionMetadataTests: XCTestCase {
 		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
 
 		let riskCalculationResult = mockENFHighRiskCalculationResult()
-		let isSubmissionConsentGiven = true
 
 		secureStore.dateOfConversionToENFHighRisk = Calendar.current.date(byAdding: .day, value: -1, to: Date())
 		secureStore.enfRiskCalculationResult = riskCalculationResult
@@ -68,6 +69,8 @@ class KeySubmissionMetadataTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: ClientMock(),
 			store: secureStore,
+			eventStore: MockEventStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 
@@ -80,7 +83,6 @@ class KeySubmissionMetadataTests: XCTestCase {
 			return
 		}
 		let riskCalculationResult = mockCheckinRiskCalculationResult(dateForRisk: twoDaysAgo)
-		let isSubmissionConsentGiven = true
 
 		secureStore.dateOfConversionToCheckinHighRisk = Calendar.current.date(byAdding: .day, value: -1, to: Date())
 		secureStore.checkinRiskCalculationResult = riskCalculationResult
@@ -89,17 +91,17 @@ class KeySubmissionMetadataTests: XCTestCase {
 
 		let keySubmissionMetadata = mockEmptyKeySubmissionMetadata()
 		
-		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata)))
-		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration))
-		Analytics.collect(.keySubmissionMetadata(.setHoursSinceCheckinHighRiskWarningAtTestRegistration))
-		Analytics.collect(.keySubmissionMetadata(.submittedWithCheckins(true)))
+		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, .pcr)))
+		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration(.pcr)))
+		Analytics.collect(.keySubmissionMetadata(.setHoursSinceCheckinHighRiskWarningAtTestRegistration(.pcr)))
+		Analytics.collect(.keySubmissionMetadata(.submittedWithCheckins(true, .pcr)))
 
-		XCTAssertNotNil(secureStore.keySubmissionMetadata, "keySubmissionMetadata should be initialized with default values")
-		XCTAssertEqual(secureStore.keySubmissionMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration, 2, "number of days should be 2")
-		XCTAssertEqual(secureStore.keySubmissionMetadata?.hoursSinceCheckinHighRiskWarningAtTestRegistration, 24, "the difference is one day so it should be 24")
-		XCTAssertEqual(secureStore.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, -1, "property should not be changed from init param")
-		XCTAssertEqual(secureStore.keySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration, -1, "property should not be changed from init param")
-		guard let submittedWithCheckIns = secureStore.keySubmissionMetadata?.submittedWithCheckIns else {
+		XCTAssertNotNil(secureStore.pcrKeySubmissionMetadata, "keySubmissionMetadata should be initialized with default values")
+		XCTAssertEqual(secureStore.pcrKeySubmissionMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration, 2, "number of days should be 2")
+		XCTAssertEqual(secureStore.pcrKeySubmissionMetadata?.hoursSinceCheckinHighRiskWarningAtTestRegistration, 24, "the difference is one day so it should be 24")
+		XCTAssertEqual(secureStore.pcrKeySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, -1, "property should not be changed from init param")
+		XCTAssertEqual(secureStore.pcrKeySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration, -1, "property should not be changed from init param")
+		guard let submittedWithCheckIns = secureStore.pcrKeySubmissionMetadata?.submittedWithCheckIns else {
 			XCTFail("submittedWithCheckIns should not be nil.")
 			return
 		}
@@ -111,12 +113,12 @@ class KeySubmissionMetadataTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: ClientMock(),
 			store: secureStore,
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 
 		Analytics.setupMock(store: secureStore, coronaTestService: coronaTestService)
-		let isSubmissionConsentGiven = true
 		let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())
 		
 		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
@@ -137,19 +139,19 @@ class KeySubmissionMetadataTests: XCTestCase {
 
 		let keySubmissionMetadata = mockEmptyKeySubmissionMetadata()
 		
-		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata)))
-		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration))
-		Analytics.collect(.keySubmissionMetadata(.setHoursSinceENFHighRiskWarningAtTestRegistration))
-		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration))
-		Analytics.collect(.keySubmissionMetadata(.setHoursSinceCheckinHighRiskWarningAtTestRegistration))
-		Analytics.collect(.keySubmissionMetadata(.submittedWithCheckins(true)))
+		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, .pcr)))
+		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration(.pcr)))
+		Analytics.collect(.keySubmissionMetadata(.setHoursSinceENFHighRiskWarningAtTestRegistration(.pcr)))
+		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration(.pcr)))
+		Analytics.collect(.keySubmissionMetadata(.setHoursSinceCheckinHighRiskWarningAtTestRegistration(.pcr)))
+		Analytics.collect(.keySubmissionMetadata(.submittedWithCheckins(true, .pcr)))
 
-		XCTAssertNotNil(secureStore.keySubmissionMetadata, "keySubmissionMetadata should be initialized with default values")
-		XCTAssertEqual(secureStore.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, 2, "number of days should be 2")
-		XCTAssertEqual(secureStore.keySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration, 24, "the difference is one day so it should be 24")
-		XCTAssertEqual(secureStore.keySubmissionMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration, 2, "number of days should be 2")
-		XCTAssertEqual(secureStore.keySubmissionMetadata?.hoursSinceCheckinHighRiskWarningAtTestRegistration, 24, "the difference is one day so it should be 24")
-		guard let submittedWithCheckIns = secureStore.keySubmissionMetadata?.submittedWithCheckIns else {
+		XCTAssertNotNil(secureStore.pcrKeySubmissionMetadata, "keySubmissionMetadata should be initialized with default values")
+		XCTAssertEqual(secureStore.pcrKeySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, 2, "number of days should be 2")
+		XCTAssertEqual(secureStore.pcrKeySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration, 24, "the difference is one day so it should be 24")
+		XCTAssertEqual(secureStore.pcrKeySubmissionMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration, 2, "number of days should be 2")
+		XCTAssertEqual(secureStore.pcrKeySubmissionMetadata?.hoursSinceCheckinHighRiskWarningAtTestRegistration, 24, "the difference is one day so it should be 24")
+		guard let submittedWithCheckIns = secureStore.pcrKeySubmissionMetadata?.submittedWithCheckIns else {
 			XCTFail("submittedWithCheckIns should not be nil.")
 			return
 		}
@@ -163,13 +165,14 @@ class KeySubmissionMetadataTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: ClientMock(),
 			store: secureStore,
+			eventStore: MockEventStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 
 		Analytics.setupMock(store: secureStore, coronaTestService: coronaTestService)
 
 		let riskCalculationResult = mockENFLowRiskCalculationResult()
-		let isSubmissionConsentGiven = true
 
 		secureStore.dateOfConversionToENFHighRisk = Calendar.current.date(byAdding: .day, value: -1, to: Date())
 		secureStore.enfRiskCalculationResult = riskCalculationResult
@@ -178,16 +181,16 @@ class KeySubmissionMetadataTests: XCTestCase {
 
 		let keySubmissionMetadata = mockEmptyKeySubmissionMetadata()
 		
-		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata)))
-		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration))
-		Analytics.collect(.keySubmissionMetadata(.setHoursSinceENFHighRiskWarningAtTestRegistration))
+		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, .pcr)))
+		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration(.pcr)))
+		Analytics.collect(.keySubmissionMetadata(.setHoursSinceENFHighRiskWarningAtTestRegistration(.pcr)))
 
-		XCTAssertNotNil(secureStore.keySubmissionMetadata, "keySubmissionMetadata should be initialized with default values")
-		XCTAssertEqual(secureStore.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, 3, "number of days should be 3")
-		XCTAssertEqual(secureStore.keySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration, -1, "the value should be default value i.e., -1 as the risk is low")
-		XCTAssertEqual(secureStore.keySubmissionMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration, -1, "property should not be changed from init param")
-		XCTAssertEqual(secureStore.keySubmissionMetadata?.hoursSinceCheckinHighRiskWarningAtTestRegistration, -1, "property should not be changed from init param")
-		XCTAssertNil(secureStore.keySubmissionMetadata?.submittedWithCheckIns)
+		XCTAssertNotNil(secureStore.pcrKeySubmissionMetadata, "keySubmissionMetadata should be initialized with default values")
+		XCTAssertEqual(secureStore.pcrKeySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, 3, "number of days should be 3")
+		XCTAssertEqual(secureStore.pcrKeySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration, -1, "the value should be default value i.e., -1 as the risk is low")
+		XCTAssertEqual(secureStore.pcrKeySubmissionMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration, -1, "property should not be changed from init param")
+		XCTAssertEqual(secureStore.pcrKeySubmissionMetadata?.hoursSinceCheckinHighRiskWarningAtTestRegistration, -1, "property should not be changed from init param")
+		XCTAssertNil(secureStore.pcrKeySubmissionMetadata?.submittedWithCheckIns)
 	}
 	
 	func testKeySubmissionMetadataValues_CheckinLowRisk() {
@@ -197,6 +200,8 @@ class KeySubmissionMetadataTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: ClientMock(),
 			store: secureStore,
+			eventStore: MockEventStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 
@@ -207,7 +212,6 @@ class KeySubmissionMetadataTests: XCTestCase {
 			return
 		}
 		let riskCalculationResult = mockCheckinRiskCalculationResult(risk: .low, dateForRisk: threeDaysAgo)
-		let isSubmissionConsentGiven = true
 
 		secureStore.dateOfConversionToCheckinHighRisk = Calendar.current.date(byAdding: .day, value: -1, to: Date())
 		secureStore.checkinRiskCalculationResult = riskCalculationResult
@@ -216,17 +220,17 @@ class KeySubmissionMetadataTests: XCTestCase {
 
 		let keySubmissionMetadata = mockEmptyKeySubmissionMetadata()
 		
-		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata)))
-		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration))
-		Analytics.collect(.keySubmissionMetadata(.setHoursSinceCheckinHighRiskWarningAtTestRegistration))
-		Analytics.collect(.keySubmissionMetadata(.submittedWithCheckins(true)))
+		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, .pcr)))
+		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration(.pcr)))
+		Analytics.collect(.keySubmissionMetadata(.setHoursSinceCheckinHighRiskWarningAtTestRegistration(.pcr)))
+		Analytics.collect(.keySubmissionMetadata(.submittedWithCheckins(true, .pcr)))
 
-		XCTAssertNotNil(secureStore.keySubmissionMetadata, "keySubmissionMetadata should be initialized with default values")
-		XCTAssertEqual(secureStore.keySubmissionMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration, 3, "number of days should be 3")
-		XCTAssertEqual(secureStore.keySubmissionMetadata?.hoursSinceCheckinHighRiskWarningAtTestRegistration, -1, "the value should be default value i.e., -1 as the risk is low")
-		XCTAssertEqual(secureStore.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, -1, "property should not be changed from init param")
-		XCTAssertEqual(secureStore.keySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration, -1, "property should not be changed from init param")
-		guard let submittedWithCheckIns = secureStore.keySubmissionMetadata?.submittedWithCheckIns else {
+		XCTAssertNotNil(secureStore.pcrKeySubmissionMetadata, "keySubmissionMetadata should be initialized with default values")
+		XCTAssertEqual(secureStore.pcrKeySubmissionMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration, 3, "number of days should be 3")
+		XCTAssertEqual(secureStore.pcrKeySubmissionMetadata?.hoursSinceCheckinHighRiskWarningAtTestRegistration, -1, "the value should be default value i.e., -1 as the risk is low")
+		XCTAssertEqual(secureStore.pcrKeySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, -1, "property should not be changed from init param")
+		XCTAssertEqual(secureStore.pcrKeySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration, -1, "property should not be changed from init param")
+		guard let submittedWithCheckIns = secureStore.pcrKeySubmissionMetadata?.submittedWithCheckIns else {
 			XCTFail("submittedWithCheckIns should not be nil.")
 			return
 		}
@@ -240,11 +244,12 @@ class KeySubmissionMetadataTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: ClientMock(),
 			store: secureStore,
+			eventStore: MockEventStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 
 		Analytics.setupMock(store: secureStore, coronaTestService: coronaTestService)
-		let isSubmissionConsentGiven = true
 		let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())
 		
 		let enfRiskCalculationResult = mockENFLowRiskCalculationResult()
@@ -263,19 +268,19 @@ class KeySubmissionMetadataTests: XCTestCase {
 
 		let keySubmissionMetadata = mockEmptyKeySubmissionMetadata()
 		
-		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata)))
-		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration))
-		Analytics.collect(.keySubmissionMetadata(.setHoursSinceENFHighRiskWarningAtTestRegistration))
-		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration))
-		Analytics.collect(.keySubmissionMetadata(.setHoursSinceCheckinHighRiskWarningAtTestRegistration))
-		Analytics.collect(.keySubmissionMetadata(.submittedWithCheckins(true)))
+		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, .pcr)))
+		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration(.pcr)))
+		Analytics.collect(.keySubmissionMetadata(.setHoursSinceENFHighRiskWarningAtTestRegistration(.pcr)))
+		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration(.pcr)))
+		Analytics.collect(.keySubmissionMetadata(.setHoursSinceCheckinHighRiskWarningAtTestRegistration(.pcr)))
+		Analytics.collect(.keySubmissionMetadata(.submittedWithCheckins(true, .pcr)))
 
-		XCTAssertNotNil(secureStore.keySubmissionMetadata, "keySubmissionMetadata should be initialized with default values")
-		XCTAssertEqual(secureStore.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, 3, "number of days should be 3")
-		XCTAssertEqual(secureStore.keySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration, -1, "the value should be default value i.e., -1 as the risk is low")
-		XCTAssertEqual(secureStore.keySubmissionMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration, 3, "number of days should be 3")
-		XCTAssertEqual(secureStore.keySubmissionMetadata?.hoursSinceCheckinHighRiskWarningAtTestRegistration, -1, "property should not be changed from init param")
-		guard let submittedWithCheckIns = secureStore.keySubmissionMetadata?.submittedWithCheckIns else {
+		XCTAssertNotNil(secureStore.pcrKeySubmissionMetadata, "keySubmissionMetadata should be initialized with default values")
+		XCTAssertEqual(secureStore.pcrKeySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, 3, "number of days should be 3")
+		XCTAssertEqual(secureStore.pcrKeySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration, -1, "the value should be default value i.e., -1 as the risk is low")
+		XCTAssertEqual(secureStore.pcrKeySubmissionMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration, 3, "number of days should be 3")
+		XCTAssertEqual(secureStore.pcrKeySubmissionMetadata?.hoursSinceCheckinHighRiskWarningAtTestRegistration, -1, "property should not be changed from init param")
+		guard let submittedWithCheckIns = secureStore.pcrKeySubmissionMetadata?.submittedWithCheckIns else {
 			XCTFail("submittedWithCheckIns should not be nil.")
 			return
 		}
@@ -288,13 +293,14 @@ class KeySubmissionMetadataTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: ClientMock(),
 			store: secureStore,
+			eventStore: MockEventStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 
 		Analytics.setupMock(store: secureStore, coronaTestService: coronaTestService)
 		
 		let riskCalculationResult = mockENFHighRiskCalculationResult()
-		let isSubmissionConsentGiven = true
 		let dateSixHourAgo = Calendar.current.date(byAdding: .hour, value: -6, to: Date())
 		secureStore.dateOfConversionToENFHighRisk = Calendar.current.date(byAdding: .day, value: -1, to: Date())
 		secureStore.enfRiskCalculationResult = riskCalculationResult
@@ -330,6 +336,7 @@ class KeySubmissionMetadataTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: ClientMock(),
 			store: secureStore,
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
@@ -339,7 +346,6 @@ class KeySubmissionMetadataTests: XCTestCase {
 		)
 		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
 		let riskCalculationResult = mockENFHighRiskCalculationResult()
-		let isSubmissionConsentGiven = true
 		secureStore.dateOfConversionToENFHighRisk = Calendar.current.date(byAdding: .day, value: -1, to: Date())
 		secureStore.enfRiskCalculationResult = riskCalculationResult
 
@@ -369,6 +375,7 @@ class KeySubmissionMetadataTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: ClientMock(),
 			store: secureStore,
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
@@ -378,7 +385,6 @@ class KeySubmissionMetadataTests: XCTestCase {
 		)
 		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
 		let riskCalculationResult = mockENFHighRiskCalculationResult()
-		let isSubmissionConsentGiven = true
 		secureStore.dateOfConversionToENFHighRisk = Calendar.current.date(byAdding: .day, value: -1, to: Date())
 		secureStore.enfRiskCalculationResult = riskCalculationResult
 		Analytics.collect(.keySubmissionMetadata(.submittedWithTeletan(false, .pcr)))
@@ -423,16 +429,16 @@ class KeySubmissionMetadataTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: ClientMock(),
 			store: secureStore,
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 
 		Analytics.setupMock(store: secureStore, coronaTestService: coronaTestService)
 
-		let riskCalculationResult = mockLowRiskCalculationResult()
-		let isSubmissionConsentGiven = true
+		let riskCalculationResult = mockENFHighRiskCalculationResult(risk: .low)
 
-		secureStore.dateOfConversionToHighRisk = Calendar.current.date(byAdding: .day, value: -1, to: Date())
+		secureStore.dateOfConversionToENFHighRisk = Calendar.current.date(byAdding: .day, value: -1, to: Date())
 		secureStore.enfRiskCalculationResult = riskCalculationResult
 
 		coronaTestService.pcrTest = PCRTest.mock(registrationDate: Date())
@@ -441,11 +447,11 @@ class KeySubmissionMetadataTests: XCTestCase {
 		let keySubmissionMetadata = mockEmptyKeySubmissionMetadata()
 		
 		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, .pcr)))
-		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration(.pcr)))
-		Analytics.collect(.keySubmissionMetadata(.setHoursSinceHighRiskWarningAtTestRegistration(.pcr)))
+		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration(.pcr)))
+		Analytics.collect(.keySubmissionMetadata(.setHoursSinceENFHighRiskWarningAtTestRegistration(.pcr)))
 		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, .antigen)))
-		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration(.antigen)))
-		Analytics.collect(.keySubmissionMetadata(.setHoursSinceHighRiskWarningAtTestRegistration(.antigen)))
+		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration(.antigen)))
+		Analytics.collect(.keySubmissionMetadata(.setHoursSinceCheckinHighRiskWarningAtTestRegistration(.antigen)))
 
 		XCTAssertNotNil(secureStore.pcrKeySubmissionMetadata, "pcrKeySubmissionMetadata should be initialized with default values")
 		XCTAssertEqual(secureStore.pcrKeySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, 3, "number of days should be 3")
@@ -498,7 +504,7 @@ class KeySubmissionMetadataTests: XCTestCase {
 		)
 	}
 	
-	private func mockEmptyKeySubmissionMetadata() -> KeySubmissionMetadata {
+	private func mockEmptyKeySubmissionMetadata(isSubmissionConsentGiven: Bool = true) -> KeySubmissionMetadata {
 		return KeySubmissionMetadata(
 			submitted: false,
 			submittedInBackground: false,

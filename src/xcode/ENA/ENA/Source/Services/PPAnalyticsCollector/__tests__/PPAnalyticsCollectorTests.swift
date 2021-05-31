@@ -90,6 +90,8 @@ class PPAnalyticsCollectorTests: CWATestCase {
 			hoursSinceTestRegistration: 0901,
 			daysSinceMostRecentDateAtRiskLevelAtTestRegistration: 0901,
 			hoursSinceHighRiskWarningAtTestRegistration: 0901,
+			submittedWithTeleTAN: false,
+			submittedAfterRapidAntigenTest: false,
 			daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration: -1,
 			hoursSinceCheckinHighRiskWarningAtTestRegistration: -1,
 			submittedWithCheckIns: nil

@@ -15,6 +15,7 @@ class DeadmanNotificationManagerTests: CWATestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: store,
+				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
@@ -55,6 +56,7 @@ class DeadmanNotificationManagerTests: CWATestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: store,
+				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
@@ -78,6 +80,7 @@ class DeadmanNotificationManagerTests: CWATestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: store,
+				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
@@ -101,6 +104,7 @@ class DeadmanNotificationManagerTests: CWATestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: store,
+				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
@@ -125,6 +129,7 @@ class DeadmanNotificationManagerTests: CWATestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: store,
+				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
@@ -148,6 +153,7 @@ class DeadmanNotificationManagerTests: CWATestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: store,
+				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
@@ -172,6 +178,7 @@ class DeadmanNotificationManagerTests: CWATestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: store,
+				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),

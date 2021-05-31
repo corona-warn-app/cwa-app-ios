@@ -32,6 +32,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			coronaTestService: CoronaTestService(
 				client: client,
 				store: store,
+				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
@@ -114,6 +115,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			coronaTestService: CoronaTestService(
 				client: client,
 				store: store,
+				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
@@ -160,6 +162,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			coronaTestService: CoronaTestService(
 				client: client,
 				store: store,
+				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
@@ -206,6 +209,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			coronaTestService: CoronaTestService(
 				client: client,
 				store: store,
+				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
@@ -251,6 +255,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			coronaTestService: CoronaTestService(
 				client: client,
 				store: store,
+				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
@@ -297,6 +302,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			coronaTestService: CoronaTestService(
 				client: client,
 				store: store,
+				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
@@ -344,6 +350,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			coronaTestService: CoronaTestService(
 				client: client,
 				store: store,
+				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
@@ -392,6 +399,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			coronaTestService: CoronaTestService(
 				client: client,
 				store: store,
+				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
@@ -438,6 +446,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			coronaTestService: CoronaTestService(
 				client: client,
 				store: store,
+				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
@@ -501,6 +510,8 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			coronaTestService: CoronaTestService(
 				client: client,
 				store: store,
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
@@ -739,18 +750,18 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			"Wrong hoursSinceHighRiskWarningAtTestRegistration protobuf mapping"
 		)
 		XCTAssertEqual(
-			store.testResultMetadata?.checkinRiskLevelAtTestRegistration?.protobuf,
-			protobuf?.ptRiskLevelAtTestRegistration,
+			store.pcrTestResultMetadata?.checkinRiskLevelAtTestRegistration?.protobuf,
+			protobuf.ptRiskLevelAtTestRegistration,
 			"Wrong riskLevelAtTestRegistration protobuf mapping"
 		)
 		XCTAssertEqual(
-			store.testResultMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration,
-			Int(protobuf?.ptDaysSinceMostRecentDateAtRiskLevelAtTestRegistration ?? -1),
+			store.pcrTestResultMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration,
+			Int(protobuf.ptDaysSinceMostRecentDateAtRiskLevelAtTestRegistration),
 			"Wrong daysSinceMostRecentDateAtRiskLevelAtTestRegistration protobuf mapping"
 		)
 		XCTAssertEqual(
-			store.testResultMetadata?.hoursSinceCheckinHighRiskWarningAtTestRegistration,
-			Int(protobuf?.ptHoursSinceHighRiskWarningAtTestRegistration ?? -1),
+			store.pcrTestResultMetadata?.hoursSinceCheckinHighRiskWarningAtTestRegistration,
+			Int(protobuf.ptHoursSinceHighRiskWarningAtTestRegistration),
 			"Wrong hoursSinceHighRiskWarningAtTestRegistration protobuf mapping"
 		)
 	}
@@ -870,6 +881,8 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		let coronaTestService = CoronaTestService(
 			client: ClientMock(),
 			store: store,
+			eventStore: MockEventStore(),
+			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 		coronaTestService.registerPCRTest(
@@ -898,8 +911,8 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			hoursSinceTestResult: 0,
 			hoursSinceTestRegistration: 0,
 			daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1,
-			submittedWithTeleTAN: false,
 			hoursSinceHighRiskWarningAtTestRegistration: -1,
+			submittedWithTeleTAN: false,
 			submittedAfterRapidAntigenTest: false,
 			daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration: -1,
 			hoursSinceCheckinHighRiskWarningAtTestRegistration: -1,
@@ -961,6 +974,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			coronaTestService: CoronaTestService(
 				client: client,
 				store: store,
+				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),

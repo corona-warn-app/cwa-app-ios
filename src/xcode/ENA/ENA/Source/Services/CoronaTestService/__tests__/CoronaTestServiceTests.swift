@@ -13,6 +13,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let service = CoronaTestService(
 			client: ClientMock(),
 			store: MockTestStore(),
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
@@ -52,6 +53,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let service = CoronaTestService(
 			client: ClientMock(),
 			store: MockTestStore(),
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfig
 		)
@@ -88,6 +90,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let service = CoronaTestService(
 			client: ClientMock(),
 			store: MockTestStore(),
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfig
 		)
@@ -125,6 +128,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let service = CoronaTestService(
 			client: ClientMock(),
 			store: MockTestStore(),
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfig
 		)
@@ -166,6 +170,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let service = CoronaTestService(
 			client: ClientMock(),
 			store: MockTestStore(),
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfig
 		)
@@ -212,6 +217,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let service = CoronaTestService(
 			client: ClientMock(),
 			store: MockTestStore(),
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfig
 		)
@@ -260,6 +266,7 @@ class CoronaTestServiceTests: CWATestCase {
 			let service = CoronaTestService(
 				client: ClientMock(),
 				store: MockTestStore(),
+				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
 				appConfiguration: appConfig
 			)
@@ -291,6 +298,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let service = CoronaTestService(
 			client: ClientMock(),
 			store: MockTestStore(),
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
@@ -326,6 +334,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let service = CoronaTestService(
 			client: client,
 			store: store,
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
@@ -394,6 +403,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let service = CoronaTestService(
 			client: client,
 			store: store,
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
@@ -462,6 +472,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let service = CoronaTestService(
 			client: client,
 			store: store,
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
@@ -507,6 +518,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let service = CoronaTestService(
 			client: client,
 			store: store,
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
@@ -570,6 +582,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let service = CoronaTestService(
 			client: client,
 			store: store,
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
@@ -631,6 +644,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let service = CoronaTestService(
 			client: client,
 			store: store,
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
@@ -692,6 +706,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let service = CoronaTestService(
 			client: client,
 			store: store,
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
@@ -731,6 +746,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let service = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
@@ -790,6 +806,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let service = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
@@ -845,6 +862,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let service = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
@@ -887,6 +905,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let service = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
@@ -943,6 +962,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let service = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
@@ -984,6 +1004,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let service = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
@@ -1020,6 +1041,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let service = CoronaTestService(
 			client: ClientMock(),
 			store: MockTestStore(),
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
@@ -1044,6 +1066,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let service = CoronaTestService(
 			client: ClientMock(),
 			store: MockTestStore(),
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
@@ -1068,6 +1091,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let service = CoronaTestService(
 			client: ClientMock(),
 			store: MockTestStore(),
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
@@ -1100,6 +1124,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let service = CoronaTestService(
 			client: ClientMock(),
 			store: MockTestStore(),
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
@@ -1138,6 +1163,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: mockNotificationCenter
@@ -1175,6 +1201,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: mockNotificationCenter
@@ -1200,6 +1227,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: MockUserNotificationCenter()
@@ -1227,6 +1255,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: mockNotificationCenter
@@ -1255,6 +1284,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			eventStore: MockEventStore(),
 			diaryStore: diaryStore,
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: mockNotificationCenter
@@ -1286,6 +1316,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			eventStore: MockEventStore(),
 			diaryStore: diaryStore,
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: mockNotificationCenter
@@ -1317,6 +1348,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			eventStore: MockEventStore(),
 			diaryStore: diaryStore,
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: mockNotificationCenter
@@ -1348,6 +1380,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			eventStore: MockEventStore(),
 			diaryStore: diaryStore,
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: mockNotificationCenter
@@ -1379,6 +1412,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			eventStore: MockEventStore(),
 			diaryStore: diaryStore,
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: mockNotificationCenter
@@ -1408,6 +1442,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: mockNotificationCenter
@@ -1431,6 +1466,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: mockNotificationCenter
@@ -1464,6 +1500,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: mockNotificationCenter
@@ -1496,6 +1533,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: mockNotificationCenter
@@ -1531,6 +1569,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: mockNotificationCenter
@@ -1567,6 +1606,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: mockNotificationCenter
@@ -1600,6 +1640,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: mockNotificationCenter
@@ -1638,6 +1679,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: mockNotificationCenter
@@ -1672,6 +1714,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: MockUserNotificationCenter()
@@ -1704,6 +1747,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: MockUserNotificationCenter()
@@ -1739,6 +1783,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: MockUserNotificationCenter()
@@ -1774,6 +1819,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: MockUserNotificationCenter()
@@ -1808,6 +1854,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: MockUserNotificationCenter()
@@ -1842,6 +1889,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let testService = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: MockUserNotificationCenter()
@@ -1870,6 +1918,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let service = CoronaTestService(
 			client: ClientMock(),
 			store: MockTestStore(),
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
@@ -1943,6 +1992,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let service = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
@@ -2030,6 +2080,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let service = CoronaTestService(
 			client: client,
 			store: MockTestStore(),
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
