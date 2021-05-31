@@ -3,8 +3,9 @@
 //
 
 import UIKit
+import OpenCombine
 
-class ExposureSubmissionTestCertificateInfoViewController: DynamicTableViewController, DismissHandling {
+class ExposureSubmissionTestCertificateInfoViewController: DynamicTableViewController, DismissHandling, FooterViewHandling {
 
 	// MARK: - Init
 
@@ -36,6 +37,12 @@ class ExposureSubmissionTestCertificateInfoViewController: DynamicTableViewContr
 		showCancelAlert()
 	}
 
+	// MARK: FooterViewHandling
+
+	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
+		Log.debug("NYD - at the moment")
+	}
+
 	// MARK: - Public
 
 	// MARK: - Internal
@@ -44,6 +51,7 @@ class ExposureSubmissionTestCertificateInfoViewController: DynamicTableViewContr
 
 	private let viewModel: ExposureSubmissionTestCertificateViewModel
 	private let showCancelAlert: () -> Void
+	private var subscriptions = Set<AnyCancellable>()
 
 	private func setupView() {
 		parent?.navigationItem.title = AppStrings.ExposureSubmission.TestCertificate.Info.title
@@ -59,6 +67,12 @@ class ExposureSubmissionTestCertificateInfoViewController: DynamicTableViewContr
 
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
 		tableView.separatorStyle = .none
+
+		viewModel.$isPrimaryButtonEnabled
+			.sink { [weak self] isEnabled in
+				self?.footerView?.setEnabled(isEnabled, button: .primary)
+			}
+			.store(in: &subscriptions)
 	}
 
 }

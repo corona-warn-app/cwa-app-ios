@@ -3,15 +3,19 @@
 //
 
 import UIKit
+import OpenCombine
 
-struct ExposureSubmissionTestCertificateViewModel {
+class ExposureSubmissionTestCertificateViewModel {
 
 	// MARK: - Init
 
 	init(
+		testType: CoronaTestType = .pcr,
 		presentDisclaimer: @escaping () -> Void
 	) {
 		self.presentDisclaimer = presentDisclaimer
+		self.testType = testType
+		self.isPrimaryButtonEnabled = testType == .antigen
 	}
 
 	// MARK: - Overrides
@@ -22,8 +26,7 @@ struct ExposureSubmissionTestCertificateViewModel {
 
 	// MARK: - Internal
 
-//	let section01ImageName = "Icons_Certificates_01"
-//	let section02ImageName = "Icons_Certificates_02"
+	@OpenCombine.Published private(set) var isPrimaryButtonEnabled: Bool
 
 	enum ReuseIdentifiers: String, TableViewCellReuseIdentifiers {
 		case legalExtended = "DynamicLegalExtendedCell"
@@ -95,8 +98,8 @@ struct ExposureSubmissionTestCertificateViewModel {
 						style: DynamicCell.TextCellStyle.label,
 						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.TestCertificate.Info.dataPrivacyTitle,
 						accessibilityTraits: UIAccessibilityTraits.link,
-						action: .execute { _, _ in
-							presentDisclaimer()
+						action: .execute { [weak self] _, _ in
+							self?.presentDisclaimer()
 						},
 						configure: { _, cell, _ in
 							cell.accessoryType = .disclosureIndicator
@@ -110,5 +113,7 @@ struct ExposureSubmissionTestCertificateViewModel {
 	// MARK: - Private
 
 	private let presentDisclaimer: () -> Void
+	private let testType: CoronaTestType
+	private var birthDayDate: String?
 
 }
