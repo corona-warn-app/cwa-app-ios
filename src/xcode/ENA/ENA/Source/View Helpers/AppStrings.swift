@@ -131,9 +131,16 @@ enum AppStrings {
 				static let primaryButton = NSLocalizedString("ExposureSubmission_TestCertificate_Information_PrimaryButton", comment: "")
 				static let secondaryButton = NSLocalizedString("ExposureSubmission_TestCertificate_Information_SecondaryButton", comment: "")
 				static let imageDescription = NSLocalizedString("ExposureSubmission_TestCertificate_Information_ImageDescription", comment: "")
-				static let subHeadline = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Subheadline", comment: "")
-				static let section01 = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Section01", comment: "")
-				static let section02 = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Section02", comment: "")
+				static let body = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Subheadline", comment: "")
+				static let section_1 = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Section01", comment: "")
+				static let section_2 = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Section02", comment: "")
+
+				static let legalHeadline_1 = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Legal_Headline", tableName: "Localizable.legal", comment: "")
+				static let legalText_1 = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Legal_Text_1", tableName: "Localizable.legal", comment: "")
+				static let legalText_2 = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Legal_Text_2", tableName: "Localizable.legal", comment: "")
+				static let legalText_3 = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Legal_Text_3", tableName: "Localizable.legal", comment: "")
+				static let legalText_4 = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Legal_Text_4", tableName: "Localizable.legal", comment: "")
+				static let legalText_5 = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Legal_Text_5", tableName: "Localizable.legal", comment: "")
 
 				enum Alert {
 					static let title = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Alert_Title", comment: "")

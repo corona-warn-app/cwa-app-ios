@@ -44,8 +44,8 @@ struct ExposureSubmissionTestCertificateViewModel {
 					),
 				cells: [
 					.body(
-						text: AppStrings.ExposureSubmission.TestCertificate.Info.subHeadline,
-						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.TestCertificate.Info.subHeadline
+						text: AppStrings.ExposureSubmission.TestCertificate.Info.body,
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.TestCertificate.Info.body
 					),
 					.space(
 						height: 15.0,
@@ -53,7 +53,7 @@ struct ExposureSubmissionTestCertificateViewModel {
 					),
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons_Certificates_01"),
-						text: .string(AppStrings.ExposureSubmission.TestCertificate.Info.section01),
+						text: .string(AppStrings.ExposureSubmission.TestCertificate.Info.section_1),
 						alignment: .top
 					),
 					.space(
@@ -62,7 +62,7 @@ struct ExposureSubmissionTestCertificateViewModel {
 					),
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons_Certificates_02"),
-						text: .string(AppStrings.ExposureSubmission.TestCertificate.Info.section02),
+						text: .string(AppStrings.ExposureSubmission.TestCertificate.Info.section_2),
 						alignment: .top
 					)
 				]
@@ -70,18 +70,17 @@ struct ExposureSubmissionTestCertificateViewModel {
 			// Legal text
 			.section(cells: [
 				.legalExtended(
-					title: NSAttributedString(string: AppStrings.ContactDiary.Information.legalHeadline_1),
-					subheadline1: NSAttributedString(string: AppStrings.ContactDiary.Information.legalSubHeadline_1),
+					title: NSAttributedString(string: AppStrings.ExposureSubmission.TestCertificate.Info.legalHeadline_1),
+					subheadline1: nil,
 					bulletPoints1: [
-						NSAttributedString(string: AppStrings.ContactDiary.Information.legalText_1),
-						NSAttributedString(string: AppStrings.ContactDiary.Information.legalText_2)
-						],
-					subheadline2: NSAttributedString(string: AppStrings.ContactDiary.Information.legalSubHeadline_2),
-					bulletPoints2: [
-						NSAttributedString(string: AppStrings.ContactDiary.Information.legalText_3),
-						NSAttributedString(string: AppStrings.ContactDiary.Information.legalText_4)
-						],
-					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.acknowledgementTitle,
+						NSAttributedString(string: AppStrings.ExposureSubmission.TestCertificate.Info.legalText_1),
+						NSAttributedString(string: AppStrings.ExposureSubmission.TestCertificate.Info.legalText_2),
+						NSAttributedString(string: AppStrings.ExposureSubmission.TestCertificate.Info.legalText_3),
+						NSAttributedString(string: AppStrings.ExposureSubmission.TestCertificate.Info.legalText_4),
+						NSAttributedString(string: AppStrings.ExposureSubmission.TestCertificate.Info.legalText_5)
+					],
+					subheadline2: nil,
+					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.TestCertificate.Info.acknowledgementTitle,
 					configure: { _, cell, _ in
 						cell.backgroundColor = .enaColor(for: .background)
 					}
