@@ -46,11 +46,11 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 		label.text = cellModel.text
 		label.font = cellModel.font
 		
-		
+		headerStackView.accessibilityLabel = cellModel.text
 		if cellModel.parametersHidden {
-			headerStackView.accessibilityLabel = cellModel.text
+			headerStackView.accessibilityTraits = [.button]
 		} else {
-			headerStackView.accessibilityLabel = String(format: AppStrings.ContactDiary.Day.personSelected, cellModel.text)
+			headerStackView.accessibilityTraits = [.button, .selected]
 		}
 
 		setUpParameterViews()
