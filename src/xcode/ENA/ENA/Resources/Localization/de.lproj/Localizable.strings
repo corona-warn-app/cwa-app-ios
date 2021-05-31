@@ -988,6 +988,10 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_TestCertificate_Information_Subheadline" = "Sie können über die App ein offizielles digitales Testzertifikat anfordern, das anschließend in der App hinzugefügt wird.";
 
+"ExposureSubmission_TestCertificate_Information_BirthdayPlaceholder" = "Geburtsdatum";
+
+"ExposureSubmission_TestCertificate_Information_BirthdayText" = "Zur Sicherheit wird Ihr Testergebnis mit Ihrem Geburtsdatum geschützt. Das Testergebnis kann nur bei korrekt angegebenem Geburtstdatum zugestellt werden.";
+
 "ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Ausführliche Hinweise zur Datenverarbeitung finden Sie in der Datenschutzerklärung";
 
 "ExposureSubmission_TestCertificate_Information_Alert_Title" = "Registrierung abbrechen";

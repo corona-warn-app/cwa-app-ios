@@ -44,6 +44,7 @@ class BirthdayDatePicker: UITableViewCell, ReuseIdentifierProviding, UITextField
 	private let textField = ENATextField()
 
 	private func setupView() {
+		selectionStyle = .none
 		textField.translatesAutoresizingMaskIntoConstraints = false
 		contentView.addSubview(textField)
 

@@ -54,8 +54,14 @@ class ExposureSubmissionTestCertificateViewModel {
 						text: AppStrings.ExposureSubmission.TestCertificate.Info.body,
 						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.TestCertificate.Info.body
 					),
-					.birthdayDateInputCell(placeholder: "Hallo Welt"),
-
+					.birthdayDateInputCell(
+						placeholder: AppStrings.ExposureSubmission.TestCertificate.Info.birthDayPlaceholder,
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.TestCertificate.Info.birthDayPlaceholder
+					),
+					.body(
+						text: AppStrings.ExposureSubmission.TestCertificate.Info.birthDayText,
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.TestCertificate.Info.birthDayText
+					),
 					.space(
 						height: 15.0,
 						color: .enaColor(for: .background)
