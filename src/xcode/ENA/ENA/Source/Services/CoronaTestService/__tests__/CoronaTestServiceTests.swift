@@ -387,7 +387,7 @@ class CoronaTestServiceTests: CWATestCase {
 	func testRegisterPCRTestAndGetResult_successWithSubmissionConsentGiven() {
 		let store = MockTestStore()
 		store.enfRiskCalculationResult = mockRiskCalculationResult()
-
+		
 		Analytics.setupMock(store: store)
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 
@@ -403,7 +403,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let service = CoronaTestService(
 			client: client,
 			store: store,
-			eventStore: eventStore,
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
