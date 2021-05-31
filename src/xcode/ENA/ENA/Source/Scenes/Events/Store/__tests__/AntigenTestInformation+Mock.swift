@@ -5,7 +5,7 @@
 import Foundation
 @testable import ENA
 
-extension AntigenTestInformation {
+extension AntigenTestQRCodeInformation {
 	static func mock(
 		hash: String = "f1200d9650f1fd673d58f52811f98f1427fab40b4996e9c2d0da8b7414464086",
 		timestamp: Int = 5,
@@ -15,7 +15,7 @@ extension AntigenTestInformation {
 		testID: String? = nil,
 		dateOfBirth: Date? = nil
 	) -> Self? {
-		AntigenTestInformation(
+		AntigenTestQRCodeInformation(
 			hash: hash,
 			timestamp: timestamp,
 			firstName: firstName,

@@ -32,7 +32,7 @@ enum Route {
 			}
 
 			// extract payload
-			guard let testInformation = AntigenTestInformation(payload: payloadUrl) else {
+			guard let testInformation = AntigenTestQRCodeInformation(payload: payloadUrl) else {
 				self = .rapidAntigen( .failure(.invalidTestCode(.invalidPayload)))
 				Log.error("Antigen test data is nil, either timeStamp is -ve or the hash is invalid", log: .qrCode)
 				return
@@ -65,6 +65,7 @@ enum Route {
 				informationArray.append(String(testInformation.timestamp))
 				informationArray.append(testInformation.testID ?? "")
 				informationArray.append(testInformation.cryptographicSalt ?? "")
+				informationArray.append(testInformation.certificateSupportedByPointOfCare == true ? "1" : "0")
 
 				let informationString = informationArray.joined(separator: "#")
 				let recomputedHashString = ENAHasher.sha256(informationString)
@@ -74,7 +75,7 @@ enum Route {
 					return
 				}
 			}
-			self = .rapidAntigen(.success(.antigen(testInformation)))
+			self = .rapidAntigen(.success(.antigen(qrCodeInformation: testInformation)))
 
 		case "e.coronawarn.app":
 			self = .checkIn(url.absoluteString)

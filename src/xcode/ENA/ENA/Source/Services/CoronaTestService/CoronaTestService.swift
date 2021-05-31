@@ -85,13 +85,28 @@ class CoronaTestService {
 	func registerPCRTestAndGetResult(
 		guid: String,
 		isSubmissionConsentGiven: Bool,
+		certificateConsent: CoronaTestCertificateConsent,
 		completion: @escaping TestResultHandler
 	) {
-		Log.info("[CoronaTestService] Registering PCR test (guid: \(private: guid, public: "GUID ID"), isSubmissionConsentGiven: \(isSubmissionConsentGiven))", log: .api)
+		var certificateConsentGiven = false
+		var dateOfBirthKey: String?
+		if case let .given(dateOfBirth) = certificateConsent, let dateOfBirth = dateOfBirth {
+			certificateConsentGiven = true
+
+			let dateFormatter = DateFormatter()
+			dateFormatter.timeZone = .utcTimeZone
+			dateFormatter.dateFormat = "ddMMyyyy"
+			let dateOfBirthString = dateFormatter.string(from: dateOfBirth)
+
+			dateOfBirthKey = "x\(ENAHasher.sha256("\(guid)\(dateOfBirthString)").dropFirst())"
+		}
+
+		Log.info("[CoronaTestService] Registering PCR test (guid: \(private: guid, public: "GUID ID"), isSubmissionConsentGiven: \(isSubmissionConsentGiven), certificateConsentGiven: \(certificateConsentGiven))", log: .api)
 
 		getRegistrationToken(
 			forKey: ENAHasher.sha256(guid),
 			withType: "GUID",
+			dateOfBirthKey: dateOfBirthKey,
 			completion: { [weak self] result in
 				switch result {
 				case .success(let registrationToken):
@@ -104,7 +119,9 @@ class CoronaTestService {
 						isSubmissionConsentGiven: isSubmissionConsentGiven,
 						submissionTAN: nil,
 						keysSubmitted: false,
-						journalEntryCreated: false
+						journalEntryCreated: false,
+						certificateConsentGiven: certificateConsentGiven,
+						certificateCreated: false
 					)
 
 					Log.info("[CoronaTestService] PCR test registered: \(private: String(describing: self?.pcrTest), public: "PCR Test result")", log: .api)
@@ -135,6 +152,7 @@ class CoronaTestService {
 		getRegistrationToken(
 			forKey: teleTAN,
 			withType: "TELETAN",
+			dateOfBirthKey: nil,
 			completion: { [weak self] result in
 				self?.fakeRequestService.fakeVerificationAndSubmissionServerRequest()
 
@@ -149,7 +167,9 @@ class CoronaTestService {
 						isSubmissionConsentGiven: isSubmissionConsentGiven,
 						submissionTAN: nil,
 						keysSubmitted: false,
-						journalEntryCreated: false
+						journalEntryCreated: false,
+						certificateConsentGiven: false,
+						certificateCreated: false
 					)
 					self?.pcrTest = _pcrTest
 
@@ -192,6 +212,8 @@ class CoronaTestService {
 		lastName: String?,
 		dateOfBirth: String?,
 		isSubmissionConsentGiven: Bool,
+		certificateSupportedByPointOfCare: Bool,
+		certificateConsent: CoronaTestCertificateConsent,
 		completion: @escaping TestResultHandler
 	) {
 		Log.info("[CoronaTestService] Registering antigen test (hash: \(private: hash), pointOfCareConsentDate: \(private: pointOfCareConsentDate), firstName: \(private: String(describing: firstName)), lastName: \(private: String(describing: lastName)), dateOfBirth: \(private: String(describing: dateOfBirth)), isSubmissionConsentGiven: \(isSubmissionConsentGiven))", log: .api)
@@ -199,9 +221,15 @@ class CoronaTestService {
 		getRegistrationToken(
 			forKey: ENAHasher.sha256(hash),
 			withType: "GUID",
+			dateOfBirthKey: nil,
 			completion: { [weak self] result in
 				switch result {
 				case .success(let registrationToken):
+					var certificateConsentGiven = false
+					if case .given = certificateConsent {
+						certificateConsentGiven = true
+					}
+
 					self?.antigenTest = AntigenTest(
 						pointOfCareConsentDate: pointOfCareConsentDate,
 						registrationDate: Date(),
@@ -213,7 +241,10 @@ class CoronaTestService {
 						isSubmissionConsentGiven: isSubmissionConsentGiven,
 						submissionTAN: nil,
 						keysSubmitted: false,
-						journalEntryCreated: false
+						journalEntryCreated: false,
+						certificateSupportedByPointOfCare: certificateSupportedByPointOfCare,
+						certificateConsentGiven: certificateConsentGiven,
+						certificateCreated: false
 					)
 					Log.info("[CoronaTestService] Antigen test registered: \(private: String(describing: self?.antigenTest), public: "Antigen test result")", log: .api)
 
@@ -396,7 +427,9 @@ class CoronaTestService {
 				isSubmissionConsentGiven: store.isSubmissionConsentGiven,
 				submissionTAN: store.tan,
 				keysSubmitted: keysSubmitted,
-				journalEntryCreated: false
+				journalEntryCreated: false,
+				certificateConsentGiven: false,
+				certificateCreated: false
 			)
 
 			Log.info("[CoronaTestService] Migrated preexisting PCR test: \(private: String(describing: pcrTest), public: "PCR Test result")", log: .api)
@@ -468,6 +501,8 @@ class CoronaTestService {
 	private func getRegistrationToken(
 		forKey key: String,
 		withType type: String,
+		// TODO: Pass on to client
+		dateOfBirthKey: String?,
 		completion: @escaping RegistrationResultHandler
 	) {
 		client.getRegistrationToken(forKey: key, withType: type, isFake: false) { result in
@@ -769,7 +804,9 @@ class CoronaTestService {
 				isSubmissionConsentGiven: LaunchArguments.test.pcr.isSubmissionConsentGiven.boolValue,
 				submissionTAN: nil,
 				keysSubmitted: LaunchArguments.test.pcr.keysSubmitted.boolValue,
-				journalEntryCreated: false
+				journalEntryCreated: false,
+				certificateConsentGiven: false,
+				certificateCreated: false
 			)
 		} else {
 			return nil
@@ -789,7 +826,10 @@ class CoronaTestService {
 				isSubmissionConsentGiven: LaunchArguments.test.antigen.isSubmissionConsentGiven.boolValue,
 				submissionTAN: nil,
 				keysSubmitted: LaunchArguments.test.antigen.keysSubmitted.boolValue,
-				journalEntryCreated: false
+				journalEntryCreated: false,
+				certificateSupportedByPointOfCare: false,
+				certificateConsentGiven: false,
+				certificateCreated: false
 			)
 		} else {
 			return nil

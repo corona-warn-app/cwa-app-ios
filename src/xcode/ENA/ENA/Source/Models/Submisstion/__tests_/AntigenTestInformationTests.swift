@@ -9,10 +9,10 @@ class AntigenTestInformationTests: CWATestCase {
 
 	func testGIVEN_AntigenTestInformationPayload_WHEN_Parse_THEN_WillBeEqual() throws {
 		let dateString = "2010-08-01"
-		let date = AntigenTestInformation.isoFormatter.date(from: dateString)
+		let date = AntigenTestQRCodeInformation.isoFormatter.date(from: dateString)
 
 		// GIVEN
-		let antigenTestInformation = AntigenTestInformation(
+		let antigenTestInformation = AntigenTestQRCodeInformation(
 			hash: "asbf3242",
 			timestamp: 123456789,
 			firstName: "Thomase",
@@ -26,7 +26,7 @@ class AntigenTestInformationTests: CWATestCase {
 		let payload = try XCTUnwrap(String(data: payloadData, encoding: .utf8))
 
 		// WHEN
-		let checkTestInformation = try XCTUnwrap(AntigenTestInformation(payload: payload))
+		let checkTestInformation = try XCTUnwrap(AntigenTestQRCodeInformation(payload: payload))
 
 		// THEN
 		XCTAssertEqual(checkTestInformation, antigenTestInformation)

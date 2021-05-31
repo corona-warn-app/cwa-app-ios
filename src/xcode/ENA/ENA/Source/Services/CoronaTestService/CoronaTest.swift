@@ -158,6 +158,9 @@ struct PCRTest: Equatable, Codable {
 
 	var journalEntryCreated: Bool
 
+	var certificateConsentGiven: Bool
+	var certificateCreated: Bool
+
 }
 
 struct AntigenTest: Equatable, Codable {
@@ -181,6 +184,10 @@ struct AntigenTest: Equatable, Codable {
 	var keysSubmitted: Bool
 
 	var journalEntryCreated: Bool
+
+	var certificateSupportedByPointOfCare: Bool
+	var certificateConsentGiven: Bool
+	var certificateCreated: Bool
 
 	var testDate: Date {
 		return sampleCollectionDate ?? pointOfCareConsentDate

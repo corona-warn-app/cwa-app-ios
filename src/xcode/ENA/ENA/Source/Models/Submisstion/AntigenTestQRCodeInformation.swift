@@ -4,7 +4,7 @@
 
 import Foundation
 
-struct AntigenTestInformation: Codable, Equatable {
+struct AntigenTestQRCodeInformation: Codable, Equatable {
 	
 	// MARK: - Init
 	
@@ -15,7 +15,8 @@ struct AntigenTestInformation: Codable, Equatable {
 		lastName: String?,
 		dateOfBirth: Date?,
 		testID: String?,
-		cryptographicSalt: String?
+		cryptographicSalt: String?,
+		certificateSupportedByPointOfCare: Bool?
 	) {
 		self.hash = hash
 		self.timestamp = timestamp
@@ -24,15 +25,17 @@ struct AntigenTestInformation: Codable, Equatable {
 		self.dateOfBirth = dateOfBirth
 		self.testID = testID
 		self.cryptographicSalt = cryptographicSalt
+		self.certificateSupportedByPointOfCare = certificateSupportedByPointOfCare
+
 		guard let dateOfBirth = dateOfBirth else {
 			self.dateOfBirthString = nil
 			return
 		}
-		self.dateOfBirthString = AntigenTestInformation.isoFormatter.string(from: dateOfBirth)
+
+		self.dateOfBirthString = ISO8601DateFormatter.justUTCDateFormatter.string(from: dateOfBirth)
 	}
 	
 	init?(payload: String) {
-		
 		let jsonData: Data
 		if payload.isBase64Encoded {
 			guard let parsedData = Data(base64Encoded: payload) else {
@@ -46,7 +49,7 @@ struct AntigenTestInformation: Codable, Equatable {
 			jsonData = parsedData
 		}
 		do {
-			let decodedObject = try JSONDecoder().decode(AntigenTestInformation.self, from: jsonData)
+			let decodedObject = try JSONDecoder().decode(AntigenTestQRCodeInformation.self, from: jsonData)
 			
 			self.hash = decodedObject.hash
 			self.timestamp = decodedObject.timestamp
@@ -54,8 +57,9 @@ struct AntigenTestInformation: Codable, Equatable {
 			self.lastName = decodedObject.lastName?.isEmpty ?? true ? nil : decodedObject.lastName
 			self.testID = decodedObject.testID?.isEmpty ?? true ? nil : decodedObject.testID
 			self.cryptographicSalt = decodedObject.cryptographicSalt?.isEmpty ?? true ? nil : decodedObject.cryptographicSalt
+			self.certificateSupportedByPointOfCare = decodedObject.certificateSupportedByPointOfCare
 			self.dateOfBirthString = decodedObject.dateOfBirthString?.isEmpty ?? true ? nil : decodedObject.dateOfBirthString
-			self.dateOfBirth = AntigenTestInformation.isoFormatter.date(from: decodedObject.dateOfBirthString ?? "")
+			self.dateOfBirth = ISO8601DateFormatter.justUTCDateFormatter.date(from: decodedObject.dateOfBirthString ?? "")
 		} catch {
 			Log.debug("Failed to read / parse district json", log: .ppac)
 			return nil
@@ -72,6 +76,7 @@ struct AntigenTestInformation: Codable, Equatable {
 		case dateOfBirthString = "dob"
 		case testID = "testid"
 		case cryptographicSalt = "salt"
+		case certificateSupportedByPointOfCare = "dgc"
 	}
 	
 	// MARK: - Internal
@@ -82,6 +87,7 @@ struct AntigenTestInformation: Codable, Equatable {
 	let lastName: String?
 	let testID: String?
 	let cryptographicSalt: String?
+	let certificateSupportedByPointOfCare: Bool?
 	let dateOfBirthString: String?
 	var dateOfBirth: Date?
 	
@@ -94,13 +100,5 @@ struct AntigenTestInformation: Codable, Equatable {
 	var pointOfCareConsentDate: Date {
 		return Date(timeIntervalSince1970: TimeInterval(timestamp))
 	}
-	
-	// MARK: - Private
-	
-	static let isoFormatter: ISO8601DateFormatter = {
-		let isoFormatter = ISO8601DateFormatter()
-		isoFormatter.formatOptions = [.withFullDate]
-		isoFormatter.timeZone = TimeZone.utcTimeZone
-		return isoFormatter
-	}()
+
 }
