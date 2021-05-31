@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import OpenCombine
 
 class BirthdayDatePicker: UITableViewCell, ReuseIdentifierProviding {
 
@@ -25,6 +26,8 @@ class BirthdayDatePicker: UITableViewCell, ReuseIdentifierProviding {
 	// MARK: - Public
 
 	// MARK: - Internal
+
+	@OpenCombine.Published private(set) var birthdayDate: String?
 
 	func configure(placeHolder: String, accessibilityIdentifier: String?) {
 		textField.placeholder = placeHolder
@@ -56,10 +59,23 @@ class BirthdayDatePicker: UITableViewCell, ReuseIdentifierProviding {
 		if #available(iOS 13.4, *) {
 			datePicker.preferredDatePickerStyle = .wheels
 		}
+		datePicker.addTarget(self, action: #selector(datePickerValueChanged(_:)), for: .valueChanged)
 
 		textField.inputView = datePicker
 	}
 
+	private lazy var stringDateFormatter: DateFormatter = {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateFormat = "YYYY-MM-dd"
+		return dateFormatter
+	}()
+
+	@objc
+	private func datePickerValueChanged(_ datePicker: UIDatePicker) {
+		birthdayDate = stringDateFormatter.string(from: datePicker.date)
+		textField.text = DateFormatter.localizedString(from: datePicker.date, dateStyle: .medium, timeStyle: .none)
+		Log.debug("set birthdayDate value: \(birthdayDate)")
+	}
 }
 
 extension DynamicCell {
