@@ -353,9 +353,9 @@ extension String {
 struct DGCRSAKeypair {
 	
 	enum DGCRSAKeypairError: Error {
+		case keypair
 		case publicKey
 		case privateKey
-
 	}
 	
 	let publicKey: Data
@@ -367,13 +367,13 @@ struct DGCRSAKeypair {
 		
 		let publicKeyAttr: [NSObject: NSObject] = [
 					kSecAttrIsPermanent:true as NSObject,
-					kSecAttrApplicationTag:tag.data(using: String.Encoding.utf8)! as NSObject,
+					kSecAttrApplicationTag:"\(tag)public".data(using: String.Encoding.utf8)! as NSObject,
 					kSecClass: kSecClassKey,
 					kSecReturnData: kCFBooleanTrue]
 		
 		let privateKeyAttr: [NSObject: NSObject] = [
 					kSecAttrIsPermanent:true as NSObject,
-					kSecAttrApplicationTag:tag.data(using: String.Encoding.utf8)! as NSObject,
+					kSecAttrApplicationTag:"\(tag)private".data(using: String.Encoding.utf8)! as NSObject,
 					kSecClass: kSecClassKey,
 					kSecReturnData: kCFBooleanTrue]
 
@@ -389,9 +389,8 @@ struct DGCRSAKeypair {
 		let statusCode = SecKeyGeneratePair(keyPairAttr as CFDictionary, &publicKey, &privateKey)
 
 		guard statusCode == noErr && publicKey != nil && privateKey != nil else {
-			
 				Log.error("Error generating DGC RSA key pair: \(String(describing: statusCode))", log: .crypto)
-				throw DGCRSAKeypairError.publicKey
+				throw DGCRSAKeypairError.keypair
 		}
 		var resultPublicKey: AnyObject?
 		var resultPrivateKey: AnyObject?
