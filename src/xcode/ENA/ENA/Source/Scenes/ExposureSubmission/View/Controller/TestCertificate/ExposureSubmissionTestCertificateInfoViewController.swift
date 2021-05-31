@@ -90,6 +90,31 @@ class ExposureSubmissionTestCertificateInfoViewController: DynamicTableViewContr
 				self?.footerView?.setEnabled(isEnabled, button: .primary)
 			}
 			.store(in: &subscriptions)
+
+		let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapView))
+		view.addGestureRecognizer(tapGesture)
+
 	}
+
+	@objc
+	private func didTapView() {
+		view.dismissKeyboard()
+	}
+}
+
+
+private extension UIView {
+	/// search all subViews recursive to find UITextField which is the first responder at the moment
+	/// if found resignFirstResponder gets called and the recursion ends
+	func dismissKeyboard() {
+		for subView in subviews {
+			if subView is UITextField && subView.isFirstResponder {
+				subView.resignFirstResponder()
+				return
+			}
+			subView.dismissKeyboard()
+		}
+	}
+
 
 }
