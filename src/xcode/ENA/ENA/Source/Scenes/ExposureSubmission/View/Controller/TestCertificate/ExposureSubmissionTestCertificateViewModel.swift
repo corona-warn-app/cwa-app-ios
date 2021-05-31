@@ -26,6 +26,9 @@ class ExposureSubmissionTestCertificateViewModel {
 
 	// MARK: - Internal
 
+	let testType: CoronaTestType
+	private(set) var birthDayDate: String?
+
 	@OpenCombine.Published private(set) var isPrimaryButtonEnabled: Bool
 
 	enum ReuseIdentifiers: String, TableViewCellReuseIdentifiers {
@@ -113,7 +116,5 @@ class ExposureSubmissionTestCertificateViewModel {
 	// MARK: - Private
 
 	private let presentDisclaimer: () -> Void
-	private let testType: CoronaTestType
-	private var birthDayDate: String?
 
 }

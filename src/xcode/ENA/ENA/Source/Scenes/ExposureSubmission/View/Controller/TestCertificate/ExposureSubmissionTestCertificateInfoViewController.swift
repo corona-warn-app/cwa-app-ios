@@ -11,10 +11,14 @@ class ExposureSubmissionTestCertificateInfoViewController: DynamicTableViewContr
 
 	init(
 		_ viewModel: ExposureSubmissionTestCertificateViewModel,
-		showCancelAlert: @escaping () -> Void
+		showCancelAlert: @escaping () -> Void,
+		didTapPrimaryButton: @escaping (CoronaTestType, String?) -> Void,
+		didTapSecondaryButton: @escaping () -> Void
 	) {
 		self.viewModel = viewModel
 		self.showCancelAlert = showCancelAlert
+		self.didTapPrimaryButton = didTapPrimaryButton
+		self.didTapSecondaryButton = didTapSecondaryButton
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -40,7 +44,12 @@ class ExposureSubmissionTestCertificateInfoViewController: DynamicTableViewContr
 	// MARK: FooterViewHandling
 
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
-		Log.debug("NYD - at the moment")
+		switch type {
+		case .primary:
+			didTapPrimaryButton(viewModel.testType, viewModel.birthDayDate)
+		case .secondary:
+			didTapSecondaryButton()
+		}
 	}
 
 	// MARK: - Public
@@ -51,6 +60,9 @@ class ExposureSubmissionTestCertificateInfoViewController: DynamicTableViewContr
 
 	private let viewModel: ExposureSubmissionTestCertificateViewModel
 	private let showCancelAlert: () -> Void
+	private let didTapPrimaryButton: (CoronaTestType, String?) -> Void
+	private let didTapSecondaryButton: () -> Void
+
 	private var subscriptions = Set<AnyCancellable>()
 
 	private func setupView() {

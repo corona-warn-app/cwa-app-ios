@@ -856,6 +856,12 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 						}
 					)
 				)
+			},
+			didTapPrimaryButton: { testType, optionalBirthDateString in
+				Log.debug("NYD - \(testType), \(String(describing: optionalBirthDateString))")
+			},
+			didTapSecondaryButton: { [weak self] in
+				self?.navigationController?.dismiss(animated: true)
 			}
 		)
 
