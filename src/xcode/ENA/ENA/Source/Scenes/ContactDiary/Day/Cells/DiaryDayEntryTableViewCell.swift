@@ -15,7 +15,6 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 		headerStackView.addGestureRecognizer(tapGestureRecognizer)
 		headerStackView.isUserInteractionEnabled = true
 		headerStackView.isAccessibilityElement = true
-		headerStackView.accessibilityTraits = [.button]
 	}
 
 	// MARK: - Protocol UITextFieldDelegate
