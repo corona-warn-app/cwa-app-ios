@@ -9,7 +9,7 @@ class AntigenTestInformationTests: CWATestCase {
 
 	func testGIVEN_AntigenTestInformationPayload_WHEN_Parse_THEN_WillBeEqual() throws {
 		let dateString = "2010-08-01"
-		let date = AntigenTestQRCodeInformation.isoFormatter.date(from: dateString)
+		let date = ISO8601DateFormatter.justUTCDateFormatter.date(from: dateString)
 
 		// GIVEN
 		let antigenTestInformation = AntigenTestQRCodeInformation(
@@ -19,7 +19,8 @@ class AntigenTestInformationTests: CWATestCase {
 			lastName: "Mustermann",
 			dateOfBirth: date,
 			testID: "123",
-			cryptographicSalt: "456"
+			cryptographicSalt: "456",
+			certificateSupportedByPointOfCare: false
 		)
 		let encoder = JSONEncoder()
 		let payloadData = try encoder.encode(antigenTestInformation).base64EncodedData()

@@ -13,7 +13,8 @@ extension AntigenTestQRCodeInformation {
 		lastName: String? = nil,
 		cryptographicSalt: String? = nil,
 		testID: String? = nil,
-		dateOfBirth: Date? = nil
+		dateOfBirth: Date? = nil,
+		certificateSupportedByPointOfCare: Bool = false
 	) -> Self? {
 		AntigenTestQRCodeInformation(
 			hash: hash,
@@ -22,7 +23,8 @@ extension AntigenTestQRCodeInformation {
 			lastName: lastName,
 			dateOfBirth: dateOfBirth,
 			testID: testID,
-			cryptographicSalt: cryptographicSalt
+			cryptographicSalt: cryptographicSalt,
+			certificateSupportedByPointOfCare: certificateSupportedByPointOfCare
 		)
 	}
 }

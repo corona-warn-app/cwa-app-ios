@@ -335,7 +335,8 @@ class CoronaTestServiceTests: CWATestCase {
 
 		service.registerPCRTestAndGetResult(
 			guid: "guid",
-			isSubmissionConsentGiven: false
+			isSubmissionConsentGiven: false,
+			certificateConsent: .notGiven
 		) { result in
 			expectation.fulfill()
 			switch result {
@@ -403,7 +404,8 @@ class CoronaTestServiceTests: CWATestCase {
 
 		service.registerPCRTestAndGetResult(
 			guid: "guid",
-			isSubmissionConsentGiven: true
+			isSubmissionConsentGiven: true,
+			certificateConsent: .notGiven
 		) { result in
 			expectation.fulfill()
 			switch result {
@@ -471,7 +473,8 @@ class CoronaTestServiceTests: CWATestCase {
 
 		service.registerPCRTestAndGetResult(
 			guid: "guid",
-			isSubmissionConsentGiven: false
+			isSubmissionConsentGiven: false,
+			certificateConsent: .notGiven
 		) { result in
 			expectation.fulfill()
 			switch result {
@@ -516,7 +519,8 @@ class CoronaTestServiceTests: CWATestCase {
 
 		service.registerPCRTestAndGetResult(
 			guid: "guid",
-			isSubmissionConsentGiven: false
+			isSubmissionConsentGiven: false,
+			certificateConsent: .notGiven
 		) { result in
 			expectation.fulfill()
 			switch result {
@@ -745,7 +749,9 @@ class CoronaTestServiceTests: CWATestCase {
 			firstName: "Erika",
 			lastName: "Mustermann",
 			dateOfBirth: "1964-08-12",
-			isSubmissionConsentGiven: false
+			isSubmissionConsentGiven: false,
+			certificateSupportedByPointOfCare: false,
+			certificateConsent: .notGiven
 		) { result in
 			expectation.fulfill()
 			switch result {
@@ -804,7 +810,9 @@ class CoronaTestServiceTests: CWATestCase {
 			firstName: nil,
 			lastName: nil,
 			dateOfBirth: nil,
-			isSubmissionConsentGiven: true
+			isSubmissionConsentGiven: true,
+			certificateSupportedByPointOfCare: false,
+			certificateConsent: .notGiven
 		) { result in
 			expectation.fulfill()
 			switch result {
@@ -859,7 +867,9 @@ class CoronaTestServiceTests: CWATestCase {
 			firstName: nil,
 			lastName: nil,
 			dateOfBirth: nil,
-			isSubmissionConsentGiven: true
+			isSubmissionConsentGiven: true,
+			certificateSupportedByPointOfCare: false,
+			certificateConsent: .notGiven
 		) { result in
 			expectation.fulfill()
 			switch result {
@@ -901,7 +911,9 @@ class CoronaTestServiceTests: CWATestCase {
 			firstName: nil,
 			lastName: nil,
 			dateOfBirth: nil,
-			isSubmissionConsentGiven: true
+			isSubmissionConsentGiven: true,
+			certificateSupportedByPointOfCare: false,
+			certificateConsent: .notGiven
 		) { result in
 			expectation.fulfill()
 			switch result {
