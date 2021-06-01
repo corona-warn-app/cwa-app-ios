@@ -360,10 +360,10 @@ struct DGCRSAKeypair {
 	let publicKey: SecKey
 	let privateKey: SecKey
 	
-	// The publicKey with added RSA Header and Base64 encoded
+	/// The publicKey with added RSA Header and Base64 encoded
 	let publicKeyForBackend: String
 	
-	init?() throws {
+	init() throws {
 		let tag = Bundle.main.bundleIdentifier ?? "de.rki.coronawarnapp"
 		
 		let publicKeyAttr: [NSObject: NSObject] = [
@@ -384,12 +384,12 @@ struct DGCRSAKeypair {
 		keyPairAttr[kSecPublicKeyAttrs] = publicKeyAttr as NSObject
 		keyPairAttr[kSecPrivateKeyAttrs] = privateKeyAttr as NSObject
 		
-		var publicKey: SecKey?
-		var privateKey: SecKey?
+		var _publicKey: SecKey?
+		var _privateKey: SecKey?
 		
-		let statusCode = SecKeyGeneratePair(keyPairAttr as CFDictionary, &publicKey, &privateKey)
+		let statusCode = SecKeyGeneratePair(keyPairAttr as CFDictionary, &_publicKey, &_privateKey)
 		
-		guard statusCode == noErr, let publicKey = publicKey, let privateKey = privateKey else {
+		guard statusCode == noErr, let publicKey = _publicKey, let privateKey = _privateKey else {
 			let errorText = String(describing: statusCode)
 			Log.error("Error generating DGC RSA key pair: \(errorText)", log: .crypto)
 			throw DGCRSAKeypairError.keypairGeneration(errorText)
