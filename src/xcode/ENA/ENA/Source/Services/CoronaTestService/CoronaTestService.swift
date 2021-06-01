@@ -208,6 +208,7 @@ class CoronaTestService {
 		}
 	}
 
+	// swiftlint:disable:next function_parameter_count
 	func registerAntigenTestAndGetResult(
 		with hash: String,
 		pointOfCareConsentDate: Date,

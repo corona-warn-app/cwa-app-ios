@@ -3,10 +3,11 @@
 //
 
 import Foundation
-// swiftlint:disable pattern_matching_keywords
+
 enum QRCodeError: Error, Equatable {
 	case invalidTestCode(RatError)
 }
+
 enum RatError {
 	case invalidPayload
 	case invalidHash
