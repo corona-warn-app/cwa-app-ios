@@ -94,7 +94,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		let tanInputViewModel = TanInputViewModel(
 			coronaTestService: model.coronaTestService,
 			onSuccess: { [weak self] testRegistrationInformation, isLoading in
-				self?.handleCoronaTestRegistrationInformation(testRegistrationInformation,isConsentGiven: false, isLoading: isLoading)
+				self?.handleCoronaTestRegistrationInformation(testRegistrationInformation, isConsentGiven: false, isLoading: isLoading)
 			}
 		)
 
@@ -463,13 +463,13 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 	private func showQRScreen(testInformation: CoronaTestRegistrationInformation?, isLoading: @escaping (Bool) -> Void) {
 		if let testInformation = testInformation {
-			handleCoronaTestRegistrationInformation(testInformation, isLoading: isLoading)
+			handleCoronaTestRegistrationInformation(testInformation, isConsentGiven: true, isLoading: isLoading)
 		} else {
 			let scannerViewController = ExposureSubmissionQRScannerViewController(
 				onSuccess: { testQRCodeInformation in
 					DispatchQueue.main.async { [weak self] in
 						self?.presentedViewController?.dismiss(animated: true) {
-							self?.handleCoronaTestRegistrationInformation(testQRCodeInformation, isLoading: isLoading)
+							self?.handleCoronaTestRegistrationInformation(testQRCodeInformation, isConsentGiven: true, isLoading: isLoading)
 						}
 					}
 				},
@@ -514,7 +514,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 	}
 	
-	private func handleCoronaTestRegistrationInformation(_ testRegistrationInformation: CoronaTestRegistrationInformation, isConsentGiven: Bool = true, isLoading: @escaping (Bool) -> Void) {
+	private func handleCoronaTestRegistrationInformation(_ testRegistrationInformation: CoronaTestRegistrationInformation, isConsentGiven: Bool, isLoading: @escaping (Bool) -> Void) {
 		if let oldTest = self.model.coronaTestService.coronaTest(ofType: testRegistrationInformation.testType),
 		   oldTest.testResult != .expired,
 		   !(oldTest.type == .antigen && self.model.coronaTestService.antigenTestIsOutdated) {
