@@ -353,30 +353,31 @@ extension String {
 struct DGCRSAKeypair {
 	
 	enum DGCRSAKeypairError: Error {
-		case keypair
+		case keypairGeneration(String)	// Key generation failed
 		case publicKey
-		case privateKey
 	}
 	
-	let publicKey: Data
-	let privateKey: Data
-
+	let publicKey: SecKey
+	let privateKey: SecKey
+	
+	// The publicKey with added RSA Header and Base64 encoded
+	let publicKeyForBackend: String
 	
 	init?() throws {
 		let tag = Bundle.main.bundleIdentifier ?? "de.rki.coronawarnapp"
 		
 		let publicKeyAttr: [NSObject: NSObject] = [
-					kSecAttrIsPermanent:true as NSObject,
-					kSecAttrApplicationTag:"\(tag)public".data(using: String.Encoding.utf8)! as NSObject,
-					kSecClass: kSecClassKey,
-					kSecReturnData: kCFBooleanTrue]
+			kSecAttrIsPermanent:true as NSObject,
+			kSecAttrApplicationTag:"\(tag)public".data(using: String.Encoding.utf8)! as NSObject,
+			kSecClass: kSecClassKey,
+			kSecReturnData: kCFBooleanTrue]
 		
 		let privateKeyAttr: [NSObject: NSObject] = [
-					kSecAttrIsPermanent:true as NSObject,
-					kSecAttrApplicationTag:"\(tag)private".data(using: String.Encoding.utf8)! as NSObject,
-					kSecClass: kSecClassKey,
-					kSecReturnData: kCFBooleanTrue]
-
+			kSecAttrIsPermanent:true as NSObject,
+			kSecAttrApplicationTag:"\(tag)private".data(using: String.Encoding.utf8)! as NSObject,
+			kSecClass: kSecClassKey,
+			kSecReturnData: kCFBooleanTrue]
+		
 		var keyPairAttr = [NSObject: NSObject]()
 		keyPairAttr[kSecAttrKeyType] = kSecAttrKeyTypeRSA
 		keyPairAttr[kSecAttrKeySizeInBits] = 3072 as NSObject
@@ -385,29 +386,26 @@ struct DGCRSAKeypair {
 		
 		var publicKey : SecKey?
 		var privateKey : SecKey?
-
-		let statusCode = SecKeyGeneratePair(keyPairAttr as CFDictionary, &publicKey, &privateKey)
-
-		guard statusCode == noErr && publicKey != nil && privateKey != nil else {
-				Log.error("Error generating DGC RSA key pair: \(String(describing: statusCode))", log: .crypto)
-				throw DGCRSAKeypairError.keypair
-		}
-		var resultPublicKey: AnyObject?
-		var resultPrivateKey: AnyObject?
-		let statusPublicKey = SecItemCopyMatching(publicKeyAttr as CFDictionary, &resultPublicKey)
-		let statusPrivateKey = SecItemCopyMatching(privateKeyAttr as CFDictionary, &resultPrivateKey)
-
-		guard statusPublicKey == noErr, let publicKey = resultPublicKey as? Data else {
-			Log.error("Cannot get Public key from DGCRSAKeypair", log: .crypto)
-			throw DGCRSAKeypairError.publicKey
-		}
-		self.publicKey = publicKey
 		
-
-		guard statusPrivateKey == noErr, let privateKey = resultPrivateKey as? Data else {
-			Log.error("Cannot get private key from DGCRSAKeypair", log: .crypto)
-			throw DGCRSAKeypairError.privateKey
+		let statusCode = SecKeyGeneratePair(keyPairAttr as CFDictionary, &publicKey, &privateKey)
+		
+		guard statusCode == noErr, let publicKey = publicKey, let privateKey = privateKey else {
+			let errorText = String(describing: statusCode)
+			Log.error("Error generating DGC RSA key pair: \(errorText)", log: .crypto)
+			throw DGCRSAKeypairError.keypairGeneration(errorText)
 		}
 		self.privateKey = privateKey
+		self.publicKey = publicKey
+		
+		var error: Unmanaged<CFError>?
+		guard let publicKeyData = SecKeyCopyExternalRepresentation(publicKey, &error) as Data? else {
+			throw DGCRSAKeypairError.publicKey
+		}
+		let publicKeyWithRSAHeader = Data([0x30, 0x82, 0x01, 0xA2,
+										   0x30, 0x0D,
+										   0x06, 0x09, 0x2A, 0x86, 0x48, 0x86, 0xF7, 0x0D, 0x01, 0x01, 0x01,
+										   0x05, 0x00,
+										   0x03, 0x82, 0x01, 0x8F, 0x00]) + publicKeyData
+		self.publicKeyForBackend = publicKeyWithRSAHeader.base64EncodedString()
 	}
 }
