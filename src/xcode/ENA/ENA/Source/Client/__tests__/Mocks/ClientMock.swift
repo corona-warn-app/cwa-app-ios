@@ -140,13 +140,13 @@ extension ClientMock: Client {
 		onSubmitCountries(payload, isFake, completion)
 	}
 
-	func getRegistrationToken(forKey: String, withType: String, birthdateHash date: String?, isFake: Bool, completion completeWith: @escaping RegistrationHandler) {
+	func getRegistrationToken(forKey: String, withType: String, dateOfBirthKey: String?, isFake: Bool, completion completeWith: @escaping RegistrationHandler) {
 		guard let onGetRegistrationToken = self.onGetRegistrationToken else {
 			completeWith(.success("dummyRegistrationToken"))
 			return
 		}
 
-		onGetRegistrationToken(forKey, withType, date, isFake, completeWith)
+		onGetRegistrationToken(forKey, withType, dateOfBirthKey, isFake, completeWith)
 	}
 
 	func getTestResult(forDevice device: String, isFake: Bool, completion completeWith: @escaping TestResultHandler) {

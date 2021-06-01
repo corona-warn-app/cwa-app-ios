@@ -315,7 +315,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 	// MARK: - Test Registration
 
-	func testRegisterPCRTestAndGetResult_successWithoutSubmissionConsentGiven() {
+	func testRegisterPCRTestAndGetResult_successWithoutSubmissionOrCertificateConsentGiven() {
 		let store = MockTestStore()
 		store.enfRiskCalculationResult = mockRiskCalculationResult()
 
@@ -323,7 +323,7 @@ class CoronaTestServiceTests: CWATestCase {
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 
 		let client = ClientMock()
-		client.onGetRegistrationToken = { _, _, _, completion in
+		client.onGetRegistrationToken = { _, _, _, _, completion in
 			completion(.success("registrationToken"))
 		}
 
@@ -376,6 +376,8 @@ class CoronaTestServiceTests: CWATestCase {
 		XCTAssertNil(pcrTest.submissionTAN)
 		XCTAssertFalse(pcrTest.keysSubmitted)
 		XCTAssertFalse(pcrTest.journalEntryCreated)
+		XCTAssertFalse(pcrTest.certificateConsentGiven)
+		XCTAssertFalse(pcrTest.certificateCreated)
 
 		XCTAssertEqual(store.pcrTestResultMetadata?.testResult, .pending)
 		XCTAssertEqual(
@@ -385,7 +387,7 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 	}
 
-	func testRegisterPCRTestAndGetResult_successWithSubmissionConsentGiven() {
+	func testRegisterPCRTestAndGetResult_successWithSubmissionAndCertificateConsentGiven() {
 		let store = MockTestStore()
 		store.enfRiskCalculationResult = mockRiskCalculationResult()
 		
@@ -393,7 +395,8 @@ class CoronaTestServiceTests: CWATestCase {
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 
 		let client = ClientMock()
-		client.onGetRegistrationToken = { _, _, _, completion in
+		client.onGetRegistrationToken = { _, _, dateOfBirthKey, _, completion in
+			XCTAssertEqual(dateOfBirthKey, "xfa760e171f000ef5a7f863ab180f6f6e8185c4890224550395281d839d85458")
 			completion(.success("registrationToken2"))
 		}
 
@@ -413,9 +416,9 @@ class CoronaTestServiceTests: CWATestCase {
 		let expectation = self.expectation(description: "Expect to receive a result.")
 
 		service.registerPCRTestAndGetResult(
-			guid: "guid",
+			guid: "E1277F-E1277F24-4AD2-40BC-AFF8-CBCCCD893E4B",
 			isSubmissionConsentGiven: true,
-			certificateConsent: .notGiven
+			certificateConsent: .given(dateOfBirth: "2000-01-01")
 		) { result in
 			expectation.fulfill()
 			switch result {
@@ -467,7 +470,7 @@ class CoronaTestServiceTests: CWATestCase {
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 
 		let client = ClientMock()
-		client.onGetRegistrationToken = { _, _, _, completion in
+		client.onGetRegistrationToken = { _, _, _, _, completion in
 			completion(.failure(.qrAlreadyUsed))
 		}
 
@@ -510,7 +513,7 @@ class CoronaTestServiceTests: CWATestCase {
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 
 		let client = ClientMock()
-		client.onGetRegistrationToken = { _, _, _, completion in
+		client.onGetRegistrationToken = { _, _, _, _, completion in
 			completion(.success("registrationToken"))
 		}
 
@@ -580,7 +583,7 @@ class CoronaTestServiceTests: CWATestCase {
 		eventStore.createCheckin(checkInMock)
 		
 		let client = ClientMock()
-		client.onGetRegistrationToken = { _, _, _, completion in
+		client.onGetRegistrationToken = { _, _, _, _, completion in
 			completion(.success("registrationToken"))
 		}
 
@@ -649,7 +652,7 @@ class CoronaTestServiceTests: CWATestCase {
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 
 		let client = ClientMock()
-		client.onGetRegistrationToken = { _, _, _, completion in
+		client.onGetRegistrationToken = { _, _, _, _, completion in
 			completion(.success("registrationToken2"))
 		}
 
@@ -711,7 +714,7 @@ class CoronaTestServiceTests: CWATestCase {
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 
 		let client = ClientMock()
-		client.onGetRegistrationToken = { _, _, _, completion in
+		client.onGetRegistrationToken = { _, _, _, _, completion in
 			completion(.failure(.teleTanAlreadyUsed))
 		}
 
@@ -747,7 +750,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 	func testRegisterAntigenTestAndGetResult_successWithoutSubmissionConsentGivenWithTestedPerson() {
 		let client = ClientMock()
-		client.onGetRegistrationToken = { _, _, _, completion in
+		client.onGetRegistrationToken = { _, _, _, _, completion in
 			completion(.success("registrationToken"))
 		}
 
@@ -809,7 +812,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 	func testRegisterAntigenTestAndGetResult_successWithSubmissionConsentGiven() {
 		let client = ClientMock()
-		client.onGetRegistrationToken = { _, _, _, completion in
+		client.onGetRegistrationToken = { _, _, _, _, completion in
 			completion(.success("registrationToken"))
 		}
 
@@ -871,7 +874,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 	func testRegisterAntigenTestAndGetResult_RegistrationFails() {
 		let client = ClientMock()
-		client.onGetRegistrationToken = { _, _, _, completion in
+		client.onGetRegistrationToken = { _, _, _, _, completion in
 			completion(.failure(.qrAlreadyUsed))
 		}
 
@@ -912,7 +915,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 	func testRegisterAntigenTestAndGetResult_RegistrationSucceedsGettingTestResultFails() {
 		let client = ClientMock()
-		client.onGetRegistrationToken = { _, _, _, completion in
+		client.onGetRegistrationToken = { _, _, _, _, completion in
 			completion(.success("registrationToken"))
 		}
 
@@ -1983,7 +1986,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let client = ClientMock()
 
-		client.onGetRegistrationToken = { _, _, isFake, completion in
+		client.onGetRegistrationToken = { _, _, _, isFake, completion in
 			expectation.fulfill()
 			XCTAssertFalse(isFake)
 			XCTAssertEqual(count, 0)

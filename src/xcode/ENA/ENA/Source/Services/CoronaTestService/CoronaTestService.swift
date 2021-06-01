@@ -516,7 +516,7 @@ class CoronaTestService {
 		client.getRegistrationToken(
 			forKey: key,
 			withType: type,
-			birthdateHash: dateOfBirthKey,
+			dateOfBirthKey: dateOfBirthKey,
 			isFake: false
 		) { result in
 			switch result {

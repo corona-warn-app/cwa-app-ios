@@ -45,7 +45,7 @@ final class HTTPClient: Client {
 	func getRegistrationToken(
 		forKey key: String,
 		withType type: String,
-		birthdateHash date: String? = nil,
+		dateOfBirthKey: String? = nil,
 		isFake: Bool = false,
 		completion completeWith: @escaping RegistrationHandler
 	) {
