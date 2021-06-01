@@ -7,7 +7,7 @@ import XCTest
 
 class ExposureSubmissionTestCertificateViewModelTests: XCTestCase {
 
-	func testGIVEN_PCRTest_WHEN_getDynamicTableViewModel_THEN_NumberOfCellsShoudMatch() {
+	func testGIVEN_PCRTest_WHEN_getDynamicTableViewModel_THEN_NumberOfCellsShouldMatch() {
 		// GIVEN
 		let viewModel = ExposureSubmissionTestCertificateViewModel(
 			testType: .pcr,
@@ -25,7 +25,7 @@ class ExposureSubmissionTestCertificateViewModelTests: XCTestCase {
 		XCTAssertFalse(viewModel.isPrimaryButtonEnabled)
 	}
 
-	func testGIVEN_AntigenTest_WHEN_getDynamicTableViewModel_THEN_NumberOfCellsShoudMatch() {
+	func testGIVEN_AntigenTest_WHEN_getDynamicTableViewModel_THEN_NumberOfCellsShouldMatch() {
 		// GIVEN
 		let viewModel = ExposureSubmissionTestCertificateViewModel(
 			testType: .antigen,
@@ -44,7 +44,7 @@ class ExposureSubmissionTestCertificateViewModelTests: XCTestCase {
 	}
 
 
-	func testGIVEN_PCRTest_WHEN_getBirthdayDatePickerCell_THEN_NumberOfCellsShoudMatch() throws {
+	func testGIVEN_PCRTest_WHEN_getBirthdayDatePickerCell_THEN_NumberOfCellsShouldMatch() throws {
 		// GIVEN
 		let indexPath = IndexPath(row: 1, section: 0)
 		let viewModel = ExposureSubmissionTestCertificateViewModel(
