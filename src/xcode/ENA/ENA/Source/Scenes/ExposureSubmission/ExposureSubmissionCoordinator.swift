@@ -832,7 +832,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	// MARK: TestCertificateInfo
 
 	private func showTestCertificateInfo() {
-		let testCertificateViewController = ExposureSubmissionTestCertificateInfoViewController(
+		let testCertificateViewController = ExposureSubmissionTestCertificateViewController(
 			ExposureSubmissionTestCertificateViewModel(
 				testType: .pcr,
 				presentDisclaimer: { [weak self] in

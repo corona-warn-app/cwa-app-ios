@@ -974,7 +974,7 @@
 		BA6D163A255AD35900ED3492 /* DMSwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6D1638255AD35900ED3492 /* DMSwitchTableViewCell.swift */; };
 		BA6D163B255AD35900ED3492 /* DMSwitchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA6D1639255AD35900ED3492 /* DMSwitchTableViewCell.xib */; };
 		BA6D1640255ADD0500ED3492 /* DMSwitchCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6D163F255ADD0400ED3492 /* DMSwitchCellViewModel.swift */; };
-		BA6F0071265FD2CF0020721B /* ExposureSubmissionTestCertificateInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6F0070265FD2CF0020721B /* ExposureSubmissionTestCertificateInfoViewController.swift */; };
+		BA6F0071265FD2CF0020721B /* ExposureSubmissionTestCertificateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6F0070265FD2CF0020721B /* ExposureSubmissionTestCertificateViewController.swift */; };
 		BA6F0073265FD31B0020721B /* ExposureSubmissionTestCertificateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6F0072265FD31B0020721B /* ExposureSubmissionTestCertificateViewModel.swift */; };
 		BA75BF53263607C1001B1FC0 /* UIImage+QRCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA75BF52263607C1001B1FC0 /* UIImage+QRCode.swift */; };
 		BA75BF5B26360950001B1FC0 /* QRCodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA75BF5A26360950001B1FC0 /* QRCodeCell.swift */; };
@@ -2190,7 +2190,7 @@
 		BA6D1638255AD35900ED3492 /* DMSwitchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMSwitchTableViewCell.swift; sourceTree = "<group>"; };
 		BA6D1639255AD35900ED3492 /* DMSwitchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DMSwitchTableViewCell.xib; sourceTree = "<group>"; };
 		BA6D163F255ADD0400ED3492 /* DMSwitchCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMSwitchCellViewModel.swift; sourceTree = "<group>"; };
-		BA6F0070265FD2CF0020721B /* ExposureSubmissionTestCertificateInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionTestCertificateInfoViewController.swift; sourceTree = "<group>"; };
+		BA6F0070265FD2CF0020721B /* ExposureSubmissionTestCertificateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionTestCertificateViewController.swift; sourceTree = "<group>"; };
 		BA6F0072265FD31B0020721B /* ExposureSubmissionTestCertificateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionTestCertificateViewModel.swift; sourceTree = "<group>"; };
 		BA75BF52263607C1001B1FC0 /* UIImage+QRCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+QRCode.swift"; sourceTree = "<group>"; };
 		BA75BF5A26360950001B1FC0 /* QRCodeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeCell.swift; sourceTree = "<group>"; };
@@ -6272,7 +6272,7 @@
 			isa = PBXGroup;
 			children = (
 				BADA5B4F2665749F00D76C1C /* Cell */,
-				BA6F0070265FD2CF0020721B /* ExposureSubmissionTestCertificateInfoViewController.swift */,
+				BA6F0070265FD2CF0020721B /* ExposureSubmissionTestCertificateViewController.swift */,
 				BA6F0072265FD31B0020721B /* ExposureSubmissionTestCertificateViewModel.swift */,
 			);
 			path = TestCertificate;
@@ -7561,7 +7561,7 @@
 				2F3218D0248063E300A7AC0A /* UIView+Convenience.swift in Sources */,
 				0138F54825ECD44300A9B075 /* app_features.pb.swift in Sources */,
 				ABF0F60C260B8A8000E50B0F /* CheckinRiskCalculationResult.swift in Sources */,
-				BA6F0071265FD2CF0020721B /* ExposureSubmissionTestCertificateInfoViewController.swift in Sources */,
+				BA6F0071265FD2CF0020721B /* ExposureSubmissionTestCertificateViewController.swift in Sources */,
 				B1741B4C2462C21F006275D9 /* DMDeveloperMenu.swift in Sources */,
 				BAD9630025668F8E00FAB615 /* TestResultAvailableViewModel.swift in Sources */,
 				EB91288A257FBD1E00241D3E /* DiaryInfoViewModel.swift in Sources */,

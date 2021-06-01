@@ -28,7 +28,7 @@ class BirthdayDatePickerCell: UITableViewCell, ReuseIdentifierProviding, UITextF
 
 	// MARK: - Internal
 
-	@OpenCombine.Published private(set) var dateOfBirth: String?
+	@OpenCombine.Published var dateOfBirth: Date?
 
 	func configure(
 		placeHolder: String,
@@ -41,6 +41,7 @@ class BirthdayDatePickerCell: UITableViewCell, ReuseIdentifierProviding, UITextF
 	// MARK: - Private
 
 	private let textField = ENATextField()
+	private var subscriptions = Set<AnyCancellable>()
 
 	private func setupView() {
 		selectionStyle = .none
@@ -69,12 +70,22 @@ class BirthdayDatePickerCell: UITableViewCell, ReuseIdentifierProviding, UITextF
 
 		textField.clearButtonMode = .whileEditing
 		textField.delegate = self
+
+		$dateOfBirth
+			.dropFirst()
+			.sink { [weak self] dateOfBirth in
+				guard let date = dateOfBirth else {
+					self?.textField.text = nil
+					return
+				}
+				self?.textField.text = DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .none)
+			}
+			.store(in: &subscriptions)
 	}
 
 	@objc
 	private func datePickerValueChanged(_ datePicker: UIDatePicker) {
-		dateOfBirth = DateFormatter.justDate.string(from: datePicker.date)
-		textField.text = DateFormatter.localizedString(from: datePicker.date, dateStyle: .medium, timeStyle: .none)
+		dateOfBirth = datePicker.date
 	}
 }
 

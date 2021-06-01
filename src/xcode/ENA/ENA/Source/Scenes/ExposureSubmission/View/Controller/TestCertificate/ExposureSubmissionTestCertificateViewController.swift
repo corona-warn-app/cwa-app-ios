@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-class ExposureSubmissionTestCertificateInfoViewController: DynamicTableViewController, DismissHandling, FooterViewHandling {
+class ExposureSubmissionTestCertificateViewController: DynamicTableViewController, DismissHandling, FooterViewHandling {
 
 	// MARK: - Init
 
@@ -46,15 +46,16 @@ class ExposureSubmissionTestCertificateInfoViewController: DynamicTableViewContr
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
 		switch type {
 		case .primary:
-			didTapPrimaryButton(viewModel.testType, viewModel.dateOfBirth)
+			if let date = viewModel.dateOfBirth {
+				let dateOfBirthString = DateFormatter.justDate.string(from: date)
+				didTapPrimaryButton(viewModel.testType, dateOfBirthString)
+			} else {
+				didTapPrimaryButton(viewModel.testType, nil)
+			}
 		case .secondary:
 			didTapSecondaryButton()
 		}
 	}
-
-	// MARK: - Public
-
-	// MARK: - Internal
 
 	// MARK: - Private
 

@@ -18,16 +18,11 @@ class ExposureSubmissionTestCertificateViewModel {
 		self.isPrimaryButtonEnabled = testType == .antigen
 	}
 
-	// MARK: - Overrides
-
-	// MARK: - Protocol <#Name#>
-
-	// MARK: - Public
-
 	// MARK: - Internal
 
 	let testType: CoronaTestType
-	private(set) var dateOfBirth: String? {
+
+	private(set) var dateOfBirth: Date? {
 		didSet {
 			isPrimaryButtonEnabled = dateOfBirth != nil
 		}
@@ -66,11 +61,12 @@ class ExposureSubmissionTestCertificateViewModel {
 								  let self = self else {
 								return
 							}
+							self.subscriptions.forEach { $0.cancel() }
 							birthdayDateInputCell.$dateOfBirth
-								.sink { newValue in
-									self.dateOfBirth = newValue
-								}
+								.dropFirst()
+								.assign(to: \.dateOfBirth, on: self)
 								.store(in: &self.subscriptions)
+							birthdayDateInputCell.dateOfBirth = self.dateOfBirth
 						}
 					),
 					testType == .antigen ? nil : .body(
