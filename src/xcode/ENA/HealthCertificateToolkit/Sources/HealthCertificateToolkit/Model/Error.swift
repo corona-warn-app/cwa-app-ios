@@ -32,4 +32,5 @@ public enum CertificateDecodingError: Error {
     case HC_CBORWEBTOKEN_NO_DIGITALGREENCERTIFICATE
     case HC_JSON_SCHEMA_INVALID(JSONSchemaValidationError)
     case HC_PREFIX_INVALID
+    case AES_DECRYPTION_FAILED
 }

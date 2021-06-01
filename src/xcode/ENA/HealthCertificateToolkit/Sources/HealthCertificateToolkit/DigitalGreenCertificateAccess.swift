@@ -48,7 +48,7 @@ public struct DigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtoc
         }
     }
 
-    public func extractDigitalGreenCertificate(from base64: Base64, with dataEncryptionKey: Data) -> Result<DigitalGreenCertificate, CertificateDecodingError> {
+    public func convertToBase45(from base64: Base64, with dataEncryptionKey: Data) -> Result<Base45, CertificateDecodingError> {
         let cborDataResult = extractCBOR(fromBase64: base64)
 
         switch cborDataResult {
@@ -80,7 +80,24 @@ public struct DigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtoc
                     initializationVector: AESEncryptionConstants.initializationVector
                 )
 
-                let decryptedData = aesEncryption.decrypt(data: Data(bytes))
+                let decryptedResult = aesEncryption.decrypt(data: Data(bytes))
+
+                guard case let .success(decryptedPayload) = decryptedResult else {
+                    return .failure(.AES_DECRYPTION_FAILED)
+                }
+
+                let cborWebToken = CBOR.array([
+                    protectedHeader,
+                    unprotectedHeader,
+                    CBOR.byteString([UInt8](decryptedPayload)),
+                    signature
+                ])
+
+                let cborWebTokenData = Data(cborWebToken.encode())
+                let compressedCBORWebToken = cborWebTokenData.compressZLib()
+                let base45CBORWebToken = compressedCBORWebToken.toBase45()
+
+                return .success(base45CBORWebToken)
 
             case let .failure(error):
                 return .failure(error)
@@ -89,8 +106,6 @@ public struct DigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtoc
         case let .failure(error):
             return .failure(error)
         }
-
-        return .failure(.HC_CBORWEBTOKEN_NO_DIGITALGREENCERTIFICATE)
     }
 
     // MARK: - Internal
