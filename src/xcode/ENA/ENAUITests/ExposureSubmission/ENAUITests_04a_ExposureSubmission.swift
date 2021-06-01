@@ -276,7 +276,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 
 		// TAN tests are ALWAYS positive!
 		
-		app.buttons[AccessibilityIdentifiers.ExposureSubmissionTestResultAvailable.primaryButton].waitAndTap()
+		app.buttons[AccessibilityIdentifiers.ExposureSubmission.secondaryButton].waitAndTap()
 		
 		acceptInformationSharingIfNecessary()
 		
@@ -284,7 +284,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		app.buttons[AccessibilityIdentifiers.ExposureSubmission.secondaryButton].waitAndTap()
 
 		// don't warn
-		app.alerts.firstMatch.buttons.element(boundBy: 0).waitAndTap()
+		app.alerts.firstMatch.buttons.element(boundBy: 1).waitAndTap()
 
 		// Back to homescreen
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].waitForExistence(timeout: .long))
@@ -321,10 +321,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton].waitAndTap()
 		
 		// TAN tests are ALWAYS positive!
-
-		app.buttons[AccessibilityIdentifiers.ExposureSubmissionTestResultAvailable.primaryButton].waitAndTap()
-		
-		acceptInformationSharingIfNecessary()
+		app.buttons[AccessibilityIdentifiers.ExposureSubmission.secondaryButton].waitAndTap()
 		
 		// Click secondary button to skip symptoms screen.
 		app.buttons[AccessibilityIdentifiers.ExposureSubmission.secondaryButton].waitAndTap()
@@ -463,11 +460,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton].waitAndTap()
 		
 		// TAN tests are ALWAYS positive!
-		
-		app.buttons[AccessibilityIdentifiers.ExposureSubmissionTestResultAvailable.primaryButton].waitAndTap()
 		snapshot("tan_submissionflow_tan_\(String(format: "%04d", (screenshotCounter.inc())))")
-		
-		acceptInformationSharingIfNecessary()
 		
 		// Click secondary button to skip symptoms.
 		app.buttons[AccessibilityIdentifiers.ExposureSubmission.secondaryButton].waitAndTap()
@@ -545,11 +538,6 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton].waitAndTap()
 
 		// TAN tests are ALWAYS positive!
-		
-		app.buttons[AccessibilityIdentifiers.ExposureSubmissionTestResultAvailable.primaryButton].waitAndTap()
-		
-		acceptInformationSharingIfNecessary()
-
 		// Click secondary button to skip symptoms screen.
 		app.buttons[AccessibilityIdentifiers.ExposureSubmission.secondaryButton].waitAndTap()
 
