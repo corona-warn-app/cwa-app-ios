@@ -46,7 +46,7 @@ class ExposureSubmissionTestCertificateInfoViewController: DynamicTableViewContr
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
 		switch type {
 		case .primary:
-			didTapPrimaryButton(viewModel.testType, viewModel.birthDayDate)
+			didTapPrimaryButton(viewModel.testType, viewModel.dateOfBirth)
 		case .secondary:
 			didTapSecondaryButton()
 		}

@@ -27,9 +27,9 @@ class ExposureSubmissionTestCertificateViewModel {
 	// MARK: - Internal
 
 	let testType: CoronaTestType
-	private(set) var birthDayDate: String? {
+	private(set) var dateOfBirth: String? {
 		didSet {
-			isPrimaryButtonEnabled = birthDayDate != nil
+			isPrimaryButtonEnabled = dateOfBirth != nil
 		}
 	}
 
@@ -66,9 +66,9 @@ class ExposureSubmissionTestCertificateViewModel {
 								  let self = self else {
 								return
 							}
-							birthdayDateInputCell.$birthdayDate
+							birthdayDateInputCell.$dateOfBirth
 								.sink { newValue in
-									self.birthDayDate = newValue
+									self.dateOfBirth = newValue
 								}
 								.store(in: &self.subscriptions)
 						}

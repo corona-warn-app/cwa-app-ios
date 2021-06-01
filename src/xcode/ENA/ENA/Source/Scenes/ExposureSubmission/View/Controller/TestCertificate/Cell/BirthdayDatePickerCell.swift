@@ -24,15 +24,13 @@ class BirthdayDatePickerCell: UITableViewCell, ReuseIdentifierProviding, UITextF
 	// MARK: - Protocol UITextFieldDelegate
 
 	func textFieldShouldClear(_ textField: UITextField) -> Bool {
-		birthdayDate = nil
+		dateOfBirth = nil
 		return true
 	}
 
-	// MARK: - Public
-
 	// MARK: - Internal
 
-	@OpenCombine.Published private(set) var birthdayDate: String?
+	@OpenCombine.Published private(set) var dateOfBirth: String?
 
 	func configure(
 		placeHolder: String,
@@ -77,7 +75,7 @@ class BirthdayDatePickerCell: UITableViewCell, ReuseIdentifierProviding, UITextF
 
 	@objc
 	private func datePickerValueChanged(_ datePicker: UIDatePicker) {
-		birthdayDate = DateFormatter.justDate.string(from: datePicker.date)
+		dateOfBirth = DateFormatter.justDate.string(from: datePicker.date)
 		textField.text = DateFormatter.localizedString(from: datePicker.date, dateStyle: .medium, timeStyle: .none)
 	}
 }
