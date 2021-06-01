@@ -94,7 +94,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		let tanInputViewModel = TanInputViewModel(
 			coronaTestService: model.coronaTestService,
 			onSuccess: { [weak self] testRegistrationInformation, isLoading in
-				self?.handleCoronaTestRegistrationInformation(testRegistrationInformation, isLoading: isLoading)
+				self?.handleCoronaTestRegistrationInformation(testRegistrationInformation,isConsentGiven: false, isLoading: isLoading)
 			}
 		)
 
@@ -514,14 +514,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 	}
 	
-	private func handleCoronaTestRegistrationInformation(_ testRegistrationInformation: CoronaTestRegistrationInformation, isLoading: @escaping (Bool) -> Void) {
-		var isConsentGiven: Bool
-		switch testRegistrationInformation {
-		case .teleTAN:
-			isConsentGiven = false
-		case .pcr, .antigen:
-			isConsentGiven = true
-		}
+	private func handleCoronaTestRegistrationInformation(_ testRegistrationInformation: CoronaTestRegistrationInformation, isConsentGiven: Bool = true, isLoading: @escaping (Bool) -> Void) {
 		if let oldTest = self.model.coronaTestService.coronaTest(ofType: testRegistrationInformation.testType),
 		   oldTest.testResult != .expired,
 		   !(oldTest.type == .antigen && self.model.coronaTestService.antigenTestIsOutdated) {
