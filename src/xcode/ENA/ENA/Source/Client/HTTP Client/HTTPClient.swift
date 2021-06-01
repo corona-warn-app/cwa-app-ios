@@ -51,8 +51,8 @@ final class HTTPClient: Client {
 				type: type,
 				headerValue: isFake ? 1 : 0
 			) else {
-				completeWith(.failure(.invalidResponse))
-				return
+			completeWith(.failure(.invalidResponse))
+			return
 		}
 
 		session.response(for: registrationTokenRequest, isFake: isFake) { result in
@@ -105,8 +105,8 @@ final class HTTPClient: Client {
 				registrationToken: registrationToken,
 				headerValue: isFake ? 1 : 0
 			) else {
-				completeWith(.failure(.invalidResponse))
-				return
+			completeWith(.failure(.invalidResponse))
+			return
 		}
 		Log.debug("Requesting TestResult", log: .api)
 		session.response(for: testResultRequest, isFake: isFake) { result in
@@ -153,8 +153,8 @@ final class HTTPClient: Client {
 				registrationToken: registrationToken,
 				headerValue: isFake ? 1 : 0
 			) else {
-				completeWith(.failure(.invalidResponse))
-				return
+			completeWith(.failure(.invalidResponse))
+			return
 		}
 
 		session.response(for: tanForExposureSubmitRequest, isFake: isFake) { result in
@@ -420,6 +420,52 @@ final class HTTPClient: Client {
 		traceWarningPackageDownload(country: country, packageId: packageId, url: url, completion: completion)
 	}
 
+	func registerPublicKey(
+		isFake: Bool = false,
+		token: String,
+		publicKey: Data,
+		completion: @escaping TestResultRegistrationCompletionHandler
+	) {
+
+		guard let request = try? URLRequest.dccPublicKeyRequest(
+			configuration: configuration,
+			token: token,
+			publicKey: publicKey,
+			headerValue: isFake ? 1 : 0
+		) else {
+			Log.error("Failed to create request")
+			completion(.failure(.urlCreationFailed))
+			return
+		}
+		session.response(for: request) { [weak self] result in
+			self?.queue.async {
+				switch result {
+				case let .success(response):
+					switch response.statusCode {
+					case 201:
+						completion(.success(()))
+					case 400:
+						completion(.failure(.badRequest))
+					case 403:
+						completion(.failure(.tokenNotAllowed))
+					case 404:
+						completion(.failure(.tokenDoesNotExist))
+					case 409:
+						completion(.failure(.tokenAlreadyAssigned))
+					case 500:
+						completion(.failure(.internalServerError))
+					default:
+						Log.error("Error in response with status code: \(String(response.statusCode))", log: .api)
+						completion(.failure(.unhandledResponse(response.statusCode)))
+					}
+				case let .failure(error):
+					Log.error("Error in response body", log: .api, error: error)
+					completion(.failure(.defaultServerError(error)))
+				}
+			}
+		}
+	}
+
 	func submit(
 		errorLogFile: Data,
 		otpEls: String,
@@ -487,7 +533,7 @@ final class HTTPClient: Client {
 		from url: URL,
 		completion completeWith: @escaping DayCompletionHandler) {
 		var responseError: Failure?
- 
+
 		session.GET(url) { [weak self] result in
 			self?.queue.async {
 				guard let self = self else {
@@ -557,7 +603,7 @@ final class HTTPClient: Client {
 							.decode(
 								[String].self,
 								from: data
-						)
+							)
 						completeWith(.success(days))
 					} catch {
 						completeWith(.failure(.invalidResponse))
@@ -1076,7 +1122,47 @@ private extension URLRequest {
 		return request
 	}
 
-	
+	static func dccPublicKeyRequest(
+		configuration: HTTPClient.Configuration,
+		token: String,
+		publicKey: Data,
+		headerValue: Int
+	) throws -> URLRequest {
+
+		var request = URLRequest(url: configuration.DGCPublicKeyURL)
+
+		request.setValue(
+			"\(headerValue)",
+			// Requests with a value of "0" will be fully processed.
+			// Any other value indicates that this request shall be
+			// handled as a fake request." ,
+			forHTTPHeaderField: "cwa-fake"
+		)
+
+		// Add header padding.
+		request.setValue(
+			String.getRandomString(of: 14),
+			forHTTPHeaderField: "cwa-header-padding"
+		)
+
+		request.setValue(
+			"application/json",
+			forHTTPHeaderField: "Content-Type"
+		)
+
+		request.httpMethod = HttpMethod.post
+
+		// Add body padding to request.
+		let originalBody = [
+			"registrationToken": token,
+			"publicKey": publicKey.base64EncodedString()
+		]
+		let paddedData = try getPaddedRequestBody(for: originalBody)
+		request.httpBody = paddedData
+
+		return request
+	}
+
 	static func traceWarningPackageDiscovery(
 		configuration: HTTPClient.Configuration,
 		country: String

@@ -23,6 +23,7 @@ protocol Client {
 	typealias PPAnalyticsSubmitionCompletionHandler = (Result<Void, PPASError>) -> Void
 	typealias TraceWarningPackageDiscoveryCompletionHandler = (Result<TraceWarningDiscovery, TraceWarningError>) -> Void
 	typealias TraceWarningPackageDownloadCompletionHandler = (Result<PackageDownloadResponse, TraceWarningError>) -> Void
+	typealias TestResultRegistrationCompletionHandler = (Result<Void, DGC.RegistrationError>) -> Void
 	
 	// MARK: Interacting with a Client
 
@@ -164,6 +165,16 @@ protocol Client {
 		packageId: Int,
 		completion: @escaping TraceWarningPackageDownloadCompletionHandler
 	)
+
+	// MARK: TestResultRegistration
+
+	func registerPublicKey(
+		isFake: Bool,
+		token: String,
+		publicKey: Data,
+		completion: @escaping TestResultRegistrationCompletionHandler
+	)
+
 }
 
 enum SubmissionError: Error {
