@@ -615,6 +615,7 @@
 		8F39D084263F63420096F4E2 /* els_otp.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F39D083263F63420096F4E2 /* els_otp.pb.swift */; };
 		8F39D094263F6F5D0096F4E2 /* VaccinationValueDataSets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F39D093263F6F5D0096F4E2 /* VaccinationValueDataSets.swift */; };
 		8F39D09D26401E3E0096F4E2 /* VaccinationValueSetsProvidingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F39D09C26401E3E0096F4E2 /* VaccinationValueSetsProvidingTests.swift */; };
+		8F3A0A722666490200D390E3 /* ENAUITests_04a_ExposureSubmission.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32842642491136E006B1F09 /* ENAUITests_04a_ExposureSubmission.swift */; };
 		8F3D71AA25A86AD300D52CCD /* HomeExposureLoggingCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3D71A925A86AD300D52CCD /* HomeExposureLoggingCellModelTests.swift */; };
 		8F43A3CB25D55A3E008FD630 /* ppa_data.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F43A3C925D55A3D008FD630 /* ppa_data.pb.swift */; };
 		8F43A3CC25D55A3E008FD630 /* ppa_data_request_ios.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F43A3CA25D55A3E008FD630 /* ppa_data_request_ios.pb.swift */; };
@@ -8318,6 +8319,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BAEC99C7258B714300B98ECA /* ENAUITests_07_ContactJournalUITests.swift in Sources */,
+				8F3A0A722666490200D390E3 /* ENAUITests_04a_ExposureSubmission.swift in Sources */,
 				340421C7263DDCFC00155BC6 /* ENAUITests_04b_ExposureDetection.swift in Sources */,
 				94C24B3F25304B4400F8C004 /* ENAUITestsDeltaOnboarding.swift in Sources */,
 				34A407512655254E00F9307D /* LaunchArguments.swift in Sources */,
