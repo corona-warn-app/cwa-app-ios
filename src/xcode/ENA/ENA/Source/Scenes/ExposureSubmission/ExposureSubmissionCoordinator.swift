@@ -832,17 +832,11 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	// MARK: TestCertificateInfo
 
 	private func showTestCertificateInfo() {
-		let testCertificateInfoViewController = ExposureSubmissionTestCertificateInfoViewController(
+		let testCertificateViewController = ExposureSubmissionTestCertificateInfoViewController(
 			ExposureSubmissionTestCertificateViewModel(
 				testType: .pcr,
 				presentDisclaimer: { [weak self] in
-					let detailViewController = HTMLViewController(model: AppInformationModel.privacyModel)
-					detailViewController.title = AppStrings.AppInformation.privacyTitle
-					detailViewController.isDismissable = false
-					if #available(iOS 13.0, *) {
-						detailViewController.isModalInPresentation = true
-					}
-					self?.push(detailViewController)
+					self?.showDataPrivacy()
 				}
 			),
 			showCancelAlert: { [weak self] in
@@ -878,10 +872,20 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 		let footerViewController = FooterViewController(footerViewModel)
 		let topBottomContainerViewController = TopBottomContainerViewController(
-			topController: testCertificateInfoViewController,
+			topController: testCertificateViewController,
 			bottomController: footerViewController
 		)
 		push(topBottomContainerViewController)
+	}
+
+	private func showDataPrivacy() {
+		let detailViewController = HTMLViewController(model: AppInformationModel.privacyModel)
+		detailViewController.title = AppStrings.AppInformation.privacyTitle
+		detailViewController.isDismissable = false
+		if #available(iOS 13.0, *) {
+			detailViewController.isModalInPresentation = true
+		}
+		self.push(detailViewController)
 	}
 
 	private func showEndRegistrationAlert(submitAction: UIAlertAction) {

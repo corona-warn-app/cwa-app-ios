@@ -75,15 +75,9 @@ class BirthdayDatePickerCell: UITableViewCell, ReuseIdentifierProviding, UITextF
 		textField.delegate = self
 	}
 
-	private lazy var stringDateFormatter: DateFormatter = {
-		let dateFormatter = DateFormatter()
-		dateFormatter.dateFormat = "YYYY-MM-dd"
-		return dateFormatter
-	}()
-
 	@objc
 	private func datePickerValueChanged(_ datePicker: UIDatePicker) {
-		birthdayDate = stringDateFormatter.string(from: datePicker.date)
+		birthdayDate = DateFormatter.justDate.string(from: datePicker.date)
 		textField.text = DateFormatter.localizedString(from: datePicker.date, dateStyle: .medium, timeStyle: .none)
 	}
 }
