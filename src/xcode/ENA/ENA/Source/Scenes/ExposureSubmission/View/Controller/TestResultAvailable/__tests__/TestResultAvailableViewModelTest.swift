@@ -22,6 +22,7 @@ class TestResultAvailableViewModelTest: CWATestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: store,
+				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
@@ -55,6 +56,7 @@ class TestResultAvailableViewModelTest: CWATestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: store,
+				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
@@ -97,6 +99,7 @@ class TestResultAvailableViewModelTest: CWATestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: store,
+				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),

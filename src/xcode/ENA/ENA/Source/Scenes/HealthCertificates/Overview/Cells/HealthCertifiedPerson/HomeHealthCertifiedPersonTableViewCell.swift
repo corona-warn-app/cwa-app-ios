@@ -12,11 +12,10 @@ class HomeHealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierPr
 	override func awakeFromNib() {
 		super.awakeFromNib()
 
-		captionLabel.text = AppStrings.HealthCertificate.Overview.Person.caption
-		titleLabel.text = AppStrings.HealthCertificate.Overview.Person.title
+		titleLabel.text = AppStrings.HealthCertificate.Overview.VaccinationCertificate.title
 		backgroundGradientView.type = .solidGrey
 		backgroundGradientView.layer.cornerRadius = 14
-		accessibilityIdentifier = AccessibilityIdentifiers.Home.healthCertificateButton
+		accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Overview.vaccinationCertificateCell
 
 		if #available(iOS 13.0, *) {
 			backgroundGradientView.layer.cornerCurve = .continuous
@@ -36,25 +35,27 @@ class HomeHealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierPr
 		vaccinationStateLabel.text = cellModel.vaccinationStateDescription
 		vaccinationStateLabel.isHidden = cellModel.vaccinationStateDescription == nil
 
+		nameLabel.text = cellModel.name
 		iconView.image = cellModel.iconImage
+		backgroundImageView.image = cellModel.backgroundImage
 		backgroundGradientView.type = cellModel.backgroundGradientType
 	}
 	
 	// MARK: - Private
 
-	@IBOutlet private weak var captionLabel: ENALabel!
 	@IBOutlet private weak var titleLabel: ENALabel!
 	@IBOutlet private weak var vaccinationStateLabel: ENALabel!
+	@IBOutlet private weak var nameLabel: ENALabel!
 
+	@IBOutlet private weak var backgroundImageView: UIImageView!
 	@IBOutlet private weak var iconView: UIImageView!
 
-	@IBOutlet private weak var containerView: HomeCardView!
+	@IBOutlet private weak var containerView: CardView!
 	@IBOutlet private weak var backgroundGradientView: GradientView!
 
 	private func setupAccessibility() {
-		containerView.accessibilityElements = [captionLabel as Any, titleLabel as Any, vaccinationStateLabel as Any]
+		containerView.accessibilityElements = [titleLabel as Any, nameLabel as Any, vaccinationStateLabel as Any]
 
-		captionLabel.accessibilityTraits = [.header, .button]
-
+		titleLabel.accessibilityTraits = [.header, .button]
 	}
 }
