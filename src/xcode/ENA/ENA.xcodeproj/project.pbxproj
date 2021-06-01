@@ -130,6 +130,9 @@
 		01909888257E7B900065D050 /* ExposureSubmissionQRInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01909886257E7B900065D050 /* ExposureSubmissionQRInfoViewController.swift */; };
 		01909889257E7B900065D050 /* ExposureSubmissionQRInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01909887257E7B900065D050 /* ExposureSubmissionQRInfoViewModel.swift */; };
 		0190B225255C423600CF4244 /* Date+Age.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0190B224255C423600CF4244 /* Date+Age.swift */; };
+		01960F2D26643295000D714E /* HomeHealthCertificateRegistrationCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01960F2B26643294000D714E /* HomeHealthCertificateRegistrationCellModel.swift */; };
+		01960F2E26643295000D714E /* HomeHealthCertificateRegistrationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01960F2C26643295000D714E /* HomeHealthCertificateRegistrationTableViewCell.swift */; };
+		01960F2F266435EE000D714E /* HomeHealthCertificateRegistrationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01960F2A26643294000D714E /* HomeHealthCertificateRegistrationTableViewCell.xib */; };
 		019BFC6C24C9901A0053973D /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 0DFCC2702484DC8400E2811D /* sqlite3.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		019C9F0025894BAA00B26392 /* DiaryStoringProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019C9EFF25894BAA00B26392 /* DiaryStoringProviding.swift */; };
 		019C9F1E25894CDD00B26392 /* DiaryOverviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019C9F1D25894CDD00B26392 /* DiaryOverviewViewModel.swift */; };
@@ -220,6 +223,7 @@
 		01CBB824265E74FF0094CF8B /* HealthCertificateOverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CBB821265E730F0094CF8B /* HealthCertificateOverviewViewController.swift */; };
 		01CBB828265FBF0D0094CF8B /* HealthCertificateOverviewDescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CBB826265FBE790094CF8B /* HealthCertificateOverviewDescriptionTableViewCell.swift */; };
 		01CBB829265FBF0D0094CF8B /* HealthCertificateOverviewDescriptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01CBB827265FBE7A0094CF8B /* HealthCertificateOverviewDescriptionTableViewCell.xib */; };
+		01CBB82C2660F3690094CF8B /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CBB82B2660F3690094CF8B /* CardView.swift */; };
 		01CBD880261B3C6800158B3E /* MockTestStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15382E3248273DC0010F007 /* MockTestStore.swift */; };
 		01CBD884261B3CF700158B3E /* ClientMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD678F6C246C43EE00B6A0F8 /* ClientMock.swift */; };
 		01CBD890261B402500158B3E /* PCRTest+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CBD88F261B3FBC00158B3E /* PCRTest+Mock.swift */; };
@@ -456,8 +460,7 @@
 		504E8AD125D2CE0600CAFBDF /* PPAnalyticsSubmitterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E8AC925D2CDFA00CAFBDF /* PPAnalyticsSubmitterTests.swift */; };
 		504E8B0C25D400D000CAFBDF /* DMPPAnalyticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E8B0B25D400D000CAFBDF /* DMPPAnalyticsViewController.swift */; };
 		504E8B1425D400DF00CAFBDF /* DMPPAnalyticsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E8B1325D400DF00CAFBDF /* DMPPAnalyticsViewModel.swift */; };
-		504E8B2C25D41CBD00CAFBDF /* DMPPAnalyticsMostRecent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E8B2B25D41CBD00CAFBDF /* DMPPAnalyticsMostRecent.swift */; };
-		504E8B3125D41CD400CAFBDF /* DMPPAnalyticsActualData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E8B3025D41CD400CAFBDF /* DMPPAnalyticsActualData.swift */; };
+		504E8B2C25D41CBD00CAFBDF /* DMPPAMostRecentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E8B2B25D41CBD00CAFBDF /* DMPPAMostRecentData.swift */; };
 		5051CBB6260BCF6D003FC7C1 /* Int+DateFromUnixTimestampInHours.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5051CBAE260BCE70003FC7C1 /* Int+DateFromUnixTimestampInHours.swift */; };
 		505936942625BF7000D40216 /* ExposureSubmissionSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505936932625BF7000D40216 /* ExposureSubmissionSuccessViewController.swift */; };
 		505F2E522587738900697CC2 /* AccessibilityLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505F2E512587738900697CC2 /* AccessibilityLabels.swift */; };
@@ -531,6 +534,8 @@
 		50FA07882609ECB3003C1E46 /* TraceWarningPackageDownloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FA07832609EC80003C1E46 /* TraceWarningPackageDownloadTests.swift */; };
 		50FE680B2615C9BF00A2B2E7 /* DMRecentCreatedEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FE680A2615C9BF00A2B2E7 /* DMRecentCreatedEventViewController.swift */; };
 		50FE68132615C9C800A2B2E7 /* DMRecentCreatedEventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FE68122615C9C800A2B2E7 /* DMRecentCreatedEventViewModel.swift */; };
+		50FEB18A26580B1B005C3322 /* DMPPAActualDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506AB74A265800C7004AE743 /* DMPPAActualDataViewController.swift */; };
+		50FEB18B26580B1E005C3322 /* DMPPAActualDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506AB74B265800C7004AE743 /* DMPPAActualDataViewModel.swift */; };
 		514E81342461B97800636861 /* ExposureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514E81332461B97700636861 /* ExposureManager.swift */; };
 		514EE999246D4C2E00DE4884 /* UITableViewCell+Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514EE998246D4C2E00DE4884 /* UITableViewCell+Identifier.swift */; };
 		51895EDC245E16CD0085DA38 /* ENAColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51895EDB245E16CD0085DA38 /* ENAColor.swift */; };
@@ -610,6 +615,7 @@
 		8F39D084263F63420096F4E2 /* els_otp.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F39D083263F63420096F4E2 /* els_otp.pb.swift */; };
 		8F39D094263F6F5D0096F4E2 /* VaccinationValueDataSets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F39D093263F6F5D0096F4E2 /* VaccinationValueDataSets.swift */; };
 		8F39D09D26401E3E0096F4E2 /* VaccinationValueSetsProvidingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F39D09C26401E3E0096F4E2 /* VaccinationValueSetsProvidingTests.swift */; };
+		8F3A0A722666490200D390E3 /* ENAUITests_04a_ExposureSubmission.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32842642491136E006B1F09 /* ENAUITests_04a_ExposureSubmission.swift */; };
 		8F3D71AA25A86AD300D52CCD /* HomeExposureLoggingCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3D71A925A86AD300D52CCD /* HomeExposureLoggingCellModelTests.swift */; };
 		8F43A3CB25D55A3E008FD630 /* ppa_data.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F43A3C925D55A3D008FD630 /* ppa_data.pb.swift */; };
 		8F43A3CC25D55A3E008FD630 /* ppa_data_request_ios.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F43A3CA25D55A3E008FD630 /* ppa_data_request_ios.pb.swift */; };
@@ -638,9 +644,9 @@
 		8FB5A61625DD65D500679990 /* TestResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA9E39224D2F2920030561C /* TestResult.swift */; };
 		8FDB9403261FBA3800BA8CB1 /* AntigenTestInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDB9402261FBA3800BA8CB1 /* AntigenTestInformation.swift */; };
 		8FDB940B261FBAAA00BA8CB1 /* CoronaTestRegistrationInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDB940A261FBAAA00BA8CB1 /* CoronaTestRegistrationInformation.swift */; };
-		8FE26666264A9DEF00C2B432 /* HomeHealthCertificateRegistrationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE26664264A9DEF00C2B432 /* HomeHealthCertificateRegistrationTableViewCell.swift */; };
-		8FE26667264A9DEF00C2B432 /* HomeHealthCertificateRegistrationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FE26665264A9DEF00C2B432 /* HomeHealthCertificateRegistrationTableViewCell.xib */; };
-		8FE2666F264A9E0300C2B432 /* HomeHealthCertificateRegistrationCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE2666E264A9E0300C2B432 /* HomeHealthCertificateRegistrationCellModel.swift */; };
+		8FE26666264A9DEF00C2B432 /* TestCertificateInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE26664264A9DEF00C2B432 /* TestCertificateInfoTableViewCell.swift */; };
+		8FE26667264A9DEF00C2B432 /* TestCertificateInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FE26665264A9DEF00C2B432 /* TestCertificateInfoTableViewCell.xib */; };
+		8FE2666F264A9E0300C2B432 /* TestCertificateInfoCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE2666E264A9E0300C2B432 /* TestCertificateInfoCellModel.swift */; };
 		8FE6CEFD2617482C006BFB82 /* CheckinQRCodeScannerViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE6CEFC2617482C006BFB82 /* CheckinQRCodeScannerViewModelTests.swift */; };
 		940109F225DFB5EF0017355C /* DiaryDayNotesInfoViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940109ED25DFB40E0017355C /* DiaryDayNotesInfoViewModelTest.swift */; };
 		94092541254BFE6800FE61A2 /* DMWarnOthersNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94092540254BFE6800FE61A2 /* DMWarnOthersNotificationViewController.swift */; };
@@ -1313,6 +1319,9 @@
 		01909886257E7B900065D050 /* ExposureSubmissionQRInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionQRInfoViewController.swift; sourceTree = "<group>"; };
 		01909887257E7B900065D050 /* ExposureSubmissionQRInfoViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionQRInfoViewModel.swift; sourceTree = "<group>"; };
 		0190B224255C423600CF4244 /* Date+Age.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Age.swift"; sourceTree = "<group>"; };
+		01960F2A26643294000D714E /* HomeHealthCertificateRegistrationTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeHealthCertificateRegistrationTableViewCell.xib; sourceTree = "<group>"; };
+		01960F2B26643294000D714E /* HomeHealthCertificateRegistrationCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHealthCertificateRegistrationCellModel.swift; sourceTree = "<group>"; };
+		01960F2C26643295000D714E /* HomeHealthCertificateRegistrationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHealthCertificateRegistrationTableViewCell.swift; sourceTree = "<group>"; };
 		019C9EFF25894BAA00B26392 /* DiaryStoringProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryStoringProviding.swift; sourceTree = "<group>"; };
 		019C9F0725894BE900B26392 /* MockDiaryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDiaryStore.swift; sourceTree = "<group>"; };
 		019C9F1D25894CDD00B26392 /* DiaryOverviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryOverviewViewModel.swift; sourceTree = "<group>"; };
@@ -1400,6 +1409,7 @@
 		01CBB822265E730F0094CF8B /* HealthCertificateOverviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateOverviewViewModel.swift; sourceTree = "<group>"; };
 		01CBB826265FBE790094CF8B /* HealthCertificateOverviewDescriptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateOverviewDescriptionTableViewCell.swift; sourceTree = "<group>"; };
 		01CBB827265FBE7A0094CF8B /* HealthCertificateOverviewDescriptionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HealthCertificateOverviewDescriptionTableViewCell.xib; sourceTree = "<group>"; };
+		01CBB82B2660F3690094CF8B /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		01CBD88F261B3FBC00158B3E /* PCRTest+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PCRTest+Mock.swift"; sourceTree = "<group>"; };
 		01CF95DC25308346007B72F7 /* CodableExposureDetectionSummary+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodableExposureDetectionSummary+Helpers.swift"; sourceTree = "<group>"; };
 		01D02625258A769200B6389A /* HTTPURLResponse+Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPURLResponse+Header.swift"; sourceTree = "<group>"; };
@@ -1636,8 +1646,7 @@
 		504E8AC925D2CDFA00CAFBDF /* PPAnalyticsSubmitterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPAnalyticsSubmitterTests.swift; sourceTree = "<group>"; };
 		504E8B0B25D400D000CAFBDF /* DMPPAnalyticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMPPAnalyticsViewController.swift; sourceTree = "<group>"; };
 		504E8B1325D400DF00CAFBDF /* DMPPAnalyticsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMPPAnalyticsViewModel.swift; sourceTree = "<group>"; };
-		504E8B2B25D41CBD00CAFBDF /* DMPPAnalyticsMostRecent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMPPAnalyticsMostRecent.swift; sourceTree = "<group>"; };
-		504E8B3025D41CD400CAFBDF /* DMPPAnalyticsActualData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMPPAnalyticsActualData.swift; sourceTree = "<group>"; };
+		504E8B2B25D41CBD00CAFBDF /* DMPPAMostRecentData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMPPAMostRecentData.swift; sourceTree = "<group>"; };
 		5051CBAE260BCE70003FC7C1 /* Int+DateFromUnixTimestampInHours.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+DateFromUnixTimestampInHours.swift"; sourceTree = "<group>"; };
 		505936932625BF7000D40216 /* ExposureSubmissionSuccessViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionSuccessViewController.swift; sourceTree = "<group>"; };
 		505936B42626C36B00D40216 /* ExposureSubmissionSuccessViewControllerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionSuccessViewControllerTest.swift; sourceTree = "<group>"; };
@@ -1652,6 +1661,8 @@
 		50680B9E26164442002EA256 /* DMDMMostRecentTraceLocationCheckedIntoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMDMMostRecentTraceLocationCheckedIntoViewModel.swift; sourceTree = "<group>"; };
 		506A2F1A25D2A06D00B7DDFB /* DataDonationDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDonationDetailsViewModel.swift; sourceTree = "<group>"; };
 		506A2F1F25D2A08900B7DDFB /* DataDonationDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDonationDetailsViewController.swift; sourceTree = "<group>"; };
+		506AB74A265800C7004AE743 /* DMPPAActualDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMPPAActualDataViewController.swift; sourceTree = "<group>"; };
+		506AB74B265800C7004AE743 /* DMPPAActualDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMPPAActualDataViewModel.swift; sourceTree = "<group>"; };
 		507685CA25E80E600039B7B6 /* TestDummyPPAnalyticsDataImplementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDummyPPAnalyticsDataImplementation.swift; sourceTree = "<group>"; };
 		507685D225E8EA040039B7B6 /* UserMetadataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMetadataTests.swift; sourceTree = "<group>"; };
 		5081EEF025FF739B004B8FDE /* CheckinsInfoScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinsInfoScreenViewModel.swift; sourceTree = "<group>"; };
@@ -1840,9 +1851,9 @@
 		8FA88FDF2616692000FD36DA /* TraceLocationDetailViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationDetailViewModelTests.swift; sourceTree = "<group>"; };
 		8FDB9402261FBA3800BA8CB1 /* AntigenTestInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntigenTestInformation.swift; sourceTree = "<group>"; };
 		8FDB940A261FBAAA00BA8CB1 /* CoronaTestRegistrationInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaTestRegistrationInformation.swift; sourceTree = "<group>"; };
-		8FE26664264A9DEF00C2B432 /* HomeHealthCertificateRegistrationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHealthCertificateRegistrationTableViewCell.swift; sourceTree = "<group>"; };
-		8FE26665264A9DEF00C2B432 /* HomeHealthCertificateRegistrationTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeHealthCertificateRegistrationTableViewCell.xib; sourceTree = "<group>"; };
-		8FE2666E264A9E0300C2B432 /* HomeHealthCertificateRegistrationCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHealthCertificateRegistrationCellModel.swift; sourceTree = "<group>"; };
+		8FE26664264A9DEF00C2B432 /* TestCertificateInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCertificateInfoTableViewCell.swift; sourceTree = "<group>"; };
+		8FE26665264A9DEF00C2B432 /* TestCertificateInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TestCertificateInfoTableViewCell.xib; sourceTree = "<group>"; };
+		8FE2666E264A9E0300C2B432 /* TestCertificateInfoCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCertificateInfoCellModel.swift; sourceTree = "<group>"; };
 		8FE6CEFC2617482C006BFB82 /* CheckinQRCodeScannerViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinQRCodeScannerViewModelTests.swift; sourceTree = "<group>"; };
 		8FF9B2B1259B6B030080770D /* ContactDiaryStoreSchemaV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryStoreSchemaV2.swift; sourceTree = "<group>"; };
 		940109ED25DFB40E0017355C /* DiaryDayNotesInfoViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayNotesInfoViewModelTest.swift; sourceTree = "<group>"; };
@@ -2801,6 +2812,17 @@
 			path = EditEntries;
 			sourceTree = "<group>";
 		};
+		01960F2926643294000D714E /* HealthCertificateRegistration */ = {
+			isa = PBXGroup;
+			children = (
+				01960F2C26643295000D714E /* HomeHealthCertificateRegistrationTableViewCell.swift */,
+				01960F2A26643294000D714E /* HomeHealthCertificateRegistrationTableViewCell.xib */,
+				01960F2B26643294000D714E /* HomeHealthCertificateRegistrationCellModel.swift */,
+			);
+			name = HealthCertificateRegistration;
+			path = ../HealthCertificateRegistration;
+			sourceTree = "<group>";
+		};
 		019C9F2225894D2A00B26392 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -3055,7 +3077,8 @@
 			children = (
 				01CBB82A265FC4690094CF8B /* Description */,
 				8FE2667C264AA70300C2B432 /* HealthCertifiedPerson */,
-				8FE26663264A9DC900C2B432 /* HealthCertificateRegistration */,
+				01960F2926643294000D714E /* HealthCertificateRegistration */,
+				8FE26663264A9DC900C2B432 /* TestCertificateInfo */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -3808,6 +3831,15 @@
 			path = DMMostRecentTraceLocationCheckedInto;
 			sourceTree = "<group>";
 		};
+		506AB7492658007A004AE743 /* DMPPAActualData */ = {
+			isa = PBXGroup;
+			children = (
+				506AB74A265800C7004AE743 /* DMPPAActualDataViewController.swift */,
+				506AB74B265800C7004AE743 /* DMPPAActualDataViewModel.swift */,
+			);
+			path = DMPPAActualData;
+			sourceTree = "<group>";
+		};
 		507685C925E80E460039B7B6 /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
@@ -4409,6 +4441,7 @@
 				2E303E7C25D52E0900346FB8 /* SeperatorLineLayer.swift */,
 				BA2B393925F7C6F700374CF1 /* GradientView.swift */,
 				01C6AC25252B23D70052814D /* QRScannerFocusView.swift */,
+				01CBB82B2660F3690094CF8B /* CardView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -4701,14 +4734,14 @@
 			path = Submisstion;
 			sourceTree = "<group>";
 		};
-		8FE26663264A9DC900C2B432 /* HealthCertificateRegistration */ = {
+		8FE26663264A9DC900C2B432 /* TestCertificateInfo */ = {
 			isa = PBXGroup;
 			children = (
-				8FE26664264A9DEF00C2B432 /* HomeHealthCertificateRegistrationTableViewCell.swift */,
-				8FE26665264A9DEF00C2B432 /* HomeHealthCertificateRegistrationTableViewCell.xib */,
-				8FE2666E264A9E0300C2B432 /* HomeHealthCertificateRegistrationCellModel.swift */,
+				8FE26664264A9DEF00C2B432 /* TestCertificateInfoTableViewCell.swift */,
+				8FE26665264A9DEF00C2B432 /* TestCertificateInfoTableViewCell.xib */,
+				8FE2666E264A9E0300C2B432 /* TestCertificateInfoCellModel.swift */,
 			);
-			path = HealthCertificateRegistration;
+			path = TestCertificateInfo;
 			sourceTree = "<group>";
 		};
 		8FE2667C264AA70300C2B432 /* HealthCertifiedPerson */ = {
@@ -5621,14 +5654,14 @@
 				94092540254BFE6800FE61A2 /* DMWarnOthersNotificationViewController.swift */,
 				B18755D024DC45CA00A9202E /* DMStoreViewController.swift */,
 				B1E8C99C2479D4E7006DC678 /* DMSubmissionStateViewController.swift */,
-				504E8B2B25D41CBD00CAFBDF /* DMPPAnalyticsMostRecent.swift */,
-				504E8B3025D41CD400CAFBDF /* DMPPAnalyticsActualData.swift */,
+				504E8B2B25D41CBD00CAFBDF /* DMPPAMostRecentData.swift */,
 				ABE9612925EFEB4E00D0F699 /* DMInstallationDate */,
 				358249E925E910AF00BFF303 /* DMLogging */,
 				BA6D164D255ADD8600ED3492 /* DMWifiClient */,
 				EBDE11B6255EC2D7008C0F51 /* DMDeviceTimeCheck */,
 				BA4693AF25C82ED3004B2DBB /* DMPPACService */,
 				50B5058725CAF3C500EEA380 /* DMOTPService */,
+				506AB7492658007A004AE743 /* DMPPAActualData */,
 				504E8B0A25D400A400CAFBDF /* DMPPAnalytics */,
 				50FE68092615C99F00A2B2E7 /* DMRecentCreatedEvent */,
 				50680B8A26163A97002EA256 /* DMMostRecentTraceLocationCheckedInto */,
@@ -7112,7 +7145,7 @@
 				8F4E623B25EE878E00FF4F0A /* BottomErrorReportViewController.xib in Resources */,
 				01C6AC21252B21DF0052814D /* ExposureSubmissionQRScannerViewController.xib in Resources */,
 				01D02667258B750800B6389A /* ExposureDetectionViewController.xib in Resources */,
-				8FE26667264A9DEF00C2B432 /* HomeHealthCertificateRegistrationTableViewCell.xib in Resources */,
+				8FE26667264A9DEF00C2B432 /* TestCertificateInfoTableViewCell.xib in Resources */,
 				8539874F2467094E00D28B62 /* AppIcon.xcassets in Resources */,
 				017AD105259DC20E00FA2B3F /* HomeShownPositiveTestResultTableViewCell.xib in Resources */,
 				0138F6A025F21CC600A9B075 /* EventTableViewCell.xib in Resources */,
@@ -7121,6 +7154,7 @@
 				85D7594B24570491008175F0 /* Assets.xcassets in Resources */,
 				711EFCC924935C79005FEF21 /* ExposureSubmissionTestResultHeaderView.xib in Resources */,
 				01A6EFCB258BE9C60001D8C2 /* NotificationSettingsOffTableViewCell.xib in Resources */,
+				01960F2F266435EE000D714E /* HomeHealthCertificateRegistrationTableViewCell.xib in Resources */,
 				01D02710258BC17500B6389A /* InviteFriendsViewController.xib in Resources */,
 				35D16DDF2567FB980069AD1B /* DynamicLegalCell.xib in Resources */,
 				01A6C3022626DE2500B6E95A /* HomeTestResultTableViewCell.xib in Resources */,
@@ -7231,7 +7265,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# ignore CI builds - swiftlint is handled separately there\nif [ \"${CI}\" = false ]; then\n  # Adds support for Apple Silicon brew directory\n  # maybe better: address `$HOMEBREW_PREFIX`!?\n  export PATH=\"$PATH:/opt/homebrew/bin\"\n\n  if which swiftlint >/dev/null; then\n    swiftlint\n  else\n    echo \"error: SwiftLint is not available.\"\n    echo \"Use 'brew install swiftlint' to install SwiftLint or   download it manually from   https://github.com/realm/SwiftLint.\"\n  fi\nfi\n";
+			shellScript = "# ignore CI builds - swiftlint is handled separately there\nif [ -z \"${CI}\" ]; then\n  # Adds support for Apple Silicon brew directory\n  # maybe better: address `$HOMEBREW_PREFIX`!?\n  export PATH=\"$PATH:/opt/homebrew/bin\"\n\n  if which swiftlint >/dev/null; then\n    swiftlint\n  else\n    echo \"error: SwiftLint is not available.\"\n    echo \"Use 'brew install swiftlint' to install SwiftLint or   download it manually from   https://github.com/realm/SwiftLint.\"\n  fi\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -7289,7 +7323,7 @@
 				01909889257E7B900065D050 /* ExposureSubmissionQRInfoViewModel.swift in Sources */,
 				B16457B524DC11EF002879EB /* DMLastSubmissionRequetViewController.swift in Sources */,
 				A128F059248B459F00EC7F6C /* PublicKeyStore.swift in Sources */,
-				8FE26666264A9DEF00C2B432 /* HomeHealthCertificateRegistrationTableViewCell.swift in Sources */,
+				8FE26666264A9DEF00C2B432 /* TestCertificateInfoTableViewCell.swift in Sources */,
 				01D6948D2502717F00B45BEA /* DatePickerDayView.swift in Sources */,
 				BA112E0A25559CDD007F5712 /* ClientWifiOnly.swift in Sources */,
 				35E121DA25B273280098D754 /* card_header.pb.swift in Sources */,
@@ -7339,7 +7373,7 @@
 				EB91288B257FBD1E00241D3E /* DiaryInfoViewController.swift in Sources */,
 				011E13AE24680A4000973467 /* HTTPClient.swift in Sources */,
 				A1C683FA24AEC57400B90D12 /* DynamicTableViewTextViewCell.swift in Sources */,
-				504E8B2C25D41CBD00CAFBDF /* DMPPAnalyticsMostRecent.swift in Sources */,
+				504E8B2C25D41CBD00CAFBDF /* DMPPAMostRecentData.swift in Sources */,
 				3456D95C25EFE02E00A62F5D /* ErrorReportHistoryCell.swift in Sources */,
 				01C6AC3A252B2A500052814D /* UIImage+Color.swift in Sources */,
 				BA01BA64264423CF00D906B6 /* HealthCertificateAttributedTextCell.swift in Sources */,
@@ -7386,6 +7420,7 @@
 				AB1886D1252DE51E00D39BBE /* Bundle+Identifier.swift in Sources */,
 				BA7D17B725D59373006B9EBF /* SettingsDataDonationViewModel.swift in Sources */,
 				71FD8862246EB27F00E804D0 /* ExposureDetectionViewController.swift in Sources */,
+				01CBB82C2660F3690094CF8B /* CardView.swift in Sources */,
 				013C413D255463A400826C9F /* DMDebugRiskCalculationViewController.swift in Sources */,
 				BAB6C7EF25C4626100E042FB /* TimestampedToken.swift in Sources */,
 				2FC951FE24DC23B9008D39F4 /* DMConfigurationCell.swift in Sources */,
@@ -7473,6 +7508,7 @@
 				B1D431CB246C84A400E728AD /* DownloadedPackagesStoreV1.swift in Sources */,
 				714194EA247A65C60072A090 /* DynamicTableViewHeaderSeparatorView.swift in Sources */,
 				50FA072B26023784003C1E46 /* TraceWarningPackageDownload.swift in Sources */,
+				01960F2D26643295000D714E /* HomeHealthCertificateRegistrationCellModel.swift in Sources */,
 				50C0298825E4067400460FA4 /* AgeGroup.swift in Sources */,
 				35EA684A25553B5C00335F73 /* DownloadedPackagesStoreV2.swift in Sources */,
 				BAA8BAED25CAD91700E29CFE /* DMStaticTextTableViewCell.swift in Sources */,
@@ -7554,7 +7590,7 @@
 				94EAF87925B6CAA300BE1F40 /* DeltaOnboardingNewVersionFeaturesViewModel.swift in Sources */,
 				01A4DD4325935D1F007D5794 /* HomeRiskCellModel.swift in Sources */,
 				0138F68F25F21C8000A9B075 /* EventTableViewCell.swift in Sources */,
-				504E8B3125D41CD400CAFBDF /* DMPPAnalyticsActualData.swift in Sources */,
+				50FEB18B26580B1E005C3322 /* DMPPAActualDataViewModel.swift in Sources */,
 				94EAF87525B6CAA000BE1F40 /* DeltaOnboardingNewVersionFeaturesViewController.swift in Sources */,
 				01EA17FE259217B100E98E02 /* HomeState.swift in Sources */,
 				2FA9E39B24D2F4A10030561C /* ExposureSubmissionService+Protocol.swift in Sources */,
@@ -7577,6 +7613,7 @@
 				AB2F094A25D1687300C16309 /* SurveyURLProvider.swift in Sources */,
 				013DC102245DAC4E00EE58B0 /* Store.swift in Sources */,
 				5270E9B8256D20A900B08606 /* NSTextAttachment+ImageHeight.swift in Sources */,
+				50FEB18A26580B1B005C3322 /* DMPPAActualDataViewController.swift in Sources */,
 				B1FE13EF24891D0C00D012E5 /* RiskProvidingConfiguration.swift in Sources */,
 				014086BD2589033A00E9E5B2 /* DiaryEditEntriesCellModel.swift in Sources */,
 				B1F82DF224718C7300E2E56A /* DMBackendConfigurationViewController.swift in Sources */,
@@ -7657,7 +7694,7 @@
 				CD2EC329247D82EE00C6B3F9 /* NotificationSettingsViewController.swift in Sources */,
 				A1BABD1024A57D03000ED515 /* ENTemporaryExposureKey+Processing.swift in Sources */,
 				0120ECDD25875D8B00F78944 /* DiaryDayEntryCellModel.swift in Sources */,
-				8FE2666F264A9E0300C2B432 /* HomeHealthCertificateRegistrationCellModel.swift in Sources */,
+				8FE2666F264A9E0300C2B432 /* TestCertificateInfoCellModel.swift in Sources */,
 				BAEFB3572656A79700497F79 /* ContactDiaryStoreSchemaV5.swift in Sources */,
 				01A1B44A252DFD7800841B63 /* MetadataObject.swift in Sources */,
 				01BA07432620938E00237DD8 /* DurationFilter.swift in Sources */,
@@ -7873,6 +7910,7 @@
 				AB7E2A80255ACC06005C90F6 /* Date+Utils.swift in Sources */,
 				B16457BD24DC3F4E002879EB /* DMKeysViewController.swift in Sources */,
 				51D420C424583E3300AD70CA /* SettingsViewController.swift in Sources */,
+				01960F2E26643295000D714E /* HomeHealthCertificateRegistrationTableViewCell.swift in Sources */,
 				01C6AC0E252B1E990052814D /* ExposureSubmissionQRScannerViewModel.swift in Sources */,
 				BA94BBBD260DF51F005CF38F /* CheckInNoticeCell.swift in Sources */,
 				EB67B5DB262AD48F00218EC7 /* ExposureSubmissionCheckinsViewController.swift in Sources */,
@@ -8281,6 +8319,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BAEC99C7258B714300B98ECA /* ENAUITests_07_ContactJournalUITests.swift in Sources */,
+				8F3A0A722666490200D390E3 /* ENAUITests_04a_ExposureSubmission.swift in Sources */,
 				340421C7263DDCFC00155BC6 /* ENAUITests_04b_ExposureDetection.swift in Sources */,
 				94C24B3F25304B4400F8C004 /* ENAUITestsDeltaOnboarding.swift in Sources */,
 				34A407512655254E00F9307D /* LaunchArguments.swift in Sources */,
@@ -8503,7 +8542,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENACommunity.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = $IPHONE_APP_DEV_TEAM;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -8658,7 +8697,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 523TP53AQF;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info_Testflight.plist;
@@ -8837,7 +8876,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 523TP53AQF;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info_Testflight.plist;
@@ -9078,7 +9117,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENATest.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 523TP53AQF;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -9118,7 +9157,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 2;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info.plist;
 				IPHONE_APP_CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -9261,7 +9300,7 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 2;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -9305,7 +9344,7 @@
 				CODE_SIGNING_ALLOWED = NO;
 				CODE_SIGNING_REQUIRED = NO;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 2;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -9348,7 +9387,7 @@
 				CODE_SIGNING_ALLOWED = NO;
 				CODE_SIGNING_REQUIRED = NO;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 2;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;

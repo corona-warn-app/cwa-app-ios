@@ -65,8 +65,10 @@ enum PPAnalyticsCollector {
 
 	/// This removes all stored analytics data that we collected.
 	static func deleteAnalyticsData() {
-		store?.currentRiskExposureMetadata = nil
-		store?.previousRiskExposureMetadata = nil
+		store?.currentENFRiskExposureMetadata = nil
+		store?.previousENFRiskExposureMetadata = nil
+		store?.currentCheckinRiskExposureMetadata = nil
+		store?.previousCheckinRiskExposureMetadata = nil
 		store?.userMetadata = nil
 		store?.lastSubmittedPPAData = nil
 		store?.lastAppReset = nil
@@ -77,6 +79,9 @@ enum PPAnalyticsCollector {
 		store?.pcrKeySubmissionMetadata = nil
 		store?.antigenKeySubmissionMetadata = nil
 		store?.exposureWindowsMetadata = nil
+		store?.dateOfConversionToENFHighRisk = nil
+		store?.dateOfConversionToCheckinHighRisk = nil
+
 		Log.info("Deleted all analytics data in the store", log: .ppa)
 	}
 
@@ -124,67 +129,87 @@ enum PPAnalyticsCollector {
 
 	private static func logRiskExposureMetadata(_ riskExposureMetadata: PPARiskExposureMetadata) {
 		switch riskExposureMetadata {
-		case let .create(metaData):
-			store?.currentRiskExposureMetadata = metaData
-		case let .updateRiskExposureMetadata(riskCalculationResult):
-			Analytics.updateRiskExposureMetadata(riskCalculationResult)
+		case .update:
+			Analytics.gatherRisksAndUpdateMetadata()
+		}
+	}
+	
+	private static func gatherRisksAndUpdateMetadata() {
+		if let enfRiskCalculationResult = store?.enfRiskCalculationResult {
+			updateENFRiskExposureMetadata(enfRiskCalculationResult)
+		}
+		if let checkinRiskCalculationResult = store?.checkinRiskCalculationResult {
+			updateCheckinRiskExposureMetadata(checkinRiskCalculationResult)
 		}
 	}
 
-	private static func updateRiskExposureMetadata(_ enfRiskCalculationResult: ENFRiskCalculationResult) {
+	private static func updateENFRiskExposureMetadata(_ enfRiskCalculationResult: ENFRiskCalculationResult) {
 		let riskLevel = enfRiskCalculationResult.riskLevel
+		let previousRiskLevel = store?.previousENFRiskExposureMetadata?.riskLevel
+		let mostRecentDateWithCurrentRiskLevel = enfRiskCalculationResult.mostRecentDateWithCurrentRiskLevel
+		let previousMostRecentDateWithCurrentRiskLevel = store?.previousENFRiskExposureMetadata?.mostRecentDateAtRiskLevel
 		let riskLevelChangedComparedToPreviousSubmission: Bool
 		let dateChangedComparedToPreviousSubmission: Bool
 
-		// if there is a risk level value stored for previous submission
-		if store?.previousRiskExposureMetadata?.riskLevel != nil {
-			if riskLevel !=
-				store?.previousRiskExposureMetadata?.riskLevel {
-				// if there is a change in risk level
-				riskLevelChangedComparedToPreviousSubmission = true
-			} else {
-				// if there is no change in risk level
-				riskLevelChangedComparedToPreviousSubmission = false
-			}
-		} else {
-			// for the first time, the field is set to false
-			riskLevelChangedComparedToPreviousSubmission = false
-		}
-
-		// if there is most recent date store for previous submission
-		if store?.previousRiskExposureMetadata?.mostRecentDateAtRiskLevel != nil {
-			if enfRiskCalculationResult.mostRecentDateWithCurrentRiskLevel !=
-				store?.previousRiskExposureMetadata?.mostRecentDateAtRiskLevel {
-				// if there is a change in date
-				dateChangedComparedToPreviousSubmission = true
-			} else {
-				// if there is no change in date
-				dateChangedComparedToPreviousSubmission = false
-			}
-		} else {
-			// for the first time, the field is set to false
-			dateChangedComparedToPreviousSubmission = false
-		}
-
-		guard let mostRecentDateWithCurrentRiskLevel = enfRiskCalculationResult.mostRecentDateWithCurrentRiskLevel else {
+		// If risk level is nil, set to false. Otherwise, set it when it changed compared to previous submission.
+		riskLevelChangedComparedToPreviousSubmission = riskLevel != previousRiskLevel && previousRiskLevel != nil
+		
+		// If mostRecentDateAtRiskLevel is nil, set to false. Otherwise, change it when it changed compared to previous submission.
+		dateChangedComparedToPreviousSubmission = mostRecentDateWithCurrentRiskLevel != previousMostRecentDateWithCurrentRiskLevel && previousMostRecentDateWithCurrentRiskLevel != nil
+		
+		guard let mostRecentDate = mostRecentDateWithCurrentRiskLevel else {
 			// most recent date is not available because of no exposure
 			let newRiskExposureMetadata = RiskExposureMetadata(
 				riskLevel: riskLevel,
 				riskLevelChangedComparedToPreviousSubmission: riskLevelChangedComparedToPreviousSubmission,
 				dateChangedComparedToPreviousSubmission: dateChangedComparedToPreviousSubmission
 			)
-			Analytics.collect(.riskExposureMetadata(.create(newRiskExposureMetadata)))
+			store?.currentENFRiskExposureMetadata = newRiskExposureMetadata
 			return
 		}
 		let newRiskExposureMetadata = RiskExposureMetadata(
 			riskLevel: riskLevel,
 			riskLevelChangedComparedToPreviousSubmission: riskLevelChangedComparedToPreviousSubmission,
-			mostRecentDateAtRiskLevel: mostRecentDateWithCurrentRiskLevel,
+			mostRecentDateAtRiskLevel: mostRecentDate,
 			dateChangedComparedToPreviousSubmission: dateChangedComparedToPreviousSubmission
 		)
-		Analytics.collect(.riskExposureMetadata(.create(newRiskExposureMetadata)))
+		store?.currentENFRiskExposureMetadata = newRiskExposureMetadata
 	}
+	
+	private static func updateCheckinRiskExposureMetadata(_ checkinRiskCalculationResult: CheckinRiskCalculationResult) {
+		let riskLevel = checkinRiskCalculationResult.riskLevel
+		let previousRiskLevel = store?.previousCheckinRiskExposureMetadata?.riskLevel
+		let mostRecentDateWithCurrentRiskLevel = checkinRiskCalculationResult.mostRecentDateWithCurrentRiskLevel
+		let previousMostRecentDateWithCurrentRiskLevel = store?.previousCheckinRiskExposureMetadata?.mostRecentDateAtRiskLevel
+		let riskLevelChangedComparedToPreviousSubmission: Bool
+		let dateChangedComparedToPreviousSubmission: Bool
 
+		// If risk level is nil, set to false. Otherwise, set it when it changed compared to previous submission.
+		riskLevelChangedComparedToPreviousSubmission = riskLevel != previousRiskLevel && previousRiskLevel != nil
+
+		// If mostRecentDateAtRiskLevel is nil, set to false. Otherwise, change it when it changed compared to previous submission.
+		dateChangedComparedToPreviousSubmission = mostRecentDateWithCurrentRiskLevel != previousMostRecentDateWithCurrentRiskLevel && previousMostRecentDateWithCurrentRiskLevel != nil
+
+		guard let mostRecentDate = mostRecentDateWithCurrentRiskLevel else {
+			// most recent date is not available because of no exposure
+			let newRiskExposureMetadata = RiskExposureMetadata(
+				riskLevel: riskLevel,
+				riskLevelChangedComparedToPreviousSubmission: riskLevelChangedComparedToPreviousSubmission,
+				dateChangedComparedToPreviousSubmission: dateChangedComparedToPreviousSubmission
+			)
+			store?.currentCheckinRiskExposureMetadata = newRiskExposureMetadata
+			return
+		}
+		let newRiskExposureMetadata = RiskExposureMetadata(
+			riskLevel: riskLevel,
+			riskLevelChangedComparedToPreviousSubmission: riskLevelChangedComparedToPreviousSubmission,
+			mostRecentDateAtRiskLevel: mostRecentDate,
+			dateChangedComparedToPreviousSubmission: dateChangedComparedToPreviousSubmission
+		)
+		store?.currentCheckinRiskExposureMetadata = newRiskExposureMetadata
+		
+	}
+	
 	// MARK: - ExposureWindowsMetadata
 
 	private static func logExposureWindowsMetadata(_ exposureWindowsMetadata: PPAExposureWindowsMetadata) {

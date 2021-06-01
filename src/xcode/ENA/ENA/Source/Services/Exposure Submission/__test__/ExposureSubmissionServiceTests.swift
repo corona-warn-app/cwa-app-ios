@@ -24,6 +24,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
@@ -90,6 +91,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let coronaTestService = CoronaTestService(
 			client: ClientMock(),
 			store: mockStore,
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
@@ -133,6 +135,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
@@ -182,6 +185,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
@@ -225,6 +229,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
@@ -269,6 +274,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
@@ -315,6 +321,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
@@ -358,6 +365,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
@@ -401,6 +409,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
@@ -444,6 +453,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
@@ -483,6 +493,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
@@ -524,6 +535,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
@@ -571,6 +583,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
@@ -635,6 +648,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			coronaTestService: CoronaTestService(
 				client: client,
 				store: store,
+				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			)
@@ -680,6 +694,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			coronaTestService: CoronaTestService(
 				client: client,
 				store: store,
+				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			)
@@ -729,6 +744,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			coronaTestService: CoronaTestService(
 				client: client,
 				store: store,
+				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			)
@@ -777,6 +793,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
+			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: CachedAppConfigurationMock()
 		)

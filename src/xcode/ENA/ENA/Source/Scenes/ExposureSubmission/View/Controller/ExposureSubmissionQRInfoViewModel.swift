@@ -15,8 +15,8 @@ struct ExposureSubmissionQRInfoViewModel {
 
 	var dynamicTableViewModel: DynamicTableViewModel {
 		var model = DynamicTableViewModel([])
-
-		// Ihr Einverständnis
+		
+		// Ihr Einverständnis Section
 		model.add(
 			.section(
 			   header: .image(

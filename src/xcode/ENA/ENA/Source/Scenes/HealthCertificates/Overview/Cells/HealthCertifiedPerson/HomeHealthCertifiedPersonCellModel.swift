@@ -12,27 +12,38 @@ class HomeHealthCertifiedPersonCellModel {
 	init(
 		healthCertifiedPerson: HealthCertifiedPerson
 	) {
-		backgroundGradientType = healthCertifiedPerson.vaccinationState == .completelyProtected ? .lightBlue : .solidGrey
-		iconImage = healthCertifiedPerson.vaccinationState == .partiallyVaccinated ? UIImage(named: "Vacc_Incomplete") : UIImage(named: "Vaccination_full")
+		backgroundGradientType = healthCertifiedPerson.vaccinationState.gradientType
+		name = healthCertifiedPerson.fullName
 
 		switch healthCertifiedPerson.vaccinationState {
 		case .partiallyVaccinated:
-			vaccinationStateDescription = AppStrings.HealthCertificate.Overview.Person.partiallyVaccinated
+			backgroundImage = UIImage(named: "VaccinationCertificate_PartiallyVaccinated_Background")
+			iconImage = UIImage(named: "VaccinationCertificate_PartiallyVaccinated_Icon")
+			vaccinationStateDescription = AppStrings.HealthCertificate.Overview.VaccinationCertificate.partiallyVaccinated
 		case .fullyVaccinated(daysUntilCompleteProtection: let daysUntilCompleteProtection):
+			backgroundImage = UIImage(named: "VaccinationCertificate_FullyVaccinated_Background")
+			iconImage = UIImage(named: "VaccinationCertificate_FullyVaccinated_Icon")
 			vaccinationStateDescription = String(
-				format: AppStrings.HealthCertificate.Overview.Person.daysUntilCompleteProtection,
+				format: AppStrings.HealthCertificate.Overview.VaccinationCertificate.daysUntilCompleteProtection,
 				daysUntilCompleteProtection
 			)
-		case .completelyProtected:
-			vaccinationStateDescription = nil
+		case .completelyProtected(let expirationDate):
+			backgroundImage = UIImage(named: "VaccinationCertificate_CompletelyProtected_Background")
+			iconImage = UIImage(named: "VaccinationCertificate_CompletelyProtected_Icon")
+			vaccinationStateDescription = String(
+				format: AppStrings.HealthCertificate.Overview.VaccinationCertificate.vaccinationValidUntil,
+				DateFormatter.localizedString(from: expirationDate, dateStyle: .medium, timeStyle: .none)
+			)
 		}
 
 	}
 	
 	// MARK: - Internal
 
-	var vaccinationStateDescription: String?
 	var backgroundGradientType: GradientView.GradientType = .solidGrey
+	var backgroundImage: UIImage?
 	var iconImage: UIImage?
+	var name: String?
+	var vaccinationStateDescription: String?
 
 }
