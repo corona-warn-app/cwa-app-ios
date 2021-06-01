@@ -872,6 +872,10 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Sie können den hier angezeigten Befund auch als Nachweis für das Vorliegen eines negativen Schnelltest-Ergebnisses verwenden.\n\nBitte beachten Sie, dass Sie nur dann einen Nachweis über Ihr Schnelltest-Ergebnis erbringen müssen, wenn dies gesetzlich festgelegt ist. Sie können den Nachweis über die App oder auch auf andere Weise erbringen. Informieren Sie sich hierzu bitte auch über die Kriterien für die Anerkennung von Test-Nachweisen in Ihrem Bundesland.";
 
+"ExposureSubmissionResult_Negative_Antigen_NoProof_Title" = "Keine Nachweis-Funktion";
+
+"ExposureSubmissionResult_Negative_Antigen_NoProof_Desc" = "Da der hier angezeigte Befund anonymisiert ist, kann er nicht als Nachweis für das Vorliegen eines negativen Schnelltest-Ergebnisses verwendet werden.";
+
 /* Exposure Submission */
 
 "ExposureSubmissionError_ErrorPrefix" = "Es ist einen technischer Fehler bei der Übertragung Ihrer Daten aufgetreten. Wenden Sie sich bitte an die technische Hotline. Die Nummer finden Sie unter App-Informationen.";
@@ -2462,6 +2466,26 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Overview_description" = "Hier werden Ihre digitalen Impfzertifikate und Testzertifikate angezeigt.";
 
+/* - Vaccination Certificate Registration */
+
+"VaccinationCertificate_Registration_title" = "Digitalen\n**Impfnachweis hinzufügen**";
+
+"VaccinationCertificate_Registration_description" = "Fügen Sie Ihre Impfzertifikate in die App hinzu, um sie immer bei sich zu haben. Scannen Sie dafür den QR-Code Ihres Dokuments.";
+
+/* - Vaccination Certificate */
+
+"VaccinationCertificate_title" = "Digitaler\n**Impfnachweis**";
+
+"VaccinationCertificate_partiallyVaccinated" = "Unvollständiger Impfschutz";
+
+"VaccinationCertificate_vaccinationValidUntil" = "Gültig bis einschließlich %@";
+
+/* - Test Certificate Info */
+
+"TestCertificate_Info_title" = "Digitales\n**COVID-19-Testzertifikat**";
+
+"TestCertificate_Info_description" = "Registrieren Sie einen Test auf der Startseite und stimmen Sie zu, ein digitales Testzertifikat zu erhalten. Sobald das Zertifikat vorliegt, wird es hier angezeigt.";
+
 /* Health Certificate Information */
 
 "HealthCertificate_Info_Title" = "Impfzertifikat hinzufügen";
@@ -2485,22 +2509,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "HealthCertificate_QRScanner_instruction" = "QR-Code scannen und registrieren";
 
 /* Home */
-
-/* - Registration */
-
-"HealthCertificate_Home_Registration_title" = "Impfzertifikat hinzufügen";
-
-"HealthCertificate_Home_Registration_description" = "Fügen Sie Ihre Impfzertifikate in die App hinzu, um sie immer bei sich zu haben. Scannen Sie dafür den QR Code Ihres Dokuments.";
-
-"HealthCertificate_Home_Registration_buttonTitle" = "Hinzufügen";
-
-/* - Person */
-
-"HealthCertificate_Home_Person_caption" = "Digitaler Impfnachweis";
-
-"HealthCertificate_Home_Person_title" = "SARS-CoV-2 Impfschutz";
-
-"HealthCertificate_Home_Person_partiallyVaccinated" = "Unvollständiger Impfschutz";
 
 /* Health Certified Person Screen */
 
