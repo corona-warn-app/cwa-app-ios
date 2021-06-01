@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-class BirthdayDatePicker: UITableViewCell, ReuseIdentifierProviding, UITextFieldDelegate {
+class BirthdayDatePickerCell: UITableViewCell, ReuseIdentifierProviding, UITextFieldDelegate {
 
 	// MARK: - Init
 
@@ -89,7 +89,7 @@ class BirthdayDatePicker: UITableViewCell, ReuseIdentifierProviding, UITextField
 }
 
 extension DynamicCell {
-	/// A `BirthdayDatePicker` to display input picker for a date picker
+	/// A `BirthdayDatePickerCell` to display input picker for a date picker
 	/// - Parameters:
 	///   - placeholder: text show as a placeholder inside the textField
 	/// - Returns: A `DynamicCell` to display legal texts
@@ -99,8 +99,8 @@ extension DynamicCell {
 		configure: CellConfigurator? = nil
 	) -> Self {
 		.identifier(ExposureSubmissionTestCertificateViewModel.ReuseIdentifiers.birthdayDatePicker) { viewController, cell, indexPath in
-			guard let cell = cell as? BirthdayDatePicker else {
-				fatalError("could not initialize cell of type `BirthdayDatePicker`")
+			guard let cell = cell as? BirthdayDatePickerCell else {
+				fatalError("could not initialize cell of type `BirthdayDatePickerCell`")
 			}
 			cell.configure(placeHolder: placeholder, accessibilityIdentifier: accessibilityIdentifier)
 			configure?(viewController, cell, indexPath)

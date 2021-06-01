@@ -78,8 +78,8 @@ class ExposureSubmissionTestCertificateInfoViewController: DynamicTableViewContr
 		)
 
 		tableView.register(
-			BirthdayDatePicker.self,
-			forCellReuseIdentifier: BirthdayDatePicker.reuseIdentifier
+			BirthdayDatePickerCell.self,
+			forCellReuseIdentifier: BirthdayDatePickerCell.reuseIdentifier
 		)
 
 		dynamicTableViewModel = viewModel.dynamicTableViewModel

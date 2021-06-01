@@ -37,7 +37,7 @@ class ExposureSubmissionTestCertificateViewModel {
 
 	enum ReuseIdentifiers: String, TableViewCellReuseIdentifiers {
 		case legalExtended = "DynamicLegalExtendedCell"
-		case birthdayDatePicker = "BirthdayDatePicker"
+		case birthdayDatePicker = "BirthdayDatePickerCell"
 	}
 
 	var dynamicTableViewModel: DynamicTableViewModel {
@@ -62,7 +62,7 @@ class ExposureSubmissionTestCertificateViewModel {
 						placeholder: AppStrings.ExposureSubmission.TestCertificate.Info.birthDayPlaceholder,
 						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.TestCertificate.Info.birthDayPlaceholder,
 						configure: { [weak self] _, cell, _ in
-							guard let birthdayDateInputCell = cell as? BirthdayDatePicker,
+							guard let birthdayDateInputCell = cell as? BirthdayDatePickerCell,
 								  let self = self else {
 								return
 							}
