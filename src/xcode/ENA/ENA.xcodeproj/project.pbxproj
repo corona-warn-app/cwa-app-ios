@@ -415,6 +415,7 @@
 		35A99565262877080023104A /* MockPublicKeyStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A99564262877080023104A /* MockPublicKeyStore.swift */; };
 		35AA4AF4259B40FC00D32306 /* CryptoFallbackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35AA4AF3259B40FC00D32306 /* CryptoFallbackTests.swift */; };
 		35AAA19126139FE500D3A4C1 /* Array+SaveAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35AAA19026139FE500D3A4C1 /* Array+SaveAccess.swift */; };
+		35B0981426667D610060330D /* RSATests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B0981326667D610060330D /* RSATests.swift */; };
 		35B2FAAA25B9CE8F009ABC8E /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B2FAA925B9CE8F009ABC8E /* main.swift */; };
 		35B2FABA25B9D3F3009ABC8E /* ENATaskExecutionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B2FAB925B9D3F3009ABC8E /* ENATaskExecutionDelegate.swift */; };
 		35BA8DBB25F252AF00BD8B47 /* ELSService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BA8DBA25F252AF00BD8B47 /* ELSService.swift */; };
@@ -1603,6 +1604,7 @@
 		35A99564262877080023104A /* MockPublicKeyStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPublicKeyStore.swift; sourceTree = "<group>"; };
 		35AA4AF3259B40FC00D32306 /* CryptoFallbackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoFallbackTests.swift; sourceTree = "<group>"; };
 		35AAA19026139FE500D3A4C1 /* Array+SaveAccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+SaveAccess.swift"; sourceTree = "<group>"; };
+		35B0981326667D610060330D /* RSATests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSATests.swift; sourceTree = "<group>"; };
 		35B2FAA925B9CE8F009ABC8E /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		35B2FAB925B9D3F3009ABC8E /* ENATaskExecutionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENATaskExecutionDelegate.swift; sourceTree = "<group>"; };
 		35BA8DBA25F252AF00BD8B47 /* ELSService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ELSService.swift; sourceTree = "<group>"; };
@@ -3618,6 +3620,7 @@
 			children = (
 				35AA4AF3259B40FC00D32306 /* CryptoFallbackTests.swift */,
 				35358DD325A23169004FD0CB /* HTTPClientCertificatePinningTests.swift */,
+				35B0981326667D610060330D /* RSATests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -8202,6 +8205,7 @@
 				50AA526825FBA0CC000C77BB /* HTTPClient+TraceWarningPackageDiscoveryTests.swift in Sources */,
 				B163D1102499068D001A322C /* SettingsViewModelTests.swift in Sources */,
 				5017F65F25FFC1E8003A812E /* ClientMetadataTests.swift in Sources */,
+				35B0981426667D610060330D /* RSATests.swift in Sources */,
 				AB2F094F25D169DC00C16309 /* SurveyURLServiceTests.swift in Sources */,
 				BAA19D652612151B00CBBDDD /* CheckInTimeModelTests.swift in Sources */,
 				BAC7291226037BB6006D83C7 /* MissingPermissionsCellModelTests.swift in Sources */,
