@@ -41,19 +41,28 @@ final class HTTPClient: Client {
 		let url = configuration.diagnosisKeysURL(day: day, forCountry: country)
 		fetchDay(from: url, completion: completeWith)
 	}
-
+	
+	// swiftlint:disable:next cyclomatic_complexity
 	func getRegistrationToken(
 		forKey key: String,
 		withType type: String,
-		birthdateHash date: String? = nil,
+		birthdateHash: String? = nil,
 		isFake: Bool = false,
 		completion completeWith: @escaping RegistrationHandler
 	) {
-		guard
-			let registrationTokenRequest = try? URLRequest.getRegistrationTokenRequest(
+		// Check if first char of birthdateHash is a lower cased "x". If not, we fail because it is malformed. If birthdateHash is nil, we pass this check.
+		if let birthdateHash = birthdateHash {
+			guard birthdateHash.first == "x" else {
+				completeWith(.failure(.malformedRequest))
+				return
+			}
+		}
+		
+		guard let registrationTokenRequest = try? URLRequest.getRegistrationTokenRequest(
 				configuration: configuration,
 				key: key,
 				type: type,
+				birthdateHash: birthdateHash,
 				headerValue: isFake ? 1 : 0
 			) else {
 				completeWith(.failure(.invalidResponse))
@@ -869,6 +878,7 @@ private extension URLRequest {
 		configuration: HTTPClient.Configuration,
 		key: String,
 		type: String,
+		birthdateHash: String?,
 		headerValue: Int
 	) throws -> URLRequest {
 		
@@ -895,8 +905,14 @@ private extension URLRequest {
 		
 		request.httpMethod = HttpMethod.post
 		
+		// Create body.
+		var originalBody: [String: String] = [:]
+		if let birthdateHash = birthdateHash {
+			originalBody = ["key": key, "keyDOB": birthdateHash, "keyType": type]
+		} else {
+			originalBody = ["key": key, "keyType": type]
+		}
 		// Add body padding to request.
-		let originalBody = ["key": key, "keyType": type]
 		let paddedData = try getPaddedRequestBody(for: originalBody)
 		request.httpBody = paddedData
 		
