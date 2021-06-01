@@ -129,7 +129,6 @@ class ENAUITests_11_QuickActions: CWATestCase {
 
 		// don't warn
 		app.alerts.firstMatch.buttons.element(boundBy: 1).waitAndTap()
-		app.alerts.firstMatch.buttons.element(boundBy: 0).waitAndTap()
 
 		// Back on home screen?
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .medium))

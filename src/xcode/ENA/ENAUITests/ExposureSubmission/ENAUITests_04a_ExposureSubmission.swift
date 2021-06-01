@@ -285,7 +285,6 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 
 		// don't warn
 		app.alerts.firstMatch.buttons.element(boundBy: 1).waitAndTap()
-		app.alerts.firstMatch.buttons.element(boundBy: 0).waitAndTap()
 
 		// Back to homescreen
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].waitForExistence(timeout: .long))
