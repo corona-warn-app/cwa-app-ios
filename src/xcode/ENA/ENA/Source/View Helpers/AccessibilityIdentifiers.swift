@@ -407,7 +407,7 @@ enum AccessibilityIdentifiers {
 		enum TestCertificate {
 			enum Info {
 				static let imageDescription = "AppStrings.ExposureSubmission.TestCertificate.Info.imageDescription"
-				static let body = "AppStrings.ExposureSubmission.TestCertificate.Info.body";
+				static let body = "AppStrings.ExposureSubmission.TestCertificate.Info.body"
 				static let acknowledgementTitle = "ExposureSubmissionTestCertificateInfo_acknowledgement_title"
 				static let dataPrivacyTitle = "AppStrings.ExposureSubmission.TestCertificate.Info.dataPrivacyTitle"
 				static let birthDayPlaceholder = "AppStrings.ExposureSubmission.TestCertificate.Info.birthDayPlaceholder"

@@ -106,6 +106,4 @@ extension DynamicCell {
 			configure?(viewController, cell, indexPath)
 		}
 	}
-
 }
-
