@@ -368,13 +368,13 @@ struct DGCRSAKeypair {
 		
 		let publicKeyAttr: [NSObject: NSObject] = [
 			kSecAttrIsPermanent: true as NSObject,
-			kSecAttrApplicationTag: ("\(tag)public".data(using: String.Encoding.utf8) ?? Data()) as NSObject,
+			kSecAttrApplicationTag: ("\(tag).dgc.public".data(using: String.Encoding.utf8) ?? Data()) as NSObject,
 			kSecClass: kSecClassKey,
 			kSecReturnData: kCFBooleanTrue]
 		
 		let privateKeyAttr: [NSObject: NSObject] = [
 			kSecAttrIsPermanent: true as NSObject,
-			kSecAttrApplicationTag: ("\(tag)private".data(using: String.Encoding.utf8) ?? Data()) as NSObject,
+			kSecAttrApplicationTag: ("\(tag).dgc.private".data(using: String.Encoding.utf8) ?? Data()) as NSObject,
 			kSecClass: kSecClassKey,
 			kSecReturnData: kCFBooleanTrue]
 		
