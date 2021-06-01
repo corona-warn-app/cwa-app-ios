@@ -510,11 +510,15 @@ class CoronaTestService {
 	private func getRegistrationToken(
 		forKey key: String,
 		withType type: String,
-		// Still needs to be passed on to the client! (EXPOSUREAPP-7584)
 		dateOfBirthKey: String?,
 		completion: @escaping RegistrationResultHandler
 	) {
-		client.getRegistrationToken(forKey: key, withType: type, isFake: false) { result in
+		client.getRegistrationToken(
+			forKey: key,
+			withType: type,
+			birthdateHash: dateOfBirthKey,
+			isFake: false
+		) { result in
 			switch result {
 			case let .failure(error):
 				completion(.failure(.responseFailure(error)))
