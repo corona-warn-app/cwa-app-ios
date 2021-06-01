@@ -354,7 +354,7 @@ struct DGCRSAKeypair {
 	
 	enum DGCRSAKeypairError: Error {
 		case keypairGeneration(String)	// Key generation failed
-		case publicKey
+		case publicKey // Unable to get public key representation
 	}
 	
 	let publicKey: SecKey
@@ -367,14 +367,14 @@ struct DGCRSAKeypair {
 		let tag = Bundle.main.bundleIdentifier ?? "de.rki.coronawarnapp"
 		
 		let publicKeyAttr: [NSObject: NSObject] = [
-			kSecAttrIsPermanent:true as NSObject,
-			kSecAttrApplicationTag:"\(tag)public".data(using: String.Encoding.utf8)! as NSObject,
+			kSecAttrIsPermanent: true as NSObject,
+			kSecAttrApplicationTag: ("\(tag)public".data(using: String.Encoding.utf8) ?? Data()) as NSObject,
 			kSecClass: kSecClassKey,
 			kSecReturnData: kCFBooleanTrue]
 		
 		let privateKeyAttr: [NSObject: NSObject] = [
-			kSecAttrIsPermanent:true as NSObject,
-			kSecAttrApplicationTag:"\(tag)private".data(using: String.Encoding.utf8)! as NSObject,
+			kSecAttrIsPermanent: true as NSObject,
+			kSecAttrApplicationTag: ("\(tag)private".data(using: String.Encoding.utf8) ?? Data()) as NSObject,
 			kSecClass: kSecClassKey,
 			kSecReturnData: kCFBooleanTrue]
 		
@@ -384,8 +384,8 @@ struct DGCRSAKeypair {
 		keyPairAttr[kSecPublicKeyAttrs] = publicKeyAttr as NSObject
 		keyPairAttr[kSecPrivateKeyAttrs] = privateKeyAttr as NSObject
 		
-		var publicKey : SecKey?
-		var privateKey : SecKey?
+		var publicKey: SecKey?
+		var privateKey: SecKey?
 		
 		let statusCode = SecKeyGeneratePair(keyPairAttr as CFDictionary, &publicKey, &privateKey)
 		
@@ -401,11 +401,13 @@ struct DGCRSAKeypair {
 		guard let publicKeyData = SecKeyCopyExternalRepresentation(publicKey, &error) as Data? else {
 			throw DGCRSAKeypairError.publicKey
 		}
-		let publicKeyWithRSAHeader = Data([0x30, 0x82, 0x01, 0xA2,
-										   0x30, 0x0D,
-										   0x06, 0x09, 0x2A, 0x86, 0x48, 0x86, 0xF7, 0x0D, 0x01, 0x01, 0x01,
-										   0x05, 0x00,
-										   0x03, 0x82, 0x01, 0x8F, 0x00]) + publicKeyData
+		let publicKeyWithRSAHeader = Data([
+			0x30, 0x82, 0x01, 0xA2,
+			0x30, 0x0D,
+			0x06, 0x09, 0x2A, 0x86, 0x48, 0x86, 0xF7, 0x0D, 0x01, 0x01, 0x01,
+			0x05, 0x00,
+			0x03, 0x82, 0x01, 0x8F, 0x00
+		]) + publicKeyData
 		self.publicKeyForBackend = publicKeyWithRSAHeader.base64EncodedString()
 	}
 }
