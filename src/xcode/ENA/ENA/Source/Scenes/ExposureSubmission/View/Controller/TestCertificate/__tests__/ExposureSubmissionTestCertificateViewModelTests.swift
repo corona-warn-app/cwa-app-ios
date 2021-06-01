@@ -7,7 +7,7 @@ import XCTest
 
 class ExposureSubmissionTestCertificateViewModelTests: XCTestCase {
 
-	func testGIVEN_PCRTest_WHEN_getDynamicTableViewModel_THEN_NumberOfCellsShoudMatch() {
+	func testGIVEN_PCRTest_WHEN_getDynamicTableViewModel_THEN_NumberOfCellsShouldMatch() {
 		// GIVEN
 		let viewModel = ExposureSubmissionTestCertificateViewModel(
 			testType: .pcr,
