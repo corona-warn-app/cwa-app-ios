@@ -94,7 +94,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		let tanInputViewModel = TanInputViewModel(
 			coronaTestService: model.coronaTestService,
 			onSuccess: { [weak self] testRegistrationInformation, isLoading in
-				self?.handleCoronaTestRegistrationInformation(testRegistrationInformation, isLoading: isLoading)
+				self?.handleCoronaTestRegistrationInformation(testRegistrationInformation, isConsentGiven: false, isLoading: isLoading)
 			}
 		)
 
@@ -463,13 +463,13 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 	private func showQRScreen(testInformation: CoronaTestRegistrationInformation?, isLoading: @escaping (Bool) -> Void) {
 		if let testInformation = testInformation {
-			handleCoronaTestRegistrationInformation(testInformation, isLoading: isLoading)
+			handleCoronaTestRegistrationInformation(testInformation, isConsentGiven: true, isLoading: isLoading)
 		} else {
 			let scannerViewController = ExposureSubmissionQRScannerViewController(
 				onSuccess: { testQRCodeInformation in
 					DispatchQueue.main.async { [weak self] in
 						self?.presentedViewController?.dismiss(animated: true) {
-							self?.handleCoronaTestRegistrationInformation(testQRCodeInformation, isLoading: isLoading)
+							self?.handleCoronaTestRegistrationInformation(testQRCodeInformation, isConsentGiven: true, isLoading: isLoading)
 						}
 					}
 				},
@@ -514,17 +514,17 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 	}
 	
-	private func handleCoronaTestRegistrationInformation(_ testRegistrationInformation: CoronaTestRegistrationInformation, isLoading: @escaping (Bool) -> Void) {
+	private func handleCoronaTestRegistrationInformation(_ testRegistrationInformation: CoronaTestRegistrationInformation, isConsentGiven: Bool, isLoading: @escaping (Bool) -> Void) {
 		if let oldTest = self.model.coronaTestService.coronaTest(ofType: testRegistrationInformation.testType),
 		   oldTest.testResult != .expired,
 		   !(oldTest.type == .antigen && self.model.coronaTestService.antigenTestIsOutdated) {
-			self.showOverrideTestNotice(testQRCodeInformation: testRegistrationInformation, submissionConsentGiven: true)
+			self.showOverrideTestNotice(testQRCodeInformation: testRegistrationInformation, submissionConsentGiven: isConsentGiven)
 		} else {
 			self.registerTestAndGetResult(
 				with: testRegistrationInformation,
-				submissionConsentGiven: true,
-				// TODO: Set to appropriate value
-				certificateConsent: .notGiven,
+				submissionConsentGiven: isConsentGiven,
+			// TODO: Set to appropriate value
+			   certificateConsent: .notGiven,
 				isLoading: isLoading
 			)
 		}
@@ -1092,11 +1092,16 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				
 				self?.model.coronaTestType = testQRCodeInformation.testType
 
-				switch testResult {
-				case .positive:
-					self?.showTestResultAvailableScreen()
-				case .pending, .negative, .invalid, .expired:
+				switch testQRCodeInformation {
+				case .teleTAN:
 					self?.showTestResultScreen()
+				case .antigen, .pcr:
+					switch testResult {
+					case .positive:
+						self?.showTestResultAvailableScreen()
+					case .pending, .negative, .invalid, .expired:
+						self?.showTestResultScreen()
+					}
 				}
 			},
 			onError: { [weak self] error in
