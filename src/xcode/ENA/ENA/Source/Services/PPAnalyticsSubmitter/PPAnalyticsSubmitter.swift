@@ -5,6 +5,7 @@
 import Foundation
 import OpenCombine
 
+// swiftlint:disable file_length
 protocol PPAnalyticsSubmitting {
 	/// Triggers the submission of all collected analytics data. Only if all checks success, the submission is done. Otherwise, the submission is aborted. The completion calls are passed through to test the component.
 	/// ⚠️ This method should ONLY be called by the PPAnalyticsCollector ⚠️

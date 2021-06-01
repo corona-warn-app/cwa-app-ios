@@ -62,7 +62,8 @@ final class PPAAnalyticsTestResultCollector {
 			store.antigenTestResultMetadata?.hoursSinceTestRegistration = hours
 		}
 	}
-
+	
+	// swiftlint:disable:next cyclomatic_complexity
 	private func registerNewTestMetadata(_ date: Date = Date(), _ token: String, _ type: CoronaTestType) {
 		guard store.enfRiskCalculationResult != nil || store.checkinRiskCalculationResult != nil else {
 			Log.warning("Could not register new test meta data due to enfRiskCalculationResult and checkinRiskCalculationResult are both nil", log: .ppa)

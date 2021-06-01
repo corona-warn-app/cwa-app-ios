@@ -4,14 +4,14 @@
 
 @testable import ENA
 import XCTest
-/// Testpattern:
-/// ENF high, Checkin none
-/// ENF none, Checkin high
-/// ENF high, Checkin high
-/// ENF low, Checkin none
-/// ENF none, Checkin low
-/// ENF low, Checkin low
-/// inside these tests, we alter for testType (pcr & antigen)
+// Testpattern:
+// ENF high, Checkin none
+// ENF none, Checkin high
+// ENF high, Checkin high
+// ENF low, Checkin none
+// ENF none, Checkin low
+// ENF low, Checkin low
+// inside these tests, we alter for testType (pcr & antigen)
 
 // swiftlint:disable:next type_body_length
 class KeySubmissionMetadataTests: XCTestCase {
