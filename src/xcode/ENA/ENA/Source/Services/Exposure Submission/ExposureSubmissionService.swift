@@ -251,11 +251,15 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		client.submit(payload: payload, isFake: false) { result in
 			switch result {
 			case .success:
-				
+
+				Analytics.collect(.keySubmissionMetadata(.submittedAfterRapidAntigenTest(coronaTest.type)))
 				Analytics.collect(.keySubmissionMetadata(.setHoursSinceTestResult(coronaTest.type)))
 				Analytics.collect(.keySubmissionMetadata(.setHoursSinceTestRegistration(coronaTest.type)))
 				Analytics.collect(.keySubmissionMetadata(.submitted(true, coronaTest.type)))
-				Analytics.collect(.keySubmissionMetadata(.submittedAfterRapidAntigenTest(coronaTest.type)))
+
+				if !checkins.isEmpty {
+					Analytics.collect(.keySubmissionMetadata(.submittedWithCheckins(true, coronaTest.type)))
+				}
 
 				self.submitExposureCleanup(coronaTestType: coronaTest.type)
 				

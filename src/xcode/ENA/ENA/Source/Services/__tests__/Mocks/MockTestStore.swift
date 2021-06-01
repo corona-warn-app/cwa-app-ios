@@ -8,14 +8,12 @@ import OpenCombine
 #if DEBUG
 
 final class MockTestStore: Store, PPAnalyticsData {
-
 	var firstPlaybookExecution: Date?
 	var lastBackgroundFakeRequest: Date = .init()
 	var hasSeenBackgroundFetchAlert: Bool = false
 	var enfRiskCalculationResult: ENFRiskCalculationResult?
 	var checkinRiskCalculationResult: CheckinRiskCalculationResult?
 	var shouldShowRiskStatusLoweredAlert: Bool = false
-	func clearAll(key: String?) {}
 	var exposureActivationConsentAcceptTimestamp: Int64?
 	var exposureActivationConsentAccept: Bool = false
 	var isOnboarded: Bool = false
@@ -42,8 +40,8 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var submissionCountries: [Country] = [.defaultCountry()]
 	var submissionSymptomsOnset: SymptomsOnset = .noInformation
 	var journalWithExposureHistoryInfoScreenShown: Bool = false
-	var dateOfConversionToHighRisk: Date?
-
+	
+	func clearAll(key: String?) {}
 	#if !RELEASE
 	// Settings from the debug menu.
 	var fakeSQLiteError: Int32?
@@ -75,8 +73,10 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var lastSubmissionAnalytics: Date?
 	var lastAppReset: Date?
 	var lastSubmittedPPAData: String?
-	var currentRiskExposureMetadata: RiskExposureMetadata?
-	var previousRiskExposureMetadata: RiskExposureMetadata?
+	var currentENFRiskExposureMetadata: RiskExposureMetadata?
+	var previousENFRiskExposureMetadata: RiskExposureMetadata?
+	var currentCheckinRiskExposureMetadata: RiskExposureMetadata?
+	var previousCheckinRiskExposureMetadata: RiskExposureMetadata?
 	var userMetadata: UserMetadata?
 	var clientMetadata: ClientMetadata?
 	var pcrKeySubmissionMetadata: KeySubmissionMetadata?
@@ -84,6 +84,8 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var pcrTestResultMetadata: TestResultMetadata?
 	var antigenTestResultMetadata: TestResultMetadata?
 	var exposureWindowsMetadata: ExposureWindowsMetadata?
+	var dateOfConversionToENFHighRisk: Date?
+	var dateOfConversionToCheckinHighRisk: Date?
 
 	// MARK: - ErrorLogProviding
 	
