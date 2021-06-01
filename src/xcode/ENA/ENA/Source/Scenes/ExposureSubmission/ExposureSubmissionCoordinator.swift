@@ -515,12 +515,19 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	}
 	
 	private func handleCoronaTestRegistrationInformation(_ testRegistrationInformation: CoronaTestRegistrationInformation, isLoading: @escaping (Bool) -> Void) {
+		var isConsentGiven: Bool
+		switch testRegistrationInformation {
+		case .teleTAN:
+			isConsentGiven = false
+		case .pcr, .antigen:
+			isConsentGiven = true
+		}
 		if let oldTest = self.model.coronaTestService.coronaTest(ofType: testRegistrationInformation.testType),
 		   oldTest.testResult != .expired,
 		   !(oldTest.type == .antigen && self.model.coronaTestService.antigenTestIsOutdated) {
-			self.showOverrideTestNotice(testQRCodeInformation: testRegistrationInformation, submissionConsentGiven: true)
+			self.showOverrideTestNotice(testQRCodeInformation: testRegistrationInformation, submissionConsentGiven: isConsentGiven)
 		} else {
-			self.registerTestAndGetResult(with: testRegistrationInformation, submissionConsentGiven: true, isLoading: isLoading)
+			self.registerTestAndGetResult(with: testRegistrationInformation, submissionConsentGiven: isConsentGiven, isLoading: isLoading)
 		}
 	}
 
