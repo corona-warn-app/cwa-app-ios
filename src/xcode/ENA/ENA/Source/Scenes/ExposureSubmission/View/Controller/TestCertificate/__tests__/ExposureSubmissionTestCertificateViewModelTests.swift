@@ -44,7 +44,7 @@ class ExposureSubmissionTestCertificateViewModelTests: XCTestCase {
 	}
 
 
-	func testGIVEN_PCRTest_WHEN_getBirthdayDatePickerCell_THEN_NumberOfCellsShoudMatch() throws {
+	func testGIVEN_PCRTest_WHEN_getBirthdayDatePickerCell_THEN_NumberOfCellsShouldMatch() throws {
 		// GIVEN
 		let indexPath = IndexPath(row: 1, section: 0)
 		let viewModel = ExposureSubmissionTestCertificateViewModel(
