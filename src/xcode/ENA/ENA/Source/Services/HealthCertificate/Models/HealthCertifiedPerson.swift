@@ -48,7 +48,18 @@ class HealthCertifiedPerson: Codable, Equatable {
 	enum VaccinationState: Equatable {
 		case partiallyVaccinated
 		case fullyVaccinated(daysUntilCompleteProtection: Int)
-		case completelyProtected
+		case completelyProtected(expirationDate: Date)
+
+		var gradientType: GradientView.GradientType {
+			switch self {
+			case .partiallyVaccinated:
+				return .solidGrey
+			case .fullyVaccinated:
+				return .solidGrey
+			case .completelyProtected:
+				return .lightBlue
+			}
+		}
 	}
 
 	var healthCertificates: [HealthCertificate] {
@@ -95,8 +106,17 @@ class HealthCertifiedPerson: Codable, Equatable {
 		return Calendar.autoupdatingCurrent.date(byAdding: .day, value: 14, to: vaccinationDate)
 	}
 
+	private var vaccinationExpirationDate: Date? {
+		guard let lastVaccination = healthCertificates.last(where: { $0.isLastDoseInASeries }) else {
+			return nil
+		}
+
+		return lastVaccination.expirationDate
+	}
+
 	private func updateVaccinationState() {
-		if let completeVaccinationProtectionDate = completeVaccinationProtectionDate {
+		if let completeVaccinationProtectionDate = completeVaccinationProtectionDate,
+		   let vaccinationExpirationDate = vaccinationExpirationDate {
 			if completeVaccinationProtectionDate > Date() {
 				let startOfToday = Calendar.autoupdatingCurrent.startOfDay(for: Date())
 				guard let daysUntilCompleteProtection = Calendar.autoupdatingCurrent.dateComponents([.day], from: startOfToday, to: completeVaccinationProtectionDate).day else {
@@ -105,7 +125,7 @@ class HealthCertifiedPerson: Codable, Equatable {
 
 				vaccinationState = .fullyVaccinated(daysUntilCompleteProtection: daysUntilCompleteProtection)
 			} else {
-				vaccinationState = .completelyProtected
+				vaccinationState = .completelyProtected(expirationDate: vaccinationExpirationDate)
 			}
 		} else {
 			vaccinationState = .partiallyVaccinated

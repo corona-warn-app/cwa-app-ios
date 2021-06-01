@@ -15,7 +15,6 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 		headerStackView.addGestureRecognizer(tapGestureRecognizer)
 		headerStackView.isUserInteractionEnabled = true
 		headerStackView.isAccessibilityElement = true
-		headerStackView.accessibilityTraits = [.button]
 	}
 
 	// MARK: - Protocol UITextFieldDelegate
@@ -47,6 +46,7 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 		label.font = cellModel.font
 		
 		headerStackView.accessibilityLabel = cellModel.text
+		headerStackView.accessibilityTraits = cellModel.parametersHidden ? [.button] : [.button, .selected]
 
 		setUpParameterViews()
 

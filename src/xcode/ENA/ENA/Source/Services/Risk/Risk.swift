@@ -26,12 +26,25 @@ extension Risk {
 	) {
 		Log.info("[Risk] Merging risks from ENF and checkin. Create Risk.", log: .riskDetection)
 
+		// determine if global risk level has changed
 		let riskLevelHasChanged = previousENFRiskCalculationResult?.riskLevel != nil &&
 			enfRiskCalculationResult.riskLevel != previousENFRiskCalculationResult?.riskLevel ||
 			previousCheckinCalculationResult?.riskLevel != nil &&
 			checkinCalculationResult.riskLevel != previousCheckinCalculationResult?.riskLevel
 
 		Log.debug("[Risk] riskLevelHasChanged: \(riskLevelHasChanged)", log: .riskDetection)
+		
+		// Check for each risk source (enf and checkin) if one of them got high. Only needed for PPA.
+		if previousENFRiskCalculationResult?.riskLevel == .low &&
+			enfRiskCalculationResult.riskLevel == .high {
+			Log.debug("[Risk] ENF riskLevel has changed to high.", log: .riskDetection)
+			Analytics.collect(.testResultMetadata(.setDateOfConversionToENFHighRisk(Date())))
+		}
+		if previousCheckinCalculationResult?.riskLevel == .low &&
+			checkinCalculationResult.riskLevel == .high {
+			Log.debug("[Risk] Checkin riskLevel has changed to high.", log: .riskDetection)
+			Analytics.collect(.testResultMetadata(.setDateOfConversionToCheckinHighRisk(Date())))
+		}
 
 		let tracingRiskLevelPerDate = enfRiskCalculationResult.riskLevelPerDate
 		let checkinRiskLevelPerDate = checkinCalculationResult.riskLevelPerDate
