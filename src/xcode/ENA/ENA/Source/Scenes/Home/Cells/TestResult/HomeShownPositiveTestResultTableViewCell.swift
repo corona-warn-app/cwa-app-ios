@@ -34,7 +34,7 @@ final class HomeShownPositiveTestResultTableViewCell: UITableViewCell {
 
 	// MARK: - Internal
 
-	func configure(with cellModel: HomeShownPositiveTestResultCellModel, onPrimaryAction: @escaping () -> Void) {
+	func configure(with cellModel: HomeShownPositiveTestResultCellModel, onPrimaryAction: @escaping () -> Void, onSecondaryAction: @escaping () -> Void) {
 		titleLabel.text = cellModel.title
 		topContainer.accessibilityLabel = cellModel.title
 
@@ -52,6 +52,7 @@ final class HomeShownPositiveTestResultTableViewCell: UITableViewCell {
 
 		UIView.performWithoutAnimation {
 			nextButton.setTitle(cellModel.buttonTitle, for: .normal)
+			removeTestButton.setTitle(cellModel.removeTestButtonTitle, for: .normal)
 		}
 
 		cellModel.$homeItemViewModels
@@ -84,6 +85,7 @@ final class HomeShownPositiveTestResultTableViewCell: UITableViewCell {
 			.store(in: &subscriptions)
 
 		self.onPrimaryAction = onPrimaryAction
+		self.onSecondaryAction = onSecondaryAction
 
 		// Retaining cell model so it gets updated
 		self.cellModel = cellModel
@@ -101,6 +103,7 @@ final class HomeShownPositiveTestResultTableViewCell: UITableViewCell {
 
 	@IBOutlet private weak var noteLabel: ENALabel!
 	@IBOutlet private weak var nextButton: ENAButton!
+	@IBOutlet private weak var removeTestButton: UIButton!
 
 	@IBOutlet private weak var containerView: HomeCardView!
 	@IBOutlet private weak var topContainer: UIView!
@@ -112,9 +115,14 @@ final class HomeShownPositiveTestResultTableViewCell: UITableViewCell {
 	private var cellModel: HomeShownPositiveTestResultCellModel?
 
 	private var onPrimaryAction: (() -> Void)?
+	private var onSecondaryAction: (() -> Void)?
 
 	@IBAction private func nextButtonTapped(_: UIButton) {
 		onPrimaryAction?()
+	}
+
+	@IBAction private func removeTestButtonTapped(_: UIButton) {
+		onSecondaryAction?()
 	}
 
 	private func configureStackView() {
@@ -126,7 +134,8 @@ final class HomeShownPositiveTestResultTableViewCell: UITableViewCell {
 	}
 
 	func setupAccessibility() {
-		containerView.accessibilityElements = [topContainer as Any, statusContainer as Any, noteLabel as Any, homeItemStackView as Any, nextButton as Any]
+		containerView.accessibilityElements = [topContainer as Any, statusContainer as Any, noteLabel as Any, homeItemStackView as Any, nextButton as Any,
+			removeTestButton as Any]
 
 		topContainer.isAccessibilityElement = true
 		topContainer.accessibilityTraits = [.button, .header]

@@ -1240,6 +1240,12 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Home_Finding_Positive_Card_Button" = "Andere warnen";
 
+"Home_Finding_Positive_Card_Button_Remove_Test" = "Test entfernen";
+
+"Home_Finding_Positive_Card_Remove_Test_Alert_Title" = "Sind Sie sicher, dass Sie Ihren Test entfernen wollen?";
+
+"Home_Finding_Positive_Card_Remove_Test_Alert_Description" = "Dadurch werden andere nicht gewarnt.";
+
 /* Home Test Registration Card */
 
 "Home_TestRegistration_Title" = "Test registrieren";
