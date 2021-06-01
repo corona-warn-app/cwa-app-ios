@@ -25,6 +25,7 @@ class HomeTableViewModelTests: CWATestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: store,
+				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
@@ -90,6 +91,7 @@ class HomeTableViewModelTests: CWATestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: store,
+				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
@@ -124,6 +126,7 @@ class HomeTableViewModelTests: CWATestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: store,
+				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
@@ -152,6 +155,7 @@ class HomeTableViewModelTests: CWATestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: store,
+				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
@@ -187,6 +191,7 @@ class HomeTableViewModelTests: CWATestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: store,
+				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),

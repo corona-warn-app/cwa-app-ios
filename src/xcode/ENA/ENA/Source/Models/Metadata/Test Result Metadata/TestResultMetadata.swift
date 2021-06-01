@@ -29,6 +29,15 @@ struct TestResultMetadata: Codable {
 			Int.self,
 			forKey: .hoursSinceHighRiskWarningAtTestRegistration
 		)
+		checkinRiskLevelAtTestRegistration = try container.decodeIfPresent(RiskLevel.self, forKey: .checkinRiskLevelAtTestRegistration)
+		daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration = try container.decodeIfPresent(
+			Int.self,
+			forKey: .daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration
+		)
+		hoursSinceCheckinHighRiskWarningAtTestRegistration = try container.decodeIfPresent(
+			Int.self,
+			forKey: .hoursSinceCheckinHighRiskWarningAtTestRegistration
+		)
 		testRegistrationDate = try container.decodeIfPresent(Date.self, forKey: .testRegistrationDate)
 		testRegistrationToken = try container.decode(String.self, forKey: .testRegistrationToken)
 
@@ -47,6 +56,9 @@ struct TestResultMetadata: Codable {
 		case riskLevelAtTestRegistration
 		case daysSinceMostRecentDateAtRiskLevelAtTestRegistration
 		case hoursSinceHighRiskWarningAtTestRegistration
+		case checkinRiskLevelAtTestRegistration
+		case daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration
+		case hoursSinceCheckinHighRiskWarningAtTestRegistration
 		case testRegistrationDate
 		case testRegistrationToken
 		case testType
@@ -61,17 +73,32 @@ struct TestResultMetadata: Codable {
 	// Pending: "everytime" current timestamp - time of test registration
 	var hoursSinceTestRegistration: Int? = 0
 	
-	// the risk level on the riskcard i.e totalRiskLevel
+	// the ENF risk level at test registration.
+	// Note: Do not rename or write migration
 	var riskLevelAtTestRegistration: RiskLevel?
 	
-	// test registration date - Most Recent Date at RiskLevel
+	// test registration date - Most Recent Date at ENF RiskLevel.
+	// set to -1 when no most recent data is available
+	// Note: Do not rename or write migration
 	var daysSinceMostRecentDateAtRiskLevelAtTestRegistration: Int?
 	
-	// if high = timestamp of when the risk card turned red -  timestamp of test registration
+	// if high = timestamp of when the ENF risk got high -  timestamp of test registration
 	// if low = -1
+	// Note: Do not rename or write migration
 	var hoursSinceHighRiskWarningAtTestRegistration: Int?
 	
-	// The following variables are not part of the submitted data but we need them For calculating the saved data
+	// the checkin risk level at test registration
+	var checkinRiskLevelAtTestRegistration: RiskLevel?
+	
+	// test registration date - Most Recent Date at checkin RiskLevel
+	// set to -1 when no most recent data is available
+	var daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration: Int?
+	
+	// if high = timestamp of when the checkin risk got high -  timestamp of test registration
+	// if low = -1
+	var hoursSinceCheckinHighRiskWarningAtTestRegistration: Int?
+	
+	// The following variables are not part of the submitted data but we need them for calculating the saved data
 	
 	var testRegistrationDate: Date?
 	

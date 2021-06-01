@@ -71,8 +71,8 @@ class PPAnalyticsCollectorTests: CWATestCase {
 			dateChangedComparedToPreviousSubmission: false
 		)
 		
-		store.currentRiskExposureMetadata = exposureRiskMetadata
-		store.previousRiskExposureMetadata = exposureRiskMetadata
+		store.currentENFRiskExposureMetadata = exposureRiskMetadata
+		store.previousENFRiskExposureMetadata = exposureRiskMetadata
 		store.userMetadata = UserMetadata(federalState: .hessen, administrativeUnit: 91, ageGroup: .ageBelow29)
 		store.lastSubmittedPPAData = "Some Fake Data"
 		store.lastAppReset = Date()
@@ -89,9 +89,12 @@ class PPAnalyticsCollectorTests: CWATestCase {
 			hoursSinceTestResult: 0901,
 			hoursSinceTestRegistration: 0901,
 			daysSinceMostRecentDateAtRiskLevelAtTestRegistration: 0901,
-			submittedWithTeleTAN: false,
 			hoursSinceHighRiskWarningAtTestRegistration: 0901,
-			submittedAfterRapidAntigenTest: false
+			submittedWithTeleTAN: false,
+			submittedAfterRapidAntigenTest: false,
+			daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration: -1,
+			hoursSinceCheckinHighRiskWarningAtTestRegistration: -1,
+			submittedWithCheckIns: nil
 		)
 		store.exposureWindowsMetadata = ExposureWindowsMetadata(
 			newExposureWindowsQueue: [],
@@ -109,9 +112,13 @@ class PPAnalyticsCollectorTests: CWATestCase {
 		Analytics.deleteAnalyticsData()
 		
 		// THEN
-		XCTAssertNil(store.currentRiskExposureMetadata)
+		XCTAssertNil(store.currentENFRiskExposureMetadata)
 		countOfDeletedProperties += 1
-		XCTAssertNil(store.previousRiskExposureMetadata)
+		XCTAssertNil(store.previousENFRiskExposureMetadata)
+		countOfDeletedProperties += 1
+		XCTAssertNil(store.currentCheckinRiskExposureMetadata)
+		countOfDeletedProperties += 1
+		XCTAssertNil(store.previousCheckinRiskExposureMetadata)
 		countOfDeletedProperties += 1
 		XCTAssertNil(store.userMetadata)
 		countOfDeletedProperties += 1
@@ -132,6 +139,10 @@ class PPAnalyticsCollectorTests: CWATestCase {
 		XCTAssertNil(store.antigenKeySubmissionMetadata)
 		countOfDeletedProperties += 1
 		XCTAssertNil(store.exposureWindowsMetadata)
+		countOfDeletedProperties += 1
+		XCTAssertNil(store.dateOfConversionToENFHighRisk)
+		countOfDeletedProperties += 1
+		XCTAssertNil(store.dateOfConversionToCheckinHighRisk)
 		countOfDeletedProperties += 1
 		
 		XCTAssertEqual(countOfPropertiesToDelete, countOfDeletedProperties, "The count must match. Did you perhaps forget to delete a property in Analytics.deleteAnalyticsData()?")

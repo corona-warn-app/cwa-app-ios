@@ -15,10 +15,14 @@ protocol PPAnalyticsData: AnyObject {
 	var lastAppReset: Date? { get set }
 	/// Content of last submitted data. Needed for analytics submission dev menu.
 	var lastSubmittedPPAData: String? { get set }
-	/// Analytics data.
-	var currentRiskExposureMetadata: RiskExposureMetadata? { get set }
-	/// Analytics data.
-	var previousRiskExposureMetadata: RiskExposureMetadata? { get set }
+	/// Analytics data ENF.
+	var currentENFRiskExposureMetadata: RiskExposureMetadata? { get set }
+	/// Analytics data ENF.
+	var previousENFRiskExposureMetadata: RiskExposureMetadata? { get set }
+	/// Analytics data Checkin.
+	var currentCheckinRiskExposureMetadata: RiskExposureMetadata? { get set }
+	/// Analytics data Checkin.
+	var previousCheckinRiskExposureMetadata: RiskExposureMetadata? { get set }
 	/// Analytics data.
 	var userMetadata: UserMetadata? { get set }
 	/// Analytics data.
@@ -33,6 +37,10 @@ protocol PPAnalyticsData: AnyObject {
 	var antigenTestResultMetadata: TestResultMetadata? { get set }
 	/// Analytics data.
 	var exposureWindowsMetadata: ExposureWindowsMetadata? { get set }
+	/// Date when the ENF risk was changed to high
+	var dateOfConversionToENFHighRisk: Date? { get set }
+	/// Date when the event risk was changed to high
+	var dateOfConversionToCheckinHighRisk: Date? { get set }
 }
 
 extension SecureStore: PPAnalyticsData {
@@ -51,15 +59,25 @@ extension SecureStore: PPAnalyticsData {
 		get { kvStore["lastSubmittedPPAData"] as String? }
 		set { kvStore["lastSubmittedPPAData"] = newValue }
 	}
-
-	var currentRiskExposureMetadata: RiskExposureMetadata? {
-		get { kvStore["currentRiskExposureMetadata"] as RiskExposureMetadata? }
+	
+	var currentENFRiskExposureMetadata: RiskExposureMetadata? {
+		get { kvStore["currentRiskExposureMetadata"] as RiskExposureMetadata? ?? nil }
 		set { kvStore["currentRiskExposureMetadata"] = newValue }
 	}
 
-	var previousRiskExposureMetadata: RiskExposureMetadata? {
-		get { kvStore["previousRiskExposureMetadata"] as RiskExposureMetadata? }
+	var previousENFRiskExposureMetadata: RiskExposureMetadata? {
+		get { kvStore["previousRiskExposureMetadata"] as RiskExposureMetadata? ?? nil }
 		set { kvStore["previousRiskExposureMetadata"] = newValue }
+	}
+	
+	var currentCheckinRiskExposureMetadata: RiskExposureMetadata? {
+		get { kvStore["currentCheckinRiskExposureMetadata"] as RiskExposureMetadata? ?? nil }
+		set { kvStore["currentCheckinRiskExposureMetadata"] = newValue }
+	}
+
+	var previousCheckinRiskExposureMetadata: RiskExposureMetadata? {
+		get { kvStore["previousCheckinRiskExposureMetadata"] as RiskExposureMetadata? ?? nil }
+		set { kvStore["previousCheckinRiskExposureMetadata"] = newValue }
 	}
 
 	var userMetadata: UserMetadata? {
@@ -112,5 +130,16 @@ extension SecureStore: PPAnalyticsData {
 	var exposureWindowsMetadata: ExposureWindowsMetadata? {
 		get { kvStore["exposureWindowsMetadata"] as ExposureWindowsMetadata? }
 		set { kvStore["exposureWindowsMetadata"] = newValue }
+	}
+	
+	var dateOfConversionToENFHighRisk: Date? {
+		// old named key matches not to property name to avoid migration
+		get { kvStore["dateOfConversionToHighRisk"] as Date? ?? nil }
+		set { kvStore["dateOfConversionToHighRisk"] = newValue }
+	}
+	
+	var dateOfConversionToCheckinHighRisk: Date? {
+		get { kvStore["dateOfConversionToCheckinHighRisk"] as Date? ?? nil }
+		set { kvStore["dateOfConversionToCheckinHighRisk"] = newValue }
 	}
 }

@@ -5,6 +5,7 @@
 import Foundation
 import OpenCombine
 
+// swiftlint:disable file_length
 protocol PPAnalyticsSubmitting {
 	/// Triggers the submission of all collected analytics data. Only if all checks success, the submission is done. Otherwise, the submission is aborted. The completion calls are passed through to test the component.
 	/// ⚠️ This method should ONLY be called by the PPAnalyticsCollector ⚠️
@@ -147,6 +148,24 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	
 	func getPPADataMessage() -> SAP_Internal_Ppdd_PPADataIOS {
 		return obtainUsageData(disableExposureWindowsProbability: true)
+	}
+	
+	// These 4 computed properties are only for the developer menu. These properties can only be accessed here or in the collector. Submitter is already injected in the DM, so it is the easiest way to read out these properties and to prevent to open the PPA Store.
+	
+	var currentENFRiskExposureMetadata: RiskExposureMetadata? {
+		return store.currentENFRiskExposureMetadata
+	}
+
+	var previousENFRiskExposureMetadata: RiskExposureMetadata? {
+		return store.previousENFRiskExposureMetadata
+	}
+	
+	var currentCheckinRiskExposureMetadata: RiskExposureMetadata? {
+		return store.currentCheckinRiskExposureMetadata
+	}
+
+	var previousCheckinRiskExposureMetadata: RiskExposureMetadata? {
+		return store.previousCheckinRiskExposureMetadata
 	}
 	
 	#endif
@@ -372,9 +391,12 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 				switch result {
 				case .success:
 					Log.info("Analytics data succesfully submitted", log: .ppa)
-					// after succesful submission, store the current risk exposure metadata as the previous one to get the next time a comparison.
-					self?.store.previousRiskExposureMetadata = self?.store.currentRiskExposureMetadata
-					self?.store.currentRiskExposureMetadata = nil
+					// after successful submission, store the current enf risk exposure metadata as the previous one to get the next time a comparison.
+					self?.store.previousENFRiskExposureMetadata = self?.store.currentENFRiskExposureMetadata
+					self?.store.currentENFRiskExposureMetadata = nil
+					// after successful submission, store the current event risk exposure metadata as the previous one to get the next time a comparison.
+					self?.store.previousCheckinRiskExposureMetadata = self?.store.currentCheckinRiskExposureMetadata
+					self?.store.currentCheckinRiskExposureMetadata = nil
 					if let shouldIncludeTestResultMetadata = self?.shouldIncludeTestResultMetadata(for: .pcr),
 					   shouldIncludeTestResultMetadata {
 						self?.store.pcrTestResultMetadata = nil
@@ -396,6 +418,9 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 					completion?(result)
 				case let .failure(error):
 					Log.error("Analytics data were not submitted. Error: \(error)", log: .ppa, error: error)
+					// tech spec says, we want a fresh state if submission fails
+					self?.store.currentENFRiskExposureMetadata = nil
+					self?.store.currentCheckinRiskExposureMetadata = nil
 					self?.submissionState = .readyForSubmission
 					completion?(result)
 				}
@@ -404,14 +429,34 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	}
 	
 	func gatherExposureRiskMetadata() -> [SAP_Internal_Ppdd_ExposureRiskMetadata] {
-		guard let storedUsageData = store.currentRiskExposureMetadata else {
-			return []
-		}
 		return [SAP_Internal_Ppdd_ExposureRiskMetadata.with {
-			$0.riskLevel = storedUsageData.riskLevel.protobuf
-			$0.riskLevelChangedComparedToPreviousSubmission = storedUsageData.riskLevelChangedComparedToPreviousSubmission
-			$0.mostRecentDateAtRiskLevel = formatToUnixTimestamp(for: storedUsageData.mostRecentDateAtRiskLevel)
-			$0.dateChangedComparedToPreviousSubmission = storedUsageData.dateChangedComparedToPreviousSubmission
+			// ENF ppa
+			if let enfRiskLevel = store.currentENFRiskExposureMetadata?.riskLevel {
+				$0.riskLevel = enfRiskLevel.protobuf
+			}
+			if let enfRiskLevelChangedComparedToPreviousSubmission = store.currentENFRiskExposureMetadata?.riskLevelChangedComparedToPreviousSubmission {
+				$0.riskLevelChangedComparedToPreviousSubmission = enfRiskLevelChangedComparedToPreviousSubmission
+			}
+			if let enfMostRecentDateAtRiskLevel = store.currentENFRiskExposureMetadata?.mostRecentDateAtRiskLevel {
+				$0.mostRecentDateAtRiskLevel = formatToUnixTimestamp(for: enfMostRecentDateAtRiskLevel)
+			}
+			if let enfDateChangedComparedToPreviousSubmission = store.currentENFRiskExposureMetadata?.dateChangedComparedToPreviousSubmission {
+				$0.dateChangedComparedToPreviousSubmission = enfDateChangedComparedToPreviousSubmission
+			}
+			// Checkin ppa
+			if let checkinRiskLevel = store.currentCheckinRiskExposureMetadata?.riskLevel {
+				$0.ptRiskLevel = checkinRiskLevel.protobuf
+			}
+			if let checkinRiskLevelChangedComparedToPreviousSubmission = store.currentCheckinRiskExposureMetadata?.riskLevelChangedComparedToPreviousSubmission {
+				$0.ptRiskLevelChangedComparedToPreviousSubmission = checkinRiskLevelChangedComparedToPreviousSubmission
+			}
+			if let checkinMostRecentDateAtRiskLevel = store.currentCheckinRiskExposureMetadata?.mostRecentDateAtRiskLevel {
+				$0.ptMostRecentDateAtRiskLevel = formatToUnixTimestamp(for: checkinMostRecentDateAtRiskLevel)
+			}
+			if let checkinDateChangedComparedToPreviousSubmission = store.currentCheckinRiskExposureMetadata?.dateChangedComparedToPreviousSubmission {
+				$0.ptDateChangedComparedToPreviousSubmission = checkinDateChangedComparedToPreviousSubmission
+			}
+			
 		}]
 	}
 	
@@ -515,6 +560,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			if let submittedAfterSymptomFlow = metadata.submittedAfterSymptomFlow {
 				$0.submittedAfterSymptomFlow = submittedAfterSymptomFlow
 			}
+
 			if let advancedConsentGiven = metadata.advancedConsentGiven {
 				$0.advancedConsentGiven = advancedConsentGiven
 			}
@@ -533,10 +579,21 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			if let hoursSinceHighRiskWarningAtTestRegistration = metadata.hoursSinceHighRiskWarningAtTestRegistration {
 				$0.hoursSinceHighRiskWarningAtTestRegistration = hoursSinceHighRiskWarningAtTestRegistration
 			}
+			if let daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration = metadata.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration {
+				$0.ptDaysSinceMostRecentDateAtRiskLevelAtTestRegistration = daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration
+			}
+			if let hoursSinceCheckinHighRiskWarningAtTestRegistration = metadata.hoursSinceCheckinHighRiskWarningAtTestRegistration {
+				$0.ptHoursSinceHighRiskWarningAtTestRegistration = hoursSinceCheckinHighRiskWarningAtTestRegistration
+			}
+			// special handling for the triStateBool
+			if let submittedWithCheckins = metadata.submittedWithCheckIns {
+				$0.submittedWithCheckIns = submittedWithCheckins ? .tsbTrue : .tsbFalse
+			} else {
+				$0.submittedWithCheckIns = .tsbFalse
+			}
 			if let submittedWithTeleTan = metadata.submittedWithTeleTAN {
 				$0.submittedWithTeleTan = submittedWithTeleTan
 			}
-
 			$0.submittedAfterRapidAntigenTest = metadata.submittedAfterRapidAntigenTest
 		}
 	}
@@ -559,14 +616,23 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			if let hoursSinceTestRegistration = metadata?.hoursSinceTestRegistration {
 				$0.hoursSinceTestRegistration = Int32(hoursSinceTestRegistration)
 			}
-			if let riskLevel = metadata?.riskLevelAtTestRegistration?.protobuf {
-				$0.riskLevelAtTestRegistration = riskLevel
+			if let enfRiskLevel = metadata?.riskLevelAtTestRegistration?.protobuf {
+				$0.riskLevelAtTestRegistration = enfRiskLevel
 			}
 			if let daysSinceMostRecentDateAtRiskLevelAtTestRegistration = metadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration {
 				$0.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = Int32(daysSinceMostRecentDateAtRiskLevelAtTestRegistration)
 			}
 			if let hoursSinceHighRiskWarningAtTestRegistration = metadata?.hoursSinceHighRiskWarningAtTestRegistration {
 				$0.hoursSinceHighRiskWarningAtTestRegistration = Int32(hoursSinceHighRiskWarningAtTestRegistration)
+			}
+			if let checkinRiskLevel = metadata?.checkinRiskLevelAtTestRegistration?.protobuf {
+				$0.ptRiskLevelAtTestRegistration = checkinRiskLevel
+			}
+			if let daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration = metadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration {
+				$0.ptDaysSinceMostRecentDateAtRiskLevelAtTestRegistration = Int32(daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration)
+			}
+			if let hoursSinceCheckinHighRiskWarningAtTestRegistration = metadata?.hoursSinceCheckinHighRiskWarningAtTestRegistration {
+				$0.ptHoursSinceHighRiskWarningAtTestRegistration = Int32(hoursSinceCheckinHighRiskWarningAtTestRegistration)
 			}
 		}
 		return resultProtobuf
