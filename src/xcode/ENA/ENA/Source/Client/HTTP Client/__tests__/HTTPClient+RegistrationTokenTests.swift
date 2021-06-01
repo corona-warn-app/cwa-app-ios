@@ -54,7 +54,41 @@ final class HTTPClientRegistrationTokenTests: CWATestCase {
 		}
 		waitForExpectations(timeout: expectationsTimeout)
 	}
-
+		
+	func testGIVEN_Client_WHEN_GetRegistrationTokenIsCalledWithBirthdate_THEN_TokenIsReturned() throws {
+		// GIVEN
+		let expectedToken = "SomeToken"
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			responseData: try JSONEncoder().encode(GetRegistrationTokenResponse(registrationToken: expectedToken))
+		)
+		
+		let expectation = self.expectation(
+			description: "Expect that we got a completion"
+		)
+		
+		var responseToken: String?
+		
+		// WHEN
+		HTTPClient.makeWith(mock: stack).getRegistrationToken(
+			forKey: "1234567890",
+			withType: "GUID",
+			birthdateHash: "x987654321"
+		) { result in
+			switch result {
+			case .success(let token):
+				responseToken = token
+			case .failure:
+				XCTFail("Test should not fail.")
+			}
+			expectation.fulfill()
+		}
+		waitForExpectations(timeout: expectationsTimeout)
+		
+		// THEN
+		XCTAssertEqual(responseToken ?? "FAIL", expectedToken)
+	}
+	
 	func testGetRegistrationToken_TANAlreadyUsed() throws {
 		let stack = MockNetworkStack(
 			httpStatus: 400,
@@ -62,7 +96,7 @@ final class HTTPClientRegistrationTokenTests: CWATestCase {
 		)
 
 		let successExpectation = expectation(
-			description: "Expect that we got a completion"
+			description: "Test should success with token returned"
 		)
 
 		HTTPClient.makeWith(mock: stack).getRegistrationToken(forKey: "1234567890", withType: "TELETAN") { result in
@@ -107,6 +141,40 @@ final class HTTPClientRegistrationTokenTests: CWATestCase {
 			}
 		}
 		waitForExpectations(timeout: expectationsTimeout)
+	}
+	
+	func testGIVEN_Client_WHEN_GetRegistrationTokenIsCalledWithMalformedBirthdate_THEN_TokenIsReturned() throws {
+		// GIVEN
+		let expectedToken = "SomeToken"
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			responseData: try JSONEncoder().encode(GetRegistrationTokenResponse(registrationToken: expectedToken))
+		)
+		
+		let expectation = self.expectation(
+			description: "Test should not success due to malformed birthdateHash"
+		)
+		
+		var responseError: URLSession.Response.Failure?
+		
+		// WHEN
+		HTTPClient.makeWith(mock: stack).getRegistrationToken(
+			forKey: "1234567890",
+			withType: "GUID",
+			birthdateHash: "987654321"
+		) { result in
+			switch result {
+			case .success:
+				XCTFail("Test should not success")
+			case let .failure(error):
+				responseError = error
+			}
+			expectation.fulfill()
+		}
+		waitForExpectations(timeout: expectationsTimeout)
+		
+		// THEN
+		XCTAssertEqual(responseError ?? URLSession.Response.Failure.serverError(999), URLSession.Response.Failure.malformedRequest)
 	}
 
 	func testGetRegistrationToken_MalformedResponse() throws {
