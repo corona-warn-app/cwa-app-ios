@@ -349,20 +349,29 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 			case let .success(packageDownloadResponse):
 				Log.info("Successfully downloaded single packageId: \(packageId). Proceed with verification and matching...", log: .checkin)
 				
-				// 9. Verfify signature for every not-empty package.
-				guard !packageDownloadResponse.isEmpty,
-					  let sapDownloadedPackage = packageDownloadResponse.package else {
-					Log.info("PackageId: \(packageId) is empty and was discarded.")
-					completion(.success(.emptySinglePackage))
-					return
-				}
-				
 				guard let eTag = packageDownloadResponse.etag else {
 					Log.error("ETag of packageId: \(packageId) missing. Discard package.")
 					completion(.failure(.identicationError))
 					return
 				}
 				
+				// 9. Verfify signature for every not-empty package.
+				guard !packageDownloadResponse.isEmpty,
+					  let sapDownloadedPackage = packageDownloadResponse.package else {
+					Log.info("PackageId: \(packageId) is empty and was discarded.")
+					
+					// Also empty one should be stored because if not, download is triggered everytime again because nothing could be cleanuped before but should be cleaned up to prevent new start of download.
+					let traceWarningPackageMetadata = TraceWarningPackageMetadata(
+						id: packageId,
+						region: country,
+						eTag: eTag
+					)
+					self.eventStore.createTraceWarningPackageMetadata(traceWarningPackageMetadata)
+					Log.info("Storing of empty packageId: \(packageId) done.")
+					completion(.success(.emptySinglePackage))
+					return
+				}
+
 				guard self.signatureVerifier.verify(sapDownloadedPackage) else {
 					Log.warning("Verification of packageId: \(packageId) failed. Discard package but complete download as success.")
 					completion(.failure(.verificationError))
