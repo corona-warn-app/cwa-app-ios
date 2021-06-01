@@ -128,9 +128,9 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		case .otpService:
 			vc = DMOTPServiceViewController(store: store, otpService: otpService)
 		case .ppaMostRecent:
-			vc = DMPPAnalyticsMostRecent(store: store, client: client, appConfig: appConfigurationProvider, coronaTestService: coronaTestService, ppacService: ppacService)
+			vc = DMPPAMostRecentData(store: store, client: client, appConfig: appConfigurationProvider, coronaTestService: coronaTestService, ppacService: ppacService)
 		case .ppaActual:
-			vc = DMPPAnalyticsActualData(store: store, client: client, appConfig: appConfigurationProvider, coronaTestService: coronaTestService, ppacService: ppacService)
+			vc = DMPPAActualDataViewController(store: store, client: client, appConfig: appConfigurationProvider, coronaTestService: coronaTestService, ppacService: ppacService)
 		case .ppaSubmission:
 			vc = DMPPAnalyticsViewController(store: store, client: client, appConfig: appConfigurationProvider, coronaTestService: coronaTestService, ppacService: ppacService)
 		case .installationDate:

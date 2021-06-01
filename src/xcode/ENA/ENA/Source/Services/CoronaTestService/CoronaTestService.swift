@@ -20,6 +20,7 @@ class CoronaTestService {
 	init(
 		client: Client,
 		store: CoronaTestStoring & CoronaTestStoringLegacy & WarnOthersTimeIntervalStoring,
+		eventStore: EventStoringProviding,
 		diaryStore: DiaryStoring,
 		appConfiguration: AppConfigurationProviding,
 		notificationCenter: UserNotificationCenter = UNUserNotificationCenter.current()
@@ -28,6 +29,7 @@ class CoronaTestService {
 		if isUITesting {
 			self.client = ClientMock()
 			self.store = MockTestStore()
+			self.eventStore = MockEventStore()
 			self.diaryStore = MockDiaryStore()
 			self.appConfiguration = CachedAppConfigurationMock()
 
@@ -47,6 +49,7 @@ class CoronaTestService {
 
 		self.client = client
 		self.store = store
+		self.eventStore = eventStore
 		self.diaryStore = diaryStore
 		self.appConfiguration = appConfiguration
 
@@ -422,6 +425,7 @@ class CoronaTestService {
 
 	private let client: Client
 	private var store: CoronaTestStoring & CoronaTestStoringLegacy
+	private let eventStore: EventStoringProviding
 	private let diaryStore: DiaryStoring
 	private let appConfiguration: AppConfigurationProviding
 	private let notificationCenter: UserNotificationCenter
@@ -641,9 +645,12 @@ class CoronaTestService {
 						}
 					}
 
+
 					if duringRegistration {
-						Analytics.collect(.keySubmissionMetadata(.setHoursSinceHighRiskWarningAtTestRegistration(coronaTestType)))
-						Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration(coronaTestType)))
+						Analytics.collect(.keySubmissionMetadata(.setHoursSinceENFHighRiskWarningAtTestRegistration(coronaTestType)))
+						Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration(coronaTestType)))
+						Analytics.collect(.keySubmissionMetadata(.setHoursSinceCheckinHighRiskWarningAtTestRegistration(coronaTestType)))
+						Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration(coronaTestType)))
 					}
 
 					completion(.success(testResult))
@@ -697,6 +704,8 @@ class CoronaTestService {
 			submittedAfterRapidAntigenTest = true
 		}
 
+		let submittedWithCheckIns = !eventStore.checkinsPublisher.value.isEmpty
+
 		let keySubmissionMetadata = KeySubmissionMetadata(
 			submitted: false,
 			submittedInBackground: false,
@@ -707,14 +716,17 @@ class CoronaTestService {
 			hoursSinceTestResult: 0,
 			hoursSinceTestRegistration: 0,
 			daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1,
-			submittedWithTeleTAN: false,
 			hoursSinceHighRiskWarningAtTestRegistration: -1,
-			submittedAfterRapidAntigenTest: submittedAfterRapidAntigenTest
+			submittedWithTeleTAN: false,
+			submittedAfterRapidAntigenTest: submittedAfterRapidAntigenTest,
+			daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration: -1,
+			hoursSinceCheckinHighRiskWarningAtTestRegistration: -1,
+			submittedWithCheckIns: submittedWithCheckIns
 		)
 
 		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, coronaTest.type)))
-		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration(coronaTest.type)))
-		Analytics.collect(.keySubmissionMetadata(.setHoursSinceHighRiskWarningAtTestRegistration(coronaTest.type)))
+		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration(coronaTest.type)))
+		Analytics.collect(.keySubmissionMetadata(.setHoursSinceENFHighRiskWarningAtTestRegistration(coronaTest.type)))
 	}
 
 	private func scheduleOutdatedStateTimer() {
