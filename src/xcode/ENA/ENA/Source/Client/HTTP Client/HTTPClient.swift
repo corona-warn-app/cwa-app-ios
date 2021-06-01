@@ -46,13 +46,13 @@ final class HTTPClient: Client {
 	func getRegistrationToken(
 		forKey key: String,
 		withType type: String,
-		birthdateHash: String? = nil,
+		dateOfBirthKey: String? = nil,
 		isFake: Bool = false,
 		completion completeWith: @escaping RegistrationHandler
 	) {
-		// Check if first char of birthdateHash is a lower cased "x". If not, we fail because it is malformed. If birthdateHash is nil, we pass this check.
-		if let birthdateHash = birthdateHash {
-			guard birthdateHash.first == "x" else {
+		// Check if first char of dateOfBirthKey is a lower cased "x". If not, we fail because it is malformed. If dateOfBirthKey is nil, we pass this check.
+		if let dateOfBirthKey = dateOfBirthKey {
+			guard dateOfBirthKey.first == "x" else {
 				completeWith(.failure(.malformedRequest))
 				return
 			}
@@ -62,7 +62,7 @@ final class HTTPClient: Client {
 				configuration: configuration,
 				key: key,
 				type: type,
-				birthdateHash: birthdateHash,
+				dateOfBirthKey: dateOfBirthKey,
 				headerValue: isFake ? 1 : 0
 			) else {
 				completeWith(.failure(.invalidResponse))
@@ -878,7 +878,7 @@ private extension URLRequest {
 		configuration: HTTPClient.Configuration,
 		key: String,
 		type: String,
-		birthdateHash: String?,
+		dateOfBirthKey: String?,
 		headerValue: Int
 	) throws -> URLRequest {
 		
@@ -907,8 +907,8 @@ private extension URLRequest {
 		
 		// Create body.
 		var originalBody: [String: String] = [:]
-		if let birthdateHash = birthdateHash {
-			originalBody = ["key": key, "keyDOB": birthdateHash, "keyType": type]
+		if let dateOfBirthKey = dateOfBirthKey {
+			originalBody = ["key": key, "keyDOB": dateOfBirthKey, "keyType": type]
 		} else {
 			originalBody = ["key": key, "keyType": type]
 		}

@@ -73,7 +73,7 @@ final class HTTPClientRegistrationTokenTests: CWATestCase {
 		HTTPClient.makeWith(mock: stack).getRegistrationToken(
 			forKey: "1234567890",
 			withType: "GUID",
-			birthdateHash: "x987654321"
+			dateOfBirthKey: "x987654321"
 		) { result in
 			switch result {
 			case .success(let token):
@@ -161,7 +161,7 @@ final class HTTPClientRegistrationTokenTests: CWATestCase {
 		HTTPClient.makeWith(mock: stack).getRegistrationToken(
 			forKey: "1234567890",
 			withType: "GUID",
-			birthdateHash: "987654321"
+			dateOfBirthKey: "987654321"
 		) { result in
 			switch result {
 			case .success:

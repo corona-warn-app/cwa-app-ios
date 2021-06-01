@@ -59,7 +59,7 @@ protocol Client {
 	func getRegistrationToken(
 		forKey key: String,
 		withType type: String,
-		birthdateHash date: String?,
+		dateOfBirthKey: String?,
 		isFake: Bool,
 		completion completeWith: @escaping RegistrationHandler
 	)

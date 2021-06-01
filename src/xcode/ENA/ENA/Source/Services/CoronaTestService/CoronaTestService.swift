@@ -468,17 +468,17 @@ class CoronaTestService {
 			}
 			.store(in: &subscriptions)
 	}
-
+	
 	private func getRegistrationToken(
 		forKey key: String,
 		withType type: String,
-		birthdateHash: String? = nil,
+		dateOfBirthKey: String? = nil,
 		completion: @escaping RegistrationResultHandler
 	) {
 		client.getRegistrationToken(
 			forKey: key,
 			withType: type,
-			birthdateHash: birthdateHash,
+			dateOfBirthKey: dateOfBirthKey,
 			isFake: false
 		) { result in
 			switch result {
@@ -489,7 +489,7 @@ class CoronaTestService {
 			}
 		}
 	}
-
+	
 	// swiftlint:disable:next cyclomatic_complexity function_body_length
 	private func getTestResult(
 		for coronaTestType: CoronaTestType,
