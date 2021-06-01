@@ -8,6 +8,7 @@ import SwiftCBOR
 import JSONSchema
 
 public typealias Base45 = String
+public typealias Base64 = String
 public typealias CBORData = Data
 
 let hcPrefix = "HC1:"
@@ -47,8 +48,47 @@ public struct DigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtoc
         }
     }
 
-    public func extractDigitalGreenCertificate(from coseWithEncryptedDGC: Data, with dataEncryptionKey: String) -> Result<DigitalGreenCertificate, CertificateDecodingError> {
+    public func extractDigitalGreenCertificate(from base64: Base64, with dataEncryptionKey: Data) -> Result<DigitalGreenCertificate, CertificateDecodingError> {
+        let cborDataResult = extractCBOR(fromBase64: base64)
 
+        switch cborDataResult {
+        case let .success(cborData):
+
+            let webTokenResult = decodeCBORWebToken(from: cborData)
+
+            switch webTokenResult {
+            case let .success(cborWebToken):
+
+                // 18: CBOR tag value for a COSE Single Signer Data Object
+                guard let messageElement = cborWebToken[18],
+                      case let .array(message) = messageElement,
+                      message.count == 4 else {
+                    return .failure(.HC_COSE_MESSAGE_INVALID)
+                }
+
+                let protectedHeader = message[0]
+                let unprotectedHeader = message[1]
+                let payload = message[2]
+                let signature = message[3]
+
+                guard case let .byteString(bytes) = payload else {
+                    return .failure(.HC_COSE_MESSAGE_INVALID)
+                }
+
+                let aesEncryption = AESEncryption(
+                    encryptionKey: dataEncryptionKey,
+                    initializationVector: AESEncryptionConstants.initializationVector
+                )
+
+                let decryptedData = aesEncryption.decrypt(data: Data(bytes))
+
+            case let .failure(error):
+                return .failure(error)
+            }
+
+        case let .failure(error):
+            return .failure(error)
+        }
 
         return .failure(.HC_CBORWEBTOKEN_NO_DIGITALGREENCERTIFICATE)
     }
@@ -83,6 +123,17 @@ public struct DigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtoc
             fatalError("cborData should not be nil at this point.")
         }
 
+        return .success(cborData)
+    }
+
+    func extractCBOR(fromBase64 base64: Base64) -> Result<CBORData, CertificateDecodingError> {
+        guard base64.hasPrefix(hcPrefix) else {
+            return .failure(.HC_PREFIX_INVALID)
+        }
+        let base64WithoutPrefix = base64.dropPrefix(hcPrefix)
+        guard let cborData = Data(base64Encoded: base64WithoutPrefix) else {
+            return .failure(.HC_BASE45_DECODING_FAILED(nil))
+        }
         return .success(cborData)
     }
 
