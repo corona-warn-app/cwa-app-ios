@@ -59,8 +59,8 @@ class ExposureSubmissionTestCertificateViewModel {
 						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.TestCertificate.Info.body
 					),
 					testType == .antigen ? nil : .birthdayDatePicker(
-						placeholder: AppStrings.ExposureSubmission.TestCertificate.Info.birthDayPlaceholder,
-						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.TestCertificate.Info.birthDayPlaceholder,
+						placeholder: AppStrings.ExposureSubmission.TestCertificate.Info.birthdayPlaceholder,
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.TestCertificate.Info.birthdayPlaceholder,
 						configure: { [weak self] _, cell, _ in
 							guard let birthdayDateInputCell = cell as? BirthdayDatePickerCell,
 								  let self = self else {
@@ -74,8 +74,8 @@ class ExposureSubmissionTestCertificateViewModel {
 						}
 					),
 					testType == .antigen ? nil : .body(
-						text: AppStrings.ExposureSubmission.TestCertificate.Info.birthDayText,
-						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.TestCertificate.Info.birthDayText
+						text: AppStrings.ExposureSubmission.TestCertificate.Info.birthdayText,
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.TestCertificate.Info.birthdayText
 					),
 					.space(
 						height: 15.0,
