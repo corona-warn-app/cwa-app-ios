@@ -37,13 +37,14 @@ enum PPAUserMetadata {
 }
 
 enum PPARiskExposureMetadata {
-	case create(RiskExposureMetadata)
-	case updateRiskExposureMetadata(ENFRiskCalculationResult)
+	case update
 }
 
 enum PPATestResultMetadata {
 	case registerNewTestMetadata(Date, String, CoronaTestType)
 	case updateTestResult(TestResult, String, CoronaTestType)
+	case setDateOfConversionToENFHighRisk(Date)
+	case setDateOfConversionToCheckinHighRisk(Date)
 }
 
 enum PPAKeySubmissionMetadata {
@@ -53,13 +54,16 @@ enum PPAKeySubmissionMetadata {
 	case submittedAfterCancel(Bool, CoronaTestType)
 	case submittedAfterSymptomFlow(Bool, CoronaTestType)
 	case submittedWithTeletan(Bool, CoronaTestType)
+	case submittedWithCheckins(Bool?, CoronaTestType)
 	case lastSubmissionFlowScreen(LastSubmissionFlowScreen?, CoronaTestType)
 	case advancedConsentGiven(Bool, CoronaTestType)
 	case submittedAfterRapidAntigenTest(CoronaTestType)
 	case setHoursSinceTestResult(CoronaTestType)
 	case setHoursSinceTestRegistration(CoronaTestType)
-	case setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration(CoronaTestType)
-	case setHoursSinceHighRiskWarningAtTestRegistration(CoronaTestType)
+	case setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration(CoronaTestType)
+	case setHoursSinceENFHighRiskWarningAtTestRegistration(CoronaTestType)
+	case setDaysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration(CoronaTestType)
+	case setHoursSinceCheckinHighRiskWarningAtTestRegistration(CoronaTestType)
 }
 
 enum PPAExposureWindowsMetadata {
