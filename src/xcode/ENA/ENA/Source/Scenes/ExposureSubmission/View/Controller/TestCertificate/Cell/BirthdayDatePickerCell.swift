@@ -26,8 +26,6 @@ class BirthdayDatePickerCell: UITableViewCell, ReuseIdentifierProviding, UITextF
 		return true
 	}
 
-	// MARK: - Public
-
 	// MARK: - Internal
 
 	@OpenCombine.Published private(set) var birthdayDate: String?
