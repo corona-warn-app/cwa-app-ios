@@ -13,6 +13,7 @@ class TanInputViewModelTests: CWATestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: MockTestStore(),
+				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
@@ -35,6 +36,7 @@ class TanInputViewModelTests: CWATestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: MockTestStore(),
+				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
@@ -57,6 +59,7 @@ class TanInputViewModelTests: CWATestCase {
 			coronaTestService: CoronaTestService(
 				client: ClientMock(),
 				store: MockTestStore(),
+				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
