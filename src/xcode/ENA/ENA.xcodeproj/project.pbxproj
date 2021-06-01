@@ -7253,7 +7253,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# ignore CI builds - swiftlint is handled separately there\nif [ -z ${CI} ]; then\n  # Adds support for Apple Silicon brew directory\n  # maybe better: address `$HOMEBREW_PREFIX`!?\n  export PATH=\"$PATH:/opt/homebrew/bin\"\n\n  if which swiftlint >/dev/null; then\n    swiftlint\n  else\n    echo \"error: SwiftLint is not available.\"\n    echo \"Use 'brew install swiftlint' to install SwiftLint or   download it manually from   https://github.com/realm/SwiftLint.\"\n  fi\nfi\n";
+			shellScript = "# ignore CI builds - swiftlint is handled separately there\nif [ -z \"${CI}\" ]; then\n  # Adds support for Apple Silicon brew directory\n  # maybe better: address `$HOMEBREW_PREFIX`!?\n  export PATH=\"$PATH:/opt/homebrew/bin\"\n\n  if which swiftlint >/dev/null; then\n    swiftlint\n  else\n    echo \"error: SwiftLint is not available.\"\n    echo \"Use 'brew install swiftlint' to install SwiftLint or   download it manually from   https://github.com/realm/SwiftLint.\"\n  fi\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
