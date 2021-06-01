@@ -50,6 +50,12 @@ protocol Client {
 	// MARK: Getting the Configuration
 
 	/// Gets the registration token
+	/// - Parameters:
+	///   - forKey: The sha256 hashed hash from the qrCode
+	///   - withType: Test input type. Normally "GUID" or "TELETAN".
+	///   - birthdateHash: Optional and only needed for pcrTests. Expects the birthdate of the person as hash and the first character of that hash replayed by "x".
+	///   - isFake: Set to true if we want this request as a fake request
+	///   - completion: the completion handler of the call
 	func getRegistrationToken(
 		forKey key: String,
 		withType type: String,
