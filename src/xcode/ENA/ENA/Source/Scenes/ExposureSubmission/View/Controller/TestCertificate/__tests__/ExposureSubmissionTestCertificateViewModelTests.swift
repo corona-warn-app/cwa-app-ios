@@ -25,7 +25,7 @@ class ExposureSubmissionTestCertificateViewModelTests: XCTestCase {
 		XCTAssertFalse(viewModel.isPrimaryButtonEnabled)
 	}
 
-	func testGIVEN_AntigenTest_WHEN_getDynamicTableViewModel_THEN_NumberOfCellsShoudMatch() {
+	func testGIVEN_AntigenTest_WHEN_getDynamicTableViewModel_THEN_NumberOfCellsShouldMatch() {
 		// GIVEN
 		let viewModel = ExposureSubmissionTestCertificateViewModel(
 			testType: .antigen,
