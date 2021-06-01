@@ -8,7 +8,7 @@ enum CoronaTestCertificateConsent {
 
 	// MARK: - Internal
 
-	case given(dateOfBirth: Date?)
+	case given(dateOfBirth: String?)
 	case notGiven
 
 }

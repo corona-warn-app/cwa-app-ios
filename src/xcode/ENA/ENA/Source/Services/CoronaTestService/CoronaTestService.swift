@@ -93,7 +93,11 @@ class CoronaTestService {
 	) {
 		var certificateConsentGiven = false
 		var dateOfBirthKey: String?
-		if case let .given(dateOfBirth) = certificateConsent, let dateOfBirth = dateOfBirth {
+		if
+			case let .given(givenDateOfBirth) = certificateConsent,
+			let dateOfBirthString = givenDateOfBirth,
+			let dateOfBirth = ISO8601DateFormatter.justUTCDateFormatter.date(from: dateOfBirthString)
+		{
 			certificateConsentGiven = true
 
 			let dateFormatter = DateFormatter()
