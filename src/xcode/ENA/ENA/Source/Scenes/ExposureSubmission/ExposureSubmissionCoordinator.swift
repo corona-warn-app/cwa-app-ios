@@ -141,10 +141,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			onQRCodeButtonTap: { [weak self] isLoading in
 				self?.model.exposureSubmissionService.loadSupportedCountries(
 					isLoading: isLoading,
-					onSuccess: { _ /* supportedCountries */ in
-						self?.showTestCertificateInfo()
-//						fatalError()
-//						self?.showQRInfoScreen(supportedCountries: supportedCountries)
+					onSuccess: { supportedCountries in
+						self?.showQRInfoScreen(supportedCountries: supportedCountries)
 					}
 				)
 			},
