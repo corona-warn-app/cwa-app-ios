@@ -62,12 +62,16 @@ class CreateCheckinQuery: StoreQueryProtocol {
 		"""
 
 		var traceLocationStartDateInterval: Int?
-		if let traceLocationStart = checkin.traceLocationStartDate {
+		// If the tracelocationstart date exceeds the Int.max, and Corona 🦠 is still around, we have other problems
+		// than Int.max ;-) Int.max is Friday, 11. April 2262.
+		if let traceLocationStart = checkin.traceLocationStartDate, traceLocationStart.timeIntervalSince1970 < Double(Int.max) {
 			traceLocationStartDateInterval = Int(traceLocationStart.timeIntervalSince1970)
 		}
 
 		var traceLocationEndDateInterval: Int?
-		if let traceLocationEnd = checkin.traceLocationEndDate {
+		// If the tracelocationstart date exceeds the Int.max, and Corona 🦠 is still around, we have other problems
+		// than Int.max ;-) Int.max is Friday, 11. April 2262.
+		if let traceLocationEnd = checkin.traceLocationEndDate, traceLocationEnd.timeIntervalSince1970 < Double(Int.max) {
 			traceLocationEndDateInterval = Int(traceLocationEnd.timeIntervalSince1970)
 		}
 
