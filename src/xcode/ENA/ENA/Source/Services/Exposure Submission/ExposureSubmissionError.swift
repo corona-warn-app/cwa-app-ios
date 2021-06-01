@@ -40,6 +40,7 @@ enum ExposureSubmissionError: Error, Equatable {
 	case requestCouldNotBeBuilt
 	case qrExpired
 	case positiveTestResultNotShown // User has never seen his positive TestResult
+	case malformedRequest
 
 	/// **[Deprecated]** Legacy state to indicate no (meaningful) response was given.
 	///

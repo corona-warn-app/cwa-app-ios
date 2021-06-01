@@ -101,6 +101,8 @@ extension URLSessionError: ExposureSubmissionErrorTransformable {
 			return .serverError(304)
 		case .fakeResponse:
 			return .fakeResponse
+		case .malformedRequest:
+			return .malformedRequest
 		}
 	}
 	// swiftlint:enable cyclomatic_complexity
