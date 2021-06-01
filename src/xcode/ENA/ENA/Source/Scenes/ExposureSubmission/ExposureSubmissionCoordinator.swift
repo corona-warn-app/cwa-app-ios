@@ -523,8 +523,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			self.registerTestAndGetResult(
 				with: testRegistrationInformation,
 				submissionConsentGiven: isConsentGiven,
-			// TODO: Set to appropriate value
-			   certificateConsent: .notGiven,
+				// Set to appropriate value (EXPOSUREAPP-7585)
+				certificateConsent: .notGiven,
 				isLoading: isLoading
 			)
 		}
@@ -1058,7 +1058,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				self?.registerTestAndGetResult(
 					with: testQRCodeInformation,
 					submissionConsentGiven: submissionConsentGiven,
-					// TODO: Set to appropriate value
+					// Set to appropriate value (EXPOSUREAPP-7585)
 					certificateConsent: .notGiven,
 					isLoading: { isLoading in
 						footerViewModel.setLoadingIndicator(isLoading, disable: isLoading, button: .primary)

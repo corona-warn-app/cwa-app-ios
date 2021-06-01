@@ -506,7 +506,7 @@ class CoronaTestService {
 	private func getRegistrationToken(
 		forKey key: String,
 		withType type: String,
-		// TODO: Pass on to client
+		// Still needs to be passed on to the client! (EXPOSUREAPP-7584)
 		dateOfBirthKey: String?,
 		completion: @escaping RegistrationResultHandler
 	) {
