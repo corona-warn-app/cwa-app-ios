@@ -835,6 +835,82 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		push(topBottomContainerViewController)
 	}
 
+	// MARK: TestCertificateInfo
+
+	private func showTestCertificateInfo() {
+		let testCertificateViewController = ExposureSubmissionTestCertificateViewController(
+			ExposureSubmissionTestCertificateViewModel(
+				testType: .pcr,
+				presentDisclaimer: { [weak self] in
+					self?.showDataPrivacy()
+				}
+			),
+			showCancelAlert: { [weak self] in
+				self?.showEndRegistrationAlert(
+					submitAction: UIAlertAction(
+						title: AppStrings.ExposureSubmission.TestCertificate.Info.Alert.ok,
+						style: .default,
+						handler: { _ in
+							self?.navigationController?.dismiss(animated: true)
+						}
+					)
+				)
+			},
+			didTapPrimaryButton: { testType, optionalBirthDateString in
+				Log.debug("NYD - \(testType), \(String(describing: optionalBirthDateString))")
+			},
+			didTapSecondaryButton: { [weak self] in
+				self?.navigationController?.dismiss(animated: true)
+			}
+		)
+
+		let footerViewModel = FooterViewModel(
+			primaryButtonName: AppStrings.ExposureSubmission.TestCertificate.Info.primaryButton,
+			secondaryButtonName: AppStrings.ExposureSubmission.TestCertificate.Info.secondaryButton,
+			isPrimaryButtonEnabled: true,
+			isSecondaryButtonEnabled: true,
+			isPrimaryButtonHidden: false,
+			isSecondaryButtonHidden: false,
+			primaryButtonColor: .enaColor(for: .buttonPrimary),
+			secondaryButtonInverted: true,
+			backgroundColor: .enaColor(for: .background)
+		)
+
+		let footerViewController = FooterViewController(footerViewModel)
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: testCertificateViewController,
+			bottomController: footerViewController
+		)
+		push(topBottomContainerViewController)
+	}
+
+	private func showDataPrivacy() {
+		let detailViewController = HTMLViewController(model: AppInformationModel.privacyModel)
+		detailViewController.title = AppStrings.AppInformation.privacyTitle
+		detailViewController.isDismissable = false
+		if #available(iOS 13.0, *) {
+			detailViewController.isModalInPresentation = true
+		}
+		self.push(detailViewController)
+	}
+
+	private func showEndRegistrationAlert(submitAction: UIAlertAction) {
+		let alert = UIAlertController(
+			title: AppStrings.ExposureSubmission.TestCertificate.Info.Alert.title,
+			message: AppStrings.ExposureSubmission.TestCertificate.Info.Alert.message,
+			preferredStyle: .alert
+		)
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.ExposureSubmission.TestCertificate.Info.Alert.cancel,
+				style: .cancel,
+				handler: nil
+			)
+		)
+		alert.addAction(submitAction)
+		navigationController?.present(alert, animated: true)
+	}
+
 	// MARK: Cancel Alerts
 
 	private func showTestResultAvailableCloseAlert() {
