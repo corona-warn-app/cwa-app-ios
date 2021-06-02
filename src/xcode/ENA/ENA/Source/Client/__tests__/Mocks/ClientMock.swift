@@ -53,7 +53,7 @@ final class ClientMock {
 
 	var onGetTestResult: ((String, Bool, TestResultHandler) -> Void)?
 	var onSubmitCountries: ((_ payload: CountrySubmissionPayload, _ isFake: Bool, _ completion: @escaping KeySubmissionResponse) -> Void) = { $2(.success(())) }
-	var onGetRegistrationToken: ((String, String, Bool, @escaping RegistrationHandler) -> Void)?
+	var onGetRegistrationToken: ((String, String, String?, Bool, @escaping RegistrationHandler) -> Void)?
 	var onGetTANForExposureSubmit: ((String, Bool, @escaping TANHandler) -> Void)?
 	var onSupportedCountries: ((@escaping CountryFetchCompletion) -> Void)?
 	var onGetOTPEdus: ((String, PPACToken, Bool, @escaping OTPAuthorizationCompletionHandler) -> Void)?
@@ -152,7 +152,7 @@ extension ClientMock: Client {
 			return
 		}
 
-		onGetRegistrationToken(forKey, withType, isFake, completeWith)
+		onGetRegistrationToken(forKey, withType, dateOfBirthKey, isFake, completeWith)
 	}
 
 	func getTestResult(forDevice device: String, isFake: Bool, completion completeWith: @escaping TestResultHandler) {
