@@ -63,17 +63,21 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		// THEN
 		waitForExpectations(timeout: .medium)
 		XCTAssertEqual(responseCode, .success)
+		XCTAssertFalse(eventStore.traceWarningPackageMetadatasPublisher.value.isEmpty)
+		XCTAssertTrue(eventStore.traceTimeIntervalMatchesPublisher.value.isEmpty)
+		XCTAssertFalse(eventStore.checkinsPublisher.value.isEmpty)
+		XCTAssertTrue(eventStore.traceLocationsPublisher.value.isEmpty)
 	}
 	
 	func testGIVEN_TraceWarningDownload_WHEN_CheckInDatabaseIsEmpty_THEN_Success() {
 		
 		// GIVEN
 		let appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
-		
+		let eventStore = MockEventStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: ClientMock(),
 			store: MockTestStore(),
-			eventStore: MockEventStore()
+			eventStore: eventStore
 		)
 		
 		let successExpectation = expectation(description: "TraceWarningPackage CheckInDatabaseIsEmpty_THEN_Success.")
@@ -94,6 +98,10 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		// THEN
 		waitForExpectations(timeout: .medium)
 		XCTAssertEqual(responseCode, .noCheckins)
+		XCTAssertTrue(eventStore.traceWarningPackageMetadatasPublisher.value.isEmpty)
+		XCTAssertTrue(eventStore.traceTimeIntervalMatchesPublisher.value.isEmpty)
+		XCTAssertTrue(eventStore.checkinsPublisher.value.isEmpty)
+		XCTAssertTrue(eventStore.traceLocationsPublisher.value.isEmpty)
 	}
 	
 	func testGIVEN_TraceWarningDownload_WHEN_CheckInDatabaseIsNotEmpty_THEN_Success() {
@@ -129,6 +137,10 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		// THEN
 		waitForExpectations(timeout: .medium)
 		XCTAssertEqual(responseCode, .noPackagesAvailable)
+		XCTAssertTrue(eventStore.traceWarningPackageMetadatasPublisher.value.isEmpty)
+		XCTAssertTrue(eventStore.traceTimeIntervalMatchesPublisher.value.isEmpty)
+		XCTAssertFalse(eventStore.checkinsPublisher.value.isEmpty)
+		XCTAssertTrue(eventStore.traceLocationsPublisher.value.isEmpty)
 	}
 	
 	func testGIVEN_TraceWarningDownload_WHEN_AvailablePackagesOnCDNAreEmpty_THEN_Success() {
@@ -169,7 +181,10 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		// THEN
 		waitForExpectations(timeout: .medium)
 		XCTAssertEqual(responseCode, .emptyAvailablePackages)
-	}
+		XCTAssertTrue(eventStore.traceWarningPackageMetadatasPublisher.value.isEmpty)
+		XCTAssertTrue(eventStore.traceTimeIntervalMatchesPublisher.value.isEmpty)
+		XCTAssertFalse(eventStore.checkinsPublisher.value.isEmpty)
+		XCTAssertTrue(eventStore.traceLocationsPublisher.value.isEmpty)	}
 	
 	func testGIVEN_TraceWarningDownload_WHEN_SinglePackageIsEmpty_THEN_Success() throws {
 		
@@ -219,6 +234,10 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		// THEN
 		waitForExpectations(timeout: .medium)
 		XCTAssertEqual(responseCode, .emptySinglePackage)
+		XCTAssertFalse(eventStore.traceWarningPackageMetadatasPublisher.value.isEmpty)
+		XCTAssertTrue(eventStore.traceTimeIntervalMatchesPublisher.value.isEmpty)
+		XCTAssertFalse(eventStore.checkinsPublisher.value.isEmpty)
+		XCTAssertTrue(eventStore.traceLocationsPublisher.value.isEmpty)
 	}
 	
 	// MARK: - Errors
@@ -270,6 +289,10 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		waitForExpectations(timeout: .medium)
 		XCTAssertEqual(responseCodeSuccess, .noPackagesAvailable)
 		XCTAssertEqual(responseCodeError, .downloadIsRunning)
+		XCTAssertTrue(eventStore.traceWarningPackageMetadatasPublisher.value.isEmpty)
+		XCTAssertTrue(eventStore.traceTimeIntervalMatchesPublisher.value.isEmpty)
+		XCTAssertFalse(eventStore.checkinsPublisher.value.isEmpty)
+		XCTAssertTrue(eventStore.traceLocationsPublisher.value.isEmpty)
 	}
 	
 	func testGIVEN_TraceWarningDownload_WHEN_DiscoveryIsFailing_THEN_InvalidResponseError() throws {
@@ -308,6 +331,10 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		// THEN
 		waitForExpectations(timeout: .medium)
 		XCTAssertEqual(responseCodeError, .invalidResponseError(404))
+		XCTAssertTrue(eventStore.traceWarningPackageMetadatasPublisher.value.isEmpty)
+		XCTAssertTrue(eventStore.traceTimeIntervalMatchesPublisher.value.isEmpty)
+		XCTAssertFalse(eventStore.checkinsPublisher.value.isEmpty)
+		XCTAssertTrue(eventStore.traceLocationsPublisher.value.isEmpty)
 	}
 	
 	func testGIVEN_TraceWarningDownload_WHEN_NoEarliestPackageFound_THEN_NoEarliestRelevantPackageError() {
@@ -353,6 +380,10 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		// THEN
 		waitForExpectations(timeout: .medium)
 		XCTAssertEqual(responseCodeError, .noEarliestRelevantPackage)
+		XCTAssertTrue(eventStore.traceWarningPackageMetadatasPublisher.value.isEmpty)
+		XCTAssertTrue(eventStore.traceTimeIntervalMatchesPublisher.value.isEmpty)
+		XCTAssertTrue(eventStore.checkinsPublisher.value.isEmpty)
+		XCTAssertTrue(eventStore.traceLocationsPublisher.value.isEmpty)
 	}
 	
 	func testGIVEN_TraceWarningDownload_WHEN_DownloadIsFailing_THEN_InvalidResponseError() {
@@ -399,6 +430,10 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		// THEN
 		waitForExpectations(timeout: .medium)
 		XCTAssertEqual(responseCodeError, .invalidResponseError(999))
+		XCTAssertTrue(eventStore.traceWarningPackageMetadatasPublisher.value.isEmpty)
+		XCTAssertTrue(eventStore.traceTimeIntervalMatchesPublisher.value.isEmpty)
+		XCTAssertFalse(eventStore.checkinsPublisher.value.isEmpty)
+		XCTAssertTrue(eventStore.traceLocationsPublisher.value.isEmpty)
 	}
 	
 	func testGIVEN_TraceWarningDownload_WHEN_EtagMissing_THEN_IdenticationError() {
@@ -446,6 +481,10 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		// THEN
 		waitForExpectations(timeout: .medium)
 		XCTAssertEqual(responseCodeError, .identicationError)
+		XCTAssertTrue(eventStore.traceWarningPackageMetadatasPublisher.value.isEmpty)
+		XCTAssertTrue(eventStore.traceTimeIntervalMatchesPublisher.value.isEmpty)
+		XCTAssertFalse(eventStore.checkinsPublisher.value.isEmpty)
+		XCTAssertTrue(eventStore.traceLocationsPublisher.value.isEmpty)
 	}
 	
 	func testGIVEN_TraceWarningDownload_WHEN_VerificationFails_THEN_VerificationError() {
@@ -495,6 +534,10 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		// THEN
 		waitForExpectations(timeout: .medium)
 		XCTAssertEqual(responseCodeError, .verificationError)
+		XCTAssertTrue(eventStore.traceWarningPackageMetadatasPublisher.value.isEmpty)
+		XCTAssertTrue(eventStore.traceTimeIntervalMatchesPublisher.value.isEmpty)
+		XCTAssertFalse(eventStore.checkinsPublisher.value.isEmpty)
+		XCTAssertTrue(eventStore.traceLocationsPublisher.value.isEmpty)
 	}
 	
 	// MARK: - TraceWarningDownload Helper Tests
