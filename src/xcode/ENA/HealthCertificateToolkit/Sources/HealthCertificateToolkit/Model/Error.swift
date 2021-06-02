@@ -17,7 +17,7 @@ public enum JSONSchemaValidationError: Error {
 
 public enum CertificateDecodingError: Error {
 
-    case HC_BASE45_DECODING_FAILED(Error)
+    case HC_BASE45_DECODING_FAILED(Error?)
     case HC_ZLIB_DECOMPRESSION_FAILED(Error)
     case HC_COSE_TAG_INVALID
     case HC_COSE_MESSAGE_INVALID
@@ -32,4 +32,5 @@ public enum CertificateDecodingError: Error {
     case HC_CBORWEBTOKEN_NO_DIGITALGREENCERTIFICATE
     case HC_JSON_SCHEMA_INVALID(JSONSchemaValidationError)
     case HC_PREFIX_INVALID
+    case AES_DECRYPTION_FAILED
 }
