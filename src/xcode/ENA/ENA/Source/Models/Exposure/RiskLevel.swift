@@ -22,6 +22,8 @@ enum RiskLevel: Int, Codable, Comparable {
 			fatalError("Only low and high risk levels are supported")
 		}
 	}
+	
+	// MARK: - Internal
 
 	var protobuf: SAP_Internal_Ppdd_PPARiskLevel {
 		switch self {
