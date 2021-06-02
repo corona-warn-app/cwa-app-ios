@@ -13,11 +13,16 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		
 		// ADD NEW FEATURES HERE
 		
-		self.featureVersion = "2.3"
+		self.featureVersion = "2.4"
 		
-		// Digital Vaccination Certificate
+		// Digital Covid Certificate
 		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature23digitalVaccinationCertificateTitle, description: AppStrings.NewVersionFeatures.feature23digitalVaccinationCertificateDescription)
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature24digitalCovidCertTitle, description: AppStrings.NewVersionFeatures.feature24digitalCovidCerdDescription)
+		)
+		
+		// Extended Diary
+		self.newVersionFeatures.append(
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature24ExtendedDiaryTitle, description: AppStrings.NewVersionFeatures.feature24ExtendedDiaryDescription)
 		)
 		
 	}
