@@ -9,7 +9,7 @@ import XCTest
 class DataCompressionTests: XCTestCase {
 
     func test_CompressAndDecompress() throws {
-        let data = "HelloWorld".data(using: .utf8)!
+        let data = try XCTUnwrap("HelloWorld".data(using: .utf8))
 
         let compressedData = data.compressZLib()
         let decompressedData = try compressedData.decompressZLib()
