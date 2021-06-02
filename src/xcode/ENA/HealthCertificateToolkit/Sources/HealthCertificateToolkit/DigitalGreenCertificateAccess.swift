@@ -94,7 +94,7 @@ public struct DigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtoc
 
         let cborWebTokenData = Data(cborWebToken.encode())
 
-        let base64CBOR = cborWebTokenData.base64EncodedString()
+//        let base64CBOR = cborWebTokenData.base64EncodedString()
 
         let compressedCBORWebToken = cborWebTokenData.compressZLib()
         let base45CBORWebToken = compressedCBORWebToken.toBase45()
