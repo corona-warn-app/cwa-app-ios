@@ -563,7 +563,7 @@ final class HTTPClient: Client {
 						completion(.failure(.jsonError))
 					}
 				case 202:
-					Log.error("HTTP error code 202. DGC is pending.", log: .api)
+					Log.error("HTTP error code 202. DCC is pending.", log: .api)
 					completion(.failure(.dccPending))
 				case 400:
 					Log.error("HTTP error code 400. Bad Request. Perhaps the registration token is wrong formatted?", log: .api)
