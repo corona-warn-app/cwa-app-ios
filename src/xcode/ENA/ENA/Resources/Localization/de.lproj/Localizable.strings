@@ -974,6 +974,36 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_Profile_ProfileTile_Description" = "Sparen Sie Zeit und zeigen Sie Ihr Schnelltest-Profil an der Teststelle vor.";
 
+/* ExposureSubmission TestCertificate */
+
+"ExposureSubmission_TestCertificate_Information_Title" = "COVID-19-Testzertifikat";
+
+"ExposureSubmission_TestCertificate_Information_PrimaryButton" = "Testzertifikat anfordern";
+
+"ExposureSubmission_TestCertificate_Information_SecondaryButton" = "Nein danke";
+
+"ExposureSubmission_TestCertificate_Information_ImageDescription" = "Eine Frau mit einem Smartphone benutzt die Corona-Warn-App. Ein Haken auf einem Siegel hinter ihr symbolisiert die Gültigkeit eines Zertifikats.";
+
+"ExposureSubmission_TestCertificate_Information_Section01" = "Das Testzertifikat wird nur bei einem negativen Testergebnis ausgestellt.";
+
+"ExposureSubmission_TestCertificate_Information_Section02" = "Das Testzertifikat gilt innerhalb der EU als gültiger Nachweis eines negativen Testergebnisses (z.B. für Reisen).";
+
+"ExposureSubmission_TestCertificate_Information_Subheadline" = "Sie können über die App ein offizielles digitales Testzertifikat anfordern, das anschließend in der App hinzugefügt wird.";
+
+"ExposureSubmission_TestCertificate_Information_BirthdayPlaceholder" = "Geburtsdatum";
+
+"ExposureSubmission_TestCertificate_Information_BirthdayText" = "Zur Sicherheit wird Ihr Testergebnis mit Ihrem Geburtsdatum geschützt. Das Testergebnis kann nur bei korrekt angegebenem Geburtstdatum zugestellt werden.";
+
+"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Ausführliche Hinweise zur Datenverarbeitung finden Sie in der Datenschutzerklärung";
+
+"ExposureSubmission_TestCertificate_Information_Alert_Title" = "Registrierung abbrechen";
+
+"ExposureSubmission_TestCertificate_Information_Alert_Message" = "Wenn Sie die Test-Registrierung abbrechen, können Sie Ihr Testergebnis nicht in der App erhalten.";
+
+"ExposureSubmission_TestCertificate_Information_Alert_Cancel" = "Abbrechen";
+
+"ExposureSubmission_TestCertificate_Information_Alert_Ok" = "OK";
+
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Risiko-Ermittlung";
 
