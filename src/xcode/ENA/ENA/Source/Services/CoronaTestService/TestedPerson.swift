@@ -33,11 +33,7 @@ struct TestedPerson: Codable, Equatable {
 			return nil
 		}
 
-		let outputFormatter = DateFormatter()
-		outputFormatter.dateStyle = .medium
-		outputFormatter.timeStyle = .none
-
-		return outputFormatter.string(from: date)
+		return DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .none)
 	}
 
 }
