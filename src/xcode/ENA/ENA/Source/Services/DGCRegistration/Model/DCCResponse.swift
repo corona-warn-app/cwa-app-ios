@@ -10,3 +10,9 @@ struct DCCResponse: Codable {
 	// COSE-Object, base64 encoded
 	let dcc: String
 }
+
+extension DCCResponse: Equatable {
+	static func == (lhs: DCCResponse, rhs: DCCResponse) -> Bool {
+		return lhs.dcc == rhs.dcc && lhs.dek == rhs.dek
+	}
+}
