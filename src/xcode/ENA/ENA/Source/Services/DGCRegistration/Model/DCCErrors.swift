@@ -4,8 +4,9 @@
 
 import Foundation
 
-enum DGCErrors {
-	enum RegistrationError: Error {
+enum DCCErrors {
+	
+	enum RegistrationError: Error, Equatable {
 		case badRequest
 		case tokenNotAllowed
 		case tokenDoesNotExist
@@ -15,9 +16,15 @@ enum DGCErrors {
 		case unhandledResponse(Int)
 		case defaultServerError(Error)
 		case urlCreationFailed
+		
+		// MARK: - Protocol Equatable
+
+		static func == (lhs: RegistrationError, rhs: RegistrationError) -> Bool {
+			lhs.localizedDescription == rhs.localizedDescription
+		}
 	}
 	
-	enum DigitalCovid19CertificateError: Error {
+	enum DigitalCovid19CertificateError: Error, Equatable {
 		case urlCreationFailed
 		case unhandledResponse(Int)
 		case jsonError
@@ -28,11 +35,11 @@ enum DGCErrors {
 		case testResultNotYetReceived
 		case internalServerError
 		case defaultServerError(Error)
-	}
-}
-
-extension DGCErrors.DigitalCovid19CertificateError: Equatable {
-	static func == (lhs: DGCErrors.DigitalCovid19CertificateError, rhs: DGCErrors.DigitalCovid19CertificateError) -> Bool {
-		lhs.localizedDescription == rhs.localizedDescription
+		
+		// MARK: - Protocol Equatable
+		
+		static func == (lhs: DCCErrors.DigitalCovid19CertificateError, rhs: DCCErrors.DigitalCovid19CertificateError) -> Bool {
+			lhs.localizedDescription == rhs.localizedDescription
+		}
 	}
 }

@@ -124,6 +124,36 @@ enum AppStrings {
 				static let profileTile_Description = NSLocalizedString("ExposureSubmission_Profile_ProfileTile_Description", comment: "")
 			}
 		}
+
+		enum TestCertificate {
+			enum Info {
+				static let title = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Title", comment: "")
+				static let primaryButton = NSLocalizedString("ExposureSubmission_TestCertificate_Information_PrimaryButton", comment: "")
+				static let secondaryButton = NSLocalizedString("ExposureSubmission_TestCertificate_Information_SecondaryButton", comment: "")
+				static let imageDescription = NSLocalizedString("ExposureSubmission_TestCertificate_Information_ImageDescription", comment: "")
+				static let body = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Subheadline", comment: "")
+				static let birthdayPlaceholder = NSLocalizedString("ExposureSubmission_TestCertificate_Information_BirthdayPlaceholder", comment: "")
+				static let birthdayText = NSLocalizedString("ExposureSubmission_TestCertificate_Information_BirthdayText", comment: "")
+				static let section_1 = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Section01", comment: "")
+				static let section_2 = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Section02", comment: "")
+
+				static let legalHeadline_1 = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Legal_Headline", tableName: "Localizable.legal", comment: "")
+				static let legalText_1 = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Legal_Text_1", tableName: "Localizable.legal", comment: "")
+				static let legalText_2 = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Legal_Text_2", tableName: "Localizable.legal", comment: "")
+				static let legalText_3 = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Legal_Text_3", tableName: "Localizable.legal", comment: "")
+				static let legalText_4 = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Legal_Text_4", tableName: "Localizable.legal", comment: "")
+				static let legalText_5 = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Legal_Text_5", tableName: "Localizable.legal", comment: "")
+				static let dataPrivacyTitle = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Dataprivacy_Title", comment: "")
+
+				enum Alert {
+					static let title = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Alert_Title", comment: "")
+					static let message = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Alert_Message", comment: "")
+					static let cancel = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Alert_Cancel", comment: "")
+					static let ok = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Alert_Ok", comment: "")
+				}
+
+			}
+		}
 	}
 
 	enum ExposureSubmissionTanEntry {
@@ -251,6 +281,7 @@ enum AppStrings {
 		static let headerSection1 = NSLocalizedString("ExposureSubmissionQRInfo_header_section_1", comment: "")
 		static let instruction1 = NSLocalizedString("ExposureSubmissionQRInfo_instruction1", comment: "")
 		static let instruction2 = NSLocalizedString("ExposureSubmissionQRInfo_instruction2", comment: "")
+		static let instruction2a = NSLocalizedString("ExposureSubmissionQRInfo_instruction2a", comment: "")
 		static let instruction3 = NSLocalizedString("ExposureSubmissionQRInfo_instruction3", comment: "")
 		static let instruction3HighlightedPhrase = NSLocalizedString("ExposureSubmissionQRInfo_instruction3_highlightedPhrase", comment: "")
 		static let headerSection2 = NSLocalizedString("ExposureSubmissionQRInfo_header_section_2", comment: "")

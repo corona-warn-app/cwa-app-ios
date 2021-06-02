@@ -54,9 +54,9 @@ final class HTTPClientGetDigitalCovid19CertificateTests: CWATestCase {
 			httpStatus: 200,
 			responseData: Data()
 		)
-		let expectedFailure = DGCError.DigitalCovid19CertificateError.jsonError
+		let expectedFailure = DCCErrors.DigitalCovid19CertificateError.jsonError
 		let expectation = self.expectation(description: "test should succeed with DCCResponse")
-		var mockFailure: DGCError.DigitalCovid19CertificateError?
+		var mockFailure: DCCErrors.DigitalCovid19CertificateError?
 		
 		// WHEN
 		HTTPClient.makeWith(mock: stack).getDigitalCovid19Certificate(
@@ -89,9 +89,9 @@ final class HTTPClientGetDigitalCovid19CertificateTests: CWATestCase {
 			httpStatus: 202,
 			responseData: Data()
 		)
-		let expectedFailure = DGCError.DigitalCovid19CertificateError.dccPending
+		let expectedFailure = DCCErrors.DigitalCovid19CertificateError.dccPending
 		let expectation = self.expectation(description: "test should succeed with DCCResponse")
-		var mockFailure: DGCError.DigitalCovid19CertificateError?
+		var mockFailure: DCCErrors.DigitalCovid19CertificateError?
 		
 		// WHEN
 		HTTPClient.makeWith(mock: stack).getDigitalCovid19Certificate(
@@ -124,9 +124,9 @@ final class HTTPClientGetDigitalCovid19CertificateTests: CWATestCase {
 			httpStatus: 400,
 			responseData: Data()
 		)
-		let expectedFailure = DGCError.DigitalCovid19CertificateError.badRequest
+		let expectedFailure = DCCErrors.DigitalCovid19CertificateError.badRequest
 		let expectation = self.expectation(description: "test should succeed with DCCResponse")
-		var mockFailure: DGCError.DigitalCovid19CertificateError?
+		var mockFailure: DCCErrors.DigitalCovid19CertificateError?
 		
 		// WHEN
 		HTTPClient.makeWith(mock: stack).getDigitalCovid19Certificate(
@@ -159,9 +159,9 @@ final class HTTPClientGetDigitalCovid19CertificateTests: CWATestCase {
 			httpStatus: 404,
 			responseData: Data()
 		)
-		let expectedFailure = DGCError.DigitalCovid19CertificateError.tokenDoesNotExist
+		let expectedFailure = DCCErrors.DigitalCovid19CertificateError.tokenDoesNotExist
 		let expectation = self.expectation(description: "test should succeed with DCCResponse")
-		var mockFailure: DGCError.DigitalCovid19CertificateError?
+		var mockFailure: DCCErrors.DigitalCovid19CertificateError?
 		
 		// WHEN
 		HTTPClient.makeWith(mock: stack).getDigitalCovid19Certificate(
@@ -194,9 +194,9 @@ final class HTTPClientGetDigitalCovid19CertificateTests: CWATestCase {
 			httpStatus: 410,
 			responseData: Data()
 		)
-		let expectedFailure = DGCError.DigitalCovid19CertificateError.dccAlreadyCleanedUp
+		let expectedFailure = DCCErrors.DigitalCovid19CertificateError.dccAlreadyCleanedUp
 		let expectation = self.expectation(description: "test should succeed with DCCResponse")
-		var mockFailure: DGCError.DigitalCovid19CertificateError?
+		var mockFailure: DCCErrors.DigitalCovid19CertificateError?
 		
 		// WHEN
 		HTTPClient.makeWith(mock: stack).getDigitalCovid19Certificate(
@@ -229,9 +229,9 @@ final class HTTPClientGetDigitalCovid19CertificateTests: CWATestCase {
 			httpStatus: 412,
 			responseData: Data()
 		)
-		let expectedFailure = DGCError.DigitalCovid19CertificateError.testResultNotYetReceived
+		let expectedFailure = DCCErrors.DigitalCovid19CertificateError.testResultNotYetReceived
 		let expectation = self.expectation(description: "test should succeed with DCCResponse")
-		var mockFailure: DGCError.DigitalCovid19CertificateError?
+		var mockFailure: DCCErrors.DigitalCovid19CertificateError?
 		
 		// WHEN
 		HTTPClient.makeWith(mock: stack).getDigitalCovid19Certificate(
@@ -264,9 +264,9 @@ final class HTTPClientGetDigitalCovid19CertificateTests: CWATestCase {
 			httpStatus: 500,
 			responseData: Data()
 		)
-		let expectedFailure = DGCError.DigitalCovid19CertificateError.internalServerError
+		let expectedFailure = DCCErrors.DigitalCovid19CertificateError.internalServerError
 		let expectation = self.expectation(description: "test should succeed with DCCResponse")
-		var mockFailure: DGCError.DigitalCovid19CertificateError?
+		var mockFailure: DCCErrors.DigitalCovid19CertificateError?
 		
 		// WHEN
 		HTTPClient.makeWith(mock: stack).getDigitalCovid19Certificate(
@@ -299,9 +299,9 @@ final class HTTPClientGetDigitalCovid19CertificateTests: CWATestCase {
 			httpStatus: 999,
 			responseData: Data()
 		)
-		let expectedFailure = DGCError.DigitalCovid19CertificateError.unhandledResponse(999)
+		let expectedFailure = DCCErrors.DigitalCovid19CertificateError.unhandledResponse(999)
 		let expectation = self.expectation(description: "test should succeed with DCCResponse")
-		var mockFailure: DGCError.DigitalCovid19CertificateError?
+		var mockFailure: DCCErrors.DigitalCovid19CertificateError?
 		
 		// WHEN
 		HTTPClient.makeWith(mock: stack).getDigitalCovid19Certificate(
@@ -334,9 +334,9 @@ final class HTTPClientGetDigitalCovid19CertificateTests: CWATestCase {
 			httpStatus: 999,
 			responseData: nil
 		)
-		let expectedFailure = DGCError.DigitalCovid19CertificateError.defaultServerError(URLSession.Response.Failure.noResponse)
+		let expectedFailure = DCCErrors.DigitalCovid19CertificateError.defaultServerError(URLSession.Response.Failure.noResponse)
 		let expectation = self.expectation(description: "test should succeed with DCCResponse")
-		var mockFailure: DGCError.DigitalCovid19CertificateError?
+		var mockFailure: DCCErrors.DigitalCovid19CertificateError?
 		
 		// WHEN
 		HTTPClient.makeWith(mock: stack).getDigitalCovid19Certificate(

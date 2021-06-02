@@ -53,7 +53,7 @@ final class ClientMock {
 
 	var onGetTestResult: ((String, Bool, TestResultHandler) -> Void)?
 	var onSubmitCountries: ((_ payload: CountrySubmissionPayload, _ isFake: Bool, _ completion: @escaping KeySubmissionResponse) -> Void) = { $2(.success(())) }
-	var onGetRegistrationToken: ((String, String, Bool, @escaping RegistrationHandler) -> Void)?
+	var onGetRegistrationToken: ((String, String, String?, Bool, @escaping RegistrationHandler) -> Void)?
 	var onGetTANForExposureSubmit: ((String, Bool, @escaping TANHandler) -> Void)?
 	var onSupportedCountries: ((@escaping CountryFetchCompletion) -> Void)?
 	var onGetOTPEdus: ((String, PPACToken, Bool, @escaping OTPAuthorizationCompletionHandler) -> Void)?
@@ -62,7 +62,7 @@ final class ClientMock {
 	var onSubmitAnalytics: ((SAP_Internal_Ppdd_PPADataIOS, PPACToken, Bool, @escaping PPAnalyticsSubmitionCompletionHandler) -> Void)?
 	var onTraceWarningDiscovery: ((String, @escaping TraceWarningPackageDiscoveryCompletionHandler) -> Void)?
 	var onTraceWarningDownload: ((String, Int, @escaping TraceWarningPackageDownloadCompletionHandler) -> Void)?
-	var onRegisterPublicKey: ((Bool, String, Data, @escaping TestResultRegistrationCompletionHandler) -> Void)?
+	var onDCCRegisterPublicKey: ((Bool, String, Data, @escaping DCCRegistrationCompletionHandler) -> Void)?
 	var onGetDigitalCovid19Certificate: ((String, Bool, @escaping DigitalCovid19CertificateCompletionHandler) -> Void)?
 }
 
@@ -140,13 +140,19 @@ extension ClientMock: Client {
 		onSubmitCountries(payload, isFake, completion)
 	}
 
-	func getRegistrationToken(forKey: String, withType: String, isFake: Bool, completion completeWith: @escaping RegistrationHandler) {
+	func getRegistrationToken(
+		forKey: String,
+		withType: String,
+		dateOfBirthKey: String?,
+		isFake: Bool,
+		completion completeWith: @escaping RegistrationHandler
+	) {
 		guard let onGetRegistrationToken = self.onGetRegistrationToken else {
 			completeWith(.success("dummyRegistrationToken"))
 			return
 		}
 
-		onGetRegistrationToken(forKey, withType, isFake, completeWith)
+		onGetRegistrationToken(forKey, withType, dateOfBirthKey, isFake, completeWith)
 	}
 
 	func getTestResult(forDevice device: String, isFake: Bool, completion completeWith: @escaping TestResultHandler) {
@@ -231,17 +237,17 @@ extension ClientMock: Client {
 		onTraceWarningDownload(country, packageId, completion)
 	}
 
-	func registerPublicKey(
+	func dccRegisterPublicKey(
 		isFake: Bool,
 		token: String,
 		publicKey: Data,
-		completion: @escaping TestResultRegistrationCompletionHandler
+		completion: @escaping DCCRegistrationCompletionHandler
 	) {
-		guard let onRegisterPublicKey = self.onRegisterPublicKey else {
+		guard let onDCCRegisterPublicKey = self.onDCCRegisterPublicKey else {
 			completion(.success(()))
 			return
 		}
-		onRegisterPublicKey(isFake, token, publicKey, completion)
+		onDCCRegisterPublicKey(isFake, token, publicKey, completion)
 	}
 
 	func submit(

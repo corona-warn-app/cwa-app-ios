@@ -463,8 +463,9 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		onErrorExpectation.isInverted = true
 
 		model.registerTestAndGetResult(
-			for: .pcr(""),
+			for: .pcr(guid: ""),
 			isSubmissionConsentGiven: true,
+			certificateConsent: .notGiven,
 			isLoading: {
 				isLoadingValues.append($0)
 				isLoadingExpectation.fulfill()
@@ -515,8 +516,9 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let onErrorExpectation = expectation(description: "onError is called")
 
 		model.registerTestAndGetResult(
-			for: .pcr(""),
+			for: .pcr(guid: ""),
 			isSubmissionConsentGiven: true,
+			certificateConsent: .notGiven,
 			isLoading: {
 				isLoadingValues.append($0)
 				isLoadingExpectation.fulfill()

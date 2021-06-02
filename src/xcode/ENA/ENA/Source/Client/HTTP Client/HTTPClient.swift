@@ -41,14 +41,28 @@ final class HTTPClient: Client {
 		let url = configuration.diagnosisKeysURL(day: day, forCountry: country)
 		fetchDay(from: url, completion: completeWith)
 	}
-
-	func getRegistrationToken(forKey key: String, withType type: String, isFake: Bool = false, completion completeWith: @escaping RegistrationHandler) {
-
-		guard
-			let registrationTokenRequest = try? URLRequest.getRegistrationTokenRequest(
+	
+	// swiftlint:disable:next cyclomatic_complexity
+	func getRegistrationToken(
+		forKey key: String,
+		withType type: String,
+		dateOfBirthKey: String? = nil,
+		isFake: Bool = false,
+		completion completeWith: @escaping RegistrationHandler
+	) {
+		// Check if first char of dateOfBirthKey is a lower cased "x". If not, we fail because it is malformed. If dateOfBirthKey is nil, we pass this check.
+		if let dateOfBirthKey = dateOfBirthKey {
+			guard dateOfBirthKey.first == "x" else {
+				completeWith(.failure(.malformedDateOfBirthKey))
+				return
+			}
+		}
+		
+		guard let registrationTokenRequest = try? URLRequest.getRegistrationTokenRequest(
 				configuration: configuration,
 				key: key,
 				type: type,
+				dateOfBirthKey: dateOfBirthKey,
 				headerValue: isFake ? 1 : 0
 			) else {
 			completeWith(.failure(.invalidResponse))
@@ -420,11 +434,11 @@ final class HTTPClient: Client {
 		traceWarningPackageDownload(country: country, packageId: packageId, url: url, completion: completion)
 	}
 
-	func registerPublicKey(
+	func dccRegisterPublicKey(
 		isFake: Bool = false,
 		token: String,
 		publicKey: Data,
-		completion: @escaping TestResultRegistrationCompletionHandler
+		completion: @escaping DCCRegistrationCompletionHandler
 	) {
 
 		guard let request = try? URLRequest.dccPublicKeyRequest(
@@ -974,6 +988,7 @@ private extension URLRequest {
 		configuration: HTTPClient.Configuration,
 		key: String,
 		type: String,
+		dateOfBirthKey: String?,
 		headerValue: Int
 	) throws -> URLRequest {
 		
@@ -1000,8 +1015,14 @@ private extension URLRequest {
 		
 		request.httpMethod = HttpMethod.post
 		
+		// Create body.
+		var originalBody: [String: String] = [:]
+		if let dateOfBirthKey = dateOfBirthKey {
+			originalBody = ["key": key, "keyDOB": dateOfBirthKey, "keyType": type]
+		} else {
+			originalBody = ["key": key, "keyType": type]
+		}
 		// Add body padding to request.
-		let originalBody = ["key": key, "keyType": type]
 		let paddedData = try getPaddedRequestBody(for: originalBody)
 		request.httpBody = paddedData
 		
@@ -1193,7 +1214,7 @@ private extension URLRequest {
 		headerValue: Int
 	) throws -> URLRequest {
 
-		var request = URLRequest(url: configuration.DGCPublicKeyURL)
+		var request = URLRequest(url: configuration.dccPublicKeyURL)
 
 		request.setValue(
 			"\(headerValue)",

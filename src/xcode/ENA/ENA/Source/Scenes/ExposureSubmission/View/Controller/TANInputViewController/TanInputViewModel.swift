@@ -61,7 +61,7 @@ final class TanInputViewModel {
 			return
 		}
 		
-		onSuccess(.teleTAN(text), { [weak self] isLoading in
+		onSuccess(.teleTAN(tan: text), { [weak self] isLoading in
 			self?.isPrimaryButtonEnabled = !isLoading
 			self?.isPrimaryBarButtonIsLoading = isLoading
 		})

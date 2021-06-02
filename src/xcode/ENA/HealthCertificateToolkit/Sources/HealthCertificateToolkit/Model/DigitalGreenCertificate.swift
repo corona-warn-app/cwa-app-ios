@@ -14,6 +14,7 @@ public struct DigitalGreenCertificate: Codable, Equatable {
         case name = "nam"
         case dateOfBirth = "dob"
         case vaccinationCertificates = "v"
+        case testCertificates = "t"
     }
 
     // MARK: - Internal
@@ -21,7 +22,8 @@ public struct DigitalGreenCertificate: Codable, Equatable {
     public let version: String
     public let name: Name
     public let dateOfBirth: String
-    public let vaccinationCertificates: [VaccinationCertificate]
+    public let vaccinationCertificates: [VaccinationCertificate]?
+    public let testCertificates: [TestCertificate]?
 
 }
 
@@ -57,6 +59,39 @@ public struct VaccinationCertificate: Codable, Equatable {
     public let certificateIssuer: String
     public let uniqueCertificateIdentifier: String
 
+}
+
+public struct TestCertificate: Codable, Equatable {
+
+    // MARK: - Protocol Codable
+
+    enum CodingKeys: String, CodingKey {
+        case diseaseOrAgentTargeted = "tg"
+        case typeOfTest = "tt"
+        case testResult = "tr"
+        case naaTestName = "nm"
+        case ratTestName = "ma"
+        case dateTimeOfSampleCollection = "sc"
+        case dateTimeOfTestResult = "dr"
+        case testCenter = "tc"
+        case countryOfTest = "co"
+        case certificateIssuer = "is"
+        case uniqueCertificateIdentifier = "ci"
+    }
+
+    // MARK: - Internal
+
+    public let diseaseOrAgentTargeted: String
+    public let typeOfTest: String
+    public let testResult: String
+    public let naaTestName: String?
+    public let ratTestName: String?
+    public let dateTimeOfSampleCollection: String
+    public let dateTimeOfTestResult: String
+    public let testCenter: String
+    public let countryOfTest: String
+    public let certificateIssuer: String
+    public let uniqueCertificateIdentifier: String
 }
 
 public struct Name: Codable, Equatable {
