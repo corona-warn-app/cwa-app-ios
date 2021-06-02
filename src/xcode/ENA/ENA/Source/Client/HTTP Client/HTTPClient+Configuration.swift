@@ -31,7 +31,7 @@ extension HTTPClient {
 					baseURL: environmentProvider.currentEnvironment().errorLogSubmissionURL,
 					requiresTrailingSlash: false
 				),
-				dgc: .init(
+				dcc: .init(
 					baseURL: environmentProvider.currentEnvironment().dgcURL,
 					requiresTrailingSlash: false
 				)
@@ -270,7 +270,7 @@ extension HTTPClient {
 
 		var DGCPublicKeyURL: URL {
 			endpoints
-				.dgc
+				.dcc
 				.appending(
 					"version",
 					apiVersion,
@@ -280,7 +280,7 @@ extension HTTPClient {
 		
 		var DCCURL: URL {
 			endpoints
-				.dgc
+				.dcc
 				.appending(
 					"version",
 					apiVersion,
@@ -331,6 +331,6 @@ extension HTTPClient.Configuration {
 		let verification: Endpoint
 		let dataDonation: Endpoint
 		let errorLogSubmission: Endpoint
-		let dgc: Endpoint
+		let dcc: Endpoint
 	}
 }

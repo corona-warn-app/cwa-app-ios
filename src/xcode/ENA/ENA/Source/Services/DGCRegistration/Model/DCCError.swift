@@ -5,7 +5,6 @@
 import Foundation
 
 enum DGCError {
-
 	enum RegistrationError: Error {
 		case badRequest
 		case tokenNotAllowed
@@ -30,5 +29,10 @@ enum DGCError {
 		case internalServerError
 		case defaultServerError(Error)
 	}
+}
 
+extension DGCError.DigitalCovid19CertificateError: Equatable {
+	static func == (lhs: DGCError.DigitalCovid19CertificateError, rhs: DGCError.DigitalCovid19CertificateError) -> Bool {
+		lhs.localizedDescription == rhs.localizedDescription
+	}
 }
