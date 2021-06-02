@@ -23,7 +23,7 @@ class RouteTests: CWATestCase {
 		case .success:
 			break
 		case .failure:
-			XCTFail("Error was nor intended")
+			XCTFail("Error was not intended")
 		}
 	}
 
@@ -43,7 +43,7 @@ class RouteTests: CWATestCase {
 		case .success:
 			break
 		case .failure:
-			XCTFail("Error was nor intended")
+			XCTFail("Error was not intended")
 		}
 	}
 
@@ -63,7 +63,7 @@ class RouteTests: CWATestCase {
 		case .success:
 			break
 		case .failure:
-			XCTFail("Error was nor intended")
+			XCTFail("Error was not intended")
 		}
 	}
 
