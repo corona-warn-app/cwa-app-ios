@@ -72,7 +72,7 @@ struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable 
 	}
 
 	var vaccinationCertificates: [VaccinationCertificate] {
-		digitalGreenCertificate.vaccinationCertificates
+		digitalGreenCertificate.vaccinationCertificates ?? []
 	}
 
 	var isLastDoseInASeries: Bool {

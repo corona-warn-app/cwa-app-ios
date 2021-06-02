@@ -41,6 +41,8 @@ enum HealthCertificateServiceError {
 					return "\(AppStrings.HealthCertificate.Error.vcInvalid) (VC_JSON_SCHEMA_INVALID)."
 				case .HC_PREFIX_INVALID:
 					return "\(AppStrings.HealthCertificate.Error.vcInvalid) (VC_PREFIX_INVALID)."
+				case .AES_DECRYPTION_FAILED:
+					return "\(AppStrings.HealthCertificate.Error.vcInvalid) (AES_DECRYPTION_FAILED)."
 				}
 			case .noVaccinationEntry:
 				return "\(AppStrings.HealthCertificate.Error.vcNotYetSupported) (VC_NO_VACCINATION_ENTRY)."
