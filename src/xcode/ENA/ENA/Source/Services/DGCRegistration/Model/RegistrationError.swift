@@ -6,7 +6,7 @@ import Foundation
 
 enum DCCErrors {
 
-	enum RegistrationError: Error {
+	enum RegistrationError: Error, Equatable {
 		case badRequest
 		case tokenNotAllowed
 		case tokenDoesNotExist
@@ -16,6 +16,12 @@ enum DCCErrors {
 		case unhandledResponse(Int)
 		case defaultServerError(Error)
 		case urlCreationFailed
+
+		// MARK: - Protocol Equatable
+
+		static func == (lhs: RegistrationError, rhs: RegistrationError) -> Bool {
+			lhs.localizedDescription == rhs.localizedDescription
+		}
 	}
 
 }
