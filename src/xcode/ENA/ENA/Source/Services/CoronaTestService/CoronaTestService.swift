@@ -93,11 +93,9 @@ class CoronaTestService {
 	) {
 		var certificateConsentGiven = false
 		var dateOfBirthKey: String?
-		if
-			case let .given(givenDateOfBirth) = certificateConsent,
-			let dateOfBirthString = givenDateOfBirth,
-			let generatedDateOfBirthKey = hashedKey(dateOfBirthString: dateOfBirthString, guid: guid)
-		{
+		if case let .given(givenDateOfBirth) = certificateConsent,
+		   let dateOfBirthString = givenDateOfBirth,
+		   let generatedDateOfBirthKey = hashedKey(dateOfBirthString: dateOfBirthString, guid: guid) {
 			certificateConsentGiven = true
 			dateOfBirthKey = generatedDateOfBirthKey
 		}
