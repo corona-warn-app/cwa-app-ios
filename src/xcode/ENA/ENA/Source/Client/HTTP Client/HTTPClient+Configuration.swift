@@ -277,6 +277,16 @@ extension HTTPClient {
 					"publicKey"
 				)
 		}
+		
+		var DCCURL: URL {
+			endpoints
+				.dcc
+				.appending(
+					"version",
+					apiVersion,
+					"dcc"
+				)
+		}
 	}
 }
 
