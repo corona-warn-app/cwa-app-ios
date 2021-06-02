@@ -32,7 +32,7 @@ extension HTTPClient {
 					requiresTrailingSlash: false
 				),
 				dcc: .init(
-					baseURL: environmentProvider.currentEnvironment().dccURL,
+					baseURL: environmentProvider.currentEnvironment().dgcURL,
 					requiresTrailingSlash: false
 				)
 			)
