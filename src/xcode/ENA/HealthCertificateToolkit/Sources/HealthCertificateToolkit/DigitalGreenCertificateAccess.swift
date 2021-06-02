@@ -49,19 +49,38 @@ public struct DigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtoc
     }
 
     public func convertToBase45(from base64: Base64, with dataEncryptionKey: Data) -> Result<Base45, CertificateDecodingError> {
+        let cborWebTokenResult = decryptAndComposeToWebToken(from: base64, dataEncryptionKey: dataEncryptionKey)
+        if case let .failure(error) = cborWebTokenResult {
+            return .failure(error)
+        }
+        guard case let .success(cborWebToken) = cborWebTokenResult else {
+            fatalError("Has to be a success at this point, because of previous check.")
+        }
+
+        let cborWebTokenData = Data(cborWebToken.encode())
+
+        let compressedCBORWebToken = cborWebTokenData.compressZLib()
+        let base45CBORWebToken = compressedCBORWebToken.toBase45()
+        let prefixedBase45CBORWebToken = hcPrefix+base45CBORWebToken
+
+        return .success(prefixedBase45CBORWebToken)
+    }
+
+    // MARK: - Internal
+
+    func decryptAndComposeToWebToken(from base64: Base64, dataEncryptionKey: Data) -> Result<CBOR, CertificateDecodingError>{
         guard let cborData = Data(base64Encoded: base64) else {
             return .failure(.HC_BASE45_DECODING_FAILED(nil))
         }
 
         let result = decodeCBORWebTokenEntries(from: cborData)
-
         if case let .failure(error) = result {
             return .failure(error)
         }
-
         guard case let .success(cborWebTokenEntries) = result else {
             fatalError("Has to be a success at this point, because of previous check.")
         }
+
 
         let protectedHeader = cborWebTokenEntries[0]
         let unprotectedHeader = cborWebTokenEntries[1]
@@ -91,18 +110,8 @@ public struct DigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtoc
         ])
 
         let cborWebToken = CBOR.tagged(CBOR.Tag(rawValue: 18), cborWebTokenMessage)
-
-        let cborWebTokenData = Data(cborWebToken.encode())
-
-//        let base64CBOR = cborWebTokenData.base64EncodedString()
-
-        let compressedCBORWebToken = cborWebTokenData.compressZLib()
-        let base45CBORWebToken = compressedCBORWebToken.toBase45()
-
-        return .success(base45CBORWebToken)
+        return .success(cborWebToken)
     }
-
-    // MARK: - Internal
 
     func extractCBOR(from base45: Base45) -> Result<CBORData, CertificateDecodingError> {
         guard base45.hasPrefix(hcPrefix) else {

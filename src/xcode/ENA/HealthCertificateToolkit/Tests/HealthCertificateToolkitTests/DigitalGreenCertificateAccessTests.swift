@@ -10,12 +10,7 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
 
     func test_When_DecodeVaccinationCertificateSucceeds_Then_CorrectCertificateIsReturned() {
         let certificateAccess = DigitalGreenCertificateAccess()
-        
         let result = certificateAccess.extractDigitalGreenCertificate(from: testDataVaccinationCertificate.input)
-
-        if case .failure(let error) = result {
-            print(error)
-        }
 
         guard case let .success(healthCertificate) = result else {
             XCTFail("Success expected.")
@@ -27,12 +22,7 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
 
     func test_When_DecodeTestCertificateSucceeds_Then_CorrectCertificateIsReturned() {
         let certificateAccess = DigitalGreenCertificateAccess()
-
         let result = certificateAccess.extractDigitalGreenCertificate(from: testDataTestCertificate.input)
-
-        if case .failure(let error) = result {
-            print(error)
-        }
 
         guard case let .success(healthCertificate) = result else {
             XCTFail("Success expected.")
@@ -148,18 +138,53 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
         XCTAssertGreaterThan(testDataVaccinationCertificate.header.expirationTime, issuedAt)
     }
 
-    func test_When_ConvertToBase45_Then_CorrectBase45IsReturned() throws {
+    func test_When_DecryptAndComposeToWebToken_Then_CorrectWebTokenIsReturned() throws {
         let certificateAccess = DigitalGreenCertificateAccess()
 
-        let keyData = try XCTUnwrap(Data(base64Encoded: decryptedDataEncryptionKeyBase64))
-        let result = certificateAccess.convertToBase45(from: testDataEncryptedTestCertificateBase64, with: keyData)
+        for encryptedTestData in encryptedTestDatas {
+            let keyData = try XCTUnwrap(Data(base64Encoded: encryptedTestData.decryptedKey))
+            let result = certificateAccess.decryptAndComposeToWebToken(from: encryptedTestData.input, dataEncryptionKey: keyData)
 
-        guard case .success = result else {
-            XCTFail("Success expected.")
-            return
+            guard case let .success(cborWebToken) = result else {
+                XCTFail("Success expected.")
+                return
+            }
+            let cborWebTokenData = Data(cborWebToken.encode())
+            let cborWebTokenBase64 = cborWebTokenData.base64EncodedString()
+
+            XCTAssertEqual(cborWebTokenBase64, encryptedTestData.output)
         }
     }
 
+    func test_When_ConvertToBase45_And_ExtractZertificate_Then_CorrectWebTokenIsReturned() throws {
+        let certificateAccess = DigitalGreenCertificateAccess()
+
+        for encryptedTestData in encryptedTestDatas {
+            let keyData = try XCTUnwrap(Data(base64Encoded: encryptedTestData.decryptedKey))
+            let result = certificateAccess.convertToBase45(from: encryptedTestData.input, with: keyData)
+
+            guard case let .success(base45) = result else {
+                XCTFail("Success expected.")
+                return
+            }
+
+            let extractResult = certificateAccess.extractDigitalGreenCertificate(from: base45)
+
+            if case let .failure(error) = extractResult {
+                print(error)
+            }
+
+            guard case let .success(healthCertificate) = extractResult else {
+                XCTFail("Success expected.")
+                return
+            }
+
+            print(healthCertificate)
+            print(healthCertificate)
+
+//            XCTAssertEqual(healthCertificate, testDataVaccinationCertificate.certificate)
+        }
+    }
 
     private lazy var testDataVaccinationCertificate: TestData = {
         TestData (
@@ -275,9 +300,18 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
         )
     }()
 
-    private lazy var testDataEncryptedTestCertificateBase64 = "0oRNogEmBEiLxYhcyl5BXkBZAXBxvo73+06cLc73F5KIFuQdo7fLUnb7yF9QFtX9tIEmgSzHIXKbHcEiep5RTtb2UVS80vybmnwYa1k36HR2R2yTKGwvDWAUumw2ZjCnfp8CxKx3zQVRl6JrVdLiskWmo4qiK/EwyTHrw/5PZy4rd11vt9Y6wuZtlpOvFGDIDhGKpcgK93zfIQWY59xjxusr/4J3FCWpcy9YNehB6m4Az1NozXxOrL9DmFM38mWCkiHaPeWgedbqfKTg3x/vSrXSkXYnLpc6QHsRqW99r7yTXJffbK8X44KvgkUI9sIlVU5+2+IuwT4XBY2p/MLW4d9gfnAhZYTsn0nGuoj4KFHTo6fNkXsuZ6BWm5MurXR0dqiCd00B1ZKuTNV0QhdzaaB2pYtwBnxD65TW8D0VDrDDjZuYRzni032f5hgB7YDlvcWYWiv7o6T8DeCNAsJ0RdL/X1qe3bHvLOBvzF9XlTrg4vNF/3aeRn9libOf+0ufr5dEcVhA1NqKSb93S2El9dA0icVjK+DV4LbwVWajZmTmhqcsgzWhvl4/PmtAJ5/iT57FfoQvuOvlyhxRPgGSg33IuDnBCg=="
-
-    private lazy var decryptedDataEncryptionKeyBase64 = "/9o5eVNb9us5CsGD4F3J36Ju1enJ71Y6+FpVvScGWkE="
+    private lazy var encryptedTestDatas = [
+        EncryptedTestData(
+            input: "0oRNogEmBEiLxYhcyl5BXkBZAXBxvo73+06cLc73F5KIFuQdo7fLUnb7yF9QFtX9tIEmgSzHIXKbHcEiep5RTtb2UVS80vybmnwYa1k36HR2R2yTKGwvDWAUumw2ZjCnfp8CxKx3zQVRl6JrVdLiskWmo4qiK/EwyTHrw/5PZy4rd11vt9Y6wuZtlpOvFGDIDhGKpcgK93zfIQWY59xjxusr/4J3FCWpcy9YNehB6m4Az1NozXxOrL9DmFM38mWCkiHaPeWgedbqfKTg3x/vSrXSkXYnLpc6QHsRqW99r7yTXJffbK8X44KvgkUI9sIlVU5+2+IuwT4XBY2p/MLW4d9gfnAhZYTsn0nGuoj4KFHTo6fNkXsuZ6BWm5MurXR0dqiCd00B1ZKuTNV0QhdzaaB2pYtwBnxD65TW8D0VDrDDjZuYRzni032f5hgB7YDlvcWYWiv7o6T8DeCNAsJ0RdL/X1qe3bHvLOBvzF9XlTrg4vNF/3aeRn9libOf+0ufr5dEcVhA1NqKSb93S2El9dA0icVjK+DV4LbwVWajZmTmhqcsgzWhvl4/PmtAJ5/iT57FfoQvuOvlyhxRPgGSg33IuDnBCg==",
+            output: "0oRNogEmBEiLxYhcyl5BXkBZAWGkAWtjd2EtYXBwLWNsaQQaYpdzwAYaYLZAQDkBA6EBpGN2ZXJlMS4wLjBjbmFtpGJnbmVFbGxlbmJmbmVDaGVuZ2NnbnRlRUxMRU5jZm50ZUNIRU5HY2RvYmoxOTY3LTA3LTE5YXSBq2J0Z2k4NDA1MzkwMDZidHRqTFAyMTcxOTgtM2JubXgZSVZDSUoxR1FaTTc4NzhFTE1VSU1BMDhER2JtYWQxMjQ0YnNjeBgyMDIxLTA1LTMxVDE2OjEzOjE2LjgzNlpiZHJ4GDIwMjEtMDYtMDFUMTQ6MTI6MTYuODM2WmJ0cmkyNjA0MTUwMDBidGNtVGVzdCBDZW50cmUgMWJjb2JERWJpc3ghQnVuZGVzbWluaXN0ZXJpdW0gZsO8ciBHZXN1bmRoZWl0YmNpeC8wMURFLzAwMDAwLzExMTkzNDkwMDcvRzdQU0JBWE1YVkEyTjBITTNVOFlWN1pNVFhA1NqKSb93S2El9dA0icVjK+DV4LbwVWajZmTmhqcsgzWhvl4/PmtAJ5/iT57FfoQvuOvlyhxRPgGSg33IuDnBCg==",
+            decryptedKey: "/9o5eVNb9us5CsGD4F3J36Ju1enJ71Y6+FpVvScGWkE="
+        ),
+        EncryptedTestData(
+            input: "0oRNogEmBEiLxYhcyl5BXkBZAXAN4hKvLEngs3MYcLe/cIyy0q0+0auk5A/Bme/WlymolXU8JSLJJcj3D7kwXCJoEOvsnU9P/IrVlTNF2fJBdWF6Oq22UzhyOPRuQiF7PvspbVzyeEo+H/PmtvbTZss6l/wLDoXPixjtCOaFn7Com6Z2pNQOZqkYGZzz4BanJfchoggM4HaH20H4AzANfMMqYa/rytHnz4BjlR82ZSOlg5e/Jbl78NRen6RkgLTwT3YSI1XV+gbLPK6Fhp5saqRmQgUQTTSO99Q/rdk6BG18RZxqw70zKb77ddxBzolgySbmRdUrpWdK9SvnsnivN3V1Auv5X18KpHO58SwyFoex7OUq73q6FAS9p+MdI2jh1e3LcwU12ZJaN56bRbTEAmT5MelZsYY+c6WWvcIND7tj3aDI5o8D9PyWZHPdz/uHn/Cesn7MgVEXvLQnfCVvuPkLDSGAGi47nRRmUoaN7+7GjPRYvTyrX5VWwnMK31QLADg9kFhAQ7d9IZ02KQ5OXt/fc3bpcombylOcXT2U+JXDwQadrFwHQdjeK1dw+RZM7UkD4l/TOQjO9B8JN13DlidhiqljGw==",
+            output: "0oRNogEmBEiLxYhcyl5BXkBZAWukAWtjd2EtYXBwLWNsaQQaYpd0gAYaYLZBADkBA6EBpGN2ZXJlMS4wLjBjbmFtpGJnbmVCcmlhbmJmbmtDYWxhbWFuZHJlaWNnbnRlQlJJQU5jZm50a0NBTEFNQU5EUkVJY2RvYmoxOTk1LTA1LTIxYXSBq2J0Z2k4NDA1MzkwMDZidHRoTFA2NDY0LTRibm14GTFSVEg2Vk1JVThBTlFJQUNHNFNJS1REU0FibWFkMTMzMWJzY3gYMjAyMS0wNS0zMVQyMToyNDoyOC4yMTZaYmRyeBgyMDIxLTA2LTAxVDE0OjE1OjI4LjIxNlpidHJpMjYwNDE1MDAwYnRjbVRlc3QgQ2VudHJlIDFiY29iREViaXN4IUJ1bmRlc21pbmlzdGVyaXVtIGbDvHIgR2VzdW5kaGVpdGJjaXgvMDFERS8wMDAwMC8xMTE5MzQ5MDA3L1JMVTFBSlFSTlRPNlFaUlJUSjJENkpXWkhYQEO3fSGdNikOTl7f33N26XKJm8pTnF09lPiVw8EGnaxcB0HY3itXcPkWTO1JA+Jf0zkIzvQfCTddw5YnYYqpYxs=",
+            decryptedKey: "RinMlpTdzQGw7kllamU9Pz6bTHEWVZi1Ocb4q8wfFSk="
+        )
+    ]
 }
 
 // MARK: - TestData
@@ -286,4 +320,10 @@ private struct TestData {
     let input: String
     let certificate: DigitalGreenCertificate
     let header: CBORWebTokenHeader
+}
+
+private struct EncryptedTestData {
+    let input: String
+    let output: String
+    let decryptedKey: String
 }
