@@ -1079,6 +1079,16 @@ enum AppStrings {
 		static let feature23digitalVaccinationCertificateTitle = NSLocalizedString("NewVersionFeature_23_digital_vaccination_certificate_title", comment: "")
 		
 		static let feature23digitalVaccinationCertificateDescription = NSLocalizedString("NewVersionFeature_23_digital_vaccination_certificate_description", comment: "")
+		
+		/* Version 2.4 */
+		
+		static let feature24digitalCovidCertTitle = NSLocalizedString("NewVersionFeature_24_digital_covid_cert_title", comment: "")
+		
+		static let feature24digitalCovidCerdDescription = NSLocalizedString("NewVersionFeature_24_digital_covid_cert_description", comment: "")
+		
+		static let feature24ExtendedDiaryTitle = NSLocalizedString("NewVersionFeature_24_extended_diary_title", comment: "")
+		
+		static let feature24ExtendedDiaryDescription = NSLocalizedString("NewVersionFeature_24_extended_diary_title_description", comment: "")
 
 	}
 	
