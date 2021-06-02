@@ -20,6 +20,7 @@ class CoronaTestService {
 	init(
 		client: Client,
 		store: CoronaTestStoring & CoronaTestStoringLegacy & WarnOthersTimeIntervalStoring,
+		eventStore: EventStoringProviding,
 		diaryStore: DiaryStoring,
 		appConfiguration: AppConfigurationProviding,
 		notificationCenter: UserNotificationCenter = UNUserNotificationCenter.current()
@@ -28,6 +29,7 @@ class CoronaTestService {
 		if isUITesting {
 			self.client = ClientMock()
 			self.store = MockTestStore()
+			self.eventStore = MockEventStore()
 			self.diaryStore = MockDiaryStore()
 			self.appConfiguration = CachedAppConfigurationMock()
 
@@ -47,6 +49,7 @@ class CoronaTestService {
 
 		self.client = client
 		self.store = store
+		self.eventStore = eventStore
 		self.diaryStore = diaryStore
 		self.appConfiguration = appConfiguration
 
@@ -140,7 +143,7 @@ class CoronaTestService {
 
 				switch result {
 				case .success(let registrationToken):
-					self?.pcrTest = PCRTest(
+					 let _pcrTest = PCRTest(
 						registrationDate: Date(),
 						registrationToken: registrationToken,
 						testResult: .positive,
@@ -151,11 +154,14 @@ class CoronaTestService {
 						keysSubmitted: false,
 						journalEntryCreated: false
 					)
+					self?.pcrTest = _pcrTest
 
 					Log.info("[CoronaTestService] PCR test registered: \(private: String(describing: self?.pcrTest), public: "PCR Test result")", log: .api)
 
+					self?.createKeySubmissionMetadataDefaultValues(for: .pcr(_pcrTest))
 					Analytics.collect(.testResultMetadata(.registerNewTestMetadata(Date(), registrationToken, .pcr)))
 					Analytics.collect(.testResultMetadata(.updateTestResult(.positive, registrationToken, .pcr)))
+					Analytics.collect(.keySubmissionMetadata(.submittedWithTeletan(true, .pcr)))
 
 					completion(.success(()))
 				case .failure(let error):
@@ -419,6 +425,7 @@ class CoronaTestService {
 
 	private let client: Client
 	private var store: CoronaTestStoring & CoronaTestStoringLegacy
+	private let eventStore: EventStoringProviding
 	private let diaryStore: DiaryStoring
 	private let appConfiguration: AppConfigurationProviding
 	private let notificationCenter: UserNotificationCenter
@@ -596,6 +603,10 @@ class CoronaTestService {
 
 				switch testResult {
 				case .positive, .negative, .invalid:
+					if case .positive = testResult, !coronaTest.keysSubmitted {
+						self.createKeySubmissionMetadataDefaultValues(for: coronaTest)
+					}
+
 					// only store test result in diary if negative or positive
 					if (testResult == .positive || testResult == .negative) && !coronaTest.journalEntryCreated {
 						// -> store
@@ -634,9 +645,12 @@ class CoronaTestService {
 						}
 					}
 
+
 					if duringRegistration {
-						Analytics.collect(.keySubmissionMetadata(.setHoursSinceHighRiskWarningAtTestRegistration(coronaTestType)))
-						Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration(coronaTestType)))
+						Analytics.collect(.keySubmissionMetadata(.setHoursSinceENFHighRiskWarningAtTestRegistration(coronaTestType)))
+						Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration(coronaTestType)))
+						Analytics.collect(.keySubmissionMetadata(.setHoursSinceCheckinHighRiskWarningAtTestRegistration(coronaTestType)))
+						Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration(coronaTestType)))
 					}
 
 					completion(.success(testResult))
@@ -679,6 +693,40 @@ class CoronaTestService {
 				}
 			}
 			.store(in: &subscriptions)
+	}
+
+	private func createKeySubmissionMetadataDefaultValues(for coronaTest: CoronaTest) {
+		let submittedAfterRapidAntigenTest: Bool
+		switch coronaTest {
+		case .pcr:
+			submittedAfterRapidAntigenTest = false
+		case .antigen:
+			submittedAfterRapidAntigenTest = true
+		}
+
+		let submittedWithCheckIns = !eventStore.checkinsPublisher.value.isEmpty
+
+		let keySubmissionMetadata = KeySubmissionMetadata(
+			submitted: false,
+			submittedInBackground: false,
+			submittedAfterCancel: false,
+			submittedAfterSymptomFlow: false,
+			lastSubmissionFlowScreen: .submissionFlowScreenUnknown,
+			advancedConsentGiven: coronaTest.isSubmissionConsentGiven,
+			hoursSinceTestResult: 0,
+			hoursSinceTestRegistration: 0,
+			daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1,
+			hoursSinceHighRiskWarningAtTestRegistration: -1,
+			submittedWithTeleTAN: false,
+			submittedAfterRapidAntigenTest: submittedAfterRapidAntigenTest,
+			daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration: -1,
+			hoursSinceCheckinHighRiskWarningAtTestRegistration: -1,
+			submittedWithCheckIns: submittedWithCheckIns
+		)
+
+		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, coronaTest.type)))
+		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration(coronaTest.type)))
+		Analytics.collect(.keySubmissionMetadata(.setHoursSinceENFHighRiskWarningAtTestRegistration(coronaTest.type)))
 	}
 
 	private func scheduleOutdatedStateTimer() {

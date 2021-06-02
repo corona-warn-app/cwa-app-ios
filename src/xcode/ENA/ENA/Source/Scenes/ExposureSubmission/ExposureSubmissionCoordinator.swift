@@ -94,7 +94,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		let tanInputViewModel = TanInputViewModel(
 			coronaTestService: model.coronaTestService,
 			onSuccess: { [weak self] testRegistrationInformation, isLoading in
-				self?.handleCoronaTestRegistrationInformation(testRegistrationInformation, isLoading: isLoading)
+				self?.handleCoronaTestRegistrationInformation(testRegistrationInformation, isConsentGiven: false, isLoading: isLoading)
 			}
 		)
 
@@ -280,9 +280,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			fatalError("Could not find corona test to create test result view controller for.")
 		}
 
-		// store is only initialized when a positive test result is received and not yet submitted
 		if coronaTest.testResult == .positive && !coronaTest.keysSubmitted {
-			updateStoreWithKeySubmissionMetadataDefaultValues(for: coronaTest, submittedWithTeletan: triggeredFromTeletan)
 			QuickAction.exposureSubmissionFlowTestResult = coronaTest.testResult
 		}
 		Analytics.collect(.keySubmissionMetadata(.lastSubmissionFlowScreen(.submissionFlowScreenTestResult, coronaTestType)))
@@ -465,13 +463,13 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 	private func showQRScreen(testInformation: CoronaTestRegistrationInformation?, isLoading: @escaping (Bool) -> Void) {
 		if let testInformation = testInformation {
-			handleCoronaTestRegistrationInformation(testInformation, isLoading: isLoading)
+			handleCoronaTestRegistrationInformation(testInformation, isConsentGiven: true, isLoading: isLoading)
 		} else {
 			let scannerViewController = ExposureSubmissionQRScannerViewController(
 				onSuccess: { testQRCodeInformation in
 					DispatchQueue.main.async { [weak self] in
 						self?.presentedViewController?.dismiss(animated: true) {
-							self?.handleCoronaTestRegistrationInformation(testQRCodeInformation, isLoading: isLoading)
+							self?.handleCoronaTestRegistrationInformation(testQRCodeInformation, isConsentGiven: true, isLoading: isLoading)
 						}
 					}
 				},
@@ -516,13 +514,13 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 	}
 	
-	private func handleCoronaTestRegistrationInformation(_ testRegistrationInformation: CoronaTestRegistrationInformation, isLoading: @escaping (Bool) -> Void) {
+	private func handleCoronaTestRegistrationInformation(_ testRegistrationInformation: CoronaTestRegistrationInformation, isConsentGiven: Bool, isLoading: @escaping (Bool) -> Void) {
 		if let oldTest = self.model.coronaTestService.coronaTest(ofType: testRegistrationInformation.testType),
 		   oldTest.testResult != .expired,
 		   !(oldTest.type == .antigen && self.model.coronaTestService.antigenTestIsOutdated) {
-			self.showOverrideTestNotice(testQRCodeInformation: testRegistrationInformation, submissionConsentGiven: true)
+			self.showOverrideTestNotice(testQRCodeInformation: testRegistrationInformation, submissionConsentGiven: isConsentGiven)
 		} else {
-			self.registerTestAndGetResult(with: testRegistrationInformation, submissionConsentGiven: true, isLoading: isLoading)
+			self.registerTestAndGetResult(with: testRegistrationInformation, submissionConsentGiven: isConsentGiven, isLoading: isLoading)
 		}
 	}
 
@@ -1034,36 +1032,6 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		navigationController?.present(alert, animated: true)
 	}
 
-	private func updateStoreWithKeySubmissionMetadataDefaultValues(for coronaTest: CoronaTest, submittedWithTeletan: Bool) {
-
-		let submittedAfterRapidAntigenTest: Bool
-		switch coronaTest {
-		case .pcr:
-			submittedAfterRapidAntigenTest = false
-		case .antigen:
-			submittedAfterRapidAntigenTest = true
-		}
-
-		let keySubmissionMetadata = KeySubmissionMetadata(
-			submitted: false,
-			submittedInBackground: false,
-			submittedAfterCancel: false,
-			submittedAfterSymptomFlow: false,
-			lastSubmissionFlowScreen: .submissionFlowScreenUnknown,
-			advancedConsentGiven: coronaTest.isSubmissionConsentGiven,
-			hoursSinceTestResult: 0,
-			hoursSinceTestRegistration: 0,
-			daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1,
-			submittedWithTeleTAN: submittedWithTeletan,
-			hoursSinceHighRiskWarningAtTestRegistration: -1,
-			submittedAfterRapidAntigenTest: submittedAfterRapidAntigenTest
-		)
-
-		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, coronaTest.type)))
-		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration(coronaTest.type)))
-		Analytics.collect(.keySubmissionMetadata(.setHoursSinceHighRiskWarningAtTestRegistration(coronaTest.type)))
-	}
-
 	// MARK: Test Result Helper
 
 	// show a overwrite notice screen if a test of give type was registered before
@@ -1110,11 +1078,16 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				
 				self?.model.coronaTestType = testQRCodeInformation.testType
 
-				switch testResult {
-				case .positive:
-					self?.showTestResultAvailableScreen()
-				case .pending, .negative, .invalid, .expired:
+				switch testQRCodeInformation {
+				case .teleTAN:
 					self?.showTestResultScreen()
+				case .antigen, .pcr:
+					switch testResult {
+					case .positive:
+						self?.showTestResultAvailableScreen()
+					case .pending, .negative, .invalid, .expired:
+						self?.showTestResultScreen()
+					}
 				}
 			},
 			onError: { [weak self] error in

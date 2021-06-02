@@ -10,8 +10,10 @@ final class TestDummyPPAnalyticsDataImplementation: PPAnalyticsData {
 	var lastSubmissionAnalytics: Date?
 	var lastAppReset: Date?
 	var lastSubmittedPPAData: String?
-	var currentRiskExposureMetadata: RiskExposureMetadata?
-	var previousRiskExposureMetadata: RiskExposureMetadata?
+	var currentENFRiskExposureMetadata: RiskExposureMetadata?
+	var previousENFRiskExposureMetadata: RiskExposureMetadata?
+	var currentCheckinRiskExposureMetadata: RiskExposureMetadata?
+	var previousCheckinRiskExposureMetadata: RiskExposureMetadata?
 	var userMetadata: UserMetadata?
 	var clientMetadata: ClientMetadata?
 	var pcrKeySubmissionMetadata: KeySubmissionMetadata?
@@ -19,4 +21,6 @@ final class TestDummyPPAnalyticsDataImplementation: PPAnalyticsData {
 	var pcrTestResultMetadata: TestResultMetadata?
 	var antigenTestResultMetadata: TestResultMetadata?
 	var exposureWindowsMetadata: ExposureWindowsMetadata?
+	var dateOfConversionToENFHighRisk: Date?
+	var dateOfConversionToCheckinHighRisk: Date?
 }
