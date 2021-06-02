@@ -4,7 +4,7 @@
 
 import Foundation
 
-enum DGC {
+enum DGCError {
 
 	enum RegistrationError: Error {
 		case badRequest
@@ -16,6 +16,19 @@ enum DGC {
 		case unhandledResponse(Int)
 		case defaultServerError(Error)
 		case urlCreationFailed
+	}
+	
+	enum DigitalCovid19CertificateError: Error {
+		case urlCreationFailed
+		case unhandledResponse(Int)
+		case jsonError
+		case dccPending
+		case badRequest
+		case tokenDoesNotExist
+		case dccAlreadyCleanedUp
+		case testResultNotYetReceived
+		case internalServerError
+		case defaultServerError(Error)
 	}
 
 }
