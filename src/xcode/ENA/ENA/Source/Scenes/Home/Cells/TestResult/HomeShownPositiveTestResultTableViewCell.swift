@@ -136,8 +136,7 @@ final class HomeShownPositiveTestResultTableViewCell: UITableViewCell {
 	}
 
 	func setupAccessibility() {
-		containerView.accessibilityElements = [topContainer as Any, statusContainer as Any, noteLabel as Any, homeItemStackView as Any, nextButton as Any,
-			removeTestButton as Any]
+		containerView.accessibilityElements = [topContainer as Any, statusContainer as Any, noteLabel as Any, homeItemStackView as Any, nextButton as Any, removeTestButton as Any]
 
 		topContainer.isAccessibilityElement = true
 		topContainer.accessibilityTraits = [.button, .header]
