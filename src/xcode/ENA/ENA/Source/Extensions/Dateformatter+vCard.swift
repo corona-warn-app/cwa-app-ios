@@ -7,6 +7,7 @@ import Foundation
 extension DateFormatter {
 
 	enum VCard {
+
 		static var justDate: DateFormatter {
 			let dateFormatter = DateFormatter()
 			dateFormatter.dateFormat = "yyyyMMdd"
@@ -21,6 +22,5 @@ extension DateFormatter {
 			return dateFormatter
 		}
 	}
-
 
 }
