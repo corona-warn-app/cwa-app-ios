@@ -96,16 +96,10 @@ class CoronaTestService {
 		if
 			case let .given(givenDateOfBirth) = certificateConsent,
 			let dateOfBirthString = givenDateOfBirth,
-			let dateOfBirth = ISO8601DateFormatter.justUTCDateFormatter.date(from: dateOfBirthString)
+			let generatedDateOfBirthKey = hashedKey(dateOfBirthString: dateOfBirthString, guid: guid)
 		{
 			certificateConsentGiven = true
-
-			let dateFormatter = DateFormatter()
-			dateFormatter.timeZone = .utcTimeZone
-			dateFormatter.dateFormat = "ddMMyyyy"
-			let dateOfBirthString = dateFormatter.string(from: dateOfBirth)
-
-			dateOfBirthKey = "x\(ENAHasher.sha256("\(guid)\(dateOfBirthString)").dropFirst())"
+			dateOfBirthKey = generatedDateOfBirthKey
 		}
 
 		Log.info("[CoronaTestService] Registering PCR test (guid: \(private: guid, public: "GUID ID"), isSubmissionConsentGiven: \(isSubmissionConsentGiven), certificateConsentGiven: \(certificateConsentGiven))", log: .api)
@@ -526,6 +520,19 @@ class CoronaTestService {
 				completion(.success(registrationToken))
 			}
 		}
+	}
+
+	private func hashedKey(dateOfBirthString: String, guid: String) -> String? {
+		guard let dateOfBirth = ISO8601DateFormatter.justUTCDateFormatter.date(from: dateOfBirthString) else {
+			return nil
+		}
+
+		let dateFormatter = DateFormatter()
+		dateFormatter.timeZone = .utcTimeZone
+		dateFormatter.dateFormat = "ddMMyyyy"
+		let dateOfBirthString = dateFormatter.string(from: dateOfBirth)
+
+		return "x\(ENAHasher.sha256("\(guid)\(dateOfBirthString)").dropFirst())"
 	}
 
 	// swiftlint:disable:next cyclomatic_complexity function_body_length
