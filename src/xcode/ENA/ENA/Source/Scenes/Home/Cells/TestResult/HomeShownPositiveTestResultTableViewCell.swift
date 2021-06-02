@@ -55,6 +55,8 @@ final class HomeShownPositiveTestResultTableViewCell: UITableViewCell {
 			removeTestButton.setTitle(cellModel.removeTestButtonTitle, for: .normal)
 		}
 
+		removeTestButton.accessibilityIdentifier = AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.removeTestButton
+
 		cellModel.$homeItemViewModels
 			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] in

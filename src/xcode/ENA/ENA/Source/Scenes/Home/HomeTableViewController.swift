@@ -533,6 +533,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 						self?.viewModel.coronaTestService.removeTest(coronaTestType)
 					}
 				)
+				deleteAction.accessibilityIdentifier = AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.deleteButton
 				alert.addAction(deleteAction)
 				
 				let cancelAction = UIAlertAction(title: AppStrings.Common.alertActionCancel, style: .cancel)
