@@ -61,5 +61,12 @@
     "website": "https://github.com/kylef/JSONSchema.swift",
     "license": "3-Clause BSD License",
     "licenseUrl": "https://raw.githubusercontent.com/kylef/JSONSchema.swift/master/LICENSE"
+  },
+  {
+    "component": "SWCompression",
+    "licensor": "Timofey Solomko",
+    "website": "https://github.com/tsolomko/SWCompression",
+    "license": "MIT License",
+    "licenseUrl": "https://raw.githubusercontent.com/tsolomko/SWCompression/develop/LICENSE"
   }
 ]
