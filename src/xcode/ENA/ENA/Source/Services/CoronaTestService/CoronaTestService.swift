@@ -500,7 +500,7 @@ class CoronaTestService {
 			}
 			.store(in: &subscriptions)
 	}
-
+	
 	private func getRegistrationToken(
 		forKey key: String,
 		withType type: String,

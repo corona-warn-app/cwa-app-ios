@@ -123,6 +123,7 @@ extension URLSession.Response {
 		case noNetworkConnection
 		case serverError(Int)
 		case fakeResponse
+		case malformedRequest
 
 		/// HTTP 304 – Content on server has not changed from the given `If-None-Match` header in the request
 		case notModified
