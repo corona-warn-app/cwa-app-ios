@@ -23,8 +23,8 @@ protocol Client {
 	typealias PPAnalyticsSubmitionCompletionHandler = (Result<Void, PPASError>) -> Void
 	typealias TraceWarningPackageDiscoveryCompletionHandler = (Result<TraceWarningDiscovery, TraceWarningError>) -> Void
 	typealias TraceWarningPackageDownloadCompletionHandler = (Result<PackageDownloadResponse, TraceWarningError>) -> Void
-	typealias TestResultRegistrationCompletionHandler = (Result<Void, DGCError.RegistrationError>) -> Void
-	typealias DigitalCovid19CertificateCompletionHandler = (Result<DCCResponse, DGCError.DigitalCovid19CertificateError>) -> Void
+	typealias TestResultRegistrationCompletionHandler = (Result<Void, DGCErrors.RegistrationError>) -> Void
+	typealias DigitalCovid19CertificateCompletionHandler = (Result<DCCResponse, DGCErrors.DigitalCovid19CertificateError>) -> Void
 	
 	// MARK: Interacting with a Client
 
