@@ -453,6 +453,8 @@ class CoronaTestServiceTests: CWATestCase {
 		XCTAssertNil(pcrTest.submissionTAN)
 		XCTAssertFalse(pcrTest.keysSubmitted)
 		XCTAssertTrue(pcrTest.journalEntryCreated)
+		XCTAssertTrue(pcrTest.certificateConsentGiven)
+		XCTAssertFalse(pcrTest.certificateCreated)
 
 		XCTAssertEqual(store.pcrTestResultMetadata?.testResult, .negative)
 		XCTAssertEqual(
@@ -460,6 +462,112 @@ class CoronaTestServiceTests: CWATestCase {
 			Date().timeIntervalSince1970,
 			accuracy: 10
 		)
+	}
+
+	func testRegisterPCRTestAndGetResult_CertificateConsentGivenWithDateOfBirth() {
+		let store = MockTestStore()
+		store.enfRiskCalculationResult = mockRiskCalculationResult()
+
+		Analytics.setupMock(store: store)
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
+
+		let client = ClientMock()
+		client.onGetRegistrationToken = { _, _, dateOfBirthKey, _, completion in
+			XCTAssertEqual(dateOfBirthKey, "x4a7788ef394bc7d52112014b127fe2bf142c51fe1bbb385214280e9db670193")
+			completion(.success("registrationToken2"))
+		}
+
+		client.onGetTestResult = { _, _, completion in
+			completion(.success(FetchTestResultResponse(testResult: TestResult.negative.rawValue, sc: nil)))
+		}
+
+		let service = CoronaTestService(
+			client: client,
+			store: store,
+			eventStore: MockEventStore(),
+			diaryStore: MockDiaryStore(),
+			appConfiguration: CachedAppConfigurationMock()
+		)
+		service.pcrTest = nil
+
+		let expectation = self.expectation(description: "Expect to receive a result.")
+
+		service.registerPCRTestAndGetResult(
+			guid: "F1EE0D-F1EE0D4D-4346-4B63-B9CF-1522D9200915",
+			isSubmissionConsentGiven: true,
+			certificateConsent: .given(dateOfBirth: "1995-06-07")
+		) { result in
+			expectation.fulfill()
+			switch result {
+			case .failure:
+				XCTFail("This test should always return a successful result.")
+			case .success(let testResult):
+				XCTAssertEqual(testResult, TestResult.negative)
+			}
+		}
+
+		waitForExpectations(timeout: .short)
+
+		guard let pcrTest = service.pcrTest else {
+			XCTFail("pcrTest should not be nil")
+			return
+		}
+
+		XCTAssertTrue(pcrTest.certificateConsentGiven)
+		XCTAssertFalse(pcrTest.certificateCreated)
+	}
+
+	func testRegisterPCRTestAndGetResult_CertificateConsentGivenWithoutDateOfBirth() {
+		let store = MockTestStore()
+		store.enfRiskCalculationResult = mockRiskCalculationResult()
+
+		Analytics.setupMock(store: store)
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
+
+		let client = ClientMock()
+		client.onGetRegistrationToken = { _, _, dateOfBirthKey, _, completion in
+			XCTAssertNil(dateOfBirthKey)
+			completion(.success("registrationToken2"))
+		}
+
+		client.onGetTestResult = { _, _, completion in
+			completion(.success(FetchTestResultResponse(testResult: TestResult.negative.rawValue, sc: nil)))
+		}
+
+		let service = CoronaTestService(
+			client: client,
+			store: store,
+			eventStore: MockEventStore(),
+			diaryStore: MockDiaryStore(),
+			appConfiguration: CachedAppConfigurationMock()
+		)
+		service.pcrTest = nil
+
+		let expectation = self.expectation(description: "Expect to receive a result.")
+
+		service.registerPCRTestAndGetResult(
+			guid: "F1EE0D-F1EE0D4D-4346-4B63-B9CF-1522D9200915",
+			isSubmissionConsentGiven: true,
+			certificateConsent: .given(dateOfBirth: nil)
+		) { result in
+			expectation.fulfill()
+			switch result {
+			case .failure:
+				XCTFail("This test should always return a successful result.")
+			case .success(let testResult):
+				XCTAssertEqual(testResult, TestResult.negative)
+			}
+		}
+
+		waitForExpectations(timeout: .short)
+
+		guard let pcrTest = service.pcrTest else {
+			XCTFail("pcrTest should not be nil")
+			return
+		}
+
+		XCTAssertFalse(pcrTest.certificateConsentGiven)
+		XCTAssertFalse(pcrTest.certificateCreated)
 	}
 
 	func testRegisterPCRTestAndGetResult_RegistrationFails() {
