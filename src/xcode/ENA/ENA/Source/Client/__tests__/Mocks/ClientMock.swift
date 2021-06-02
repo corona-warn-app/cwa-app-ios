@@ -231,7 +231,7 @@ extension ClientMock: Client {
 		onTraceWarningDownload(country, packageId, completion)
 	}
 
-	func registerPublicKey(
+	func dccRegisterPublicKey(
 		isFake: Bool,
 		token: String,
 		publicKey: Data,
@@ -241,7 +241,7 @@ extension ClientMock: Client {
 			completion(.success(()))
 			return
 		}
-		onRegisterPublicKey(isFake, token, publicKey, completion)
+		onDCCRegisterPublicKey(isFake, token, publicKey, completion)
 	}
 
 	func submit(

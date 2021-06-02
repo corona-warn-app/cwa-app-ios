@@ -174,7 +174,7 @@ protocol Client {
 	///   - token: our token we want to register
 	///   - publicKey: our public RSA key to enable secure connection
 	///   - completion: completionHandler of post call with a void response
-	func registerPublicKey(
+	func dccRegisterPublicKey(
 		isFake: Bool,
 		token: String,
 		publicKey: Data,

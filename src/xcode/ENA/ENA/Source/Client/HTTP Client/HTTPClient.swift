@@ -420,7 +420,7 @@ final class HTTPClient: Client {
 		traceWarningPackageDownload(country: country, packageId: packageId, url: url, completion: completion)
 	}
 
-	func registerPublicKey(
+	func dccRegisterPublicKey(
 		isFake: Bool = false,
 		token: String,
 		publicKey: Data,
