@@ -61,4 +61,112 @@ final class HTTPClientDccRegisterPublicKeyTests: CWATestCase {
 		XCTAssertEqual(realError, .badRequest)
 	}
 
+	func testGIVEN_ErrorLog_WHEN_DCCRegisterPublicKey_THEN_tokenNotAllowed_ErrorIsReturned() throws {
+		// GIVEN
+		let stack = MockNetworkStack(
+			httpStatus: 403,
+			responseData: Data()
+		)
+
+		let expectation = self.expectation(description: "completion handler is called without an error")
+
+		// WHEN
+		var resultError: DCCErrors.RegistrationError?
+		HTTPClient.makeWith(mock: stack).dccRegisterPublicKey(token: "myToken", publicKey: Data()) { result in
+			switch result {
+			case .success():
+				XCTFail("Test should not succeed")
+			case let .failure(error):
+				resultError = error
+			}
+			expectation.fulfill()
+		}
+
+		// THEN
+		waitForExpectations(timeout: .short)
+		let realError = try XCTUnwrap(resultError)
+		XCTAssertEqual(realError, .tokenNotAllowed)
+	}
+
+	func testGIVEN_ErrorLog_WHEN_DCCRegisterPublicKey_THEN_tokenDoesNotExist_ErrorIsReturned() throws {
+		// GIVEN
+		let stack = MockNetworkStack(
+			httpStatus: 404,
+			responseData: Data()
+		)
+
+		let expectation = self.expectation(description: "completion handler is called without an error")
+
+		// WHEN
+		var resultError: DCCErrors.RegistrationError?
+		HTTPClient.makeWith(mock: stack).dccRegisterPublicKey(token: "myToken", publicKey: Data()) { result in
+			switch result {
+			case .success():
+				XCTFail("Test should not succeed")
+			case let .failure(error):
+				resultError = error
+			}
+			expectation.fulfill()
+		}
+
+		// THEN
+		waitForExpectations(timeout: .short)
+		let realError = try XCTUnwrap(resultError)
+		XCTAssertEqual(realError, .tokenDoesNotExist)
+	}
+
+	func testGIVEN_ErrorLog_WHEN_DCCRegisterPublicKey_THEN_tokenAlreadyAssigned_ErrorIsReturned() throws {
+		// GIVEN
+		let stack = MockNetworkStack(
+			httpStatus: 409,
+			responseData: Data()
+		)
+
+		let expectation = self.expectation(description: "completion handler is called without an error")
+
+		// WHEN
+		var resultError: DCCErrors.RegistrationError?
+		HTTPClient.makeWith(mock: stack).dccRegisterPublicKey(token: "myToken", publicKey: Data()) { result in
+			switch result {
+			case .success():
+				XCTFail("Test should not succeed")
+			case let .failure(error):
+				resultError = error
+			}
+			expectation.fulfill()
+		}
+
+		// THEN
+		waitForExpectations(timeout: .short)
+		let realError = try XCTUnwrap(resultError)
+		XCTAssertEqual(realError, .tokenAlreadyAssigned)
+	}
+
+	func testGIVEN_ErrorLog_WHEN_DCCRegisterPublicKey_THEN_internalServerError_IsReturned() throws {
+		// GIVEN
+		let stack = MockNetworkStack(
+			httpStatus: 500,
+			responseData: Data()
+		)
+
+		let expectation = self.expectation(description: "completion handler is called without an error")
+
+		// WHEN
+		var resultError: DCCErrors.RegistrationError?
+		HTTPClient.makeWith(mock: stack).dccRegisterPublicKey(token: "myToken", publicKey: Data()) { result in
+			switch result {
+			case .success():
+				XCTFail("Test should not succeed")
+			case let .failure(error):
+				resultError = error
+			}
+			expectation.fulfill()
+		}
+
+		// THEN
+		waitForExpectations(timeout: .short)
+		let realError = try XCTUnwrap(resultError)
+		XCTAssertEqual(realError, .internalServerError)
+	}
+
 }
