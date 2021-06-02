@@ -100,7 +100,7 @@ class CoronaTestService {
 			dateOfBirthKey = generatedDateOfBirthKey
 		}
 
-		Log.info("[CoronaTestService] Registering PCR test (guid: \(private: guid, public: "GUID ID"), isSubmissionConsentGiven: \(isSubmissionConsentGiven), certificateConsentGiven: \(certificateConsentGiven))", log: .api)
+		Log.info("[CoronaTestService] Registering PCR test (guid: \(private: guid, public: "GUID ID"), isSubmissionConsentGiven: \(isSubmissionConsentGiven), certificateConsentGiven: \(certificateConsentGiven)), dateOfBirthKey: \(private: String(describing: dateOfBirthKey))", log: .api)
 
 		getRegistrationToken(
 			forKey: ENAHasher.sha256(guid),
