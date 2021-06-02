@@ -49,80 +49,57 @@ public struct DigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtoc
     }
 
     public func convertToBase45(from base64: Base64, with dataEncryptionKey: Data) -> Result<Base45, CertificateDecodingError> {
-        let cborDataResult = extractCBOR(fromBase64: base64)
+        guard let cborData = Data(base64Encoded: base64) else {
+            return .failure(.HC_BASE45_DECODING_FAILED(nil))
+        }
 
-        switch cborDataResult {
-        case let .success(cborData):
+        let result = decodeCBORWebTokenEntries(from: cborData)
 
-            let cborDecoder = CBORDecoder(input: [UInt8](cborData))
-
-            let _cborPayload: CBOR?
-            do {
-                _cborPayload = try cborDecoder.decodeItem()
-            } catch {
-                return .failure(.HC_CBOR_DECODING_FAILED(error))
-            }
-            guard let cborPayload = _cborPayload else {
-                fatalError("cborPayload should not be nil at this point.")
-            }
-
-            guard case let CBOR.tagged(tag, messageElement) = cborPayload,
-                  // 18: CBOR tag value for a COSE Single Signer Data Object
-                  tag.rawValue == 18 else {
-
-                return .failure(.HC_COSE_TAG_INVALID)
-            }
-
-            guard
-                case let CBOR.array(message) = messageElement,
-                // The message has to have 4 entries.
-                message.count == 4 else {
-
-                return .failure(.HC_COSE_MESSAGE_INVALID)
-            }
-
-            let protectedHeader = message[0]
-            let unprotectedHeader = message[1]
-            let payload = message[2]
-            let signature = message[3]
-
-            guard case let .byteString(bytes) = payload else {
-                return .failure(.HC_COSE_MESSAGE_INVALID)
-            }
-
-            let aesEncryption = AESEncryption(
-                encryptionKey: dataEncryptionKey,
-                initializationVector: AESEncryptionConstants.initializationVector
-            )
-
-            let decryptedResult = aesEncryption.decrypt(data: Data(bytes))
-
-            guard case let .success(decryptedPayload) = decryptedResult else {
-                return .failure(.AES_DECRYPTION_FAILED)
-            }
-
-            let cborWebTokenMessage = CBOR.array([
-                protectedHeader,
-                unprotectedHeader,
-                CBOR.byteString([UInt8](decryptedPayload)),
-                signature
-            ])
-
-            let cborWebToken = CBOR.tagged(CBOR.Tag(rawValue: 18), cborWebTokenMessage)
-
-            let cborWebTokenData = Data(cborWebToken.encode())
-
-            let base64CBOR = cborWebTokenData.base64EncodedString()
-
-            let compressedCBORWebToken = cborWebTokenData.compressZLib()
-            let base45CBORWebToken = compressedCBORWebToken.toBase45()
-
-            return .success(base45CBORWebToken)
-
-
-        case let .failure(error):
+        if case let .failure(error) = result {
             return .failure(error)
         }
+
+        guard case let .success(cborWebTokenEntries) = result else {
+            fatalError("Has to be a success at this point, because of previous check.")
+        }
+
+        let protectedHeader = cborWebTokenEntries[0]
+        let unprotectedHeader = cborWebTokenEntries[1]
+        let payload = cborWebTokenEntries[2]
+        let signature = cborWebTokenEntries[3]
+
+        guard case let .byteString(bytes) = payload else {
+            return .failure(.HC_COSE_MESSAGE_INVALID)
+        }
+
+        let aesEncryption = AESEncryption(
+            encryptionKey: dataEncryptionKey,
+            initializationVector: AESEncryptionConstants.initializationVector
+        )
+
+        let decryptedResult = aesEncryption.decrypt(data: Data(bytes))
+
+        guard case let .success(decryptedPayload) = decryptedResult else {
+            return .failure(.AES_DECRYPTION_FAILED)
+        }
+
+        let cborWebTokenMessage = CBOR.array([
+            protectedHeader,
+            unprotectedHeader,
+            CBOR.byteString([UInt8](decryptedPayload)),
+            signature
+        ])
+
+        let cborWebToken = CBOR.tagged(CBOR.Tag(rawValue: 18), cborWebTokenMessage)
+
+        let cborWebTokenData = Data(cborWebToken.encode())
+
+        let base64CBOR = cborWebTokenData.base64EncodedString()
+
+        let compressedCBORWebToken = cborWebTokenData.compressZLib()
+        let base45CBORWebToken = compressedCBORWebToken.toBase45()
+
+        return .success(base45CBORWebToken)
     }
 
     // MARK: - Internal
@@ -155,17 +132,6 @@ public struct DigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtoc
             fatalError("cborData should not be nil at this point.")
         }
 
-        return .success(cborData)
-    }
-
-    func extractCBOR(fromBase64 base64: Base64) -> Result<CBORData, CertificateDecodingError> {
-        guard base64.hasPrefix(hcPrefix) else {
-            return .failure(.HC_PREFIX_INVALID)
-        }
-        let base64WithoutPrefix = base64.dropPrefix(hcPrefix)
-        guard let cborData = Data(base64Encoded: base64WithoutPrefix) else {
-            return .failure(.HC_BASE45_DECODING_FAILED(nil))
-        }
         return .success(cborData)
     }
 
