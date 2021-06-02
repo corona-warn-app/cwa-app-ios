@@ -3,10 +3,11 @@
 //
 
 import Foundation
-// swiftlint:disable pattern_matching_keywords
+
 enum QRCodeError: Error, Equatable {
 	case invalidTestCode(RatError)
 }
+
 enum RatError {
 	case invalidPayload
 	case invalidHash
@@ -16,9 +17,9 @@ enum RatError {
 }
 
 enum CoronaTestRegistrationInformation {
-	case pcr(String)
-	case antigen(AntigenTestInformation)
-	case teleTAN(String) // tan string
+	case pcr(guid: String)
+	case antigen(qrCodeInformation: AntigenTestQRCodeInformation)
+	case teleTAN(tan: String)
 	
 	// we cant declare the enum type to Int because we have properties inside the cases
 	
@@ -35,12 +36,12 @@ enum CoronaTestRegistrationInformation {
 extension CoronaTestRegistrationInformation: Equatable {
 	static func == (lhs: CoronaTestRegistrationInformation, rhs: CoronaTestRegistrationInformation) -> Bool {
 		switch (lhs, rhs) {
-		case (.pcr(let lhsGuid), .pcr(let rhsGuid)):
+		case let (.pcr(guid: lhsGuid), .pcr(guid: rhsGuid)):
 			return lhsGuid == rhsGuid
-		case (.antigen(let lhsAntigenTestInformation), .antigen(let rhsAntigenTestInformation)):
+		case let (.antigen(qrCodeInformation: lhsAntigenTestInformation), .antigen(qrCodeInformation: rhsAntigenTestInformation)):
 			return lhsAntigenTestInformation == rhsAntigenTestInformation
-		case (.teleTAN(let lhsTAN), .teleTAN(let thsTAN)):
-			return lhsTAN == thsTAN
+		case let (.teleTAN(tan: lhsTAN), .teleTAN(tan: rhsTAN)):
+			return lhsTAN == rhsTAN
 		default:
 			return false
 		}
