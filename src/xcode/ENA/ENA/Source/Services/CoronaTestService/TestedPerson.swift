@@ -28,10 +28,7 @@ struct TestedPerson: Codable, Equatable {
 			return nil
 		}
 
-		let inputFormatter = ISO8601DateFormatter()
-		inputFormatter.formatOptions = [.withFullDate]
-		inputFormatter.timeZone = TimeZone.autoupdatingCurrent
-
+		let inputFormatter = ISO8601DateFormatter.justLocalDateFormatter
 		guard let date = inputFormatter.date(from: dateOfBirth) else {
 			return nil
 		}
