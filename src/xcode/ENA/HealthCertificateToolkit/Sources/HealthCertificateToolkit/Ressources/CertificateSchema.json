@@ -222,12 +222,18 @@
         "sc": {
           "description": "Date/Time of Sample Collection",
           "type": "string",
-          "format": "date-time"
+          "pattern": "(19|20)\\d{2}-\\d{2}-\\d{2}",
+          "examples": [
+            "1979-04-14"
+          ],
         },
         "dr": {
           "description": "Date/Time of Test Result",
           "type": "string",
-          "format": "date-time"
+          "pattern": "(19|20)\\d{2}-\\d{2}-\\d{2}",
+          "examples": [
+            "1979-04-14"
+          ],
         },
         "tr": {
           "description": "Test Result",
