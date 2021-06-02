@@ -1529,12 +1529,6 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Informationen unter dem Menüpunkt „Neue Funktionen”.";
 
-/* Version 2.3 */
-
-"NewVersionFeature_23_digital_vaccination_certificate_title" = "Digitaler Impfnachweis";
-
-"NewVersionFeature_23_digital_vaccination_certificate_description" = "Sie können jetzt Ihre Impfzertifikate in der App hinzufügen und per QR-Code vorweisen. 14 Tage nach der letzten Impfung zeigt die App den vollständigen Impfschutz an.";
-
 /* Version 2.4 */
 
 "NewVersionFeature_24_digital_covid_cert_title" = "COVID-Testzertifikat";
