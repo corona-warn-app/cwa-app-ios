@@ -304,11 +304,8 @@ final class RiskProvider: RiskProviding {
 		// 2. There is a previous risk that is still valid and should not be recalculated
 		if let risk = previousRiskIfExistingAndNotExpired(userInitiated: userInitiated) {
 			Log.info("RiskProvider: Using risk from previous detection", log: .riskDetection)
-			
-			// fill in the risk exposure metadata if new risk calculation is not done in the meanwhile
-			if let riskCalculationResult = store.enfRiskCalculationResult {
-				Analytics.collect(.riskExposureMetadata(.updateRiskExposureMetadata(riskCalculationResult)))
-			}
+			// update the risk exposure metadatas if new risk calculations are not done in the meanwhile
+			Analytics.collect(.riskExposureMetadata(.update))
 			completion(.success(risk))
 			return
 		}
@@ -400,26 +397,24 @@ final class RiskProvider: RiskProviding {
 
 		let configuration = RiskCalculationConfiguration(from: appConfiguration.riskCalculationParameters)
 
-
-		let riskCalculationResult = enfRiskCalculation.calculateRisk(exposureWindows: exposureWindows, configuration: configuration)
+		let enfRiskCalculationResult = enfRiskCalculation.calculateRisk(exposureWindows: exposureWindows, configuration: configuration)
 		let mappedWindows = exposureWindows.map { RiskCalculationExposureWindow(exposureWindow: $0, configuration: configuration) }
 		Analytics.collect(.exposureWindowsMetadata(.collectExposureWindows(mappedWindows)))
 
 		let checkinRiskCalculationResult = checkinRiskCalculation.calculateRisk(with: appConfiguration)
 
 		let risk = Risk(
-			enfRiskCalculationResult: riskCalculationResult,
+			enfRiskCalculationResult: enfRiskCalculationResult,
 			previousENFRiskCalculationResult: store.enfRiskCalculationResult,
 			checkinCalculationResult: checkinRiskCalculationResult,
 			previousCheckinCalculationResult: store.checkinRiskCalculationResult
 		)
 
-		store.enfRiskCalculationResult = riskCalculationResult
+		store.enfRiskCalculationResult = enfRiskCalculationResult
 		store.checkinRiskCalculationResult = checkinRiskCalculationResult
 
 		checkIfRiskStatusLoweredAlertShouldBeShown(risk)
-		Analytics.collect(.riskExposureMetadata(.updateRiskExposureMetadata(riskCalculationResult)))
-
+		Analytics.collect(.riskExposureMetadata(.update))
 		completion(.success(risk))
 
 		/// We were able to calculate a risk so we have to reset the DeadMan Notification
@@ -447,7 +442,6 @@ final class RiskProvider: RiskProviding {
 				store.shouldShowRiskStatusLoweredAlert = true
 			case .high:
 				store.shouldShowRiskStatusLoweredAlert = false
-				store.dateOfConversionToHighRisk = Date()
 			}
 		}
 	}
