@@ -23,7 +23,7 @@ protocol Client {
 	typealias PPAnalyticsSubmitionCompletionHandler = (Result<Void, PPASError>) -> Void
 	typealias TraceWarningPackageDiscoveryCompletionHandler = (Result<TraceWarningDiscovery, TraceWarningError>) -> Void
 	typealias TraceWarningPackageDownloadCompletionHandler = (Result<PackageDownloadResponse, TraceWarningError>) -> Void
-	typealias TestResultRegistrationCompletionHandler = (Result<Void, DGC.RegistrationError>) -> Void
+	typealias DCCRegistrationCompletionHandler = (Result<Void, DCC.RegistrationError>) -> Void
 	
 	// MARK: Interacting with a Client
 
@@ -172,7 +172,7 @@ protocol Client {
 		isFake: Bool,
 		token: String,
 		publicKey: Data,
-		completion: @escaping TestResultRegistrationCompletionHandler
+		completion: @escaping DCCRegistrationCompletionHandler
 	)
 
 }

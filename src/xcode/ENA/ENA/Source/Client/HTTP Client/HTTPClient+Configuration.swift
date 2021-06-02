@@ -268,7 +268,7 @@ extension HTTPClient {
 				)
 		}
 
-		var DGCPublicKeyURL: URL {
+		var dccPublicKeyURL: URL {
 			endpoints
 				.dcc
 				.appending(

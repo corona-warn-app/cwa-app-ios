@@ -4,7 +4,7 @@
 
 import Foundation
 
-enum DGC {
+enum DCC {
 
 	enum RegistrationError: Error {
 		case badRequest

@@ -424,7 +424,7 @@ final class HTTPClient: Client {
 		isFake: Bool = false,
 		token: String,
 		publicKey: Data,
-		completion: @escaping TestResultRegistrationCompletionHandler
+		completion: @escaping DCCRegistrationCompletionHandler
 	) {
 
 		guard let request = try? URLRequest.dccPublicKeyRequest(
@@ -1129,7 +1129,7 @@ private extension URLRequest {
 		headerValue: Int
 	) throws -> URLRequest {
 
-		var request = URLRequest(url: configuration.DGCPublicKeyURL)
+		var request = URLRequest(url: configuration.dccPublicKeyURL)
 
 		request.setValue(
 			"\(headerValue)",
