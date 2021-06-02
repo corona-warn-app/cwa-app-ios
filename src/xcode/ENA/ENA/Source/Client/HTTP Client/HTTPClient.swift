@@ -53,7 +53,7 @@ final class HTTPClient: Client {
 		// Check if first char of dateOfBirthKey is a lower cased "x". If not, we fail because it is malformed. If dateOfBirthKey is nil, we pass this check.
 		if let dateOfBirthKey = dateOfBirthKey {
 			guard dateOfBirthKey.first == "x" else {
-				completeWith(.failure(.malformedRequest))
+				completeWith(.failure(.malformedDateOfBirthKey))
 				return
 			}
 		}

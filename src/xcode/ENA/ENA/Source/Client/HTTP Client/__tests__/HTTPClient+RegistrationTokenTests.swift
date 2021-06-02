@@ -174,7 +174,7 @@ final class HTTPClientRegistrationTokenTests: CWATestCase {
 		waitForExpectations(timeout: expectationsTimeout)
 		
 		// THEN
-		XCTAssertEqual(responseError ?? URLSession.Response.Failure.serverError(999), URLSession.Response.Failure.malformedRequest)
+		XCTAssertEqual(responseError ?? URLSession.Response.Failure.serverError(999), URLSession.Response.Failure.malformedDateOfBirthKey)
 	}
 
 	func testGetRegistrationToken_MalformedResponse() throws {

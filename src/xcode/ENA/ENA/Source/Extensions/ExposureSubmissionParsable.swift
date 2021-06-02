@@ -101,8 +101,8 @@ extension URLSessionError: ExposureSubmissionErrorTransformable {
 			return .serverError(304)
 		case .fakeResponse:
 			return .fakeResponse
-		case .malformedRequest:
-			return .malformedRequest
+		case .malformedDateOfBirthKey:
+			return .malformedDateOfBirthKey
 		}
 	}
 	// swiftlint:enable cyclomatic_complexity
