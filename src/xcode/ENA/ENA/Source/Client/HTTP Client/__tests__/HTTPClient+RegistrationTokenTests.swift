@@ -96,7 +96,7 @@ final class HTTPClientRegistrationTokenTests: CWATestCase {
 		)
 
 		let successExpectation = expectation(
-			description: "Test should success with token returned"
+			description: "Test should succeed with token returned"
 		)
 
 		HTTPClient.makeWith(mock: stack).getRegistrationToken(forKey: "1234567890", withType: "TELETAN") { result in
@@ -165,7 +165,7 @@ final class HTTPClientRegistrationTokenTests: CWATestCase {
 		) { result in
 			switch result {
 			case .success:
-				XCTFail("Test should not success")
+				XCTFail("Test should not succeed")
 			case let .failure(error):
 				responseError = error
 			}
