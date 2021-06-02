@@ -976,7 +976,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 /* ExposureSubmission TestCertificate */
 
-"ExposureSubmission_TestCertificate_Information_Title" = "COVID-19-Testzertifikat";
+"ExposureSubmission_TestCertificate_Information_Title" = "COVID-Testzertifikat";
 
 "ExposureSubmission_TestCertificate_Information_PrimaryButton" = "Testzertifikat anfordern";
 
@@ -2006,7 +2006,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Tabbar_Home_Title" = "Startseite";
 
-"Tabbar_Certificates_Title" = "Nachweise";
+"Tabbar_Certificates_Title" = "Zertifikate";
 
 "Tabbar_Diary_Title" = "Tagebuch";
 
@@ -2494,7 +2494,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Health Certificate Overview */
 
-"HealthCertificate_Overview_title" = "Nachweise";
+"HealthCertificate_Overview_title" = "Zertifikate";
 
 "HealthCertificate_Overview_description" = "Hier werden Ihre digitalen Impfzertifikate und Testzertifikate angezeigt.";
 
@@ -2514,7 +2514,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* - Test Certificate Info */
 
-"TestCertificate_Info_title" = "Digitales\n**COVID-19-Testzertifikat**";
+"TestCertificate_Info_title" = "Digitales\n**COVID-Testzertifikat**";
 
 "TestCertificate_Info_description" = "Registrieren Sie einen Test auf der Startseite und stimmen Sie zu, ein digitales Testzertifikat zu erhalten. Sobald das Zertifikat vorliegt, wird es hier angezeigt.";
 
