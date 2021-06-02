@@ -1000,9 +1000,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_TestCertificate_Information_Alert_Message" = "Wenn Sie die Test-Registrierung abbrechen, können Sie Ihr Testergebnis nicht in der App erhalten.";
 
-"ExposureSubmission_TestCertificate_Information_Alert_Cancel" = "Abbrechen";
+"ExposureSubmission_TestCertificate_Information_Alert_ContinueRegistration" = "Registrierung fortsetzen";
 
-"ExposureSubmission_TestCertificate_Information_Alert_Ok" = "OK";
+"ExposureSubmission_TestCertificate_Information_Alert_CancelRegistration" = "Registrierung abbrechen";
 
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Risiko-Ermittlung";

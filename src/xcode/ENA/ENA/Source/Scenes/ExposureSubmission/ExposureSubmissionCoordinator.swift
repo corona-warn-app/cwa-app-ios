@@ -520,7 +520,13 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		   !(oldTest.type == .antigen && self.model.coronaTestService.antigenTestIsOutdated) {
 			self.showOverrideTestNotice(testQRCodeInformation: testRegistrationInformation, submissionConsentGiven: isConsentGiven)
 		} else {
-			self.registerTestAndGetResult(with: testRegistrationInformation, submissionConsentGiven: isConsentGiven, isLoading: isLoading)
+			self.registerTestAndGetResult(
+				with: testRegistrationInformation,
+				submissionConsentGiven: isConsentGiven,
+				// Set to appropriate value (EXPOSUREAPP-7585)
+				certificateConsent: .notGiven,
+				isLoading: isLoading
+			)
 		}
 	}
 
@@ -842,7 +848,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			showCancelAlert: { [weak self] in
 				self?.showEndRegistrationAlert(
 					submitAction: UIAlertAction(
-						title: AppStrings.ExposureSubmission.TestCertificate.Info.Alert.ok,
+						title: AppStrings.ExposureSubmission.TestCertificate.Info.Alert.cancelRegistration,
 						style: .default,
 						handler: { _ in
 							self?.navigationController?.dismiss(animated: true)
@@ -896,7 +902,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		)
 		alert.addAction(
 			UIAlertAction(
-				title: AppStrings.ExposureSubmission.TestCertificate.Info.Alert.cancel,
+				title: AppStrings.ExposureSubmission.TestCertificate.Info.Alert.continueRegistration,
 				style: .cancel,
 				handler: nil
 			)
@@ -1125,9 +1131,15 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		let overwriteNoticeViewController = TestOverwriteNoticeViewController(
 			testType: testQRCodeInformation.testType,
 			didTapPrimaryButton: { [weak self] in
-				self?.registerTestAndGetResult(with: testQRCodeInformation, submissionConsentGiven: submissionConsentGiven, isLoading: { isLoading in
-					footerViewModel.setLoadingIndicator(isLoading, disable: isLoading, button: .primary)
-				})
+				self?.registerTestAndGetResult(
+					with: testQRCodeInformation,
+					submissionConsentGiven: submissionConsentGiven,
+					// Set to appropriate value (EXPOSUREAPP-7585)
+					certificateConsent: .notGiven,
+					isLoading: { isLoading in
+						footerViewModel.setLoadingIndicator(isLoading, disable: isLoading, button: .primary)
+					}
+				)
 			},
 			didTapCloseButton: { [weak self] in
 				// on cancel the submission flow is stopped immediately
@@ -1144,11 +1156,13 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	private func registerTestAndGetResult(
 		with testQRCodeInformation: CoronaTestRegistrationInformation,
 		submissionConsentGiven: Bool,
+		certificateConsent: CoronaTestCertificateConsent,
 		isLoading: @escaping (Bool) -> Void
 	) {
 		model.registerTestAndGetResult(
 			for: testQRCodeInformation,
 			isSubmissionConsentGiven: submissionConsentGiven,
+			certificateConsent: certificateConsent,
 			isLoading: isLoading,
 			onSuccess: { [weak self] testResult in
 				
@@ -1201,6 +1215,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 							self?.registerTestAndGetResult(
 								with: testQRCodeInformation,
 								submissionConsentGiven: submissionConsentGiven,
+								certificateConsent: certificateConsent,
 								isLoading: isLoading
 							)
 						}

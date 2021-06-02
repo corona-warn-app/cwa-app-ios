@@ -25,7 +25,7 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 
 		#if DEBUG
 		if isUITesting {
-			onSuccess(CoronaTestRegistrationInformation.pcr("guid"))
+			onSuccess(CoronaTestRegistrationInformation.pcr(guid: "guid"))
 		}
 		#endif
 	}
@@ -209,7 +209,7 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 			  ) else {
 			return nil
 		}
-		return matchings.isEmpty ? nil : .pcr(candidate)
+		return matchings.isEmpty ? nil : .pcr(guid: candidate)
 	}
 
 }

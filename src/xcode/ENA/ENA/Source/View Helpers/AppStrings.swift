@@ -148,8 +148,8 @@ enum AppStrings {
 				enum Alert {
 					static let title = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Alert_Title", comment: "")
 					static let message = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Alert_Message", comment: "")
-					static let cancel = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Alert_Cancel", comment: "")
-					static let ok = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Alert_Ok", comment: "")
+					static let continueRegistration = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Alert_ContinueRegistration", comment: "")
+					static let cancelRegistration = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Alert_CancelRegistration", comment: "")
 				}
 
 			}
