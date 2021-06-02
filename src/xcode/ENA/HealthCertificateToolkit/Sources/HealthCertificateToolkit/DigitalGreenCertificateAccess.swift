@@ -81,7 +81,6 @@ public struct DigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtoc
             fatalError("Has to be a success at this point, because of previous check.")
         }
 
-
         let protectedHeader = cborWebTokenEntries[0]
         let unprotectedHeader = cborWebTokenEntries[1]
         let payload = cborWebTokenEntries[2]
@@ -275,7 +274,6 @@ public struct DigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtoc
         if case let .failure(error) = result {
             return .failure(error)
         }
-
         guard case let .success(cborWebTokenEntries) = result else {
             fatalError("Has to be a success at this point, because of previous check.")
         }

@@ -156,7 +156,7 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
         }
     }
 
-    func test_When_ConvertToBase45_And_ExtractZertificate_Then_CorrectWebTokenIsReturned() throws {
+    func test_When_ConvertToBase45_And_ExtractCertificate_Then_SuccessIsReturned() throws {
         let certificateAccess = DigitalGreenCertificateAccess()
 
         for encryptedTestData in encryptedTestDatas {
@@ -174,15 +174,10 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
                 print(error)
             }
 
-            guard case let .success(healthCertificate) = extractResult else {
+            guard case .success = extractResult else {
                 XCTFail("Success expected.")
                 return
             }
-
-            print(healthCertificate)
-            print(healthCertificate)
-
-//            XCTAssertEqual(healthCertificate, testDataVaccinationCertificate.certificate)
         }
     }
 

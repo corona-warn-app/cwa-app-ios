@@ -8,7 +8,7 @@ import HealthCertificateToolkit
 extension DigitalGreenCertificate {
 
 	var isLastDoseInASeries: Bool {
-		vaccinationCertificates?[0].isLastDoseInASeries ?? false
+		vaccinationCertificates?[safe: 0].isLastDoseInASeries ?? false
 	}
 
 }
