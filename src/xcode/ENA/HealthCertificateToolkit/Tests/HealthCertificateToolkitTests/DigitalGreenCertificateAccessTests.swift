@@ -148,6 +148,19 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
         XCTAssertGreaterThan(testDataVaccinationCertificate.header.expirationTime, issuedAt)
     }
 
+    func test_When_ConvertToBase45_Then_CorrectBase45IsReturned() throws {
+        let certificateAccess = DigitalGreenCertificateAccess()
+
+        let keyData = try XCTUnwrap(Data(base64Encoded: decryptedDataEncryptionKeyBase64))
+        let result = certificateAccess.convertToBase45(from: testDataEncryptedTestCertificateBase64, with: keyData)
+
+        guard case let .success(base45) = result else {
+            XCTFail("Success expected.")
+            return
+        }
+    }
+
+
     private lazy var testDataVaccinationCertificate: TestData = {
         TestData (
             input: hcPrefix+"6BFOXN*TS0BI$ZD4N9:9S6RCVN5+O30K3/XIV0W23NTDEXWK G2EP4J0BGJLFX3R3VHXK.PJ:2DPF6R:5SVBHABVCNN95SWMPHQUHQN%A0SOE+QQAB-HQ/HQ7IR.SQEEOK9SAI4- 7Y15KBPD34  QWSP0WRGTQFNPLIR.KQNA7N95U/3FJCTG90OARH9P1J4HGZJKBEG%123ZC$0BCI757TLXKIBTV5TN%2LXK-$CH4TSXKZ4S/$K%0KPQ1HEP9.PZE9Q$95:UENEUW6646936HRTO$9KZ56DE/.QC$Q3J62:6LZ6O59++9-G9+E93ZM$96TV6NRN3T59YLQM1VRMP$I/XK$M8PK66YBTJ1ZO8B-S-*O5W41FD$ 81JP%KNEV45G1H*KESHMN2/TU3UQQKE*QHXSMNV25$1PK50C9B/9OK5NE1 9V2:U6A1ELUCT16DEETUM/UIN9P8Q:KPFY1W+UN MUNU8T1PEEG%5TW5A 6YO67N6BBEWED/3LS3N6YU.:KJWKPZ9+CQP2IOMH.PR97QC:ACZAH.SYEDK3EL-FIK9J8JRBC7ADHWQYSK48UNZGG NAVEHWEOSUI2L.9OR8FHB0T5HM7I",
@@ -261,6 +274,10 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
             )
         )
     }()
+
+    private lazy var testDataEncryptedTestCertificateBase64 = hcPrefix+"0oRNogEmBEiLxYhcyl5BXkBZAXBxvo73+06cLc73F5KIFuQdo7fLUnb7yF9QFtX9tIEmgSzHIXKbHcEiep5RTtb2UVS80vybmnwYa1k36HR2R2yTKGwvDWAUumw2ZjCnfp8CxKx3zQVRl6JrVdLiskWmo4qiK/EwyTHrw/5PZy4rd11vt9Y6wuZtlpOvFGDIDhGKpcgK93zfIQWY59xjxusr/4J3FCWpcy9YNehB6m4Az1NozXxOrL9DmFM38mWCkiHaPeWgedbqfKTg3x/vSrXSkXYnLpc6QHsRqW99r7yTXJffbK8X44KvgkUI9sIlVU5+2+IuwT4XBY2p/MLW4d9gfnAhZYTsn0nGuoj4KFHTo6fNkXsuZ6BWm5MurXR0dqiCd00B1ZKuTNV0QhdzaaB2pYtwBnxD65TW8D0VDrDDjZuYRzni032f5hgB7YDlvcWYWiv7o6T8DeCNAsJ0RdL/X1qe3bHvLOBvzF9XlTrg4vNF/3aeRn9libOf+0ufr5dEcVhA1NqKSb93S2El9dA0icVjK+DV4LbwVWajZmTmhqcsgzWhvl4/PmtAJ5/iT57FfoQvuOvlyhxRPgGSg33IuDnBCg=="
+
+    private lazy var decryptedDataEncryptionKeyBase64 = "/9o5eVNb9us5CsGD4F3J36Ju1enJ71Y6+FpVvScGWkE="
 }
 
 // MARK: - TestData

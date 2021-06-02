@@ -54,54 +54,71 @@ public struct DigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtoc
         switch cborDataResult {
         case let .success(cborData):
 
-            let webTokenResult = decodeCBORWebToken(from: cborData)
+            let cborDecoder = CBORDecoder(input: [UInt8](cborData))
 
-            switch webTokenResult {
-            case let .success(cborWebToken):
-
-                // 18: CBOR tag value for a COSE Single Signer Data Object
-                guard let messageElement = cborWebToken[18],
-                      case let .array(message) = messageElement,
-                      message.count == 4 else {
-                    return .failure(.HC_COSE_MESSAGE_INVALID)
-                }
-
-                let protectedHeader = message[0]
-                let unprotectedHeader = message[1]
-                let payload = message[2]
-                let signature = message[3]
-
-                guard case let .byteString(bytes) = payload else {
-                    return .failure(.HC_COSE_MESSAGE_INVALID)
-                }
-
-                let aesEncryption = AESEncryption(
-                    encryptionKey: dataEncryptionKey,
-                    initializationVector: AESEncryptionConstants.initializationVector
-                )
-
-                let decryptedResult = aesEncryption.decrypt(data: Data(bytes))
-
-                guard case let .success(decryptedPayload) = decryptedResult else {
-                    return .failure(.AES_DECRYPTION_FAILED)
-                }
-
-                let cborWebToken = CBOR.array([
-                    protectedHeader,
-                    unprotectedHeader,
-                    CBOR.byteString([UInt8](decryptedPayload)),
-                    signature
-                ])
-
-                let cborWebTokenData = Data(cborWebToken.encode())
-                let compressedCBORWebToken = cborWebTokenData.compressZLib()
-                let base45CBORWebToken = compressedCBORWebToken.toBase45()
-
-                return .success(base45CBORWebToken)
-
-            case let .failure(error):
-                return .failure(error)
+            let _cborPayload: CBOR?
+            do {
+                _cborPayload = try cborDecoder.decodeItem()
+            } catch {
+                return .failure(.HC_CBOR_DECODING_FAILED(error))
             }
+            guard let cborPayload = _cborPayload else {
+                fatalError("cborPayload should not be nil at this point.")
+            }
+
+            guard case let CBOR.tagged(tag, messageElement) = cborPayload,
+                  // 18: CBOR tag value for a COSE Single Signer Data Object
+                  tag.rawValue == 18 else {
+
+                return .failure(.HC_COSE_TAG_INVALID)
+            }
+
+            guard
+                case let CBOR.array(message) = messageElement,
+                // The message has to have 4 entries.
+                message.count == 4 else {
+
+                return .failure(.HC_COSE_MESSAGE_INVALID)
+            }
+
+            let protectedHeader = message[0]
+            let unprotectedHeader = message[1]
+            let payload = message[2]
+            let signature = message[3]
+
+            guard case let .byteString(bytes) = payload else {
+                return .failure(.HC_COSE_MESSAGE_INVALID)
+            }
+
+            let aesEncryption = AESEncryption(
+                encryptionKey: dataEncryptionKey,
+                initializationVector: AESEncryptionConstants.initializationVector
+            )
+
+            let decryptedResult = aesEncryption.decrypt(data: Data(bytes))
+
+            guard case let .success(decryptedPayload) = decryptedResult else {
+                return .failure(.AES_DECRYPTION_FAILED)
+            }
+
+            let cborWebTokenMessage = CBOR.array([
+                protectedHeader,
+                unprotectedHeader,
+                CBOR.byteString([UInt8](decryptedPayload)),
+                signature
+            ])
+
+            let cborWebToken = CBOR.tagged(CBOR.Tag(rawValue: 18), cborWebTokenMessage)
+
+            let cborWebTokenData = Data(cborWebToken.encode())
+
+            let base64CBOR = cborWebTokenData.base64EncodedString()
+
+            let compressedCBORWebToken = cborWebTokenData.compressZLib()
+            let base45CBORWebToken = compressedCBORWebToken.toBase45()
+
+            return .success(base45CBORWebToken)
+
 
         case let .failure(error):
             return .failure(error)
@@ -153,7 +170,7 @@ public struct DigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtoc
     }
 
     func extractHeader(from cborData: CBORData) -> Result<CBORWebTokenHeader, CertificateDecodingError> {
-        let webTokenResult = decodeCBORWebToken(from: cborData)
+        let webTokenResult = decodeCBORWebTokenPayload(from: cborData)
 
         switch webTokenResult {
         case let .success(cborWebToken):
@@ -192,7 +209,7 @@ public struct DigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtoc
     }
 
     func extractCertificate(from cborData: CBORData) -> Result<DigitalGreenCertificate, CertificateDecodingError> {
-        let webTokenResult = decodeCBORWebToken(from: cborData)
+        let webTokenResult = decodeCBORWebTokenPayload(from: cborData)
 
         switch webTokenResult {
         case let .success(cborWebToken):
@@ -277,7 +294,38 @@ public struct DigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtoc
     }
 
     /// More information about the CBOR Web Token (CWT) https://datatracker.ietf.org/doc/html/rfc8392
-    private func decodeCBORWebToken(from cborData: CBORData) -> Result<CBOR, CertificateDecodingError>  {
+    private func decodeCBORWebTokenPayload(from cborData: CBORData) -> Result<CBOR, CertificateDecodingError>  {
+        let result = decodeCBORWebTokenEntries(from: cborData)
+
+        if case let .failure(error) = result {
+            return .failure(error)
+        }
+
+        guard case let .success(cborWebTokenEntries) = result else {
+            fatalError("Has to be a success at this point, because of previous check.")
+        }
+
+        guard case let CBOR.byteString(payloadBytes) = cborWebTokenEntries[2] else {
+            return .failure(.HC_COSE_MESSAGE_INVALID)
+        }
+
+        let payloadDecoder = CBORDecoder(input: [UInt8](payloadBytes))
+
+        let _payload: CBOR?
+        do {
+            _payload = try payloadDecoder.decodeItem()
+        } catch {
+            return .failure(.HC_CBOR_DECODING_FAILED(error))
+        }
+
+        guard let payload = _payload else {
+            fatalError("payload should not be nil at this point.")
+        }
+
+        return .success(payload)
+    }
+
+    private func decodeCBORWebTokenEntries(from cborData: CBORData) -> Result<[CBOR], CertificateDecodingError>  {
         let cborDecoder = CBORDecoder(input: [UInt8](cborData))
 
         let _cborPayload: CBOR?
@@ -298,28 +346,13 @@ public struct DigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtoc
         }
 
         guard
-            case let CBOR.array(message) = messageElement,
+            case let CBOR.array(cborWebTokenEntries) = messageElement,
             // The message has to have 4 entries.
-            message.count == 4,
-            // The payload is the element at index 2.
-            case let CBOR.byteString(payloadBytes) = message[2] else {
+            cborWebTokenEntries.count == 4 else {
 
             return .failure(.HC_COSE_MESSAGE_INVALID)
         }
 
-        let payloadDecoder = CBORDecoder(input: [UInt8](payloadBytes))
-
-        let _payload: CBOR?
-        do {
-            _payload = try payloadDecoder.decodeItem()
-        } catch {
-            return .failure(.HC_CBOR_DECODING_FAILED(error))
-        }
-
-        guard let payload = _payload else {
-            fatalError("payload should not be nil at this point.")
-        }
-
-        return .success(payload)
+        return .success(cborWebTokenEntries)
     }
 }
