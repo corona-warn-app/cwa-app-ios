@@ -15,7 +15,7 @@ protocol FooterViewUpdating {
 
 	/// Optional function to update the footer view with given `bounds` of the view.
 	///
-	/// Added to support customized Footer views that don't follw the 'model' approach. Consider this a hack until autolayout implementation is in place.
+	/// Added to support customized Footer views that don't follow the 'model' approach. Consider this a hack until autolayout implementation is in place.
 	/// - Parameters:
 	///   - size: The final `size` of the footer view after the update.
 	///   - animated: Animated update or not.
