@@ -169,4 +169,39 @@ final class HTTPClientDccRegisterPublicKeyTests: CWATestCase {
 		XCTAssertEqual(realError, .internalServerError)
 	}
 
+	func testGIVEN_ErrorLog_WHEN_DCCRegisterPublicKey_THEN_unhandledResponse_IsReturned() throws {
+		// GIVEN
+		let stack = MockNetworkStack(
+			httpStatus: 502,
+			responseData: Data()
+		)
+
+		let expectation = self.expectation(description: "completion handler is called without an error")
+
+		// WHEN
+		var resultError: DCCErrors.RegistrationError?
+		HTTPClient.makeWith(mock: stack).dccRegisterPublicKey(token: "myToken", publicKey: Data()) { result in
+			switch result {
+			case .success():
+				XCTFail("Test should not succeed")
+			case let .failure(error):
+				resultError = error
+			}
+			expectation.fulfill()
+		}
+
+		// THEN
+		waitForExpectations(timeout: .short)
+		var responseStatusCode: Int = 200
+		let realError = try XCTUnwrap(resultError)
+		switch realError {
+		case let .unhandledResponse(statusCode):
+			responseStatusCode = statusCode
+		default:
+			XCTFail("unexpected error")
+		}
+
+		XCTAssertEqual(responseStatusCode, 502)
+	}
+
 }
