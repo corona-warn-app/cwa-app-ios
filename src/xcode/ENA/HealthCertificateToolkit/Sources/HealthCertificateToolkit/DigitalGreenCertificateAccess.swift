@@ -16,6 +16,7 @@ let hcPrefix = "HC1:"
 public protocol DigitalGreenCertificateAccessProtocol {
     func extractCBORWebTokenHeader(from base45: Base45) -> Result<CBORWebTokenHeader, CertificateDecodingError>
     func extractDigitalGreenCertificate(from base45: Base45) -> Result<DigitalGreenCertificate, CertificateDecodingError>
+    func convertToBase45(from base64: Base64, with dataEncryptionKey: Data) -> Result<Base45, CertificateDecodingError>
 }
 
 public struct DigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtocol {
