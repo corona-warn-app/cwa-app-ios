@@ -858,7 +858,9 @@ class CoronaTestServiceTests: CWATestCase {
 
 	func testRegisterAntigenTestAndGetResult_successWithoutSubmissionConsentGivenWithTestedPerson() {
 		let client = ClientMock()
-		client.onGetRegistrationToken = { _, _, _, _, completion in
+		client.onGetRegistrationToken = { _, _, dateOfBirthKey, _, completion in
+			// Ensure that the date of birth is not passed to the client for antigen tests if it is given accidentally
+			XCTAssertNil(dateOfBirthKey)
 			completion(.success("registrationToken"))
 		}
 
@@ -884,8 +886,9 @@ class CoronaTestServiceTests: CWATestCase {
 			lastName: "Mustermann",
 			dateOfBirth: "1964-08-12",
 			isSubmissionConsentGiven: false,
-			certificateSupportedByPointOfCare: false,
-			certificateConsent: .notGiven
+			certificateSupportedByPointOfCare: true,
+			// Date of birth given even though it is not used for antigen tests
+			certificateConsent: .given(dateOfBirth: "1964-08-12")
 		) { result in
 			expectation.fulfill()
 			switch result {
@@ -916,11 +919,15 @@ class CoronaTestServiceTests: CWATestCase {
 		XCTAssertNil(antigenTest.submissionTAN)
 		XCTAssertFalse(antigenTest.keysSubmitted)
 		XCTAssertFalse(antigenTest.journalEntryCreated)
+		XCTAssertTrue(antigenTest.certificateSupportedByPointOfCare)
+		XCTAssertTrue(antigenTest.certificateConsentGiven)
+		XCTAssertFalse(antigenTest.certificateCreated)
 	}
 
 	func testRegisterAntigenTestAndGetResult_successWithSubmissionConsentGiven() {
 		let client = ClientMock()
-		client.onGetRegistrationToken = { _, _, _, _, completion in
+		client.onGetRegistrationToken = { _, _, dateOfBirthKey, _, completion in
+			XCTAssertNil(dateOfBirthKey)
 			completion(.success("registrationToken"))
 		}
 
@@ -978,6 +985,68 @@ class CoronaTestServiceTests: CWATestCase {
 		XCTAssertFalse(antigenTest.keysSubmitted)
 		XCTAssertFalse(antigenTest.journalEntryCreated)
 		XCTAssertNil(antigenTest.sampleCollectionDate)
+		XCTAssertFalse(antigenTest.certificateSupportedByPointOfCare)
+		XCTAssertFalse(antigenTest.certificateConsentGiven)
+		XCTAssertFalse(antigenTest.certificateCreated)
+	}
+
+	func testRegisterAntigenTestAndGetResult_CertificateConsentGivenWithoutDateOfBirth() {
+		let store = MockTestStore()
+		store.enfRiskCalculationResult = mockRiskCalculationResult()
+
+		Analytics.setupMock(store: store)
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
+
+		let client = ClientMock()
+		client.onGetRegistrationToken = { _, _, dateOfBirthKey, _, completion in
+			XCTAssertNil(dateOfBirthKey)
+			completion(.success("registrationToken"))
+		}
+
+		client.onGetTestResult = { _, _, completion in
+			completion(.success(FetchTestResultResponse(testResult: TestResult.negative.rawValue, sc: nil)))
+		}
+
+		let service = CoronaTestService(
+			client: client,
+			store: store,
+			eventStore: MockEventStore(),
+			diaryStore: MockDiaryStore(),
+			appConfiguration: CachedAppConfigurationMock()
+		)
+		service.antigenTest = nil
+
+		let expectation = self.expectation(description: "Expect to receive a result.")
+
+		service.registerAntigenTestAndGetResult(
+			with: "hash",
+			pointOfCareConsentDate: Date(timeIntervalSince1970: 2222),
+			firstName: "Erika",
+			lastName: "Mustermann",
+			dateOfBirth: "1964-08-12",
+			isSubmissionConsentGiven: false,
+			certificateSupportedByPointOfCare: true,
+			certificateConsent: .given(dateOfBirth: nil)
+		) { result in
+			expectation.fulfill()
+			switch result {
+			case .failure:
+				XCTFail("This test should always return a successful result.")
+			case .success(let testResult):
+				XCTAssertEqual(testResult, TestResult.negative)
+			}
+		}
+
+		waitForExpectations(timeout: .short)
+
+		guard let antigenTest = service.antigenTest else {
+			XCTFail("antigenTest should not be nil")
+			return
+		}
+
+		XCTAssertTrue(antigenTest.certificateSupportedByPointOfCare)
+		XCTAssertTrue(antigenTest.certificateConsentGiven)
+		XCTAssertFalse(antigenTest.certificateCreated)
 	}
 
 	func testRegisterAntigenTestAndGetResult_RegistrationFails() {
