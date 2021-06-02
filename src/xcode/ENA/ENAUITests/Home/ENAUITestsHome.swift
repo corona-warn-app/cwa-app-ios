@@ -83,7 +83,6 @@ class ENAUITests_01a_Home: CWATestCase {
 	
 	func test_homescreen_remove_positive_test_result() throws {
 		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
-		// we just need one launch argument because it is handled separately
 		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.positive.stringValue)
 		app.setLaunchArgument(LaunchArguments.test.pcr.positiveTestResultWasShown, to: true)
 		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
