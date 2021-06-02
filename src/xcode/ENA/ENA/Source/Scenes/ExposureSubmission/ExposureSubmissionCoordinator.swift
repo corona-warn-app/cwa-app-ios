@@ -1119,9 +1119,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 					)
 					
 					// dont save expired tests after registering them
-					switch testQRCodeInformation {
-					case .teleTAN:
-						break
+					switch testQRCodeInformation.testType {
 					case .antigen:
 						self?.model.coronaTestService.antigenTest = nil
 					case .pcr:
