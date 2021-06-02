@@ -97,6 +97,7 @@ struct AntigenTestQRCodeInformation: Codable, Equatable {
 		}
 		return first + " " + last
 	}
+
 	var pointOfCareConsentDate: Date {
 		return Date(timeIntervalSince1970: TimeInterval(timestamp))
 	}
