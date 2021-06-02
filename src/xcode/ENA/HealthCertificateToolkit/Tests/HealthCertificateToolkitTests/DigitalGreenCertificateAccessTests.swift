@@ -106,11 +106,11 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
         }
 
         let containsNODateOfBirthError = innerSchemaErrors.contains {
-            $0.description == "'NODateOfBirth' does not match pattern: '(19|20)\\d{2}-\\d{2}-\\d{2}'"
+            $0.description == "'NODateOfBirth' does not match pattern: '^(19|20)\\d{2}-\\d{2}-\\d{2}$'"
         }
 
         let containsNODateOfVaccination = innerSchemaErrors.contains {
-            $0.description == "'NODateOfVaccination' does not match pattern: '(19|20)\\d{2}-\\d{2}-\\d{2}'"
+            $0.description == "'NODateOfVaccination' does not match pattern: '^20\\d{2}-\\d{2}-\\d{2}$'"
         }
 
         let containsLengthError = innerSchemaErrors.contains {
