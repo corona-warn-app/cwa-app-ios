@@ -1084,7 +1084,7 @@ enum AppStrings {
 		
 		static let feature24digitalCovidCertTitle = NSLocalizedString("NewVersionFeature_24_digital_covid_cert_title", comment: "")
 		
-		static let feature24digitalCovidCerdDescription = NSLocalizedString("NewVersionFeature_24_digital_covid_cert_description", comment: "")
+		static let feature24digitalCovidCertDescription = NSLocalizedString("NewVersionFeature_24_digital_covid_cert_description", comment: "")
 		
 		static let feature24ExtendedDiaryTitle = NSLocalizedString("NewVersionFeature_24_extended_diary_title", comment: "")
 		

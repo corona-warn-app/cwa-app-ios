@@ -17,7 +17,7 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		
 		// Digital Covid Certificate
 		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature24digitalCovidCertTitle, description: AppStrings.NewVersionFeatures.feature24digitalCovidCerdDescription)
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature24digitalCovidCertTitle, description: AppStrings.NewVersionFeatures.feature24digitalCovidCertDescription)
 		)
 		
 		// Extended Diary
