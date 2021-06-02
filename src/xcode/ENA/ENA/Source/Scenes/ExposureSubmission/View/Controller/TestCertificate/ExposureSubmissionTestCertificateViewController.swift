@@ -47,7 +47,7 @@ class ExposureSubmissionTestCertificateViewController: DynamicTableViewControlle
 		switch type {
 		case .primary:
 			if let date = viewModel.dateOfBirth {
-				let dateOfBirthString = DateFormatter.justDate.string(from: date)
+				let dateOfBirthString = ISO8601DateFormatter.justLocalDateFormatter.string(from: date)
 				didTapPrimaryButton(viewModel.testType, dateOfBirthString)
 			} else {
 				didTapPrimaryButton(viewModel.testType, nil)

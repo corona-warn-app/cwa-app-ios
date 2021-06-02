@@ -6,14 +6,15 @@ import Foundation
 
 extension DateFormatter {
 
-	static var justDate: DateFormatter {
-		let dateFormatter = DateFormatter()
-		dateFormatter.dateFormat = "yyyyMMdd"
-		dateFormatter.timeZone = .utcTimeZone
-		return dateFormatter
-	}
-
 	enum VCard {
+
+		static var justDate: DateFormatter {
+			let dateFormatter = DateFormatter()
+			dateFormatter.dateFormat = "yyyyMMdd"
+			dateFormatter.timeZone = .utcTimeZone
+			return dateFormatter
+		}
+
 		static var revDate: DateFormatter {
 			let dateFormatter = DateFormatter()
 			dateFormatter.dateFormat = "yyyyMMdd'T'hhmmss'Z'"
