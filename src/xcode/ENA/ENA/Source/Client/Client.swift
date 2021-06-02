@@ -23,7 +23,8 @@ protocol Client {
 	typealias PPAnalyticsSubmitionCompletionHandler = (Result<Void, PPASError>) -> Void
 	typealias TraceWarningPackageDiscoveryCompletionHandler = (Result<TraceWarningDiscovery, TraceWarningError>) -> Void
 	typealias TraceWarningPackageDownloadCompletionHandler = (Result<PackageDownloadResponse, TraceWarningError>) -> Void
-	typealias TestResultRegistrationCompletionHandler = (Result<Void, DGC.RegistrationError>) -> Void
+	typealias TestResultRegistrationCompletionHandler = (Result<Void, DGCError.RegistrationError>) -> Void
+	typealias DigitalCovid19CertificateCompletionHandler = (Result<DCCResponse, DGCError.DigitalCovid19CertificateError>) -> Void
 	
 	// MARK: Interacting with a Client
 
@@ -173,6 +174,17 @@ protocol Client {
 		token: String,
 		publicKey: Data,
 		completion: @escaping TestResultRegistrationCompletionHandler
+	)
+	
+	/// POST call to get the digital covid19 certificate. Expects the registration token and returns an object, that contains the data encyption key and the cretificate as cose-object. Both are of type bas64 encoded String and have to be transformed further.
+	/// - Parameters:
+	///   - registrationToken: The registration token
+	///   - isFake: Flag to indicate a fake request
+	///   - completion: The completion handler of the call, which contains a DCCResponse or a DGCError.DigitalCovid19CertificateError
+	func getDigitalCovid19Certificate(
+		registrationToken token: String,
+		isFake: Bool,
+		completion: @escaping DigitalCovid19CertificateCompletionHandler
 	)
 
 }
