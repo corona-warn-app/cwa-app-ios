@@ -848,7 +848,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			showCancelAlert: { [weak self] in
 				self?.showEndRegistrationAlert(
 					submitAction: UIAlertAction(
-						title: AppStrings.ExposureSubmission.TestCertificate.Info.Alert.ok,
+						title: AppStrings.ExposureSubmission.TestCertificate.Info.Alert.cancelRegistration,
 						style: .default,
 						handler: { _ in
 							self?.navigationController?.dismiss(animated: true)
@@ -902,7 +902,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		)
 		alert.addAction(
 			UIAlertAction(
-				title: AppStrings.ExposureSubmission.TestCertificate.Info.Alert.cancel,
+				title: AppStrings.ExposureSubmission.TestCertificate.Info.Alert.continueRegistration,
 				style: .cancel,
 				handler: nil
 			)
