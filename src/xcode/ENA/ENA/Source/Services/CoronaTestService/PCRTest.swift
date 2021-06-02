@@ -6,6 +6,8 @@ import Foundation
 
 struct PCRTest: Equatable {
 
+	// MARK: - Internal
+
 	var registrationDate: Date
 	var registrationToken: String?
 

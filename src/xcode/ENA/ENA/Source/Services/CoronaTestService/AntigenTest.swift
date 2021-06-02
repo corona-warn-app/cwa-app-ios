@@ -6,6 +6,8 @@ import Foundation
 
 struct AntigenTest: Equatable {
 
+	// MARK: - Internal
+
 	// The date of when the consent was provided by the tested person at the Point of Care.
 	var pointOfCareConsentDate: Date
 	// The date of when the test sample was collected.
@@ -81,45 +83,6 @@ extension AntigenTest: Codable {
 		certificateSupportedByPointOfCare = try container.decodeIfPresent(Bool.self, forKey: .certificateSupportedByPointOfCare) ?? false
 		certificateConsentGiven = try container.decodeIfPresent(Bool.self, forKey: .certificateConsentGiven) ?? false
 		certificateCreated = try container.decodeIfPresent(Bool.self, forKey: .certificateCreated) ?? false
-	}
-
-}
-
-struct TestedPerson: Codable, Equatable {
-
-	let firstName: String?
-	let lastName: String?
-	let dateOfBirth: String?
-
-	var fullName: String? {
-		let formatter = PersonNameComponentsFormatter()
-		formatter.style = .long
-
-		var nameComponents = PersonNameComponents()
-		nameComponents.givenName = firstName
-		nameComponents.familyName = lastName
-
-		return formatter.string(from: nameComponents)
-	}
-
-	var formattedDateOfBirth: String? {
-		guard let dateOfBirth = dateOfBirth else {
-			return nil
-		}
-
-		let inputFormatter = ISO8601DateFormatter()
-		inputFormatter.formatOptions = [.withFullDate]
-		inputFormatter.timeZone = TimeZone.autoupdatingCurrent
-
-		guard let date = inputFormatter.date(from: dateOfBirth) else {
-			return nil
-		}
-
-		let outputFormatter = DateFormatter()
-		outputFormatter.dateStyle = .medium
-		outputFormatter.timeStyle = .none
-
-		return outputFormatter.string(from: date)
 	}
 
 }
