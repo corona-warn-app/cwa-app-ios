@@ -50,9 +50,16 @@ protocol Client {
 	// MARK: Getting the Configuration
 
 	/// Gets the registration token
+	/// - Parameters:
+	///   - forKey: The sha256 hashed key from the test
+	///   - withType: Test input type. Normally "GUID" or "TELETAN".
+	///   - dateOfBirthKey: Optional and only needed for PCR tests. Expects the guid concatenated with the date of birth (format: "ddMMyyyy"), hashed with SHA256 and the first character of that hash replaced by an "x".
+	///   - isFake: Set to true if we want this request as a fake request
+	///   - completion: the completion handler of the call
 	func getRegistrationToken(
 		forKey key: String,
 		withType type: String,
+		dateOfBirthKey: String?,
 		isFake: Bool,
 		completion completeWith: @escaping RegistrationHandler
 	)

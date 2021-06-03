@@ -11,6 +11,15 @@
         }
       },
       {
+        "package": "BitByteData",
+        "repositoryURL": "https://github.com/tsolomko/BitByteData",
+        "state": {
+          "branch": null,
+          "revision": "0969ebfb79ccbee05384249e818067a984337dc2",
+          "version": "1.4.4"
+        }
+      },
+      {
         "package": "FMDB",
         "repositoryURL": "https://github.com/ccgus/fmdb.git",
         "state": {
@@ -53,6 +62,15 @@
           "branch": null,
           "revision": "f79d4ecbf8bc4e1579fbd86c3e1d652fb6876c53",
           "version": "0.9.2"
+        }
+      },
+      {
+        "package": "SWCompression",
+        "repositoryURL": "https://github.com/tsolomko/SWCompression.git",
+        "state": {
+          "branch": null,
+          "revision": "add1e6111fe411221bfa46bc5db792e35cd72768",
+          "version": "4.5.10"
         }
       },
       {

@@ -9,6 +9,10 @@ class ENATextField: UITextField {
 
 	// MARK: - Init
 
+	convenience init() {
+		self.init(frame: .zero)
+	}
+
 	init(frame: CGRect, deltaXInset: CGFloat = 14.0) {
 		self.deltaXInset = deltaXInset
 
