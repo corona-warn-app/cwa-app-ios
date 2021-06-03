@@ -55,6 +55,7 @@ struct DCCRSAKeyPair: Codable {
 		var error: Unmanaged<CFError>?
 		guard let publicKey = SecKeyCreateWithData(publicKeyData as CFData, DCCRSAKeyPair.keyPairAttr, &error),
 			  let privateKey = SecKeyCreateWithData(privateKeyData as CFData, DCCRSAKeyPair.keyPairAttr, &error) else {
+			Log.error("RSA key pair decoding failed: \(String(describing: (error as? Error)?.localizedDescription))", log: .crypto)
 			throw DCCRSAKeyPairError.decoding(error?.takeUnretainedValue())
 		}
 
@@ -70,6 +71,7 @@ struct DCCRSAKeyPair: Codable {
 		var error: Unmanaged<CFError>?
 		guard let publicKeyData = SecKeyCopyExternalRepresentation(publicKey, &error) as Data?,
 			  let privateKeyData = SecKeyCopyExternalRepresentation(privateKey, &error) as Data? else {
+			Log.error("RSA key pair encoding failed: \(String(describing: (error as? Error)?.localizedDescription))", log: .crypto)
 			throw DCCRSAKeyPairError.encoding(error?.takeUnretainedValue())
 		}
 
@@ -82,9 +84,10 @@ struct DCCRSAKeyPair: Codable {
 	
 	enum DCCRSAKeyPairError: Error {
 		case keyPairGeneration(String)	// Key generation failed
-		case publicKey(CFError?) // Unable to get public key representation
-		case encoding(CFError?) // Decoding failed
-		case decoding(CFError?) // Decoding failed
+		case publicKey(Error?) // Unable to get public key representation
+		case encoding(Error?) // Encoding failed
+		case decoding(Error?) // Decoding failed
+		case decryption(Error?) // Decoding failed
 	}
 	
 	let publicKey: SecKey
@@ -92,6 +95,16 @@ struct DCCRSAKeyPair: Codable {
 	
 	/// The publicKey with added RSA Header and Base64 encoded
 	let publicKeyForBackend: String
+
+	func decrypt(_ cipherText: Data) throws -> Data {
+		var error: Unmanaged<CFError>?
+		guard let clearText = SecKeyCreateDecryptedData(privateKey, .rsaEncryptionOAEPSHA256, cipherText as CFData, &error) as Data? else {
+			Log.error("RSA decryption failed: \(String(describing: (error as? Error)?.localizedDescription))", log: .crypto)
+			throw DCCRSAKeyPairError.encoding(error?.takeUnretainedValue())
+		}
+
+		return clearText
+	}
 
 	// MARK: - Private
 
