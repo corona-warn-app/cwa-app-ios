@@ -976,7 +976,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 /* ExposureSubmission TestCertificate */
 
-"ExposureSubmission_TestCertificate_Information_Title" = "COVID-19-Testzertifikat";
+"ExposureSubmission_TestCertificate_Information_Title" = "COVID-Testzertifikat";
 
 "ExposureSubmission_TestCertificate_Information_PrimaryButton" = "Testzertifikat anfordern";
 
@@ -1000,9 +1000,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_TestCertificate_Information_Alert_Message" = "Wenn Sie die Test-Registrierung abbrechen, können Sie Ihr Testergebnis nicht in der App erhalten.";
 
-"ExposureSubmission_TestCertificate_Information_Alert_Cancel" = "Abbrechen";
+"ExposureSubmission_TestCertificate_Information_Alert_ContinueRegistration" = "Registrierung fortsetzen";
 
-"ExposureSubmission_TestCertificate_Information_Alert_Ok" = "OK";
+"ExposureSubmission_TestCertificate_Information_Alert_CancelRegistration" = "Registrierung abbrechen";
 
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Risiko-Ermittlung";
@@ -1271,6 +1271,14 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "Home_Finding_Positive_Card_Share_Item_Title" = "Teilen Sie Ihre Zufalls-IDs, damit andere gewarnt werden können.";
 
 "Home_Finding_Positive_Card_Button" = "Andere warnen";
+
+"Home_Finding_Positive_Card_Button_Remove_Test" = "Test entfernen";
+
+"Home_Finding_Positive_Card_Remove_Test_Alert_Title" = "Sind Sie sicher, dass Sie Ihren Test entfernen wollen?";
+
+"Home_Finding_Positive_Card_Remove_Test_Alert_Description" = "Dadurch werden andere nicht gewarnt.";
+
+"Home_Finding_Positive_Card_Remove_Test_Alert_Description_Delete_Button" = "Entfernen";
 
 /* Home Test Registration Card */
 
@@ -1561,11 +1569,15 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Informationen unter dem Menüpunkt „Neue Funktionen”.";
 
-/* Version 2.3 */
+/* Version 2.4 */
 
-"NewVersionFeature_23_digital_vaccination_certificate_title" = "Digitaler Impfnachweis";
+"NewVersionFeature_24_digital_covid_cert_title" = "COVID-Testzertifikat";
 
-"NewVersionFeature_23_digital_vaccination_certificate_description" = "Sie können jetzt Ihre Impfzertifikate in der App hinzufügen und per QR-Code vorweisen. 14 Tage nach der letzten Impfung zeigt die App den vollständigen Impfschutz an.";
+"NewVersionFeature_24_digital_covid_cert_description" = "Sie können nun über die App ein offizielles digitales Testzertifikat anfordern und anschließend in der App hinzufügen. Sie können das Testzertifikat (QR-Code) innerhalb der EU verwenden, um ein negatives Testergebnis nachzuweisen (z.B. für Auslandsreisen).";
+
+"NewVersionFeature_24_extended_diary_title" = "Erweiterung Kontakt-Tagebuch";
+
+"NewVersionFeature_24_extended_diary_title_description" = "Sobald Ihr Testergebnis vorliegt, wird es nun auch Ihrem Kontakt-Tagebuch hinzugefügt.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
@@ -2006,7 +2018,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Tabbar_Home_Title" = "Startseite";
 
-"Tabbar_Certificates_Title" = "Nachweise";
+"Tabbar_Certificates_Title" = "Zertifikate";
 
 "Tabbar_Diary_Title" = "Tagebuch";
 
@@ -2494,7 +2506,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Health Certificate Overview */
 
-"HealthCertificate_Overview_title" = "Nachweise";
+"HealthCertificate_Overview_title" = "Zertifikate";
 
 "HealthCertificate_Overview_description" = "Hier werden Ihre digitalen Impfzertifikate und Testzertifikate angezeigt.";
 
@@ -2514,7 +2526,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* - Test Certificate Info */
 
-"TestCertificate_Info_title" = "Digitales\n**COVID-19-Testzertifikat**";
+"TestCertificate_Info_title" = "Digitales\n**COVID-Testzertifikat**";
 
 "TestCertificate_Info_description" = "Registrieren Sie einen Test auf der Startseite und stimmen Sie zu, ein digitales Testzertifikat zu erhalten. Sobald das Zertifikat vorliegt, wird es hier angezeigt.";
 
