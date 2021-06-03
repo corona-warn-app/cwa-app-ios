@@ -61,6 +61,10 @@ enum HealthCertificateServiceError {
 	enum TestCertificateRequestError: LocalizedError {
 		case rsaKeyPairGenerationFailed(DCCRSAKeyPairError)
 		case publicKeyRegistrationFailed(DCCErrors.RegistrationError)
+		case certificateRequestFailed(DCCErrors.DigitalCovid19CertificateError)
+		case base64DecodingFailed
+		case decryptionFailed(Error)
+		case assemblyFailed(CertificateDecodingError)
 		case other(Error)
 	}
 

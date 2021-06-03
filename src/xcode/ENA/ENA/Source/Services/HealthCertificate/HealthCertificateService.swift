@@ -131,7 +131,10 @@ class HealthCertificateService {
 		executeTestCertificateRequest(testCertificateRequest)
 	}
 
-	func executeTestCertificateRequest(_ testCertificateRequest: TestCertificateRequest, completion: ((Result<Void, HealthCertificateServiceError.TestCertificateRequestError>) -> Void)? = nil) {
+	func executeTestCertificateRequest(
+		_ testCertificateRequest: TestCertificateRequest,
+		completion: ((Result<Void, HealthCertificateServiceError.TestCertificateRequestError>) -> Void)? = nil
+	) {
 		do {
 			let rsaKeyPair = try testCertificateRequest.rsaKeyPair ?? DCCRSAKeyPair()
 			testCertificateRequest.rsaKeyPair = rsaKeyPair
@@ -163,13 +166,21 @@ class HealthCertificateService {
 								case .success():
 									testCertificateRequest.rsaPublicKeyRegistered = true
 									DispatchQueue.global().asyncAfter(deadline: .now() + waitAfterPublicKeyRegistrationInSeconds) {
-										self.requestDigitalCovidCertificate(for: testCertificateRequest, completion: completion)
+										self.requestDigitalCovidCertificate(
+											for: testCertificateRequest,
+											rsaKeyPair: rsaKeyPair,
+											waitForRetryInSeconds: waitForRetryInSeconds,
+											completion: completion
+										)
 									}
 								case .failure(let registrationError) where registrationError == .tokenAlreadyAssigned:
 									testCertificateRequest.rsaPublicKeyRegistered = true
-									DispatchQueue.global().asyncAfter(deadline: .now() + waitAfterPublicKeyRegistrationInSeconds) {
-										self.requestDigitalCovidCertificate(for: testCertificateRequest, completion: completion)
-									}
+									self.requestDigitalCovidCertificate(
+										for: testCertificateRequest,
+										rsaKeyPair: rsaKeyPair,
+										waitForRetryInSeconds: waitForRetryInSeconds,
+										completion: completion
+									)
 								case .failure(let registrationError):
 									testCertificateRequest.requestExecutionFailed = true
 									completion?(.failure(.publicKeyRegistrationFailed(registrationError)))
@@ -177,7 +188,12 @@ class HealthCertificateService {
 							}
 						)
 					} else if testCertificateRequest.encryptedDEK == nil || testCertificateRequest.encryptedCOSE == nil {
-						self.requestDigitalCovidCertificate(for: testCertificateRequest, completion: completion)
+						self.requestDigitalCovidCertificate(
+							for: testCertificateRequest,
+							rsaKeyPair: rsaKeyPair,
+							waitForRetryInSeconds: waitForRetryInSeconds,
+							completion: completion
+						)
 					}
 				}
 				.store(in: &subscriptions)
@@ -192,23 +208,68 @@ class HealthCertificateService {
 
 	private func requestDigitalCovidCertificate(
 		for testCertificateRequest: TestCertificateRequest,
+		rsaKeyPair: DCCRSAKeyPair,
 		retryOn202: Bool = true,
-		completion: ((Result<Void, HealthCertificateServiceError.TestCertificateRequestError>) -> Void)? = nil) {
+		waitForRetryInSeconds: TimeInterval,
+		completion: ((Result<Void, HealthCertificateServiceError.TestCertificateRequestError>) -> Void)? = nil
+	) {
 		client.getDigitalCovid19Certificate(
 			registrationToken: testCertificateRequest.registrationToken,
 			isFake: false
-		) { result in
+		) { [weak self] result in
 			switch result {
 			case .success(let dccResponse):
-				<#code#>
+				self?.assembleDigitalCovidCertificate(
+					for: testCertificateRequest,
+					rsaKeyPair: rsaKeyPair,
+					encryptedDEK: dccResponse.dek,
+					encryptedCOSE: dccResponse.dcc
+				)
+			case .failure(let error) where error == .dccPending && retryOn202:
+				DispatchQueue.global().asyncAfter(deadline: .now() + waitForRetryInSeconds) {
+					self?.requestDigitalCovidCertificate(
+						for: testCertificateRequest,
+						rsaKeyPair: rsaKeyPair,
+						retryOn202: true, // TODO: Set to false
+						waitForRetryInSeconds: waitForRetryInSeconds,
+						completion: completion
+					)
+				}
 			case .failure(let error):
-				<#code#>
+				testCertificateRequest.requestExecutionFailed = true
+				completion?(.failure(.certificateRequestFailed(error)))
 			}
 		}
 	}
 
-	private func assembleDigitalCovidCertificate(encryptedDEK: String, encryptedCOSE: String, completion: ((Result<Void, HealthCertificateServiceError.TestCertificateRequestError>) -> Void)? = nil) {
+	private func assembleDigitalCovidCertificate(
+		for testCertificateRequest: TestCertificateRequest,
+		rsaKeyPair: DCCRSAKeyPair,
+		encryptedDEK: String,
+		encryptedCOSE: String,
+		completion: ((Result<Void, HealthCertificateServiceError.TestCertificateRequestError>) -> Void)? = nil
+	) {
+		guard let encryptedDEKData = Data(base64Encoded: encryptedDEK) else {
+			testCertificateRequest.requestExecutionFailed = true
+			completion?(.failure(.base64DecodingFailed))
+			return
+		}
 
+		do {
+			let decodedDEK = try rsaKeyPair.decrypt(encryptedDEKData)
+			let result = DigitalGreenCertificateAccess().convertToBase45(from: encryptedCOSE, with: decodedDEK)
+
+			switch result {
+			case .success(let healthCertificateBase45):
+				registerHealthCertificate(base45: healthCertificateBase45)
+			case .failure(let error):
+				testCertificateRequest.requestExecutionFailed = true
+				completion?(.failure(.assemblyFailed(error)))
+			}
+		} catch {
+			testCertificateRequest.requestExecutionFailed = true
+			completion?(.failure(.decryptionFailed(error)))
+		}
 	}
 
 	func updatePublishersFromStore() {
