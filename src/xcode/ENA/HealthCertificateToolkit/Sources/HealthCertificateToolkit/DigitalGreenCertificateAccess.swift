@@ -94,12 +94,11 @@ public struct DigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtoc
 
         let cborWebTokenData = Data(cborWebToken.encode())
 
-//        let base64CBOR = cborWebTokenData.base64EncodedString()
-
         let compressedCBORWebToken = cborWebTokenData.compressZLib()
         let base45CBORWebToken = compressedCBORWebToken.toBase45()
+        let prefixedBase45CBORWebToken = hcPrefix+base45CBORWebToken
 
-        return .success(base45CBORWebToken)
+        return .success(prefixedBase45CBORWebToken)
     }
 
     // MARK: - Internal
