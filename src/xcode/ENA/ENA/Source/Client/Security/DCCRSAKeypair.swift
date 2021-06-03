@@ -6,7 +6,15 @@ import Foundation
 
 // MARK: - Digital COVID Certificate
 
-struct DCCRSAKeyPair: Codable {
+enum DCCRSAKeyPairError: Error {
+	case keyPairGeneration(String)	// Key generation failed
+	case publicKey(Error?) // Unable to get public key representation
+	case encoding(Error?) // Encoding failed
+	case decoding(Error?) // Decoding failed
+	case decryption(Error?) // Decoding failed
+}
+
+struct DCCRSAKeyPair: Codable, Equatable {
 
 	// MARK: - Init
 
@@ -81,14 +89,6 @@ struct DCCRSAKeyPair: Codable {
 	}
 
 	// MARK: - Internal
-	
-	enum DCCRSAKeyPairError: Error {
-		case keyPairGeneration(String)	// Key generation failed
-		case publicKey(Error?) // Unable to get public key representation
-		case encoding(Error?) // Encoding failed
-		case decoding(Error?) // Decoding failed
-		case decryption(Error?) // Decoding failed
-	}
 	
 	let publicKey: SecKey
 	let privateKey: SecKey
