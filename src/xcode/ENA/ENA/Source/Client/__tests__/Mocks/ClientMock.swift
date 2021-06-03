@@ -62,7 +62,7 @@ final class ClientMock {
 	var onSubmitAnalytics: ((SAP_Internal_Ppdd_PPADataIOS, PPACToken, Bool, @escaping PPAnalyticsSubmitionCompletionHandler) -> Void)?
 	var onTraceWarningDiscovery: ((String, @escaping TraceWarningPackageDiscoveryCompletionHandler) -> Void)?
 	var onTraceWarningDownload: ((String, Int, @escaping TraceWarningPackageDownloadCompletionHandler) -> Void)?
-	var onDCCRegisterPublicKey: ((Bool, String, Data, @escaping DCCRegistrationCompletionHandler) -> Void)?
+	var onDCCRegisterPublicKey: ((Bool, String, String, @escaping DCCRegistrationCompletionHandler) -> Void)?
 	var onGetDigitalCovid19Certificate: ((String, Bool, @escaping DigitalCovid19CertificateCompletionHandler) -> Void)?
 }
 
@@ -240,7 +240,7 @@ extension ClientMock: Client {
 	func dccRegisterPublicKey(
 		isFake: Bool,
 		token: String,
-		publicKey: Data,
+		publicKey: String,
 		completion: @escaping DCCRegistrationCompletionHandler
 	) {
 		guard let onDCCRegisterPublicKey = self.onDCCRegisterPublicKey else {

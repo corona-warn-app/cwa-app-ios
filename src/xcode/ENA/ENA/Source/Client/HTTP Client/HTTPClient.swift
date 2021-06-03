@@ -437,7 +437,7 @@ final class HTTPClient: Client {
 	func dccRegisterPublicKey(
 		isFake: Bool = false,
 		token: String,
-		publicKey: Data,
+		publicKey: String,
 		completion: @escaping DCCRegistrationCompletionHandler
 	) {
 
@@ -1210,7 +1210,7 @@ private extension URLRequest {
 	static func dccPublicKeyRequest(
 		configuration: HTTPClient.Configuration,
 		token: String,
-		publicKey: Data,
+		publicKey: String,
 		headerValue: Int
 	) throws -> URLRequest {
 
@@ -1240,7 +1240,7 @@ private extension URLRequest {
 		// Add body padding to request.
 		let originalBody = [
 			"registrationToken": token,
-			"publicKey": publicKey.base64EncodedString()
+			"publicKey": publicKey
 		]
 		let paddedData = try getPaddedRequestBody(for: originalBody)
 		request.httpBody = paddedData
