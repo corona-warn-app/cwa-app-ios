@@ -55,7 +55,7 @@ class HomeShownPositiveTestResultCellModel {
 
 	let noteTitle = AppStrings.Home.TestResult.ShownPositive.noteTitle
 	let buttonTitle = AppStrings.Home.TestResult.ShownPositive.button
-	let removeTestButtonTitle = AppStrings.Home.TestResult.ShownPositive.buttonRemoveTest
+	let removeTestButtonTitle = AppStrings.Home.TestResult.ShownPositive.removeTestButton
 
 	@OpenCombine.Published var statusFootnote: String?
 	@OpenCombine.Published var homeItemViewModels: [HomeImageItemViewModel] = []

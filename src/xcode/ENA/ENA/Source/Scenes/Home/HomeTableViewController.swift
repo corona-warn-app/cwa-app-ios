@@ -527,13 +527,13 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				)
 				
 				let deleteAction = UIAlertAction(
-					title: AppStrings.AntigenProfile.Profile.deleteAlertDeleteButtonTitle,
+					title: AppStrings.Home.TestResult.ShownPositive.deleteAlertDeleteButtonTitle,
 					style: .destructive,
 					handler: { [weak self] _ in
 						self?.viewModel.coronaTestService.removeTest(coronaTestType)
 					}
 				)
-				deleteAction.accessibilityIdentifier = AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.deleteButton
+				deleteAction.accessibilityIdentifier = AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.deleteAlertDeleteButton
 				alert.addAction(deleteAction)
 				
 				let cancelAction = UIAlertAction(title: AppStrings.Common.alertActionCancel, style: .cancel)

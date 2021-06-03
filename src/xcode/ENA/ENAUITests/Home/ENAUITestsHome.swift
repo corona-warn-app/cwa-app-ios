@@ -88,11 +88,14 @@ class ENAUITests_01a_Home: CWATestCase {
 		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
 		app.launch()
 		
+		// only run if home screen is present
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.removeTestButton].waitForExistence(timeout: .medium))
+
 		// remove test
 		app.buttons[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.removeTestButton].waitAndTap()
 		
 		// confirm deletion
-		app.buttons[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.deleteButton].waitAndTap()
+		app.buttons[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.deleteAlertDeleteButton].waitAndTap()
 		
 		// check if the pcr cell disappears
 		XCTAssertFalse(app.cells[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.pcrCell].waitForExistence(timeout: .medium))

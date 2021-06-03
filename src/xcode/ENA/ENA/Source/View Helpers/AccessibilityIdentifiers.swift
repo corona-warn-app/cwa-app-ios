@@ -58,8 +58,8 @@ enum AccessibilityIdentifiers {
 			static let antigenCell = "AccessibilityIdentifiers.Home.antigenCell"
 			static let submittedPCRCell = "AccessibilityIdentifiers.Home.submittedPCRCell"
 			static let submittedAntigenCell = "AccessibilityIdentifiers.Home.submittedAntigenCell"
-			static let removeTestButton = "AppStrings.Home.TestResult.ShownPositive.buttonRemoveTest"
-			static let deleteButton = "AppStrings.AntigenProfile.Profile.deleteAlertDeleteButtonTitle"
+			static let removeTestButton = "AppStrings.Home.TestResult.ShownPositive.removeTestButton"
+			static let deleteAlertDeleteButton = "AppStrings.Home.TestResult.ShownPositive.deleteAlertDeleteButton"
 		}
 
 		static let submitCardButton = "AppStrings.Home.submitCardButton"
