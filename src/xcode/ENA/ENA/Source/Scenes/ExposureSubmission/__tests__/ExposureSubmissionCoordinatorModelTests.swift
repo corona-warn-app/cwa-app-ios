@@ -124,6 +124,121 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		XCTAssertTrue(model.shouldShowOverrideTestNotice(for: .antigen))
 	}
 
+	// MARK: - Should Show TestCertificateScreen
+
+	func testShouldShowTestCertificateScreen_WithPCRTest() {
+		let model = ExposureSubmissionCoordinatorModel(
+			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTestService: CoronaTestService(
+				client: ClientMock(),
+				store: MockTestStore(),
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: CachedAppConfigurationMock()
+			),
+			eventProvider: MockEventStore()
+		)
+
+		XCTAssertTrue(model.shouldShowTestCertificateScreen(with: .pcr(guid: "F1EE0D-F1EE0D4D-4346-4B63-B9CF-1522D9200915")))
+	}
+
+	func testShouldShowTestCertificateScreen_WithAntigenTestThatHasCertificateSupport() {
+		let model = ExposureSubmissionCoordinatorModel(
+			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTestService: CoronaTestService(
+				client: ClientMock(),
+				store: MockTestStore(),
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: CachedAppConfigurationMock()
+			),
+			eventProvider: MockEventStore()
+		)
+
+		let antigenTestQRCodeInformation = AntigenTestQRCodeInformation(
+			hash: "",
+			timestamp: 0,
+			firstName: nil,
+			lastName: nil,
+			dateOfBirth: nil,
+			testID: nil,
+			cryptographicSalt: nil,
+			certificateSupportedByPointOfCare: true
+		)
+
+		XCTAssertTrue(model.shouldShowTestCertificateScreen(with: .antigen(qrCodeInformation: antigenTestQRCodeInformation)))
+	}
+
+	func testShouldShowTestCertificateScreen_WithAntigenTestThatHasNoCertificateSupport() {
+		let model = ExposureSubmissionCoordinatorModel(
+			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTestService: CoronaTestService(
+				client: ClientMock(),
+				store: MockTestStore(),
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: CachedAppConfigurationMock()
+			),
+			eventProvider: MockEventStore()
+		)
+
+		let antigenTestQRCodeInformation = AntigenTestQRCodeInformation(
+			hash: "",
+			timestamp: 0,
+			firstName: nil,
+			lastName: nil,
+			dateOfBirth: nil,
+			testID: nil,
+			cryptographicSalt: nil,
+			certificateSupportedByPointOfCare: false
+		)
+
+		XCTAssertFalse(model.shouldShowTestCertificateScreen(with: .antigen(qrCodeInformation: antigenTestQRCodeInformation)))
+	}
+
+	func testShouldShowTestCertificateScreen_WithAntigenTestThatHasNoCertificateSupportSpecified() {
+		let model = ExposureSubmissionCoordinatorModel(
+			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTestService: CoronaTestService(
+				client: ClientMock(),
+				store: MockTestStore(),
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: CachedAppConfigurationMock()
+			),
+			eventProvider: MockEventStore()
+		)
+
+		let antigenTestQRCodeInformation = AntigenTestQRCodeInformation(
+			hash: "",
+			timestamp: 0,
+			firstName: nil,
+			lastName: nil,
+			dateOfBirth: nil,
+			testID: nil,
+			cryptographicSalt: nil,
+			certificateSupportedByPointOfCare: nil
+		)
+
+		XCTAssertFalse(model.shouldShowTestCertificateScreen(with: .antigen(qrCodeInformation: antigenTestQRCodeInformation)))
+	}
+
+	func testShouldShowTestCertificateScreen_FromTeleTAN() {
+		let model = ExposureSubmissionCoordinatorModel(
+			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTestService: CoronaTestService(
+				client: ClientMock(),
+				store: MockTestStore(),
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: CachedAppConfigurationMock()
+			),
+			eventProvider: MockEventStore()
+		)
+
+		XCTAssertTrue(model.shouldShowTestCertificateScreen(with: .teleTAN(tan: "qwdzxcsrhe")))
+	}
+
 	// MARK: - Symptoms Option Selected
 
 	func testSymptomsOptionYesSelected() {
