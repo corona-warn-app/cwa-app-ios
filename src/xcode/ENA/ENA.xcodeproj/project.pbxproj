@@ -266,6 +266,7 @@
 		01E1025D266665A6009ED803 /* AntigenTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E1025C2666658B009ED803 /* AntigenTest.swift */; };
 		01E1025E266665A6009ED803 /* PCRTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E1025B26666566009ED803 /* PCRTest.swift */; };
 		01E102642667B031009ED803 /* TestedPerson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E102632667AB62009ED803 /* TestedPerson.swift */; };
+		01E102662668D40F009ED803 /* CoronaTestCertificateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E102652668D40E009ED803 /* CoronaTestCertificateRequest.swift */; };
 		01E102682668D83B009ED803 /* DCCRSAKeypair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E102672668D83B009ED803 /* DCCRSAKeypair.swift */; };
 		01E4298E251DCDC90057FCBE /* Localizable.legal.strings in Resources */ = {isa = PBXBuildFile; fileRef = 01E42990251DCDC90057FCBE /* Localizable.legal.strings */; };
 		01EA17622590EAAF00E98E02 /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA17612590EAAF00E98E02 /* HomeTableViewController.swift */; };
@@ -1460,6 +1461,7 @@
 		01E1025B26666566009ED803 /* PCRTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCRTest.swift; sourceTree = "<group>"; };
 		01E1025C2666658B009ED803 /* AntigenTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntigenTest.swift; sourceTree = "<group>"; };
 		01E102632667AB62009ED803 /* TestedPerson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestedPerson.swift; sourceTree = "<group>"; };
+		01E102652668D40E009ED803 /* CoronaTestCertificateRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoronaTestCertificateRequest.swift; sourceTree = "<group>"; };
 		01E102672668D83B009ED803 /* DCCRSAKeypair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCCRSAKeypair.swift; sourceTree = "<group>"; };
 		01E25C6F24A3B52F007E33F8 /* Info_Testflight.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info_Testflight.plist; sourceTree = "<group>"; };
 		01E4298F251DCDC90057FCBE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.legal.strings; sourceTree = "<group>"; };
@@ -2504,6 +2506,7 @@
 				01E102632667AB62009ED803 /* TestedPerson.swift */,
 				2FA9E39224D2F2920030561C /* TestResult.swift */,
 				01960F42266542C1000D714E /* CoronaTestCertificateConsent.swift */,
+				01E102652668D40E009ED803 /* CoronaTestCertificateRequest.swift */,
 			);
 			path = CoronaTestService;
 			sourceTree = "<group>";
@@ -7646,6 +7649,7 @@
 				01B7232D24F8E0260064C0EB /* MultipleChoiceChoiceView.swift in Sources */,
 				BAF5371625E7CC1B00C835E2 /* Sequence+NSAttributedText.swift in Sources */,
 				50C0299125E4067400460FA4 /* LastSubmissionFlowScreen.swift in Sources */,
+				01E102662668D40F009ED803 /* CoronaTestCertificateRequest.swift in Sources */,
 				BA4693B125C82F0A004B2DBB /* DMPPACViewModel.swift in Sources */,
 				BA5B7FCE26458EF400502087 /* HealthCertificateViewModel.swift in Sources */,
 				0138F55025ECD44300A9B075 /* exposure_detection_parameters.pb.swift in Sources */,
