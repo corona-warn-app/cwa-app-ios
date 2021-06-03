@@ -1207,6 +1207,15 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 						title: AppStrings.ExposureSubmission.qrCodeExpiredTitle,
 						message: error.localizedDescription
 					)
+					
+					// dont save expired tests after registering them
+					switch testQRCodeInformation.testType {
+					case .antigen:
+						self?.model.coronaTestService.antigenTest = nil
+					case .pcr:
+						self?.model.coronaTestService.pcrTest = nil
+					}
+					
 				default:
 					alert = UIAlertController.errorAlert(
 						message: error.localizedDescription,
