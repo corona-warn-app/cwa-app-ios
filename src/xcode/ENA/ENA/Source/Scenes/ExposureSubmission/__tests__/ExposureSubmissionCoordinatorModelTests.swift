@@ -237,7 +237,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			eventProvider: MockEventStore()
 		)
 
-		XCTAssertTrue(model.shouldShowTestCertificateScreen(with: .teleTAN(tan: "qwdzxcsrhe")))
+		XCTAssertFalse(model.shouldShowTestCertificateScreen(with: .teleTAN(tan: "qwdzxcsrhe")))
 	}
 
 	// MARK: - Symptoms Option Selected
