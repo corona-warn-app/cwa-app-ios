@@ -3,9 +3,8 @@
 //
 
 import Foundation
-import HealthCertificateToolkit
 
-struct CoronaTestCertificateRequest: Codable {
+struct TestCertificateRequest: Codable {
 
 	let coronaTestType: CoronaTestType
 	let registrationToken: String
@@ -14,7 +13,7 @@ struct CoronaTestCertificateRequest: Codable {
 	var rsaKeyPair: DCCRSAKeyPair?
 	var rsaPublicKeyRegistered: Bool
 
-	var encryptedDEK: Data?
-	var encryptedCOSE: Data?
+	var encryptedDEK: String?
+	var encryptedCOSE: String?
 
 }

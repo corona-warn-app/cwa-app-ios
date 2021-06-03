@@ -88,7 +88,7 @@ class CoronaTestService {
 	func registerPCRTestAndGetResult(
 		guid: String,
 		isSubmissionConsentGiven: Bool,
-		certificateConsent: CoronaTestCertificateConsent,
+		certificateConsent: TestCertificateConsent,
 		completion: @escaping TestResultHandler
 	) {
 		var certificateConsentGiven = false
@@ -213,7 +213,7 @@ class CoronaTestService {
 		dateOfBirth: String?,
 		isSubmissionConsentGiven: Bool,
 		certificateSupportedByPointOfCare: Bool,
-		certificateConsent: CoronaTestCertificateConsent,
+		certificateConsent: TestCertificateConsent,
 		completion: @escaping TestResultHandler
 	) {
 		Log.info("[CoronaTestService] Registering antigen test (hash: \(private: hash), pointOfCareConsentDate: \(private: pointOfCareConsentDate), firstName: \(private: String(describing: firstName)), lastName: \(private: String(describing: lastName)), dateOfBirth: \(private: String(describing: dateOfBirth)), isSubmissionConsentGiven: \(isSubmissionConsentGiven))", log: .api)
