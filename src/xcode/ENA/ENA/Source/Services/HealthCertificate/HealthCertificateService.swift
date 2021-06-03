@@ -11,12 +11,15 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 	// MARK: - Init
 
 	init(
-		store: HealthCertificateStoring
+		store: HealthCertificateStoring,
+		client: Client
 	) {
 		#if DEBUG
 		self.store = isUITesting ? MockTestStore() : store
+		self.client = isUITesting ? ClientMock() : client
 		#else
 		self.store = store
+		self.client = client
 		#endif
 
 		updatePublishersFromStore()
@@ -156,7 +159,8 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 
 	// MARK: - Private
 
-	private var store: HealthCertificateStoring
+	private let store: HealthCertificateStoring
+	private let client: Client
 
 	private var healthCertifiedPersonSubscriptions = Set<AnyCancellable>()
 	private var subscriptions = Set<AnyCancellable>()
