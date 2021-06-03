@@ -23,6 +23,7 @@ class CoronaTestService {
 		eventStore: EventStoringProviding,
 		diaryStore: DiaryStoring,
 		appConfiguration: AppConfigurationProviding,
+		healthCertificateService: HealthCertificateServiceProviding,
 		notificationCenter: UserNotificationCenter = UNUserNotificationCenter.current()
 	) {
 		#if DEBUG
@@ -33,6 +34,7 @@ class CoronaTestService {
 			self.diaryStore = MockDiaryStore()
 			self.appConfiguration = CachedAppConfigurationMock()
 
+			self.healthCertificateService = healthCertificateService
 			self.notificationCenter = notificationCenter
 
 			self.fakeRequestService = FakeRequestService(client: client)
@@ -52,7 +54,7 @@ class CoronaTestService {
 		self.eventStore = eventStore
 		self.diaryStore = diaryStore
 		self.appConfiguration = appConfiguration
-
+		self.healthCertificateService = healthCertificateService
 		self.notificationCenter = notificationCenter
 
 		self.fakeRequestService = FakeRequestService(client: client)
@@ -458,6 +460,7 @@ class CoronaTestService {
 	private let eventStore: EventStoringProviding
 	private let diaryStore: DiaryStoring
 	private let appConfiguration: AppConfigurationProviding
+	private let healthCertificateService: HealthCertificateServiceProviding
 	private let notificationCenter: UserNotificationCenter
 
 	private let fakeRequestService: FakeRequestService
@@ -676,6 +679,14 @@ class CoronaTestService {
 							self.pcrTest?.finalTestResultReceivedDate = Date()
 						case .antigen:
 							self.antigenTest?.finalTestResultReceivedDate = Date()
+						}
+
+						if testResult == .negative {
+							self.healthCertificateService.registerTestCertificateRequest(
+								coronaTestType: coronaTestType,
+								registrationToken: registrationToken,
+								registrationDate: registrationDate
+							)
 						}
 
 						if presentNotification {

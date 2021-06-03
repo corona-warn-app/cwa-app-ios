@@ -16,6 +16,14 @@ protocol HealthCertificateServiceProviding {
 
 	func removeHealthCertificate(_ healthCertificate: HealthCertificate)
 
+	func registerTestCertificateRequest(
+		coronaTestType: CoronaTestType,
+		registrationToken: String,
+		registrationDate: Date
+	)
+
+	func executeTestCertificateRequest(_ testCertificateRequest: TestCertificateRequest) throws
+
 	func updatePublishersFromStore()
 
 }

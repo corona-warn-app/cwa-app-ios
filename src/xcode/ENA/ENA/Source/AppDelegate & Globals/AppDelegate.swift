@@ -194,7 +194,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			store: store,
 			eventStore: eventStore,
 			diaryStore: contactDiaryStore,
-			appConfiguration: appConfigurationProvider
+			appConfiguration: appConfigurationProvider,
+			healthCertificateService: healthCertificateService
 		)
 	}()
 

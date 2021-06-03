@@ -22,11 +22,19 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 		updatePublishersFromStore()
 
 		healthCertifiedPersons
-			.sink { [weak self] healthCertifiedPersons in
-				self?.store.healthCertifiedPersons = healthCertifiedPersons
-				self?.updateHealthCertifiedPersonSubscriptions(for: healthCertifiedPersons)
+			.sink { [weak self] in
+				self?.store.healthCertifiedPersons = $0
+				self?.updateHealthCertifiedPersonSubscriptions(for: $0)
 			}
 			.store(in: &subscriptions)
+
+		testCertificateRequests
+			.sink { [weak self] in
+				self?.store.testCertificateRequests = $0
+			}
+			.store(in: &subscriptions)
+
+		subscribeToNotifications()
 
 		#if DEBUG
 		if isUITesting {
@@ -44,6 +52,7 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 	// MARK: - Internal
 
 	private(set) var healthCertifiedPersons = CurrentValueSubject<[HealthCertifiedPerson], Never>([])
+	private(set) var testCertificateRequests = CurrentValueSubject<[TestCertificateRequest], Never>([])
 
 	@discardableResult
 	func registerHealthCertificate(
@@ -107,10 +116,42 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 		}
 	}
 
+	func registerTestCertificateRequest(
+		coronaTestType: CoronaTestType,
+		registrationToken: String,
+		registrationDate: Date
+	) {
+		Log.info("[HealthCertificateService] Registering test certificate request: (coronaTestType: \(coronaTestType), registrationToken: \(private: registrationToken), registrationDate: \(registrationDate))", log: .api)
+
+		if testCertificateRequests.value.contains(where: { $0.coronaTestType == coronaTestType && $0.registrationToken == registrationToken }) {
+			Log.info("[HealthCertificateService] Test certificate request (coronaTestType: \(coronaTestType), registrationToken: \(private: registrationToken), registrationDate: \(registrationDate)) already registered", log: .api)
+			return
+		}
+
+		let testCertificateRequest = TestCertificateRequest(
+			coronaTestType: coronaTestType,
+			registrationToken: registrationToken,
+			registrationDate: registrationDate
+		)
+
+		testCertificateRequests.value.append(testCertificateRequest)
+		try? executeTestCertificateRequest(testCertificateRequest)
+	}
+
+	func executeTestCertificateRequest(_ testCertificateRequest: TestCertificateRequest) throws {
+		let rsaKeyPair = try testCertificateRequest.rsaKeyPair ?? DCCRSAKeyPair()
+		testCertificateRequest.rsaKeyPair = rsaKeyPair
+
+		if !testCertificateRequest.rsaPublicKeyRegistered {
+			
+		}
+	}
+
 	func updatePublishersFromStore() {
 		Log.info("[HealthCertificateService] Updating publishers from store", log: .api)
 
 		healthCertifiedPersons.value = store.healthCertifiedPersons
+		testCertificateRequests.value = store.testCertificateRequests
 	}
 
 	// MARK: - Private
@@ -132,6 +173,17 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 				}
 				.store(in: &healthCertifiedPersonSubscriptions)
 		}
+	}
+
+	private func subscribeToNotifications() {
+		NotificationCenter.default.ocombine
+			.publisher(for: UIApplication.didBecomeActiveNotification)
+			.sink { [weak self] _ in
+				self?.testCertificateRequests.value.forEach {
+					try? self?.executeTestCertificateRequest($0)
+				}
+			}
+			.store(in: &subscriptions)
 	}
 
 }
