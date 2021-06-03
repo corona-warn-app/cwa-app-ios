@@ -120,6 +120,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		DeadmanNotificationManager(coronaTestService: coronaTestService).scheduleDeadmanNotificationIfNeeded()
 
 		consumer.didFailCalculateRisk = { [weak self] error in
+			guard self?.store.isOnboarded == true else {
+				return
+			}
 			self?.showError(error)
 		}
 		riskProvider.observeRisk(consumer)
