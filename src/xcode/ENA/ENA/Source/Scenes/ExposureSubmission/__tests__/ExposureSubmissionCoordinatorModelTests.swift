@@ -251,6 +251,122 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		waitForExpectations(timeout: .short)
 	}
 
+	// MARK: - Should Show Override Test Notice
+
+	func testShouldShowOverrideTestNotice_WithoutRegisteredTests() {
+		let coronaTestService = CoronaTestService(
+			client: ClientMock(),
+			store: MockTestStore(),
+			eventStore: MockEventStore(),
+			diaryStore: MockDiaryStore(),
+			appConfiguration: CachedAppConfigurationMock()
+		)
+		coronaTestService.pcrTest = nil
+		coronaTestService.antigenTest = nil
+
+		let model = ExposureSubmissionCoordinatorModel(
+			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTestService: coronaTestService,
+			eventProvider: MockEventStore()
+		)
+
+		XCTAssertFalse(model.shouldShowOverrideTestNotice(for: .pcr))
+		XCTAssertFalse(model.shouldShowOverrideTestNotice(for: .antigen))
+	}
+
+	func testShouldShowOverrideTestNotice_WithRegisteredPCRTest() {
+		let coronaTestService = CoronaTestService(
+			client: ClientMock(),
+			store: MockTestStore(),
+			eventStore: MockEventStore(),
+			diaryStore: MockDiaryStore(),
+			appConfiguration: CachedAppConfigurationMock()
+		)
+		coronaTestService.pcrTest = PCRTest.mock(testResult: .pending)
+		coronaTestService.antigenTest = nil
+
+		let model = ExposureSubmissionCoordinatorModel(
+			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTestService: coronaTestService,
+			eventProvider: MockEventStore()
+		)
+
+		XCTAssertTrue(model.shouldShowOverrideTestNotice(for: .pcr))
+		XCTAssertFalse(model.shouldShowOverrideTestNotice(for: .antigen))
+
+		coronaTestService.pcrTest?.testResult = .positive
+		XCTAssertTrue(model.shouldShowOverrideTestNotice(for: .pcr))
+
+		coronaTestService.pcrTest?.testResult = .negative
+		XCTAssertTrue(model.shouldShowOverrideTestNotice(for: .pcr))
+
+		coronaTestService.pcrTest?.testResult = .invalid
+		XCTAssertTrue(model.shouldShowOverrideTestNotice(for: .pcr))
+
+		// Should not be shown for expired tests
+		coronaTestService.pcrTest?.testResult = .expired
+		XCTAssertFalse(model.shouldShowOverrideTestNotice(for: .pcr))
+	}
+
+	func testShouldShowOverrideTestNotice_WithRegisteredAntigenTest() {
+		let coronaTestService = CoronaTestService(
+			client: ClientMock(),
+			store: MockTestStore(),
+			eventStore: MockEventStore(),
+			diaryStore: MockDiaryStore(),
+			appConfiguration: CachedAppConfigurationMock()
+		)
+		coronaTestService.pcrTest = nil
+		coronaTestService.antigenTest = AntigenTest.mock(testResult: .pending)
+
+		let model = ExposureSubmissionCoordinatorModel(
+			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTestService: coronaTestService,
+			eventProvider: MockEventStore()
+		)
+
+		XCTAssertFalse(model.shouldShowOverrideTestNotice(for: .pcr))
+		XCTAssertTrue(model.shouldShowOverrideTestNotice(for: .antigen))
+
+		coronaTestService.antigenTest?.testResult = .positive
+		XCTAssertTrue(model.shouldShowOverrideTestNotice(for: .antigen))
+
+		coronaTestService.antigenTest?.testResult = .invalid
+		XCTAssertTrue(model.shouldShowOverrideTestNotice(for: .antigen))
+
+		// Should not be shown for expired tests
+		coronaTestService.antigenTest?.testResult = .expired
+		XCTAssertFalse(model.shouldShowOverrideTestNotice(for: .antigen))
+
+		coronaTestService.antigenTest?.testResult = .negative
+		XCTAssertTrue(model.shouldShowOverrideTestNotice(for: .antigen))
+
+		// Should not be shown for outdated antigen tests
+		coronaTestService.antigenTestIsOutdated = true
+		XCTAssertFalse(model.shouldShowOverrideTestNotice(for: .antigen))
+	}
+
+	func testShouldShowOverrideTestNotice_WithRegisteredTests() {
+		let coronaTestService = CoronaTestService(
+			client: ClientMock(),
+			store: MockTestStore(),
+			eventStore: MockEventStore(),
+			diaryStore: MockDiaryStore(),
+			appConfiguration: CachedAppConfigurationMock()
+		)
+		coronaTestService.pcrTest = PCRTest.mock(testResult: .pending)
+		coronaTestService.antigenTest = AntigenTest.mock(testResult: .pending)
+
+		let model = ExposureSubmissionCoordinatorModel(
+			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTestService: coronaTestService,
+			eventProvider: MockEventStore()
+		)
+
+		XCTAssertTrue(model.shouldShowOverrideTestNotice(for: .pcr))
+		XCTAssertTrue(model.shouldShowOverrideTestNotice(for: .antigen))
+	}
+
 	// MARK: -
 
 	func testSuccessfulSubmit() {
