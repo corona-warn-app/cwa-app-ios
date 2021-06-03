@@ -128,15 +128,47 @@ class HealthCertificateService {
 		)
 
 		testCertificateRequests.value.append(testCertificateRequest)
-		try? executeTestCertificateRequest(testCertificateRequest)
+		executeTestCertificateRequest(testCertificateRequest)
 	}
 
-	func executeTestCertificateRequest(_ testCertificateRequest: TestCertificateRequest) throws {
-		let rsaKeyPair = try testCertificateRequest.rsaKeyPair ?? DCCRSAKeyPair()
-		testCertificateRequest.rsaKeyPair = rsaKeyPair
+	func executeTestCertificateRequest(_ testCertificateRequest: TestCertificateRequest, completion: ((Result<Void, HealthCertificateServiceError.TestCertificateRequestError>) -> Void)? = nil) {
+		do {
+			let rsaKeyPair = try testCertificateRequest.rsaKeyPair ?? DCCRSAKeyPair()
+			testCertificateRequest.rsaKeyPair = rsaKeyPair
 
-		if !testCertificateRequest.rsaPublicKeyRegistered {
-			
+			appConfiguration.appConfiguration()
+				.sink { [weak self] in
+					guard let self = self else { return }
+
+					var waitAfterPublicKeyRegistrationInSeconds = $0.dgcParameters.testCertificateParameters.waitAfterPublicKeyRegistrationInSeconds
+
+					var waitForRetryInSeconds = $0.dgcParameters.testCertificateParameters.waitForRetryInSeconds
+
+					// 0 means the value is not set -> setting it to a default waiting time of 10 seconds
+					if waitAfterPublicKeyRegistrationInSeconds == 0 {
+						waitAfterPublicKeyRegistrationInSeconds = 10
+					}
+
+					if waitForRetryInSeconds == 0 {
+						waitForRetryInSeconds = 10
+					}
+
+					if !testCertificateRequest.rsaPublicKeyRegistered {
+						self.client.dccRegisterPublicKey(
+							isFake: false,
+							token: testCertificateRequest.registrationToken,
+							publicKey: rsaKeyPair.publicKeyForBackend,
+							completion: { [weak self] result in
+
+							}
+						)
+					}
+				}
+				.store(in: &subscriptions)
+		} catch let error as HealthCertificateServiceError.TestCertificateRequestError {
+			completion?(.failure(.other(error)))
+		} catch {
+			completion?(.failure(.other(error)))
 		}
 	}
 
@@ -154,6 +186,7 @@ class HealthCertificateService {
 	private let appConfiguration: AppConfigurationProviding
 
 	private var healthCertifiedPersonSubscriptions = Set<AnyCancellable>()
+	private var testCertificateRequestSubscriptions = Set<AnyCancellable>()
 	private var subscriptions = Set<AnyCancellable>()
 
 	private func setup() {
@@ -190,12 +223,26 @@ class HealthCertificateService {
 		}
 	}
 
+	private func updateTestCertificateRequestSubscriptions(for testCertificateRequests: [TestCertificateRequest]) {
+		testCertificateRequestSubscriptions = []
+
+		testCertificateRequests.forEach { testCertificateRequest in
+			testCertificateRequest.objectDidChange
+				.sink { [weak self] _ in
+					guard let self = self else { return }
+					// Trigger publisher to inform subscribers and update store
+					self.testCertificateRequests.value = self.testCertificateRequests.value
+				}
+				.store(in: &testCertificateRequestSubscriptions)
+		}
+	}
+
 	private func subscribeToNotifications() {
 		NotificationCenter.default.ocombine
 			.publisher(for: UIApplication.didBecomeActiveNotification)
 			.sink { [weak self] _ in
 				self?.testCertificateRequests.value.forEach {
-					try? self?.executeTestCertificateRequest($0)
+					self?.executeTestCertificateRequest($0)
 				}
 			}
 			.store(in: &subscriptions)

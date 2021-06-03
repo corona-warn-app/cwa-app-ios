@@ -58,4 +58,9 @@ enum HealthCertificateServiceError {
 		}
 	}
 
+	enum TestCertificateRequestError: LocalizedError {
+		case rsaKeyPairGenerationFailed(DCCRSAKeyPairError)
+		case other(Error)
+	}
+
 }
