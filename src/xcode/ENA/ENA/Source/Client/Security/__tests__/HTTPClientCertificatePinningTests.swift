@@ -54,9 +54,14 @@ class HTTPClientCertificatePinningTests: CWATestCase {
 
 	/// Testing certificate pinning in the main endpoints on `production` and `wru`
 	func testAllProductionEndpoints() throws {
-		let environments = [EnvironmentDescriptor.production, EnvironmentDescriptor.custom("wru")]
-		environments.forEach { descriptor in
-			let env = Environments().environment(descriptor)
+		let descriptors = [EnvironmentDescriptor.production, EnvironmentDescriptor.custom("wru")]
+		let environments = Environments()
+
+		XCTAssertTrue(environments.environments.compactMap({ $0.name }).contains("wru"))
+		XCTAssertTrue(environments.environments.compactMap({ $0.name }).contains("prod"))
+
+		descriptors.forEach { descriptor in
+			let env = environments.environment(descriptor)
 			let hosts = [
 				env.dataDonationURL,
 				env.distributionURL,
