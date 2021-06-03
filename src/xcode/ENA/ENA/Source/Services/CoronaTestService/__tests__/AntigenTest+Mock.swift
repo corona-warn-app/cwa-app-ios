@@ -18,7 +18,10 @@ extension AntigenTest {
 		isSubmissionConsentGiven: Bool = false,
 		submissionTAN: String? = nil,
 		keysSubmitted: Bool = false,
-		journalEntryCreated: Bool = false
+		journalEntryCreated: Bool = false,
+		certificateSupportedByPointOfCare: Bool = false,
+		certificateConsentGiven: Bool = false,
+		certificateCreated: Bool = false
 	) -> AntigenTest {
 		AntigenTest(
 			pointOfCareConsentDate: pointOfCareConsentDate,
@@ -31,7 +34,10 @@ extension AntigenTest {
 			isSubmissionConsentGiven: isSubmissionConsentGiven,
 			submissionTAN: submissionTAN,
 			keysSubmitted: keysSubmitted,
-			journalEntryCreated: journalEntryCreated
+			journalEntryCreated: journalEntryCreated,
+			certificateSupportedByPointOfCare: certificateSupportedByPointOfCare,
+			certificateConsentGiven: certificateConsentGiven,
+			certificateCreated: certificateCreated
 		)
 	}
 

@@ -119,6 +119,7 @@ class ExposureSubmissionCoordinatorModel {
 	func registerTestAndGetResult(
 		for testType: CoronaTestRegistrationInformation,
 		isSubmissionConsentGiven: Bool,
+		certificateConsent: CoronaTestCertificateConsent,
 		isLoading: @escaping (Bool) -> Void,
 		onSuccess: @escaping (TestResult) -> Void,
 		onError: @escaping (CoronaTestServiceError) -> Void
@@ -126,10 +127,11 @@ class ExposureSubmissionCoordinatorModel {
 		isLoading(true)
 		// QR code test fetch
 		switch testType {
-		case .pcr(let guid):
+		case let .pcr(guid: guid):
 			coronaTestService.registerPCRTestAndGetResult(
 				guid: guid,
 				isSubmissionConsentGiven: isSubmissionConsentGiven,
+				certificateConsent: certificateConsent,
 				completion: { result in
 					isLoading(false)
 					
@@ -149,6 +151,8 @@ class ExposureSubmissionCoordinatorModel {
 				lastName: antigenTest.lastName,
 				dateOfBirth: antigenTest.dateOfBirthString,
 				isSubmissionConsentGiven: isSubmissionConsentGiven,
+				certificateSupportedByPointOfCare: antigenTest.certificateSupportedByPointOfCare ?? false,
+				certificateConsent: certificateConsent,
 				completion: { result in
 					isLoading(false)
 					

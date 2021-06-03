@@ -454,7 +454,7 @@ final class ExposureSubmissionQRScannerViewModelTests: CWATestCase {
 	}
 	func testAntigen_hashIsTooShort() {
 		let invalidHash = "f1200d9650f1fd673d58f52811f98f1427fab40b4996e9c2d0da8b741446408"
-		let antigenTestInformation = AntigenTestInformation.mock(hash: invalidHash)
+		let antigenTestInformation = AntigenTestQRCodeInformation.mock(hash: invalidHash)
 		
 		do {
 			let payloadData = try XCTUnwrap(JSONEncoder().encode(antigenTestInformation))
@@ -468,7 +468,7 @@ final class ExposureSubmissionQRScannerViewModelTests: CWATestCase {
 	}
 	func testAntigen_hashIsNotHex() {
 		let invalidHash = "f1200d9650f1fd673d58f52811f98f1427fab40b4996e9c2d0da8b741446408G"
-		let antigenTestInformation = AntigenTestInformation.mock(hash: invalidHash)
+		let antigenTestInformation = AntigenTestQRCodeInformation.mock(hash: invalidHash)
 		
 		do {
 			let payloadData = try XCTUnwrap(JSONEncoder().encode(antigenTestInformation))
@@ -481,7 +481,7 @@ final class ExposureSubmissionQRScannerViewModelTests: CWATestCase {
 		}
 	}
 	func testAntigen_InvalidTestedPersonInformation() {
-		let antigenTestInformation = AntigenTestInformation.mock(
+		let antigenTestInformation = AntigenTestQRCodeInformation.mock(
 			hash: "584b5177c687f2a007778b2f1d2365770ca318b0a8cda0593f691c0d17d18d01",
 			timestamp: 5,
 			firstName: "Jon",
@@ -501,7 +501,7 @@ final class ExposureSubmissionQRScannerViewModelTests: CWATestCase {
 		}
 	}
 	func testAntigen_InvalidTimeStamp() {
-		let antigenTestInformation = AntigenTestInformation.mock(
+		let antigenTestInformation = AntigenTestQRCodeInformation.mock(
 			hash: "584b5177c687f2a007778b2f1d2365770ca318b0a8cda0593f691c0d17d18d01",
 			timestamp: -5,
 			firstName: "Jon",
@@ -521,7 +521,7 @@ final class ExposureSubmissionQRScannerViewModelTests: CWATestCase {
 		}
 	}
 	func testAntigen_HashMismatch() {
-		let antigenTestInformation = AntigenTestInformation.mock(
+		let antigenTestInformation = AntigenTestQRCodeInformation.mock(
 			hash: "584b5177c687f2a007778b2f1d2365770ca318b0a8cda0593f691c0d17d18d01",
 			timestamp: 5,
 			firstName: "Jon",
@@ -566,7 +566,7 @@ final class ExposureSubmissionQRScannerViewModelTests: CWATestCase {
 				return date
 			})
 
-			let testInformation = try jsonDecoder.decode(AntigenTestInformation.self, from: jsonData)
+			let testInformation = try jsonDecoder.decode(AntigenTestQRCodeInformation.self, from: jsonData)
 			return testInformation.hash
 		} catch {
 			Log.debug("Failed to read / parse district json", log: .ppac)
