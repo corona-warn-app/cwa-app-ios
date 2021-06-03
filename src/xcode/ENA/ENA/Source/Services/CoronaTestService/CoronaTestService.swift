@@ -23,7 +23,7 @@ class CoronaTestService {
 		eventStore: EventStoringProviding,
 		diaryStore: DiaryStoring,
 		appConfiguration: AppConfigurationProviding,
-		healthCertificateService: HealthCertificateServiceProviding,
+		healthCertificateService: HealthCertificateService,
 		notificationCenter: UserNotificationCenter = UNUserNotificationCenter.current()
 	) {
 		#if DEBUG
@@ -460,7 +460,7 @@ class CoronaTestService {
 	private let eventStore: EventStoringProviding
 	private let diaryStore: DiaryStoring
 	private let appConfiguration: AppConfigurationProviding
-	private let healthCertificateService: HealthCertificateServiceProviding
+	private let healthCertificateService: HealthCertificateService
 	private let notificationCenter: UserNotificationCenter
 
 	private let fakeRequestService: FakeRequestService

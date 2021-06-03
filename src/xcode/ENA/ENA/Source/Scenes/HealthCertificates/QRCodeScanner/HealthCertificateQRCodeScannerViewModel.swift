@@ -10,7 +10,7 @@ class HealthCertificateQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutput
 	// MARK: - Init
 
 	init(
-		healthCertificateService: HealthCertificateServiceProviding,
+		healthCertificateService: HealthCertificateService,
 		onSuccess: @escaping (HealthCertifiedPerson) -> Void,
 		onError: ((QRScannerError) -> Void)?
 	) {
@@ -165,6 +165,6 @@ class HealthCertificateQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutput
 
 	// MARK: - Private
 
-	private let healthCertificateService: HealthCertificateServiceProviding
+	private let healthCertificateService: HealthCertificateService
 	private let captureDevice: AVCaptureDevice?
 }

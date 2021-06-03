@@ -11,7 +11,7 @@ final class HealthCertifiedPersonViewModel {
 	// MARK: - Init
 
 	init(
-		healthCertificateService: HealthCertificateServiceProviding,
+		healthCertificateService: HealthCertificateService,
 		healthCertifiedPerson: HealthCertifiedPerson,
 		vaccinationValueSetsProvider: VaccinationValueSetsProvider,
 		dismiss: @escaping () -> Void
@@ -216,7 +216,7 @@ final class HealthCertifiedPersonViewModel {
 	// MARK: - Private
 
 	private let healthCertifiedPerson: HealthCertifiedPerson
-	private let healthCertificateService: HealthCertificateServiceProviding
+	private let healthCertificateService: HealthCertificateService
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProvider
 	private var subscriptions = Set<AnyCancellable>()
 

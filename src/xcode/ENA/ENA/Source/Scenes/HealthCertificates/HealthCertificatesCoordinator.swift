@@ -10,7 +10,7 @@ final class HealthCertificatesCoordinator {
 	
 	init(
 		store: HealthCertificateStoring,
-		healthCertificateService: HealthCertificateServiceProviding,
+		healthCertificateService: HealthCertificateService,
 		vaccinationValueSetsProvider: VaccinationValueSetsProvider
 	) {
 		self.store = store
@@ -53,7 +53,7 @@ final class HealthCertificatesCoordinator {
 	// MARK: - Private
 	
 	private let store: HealthCertificateStoring
-	private let healthCertificateService: HealthCertificateServiceProviding
+	private let healthCertificateService: HealthCertificateService
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProvider
 
 	private var modalNavigationController: UINavigationController!

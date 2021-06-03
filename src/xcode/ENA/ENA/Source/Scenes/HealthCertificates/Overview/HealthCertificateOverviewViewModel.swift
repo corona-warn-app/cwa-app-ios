@@ -10,7 +10,7 @@ class HealthCertificateOverviewViewModel {
 	// MARK: - Init
 
 	init(
-		healthCertificateService: HealthCertificateServiceProviding
+		healthCertificateService: HealthCertificateService
 	) {
 		self.healthCertificateService = healthCertificateService
 
@@ -62,7 +62,7 @@ class HealthCertificateOverviewViewModel {
 
 	// MARK: - Private
 
-	private let healthCertificateService: HealthCertificateServiceProviding
+	private let healthCertificateService: HealthCertificateService
 	private var subscriptions = Set<AnyCancellable>()
 
 }

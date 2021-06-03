@@ -6,41 +6,23 @@ import UIKit
 import OpenCombine
 import HealthCertificateToolkit
 
-class HealthCertificateService: HealthCertificateServiceProviding {
+class HealthCertificateService {
 
 	// MARK: - Init
 
 	init(
 		store: HealthCertificateStoring,
-		client: Client
+		client: Client,
+		appConfiguration: AppConfigurationProviding
 	) {
 		#if DEBUG
-		self.store = isUITesting ? MockTestStore() : store
-		self.client = isUITesting ? ClientMock() : client
-		#else
-		self.store = store
-		self.client = client
-		#endif
-
-		updatePublishersFromStore()
-
-		healthCertifiedPersons
-			.sink { [weak self] in
-				self?.store.healthCertifiedPersons = $0
-				self?.updateHealthCertifiedPersonSubscriptions(for: $0)
-			}
-			.store(in: &subscriptions)
-
-		testCertificateRequests
-			.sink { [weak self] in
-				self?.store.testCertificateRequests = $0
-			}
-			.store(in: &subscriptions)
-
-		subscribeToNotifications()
-
-		#if DEBUG
 		if isUITesting {
+			self.store = MockTestStore()
+			self.client = ClientMock()
+			self.appConfiguration = CachedAppConfigurationMock()
+
+			setup()
+
 			// check launch arguments ->
 			if LaunchArguments.healthCertificate.firstHealthCertificate.boolValue {
 				registerHealthCertificate(base45: HealthCertificate.firstBase45Mock)
@@ -48,8 +30,16 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 				registerHealthCertificate(base45: HealthCertificate.firstBase45Mock)
 				registerHealthCertificate(base45: HealthCertificate.lastBase45Mock)
 			}
+
+			return
 		}
 		#endif
+
+		self.store = store
+		self.client = client
+		self.appConfiguration = appConfiguration
+
+		setup()
 	}
 
 	// MARK: - Internal
@@ -161,9 +151,30 @@ class HealthCertificateService: HealthCertificateServiceProviding {
 
 	private let store: HealthCertificateStoring
 	private let client: Client
+	private let appConfiguration: AppConfigurationProviding
 
 	private var healthCertifiedPersonSubscriptions = Set<AnyCancellable>()
 	private var subscriptions = Set<AnyCancellable>()
+
+	private func setup() {
+		updatePublishersFromStore()
+
+		healthCertifiedPersons
+			.sink { [weak self] in
+				self?.store.healthCertifiedPersons = $0
+				self?.updateHealthCertifiedPersonSubscriptions(for: $0)
+			}
+			.store(in: &subscriptions)
+
+		testCertificateRequests
+			.sink { [weak self] in
+				self?.store.testCertificateRequests = $0
+				self?.updateTestCertificateRequestSubscriptions(for: $0)
+			}
+			.store(in: &subscriptions)
+
+		subscribeToNotifications()
+	}
 
 	private func updateHealthCertifiedPersonSubscriptions(for healthCertifiedPersons: [HealthCertifiedPerson]) {
 		healthCertifiedPersonSubscriptions = []

@@ -10,7 +10,7 @@ class HealthCertificateQRCodeScannerViewController: UIViewController {
 	// MARK: - Init
 
 	init(
-		healthCertificateService: HealthCertificateServiceProviding,
+		healthCertificateService: HealthCertificateService,
 		didScanCertificate: @escaping (HealthCertifiedPerson) -> Void,
 		dismiss: @escaping () -> Void
 	) {
