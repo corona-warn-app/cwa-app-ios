@@ -115,13 +115,15 @@ struct DCCRSAKeyPair: Codable, Equatable {
 			kSecAttrIsPermanent: true as NSObject,
 			kSecAttrApplicationTag: ("\(tag).dgc.public".data(using: String.Encoding.utf8) ?? Data()) as NSObject,
 			kSecClass: kSecClassKey,
-			kSecReturnData: kCFBooleanTrue]
+			kSecReturnData: kCFBooleanTrue
+		]
 
 		let privateKeyAttr: [NSObject: NSObject] = [
 			kSecAttrIsPermanent: true as NSObject,
 			kSecAttrApplicationTag: ("\(tag).dgc.private".data(using: String.Encoding.utf8) ?? Data()) as NSObject,
 			kSecClass: kSecClassKey,
-			kSecReturnData: kCFBooleanTrue]
+			kSecReturnData: kCFBooleanTrue
+		]
 
 		var keyPairAttr = [NSObject: NSObject]()
 		keyPairAttr[kSecAttrKeyType] = kSecAttrKeyTypeRSA

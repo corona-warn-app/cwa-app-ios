@@ -266,9 +266,10 @@
 		01E1025E266665A6009ED803 /* PCRTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E1025B26666566009ED803 /* PCRTest.swift */; };
 		01E102642667B031009ED803 /* TestedPerson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E102632667AB62009ED803 /* TestedPerson.swift */; };
 		01E102662668D40F009ED803 /* TestCertificateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E102652668D40E009ED803 /* TestCertificateRequest.swift */; };
-		01E102682668D83B009ED803 /* DCCRSAKeypair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E102672668D83B009ED803 /* DCCRSAKeypair.swift */; };
+		01E102682668D83B009ED803 /* DCCRSAKeyPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E102672668D83B009ED803 /* DCCRSAKeyPair.swift */; };
 		01E1026A26690CCF009ED803 /* local_statistics.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E1026926690CCF009ED803 /* local_statistics.pb.swift */; };
 		01E1026C26690D0B009ED803 /* dgc_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E1026B26690D0B009ED803 /* dgc_parameters.pb.swift */; };
+		01E1026E2669658E009ED803 /* DCCRSAKeyPairTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E1026D2669658E009ED803 /* DCCRSAKeyPairTests.swift */; };
 		01E4298E251DCDC90057FCBE /* Localizable.legal.strings in Resources */ = {isa = PBXBuildFile; fileRef = 01E42990251DCDC90057FCBE /* Localizable.legal.strings */; };
 		01EA17622590EAAF00E98E02 /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA17612590EAAF00E98E02 /* HomeTableViewController.swift */; };
 		01EA176A2590EF4F00E98E02 /* HomeTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA17692590EF4E00E98E02 /* HomeTableViewModel.swift */; };
@@ -1464,9 +1465,10 @@
 		01E1025C2666658B009ED803 /* AntigenTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntigenTest.swift; sourceTree = "<group>"; };
 		01E102632667AB62009ED803 /* TestedPerson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestedPerson.swift; sourceTree = "<group>"; };
 		01E102652668D40E009ED803 /* TestCertificateRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCertificateRequest.swift; sourceTree = "<group>"; };
-		01E102672668D83B009ED803 /* DCCRSAKeypair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCCRSAKeypair.swift; sourceTree = "<group>"; };
+		01E102672668D83B009ED803 /* DCCRSAKeyPair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCCRSAKeyPair.swift; sourceTree = "<group>"; };
 		01E1026926690CCF009ED803 /* local_statistics.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = local_statistics.pb.swift; sourceTree = "<group>"; };
 		01E1026B26690D0B009ED803 /* dgc_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = dgc_parameters.pb.swift; sourceTree = "<group>"; };
+		01E1026D2669658E009ED803 /* DCCRSAKeyPairTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCCRSAKeyPairTests.swift; sourceTree = "<group>"; };
 		01E25C6F24A3B52F007E33F8 /* Info_Testflight.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info_Testflight.plist; sourceTree = "<group>"; };
 		01E4298F251DCDC90057FCBE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.legal.strings; sourceTree = "<group>"; };
 		01E42994251DCDCE0057FCBE /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.legal.strings; sourceTree = "<group>"; };
@@ -3647,6 +3649,7 @@
 			isa = PBXGroup;
 			children = (
 				35AA4AF3259B40FC00D32306 /* CryptoFallbackTests.swift */,
+				01E1026D2669658E009ED803 /* DCCRSAKeyPairTests.swift */,
 				35358DD325A23169004FD0CB /* HTTPClientCertificatePinningTests.swift */,
 			);
 			path = __tests__;
@@ -5765,7 +5768,7 @@
 				35AA4AF2259B40DF00D32306 /* __tests__ */,
 				35EA6158258BC88A0062B50A /* iOS 12 Fallback */,
 				B1CD33402486AA7100B06E9B /* CoronaWarnURLSessionDelegate.swift */,
-				01E102672668D83B009ED803 /* DCCRSAKeypair.swift */,
+				01E102672668D83B009ED803 /* DCCRSAKeyPair.swift */,
 			);
 			path = Security;
 			sourceTree = "<group>";
@@ -8007,7 +8010,7 @@
 				71330E41248109F600EB10F6 /* DynamicTableViewSection.swift in Sources */,
 				BA6CC737260CF63B00F191FB /* CheckInHeaderCell.swift in Sources */,
 				710ABB292475353900948792 /* DynamicTableViewModel.swift in Sources */,
-				01E102682668D83B009ED803 /* DCCRSAKeypair.swift in Sources */,
+				01E102682668D83B009ED803 /* DCCRSAKeyPair.swift in Sources */,
 				AB5F84C024FE2EB3000400D4 /* DownloadedPackagesStoreV0.swift in Sources */,
 				518A69FB24687D5800444E66 /* RiskLevel.swift in Sources */,
 				EBCD2412250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift in Sources */,
@@ -8166,6 +8169,7 @@
 				0120ECF32587607600F78944 /* DiaryDayEntryCellModelTest.swift in Sources */,
 				3456D96725F0EBB400A62F5D /* ErrorReportHistoryViewModelTests.swift in Sources */,
 				B1C7EE482493D97000F1F284 /* RiskProvidingConfigurationManualTriggerTests.swift in Sources */,
+				01E1026E2669658E009ED803 /* DCCRSAKeyPairTests.swift in Sources */,
 				B1221BE22492ED0F00E6C4E4 /* CFDictionary+KeychainQueryTests.swift in Sources */,
 				A124E64A249BF4EF00E95F72 /* ExposureDetectionExecutorTests.swift in Sources */,
 				AB3560A02547194C00C3F8E0 /* DeviceTimeCheckTests.swift in Sources */,
