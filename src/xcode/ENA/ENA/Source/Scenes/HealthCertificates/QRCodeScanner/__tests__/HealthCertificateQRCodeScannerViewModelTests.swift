@@ -48,7 +48,11 @@ class HealthCertificateQRCodeScannerViewModelTests: CWATestCase {
 		onErrorExpectation.expectedFulfillmentCount = 1
 
 		let viewModel = TestableHealthCertificateQRCodeScannerViewModelTests(
-			healthCertificateService: HealthCertificateService(store: MockTestStore()),
+			healthCertificateService: HealthCertificateService(
+				store: MockTestStore(),
+				client: ClientMock(),
+				appConfiguration: CachedAppConfigurationMock()
+			),
 			onSuccess: { _ in
 				onSuccessExpectation.fulfill()
 			},
@@ -77,7 +81,11 @@ class HealthCertificateQRCodeScannerViewModelTests: CWATestCase {
 		onErrorExpectation.expectedFulfillmentCount = 1
 
 		let viewModel = TestableHealthCertificateQRCodeScannerViewModelTests(
-			healthCertificateService: HealthCertificateService(store: MockTestStore()),
+			healthCertificateService: HealthCertificateService(
+				store: MockTestStore(),
+				client: ClientMock(),
+				appConfiguration: CachedAppConfigurationMock()
+			),
 			onSuccess: { _ in
 				onSuccessExpectation.fulfill()
 			},
@@ -108,7 +116,11 @@ class HealthCertificateQRCodeScannerViewModelTests: CWATestCase {
 		onErrorExpectation.expectedFulfillmentCount = 1
 
 		let viewModel = TestableHealthCertificateQRCodeScannerViewModelTests(
-			healthCertificateService: HealthCertificateService(store: MockTestStore()),
+			healthCertificateService: HealthCertificateService(
+				store: MockTestStore(),
+				client: ClientMock(),
+				appConfiguration: CachedAppConfigurationMock()
+			),
 			onSuccess: { _ in
 				onSuccessExpectation.fulfill()
 			},

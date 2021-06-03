@@ -22,12 +22,21 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 		store = MockTestStore()
 		parentNavigationController = UINavigationController()
 		exposureSubmissionService = MockExposureSubmissionService()
+
+		let client = ClientMock()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		coronaTestService = CoronaTestService(
-			client: ClientMock(),
+			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock()
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
 	}
 
