@@ -60,6 +60,7 @@ enum HealthCertificateServiceError {
 
 	enum TestCertificateRequestError: LocalizedError {
 		case rsaKeyPairGenerationFailed(DCCRSAKeyPairError)
+		case publicKeyRegistrationFailed(DCCErrors.RegistrationError)
 		case other(Error)
 	}
 

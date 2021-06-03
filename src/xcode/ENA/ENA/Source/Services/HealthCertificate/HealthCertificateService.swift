@@ -140,9 +140,9 @@ class HealthCertificateService {
 				.sink { [weak self] in
 					guard let self = self else { return }
 
-					var waitAfterPublicKeyRegistrationInSeconds = $0.dgcParameters.testCertificateParameters.waitAfterPublicKeyRegistrationInSeconds
+					var waitAfterPublicKeyRegistrationInSeconds = TimeInterval($0.dgcParameters.testCertificateParameters.waitAfterPublicKeyRegistrationInSeconds)
 
-					var waitForRetryInSeconds = $0.dgcParameters.testCertificateParameters.waitForRetryInSeconds
+					var waitForRetryInSeconds = TimeInterval($0.dgcParameters.testCertificateParameters.waitForRetryInSeconds)
 
 					// 0 means the value is not set -> setting it to a default waiting time of 10 seconds
 					if waitAfterPublicKeyRegistrationInSeconds == 0 {
@@ -158,18 +158,57 @@ class HealthCertificateService {
 							isFake: false,
 							token: testCertificateRequest.registrationToken,
 							publicKey: rsaKeyPair.publicKeyForBackend,
-							completion: { [weak self] result in
-
+							completion: { result in
+								switch result {
+								case .success():
+									testCertificateRequest.rsaPublicKeyRegistered = true
+									DispatchQueue.global().asyncAfter(deadline: .now() + waitAfterPublicKeyRegistrationInSeconds) {
+										self.requestDigitalCovidCertificate(for: testCertificateRequest, completion: completion)
+									}
+								case .failure(let registrationError) where registrationError == .tokenAlreadyAssigned:
+									testCertificateRequest.rsaPublicKeyRegistered = true
+									DispatchQueue.global().asyncAfter(deadline: .now() + waitAfterPublicKeyRegistrationInSeconds) {
+										self.requestDigitalCovidCertificate(for: testCertificateRequest, completion: completion)
+									}
+								case .failure(let registrationError):
+									testCertificateRequest.requestExecutionFailed = true
+									completion?(.failure(.publicKeyRegistrationFailed(registrationError)))
+								}
 							}
 						)
+					} else if testCertificateRequest.encryptedDEK == nil || testCertificateRequest.encryptedCOSE == nil {
+						self.requestDigitalCovidCertificate(for: testCertificateRequest, completion: completion)
 					}
 				}
 				.store(in: &subscriptions)
 		} catch let error as HealthCertificateServiceError.TestCertificateRequestError {
+			testCertificateRequest.requestExecutionFailed = true
 			completion?(.failure(.other(error)))
 		} catch {
+			testCertificateRequest.requestExecutionFailed = true
 			completion?(.failure(.other(error)))
 		}
+	}
+
+	private func requestDigitalCovidCertificate(
+		for testCertificateRequest: TestCertificateRequest,
+		retryOn202: Bool = true,
+		completion: ((Result<Void, HealthCertificateServiceError.TestCertificateRequestError>) -> Void)? = nil) {
+		client.getDigitalCovid19Certificate(
+			registrationToken: testCertificateRequest.registrationToken,
+			isFake: false
+		) { result in
+			switch result {
+			case .success(let dccResponse):
+				<#code#>
+			case .failure(let error):
+				<#code#>
+			}
+		}
+	}
+
+	private func assembleDigitalCovidCertificate(encryptedDEK: String, encryptedCOSE: String, completion: ((Result<Void, HealthCertificateServiceError.TestCertificateRequestError>) -> Void)? = nil) {
+
 	}
 
 	func updatePublishersFromStore() {
