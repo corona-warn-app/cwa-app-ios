@@ -5,7 +5,7 @@
 @testable import ENA
 import XCTest
 
-class RiskExposureMetadataTests: XCTestCase {
+class RiskExposureMetadataTests: CWATestCase {
 	
     func testGIVEN_RiskExposureMetadata_WHEN_ENF_Current_HighRisk_IsSaved_THEN_OnlyENFCurrentRiskExposureMetadataIsSaved() throws {
 		let store = MockTestStore()
