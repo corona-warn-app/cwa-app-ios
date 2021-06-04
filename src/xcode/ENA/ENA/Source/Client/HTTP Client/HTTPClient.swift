@@ -579,7 +579,8 @@ final class HTTPClient: Client {
 					completion(.failure(.testResultNotYetReceived))
 				case 500:
 					Log.error("HTTP error code 500. Internal server error.", log: .api)
-					completion(.failure(.internalServerError))
+					// TODO: Pass in reason
+					completion(.failure(.internalServerError("REASON")))
 				default:
 					Log.error("Unhandled http status code: \(String(response.statusCode))", log: .api)
 					completion(.failure(.unhandledResponse(response.statusCode)))

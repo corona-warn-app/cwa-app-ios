@@ -209,7 +209,7 @@ class HealthCertificateService {
 	private func requestDigitalCovidCertificate(
 		for testCertificateRequest: TestCertificateRequest,
 		rsaKeyPair: DCCRSAKeyPair,
-		retryOn202: Bool = true,
+		retryOn202: Bool = true, // TODO: Where do I get this info?
 		waitForRetryInSeconds: TimeInterval,
 		completion: ((Result<Void, HealthCertificateServiceError.TestCertificateRequestError>) -> Void)? = nil
 	) {
