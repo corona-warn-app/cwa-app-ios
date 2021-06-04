@@ -78,7 +78,7 @@ class HTTPClientCertificatePinningTests: CWATestCase {
 		taskFinished.expectedFulfillmentCount = hosts.count
 
 		hosts.forEach { host in
-			let task = session.dataTask(with: host) { _, response, error in
+			let task = session.dataTask(with: host.appendingPathComponent("/")) { _, response, error in
 				guard let response = response as? HTTPURLResponse else {
 					XCTFail("no http response from \(host)")
 					taskFinished.fulfill()
