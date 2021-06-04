@@ -54,6 +54,12 @@ struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable 
 
 	// MARK: - Internal
 
+	enum CertificateType {
+		case vaccination
+		case test
+		case unsupported
+	}
+
 	let base45: Base45
 
 	var version: String {
@@ -82,6 +88,16 @@ struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable 
 		let testCertificates = digitalGreenCertificate.testEntries ?? []
 
 		return testCertificates.first
+	}
+
+	var type: CertificateType {
+		if vaccinationEntry != nil {
+			return .vaccination
+		} else if testEntry != nil {
+			return .test
+		} else {
+			return .unsupported
+		}
 	}
 
 	var isLastDoseInASeries: Bool {
