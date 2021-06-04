@@ -65,7 +65,8 @@ struct HealthCertificateMock: HealthCertificateData {
 		)
 		self.dateOfBirth = "1981-12-24"
 		self.dateOfBirthDate = Date()
-		self.vaccinationCertificates = []
+		self.vaccinationEntry = nil
+		self.testEntry = nil
 		self.isLastDoseInASeries = false
 		self.expirationDate = Date()
 		self.dateOfVaccination = Date()
@@ -80,7 +81,8 @@ struct HealthCertificateMock: HealthCertificateData {
 	let name: Name
 	let dateOfBirth: String
 	var dateOfBirthDate: Date?
-	let vaccinationCertificates: [VaccinationCertificate]
+	let vaccinationEntry: VaccinationEntry?
+	let testEntry: TestEntry?
 	let isLastDoseInASeries: Bool
 	var expirationDate: Date
 	var dateOfVaccination: Date?
