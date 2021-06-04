@@ -22,8 +22,8 @@ final class HealthCertificateCellViewModel {
 
 	var headline: String? {
 		guard
-			let doseNumber = healthCertificate.vaccinationCertificates.first?.doseNumber,
-			let totalSeriesOfDoses = healthCertificate.vaccinationCertificates.first?.totalSeriesOfDoses
+			let doseNumber = healthCertificate.vaccinationEntry?.doseNumber,
+			let totalSeriesOfDoses = healthCertificate.vaccinationEntry?.totalSeriesOfDoses
 		else {
 			return nil
 		}

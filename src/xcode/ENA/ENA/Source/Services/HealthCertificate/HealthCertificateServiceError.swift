@@ -7,7 +7,14 @@ import HealthCertificateToolkit
 
 enum HealthCertificateServiceError {
 
+	// TODO: Add localization
 	enum RegistrationError: LocalizedError {
+		case decodingError(CertificateDecodingError)
+		case certificateAlreadyRegistered
+		case other(Error)
+	}
+
+	enum VaccinationRegistrationError: LocalizedError {
 		case decodingError(CertificateDecodingError)
 		case noVaccinationEntry
 		case vaccinationCertificateAlreadyRegistered

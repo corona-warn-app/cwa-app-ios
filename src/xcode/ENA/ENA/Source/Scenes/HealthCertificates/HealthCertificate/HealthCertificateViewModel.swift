@@ -119,7 +119,7 @@ final class HealthCertificateViewModel {
 	func numberOfItems(in section: TableViewSection) -> Int {
 		switch section {
 		case .headline:
-			return healthCertificate.vaccinationCertificates.isEmpty ? 0 : 1
+			return healthCertificate.vaccinationEntry == nil ? 0 : 1
 		case .qrCode:
 			return 1
 		case .details:
@@ -156,7 +156,6 @@ final class HealthCertificateViewModel {
 		)
 
 		// all vaccinationCertificate cell data - optional values
-		let vaccinationCertificate = healthCertificate.vaccinationCertificates.first
 		var dateCellViewModel: HealthCertificateKeyValueCellViewModel?
 		if	let date = healthCertificate.dateOfVaccination {
 			dateCellViewModel = HealthCertificateKeyValueCellViewModel(
@@ -166,7 +165,7 @@ final class HealthCertificateViewModel {
 		}
 
 		var vaccineCellViewModel: HealthCertificateKeyValueCellViewModel?
-		if let key = vaccinationCertificate?.vaccineMedicinalProduct {
+		if let key = healthCertificate.vaccinationEntry?.vaccineMedicinalProduct {
 			vaccineCellViewModel = HealthCertificateKeyValueCellViewModel(
 				key: AppStrings.HealthCertificate.Details.vaccine,
 				value: determineValue(key: key, valueSet: valueSet(by: .vaccineMedicinalProduct))
@@ -174,7 +173,7 @@ final class HealthCertificateViewModel {
 		}
 
 		var manufacturerCellViewModel: HealthCertificateKeyValueCellViewModel?
-		if let key = vaccinationCertificate?.marketingAuthorizationHolder {
+		if let key = healthCertificate.vaccinationEntry?.marketingAuthorizationHolder {
 			manufacturerCellViewModel = HealthCertificateKeyValueCellViewModel(
 				key: AppStrings.HealthCertificate.Details.manufacture,
 				value: determineValue(key: key, valueSet: valueSet(by: .marketingAuthorizationHolder))
@@ -182,7 +181,7 @@ final class HealthCertificateViewModel {
 		}
 
 		var vaccineTypeCellViewModel: HealthCertificateKeyValueCellViewModel?
-		if let key = vaccinationCertificate?.vaccineOrProphylaxis {
+		if let key = healthCertificate.vaccinationEntry?.vaccineOrProphylaxis {
 			vaccineTypeCellViewModel = HealthCertificateKeyValueCellViewModel(
 				key: AppStrings.HealthCertificate.Details.vaccineType,
 				value: determineValue(key: key, valueSet: valueSet(by: .vaccineOrProphylaxis))
@@ -191,11 +190,11 @@ final class HealthCertificateViewModel {
 
 		let issuerCellViewModel = HealthCertificateKeyValueCellViewModel(
 			key: AppStrings.HealthCertificate.Details.issuer,
-			value: vaccinationCertificate?.certificateIssuer
+			value: healthCertificate.vaccinationEntry?.certificateIssuer
 		)
 
 		var countryCellViewModel: HealthCertificateKeyValueCellViewModel?
-		if	let countryCode = vaccinationCertificate?.countryOfVaccination,
+		if	let countryCode = healthCertificate.vaccinationEntry?.countryOfVaccination,
 			let country = Country(countryCode: countryCode) {
 			countryCellViewModel = HealthCertificateKeyValueCellViewModel(
 				key: AppStrings.HealthCertificate.Details.country,
@@ -205,7 +204,7 @@ final class HealthCertificateViewModel {
 
 		let certificateNumberCellViewModel = HealthCertificateKeyValueCellViewModel(
 			key: AppStrings.HealthCertificate.Details.identifier,
-			value: vaccinationCertificate?.uniqueCertificateIdentifier,
+			value: healthCertificate.vaccinationEntry?.uniqueCertificateIdentifier,
 			isBottomSeparatorHidden: true,
 			bottomSpace: 2.0
 		)

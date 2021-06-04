@@ -27,7 +27,7 @@ class HealthCertificateServiceTests: CWATestCase {
 				healthCertifiedPersonsExpectation.fulfill()
 			}
 
-		let result = service.registerHealthCertificate(base45: HealthCertificate.mockBase45)
+		let result = service.registerVaccinationCertificate(base45: HealthCertificate.mockBase45)
 
 		switch result {
 		case.success(let healthCertifiedPerson):

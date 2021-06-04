@@ -5,7 +5,7 @@
 import Foundation
 import HealthCertificateToolkit
 
-extension VaccinationCertificate {
+extension VaccinationEntry {
 
 	var isLastDoseInASeries: Bool {
 		doseNumber == totalSeriesOfDoses

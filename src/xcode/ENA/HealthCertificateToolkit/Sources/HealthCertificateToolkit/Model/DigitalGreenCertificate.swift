@@ -13,8 +13,8 @@ public struct DigitalGreenCertificate: Codable, Equatable {
         case version = "ver"
         case name = "nam"
         case dateOfBirth = "dob"
-        case vaccinationCertificates = "v"
-        case testCertificates = "t"
+        case vaccinationEntries = "v"
+        case testEntries = "t"
     }
 
     // MARK: - Internal
@@ -22,12 +22,12 @@ public struct DigitalGreenCertificate: Codable, Equatable {
     public let version: String
     public let name: Name
     public let dateOfBirth: String
-    public let vaccinationCertificates: [VaccinationCertificate]?
-    public let testCertificates: [TestCertificate]?
+    public let vaccinationEntries: [VaccinationEntry]?
+    public let testEntries: [TestEntry]?
 
 }
 
-public struct VaccinationCertificate: Codable, Equatable {
+public struct VaccinationEntry: Codable, Equatable {
 
     // MARK: - Protocol Codable
 
@@ -61,7 +61,7 @@ public struct VaccinationCertificate: Codable, Equatable {
 
 }
 
-public struct TestCertificate: Codable, Equatable {
+public struct TestEntry: Codable, Equatable {
 
     // MARK: - Protocol Codable
 

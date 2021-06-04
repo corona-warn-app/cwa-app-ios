@@ -11,7 +11,8 @@ protocol HealthCertificateData {
 	var name: HealthCertificateToolkit.Name { get }
 	var dateOfBirth: String { get }
 	var dateOfBirthDate: Date? { get }
-	var vaccinationCertificates: [VaccinationCertificate] { get }
+	var vaccinationEntry: VaccinationEntry? { get }
+	var testEntry: TestEntry? { get }
 	var isLastDoseInASeries: Bool { get }
 	var expirationDate: Date { get }
 	var dateOfVaccination: Date? { get }
@@ -42,8 +43,8 @@ struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable 
 
 	static func < (lhs: HealthCertificate, rhs: HealthCertificate) -> Bool {
 		guard
-			let lhsVaccinationDate = lhs.vaccinationCertificates.first?.dateOfVaccination,
-			let rhsVaccinationDate = rhs.vaccinationCertificates.first?.dateOfVaccination
+			let lhsVaccinationDate = lhs.vaccinationEntry?.dateOfVaccination,
+			let rhsVaccinationDate = rhs.vaccinationEntry?.dateOfVaccination
 		else {
 			return false
 		}
@@ -71,12 +72,20 @@ struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable 
 		return ISO8601DateFormatter.justLocalDateFormatter.date(from: digitalGreenCertificate.dateOfBirth)
 	}
 
-	var vaccinationCertificates: [VaccinationCertificate] {
-		digitalGreenCertificate.vaccinationCertificates ?? []
+	var vaccinationEntry: VaccinationEntry? {
+		let vaccinationCertificates = digitalGreenCertificate.vaccinationEntries ?? []
+
+		return vaccinationCertificates.first
+	}
+
+	var testEntry: TestEntry? {
+		let testCertificates = digitalGreenCertificate.testEntries ?? []
+
+		return testCertificates.first
 	}
 
 	var isLastDoseInASeries: Bool {
-		digitalGreenCertificate.isLastDoseInASeries
+		vaccinationEntry?.isLastDoseInASeries ?? false
 	}
 
 	var expirationDate: Date {
@@ -90,24 +99,18 @@ struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable 
 	}
 
 	var dateOfVaccination: Date? {
-		guard let dateString = vaccinationCertificates.first?.dateOfVaccination else {
+		guard let dateString = vaccinationEntry?.dateOfVaccination else {
 			return nil
 		}
 		return ISO8601DateFormatter.justLocalDateFormatter.date(from: dateString)
 	}
 
 	var doseNumber: Int {
-		guard let vaccinationCertificate = vaccinationCertificates.last else {
-			return 0
-		}
-		return vaccinationCertificate.doseNumber
+		return vaccinationEntry?.doseNumber ?? 0
 	}
 	
 	var totalSeriesOfDoses: Int {
-		guard let vaccinationCertificate = vaccinationCertificates.last else {
-			return 0
-		}
-		return vaccinationCertificate.totalSeriesOfDoses
+		return vaccinationEntry?.totalSeriesOfDoses ?? 0
 	}
 
 	// MARK: - Private
