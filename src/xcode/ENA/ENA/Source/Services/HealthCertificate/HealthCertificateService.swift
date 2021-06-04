@@ -270,7 +270,7 @@ class HealthCertificateService {
 					self?.requestDigitalCovidCertificate(
 						for: testCertificateRequest,
 						rsaKeyPair: rsaKeyPair,
-						retryOn202: true, // TODO: Set to false
+						retryOn202: false,
 						waitForRetryInSeconds: waitForRetryInSeconds,
 						completion: completion
 					)

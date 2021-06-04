@@ -1256,9 +1256,9 @@ private extension URLRequest {
 			"registrationToken": token,
 			"publicKey": publicKey
 		]
-		// TODO: Check crash. Do we need padding on this request?
-		let paddedData = try JSONEncoder().encode(originalBody)
-		request.httpBody = paddedData
+		// TODO: Check: Do we need padding on this request? (Crashes with padding, because request is > 250 bytes)
+		let encodedData = try JSONEncoder().encode(originalBody)
+		request.httpBody = encodedData
 
 		return request
 	}
