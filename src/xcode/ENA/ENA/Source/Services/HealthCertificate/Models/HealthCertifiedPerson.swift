@@ -90,13 +90,21 @@ class HealthCertifiedPerson: Codable, Equatable {
 		healthCertificates.first?.dateOfBirth
 	}
 
+	var vaccinationCertificates: [HealthCertificate] {
+		healthCertificates.filter { $0.type == .vaccination }
+	}
+
+	var testCertificates: [HealthCertificate] {
+		healthCertificates.filter { $0.type == .test }
+	}
+
 	// MARK: - Private
 
 	private var subscriptions = Set<AnyCancellable>()
 
 	private var completeVaccinationProtectionDate: Date? {
 		guard
-			let lastVaccination = healthCertificates.last(where: { $0.isLastDoseInASeries }),
+			let lastVaccination = vaccinationCertificates.last(where: { $0.isLastDoseInASeries }),
 			let vaccinationDateString = lastVaccination.vaccinationEntry?.dateOfVaccination,
 			let vaccinationDate = ISO8601DateFormatter.justLocalDateFormatter.date(from: vaccinationDateString)
 		else {
@@ -107,7 +115,7 @@ class HealthCertifiedPerson: Codable, Equatable {
 	}
 
 	private var vaccinationExpirationDate: Date? {
-		guard let lastVaccination = healthCertificates.last(where: { $0.isLastDoseInASeries }) else {
+		guard let lastVaccination = vaccinationCertificates.last(where: { $0.isLastDoseInASeries }) else {
 			return nil
 		}
 

@@ -80,6 +80,10 @@ final class HealthCertificatesCoordinator {
 			},
 			onCertifiedPersonTap: { [weak self] healthCertifiedPerson in
 				self?.showHealthCertifiedPerson(healthCertifiedPerson)
+			},
+			onTestCertificateTap: { [weak self] testCertificate in
+				// TODO: show
+//				self?.showHealthCertifiedPerson(healthCertifiedPerson)
 			}
 		)
 	}()

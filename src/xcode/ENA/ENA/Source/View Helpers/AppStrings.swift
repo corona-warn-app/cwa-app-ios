@@ -1876,7 +1876,6 @@ enum AppStrings {
 			enum TestCertificate {
 				static let title = NSLocalizedString("TestCertificate_title", comment: "")
 				static let testDate = NSLocalizedString("TestCertificate_testDate", comment: "")
-				static let daysUntilCompleteProtection = NSLocalizedString("VaccinationCertificate_daysUntilCompleteProtection", comment: "")
 			}
 		}
 

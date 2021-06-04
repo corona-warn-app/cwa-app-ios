@@ -2530,6 +2530,12 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TestCertificate_Info_description" = "Registrieren Sie einen Test auf der Startseite und stimmen Sie zu, ein digitales Testzertifikat zu erhalten. Sobald das Zertifikat vorliegt, wird es hier angezeigt.";
 
+/* - Test Certificate */
+
+"TestCertificate_title" = "Digitales\n**COVID-Testzertifikat**";
+
+"TestCertificate_testDate" = "Test durchgeführt am %@";
+
 /* Health Certificate Information */
 
 "HealthCertificate_Info_Title" = "Impfzertifikat hinzufügen";

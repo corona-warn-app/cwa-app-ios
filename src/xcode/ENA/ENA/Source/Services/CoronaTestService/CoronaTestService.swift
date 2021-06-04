@@ -682,6 +682,8 @@ class CoronaTestService {
 						}
 
 						if testResult == .negative {
+
+							// TODO: Set to created?
 							self.healthCertificateService.registerTestCertificateRequest(
 								coronaTestType: coronaTestType,
 								registrationToken: registrationToken,

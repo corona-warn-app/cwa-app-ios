@@ -17,6 +17,9 @@ class HealthCertificateOverviewViewModel {
 		healthCertificateService.healthCertifiedPersons
 			.sink { healthCertifiedPersons in
 				self.healthCertifiedPersons = healthCertifiedPersons
+					.filter { !$0.vaccinationCertificates.isEmpty }
+				self.testCertificates = healthCertifiedPersons
+					.flatMap { $0.testCertificates }
 			}
 			.store(in: &subscriptions)
 	}
@@ -27,10 +30,12 @@ class HealthCertificateOverviewViewModel {
 		case description
 		case healthCertificate
 		case createHealthCertificate
+		case testCertificates
 		case testCertificateInfo
 	}
 
 	@OpenCombine.Published var healthCertifiedPersons: [HealthCertifiedPerson] = []
+	@OpenCombine.Published var testCertificates: [HealthCertificate] = []
 
 	var numberOfSections: Int {
 		Section.allCases.count
@@ -44,8 +49,10 @@ class HealthCertificateOverviewViewModel {
 			return healthCertifiedPersons.count
 		case .createHealthCertificate:
 			return healthCertifiedPersons.isEmpty ? 1 : 0
+		case .testCertificates:
+			return testCertificates.count
 		case .testCertificateInfo:
-			return 1
+			return testCertificates.isEmpty ? 1 : 0
 		case .none:
 			fatalError("Invalid section")
 		}
@@ -58,6 +65,16 @@ class HealthCertificateOverviewViewModel {
 			return nil
 		}
 		return healthCertificateService.healthCertifiedPersons.value[indexPath.row]
+	}
+
+	func testCertificate(at indexPath: IndexPath) -> HealthCertificate? {
+		guard Section(rawValue: indexPath.section) == .healthCertificate,
+			  testCertificates.indices.contains(indexPath.row) else {
+			Log.debug("Tried to access unknown testCertificate - stop")
+			return nil
+		}
+
+		return testCertificates[indexPath.row]
 	}
 
 	// MARK: - Private

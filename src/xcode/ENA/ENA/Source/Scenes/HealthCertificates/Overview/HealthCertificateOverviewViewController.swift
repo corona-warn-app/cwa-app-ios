@@ -13,22 +13,21 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		viewModel: HealthCertificateOverviewViewModel,
 		onInfoBarButtonItemTap: @escaping () -> Void,
 		onCreateHealthCertificateTap: @escaping () -> Void,
-		onCertifiedPersonTap: @escaping (HealthCertifiedPerson) -> Void
+		onCertifiedPersonTap: @escaping (HealthCertifiedPerson) -> Void,
+		onTestCertificateTap: @escaping (HealthCertificate) -> Void
 	) {
 		self.viewModel = viewModel
 		self.onInfoBarButtonItemTap = onInfoBarButtonItemTap
 		self.onCreateHealthCertificateTap = onCreateHealthCertificateTap
 		self.onCertifiedPersonTap = onCertifiedPersonTap
+		self.onTestCertificateTap = onTestCertificateTap
 
 		super.init(style: .grouped)
 		
 		viewModel.$healthCertifiedPersons
 			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] _ in
-				self?.tableView.reloadSections([
-					HealthCertificateOverviewViewModel.Section.healthCertificate.rawValue,
-					HealthCertificateOverviewViewModel.Section.createHealthCertificate.rawValue
-				], with: .none)
+				self?.tableView.reloadData()
 			}
 			.store(in: &subscriptions)
 	}
@@ -74,9 +73,11 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		case .description:
 			return descriptionCell(forRowAt: indexPath)
 		case .healthCertificate:
-			return healthCertificateCell(forRowAt: indexPath)
+			return healthCertifiedPersonCell(forRowAt: indexPath)
 		case .createHealthCertificate:
 			return vaccinationRegistrationCell(forRowAt: indexPath)
+		case .testCertificates:
+			return testCertificateCell(forRowAt: indexPath)
 		case .testCertificateInfo:
 			return testCertificateInfoCell(forRowAt: indexPath)
 		case .none:
@@ -96,6 +97,10 @@ class HealthCertificateOverviewViewController: UITableViewController {
 			if let healthCertifiedPerson = viewModel.healthCertifiedPerson(at: indexPath) {
 				onCertifiedPersonTap(healthCertifiedPerson)
 			}
+		case .testCertificates:
+			if let testCertificate = viewModel.testCertificate(at: indexPath) {
+				onTestCertificateTap(testCertificate)
+			}
 		case .testCertificateInfo:
 			break
 		case .none:
@@ -110,6 +115,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	private let onInfoBarButtonItemTap: () -> Void
 	private let onCreateHealthCertificateTap: () -> Void
 	private let onCertifiedPersonTap: (HealthCertifiedPerson) -> Void
+	private let onTestCertificateTap: (HealthCertificate) -> Void
 
 	private var subscriptions = Set<AnyCancellable>()
 
@@ -150,7 +156,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		tableView.estimatedRowHeight = 500
 	}
 	
-	private func healthCertificateCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+	private func healthCertifiedPersonCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: HomeHealthCertifiedPersonTableViewCell.reuseIdentifier, for: indexPath) as? HomeHealthCertifiedPersonTableViewCell else {
 			fatalError("Could not dequeue HomeHealthCertifiedPersonTableViewCell")
 		}
@@ -172,6 +178,19 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		cell.configure(
 			with: HomeHealthCertificateRegistrationCellModel()
 		)
+
+		return cell
+	}
+
+	private func testCertificateCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: HomeHealthCertifiedPersonTableViewCell.reuseIdentifier, for: indexPath) as? HomeHealthCertifiedPersonTableViewCell else {
+			fatalError("Could not dequeue HomeHealthCertifiedPersonTableViewCell")
+		}
+
+		let cellModel = HomeHealthCertifiedPersonCellModel(
+			testCertificate: viewModel.testCertificates[indexPath.row]
+		)
+		cell.configure(with: cellModel)
 
 		return cell
 	}

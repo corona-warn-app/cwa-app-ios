@@ -29,7 +29,7 @@ final class HealthCertifiedPersonViewModel {
 
 		healthCertifiedPerson.objectDidChange
 			.sink { [weak self] healthCertifiedPerson in
-				guard !healthCertifiedPerson.healthCertificates.isEmpty else {
+				guard !healthCertifiedPerson.vaccinationCertificates.isEmpty else {
 					dismiss()
 					return
 				}
@@ -106,7 +106,7 @@ final class HealthCertifiedPersonViewModel {
 	@OpenCombine.Published private(set) var updateError: Error?
 
 	var qrCodeCellViewModel: HealthCertificateQRCodeCellViewModel {
-		guard let latestHealthCertificate = healthCertifiedPerson.healthCertificates.last
+		guard let latestHealthCertificate = healthCertifiedPerson.vaccinationCertificates.last
 			else {
 			fatalError("Cell cannot be shown without a health certificate")
 		}
@@ -182,23 +182,23 @@ final class HealthCertifiedPersonViewModel {
 		case .person:
 			return 1
 		case .certificates:
-			return healthCertifiedPerson.healthCertificates.count
+			return healthCertifiedPerson.vaccinationCertificates.count
 		}
 	}
 
 	func healthCertificateCellViewModel(row: Int) -> HealthCertificateCellViewModel {
 		HealthCertificateCellViewModel(
-			healthCertificate: healthCertifiedPerson.healthCertificates[row],
+			healthCertificate: healthCertifiedPerson.vaccinationCertificates[row],
 			gradientType: gradientType
 		)
 	}
 
 	func healthCertificate(for indexPath: IndexPath) -> HealthCertificate? {
 		guard TableViewSection.map(indexPath.section) == .certificates,
-			  healthCertifiedPerson.healthCertificates.indices.contains(indexPath.row) else {
+			  healthCertifiedPerson.vaccinationCertificates.indices.contains(indexPath.row) else {
 			return nil
 		}
-		return healthCertifiedPerson.healthCertificates[indexPath.row]
+		return healthCertifiedPerson.vaccinationCertificates[indexPath.row]
 	}
 
 	func canEditRow(at indexPath: IndexPath) -> Bool {
@@ -210,7 +210,7 @@ final class HealthCertifiedPersonViewModel {
 			return
 		}
 
-		healthCertificateService.removeHealthCertificate(healthCertifiedPerson.healthCertificates[indexPath.row])
+		healthCertificateService.removeHealthCertificate(healthCertifiedPerson.vaccinationCertificates[indexPath.row])
 	}
 
 	// MARK: - Private
