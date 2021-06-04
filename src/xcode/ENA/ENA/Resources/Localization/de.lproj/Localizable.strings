@@ -2576,7 +2576,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertifiedPerson_primaryButton" = "Weitere Impfung hinzufügen";
 
-/* Health Certificate Details */
+/* Vaccination Certificate Details */
 
 "HealthCertificate_Details_vaccinationCount" = "Impfung %i von %i";
 
@@ -2606,7 +2606,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Details_primaryButton" = "Impfzertifikat entfernen";
 
-/* Health Certificate Alert delete */
+/* Vaccination Certificate Delete Alert */
 
 "HealthCertificate_Alert_title" = "Wollen Sie das Impfzertifikat wirklich entfernen?";
 
@@ -2615,6 +2615,24 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "HealthCertificate_Alert_deleteButton" = "Entfernen";
 
 "HealthCertificate_Alert_cancelButton" = "Abbrechen";
+
+/* Test Certificate Details */
+
+"TestCertificate_Details_title" = "EU Digitales COVID-Testzertifikat";
+
+"TestCertificate_Details_subtitle" = "negativer SARS-CoV-2-Test";
+
+"TestCertificate_Details_primaryButton" = "Testzertifikat entfernen";
+
+/* Vaccination Certificate Delete Alert */
+
+"TestCertificate_Alert_title" = "Wollen Sie das Testzertifikat wirklich entfernen?";
+
+"TestCertificate_Alert_message" = "Wenn Sie das Testzertifikat entfernen, können Sie es nicht mehr als Nachweis in der App verwenden.";
+
+"TestCertificate_Alert_deleteButton" = "Entfernen";
+
+"TestCertificate_Alert_cancelButton" = "Abbrechen";
 
 /* Health Certificate Errors */
 

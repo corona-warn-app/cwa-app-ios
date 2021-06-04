@@ -1930,6 +1930,11 @@ enum AppStrings {
 			static let country = NSLocalizedString("HealthCertificate_Details_country", comment: "")
 			static let identifier = NSLocalizedString("HealthCertificate_Details_identifier", comment: "")
 			static let primaryButton = NSLocalizedString("HealthCertificate_Details_primaryButton", comment: "")
+
+			enum TestCertificate {
+				static let title = NSLocalizedString("TestCertificate_Details_title", comment: "")
+				static let subtitle = NSLocalizedString("TestCertificate_Details_subtitle", comment: "")
+			}
 		}
 
 		enum Alert {
@@ -1937,6 +1942,13 @@ enum AppStrings {
 			static let message = NSLocalizedString("HealthCertificate_Alert_message", comment: "")
 			static let deleteButton = NSLocalizedString("HealthCertificate_Alert_deleteButton", comment: "")
 			static let cancelButton = NSLocalizedString("HealthCertificate_Alert_cancelButton", comment: "")
+
+			enum TestCertificate {
+				static let title = NSLocalizedString("TestCertificate_Alert_title", comment: "")
+				static let message = NSLocalizedString("TestCertificate_Alert_message", comment: "")
+				static let deleteButton = NSLocalizedString("TestCertificate_Alert_deleteButton", comment: "")
+				static let cancelButton = NSLocalizedString("TestCertificate_Alert_cancelButton", comment: "")
+			}
 		}
 
 		enum Error {

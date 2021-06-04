@@ -196,6 +196,7 @@ final class HealthCertificatesCoordinator {
 			},
 			didSwipeToDelete: { [weak self] healthCertificate, confirmDeletion in
 				self?.showDeleteAlert(
+					certificateType: healthCertificate.type,
 					submitAction: UIAlertAction(
 						title: AppStrings.HealthCertificate.Alert.deleteButton,
 						style: .default,
@@ -240,9 +241,19 @@ final class HealthCertificatesCoordinator {
 				self?.viewController.dismiss(animated: true)
 			},
 			didTapDelete: { [weak self] in
+				let deleteButtonTitle: String
+
+				switch healthCertificate.type {
+				case .vaccination:
+					deleteButtonTitle = AppStrings.HealthCertificate.Alert.deleteButton
+				case .test:
+					deleteButtonTitle = AppStrings.HealthCertificate.Alert.TestCertificate.deleteButton
+				}
+
 				self?.showDeleteAlert(
+					certificateType: healthCertificate.type,
 					submitAction: UIAlertAction(
-						title: AppStrings.HealthCertificate.Alert.deleteButton,
+						title: deleteButtonTitle,
 						style: .default,
 						handler: { _ in
 							self?.healthCertificateService.removeHealthCertificate(healthCertificate)
@@ -259,6 +270,7 @@ final class HealthCertificatesCoordinator {
 				isPrimaryButtonEnabled: true,
 				isSecondaryButtonEnabled: false,
 				isSecondaryButtonHidden: true,
+				primaryButtonColor: .systemRed,
 				primaryButtonInverted: true,
 				backgroundColor: .enaColor(for: .backgroundLightGray)
 			)
@@ -277,15 +289,33 @@ final class HealthCertificatesCoordinator {
 		}
 	}
 	
-	private func showDeleteAlert(submitAction: UIAlertAction) {
+	private func showDeleteAlert(
+		certificateType: HealthCertificate.CertificateType,
+		submitAction: UIAlertAction
+	) {
+		let title: String
+		let message: String
+		let cancelButtonTitle: String
+
+		switch certificateType {
+		case .vaccination:
+			title = AppStrings.HealthCertificate.Alert.title
+			message = AppStrings.HealthCertificate.Alert.message
+			cancelButtonTitle = AppStrings.HealthCertificate.Alert.cancelButton
+		case .test:
+			title = AppStrings.HealthCertificate.Alert.TestCertificate.title
+			message = AppStrings.HealthCertificate.Alert.TestCertificate.message
+			cancelButtonTitle = AppStrings.HealthCertificate.Alert.TestCertificate.cancelButton
+		}
+
 		let alert = UIAlertController(
-			title: AppStrings.HealthCertificate.Alert.title,
-			message: AppStrings.HealthCertificate.Alert.message,
+			title: title,
+			message: message,
 			preferredStyle: .alert
 		)
 		alert.addAction(
 			UIAlertAction(
-				title: AppStrings.HealthCertificate.Alert.cancelButton,
+				title: cancelButtonTitle,
 				style: .cancel,
 				handler: nil
 			)

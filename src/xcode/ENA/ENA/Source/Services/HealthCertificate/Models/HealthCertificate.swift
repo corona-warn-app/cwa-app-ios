@@ -13,6 +13,7 @@ protocol HealthCertificateData {
 	var dateOfBirthDate: Date? { get }
 	var vaccinationEntry: VaccinationEntry? { get }
 	var testEntry: TestEntry? { get }
+	var type: HealthCertificate.CertificateType { get }
 	var isLastDoseInASeries: Bool { get }
 	var expirationDate: Date { get }
 	var dateOfVaccination: Date? { get }
@@ -57,7 +58,6 @@ struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable 
 	enum CertificateType {
 		case vaccination
 		case test
-		case unsupported
 	}
 
 	let base45: Base45
@@ -95,9 +95,9 @@ struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable 
 			return .vaccination
 		} else if testEntry != nil {
 			return .test
-		} else {
-			return .unsupported
 		}
+
+		fatalError("Unsupported certificates are not added in the first place")
 	}
 
 	var isLastDoseInASeries: Bool {

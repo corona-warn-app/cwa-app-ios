@@ -24,11 +24,15 @@ final class HealthCertificateViewModel {
 			)
 		)
 
-		healthCertifiedPerson?.$vaccinationState
-			.sink { [weak self] in
-				self?.gradientType = $0.gradientType
-			}
-			.store(in: &subscriptions)
+		if healthCertificate.type == .test {
+			gradientType = .green
+		} else {
+			healthCertifiedPerson?.$vaccinationState
+				.sink { [weak self] in
+					self?.gradientType = $0.gradientType
+				}
+				.store(in: &subscriptions)
+		}
 
 		updateHealthCertificateKeyValueCellViewModels()
 
@@ -86,8 +90,19 @@ final class HealthCertificateViewModel {
 		centerParagraphStyle.alignment = .center
 		centerParagraphStyle.lineSpacing = 10.0
 
-		let attributedName = NSAttributedString(
-			string: String(format: AppStrings.HealthCertificate.Details.vaccinationCount, healthCertificate.doseNumber, healthCertificate.totalSeriesOfDoses),
+		let title: String
+		let subtitle: String
+		switch healthCertificate.type {
+		case .vaccination:
+			title = String(format: AppStrings.HealthCertificate.Details.vaccinationCount, healthCertificate.doseNumber, healthCertificate.totalSeriesOfDoses)
+			subtitle = AppStrings.HealthCertificate.Details.certificate
+		case .test:
+			title = AppStrings.HealthCertificate.Details.TestCertificate.title
+			subtitle = AppStrings.HealthCertificate.Details.TestCertificate.subtitle
+		}
+
+		let attributedTitle = NSAttributedString(
+			string: title,
 			attributes: [
 				.font: UIFont.enaFont(for: .headline),
 				.foregroundColor: UIColor.enaColor(for: .textContrast),
@@ -95,8 +110,8 @@ final class HealthCertificateViewModel {
 			]
 		)
 
-		let attributedDetails = NSAttributedString(
-			string: AppStrings.HealthCertificate.Details.certificate,
+		let attributedSubtitle = NSAttributedString(
+			string: subtitle,
 			attributes: [
 				.font: UIFont.enaFont(for: .body),
 				.foregroundColor: UIColor.enaColor(for: .textContrast),
@@ -107,7 +122,7 @@ final class HealthCertificateViewModel {
 		return HealthCertificateSimpleTextCellViewModel(
 			backgroundColor: .clear,
 			textAlignment: .center,
-			attributedText: [attributedName, attributedDetails]
+			attributedText: [attributedTitle, attributedSubtitle]
 				.joined(with: "\n"),
 			topSpace: 18.0,
 			font: .enaFont(for: .headline),
@@ -119,7 +134,7 @@ final class HealthCertificateViewModel {
 	func numberOfItems(in section: TableViewSection) -> Int {
 		switch section {
 		case .headline:
-			return healthCertificate.vaccinationEntry == nil ? 0 : 1
+			return 1
 		case .qrCode:
 			return 1
 		case .details:

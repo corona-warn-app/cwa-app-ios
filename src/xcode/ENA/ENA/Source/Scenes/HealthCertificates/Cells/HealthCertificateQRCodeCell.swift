@@ -43,6 +43,8 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 		certificateCountLabel.text = cellViewModel.certificate
 		validityLabel.text = cellViewModel.validity
 		qrCodeImageView.accessibilityLabel = cellViewModel.accessibilityText
+
+		stackView.isHidden = cellViewModel.certificate == nil && cellViewModel.validity == nil
 	}
 
 	// MARK: - Private
@@ -51,6 +53,7 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 	private let qrCodeImageView = UIImageView()
 	private let certificateCountLabel = ENALabel()
 	private let validityLabel = ENALabel()
+	private let stackView = UIStackView()
 
 	private func setupView() {
 		backgroundColor = .clear
@@ -80,7 +83,7 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 		validityLabel.font = .enaFont(for: .body)
 		validityLabel.numberOfLines = 0
 
-		let stackView = UIStackView(arrangedSubviews: [certificateCountLabel, validityLabel])
+		stackView.addSubviews([certificateCountLabel, validityLabel])
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		stackView.alignment = .leading
 		stackView.axis = .vertical
@@ -97,6 +100,7 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 				qrCodeImageView.leadingAnchor.constraint(equalTo: backgroundContainerView.leadingAnchor, constant: 14.0),
 				qrCodeImageView.topAnchor.constraint(equalTo: backgroundContainerView.topAnchor, constant: 14.0),
 				qrCodeImageView.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor, constant: -14.0),
+				qrCodeImageView.bottomAnchor.constraint(lessThanOrEqualTo: backgroundContainerView.bottomAnchor, constant: -14.0),
 				qrCodeImageView.widthAnchor.constraint(equalTo: qrCodeImageView.heightAnchor),
 
 				stackView.leadingAnchor.constraint(equalTo: backgroundContainerView.leadingAnchor, constant: 14.0),
