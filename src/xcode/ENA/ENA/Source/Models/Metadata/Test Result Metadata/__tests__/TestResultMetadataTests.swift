@@ -5,7 +5,7 @@
 @testable import ENA
 import XCTest
 
-class TestResultMetadataTests: XCTestCase {
+class TestResultMetadataTests: CWATestCase {
 	/// Testpattern:
 	/// ENF empty risk, Checkin empty risk
 	/// ENF low, Checkin none
