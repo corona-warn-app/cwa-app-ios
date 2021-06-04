@@ -76,6 +76,7 @@
     {
       "parallelizable" : true,
       "skippedTests" : [
+        "HTTPClientCertificatePinningTests\/testAllProductionEndpoints()",
         "StatisticsProviderTests\/testFetchLiveStats()"
       ],
       "target" : {
