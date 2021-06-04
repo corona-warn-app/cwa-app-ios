@@ -5,7 +5,7 @@
 import Foundation
 import OpenCombine
 
-class TestCertificateRequest: Codable {
+class TestCertificateRequest: Codable, Equatable {
 
 	// MARK: - Init
 
@@ -66,6 +66,19 @@ class TestCertificateRequest: Codable {
 		try container.encode(encryptedDEK, forKey: .encryptedDEK)
 		try container.encode(encryptedCOSE, forKey: .encryptedCOSE)
 		try container.encode(requestExecutionFailed, forKey: .requestExecutionFailed)
+	}
+
+	// MARK: - Protocol Equatable
+
+	static func == (lhs: TestCertificateRequest, rhs: TestCertificateRequest) -> Bool {
+		lhs.coronaTestType == rhs.coronaTestType &&
+		lhs.registrationToken == rhs.registrationToken &&
+		lhs.registrationDate == rhs.registrationDate &&
+		lhs.rsaKeyPair == rhs.rsaKeyPair &&
+		lhs.rsaPublicKeyRegistered == rhs.rsaPublicKeyRegistered &&
+		lhs.encryptedDEK == rhs.encryptedDEK &&
+		lhs.encryptedCOSE == rhs.encryptedCOSE &&
+		lhs.requestExecutionFailed == rhs.requestExecutionFailed
 	}
 
 	// MARK: - Internal

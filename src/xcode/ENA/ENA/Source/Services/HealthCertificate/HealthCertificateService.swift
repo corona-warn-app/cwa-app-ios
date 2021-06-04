@@ -302,6 +302,7 @@ class HealthCertificateService {
 			switch result {
 			case .success(let healthCertificateBase45):
 				registerHealthCertificate(base45: healthCertificateBase45)
+				removeTestCertificateRequest(testCertificateRequest)
 			case .failure(let error):
 				testCertificateRequest.requestExecutionFailed = true
 				completion?(.failure(.assemblyFailed(error)))
@@ -317,6 +318,13 @@ class HealthCertificateService {
 
 		healthCertifiedPersons.value = store.healthCertifiedPersons
 		testCertificateRequests.value = store.testCertificateRequests
+	}
+
+	func removeTestCertificateRequest(_ testCertificateRequest: TestCertificateRequest) {
+		testCertificateRequest.rsaKeyPair?.removeFromKeychain()
+		if let index = testCertificateRequests.value.firstIndex(of: testCertificateRequest) {
+			testCertificateRequests.value.remove(at: index)
+		}
 	}
 
 	// MARK: - Private
