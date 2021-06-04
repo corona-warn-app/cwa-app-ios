@@ -34,11 +34,13 @@ class DCCRSAKeyPairTests: CWATestCase {
 
 		// Create new key pair
 
-		let newKeyPair = try? DCCRSAKeyPair(registrationToken: "registrationToken2")
+		let newKeyPair = try? DCCRSAKeyPair(registrationToken: "registrationToken")
 
 		XCTAssertNotNil(newKeyPair)
 		XCTAssertNotEqual(try newKeyPair?.privateKey(), try newKeyPair?.publicKey())
 		XCTAssertEqual(try newKeyPair?.publicKeyForBackend().count, 564)
+
+		keyPair?.removeFromKeychain()
 	}
 
 }
