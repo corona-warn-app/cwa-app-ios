@@ -33,7 +33,7 @@ enum DCCErrors {
 		case tokenDoesNotExist
 		case dccAlreadyCleanedUp
 		case testResultNotYetReceived
-		case internalServerError(String)
+		case internalServerError(reason: String?)
 		case defaultServerError(Error)
 		
 		// MARK: - Protocol Equatable

@@ -579,8 +579,21 @@ final class HTTPClient: Client {
 					completion(.failure(.testResultNotYetReceived))
 				case 500:
 					Log.error("HTTP error code 500. Internal server error.", log: .api)
-					// TODO: Pass in reason
-					completion(.failure(.internalServerError("REASON")))
+					guard let responseBody = response.body else {
+						Log.error("Error in code 500 response body: \(response.statusCode)", log: .api)
+						completion(.failure(.unhandledResponse(response.statusCode)))
+						return
+					}
+					do {
+						let decodedResponse = try JSONDecoder().decode(
+							DCC500Response.self,
+							from: responseBody
+						)
+						completion(.failure(.internalServerError(reason: decodedResponse.reason)))
+					} catch {
+						Log.error("Failed to decode code 500 response json", log: .api, error: error)
+						completion(.failure(.internalServerError(reason: nil)))
+					}
 				default:
 					Log.error("Unhandled http status code: \(String(response.statusCode))", log: .api)
 					completion(.failure(.unhandledResponse(response.statusCode)))
