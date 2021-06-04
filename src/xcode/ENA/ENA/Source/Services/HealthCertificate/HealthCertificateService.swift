@@ -136,8 +136,9 @@ class HealthCertificateService {
 		completion: ((Result<Void, HealthCertificateServiceError.TestCertificateRequestError>) -> Void)? = nil
 	) {
 		do {
-			let rsaKeyPair = try testCertificateRequest.rsaKeyPair ?? DCCRSAKeyPair()
+			let rsaKeyPair = try testCertificateRequest.rsaKeyPair ?? DCCRSAKeyPair(registrationToken: testCertificateRequest.registrationToken)
 			testCertificateRequest.rsaKeyPair = rsaKeyPair
+			let publicKey = try rsaKeyPair.publicKeyForBackend()
 
 			appConfiguration.appConfiguration()
 				.sink { [weak self] in
@@ -160,7 +161,7 @@ class HealthCertificateService {
 						self.client.dccRegisterPublicKey(
 							isFake: false,
 							token: testCertificateRequest.registrationToken,
-							publicKey: rsaKeyPair.publicKeyForBackend,
+							publicKey: publicKey,
 							completion: { result in
 								switch result {
 								case .success():

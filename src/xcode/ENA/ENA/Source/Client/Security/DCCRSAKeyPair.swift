@@ -7,35 +7,73 @@ import Foundation
 // MARK: - Digital COVID Certificate
 
 enum DCCRSAKeyPairError: Error {
-	case keyPairGeneration(String)	// Key generation failed
-	case publicKey(Error?) // Unable to get public key representation
-	case encoding(Error?) // Encoding failed
-	case decoding(Error?) // Decoding failed
-	case decryption(Error?) // Decoding failed
+	case keyPairGenerationFailed(String)
+	case keychainRetrievalFailed(String)
+	case gettingDataRepresentationFailed(Error?)
+	case decryptionFailed(Error?)
 }
 
 struct DCCRSAKeyPair: Codable, Equatable {
 
 	// MARK: - Init
 
-	init() throws {
-		var _publicKey: SecKey?
-		var _privateKey: SecKey?
+	init(registrationToken: String) throws {
+		self.registrationToken = registrationToken
 
-		let statusCode = SecKeyGeneratePair(DCCRSAKeyPair.keyPairAttr, &_publicKey, &_privateKey)
+		let privateKeyStatus = SecItemCopyMatching(query(for: privateKeyTag), nil)
+		let publicKeyStatus = SecItemCopyMatching(query(for: publicKeyTag), nil)
 
-		guard statusCode == noErr, let publicKey = _publicKey, let privateKey = _privateKey else {
-			let errorText = String(describing: statusCode)
+		if privateKeyStatus == noErr && publicKeyStatus == noErr {
+			// Keys were already generated
+			return
+		}
+
+		let status = SecKeyGeneratePair(keyPairAttr, nil, nil)
+
+		guard status == noErr else {
+			let errorText = String(describing: status)
 			Log.error("Error generating DGC RSA key pair: \(errorText)", log: .crypto)
-			throw DCCRSAKeyPairError.keyPairGeneration(errorText)
+			throw DCCRSAKeyPairError.keyPairGenerationFailed(errorText)
 		}
-		self.privateKey = privateKey
-		self.publicKey = publicKey
+	}
 
-		var error: Unmanaged<CFError>?
-		guard let publicKeyData = SecKeyCopyExternalRepresentation(publicKey, &error) as Data? else {
-			throw DCCRSAKeyPairError.publicKey(error?.takeUnretainedValue())
+	// MARK: - Internal
+
+	func privateKey() throws -> SecKey {
+		var keychainItem: CFTypeRef?
+		let status = SecItemCopyMatching(query(for: privateKeyTag), &keychainItem)
+
+		guard status == noErr else {
+			let errorText = String(describing: status)
+			Log.error("Error retrieving private key from keychain: \(errorText)", log: .crypto)
+			throw DCCRSAKeyPairError.keychainRetrievalFailed(errorText)
 		}
+
+		// swiftlint:disable:next force_cast
+		return keychainItem as! SecKey
+	}
+
+	func publicKey() throws -> SecKey {
+		var keychainItem: CFTypeRef?
+		let status = SecItemCopyMatching(query(for: publicKeyTag), &keychainItem)
+
+		guard status == noErr else {
+			let errorText = String(describing: status)
+			Log.error("Error retrieving public key from keychain: \(errorText)", log: .crypto)
+			throw DCCRSAKeyPairError.keychainRetrievalFailed(errorText)
+		}
+
+		// swiftlint:disable:next force_cast
+		return keychainItem as! SecKey
+	}
+	
+	/// The publicKey with added RSA Header and Base64 encoded
+	func publicKeyForBackend() throws -> String {
+		var error: Unmanaged<CFError>?
+		guard let publicKeyData = SecKeyCopyExternalRepresentation(try publicKey(), &error) as Data? else {
+			throw DCCRSAKeyPairError.gettingDataRepresentationFailed(error?.takeUnretainedValue())
+		}
+
 		let publicKeyWithRSAHeader = Data([
 			0x30, 0x82, 0x01, 0xA2,
 			0x30, 0x0D,
@@ -43,84 +81,48 @@ struct DCCRSAKeyPair: Codable, Equatable {
 			0x05, 0x00,
 			0x03, 0x82, 0x01, 0x8F, 0x00
 		]) + publicKeyData
-		self.publicKeyForBackend = publicKeyWithRSAHeader.base64EncodedString()
+
+		return publicKeyWithRSAHeader.base64EncodedString()
 	}
-
-	// MARK: - Protocol Codable
-
-	enum CodingKeys: String, CodingKey {
-		case publicKey
-		case privateKey
-		case publicKeyForBackend
-	}
-
-	init(from decoder: Decoder) throws {
-		let container = try decoder.container(keyedBy: CodingKeys.self)
-
-		let publicKeyData = try container.decode(Data.self, forKey: .publicKey)
-		let privateKeyData = try container.decode(Data.self, forKey: .privateKey)
-
-		var error: Unmanaged<CFError>?
-		guard let publicKey = SecKeyCreateWithData(publicKeyData as CFData, DCCRSAKeyPair.keyPairAttr, &error),
-			  let privateKey = SecKeyCreateWithData(privateKeyData as CFData, DCCRSAKeyPair.keyPairAttr, &error) else {
-			Log.error("RSA key pair decoding failed: \(String(describing: (error as? Error)?.localizedDescription))", log: .crypto)
-			throw DCCRSAKeyPairError.decoding(error?.takeUnretainedValue())
-		}
-
-		self.publicKey = publicKey
-		self.privateKey = privateKey
-
-		publicKeyForBackend = try container.decode(String.self, forKey: .publicKeyForBackend)
-	}
-
-	func encode(to encoder: Encoder) throws {
-		var container = encoder.container(keyedBy: CodingKeys.self)
-
-		var error: Unmanaged<CFError>?
-		guard let publicKeyData = SecKeyCopyExternalRepresentation(publicKey, &error) as Data?,
-			  let privateKeyData = SecKeyCopyExternalRepresentation(privateKey, &error) as Data? else {
-			Log.error("RSA key pair encoding failed: \(String(describing: (error as? Error)?.localizedDescription))", log: .crypto)
-			throw DCCRSAKeyPairError.encoding(error?.takeUnretainedValue())
-		}
-
-		try container.encode(publicKeyData, forKey: .publicKey)
-		try container.encode(privateKeyData, forKey: .privateKey)
-		try container.encode(publicKeyForBackend, forKey: .publicKeyForBackend)
-	}
-
-	// MARK: - Internal
-	
-	let publicKey: SecKey
-	let privateKey: SecKey
-	
-	/// The publicKey with added RSA Header and Base64 encoded
-	let publicKeyForBackend: String
 
 	func decrypt(_ cipherText: Data) throws -> Data {
 		var error: Unmanaged<CFError>?
-		guard let clearText = SecKeyCreateDecryptedData(privateKey, .rsaEncryptionOAEPSHA256, cipherText as CFData, &error) as Data? else {
+		guard let clearText = SecKeyCreateDecryptedData(try privateKey(), .rsaEncryptionOAEPSHA256, cipherText as CFData, &error) as Data? else {
 			Log.error("RSA decryption failed: \(String(describing: (error as? Error)?.localizedDescription))", log: .crypto)
-			throw DCCRSAKeyPairError.encoding(error?.takeUnretainedValue())
+			throw DCCRSAKeyPairError.decryptionFailed(error?.takeUnretainedValue())
 		}
 
 		return clearText
 	}
 
+	func removeFromKeychain() {
+		SecItemDelete(query(for: privateKeyTag))
+		SecItemDelete(query(for: publicKeyTag))
+	}
+
 	// MARK: - Private
 
-	private static let keyPairAttr: CFDictionary = {
-		let tag = Bundle.main.bundleIdentifier ?? "de.rki.coronawarnapp"
+	private let registrationToken: String
+	
+	private var privateKeyTag: Data {
+		"de.rki.coronawarnapp.dcc.\(registrationToken).private".data(using: String.Encoding.utf8) ?? Data()
+	}
 
+	private var publicKeyTag: Data {
+		"de.rki.coronawarnapp.dcc.\(registrationToken).public".data(using: String.Encoding.utf8) ?? Data()
+	}
+
+	private var keyPairAttr: CFDictionary {
 		let publicKeyAttr: [NSObject: NSObject] = [
 			kSecAttrIsPermanent: true as NSObject,
-			kSecAttrApplicationTag: ("\(tag).dgc.public".data(using: String.Encoding.utf8) ?? Data()) as NSObject,
+			kSecAttrApplicationTag: publicKeyTag as NSObject,
 			kSecClass: kSecClassKey,
 			kSecReturnData: kCFBooleanTrue
 		]
 
 		let privateKeyAttr: [NSObject: NSObject] = [
 			kSecAttrIsPermanent: true as NSObject,
-			kSecAttrApplicationTag: ("\(tag).dgc.private".data(using: String.Encoding.utf8) ?? Data()) as NSObject,
+			kSecAttrApplicationTag: privateKeyTag as NSObject,
 			kSecClass: kSecClassKey,
 			kSecReturnData: kCFBooleanTrue
 		]
@@ -132,6 +134,17 @@ struct DCCRSAKeyPair: Codable, Equatable {
 		keyPairAttr[kSecPrivateKeyAttrs] = privateKeyAttr as NSObject
 
 		return keyPairAttr as CFDictionary
-	}()
+	}
+
+	private func query(for tag: Data) -> CFDictionary {
+		let query: [String: Any] = [
+			kSecClass as String: kSecClassKey,
+			kSecAttrApplicationTag as String: tag,
+			kSecAttrKeyType as String: kSecAttrKeyTypeRSA,
+			kSecReturnRef as String: true
+		]
+
+		return query as CFDictionary
+	}
 
 }

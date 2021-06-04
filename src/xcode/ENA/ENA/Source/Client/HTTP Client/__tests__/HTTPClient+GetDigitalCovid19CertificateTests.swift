@@ -264,7 +264,9 @@ final class HTTPClientGetDigitalCovid19CertificateTests: CWATestCase {
 			httpStatus: 500,
 			responseData: Data()
 		)
-		let expectedFailure = DCCErrors.DigitalCovid19CertificateError.internalServerError
+
+		// TODO: Adjust reason
+		let expectedFailure = DCCErrors.DigitalCovid19CertificateError.internalServerError("REASON")
 		let expectation = self.expectation(description: "test should succeed with DCCResponse")
 		var mockFailure: DCCErrors.DigitalCovid19CertificateError?
 		
