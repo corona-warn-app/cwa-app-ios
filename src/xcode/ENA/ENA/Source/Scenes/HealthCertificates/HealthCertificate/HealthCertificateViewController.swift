@@ -10,7 +10,7 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 	// MARK: - Init
 
 	init(
-		healthCertifiedPerson: HealthCertifiedPerson,
+		healthCertifiedPerson: HealthCertifiedPerson?,
 		healthCertificate: HealthCertificate,
 		vaccinationValueSetsProvider: VaccinationValueSetsProvider,
 		dismiss: @escaping () -> Void,

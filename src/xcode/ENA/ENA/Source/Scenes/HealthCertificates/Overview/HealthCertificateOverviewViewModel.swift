@@ -68,7 +68,7 @@ class HealthCertificateOverviewViewModel {
 	}
 
 	func testCertificate(at indexPath: IndexPath) -> HealthCertificate? {
-		guard Section(rawValue: indexPath.section) == .healthCertificate,
+		guard Section(rawValue: indexPath.section) == .testCertificates,
 			  testCertificates.indices.contains(indexPath.row) else {
 			Log.debug("Tried to access unknown testCertificate - stop")
 			return nil

@@ -82,8 +82,11 @@ final class HealthCertificatesCoordinator {
 				self?.showHealthCertifiedPerson(healthCertifiedPerson)
 			},
 			onTestCertificateTap: { [weak self] testCertificate in
-				// TODO: show
-//				self?.showHealthCertifiedPerson(healthCertifiedPerson)
+				self?.showHealthCertificate(
+					healthCertifiedPerson: nil,
+					healthCertificate: testCertificate,
+					shouldPushOnModalNavigationController: false
+				)
 			}
 		)
 	}()
@@ -182,7 +185,8 @@ final class HealthCertificatesCoordinator {
 			didTapHealthCertificate: { [weak self] healthCertificate in
 				self?.showHealthCertificate(
 					healthCertifiedPerson: healthCertifiedPerson,
-					healthCertificate: healthCertificate
+					healthCertificate: healthCertificate,
+					shouldPushOnModalNavigationController: true
 				)
 			},
 			didTapRegisterAnotherHealthCertificate: { [weak self] in
@@ -224,8 +228,9 @@ final class HealthCertificatesCoordinator {
 	}
 	
 	private func showHealthCertificate(
-		healthCertifiedPerson: HealthCertifiedPerson,
-		healthCertificate: HealthCertificate
+		healthCertifiedPerson: HealthCertifiedPerson?,
+		healthCertificate: HealthCertificate,
+		shouldPushOnModalNavigationController: Bool
 	) {
 		let healthCertificateViewController = HealthCertificateViewController(
 			healthCertifiedPerson: healthCertifiedPerson,
@@ -263,7 +268,13 @@ final class HealthCertificatesCoordinator {
 			topController: healthCertificateViewController,
 			bottomController: footerViewController
 		)
-		modalNavigationController.pushViewController(topBottomContainerViewController, animated: true)
+
+		if shouldPushOnModalNavigationController {
+			modalNavigationController.pushViewController(topBottomContainerViewController, animated: true)
+		} else {
+			modalNavigationController = UINavigationController(rootViewController: topBottomContainerViewController)
+			viewController.present(self.modalNavigationController, animated: true)
+		}
 	}
 	
 	private func showDeleteAlert(submitAction: UIAlertAction) {
