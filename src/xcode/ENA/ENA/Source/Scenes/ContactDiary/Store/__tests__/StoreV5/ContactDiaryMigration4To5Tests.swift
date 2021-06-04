@@ -6,7 +6,7 @@ import XCTest
 import FMDB
 @testable import ENA
 
-class ContactDiaryMigration4To5Tests: XCTestCase {
+class ContactDiaryMigration4To5Tests: CWATestCase {
 
 	func test_WHEN_migrationFrom4To5_THEN_OldAndNewTablesArePresent() throws {
 
