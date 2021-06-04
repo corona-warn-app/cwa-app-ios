@@ -263,10 +263,18 @@ final class HealthCertificatesCoordinator {
 				)
 			}
 		)
+
+		let primaryButtonTitle: String
+		switch healthCertificate.type {
+		case .vaccination:
+			primaryButtonTitle = AppStrings.HealthCertificate.Details.primaryButton
+		case .test:
+			primaryButtonTitle = AppStrings.HealthCertificate.Details.TestCertificate.primaryButton
+		}
 		
 		let footerViewController = FooterViewController(
 			FooterViewModel(
-				primaryButtonName: AppStrings.HealthCertificate.Details.primaryButton,
+				primaryButtonName: primaryButtonTitle,
 				isPrimaryButtonEnabled: true,
 				isSecondaryButtonEnabled: false,
 				isSecondaryButtonHidden: true,
