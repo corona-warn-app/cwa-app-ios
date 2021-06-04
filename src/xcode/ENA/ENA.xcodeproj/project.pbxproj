@@ -110,7 +110,6 @@
 		017AD18725A5C70700FA2B3F /* DynamicCell+ExposureDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017AD18625A5C70700FA2B3F /* DynamicCell+ExposureDetection.swift */; };
 		017D8D9A263AF3730009E91C /* HealthCertificateServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017D8D99263AF3730009E91C /* HealthCertificateServiceTests.swift */; };
 		017D8D9D263B02870009E91C /* HealthCertificateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017D8D9C263B02860009E91C /* HealthCertificateService.swift */; };
-		017D8DA2263B02E10009E91C /* DigitalGreenCertificate+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017D8DA1263B02E00009E91C /* DigitalGreenCertificate+Extension.swift */; };
 		017D8DA6263B02F70009E91C /* HealthCertificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017D8DA4263B02F40009E91C /* HealthCertificate.swift */; };
 		017D8DA7263B02F70009E91C /* HealthCertifiedPerson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017D8DA3263B02F30009E91C /* HealthCertifiedPerson.swift */; };
 		017D8DA8263B02F70009E91C /* Name+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017D8DA5263B02F60009E91C /* Name+Extension.swift */; };
@@ -1312,7 +1311,6 @@
 		017AD18625A5C70700FA2B3F /* DynamicCell+ExposureDetection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DynamicCell+ExposureDetection.swift"; sourceTree = "<group>"; };
 		017D8D99263AF3730009E91C /* HealthCertificateServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateServiceTests.swift; sourceTree = "<group>"; };
 		017D8D9C263B02860009E91C /* HealthCertificateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateService.swift; sourceTree = "<group>"; };
-		017D8DA1263B02E00009E91C /* DigitalGreenCertificate+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DigitalGreenCertificate+Extension.swift"; sourceTree = "<group>"; };
 		017D8DA3263B02F30009E91C /* HealthCertifiedPerson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertifiedPerson.swift; sourceTree = "<group>"; };
 		017D8DA4263B02F40009E91C /* HealthCertificate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificate.swift; sourceTree = "<group>"; };
 		017D8DA5263B02F60009E91C /* Name+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Name+Extension.swift"; sourceTree = "<group>"; };
@@ -3243,7 +3241,6 @@
 		01E05137263C436100D57A5E /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				017D8DA1263B02E00009E91C /* DigitalGreenCertificate+Extension.swift */,
 				017D8DA5263B02F60009E91C /* Name+Extension.swift */,
 				017D8DA9263B03BD0009E91C /* VaccinationCertificate+Extension.swift */,
 			);
@@ -7934,7 +7931,6 @@
 				8F070CE925E58B9400D29344 /* HtmlInfoModel.swift in Sources */,
 				EB7D205424E6A3320089264C /* InfoBoxView.swift in Sources */,
 				AB190F1C25FFAF3400FBFF0D /* ContactDiaryStoreSchemaV2.swift in Sources */,
-				017D8DA2263B02E10009E91C /* DigitalGreenCertificate+Extension.swift in Sources */,
 				71CAB9D2248AACAD00F516A5 /* PixelPerfectLayoutConstraint.swift in Sources */,
 				710021E0248EAF9A001F0B63 /* ExposureSubmissionImageCardCell.swift in Sources */,
 				8F39D094263F6F5D0096F4E2 /* VaccinationValueDataSets.swift in Sources */,
