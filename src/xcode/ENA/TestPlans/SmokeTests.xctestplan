@@ -27,6 +27,7 @@
       "parallelizable" : true,
       "skippedTests" : [
         "ExposureSubmissionCheckinTests\/testCheckinTransmissionPreparation()",
+        "HTTPClientCertificatePinningTests\/testAllProductionEndpoints()",
         "StatisticsProviderTests\/testFetchLiveStats()"
       ],
       "target" : {
