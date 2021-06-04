@@ -52,7 +52,9 @@ class HTTPClientCertificatePinningTests: CWATestCase {
 		waitForExpectations(timeout: 30)
     }
 
-	/// Testing certificate pinning in the main endpoints on `production` and `wru`
+	/// Testing certificate pinning in the main endpoints on `production` and `wru`.
+	///
+	/// Disabled because the shitty CI & servers don't want to communicate.
 	func testAllProductionEndpoints() throws {
 		let descriptor = EnvironmentDescriptor.production
 		let env = Environments().environment(descriptor)
