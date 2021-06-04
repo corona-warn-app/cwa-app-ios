@@ -512,7 +512,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionDispatch_QRCodeButtonTitle" = "QR-Code scannen";
 
-"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Erhalten Sie Ihr Testergebnis in der App und warnen Sie andere oder fordern Sie Ihr COVID-19-Testzertifikat an.";
+"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Erhalten Sie Ihr Testergebnis in der App und warnen Sie andere oder fordern Sie Ihr COVID-Testzertifikat an.";
 
 "ExposureSubmissionDispatch_TANButtonTitle" = "TAN für PCR-Test eingeben";
 
@@ -568,7 +568,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionQRInfo_instruction2" = "Jeder Test kann nur einmal gescannt werden. Die App kann maximal einen Schnelltest und einen PCR-Test gleichzeitig verwalten.";
 
-"ExposureSubmissionQRInfo_instruction2a" = "Wenn Ihr Testergebnis negativ ist, können Sie dies in Form eines offiziellen COVID-19-Testzertifikats bestätigen lassen. Fordern Sie hierfür in den folgenden Schritten das Testzertifikat an.";
+"ExposureSubmissionQRInfo_instruction2a" = "Wenn Ihr Testergebnis negativ ist, können Sie dies in Form eines offiziellen COVID-Testzertifikats bestätigen lassen. Fordern Sie hierfür in den folgenden Schritten das Testzertifikat an.";
 
 "ExposureSubmissionQRInfo_instruction3" = "Die App kann %@ gleichzeitig mehrere Tests verwalten.";
 
@@ -1276,7 +1276,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Home_TestRegistration_Title" = "Test registrieren";
 
-"Home_TestRegistration_Body" = "Nutzen Sie die App, um Ihr Testergebnis abzurufen und andere schneller warnen zu können, oder um Ihr COVID-19-Testzertifikat anzufordern.";
+"Home_TestRegistration_Body" = "Nutzen Sie die App, um Ihr Testergebnis abzurufen und andere schneller warnen zu können, oder um Ihr COVID-Testzertifikat anzufordern.";
 
 "Home_TestRegistration_Button" = "Nächste Schritte";
 
