@@ -257,7 +257,12 @@ final class HealthCertificatesCoordinator {
 						style: .default,
 						handler: { _ in
 							self?.healthCertificateService.removeHealthCertificate(healthCertificate)
-							self?.modalNavigationController.popToRootViewController(animated: true)
+
+							if shouldPushOnModalNavigationController {
+								self?.modalNavigationController.popToRootViewController(animated: true)
+							} else {
+								self?.modalNavigationController.dismiss(animated: true)
+							}
 						}
 					)
 				)
