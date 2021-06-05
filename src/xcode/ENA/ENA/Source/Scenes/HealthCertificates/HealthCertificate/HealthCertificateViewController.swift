@@ -95,6 +95,10 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 			return cell
 		case .bottomCorner:
 			return tableView.dequeueReusableCell(cellType: HealthCertificateBottomCornerCell.self, for: indexPath)
+		case .additionalInfo:
+			let cell = tableView.dequeueReusableCell(cellType: HealthCertificateSimpleTextCell.self, for: indexPath)
+			cell.configure(with: viewModel.additionalInfoCellViewModels[indexPath.row])
+			return cell
 		case .none:
 			fatalError("can't dequeue a cell for an unknown section")
 		}

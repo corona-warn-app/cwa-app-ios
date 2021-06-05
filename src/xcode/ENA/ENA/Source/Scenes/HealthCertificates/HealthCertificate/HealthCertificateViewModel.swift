@@ -67,6 +67,7 @@ final class HealthCertificateViewModel {
 		case topCorner
 		case details
 		case bottomCorner
+		case additionalInfo
 
 		static var numberOfSections: Int {
 			allCases.count
@@ -125,11 +126,34 @@ final class HealthCertificateViewModel {
 			textAlignment: .center,
 			attributedText: [attributedTitle, attributedSubtitle]
 				.joined(with: "\n"),
-			topSpace: 18.0,
+			topSpace: 16.0,
 			font: .enaFont(for: .headline),
 			accessibilityTraits: .staticText,
 			accessibilityIdentifier: AccessibilityIdentifiers.HealthCertificate.Certificate.headline
 		)
+	}
+
+	var additionalInfoCellViewModels: [HealthCertificateSimpleTextCellViewModel] {
+		return [
+			HealthCertificateSimpleTextCellViewModel(
+				backgroundColor: .enaColor(for: .cellBackground2),
+				textAlignment: .left,
+				text: "Diese Bescheinigung ist kein Reisedokument. Die wissenschaftlichen Erkenntnisse zu COVID-19 in den Bereichen Impfung, Testung und Genesung entwickeln sich fortlaufend weiter, auch im Hinblick auf neue besorgniserregende Virusvarianten. Bitte informieren Sie sich vor Reiseantritt über die am Zielort geltenden Gesundheitsmaßnahmen und entsprechenden Beschränkungen.\nInformationen über die in den jeweiligen EU-Ländern geltenden Einreisebestimmungen finden Sie unter https://reopen.europa.eu/de.",
+				topSpace: 16.0,
+				font: .enaFont(for: .body),
+				borderColor: .enaColor(for: .hairline),
+				accessibilityTraits: .staticText
+			),
+			HealthCertificateSimpleTextCellViewModel(
+				backgroundColor: .enaColor(for: .cellBackground2),
+				textAlignment: .left,
+				text: "This certificate is not a travel document. The scientific evidence on COVID-19 vaccination, testing, and recovery continues to evolve, also in view of new variants of concern of the virus. Before traveling, please check the applicable public health measures and related restrictions applied at the point of destination.\nInformation on the current travel restrictions that apply to EU countries is available at https://reopen.europa.eu/en.",
+				topSpace: 16.0,
+				font: .enaFont(for: .body),
+				borderColor: .enaColor(for: .hairline),
+				accessibilityTraits: .staticText
+			)
+		]
 	}
 
 	func numberOfItems(in section: TableViewSection) -> Int {
@@ -142,6 +166,8 @@ final class HealthCertificateViewModel {
 			return healthCertificateKeyValueCellViewModel.count
 		case .topCorner, .bottomCorner:
 			return healthCertificateKeyValueCellViewModel.isEmpty ? 0 : 1
+		case .additionalInfo:
+			return additionalInfoCellViewModels.count
 		}
 	}
 
