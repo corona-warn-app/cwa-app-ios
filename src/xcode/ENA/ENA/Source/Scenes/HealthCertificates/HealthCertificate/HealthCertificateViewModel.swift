@@ -4,6 +4,7 @@
 
 import UIKit
 import OpenCombine
+import HealthCertificateToolkit
 
 final class HealthCertificateViewModel {
 
@@ -24,7 +25,7 @@ final class HealthCertificateViewModel {
 			)
 		)
 
-		if healthCertificate.type == .test {
+		if case .test = healthCertificate.type {
 			gradientType = .green
 		} else {
 			healthCertifiedPerson?.$vaccinationState
@@ -150,6 +151,9 @@ final class HealthCertificateViewModel {
 		case vaccineOrProphylaxis
 		case vaccineMedicinalProduct
 		case marketingAuthorizationHolder
+		case diseaseOrAgentTargeted
+		case typeOfTest
+		case testResult
 	}
 
 	private let healthCertificate: HealthCertificateData
@@ -159,6 +163,15 @@ final class HealthCertificateViewModel {
 	private var subscriptions = Set<AnyCancellable>()
 
 	private func updateHealthCertificateKeyValueCellViewModels() {
+		switch healthCertificate.type {
+		case .vaccination(let vaccinationEntry):
+			updateVaccinationCertificateKeyValueCellViewModels(vaccinationEntry: vaccinationEntry)
+		case .test(let testEntry):
+			updateTestCertificateKeyValueCellViewModels(testEntry: testEntry)
+		}
+	}
+
+	private func updateVaccinationCertificateKeyValueCellViewModels(vaccinationEntry: VaccinationEntry) {
 		// person cell - always visible
 		var dateOfBirth: String = ""
 		if let date = healthCertificate.dateOfBirthDate {
@@ -179,47 +192,44 @@ final class HealthCertificateViewModel {
 			)
 		}
 
-		var vaccineCellViewModel: HealthCertificateKeyValueCellViewModel?
-		if let key = healthCertificate.vaccinationEntry?.vaccineMedicinalProduct {
-			vaccineCellViewModel = HealthCertificateKeyValueCellViewModel(
-				key: AppStrings.HealthCertificate.Details.vaccine,
-				value: determineValue(key: key, valueSet: valueSet(by: .vaccineMedicinalProduct))
+		let vaccineCellViewModel = HealthCertificateKeyValueCellViewModel(
+			key: AppStrings.HealthCertificate.Details.vaccine,
+			value: determineValue(
+				key: vaccinationEntry.vaccineMedicinalProduct,
+				valueSet: valueSet(by: .vaccineMedicinalProduct)
 			)
-		}
+		)
 
-		var manufacturerCellViewModel: HealthCertificateKeyValueCellViewModel?
-		if let key = healthCertificate.vaccinationEntry?.marketingAuthorizationHolder {
-			manufacturerCellViewModel = HealthCertificateKeyValueCellViewModel(
-				key: AppStrings.HealthCertificate.Details.manufacture,
-				value: determineValue(key: key, valueSet: valueSet(by: .marketingAuthorizationHolder))
+		let manufacturerCellViewModel = HealthCertificateKeyValueCellViewModel(
+			key: AppStrings.HealthCertificate.Details.manufacture,
+			value: determineValue(
+				key: vaccinationEntry.marketingAuthorizationHolder,
+				valueSet: valueSet(by: .marketingAuthorizationHolder)
 			)
-		}
+		)
 
-		var vaccineTypeCellViewModel: HealthCertificateKeyValueCellViewModel?
-		if let key = healthCertificate.vaccinationEntry?.vaccineOrProphylaxis {
-			vaccineTypeCellViewModel = HealthCertificateKeyValueCellViewModel(
-				key: AppStrings.HealthCertificate.Details.vaccineType,
-				value: determineValue(key: key, valueSet: valueSet(by: .vaccineOrProphylaxis))
+		let vaccineTypeCellViewModel = HealthCertificateKeyValueCellViewModel(
+			key: AppStrings.HealthCertificate.Details.vaccineType,
+			value: determineValue(
+				key: vaccinationEntry.vaccineOrProphylaxis,
+				valueSet: valueSet(by: .vaccineOrProphylaxis)
 			)
-		}
+		)
 
 		let issuerCellViewModel = HealthCertificateKeyValueCellViewModel(
 			key: AppStrings.HealthCertificate.Details.issuer,
-			value: healthCertificate.vaccinationEntry?.certificateIssuer
+			value: vaccinationEntry.certificateIssuer
 		)
 
-		var countryCellViewModel: HealthCertificateKeyValueCellViewModel?
-		if	let countryCode = healthCertificate.vaccinationEntry?.countryOfVaccination,
-			let country = Country(countryCode: countryCode) {
-			countryCellViewModel = HealthCertificateKeyValueCellViewModel(
-				key: AppStrings.HealthCertificate.Details.country,
-				value: country.localizedName
-			)
-		}
+		let localizedCountryName = Country(countryCode: vaccinationEntry.countryOfVaccination)?.localizedName
+		let countryCellViewModel = HealthCertificateKeyValueCellViewModel(
+			key: AppStrings.HealthCertificate.Details.country,
+			value: localizedCountryName ?? vaccinationEntry.countryOfVaccination
+		)
 
 		let certificateNumberCellViewModel = HealthCertificateKeyValueCellViewModel(
 			key: AppStrings.HealthCertificate.Details.identifier,
-			value: healthCertificate.vaccinationEntry?.uniqueCertificateIdentifier,
+			value: vaccinationEntry.uniqueCertificateIdentifier,
 			isBottomSeparatorHidden: true,
 			bottomSpace: 2.0
 		)
@@ -237,6 +247,112 @@ final class HealthCertificateViewModel {
 		.compactMap { $0 }
 	}
 
+	private func updateTestCertificateKeyValueCellViewModels(testEntry: TestEntry) {
+		let nameCellViewModel = HealthCertificateKeyValueCellViewModel(
+			key: "Name, Vorname / Name, First Name",
+			value: healthCertificate.name.fullName,
+			topSpace: 2.0
+		)
+
+		var dateOfBirthCellViewModel: HealthCertificateKeyValueCellViewModel?
+		if let dateOfBirthDate = healthCertificate.dateOfBirthDate {
+			dateOfBirthCellViewModel = HealthCertificateKeyValueCellViewModel(
+				key: "Geburtsdatum / Date of Birth",
+				value: DateFormatter.localizedString(from: dateOfBirthDate, dateStyle: .medium, timeStyle: .none)
+			)
+		}
+
+		let diseaseOrAgentTargetedCellViewModel = HealthCertificateKeyValueCellViewModel(
+			key: "Zielkrankheit oder. -erreger / Disease or Agent Targeted",
+			value: determineValue(
+				key: testEntry.diseaseOrAgentTargeted,
+				valueSet: valueSet(by: .diseaseOrAgentTargeted)
+			)
+		)
+
+		let typeOfTestCellViewModel = HealthCertificateKeyValueCellViewModel(
+			key: "Art des Tests / Type of Test",
+			value: determineValue(
+				key: testEntry.typeOfTest,
+				valueSet: valueSet(by: .typeOfTest)
+			)
+		)
+
+		var naaTestNameCellViewModel: HealthCertificateKeyValueCellViewModel?
+		if let naaTestName = testEntry.naaTestName {
+			naaTestNameCellViewModel = HealthCertificateKeyValueCellViewModel(
+				key: "Produktname / Test Name",
+				value: naaTestName
+			)
+		}
+
+		var ratTestNameCellViewModel: HealthCertificateKeyValueCellViewModel?
+		if let ratTestName = testEntry.ratTestName {
+			ratTestNameCellViewModel = HealthCertificateKeyValueCellViewModel(
+				key: "Testhersteller / Test Manufacturer",
+				value: determineValue(
+					key: ratTestName,
+					valueSet: valueSet(by: .marketingAuthorizationHolder)
+				)
+			)
+		}
+
+		var dateTimeOfSampleCollectionCellViewModel: HealthCertificateKeyValueCellViewModel?
+		if let dateTimeOfSampleCollectionDate = ISO8601DateFormatter().date(from: testEntry.dateTimeOfSampleCollection) {
+			dateTimeOfSampleCollectionCellViewModel = HealthCertificateKeyValueCellViewModel(
+				key: "Datum und Uhrzeit der Probenahme / Date and Time of Sample Collection",
+				value: DateFormatter.localizedString(from: dateTimeOfSampleCollectionDate, dateStyle: .medium, timeStyle: .short)
+			)
+		}
+
+		let testResultCellViewModel = HealthCertificateKeyValueCellViewModel(
+			key: "Testergebnis / Test Result",
+			value: determineValue(
+				key: testEntry.testResult,
+				valueSet: valueSet(by: .testResult)
+			)
+		)
+
+		let testCenterCellViewModel = HealthCertificateKeyValueCellViewModel(
+			key: "Testzentrum oder -einrichtung / Testing Center or Facility",
+			value: testEntry.testCenter
+		)
+
+		let localizedCountryName = Country(countryCode: testEntry.countryOfTest)?.localizedName
+		let countryCellViewModel = HealthCertificateKeyValueCellViewModel(
+			key: "Land der Testung / Member State of Test",
+			value: localizedCountryName ?? testEntry.countryOfTest
+		)
+
+		let issuerCellViewModel = HealthCertificateKeyValueCellViewModel(
+			key: "Zertifikataussteller / Certificate Issuer",
+			value: testEntry.certificateIssuer
+		)
+
+		let certificateNumberCellViewModel = HealthCertificateKeyValueCellViewModel(
+			key: "Zertifikatkennung / Unique Certificate Identifier",
+			value: testEntry.uniqueCertificateIdentifier,
+			isBottomSeparatorHidden: true,
+			bottomSpace: 2.0
+		)
+
+		healthCertificateKeyValueCellViewModel = [
+			nameCellViewModel,
+			dateOfBirthCellViewModel,
+			diseaseOrAgentTargetedCellViewModel,
+			typeOfTestCellViewModel,
+			naaTestNameCellViewModel,
+			ratTestNameCellViewModel,
+			dateTimeOfSampleCollectionCellViewModel,
+			testResultCellViewModel,
+			testCenterCellViewModel,
+			countryCellViewModel,
+			issuerCellViewModel,
+			certificateNumberCellViewModel
+		]
+		.compactMap { $0 }
+	}
+
 	private func valueSet(by type: ValueSetType) -> SAP_Internal_Dgc_ValueSet? {
 		guard let valueSets = valueSets else {
 			Log.error("tried to read from unavailable value sets", log: .vaccination)
@@ -249,6 +365,12 @@ final class HealthCertificateViewModel {
 			return valueSets.hasMp ? valueSets.mp : nil
 		case .marketingAuthorizationHolder:
 			return valueSets.hasMa ? valueSets.ma : nil
+		case .diseaseOrAgentTargeted:
+			return valueSets.hasTg ? valueSets.tg : nil
+		case .typeOfTest:
+			return valueSets.hasTcTt ? valueSets.tcTt : nil
+		case .testResult:
+			return valueSets.hasTcTr ? valueSets.tcTr : nil
 		}
 	}
 

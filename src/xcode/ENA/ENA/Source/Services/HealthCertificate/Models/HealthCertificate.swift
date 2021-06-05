@@ -56,8 +56,8 @@ struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable 
 	// MARK: - Internal
 
 	enum CertificateType {
-		case vaccination
-		case test
+		case vaccination(VaccinationEntry)
+		case test(TestEntry)
 	}
 
 	let base45: Base45
@@ -91,15 +91,16 @@ struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable 
 	}
 
 	var type: CertificateType {
-		if vaccinationEntry != nil {
-			return .vaccination
-		} else if testEntry != nil {
-			return .test
+		if let vaccinationEntry = vaccinationEntry {
+			return .vaccination(vaccinationEntry)
+		} else if let testEntry = testEntry {
+			return .test(testEntry)
 		}
 
 		fatalError("Unsupported certificates are not added in the first place")
 	}
 
+	// TODO: Remove
 	var isLastDoseInASeries: Bool {
 		vaccinationEntry?.isLastDoseInASeries ?? false
 	}
@@ -114,6 +115,7 @@ struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable 
 		return Date(timeIntervalSince1970: TimeInterval(cborWebTokenHeader.expirationTime))
 	}
 
+	// TODO: Remove
 	var dateOfVaccination: Date? {
 		guard let dateString = vaccinationEntry?.dateOfVaccination else {
 			return nil
@@ -121,10 +123,12 @@ struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable 
 		return ISO8601DateFormatter.justLocalDateFormatter.date(from: dateString)
 	}
 
+	// TODO: Remove
 	var doseNumber: Int {
 		return vaccinationEntry?.doseNumber ?? 0
 	}
-	
+
+	// TODO: Remove
 	var totalSeriesOfDoses: Int {
 		return vaccinationEntry?.totalSeriesOfDoses ?? 0
 	}

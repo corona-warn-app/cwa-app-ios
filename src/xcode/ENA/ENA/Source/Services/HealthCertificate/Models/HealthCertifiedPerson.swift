@@ -91,11 +91,11 @@ class HealthCertifiedPerson: Codable, Equatable {
 	}
 
 	var vaccinationCertificates: [HealthCertificate] {
-		healthCertificates.filter { $0.type == .vaccination }
+		healthCertificates.filter { $0.vaccinationEntry != nil }
 	}
 
 	var testCertificates: [HealthCertificate] {
-		healthCertificates.filter { $0.type == .test }
+		healthCertificates.filter { $0.testEntry != nil }
 	}
 
 	// MARK: - Private
