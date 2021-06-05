@@ -43,14 +43,17 @@ struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable 
 	// MARK: - Protocol Comparable
 
 	static func < (lhs: HealthCertificate, rhs: HealthCertificate) -> Bool {
-		guard
-			let lhsVaccinationDate = lhs.vaccinationEntry?.dateOfVaccination,
-			let rhsVaccinationDate = rhs.vaccinationEntry?.dateOfVaccination
-		else {
-			return false
+		if let lhsVaccinationDate = lhs.vaccinationEntry?.dateOfVaccination,
+		   let rhsVaccinationDate = rhs.vaccinationEntry?.dateOfVaccination {
+			return lhsVaccinationDate < rhsVaccinationDate
 		}
 
-		return lhsVaccinationDate < rhsVaccinationDate
+		if let lhsSampleCollectionDate = lhs.testEntry?.dateTimeOfSampleCollection,
+		   let rhsSampleCollectionDate = rhs.testEntry?.dateTimeOfSampleCollection {
+			return lhsSampleCollectionDate < rhsSampleCollectionDate
+		}
+
+		return false
 	}
 
 	// MARK: - Internal

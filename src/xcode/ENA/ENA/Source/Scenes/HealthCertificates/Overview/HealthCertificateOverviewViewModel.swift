@@ -20,12 +20,15 @@ class HealthCertificateOverviewViewModel {
 					.filter { !$0.vaccinationCertificates.isEmpty }
 				self.testCertificates = healthCertifiedPersons
 					.flatMap { $0.testCertificates }
+					.sorted()
+					.reversed()
 			}
 			.store(in: &subscriptions)
 
 		healthCertificateService.testCertificateRequests
 			.sink { testCertificateRequests in
 				self.testCertificateRequests = testCertificateRequests
+					.sorted { $0.registrationDate > $1.registrationDate }
 			}
 			.store(in: &subscriptions)
 	}
