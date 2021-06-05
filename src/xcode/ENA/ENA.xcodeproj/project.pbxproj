@@ -269,6 +269,9 @@
 		01E1026A26690CCF009ED803 /* local_statistics.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E1026926690CCF009ED803 /* local_statistics.pb.swift */; };
 		01E1026C26690D0B009ED803 /* dgc_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E1026B26690D0B009ED803 /* dgc_parameters.pb.swift */; };
 		01E1026E2669658E009ED803 /* DCCRSAKeyPairTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E1026D2669658E009ED803 /* DCCRSAKeyPairTests.swift */; };
+		01E10277266BC4B1009ED803 /* TestCertificateRequestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E10275266BC363009ED803 /* TestCertificateRequestTableViewCell.swift */; };
+		01E10278266BC4B1009ED803 /* TestCertificateRequestCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E10274266BC362009ED803 /* TestCertificateRequestCellModel.swift */; };
+		01E1027A266BCD2B009ED803 /* TestCertificateRequestTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01E10279266BC4BA009ED803 /* TestCertificateRequestTableViewCell.xib */; };
 		01E4298E251DCDC90057FCBE /* Localizable.legal.strings in Resources */ = {isa = PBXBuildFile; fileRef = 01E42990251DCDC90057FCBE /* Localizable.legal.strings */; };
 		01EA17622590EAAF00E98E02 /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA17612590EAAF00E98E02 /* HomeTableViewController.swift */; };
 		01EA176A2590EF4F00E98E02 /* HomeTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA17692590EF4E00E98E02 /* HomeTableViewModel.swift */; };
@@ -1467,6 +1470,9 @@
 		01E1026926690CCF009ED803 /* local_statistics.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = local_statistics.pb.swift; sourceTree = "<group>"; };
 		01E1026B26690D0B009ED803 /* dgc_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = dgc_parameters.pb.swift; sourceTree = "<group>"; };
 		01E1026D2669658E009ED803 /* DCCRSAKeyPairTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCCRSAKeyPairTests.swift; sourceTree = "<group>"; };
+		01E10274266BC362009ED803 /* TestCertificateRequestCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCertificateRequestCellModel.swift; sourceTree = "<group>"; };
+		01E10275266BC363009ED803 /* TestCertificateRequestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCertificateRequestTableViewCell.swift; sourceTree = "<group>"; };
+		01E10279266BC4BA009ED803 /* TestCertificateRequestTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TestCertificateRequestTableViewCell.xib; sourceTree = "<group>"; };
 		01E25C6F24A3B52F007E33F8 /* Info_Testflight.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info_Testflight.plist; sourceTree = "<group>"; };
 		01E4298F251DCDC90057FCBE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.legal.strings; sourceTree = "<group>"; };
 		01E42994251DCDCE0057FCBE /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.legal.strings; sourceTree = "<group>"; };
@@ -3109,6 +3115,7 @@
 				8FE2667C264AA70300C2B432 /* HealthCertifiedPerson */,
 				01960F2926643294000D714E /* HealthCertificateRegistration */,
 				8FE26663264A9DC900C2B432 /* TestCertificateInfo */,
+				01E1026F266BC362009ED803 /* TestCertificateRequest */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -3245,6 +3252,16 @@
 				017D8DA9263B03BD0009E91C /* VaccinationCertificate+Extension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		01E1026F266BC362009ED803 /* TestCertificateRequest */ = {
+			isa = PBXGroup;
+			children = (
+				01E10275266BC363009ED803 /* TestCertificateRequestTableViewCell.swift */,
+				01E10279266BC4BA009ED803 /* TestCertificateRequestTableViewCell.xib */,
+				01E10274266BC362009ED803 /* TestCertificateRequestCellModel.swift */,
+			);
+			path = TestCertificateRequest;
 			sourceTree = "<group>";
 		};
 		01EA17602590E9B900E98E02 /* Home */ = {
@@ -7182,6 +7199,7 @@
 				EB7057D724E6BACA002235B4 /* InfoBoxView.xib in Resources */,
 				3494D90D261C566200EC532C /* default_qr_code_poster_template_ios.bin in Resources */,
 				71F2E57B2487AEFC00694F1A /* ena-colors.xcassets in Resources */,
+				01E1027A266BCD2B009ED803 /* TestCertificateRequestTableViewCell.xib in Resources */,
 				3529BC2725D6BA930097E492 /* sample_stats.bin in Resources */,
 				01EA17BB2591344F00E98E02 /* HomeExposureLoggingTableViewCell.xib in Resources */,
 				01B72C032583B71100A3E3BC /* DiaryEditEntriesViewController.xib in Resources */,
@@ -7530,6 +7548,7 @@
 				017D8DAA263B03BE0009E91C /* VaccinationCertificate+Extension.swift in Sources */,
 				01B7232924F812DF0064C0EB /* OptionView.swift in Sources */,
 				BAC7419F26414D4A00955311 /* SimpleTextCellViewModel.swift in Sources */,
+				01E10278266BC4B1009ED803 /* TestCertificateRequestCellModel.swift in Sources */,
 				01909874257E64BD0065D050 /* DiaryDayViewController.swift in Sources */,
 				BADD36ED260B4FBA00DD282A /* GradientBackgroundView.swift in Sources */,
 				71FE1C7B247AC2B500851FEB /* ExposureSubmissionQRScannerViewController.swift in Sources */,
@@ -8079,6 +8098,7 @@
 				BA112DF7255586E9007F5712 /* WifiOnlyHTTPClient.swift in Sources */,
 				0138F61D25EFE71B00A9B075 /* TraceLocationsCoordinator.swift in Sources */,
 				0138F65425F1174200A9B075 /* TraceLocationsOverviewEmptyStateViewModel.swift in Sources */,
+				01E10277266BC4B1009ED803 /* TestCertificateRequestTableViewCell.swift in Sources */,
 				713EA26324798F8500AB7EE8 /* ExposureDetectionHeaderCell.swift in Sources */,
 				BA3A79C92631B82A00B6D6C0 /* AntigenTestProfileInformationViewModel.swift in Sources */,
 				FEDCE09E9F78ABEB4AA9A484 /* ExposureDetectionExecutor.swift in Sources */,

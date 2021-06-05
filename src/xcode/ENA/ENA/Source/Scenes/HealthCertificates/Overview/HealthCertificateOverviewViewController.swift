@@ -27,7 +27,30 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		viewModel.$healthCertifiedPersons
 			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] _ in
-				self?.tableView.reloadData()
+				self?.tableView.reloadSections([
+					HealthCertificateOverviewViewModel.Section.healthCertificate.rawValue,
+					HealthCertificateOverviewViewModel.Section.createHealthCertificate.rawValue
+				], with: .none)
+			}
+			.store(in: &subscriptions)
+
+		viewModel.$testCertificates
+			.receive(on: DispatchQueue.OCombine(.main))
+			.sink { [weak self] _ in
+				self?.tableView.reloadSections([
+					HealthCertificateOverviewViewModel.Section.testCertificates.rawValue,
+					HealthCertificateOverviewViewModel.Section.testCertificateInfo.rawValue
+				], with: .none)
+			}
+			.store(in: &subscriptions)
+
+		viewModel.$testCertificateRequests
+			.receive(on: DispatchQueue.OCombine(.main))
+			.sink { [weak self] _ in
+				self?.tableView.reloadSections([
+					HealthCertificateOverviewViewModel.Section.testCertificateRequests.rawValue,
+					HealthCertificateOverviewViewModel.Section.testCertificateInfo.rawValue
+				], with: .none)
 			}
 			.store(in: &subscriptions)
 	}
@@ -78,6 +101,8 @@ class HealthCertificateOverviewViewController: UITableViewController {
 			return vaccinationRegistrationCell(forRowAt: indexPath)
 		case .testCertificates:
 			return testCertificateCell(forRowAt: indexPath)
+		case .testCertificateRequests:
+			return testCertificateRequestCell(forRowAt: indexPath)
 		case .testCertificateInfo:
 			return testCertificateInfoCell(forRowAt: indexPath)
 		case .none:
@@ -94,13 +119,11 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		case .createHealthCertificate:
 			onCreateHealthCertificateTap()
 		case .healthCertificate:
-			if let healthCertifiedPerson = viewModel.healthCertifiedPerson(at: indexPath) {
-				onCertifiedPersonTap(healthCertifiedPerson)
-			}
+			onCertifiedPersonTap(viewModel.healthCertifiedPersons[indexPath.row])
 		case .testCertificates:
-			if let testCertificate = viewModel.testCertificate(at: indexPath) {
-				onTestCertificateTap(testCertificate)
-			}
+			onTestCertificateTap(viewModel.testCertificates[indexPath.row])
+		case .testCertificateRequests:
+			break
 		case .testCertificateInfo:
 			break
 		case .none:
@@ -140,6 +163,10 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		tableView.register(
 			UINib(nibName: String(describing: HomeHealthCertificateRegistrationTableViewCell.self), bundle: nil),
 			forCellReuseIdentifier: HomeHealthCertificateRegistrationTableViewCell.reuseIdentifier
+		)
+		tableView.register(
+			UINib(nibName: String(describing: TestCertificateRequestTableViewCell.self), bundle: nil),
+			forCellReuseIdentifier: TestCertificateRequestTableViewCell.reuseIdentifier
 		)
 		tableView.register(
 			UINib(nibName: String(describing: TestCertificateInfoTableViewCell.self), bundle: nil),
@@ -189,6 +216,19 @@ class HealthCertificateOverviewViewController: UITableViewController {
 
 		let cellModel = HomeHealthCertifiedPersonCellModel(
 			testCertificate: viewModel.testCertificates[indexPath.row]
+		)
+		cell.configure(with: cellModel)
+
+		return cell
+	}
+
+	private func testCertificateRequestCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: TestCertificateRequestTableViewCell.reuseIdentifier, for: indexPath) as? TestCertificateRequestTableViewCell else {
+			fatalError("Could not dequeue TestCertificateRequestTableViewCell")
+		}
+
+		let cellModel = TestCertificateRequestCellModel(
+			testCertificateRequest: viewModel.testCertificateRequests[indexPath.row]
 		)
 		cell.configure(with: cellModel)
 

@@ -22,6 +22,12 @@ class HealthCertificateOverviewViewModel {
 					.flatMap { $0.testCertificates }
 			}
 			.store(in: &subscriptions)
+
+		healthCertificateService.testCertificateRequests
+			.sink { testCertificateRequests in
+				self.testCertificateRequests = testCertificateRequests
+			}
+			.store(in: &subscriptions)
 	}
 
 	// MARK: - Internal
@@ -31,11 +37,13 @@ class HealthCertificateOverviewViewModel {
 		case healthCertificate
 		case createHealthCertificate
 		case testCertificates
+		case testCertificateRequests
 		case testCertificateInfo
 	}
 
-	@OpenCombine.Published var healthCertifiedPersons: [HealthCertifiedPerson] = []
-	@OpenCombine.Published var testCertificates: [HealthCertificate] = []
+	@DidSetPublished var healthCertifiedPersons: [HealthCertifiedPerson] = []
+	@DidSetPublished var testCertificates: [HealthCertificate] = []
+	@DidSetPublished var testCertificateRequests: [TestCertificateRequest] = []
 
 	var numberOfSections: Int {
 		Section.allCases.count
@@ -51,30 +59,13 @@ class HealthCertificateOverviewViewModel {
 			return healthCertifiedPersons.isEmpty ? 1 : 0
 		case .testCertificates:
 			return testCertificates.count
+		case .testCertificateRequests:
+			return testCertificateRequests.count
 		case .testCertificateInfo:
-			return testCertificates.isEmpty ? 1 : 0
+			return testCertificates.isEmpty && testCertificateRequests.isEmpty ? 1 : 0
 		case .none:
 			fatalError("Invalid section")
 		}
-	}
-
-	func healthCertifiedPerson(at indexPath: IndexPath) -> HealthCertifiedPerson? {
-		guard Section(rawValue: indexPath.section) == .healthCertificate,
-			  healthCertificateService.healthCertifiedPersons.value.indices.contains(indexPath.row) else {
-			Log.debug("Tried to access unknown healthCertifiedPersons - stop")
-			return nil
-		}
-		return healthCertificateService.healthCertifiedPersons.value[indexPath.row]
-	}
-
-	func testCertificate(at indexPath: IndexPath) -> HealthCertificate? {
-		guard Section(rawValue: indexPath.section) == .testCertificates,
-			  testCertificates.indices.contains(indexPath.row) else {
-			Log.debug("Tried to access unknown testCertificate - stop")
-			return nil
-		}
-
-		return testCertificates[indexPath.row]
 	}
 
 	// MARK: - Private

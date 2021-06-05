@@ -1877,6 +1877,21 @@ enum AppStrings {
 				static let title = NSLocalizedString("TestCertificate_title", comment: "")
 				static let testDate = NSLocalizedString("TestCertificate_testDate", comment: "")
 			}
+
+			enum TestCertificateRequest {
+				static let title = NSLocalizedString("TestCertificateRequest_title", comment: "")
+				static let subtitle = NSLocalizedString("TestCertificateRequest_subtitle", comment: "")
+				static let registrationDate = NSLocalizedString("TestCertificateRequest_registrationDate", comment: "")
+				static let loadingStateDescription = NSLocalizedString("TestCertificateRequest_loadingStateDescription", comment: "")
+				static let buttonTitle = NSLocalizedString("TestCertificateRequest_buttonTitle", comment: "")
+
+				enum DeleteAlert {
+					static let title = NSLocalizedString("TestCertificateRequest_DeleteAlert_title", comment: "")
+					static let description = NSLocalizedString("TestCertificateRequest_DeleteAlert_description", comment: "")
+					static let cancelButtonTitle = NSLocalizedString("TestCertificateRequest_DeleteAlert_DeleteButton_title", comment: "")
+					static let deleteButtonTitle = NSLocalizedString("TestCertificateRequest_DeleteAlert_CancelButton_title", comment: "")
+				}
+			}
 		}
 
 		enum Info {

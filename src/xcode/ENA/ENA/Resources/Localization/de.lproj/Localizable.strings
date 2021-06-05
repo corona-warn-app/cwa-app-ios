@@ -2536,6 +2536,26 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TestCertificate_testDate" = "Test durchgeführt am %@";
 
+/* - Test Certificate Request */
+
+"TestCertificateRequest_title" = "Digitales\n**COVID-Testzertifikat**";
+
+"TestCertificateRequest_subtitle" = "Fehler bei der Zertifikatsabfrage";
+
+"TestCertificateRequest_registrationDate" = "Registriert am %@";
+
+"TestCertificateRequest_loadingStateDescription" = "Ihr Zertifikat wird gerade angefragt, dies kann einige Minuten dauern…";
+
+"TestCertificateRequest_buttonTitle" = "Nochmal versuchen";
+
+"TestCertificateRequest_DeleteAlert_title" = "Es gibt weiterhin Probleme bei der Abfrage";
+
+"TestCertificateRequest_DeleteAlert_description" = "Wollen sie das fehlerhafte Zertifikat löschen?";
+
+"TestCertificateRequest_DeleteAlert_DeleteButton_title" = "Entfernen";
+
+"TestCertificateRequest_DeleteAlert_CancelButton_title" = "Abbrechen";
+
 /* Health Certificate Information */
 
 "HealthCertificate_Info_Title" = "Impfzertifikat hinzufügen";
