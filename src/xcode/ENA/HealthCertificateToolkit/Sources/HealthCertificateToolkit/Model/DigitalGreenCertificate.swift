@@ -63,6 +63,35 @@ public struct VaccinationEntry: Codable, Equatable {
 
 public struct TestEntry: Codable, Equatable {
 
+    // MARK: - Init
+
+    public init(
+        diseaseOrAgentTargeted: String,
+        typeOfTest: String,
+        testResult: String,
+        naaTestName: String?,
+        ratTestName: String?,
+        dateTimeOfSampleCollection: String,
+        dateTimeOfTestResult: String,
+        testCenter: String,
+        countryOfTest: String,
+        certificateIssuer: String,
+        uniqueCertificateIdentifier: String
+    ) {
+        self.diseaseOrAgentTargeted = diseaseOrAgentTargeted
+        self.typeOfTest = typeOfTest
+        self.testResult = testResult
+        self.naaTestName = naaTestName
+        self.ratTestName = ratTestName
+        self.dateTimeOfSampleCollection = dateTimeOfSampleCollection
+        self.dateTimeOfTestResult = dateTimeOfTestResult
+        self.testCenter = testCenter
+        self.countryOfTest = countryOfTest
+        self.certificateIssuer = certificateIssuer
+        self.uniqueCertificateIdentifier = uniqueCertificateIdentifier
+    }
+
+
     // MARK: - Protocol Codable
 
     enum CodingKeys: String, CodingKey {
@@ -92,6 +121,7 @@ public struct TestEntry: Codable, Equatable {
     public let countryOfTest: String
     public let certificateIssuer: String
     public let uniqueCertificateIdentifier: String
+
 }
 
 public struct Name: Codable, Equatable {

@@ -67,6 +67,7 @@ struct HealthCertificateMock: HealthCertificateData {
 		self.dateOfBirthDate = Date()
 		self.vaccinationEntry = nil
 		self.testEntry = nil
+		self.type = .test(TestEntry(diseaseOrAgentTargeted: "", typeOfTest: "", testResult: "", naaTestName: nil, ratTestName: nil, dateTimeOfSampleCollection: "", dateTimeOfTestResult: "", testCenter: "", countryOfTest: "", certificateIssuer: "", uniqueCertificateIdentifier: ""))
 		self.isLastDoseInASeries = false
 		self.expirationDate = Date()
 		self.dateOfVaccination = Date()
@@ -83,6 +84,7 @@ struct HealthCertificateMock: HealthCertificateData {
 	var dateOfBirthDate: Date?
 	let vaccinationEntry: VaccinationEntry?
 	let testEntry: TestEntry?
+	let type: HealthCertificate.CertificateType
 	let isLastDoseInASeries: Bool
 	var expirationDate: Date
 	var dateOfVaccination: Date?
