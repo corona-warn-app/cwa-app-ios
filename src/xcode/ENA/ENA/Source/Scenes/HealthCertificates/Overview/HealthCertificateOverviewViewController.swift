@@ -27,30 +27,21 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		viewModel.$healthCertifiedPersons
 			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] _ in
-				self?.tableView.reloadSections([
-					HealthCertificateOverviewViewModel.Section.healthCertificate.rawValue,
-					HealthCertificateOverviewViewModel.Section.createHealthCertificate.rawValue
-				], with: .none)
+				self?.tableView.reloadData()
 			}
 			.store(in: &subscriptions)
 
 		viewModel.$testCertificates
 			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] _ in
-				self?.tableView.reloadSections([
-					HealthCertificateOverviewViewModel.Section.testCertificates.rawValue,
-					HealthCertificateOverviewViewModel.Section.testCertificateInfo.rawValue
-				], with: .none)
+				self?.tableView.reloadData()
 			}
 			.store(in: &subscriptions)
 
 		viewModel.$testCertificateRequests
 			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] _ in
-				self?.tableView.reloadSections([
-					HealthCertificateOverviewViewModel.Section.testCertificateRequests.rawValue,
-					HealthCertificateOverviewViewModel.Section.testCertificateInfo.rawValue
-				], with: .none)
+				self?.tableView.reloadData()
 			}
 			.store(in: &subscriptions)
 	}
