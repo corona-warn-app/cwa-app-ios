@@ -138,6 +138,7 @@ final class HealthCertificateViewModel {
 			HealthCertificateSimpleTextCellViewModel(
 				backgroundColor: .enaColor(for: .cellBackground2),
 				textAlignment: .left,
+				// swiftlint:disable:next line_length
 				text: "Diese Bescheinigung ist kein Reisedokument. Die wissenschaftlichen Erkenntnisse zu COVID-19 in den Bereichen Impfung, Testung und Genesung entwickeln sich fortlaufend weiter, auch im Hinblick auf neue besorgniserregende Virusvarianten. Bitte informieren Sie sich vor Reiseantritt über die am Zielort geltenden Gesundheitsmaßnahmen und entsprechenden Beschränkungen.\nInformationen über die in den jeweiligen EU-Ländern geltenden Einreisebestimmungen finden Sie unter https://reopen.europa.eu/de.",
 				topSpace: 16.0,
 				font: .enaFont(for: .body),
