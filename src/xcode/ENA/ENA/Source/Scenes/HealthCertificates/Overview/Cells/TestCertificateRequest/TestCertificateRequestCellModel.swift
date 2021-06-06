@@ -10,8 +10,11 @@ class TestCertificateRequestCellModel {
 	// MARK: - Init
 
 	init(
-		testCertificateRequest: TestCertificateRequest
+		testCertificateRequest: TestCertificateRequest,
+		onTryAgainButtonTap: @escaping () -> Void
 	) {
+		self.onTryAgainButtonTap = onTryAgainButtonTap
+
 		title = AppStrings.HealthCertificate.Overview.TestCertificateRequest.title
 		subtitle = AppStrings.HealthCertificate.Overview.TestCertificateRequest.subtitle
 		registrationDate = String(
@@ -22,10 +25,13 @@ class TestCertificateRequestCellModel {
 		loadingStateDescription = AppStrings.HealthCertificate.Overview.TestCertificateRequest.loadingStateDescription
 		buttonTitle = AppStrings.HealthCertificate.Overview.TestCertificateRequest.buttonTitle
 
-		isLoadingStateHidden = testCertificateRequest.requestExecutionFailed
-		isButtonHidden = !testCertificateRequest.requestExecutionFailed
+		updateLoadingState(isLoading: testCertificateRequest.isLoading)
 
-		// TODO: Reload on button tap
+		testCertificateRequest.objectDidChange
+			.sink { [weak self] in
+				self?.updateLoadingState(isLoading: $0.isLoading)
+			}
+			.store(in: &subscriptions)
 	}
 	
 	// MARK: - Internal
@@ -37,7 +43,21 @@ class TestCertificateRequestCellModel {
 	var loadingStateDescription: String
 	var buttonTitle: String
 
-	var isButtonHidden: Bool
-	var isLoadingStateHidden: Bool
+	@DidSetPublished var isTryAgainButtonHidden: Bool = true
+	@DidSetPublished var isLoadingStateHidden: Bool = false
+
+	func didTapButton() {
+		onTryAgainButtonTap()
+	}
+
+	// MARK: - Private
+
+	private let onTryAgainButtonTap: () -> Void
+	private var subscriptions = Set<AnyCancellable>()
+
+	private func updateLoadingState(isLoading: Bool) {
+		isLoadingStateHidden = !isLoading
+		isTryAgainButtonHidden = isLoading
+	}
 
 }

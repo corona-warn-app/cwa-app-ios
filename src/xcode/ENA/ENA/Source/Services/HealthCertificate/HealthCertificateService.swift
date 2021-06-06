@@ -186,6 +186,8 @@ class HealthCertificateService {
 		_ testCertificateRequest: TestCertificateRequest,
 		completion: ((Result<Void, HealthCertificateServiceError.TestCertificateRequestError>) -> Void)? = nil
 	) {
+		testCertificateRequest.isLoading = true
+
 		do {
 			let rsaKeyPair = try testCertificateRequest.rsaKeyPair ?? DCCRSAKeyPair(registrationToken: testCertificateRequest.registrationToken)
 			testCertificateRequest.rsaKeyPair = rsaKeyPair
@@ -227,6 +229,7 @@ class HealthCertificateService {
 									}
 								case .failure(let registrationError) where registrationError == .tokenAlreadyAssigned:
 									testCertificateRequest.rsaPublicKeyRegistered = true
+									testCertificateRequest.isLoading = false
 									self.requestDigitalCovidCertificate(
 										for: testCertificateRequest,
 										rsaKeyPair: rsaKeyPair,
@@ -235,6 +238,7 @@ class HealthCertificateService {
 									)
 								case .failure(let registrationError):
 									testCertificateRequest.requestExecutionFailed = true
+									testCertificateRequest.isLoading = false
 									completion?(.failure(.publicKeyRegistrationFailed(registrationError)))
 								}
 							}
@@ -251,9 +255,11 @@ class HealthCertificateService {
 				.store(in: &subscriptions)
 		} catch let error as HealthCertificateServiceError.TestCertificateRequestError {
 			testCertificateRequest.requestExecutionFailed = true
+			testCertificateRequest.isLoading = false
 			completion?(.failure(.other(error)))
 		} catch {
 			testCertificateRequest.requestExecutionFailed = true
+			testCertificateRequest.isLoading = false
 			completion?(.failure(.other(error)))
 		}
 	}
@@ -289,6 +295,7 @@ class HealthCertificateService {
 				}
 			case .failure(let error):
 				testCertificateRequest.requestExecutionFailed = true
+				testCertificateRequest.isLoading = false
 				completion?(.failure(.certificateRequestFailed(error)))
 			}
 		}
@@ -314,8 +321,20 @@ class HealthCertificateService {
 
 			switch result {
 			case .success(let healthCertificateBase45):
-				registerHealthCertificate(base45: healthCertificateBase45)
-				// TODO: Remove
+					if testCertificateRequest.requestExecutionFailed {
+						DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+							completion?(.failure(.assemblyFailed(.AES_DECRYPTION_FAILED)))
+							testCertificateRequest.isLoading = false
+							testCertificateRequest.requestExecutionFailed = true
+						}
+					} else {
+						self.registerHealthCertificate(base45: healthCertificateBase45)
+						testCertificateRequest.isLoading = false
+						testCertificateRequest.requestExecutionFailed = true
+					}
+
+				// TODO: Use actual code
+//				registerHealthCertificate(base45: healthCertificateBase45)
 //				removeTestCertificateRequest(testCertificateRequest)
 			case .failure(let error):
 				testCertificateRequest.requestExecutionFailed = true
@@ -335,8 +354,8 @@ class HealthCertificateService {
 
 		// TODO: Remove
 		testCertificateRequests.value = [
-			TestCertificateRequest(coronaTestType: .pcr, registrationToken: "asdf", registrationDate: Date(), rsaKeyPair: nil, rsaPublicKeyRegistered: true, encryptedDEK: nil, encryptedCOSE: nil, requestExecutionFailed: false),
-			TestCertificateRequest(coronaTestType: .antigen, registrationToken: "qwer", registrationDate: Date(), rsaKeyPair: nil, rsaPublicKeyRegistered: true, encryptedDEK: nil, encryptedCOSE: nil, requestExecutionFailed: true)
+			TestCertificateRequest(coronaTestType: .pcr, registrationToken: "asdf", registrationDate: Date(), rsaKeyPair: nil, rsaPublicKeyRegistered: true, encryptedDEK: nil, encryptedCOSE: nil, requestExecutionFailed: false, isLoading: true),
+			TestCertificateRequest(coronaTestType: .antigen, registrationToken: "qwer", registrationDate: Date(), rsaKeyPair: nil, rsaPublicKeyRegistered: true, encryptedDEK: nil, encryptedCOSE: nil, requestExecutionFailed: true, isLoading: false)
 		]
 	}
 

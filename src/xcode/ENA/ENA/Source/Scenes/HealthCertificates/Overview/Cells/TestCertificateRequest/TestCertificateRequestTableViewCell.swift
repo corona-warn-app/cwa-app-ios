@@ -16,38 +16,43 @@ class TestCertificateRequestTableViewCell: UITableViewCell, ReuseIdentifierProvi
 
 		titleLabel.accessibilityTraits = [.header]
 	}
-	
-	override func setHighlighted(_ highlighted: Bool, animated: Bool) {
-		super.setHighlighted(highlighted, animated: animated)
-
-		containerView.setHighlighted(highlighted, animated: animated)
-	}
 
 	// MARK: - Internal
 
-	func configure(with cellModel: TestCertificateRequestCellModel) {
+	func configure(with cellModel: TestCertificateRequestCellModel, onUpdate: @escaping () -> Void) {
 		titleLabel.text = cellModel.title
 		subtitleLabel.text = cellModel.subtitle
 		registrationDateLabel.text = cellModel.registrationDate
 
 		loadingStateLabel.text = cellModel.loadingStateDescription
-		loadingStateStackView.isHidden = cellModel.isLoadingStateHidden
+
+		cellModel.$isLoadingStateHidden
+			.receive(on: DispatchQueue.main.ocombine)
+			.sink { [weak self] in
+				self?.loadingStateStackView.isHidden = $0
+				self?.updateAccessibilityElements()
+				onUpdate()
+			}
+			.store(in: &subscriptions)
 
 		tryAgainButton.setTitle(cellModel.buttonTitle, for: .normal)
-		tryAgainButton.isHidden = cellModel.isButtonHidden
 
-		containerView.accessibilityElements = [titleLabel as Any, subtitleLabel as Any, registrationDateLabel as Any]
+		cellModel.$isTryAgainButtonHidden
+			.receive(on: DispatchQueue.main.ocombine)
+			.sink { [weak self] in
+				self?.tryAgainButton.isHidden = $0
+				self?.updateAccessibilityElements()
+				onUpdate()
+			}
+			.store(in: &subscriptions)
 
-		if !cellModel.isLoadingStateHidden {
-			containerView.accessibilityElements?.append(loadingStateLabel as Any)
-		}
-
-		if !cellModel.isButtonHidden {
-			containerView.accessibilityElements?.append(tryAgainButton as Any)
-		}
+		self.cellModel = cellModel
 	}
 	
 	// MARK: - Private
+
+	private var cellModel: TestCertificateRequestCellModel?
+	private var subscriptions = Set<AnyCancellable>()
 
 	@IBOutlet private weak var titleLabel: ENALabel!
 	@IBOutlet private weak var subtitleLabel: ENALabel!
@@ -59,5 +64,25 @@ class TestCertificateRequestTableViewCell: UITableViewCell, ReuseIdentifierProvi
 	@IBOutlet private weak var tryAgainButton: ENAButton!
 
 	@IBOutlet private weak var containerView: CardView!
+
+	@IBAction private func didTapTryAgainButton(_ sender: Any) {
+		cellModel?.didTapButton()
+	}
+
+	private func updateAccessibilityElements() {
+		guard let cellModel = cellModel else {
+			return
+		}
+
+		containerView.accessibilityElements = [titleLabel as Any, subtitleLabel as Any, registrationDateLabel as Any]
+
+		if !cellModel.isLoadingStateHidden {
+			containerView.accessibilityElements?.append(loadingStateLabel as Any)
+		}
+
+		if !cellModel.isTryAgainButtonHidden {
+			containerView.accessibilityElements?.append(tryAgainButton as Any)
+		}
+	}
 
 }

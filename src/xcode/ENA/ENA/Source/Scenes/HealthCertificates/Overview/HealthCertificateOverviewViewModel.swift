@@ -27,8 +27,12 @@ class HealthCertificateOverviewViewModel {
 
 		healthCertificateService.testCertificateRequests
 			.sink { testCertificateRequests in
-				self.testCertificateRequests = testCertificateRequests
+				let updatedTestCertificateRequests = testCertificateRequests
 					.sorted { $0.registrationDate > $1.registrationDate }
+
+				if updatedTestCertificateRequests.map({ $0.registrationToken }) != self.testCertificateRequests.map({ $0.registrationToken }) {
+					self.testCertificateRequests = updatedTestCertificateRequests
+				}
 			}
 			.store(in: &subscriptions)
 	}
@@ -69,6 +73,17 @@ class HealthCertificateOverviewViewModel {
 		case .none:
 			fatalError("Invalid section")
 		}
+	}
+
+	func testCertificateCellModel(at indexPath: IndexPath) -> TestCertificateRequestCellModel {
+		return TestCertificateRequestCellModel(
+			testCertificateRequest: testCertificateRequests[indexPath.row],
+			onTryAgainButtonTap: { [weak self] in
+				guard let self = self else { return }
+
+				self.healthCertificateService.executeTestCertificateRequest(self.testCertificateRequests[indexPath.row])
+			}
+		)
 	}
 
 	// MARK: - Private

@@ -17,7 +17,8 @@ class TestCertificateRequest: Codable, Equatable {
 		rsaPublicKeyRegistered: Bool = false,
 		encryptedDEK: String? = nil,
 		encryptedCOSE: String? = nil,
-		requestExecutionFailed: Bool = false
+		requestExecutionFailed: Bool = false,
+		isLoading: Bool = true
 	) {
 		self.coronaTestType = coronaTestType
 		self.registrationToken = registrationToken
@@ -27,6 +28,7 @@ class TestCertificateRequest: Codable, Equatable {
 		self.encryptedDEK = encryptedDEK
 		self.encryptedCOSE = encryptedCOSE
 		self.requestExecutionFailed = requestExecutionFailed
+		self.isLoading = isLoading
 	}
 
 	// MARK: - Protocol Codable
@@ -53,6 +55,7 @@ class TestCertificateRequest: Codable, Equatable {
 		encryptedDEK = try container.decodeIfPresent(String.self, forKey: .encryptedDEK)
 		encryptedCOSE = try container.decodeIfPresent(String.self, forKey: .encryptedCOSE)
 		requestExecutionFailed = try container.decode(Bool.self, forKey: .requestExecutionFailed)
+		isLoading = !requestExecutionFailed
 	}
 
 	func encode(to encoder: Encoder) throws {
@@ -122,6 +125,14 @@ class TestCertificateRequest: Codable, Equatable {
 	var requestExecutionFailed: Bool {
 		didSet {
 			if requestExecutionFailed != oldValue {
+				objectDidChange.send(self)
+			}
+		}
+	}
+
+	var isLoading: Bool {
+		didSet {
+			if isLoading != oldValue {
 				objectDidChange.send(self)
 			}
 		}
