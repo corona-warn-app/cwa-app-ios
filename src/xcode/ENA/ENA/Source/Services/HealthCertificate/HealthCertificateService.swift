@@ -264,90 +264,6 @@ class HealthCertificateService {
 		}
 	}
 
-	private func requestDigitalCovidCertificate(
-		for testCertificateRequest: TestCertificateRequest,
-		rsaKeyPair: DCCRSAKeyPair,
-		retryOn202: Bool = true, // TODO: Where do I get this info?
-		waitForRetryInSeconds: TimeInterval,
-		completion: ((Result<Void, HealthCertificateServiceError.TestCertificateRequestError>) -> Void)?
-	) {
-		client.getDigitalCovid19Certificate(
-			registrationToken: testCertificateRequest.registrationToken,
-			isFake: false
-		) { [weak self] result in
-			switch result {
-			case .success(let dccResponse):
-				self?.assembleDigitalCovidCertificate(
-					for: testCertificateRequest,
-					rsaKeyPair: rsaKeyPair,
-					encryptedDEK: dccResponse.dek,
-					encryptedCOSE: dccResponse.dcc,
-					completion: completion
-				)
-			case .failure(let error) where error == .dccPending && retryOn202:
-				DispatchQueue.global().asyncAfter(deadline: .now() + waitForRetryInSeconds) {
-					self?.requestDigitalCovidCertificate(
-						for: testCertificateRequest,
-						rsaKeyPair: rsaKeyPair,
-						retryOn202: false,
-						waitForRetryInSeconds: waitForRetryInSeconds,
-						completion: completion
-					)
-				}
-			case .failure(let error):
-				testCertificateRequest.requestExecutionFailed = true
-				testCertificateRequest.isLoading = false
-				completion?(.failure(.certificateRequestFailed(error)))
-			}
-		}
-	}
-
-	private func assembleDigitalCovidCertificate(
-		for testCertificateRequest: TestCertificateRequest,
-		rsaKeyPair: DCCRSAKeyPair,
-		encryptedDEK: String,
-		encryptedCOSE: String,
-		completion: ((Result<Void, HealthCertificateServiceError.TestCertificateRequestError>) -> Void)?
-	) {
-		guard let encryptedDEKData = Data(base64Encoded: encryptedDEK) else {
-			testCertificateRequest.requestExecutionFailed = true
-			completion?(.failure(.base64DecodingFailed))
-			return
-		}
-
-		do {
-			// TODO: Decrypt
-			let decodedDEK = Data(base64Encoded: "/9o5eVNb9us5CsGD4F3J36Ju1enJ71Y6+FpVvScGWkE=")//try rsaKeyPair.decrypt(encryptedDEKData)
-			let result = DigitalGreenCertificateAccess().convertToBase45(from: encryptedCOSE, with: decodedDEK ?? Data())
-
-			switch result {
-			case .success(let healthCertificateBase45):
-					if testCertificateRequest.requestExecutionFailed {
-						DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-							completion?(.failure(.assemblyFailed(.AES_DECRYPTION_FAILED)))
-							testCertificateRequest.isLoading = false
-							testCertificateRequest.requestExecutionFailed = true
-						}
-					} else {
-						self.registerHealthCertificate(base45: healthCertificateBase45)
-						testCertificateRequest.isLoading = false
-						testCertificateRequest.requestExecutionFailed = true
-					}
-
-				// TODO: Use actual code
-//				registerHealthCertificate(base45: healthCertificateBase45)
-//				removeTestCertificateRequest(testCertificateRequest)
-//				completion?(.success(()))
-			case .failure(let error):
-				testCertificateRequest.requestExecutionFailed = true
-				completion?(.failure(.assemblyFailed(error)))
-			}
-		} catch {
-			testCertificateRequest.requestExecutionFailed = true
-			completion?(.failure(.decryptionFailed(error)))
-		}
-	}
-
 	func updatePublishersFromStore() {
 		Log.info("[HealthCertificateService] Updating publishers from store", log: .api)
 
@@ -435,6 +351,90 @@ class HealthCertificateService {
 				}
 			}
 			.store(in: &subscriptions)
+	}
+
+	private func requestDigitalCovidCertificate(
+		for testCertificateRequest: TestCertificateRequest,
+		rsaKeyPair: DCCRSAKeyPair,
+		retryOn202: Bool = true, // TODO: Where do I get this info?
+		waitForRetryInSeconds: TimeInterval,
+		completion: ((Result<Void, HealthCertificateServiceError.TestCertificateRequestError>) -> Void)?
+	) {
+		client.getDigitalCovid19Certificate(
+			registrationToken: testCertificateRequest.registrationToken,
+			isFake: false
+		) { [weak self] result in
+			switch result {
+			case .success(let dccResponse):
+				self?.assembleDigitalCovidCertificate(
+					for: testCertificateRequest,
+					rsaKeyPair: rsaKeyPair,
+					encryptedDEK: dccResponse.dek,
+					encryptedCOSE: dccResponse.dcc,
+					completion: completion
+				)
+			case .failure(let error) where error == .dccPending && retryOn202:
+				DispatchQueue.global().asyncAfter(deadline: .now() + waitForRetryInSeconds) {
+					self?.requestDigitalCovidCertificate(
+						for: testCertificateRequest,
+						rsaKeyPair: rsaKeyPair,
+						retryOn202: false,
+						waitForRetryInSeconds: waitForRetryInSeconds,
+						completion: completion
+					)
+				}
+			case .failure(let error):
+				testCertificateRequest.requestExecutionFailed = true
+				testCertificateRequest.isLoading = false
+				completion?(.failure(.certificateRequestFailed(error)))
+			}
+		}
+	}
+
+	private func assembleDigitalCovidCertificate(
+		for testCertificateRequest: TestCertificateRequest,
+		rsaKeyPair: DCCRSAKeyPair,
+		encryptedDEK: String,
+		encryptedCOSE: String,
+		completion: ((Result<Void, HealthCertificateServiceError.TestCertificateRequestError>) -> Void)?
+	) {
+		guard let encryptedDEKData = Data(base64Encoded: encryptedDEK) else {
+			testCertificateRequest.requestExecutionFailed = true
+			completion?(.failure(.base64DecodingFailed))
+			return
+		}
+
+		do {
+			// TODO: Decrypt
+			let decodedDEK = Data(base64Encoded: "/9o5eVNb9us5CsGD4F3J36Ju1enJ71Y6+FpVvScGWkE=")//try rsaKeyPair.decrypt(encryptedDEKData)
+			let result = DigitalGreenCertificateAccess().convertToBase45(from: encryptedCOSE, with: decodedDEK ?? Data())
+
+			switch result {
+			case .success(let healthCertificateBase45):
+					if testCertificateRequest.requestExecutionFailed {
+						DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+							completion?(.failure(.assemblyFailed(.AES_DECRYPTION_FAILED)))
+							testCertificateRequest.isLoading = false
+							testCertificateRequest.requestExecutionFailed = true
+						}
+					} else {
+						self.registerHealthCertificate(base45: healthCertificateBase45)
+						testCertificateRequest.isLoading = false
+						testCertificateRequest.requestExecutionFailed = true
+					}
+
+				// TODO: Use actual code
+//				registerHealthCertificate(base45: healthCertificateBase45)
+//				removeTestCertificateRequest(testCertificateRequest)
+//				completion?(.success(()))
+			case .failure(let error):
+				testCertificateRequest.requestExecutionFailed = true
+				completion?(.failure(.assemblyFailed(error)))
+			}
+		} catch {
+			testCertificateRequest.requestExecutionFailed = true
+			completion?(.failure(.decryptionFailed(error)))
+		}
 	}
 
 }
