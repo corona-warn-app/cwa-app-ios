@@ -681,14 +681,19 @@ class CoronaTestService {
 							self.antigenTest?.finalTestResultReceivedDate = Date()
 						}
 
-						if testResult == .negative {
-
-							// TODO: Set to created?
+						if testResult == .negative && coronaTest.certificateConsentGiven && !coronaTest.certificateRequested {
 							self.healthCertificateService.registerTestCertificateRequest(
 								coronaTestType: coronaTestType,
 								registrationToken: registrationToken,
 								registrationDate: registrationDate
 							)
+
+							switch coronaTestType {
+							case .pcr:
+								self.pcrTest?.certificateRequested = true
+							case .antigen:
+								self.antigenTest?.certificateRequested = true
+							}
 						}
 
 						if presentNotification {
