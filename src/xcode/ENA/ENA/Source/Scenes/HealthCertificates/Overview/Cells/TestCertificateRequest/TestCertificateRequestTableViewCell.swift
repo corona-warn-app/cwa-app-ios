@@ -17,6 +17,13 @@ class TestCertificateRequestTableViewCell: UITableViewCell, ReuseIdentifierProvi
 		titleLabel.accessibilityTraits = [.header]
 	}
 
+	override func prepareForReuse() {
+		super.prepareForReuse()
+
+		subscriptions = []
+		cellModel = nil
+	}
+
 	// MARK: - Internal
 
 	func configure(with cellModel: TestCertificateRequestCellModel, onUpdate: @escaping () -> Void) {
