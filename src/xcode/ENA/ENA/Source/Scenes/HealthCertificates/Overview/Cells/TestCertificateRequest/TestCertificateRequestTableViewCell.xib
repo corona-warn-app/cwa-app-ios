@@ -24,7 +24,7 @@
                                 <rect key="frame" x="16" y="16" width="350" height="274"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" insetsLayoutMarginsFromSafeArea="NO" text="Title 2" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7t7-Wf-jrz" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="350" height="20.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="350" height="23"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" name="ENA Text Primary 1 Color"/>
                                         <nil key="highlightedColor"/>
@@ -33,10 +33,10 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="UoI-LQ-tRH">
-                                        <rect key="frame" x="0.0" y="40.5" width="350" height="46"/>
+                                        <rect key="frame" x="0.0" y="43" width="350" height="41"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="39s-9M-toO" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="350" height="20.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="350" height="18"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" name="ENA Text Primary 1 Color"/>
                                                 <nil key="highlightedColor"/>
@@ -45,7 +45,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Registration Date" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G9Z-eG-jtO" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="25.5" width="350" height="20.5"/>
+                                                <rect key="frame" x="0.0" y="23" width="350" height="18"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" name="ENA Text Primary 1 Color"/>
                                                 <nil key="highlightedColor"/>
@@ -56,13 +56,13 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Kgx-gS-WLP">
-                                        <rect key="frame" x="0.0" y="106.5" width="350" height="117.5"/>
+                                        <rect key="frame" x="0.0" y="104" width="350" height="100"/>
                                         <subviews>
                                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="750" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="8aZ-3h-BXO">
-                                                <rect key="frame" x="0.0" y="49" width="20" height="20"/>
+                                                <rect key="frame" x="0.0" y="40" width="20" height="20"/>
                                             </activityIndicatorView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Loading State" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vFu-Dy-9r1" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                <rect key="frame" x="36" y="48.5" width="314" height="20.5"/>
+                                                <rect key="frame" x="36" y="41" width="314" height="18"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" name="ENA Text Primary 1 Color"/>
                                                 <nil key="highlightedColor"/>
@@ -73,7 +73,7 @@
                                         </subviews>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="95D-gS-RsM" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="244" width="350" height="30"/>
+                                        <rect key="frame" x="0.0" y="224" width="350" height="50"/>
                                         <state key="normal" title="Button"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="hasBorder" value="YES"/>
@@ -109,6 +109,7 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="containerView" destination="76K-Dd-gu7" id="2Jh-hI-jya"/>
+                <outlet property="loadingActivityIndicator" destination="8aZ-3h-BXO" id="sxk-Qp-COg"/>
                 <outlet property="loadingStateLabel" destination="vFu-Dy-9r1" id="dYS-Za-57T"/>
                 <outlet property="loadingStateStackView" destination="Kgx-gS-WLP" id="oTB-Sq-M7A"/>
                 <outlet property="registrationDateLabel" destination="G9Z-eG-jtO" id="XxH-p0-Dd5"/>
@@ -121,19 +122,19 @@
     </objects>
     <designables>
         <designable name="39s-9M-toO">
-            <size key="intrinsicContentSize" width="58.5" height="20.5"/>
+            <size key="intrinsicContentSize" width="56" height="18"/>
         </designable>
         <designable name="7t7-Wf-jrz">
-            <size key="intrinsicContentSize" width="47.5" height="20.5"/>
+            <size key="intrinsicContentSize" width="56.5" height="23"/>
         </designable>
         <designable name="95D-gS-RsM">
-            <size key="intrinsicContentSize" width="46" height="30"/>
+            <size key="intrinsicContentSize" width="65" height="50"/>
         </designable>
         <designable name="G9Z-eG-jtO">
-            <size key="intrinsicContentSize" width="131.5" height="20.5"/>
+            <size key="intrinsicContentSize" width="118.5" height="18"/>
         </designable>
         <designable name="vFu-Dy-9r1">
-            <size key="intrinsicContentSize" width="105" height="20.5"/>
+            <size key="intrinsicContentSize" width="94.5" height="18"/>
         </designable>
     </designables>
     <resources>

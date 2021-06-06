@@ -30,6 +30,7 @@ class TestCertificateRequestTableViewCell: UITableViewCell, ReuseIdentifierProvi
 			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] in
 				self?.loadingStateStackView.isHidden = $0
+				self?.loadingActivityIndicator.startAnimating()
 				self?.updateAccessibilityElements()
 				onUpdate()
 			}
@@ -59,6 +60,7 @@ class TestCertificateRequestTableViewCell: UITableViewCell, ReuseIdentifierProvi
 	@IBOutlet private weak var registrationDateLabel: ENALabel!
 
 	@IBOutlet private weak var loadingStateStackView: UIStackView!
+	@IBOutlet private weak var loadingActivityIndicator: UIActivityIndicatorView!
 	@IBOutlet private weak var loadingStateLabel: ENALabel!
 
 	@IBOutlet private weak var tryAgainButton: ENAButton!
