@@ -14,11 +14,7 @@ protocol HealthCertificateData {
 	var vaccinationEntry: VaccinationEntry? { get }
 	var testEntry: TestEntry? { get }
 	var type: HealthCertificate.CertificateType { get }
-	var isLastDoseInASeries: Bool { get }
 	var expirationDate: Date { get }
-	var dateOfVaccination: Date? { get }
-	var doseNumber: Int { get }
-	var totalSeriesOfDoses: Int { get }
 }
 
 struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable {
@@ -103,37 +99,15 @@ struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable 
 		fatalError("Unsupported certificates are not added in the first place")
 	}
 
-	// TODO: Remove
-	var isLastDoseInASeries: Bool {
-		vaccinationEntry?.isLastDoseInASeries ?? false
-	}
-
 	var expirationDate: Date {
 		#if DEBUG
-		if isUITesting, let dateOfVaccination = dateOfVaccination {
-			return Calendar.current.date(byAdding: .year, value: 1, to: dateOfVaccination) ?? Date(timeIntervalSince1970: TimeInterval(cborWebTokenHeader.expirationTime))
+		if isUITesting, let localVaccinationDate = vaccinationEntry?.localVaccinationDate {
+			return Calendar.current.date(byAdding: .year, value: 1, to: localVaccinationDate) ??
+				Date(timeIntervalSince1970: TimeInterval(cborWebTokenHeader.expirationTime))
 		}
 		#endif
 
 		return Date(timeIntervalSince1970: TimeInterval(cborWebTokenHeader.expirationTime))
-	}
-
-	// TODO: Remove
-	var dateOfVaccination: Date? {
-		guard let dateString = vaccinationEntry?.dateOfVaccination else {
-			return nil
-		}
-		return ISO8601DateFormatter.justLocalDateFormatter.date(from: dateString)
-	}
-
-	// TODO: Remove
-	var doseNumber: Int {
-		return vaccinationEntry?.doseNumber ?? 0
-	}
-
-	// TODO: Remove
-	var totalSeriesOfDoses: Int {
-		return vaccinationEntry?.totalSeriesOfDoses ?? 0
 	}
 
 	// MARK: - Private

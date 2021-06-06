@@ -104,7 +104,7 @@ class HealthCertifiedPerson: Codable, Equatable {
 
 	private var completeVaccinationProtectionDate: Date? {
 		guard
-			let lastVaccination = vaccinationCertificates.last(where: { $0.isLastDoseInASeries }),
+			let lastVaccination = vaccinationCertificates.last(where: { $0.vaccinationEntry?.isLastDoseInASeries ?? false }),
 			let vaccinationDateString = lastVaccination.vaccinationEntry?.dateOfVaccination,
 			let vaccinationDate = ISO8601DateFormatter.justLocalDateFormatter.date(from: vaccinationDateString)
 		else {
@@ -115,7 +115,7 @@ class HealthCertifiedPerson: Codable, Equatable {
 	}
 
 	private var vaccinationExpirationDate: Date? {
-		guard let lastVaccination = vaccinationCertificates.last(where: { $0.isLastDoseInASeries }) else {
+		guard let lastVaccination = vaccinationCertificates.last(where: { $0.vaccinationEntry?.isLastDoseInASeries ?? false }) else {
 			return nil
 		}
 

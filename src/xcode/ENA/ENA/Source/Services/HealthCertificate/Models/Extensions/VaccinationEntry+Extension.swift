@@ -11,4 +11,8 @@ extension VaccinationEntry {
 		doseNumber == totalSeriesOfDoses
 	}
 
+	var localVaccinationDate: Date? {
+		return ISO8601DateFormatter.justLocalDateFormatter.date(from: dateOfVaccination)
+	}
+
 }

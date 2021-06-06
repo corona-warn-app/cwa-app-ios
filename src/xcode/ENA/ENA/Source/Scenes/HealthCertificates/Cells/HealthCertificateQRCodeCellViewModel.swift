@@ -24,10 +24,10 @@ struct HealthCertificateQRCodeCellViewModel {
 		self.accessibilityText = accessibilityText
 
 		switch healthCertificate.type {
-		case .vaccination:
+		case .vaccination(let vaccinationEntry):
 			var dateOfVaccination: String = ""
-			if let vaccinationDate = healthCertificate.dateOfVaccination {
-				dateOfVaccination = DateFormatter.localizedString(from: vaccinationDate, dateStyle: .medium, timeStyle: .none)
+			if let localVaccinationDate = vaccinationEntry.localVaccinationDate {
+				dateOfVaccination = DateFormatter.localizedString(from: localVaccinationDate, dateStyle: .medium, timeStyle: .none)
 			}
 			let expirationDate = DateFormatter.localizedString(from: healthCertificate.expirationDate, dateStyle: .medium, timeStyle: .none)
 			self.validity = String(
@@ -36,7 +36,7 @@ struct HealthCertificateQRCodeCellViewModel {
 			)
 			self.certificate = String(
 				format: AppStrings.HealthCertificate.Details.certificateCount,
-				healthCertificate.doseNumber, healthCertificate.totalSeriesOfDoses
+				vaccinationEntry.doseNumber, vaccinationEntry.totalSeriesOfDoses
 			)
 		case .test:
 			self.validity = nil

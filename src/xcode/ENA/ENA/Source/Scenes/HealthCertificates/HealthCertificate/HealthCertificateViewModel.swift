@@ -19,10 +19,7 @@ final class HealthCertificateViewModel {
 		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
 		self.qrCodeCellViewModel = HealthCertificateQRCodeCellViewModel(
 			healthCertificate: healthCertificate,
-			accessibilityText: String(
-				format: AppStrings.HealthCertificate.Details.QRCodeImageDescription,
-				healthCertificate.doseNumber, healthCertificate.totalSeriesOfDoses
-			)
+			accessibilityText: AppStrings.HealthCertificate.Details.QRCodeImageDescription
 		)
 
 		if case .test = healthCertificate.type {
@@ -95,8 +92,8 @@ final class HealthCertificateViewModel {
 		let title: String
 		let subtitle: String
 		switch healthCertificate.type {
-		case .vaccination:
-			title = String(format: AppStrings.HealthCertificate.Details.vaccinationCount, healthCertificate.doseNumber, healthCertificate.totalSeriesOfDoses)
+		case .vaccination(let vaccinationEntry):
+			title = String(format: AppStrings.HealthCertificate.Details.vaccinationCount, vaccinationEntry.doseNumber, vaccinationEntry.totalSeriesOfDoses)
 			subtitle = AppStrings.HealthCertificate.Details.certificate
 		case .test:
 			title = AppStrings.HealthCertificate.Details.TestCertificate.title
@@ -212,10 +209,10 @@ final class HealthCertificateViewModel {
 
 		// all vaccinationCertificate cell data - optional values
 		var dateCellViewModel: HealthCertificateKeyValueCellViewModel?
-		if	let date = healthCertificate.dateOfVaccination {
+		if	let localVaccinationDate = vaccinationEntry.localVaccinationDate {
 			dateCellViewModel = HealthCertificateKeyValueCellViewModel(
 				key: AppStrings.HealthCertificate.Details.dateOfVaccination,
-				value: DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .none)
+				value: DateFormatter.localizedString(from: localVaccinationDate, dateStyle: .medium, timeStyle: .none)
 			)
 		}
 
