@@ -2550,11 +2550,17 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TestCertificateRequest_ErrorAlert_title" = "Es gibt weiterhin Probleme bei der Abfrage";
 
-"TestCertificateRequest_ErrorAlert_description" = "Wollen sie das fehlerhafte Zertifikat löschen?";
-
 "TestCertificateRequest_ErrorAlert_DeleteButton_title" = "Entfernen";
 
 "TestCertificateRequest_ErrorAlert_CancelButton_title" = "Abbrechen";
+
+/* Test Certificate Request Errors */
+
+"TestCertificateRequest_Error_TRY_AGAIN" = "(%@)\n\nWollen sie das fehlerhafte Zertifikat löschen?";
+
+"TestCertificateRequest_Error_DGC_NOT_SUPPORTED_BY_LAB" = "(%@)\n\nWollen sie das fehlerhafte Zertifikat löschen?";
+
+"TestCertificateRequest_Error_NO_NETWORK" = "(%@)\n\nWollen sie das fehlerhafte Zertifikat löschen?";
 
 /* Health Certificate Information */
 

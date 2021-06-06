@@ -434,13 +434,13 @@ final class HTTPClient: Client {
 		traceWarningPackageDownload(country: country, packageId: packageId, url: url, completion: completion)
 	}
 
+	// swiftlint:disable:next cyclomatic_complexity
 	func dccRegisterPublicKey(
 		isFake: Bool = false,
 		token: String,
 		publicKey: String,
 		completion: @escaping DCCRegistrationCompletionHandler
 	) {
-
 		guard let request = try? URLRequest.dccPublicKeyRequest(
 			configuration: configuration,
 			token: token,
@@ -473,8 +473,13 @@ final class HTTPClient: Client {
 						completion(.failure(.unhandledResponse(response.statusCode)))
 					}
 				case let .failure(error):
-					Log.error("Error in response body", log: .api, error: error)
-					completion(.failure(.defaultServerError(error)))
+					if case .noNetworkConnection = error {
+						Log.error("No network connection", log: .api)
+						completion(.failure(.noNetworkConnection))
+					} else {
+						Log.error("Error in response body", log: .api, error: error)
+						completion(.failure(.defaultServerError(error)))
+					}
 				}
 			}
 		}
@@ -599,8 +604,13 @@ final class HTTPClient: Client {
 					completion(.failure(.unhandledResponse(response.statusCode)))
 				}
 			case let .failure(error):
-				Log.error("Error in response: \(error)", log: .api)
-				completion(.failure(.defaultServerError(error)))
+				if case .noNetworkConnection = error {
+					Log.error("No network connection", log: .api)
+					completion(.failure(.noNetworkConnection))
+				} else {
+					Log.error("Error in response: \(error)", log: .api)
+					completion(.failure(.defaultServerError(error)))
+				}
 			}
 		})
 	}
@@ -1227,7 +1237,6 @@ private extension URLRequest {
 		publicKey: String,
 		headerValue: Int
 	) throws -> URLRequest {
-
 		var request = URLRequest(url: configuration.dccPublicKeyURL)
 
 		request.setValue(

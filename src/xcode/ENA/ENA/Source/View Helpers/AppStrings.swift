@@ -1887,9 +1887,14 @@ enum AppStrings {
 
 				enum ErrorAlert {
 					static let title = NSLocalizedString("TestCertificateRequest_ErrorAlert_title", comment: "")
-					static let description = NSLocalizedString("TestCertificateRequest_ErrorAlert_description", comment: "")
 					static let cancelButtonTitle = NSLocalizedString("TestCertificateRequest_ErrorAlert_CancelButton_title", comment: "")
 					static let deleteButtonTitle = NSLocalizedString("TestCertificateRequest_ErrorAlert_DeleteButton_title", comment: "")
+				}
+
+				enum Error {
+					static let tryAgain = NSLocalizedString("TestCertificateRequest_Error_TRY_AGAIN", comment: "")
+					static let dccNotSupportedByLab = NSLocalizedString("TestCertificateRequest_Error_DGC_NOT_SUPPORTED_BY_LAB", comment: "")
+					static let noNetwork = NSLocalizedString("TestCertificateRequest_Error_NO_NETWORK", comment: "")
 				}
 			}
 		}

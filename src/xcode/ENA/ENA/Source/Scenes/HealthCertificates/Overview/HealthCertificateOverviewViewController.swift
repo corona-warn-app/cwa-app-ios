@@ -285,7 +285,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	private func showErrorAlert(error: HealthCertificateServiceError.TestCertificateRequestError, testCertificateRequest: TestCertificateRequest) {
 		let alert = UIAlertController(
 			title: AppStrings.HealthCertificate.Overview.TestCertificateRequest.ErrorAlert.title,
-			message: AppStrings.HealthCertificate.Overview.TestCertificateRequest.ErrorAlert.description,
+			message: error.localizedDescription,
 			preferredStyle: .alert
 		)
 
