@@ -512,7 +512,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionDispatch_QRCodeButtonTitle" = "QR-Code scannen";
 
-"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Erhalten Sie Ihr Testergebnis in der App und warnen Sie andere.";
+"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Erhalten Sie Ihr Testergebnis in der App und warnen Sie andere oder fordern Sie Ihr COVID-19-Testzertifikat an.";
 
 "ExposureSubmissionDispatch_TANButtonTitle" = "TAN für PCR-Test eingeben";
 
@@ -567,6 +567,8 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ExposureSubmissionQRInfo_instruction1" = "Scannen Sie nun per QR-Code Ihren eigenen Test und rufen Sie Ihr Testergebnis ab.";
 
 "ExposureSubmissionQRInfo_instruction2" = "Jeder Test kann nur einmal gescannt werden. Die App kann maximal einen Schnelltest und einen PCR-Test gleichzeitig verwalten.";
+
+"ExposureSubmissionQRInfo_instruction2a" = "Wenn Ihr Testergebnis negativ ist, können Sie dies in Form eines offiziellen COVID-19-Testzertifikats bestätigen lassen. Fordern Sie hierfür in den folgenden Schritten das Testzertifikat an.";
 
 "ExposureSubmissionQRInfo_instruction3" = "Die App kann %@ gleichzeitig mehrere Tests verwalten.";
 
@@ -972,6 +974,36 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_Profile_ProfileTile_Description" = "Sparen Sie Zeit und zeigen Sie Ihr Schnelltest-Profil an der Teststelle vor.";
 
+/* ExposureSubmission TestCertificate */
+
+"ExposureSubmission_TestCertificate_Information_Title" = "COVID-Testzertifikat";
+
+"ExposureSubmission_TestCertificate_Information_PrimaryButton" = "Testzertifikat anfordern";
+
+"ExposureSubmission_TestCertificate_Information_SecondaryButton" = "Nein danke";
+
+"ExposureSubmission_TestCertificate_Information_ImageDescription" = "Eine Frau mit einem Smartphone benutzt die Corona-Warn-App. Ein Haken auf einem Siegel hinter ihr symbolisiert die Gültigkeit eines Zertifikats.";
+
+"ExposureSubmission_TestCertificate_Information_Section01" = "Das Testzertifikat wird nur bei einem negativen Testergebnis ausgestellt.";
+
+"ExposureSubmission_TestCertificate_Information_Section02" = "Das Testzertifikat gilt innerhalb der EU als gültiger Nachweis eines negativen Testergebnisses (z.B. für Reisen).";
+
+"ExposureSubmission_TestCertificate_Information_Subheadline" = "Sie können über die App ein offizielles digitales Testzertifikat anfordern, das anschließend in der App hinzugefügt wird.";
+
+"ExposureSubmission_TestCertificate_Information_BirthdayPlaceholder" = "Geburtsdatum";
+
+"ExposureSubmission_TestCertificate_Information_BirthdayText" = "Zur Sicherheit wird Ihr Testergebnis mit Ihrem Geburtsdatum geschützt. Das Testergebnis kann nur bei korrekt angegebenem Geburtstdatum zugestellt werden.";
+
+"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Ausführliche Hinweise zur Datenverarbeitung finden Sie in der Datenschutzerklärung";
+
+"ExposureSubmission_TestCertificate_Information_Alert_Title" = "Registrierung abbrechen";
+
+"ExposureSubmission_TestCertificate_Information_Alert_Message" = "Wenn Sie die Test-Registrierung abbrechen, können Sie Ihr Testergebnis nicht in der App erhalten.";
+
+"ExposureSubmission_TestCertificate_Information_Alert_ContinueRegistration" = "Registrierung fortsetzen";
+
+"ExposureSubmission_TestCertificate_Information_Alert_CancelRegistration" = "Registrierung abbrechen";
+
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Risiko-Ermittlung";
 
@@ -1240,11 +1272,19 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Home_Finding_Positive_Card_Button" = "Andere warnen";
 
+"Home_Finding_Positive_Card_Button_Remove_Test" = "Test entfernen";
+
+"Home_Finding_Positive_Card_Remove_Test_Alert_Title" = "Sind Sie sicher, dass Sie Ihren Test entfernen wollen?";
+
+"Home_Finding_Positive_Card_Remove_Test_Alert_Description" = "Dadurch werden andere nicht gewarnt.";
+
+"Home_Finding_Positive_Card_Remove_Test_Alert_Description_Delete_Button" = "Entfernen";
+
 /* Home Test Registration Card */
 
 "Home_TestRegistration_Title" = "Test registrieren";
 
-"Home_TestRegistration_Body" = "Nutzen Sie die App, um Ihre Tests zu registrieren und Testergebnisse abzurufen, um andere schneller warnen zu können.";
+"Home_TestRegistration_Body" = "Nutzen Sie die App, um Ihr Testergebnis abzurufen und andere schneller warnen zu können, oder um Ihr COVID-19-Testzertifikat anzufordern.";
 
 "Home_TestRegistration_Button" = "Nächste Schritte";
 
@@ -1529,11 +1569,15 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Informationen unter dem Menüpunkt „Neue Funktionen”.";
 
-/* Version 2.3 */
+/* Version 2.4 */
 
-"NewVersionFeature_23_digital_vaccination_certificate_title" = "Digitaler Impfnachweis";
+"NewVersionFeature_24_digital_covid_cert_title" = "COVID-Testzertifikat";
 
-"NewVersionFeature_23_digital_vaccination_certificate_description" = "Sie können jetzt Ihre Impfzertifikate in der App hinzufügen und per QR-Code vorweisen. 14 Tage nach der letzten Impfung zeigt die App den vollständigen Impfschutz an.";
+"NewVersionFeature_24_digital_covid_cert_description" = "Sie können nun über die App ein offizielles digitales Testzertifikat anfordern und anschließend in der App hinzufügen. Sie können das Testzertifikat (QR-Code) innerhalb der EU verwenden, um ein negatives Testergebnis nachzuweisen (z.B. für Auslandsreisen).";
+
+"NewVersionFeature_24_extended_diary_title" = "Erweiterung Kontakt-Tagebuch";
+
+"NewVersionFeature_24_extended_diary_title_description" = "Sobald Ihr Testergebnis vorliegt, wird es nun auch Ihrem Kontakt-Tagebuch hinzugefügt.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
@@ -1974,7 +2018,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Tabbar_Home_Title" = "Startseite";
 
-"Tabbar_Certificates_Title" = "Nachweise";
+"Tabbar_Certificates_Title" = "Zertifikate";
 
 "Tabbar_Diary_Title" = "Tagebuch";
 
@@ -2462,7 +2506,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Health Certificate Overview */
 
-"HealthCertificate_Overview_title" = "Nachweise";
+"HealthCertificate_Overview_title" = "Zertifikate";
 
 "HealthCertificate_Overview_description" = "Hier werden Ihre digitalen Impfzertifikate und Testzertifikate angezeigt.";
 
@@ -2482,7 +2526,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* - Test Certificate Info */
 
-"TestCertificate_Info_title" = "Digitales\n**COVID-19-Testzertifikat**";
+"TestCertificate_Info_title" = "Digitales\n**COVID-Testzertifikat**";
 
 "TestCertificate_Info_description" = "Registrieren Sie einen Test auf der Startseite und stimmen Sie zu, ein digitales Testzertifikat zu erhalten. Sobald das Zertifikat vorliegt, wird es hier angezeigt.";
 

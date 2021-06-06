@@ -58,6 +58,8 @@ enum AccessibilityIdentifiers {
 			static let antigenCell = "AccessibilityIdentifiers.Home.antigenCell"
 			static let submittedPCRCell = "AccessibilityIdentifiers.Home.submittedPCRCell"
 			static let submittedAntigenCell = "AccessibilityIdentifiers.Home.submittedAntigenCell"
+			static let removeTestButton = "AppStrings.Home.TestResult.ShownPositive.removeTestButton"
+			static let deleteAlertDeleteButton = "AppStrings.Home.TestResult.ShownPositive.deleteAlertDeleteButton"
 		}
 
 		static let submitCardButton = "AppStrings.Home.submitCardButton"
@@ -401,6 +403,17 @@ enum AccessibilityIdentifiers {
 				static let createProfileTile_Description = "AppStrings.ExposureSubmission.AntigenTest.Profile.createProfileTile_Description"
 				static let continueButton = "AppStrings.ExposureSubmission.AntigenTest.Profile.primaryButton"
 				static let deleteButton = "AppStrings.ExposureSubmission.AntigenTest.Profile.secondaryButton"
+			}
+		}
+
+		enum TestCertificate {
+			enum Info {
+				static let imageDescription = "AppStrings.ExposureSubmission.TestCertificate.Info.imageDescription"
+				static let body = "AppStrings.ExposureSubmission.TestCertificate.Info.body"
+				static let acknowledgementTitle = "ExposureSubmissionTestCertificateInfo_acknowledgement_title"
+				static let dataPrivacyTitle = "AppStrings.ExposureSubmission.TestCertificate.Info.dataPrivacyTitle"
+				static let birthdayPlaceholder = "AppStrings.ExposureSubmission.TestCertificate.Info.birthDayPlaceholder"
+				static let birthdayText = "AppStrings.ExposureSubmission.TestCertificate.Info.birthDayText"
 			}
 		}
 

@@ -518,6 +518,28 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			with: cellModel,
 			onPrimaryAction: { [weak self] in
 				self?.viewModel.didTapTestResultButton(coronaTestType: coronaTestType)
+			},
+			onSecondaryAction: { [weak self] in
+				let alert = UIAlertController(
+					title: AppStrings.Home.TestResult.ShownPositive.deleteAlertTitle,
+					message: AppStrings.Home.TestResult.ShownPositive.deleteAlertDescription,
+					preferredStyle: .alert
+				)
+				
+				let deleteAction = UIAlertAction(
+					title: AppStrings.Home.TestResult.ShownPositive.deleteAlertDeleteButtonTitle,
+					style: .destructive,
+					handler: { [weak self] _ in
+						self?.viewModel.coronaTestService.removeTest(coronaTestType)
+					}
+				)
+				deleteAction.accessibilityIdentifier = AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.deleteAlertDeleteButton
+				alert.addAction(deleteAction)
+				
+				let cancelAction = UIAlertAction(title: AppStrings.Common.alertActionCancel, style: .cancel)
+				alert.addAction(cancelAction)
+				
+				self?.present(alert, animated: true, completion: nil)
 			}
 		)
 
