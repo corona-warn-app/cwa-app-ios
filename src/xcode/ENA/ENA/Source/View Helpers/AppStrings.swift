@@ -1885,11 +1885,11 @@ enum AppStrings {
 				static let loadingStateDescription = NSLocalizedString("TestCertificateRequest_loadingStateDescription", comment: "")
 				static let buttonTitle = NSLocalizedString("TestCertificateRequest_buttonTitle", comment: "")
 
-				enum DeleteAlert {
-					static let title = NSLocalizedString("TestCertificateRequest_DeleteAlert_title", comment: "")
-					static let description = NSLocalizedString("TestCertificateRequest_DeleteAlert_description", comment: "")
-					static let cancelButtonTitle = NSLocalizedString("TestCertificateRequest_DeleteAlert_DeleteButton_title", comment: "")
-					static let deleteButtonTitle = NSLocalizedString("TestCertificateRequest_DeleteAlert_CancelButton_title", comment: "")
+				enum ErrorAlert {
+					static let title = NSLocalizedString("TestCertificateRequest_ErrorAlert_title", comment: "")
+					static let description = NSLocalizedString("TestCertificateRequest_ErrorAlert_description", comment: "")
+					static let cancelButtonTitle = NSLocalizedString("TestCertificateRequest_DeleteAlert_ErrorAlert_title", comment: "")
+					static let deleteButtonTitle = NSLocalizedString("TestCertificateRequest_DeleteAlert_ErrorAlert_title", comment: "")
 				}
 			}
 		}

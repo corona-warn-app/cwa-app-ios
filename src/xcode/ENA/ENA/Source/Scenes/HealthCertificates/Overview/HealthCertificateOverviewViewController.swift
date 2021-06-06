@@ -284,13 +284,13 @@ class HealthCertificateOverviewViewController: UITableViewController {
 
 	private func showErrorAlert(error: HealthCertificateServiceError.TestCertificateRequestError, testCertificateRequest: TestCertificateRequest) {
 		let alert = UIAlertController(
-			title: AppStrings.HealthCertificate.Overview.TestCertificateRequest.DeleteAlert.title,
-			message: AppStrings.HealthCertificate.Overview.TestCertificateRequest.DeleteAlert.description,
+			title: AppStrings.HealthCertificate.Overview.TestCertificateRequest.ErrorAlert.title,
+			message: AppStrings.HealthCertificate.Overview.TestCertificateRequest.ErrorAlert.description,
 			preferredStyle: .alert
 		)
 
 		let cancelAction = UIAlertAction(
-			title: AppStrings.HealthCertificate.Overview.TestCertificateRequest.DeleteAlert.cancelButtonTitle,
+			title: AppStrings.HealthCertificate.Overview.TestCertificateRequest.ErrorAlert.cancelButtonTitle,
 			style: .cancel,
 			handler: { _ in
 				alert.dismiss(animated: true)
@@ -298,7 +298,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		)
 
 		let deleteAction = UIAlertAction(
-			title: AppStrings.HealthCertificate.Overview.TestCertificateRequest.DeleteAlert.deleteButtonTitle,
+			title: AppStrings.HealthCertificate.Overview.TestCertificateRequest.ErrorAlert.deleteButtonTitle,
 			style: .destructive,
 			handler: { [weak self] _ in
 				self?.viewModel.remove(testCertificateRequest: testCertificateRequest)
