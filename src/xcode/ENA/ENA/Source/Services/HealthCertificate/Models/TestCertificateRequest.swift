@@ -10,7 +10,6 @@ class TestCertificateRequest: Codable, Equatable {
 	// MARK: - Init
 
 	init(
-		coronaTestType: CoronaTestType,
 		registrationToken: String,
 		registrationDate: Date,
 		rsaKeyPair: DCCRSAKeyPair? = nil,
@@ -20,7 +19,6 @@ class TestCertificateRequest: Codable, Equatable {
 		requestExecutionFailed: Bool = false,
 		isLoading: Bool = true
 	) {
-		self.coronaTestType = coronaTestType
 		self.registrationToken = registrationToken
 		self.registrationDate = registrationDate
 		self.rsaKeyPair = rsaKeyPair
@@ -34,7 +32,6 @@ class TestCertificateRequest: Codable, Equatable {
 	// MARK: - Protocol Codable
 
 	enum CodingKeys: String, CodingKey {
-		case coronaTestType
 		case registrationToken
 		case registrationDate
 		case rsaKeyPair
@@ -47,7 +44,6 @@ class TestCertificateRequest: Codable, Equatable {
 	required init(from decoder: Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 
-		coronaTestType = try container.decode(CoronaTestType.self, forKey: .coronaTestType)
 		registrationToken = try container.decode(String.self, forKey: .registrationToken)
 		registrationDate = try container.decode(Date.self, forKey: .registrationDate)
 		rsaKeyPair = try container.decodeIfPresent(DCCRSAKeyPair.self, forKey: .rsaKeyPair)
@@ -61,7 +57,6 @@ class TestCertificateRequest: Codable, Equatable {
 	func encode(to encoder: Encoder) throws {
 		var container = encoder.container(keyedBy: CodingKeys.self)
 
-		try container.encode(coronaTestType, forKey: .coronaTestType)
 		try container.encode(registrationToken, forKey: .registrationToken)
 		try container.encode(registrationDate, forKey: .registrationDate)
 		try container.encode(rsaKeyPair, forKey: .rsaKeyPair)
@@ -74,7 +69,6 @@ class TestCertificateRequest: Codable, Equatable {
 	// MARK: - Protocol Equatable
 
 	static func == (lhs: TestCertificateRequest, rhs: TestCertificateRequest) -> Bool {
-		lhs.coronaTestType == rhs.coronaTestType &&
 		lhs.registrationToken == rhs.registrationToken &&
 		lhs.registrationDate == rhs.registrationDate &&
 		lhs.rsaKeyPair == rhs.rsaKeyPair &&
@@ -86,7 +80,6 @@ class TestCertificateRequest: Codable, Equatable {
 
 	// MARK: - Internal
 
-	let coronaTestType: CoronaTestType
 	let registrationToken: String
 	let registrationDate: Date
 

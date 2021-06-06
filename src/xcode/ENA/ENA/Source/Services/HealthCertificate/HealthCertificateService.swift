@@ -158,13 +158,12 @@ class HealthCertificateService {
 	) {
 		Log.info("[HealthCertificateService] Registering test certificate request: (coronaTestType: \(coronaTestType), registrationToken: \(private: registrationToken), registrationDate: \(registrationDate))", log: .api)
 
-		if testCertificateRequests.value.contains(where: { $0.coronaTestType == coronaTestType && $0.registrationToken == registrationToken }) {
+		if testCertificateRequests.value.contains(where: { $0.registrationToken == registrationToken }) {
 			Log.info("[HealthCertificateService] Test certificate request (coronaTestType: \(coronaTestType), registrationToken: \(private: registrationToken), registrationDate: \(registrationDate)) already registered", log: .api)
 			return
 		}
 
 		let testCertificateRequest = TestCertificateRequest(
-			coronaTestType: coronaTestType,
 			registrationToken: registrationToken,
 			registrationDate: registrationDate
 		)
