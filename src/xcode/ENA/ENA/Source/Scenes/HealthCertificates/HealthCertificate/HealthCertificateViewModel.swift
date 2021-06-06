@@ -165,7 +165,7 @@ final class HealthCertificateViewModel {
 		case .topCorner, .bottomCorner:
 			return healthCertificateKeyValueCellViewModel.isEmpty ? 0 : 1
 		case .additionalInfo:
-			return additionalInfoCellViewModels.count
+			return healthCertificate.testEntry != nil ? additionalInfoCellViewModels.count : 0
 		}
 	}
 
