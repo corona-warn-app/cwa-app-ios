@@ -32,8 +32,11 @@ class TestCertificateRequestTableViewCell: UITableViewCell, ReuseIdentifierProvi
 		registrationDateLabel.text = cellModel.registrationDate
 
 		loadingStateLabel.text = cellModel.loadingStateDescription
+		loadingStateStackView.isHidden = cellModel.isLoadingStateHidden
+		loadingActivityIndicator.startAnimating()
 
 		cellModel.$isLoadingStateHidden
+			.dropFirst() // First state is set manually above without calling onUpdate() to prevent initial animation, especially on reuse
 			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] in
 				self?.loadingStateStackView.isHidden = $0
@@ -44,8 +47,10 @@ class TestCertificateRequestTableViewCell: UITableViewCell, ReuseIdentifierProvi
 			.store(in: &subscriptions)
 
 		tryAgainButton.setTitle(cellModel.buttonTitle, for: .normal)
+		tryAgainButton.isHidden = cellModel.isTryAgainButtonHidden
 
 		cellModel.$isTryAgainButtonHidden
+			.dropFirst() // First state is set manually above without calling onUpdate() to prevent initial animation, especially on reuse
 			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] in
 				self?.tryAgainButton.isHidden = $0
@@ -53,6 +58,8 @@ class TestCertificateRequestTableViewCell: UITableViewCell, ReuseIdentifierProvi
 				onUpdate()
 			}
 			.store(in: &subscriptions)
+
+		updateAccessibilityElements()
 
 		self.cellModel = cellModel
 	}
