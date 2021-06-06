@@ -83,7 +83,10 @@ class HealthCertificateOverviewViewModel {
 				guard let self = self else { return }
 
 				let testCertificateRequest = self.testCertificateRequests[indexPath.row]
-				self.healthCertificateService.executeTestCertificateRequest(testCertificateRequest) { [weak self] result in
+				self.healthCertificateService.executeTestCertificateRequest(
+					testCertificateRequest,
+					retryIfCertificateIsPending: false
+				) { [weak self] result in
 					if case .failure(let error) = result {
 						self?.testCertificateRequestError = (error: error, request: testCertificateRequest)
 					}

@@ -682,10 +682,11 @@ class CoronaTestService {
 						}
 
 						if testResult == .negative && coronaTest.certificateConsentGiven && !coronaTest.certificateRequested {
-							self.healthCertificateService.registerTestCertificateRequest(
+							self.healthCertificateService.registerAndExecuteTestCertificateRequest(
 								coronaTestType: coronaTestType,
 								registrationToken: registrationToken,
-								registrationDate: registrationDate
+								registrationDate: registrationDate,
+								retryExecutionIfCertificateIsPending: true
 							)
 
 							switch coronaTestType {

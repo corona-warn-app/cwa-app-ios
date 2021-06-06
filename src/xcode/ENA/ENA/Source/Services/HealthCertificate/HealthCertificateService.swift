@@ -150,10 +150,11 @@ class HealthCertificateService {
 		}
 	}
 
-	func registerTestCertificateRequest(
+	func registerAndExecuteTestCertificateRequest(
 		coronaTestType: CoronaTestType,
 		registrationToken: String,
-		registrationDate: Date
+		registrationDate: Date,
+		retryExecutionIfCertificateIsPending: Bool
 	) {
 		Log.info("[HealthCertificateService] Registering test certificate request: (coronaTestType: \(coronaTestType), registrationToken: \(private: registrationToken), registrationDate: \(registrationDate))", log: .api)
 
@@ -169,11 +170,15 @@ class HealthCertificateService {
 		)
 
 		testCertificateRequests.value.append(testCertificateRequest)
-		executeTestCertificateRequest(testCertificateRequest)
+		executeTestCertificateRequest(
+			testCertificateRequest,
+			retryIfCertificateIsPending: retryExecutionIfCertificateIsPending
+		)
 	}
 
 	func executeTestCertificateRequest(
 		_ testCertificateRequest: TestCertificateRequest,
+		retryIfCertificateIsPending: Bool,
 		completion: ((Result<Void, HealthCertificateServiceError.TestCertificateRequestError>) -> Void)? = nil
 	) {
 		testCertificateRequest.isLoading = true
@@ -213,6 +218,7 @@ class HealthCertificateService {
 										self.requestDigitalCovidCertificate(
 											for: testCertificateRequest,
 											rsaKeyPair: rsaKeyPair,
+											retryIfCertificateIsPending: retryIfCertificateIsPending,
 											waitForRetryInSeconds: waitForRetryInSeconds,
 											completion: completion
 										)
@@ -223,6 +229,7 @@ class HealthCertificateService {
 									self.requestDigitalCovidCertificate(
 										for: testCertificateRequest,
 										rsaKeyPair: rsaKeyPair,
+										retryIfCertificateIsPending: retryIfCertificateIsPending,
 										waitForRetryInSeconds: waitForRetryInSeconds,
 										completion: completion
 									)
@@ -237,6 +244,7 @@ class HealthCertificateService {
 						self.requestDigitalCovidCertificate(
 							for: testCertificateRequest,
 							rsaKeyPair: rsaKeyPair,
+							retryIfCertificateIsPending: retryIfCertificateIsPending,
 							waitForRetryInSeconds: waitForRetryInSeconds,
 							completion: completion
 						)
@@ -331,7 +339,7 @@ class HealthCertificateService {
 			.publisher(for: UIApplication.didBecomeActiveNotification)
 			.sink { [weak self] _ in
 				self?.testCertificateRequests.value.forEach {
-					self?.executeTestCertificateRequest($0)
+					self?.executeTestCertificateRequest($0, retryIfCertificateIsPending: false)
 				}
 			}
 			.store(in: &subscriptions)
@@ -340,7 +348,7 @@ class HealthCertificateService {
 	private func requestDigitalCovidCertificate(
 		for testCertificateRequest: TestCertificateRequest,
 		rsaKeyPair: DCCRSAKeyPair,
-		retryOn202: Bool = true, // TODO: Where do I get this info?
+		retryIfCertificateIsPending: Bool,
 		waitForRetryInSeconds: TimeInterval,
 		completion: ((Result<Void, HealthCertificateServiceError.TestCertificateRequestError>) -> Void)?
 	) {
@@ -357,12 +365,12 @@ class HealthCertificateService {
 					encryptedCOSE: dccResponse.dcc,
 					completion: completion
 				)
-			case .failure(let error) where error == .dccPending && retryOn202:
+			case .failure(let error) where error == .dccPending && retryIfCertificateIsPending:
 				DispatchQueue.global().asyncAfter(deadline: .now() + waitForRetryInSeconds) {
 					self?.requestDigitalCovidCertificate(
 						for: testCertificateRequest,
 						rsaKeyPair: rsaKeyPair,
-						retryOn202: false,
+						retryIfCertificateIsPending: false,
 						waitForRetryInSeconds: waitForRetryInSeconds,
 						completion: completion
 					)
