@@ -35,20 +35,8 @@ class HealthCertificateService {
 		}
 		#endif
 
-		// TODO: Remove
-		let mockClient = ClientMock()
-
-		mockClient.onDCCRegisterPublicKey =  { _, _, _, completion in
-			completion(.success(()))
-		}
-
-		mockClient.onGetDigitalCovid19Certificate = { _, _, completion in
-			// swiftlint:disable:next line_length
-			completion(.success(DCCResponse(dek: "d/EX1xr64C+ifTvpEzD3MlPd67qBhub9BSFdc2dpMnnbaJ8BNarQ58Cau3+f4LoYswmhNiDzMF9YXFrdTcBZdQr48m2bKF2dx6yORydCr1Thrv+XfbtnASh9apE5+YnCKvaCP+LOpgumizchUrNRf4dtikLE6FvYgTMTr99oie1aaRiAgtma1P+GBEVGWohGSgayv8d0jq8nsWpA+By2EMxs2WUALxTDH8hHNe91IFGBVzXXMhraxt5K5qrF+bC1hnZiPKNxDyNCLR6ix1ti3KxOfk44i/ubtCQBRwNSEIIIWXSZSvcwBDJ/uUmgYfhCRXfD2Kv9zozOuSlct8TIk9R7ENbs5unMkdyK3tBTGGfJlydeRTK98NgS9uLVhmdW0uwqeyPDl9X/hRZQGDqbKW3a7PiLeW/VhCS/3ITMqkV0VXgdxxplTyU+JRk+wX4A8du2JZUM1bgQyGyZ2PJqUAl7UYjavPTOLQmuLrKDxvnomwuQdYKVuLbnZzp/d0qa", dcc: "0oRNogEmBEiLxYhcyl5BXkBZAXBxvo73+06cLc73F5KIFuQdo7fLUnb7yF9QFtX9tIEmgSzHIXKbHcEiep5RTtb2UVS80vybmnwYa1k36HR2R2yTKGwvDWAUumw2ZjCnfp8CxKx3zQVRl6JrVdLiskWmo4qiK/EwyTHrw/5PZy4rd11vt9Y6wuZtlpOvFGDIDhGKpcgK93zfIQWY59xjxusr/4J3FCWpcy9YNehB6m4Az1NozXxOrL9DmFM38mWCkiHaPeWgedbqfKTg3x/vSrXSkXYnLpc6QHsRqW99r7yTXJffbK8X44KvgkUI9sIlVU5+2+IuwT4XBY2p/MLW4d9gfnAhZYTsn0nGuoj4KFHTo6fNkXsuZ6BWm5MurXR0dqiCd00B1ZKuTNV0QhdzaaB2pYtwBnxD65TW8D0VDrDDjZuYRzni032f5hgB7YDlvcWYWiv7o6T8DeCNAsJ0RdL/X1qe3bHvLOBvzF9XlTrg4vNF/3aeRn9libOf+0ufr5dEcVhA1NqKSb93S2El9dA0icVjK+DV4LbwVWajZmTmhqcsgzWhvl4/PmtAJ5/iT57FfoQvuOvlyhxRPgGSg33IuDnBCg==")))
-		}
-
 		self.store = store
-		self.client = mockClient
+		self.client = client
 		self.appConfiguration = appConfiguration
 
 		setup()
@@ -269,12 +257,6 @@ class HealthCertificateService {
 
 		healthCertifiedPersons.value = store.healthCertifiedPersons
 		testCertificateRequests.value = store.testCertificateRequests
-
-		// TODO: Remove
-		testCertificateRequests.value = [
-			TestCertificateRequest(coronaTestType: .pcr, registrationToken: "asdf", registrationDate: Date(), rsaKeyPair: nil, rsaPublicKeyRegistered: true, encryptedDEK: nil, encryptedCOSE: nil, requestExecutionFailed: false, isLoading: true),
-			TestCertificateRequest(coronaTestType: .antigen, registrationToken: "qwer", registrationDate: Date(), rsaKeyPair: nil, rsaPublicKeyRegistered: true, encryptedDEK: nil, encryptedCOSE: nil, requestExecutionFailed: true, isLoading: false)
-		]
 	}
 
 	func remove(testCertificateRequest: TestCertificateRequest) {
@@ -405,28 +387,14 @@ class HealthCertificateService {
 		}
 
 		do {
-			// TODO: Decrypt
-			let decodedDEK = Data(base64Encoded: "/9o5eVNb9us5CsGD4F3J36Ju1enJ71Y6+FpVvScGWkE=")//try rsaKeyPair.decrypt(encryptedDEKData)
-			let result = DigitalGreenCertificateAccess().convertToBase45(from: encryptedCOSE, with: decodedDEK ?? Data())
+			let decodedDEK = try rsaKeyPair.decrypt(encryptedDEKData)
+			let result = DigitalGreenCertificateAccess().convertToBase45(from: encryptedCOSE, with: decodedDEK)
 
 			switch result {
 			case .success(let healthCertificateBase45):
-					if testCertificateRequest.requestExecutionFailed {
-						DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-							completion?(.failure(.assemblyFailed(.AES_DECRYPTION_FAILED)))
-							testCertificateRequest.isLoading = false
-							testCertificateRequest.requestExecutionFailed = true
-						}
-					} else {
-						self.registerHealthCertificate(base45: healthCertificateBase45)
-						testCertificateRequest.isLoading = false
-						testCertificateRequest.requestExecutionFailed = true
-					}
-
-				// TODO: Use actual code
-//				registerHealthCertificate(base45: healthCertificateBase45)
-//				removeTestCertificateRequest(testCertificateRequest)
-//				completion?(.success(()))
+				registerHealthCertificate(base45: healthCertificateBase45)
+				remove(testCertificateRequest: testCertificateRequest)
+				completion?(.success(()))
 			case .failure(let error):
 				testCertificateRequest.requestExecutionFailed = true
 				completion?(.failure(.assemblyFailed(error)))
