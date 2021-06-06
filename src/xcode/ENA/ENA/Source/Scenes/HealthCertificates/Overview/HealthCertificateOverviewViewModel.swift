@@ -51,6 +51,7 @@ class HealthCertificateOverviewViewModel {
 	@DidSetPublished var healthCertifiedPersons: [HealthCertifiedPerson] = []
 	@DidSetPublished var testCertificates: [HealthCertificate] = []
 	@DidSetPublished var testCertificateRequests: [TestCertificateRequest] = []
+	@DidSetPublished var testCertificateRequestError: (error: HealthCertificateServiceError.TestCertificateRequestError, request: TestCertificateRequest)?
 
 	var numberOfSections: Int {
 		Section.allCases.count
@@ -81,9 +82,18 @@ class HealthCertificateOverviewViewModel {
 			onTryAgainButtonTap: { [weak self] in
 				guard let self = self else { return }
 
-				self.healthCertificateService.executeTestCertificateRequest(self.testCertificateRequests[indexPath.row])
+				let testCertificateRequest = self.testCertificateRequests[indexPath.row]
+				self.healthCertificateService.executeTestCertificateRequest(testCertificateRequest) { [weak self] result in
+					if case .failure(let error) = result {
+						self?.testCertificateRequestError = (error: error, request: testCertificateRequest)
+					}
+				}
 			}
 		)
+	}
+
+	func remove(testCertificateRequest: TestCertificateRequest) {
+		healthCertificateService.remove(testCertificateRequest: testCertificateRequest)
 	}
 
 	// MARK: - Private

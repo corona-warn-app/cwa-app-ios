@@ -269,7 +269,7 @@ class HealthCertificateService {
 		rsaKeyPair: DCCRSAKeyPair,
 		retryOn202: Bool = true, // TODO: Where do I get this info?
 		waitForRetryInSeconds: TimeInterval,
-		completion: ((Result<Void, HealthCertificateServiceError.TestCertificateRequestError>) -> Void)? = nil
+		completion: ((Result<Void, HealthCertificateServiceError.TestCertificateRequestError>) -> Void)?
 	) {
 		client.getDigitalCovid19Certificate(
 			registrationToken: testCertificateRequest.registrationToken,
@@ -281,7 +281,8 @@ class HealthCertificateService {
 					for: testCertificateRequest,
 					rsaKeyPair: rsaKeyPair,
 					encryptedDEK: dccResponse.dek,
-					encryptedCOSE: dccResponse.dcc
+					encryptedCOSE: dccResponse.dcc,
+					completion: completion
 				)
 			case .failure(let error) where error == .dccPending && retryOn202:
 				DispatchQueue.global().asyncAfter(deadline: .now() + waitForRetryInSeconds) {
@@ -306,7 +307,7 @@ class HealthCertificateService {
 		rsaKeyPair: DCCRSAKeyPair,
 		encryptedDEK: String,
 		encryptedCOSE: String,
-		completion: ((Result<Void, HealthCertificateServiceError.TestCertificateRequestError>) -> Void)? = nil
+		completion: ((Result<Void, HealthCertificateServiceError.TestCertificateRequestError>) -> Void)?
 	) {
 		guard let encryptedDEKData = Data(base64Encoded: encryptedDEK) else {
 			testCertificateRequest.requestExecutionFailed = true
@@ -336,6 +337,7 @@ class HealthCertificateService {
 				// TODO: Use actual code
 //				registerHealthCertificate(base45: healthCertificateBase45)
 //				removeTestCertificateRequest(testCertificateRequest)
+//				completion?(.success(()))
 			case .failure(let error):
 				testCertificateRequest.requestExecutionFailed = true
 				completion?(.failure(.assemblyFailed(error)))
@@ -359,7 +361,7 @@ class HealthCertificateService {
 		]
 	}
 
-	func removeTestCertificateRequest(_ testCertificateRequest: TestCertificateRequest) {
+	func remove(testCertificateRequest: TestCertificateRequest) {
 		testCertificateRequest.rsaKeyPair?.removeFromKeychain()
 		if let index = testCertificateRequests.value.firstIndex(of: testCertificateRequest) {
 			testCertificateRequests.value.remove(at: index)

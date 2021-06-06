@@ -44,6 +44,17 @@ class HealthCertificateOverviewViewController: UITableViewController {
 				self?.tableView.reloadData()
 			}
 			.store(in: &subscriptions)
+
+		viewModel.$testCertificateRequestError
+			.sink { [weak self] in
+				guard let self = self, let error = $0?.error, let request = $0?.request else {
+					return
+				}
+
+				self.viewModel.testCertificateRequestError = nil
+				self.showErrorAlert(error: error, testCertificateRequest: request)
+			}
+			.store(in: &subscriptions)
 	}
 
 	@available(*, unavailable)
@@ -269,6 +280,35 @@ class HealthCertificateOverviewViewController: UITableViewController {
 				cell.contentView.layer.masksToBounds = false
 			}
 		}
+	}
+
+	private func showErrorAlert(error: HealthCertificateServiceError.TestCertificateRequestError, testCertificateRequest: TestCertificateRequest) {
+		let alert = UIAlertController(
+			title: AppStrings.HealthCertificate.Overview.TestCertificateRequest.DeleteAlert.title,
+			message: AppStrings.HealthCertificate.Overview.TestCertificateRequest.DeleteAlert.description,
+			preferredStyle: .alert
+		)
+
+		let cancelAction = UIAlertAction(
+			title: AppStrings.HealthCertificate.Overview.TestCertificateRequest.DeleteAlert.cancelButtonTitle,
+			style: .cancel,
+			handler: { _ in
+				alert.dismiss(animated: true)
+			}
+		)
+
+		let deleteAction = UIAlertAction(
+			title: AppStrings.HealthCertificate.Overview.TestCertificateRequest.DeleteAlert.deleteButtonTitle,
+			style: .destructive,
+			handler: { [weak self] _ in
+				self?.viewModel.remove(testCertificateRequest: testCertificateRequest)
+			}
+		)
+
+		alert.addAction(deleteAction)
+		alert.addAction(cancelAction)
+
+		present(alert, animated: true, completion: nil)
 	}
 
 }
