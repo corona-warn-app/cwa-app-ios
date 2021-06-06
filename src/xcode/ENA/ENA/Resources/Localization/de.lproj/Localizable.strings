@@ -2548,13 +2548,13 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TestCertificateRequest_buttonTitle" = "Nochmal versuchen";
 
-"TestCertificateRequest_DeleteAlert_title" = "Es gibt weiterhin Probleme bei der Abfrage";
+"TestCertificateRequest_ErrorAlert_title" = "Es gibt weiterhin Probleme bei der Abfrage";
 
-"TestCertificateRequest_DeleteAlert_description" = "Wollen sie das fehlerhafte Zertifikat löschen?";
+"TestCertificateRequest_ErrorAlert_description" = "Wollen sie das fehlerhafte Zertifikat löschen?";
 
-"TestCertificateRequest_DeleteAlert_DeleteButton_title" = "Entfernen";
+"TestCertificateRequest_ErrorAlert_DeleteButton_title" = "Entfernen";
 
-"TestCertificateRequest_DeleteAlert_CancelButton_title" = "Abbrechen";
+"TestCertificateRequest_ErrorAlert_CancelButton_title" = "Abbrechen";
 
 /* Health Certificate Information */
 

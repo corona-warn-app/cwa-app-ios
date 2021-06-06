@@ -1888,8 +1888,8 @@ enum AppStrings {
 				enum ErrorAlert {
 					static let title = NSLocalizedString("TestCertificateRequest_ErrorAlert_title", comment: "")
 					static let description = NSLocalizedString("TestCertificateRequest_ErrorAlert_description", comment: "")
-					static let cancelButtonTitle = NSLocalizedString("TestCertificateRequest_DeleteAlert_ErrorAlert_title", comment: "")
-					static let deleteButtonTitle = NSLocalizedString("TestCertificateRequest_DeleteAlert_ErrorAlert_title", comment: "")
+					static let cancelButtonTitle = NSLocalizedString("TestCertificateRequest_ErrorAlert_CancelButton_title", comment: "")
+					static let deleteButtonTitle = NSLocalizedString("TestCertificateRequest_ErrorAlert_DeleteButton_title", comment: "")
 				}
 			}
 		}
