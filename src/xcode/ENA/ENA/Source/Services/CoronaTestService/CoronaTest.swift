@@ -104,6 +104,24 @@ enum CoronaTest: Equatable {
 		}
 	}
 
+	var certificateConsentGiven: Bool {
+		switch self {
+		case .pcr(let pcrTest):
+			return pcrTest.certificateConsentGiven
+		case .antigen(let antigenTest):
+			return antigenTest.certificateConsentGiven
+		}
+	}
+
+	var certificateRequested: Bool {
+		switch self {
+		case .pcr(let pcrTest):
+			return pcrTest.certificateRequested
+		case .antigen(let antigenTest):
+			return antigenTest.certificateRequested
+		}
+	}
+
 	var type: CoronaTestType {
 		switch self {
 		case .pcr:

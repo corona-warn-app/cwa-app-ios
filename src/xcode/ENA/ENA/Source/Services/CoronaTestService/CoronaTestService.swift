@@ -122,7 +122,7 @@ class CoronaTestService {
 						keysSubmitted: false,
 						journalEntryCreated: false,
 						certificateConsentGiven: certificateConsentGiven,
-						certificateCreated: false
+						certificateRequested: false
 					)
 
 					Log.info("[CoronaTestService] PCR test registered: \(private: String(describing: self?.pcrTest), public: "PCR Test result")", log: .api)
@@ -170,7 +170,7 @@ class CoronaTestService {
 						keysSubmitted: false,
 						journalEntryCreated: false,
 						certificateConsentGiven: false,
-						certificateCreated: false
+						certificateRequested: false
 					)
 					self?.pcrTest = _pcrTest
 
@@ -246,7 +246,7 @@ class CoronaTestService {
 						journalEntryCreated: false,
 						certificateSupportedByPointOfCare: certificateSupportedByPointOfCare,
 						certificateConsentGiven: certificateConsentGiven,
-						certificateCreated: false
+						certificateRequested: false
 					)
 					Log.info("[CoronaTestService] Antigen test registered: \(private: String(describing: self?.antigenTest), public: "Antigen test result")", log: .api)
 
@@ -431,7 +431,7 @@ class CoronaTestService {
 				keysSubmitted: keysSubmitted,
 				journalEntryCreated: false,
 				certificateConsentGiven: false,
-				certificateCreated: false
+				certificateRequested: false
 			)
 
 			Log.info("[CoronaTestService] Migrated preexisting PCR test: \(private: String(describing: pcrTest), public: "PCR Test result")", log: .api)
@@ -845,7 +845,7 @@ class CoronaTestService {
 				keysSubmitted: LaunchArguments.test.pcr.keysSubmitted.boolValue,
 				journalEntryCreated: false,
 				certificateConsentGiven: false,
-				certificateCreated: false
+				certificateRequested: false
 			)
 		} else {
 			return nil
@@ -868,7 +868,7 @@ class CoronaTestService {
 				journalEntryCreated: false,
 				certificateSupportedByPointOfCare: false,
 				certificateConsentGiven: false,
-				certificateCreated: false
+				certificateRequested: false
 			)
 		} else {
 			return nil
