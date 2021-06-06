@@ -4,6 +4,7 @@
 
 import UIKit
 import OpenCombine
+import HealthCertificateToolkit
 
 class HealthCertifiedPerson: Codable, Equatable {
 
@@ -82,8 +83,8 @@ class HealthCertifiedPerson: Codable, Equatable {
 
 	var objectDidChange = OpenCombine.PassthroughSubject<HealthCertifiedPerson, Never>()
 
-	var fullName: String? {
-		healthCertificates.first?.name.fullName
+	var name: Name? {
+		healthCertificates.first?.name
 	}
 
 	var dateOfBirth: String? {

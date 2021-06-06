@@ -14,7 +14,7 @@ class HomeHealthCertifiedPersonCellModel {
 	) {
 		title = AppStrings.HealthCertificate.Overview.VaccinationCertificate.title
 		backgroundGradientType = healthCertifiedPerson.vaccinationState.gradientType
-		name = healthCertifiedPerson.fullName
+		name = healthCertifiedPerson.name?.fullName
 
 		switch healthCertifiedPerson.vaccinationState {
 		case .partiallyVaccinated:

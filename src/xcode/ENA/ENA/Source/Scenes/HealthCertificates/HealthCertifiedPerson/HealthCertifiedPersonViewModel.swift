@@ -146,7 +146,7 @@ final class HealthCertifiedPersonViewModel {
 
 	var personCellViewModel: HealthCertificateSimpleTextCellViewModel {
 		let attributedName = NSAttributedString(
-			string: healthCertifiedPerson.fullName ?? "",
+			string: healthCertifiedPerson.name?.fullName ?? "",
 			attributes: [
 				.font: UIFont.enaFont(for: .headline),
 				.foregroundColor: UIColor.enaColor(for: .textPrimary1)

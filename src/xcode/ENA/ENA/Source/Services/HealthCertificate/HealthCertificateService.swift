@@ -60,7 +60,9 @@ class HealthCertificateService {
 				return .failure(.noVaccinationEntry)
 			}
 
-			let healthCertifiedPerson = healthCertifiedPersons.value.first ?? HealthCertifiedPerson(healthCertificates: [])
+			let healthCertifiedPerson = healthCertifiedPersons.value.first(where: { !$0.vaccinationCertificates.isEmpty }) ??
+				healthCertifiedPersons.value.first(where: { $0.name?.standardizedName == healthCertificate.name.standardizedName && $0.dateOfBirth == healthCertificate.dateOfBirth }) ??
+				HealthCertifiedPerson(healthCertificates: [])
 
 			let isDuplicate = healthCertifiedPerson.healthCertificates
 				.contains(where: { $0.vaccinationEntry?.uniqueCertificateIdentifier == vaccinationEntry.uniqueCertificateIdentifier })
@@ -75,7 +77,7 @@ class HealthCertificateService {
 			}
 
 			let hasDifferentDateOfBirth = healthCertifiedPerson.healthCertificates
-				.contains(where: { $0.dateOfBirthDate != healthCertificate.dateOfBirthDate })
+				.contains(where: { $0.dateOfBirth != healthCertificate.dateOfBirth })
 			if hasDifferentDateOfBirth {
 				return .failure(.dateOfBirthMismatch)
 			}
