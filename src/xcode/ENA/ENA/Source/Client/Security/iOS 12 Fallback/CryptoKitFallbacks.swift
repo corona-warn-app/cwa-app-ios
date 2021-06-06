@@ -410,4 +410,30 @@ struct DGCRSAKeypair {
 		]) + publicKeyData
 		self.publicKeyForBackend = publicKeyWithRSAHeader.base64EncodedString()
 	}
+
+	// MARK: Decryption
+
+
+	/// Decrypts given `Data` blob.
+	///
+	/// - Parameter data: The `Data` to encrypt
+	/// - Parameter algorithm: The encryption padding mode. Defaults to Optimal Asymmetric Encryption Padding (OAEP) encryption with a SHA256 hash.
+	/// - Throws: Any kind of decryption-related errors
+	/// - Returns: An unencrypted `Data` object of any type.
+	func decrypt(message data: Data, algorithm: SecKeyAlgorithm = .rsaEncryptionOAEPSHA256) throws -> Data {
+		let algorithm: SecKeyAlgorithm = .rsaEncryptionOAEPSHA256
+		var error: Unmanaged<CFError>?
+
+		guard let clearText = SecKeyCreateDecryptedData(
+				privateKey,
+				algorithm,
+				data as CFData,
+				&error) as Data?
+		else {
+			// swiftlint:disable:next force_unwrapping
+			throw error!.takeRetainedValue() as Error
+		}
+
+		return clearText
+	}
 }
