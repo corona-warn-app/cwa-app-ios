@@ -15,6 +15,7 @@ class TestCertificateRequestTableViewCell: UITableViewCell, ReuseIdentifierProvi
 		accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Overview.testCertificateRequestCell
 
 		titleLabel.accessibilityTraits = [.header]
+		updateActivityIndicatorStyle()
 	}
 
 	override func prepareForReuse() {
@@ -22,6 +23,12 @@ class TestCertificateRequestTableViewCell: UITableViewCell, ReuseIdentifierProvi
 
 		subscriptions = []
 		cellModel = nil
+	}
+
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+
+		updateActivityIndicatorStyle()
 	}
 
 	// MARK: - Internal
@@ -83,6 +90,10 @@ class TestCertificateRequestTableViewCell: UITableViewCell, ReuseIdentifierProvi
 
 	@IBAction private func didTapTryAgainButton(_ sender: Any) {
 		cellModel?.didTapButton()
+	}
+
+	private func updateActivityIndicatorStyle() {
+		loadingActivityIndicator.style = traitCollection.userInterfaceStyle == .dark ? .white : .gray
 	}
 
 	private func updateAccessibilityElements() {
