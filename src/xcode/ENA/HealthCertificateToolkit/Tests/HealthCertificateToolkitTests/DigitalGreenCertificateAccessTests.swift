@@ -99,7 +99,6 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
                 VaccinationCertificate.fake(
                     dateOfVaccination: "NODateOfVaccination",
                     uniqueCertificateIdentifier: "Lorem ipsum dolor sit amet, consetetur sadipscing e"
-
                 )
             ]
         )
