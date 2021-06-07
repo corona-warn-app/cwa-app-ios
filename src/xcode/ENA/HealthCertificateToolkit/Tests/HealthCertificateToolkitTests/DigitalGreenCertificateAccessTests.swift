@@ -88,7 +88,29 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
     func test_When_DecodeCertificateFails_Then_SchemaInvalidErrorIsReturned() {
         let certificateAccess = DigitalGreenCertificateAccess()
 
-        let result = certificateAccess.extractDigitalGreenCertificate(from: testDataVaccinationSchemaError.input)
+        /// This data contains data which leads to validation errors.
+        /// Schema validation errors:
+        /// -Wrong format for dateOfBirth
+        /// -Wrong format for dateOfVaccination
+        /// -uniqueCertificateIdentifier length > 50
+        let fakeCertificate = DigitalGreenCertificate.fake(
+            dateOfBirth: "NODateOfBirth",
+            vaccinationCertificates: [
+                VaccinationCertificate.fake(
+                    dateOfVaccination: "NODateOfVaccination",
+                    uniqueCertificateIdentifier: "Lorem ipsum dolor sit amet, consetetur sadipscing e"
+
+                )
+            ]
+        )
+
+        let base45FakeResult = DigitalGreenCertificateFake.makeBase45Fake(from: fakeCertificate, and: CBORWebTokenHeader.fake())
+        guard case let .success(base45Fake) = base45FakeResult else {
+            XCTFail("Success expected.")
+            return
+        }
+
+        let result = certificateAccess.extractDigitalGreenCertificate(from: base45Fake)
 
         guard case let .failure(error) = result else {
             XCTFail("Error expected.")
@@ -170,10 +192,6 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
 
             let extractResult = certificateAccess.extractDigitalGreenCertificate(from: base45)
 
-            if case let .failure(error) = extractResult {
-                print(error)
-            }
-
             guard case .success = extractResult else {
                 XCTFail("Success expected.")
                 return
@@ -245,47 +263,6 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
                         uniqueCertificateIdentifier: "01DE/00000/1119349007/9QK4WRVMUOUIP7PYVNSFBK9GF"
                     )
                 ]
-            ),
-            header: CBORWebTokenHeader(
-                issuer: "DE",
-                issuedAt: 1619167131,
-                expirationTime: 1622725423
-            )
-        )
-    }()
-
-    /// This data contains data which leads to validation errors.
-    /// Schema validation errors:
-    /// -Wrong format for dateOfBirth
-    /// -Wrong format for dateOfVaccination
-    /// -uniqueCertificateIdentifier length > 50
-    private lazy var testDataVaccinationSchemaError: TestData = {
-        TestData (
-            input: hcPrefix+"NCFOXN%TS3DH3ZSUZK+.V0ETD%65NL-AH6+UIOOP-IJFQ/Y68WAK*N%:QKD93B4:ZH6I1$4JN:IN1MKK9%OC*PP:+P*.1D9R+Q6646C%6RF6:X93O5RF6$T61R64IM64631A795*9VR3F.Q5O0VBJ14T9K6QTM90NPC9QPK9/1APEEPK9PYL.8V1:55/PYDPQ355/P3993CQ9:56755R56992Y9ZKQ899P8QX*9DB9G85XC1G:KX-QM2VCN5C-4A+2XEN QT QTHC31M3+E32R44$2%35Y.IE.KD+2H0D3ZCU7JI$24D0:M9A%N+892 7J235II3NJKMIZ J$XI4OIMEDTJCDIDGXE%DB.-B97U3-SY$NXNKD1D25CP9IPN3CIQ 52744E09AAO8%MQQK8+S4-R:KIIX0VJAMIH3HH$HF9NTYV4E1MZ3K1:HF.5E1MRB4LF9SEFI1MAKJREHV*5O6ND-IO*47*KB*KYQTHFTNS4.$S32TWZF.XI5VAWB2SKU+LR./GQ5OL-G56DAM5TQ0F0B.IFEZEC1I2.2DYUY13O6M$5D/H2RYE2ID99OP5RHQU1R3 H9X$CA14O4O83T WR16KPN8VN3D1E3H02AS6$J",
-            certificate: DigitalGreenCertificate(
-                version: "1.0.0",
-                name: Name(
-                    familyName: "Schmitt Mustermann",
-                    givenName: "Erika Dörte",
-                    standardizedFamilyName: "SCHMITT<MUSTERMANN",
-                    standardizedGivenName: "ERIKA<DOERTE"
-                ),
-                dateOfBirth: "NODateOfBirth",
-                vaccinationCertificates: [
-                    VaccinationCertificate(
-                        diseaseOrAgentTargeted: "SOMESTRING",
-                        vaccineOrProphylaxis: "1119349007",
-                        vaccineMedicinalProduct: "EU/1/20/1528",
-                        marketingAuthorizationHolder: "ORG-100030215",
-                        doseNumber: 2,
-                        totalSeriesOfDoses: 2,
-                        dateOfVaccination: "NODateOfVaccination",
-                        countryOfVaccination: "DE",
-                        certificateIssuer: "Bundesministerium für Gesundheit",
-                        uniqueCertificateIdentifier: "Lorem ipsum dolor sit amet, consetetur sadipscing e"
-                    )
-                ],
-                testCertificates: nil
             ),
             header: CBORWebTokenHeader(
                 issuer: "DE",

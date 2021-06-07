@@ -25,6 +25,21 @@ public struct DigitalGreenCertificate: Codable, Equatable {
     public let vaccinationCertificates: [VaccinationCertificate]?
     public let testCertificates: [TestCertificate]?
 
+    static func fake(
+        version: String = "0.0.0",
+        name: Name = .fake(),
+        dateOfBirth: String = "01.01.1942",
+        vaccinationCertificates: [VaccinationCertificate]? = nil,
+        testCertificates: [TestCertificate]? = nil
+    ) -> DigitalGreenCertificate {
+        DigitalGreenCertificate(
+            version: version,
+            name: name,
+            dateOfBirth: dateOfBirth,
+            vaccinationCertificates: vaccinationCertificates,
+            testCertificates: testCertificates
+        )
+    }
 }
 
 public struct VaccinationCertificate: Codable, Equatable {
@@ -59,6 +74,32 @@ public struct VaccinationCertificate: Codable, Equatable {
     public let certificateIssuer: String
     public let uniqueCertificateIdentifier: String
 
+    static func fake(
+        diseaseOrAgentTargeted: String = "diseaseOrAgentTargeted",
+        vaccineOrProphylaxis: String = "vaccineOrProphylaxis",
+        vaccineMedicinalProduct: String = "vaccineMedicinalProduct",
+        marketingAuthorizationHolder: String = "marketingAuthorizationHolder",
+        doseNumber: Int = 0,
+        totalSeriesOfDoses: Int = 0,
+        dateOfVaccination: String = "dateOfVaccination",
+        countryOfVaccination: String = "countryOfVaccination",
+        certificateIssuer: String = "certificateIssuer",
+        uniqueCertificateIdentifier: String = "uniqueCertificateIdentifier"
+    ) -> VaccinationCertificate {
+        VaccinationCertificate(
+            diseaseOrAgentTargeted: diseaseOrAgentTargeted,
+            vaccineOrProphylaxis: vaccineOrProphylaxis,
+            vaccineMedicinalProduct: vaccineMedicinalProduct,
+            marketingAuthorizationHolder: marketingAuthorizationHolder,
+            doseNumber: doseNumber,
+            totalSeriesOfDoses: totalSeriesOfDoses,
+            dateOfVaccination: dateOfVaccination,
+            countryOfVaccination: countryOfVaccination,
+            certificateIssuer: certificateIssuer,
+            uniqueCertificateIdentifier: uniqueCertificateIdentifier
+        )
+    }
+
 }
 
 public struct TestCertificate: Codable, Equatable {
@@ -92,6 +133,34 @@ public struct TestCertificate: Codable, Equatable {
     public let countryOfTest: String
     public let certificateIssuer: String
     public let uniqueCertificateIdentifier: String
+
+    static func fake(
+        diseaseOrAgentTargeted: String = "diseaseOrAgentTargeted",
+        typeOfTest: String = "typeOfTest",
+        testResult: String = "testResult",
+        naaTestName: String? = nil,
+        ratTestName: String? = nil,
+        dateTimeOfSampleCollection: String = "dateTimeOfSampleCollection",
+        dateTimeOfTestResult: String = "dateTimeOfTestResult",
+        testCenter: String = "testCenter",
+        countryOfTest: String = "countryOfTest",
+        certificateIssuer: String = "certificateIssuer",
+        uniqueCertificateIdentifier: String = "uniqueCertificateIdentifier"
+    ) -> TestCertificate {
+        TestCertificate(
+            diseaseOrAgentTargeted: diseaseOrAgentTargeted,
+            typeOfTest: typeOfTest,
+            testResult: testResult,
+            naaTestName: naaTestName,
+            ratTestName: ratTestName,
+            dateTimeOfSampleCollection: dateTimeOfSampleCollection,
+            dateTimeOfTestResult: dateTimeOfTestResult,
+            testCenter: testCenter,
+            countryOfTest: countryOfTest,
+            certificateIssuer: certificateIssuer,
+            uniqueCertificateIdentifier: uniqueCertificateIdentifier
+        )
+    }
 }
 
 public struct Name: Codable, Equatable {
@@ -125,5 +194,19 @@ public struct Name: Codable, Equatable {
     public let givenName: String?
     public let standardizedFamilyName: String
     public let standardizedGivenName: String?
+
+    public static func fake(
+        familyName: String? = nil,
+        givenName: String? = nil,
+        standardizedFamilyName: String = "ERIKA<DOERTE",
+        standardizedGivenName: String? = nil
+    ) -> Name {
+        Name(
+            familyName: familyName,
+            givenName: givenName,
+            standardizedFamilyName: standardizedFamilyName,
+            standardizedGivenName: standardizedGivenName
+        )
+    }
 
 }

@@ -58,21 +58,26 @@ public struct DigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtoc
             fatalError("Has to be a success at this point, because of previous check.")
         }
 
+        // Compress with zlib
         let cborWebTokenData = Data(cborWebToken.encode())
         let compressedCBORWebToken = cborWebTokenData.compressZLib()
         guard !compressedCBORWebToken.isEmpty else {
             return .failure(.HC_ZLIB_COMPRESSION_FAILED)
         }
 
+        // Encode with base45
         let base45CBORWebToken = compressedCBORWebToken.toBase45()
         guard !base45CBORWebToken.isEmpty else {
             return .failure(.HC_BASE45_ENCODING_FAILED)
         }
 
+        // Add prefix
         let prefixedBase45CBORWebToken = hcPrefix+base45CBORWebToken
 
         return .success(prefixedBase45CBORWebToken)
     }
+
+
 
     // MARK: - Internal
 
@@ -80,6 +85,8 @@ public struct DigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtoc
         guard let cborData = Data(base64Encoded: base64) else {
             return .failure(.HC_BASE45_DECODING_FAILED(nil))
         }
+
+        // Disassemble COSE object
 
         let result = decodeCBORWebTokenEntries(from: cborData)
         if case let .failure(error) = result {
@@ -98,6 +105,8 @@ public struct DigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtoc
             return .failure(.HC_COSE_MESSAGE_INVALID)
         }
 
+        // Decrypt payload
+
         let aesEncryption = AESEncryption(
             encryptionKey: dataEncryptionKey,
             initializationVector: AESEncryptionConstants.initializationVector
@@ -108,6 +117,8 @@ public struct DigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtoc
         guard case let .success(decryptedPayload) = decryptedResult else {
             return .failure(.AES_DECRYPTION_FAILED)
         }
+
+        // Reassemble COSE object
 
         let cborWebTokenMessage = CBOR.array([
             protectedHeader,
@@ -290,7 +301,7 @@ public struct DigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtoc
             return .failure(.HC_COSE_MESSAGE_INVALID)
         }
 
-        let payloadDecoder = CBORDecoder(input: [UInt8](payloadBytes))
+        let payloadDecoder = CBORDecoder(input: payloadBytes)
 
         let _payload: CBOR?
         do {
