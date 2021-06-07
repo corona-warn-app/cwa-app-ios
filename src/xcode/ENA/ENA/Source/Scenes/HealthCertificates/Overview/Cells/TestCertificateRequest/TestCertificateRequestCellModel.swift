@@ -16,7 +16,7 @@ class TestCertificateRequestCellModel {
 		self.onTryAgainButtonTap = onTryAgainButtonTap
 
 		title = AppStrings.HealthCertificate.Overview.TestCertificateRequest.title
-		subtitle = AppStrings.HealthCertificate.Overview.TestCertificateRequest.subtitle
+		subtitle = AppStrings.HealthCertificate.Overview.TestCertificateRequest.loadingSubtitle
 		registrationDate = String(
 			format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.registrationDate,
 			DateFormatter.localizedString(from: testCertificateRequest.registrationDate, dateStyle: .medium, timeStyle: .short)
@@ -37,7 +37,7 @@ class TestCertificateRequestCellModel {
 	// MARK: - Internal
 
 	var title: String
-	var subtitle: String
+	@DidSetPublished var subtitle: String
 	var registrationDate: String
 
 	var loadingStateDescription: String
@@ -56,6 +56,12 @@ class TestCertificateRequestCellModel {
 	private var subscriptions = Set<AnyCancellable>()
 
 	private func updateLoadingState(isLoading: Bool) {
+		if isLoading {
+			subtitle = AppStrings.HealthCertificate.Overview.TestCertificateRequest.loadingSubtitle
+		} else {
+			subtitle = AppStrings.HealthCertificate.Overview.TestCertificateRequest.errorSubtitle
+		}
+
 		isLoadingStateHidden = !isLoading
 		isTryAgainButtonHidden = isLoading
 	}

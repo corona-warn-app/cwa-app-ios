@@ -2540,7 +2540,9 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TestCertificateRequest_title" = "Digitales\n**COVID-Testzertifikat**";
 
-"TestCertificateRequest_subtitle" = "Fehler bei der Zertifikatsabfrage";
+"TestCertificateRequest_loadingSubtitle" = "Ihr Zertifikat wird gerade erstellt…";
+
+"TestCertificateRequest_errorSubtitle" = "Fehler bei der Zertifikatsabfrage";
 
 "TestCertificateRequest_registrationDate" = "Registriert am %@";
 

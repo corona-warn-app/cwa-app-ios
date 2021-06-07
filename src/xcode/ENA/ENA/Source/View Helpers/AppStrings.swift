@@ -1880,7 +1880,8 @@ enum AppStrings {
 
 			enum TestCertificateRequest {
 				static let title = NSLocalizedString("TestCertificateRequest_title", comment: "")
-				static let subtitle = NSLocalizedString("TestCertificateRequest_subtitle", comment: "")
+				static let loadingSubtitle = NSLocalizedString("TestCertificateRequest_loadingSubtitle", comment: "")
+				static let errorSubtitle = NSLocalizedString("TestCertificateRequest_errorSubtitle", comment: "")
 				static let registrationDate = NSLocalizedString("TestCertificateRequest_registrationDate", comment: "")
 				static let loadingStateDescription = NSLocalizedString("TestCertificateRequest_loadingStateDescription", comment: "")
 				static let buttonTitle = NSLocalizedString("TestCertificateRequest_buttonTitle", comment: "")

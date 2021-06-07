@@ -35,7 +35,19 @@ class TestCertificateRequestTableViewCell: UITableViewCell, ReuseIdentifierProvi
 
 	func configure(with cellModel: TestCertificateRequestCellModel, onUpdate: @escaping () -> Void) {
 		titleLabel.text = cellModel.title
+
 		subtitleLabel.text = cellModel.subtitle
+
+		cellModel.$subtitle
+			.dropFirst() // First state is set manually above without calling onUpdate() to prevent initial animation, especially on reuse
+			.receive(on: DispatchQueue.main.ocombine)
+			.sink { [weak self] in
+				self?.subtitleLabel.text = $0
+				self?.updateAccessibilityElements()
+				onUpdate()
+			}
+			.store(in: &subscriptions)
+
 		registrationDateLabel.text = cellModel.registrationDate
 
 		loadingStateLabel.text = cellModel.loadingStateDescription
