@@ -27,6 +27,18 @@ struct SAP_Internal_Dgc_ValueSets {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// General
+  /// Disease or agent targeted
+  var tg: SAP_Internal_Dgc_ValueSet {
+    get {return _tg ?? SAP_Internal_Dgc_ValueSet()}
+    set {_tg = newValue}
+  }
+  /// Returns true if `tg` has been explicitly set.
+  var hasTg: Bool {return self._tg != nil}
+  /// Clears the value of `tg`. Subsequent reads from it will return its default value.
+  mutating func clearTg() {self._tg = nil}
+
+  /// Vaccination Certificates
   /// Vaccine or prophylaxis
   var vp: SAP_Internal_Dgc_ValueSet {
     get {return _vp ?? SAP_Internal_Dgc_ValueSet()}
@@ -57,13 +69,48 @@ struct SAP_Internal_Dgc_ValueSets {
   /// Clears the value of `ma`. Subsequent reads from it will return its default value.
   mutating func clearMa() {self._ma = nil}
 
+  /// Test Certificates
+  /// Type of Test
+  var tcTt: SAP_Internal_Dgc_ValueSet {
+    get {return _tcTt ?? SAP_Internal_Dgc_ValueSet()}
+    set {_tcTt = newValue}
+  }
+  /// Returns true if `tcTt` has been explicitly set.
+  var hasTcTt: Bool {return self._tcTt != nil}
+  /// Clears the value of `tcTt`. Subsequent reads from it will return its default value.
+  mutating func clearTcTt() {self._tcTt = nil}
+
+  /// RAT Test name and manufacturer
+  var tcMa: SAP_Internal_Dgc_ValueSet {
+    get {return _tcMa ?? SAP_Internal_Dgc_ValueSet()}
+    set {_tcMa = newValue}
+  }
+  /// Returns true if `tcMa` has been explicitly set.
+  var hasTcMa: Bool {return self._tcMa != nil}
+  /// Clears the value of `tcMa`. Subsequent reads from it will return its default value.
+  mutating func clearTcMa() {self._tcMa = nil}
+
+  /// Test Result
+  var tcTr: SAP_Internal_Dgc_ValueSet {
+    get {return _tcTr ?? SAP_Internal_Dgc_ValueSet()}
+    set {_tcTr = newValue}
+  }
+  /// Returns true if `tcTr` has been explicitly set.
+  var hasTcTr: Bool {return self._tcTr != nil}
+  /// Clears the value of `tcTr`. Subsequent reads from it will return its default value.
+  mutating func clearTcTr() {self._tcTr = nil}
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
 
+  fileprivate var _tg: SAP_Internal_Dgc_ValueSet? = nil
   fileprivate var _vp: SAP_Internal_Dgc_ValueSet? = nil
   fileprivate var _mp: SAP_Internal_Dgc_ValueSet? = nil
   fileprivate var _ma: SAP_Internal_Dgc_ValueSet? = nil
+  fileprivate var _tcTt: SAP_Internal_Dgc_ValueSet? = nil
+  fileprivate var _tcMa: SAP_Internal_Dgc_ValueSet? = nil
+  fileprivate var _tcTr: SAP_Internal_Dgc_ValueSet? = nil
 }
 
 struct SAP_Internal_Dgc_ValueSet {
@@ -100,9 +147,13 @@ fileprivate let _protobuf_package = "SAP.internal.dgc"
 extension SAP_Internal_Dgc_ValueSets: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".ValueSets"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    4: .same(proto: "tg"),
     1: .same(proto: "vp"),
     2: .same(proto: "mp"),
     3: .same(proto: "ma"),
+    5: .same(proto: "tcTt"),
+    6: .same(proto: "tcMa"),
+    7: .same(proto: "tcTr"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -114,6 +165,10 @@ extension SAP_Internal_Dgc_ValueSets: SwiftProtobuf.Message, SwiftProtobuf._Mess
       case 1: try { try decoder.decodeSingularMessageField(value: &self._vp) }()
       case 2: try { try decoder.decodeSingularMessageField(value: &self._mp) }()
       case 3: try { try decoder.decodeSingularMessageField(value: &self._ma) }()
+      case 4: try { try decoder.decodeSingularMessageField(value: &self._tg) }()
+      case 5: try { try decoder.decodeSingularMessageField(value: &self._tcTt) }()
+      case 6: try { try decoder.decodeSingularMessageField(value: &self._tcMa) }()
+      case 7: try { try decoder.decodeSingularMessageField(value: &self._tcTr) }()
       default: break
       }
     }
@@ -129,13 +184,29 @@ extension SAP_Internal_Dgc_ValueSets: SwiftProtobuf.Message, SwiftProtobuf._Mess
     if let v = self._ma {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
     }
+    if let v = self._tg {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+    }
+    if let v = self._tcTt {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+    }
+    if let v = self._tcMa {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
+    }
+    if let v = self._tcTr {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: SAP_Internal_Dgc_ValueSets, rhs: SAP_Internal_Dgc_ValueSets) -> Bool {
+    if lhs._tg != rhs._tg {return false}
     if lhs._vp != rhs._vp {return false}
     if lhs._mp != rhs._mp {return false}
     if lhs._ma != rhs._ma {return false}
+    if lhs._tcTt != rhs._tcTt {return false}
+    if lhs._tcMa != rhs._tcMa {return false}
+    if lhs._tcTr != rhs._tcTr {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

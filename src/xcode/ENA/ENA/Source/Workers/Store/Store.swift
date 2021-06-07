@@ -71,7 +71,7 @@ protocol StoreProtocol: AnyObject {
 
 	var journalWithExposureHistoryInfoScreenShown: Bool { get set }
 
-	func clearAll(key: String?)
+	func wipeAll(key: String?)
 
 	#if !RELEASE
 	/// Settings from the debug menu.
