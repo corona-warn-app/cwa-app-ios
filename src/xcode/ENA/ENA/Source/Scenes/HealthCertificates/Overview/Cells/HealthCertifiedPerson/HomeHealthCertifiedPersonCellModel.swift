@@ -47,11 +47,10 @@ class HomeHealthCertifiedPersonCellModel {
 		backgroundImage = UIImage(named: "TestCertificate_Background")
 		iconImage = UIImage(named: "TestCertificate_Icon")
 
-		if let dateTimeOfSampleCollectionString = testCertificate.testEntry?.dateTimeOfSampleCollection,
-		   let dateTimeOfSampleCollection = ISO8601DateFormatter.justLocalDateFormatter.date(from: dateTimeOfSampleCollectionString) {
+		if let sampleCollectionDate = testCertificate.testEntry?.sampleCollectionDate {
 			description = String(
 				format: AppStrings.HealthCertificate.Overview.TestCertificate.testDate,
-				DateFormatter.localizedString(from: dateTimeOfSampleCollection, dateStyle: .medium, timeStyle: .short)
+				DateFormatter.localizedString(from: sampleCollectionDate, dateStyle: .medium, timeStyle: .short)
 			)
 		} else {
 			description = nil

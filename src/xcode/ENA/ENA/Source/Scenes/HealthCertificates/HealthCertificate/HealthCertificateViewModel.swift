@@ -322,10 +322,10 @@ final class HealthCertificateViewModel {
 		}
 
 		var dateTimeOfSampleCollectionCellViewModel: HealthCertificateKeyValueCellViewModel?
-		if let dateTimeOfSampleCollectionDate = ISO8601DateFormatter().date(from: testEntry.dateTimeOfSampleCollection) {
+		if let sampleCollectionDate = testEntry.sampleCollectionDate {
 			dateTimeOfSampleCollectionCellViewModel = HealthCertificateKeyValueCellViewModel(
 				key: "Datum und Uhrzeit der Probenahme / Date and Time of Sample Collection",
-				value: DateFormatter.localizedString(from: dateTimeOfSampleCollectionDate, dateStyle: .medium, timeStyle: .short)
+				value: DateFormatter.localizedString(from: sampleCollectionDate, dateStyle: .medium, timeStyle: .short)
 			)
 		}
 
