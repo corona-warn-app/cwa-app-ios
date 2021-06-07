@@ -100,7 +100,6 @@ enum HealthCertificateServiceError {
 		}
 	}
 
-	// TODO: Missing localizations!
 	enum TestCertificateRequestError: LocalizedError {
 		case publicKeyRegistrationFailed(DCCErrors.RegistrationError)
 		case certificateRequestFailed(DCCErrors.DigitalCovid19CertificateError)
@@ -117,10 +116,8 @@ enum HealthCertificateServiceError {
 				case .badRequest:
 					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "PKR_400")
 				case .tokenNotAllowed:
-					// TODO: Final text
 					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "PKR_403")
 				case .tokenDoesNotExist:
-					// TODO: Final text
 					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "PKR_404")
 				case .tokenAlreadyAssigned:
 					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "PKR_409")
@@ -140,21 +137,18 @@ enum HealthCertificateServiceError {
 				case .urlCreationFailed:
 					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "DCC_COMP_URL_CREATION_FAILED")
 				case .unhandledResponse(let code):
-					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "DCC_COMP_FAILED (\(code)")
+					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "DCC_COMP_FAILED (\(code))")
 				case .jsonError:
 					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "DCC_COMP_JSON_ERROR")
 				case .dccPending:
-					// TODO: Final text
 					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "DCC_COMP_202")
 				case .badRequest:
 					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "DCC_COMP_400")
 				case .tokenDoesNotExist:
 					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "DCC_COMP_404")
 				case .dccAlreadyCleanedUp:
-					// TODO: Final text
 					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "DCC_COMP_410")
 				case .testResultNotYetReceived:
-					// TODO: Final text
 					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "DCC_COMP_412")
 				case .internalServerError(reason: let reason):
 					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "DCC_COMP_500_\(String(describing: reason))")
