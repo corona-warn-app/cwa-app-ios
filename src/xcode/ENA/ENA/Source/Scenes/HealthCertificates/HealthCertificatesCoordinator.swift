@@ -283,9 +283,9 @@ final class HealthCertificatesCoordinator {
 				isPrimaryButtonEnabled: true,
 				isSecondaryButtonEnabled: false,
 				isSecondaryButtonHidden: true,
-				primaryButtonColor: .systemRed,
 				primaryButtonInverted: true,
-				backgroundColor: .enaColor(for: .backgroundLightGray)
+				backgroundColor: .enaColor(for: .backgroundLightGray),
+				primaryTextColor: .systemRed
 			)
 		)
 		
