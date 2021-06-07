@@ -263,7 +263,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		#else
 		return RiskProvider(
 			configuration: .default,
-			diaryStore: diaryStore,
+			store: store,
 			appConfigurationProvider: appConfigurationProvider,
 			exposureManagerState: exposureManager.exposureManagerState,
 			checkinRiskCalculation: checkinRiskCalculation,
