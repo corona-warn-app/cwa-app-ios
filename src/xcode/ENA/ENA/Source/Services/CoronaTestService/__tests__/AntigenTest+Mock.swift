@@ -21,7 +21,7 @@ extension AntigenTest {
 		journalEntryCreated: Bool = false,
 		certificateSupportedByPointOfCare: Bool = false,
 		certificateConsentGiven: Bool = false,
-		certificateCreated: Bool = false
+		certificateRequested: Bool = false
 	) -> AntigenTest {
 		AntigenTest(
 			pointOfCareConsentDate: pointOfCareConsentDate,
@@ -37,7 +37,7 @@ extension AntigenTest {
 			journalEntryCreated: journalEntryCreated,
 			certificateSupportedByPointOfCare: certificateSupportedByPointOfCare,
 			certificateConsentGiven: certificateConsentGiven,
-			certificateCreated: certificateCreated
+			certificateRequested: certificateRequested
 		)
 	}
 

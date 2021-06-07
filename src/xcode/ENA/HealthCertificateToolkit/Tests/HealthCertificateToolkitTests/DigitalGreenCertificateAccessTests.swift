@@ -95,8 +95,8 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
         /// -uniqueCertificateIdentifier length > 50
         let fakeCertificate = DigitalGreenCertificate.fake(
             dateOfBirth: "NODateOfBirth",
-            vaccinationCertificates: [
-                VaccinationCertificate.fake(
+            vaccinationEntries: [
+                VaccinationEntry.fake(
                     dateOfVaccination: "NODateOfVaccination",
                     uniqueCertificateIdentifier: "Lorem ipsum dolor sit amet, consetetur sadipscing e"
                 )
@@ -155,8 +155,8 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
         /// -uniqueCertificateIdentifier length > 50
         let fakeCertificate = DigitalGreenCertificate.fake(
             dateOfBirth: "NotADateOfBirth",
-            testCertificates: [
-                TestCertificate.fake(
+            testEntries: [
+                TestEntry.fake(
                     dateTimeOfSampleCollection: "NotADateTimeOfSampleCollection",
                     dateTimeOfTestResult: "NotADateTimeOfTestResult",
                     uniqueCertificateIdentifier: "Lorem ipsum dolor sit amet, consetetur sadipscing e"
@@ -276,8 +276,8 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
                     standardizedGivenName: "ERIKA<DOERTE"
                 ),
                 dateOfBirth: "1964-08-12",
-                vaccinationCertificates: [
-                    VaccinationCertificate(
+                vaccinationEntries: [
+                    VaccinationEntry(
                         diseaseOrAgentTargeted: "840539006",
                         vaccineOrProphylaxis: "1119349007",
                         vaccineMedicinalProduct: "EU/1/20/1528",
@@ -290,7 +290,7 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
                         uniqueCertificateIdentifier: "01DE/84503/1119349007/DXSGWLWL40SU8ZFKIYIBK39A3#S"
                     )
                 ],
-                testCertificates: nil
+                testEntries: nil
             ),
             header: CBORWebTokenHeader(
                 issuer: "DE",
@@ -312,9 +312,9 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
                     standardizedGivenName: "SARA"
                 ),
                 dateOfBirth: "1987-04-22",
-                vaccinationCertificates: nil,
-                testCertificates: [
-                    TestCertificate(
+                vaccinationEntries: nil,
+                testEntries: [
+                    TestEntry(
                         diseaseOrAgentTargeted: "840539006",
                         typeOfTest: "LP6464-4",
                         testResult: "260415000",

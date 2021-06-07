@@ -10,7 +10,7 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 	// MARK: - Init
 
 	init(
-		healthCertificateService: HealthCertificateServiceProviding,
+		healthCertificateService: HealthCertificateService,
 		healthCertifiedPerson: HealthCertifiedPerson,
 		vaccinationValueSetsProvider: VaccinationValueSetsProvider,
 		dismiss: @escaping () -> Void,

@@ -11,7 +11,7 @@ class HealthCertificateViewModelTests: CWATestCase {
 	func testGIVEN_HealthCertificateViewModel_TableViewSection_THEN_SectionsAreCorrect() {
 
 		// THEN
-		XCTAssertEqual(HealthCertificateViewModel.TableViewSection.numberOfSections, 5)
+		XCTAssertEqual(HealthCertificateViewModel.TableViewSection.numberOfSections, 6)
 		XCTAssertEqual(HealthCertificateViewModel.TableViewSection.map(0), .headline)
 		XCTAssertEqual(HealthCertificateViewModel.TableViewSection.map(1), .qrCode)
 		XCTAssertEqual(HealthCertificateViewModel.TableViewSection.map(2), .topCorner)
@@ -38,13 +38,13 @@ class HealthCertificateViewModelTests: CWATestCase {
 
 		XCTAssertEqual(viewModel.headlineCellViewModel.backgroundColor, .clear)
 		XCTAssertEqual(viewModel.headlineCellViewModel.textAlignment, .center)
-		XCTAssertEqual(viewModel.headlineCellViewModel.topSpace, 18.0)
+		XCTAssertEqual(viewModel.headlineCellViewModel.topSpace, 16.0)
 		XCTAssertEqual(viewModel.headlineCellViewModel.font, .enaFont(for: .headline))
 		XCTAssertEqual(viewModel.headlineCellViewModel.accessibilityTraits, .staticText)
-		XCTAssertEqual(viewModel.numberOfItems(in: .headline), 0)
+		XCTAssertEqual(viewModel.numberOfItems(in: .headline), 1)
 		XCTAssertEqual(viewModel.numberOfItems(in: .qrCode), 1)
 		XCTAssertEqual(viewModel.numberOfItems(in: .topCorner), 1)
-		XCTAssertEqual(viewModel.numberOfItems(in: .details), 2)
+		XCTAssertEqual(viewModel.numberOfItems(in: .details), 9)
 		XCTAssertEqual(viewModel.numberOfItems(in: .bottomCorner), 1)
 	}
 
@@ -65,7 +65,9 @@ struct HealthCertificateMock: HealthCertificateData {
 		)
 		self.dateOfBirth = "1981-12-24"
 		self.dateOfBirthDate = Date()
-		self.vaccinationCertificates = []
+		self.vaccinationEntry = nil
+		self.testEntry = nil
+		self.type = .test(TestEntry(diseaseOrAgentTargeted: "", typeOfTest: "", testResult: "", naaTestName: nil, ratTestName: nil, dateTimeOfSampleCollection: "", dateTimeOfTestResult: "", testCenter: "", countryOfTest: "", certificateIssuer: "", uniqueCertificateIdentifier: ""))
 		self.isLastDoseInASeries = false
 		self.expirationDate = Date()
 		self.dateOfVaccination = Date()
@@ -80,7 +82,9 @@ struct HealthCertificateMock: HealthCertificateData {
 	let name: Name
 	let dateOfBirth: String
 	var dateOfBirthDate: Date?
-	let vaccinationCertificates: [VaccinationCertificate]
+	let vaccinationEntry: VaccinationEntry?
+	let testEntry: TestEntry?
+	let type: HealthCertificate.CertificateType
 	let isLastDoseInASeries: Bool
 	var expirationDate: Date
 	var dateOfVaccination: Date?

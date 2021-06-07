@@ -39,8 +39,8 @@ class DigitalGreenCertificateFakeTests: XCTestCase {
                 standardizedGivenName: "ERIKA<DOERTE"
             ),
             dateOfBirth: "1964-08-12",
-            vaccinationCertificates: [
-                VaccinationCertificate(
+            vaccinationEntries: [
+                VaccinationEntry(
                     diseaseOrAgentTargeted: "840539006",
                     vaccineOrProphylaxis: "1119349007",
                     vaccineMedicinalProduct: "EU/1/20/1528",
@@ -53,7 +53,7 @@ class DigitalGreenCertificateFakeTests: XCTestCase {
                     uniqueCertificateIdentifier: "01DE/84503/1119349007/DXSGWLWL40SU8ZFKIYIBK39A3#S"
                 )
             ],
-            testCertificates: nil
+            testEntries: nil
         )
     }()
     
