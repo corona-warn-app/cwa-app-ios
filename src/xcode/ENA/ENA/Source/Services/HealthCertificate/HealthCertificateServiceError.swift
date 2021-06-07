@@ -181,30 +181,29 @@ enum HealthCertificateServiceError {
 			case .assemblyFailed(let decodingError):
 				switch decodingError {
 				case .HC_BASE45_DECODING_FAILED:
-					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "TC_HC_BASE45_DECODING_FAILED")
+					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "DCC_BASE45_DECODING_FAILED")
 				case .HC_ZLIB_DECOMPRESSION_FAILED:
-					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "TC_HC_ZLIB_DECOMPRESSION_FAILED")
+					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "DCC_ZLIB_DECOMPRESSION_FAILED")
 				case .HC_COSE_TAG_INVALID:
-					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "TC_HC_COSE_TAG_INVALID")
+					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "DCC_COSE_TAG_INVALID")
 				case .HC_COSE_MESSAGE_INVALID:
-					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "TC_HC_COSE_MESSAGE_INVALID")
+					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "DCC_COSE_MESSAGE_INVALID")
 				case .HC_CBOR_DECODING_FAILED:
-					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "TC_HC_CBOR_DECODING_FAILED")
+					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "DCC_CBOR_DECODING_FAILED")
 				case .HC_CBORWEBTOKEN_NO_ISSUER:
-					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "TC_HC_CWT_NO_ISS")
+					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "DCC_CWT_NO_ISS")
 				case .HC_CBORWEBTOKEN_NO_EXPIRATIONTIME:
-					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "TC_HC_CWT_NO_EXP")
+					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "DCC_CWT_NO_EXP")
 				case .HC_CBORWEBTOKEN_NO_HEALTHCERTIFICATE:
-					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "TC_HC_CWT_NO_HCERT")
+					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "DCC_CWT_NO_HCERT")
 				case .HC_CBORWEBTOKEN_NO_DIGITALGREENCERTIFICATE:
-					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "TC_HC_CWT_NO_DGC")
+					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "DCC_CWT_NO_DGC")
 				case .HC_JSON_SCHEMA_INVALID:
-					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "TC_HC_JSON_SCHEMA_INVALID")
+					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "DCC_JSON_SCHEMA_INVALID")
 				case .HC_PREFIX_INVALID:
-					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "TC_HC_PREFIX_INVALID")
+					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "DCC_PREFIX_INVALID")
 				case .AES_DECRYPTION_FAILED:
 					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "AES_DECRYPTION_FAILED")
-					// TODO: DGC_COSE_MESSAGE_INVALID, DGC_COSE_TAG_INVALID missing
 				}
 			case .other(let error):
 				return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, error.localizedDescription)
