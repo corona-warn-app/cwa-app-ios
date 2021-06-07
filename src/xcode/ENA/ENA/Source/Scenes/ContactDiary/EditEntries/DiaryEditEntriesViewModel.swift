@@ -12,10 +12,12 @@ class DiaryEditEntriesViewModel {
 
 	init(
 		entryType: DiaryEntryType,
-		store: DiaryStoringProviding
+		diaryStore: DiaryStoringProviding,
+		eventStore: EventStoringProviding
 	) {
 		self.entryType = entryType
-		self.store = store
+		self.diaryStore = diaryStore
+		self.eventStore = eventStore
 		self.entries = []
 
 		switch entryType {
@@ -47,7 +49,7 @@ class DiaryEditEntriesViewModel {
 			deleteOneAlertCancelButtonTitle = AppStrings.ContactDiary.EditEntries.Locations.DeleteOneAlert.cancelButtonTitle
 		}
 
-		store.diaryDaysPublisher
+		diaryStore.diaryDaysPublisher
 			.sink { [weak self] days in
 				guard let firstDay = days.first else { return }
 
@@ -81,25 +83,31 @@ class DiaryEditEntriesViewModel {
 	func removeAll() {
 		switch entryType {
 		case .location:
-			store.removeAllLocations()
+			diaryStore.removeAllLocations()
 		case .contactPerson:
-			store.removeAllContactPersons()
+			diaryStore.removeAllContactPersons()
 		}
 	}
 
 	// MARK: - Private
 
 	private let entryType: DiaryEntryType
-	private let store: DiaryStoringProviding
-
+	private let diaryStore: DiaryStoringProviding
+	private let eventStore: EventStoringProviding
+	
 	private var subscriptions: [AnyCancellable] = []
 
 	private func remove(entry: DiaryEntry) {
 		switch entry {
 		case .location(let location):
-			store.removeLocation(id: location.id)
+			// first remove checkin to this location
+			if let checkinID = location.visit?.checkinId {
+				eventStore.deleteCheckin(id: checkinID)
+			}
+			// then delete location
+			diaryStore.removeLocation(id: location.id)
 		case .contactPerson(let contactPerson):
-			store.removeContactPerson(id: contactPerson.id)
+			diaryStore.removeContactPerson(id: contactPerson.id)
 		}
 	}
 

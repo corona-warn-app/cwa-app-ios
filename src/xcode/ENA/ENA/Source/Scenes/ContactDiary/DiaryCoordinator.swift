@@ -307,7 +307,8 @@ class DiaryCoordinator {
 
 		let viewController = DiaryEditEntriesViewController(
 			entryType: entryType,
-			store: diaryStore,
+			diaryStore: diaryStore,
+			eventStore: eventStore,
 			onCellSelection: { [weak self] entry in
 				self?.showAddAndEditEntryScreen(
 					mode: .edit(entry),

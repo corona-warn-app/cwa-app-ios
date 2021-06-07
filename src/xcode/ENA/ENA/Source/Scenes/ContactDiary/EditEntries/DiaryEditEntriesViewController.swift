@@ -11,11 +11,12 @@ class DiaryEditEntriesViewController: UIViewController, UITableViewDataSource, U
 
 	init(
 		entryType: DiaryEntryType,
-		store: DiaryStoringProviding,
+		diaryStore: DiaryStoringProviding,
+		eventStore: EventStoringProviding,
 		onCellSelection: @escaping (DiaryEntry) -> Void,
 		onDismiss: @escaping () -> Void
 	) {
-		self.viewModel = DiaryEditEntriesViewModel(entryType: entryType, store: store)
+		self.viewModel = DiaryEditEntriesViewModel(entryType: entryType, diaryStore: diaryStore, eventStore: eventStore)
 		self.onCellSelection = onCellSelection
 		self.onDismiss = onDismiss
 

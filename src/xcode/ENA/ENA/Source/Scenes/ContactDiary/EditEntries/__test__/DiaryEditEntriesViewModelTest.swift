@@ -10,7 +10,7 @@ import OpenCombine
 class DiaryEditEntriesViewModelTest: CWATestCase {
 
 	func testContactPersonsStrings() throws {
-		let viewModel = DiaryEditEntriesViewModel(entryType: .contactPerson, store: MockDiaryStore())
+		let viewModel = DiaryEditEntriesViewModel(entryType: .contactPerson, diaryStore: MockDiaryStore(), eventStore: MockEventStore())
 
 		XCTAssertEqual(viewModel.title, AppStrings.ContactDiary.EditEntries.ContactPersons.title)
 
@@ -27,7 +27,7 @@ class DiaryEditEntriesViewModelTest: CWATestCase {
 	}
 
 	func testLocationsStrings() throws {
-		let viewModel = DiaryEditEntriesViewModel(entryType: .location, store: MockDiaryStore())
+		let viewModel = DiaryEditEntriesViewModel(entryType: .location, diaryStore: MockDiaryStore(), eventStore: MockEventStore())
 
 		XCTAssertEqual(viewModel.title, AppStrings.ContactDiary.EditEntries.Locations.title)
 
@@ -45,7 +45,7 @@ class DiaryEditEntriesViewModelTest: CWATestCase {
 
 	func testContactPersonsEntriesUpdatedWhenStoreChanges() throws {
 		let store = makeMockStore()
-		let viewModel = DiaryEditEntriesViewModel(entryType: .contactPerson, store: store)
+		let viewModel = DiaryEditEntriesViewModel(entryType: .contactPerson, diaryStore: store, eventStore: MockEventStore())
 
 		let publisherExpectation = expectation(description: "Entries publisher called")
 		publisherExpectation.expectedFulfillmentCount = 2
@@ -66,7 +66,7 @@ class DiaryEditEntriesViewModelTest: CWATestCase {
 
 	func testLocationsEntriesUpdatedWhenStoreChanges() throws {
 		let store = makeMockStore()
-		let viewModel = DiaryEditEntriesViewModel(entryType: .location, store: store)
+		let viewModel = DiaryEditEntriesViewModel(entryType: .location, diaryStore: store, eventStore: MockEventStore())
 
 		let publisherExpectation = expectation(description: "Entries publisher called")
 		publisherExpectation.expectedFulfillmentCount = 2
@@ -87,7 +87,7 @@ class DiaryEditEntriesViewModelTest: CWATestCase {
 
 	func testRemoveContactPerson() throws {
 		let store = makeMockStore()
-		let viewModel = DiaryEditEntriesViewModel(entryType: .contactPerson, store: store)
+		let viewModel = DiaryEditEntriesViewModel(entryType: .contactPerson, diaryStore: store, eventStore: MockEventStore())
 
 		let publisherExpectation = expectation(description: "Entries publisher called")
 		publisherExpectation.expectedFulfillmentCount = 2
@@ -119,7 +119,7 @@ class DiaryEditEntriesViewModelTest: CWATestCase {
 
 	func testRemoveLocation() throws {
 		let store = makeMockStore()
-		let viewModel = DiaryEditEntriesViewModel(entryType: .location, store: store)
+		let viewModel = DiaryEditEntriesViewModel(entryType: .location, diaryStore: store, eventStore: MockEventStore())
 
 		let publisherExpectation = expectation(description: "Entries publisher called")
 		publisherExpectation.expectedFulfillmentCount = 2
@@ -151,7 +151,7 @@ class DiaryEditEntriesViewModelTest: CWATestCase {
 
 	func testRemoveAllContactPersons() throws {
 		let store = makeMockStore()
-		let viewModel = DiaryEditEntriesViewModel(entryType: .contactPerson, store: store)
+		let viewModel = DiaryEditEntriesViewModel(entryType: .contactPerson, diaryStore: store, eventStore: MockEventStore())
 
 		let publisherExpectation = expectation(description: "Entries publisher called")
 		publisherExpectation.expectedFulfillmentCount = 2
@@ -174,7 +174,7 @@ class DiaryEditEntriesViewModelTest: CWATestCase {
 
 	func testRemoveAllLocations() throws {
 		let store = makeMockStore()
-		let viewModel = DiaryEditEntriesViewModel(entryType: .location, store: store)
+		let viewModel = DiaryEditEntriesViewModel(entryType: .location, diaryStore: store, eventStore: MockEventStore())
 
 		let publisherExpectation = expectation(description: "Entries publisher called")
 		publisherExpectation.expectedFulfillmentCount = 2
