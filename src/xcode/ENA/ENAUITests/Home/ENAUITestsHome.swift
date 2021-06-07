@@ -95,7 +95,7 @@ class ENAUITests_01a_Home: CWATestCase {
 		app.buttons[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.removeTestButton].waitAndTap()
 		
 		// confirm deletion
-		app.buttons[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.deleteAlertDeleteButton].waitAndTap()
+		app.alerts.firstMatch.buttons.element(boundBy: 1).waitAndTap()
 		
 		// check if the pcr cell disappears
 		XCTAssertFalse(app.cells[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.pcrCell].waitForExistence(timeout: .medium))
