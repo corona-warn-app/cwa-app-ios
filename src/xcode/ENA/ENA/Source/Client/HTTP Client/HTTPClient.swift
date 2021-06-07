@@ -1265,9 +1265,9 @@ private extension URLRequest {
 			"registrationToken": token,
 			"publicKey": publicKey
 		]
-		// TODO: Check: Do we need padding on this request? (Crashes with padding, because request is > 250 bytes)
-		let encodedData = try JSONEncoder().encode(originalBody)
-		request.httpBody = encodedData
+
+		let paddedData = try getPaddedRequestBody(for: originalBody)
+		request.httpBody = paddedData
 
 		return request
 	}
@@ -1339,7 +1339,7 @@ private extension URLRequest {
 		paddedBody["requestPadding"] = ""
 		let paddedData = try JSONEncoder().encode(paddedBody)
 		let paddingSize = maxRequestPayloadSize - paddedData.count
-		let padding = String.getRandomString(of: paddingSize)
+		let padding = String.getRandomString(of: max(0, paddingSize))
 		paddedBody["requestPadding"] = padding
 		return try JSONEncoder().encode(paddedBody)
 	}
