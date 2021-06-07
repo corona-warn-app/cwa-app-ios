@@ -10,7 +10,7 @@ class ExposureSubmissionTestCertificateViewModel {
 	// MARK: - Init
 
 	init(
-		testType: CoronaTestType = .pcr,
+		testType: CoronaTestType,
 		presentDisclaimer: @escaping () -> Void
 	) {
 		self.presentDisclaimer = presentDisclaimer
@@ -19,8 +19,6 @@ class ExposureSubmissionTestCertificateViewModel {
 	}
 
 	// MARK: - Internal
-
-	let testType: CoronaTestType
 
 	private(set) var dateOfBirth: Date? {
 		didSet {
@@ -135,7 +133,9 @@ class ExposureSubmissionTestCertificateViewModel {
 
 	// MARK: - Private
 
+	private let testType: CoronaTestType
 	private let presentDisclaimer: () -> Void
+
 	private var subscriptions = Set<AnyCancellable>()
 
 }

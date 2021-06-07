@@ -74,7 +74,7 @@ final class SQLiteKeyValueStoreTests: CWATestCase {
 		kvStore[rawMockData[0].key] = rawMockData[0].data
 		kvStore[rawMockData[1].key] = rawMockData[1].data
 
-		try kvStore.clearAll(key: "newPassword")
+		try kvStore.wipeAll(key: "newPassword")
 
 		XCTAssertNil(kvStore[rawMockData[0].key])
 		XCTAssertNil(kvStore[rawMockData[1].key])

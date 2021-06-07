@@ -80,6 +80,26 @@ class ENAUITests_01a_Home: CWATestCase {
 
 		XCTAssertTrue(app.webViews.firstMatch.waitForExistence(timeout: .long))
 	}
+	
+	func test_homescreen_remove_positive_test_result() throws {
+		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
+		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.positive.stringValue)
+		app.setLaunchArgument(LaunchArguments.test.pcr.positiveTestResultWasShown, to: true)
+		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
+		app.launch()
+		
+		// only run if home screen is present
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.removeTestButton].waitForExistence(timeout: .medium))
+
+		// remove test
+		app.buttons[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.removeTestButton].waitAndTap()
+		
+		// confirm deletion
+		app.alerts.firstMatch.buttons.element(boundBy: 1).waitAndTap()
+		
+		// check if the pcr cell disappears
+		XCTAssertFalse(app.cells[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.pcrCell].waitForExistence(timeout: .medium))
+	}
 
 	// MARK: - Screenshots
 

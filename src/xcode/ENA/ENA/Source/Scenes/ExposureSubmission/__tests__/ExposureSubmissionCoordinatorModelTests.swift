@@ -5,8 +5,242 @@
 import XCTest
 @testable import ENA
 
+// swiftlint:disable file_length
 // swiftlint:disable:next type_body_length
 class ExposureSubmissionCoordinatorModelTests: CWATestCase {
+
+	// MARK: - Should Show Override Test Notice
+
+	func testShouldShowOverrideTestNotice_WithoutRegisteredTests() {
+		let coronaTestService = CoronaTestService(
+			client: ClientMock(),
+			store: MockTestStore(),
+			eventStore: MockEventStore(),
+			diaryStore: MockDiaryStore(),
+			appConfiguration: CachedAppConfigurationMock()
+		)
+		coronaTestService.pcrTest = nil
+		coronaTestService.antigenTest = nil
+
+		let model = ExposureSubmissionCoordinatorModel(
+			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTestService: coronaTestService,
+			eventProvider: MockEventStore()
+		)
+
+		XCTAssertFalse(model.shouldShowOverrideTestNotice(for: .pcr))
+		XCTAssertFalse(model.shouldShowOverrideTestNotice(for: .antigen))
+	}
+
+	func testShouldShowOverrideTestNotice_WithRegisteredPCRTest() {
+		let coronaTestService = CoronaTestService(
+			client: ClientMock(),
+			store: MockTestStore(),
+			eventStore: MockEventStore(),
+			diaryStore: MockDiaryStore(),
+			appConfiguration: CachedAppConfigurationMock()
+		)
+		coronaTestService.pcrTest = PCRTest.mock(testResult: .pending)
+		coronaTestService.antigenTest = nil
+
+		let model = ExposureSubmissionCoordinatorModel(
+			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTestService: coronaTestService,
+			eventProvider: MockEventStore()
+		)
+
+		XCTAssertTrue(model.shouldShowOverrideTestNotice(for: .pcr))
+		XCTAssertFalse(model.shouldShowOverrideTestNotice(for: .antigen))
+
+		coronaTestService.pcrTest?.testResult = .positive
+		XCTAssertTrue(model.shouldShowOverrideTestNotice(for: .pcr))
+
+		coronaTestService.pcrTest?.testResult = .negative
+		XCTAssertTrue(model.shouldShowOverrideTestNotice(for: .pcr))
+
+		coronaTestService.pcrTest?.testResult = .invalid
+		XCTAssertTrue(model.shouldShowOverrideTestNotice(for: .pcr))
+
+		// Should not be shown for expired tests
+		coronaTestService.pcrTest?.testResult = .expired
+		XCTAssertFalse(model.shouldShowOverrideTestNotice(for: .pcr))
+	}
+
+	func testShouldShowOverrideTestNotice_WithRegisteredAntigenTest() {
+		let coronaTestService = CoronaTestService(
+			client: ClientMock(),
+			store: MockTestStore(),
+			eventStore: MockEventStore(),
+			diaryStore: MockDiaryStore(),
+			appConfiguration: CachedAppConfigurationMock()
+		)
+		coronaTestService.pcrTest = nil
+		coronaTestService.antigenTest = AntigenTest.mock(testResult: .pending)
+
+		let model = ExposureSubmissionCoordinatorModel(
+			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTestService: coronaTestService,
+			eventProvider: MockEventStore()
+		)
+
+		XCTAssertFalse(model.shouldShowOverrideTestNotice(for: .pcr))
+		XCTAssertTrue(model.shouldShowOverrideTestNotice(for: .antigen))
+
+		coronaTestService.antigenTest?.testResult = .positive
+		XCTAssertTrue(model.shouldShowOverrideTestNotice(for: .antigen))
+
+		coronaTestService.antigenTest?.testResult = .invalid
+		XCTAssertTrue(model.shouldShowOverrideTestNotice(for: .antigen))
+
+		// Should not be shown for expired tests
+		coronaTestService.antigenTest?.testResult = .expired
+		XCTAssertFalse(model.shouldShowOverrideTestNotice(for: .antigen))
+
+		coronaTestService.antigenTest?.testResult = .negative
+		XCTAssertTrue(model.shouldShowOverrideTestNotice(for: .antigen))
+
+		// Should not be shown for outdated antigen tests
+		coronaTestService.antigenTestIsOutdated = true
+		XCTAssertFalse(model.shouldShowOverrideTestNotice(for: .antigen))
+	}
+
+	func testShouldShowOverrideTestNotice_WithRegisteredTests() {
+		let coronaTestService = CoronaTestService(
+			client: ClientMock(),
+			store: MockTestStore(),
+			eventStore: MockEventStore(),
+			diaryStore: MockDiaryStore(),
+			appConfiguration: CachedAppConfigurationMock()
+		)
+		coronaTestService.pcrTest = PCRTest.mock(testResult: .pending)
+		coronaTestService.antigenTest = AntigenTest.mock(testResult: .pending)
+
+		let model = ExposureSubmissionCoordinatorModel(
+			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTestService: coronaTestService,
+			eventProvider: MockEventStore()
+		)
+
+		XCTAssertTrue(model.shouldShowOverrideTestNotice(for: .pcr))
+		XCTAssertTrue(model.shouldShowOverrideTestNotice(for: .antigen))
+	}
+
+	// MARK: - Should Show TestCertificateScreen
+
+	func testShouldShowTestCertificateScreen_WithPCRTest() {
+		let model = ExposureSubmissionCoordinatorModel(
+			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTestService: CoronaTestService(
+				client: ClientMock(),
+				store: MockTestStore(),
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: CachedAppConfigurationMock()
+			),
+			eventProvider: MockEventStore()
+		)
+
+		XCTAssertTrue(model.shouldShowTestCertificateScreen(with: .pcr(guid: "F1EE0D-F1EE0D4D-4346-4B63-B9CF-1522D9200915")))
+	}
+
+	func testShouldShowTestCertificateScreen_WithAntigenTestThatHasCertificateSupport() {
+		let model = ExposureSubmissionCoordinatorModel(
+			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTestService: CoronaTestService(
+				client: ClientMock(),
+				store: MockTestStore(),
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: CachedAppConfigurationMock()
+			),
+			eventProvider: MockEventStore()
+		)
+
+		let antigenTestQRCodeInformation = AntigenTestQRCodeInformation(
+			hash: "",
+			timestamp: 0,
+			firstName: nil,
+			lastName: nil,
+			dateOfBirth: nil,
+			testID: nil,
+			cryptographicSalt: nil,
+			certificateSupportedByPointOfCare: true
+		)
+
+		XCTAssertTrue(model.shouldShowTestCertificateScreen(with: .antigen(qrCodeInformation: antigenTestQRCodeInformation)))
+	}
+
+	func testShouldShowTestCertificateScreen_WithAntigenTestThatHasNoCertificateSupport() {
+		let model = ExposureSubmissionCoordinatorModel(
+			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTestService: CoronaTestService(
+				client: ClientMock(),
+				store: MockTestStore(),
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: CachedAppConfigurationMock()
+			),
+			eventProvider: MockEventStore()
+		)
+
+		let antigenTestQRCodeInformation = AntigenTestQRCodeInformation(
+			hash: "",
+			timestamp: 0,
+			firstName: nil,
+			lastName: nil,
+			dateOfBirth: nil,
+			testID: nil,
+			cryptographicSalt: nil,
+			certificateSupportedByPointOfCare: false
+		)
+
+		XCTAssertFalse(model.shouldShowTestCertificateScreen(with: .antigen(qrCodeInformation: antigenTestQRCodeInformation)))
+	}
+
+	func testShouldShowTestCertificateScreen_WithAntigenTestThatHasNoCertificateSupportSpecified() {
+		let model = ExposureSubmissionCoordinatorModel(
+			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTestService: CoronaTestService(
+				client: ClientMock(),
+				store: MockTestStore(),
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: CachedAppConfigurationMock()
+			),
+			eventProvider: MockEventStore()
+		)
+
+		let antigenTestQRCodeInformation = AntigenTestQRCodeInformation(
+			hash: "",
+			timestamp: 0,
+			firstName: nil,
+			lastName: nil,
+			dateOfBirth: nil,
+			testID: nil,
+			cryptographicSalt: nil,
+			certificateSupportedByPointOfCare: nil
+		)
+
+		XCTAssertFalse(model.shouldShowTestCertificateScreen(with: .antigen(qrCodeInformation: antigenTestQRCodeInformation)))
+	}
+
+	func testShouldShowTestCertificateScreen_FromTeleTAN() {
+		let model = ExposureSubmissionCoordinatorModel(
+			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTestService: CoronaTestService(
+				client: ClientMock(),
+				store: MockTestStore(),
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: CachedAppConfigurationMock()
+			),
+			eventProvider: MockEventStore()
+		)
+
+		XCTAssertFalse(model.shouldShowTestCertificateScreen(with: .teleTAN(tan: "qwdzxcsrhe")))
+	}
+
+	// MARK: - Symptoms Option Selected
 
 	func testSymptomsOptionYesSelected() {
 		let model = ExposureSubmissionCoordinatorModel(
@@ -90,7 +324,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		waitForExpectations(timeout: .short)
 	}
 
-	// MARK: -
+	// MARK: - Symptoms Onset Option Selected
 
 	func testSymptomsOnsetOptionExactDateSelected() throws {
 		let submissionExpectation = expectation(description: "Submission is called")
@@ -251,7 +485,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		waitForExpectations(timeout: .short)
 	}
 
-	// MARK: -
+	// MARK: - Submit Exposure
 
 	func testSuccessfulSubmit() {
 		let exposureSubmissionService = MockExposureSubmissionService()
@@ -463,8 +697,9 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		onErrorExpectation.isInverted = true
 
 		model.registerTestAndGetResult(
-			for: .pcr(""),
+			for: .pcr(guid: ""),
 			isSubmissionConsentGiven: true,
+			certificateConsent: .notGiven,
 			isLoading: {
 				isLoadingValues.append($0)
 				isLoadingExpectation.fulfill()
@@ -515,8 +750,9 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let onErrorExpectation = expectation(description: "onError is called")
 
 		model.registerTestAndGetResult(
-			for: .pcr(""),
+			for: .pcr(guid: ""),
 			isSubmissionConsentGiven: true,
+			certificateConsent: .notGiven,
 			isLoading: {
 				isLoadingValues.append($0)
 				isLoadingExpectation.fulfill()

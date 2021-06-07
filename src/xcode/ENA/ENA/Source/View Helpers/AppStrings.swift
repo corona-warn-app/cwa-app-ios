@@ -148,8 +148,8 @@ enum AppStrings {
 				enum Alert {
 					static let title = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Alert_Title", comment: "")
 					static let message = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Alert_Message", comment: "")
-					static let cancel = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Alert_Cancel", comment: "")
-					static let ok = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Alert_Ok", comment: "")
+					static let continueRegistration = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Alert_ContinueRegistration", comment: "")
+					static let cancelRegistration = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Alert_CancelRegistration", comment: "")
 				}
 
 			}
@@ -927,6 +927,11 @@ enum AppStrings {
 				static let homeItemTitle = NSLocalizedString("Home_Finding_Positive_Card_Home_Item_Title", comment: "")
 				static let shareItemTitle = NSLocalizedString("Home_Finding_Positive_Card_Share_Item_Title", comment: "")
 				static let button = NSLocalizedString("Home_Finding_Positive_Card_Button", comment: "")
+				static let removeTestButton = NSLocalizedString("Home_Finding_Positive_Card_Button_Remove_Test", comment: "")
+				static let deleteAlertTitle = NSLocalizedString("Home_Finding_Positive_Card_Remove_Test_Alert_Title", comment: "")
+				static let deleteAlertDescription =
+					NSLocalizedString("Home_Finding_Positive_Card_Remove_Test_Alert_Description", comment: "")
+				static let deleteAlertDeleteButtonTitle = NSLocalizedString("Home_Finding_Positive_Card_Remove_Test_Alert_Description_Delete_Button", comment: "")
 			}
 		}
 
@@ -1105,11 +1110,15 @@ enum AppStrings {
 		
 		static let aboutAppInformation = NSLocalizedString("NewVersionFeatures_Info_about_abb_information", comment: "")
 		
-		/* Version 2.3 */
+		/* Version 2.4 */
 		
-		static let feature23digitalVaccinationCertificateTitle = NSLocalizedString("NewVersionFeature_23_digital_vaccination_certificate_title", comment: "")
+		static let feature24digitalCovidCertTitle = NSLocalizedString("NewVersionFeature_24_digital_covid_cert_title", comment: "")
 		
-		static let feature23digitalVaccinationCertificateDescription = NSLocalizedString("NewVersionFeature_23_digital_vaccination_certificate_description", comment: "")
+		static let feature24digitalCovidCertDescription = NSLocalizedString("NewVersionFeature_24_digital_covid_cert_description", comment: "")
+		
+		static let feature24ExtendedDiaryTitle = NSLocalizedString("NewVersionFeature_24_extended_diary_title", comment: "")
+		
+		static let feature24ExtendedDiaryDescription = NSLocalizedString("NewVersionFeature_24_extended_diary_title_description", comment: "")
 
 	}
 	

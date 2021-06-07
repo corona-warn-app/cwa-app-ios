@@ -126,6 +126,7 @@ public struct DigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtoc
         ])
 
         let cborWebToken = CBOR.tagged(CBOR.Tag(rawValue: 18), cborWebTokenMessage)
+        
         return .success(cborWebToken)
     }
 
