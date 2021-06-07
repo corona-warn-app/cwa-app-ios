@@ -749,7 +749,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_antigenTestPendingContactJournal" = "Ihr Testergebnis wird dem Kontakt-Tagebuch hinzugefügt.";
 
+"ExposureSubmissionResult_pcrTestPendingContactJournal" = "Ihr Testergebnis wird dem Kontakt-Tagebuch hinzugefügt.";
+
 "ExposureSubmissionResult_antigenTestPendingContactJournalDesc" = "Sobald Ihr Testergebnis vorliegt, wird es Ihnen in der App angezeigt.";
+
+"ExposureSubmissionResult_pcrTestPendingContactJournalDesc" = "Sobald Ihr Testergebnis vorliegt, wird es Ihnen in der App angezeigt.";
 
 "ExposureSubmissionResult_antigenTestNegativDesc" = "Der Schnelltest hat keinen Nachweis für das Coronavirus SARS-CoV-2 bei Ihnen ergeben.";
 

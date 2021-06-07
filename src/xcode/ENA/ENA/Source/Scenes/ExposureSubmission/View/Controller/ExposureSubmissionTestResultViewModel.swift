@@ -231,9 +231,36 @@ extension ExposureSubmissionTestResultViewModel {
 					title: AppStrings.ExposureSubmissionResult.PCR.testPending,
 					description: AppStrings.ExposureSubmissionResult.PCR.testPendingDesc,
 					icon: UIImage(named: "Icons_Grey_Wait"),
-					hairline: .none
+					hairline: .iconAttached
+				),
+				ExposureSubmissionDynamicCell.stepCell(
+					title: AppStrings.ExposureSubmissionResult.PCR.testPendingContactJournal,
+					description: AppStrings.ExposureSubmissionResult.PCR.testPendingContactJournalDesc,
+					icon: UIImage(named: "test-result-diary_light"),
+					hairline: .iconAttached
 				)
 			])
+			if let test = coronaTest.pcrTest {
+				if !test.certificateConsentGiven {
+					cells.append(
+						ExposureSubmissionDynamicCell.stepCell(
+							title: AppStrings.ExposureSubmissionResult.testCertificateTitle,
+							description: AppStrings.ExposureSubmissionResult.testCertificateNotRequested,
+							icon: UIImage(named: "certificate-qr-light"),
+							hairline: .none
+						)
+					)
+				} else if !test.certificateCreated {
+					cells.append(
+						ExposureSubmissionDynamicCell.stepCell(
+							title: AppStrings.ExposureSubmissionResult.testCertificateTitle,
+							description: AppStrings.ExposureSubmissionResult.testCertificatePending,
+							icon: UIImage(named: "certificate-qr-light"),
+							hairline: .none
+						)
+					)
+				}
+			}
 		case .antigen:
 				cells.append(contentsOf: [
 					ExposureSubmissionDynamicCell.stepCell(
@@ -247,8 +274,15 @@ extension ExposureSubmissionTestResultViewModel {
 						description: AppStrings.ExposureSubmissionResult.Antigen.testPendingDesc,
 						icon: UIImage(named: "Icons_Grey_Wait"),
 						hairline: .iconAttached
+					),
+					ExposureSubmissionDynamicCell.stepCell(
+						title: AppStrings.ExposureSubmissionResult.PCR.testPendingContactJournal,
+						description: AppStrings.ExposureSubmissionResult.PCR.testPendingContactJournalDesc,
+						icon: UIImage(named: "test-result-diary_light"),
+						hairline: .iconAttached
 					)
 				])
+			
 			if let test = coronaTest.antigenTest {
 				if !test.certificateSupportedByPointOfCare {
 					cells.append(
@@ -259,20 +293,20 @@ extension ExposureSubmissionTestResultViewModel {
 							hairline: .none
 						)
 					)
-				} else if test.certificateCreated {
+				} else if !test.certificateConsentGiven {
 					cells.append(
 						ExposureSubmissionDynamicCell.stepCell(
 							title: AppStrings.ExposureSubmissionResult.testCertificateTitle,
-							description: AppStrings.ExposureSubmissionResult.Antigen.testCertificatePending,
+							description: AppStrings.ExposureSubmissionResult.testCertificateNotRequested,
 							icon: UIImage(named: "certificate-qr-light"),
 							hairline: .none
 						)
 					)
-				} else {
+				} else if !test.certificateCreated {
 					cells.append(
 						ExposureSubmissionDynamicCell.stepCell(
 							title: AppStrings.ExposureSubmissionResult.testCertificateTitle,
-							description: AppStrings.ExposureSubmissionResult.Antigen.testCertificateNotRequested,
+							description: AppStrings.ExposureSubmissionResult.testCertificatePending,
 							icon: UIImage(named: "certificate-qr-light"),
 							hairline: .none
 						)
@@ -541,9 +575,36 @@ extension ExposureSubmissionTestResultViewModel {
 				title: AppStrings.ExposureSubmissionResult.testRemove,
 				description: AppStrings.ExposureSubmissionResult.testRemoveDesc,
 				icon: UIImage(named: "Icons_Grey_Entfernen"),
-				hairline: .none
+				hairline: .iconAttached
 			)
+			
 		])
+		switch coronaTest.type {
+		case .pcr:
+			if let isCertificateCreated = coronaTest.pcrTest?.certificateCreated, isCertificateCreated {
+				cells.append(
+					ExposureSubmissionDynamicCell.stepCell(
+						title: AppStrings.ExposureSubmissionResult.testCertificateTitle,
+						description: AppStrings.ExposureSubmissionResult.testCertificateAvailableInTheTab,
+						icon: UIImage(named: "certificate-qr-light"),
+						hairline: .none
+					)
+				)
+			}
+			
+		case .antigen:
+			if let isCertificateCreated = coronaTest.antigenTest?.certificateCreated, isCertificateCreated {
+				cells.append(
+					ExposureSubmissionDynamicCell.stepCell(
+						title: AppStrings.ExposureSubmissionResult.testCertificateTitle,
+						description: AppStrings.ExposureSubmissionResult.testCertificateAvailableInTheTab,
+						icon: UIImage(named: "certificate-qr-light"),
+						hairline: .none
+					)
+				)
+			}
+		}
+
 		cells.append(contentsOf: [
 			.title2(
 				text: AppStrings.ExposureSubmissionResult.furtherInfos_Title,
@@ -620,7 +681,7 @@ extension ExposureSubmissionTestResultViewModel {
 			cells.append(
 				ExposureSubmissionDynamicCell.stepCell(
 					title: AppStrings.ExposureSubmissionResult.testCertificateTitle,
-					description: AppStrings.ExposureSubmissionResult.Antigen.testCertificateAvailableInTheTab,
+					description: AppStrings.ExposureSubmissionResult.testCertificateAvailableInTheTab,
 					icon: UIImage(named: "certificate-qr-light"),
 					hairline: .none
 				)
