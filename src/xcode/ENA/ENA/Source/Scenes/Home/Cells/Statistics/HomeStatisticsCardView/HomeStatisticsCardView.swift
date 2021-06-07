@@ -20,6 +20,7 @@ class HomeStatisticsCardView: UIView {
 		
 		primaryTitleLabel.style = .body
 		primaryTitleLabel.textColor = .enaColor(for: .textPrimary2)
+		primaryTitleLabel.numberOfLines = 0
 		primaryTitleLabel.adjustsFontSizeToFitWidth = true
 		primaryTitleLabel.allowsDefaultTighteningForTruncation = true
 		primaryTitleLabel.onAccessibilityFocus = { [weak self] in
@@ -27,6 +28,7 @@ class HomeStatisticsCardView: UIView {
 		}
 		
 		primaryValueLabel.style = .title1
+		primaryValueLabel.numberOfLines = 0
 		primaryValueLabel.adjustsFontSizeToFitWidth = true
 		primaryValueLabel.allowsDefaultTighteningForTruncation = true
 		primaryValueLabel.onAccessibilityFocus = { [weak self] in
@@ -35,6 +37,7 @@ class HomeStatisticsCardView: UIView {
 		
 		secondaryTitleLabel.style = .body
 		secondaryTitleLabel.textColor = .enaColor(for: .textPrimary2)
+		secondaryTitleLabel.numberOfLines = 0
 		secondaryTitleLabel.adjustsFontSizeToFitWidth = true
 		secondaryTitleLabel.allowsDefaultTighteningForTruncation = true
 		secondaryTitleLabel.onAccessibilityFocus = { [weak self] in
@@ -42,6 +45,7 @@ class HomeStatisticsCardView: UIView {
 		}
 		
 		secondaryValueLabel.style = .headline
+		secondaryValueLabel.numberOfLines = 0
 		secondaryValueLabel.adjustsFontSizeToFitWidth = true
 		secondaryValueLabel.allowsDefaultTighteningForTruncation = true
 		secondaryValueLabel.onAccessibilityFocus = { [weak self] in
@@ -50,6 +54,7 @@ class HomeStatisticsCardView: UIView {
 		
 		tertiaryTitleLabel.style = .body
 		tertiaryTitleLabel.textColor = .enaColor(for: .textPrimary2)
+		tertiaryTitleLabel.numberOfLines = 0
 		tertiaryTitleLabel.adjustsFontSizeToFitWidth = true
 		tertiaryTitleLabel.allowsDefaultTighteningForTruncation = true
 		tertiaryTitleLabel.onAccessibilityFocus = { [weak self] in
@@ -57,6 +62,7 @@ class HomeStatisticsCardView: UIView {
 		}
 		
 		tertiaryValueLabel.style = .headline
+		tertiaryValueLabel.numberOfLines = 0
 		tertiaryValueLabel.adjustsFontSizeToFitWidth = true
 		tertiaryValueLabel.allowsDefaultTighteningForTruncation = true
 		tertiaryValueLabel.onAccessibilityFocus = { [weak self] in

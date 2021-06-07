@@ -29,6 +29,21 @@ class StackViewLabel: UIView {
 		set { label.text = newValue }
 	}
 	
+	var font: UIFont {
+		get { label.font }
+		set { label.font = newValue }
+	}
+	
+	var numberOfLines: Int {
+		get { label.numberOfLines }
+		set { label.numberOfLines = newValue }
+	}
+	
+	var textAlignment: NSTextAlignment {
+		get { label.textAlignment }
+		set { label.textAlignment = newValue }
+	}
+	
 	var adjustsFontSizeToFitWidth: Bool {
 		get { label.adjustsFontSizeToFitWidth }
 		set { label.adjustsFontSizeToFitWidth = newValue }
@@ -61,7 +76,6 @@ class StackViewLabel: UIView {
 	private func setupView() {
 		
 		label = ENALabel()
-		label.numberOfLines = 0
 		label.translatesAutoresizingMaskIntoConstraints = false
 		addSubview(label)
 		
