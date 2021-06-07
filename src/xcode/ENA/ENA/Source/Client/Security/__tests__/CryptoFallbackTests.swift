@@ -237,12 +237,5 @@ class CryptoFallbackTests: iOS13TestCase {
 		
 		XCTAssertFalse(signatureVerifier(alteredPackage))
 	}
-	
-	func testDGCRSAKeypair() {
-		let keypair = try? DGCRSAKeypair()
-		
-		XCTAssertNotNil(keypair)
-		XCTAssertNotEqual(keypair?.privateKey, keypair?.publicKey)
-		XCTAssertEqual(keypair?.publicKeyForBackend.count, 564)
-	}
+
 }

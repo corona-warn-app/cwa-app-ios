@@ -12,13 +12,23 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 	// MARK: - Should Show Override Test Notice
 
 	func testShouldShowOverrideTestNotice_WithoutRegisteredTests() {
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let coronaTestService = CoronaTestService(
-			client: ClientMock(),
-			store: MockTestStore(),
+			client: client,
+			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock()
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
+
 		coronaTestService.pcrTest = nil
 		coronaTestService.antigenTest = nil
 
@@ -33,13 +43,23 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 	}
 
 	func testShouldShowOverrideTestNotice_WithRegisteredPCRTest() {
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let coronaTestService = CoronaTestService(
-			client: ClientMock(),
-			store: MockTestStore(),
+			client: client,
+			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock()
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
+
 		coronaTestService.pcrTest = PCRTest.mock(testResult: .pending)
 		coronaTestService.antigenTest = nil
 
@@ -67,13 +87,23 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 	}
 
 	func testShouldShowOverrideTestNotice_WithRegisteredAntigenTest() {
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let coronaTestService = CoronaTestService(
-			client: ClientMock(),
-			store: MockTestStore(),
+			client: client,
+			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock()
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
+
 		coronaTestService.pcrTest = nil
 		coronaTestService.antigenTest = AntigenTest.mock(testResult: .pending)
 
@@ -105,13 +135,23 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 	}
 
 	func testShouldShowOverrideTestNotice_WithRegisteredTests() {
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let coronaTestService = CoronaTestService(
-			client: ClientMock(),
-			store: MockTestStore(),
+			client: client,
+			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock()
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
+
 		coronaTestService.pcrTest = PCRTest.mock(testResult: .pending)
 		coronaTestService.antigenTest = AntigenTest.mock(testResult: .pending)
 
@@ -128,14 +168,23 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 	// MARK: - Should Show TestCertificateScreen
 
 	func testShouldShowTestCertificateScreen_WithPCRTest() {
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
-				store: MockTestStore(),
+				client: client,
+				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfiguration
+				)
 			),
 			eventProvider: MockEventStore()
 		)
@@ -144,14 +193,23 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 	}
 
 	func testShouldShowTestCertificateScreen_WithAntigenTestThatHasCertificateSupport() {
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
-				store: MockTestStore(),
+				client: client,
+				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfiguration
+				)
 			),
 			eventProvider: MockEventStore()
 		)
@@ -171,14 +229,23 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 	}
 
 	func testShouldShowTestCertificateScreen_WithAntigenTestThatHasNoCertificateSupport() {
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
-				store: MockTestStore(),
+				client: client,
+				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfiguration
+				)
 			),
 			eventProvider: MockEventStore()
 		)
@@ -198,14 +265,23 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 	}
 
 	func testShouldShowTestCertificateScreen_WithAntigenTestThatHasNoCertificateSupportSpecified() {
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
-				store: MockTestStore(),
+				client: client,
+				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfiguration
+				)
 			),
 			eventProvider: MockEventStore()
 		)
@@ -225,14 +301,23 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 	}
 
 	func testShouldShowTestCertificateScreen_FromTeleTAN() {
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
-				store: MockTestStore(),
+				client: client,
+				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfiguration
+				)
 			),
 			eventProvider: MockEventStore()
 		)
@@ -243,14 +328,23 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 	// MARK: - Symptoms Option Selected
 
 	func testSymptomsOptionYesSelected() {
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
-				store: MockTestStore(),
+				client: client,
+				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfiguration
+				)
 			),
 			eventProvider: MockEventStore()
 		)
@@ -268,14 +362,23 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			submissionExpectation.fulfill()
 		}
 
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
-				store: MockTestStore(),
+				client: client,
+				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfiguration
+				)
 			),
 			eventProvider: MockEventStore()
 		)
@@ -300,14 +403,23 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			submissionExpectation.fulfill()
 		}
 
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
-				store: MockTestStore(),
+				client: client,
+				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfiguration
+				)
 			),
 			eventProvider: MockEventStore()
 		)
@@ -334,14 +446,23 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			submissionExpectation.fulfill()
 		}
 
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
-				store: MockTestStore(),
+				client: client,
+				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfiguration
+				)
 			),
 			eventProvider: MockEventStore()
 		)
@@ -368,14 +489,23 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			submissionExpectation.fulfill()
 		}
 
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
-				store: MockTestStore(),
+				client: client,
+				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfiguration
+				)
 			),
 			eventProvider: MockEventStore()
 		)
@@ -399,14 +529,23 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			submissionExpectation.fulfill()
 		}
 
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
-				store: MockTestStore(),
+				client: client,
+				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfiguration
+				)
 			),
 			eventProvider: MockEventStore()
 		)
@@ -431,14 +570,23 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			submissionExpectation.fulfill()
 		}
 
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
-				store: MockTestStore(),
+				client: client,
+				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfiguration
+				)
 			),
 			eventProvider: MockEventStore()
 		)
@@ -462,14 +610,23 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			submissionExpectation.fulfill()
 		}
 
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
-				store: MockTestStore(),
+				client: client,
+				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfiguration
+				)
 			),
 			eventProvider: MockEventStore()
 		)
@@ -493,14 +650,23 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			completion(nil)
 		}
 
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
-				store: MockTestStore(),
+				client: client,
+				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfiguration
+				)
 			),
 			eventProvider: MockEventStore()
 		)
@@ -537,14 +703,23 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			completion(.noKeysCollected)
 		}
 
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
-				store: MockTestStore(),
+				client: client,
+				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfiguration
+				)
 			),
 			eventProvider: MockEventStore()
 		)
@@ -581,14 +756,23 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			completion(.notAuthorized)
 		}
 
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
-				store: MockTestStore(),
+				client: client,
+				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfiguration
+				)
 			),
 			eventProvider: MockEventStore()
 		)
@@ -627,14 +811,23 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			completion(.internal)
 		}
 
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
-				store: MockTestStore(),
+				client: client,
+				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfiguration
+				)
 			),
 			eventProvider: MockEventStore()
 		)
@@ -673,14 +866,22 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			completion(.success(FetchTestResultResponse(testResult: expectedTestResult.rawValue, sc: nil)))
 		}
 
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: CoronaTestService(
 				client: client,
-				store: MockTestStore(),
+				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfiguration
+				)
 			),
 			eventProvider: MockEventStore()
 		)
@@ -726,14 +927,22 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			completion(.failure(.invalidResponse))
 		}
 
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: CoronaTestService(
 				client: client,
-				store: MockTestStore(),
+				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfiguration
+				)
 			),
 			eventProvider: MockEventStore()
 		)

@@ -50,9 +50,14 @@ final class RiskProviderTests: CWATestCase {
 			coronaTestService: CoronaTestService(
 				client: client,
 				store: store,
-				eventStore: MockEventStore(),
+				eventStore: eventStore,
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfig,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfig
+				)
 			)
 		)
 		
@@ -131,9 +136,14 @@ final class RiskProviderTests: CWATestCase {
 			coronaTestService: CoronaTestService(
 				client: client,
 				store: store,
-				eventStore: MockEventStore(),
+				eventStore: eventStore,
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfig,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfig
+				)
 			)
 		)
 		
@@ -212,9 +222,14 @@ final class RiskProviderTests: CWATestCase {
 			coronaTestService: CoronaTestService(
 				client: client,
 				store: store,
-				eventStore: MockEventStore(),
+				eventStore: eventStore,
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfig,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfig
+				)
 			)
 		)
 		
@@ -257,6 +272,7 @@ final class RiskProviderTests: CWATestCase {
 		// GIVEN
 		let duration = DateComponents(day: 1)
 
+		let client = ClientMock()
 		let store = MockTestStore()
 		store.enfRiskCalculationResult = nil
 
@@ -279,11 +295,16 @@ final class RiskProviderTests: CWATestCase {
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
+				client: client,
 				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfig,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfig
+				)
 			)
 		)
 
@@ -314,6 +335,7 @@ final class RiskProviderTests: CWATestCase {
 	func testGIVEN_RiskProvider_WHEN_addingAndRemovingConsumer_THEN_noCallback() throws {
 		let duration = DateComponents(day: 1)
 
+		let client = ClientMock()
 		let store = MockTestStore()
 		store.enfRiskCalculationResult = nil
 
@@ -335,11 +357,16 @@ final class RiskProviderTests: CWATestCase {
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: cachedAppConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
+				client: client,
 				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: cachedAppConfig,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: cachedAppConfig
+				)
 			)
 		)
 
@@ -373,6 +400,7 @@ final class RiskProviderTests: CWATestCase {
 			wrappingComponents: false
 		))
 
+		let client = ClientMock()
 		let store = MockTestStore()
 		store.enfRiskCalculationResult = ENFRiskCalculationResult(
 			riskLevel: .low,
@@ -400,7 +428,6 @@ final class RiskProviderTests: CWATestCase {
 
 		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
 
-
 		var appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
 		var parameters = SAP_Internal_V2_ExposureDetectionParametersIOS()
 		parameters.maxExposureDetectionsPerInterval = 1
@@ -418,11 +445,16 @@ final class RiskProviderTests: CWATestCase {
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: cachedAppConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
+				client: client,
 				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: cachedAppConfig,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: cachedAppConfig
+				)
 			)
 		)
 
@@ -444,6 +476,7 @@ final class RiskProviderTests: CWATestCase {
 	func testThatDetectionIsRequested() throws {
 		let duration = DateComponents(day: 1)
 
+		let client = ClientMock()
 		let store = MockTestStore()
 		store.enfRiskCalculationResult = nil
 		store.positiveTestResultWasShown = false
@@ -467,11 +500,16 @@ final class RiskProviderTests: CWATestCase {
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
+				client: client,
 				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfig,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfig
+				)
 			)
 		)
 
@@ -504,6 +542,7 @@ final class RiskProviderTests: CWATestCase {
 	func testThatDetectionFails() throws {
 		let duration = DateComponents(day: 1)
 
+		let client = ClientMock()
 		let store = MockTestStore()
 		store.enfRiskCalculationResult = nil
 		store.positiveTestResultWasShown = false
@@ -528,11 +567,16 @@ final class RiskProviderTests: CWATestCase {
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
+				client: client,
 				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfig,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfig
+				)
 			)
 		)
 
@@ -572,6 +616,7 @@ final class RiskProviderTests: CWATestCase {
 	func testThatDetectionIsNotRequestedIfPositiveTestResultWasShown() throws {
 		let duration = DateComponents(day: 1)
 
+		let client = ClientMock()
 		let store = MockTestStore()
 
 		store.enfRiskCalculationResult = nil
@@ -596,11 +641,16 @@ final class RiskProviderTests: CWATestCase {
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
+				client: client,
 				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfig,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfig
+				)
 			)
 		)
 
@@ -648,6 +698,7 @@ final class RiskProviderTests: CWATestCase {
 	func testThatDetectionIsNotRequestedIfKeysWereSubmitted() throws {
 		let duration = DateComponents(day: 1)
 
+		let client = ClientMock()
 		let store = MockTestStore()
 		store.enfRiskCalculationResult = nil
 		store.pcrTest = PCRTest.mock(keysSubmitted: true)
@@ -671,11 +722,16 @@ final class RiskProviderTests: CWATestCase {
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
+				client: client,
 				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfig,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfig
+				)
 			)
 		)
 
@@ -933,6 +989,8 @@ final class RiskProviderTests: CWATestCase {
 	private func makeSomeRiskProvider() -> RiskProvider {
 		let duration = DateComponents(day: 1)
 
+		let client = ClientMock()
+
 		let store = MockTestStore()
 		store.enfRiskCalculationResult = nil
 
@@ -959,11 +1017,16 @@ final class RiskProviderTests: CWATestCase {
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
+				client: client,
 				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfig,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfig
+				)
 			)
 		)
 
@@ -1054,11 +1117,16 @@ final class RiskProviderTests: CWATestCase {
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfigurationProvider),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
+				client: client,
 				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfigurationProvider,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfigurationProvider
+				)
 			)
 		)
 	}
@@ -1136,11 +1204,16 @@ final class RiskProviderTests: CWATestCase {
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: cachedAppConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
+				client: client,
 				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: cachedAppConfig,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: cachedAppConfig
+				)
 			)
 		)
 
@@ -1228,11 +1301,16 @@ final class RiskProviderTests: CWATestCase {
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: cachedAppConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
+				client: client,
 				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: cachedAppConfig,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: cachedAppConfig
+				)
 			)
 		)
 
@@ -1322,11 +1400,16 @@ final class RiskProviderTests: CWATestCase {
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: cachedAppConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
+				client: client,
 				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: cachedAppConfig,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: cachedAppConfig
+				)
 			)
 		)
 
@@ -1414,11 +1497,16 @@ final class RiskProviderTests: CWATestCase {
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: cachedAppConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
+				client: client,
 				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: cachedAppConfig,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: cachedAppConfig
+				)
 			)
 		)
 

@@ -9,15 +9,24 @@ import XCTest
 class ExposureSubmissionTestResultConsentViewModelTests: CWATestCase {
 
 	func testCellsInSection0() {
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let viewModel = ExposureSubmissionTestResultConsentViewModel(
 			supportedCountries: [],
 			coronaTestType: .pcr,
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
-				store: MockTestStore(),
+				client: client,
+				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfiguration
+				)
 			),
 			testResultAvailability: .availableAndPositive,
 			dismissCompletion: nil
@@ -46,15 +55,24 @@ class ExposureSubmissionTestResultConsentViewModelTests: CWATestCase {
 	}
 	
 	func testCellsInSection1() {
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let viewModel = ExposureSubmissionTestResultConsentViewModel(
 			supportedCountries: [],
 			coronaTestType: .pcr,
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
-				store: MockTestStore(),
+				client: client,
+				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfiguration
+				)
 			),
 			testResultAvailability: .availableAndPositive,
 			dismissCompletion: nil
@@ -71,15 +89,24 @@ class ExposureSubmissionTestResultConsentViewModelTests: CWATestCase {
 	}
 	
 	func testCellsInSection2() {
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let viewModel = ExposureSubmissionTestResultConsentViewModel(
 			supportedCountries: [],
 			coronaTestType: .pcr,
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
-				store: MockTestStore(),
+				client: client,
+				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfiguration
+				)
 			),
 			testResultAvailability: .availableAndPositive,
 			dismissCompletion: nil

@@ -22,8 +22,8 @@ final class HealthCertificateCellViewModel {
 
 	var headline: String? {
 		guard
-			let doseNumber = healthCertificate.vaccinationCertificates.first?.doseNumber,
-			let totalSeriesOfDoses = healthCertificate.vaccinationCertificates.first?.totalSeriesOfDoses
+			let doseNumber = healthCertificate.vaccinationEntry?.doseNumber,
+			let totalSeriesOfDoses = healthCertificate.vaccinationEntry?.totalSeriesOfDoses
 		else {
 			return nil
 		}
@@ -36,18 +36,18 @@ final class HealthCertificateCellViewModel {
 	}
 
 	var detail: String? {
-		guard let dateOfVaccination = healthCertificate.dateOfVaccination else {
+		guard let localVaccinationDate = healthCertificate.vaccinationEntry?.localVaccinationDate else {
 			return nil
 		}
 
 		return String(
 			format: AppStrings.HealthCertificate.Person.vaccinationDate,
-			DateFormatter.localizedString(from: dateOfVaccination, dateStyle: .medium, timeStyle: .none)
+			DateFormatter.localizedString(from: localVaccinationDate, dateStyle: .medium, timeStyle: .none)
 		)
 	}
 
 	var image: UIImage {
-		if healthCertificate.isLastDoseInASeries {
+		if healthCertificate.vaccinationEntry?.isLastDoseInASeries ?? false {
 			return UIImage(imageLiteralResourceName: "Icon - Vollschild")
 		} else {
 			return UIImage(imageLiteralResourceName: "Icon - Teilschild")

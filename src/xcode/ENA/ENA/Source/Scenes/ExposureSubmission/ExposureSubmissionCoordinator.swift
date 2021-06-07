@@ -1179,7 +1179,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	private func registerTestAndGetResult(
 		with testQRCodeInformation: CoronaTestRegistrationInformation,
 		submissionConsentGiven: Bool,
-		certificateConsent: CoronaTestCertificateConsent,
+		certificateConsent: TestCertificateConsent,
 		isLoading: @escaping (Bool) -> Void
 	) {
 		model.registerTestAndGetResult(

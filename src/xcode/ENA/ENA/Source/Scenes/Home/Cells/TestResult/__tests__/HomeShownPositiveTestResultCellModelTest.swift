@@ -8,12 +8,20 @@ import XCTest
 class HomeShownPositiveTestResultCellModelTest: CWATestCase {
 
     func testShownPositivePCRTest() throws {
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
 		let coronaTestService = CoronaTestService(
-			client: ClientMock(),
-			store: MockTestStore(),
+			client: client,
+			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock()
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
 
 		coronaTestService.pcrTest = PCRTest.mock(
@@ -89,12 +97,21 @@ class HomeShownPositiveTestResultCellModelTest: CWATestCase {
     }
 
 	func testShownPositiveAntigenTest() throws {
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let coronaTestService = CoronaTestService(
-			client: ClientMock(),
-			store: MockTestStore(),
+			client: client,
+			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock()
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
 
 		coronaTestService.antigenTest = AntigenTest.mock(

@@ -13,7 +13,11 @@ class HealthCertificateServiceTests: CWATestCase {
 	func testHealthCertifiedPersonsPublisherTriggeredAndStoreUpdated() throws {
 		let store = MockTestStore()
 
-		let service = HealthCertificateService(store: store)
+		let service = HealthCertificateService(
+			store: store,
+			client: ClientMock(),
+			appConfiguration: CachedAppConfigurationMock()
+		)
 
 		let healthCertifiedPersonsExpectation = expectation(description: "healthCertifiedPersons publisher updated")
 
@@ -23,7 +27,7 @@ class HealthCertificateServiceTests: CWATestCase {
 				healthCertifiedPersonsExpectation.fulfill()
 			}
 
-		let result = service.registerHealthCertificate(base45: HealthCertificate.mockBase45)
+		let result = service.registerVaccinationCertificate(base45: HealthCertificate.mockBase45)
 
 		switch result {
 		case.success(let healthCertifiedPerson):

@@ -19,7 +19,7 @@ final class HTTPClientDccRegisterPublicKeyTests: CWATestCase {
 
 		// WHEN
 		var resultSuccess: Bool = false
-		HTTPClient.makeWith(mock: stack).dccRegisterPublicKey(token: "myToken", publicKey: Data()) { result in
+		HTTPClient.makeWith(mock: stack).dccRegisterPublicKey(token: "myToken", publicKey: "") { result in
 			switch result {
 			case .success:
 				resultSuccess = true
@@ -45,7 +45,7 @@ final class HTTPClientDccRegisterPublicKeyTests: CWATestCase {
 
 		// WHEN
 		var resultError: DCCErrors.RegistrationError?
-		HTTPClient.makeWith(mock: stack).dccRegisterPublicKey(token: "myToken", publicKey: Data()) { result in
+		HTTPClient.makeWith(mock: stack).dccRegisterPublicKey(token: "myToken", publicKey: "") { result in
 			switch result {
 			case .success:
 				XCTFail("Test should not succeed")
@@ -72,7 +72,7 @@ final class HTTPClientDccRegisterPublicKeyTests: CWATestCase {
 
 		// WHEN
 		var resultError: DCCErrors.RegistrationError?
-		HTTPClient.makeWith(mock: stack).dccRegisterPublicKey(token: "myToken", publicKey: Data()) { result in
+		HTTPClient.makeWith(mock: stack).dccRegisterPublicKey(token: "myToken", publicKey: "") { result in
 			switch result {
 			case .success:
 				XCTFail("Test should not succeed")
@@ -99,7 +99,7 @@ final class HTTPClientDccRegisterPublicKeyTests: CWATestCase {
 
 		// WHEN
 		var resultError: DCCErrors.RegistrationError?
-		HTTPClient.makeWith(mock: stack).dccRegisterPublicKey(token: "myToken", publicKey: Data()) { result in
+		HTTPClient.makeWith(mock: stack).dccRegisterPublicKey(token: "myToken", publicKey: "") { result in
 			switch result {
 			case .success:
 				XCTFail("Test should not succeed")
@@ -126,7 +126,7 @@ final class HTTPClientDccRegisterPublicKeyTests: CWATestCase {
 
 		// WHEN
 		var resultError: DCCErrors.RegistrationError?
-		HTTPClient.makeWith(mock: stack).dccRegisterPublicKey(token: "myToken", publicKey: Data()) { result in
+		HTTPClient.makeWith(mock: stack).dccRegisterPublicKey(token: "myToken", publicKey: "") { result in
 			switch result {
 			case .success:
 				XCTFail("Test should not succeed")
@@ -153,7 +153,7 @@ final class HTTPClientDccRegisterPublicKeyTests: CWATestCase {
 
 		// WHEN
 		var resultError: DCCErrors.RegistrationError?
-		HTTPClient.makeWith(mock: stack).dccRegisterPublicKey(token: "myToken", publicKey: Data()) { result in
+		HTTPClient.makeWith(mock: stack).dccRegisterPublicKey(token: "myToken", publicKey: "") { result in
 			switch result {
 			case .success:
 				XCTFail("Test should not succeed")
@@ -180,7 +180,7 @@ final class HTTPClientDccRegisterPublicKeyTests: CWATestCase {
 
 		// WHEN
 		var resultError: DCCErrors.RegistrationError?
-		HTTPClient.makeWith(mock: stack).dccRegisterPublicKey(token: "myToken", publicKey: Data()) { result in
+		HTTPClient.makeWith(mock: stack).dccRegisterPublicKey(token: "myToken", publicKey: "") { result in
 			switch result {
 			case .success:
 				XCTFail("Test should not succeed")

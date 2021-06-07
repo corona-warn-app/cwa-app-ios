@@ -256,15 +256,19 @@ final class HTTPClientGetDigitalCovid19CertificateTests: CWATestCase {
 		XCTAssertEqual(expectedFailure, failure)
 	}
 	
-	func testGIVEN_RegistrationToken_WHEN_Failure_THEN_InternalServerErrorIsReturned() {
+	func testGIVEN_RegistrationToken_WHEN_Failure_THEN_InternalServerErrorIsReturned() throws {
 		// GIVEN
 		let registrationToken = "someToken"
+
+		let dcc500Response = DCC500Response(reason: "LAB_INVALID_RESPONSE")
+		let data = try JSONEncoder().encode(dcc500Response)
 		
 		let stack = MockNetworkStack(
 			httpStatus: 500,
-			responseData: Data()
+			responseData: data
 		)
-		let expectedFailure = DCCErrors.DigitalCovid19CertificateError.internalServerError
+
+		let expectedFailure = DCCErrors.DigitalCovid19CertificateError.internalServerError(reason: "LAB_INVALID_RESPONSE")
 		let expectation = self.expectation(description: "test should succeed with DCCResponse")
 		var mockFailure: DCCErrors.DigitalCovid19CertificateError?
 		

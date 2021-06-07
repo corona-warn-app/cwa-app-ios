@@ -203,6 +203,9 @@ enum AppStrings {
 			static let testPendingDesc = NSLocalizedString("ExposureSubmissionResult_testPendingDesc", comment: "")
 			static let testAdded = NSLocalizedString("ExposureSubmissionResult_testAdded", comment: "")
 			static let registrationDate = NSLocalizedString("ExposureSubmissionResult_RegistrationDate", comment: "")
+			static let testPendingContactJournal = NSLocalizedString("ExposureSubmissionResult_pcrTestPendingContactJournal", comment: "")
+			static let testPendingContactJournalDesc = NSLocalizedString("ExposureSubmissionResult_pcrTestPendingContactJournalDesc", comment: "")
+
 		}
 		
 		enum Antigen {
@@ -228,8 +231,14 @@ enum AppStrings {
 			static let proofDesc = NSLocalizedString("ExposureSubmissionResult_Negative_Antigen_Proof_Desc", comment: "")
 			static let noProofTitle = NSLocalizedString("ExposureSubmissionResult_Negative_Antigen_NoProof_Title", comment: "")
 			static let noProofDesc = NSLocalizedString("ExposureSubmissionResult_Negative_Antigen_NoProof_Desc", comment: "")
+			static let testCenterNotSupportedTitle = NSLocalizedString("ExposureSubmissionResult_testCertificate_testCenterNotSupported", comment: "")
 		}
-				
+		static let testCertificatePending = NSLocalizedString("ExposureSubmissionResult_testCertificate_Pending", comment: "")
+		static let testCertificateNotRequested = NSLocalizedString("ExposureSubmissionResult_testCertificate_NotRequested", comment: "")
+		static let testCertificateAvailableInTheTab = NSLocalizedString("ExposureSubmissionResult_testCertificate_AvailableInTab", comment: "")
+
+		static let testCertificateTitle = NSLocalizedString("ExposureSubmissionResult_testCertificate_title", comment: "")
+
 		static let card_title = NSLocalizedString("ExposureSubmissionResult_CardTitle", comment: "")
 		static let card_invalid = NSLocalizedString("ExposureSubmissionResult_CardInvalid", comment: "")
 		static let card_pending = NSLocalizedString("ExposureSubmissionResult_CardPending", comment: "")
@@ -1876,7 +1885,38 @@ enum AppStrings {
 			enum TestCertificate {
 				static let title = NSLocalizedString("TestCertificate_title", comment: "")
 				static let testDate = NSLocalizedString("TestCertificate_testDate", comment: "")
-				static let daysUntilCompleteProtection = NSLocalizedString("VaccinationCertificate_daysUntilCompleteProtection", comment: "")
+			}
+
+			enum TestCertificateRequest {
+				static let title = NSLocalizedString("TestCertificateRequest_title", comment: "")
+				static let loadingSubtitle = NSLocalizedString("TestCertificateRequest_loadingSubtitle", comment: "")
+				static let errorSubtitle = NSLocalizedString("TestCertificateRequest_errorSubtitle", comment: "")
+				static let registrationDate = NSLocalizedString("TestCertificateRequest_registrationDate", comment: "")
+				static let loadingStateDescription = NSLocalizedString("TestCertificateRequest_loadingStateDescription", comment: "")
+				static let tryAgainButtonTitle = NSLocalizedString("TestCertificateRequest_tryAgainButtonTitle", comment: "")
+				static let removeButtonTitle = NSLocalizedString("TestCertificateRequest_removeButtonTitle", comment: "")
+
+				enum ErrorAlert {
+					static let title = NSLocalizedString("TestCertificateRequest_ErrorAlert_title", comment: "")
+					static let buttonTitle = NSLocalizedString("TestCertificateRequest_ErrorAlert_Button_title", comment: "")
+				}
+
+				enum DeleteAlert {
+					static let title = NSLocalizedString("TestCertificateRequest_RemoveAlert_title", comment: "")
+					static let message = NSLocalizedString("TestCertificateRequest_RemoveAlert_message", comment: "")
+					static let cancelButtonTitle = NSLocalizedString("TestCertificateRequest_RemoveAlert_CancelButton_title", comment: "")
+					static let deleteButtonTitle = NSLocalizedString("TestCertificateRequest_RemoveAlert_DeleteButton_title", comment: "")
+				}
+
+				enum Error {
+					static let clientErrorCallHotline = NSLocalizedString("TestCertificateRequest_Error_CLIENT_ERROR_CALL_HOTLINE", comment: "")
+					static let dccExpired = NSLocalizedString("TestCertificateRequest_Error_DCC_EXPIRED", comment: "")
+					static let dccNotSupportedByLab = NSLocalizedString("TestCertificateRequest_Error_DCC_NOT_SUPPORTED_BY_LAB", comment: "")
+					static let e2eErrorCallHotline = NSLocalizedString("TestCertificateRequest_Error_E2E_ERROR_CALL_HOTLINE", comment: "")
+					static let noNetwork = NSLocalizedString("TestCertificateRequest_Error_NO_NETWORK", comment: "")
+					static let tryAgain = NSLocalizedString("TestCertificateRequest_Error_TRY_AGAIN", comment: "")
+					static let tryAgainDCCNotAvailableYet = NSLocalizedString("TestCertificateRequest_Error_TRY_AGAIN_DCC_NOT_AVAILABLE_YET", comment: "")
+				}
 			}
 		}
 
@@ -1931,6 +1971,12 @@ enum AppStrings {
 			static let country = NSLocalizedString("HealthCertificate_Details_country", comment: "")
 			static let identifier = NSLocalizedString("HealthCertificate_Details_identifier", comment: "")
 			static let primaryButton = NSLocalizedString("HealthCertificate_Details_primaryButton", comment: "")
+
+			enum TestCertificate {
+				static let title = NSLocalizedString("TestCertificate_Details_title", comment: "")
+				static let subtitle = NSLocalizedString("TestCertificate_Details_subtitle", comment: "")
+				static let primaryButton = NSLocalizedString("TestCertificate_Details_primaryButton", comment: "")
+			}
 		}
 
 		enum Alert {
@@ -1938,6 +1984,13 @@ enum AppStrings {
 			static let message = NSLocalizedString("HealthCertificate_Alert_message", comment: "")
 			static let deleteButton = NSLocalizedString("HealthCertificate_Alert_deleteButton", comment: "")
 			static let cancelButton = NSLocalizedString("HealthCertificate_Alert_cancelButton", comment: "")
+
+			enum TestCertificate {
+				static let title = NSLocalizedString("TestCertificate_Alert_title", comment: "")
+				static let message = NSLocalizedString("TestCertificate_Alert_message", comment: "")
+				static let deleteButton = NSLocalizedString("TestCertificate_Alert_deleteButton", comment: "")
+				static let cancelButton = NSLocalizedString("TestCertificate_Alert_cancelButton", comment: "")
+			}
 		}
 
 		enum Error {

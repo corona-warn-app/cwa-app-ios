@@ -434,13 +434,13 @@ final class HTTPClient: Client {
 		traceWarningPackageDownload(country: country, packageId: packageId, url: url, completion: completion)
 	}
 
+	// swiftlint:disable:next cyclomatic_complexity
 	func dccRegisterPublicKey(
 		isFake: Bool = false,
 		token: String,
-		publicKey: Data,
+		publicKey: String,
 		completion: @escaping DCCRegistrationCompletionHandler
 	) {
-
 		guard let request = try? URLRequest.dccPublicKeyRequest(
 			configuration: configuration,
 			token: token,
@@ -473,8 +473,13 @@ final class HTTPClient: Client {
 						completion(.failure(.unhandledResponse(response.statusCode)))
 					}
 				case let .failure(error):
-					Log.error("Error in response body", log: .api, error: error)
-					completion(.failure(.defaultServerError(error)))
+					if case .noNetworkConnection = error {
+						Log.error("No network connection", log: .api)
+						completion(.failure(.noNetworkConnection))
+					} else {
+						Log.error("Error in response body", log: .api, error: error)
+						completion(.failure(.defaultServerError(error)))
+					}
 				}
 			}
 		}
@@ -579,14 +584,33 @@ final class HTTPClient: Client {
 					completion(.failure(.testResultNotYetReceived))
 				case 500:
 					Log.error("HTTP error code 500. Internal server error.", log: .api)
-					completion(.failure(.internalServerError))
+					guard let responseBody = response.body else {
+						Log.error("Error in code 500 response body: \(response.statusCode)", log: .api)
+						completion(.failure(.unhandledResponse(response.statusCode)))
+						return
+					}
+					do {
+						let decodedResponse = try JSONDecoder().decode(
+							DCC500Response.self,
+							from: responseBody
+						)
+						completion(.failure(.internalServerError(reason: decodedResponse.reason)))
+					} catch {
+						Log.error("Failed to decode code 500 response json", log: .api, error: error)
+						completion(.failure(.internalServerError(reason: nil)))
+					}
 				default:
 					Log.error("Unhandled http status code: \(String(response.statusCode))", log: .api)
 					completion(.failure(.unhandledResponse(response.statusCode)))
 				}
 			case let .failure(error):
-				Log.error("Error in response: \(error)", log: .api)
-				completion(.failure(.defaultServerError(error)))
+				if case .noNetworkConnection = error {
+					Log.error("No network connection", log: .api)
+					completion(.failure(.noNetworkConnection))
+				} else {
+					Log.error("Error in response: \(error)", log: .api)
+					completion(.failure(.defaultServerError(error)))
+				}
 			}
 		})
 	}
@@ -1210,10 +1234,9 @@ private extension URLRequest {
 	static func dccPublicKeyRequest(
 		configuration: HTTPClient.Configuration,
 		token: String,
-		publicKey: Data,
+		publicKey: String,
 		headerValue: Int
 	) throws -> URLRequest {
-
 		var request = URLRequest(url: configuration.dccPublicKeyURL)
 
 		request.setValue(
@@ -1240,8 +1263,9 @@ private extension URLRequest {
 		// Add body padding to request.
 		let originalBody = [
 			"registrationToken": token,
-			"publicKey": publicKey.base64EncodedString()
+			"publicKey": publicKey
 		]
+
 		let paddedData = try getPaddedRequestBody(for: originalBody)
 		request.httpBody = paddedData
 
@@ -1315,7 +1339,7 @@ private extension URLRequest {
 		paddedBody["requestPadding"] = ""
 		let paddedData = try JSONEncoder().encode(paddedBody)
 		let paddingSize = maxRequestPayloadSize - paddedData.count
-		let padding = String.getRandomString(of: paddingSize)
+		let padding = String.getRandomString(of: max(0, paddingSize))
 		paddedBody["requestPadding"] = padding
 		return try JSONEncoder().encode(paddedBody)
 	}
