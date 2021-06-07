@@ -77,8 +77,8 @@ class HealthCertificateKeyValueTextCell: UITableViewCell, ReuseIdentifierProvidi
 
 				topSpaceLayoutConstraint,
 				bottomSpaceLayoutConstraint,
-				stackView.leadingAnchor.constraint(equalTo: backgroundContainerView.leadingAnchor, constant: 14.0),
-				stackView.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor, constant: -14.0),
+				stackView.leadingAnchor.constraint(equalTo: backgroundContainerView.leadingAnchor, constant: 16.0),
+				stackView.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor, constant: -16.0),
 
 				bottomSeparatorView.heightAnchor.constraint(equalToConstant: 1),
 				bottomSeparatorView.bottomAnchor.constraint(equalTo: backgroundContainerView.bottomAnchor),
