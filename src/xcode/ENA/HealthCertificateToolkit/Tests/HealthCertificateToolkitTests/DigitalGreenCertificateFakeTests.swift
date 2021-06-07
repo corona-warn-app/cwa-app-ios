@@ -6,29 +6,29 @@ import XCTest
 @testable import HealthCertificateToolkit
 
 class DigitalGreenCertificateFakeTests: XCTestCase {
-
+    
     func test_When_makeFake_Then_CorrectFakeIsReturned() {
         let certificateAccess = DigitalGreenCertificateAccess()
         let result = DigitalGreenCertificateFake.makeBase45Fake(
             from: testCertificate,
             and: testHeader
         )
-
+        
         guard case .success(let base45) = result else {
             XCTFail("Success expected.")
             return
         }
-
+        
         let extractResult = certificateAccess.extractDigitalGreenCertificate(from: base45)
-
+        
         guard case .success(let certificate) = extractResult else {
             XCTFail("Success expected.")
             return
         }
-
+        
         XCTAssertEqual(certificate, testCertificate)
     }
-
+    
     private lazy var testCertificate: DigitalGreenCertificate = {
         DigitalGreenCertificate(
             version: "1.0.0",
@@ -56,12 +56,12 @@ class DigitalGreenCertificateFakeTests: XCTestCase {
             testCertificates: nil
         )
     }()
-
+    
     private lazy var testHeader: CBORWebTokenHeader = {
-    CBORWebTokenHeader(
-    issuer: "DE",
-    issuedAt: 1619167131,
-    expirationTime: 1622725423
-    )
+        CBORWebTokenHeader(
+            issuer: "DE",
+            issuedAt: 1619167131,
+            expirationTime: 1622725423
+        )
     }()
 }
