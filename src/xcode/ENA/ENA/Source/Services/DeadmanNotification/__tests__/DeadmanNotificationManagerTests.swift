@@ -8,16 +8,23 @@ import XCTest
 class DeadmanNotificationManagerTests: CWATestCase {
 
 	func testSchedulingDeadmanNotification() {
+		let client = ClientMock()
 		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
 		let notificationCenter = MockUserNotificationCenter()
 
 		let manager = DeadmanNotificationManager(
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
+				client: client,
 				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfiguration
+				)
 			),
 			userNotificationCenter: notificationCenter
 		)
@@ -47,18 +54,24 @@ class DeadmanNotificationManagerTests: CWATestCase {
 	}
 
 	func testDeadmanNotificationReschedulingOnReset() {
+		let client = ClientMock()
 		let store = MockTestStore()
-
+		let appConfiguration = CachedAppConfigurationMock()
 		let notificationCenter = MockUserNotificationCenter()
 		notificationCenter.notificationRequests = [deadmanNotificationRequest]
 
 		let manager = DeadmanNotificationManager(
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
+				client: client,
 				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfiguration
+				)
 			),
 			userNotificationCenter: notificationCenter
 		)
@@ -71,18 +84,24 @@ class DeadmanNotificationManagerTests: CWATestCase {
 	}
 
 	func testDeadmanNotificationIsNotScheduledTwice() {
+		let client = ClientMock()
 		let store = MockTestStore()
-
+		let appConfiguration = CachedAppConfigurationMock()
 		let notificationCenter = MockUserNotificationCenter()
 		notificationCenter.notificationRequests = [deadmanNotificationRequest]
 
 		let manager = DeadmanNotificationManager(
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
+				client: client,
 				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfiguration
+				)
 			),
 			userNotificationCenter: notificationCenter
 		)
@@ -95,18 +114,26 @@ class DeadmanNotificationManagerTests: CWATestCase {
 	}
 
 	func testDeadmanNotificationIsNotScheduledIfPositiveTestResultWasShown() {
+		let client = ClientMock()
 		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		store.pcrTest = PCRTest.mock(positiveTestResultWasShown: true)
 
 		let notificationCenter = MockUserNotificationCenter()
 
 		let manager = DeadmanNotificationManager(
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
+				client: client,
 				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfiguration
+				)
 			),
 			userNotificationCenter: notificationCenter
 		)
@@ -119,7 +146,10 @@ class DeadmanNotificationManagerTests: CWATestCase {
 	}
 
 	func testDeadmanNotificationIsNotRescheduledIfPositiveTestResultWasShown() {
+		let client = ClientMock()
 		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		store.pcrTest = PCRTest.mock(positiveTestResultWasShown: true)
 
 		let notificationCenter = MockUserNotificationCenter()
@@ -127,11 +157,16 @@ class DeadmanNotificationManagerTests: CWATestCase {
 
 		let manager = DeadmanNotificationManager(
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
+				client: client,
 				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfiguration
+				)
 			),
 			userNotificationCenter: notificationCenter
 		)
@@ -144,18 +179,26 @@ class DeadmanNotificationManagerTests: CWATestCase {
 	}
 
 	func testDeadmanNotificationIsNotScheduledIfKeysWereSubmitted() {
+		let client = ClientMock()
 		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		store.pcrTest = PCRTest.mock(keysSubmitted: true)
 
 		let notificationCenter = MockUserNotificationCenter()
 
 		let manager = DeadmanNotificationManager(
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
+				client: client,
 				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfiguration
+				)
 			),
 			userNotificationCenter: notificationCenter
 		)
@@ -168,7 +211,10 @@ class DeadmanNotificationManagerTests: CWATestCase {
 	}
 
 	func testDeadmanNotificationIsNotRescheduledIfKeysWereSubmitted() {
+		let client = ClientMock()
 		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		store.pcrTest = PCRTest.mock(keysSubmitted: true)
 
 		let notificationCenter = MockUserNotificationCenter()
@@ -176,11 +222,16 @@ class DeadmanNotificationManagerTests: CWATestCase {
 
 		let manager = DeadmanNotificationManager(
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
+				client: client,
 				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfiguration
+				)
 			),
 			userNotificationCenter: notificationCenter
 		)

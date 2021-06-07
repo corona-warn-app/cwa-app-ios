@@ -11,7 +11,7 @@ final class HealthCertifiedPersonViewModel {
 	// MARK: - Init
 
 	init(
-		healthCertificateService: HealthCertificateServiceProviding,
+		healthCertificateService: HealthCertificateService,
 		healthCertifiedPerson: HealthCertifiedPerson,
 		vaccinationValueSetsProvider: VaccinationValueSetsProvider,
 		dismiss: @escaping () -> Void
@@ -29,7 +29,7 @@ final class HealthCertifiedPersonViewModel {
 
 		healthCertifiedPerson.objectDidChange
 			.sink { [weak self] healthCertifiedPerson in
-				guard !healthCertifiedPerson.healthCertificates.isEmpty else {
+				guard !healthCertifiedPerson.vaccinationCertificates.isEmpty else {
 					dismiss()
 					return
 				}
@@ -106,7 +106,7 @@ final class HealthCertifiedPersonViewModel {
 	@OpenCombine.Published private(set) var updateError: Error?
 
 	var qrCodeCellViewModel: HealthCertificateQRCodeCellViewModel {
-		guard let latestHealthCertificate = healthCertifiedPerson.healthCertificates.last
+		guard let latestHealthCertificate = healthCertifiedPerson.vaccinationCertificates.last
 			else {
 			fatalError("Cell cannot be shown without a health certificate")
 		}
@@ -129,9 +129,9 @@ final class HealthCertifiedPersonViewModel {
 				format: AppStrings.HealthCertificate.Person.daysUntilCompleteProtection,
 				daysUntilCompleteProtection
 			),
-			topSpace: 18.0,
+			topSpace: 16.0,
 			font: .enaFont(for: .body),
-			boarderColor: .enaColor(for: .hairline),
+			borderColor: .enaColor(for: .hairline),
 			accessibilityTraits: .staticText
 		)
 	}
@@ -146,7 +146,7 @@ final class HealthCertifiedPersonViewModel {
 
 	var personCellViewModel: HealthCertificateSimpleTextCellViewModel {
 		let attributedName = NSAttributedString(
-			string: healthCertifiedPerson.fullName ?? "",
+			string: healthCertifiedPerson.name?.fullName ?? "",
 			attributes: [
 				.font: UIFont.enaFont(for: .headline),
 				.foregroundColor: UIColor.enaColor(for: .textPrimary1)
@@ -164,9 +164,9 @@ final class HealthCertifiedPersonViewModel {
 		return HealthCertificateSimpleTextCellViewModel(
 			backgroundColor: .enaColor(for: .cellBackground2),
 			attributedText: [attributedName, attributedDetails].joined(with: "\n"),
-			topSpace: 18.0,
+			topSpace: 16.0,
 			font: .enaFont(for: .headline),
-			boarderColor: .enaColor(for: .hairline),
+			borderColor: .enaColor(for: .hairline),
 			accessibilityTraits: .staticText
 		)
 	}
@@ -182,23 +182,23 @@ final class HealthCertifiedPersonViewModel {
 		case .person:
 			return 1
 		case .certificates:
-			return healthCertifiedPerson.healthCertificates.count
+			return healthCertifiedPerson.vaccinationCertificates.count
 		}
 	}
 
 	func healthCertificateCellViewModel(row: Int) -> HealthCertificateCellViewModel {
 		HealthCertificateCellViewModel(
-			healthCertificate: healthCertifiedPerson.healthCertificates[row],
+			healthCertificate: healthCertifiedPerson.vaccinationCertificates[row],
 			gradientType: gradientType
 		)
 	}
 
 	func healthCertificate(for indexPath: IndexPath) -> HealthCertificate? {
 		guard TableViewSection.map(indexPath.section) == .certificates,
-			  healthCertifiedPerson.healthCertificates.indices.contains(indexPath.row) else {
+			  healthCertifiedPerson.vaccinationCertificates.indices.contains(indexPath.row) else {
 			return nil
 		}
-		return healthCertifiedPerson.healthCertificates[indexPath.row]
+		return healthCertifiedPerson.vaccinationCertificates[indexPath.row]
 	}
 
 	func canEditRow(at indexPath: IndexPath) -> Bool {
@@ -210,13 +210,13 @@ final class HealthCertifiedPersonViewModel {
 			return
 		}
 
-		healthCertificateService.removeHealthCertificate(healthCertifiedPerson.healthCertificates[indexPath.row])
+		healthCertificateService.removeHealthCertificate(healthCertifiedPerson.vaccinationCertificates[indexPath.row])
 	}
 
 	// MARK: - Private
 
 	private let healthCertifiedPerson: HealthCertifiedPerson
-	private let healthCertificateService: HealthCertificateServiceProviding
+	private let healthCertificateService: HealthCertificateService
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProvider
 	private var subscriptions = Set<AnyCancellable>()
 

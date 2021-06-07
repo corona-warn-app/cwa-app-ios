@@ -10,12 +10,21 @@ import XCTest
 class CoronaTestServiceTests: CWATestCase {
 
 	func testHasAtLeastOneShownPositiveOrSubmittedTest() {
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let service = CoronaTestService(
-			client: ClientMock(),
-			store: MockTestStore(),
+			client: client,
+			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock()
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
 
 		XCTAssertFalse(service.hasAtLeastOneShownPositiveOrSubmittedTest)
@@ -48,14 +57,22 @@ class CoronaTestServiceTests: CWATestCase {
 	func testOutdatedPublisherSetForAlreadyOutdatedNegativeAntigenTest() {
 		var defaultAppConfig = CachedAppConfigurationMock.defaultAppConfiguration
 		defaultAppConfig.coronaTestParameters.coronaRapidAntigenTestParameters.hoursToDeemTestOutdated = 48
-		let appConfig = CachedAppConfigurationMock(with: defaultAppConfig)
+		let appConfiguration = CachedAppConfigurationMock(with: defaultAppConfig)
+
+		let client = ClientMock()
+		let store = MockTestStore()
 
 		let service = CoronaTestService(
-			client: ClientMock(),
-			store: MockTestStore(),
+			client: client,
+			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfig
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
 
 		service.antigenTest = AntigenTest.mock(
@@ -85,14 +102,22 @@ class CoronaTestServiceTests: CWATestCase {
 	func testOutdatedPublisherSetForNegativeAntigenTestBecomingOutdatedAfter5Seconds() {
 		var defaultAppConfig = CachedAppConfigurationMock.defaultAppConfiguration
 		defaultAppConfig.coronaTestParameters.coronaRapidAntigenTestParameters.hoursToDeemTestOutdated = 48
-		let appConfig = CachedAppConfigurationMock(with: defaultAppConfig)
+		let appConfiguration = CachedAppConfigurationMock(with: defaultAppConfig)
+
+		let client = ClientMock()
+		let store = MockTestStore()
 
 		let service = CoronaTestService(
-			client: ClientMock(),
-			store: MockTestStore(),
+			client: client,
+			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfig
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
 
 		service.antigenTest = AntigenTest.mock(
@@ -123,14 +148,22 @@ class CoronaTestServiceTests: CWATestCase {
 	func testOutdatedPublisherResetWhenRemovingNegativeAntigenTest() {
 		var defaultAppConfig = CachedAppConfigurationMock.defaultAppConfiguration
 		defaultAppConfig.coronaTestParameters.coronaRapidAntigenTestParameters.hoursToDeemTestOutdated = 48
-		let appConfig = CachedAppConfigurationMock(with: defaultAppConfig)
+		let appConfiguration = CachedAppConfigurationMock(with: defaultAppConfig)
+
+		let client = ClientMock()
+		let store = MockTestStore()
 
 		let service = CoronaTestService(
-			client: ClientMock(),
-			store: MockTestStore(),
+			client: client,
+			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfig
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
 
 		service.antigenTest = AntigenTest.mock(
@@ -165,14 +198,22 @@ class CoronaTestServiceTests: CWATestCase {
 	func testOutdatedPublisherResetWhenReplacingOutdatedNegativeAntigenTest() {
 		var defaultAppConfig = CachedAppConfigurationMock.defaultAppConfiguration
 		defaultAppConfig.coronaTestParameters.coronaRapidAntigenTestParameters.hoursToDeemTestOutdated = 48
-		let appConfig = CachedAppConfigurationMock(with: defaultAppConfig)
+		let appConfiguration = CachedAppConfigurationMock(with: defaultAppConfig)
+
+		let client = ClientMock()
+		let store = MockTestStore()
 
 		let service = CoronaTestService(
-			client: ClientMock(),
-			store: MockTestStore(),
+			client: client,
+			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfig
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
 
 		service.antigenTest = AntigenTest.mock(
@@ -214,12 +255,20 @@ class CoronaTestServiceTests: CWATestCase {
 		defaultAppConfig.coronaTestParameters.coronaRapidAntigenTestParameters.hoursToDeemTestOutdated = 48
 		let appConfig = CachedAppConfigurationMock(with: defaultAppConfig)
 
+		let client = ClientMock()
+		let store = MockTestStore()
+
 		let service = CoronaTestService(
-			client: ClientMock(),
-			store: MockTestStore(),
+			client: client,
+			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfig
+			appConfiguration: appConfig,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfig
+			)
 		)
 
 		service.antigenTest = AntigenTest.mock(
@@ -263,12 +312,20 @@ class CoronaTestServiceTests: CWATestCase {
 			defaultAppConfig.coronaTestParameters.coronaRapidAntigenTestParameters.hoursToDeemTestOutdated = 48
 			let appConfig = CachedAppConfigurationMock(with: defaultAppConfig)
 
+			let client = ClientMock()
+			let store = MockTestStore()
+
 			let service = CoronaTestService(
-				client: ClientMock(),
-				store: MockTestStore(),
+				client: client,
+				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfig
+				appConfiguration: appConfig,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfig
+				)
 			)
 
 			service.antigenTest = AntigenTest.mock(
@@ -295,12 +352,21 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func testCoronaTestOfType() {
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let service = CoronaTestService(
-			client: ClientMock(),
-			store: MockTestStore(),
+			client: client,
+			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock()
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
 
 		XCTAssertNil(service.coronaTest(ofType: .pcr))
@@ -331,12 +397,19 @@ class CoronaTestServiceTests: CWATestCase {
 			completion(.success(FetchTestResultResponse(testResult: TestResult.pending.rawValue, sc: nil)))
 		}
 
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let service = CoronaTestService(
 			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock()
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
 		service.pcrTest = nil
 
@@ -377,7 +450,7 @@ class CoronaTestServiceTests: CWATestCase {
 		XCTAssertFalse(pcrTest.keysSubmitted)
 		XCTAssertFalse(pcrTest.journalEntryCreated)
 		XCTAssertFalse(pcrTest.certificateConsentGiven)
-		XCTAssertFalse(pcrTest.certificateCreated)
+		XCTAssertFalse(pcrTest.certificateRequested)
 
 		XCTAssertEqual(store.pcrTestResultMetadata?.testResult, .pending)
 		XCTAssertEqual(
@@ -404,12 +477,19 @@ class CoronaTestServiceTests: CWATestCase {
 			completion(.success(FetchTestResultResponse(testResult: TestResult.negative.rawValue, sc: nil)))
 		}
 
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let service = CoronaTestService(
 			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock()
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
 		service.pcrTest = nil
 
@@ -454,7 +534,7 @@ class CoronaTestServiceTests: CWATestCase {
 		XCTAssertFalse(pcrTest.keysSubmitted)
 		XCTAssertTrue(pcrTest.journalEntryCreated)
 		XCTAssertTrue(pcrTest.certificateConsentGiven)
-		XCTAssertFalse(pcrTest.certificateCreated)
+		XCTAssertTrue(pcrTest.certificateRequested)
 
 		XCTAssertEqual(store.pcrTestResultMetadata?.testResult, .negative)
 		XCTAssertEqual(
@@ -481,12 +561,19 @@ class CoronaTestServiceTests: CWATestCase {
 			completion(.success(FetchTestResultResponse(testResult: TestResult.negative.rawValue, sc: nil)))
 		}
 
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let service = CoronaTestService(
 			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock()
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
 		service.pcrTest = nil
 
@@ -514,7 +601,7 @@ class CoronaTestServiceTests: CWATestCase {
 		}
 
 		XCTAssertTrue(pcrTest.certificateConsentGiven)
-		XCTAssertFalse(pcrTest.certificateCreated)
+		XCTAssertTrue(pcrTest.certificateRequested)
 	}
 
 	func testRegisterPCRTestAndGetResult_CertificateConsentGivenWithoutDateOfBirth() {
@@ -534,12 +621,19 @@ class CoronaTestServiceTests: CWATestCase {
 			completion(.success(FetchTestResultResponse(testResult: TestResult.negative.rawValue, sc: nil)))
 		}
 
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let service = CoronaTestService(
 			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock()
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
 		service.pcrTest = nil
 
@@ -567,7 +661,7 @@ class CoronaTestServiceTests: CWATestCase {
 		}
 
 		XCTAssertFalse(pcrTest.certificateConsentGiven)
-		XCTAssertFalse(pcrTest.certificateCreated)
+		XCTAssertFalse(pcrTest.certificateRequested)
 	}
 
 	func testRegisterPCRTestAndGetResult_RegistrationFails() {
@@ -582,12 +676,19 @@ class CoronaTestServiceTests: CWATestCase {
 			completion(.failure(.qrAlreadyUsed))
 		}
 
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let service = CoronaTestService(
 			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock()
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
 		service.pcrTest = nil
 
@@ -629,12 +730,19 @@ class CoronaTestServiceTests: CWATestCase {
 			completion(.failure(.serverError(500)))
 		}
 
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let service = CoronaTestService(
 			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock()
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
 		service.pcrTest = nil
 
@@ -695,12 +803,19 @@ class CoronaTestServiceTests: CWATestCase {
 			completion(.success("registrationToken"))
 		}
 
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let service = CoronaTestService(
 			client: client,
 			store: store,
 			eventStore: eventStore,
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock()
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
 		Analytics.setupMock(
 			store: store,
@@ -764,12 +879,19 @@ class CoronaTestServiceTests: CWATestCase {
 			completion(.success("registrationToken2"))
 		}
 
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let service = CoronaTestService(
 			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock()
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
 		service.pcrTest = nil
 
@@ -826,12 +948,19 @@ class CoronaTestServiceTests: CWATestCase {
 			completion(.failure(.teleTanAlreadyUsed))
 		}
 
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let service = CoronaTestService(
 			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock()
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
 		service.pcrTest = nil
 
@@ -868,12 +997,20 @@ class CoronaTestServiceTests: CWATestCase {
 			completion(.success(FetchTestResultResponse(testResult: TestResult.pending.rawValue, sc: 123456789)))
 		}
 
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let service = CoronaTestService(
 			client: client,
-			store: MockTestStore(),
+			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock()
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
 		service.antigenTest = nil
 
@@ -921,7 +1058,7 @@ class CoronaTestServiceTests: CWATestCase {
 		XCTAssertFalse(antigenTest.journalEntryCreated)
 		XCTAssertTrue(antigenTest.certificateSupportedByPointOfCare)
 		XCTAssertTrue(antigenTest.certificateConsentGiven)
-		XCTAssertFalse(antigenTest.certificateCreated)
+		XCTAssertFalse(antigenTest.certificateRequested)
 	}
 
 	func testRegisterAntigenTestAndGetResult_successWithSubmissionConsentGiven() {
@@ -935,12 +1072,20 @@ class CoronaTestServiceTests: CWATestCase {
 			completion(.success(FetchTestResultResponse(testResult: TestResult.pending.rawValue, sc: nil)))
 		}
 
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let service = CoronaTestService(
 			client: client,
-			store: MockTestStore(),
+			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock()
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
 		service.antigenTest = nil
 
@@ -987,7 +1132,7 @@ class CoronaTestServiceTests: CWATestCase {
 		XCTAssertNil(antigenTest.sampleCollectionDate)
 		XCTAssertFalse(antigenTest.certificateSupportedByPointOfCare)
 		XCTAssertFalse(antigenTest.certificateConsentGiven)
-		XCTAssertFalse(antigenTest.certificateCreated)
+		XCTAssertFalse(antigenTest.certificateRequested)
 	}
 
 	func testRegisterAntigenTestAndGetResult_CertificateConsentGivenWithoutDateOfBirth() {
@@ -1007,12 +1152,19 @@ class CoronaTestServiceTests: CWATestCase {
 			completion(.success(FetchTestResultResponse(testResult: TestResult.negative.rawValue, sc: nil)))
 		}
 
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let service = CoronaTestService(
 			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock()
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
 		service.antigenTest = nil
 
@@ -1046,7 +1198,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		XCTAssertTrue(antigenTest.certificateSupportedByPointOfCare)
 		XCTAssertTrue(antigenTest.certificateConsentGiven)
-		XCTAssertFalse(antigenTest.certificateCreated)
+		XCTAssertTrue(antigenTest.certificateRequested)
 	}
 
 	func testRegisterAntigenTestAndGetResult_RegistrationFails() {
@@ -1055,12 +1207,20 @@ class CoronaTestServiceTests: CWATestCase {
 			completion(.failure(.qrAlreadyUsed))
 		}
 
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let service = CoronaTestService(
 			client: client,
-			store: MockTestStore(),
+			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock()
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
 		service.antigenTest = nil
 
@@ -1100,12 +1260,20 @@ class CoronaTestServiceTests: CWATestCase {
 			completion(.failure(.serverError(500)))
 		}
 
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let service = CoronaTestService(
 			client: client,
-			store: MockTestStore(),
+			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock()
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
 		service.antigenTest = nil
 
@@ -1159,12 +1327,20 @@ class CoronaTestServiceTests: CWATestCase {
 			completion(.success(FetchTestResultResponse(testResult: TestResult.positive.rawValue, sc: nil)))
 		}
 
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let service = CoronaTestService(
 			client: client,
-			store: MockTestStore(),
+			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock()
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
 		service.pcrTest = PCRTest.mock(registrationToken: "regToken")
 
@@ -1201,12 +1377,20 @@ class CoronaTestServiceTests: CWATestCase {
 			completion(.success(FetchTestResultResponse(testResult: TestResult.positive.rawValue, sc: nil)))
 		}
 
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let service = CoronaTestService(
 			client: client,
-			store: MockTestStore(),
+			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock()
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
 		service.antigenTest = AntigenTest.mock(registrationToken: "regToken")
 
@@ -1238,12 +1422,21 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func testUpdatePCRTestResult_noCoronaTestOfRequestedType() {
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let service = CoronaTestService(
-			client: ClientMock(),
-			store: MockTestStore(),
+			client: client,
+			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock()
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
 		service.pcrTest = nil
 
@@ -1263,12 +1456,21 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func testUpdateAntigenTestResult_noCoronaTestOfRequestedType() {
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let service = CoronaTestService(
-			client: ClientMock(),
-			store: MockTestStore(),
+			client: client,
+			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock()
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
 		service.antigenTest = nil
 
@@ -1288,12 +1490,21 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func testUpdatePCRTestResult_noRegistrationToken() {
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let service = CoronaTestService(
-			client: ClientMock(),
-			store: MockTestStore(),
+			client: client,
+			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock()
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
 		service.pcrTest = PCRTest.mock(registrationToken: nil)
 
@@ -1321,12 +1532,21 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func testUpdateAntigenTestResult_noRegistrationToken() {
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let service = CoronaTestService(
-			client: ClientMock(),
-			store: MockTestStore(),
+			client: client,
+			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock()
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
 		service.antigenTest = AntigenTest.mock(registrationToken: nil)
 
@@ -1360,12 +1580,20 @@ class CoronaTestServiceTests: CWATestCase {
 			completion(.success(FetchTestResultResponse(testResult: TestResult.positive.rawValue, sc: nil)))
 		}
 
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let testService = CoronaTestService(
 			client: client,
-			store: MockTestStore(),
+			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock(),
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			),
 			notificationCenter: mockNotificationCenter
 		)
 		testService.antigenTest = AntigenTest.mock(registrationToken: "regToken")
@@ -1398,12 +1626,20 @@ class CoronaTestServiceTests: CWATestCase {
 			completion(.success(FetchTestResultResponse(testResult: TestResult.positive.rawValue, sc: nil)))
 		}
 
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let testService = CoronaTestService(
 			client: client,
-			store: MockTestStore(),
+			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock(),
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			),
 			notificationCenter: mockNotificationCenter
 		)
 		testService.antigenTest = AntigenTest.mock(registrationToken: "regToken")
@@ -1424,13 +1660,20 @@ class CoronaTestServiceTests: CWATestCase {
 			completion(.failure(.invalidResponse))
 		}
 
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let testService = CoronaTestService(
 			client: client,
-			store: MockTestStore(),
+			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock(),
-			notificationCenter: MockUserNotificationCenter()
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
 		testService.antigenTest = AntigenTest.mock(registrationToken: "regToken")
 		testService.pcrTest = PCRTest.mock(registrationToken: "regToken")
@@ -1452,12 +1695,20 @@ class CoronaTestServiceTests: CWATestCase {
 			completion(.success(FetchTestResultResponse(testResult: TestResult.pending.rawValue, sc: nil)))
 		}
 
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let testService = CoronaTestService(
 			client: client,
-			store: MockTestStore(),
+			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock(),
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			),
 			notificationCenter: mockNotificationCenter
 		)
 		testService.antigenTest = AntigenTest.mock(registrationToken: "regToken")
@@ -1480,13 +1731,20 @@ class CoronaTestServiceTests: CWATestCase {
 		}
 
 		let diaryStore = MockDiaryStore()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
 
 		let testService = CoronaTestService(
 			client: client,
-			store: MockTestStore(),
+			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: diaryStore,
-			appConfiguration: CachedAppConfigurationMock(),
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			),
 			notificationCenter: mockNotificationCenter
 		)
 
@@ -1512,13 +1770,20 @@ class CoronaTestServiceTests: CWATestCase {
 		}
 
 		let diaryStore = MockDiaryStore()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
 
 		let testService = CoronaTestService(
 			client: client,
-			store: MockTestStore(),
+			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: diaryStore,
-			appConfiguration: CachedAppConfigurationMock(),
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			),
 			notificationCenter: mockNotificationCenter
 		)
 
@@ -1544,13 +1809,20 @@ class CoronaTestServiceTests: CWATestCase {
 		}
 
 		let diaryStore = MockDiaryStore()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
 
 		let testService = CoronaTestService(
 			client: client,
-			store: MockTestStore(),
+			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: diaryStore,
-			appConfiguration: CachedAppConfigurationMock(),
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			),
 			notificationCenter: mockNotificationCenter
 		)
 
@@ -1576,13 +1848,20 @@ class CoronaTestServiceTests: CWATestCase {
 		}
 
 		let diaryStore = MockDiaryStore()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
 
 		let testService = CoronaTestService(
 			client: client,
-			store: MockTestStore(),
+			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: diaryStore,
-			appConfiguration: CachedAppConfigurationMock(),
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			),
 			notificationCenter: mockNotificationCenter
 		)
 
@@ -1608,13 +1887,20 @@ class CoronaTestServiceTests: CWATestCase {
 		}
 
 		let diaryStore = MockDiaryStore()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
 
 		let testService = CoronaTestService(
 			client: client,
-			store: MockTestStore(),
+			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: diaryStore,
-			appConfiguration: CachedAppConfigurationMock(),
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			),
 			notificationCenter: mockNotificationCenter
 		)
 
@@ -1639,12 +1925,20 @@ class CoronaTestServiceTests: CWATestCase {
 			completion(.success(FetchTestResultResponse(testResult: TestResult.expired.rawValue, sc: nil)))
 		}
 
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let testService = CoronaTestService(
 			client: client,
-			store: MockTestStore(),
+			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock(),
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			),
 			notificationCenter: mockNotificationCenter
 		)
 		testService.antigenTest = AntigenTest.mock(registrationToken: "regToken")
@@ -1662,13 +1956,20 @@ class CoronaTestServiceTests: CWATestCase {
 	func test_When_UpdateWithForce_And_FinalTestResultExist_Then_ClientIsCalled() {
 		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
 
 		let testService = CoronaTestService(
 			client: client,
-			store: MockTestStore(),
+			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock(),
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			),
 			notificationCenter: mockNotificationCenter
 		)
 		testService.antigenTest = AntigenTest.mock(
@@ -1696,13 +1997,20 @@ class CoronaTestServiceTests: CWATestCase {
 	func test_When_UpdateWithoutForce_And_FinalTestResultExist_Then_ClientIsNotCalled() {
 		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
 
 		let testService = CoronaTestService(
 			client: client,
-			store: MockTestStore(),
+			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock(),
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			),
 			notificationCenter: mockNotificationCenter
 		)
 		testService.antigenTest = AntigenTest.mock(
@@ -1729,13 +2037,20 @@ class CoronaTestServiceTests: CWATestCase {
 	func test_When_UpdateWithoutForce_And_NoFinalTestResultExist_Then_ClientIsCalled() {
 		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
 
 		let testService = CoronaTestService(
 			client: client,
-			store: MockTestStore(),
+			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock(),
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			),
 			notificationCenter: mockNotificationCenter
 		)
 		testService.antigenTest = AntigenTest.mock(
@@ -1763,15 +2078,22 @@ class CoronaTestServiceTests: CWATestCase {
 	func test_When_UpdatingExpiredTestResultOlderThan21Days_Then_ClientIsNotCalled() throws {
 		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
 
 		let registrationDate = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: -21, to: Date()))
 
 		let testService = CoronaTestService(
 			client: client,
-			store: MockTestStore(),
+			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock(),
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			),
 			notificationCenter: mockNotificationCenter
 		)
 		testService.antigenTest = AntigenTest.mock(
@@ -1800,15 +2122,22 @@ class CoronaTestServiceTests: CWATestCase {
 	func test_When_UpdatingExpiredAntigenTestResultWithoutRegistrationDateButPointOfCareConsentDateOlderThan21Days_Then_ClientIsNotCalled() throws {
 		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
 
 		let pointOfCareConsentDate = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: -21, to: Date()))
 
 		let testService = CoronaTestService(
 			client: client,
-			store: MockTestStore(),
+			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock(),
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			),
 			notificationCenter: mockNotificationCenter
 		)
 		testService.antigenTest = AntigenTest.mock(
@@ -1833,16 +2162,23 @@ class CoronaTestServiceTests: CWATestCase {
 	func test_When_UpdatingExpiredTestResultYoungerThan21Days_Then_ClientIsCalled() throws {
 		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
 
 		let dateComponents = DateComponents(day: -21, second: 10)
 		let registrationDate = try XCTUnwrap(Calendar.current.date(byAdding: dateComponents, to: Date()))
 
 		let testService = CoronaTestService(
 			client: client,
-			store: MockTestStore(),
+			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock(),
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			),
 			notificationCenter: mockNotificationCenter
 		)
 		testService.antigenTest = AntigenTest.mock(
@@ -1872,16 +2208,23 @@ class CoronaTestServiceTests: CWATestCase {
 	func test_When_UpdatingExpiredAntigenTestResultWithoutRegistrationDateAndPointOfCareConsentDateYoungerThan21Days_Then_ClientIsCalled() throws {
 		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
 
 		let dateComponents = DateComponents(day: -21, second: 10)
 		let pointOfCareConsentDate = try XCTUnwrap(Calendar.current.date(byAdding: dateComponents, to: Date()))
 
 		let testService = CoronaTestService(
 			client: client,
-			store: MockTestStore(),
+			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock(),
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			),
 			notificationCenter: mockNotificationCenter
 		)
 		testService.antigenTest = AntigenTest.mock(
@@ -1911,12 +2254,20 @@ class CoronaTestServiceTests: CWATestCase {
 		let dateComponents = DateComponents(day: -21)
 		let registrationDate = try XCTUnwrap(Calendar.current.date(byAdding: dateComponents, to: Date()))
 
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let testService = CoronaTestService(
 			client: client,
-			store: MockTestStore(),
+			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock(),
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			),
 			notificationCenter: MockUserNotificationCenter()
 		)
 		testService.pcrTest = PCRTest.mock(
@@ -1944,12 +2295,20 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let registrationDate = try XCTUnwrap(Calendar.current.date(byAdding: DateComponents(day: -21, second: 10), to: Date()))
 
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let testService = CoronaTestService(
 			client: client,
-			store: MockTestStore(),
+			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock(),
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			),
 			notificationCenter: MockUserNotificationCenter()
 		)
 		testService.pcrTest = PCRTest.mock(
@@ -1980,12 +2339,20 @@ class CoronaTestServiceTests: CWATestCase {
 		// Set point of care date to younger than 21 days to ensure that registration date wins
 		let pointOfCareConsentDate = try XCTUnwrap(Calendar.current.date(byAdding: DateComponents(day: -21, second: 10), to: Date()))
 
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let testService = CoronaTestService(
 			client: client,
-			store: MockTestStore(),
+			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock(),
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			),
 			notificationCenter: MockUserNotificationCenter()
 		)
 		testService.antigenTest = AntigenTest.mock(
@@ -2016,12 +2383,20 @@ class CoronaTestServiceTests: CWATestCase {
 		// Set point of care date to older than 21 days to ensure that registration date wins
 		let pointOfCareConsentDate = try XCTUnwrap(Calendar.current.date(byAdding: DateComponents(day: -21), to: Date()))
 
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let testService = CoronaTestService(
 			client: client,
-			store: MockTestStore(),
+			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock(),
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			),
 			notificationCenter: MockUserNotificationCenter()
 		)
 		testService.antigenTest = AntigenTest.mock(
@@ -2051,12 +2426,20 @@ class CoronaTestServiceTests: CWATestCase {
 		let dateComponents = DateComponents(day: -21)
 		let pointOfCareConsentDate = try XCTUnwrap(Calendar.current.date(byAdding: dateComponents, to: Date()))
 
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let testService = CoronaTestService(
 			client: client,
-			store: MockTestStore(),
+			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock(),
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			),
 			notificationCenter: MockUserNotificationCenter()
 		)
 		testService.antigenTest = AntigenTest.mock(
@@ -2086,12 +2469,20 @@ class CoronaTestServiceTests: CWATestCase {
 		let dateComponents = DateComponents(day: -21, second: 10)
 		let pointOfCareConsentDate = try XCTUnwrap(Calendar.current.date(byAdding: dateComponents, to: Date()))
 
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let testService = CoronaTestService(
 			client: client,
-			store: MockTestStore(),
+			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock(),
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			),
 			notificationCenter: MockUserNotificationCenter()
 		)
 		testService.antigenTest = AntigenTest.mock(
@@ -2115,12 +2506,21 @@ class CoronaTestServiceTests: CWATestCase {
 	// MARK: - Test Removal
 
 	func testDeletingCoronaTest() {
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let service = CoronaTestService(
-			client: ClientMock(),
-			store: MockTestStore(),
+			client: client,
+			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock()
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
 
 		service.pcrTest = PCRTest.mock(registrationToken: "pcrRegistrationToken")
@@ -2189,12 +2589,20 @@ class CoronaTestServiceTests: CWATestCase {
 
 		// Run test.
 
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let service = CoronaTestService(
 			client: client,
-			store: MockTestStore(),
+			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock()
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
 		service.pcrTest = PCRTest.mock(registrationToken: "regToken")
 		service.antigenTest = AntigenTest.mock(registrationToken: "regToken")
@@ -2277,12 +2685,20 @@ class CoronaTestServiceTests: CWATestCase {
 			completion(.success(()))
 		}
 
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let service = CoronaTestService(
 			client: client,
-			store: MockTestStore(),
+			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock()
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
 		service.pcrTest = PCRTest.mock(registrationToken: "regToken")
 		service.antigenTest = AntigenTest.mock(registrationToken: "regToken")

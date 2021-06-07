@@ -13,8 +13,8 @@ public struct DigitalGreenCertificate: Codable, Equatable {
         case version = "ver"
         case name = "nam"
         case dateOfBirth = "dob"
-        case vaccinationCertificates = "v"
-        case testCertificates = "t"
+        case vaccinationEntries = "v"
+        case testEntries = "t"
     }
 
     // MARK: - Internal
@@ -22,12 +22,12 @@ public struct DigitalGreenCertificate: Codable, Equatable {
     public let version: String
     public let name: Name
     public let dateOfBirth: String
-    public let vaccinationCertificates: [VaccinationCertificate]?
-    public let testCertificates: [TestCertificate]?
+    public let vaccinationEntries: [VaccinationEntry]?
+    public let testEntries: [TestEntry]?
 
 }
 
-public struct VaccinationCertificate: Codable, Equatable {
+public struct VaccinationEntry: Codable, Equatable {
 
     // MARK: - Protocol Codable
 
@@ -61,7 +61,36 @@ public struct VaccinationCertificate: Codable, Equatable {
 
 }
 
-public struct TestCertificate: Codable, Equatable {
+public struct TestEntry: Codable, Equatable {
+
+    // MARK: - Init
+
+    public init(
+        diseaseOrAgentTargeted: String,
+        typeOfTest: String,
+        testResult: String,
+        naaTestName: String?,
+        ratTestName: String?,
+        dateTimeOfSampleCollection: String,
+        dateTimeOfTestResult: String,
+        testCenter: String,
+        countryOfTest: String,
+        certificateIssuer: String,
+        uniqueCertificateIdentifier: String
+    ) {
+        self.diseaseOrAgentTargeted = diseaseOrAgentTargeted
+        self.typeOfTest = typeOfTest
+        self.testResult = testResult
+        self.naaTestName = naaTestName
+        self.ratTestName = ratTestName
+        self.dateTimeOfSampleCollection = dateTimeOfSampleCollection
+        self.dateTimeOfTestResult = dateTimeOfTestResult
+        self.testCenter = testCenter
+        self.countryOfTest = countryOfTest
+        self.certificateIssuer = certificateIssuer
+        self.uniqueCertificateIdentifier = uniqueCertificateIdentifier
+    }
+
 
     // MARK: - Protocol Codable
 
@@ -92,6 +121,7 @@ public struct TestCertificate: Codable, Equatable {
     public let countryOfTest: String
     public let certificateIssuer: String
     public let uniqueCertificateIdentifier: String
+
 }
 
 public struct Name: Codable, Equatable {

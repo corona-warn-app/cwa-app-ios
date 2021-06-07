@@ -24,7 +24,9 @@ final class FooterViewModel {
 		secondaryCustomDisableBackgroundColor: UIColor? = nil,
 		primaryButtonInverted: Bool = false,
 		secondaryButtonInverted: Bool = false,
-		backgroundColor: UIColor = .enaColor(for: .background)
+		backgroundColor: UIColor = .enaColor(for: .background),
+		primaryTextColor: UIColor? = nil,
+		secondaryTextColor: UIColor? = nil
 	) {
 		self.primaryButtonName = primaryButtonName
 		self.secondaryButtonName = secondaryButtonName
@@ -41,6 +43,8 @@ final class FooterViewModel {
 		self.primaryButtonInverted = primaryButtonInverted
 		self.secondaryButtonInverted = secondaryButtonInverted
 		self.backgroundColor = backgroundColor
+		self.primaryTextColor = primaryTextColor
+		self.secondaryTextColor = secondaryTextColor
 		updateHeight()
 	}
 
@@ -70,6 +74,8 @@ final class FooterViewModel {
 	let secondaryButtonInverted: Bool
 	let primaryIdentifier: String
 	let secondaryIdentifier: String
+	let primaryTextColor: UIColor?
+	let secondaryTextColor: UIColor?
 
 	@OpenCombine.Published private(set) var isPrimaryButtonHidden: Bool
 	@OpenCombine.Published private(set) var isSecondaryButtonHidden: Bool

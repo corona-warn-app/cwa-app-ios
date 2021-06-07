@@ -16,3 +16,7 @@ extension DCCResponse: Equatable {
 		return lhs.dcc == rhs.dcc && lhs.dek == rhs.dek
 	}
 }
+
+struct DCC500Response: Codable {
+	let reason: String
+}

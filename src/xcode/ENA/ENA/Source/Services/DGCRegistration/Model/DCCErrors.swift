@@ -12,10 +12,10 @@ enum DCCErrors {
 		case tokenDoesNotExist
 		case tokenAlreadyAssigned
 		case internalServerError
-		case generalError
 		case unhandledResponse(Int)
 		case defaultServerError(Error)
 		case urlCreationFailed
+		case noNetworkConnection
 		
 		// MARK: - Protocol Equatable
 
@@ -33,8 +33,9 @@ enum DCCErrors {
 		case tokenDoesNotExist
 		case dccAlreadyCleanedUp
 		case testResultNotYetReceived
-		case internalServerError
+		case internalServerError(reason: String?)
 		case defaultServerError(Error)
+		case noNetworkConnection
 		
 		// MARK: - Protocol Equatable
 		

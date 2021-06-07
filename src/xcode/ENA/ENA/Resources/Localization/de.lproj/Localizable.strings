@@ -2530,6 +2530,60 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TestCertificate_Info_description" = "Registrieren Sie einen Test auf der Startseite und stimmen Sie zu, ein digitales Testzertifikat zu erhalten. Sobald das Zertifikat vorliegt, wird es hier angezeigt.";
 
+/* - Test Certificate */
+
+"TestCertificate_title" = "Digitales\n**COVID-Testzertifikat**";
+
+"TestCertificate_testDate" = "Test durchgeführt am %@";
+
+/* - Test Certificate Request */
+
+"TestCertificateRequest_title" = "Digitales\n**COVID-Testzertifikat**";
+
+"TestCertificateRequest_loadingSubtitle" = "Ihr Zertifikat wird gerade erstellt…";
+
+"TestCertificateRequest_errorSubtitle" = "Fehler bei der Zertifikatsabfrage";
+
+"TestCertificateRequest_registrationDate" = "Registriert am %@";
+
+"TestCertificateRequest_loadingStateDescription" = "Ihr Zertifikat wird gerade angefragt, dies kann einige Minuten dauern…";
+
+"TestCertificateRequest_tryAgainButtonTitle" = "Nochmal versuchen";
+
+"TestCertificateRequest_removeButtonTitle" = "Testzertifikat entfernen";
+
+/* - Test Certificate Request Error Alert */
+
+"TestCertificateRequest_ErrorAlert_title" = "Es gibt weiterhin Probleme bei der Abfrage";
+
+"TestCertificateRequest_ErrorAlert_Button_title" = "OK";
+
+/* - Test Certificate Request Remove Alert */
+
+"TestCertificateRequest_RemoveAlert_title" = "Wollen Sie das Zertifikat wirklich entfernen?";
+
+"TestCertificateRequest_RemoveAlert_message" = "Wenn das Zertifikat enfernt wird, kann es nicht noch einmal angefordert werden.";
+
+"TestCertificateRequest_RemoveAlert_CancelButton_title" = "Abbrechen";
+
+"TestCertificateRequest_RemoveAlert_DeleteButton_title" = "Entfernen";
+
+/* Test Certificate Request Errors */
+
+"TestCertificateRequest_Error_CLIENT_ERROR_CALL_HOTLINE" = "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später noch einmal oder kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline. (%@)";
+
+"TestCertificateRequest_Error_DCC_EXPIRED" = "Das Zertifikat ist nicht mehr aktuell, Sie können es aus der Corona-App entfernen. (%@)";
+
+"TestCertificateRequest_Error_DCC_NOT_SUPPORTED_BY_LAB" = "Ein Testzertifikat kann nicht angefordert werden, da diese Teststelle die Ausstellung von Testzertifikaten nicht unterstützt. Bitte entfernen Sie das Zertifikat oder kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline. (%@)";
+
+"TestCertificateRequest_Error_E2E_ERROR_CALL_HOTLINE" = "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später noch einmal oder kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline. (%@)";
+
+"TestCertificateRequest_Error_NO_NETWORK" = "Ihre Internetverbindung wurde unterbrochen. Bitte prüfen Sie die Verbindung und versuchen Sie es erneut. (%@)";
+
+"TestCertificateRequest_Error_TRY_AGAIN" = "Es konnte keine Verbindung hergestellt werden. Bitte versuchen Sie es erneut. (%@)";
+
+"TestCertificateRequest_Error_TRY_AGAIN_DCC_NOT_AVAILABLE_YET" = "Ihr Zertifikat liegt noch nicht vor. Bitte versuchen Sie es noch einmal. Sollte der Fehler weiterhin bestehen, kontaktieren Sie bitte die technische Hotline über App-Informationen -> Technische Hotline. (%@)";
+
 /* Health Certificate Information */
 
 "HealthCertificate_Info_Title" = "Impfzertifikat hinzufügen";
@@ -2570,13 +2624,13 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertifiedPerson_primaryButton" = "Weitere Impfung hinzufügen";
 
-/* Health Certificate Details */
+/* Vaccination Certificate Details */
 
 "HealthCertificate_Details_vaccinationCount" = "Impfung %i von %i";
 
 "HealthCertificate_Details_certificate" = "Impfzertifikat";
 
-"HealthCertificate_Details_QRCode_Image_Description" = "Ein QR-Code mit Ihrem Impfzertifikat %i von %i";
+"HealthCertificate_Details_QRCode_Image_Description" = "Ein QR-Code mit Ihrem Zertifikat";
 
 "HealthCertificate_Details_certificateCount" = "Impfzertifikat %i von %i";
 
@@ -2600,7 +2654,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Details_primaryButton" = "Impfzertifikat entfernen";
 
-/* Health Certificate Alert delete */
+/* Vaccination Certificate Delete Alert */
 
 "HealthCertificate_Alert_title" = "Wollen Sie das Impfzertifikat wirklich entfernen?";
 
@@ -2609,6 +2663,24 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "HealthCertificate_Alert_deleteButton" = "Entfernen";
 
 "HealthCertificate_Alert_cancelButton" = "Abbrechen";
+
+/* Test Certificate Details */
+
+"TestCertificate_Details_title" = "EU Digitales COVID-Testzertifikat";
+
+"TestCertificate_Details_subtitle" = "negativer SARS-CoV-2-Test";
+
+"TestCertificate_Details_primaryButton" = "Testzertifikat entfernen";
+
+/* Vaccination Certificate Delete Alert */
+
+"TestCertificate_Alert_title" = "Wollen Sie das Testzertifikat wirklich entfernen?";
+
+"TestCertificate_Alert_message" = "Wenn Sie das Testzertifikat entfernen, können Sie es nicht mehr als Nachweis in der App verwenden.";
+
+"TestCertificate_Alert_deleteButton" = "Entfernen";
+
+"TestCertificate_Alert_cancelButton" = "Abbrechen";
 
 /* Health Certificate Errors */
 
