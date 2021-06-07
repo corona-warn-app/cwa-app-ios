@@ -14,7 +14,7 @@ import XCTest
 // inside these tests, we alter for testType (pcr & antigen)
 
 // swiftlint:disable:next type_body_length
-class KeySubmissionMetadataTests: XCTestCase {
+class KeySubmissionMetadataTests: CWATestCase {
 		
 	func testKeySubmissionMetadataValues_ENFHighRisk() {
 		let secureStore = MockTestStore()
