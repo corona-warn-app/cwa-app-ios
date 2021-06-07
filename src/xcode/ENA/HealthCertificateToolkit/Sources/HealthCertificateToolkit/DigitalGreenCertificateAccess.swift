@@ -330,7 +330,7 @@ public struct DigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtoc
             fatalError("cborPayload should not be nil at this point.")
         }
 
-        guard case let CBOR.tagged(tag, messageElement) = cborPayload,
+        guard case let CBOR.tagged(tag, cborWebTokenMessage) = cborPayload,
               // 18: CBOR tag value for a COSE Single Signer Data Object
               tag.rawValue == 18 else {
 
@@ -338,7 +338,7 @@ public struct DigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtoc
         }
 
         guard
-            case let CBOR.array(cborWebTokenEntries) = messageElement,
+            case let CBOR.array(cborWebTokenEntries) = cborWebTokenMessage,
             // The message has to have 4 entries.
             cborWebTokenEntries.count == 4 else {
 

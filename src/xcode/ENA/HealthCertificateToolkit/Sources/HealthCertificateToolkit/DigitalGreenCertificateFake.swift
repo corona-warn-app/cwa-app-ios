@@ -22,21 +22,21 @@ enum DigitalGreenCertificateFake {
         var wrappedCertificate = CBOR.map([CBOR : CBOR]())
         wrappedCertificate[1] = cborCertificate
 
-        var certificateAndHeader = CBOR.map([CBOR : CBOR]())
-        certificateAndHeader[-260] = wrappedCertificate
-        certificateAndHeader[1] = CBOR.utf8String(header.issuer)
-        certificateAndHeader[4] = CBOR.unsignedInt(header.expirationTime)
+        var cborWebTokenPayload = CBOR.map([CBOR : CBOR]())
+        cborWebTokenPayload[-260] = wrappedCertificate
+        cborWebTokenPayload[1] = CBOR.utf8String(header.issuer)
+        cborWebTokenPayload[4] = CBOR.unsignedInt(header.expirationTime)
 
         if let issuedAt = header.issuedAt {
-            certificateAndHeader[6] = CBOR.unsignedInt(issuedAt)
+            cborWebTokenPayload[6] = CBOR.unsignedInt(issuedAt)
         }
 
-        let certificateAndHeaderBytes = certificateAndHeader.encode()
+        let cborWebTokenPayloadBytes = cborWebTokenPayload.encode()
 
         let cborWebTokenMessage = CBOR.array([
             CBOR.null,
             CBOR.null,
-            CBOR.byteString(certificateAndHeaderBytes),
+            CBOR.byteString(cborWebTokenPayloadBytes),
             CBOR.null,
         ])
 
