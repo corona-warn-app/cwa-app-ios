@@ -2532,7 +2532,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Health Certificate Information */
 
-"HealthCertificate_Info_Title" = "Impfzertifikat hinzufügen";
+"HealthCertificate_Info_Title" = "Zertifikate hinzufügen";
 
 "HealthCertificate_Info_imageDescription" = "Eine geschützte Person schaut auf ein Smartphone";
 
