@@ -2536,7 +2536,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Info_imageDescription" = "Eine geschützte Person schaut auf ein Smartphone";
 
-"HealthCertificate_Info_description" = "Fügen Sie Ihren digitalen Impfnachweis in der App hinzu. Sobald Ihr Impfschutz vollständig ist, können Sie den QR-Code in der App vorzeigen, um Ihren Impfschutz nachzuweisen.";
+"HealthCertificate_Info_description" = "Fügen Sie ihre digitalen COVID-Zertifikate in der App hinzu, um mit der App Ihren Impfschutz oder ein negatives Testergebnis nachweisen zu können.";
 
 "HealthCertificate_Info_section01" = "Um ein Impfzertifikat in die App hinzuzufügen, scannen Sie den QR-Code, den Sie bei der Impfung erhalten haben.";
 
