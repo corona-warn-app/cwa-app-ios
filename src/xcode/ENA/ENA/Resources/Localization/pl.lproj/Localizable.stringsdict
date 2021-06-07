@@ -28,7 +28,7 @@
 			<string>Zainstalowano %u dni temu</string>
 			<key>other</key>
 			<!--Plural form for OTHER.-->
-			<string>Zainstalowano %u dni temu</string>
+			<string>Zainstalowano %u dnia temu</string>
 		</dict>
 	</dict>
 	<key>Home_Risk_Low_Number_Contacts_Item_Title</key>
@@ -55,7 +55,7 @@
 			<string>Narażenia z niskim ryzykiem w ciągu %u dni</string>
 			<key>two</key>
 			<!--Plural form for TWO.-->
-			<string>Narażenia z niskim ryzykiem w ciągu %u dnia</string>
+			<string>Narażenia z niskim ryzykiem w ciągu %u dni</string>
 			<key>other</key>
 			<!--Plural form for OTHER.-->
 			<string>Narażenia z niskim ryzykiem w ciągu %u dnia</string>
@@ -73,7 +73,7 @@
 			<string>u</string>
 			<key>zero</key>
 			<!--Plural form for ZERO.-->
-			<string>Narażenia w ciągu %u dnia z podwyższonym ryzykiem</string>
+			<string>Narażenia w ciągu %u dni z podwyższonym ryzykiem</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
 			<string>Narażenia w ciągu 1 dnia z podwyższonym ryzykiem</string>
@@ -238,7 +238,7 @@ Sprawdzanie narażeń jest wiarygodne tylko wtedy, gdy rejestrowanie narażenia 
 			<string>Rejestrowanie narażenia jest aktywne od %u dnia. Sprawdzanie narażeń jest wiarygodne tylko wtedy, gdy rejestrowanie narażenia jest aktywowane na stałe.</string>
 		</dict>
 	</dict>
-	<key>HealthCertificate_Home_Person_daysUntilCompleteProtection</key>
+	<key>VaccinationCertificate_daysUntilCompleteProtection</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@VARIABLE@</string>
