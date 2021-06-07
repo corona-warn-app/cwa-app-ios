@@ -8,7 +8,9 @@ import XCTest
 class HomeTableViewModelTests: CWATestCase {
 
 	func testSectionsRowsAndHeights() throws {
+		let client = ClientMock()
 		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
 
 		let viewModel = HomeTableViewModel(
 			state: .init(
@@ -23,11 +25,16 @@ class HomeTableViewModelTests: CWATestCase {
 			),
 			store: store,
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
+				client: client,
 				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfiguration
+				)
 			),
 			onTestResultCellTap: { _ in }
 		)
@@ -68,7 +75,10 @@ class HomeTableViewModelTests: CWATestCase {
 	}
 
 	func testRiskAndTestRowsIfKeysSubmitted() {
+		let client = ClientMock()
 		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		store.pcrTest = PCRTest.mock(
 			registrationToken: "FAKETOKEN!",
 			testResult: .positive,
@@ -89,11 +99,16 @@ class HomeTableViewModelTests: CWATestCase {
 			),
 			store: store,
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
+				client: client,
 				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfiguration
+				)
 			),
 			onTestResultCellTap: { _ in }
 		)
@@ -103,7 +118,10 @@ class HomeTableViewModelTests: CWATestCase {
 	}
 	
 	func testRiskAndTestRowsIfPositiveTestResultWasShown() {
+		let client = ClientMock()
 		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		store.pcrTest = PCRTest.mock(
 			registrationToken: "FAKETOKEN!",
 			testResult: .positive,
@@ -124,11 +142,16 @@ class HomeTableViewModelTests: CWATestCase {
 			),
 			store: store,
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
+				client: client,
 				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfiguration
+				)
 			),
 			onTestResultCellTap: { _ in }
 		)
@@ -138,7 +161,9 @@ class HomeTableViewModelTests: CWATestCase {
 	}
 
 	func testRowHeightsWithoutStatistics() {
+		let client = ClientMock()
 		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
 
 		let viewModel = HomeTableViewModel(
 			state: .init(
@@ -153,11 +178,16 @@ class HomeTableViewModelTests: CWATestCase {
 			),
 			store: store,
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
+				client: client,
 				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfiguration
+				)
 			),
 			onTestResultCellTap: { _ in }
 		)
@@ -174,7 +204,9 @@ class HomeTableViewModelTests: CWATestCase {
 	}
 
 	func testRowHeightsWithStatistics() {
+		let client = ClientMock()
 		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
 
 		let viewModel = HomeTableViewModel(
 			state: .init(
@@ -189,11 +221,16 @@ class HomeTableViewModelTests: CWATestCase {
 			),
 			store: store,
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
+				client: client,
 				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfiguration
+				)
 			),
 			onTestResultCellTap: { _ in }
 		)

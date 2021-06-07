@@ -14,17 +14,24 @@ class TestResultAvailableViewModelTest: CWATestCase {
 		let expectationNotFulFill = expectation(description: "consent cell code excecute")
 		expectationNotFulFill.isInverted = true
 
+		let client = ClientMock()
+		let appConfiguration = CachedAppConfigurationMock()
 		let store = MockTestStore()
 		store.pcrTest = PCRTest.mock(testResult: .positive)
 		
 		let viewModel = TestResultAvailableViewModel(
 			coronaTestType: .pcr,
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
+				client: client,
 				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfiguration
+				)
 			),
 			onSubmissionConsentCellTap: { _ in
 				expectationNotFulFill.fulfill()
@@ -48,17 +55,24 @@ class TestResultAvailableViewModelTest: CWATestCase {
 		expectationNotFulFill.isInverted = true
 		var bindings: Set<AnyCancellable> = []
 
+		let client = ClientMock()
+		let appConfiguration = CachedAppConfigurationMock()
 		let store = MockTestStore()
 		store.pcrTest = PCRTest.mock(testResult: .positive)
 
 		let viewModel = TestResultAvailableViewModel(
 			coronaTestType: .pcr,
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
+				client: client,
 				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfiguration
+				)
 			),
 			onSubmissionConsentCellTap: { _ in
 				expectationNotFulFill.fulfill()
@@ -91,17 +105,24 @@ class TestResultAvailableViewModelTest: CWATestCase {
 		expectationNotFulFill.isInverted = true
 		var bindings: Set<AnyCancellable> = []
 
+		let client = ClientMock()
+		let appConfiguration = CachedAppConfigurationMock()
 		let store = MockTestStore()
 		store.pcrTest = PCRTest.mock(testResult: .positive)
 
 		let viewModel = TestResultAvailableViewModel(
 			coronaTestType: .pcr,
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
+				client: client,
 				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfiguration
+				)
 			),
 			onSubmissionConsentCellTap: { _ in
 				expectationFulFill.fulfill()

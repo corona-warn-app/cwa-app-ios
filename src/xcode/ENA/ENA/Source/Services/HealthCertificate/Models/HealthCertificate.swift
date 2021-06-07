@@ -11,12 +11,10 @@ protocol HealthCertificateData {
 	var name: HealthCertificateToolkit.Name { get }
 	var dateOfBirth: String { get }
 	var dateOfBirthDate: Date? { get }
-	var vaccinationCertificates: [VaccinationCertificate] { get }
-	var isLastDoseInASeries: Bool { get }
+	var vaccinationEntry: VaccinationEntry? { get }
+	var testEntry: TestEntry? { get }
+	var type: HealthCertificate.CertificateType { get }
 	var expirationDate: Date { get }
-	var dateOfVaccination: Date? { get }
-	var doseNumber: Int { get }
-	var totalSeriesOfDoses: Int { get }
 }
 
 struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable {
@@ -41,17 +39,25 @@ struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable 
 	// MARK: - Protocol Comparable
 
 	static func < (lhs: HealthCertificate, rhs: HealthCertificate) -> Bool {
-		guard
-			let lhsVaccinationDate = lhs.vaccinationCertificates.first?.dateOfVaccination,
-			let rhsVaccinationDate = rhs.vaccinationCertificates.first?.dateOfVaccination
-		else {
-			return false
+		if let lhsVaccinationDate = lhs.vaccinationEntry?.dateOfVaccination,
+		   let rhsVaccinationDate = rhs.vaccinationEntry?.dateOfVaccination {
+			return lhsVaccinationDate < rhsVaccinationDate
 		}
 
-		return lhsVaccinationDate < rhsVaccinationDate
+		if let lhsSampleCollectionDate = lhs.testEntry?.dateTimeOfSampleCollection,
+		   let rhsSampleCollectionDate = rhs.testEntry?.dateTimeOfSampleCollection {
+			return lhsSampleCollectionDate < rhsSampleCollectionDate
+		}
+
+		return false
 	}
 
 	// MARK: - Internal
+
+	enum CertificateType {
+		case vaccination(VaccinationEntry)
+		case test(TestEntry)
+	}
 
 	let base45: Base45
 
@@ -71,43 +77,37 @@ struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable 
 		return ISO8601DateFormatter.justLocalDateFormatter.date(from: digitalGreenCertificate.dateOfBirth)
 	}
 
-	var vaccinationCertificates: [VaccinationCertificate] {
-		digitalGreenCertificate.vaccinationCertificates ?? []
+	var vaccinationEntry: VaccinationEntry? {
+		let vaccinationCertificates = digitalGreenCertificate.vaccinationEntries ?? []
+
+		return vaccinationCertificates.first
 	}
 
-	var isLastDoseInASeries: Bool {
-		digitalGreenCertificate.isLastDoseInASeries
+	var testEntry: TestEntry? {
+		let testCertificates = digitalGreenCertificate.testEntries ?? []
+
+		return testCertificates.first
+	}
+
+	var type: CertificateType {
+		if let vaccinationEntry = vaccinationEntry {
+			return .vaccination(vaccinationEntry)
+		} else if let testEntry = testEntry {
+			return .test(testEntry)
+		}
+
+		fatalError("Unsupported certificates are not added in the first place")
 	}
 
 	var expirationDate: Date {
 		#if DEBUG
-		if isUITesting, let dateOfVaccination = dateOfVaccination {
-			return Calendar.current.date(byAdding: .year, value: 1, to: dateOfVaccination) ?? Date(timeIntervalSince1970: TimeInterval(cborWebTokenHeader.expirationTime))
+		if isUITesting, let localVaccinationDate = vaccinationEntry?.localVaccinationDate {
+			return Calendar.current.date(byAdding: .year, value: 1, to: localVaccinationDate) ??
+				Date(timeIntervalSince1970: TimeInterval(cborWebTokenHeader.expirationTime))
 		}
 		#endif
 
 		return Date(timeIntervalSince1970: TimeInterval(cborWebTokenHeader.expirationTime))
-	}
-
-	var dateOfVaccination: Date? {
-		guard let dateString = vaccinationCertificates.first?.dateOfVaccination else {
-			return nil
-		}
-		return ISO8601DateFormatter.justLocalDateFormatter.date(from: dateString)
-	}
-
-	var doseNumber: Int {
-		guard let vaccinationCertificate = vaccinationCertificates.last else {
-			return 0
-		}
-		return vaccinationCertificate.doseNumber
-	}
-	
-	var totalSeriesOfDoses: Int {
-		guard let vaccinationCertificate = vaccinationCertificates.last else {
-			return 0
-		}
-		return vaccinationCertificate.totalSeriesOfDoses
 	}
 
 	// MARK: - Private

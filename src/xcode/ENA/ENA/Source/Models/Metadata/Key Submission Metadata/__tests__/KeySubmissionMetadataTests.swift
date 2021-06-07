@@ -17,13 +17,20 @@ import XCTest
 class KeySubmissionMetadataTests: CWATestCase {
 		
 	func testKeySubmissionMetadataValues_ENFHighRisk() {
+		let client = ClientMock()
 		let secureStore = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
 		let coronaTestService = CoronaTestService(
-			client: ClientMock(),
+			client: client,
 			store: secureStore,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock()
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: secureStore,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
 
 		Analytics.setupMock(store: secureStore, coronaTestService: coronaTestService)
@@ -72,13 +79,20 @@ class KeySubmissionMetadataTests: CWATestCase {
 	}
 	
 	func testKeySubmissionMetadataValues_CheckinHighRisk() {
+		let client = ClientMock()
 		let secureStore = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
 		let coronaTestService = CoronaTestService(
-			client: ClientMock(),
+			client: client,
 			store: secureStore,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock()
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: secureStore,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
 
 		Analytics.setupMock(store: secureStore, coronaTestService: coronaTestService)
@@ -117,13 +131,20 @@ class KeySubmissionMetadataTests: CWATestCase {
 	}
 	
 	func testKeySubmissionMetadataValues_BothHighRisk() {
+		let client = ClientMock()
 		let secureStore = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
 		let coronaTestService = CoronaTestService(
-			client: ClientMock(),
+			client: client,
 			store: secureStore,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock()
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: secureStore,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
 
 		Analytics.setupMock(store: secureStore, coronaTestService: coronaTestService)
@@ -171,12 +192,19 @@ class KeySubmissionMetadataTests: CWATestCase {
 		let secureStore = MockTestStore()
 		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
 
+		let client = ClientMock()
+		let appConfiguration = CachedAppConfigurationMock()
 		let coronaTestService = CoronaTestService(
-			client: ClientMock(),
+			client: client,
 			store: secureStore,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock()
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: secureStore,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
 
 		Analytics.setupMock(store: secureStore, coronaTestService: coronaTestService)
@@ -207,12 +235,19 @@ class KeySubmissionMetadataTests: CWATestCase {
 		let secureStore = MockTestStore()
 		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
 
+		let client = ClientMock()
+		let appConfiguration = CachedAppConfigurationMock()
 		let coronaTestService = CoronaTestService(
-			client: ClientMock(),
+			client: client,
 			store: secureStore,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock()
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: secureStore,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
 
 		Analytics.setupMock(store: secureStore, coronaTestService: coronaTestService)
@@ -252,12 +287,19 @@ class KeySubmissionMetadataTests: CWATestCase {
 		let secureStore = MockTestStore()
 		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
 
+		let client = ClientMock()
+		let appConfiguration = CachedAppConfigurationMock()
 		let coronaTestService = CoronaTestService(
-			client: ClientMock(),
+			client: client,
 			store: secureStore,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock()
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: secureStore,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
 
 		Analytics.setupMock(store: secureStore, coronaTestService: coronaTestService)
@@ -302,12 +344,20 @@ class KeySubmissionMetadataTests: CWATestCase {
 	func testKeySubmissionMetadataValues_HighRisk_testHours() {
 		let secureStore = MockTestStore()
 		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
+
+		let client = ClientMock()
+		let appConfiguration = CachedAppConfigurationMock()
 		let coronaTestService = CoronaTestService(
-			client: ClientMock(),
+			client: client,
 			store: secureStore,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock()
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: secureStore,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
 
 		Analytics.setupMock(store: secureStore, coronaTestService: coronaTestService)
@@ -344,14 +394,22 @@ class KeySubmissionMetadataTests: CWATestCase {
 	}
 
 	func testKeySubmissionMetadataValues_HighRisk_submittedInBackground() {
+		let client = ClientMock()
 		let secureStore = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
 		let coronaTestService = CoronaTestService(
-			client: ClientMock(),
+			client: client,
 			store: secureStore,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock()
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: secureStore,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
+
 		Analytics.setupMock(
 			store: secureStore,
 			coronaTestService: coronaTestService
@@ -383,14 +441,22 @@ class KeySubmissionMetadataTests: CWATestCase {
 	}
 
 	func testKeySubmissionMetadataValues_HighRisk_testSubmitted() {
+		let client = ClientMock()
 		let secureStore = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
 		let coronaTestService = CoronaTestService(
-			client: ClientMock(),
+			client: client,
 			store: secureStore,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock()
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: secureStore,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
+		
 		Analytics.setupMock(
 			store: secureStore,
 			coronaTestService: coronaTestService

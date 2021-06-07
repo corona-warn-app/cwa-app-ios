@@ -10,7 +10,7 @@ final class HealthCertificatesCoordinator {
 	
 	init(
 		store: HealthCertificateStoring,
-		healthCertificateService: HealthCertificateServiceProviding,
+		healthCertificateService: HealthCertificateService,
 		vaccinationValueSetsProvider: VaccinationValueSetsProvider
 	) {
 		self.store = store
@@ -53,7 +53,7 @@ final class HealthCertificatesCoordinator {
 	// MARK: - Private
 	
 	private let store: HealthCertificateStoring
-	private let healthCertificateService: HealthCertificateServiceProviding
+	private let healthCertificateService: HealthCertificateService
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProvider
 
 	private var modalNavigationController: UINavigationController!
@@ -80,6 +80,13 @@ final class HealthCertificatesCoordinator {
 			},
 			onCertifiedPersonTap: { [weak self] healthCertifiedPerson in
 				self?.showHealthCertifiedPerson(healthCertifiedPerson)
+			},
+			onTestCertificateTap: { [weak self] testCertificate in
+				self?.showHealthCertificate(
+					healthCertifiedPerson: nil,
+					healthCertificate: testCertificate,
+					shouldPushOnModalNavigationController: false
+				)
 			}
 		)
 	}()
@@ -178,7 +185,8 @@ final class HealthCertificatesCoordinator {
 			didTapHealthCertificate: { [weak self] healthCertificate in
 				self?.showHealthCertificate(
 					healthCertifiedPerson: healthCertifiedPerson,
-					healthCertificate: healthCertificate
+					healthCertificate: healthCertificate,
+					shouldPushOnModalNavigationController: true
 				)
 			},
 			didTapRegisterAnotherHealthCertificate: { [weak self] in
@@ -188,6 +196,7 @@ final class HealthCertificatesCoordinator {
 			},
 			didSwipeToDelete: { [weak self] healthCertificate, confirmDeletion in
 				self?.showDeleteAlert(
+					certificateType: healthCertificate.type,
 					submitAction: UIAlertAction(
 						title: AppStrings.HealthCertificate.Alert.deleteButton,
 						style: .default,
@@ -206,7 +215,7 @@ final class HealthCertificatesCoordinator {
 				isPrimaryButtonEnabled: true,
 				isSecondaryButtonEnabled: false,
 				isSecondaryButtonHidden: true,
-				backgroundColor: .enaColor(for: .backgroundLightGray)
+				backgroundColor: .enaColor(for: .cellBackground )
 			)
 		)
 		
@@ -220,8 +229,9 @@ final class HealthCertificatesCoordinator {
 	}
 	
 	private func showHealthCertificate(
-		healthCertifiedPerson: HealthCertifiedPerson,
-		healthCertificate: HealthCertificate
+		healthCertifiedPerson: HealthCertifiedPerson?,
+		healthCertificate: HealthCertificate,
+		shouldPushOnModalNavigationController: Bool
 	) {
 		let healthCertificateViewController = HealthCertificateViewController(
 			healthCertifiedPerson: healthCertifiedPerson,
@@ -231,27 +241,51 @@ final class HealthCertificatesCoordinator {
 				self?.viewController.dismiss(animated: true)
 			},
 			didTapDelete: { [weak self] in
+				let deleteButtonTitle: String
+
+				switch healthCertificate.type {
+				case .vaccination:
+					deleteButtonTitle = AppStrings.HealthCertificate.Alert.deleteButton
+				case .test:
+					deleteButtonTitle = AppStrings.HealthCertificate.Alert.TestCertificate.deleteButton
+				}
+
 				self?.showDeleteAlert(
+					certificateType: healthCertificate.type,
 					submitAction: UIAlertAction(
-						title: AppStrings.HealthCertificate.Alert.deleteButton,
+						title: deleteButtonTitle,
 						style: .default,
 						handler: { _ in
 							self?.healthCertificateService.removeHealthCertificate(healthCertificate)
-							self?.modalNavigationController.popToRootViewController(animated: true)
+
+							if shouldPushOnModalNavigationController {
+								self?.modalNavigationController.popToRootViewController(animated: true)
+							} else {
+								self?.modalNavigationController.dismiss(animated: true)
+							}
 						}
 					)
 				)
 			}
 		)
+
+		let primaryButtonTitle: String
+		switch healthCertificate.type {
+		case .vaccination:
+			primaryButtonTitle = AppStrings.HealthCertificate.Details.primaryButton
+		case .test:
+			primaryButtonTitle = AppStrings.HealthCertificate.Details.TestCertificate.primaryButton
+		}
 		
 		let footerViewController = FooterViewController(
 			FooterViewModel(
-				primaryButtonName: AppStrings.HealthCertificate.Details.primaryButton,
+				primaryButtonName: primaryButtonTitle,
 				isPrimaryButtonEnabled: true,
 				isSecondaryButtonEnabled: false,
 				isSecondaryButtonHidden: true,
 				primaryButtonInverted: true,
-				backgroundColor: .enaColor(for: .backgroundLightGray)
+				backgroundColor: .enaColor(for: .cellBackground),
+				primaryTextColor: .systemRed
 			)
 		)
 		
@@ -259,18 +293,42 @@ final class HealthCertificatesCoordinator {
 			topController: healthCertificateViewController,
 			bottomController: footerViewController
 		)
-		modalNavigationController.pushViewController(topBottomContainerViewController, animated: true)
+
+		if shouldPushOnModalNavigationController {
+			modalNavigationController.pushViewController(topBottomContainerViewController, animated: true)
+		} else {
+			modalNavigationController = UINavigationController(rootViewController: topBottomContainerViewController)
+			viewController.present(self.modalNavigationController, animated: true)
+		}
 	}
 	
-	private func showDeleteAlert(submitAction: UIAlertAction) {
+	private func showDeleteAlert(
+		certificateType: HealthCertificate.CertificateType,
+		submitAction: UIAlertAction
+	) {
+		let title: String
+		let message: String
+		let cancelButtonTitle: String
+
+		switch certificateType {
+		case .vaccination:
+			title = AppStrings.HealthCertificate.Alert.title
+			message = AppStrings.HealthCertificate.Alert.message
+			cancelButtonTitle = AppStrings.HealthCertificate.Alert.cancelButton
+		case .test:
+			title = AppStrings.HealthCertificate.Alert.TestCertificate.title
+			message = AppStrings.HealthCertificate.Alert.TestCertificate.message
+			cancelButtonTitle = AppStrings.HealthCertificate.Alert.TestCertificate.cancelButton
+		}
+
 		let alert = UIAlertController(
-			title: AppStrings.HealthCertificate.Alert.title,
-			message: AppStrings.HealthCertificate.Alert.message,
+			title: title,
+			message: message,
 			preferredStyle: .alert
 		)
 		alert.addAction(
 			UIAlertAction(
-				title: AppStrings.HealthCertificate.Alert.cancelButton,
+				title: cancelButtonTitle,
 				style: .cancel,
 				handler: nil
 			)

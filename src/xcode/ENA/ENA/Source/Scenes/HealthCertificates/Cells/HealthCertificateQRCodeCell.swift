@@ -38,11 +38,16 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 
 	func configure(with cellViewModel: HealthCertificateQRCodeCellViewModel) {
 		qrCodeImageView.image = cellViewModel.qrCodeImage
+		qrCodeImageView.accessibilityLabel = cellViewModel.accessibilityText
+
 		backgroundContainerView.backgroundColor = cellViewModel.backgroundColor
 		backgroundContainerView.layer.borderColor = cellViewModel.borderColor.cgColor
+
 		certificateCountLabel.text = cellViewModel.certificate
+		certificateCountLabel.isHidden = cellViewModel.certificate == nil
+
 		validityLabel.text = cellViewModel.validity
-		qrCodeImageView.accessibilityLabel = cellViewModel.accessibilityText
+		validityLabel.isHidden = cellViewModel.validity == nil
 	}
 
 	// MARK: - Private
@@ -51,6 +56,7 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 	private let qrCodeImageView = UIImageView()
 	private let certificateCountLabel = ENALabel()
 	private let validityLabel = ENALabel()
+	private let stackView = UIStackView()
 
 	private func setupView() {
 		backgroundColor = .clear
@@ -67,20 +73,18 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 		backgroundContainerView.translatesAutoresizingMaskIntoConstraints = false
 		contentView.addSubview(backgroundContainerView)
 
-		qrCodeImageView.translatesAutoresizingMaskIntoConstraints = false
 		qrCodeImageView.contentMode = .scaleAspectFit
 		qrCodeImageView.layer.magnificationFilter = CALayerContentsFilter.nearest
-		backgroundContainerView.addSubview(qrCodeImageView)
+		stackView.addArrangedSubview(qrCodeImageView)
 
-		certificateCountLabel.translatesAutoresizingMaskIntoConstraints = false
 		certificateCountLabel.font = .enaFont(for: .headline)
 		certificateCountLabel.numberOfLines = 0
+		stackView.addArrangedSubview(certificateCountLabel)
 
-		validityLabel.translatesAutoresizingMaskIntoConstraints = false
 		validityLabel.font = .enaFont(for: .body)
 		validityLabel.numberOfLines = 0
+		stackView.addArrangedSubview(validityLabel)
 
-		let stackView = UIStackView(arrangedSubviews: [certificateCountLabel, validityLabel])
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		stackView.alignment = .leading
 		stackView.axis = .vertical
@@ -94,13 +98,10 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 				backgroundContainerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.0),
 				backgroundContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.0),
 
-				qrCodeImageView.leadingAnchor.constraint(equalTo: backgroundContainerView.leadingAnchor, constant: 14.0),
-				qrCodeImageView.topAnchor.constraint(equalTo: backgroundContainerView.topAnchor, constant: 14.0),
-				qrCodeImageView.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor, constant: -14.0),
-				qrCodeImageView.widthAnchor.constraint(equalTo: qrCodeImageView.heightAnchor),
+				qrCodeImageView.heightAnchor.constraint(equalTo: qrCodeImageView.widthAnchor),
 
 				stackView.leadingAnchor.constraint(equalTo: backgroundContainerView.leadingAnchor, constant: 14.0),
-				stackView.topAnchor.constraint(equalTo: qrCodeImageView.bottomAnchor, constant: 4.0),
+				stackView.topAnchor.constraint(equalTo: backgroundContainerView.topAnchor, constant: 14.0),
 				stackView.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor, constant: -14.0),
 				stackView.bottomAnchor.constraint(equalTo: backgroundContainerView.bottomAnchor, constant: -14.0)
 			]

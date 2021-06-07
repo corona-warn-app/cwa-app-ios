@@ -4,7 +4,7 @@
 
 import Foundation
 
-enum CoronaTestCertificateConsent {
+enum TestCertificateConsent {
 
 	// MARK: - Internal
 

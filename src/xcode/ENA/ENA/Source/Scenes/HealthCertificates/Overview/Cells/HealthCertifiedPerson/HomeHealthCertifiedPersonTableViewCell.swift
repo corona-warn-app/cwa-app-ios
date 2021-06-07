@@ -12,7 +12,6 @@ class HomeHealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierPr
 	override func awakeFromNib() {
 		super.awakeFromNib()
 
-		titleLabel.text = AppStrings.HealthCertificate.Overview.VaccinationCertificate.title
 		backgroundGradientView.type = .solidGrey
 		backgroundGradientView.layer.cornerRadius = 14
 		accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Overview.vaccinationCertificateCell
@@ -32,9 +31,10 @@ class HomeHealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierPr
 	// MARK: - Internal
 
 	func configure(with cellModel: HomeHealthCertifiedPersonCellModel) {
-		vaccinationStateLabel.text = cellModel.vaccinationStateDescription
-		vaccinationStateLabel.isHidden = cellModel.vaccinationStateDescription == nil
+		descriptionLabel.text = cellModel.description
+		descriptionLabel.isHidden = cellModel.description == nil
 
+		titleLabel.text = cellModel.title
 		nameLabel.text = cellModel.name
 		iconView.image = cellModel.iconImage
 		backgroundImageView.image = cellModel.backgroundImage
@@ -44,7 +44,7 @@ class HomeHealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierPr
 	// MARK: - Private
 
 	@IBOutlet private weak var titleLabel: ENALabel!
-	@IBOutlet private weak var vaccinationStateLabel: ENALabel!
+	@IBOutlet private weak var descriptionLabel: ENALabel!
 	@IBOutlet private weak var nameLabel: ENALabel!
 
 	@IBOutlet private weak var backgroundImageView: UIImageView!
@@ -54,7 +54,7 @@ class HomeHealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierPr
 	@IBOutlet private weak var backgroundGradientView: GradientView!
 
 	private func setupAccessibility() {
-		containerView.accessibilityElements = [titleLabel as Any, nameLabel as Any, vaccinationStateLabel as Any]
+		containerView.accessibilityElements = [titleLabel as Any, nameLabel as Any, descriptionLabel as Any]
 
 		titleLabel.accessibilityTraits = [.header, .button]
 	}

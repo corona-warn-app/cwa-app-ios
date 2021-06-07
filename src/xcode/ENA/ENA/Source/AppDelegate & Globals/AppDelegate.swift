@@ -194,7 +194,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			store: store,
 			eventStore: eventStore,
 			diaryStore: contactDiaryStore,
-			appConfiguration: appConfigurationProvider
+			appConfiguration: appConfigurationProvider,
+			healthCertificateService: healthCertificateService
 		)
 	}()
 
@@ -296,7 +297,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		deviceCheck: PPACDeviceCheck()
 	)
 
-	private lazy var healthCertificateService: HealthCertificateServiceProviding = HealthCertificateService(store: store)
+	private lazy var healthCertificateService: HealthCertificateService = HealthCertificateService(
+		store: store,
+		client: client,
+		appConfiguration: appConfigurationProvider
+	)
 
 	#if targetEnvironment(simulator) || COMMUNITY
 	// Enable third party contributors that do not have the required

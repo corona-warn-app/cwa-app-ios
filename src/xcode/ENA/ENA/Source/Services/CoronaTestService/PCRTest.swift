@@ -23,7 +23,7 @@ struct PCRTest: Equatable {
 	var journalEntryCreated: Bool
 
 	var certificateConsentGiven: Bool
-	var certificateCreated: Bool
+	var certificateRequested: Bool
 
 }
 
@@ -42,7 +42,7 @@ extension PCRTest: Codable {
 		case keysSubmitted
 		case journalEntryCreated
 		case certificateConsentGiven
-		case certificateCreated
+		case certificateRequested
 	}
 
 	init(from decoder: Decoder) throws {
@@ -62,7 +62,7 @@ extension PCRTest: Codable {
 		journalEntryCreated = try container.decode(Bool.self, forKey: .journalEntryCreated)
 
 		certificateConsentGiven = try container.decodeIfPresent(Bool.self, forKey: .certificateConsentGiven) ?? false
-		certificateCreated = try container.decodeIfPresent(Bool.self, forKey: .certificateCreated) ?? false
+		certificateRequested = try container.decodeIfPresent(Bool.self, forKey: .certificateRequested) ?? false
 	}
 
 }

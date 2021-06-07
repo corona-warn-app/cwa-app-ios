@@ -10,7 +10,7 @@ class HealthCertificateQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutput
 	// MARK: - Init
 
 	init(
-		healthCertificateService: HealthCertificateServiceProviding,
+		healthCertificateService: HealthCertificateService,
 		onSuccess: @escaping (HealthCertifiedPerson) -> Void,
 		onError: ((QRScannerError) -> Void)?
 	) {
@@ -52,7 +52,7 @@ class HealthCertificateQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutput
 	}
 
 	func didScan(base45: String) {
-		let result = healthCertificateService.registerHealthCertificate(base45: base45)
+		let result = healthCertificateService.registerVaccinationCertificate(base45: base45)
 		switch result {
 		case .success(let healthCertifiedPerson):
 			self.onSuccess(healthCertifiedPerson)
@@ -165,6 +165,6 @@ class HealthCertificateQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutput
 
 	// MARK: - Private
 
-	private let healthCertificateService: HealthCertificateServiceProviding
+	private let healthCertificateService: HealthCertificateService
 	private let captureDevice: AVCaptureDevice?
 }
