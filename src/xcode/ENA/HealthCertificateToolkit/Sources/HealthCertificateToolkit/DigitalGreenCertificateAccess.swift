@@ -59,9 +59,16 @@ public struct DigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtoc
         }
 
         let cborWebTokenData = Data(cborWebToken.encode())
-
         let compressedCBORWebToken = cborWebTokenData.compressZLib()
+        guard !compressedCBORWebToken.isEmpty else {
+            return .failure(.HC_ZLIB_COMPRESSION_FAILED)
+        }
+
         let base45CBORWebToken = compressedCBORWebToken.toBase45()
+        guard !base45CBORWebToken.isEmpty else {
+            return .failure(.HC_BASE45_ENCODING_FAILED)
+        }
+
         let prefixedBase45CBORWebToken = hcPrefix+base45CBORWebToken
 
         return .success(prefixedBase45CBORWebToken)
@@ -87,7 +94,7 @@ public struct DigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtoc
         let payload = cborWebTokenEntries[2]
         let signature = cborWebTokenEntries[3]
 
-        guard case let .byteString(bytes) = payload else {
+        guard case let .byteString(payloadBytes) = payload else {
             return .failure(.HC_COSE_MESSAGE_INVALID)
         }
 
@@ -96,7 +103,7 @@ public struct DigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtoc
             initializationVector: AESEncryptionConstants.initializationVector
         )
 
-        let decryptedResult = aesEncryption.decrypt(data: Data(bytes))
+        let decryptedResult = aesEncryption.decrypt(data: Data(payloadBytes))
 
         guard case let .success(decryptedPayload) = decryptedResult else {
             return .failure(.AES_DECRYPTION_FAILED)
