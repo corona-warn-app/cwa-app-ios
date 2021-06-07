@@ -208,11 +208,11 @@
 
 "ExposureSubmission_TestCertificate_Information_Legal_Headline" = "Datenschutz und Datensicherheit";
 
-"ExposureSubmission_TestCertificate_Information_Legal_Text_1" = "Die Anforderung und Verwendung des digitalen COVID-19-Testzertifikats ist freiwillig. Der Nachweis eines negativen Testzertifikats kann auch auf andere Weise erbracht werden.";
+"ExposureSubmission_TestCertificate_Information_Legal_Text_1" = "Die Anforderung und Verwendung des digitalen COVID-Testzertifikats ist freiwillig. Der Nachweis eines negativen Testzertifikats kann auch auf andere Weise erbracht werden.";
 
 "ExposureSubmission_TestCertificate_Information_Legal_Text_2" = "Zur Erstellung Ihres Testzertifikats werden Daten einmalig verschlüsselt an das RKI übermittelt. Das RKI signiert die Daten elektronisch, um die Gültigkeit zu bestätigen. Die Daten werden beim RKI nicht gespeichert.";
 
-"ExposureSubmission_TestCertificate_Information_Legal_Text_3" = "Das COVID-19-Testzertifikat enthält die Daten über Ihren Corona-Test. Zum Nachweis des negativen Testergebnisses in den gesetzlich vorgesehenen Fällen genügt das Vorzeigen des QR-Codes in der App. Stellen Sie das Testzertifikat niemandem zur Verfügung, wenn Sie nicht wollen, dass die Daten ausgelesen werden.";
+"ExposureSubmission_TestCertificate_Information_Legal_Text_3" = "Das COVID-Testzertifikat enthält die Daten über Ihren Corona-Test. Zum Nachweis des negativen Testergebnisses in den gesetzlich vorgesehenen Fällen genügt das Vorzeigen des QR-Codes in der App. Stellen Sie das Testzertifikat niemandem zur Verfügung, wenn Sie nicht wollen, dass die Daten ausgelesen werden.";
 
 "ExposureSubmission_TestCertificate_Information_Legal_Text_4" = "Wenn Sie den QR-Code des Testzertifikats in der App vorzeigen und dieser mit der Prüf-App gescannt wird, können andere Personen Ihr Testergebnis nachvollziehen. Bei der Prüfung werden in der offiziellen Prüf-App auch Ihr Name und Ihr Geburtsdatum angezeigt.";
 
