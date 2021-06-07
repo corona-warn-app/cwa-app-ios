@@ -236,7 +236,7 @@
 			<string>Exposure logging has been active for %u days. An exposure check can only be reliable if exposure logging is permanently activated.</string>
 		</dict>
 	</dict>
-	<key>HealthCertificate_Home_Person_daysUntilCompleteProtection</key>
+	<key>VaccinationCertificate_daysUntilCompleteProtection</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@VARIABLE@</string>
