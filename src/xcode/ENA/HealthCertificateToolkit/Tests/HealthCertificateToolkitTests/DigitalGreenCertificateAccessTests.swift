@@ -85,7 +85,7 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
         }
     }
 
-    func test_When_DecodeCertificateFails_Then_SchemaInvalidErrorIsReturned() {
+    func test_When_DecodeVaccinationCertificateFails_Then_SchemaInvalidErrorIsReturned() {
         let certificateAccess = DigitalGreenCertificateAccess()
 
         /// This data contains data which leads to validation errors.
@@ -142,6 +142,72 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
         XCTAssertEqual(innerSchemaErrors.count, 3)
         XCTAssertTrue(containsNODateOfBirthError)
         XCTAssertTrue(containsNODateOfVaccination)
+        XCTAssertTrue(containsLengthError)
+    }
+
+    func test_When_DecodeTestCertificateFails_Then_SchemaInvalidErrorIsReturned() {
+        let certificateAccess = DigitalGreenCertificateAccess()
+
+        /// This data contains data which leads to validation errors.
+        /// Schema validation errors:
+        /// -Wrong format for dateOfBirth
+        /// -Wrong format for dateTimeOfSampleCollection
+        /// -Wrong format for dateTimeOfTestResult
+        /// -uniqueCertificateIdentifier length > 50
+        let fakeCertificate = DigitalGreenCertificate.fake(
+            dateOfBirth: "NotADateOfBirth",
+            testCertificates: [
+                TestCertificate.fake(
+                    dateTimeOfSampleCollection: "NotADateTimeOfSampleCollection",
+                    dateTimeOfTestResult: "NotADateTimeOfTestResult",
+                    uniqueCertificateIdentifier: "Lorem ipsum dolor sit amet, consetetur sadipscing e"
+                )
+            ]
+        )
+
+        let base45FakeResult = DigitalGreenCertificateFake.makeBase45Fake(from: fakeCertificate, and: CBORWebTokenHeader.fake())
+        guard case let .success(base45Fake) = base45FakeResult else {
+            XCTFail("Success expected.")
+            return
+        }
+
+        let result = certificateAccess.extractDigitalGreenCertificate(from: base45Fake)
+
+        guard case let .failure(error) = result else {
+            XCTFail("Error expected.")
+            return
+        }
+
+        guard case .HC_JSON_SCHEMA_INVALID(let schemaError) = error else {
+            XCTFail("HC_JSON_SCHEMA_INVALID expected.")
+            return
+        }
+
+        guard case .VALIDATION_RESULT_FAILED(let innerSchemaErrors) = schemaError else {
+            XCTFail("VALIDATION_RESULT_FAILED expected.")
+            return
+        }
+
+        let containsDateOfBirthError = innerSchemaErrors.contains {
+            $0.description.contains("NotADateOfBirth' does not match pattern")
+        }
+
+        let containsDateTimeOfSampleCollectionError = innerSchemaErrors.contains {
+            $0.description.contains("NotADateTimeOfSampleCollection' does not match pattern")
+        }
+
+        let containsDateTimeOfTestResult = innerSchemaErrors.contains {
+            $0.description.contains("NotADateTimeOfTestResult' does not match pattern")
+        }
+
+        let containsLengthError = innerSchemaErrors.contains {
+            $0.description == "Length of string is larger than max length 50"
+        }
+
+        XCTAssertEqual(innerSchemaErrors.count, 4)
+        XCTAssertTrue(containsDateOfBirthError)
+        XCTAssertTrue(containsDateTimeOfSampleCollectionError)
+        XCTAssertTrue(containsDateTimeOfTestResult)
         XCTAssertTrue(containsLengthError)
     }
 
