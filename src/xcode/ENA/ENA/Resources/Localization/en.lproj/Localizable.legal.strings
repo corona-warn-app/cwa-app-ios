@@ -194,12 +194,14 @@
 
 "HealthCertificate_Info_Legal_headline" = "Data protection and data security";
 
-"HealthCertificate_Info_Legal_section01" = "Using the digital vaccination certificate feature is voluntary. There are other ways to prove that you are fully vaccinated (e.g. using a yellow vaccination booklet).";
+"HealthCertificate_Info_Legal_section01" = "​Die Verwendung der digitalen COVID-Zertifikate ist freiwillig. Die Nachweise des vollständigen Impfschutzes oder eines negativen Testergebnisses können auch auf andere Weise erbracht werden.";
 
-"HealthCertificate_Info_Legal_section02" = "The vaccination certificate contains your COVID-19 vaccination details. In cases where you are required by law to prove that you have been vaccinated, it is sufficient to show the QR code in the app. Do not provide vaccination certificates or QR codes to anyone if you do not want the data to be read.";
+"HealthCertificate_Info_Legal_section02" = "Die COVID-Zertifikate enthalten Ihre personenbezogenen Daten (zu Impfungen oder Ihrem Testergebnis). Zum Nachweis in den gesetzlich vorgesehenen Fällen genügt das Vorzeigen des QR-Codes des Zertifikats in der App. Stellen Sie Ihre Zertifikate und die QR-Codes niemandem zur Verfügung, wenn Sie nicht wollen, dass die Daten ausgelesen werden.";
 
-"HealthCertificate_Info_Legal_section03" = "If you present the QR code in the app and it is scanned using the verification app, others will be able to tell whether you are fully vaccinated. During verification, the official verification app will also display your name and date of birth.";
+"HealthCertificate_Info_Legal_section03" = "Wenn Sie den QR-Code eines Zertifikats in der App zur Prüfung vorzeigen, können andere Personen Ihr Testergebnis nachvollziehen oder ob Ihr Impfschutz vollständig ist. Bei der Prüfung werden in der offiziellen Prüf-App auch Ihr Name und Ihr Geburtsdatum angezeigt.";
 
-"HealthCertificate_Info_Legal_section04" = "You have the possibility to delete vaccination certificates in the app at any time. Until then, the vaccination certificates will be stored on your smartphone.";
+"HealthCertificate_Info_Legal_section04" = "Sie haben jederzeit die Möglichkeit, COVID-Zertifikate in der App wieder zu entfernen. Bis dahin bleiben die Zertifikate auf Ihrem Smartphone gespeichert.";
+
+"HealthCertificate_Info_disclaimer" = "Ausführliche Informationen zur Datenverarbeitung finden Sie in der Datenschutzerklärung.";
 
 "HealthCertificate_Info_disclaimer" = "Detailed information about this data processing is available in the privacy notice";

@@ -193,12 +193,14 @@
 
 "HealthCertificate_Info_Legal_headline" = "Veri gizliliği ve veri güvenliği";
 
-"HealthCertificate_Info_Legal_section01" = "Dijital aşı sertifikasının kullanımı isteğe bağlıdır. Tam aşı korumasının gerçekleştirildiğine ilişkin kanıt, diğer yöntemlerle de sağlanabilir (örn. sarı aşı kartı ile).";
+"HealthCertificate_Info_Legal_section01" = "​Die Verwendung der digitalen COVID-Zertifikate ist freiwillig. Die Nachweise des vollständigen Impfschutzes oder eines negativen Testergebnisses können auch auf andere Weise erbracht werden.";
 
-"HealthCertificate_Info_Legal_section02" = "Aşı sertifikası, yaptırdığınız Korona aşılarınıza ilişkin veriler içerir. Yasal açıdan zorunlu durumlarda aşı koruması yaptırdığınızı kanıtlamak için Uygulamada QR kodu göstermeniz yeterli olacaktır. Söz konusu verilerin okunmasını istemiyorsanız, aşı sertifikasını ve QR kodu hiç kimseye göstermeyin.";
+"HealthCertificate_Info_Legal_section02" = "Die COVID-Zertifikate enthalten Ihre personenbezogenen Daten (zu Impfungen oder Ihrem Testergebnis). Zum Nachweis in den gesetzlich vorgesehenen Fällen genügt das Vorzeigen des QR-Codes des Zertifikats in der App. Stellen Sie Ihre Zertifikate und die QR-Codes niemandem zur Verfügung, wenn Sie nicht wollen, dass die Daten ausgelesen werden.";
 
-"HealthCertificate_Info_Legal_section03" = "QR kodu Uygulamada gösterirseniz ve bu kod, kontrol uygulamasıyla taranırsa, diğer kişiler sizin tam aşı koruması aldığınızı anlayabilir. Kontrol işlemi sırasında adınız ve doğum tarihiniz de resmi kontrol uygulamasında görüntülenecektir.";
+"HealthCertificate_Info_Legal_section03" = "Wenn Sie den QR-Code eines Zertifikats in der App zur Prüfung vorzeigen, können andere Personen Ihr Testergebnis nachvollziehen oder ob Ihr Impfschutz vollständig ist. Bei der Prüfung werden in der offiziellen Prüf-App auch Ihr Name und Ihr Geburtsdatum angezeigt.";
 
-"HealthCertificate_Info_Legal_section04" = "Aşı sertifikasını istediğiniz zaman Uygulamadan kaldırma seçeneğiniz vardır. Bunu yapıncaya kadar aşı sertifikaları akıllı telefonunuzda kayıtlı kalacaktır.";
+"HealthCertificate_Info_Legal_section04" = "Sie haben jederzeit die Möglichkeit, COVID-Zertifikate in der App wieder zu entfernen. Bis dahin bleiben die Zertifikate auf Ihrem Smartphone gespeichert.";
+
+"HealthCertificate_Info_disclaimer" = "Ausführliche Informationen zur Datenverarbeitung finden Sie in der Datenschutzerklärung.";
 
 "HealthCertificate_Info_disclaimer" = "Veri işleme ile ilgili ayrıntılı bilgileri Veri Gizliliği Beyanında bulabilirsiniz";
