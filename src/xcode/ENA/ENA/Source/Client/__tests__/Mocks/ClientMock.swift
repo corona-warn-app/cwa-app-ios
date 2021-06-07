@@ -62,8 +62,8 @@ final class ClientMock {
 	var onSubmitAnalytics: ((SAP_Internal_Ppdd_PPADataIOS, PPACToken, Bool, @escaping PPAnalyticsSubmitionCompletionHandler) -> Void)?
 	var onTraceWarningDiscovery: ((String, @escaping TraceWarningPackageDiscoveryCompletionHandler) -> Void)?
 	var onTraceWarningDownload: ((String, Int, @escaping TraceWarningPackageDownloadCompletionHandler) -> Void)?
-
-
+	var onDCCRegisterPublicKey: ((Bool, String, Data, @escaping DCCRegistrationCompletionHandler) -> Void)?
+	var onGetDigitalCovid19Certificate: ((String, Bool, @escaping DigitalCovid19CertificateCompletionHandler) -> Void)?
 }
 
 extension ClientMock: ClientWifiOnly {
@@ -237,6 +237,19 @@ extension ClientMock: Client {
 		onTraceWarningDownload(country, packageId, completion)
 	}
 
+	func dccRegisterPublicKey(
+		isFake: Bool,
+		token: String,
+		publicKey: Data,
+		completion: @escaping DCCRegistrationCompletionHandler
+	) {
+		guard let onDCCRegisterPublicKey = self.onDCCRegisterPublicKey else {
+			completion(.success(()))
+			return
+		}
+		onDCCRegisterPublicKey(isFake, token, publicKey, completion)
+	}
+
 	func submit(
 		errorLogFile: Data,
 		otpEls: String,
@@ -248,6 +261,19 @@ extension ClientMock: Client {
 		}
 
 		onSubmitErrorLog(errorLogFile, completion)
+	}
+	
+	func getDigitalCovid19Certificate(
+		registrationToken token: String,
+		isFake: Bool,
+		completion: @escaping DigitalCovid19CertificateCompletionHandler
+
+	) {
+		guard let onGetDigitalCovid19Certificate = self.onGetDigitalCovid19Certificate else {
+			completion(.success((DCCResponse(dek: "dataEncryptionKey", dcc: "coseObject"))))
+			return
+		}
+		onGetDigitalCovid19Certificate(token, isFake, completion)
 	}
 }
 #endif
