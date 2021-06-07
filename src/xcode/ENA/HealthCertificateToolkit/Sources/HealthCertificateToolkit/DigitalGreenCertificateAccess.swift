@@ -77,8 +77,6 @@ public struct DigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtoc
         return .success(prefixedBase45CBORWebToken)
     }
 
-
-
     // MARK: - Internal
 
     func decryptAndComposeToWebToken(from base64: Base64, dataEncryptionKey: Data) -> Result<CBOR, CertificateDecodingError>{
