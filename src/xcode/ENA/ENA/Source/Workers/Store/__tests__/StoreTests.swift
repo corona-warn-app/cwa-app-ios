@@ -127,7 +127,7 @@ final class StoreTests: CWATestCase {
 		XCTAssertNotEqual(databaseKey, keychain.loadFromKeychain(key: SecureStore.keychainDatabaseKey))
 
 		// cleanup
-		store.clearAll(key: nil)
+		store.wipeAll(key: nil)
 	}
 
 	func testConfigCaching() throws {

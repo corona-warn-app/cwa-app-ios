@@ -42,9 +42,9 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 	/// - Parameter key: the key for the new database; if no key is given, no new database will be created
 	///
 	/// - Note: This is just a wrapper to the `SQLiteKeyValueStore:clearAll:` call
-	func clearAll(key: String?) {
+	func wipeAll(key: String?) {
 		do {
-			try kvStore.clearAll(key: key)
+			try kvStore.wipeAll(key: key)
 		} catch {
 			Log.error("kv store error", log: .localData, error: error)
 		}

@@ -390,7 +390,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			let installationDate = store.appInstallationDate
 
 			let newKey = try KeychainHelper().generateDatabaseKey()
-			store.clearAll(key: newKey)
+			store.wipeAll(key: newKey)
 
 			/// write excluded values back to the 'new' store
 			store.ppacApiTokenEdus = ppacEdusApiToken

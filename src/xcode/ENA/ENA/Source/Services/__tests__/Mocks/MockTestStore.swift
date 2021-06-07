@@ -41,7 +41,7 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var submissionSymptomsOnset: SymptomsOnset = .noInformation
 	var journalWithExposureHistoryInfoScreenShown: Bool = false
 	
-	func clearAll(key: String?) {}
+	func wipeAll(key: String?) {}
 	#if !RELEASE
 	// Settings from the debug menu.
 	var fakeSQLiteError: Int32?
