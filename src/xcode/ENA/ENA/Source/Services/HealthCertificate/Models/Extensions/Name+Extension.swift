@@ -8,28 +8,49 @@ import HealthCertificateToolkit
 extension Name {
 
 	var fullName: String {
-		var givenName = self.givenName
-		var familyName = self.familyName
-
-		if givenName?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
-			givenName = standardizedGivenName
+		
+		let givenName: String?
+		let familyName: String
+		
+		if let value = self.givenName?.trimmingCharacters(in: .whitespacesAndNewlines), !value.isEmpty {
+			givenName = value
+		} else {
+			givenName = readableStandardizedGivenName
 		}
-
-		if familyName?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
-			familyName = standardizedFamilyName
+		
+		if let value = self.familyName?.trimmingCharacters(in: .whitespacesAndNewlines), !value.isEmpty {
+			familyName = value
+		} else {
+			familyName = readableStandardizedFamilyName
 		}
+		
+		let formatter = PersonNameComponentsFormatter()
+		formatter.style = .long
 
-		return [givenName, familyName]
-			.compactMap { $0 }
-			.filter { $0.trimmingCharacters(in: .whitespacesAndNewlines) != "" }
-			.joined(separator: " ")
+		var nameComponents = PersonNameComponents()
+		nameComponents.givenName = givenName
+		nameComponents.familyName = familyName
+
+		return formatter.string(from: nameComponents)
 	}
 
 	var standardizedName: String {
-		[standardizedGivenName, standardizedFamilyName]
-			.compactMap { $0 }
-			.filter { $0.trimmingCharacters(in: .whitespacesAndNewlines) != "" }
-			.joined(separator: " ")
+		
+		let formatter = PersonNameComponentsFormatter()
+		formatter.style = .long
+
+		var nameComponents = PersonNameComponents()
+		nameComponents.givenName = readableStandardizedGivenName
+		nameComponents.familyName = readableStandardizedFamilyName
+		
+		return formatter.string(from: nameComponents)
 	}
 
+	private var readableStandardizedGivenName: String? {
+		return standardizedGivenName?.components(separatedBy: "<").joined(separator: " ")
+	}
+	
+	private var readableStandardizedFamilyName: String {
+		return standardizedFamilyName.components(separatedBy: "<").joined(separator: " ")
+	}
 }
