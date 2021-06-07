@@ -250,7 +250,7 @@ extension ExposureSubmissionTestResultViewModel {
 							hairline: .none
 						)
 					)
-				} else if !test.certificateCreated {
+				} else if !test.certificateRequested {
 					cells.append(
 						ExposureSubmissionDynamicCell.stepCell(
 							title: AppStrings.ExposureSubmissionResult.testCertificateTitle,
@@ -302,7 +302,7 @@ extension ExposureSubmissionTestResultViewModel {
 							hairline: .none
 						)
 					)
-				} else if !test.certificateCreated {
+				} else if !test.certificateRequested {
 					cells.append(
 						ExposureSubmissionDynamicCell.stepCell(
 							title: AppStrings.ExposureSubmissionResult.testCertificateTitle,
@@ -581,7 +581,7 @@ extension ExposureSubmissionTestResultViewModel {
 		])
 		switch coronaTest.type {
 		case .pcr:
-			if let isCertificateCreated = coronaTest.pcrTest?.certificateCreated, isCertificateCreated {
+			if let isCertificateCreated = coronaTest.pcrTest?.certificateRequested, isCertificateCreated {
 				cells.append(
 					ExposureSubmissionDynamicCell.stepCell(
 						title: AppStrings.ExposureSubmissionResult.testCertificateTitle,
@@ -593,7 +593,7 @@ extension ExposureSubmissionTestResultViewModel {
 			}
 			
 		case .antigen:
-			if let isCertificateCreated = coronaTest.antigenTest?.certificateCreated, isCertificateCreated {
+			if let isCertificateCreated = coronaTest.antigenTest?.certificateRequested, isCertificateCreated {
 				cells.append(
 					ExposureSubmissionDynamicCell.stepCell(
 						title: AppStrings.ExposureSubmissionResult.testCertificateTitle,
@@ -677,7 +677,7 @@ extension ExposureSubmissionTestResultViewModel {
 			)
 		])
 		
-		if test.certificateCreated {
+		if test.certificateRequested {
 			cells.append(
 				ExposureSubmissionDynamicCell.stepCell(
 					title: AppStrings.ExposureSubmissionResult.testCertificateTitle,
