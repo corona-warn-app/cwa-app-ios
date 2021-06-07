@@ -27,7 +27,7 @@ class TanInputViewController: UITableViewController, FooterViewHandling {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		view.backgroundColor = ColorCompatibility.systemBackground
+		
 		setupViews()
 		setupViewModelBindings()
 	}
@@ -102,8 +102,12 @@ class TanInputViewController: UITableViewController, FooterViewHandling {
 
 	private func setupViews() {
 		
+		view.backgroundColor = ColorCompatibility.systemBackground
+		
 		parent?.navigationItem.title = AppStrings.ExposureSubmissionTanEntry.title
 		parent?.navigationItem.rightBarButtonItem = CloseBarButtonItem(onTap: dismiss)
+		parent?.navigationController?.navigationBar.prefersLargeTitles = true
+		parent?.navigationController?.navigationBar.sizeToFit()
 		
 		tableView.register(TANInputCell.self, forCellReuseIdentifier: TANInputCell.cellIdentifier)
 		tableView.register(TANErrorCell.self, forCellReuseIdentifier: TANErrorCell.cellIdentifier)
