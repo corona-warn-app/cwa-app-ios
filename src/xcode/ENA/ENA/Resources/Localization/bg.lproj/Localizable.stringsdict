@@ -236,7 +236,7 @@
 			<string>Регистрирането на излаганията на риск е активно от %u дни. Проверката за излагане на риск може да бъде надеждна само ако регистрирането е постоянно активирано.</string>
 		</dict>
 	</dict>
-	<key>HealthCertificate_Home_Person_daysUntilCompleteProtection</key>
+	<key>VaccinationCertificate_daysUntilCompleteProtection</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@VARIABLE@</string>

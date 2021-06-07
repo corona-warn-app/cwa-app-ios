@@ -521,8 +521,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 	}
 
-	// show a overwrite notice screen if a test of give type was registered before
-	// registerTestAndGetResult will update the loading state of the primary button
+	// show an overwrite notice screen if a test of given type was registered before
+	// registerTestAndGetResult will update the loading state of the primary button later
 	private func showOverrideTestNoticeIfNecessary(
 		testRegistrationInformation: CoronaTestRegistrationInformation,
 		submissionConsentGiven: Bool,
