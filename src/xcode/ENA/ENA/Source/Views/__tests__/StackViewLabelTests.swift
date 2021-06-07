@@ -11,4 +11,3 @@ final class StackViewLabelTests: CWATestCase {
 		XCTAssertNotNil(StackViewLabelTests())
 	}
 }
-
