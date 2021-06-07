@@ -232,6 +232,7 @@ class EventCheckoutServiceTests: CWATestCase {
 		)
 
 		let sinkExpectation = expectation(description: "Sink should be called.")
+		sinkExpectation.expectedFulfillmentCount = 2
 		mockEventStore.checkinsPublisher.dropFirst().sink { _ in
 			sinkExpectation.fulfill()
 		}.store(in: &subscriptions)

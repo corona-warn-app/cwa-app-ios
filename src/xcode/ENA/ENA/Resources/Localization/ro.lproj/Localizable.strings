@@ -85,6 +85,8 @@
 
 "ExposureDetection_LoadingText" = "Datele curente sunt în curs de descărcare și verificare. Aceasta poate dura mai multe minute.";
 
+"ExposureDetection_Contact_Journal_Text" = "Veți găsi mai multe informații despre expunerile dvs. în jurnalul dvs. de contacte.";
+
 "ExposureDetection_Behavior_Title" = "Instrucțiuni";
 
 "ExposureDetection_Behavior_Subtitle" = "Iată ce trebuie să faceți:";
@@ -495,7 +497,7 @@
 
 "ExposureSubmissionDispatch_QRCodeButtonTitle" = "Scanare cod QR";
 
-"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Primiți rezultatul testului dvs. în aplicație și avertizați-i pe ceilalți.";
+"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Primiți rezultatul testului dvs. în aplicație și avertizați-i pe ceilalți sau solicitați certificatul dvs. de test COVID-19.";
 
 "ExposureSubmissionDispatch_TANButtonTitle" = "Introduceți codul TAN pentru testul PCR";
 
@@ -549,6 +551,8 @@
 "ExposureSubmissionQRInfo_instruction1" = "Acum scanați codul QR de pe testul dvs. și aflați rezultatul testului.";
 
 "ExposureSubmissionQRInfo_instruction2" = "Fiecare test poate fi scanat o singură dată. Aplicația poate gestiona cel mult un test rapid și un test PCR în același timp.";
+
+"ExposureSubmissionQRInfo_instruction2a" = "Dacă rezultatul testului dvs. este negativ, puteți confirma acest lucru cu un certificat de test COVID-19 oficial. Pentru aceasta, solicitați certificatul de test în următoarele etape.";
 
 "ExposureSubmissionQRInfo_instruction3" = "Aplicația %@ poate gestiona mai multe teste simultan.";
 
@@ -851,6 +855,10 @@
 
 "ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Rezultatul testului dvs. este privat, deși unele legi vă pot solicita să îl partajați. Când vi se solicită acest lucru, îl puteți arăta prin intermediul unuia dintre modurile furnizate.";
 
+"ExposureSubmissionResult_Negative_Antigen_NoProof_Title" = "Caracteristica fără verificare";
+
+"ExposureSubmissionResult_Negative_Antigen_NoProof_Desc" = "Deoarece rezultatul de aici este anonimizat, nu poate fi utilizat ca dovadă a unui rezultat de test rapid negativ.";
+
 /* Exposure Submission */
 "ExposureSubmissionError_ErrorPrefix" = "A apărut o eroare tehnică la trimiterea datelor dvs. Contactați hotline-ul tehnic. Veți găsi numărul de telefon accesând Informații aplicație.";
 
@@ -941,6 +949,35 @@
 "ExposureSubmission_Profile_ProfileTile_Title" = "Profil de test rapid";
 
 "ExposureSubmission_Profile_ProfileTile_Description" = "Economisiți timp și prezentați profilul dvs. de test rapid la punctul de testare.";
+
+/* ExposureSubmission TestCertificate */
+"ExposureSubmission_TestCertificate_Information_Title" = "Certificat de test COVID";
+
+"ExposureSubmission_TestCertificate_Information_PrimaryButton" = "Solicitare certificat de test";
+
+"ExposureSubmission_TestCertificate_Information_SecondaryButton" = "Nu, mulțumesc";
+
+"ExposureSubmission_TestCertificate_Information_ImageDescription" = "O femeie cu un smartphone utilizează Corona-Warn-App. O bifă pe un sigiliu din spatele său simbolizează un certificat valabil.";
+
+"ExposureSubmission_TestCertificate_Information_Section01" = "Certificatul de test este emis doar dacă rezultatul testului dvs. este negativ.";
+
+"ExposureSubmission_TestCertificate_Information_Section02" = "Certificatul de test este o dovadă valabilă a unui rezultat de test negativ în UE (de exemplu, în scop de călătorie).";
+
+"ExposureSubmission_TestCertificate_Information_Subheadline" = "Puteți utiliza aplicația pentru a solicita un certificat de test digital oficial, care este apoi adăugat în aplicație.";
+
+"ExposureSubmission_TestCertificate_Information_BirthdayPlaceholder" = "Data nașterii";
+
+"ExposureSubmission_TestCertificate_Information_BirthdayText" = "În scop de securitate, rezultatul testului dvs. este protejat cu data nașterii dvs. Rezultatul de test poate fi emis doar dacă specificați data corectă a nașterii.";
+
+"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Pentru mai multe informații despre prelucrarea datelor, consultați înștiințarea de confidențialitate.";
+
+"ExposureSubmission_TestCertificate_Information_Alert_Title" = "Anulare înregistrare";
+
+"ExposureSubmission_TestCertificate_Information_Alert_Message" = "Dacă anulați înregistrarea testului, nu puteți primi rezultatul testului dvs. în aplicație.";
+
+"ExposureSubmission_TestCertificate_Information_Alert_ContinueRegistration" = "Continuare înregistrare";
+
+"ExposureSubmission_TestCertificate_Information_Alert_CancelRegistration" = "Anulare înregistrare";
 
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Înregistrarea în jurnal a expunerilor";
@@ -1197,10 +1234,18 @@
 
 "Home_Finding_Positive_Card_Button" = "Avertizați-i pe ceilalți";
 
+"Home_Finding_Positive_Card_Button_Remove_Test" = "Eliminare test";
+
+"Home_Finding_Positive_Card_Remove_Test_Alert_Title" = "Sigur doriți să eliminați testul dvs.?";
+
+"Home_Finding_Positive_Card_Remove_Test_Alert_Description" = "În caz afirmativ, alte persoane nu vor fi avertizate.";
+
+"Home_Finding_Positive_Card_Remove_Test_Alert_Description_Delete_Button" = "Eliminare";
+
 /* Home Test Registration Card */
 "Home_TestRegistration_Title" = "Înregistrarea testului dvs.";
 
-"Home_TestRegistration_Body" = "Utilizați aplicația pentru a înregistra testele dvs. și a afla rezultatele testelor dvs. pentru a-i putea avertiza pe ceilalți mai rapid.";
+"Home_TestRegistration_Body" = "Utilizați aplicația pentru a înregistra testele dvs. și pentru a afla rezultatele testelor dvs. pentru a-i putea avertiza pe ceilalți mai rapid sau pentru a solicita certificatul dvs. de test COVID-19.";
 
 "Home_TestRegistration_Button" = "Pașii următori";
 
@@ -1480,10 +1525,14 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Modificările din această versiune pot fi găsite în informațiile aplicației, la „Caracteristici noi”.";
 
-/* Version 2.3 */
-"NewVersionFeature_23_digital_vaccination_certificate_title" = "Dovada digitală a vaccinării";
+/* Version 2.4 */
+"NewVersionFeature_24_digital_covid_cert_title" = "Certificat de test COVID";
 
-"NewVersionFeature_23_digital_vaccination_certificate_description" = "Acum puteți adăuga certificatele dvs. de vaccinare în aplicație și le puteți prezenta prin codul QR. Aplicația arată protecția prin vaccinarea completă la 14 zile de la vaccinarea finală.";
+"NewVersionFeature_24_digital_covid_cert_description" = "Acum puteți solicita un certificat de test digital oficial prin aplicație și apoi îl puteți adăuga în aplicație. Puteți utiliza acest certificat de test (cod QR) în UE pentru a face dovada unui rezultat de test negativ (de exemplu, pentru călătoria internațională).";
+
+"NewVersionFeature_24_extended_diary_title" = "Extinderea jurnalului de contacte";
+
+"NewVersionFeature_24_extended_diary_title_description" = "De îndată ce rezultatul testului dvs. este disponibil, acum acesta este adăugat și la jurnalul dvs. de contacte.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Înregistrare transnațională a expunerilor în jurnal";
@@ -1618,6 +1667,14 @@
 "ContactDiary_Overview_PersonEncounter_Setting_Inside" = "În interior";
 
 "ContactDiary_Overview_LocationVisit_Abbreviation_Hours" = "ore";
+
+"ContactDiary_Overview_Tests_PCR_Registered" = "Test PCR înregistrat";
+
+"ContactDiary_Overview_Tests_Antigen_Done" = "Test rapid efectuat";
+
+"ContactDiary_Overview_Tests_Negative_Result" = "Diagnostic negativ";
+
+"ContactDiary_Overview_Tests_Positive_Result" = "Diagnostic pozitiv";
 
 /* ActionSheet */
 "ContactDiary_Overview_ActionSheet_InfoActionTitle" = "Informații";
@@ -1900,6 +1957,8 @@
 
 /* Tabbar */
 "Tabbar_Home_Title" = "Ecran inițial";
+
+"Tabbar_Certificates_Title" = "Certificate";
 
 "Tabbar_Diary_Title" = "Jurnal";
 
@@ -2355,25 +2414,47 @@
 
 "AntigenProfile_Create_CityPlaceholder" = "Localitate";
 
-"AntigenProfile_Create_PhoneNumberPlaceholder" = "Telefon";
+"AntigenProfile_Create_PhoneNumberPlaceholder" = "Număr telefon";
 
 "AntigenProfile_Create_EmailAddressPlaceholder" = "Adresă e-mail";
 
 "AntigenProfile_Create_Save_Button_Title" = "Salvare";
 
 /* Antigen Profile */
-"AntigenProfile_Delete_Alert_Title" = "Doriți să ștergeți profilul de test rapid?";
+"AntigenProfile_Delete_Alert_Title" = "Doriți să eliminați profilul de test rapid?";
 
 "AntigenProfile_Delete_Alert_Description" = "Luați în considerare că dacă îl ștergeți, codul QR nu mai poate fi utilizat pentru înregistrare.";
 
 "AntigenProfile_Delete_Alert_Delete_Button_Title" = "Eliminare";
+
+/* Health Certificate Overview */
+"HealthCertificate_Overview_title" = "Certificate";
+
+"HealthCertificate_Overview_description" = "Certificatele dvs. de vaccinare digitale și certificatele de test digitale sunt afișate aici.";
+
+/* - Vaccination Certificate Registration */
+"VaccinationCertificate_Registration_title" = "Adăugarea dovezii\ndigitale a vaccinării";
+
+"VaccinationCertificate_Registration_description" = "Adăugați certificatele dvs. de vaccinare în aplicație pentru a le avea mereu cu dvs. Pentru aceasta, scanați codul QR din documentul dvs.";
+
+/* - Vaccination Certificate */
+"VaccinationCertificate_title" = "Dovada digitală\na vaccinării";
+
+"VaccinationCertificate_partiallyVaccinated" = "Vaccinare incompletă";
+
+"VaccinationCertificate_vaccinationValidUntil" = "Valabil până la %@";
+
+/* - Test Certificate Info */
+"TestCertificate_Info_title" = "Certificat\nde test COVID digital UE";
+
+"TestCertificate_Info_description" = "Înregistrați un test pe ecranul inițial și consimțiți să primiți un certificat de test digital. De îndată ce este disponibil certificatul, acesta este afișat aici.";
 
 /* Health Certificate Information */
 "HealthCertificate_Info_Title" = "Adăugare certificat de vaccinare";
 
 "HealthCertificate_Info_imageDescription" = "O persoană imunizată se uită pe smartphone";
 
-"HealthCertificate_Info_description" = "Adăugați certificatul de vaccinare digital în aplicație. De îndată ce protecția prin vaccinare este completă, puteți prezenta codul QR în aplicație ca dovadă a vaccinării.";
+"HealthCertificate_Info_description" = "Adăugați dovada vaccinării digitale în aplicație. De îndată ce protecția prin vaccinare este completă, puteți prezenta codul QR în aplicație ca dovadă a vaccinării.";
 
 "HealthCertificate_Info_section01" = "Pentru a adăuga un certificat de vaccinare în aplicație, scanați codul QR pe care l-ați primit la vaccinare.";
 
@@ -2387,20 +2468,6 @@
 "HealthCertificate_QRScanner_title" = "Scanare cod QR";
 
 "HealthCertificate_QRScanner_instruction" = "Scanare cod QR și înregistrare";
-
-/* - Registration */
-"HealthCertificate_Home_Registration_title" = "Adăugare certificat de vaccinare";
-
-"HealthCertificate_Home_Registration_description" = "Adăugați certificate de vaccinare în aplicație pentru a le avea mereu cu dvs. Pentru aceasta, scanați codul QR din documentul dvs.";
-
-"HealthCertificate_Home_Registration_buttonTitle" = "Adăugare";
-
-/* - Person */
-"HealthCertificate_Home_Person_caption" = "Dovada digitală a vaccinării";
-
-"HealthCertificate_Home_Person_title" = "Vaccinare SARS-CoV-2";
-
-"HealthCertificate_Home_Person_partiallyVaccinated" = "Vaccinare incompletă";
 
 /* Health Certified Person Screen */
 "HealthCertifiedPerson_title" = "Dovada digitală a vaccinării";
