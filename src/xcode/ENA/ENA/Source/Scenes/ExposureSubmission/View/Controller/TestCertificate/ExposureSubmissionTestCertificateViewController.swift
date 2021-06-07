@@ -12,8 +12,8 @@ class ExposureSubmissionTestCertificateViewController: DynamicTableViewControlle
 	init(
 		_ viewModel: ExposureSubmissionTestCertificateViewModel,
 		showCancelAlert: @escaping () -> Void,
-		didTapPrimaryButton: @escaping (CoronaTestType, String?) -> Void,
-		didTapSecondaryButton: @escaping () -> Void
+		didTapPrimaryButton: @escaping (String?, @escaping (Bool) -> Void) -> Void,
+		didTapSecondaryButton: @escaping (@escaping (Bool) -> Void) -> Void
 	) {
 		self.viewModel = viewModel
 		self.showCancelAlert = showCancelAlert
@@ -46,14 +46,30 @@ class ExposureSubmissionTestCertificateViewController: DynamicTableViewControlle
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
 		switch type {
 		case .primary:
-			if let date = viewModel.dateOfBirth {
-				let dateOfBirthString = ISO8601DateFormatter.justLocalDateFormatter.string(from: date)
-				didTapPrimaryButton(viewModel.testType, dateOfBirthString)
-			} else {
-				didTapPrimaryButton(viewModel.testType, nil)
+			let dateOfBirthString = viewModel.dateOfBirth.map {
+				ISO8601DateFormatter.justLocalDateFormatter.string(from: $0)
+			}
+
+			didTapPrimaryButton(dateOfBirthString) { [weak self] isLoading in
+				guard let self = self else { return }
+
+				self.footerView?.setLoadingIndicator(isLoading, disable: isLoading ? true : self.viewModel.isPrimaryButtonEnabled, button: .primary)
+				self.footerView?.setLoadingIndicator(false, disable: isLoading, button: .secondary)
+
+				// Required to disable changing the date of birth while loading
+				self.tableView.isUserInteractionEnabled = !isLoading
+
 			}
 		case .secondary:
-			didTapSecondaryButton()
+			didTapSecondaryButton { [weak self] isLoading in
+				guard let self = self else { return }
+
+				self.footerView?.setLoadingIndicator(false, disable: isLoading ? true : self.viewModel.isPrimaryButtonEnabled, button: .primary)
+				self.footerView?.setLoadingIndicator(isLoading, disable: isLoading, button: .secondary)
+
+				// Required to disable changing the date of birth while loading
+				self.tableView.isUserInteractionEnabled = !isLoading
+			}
 		}
 	}
 
@@ -61,8 +77,8 @@ class ExposureSubmissionTestCertificateViewController: DynamicTableViewControlle
 
 	private let viewModel: ExposureSubmissionTestCertificateViewModel
 	private let showCancelAlert: () -> Void
-	private let didTapPrimaryButton: (CoronaTestType, String?) -> Void
-	private let didTapSecondaryButton: () -> Void
+	private let didTapPrimaryButton: (String?, @escaping (Bool) -> Void) -> Void
+	private let didTapSecondaryButton: (@escaping (Bool) -> Void) -> Void
 
 	private var subscriptions = Set<AnyCancellable>()
 
@@ -101,4 +117,5 @@ class ExposureSubmissionTestCertificateViewController: DynamicTableViewControlle
 	private func didTapView() {
 		view.endEditing(true)
 	}
+
 }
