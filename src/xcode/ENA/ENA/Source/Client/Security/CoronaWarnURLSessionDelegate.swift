@@ -36,7 +36,7 @@ extension CoronaWarnURLSessionDelegate: URLSessionDelegate {
 		//
 		// [1]: https://developer.apple.com/documentation/security/certificate_key_and_trust_services/trust/evaluating_a_trust_and_parsing_the_result
 		if #available(iOS 13.0, *) {
-			SecTrustEvaluateAsyncWithError(trust, .main) { [weak self] trust, isValid, error in
+			SecTrustEvaluateAsyncWithError(trust, session.delegateQueue.underlyingQueue ?? .main) { [weak self] trust, isValid, error in
 				guard isValid else {
 					Log.error("Evaluation failed with error: \(error?.localizedDescription ?? "<nil>")", log: .api, error: error)
 					completionHandler(.cancelAuthenticationChallenge, /* credential */ nil)

@@ -23,6 +23,7 @@ protocol Client {
 	typealias PPAnalyticsSubmitionCompletionHandler = (Result<Void, PPASError>) -> Void
 	typealias TraceWarningPackageDiscoveryCompletionHandler = (Result<TraceWarningDiscovery, TraceWarningError>) -> Void
 	typealias TraceWarningPackageDownloadCompletionHandler = (Result<PackageDownloadResponse, TraceWarningError>) -> Void
+	typealias DCCRegistrationCompletionHandler = (Result<Void, DCCErrors.RegistrationError>) -> Void
 	
 	// MARK: Interacting with a Client
 
@@ -155,7 +156,7 @@ protocol Client {
 	/// GET call to load the IDs from the traceWarnings from CDN. It eventually returns the ID of the the first and last TraceWarningPackage that is available on CDN. The return is the set of all integers between (and including) first and last.
 	/// - Parameters:
 	///   - country: The country.ID for which country we want the IDs.
-	///   - completion: The completion handler of the get call, which contains the set of availbalePackagesOnCDN.
+	///   - completion: The completion handler of the get call, which contains the set of availablePackagesOnCDN.
 	func traceWarningPackageDiscovery(
 		country: String,
 		completion: @escaping TraceWarningPackageDiscoveryCompletionHandler
@@ -170,6 +171,21 @@ protocol Client {
 		country: String,
 		packageId: Int,
 		completion: @escaping TraceWarningPackageDownloadCompletionHandler
+	)
+
+	// MARK: DccTestResultRegistration
+
+	/// POST call to register DCCPublicKey
+	/// - Parameters:
+	///   - isFake: Flag to indicate a fake request
+	///   - token: our token we want to register
+	///   - publicKey: our public RSA key to enable secure connection
+	///   - completion: completionHandler of post call with a void response
+	func dccRegisterPublicKey(
+		isFake: Bool,
+		token: String,
+		publicKey: Data,
+		completion: @escaping DCCRegistrationCompletionHandler
 	)
 }
 
