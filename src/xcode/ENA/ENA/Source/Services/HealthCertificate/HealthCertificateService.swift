@@ -212,7 +212,7 @@ class HealthCertificateService {
 							publicKey: publicKey,
 							completion: { result in
 								switch result {
-								case .success():
+								case .success:
 									testCertificateRequest.rsaPublicKeyRegistered = true
 									DispatchQueue.global().asyncAfter(deadline: .now() + waitAfterPublicKeyRegistrationInSeconds) {
 										self.requestDigitalCovidCertificate(
