@@ -1900,9 +1900,13 @@ enum AppStrings {
 				}
 
 				enum Error {
-					static let tryAgain = NSLocalizedString("TestCertificateRequest_Error_TRY_AGAIN", comment: "")
-					static let dccNotSupportedByLab = NSLocalizedString("TestCertificateRequest_Error_DGC_NOT_SUPPORTED_BY_LAB", comment: "")
+					static let clientErrorCallHotline = NSLocalizedString("TestCertificateRequest_Error_CLIENT_ERROR_CALL_HOTLINE", comment: "")
+					static let dccExpired = NSLocalizedString("TestCertificateRequest_Error_DCC_EXPIRED", comment: "")
+					static let dccNotSupportedByLab = NSLocalizedString("TestCertificateRequest_Error_DCC_NOT_SUPPORTED_BY_LAB", comment: "")
+					static let e2eErrorCallHotline = NSLocalizedString("TestCertificateRequest_Error_E2E_ERROR_CALL_HOTLINE", comment: "")
 					static let noNetwork = NSLocalizedString("TestCertificateRequest_Error_NO_NETWORK", comment: "")
+					static let tryAgain = NSLocalizedString("TestCertificateRequest_Error_TRY_AGAIN", comment: "")
+					static let tryAgainDCCNotAvailableYet = NSLocalizedString("TestCertificateRequest_Error_TRY_AGAIN_DCC_NOT_AVAILABLE_YET", comment: "")
 				}
 			}
 		}

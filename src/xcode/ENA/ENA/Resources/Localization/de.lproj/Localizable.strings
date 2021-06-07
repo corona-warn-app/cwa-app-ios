@@ -2570,11 +2570,19 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Test Certificate Request Errors */
 
-"TestCertificateRequest_Error_TRY_AGAIN" = "(%@)\n\nWollen sie das fehlerhafte Zertifikat löschen?";
+"TestCertificateRequest_Error_CLIENT_ERROR_CALL_HOTLINE" = "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später noch einmal oder kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline. (%@)";
 
-"TestCertificateRequest_Error_DGC_NOT_SUPPORTED_BY_LAB" = "(%@)\n\nWollen sie das fehlerhafte Zertifikat löschen?";
+"TestCertificateRequest_Error_DCC_EXPIRED" = "Das Zertifikat ist nicht mehr aktuell, Sie können es aus der Corona-App entfernen. (%@)";
 
-"TestCertificateRequest_Error_NO_NETWORK" = "(%@)\n\nWollen sie das fehlerhafte Zertifikat löschen?";
+"TestCertificateRequest_Error_DCC_NOT_SUPPORTED_BY_LAB" = "Ein Testzertifikat kann nicht angefordert werden, da diese Teststelle die Ausstellung von Testzertifikaten nicht unterstützt. Bitte entfernen Sie das Zertifikat oder kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline. (%@)";
+
+"TestCertificateRequest_Error_E2E_ERROR_CALL_HOTLINE" = "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später noch einmal oder kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline. (%@)";
+
+"TestCertificateRequest_Error_NO_NETWORK" = "Ihre Internetverbindung wurde unterbrochen. Bitte prüfen Sie die Verbindung und versuchen Sie es erneut. (%@)";
+
+"TestCertificateRequest_Error_TRY_AGAIN" = "Es konnte keine Verbindung hergestellt werden. Bitte versuchen Sie es erneut. (%@)";
+
+"TestCertificateRequest_Error_TRY_AGAIN_DCC_NOT_AVAILABLE_YET" = "Ihr Zertifikat liegt noch nicht vor. Bitte versuchen Sie es noch einmal. Sollte der Fehler weiterhin bestehen, kontaktieren Sie bitte die technische Hotline über App-Informationen -> Technische Hotline. (%@)";
 
 /* Health Certificate Information */
 
