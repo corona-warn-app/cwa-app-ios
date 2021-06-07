@@ -534,7 +534,7 @@ class CoronaTestServiceTests: CWATestCase {
 		XCTAssertFalse(pcrTest.keysSubmitted)
 		XCTAssertTrue(pcrTest.journalEntryCreated)
 		XCTAssertTrue(pcrTest.certificateConsentGiven)
-		XCTAssertFalse(pcrTest.certificateRequested)
+		XCTAssertTrue(pcrTest.certificateRequested)
 
 		XCTAssertEqual(store.pcrTestResultMetadata?.testResult, .negative)
 		XCTAssertEqual(
@@ -601,7 +601,7 @@ class CoronaTestServiceTests: CWATestCase {
 		}
 
 		XCTAssertTrue(pcrTest.certificateConsentGiven)
-		XCTAssertFalse(pcrTest.certificateRequested)
+		XCTAssertTrue(pcrTest.certificateRequested)
 	}
 
 	func testRegisterPCRTestAndGetResult_CertificateConsentGivenWithoutDateOfBirth() {
@@ -1198,7 +1198,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		XCTAssertTrue(antigenTest.certificateSupportedByPointOfCare)
 		XCTAssertTrue(antigenTest.certificateConsentGiven)
-		XCTAssertFalse(antigenTest.certificateRequested)
+		XCTAssertTrue(antigenTest.certificateRequested)
 	}
 
 	func testRegisterAntigenTestAndGetResult_RegistrationFails() {
