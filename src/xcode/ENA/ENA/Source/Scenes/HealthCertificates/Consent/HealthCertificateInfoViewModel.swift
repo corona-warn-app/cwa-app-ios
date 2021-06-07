@@ -40,17 +40,17 @@ struct HealthCertificateInfoViewModel {
 						text: AppStrings.HealthCertificate.Info.description
 					),
 					.icon(
-						UIImage(imageLiteralResourceName: "Icons_FaceID"),
+						UIImage(imageLiteralResourceName: "Icons_QR5"),
 						text: .string(AppStrings.HealthCertificate.Info.section01),
 						alignment: .top
 					),
 					.icon(
-						UIImage(imageLiteralResourceName: "Icons_QR5"),
+						UIImage(imageLiteralResourceName: "Icons_Certificates_01"),
 						text: .string(AppStrings.HealthCertificate.Info.section02),
 						alignment: .top
 					),
 					.icon(
-						UIImage(imageLiteralResourceName: "Icons_Shield"),
+						UIImage(imageLiteralResourceName: "Icons - Smartphone"),
 						text: .string(AppStrings.HealthCertificate.Info.section03),
 						alignment: .top
 					)
