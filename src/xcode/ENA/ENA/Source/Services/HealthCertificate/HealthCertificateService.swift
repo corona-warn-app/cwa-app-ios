@@ -164,6 +164,7 @@ class HealthCertificateService {
 		}
 
 		let testCertificateRequest = TestCertificateRequest(
+			coronaTestType: coronaTestType,
 			registrationToken: registrationToken,
 			registrationDate: registrationDate
 		)
