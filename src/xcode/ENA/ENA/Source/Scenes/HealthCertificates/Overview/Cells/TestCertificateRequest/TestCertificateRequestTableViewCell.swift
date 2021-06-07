@@ -33,7 +33,12 @@ class TestCertificateRequestTableViewCell: UITableViewCell, ReuseIdentifierProvi
 
 	// MARK: - Internal
 
-	func configure(with cellModel: TestCertificateRequestCellModel, onUpdate: @escaping () -> Void) {
+	func configure(
+		with cellModel: TestCertificateRequestCellModel,
+		onTryAgainButtonTap: @escaping () -> Void,
+		onRemoveButtonTap: @escaping () -> Void,
+		onUpdate: @escaping () -> Void
+	) {
 		titleLabel.text = cellModel.title
 
 		subtitleLabel.text = cellModel.subtitle
@@ -65,14 +70,16 @@ class TestCertificateRequestTableViewCell: UITableViewCell, ReuseIdentifierProvi
 			}
 			.store(in: &subscriptions)
 
-		tryAgainButton.setTitle(cellModel.buttonTitle, for: .normal)
-		tryAgainButton.isHidden = cellModel.isTryAgainButtonHidden
+		tryAgainButton.setTitle(cellModel.tryAgainButtonTitle, for: .normal)
+		removeButton.setTitle(cellModel.removeButtonTitle, for: .normal)
 
-		cellModel.$isTryAgainButtonHidden
+		buttonsStackView.isHidden = cellModel.buttonsHidden
+
+		cellModel.$buttonsHidden
 			.dropFirst() // First state is set manually above without calling onUpdate() to prevent initial animation, especially on reuse
 			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] in
-				self?.tryAgainButton.isHidden = $0
+				self?.buttonsStackView.isHidden = $0
 				self?.updateAccessibilityElements()
 				onUpdate()
 			}
@@ -81,11 +88,15 @@ class TestCertificateRequestTableViewCell: UITableViewCell, ReuseIdentifierProvi
 		updateAccessibilityElements()
 
 		self.cellModel = cellModel
+		self.onTryAgainButtonTap = onTryAgainButtonTap
+		self.onRemoveButtonTap = onRemoveButtonTap
 	}
 	
 	// MARK: - Private
 
 	private var cellModel: TestCertificateRequestCellModel?
+	private var onTryAgainButtonTap: (() -> Void)?
+	private var onRemoveButtonTap: (() -> Void)?
 	private var subscriptions = Set<AnyCancellable>()
 
 	@IBOutlet private weak var titleLabel: ENALabel!
@@ -96,12 +107,18 @@ class TestCertificateRequestTableViewCell: UITableViewCell, ReuseIdentifierProvi
 	@IBOutlet private weak var loadingActivityIndicator: UIActivityIndicatorView!
 	@IBOutlet private weak var loadingStateLabel: ENALabel!
 
+	@IBOutlet private weak var buttonsStackView: UIStackView!
 	@IBOutlet private weak var tryAgainButton: ENAButton!
+	@IBOutlet private weak var removeButton: ENAButton!
 
 	@IBOutlet private weak var containerView: CardView!
 
 	@IBAction private func didTapTryAgainButton(_ sender: Any) {
-		cellModel?.didTapButton()
+		onTryAgainButtonTap?()
+	}
+
+	@IBAction func removeButtonTapped(_ sender: Any) {
+		onRemoveButtonTap?()
 	}
 
 	private func updateActivityIndicatorStyle() {
@@ -119,8 +136,9 @@ class TestCertificateRequestTableViewCell: UITableViewCell, ReuseIdentifierProvi
 			containerView.accessibilityElements?.append(loadingStateLabel as Any)
 		}
 
-		if !cellModel.isTryAgainButtonHidden {
+		if !cellModel.buttonsHidden {
 			containerView.accessibilityElements?.append(tryAgainButton as Any)
+			containerView.accessibilityElements?.append(removeButton as Any)
 		}
 	}
 

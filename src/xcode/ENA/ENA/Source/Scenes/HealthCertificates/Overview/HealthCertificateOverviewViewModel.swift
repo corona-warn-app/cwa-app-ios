@@ -51,7 +51,7 @@ class HealthCertificateOverviewViewModel {
 	@DidSetPublished var healthCertifiedPersons: [HealthCertifiedPerson] = []
 	@DidSetPublished var testCertificates: [HealthCertificate] = []
 	@DidSetPublished var testCertificateRequests: [TestCertificateRequest] = []
-	@DidSetPublished var testCertificateRequestError: (error: HealthCertificateServiceError.TestCertificateRequestError, request: TestCertificateRequest)?
+	@DidSetPublished var testCertificateRequestError: HealthCertificateServiceError.TestCertificateRequestError?
 
 	var numberOfSections: Int {
 		Section.allCases.count
@@ -76,23 +76,16 @@ class HealthCertificateOverviewViewModel {
 		}
 	}
 
-	func testCertificateCellModel(at indexPath: IndexPath) -> TestCertificateRequestCellModel {
-		return TestCertificateRequestCellModel(
-			testCertificateRequest: testCertificateRequests[indexPath.row],
-			onTryAgainButtonTap: { [weak self] in
-				guard let self = self else { return }
-
-				let testCertificateRequest = self.testCertificateRequests[indexPath.row]
-				self.healthCertificateService.executeTestCertificateRequest(
-					testCertificateRequest,
-					retryIfCertificateIsPending: false
-				) { [weak self] result in
-					if case .failure(let error) = result {
-						self?.testCertificateRequestError = (error: error, request: testCertificateRequest)
-					}
-				}
+	func retryTestCertificateRequest(at indexPath: IndexPath) {
+		let testCertificateRequest = self.testCertificateRequests[indexPath.row]
+		healthCertificateService.executeTestCertificateRequest(
+			testCertificateRequest,
+			retryIfCertificateIsPending: false
+		) { [weak self] result in
+			if case .failure(let error) = result {
+				self?.testCertificateRequestError = error
 			}
-		)
+		}
 	}
 
 	func remove(testCertificateRequest: TestCertificateRequest) {

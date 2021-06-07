@@ -56,13 +56,13 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Kgx-gS-WLP">
-                                        <rect key="frame" x="0.0" y="104" width="350" height="100"/>
+                                        <rect key="frame" x="0.0" y="104" width="350" height="46"/>
                                         <subviews>
                                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="8aZ-3h-BXO">
-                                                <rect key="frame" x="0.0" y="40" width="20" height="20"/>
+                                                <rect key="frame" x="0.0" y="13" width="20" height="20"/>
                                             </activityIndicatorView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Loading State" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vFu-Dy-9r1" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                <rect key="frame" x="36" y="41" width="314" height="18"/>
+                                                <rect key="frame" x="36" y="14" width="314" height="18"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" name="ENA Text Primary 1 Color"/>
                                                 <nil key="highlightedColor"/>
@@ -72,17 +72,37 @@
                                             </label>
                                         </subviews>
                                     </stackView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="95D-gS-RsM" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="224" width="350" height="50"/>
-                                        <state key="normal" title="Button"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="hasBorder" value="YES"/>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="hasBackground" value="NO"/>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="didTapTryAgainButton:" destination="bY1-Pe-Xux" eventType="touchUpInside" id="qyI-p8-nTc"/>
-                                        </connections>
-                                    </button>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="oTU-5r-62U">
+                                        <rect key="frame" x="0.0" y="170" width="350" height="104"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="95D-gS-RsM" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="350" height="50"/>
+                                                <state key="normal" title="Button"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="hasBorder" value="YES"/>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="hasBackground" value="NO"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="didTapTryAgainButton:" destination="bY1-Pe-Xux" eventType="touchUpInside" id="qyI-p8-nTc"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tl3-fa-foR" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="54" width="350" height="50"/>
+                                                <state key="normal" title="Button"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isInverted" value="YES"/>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="hasBorder" value="NO"/>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="customTextColor">
+                                                        <color key="value" systemColor="systemRedColor"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="hasBackground" value="NO"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="removeButtonTapped:" destination="bY1-Pe-Xux" eventType="touchUpInside" id="kLo-aK-puD"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                             </stackView>
                         </subviews>
@@ -108,11 +128,13 @@
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
+                <outlet property="buttonsStackView" destination="oTU-5r-62U" id="KcL-eg-zVL"/>
                 <outlet property="containerView" destination="76K-Dd-gu7" id="2Jh-hI-jya"/>
                 <outlet property="loadingActivityIndicator" destination="8aZ-3h-BXO" id="sxk-Qp-COg"/>
                 <outlet property="loadingStateLabel" destination="vFu-Dy-9r1" id="dYS-Za-57T"/>
                 <outlet property="loadingStateStackView" destination="Kgx-gS-WLP" id="oTB-Sq-M7A"/>
                 <outlet property="registrationDateLabel" destination="G9Z-eG-jtO" id="XxH-p0-Dd5"/>
+                <outlet property="removeButton" destination="tl3-fa-foR" id="Ruz-BA-qeK"/>
                 <outlet property="subtitleLabel" destination="39s-9M-toO" id="b3a-AY-uC6"/>
                 <outlet property="titleLabel" destination="7t7-Wf-jrz" id="UBm-PT-C74"/>
                 <outlet property="tryAgainButton" destination="95D-gS-RsM" id="W6K-uH-cVQ"/>
@@ -133,6 +155,9 @@
         <designable name="G9Z-eG-jtO">
             <size key="intrinsicContentSize" width="118.5" height="18"/>
         </designable>
+        <designable name="tl3-fa-foR">
+            <size key="intrinsicContentSize" width="65" height="50"/>
+        </designable>
         <designable name="vFu-Dy-9r1">
             <size key="intrinsicContentSize" width="94.5" height="18"/>
         </designable>
@@ -144,5 +169,8 @@
         <namedColor name="ENA Text Primary 1 Color">
             <color red="0.090196078431372548" green="0.098039215686274508" blue="0.10196078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>

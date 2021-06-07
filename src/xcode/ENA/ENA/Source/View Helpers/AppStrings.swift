@@ -1884,12 +1884,19 @@ enum AppStrings {
 				static let errorSubtitle = NSLocalizedString("TestCertificateRequest_errorSubtitle", comment: "")
 				static let registrationDate = NSLocalizedString("TestCertificateRequest_registrationDate", comment: "")
 				static let loadingStateDescription = NSLocalizedString("TestCertificateRequest_loadingStateDescription", comment: "")
-				static let buttonTitle = NSLocalizedString("TestCertificateRequest_buttonTitle", comment: "")
+				static let tryAgainButtonTitle = NSLocalizedString("TestCertificateRequest_tryAgainButtonTitle", comment: "")
+				static let removeButtonTitle = NSLocalizedString("TestCertificateRequest_removeButtonTitle", comment: "")
 
 				enum ErrorAlert {
 					static let title = NSLocalizedString("TestCertificateRequest_ErrorAlert_title", comment: "")
-					static let cancelButtonTitle = NSLocalizedString("TestCertificateRequest_ErrorAlert_CancelButton_title", comment: "")
-					static let deleteButtonTitle = NSLocalizedString("TestCertificateRequest_ErrorAlert_DeleteButton_title", comment: "")
+					static let buttonTitle = NSLocalizedString("TestCertificateRequest_ErrorAlert_Button_title", comment: "")
+				}
+
+				enum DeleteAlert {
+					static let title = NSLocalizedString("TestCertificateRequest_RemoveAlert_title", comment: "")
+					static let message = NSLocalizedString("TestCertificateRequest_RemoveAlert_message", comment: "")
+					static let cancelButtonTitle = NSLocalizedString("TestCertificateRequest_RemoveAlert_CancelButton_title", comment: "")
+					static let deleteButtonTitle = NSLocalizedString("TestCertificateRequest_RemoveAlert_DeleteButton_title", comment: "")
 				}
 
 				enum Error {

@@ -47,12 +47,12 @@ class HealthCertificateOverviewViewController: UITableViewController {
 
 		viewModel.$testCertificateRequestError
 			.sink { [weak self] in
-				guard let self = self, let error = $0?.error, let request = $0?.request else {
+				guard let self = self, let error = $0 else {
 					return
 				}
 
 				self.viewModel.testCertificateRequestError = nil
-				self.showErrorAlert(error: error, testCertificateRequest: request)
+				self.showErrorAlert(error: error)
 			}
 			.store(in: &subscriptions)
 	}
@@ -230,7 +230,17 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		}
 
 		cell.configure(
-			with: viewModel.testCertificateCellModel(at: indexPath),
+			with: TestCertificateRequestCellModel(
+				testCertificateRequest: viewModel.testCertificateRequests[indexPath.row]
+			),
+			onTryAgainButtonTap: { [weak self] in
+				self?.viewModel.retryTestCertificateRequest(at: indexPath)
+			},
+			onRemoveButtonTap: { [weak self] in
+				guard let self = self else { return }
+
+				self.showDeleteAlert(testCertificateRequest: self.viewModel.testCertificateRequests[indexPath.row])
+			},
 			onUpdate: { [weak self] in
 				self?.animateChanges(of: cell)
 			}
@@ -282,33 +292,55 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		}
 	}
 
-	private func showErrorAlert(error: HealthCertificateServiceError.TestCertificateRequestError, testCertificateRequest: TestCertificateRequest) {
+	private func showErrorAlert(error: HealthCertificateServiceError.TestCertificateRequestError
+	) {
 		let alert = UIAlertController(
 			title: AppStrings.HealthCertificate.Overview.TestCertificateRequest.ErrorAlert.title,
 			message: error.localizedDescription,
 			preferredStyle: .alert
 		)
 
-		let cancelAction = UIAlertAction(
-			title: AppStrings.HealthCertificate.Overview.TestCertificateRequest.ErrorAlert.cancelButtonTitle,
+		let okayAction = UIAlertAction(
+			title: AppStrings.HealthCertificate.Overview.TestCertificateRequest.ErrorAlert.buttonTitle,
 			style: .cancel,
 			handler: { _ in
 				alert.dismiss(animated: true)
 			}
 		)
 
-		let deleteAction = UIAlertAction(
-			title: AppStrings.HealthCertificate.Overview.TestCertificateRequest.ErrorAlert.deleteButtonTitle,
-			style: .destructive,
-			handler: { [weak self] _ in
-				self?.viewModel.remove(testCertificateRequest: testCertificateRequest)
-			}
-		)
-
-		alert.addAction(deleteAction)
-		alert.addAction(cancelAction)
+		alert.addAction(okayAction)
 
 		present(alert, animated: true, completion: nil)
+	}
+
+	private func showDeleteAlert(
+		testCertificateRequest: TestCertificateRequest
+	) {
+		let alert = UIAlertController(
+			title: AppStrings.HealthCertificate.Overview.TestCertificateRequest.DeleteAlert.title,
+			message: AppStrings.HealthCertificate.Overview.TestCertificateRequest.DeleteAlert.message,
+			preferredStyle: .alert
+		)
+
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.HealthCertificate.Overview.TestCertificateRequest.DeleteAlert.cancelButtonTitle,
+				style: .cancel,
+				handler: nil
+			)
+		)
+
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.HealthCertificate.Overview.TestCertificateRequest.DeleteAlert.deleteButtonTitle,
+				style: .destructive,
+				handler: { [weak self] _ in
+					self?.viewModel.remove(testCertificateRequest: testCertificateRequest)
+				}
+			)
+		)
+
+		present(alert, animated: true)
 	}
 
 }
