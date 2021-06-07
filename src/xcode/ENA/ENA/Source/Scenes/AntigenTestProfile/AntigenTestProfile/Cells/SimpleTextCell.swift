@@ -34,7 +34,7 @@ class SimpleTextCell: UITableViewCell, ReuseIdentifierProviding {
 			contentTextLabel.font = cellViewModel.font
 		}
 		topSpaceLayoutConstraint.constant = cellViewModel.topSpace
-		backgroundContainerView.layer.borderColor = cellViewModel.borderColor.cgColor
+		backgroundContainerView.layer.borderColor = cellViewModel.boarderColor.cgColor
 	}
 
 	// MARK: - Private

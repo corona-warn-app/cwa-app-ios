@@ -41,7 +41,7 @@ class HealthCertificateBottomCornerCell: UITableViewCell, ReuseIdentifierProvidi
 
 		NSLayoutConstraint.activate([
 			tileView.topAnchor.constraint(equalTo: contentView.topAnchor),
-			tileView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4),
+			tileView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
 			tileView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.0),
 			tileView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.0),
 			contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 20.0)

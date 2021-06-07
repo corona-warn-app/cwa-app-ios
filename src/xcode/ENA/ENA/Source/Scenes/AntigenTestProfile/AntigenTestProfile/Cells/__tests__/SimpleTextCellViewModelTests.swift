@@ -17,7 +17,7 @@ class SimpleTextCellViewModelTests: CWATestCase {
 			attributedText: NSAttributedString(string: "das ist ein attributed Testtext"),
 			topSpace: 100.0,
 			font: .systemFont(ofSize: 12.0),
-			borderColor: .green
+			boarderColor: .green
 		)
 
 		// THEN
@@ -28,7 +28,7 @@ class SimpleTextCellViewModelTests: CWATestCase {
 		XCTAssertEqual(simpleTextCellModel.attributedText, NSAttributedString(string: "das ist ein attributed Testtext"))
 		XCTAssertEqual(simpleTextCellModel.topSpace, 100.0)
 		XCTAssertEqual(simpleTextCellModel.font, .systemFont(ofSize: 12.0))
-		XCTAssertEqual(simpleTextCellModel.borderColor, .green)
+		XCTAssertEqual(simpleTextCellModel.boarderColor, .green)
 	}
 
 	func testGIVEN_SimpleTextCellViewModelWithMissingValues_THEN_AllValuesDidSetCorrect() {
@@ -37,7 +37,7 @@ class SimpleTextCellViewModelTests: CWATestCase {
 			backgroundColor: .white,
 			topSpace: 100.0,
 			font: .systemFont(ofSize: 12.0),
-			borderColor: .green
+			boarderColor: .green
 		)
 
 		// THEN
@@ -45,7 +45,7 @@ class SimpleTextCellViewModelTests: CWATestCase {
 		XCTAssertEqual(simpleTextCellModel.textAlignment, .center)
 		XCTAssertEqual(simpleTextCellModel.topSpace, 100.0)
 		XCTAssertEqual(simpleTextCellModel.font, .systemFont(ofSize: 12.0))
-		XCTAssertEqual(simpleTextCellModel.borderColor, .green)
+		XCTAssertEqual(simpleTextCellModel.boarderColor, .green)
 	}
 
 }

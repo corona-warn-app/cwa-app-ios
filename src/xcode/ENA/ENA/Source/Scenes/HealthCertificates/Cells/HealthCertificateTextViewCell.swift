@@ -4,7 +4,7 @@
 
 import UIKit
 
-class HealthCertificateSimpleTextCell: UITableViewCell, ReuseIdentifierProviding {
+class HealthCertificateTextViewCell: UITableViewCell, UITextViewDelegate, ReuseIdentifierProviding {
 
 	// MARK: - Init
 
@@ -12,7 +12,19 @@ class HealthCertificateSimpleTextCell: UITableViewCell, ReuseIdentifierProviding
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		setupView()
 		isAccessibilityElement = false
-		contentTextLabel.isAccessibilityElement = true
+		contentTextView.isAccessibilityElement = true
+
+		contentTextView.dataDetectorTypes = UIDataDetectorTypes.all
+		contentTextView.isScrollEnabled = false
+		contentTextView.isUserInteractionEnabled = true
+		contentTextView.adjustsFontForContentSizeCategory = true
+		contentTextView.textContainerInset = .zero
+		contentTextView.textContainer.lineFragmentPadding = .zero
+		contentTextView.backgroundColor = .clear
+		contentTextView.delegate = self
+		contentTextView.isSelectable = true
+		contentTextView.isEditable = false
+		contentTextView.tintColor = .enaColor(for: .tint)
 	}
 
 	@available(*, unavailable)
@@ -22,29 +34,31 @@ class HealthCertificateSimpleTextCell: UITableViewCell, ReuseIdentifierProviding
 
 	// MARK: - Overrides
 
-	override func prepareForReuse() {
-		super.prepareForReuse()
-		contentTextLabel.attributedText = nil
-	}
-
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 		super.traitCollectionDidChange(previousTraitCollection)
 
 		updateBorderWidth()
 	}
 
+	// MARK: - Protocol UITextViewDelegate
+
+	func textViewDidChangeSelection(_ textView: UITextView) {
+		endEditing(true)
+		textView.selectedTextRange = nil
+	}
+
 	// MARK: - Internal
 
 	func configure(with cellViewModel: HealthCertificateSimpleTextCellViewModel) {
 		backgroundContainerView.backgroundColor = cellViewModel.backgroundColor ?? .clear
-		contentTextLabel.accessibilityTraits = cellViewModel.accessibilityTraits
+		contentTextView.accessibilityTraits = cellViewModel.accessibilityTraits
 		if cellViewModel.attributedText != nil {
-			contentTextLabel.attributedText = cellViewModel.attributedText
+			contentTextView.attributedText = cellViewModel.attributedText
 		} else {
-			contentTextLabel.textColor = cellViewModel.textColor
-			contentTextLabel.textAlignment = cellViewModel.textAlignment
-			contentTextLabel.text = cellViewModel.text
-			contentTextLabel.font = cellViewModel.font
+			contentTextView.textColor = cellViewModel.textColor
+			contentTextView.textAlignment = cellViewModel.textAlignment
+			contentTextView.text = cellViewModel.text
+			contentTextView.font = cellViewModel.font
 		}
 		topSpaceLayoutConstraint.constant = cellViewModel.topSpace
 		backgroundContainerView.layer.borderColor = cellViewModel.borderColor.cgColor
@@ -54,7 +68,7 @@ class HealthCertificateSimpleTextCell: UITableViewCell, ReuseIdentifierProviding
 	// MARK: - Private
 
 	private let backgroundContainerView = UIView()
-	private let contentTextLabel = ENALabel()
+	private let contentTextView = UITextView()
 	private var topSpaceLayoutConstraint: NSLayoutConstraint!
 
 	private func setupView() {
@@ -72,11 +86,10 @@ class HealthCertificateSimpleTextCell: UITableViewCell, ReuseIdentifierProviding
 		backgroundContainerView.translatesAutoresizingMaskIntoConstraints = false
 		contentView.addSubview(backgroundContainerView)
 
-		contentTextLabel.translatesAutoresizingMaskIntoConstraints = false
-		contentTextLabel.numberOfLines = 0
+		contentTextView.translatesAutoresizingMaskIntoConstraints = false
 
-		backgroundContainerView.addSubview(contentTextLabel)
-		topSpaceLayoutConstraint = contentTextLabel.topAnchor.constraint(equalTo: backgroundContainerView.topAnchor, constant: 18.0)
+		backgroundContainerView.addSubview(contentTextView)
+		topSpaceLayoutConstraint = contentTextView.topAnchor.constraint(equalTo: backgroundContainerView.topAnchor, constant: 16.0)
 
 		NSLayoutConstraint.activate(
 			[
@@ -86,9 +99,9 @@ class HealthCertificateSimpleTextCell: UITableViewCell, ReuseIdentifierProviding
 				backgroundContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.0),
 
 				topSpaceLayoutConstraint,
-				contentTextLabel.bottomAnchor.constraint(equalTo: backgroundContainerView.bottomAnchor, constant: -18.0),
-				contentTextLabel.leadingAnchor.constraint(equalTo: backgroundContainerView.leadingAnchor, constant: 14.0),
-				contentTextLabel.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor, constant: -14.0)
+				contentTextView.bottomAnchor.constraint(equalTo: backgroundContainerView.bottomAnchor, constant: -16.0),
+				contentTextView.leadingAnchor.constraint(equalTo: backgroundContainerView.leadingAnchor, constant: 16.0),
+				contentTextView.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor, constant: -16.0)
 			]
 		)
 	}

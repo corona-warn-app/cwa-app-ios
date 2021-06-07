@@ -129,7 +129,7 @@ final class HealthCertifiedPersonViewModel {
 				format: AppStrings.HealthCertificate.Person.daysUntilCompleteProtection,
 				daysUntilCompleteProtection
 			),
-			topSpace: 16.0,
+			topSpace: 18.0,
 			font: .enaFont(for: .body),
 			borderColor: .enaColor(for: .hairline),
 			accessibilityTraits: .staticText
@@ -164,7 +164,7 @@ final class HealthCertifiedPersonViewModel {
 		return HealthCertificateSimpleTextCellViewModel(
 			backgroundColor: .enaColor(for: .cellBackground2),
 			attributedText: [attributedName, attributedDetails].joined(with: "\n"),
-			topSpace: 16.0,
+			topSpace: 18.0,
 			font: .enaFont(for: .headline),
 			borderColor: .enaColor(for: .hairline),
 			accessibilityTraits: .staticText

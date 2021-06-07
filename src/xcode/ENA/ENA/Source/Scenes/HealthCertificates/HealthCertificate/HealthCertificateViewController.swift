@@ -96,7 +96,7 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 		case .bottomCorner:
 			return tableView.dequeueReusableCell(cellType: HealthCertificateBottomCornerCell.self, for: indexPath)
 		case .additionalInfo:
-			let cell = tableView.dequeueReusableCell(cellType: HealthCertificateSimpleTextCell.self, for: indexPath)
+			let cell = tableView.dequeueReusableCell(cellType: HealthCertificateTextViewCell.self, for: indexPath)
 			cell.configure(with: viewModel.additionalInfoCellViewModels[indexPath.row])
 			return cell
 		case .none:
@@ -196,6 +196,11 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 		tableView.register(
 			HealthCertificateSimpleTextCell.self,
 			forCellReuseIdentifier: HealthCertificateSimpleTextCell.reuseIdentifier
+		)
+
+		tableView.register(
+			HealthCertificateTextViewCell.self,
+			forCellReuseIdentifier: HealthCertificateTextViewCell.reuseIdentifier
 		)
 
 		tableView.register(
