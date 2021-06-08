@@ -1977,13 +1977,13 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Card_AtLeastOneVaccinated_SecondarySubtitleLabel" = "der\nGesamtbevölkerung";
 
-"Statistics_Card_AtLeastOneVaccinated_Percent" = "%";
+"Statistics_Card_Percent" = "%";
 
 
 
 /* - Fully vaccinated people card */
 
-"Statistics_Card_FullyVaccinated_Title" = "Vollständig\n geimpfte Personen";
+"Statistics_Card_FullyVaccinated_Title" = "Vollständig\ngeimpfte Personen";
 
 "Statistics_Card_FullyVaccinated_Today" = "Aktuell";
 
@@ -1996,8 +1996,6 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "Statistics_Card_FullyVaccinated_TertiaryLabelTitle" = "Gesamt";
 
 "Statistics_Card_FullyVaccinated_SecondarySubtitleLabel" = "der\nGesamtbevölkerung";
-
-"Statistics_Card_FullyVaccinated_Percent" = "%";
 
 /* - Applied vaccination dose rates card */
 

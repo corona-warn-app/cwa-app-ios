@@ -11,7 +11,7 @@ class HomeStatisticsCardViewModel {
 
 	init(for keyFigureCard: SAP_Internal_Stats_KeyFigureCard) {
 		if let primaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .primary }) {
-			primaryValue = primaryFigure.formattedValue
+			primaryValue = primaryFigure.formattedValue(cardRawValue: keyFigureCard.header.cardID)
 
 			primaryTrendImage = primaryFigure.trendImage
 			primaryTrendImageTintColor = primaryFigure.trendTintColor
@@ -20,7 +20,7 @@ class HomeStatisticsCardViewModel {
 		}
 
 		if let secondaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .secondary }) {
-			secondaryValue = secondaryFigure.formattedValue
+			secondaryValue = secondaryFigure.formattedValue()
 
 			secondaryTrendImage = secondaryFigure.trendImage
 			secondaryTrendImageTintColor = secondaryFigure.trendTintColor
@@ -29,7 +29,7 @@ class HomeStatisticsCardViewModel {
 		}
 
 		if let tertiaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .tertiary }) {
-			tertiaryValue = tertiaryFigure.formattedValue
+			tertiaryValue = tertiaryFigure.formattedValue()
 		}
 
 		switch HomeStatisticsCard(rawValue: keyFigureCard.header.cardID) {

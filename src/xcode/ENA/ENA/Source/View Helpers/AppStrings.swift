@@ -1358,6 +1358,7 @@ enum AppStrings {
 	enum Statistics {
 
 		static let error = NSLocalizedString("Statistics_LoadingError", comment: "")
+		static let percent = NSLocalizedString("Statistics_Card_Percent", comment: "")
 
 		enum Card {
 
@@ -1405,7 +1406,6 @@ enum AppStrings {
 				static let secondaryLabelTitle = NSLocalizedString("Statistics_Card_AtLeastOneVaccinated_SecondaryLabelTitle", comment: "")
 				static let secondarySubtitle = NSLocalizedString("Statistics_Card_AtLeastOneVaccinated_SecondarySubtitleLabel", comment: "")
 				static let tertiaryLabelTitle = NSLocalizedString("Statistics_Card_AtLeastOneVaccinated_TertiaryLabelTitle", comment: "")
-				static let percent = NSLocalizedString("Statistics_Card_AtLeastOneVaccinated_Percent", comment: "")
 
 			}
 			
