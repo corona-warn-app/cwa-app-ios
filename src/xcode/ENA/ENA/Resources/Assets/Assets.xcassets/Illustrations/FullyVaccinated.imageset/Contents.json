@@ -3,6 +3,16 @@
     {
       "filename" : "Vollständig_geimpfte.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "vollständig_geimpft_d.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

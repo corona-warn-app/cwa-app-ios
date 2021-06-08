@@ -3,6 +3,16 @@
     {
       "filename" : "Verabreichte_Impfosen.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "Impfdosen_d.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

@@ -3,6 +3,16 @@
     {
       "filename" : "Mindestens_geimpft (1).pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "Einmal_geimpft_d.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {
