@@ -39,6 +39,8 @@ class HomeHealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierPr
 		iconView.image = cellModel.iconImage
 		backgroundImageView.image = cellModel.backgroundImage
 		backgroundGradientView.type = cellModel.backgroundGradientType
+
+		accessibilityIdentifier = cellModel.accessibilityIdentifier
 	}
 	
 	// MARK: - Private

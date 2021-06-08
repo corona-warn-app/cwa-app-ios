@@ -55,6 +55,8 @@ class HomeHealthCertifiedPersonCellModel {
 		} else {
 			description = nil
 		}
+
+		accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Overview.testCertificateRequestCell
 	}
 	
 	// MARK: - Internal
@@ -65,5 +67,5 @@ class HomeHealthCertifiedPersonCellModel {
 	var iconImage: UIImage?
 	var name: String?
 	var description: String?
-
+	var accessibilityIdentifier: String?
 }
