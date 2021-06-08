@@ -41,9 +41,9 @@ enum HealthCertificateServiceError {
 				case .AES_DECRYPTION_FAILED:
 					return "\(AppStrings.HealthCertificate.Error.vcInvalid) (AES_DECRYPTION_FAILED)"
 				case .HC_BASE45_ENCODING_FAILED:
-					return "\(AppStrings.HealthCertificate.Error.vcInvalid) (HC_BASE45_ENCODING_FAILED)."
+					return "\(AppStrings.HealthCertificate.Error.vcInvalid) (HC_BASE45_ENCODING_FAILED)"
 				case .HC_ZLIB_COMPRESSION_FAILED:
-					return "\(AppStrings.HealthCertificate.Error.vcInvalid) (HC_ZLIB_COMPRESSION_FAILED)."
+					return "\(AppStrings.HealthCertificate.Error.vcInvalid) (HC_ZLIB_COMPRESSION_FAILED)"
 				}
 			case .certificateAlreadyRegistered:
 				return "\(AppStrings.HealthCertificate.Error.vcAlreadyRegistered) (VC_ALREADY_REGISTERED)"
@@ -88,11 +88,11 @@ enum HealthCertificateServiceError {
 				case .HC_PREFIX_INVALID:
 					return "\(AppStrings.HealthCertificate.Error.vcInvalid) (VC_PREFIX_INVALID)"
 				case .AES_DECRYPTION_FAILED:
-					return "\(AppStrings.HealthCertificate.Error.vcInvalid) (AES_DECRYPTION_FAILED)."
+					return "\(AppStrings.HealthCertificate.Error.vcInvalid) (AES_DECRYPTION_FAILED)"
 				case .HC_BASE45_ENCODING_FAILED:
-					return "\(AppStrings.HealthCertificate.Error.vcInvalid) (HC_BASE45_ENCODING_FAILED)."
+					return "\(AppStrings.HealthCertificate.Error.vcInvalid) (HC_BASE45_ENCODING_FAILED)"
 				case .HC_ZLIB_COMPRESSION_FAILED:
-					return "\(AppStrings.HealthCertificate.Error.vcInvalid) (HC_ZLIB_COMPRESSION_FAILED)."
+					return "\(AppStrings.HealthCertificate.Error.vcInvalid) (HC_ZLIB_COMPRESSION_FAILED)"
 				}
 			case .noVaccinationEntry:
 				return "\(AppStrings.HealthCertificate.Error.vcNotYetSupported) (VC_NO_VACCINATION_ENTRY)"
@@ -208,9 +208,9 @@ enum HealthCertificateServiceError {
 				case .AES_DECRYPTION_FAILED:
 					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.e2eErrorCallHotline, "AES_DECRYPTION_FAILED")
 				case .HC_BASE45_ENCODING_FAILED:
-					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "HC_BASE45_ENCODING_FAILED")
+					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.clientErrorCallHotline, "HC_BASE45_ENCODING_FAILED")
 				case .HC_ZLIB_COMPRESSION_FAILED:
-					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "HC_ZLIB_COMPRESSION_FAILED")
+					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.clientErrorCallHotline, "HC_ZLIB_COMPRESSION_FAILED")
 				}
 			case .other(let error):
 				return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, error.localizedDescription)
