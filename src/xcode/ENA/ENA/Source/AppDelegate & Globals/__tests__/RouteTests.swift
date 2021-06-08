@@ -34,60 +34,6 @@ class RouteTests: CWATestCase {
 		XCTAssertNil(antigenTestQRCodeInformation.certificateSupportedByPointOfCare)
 	}
 
-	func testGIVEN_validRATUrlWithDGCTrue_WHEN_parseRoute_THEN_isValid() {
-		// GIVEN
-		let validRATTestURL = "https://s.coronawarn.app?v=1#eyJ0aW1lc3RhbXAiOjE2MjI2MzA0NzAsInNhbHQiOiIzNDJGRDRGM0RFNzQwNjI5RjlDOTdGMkJCODUxMUJBQyIsInRlc3RpZCI6ImIxYmNkZWYzLTNjZGEtNDI0NS05ZTk2LTZkNzkzZWE4YjYwZCIsImhhc2giOiI2ODJlMzNmZDc3YmY1NzE5ZWYxNzZmYjRlN2ZjNzIzNzQ4NmQ2OGZjMTVkMDE2OTJjMDA0OWEyNGM2ZmE2NTYzIiwiZm4iOiJDbHlkZSIsImxuIjoiTW9udGlnaWFuaSIsImRvYiI6IjE5NTktMTAtMDIiLCJkZ2MiOnRydWV9"
-
-		// WHEN
-		let route = Route(validRATTestURL)
-
-		// THEN
-		guard
-			case let .rapidAntigen(result) = route,
-			case let .success(coronaTestRegistrationInformation) = result,
-			case let .antigen(qrCodeInformation: antigenTestQRCodeInformation) = coronaTestRegistrationInformation
-		else {
-			XCTFail("unexpected route type")
-			return
-		}
-
-		XCTAssertEqual(antigenTestQRCodeInformation.hash, "682e33fd77bf5719ef176fb4e7fc7237486d68fc15d01692c0049a24c6fa6563")
-		XCTAssertEqual(antigenTestQRCodeInformation.timestamp, 1622630470)
-		XCTAssertEqual(antigenTestQRCodeInformation.firstName, "Clyde")
-		XCTAssertEqual(antigenTestQRCodeInformation.lastName, "Montigiani")
-		XCTAssertEqual(antigenTestQRCodeInformation.dateOfBirth, Date(timeIntervalSince1970: -323481600))
-		XCTAssertEqual(antigenTestQRCodeInformation.testID, "b1bcdef3-3cda-4245-9e96-6d793ea8b60d")
-		XCTAssertEqual(antigenTestQRCodeInformation.cryptographicSalt, "342FD4F3DE740629F9C97F2BB8511BAC")
-		XCTAssertTrue(try XCTUnwrap(antigenTestQRCodeInformation.certificateSupportedByPointOfCare))
-	}
-
-	func testGIVEN_validRATUrlWithDGCFalse_WHEN_parseRoute_THEN_isValid() {
-		// GIVEN
-		let validRATTestURL = "https://s.coronawarn.app?v=1#eyJ0aW1lc3RhbXAiOjE2MjI2MzA2NTQsInNhbHQiOiJBQzgxMTIyOUI3OTIzRjFBOEUwNTMwQ0M2ODlBQzBDQyIsInRlc3RpZCI6IjJhOTJmMGZiLWYzN2UtNDhkMy1hMzE5LWJjYTA0MWE4ZGIwMSIsImhhc2giOiJjYTljZTBjZTE5NTE1MmFkMWMzMDkwNzIyYTU0ZGJiNzNmZDdlMTM3NzdlZTdiYWUxZWEwNGM0MzU0YjcwYjUwIiwiZm4iOiJHYXJyZXR0IiwibG4iOiJDYW1wYmVsbCIsImRvYiI6IjE5ODctMDctMDIiLCJkZ2MiOmZhbHNlfQ=="
-
-		// WHEN
-		let route = Route(validRATTestURL)
-
-		// THEN
-		guard
-			case let .rapidAntigen(result) = route,
-			case let .success(coronaTestRegistrationInformation) = result,
-			case let .antigen(qrCodeInformation: antigenTestQRCodeInformation) = coronaTestRegistrationInformation
-		else {
-			XCTFail("unexpected route type")
-			return
-		}
-
-		XCTAssertEqual(antigenTestQRCodeInformation.hash, "ca9ce0ce195152ad1c3090722a54dbb73fd7e13777ee7bae1ea04c4354b70b50")
-		XCTAssertEqual(antigenTestQRCodeInformation.timestamp, 1622630654)
-		XCTAssertEqual(antigenTestQRCodeInformation.firstName, "Garrett")
-		XCTAssertEqual(antigenTestQRCodeInformation.lastName, "Campbell")
-		XCTAssertEqual(antigenTestQRCodeInformation.dateOfBirth, Date(timeIntervalSince1970: 552182400))
-		XCTAssertEqual(antigenTestQRCodeInformation.testID, "2a92f0fb-f37e-48d3-a319-bca041a8db01")
-		XCTAssertEqual(antigenTestQRCodeInformation.cryptographicSalt, "AC811229B7923F1A8E0530CC689AC0CC")
-		XCTAssertFalse(try XCTUnwrap(antigenTestQRCodeInformation.certificateSupportedByPointOfCare))
-	}
-
 	func testGIVEN_invalidRATUrl_WHEN_parseRoute_THEN_isValid() {
 		// GIVEN
 		let validRATTestURL = "https://s.coronawarn.app?v=1#eJ0aW1lc3RhbXAiOjE2MTg0ODI2MzksImd1aWQiOiIzM0MxNDNENS0yMTgyLTQ3QjgtOTM4NS02ODBGMzE4RkU0OTMiLCJmbiI6IlJveSIsImxuIjoiRnJhc3NpbmV0aSIsImRvYiI6IjE5ODEtMTItMDEifQ=="

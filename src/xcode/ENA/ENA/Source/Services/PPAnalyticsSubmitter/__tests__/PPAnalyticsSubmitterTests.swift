@@ -34,7 +34,12 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfigurationProvider,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfigurationProvider
+				)
 			),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
@@ -117,7 +122,12 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfigurationProvider,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfigurationProvider
+				)
 			),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
@@ -164,7 +174,12 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfigurationProvider,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfigurationProvider
+				)
 			),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
@@ -211,7 +226,12 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfigurationProvider,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfigurationProvider
+				)
 			),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
@@ -257,7 +277,12 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfigurationProvider,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfigurationProvider
+				)
 			),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
@@ -304,7 +329,12 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfigurationProvider,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfigurationProvider
+				)
 			),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
@@ -352,7 +382,12 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfigurationProvider,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfigurationProvider
+				)
 			),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
@@ -401,7 +436,12 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfigurationProvider,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfigurationProvider
+				)
 			),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
@@ -448,7 +488,12 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfigurationProvider,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfigurationProvider
+				)
 			),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
@@ -512,7 +557,12 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfigurationProvider,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfigurationProvider
+				)
 			),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
@@ -875,15 +925,24 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 	}
 	
 	func testGatherKeySubmissionMetadata() {
+		let client = ClientMock()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let store = MockTestStore()
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		let analyticsSubmitter = createMockSubmitter(with: store)
+
 		let coronaTestService = CoronaTestService(
-			client: ClientMock(),
+			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock()
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
 		coronaTestService.registerPCRTest(
 			teleTAN: "tele-tan",
@@ -976,7 +1035,12 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				appConfiguration: appConfigurationProvider,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfigurationProvider
+				)
 			),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)

@@ -17,7 +17,7 @@ struct HealthCertificateSimpleTextCellViewModel {
 		attributedText: NSAttributedString? = nil,
 		topSpace: CGFloat,
 		font: UIFont,
-		boarderColor: UIColor = .clear,
+		borderColor: UIColor = .clear,
 		accessibilityTraits: UIAccessibilityTraits = .none,
 		accessibilityIdentifier: String? = nil
 	) {
@@ -28,7 +28,7 @@ struct HealthCertificateSimpleTextCellViewModel {
 		self.attributedText = attributedText
 		self.topSpace = topSpace
 		self.font = font
-		self.boarderColor = boarderColor
+		self.borderColor = borderColor
 		self.accessibilityTraits = accessibilityTraits
 		self.accessibilityIdentifier = accessibilityIdentifier
 	}
@@ -42,7 +42,7 @@ struct HealthCertificateSimpleTextCellViewModel {
 	let attributedText: NSAttributedString?
 	let topSpace: CGFloat
 	let font: UIFont
-	let boarderColor: UIColor
+	let borderColor: UIColor
 	let accessibilityTraits: UIAccessibilityTraits
 	let accessibilityIdentifier: String?
 

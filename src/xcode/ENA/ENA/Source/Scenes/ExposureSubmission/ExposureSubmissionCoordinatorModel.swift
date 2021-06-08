@@ -140,7 +140,7 @@ class ExposureSubmissionCoordinatorModel {
 	func registerTestAndGetResult(
 		for testType: CoronaTestRegistrationInformation,
 		isSubmissionConsentGiven: Bool,
-		certificateConsent: CoronaTestCertificateConsent,
+		certificateConsent: TestCertificateConsent,
 		isLoading: @escaping (Bool) -> Void,
 		onSuccess: @escaping (TestResult) -> Void,
 		onError: @escaping (CoronaTestServiceError) -> Void

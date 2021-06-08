@@ -83,13 +83,22 @@ class HomeTestResultCellModelTests: CWATestCase {
 		expectationUserInteraction.expectedFulfillmentCount = userInteractionArray.count
 		expectationAccessibilityIdentifiers.expectedFulfillmentCount = accessibilityIdentifiersArray.count
 		expectationOnUpdate.expectedFulfillmentCount = 7
+
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
 		
 		let coronaTestService = CoronaTestService(
-			client: ClientMock(),
-			store: MockTestStore(),
+			client: client,
+			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: CachedAppConfigurationMock()
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock()
 
