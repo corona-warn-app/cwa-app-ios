@@ -12,7 +12,7 @@ extension HTTPClient {
 		static func makeDefaultConfiguration(environmentProvider: EnvironmentProviding) -> Configuration {
 			let endpoints = Configuration.Endpoints(
 				distribution: .init(
-					baseURL: URL(string: "https://cwa-mock.eu.ngrok.io")!,
+					baseURL: environmentProvider.currentEnvironment().distributionURL,
 					requiresTrailingSlash: false
 				),
 				submission: .init(
