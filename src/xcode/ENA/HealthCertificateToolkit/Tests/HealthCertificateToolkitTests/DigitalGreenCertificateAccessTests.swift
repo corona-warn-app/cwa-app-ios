@@ -10,12 +10,7 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
 
     func test_When_DecodeVaccinationCertificateSucceeds_Then_CorrectCertificateIsReturned() {
         let certificateAccess = DigitalGreenCertificateAccess()
-        
         let result = certificateAccess.extractDigitalGreenCertificate(from: testDataVaccinationCertificate.input)
-
-        if case .failure(let error) = result {
-            print(error)
-        }
 
         guard case let .success(healthCertificate) = result else {
             XCTFail("Success expected.")
@@ -27,12 +22,7 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
 
     func test_When_DecodeTestCertificateSucceeds_Then_CorrectCertificateIsReturned() {
         let certificateAccess = DigitalGreenCertificateAccess()
-
         let result = certificateAccess.extractDigitalGreenCertificate(from: testDataTestCertificate.input)
-
-        if case .failure(let error) = result {
-            print(error)
-        }
 
         guard case let .success(healthCertificate) = result else {
             XCTFail("Success expected.")
@@ -95,10 +85,31 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
         }
     }
 
-    func test_When_DecodeCertificateFails_Then_SchemaInvalidErrorIsReturned() {
+    func test_When_DecodeVaccinationCertificateFails_Then_SchemaInvalidErrorIsReturned() {
         let certificateAccess = DigitalGreenCertificateAccess()
 
-        let result = certificateAccess.extractDigitalGreenCertificate(from: testDataForSchemaError.input)
+        /// This data contains data which leads to validation errors.
+        /// Schema validation errors:
+        /// -Wrong format for dateOfBirth
+        /// -Wrong format for dateOfVaccination
+        /// -uniqueCertificateIdentifier length > 50
+        let fakeCertificate = DigitalGreenCertificate.fake(
+            dateOfBirth: "NODateOfBirth",
+            vaccinationEntries: [
+                VaccinationEntry.fake(
+                    dateOfVaccination: "NODateOfVaccination",
+                    uniqueCertificateIdentifier: "Lorem ipsum dolor sit amet, consetetur sadipscing e"
+                )
+            ]
+        )
+
+        let base45FakeResult = DigitalGreenCertificateFake.makeBase45Fake(from: fakeCertificate, and: CBORWebTokenHeader.fake())
+        guard case let .success(base45Fake) = base45FakeResult else {
+            XCTFail("Success expected.")
+            return
+        }
+
+        let result = certificateAccess.extractDigitalGreenCertificate(from: base45Fake)
 
         guard case let .failure(error) = result else {
             XCTFail("Error expected.")
@@ -116,11 +127,11 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
         }
 
         let containsNODateOfBirthError = innerSchemaErrors.contains {
-            $0.description == "'NODateOfBirth' does not match pattern: '(19|20)\\d{2}-\\d{2}-\\d{2}'"
+            $0.description == "'NODateOfBirth' does not match pattern: '^(19|20)\\d{2}-\\d{2}-\\d{2}$'"
         }
 
         let containsNODateOfVaccination = innerSchemaErrors.contains {
-            $0.description == "'NODateOfVaccination' does not match pattern: '(19|20)\\d{2}-\\d{2}-\\d{2}'"
+            $0.description == "'NODateOfVaccination' does not match pattern: '^20\\d{2}-\\d{2}-\\d{2}$'"
         }
 
         let containsLengthError = innerSchemaErrors.contains {
@@ -130,6 +141,72 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
         XCTAssertEqual(innerSchemaErrors.count, 3)
         XCTAssertTrue(containsNODateOfBirthError)
         XCTAssertTrue(containsNODateOfVaccination)
+        XCTAssertTrue(containsLengthError)
+    }
+
+    func test_When_DecodeTestCertificateFails_Then_SchemaInvalidErrorIsReturned() {
+        let certificateAccess = DigitalGreenCertificateAccess()
+
+        /// This data contains data which leads to validation errors.
+        /// Schema validation errors:
+        /// -Wrong format for dateOfBirth
+        /// -Wrong format for dateTimeOfSampleCollection
+        /// -Wrong format for dateTimeOfTestResult
+        /// -uniqueCertificateIdentifier length > 50
+        let fakeCertificate = DigitalGreenCertificate.fake(
+            dateOfBirth: "NotADateOfBirth",
+            testEntries: [
+                TestEntry.fake(
+                    dateTimeOfSampleCollection: "NotADateTimeOfSampleCollection",
+                    dateTimeOfTestResult: "NotADateTimeOfTestResult",
+                    uniqueCertificateIdentifier: "Lorem ipsum dolor sit amet, consetetur sadipscing e"
+                )
+            ]
+        )
+
+        let base45FakeResult = DigitalGreenCertificateFake.makeBase45Fake(from: fakeCertificate, and: CBORWebTokenHeader.fake())
+        guard case let .success(base45Fake) = base45FakeResult else {
+            XCTFail("Success expected.")
+            return
+        }
+
+        let result = certificateAccess.extractDigitalGreenCertificate(from: base45Fake)
+
+        guard case let .failure(error) = result else {
+            XCTFail("Error expected.")
+            return
+        }
+
+        guard case .HC_JSON_SCHEMA_INVALID(let schemaError) = error else {
+            XCTFail("HC_JSON_SCHEMA_INVALID expected.")
+            return
+        }
+
+        guard case .VALIDATION_RESULT_FAILED(let innerSchemaErrors) = schemaError else {
+            XCTFail("VALIDATION_RESULT_FAILED expected.")
+            return
+        }
+
+        let containsDateOfBirthError = innerSchemaErrors.contains {
+            $0.description.contains("NotADateOfBirth' does not match pattern")
+        }
+
+        let containsDateTimeOfSampleCollectionError = innerSchemaErrors.contains {
+            $0.description.contains("NotADateTimeOfSampleCollection' does not match pattern")
+        }
+
+        let containsDateTimeOfTestResult = innerSchemaErrors.contains {
+            $0.description.contains("NotADateTimeOfTestResult' does not match pattern")
+        }
+
+        let containsLengthError = innerSchemaErrors.contains {
+            $0.description == "Length of string is larger than max length 50"
+        }
+
+        XCTAssertEqual(innerSchemaErrors.count, 4)
+        XCTAssertTrue(containsDateOfBirthError)
+        XCTAssertTrue(containsDateTimeOfSampleCollectionError)
+        XCTAssertTrue(containsDateTimeOfTestResult)
         XCTAssertTrue(containsLengthError)
     }
 
@@ -148,18 +225,44 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
         XCTAssertGreaterThan(testDataVaccinationCertificate.header.expirationTime, issuedAt)
     }
 
-    func test_When_ConvertToBase45_Then_CorrectBase45IsReturned() throws {
+    func test_When_DecryptAndComposeToWebToken_Then_CorrectWebTokenIsReturned() throws {
         let certificateAccess = DigitalGreenCertificateAccess()
 
-        let keyData = try XCTUnwrap(Data(base64Encoded: decryptedDataEncryptionKeyBase64))
-        let result = certificateAccess.convertToBase45(from: testDataEncryptedTestCertificateBase64, with: keyData)
+        for encryptedTestData in encryptedTestDatas {
+            let keyData = try XCTUnwrap(Data(base64Encoded: encryptedTestData.decryptedKey))
+            let result = certificateAccess.decryptAndComposeToWebToken(from: encryptedTestData.input, dataEncryptionKey: keyData)
 
-        guard case .success = result else {
-            XCTFail("Success expected.")
-            return
+            guard case let .success(cborWebToken) = result else {
+                XCTFail("Success expected.")
+                return
+            }
+            let cborWebTokenData = Data(cborWebToken.encode())
+            let cborWebTokenBase64 = cborWebTokenData.base64EncodedString()
+
+            XCTAssertEqual(cborWebTokenBase64, encryptedTestData.output)
         }
     }
 
+    func test_When_ConvertToBase45_And_ExtractCertificate_Then_SuccessIsReturned() throws {
+        let certificateAccess = DigitalGreenCertificateAccess()
+
+        for encryptedTestData in encryptedTestDatas {
+            let keyData = try XCTUnwrap(Data(base64Encoded: encryptedTestData.decryptedKey))
+            let result = certificateAccess.convertToBase45(from: encryptedTestData.input, with: keyData)
+
+            guard case let .success(base45) = result else {
+                XCTFail("Success expected.")
+                return
+            }
+
+            let extractResult = certificateAccess.extractDigitalGreenCertificate(from: base45)
+
+            guard case .success = extractResult else {
+                XCTFail("Success expected.")
+                return
+            }
+        }
+    }
 
     private lazy var testDataVaccinationCertificate: TestData = {
         TestData (
@@ -173,8 +276,8 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
                     standardizedGivenName: "ERIKA<DOERTE"
                 ),
                 dateOfBirth: "1964-08-12",
-                vaccinationCertificates: [
-                    VaccinationCertificate(
+                vaccinationEntries: [
+                    VaccinationEntry(
                         diseaseOrAgentTargeted: "840539006",
                         vaccineOrProphylaxis: "1119349007",
                         vaccineMedicinalProduct: "EU/1/20/1528",
@@ -187,7 +290,7 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
                         uniqueCertificateIdentifier: "01DE/84503/1119349007/DXSGWLWL40SU8ZFKIYIBK39A3#S"
                     )
                 ],
-                testCertificates: nil
+                testEntries: nil
             ),
             header: CBORWebTokenHeader(
                 issuer: "DE",
@@ -209,9 +312,9 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
                     standardizedGivenName: "SARA"
                 ),
                 dateOfBirth: "1987-04-22",
-                vaccinationCertificates: nil,
-                testCertificates: [
-                    TestCertificate(
+                vaccinationEntries: nil,
+                testEntries: [
+                    TestEntry(
                         diseaseOrAgentTargeted: "840539006",
                         typeOfTest: "LP6464-4",
                         testResult: "260415000",
@@ -234,50 +337,18 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
         )
     }()
 
-    /// This data contains data which leads to validation errors.
-    /// Schema validation errors:
-    /// -Wrong format for dateOfBirth
-    /// -Wrong format for dateOfVaccination
-    /// -uniqueCertificateIdentifier length > 50
-    private lazy var testDataForSchemaError: TestData = {
-        TestData (
-            input: hcPrefix+"NCFOXN%TS3DH3ZSUZK+.V0ETD%65NL-AH6+UIOOP-IJFQ/Y68WAK*N%:QKD93B4:ZH6I1$4JN:IN1MKK9%OC*PP:+P*.1D9R+Q6646C%6RF6:X93O5RF6$T61R64IM64631A795*9VR3F.Q5O0VBJ14T9K6QTM90NPC9QPK9/1APEEPK9PYL.8V1:55/PYDPQ355/P3993CQ9:56755R56992Y9ZKQ899P8QX*9DB9G85XC1G:KX-QM2VCN5C-4A+2XEN QT QTHC31M3+E32R44$2%35Y.IE.KD+2H0D3ZCU7JI$24D0:M9A%N+892 7J235II3NJKMIZ J$XI4OIMEDTJCDIDGXE%DB.-B97U3-SY$NXNKD1D25CP9IPN3CIQ 52744E09AAO8%MQQK8+S4-R:KIIX0VJAMIH3HH$HF9NTYV4E1MZ3K1:HF.5E1MRB4LF9SEFI1MAKJREHV*5O6ND-IO*47*KB*KYQTHFTNS4.$S32TWZF.XI5VAWB2SKU+LR./GQ5OL-G56DAM5TQ0F0B.IFEZEC1I2.2DYUY13O6M$5D/H2RYE2ID99OP5RHQU1R3 H9X$CA14O4O83T WR16KPN8VN3D1E3H02AS6$J",
-            certificate: DigitalGreenCertificate(
-                version: "1.0.0",
-                name: Name(
-                    familyName: "Schmitt Mustermann",
-                    givenName: "Erika Dörte",
-                    standardizedFamilyName: "SCHMITT<MUSTERMANN",
-                    standardizedGivenName: "ERIKA<DOERTE"
-                ),
-                dateOfBirth: "NODateOfBirth",
-                vaccinationCertificates: [
-                    VaccinationCertificate(
-                        diseaseOrAgentTargeted: "SOMESTRING",
-                        vaccineOrProphylaxis: "1119349007",
-                        vaccineMedicinalProduct: "EU/1/20/1528",
-                        marketingAuthorizationHolder: "ORG-100030215",
-                        doseNumber: 2,
-                        totalSeriesOfDoses: 2,
-                        dateOfVaccination: "NODateOfVaccination",
-                        countryOfVaccination: "DE",
-                        certificateIssuer: "Bundesministerium für Gesundheit",
-                        uniqueCertificateIdentifier: "Lorem ipsum dolor sit amet, consetetur sadipscing e"
-                    )
-                ],
-                testCertificates: nil
-            ),
-            header: CBORWebTokenHeader(
-                issuer: "DE",
-                issuedAt: 1619167131,
-                expirationTime: 1622725423
-            )
+    private lazy var encryptedTestDatas = [
+        EncryptedTestData(
+            input: "0oRNogEmBEiLxYhcyl5BXkBZAXBxvo73+06cLc73F5KIFuQdo7fLUnb7yF9QFtX9tIEmgSzHIXKbHcEiep5RTtb2UVS80vybmnwYa1k36HR2R2yTKGwvDWAUumw2ZjCnfp8CxKx3zQVRl6JrVdLiskWmo4qiK/EwyTHrw/5PZy4rd11vt9Y6wuZtlpOvFGDIDhGKpcgK93zfIQWY59xjxusr/4J3FCWpcy9YNehB6m4Az1NozXxOrL9DmFM38mWCkiHaPeWgedbqfKTg3x/vSrXSkXYnLpc6QHsRqW99r7yTXJffbK8X44KvgkUI9sIlVU5+2+IuwT4XBY2p/MLW4d9gfnAhZYTsn0nGuoj4KFHTo6fNkXsuZ6BWm5MurXR0dqiCd00B1ZKuTNV0QhdzaaB2pYtwBnxD65TW8D0VDrDDjZuYRzni032f5hgB7YDlvcWYWiv7o6T8DeCNAsJ0RdL/X1qe3bHvLOBvzF9XlTrg4vNF/3aeRn9libOf+0ufr5dEcVhA1NqKSb93S2El9dA0icVjK+DV4LbwVWajZmTmhqcsgzWhvl4/PmtAJ5/iT57FfoQvuOvlyhxRPgGSg33IuDnBCg==",
+            output: "0oRNogEmBEiLxYhcyl5BXkBZAWGkAWtjd2EtYXBwLWNsaQQaYpdzwAYaYLZAQDkBA6EBpGN2ZXJlMS4wLjBjbmFtpGJnbmVFbGxlbmJmbmVDaGVuZ2NnbnRlRUxMRU5jZm50ZUNIRU5HY2RvYmoxOTY3LTA3LTE5YXSBq2J0Z2k4NDA1MzkwMDZidHRqTFAyMTcxOTgtM2JubXgZSVZDSUoxR1FaTTc4NzhFTE1VSU1BMDhER2JtYWQxMjQ0YnNjeBgyMDIxLTA1LTMxVDE2OjEzOjE2LjgzNlpiZHJ4GDIwMjEtMDYtMDFUMTQ6MTI6MTYuODM2WmJ0cmkyNjA0MTUwMDBidGNtVGVzdCBDZW50cmUgMWJjb2JERWJpc3ghQnVuZGVzbWluaXN0ZXJpdW0gZsO8ciBHZXN1bmRoZWl0YmNpeC8wMURFLzAwMDAwLzExMTkzNDkwMDcvRzdQU0JBWE1YVkEyTjBITTNVOFlWN1pNVFhA1NqKSb93S2El9dA0icVjK+DV4LbwVWajZmTmhqcsgzWhvl4/PmtAJ5/iT57FfoQvuOvlyhxRPgGSg33IuDnBCg==",
+            decryptedKey: "/9o5eVNb9us5CsGD4F3J36Ju1enJ71Y6+FpVvScGWkE="
+        ),
+        EncryptedTestData(
+            input: "0oRNogEmBEiLxYhcyl5BXkBZAXAN4hKvLEngs3MYcLe/cIyy0q0+0auk5A/Bme/WlymolXU8JSLJJcj3D7kwXCJoEOvsnU9P/IrVlTNF2fJBdWF6Oq22UzhyOPRuQiF7PvspbVzyeEo+H/PmtvbTZss6l/wLDoXPixjtCOaFn7Com6Z2pNQOZqkYGZzz4BanJfchoggM4HaH20H4AzANfMMqYa/rytHnz4BjlR82ZSOlg5e/Jbl78NRen6RkgLTwT3YSI1XV+gbLPK6Fhp5saqRmQgUQTTSO99Q/rdk6BG18RZxqw70zKb77ddxBzolgySbmRdUrpWdK9SvnsnivN3V1Auv5X18KpHO58SwyFoex7OUq73q6FAS9p+MdI2jh1e3LcwU12ZJaN56bRbTEAmT5MelZsYY+c6WWvcIND7tj3aDI5o8D9PyWZHPdz/uHn/Cesn7MgVEXvLQnfCVvuPkLDSGAGi47nRRmUoaN7+7GjPRYvTyrX5VWwnMK31QLADg9kFhAQ7d9IZ02KQ5OXt/fc3bpcombylOcXT2U+JXDwQadrFwHQdjeK1dw+RZM7UkD4l/TOQjO9B8JN13DlidhiqljGw==",
+            output: "0oRNogEmBEiLxYhcyl5BXkBZAWukAWtjd2EtYXBwLWNsaQQaYpd0gAYaYLZBADkBA6EBpGN2ZXJlMS4wLjBjbmFtpGJnbmVCcmlhbmJmbmtDYWxhbWFuZHJlaWNnbnRlQlJJQU5jZm50a0NBTEFNQU5EUkVJY2RvYmoxOTk1LTA1LTIxYXSBq2J0Z2k4NDA1MzkwMDZidHRoTFA2NDY0LTRibm14GTFSVEg2Vk1JVThBTlFJQUNHNFNJS1REU0FibWFkMTMzMWJzY3gYMjAyMS0wNS0zMVQyMToyNDoyOC4yMTZaYmRyeBgyMDIxLTA2LTAxVDE0OjE1OjI4LjIxNlpidHJpMjYwNDE1MDAwYnRjbVRlc3QgQ2VudHJlIDFiY29iREViaXN4IUJ1bmRlc21pbmlzdGVyaXVtIGbDvHIgR2VzdW5kaGVpdGJjaXgvMDFERS8wMDAwMC8xMTE5MzQ5MDA3L1JMVTFBSlFSTlRPNlFaUlJUSjJENkpXWkhYQEO3fSGdNikOTl7f33N26XKJm8pTnF09lPiVw8EGnaxcB0HY3itXcPkWTO1JA+Jf0zkIzvQfCTddw5YnYYqpYxs=",
+            decryptedKey: "RinMlpTdzQGw7kllamU9Pz6bTHEWVZi1Ocb4q8wfFSk="
         )
-    }()
-
-    private lazy var testDataEncryptedTestCertificateBase64 = "0oRNogEmBEiLxYhcyl5BXkBZAXBxvo73+06cLc73F5KIFuQdo7fLUnb7yF9QFtX9tIEmgSzHIXKbHcEiep5RTtb2UVS80vybmnwYa1k36HR2R2yTKGwvDWAUumw2ZjCnfp8CxKx3zQVRl6JrVdLiskWmo4qiK/EwyTHrw/5PZy4rd11vt9Y6wuZtlpOvFGDIDhGKpcgK93zfIQWY59xjxusr/4J3FCWpcy9YNehB6m4Az1NozXxOrL9DmFM38mWCkiHaPeWgedbqfKTg3x/vSrXSkXYnLpc6QHsRqW99r7yTXJffbK8X44KvgkUI9sIlVU5+2+IuwT4XBY2p/MLW4d9gfnAhZYTsn0nGuoj4KFHTo6fNkXsuZ6BWm5MurXR0dqiCd00B1ZKuTNV0QhdzaaB2pYtwBnxD65TW8D0VDrDDjZuYRzni032f5hgB7YDlvcWYWiv7o6T8DeCNAsJ0RdL/X1qe3bHvLOBvzF9XlTrg4vNF/3aeRn9libOf+0ufr5dEcVhA1NqKSb93S2El9dA0icVjK+DV4LbwVWajZmTmhqcsgzWhvl4/PmtAJ5/iT57FfoQvuOvlyhxRPgGSg33IuDnBCg=="
-
-    private lazy var decryptedDataEncryptionKeyBase64 = "/9o5eVNb9us5CsGD4F3J36Ju1enJ71Y6+FpVvScGWkE="
+    ]
 }
 
 // MARK: - TestData
@@ -286,4 +357,10 @@ private struct TestData {
     let input: String
     let certificate: DigitalGreenCertificate
     let header: CBORWebTokenHeader
+}
+
+private struct EncryptedTestData {
+    let input: String
+    let output: String
+    let decryptedKey: String
 }
