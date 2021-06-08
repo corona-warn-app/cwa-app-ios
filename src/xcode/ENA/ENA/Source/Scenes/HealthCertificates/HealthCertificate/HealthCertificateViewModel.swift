@@ -130,6 +130,8 @@ final class HealthCertificateViewModel {
 		)
 	}
 
+	/// these stings here are on purpose not localized
+	///
 	var additionalInfoCellViewModels: [HealthCertificateSimpleTextCellViewModel] {
 		return [
 			HealthCertificateSimpleTextCellViewModel(
@@ -271,6 +273,8 @@ final class HealthCertificateViewModel {
 		.compactMap { $0 }
 	}
 
+	/// these stings here are on purpose not localized
+	///
 	private func updateTestCertificateKeyValueCellViewModels(testEntry: TestEntry) {
 		let nameCellViewModel = HealthCertificateKeyValueCellViewModel(
 			key: "Name, Vorname / Name, First Name",
