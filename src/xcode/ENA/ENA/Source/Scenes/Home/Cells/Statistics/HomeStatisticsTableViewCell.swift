@@ -88,8 +88,8 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 						statisticsCardView.titleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.titleLabel.firstBaselineAnchor),
 						statisticsCardView.primaryTitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.primaryTitleLabel.firstBaselineAnchor),
 						statisticsCardView.secondaryTitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.secondaryTitleLabel.firstBaselineAnchor),
-						statisticsCardView.tertiaryTitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.tertiaryTitleLabel.firstBaselineAnchor),
-						statisticsCardView.footnoteLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.footnoteLabel.firstBaselineAnchor)
+						statisticsCardView.secondarySubtitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.secondarySubtitleLabel.firstBaselineAnchor),
+						statisticsCardView.tertiaryTitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.tertiaryTitleLabel.firstBaselineAnchor)
 					])
 				}
 			}

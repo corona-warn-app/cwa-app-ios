@@ -139,9 +139,9 @@ class HomeStatisticsCardView: UIView {
 				accessibilityElements.append(tertiaryTitleLabel)
 			}
 
-			if viewModel?.footnote != nil, let footnoteLabel = self.footnoteLabel {
-				footnoteLabel.accessibilityTraits = UIAccessibilityTraits.link
-				accessibilityElements.append(footnoteLabel)
+			if viewModel?.primarySubtitle != nil, let primarySubtitleLabel = self.primarySubtitleLabel {
+				primarySubtitleLabel.accessibilityTraits = UIAccessibilityTraits.link
+				accessibilityElements.append(primarySubtitleLabel)
 			}
 
 			return accessibilityElements
@@ -157,18 +157,18 @@ class HomeStatisticsCardView: UIView {
 
 	@IBOutlet weak var illustrationImageView: UIImageView!
 
-	@IBOutlet weak var primaryTitleLabel: StackViewLabel!
-	@IBOutlet weak var primaryValueLabel: StackViewLabel!
+	@IBOutlet weak var primaryTitleLabel: ENALabel!
+	@IBOutlet weak var primarySubtitleLabel: ENALabel!
+	@IBOutlet weak var primaryValueLabel: ENALabel!
 	@IBOutlet weak var primaryTrendImageView: UIImageView!
 
-	@IBOutlet weak var secondaryTitleLabel: StackViewLabel!
-	@IBOutlet weak var secondaryValueLabel: StackViewLabel!
+	@IBOutlet weak var secondaryTitleLabel: ENALabel!
+	@IBOutlet weak var secondaryValueLabel: ENALabel!
+	@IBOutlet weak var secondarySubtitleLabel: ENALabel!
 	@IBOutlet weak var secondaryTrendImageView: UIImageView!
 
 	@IBOutlet weak var tertiaryTitleLabel: StackViewLabel!
 	@IBOutlet weak var tertiaryValueLabel: StackViewLabel!
-
-	@IBOutlet weak var footnoteLabel: ENALabel!
 
 	func configure(
 		viewModel: HomeStatisticsCardViewModel,
@@ -233,6 +233,12 @@ class HomeStatisticsCardView: UIView {
 				self?.secondaryValueLabel.text = $0
 			}
 			.store(in: &subscriptions)
+		viewModel.$secondarySubtitle
+			.sink { [weak self] in
+				self?.secondarySubtitleLabel.isHidden = $0 == nil
+				self?.secondarySubtitleLabel.text = $0
+			}
+			.store(in: &subscriptions)
 
 		viewModel.$secondaryTrendImage
 			.sink { [weak self] in
@@ -267,10 +273,10 @@ class HomeStatisticsCardView: UIView {
 			}
 			.store(in: &subscriptions)
 
-		viewModel.$footnote
+		viewModel.$primarySubtitle
 			.sink { [weak self] in
-				self?.footnoteLabel.isHidden = $0 == nil
-				self?.footnoteLabel.text = $0
+				self?.primarySubtitleLabel.isHidden = $0 == nil
+				self?.primarySubtitleLabel.text = $0
 			}
 			.store(in: &subscriptions)
 
