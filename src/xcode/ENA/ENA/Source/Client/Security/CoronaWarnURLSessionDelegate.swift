@@ -35,14 +35,21 @@ extension CoronaWarnURLSessionDelegate: URLSessionDelegate {
 		// that might return something different than `errSecSuccess`.
 		//
 		// [1]: https://developer.apple.com/documentation/security/certificate_key_and_trust_services/trust/evaluating_a_trust_and_parsing_the_result
+		//
+		// from the documentation about the method SecTrustEvaluateAsyncWithError
+		// Important: You must call this method from the same dispatch queue that you specify as the queue parameter.
+		//
 		if #available(iOS 13.0, *) {
-			SecTrustEvaluateAsyncWithError(trust, session.delegateQueue.underlyingQueue ?? .main) { [weak self] trust, isValid, error in
-				guard isValid else {
-					Log.error("Evaluation failed with error: \(error?.localizedDescription ?? "<nil>")", log: .api, error: error)
-					completionHandler(.cancelAuthenticationChallenge, /* credential */ nil)
-					return
+			let dispatchQueue = session.delegateQueue.underlyingQueue ?? DispatchQueue.global()
+			dispatchQueue.async {
+				SecTrustEvaluateAsyncWithError(trust, dispatchQueue) { [weak self] trust, isValid, error in
+					guard isValid else {
+						Log.error("Evaluation failed with error: \(error?.localizedDescription ?? "<nil>")", log: .api, error: error)
+						completionHandler(.cancelAuthenticationChallenge, /* credential */ nil)
+						return
+					}
+					self?.evaluate(challenge: challenge, trust: trust, completionHandler: completionHandler)
 				}
-				self?.evaluate(challenge: challenge, trust: trust, completionHandler: completionHandler)
 			}
 		} else {
 			var secresult = SecTrustResultType.invalid
