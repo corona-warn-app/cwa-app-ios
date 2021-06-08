@@ -75,16 +75,16 @@ public struct VaccinationEntry: Codable, Equatable {
     public let uniqueCertificateIdentifier: String
 
     static func fake(
-        diseaseOrAgentTargeted: String = "diseaseOrAgentTargeted",
-        vaccineOrProphylaxis: String = "vaccineOrProphylaxis",
-        vaccineMedicinalProduct: String = "vaccineMedicinalProduct",
-        marketingAuthorizationHolder: String = "marketingAuthorizationHolder",
-        doseNumber: Int = 0,
-        totalSeriesOfDoses: Int = 0,
-        dateOfVaccination: String = "dateOfVaccination",
-        countryOfVaccination: String = "countryOfVaccination",
-        certificateIssuer: String = "certificateIssuer",
-        uniqueCertificateIdentifier: String = "uniqueCertificateIdentifier"
+        diseaseOrAgentTargeted: String = "840539006",
+        vaccineOrProphylaxis: String = "1119349007",
+        vaccineMedicinalProduct: String = "EU/1/20/1528",
+        marketingAuthorizationHolder: String = "ORG-100030215",
+        doseNumber: Int = 1,
+        totalSeriesOfDoses: Int = 2,
+        dateOfVaccination: String = "2021-02-02",
+        countryOfVaccination: String = "DE",
+        certificateIssuer: String = "Bundesministerium für Gesundheit",
+        uniqueCertificateIdentifier: String = "01DE/84503/1119349007/DXSGWLWL40SU8ZFKIYIBK39A3#S"
     ) -> VaccinationEntry {
         VaccinationEntry(
             diseaseOrAgentTargeted: diseaseOrAgentTargeted,
@@ -164,17 +164,17 @@ public struct TestEntry: Codable, Equatable {
     public let uniqueCertificateIdentifier: String
 
     static func fake(
-        diseaseOrAgentTargeted: String = "diseaseOrAgentTargeted",
-        typeOfTest: String = "typeOfTest",
-        testResult: String = "testResult",
+        diseaseOrAgentTargeted: String = "840539006",
+        typeOfTest: String = "LP6464-4",
+        testResult: String = "260415000",
         naaTestName: String? = nil,
         ratTestName: String? = nil,
-        dateTimeOfSampleCollection: String = "dateTimeOfSampleCollection",
-        dateTimeOfTestResult: String = "dateTimeOfTestResult",
-        testCenter: String = "testCenter",
-        countryOfTest: String = "countryOfTest",
-        certificateIssuer: String = "certificateIssuer",
-        uniqueCertificateIdentifier: String = "uniqueCertificateIdentifier"
+        dateTimeOfSampleCollection: String = "2021-05-29T22:34:17.595Z",
+        dateTimeOfTestResult: String = "2021-05-31T08:58:17.595Z",
+        testCenter: String = "Rödelheim Esso Tankstelle",
+        countryOfTest: String = "DE",
+        certificateIssuer: String = "Bundesministerium für Gesundheit",
+        uniqueCertificateIdentifier: String = "01DE/00000/1119349007/9QK4WRVMUOUIP7PYVNSFBK9GF"
     ) -> TestEntry {
         TestEntry(
             diseaseOrAgentTargeted: diseaseOrAgentTargeted,
