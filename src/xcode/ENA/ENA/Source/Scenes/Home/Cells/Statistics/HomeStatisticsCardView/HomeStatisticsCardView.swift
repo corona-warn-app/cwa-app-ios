@@ -12,23 +12,67 @@ class HomeStatisticsCardView: UIView {
 	override func awakeFromNib() {
 		super.awakeFromNib()
 
-		let focusableLabels = [
-			titleLabel as ENALabel,
-			primaryTitleLabel as ENALabel,
-			primaryValueLabel as ENALabel,
-			secondaryTitleLabel as ENALabel,
-			secondaryValueLabel as ENALabel,
-			tertiaryTitleLabel as ENALabel,
-			tertiaryValueLabel as ENALabel,
-			footnoteLabel as ENALabel
-		]
+		titleLabel.adjustsFontSizeToFitWidth = true
+		titleLabel.allowsDefaultTighteningForTruncation = true
+		titleLabel.onAccessibilityFocus = { [weak self] in
+			self?.onAccessibilityFocus?()
+		}
+		
+		primaryTitleLabel.style = .body
+		primaryTitleLabel.textColor = .enaColor(for: .textPrimary2)
+		primaryTitleLabel.numberOfLines = 0
+		primaryTitleLabel.adjustsFontSizeToFitWidth = true
+		primaryTitleLabel.allowsDefaultTighteningForTruncation = true
+		primaryTitleLabel.onAccessibilityFocus = { [weak self] in
+			self?.onAccessibilityFocus?()
+		}
+		
+		primaryValueLabel.style = .title1
+		primaryValueLabel.numberOfLines = 0
+		primaryValueLabel.adjustsFontSizeToFitWidth = true
+		primaryValueLabel.allowsDefaultTighteningForTruncation = true
+		primaryValueLabel.onAccessibilityFocus = { [weak self] in
+			self?.onAccessibilityFocus?()
+		}
+		
+		secondaryTitleLabel.style = .body
+		secondaryTitleLabel.textColor = .enaColor(for: .textPrimary2)
+		secondaryTitleLabel.numberOfLines = 0
+		secondaryTitleLabel.adjustsFontSizeToFitWidth = true
+		secondaryTitleLabel.allowsDefaultTighteningForTruncation = true
+		secondaryTitleLabel.onAccessibilityFocus = { [weak self] in
+			self?.onAccessibilityFocus?()
+		}
+		
+		secondaryValueLabel.style = .headline
+		secondaryValueLabel.numberOfLines = 0
+		secondaryValueLabel.adjustsFontSizeToFitWidth = true
+		secondaryValueLabel.allowsDefaultTighteningForTruncation = true
+		secondaryValueLabel.onAccessibilityFocus = { [weak self] in
+			self?.onAccessibilityFocus?()
+		}
+		
+		tertiaryTitleLabel.style = .body
+		tertiaryTitleLabel.textColor = .enaColor(for: .textPrimary2)
+		tertiaryTitleLabel.numberOfLines = 0
+		tertiaryTitleLabel.adjustsFontSizeToFitWidth = true
+		tertiaryTitleLabel.allowsDefaultTighteningForTruncation = true
+		tertiaryTitleLabel.onAccessibilityFocus = { [weak self] in
+			self?.onAccessibilityFocus?()
+		}
+		
+		tertiaryValueLabel.style = .headline
+		tertiaryValueLabel.numberOfLines = 0
+		tertiaryValueLabel.adjustsFontSizeToFitWidth = true
+		tertiaryValueLabel.allowsDefaultTighteningForTruncation = true
+		tertiaryValueLabel.onAccessibilityFocus = { [weak self] in
+			self?.onAccessibilityFocus?()
+		}
 
-		focusableLabels.forEach {
-			$0.adjustsFontSizeToFitWidth = true
-			$0.allowsDefaultTighteningForTruncation = true
-			$0.onAccessibilityFocus = { [weak self] in
-				self?.onAccessibilityFocus?()
-			}
+		footnoteLabel.adjustsFontSizeToFitWidth = true
+		footnoteLabel.allowsDefaultTighteningForTruncation = true
+		footnoteLabel.onAccessibilityFocus = { [weak self] in
+			self?.onAccessibilityFocus?()
 		}
 
 		primaryTrendImageView.layer.cornerRadius = primaryTrendImageView.bounds.width / 2
@@ -113,16 +157,16 @@ class HomeStatisticsCardView: UIView {
 
 	@IBOutlet weak var illustrationImageView: UIImageView!
 
-	@IBOutlet weak var primaryTitleLabel: ENALabel!
-	@IBOutlet weak var primaryValueLabel: ENALabel!
+	@IBOutlet weak var primaryTitleLabel: StackViewLabel!
+	@IBOutlet weak var primaryValueLabel: StackViewLabel!
 	@IBOutlet weak var primaryTrendImageView: UIImageView!
 
-	@IBOutlet weak var secondaryTitleLabel: ENALabel!
-	@IBOutlet weak var secondaryValueLabel: ENALabel!
+	@IBOutlet weak var secondaryTitleLabel: StackViewLabel!
+	@IBOutlet weak var secondaryValueLabel: StackViewLabel!
 	@IBOutlet weak var secondaryTrendImageView: UIImageView!
 
-	@IBOutlet weak var tertiaryTitleLabel: ENALabel!
-	@IBOutlet weak var tertiaryValueLabel: ENALabel!
+	@IBOutlet weak var tertiaryTitleLabel: StackViewLabel!
+	@IBOutlet weak var tertiaryValueLabel: StackViewLabel!
 
 	@IBOutlet weak var footnoteLabel: ENALabel!
 
