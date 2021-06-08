@@ -43,8 +43,8 @@ class HomeStatisticsCardViewModel {
 			setupReproductionNumber(for: keyFigureCard)
 		case .atLeastOneVaccinatedPerson:
 			setupAtLeastOneVaccinatedPerson(for: keyFigureCard)
-		case .completeVaccinatedPeople:
-			setupCompleteVaccinatedPeople(for: keyFigureCard)
+		case .fullyVaccinatedPeople:
+			setupFullyVaccinatedPeople(for: keyFigureCard)
 		case .appliedVaccinationsDoseRates:
 			setupAppliedVaccinationsDoseRates(for: keyFigureCard)
 
@@ -55,21 +55,20 @@ class HomeStatisticsCardViewModel {
 	// MARK: - Internal
 
 	@OpenCombine.Published private(set) var title: String?
+	@OpenCombine.Published private(set) var subtitle: String?
 
 	@OpenCombine.Published private(set) var illustrationImage: UIImage!
 
 	@OpenCombine.Published private(set) var primaryTitle: String?
 	@OpenCombine.Published private(set) var primaryValue: String?
+	@OpenCombine.Published private(set) var primarySubtitle: String?
 	@OpenCombine.Published private(set) var primaryTrendImage: UIImage?
 	@OpenCombine.Published private(set) var primaryTrendImageTintColor: UIColor?
 	@OpenCombine.Published private(set) var primaryTrendAccessibilityLabel: String?
 	@OpenCombine.Published private(set) var primaryTrendAccessibilityValue: String?
-
-	@OpenCombine.Published private(set) var primarySubtitle: String?
-
+	
 	@OpenCombine.Published private(set) var secondaryTitle: String?
 	@OpenCombine.Published private(set) var secondaryValue: String?
-	@OpenCombine.Published private(set) var secondarySubtitle: String?
 	@OpenCombine.Published private(set) var secondaryTrendImage: UIImage?
 	@OpenCombine.Published private(set) var secondaryTrendImageTintColor: UIColor?
 	@OpenCombine.Published private(set) var secondaryTrendAccessibilityLabel: String?
@@ -110,6 +109,7 @@ class HomeStatisticsCardViewModel {
 
 	private func setupKeySubmissions(for keyFigureCard: SAP_Internal_Stats_KeyFigureCard) {
 		title = AppStrings.Statistics.Card.KeySubmissions.title
+		subtitle = AppStrings.Statistics.Card.KeySubmissions.fromCWA
 		titleAccessiblityIdentifier = AccessibilityIdentifiers.Statistics.KeySubmissions.title
 		infoButtonAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.KeySubmissions.infoButton
 		illustrationImage = UIImage(named: "Illu_Warnende_Personen")
@@ -130,11 +130,11 @@ class HomeStatisticsCardViewModel {
 		if keyFigureCard.keyFigures.contains(where: { $0.rank == .tertiary }) {
 			tertiaryTitle = AppStrings.Statistics.Card.KeySubmissions.tertiaryLabelTitle
 		}
-		primarySubtitle = AppStrings.Statistics.Card.KeySubmissions.fromCWA
 	}
 
 	private func setupIncidence(for keyFigureCard: SAP_Internal_Stats_KeyFigureCard) {
 		title = AppStrings.Statistics.Card.Incidence.title
+		subtitle = AppStrings.Statistics.Card.KeySubmissions.fromNationWide
 		titleAccessiblityIdentifier = AccessibilityIdentifiers.Statistics.Incidence.title
 		infoButtonAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.Incidence.infoButton
 		illustrationImage = UIImage(named: "Illu_7-Tage-Inzidenz")
@@ -147,13 +147,12 @@ class HomeStatisticsCardViewModel {
 				otherDateString: AppStrings.Statistics.Card.Incidence.date
 			)
 		}
-
-		secondarySubtitle = AppStrings.Statistics.Card.Incidence.secondaryLabelTitle
-		primarySubtitle = AppStrings.Statistics.Card.KeySubmissions.fromNationWide
+		primarySubtitle = AppStrings.Statistics.Card.Incidence.secondaryLabelTitle
 	}
 
 	private func setupReproductionNumber(for keyFigureCard: SAP_Internal_Stats_KeyFigureCard) {
 		title = AppStrings.Statistics.Card.ReproductionNumber.title
+		subtitle = AppStrings.Statistics.Card.KeySubmissions.fromNationWide
 		titleAccessiblityIdentifier = AccessibilityIdentifiers.Statistics.ReproductionNumber.title
 		infoButtonAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.ReproductionNumber.infoButton
 		illustrationImage = UIImage(named: "Illu_7-Tage-R-Wert")
@@ -166,14 +165,13 @@ class HomeStatisticsCardViewModel {
 				otherDateString: AppStrings.Statistics.Card.ReproductionNumber.date
 			)
 		}
-
-		secondarySubtitle = AppStrings.Statistics.Card.ReproductionNumber.secondaryLabelTitle
-		primarySubtitle = AppStrings.Statistics.Card.KeySubmissions.fromNationWide
+		primarySubtitle = AppStrings.Statistics.Card.ReproductionNumber.secondaryLabelTitle
 	}
 
 	private func setupAtLeastOneVaccinatedPerson(for keyFigureCard: SAP_Internal_Stats_KeyFigureCard) {
 		title = AppStrings.Statistics.Card.AtleastOneVaccinated.title
 		illustrationImage = UIImage(named: "AtleastOneVaccinated")
+		subtitle = AppStrings.Statistics.Card.KeySubmissions.fromNationWide
 
 		if keyFigureCard.keyFigures.contains(where: { $0.rank == .primary }) {
 			let updateDate = Date(timeIntervalSince1970: TimeInterval(keyFigureCard.header.updatedAt))
@@ -183,6 +181,8 @@ class HomeStatisticsCardViewModel {
 				otherDateString: AppStrings.Statistics.Card.AtleastOneVaccinated.date
 			)
 		}
+		primarySubtitle = AppStrings.Statistics.Card.AtleastOneVaccinated.secondarySubtitle
+		
 		if keyFigureCard.keyFigures.contains(where: { $0.rank == .secondary }) {
 			secondaryTitle = AppStrings.Statistics.Card.AtleastOneVaccinated.secondaryLabelTitle
 		}
@@ -190,12 +190,11 @@ class HomeStatisticsCardViewModel {
 		if keyFigureCard.keyFigures.contains(where: { $0.rank == .tertiary }) {
 			tertiaryTitle = AppStrings.Statistics.Card.AtleastOneVaccinated.tertiaryLabelTitle
 		}
-		primarySubtitle = AppStrings.Statistics.Card.KeySubmissions.fromNationWide
-		secondarySubtitle = AppStrings.Statistics.Card.AtleastOneVaccinated.secondarySubtitle
 	}
 
-	private func setupCompleteVaccinatedPeople(for keyFigureCard: SAP_Internal_Stats_KeyFigureCard) {
+	private func setupFullyVaccinatedPeople(for keyFigureCard: SAP_Internal_Stats_KeyFigureCard) {
 		title = AppStrings.Statistics.Card.FullyVaccinated.title
+		subtitle = AppStrings.Statistics.Card.KeySubmissions.fromNationWide
 		illustrationImage = UIImage(named: "FullyVaccinated")
 
 		if keyFigureCard.keyFigures.contains(where: { $0.rank == .primary }) {
@@ -206,7 +205,8 @@ class HomeStatisticsCardViewModel {
 				otherDateString: AppStrings.Statistics.Card.FullyVaccinated.date
 			)
 		}
-
+		primarySubtitle = AppStrings.Statistics.Card.FullyVaccinated.secondarySubtitle
+		
 		if keyFigureCard.keyFigures.contains(where: { $0.rank == .secondary }) {
 			secondaryTitle = AppStrings.Statistics.Card.FullyVaccinated.secondaryLabelTitle
 		}
@@ -214,12 +214,11 @@ class HomeStatisticsCardViewModel {
 		if keyFigureCard.keyFigures.contains(where: { $0.rank == .tertiary }) {
 			tertiaryTitle = AppStrings.Statistics.Card.FullyVaccinated.tertiaryLabelTitle
 		}
-		primarySubtitle = AppStrings.Statistics.Card.KeySubmissions.fromNationWide
-		secondarySubtitle = AppStrings.Statistics.Card.FullyVaccinated.secondarySubtitle
 	}
 	
 	private func setupAppliedVaccinationsDoseRates(for keyFigureCard: SAP_Internal_Stats_KeyFigureCard) {
 		title = AppStrings.Statistics.Card.DoseRates.title
+		subtitle = AppStrings.Statistics.Card.KeySubmissions.fromNationWide
 		illustrationImage = UIImage(named: "Doses")
 
 		if keyFigureCard.keyFigures.contains(where: { $0.rank == .primary }) {
@@ -237,7 +236,6 @@ class HomeStatisticsCardViewModel {
 		if keyFigureCard.keyFigures.contains(where: { $0.rank == .tertiary }) {
 			tertiaryTitle = AppStrings.Statistics.Card.DoseRates.tertiaryLabelTitle
 		}
-		primarySubtitle = AppStrings.Statistics.Card.KeySubmissions.fromNationWide
 	}
 }
 

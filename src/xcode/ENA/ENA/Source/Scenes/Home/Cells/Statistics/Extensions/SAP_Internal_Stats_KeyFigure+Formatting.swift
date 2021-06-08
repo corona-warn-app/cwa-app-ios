@@ -31,7 +31,7 @@ extension SAP_Internal_Stats_KeyFigure {
 			return formattedString
 		}
 		switch HomeStatisticsCard(rawValue: cardId) {
-		case .atLeastOneVaccinatedPerson, .completeVaccinatedPeople:
+		case .atLeastOneVaccinatedPerson, .fullyVaccinatedPeople:
 			guard let valueString = formattedString else {
 				return formattedString
 			}

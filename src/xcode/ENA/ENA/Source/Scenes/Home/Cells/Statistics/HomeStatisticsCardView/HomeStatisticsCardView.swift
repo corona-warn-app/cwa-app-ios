@@ -69,16 +69,9 @@ class HomeStatisticsCardView: UIView {
 			self?.onAccessibilityFocus?()
 		}
 
-		footnoteLabel.adjustsFontSizeToFitWidth = true
-		footnoteLabel.allowsDefaultTighteningForTruncation = true
-		footnoteLabel.onAccessibilityFocus = { [weak self] in
-			self?.onAccessibilityFocus?()
-		}
-
 		primaryTrendImageView.layer.cornerRadius = primaryTrendImageView.bounds.width / 2
 		secondaryTrendImageView.layer.cornerRadius = secondaryTrendImageView.bounds.width / 2
 	}
-
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 		super.traitCollectionDidChange(previousTraitCollection)
 
@@ -139,7 +132,7 @@ class HomeStatisticsCardView: UIView {
 				accessibilityElements.append(tertiaryTitleLabel)
 			}
 
-			if viewModel?.primarySubtitle != nil, let primarySubtitleLabel = self.primarySubtitleLabel {
+			if viewModel?.subtitle != nil, let primarySubtitleLabel = self.subtitleLabel {
 				primarySubtitleLabel.accessibilityTraits = UIAccessibilityTraits.link
 				accessibilityElements.append(primarySubtitleLabel)
 			}
@@ -153,18 +146,18 @@ class HomeStatisticsCardView: UIView {
 	// MARK: - Internal
 
 	@IBOutlet weak var titleLabel: ENALabel!
+	@IBOutlet weak var subtitleLabel: ENALabel!
 	@IBOutlet weak var infoButton: UIButton!
 
 	@IBOutlet weak var illustrationImageView: UIImageView!
 
 	@IBOutlet weak var primaryTitleLabel: ENALabel!
-	@IBOutlet weak var primarySubtitleLabel: ENALabel!
 	@IBOutlet weak var primaryValueLabel: ENALabel!
+	@IBOutlet weak var primarySubtitleLabel: ENALabel!
 	@IBOutlet weak var primaryTrendImageView: UIImageView!
 
 	@IBOutlet weak var secondaryTitleLabel: ENALabel!
 	@IBOutlet weak var secondaryValueLabel: ENALabel!
-	@IBOutlet weak var secondarySubtitleLabel: ENALabel!
 	@IBOutlet weak var secondaryTrendImageView: UIImageView!
 
 	@IBOutlet weak var tertiaryTitleLabel: StackViewLabel!
@@ -233,10 +226,10 @@ class HomeStatisticsCardView: UIView {
 				self?.secondaryValueLabel.text = $0
 			}
 			.store(in: &subscriptions)
-		viewModel.$secondarySubtitle
+		viewModel.$primarySubtitle
 			.sink { [weak self] in
-				self?.secondarySubtitleLabel.isHidden = $0 == nil
-				self?.secondarySubtitleLabel.text = $0
+				self?.primarySubtitleLabel.isHidden = $0 == nil
+				self?.primarySubtitleLabel.text = $0
 			}
 			.store(in: &subscriptions)
 
@@ -273,10 +266,10 @@ class HomeStatisticsCardView: UIView {
 			}
 			.store(in: &subscriptions)
 
-		viewModel.$primarySubtitle
+		viewModel.$subtitle
 			.sink { [weak self] in
-				self?.primarySubtitleLabel.isHidden = $0 == nil
-				self?.primarySubtitleLabel.text = $0
+				self?.subtitleLabel.isHidden = $0 == nil
+				self?.subtitleLabel.text = $0
 			}
 			.store(in: &subscriptions)
 
