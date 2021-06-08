@@ -119,11 +119,11 @@ extension OnboardingInfo {
 			linkDisplayText: "",
 			actionText: AppStrings.Onboarding.onboardingContinue,
 			alternativeActionText: "",
-			ignoreText: AppStrings.Onboarding.onboardingDoNotAllow,
+			ignoreText: "",
 			titleAccessibilityIdentifier: AccessibilityIdentifiers.Onboarding.onboardingInfo_alwaysStayInformedPage_title,
 			imageAccessibilityIdentifier: AccessibilityIdentifiers.Onboarding.onboardingInfo_alwaysStayInformedPage_imageDescription,
 			actionTextAccessibilityIdentifier: AccessibilityIdentifiers.Onboarding.onboardingContinue,
-			ignoreTextAccessibilityIdentifier: AccessibilityIdentifiers.Onboarding.onboardingDoNotAllow
+			ignoreTextAccessibilityIdentifier: nil
 		)
 
 
