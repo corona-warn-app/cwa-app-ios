@@ -8,7 +8,7 @@ import SwiftCBOR
 
 enum DigitalGreenCertificateFake {
 
-    public static func makeBase45Fake(from certificate: DigitalGreenCertificate, and header: CBORWebTokenHeader) -> Result<Base45, CertificateDecodingError>  {
+    static func makeBase45Fake(from certificate: DigitalGreenCertificate, and header: CBORWebTokenHeader) -> Result<Base45, CertificateDecodingError> {
 
         guard let cborCertificateData = try? CodableCBOREncoder().encode(certificate) else {
             return .failure(.HC_BASE45_ENCODING_FAILED)
@@ -19,10 +19,10 @@ enum DigitalGreenCertificateFake {
             return .failure(.HC_BASE45_ENCODING_FAILED)
         }
 
-        var wrappedCertificate = CBOR.map([CBOR : CBOR]())
+        var wrappedCertificate = CBOR.map([CBOR: CBOR]())
         wrappedCertificate[1] = cborCertificate
 
-        var cborWebTokenPayload = CBOR.map([CBOR : CBOR]())
+        var cborWebTokenPayload = CBOR.map([CBOR: CBOR]())
         cborWebTokenPayload[-260] = wrappedCertificate
         cborWebTokenPayload[1] = CBOR.utf8String(header.issuer)
         cborWebTokenPayload[4] = CBOR.unsignedInt(header.expirationTime)
@@ -37,7 +37,7 @@ enum DigitalGreenCertificateFake {
             CBOR.null,
             CBOR.null,
             CBOR.byteString(cborWebTokenPayloadBytes),
-            CBOR.null,
+            CBOR.null
         ])
 
         let cborWebToken = CBOR.tagged(CBOR.Tag(rawValue: 18), cborWebTokenMessage)
@@ -56,7 +56,7 @@ enum DigitalGreenCertificateFake {
         }
 
         // Add prefix
-        let prefixedBase45CBORWebToken = hcPrefix+base45CBORWebToken
+        let prefixedBase45CBORWebToken = hcPrefix + base45CBORWebToken
 
         return .success(prefixedBase45CBORWebToken)
     }
