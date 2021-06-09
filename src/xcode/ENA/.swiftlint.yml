@@ -205,6 +205,7 @@ included:
   - ENA
   - ENATests
   - ENAUITests
+  - HealthCertificateToolkit
 
 # Excluded paths (takes precedence over 'included')
 excluded: # paths to ignore during linting. Takes precedence over `included`.
