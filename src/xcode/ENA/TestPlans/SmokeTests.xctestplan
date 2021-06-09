@@ -35,6 +35,13 @@
         "identifier" : "85D7595324570491008175F0",
         "name" : "ENATests"
       }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:HealthCertificateToolkit",
+        "identifier" : "HealthCertificateToolkitTests",
+        "name" : "HealthCertificateToolkitTests"
+      }
     }
   ],
   "version" : 1
