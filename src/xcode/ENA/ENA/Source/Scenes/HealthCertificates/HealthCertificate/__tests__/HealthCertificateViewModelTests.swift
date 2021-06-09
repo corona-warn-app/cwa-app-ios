@@ -17,6 +17,9 @@ class HealthCertificateViewModelTests: CWATestCase {
 		XCTAssertEqual(HealthCertificateViewModel.TableViewSection.map(2), .topCorner)
 		XCTAssertEqual(HealthCertificateViewModel.TableViewSection.map(3), .details)
 		XCTAssertEqual(HealthCertificateViewModel.TableViewSection.map(4), .bottomCorner)
+		XCTAssertEqual(HealthCertificateViewModel.TableViewSection.map(5), .additionalInfo)
+		XCTAssertNil(HealthCertificateViewModel.TableViewSection.map(6))
+
 	}
 
 	func testGIVEN_HealthCertificate_WHEN_CreateViewModel_THEN_IsSetup() throws {
@@ -46,6 +49,7 @@ class HealthCertificateViewModelTests: CWATestCase {
 		XCTAssertEqual(viewModel.numberOfItems(in: .topCorner), 1)
 		XCTAssertEqual(viewModel.numberOfItems(in: .details), 8)
 		XCTAssertEqual(viewModel.numberOfItems(in: .bottomCorner), 1)
+		XCTAssertEqual(viewModel.additionalInfoCellViewModels.count, 2)
 	}
 
 }
