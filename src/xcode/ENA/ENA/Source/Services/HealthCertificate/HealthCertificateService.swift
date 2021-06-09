@@ -6,6 +6,7 @@ import UIKit
 import OpenCombine
 import HealthCertificateToolkit
 
+// swiftlint:disable:next type_body_length
 class HealthCertificateService {
 
 	// MARK: - Init
@@ -15,6 +16,7 @@ class HealthCertificateService {
 		client: Client,
 		appConfiguration: AppConfigurationProviding
 	) {
+
 		#if DEBUG
 		if isUITesting {
 			self.store = MockTestStore()
@@ -29,6 +31,18 @@ class HealthCertificateService {
 			} else if LaunchArguments.healthCertificate.firstAndSecondHealthCertificate.boolValue {
 				registerVaccinationCertificate(base45: HealthCertificate.firstBase45Mock)
 				registerVaccinationCertificate(base45: HealthCertificate.lastBase45Mock)
+			}
+
+			if LaunchArguments.healthCertificate.testCertificateRegistered.boolValue {
+				let result = DigitalGreenCertificateFake.makeBase45Fake(
+					from: DigitalGreenCertificate.fake(
+						testEntries: [TestEntry.fake()]
+					),
+					and: CBORWebTokenHeader.fake()
+				)
+				if case let .success(base45) = result {
+					registerHealthCertificate(base45: base45)
+				}
 			}
 
 			return

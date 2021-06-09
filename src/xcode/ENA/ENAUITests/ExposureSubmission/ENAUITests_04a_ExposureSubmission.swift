@@ -410,6 +410,48 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].waitForExistence(timeout: .long))
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].isHittable)
 	}
+
+	func test_TestCertificateScreen() throws {
+		launch()
+
+		// -> Open Intro screen
+		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitAndTap()
+		XCTAssertTrue(app.navigationBars[AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle].waitForExistence(timeout: .medium))
+
+		// Intro screen
+		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionIntroView"].waitForExistence(timeout: .medium))
+
+		// -> Select QRCode screen.
+		app.buttons["AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"].waitAndTap()
+
+		// QR Code Info Screen
+		XCTAssertTrue(app.navigationBars[AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle].waitForExistence(timeout: .medium))
+		app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton].waitAndTap()
+
+		// QR Code Scanner Screen
+		XCTAssertTrue(app.navigationBars[AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle].waitForExistence(timeout: .medium))
+
+		// Wait for the birthday field.
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.ExposureSubmission.TestCertificate.Info.birthdayPlaceholder].waitForExistence(timeout: .extraLong))
+
+		snapshot("submissionflow_screenshot_test_certificate_request")
+
+		// Tap on birthday field.
+		app.cells[AccessibilityIdentifiers.ExposureSubmission.TestCertificate.Info.birthdayPlaceholder].waitAndTap()
+
+		// Pick another year to enable the button
+		let dateComponent = Calendar.current.dateComponents([.year], from: Date())
+		let datePicker = XCUIApplication().datePickers.firstMatch
+		let year = try XCTUnwrap(dateComponent.year)
+		datePicker.pickerWheels[String(year)].adjust(toPickerWheelValue: "1985")
+
+		// Check if the button is enabled.
+		let buttonEnabled = NSPredicate(format: "enabled == true")
+		expectation(for: buttonEnabled, evaluatedWith: app.buttons[AccessibilityIdentifiers.General.primaryFooterButton], handler: nil)
+		waitForExpectations(timeout: .medium, handler: nil)
+
+		snapshot("submissionflow_screenshot_test_certificate_entered_birthday")
+	}
 	
 	// MARK: - Screenshots
 

@@ -10,6 +10,6 @@ class TestCertificateInfoCellModel {
 
 	let title = AppStrings.HealthCertificate.Overview.TestCertificateInfo.title
 	let description = AppStrings.HealthCertificate.Overview.TestCertificateInfo.description
-	let accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Overview.vaccinationCertificateRegistrationCell
+	let accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Overview.testCertificateInfoCell
 
 }
