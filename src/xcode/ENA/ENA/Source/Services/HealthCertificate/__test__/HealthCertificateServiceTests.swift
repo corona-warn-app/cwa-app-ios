@@ -43,4 +43,46 @@ class HealthCertificateServiceTests: CWATestCase {
 		subscription.cancel()
 	}
 
+	func testRegisteringTestCertificate() throws {
+		let store = MockTestStore()
+
+		let service = HealthCertificateService(
+			store: store,
+			client: ClientMock(),
+			appConfiguration: CachedAppConfigurationMock()
+		)
+
+		let base45Result = DigitalGreenCertificateFake.makeBase45Fake(
+			from: DigitalGreenCertificate.fake(
+				testEntries: [TestEntry.fake()]
+			),
+			and: CBORWebTokenHeader.fake()
+		)
+
+		guard case let .success(base45) = base45Result else {
+			XCTFail("Could not make fake base45 certificate")
+			return
+		}
+
+		let registrationResult = service.registerHealthCertificate(base45: base45)
+
+		switch registrationResult {
+		case.success(let healthCertifiedPerson):
+			XCTAssertEqual(healthCertifiedPerson.healthCertificates, [try HealthCertificate(base45: base45)])
+		case .failure:
+			XCTFail("Registration should succeed")
+		}
+
+		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [try HealthCertificate(base45: base45)])
+
+		// Try to register same certificate twice
+		let secondRegistrationResult = service.registerHealthCertificate(base45: base45)
+
+		if case .failure(let error) = secondRegistrationResult, case .certificateAlreadyRegistered = error { } else {
+			XCTFail("Double registration of the same certificate should fail")
+		}
+
+		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [try HealthCertificate(base45: base45)])
+	}
+
 }
