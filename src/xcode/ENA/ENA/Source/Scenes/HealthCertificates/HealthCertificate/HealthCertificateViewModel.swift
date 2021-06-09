@@ -130,7 +130,7 @@ final class HealthCertificateViewModel {
 		)
 	}
 
-	/// these stings here are on purpose not localized
+	/// these strings here are on purpose not localized
 	///
 	var additionalInfoCellViewModels: [HealthCertificateSimpleTextCellViewModel] {
 		return [
