@@ -8,7 +8,8 @@ import OpenCombine
 class HomeStatisticsCardViewModel {
 
 	// MARK: - Init
-
+	
+	// swiftlint:disable cyclomatic_complexity
 	init(for keyFigureCard: SAP_Internal_Stats_KeyFigureCard) {
 		if let primaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .primary }) {
 			primaryValue = primaryFigure.formattedValue(cardRawValue: keyFigureCard.header.cardID)
@@ -52,6 +53,8 @@ class HomeStatisticsCardViewModel {
 			Log.info("Statistics card ID \(keyFigureCard.header.cardID) is not supported", log: .ui)
 		}
 	}
+	// swiftlint:enable cyclomatic_complexity
+
 	// MARK: - Internal
 	@OpenCombine.Published private(set) var title: String?
 	@OpenCombine.Published private(set) var subtitle: String?
