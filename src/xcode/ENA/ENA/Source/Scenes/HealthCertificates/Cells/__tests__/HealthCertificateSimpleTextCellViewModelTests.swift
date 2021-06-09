@@ -17,7 +17,7 @@ class HealthCertificateSimpleTextCellViewModelTests: CWATestCase {
 			attributedText: NSAttributedString(string: "Testtext attributed"),
 			topSpace: 100.0,
 			font: .systemFont(ofSize: 14.0),
-			boarderColor: .green,
+			borderColor: .green,
 			accessibilityTraits: .header
 		)
 
@@ -29,7 +29,7 @@ class HealthCertificateSimpleTextCellViewModelTests: CWATestCase {
 		XCTAssertEqual(viewModel.attributedText, NSAttributedString(string: "Testtext attributed"))
 		XCTAssertEqual(viewModel.topSpace, 100.0)
 		XCTAssertEqual(viewModel.font, .systemFont(ofSize: 14.0))
-		XCTAssertEqual(viewModel.boarderColor, .green)
+		XCTAssertEqual(viewModel.borderColor, .green)
 		XCTAssertEqual(viewModel.accessibilityTraits, .header)
 	}
 

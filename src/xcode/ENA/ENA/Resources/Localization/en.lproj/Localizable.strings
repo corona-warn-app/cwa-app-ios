@@ -85,6 +85,8 @@
 
 "ExposureDetection_LoadingText" = "Current data is being downloaded and checked. This can take several minutes.";
 
+"ExposureDetection_Contact_Journal_Text" = "You will find more information about your exposures in your contact journal.";
+
 "ExposureDetection_Behavior_Title" = "Guidelines";
 
 "ExposureDetection_Behavior_Subtitle" = "This is what you should do:";
@@ -495,7 +497,7 @@
 
 "ExposureSubmissionDispatch_QRCodeButtonTitle" = "Scan QR Code";
 
-"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Receive your test result in the app and warn others.";
+"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Receive your test result in the app and warn others or request your COVID-19 test certificate.";
 
 "ExposureSubmissionDispatch_TANButtonTitle" = "Enter TAN for PCR Test";
 
@@ -549,6 +551,8 @@
 "ExposureSubmissionQRInfo_instruction1" = "Now scan the QR code for your test and retrieve your test result.";
 
 "ExposureSubmissionQRInfo_instruction2" = "Each test can only be scanned once. The app can manage a maximum of one rapid test and one PCR test at the same time.";
+
+"ExposureSubmissionQRInfo_instruction2a" = "If your test result is negative, you can confirm this with an official COVID-19 test certificate. To do so, request the test certificate in the following steps.";
 
 "ExposureSubmissionQRInfo_instruction3" = "The app can%@ manage multiple tests at the same time.";
 
@@ -851,6 +855,10 @@
 
 "ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Your test result is private, although some laws may require you to share it. When required, you may show it via any of the ways provided.";
 
+"ExposureSubmissionResult_Negative_Antigen_NoProof_Title" = "No Verification Feature";
+
+"ExposureSubmissionResult_Negative_Antigen_NoProof_Desc" = "Because the finding here is anonymized, it cannot be used as proof of a negative rapid test result.";
+
 /* Exposure Submission */
 "ExposureSubmissionError_ErrorPrefix" = "A technical error occurred while sending your data. Please contact the technical hotline. You will find the phone number under App Information.";
 
@@ -941,6 +949,35 @@
 "ExposureSubmission_Profile_ProfileTile_Title" = "Rapid Test Profile";
 
 "ExposureSubmission_Profile_ProfileTile_Description" = "Save time and present your rapid test profile at the testing point.";
+
+/* ExposureSubmission TestCertificate */
+"ExposureSubmission_TestCertificate_Information_Title" = "COVID Test Certificate";
+
+"ExposureSubmission_TestCertificate_Information_PrimaryButton" = "Request Test Certificate";
+
+"ExposureSubmission_TestCertificate_Information_SecondaryButton" = "No Thank You";
+
+"ExposureSubmission_TestCertificate_Information_ImageDescription" = "A woman with a smartphone is using the Corona-Warn-App. A checkmark on a seal behind her symbolizes a valid certificate.";
+
+"ExposureSubmission_TestCertificate_Information_Section01" = "The test certificate is only issued if your test result is negative.";
+
+"ExposureSubmission_TestCertificate_Information_Section02" = "The test certificate is valid proof of a negative test result within the EU (e.g. for travel).";
+
+"ExposureSubmission_TestCertificate_Information_Subheadline" = "You can use the app to request an official digital test certificate, which is then added in the app.";
+
+"ExposureSubmission_TestCertificate_Information_BirthdayPlaceholder" = "Date of Birth";
+
+"ExposureSubmission_TestCertificate_Information_BirthdayText" = "For security purposes, your test result is protected with your date of birth. The test result can only be issued if you specify the correct date of birth.";
+
+"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "For more detailed information about data processing, please refer to the privacy notice.";
+
+"ExposureSubmission_TestCertificate_Information_Alert_Title" = "Cancel Registration";
+
+"ExposureSubmission_TestCertificate_Information_Alert_Message" = "If you cancel the test registration, you cannot receive your test result in the app.";
+
+"ExposureSubmission_TestCertificate_Information_Alert_ContinueRegistration" = "Continue Registration";
+
+"ExposureSubmission_TestCertificate_Information_Alert_CancelRegistration" = "Cancel Registration";
 
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Exposure Logging";
@@ -1197,10 +1234,18 @@
 
 "Home_Finding_Positive_Card_Button" = "Warn Others";
 
+"Home_Finding_Positive_Card_Button_Remove_Test" = "Remove Test";
+
+"Home_Finding_Positive_Card_Remove_Test_Alert_Title" = "Are you sure you want to remove your test?";
+
+"Home_Finding_Positive_Card_Remove_Test_Alert_Description" = "If you do, others will not be warned.";
+
+"Home_Finding_Positive_Card_Remove_Test_Alert_Description_Delete_Button" = "Remove";
+
 /* Home Test Registration Card */
 "Home_TestRegistration_Title" = "Register your Test";
 
-"Home_TestRegistration_Body" = "Use the app to register your tests and retrieve your test results, so you can warn others more quickly.";
+"Home_TestRegistration_Body" = "Use the app to register your tests and retrieve your test results, so you can warn others more quickly, or to request your COVID-19 test certificate.";
 
 "Home_TestRegistration_Button" = "Next Steps";
 
@@ -1480,10 +1525,14 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Changes in this release can be found in the app information, under “New Features”.";
 
-/* Version 2.3 */
-"NewVersionFeature_23_digital_vaccination_certificate_title" = "Digital Proof of Vaccination";
+/* Version 2.4 */
+"NewVersionFeature_24_digital_covid_cert_title" = "COVID Test Certificate";
 
-"NewVersionFeature_23_digital_vaccination_certificate_description" = "You can now add your vaccination certificates in the app and present them via QR code. The app displays full vaccination protection 14 days after the final vaccination.";
+"NewVersionFeature_24_digital_covid_cert_description" = "You can now request an official digital test certificate through the app and then add it in the app. You can use this test certificate (QR code) within the EU to prove a negative test result (for international travel, for example).";
+
+"NewVersionFeature_24_extended_diary_title" = "Contact Journal Enhancement";
+
+"NewVersionFeature_24_extended_diary_title_description" = "As soon as your test result is available, it is now also added to your contact journal.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Transnational Exposure Logging";
@@ -1618,6 +1667,14 @@
 "ContactDiary_Overview_PersonEncounter_Setting_Inside" = "Indoors";
 
 "ContactDiary_Overview_LocationVisit_Abbreviation_Hours" = "hrs";
+
+"ContactDiary_Overview_Tests_PCR_Registered" = "PCR Test Registered";
+
+"ContactDiary_Overview_Tests_Antigen_Done" = "Rapid Test Performed";
+
+"ContactDiary_Overview_Tests_Negative_Result" = "Negative Diagnosis";
+
+"ContactDiary_Overview_Tests_Positive_Result" = "Positive Diagnosis";
 
 /* ActionSheet */
 "ContactDiary_Overview_ActionSheet_InfoActionTitle" = "Information";
@@ -1900,6 +1957,8 @@
 
 /* Tabbar */
 "Tabbar_Home_Title" = "Start Screen";
+
+"Tabbar_Certificates_Title" = "Certificates";
 
 "Tabbar_Diary_Title" = "Journal";
 
@@ -2355,25 +2414,47 @@
 
 "AntigenProfile_Create_CityPlaceholder" = "City";
 
-"AntigenProfile_Create_PhoneNumberPlaceholder" = "Phone";
+"AntigenProfile_Create_PhoneNumberPlaceholder" = "Phone Number";
 
 "AntigenProfile_Create_EmailAddressPlaceholder" = "E-Mail Address";
 
 "AntigenProfile_Create_Save_Button_Title" = "Save";
 
 /* Antigen Profile */
-"AntigenProfile_Delete_Alert_Title" = "Do you want to delete the rapid test profile?";
+"AntigenProfile_Delete_Alert_Title" = "Do you want to remove the rapid test profile?";
 
 "AntigenProfile_Delete_Alert_Description" = "Please consider that if you do, the QR code can no longer be used for registration.";
 
 "AntigenProfile_Delete_Alert_Delete_Button_Title" = "Remove";
+
+/* Health Certificate Overview */
+"HealthCertificate_Overview_title" = "Certificates";
+
+"HealthCertificate_Overview_description" = "Your digital vaccination certificates and test certificates are displayed here.";
+
+/* - Vaccination Certificate Registration */
+"VaccinationCertificate_Registration_title" = "Add **Digital\nProof of Vaccination**";
+
+"VaccinationCertificate_Registration_description" = "Add your vaccination certificates in the app so you always have them with you. To do so, scan the QR code on your document.";
+
+/* - Vaccination Certificate */
+"VaccinationCertificate_title" = "Digital **Proof\nof Vaccination**";
+
+"VaccinationCertificate_partiallyVaccinated" = "Vaccination incomplete";
+
+"VaccinationCertificate_vaccinationValidUntil" = "Valid through %@";
+
+/* - Test Certificate Info */
+"TestCertificate_Info_title" = "Digital\n**COVID Test Certificate**";
+
+"TestCertificate_Info_description" = "Register a test on the home screen and agree to receive a digital test certificate. As soon as the certificate is available, it is displayed here.";
 
 /* Health Certificate Information */
 "HealthCertificate_Info_Title" = "Add Vaccination Certificate";
 
 "HealthCertificate_Info_imageDescription" = "An immunized person is looking at their smartphone";
 
-"HealthCertificate_Info_description" = "Add your digital vaccination certificate in the app. As soon as your vaccination protection is complete, you can present the QR code in your app as proof of your vaccination.";
+"HealthCertificate_Info_description" = "Add your digital proof of vaccination in the app. As soon as your vaccination protection is complete, you can present the QR code in your app as proof of your vaccination.";
 
 "HealthCertificate_Info_section01" = "To add a vaccination certificate in the app, scan the QR code that you received during your vaccination.";
 
@@ -2387,20 +2468,6 @@
 "HealthCertificate_QRScanner_title" = "QR Code Scan";
 
 "HealthCertificate_QRScanner_instruction" = "Scan QR Code and Register";
-
-/* - Registration */
-"HealthCertificate_Home_Registration_title" = "Add Vaccination Certificate";
-
-"HealthCertificate_Home_Registration_description" = "Add vaccination certificates in the app so you always have them with you. To do so, scan the QR code on your document.";
-
-"HealthCertificate_Home_Registration_buttonTitle" = "Add";
-
-/* - Person */
-"HealthCertificate_Home_Person_caption" = "Digital Proof of Vaccination";
-
-"HealthCertificate_Home_Person_title" = "SARS-CoV-2 Vaccination";
-
-"HealthCertificate_Home_Person_partiallyVaccinated" = "Vaccination incomplete";
 
 /* Health Certified Person Screen */
 "HealthCertifiedPerson_title" = "Digital Proof of Vaccination";
@@ -2424,9 +2491,9 @@
 
 "HealthCertificate_Details_QRCode_Image_Description" = "A QR code with your vaccination certificate %i of %i";
 
-"HealthCertificate_Details_certificateCount" = "Vaccination certificate %i of %i";
+"HealthCertificate_Details_certificateCount" = "Vaccination Certificate %i of %i";
 
-"HealthCertificate_Details_validity" = "Vaccinated %@ - valid to %@";
+"HealthCertificate_Details_validity" = "Vaccinated %@ - Valid to %@";
 
 "HealthCertificate_Details_dateOfBirth" = "Born %@";
 
@@ -2434,7 +2501,7 @@
 
 "HealthCertificate_Details_vaccine" = "Vaccine";
 
-"HealthCertificate_Details_vaccineType" = "Vaccine type";
+"HealthCertificate_Details_vaccineType" = "Vaccine Type";
 
 "HealthCertificate_Details_manufacture" = "Manufacturer";
 

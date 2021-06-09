@@ -10,7 +10,7 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 	// MARK: - Init
 
 	init(
-		healthCertifiedPerson: HealthCertifiedPerson,
+		healthCertifiedPerson: HealthCertifiedPerson?,
 		healthCertificate: HealthCertificate,
 		vaccinationValueSetsProvider: VaccinationValueSetsProvider,
 		dismiss: @escaping () -> Void,
@@ -95,6 +95,10 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 			return cell
 		case .bottomCorner:
 			return tableView.dequeueReusableCell(cellType: HealthCertificateBottomCornerCell.self, for: indexPath)
+		case .additionalInfo:
+			let cell = tableView.dequeueReusableCell(cellType: HealthCertificateTextViewCell.self, for: indexPath)
+			cell.configure(with: viewModel.additionalInfoCellViewModels[indexPath.row])
+			return cell
 		case .none:
 			fatalError("can't dequeue a cell for an unknown section")
 		}
@@ -192,6 +196,11 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 		tableView.register(
 			HealthCertificateSimpleTextCell.self,
 			forCellReuseIdentifier: HealthCertificateSimpleTextCell.reuseIdentifier
+		)
+
+		tableView.register(
+			HealthCertificateTextViewCell.self,
+			forCellReuseIdentifier: HealthCertificateTextViewCell.reuseIdentifier
 		)
 
 		tableView.register(

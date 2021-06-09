@@ -8,7 +8,8 @@ extension Checkin {
 		checkinStartDate: Date? = nil,
 		checkinEndDate: Date? = nil,
 		checkinCompleted: Bool? = nil,
-		checkinSubmitted: Bool? = nil
+		checkinSubmitted: Bool? = nil,
+		createJournalEntry: Bool? = nil
 	) -> Checkin {
 
 		let updatedCheckinStartDate: Date
@@ -38,7 +39,14 @@ extension Checkin {
 		} else {
 			updatedCheckinSubmitted = self.checkinSubmitted
 		}
-
+		
+		let updateCreateJournalEntry: Bool
+		if let createJournalEntry = createJournalEntry {
+			updateCreateJournalEntry = createJournalEntry
+		} else {
+			updateCreateJournalEntry = self.createJournalEntry
+		}
+		
 		return Checkin(
 			id: self.id,
 			traceLocationId: self.traceLocationId,
@@ -55,7 +63,7 @@ extension Checkin {
 			checkinStartDate: updatedCheckinStartDate,
 			checkinEndDate: updatedCheckinEndDate,
 			checkinCompleted: updatedCheckinCompleted,
-			createJournalEntry: self.createJournalEntry,
+			createJournalEntry: updateCreateJournalEntry,
 			checkinSubmitted: updatedCheckinSubmitted
 		)
 	}

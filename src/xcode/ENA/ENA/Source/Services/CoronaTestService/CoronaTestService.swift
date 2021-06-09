@@ -23,6 +23,7 @@ class CoronaTestService {
 		eventStore: EventStoringProviding,
 		diaryStore: DiaryStoring,
 		appConfiguration: AppConfigurationProviding,
+		healthCertificateService: HealthCertificateService,
 		notificationCenter: UserNotificationCenter = UNUserNotificationCenter.current()
 	) {
 		#if DEBUG
@@ -33,6 +34,7 @@ class CoronaTestService {
 			self.diaryStore = MockDiaryStore()
 			self.appConfiguration = CachedAppConfigurationMock()
 
+			self.healthCertificateService = healthCertificateService
 			self.notificationCenter = notificationCenter
 
 			self.fakeRequestService = FakeRequestService(client: client)
@@ -52,7 +54,7 @@ class CoronaTestService {
 		self.eventStore = eventStore
 		self.diaryStore = diaryStore
 		self.appConfiguration = appConfiguration
-
+		self.healthCertificateService = healthCertificateService
 		self.notificationCenter = notificationCenter
 
 		self.fakeRequestService = FakeRequestService(client: client)
@@ -88,7 +90,7 @@ class CoronaTestService {
 	func registerPCRTestAndGetResult(
 		guid: String,
 		isSubmissionConsentGiven: Bool,
-		certificateConsent: CoronaTestCertificateConsent,
+		certificateConsent: TestCertificateConsent,
 		completion: @escaping TestResultHandler
 	) {
 		var certificateConsentGiven = false
@@ -120,7 +122,7 @@ class CoronaTestService {
 						keysSubmitted: false,
 						journalEntryCreated: false,
 						certificateConsentGiven: certificateConsentGiven,
-						certificateCreated: false
+						certificateRequested: false
 					)
 
 					Log.info("[CoronaTestService] PCR test registered: \(private: String(describing: self?.pcrTest), public: "PCR Test result")", log: .api)
@@ -168,7 +170,7 @@ class CoronaTestService {
 						keysSubmitted: false,
 						journalEntryCreated: false,
 						certificateConsentGiven: false,
-						certificateCreated: false
+						certificateRequested: false
 					)
 					self?.pcrTest = _pcrTest
 
@@ -213,7 +215,7 @@ class CoronaTestService {
 		dateOfBirth: String?,
 		isSubmissionConsentGiven: Bool,
 		certificateSupportedByPointOfCare: Bool,
-		certificateConsent: CoronaTestCertificateConsent,
+		certificateConsent: TestCertificateConsent,
 		completion: @escaping TestResultHandler
 	) {
 		Log.info("[CoronaTestService] Registering antigen test (hash: \(private: hash), pointOfCareConsentDate: \(private: pointOfCareConsentDate), firstName: \(private: String(describing: firstName)), lastName: \(private: String(describing: lastName)), dateOfBirth: \(private: String(describing: dateOfBirth)), isSubmissionConsentGiven: \(isSubmissionConsentGiven))", log: .api)
@@ -244,7 +246,7 @@ class CoronaTestService {
 						journalEntryCreated: false,
 						certificateSupportedByPointOfCare: certificateSupportedByPointOfCare,
 						certificateConsentGiven: certificateConsentGiven,
-						certificateCreated: false
+						certificateRequested: false
 					)
 					Log.info("[CoronaTestService] Antigen test registered: \(private: String(describing: self?.antigenTest), public: "Antigen test result")", log: .api)
 
@@ -429,7 +431,7 @@ class CoronaTestService {
 				keysSubmitted: keysSubmitted,
 				journalEntryCreated: false,
 				certificateConsentGiven: false,
-				certificateCreated: false
+				certificateRequested: false
 			)
 
 			Log.info("[CoronaTestService] Migrated preexisting PCR test: \(private: String(describing: pcrTest), public: "PCR Test result")", log: .api)
@@ -458,6 +460,7 @@ class CoronaTestService {
 	private let eventStore: EventStoringProviding
 	private let diaryStore: DiaryStoring
 	private let appConfiguration: AppConfigurationProviding
+	private let healthCertificateService: HealthCertificateService
 	private let notificationCenter: UserNotificationCenter
 
 	private let fakeRequestService: FakeRequestService
@@ -678,6 +681,22 @@ class CoronaTestService {
 							self.antigenTest?.finalTestResultReceivedDate = Date()
 						}
 
+						if testResult == .negative && coronaTest.certificateConsentGiven && !coronaTest.certificateRequested {
+							self.healthCertificateService.registerAndExecuteTestCertificateRequest(
+								coronaTestType: coronaTestType,
+								registrationToken: registrationToken,
+								registrationDate: registrationDate,
+								retryExecutionIfCertificateIsPending: true
+							)
+
+							switch coronaTestType {
+							case .pcr:
+								self.pcrTest?.certificateRequested = true
+							case .antigen:
+								self.antigenTest?.certificateRequested = true
+							}
+						}
+
 						if presentNotification {
 							Log.info("[CoronaTestService] Triggering Notification (coronaTestType: \(coronaTestType), testResult: \(testResult))", log: .api)
 
@@ -832,7 +851,7 @@ class CoronaTestService {
 				keysSubmitted: LaunchArguments.test.pcr.keysSubmitted.boolValue,
 				journalEntryCreated: false,
 				certificateConsentGiven: false,
-				certificateCreated: false
+				certificateRequested: false
 			)
 		} else {
 			return nil
@@ -855,7 +874,7 @@ class CoronaTestService {
 				journalEntryCreated: false,
 				certificateSupportedByPointOfCare: false,
 				certificateConsentGiven: false,
-				certificateCreated: false
+				certificateRequested: false
 			)
 		} else {
 			return nil

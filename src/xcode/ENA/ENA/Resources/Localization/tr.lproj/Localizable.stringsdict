@@ -236,7 +236,7 @@
 			<string>Maruz kalma günlüğü %u gündür etkin. Maruz kalma denetimi yalnızca maruz kalma günlüğünün kalıcı olarak etkinleştirilmesi durumunda güvenilir olabilir.</string>
 		</dict>
 	</dict>
-	<key>HealthCertificate_Home_Person_daysUntilCompleteProtection</key>
+	<key>VaccinationCertificate_daysUntilCompleteProtection</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@VARIABLE@</string>

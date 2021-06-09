@@ -185,7 +185,7 @@ protocol Client {
 	func dccRegisterPublicKey(
 		isFake: Bool,
 		token: String,
-		publicKey: Data,
+		publicKey: String,
 		completion: @escaping DCCRegistrationCompletionHandler
 	)
 

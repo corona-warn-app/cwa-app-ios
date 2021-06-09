@@ -22,6 +22,11 @@ class HealthCertificateSimpleTextCell: UITableViewCell, ReuseIdentifierProviding
 
 	// MARK: - Overrides
 
+	override func prepareForReuse() {
+		super.prepareForReuse()
+		contentTextLabel.attributedText = nil
+	}
+
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 		super.traitCollectionDidChange(previousTraitCollection)
 
@@ -42,7 +47,7 @@ class HealthCertificateSimpleTextCell: UITableViewCell, ReuseIdentifierProviding
 			contentTextLabel.font = cellViewModel.font
 		}
 		topSpaceLayoutConstraint.constant = cellViewModel.topSpace
-		backgroundContainerView.layer.borderColor = cellViewModel.boarderColor.cgColor
+		backgroundContainerView.layer.borderColor = cellViewModel.borderColor.cgColor
 		accessibilityIdentifier = cellViewModel.accessibilityIdentifier
 	}
 
@@ -71,7 +76,7 @@ class HealthCertificateSimpleTextCell: UITableViewCell, ReuseIdentifierProviding
 		contentTextLabel.numberOfLines = 0
 
 		backgroundContainerView.addSubview(contentTextLabel)
-		topSpaceLayoutConstraint = contentTextLabel.topAnchor.constraint(equalTo: backgroundContainerView.topAnchor, constant: 18.0)
+		topSpaceLayoutConstraint = contentTextLabel.topAnchor.constraint(equalTo: backgroundContainerView.topAnchor, constant: 16.0)
 
 		NSLayoutConstraint.activate(
 			[
@@ -81,9 +86,9 @@ class HealthCertificateSimpleTextCell: UITableViewCell, ReuseIdentifierProviding
 				backgroundContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.0),
 
 				topSpaceLayoutConstraint,
-				contentTextLabel.bottomAnchor.constraint(equalTo: backgroundContainerView.bottomAnchor, constant: -18.0),
-				contentTextLabel.leadingAnchor.constraint(equalTo: backgroundContainerView.leadingAnchor, constant: 14.0),
-				contentTextLabel.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor, constant: -14.0)
+				contentTextLabel.bottomAnchor.constraint(equalTo: backgroundContainerView.bottomAnchor, constant: -16.0),
+				contentTextLabel.leadingAnchor.constraint(equalTo: backgroundContainerView.leadingAnchor, constant: 16.0),
+				contentTextLabel.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor, constant: -16.0)
 			]
 		)
 	}
