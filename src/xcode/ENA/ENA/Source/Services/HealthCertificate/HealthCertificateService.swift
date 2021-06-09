@@ -6,6 +6,7 @@ import UIKit
 import OpenCombine
 import HealthCertificateToolkit
 
+// swiftlint:disable:next type_body_length
 class HealthCertificateService {
 
 	// MARK: - Init
