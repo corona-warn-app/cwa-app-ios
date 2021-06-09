@@ -80,6 +80,11 @@ final class HomeShownPositiveTestResultTableViewCell: UITableViewCell {
 			.receive(on: DispatchQueue.OCombine(.main))
 			.assign(to: \.isHidden, on: nextButton)
 			.store(in: &subscriptions)
+		
+		cellModel.$isRemoveTestButtonHidden
+			.receive(on: DispatchQueue.OCombine(.main))
+			.assign(to: \.isHidden, on: removeTestButton)
+			.store(in: &subscriptions)
 
 		cellModel.$accessibilityIdentifier
 			.receive(on: DispatchQueue.OCombine(.main))
