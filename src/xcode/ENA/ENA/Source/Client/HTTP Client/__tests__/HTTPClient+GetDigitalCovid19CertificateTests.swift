@@ -255,6 +255,46 @@ final class HTTPClientGetDigitalCovid19CertificateTests: CWATestCase {
 		}
 		XCTAssertEqual(expectedFailure, failure)
 	}
+
+	func testGIVEN_RegistrationToken_WHEN_Failure_THEN_internalServerErrorIsReturned() throws {
+		// GIVEN
+		let registrationToken = "someToken"
+
+		let dcc500Response = DCC500Response(reason: "broken response")
+		let data = try JSONEncoder().encode(dcc500Response)
+
+		let stack = MockNetworkStack(
+			httpStatus: 500,
+			responseData: data.dropFirst(4)
+		)
+
+		let expectedFailure = DCCErrors.DigitalCovid19CertificateError.internalServerError(reason: nil)
+		let expectation = self.expectation(description: "test should fail with internalServerError")
+		var mockFailure: DCCErrors.DigitalCovid19CertificateError?
+
+		// WHEN
+		HTTPClient.makeWith(mock: stack).getDigitalCovid19Certificate(
+			registrationToken: registrationToken,
+			isFake: false,
+			completion: { result in
+					switch result {
+					case .success:
+						XCTFail("Test should not succeed.")
+					case let .failure(error):
+						mockFailure = error
+					}
+					expectation.fulfill()
+			})
+
+		// THEN
+		waitForExpectations(timeout: .short)
+		guard let failure = mockFailure else {
+			XCTFail("MockFailure shall not be nil.")
+			return
+		}
+		XCTAssertEqual(expectedFailure, failure)
+	}
+
 	
 	func testGIVEN_RegistrationToken_WHEN_Failure_THEN_InternalServerErrorIsReturned() throws {
 		// GIVEN
@@ -364,4 +404,54 @@ final class HTTPClientGetDigitalCovid19CertificateTests: CWATestCase {
 		}
 		XCTAssertEqual(expectedFailure, failure)
 	}
+
+	func testGIVEN_RegistrationToken_WHEN_Failure_THEN_noNetworkConnectionIsReturned() throws {
+		// GIVEN
+		let registrationToken = "someToken"
+		let url = URL(staticString: "https://localhost:8080")
+		let notConnectedError = NSError(
+			domain: NSURLErrorDomain,
+			code: NSURLErrorNotConnectedToInternet,
+			userInfo: nil
+		)
+
+		let session = MockUrlSession(
+			data: nil,
+			nextResponse: HTTPURLResponse(
+				url: url,
+				statusCode: 500,
+				httpVersion: nil,
+				headerFields: nil
+			),
+			error: notConnectedError
+		)
+
+		let stack = MockNetworkStack(
+			mockSession: session
+		)
+
+		let expectation = self.expectation(description: "completion handler is called without an error")
+
+		// WHEN
+		var resultError: DCCErrors.DigitalCovid19CertificateError?
+		HTTPClient.makeWith(mock: stack).getDigitalCovid19Certificate(
+			registrationToken: registrationToken,
+			isFake: false,
+			completion: { result in
+					switch result {
+					case .success:
+						XCTFail("Test should not succeed.")
+					case let .failure(error):
+						resultError = error
+					}
+					expectation.fulfill()
+			}
+		)
+
+		// THEN
+		waitForExpectations(timeout: .short)
+		let realError = try XCTUnwrap(resultError)
+		XCTAssertEqual(realError, .noNetworkConnection)
+	}
+
 }
