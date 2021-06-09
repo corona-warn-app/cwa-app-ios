@@ -923,6 +923,7 @@
 		BA06D5B325DC11C60039D1DB /* DiaryAddAndEditEntryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA06D5B225DC11C60039D1DB /* DiaryAddAndEditEntryModel.swift */; };
 		BA06D5BB25DC2E910039D1DB /* TextFieldsManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA06D5BA25DC2E910039D1DB /* TextFieldsManagerTests.swift */; };
 		BA07735C25C2FCB800EAF6B8 /* PPACService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA07735B25C2FCB800EAF6B8 /* PPACService.swift */; };
+		BA0E47DD266FC6850037F552 /* HealthCertificateQRCodeCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0E47DC266FC6850037F552 /* HealthCertificateQRCodeCellViewModelTests.swift */; };
 		BA0F6C4E26317BA40046BA48 /* AntigenTestProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0F6C4D26317BA40046BA48 /* AntigenTestProfileViewController.swift */; };
 		BA0F6C5326317C220046BA48 /* AntigenTestProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0F6C5226317C220046BA48 /* AntigenTestProfileViewModel.swift */; };
 		BA0F6C59263186830046BA48 /* CreateAntigenTestProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0F6C58263186830046BA48 /* CreateAntigenTestProfileViewController.swift */; };
@@ -2153,6 +2154,7 @@
 		BA06D5B225DC11C60039D1DB /* DiaryAddAndEditEntryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryAddAndEditEntryModel.swift; sourceTree = "<group>"; };
 		BA06D5BA25DC2E910039D1DB /* TextFieldsManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldsManagerTests.swift; sourceTree = "<group>"; };
 		BA07735B25C2FCB800EAF6B8 /* PPACService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPACService.swift; sourceTree = "<group>"; };
+		BA0E47DC266FC6850037F552 /* HealthCertificateQRCodeCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateQRCodeCellViewModelTests.swift; sourceTree = "<group>"; };
 		BA0E5C3925B5CF5D00C219DE /* RiskLevelPerDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskLevelPerDay.swift; sourceTree = "<group>"; };
 		BA0F6C4D26317BA40046BA48 /* AntigenTestProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntigenTestProfileViewController.swift; sourceTree = "<group>"; };
 		BA0F6C5226317C220046BA48 /* AntigenTestProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntigenTestProfileViewModel.swift; sourceTree = "<group>"; };
@@ -6391,6 +6393,7 @@
 			isa = PBXGroup;
 			children = (
 				BA8848BF264AC18D00EEA542 /* HealthCertificateSimpleTextCellViewModelTests.swift */,
+				BA0E47DC266FC6850037F552 /* HealthCertificateQRCodeCellViewModelTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -8312,6 +8315,7 @@
 				A372DA3F24BEF773003248BB /* ExposureSubmissionCoordinatorTests.swift in Sources */,
 				01D16C6024ED6D9A007DB387 /* MockBackgroundRefreshStatusProvider.swift in Sources */,
 				0120ECFE2587631200F78944 /* DiaryDayAddCellModelTest.swift in Sources */,
+				BA0E47DD266FC6850037F552 /* HealthCertificateQRCodeCellViewModelTests.swift in Sources */,
 				2FD473BF251E0ECE000DCA40 /* EUSettingsViewControllerTests.swift in Sources */,
 				AB68881625DA6F2200907465 /* ContactDiaryMigration1To2Tests.swift in Sources */,
 				0138F5FC25EFDBCD00A9B075 /* HomeTraceLocationsCellModelTests.swift in Sources */,
