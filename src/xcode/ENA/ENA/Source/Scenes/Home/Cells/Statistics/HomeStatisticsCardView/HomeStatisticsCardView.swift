@@ -151,13 +151,13 @@ class HomeStatisticsCardView: UIView {
 
 	@IBOutlet weak var illustrationImageView: UIImageView!
 
-	@IBOutlet weak var primaryTitleLabel: ENALabel!
-	@IBOutlet weak var primaryValueLabel: ENALabel!
-	@IBOutlet weak var primarySubtitleLabel: ENALabel!
+	@IBOutlet weak var primaryTitleLabel: StackViewLabel!
+	@IBOutlet weak var primaryValueLabel: StackViewLabel!
+	@IBOutlet weak var primarySubtitleLabel: StackViewLabel!
 	@IBOutlet weak var primaryTrendImageView: UIImageView!
 
-	@IBOutlet weak var secondaryTitleLabel: ENALabel!
-	@IBOutlet weak var secondaryValueLabel: ENALabel!
+	@IBOutlet weak var secondaryTitleLabel: StackViewLabel!
+	@IBOutlet weak var secondaryValueLabel: StackViewLabel!
 	@IBOutlet weak var secondaryTrendImageView: UIImageView!
 
 	@IBOutlet weak var tertiaryTitleLabel: StackViewLabel!
