@@ -36,6 +36,8 @@ class HomeHealthCertifiedPersonCellModel {
 				DateFormatter.localizedString(from: expirationDate, dateStyle: .medium, timeStyle: .none)
 			)
 		}
+
+		accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Overview.vaccinationCertificateCell
 	}
 
 	init(
