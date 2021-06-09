@@ -59,7 +59,7 @@ class HomeShownPositiveTestResultCellModel {
 
 	@OpenCombine.Published var statusFootnote: String?
 	@OpenCombine.Published var homeItemViewModels: [HomeImageItemViewModel] = []
-	@OpenCombine.Published var isButtonHidden = false
+	@OpenCombine.Published var isWarnOthersButtonHidden = false
 	@OpenCombine.Published var isRemoveTestButtonHidden = false
 	@OpenCombine.Published var accessibilityIdentifier: String?
 
@@ -133,7 +133,7 @@ class HomeShownPositiveTestResultCellModel {
 
 		self.homeItemViewModels = homeItemViewModels
 
-		isButtonHidden = coronaTest.keysSubmitted
+		isWarnOthersButtonHidden = coronaTest.keysSubmitted
 		isRemoveTestButtonHidden = coronaTest.keysSubmitted
 		
 		switch (coronaTest.type, coronaTest.keysSubmitted) {
