@@ -273,7 +273,7 @@ final class HealthCertificateViewModel {
 		.compactMap { $0 }
 	}
 
-	/// these stings here are on purpose not localized
+	/// these strings here are on purpose not localized
 	///
 	private func updateTestCertificateKeyValueCellViewModels(testEntry: TestEntry) {
 		let nameCellViewModel = HealthCertificateKeyValueCellViewModel(
