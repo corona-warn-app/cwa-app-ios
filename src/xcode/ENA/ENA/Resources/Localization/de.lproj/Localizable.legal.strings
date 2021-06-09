@@ -208,7 +208,7 @@
 
 "ExposureSubmission_TestCertificate_Information_Legal_Headline" = "Datenschutz und Datensicherheit";
 
-"ExposureSubmission_TestCertificate_Information_Legal_Text_1" = "Die Anforderung und Verwendung des digitalen COVID-Testzertifikats ist freiwillig. Der Nachweis eines negativen Testzergebnisses kann auch auf andere Weise erbracht werden.";
+"ExposureSubmission_TestCertificate_Information_Legal_Text_1" = "Die Anforderung und Verwendung des digitalen COVID-Testzertifikats ist freiwillig. Der Nachweis eines negativen Testergebnisses kann auch auf andere Weise erbracht werden.";
 
 "ExposureSubmission_TestCertificate_Information_Legal_Text_2" = "Zur Erstellung Ihres Testzertifikats werden Daten einmalig verschlüsselt an das RKI übermittelt. Das RKI signiert die Daten elektronisch, um die Gültigkeit zu bestätigen. Die Daten werden beim RKI nicht gespeichert.";
 
