@@ -43,7 +43,8 @@ class HomeShownPositiveTestResultCellModelTest: CWATestCase {
 		XCTAssertNotNil(cellModel.statusFootnote)
 		XCTAssertEqual(cellModel.noteTitle, AppStrings.Home.TestResult.ShownPositive.noteTitle)
 		XCTAssertEqual(cellModel.buttonTitle, AppStrings.Home.TestResult.ShownPositive.button)
-		XCTAssertFalse(cellModel.isButtonHidden)
+		XCTAssertFalse(cellModel.isWarnOthersButtonHidden)
+		XCTAssertFalse(cellModel.isRemoveTestButtonHidden)
 
 		let homeItemViewModels = cellModel.homeItemViewModels
 		XCTAssertEqual(homeItemViewModels.count, 3)
@@ -74,7 +75,8 @@ class HomeShownPositiveTestResultCellModelTest: CWATestCase {
 
 		coronaTestService.pcrTest?.keysSubmitted = true
 
-		XCTAssertTrue(cellModel.isButtonHidden)
+		XCTAssertTrue(cellModel.isWarnOthersButtonHidden)
+		XCTAssertTrue(cellModel.isRemoveTestButtonHidden)
 
 		let newHomeItemViewModels = cellModel.homeItemViewModels
 		XCTAssertEqual(newHomeItemViewModels.count, 2)
@@ -133,7 +135,8 @@ class HomeShownPositiveTestResultCellModelTest: CWATestCase {
 		XCTAssertNotNil(cellModel.statusFootnote)
 		XCTAssertEqual(cellModel.noteTitle, AppStrings.Home.TestResult.ShownPositive.noteTitle)
 		XCTAssertEqual(cellModel.buttonTitle, AppStrings.Home.TestResult.ShownPositive.button)
-		XCTAssertFalse(cellModel.isButtonHidden)
+		XCTAssertFalse(cellModel.isWarnOthersButtonHidden)
+		XCTAssertFalse(cellModel.isRemoveTestButtonHidden)
 
 		let homeItemViewModels = cellModel.homeItemViewModels
 		XCTAssertEqual(homeItemViewModels.count, 4)
@@ -172,7 +175,8 @@ class HomeShownPositiveTestResultCellModelTest: CWATestCase {
 
 		coronaTestService.antigenTest?.keysSubmitted = true
 
-		XCTAssertTrue(cellModel.isButtonHidden)
+		XCTAssertTrue(cellModel.isWarnOthersButtonHidden)
+		XCTAssertTrue(cellModel.isRemoveTestButtonHidden)
 
 		let newHomeItemViewModels = cellModel.homeItemViewModels
 		XCTAssertEqual(newHomeItemViewModels.count, 3)
