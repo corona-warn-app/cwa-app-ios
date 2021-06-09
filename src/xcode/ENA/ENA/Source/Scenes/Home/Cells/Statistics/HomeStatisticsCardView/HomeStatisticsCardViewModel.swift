@@ -53,7 +53,6 @@ class HomeStatisticsCardViewModel {
 		}
 	}
 	// MARK: - Internal
-
 	@OpenCombine.Published private(set) var title: String?
 	@OpenCombine.Published private(set) var subtitle: String?
 
@@ -82,10 +81,10 @@ class HomeStatisticsCardViewModel {
 	var infoButtonAccessibilityIdentifier: String?
 	
 	// MARK: - Private
-
 	private func setupInfections(for keyFigureCard: SAP_Internal_Stats_KeyFigureCard) {
 		title = AppStrings.Statistics.Card.Infections.title
 		titleAccessiblityIdentifier = AccessibilityIdentifiers.Statistics.Infections.title
+		subtitle = AppStrings.Statistics.Card.KeySubmissions.fromNationWide
 		infoButtonAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.Infections.infoButton
 		illustrationImage = UIImage(named: "Illu_Bestaetigte_Neuinfektionen")
 

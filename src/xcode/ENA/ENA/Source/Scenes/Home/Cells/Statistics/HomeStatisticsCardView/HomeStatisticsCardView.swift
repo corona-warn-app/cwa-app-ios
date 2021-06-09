@@ -34,7 +34,15 @@ class HomeStatisticsCardView: UIView {
 		primaryValueLabel.onAccessibilityFocus = { [weak self] in
 			self?.onAccessibilityFocus?()
 		}
-		
+		primarySubtitleLabel.style = .body
+		primarySubtitleLabel.textColor = .enaColor(for: .textPrimary2)
+		primarySubtitleLabel.numberOfLines = 0
+		primarySubtitleLabel.adjustsFontSizeToFitWidth = true
+		primarySubtitleLabel.allowsDefaultTighteningForTruncation = true
+		primarySubtitleLabel.onAccessibilityFocus = { [weak self] in
+			self?.onAccessibilityFocus?()
+		}
+
 		secondaryTitleLabel.style = .body
 		secondaryTitleLabel.textColor = .enaColor(for: .textPrimary2)
 		secondaryTitleLabel.numberOfLines = 0

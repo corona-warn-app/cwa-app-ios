@@ -1,22 +1,19 @@
 ////
 // 🦠 Corona-Warn-App
 //
-
 import UIKit
 import OpenCombine
 
 class HomeStatisticsTableViewCell: UITableViewCell {
 
 	// MARK: - Overrides
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
+	override func awakeFromNib() {
+		super.awakeFromNib()
 
 		self.addGestureRecognizer(scrollView.panGestureRecognizer)
-    }
+	}
 
 	// MARK: - Internal
-
 	func configure(
 		with cellModel: HomeStatisticsCellModel,
 		onInfoButtonTap: @escaping () -> Void,
@@ -44,7 +41,6 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 	}
 
 	// MARK: - Private
-
 	@IBOutlet private weak var scrollView: UIScrollView!
 	@IBOutlet private weak var stackView: UIStackView!
 	@IBOutlet private weak var topConstraint: NSLayoutConstraint!
@@ -60,8 +56,8 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		onInfoButtonTap: @escaping () -> Void,
 		onAccessibilityFocus: @escaping () -> Void
 	) {
-		stackView.arrangedSubviews.forEach { stackView.removeArrangedSubview($0) }
-		
+		stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+
 		for keyFigureCard in keyFigureCards {
 			let nibName = String(describing: HomeStatisticsCardView.self)
 			let nib = UINib(nibName: nibName, bundle: .main)
