@@ -14,7 +14,6 @@ class HomeHealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierPr
 
 		backgroundGradientView.type = .solidGrey
 		backgroundGradientView.layer.cornerRadius = 14
-		accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Overview.vaccinationCertificateCell
 
 		if #available(iOS 13.0, *) {
 			backgroundGradientView.layer.cornerCurve = .continuous

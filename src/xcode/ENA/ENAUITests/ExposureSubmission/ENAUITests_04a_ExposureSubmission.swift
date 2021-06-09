@@ -431,8 +431,12 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		// QR Code Scanner Screen
 		XCTAssertTrue(app.navigationBars[AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle].waitForExistence(timeout: .medium))
 
-		// Tap on birthday field.
+		// Wait for the birthday field.
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.ExposureSubmission.TestCertificate.Info.birthdayPlaceholder].waitForExistence(timeout: .extraLong))
+
+		snapshot("submissionflow_screenshot_test_certificate_request")
+
+		// Tap on birthday field.
 		app.cells[AccessibilityIdentifiers.ExposureSubmission.TestCertificate.Info.birthdayPlaceholder].waitAndTap()
 
 		// Pick another year to enable the button
@@ -442,9 +446,11 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		datePicker.pickerWheels[String(year)].adjust(toPickerWheelValue: "1985")
 
 		// Check if the button is enabled.
-		let buttenEnabled = NSPredicate(format: "enabled == true")
-		expectation(for: buttenEnabled, evaluatedWith: app.buttons[AccessibilityIdentifiers.General.primaryFooterButton], handler: nil)
+		let buttonEnabled = NSPredicate(format: "enabled == true")
+		expectation(for: buttonEnabled, evaluatedWith: app.buttons[AccessibilityIdentifiers.General.primaryFooterButton], handler: nil)
 		waitForExpectations(timeout: .medium, handler: nil)
+
+		snapshot("submissionflow_screenshot_test_certificate_entered_birthday")
 	}
 	
 	// MARK: - Screenshots
