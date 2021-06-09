@@ -35,15 +35,10 @@ extension Name {
 	}
 
 	var standardizedName: String {
-		
-		let formatter = PersonNameComponentsFormatter()
-		formatter.style = .long
-
-		var nameComponents = PersonNameComponents()
-		nameComponents.givenName = readableStandardizedGivenName
-		nameComponents.familyName = readableStandardizedFamilyName
-		
-		return formatter.string(from: nameComponents)
+		[standardizedGivenName, standardizedFamilyName]
+					.compactMap { $0 }
+					.filter { $0.trimmingCharacters(in: .whitespacesAndNewlines) != "" }
+					.joined(separator: " ")
 	}
 
 	private var readableStandardizedGivenName: String? {
