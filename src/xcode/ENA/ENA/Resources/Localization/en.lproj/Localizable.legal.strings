@@ -194,7 +194,7 @@
 
 "HealthCertificate_Info_Legal_headline" = "Data protection and data security";
 
-"HealthCertificate_Info_Legal_section01" = "Using the digital COVID-19 certificates is voluntary. There are other ways to prove that you are fully vaccinated or have a negative test result.";
+"HealthCertificate_Info_Legal_section01" = "Using the digital COVID-19 certificates is voluntary. There are other ways to prove that you have a negative test result.";
 
 "HealthCertificate_Info_Legal_section02" = "The COVID-19 certificates contain your personal data (concerning vaccinations or your test result). In cases where you are required by law to prove your vaccination status or test result, it is sufficient to show the QR code of the certificate in the app. Do not provide your certificates or the QR codes to anyone if you do not want the data to be read.";
 
