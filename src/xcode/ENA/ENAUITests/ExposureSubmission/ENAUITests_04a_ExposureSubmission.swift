@@ -442,8 +442,8 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		datePicker.pickerWheels[String(year)].adjust(toPickerWheelValue: "1985")
 
 		// Check if the button is enabled.
-		let buttenEnabled = NSPredicate(format: "enabled == true")
-		expectation(for: buttenEnabled, evaluatedWith: app.buttons[AccessibilityIdentifiers.General.primaryFooterButton], handler: nil)
+		let buttonEnabled = NSPredicate(format: "enabled == true")
+		expectation(for: buttonEnabled, evaluatedWith: app.buttons[AccessibilityIdentifiers.General.primaryFooterButton], handler: nil)
 		waitForExpectations(timeout: .medium, handler: nil)
 	}
 	
