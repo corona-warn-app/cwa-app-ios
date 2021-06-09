@@ -610,6 +610,7 @@ enum AccessibilityIdentifiers {
 			static let vaccinationCertificateRegistrationCell = "AccessibilityIdentifiers.HealthCertificate.vaccinationCertificateRegistrationCell"
 			static let vaccinationCertificateCell = "AppStrings.HealthCertificate.vaccinationCertificateCell"
 			static let testCertificateRequestCell = "AppStrings.HealthCertificate.testCertificateRequestCell"
+			static let testCertificateInfoCell = "AppStrings.HealthCertificate.testCertificateInfoCell"
 		}
 
 		enum Info {
