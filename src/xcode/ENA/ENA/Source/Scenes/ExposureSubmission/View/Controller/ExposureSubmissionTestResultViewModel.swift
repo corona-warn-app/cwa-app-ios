@@ -575,34 +575,20 @@ extension ExposureSubmissionTestResultViewModel {
 				title: AppStrings.ExposureSubmissionResult.testRemove,
 				description: AppStrings.ExposureSubmissionResult.testRemoveDesc,
 				icon: UIImage(named: "Icons_Grey_Entfernen"),
-				hairline: .iconAttached
+				hairline: coronaTest.certificateRequested ? .iconAttached : .none
 			)
 			
 		])
-		switch coronaTest.type {
-		case .pcr:
-			if let isCertificateCreated = coronaTest.pcrTest?.certificateRequested, isCertificateCreated {
-				cells.append(
-					ExposureSubmissionDynamicCell.stepCell(
-						title: AppStrings.ExposureSubmissionResult.testCertificateTitle,
-						description: AppStrings.ExposureSubmissionResult.testCertificateAvailableInTheTab,
-						icon: UIImage(named: "certificate-qr-light"),
-						hairline: .none
-					)
+
+		if coronaTest.certificateRequested {
+			cells.append(
+				ExposureSubmissionDynamicCell.stepCell(
+					title: AppStrings.ExposureSubmissionResult.testCertificateTitle,
+					description: AppStrings.ExposureSubmissionResult.testCertificateAvailableInTheTab,
+					icon: UIImage(named: "certificate-qr-light"),
+					hairline: .none
 				)
-			}
-			
-		case .antigen:
-			if let isCertificateCreated = coronaTest.antigenTest?.certificateRequested, isCertificateCreated {
-				cells.append(
-					ExposureSubmissionDynamicCell.stepCell(
-						title: AppStrings.ExposureSubmissionResult.testCertificateTitle,
-						description: AppStrings.ExposureSubmissionResult.testCertificateAvailableInTheTab,
-						icon: UIImage(named: "certificate-qr-light"),
-						hairline: .none
-					)
-				)
-			}
+			)
 		}
 
 		cells.append(contentsOf: [
@@ -673,7 +659,7 @@ extension ExposureSubmissionTestResultViewModel {
 				title: AppStrings.ExposureSubmissionResult.testRemove,
 				description: AppStrings.ExposureSubmissionResult.testRemoveDesc,
 				icon: UIImage(named: "Icons_Grey_Entfernen"),
-				hairline: .iconAttached
+				hairline: test.certificateRequested ? .iconAttached : .none
 			)
 		])
 		
