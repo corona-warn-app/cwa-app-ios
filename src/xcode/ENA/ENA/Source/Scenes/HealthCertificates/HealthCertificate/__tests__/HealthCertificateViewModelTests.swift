@@ -49,6 +49,7 @@ class HealthCertificateViewModelTests: CWATestCase {
 		XCTAssertEqual(viewModel.numberOfItems(in: .topCorner), 1)
 		XCTAssertEqual(viewModel.numberOfItems(in: .details), 8)
 		XCTAssertEqual(viewModel.numberOfItems(in: .bottomCorner), 1)
+		XCTAssertEqual(viewModel.numberOfItems(in: .additionalInfo), 0)
 		XCTAssertEqual(viewModel.additionalInfoCellViewModels.count, 2)
 	}
 
