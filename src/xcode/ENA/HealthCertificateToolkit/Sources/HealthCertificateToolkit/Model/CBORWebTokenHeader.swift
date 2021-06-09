@@ -20,4 +20,16 @@ public struct CBORWebTokenHeader: Codable, Equatable {
     public let issuedAt: UInt64?
     public let expirationTime: UInt64
 
+    public static func fake(
+        issuer: String = "issuer",
+        issuedAt: UInt64? = nil,
+        expirationTime: UInt64 = 0
+    ) -> CBORWebTokenHeader {
+        CBORWebTokenHeader(
+            issuer: issuer,
+            issuedAt: issuedAt,
+            expirationTime: expirationTime
+        )
+    }
+
 }

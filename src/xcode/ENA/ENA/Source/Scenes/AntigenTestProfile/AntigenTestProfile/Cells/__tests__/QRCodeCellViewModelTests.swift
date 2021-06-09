@@ -72,7 +72,7 @@ class QRCodeCellViewModelTests: CWATestCase {
 		BDAY:19820512
 		EMAIL;TYPE=home:sabine.schulz@gmx.com
 		TEL;TYPE="cell,home":0165434563
-		ADR;type=home:;;Blumenstraße 2;Berlin;;43923;
+		ADR;TYPE=home:;;Blumenstraße 2;Berlin;;43923;
 		REV:\(revDateString)
 		END:VCARD
 		"""
@@ -111,7 +111,7 @@ class QRCodeCellViewModelTests: CWATestCase {
 		BDAY:19820512
 		EMAIL;TYPE=home:sabine.schulz@gmx.com
 		TEL;TYPE="cell,home":0165434563
-		ADR;type=home:;;Blumenstraße 2;Berlin;;43923;
+		ADR;TYPE=home:;;Blumenstraße 2;Berlin;;43923;
 		REV:\(revDateString)
 		END:VCARD
 		"""
@@ -150,7 +150,7 @@ class QRCodeCellViewModelTests: CWATestCase {
 		BDAY:19820512
 		EMAIL;TYPE=home:sabine.schulz@gmx.com
 		TEL;TYPE="cell,home":0165434563
-		ADR;type=home:;;Blumenstraße 2;Berlin;;43923;
+		ADR;TYPE=home:;;Blumenstraße 2;Berlin;;43923;
 		REV:\(revDateString)
 		END:VCARD
 		"""
