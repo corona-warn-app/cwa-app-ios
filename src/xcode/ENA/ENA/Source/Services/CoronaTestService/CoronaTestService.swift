@@ -661,8 +661,10 @@ class CoronaTestService {
 
 					// only store test result in diary if negative or positive
 					if (testResult == .positive || testResult == .negative) && !coronaTest.journalEntryCreated {
-						// -> store
-						let stringDate = DateFormatter.packagesDayDateFormatter.string(from: registrationDate)
+						// PCR -> registration date
+						// antigen -> sample collection date if available otherwise we use point of care consent date
+						//
+						let stringDate = DateFormatter.packagesDayDateFormatter.string(from: coronaTest.testDate)
 						self.diaryStore.addCoronaTest(testDate: stringDate, testType: coronaTestType.rawValue, testResult: testResult.rawValue)
 
 						switch coronaTestType {
