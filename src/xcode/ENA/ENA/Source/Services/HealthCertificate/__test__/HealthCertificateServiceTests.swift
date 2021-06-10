@@ -301,9 +301,78 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertTrue(service.healthCertifiedPersons.value.isEmpty)
 	}
 
+	func testTestCertificateRegistrationAndExecution_Success() throws {
+		let store = MockTestStore()
+		let client = ClientMock()
+
+		let registerPublicKeyExpectation = expectation(description: "dccRegisterPublicKey called")
+		client.onDCCRegisterPublicKey = { _, _, _, completion in
+			registerPublicKeyExpectation.fulfill()
+			completion(.success(()))
+		}
+
+		var keyPair: DCCRSAKeyPair?
+
+		let getDigitalCovid19CertificateExpectation = expectation(description: "getDigitalCovid19Certificate called")
+		client.onGetDigitalCovid19Certificate = { _, _, completion in
+			let dek = (try? keyPair?.encrypt(Data()).base64EncodedString()) ?? ""
+			getDigitalCovid19CertificateExpectation.fulfill()
+			completion(.success((DCCResponse(dek: dek, dcc: "coseObject"))))
+		}
+
+		var config = CachedAppConfigurationMock.defaultAppConfiguration
+		config.dgcParameters.testCertificateParameters.waitAfterPublicKeyRegistrationInSeconds = 1
+		config.dgcParameters.testCertificateParameters.waitForRetryInSeconds = 1
+		let appConfig = CachedAppConfigurationMock(with: config)
+
+		var digitalGreenCertificateAccess = MockDigitalGreenCertificateAccess()
+		digitalGreenCertificateAccess.convertedToBase45 = DigitalGreenCertificateFake.makeBase45Fake(
+			from: DigitalGreenCertificate.fake(
+				testEntries: [TestEntry.fake()]
+			),
+			and: CBORWebTokenHeader.fake()
+		)
+
+		let service = HealthCertificateService(
+			store: store,
+			client: client,
+			appConfiguration: appConfig,
+			digitalGreenCertificateAccess: digitalGreenCertificateAccess
+		)
+
+		let requestsSubscription = service.testCertificateRequests
+			.sink {
+				if let requestWithKeyPair = $0.first(where: { $0.rsaKeyPair != nil }) {
+					keyPair = requestWithKeyPair.rsaKeyPair
+				}
+			}
+
+		let personsExpectation = expectation(description: "Persons not empty")
+		let personsSubscription = service.healthCertifiedPersons
+			.sink {
+				if !$0.isEmpty {
+					personsExpectation.fulfill()
+				}
+			}
+
+		service.registerAndExecuteTestCertificateRequest(
+			coronaTestType: .pcr,
+			registrationToken: "registrationToken",
+			registrationDate: Date(),
+			retryExecutionIfCertificateIsPending: false
+		)
+
+		waitForExpectations(timeout: .extraLong)
+
+		requestsSubscription.cancel()
+		personsSubscription.cancel()
+
+		XCTAssertFalse(try XCTUnwrap(service.healthCertifiedPersons.value.first).healthCertificates.isEmpty)
+	}
+
 	// MARK: - Private
 
-	enum Base45FakeError: Error {
+	private enum Base45FakeError: Error {
 		case failed
 	}
 
