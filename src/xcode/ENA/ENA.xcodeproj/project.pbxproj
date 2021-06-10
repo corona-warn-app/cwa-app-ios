@@ -1060,6 +1060,7 @@
 		BAC939D8261F5D08008BECED /* DismissHandlingNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC939D7261F5D08008BECED /* DismissHandlingNavigationController.swift */; };
 		BACBA7072672504200B304D0 /* TestCertificateRequestCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACBA7062672504200B304D0 /* TestCertificateRequestCellModelTests.swift */; };
 		BACBA7092672566F00B304D0 /* TestCertificateInfoCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACBA7082672566F00B304D0 /* TestCertificateInfoCellModelTests.swift */; };
+		BACBA70B2672572A00B304D0 /* HomeHealthCertificateRegistrationCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACBA70A2672572A00B304D0 /* HomeHealthCertificateRegistrationCellModelTests.swift */; };
 		BACCCC7525ADB9FD00195AC3 /* RiskLegendeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACCCC7425ADB9FD00195AC3 /* RiskLegendeTest.swift */; };
 		BACD176B2624978200104AD9 /* TestOverwriteNoticeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACD176A2624978200104AD9 /* TestOverwriteNoticeViewModelTests.swift */; };
 		BACD671725B7002F00BAF5D0 /* RiskCalculationResultTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACD671625B7002F00BAF5D0 /* RiskCalculationResultTests.swift */; };
@@ -2295,6 +2296,7 @@
 		BAC939D7261F5D08008BECED /* DismissHandlingNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissHandlingNavigationController.swift; sourceTree = "<group>"; };
 		BACBA7062672504200B304D0 /* TestCertificateRequestCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCertificateRequestCellModelTests.swift; sourceTree = "<group>"; };
 		BACBA7082672566F00B304D0 /* TestCertificateInfoCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCertificateInfoCellModelTests.swift; sourceTree = "<group>"; };
+		BACBA70A2672572A00B304D0 /* HomeHealthCertificateRegistrationCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHealthCertificateRegistrationCellModelTests.swift; sourceTree = "<group>"; };
 		BACCCC7425ADB9FD00195AC3 /* RiskLegendeTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskLegendeTest.swift; sourceTree = "<group>"; };
 		BACD176A2624978200104AD9 /* TestOverwriteNoticeViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestOverwriteNoticeViewModelTests.swift; sourceTree = "<group>"; };
 		BACD671625B7002F00BAF5D0 /* RiskCalculationResultTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskCalculationResultTests.swift; sourceTree = "<group>"; };
@@ -6635,8 +6637,9 @@
 		BACBA7052672503400B304D0 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
-				BACBA7062672504200B304D0 /* TestCertificateRequestCellModelTests.swift */,
+				BACBA70A2672572A00B304D0 /* HomeHealthCertificateRegistrationCellModelTests.swift */,
 				BACBA7082672566F00B304D0 /* TestCertificateInfoCellModelTests.swift */,
+				BACBA7062672504200B304D0 /* TestCertificateRequestCellModelTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -8301,6 +8304,7 @@
 				A32842672492359E006B1F09 /* MockExposureSubmissionNavigationControllerChild.swift in Sources */,
 				BACBA7072672504200B304D0 /* TestCertificateRequestCellModelTests.swift in Sources */,
 				F25247312484456800C5556B /* DynamicTableViewModelTests.swift in Sources */,
+				BACBA70B2672572A00B304D0 /* HomeHealthCertificateRegistrationCellModelTests.swift in Sources */,
 				B15382E7248290BB0010F007 /* AppleFilesWriterTests.swift in Sources */,
 				50373EC925FBD08A000109AE /* HTTPClient+TraceWarningPackageDownloadTests.swift in Sources */,
 				AB1FCBD42521FC47005930BA /* EnvironmentTests.swift in Sources */,
