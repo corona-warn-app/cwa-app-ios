@@ -27,23 +27,35 @@ class HealthCertificateServiceTests: CWATestCase {
 				healthCertifiedPersonsExpectation.fulfill()
 			}
 
-		let result = service.registerVaccinationCertificate(base45: HealthCertificate.mockBase45)
+		let testCertificateBase45 = try base45Fake(
+			from: DigitalGreenCertificate.fake(
+				name: .fake(standardizedFamilyName: "GUENDLING", standardizedGivenName: "NICK"),
+				testEntries: [TestEntry.fake(
+					dateTimeOfSampleCollection: "2021-05-29T22:34:17.595Z",
+					uniqueCertificateIdentifier: "0"
+				)]
+			)
+		)
+		let testCertificate = try HealthCertificate(base45: testCertificateBase45)
+
+		let result = service.registerHealthCertificate(base45: testCertificateBase45)
 
 		switch result {
 		case.success(let healthCertifiedPerson):
-			XCTAssertEqual(healthCertifiedPerson.healthCertificates, [HealthCertificate.mock()])
+			XCTAssertEqual(healthCertifiedPerson.healthCertificates, [testCertificate])
 		case .failure:
 			XCTFail("Registration should succeed")
 		}
 
 		waitForExpectations(timeout: .short)
 
-		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [HealthCertificate.mock()])
+		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [testCertificate])
 
 		subscription.cancel()
 	}
 
-	func testRegisteringTestCertificate() throws {
+	// swiftlint:disable:next cyclomatic_complexity
+	func testRegisteringCertificates() throws {
 		let store = MockTestStore()
 
 		let service = HealthCertificateService(
@@ -52,37 +64,330 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: CachedAppConfigurationMock()
 		)
 
-		let base45Result = DigitalGreenCertificateFake.makeBase45Fake(
+		XCTAssertTrue(store.healthCertifiedPersons.isEmpty)
+
+		// Register first test certificate
+
+		let firstTestCertificateBase45 = try base45Fake(
+			from: DigitalGreenCertificate.fake(
+				name: .fake(standardizedFamilyName: "GUENDLING", standardizedGivenName: "NICK"),
+				testEntries: [TestEntry.fake(
+					dateTimeOfSampleCollection: "2021-05-29T22:34:17.595Z",
+					uniqueCertificateIdentifier: "0"
+				)]
+			)
+		)
+		let firstTestCertificate = try HealthCertificate(base45: firstTestCertificateBase45)
+
+		var registrationResult = service.registerHealthCertificate(base45: firstTestCertificateBase45)
+
+		switch registrationResult {
+		case.success(let healthCertifiedPerson):
+			XCTAssertEqual(healthCertifiedPerson.healthCertificates, [firstTestCertificate])
+		case .failure:
+			XCTFail("Registration should succeed")
+		}
+
+		XCTAssertEqual(store.healthCertifiedPersons.count, 1)
+		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [firstTestCertificate])
+
+		// Try to register same certificate twice
+
+		registrationResult = service.registerHealthCertificate(base45: firstTestCertificateBase45)
+
+		if case .failure(let error) = registrationResult, case .certificateAlreadyRegistered = error { } else {
+			XCTFail("Double registration of the same certificate should fail")
+		}
+
+		XCTAssertEqual(store.healthCertifiedPersons.count, 1)
+		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [firstTestCertificate])
+
+		// Register second test certificate for same person
+
+		let secondTestCertificateBase45 = try base45Fake(
+			from: DigitalGreenCertificate.fake(
+				name: .fake(standardizedFamilyName: "GUENDLING", standardizedGivenName: "NICK"),
+				testEntries: [TestEntry.fake(
+					dateTimeOfSampleCollection: "2021-05-30T22:34:17.595Z",
+					uniqueCertificateIdentifier: "1"
+				)]
+			)
+		)
+		let secondTestCertificate = try HealthCertificate(base45: secondTestCertificateBase45)
+
+		registrationResult = service.registerHealthCertificate(base45: secondTestCertificateBase45)
+
+		switch registrationResult {
+		case.success(let healthCertifiedPerson):
+			XCTAssertEqual(healthCertifiedPerson.healthCertificates, [firstTestCertificate, secondTestCertificate])
+		case .failure(let error):
+			XCTFail("Registration should succeed, failed with error: \(error.localizedDescription)")
+		}
+
+		XCTAssertEqual(store.healthCertifiedPersons.count, 1)
+		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [firstTestCertificate, secondTestCertificate])
+
+		// Register vaccination certificate for same person
+
+		let firstVaccinationCertificateBase45 = try base45Fake(
+			from: DigitalGreenCertificate.fake(
+				name: .fake(standardizedFamilyName: "GUENDLING", standardizedGivenName: "NICK"),
+				vaccinationEntries: [VaccinationEntry.fake(
+					dateOfVaccination: "2021-05-28",
+					uniqueCertificateIdentifier: "2"
+				)]
+			)
+		)
+		let firstVaccinationCertificate = try HealthCertificate(base45: firstVaccinationCertificateBase45)
+
+		registrationResult = service.registerHealthCertificate(base45: firstVaccinationCertificateBase45)
+
+		switch registrationResult {
+		case.success(let healthCertifiedPerson):
+			XCTAssertEqual(healthCertifiedPerson.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
+		case .failure(let error):
+			XCTFail("Registration should succeed, failed with error: \(error.localizedDescription)")
+		}
+
+		XCTAssertEqual(store.healthCertifiedPersons.count, 1)
+		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
+
+		// Register vaccination certificate for other person
+
+		let secondVaccinationCertificateBase45 = try base45Fake(
+			from: DigitalGreenCertificate.fake(
+				name: .fake(standardizedFamilyName: "GUENDLING", standardizedGivenName: "MAX"),
+				vaccinationEntries: [VaccinationEntry.fake(
+					dateOfVaccination: "2021-05-14",
+					uniqueCertificateIdentifier: "3"
+				)]
+			)
+		)
+		let secondVaccinationCertificate = try HealthCertificate(base45: secondVaccinationCertificateBase45)
+
+		registrationResult = service.registerHealthCertificate(base45: secondVaccinationCertificateBase45)
+
+		switch registrationResult {
+		case.success(let healthCertifiedPerson):
+			XCTAssertEqual(healthCertifiedPerson.healthCertificates, [secondVaccinationCertificate])
+		case .failure(let error):
+			XCTFail("Registration should succeed, failed with error: \(error.localizedDescription)")
+		}
+
+		XCTAssertEqual(store.healthCertifiedPersons.count, 2)
+		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
+		XCTAssertEqual(store.healthCertifiedPersons.last?.healthCertificates, [secondVaccinationCertificate])
+
+		// Register test certificate for second person
+
+		let thirdTestCertificateBase45 = try base45Fake(
+			from: DigitalGreenCertificate.fake(
+				name: .fake(standardizedFamilyName: "GUENDLING", standardizedGivenName: "MAX"),
+				testEntries: [TestEntry.fake(
+					dateTimeOfSampleCollection: "2021-04-30T22:34:17.595Z",
+					uniqueCertificateIdentifier: "4"
+				)]
+			)
+		)
+		let thirdTestCertificate = try HealthCertificate(base45: thirdTestCertificateBase45)
+
+		registrationResult = service.registerHealthCertificate(base45: thirdTestCertificateBase45)
+
+		switch registrationResult {
+		case.success(let healthCertifiedPerson):
+			XCTAssertEqual(healthCertifiedPerson.healthCertificates, [thirdTestCertificate, secondVaccinationCertificate])
+		case .failure(let error):
+			XCTFail("Registration should succeed, failed with error: \(error.localizedDescription)")
+		}
+
+		XCTAssertEqual(store.healthCertifiedPersons.count, 2)
+		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
+		XCTAssertEqual(store.healthCertifiedPersons.last?.healthCertificates, [thirdTestCertificate, secondVaccinationCertificate])
+	}
+
+	func testLoadingCertificatesFromStoreAndRemovingCertificates() throws {
+		let store = MockTestStore()
+
+		let service = HealthCertificateService(
+			store: store,
+			client: ClientMock(),
+			appConfiguration: CachedAppConfigurationMock()
+		)
+
+		let healthCertificate1 = try HealthCertificate(
+			base45: try base45Fake(from: DigitalGreenCertificate.fake(
+				name: .fake(standardizedFamilyName: "MUSTERMANN", standardizedGivenName: "PHILIPP"),
+				testEntries: [TestEntry.fake(
+					dateTimeOfSampleCollection: "2021-04-30T22:34:17.595Z",
+					uniqueCertificateIdentifier: "0"
+				)]
+			))
+		)
+
+		let healthCertificate2 = try HealthCertificate(
+			base45: try base45Fake(from: DigitalGreenCertificate.fake(
+				name: .fake(standardizedFamilyName: "MUSTERMANN", standardizedGivenName: "PHILIPP"),
+				vaccinationEntries: [VaccinationEntry.fake(
+					dateOfVaccination: "2021-05-14",
+					uniqueCertificateIdentifier: "3"
+				)]
+			))
+		)
+
+		let healthCertificate3 = try HealthCertificate(
+			base45: try base45Fake(from: DigitalGreenCertificate.fake(
+				name: .fake(standardizedFamilyName: "MUSTERMANN", standardizedGivenName: "DORA"),
+				testEntries: [TestEntry.fake(
+					dateTimeOfSampleCollection: "2021-05-16T22:34:17.595Z",
+					uniqueCertificateIdentifier: "2"
+				)]
+			))
+		)
+
+		store.healthCertifiedPersons = [
+			HealthCertifiedPerson(healthCertificates: [
+				healthCertificate1, healthCertificate2
+			]),
+			HealthCertifiedPerson(healthCertificates: [
+				healthCertificate3
+			])
+		]
+
+		XCTAssertTrue(service.healthCertifiedPersons.value.isEmpty)
+
+		// Loading certificates from the store
+
+		service.updatePublishersFromStore()
+
+		XCTAssertEqual(service.healthCertifiedPersons.value, [
+			HealthCertifiedPerson(healthCertificates: [
+				healthCertificate1, healthCertificate2
+			]),
+			HealthCertifiedPerson(healthCertificates: [
+				healthCertificate3
+			])
+		])
+		XCTAssertEqual(service.healthCertifiedPersons.value, store.healthCertifiedPersons)
+
+		// Removing one of multiple certificates
+
+		service.removeHealthCertificate(healthCertificate2)
+
+		XCTAssertEqual(service.healthCertifiedPersons.value, [
+			HealthCertifiedPerson(healthCertificates: [
+				healthCertificate1
+			]),
+			HealthCertifiedPerson(healthCertificates: [
+				healthCertificate3
+			])
+		])
+		XCTAssertEqual(service.healthCertifiedPersons.value, store.healthCertifiedPersons)
+
+		// Removing last certificate of a person
+
+		service.removeHealthCertificate(healthCertificate1)
+
+		XCTAssertEqual(service.healthCertifiedPersons.value, [
+			HealthCertifiedPerson(healthCertificates: [
+				healthCertificate3
+			])
+		])
+		XCTAssertEqual(service.healthCertifiedPersons.value, store.healthCertifiedPersons)
+
+		// Removing last certificate of last person
+
+		service.removeHealthCertificate(healthCertificate3)
+
+		XCTAssertTrue(service.healthCertifiedPersons.value.isEmpty)
+	}
+
+	func testTestCertificateRegistrationAndExecution_Success() throws {
+		let store = MockTestStore()
+		let client = ClientMock()
+
+		let registerPublicKeyExpectation = expectation(description: "dccRegisterPublicKey called")
+		client.onDCCRegisterPublicKey = { _, _, _, completion in
+			registerPublicKeyExpectation.fulfill()
+			completion(.success(()))
+		}
+
+		var keyPair: DCCRSAKeyPair?
+
+		let getDigitalCovid19CertificateExpectation = expectation(description: "getDigitalCovid19Certificate called")
+		client.onGetDigitalCovid19Certificate = { _, _, completion in
+			let dek = (try? keyPair?.encrypt(Data()).base64EncodedString()) ?? ""
+			getDigitalCovid19CertificateExpectation.fulfill()
+			completion(.success((DCCResponse(dek: dek, dcc: "coseObject"))))
+		}
+
+		var config = CachedAppConfigurationMock.defaultAppConfiguration
+		config.dgcParameters.testCertificateParameters.waitAfterPublicKeyRegistrationInSeconds = 1
+		config.dgcParameters.testCertificateParameters.waitForRetryInSeconds = 1
+		let appConfig = CachedAppConfigurationMock(with: config)
+
+		var digitalGreenCertificateAccess = MockDigitalGreenCertificateAccess()
+		digitalGreenCertificateAccess.convertedToBase45 = DigitalGreenCertificateFake.makeBase45Fake(
 			from: DigitalGreenCertificate.fake(
 				testEntries: [TestEntry.fake()]
 			),
 			and: CBORWebTokenHeader.fake()
 		)
 
+		let service = HealthCertificateService(
+			store: store,
+			client: client,
+			appConfiguration: appConfig,
+			digitalGreenCertificateAccess: digitalGreenCertificateAccess
+		)
+
+		let requestsSubscription = service.testCertificateRequests
+			.sink {
+				if let requestWithKeyPair = $0.first(where: { $0.rsaKeyPair != nil }) {
+					keyPair = requestWithKeyPair.rsaKeyPair
+				}
+			}
+
+		let personsExpectation = expectation(description: "Persons not empty")
+		let personsSubscription = service.healthCertifiedPersons
+			.sink {
+				if !$0.isEmpty {
+					personsExpectation.fulfill()
+				}
+			}
+
+		service.registerAndExecuteTestCertificateRequest(
+			coronaTestType: .pcr,
+			registrationToken: "registrationToken",
+			registrationDate: Date(),
+			retryExecutionIfCertificateIsPending: false
+		)
+
+		waitForExpectations(timeout: .extraLong)
+
+		requestsSubscription.cancel()
+		personsSubscription.cancel()
+
+		XCTAssertFalse(try XCTUnwrap(service.healthCertifiedPersons.value.first).healthCertificates.isEmpty)
+	}
+
+	// MARK: - Private
+
+	private enum Base45FakeError: Error {
+		case failed
+	}
+
+	private func base45Fake(from digitalGreenCertificate: DigitalGreenCertificate) throws -> Base45 {
+		let base45Result = DigitalGreenCertificateFake.makeBase45Fake(
+			from: digitalGreenCertificate,
+			and: CBORWebTokenHeader.fake()
+		)
+
 		guard case let .success(base45) = base45Result else {
 			XCTFail("Could not make fake base45 certificate")
-			return
+			throw Base45FakeError.failed
 		}
 
-		let registrationResult = service.registerHealthCertificate(base45: base45)
-
-		switch registrationResult {
-		case.success(let healthCertifiedPerson):
-			XCTAssertEqual(healthCertifiedPerson.healthCertificates, [try HealthCertificate(base45: base45)])
-		case .failure:
-			XCTFail("Registration should succeed")
-		}
-
-		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [try HealthCertificate(base45: base45)])
-
-		// Try to register same certificate twice
-		let secondRegistrationResult = service.registerHealthCertificate(base45: base45)
-
-		if case .failure(let error) = secondRegistrationResult, case .certificateAlreadyRegistered = error { } else {
-			XCTFail("Double registration of the same certificate should fail")
-		}
-
-		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [try HealthCertificate(base45: base45)])
+		return base45
 	}
 
 }

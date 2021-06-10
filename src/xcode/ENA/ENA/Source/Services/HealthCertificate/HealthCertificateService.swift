@@ -14,7 +14,8 @@ class HealthCertificateService {
 	init(
 		store: HealthCertificateStoring,
 		client: Client,
-		appConfiguration: AppConfigurationProviding
+		appConfiguration: AppConfigurationProviding,
+		digitalGreenCertificateAccess: DigitalGreenCertificateAccessProtocol = DigitalGreenCertificateAccess()
 	) {
 
 		#if DEBUG
@@ -22,6 +23,7 @@ class HealthCertificateService {
 			self.store = MockTestStore()
 			self.client = ClientMock()
 			self.appConfiguration = CachedAppConfigurationMock()
+			self.digitalGreenCertificateAccess = digitalGreenCertificateAccess
 
 			setup()
 
@@ -52,6 +54,7 @@ class HealthCertificateService {
 		self.store = store
 		self.client = client
 		self.appConfiguration = appConfiguration
+		self.digitalGreenCertificateAccess = digitalGreenCertificateAccess
 
 		setup()
 	}
@@ -180,11 +183,6 @@ class HealthCertificateService {
 	) {
 		Log.info("[HealthCertificateService] Registering test certificate request: (coronaTestType: \(coronaTestType), registrationToken: \(private: registrationToken), registrationDate: \(registrationDate), retryExecutionIfCertificateIsPending: \(retryExecutionIfCertificateIsPending)", log: .api)
 
-		if testCertificateRequests.value.contains(where: { $0.registrationToken == registrationToken }) {
-			Log.error("[HealthCertificateService] Test certificate request (coronaTestType: \(coronaTestType), registrationToken: \(private: registrationToken), registrationDate: \(registrationDate)) already registered", log: .api)
-			return
-		}
-
 		let testCertificateRequest = TestCertificateRequest(
 			coronaTestType: coronaTestType,
 			registrationToken: registrationToken,
@@ -301,13 +299,6 @@ class HealthCertificateService {
 		}
 	}
 
-	func updatePublishersFromStore() {
-		Log.info("[HealthCertificateService] Updating publishers from store", log: .api)
-
-		healthCertifiedPersons.value = store.healthCertifiedPersons
-		testCertificateRequests.value = store.testCertificateRequests
-	}
-
 	func remove(testCertificateRequest: TestCertificateRequest) {
 		testCertificateRequest.rsaKeyPair?.removeFromKeychain()
 		if let index = testCertificateRequests.value.firstIndex(of: testCertificateRequest) {
@@ -315,11 +306,19 @@ class HealthCertificateService {
 		}
 	}
 
+	func updatePublishersFromStore() {
+		Log.info("[HealthCertificateService] Updating publishers from store", log: .api)
+
+		healthCertifiedPersons.value = store.healthCertifiedPersons
+		testCertificateRequests.value = store.testCertificateRequests
+	}
+
 	// MARK: - Private
 
 	private let store: HealthCertificateStoring
 	private let client: Client
 	private let appConfiguration: AppConfigurationProviding
+	private let digitalGreenCertificateAccess: DigitalGreenCertificateAccessProtocol
 
 	private var healthCertifiedPersonSubscriptions = Set<AnyCancellable>()
 	private var testCertificateRequestSubscriptions = Set<AnyCancellable>()
@@ -449,7 +448,7 @@ class HealthCertificateService {
 
 		do {
 			let decodedDEK = try rsaKeyPair.decrypt(encryptedDEKData)
-			let result = DigitalGreenCertificateAccess().convertToBase45(from: encryptedCOSE, with: decodedDEK)
+			let result = digitalGreenCertificateAccess.convertToBase45(from: encryptedCOSE, with: decodedDEK)
 
 			switch result {
 			case .success(let healthCertificateBase45):
