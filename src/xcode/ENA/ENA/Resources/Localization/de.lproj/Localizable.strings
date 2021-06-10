@@ -2699,6 +2699,10 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Error_Title" = "Fehler";
 
+"HealthCertificate_Error_FAQ_Description" = "\n\nWeitere Informationen zum Erhalt Ihres Impfzertifikats finden Sie in den FAQ.";
+
+"HealthCertificate_Error_FAQ_Button_Title" = "FAQ zu Impfzertifikaten";
+
 "HealthCertificate_Error_PC_TRY_AGAIN_LATER" = "Das Impfzertifikat kann aktuell nicht überprüft werden. Bitte versuchen Sie es später noch einmal.";
 
 "HealthCertificate_Error_VC_ALREADY_REGISTERED" = "Das Impfzertifikat ist bereits in Ihrer App registriert.";
