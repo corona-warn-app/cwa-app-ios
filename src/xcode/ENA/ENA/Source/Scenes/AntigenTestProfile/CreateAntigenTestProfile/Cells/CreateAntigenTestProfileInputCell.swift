@@ -35,14 +35,6 @@ class CreateAntigenTestProfileInputCell: UITableViewCell, ReuseIdentifierProvidi
 		contentView.addSubview(lastNameTextField)
 		textFields.append(lastNameTextField)
 
-		birthdayPicker = UIDatePicker()
-		birthdayPicker.timeZone = .utcTimeZone
-		birthdayPicker.locale = Locale.autoupdatingCurrent
-		birthdayPicker.datePickerMode = .date
-		if #available(iOS 13.4, *) {
-			birthdayPicker.preferredDatePickerStyle = .wheels
-		}
-
 		birthDateNameTextField = textField()
 		birthDateNameTextField.placeholder = AppStrings.AntigenProfile.Create.birthDateTextFieldPlaceholder
 		birthDateNameTextField.accessibilityIdentifier = AccessibilityIdentifiers.AntigenProfile.Create.birthDateTextField
@@ -140,7 +132,20 @@ class CreateAntigenTestProfileInputCell: UITableViewCell, ReuseIdentifierProvidi
 	
 	// MARK: - Internal
 	
-	var birthdayPicker: UIDatePicker!
+	let birthdayPicker: UIDatePicker = {
+		let birthdayPicker = UIDatePicker()
+		birthdayPicker.timeZone = .utcTimeZone
+		birthdayPicker.locale = Locale.autoupdatingCurrent
+		birthdayPicker.datePickerMode = .date
+		if #available(iOS 13.4, *) {
+			birthdayPicker.preferredDatePickerStyle = .wheels
+		}
+		if let date = ISO8601DateFormatter.justUTCDateFormatter.date(from: "2000-01-01") {
+			birthdayPicker.date = date
+		}
+		return birthdayPicker
+	}()
+
 	var textFields = [UITextField]()
 	var firstNameTextField: ENATextField!
 	var lastNameTextField: ENATextField!
