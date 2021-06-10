@@ -97,7 +97,7 @@ class TraceLocationsCoordinator {
 	}()
 	
 	private func showInfoScreen() {
-		let alreadyDidConsentOnce = infoScreenShown == true
+		let alreadyDidConsentOnce = infoScreenShown
 		// Promise the navigation view controller will be available,
 		// this is needed to resolve an inset issue with large titles
 		var navigationController: UINavigationController!
