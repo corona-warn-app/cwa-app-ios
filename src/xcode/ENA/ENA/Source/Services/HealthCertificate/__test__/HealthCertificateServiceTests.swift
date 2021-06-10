@@ -79,7 +79,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 		let firstTestCertificate = try HealthCertificate(base45: firstTestCertificateBase45)
 
-		let registrationResult = service.registerHealthCertificate(base45: firstTestCertificateBase45)
+		var registrationResult = service.registerHealthCertificate(base45: firstTestCertificateBase45)
 
 		switch registrationResult {
 		case.success(let healthCertifiedPerson):
@@ -93,9 +93,9 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		// Try to register same certificate twice
 
-		let secondRegistrationResult = service.registerHealthCertificate(base45: firstTestCertificateBase45)
+		registrationResult = service.registerHealthCertificate(base45: firstTestCertificateBase45)
 
-		if case .failure(let error) = secondRegistrationResult, case .certificateAlreadyRegistered = error { } else {
+		if case .failure(let error) = registrationResult, case .certificateAlreadyRegistered = error { } else {
 			XCTFail("Double registration of the same certificate should fail")
 		}
 
@@ -115,9 +115,9 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 		let secondTestCertificate = try HealthCertificate(base45: secondTestCertificateBase45)
 
-		let thirdRegistrationResult = service.registerHealthCertificate(base45: secondTestCertificateBase45)
+		registrationResult = service.registerHealthCertificate(base45: secondTestCertificateBase45)
 
-		switch thirdRegistrationResult {
+		switch registrationResult {
 		case.success(let healthCertifiedPerson):
 			XCTAssertEqual(healthCertifiedPerson.healthCertificates, [firstTestCertificate, secondTestCertificate])
 		case .failure(let error):
@@ -140,9 +140,9 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 		let firstVaccinationCertificate = try HealthCertificate(base45: firstVaccinationCertificateBase45)
 
-		let fourthRegistrationResult = service.registerHealthCertificate(base45: firstVaccinationCertificateBase45)
+		registrationResult = service.registerHealthCertificate(base45: firstVaccinationCertificateBase45)
 
-		switch fourthRegistrationResult {
+		switch registrationResult {
 		case.success(let healthCertifiedPerson):
 			XCTAssertEqual(healthCertifiedPerson.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
 		case .failure(let error):
@@ -165,9 +165,9 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 		let secondVaccinationCertificate = try HealthCertificate(base45: secondVaccinationCertificateBase45)
 
-		let fifthRegistrationResult = service.registerHealthCertificate(base45: secondVaccinationCertificateBase45)
+		registrationResult = service.registerHealthCertificate(base45: secondVaccinationCertificateBase45)
 
-		switch fifthRegistrationResult {
+		switch registrationResult {
 		case.success(let healthCertifiedPerson):
 			XCTAssertEqual(healthCertifiedPerson.healthCertificates, [secondVaccinationCertificate])
 		case .failure(let error):
@@ -191,9 +191,9 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 		let thirdTestCertificate = try HealthCertificate(base45: thirdTestCertificateBase45)
 
-		let sixthRegistrationResult = service.registerHealthCertificate(base45: thirdTestCertificateBase45)
+		registrationResult = service.registerHealthCertificate(base45: thirdTestCertificateBase45)
 
-		switch sixthRegistrationResult {
+		switch registrationResult {
 		case.success(let healthCertifiedPerson):
 			XCTAssertEqual(healthCertifiedPerson.healthCertificates, [thirdTestCertificate, secondVaccinationCertificate])
 		case .failure(let error):
