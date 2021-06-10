@@ -25,7 +25,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		onFAQCellTap: @escaping () -> Void,
 		onAppInformationCellTap: @escaping () -> Void,
 		onSettingsCellTap: @escaping (ENStateHandler.State) -> Void,
-		showTestInformationResult: @escaping (Result<CoronaTestQRCodeInformation, QRCodeError>) -> Void
+		showTestInformationResult: @escaping (Result<CoronaTestRegistrationInformation, QRCodeError>) -> Void
 	) {
 		self.viewModel = viewModel
 		self.appConfigurationProvider = appConfigurationProvider
@@ -43,7 +43,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		self.onSettingsCellTap = onSettingsCellTap
 		self.showTestInformationResult = showTestInformationResult
 
-		super.init(style: .plain)
+		super.init(style: .grouped)
 
 		viewModel.$riskAndTestResultsRows
 			.receive(on: DispatchQueue.OCombine(.main))
@@ -128,7 +128,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		super.viewDidAppear(animated)
 
 		#if DEBUG
-		if isUITesting && UserDefaults.standard.string(forKey: "showTestResultCards") == "YES" {
+		if isUITesting && LaunchArguments.test.common.showTestResultCards.boolValue {
 			tableView.scrollToRow(at: IndexPath(row: 1, section: 1), at: .top, animated: false)
 		}
 		#endif
@@ -320,9 +320,9 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	private let onFAQCellTap: () -> Void
 	private let onAppInformationCellTap: () -> Void
 	private let onSettingsCellTap: (ENStateHandler.State) -> Void
-	private let showTestInformationResult: (Result<CoronaTestQRCodeInformation, QRCodeError>) -> Void
-	private var deltaOnboardingCoordinator: DeltaOnboardingCoordinator?
+	private let showTestInformationResult: (Result<CoronaTestRegistrationInformation, QRCodeError>) -> Void
 
+	private var deltaOnboardingCoordinator: DeltaOnboardingCoordinator?
 	private var riskCell: UITableViewCell?
 	private var pcrTestResultCell: UITableViewCell?
 	private var pcrTestShownPositiveResultCell: UITableViewCell?
@@ -518,6 +518,28 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			with: cellModel,
 			onPrimaryAction: { [weak self] in
 				self?.viewModel.didTapTestResultButton(coronaTestType: coronaTestType)
+			},
+			onSecondaryAction: { [weak self] in
+				let alert = UIAlertController(
+					title: AppStrings.Home.TestResult.ShownPositive.deleteAlertTitle,
+					message: AppStrings.Home.TestResult.ShownPositive.deleteAlertDescription,
+					preferredStyle: .alert
+				)
+				
+				let deleteAction = UIAlertAction(
+					title: AppStrings.Home.TestResult.ShownPositive.deleteAlertDeleteButtonTitle,
+					style: .destructive,
+					handler: { [weak self] _ in
+						self?.viewModel.coronaTestService.removeTest(coronaTestType)
+					}
+				)
+				deleteAction.accessibilityIdentifier = AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.deleteAlertDeleteButton
+				alert.addAction(deleteAction)
+				
+				let cancelAction = UIAlertAction(title: AppStrings.Common.alertActionCancel, style: .cancel)
+				alert.addAction(cancelAction)
+				
+				self?.present(alert, animated: true, completion: nil)
 			}
 		)
 
@@ -672,8 +694,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 	private func showInformationHowRiskDetectionWorksIfNeeded(completion: @escaping () -> Void = {}) {
 		#if DEBUG
-		if isUITesting, let showInfo = UserDefaults.standard.string(forKey: "userNeedsToBeInformedAboutHowRiskDetectionWorks") {
-			viewModel.store.userNeedsToBeInformedAboutHowRiskDetectionWorks = (showInfo == "YES")
+		if isUITesting {
+			viewModel.store.userNeedsToBeInformedAboutHowRiskDetectionWorks = LaunchArguments.infoScreen.userNeedsToBeInformedAboutHowRiskDetectionWorks.boolValue
 		}
 		#endif
 

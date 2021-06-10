@@ -43,17 +43,11 @@
 
 "AutomaticSharingConsent_Subtitle" = "Consent";
 
-"AutomaticSharingConsent_DescriptionPart1_PCR" = "If you have tested positive for coronavirus, the app will share your test result in order to warn other users whom you have encountered.";
+"AutomaticSharingConsent_DescriptionPart1" = "If you have tested positive for coronavirus, the app will share your test result in order to warn other users whom you have encountered.";
 
-"AutomaticSharingConsent_DescriptionPart1_RAT" = "If you have tested positive for coronavirus, the app will share your test result in order to warn other users whom you have encountered.";
+"AutomaticSharingConsent_DescriptionPart2" = "This warning only affects users who were simultaneously checked in at the same event or place as you and users of coronavirus apps in the following countries:";
 
-"AutomaticSharingConsent_DescriptionPart2_PCR" = "The warning will reach users of the official coronavirus apps of the following participating countries:";
-
-"AutomaticSharingConsent_DescriptionPart2_RAT" = "This warning only affects users who were simultaneously checked in at the same event or place as you and users of coronavirus apps in the following countries:";
-
-"AutomaticSharingConsent_DescriptionPart3_PCR" = "If you provide additional information about the onset of your symptoms, this will also be shared.";
-
-"AutomaticSharingConsent_DescriptionPart3_RAT" = "In the case of rapid tests, only users of the Corona-Warn-App will be warned. If you provide additional information about the onset of symptoms, this will be also shared.";
+"AutomaticSharingConsent_DescriptionPart3" = "In the case of rapid tests, only users of the Corona-Warn-App will be warned. If you provide additional information about the onset of symptoms, this will be also shared.";
 
 "AutomaticSharingConsent_DescriptionPart4" = "You can withdraw your consent by disabling “Warn Others” above.";
 
@@ -195,3 +189,17 @@
 "ExposureSubmission_Antigen_Profile_Legal_Text06" = "The QR code contains your personal information. Do not provide your personal QR code to anyone if you do not want the data to be read. We do not recommend publishing your personal QR code or sending it by email.";
 
 "ExposureSubmission_Antigen_Profile_Legal_Text07" = "Private individuals as well as companies are not allowed to make you share your rapid test profile with them.";
+
+/* Health Certificate Information */
+
+"HealthCertificate_Info_Legal_headline" = "Data protection and data security";
+
+"HealthCertificate_Info_Legal_section01" = "Using the digital COVID-19 certificates is voluntary. There are other ways to prove that you are fully vaccinated or have a negative test result.";
+
+"HealthCertificate_Info_Legal_section02" = "The COVID-19 certificates contain your personal data (concerning vaccinations or your test result). In cases where you are required by law to prove your vaccination status or test result, it is sufficient to show the QR code of the certificate in the app. Do not provide your certificates or the QR codes to anyone if you do not want the data to be read.";
+
+"HealthCertificate_Info_Legal_section03" = "When you present the QR code of a certificate in the app for verification, others will be able to find out your test result or whether you are fully vaccinated. During verification, the official verification app will also display your name and date of birth.";
+
+"HealthCertificate_Info_Legal_section04" = "You have the possibility to delete COVID-19 certificates in the app at any time. Until then, the certificates will be stored on your smartphone.";
+
+"HealthCertificate_Info_disclaimer" = "Detailed information about this data processing is available in the privacy notice";

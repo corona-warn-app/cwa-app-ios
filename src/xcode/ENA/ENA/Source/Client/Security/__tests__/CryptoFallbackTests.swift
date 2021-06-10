@@ -237,4 +237,5 @@ class CryptoFallbackTests: iOS13TestCase {
 		
 		XCTAssertFalse(signatureVerifier(alteredPackage))
 	}
+
 }

@@ -6,7 +6,7 @@ import XCTest
 import FMDB
 @testable import ENA
 
-class ContactDiaryMigration3To4Tests: XCTestCase {
+class ContactDiaryMigration3To4Tests: CWATestCase {
 
 	func test_WHEN_migrationFrom3To4_THEN_NewColumsAreAdded_AND_OldDataIsNotDeleted() throws {
 

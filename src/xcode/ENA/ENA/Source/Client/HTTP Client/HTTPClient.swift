@@ -12,7 +12,10 @@ final class HTTPClient: Client {
 
 	init(
 		environmentProvider: EnvironmentProviding = Environments(),
-		session: URLSession = .coronaWarnSession()
+		session: URLSession = .coronaWarnSession(
+			configuration: .coronaWarnSessionConfiguration(),
+			delegateQueue: .main
+		)
 	) {
 		self.environmentProvider = environmentProvider
 		self.session = session
@@ -38,18 +41,32 @@ final class HTTPClient: Client {
 		let url = configuration.diagnosisKeysURL(day: day, forCountry: country)
 		fetchDay(from: url, completion: completeWith)
 	}
-
-	func getRegistrationToken(forKey key: String, withType type: String, isFake: Bool = false, completion completeWith: @escaping RegistrationHandler) {
-
-		guard
-			let registrationTokenRequest = try? URLRequest.getRegistrationTokenRequest(
+	
+	// swiftlint:disable:next cyclomatic_complexity
+	func getRegistrationToken(
+		forKey key: String,
+		withType type: String,
+		dateOfBirthKey: String? = nil,
+		isFake: Bool = false,
+		completion completeWith: @escaping RegistrationHandler
+	) {
+		// Check if first char of dateOfBirthKey is a lower cased "x". If not, we fail because it is malformed. If dateOfBirthKey is nil, we pass this check.
+		if let dateOfBirthKey = dateOfBirthKey {
+			guard dateOfBirthKey.first == "x" else {
+				completeWith(.failure(.malformedDateOfBirthKey))
+				return
+			}
+		}
+		
+		guard let registrationTokenRequest = try? URLRequest.getRegistrationTokenRequest(
 				configuration: configuration,
 				key: key,
 				type: type,
+				dateOfBirthKey: dateOfBirthKey,
 				headerValue: isFake ? 1 : 0
 			) else {
-				completeWith(.failure(.invalidResponse))
-				return
+			completeWith(.failure(.invalidResponse))
+			return
 		}
 
 		session.response(for: registrationTokenRequest, isFake: isFake) { result in
@@ -102,8 +119,8 @@ final class HTTPClient: Client {
 				registrationToken: registrationToken,
 				headerValue: isFake ? 1 : 0
 			) else {
-				completeWith(.failure(.invalidResponse))
-				return
+			completeWith(.failure(.invalidResponse))
+			return
 		}
 		Log.debug("Requesting TestResult", log: .api)
 		session.response(for: testResultRequest, isFake: isFake) { result in
@@ -130,12 +147,7 @@ final class HTTPClient: Client {
 						FetchTestResultResponse.self,
 						from: testResultResponseData
 					)
-					guard let testResult = response.testResult else {
-						Log.error("Failed to get test result with invalid response payload structure", log: .api)
-						completeWith(.failure(.invalidResponse))
-						return
-					}
-					completeWith(.success(testResult))
+					completeWith(.success(response))
 				} catch {
 					Log.error("Failed to get test result with invalid response payload structure", log: .api)
 					completeWith(.failure(.invalidResponse))
@@ -155,8 +167,8 @@ final class HTTPClient: Client {
 				registrationToken: registrationToken,
 				headerValue: isFake ? 1 : 0
 			) else {
-				completeWith(.failure(.invalidResponse))
-				return
+			completeWith(.failure(.invalidResponse))
+			return
 		}
 
 		session.response(for: tanForExposureSubmitRequest, isFake: isFake) { result in
@@ -422,6 +434,57 @@ final class HTTPClient: Client {
 		traceWarningPackageDownload(country: country, packageId: packageId, url: url, completion: completion)
 	}
 
+	// swiftlint:disable:next cyclomatic_complexity
+	func dccRegisterPublicKey(
+		isFake: Bool = false,
+		token: String,
+		publicKey: String,
+		completion: @escaping DCCRegistrationCompletionHandler
+	) {
+		guard let request = try? URLRequest.dccPublicKeyRequest(
+			configuration: configuration,
+			token: token,
+			publicKey: publicKey,
+			headerValue: isFake ? 1 : 0
+		) else {
+			Log.error("Failed to create request")
+			completion(.failure(.urlCreationFailed))
+			return
+		}
+		session.response(for: request) { [weak self] result in
+			self?.queue.async {
+				switch result {
+				case let .success(response):
+					switch response.statusCode {
+					case 201:
+						completion(.success(()))
+					case 400:
+						completion(.failure(.badRequest))
+					case 403:
+						completion(.failure(.tokenNotAllowed))
+					case 404:
+						completion(.failure(.tokenDoesNotExist))
+					case 409:
+						completion(.failure(.tokenAlreadyAssigned))
+					case 500:
+						completion(.failure(.internalServerError))
+					default:
+						Log.error("Error in response with status code: \(String(response.statusCode))", log: .api)
+						completion(.failure(.unhandledResponse(response.statusCode)))
+					}
+				case let .failure(error):
+					if case .noNetworkConnection = error {
+						Log.error("No network connection", log: .api)
+						completion(.failure(.noNetworkConnection))
+					} else {
+						Log.error("Error in response body", log: .api, error: error)
+						completion(.failure(.defaultServerError(error)))
+					}
+				}
+			}
+		}
+	}
+
 	func submit(
 		errorLogFile: Data,
 		otpEls: String,
@@ -468,6 +531,89 @@ final class HTTPClient: Client {
 			}
 		})
 	}
+	
+	// swiftlint:disable:next cyclomatic_complexity
+	func getDigitalCovid19Certificate(
+		registrationToken token: String,
+		isFake: Bool,
+		completion: @escaping DigitalCovid19CertificateCompletionHandler
+	) {
+		guard let request = try? URLRequest.dccRequest(
+				configuration: configuration,
+				registrationToken: token,
+				headerValue: isFake ? 1 : 0
+		) else {
+			completion(.failure(.urlCreationFailed))
+			return
+		}
+		
+		session.response(for: request, completion: { result in
+			switch result {
+			case let .success(response):
+				switch response.statusCode {
+				case 200:
+					guard let responseBody = response.body else {
+						Log.error("Error in response body: \(response.statusCode)", log: .api)
+						completion(.failure(.unhandledResponse(response.statusCode)))
+						return
+					}
+					do {
+						let decodedResponse = try JSONDecoder().decode(
+							DCCResponse.self,
+							from: responseBody
+						)
+						completion(.success(decodedResponse))
+					} catch {
+						Log.error("Failed to decode response json", log: .api, error: error)
+						completion(.failure(.jsonError))
+					}
+				case 202:
+					Log.error("HTTP error code 202. DCC is pending.", log: .api)
+					completion(.failure(.dccPending))
+				case 400:
+					Log.error("HTTP error code 400. Bad Request. Perhaps the registration token is wrong formatted?", log: .api)
+					completion(.failure(.badRequest))
+				case 404:
+					Log.error("HTTP error code 404. RegistrationToken does not exist.", log: .api)
+					completion(.failure(.tokenDoesNotExist))
+				case 410:
+					Log.error("HTTP error code 410. DCC is already cleaned up.", log: .api)
+					completion(.failure(.dccAlreadyCleanedUp))
+				case 412:
+					Log.error("HTTP error code 412. Test result not yet received.", log: .api)
+					completion(.failure(.testResultNotYetReceived))
+				case 500:
+					Log.error("HTTP error code 500. Internal server error.", log: .api)
+					guard let responseBody = response.body else {
+						Log.error("Error in code 500 response body: \(response.statusCode)", log: .api)
+						completion(.failure(.unhandledResponse(response.statusCode)))
+						return
+					}
+					do {
+						let decodedResponse = try JSONDecoder().decode(
+							DCC500Response.self,
+							from: responseBody
+						)
+						completion(.failure(.internalServerError(reason: decodedResponse.reason)))
+					} catch {
+						Log.error("Failed to decode code 500 response json", log: .api, error: error)
+						completion(.failure(.internalServerError(reason: nil)))
+					}
+				default:
+					Log.error("Unhandled http status code: \(String(response.statusCode))", log: .api)
+					completion(.failure(.unhandledResponse(response.statusCode)))
+				}
+			case let .failure(error):
+				if case .noNetworkConnection = error {
+					Log.error("No network connection", log: .api)
+					completion(.failure(.noNetworkConnection))
+				} else {
+					Log.error("Error in response: \(error)", log: .api)
+					completion(.failure(.defaultServerError(error)))
+				}
+			}
+		})
+	}
 
 
 	// MARK: - Public
@@ -489,7 +635,7 @@ final class HTTPClient: Client {
 		from url: URL,
 		completion completeWith: @escaping DayCompletionHandler) {
 		var responseError: Failure?
- 
+
 		session.GET(url) { [weak self] result in
 			self?.queue.async {
 				guard let self = self else {
@@ -559,7 +705,7 @@ final class HTTPClient: Client {
 							.decode(
 								[String].self,
 								from: data
-						)
+							)
 						completeWith(.success(days))
 					} catch {
 						completeWith(.failure(.invalidResponse))
@@ -725,10 +871,6 @@ final class HTTPClient: Client {
 // MARK: Extensions
 
 private extension HTTPClient {
-	struct FetchTestResultResponse: Codable {
-		let testResult: Int?
-	}
-	
 	struct GetRegistrationTokenResponse: Codable {
 		let registrationToken: String?
 	}
@@ -870,6 +1012,7 @@ private extension URLRequest {
 		configuration: HTTPClient.Configuration,
 		key: String,
 		type: String,
+		dateOfBirthKey: String?,
 		headerValue: Int
 	) throws -> URLRequest {
 		
@@ -896,8 +1039,14 @@ private extension URLRequest {
 		
 		request.httpMethod = HttpMethod.post
 		
+		// Create body.
+		var originalBody: [String: String] = [:]
+		if let dateOfBirthKey = dateOfBirthKey {
+			originalBody = ["key": key, "keyDOB": dateOfBirthKey, "keyType": type]
+		} else {
+			originalBody = ["key": key, "keyType": type]
+		}
 		// Add body padding to request.
-		let originalBody = ["key": key, "keyType": type]
 		let paddedData = try getPaddedRequestBody(for: originalBody)
 		request.httpBody = paddedData
 		
@@ -1082,7 +1231,47 @@ private extension URLRequest {
 		return request
 	}
 
-	
+	static func dccPublicKeyRequest(
+		configuration: HTTPClient.Configuration,
+		token: String,
+		publicKey: String,
+		headerValue: Int
+	) throws -> URLRequest {
+		var request = URLRequest(url: configuration.dccPublicKeyURL)
+
+		request.setValue(
+			"\(headerValue)",
+			// Requests with a value of "0" will be fully processed.
+			// Any other value indicates that this request shall be
+			// handled as a fake request." ,
+			forHTTPHeaderField: "cwa-fake"
+		)
+
+		// Add header padding.
+		request.setValue(
+			String.getRandomString(of: 14),
+			forHTTPHeaderField: "cwa-header-padding"
+		)
+
+		request.setValue(
+			"application/json",
+			forHTTPHeaderField: "Content-Type"
+		)
+
+		request.httpMethod = HttpMethod.post
+
+		// Add body padding to request.
+		let originalBody = [
+			"registrationToken": token,
+			"publicKey": publicKey
+		]
+
+		let paddedData = try getPaddedRequestBody(for: originalBody)
+		request.httpBody = paddedData
+
+		return request
+	}
+
 	static func traceWarningPackageDiscovery(
 		configuration: HTTPClient.Configuration,
 		country: String
@@ -1093,6 +1282,45 @@ private extension URLRequest {
 
 		request.httpMethod = HttpMethod.get
 		
+		return request
+	}
+	
+	static func dccRequest(
+		configuration: HTTPClient.Configuration,
+		registrationToken: String,
+		headerValue: Int
+	) throws -> URLRequest {
+
+		var request = URLRequest(url: configuration.DCCURL)
+
+		request.setValue(
+			"\(headerValue)",
+			// Requests with a value of "0" will be fully processed.
+			// Any other value indicates that this request shall be
+			// handled as a fake request." ,
+			forHTTPHeaderField: "cwa-fake"
+		)
+
+		// Add header padding.
+		request.setValue(
+			String.getRandomString(of: 14),
+			forHTTPHeaderField: "cwa-header-padding"
+		)
+
+		request.setValue(
+			"application/json",
+			forHTTPHeaderField: "Content-Type"
+		)
+
+		request.httpMethod = HttpMethod.post
+
+		// Add body padding to request.
+		let originalBody = [
+			"registrationToken": registrationToken
+		]
+		let paddedData = try getPaddedRequestBody(for: originalBody)
+		request.httpBody = paddedData
+
 		return request
 	}
 	
@@ -1111,7 +1339,7 @@ private extension URLRequest {
 		paddedBody["requestPadding"] = ""
 		let paddedData = try JSONEncoder().encode(paddedBody)
 		let paddingSize = maxRequestPayloadSize - paddedData.count
-		let padding = String.getRandomString(of: paddingSize)
+		let padding = String.getRandomString(of: max(0, paddingSize))
 		paddedBody["requestPadding"] = padding
 		return try JSONEncoder().encode(paddedBody)
 	}

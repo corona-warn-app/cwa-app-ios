@@ -5,7 +5,7 @@
 import XCTest
 import ExposureNotification
 
-class ENAUITests_00_Onboarding: XCTestCase {
+class ENAUITests_00_Onboarding: CWATestCase {
 	var app: XCUIApplication!
 
 	override func setUp() {
@@ -14,13 +14,9 @@ class ENAUITests_00_Onboarding: XCTestCase {
 		app = XCUIApplication()
 		setupSnapshot(app)
 		app.setDefaults()
-		app.launchArguments.append(contentsOf: ["-isOnboarded", "NO"])
-		app.launchArguments.append(contentsOf: ["-isDatadonationConsentGiven", "NO"])
-		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.unknown.stringValue])
-	}
-
-	override func tearDownWithError() throws {
-		// Put teardown code here. This method is called after the invocation of each test method in the class.
+		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: false)
+		app.setLaunchArgument(LaunchArguments.consent.isDatadonationConsentGiven, to: false)
+		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.unknown.stringValue)
 	}
 
 	func test_0000_OnboardingFlow_DisablePermissions_normal_XXXL() throws {
@@ -31,20 +27,15 @@ class ENAUITests_00_Onboarding: XCTestCase {
 		XCTAssertTrue(app.staticTexts["AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_title"].waitForExistence(timeout: 5.0))
 
 		// tap through the onboarding screens
-		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingLetsGo"].waitForExistence(timeout: 5.0))
-		app.buttons["AppStrings.Onboarding.onboardingLetsGo"].tap()
+		app.buttons["AppStrings.Onboarding.onboardingLetsGo"].waitAndTap()
 
-		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingContinue"].waitForExistence(timeout: 5.0))
-		app.buttons["AppStrings.Onboarding.onboardingContinue"].tap()
+		app.buttons["AppStrings.Onboarding.onboardingContinue"].waitAndTap()
 
-		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_button"].waitForExistence(timeout: 5.0))
-		app.buttons["AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_button"].tap()
+		app.buttons["AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_button"].waitAndTap()
 
-		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingContinue"].waitForExistence(timeout: 5.0))
-		app.buttons["AppStrings.Onboarding.onboardingContinue"].tap()
+		app.buttons["AppStrings.Onboarding.onboardingContinue"].waitAndTap()
 
-		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingDoNotAllow"].waitForExistence(timeout: 5.0))
-		app.buttons["AppStrings.Onboarding.onboardingDoNotAllow"].tap()
+		app.buttons["AppStrings.Onboarding.onboardingDoNotAllow"].waitAndTap()
 		// data consent switch must only be visible on settings-data-donation.
 		
 		XCTAssertFalse(app.switches[AccessibilityIdentifiers.DataDonation.consentSwitch].waitForExistence(timeout: .short))
@@ -55,11 +46,11 @@ class ENAUITests_00_Onboarding: XCTestCase {
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.DataDonation.ageGroup].waitForExistence(timeout: .short))
 
 		// Tap on federalState cell. Now we should see the key-value screen and select some.
-		app.cells[AccessibilityIdentifiers.DataDonation.federalStateName].tap()
+		app.cells[AccessibilityIdentifiers.DataDonation.federalStateName].waitAndTap()
 		XCTAssertTrue(app.tables[AccessibilityIdentifiers.DataDonation.federalStateCell].waitForExistence(timeout: .short))
 
 		// Tap on some data entry. Then we should be back on the data donation screen.
-		app.cells.element(boundBy: 7).tap()
+		app.cells.element(boundBy: 7).waitAndTap()
 
 		// Now we should see the three data fields.
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.DataDonation.federalStateName].waitForExistence(timeout: .short))
@@ -67,23 +58,23 @@ class ENAUITests_00_Onboarding: XCTestCase {
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.DataDonation.ageGroup].waitForExistence(timeout: .short))
 
 		// Now we want to select a district. So tap onto the district cell, choose one and return to dataDonation.
-		app.cells[AccessibilityIdentifiers.DataDonation.regionName].tap()
+		app.cells[AccessibilityIdentifiers.DataDonation.regionName].waitAndTap()
 		
 		XCTAssertTrue(app.tables[AccessibilityIdentifiers.DataDonation.regionCell].waitForExistence(timeout: .short))
-		app.cells.element(boundBy: 8).tap()
+		app.cells.element(boundBy: 8).waitAndTap()
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.DataDonation.ageGroup].waitForExistence(timeout: .short))
 
 		// Now we want to select a ageGroup. So tap onto the ageGroup cell, choose one and return to dataDonation.
-		app.cells[AccessibilityIdentifiers.DataDonation.ageGroup].tap()
+		app.cells[AccessibilityIdentifiers.DataDonation.ageGroup].waitAndTap()
 		XCTAssertTrue(app.tables[AccessibilityIdentifiers.DataDonation.ageGroupCell].waitForExistence(timeout: .short))
-		app.cells.element(boundBy: 7).tap()
+		app.cells.element(boundBy: 7).waitAndTap()
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.DataDonation.ageGroup].waitForExistence(timeout: .short))
 
 		XCTAssertFalse(app.switches[AccessibilityIdentifiers.DataDonation.consentSwitch].waitForExistence(timeout: .short))
 
 		// Now proceed with onboarding
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitForExistence(timeout: 5.0))
-		app.buttons[AccessibilityIdentifiers.General.secondaryFooterButton].tap()
+		app.buttons[AccessibilityIdentifiers.General.secondaryFooterButton].waitAndTap()
 
 		// check that the homescreen element AppStrings.home.activateTitle is visible onscreen
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: 5.0))
@@ -97,20 +88,15 @@ class ENAUITests_00_Onboarding: XCTestCase {
 		XCTAssertTrue(app.staticTexts["AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_title"].waitForExistence(timeout: 5.0))
 
 		// tap through the onboarding screens
-		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingLetsGo"].waitForExistence(timeout: 5.0))
-		app.buttons["AppStrings.Onboarding.onboardingLetsGo"].tap()
+		app.buttons["AppStrings.Onboarding.onboardingLetsGo"].waitAndTap()
 
-		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingContinue"].waitForExistence(timeout: 5.0))
-		app.buttons["AppStrings.Onboarding.onboardingContinue"].tap()
+		app.buttons["AppStrings.Onboarding.onboardingContinue"].waitAndTap()
 
-		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_button"].waitForExistence(timeout: 5.0))
-		app.buttons["AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_button"].tap()
+		app.buttons["AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_button"].waitAndTap()
 
-		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingContinue"].waitForExistence(timeout: 5.0))
-		app.buttons["AppStrings.Onboarding.onboardingContinue"].tap()
+		app.buttons["AppStrings.Onboarding.onboardingContinue"].waitAndTap()
 
-		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingContinue"].waitForExistence(timeout: 5.0))
-		app.buttons["AppStrings.Onboarding.onboardingContinue"].tap()
+		app.buttons["AppStrings.Onboarding.onboardingContinue"].waitAndTap()
 		// data consent switch must only be visible on settings-data-donation.
 		XCTAssertFalse(app.switches[AccessibilityIdentifiers.DataDonation.consentSwitch].waitForExistence(timeout: .short))
 
@@ -120,11 +106,11 @@ class ENAUITests_00_Onboarding: XCTestCase {
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.DataDonation.ageGroup].waitForExistence(timeout: .short))
 
 		// Tap on federalState cell. Now we should see the key-value screen and select some.
-		app.cells[AccessibilityIdentifiers.DataDonation.federalStateName].tap()
+		app.cells[AccessibilityIdentifiers.DataDonation.federalStateName].waitAndTap()
 		XCTAssertTrue(app.tables[AccessibilityIdentifiers.DataDonation.federalStateCell].waitForExistence(timeout: .short))
 
 		// Tap on some data entry. Then we should be back on the data donation screen.
-		app.cells.element(boundBy: 7).tap()
+		app.cells.element(boundBy: 7).waitAndTap()
 
 		// Now we should see the three data fields.
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.DataDonation.federalStateName].waitForExistence(timeout: .short))
@@ -132,23 +118,22 @@ class ENAUITests_00_Onboarding: XCTestCase {
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.DataDonation.ageGroup].waitForExistence(timeout: .short))
 
 		// Now we want to select a district. So tap onto the district cell, choose one and return to dataDonation.
-		app.cells[AccessibilityIdentifiers.DataDonation.regionName].tap()
+		app.cells[AccessibilityIdentifiers.DataDonation.regionName].waitAndTap()
 		
 		XCTAssertTrue(app.tables[AccessibilityIdentifiers.DataDonation.regionCell].waitForExistence(timeout: .short))
-		app.cells.element(boundBy: 8).tap()
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.DataDonation.ageGroup].waitForExistence(timeout: .short))
+		app.cells.element(boundBy: 8).waitAndTap()
 
 		// Now we want to select a ageGroup. So tap onto the ageGroup cell, choose one and return to dataDonation.
-		app.cells[AccessibilityIdentifiers.DataDonation.ageGroup].tap()
+		app.cells[AccessibilityIdentifiers.DataDonation.ageGroup].waitAndTap()
 		XCTAssertTrue(app.tables[AccessibilityIdentifiers.DataDonation.ageGroupCell].waitForExistence(timeout: .short))
-		app.cells.element(boundBy: 7).tap()
+		app.cells.element(boundBy: 7).waitAndTap()
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.DataDonation.ageGroup].waitForExistence(timeout: .short))
 
 		XCTAssertFalse(app.switches[AccessibilityIdentifiers.DataDonation.consentSwitch].waitForExistence(timeout: .short))
 
 		// Now proceed with onboarding
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitForExistence(timeout: 5.0))
-		app.buttons[AccessibilityIdentifiers.General.secondaryFooterButton].tap()
+		app.buttons[AccessibilityIdentifiers.General.secondaryFooterButton].waitAndTap()
 
 		// check that the homescreen element AppStrings.home.activateTitle is visible onscreen
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: 5.0))
@@ -159,7 +144,7 @@ class ENAUITests_00_Onboarding: XCTestCase {
 
 	func test_0002_Screenshots_OnboardingFlow_EnablePermissions_normal_S() throws {
 		var screenshotCounter = 0
-		app.launchArguments.append(contentsOf: ["-userNeedsToBeInformedAboutHowRiskDetectionWorks", "YES"])
+		app.setLaunchArgument(LaunchArguments.infoScreen.userNeedsToBeInformedAboutHowRiskDetectionWorks, to: true)
 		app.setPreferredContentSizeCategory(accessibility: .normal, size: .S)
 		app.launch()
 		
@@ -167,30 +152,30 @@ class ENAUITests_00_Onboarding: XCTestCase {
 		
 		snapshot(prefix + (String(format: "%04d", (screenshotCounter.inc() ))))
 		
-		app.buttons["AppStrings.Onboarding.onboardingLetsGo"].tap()
+		app.buttons["AppStrings.Onboarding.onboardingLetsGo"].waitAndTap()
 		snapshot(prefix + (String(format: "%04d", (screenshotCounter.inc() ))))
 		app.swipeUp()
 		snapshot(prefix + (String(format: "%04d", (screenshotCounter.inc() ))))
 		app.swipeUp()
 		snapshot(prefix + (String(format: "%04d", (screenshotCounter.inc() ))))
 		
-		app.buttons["AppStrings.Onboarding.onboardingContinue"].tap()
+		app.buttons["AppStrings.Onboarding.onboardingContinue"].waitAndTap()
 		snapshot(prefix + (String(format: "%04d", (screenshotCounter.inc() ))))
 		app.swipeUp()
 		snapshot(prefix + (String(format: "%04d", (screenshotCounter.inc() ))))
 		app.swipeUp()
 		snapshot(prefix + (String(format: "%04d", (screenshotCounter.inc() ))))
 		
-		app.buttons["AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_button"].tap()
+		app.buttons["AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_button"].waitAndTap()
 		snapshot(prefix + (String(format: "%04d", (screenshotCounter.inc() ))))
 		
-		app.buttons["AppStrings.Onboarding.onboardingContinue"].tap()
+		app.buttons["AppStrings.Onboarding.onboardingContinue"].waitAndTap()
 		snapshot(prefix + (String(format: "%04d", (screenshotCounter.inc() ))))
 		
-		app.buttons["AppStrings.Onboarding.onboardingContinue"].tap()
+		app.buttons["AppStrings.Onboarding.onboardingContinue"].waitAndTap()
 		snapshot(prefix + (String(format: "%04d", (screenshotCounter.inc() ))))
 
-		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].tap()
+		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitAndTap()
 		snapshot(prefix + (String(format: "%04d", (screenshotCounter.inc() ))))
 		
 //		Onboarding ends here. Next screen is the home screen.

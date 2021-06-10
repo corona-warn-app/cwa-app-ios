@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class UIViewController_AlertTest: XCTestCase {
+class UIViewController_AlertTest: CWATestCase {
 
 
 	func testAlertSimple() throws {

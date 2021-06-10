@@ -5,7 +5,7 @@
 @testable import ENA
 import XCTest
 
-class UserdataTests: XCTestCase {
+class UserdataTests: CWATestCase {
 
 	func testUserMetadata_ageBelow29() throws {
 		let store = MockTestStore()

@@ -5,13 +5,23 @@
 import XCTest
 @testable import ENA
 
-class HomeShownPositiveTestResultCellModelTest: XCTestCase {
+class HomeShownPositiveTestResultCellModelTest: CWATestCase {
 
     func testShownPositivePCRTest() throws {
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
 		let coronaTestService = CoronaTestService(
-			client: ClientMock(),
-			store: MockTestStore(),
-			appConfiguration: CachedAppConfigurationMock()
+			client: client,
+			store: store,
+			eventStore: MockEventStore(),
+			diaryStore: MockDiaryStore(),
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
 
 		coronaTestService.pcrTest = PCRTest.mock(
@@ -87,10 +97,21 @@ class HomeShownPositiveTestResultCellModelTest: XCTestCase {
     }
 
 	func testShownPositiveAntigenTest() throws {
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let coronaTestService = CoronaTestService(
-			client: ClientMock(),
-			store: MockTestStore(),
-			appConfiguration: CachedAppConfigurationMock()
+			client: client,
+			store: store,
+			eventStore: MockEventStore(),
+			diaryStore: MockDiaryStore(),
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
 
 		coronaTestService.antigenTest = AntigenTest.mock(

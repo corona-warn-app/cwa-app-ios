@@ -5,18 +5,28 @@
 import XCTest
 @testable import ENA
 
-class TanInputViewModelTests: XCTestCase {
+class TanInputViewModelTests: CWATestCase {
 
 	func testGIVEN_ValidFormattedTanWithValidChecksum_WHEN_isValidIsChecksumValid_THEN_isInvalidChcksumIsValid() {
 		// GIVEN
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+		
 		let viewModel = TanInputViewModel(
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
-				store: MockTestStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				client: client,
+				store: store,
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfiguration
+				)
 			),
-			presentInvalidTanAlert: { _, _  in },
-			tanSuccessfullyTransferred: { },
+			onSuccess: { _, _ in },
 			givenTan: "234567893D"
 		)
 
@@ -31,14 +41,24 @@ class TanInputViewModelTests: XCTestCase {
 
 	func testGIVEN_ValidFormattedTanWithInvalidChecksum_WHEN_isValidIsChecksumValid_THEN_isInvalidChcksumIsInvalid() {
 		// GIVEN
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let viewModel = TanInputViewModel(
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
-				store: MockTestStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				client: client,
+				store: store,
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfiguration
+				)
 			),
-			presentInvalidTanAlert: { _, _  in },
-			tanSuccessfullyTransferred: { },
+			onSuccess: { _, _ in },
 			givenTan: "ZBYKEVDBNU"
 		)
 
@@ -53,14 +73,24 @@ class TanInputViewModelTests: XCTestCase {
 
 	func testGIVEN_wrongCharacterTanString_WHEN_isValidCheck_THEN_isInvalidChecksumIsInvalid() {
 		// GIVEN
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let viewModel = TanInputViewModel(
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
-				store: MockTestStore(),
-				appConfiguration: CachedAppConfigurationMock()
+				client: client,
+				store: store,
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfiguration
+				)
 			),
-			presentInvalidTanAlert: { _, _  in },
-			tanSuccessfullyTransferred: { },
+			onSuccess: { _, _ in },
 			givenTan: "ZBYKEVDBNL"
 		)
 

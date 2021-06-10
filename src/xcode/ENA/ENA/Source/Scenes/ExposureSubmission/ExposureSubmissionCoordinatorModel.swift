@@ -43,6 +43,27 @@ class ExposureSubmissionCoordinatorModel {
 	}
 
 	let eventProvider: EventProviding
+
+	func shouldShowOverrideTestNotice(for coronaTestType: CoronaTestType) -> Bool {
+		if let oldTest = coronaTestService.coronaTest(ofType: coronaTestType),
+		   oldTest.testResult != .expired,
+		   !(oldTest.type == .antigen && coronaTestService.antigenTestIsOutdated) {
+			return true
+		} else {
+			return false
+		}
+	}
+
+	func shouldShowTestCertificateScreen(with testRegistrationInformation: CoronaTestRegistrationInformation) -> Bool {
+		switch testRegistrationInformation {
+		case .pcr:
+			return true
+		case .antigen(qrCodeInformation: let qrCodeInformation):
+			return qrCodeInformation.certificateSupportedByPointOfCare ?? false
+		case .teleTAN:
+			return false
+		}
+	}
 	
 	var shouldShowSymptomsOnsetScreen = false
 
@@ -117,8 +138,9 @@ class ExposureSubmissionCoordinatorModel {
 	}
 
 	func registerTestAndGetResult(
-		for testType: CoronaTestQRCodeInformation,
+		for testType: CoronaTestRegistrationInformation,
 		isSubmissionConsentGiven: Bool,
+		certificateConsent: TestCertificateConsent,
 		isLoading: @escaping (Bool) -> Void,
 		onSuccess: @escaping (TestResult) -> Void,
 		onError: @escaping (CoronaTestServiceError) -> Void
@@ -126,10 +148,11 @@ class ExposureSubmissionCoordinatorModel {
 		isLoading(true)
 		// QR code test fetch
 		switch testType {
-		case .pcr(let guid):
+		case let .pcr(guid: guid):
 			coronaTestService.registerPCRTestAndGetResult(
 				guid: guid,
 				isSubmissionConsentGiven: isSubmissionConsentGiven,
+				certificateConsent: certificateConsent,
 				completion: { result in
 					isLoading(false)
 					
@@ -149,6 +172,23 @@ class ExposureSubmissionCoordinatorModel {
 				lastName: antigenTest.lastName,
 				dateOfBirth: antigenTest.dateOfBirthString,
 				isSubmissionConsentGiven: isSubmissionConsentGiven,
+				certificateSupportedByPointOfCare: antigenTest.certificateSupportedByPointOfCare ?? false,
+				certificateConsent: certificateConsent,
+				completion: { result in
+					isLoading(false)
+					
+					switch result {
+					case let .failure(error):
+						onError(error)
+					case let .success(testResult):
+						onSuccess(testResult)
+					}
+				}
+			)
+		case .teleTAN(let teleTAN):
+			coronaTestService.registerPCRTestAndGetResult(
+				teleTAN: teleTAN,
+				isSubmissionConsentGiven: isSubmissionConsentGiven,
 				completion: { result in
 					isLoading(false)
 					
@@ -161,7 +201,6 @@ class ExposureSubmissionCoordinatorModel {
 				}
 			)
 		}
-
 	}
 
 	func setSubmissionConsentGiven(_ isSubmissionConsentGiven: Bool) {

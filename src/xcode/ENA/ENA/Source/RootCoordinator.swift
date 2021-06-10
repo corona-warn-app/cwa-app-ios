@@ -31,7 +31,8 @@ class RootCoordinator: RequiresAppDependencies {
 		eventStore: EventStoringProviding,
 		eventCheckoutService: EventCheckoutService,
 		otpService: OTPServiceProviding,
-		ppacService: PrivacyPreservingAccessControl
+		ppacService: PrivacyPreservingAccessControl,
+		healthCertificateService: HealthCertificateService
 	) {
 		self.delegate = delegate
 		self.coronaTestService = coronaTestService
@@ -40,6 +41,7 @@ class RootCoordinator: RequiresAppDependencies {
 		self.eventCheckoutService = eventCheckoutService
 		self.otpService = otpService
 		self.ppacService = ppacService
+		self.healthCertificateService = healthCertificateService
 	}
 
 	deinit {
@@ -86,15 +88,13 @@ class RootCoordinator: RequiresAppDependencies {
 			route: route
 		)
 
-		// ContactJournal
-		let diaryCoordinator = DiaryCoordinator(
+		let healthCertificatesCoordinator = HealthCertificatesCoordinator(
 			store: store,
-			diaryStore: contactDiaryStore,
-			eventStore: eventStore,
-			homeState: homeState
+			healthCertificateService: healthCertificateService,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider
 		)
-		self.diaryCoordinator = diaryCoordinator
-		
+		self.healthCertificatesCoordinator = healthCertificatesCoordinator
+
 		// Setup checkin coordinator after app reset
 		let checkInCoordinator = CheckinCoordinator(
 			store: store,
@@ -104,22 +104,35 @@ class RootCoordinator: RequiresAppDependencies {
 		)
 		self.checkInCoordinator = checkInCoordinator
 
+		// ContactJournal
+		let diaryCoordinator = DiaryCoordinator(
+			store: store,
+			diaryStore: contactDiaryStore,
+			eventStore: eventStore,
+			homeState: homeState
+		)
+		self.diaryCoordinator = diaryCoordinator
+
 		// Tabbar
-		let startTabbarItem = UITabBarItem(title: AppStrings.Tabbar.homeTitle, image: UIImage(named: "Icons_Tabbar_Home"), selectedImage: nil)
-		startTabbarItem.accessibilityIdentifier = AccessibilityIdentifiers.Tabbar.home
-		homeCoordinator.rootViewController.tabBarItem = startTabbarItem
+		let startTabBarItem = UITabBarItem(title: AppStrings.Tabbar.homeTitle, image: UIImage(named: "Icons_Tabbar_Home"), selectedImage: nil)
+		startTabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.TabBar.home
+		homeCoordinator.rootViewController.tabBarItem = startTabBarItem
 
-		let diaryTabbarItem = UITabBarItem(title: AppStrings.Tabbar.diaryTitle, image: UIImage(named: "Icons_Tabbar_Diary"), selectedImage: nil)
-		diaryTabbarItem.accessibilityIdentifier = AccessibilityIdentifiers.Tabbar.diary
-		diaryCoordinator.viewController.tabBarItem = diaryTabbarItem
+		let certificatesTabBarItem = UITabBarItem(title: AppStrings.Tabbar.certificatesTitle, image: UIImage(named: "Icons_Tabbar_Certificates"), selectedImage: nil)
+		certificatesTabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.TabBar.certificates
+		healthCertificatesCoordinator.viewController.tabBarItem = certificatesTabBarItem
 
-		let eventsTabbarItem = UITabBarItem(title: AppStrings.Tabbar.checkInTitle, image: UIImage(named: "Icons_Tabbar_Checkin"), selectedImage: nil)
-		eventsTabbarItem.accessibilityIdentifier = AccessibilityIdentifiers.Tabbar.checkin
-		checkInCoordinator.viewController.tabBarItem = eventsTabbarItem
+		let eventsTabBarItem = UITabBarItem(title: AppStrings.Tabbar.checkInTitle, image: UIImage(named: "Icons_Tabbar_Checkin"), selectedImage: nil)
+		eventsTabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.TabBar.checkin
+		checkInCoordinator.viewController.tabBarItem = eventsTabBarItem
+
+		let diaryTabBarItem = UITabBarItem(title: AppStrings.Tabbar.diaryTitle, image: UIImage(named: "Icons_Tabbar_Diary"), selectedImage: nil)
+		diaryTabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.TabBar.diary
+		diaryCoordinator.viewController.tabBarItem = diaryTabBarItem
 
 		tabBarController.tabBar.tintColor = .enaColor(for: .tint)
 		tabBarController.tabBar.barTintColor = .enaColor(for: .background)
-		tabBarController.setViewControllers([homeCoordinator.rootViewController, checkInCoordinator.viewController, diaryCoordinator.viewController], animated: false)
+		tabBarController.setViewControllers([homeCoordinator.rootViewController, healthCertificatesCoordinator.viewController, checkInCoordinator.viewController, diaryCoordinator.viewController], animated: false)
 		
 		viewController.clearChildViewController()
 		viewController.embedViewController(childViewController: tabBarController)
@@ -181,15 +194,27 @@ class RootCoordinator: RequiresAppDependencies {
 	private let eventCheckoutService: EventCheckoutService
 	private let otpService: OTPServiceProviding
 	private let ppacService: PrivacyPreservingAccessControl
+	private let healthCertificateService: HealthCertificateService
 	private let tabBarController = UITabBarController()
 
 	private var homeCoordinator: HomeCoordinator?
 	private var homeState: HomeState?
-	
-	private(set) var diaryCoordinator: DiaryCoordinator?
+
+	private var healthCertificatesCoordinator: HealthCertificatesCoordinator?
 	private(set) var checkInCoordinator: CheckinCoordinator?
+	private(set) var diaryCoordinator: DiaryCoordinator?
 	
 	private var enStateUpdateList = NSHashTable<AnyObject>.weakObjects()
+
+	private var vaccinationValueSetsProvider: VaccinationValueSetsProvider {
+		#if DEBUG
+		if isUITesting {
+			return VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: store)
+		}
+		#endif
+
+		return VaccinationValueSetsProvider(client: CachingHTTPClient(), store: store)
+	}
 
 }
 

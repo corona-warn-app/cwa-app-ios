@@ -90,26 +90,14 @@ class ExposureSubmissionTestResultConsentViewModel {
 									part4.append(" \(AppStrings.AutomaticSharingConsent.consentDescriptionPart5)")
 								}
 
-								switch self.coronaTestType {
-								case .pcr:
-									consentCell.configure(
-										subTitleLabel: NSMutableAttributedString(string: AppStrings.AutomaticSharingConsent.consentSubTitle),
-										descriptionPart1Label: NSMutableAttributedString(string: AppStrings.AutomaticSharingConsent.consentDescriptionPCRPart1),
-										descriptionPart2Label: NSMutableAttributedString(string: AppStrings.AutomaticSharingConsent.consentDescriptionPCRPart2),
-										countries: self.supportedCountries,
-										descriptionPart3Label: NSMutableAttributedString(string: AppStrings.AutomaticSharingConsent.consentDescriptionPCRPart3),
-										descriptionPart4Label: NSMutableAttributedString(string: part4)
-									)
-								case .antigen:
-									consentCell.configure(
-										subTitleLabel: NSMutableAttributedString(string: AppStrings.AutomaticSharingConsent.consentSubTitle),
-										descriptionPart1Label: NSMutableAttributedString(string: AppStrings.AutomaticSharingConsent.consentDescriptionRATPart1),
-										descriptionPart2Label: NSMutableAttributedString(string: AppStrings.AutomaticSharingConsent.consentDescriptionRATPart2),
-										countries: self.supportedCountries,
-										descriptionPart3Label: NSMutableAttributedString(string: AppStrings.AutomaticSharingConsent.consentDescriptionRATPart3),
-										descriptionPart4Label: NSMutableAttributedString(string: part4)
-									)
-								}
+								consentCell.configure(
+									subTitleLabel: NSMutableAttributedString(string: AppStrings.AutomaticSharingConsent.consentSubTitle),
+									descriptionPart1Label: NSMutableAttributedString(string: AppStrings.AutomaticSharingConsent.consentDescriptionPart1),
+									descriptionPart2Label: NSMutableAttributedString(string: AppStrings.AutomaticSharingConsent.consentDescriptionPart2),
+									countries: self.supportedCountries,
+									descriptionPart3Label: NSMutableAttributedString(string: AppStrings.AutomaticSharingConsent.consentDescriptionPart3),
+									descriptionPart4Label: NSMutableAttributedString(string: part4)
+								)
 							}
 						},
 						.space(height: 20)
@@ -161,6 +149,8 @@ class ExposureSubmissionTestResultConsentViewModel {
 
 	@objc
 	private func consentStateChanged(switchState: UISwitch) {
+		Analytics.collect(.keySubmissionMetadata(.advancedConsentGiven(switchState.isOn, coronaTestType)))
+
 		switch coronaTestType {
 		case .pcr:
 			coronaTestService.pcrTest?.isSubmissionConsentGiven = switchState.isOn

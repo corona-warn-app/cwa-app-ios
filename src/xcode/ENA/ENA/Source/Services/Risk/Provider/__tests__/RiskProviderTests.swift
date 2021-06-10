@@ -8,7 +8,7 @@ import ExposureNotification
 
 // swiftlint:disable file_length
 // swiftlint:disable:next type_body_length
-final class RiskProviderTests: XCTestCase {
+final class RiskProviderTests: CWATestCase {
 	
 	func testGIVEN_RiskCalculation_WHEN_ENFRiskHighAndCheckinRiskLow_THEN_RiskConsumerReturnsRiskHigh() {
 		// GIVEN
@@ -50,7 +50,14 @@ final class RiskProviderTests: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: client,
 				store: store,
-				appConfiguration: CachedAppConfigurationMock()
+				eventStore: eventStore,
+				diaryStore: MockDiaryStore(),
+				appConfiguration: appConfig,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfig
+				)
 			)
 		)
 		
@@ -61,8 +68,8 @@ final class RiskProviderTests: XCTestCase {
 		let didFailCalculateRiskExpectation = expectation(description: "expect didFailCalculateRisk not to be called")
 		didFailCalculateRiskExpectation.isInverted = true
 
-		let didChangeActivityStateExpectation = expectation(description: "expect didChangeActivityState to be called 3 times")
-		didChangeActivityStateExpectation.expectedFulfillmentCount = 3
+		let didChangeActivityStateExpectation = expectation(description: "expect didChangeActivityState to be called 4 times")
+		didChangeActivityStateExpectation.expectedFulfillmentCount = 4
 
 		var risk: Risk?
 		consumer.didCalculateRisk = { calculatedRisk in
@@ -129,7 +136,14 @@ final class RiskProviderTests: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: client,
 				store: store,
-				appConfiguration: CachedAppConfigurationMock()
+				eventStore: eventStore,
+				diaryStore: MockDiaryStore(),
+				appConfiguration: appConfig,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfig
+				)
 			)
 		)
 		
@@ -140,8 +154,8 @@ final class RiskProviderTests: XCTestCase {
 		let didFailCalculateRiskExpectation = expectation(description: "expect didFailCalculateRisk not to be called")
 		didFailCalculateRiskExpectation.isInverted = true
 
-		let didChangeActivityStateExpectation = expectation(description: "expect didChangeActivityState to be called 3 times")
-		didChangeActivityStateExpectation.expectedFulfillmentCount = 3
+		let didChangeActivityStateExpectation = expectation(description: "expect didChangeActivityState to be called 4 times")
+		didChangeActivityStateExpectation.expectedFulfillmentCount = 4
 
 		var risk: Risk?
 		consumer.didCalculateRisk = { calculatedRisk in
@@ -208,7 +222,14 @@ final class RiskProviderTests: XCTestCase {
 			coronaTestService: CoronaTestService(
 				client: client,
 				store: store,
-				appConfiguration: CachedAppConfigurationMock()
+				eventStore: eventStore,
+				diaryStore: MockDiaryStore(),
+				appConfiguration: appConfig,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfig
+				)
 			)
 		)
 		
@@ -219,8 +240,8 @@ final class RiskProviderTests: XCTestCase {
 		let didFailCalculateRiskExpectation = expectation(description: "expect didFailCalculateRisk not to be called")
 		didFailCalculateRiskExpectation.isInverted = true
 
-		let didChangeActivityStateExpectation = expectation(description: "expect didChangeActivityState to be called 3 times")
-		didChangeActivityStateExpectation.expectedFulfillmentCount = 3
+		let didChangeActivityStateExpectation = expectation(description: "expect didChangeActivityState to be called 4 times")
+		didChangeActivityStateExpectation.expectedFulfillmentCount = 4
 
 		var risk: Risk?
 		consumer.didCalculateRisk = { calculatedRisk in
@@ -251,6 +272,7 @@ final class RiskProviderTests: XCTestCase {
 		// GIVEN
 		let duration = DateComponents(day: 1)
 
+		let client = ClientMock()
 		let store = MockTestStore()
 		store.enfRiskCalculationResult = nil
 
@@ -273,9 +295,16 @@ final class RiskProviderTests: XCTestCase {
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
+				client: client,
 				store: store,
-				appConfiguration: CachedAppConfigurationMock()
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: appConfig,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfig
+				)
 			)
 		)
 
@@ -306,6 +335,7 @@ final class RiskProviderTests: XCTestCase {
 	func testGIVEN_RiskProvider_WHEN_addingAndRemovingConsumer_THEN_noCallback() throws {
 		let duration = DateComponents(day: 1)
 
+		let client = ClientMock()
 		let store = MockTestStore()
 		store.enfRiskCalculationResult = nil
 
@@ -327,9 +357,16 @@ final class RiskProviderTests: XCTestCase {
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: cachedAppConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
+				client: client,
 				store: store,
-				appConfiguration: CachedAppConfigurationMock()
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: cachedAppConfig,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: cachedAppConfig
+				)
 			)
 		)
 
@@ -363,6 +400,7 @@ final class RiskProviderTests: XCTestCase {
 			wrappingComponents: false
 		))
 
+		let client = ClientMock()
 		let store = MockTestStore()
 		store.enfRiskCalculationResult = ENFRiskCalculationResult(
 			riskLevel: .low,
@@ -390,7 +428,6 @@ final class RiskProviderTests: XCTestCase {
 
 		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
 
-
 		var appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
 		var parameters = SAP_Internal_V2_ExposureDetectionParametersIOS()
 		parameters.maxExposureDetectionsPerInterval = 1
@@ -408,9 +445,16 @@ final class RiskProviderTests: XCTestCase {
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: cachedAppConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
+				client: client,
 				store: store,
-				appConfiguration: CachedAppConfigurationMock()
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: cachedAppConfig,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: cachedAppConfig
+				)
 			)
 		)
 
@@ -432,6 +476,7 @@ final class RiskProviderTests: XCTestCase {
 	func testThatDetectionIsRequested() throws {
 		let duration = DateComponents(day: 1)
 
+		let client = ClientMock()
 		let store = MockTestStore()
 		store.enfRiskCalculationResult = nil
 		store.positiveTestResultWasShown = false
@@ -455,9 +500,16 @@ final class RiskProviderTests: XCTestCase {
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
+				client: client,
 				store: store,
-				appConfiguration: CachedAppConfigurationMock()
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: appConfig,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfig
+				)
 			)
 		)
 
@@ -468,8 +520,8 @@ final class RiskProviderTests: XCTestCase {
 		let didFailCalculateRiskExpectation = expectation(description: "expect didFailCalculateRisk not to be called")
 		didFailCalculateRiskExpectation.isInverted = true
 
-		let didChangeActivityStateExpectation = expectation(description: "expect didChangeActivityState to be called 3 times")
-		didChangeActivityStateExpectation.expectedFulfillmentCount = 3
+		let didChangeActivityStateExpectation = expectation(description: "expect didChangeActivityState to be called 4 times")
+		didChangeActivityStateExpectation.expectedFulfillmentCount = 4
 
 		consumer.didCalculateRisk = { _ in
 			didCalculateRiskExpectation.fulfill()
@@ -490,6 +542,7 @@ final class RiskProviderTests: XCTestCase {
 	func testThatDetectionFails() throws {
 		let duration = DateComponents(day: 1)
 
+		let client = ClientMock()
 		let store = MockTestStore()
 		store.enfRiskCalculationResult = nil
 		store.positiveTestResultWasShown = false
@@ -514,9 +567,16 @@ final class RiskProviderTests: XCTestCase {
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
+				client: client,
 				store: store,
-				appConfiguration: CachedAppConfigurationMock()
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: appConfig,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfig
+				)
 			)
 		)
 
@@ -527,16 +587,21 @@ final class RiskProviderTests: XCTestCase {
 
 		let didFailCalculateRiskExpectation = expectation(description: "expect didFailCalculateRisk not to be called")
 
-		let didChangeActivityStateExpectation = expectation(description: "expect didChangeActivityState to be called 3 times")
-		didChangeActivityStateExpectation.expectedFulfillmentCount = 3
+		let expectedActivityStates: [RiskProviderActivityState] = [.riskRequested, .downloading, .detecting, .idle]
+		let didChangeActivityStateExpectation = expectation(description: "expect didChangeActivityState to be called")
+		didChangeActivityStateExpectation.expectedFulfillmentCount = expectedActivityStates.count
 
 		consumer.didCalculateRisk = { _ in
 			didCalculateRiskExpectation.fulfill()
 		}
+
 		consumer.didFailCalculateRisk = { _ in
 			didFailCalculateRiskExpectation.fulfill()
 		}
-		consumer.didChangeActivityState = { _ in
+
+		var receivedActivityStates = [RiskProviderActivityState]()
+		consumer.didChangeActivityState = {
+			receivedActivityStates.append($0)
 			didChangeActivityStateExpectation.fulfill()
 		}
 
@@ -544,11 +609,14 @@ final class RiskProviderTests: XCTestCase {
 		sut.requestRisk(userInitiated: true)
 		
 		waitForExpectations(timeout: .medium)
+
+		XCTAssertEqual(receivedActivityStates, expectedActivityStates)
 	}
 
 	func testThatDetectionIsNotRequestedIfPositiveTestResultWasShown() throws {
 		let duration = DateComponents(day: 1)
 
+		let client = ClientMock()
 		let store = MockTestStore()
 
 		store.enfRiskCalculationResult = nil
@@ -573,9 +641,16 @@ final class RiskProviderTests: XCTestCase {
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
+				client: client,
 				store: store,
-				appConfiguration: CachedAppConfigurationMock()
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: appConfig,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfig
+				)
 			)
 		)
 
@@ -584,19 +659,31 @@ final class RiskProviderTests: XCTestCase {
 		let didCalculateRiskExpectation = expectation(description: "expect didCalculateRisk not to be called")
 		didCalculateRiskExpectation.isInverted = true
 
-		let didFailCalculateRiskExpectation = expectation(description: "expect didFailCalculateRisk not to be called")
-		didFailCalculateRiskExpectation.isInverted = true
+		let didFailCalculateRiskExpectation = expectation(description: "expect didFailCalculateRisk to be called")
 
+		let expectedActivityStates: [RiskProviderActivityState] = [.onlyDownloadsRequested, .downloading, .idle]
 		let didChangeActivityStateExpectation = expectation(description: "expect didChangeActivityState to be called")
-		didChangeActivityStateExpectation.expectedFulfillmentCount = 2
+		didChangeActivityStateExpectation.expectedFulfillmentCount = expectedActivityStates.count
 
 		consumer.didCalculateRisk = { _ in
 			didCalculateRiskExpectation.fulfill()
 		}
-		consumer.didFailCalculateRisk = { _ in
+
+		consumer.didFailCalculateRisk = { error in
+			// Make sure that exposure windows where NOT requested.
+			XCTAssertFalse(exposureDetectionDelegateStub.exposureWindowsWereDetected)
+
+			guard case .deactivatedDueToActiveTest = error else {
+				XCTFail("deactivatedDueToActiveTest error expected.")
+				didFailCalculateRiskExpectation.fulfill()
+				return
+			}
 			didFailCalculateRiskExpectation.fulfill()
 		}
-		consumer.didChangeActivityState = { _ in
+
+		var receivedActivityStates = [RiskProviderActivityState]()
+		consumer.didChangeActivityState = {
+			receivedActivityStates.append($0)
 			didChangeActivityStateExpectation.fulfill()
 		}
 
@@ -604,11 +691,14 @@ final class RiskProviderTests: XCTestCase {
 		riskProvider.requestRisk(userInitiated: true)
 
 		waitForExpectations(timeout: .medium)
+
+		XCTAssertEqual(receivedActivityStates, expectedActivityStates)
 	}
 
 	func testThatDetectionIsNotRequestedIfKeysWereSubmitted() throws {
 		let duration = DateComponents(day: 1)
 
+		let client = ClientMock()
 		let store = MockTestStore()
 		store.enfRiskCalculationResult = nil
 		store.pcrTest = PCRTest.mock(keysSubmitted: true)
@@ -632,9 +722,16 @@ final class RiskProviderTests: XCTestCase {
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
+				client: client,
 				store: store,
-				appConfiguration: CachedAppConfigurationMock()
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: appConfig,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfig
+				)
 			)
 		)
 
@@ -643,19 +740,31 @@ final class RiskProviderTests: XCTestCase {
 		let didCalculateRiskExpectation = expectation(description: "expect didCalculateRisk not to be called")
 		didCalculateRiskExpectation.isInverted = true
 
-		let didFailCalculateRiskExpectation = expectation(description: "expect didFailCalculateRisk not to be called")
-		didFailCalculateRiskExpectation.isInverted = true
+		let didFailCalculateRiskExpectation = expectation(description: "expect didFailCalculateRisk to be called")
 
+		let expectedActivityStates: [RiskProviderActivityState] = [.onlyDownloadsRequested, .downloading, .idle]
 		let didChangeActivityStateExpectation = expectation(description: "expect didChangeActivityState to be called")
-		didChangeActivityStateExpectation.expectedFulfillmentCount = 2
+		didChangeActivityStateExpectation.expectedFulfillmentCount = expectedActivityStates.count
 
 		consumer.didCalculateRisk = { _ in
 			didCalculateRiskExpectation.fulfill()
 		}
-		consumer.didFailCalculateRisk = { _ in
+
+		consumer.didFailCalculateRisk = { error in
+			// Make sure that exposure windows where NOT requested.
+			XCTAssertFalse(exposureDetectionDelegateStub.exposureWindowsWereDetected)
+
+			guard case .deactivatedDueToActiveTest = error else {
+				XCTFail("deactivatedDueToActiveTest error expected.")
+				didFailCalculateRiskExpectation.fulfill()
+				return
+			}
 			didFailCalculateRiskExpectation.fulfill()
 		}
-		consumer.didChangeActivityState = { _ in
+
+		var receivedActivityStates = [RiskProviderActivityState]()
+		consumer.didChangeActivityState = {
+			receivedActivityStates.append($0)
 			didChangeActivityStateExpectation.fulfill()
 		}
 
@@ -663,6 +772,8 @@ final class RiskProviderTests: XCTestCase {
 		riskProvider.requestRisk(userInitiated: true)
 
 		waitForExpectations(timeout: .medium)
+
+		XCTAssertEqual(receivedActivityStates, expectedActivityStates)
 	}
 
 	func testShouldShowRiskStatusLoweredAlertIntitiallyFalseIsSetToTrueWhenRiskStatusLowers() throws {
@@ -878,6 +989,8 @@ final class RiskProviderTests: XCTestCase {
 	private func makeSomeRiskProvider() -> RiskProvider {
 		let duration = DateComponents(day: 1)
 
+		let client = ClientMock()
+
 		let store = MockTestStore()
 		store.enfRiskCalculationResult = nil
 
@@ -904,9 +1017,16 @@ final class RiskProviderTests: XCTestCase {
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
+				client: client,
 				store: store,
-				appConfiguration: CachedAppConfigurationMock()
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: appConfig,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfig
+				)
 			)
 		)
 
@@ -916,7 +1036,7 @@ final class RiskProviderTests: XCTestCase {
 		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore.inMemory()
 		downloadedPackagesStore.open()
 
-		let client = ClientMock()
+		let client = ClientMock(availableDaysAndHours: DaysAndHours(days: ["day"], hours: [0]))
 		return KeyPackageDownload(
 			downloadedPackagesStore: downloadedPackagesStore,
 			client: client,
@@ -997,9 +1117,16 @@ final class RiskProviderTests: XCTestCase {
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfigurationProvider),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
+				client: client,
 				store: store,
-				appConfiguration: CachedAppConfigurationMock()
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: appConfigurationProvider,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfigurationProvider
+				)
 			)
 		)
 	}
@@ -1077,9 +1204,16 @@ final class RiskProviderTests: XCTestCase {
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: cachedAppConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
+				client: client,
 				store: store,
-				appConfiguration: CachedAppConfigurationMock()
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: cachedAppConfig,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: cachedAppConfig
+				)
 			)
 		)
 
@@ -1167,9 +1301,16 @@ final class RiskProviderTests: XCTestCase {
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: cachedAppConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
+				client: client,
 				store: store,
-				appConfiguration: CachedAppConfigurationMock()
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: cachedAppConfig,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: cachedAppConfig
+				)
 			)
 		)
 
@@ -1259,9 +1400,16 @@ final class RiskProviderTests: XCTestCase {
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: cachedAppConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
+				client: client,
 				store: store,
-				appConfiguration: CachedAppConfigurationMock()
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: cachedAppConfig,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: cachedAppConfig
+				)
 			)
 		)
 
@@ -1349,9 +1497,16 @@ final class RiskProviderTests: XCTestCase {
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: cachedAppConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
+				client: client,
 				store: store,
-				appConfiguration: CachedAppConfigurationMock()
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: cachedAppConfig,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: cachedAppConfig
+				)
 			)
 		)
 

@@ -24,8 +24,9 @@ final class HomeTestResultTableViewCell: UITableViewCell {
 
 	override func setHighlighted(_ highlighted: Bool, animated: Bool) {
 		super.setHighlighted(highlighted, animated: animated)
-
-		guard cellModel.isCellTappable else {
+		
+		// going optional here to prevent a crash if this gets loaded before a model is assigned
+		guard cellModel?.isCellTappable ?? false else {
 			return
 		}
 
@@ -37,10 +38,19 @@ final class HomeTestResultTableViewCell: UITableViewCell {
 
 		updateIllustration(for: traitCollection)
 	}
+	
+	override func prepareForReuse() {
+		super.prepareForReuse()
+		clearSubscriptions()
+	}
 
 	// MARK: - Internal
 
 	func configure(with cellModel: HomeTestResultCellModel, onPrimaryAction: @escaping () -> Void) {
+		
+		// clear all previous subscriptions
+		clearSubscriptions()
+		
 		cellModel.$title
 			.assign(to: \.text, on: titleLabel)
 			.store(in: &subscriptions)
@@ -146,6 +156,11 @@ final class HomeTestResultTableViewCell: UITableViewCell {
 		} else {
 			illustrationView.superview?.isHidden = false
 		}
+	}
+	
+	private func clearSubscriptions() {
+		subscriptions.forEach({ $0.cancel() })
+		subscriptions.removeAll()
 	}
 
 	func setupAccessibility() {

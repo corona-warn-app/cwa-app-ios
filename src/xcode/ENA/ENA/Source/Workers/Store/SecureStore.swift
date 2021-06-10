@@ -42,9 +42,9 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 	/// - Parameter key: the key for the new database; if no key is given, no new database will be created
 	///
 	/// - Note: This is just a wrapper to the `SQLiteKeyValueStore:clearAll:` call
-	func clearAll(key: String?) {
+	func wipeAll(key: String?) {
 		do {
-			try kvStore.clearAll(key: key)
+			try kvStore.wipeAll(key: key)
 		} catch {
 			Log.error("kv store error", log: .localData, error: error)
 		}
@@ -116,7 +116,7 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 	}
 
 	var enfRiskCalculationResult: ENFRiskCalculationResult? {
-		// After renaming "riskCalculationResult" to "enfRiskCalculationResult" the key for the kvStore was NOT renamed intentionally to avoid a migration.
+		// Old named key matches not to property name to avoid migration.
 		get { kvStore["riskCalculationResult"] as ENFRiskCalculationResult? ?? nil }
 		set { kvStore["riskCalculationResult"] = newValue }
 	}
@@ -124,11 +124,6 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 	var checkinRiskCalculationResult: CheckinRiskCalculationResult? {
 		get { kvStore["checkinRiskCalculationResult"] as CheckinRiskCalculationResult? ?? nil }
 		set { kvStore["checkinRiskCalculationResult"] = newValue }
-	}
-
-	var dateOfConversionToHighRisk: Date? {
-		get { kvStore["dateOfConversionToHighRisk"] as Date? ?? nil }
-		set { kvStore["dateOfConversionToHighRisk"] = newValue }
 	}
 
 	var shouldShowRiskStatusLoweredAlert: Bool {
@@ -212,7 +207,7 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 		set { kvStore["journalWithExposureHistoryInfoScreenShown"] = newValue }
 	}
 
-	// MARK: - Protocol AntigenTestProfileStoring
+    // MARK: - Protocol AntigenTestProfileStoring
 
 	lazy var antigenTestProfileSubject = {
 		CurrentValueSubject<AntigenTestProfile?, Never>(antigenTestProfile)
@@ -229,6 +224,30 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 	var antigenTestProfileInfoScreenShown: Bool {
 		get { kvStore["antigenTestProfileInfoScreenShown"] as Bool? ?? false }
 		set { kvStore["antigenTestProfileInfoScreenShown"] = newValue }
+	}
+
+    // MARK: - Protocol HealthCertificateStoring
+
+	var healthCertificateInfoScreenShown: Bool {
+		get { kvStore["healthCertificateInfoScreenShown"] as Bool? ?? false }
+		set { kvStore["healthCertificateInfoScreenShown"] = newValue }
+	}
+
+    var healthCertifiedPersons: [HealthCertifiedPerson] {
+        get { kvStore["healthCertifiedPersons"] as [HealthCertifiedPerson]? ?? [] }
+        set { kvStore["healthCertifiedPersons"] = newValue }
+    }
+
+	var testCertificateRequests: [TestCertificateRequest] {
+		get { kvStore["testCertificateRequests"] as [TestCertificateRequest]? ?? [] }
+		set { kvStore["testCertificateRequests"] = newValue }
+	}
+	
+	// MARK: - Protocol VaccinationCaching
+
+	var vaccinationCertificateValueDataSets: VaccinationValueDataSets? {
+		get { kvStore["vaccinationCertificateValueDataSets"] as VaccinationValueDataSets? ?? nil }
+		set { kvStore["vaccinationCertificateValueDataSets"] = newValue }
 	}
 	
 	#if !RELEASE
@@ -270,7 +289,6 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 	let kvStore: SQLiteKeyValueStore
 
 	// MARK: - Private
-
 	private let directoryURL: URL
 
 }

@@ -8,6 +8,7 @@ import OpenCombineDispatch
 import ExposureNotification
 import FMDB
 import UIKit
+import HealthCertificateToolkit
 
 protocol CoronaWarnAppDelegate: AnyObject {
 
@@ -56,10 +57,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		super.init()
 
 		// Make the analytics working. Should not be called later than at this moment of app initialisation.
+		
+		let testResultCollector = PPAAnalyticsTestResultCollector(
+			store: store
+		)
+
+		let submissionCollector = PPAAnalyticsSubmissionCollector(
+			store: store,
+			coronaTestService: coronaTestService
+		)
+
 		Analytics.setup(
 			store: store,
 			coronaTestService: coronaTestService,
-			submitter: self.analyticsSubmitter
+			submitter: analyticsSubmitter,
+			testResultCollector: testResultCollector,
+			submissionCollector: submissionCollector
 		)
 
 		// Migrate the old pcr test structure from versions older than v2.1
@@ -83,6 +96,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		setupOnboardingForTesting()
 		setupDatadonationForTesting()
 		setupInstallationDateForTesting()
+		setupAntigenTestProfileForTesting()
 		#endif
 
 		if AppDelegate.isAppDisabled() {
@@ -106,6 +120,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		DeadmanNotificationManager(coronaTestService: coronaTestService).scheduleDeadmanNotificationIfNeeded()
 
 		consumer.didFailCalculateRisk = { [weak self] error in
+			guard self?.store.isOnboarded == true else {
+				return
+			}
 			self?.showError(error)
 		}
 		riskProvider.observeRisk(consumer)
@@ -175,7 +192,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		return CoronaTestService(
 			client: client,
 			store: store,
-			appConfiguration: appConfigurationProvider
+			eventStore: eventStore,
+			diaryStore: contactDiaryStore,
+			appConfiguration: appConfigurationProvider,
+			healthCertificateService: healthCertificateService
 		)
 	}()
 
@@ -256,7 +276,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		#endif
 	}()
 
-	private lazy var analyticsSubmitter: PPAnalyticsSubmitter = {
+	private lazy var analyticsSubmitter: PPAnalyticsSubmitting = {
 		return PPAnalyticsSubmitter(
 			store: store,
 			client: client,
@@ -275,6 +295,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	private lazy var ppacService: PrivacyPreservingAccessControl = PPACService(
 		store: store,
 		deviceCheck: PPACDeviceCheck()
+	)
+
+	private lazy var healthCertificateService: HealthCertificateService = HealthCertificateService(
+		store: store,
+		client: client,
+		appConfiguration: appConfigurationProvider
 	)
 
 	#if targetEnvironment(simulator) || COMMUNITY
@@ -364,7 +390,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			let installationDate = store.appInstallationDate
 
 			let newKey = try KeychainHelper().generateDatabaseKey()
-			store.clearAll(key: newKey)
+			store.wipeAll(key: newKey)
 
 			/// write excluded values back to the 'new' store
 			store.ppacApiTokenEdus = ppacEdusApiToken
@@ -394,6 +420,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		eventStore.reset()
 
 		coronaTestService.updatePublishersFromStore()
+		healthCertificateService.updatePublishersFromStore()
 	}
 
 	// MARK: - Protocol ExposureStateUpdating
@@ -536,7 +563,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		eventStore: eventStore,
 		eventCheckoutService: eventCheckoutService,
 		otpService: otpService,
-		ppacService: ppacService
+		ppacService: ppacService,
+		healthCertificateService: healthCertificateService
 	)
 
 	private lazy var appUpdateChecker = AppUpdateCheckHelper(appConfigurationProvider: self.appConfigurationProvider, store: self.store)
@@ -620,37 +648,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	#if DEBUG
 	private func setupOnboardingForTesting() {
-		if let isOnboarded = UserDefaults.standard.string(forKey: "isOnboarded") {
-			store.isOnboarded = (isOnboarded != "NO")
+		// Only disable onboarding if it was explicitly set to "NO"
+		if let isOnboarded = LaunchArguments.onboarding.isOnboarded.stringValue {
+			store.isOnboarded = isOnboarded != "NO"
 		}
 
-		if let onboardingVersion = UserDefaults.standard.string(forKey: "onboardingVersion") {
+		if let onboardingVersion = LaunchArguments.onboarding.onboardingVersion.stringValue {
 			store.onboardingVersion = onboardingVersion
 		}
 
-		if let resetFinishedDeltaOnboardings = UserDefaults.standard.string(forKey: "resetFinishedDeltaOnboardings"), resetFinishedDeltaOnboardings == "YES" {
+		if LaunchArguments.onboarding.resetFinishedDeltaOnboardings.boolValue {
 			store.finishedDeltaOnboardings = [:]
 		}
 
-		if let setCurrentOnboardingVersion = UserDefaults.standard.string(forKey: "setCurrentOnboardingVersion"), setCurrentOnboardingVersion == "YES" {
+		if LaunchArguments.onboarding.setCurrentOnboardingVersion.boolValue {
 			store.onboardingVersion = Bundle.main.appVersion
 		}
 	}
 
 	private func setupDatadonationForTesting() {
-		if let isPrivacyPreservingAnalyticsConsentGiven = UserDefaults.standard.string(forKey: "isDatadonationConsentGiven") {
-			store.isPrivacyPreservingAnalyticsConsentGiven = isPrivacyPreservingAnalyticsConsentGiven != "NO"
-		}
+		store.isPrivacyPreservingAnalyticsConsentGiven = LaunchArguments.consent.isDatadonationConsentGiven.boolValue
 	}
 
 	private func setupInstallationDateForTesting() {
-		if let installationDaysString = UserDefaults.standard.string(forKey: "appInstallationDays") {
+		if let installationDaysString = LaunchArguments.common.appInstallationDays.stringValue {
 			let installationDays = Int(installationDaysString) ?? 0
 			let date = Calendar.current.date(byAdding: .day, value: -installationDays, to: Date())
 			store.appInstallationDate = date
 		}
 	}
 
+	private func setupAntigenTestProfileForTesting() {
+		store.antigenTestProfileInfoScreenShown = LaunchArguments.infoScreen.antigenTestProfileInfoScreenShown.boolValue
+		if LaunchArguments.test.antigen.removeAntigenTestProfile.boolValue {
+			store.antigenTestProfile = nil
+		}
+	}
+	
 	#endif
 
 	@objc
@@ -701,7 +735,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	/// - Returns: Returns `true` if the app is in the *disabled* state and requires the user to upgrade the os.
 	private static func isAppDisabled() -> Bool {
 		#if DEBUG
-		if isUITesting && UserDefaults.standard.bool(forKey: "showUpdateOS") == true {
+		if isUITesting && LaunchArguments.infoScreen.showUpdateOS.boolValue == true {
 			return true
 		}
 		#endif

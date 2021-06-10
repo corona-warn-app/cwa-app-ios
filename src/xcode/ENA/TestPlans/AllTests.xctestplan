@@ -76,6 +76,7 @@
     {
       "parallelizable" : true,
       "skippedTests" : [
+        "HTTPClientCertificatePinningTests\/testAllProductionEndpoints()",
         "StatisticsProviderTests\/testFetchLiveStats()"
       ],
       "target" : {
@@ -88,10 +89,6 @@
       "parallelizable" : true,
       "skippedTests" : [
         "ENAUITests",
-        "ENAUITestsQuickActions\/testLaunchViaShortcutFromFreshInstall()",
-        "ENAUITests_04_ExposureSubmissionUITests\/test_QRCodeScanOpened()",
-        "ENAUITests_04_ExposureSubmissionUITests\/test_screenshot_SubmitQR()",
-        "ENAUITests_06_DeltaOnboarding\/testDeltaOnboardingV15View()",
         "ENAUITests_11_QuickActions\/testLaunchViaShortcutFromFreshInstall()"
       ],
       "target" : {

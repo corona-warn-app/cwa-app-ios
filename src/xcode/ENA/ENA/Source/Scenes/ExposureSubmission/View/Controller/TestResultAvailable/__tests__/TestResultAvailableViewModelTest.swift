@@ -6,7 +6,7 @@ import XCTest
 import OpenCombine
 @testable import ENA
 
-class TestResultAvailableViewModelTest: XCTestCase {
+class TestResultAvailableViewModelTest: CWATestCase {
 	
 	func testGIVEN_ViewModel_WHEN_PrimaryButtonClosureCalled_THEN_ExpectationFulfill() {
 		// GIVEN
@@ -14,15 +14,24 @@ class TestResultAvailableViewModelTest: XCTestCase {
 		let expectationNotFulFill = expectation(description: "consent cell code excecute")
 		expectationNotFulFill.isInverted = true
 
+		let client = ClientMock()
+		let appConfiguration = CachedAppConfigurationMock()
 		let store = MockTestStore()
 		store.pcrTest = PCRTest.mock(testResult: .positive)
 		
 		let viewModel = TestResultAvailableViewModel(
 			coronaTestType: .pcr,
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
+				client: client,
 				store: store,
-				appConfiguration: CachedAppConfigurationMock()
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfiguration
+				)
 			),
 			onSubmissionConsentCellTap: { _ in
 				expectationNotFulFill.fulfill()
@@ -46,15 +55,24 @@ class TestResultAvailableViewModelTest: XCTestCase {
 		expectationNotFulFill.isInverted = true
 		var bindings: Set<AnyCancellable> = []
 
+		let client = ClientMock()
+		let appConfiguration = CachedAppConfigurationMock()
 		let store = MockTestStore()
 		store.pcrTest = PCRTest.mock(testResult: .positive)
 
 		let viewModel = TestResultAvailableViewModel(
 			coronaTestType: .pcr,
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
+				client: client,
 				store: store,
-				appConfiguration: CachedAppConfigurationMock()
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfiguration
+				)
 			),
 			onSubmissionConsentCellTap: { _ in
 				expectationNotFulFill.fulfill()
@@ -87,15 +105,24 @@ class TestResultAvailableViewModelTest: XCTestCase {
 		expectationNotFulFill.isInverted = true
 		var bindings: Set<AnyCancellable> = []
 
+		let client = ClientMock()
+		let appConfiguration = CachedAppConfigurationMock()
 		let store = MockTestStore()
 		store.pcrTest = PCRTest.mock(testResult: .positive)
 
 		let viewModel = TestResultAvailableViewModel(
 			coronaTestType: .pcr,
 			coronaTestService: CoronaTestService(
-				client: ClientMock(),
+				client: client,
 				store: store,
-				appConfiguration: CachedAppConfigurationMock()
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfiguration
+				)
 			),
 			onSubmissionConsentCellTap: { _ in
 				expectationFulFill.fulfill()

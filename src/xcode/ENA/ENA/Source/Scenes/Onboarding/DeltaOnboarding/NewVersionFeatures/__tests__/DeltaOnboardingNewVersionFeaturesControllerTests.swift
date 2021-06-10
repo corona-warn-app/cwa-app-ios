@@ -6,7 +6,7 @@ import Foundation
 import XCTest
 @testable import ENA
 
-class DeltaOnboardingNewVersionFeaturesControllerTests: XCTestCase {
+class DeltaOnboardingNewVersionFeaturesControllerTests: CWATestCase {
 	
 	private func createVC() -> DeltaOnboardingNewVersionFeaturesViewController {
 		DeltaOnboardingNewVersionFeaturesViewController()

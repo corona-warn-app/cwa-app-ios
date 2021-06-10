@@ -20,9 +20,15 @@ class HomeTableViewModel {
 		self.coronaTestService = coronaTestService
 		self.onTestResultCellTap = onTestResultCellTap
 
-		coronaTestService.$tests
-			.sink { [weak self] in
-				self?.update(pcrTest: $0.pcr, antigenTest: $0.antigen)
+		coronaTestService.$pcrTest
+			.sink { [weak self] _ in
+				self?.update()
+			}
+			.store(in: &subscriptions)
+
+		coronaTestService.$antigenTest
+			.sink { [weak self] _ in
+				self?.update()
 			}
 			.store(in: &subscriptions)
 	}
@@ -85,6 +91,8 @@ class HomeTableViewModel {
 
 	func heightForRow(at indexPath: IndexPath) -> CGFloat {
 		if state.statistics.supportedCardIDSequence.isEmpty && HomeTableViewModel.Section(rawValue: indexPath.section) == .statistics {
+			Log.debug("[Autolayout] Layout issues due to preloading of statistics cell! ", log: .ui)
+			// if this causes (further?) crashes we have to refactor the preloading of the statistics cell
 			return 0
 		}
 
@@ -174,29 +182,14 @@ class HomeTableViewModel {
 	private let onTestResultCellTap: (CoronaTestType?) -> Void
 	private var subscriptions = Set<AnyCancellable>()
 
-	private func update(pcrTest: PCRTest?, antigenTest: AntigenTest?) {
-		let updatedRiskAndTestResultsRows = self.computedRiskAndTestResultsRows(pcrTest: pcrTest, antigenTest: antigenTest)
-
-		if updatedRiskAndTestResultsRows.contains(.risk) && !self.riskAndTestResultsRows.contains(.risk) {
-			self.state.requestRisk(userInitiated: true)
-		}
-
-		if updatedRiskAndTestResultsRows != self.riskAndTestResultsRows {
-			isUpdating = true
-			self.riskAndTestResultsRows = updatedRiskAndTestResultsRows
-		}
-	}
-
-	private func computedRiskAndTestResultsRows(pcrTest: PCRTest?, antigenTest: AntigenTest?) -> [RiskAndTestResultsRow] {
+	private var computedRiskAndTestResultsRows: [RiskAndTestResultsRow] {
 		var riskAndTestResultsRows = [RiskAndTestResultsRow]()
 
-		let hasAtLeastOneShownPositiveOrSubmittedTest = pcrTest?.positiveTestResultWasShown == true || pcrTest?.keysSubmitted == true || antigenTest?.positiveTestResultWasShown == true || antigenTest?.keysSubmitted == true
-
-		if !hasAtLeastOneShownPositiveOrSubmittedTest {
+		if !coronaTestService.hasAtLeastOneShownPositiveOrSubmittedTest {
 			riskAndTestResultsRows.append(.risk)
 		}
 
-		if let pcrTest = pcrTest {
+		if let pcrTest = coronaTestService.pcrTest {
 			let testResultState: TestResultState
 			if pcrTest.testResult == .positive && pcrTest.positiveTestResultWasShown {
 				testResultState = .positiveResultWasShown
@@ -206,7 +199,7 @@ class HomeTableViewModel {
 			riskAndTestResultsRows.append(.pcrTestResult(testResultState))
 		}
 
-		if let antigenTest = antigenTest {
+		if let antigenTest = coronaTestService.antigenTest {
 			let testResultState: TestResultState
 			if antigenTest.testResult == .positive && antigenTest.positiveTestResultWasShown {
 				testResultState = .positiveResultWasShown
@@ -217,6 +210,19 @@ class HomeTableViewModel {
 		}
 
 		return riskAndTestResultsRows
+	}
+
+	private func update() {
+		let updatedRiskAndTestResultsRows = self.computedRiskAndTestResultsRows
+
+		if updatedRiskAndTestResultsRows.contains(.risk) && !self.riskAndTestResultsRows.contains(.risk) {
+			self.state.requestRisk(userInitiated: true)
+		}
+
+		if updatedRiskAndTestResultsRows != self.riskAndTestResultsRows {
+			isUpdating = true
+			self.riskAndTestResultsRows = updatedRiskAndTestResultsRows
+		}
 	}
 
 }

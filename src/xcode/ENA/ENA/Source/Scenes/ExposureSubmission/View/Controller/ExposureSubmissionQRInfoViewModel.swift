@@ -15,8 +15,8 @@ struct ExposureSubmissionQRInfoViewModel {
 
 	var dynamicTableViewModel: DynamicTableViewModel {
 		var model = DynamicTableViewModel([])
-
-		// Ihr Einverständnis
+		
+		// Ihr Einverständnis Section
 		model.add(
 			.section(
 			   header: .image(
@@ -44,6 +44,10 @@ struct ExposureSubmissionQRInfoViewModel {
 				.icon(
 					UIImage(imageLiteralResourceName: "Icons - Once"),
 					text: .string(AppStrings.ExposureSubmissionQRInfo.instruction2)
+				),
+				.icon(
+					UIImage(imageLiteralResourceName: "Icons_QR5"),
+					text: .string(AppStrings.ExposureSubmissionQRInfo.instruction2a)
 				)
 			])
 		)

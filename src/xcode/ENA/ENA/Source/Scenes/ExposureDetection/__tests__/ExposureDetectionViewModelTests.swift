@@ -9,7 +9,7 @@ import OpenCombine
 
 // swiftlint:disable file_length
 // swiftlint:disable:next type_body_length
-class ExposureDetectionViewModelTests: XCTestCase {
+class ExposureDetectionViewModelTests: CWATestCase {
 
 	private var otpService: OTPServiceProviding!
 	private var ppacToken: PPACToken!
@@ -904,9 +904,10 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		// Low risk exposure section
 		section = dynamicTableViewModel.section(2)
 		if hasAtLeastOneDayWithLowRiskLevel {
-			XCTAssertEqual(section.cells.count, 2)
-			XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "headerCell")
-			XCTAssertEqual(section.cells[1].cellReuseIdentifier.rawValue, "labelCell")
+			XCTAssertEqual(section.cells.count, 3)
+			XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "labelCell")
+			XCTAssertEqual(section.cells[1].cellReuseIdentifier.rawValue, "headerCell")
+			XCTAssertEqual(section.cells[2].cellReuseIdentifier.rawValue, "labelCell")
 		} else {
 			XCTAssertEqual(section.cells.count, 0)
 		}
@@ -960,11 +961,12 @@ class ExposureDetectionViewModelTests: XCTestCase {
 
 		// Behaviour section
 		section = dynamicTableViewModel.section(2)
-		XCTAssertEqual(section.cells.count, 5)
-		XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "headerCell")
-		XCTAssertEqual(section.cells[1].cellReuseIdentifier.rawValue, "guideCell")
+		XCTAssertEqual(section.cells.count, 6)
+		XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "labelCell")
+		XCTAssertEqual(section.cells[1].cellReuseIdentifier.rawValue, "headerCell")
 		XCTAssertEqual(section.cells[2].cellReuseIdentifier.rawValue, "guideCell")
-		XCTAssertEqual(section.cells[3].cellReuseIdentifier.rawValue, "longGuideCell")
+		XCTAssertEqual(section.cells[3].cellReuseIdentifier.rawValue, "guideCell")
+		XCTAssertEqual(section.cells[4].cellReuseIdentifier.rawValue, "longGuideCell")
 
 		// Tracing section
 		section = dynamicTableViewModel.section(3)
@@ -1000,11 +1002,12 @@ class ExposureDetectionViewModelTests: XCTestCase {
 
 		// Behaviour section
 		section = dynamicTableViewModel.section(2)
-		XCTAssertEqual(section.cells.count, 5)
-		XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "headerCell")
-		XCTAssertEqual(section.cells[1].cellReuseIdentifier.rawValue, "guideCell")
+		XCTAssertEqual(section.cells.count, 6)
+		XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "labelCell")
+		XCTAssertEqual(section.cells[1].cellReuseIdentifier.rawValue, "headerCell")
 		XCTAssertEqual(section.cells[2].cellReuseIdentifier.rawValue, "guideCell")
-		XCTAssertEqual(section.cells[3].cellReuseIdentifier.rawValue, "longGuideCell")
+		XCTAssertEqual(section.cells[3].cellReuseIdentifier.rawValue, "guideCell")
+		XCTAssertEqual(section.cells[4].cellReuseIdentifier.rawValue, "longGuideCell")
 
 		// Survey section
 		section = dynamicTableViewModel.section(3)

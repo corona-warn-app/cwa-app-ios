@@ -5,8 +5,9 @@
 import XCTest
 @testable import ENA
 
-class HTTPClientCertificatePinningTests: XCTestCase {
+class HTTPClientCertificatePinningTests: CWATestCase {
 
+	/// Testing ~~certificate~~ public key pinning mechanism on a valid and invalid host.
     func testPinning() throws {
 		let coronaWarnURLSessionDelegate = CoronaWarnURLSessionDelegate(
 			publicKeyHash: "f30c3959de6b062374f037c505fb3864e1b0678086252ab457ddd97c729d06ab"
@@ -50,5 +51,52 @@ class HTTPClientCertificatePinningTests: XCTestCase {
 
 		waitForExpectations(timeout: 30)
     }
+
+	/// Testing certificate pinning in the main endpoints on `production` and `wru`.
+	///
+	/// Disabled because the shitty CI & servers don't want to communicate.
+	func testAllProductionEndpoints() throws {
+		let descriptor = EnvironmentDescriptor.production
+		let env = Environments().environment(descriptor)
+		let hosts = [
+			env.dataDonationURL,
+			env.distributionURL,
+			env.errorLogSubmissionURL,
+			env.submissionURL,
+			env.verificationURL
+			// TODO: add certificate host URL //swiftlint:disable:this todo
+		]
+
+		let coronaWarnURLSessionDelegate = CoronaWarnURLSessionDelegate(
+			publicKeyHash: "f30c3959de6b062374f037c505fb3864e1b0678086252ab457ddd97c729d06ab"
+		)
+		let session = URLSession(
+			configuration: .coronaWarnSessionConfiguration(),
+			delegate: coronaWarnURLSessionDelegate,
+			delegateQueue: .main
+		)
+
+		let taskFinished = expectation(description: "[\(descriptor.string)] data tasks finished")
+		taskFinished.expectedFulfillmentCount = hosts.count
+
+		hosts.forEach { host in
+			let task = session.dataTask(with: host) { _, response, error in
+				guard let response = response as? HTTPURLResponse else {
+					XCTFail("no http response from \(host)")
+					taskFinished.fulfill()
+					return
+				}
+				XCTAssertTrue(
+					[200, 403, 404].contains(response.statusCode), // different endpoints, different handling…
+					"failed for \(host) (\(response.statusCode))"
+				)
+				XCTAssertNil(error)
+				taskFinished.fulfill()
+			}
+			task.resume()
+		}
+		waitForExpectations(timeout: 30)
+
+	}
 
 }

@@ -11,7 +11,7 @@
 
 "Alert_ActionCancel" = "Cancel";
 
-"Alert_ActionRemove" = "Remove";
+"Alert_ActionRemove" = "Delete";
 
 "Alert_BluetoothOff_Title" = "Turn on Bluetooth";
 
@@ -84,6 +84,8 @@
 "ExposureDetection_UnknownText" = "Since you have not activated exposure logging for long enough, we could not calculate your risk of infection.";
 
 "ExposureDetection_LoadingText" = "Current data is being downloaded and checked. This can take several minutes.";
+
+"ExposureDetection_Contact_Journal_Text" = "You will find more information about your exposures in your contact journal.";
 
 "ExposureDetection_Behavior_Title" = "Guidelines";
 
@@ -383,7 +385,7 @@
 
 "OnboardingInfo_togetherAgainstCoronaPage_boldText" = "More protection for you and for us all. By using the Corona-Warn-App we can break chains of infection much quicker.";
 
-"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Turn your device into a coronavirus warning system. Get an overview of your risk status and find out whether you’ve had close contact with people diagnosed with coronavirus in the last 14 days. \n\nThe app logs encounters between individuals by exchanging encrypted, random IDs between their smartphones, whereby no personal data whatsoever is accessed.\n\nIf you want, you can use the app to prove your personal infection status (a negative rapid test, for example). Please note, however, that you are under no obligation to use the app to prove your infection status. You can also prove your infection status in another manner compliant with the legal regulations at your residence.\n\nThe app logs encounters between individuals by exchanging encrypted, random IDs between their smartphones, whereby no personal data whatsoever is accessed.";
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Turn your device into a coronavirus warning system. Get an overview of your risk status and find out whether you’ve had close contact with people diagnosed with coronavirus in the last 14 days. \n\nThe app logs encounters between individuals by exchanging encrypted, random IDs between their smartphones, whereby no personal data whatsoever is accessed.\n\nIf you want, you can use the app to prove your personal infection status (a negative rapid test, for example). Please note, however, that you are under no obligation to use the app to prove your infection status. You can also prove your infection status in another manner compliant with the legal regulations at your residence.\n\nYou can also verify your personal vaccination status.\n\nThe app logs encounters between individuals by exchanging encrypted, random IDs between their smartphones, whereby no personal data whatsoever is accessed.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_linkText" = "App Information in Simplified Language and Sign Language";
 
@@ -446,7 +448,7 @@
 "ExposureSubmission_Hotline_Number" = "08007540002";
 
 /* phone number; no spacing allowed */
-"ExposureSubmission_Hotline_Number_Foreign" = "+493049875401";
+"ExposureSubmission_Hotline_Number_Foreign" = "+493049875402";
 
 "ExposureSubmission_DataPrivacyTitle" = "Consent";
 
@@ -495,7 +497,7 @@
 
 "ExposureSubmissionDispatch_QRCodeButtonTitle" = "Scan QR Code";
 
-"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Receive your test result in the app and warn others.";
+"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Receive your test result in the app and warn others or request your COVID-19 test certificate.";
 
 "ExposureSubmissionDispatch_TANButtonTitle" = "Enter TAN for PCR Test";
 
@@ -523,11 +525,11 @@
 
 "ExposureSubmission_PhoneDetailsDomestic" = "For calls from within Germany.\nThe call is free of charge.";
 
-"ExposureSubmission_PhoneNumberForeign" = "+49 30 498 75401";
+"ExposureSubmission_PhoneNumberForeign" = "+49 30 498 75402";
 
 "ExposureSubmission_PhoneDetailsForeign" = "For calls from outside Germany.\nThe fees from your telephone provider will apply.";
 
-"ExposureSubmission_PhoneDetailDescription" = "Our customer service is available in the following languages: \nEnglish, German, Turkish\n\nBusiness hours:\nMo-Sa: 7:00 a.m. - 10:00 p.m. (CET)\n\nIf you have any health-related questions, please contact your general practitioner or the medical emergency service hotline; telephone: 116 117.";
+"ExposureSubmission_PhoneDetailDescription" = "Our customer service is available in the following languages: \nEnglish, German, Turkish\n\nBusiness hours:\n24/7\n\nIf you have any health-related questions, please contact your general practitioner or the medical emergency service hotline; telephone: 116 117.";
 
 "ExposureSubmission_SectionDescription2" = "Register your PCR test by entering the TAN in the app.";
 
@@ -550,6 +552,8 @@
 
 "ExposureSubmissionQRInfo_instruction2" = "Each test can only be scanned once. The app can manage a maximum of one rapid test and one PCR test at the same time.";
 
+"ExposureSubmissionQRInfo_instruction2a" = "If your test result is negative, you can confirm this with an official COVID-19 test certificate. To do so, request the test certificate in the following steps.";
+
 "ExposureSubmissionQRInfo_instruction3" = "The app can%@ manage multiple tests at the same time.";
 
 "ExposureSubmissionQRInfo_instruction3_highlightedPhrase" = "not";
@@ -564,7 +568,7 @@
 
 "ExposureSubmissionQRInfo_acknowledgement_4" = "Your identity will remain secret. Other users will not find out who has shared a test result.";
 
-"ExposureSubmissionQRInfo_acknowledgement_5" = "Under “My Check-Ins”, you can see the events and places whose checked-in guests will be warned. You can remove individual check-ins from the list to exclude them from the warning process.";
+"ExposureSubmissionQRInfo_acknowledgement_5" = "Under “My Check-Ins”, you can see the events and places whose checked-in guests will be warned. You can delete individual check-ins from the list to exclude them from the warning process.";
 
 "ExposureSubmissionQRInfo_acknowledgement_6" = "You must be at least 16 years old to grant your consent.";
 
@@ -616,17 +620,17 @@
 
 "ExposureSubmissionSuccess_listItem0" = "Take a PCR test to verify this test result. ";
 
-"ExposureSubmissionSuccess_listItem1" = "The public health authority will contact you within the next few days by telephone or by letter.";
+"ExposureSubmissionSuccess_listItem1" = "The public health authority may contact you within the next few days.";
 
-"ExposureSubmissionSuccess_listItem2" = "You are infectious. Isolate yourself from other people.";
+"ExposureSubmissionSuccess_listItem2" = "There is a high probability that you are infectious. Isolate yourself from other people.";
 
-"ExposureSubmissionSuccess_listItem2_1" = "Your quarantine period is usually 14 days. Please monitor how your symptoms develop closely.";
+"ExposureSubmissionSuccess_listItem2_1" = "Your isolation period is usually 14 days. Please monitor how your symptoms develop closely.";
 
 "ExposureSubmissionSuccess_listItem2_2" = "You will be asked by your public health authority to create a list of people you have had contact with. This should include all people with whom you have had close contact with (less than 2 meters, face-to-face conversation) for over 15 minutes in the two days before you became ill. You can use your contact journal for this: simply export the entries and then print them out or send them via e-mail.";
 
 "ExposureSubmissionSuccess_listItem2_3" = "Please particularly consider people who will not be notified directly by the app since they don’t own a smartphone, or haven’t installed the app.";
 
-"ExposureSubmissionSuccess_listItem2_4" = "Even when you no longer have any symptoms and you feel well again, you could still be infectious, so please follow the designated quarantine period.";
+"ExposureSubmissionSuccess_listItem2_4" = "Even when you no longer have any symptoms and you feel well again, you could still be infectious, so please follow the designated isolation period.";
 
 /* Exposure Submission Testresult available */
 "ExposureSubmissionTestresultAvailable_Title" = "Your test result is available";
@@ -712,7 +716,7 @@
 
 "ExposureSubmissionResult_testPending" = "Your test result is not available yet.";
 
-"ExposureSubmissionResult_testPendingDesc" = "As soon as your test result becomes available, it will be displayed in the app.\n\nYou will also receive your test result outside of the app. The public health authorities will notify you, should your test be positive.\n\nIf you are notified of a positive test result outside the app, please remove the test currently registered in the app. Call the number shown under “Request TAN” to get a TAN. You can then use this TAN to register your result in the app and warn others.";
+"ExposureSubmissionResult_testPendingDesc" = "As soon as your test result becomes available, it will be displayed in the app.\n\nYou will also receive your test result outside of the app. The public health authorities will notify you, should your test be positive.\n\nIf you are notified of a positive test result outside the app, please delete the test currently registered in the app. Call the number shown under “Request TAN” to get a TAN. You can then use this TAN to register your result in the app and warn others.";
 
 "ExposureSubmissionResult_antigenTestPending" = "Your test result is not available yet.";
 
@@ -818,7 +822,7 @@
 
 "ExposureSubmissionWarnOthers_consent_bullet3" = "Your identity will remain secret. Other users will not find out who has shared a test result.";
 
-"ExposureSubmissionWarnOthers_consent_bullet4" = "Under “My Check-Ins”, you can see the events and places whose checked-in guests will be warned. You can remove individual check-ins from the list to exclude them from the warning process.";
+"ExposureSubmissionWarnOthers_consent_bullet4" = "Under “My Check-Ins”, you can see the events and places whose checked-in guests will be warned. You can delete individual check-ins from the list to exclude them from the warning process.";
 
 "ExposureSubmissionWarnOthers_consent_bullet5" = "You must be at least 16 years old to grant your consent.";
 
@@ -827,7 +831,7 @@
 /* Exposure Submission Result */
 "ExposureSubmissionResult_RemoveAlert_Title" = "The test can only be scanned once.";
 
-"ExposureSubmissionResult_RemoveAlert_Text" = "If you remove the test, you can no longer retrieve your test result. You will receive your test result from the test center or laboratory regardless of the validity of the QR code. If you are diagnosed with coronavirus, the public health authority will be notified through the legally prescribed channel and will contact you.";
+"ExposureSubmissionResult_RemoveAlert_Text" = "If you delete the test, you can no longer retrieve your test result. You will receive your test result from the test center or laboratory regardless of the validity of the QR code. If you are diagnosed with coronavirus, the public health authority will be notified through the legally prescribed channel and will contact you.";
 
 "ExposureSubmissionResult_RegistrationDateUnknown" = "Registration date unknown";
 
@@ -850,6 +854,10 @@
 "ExposureSubmissionResult_Negative_Antigen_Proof_Title" = " ";
 
 "ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Your test result is private, although some laws may require you to share it. When required, you may show it via any of the ways provided.";
+
+"ExposureSubmissionResult_Negative_Antigen_NoProof_Title" = "No Verification Feature";
+
+"ExposureSubmissionResult_Negative_Antigen_NoProof_Desc" = "Because the finding here is anonymized, it cannot be used as proof of a negative rapid test result.";
 
 /* Exposure Submission */
 "ExposureSubmissionError_ErrorPrefix" = "A technical error occurred while sending your data. Please contact the technical hotline. You will find the phone number under App Information.";
@@ -874,7 +882,7 @@
 
 "ExposureSubmissionError_QRNotExist_Title" = "QR code has expired";
 
-"ExposureSubmissionError_QRNotExist" = "Please remove the test from the app.\nYou can then add a new test to the app.";
+"ExposureSubmissionError_QRNotExist" = "Please delete the test from the app.\nYou can then add a new test to the app.";
 
 "ExposureSubmissionError_RegTokenNotExist" = "A TAN for submission cannot be generated. Please contact the technical hotline via App Information -> Technical Hotline.";
 
@@ -912,7 +920,7 @@
 
 "ExposureSubmission_Antigen_Profile_Information_Image_Description" = "A woman with a smartphone in her hand is standing in front of a building. A QR code symbolizes the rapid test profile to be scanned.";
 
-"ExposureSubmission_Antigen_Profile_Information_Description_Title" = "Save your personal data as a QR code to speed up registration at testing points.";
+"ExposureSubmission_Antigen_Profile_Information_Description_Title" = "You can create a profile with your personal data, which you can submit via QR code to every participating testing point.";
 
 "ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline" = "When you create a rapid test profile, you will not have to fill out your personal data again before every rapid test.";
 
@@ -931,16 +939,45 @@
 
 "ExposureSubmission_Antigen_Profile_Primary_Button" = "Continue";
 
-"ExposureSubmission_Antigen_Profile_Secondary_Button" = "Remove Rapid Test Profile";
+"ExposureSubmission_Antigen_Profile_Secondary_Button" = "Delete Rapid Test Profile";
 
 /* ExposureSubmission AntigenTest */
 "ExposureSubmission_Profile_CreateProfileTile_Title" = "Create Rapid Test Profile";
 
-"ExposureSubmission_Profile_CreateProfileTile_Description" = "You can create a profile with your personal data, which you can submit via QR code during every rapid test.";
+"ExposureSubmission_Profile_CreateProfileTile_Description" = "You can create a profile with your personal data, which you can submit via QR code to every participating testing point.";
 
 "ExposureSubmission_Profile_ProfileTile_Title" = "Rapid Test Profile";
 
 "ExposureSubmission_Profile_ProfileTile_Description" = "Save time and present your rapid test profile at the testing point.";
+
+/* ExposureSubmission TestCertificate */
+"ExposureSubmission_TestCertificate_Information_Title" = "COVID Test Certificate";
+
+"ExposureSubmission_TestCertificate_Information_PrimaryButton" = "Request Test Certificate";
+
+"ExposureSubmission_TestCertificate_Information_SecondaryButton" = "No Thank You";
+
+"ExposureSubmission_TestCertificate_Information_ImageDescription" = "A woman with a smartphone is using the Corona-Warn-App. A checkmark on a seal behind her symbolizes a valid certificate.";
+
+"ExposureSubmission_TestCertificate_Information_Section01" = "The test certificate is only issued if your test result is negative.";
+
+"ExposureSubmission_TestCertificate_Information_Section02" = "The test certificate is valid proof of a negative test result within the EU (e.g. for travel).";
+
+"ExposureSubmission_TestCertificate_Information_Subheadline" = "You can use the app to request an official digital test certificate, which is then added in the app.";
+
+"ExposureSubmission_TestCertificate_Information_BirthdayPlaceholder" = "Date of Birth";
+
+"ExposureSubmission_TestCertificate_Information_BirthdayText" = "For security purposes, your test result is protected with your date of birth. The test result can only be issued if you specify the correct date of birth.";
+
+"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "For more detailed information about data processing, please refer to the privacy notice.";
+
+"ExposureSubmission_TestCertificate_Information_Alert_Title" = "Cancel Registration";
+
+"ExposureSubmission_TestCertificate_Information_Alert_Message" = "If you cancel the test registration, you cannot receive your test result in the app.";
+
+"ExposureSubmission_TestCertificate_Information_Alert_ContinueRegistration" = "Continue Registration";
+
+"ExposureSubmission_TestCertificate_Information_Alert_CancelRegistration" = "Cancel Registration";
 
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Exposure Logging";
@@ -1189,18 +1226,26 @@
 
 "Home_Finding_Positive_Card_Verify_Item_Title" = "Take a PCR test to verify this test result.";
 
-"Home_Finding_Positive_Card_Phone_Item_Title" = "The public health authority will contact you within the next few days by telephone or by letter.";
+"Home_Finding_Positive_Card_Phone_Item_Title" = "The public health authority may contact you within the next few days.";
 
-"Home_Finding_Positive_Card_Home_Item_Title" = "You are infectious. Isolate yourself from other people.";
+"Home_Finding_Positive_Card_Home_Item_Title" = "There is a high probability that you are infectious. Isolate yourself from other people.";
 
 "Home_Finding_Positive_Card_Share_Item_Title" = "Share your random IDs so that others can be warned.";
 
 "Home_Finding_Positive_Card_Button" = "Warn Others";
 
+"Home_Finding_Positive_Card_Button_Remove_Test" = "Remove Test";
+
+"Home_Finding_Positive_Card_Remove_Test_Alert_Title" = "Are you sure you want to remove your test?";
+
+"Home_Finding_Positive_Card_Remove_Test_Alert_Description" = "If you do, others will not be warned.";
+
+"Home_Finding_Positive_Card_Remove_Test_Alert_Description_Delete_Button" = "Remove";
+
 /* Home Test Registration Card */
 "Home_TestRegistration_Title" = "Register your Test";
 
-"Home_TestRegistration_Body" = "Use the app to retrieve your test results, so you can warn others more quickly.";
+"Home_TestRegistration_Body" = "Use the app to register your tests and retrieve your test results, so you can warn others more quickly, or to request your COVID-19 test certificate.";
 
 "Home_TestRegistration_Button" = "Next Steps";
 
@@ -1272,7 +1317,7 @@
 
 "App_Information_Contact_Hotline_Details_Foreign" = "For calls from outside Germany.\nThe fees from your telephone provider will apply.";
 
-"App_Information_Contact_Hotline_Terms" = "Our customer service is available in the following languages: \nEnglish, German, Turkish\n\nBusiness hours:\nMo-Sa: 7:00 a.m. - 10:00 p.m. (CET)\n\nIf you have any health-related questions, please contact your general practitioner or the medical emergency service hotline; telephone: 116 117.";
+"App_Information_Contact_Hotline_Terms" = "Our customer service is available in the following languages: \nEnglish, German, Turkish\n\nBusiness hours:\nMo-Sa: 7:00 a.m. - 10:00 p.m. (CET)\n(except national holidays)\n\nIf you have any health-related questions, please contact your general practitioner or the medical emergency service hotline; telephone: 116 117.";
 
 /* App Information - Imprint */
 "App_Information_New_Features_Navigation" = "New Features";
@@ -1480,14 +1525,14 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Changes in this release can be found in the app information, under “New Features”.";
 
-/* Version 2.2 */
-"NewVersionFeature_22_record_error_logs_title" = "Record Troubleshooting Logs";
+/* Version 2.4 */
+"NewVersionFeature_24_digital_covid_cert_title" = "COVID Test Certificate";
 
-"NewVersionFeature_22_record_error_logs_description" = "You can now generate an error log in the technical support feature for the app. It records the steps that you perform in the app, to simplify the analysis of potential errors and help us correct them more quickly.";
+"NewVersionFeature_24_digital_covid_cert_description" = "You can now request an official digital test certificate through the app and then add it in the app. You can use this test certificate (QR code) within the EU to prove a negative test result (for international travel, for example).";
 
-"NewVersionFeature_22_antigen_profiles_title" = "Create Rapid Test Profiles";
+"NewVersionFeature_24_extended_diary_title" = "Contact Journal Enhancement";
 
-"NewVersionFeature_22_antigen_profiles_description" = "You can now create a rapid test profile in your personal data. Your profile can then be scanned at testing points quickly and easily via QR code.";
+"NewVersionFeature_24_extended_diary_title_description" = "As soon as your test result is available, it is now also added to your contact journal.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Transnational Exposure Logging";
@@ -1576,19 +1621,19 @@
 
 "TestResultPositive_KeysSubmitted_Info1" = "Take a PCR test to verify this test result.";
 
-"TestResultPositive_KeysSubmitted_Info2" = "The public health authority will contact you within the next few days by telephone or by letter.";
+"TestResultPositive_KeysSubmitted_Info2" = "The public health authority may contact you within the next few days.";
 
 "TestResultPositive_KeysSubmitted_Info3" = "There is a high probability that you are infectious. Isolate yourself from other people.";
 
 "TestResultPositive_KeysSubmitted_Title2" = "Other information:";
 
-"TestResultPositive_KeysSubmitted_FurtherInfo1" = "Your quarantine period is usually 14 days. Please monitor how your symptoms develop closely.";
+"TestResultPositive_KeysSubmitted_FurtherInfo1" = "Your isolation period is usually 14 days. Please monitor how your symptoms develop closely.";
 
 "TestResultPositive_KeysSubmitted_FurtherInfo2" = "You will be asked by your public health authority to create a list of people you have had contact with. This should include all people with whom you have had close contact with (less than 2 meters, face-to-face conversation) for over 15 minutes in the two days before you became ill. You can use your contact journal for this: simply export the entries and then print them out or send them via e-mail.";
 
 "TestResultPositive_KeysSubmitted_FurtherInfo3" = "Please particularly consider people who will not be notified directly by the app since they don’t own a smartphone, or haven’t installed the app.";
 
-"TestResultPositive_KeysSubmitted_FurtherInfo4" = "Even when you no longer have any symptoms and you feel well again, you could still be infectious, so please follow the designated quarantine period.";
+"TestResultPositive_KeysSubmitted_FurtherInfo4" = "Even when you no longer have any symptoms and you feel well again, you could still be infectious, so please follow the designated isolation period.";
 
 "TestResultPositive_KeysSubmitted_PrimaryButton" = "Delete Test";
 
@@ -1622,6 +1667,14 @@
 "ContactDiary_Overview_PersonEncounter_Setting_Inside" = "Indoors";
 
 "ContactDiary_Overview_LocationVisit_Abbreviation_Hours" = "hrs";
+
+"ContactDiary_Overview_Tests_PCR_Registered" = "PCR Test Registered";
+
+"ContactDiary_Overview_Tests_Antigen_Done" = "Rapid Test Performed";
+
+"ContactDiary_Overview_Tests_Negative_Result" = "Negative Diagnosis";
+
+"ContactDiary_Overview_Tests_Positive_Result" = "Positive Diagnosis";
 
 /* ActionSheet */
 "ContactDiary_Overview_ActionSheet_InfoActionTitle" = "Information";
@@ -1904,6 +1957,8 @@
 
 /* Tabbar */
 "Tabbar_Home_Title" = "Start Screen";
+
+"Tabbar_Certificates_Title" = "Certificates";
 
 "Tabbar_Diary_Title" = "Journal";
 
@@ -2324,9 +2379,9 @@
 "Checkin_Details_CheckIn_Button" = "Check In";
 
 /* Submission Check-in */
-"Submission_Checkins_Title" = "Share Location Check-Ins?";
+"Submission_Checkins_Title" = "Share Check-Ins?";
 
-"Submission_Checkins_Description" = "Warn others who checked in near you. Your personal data will not be shared.";
+"Submission_Checkins_Description" = "Warn others who checked in with you. Your personal data will not be shared.";
 
 "Submission_Checkins_SelectAll" = "Select all";
 
@@ -2336,7 +2391,7 @@
 
 "Submission_Checkins_Alert_Title" = "Are you sure you don’t want to share your check-ins?";
 
-"Submission_Checkins_Alert_Message" = "Skipping will not warn any contacts who checked in near you.";
+"Submission_Checkins_Alert_Message" = "Skipping will not warn any contacts who checked in with you.";
 
 "Submission_Checkins_Alert_Share" = "Share";
 
@@ -2345,7 +2400,7 @@
 /* Create Antigen Profile */
 "AntigenProfile_Create_Title" = "Rapid Test Profile";
 
-"AntigenProfile_Create_Description" = "Save your personal data as a QR code to speed up registration at testing points.";
+"AntigenProfile_Create_Description" = "You can create a profile with your personal data, which you can submit via QR code to every participating testing point.";
 
 "AntigenProfile_Create_FirstNamePlaceholder" = "First Name";
 
@@ -2359,7 +2414,7 @@
 
 "AntigenProfile_Create_CityPlaceholder" = "City";
 
-"AntigenProfile_Create_PhoneNumberPlaceholder" = "Phone";
+"AntigenProfile_Create_PhoneNumberPlaceholder" = "Phone Number";
 
 "AntigenProfile_Create_EmailAddressPlaceholder" = "E-Mail Address";
 
@@ -2371,4 +2426,114 @@
 "AntigenProfile_Delete_Alert_Description" = "Please consider that if you do, the QR code can no longer be used for registration.";
 
 "AntigenProfile_Delete_Alert_Delete_Button_Title" = "Remove";
+
+/* Health Certificate Overview */
+"HealthCertificate_Overview_title" = "Certificates";
+
+"HealthCertificate_Overview_description" = "Your digital vaccination certificates and test certificates are displayed here.";
+
+/* - Vaccination Certificate Registration */
+"VaccinationCertificate_Registration_title" = "Add **Digital\nProof of Vaccination**";
+
+"VaccinationCertificate_Registration_description" = "Add your vaccination certificates in the app so you always have them with you. To do so, scan the QR code on your document.";
+
+/* - Vaccination Certificate */
+"VaccinationCertificate_title" = "Digital **Proof\nof Vaccination**";
+
+"VaccinationCertificate_partiallyVaccinated" = "Vaccination incomplete";
+
+"VaccinationCertificate_vaccinationValidUntil" = "Valid through %@";
+
+/* - Test Certificate Info */
+"TestCertificate_Info_title" = "Digital\n**COVID Test Certificate**";
+
+"TestCertificate_Info_description" = "Register a test on the home screen and agree to receive a digital test certificate. As soon as the certificate is available, it is displayed here.";
+
+/* Health Certificate Information */
+"HealthCertificate_Info_Title" = "Add Vaccination Certificate";
+
+"HealthCertificate_Info_imageDescription" = "An immunized person is looking at their smartphone";
+
+"HealthCertificate_Info_description" = "Add your digital proof of vaccination in the app. As soon as your vaccination protection is complete, you can present the QR code in your app as proof of your vaccination.";
+
+"HealthCertificate_Info_section01" = "To add a vaccination certificate in the app, scan the QR code that you received during your vaccination.";
+
+"HealthCertificate_Info_section02" = "The app reads the information from the QR code and saves it in a secure area on your smartphone.";
+
+"HealthCertificate_Info_section03" = "The data will remain on the smartphone. It will only be transmitted to others if you present your vaccination certificate for verification.";
+
+"HealthCertificate_Info_primaryButton" = "Continue";
+
+/* QR Scanner */
+"HealthCertificate_QRScanner_title" = "QR Code Scan";
+
+"HealthCertificate_QRScanner_instruction" = "Scan QR Code and Register";
+
+/* Health Certified Person Screen */
+"HealthCertifiedPerson_title" = "Digital Proof of Vaccination";
+
+"HealthCertifiedPerson_subtitle" = "SARS-CoV-2 Vaccination Protection";
+
+"HealthCertifiedPerson_dateOfBirth" = "Born %@";
+
+"HealthCertifiedPerson_vaccinationCount" = "Vaccination %i of %i";
+
+"HealthCertifiedPerson_vaccinationDate" = "Performed on %@";
+
+"HealthCertifiedPerson_QRCode_Image_Description" = "A QR code with the status of your vaccination";
+
+"HealthCertifiedPerson_primaryButton" = "Register Another Vaccination";
+
+/* Health Certificate Details */
+"HealthCertificate_Details_vaccinationCount" = "Vaccination %i of %i";
+
+"HealthCertificate_Details_certificate" = "Vaccination Certificate";
+
+"HealthCertificate_Details_QRCode_Image_Description" = "A QR code with your vaccination certificate %i of %i";
+
+"HealthCertificate_Details_certificateCount" = "Vaccination Certificate %i of %i";
+
+"HealthCertificate_Details_validity" = "Vaccinated %@ - Valid to %@";
+
+"HealthCertificate_Details_dateOfBirth" = "Born %@";
+
+"HealthCertificate_Details_dateOfVaccination" = "Vaccination Date";
+
+"HealthCertificate_Details_vaccine" = "Vaccine";
+
+"HealthCertificate_Details_vaccineType" = "Vaccine Type";
+
+"HealthCertificate_Details_manufacture" = "Manufacturer";
+
+"HealthCertificate_Details_issuer" = "Issuer";
+
+"HealthCertificate_Details_country" = "Country";
+
+"HealthCertificate_Details_identifier" = "Certification Number";
+
+"HealthCertificate_Details_primaryButton" = "Delete Vaccination Certificate";
+
+/* Health Certificate Alert delete */
+"HealthCertificate_Alert_title" = "Do you want to delete the vaccination certificate?";
+
+"HealthCertificate_Alert_message" = "If you delete the vaccination certificate, the app can no longer use the vaccination for the verification of your vaccination status.";
+
+"HealthCertificate_Alert_deleteButton" = "Delete";
+
+"HealthCertificate_Alert_cancelButton" = "Cancel";
+
+/* Health Certificate Errors */
+"HealthCertificate_Error_Title" = "Error";
+
+"HealthCertificate_Error_PC_TRY_AGAIN_LATER" = "The vaccination certificate cannot be verified right now. Please try again later.";
+
+"HealthCertificate_Error_VC_ALREADY_REGISTERED" = "The vaccination certificate is already registered in your app.";
+
+"HealthCertificate_Error_VC_DIFFERENT_PERSON" = "The personal information of this vaccination certificate does not match that of the certificates already registered. You can only register certificates for one person in the app.";
+
+"HealthCertificate_Error_VC_INVALID" = "This QR code is not a valid vaccination certificate.";
+
+"HealthCertificate_Error_VC_NOT_YET_SUPPORTED" = "This vaccination certificate is not supported in your app version yet. Please update your app or contact the technical hotline under “App Information”.";
+
+"HealthCertificate_Error_VC_SCAN_AGAIN" = "The vaccination certificate could not be saved on your smartphone. Please try again later or contact the technical hotline under “App Information”.";
 

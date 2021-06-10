@@ -4,16 +4,17 @@
 
 import XCTest
 
-class ENAUITests_03_Settings: XCTestCase {
+class ENAUITests_03_Settings: CWATestCase {
 	var app: XCUIApplication!
 	
 	override func setUpWithError() throws {
+		try super.setUpWithError()
 		continueAfterFailure = false
 		app = XCUIApplication()
 		setupSnapshot(app)
 		app.setDefaults()
-		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
-		app.launchArguments.append(contentsOf: ["-setCurrentOnboardingVersion", "YES"])
+		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: true)
+		app.setLaunchArgument(LaunchArguments.onboarding.setCurrentOnboardingVersion, to: true)
 	}
 
 	func test_0030_SettingsFlow() throws {
@@ -21,8 +22,7 @@ class ENAUITests_03_Settings: XCTestCase {
 		
 		app.swipeUp(velocity: .fast)
 
-		XCTAssertTrue(app.cells["AppStrings.Home.settingsCardTitle"].waitForExistence(timeout: 5.0))
-		app.cells["AppStrings.Home.settingsCardTitle"].tap()
+		app.cells["AppStrings.Home.settingsCardTitle"].waitAndTap()
 		
 		XCTAssertTrue(app.cells["AppStrings.Settings.tracingLabel"].waitForExistence(timeout: 5.0))
 		XCTAssertTrue(app.cells["AppStrings.Settings.notificationLabel"].waitForExistence(timeout: 5.0))
@@ -36,11 +36,9 @@ class ENAUITests_03_Settings: XCTestCase {
 		
 		app.swipeUp(velocity: .fast)
 
-		XCTAssertTrue(app.cells["AppStrings.Home.settingsCardTitle"].waitForExistence(timeout: 5.0))
-		app.cells["AppStrings.Home.settingsCardTitle"].tap()
+		app.cells["AppStrings.Home.settingsCardTitle"].waitAndTap()
 		
-		XCTAssertTrue(app.cells["AppStrings.Settings.backgroundAppRefreshLabel"].waitForExistence(timeout: 5.0))
-		app.cells["AppStrings.Settings.backgroundAppRefreshLabel"].tap()
+		app.cells["AppStrings.Settings.backgroundAppRefreshLabel"].waitAndTap()
 		
 		XCTAssertTrue(app.images["AppStrings.Settings.backgroundAppRefreshImageDescription"].waitForExistence(timeout: 5.0))
 	}

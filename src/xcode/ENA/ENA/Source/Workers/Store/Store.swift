@@ -36,9 +36,6 @@ protocol StoreProtocol: AnyObject {
 
 	var checkinRiskCalculationResult: CheckinRiskCalculationResult? { get set }
 
-	/// Date when the risk was changed to high
-	var dateOfConversionToHighRisk: Date? { get set }
-
 	/// Set to true whenever a risk calculation changes the risk from .high to .low
 	var shouldShowRiskStatusLoweredAlert: Bool { get set }
 
@@ -74,7 +71,7 @@ protocol StoreProtocol: AnyObject {
 
 	var journalWithExposureHistoryInfoScreenShown: Bool { get set }
 
-	func clearAll(key: String?)
+	func wipeAll(key: String?)
 
 	#if !RELEASE
 	/// Settings from the debug menu.
@@ -142,6 +139,10 @@ protocol EventRegistrationCaching: AnyObject {
 	var qrCodePosterTemplateMetadata: QRCodePosterTemplateMetadata? { get set }
 }
 
+protocol VaccinationCaching: AnyObject {
+	var vaccinationCertificateValueDataSets: VaccinationValueDataSets? { get set }
+}
+
 protocol WarnOthersTimeIntervalStoring {
 
 	/// Delay time in seconds, when the first notification to warn others will be shown,
@@ -167,6 +168,16 @@ protocol AntigenTestProfileStoring: AnyObject {
 	var antigenTestProfile: AntigenTestProfile? { get set }
 
 	var antigenTestProfileInfoScreenShown: Bool { get set }
+
+}
+
+protocol HealthCertificateStoring: AnyObject {
+
+	var healthCertificateInfoScreenShown: Bool { get set }
+
+	var healthCertifiedPersons: [HealthCertifiedPerson] { get set }
+
+	var testCertificateRequests: [TestCertificateRequest] { get set }
 
 }
 
@@ -218,6 +229,8 @@ protocol Store:
 	PrivacyPreservingProviding,
 	StatisticsCaching,
 	StoreProtocol,
-	WarnOthersTimeIntervalStoring
+	WarnOthersTimeIntervalStoring,
+	HealthCertificateStoring,
+	VaccinationCaching
 {}
 // swiftlint:enable all

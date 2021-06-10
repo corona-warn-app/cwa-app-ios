@@ -11,6 +11,8 @@ public enum ENAColor: String, CaseIterable {
 	case backgroundLightGray = "ENA Background Light Gray Color"
 	case darkBackground = "ENA Dark Background Color"
 	case cellBackground = "ENA Cell Background Color"
+	case cellBackground2 = "ENA Cell Background Color 2"
+	case cellBackground3 = "ENA Cell Background Color 3"
 	case hairline = "ENA Hairline Color"
 	case hairlineContrast = "ENA Hairline Contrast Color"
 	case separator = "ENA Separator Color"
@@ -24,6 +26,11 @@ public enum ENAColor: String, CaseIterable {
 	case buttonDestructive = "ENA Button Destructive Color"
 	case buttonHighlight = "ENA Button Highlight Color"
 	case buttonPrimary = "ENA Button Primary Color"
+
+	// MARK: - Card Colors
+	case dashedCardBorder = "ENA Dashed Card Border Color"
+	case cardBorder = "ENA Card Border Color"
+	case cardShadow = "ENA Card Shadow Color"
 
 	// MARK: - Miscellaneous Colors
 	case chevron = "ENA Chevron Color"

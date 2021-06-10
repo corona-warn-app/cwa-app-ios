@@ -25,7 +25,7 @@
                 <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bnj-K1-GQZ">
                     <rect key="frame" x="0.0" y="60" width="371" height="1"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="1" id="gmn-H2-y7y"/>
+                        <constraint firstAttribute="height" constant="1" identifier="SeparatorView.height" id="gmn-H2-y7y"/>
                     </constraints>
                 </view>
             </subviews>

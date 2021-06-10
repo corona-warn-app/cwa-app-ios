@@ -6,7 +6,7 @@ import XCTest
 import OpenCombine
 @testable import ENA
 
-class HomeTestResultCellModelTests: XCTestCase {
+class HomeTestResultCellModelTests: CWATestCase {
 	
 	// expected values arrays have to test the default flow values plus explicitly test setting the testResult into [.pending, .negative, .invalid, .positive, .expired]
 	// so the total test cases are [.pending, .negative, .invalid, .positive, .expired, (Loading)]
@@ -83,11 +83,22 @@ class HomeTestResultCellModelTests: XCTestCase {
 		expectationUserInteraction.expectedFulfillmentCount = userInteractionArray.count
 		expectationAccessibilityIdentifiers.expectedFulfillmentCount = accessibilityIdentifiersArray.count
 		expectationOnUpdate.expectedFulfillmentCount = 7
+
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
 		
 		let coronaTestService = CoronaTestService(
-			client: ClientMock(),
-			store: MockTestStore(),
-			appConfiguration: CachedAppConfigurationMock()
+			client: client,
+			store: store,
+			eventStore: MockEventStore(),
+			diaryStore: MockDiaryStore(),
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock()
 

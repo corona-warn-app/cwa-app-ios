@@ -208,9 +208,17 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 				WHERE date < date('\(todayDateString)','-\(dataRetentionPeriodInDays - 1) days')
 			"""
 
+			let sqlCoronaTests = """
+				DELETE FROM CoronaTest
+				WHERE date < date('\(todayDateString)','-\(dataRetentionPeriodInDays - 1) days')
+			"""
+
 			do {
 				try database.executeUpdate(sqlContactPersonEncounter, values: nil)
 				try database.executeUpdate(sqlLocationVisit, values: nil)
+				if database.userVersion >= 5 {
+					try database.executeUpdate(sqlCoronaTests, values: nil)
+				}
 			} catch {
 				logLastErrorCode(from: database)
 				result = .failure(dbError(from: database))
@@ -459,6 +467,56 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 				"durationInMinutes": durationInMinutes,
 				"circumstances": circumstances,
 				"checkinId": checkinId as Any
+			]
+			guard database.executeUpdate(sql, withParameterDictionary: parameters) else {
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
+				return
+			}
+
+			let updateDiaryDaysResult = updateDiaryDays(with: database)
+			guard case .success = updateDiaryDaysResult else {
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
+				return
+			}
+
+			result = .success(Int(database.lastInsertRowId))
+		}
+
+		guard let _result = result else {
+			fatalError("[ContactDiaryStore] Result should not be nil.")
+		}
+
+		return _result
+	}
+
+	func addCoronaTest(
+		testDate: String,
+		testType: Int,
+		testResult: Int
+	) -> SecureSQLStore.IdResult {
+		var result: SecureSQLStore.IdResult?
+
+		databaseQueue.inDatabase { database in
+			Log.info("[ContactDiaryStore] Add CoronaTest.", log: .localData)
+
+			let sql = """
+				INSERT INTO CoronaTest (
+					date,
+					testType,
+					testResult
+				)
+				VALUES (
+					:date,
+					:testType,
+					:testResult
+				);
+			"""
+			let parameters: [String: Any] = [
+				"date": testDate,
+				"testType": testType,
+				"testResult": testResult
 			]
 			guard database.executeUpdate(sql, withParameterDictionary: parameters) else {
 				logLastErrorCode(from: database)
@@ -825,6 +883,10 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 		return removeAllEntries(from: "ContactPerson")
 	}
 
+	func removeAllCoronaTests() -> Result<Void, SecureSQLStoreError> {
+		return removeAllEntries(from: "CoronaTest")
+	}
+
 	@discardableResult
 	func reset() -> SecureSQLStore.VoidResult {
 		let dropTablesResult = dropTables()
@@ -862,7 +924,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 	}
 
 	private var dateFormatter: ISO8601DateFormatter = {
-		let dateFormatter = ISO8601DateFormatter.contactDiaryFormatter
+		let dateFormatter = ISO8601DateFormatter.justLocalDateFormatter
 		return dateFormatter
 	}()
 
@@ -1007,6 +1069,51 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 		return .success(locations)
 	}
 
+	private func fetchCoronaTests(for date: String, in database: FMDatabase) -> Result<[DiaryDayTest], SecureSQLStoreError> {
+		// database schema v5 is required here, if not available return success with empty data
+		guard database.userVersion >= 5 else {
+			return .success([])
+		}
+
+		var diaryDayTests = [DiaryDayTest]()
+
+		let sql = """
+				SELECT id,
+					date,
+					testType,
+					testResult
+				FROM CoronaTest
+				WHERE date = ?
+				ORDER BY id ASC
+			"""
+
+		do {
+			let queryResult = try database.executeQuery(sql, values: [date])
+			defer {
+				queryResult.close()
+			}
+
+			while queryResult.next() {
+				let coronaTestID = Int(queryResult.int(forColumn: "id"))
+				let testDate = queryResult.string(forColumn: "date") ?? ""
+				let testType = Int(queryResult.int(forColumn: "testType"))
+				let testResult = Int(queryResult.int(forColumn: "testResult"))
+				if let diaryDayTest = DiaryDayTest(id: coronaTestID, date: testDate, type: testType, result: testResult) {
+					diaryDayTests.append(diaryDayTest)
+				} else {
+					Log.error("Failed to create DiaryDayTest from database data")
+				}
+			}
+		} catch {
+			logLastErrorCode(from: database)
+			return .failure(dbError(from: database))
+		}
+
+		return .success(diaryDayTests)
+	}
+
+	// MARK: - update
+
 	@discardableResult
 	private func updateDiaryDays(with database: FMDatabase) -> SecureSQLStore.VoidResult {
 		var diaryDays = [DiaryDay]()
@@ -1041,8 +1148,17 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 				return .failure(error)
 			}
 
+			let diaryCoronaTests = fetchCoronaTests(for: dateString, in: database)
+			var diaryDayTests: [DiaryDayTest]
+			switch diaryCoronaTests {
+			case .success(let coronaTests):
+				diaryDayTests = coronaTests
+			case .failure(let error):
+				return .failure(error)
+			}
+
 			let diaryEntries = personDiaryEntries + locationDiaryEntries
-			let diaryDay = DiaryDay(dateString: dateString, entries: diaryEntries)
+			let diaryDay = DiaryDay(dateString: dateString, entries: diaryEntries, tests: diaryDayTests)
 			diaryDays.append(diaryDay)
 		}
 
@@ -1094,6 +1210,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 					DROP TABLE LocationVisit;
 					DROP TABLE ContactPerson;
 					DROP TABLE ContactPersonEncounter;
+					DROP TABLE CoronaTest;
 					VACUUM;
 				"""
 

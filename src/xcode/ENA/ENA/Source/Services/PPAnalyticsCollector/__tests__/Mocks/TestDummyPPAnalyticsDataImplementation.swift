@@ -10,12 +10,17 @@ final class TestDummyPPAnalyticsDataImplementation: PPAnalyticsData {
 	var lastSubmissionAnalytics: Date?
 	var lastAppReset: Date?
 	var lastSubmittedPPAData: String?
-	var submittedWithQR: Bool = false
-	var currentRiskExposureMetadata: RiskExposureMetadata?
-	var previousRiskExposureMetadata: RiskExposureMetadata?
+	var currentENFRiskExposureMetadata: RiskExposureMetadata?
+	var previousENFRiskExposureMetadata: RiskExposureMetadata?
+	var currentCheckinRiskExposureMetadata: RiskExposureMetadata?
+	var previousCheckinRiskExposureMetadata: RiskExposureMetadata?
 	var userMetadata: UserMetadata?
 	var clientMetadata: ClientMetadata?
-	var keySubmissionMetadata: KeySubmissionMetadata?
-	var testResultMetadata: TestResultMetadata?
+	var pcrKeySubmissionMetadata: KeySubmissionMetadata?
+	var antigenKeySubmissionMetadata: KeySubmissionMetadata?
+	var pcrTestResultMetadata: TestResultMetadata?
+	var antigenTestResultMetadata: TestResultMetadata?
 	var exposureWindowsMetadata: ExposureWindowsMetadata?
+	var dateOfConversionToENFHighRisk: Date?
+	var dateOfConversionToCheckinHighRisk: Date?
 }

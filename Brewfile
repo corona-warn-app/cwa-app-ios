@@ -1,0 +1,2 @@
+brew "coreutils"
+brew "swiftlint"

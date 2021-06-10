@@ -8,7 +8,7 @@ import XCTest
 
 // swiftlint:disable file_length
 // swiftlint:disable:next type_body_length
-class ExposureSubmissionServiceTests: XCTestCase {
+class ExposureSubmissionServiceTests: CWATestCase {
 
 	let expectationsTimeout: TimeInterval = 2
 	let keys = [ENTemporaryExposureKey()]
@@ -20,11 +20,19 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
 		let client = ClientMock()
 		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
 
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
-			appConfiguration: CachedAppConfigurationMock()
+			eventStore: MockEventStore(),
+			diaryStore: MockDiaryStore(),
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
 			registrationToken: "dummyRegistrationToken",
@@ -82,14 +90,23 @@ class ExposureSubmissionServiceTests: XCTestCase {
 	func test_When_SubmissionWasSuccessful_Then_CheckinSubmittedIsTrue() {
 		let keysRetrievalMock = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (nil, nil) )
 		let mockStore = MockTestStore()
+		let client = ClientMock()
+		let appConfiguration = CachedAppConfigurationMock()
 
 		let eventStore = MockEventStore()
 		eventStore.createCheckin(Checkin.mock())
 
 		let coronaTestService = CoronaTestService(
-			client: ClientMock(),
+			client: client,
 			store: mockStore,
-			appConfiguration: CachedAppConfigurationMock()
+			eventStore: eventStore,
+			diaryStore: MockDiaryStore(),
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: mockStore,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
 			registrationToken: "regToken",
@@ -131,7 +148,14 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
-			appConfiguration: CachedAppConfigurationMock()
+			eventStore: eventStore,
+			diaryStore: MockDiaryStore(),
+			appConfiguration: appConfigurationProvider,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfigurationProvider
+			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
 			isSubmissionConsentGiven: false
@@ -175,11 +199,19 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (nil, nil))
 		let client = ClientMock()
 		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
 
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
-			appConfiguration: CachedAppConfigurationMock()
+			eventStore: MockEventStore(),
+			diaryStore: MockDiaryStore(),
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
 			positiveTestResultWasShown: true,
@@ -217,11 +249,19 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (nil, nil))
 		let client = ClientMock()
 		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
 
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
-			appConfiguration: CachedAppConfigurationMock()
+			eventStore: MockEventStore(),
+			diaryStore: MockDiaryStore(),
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
 			positiveTestResultWasShown: false,
@@ -264,7 +304,14 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
-			appConfiguration: CachedAppConfigurationMock()
+			eventStore: eventStore,
+			diaryStore: MockDiaryStore(),
+			appConfiguration: appConfigurationProvider,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfigurationProvider
+			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
 			positiveTestResultWasShown: true,
@@ -309,7 +356,14 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
-			appConfiguration: CachedAppConfigurationMock()
+			eventStore: eventStore,
+			diaryStore: MockDiaryStore(),
+			appConfiguration: appConfigurationProvider,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfigurationProvider
+			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
 			positiveTestResultWasShown: true,
@@ -351,7 +405,14 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
-			appConfiguration: CachedAppConfigurationMock()
+			eventStore: eventStore,
+			diaryStore: MockDiaryStore(),
+			appConfiguration: appConfigurationProvider,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfigurationProvider
+			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
 			positiveTestResultWasShown: true,
@@ -393,7 +454,14 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
-			appConfiguration: CachedAppConfigurationMock()
+			eventStore: eventStore,
+			diaryStore: MockDiaryStore(),
+			appConfiguration: appConfigurationProvider,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfigurationProvider
+			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
 			registrationToken: "asdf",
@@ -435,7 +503,14 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
-			appConfiguration: CachedAppConfigurationMock()
+			eventStore: eventStore,
+			diaryStore: MockDiaryStore(),
+			appConfiguration: appConfigurationProvider,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfigurationProvider
+			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
 			registrationToken: nil,
@@ -473,7 +548,14 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
-			appConfiguration: CachedAppConfigurationMock()
+			eventStore: MockEventStore(),
+			diaryStore: MockDiaryStore(),
+			appConfiguration: appConfigurationProvider,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfigurationProvider
+			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
 			registrationToken: "dummyRegistrationToken",
@@ -513,7 +595,14 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
-			appConfiguration: CachedAppConfigurationMock()
+			eventStore: MockEventStore(),
+			diaryStore: MockDiaryStore(),
+			appConfiguration: appConfigurationProvider,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfigurationProvider
+			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
 			registrationToken: "dummyRegistrationToken",
@@ -559,7 +648,14 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
-			appConfiguration: CachedAppConfigurationMock()
+			eventStore: MockEventStore(),
+			diaryStore: MockDiaryStore(),
+			appConfiguration: appConfigurationProvider,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfigurationProvider
+			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
 			registrationToken: "dummyRegistrationToken",
@@ -608,6 +704,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 	func testLoadSupportedCountriesLoadSucceeds() {
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		config.supportedCountries = ["DE", "IT", "ES"]
+		let appConfiguration = CachedAppConfigurationMock(with: config)
 
 		let client = ClientMock()
 
@@ -615,14 +712,21 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let eventStore = MockEventStore()
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: MockDiagnosisKeysRetrieval(diagnosisKeysResult: ([], nil)),
-			appConfigurationProvider: CachedAppConfigurationMock(with: config),
+			appConfigurationProvider: appConfiguration,
 			client: client,
 			store: store,
 			eventStore: eventStore,
 			coronaTestService: CoronaTestService(
 				client: client,
 				store: store,
-				appConfiguration: CachedAppConfigurationMock()
+				eventStore: eventStore,
+				diaryStore: MockDiaryStore(),
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfiguration
+				)
 			)
 		)
 
@@ -652,6 +756,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 	func testLoadSupportedCountriesLoadEmpty() {
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		config.supportedCountries = []
+		let appConfiguration = CachedAppConfigurationMock(with: config)
 
 		let client = ClientMock()
 
@@ -659,14 +764,21 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let eventStore = MockEventStore()
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: MockDiagnosisKeysRetrieval(diagnosisKeysResult: ([], nil)),
-			appConfigurationProvider: CachedAppConfigurationMock(with: config),
+			appConfigurationProvider: appConfiguration,
 			client: client,
 			store: store,
 			eventStore: eventStore,
 			coronaTestService: CoronaTestService(
 				client: client,
 				store: store,
-				appConfiguration: CachedAppConfigurationMock()
+				eventStore: eventStore,
+				diaryStore: MockDiaryStore(),
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfiguration
+				)
 			)
 		)
 
@@ -699,6 +811,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let exposureManagerState = ExposureManagerState(authorized: false, enabled: true, status: .unknown)
 
 		let client = ClientMock()
+		let appConfiguration = CachedAppConfigurationMock()
 
 		let store = MockTestStore()
 		let eventStore = MockEventStore()
@@ -707,14 +820,21 @@ class ExposureSubmissionServiceTests: XCTestCase {
 				diagnosisKeysResult: ([], nil),
 				exposureManagerState: exposureManagerState
 			),
-			appConfigurationProvider: CachedAppConfigurationMock(),
+			appConfigurationProvider: appConfiguration,
 			client: client,
 			store: store,
 			eventStore: eventStore,
 			coronaTestService: CoronaTestService(
 				client: client,
 				store: store,
-				appConfiguration: CachedAppConfigurationMock()
+				eventStore: eventStore,
+				diaryStore: MockDiaryStore(),
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					client: client,
+					appConfiguration: appConfiguration
+				)
 			)
 		)
 
@@ -761,7 +881,14 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
-			appConfiguration: CachedAppConfigurationMock()
+			eventStore: MockEventStore(),
+			diaryStore: MockDiaryStore(),
+			appConfiguration: appConfigurationProvider,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfigurationProvider
+			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
 			registrationToken: "dummyRegToken",

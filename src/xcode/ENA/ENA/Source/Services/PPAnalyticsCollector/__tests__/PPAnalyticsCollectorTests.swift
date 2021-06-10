@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class PPAnalyticsCollectorTests: XCTestCase {
+class PPAnalyticsCollectorTests: CWATestCase {
 	
 	func testGIVEN_NotSetupAnalytics_WHEN_SomethingIsLogged_THEN_NothingIsLogged() {
 		// GIVEN
@@ -71,15 +71,15 @@ class PPAnalyticsCollectorTests: XCTestCase {
 			dateChangedComparedToPreviousSubmission: false
 		)
 		
-		store.currentRiskExposureMetadata = exposureRiskMetadata
-		store.previousRiskExposureMetadata = exposureRiskMetadata
+		store.currentENFRiskExposureMetadata = exposureRiskMetadata
+		store.previousENFRiskExposureMetadata = exposureRiskMetadata
 		store.userMetadata = UserMetadata(federalState: .hessen, administrativeUnit: 91, ageGroup: .ageBelow29)
 		store.lastSubmittedPPAData = "Some Fake Data"
 		store.lastAppReset = Date()
 		store.lastSubmissionAnalytics = Date()
 		store.clientMetadata = ClientMetadata(etag: "FakeTag")
-		store.testResultMetadata = TestResultMetadata(registrationToken: "FakeToken")
-		store.keySubmissionMetadata = KeySubmissionMetadata(
+		store.pcrTestResultMetadata = TestResultMetadata(registrationToken: "FakeToken", testType: .pcr)
+		store.pcrKeySubmissionMetadata = KeySubmissionMetadata(
 			submitted: true,
 			submittedInBackground: false,
 			submittedAfterCancel: true,
@@ -89,7 +89,12 @@ class PPAnalyticsCollectorTests: XCTestCase {
 			hoursSinceTestResult: 0901,
 			hoursSinceTestRegistration: 0901,
 			daysSinceMostRecentDateAtRiskLevelAtTestRegistration: 0901,
-			hoursSinceHighRiskWarningAtTestRegistration: 0901
+			hoursSinceHighRiskWarningAtTestRegistration: 0901,
+			submittedWithTeleTAN: false,
+			submittedAfterRapidAntigenTest: false,
+			daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration: -1,
+			hoursSinceCheckinHighRiskWarningAtTestRegistration: -1,
+			submittedWithCheckIns: nil
 		)
 		store.exposureWindowsMetadata = ExposureWindowsMetadata(
 			newExposureWindowsQueue: [],
@@ -107,15 +112,17 @@ class PPAnalyticsCollectorTests: XCTestCase {
 		Analytics.deleteAnalyticsData()
 		
 		// THEN
-		XCTAssertNil(store.currentRiskExposureMetadata)
+		XCTAssertNil(store.currentENFRiskExposureMetadata)
 		countOfDeletedProperties += 1
-		XCTAssertNil(store.previousRiskExposureMetadata)
+		XCTAssertNil(store.previousENFRiskExposureMetadata)
+		countOfDeletedProperties += 1
+		XCTAssertNil(store.currentCheckinRiskExposureMetadata)
+		countOfDeletedProperties += 1
+		XCTAssertNil(store.previousCheckinRiskExposureMetadata)
 		countOfDeletedProperties += 1
 		XCTAssertNil(store.userMetadata)
 		countOfDeletedProperties += 1
 		XCTAssertNil(store.lastSubmittedPPAData)
-		countOfDeletedProperties += 1
-		XCTAssertFalse(store.submittedWithQR)
 		countOfDeletedProperties += 1
 		XCTAssertNil(store.lastAppReset)
 		countOfDeletedProperties += 1
@@ -123,11 +130,19 @@ class PPAnalyticsCollectorTests: XCTestCase {
 		countOfDeletedProperties += 1
 		XCTAssertNil(store.clientMetadata)
 		countOfDeletedProperties += 1
-		XCTAssertNil(store.testResultMetadata)
+		XCTAssertNil(store.pcrTestResultMetadata)
 		countOfDeletedProperties += 1
-		XCTAssertNil(store.keySubmissionMetadata)
+		XCTAssertNil(store.antigenTestResultMetadata)
+		countOfDeletedProperties += 1
+		XCTAssertNil(store.pcrKeySubmissionMetadata)
+		countOfDeletedProperties += 1
+		XCTAssertNil(store.antigenKeySubmissionMetadata)
 		countOfDeletedProperties += 1
 		XCTAssertNil(store.exposureWindowsMetadata)
+		countOfDeletedProperties += 1
+		XCTAssertNil(store.dateOfConversionToENFHighRisk)
+		countOfDeletedProperties += 1
+		XCTAssertNil(store.dateOfConversionToCheckinHighRisk)
 		countOfDeletedProperties += 1
 		
 		XCTAssertEqual(countOfPropertiesToDelete, countOfDeletedProperties, "The count must match. Did you perhaps forget to delete a property in Analytics.deleteAnalyticsData()?")

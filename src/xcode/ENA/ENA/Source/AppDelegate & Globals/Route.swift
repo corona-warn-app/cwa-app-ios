@@ -32,7 +32,7 @@ enum Route {
 			}
 
 			// extract payload
-			guard let testInformation = AntigenTestInformation(payload: payloadUrl) else {
+			guard let testInformation = AntigenTestQRCodeInformation(payload: payloadUrl) else {
 				self = .rapidAntigen( .failure(.invalidTestCode(.invalidPayload)))
 				Log.error("Antigen test data is nil, either timeStamp is -ve or the hash is invalid", log: .qrCode)
 				return
@@ -74,7 +74,7 @@ enum Route {
 					return
 				}
 			}
-			self = .rapidAntigen(.success(.antigen(testInformation)))
+			self = .rapidAntigen(.success(.antigen(qrCodeInformation: testInformation)))
 
 		case "e.coronawarn.app":
 			self = .checkIn(url.absoluteString)
@@ -87,6 +87,6 @@ enum Route {
 	// MARK: - Internal
 
 	case checkIn(String)
-	case rapidAntigen(Result<CoronaTestQRCodeInformation, QRCodeError>)
+	case rapidAntigen(Result<CoronaTestRegistrationInformation, QRCodeError>)
 
 }

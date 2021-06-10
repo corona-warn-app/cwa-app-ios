@@ -42,17 +42,11 @@
 
 "AutomaticSharingConsent_Subtitle" = "Rıza Beyanı";
 
-"AutomaticSharingConsent_DescriptionPart1_PCR" = "Korona testiniz pozitif çıkmışsa, Uygulama karşılaştığınız kullanıcıları uyarmak üzere test sonucunuzu paylaşır.";
+"AutomaticSharingConsent_DescriptionPart1" = "Korona testiniz pozitif çıktıysa Uygulama test sonucunuzu, karşılaştığınız kullanıcıları yarmak için paylaşır.";
 
-"AutomaticSharingConsent_DescriptionPart1_RAT" = "Korona testiniz pozitif çıktıysa Uygulama test sonucunuzu, karşılaştığınız kullanıcıları yarmak için paylaşır.";
+"AutomaticSharingConsent_DescriptionPart2" = "Uyarı sizinle aynı etkinlikteki ya da yerdeki kullanıcılara ve aşağıdaki ülkelerdeki Korona Uygulaması kullanıcılarına gönderilir:";
 
-"AutomaticSharingConsent_DescriptionPart2_PCR" = "Bu uyarı, yukarıda belirtilen ülkelerdeki resmi Korona uygulamalarının kullanıcılarına ulaşabilir:";
-
-"AutomaticSharingConsent_DescriptionPart2_RAT" = "Uyarı sizinle aynı etkinlikteki ya da yerdeki kullanıcılara ve aşağıdaki ülkelerdeki Korona Uygulaması kullanıcılarına gönderilir:";
-
-"AutomaticSharingConsent_DescriptionPart3_PCR" = "Ayrıca semptomlarınızın başlangıcı hakkında bilgi verirseniz, bu veri de paylaşılacaktır.";
-
-"AutomaticSharingConsent_DescriptionPart3_RAT" = "Hızlı test durumunda sadece Korona Uyarı Uygulamasının kullanıcıları uyarılır. Semptomlarınızın başladığına ilişkin ek bilgiler verirseniz bu veriler de paylaşılır.";
+"AutomaticSharingConsent_DescriptionPart3" = "Hızlı test durumunda sadece Korona Uyarı Uygulamasının kullanıcıları uyarılır. Semptomlarınızın başladığına ilişkin ek bilgiler verirseniz bu veriler de paylaşılır.";
 
 "AutomaticSharingConsent_DescriptionPart4" = "Yukarıdaki “Diğer Kullanıcıları Uyarın” seçeneğini devre dışı bırakarak, verdiğiniz rıza beyanını geri alabilirsiniz.";
 
@@ -194,3 +188,17 @@
 "ExposureSubmission_Antigen_Profile_Legal_Text06" = "Kare kodu kişisel verilerinizi içerir. Verilerinizin okunmasını istemiyorsanız kişisel kare kodunuzu kimseyle paylaşmayın. Kişisel kare kodunuzu paylaşmamanızı ve e-posta üzerinden göndermemenizi öneriyoruz.";
 
 "ExposureSubmission_Antigen_Profile_Legal_Text07" = "Özel şahıslar ya da şirketler hızlı test profilinizi göstermenizi talep edemezler.";
+
+/* Health Certificate Information */
+
+"HealthCertificate_Info_Legal_headline" = "Veri gizliliği ve veri güvenliği";
+
+"HealthCertificate_Info_Legal_section01" = "​Dijital COVID sertifikasının kullanımı isteğe bağlıdır. Tam aşı korumasının gerçekleştirildiğine veya test sonucunun negatif çıktığına ilişkin kanıt, diğer yöntemlerle de sağlanabilir.";
+
+"HealthCertificate_Info_Legal_section02" = "COVID sertifikaları (aşılar veya test sonuçlarınıza ilişkin) kişisel verilerinizi içerir. Yasal açıdan zorunlu durumlarda, Uygulamadaki QR kodu göstermeniz yeterli olacaktır. Söz konusu verilerin okunmasını istemiyorsanız, sertifikalarınızı ve QR kodu hiç kimseye göstermeyin.";
+
+"HealthCertificate_Info_Legal_section03" = "Bir kontrol sırasında Uygulamanızdaki bir sertifikanın QR kodunu gösterirseniz, orada bulunan diğer kişiler test sonucunuzu veya aşı korumanızın tamamlanıp tamamlanmadığını öğrenebilir. Kontrol işlemi sırasında adınız ve doğum tarihiniz de resmi kontrol uygulamasında görüntülenecektir.";
+
+"HealthCertificate_Info_Legal_section04" = "COVID sertifikalarınızı istediğiniz zaman Uygulamadan kaldırma seçeneğiniz vardır. Bunu yapıncaya kadar bu sertifikalar akıllı telefonunuzda kayıtlı kalacaktır.";
+
+"HealthCertificate_Info_disclaimer" = "Veri işleme ile ilgili ayrıntılı bilgileri Veri Gizliliği Beyanında bulabilirsiniz";

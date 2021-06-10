@@ -41,7 +41,7 @@ final class TestableExposureSubmissionQRScannerViewModel: ExposureSubmissionQRSc
 	#endif
 }
 // swiftlint:disable:next type_body_length
-final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
+final class ExposureSubmissionQRScannerViewModelTests: CWATestCase {
 
 	func testSuccessfulPcrScan() {
 		let guid = "3D6D08-3567F3F2-4DCF-43A3-8737-4CD1F87D6FDA"
@@ -59,6 +59,8 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 				case .pcr(let scannedGuid):
 					XCTAssertEqual(scannedGuid, guid)
 				case .antigen:
+					XCTFail("Expected PCR test")
+				case .teleTAN:
 					XCTFail("Expected PCR test")
 				}
 				onSuccessExpectation.fulfill()
@@ -96,6 +98,8 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 					XCTAssertEqual(testInformation.hash, validAntigenHash)
 				case .pcr:
 					XCTFail("Expected antigen test")
+				case .teleTAN:
+					XCTFail("Expected antigen test")
 				}
 
 				onSuccessExpectation.fulfill()
@@ -131,6 +135,8 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 				case .antigen(let testInformation):
 					XCTAssertEqual(testInformation.hash, validAntigenHash)
 				case .pcr:
+					XCTFail("Expected antigen test")
+				case .teleTAN:
 					XCTFail("Expected antigen test")
 				}
 
@@ -221,6 +227,8 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 				case .pcr(let scannedGuid):
 					XCTAssertEqual(scannedGuid, validGuid)
 				case .antigen:
+					XCTFail("Expected PCR test")
+				case .teleTAN:
 					XCTFail("Expected PCR test")
 				}
 				onSuccessExpectation.fulfill()
@@ -349,6 +357,8 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 			XCTFail("Expected PCR test")
 		case .pcr(let result):
 			XCTAssertEqual(result, validPcrGuid)
+		case .teleTAN:
+			XCTFail("Expected PCR test")
 		}
 	}
 
@@ -364,6 +374,8 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 			XCTFail("Expected PCR test")
 		case .pcr(let result):
 			XCTAssertEqual(result, validPcrGuid.lowercased())
+		case .teleTAN:
+			XCTFail("Expected PCR test")
 		}
 	}
 
@@ -381,6 +393,8 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 			XCTFail("Expected PCR test")
 		case .pcr(let result):
 			XCTAssertEqual(result, mixedCaseGuid)
+		case .teleTAN:
+			XCTFail("Expected PCR test")
 		}
 	}
 
@@ -440,7 +454,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 	}
 	func testAntigen_hashIsTooShort() {
 		let invalidHash = "f1200d9650f1fd673d58f52811f98f1427fab40b4996e9c2d0da8b741446408"
-		let antigenTestInformation = AntigenTestInformation.mock(hash: invalidHash)
+		let antigenTestInformation = AntigenTestQRCodeInformation.mock(hash: invalidHash)
 		
 		do {
 			let payloadData = try XCTUnwrap(JSONEncoder().encode(antigenTestInformation))
@@ -454,7 +468,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 	}
 	func testAntigen_hashIsNotHex() {
 		let invalidHash = "f1200d9650f1fd673d58f52811f98f1427fab40b4996e9c2d0da8b741446408G"
-		let antigenTestInformation = AntigenTestInformation.mock(hash: invalidHash)
+		let antigenTestInformation = AntigenTestQRCodeInformation.mock(hash: invalidHash)
 		
 		do {
 			let payloadData = try XCTUnwrap(JSONEncoder().encode(antigenTestInformation))
@@ -467,7 +481,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 		}
 	}
 	func testAntigen_InvalidTestedPersonInformation() {
-		let antigenTestInformation = AntigenTestInformation.mock(
+		let antigenTestInformation = AntigenTestQRCodeInformation.mock(
 			hash: "584b5177c687f2a007778b2f1d2365770ca318b0a8cda0593f691c0d17d18d01",
 			timestamp: 5,
 			firstName: "Jon",
@@ -487,7 +501,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 		}
 	}
 	func testAntigen_InvalidTimeStamp() {
-		let antigenTestInformation = AntigenTestInformation.mock(
+		let antigenTestInformation = AntigenTestQRCodeInformation.mock(
 			hash: "584b5177c687f2a007778b2f1d2365770ca318b0a8cda0593f691c0d17d18d01",
 			timestamp: -5,
 			firstName: "Jon",
@@ -507,7 +521,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 		}
 	}
 	func testAntigen_HashMismatch() {
-		let antigenTestInformation = AntigenTestInformation.mock(
+		let antigenTestInformation = AntigenTestQRCodeInformation.mock(
 			hash: "584b5177c687f2a007778b2f1d2365770ca318b0a8cda0593f691c0d17d18d01",
 			timestamp: 5,
 			firstName: "Jon",
@@ -546,13 +560,13 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 			jsonDecoder.dateDecodingStrategy = .custom({ decoder -> Date in
 				let container = try decoder.singleValueContainer()
 				let stringDate = try container.decode(String.self)
-				guard let date = ISO8601DateFormatter.justDate.date(from: stringDate) else {
+				guard let date = ISO8601DateFormatter.justUTCDateFormatter.date(from: stringDate) else {
 					throw DecodingError.dataCorruptedError(in: container, debugDescription: "failed to decode date \(stringDate)")
 				}
 				return date
 			})
 
-			let testInformation = try jsonDecoder.decode(AntigenTestInformation.self, from: jsonData)
+			let testInformation = try jsonDecoder.decode(AntigenTestQRCodeInformation.self, from: jsonData)
 			return testInformation.hash
 		} catch {
 			Log.debug("Failed to read / parse district json", log: .ppac)

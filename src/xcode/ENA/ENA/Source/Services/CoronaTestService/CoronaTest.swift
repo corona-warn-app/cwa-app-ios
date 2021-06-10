@@ -4,7 +4,7 @@
 
 import Foundation
 
-enum CoronaTestType: Int, CaseIterable {
+enum CoronaTestType: Int, CaseIterable, Codable, Equatable {
 	case pcr
 	case antigen
 }
@@ -46,7 +46,7 @@ enum CoronaTest: Equatable {
 		case .pcr(let pcrTest):
 			return pcrTest.registrationDate
 		case .antigen(let antigenTest):
-			return antigenTest.pointOfCareConsentDate
+			return antigenTest.testDate
 		}
 	}
 
@@ -104,6 +104,24 @@ enum CoronaTest: Equatable {
 		}
 	}
 
+	var certificateConsentGiven: Bool {
+		switch self {
+		case .pcr(let pcrTest):
+			return pcrTest.certificateConsentGiven
+		case .antigen(let antigenTest):
+			return antigenTest.certificateConsentGiven
+		}
+	}
+
+	var certificateRequested: Bool {
+		switch self {
+		case .pcr(let pcrTest):
+			return pcrTest.certificateRequested
+		case .antigen(let antigenTest):
+			return antigenTest.certificateRequested
+		}
+	}
+
 	var type: CoronaTestType {
 		switch self {
 		case .pcr:
@@ -138,85 +156,6 @@ enum CoronaTest: Equatable {
 		case .antigen(let test):
 			return test
 		}
-	}
-
-}
-
-struct PCRTest: Equatable, Codable {
-
-	var registrationDate: Date
-	var registrationToken: String?
-
-	var testResult: TestResult
-	var finalTestResultReceivedDate: Date?
-	var positiveTestResultWasShown: Bool
-
-	var isSubmissionConsentGiven: Bool
-	// Can only be used once to submit, cached here in case submission fails
-	var submissionTAN: String?
-	var keysSubmitted: Bool
-
-	var journalEntryCreated: Bool
-
-}
-
-struct AntigenTest: Equatable, Codable {
-
-	// The date of when the consent was provided by the tested person at the Point of Care.
-	var pointOfCareConsentDate: Date
-	var registrationDate: Date?
-	var registrationToken: String?
-
-	var testedPerson: TestedPerson
-
-	var testResult: TestResult
-	var finalTestResultReceivedDate: Date?
-	var positiveTestResultWasShown: Bool
-
-	var isSubmissionConsentGiven: Bool
-	// Can only be used once to submit, cached here in case submission fails
-	var submissionTAN: String?
-	var keysSubmitted: Bool
-
-	var journalEntryCreated: Bool
-
-}
-
-struct TestedPerson: Codable, Equatable {
-
-	let firstName: String?
-	let lastName: String?
-	let dateOfBirth: String?
-
-	var fullName: String? {
-		let formatter = PersonNameComponentsFormatter()
-		formatter.style = .long
-
-		var nameComponents = PersonNameComponents()
-		nameComponents.givenName = firstName
-		nameComponents.familyName = lastName
-
-		return formatter.string(from: nameComponents)
-	}
-
-	var formattedDateOfBirth: String? {
-		guard let dateOfBirth = dateOfBirth else {
-			return nil
-		}
-
-		let inputFormatter = ISO8601DateFormatter()
-		inputFormatter.formatOptions = [.withFullDate]
-		inputFormatter.timeZone = TimeZone.autoupdatingCurrent
-
-		guard let date = inputFormatter.date(from: dateOfBirth) else {
-			return nil
-		}
-
-		let outputFormatter = DateFormatter()
-		outputFormatter.dateStyle = .medium
-		outputFormatter.timeStyle = .none
-
-		return outputFormatter.string(from: date)
 	}
 
 }

@@ -105,3 +105,4 @@ src/xcode/screenshots
 /src/xcode/.bundle
 
 docs/swift-doc
+xcbuild_test.sh

@@ -26,12 +26,6 @@ class HomeCoordinator: RequiresAppDependencies {
 		enStateUpdateList.removeAllObjects()
 	}
 
-	// MARK: - Overrides
-
-	// MARK: - Protocol <#Name#>
-
-	// MARK: - Public
-
 	// MARK: - Internal
 
 	let rootViewController: UINavigationController = AppNavigationController(rootViewController: UIViewController())
@@ -147,6 +141,8 @@ class HomeCoordinator: RequiresAppDependencies {
 	private var traceLocationsCoordinator: TraceLocationsCoordinator?
 	private var settingsCoordinator: SettingsCoordinator?
 	private var exposureDetectionCoordinator: ExposureDetectionCoordinator?
+	private var healthCertificatesCoordinator: HealthCertificatesCoordinator?
+
 	private var enStateUpdateList = NSHashTable<AnyObject>.weakObjects()
 
 	private weak var delegate: CoordinatorDelegate?
@@ -177,8 +173,7 @@ class HomeCoordinator: RequiresAppDependencies {
 
 	private lazy var statisticsProvider: StatisticsProvider = {
 			#if DEBUG
-			let useMockDataForStatistics = UserDefaults.standard.string(forKey: "useMockDataForStatistics")
-			if isUITesting, useMockDataForStatistics != "NO" {
+			if isUITesting, LaunchArguments.statistics.useMockDataForStatistics.boolValue {
 				return StatisticsProvider(
 					client: CachingHTTPClientMock(),
 					store: store
@@ -264,7 +259,7 @@ class HomeCoordinator: RequiresAppDependencies {
 		exposureDetectionCoordinator?.start()
 	}
 
-	private func showExposureSubmission(testType: CoronaTestType? = nil, testInformationResult: Result<CoronaTestQRCodeInformation, QRCodeError>? = nil) {
+	private func showExposureSubmission(testType: CoronaTestType? = nil, testInformationResult: Result<CoronaTestRegistrationInformation, QRCodeError>? = nil) {
 		// A strong reference to the coordinator is passed to the exposure submission navigation controller
 		// when .start() is called. The coordinator is then bound to the lifecycle of this navigation controller
 		// which is managed by UIKit.
@@ -356,6 +351,8 @@ class HomeCoordinator: RequiresAppDependencies {
 			enStateUpdateList.add(anyObject)
 		}
 	}
+
+	// MARK: - HealthCertificate
 
 	#if !RELEASE
 	private var developerMenu: DMDeveloperMenu?

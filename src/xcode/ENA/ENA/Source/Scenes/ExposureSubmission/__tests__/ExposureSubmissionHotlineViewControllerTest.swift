@@ -5,10 +5,10 @@
 import XCTest
 @testable import ENA
 
-class ExposureSubmissionHotlineViewControllerTest: XCTestCase {
+class ExposureSubmissionHotlineViewControllerTest: CWATestCase {
 
 	func testSetupView() {
-		let vc = ExposureSubmissionHotlineViewController(onSecondaryButtonTap: {}, dismiss: {})
+		let vc = ExposureSubmissionHotlineViewController(onPrimaryButtonTap: {}, dismiss: {})
 
 		_ = vc.view
 		XCTAssertNotNil(vc.tableView)

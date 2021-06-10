@@ -14,7 +14,7 @@ protocol Client {
 	typealias AvailableDaysCompletionHandler = (Result<[String], Failure>) -> Void
 	typealias AvailableHoursCompletionHandler = (Result<[Int], Failure>) -> Void
 	typealias RegistrationHandler = (Result<String, Failure>) -> Void
-	typealias TestResultHandler = (Result<Int, Failure>) -> Void
+	typealias TestResultHandler = (Result<FetchTestResultResponse, Failure>) -> Void
 	typealias TANHandler = (Result<String, Failure>) -> Void
 	typealias DayCompletionHandler = (Result<PackageDownloadResponse, Failure>) -> Void
 	typealias HourCompletionHandler = (Result<PackageDownloadResponse, Failure>) -> Void
@@ -23,6 +23,8 @@ protocol Client {
 	typealias PPAnalyticsSubmitionCompletionHandler = (Result<Void, PPASError>) -> Void
 	typealias TraceWarningPackageDiscoveryCompletionHandler = (Result<TraceWarningDiscovery, TraceWarningError>) -> Void
 	typealias TraceWarningPackageDownloadCompletionHandler = (Result<PackageDownloadResponse, TraceWarningError>) -> Void
+	typealias DigitalCovid19CertificateCompletionHandler = (Result<DCCResponse, DCCErrors.DigitalCovid19CertificateError>) -> Void
+	typealias DCCRegistrationCompletionHandler = (Result<Void, DCCErrors.RegistrationError>) -> Void
 	
 	// MARK: Interacting with a Client
 
@@ -50,9 +52,16 @@ protocol Client {
 	// MARK: Getting the Configuration
 
 	/// Gets the registration token
+	/// - Parameters:
+	///   - forKey: The sha256 hashed key from the test
+	///   - withType: Test input type. Normally "GUID" or "TELETAN".
+	///   - dateOfBirthKey: Optional and only needed for PCR tests. Expects the guid concatenated with the date of birth (format: "ddMMyyyy"), hashed with SHA256 and the first character of that hash replaced by an "x".
+	///   - isFake: Set to true if we want this request as a fake request
+	///   - completion: the completion handler of the call
 	func getRegistrationToken(
 		forKey key: String,
 		withType type: String,
+		dateOfBirthKey: String?,
 		isFake: Bool,
 		completion completeWith: @escaping RegistrationHandler
 	)
@@ -148,7 +157,7 @@ protocol Client {
 	/// GET call to load the IDs from the traceWarnings from CDN. It eventually returns the ID of the the first and last TraceWarningPackage that is available on CDN. The return is the set of all integers between (and including) first and last.
 	/// - Parameters:
 	///   - country: The country.ID for which country we want the IDs.
-	///   - completion: The completion handler of the get call, which contains the set of availbalePackagesOnCDN.
+	///   - completion: The completion handler of the get call, which contains the set of availablePackagesOnCDN.
 	func traceWarningPackageDiscovery(
 		country: String,
 		completion: @escaping TraceWarningPackageDiscoveryCompletionHandler
@@ -163,6 +172,32 @@ protocol Client {
 		country: String,
 		packageId: Int,
 		completion: @escaping TraceWarningPackageDownloadCompletionHandler
+	)
+
+	// MARK: DccTestResultRegistration
+
+	/// POST call to register DCCPublicKey
+	/// - Parameters:
+	///   - isFake: Flag to indicate a fake request
+	///   - token: our token we want to register
+	///   - publicKey: our public RSA key to enable secure connection
+	///   - completion: completionHandler of post call with a void response
+	func dccRegisterPublicKey(
+		isFake: Bool,
+		token: String,
+		publicKey: String,
+		completion: @escaping DCCRegistrationCompletionHandler
+	)
+
+	/// POST call to get the digital covid19 certificate. Expects the registration token and returns an object, that contains the data encyption key and the cretificate as cose-object. Both are of type bas64 encoded String and have to be transformed further.
+	/// - Parameters:
+	///   - registrationToken: The registration token
+	///   - isFake: Flag to indicate a fake request
+	///   - completion: The completion handler of the call, which contains a DCCResponse or a DCCErrors.DigitalCovid19CertificateError
+	func getDigitalCovid19Certificate(
+		registrationToken token: String,
+		isFake: Bool,
+		completion: @escaping DigitalCovid19CertificateCompletionHandler
 	)
 }
 
@@ -209,6 +244,11 @@ extension SubmissionError: LocalizedError {
 			return error.localizedDescription
 		}
 	}
+}
+
+struct FetchTestResultResponse: Codable {
+	let testResult: Int
+	let sc: Int?
 }
 
 /// A container for a downloaded `SAPDownloadedPackage` and its corresponding `ETag`, if given.

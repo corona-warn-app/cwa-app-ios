@@ -16,7 +16,9 @@ extension PCRTest {
 		isSubmissionConsentGiven: Bool = false,
 		submissionTAN: String? = nil,
 		keysSubmitted: Bool = false,
-		journalEntryCreated: Bool = false
+		journalEntryCreated: Bool = false,
+		certificateConsentGiven: Bool = false,
+		certificateRequested: Bool = false
 	) -> PCRTest {
 		PCRTest(
 			registrationDate: registrationDate,
@@ -27,7 +29,9 @@ extension PCRTest {
 			isSubmissionConsentGiven: isSubmissionConsentGiven,
 			submissionTAN: submissionTAN,
 			keysSubmitted: keysSubmitted,
-			journalEntryCreated: journalEntryCreated
+			journalEntryCreated: journalEntryCreated,
+			certificateConsentGiven: certificateConsentGiven,
+			certificateRequested: certificateRequested
 		)
 	}
 

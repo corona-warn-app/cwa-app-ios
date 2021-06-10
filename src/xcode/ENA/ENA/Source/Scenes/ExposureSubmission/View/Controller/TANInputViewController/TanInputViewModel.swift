@@ -11,13 +11,11 @@ final class TanInputViewModel {
 	
 	init(
 		coronaTestService: CoronaTestService,
-		presentInvalidTanAlert: @escaping (String, @escaping () -> Void) -> Void,
-		tanSuccessfullyTransferred: @escaping () -> Void,
+		onSuccess: @escaping (CoronaTestRegistrationInformation, @escaping (Bool) -> Void) -> Void,
 		givenTan: String? = nil
 	) {
 		self.coronaTestService = coronaTestService
-		self.presentInvalidTanAlert = presentInvalidTanAlert
-		self.tanSuccessfullyTransferred = tanSuccessfullyTransferred
+		self.onSuccess = onSuccess
 		self.text = givenTan ?? ""
 	}
 	
@@ -62,22 +60,11 @@ final class TanInputViewModel {
 			Log.debug("tried to submit tan \(private: text, public: "TeleTan ID"), but it is invalid")
 			return
 		}
-
-		isPrimaryButtonEnabled = false
-		isPrimaryBarButtonIsLoading = true
-		coronaTestService.registerPCRTest(teleTAN: text, isSubmissionConsentGiven: false) { [weak self] result in
-			switch result {
-			case let .failure(error):
-				// If teleTAN is incorrect, show Alert Controller
-				self?.isPrimaryButtonEnabled = true
-				self?.isPrimaryBarButtonIsLoading = false
-				self?.presentInvalidTanAlert(error.localizedDescription) {
-					self?.didDissMissInvalidTanAlert?()
-				}
-			case .success:
-				self?.tanSuccessfullyTransferred()
-			}
-		}
+		
+		onSuccess(.teleTAN(tan: text), { [weak self] isLoading in
+			self?.isPrimaryButtonEnabled = !isLoading
+			self?.isPrimaryBarButtonIsLoading = isLoading
+		})
 	}
 
 	func addCharacter(_ char: String) {
@@ -101,8 +88,7 @@ final class TanInputViewModel {
 	}
 
 	private let coronaTestService: CoronaTestService
-	private let presentInvalidTanAlert: (String, @escaping () -> Void) -> Void
-	private let tanSuccessfullyTransferred: () -> Void
+	private let onSuccess: (CoronaTestRegistrationInformation, @escaping (Bool) -> Void) -> Void
 
 	private func calculateChecksum(input: String) -> Character? {
 		let hash = ENAHasher.sha256(input)
@@ -116,5 +102,4 @@ final class TanInputViewModel {
 		default: return nil
 		}
 	}
-
 }

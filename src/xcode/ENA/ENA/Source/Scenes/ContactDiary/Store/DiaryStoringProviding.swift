@@ -17,6 +17,8 @@ protocol DiaryStoring {
 	func addContactPersonEncounter(contactPersonId: Int, date: String, duration: ContactPersonEncounter.Duration, maskSituation: ContactPersonEncounter.MaskSituation, setting: ContactPersonEncounter.Setting, circumstances: String) -> SecureSQLStore.IdResult
 	@discardableResult
 	func addLocationVisit(locationId: Int, date: String, durationInMinutes: Int, circumstances: String, checkinId: Int?) -> SecureSQLStore.IdResult
+	@discardableResult
+	func addCoronaTest(testDate: String, testType: Int, testResult: Int) -> SecureSQLStore.IdResult
 
 	@discardableResult
 	func updateContactPerson(id: Int, name: String, phoneNumber: String, emailAddress: String) -> SecureSQLStore.VoidResult
@@ -39,6 +41,8 @@ protocol DiaryStoring {
 	func removeAllLocations() -> SecureSQLStore.VoidResult
 	@discardableResult
 	func removeAllContactPersons() -> SecureSQLStore.VoidResult
+	@discardableResult
+	func removeAllCoronaTests() -> SecureSQLStore.VoidResult
 	@discardableResult
 	func cleanup() -> SecureSQLStore.VoidResult
 	@discardableResult

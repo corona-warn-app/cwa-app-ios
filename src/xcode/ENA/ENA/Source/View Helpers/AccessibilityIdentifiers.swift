@@ -2,6 +2,7 @@
 // 🦠 Corona-Warn-App
 //
 
+// swiftlint:disable file_length
 // swiftlint:disable:next type_body_length
 enum AccessibilityIdentifiers {
 	
@@ -57,6 +58,8 @@ enum AccessibilityIdentifiers {
 			static let antigenCell = "AccessibilityIdentifiers.Home.antigenCell"
 			static let submittedPCRCell = "AccessibilityIdentifiers.Home.submittedPCRCell"
 			static let submittedAntigenCell = "AccessibilityIdentifiers.Home.submittedAntigenCell"
+			static let removeTestButton = "AppStrings.Home.TestResult.ShownPositive.removeTestButton"
+			static let deleteAlertDeleteButton = "AppStrings.Home.TestResult.ShownPositive.deleteAlertDeleteButton"
 		}
 
 		static let submitCardButton = "AppStrings.Home.submitCardButton"
@@ -230,7 +233,7 @@ enum AccessibilityIdentifiers {
 	}
 	
 	enum ExposureSubmissionQRScanner {
-		static let flash = "AppStrings.ExposureSubmissionQRScanner.flash"
+		static let flash = "ExposureSubmissionQRScanner_flash"
 	}
 	
 	enum ExposureSubmissionQRInfo {
@@ -292,9 +295,7 @@ enum AccessibilityIdentifiers {
 		static let imageDescription = "AppStrings.ExposureSubmissionHotline.imageDescription"
 		static let description = "AppStrings.ExposureSubmissionHotline.description"
 		static let sectionTitle = "AppStrings.ExposureSubmissionHotline.sectionTitle"
-		static let primaryButton = "AppStrings.ExposureSubmissionHotline.callButtonTitle"
-		static let secondaryButton = "AppStrings.ExposureSubmissionHotline.tanInputButtonTitle"
-		
+		static let primaryButton = "AppStrings.ExposureSubmissionHotline.tanInputButtonTitle"
 	}
 	
 	enum ExposureSubmissionIntroduction {
@@ -390,14 +391,36 @@ enum AccessibilityIdentifiers {
 				static let descriptionSubHeadline = "AppStrings.ExposureSubmission.AntigenTest.Information.descriptionSubHeadline"
 				static let acknowledgementTitle = "AntigenTest_Information_acknowledgement_title"
 				static let dataPrivacyTitle = "AppStrings.ExposureSubmission.AntigenTest.Information.dataPrivacyTitle"
+				static let continueButton = "AppStrings.ExposureSubmission.AntigenTest.Information.primaryButton"
+			}
+			
+			enum Create {
+				static let saveButton = "AppStrings.AntigenProfile.Create.saveButtonTitle"
 			}
 			
 			enum Profile {
 				static let profileTile_Description = "AppStrings.ExposureSubmission.AntigenTest.Profile.profileTile_Description"
 				static let createProfileTile_Description = "AppStrings.ExposureSubmission.AntigenTest.Profile.createProfileTile_Description"
+				static let continueButton = "AppStrings.ExposureSubmission.AntigenTest.Profile.primaryButton"
+				static let deleteButton = "AppStrings.ExposureSubmission.AntigenTest.Profile.secondaryButton"
 			}
 		}
 
+		enum TestCertificate {
+			enum Info {
+				static let imageDescription = "AppStrings.ExposureSubmission.TestCertificate.Info.imageDescription"
+				static let body = "AppStrings.ExposureSubmission.TestCertificate.Info.body"
+				static let acknowledgementTitle = "ExposureSubmissionTestCertificateInfo_acknowledgement_title"
+				static let dataPrivacyTitle = "AppStrings.ExposureSubmission.TestCertificate.Info.dataPrivacyTitle"
+				static let birthdayPlaceholder = "AppStrings.ExposureSubmission.TestCertificate.Info.birthDayPlaceholder"
+				static let birthdayText = "AppStrings.ExposureSubmission.TestCertificate.Info.birthDayText"
+			}
+		}
+
+	}
+	
+	enum ExposureSubmissionTestResultAvailable {
+		static let primaryButton = "AppStrings.ExposureSubmissionTestResultAvailable.primaryButtonTitle"
 	}
 	
 	enum Reset {
@@ -455,11 +478,12 @@ enum AccessibilityIdentifiers {
 		static let title = "UpdateOSScreen.title"
 		static let text = "UpdateOSScreen.text"
 	}
-	
-	enum Tabbar {
-		static let home = "Tabbar.home"
-		static let diary = "Tabbar.diary"
-		static let checkin = "Tabbar.checkin"
+
+	enum TabBar {
+		static let home = "TabBar.home"
+		static let certificates = "TabBar.certificates"
+		static let checkin = "TabBar.checkin"
+		static let diary = "TabBar.diary"
 	}
 	
 	enum DataDonation {
@@ -579,4 +603,36 @@ enum AccessibilityIdentifiers {
 			static let saveButtonTitle = "AppStrings.AntigenProfile.Create.saveButtonTitle"
 		}
 	}
+
+	enum HealthCertificate {
+
+		enum Overview {
+			static let vaccinationCertificateRegistrationCell = "AccessibilityIdentifiers.HealthCertificate.vaccinationCertificateRegistrationCell"
+			static let vaccinationCertificateCell = "AppStrings.HealthCertificate.vaccinationCertificateCell"
+			static let testCertificateRequestCell = "AppStrings.HealthCertificate.testCertificateRequestCell"
+		}
+
+		enum Info {
+			static let imageDescription = "AppStrings.HealthCertificate.Info.imageDescription"
+
+			enum Register {
+				static let headline = "AppStrings.HealthCertificate.Info.Register.headline"
+				static let text = "AppStrings.HealthCertificate.Info.Register.text"
+			}
+
+			static let disclaimer = "AppStrings.HealthCertificate.Info.disclaimer"
+			static let acknowledgementTitle = "HealthCertificate.Info.acknowledgement"
+		}
+
+		enum Person {
+			static let certificateCell = "HealthCertificate.Person.cell"
+		}
+
+		enum Certificate {
+			static let headline = "HealthCertificate.title"
+		}
+
+		static let qrCodeCell = "HealthCertificate.qrCodeCell"
+	}
+
 }

@@ -44,7 +44,9 @@ class TraceLocationDetailsViewController: UIViewController, UITableViewDataSourc
 
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
-		navigationController?.setNavigationBarHidden(false, animated: animated)
+		if navigationController?.isBeingDismissed == false {
+			navigationController?.setNavigationBarHidden(false, animated: animated)
+		}
 	}
 
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -72,8 +74,7 @@ class TraceLocationDetailsViewController: UIViewController, UITableViewDataSourc
 		}
 
 		let cellRect = tableView.rectForRow(at: indexPath)
-		let result = view.convert(cellRect, from: tableView)
-		backgroundView.gradientHeightConstraint.constant = result.midY
+		backgroundView.gradientHeightConstraint.constant = cellRect.midY + (tableView.contentOffset.y / 2) + view.safeAreaInsets.top
 		didCalculateGradientHeight = true
 	}
 
@@ -129,7 +130,6 @@ class TraceLocationDetailsViewController: UIViewController, UITableViewDataSourc
 	private var tableContentObserver: NSKeyValueObservation!
 
 	private func setupView() {
-		parent?.view.backgroundColor = .clear
 		backgroundView.translatesAutoresizingMaskIntoConstraints = false
 		view.addSubview(backgroundView)
 

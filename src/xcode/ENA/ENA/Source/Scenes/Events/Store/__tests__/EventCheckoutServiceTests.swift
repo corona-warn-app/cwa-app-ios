@@ -6,7 +6,7 @@ import XCTest
 import OpenCombine
 @testable import ENA
 
-class EventCheckoutServiceTests: XCTestCase {
+class EventCheckoutServiceTests: CWATestCase {
 
 	var subscriptions = Set<AnyCancellable>()
 
@@ -232,6 +232,7 @@ class EventCheckoutServiceTests: XCTestCase {
 		)
 
 		let sinkExpectation = expectation(description: "Sink should be called.")
+		sinkExpectation.expectedFulfillmentCount = 2
 		mockEventStore.checkinsPublisher.dropFirst().sink { _ in
 			sinkExpectation.fulfill()
 		}.store(in: &subscriptions)

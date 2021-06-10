@@ -5,7 +5,7 @@
 import XCTest
 import ExposureNotification
 
-class ENAUITests_01b_Statistics: XCTestCase {
+class ENAUITests_01b_Statistics: CWATestCase {
 	var app: XCUIApplication!
 	
 	override func setUp() {
@@ -13,9 +13,9 @@ class ENAUITests_01b_Statistics: XCTestCase {
 		continueAfterFailure = false
 		app = XCUIApplication()
 		app.setDefaults()
-		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
-		app.launchArguments.append(contentsOf: ["-setCurrentOnboardingVersion", "YES"])
-		app.launchArguments.append(contentsOf: ["-userNeedsToBeInformedAboutHowRiskDetectionWorks", "NO"])
+		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: true)
+		app.setLaunchArgument(LaunchArguments.onboarding.setCurrentOnboardingVersion, to: true)
+		app.setLaunchArgument(LaunchArguments.infoScreen.userNeedsToBeInformedAboutHowRiskDetectionWorks, to: false)
 	}
 	
 	func test_StatisticsCardTitles() throws {
@@ -148,39 +148,30 @@ class ENAUITests_01b_Statistics: XCTestCase {
 	
 	private func cardInfectionsInfoScreenTest(_ title1: String) {
 		XCTAssertTrue(app.staticTexts[title1].waitForExistence(timeout: .medium))
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Statistics.Infections.infoButton].exists)
-		app.buttons[AccessibilityIdentifiers.Statistics.Infections.infoButton].tap()
-		XCTAssertTrue(app.buttons["AppStrings.AccessibilityLabel.close"].waitForExistence(timeout: .short))
-		app.buttons["AppStrings.AccessibilityLabel.close"].tap()
+		app.buttons[AccessibilityIdentifiers.Statistics.Infections.infoButton].waitAndTap()
+		app.buttons["AppStrings.AccessibilityLabel.close"].waitAndTap()
 	}
 	
 	private func cardKeySubmissionsInfoScreenTest(_ title2: String) {
 		XCTAssertTrue(app.staticTexts[title2].waitForExistence(timeout: .medium))
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Statistics.KeySubmissions.infoButton].exists)
-		app.buttons[AccessibilityIdentifiers.Statistics.KeySubmissions.infoButton].tap()
-		XCTAssertTrue(app.buttons["AppStrings.AccessibilityLabel.close"].waitForExistence(timeout: .short))
-		app.buttons["AppStrings.AccessibilityLabel.close"].tap()
+		app.buttons[AccessibilityIdentifiers.Statistics.KeySubmissions.infoButton].waitAndTap()
+		app.buttons["AppStrings.AccessibilityLabel.close"].waitAndTap()
 	}
 	
 	private func cardIncidenceInfoScreenTest(_ title3: String) {
 		XCTAssertTrue(app.staticTexts[title3].waitForExistence(timeout: .medium))
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Statistics.Incidence.infoButton].exists)
-		app.buttons[AccessibilityIdentifiers.Statistics.Incidence.infoButton].tap()
-		XCTAssertTrue(app.buttons["AppStrings.AccessibilityLabel.close"].waitForExistence(timeout: .short))
-		app.buttons["AppStrings.AccessibilityLabel.close"].tap()
+		app.buttons[AccessibilityIdentifiers.Statistics.Incidence.infoButton].waitAndTap()
+		app.buttons["AppStrings.AccessibilityLabel.close"].waitAndTap()
 	}
 	
 	private func cardReproductionNumberInfoScreenTest(_ title4: String) {
 		XCTAssertTrue(app.staticTexts[title4].waitForExistence(timeout: .medium))
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Statistics.ReproductionNumber.infoButton].exists)
-		app.buttons[AccessibilityIdentifiers.Statistics.ReproductionNumber.infoButton].tap()
-		XCTAssertTrue(app.buttons["AppStrings.AccessibilityLabel.close"].waitForExistence(timeout: .short))
-		app.buttons["AppStrings.AccessibilityLabel.close"].tap()
+		app.buttons[AccessibilityIdentifiers.Statistics.ReproductionNumber.infoButton].waitAndTap()
+		app.buttons["AppStrings.AccessibilityLabel.close"].waitAndTap()
 	}
 	
 	private func cardReproductionNumberOpenInfoScreen(_ title4: String) {
 		XCTAssert(app.staticTexts[title4].waitForExistence(timeout: .medium))
-		XCTAssert(app.buttons[AccessibilityIdentifiers.Statistics.ReproductionNumber.infoButton].exists)
-		app.buttons[AccessibilityIdentifiers.Statistics.ReproductionNumber.infoButton].tap()
+		app.buttons[AccessibilityIdentifiers.Statistics.ReproductionNumber.infoButton].waitAndTap()
 	}
 }

@@ -21,10 +21,7 @@ final class CheckinCoordinator {
 		
 		#if DEBUG
 		if isUITesting {
-			// app launch argument
-			if let checkinInfoScreenShown = UserDefaults.standard.string(forKey: "checkinInfoScreenShown") {
-				store.checkinInfoScreenShown = (checkinInfoScreenShown != "NO")
-			}
+			store.checkinInfoScreenShown = LaunchArguments.infoScreen.checkinInfoScreenShown.boolValue
 		}
 		#endif
 		
@@ -87,7 +84,6 @@ final class CheckinCoordinator {
 	}()
 	
 	func showQRCodeScanner() {
-		
 		let qrCodeScanner = CheckinQRCodeScannerViewController(
 			qrCodeVerificationHelper: verificationService,
 			appConfiguration: appConfiguration,
@@ -203,14 +199,14 @@ final class CheckinCoordinator {
 	}
 	
 	private func showTraceLocationDetails(_ traceLocation: TraceLocation) {
-		let viewModel = TraceLocationDetailViewModel(traceLocation, eventStore: self.eventStore, store: self.store)
-		let traceLocationDetailViewController = TraceLocationDetailViewController(
+		let viewModel = TraceLocationCheckinViewModel(traceLocation, eventStore: self.eventStore, store: self.store)
+		let traceLocationCheckinViewController = TraceLocationCheckinViewController(
 			viewModel,
 			dismiss: { [weak self] in
 				self?.viewController.dismiss(animated: true)
 			}
 		)
-		self.viewController.present(traceLocationDetailViewController, animated: true)
+		self.viewController.present(traceLocationCheckinViewController, animated: true)
 	}
 
 	

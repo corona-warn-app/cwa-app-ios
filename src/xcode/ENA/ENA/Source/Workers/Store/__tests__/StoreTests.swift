@@ -5,10 +5,11 @@
 import XCTest
 @testable import ENA
 
-final class StoreTests: XCTestCase {
+final class StoreTests: CWATestCase {
 	private var store: SecureStore!
 
 	override func setUpWithError() throws {
+		try super.setUpWithError()
 		store = try SecureStore(at: URL(staticString: ":memory:"), key: "123456")
 	}
 
@@ -126,7 +127,7 @@ final class StoreTests: XCTestCase {
 		XCTAssertNotEqual(databaseKey, keychain.loadFromKeychain(key: SecureStore.keychainDatabaseKey))
 
 		// cleanup
-		store.clearAll(key: nil)
+		store.wipeAll(key: nil)
 	}
 
 	func testConfigCaching() throws {

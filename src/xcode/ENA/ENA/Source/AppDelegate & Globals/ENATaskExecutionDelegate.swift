@@ -157,19 +157,19 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 			service.submitExposure(coronaTestType: coronaTestType) { error in
 				switch error {
 				case .noCoronaTestOfGivenType:
-					Analytics.collect(.keySubmissionMetadata(.submittedInBackground(false)))
+					Analytics.collect(.keySubmissionMetadata(.submittedInBackground(false, coronaTestType)))
 					Log.info("[ENATaskExecutionDelegate] Submission: no corona test of type \(coronaTestType) registered", log: .api)
 				case .noSubmissionConsent:
-					Analytics.collect(.keySubmissionMetadata(.submittedInBackground(false)))
+					Analytics.collect(.keySubmissionMetadata(.submittedInBackground(false, coronaTestType)))
 					Log.info("[ENATaskExecutionDelegate] Submission: no consent given", log: .api)
 				case .noKeysCollected:
-					Analytics.collect(.keySubmissionMetadata(.submittedInBackground(false)))
+					Analytics.collect(.keySubmissionMetadata(.submittedInBackground(false, coronaTestType)))
 					Log.info("[ENATaskExecutionDelegate] Submission: no keys to submit", log: .api)
 				case .some(let error):
-					Analytics.collect(.keySubmissionMetadata(.submittedInBackground(false)))
+					Analytics.collect(.keySubmissionMetadata(.submittedInBackground(false, coronaTestType)))
 					Log.error("[ENATaskExecutionDelegate] Submission error: \(error.localizedDescription)", log: .api)
 				case .none:
-					Analytics.collect(.keySubmissionMetadata(.submittedInBackground(true)))
+					Analytics.collect(.keySubmissionMetadata(.submittedInBackground(true, coronaTestType)))
 					Log.info("[ENATaskExecutionDelegate] Submission successful", log: .api)
 				}
 
@@ -267,10 +267,8 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 	}
 
 	private func executeAnalyticsSubmission(completion: @escaping () -> Void) {
-		// fill in the risk exposure metadata if new risk calculation is not done in the meanwhile
-		if let enfRiskCalculationResult = store.enfRiskCalculationResult {
-			Analytics.collect(.riskExposureMetadata(.updateRiskExposureMetadata(enfRiskCalculationResult)))
-		}
+		// update the enf risk exposure metadata and checkin risk exposure metadata if new risk calculations are not done in the meanwhile
+		Analytics.collect(.riskExposureMetadata(.update))
 		Analytics.triggerAnalyticsSubmission(completion: { result in
 			switch result {
 			case .success:

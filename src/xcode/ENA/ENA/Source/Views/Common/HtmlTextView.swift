@@ -96,6 +96,8 @@ private extension ENAColor {
 		case .backgroundLightGray: return "lightGrayBackground"
 		case .darkBackground: return "darkBackground"
 		case .cellBackground: return "cellBackground"
+		case .cellBackground2: return "cellBackground2"
+		case .cellBackground3: return "cellBackground3"
 		case .hairline: return "hairline"
 		case .hairlineContrast: return "hairline-contrast"
 		case .separator: return "separator"
@@ -109,6 +111,11 @@ private extension ENAColor {
 		case .buttonDestructive: return "button-destructive"
 		case .buttonHighlight: return "button-highlight"
 		case .buttonPrimary: return "button-primary"
+
+		// MARK: - Card Colors
+		case .dashedCardBorder: return "dashed-card-border-color"
+		case .cardBorder: return "card-border-color"
+		case .cardShadow: return "card-shadow-color"
 
 		// MARK: - Miscellaneous Colors
 		case .chevron: return "chevron-color"

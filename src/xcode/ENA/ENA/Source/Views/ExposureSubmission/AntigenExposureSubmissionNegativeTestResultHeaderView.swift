@@ -183,7 +183,7 @@ class AntigenExposureSubmissionNegativeTestResultHeaderView: DynamicTableViewHea
 		
 	// MARK: - Internal
 	
-	func configure(coronaTest: AntigenTest, timeStamp: Int64?) {
+	func configure(coronaTest: AntigenTest) {
 		lineView.backgroundColor = coronaTest.testResult.color
 		imageView.image = coronaTest.testResult.image
 		subtitleLabel.text = AppStrings.ExposureSubmissionResult.Antigen.card_subtitle
@@ -199,23 +199,11 @@ class AntigenExposureSubmissionNegativeTestResultHeaderView: DynamicTableViewHea
 		// personLabel
 		if let name = coronaTest.testedPerson.fullName, let birthday = coronaTest.testedPerson.formattedDateOfBirth {
 			personLabel.text = name + "\n" + AppStrings.ExposureSubmissionResult.Antigen.personBirthdayPrefix + " " + birthday
-		} else if let name = coronaTest.testedPerson.fullName {
-			personLabel.text = name
-		} else if let birthday = coronaTest.testedPerson.formattedDateOfBirth {
-			personLabel.text = AppStrings.ExposureSubmissionResult.Antigen.personBirthdayPrefix + " " + birthday
 		} else {
 			personLabel.text = nil
 		}
 		// dateLabel
-		if let timeStamp = timeStamp {
-			let formatter = DateFormatter()
-			formatter.dateStyle = .medium
-			formatter.timeStyle = .short
-			let date = Date(timeIntervalSince1970: TimeInterval(timeStamp))
-			dateLabel.text = formatter.string(from: date)
-		} else {
-			dateLabel.text = "\(AppStrings.ExposureSubmissionResult.registrationDateUnknown)"
-		}
+		dateLabel.text = DateFormatter.localizedString(from: coronaTest.testDate, dateStyle: .medium, timeStyle: .short)
 	}
 	
 	// MARK: - Private

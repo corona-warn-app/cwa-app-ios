@@ -9,6 +9,7 @@ typealias RiskProviderResult = Result<Risk, RiskProviderError>
 
 enum RiskProviderError: Error {
 	case inactive
+	case deactivatedDueToActiveTest
 	case timeout
 	case riskProviderIsRunning
 	case missingAppConfig
@@ -50,8 +51,9 @@ enum RiskProviderError: Error {
 	}
 }
 
-enum RiskProviderActivityState {
+enum RiskProviderActivityState: Int {
 	case idle
+	case onlyDownloadsRequested
 	case riskRequested
 	case downloading
 	case detecting

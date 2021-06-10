@@ -14,6 +14,7 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(headerTapped))
 		headerStackView.addGestureRecognizer(tapGestureRecognizer)
 		headerStackView.isUserInteractionEnabled = true
+		headerStackView.isAccessibilityElement = true
 	}
 
 	// MARK: - Protocol UITextFieldDelegate
@@ -43,6 +44,9 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 		checkboxImageView.image = cellModel.image
 		label.text = cellModel.text
 		label.font = cellModel.font
+		
+		headerStackView.accessibilityLabel = cellModel.text
+		headerStackView.accessibilityTraits = cellModel.parametersHidden ? [.button] : [.button, .selected]
 
 		setUpParameterViews()
 
@@ -67,7 +71,7 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 	@IBOutlet private weak var headerStackView: UIStackView!
 	@IBOutlet private weak var parametersContainerStackView: UIStackView!
 	@IBOutlet private weak var parametersStackView: UIStackView!
-
+	
 	private lazy var durationSegmentedControl: DiarySegmentedControl = {
 		let segmentedControl = DiarySegmentedControl(items: cellModel.durationValues.map { $0.title })
 		segmentedControl.addTarget(self, action: #selector(durationValueChanged(sender:)), for: .valueChanged)
@@ -170,6 +174,9 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 
 		switch cellModel.entryType {
 		case .contactPerson:
+			// adding this because of a known issue in first element of arrangedSubview in terms of accessibilty
+			let emptySpacer = UIView()
+			parametersStackView.addArrangedSubview(emptySpacer)
 			parametersStackView.addArrangedSubview(durationSegmentedControl)
 			parametersStackView.addArrangedSubview(maskSituationSegmentedControl)
 			parametersStackView.addArrangedSubview(settingSegmentedControl)

@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class CheckInDescriptionCellModelTests: XCTestCase {
+class CheckInDescriptionCellModelTests: CWATestCase {
 
 	func testGIVEN_CheckInDescriptionCellModel_THEN_ValueMatch() {
 		// GIVEN

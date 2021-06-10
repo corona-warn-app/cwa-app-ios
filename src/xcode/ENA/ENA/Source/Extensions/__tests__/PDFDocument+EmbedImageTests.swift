@@ -6,7 +6,7 @@ import XCTest
 import PDFKit
 @testable import ENA
 
-class PDFDocument_EmbedImageTests: XCTestCase {
+class PDFDocument_EmbedImageTests: CWATestCase {
 	
 	// swiftlint:disable force_unwrapping
 	/// Not proud of this test, if you have a nicer idea, please go ahead.

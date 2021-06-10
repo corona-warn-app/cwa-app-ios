@@ -85,6 +85,13 @@ final class EventCheckoutService {
 				checkins.forEach {
 					if $0.checkinCompleted {
 						self?.createJournalEntries(for: $0)
+						// If the User chooses to add the event to contact diary we need to change the "createJournalEntry" flag to false AFTER the first time of calling createJournalEntries()
+						// Otherwise if the user decides to delete the event from the contact journal, the event will be Re-added to the contact journal when we call the current function again since the flag is still true
+						// We also need to guard and only update the models that have the "createJournalEntry" flag set to true
+						// Otherwise we will have an infinite loop as everytime we modify the checking we will can the sing of the checkinsPublisher
+						if $0.createJournalEntry {
+							self?.eventStore.updateCheckin($0.updatedCheckin(createJournalEntry: false))
+						}
 					} else {
 						self?.triggerNotificationForCheckout(of: $0)
 					}
@@ -238,7 +245,7 @@ final class EventCheckoutService {
 
 			// Find the day entry for the day of the checkin.
 			let diaryDayForTheSameDay = contactDiaryStore.diaryDaysPublisher.value.first(where: {
-				$0.dateString == contactDiaryFormatter.string(
+				$0.dateString == justLocalDateFormatter.string(
 					from: checkin.checkinStartDate
 				   )
 			})
@@ -267,7 +274,7 @@ final class EventCheckoutService {
 			if !locationVisitForSameDayExists {
 				contactDiaryStore.addLocationVisit(
 					locationId: locationId,
-					date: contactDiaryFormatter.string(
+					date: justLocalDateFormatter.string(
 						from: checkin.checkinStartDate
 					),
 					durationInMinutes: checkin.roundedDurationIn15mSteps,
@@ -291,8 +298,8 @@ final class EventCheckoutService {
 		checkoutOverdueCheckins()
 	}
 
-	private var contactDiaryFormatter: ISO8601DateFormatter = {
-		let dateFormatter = ISO8601DateFormatter.contactDiaryFormatter
+	private var justLocalDateFormatter: ISO8601DateFormatter = {
+		let dateFormatter = ISO8601DateFormatter.justLocalDateFormatter
 		return dateFormatter
 	}()
 }

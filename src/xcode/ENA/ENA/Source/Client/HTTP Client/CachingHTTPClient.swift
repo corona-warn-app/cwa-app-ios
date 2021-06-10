@@ -4,7 +4,7 @@
 
 import Foundation
 
-class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, QRCodePosterTemplateFetching {
+class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, QRCodePosterTemplateFetching, VaccinationValueSetsFetching {
 
 	private let environmentProvider: EnvironmentProviding
 
@@ -34,7 +34,9 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, QRCodePos
 	///   - signatureVerifier: The signatureVerifier to use for package validation.
 	init(
 		environmentProvider: EnvironmentProviding = Environments(),
-		session: URLSession = URLSession(configuration: .cachingSessionConfiguration()),
+		session: URLSession = .coronaWarnSession(
+			configuration: .cachingSessionConfiguration()
+		),
 		signatureVerifier: SignatureVerifier = SignatureVerifier()
 	) {
 		self.session = session
@@ -141,6 +143,36 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, QRCodePos
 		}
 	}
 	
+	// MARK: VaccinationValueSetsFetching
+	
+	func fetchVaccinationValueSets(
+		etag: String?,
+		completion: @escaping VaccinationValueSetsCompletionHandler
+	) {
+		// Manual ETagging because we don't use native cache
+		var headers: [String: String]?
+		if let etag = etag {
+			headers = ["If-None-Match": etag]
+		}
+
+		session.GET(configuration.vaccinationValueSets, extraHeaders: headers) { result in
+			switch result {
+			case .success(let response):
+				do {
+					let package = try self.verifyPackage(in: response)
+					let vaccinationValueSetsData = try SAP_Internal_Dgc_ValueSets(serializedData: package.bin)
+					let responseETag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag")
+					let vaccinationValueSetsResponse = VaccinationValueSetsResponse(vaccinationValueSetsData, responseETag)
+					Log.info("Received value sets: \(try vaccinationValueSetsData.jsonString())", log: .vaccination)
+					completion(.success(vaccinationValueSetsResponse))
+				} catch {
+					completion(.failure(error))
+				}
+			case .failure(let error):
+				completion(.failure(error))
+			}
+		}
+	}
 	// MARK: - Helpers
 
 	private func verifyPackage(in response: URLSession.Response) throws -> SAPDownloadedPackage {

@@ -6,7 +6,7 @@
 import Foundation
 import XCTest
 
-final class BackendConfigurationTests: XCTestCase {
+final class BackendConfigurationTests: CWATestCase {
 	private typealias Configuration = HTTPClient.Configuration
 	private typealias Endpoint = HTTPClient.Configuration.Endpoint
 
@@ -32,13 +32,18 @@ final class BackendConfigurationTests: XCTestCase {
 			baseURL: URL(staticString: "http://localhost/errorLogSubmission"),
 			requiresTrailingSlash: true
 		)
+		let dcc = Endpoint(
+			baseURL: URL(staticString: "http://localhost/dcc"),
+			requiresTrailingSlash: true
+		)
 
 		let endpoints = Configuration.Endpoints(
 			distribution: distribution,
 			submission: submission,
 			verification: verification,
 			dataDonation: dataDonation,
-			errorLogSubmission: errorLogSubmission
+			errorLogSubmission: errorLogSubmission,
+			dcc: dcc
 		)
 
 		let config = Configuration(

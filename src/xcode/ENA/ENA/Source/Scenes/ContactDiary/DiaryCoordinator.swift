@@ -21,24 +21,53 @@ class DiaryCoordinator {
 		
 		#if DEBUG
 		if isUITesting {
-			if let journalWithExposureHistoryInfoScreenShown = UserDefaults.standard.string(forKey: "diaryInfoScreenShown") {
-				store.journalWithExposureHistoryInfoScreenShown = (journalWithExposureHistoryInfoScreenShown != "NO")
-			}
+			store.journalWithExposureHistoryInfoScreenShown = LaunchArguments.infoScreen.diaryInfoScreenShown.boolValue
 
-			if let journalRemoveAllPersons = UserDefaults.standard.string(forKey: "journalRemoveAllPersons"),
-			   journalRemoveAllPersons == "YES" {
+			if LaunchArguments.contactJournal.journalRemoveAllPersons.boolValue {
 				diaryStore.removeAllContactPersons()
 			}
 
-			if let journalRemoveAllLocations = UserDefaults.standard.string(forKey: "journalRemoveAllLocations"),
-			   journalRemoveAllLocations == "YES" {
+			if LaunchArguments.contactJournal.journalRemoveAllLocations.boolValue {
 				diaryStore.removeAllLocations()
 			}
 
+			if LaunchArguments.contactJournal.journalRemoveAllCoronaTests.boolValue {
+				diaryStore.removeAllCoronaTests()
+			}
+
+			if let testsLevel = LaunchArguments.contactJournal.testsRiskLevel.stringValue {
+
+				let today = Date()
+				let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: today) ?? Date()
+
+				let todayDateString = DateFormatter.packagesDayDateFormatter.string(from: today)
+				let yesterdayDateString = DateFormatter.packagesDayDateFormatter.string(from: yesterday)
+				var testResult: TestResult
+				switch testsLevel {
+				case "high":
+					testResult = TestResult.positive
+				default:
+					testResult = TestResult.negative
+				}
+
+				diaryStore.addCoronaTest(
+					testDate: todayDateString,
+					testType: CoronaTestType.antigen.rawValue,
+					testResult: testResult.rawValue
+				)
+				diaryStore.addCoronaTest(
+					testDate: yesterdayDateString,
+					testType: CoronaTestType.antigen.rawValue,
+					testResult: testResult.rawValue
+				)
+				diaryStore.addCoronaTest(
+					testDate: yesterdayDateString,
+					testType: CoronaTestType.pcr.rawValue,
+					testResult: testResult.rawValue
+				)
+			}
 		}
 		#endif
-				
-		
 	}
 
 	// MARK: - Internal

@@ -6,17 +6,20 @@ import Foundation
 import XCTest
 @testable import ENA
 
-class ExposureSubmissionViewControllerTests: XCTestCase {
+class ExposureSubmissionViewControllerTests: CWATestCase {
 	
 	private var store: Store!
 	
 	
 	override func setUpWithError() throws {
+		try super.setUpWithError()
 		store = MockTestStore()
 	}
 
 	private func createVC(coronaTest: CoronaTest) -> ExposureSubmissionTestResultViewController {
+		let client = ClientMock()
 		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
 		
 		switch coronaTest.type {
 		case .pcr:
@@ -29,9 +32,16 @@ class ExposureSubmissionViewControllerTests: XCTestCase {
 			viewModel: ExposureSubmissionTestResultViewModel(
 				coronaTestType: coronaTest.type,
 				coronaTestService: CoronaTestService(
-					client: ClientMock(),
+					client: client,
 					store: store,
-					appConfiguration: CachedAppConfigurationMock()
+					eventStore: MockEventStore(),
+					diaryStore: MockDiaryStore(),
+					appConfiguration: appConfiguration,
+					healthCertificateService: HealthCertificateService(
+						store: store,
+						client: client,
+						appConfiguration: appConfiguration
+					)
 				),
 				onSubmissionConsentCellTap: { _ in },
 				onContinueWithSymptomsFlowButtonTap: { },

@@ -89,6 +89,8 @@
 
 "ExposureDetection_LoadingText" = "Aktuelle Daten werden heruntergeladen und geprüft. Dies kann mehrere Minuten dauern.";
 
+"ExposureDetection_Contact_Journal_Text" = "Weitere Informationen zu Ihren Risiko-Begegnungen finden Sie in Ihrem Kontakt-Tagebuch.";
+
 "ExposureDetection_Behavior_Title" = "Verhalten";
 
 "ExposureDetection_Behavior_Subtitle" = "So verhalten Sie sich richtig.";
@@ -107,7 +109,7 @@
 
 "ExposureDetection_Guide_Hotline2" = "Ihre Hausarztpraxis";
 
-"ExposureDetection_Guide_Hotline3" = "den kassenärztlichen Bereitschaftsdienst unter der Telefonnummer: 116117";
+"ExposureDetection_Guide_Hotline3" = "Den kassenärztlichen Bereitschaftsdienst unter der Telefonnummer: 116117";
 
 "ExposureDetection_Guide_Hotline4" = "Ihr Gesundheitsamt";
 
@@ -395,7 +397,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "OnboardingInfo_togetherAgainstCoronaPage_boldText" = "Mehr Schutz für Sie und uns alle. Mit der Corona-Warn-App durchbrechen wir Infektionsketten schneller.";
 
-"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Machen Sie Ihr Smartphone zum Corona-Warn-System. Überblicken Sie Ihren Risikostatus und erfahren Sie, ob in den letzten 14 Tagen Corona-positiv getestete Personen in Ihrer Nähe waren.\n\nLassen Sie sich Ihre Testergebnisse (PCR-Test oder Antigen-Schnelltest) in der App anzeigen und warnen Sie andere, wenn Sie ein positives Testergebnis erhalten.\n\nAuf Wunsch können Sie mit der App Ihren persönlichen Infektionsstatus nachweisen (z. B. negativer Schnelltest). Bitte beachten Sie, dass Sie grundsätzlich nicht zum Nachweis Ihres Infektionsstatus per App verpflichtet sind. Sie können Ihren Infektionsstatus im Rahmen der rechtlichen Bestimmungen an Ihrem Aufenthaltsort auch auf andere Weise nachweisen.\n\nDie App merkt sich Begegnungen zwischen Menschen, indem ihre Smartphones verschlüsselte Zufalls-IDs austauschen. Persönliche Daten werden dabei nicht ausgetauscht.";
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Machen Sie Ihr Smartphone zum Corona-Warn-System. Überblicken Sie Ihren Risikostatus und erfahren Sie, ob in den letzten 14 Tagen Corona-positiv getestete Personen in Ihrer Nähe waren.\n\nLassen Sie sich Ihre Testergebnisse (PCR-Test oder Antigen-Schnelltest) in der App anzeigen und warnen Sie andere, wenn Sie ein positives Testergebnis erhalten.\n\nAuf Wunsch können Sie mit der App Ihren persönlichen Infektionsstatus nachweisen (z. B. negativer Schnelltest). Bitte beachten Sie, dass Sie grundsätzlich nicht zum Nachweis Ihres Infektionsstatus per App verpflichtet sind. Sie können Ihren Infektionsstatus im Rahmen der rechtlichen Bestimmungen an Ihrem Aufenthaltsort auch auf andere Weise nachweisen.\n\nEbenso können Sie Ihren persönlichen Impfstatus nachweisen.\n\nDie App merkt sich Begegnungen zwischen Menschen, indem ihre Smartphones verschlüsselte Zufalls-IDs austauschen. Persönliche Daten werden dabei nicht ausgetauscht.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_linkText" = "Informationen zur App in leichter Sprache und Gebärdensprache";
 
@@ -460,7 +462,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ExposureSubmission_Hotline_Number" = "08007540002";
 
 /* phone number; no spacing allowed */
-"ExposureSubmission_Hotline_Number_Foreign" = "+493049875401";
+"ExposureSubmission_Hotline_Number_Foreign" = "+493049875402";
 
 "ExposureSubmission_DataPrivacyTitle" = "Einwilligungserklärung";
 
@@ -510,7 +512,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionDispatch_QRCodeButtonTitle" = "QR-Code scannen";
 
-"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Erhalten Sie Ihr Testergebnis in der App und warnen Sie andere.";
+"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Erhalten Sie Ihr Testergebnis in der App und warnen Sie andere oder fordern Sie Ihr COVID-Testzertifikat an.";
 
 "ExposureSubmissionDispatch_TANButtonTitle" = "TAN für PCR-Test eingeben";
 
@@ -566,6 +568,8 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionQRInfo_instruction2" = "Jeder Test kann nur einmal gescannt werden. Die App kann maximal einen Schnelltest und einen PCR-Test gleichzeitig verwalten.";
 
+"ExposureSubmissionQRInfo_instruction2a" = "Wenn Ihr Testergebnis negativ ist, können Sie dies in Form eines offiziellen COVID-Testzertifikats bestätigen lassen. Fordern Sie hierfür in den folgenden Schritten das Testzertifikat an.";
+
 "ExposureSubmissionQRInfo_instruction3" = "Die App kann %@ gleichzeitig mehrere Tests verwalten.";
 
 "ExposureSubmissionQRInfo_instruction3_highlightedPhrase" = "nicht";
@@ -580,7 +584,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionQRInfo_acknowledgement_4" = "Ihre Identität bleibt geheim. Andere Nutzer erfahren nicht, wer sein Testergebnis geteilt hat.";
 
-"ExposureSubmissionQRInfo_acknowledgement_5" = "Unter „Meine Check-ins“ können Sie Ihre Events und Orte einsehen, deren eingecheckte Gäste gewarnt werden. Sie können einzelne Check-Ins auch entfernen und so von der Warnung ausschließen.";
+"ExposureSubmissionQRInfo_acknowledgement_5" = "Unter „Meine Check-ins“ können Sie Ihre Events und Orte einsehen, deren eingecheckte Gäste gewarnt werden. Sie können einzelne Check-ins auch entfernen und so von der Warnung ausschließen.";
 
 "ExposureSubmissionQRInfo_acknowledgement_6" = "Sie können Ihr Einverständnis abgeben, wenn Sie mindestens 16 Jahre alt sind.";
 
@@ -632,17 +636,17 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionSuccess_listItem0" = "Machen Sie einen PCR-Test, um dieses Test-Ergebnis zu verifizieren. ";
 
-"ExposureSubmissionSuccess_listItem1" = "Das Gesundheitsamt wird sich in den nächsten Tagen telefonisch oder schriftlich bei Ihnen melden.";
+"ExposureSubmissionSuccess_listItem1" = "Das Gesundheitsamt wird sich möglicherweise in den nächsten Tagen bei Ihnen melden.";
 
-"ExposureSubmissionSuccess_listItem2" = "Sie sind ansteckend. Isolieren Sie sich von anderen Personen.";
+"ExposureSubmissionSuccess_listItem2" = "Sie sind sehr wahrscheinlich ansteckend. Isolieren Sie sich von anderen Personen.";
 
-"ExposureSubmissionSuccess_listItem2_1" = "Die Quarantänezeit beträgt in der Regel 14 Tage. Bitte beobachten Sie genau, wie sich Ihre Symptome entwickeln.";
+"ExposureSubmissionSuccess_listItem2_1" = "Die Isolationszeit beträgt in der Regel 14 Tage. Bitte beobachten Sie genau, wie sich Ihre Symptome entwickeln.";
 
 "ExposureSubmissionSuccess_listItem2_2" = "Sie werden von Ihrem Gesundheitsamt gebeten, eine Liste Ihrer Kontaktpersonen zu erstellen. Erfassen Sie dabei alle Personen, zu denen Sie in den zwei Tagen vor Erkrankungsbeginn engen Kontakt (unter 2 Meter, direktes Gespräch) über insgesamt 15 Minuten hatten. Nutzen Sie hierfür Ihr Kontakt-Tagebuch. Sie können die Einträge einfach exportieren und ausdrucken oder als E-Mail verschicken.";
 
 "ExposureSubmissionSuccess_listItem2_3" = "Bitte denken Sie hier auch besonders an Personen, die nicht automatisch durch die App informiert werden, da sie kein Smartphone besitzen oder die App nicht installiert haben.";
 
-"ExposureSubmissionSuccess_listItem2_4" = "Auch wenn Sie keine Symptome (mehr) haben, können Sie ansteckend sein. Bitte halten Sie die angeordnete Quarantänezeit in jedem Fall ein.";
+"ExposureSubmissionSuccess_listItem2_4" = "Auch wenn Sie keine Symptome (mehr) haben, können Sie ansteckend sein. Bitte halten Sie die angeordnete Isolationszeit in jedem Fall ein.";
 
 /* Exposure Submission Testresult available*/
 "ExposureSubmissionTestresultAvailable_Title" = "Ihr Testergebnis liegt vor";
@@ -674,7 +678,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_Title_Antigen" = "Schnelltest";
 
-"ExposureSubmissionResult_CardSubTitle" = "IHR BEFUND";
+"ExposureSubmissionResult_CardSubTitle" = "Ihr Befund";
 
 "ExposureSubmissionResult_CardSubTitle_Antigen" = "Ihr Schnelltest-Befund";
 
@@ -729,6 +733,15 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ExposureSubmissionResult_testPending" = "Ihr Testergebnis liegt noch nicht vor.";
 
 "ExposureSubmissionResult_testPendingDesc" = "Sobald Ihr Testergebnis vorliegt, wird es Ihnen in der App angezeigt.\n\nSie bekommen Ihr Testergebnis auch außerhalb der App mitgeteilt. Falls Ihr Test positiv ist, bekommen Sie vom Gesundheitsamt eine Mitteilung.\n\nWenn Ihnen außerhalb der App ein positives Testergebnis mitgeteilt wurde, entfernen Sie den aktuell in der App registrierten Test. Rufen Sie die unter „TAN anfragen” angegebene Nummer an, um eine TAN zu erhalten. Registrieren Sie dann Ihr Testergebnis mithilfe der TAN in der App.";
+"ExposureSubmissionResult_testCertificate_title" = "Testzertifikat";
+
+"ExposureSubmissionResult_testCertificate_testCenterNotSupported" = "Ein Testzertifikat kann nicht angefordert werden, da diese Teststelle die Ausstellung von Testzertifikaten nicht unterstützt.";
+
+"ExposureSubmissionResult_testCertificate_Pending" = "Ihr Testzertifikat liegt noch nicht vor. Sobald es vorliegt, wird es Ihnen in der App angezeigt.";
+
+"ExposureSubmissionResult_testCertificate_NotRequested" = "Auf Ihren Wunsch hin wird kein Testzertifikat ausgestellt.";
+
+"ExposureSubmissionResult_testCertificate_AvailableInTab" = "Das Testzertifikat liegt im Tab „Zertifikate“ vor.";
 
 "ExposureSubmissionResult_antigenTestPending" = "Ihr Testergebnis liegt noch nicht vor.";
 
@@ -736,7 +749,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_antigenTestPendingContactJournal" = "Ihr Testergebnis wird dem Kontakt-Tagebuch hinzugefügt.";
 
+"ExposureSubmissionResult_pcrTestPendingContactJournal" = "Ihr Testergebnis wird dem Kontakt-Tagebuch hinzugefügt.";
+
 "ExposureSubmissionResult_antigenTestPendingContactJournalDesc" = "Sobald Ihr Testergebnis vorliegt, wird es Ihnen in der App angezeigt.";
+
+"ExposureSubmissionResult_pcrTestPendingContactJournalDesc" = "Sobald Ihr Testergebnis vorliegt, wird es Ihnen in der App angezeigt.";
 
 "ExposureSubmissionResult_antigenTestNegativDesc" = "Der Schnelltest hat keinen Nachweis für das Coronavirus SARS-CoV-2 bei Ihnen ergeben.";
 
@@ -870,6 +887,10 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Sie können den hier angezeigten Befund auch als Nachweis für das Vorliegen eines negativen Schnelltest-Ergebnisses verwenden.\n\nBitte beachten Sie, dass Sie nur dann einen Nachweis über Ihr Schnelltest-Ergebnis erbringen müssen, wenn dies gesetzlich festgelegt ist. Sie können den Nachweis über die App oder auch auf andere Weise erbringen. Informieren Sie sich hierzu bitte auch über die Kriterien für die Anerkennung von Test-Nachweisen in Ihrem Bundesland.";
 
+"ExposureSubmissionResult_Negative_Antigen_NoProof_Title" = "Keine Nachweis-Funktion";
+
+"ExposureSubmissionResult_Negative_Antigen_NoProof_Desc" = "Da der hier angezeigte Befund anonymisiert ist, kann er nicht als Nachweis für das Vorliegen eines negativen Schnelltest-Ergebnisses verwendet werden.";
+
 /* Exposure Submission */
 
 "ExposureSubmissionError_ErrorPrefix" = "Es ist einen technischer Fehler bei der Übertragung Ihrer Daten aufgetreten. Wenden Sie sich bitte an die technische Hotline. Die Nummer finden Sie unter App-Informationen.";
@@ -934,7 +955,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_Antigen_Profile_Information_Image_Description" = "Eine Frau mit einem Smartphone in der Hand steht vor einem Gebäude. Ein QR-Code symbolisiert das zu scannende Schnelltest-Profil.";
 
-"ExposureSubmission_Antigen_Profile_Information_Description_Title" = "Legen Sie Ihre persönlichen Daten als QR-Code ab, um die Registrierung an der Teststelle  zu beschleunigen.";
+"ExposureSubmission_Antigen_Profile_Information_Description_Title" = "Legen Sie ein Profil mit Ihren persönlichen Daten an, das Sie per QR-Code bei jeder teilnehmenden Teststelle vorlegen können.";
 
 "ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline" = "Mit Ihrem eigenen Schnelltest-Profil müssen Sie Ihre persönlichen Daten nicht bei jedem neuen Schnelltest erneut ausfüllen.";
 
@@ -960,11 +981,41 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_Profile_CreateProfileTile_Title" = "Schnelltest-Profil anlegen";
 
-"ExposureSubmission_Profile_CreateProfileTile_Description" = "Legen Sie ein Profil mit Ihren persönlichen Daten an, die Sie dann per QR-Code bei jedem Schnelltest vorlegen können.";
+"ExposureSubmission_Profile_CreateProfileTile_Description" = "Legen Sie ein Profil mit Ihren persönlichen Daten an, das Sie per QR-Code bei jeder teilnehmenden Teststelle vorlegen können.";
 
 "ExposureSubmission_Profile_ProfileTile_Title" = "Schnelltest-Profil";
 
-"ExposureSubmission_Profile_ProfileTile_Description" = "Sparen Sie Zeit und zeigen Sie Ihr Schnelltest-Profil bei der Teststelle vor.";
+"ExposureSubmission_Profile_ProfileTile_Description" = "Sparen Sie Zeit und zeigen Sie Ihr Schnelltest-Profil an der Teststelle vor.";
+
+/* ExposureSubmission TestCertificate */
+
+"ExposureSubmission_TestCertificate_Information_Title" = "COVID-Testzertifikat";
+
+"ExposureSubmission_TestCertificate_Information_PrimaryButton" = "Testzertifikat anfordern";
+
+"ExposureSubmission_TestCertificate_Information_SecondaryButton" = "Nein danke";
+
+"ExposureSubmission_TestCertificate_Information_ImageDescription" = "Eine Frau mit einem Smartphone benutzt die Corona-Warn-App. Ein Haken auf einem Siegel hinter ihr symbolisiert die Gültigkeit eines Zertifikats.";
+
+"ExposureSubmission_TestCertificate_Information_Section01" = "Das Testzertifikat wird nur bei einem negativen Testergebnis ausgestellt.";
+
+"ExposureSubmission_TestCertificate_Information_Section02" = "Das Testzertifikat gilt innerhalb der EU als gültiger Nachweis eines negativen Testergebnisses (z.B. für Reisen).";
+
+"ExposureSubmission_TestCertificate_Information_Subheadline" = "Sie können über die App ein offizielles digitales Testzertifikat anfordern, das anschließend in der App hinzugefügt wird.";
+
+"ExposureSubmission_TestCertificate_Information_BirthdayPlaceholder" = "Geburtsdatum";
+
+"ExposureSubmission_TestCertificate_Information_BirthdayText" = "Zur Sicherheit wird Ihr Testergebnis mit Ihrem Geburtsdatum geschützt. Das Testergebnis kann nur bei korrekt angegebenem Geburtstdatum zugestellt werden.";
+
+"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Ausführliche Hinweise zur Datenverarbeitung finden Sie in der Datenschutzerklärung";
+
+"ExposureSubmission_TestCertificate_Information_Alert_Title" = "Registrierung abbrechen";
+
+"ExposureSubmission_TestCertificate_Information_Alert_Message" = "Wenn Sie die Test-Registrierung abbrechen, können Sie Ihr Testergebnis nicht in der App erhalten.";
+
+"ExposureSubmission_TestCertificate_Information_Alert_ContinueRegistration" = "Registrierung fortsetzen";
+
+"ExposureSubmission_TestCertificate_Information_Alert_CancelRegistration" = "Registrierung abbrechen";
 
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Risiko-Ermittlung";
@@ -1226,19 +1277,27 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Home_Finding_Positive_Card_Verify_Item_Title" = "Machen Sie einen PCR-Test, um dieses Test-Ergebnis zu verifizieren. ";
 
-"Home_Finding_Positive_Card_Phone_Item_Title" = "Das Gesundheitsamt wird sich in den nächsten Tagen telefonisch oder schriftlich bei Ihnen melden.";
+"Home_Finding_Positive_Card_Phone_Item_Title" = "Das Gesundheitsamt wird sich möglicherweise in den nächsten Tagen bei Ihnen melden.";
 
-"Home_Finding_Positive_Card_Home_Item_Title" = "Sie sind ansteckend. Isolieren Sie sich von anderen Personen.";
+"Home_Finding_Positive_Card_Home_Item_Title" = "Sie sind sehr wahrscheinlich ansteckend. Isolieren Sie sich von anderen Personen.";
 
 "Home_Finding_Positive_Card_Share_Item_Title" = "Teilen Sie Ihre Zufalls-IDs, damit andere gewarnt werden können.";
 
 "Home_Finding_Positive_Card_Button" = "Andere warnen";
 
+"Home_Finding_Positive_Card_Button_Remove_Test" = "Test entfernen";
+
+"Home_Finding_Positive_Card_Remove_Test_Alert_Title" = "Sind Sie sicher, dass Sie Ihren Test entfernen wollen?";
+
+"Home_Finding_Positive_Card_Remove_Test_Alert_Description" = "Dadurch werden andere nicht gewarnt.";
+
+"Home_Finding_Positive_Card_Remove_Test_Alert_Description_Delete_Button" = "Entfernen";
+
 /* Home Test Registration Card */
 
 "Home_TestRegistration_Title" = "Test registrieren";
 
-"Home_TestRegistration_Body" = "Nutzen Sie die App, um Ihre Testergebnisse abrufen und schneller warnen zu können.";
+"Home_TestRegistration_Body" = "Nutzen Sie die App, um Ihr Testergebnis abzurufen und andere schneller warnen zu können, oder um Ihr COVID-Testzertifikat anzufordern.";
 
 "Home_TestRegistration_Button" = "Nächste Schritte";
 
@@ -1523,15 +1582,15 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Informationen unter dem Menüpunkt „Neue Funktionen”.";
 
-/* Version 2.2 */
+/* Version 2.4 */
 
-"NewVersionFeature_22_record_error_logs_title" = "Aufzeichnung von Fehleranalyse-Protokollen";
+"NewVersionFeature_24_digital_covid_cert_title" = "COVID-Testzertifikat";
 
-"NewVersionFeature_22_record_error_logs_description" = "Sie können nun im Rahmen des technischen Supports für die App ein Fehlerprotokoll erstellen, das die Schritte aufzeichnet, die Sie in der App ausführen. Somit wird die Analyse von möglichen Fehlern erleichtert, welches zu einer schnelleren Fehlerbehebung führen kann.";
+"NewVersionFeature_24_digital_covid_cert_description" = "Sie können nun über die App ein offizielles digitales Testzertifikat anfordern und anschließend in der App hinzufügen. Sie können das Testzertifikat (QR-Code) innerhalb der EU verwenden, um ein negatives Testergebnis nachzuweisen (z.B. für Auslandsreisen).";
 
-"NewVersionFeature_22_antigen_profiles_title" = "Anlegen von Schnelltest-Profilen";
+"NewVersionFeature_24_extended_diary_title" = "Erweiterung Kontakt-Tagebuch";
 
-"NewVersionFeature_22_antigen_profiles_description" = "Sie können nun ein Schnelltest-Profil mit Ihren persönlichen Daten anlegen. Ihr Profil kann dann an Teststellen per QR-Code schnell und einfach gescannt werden.";
+"NewVersionFeature_24_extended_diary_title_description" = "Sobald Ihr Testergebnis vorliegt, wird es nun auch Ihrem Kontakt-Tagebuch hinzugefügt.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
@@ -1619,19 +1678,19 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "TestResultPositive_KeysSubmitted_Info1" = "Machen Sie einen PCR-Test, um dieses Test-Ergebnis zu verifizieren.";
 
-"TestResultPositive_KeysSubmitted_Info2" = "Das Gesundheitsamt wird sich in den nächsten Tagen telefonisch oder schriftlich bei Ihnen melden.";
+"TestResultPositive_KeysSubmitted_Info2" = "Das Gesundheitsamt wird sich möglicherweise in den nächsten Tagen bei Ihnen melden.";
 
 "TestResultPositive_KeysSubmitted_Info3" = "Sie sind sehr warscheinlich ansteckend. Isolieren Sie sich von anderen Personen.";
 
 "TestResultPositive_KeysSubmitted_Title2" = "Weitere Infos:";
 
-"TestResultPositive_KeysSubmitted_FurtherInfo1" = "Die Quarantänezeit beträgt in der Regel 14 Tage. Bitte beobachten Sie genau, wie sich Ihre Symptome entwickeln.";
+"TestResultPositive_KeysSubmitted_FurtherInfo1" = "Die Isolationszeit beträgt in der Regel 14 Tage. Bitte beobachten Sie genau, wie sich Ihre Symptome entwickeln.";
 
 "TestResultPositive_KeysSubmitted_FurtherInfo2" = "Sie werden von Ihrem Gesundheitsamt gebeten, eine Liste Ihrer Kontaktpersonen zu erstellen. Erfassen Sie dabei alle Personen, zu denen Sie in den zwei Tagen vor Erkrankungsbeginn engen Kontakt (unter 2 Meter, direktes Gespräch) über insgesamt 15 Minuten hatten. Nutzen Sie hierfür Ihr Kontakt-Tagebuch. Sie können die Einträge einfach exportieren und ausdrucken oder als E-Mail verschicken.";
 
 "TestResultPositive_KeysSubmitted_FurtherInfo3" = "Bitte denken Sie hier auch besonders an Personen, die nicht automatisch durch die App informiert werden, da sie kein Smartphone besitzen oder die App nicht installiert haben.";
 
-"TestResultPositive_KeysSubmitted_FurtherInfo4" = "Auch wenn Sie keine Symptome (mehr) haben, können Sie ansteckend sein. Bitte halten Sie die angeordnete Quarantänezeit in jedem Fall ein.";
+"TestResultPositive_KeysSubmitted_FurtherInfo4" = "Auch wenn Sie keine Symptome (mehr) haben, können Sie ansteckend sein. Bitte halten Sie die angeordnete Isolationszeit in jedem Fall ein.";
 
 "TestResultPositive_KeysSubmitted_PrimaryButton" = "Test entfernen";
 
@@ -1667,6 +1726,14 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ContactDiary_Overview_PersonEncounter_Setting_Inside" = "drinnen";
 
 "ContactDiary_Overview_LocationVisit_Abbreviation_Hours" = "Std.";
+
+"ContactDiary_Overview_Tests_PCR_Registered" = "PCR-Test registriert";
+
+"ContactDiary_Overview_Tests_Antigen_Done" = "Schnelltest durchgeführt";
+
+"ContactDiary_Overview_Tests_Negative_Result" = "Befund negativ";
+
+"ContactDiary_Overview_Tests_Positive_Result" = "Befund positiv";
 
 /* ActionSheet */
 "ContactDiary_Overview_ActionSheet_InfoActionTitle" = "Informationen";
@@ -1964,6 +2031,8 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Tabbar_Home_Title" = "Startseite";
 
+"Tabbar_Certificates_Title" = "Zertifikate";
+
 "Tabbar_Diary_Title" = "Tagebuch";
 
 "Tabbar_CheckIn_Title" = "Check-in";
@@ -2149,7 +2218,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "Checkins_Overview_QRScanner_Instruction" = "QR-Code scannen und einchecken";
 
-"Checkins_Overview_Item_Prefix_CheckIn" = "Check-In für %@.";
+"Checkins_Overview_Item_Prefix_CheckIn" = "Check-in für %@.";
 
 "Checkins_Overview_Item_Prefix_CheckedOut" = "Checked-Out für %@.";
 
@@ -2222,7 +2291,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TraceLocations_Section_Title_Temporary" = "EVENT";
 
-"TraceLocations_Type_Title_PermanentOther" = "anderer Ort";
+"TraceLocations_Type_Title_PermanentOther" = "Anderer Ort";
 
 "TraceLocations_Type_Title_PermanentRetail" = "Einzelhandel";
 
@@ -2234,7 +2303,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TraceLocations_Type_Title_PermanentEducationalInstitution" = "Bildungsstätte";
 
-"TraceLocations_Type_Title_PermanentPublicBuilding" = "öffentliches Gebäude";
+"TraceLocations_Type_Title_PermanentPublicBuilding" = "Öffentliches Gebäude";
 
 "TraceLocations_Type_Subtitle_PermanentRetail" = "Geschäft, Verkaufsraum";
 
@@ -2248,13 +2317,13 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TraceLocations_Type_Subtitle_PermanentPublicBuilding" = "Bürgeramt, Museum";
 
-"TraceLocations_Type_Title_TemporaryOther" = "anderes Event";
+"TraceLocations_Type_Title_TemporaryOther" = "Anderes Event";
 
 "TraceLocations_Type_Title_TemporaryCulturalEvent" = "Kulturveranstaltung";
 
 "TraceLocations_Type_Title_TemporaryClubActivity" = "Vereinsaktivität";
 
-"TraceLocations_Type_Title_TemporaryPrivateEvent" = "private Feier";
+"TraceLocations_Type_Title_TemporaryPrivateEvent" = "Private Feier";
 
 "TraceLocations_Type_Title_TemporaryWorshipService" = "Gottesdienst";
 
@@ -2400,7 +2469,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "Submission_Checkins_Title" = "Check-ins teilen?";
 
-"Submission_Checkins_Description" = "Teilen Sie Ihre Check-ins, um andere zu warnen, die in Ihrer Nähe waren. Ihre Identität bleibt geheim.";
+"Submission_Checkins_Description" = "Teilen Sie Ihre Check-ins, um andere zu warnen, die mit Ihnen eingecheckt waren. Ihre Identität bleibt geheim.";
 
 "Submission_Checkins_SelectAll" = "Alle auswählen";
 
@@ -2410,7 +2479,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "Submission_Checkins_Alert_Title" = "Sind Sie sicher, dass Sie Ihre Check-ins nicht teilen wollen?";
 
-"Submission_Checkins_Alert_Message" = "Dadurch werden andere nicht gewarnt, die in Ihrer Nähe waren.";
+"Submission_Checkins_Alert_Message" = "Dadurch werden andere nicht gewarnt, die mit Ihnen eingecheckt waren.";
 
 "Submission_Checkins_Alert_Share" = "Teilen";
 
@@ -2420,7 +2489,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "AntigenProfile_Create_Title" = "Schnelltest-Profil";
 
-"AntigenProfile_Create_Description" = "Legen Sie Ihre persönlichen Daten als QR-Code ab, um die Registrierung an der Teststelle zu beschleunigen.";
+"AntigenProfile_Create_Description" = "Legen Sie ein Profil mit Ihren persönlichen Daten an, das Sie per QR-Code bei jeder teilnehmenden Teststelle vorlegen können.";
 
 "AntigenProfile_Create_FirstNamePlaceholder" = "Vorname";
 
@@ -2428,13 +2497,13 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "AntigenProfile_Create_BirthDatePlaceholder" = "Geburtsdatum";
 
-"AntigenProfile_Create_StreetPlaceholder" = "Strasse und Hausnummer";
+"AntigenProfile_Create_StreetPlaceholder" = "Straße und Hausnummer";
 
 "AntigenProfile_Create_PostalCodePlaceholder" = "PLZ";
 
 "AntigenProfile_Create_CityPlaceholder" = "Ort";
 
-"AntigenProfile_Create_PhoneNumberPlaceholder" = "Tel. Nr.";
+"AntigenProfile_Create_PhoneNumberPlaceholder" = "Telefonnummer";
 
 "AntigenProfile_Create_EmailAddressPlaceholder" = "E-Mail-Adresse";
 
@@ -2442,8 +2511,202 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Antigen Profile */
 
-"AntigenProfile_Delete_Alert_Title" = "Wollen Sie das Schnelltest-Profil wirklich entfernen?";
+"AntigenProfile_Delete_Alert_Title" = "Wollen Sie das Schnelltest-Profil entfernen?";
 
 "AntigenProfile_Delete_Alert_Description" = "Bitte denken Sie daran, dass der QR-Code danach nicht mehr zum Registrieren verwendet werden kann.";
 
 "AntigenProfile_Delete_Alert_Delete_Button_Title" = "Entfernen";
+
+/* Health Certificate Overview */
+
+"HealthCertificate_Overview_title" = "Zertifikate";
+
+"HealthCertificate_Overview_description" = "Hier werden Ihre digitalen Impfzertifikate und Testzertifikate angezeigt.";
+
+/* - Vaccination Certificate Registration */
+
+"VaccinationCertificate_Registration_title" = "Digitalen\n**Impfnachweis hinzufügen**";
+
+"VaccinationCertificate_Registration_description" = "Fügen Sie Ihre Impfzertifikate in die App hinzu, um sie immer bei sich zu haben. Scannen Sie dafür den QR-Code Ihres Dokuments.";
+
+/* - Vaccination Certificate */
+
+"VaccinationCertificate_title" = "Digitaler\n**Impfnachweis**";
+
+"VaccinationCertificate_partiallyVaccinated" = "Unvollständiger Impfschutz";
+
+"VaccinationCertificate_vaccinationValidUntil" = "Gültig bis einschließlich %@";
+
+/* - Test Certificate Info */
+
+"TestCertificate_Info_title" = "Digitales\n**COVID-Testzertifikat**";
+
+"TestCertificate_Info_description" = "Registrieren Sie einen Test auf der Startseite und stimmen Sie zu, ein digitales Testzertifikat zu erhalten. Sobald das Zertifikat vorliegt, wird es hier angezeigt.";
+
+/* - Test Certificate */
+
+"TestCertificate_title" = "Digitales\n**COVID-Testzertifikat**";
+
+"TestCertificate_testDate" = "Test durchgeführt am %@";
+
+/* - Test Certificate Request */
+
+"TestCertificateRequest_title" = "Digitales\n**COVID-Testzertifikat**";
+
+"TestCertificateRequest_loadingSubtitle" = "Ihr Zertifikat wird gerade erstellt…";
+
+"TestCertificateRequest_errorSubtitle" = "Fehler bei der Zertifikatsabfrage";
+
+"TestCertificateRequest_registrationDate" = "Registriert am %@";
+
+"TestCertificateRequest_loadingStateDescription" = "Ihr Zertifikat wird gerade angefragt, dies kann einige Minuten dauern…";
+
+"TestCertificateRequest_tryAgainButtonTitle" = "Nochmal versuchen";
+
+"TestCertificateRequest_removeButtonTitle" = "Testzertifikat entfernen";
+
+/* - Test Certificate Request Error Alert */
+
+"TestCertificateRequest_ErrorAlert_title" = "Es gibt weiterhin Probleme bei der Abfrage";
+
+"TestCertificateRequest_ErrorAlert_Button_title" = "OK";
+
+/* - Test Certificate Request Remove Alert */
+
+"TestCertificateRequest_RemoveAlert_title" = "Wollen Sie das Zertifikat wirklich entfernen?";
+
+"TestCertificateRequest_RemoveAlert_message" = "Wenn das Zertifikat enfernt wird, kann es nicht noch einmal angefordert werden.";
+
+"TestCertificateRequest_RemoveAlert_CancelButton_title" = "Abbrechen";
+
+"TestCertificateRequest_RemoveAlert_DeleteButton_title" = "Entfernen";
+
+/* Test Certificate Request Errors */
+
+"TestCertificateRequest_Error_CLIENT_ERROR_CALL_HOTLINE" = "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später noch einmal oder kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline. (%@)";
+
+"TestCertificateRequest_Error_DCC_EXPIRED" = "Das Zertifikat ist nicht mehr aktuell, Sie können es aus der Corona-App entfernen. (%@)";
+
+"TestCertificateRequest_Error_DCC_NOT_SUPPORTED_BY_LAB" = "Ein Testzertifikat kann nicht angefordert werden, da diese Teststelle die Ausstellung von Testzertifikaten nicht unterstützt. Bitte entfernen Sie das Zertifikat oder kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline. (%@)";
+
+"TestCertificateRequest_Error_E2E_ERROR_CALL_HOTLINE" = "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später noch einmal oder kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline. (%@)";
+
+"TestCertificateRequest_Error_NO_NETWORK" = "Ihre Internetverbindung wurde unterbrochen. Bitte prüfen Sie die Verbindung und versuchen Sie es erneut. (%@)";
+
+"TestCertificateRequest_Error_TRY_AGAIN" = "Es konnte keine Verbindung hergestellt werden. Bitte versuchen Sie es erneut. (%@)";
+
+"TestCertificateRequest_Error_TRY_AGAIN_DCC_NOT_AVAILABLE_YET" = "Ihr Zertifikat liegt noch nicht vor. Bitte versuchen Sie es noch einmal. Sollte der Fehler weiterhin bestehen, kontaktieren Sie bitte die technische Hotline über App-Informationen -> Technische Hotline. (%@)";
+
+/* Health Certificate Information */
+
+"HealthCertificate_Info_Title" = "Zertifikate hinzufügen";
+
+"HealthCertificate_Info_imageDescription" = "Eine geschützte Person schaut auf ein Smartphone";
+
+"HealthCertificate_Info_description" = "Fügen Sie ihre digitalen EU COVID-Zertifikate in der App hinzu, um mit der App Ihren Impfschutz oder ein negatives Testergebnis nachweisen zu können.";
+
+"HealthCertificate_Info_section01" = "Sie können EU digitale COVID-Impfzertifikate oder COVID-Testzertifikate in der App hinzufügen.";
+
+"HealthCertificate_Info_section02" = "Die Zertifikate gelten innerhalb der EU als gültiger Nachweis (z.B. für Reisen).";
+
+"HealthCertificate_Info_section03" = "Nach dem Hinzufügen bleiben die Zertifikate auf Ihrem Smartphone. Andere Personen können Ihre Daten nur einsehen, wenn Sie diesen ein Zertifikat zur Überprüfung vorzeigen.";
+
+"HealthCertificate_Info_primaryButton" = "Weiter";
+
+/* QR Scanner */
+
+"HealthCertificate_QRScanner_title" = "QR-Code Scan";
+
+"HealthCertificate_QRScanner_instruction" = "QR-Code scannen und registrieren";
+
+/* Home */
+
+/* Health Certified Person Screen */
+
+"HealthCertifiedPerson_title" = "Digitaler Impfnachweis";
+
+"HealthCertifiedPerson_subtitle" = "SARS-CoV-2-Impfschutz";
+
+"HealthCertifiedPerson_dateOfBirth" = "geboren %@";
+
+"HealthCertifiedPerson_vaccinationCount" = "Impfung %i von %i";
+
+"HealthCertifiedPerson_vaccinationDate" = "durchgeführt am %@";
+
+"HealthCertifiedPerson_QRCode_Image_Description" = "Ein QR-Code mit dem Status Ihrer Impfung";
+
+"HealthCertifiedPerson_primaryButton" = "Weitere Impfung hinzufügen";
+
+/* Vaccination Certificate Details */
+
+"HealthCertificate_Details_vaccinationCount" = "Impfung %i von %i";
+
+"HealthCertificate_Details_certificate" = "Impfzertifikat";
+
+"HealthCertificate_Details_QRCode_Image_Description" = "Ein QR-Code mit Ihrem Zertifikat";
+
+"HealthCertificate_Details_certificateCount" = "Impfzertifikat %i von %i";
+
+"HealthCertificate_Details_validity" = "Geimpft %@ - gültig bis %@";
+
+"HealthCertificate_Details_dateOfBirth" = "geboren %@";
+
+"HealthCertificate_Details_dateOfVaccination" = "Datum der Impfung";
+
+"HealthCertificate_Details_vaccine" = "Impfstoff";
+
+"HealthCertificate_Details_vaccineType" = "Impfstoffart";
+
+"HealthCertificate_Details_manufacture" = "Hersteller";
+
+"HealthCertificate_Details_issuer" = "Aussteller";
+
+"HealthCertificate_Details_country" = "Land";
+
+"HealthCertificate_Details_identifier" = "Zertifikationsnummer";
+
+"HealthCertificate_Details_primaryButton" = "Impfzertifikat entfernen";
+
+/* Vaccination Certificate Delete Alert */
+
+"HealthCertificate_Alert_title" = "Wollen Sie das Impfzertifikat wirklich entfernen?";
+
+"HealthCertificate_Alert_message" = "Wenn Sie das Impfzertifikat entfernen, kann die App die Impfung nicht mehr für die Prüfung Ihres Impfstatus berücksichtigen.";
+
+"HealthCertificate_Alert_deleteButton" = "Entfernen";
+
+"HealthCertificate_Alert_cancelButton" = "Abbrechen";
+
+/* Test Certificate Details */
+
+"TestCertificate_Details_title" = "EU Digitales COVID-Testzertifikat";
+
+"TestCertificate_Details_subtitle" = "negativer SARS-CoV-2-Test";
+
+"TestCertificate_Details_primaryButton" = "Testzertifikat entfernen";
+
+/* Vaccination Certificate Delete Alert */
+
+"TestCertificate_Alert_title" = "Wollen Sie das Testzertifikat wirklich entfernen?";
+
+"TestCertificate_Alert_message" = "Wenn Sie das Testzertifikat entfernen, können Sie es nicht mehr als Nachweis in der App verwenden.";
+
+"TestCertificate_Alert_deleteButton" = "Entfernen";
+
+"TestCertificate_Alert_cancelButton" = "Abbrechen";
+
+/* Health Certificate Errors */
+
+"HealthCertificate_Error_Title" = "Fehler";
+
+"HealthCertificate_Error_PC_TRY_AGAIN_LATER" = "Das Impfzertifikat kann aktuell nicht überprüft werden. Bitte versuchen Sie es später noch einmal.";
+
+"HealthCertificate_Error_VC_ALREADY_REGISTERED" = "Das Impfzertifikat ist bereits in Ihrer App registriert.";
+
+"HealthCertificate_Error_VC_DIFFERENT_PERSON" = "Die persönlichen Daten dieses Impfzertifikats stimmen nicht mit denen der bereits registrierten Zertifikate überein. Sie können in der App nur Zertifikate einer Person registrieren.";
+
+"HealthCertificate_Error_VC_INVALID" = "Dieser QR-Code ist kein gültiges Impfzertifikat.";
+
+"HealthCertificate_Error_VC_NOT_YET_SUPPORTED" = "Dieses Impfzertifikat wird in Ihrer App-Version noch nicht unterstützt. Bitte aktualisieren Sie Ihre App oder wenden Sie sich an die technische Hotline unter „App-Informationen“.";
+
+"HealthCertificate_Error_VC_SCAN_AGAIN" = "Das Impfzertifikat konnte nicht auf Ihrem Smartphone gespeichert werden. Bitte versuchen Sie es später noch einmal oder wenden Sie sich an die technische Hotline unter „App-Informationen“.";
