@@ -2462,6 +2462,10 @@
 /* Health Certificate Errors */
 "HealthCertificate_Error_Title" = "Hata";
 
+"HealthCertificate_Error_FAQ_Description" = "\n\nAşı sertifikanızı nasıl alacağınız hakkında daha fazla bilgi için lütfen SSS sayfamıza bakın.";
+
+"HealthCertificate_Error_FAQ_Button_Title" = "Aşı Sertifikaları için SSS";
+
 "HealthCertificate_Error_PC_TRY_AGAIN_LATER" = "Aşı sertifikası şu anda doğrulanamıyor. Lütfen daha sonra yeniden deneyin.";
 
 "HealthCertificate_Error_VC_ALREADY_REGISTERED" = "Aşı sertifikası zaten uygulamanıza kaydedilmiş.";

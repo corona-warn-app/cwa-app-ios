@@ -2462,6 +2462,10 @@
 /* Health Certificate Errors */
 "HealthCertificate_Error_Title" = "Eroare";
 
+"HealthCertificate_Error_FAQ_Description" = "\n\nPentru mai multe informații despre modul în care puteți primi certificatul dvs. de vaccinare, consultați pagina noastră de întrebări frecvente.";
+
+"HealthCertificate_Error_FAQ_Button_Title" = "Întrebări frecvente privind certificatele de vaccinare";
+
 "HealthCertificate_Error_PC_TRY_AGAIN_LATER" = "Certificatul de vaccinare nu poate fi verificat chiar acum. Încercați din nou mai târziu.";
 
 "HealthCertificate_Error_VC_ALREADY_REGISTERED" = "Certificatul de vaccinare este deja înregistrat în aplicația dvs.";

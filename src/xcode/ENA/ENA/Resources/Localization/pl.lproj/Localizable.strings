@@ -2462,6 +2462,10 @@
 /* Health Certificate Errors */
 "HealthCertificate_Error_Title" = "Błąd";
 
+"HealthCertificate_Error_FAQ_Description" = "\n\nWięcej informacji na temat tego, jak otrzymać swoje świadectwo szczepienia, znajduje się na naszej stronie „Często zadawane pytania”.";
+
+"HealthCertificate_Error_FAQ_Button_Title" = "Często zadawane pytania na temat świadectw szczepień";
+
 "HealthCertificate_Error_PC_TRY_AGAIN_LATER" = "W tej chwili nie można zweryfikować świadectwa szczepienia. Spróbuj ponownie później.";
 
 "HealthCertificate_Error_VC_ALREADY_REGISTERED" = "Świadectwo szczepienia jest już zarejestrowane w Twojej aplikacji.";
