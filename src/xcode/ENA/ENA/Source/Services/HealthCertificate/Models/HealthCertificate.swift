@@ -72,6 +72,10 @@ struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable 
 		return ISO8601DateFormatter.justLocalDateFormatter.date(from: digitalGreenCertificate.dateOfBirth)
 	}
 
+	var uniqueCertificateIdentifier: String? {
+		vaccinationEntry?.uniqueCertificateIdentifier ?? testEntry?.uniqueCertificateIdentifier
+	}
+
 	var vaccinationEntry: VaccinationEntry? {
 		let vaccinationCertificates = digitalGreenCertificate.vaccinationEntries ?? []
 
