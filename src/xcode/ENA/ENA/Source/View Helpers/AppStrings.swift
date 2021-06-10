@@ -41,6 +41,7 @@ enum AppStrings {
 		static let appFaqENError13 = NSLocalizedString("General_moreInfo_URL_EN13", tableName: "Localizable.links", comment: "")
 		static let exposureDetectionFAQ = NSLocalizedString("ExposureDetection_high_faq_URL", tableName: "Localizable.links", comment: "")
 		static let healthCertificateFAQ = NSLocalizedString("HealthCertificate_Info_register_FAQLink", tableName: "Localizable.links", comment: "")
+		static let healthCertificateErrorFAQ = NSLocalizedString("HealthCertificate_Error_FAQ_Link", tableName: "Localizable.links", comment: "")
 	}
 
 	enum QuickActions {
@@ -1878,6 +1879,8 @@ enum AppStrings {
 
 		enum Error {
 			static let title = NSLocalizedString("HealthCertificate_Error_Title", comment: "")
+			static let faqDescription = NSLocalizedString("HealthCertificate_Error_FAQ_Description", comment: "")
+			static let faqButtonTitle = NSLocalizedString("HealthCertificate_Error_FAQ_Button_Title", comment: "")
 			static let pcTryAgainLater = NSLocalizedString("HealthCertificate_Error_PC_TRY_AGAIN_LATER", comment: "")
 			static let vcAlreadyRegistered = NSLocalizedString("HealthCertificate_Error_VC_ALREADY_REGISTERED", comment: "")
 			static let vcDifferentPerson = NSLocalizedString("HealthCertificate_Error_VC_DIFFERENT_PERSON", comment: "")
