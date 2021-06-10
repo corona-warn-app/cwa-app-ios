@@ -855,9 +855,9 @@
 
 "ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Your test result is private, although some laws may require you to share it. When required, you may show it via any of the ways provided.";
 
-"ExposureSubmissionResult_Negative_Antigen_NoProof_Title" = "No Verification Feature";
+"ExposureSubmissionResult_Negative_Antigen_NoProof_Title" = " ";
 
-"ExposureSubmissionResult_Negative_Antigen_NoProof_Desc" = "Because the finding here is anonymized, it cannot be used as proof of a negative rapid test result.";
+"ExposureSubmissionResult_Negative_Antigen_NoProof_Desc" = "Your test result is private, although some laws may require you to share it. When required, you may show it via any of the ways provided.";
 
 /* Exposure Submission */
 "ExposureSubmissionError_ErrorPrefix" = "A technical error occurred while sending your data. Please contact the technical hotline. You will find the phone number under App Information.";
