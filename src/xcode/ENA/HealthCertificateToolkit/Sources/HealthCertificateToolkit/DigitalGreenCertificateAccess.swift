@@ -72,14 +72,14 @@ public struct DigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtoc
         }
 
         // Add prefix
-        let prefixedBase45CBORWebToken = hcPrefix+base45CBORWebToken
+        let prefixedBase45CBORWebToken = hcPrefix + base45CBORWebToken
 
         return .success(prefixedBase45CBORWebToken)
     }
 
     // MARK: - Internal
 
-    func decryptAndComposeToWebToken(from base64: Base64, dataEncryptionKey: Data) -> Result<CBOR, CertificateDecodingError>{
+    func decryptAndComposeToWebToken(from base64: Base64, dataEncryptionKey: Data) -> Result<CBOR, CertificateDecodingError> {
         guard let cborData = Data(base64Encoded: base64) else {
             return .failure(.HC_BASE45_DECODING_FAILED(nil))
         }
@@ -286,7 +286,7 @@ public struct DigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtoc
     }
 
     /// More information about the CBOR Web Token (CWT) https://datatracker.ietf.org/doc/html/rfc8392
-    private func decodeCBORWebTokenPayload(from cborData: CBORData) -> Result<CBOR, CertificateDecodingError>  {
+    private func decodeCBORWebTokenPayload(from cborData: CBORData) -> Result<CBOR, CertificateDecodingError> {
         let result = decodeCBORWebTokenEntries(from: cborData)
 
         if case let .failure(error) = result {
@@ -316,7 +316,7 @@ public struct DigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtoc
         return .success(payload)
     }
 
-    private func decodeCBORWebTokenEntries(from cborData: CBORData) -> Result<[CBOR], CertificateDecodingError>  {
+    private func decodeCBORWebTokenEntries(from cborData: CBORData) -> Result<[CBOR], CertificateDecodingError> {
         let cborDecoder = CBORDecoder(input: [UInt8](cborData))
 
         let _cborPayload: CBOR?

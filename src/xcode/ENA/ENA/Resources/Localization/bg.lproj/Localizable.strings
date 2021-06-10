@@ -851,9 +851,13 @@
 
 "ExposureSubmissionResult_Timer_Title" = "Резултатът ще е достъпен след";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Title" = " ";
+"ExposureSubmissionResult_Negative_Antigen_Proof_Title" = "Функция за проверка";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Резултатът от Вашия тест е поверителен и не сте задължени да го споделяте. В случаите, когато това се изисква по закон, можете да да използвате който и да е от предоставените начини.";
+"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Можете да използвате резултата, който се показва тук, като доказателство за отрицателен резултат от бърз тест.\n\nМоля, имайте предвид, че трябва да представите доказателство за резултата от Вашия бърз тест единствено ако законът изисква това. Можете да покажете резултата си чрез приложението или по друг начин. За повече информация, моля запознайте се с критериите за приемане на доказателства за тестване във Вашата федерална провинция.";
+
+"ExposureSubmissionResult_Negative_Antigen_NoProof_Title" = "Без функция за проверка";
+
+"ExposureSubmissionResult_Negative_Antigen_NoProof_Desc" = "Тъй като показаният тук резултат е анонимизиран, той не може да се използва като доказателство за отрицателен резултат от бърз тест.";
 
 "ExposureSubmissionResult_Negative_Antigen_NoProof_Title" = "Без функция за проверка";
 
