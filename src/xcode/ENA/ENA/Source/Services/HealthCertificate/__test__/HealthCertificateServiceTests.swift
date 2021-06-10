@@ -54,6 +54,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		subscription.cancel()
 	}
 
+	// swiftlint:disable:next cyclomatic_complexity
 	func testRegisteringCertificates() throws {
 		let store = MockTestStore()
 
