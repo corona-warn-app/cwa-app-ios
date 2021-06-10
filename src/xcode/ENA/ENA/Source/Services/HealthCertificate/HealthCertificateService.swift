@@ -301,18 +301,18 @@ class HealthCertificateService {
 		}
 	}
 
-	func updatePublishersFromStore() {
-		Log.info("[HealthCertificateService] Updating publishers from store", log: .api)
-
-		healthCertifiedPersons.value = store.healthCertifiedPersons
-		testCertificateRequests.value = store.testCertificateRequests
-	}
-
 	func remove(testCertificateRequest: TestCertificateRequest) {
 		testCertificateRequest.rsaKeyPair?.removeFromKeychain()
 		if let index = testCertificateRequests.value.firstIndex(of: testCertificateRequest) {
 			testCertificateRequests.value.remove(at: index)
 		}
+	}
+
+	func updatePublishersFromStore() {
+		Log.info("[HealthCertificateService] Updating publishers from store", log: .api)
+
+		healthCertifiedPersons.value = store.healthCertifiedPersons
+		testCertificateRequests.value = store.testCertificateRequests
 	}
 
 	// MARK: - Private
