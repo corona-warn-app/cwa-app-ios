@@ -851,9 +851,13 @@
 
 "ExposureSubmissionResult_Timer_Title" = "Rezultat disponibil de la";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Title" = " ";
+"ExposureSubmissionResult_Negative_Antigen_Proof_Title" = "Caracteristica de verificare";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Rezultatul testului dvs. este privat, deși unele legi vă pot solicita să îl partajați. Când vi se solicită acest lucru, îl puteți arăta prin intermediul unuia dintre modurile furnizate.";
+"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Puteți utiliza rezultatul afișat aici ca dovadă a unui rezultat de test rapid negativ.\n\nRețineți că trebuie să faceți dovada rezultatului testului rapid doar dacă acest lucru este cerut prin lege. Când este necesar, îl puteți afișa prin intermediul aplicației sau în oricare dintre modurile prevăzute. Pentru mai multe informații, familiarizați-vă cu criteriile de acceptare a dovezii testării în statul dvs. federal.";
+
+"ExposureSubmissionResult_Negative_Antigen_NoProof_Title" = "Caracteristica fără verificare";
+
+"ExposureSubmissionResult_Negative_Antigen_NoProof_Desc" = "Deoarece rezultatul de aici este anonimizat, nu poate fi utilizat ca dovadă a unui rezultat de test rapid negativ.";
 
 "ExposureSubmissionResult_Negative_Antigen_NoProof_Title" = "Caracteristica fără verificare";
 

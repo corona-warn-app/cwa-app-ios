@@ -25,10 +25,10 @@ public struct DigitalGreenCertificate: Codable, Equatable {
     public let vaccinationEntries: [VaccinationEntry]?
     public let testEntries: [TestEntry]?
 
-    static func fake(
+    public static func fake(
         version: String = "0.0.0",
         name: Name = .fake(),
-        dateOfBirth: String = "01.01.1942",
+        dateOfBirth: String = "1942-01-01",
         vaccinationEntries: [VaccinationEntry]? = nil,
         testEntries: [TestEntry]? = nil
     ) -> DigitalGreenCertificate {
@@ -74,7 +74,7 @@ public struct VaccinationEntry: Codable, Equatable {
     public let certificateIssuer: String
     public let uniqueCertificateIdentifier: String
 
-    static func fake(
+    public static func fake(
         diseaseOrAgentTargeted: String = "840539006",
         vaccineOrProphylaxis: String = "1119349007",
         vaccineMedicinalProduct: String = "EU/1/20/1528",
@@ -163,7 +163,7 @@ public struct TestEntry: Codable, Equatable {
     public let certificateIssuer: String
     public let uniqueCertificateIdentifier: String
 
-    static func fake(
+    public static func fake(
         diseaseOrAgentTargeted: String = "840539006",
         typeOfTest: String = "LP6464-4",
         testResult: String = "260415000",
