@@ -7,7 +7,7 @@ import XCTest
 import SwiftCBOR
 @testable import HealthCertificateToolkit
 
-final class DigitalGreenCertificateAccessTests: CWATestCase {
+final class DigitalGreenCertificateAccessTests: XCTest {
 
     func test_When_DecodeSucceeds_Then_CorrectCertificateIsReturned() {
         let certificateAccess = DigitalGreenCertificateAccess()
