@@ -116,12 +116,10 @@ class TraceLocationsCoordinator {
 				}
 			),
 			onDismiss: { [weak self] didConsent in
-				guard let self = self else {
-					return
-				}
-				self.infoScreenShown = didConsent
-				if !alreadyDidConsentOnce && !didConsent {
-					self.parentNavigationController?.popViewController(animated: false)
+				self?.infoScreenShown = didConsent
+
+				if !(alreadyDidConsentOnce || didConsent) {
+					self?.parentNavigationController?.popViewController(animated: false)
 				}
 				navigationController.dismiss(animated: true, completion: nil)
 			}
