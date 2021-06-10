@@ -205,6 +205,102 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertEqual(store.healthCertifiedPersons.last?.healthCertificates, [thirdTestCertificate, secondVaccinationCertificate])
 	}
 
+	func testLoadingCertificatesFromStoreAndRemovingCertificates() throws {
+		let store = MockTestStore()
+
+		let service = HealthCertificateService(
+			store: store,
+			client: ClientMock(),
+			appConfiguration: CachedAppConfigurationMock()
+		)
+
+		let healthCertificate1 = try HealthCertificate(
+			base45: try base45Fake(from: DigitalGreenCertificate.fake(
+				name: .fake(standardizedFamilyName: "MUSTERMANN", standardizedGivenName: "PHILIPP"),
+				testEntries: [TestEntry.fake(
+					dateTimeOfSampleCollection: "2021-04-30T22:34:17.595Z",
+					uniqueCertificateIdentifier: "0"
+				)]
+			))
+		)
+
+		let healthCertificate2 = try HealthCertificate(
+			base45: try base45Fake(from: DigitalGreenCertificate.fake(
+				name: .fake(standardizedFamilyName: "MUSTERMANN", standardizedGivenName: "PHILIPP"),
+				vaccinationEntries: [VaccinationEntry.fake(
+					dateOfVaccination: "2021-05-14",
+					uniqueCertificateIdentifier: "3"
+				)]
+			))
+		)
+
+		let healthCertificate3 = try HealthCertificate(
+			base45: try base45Fake(from: DigitalGreenCertificate.fake(
+				name: .fake(standardizedFamilyName: "MUSTERMANN", standardizedGivenName: "DORA"),
+				testEntries: [TestEntry.fake(
+					dateTimeOfSampleCollection: "2021-05-16T22:34:17.595Z",
+					uniqueCertificateIdentifier: "2"
+				)]
+			))
+		)
+
+		store.healthCertifiedPersons = [
+			HealthCertifiedPerson(healthCertificates: [
+				healthCertificate1, healthCertificate2
+			]),
+			HealthCertifiedPerson(healthCertificates: [
+				healthCertificate3
+			])
+		]
+
+		XCTAssertTrue(service.healthCertifiedPersons.value.isEmpty)
+
+		// Loading certificates from the store
+
+		service.updatePublishersFromStore()
+
+		XCTAssertEqual(service.healthCertifiedPersons.value, [
+			HealthCertifiedPerson(healthCertificates: [
+				healthCertificate1, healthCertificate2
+			]),
+			HealthCertifiedPerson(healthCertificates: [
+				healthCertificate3
+			])
+		])
+		XCTAssertEqual(service.healthCertifiedPersons.value, store.healthCertifiedPersons)
+
+		// Removing one of multiple certificates
+
+		service.removeHealthCertificate(healthCertificate2)
+
+		XCTAssertEqual(service.healthCertifiedPersons.value, [
+			HealthCertifiedPerson(healthCertificates: [
+				healthCertificate1
+			]),
+			HealthCertifiedPerson(healthCertificates: [
+				healthCertificate3
+			])
+		])
+		XCTAssertEqual(service.healthCertifiedPersons.value, store.healthCertifiedPersons)
+
+		// Removing last certificate of a person
+
+		service.removeHealthCertificate(healthCertificate1)
+
+		XCTAssertEqual(service.healthCertifiedPersons.value, [
+			HealthCertifiedPerson(healthCertificates: [
+				healthCertificate3
+			])
+		])
+		XCTAssertEqual(service.healthCertifiedPersons.value, store.healthCertifiedPersons)
+
+		// Removing last certificate of last person
+
+		service.removeHealthCertificate(healthCertificate3)
+
+		XCTAssertTrue(service.healthCertifiedPersons.value.isEmpty)
+	}
+
 	// MARK: - Private
 
 	enum Base45FakeError: Error {
