@@ -36,6 +36,8 @@ class HomeHealthCertifiedPersonCellModel {
 				DateFormatter.localizedString(from: expirationDate, dateStyle: .medium, timeStyle: .none)
 			)
 		}
+
+		accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Overview.vaccinationCertificateCell
 	}
 
 	init(
@@ -55,6 +57,8 @@ class HomeHealthCertifiedPersonCellModel {
 		} else {
 			description = nil
 		}
+
+		accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Overview.testCertificateRequestCell
 	}
 	
 	// MARK: - Internal
@@ -65,5 +69,5 @@ class HomeHealthCertifiedPersonCellModel {
 	var iconImage: UIImage?
 	var name: String?
 	var description: String?
-
+	var accessibilityIdentifier: String?
 }

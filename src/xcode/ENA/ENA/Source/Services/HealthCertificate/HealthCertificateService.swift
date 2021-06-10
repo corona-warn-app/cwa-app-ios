@@ -6,6 +6,7 @@ import UIKit
 import OpenCombine
 import HealthCertificateToolkit
 
+// swiftlint:disable:next type_body_length
 class HealthCertificateService {
 
 	// MARK: - Init
@@ -15,6 +16,7 @@ class HealthCertificateService {
 		client: Client,
 		appConfiguration: AppConfigurationProviding
 	) {
+
 		#if DEBUG
 		if isUITesting {
 			self.store = MockTestStore()
@@ -29,6 +31,18 @@ class HealthCertificateService {
 			} else if LaunchArguments.healthCertificate.firstAndSecondHealthCertificate.boolValue {
 				registerVaccinationCertificate(base45: HealthCertificate.firstBase45Mock)
 				registerVaccinationCertificate(base45: HealthCertificate.lastBase45Mock)
+			}
+
+			if LaunchArguments.healthCertificate.testCertificateRegistered.boolValue {
+				let result = DigitalGreenCertificateFake.makeBase45Fake(
+					from: DigitalGreenCertificate.fake(
+						testEntries: [TestEntry.fake()]
+					),
+					and: CBORWebTokenHeader.fake()
+				)
+				if case let .success(base45) = result {
+					registerHealthCertificate(base45: base45)
+				}
 			}
 
 			return
@@ -118,6 +132,7 @@ class HealthCertificateService {
 					$0.testEntry?.uniqueCertificateIdentifier == healthCertificate.testEntry?.uniqueCertificateIdentifier
 				})
 			if isDuplicate {
+				Log.error("[HealthCertificateService] Registering health certificate failed: .certificateAlreadyRegistered", log: .api)
 				return .failure(.certificateAlreadyRegistered)
 			}
 
@@ -125,11 +140,15 @@ class HealthCertificateService {
 			healthCertifiedPerson.healthCertificates.sort(by: <)
 
 			if !healthCertifiedPersons.value.contains(healthCertifiedPerson) {
+				Log.info("[HealthCertificateService] Successfully registered health certificate for a new person", log: .api)
 				healthCertifiedPersons.value.append(healthCertifiedPerson)
+			} else {
+				Log.info("[HealthCertificateService] Successfully registered health certificate for a person with other existing certificates", log: .api)
 			}
 
 			return .success((healthCertifiedPerson))
 		} catch let error as CertificateDecodingError {
+			Log.error("[HealthCertificateService] Registering health certificate failed with .decodingError: \(error.localizedDescription)", log: .api)
 			return .failure(.decodingError(error))
 		} catch {
 			return .failure(.other(error))
@@ -141,8 +160,12 @@ class HealthCertificateService {
 			if let index = healthCertifiedPerson.healthCertificates.firstIndex(of: healthCertificate) {
 				healthCertifiedPerson.healthCertificates.remove(at: index)
 
+				Log.info("[HealthCertificateService] Removed health certificate at index \(index)", log: .api)
+
 				if healthCertifiedPerson.healthCertificates.isEmpty {
 					healthCertifiedPersons.value.removeAll(where: { $0 == healthCertifiedPerson })
+
+					Log.info("[HealthCertificateService] Removed health certified person", log: .api)
 				}
 
 				break
@@ -156,10 +179,10 @@ class HealthCertificateService {
 		registrationDate: Date,
 		retryExecutionIfCertificateIsPending: Bool
 	) {
-		Log.info("[HealthCertificateService] Registering test certificate request: (coronaTestType: \(coronaTestType), registrationToken: \(private: registrationToken), registrationDate: \(registrationDate))", log: .api)
+		Log.info("[HealthCertificateService] Registering test certificate request: (coronaTestType: \(coronaTestType), registrationToken: \(private: registrationToken), registrationDate: \(registrationDate), retryExecutionIfCertificateIsPending: \(retryExecutionIfCertificateIsPending)", log: .api)
 
 		if testCertificateRequests.value.contains(where: { $0.registrationToken == registrationToken }) {
-			Log.info("[HealthCertificateService] Test certificate request (coronaTestType: \(coronaTestType), registrationToken: \(private: registrationToken), registrationDate: \(registrationDate)) already registered", log: .api)
+			Log.error("[HealthCertificateService] Test certificate request (coronaTestType: \(coronaTestType), registrationToken: \(private: registrationToken), registrationDate: \(registrationDate)) already registered", log: .api)
 			return
 		}
 
@@ -181,6 +204,7 @@ class HealthCertificateService {
 		retryIfCertificateIsPending: Bool,
 		completion: ((Result<Void, HealthCertificateServiceError.TestCertificateRequestError>) -> Void)? = nil
 	) {
+		Log.info("[HealthCertificateService] Executing test certificate request: \(private: testCertificateRequest)", log: .api)
 		testCertificateRequest.isLoading = true
 
 		do {
@@ -205,7 +229,11 @@ class HealthCertificateService {
 						waitForRetryInSeconds = 10
 					}
 
+					Log.info("[HealthCertificateService] waitAfterPublicKeyRegistrationInSeconds: \(waitAfterPublicKeyRegistrationInSeconds), waitForRetryInSeconds: \(waitForRetryInSeconds)", log: .api)
+
 					if !testCertificateRequest.rsaPublicKeyRegistered {
+						Log.info("[HealthCertificateService] Registering public key …", log: .api)
+
 						self.client.dccRegisterPublicKey(
 							isFake: false,
 							token: testCertificateRequest.registrationToken,
@@ -213,6 +241,8 @@ class HealthCertificateService {
 							completion: { result in
 								switch result {
 								case .success:
+									Log.info("[HealthCertificateService] Public key successfully registered", log: .api)
+
 									testCertificateRequest.rsaPublicKeyRegistered = true
 									DispatchQueue.global().asyncAfter(deadline: .now() + waitAfterPublicKeyRegistrationInSeconds) {
 										self.requestDigitalCovidCertificate(
@@ -224,6 +254,8 @@ class HealthCertificateService {
 										)
 									}
 								case .failure(let registrationError) where registrationError == .tokenAlreadyAssigned:
+									Log.info("[HealthCertificateService] Public key was already registered.", log: .api)
+
 									testCertificateRequest.rsaPublicKeyRegistered = true
 									testCertificateRequest.isLoading = false
 									self.requestDigitalCovidCertificate(
@@ -234,6 +266,8 @@ class HealthCertificateService {
 										completion: completion
 									)
 								case .failure(let registrationError):
+									Log.error("[HealthCertificateService] Public key registration failed: \(registrationError.localizedDescription)", log: .api)
+
 									testCertificateRequest.requestExecutionFailed = true
 									testCertificateRequest.isLoading = false
 									completion?(.failure(.publicKeyRegistrationFailed(registrationError)))
@@ -241,6 +275,8 @@ class HealthCertificateService {
 							}
 						)
 					} else if testCertificateRequest.encryptedDEK == nil || testCertificateRequest.encryptedCOSE == nil {
+						Log.info("[HealthCertificateService] Public key already registered, immediately requesting certificate.", log: .api)
+
 						self.requestDigitalCovidCertificate(
 							for: testCertificateRequest,
 							rsaKeyPair: rsaKeyPair,
@@ -251,11 +287,15 @@ class HealthCertificateService {
 					}
 				}
 				.store(in: &subscriptions)
-		} catch let error as HealthCertificateServiceError.TestCertificateRequestError {
+		} catch let error as DCCRSAKeyPairError {
+			Log.error("[HealthCertificateService] Key pair error occured: \(error.localizedDescription)", log: .api)
+
 			testCertificateRequest.requestExecutionFailed = true
 			testCertificateRequest.isLoading = false
-			completion?(.failure(.other(error)))
+			completion?(.failure(.rsaKeyPairGenerationFailed(error)))
 		} catch {
+			Log.error("[HealthCertificateService] Error occured: \(error.localizedDescription)", log: .api)
+
 			testCertificateRequest.requestExecutionFailed = true
 			testCertificateRequest.isLoading = false
 			completion?(.failure(.other(error)))
@@ -352,12 +392,16 @@ class HealthCertificateService {
 		waitForRetryInSeconds: TimeInterval,
 		completion: ((Result<Void, HealthCertificateServiceError.TestCertificateRequestError>) -> Void)?
 	) {
+		Log.info("[HealthCertificateService] Requesting certificate…", log: .api)
+
 		client.getDigitalCovid19Certificate(
 			registrationToken: testCertificateRequest.registrationToken,
 			isFake: false
 		) { [weak self] result in
 			switch result {
 			case .success(let dccResponse):
+				Log.info("[HealthCertificateService] Certificate request succeeded", log: .api)
+
 				self?.assembleDigitalCovidCertificate(
 					for: testCertificateRequest,
 					rsaKeyPair: rsaKeyPair,
@@ -367,6 +411,8 @@ class HealthCertificateService {
 				)
 			case .failure(let error) where error == .dccPending && retryIfCertificateIsPending:
 				DispatchQueue.global().asyncAfter(deadline: .now() + waitForRetryInSeconds) {
+					Log.info("[HealthCertificateService] Certificate request failed with .dccPending, retrying.", log: .api)
+
 					self?.requestDigitalCovidCertificate(
 						for: testCertificateRequest,
 						rsaKeyPair: rsaKeyPair,
@@ -376,6 +422,8 @@ class HealthCertificateService {
 					)
 				}
 			case .failure(let error):
+				Log.error("[HealthCertificateService] Certificate request failed with error \(error.localizedDescription)", log: .api)
+
 				testCertificateRequest.requestExecutionFailed = true
 				testCertificateRequest.isLoading = false
 				completion?(.failure(.certificateRequestFailed(error)))
@@ -390,7 +438,11 @@ class HealthCertificateService {
 		encryptedCOSE: String,
 		completion: ((Result<Void, HealthCertificateServiceError.TestCertificateRequestError>) -> Void)?
 	) {
+		Log.info("[HealthCertificateService] Assembling certificate…", log: .api)
+
 		guard let encryptedDEKData = Data(base64Encoded: encryptedDEK) else {
+			Log.error("[HealthCertificateService] Assembling certificate failed: base64 decoding failed", log: .api)
+
 			testCertificateRequest.requestExecutionFailed = true
 			completion?(.failure(.base64DecodingFailed))
 			return
@@ -402,14 +454,20 @@ class HealthCertificateService {
 
 			switch result {
 			case .success(let healthCertificateBase45):
+				Log.info("[HealthCertificateService] Certificate assembly succeeded", log: .api)
+
 				registerHealthCertificate(base45: healthCertificateBase45)
 				remove(testCertificateRequest: testCertificateRequest)
 				completion?(.success(()))
 			case .failure(let error):
+				Log.error("[HealthCertificateService] Assembling certificate failed: Conversion failed: \(error.localizedDescription)", log: .api)
+
 				testCertificateRequest.requestExecutionFailed = true
 				completion?(.failure(.assemblyFailed(error)))
 			}
 		} catch {
+			Log.error("[HealthCertificateService] Assembling certificate failed: DEK decryption failed: \(error.localizedDescription)", log: .api)
+
 			testCertificateRequest.requestExecutionFailed = true
 			completion?(.failure(.decryptionFailed(error)))
 		}
