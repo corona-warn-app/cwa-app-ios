@@ -1059,6 +1059,7 @@
 		BAC939D2261F5389008BECED /* TestOverwriteNoticeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC939D1261F5389008BECED /* TestOverwriteNoticeViewModel.swift */; };
 		BAC939D8261F5D08008BECED /* DismissHandlingNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC939D7261F5D08008BECED /* DismissHandlingNavigationController.swift */; };
 		BACBA7072672504200B304D0 /* TestCertificateRequestCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACBA7062672504200B304D0 /* TestCertificateRequestCellModelTests.swift */; };
+		BACBA7092672566F00B304D0 /* TestCertificateInfoCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACBA7082672566F00B304D0 /* TestCertificateInfoCellModelTests.swift */; };
 		BACCCC7525ADB9FD00195AC3 /* RiskLegendeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACCCC7425ADB9FD00195AC3 /* RiskLegendeTest.swift */; };
 		BACD176B2624978200104AD9 /* TestOverwriteNoticeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACD176A2624978200104AD9 /* TestOverwriteNoticeViewModelTests.swift */; };
 		BACD671725B7002F00BAF5D0 /* RiskCalculationResultTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACD671625B7002F00BAF5D0 /* RiskCalculationResultTests.swift */; };
@@ -2293,6 +2294,7 @@
 		BAC939D1261F5389008BECED /* TestOverwriteNoticeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestOverwriteNoticeViewModel.swift; sourceTree = "<group>"; };
 		BAC939D7261F5D08008BECED /* DismissHandlingNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissHandlingNavigationController.swift; sourceTree = "<group>"; };
 		BACBA7062672504200B304D0 /* TestCertificateRequestCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCertificateRequestCellModelTests.swift; sourceTree = "<group>"; };
+		BACBA7082672566F00B304D0 /* TestCertificateInfoCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCertificateInfoCellModelTests.swift; sourceTree = "<group>"; };
 		BACCCC7425ADB9FD00195AC3 /* RiskLegendeTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskLegendeTest.swift; sourceTree = "<group>"; };
 		BACD176A2624978200104AD9 /* TestOverwriteNoticeViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestOverwriteNoticeViewModelTests.swift; sourceTree = "<group>"; };
 		BACD671625B7002F00BAF5D0 /* RiskCalculationResultTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskCalculationResultTests.swift; sourceTree = "<group>"; };
@@ -6634,6 +6636,7 @@
 			isa = PBXGroup;
 			children = (
 				BACBA7062672504200B304D0 /* TestCertificateRequestCellModelTests.swift */,
+				BACBA7082672566F00B304D0 /* TestCertificateInfoCellModelTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -8196,6 +8199,7 @@
 				010B3D3B25A8667C00EB44AB /* ExposureDetectionViewModelTests.swift in Sources */,
 				01DDF44A2657B0460043B4E1 /* Locale+SupportedLanguageTests.swift in Sources */,
 				AB68881E25DA734100907465 /* ContactDiaryAccess.swift in Sources */,
+				BACBA7092672566F00B304D0 /* TestCertificateInfoCellModelTests.swift in Sources */,
 				01A6C30E2626DE8200B6E95A /* HomeTestRegistrationCellModelTests.swift in Sources */,
 				016961B32549649900FF92E3 /* ExposureSubmissionTestResultViewModelTests.swift in Sources */,
 				015692E424B48C3F0033F35E /* TimeInterval+Convenience.swift in Sources */,
