@@ -27,18 +27,29 @@ class HealthCertificateServiceTests: CWATestCase {
 				healthCertifiedPersonsExpectation.fulfill()
 			}
 
-		let result = service.registerVaccinationCertificate(base45: HealthCertificate.mockBase45)
+		let testCertificateBase45 = try base45Fake(
+			from: DigitalGreenCertificate.fake(
+				name: .fake(standardizedFamilyName: "GUENDLING", standardizedGivenName: "NICK"),
+				testEntries: [TestEntry.fake(
+					dateTimeOfSampleCollection: "2021-05-29T22:34:17.595Z",
+					uniqueCertificateIdentifier: "0"
+				)]
+			)
+		)
+		let testCertificate = try HealthCertificate(base45: testCertificateBase45)
+
+		let result = service.registerHealthCertificate(base45: testCertificateBase45)
 
 		switch result {
 		case.success(let healthCertifiedPerson):
-			XCTAssertEqual(healthCertifiedPerson.healthCertificates, [HealthCertificate.mock()])
+			XCTAssertEqual(healthCertifiedPerson.healthCertificates, [testCertificate])
 		case .failure:
 			XCTFail("Registration should succeed")
 		}
 
 		waitForExpectations(timeout: .short)
 
-		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [HealthCertificate.mock()])
+		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [testCertificate])
 
 		subscription.cancel()
 	}
