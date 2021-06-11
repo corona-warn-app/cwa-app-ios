@@ -46,7 +46,6 @@ class HealthCertificateTests: XCTestCase {
 		
 		let expectedError = CertificateDecodingError.HC_COSE_MESSAGE_INVALID
 
-
 		// WHEN
 		var healthCertificate: HealthCertificate?
 		var error: CertificateDecodingError?
