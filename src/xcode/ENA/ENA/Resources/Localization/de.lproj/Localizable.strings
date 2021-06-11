@@ -1905,6 +1905,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Card_Million" = "%@ Mio.";
 
+/* - General Card Texts */
+
+"Statistics_Card_From_Nationwide" = "Bundesweit";
+"Statistics_Card_From_CWA" = "über die Corona-Warn-App";
+
 /* - Infections Card */
 
 "Statistics_Card_Infections_Title" = "Bestätigte Neuinfektionen";

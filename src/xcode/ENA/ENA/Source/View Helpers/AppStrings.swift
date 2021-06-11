@@ -1362,8 +1362,8 @@ enum AppStrings {
 		static let percent = NSLocalizedString("Statistics_Card_Percent", comment: "")
 
 		enum Card {
-			static let fromNationWide = NSLocalizedString("Statistics_Card_KeySubmissions_From_Nationwide", comment: "")
-			static let fromCWA = NSLocalizedString("Statistics_Card_KeySubmissions_From_CWA", comment: "")
+			static let fromNationWide = NSLocalizedString("Statistics_Card_From_Nationwide", comment: "")
+			static let fromCWA = NSLocalizedString("Statistics_Card_From_CWA", comment: "")
 
 			enum Infections {
 				static let title = NSLocalizedString("Statistics_Card_Infections_Title", comment: "")
