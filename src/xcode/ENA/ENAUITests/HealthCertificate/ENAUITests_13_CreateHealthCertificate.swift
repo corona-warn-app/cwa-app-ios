@@ -151,4 +151,19 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		snapshot("screenshot_test_certificate")
 	}
 
+	func test_CompleteVaccinationProtectionWithTestCertificate() throws {
+		app.setLaunchArgument(LaunchArguments.healthCertificate.firstAndSecondHealthCertificate, to: true)
+		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
+		app.setLaunchArgument(LaunchArguments.healthCertificate.testCertificateRegistered, to: true)
+		app.launch()
+
+		// Navigate to Certificates Tab.
+		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
+
+		let healthCertificateCell = app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.vaccinationCertificateCell]
+		XCTAssertTrue(healthCertificateCell.waitForExistence(timeout: .short))
+
+		snapshot("screenshot_certificate_overview_vaccination_and_test_certificate")
+	}
+
 }
