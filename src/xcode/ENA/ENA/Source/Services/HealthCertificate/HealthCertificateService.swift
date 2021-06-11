@@ -454,8 +454,8 @@ class HealthCertificateService {
 			case .success(let healthCertificateBase45):
 				Log.info("[HealthCertificateService] Certificate assembly succeeded", log: .api)
 
-				registerHealthCertificate(base45: healthCertificateBase45)
 				remove(testCertificateRequest: testCertificateRequest)
+				registerHealthCertificate(base45: healthCertificateBase45)
 				completion?(.success(()))
 			case .failure(let error):
 				Log.error("[HealthCertificateService] Assembling certificate failed: Conversion failed: \(error.localizedDescription)", log: .api)

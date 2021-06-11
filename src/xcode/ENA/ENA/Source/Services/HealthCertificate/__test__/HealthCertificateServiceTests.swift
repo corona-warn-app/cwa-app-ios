@@ -374,6 +374,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			try XCTUnwrap(service.healthCertifiedPersons.value.first).healthCertificates.first?.base45,
 			base45TestCertificate
 		)
+		XCTAssertTrue(service.testCertificateRequests.value.isEmpty)
 	}
 
 	func testTestCertificateExecution_NewTestCertificateRequest() throws {
@@ -385,6 +386,8 @@ class HealthCertificateServiceTests: CWATestCase {
 			registrationToken: "registrationToken",
 			registrationDate: Date()
 		)
+
+		store.testCertificateRequests = [testCertificateRequest]
 
 		let registerPublicKeyExpectation = expectation(description: "dccRegisterPublicKey called")
 		client.onDCCRegisterPublicKey = { _, _, _, completion in
@@ -451,6 +454,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			try XCTUnwrap(service.healthCertifiedPersons.value.first).healthCertificates.first?.base45,
 			base45TestCertificate
 		)
+		XCTAssertTrue(service.testCertificateRequests.value.isEmpty)
 	}
 
 	func testTestCertificateExecution_ExistingUnregisteredKeyPair_Success() throws {
@@ -465,6 +469,8 @@ class HealthCertificateServiceTests: CWATestCase {
 			rsaKeyPair: keyPair,
 			rsaPublicKeyRegistered: false
 		)
+
+		store.testCertificateRequests = [testCertificateRequest]
 
 		let registerPublicKeyExpectation = expectation(description: "dccRegisterPublicKey called")
 		client.onDCCRegisterPublicKey = { _, _, _, completion in
@@ -523,6 +529,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			try XCTUnwrap(service.healthCertifiedPersons.value.first).healthCertificates.first?.base45,
 			base45TestCertificate
 		)
+		XCTAssertTrue(service.testCertificateRequests.value.isEmpty)
 	}
 
 	func testTestCertificateExecution_ExistingUnregisteredKeyPair_AlreadyRegisteredError() throws {
@@ -537,6 +544,8 @@ class HealthCertificateServiceTests: CWATestCase {
 			rsaKeyPair: keyPair,
 			rsaPublicKeyRegistered: false
 		)
+
+		store.testCertificateRequests = [testCertificateRequest]
 
 		let registerPublicKeyExpectation = expectation(description: "dccRegisterPublicKey called")
 		client.onDCCRegisterPublicKey = { _, _, _, completion in
@@ -595,6 +604,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			try XCTUnwrap(service.healthCertifiedPersons.value.first).healthCertificates.first?.base45,
 			base45TestCertificate
 		)
+		XCTAssertTrue(service.testCertificateRequests.value.isEmpty)
 	}
 
 	func testTestCertificateExecution_ExistingUnregisteredKeyPair_OtherError() throws {
@@ -609,6 +619,8 @@ class HealthCertificateServiceTests: CWATestCase {
 			rsaKeyPair: keyPair,
 			rsaPublicKeyRegistered: false
 		)
+
+		store.testCertificateRequests = [testCertificateRequest]
 
 		let registerPublicKeyExpectation = expectation(description: "dccRegisterPublicKey called")
 		client.onDCCRegisterPublicKey = { _, _, _, completion in
@@ -636,9 +648,10 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		waitForExpectations(timeout: .medium)
 
+		XCTAssertEqual(service.testCertificateRequests.value.first, testCertificateRequest)
+		XCTAssertFalse(testCertificateRequest.rsaPublicKeyRegistered)
 		XCTAssertTrue(testCertificateRequest.requestExecutionFailed)
 		XCTAssertFalse(testCertificateRequest.isLoading)
-
 	}
 
 	func testTestCertificateExecution_ExistingRegisteredKeyPair() throws {
@@ -654,9 +667,11 @@ class HealthCertificateServiceTests: CWATestCase {
 			rsaPublicKeyRegistered: true
 		)
 
+		store.testCertificateRequests = [testCertificateRequest]
+
 		let registerPublicKeyExpectation = expectation(description: "dccRegisterPublicKey not called")
 		registerPublicKeyExpectation.isInverted = true
-		client.onDCCRegisterPublicKey = { _, _, _, completion in
+		client.onDCCRegisterPublicKey = { _, _, _, _ in
 			registerPublicKeyExpectation.fulfill()
 		}
 
@@ -711,6 +726,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			try XCTUnwrap(service.healthCertifiedPersons.value.first).healthCertificates.first?.base45,
 			base45TestCertificate
 		)
+		XCTAssertTrue(service.testCertificateRequests.value.isEmpty)
 	}
 
 	// MARK: - Private
