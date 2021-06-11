@@ -441,7 +441,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 
 		// Pick another year to enable the button
 		let datePicker = XCUIApplication().datePickers.firstMatch
-		datePicker.pickerWheels[String(2000)].adjust(toPickerWheelValue: "1985")
+		datePicker.pickerWheels["2000"].adjust(toPickerWheelValue: "1985")
 
 		// Check if the button is enabled.
 		let buttonEnabled = NSPredicate(format: "enabled == true")
