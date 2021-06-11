@@ -11,11 +11,11 @@ extension Name {
 		var givenName = self.givenName
 		var familyName = self.familyName
 
-		if givenName?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
+		if givenName == nil || givenName?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
 			givenName = standardizedGivenName
 		}
 
-		if familyName?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
+		if familyName == nil || familyName?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
 			familyName = standardizedFamilyName
 		}
 
