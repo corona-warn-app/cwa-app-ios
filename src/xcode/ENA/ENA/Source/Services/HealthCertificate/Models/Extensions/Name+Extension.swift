@@ -8,44 +8,28 @@ import HealthCertificateToolkit
 extension Name {
 
 	var fullName: String {
-		
-		let givenName: String?
-		let familyName: String
-		
-		if let value = self.givenName?.trimmingCharacters(in: .whitespacesAndNewlines), !value.isEmpty {
-			givenName = value
-		} else {
-			givenName = readableStandardizedGivenName
-		}
-		
-		if let value = self.familyName?.trimmingCharacters(in: .whitespacesAndNewlines), !value.isEmpty {
-			familyName = value
-		} else {
-			familyName = readableStandardizedFamilyName
-		}
-		
-		let formatter = PersonNameComponentsFormatter()
-		formatter.style = .long
+		var givenName = self.givenName
+		var familyName = self.familyName
 
-		var nameComponents = PersonNameComponents()
-		nameComponents.givenName = givenName
-		nameComponents.familyName = familyName
+		if givenName?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
+			givenName = standardizedGivenName
+		}
 
-		return formatter.string(from: nameComponents)
+		if familyName?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
+			familyName = standardizedFamilyName
+		}
+
+		return [givenName, familyName]
+			.compactMap { $0 }
+			.filter { $0.trimmingCharacters(in: .whitespacesAndNewlines) != "" }
+			.joined(separator: " ")
 	}
 
 	var standardizedName: String {
 		[standardizedGivenName, standardizedFamilyName]
-					.compactMap { $0 }
-					.filter { $0.trimmingCharacters(in: .whitespacesAndNewlines) != "" }
-					.joined(separator: " ")
+			.compactMap { $0 }
+			.filter { $0.trimmingCharacters(in: .whitespacesAndNewlines) != "" }
+			.joined(separator: " ")
 	}
 
-	private var readableStandardizedGivenName: String? {
-		return standardizedGivenName?.components(separatedBy: "<").joined(separator: " ")
-	}
-	
-	private var readableStandardizedFamilyName: String {
-		return standardizedFamilyName.components(separatedBy: "<").joined(separator: " ")
-	}
 }
