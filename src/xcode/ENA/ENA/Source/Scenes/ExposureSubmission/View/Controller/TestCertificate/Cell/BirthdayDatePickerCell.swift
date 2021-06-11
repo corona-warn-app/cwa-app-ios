@@ -61,9 +61,11 @@ class BirthdayDatePickerCell: UITableViewCell, ReuseIdentifierProviding, UITextF
 		let datePicker = UIDatePicker()
 		datePicker.datePickerMode = .date
 		datePicker.maximumDate = Date()
-
 		if #available(iOS 13.4, *) {
 			datePicker.preferredDatePickerStyle = .wheels
+		}
+		if let date = ISO8601DateFormatter.justLocalDateFormatter.date(from: "2000-01-01") {
+			datePicker.date = date
 		}
 		datePicker.addTarget(self, action: #selector(datePickerValueChanged(_:)), for: .valueChanged)
 		textField.inputView = datePicker
