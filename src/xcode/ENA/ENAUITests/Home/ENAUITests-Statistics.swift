@@ -20,10 +20,14 @@ class ENAUITests_01b_Statistics: CWATestCase {
 	
 	func test_StatisticsCardTitles() throws {
 		// GIVEN
-		let title1 = AccessibilityIdentifiers.Statistics.Infections.title
-		let title2 = AccessibilityIdentifiers.Statistics.KeySubmissions.title
-		let title3 = AccessibilityIdentifiers.Statistics.Incidence.title
+		let title1 = AccessibilityIdentifiers.Statistics.Incidence.title
+		let title2 = AccessibilityIdentifiers.Statistics.Infections.title
+		let title3 = AccessibilityIdentifiers.Statistics.KeySubmissions.title
 		let title4 = AccessibilityIdentifiers.Statistics.ReproductionNumber.title
+		let title5 = AccessibilityIdentifiers.Statistics.AtLeastOneVaccination.title
+		let title6 = AccessibilityIdentifiers.Statistics.FullyVaccinated.title
+		let title7 = AccessibilityIdentifiers.Statistics.Doses.title
+
 		let layoutDirection = UIView.userInterfaceLayoutDirection(for: UIView().semanticContentAttribute)
 
 		// WHEN
@@ -34,6 +38,12 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		// THEN
 		switch layoutDirection {
 		case .rightToLeft:
+			XCTAssertTrue(self.app.staticTexts[title4].waitForExistence(timeout: .medium))
+			app.staticTexts[title7].swipeLeft()
+			XCTAssertTrue(self.app.staticTexts[title6].waitForExistence(timeout: .medium))
+			app.staticTexts[title6].swipeLeft()
+			XCTAssertTrue(self.app.staticTexts[title5].waitForExistence(timeout: .medium))
+			app.staticTexts[title5].swipeLeft()
 			XCTAssertTrue(self.app.staticTexts[title4].waitForExistence(timeout: .medium))
 			app.staticTexts[title4].swipeLeft()
 			XCTAssertTrue(self.app.staticTexts[title3].waitForExistence(timeout: .medium))
@@ -50,7 +60,14 @@ class ENAUITests_01b_Statistics: CWATestCase {
 			XCTAssertTrue(self.app.staticTexts[title3].waitForExistence(timeout: .medium))
 			app.staticTexts[title3].swipeLeft()
 			XCTAssertTrue(self.app.staticTexts[title4].waitForExistence(timeout: .medium))
-			app.staticTexts[title4].swipeRight()
+			app.staticTexts[title4].swipeLeft()
+			XCTAssertTrue(self.app.staticTexts[title5].waitForExistence(timeout: .medium))
+			app.staticTexts[title5].swipeLeft()
+			XCTAssertTrue(self.app.staticTexts[title6].waitForExistence(timeout: .medium))
+			app.staticTexts[title6].swipeLeft()
+			XCTAssertTrue(self.app.staticTexts[title4].waitForExistence(timeout: .medium))
+			app.staticTexts[title7].swipeRight()
+
 		}
 	}
 	
