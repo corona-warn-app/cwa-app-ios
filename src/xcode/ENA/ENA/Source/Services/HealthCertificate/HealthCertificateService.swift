@@ -442,6 +442,7 @@ class HealthCertificateService {
 			Log.error("[HealthCertificateService] Assembling certificate failed: base64 decoding failed", log: .api)
 
 			testCertificateRequest.requestExecutionFailed = true
+			testCertificateRequest.isLoading = false
 			completion?(.failure(.base64DecodingFailed))
 			return
 		}
@@ -461,12 +462,14 @@ class HealthCertificateService {
 				Log.error("[HealthCertificateService] Assembling certificate failed: Conversion failed: \(error.localizedDescription)", log: .api)
 
 				testCertificateRequest.requestExecutionFailed = true
+				testCertificateRequest.isLoading = false
 				completion?(.failure(.assemblyFailed(error)))
 			}
 		} catch {
 			Log.error("[HealthCertificateService] Assembling certificate failed: DEK decryption failed: \(error.localizedDescription)", log: .api)
 
 			testCertificateRequest.requestExecutionFailed = true
+			testCertificateRequest.isLoading = false
 			completion?(.failure(.decryptionFailed(error)))
 		}
 	}
