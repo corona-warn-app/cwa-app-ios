@@ -24,7 +24,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 
 	// MARK: - Tests
 
-	func test_shownConsentScreenAndDisclaimer() throws {
+	func test_screenshot_shownConsentScreenAndDisclaimer() throws {
 		app.launch()
 
 		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
@@ -48,7 +48,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.vaccinationCertificateRegistrationCell].waitForExistence(timeout: .short))
 	}
 
-	func test_CreateAntigenTestProfileWithFirstCertificate() throws {
+	func test_screenshot_CreateAntigenTestProfileWithFirstCertificate() throws {
 		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
 		app.launch()
 
@@ -73,7 +73,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		snapshot("screenshot_first_health_certificate")
 	}
 
-	func test_CreateAntigenTestProfileWithLastCertificate() throws {
+	func test_screenshot_CreateAntigenTestProfileWithLastCertificate() throws {
 		app.setLaunchArgument(LaunchArguments.healthCertificate.firstHealthCertificate, to: true)
 		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
 		app.launch()
@@ -105,7 +105,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		snapshot("screenshot_second_health_certificate")
 	}
 
-	func test_ShowCertificate() throws {
+	func test_screenshot_ShowCertificate() throws {
 		app.setLaunchArgument(LaunchArguments.healthCertificate.firstAndSecondHealthCertificate, to: true)
 		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
 		app.launch()
@@ -128,7 +128,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		XCTAssertEqual(app.cells.matching(identifier: AccessibilityIdentifiers.HealthCertificate.Person.certificateCell).count, 2)
 	}
 
-	func test_TestCertificate() throws {
+	func test_screenshot_TestCertificate() throws {
 		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
 		app.setLaunchArgument(LaunchArguments.healthCertificate.testCertificateRegistered, to: true)
 		app.launch()
@@ -151,7 +151,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		snapshot("screenshot_test_certificate")
 	}
 
-	func test_CompleteVaccinationProtectionWithTestCertificate() throws {
+	func test_screenshot_CompleteVaccinationProtectionWithTestCertificate() throws {
 		app.setLaunchArgument(LaunchArguments.healthCertificate.firstAndSecondHealthCertificate, to: true)
 		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
 		app.setLaunchArgument(LaunchArguments.healthCertificate.testCertificateRegistered, to: true)
