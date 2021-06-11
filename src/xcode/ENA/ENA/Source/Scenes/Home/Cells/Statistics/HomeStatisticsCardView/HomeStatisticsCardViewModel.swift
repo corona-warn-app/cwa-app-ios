@@ -87,7 +87,7 @@ class HomeStatisticsCardViewModel {
 	private func setupInfections(for keyFigureCard: SAP_Internal_Stats_KeyFigureCard) {
 		title = AppStrings.Statistics.Card.Infections.title
 		titleAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.Infections.title
-		subtitle = AppStrings.Statistics.Card.KeySubmissions.fromNationWide
+		subtitle = AppStrings.Statistics.Card.fromNationWide
 		infoButtonAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.Infections.infoButton
 		illustrationImage = UIImage(named: "Illu_Bestaetigte_Neuinfektionen")
 
@@ -111,7 +111,7 @@ class HomeStatisticsCardViewModel {
 
 	private func setupKeySubmissions(for keyFigureCard: SAP_Internal_Stats_KeyFigureCard) {
 		title = AppStrings.Statistics.Card.KeySubmissions.title
-		subtitle = AppStrings.Statistics.Card.KeySubmissions.fromCWA
+		subtitle = AppStrings.Statistics.Card.fromCWA
 		titleAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.KeySubmissions.title
 		infoButtonAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.KeySubmissions.infoButton
 		illustrationImage = UIImage(named: "Illu_Warnende_Personen")
@@ -136,7 +136,7 @@ class HomeStatisticsCardViewModel {
 
 	private func setupIncidence(for keyFigureCard: SAP_Internal_Stats_KeyFigureCard) {
 		title = AppStrings.Statistics.Card.Incidence.title
-		subtitle = AppStrings.Statistics.Card.KeySubmissions.fromNationWide
+		subtitle = AppStrings.Statistics.Card.fromNationWide
 		titleAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.Incidence.title
 		infoButtonAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.Incidence.infoButton
 		illustrationImage = UIImage(named: "Illu_7-Tage-Inzidenz")
@@ -154,7 +154,7 @@ class HomeStatisticsCardViewModel {
 
 	private func setupReproductionNumber(for keyFigureCard: SAP_Internal_Stats_KeyFigureCard) {
 		title = AppStrings.Statistics.Card.ReproductionNumber.title
-		subtitle = AppStrings.Statistics.Card.KeySubmissions.fromNationWide
+		subtitle = AppStrings.Statistics.Card.fromNationWide
 		titleAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.ReproductionNumber.title
 		infoButtonAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.ReproductionNumber.infoButton
 		illustrationImage = UIImage(named: "Illu_7-Tage-R-Wert")
@@ -175,7 +175,7 @@ class HomeStatisticsCardViewModel {
 		titleAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.AtLeastOneVaccination.title
 		infoButtonAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.AtLeastOneVaccination.infoButton
 		illustrationImage = UIImage(named: "AtleastOneVaccinated")
-		subtitle = AppStrings.Statistics.Card.KeySubmissions.fromNationWide
+		subtitle = AppStrings.Statistics.Card.fromNationWide
 
 		if keyFigureCard.keyFigures.contains(where: { $0.rank == .primary }) {
 			let updateDate = Date(timeIntervalSince1970: TimeInterval(keyFigureCard.header.updatedAt))
@@ -198,7 +198,7 @@ class HomeStatisticsCardViewModel {
 
 	private func setupFullyVaccinatedPeople(for keyFigureCard: SAP_Internal_Stats_KeyFigureCard) {
 		title = AppStrings.Statistics.Card.FullyVaccinated.title
-		subtitle = AppStrings.Statistics.Card.KeySubmissions.fromNationWide
+		subtitle = AppStrings.Statistics.Card.fromNationWide
 		titleAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.FullyVaccinated.title
 		infoButtonAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.FullyVaccinated.infoButton
 
@@ -225,7 +225,7 @@ class HomeStatisticsCardViewModel {
 	
 	private func setupAppliedVaccinationsDoseRates(for keyFigureCard: SAP_Internal_Stats_KeyFigureCard) {
 		title = AppStrings.Statistics.Card.DoseRates.title
-		subtitle = AppStrings.Statistics.Card.KeySubmissions.fromNationWide
+		subtitle = AppStrings.Statistics.Card.fromNationWide
 		titleAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.Doses.title
 		infoButtonAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.Doses.infoButton
 		illustrationImage = UIImage(named: "Doses")
