@@ -10,8 +10,8 @@ class HomeHealthCertifiedPersonCellModelTests: XCTestCase {
 
 	func testGIVEN_completelyProtectedCertifiedPerson_THEN_IsSetupCorrectly() throws {
 		// GIVEN
-		let healthCertificate1 = try getHealthCertificate(daysOffset: -35, doseNumber: 1, identifier: "01DE/84503/1119349007/DXSGWLWL40SU8ZFKIYIBK39A3#S", dateOfBirth: "1988-06-07")
-		let healthCertificate2 = try getHealthCertificate(daysOffset: -20, doseNumber: 2, identifier: "01DE/84503/1119349007/DXSGWWLW40SU8ZFKIYIBK39A3#S", dateOfBirth: "1988-06-07")
+		let healthCertificate1 = try healthCertificate(daysOffset: -35, doseNumber: 1, identifier: "01DE/84503/1119349007/DXSGWLWL40SU8ZFKIYIBK39A3#S", dateOfBirth: "1988-06-07")
+		let healthCertificate2 = try healthCertificate(daysOffset: -20, doseNumber: 2, identifier: "01DE/84503/1119349007/DXSGWWLW40SU8ZFKIYIBK39A3#S", dateOfBirth: "1988-06-07")
 
 		let healthCertifiedPerson = HealthCertifiedPerson(
 			healthCertificates: [
@@ -43,7 +43,7 @@ class HomeHealthCertifiedPersonCellModelTests: XCTestCase {
 
 	func testGIVEN_partiallyVaccinatedCertifiedPerson_THEN_IsSetupCorrectly() throws {
 		// GIVEN
-		let healthCertificate1 = try getHealthCertificate(daysOffset: -24, doseNumber: 1, identifier: "01DE/84503/1119349007/DXSGWLWL40SU8ZFKIYIBK39A3#S", dateOfBirth: "1988-06-07")
+		let healthCertificate1 = try healthCertificate(daysOffset: -24, doseNumber: 1, identifier: "01DE/84503/1119349007/DXSGWLWL40SU8ZFKIYIBK39A3#S", dateOfBirth: "1988-06-07")
 
 		let healthCertifiedPerson = HealthCertifiedPerson(
 			healthCertificates: [
@@ -69,8 +69,8 @@ class HomeHealthCertifiedPersonCellModelTests: XCTestCase {
 
 	func testGIVEN_fullyVaccinatedCertifiedPerson_THEN_IsSetupCorrectly() throws {
 		// GIVEN
-		let healthCertificate1 = try getHealthCertificate(daysOffset: -24, doseNumber: 1, identifier: "01DE/84503/1119349007/DXSGWLWL40SU8ZFKIYIBK39A3#S", dateOfBirth: "1988-06-07")
-		let healthCertificate2 = try getHealthCertificate(daysOffset: -12, doseNumber: 2, identifier: "01DE/84503/1119349007/DXSGWWLW40SU8ZFKIYIBK39A3#S", dateOfBirth: "1988-06-07")
+		let healthCertificate1 = try healthCertificate(daysOffset: -24, doseNumber: 1, identifier: "01DE/84503/1119349007/DXSGWLWL40SU8ZFKIYIBK39A3#S", dateOfBirth: "1988-06-07")
+		let healthCertificate2 = try healthCertificate(daysOffset: -12, doseNumber: 2, identifier: "01DE/84503/1119349007/DXSGWWLW40SU8ZFKIYIBK39A3#S", dateOfBirth: "1988-06-07")
 
 		let healthCertifiedPerson = HealthCertifiedPerson(
 			healthCertificates: [
@@ -98,9 +98,56 @@ class HomeHealthCertifiedPersonCellModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.accessibilityIdentifier, AccessibilityIdentifiers.HealthCertificate.Overview.vaccinationCertificateCell)
 	}
 
+	func testGIVEN_testCertificate_THEN_IsSetupCorrectly() throws {
+		// GIVEN
+		let firstTestCertificateBase45 = try base45Fake(
+			from: DigitalGreenCertificate.fake(
+				name: .fake(standardizedFamilyName: "TEUBER", standardizedGivenName: "KAI"),
+				testEntries: [TestEntry.fake(
+					dateTimeOfSampleCollection: "2021-05-29T22:34:17.595Z",
+					uniqueCertificateIdentifier: "0"
+				)]
+			)
+		)
+		let testCertificate = try HealthCertificate(base45: firstTestCertificateBase45)
+
+		let viewModel = HomeHealthCertifiedPersonCellModel(testCertificate: testCertificate)
+		let sampleCollectionDate = try XCTUnwrap(testCertificate.testEntry?.sampleCollectionDate)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.TestCertificate.title)
+		XCTAssertEqual(viewModel.backgroundGradientType, .green)
+		XCTAssertEqual(viewModel.name, testCertificate.name.fullName)
+		XCTAssertEqual(viewModel.backgroundImage, UIImage(named: "TestCertificate_Background"))
+		XCTAssertEqual(viewModel.iconImage, UIImage(named: "TestCertificate_Icon"))
+		XCTAssertEqual(viewModel.description, String(
+			format: AppStrings.HealthCertificate.Overview.TestCertificate.testDate,
+			DateFormatter.localizedString(from: sampleCollectionDate, dateStyle: .medium, timeStyle: .short)
+		))
+		XCTAssertEqual(viewModel.accessibilityIdentifier, AccessibilityIdentifiers.HealthCertificate.Overview.testCertificateRequestCell)
+	}
+
 	// MARK: - Private
 
-	private func getHealthCertificate(daysOffset: Int, doseNumber: Int, identifier: String, dateOfBirth: String) throws -> HealthCertificate {
+	private enum Base45FakeError: Error {
+		case failed
+	}
+
+	private func base45Fake(from digitalGreenCertificate: DigitalGreenCertificate) throws -> Base45 {
+		let base45Result = DigitalGreenCertificateFake.makeBase45Fake(
+			from: digitalGreenCertificate,
+			and: CBORWebTokenHeader.fake()
+		)
+
+		guard case let .success(base45) = base45Result else {
+			XCTFail("Could not make fake base45 certificate")
+			throw Base45FakeError.failed
+		}
+
+		return base45
+	}
+
+	private func healthCertificate(daysOffset: Int, doseNumber: Int, identifier: String, dateOfBirth: String) throws -> HealthCertificate {
 		let date = Date(timeIntervalSinceNow: TimeInterval(24 * 60 * 60 * daysOffset))
 		let vaccinationEntry = VaccinationEntry.fake(
 			doseNumber: doseNumber,
@@ -108,22 +155,16 @@ class HomeHealthCertifiedPersonCellModelTests: XCTestCase {
 			uniqueCertificateIdentifier: identifier
 		)
 
-		let dgcCertificate = DigitalGreenCertificate.fake(
-			dateOfBirth: dateOfBirth,
-			vaccinationEntries: [
-				vaccinationEntry
-			]
+		let firstTestCertificateBase45 = try base45Fake(
+			from: DigitalGreenCertificate.fake(
+				dateOfBirth: dateOfBirth,
+				vaccinationEntries: [
+					vaccinationEntry
+				]
+			)
 		)
 
-		guard case let .success(firstBase45) = DigitalGreenCertificateFake.makeBase45Fake(
-			from: dgcCertificate,
-			and: CBORWebTokenHeader.fake()
-		) else {
-			XCTFail("base45 should be created from a mock. Test fails now.")
-			throw CertificateDecodingError.HC_BASE45_DECODING_FAILED(nil)
-		}
-
-		return try HealthCertificate(base45: firstBase45)
+		return try HealthCertificate(base45: firstTestCertificateBase45)
 	}
 
 }
