@@ -137,6 +137,7 @@ class CreateAntigenTestProfileInputCell: UITableViewCell, ReuseIdentifierProvidi
 		birthdayPicker.timeZone = .utcTimeZone
 		birthdayPicker.locale = Locale.autoupdatingCurrent
 		birthdayPicker.datePickerMode = .date
+		birthdayPicker.maximumDate = Date()
 		if #available(iOS 13.4, *) {
 			birthdayPicker.preferredDatePickerStyle = .wheels
 		}
