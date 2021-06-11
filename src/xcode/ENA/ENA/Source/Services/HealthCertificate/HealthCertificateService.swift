@@ -271,7 +271,18 @@ class HealthCertificateService {
 								}
 							}
 						)
-					} else if testCertificateRequest.encryptedDEK == nil || testCertificateRequest.encryptedCOSE == nil {
+					} else if let encryptedDEK = testCertificateRequest.encryptedDEK,
+							  let encryptedCOSE = testCertificateRequest.encryptedCOSE {
+						Log.info("[HealthCertificateService] Encrypted COSE and DEK already exist, immediately assembling certificate.", log: .api)
+
+						self.assembleDigitalCovidCertificate(
+							for: testCertificateRequest,
+							rsaKeyPair: rsaKeyPair,
+							encryptedDEK: encryptedDEK,
+							encryptedCOSE: encryptedCOSE,
+							completion: completion
+						)
+					} else {
 						Log.info("[HealthCertificateService] Public key already registered, immediately requesting certificate.", log: .api)
 
 						self.requestDigitalCovidCertificate(
