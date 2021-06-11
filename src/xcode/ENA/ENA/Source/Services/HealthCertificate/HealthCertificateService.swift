@@ -38,7 +38,8 @@ class HealthCertificateService {
 			if LaunchArguments.healthCertificate.testCertificateRegistered.boolValue {
 				let result = DigitalGreenCertificateFake.makeBase45Fake(
 					from: DigitalGreenCertificate.fake(
-						testEntries: [TestEntry.fake()]
+						name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"),
+						testEntries: [TestEntry.fake(dateTimeOfSampleCollection: "2021-04-12T16:01:00Z")]
 					),
 					and: CBORWebTokenHeader.fake()
 				)
