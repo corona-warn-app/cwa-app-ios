@@ -106,5 +106,4 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 
 		accessibilityElements = stackView.arrangedSubviews
 	}
-
 }
