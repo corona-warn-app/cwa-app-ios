@@ -8,6 +8,8 @@ import XCTest
 import OpenCombine
 import HealthCertificateToolkit
 
+// swiftlint:disable file_length
+// swiftlint:disable:next type_body_length
 class HealthCertificateServiceTests: CWATestCase {
 
 	func testHealthCertifiedPersonsPublisherTriggeredAndStoreUpdated() throws {
@@ -325,13 +327,14 @@ class HealthCertificateServiceTests: CWATestCase {
 		config.dgcParameters.testCertificateParameters.waitForRetryInSeconds = 1
 		let appConfig = CachedAppConfigurationMock(with: config)
 
-		var digitalGreenCertificateAccess = MockDigitalGreenCertificateAccess()
-		digitalGreenCertificateAccess.convertedToBase45 = DigitalGreenCertificateFake.makeBase45Fake(
+		let base45TestCertificate = try base45Fake(
 			from: DigitalGreenCertificate.fake(
 				testEntries: [TestEntry.fake()]
-			),
-			and: CBORWebTokenHeader.fake()
+			)
 		)
+
+		var digitalGreenCertificateAccess = MockDigitalGreenCertificateAccess()
+		digitalGreenCertificateAccess.convertedToBase45 = .success(base45TestCertificate)
 
 		let service = HealthCertificateService(
 			store: store,
@@ -362,12 +365,352 @@ class HealthCertificateServiceTests: CWATestCase {
 			retryExecutionIfCertificateIsPending: false
 		)
 
-		waitForExpectations(timeout: .extraLong)
+		waitForExpectations(timeout: .medium)
 
 		requestsSubscription.cancel()
 		personsSubscription.cancel()
 
-		XCTAssertFalse(try XCTUnwrap(service.healthCertifiedPersons.value.first).healthCertificates.isEmpty)
+		XCTAssertEqual(
+			try XCTUnwrap(service.healthCertifiedPersons.value.first).healthCertificates.first?.base45,
+			base45TestCertificate
+		)
+	}
+
+	func testTestCertificateExecution_NewTestCertificateRequest() throws {
+		let store = MockTestStore()
+		let client = ClientMock()
+
+		let testCertificateRequest = TestCertificateRequest(
+			coronaTestType: .antigen,
+			registrationToken: "registrationToken",
+			registrationDate: Date()
+		)
+
+		let registerPublicKeyExpectation = expectation(description: "dccRegisterPublicKey called")
+		client.onDCCRegisterPublicKey = { _, _, _, completion in
+			registerPublicKeyExpectation.fulfill()
+			completion(.success(()))
+		}
+
+		let getDigitalCovid19CertificateExpectation = expectation(description: "getDigitalCovid19Certificate called")
+		client.onGetDigitalCovid19Certificate = { _, _, completion in
+			let dek = (try? testCertificateRequest.rsaKeyPair?.encrypt(Data()).base64EncodedString()) ?? ""
+			getDigitalCovid19CertificateExpectation.fulfill()
+			completion(.success((DCCResponse(dek: dek, dcc: "coseObject"))))
+		}
+
+		var config = CachedAppConfigurationMock.defaultAppConfiguration
+		config.dgcParameters.testCertificateParameters.waitAfterPublicKeyRegistrationInSeconds = 1
+		config.dgcParameters.testCertificateParameters.waitForRetryInSeconds = 1
+		let appConfig = CachedAppConfigurationMock(with: config)
+
+		let base45TestCertificate = try base45Fake(
+			from: DigitalGreenCertificate.fake(
+				testEntries: [TestEntry.fake()]
+			)
+		)
+
+		var digitalGreenCertificateAccess = MockDigitalGreenCertificateAccess()
+		digitalGreenCertificateAccess.convertedToBase45 = .success(base45TestCertificate)
+
+		let service = HealthCertificateService(
+			store: store,
+			client: client,
+			appConfiguration: appConfig,
+			digitalGreenCertificateAccess: digitalGreenCertificateAccess
+		)
+
+		let personsExpectation = expectation(description: "Persons not empty")
+		let personsSubscription = service.healthCertifiedPersons
+			.sink {
+				if !$0.isEmpty {
+					personsExpectation.fulfill()
+				}
+			}
+
+		let completionExpectation = expectation(description: "completion called")
+		service.executeTestCertificateRequest(
+			testCertificateRequest,
+			retryIfCertificateIsPending: false,
+			completion: { result in
+				switch result {
+				case .success:
+					break
+				case .failure:
+					XCTFail("Request expected to succeed")
+				}
+				completionExpectation.fulfill()
+			}
+		)
+
+		waitForExpectations(timeout: .medium)
+
+		personsSubscription.cancel()
+
+		XCTAssertEqual(
+			try XCTUnwrap(service.healthCertifiedPersons.value.first).healthCertificates.first?.base45,
+			base45TestCertificate
+		)
+	}
+
+	func testTestCertificateExecution_ExistingUnregisteredKeyPair_Success() throws {
+		let store = MockTestStore()
+		let client = ClientMock()
+
+		let keyPair = try DCCRSAKeyPair(registrationToken: "registrationToken")
+		let testCertificateRequest = TestCertificateRequest(
+			coronaTestType: .antigen,
+			registrationToken: "registrationToken",
+			registrationDate: Date(),
+			rsaKeyPair: keyPair,
+			rsaPublicKeyRegistered: false
+		)
+
+		let registerPublicKeyExpectation = expectation(description: "dccRegisterPublicKey called")
+		client.onDCCRegisterPublicKey = { _, _, _, completion in
+			registerPublicKeyExpectation.fulfill()
+			completion(.success(()))
+		}
+
+		let getDigitalCovid19CertificateExpectation = expectation(description: "getDigitalCovid19Certificate called")
+		client.onGetDigitalCovid19Certificate = { _, _, completion in
+			let dek = (try? testCertificateRequest.rsaKeyPair?.encrypt(Data()).base64EncodedString()) ?? ""
+			getDigitalCovid19CertificateExpectation.fulfill()
+			completion(.success((DCCResponse(dek: dek, dcc: "coseObject"))))
+		}
+
+		var config = CachedAppConfigurationMock.defaultAppConfiguration
+		config.dgcParameters.testCertificateParameters.waitAfterPublicKeyRegistrationInSeconds = 1
+		config.dgcParameters.testCertificateParameters.waitForRetryInSeconds = 1
+		let appConfig = CachedAppConfigurationMock(with: config)
+
+		let base45TestCertificate = try base45Fake(
+			from: DigitalGreenCertificate.fake(
+				testEntries: [TestEntry.fake()]
+			)
+		)
+
+		var digitalGreenCertificateAccess = MockDigitalGreenCertificateAccess()
+		digitalGreenCertificateAccess.convertedToBase45 = .success(base45TestCertificate)
+
+		let service = HealthCertificateService(
+			store: store,
+			client: client,
+			appConfiguration: appConfig,
+			digitalGreenCertificateAccess: digitalGreenCertificateAccess
+		)
+
+		let personsExpectation = expectation(description: "Persons not empty")
+		let personsSubscription = service.healthCertifiedPersons
+			.sink {
+				if !$0.isEmpty {
+					personsExpectation.fulfill()
+				}
+			}
+
+		service.executeTestCertificateRequest(
+			testCertificateRequest,
+			retryIfCertificateIsPending: false
+		)
+
+		waitForExpectations(timeout: .medium)
+
+		personsSubscription.cancel()
+
+		XCTAssertEqual(testCertificateRequest.rsaKeyPair, keyPair)
+
+		XCTAssertEqual(
+			try XCTUnwrap(service.healthCertifiedPersons.value.first).healthCertificates.first?.base45,
+			base45TestCertificate
+		)
+	}
+
+	func testTestCertificateExecution_ExistingUnregisteredKeyPair_AlreadyRegisteredError() throws {
+		let store = MockTestStore()
+		let client = ClientMock()
+
+		let keyPair = try DCCRSAKeyPair(registrationToken: "registrationToken")
+		let testCertificateRequest = TestCertificateRequest(
+			coronaTestType: .antigen,
+			registrationToken: "registrationToken",
+			registrationDate: Date(),
+			rsaKeyPair: keyPair,
+			rsaPublicKeyRegistered: false
+		)
+
+		let registerPublicKeyExpectation = expectation(description: "dccRegisterPublicKey called")
+		client.onDCCRegisterPublicKey = { _, _, _, completion in
+			registerPublicKeyExpectation.fulfill()
+			completion(.failure(.tokenAlreadyAssigned))
+		}
+
+		let getDigitalCovid19CertificateExpectation = expectation(description: "getDigitalCovid19Certificate called")
+		client.onGetDigitalCovid19Certificate = { _, _, completion in
+			let dek = (try? testCertificateRequest.rsaKeyPair?.encrypt(Data()).base64EncodedString()) ?? ""
+			getDigitalCovid19CertificateExpectation.fulfill()
+			completion(.success((DCCResponse(dek: dek, dcc: "coseObject"))))
+		}
+
+		var config = CachedAppConfigurationMock.defaultAppConfiguration
+		config.dgcParameters.testCertificateParameters.waitAfterPublicKeyRegistrationInSeconds = 1
+		config.dgcParameters.testCertificateParameters.waitForRetryInSeconds = 1
+		let appConfig = CachedAppConfigurationMock(with: config)
+
+		let base45TestCertificate = try base45Fake(
+			from: DigitalGreenCertificate.fake(
+				testEntries: [TestEntry.fake()]
+			)
+		)
+
+		var digitalGreenCertificateAccess = MockDigitalGreenCertificateAccess()
+		digitalGreenCertificateAccess.convertedToBase45 = .success(base45TestCertificate)
+
+		let service = HealthCertificateService(
+			store: store,
+			client: client,
+			appConfiguration: appConfig,
+			digitalGreenCertificateAccess: digitalGreenCertificateAccess
+		)
+
+		let personsExpectation = expectation(description: "Persons not empty")
+		let personsSubscription = service.healthCertifiedPersons
+			.sink {
+				if !$0.isEmpty {
+					personsExpectation.fulfill()
+				}
+			}
+
+		service.executeTestCertificateRequest(
+			testCertificateRequest,
+			retryIfCertificateIsPending: false
+		)
+
+		waitForExpectations(timeout: .medium)
+
+		personsSubscription.cancel()
+
+		XCTAssertEqual(testCertificateRequest.rsaKeyPair, keyPair)
+
+		XCTAssertEqual(
+			try XCTUnwrap(service.healthCertifiedPersons.value.first).healthCertificates.first?.base45,
+			base45TestCertificate
+		)
+	}
+
+	func testTestCertificateExecution_ExistingUnregisteredKeyPair_OtherError() throws {
+		let store = MockTestStore()
+		let client = ClientMock()
+
+		let keyPair = try DCCRSAKeyPair(registrationToken: "registrationToken")
+		let testCertificateRequest = TestCertificateRequest(
+			coronaTestType: .antigen,
+			registrationToken: "registrationToken",
+			registrationDate: Date(),
+			rsaKeyPair: keyPair,
+			rsaPublicKeyRegistered: false
+		)
+
+		let registerPublicKeyExpectation = expectation(description: "dccRegisterPublicKey called")
+		client.onDCCRegisterPublicKey = { _, _, _, completion in
+			registerPublicKeyExpectation.fulfill()
+			completion(.failure(.noNetworkConnection))
+		}
+
+		let getDigitalCovid19CertificateExpectation = expectation(description: "getDigitalCovid19Certificate called")
+		getDigitalCovid19CertificateExpectation.isInverted = true
+		client.onGetDigitalCovid19Certificate = { _, _, _ in
+			getDigitalCovid19CertificateExpectation.fulfill()
+		}
+
+		let service = HealthCertificateService(
+			store: store,
+			client: client,
+			appConfiguration: CachedAppConfigurationMock(),
+			digitalGreenCertificateAccess: MockDigitalGreenCertificateAccess()
+		)
+
+		service.executeTestCertificateRequest(
+			testCertificateRequest,
+			retryIfCertificateIsPending: false
+		)
+
+		waitForExpectations(timeout: .medium)
+
+		XCTAssertTrue(testCertificateRequest.requestExecutionFailed)
+		XCTAssertFalse(testCertificateRequest.isLoading)
+
+	}
+
+	func testTestCertificateExecution_ExistingRegisteredKeyPair() throws {
+		let store = MockTestStore()
+		let client = ClientMock()
+
+		let keyPair = try DCCRSAKeyPair(registrationToken: "registrationToken")
+		let testCertificateRequest = TestCertificateRequest(
+			coronaTestType: .antigen,
+			registrationToken: "registrationToken",
+			registrationDate: Date(),
+			rsaKeyPair: keyPair,
+			rsaPublicKeyRegistered: true
+		)
+
+		let registerPublicKeyExpectation = expectation(description: "dccRegisterPublicKey not called")
+		registerPublicKeyExpectation.isInverted = true
+		client.onDCCRegisterPublicKey = { _, _, _, completion in
+			registerPublicKeyExpectation.fulfill()
+		}
+
+		let getDigitalCovid19CertificateExpectation = expectation(description: "getDigitalCovid19Certificate called")
+		client.onGetDigitalCovid19Certificate = { _, _, completion in
+			let dek = (try? testCertificateRequest.rsaKeyPair?.encrypt(Data()).base64EncodedString()) ?? ""
+			getDigitalCovid19CertificateExpectation.fulfill()
+			completion(.success((DCCResponse(dek: dek, dcc: "coseObject"))))
+		}
+
+		var config = CachedAppConfigurationMock.defaultAppConfiguration
+		config.dgcParameters.testCertificateParameters.waitAfterPublicKeyRegistrationInSeconds = 1
+		config.dgcParameters.testCertificateParameters.waitForRetryInSeconds = 1
+		let appConfig = CachedAppConfigurationMock(with: config)
+
+		let base45TestCertificate = try base45Fake(
+			from: DigitalGreenCertificate.fake(
+				testEntries: [TestEntry.fake()]
+			)
+		)
+
+		var digitalGreenCertificateAccess = MockDigitalGreenCertificateAccess()
+		digitalGreenCertificateAccess.convertedToBase45 = .success(base45TestCertificate)
+
+		let service = HealthCertificateService(
+			store: store,
+			client: client,
+			appConfiguration: appConfig,
+			digitalGreenCertificateAccess: digitalGreenCertificateAccess
+		)
+
+		let personsExpectation = expectation(description: "Persons not empty")
+		let personsSubscription = service.healthCertifiedPersons
+			.sink {
+				if !$0.isEmpty {
+					personsExpectation.fulfill()
+				}
+			}
+
+		service.executeTestCertificateRequest(
+			testCertificateRequest,
+			retryIfCertificateIsPending: false
+		)
+
+		waitForExpectations(timeout: .medium)
+
+		personsSubscription.cancel()
+
+		XCTAssertEqual(testCertificateRequest.rsaKeyPair, keyPair)
+
+		XCTAssertEqual(
+			try XCTUnwrap(service.healthCertifiedPersons.value.first).healthCertificates.first?.base45,
+			base45TestCertificate
+		)
 	}
 
 	// MARK: - Private
