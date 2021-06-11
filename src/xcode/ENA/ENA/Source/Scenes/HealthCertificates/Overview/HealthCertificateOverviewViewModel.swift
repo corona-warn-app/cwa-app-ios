@@ -77,7 +77,11 @@ class HealthCertificateOverviewViewModel {
 	}
 
 	func retryTestCertificateRequest(at indexPath: IndexPath) {
-		let testCertificateRequest = self.testCertificateRequests[indexPath.row]
+		guard testCertificateRequests.indices.contains(indexPath.row) else {
+			return
+		}
+
+		let testCertificateRequest = testCertificateRequests[indexPath.row]
 		healthCertificateService.executeTestCertificateRequest(
 			testCertificateRequest,
 			retryIfCertificateIsPending: false
