@@ -59,21 +59,31 @@ extension URLSession {
 			if let error = error as NSError?,
 			   error.domain == NSURLErrorDomain,
 			   error.code == NSURLErrorNotConnectedToInternet {
+				Log.error("No network connection", log: .api, error: error)
 				completion(.failure(.noNetworkConnection))
 				return
 			}
 
 			guard let response = response as? HTTPURLResponse else {
+				Log.error("No server request response", log: .api)
 				completion(.failure(.noResponse))
 				return
 			}
 
+			guard Response.acceptableStatusCodes ~= response.statusCode else {
+				Log.error("Invalid server response with code \(response.statusCode)", log: .api)
+				completion(.failure(.invalidResponse))
+				return
+			}
+
 			if let error = error {
+				Log.error("Server request error", log: .api, error: error)
 				completion(.failure(.httpError(error.localizedDescription, response)))
 				return
 			}
 
 			guard let data = data else {
+				Log.error("No server response data", log: .api)
 				completion(.failure(.noResponse))
 				return
 			}
@@ -103,7 +113,7 @@ extension URLSession {
 			type(of: self).acceptableStatusCodes.contains(statusCode)
 		}
 
-		private static let acceptableStatusCodes = (200 ... 299)
+		static let acceptableStatusCodes = (200 ... 299)
 	}
 }
 
