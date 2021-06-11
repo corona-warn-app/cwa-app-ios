@@ -60,8 +60,10 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		onInfoButtonTap: @escaping () -> Void,
 		onAccessibilityFocus: @escaping () -> Void
 	) {
-		stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
-
+		stackView.arrangedSubviews.forEach {
+			stackView.removeArrangedSubview($0)
+			$0.removeFromSuperview()
+		}
 		for keyFigureCard in keyFigureCards {
 			let nibName = String(describing: HomeStatisticsCardView.self)
 			let nib = UINib(nibName: nibName, bundle: .main)
