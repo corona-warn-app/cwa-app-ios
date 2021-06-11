@@ -60,8 +60,8 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		onInfoButtonTap: @escaping () -> Void,
 		onAccessibilityFocus: @escaping () -> Void
 	) {
-		stackView.arrangedSubviews.forEach { stackView.removeArrangedSubview($0) }
-		
+		stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+
 		for keyFigureCard in keyFigureCards {
 			let nibName = String(describing: HomeStatisticsCardView.self)
 			let nib = UINib(nibName: nibName, bundle: .main)
@@ -88,8 +88,8 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 						statisticsCardView.titleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.titleLabel.firstBaselineAnchor),
 						statisticsCardView.primaryTitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.primaryTitleLabel.firstBaselineAnchor),
 						statisticsCardView.secondaryTitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.secondaryTitleLabel.firstBaselineAnchor),
-						statisticsCardView.tertiaryTitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.tertiaryTitleLabel.firstBaselineAnchor),
-						statisticsCardView.footnoteLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.footnoteLabel.firstBaselineAnchor)
+						statisticsCardView.primarySubtitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.primarySubtitleLabel.firstBaselineAnchor),
+						statisticsCardView.tertiaryTitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.tertiaryTitleLabel.firstBaselineAnchor)
 					])
 				}
 			}

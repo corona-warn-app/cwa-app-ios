@@ -1959,6 +1959,56 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Card_ReproductionNumber_SecondaryLabelTitle" = "durchschnittliche Ansteckungen pro infizierter Person";
 
+/* - At least one person vaccinated card */
+
+"Statistics_Card_AtLeastOneVaccinated_Title" = "Mindestens einmal geimpfte Personen";
+
+"Statistics_Card_AtLeastOneVaccinated_Today" = "Aktuell";
+
+"Statistics_Card_AtLeastOneVaccinated_Yesterday" = "Bis Gestern";
+
+"Statistics_Card_AtLeastOneVaccinated_Date" = "Bis %@";
+
+"Statistics_Card_AtLeastOneVaccinated_SecondaryLabelTitle" = "der Gesamtbevölkerung";
+
+"Statistics_Card_AtLeastOneVaccinated_TertiaryLabelTitle" = "Gesamt";
+
+"Statistics_Card_AtLeastOneVaccinated_SecondarySubtitleLabel" = "der Gesamtbevölkerung";
+
+"Statistics_Card_Percent" = "%";
+
+
+
+/* - Fully vaccinated people card */
+
+"Statistics_Card_FullyVaccinated_Title" = "Vollständig geimpfte Personen";
+
+"Statistics_Card_FullyVaccinated_Today" = "Aktuell";
+
+"Statistics_Card_FullyVaccinated_Yesterday" = "Bis Gestern";
+
+"Statistics_Card_FullyVaccinated_Date" = "Bis %@";
+
+"Statistics_Card_FullyVaccinated_SecondaryLabelTitle" = "der Gesamtbevölkerung";
+
+"Statistics_Card_FullyVaccinated_TertiaryLabelTitle" = "Gesamt";
+
+"Statistics_Card_FullyVaccinated_SecondarySubtitleLabel" = "der Gesamtbevölkerung";
+
+/* - Applied vaccination dose rates card */
+ 
+"Statistics_Card_AppliedDoseRates_Title" = "Verabreichte Impfdosen";
+
+"Statistics_Card_AppliedDoseRates_Today" = "Aktuell";
+
+"Statistics_Card_AppliedDoseRates_Yesterday" = "Bis Gestern";
+
+"Statistics_Card_AppliedDoseRates_Date" = "Bis %@";
+
+"Statistics_Card_AppliedDoseRates_SecondaryLabelTitle" = "7-Tage-Mittelwert";
+
+"Statistics_Card_AppliedDoseRates_TertiaryLabelTitle" = "Gesamt";
+
 /* Error */
 
 "Statistics_LoadingError" = "Die Statistiken konnten nicht geladen werden. Bitte schließen Sie die App und versuchen Sie es erneut.";
