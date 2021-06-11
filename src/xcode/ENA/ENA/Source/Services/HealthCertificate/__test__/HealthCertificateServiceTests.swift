@@ -514,9 +514,19 @@ class HealthCertificateServiceTests: CWATestCase {
 				}
 			}
 
+		let completionExpectation = expectation(description: "completion called")
 		service.executeTestCertificateRequest(
 			testCertificateRequest,
-			retryIfCertificateIsPending: false
+			retryIfCertificateIsPending: false,
+			completion: { result in
+				switch result {
+				case .success:
+					break
+				case .failure:
+					XCTFail("Request expected to succeed")
+				}
+				completionExpectation.fulfill()
+			}
 		)
 
 		waitForExpectations(timeout: .medium)
@@ -589,9 +599,19 @@ class HealthCertificateServiceTests: CWATestCase {
 				}
 			}
 
+		let completionExpectation = expectation(description: "completion called")
 		service.executeTestCertificateRequest(
 			testCertificateRequest,
-			retryIfCertificateIsPending: false
+			retryIfCertificateIsPending: false,
+			completion: { result in
+				switch result {
+				case .success:
+					break
+				case .failure:
+					XCTFail("Request expected to succeed")
+				}
+				completionExpectation.fulfill()
+			}
 		)
 
 		waitForExpectations(timeout: .medium)
@@ -607,7 +627,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertTrue(service.testCertificateRequests.value.isEmpty)
 	}
 
-	func testTestCertificateExecution_ExistingUnregisteredKeyPair_OtherError() throws {
+	func testTestCertificateExecution_ExistingUnregisteredKeyPair_NetworkError() throws {
 		let store = MockTestStore()
 		let client = ClientMock()
 
@@ -641,9 +661,22 @@ class HealthCertificateServiceTests: CWATestCase {
 			digitalGreenCertificateAccess: MockDigitalGreenCertificateAccess()
 		)
 
+		let completionExpectation = expectation(description: "completion called")
 		service.executeTestCertificateRequest(
 			testCertificateRequest,
-			retryIfCertificateIsPending: false
+			retryIfCertificateIsPending: false,
+			completion: { result in
+				switch result {
+				case .success:
+					XCTFail("Request expected to fail")
+				case .failure(let error):
+					if case .publicKeyRegistrationFailed(let publicKeyError) = error,
+					   case .noNetworkConnection = publicKeyError {} else {
+						XCTFail("No network error on public key registration expected")
+					}
+				}
+				completionExpectation.fulfill()
+			}
 		)
 
 		waitForExpectations(timeout: .medium)
@@ -654,7 +687,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertFalse(testCertificateRequest.isLoading)
 	}
 
-	func testTestCertificateExecution_ExistingRegisteredKeyPair() throws {
+	func testTestCertificateExecution_ExistingRegisteredKeyPair_Success() throws {
 		let store = MockTestStore()
 		let client = ClientMock()
 
@@ -711,9 +744,19 @@ class HealthCertificateServiceTests: CWATestCase {
 				}
 			}
 
+		let completionExpectation = expectation(description: "completion called")
 		service.executeTestCertificateRequest(
 			testCertificateRequest,
-			retryIfCertificateIsPending: false
+			retryIfCertificateIsPending: false,
+			completion: { result in
+				switch result {
+				case .success:
+					break
+				case .failure:
+					XCTFail("Request expected to succeed")
+				}
+				completionExpectation.fulfill()
+			}
 		)
 
 		waitForExpectations(timeout: .medium)
@@ -727,6 +770,227 @@ class HealthCertificateServiceTests: CWATestCase {
 			base45TestCertificate
 		)
 		XCTAssertTrue(service.testCertificateRequests.value.isEmpty)
+	}
+
+	func testTestCertificateExecution_GettingCertificateFailsTwiceWithPending() throws {
+		let store = MockTestStore()
+		let client = ClientMock()
+
+		let keyPair = try DCCRSAKeyPair(registrationToken: "registrationToken")
+		let testCertificateRequest = TestCertificateRequest(
+			coronaTestType: .antigen,
+			registrationToken: "registrationToken",
+			registrationDate: Date(),
+			rsaKeyPair: keyPair,
+			rsaPublicKeyRegistered: true
+		)
+
+		store.testCertificateRequests = [testCertificateRequest]
+
+		let getDigitalCovid19CertificateExpectation = expectation(description: "getDigitalCovid19Certificate called")
+		getDigitalCovid19CertificateExpectation.expectedFulfillmentCount = 2
+		client.onGetDigitalCovid19Certificate = { _, _, completion in
+			getDigitalCovid19CertificateExpectation.fulfill()
+			completion(.failure(.dccPending))
+		}
+
+		var config = CachedAppConfigurationMock.defaultAppConfiguration
+		config.dgcParameters.testCertificateParameters.waitForRetryInSeconds = 1
+		let appConfig = CachedAppConfigurationMock(with: config)
+
+		let service = HealthCertificateService(
+			store: store,
+			client: client,
+			appConfiguration: appConfig
+		)
+
+		let completionExpectation = expectation(description: "completion called")
+		service.executeTestCertificateRequest(
+			testCertificateRequest,
+			retryIfCertificateIsPending: true,
+			completion: { result in
+				switch result {
+				case .success:
+					XCTFail("Request expected to fail")
+				case .failure(let error):
+					if case .certificateRequestFailed(let certificateRequestError) = error,
+					   case .dccPending = certificateRequestError {} else {
+						XCTFail("DCC pending error on certificate request expected")
+					}
+				}
+				completionExpectation.fulfill()
+			}
+		)
+
+		waitForExpectations(timeout: .medium)
+
+		XCTAssertEqual(service.testCertificateRequests.value.first, testCertificateRequest)
+		XCTAssertTrue(testCertificateRequest.requestExecutionFailed)
+		XCTAssertFalse(testCertificateRequest.isLoading)
+	}
+
+	func testTestCertificateExecution_AssemblyFails_Base64DecodingFailed() throws {
+		let store = MockTestStore()
+		let client = ClientMock()
+
+		let keyPair = try DCCRSAKeyPair(registrationToken: "registrationToken")
+		let testCertificateRequest = TestCertificateRequest(
+			coronaTestType: .antigen,
+			registrationToken: "registrationToken",
+			registrationDate: Date(),
+			rsaKeyPair: keyPair,
+			rsaPublicKeyRegistered: true,
+			encryptedDEK: "dataEncryptionKey",
+			encryptedCOSE: ""
+		)
+
+		store.testCertificateRequests = [testCertificateRequest]
+
+		let getDigitalCovid19CertificateExpectation = expectation(description: "getDigitalCovid19Certificate called")
+		getDigitalCovid19CertificateExpectation.isInverted = true
+		client.onGetDigitalCovid19Certificate = { _, _, _ in
+			getDigitalCovid19CertificateExpectation.fulfill()
+		}
+
+		let service = HealthCertificateService(
+			store: store,
+			client: client,
+			appConfiguration: CachedAppConfigurationMock()
+		)
+
+		let completionExpectation = expectation(description: "completion called")
+		service.executeTestCertificateRequest(
+			testCertificateRequest,
+			retryIfCertificateIsPending: true,
+			completion: { result in
+				switch result {
+				case .success:
+					XCTFail("Request expected to fail")
+				case .failure(let error):
+					if case .base64DecodingFailed = error {} else {
+						XCTFail("Base 64 decoding failed error expected")
+					}
+				}
+				completionExpectation.fulfill()
+			}
+		)
+
+		waitForExpectations(timeout: .medium)
+
+		XCTAssertEqual(service.testCertificateRequests.value.first, testCertificateRequest)
+		XCTAssertTrue(testCertificateRequest.requestExecutionFailed)
+		XCTAssertFalse(testCertificateRequest.isLoading)
+	}
+
+	func testTestCertificateExecution_AssemblyFails_DecryptionFailed() throws {
+		let store = MockTestStore()
+		let client = ClientMock()
+
+		let keyPair = try DCCRSAKeyPair(registrationToken: "registrationToken")
+		let testCertificateRequest = TestCertificateRequest(
+			coronaTestType: .antigen,
+			registrationToken: "registrationToken",
+			registrationDate: Date(),
+			rsaKeyPair: keyPair,
+			rsaPublicKeyRegistered: true,
+			encryptedDEK: "",
+			encryptedCOSE: ""
+		)
+
+		store.testCertificateRequests = [testCertificateRequest]
+
+		let getDigitalCovid19CertificateExpectation = expectation(description: "getDigitalCovid19Certificate called")
+		getDigitalCovid19CertificateExpectation.isInverted = true
+		client.onGetDigitalCovid19Certificate = { _, _, _ in
+			getDigitalCovid19CertificateExpectation.fulfill()
+		}
+
+		let service = HealthCertificateService(
+			store: store,
+			client: client,
+			appConfiguration: CachedAppConfigurationMock()
+		)
+
+		let completionExpectation = expectation(description: "completion called")
+		service.executeTestCertificateRequest(
+			testCertificateRequest,
+			retryIfCertificateIsPending: true,
+			completion: { result in
+				switch result {
+				case .success:
+					XCTFail("Request expected to fail")
+				case .failure(let error):
+					if case .decryptionFailed = error {} else {
+						XCTFail("Decryption failed error expected")
+					}
+				}
+				completionExpectation.fulfill()
+			}
+		)
+
+		waitForExpectations(timeout: .medium)
+
+		XCTAssertEqual(service.testCertificateRequests.value.first, testCertificateRequest)
+		XCTAssertTrue(testCertificateRequest.requestExecutionFailed)
+		XCTAssertFalse(testCertificateRequest.isLoading)
+	}
+
+	func testTestCertificateExecution_AssemblyFails_AssemblyFailed() throws {
+		let store = MockTestStore()
+		let client = ClientMock()
+
+		let keyPair = try DCCRSAKeyPair(registrationToken: "registrationToken")
+		let testCertificateRequest = TestCertificateRequest(
+			coronaTestType: .antigen,
+			registrationToken: "registrationToken",
+			registrationDate: Date(),
+			rsaKeyPair: keyPair,
+			rsaPublicKeyRegistered: true,
+			encryptedDEK: try keyPair.encrypt(Data()).base64EncodedString(),
+			encryptedCOSE: ""
+		)
+
+		store.testCertificateRequests = [testCertificateRequest]
+
+		let getDigitalCovid19CertificateExpectation = expectation(description: "getDigitalCovid19Certificate called")
+		getDigitalCovid19CertificateExpectation.isInverted = true
+		client.onGetDigitalCovid19Certificate = { _, _, _ in
+			getDigitalCovid19CertificateExpectation.fulfill()
+		}
+
+		var digitalGreenCertificateAccess = MockDigitalGreenCertificateAccess()
+		digitalGreenCertificateAccess.convertedToBase45 = .failure(.AES_DECRYPTION_FAILED)
+
+		let service = HealthCertificateService(
+			store: store,
+			client: client,
+			appConfiguration: CachedAppConfigurationMock(),
+			digitalGreenCertificateAccess: digitalGreenCertificateAccess
+		)
+
+		let completionExpectation = expectation(description: "completion called")
+		service.executeTestCertificateRequest(
+			testCertificateRequest,
+			retryIfCertificateIsPending: true,
+			completion: { result in
+				switch result {
+				case .success:
+					XCTFail("Request expected to fail")
+				case .failure(let error):
+					if case .assemblyFailed(let assemblyError) = error,
+					   case .AES_DECRYPTION_FAILED = assemblyError {} else {
+						XCTFail("Assembly failed with AES decryption failed error expected")
+					}
+				}
+				completionExpectation.fulfill()
+			}
+		)
+
+		waitForExpectations(timeout: .medium)
+
+		XCTAssertEqual(service.testCertificateRequests.value.first, testCertificateRequest)
+		XCTAssertTrue(testCertificateRequest.requestExecutionFailed)
+		XCTAssertFalse(testCertificateRequest.isLoading)
 	}
 
 	// MARK: - Private
