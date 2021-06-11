@@ -3,6 +3,7 @@
 //
 
 import XCTest
+import HealthCertificateToolkit
 @testable import ENA
 
 class HealthCertifiedPersonViewModelTests: XCTestCase {
@@ -74,6 +75,51 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 		XCTAssertEqual(personCellViewModel.attributedText?.string, "Erika Dörte Schmitt Mustermann\ngeboren 12.08.1964")
 		XCTAssertEqual(healthCertificateCellViewModel.gradientType, .lightBlue)
 		XCTAssertEqual(healthCertificate.name.fullName, "Erika Dörte Schmitt Mustermann")
+	}
+
+	func testGIVEN_FullyVaccinatedHealthCertifiedPersonViewModel_THEN_isSetupCorrect() throws {
+		// GIVEN
+		let service = HealthCertificateService(
+			store: MockTestStore(),
+			client: ClientMock(),
+			appConfiguration: CachedAppConfigurationMock()
+		)
+
+		let healthCertificate1 = try healthCertificate(daysOffset: -24, doseNumber: 1, identifier: "01DE/84503/1119349007/DXSGWLWL40SU8ZFKIYIBK39A3#S", dateOfBirth: "1988-06-07")
+		let healthCertificate2 = try healthCertificate(daysOffset: -12, doseNumber: 2, identifier: "01DE/84503/1119349007/DXSGWWLW40SU8ZFKIYIBK39A3#S", dateOfBirth: "1988-06-07")
+
+		let healthCertifiedPerson = HealthCertifiedPerson(
+			healthCertificates: [
+				healthCertificate1,
+				healthCertificate2
+			]
+		)
+
+		let viewModel = HealthCertifiedPersonViewModel(
+			healthCertificateService: service,
+			healthCertifiedPerson: healthCertifiedPerson,
+			vaccinationValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
+			dismiss: {}
+		)
+
+		let fullyVaccinatedHintCellViewModel = viewModel.fullyVaccinatedHintCellViewModel
+		guard case .fullyVaccinated(daysUntilCompleteProtection: let daysUntilCompleteProtection) = healthCertifiedPerson.vaccinationState else {
+			fatalError("Cell cannot be shown in any other vaccination state than .fullyVaccinated")
+		}
+
+		// THEN
+		XCTAssertEqual(viewModel.numberOfItems(in: .fullyVaccinatedHint), 1)
+		XCTAssertEqual(fullyVaccinatedHintCellViewModel.backgroundColor, .enaColor(for: .cellBackground2))
+		XCTAssertEqual(fullyVaccinatedHintCellViewModel.textAlignment, .left)
+		XCTAssertEqual(fullyVaccinatedHintCellViewModel.text, String(
+			format: AppStrings.HealthCertificate.Person.daysUntilCompleteProtection,
+			daysUntilCompleteProtection
+		))
+		XCTAssertEqual(fullyVaccinatedHintCellViewModel.topSpace, 16.0)
+		XCTAssertEqual(fullyVaccinatedHintCellViewModel.font, .enaFont(for: .body))
+		XCTAssertEqual(fullyVaccinatedHintCellViewModel.borderColor, .enaColor(for: .hairline))
+		XCTAssertEqual(fullyVaccinatedHintCellViewModel.accessibilityTraits, .staticText)
+
 	}
 
 }

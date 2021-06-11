@@ -993,24 +993,4 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertFalse(testCertificateRequest.isLoading)
 	}
 
-	// MARK: - Private
-
-	private enum Base45FakeError: Error {
-		case failed
-	}
-
-	private func base45Fake(from digitalGreenCertificate: DigitalGreenCertificate) throws -> Base45 {
-		let base45Result = DigitalGreenCertificateFake.makeBase45Fake(
-			from: digitalGreenCertificate,
-			and: CBORWebTokenHeader.fake()
-		)
-
-		guard case let .success(base45) = base45Result else {
-			XCTFail("Could not make fake base45 certificate")
-			throw Base45FakeError.failed
-		}
-
-		return base45
-	}
-
 }

@@ -127,13 +127,15 @@ class HomeHealthCertifiedPersonCellModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.accessibilityIdentifier, AccessibilityIdentifiers.HealthCertificate.Overview.testCertificateRequestCell)
 	}
 
-	// MARK: - Private
+}
 
-	private enum Base45FakeError: Error {
+extension XCTestCase {
+
+	enum Base45FakeError: Error {
 		case failed
 	}
 
-	private func base45Fake(from digitalGreenCertificate: DigitalGreenCertificate) throws -> Base45 {
+	func base45Fake(from digitalGreenCertificate: DigitalGreenCertificate) throws -> Base45 {
 		let base45Result = DigitalGreenCertificateFake.makeBase45Fake(
 			from: digitalGreenCertificate,
 			and: CBORWebTokenHeader.fake()
@@ -147,7 +149,7 @@ class HomeHealthCertifiedPersonCellModelTests: XCTestCase {
 		return base45
 	}
 
-	private func healthCertificate(daysOffset: Int, doseNumber: Int, identifier: String, dateOfBirth: String) throws -> HealthCertificate {
+	func healthCertificate(daysOffset: Int, doseNumber: Int, identifier: String, dateOfBirth: String) throws -> HealthCertificate {
 		let date = Date(timeIntervalSinceNow: TimeInterval(24 * 60 * 60 * daysOffset))
 		let vaccinationEntry = VaccinationEntry.fake(
 			doseNumber: doseNumber,
