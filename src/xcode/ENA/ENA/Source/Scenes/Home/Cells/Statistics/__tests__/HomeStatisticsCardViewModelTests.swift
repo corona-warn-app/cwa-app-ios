@@ -130,7 +130,7 @@ class HomeStatisticsCardViewModelTests: CWATestCase {
 
 		XCTAssertEqual(viewModel.illustrationImage, UIImage(named: "AtleastOneVaccinated"))
 		XCTAssertEqual(viewModel.title, AppStrings.Statistics.Card.AtleastOneVaccinated.title)
-		XCTAssertEqual(viewModel.subtitle, AppStrings.Statistics.Card.KeySubmissions.fromNationWide)
+		XCTAssertEqual(viewModel.subtitle, AppStrings.Statistics.Card.fromNationWide)
 		XCTAssertEqual(viewModel.primarySubtitle, AppStrings.Statistics.Card.AtleastOneVaccinated.primarySubtitle)
 		XCTAssertEqual(viewModel.secondaryTitle, AppStrings.Statistics.Card.AtleastOneVaccinated.secondaryLabelTitle)
 		XCTAssertEqual(viewModel.tertiaryTitle, AppStrings.Statistics.Card.AtleastOneVaccinated.tertiaryLabelTitle)
@@ -200,7 +200,7 @@ class HomeStatisticsCardViewModelTests: CWATestCase {
 
 		XCTAssertEqual(viewModel.illustrationImage, UIImage(named: "FullyVaccinated"))
 		XCTAssertEqual(viewModel.title, AppStrings.Statistics.Card.FullyVaccinated.title)
-		XCTAssertEqual(viewModel.subtitle, AppStrings.Statistics.Card.KeySubmissions.fromNationWide)
+		XCTAssertEqual(viewModel.subtitle, AppStrings.Statistics.Card.fromNationWide)
 		XCTAssertEqual(viewModel.primarySubtitle, AppStrings.Statistics.Card.FullyVaccinated.primarySubtitle)
 		XCTAssertEqual(viewModel.secondaryTitle, AppStrings.Statistics.Card.FullyVaccinated.secondaryLabelTitle)
 		XCTAssertEqual(viewModel.tertiaryTitle, AppStrings.Statistics.Card.FullyVaccinated.tertiaryLabelTitle)
@@ -270,7 +270,7 @@ class HomeStatisticsCardViewModelTests: CWATestCase {
 
 		XCTAssertEqual(viewModel.illustrationImage, UIImage(named: "Doses"))
 		XCTAssertEqual(viewModel.title, AppStrings.Statistics.Card.DoseRates.title)
-		XCTAssertEqual(viewModel.subtitle, AppStrings.Statistics.Card.KeySubmissions.fromNationWide)
+		XCTAssertEqual(viewModel.subtitle, AppStrings.Statistics.Card.fromNationWide)
 		XCTAssertEqual(viewModel.secondaryTitle, AppStrings.Statistics.Card.DoseRates.secondaryLabelTitle)
 		XCTAssertEqual(viewModel.tertiaryTitle, AppStrings.Statistics.Card.DoseRates.tertiaryLabelTitle)
 	}
