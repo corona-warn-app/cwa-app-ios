@@ -15,7 +15,7 @@ let package = Package(
         // Dependencies declare other packages that this package depends on.
         .package(url: "https://github.com/unrelentingtech/SwiftCBOR", .upToNextMajor(from: "0.4.3")),
         .package(url: "https://github.com/corona-warn-app/base45-swift", .branch("distribution/swiftpackage")),
-        .package(name: "JSONSchema", url: "https://github.com/kylef/JSONSchema.swift", .upToNextMajor(from: "0.6.0")),
+        .package(name: "JSONSchema", url: "https://github.com/eu-digital-green-certificates/JSONSchema.swift", .upToNextMajor(from: "0.6.0")),
         .package(url: "https://github.com/tsolomko/SWCompression.git", .upToNextMajor(from: "4.5.0"))
     ],
     targets: [
