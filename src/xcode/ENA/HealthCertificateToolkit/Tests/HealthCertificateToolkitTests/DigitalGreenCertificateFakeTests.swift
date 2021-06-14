@@ -53,7 +53,8 @@ class DigitalGreenCertificateFakeTests: XCTestCase {
                     uniqueCertificateIdentifier: "01DE/84503/1119349007/DXSGWLWL40SU8ZFKIYIBK39A3#S"
                 )
             ],
-            testEntries: nil
+            testEntries: nil,
+            recoveryEntries: nil
         )
     }()
     
