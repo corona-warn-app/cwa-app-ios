@@ -79,12 +79,17 @@ class HealthCertificateService {
 					$0.healthCertificates.first?.dateOfBirthDate == healthCertificate.dateOfBirthDate
 				}) ?? HealthCertifiedPerson(healthCertificates: [])
 
+			if healthCertificate.hasTooManyEntries {
+				Log.error("[HealthCertificateService] Registering health certificate failed: certificate has too many entries", log: .api)
+				return .failure(.certificateHasTooManyEntries)
+			}
+
 			let isDuplicate = healthCertifiedPerson.healthCertificates
 				.contains(where: {
 					$0.uniqueCertificateIdentifier == healthCertificate.uniqueCertificateIdentifier
 				})
 			if isDuplicate {
-				Log.error("[HealthCertificateService] Registering health certificate failed: .certificateAlreadyRegistered", log: .api)
+				Log.error("[HealthCertificateService] Registering health certificate failed:  certificate already registered", log: .api)
 				return .failure(.certificateAlreadyRegistered(healthCertificate.type))
 			}
 

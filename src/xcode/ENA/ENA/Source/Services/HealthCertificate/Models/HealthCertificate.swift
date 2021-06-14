@@ -76,6 +76,16 @@ struct HealthCertificate: Codable, Equatable, Comparable {
 		digitalGreenCertificate.recoveryEntries?.first
 	}
 
+	var hasTooManyEntries: Bool {
+		let entryCount = [
+			digitalGreenCertificate.vaccinationEntries?.count ?? 0,
+			digitalGreenCertificate.testEntries?.count ?? 0,
+			digitalGreenCertificate.recoveryEntries?.count ?? 0
+		].reduce(0, +)
+
+		return entryCount != 1
+	}
+
 	var type: CertificateType {
 		if let vaccinationEntry = vaccinationEntry {
 			return .vaccination(vaccinationEntry)
