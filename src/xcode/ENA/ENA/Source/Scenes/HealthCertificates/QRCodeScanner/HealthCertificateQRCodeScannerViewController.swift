@@ -11,7 +11,7 @@ class HealthCertificateQRCodeScannerViewController: UIViewController {
 
 	init(
 		healthCertificateService: HealthCertificateService,
-		didScanCertificate: @escaping (HealthCertifiedPerson) -> Void,
+		didScanCertificate: @escaping (HealthCertifiedPerson, HealthCertificate) -> Void,
 		dismiss: @escaping () -> Void
 	) {
 		self.didScanCertificate = didScanCertificate
@@ -21,10 +21,10 @@ class HealthCertificateQRCodeScannerViewController: UIViewController {
 		
 		viewModel = HealthCertificateQRCodeScannerViewModel(
 			healthCertificateService: healthCertificateService,
-			onSuccess: { [weak self] healthCertifiedPerson in
+			onSuccess: { [weak self] healthCertifiedPerson, healthCertificate in
 				AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
 				self?.viewModel?.deactivateScanning()
-				didScanCertificate(healthCertifiedPerson)
+				didScanCertificate(healthCertifiedPerson, healthCertificate)
 			},
 			onError: { error in
 				switch error {
@@ -74,7 +74,7 @@ class HealthCertificateQRCodeScannerViewController: UIViewController {
 	// MARK: - Private
 
 	private let focusView = QRScannerFocusView()
-	private let didScanCertificate: (HealthCertifiedPerson) -> Void
+	private let didScanCertificate: (HealthCertifiedPerson, HealthCertificate) -> Void
 	private let dismiss: () -> Void
 
 	private var viewModel: HealthCertificateQRCodeScannerViewModel?

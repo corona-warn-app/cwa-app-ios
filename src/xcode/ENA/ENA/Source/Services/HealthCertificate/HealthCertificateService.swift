@@ -118,7 +118,7 @@ class HealthCertificateService {
 	@discardableResult
 	func registerHealthCertificate(
 		base45: Base45
-	) -> Result<HealthCertifiedPerson, HealthCertificateServiceError.RegistrationError> {
+	) -> Result<(HealthCertifiedPerson, HealthCertificate), HealthCertificateServiceError.RegistrationError> {
 		Log.info("[HealthCertificateService] Registering health certificate from payload: \(private: base45)", log: .api)
 
 		do {
@@ -149,7 +149,7 @@ class HealthCertificateService {
 				Log.info("[HealthCertificateService] Successfully registered health certificate for a person with other existing certificates", log: .api)
 			}
 
-			return .success((healthCertifiedPerson))
+			return .success((healthCertifiedPerson, healthCertificate))
 		} catch let error as CertificateDecodingError {
 			Log.error("[HealthCertificateService] Registering health certificate failed with .decodingError: \(error.localizedDescription)", log: .api)
 			return .failure(.decodingError(error))
