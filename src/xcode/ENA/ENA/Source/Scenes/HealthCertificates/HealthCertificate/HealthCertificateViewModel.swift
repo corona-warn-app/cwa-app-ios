@@ -98,6 +98,9 @@ final class HealthCertificateViewModel {
 		case .test:
 			title = AppStrings.HealthCertificate.Details.TestCertificate.title
 			subtitle = AppStrings.HealthCertificate.Details.TestCertificate.subtitle
+		case .recovery:
+			title = AppStrings.HealthCertificate.Details.RecoveryCertificate.title
+			subtitle = AppStrings.HealthCertificate.Details.RecoveryCertificate.subtitle
 		}
 
 		let attributedTitle = NSAttributedString(
@@ -194,6 +197,8 @@ final class HealthCertificateViewModel {
 			updateVaccinationCertificateKeyValueCellViewModels(vaccinationEntry: vaccinationEntry)
 		case .test(let testEntry):
 			updateTestCertificateKeyValueCellViewModels(testEntry: testEntry)
+		case .recovery(_):
+			break
 		}
 	}
 

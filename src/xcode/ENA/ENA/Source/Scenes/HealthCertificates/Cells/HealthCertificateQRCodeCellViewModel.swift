@@ -38,7 +38,7 @@ struct HealthCertificateQRCodeCellViewModel {
 				format: AppStrings.HealthCertificate.Details.certificateCount,
 				vaccinationEntry.doseNumber, vaccinationEntry.totalSeriesOfDoses
 			)
-		case .test:
+		case .test, .recovery:
 			self.validity = nil
 			self.certificate = nil
 		}

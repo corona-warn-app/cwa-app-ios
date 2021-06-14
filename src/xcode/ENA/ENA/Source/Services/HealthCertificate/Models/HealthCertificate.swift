@@ -52,6 +52,7 @@ struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable 
 	enum CertificateType {
 		case vaccination(VaccinationEntry)
 		case test(TestEntry)
+		case recovery(RecoveryEntry)
 	}
 
 	let base45: Base45
