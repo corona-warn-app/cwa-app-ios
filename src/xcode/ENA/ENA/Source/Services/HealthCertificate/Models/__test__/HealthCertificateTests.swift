@@ -6,6 +6,7 @@ import XCTest
 @testable import ENA
 import HealthCertificateToolkit
 
+// swiftlint:disable file_length
 class HealthCertificateTests: XCTestCase {
 			
 	func testGIVEN_Base45WellformedEncoded_WHEN_InitIsCalled_THEN_HealthCertificateIsCreated() throws {
@@ -206,8 +207,8 @@ class HealthCertificateTests: XCTestCase {
 		))
 
 		let recoveryCertificateBase45 = try base45Fake(from: DigitalGreenCertificate.fake(
-			vaccinationEntries: [VaccinationEntry.fake(
-				dateOfVaccination: "2020-01-01"
+			recoveryEntries: [RecoveryEntry.fake(
+				certificateValidFrom: "2020-01-01"
 			)]
 		))
 
@@ -506,4 +507,106 @@ class HealthCertificateTests: XCTestCase {
 	
 		XCTAssertEqual(healthCertificate.expirationDate, expectedDate)
 	}
+
+	func testGIVEN_CertificatesWithOneEntry_WHEN_CheckingTooManyEntries_FalseIsReturned() throws {
+		// GIVEN
+		let vaccinationCertificateBase45 = try base45Fake(from: DigitalGreenCertificate.fake(
+			vaccinationEntries: [VaccinationEntry.fake(
+				dateOfVaccination: "2020-01-03"
+			)]
+		))
+
+		let testCertificateBase45 = try base45Fake(from: DigitalGreenCertificate.fake(
+			testEntries: [TestEntry.fake(
+				dateTimeOfSampleCollection: "2020-01-02T12:00:00.000Z"
+			)]
+		))
+
+		let recoveryCertificateBase45 = try base45Fake(from: DigitalGreenCertificate.fake(
+			vaccinationEntries: [VaccinationEntry.fake(
+				dateOfVaccination: "2020-01-01"
+			)]
+		))
+
+		let vaccinationCertificate = try HealthCertificate(base45: vaccinationCertificateBase45)
+		let testCertificate = try HealthCertificate(base45: testCertificateBase45)
+		let recoveryCertificate = try HealthCertificate(base45: recoveryCertificateBase45)
+
+		// WHEN / THEN
+		XCTAssertFalse(vaccinationCertificate.hasTooManyEntries)
+		XCTAssertFalse(testCertificate.hasTooManyEntries)
+		XCTAssertFalse(recoveryCertificate.hasTooManyEntries)
+	}
+
+	func testGIVEN_CertificatesWithMultipleEntries_WHEN_CheckingTooManyEntries_TrueIsReturned() throws {
+		// GIVEN
+		let firstWrongCertificateBase45 = try base45Fake(from: DigitalGreenCertificate.fake(
+			vaccinationEntries: [VaccinationEntry.fake(
+				dateOfVaccination: "2020-01-01"
+			)],
+			testEntries: [TestEntry.fake(
+				dateTimeOfSampleCollection: "2020-01-02T12:00:00.000Z"
+			)],
+			recoveryEntries: nil
+		))
+
+		let secondWrongCertificateBase45 = try base45Fake(from: DigitalGreenCertificate.fake(
+			vaccinationEntries: [VaccinationEntry.fake(
+				dateOfVaccination: "2020-01-01"
+			)],
+			testEntries: nil,
+			recoveryEntries: [RecoveryEntry.fake(
+				certificateValidFrom: "2020-01-01"
+			)]
+		))
+
+		let thirdWrongCertificateBase45 = try base45Fake(from: DigitalGreenCertificate.fake(
+			vaccinationEntries: nil,
+			testEntries: [TestEntry.fake(
+				dateTimeOfSampleCollection: "2020-01-02T12:00:00.000Z"
+			)],
+			recoveryEntries: [RecoveryEntry.fake(
+				certificateValidFrom: "2020-01-01"
+			)]
+		))
+
+		let fourthWrongCertificateBase45 = try base45Fake(from: DigitalGreenCertificate.fake(
+			vaccinationEntries: [VaccinationEntry.fake(
+				dateOfVaccination: "2020-01-01"
+			)],
+			testEntries: [TestEntry.fake(
+				dateTimeOfSampleCollection: "2020-01-02T12:00:00.000Z"
+			)],
+			recoveryEntries: [RecoveryEntry.fake(
+				certificateValidFrom: "2020-01-01"
+			)]
+		))
+
+		let fifthWrongCertificateBase45 = try base45Fake(from: DigitalGreenCertificate.fake(
+			vaccinationEntries: [
+				VaccinationEntry.fake(
+					dateOfVaccination: "2020-01-01"
+				),
+				VaccinationEntry.fake(
+					dateOfVaccination: "2020-02-14"
+				)
+			],
+			testEntries: nil,
+			recoveryEntries: nil
+		))
+
+		let firstWrongCertificate = try HealthCertificate(base45: firstWrongCertificateBase45)
+		let secondWrongCertificate = try HealthCertificate(base45: secondWrongCertificateBase45)
+		let thirdWrongCertificate = try HealthCertificate(base45: thirdWrongCertificateBase45)
+		let fourthWrongCertificate = try HealthCertificate(base45: fourthWrongCertificateBase45)
+		let fifthWrongCertificate = try HealthCertificate(base45: fifthWrongCertificateBase45)
+
+		// WHEN / THEN
+		XCTAssertTrue(firstWrongCertificate.hasTooManyEntries)
+		XCTAssertTrue(secondWrongCertificate.hasTooManyEntries)
+		XCTAssertTrue(thirdWrongCertificate.hasTooManyEntries)
+		XCTAssertTrue(fourthWrongCertificate.hasTooManyEntries)
+		XCTAssertTrue(fifthWrongCertificate.hasTooManyEntries)
+	}
+
 }
