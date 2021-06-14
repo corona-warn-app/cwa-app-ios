@@ -489,12 +489,7 @@ extension ENAExposureManager {
 			let completionHandler: (UIAlertAction, @escaping () -> Void) -> Void = { action, completion in
 				switch action.style {
 				case .default:
-					guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
-						return
-					}
-					if UIApplication.shared.canOpenURL(settingsUrl) {
-						UIApplication.shared.open(settingsUrl, completionHandler: nil)
-					}
+					LinkHelper.open(urlString: UIApplication.openSettingsURLString)
 				case .cancel, .destructive:
 					completion()
 				@unknown default:

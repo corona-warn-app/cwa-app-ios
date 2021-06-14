@@ -181,7 +181,7 @@ extension OnboardingInfoViewController {
 
 extension OnboardingInfoViewController: UITextViewDelegate {
 	func textView(_ textView: UITextView, shouldInteractWith url: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-		LinkHelper.open(withUrl: url, from: self)
+		LinkHelper.open(url: url)
 		return false
 	}
 }
