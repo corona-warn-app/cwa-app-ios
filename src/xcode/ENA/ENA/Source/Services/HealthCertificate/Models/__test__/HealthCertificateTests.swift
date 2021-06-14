@@ -30,7 +30,7 @@ class HealthCertificateTests: XCTestCase {
 		XCTAssertNotNil(healthCertificate)
 	}
 	
-	func testGIVEN_Base45WrongCBORHeaderEncoded_WHEN_InitIsCalled_THEN_FailureIsRetuend() throws {
+	func testGIVEN_Base45WrongCBORHeaderEncoded_WHEN_InitIsCalled_THEN_FailureIsReturned() throws {
 		
 		// GIVEN
 		let dgcCertificate = DigitalGreenCertificate.fake()
@@ -60,7 +60,7 @@ class HealthCertificateTests: XCTestCase {
 		XCTAssertEqual(error, expectedError)
 	}
 	
-	func testGIVEN_Base45WrongDGCEncoded_WHEN_InitIsCalled_THEN_FailureIsRetuend() throws {
+	func testGIVEN_Base45WrongDGCEncoded_WHEN_InitIsCalled_THEN_FailureIsReturned() throws {
 		
 		// GIVEN
 		let dgcCertificate = DigitalGreenCertificate.fake(dateOfBirth: "WrongDOB")
