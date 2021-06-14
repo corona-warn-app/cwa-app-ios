@@ -33,6 +33,22 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
         XCTAssertEqual(healthCertificate, testDataTestCertificate.certificate)
     }
 
+    func test_When_DecodeRecoveryCertificateSucceeds_Then_CorrectCertificateIsReturned() {
+        let certificateAccess = DigitalGreenCertificateAccess()
+        let result = certificateAccess.extractDigitalGreenCertificate(from: testDataRecoveryCertificate.input)
+
+        if case let .failure(error) = result {
+            print(error)
+        }
+
+        guard case let .success(healthCertificate) = result else {
+            XCTFail("Success expected.")
+            return
+        }
+
+        XCTAssertEqual(healthCertificate, testDataRecoveryCertificate.certificate)
+    }
+
     func test_When_DecodeCertificateFails_Then_PrefixInvalidErrorIsReturned() {
         let certificateAccess = DigitalGreenCertificateAccess()
         // "%69 VDL2" == "Hello"
@@ -211,6 +227,76 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
         XCTAssertTrue(containsLengthError)
     }
 
+    func test_When_DecodeRecoveryCertificateFails_Then_SchemaInvalidErrorIsReturned() {
+        let certificateAccess = DigitalGreenCertificateAccess()
+
+        /// This data contains data which leads to validation errors.
+        /// Schema validation errors:
+        /// -Wrong format for dateOfFirstPositiveNAAResult
+        /// -uniqueCertificateIdentifier length > 50
+        let fakeCertificate = DigitalGreenCertificate.fake(
+            dateOfBirth: "NotADateOfBirth",
+            recoveryEntries: [
+                RecoveryEntry.fake(
+                    dateOfFirstPositiveNAAResult: "NotADateOfFirstPositiveNAAResult",
+                    certificateValidFrom: "NotACertificateValidFrom",
+                    certificateValidUntil: "NotACertificateValidUntil",
+                    uniqueCertificateIdentifier: "Lorem ipsum dolor sit amet, consetetur sadipscing e"
+                )
+            ]
+        )
+
+        let base45FakeResult = DigitalGreenCertificateFake.makeBase45Fake(from: fakeCertificate, and: CBORWebTokenHeader.fake())
+        guard case let .success(base45Fake) = base45FakeResult else {
+            XCTFail("Success expected.")
+            return
+        }
+
+        let result = certificateAccess.extractDigitalGreenCertificate(from: base45Fake)
+
+        guard case let .failure(error) = result else {
+            XCTFail("Error expected.")
+            return
+        }
+
+        guard case .HC_JSON_SCHEMA_INVALID(let schemaError) = error else {
+            XCTFail("HC_JSON_SCHEMA_INVALID expected.")
+            return
+        }
+
+        guard case .VALIDATION_RESULT_FAILED(let innerSchemaErrors) = schemaError else {
+            XCTFail("VALIDATION_RESULT_FAILED expected.")
+            return
+        }
+
+        let containsDateOfBirthError = innerSchemaErrors.contains {
+            $0.description.contains("NotADateOfBirth' does not match pattern")
+        }
+
+        let containsDateOfFirstPositiveNAAResultError = innerSchemaErrors.contains {
+            $0.description.contains("NotADateOfFirstPositiveNAAResult' is not a valid RFC 3339 formatted date.")
+        }
+
+        let containsCertificateValidFromError = innerSchemaErrors.contains {
+            $0.description.contains("NotACertificateValidFrom' is not a valid RFC 3339 formatted date.")
+        }
+
+        let containsCertificateValidUntilError = innerSchemaErrors.contains {
+            $0.description.contains("NotACertificateValidUntil' is not a valid RFC 3339 formatted date.")
+        }
+
+        let containsLengthError = innerSchemaErrors.contains {
+            $0.description == "Length of string is larger than max length 50"
+        }
+
+        XCTAssertEqual(innerSchemaErrors.count, 5)
+        XCTAssertTrue(containsDateOfBirthError)
+        XCTAssertTrue(containsDateOfFirstPositiveNAAResultError)
+        XCTAssertTrue(containsCertificateValidFromError)
+        XCTAssertTrue(containsCertificateValidUntilError)
+        XCTAssertTrue(containsLengthError)
+    }
+
     func test_When_DecodeSucceeds_Then_CorrectHeaderIsReturned() throws {
         let certificateAccess = DigitalGreenCertificateAccess()
 
@@ -331,6 +417,40 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
                     )
                 ],
                 recoveryEntries: nil
+            ),
+            header: CBORWebTokenHeader(
+                issuer: "DE",
+                issuedAt: 1619167131,
+                expirationTime: 1622725423
+            )
+        )
+    }()
+
+    private lazy var testDataRecoveryCertificate: TestData = {
+        TestData(
+            input: hcPrefix + "6BFOXN%TSMAHN-HVN8J7UQMJ4/36 L-AH+UC1RO4.S-OPT-I9QKUXI.I5HCF-+AF/8X*G-O9UVPQRHIY1VS1NQ1 WUQRELS4 CTHE7L4LXTC%*400THMVL%20YCZ/KD*S+*4KCTBYKGVV+TV F76AL**I$MV4$0ADF0NNNIV+*4.$S6ZC0JBW63MD34LT483F 2K%5PF5RBQ746B46O1N646EN95O5PF6846A$Q 76SW6SH932QXF7AC5ADNXMQ*Q6NY4 478L6IWM$S4O65YR60D4%IUOD4*EV3LCIS8DKD5C9PG9QVA0932QE+G9AXG/01%CMPK95%L//6JWE/.Q100R$FTM8*N9TL2A-FUTVC1OJ$5I5UH8T-0OG60NJOQ3T%80C6S23OS-5172W1CH$6:7Q5$VT6EY$NY+LV$2R3A1MMLHP2/L7O59SG6.2..TYUVNYT0G6-27$WBZP6NM13.60R3GSMF4ARSV*JO5PU.DGE39Y1GY8RN004GF 2",
+            certificate: DigitalGreenCertificate(
+                version: "1.0.0",
+                name: Name(
+                    familyName: "Martinelli",
+                    givenName: "Amelia",
+                    standardizedFamilyName: "MARTINELLI",
+                    standardizedGivenName: "AMELIA"
+                ),
+                dateOfBirth: "1982-12-23",
+                vaccinationEntries: nil,
+                testEntries: nil,
+                recoveryEntries: [
+                    RecoveryEntry(
+                        diseaseOrAgentTargeted: "840539006",
+                        dateOfFirstPositiveNAAResult: "2021-05-22",
+                        countryOfTest: "DE",
+                        certificateIssuer: "Bundesministerium für Gesundheit",
+                        certificateValidFrom: "2021-06-05",
+                        certificateValidUntil: "2021-11-08",
+                        uniqueCertificateIdentifier: "01DE/00000/1119349007/FMXDTGR7KMPPHS270PAK9MVDK"
+                    )
+                ]
             ),
             header: CBORWebTokenHeader(
                 issuer: "DE",
