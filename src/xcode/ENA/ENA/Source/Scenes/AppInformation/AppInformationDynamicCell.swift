@@ -30,10 +30,7 @@ extension DynamicCell {
 				cell.accessibilityCustomActions = [
 					UIAccessibilityCustomAction(name: actionName, actionHandler: {  _ -> Bool in
 						let phoneNumber = foreign ? AppStrings.ExposureSubmission.hotlineNumberForeign : AppStrings.ExposureSubmission.hotlineNumber
-						if let url = URL(string: "telprompt:\(phoneNumber)"),
-							UIApplication.shared.canOpenURL(url) {
-							UIApplication.shared.open(url, options: [:], completionHandler: nil)
-						}
+						LinkHelper.open(urlString: "telprompt:\(phoneNumber)")
 						return true
 					})
 				]
