@@ -101,7 +101,7 @@
     {
       "parallelizable" : true,
       "target" : {
-        "containerPath" : "container:",
+        "containerPath" : "container:HealthCertificateToolkit",
         "identifier" : "HealthCertificateToolkitTests",
         "name" : "HealthCertificateToolkitTests"
       }

@@ -119,9 +119,7 @@ final class ExposureDetectionCoordinator {
 	}
 
 	private func showSurveyWebpage(with url: URL) {
-		if UIApplication.shared.canOpenURL(url) {
-			UIApplication.shared.open(url)
-		}
+		LinkHelper.open(url: url)
 	}
 
 	private func setExposureManagerEnabled(_ enabled: Bool, then completion: @escaping (ExposureNotificationError?) -> Void) {

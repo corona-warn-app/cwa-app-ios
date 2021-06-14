@@ -30,10 +30,10 @@
       },
       {
         "package": "JSONSchema",
-        "repositoryURL": "https://github.com/kylef/JSONSchema.swift",
+        "repositoryURL": "https://github.com/eu-digital-green-certificates/JSONSchema.swift",
         "state": {
           "branch": null,
-          "revision": "d14de4b2d9205068c9db89c00d097ca43c897000",
+          "revision": "c21d82683c426097700afc90dfe63fe06ed5127c",
           "version": "0.6.0"
         }
       },

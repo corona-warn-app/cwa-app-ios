@@ -541,7 +541,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 				let openFAQ: (() -> Void)? = {
 					guard let url = enError.faqURL else { return nil }
 					return {
-						UIApplication.shared.open(url, options: [:])
+						LinkHelper.open(url: url)
 					}
 				}()
 				return rootController.setupErrorAlert(
