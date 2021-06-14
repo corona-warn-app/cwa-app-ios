@@ -9,7 +9,7 @@ struct HealthCertificateQRCodeCellViewModel {
 	// MARK: - Init
 
 	init(
-		healthCertificate: HealthCertificateData,
+		healthCertificate: HealthCertificate,
 		accessibilityText: String?
 	) {
 		let qrCodeSize = UIScreen.main.bounds.width - 60

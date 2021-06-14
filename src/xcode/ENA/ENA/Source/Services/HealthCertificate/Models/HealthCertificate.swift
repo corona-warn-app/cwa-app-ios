@@ -5,19 +5,7 @@
 import Foundation
 import HealthCertificateToolkit
 
-protocol HealthCertificateData {
-	var base45: Base45 { get }
-	var version: String { get }
-	var name: HealthCertificateToolkit.Name { get }
-	var dateOfBirth: String { get }
-	var dateOfBirthDate: Date? { get }
-	var vaccinationEntry: VaccinationEntry? { get }
-	var testEntry: TestEntry? { get }
-	var type: HealthCertificate.CertificateType { get }
-	var expirationDate: Date { get }
-}
-
-struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable {
+struct HealthCertificate: Codable, Equatable, Comparable {
 
 	// MARK: - Init
 
@@ -77,15 +65,15 @@ struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable 
 	}
 
 	var vaccinationEntry: VaccinationEntry? {
-		let vaccinationCertificates = digitalGreenCertificate.vaccinationEntries ?? []
-
-		return vaccinationCertificates.first
+		digitalGreenCertificate.vaccinationEntries?.first
 	}
 
 	var testEntry: TestEntry? {
-		let testCertificates = digitalGreenCertificate.testEntries ?? []
+		digitalGreenCertificate.testEntries?.first
+	}
 
-		return testCertificates.first
+	var recoveryEntry: RecoveryEntry? {
+		digitalGreenCertificate.recoveryEntries?.first
 	}
 
 	var type: CertificateType {
@@ -93,6 +81,8 @@ struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable 
 			return .vaccination(vaccinationEntry)
 		} else if let testEntry = testEntry {
 			return .test(testEntry)
+		} else if let recoveryEntry = recoveryEntry {
+			return .recovery(recoveryEntry)
 		}
 
 		fatalError("Unsupported certificates are not added in the first place")

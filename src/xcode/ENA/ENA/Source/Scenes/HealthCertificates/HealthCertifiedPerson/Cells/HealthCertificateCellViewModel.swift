@@ -21,36 +21,48 @@ final class HealthCertificateCellViewModel {
 	let gradientType: GradientView.GradientType
 
 	var headline: String? {
-		guard
-			let doseNumber = healthCertificate.vaccinationEntry?.doseNumber,
-			let totalSeriesOfDoses = healthCertificate.vaccinationEntry?.totalSeriesOfDoses
-		else {
+		switch healthCertificate.type {
+		case .vaccination(let vaccinationEntry):
+			return String(
+				format: AppStrings.HealthCertificate.Person.vaccinationCount,
+				vaccinationEntry.doseNumber,
+				vaccinationEntry.totalSeriesOfDoses
+			)
+		case .test(_):
+			return nil
+		case .recovery(_):
 			return nil
 		}
-
-		return String(
-			format: AppStrings.HealthCertificate.Person.vaccinationCount,
-			doseNumber,
-			totalSeriesOfDoses
-		)
 	}
 
 	var detail: String? {
-		guard let localVaccinationDate = healthCertificate.vaccinationEntry?.localVaccinationDate else {
+		switch healthCertificate.type {
+		case .vaccination(let vaccinationEntry):
+			return vaccinationEntry.localVaccinationDate.map {
+				String(
+					format: AppStrings.HealthCertificate.Person.vaccinationDate,
+					DateFormatter.localizedString(from: $0, dateStyle: .medium, timeStyle: .none)
+				)
+			}
+		case .test(_):
+			return nil
+		case .recovery(_):
 			return nil
 		}
-
-		return String(
-			format: AppStrings.HealthCertificate.Person.vaccinationDate,
-			DateFormatter.localizedString(from: localVaccinationDate, dateStyle: .medium, timeStyle: .none)
-		)
 	}
 
 	var image: UIImage {
-		if healthCertificate.vaccinationEntry?.isLastDoseInASeries ?? false {
-			return UIImage(imageLiteralResourceName: "Icon - Vollschild")
-		} else {
-			return UIImage(imageLiteralResourceName: "Icon - Teilschild")
+		switch healthCertificate.type {
+		case .vaccination(let vaccinationEntry):
+			if vaccinationEntry.isLastDoseInASeries {
+				return UIImage(imageLiteralResourceName: "Icon - Vollschild")
+			} else {
+				return UIImage(imageLiteralResourceName: "Icon - Teilschild")
+			}
+		case .test(_):
+			return UIImage()
+		case .recovery(_):
+			return UIImage()
 		}
 	}
 

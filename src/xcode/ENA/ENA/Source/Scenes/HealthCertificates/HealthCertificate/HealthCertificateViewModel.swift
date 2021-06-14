@@ -12,7 +12,7 @@ final class HealthCertificateViewModel {
 
 	init(
 		healthCertifiedPerson: HealthCertifiedPerson?,
-		healthCertificate: HealthCertificateData,
+		healthCertificate: HealthCertificate,
 		vaccinationValueSetsProvider: VaccinationValueSetsProvider
 	) {
 		self.healthCertificate = healthCertificate
@@ -170,7 +170,7 @@ final class HealthCertificateViewModel {
 		case .topCorner, .bottomCorner:
 			return healthCertificateKeyValueCellViewModel.isEmpty ? 0 : 1
 		case .additionalInfo:
-			return healthCertificate.testEntry != nil ? additionalInfoCellViewModels.count : 0
+			return additionalInfoCellViewModels.count
 		}
 	}
 
@@ -185,7 +185,7 @@ final class HealthCertificateViewModel {
 		case testResult
 	}
 
-	private let healthCertificate: HealthCertificateData
+	private let healthCertificate: HealthCertificate
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProvider
 
 	private var valueSets: SAP_Internal_Dgc_ValueSets?
