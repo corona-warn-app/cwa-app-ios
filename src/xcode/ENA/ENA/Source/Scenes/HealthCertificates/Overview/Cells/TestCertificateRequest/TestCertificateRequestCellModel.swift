@@ -34,14 +34,13 @@ class TestCertificateRequestCellModel {
 	
 	// MARK: - Internal
 
-	var title: String
+	let title: String
+	let registrationDate: String
+	let loadingStateDescription: String
+	let tryAgainButtonTitle: String
+	let removeButtonTitle: String
+
 	@DidSetPublished var subtitle: String
-	var registrationDate: String
-
-	var loadingStateDescription: String
-	var tryAgainButtonTitle: String
-	var removeButtonTitle: String
-
 	@DidSetPublished var isLoadingStateHidden: Bool = false
 	@DidSetPublished var buttonsHidden: Bool = true
 

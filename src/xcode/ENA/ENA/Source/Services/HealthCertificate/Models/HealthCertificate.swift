@@ -39,14 +39,9 @@ struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable 
 	// MARK: - Protocol Comparable
 
 	static func < (lhs: HealthCertificate, rhs: HealthCertificate) -> Bool {
-		if let lhsVaccinationDate = lhs.vaccinationEntry?.dateOfVaccination,
-		   let rhsVaccinationDate = rhs.vaccinationEntry?.dateOfVaccination {
-			return lhsVaccinationDate < rhsVaccinationDate
-		}
-
-		if let lhsSampleCollectionDate = lhs.testEntry?.dateTimeOfSampleCollection,
-		   let rhsSampleCollectionDate = rhs.testEntry?.dateTimeOfSampleCollection {
-			return lhsSampleCollectionDate < rhsSampleCollectionDate
+		if let lhsDate = lhs.vaccinationEntry?.dateOfVaccination ?? lhs.testEntry?.dateTimeOfSampleCollection,
+		   let rhsDate = rhs.vaccinationEntry?.dateOfVaccination ?? rhs.testEntry?.dateTimeOfSampleCollection {
+			return lhsDate < rhsDate
 		}
 
 		return false
@@ -75,6 +70,10 @@ struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable 
 
 	var dateOfBirthDate: Date? {
 		return ISO8601DateFormatter.justLocalDateFormatter.date(from: digitalGreenCertificate.dateOfBirth)
+	}
+
+	var uniqueCertificateIdentifier: String? {
+		vaccinationEntry?.uniqueCertificateIdentifier ?? testEntry?.uniqueCertificateIdentifier
 	}
 
 	var vaccinationEntry: VaccinationEntry? {

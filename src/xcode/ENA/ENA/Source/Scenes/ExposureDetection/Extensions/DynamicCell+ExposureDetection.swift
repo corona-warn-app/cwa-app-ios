@@ -171,7 +171,7 @@ extension DynamicCell {
 	static func hotline(number: String) -> DynamicCell {
 		.exposureDetectionCell(ExposureDetectionViewController.ReusableCellIdentifier.hotline) { _, cell, _ in
 			(cell as? ExposureDetectionHotlineCell)?.hotlineContentView.primaryAction = {
-				if let url = URL(string: "tel://\(number)") { UIApplication.shared.open(url) }
+				LinkHelper.open(urlString: "tel://\(number)")
 			}
 		}
 	}
