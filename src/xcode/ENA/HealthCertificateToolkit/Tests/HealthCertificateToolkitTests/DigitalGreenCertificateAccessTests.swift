@@ -37,10 +37,6 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
         let certificateAccess = DigitalGreenCertificateAccess()
         let result = certificateAccess.extractDigitalGreenCertificate(from: testDataRecoveryCertificate.input)
 
-        if case let .failure(error) = result {
-            print(error)
-        }
-
         guard case let .success(healthCertificate) = result else {
             XCTFail("Success expected.")
             return
