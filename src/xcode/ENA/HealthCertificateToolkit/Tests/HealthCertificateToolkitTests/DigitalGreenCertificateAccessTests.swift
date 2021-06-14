@@ -344,7 +344,8 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
                         uniqueCertificateIdentifier: "01DE/84503/1119349007/DXSGWLWL40SU8ZFKIYIBK39A3#S"
                     )
                 ],
-                testEntries: nil
+                testEntries: nil,
+                recoveryEntries: nil
             ),
             header: CBORWebTokenHeader(
                 issuer: "DE",
@@ -381,7 +382,8 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
                         certificateIssuer: "Bundesministerium für Gesundheit",
                         uniqueCertificateIdentifier: "01DE/00000/1119349007/9QK4WRVMUOUIP7PYVNSFBK9GF"
                     )
-                ]
+                ],
+                recoveryEntries: nil
             ),
             header: CBORWebTokenHeader(
                 issuer: "DE",
