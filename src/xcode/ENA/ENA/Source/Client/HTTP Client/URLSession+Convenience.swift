@@ -59,21 +59,25 @@ extension URLSession {
 			if let error = error as NSError?,
 			   error.domain == NSURLErrorDomain,
 			   error.code == NSURLErrorNotConnectedToInternet {
+				Log.error("No network connection", log: .api, error: error)
 				completion(.failure(.noNetworkConnection))
 				return
 			}
 
 			guard let response = response as? HTTPURLResponse else {
+				Log.error("No server request response", log: .api)
 				completion(.failure(.noResponse))
 				return
 			}
 
 			if let error = error {
+				Log.error("Server request error", log: .api, error: error)
 				completion(.failure(.httpError(error.localizedDescription, response)))
 				return
 			}
 
 			guard let data = data else {
+				Log.error("No server response data", log: .api)
 				completion(.failure(.noResponse))
 				return
 			}
