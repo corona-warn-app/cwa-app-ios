@@ -232,13 +232,13 @@ public struct RecoveryEntry: Codable, Equatable {
 
     // MARK: - Internal
 
-    let diseaseOrAgentTargeted: String
-    let dateOfFirstPositiveNAAResult: String
-    let countryOfTest: String
-    let certificateIssuer: String
-    let certificateValidFrom: String
-    let certificateValidUntil: String
-    let uniqueCertificateIdentifier: String
+    public let diseaseOrAgentTargeted: String
+    public let dateOfFirstPositiveNAAResult: String
+    public let countryOfTest: String
+    public let certificateIssuer: String
+    public let certificateValidFrom: String
+    public let certificateValidUntil: String
+    public let uniqueCertificateIdentifier: String
 
     public static func fake(
         diseaseOrAgentTargeted: String = "840539006",

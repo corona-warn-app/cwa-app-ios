@@ -39,8 +39,7 @@ struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable 
 	// MARK: - Protocol Comparable
 
 	static func < (lhs: HealthCertificate, rhs: HealthCertificate) -> Bool {
-		if let lhsDate = lhs.vaccinationEntry?.dateOfVaccination ?? lhs.testEntry?.dateTimeOfSampleCollection,
-		   let rhsDate = rhs.vaccinationEntry?.dateOfVaccination ?? rhs.testEntry?.dateTimeOfSampleCollection {
+		if let lhsDate = lhs.sortDate, let rhsDate = rhs.sortDate {
 			return lhsDate < rhsDate
 		}
 
@@ -135,4 +134,16 @@ struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable 
 			fatalError("Decoding the digitalGreenCertificate failed even though decodability was checked at initialization.")
 		}
 	}
+
+	private var sortDate: Date? {
+		switch type {
+		case .vaccination(let vaccinationEntry):
+			return vaccinationEntry.localVaccinationDate
+		case .test(let testEntry):
+			return testEntry.sampleCollectionDate
+		case .recovery(let recoveryEntry):
+			return recoveryEntry.localCertificateValidityStartDate
+		}
+	}
+
 }
