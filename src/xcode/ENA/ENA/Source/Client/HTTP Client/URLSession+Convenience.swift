@@ -113,7 +113,7 @@ extension URLSession {
 			type(of: self).acceptableStatusCodes.contains(statusCode)
 		}
 
-		static let acceptableStatusCodes = (200 ... 299)
+		fileprivate static let acceptableStatusCodes = (200 ... 299)
 	}
 }
 
