@@ -180,7 +180,20 @@ class CoronaTestService {
 					Analytics.collect(.testResultMetadata(.registerNewTestMetadata(Date(), registrationToken, .pcr)))
 					Analytics.collect(.testResultMetadata(.updateTestResult(.positive, registrationToken, .pcr)))
 					Analytics.collect(.keySubmissionMetadata(.submittedWithTeletan(true, .pcr)))
-
+					
+					// Because every test registered per teleTAN is positive, we can add this PCR test as positive in the contact diary.
+					// testDate: For PCR -> registration date
+					// testType: Always PCR
+					// testResult: teleTan is always positive
+					
+					let stringDate = ISO8601DateFormatter.justLocalDateFormatter.string(from: _pcrTest.registrationDate)
+					self?.diaryStore.addCoronaTest(
+						testDate: stringDate,
+						testType: CoronaTestType.pcr.rawValue,
+						testResult: TestResult.positive.rawValue
+					)
+					self?.pcrTest?.journalEntryCreated = true
+					
 					completion(.success(()))
 				case .failure(let error):
 					Log.error("[CoronaTestService] PCR test registration failed: \(error.localizedDescription)", log: .api)
@@ -639,8 +652,8 @@ class CoronaTestService {
 					return
 				}
 
-				Log.info("[CoronaTestService] Got test result (coronaTestType: \(coronaTestType), testResult: \(testResult))", log: .api)
-
+				Log.info("[CoronaTestService] Got test result (coronaTestType: \(coronaTestType), testResult: \(testResult)), sampleCollectionDate: \(String(describing: response.sc))", log: .api)
+				var updatedSampleCollectionDate: Date?
 				switch coronaTestType {
 				case .pcr:
 					Analytics.collect(.testResultMetadata(.updateTestResult(testResult, registrationToken, .pcr)))
@@ -648,9 +661,10 @@ class CoronaTestService {
 				case .antigen:
 					Analytics.collect(.testResultMetadata(.updateTestResult(testResult, registrationToken, .antigen)))
 					self.antigenTest?.testResult = testResult
-					self.antigenTest?.sampleCollectionDate = response.sc.map {
+					updatedSampleCollectionDate = response.sc.map {
 						Date(timeIntervalSince1970: TimeInterval($0))
 					}
+					self.antigenTest?.sampleCollectionDate = updatedSampleCollectionDate
 				}
 
 				switch testResult {
@@ -663,8 +677,10 @@ class CoronaTestService {
 					if (testResult == .positive || testResult == .negative) && !coronaTest.journalEntryCreated {
 						// PCR -> registration date
 						// antigen -> sample collection date if available otherwise we use point of care consent date
+						// Warning: updatedSampleCollectionDate must get used because the service level struct antigenTest has changed and coronaTest wasn't updated
 						//
-						let stringDate = DateFormatter.packagesDayDateFormatter.string(from: coronaTest.testDate)
+						let stringDate = ISO8601DateFormatter.justLocalDateFormatter.string(from: updatedSampleCollectionDate ?? coronaTest.testDate)
+						Log.debug("Write test result to contact diary at date: \(stringDate)", log: .contactdiary)
 						self.diaryStore.addCoronaTest(testDate: stringDate, testType: coronaTestType.rawValue, testResult: testResult.rawValue)
 
 						switch coronaTestType {
