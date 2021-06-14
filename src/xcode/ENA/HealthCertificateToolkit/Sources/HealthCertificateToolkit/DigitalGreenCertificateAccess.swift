@@ -28,14 +28,22 @@ public struct DigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtoc
     // MARK: - Public
 
     public func extractCBORWebTokenHeader(from base45: Base45) -> Result<CBORWebTokenHeader, CertificateDecodingError> {
-        extractCBOR(from: base45)
-            .flatMap(decodeCBORWebTokenPayload)
+        removePrefix(from: base45)
+            .flatMap(convertBase45ToData)
+            .flatMap(decompressZLib)
+            .flatMap(decodeCBORWebTokenEntries)
+            .flatMap(extractPayload)
+            .flatMap(decodePayload)
             .flatMap(extractHeader)
     }
 
     public func extractDigitalGreenCertificate(from base45: Base45) -> Result<DigitalGreenCertificate, CertificateDecodingError> {
-        extractCBOR(from: base45)
-            .flatMap(decodeCBORWebTokenPayload)
+        removePrefix(from: base45)
+            .flatMap(convertBase45ToData)
+            .flatMap(decompressZLib)
+            .flatMap(decodeCBORWebTokenEntries)
+            .flatMap(extractPayload)
+            .flatMap(decodePayload)
             .flatMap(extractDigitalGreenCertificate)
     }
 
@@ -63,7 +71,7 @@ public struct DigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtoc
             .flatMap(decodeCBORWebTokenEntries)
             .flatMap(extractPayload)
             .flatMap { decryptPayload(payload: $0, dataEncryptionKey: dataEncryptionKey) }
-            .map{ reassembleCose(webTokenEntries: webTokenEntries, payload: $0) }
+            .map { reassembleCose(webTokenEntries: webTokenEntries, payload: $0) }
     }
 
     // MARK: - Private
@@ -104,12 +112,6 @@ public struct DigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtoc
         } else {
             return .failure(.AES_DECRYPTION_FAILED)
         }
-    }
-
-    private func extractCBOR(from base45: Base45) -> Result<CBORData, CertificateDecodingError> {
-        removePrefix(from: base45)
-            .flatMap(convertBase45ToData)
-            .flatMap(decompressZLib)
     }
 
     private func decompressZLib(form data: Data) -> Result<Data, CertificateDecodingError> {
@@ -183,7 +185,7 @@ public struct DigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtoc
             .flatMap(convertCBORToStruct)
     }
 
-    private func convertCBORToStruct(_ cbor: CBOR) -> Result<DigitalGreenCertificate, CertificateDecodingError>  {
+    private func convertCBORToStruct(_ cbor: CBOR) -> Result<DigitalGreenCertificate, CertificateDecodingError> {
         guard case let CBOR.map(certificateMap) = cbor else {
             fatalError("healthCertificateCBOR should be a map at this point.")
         }
@@ -196,7 +198,7 @@ public struct DigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtoc
         }
     }
 
-    private func loadSchemaAsDict() -> Result<[String: Any], CertificateDecodingError>  {
+    private func loadSchemaAsDict() -> Result<[String: Any], CertificateDecodingError> {
         guard let schemaURL = Bundle.module.url(forResource: "CertificateSchema", withExtension: "json"),
               let schemaData = FileManager.default.contents(atPath: schemaURL.path) else {
             return .failure(.HC_JSON_SCHEMA_INVALID(.FILE_NOT_FOUND))
@@ -224,13 +226,6 @@ public struct DigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtoc
         } catch {
             return .failure(.HC_JSON_SCHEMA_INVALID(.VALIDATION_FAILED(error)))
         }
-    }
-
-    /// More information about the CBOR Web Token (CWT) https://datatracker.ietf.org/doc/html/rfc8392
-    private func decodeCBORWebTokenPayload(from cborData: CBORData) -> Result<CBOR, CertificateDecodingError> {
-        decodeCBORWebTokenEntries(from: cborData)
-            .flatMap(extractPayload)
-            .flatMap(decodePayload)
     }
 
     private func decodePayload(from data: Data) -> Result<CBOR, CertificateDecodingError> {
@@ -294,7 +289,7 @@ public struct DigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtoc
         return .success(compressedCBORWebToken)
     }
 
-    private func encodeWithBase45(data: Data) -> Result<String, CertificateDecodingError>  {
+    private func encodeWithBase45(data: Data) -> Result<String, CertificateDecodingError> {
         let encodedData = data.toBase45()
         guard !encodedData.isEmpty else {
             return .failure(.HC_BASE45_ENCODING_FAILED)
