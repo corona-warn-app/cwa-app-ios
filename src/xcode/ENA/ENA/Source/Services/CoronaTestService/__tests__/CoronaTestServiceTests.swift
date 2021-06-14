@@ -1729,7 +1729,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let sampleCollectionDate = Date()
 
 		client.onGetTestResult = { _, _, completion in
-			completion(.success(FetchTestResultResponse(testResult: TestResult.positive.rawValue, sc: Int(sampleCollectionDate.timeIntervalSinceNow))))
+			completion(.success(FetchTestResultResponse(testResult: TestResult.positive.rawValue, sc: Int(sampleCollectionDate.timeIntervalSince1970))))
 		}
 
 		let diaryStore = MockDiaryStore()
@@ -1751,7 +1751,7 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 		let antigenTest = AntigenTest.mock(
 			registrationToken: "regToken",
-			registrationDate: Date(timeIntervalSinceNow: -24 * 60 * 60 * 3)
+			pointOfCareConsentDate: Date(timeIntervalSinceNow: -24 * 60 * 60 * 3)
 		)
 		testService.antigenTest = antigenTest
 		let sampleCollectionAntigenTestDate = ISO8601DateFormatter.justLocalDateFormatter.string(from: sampleCollectionDate)
