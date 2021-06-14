@@ -14,7 +14,8 @@ class HealthCertificateService {
 	init(
 		store: HealthCertificateStoring,
 		client: Client,
-		appConfiguration: AppConfigurationProviding
+		appConfiguration: AppConfigurationProviding,
+		digitalGreenCertificateAccess: DigitalGreenCertificateAccessProtocol = DigitalGreenCertificateAccess()
 	) {
 
 		#if DEBUG
@@ -22,6 +23,7 @@ class HealthCertificateService {
 			self.store = MockTestStore()
 			self.client = ClientMock()
 			self.appConfiguration = CachedAppConfigurationMock()
+			self.digitalGreenCertificateAccess = digitalGreenCertificateAccess
 
 			setup()
 
@@ -36,7 +38,8 @@ class HealthCertificateService {
 			if LaunchArguments.healthCertificate.testCertificateRegistered.boolValue {
 				let result = DigitalGreenCertificateFake.makeBase45Fake(
 					from: DigitalGreenCertificate.fake(
-						testEntries: [TestEntry.fake()]
+						name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"),
+						testEntries: [TestEntry.fake(dateTimeOfSampleCollection: "2021-04-12T16:01:00Z")]
 					),
 					and: CBORWebTokenHeader.fake()
 				)
@@ -52,6 +55,7 @@ class HealthCertificateService {
 		self.store = store
 		self.client = client
 		self.appConfiguration = appConfiguration
+		self.digitalGreenCertificateAccess = digitalGreenCertificateAccess
 
 		setup()
 	}
@@ -128,8 +132,7 @@ class HealthCertificateService {
 
 			let isDuplicate = healthCertifiedPerson.healthCertificates
 				.contains(where: {
-					$0.vaccinationEntry?.uniqueCertificateIdentifier == healthCertificate.vaccinationEntry?.uniqueCertificateIdentifier ||
-					$0.testEntry?.uniqueCertificateIdentifier == healthCertificate.testEntry?.uniqueCertificateIdentifier
+					$0.uniqueCertificateIdentifier == healthCertificate.uniqueCertificateIdentifier
 				})
 			if isDuplicate {
 				Log.error("[HealthCertificateService] Registering health certificate failed: .certificateAlreadyRegistered", log: .api)
@@ -180,11 +183,6 @@ class HealthCertificateService {
 		retryExecutionIfCertificateIsPending: Bool
 	) {
 		Log.info("[HealthCertificateService] Registering test certificate request: (coronaTestType: \(coronaTestType), registrationToken: \(private: registrationToken), registrationDate: \(registrationDate), retryExecutionIfCertificateIsPending: \(retryExecutionIfCertificateIsPending)", log: .api)
-
-		if testCertificateRequests.value.contains(where: { $0.registrationToken == registrationToken }) {
-			Log.error("[HealthCertificateService] Test certificate request (coronaTestType: \(coronaTestType), registrationToken: \(private: registrationToken), registrationDate: \(registrationDate)) already registered", log: .api)
-			return
-		}
 
 		let testCertificateRequest = TestCertificateRequest(
 			coronaTestType: coronaTestType,
@@ -274,7 +272,18 @@ class HealthCertificateService {
 								}
 							}
 						)
-					} else if testCertificateRequest.encryptedDEK == nil || testCertificateRequest.encryptedCOSE == nil {
+					} else if let encryptedDEK = testCertificateRequest.encryptedDEK,
+							  let encryptedCOSE = testCertificateRequest.encryptedCOSE {
+						Log.info("[HealthCertificateService] Encrypted COSE and DEK already exist, immediately assembling certificate.", log: .api)
+
+						self.assembleDigitalCovidCertificate(
+							for: testCertificateRequest,
+							rsaKeyPair: rsaKeyPair,
+							encryptedDEK: encryptedDEK,
+							encryptedCOSE: encryptedCOSE,
+							completion: completion
+						)
+					} else {
 						Log.info("[HealthCertificateService] Public key already registered, immediately requesting certificate.", log: .api)
 
 						self.requestDigitalCovidCertificate(
@@ -302,13 +311,6 @@ class HealthCertificateService {
 		}
 	}
 
-	func updatePublishersFromStore() {
-		Log.info("[HealthCertificateService] Updating publishers from store", log: .api)
-
-		healthCertifiedPersons.value = store.healthCertifiedPersons
-		testCertificateRequests.value = store.testCertificateRequests
-	}
-
 	func remove(testCertificateRequest: TestCertificateRequest) {
 		testCertificateRequest.rsaKeyPair?.removeFromKeychain()
 		if let index = testCertificateRequests.value.firstIndex(of: testCertificateRequest) {
@@ -316,11 +318,19 @@ class HealthCertificateService {
 		}
 	}
 
+	func updatePublishersFromStore() {
+		Log.info("[HealthCertificateService] Updating publishers from store", log: .api)
+
+		healthCertifiedPersons.value = store.healthCertifiedPersons
+		testCertificateRequests.value = store.testCertificateRequests
+	}
+
 	// MARK: - Private
 
 	private let store: HealthCertificateStoring
 	private let client: Client
 	private let appConfiguration: AppConfigurationProviding
+	private let digitalGreenCertificateAccess: DigitalGreenCertificateAccessProtocol
 
 	private var healthCertifiedPersonSubscriptions = Set<AnyCancellable>()
 	private var testCertificateRequestSubscriptions = Set<AnyCancellable>()
@@ -444,31 +454,34 @@ class HealthCertificateService {
 			Log.error("[HealthCertificateService] Assembling certificate failed: base64 decoding failed", log: .api)
 
 			testCertificateRequest.requestExecutionFailed = true
+			testCertificateRequest.isLoading = false
 			completion?(.failure(.base64DecodingFailed))
 			return
 		}
 
 		do {
 			let decodedDEK = try rsaKeyPair.decrypt(encryptedDEKData)
-			let result = DigitalGreenCertificateAccess().convertToBase45(from: encryptedCOSE, with: decodedDEK)
+			let result = digitalGreenCertificateAccess.convertToBase45(from: encryptedCOSE, with: decodedDEK)
 
 			switch result {
 			case .success(let healthCertificateBase45):
 				Log.info("[HealthCertificateService] Certificate assembly succeeded", log: .api)
 
-				registerHealthCertificate(base45: healthCertificateBase45)
 				remove(testCertificateRequest: testCertificateRequest)
+				registerHealthCertificate(base45: healthCertificateBase45)
 				completion?(.success(()))
 			case .failure(let error):
 				Log.error("[HealthCertificateService] Assembling certificate failed: Conversion failed: \(error.localizedDescription)", log: .api)
 
 				testCertificateRequest.requestExecutionFailed = true
+				testCertificateRequest.isLoading = false
 				completion?(.failure(.assemblyFailed(error)))
 			}
 		} catch {
 			Log.error("[HealthCertificateService] Assembling certificate failed: DEK decryption failed: \(error.localizedDescription)", log: .api)
 
 			testCertificateRequest.requestExecutionFailed = true
+			testCertificateRequest.isLoading = false
 			completion?(.failure(.decryptionFailed(error)))
 		}
 	}

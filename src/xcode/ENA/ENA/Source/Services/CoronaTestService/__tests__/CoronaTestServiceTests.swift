@@ -1726,8 +1726,10 @@ class CoronaTestServiceTests: CWATestCase {
 	func test_When_UpdateTestResultSuccessWithPositive_Then_ContactJournalHasAnEntry() throws {
 		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
+		let sampleCollectionDate = Date()
+
 		client.onGetTestResult = { _, _, completion in
-			completion(.success(FetchTestResultResponse(testResult: TestResult.positive.rawValue, sc: nil)))
+			completion(.success(FetchTestResultResponse(testResult: TestResult.positive.rawValue, sc: Int(sampleCollectionDate.timeIntervalSinceNow))))
 		}
 
 		let diaryStore = MockDiaryStore()
@@ -1747,9 +1749,16 @@ class CoronaTestServiceTests: CWATestCase {
 			),
 			notificationCenter: mockNotificationCenter
 		)
+		let antigenTest = AntigenTest.mock(
+			registrationToken: "regToken",
+			registrationDate: Date(timeIntervalSinceNow: -24 * 60 * 60 * 3)
+		)
+		testService.antigenTest = antigenTest
+		let sampleCollectionAntigenTestDate = ISO8601DateFormatter.justLocalDateFormatter.string(from: sampleCollectionDate)
 
-		testService.antigenTest = AntigenTest.mock(registrationToken: "regToken")
-		testService.pcrTest = PCRTest.mock(registrationToken: "regToken")
+		let pcrTest = PCRTest.mock(registrationToken: "regToken")
+		let pcrRegistrationDate = ISO8601DateFormatter.justUTCDateFormatter.string(from: pcrTest.registrationDate)
+		testService.pcrTest = pcrTest
 
 		let completionExpectation = expectation(description: "Completion should be called.")
 		testService.updateTestResults(presentNotification: true) { _ in
@@ -1757,7 +1766,12 @@ class CoronaTestServiceTests: CWATestCase {
 		}
 		waitForExpectations(timeout: .short)
 
+		let pcrJournalEntry = try XCTUnwrap(diaryStore.coronaTests.first { $0.type == .pcr })
+		let antigenJournalEntry = try XCTUnwrap(diaryStore.coronaTests.first { $0.type == .antigen })
+
 		XCTAssertEqual(diaryStore.coronaTests.count, 2)
+		XCTAssertEqual(pcrJournalEntry.date, pcrRegistrationDate)
+		XCTAssertEqual(antigenJournalEntry.date, sampleCollectionAntigenTestDate)
 		XCTAssertTrue(try XCTUnwrap(testService.antigenTest?.journalEntryCreated))
 		XCTAssertTrue(try XCTUnwrap(testService.pcrTest?.journalEntryCreated))
 	}
