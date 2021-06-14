@@ -497,7 +497,7 @@
 
 "ExposureSubmissionDispatch_QRCodeButtonTitle" = "QR Kodu Tara";
 
-"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Uygulamada test sonucunuzu alın ve diğer kullanıcıları uyarın ya da COVID-19 test sertifikanızı talep edin.";
+"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Uygulamada test sonucunuzu alın ve diğer kullanıcıları uyarın ya da COVID test sertifikanızı talep edin.";
 
 "ExposureSubmissionDispatch_TANButtonTitle" = "PCR Testi için TAN girin";
 
@@ -552,7 +552,7 @@
 
 "ExposureSubmissionQRInfo_instruction2" = "Her bir test yalnızca bir kez taranabilir. Uygulama tek seferde en fazla bir hızlı testi ve bir PCR testini yönetebilir.";
 
-"ExposureSubmissionQRInfo_instruction2a" = "Testinizin sonucu negatifse bunu resmi bir COVID-19 test sertifikası ile onaylayabilirsiniz. Bu işlemi gerçekleştirmek için, aşağıda belirtilen adımları uygulayarak test sertifikası talebinde bulunun.";
+"ExposureSubmissionQRInfo_instruction2a" = "Testinizin sonucu negatifse bunu resmi bir COVID test sertifikası ile onaylayabilirsiniz. Bu işlemi gerçekleştirmek için, aşağıda belirtilen adımları uygulayarak test sertifikası talebinde bulunun.";
 
 "ExposureSubmissionQRInfo_instruction3" = "Uygulama aynı anda birden çok testi %@.";
 
@@ -718,13 +718,27 @@
 
 "ExposureSubmissionResult_testPendingDesc" = "Test sonucunuz çıkar çıkmaz uygulamada görüntülenecektir.\n\nTest sonucunuz uygulama dışından da tarafınıza iletilecektir. Testinizin pozitif sonuç vermesi halinde kamu sağlığı yetkilileri sizi bilgilendirecektir.\n\nUygulama dışından bir pozitif test sonucu aldıysanız lütfen uygulamaya kayıtlı testi silin. TAN almak için \"TAN Talebi\" başlığının altında gösterilen numarayı arayın. Ardından bu TAN'yi kullanarak sonucunuzu uygulamaya kaydedin ve diğer kullanıcıları uyarın.";
 
+"ExposureSubmissionResult_testCertificate_title" = "COVID Test Sertifikası";
+
+"ExposureSubmissionResult_testCertificate_testCenterNotSupported" = "Bu test noktasında test sertifikalarının düzenlenmesi desteklenmediğinden resmi bir dijital COVID test sertifikası talep edemezsiniz.";
+
+"ExposureSubmissionResult_testCertificate_Pending" = "Resmi dijital COVID test sertifikanız henüz çıkmadı. Çıkar çıkmaz uygulamanızda görüntülenecektir.";
+
+"ExposureSubmissionResult_testCertificate_NotRequested" = "Talebiniz üzerine, hiçbir resmi dijital COVID test sertifikası düzenlenmeyecektir.";
+
+"ExposureSubmissionResult_testCertificate_AvailableInTab" = "Test sertifikasını \"Sertifikalar\" sekmesinde bulabilirsiniz.";
+
 "ExposureSubmissionResult_antigenTestPending" = "Test sonucunuz henüz çıkmadı.";
 
 "ExposureSubmissionResult_antigenTestPendingDesc" = "Test sonucunuz çıkar çıkmaz uygulamada görüntülenecektir.";
 
 "ExposureSubmissionResult_antigenTestPendingContactJournal" = "Test sonucunuz temas güncenize eklenecektir.";
 
+"ExposureSubmissionResult_pcrTestPendingContactJournal" = "Test sonucunuz temas güncenize eklenecektir.";
+
 "ExposureSubmissionResult_antigenTestPendingContactJournalDesc" = "Test sonucunuz çıkar çıkmaz uygulamada görüntülenecektir.";
+
+"ExposureSubmissionResult_pcrTestPendingContactJournalDesc" = "Test sonucunuz çıkar çıkmaz uygulamada görüntülenecektir.";
 
 "ExposureSubmissionResult_antigenTestNegativDesc" = "Hızlı test, koronavirüs SARS-CoV-2’ye yakalandığınıza dair hiçbir kanıt sağlamadı.";
 
@@ -851,13 +865,9 @@
 
 "ExposureSubmissionResult_Timer_Title" = "Sonucun çıktığı tarih:";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Title" = "Doğrulama Özelliği";
+"ExposureSubmissionResult_Negative_Antigen_Proof_Title" = " ";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Hızlı test sonucunun negatif olduğunun kanıtı olarak burada görüntülenen bulguyu kullanabilirsiniz.\n\nYalnızca yasalarca gerekli kılınması halinde hızlı test sonucunuzun kanıtını sunmanız gerektiğini lütfen unutmayın. Gerekli kılınması halinde uygulama aracılığıyla veya sunulan diğer yöntemlerden herhangi biriyle gösterebilirsiniz. Daha fazla bilgi için lütfen federal eyaletinizde geçerli olan test kanıtı kabul ölçütlerini öğrenin.";
-
-"ExposureSubmissionResult_Negative_Antigen_NoProof_Title" = "Doğrulama Özelliği Yok";
-
-"ExposureSubmissionResult_Negative_Antigen_NoProof_Desc" = "Buradaki bulgu anonimleştirildiğinden hızlı test sonucunun negatif olduğunun kanıtı olarak kullanılamaz.";
+"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Test sonucunuz özeldir ancak bazı yasalar nedeniyle paylaşmanız gerekebilir. Paylaşmanız gerekirse sunulan pek çok yöntemden birini kullanarak gösterebilirsiniz.";
 
 "ExposureSubmissionResult_Negative_Antigen_NoProof_Title" = "Doğrulama Özelliği Yok";
 
@@ -1249,7 +1259,7 @@
 /* Home Test Registration Card */
 "Home_TestRegistration_Title" = "Testinizi Kaydedin";
 
-"Home_TestRegistration_Body" = "Diğer kullanıcıları daha hızlı uyarmak için testlerinizi kaydetmek ve test sonuçlarınızı almak ya da COVID-19 test sertifikanızı talep etmek üzere uygulamayı kullanın.";
+"Home_TestRegistration_Body" = "Diğer kullanıcıları daha hızlı uyarmak için testlerinizi kaydetmek ve test sonuçlarınızı almak ya da COVID test sertifikanızı talep etmek üzere uygulamayı kullanın.";
 
 "Home_TestRegistration_Button" = "Sonraki Adımlar";
 
@@ -2453,18 +2463,67 @@
 
 "TestCertificate_Info_description" = "Ana ekranda bir testi kaydedin ve dijital test sertifikası almayı kabul edin. Sertifika düzenlenir düzenlenmez burada görüntülenir.";
 
+/* - Test Certificate */
+"TestCertificate_title" = "Dijital\n**COVID Test Sertifikası**";
+
+"TestCertificate_testDate" = "Testin gerçekleştirildiği tarih: %@";
+
+/* - Test Certificate Request */
+"TestCertificateRequest_title" = "Dijital\n**COVID Test Sertifikası**";
+
+"TestCertificateRequest_loadingSubtitle" = "Sertifikanız oluşturuluyor...";
+
+"TestCertificateRequest_errorSubtitle" = "Sertifika alınırken hata oluştu";
+
+"TestCertificateRequest_registrationDate" = "Kayıt tarihi: %@";
+
+"TestCertificateRequest_loadingStateDescription" = "Sertifikanız talep ediliyor. Bu işlem birkaç dakika sürebilir...";
+
+"TestCertificateRequest_tryAgainButtonTitle" = "Tekrar Dene";
+
+"TestCertificateRequest_removeButtonTitle" = "Test Sertifikasını Kaldır";
+
+/* - Test Certificate Request Error Alert */
+"TestCertificateRequest_ErrorAlert_title" = "Yine de talebinizle ilgili problemler var.";
+
+"TestCertificateRequest_ErrorAlert_Button_title" = "Tamam";
+
+/* - Test Certificate Request Remove Alert */
+"TestCertificateRequest_RemoveAlert_title" = "Sertifikayı kaldırmak istiyor musunuz?";
+
+"TestCertificateRequest_RemoveAlert_message" = "Sertifikayı kaldırırsanız tekrar talep edemezsiniz.";
+
+"TestCertificateRequest_RemoveAlert_CancelButton_title" = "İptall";
+
+"TestCertificateRequest_RemoveAlert_DeleteButton_title" = "Sil";
+
+/* Test Certificate Request Errors */
+"TestCertificateRequest_Error_CLIENT_ERROR_CALL_HOTLINE" = "Bir hata oluştu. Lütfen daha sonra tekrar deneyin veya Uygulama Bilgileri -> Teknik Yardım Hattı üzerinden teknik yardım hattı ile iletişime geçin. (%@)";
+
+"TestCertificateRequest_Error_DCC_EXPIRED" = "Bu sertifika artık güncel değil. Sertifikayı Corona-Warn-App'ten kaldırabilirsiniz. (%@)";
+
+"TestCertificateRequest_Error_DCC_NOT_SUPPORTED_BY_LAB" = "Bu test noktasında test sertifikalarının düzenlenmesi desteklenmediğinden bir test sertifikası talep edemezsiniz. Lütfen sertifikayı kaldırın veya Uygulama Bilgileri -> Teknik Yardım Hattı üzerinden teknik yardım hattı ile iletişime geçin. (%@)";
+
+"TestCertificateRequest_Error_E2E_ERROR_CALL_HOTLINE" = "Bir hata oluştu. Lütfen daha sonra tekrar deneyin veya Uygulama Bilgileri -> Teknik Yardım Hattı üzerinden teknik yardım hattı ile iletişime geçin. (%@)";
+
+"TestCertificateRequest_Error_NO_NETWORK" = "İnternet bağlantınız kesildi. Lütfen bağlantıyı kontrol edin ve tekrar deneyin. (%@)";
+
+"TestCertificateRequest_Error_TRY_AGAIN" = "Bağlantı kurulamadı. Lütfen tekrar deneyin. (%@)";
+
+"TestCertificateRequest_Error_TRY_AGAIN_DCC_NOT_AVAILABLE_YET" = "Sertifikanız henüz çıkmadı. Lütfen tekrar deneyin. Hata devam ederse lütfen Uygulama Bilgileri -> Teknik Yardım Hattı üzerinden teknik yardım hattı ile iletişime geçin. (%@)";
+
 /* Health Certificate Information */
-"HealthCertificate_Info_Title" = "Aşı Sertifikası Ekle";
+"HealthCertificate_Info_Title" = "Sertifikalar Ekle";
 
 "HealthCertificate_Info_imageDescription" = "Bağışıklık kazanmış bir kişi akıllı telefonuna bakıyor";
 
-"HealthCertificate_Info_description" = "Uygulamaya dijital aşı kanıtınızı ekleyin. Aşı korumanız tamamlanır tamamlanmaz uygulamanıza aşınızın kanıtı olarak QR kodu sunabilirsiniz.";
+"HealthCertificate_Info_description" = "Uygulamaya dijital AB COVID sertifikalarınızı ekleyin. Bu sayede uygulamada aşı korumanızı ya da negatif test sonucunu kanıtlayabilirsiniz.";
 
-"HealthCertificate_Info_section01" = "Uygulamaya bir aşı sertifikası eklemek için aşınız sırasında size verilen QR kodu tarayın.";
+"HealthCertificate_Info_section01" = "Uygulamaya dijital AB COVID aşı sertifikaları ya da COVID test sertifikaları ekleyebilirsiniz.";
 
-"HealthCertificate_Info_section02" = "Uygulama, QR kodun bilgilerini okur ve akıllı telefonunuzda güvenli bir alana kaydeder.";
+"HealthCertificate_Info_section02" = "Bu sertifikalar, AB’de geçerli bir kanıt olarak değerlendirilir (ör. seyahat için).";
 
-"HealthCertificate_Info_section03" = "Veriler, akıllı telefonda kalır. Yalnızca, doğrulama için aşı sertifikanızı sunarsanız diğer kullanıcılara aktarılır.";
+"HealthCertificate_Info_section03" = "Siz sertifikayı ekledikten sonra sertifika akıllı telefonunuzda kalır. Yalnızca doğrulama için bir aşı sunarsanız diğer kullanıcılarla paylaşılır.";
 
 "HealthCertificate_Info_primaryButton" = "Devam Et";
 
@@ -2488,12 +2547,12 @@
 
 "HealthCertifiedPerson_primaryButton" = "Başka Aşı Kaydet";
 
-/* Health Certificate Details */
+/* Vaccination Certificate Details */
 "HealthCertificate_Details_vaccinationCount" = "Aşı %i / %i";
 
 "HealthCertificate_Details_certificate" = "Aşı Sertifikası";
 
-"HealthCertificate_Details_QRCode_Image_Description" = "%i / %i aşı sertifikanızı içeren bir QR kod";
+"HealthCertificate_Details_QRCode_Image_Description" = "Sertifikanızı içeren bir QR kod";
 
 "HealthCertificate_Details_certificateCount" = "%i / %i Aşı Sertifikası";
 
@@ -2517,7 +2576,7 @@
 
 "HealthCertificate_Details_primaryButton" = "Aşı Sertifikasını Sil";
 
-/* Health Certificate Alert delete */
+/* Vaccination Certificate Delete Alert */
 "HealthCertificate_Alert_title" = "Aşı sertifikasını silmek istiyor musunuz?";
 
 "HealthCertificate_Alert_message" = "Aşı sertifikasını silerseniz uygulama artık bu aşıyı aşı durumunuzun doğrulaması için kullanamaz.";
@@ -2526,8 +2585,28 @@
 
 "HealthCertificate_Alert_cancelButton" = "İptal Et";
 
+/* Test Certificate Details */
+"TestCertificate_Details_title" = "AB Dijital COVID Test Sertifikası";
+
+"TestCertificate_Details_subtitle" = "Negatif SARS-CoV-2 testi";
+
+"TestCertificate_Details_primaryButton" = "Test Sertifikasını Kaldır";
+
+/* Vaccination Certificate Delete Alert */
+"TestCertificate_Alert_title" = "Test sertifikasını kaldırmak istiyor musunuz?";
+
+"TestCertificate_Alert_message" = "Test sertifikasını kaldırırsanız artık bunu uygulamada kanıt olarak kullanamazsınız.";
+
+"TestCertificate_Alert_deleteButton" = "Sil";
+
+"TestCertificate_Alert_cancelButton" = "İptal Et";
+
 /* Health Certificate Errors */
 "HealthCertificate_Error_Title" = "Hata";
+
+"HealthCertificate_Error_FAQ_Description" = "\n\nAşı sertifikanızı nasıl alacağınız hakkında daha fazla bilgi için lütfen SSS sayfamıza bakın.";
+
+"HealthCertificate_Error_FAQ_Button_Title" = "Aşı Sertifikaları için SSS";
 
 "HealthCertificate_Error_PC_TRY_AGAIN_LATER" = "Aşı sertifikası şu anda doğrulanamıyor. Lütfen daha sonra yeniden deneyin.";
 
