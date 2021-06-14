@@ -186,7 +186,7 @@ class CoronaTestService {
 					// testType: Always PCR
 					// testResult: teleTan is always positive
 					
-					let stringDate = DateFormatter.packagesDayDateFormatter.string(from: _pcrTest.registrationDate)
+					let stringDate = ISO8601DateFormatter.justLocalDateFormatter.string(from: _pcrTest.registrationDate)
 					self?.diaryStore.addCoronaTest(
 						testDate: stringDate,
 						testType: CoronaTestType.pcr.rawValue,
