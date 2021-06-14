@@ -10,6 +10,7 @@ enum DCCRSAKeyPairError: Error {
 	case keyPairGenerationFailed(String)
 	case keychainRetrievalFailed(String)
 	case gettingDataRepresentationFailed(Error?)
+	case encryptionFailed(Error?)
 	case decryptionFailed(Error?)
 }
 
@@ -83,6 +84,17 @@ struct DCCRSAKeyPair: Codable, Equatable {
 		]) + publicKeyData
 
 		return publicKeyWithRSAHeader.base64EncodedString()
+	}
+
+	func encrypt(_ plainText: Data) throws -> Data {
+		var error: Unmanaged<CFError>?
+
+		guard let cipherText = SecKeyCreateEncryptedData(try publicKey(), .rsaEncryptionOAEPSHA256, plainText as CFData, &error) as Data? as Data? else {
+			Log.error("RSA encryption failed: \(String(describing: (error as? Error)?.localizedDescription))", log: .crypto)
+			throw DCCRSAKeyPairError.encryptionFailed(error?.takeUnretainedValue())
+		}
+
+		return cipherText
 	}
 
 	func decrypt(_ cipherText: Data) throws -> Data {
