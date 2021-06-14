@@ -180,7 +180,20 @@ class CoronaTestService {
 					Analytics.collect(.testResultMetadata(.registerNewTestMetadata(Date(), registrationToken, .pcr)))
 					Analytics.collect(.testResultMetadata(.updateTestResult(.positive, registrationToken, .pcr)))
 					Analytics.collect(.keySubmissionMetadata(.submittedWithTeletan(true, .pcr)))
-
+					
+					// Because every test registered per teleTAN is positive, we can add this PCR test as positive in the contact diary.
+					// testDate: For PCR -> registration date
+					// testType: Always PCR
+					// testResult: teleTan is always positive
+					
+					let stringDate = DateFormatter.packagesDayDateFormatter.string(from: _pcrTest.registrationDate)
+					self?.diaryStore.addCoronaTest(
+						testDate: stringDate,
+						testType: CoronaTestType.pcr.rawValue,
+						testResult: TestResult.positive.rawValue
+					)
+					self?.pcrTest?.journalEntryCreated = true
+					
 					completion(.success(()))
 				case .failure(let error):
 					Log.error("[CoronaTestService] PCR test registration failed: \(error.localizedDescription)", log: .api)
