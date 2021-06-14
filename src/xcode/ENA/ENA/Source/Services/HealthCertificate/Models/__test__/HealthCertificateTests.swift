@@ -190,6 +190,38 @@ class HealthCertificateTests: XCTestCase {
 		// THEN
 		XCTAssertTrue(compared)
 	}
+
+	func testGIVEN_MultipleCertificates_WHEN_Sorting_THEN_OrderIsCorrect() throws {
+		// GIVEN
+		let vaccinationCertificateBase45 = try base45Fake(from: DigitalGreenCertificate.fake(
+			vaccinationEntries: [VaccinationEntry.fake(
+				dateOfVaccination: "2020-01-03"
+			)]
+		))
+
+		let testCertificateBase45 = try base45Fake(from: DigitalGreenCertificate.fake(
+			testEntries: [TestEntry.fake(
+				dateTimeOfSampleCollection: "2020-01-02T12:00:00.000Z"
+			)]
+		))
+
+		let recoveryCertificateBase45 = try base45Fake(from: DigitalGreenCertificate.fake(
+			vaccinationEntries: [VaccinationEntry.fake(
+				dateOfVaccination: "2020-01-01"
+			)]
+		))
+
+		let vaccinationCertificate = try HealthCertificate(base45: vaccinationCertificateBase45)
+		let testCertificate = try HealthCertificate(base45: testCertificateBase45)
+		let recoveryCertificate = try HealthCertificate(base45: recoveryCertificateBase45)
+		let healthCertificates = [vaccinationCertificate, testCertificate, recoveryCertificate]
+
+		// WHEN
+		let sortedHealthCertificates = healthCertificates.sorted()
+
+		// THEN
+		XCTAssertEqual(sortedHealthCertificates, [recoveryCertificate, testCertificate, vaccinationCertificate])
+	}
 	
 	func testGIVEN_DGCVersion_WHEN_CreateHealthCertificate_THEN_IsEqual() throws {
 		
