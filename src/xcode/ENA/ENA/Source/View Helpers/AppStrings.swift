@@ -1953,7 +1953,6 @@ enum AppStrings {
 			static let dateOfBirth = NSLocalizedString("HealthCertifiedPerson_dateOfBirth", comment: "")
 			static let vaccinationCount = NSLocalizedString("HealthCertifiedPerson_vaccinationCount", comment: "")
 			static let vaccinationDate = NSLocalizedString("HealthCertifiedPerson_vaccinationDate", comment: "")
-			static let primaryButton = NSLocalizedString("HealthCertifiedPerson_primaryButton", comment: "")
 			static let QRCodeImageDescription = NSLocalizedString("HealthCertifiedPerson_QRCode_Image_Description", comment: "")
 		}
 

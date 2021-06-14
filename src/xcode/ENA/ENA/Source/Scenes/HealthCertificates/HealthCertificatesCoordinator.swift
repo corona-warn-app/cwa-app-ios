@@ -208,23 +208,8 @@ final class HealthCertificatesCoordinator {
 				)
 			}
 		)
-		
-		let footerViewController = FooterViewController(
-			FooterViewModel(
-				primaryButtonName: AppStrings.HealthCertificate.Person.primaryButton,
-				isPrimaryButtonEnabled: true,
-				isSecondaryButtonEnabled: false,
-				isSecondaryButtonHidden: true,
-				backgroundColor: .enaColor(for: .cellBackground )
-			)
-		)
-		
-		let topBottomContainerViewController = TopBottomContainerViewController(
-			topController: healthCertificatePersonViewController,
-			bottomController: footerViewController
-		)
-		
-		modalNavigationController = UINavigationController(rootViewController: topBottomContainerViewController)
+
+		modalNavigationController = UINavigationController(rootViewController: healthCertificatePersonViewController)
 		viewController.present(self.modalNavigationController, animated: true)
 	}
 	

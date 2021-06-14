@@ -193,10 +193,10 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		let logoImageView = UIImageView(image: logoImage)
 		logoImageView.tintColor = .enaColor(for: .textContrast)
 
-		parent?.navigationController?.navigationBar.tintColor = .white
-		parent?.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: logoImageView)
-		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton(.contrast)
-		parent?.navigationItem.hidesBackButton = true
+		navigationController?.navigationBar.tintColor = .white
+		navigationItem.leftBarButtonItem = UIBarButtonItem(customView: logoImageView)
+		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton(.contrast)
+		navigationItem.hidesBackButton = true
 
 		// create a transparent navigation bar
 		let emptyImage = UIImage()
@@ -205,9 +205,9 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		navigationController?.navigationBar.isTranslucent = true
 		navigationController?.view.backgroundColor = .clear
 
-		parent?.navigationController?.navigationBar.prefersLargeTitles = false
-		parent?.navigationController?.navigationBar.sizeToFit()
-		parent?.navigationItem.largeTitleDisplayMode = .never
+		navigationController?.navigationBar.prefersLargeTitles = false
+		navigationController?.navigationBar.sizeToFit()
+		navigationItem.largeTitleDisplayMode = .never
 	}
 
 	private func setupBackground() {
