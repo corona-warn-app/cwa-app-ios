@@ -92,9 +92,7 @@ private extension DynamicCell {
 						UIImage(named: "Icon_Wifi")]
 						.compactMap { $0 },
 					buttonTitle: AppStrings.ExposureNotificationSetting.euEmptyErrorButtonTitle) {
-					if let url = URL(string: UIApplication.openSettingsURLString) {
-						UIApplication.shared.open(url)
-					}
+					LinkHelper.open(urlString: UIApplication.openSettingsURLString)
 				}
 			}
 		}

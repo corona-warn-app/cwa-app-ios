@@ -754,9 +754,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			okTitle: AppStrings.Common.backgroundFetch_OKTitle,
 			secondaryActionTitle: AppStrings.Common.backgroundFetch_SettingsTitle,
 			secondaryActionCompletion: {
-				if let url = URL(string: UIApplication.openSettingsURLString) {
-					UIApplication.shared.open(url, options: [:], completionHandler: nil)
-				}
+				LinkHelper.open(urlString: UIApplication.openSettingsURLString)
 			}
 		)
 
