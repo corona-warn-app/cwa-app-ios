@@ -70,12 +70,6 @@ extension URLSession {
 				return
 			}
 
-			guard Response.acceptableStatusCodes ~= response.statusCode else {
-				Log.error("Invalid server response with code \(response.statusCode)", log: .api)
-				completion(.failure(.invalidResponse))
-				return
-			}
-
 			if let error = error {
 				Log.error("Server request error", log: .api, error: error)
 				completion(.failure(.httpError(error.localizedDescription, response)))
@@ -113,7 +107,7 @@ extension URLSession {
 			type(of: self).acceptableStatusCodes.contains(statusCode)
 		}
 
-		fileprivate static let acceptableStatusCodes = (200 ... 299)
+		private static let acceptableStatusCodes = (200 ... 299)
 	}
 }
 
