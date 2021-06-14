@@ -44,27 +44,21 @@ class DCCRSAKeyPairTests: CWATestCase {
 	}
 
 	func testEncryptionDecryptionFlow() throws {
-		let keys = try DCCRSAKeyPair(registrationToken: "registrationToken")
+		let keyPair = try DCCRSAKeyPair(registrationToken: "registrationToken")
 
+		// encryption
 		let plainText = try XCTUnwrap("plain text".data(using: .utf8))
-		let algorithm: SecKeyAlgorithm = .rsaEncryptionOAEPSHA256
+		let cipherText = try keyPair.encrypt(plainText)
 
-		var error: Unmanaged<CFError>?
-		guard let cipherText = SecKeyCreateEncryptedData(
-				try keys.publicKey(),
-				algorithm,
-				plainText as CFData,
-				&error) as Data?
-		else {
-			// swiftlint:disable:next force_unwrapping
-			throw error!.takeRetainedValue() as Error
-		}
-		XCTAssertEqual(cipherText.count, SecKeyGetBlockSize(try keys.privateKey()))
+		XCTAssertEqual(cipherText.count, SecKeyGetBlockSize(try keyPair.privateKey()))
 		XCTAssertNotEqual(cipherText, plainText)
 
 		// decryption
-		let clearText = try keys.decrypt(cipherText)
+		let clearText = try keyPair.decrypt(cipherText)
+
 		XCTAssertEqual(try XCTUnwrap(clearText), plainText)
+
+		keyPair.removeFromKeychain()
 	}
 
 }

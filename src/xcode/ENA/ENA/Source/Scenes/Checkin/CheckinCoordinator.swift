@@ -211,12 +211,7 @@ final class CheckinCoordinator {
 
 	
 	private func showSettings() {
-		guard let url = URL(string: UIApplication.openSettingsURLString),
-			  UIApplication.shared.canOpenURL(url) else {
-			Log.debug("Failed to oper settings app", log: .checkin)
-			return
-		}
-		UIApplication.shared.open(url, options: [:])
+		LinkHelper.open(urlString: UIApplication.openSettingsURLString)
 	}
 	
 	private func infoScreen(
