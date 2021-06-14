@@ -184,9 +184,7 @@ extension ErrorLogSubmissionService: ErrorLogHandling {
 		Log.info("Debug Build.")
 		#endif
 			
-		#if !RELEASE
 		Log.info("Environment: \(Environments().currentEnvironment().name)")
-		#endif
 
 		let clientData = ClientMetadata(etag: nil)
 		Log.info("CWA version number: \(String(describing: clientData.cwaVersion))")
