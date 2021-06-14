@@ -411,7 +411,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].isHittable)
 	}
 
-	func test_TestCertificateScreen() throws {
+	func test_screenshot_TestCertificateScreen() throws {
 		launch()
 
 		// -> Open Intro screen
@@ -440,10 +440,8 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		app.cells[AccessibilityIdentifiers.ExposureSubmission.TestCertificate.Info.birthdayPlaceholder].waitAndTap()
 
 		// Pick another year to enable the button
-		let dateComponent = Calendar.current.dateComponents([.year], from: Date())
 		let datePicker = XCUIApplication().datePickers.firstMatch
-		let year = try XCTUnwrap(dateComponent.year)
-		datePicker.pickerWheels[String(year)].adjust(toPickerWheelValue: "1985")
+		datePicker.pickerWheels["2000"].adjust(toPickerWheelValue: "1985")
 
 		// Check if the button is enabled.
 		let buttonEnabled = NSPredicate(format: "enabled == true")
