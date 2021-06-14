@@ -69,10 +69,12 @@
         "ENAUITests_08_UpdateOS\/test_screenshot_UpdateOS()",
         "ENAUITests_09_TraceLocations\/test_screenshots_of_traceLocation_print_flow()",
         "ENAUITests_10_CheckIns\/test_screenshot_WHEN_scan_QRCode_THEN_checkin_and_checkout()",
-        "ENAUITests_13_CreateHealthCertificate\/test_CreateAntigenTestProfileWithFirstCertificate()",
-        "ENAUITests_13_CreateHealthCertificate\/test_CreateAntigenTestProfileWithLastCertificate()",
-        "ENAUITests_13_CreateHealthCertificate\/test_ShowCertificate()",
-        "ENAUITests_13_CreateHealthCertificate\/test_shownConsentScreenAndDisclaimer()"
+        "ENAUITests_13_CreateHealthCertificate\/test_screenshot_CompleteVaccinationProtectionWithTestCertificate()",
+        "ENAUITests_13_CreateHealthCertificate\/test_screenshot_CreateAntigenTestProfileWithFirstCertificate()",
+        "ENAUITests_13_CreateHealthCertificate\/test_screenshot_CreateAntigenTestProfileWithLastCertificate()",
+        "ENAUITests_13_CreateHealthCertificate\/test_screenshot_ShowCertificate()",
+        "ENAUITests_13_CreateHealthCertificate\/test_screenshot_TestCertificate()",
+        "ENAUITests_13_CreateHealthCertificate\/test_screenshot_shownConsentScreenAndDisclaimer()"
       ],
       "target" : {
         "containerPath" : "container:ENA.xcodeproj",
