@@ -6,8 +6,8 @@ import UIKit
 
 extension DynamicAction {
 	static var safari: Self {
-		.execute { viewController, _ in
-			LinkHelper.showWebPage(from: viewController, urlString: AppStrings.SafariView.targetURL)
+		.execute { _, _ in
+			LinkHelper.open(urlString: AppStrings.SafariView.targetURL)
 		}
 	}
 	

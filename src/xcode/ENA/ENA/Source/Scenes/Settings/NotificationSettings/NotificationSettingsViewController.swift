@@ -137,11 +137,7 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
 	private var viewModel = NotificationSettingsViewModel.notificationsOff()
 
 	@IBAction func openSettings(_ sender: Any) {
-		guard let settingsURL = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(settingsURL) else {
-			return
-		}
-
-		UIApplication.shared.open(settingsURL)
+		LinkHelper.open(urlString: UIApplication.openSettingsURLString)
 	}
 
 	@objc

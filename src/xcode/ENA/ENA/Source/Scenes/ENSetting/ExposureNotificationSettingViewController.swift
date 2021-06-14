@@ -211,10 +211,7 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 
 	private func handleEnableError(_ error: ExposureNotificationError, alert: Bool) {
 		let openSettingsAction = UIAlertAction(title: AppStrings.Common.alertActionOpenSettings, style: .default, handler: { _ in
-			if let settingsUrl = URL(string: UIApplication.openSettingsURLString),
-				UIApplication.shared.canOpenURL(settingsUrl) {
-				UIApplication.shared.open(settingsUrl, completionHandler: nil)
-			}
+			LinkHelper.open(urlString: UIApplication.openSettingsURLString)
 		})
 		var errorMessage = ""
 		switch error {
