@@ -56,7 +56,8 @@ class HealthCertificateServiceTests: CWATestCase {
 		subscription.cancel()
 	}
 
-	// swiftlint:disable:next cyclomatic_complexity
+	// swiftlint:disable cyclomatic_complexity
+	// swiftlint:disable:next function_body_length
 	func testRegisteringCertificates() throws {
 		let store = MockTestStore()
 
@@ -99,6 +100,31 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		if case .failure(let error) = registrationResult, case .certificateAlreadyRegistered = error { } else {
 			XCTFail("Double registration of the same certificate should fail")
+		}
+
+		XCTAssertEqual(store.healthCertifiedPersons.count, 1)
+		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [firstTestCertificate])
+
+		// Try to register certificate with too many entries
+
+		let wrongCertificateBase45 = try base45Fake(from: DigitalGreenCertificate.fake(
+			vaccinationEntries: [VaccinationEntry.fake(
+				dateOfVaccination: "2020-01-01"
+			)],
+			testEntries: [TestEntry.fake(
+				dateTimeOfSampleCollection: "2020-01-02T12:00:00.000Z"
+			)],
+			recoveryEntries: nil
+		))
+
+		let wrongCertificate = try HealthCertificate(base45: wrongCertificateBase45)
+
+		XCTAssertTrue(wrongCertificate.hasTooManyEntries)
+
+		registrationResult = service.registerHealthCertificate(base45: wrongCertificateBase45)
+
+		if case .failure(let error) = registrationResult, case .certificateHasTooManyEntries = error { } else {
+			XCTFail("Registration of a certificate with too many entries should fail")
 		}
 
 		XCTAssertEqual(store.healthCertifiedPersons.count, 1)
