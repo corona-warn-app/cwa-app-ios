@@ -150,12 +150,12 @@ final class HTTPClient: Client {
 
 					let labId = response.httpResponse.value(forCaseInsensitiveHeaderField: "labId")
 
-					let response = FetchTestResultResponse(
+					let testResultResponse = FetchTestResultResponse(
 						labId: labId,
 						body: responseBody
 					)
 
-					completeWith(.success(response))
+					completeWith(.success(testResultResponse))
 				} catch {
 					Log.error("Failed to get test result with invalid response payload structure", log: .api)
 					completeWith(.failure(.invalidResponse))
