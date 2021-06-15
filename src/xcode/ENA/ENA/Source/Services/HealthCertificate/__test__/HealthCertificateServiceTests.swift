@@ -384,23 +384,40 @@ class HealthCertificateServiceTests: CWATestCase {
 				}
 			}
 
+		let expectedCounts = [0, 1, 0]
+		let countExpectation = expectation(description: "Count updated")
+		countExpectation.expectedFulfillmentCount = expectedCounts.count
+		var receivedCounts = [Int]()
+		let countSubscription = service.unseenTestCertificateCount
+			.sink {
+				receivedCounts.append($0)
+				countExpectation.fulfill()
+			}
+
+		let completionExpectation = expectation(description: "registerAndExecuteTestCertificateRequest completion called")
 		service.registerAndExecuteTestCertificateRequest(
 			coronaTestType: .pcr,
 			registrationToken: "registrationToken",
 			registrationDate: Date(),
 			retryExecutionIfCertificateIsPending: false
-		)
+		) { _ in
+			completionExpectation.fulfill()
+		}
+
+		service.resetUnseenTestCertificateCount()
 
 		waitForExpectations(timeout: .medium)
 
 		requestsSubscription.cancel()
 		personsSubscription.cancel()
+		countSubscription.cancel()
 
 		XCTAssertEqual(
 			try XCTUnwrap(service.healthCertifiedPersons.value.first).healthCertificates.first?.base45,
 			base45TestCertificate
 		)
 		XCTAssertTrue(service.testCertificateRequests.value.isEmpty)
+		XCTAssertEqual(receivedCounts, expectedCounts)
 	}
 
 	func testTestCertificateExecution_NewTestCertificateRequest() throws {

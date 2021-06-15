@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import OpenCombine
 
 final class HealthCertificatesCoordinator {
 	
@@ -22,6 +23,8 @@ final class HealthCertificatesCoordinator {
 			store.healthCertificateInfoScreenShown = LaunchArguments.infoScreen.healthCertificateInfoScreenShown.boolValue
 		}
 		#endif
+
+		setupCertificateBadgeCount()
 	}
 	
 	// MARK: - Internal
@@ -57,6 +60,8 @@ final class HealthCertificatesCoordinator {
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProvider
 
 	private var modalNavigationController: UINavigationController!
+
+	private var subscriptions = Set<AnyCancellable>()
 
 	private var infoScreenShown: Bool {
 		get { store.healthCertificateInfoScreenShown }
@@ -329,6 +334,15 @@ final class HealthCertificatesCoordinator {
 		)
 		alert.addAction(submitAction)
 		modalNavigationController.present(alert, animated: true)
+	}
+
+	private func setupCertificateBadgeCount() {
+		healthCertificateService.unseenTestCertificateCount
+			.receive(on: DispatchQueue.main.ocombine)
+			.sink { [weak self] in
+				self?.viewController.tabBarItem.badgeValue = $0 > 0 ? String($0) : nil
+			}
+			.store(in: &subscriptions)
 	}
 	
 }
