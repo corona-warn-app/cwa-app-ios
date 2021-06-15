@@ -101,7 +101,9 @@ jobs:
           key: *tools_cache_key
       - run:
           name: Swiftlint
-          command: cd src/xcode && bundle exec fastlane lint
+          command: |
+            swiftlint --version
+            cd src/xcode && bundle exec fastlane lint
       - store_artifacts:
           path: src/xcode/swiftlint.result.json
   test:
