@@ -84,7 +84,7 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 			cell.configure(with: viewModel.headlineCellViewModel)
 			return cell
 		case .qrCode:
-			let cell = tableView.dequeueReusableCell(cellType: HealthCertificateQRCodeCell.self, for: indexPath)
+			let cell = tableView.dequeueReusableCell(cellType: HealthCertificateDetailsQRCodeCell.self, for: indexPath)
 			cell.configure(with: viewModel.qrCodeCellViewModel)
 			return cell
 		case .topCorner:
@@ -124,7 +124,7 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 	private let didTapDelete: () -> Void
 
 	private let viewModel: HealthCertificateViewModel
-	private let backgroundView = GradientBackgroundView(type: .solidGrey)
+	private let backgroundView = GradientBackgroundView(type: .solidGrey, doDisplayStars: true)
 	private let tableView = UITableView(frame: .zero, style: .plain)
 
 	private var subscriptions = Set<AnyCancellable>()
@@ -204,8 +204,8 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 		)
 
 		tableView.register(
-			HealthCertificateQRCodeCell.self,
-			forCellReuseIdentifier: HealthCertificateQRCodeCell.reuseIdentifier
+			HealthCertificateDetailsQRCodeCell.self,
+			forCellReuseIdentifier: HealthCertificateDetailsQRCodeCell.reuseIdentifier
 		)
 
 		tableView.register(
