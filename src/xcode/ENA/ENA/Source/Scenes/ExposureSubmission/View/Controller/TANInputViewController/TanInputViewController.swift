@@ -15,6 +15,8 @@ class TanInputViewController: UITableViewController, FooterViewHandling {
 	) {
 		self.viewModel = viewModel
 		self.dismiss = dismiss
+		tanInputCell = TANInputCell(viewModel: viewModel)
+		tanErrorCell = TANErrorCell(style: .default, reuseIdentifier: TANErrorCell.cellIdentifier)
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -34,15 +36,20 @@ class TanInputViewController: UITableViewController, FooterViewHandling {
 
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
-
-		DispatchQueue.main.async { [weak self] in
-			self?.tanInputCell.tanInputView.becomeFirstResponder()
-		}
+		_ = becomeFirstResponder()
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
-		tanInputCell.tanInputView.resignFirstResponder()
+		_ = resignFirstResponder()
+	}
+	
+	override func becomeFirstResponder() -> Bool {
+		return tanInputCell.tanInputView.becomeFirstResponder()
+	}
+	
+	override func resignFirstResponder() -> Bool {
+		return tanInputCell.tanInputView.resignFirstResponder()
 	}
 	
 	override func numberOfSections(in tableView: UITableView) -> Int {
@@ -97,8 +104,8 @@ class TanInputViewController: UITableViewController, FooterViewHandling {
 	private let dismiss: () -> Void
 	private var bindings: Set<AnyCancellable> = []
 	
-	private lazy var tanInputCell = TANInputCell(viewModel: viewModel)
-	private lazy var tanErrorCell = TANErrorCell(style: .default, reuseIdentifier: TANErrorCell.cellIdentifier)
+	private let tanInputCell: TANInputCell
+	private let tanErrorCell: TANErrorCell
 
 	private func setupViews() {
 		

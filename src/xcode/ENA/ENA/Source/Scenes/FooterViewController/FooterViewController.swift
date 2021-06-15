@@ -50,7 +50,7 @@ class FooterViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		view.insetsLayoutMarginsFromSafeArea = false
+		view.insetsLayoutMarginsFromSafeArea = true
 		view.preservesSuperviewLayoutMargins = false
 		view.layoutMargins = UIEdgeInsets(
 			top: viewModel.topBottomInset,
@@ -73,6 +73,7 @@ class FooterViewController: UIViewController {
 		buttonsStackView.addArrangedSubview(primaryButton)
 		
 		primaryButtonHeightAnchor = primaryButton.heightAnchor.constraint(equalToConstant: viewModel.buttonHeight)
+		primaryButtonHeightAnchor.priority = .defaultHigh
 		
 		secondaryButton.disabledBackgroundColor = viewModel.secondaryCustomDisableBackgroundColor
 		secondaryButton.hasBackground = true
@@ -81,6 +82,7 @@ class FooterViewController: UIViewController {
 		buttonsStackView.addArrangedSubview(secondaryButton)
 		
 		secondaryButtonHeightAnchor = secondaryButton.heightAnchor.constraint(equalToConstant: viewModel.buttonHeight)
+		secondaryButtonHeightAnchor.priority = .defaultHigh
 		
 		NSLayoutConstraint.activate([
 			// buttonsStackView
@@ -181,11 +183,6 @@ class FooterViewController: UIViewController {
 		secondaryButton.alpha = viewModel.isSecondaryButtonHidden ? 0.0 : 1.0
 		secondaryButton.isHidden = !viewModel.isSecondaryButtonEnabled
 		secondaryButton.isEnabled = viewModel.isSecondaryButtonEnabled
-		
-		// update layout
-		
-		view.setNeedsLayout()
-		view.layoutIfNeeded()
 		
 		// subscribe to view model properties
 
