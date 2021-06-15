@@ -90,10 +90,7 @@ class ActionDetailTableViewCell: UITableViewCell {
 		if let state = self.state, state == .unknown {
 			delegate?.performAction(action: .askConsent)
 		} else {
-			if let settingsUrl = URL(string: UIApplication.openSettingsURLString),
-				UIApplication.shared.canOpenURL(settingsUrl) {
-				UIApplication.shared.open(settingsUrl, completionHandler: nil)
-			}
+			LinkHelper.open(urlString: UIApplication.openSettingsURLString)
 		}
 	}
 

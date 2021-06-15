@@ -49,6 +49,7 @@
         "ENAUITests_04a_ExposureSubmission\/test_screenshot_SubmitQR()",
         "ENAUITests_04a_ExposureSubmission\/test_screenshot_SubmitTAN()",
         "ENAUITests_04a_ExposureSubmission\/test_screenshot_SymptomsOptionYes()",
+        "ENAUITests_04a_ExposureSubmission\/test_screenshot_TestCertificateScreen()",
         "ENAUITests_04a_ExposureSubmission\/test_screenshot_exposureSubmissionSuccess_screen()",
         "ENAUITests_04a_ExposureSubmission\/test_screenshot_symptoms_onset_date_option()",
         "ENAUITests_04a_ExposureSubmission\/test_screenshot_test_result_available()",

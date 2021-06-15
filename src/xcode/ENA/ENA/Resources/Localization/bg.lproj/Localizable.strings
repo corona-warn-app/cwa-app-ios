@@ -497,7 +497,7 @@
 
 "ExposureSubmissionDispatch_QRCodeButtonTitle" = "Сканиране на QR код";
 
-"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Получете резултата си в приложението и предупредете останалите или заявете своя сертификат за тестване за COVID-19.";
+"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Получете резултата си в приложението и предупредете останалите или заявете своя COVID сертификат за тестване.";
 
 "ExposureSubmissionDispatch_TANButtonTitle" = "Въведете ТАН код за PCR тест";
 
@@ -552,7 +552,7 @@
 
 "ExposureSubmissionQRInfo_instruction2" = "Можете да сканирате Вашия тест само веднъж. Приложението може да обработва едновременно само един бърз тест и един PCR тест.";
 
-"ExposureSubmissionQRInfo_instruction2a" = "Ако резултатът от теста ви е отрицателен, може да го потвърдите с официален сертификат за тестване за COVID-19. За да направите това, заявете сертификата като следвате стъпките.";
+"ExposureSubmissionQRInfo_instruction2a" = "Ако резултатът от теста Ви е отрицателен, може да го потвърдите с официален COVID сертификат. За целта заявете такъв като следвате стъпките.";
 
 "ExposureSubmissionQRInfo_instruction3" = "В приложението %@ може да се обработват няколко теста едновременно.";
 
@@ -718,13 +718,27 @@
 
 "ExposureSubmissionResult_testPendingDesc" = "Резултатът от Вашия тест ще се покаже в приложението веднага щом бъде готов.\n\nТой ще Ви бъде изпратен също и извън приложението. Службата за обществено здравеопазване ще Ви уведоми, ако е положителен.\n\nАко получите такова уведомление, моля изтрийте теста, който в момента е регистриран в приложението. Позвънете на номера, показан под „Заявка за ТАН код“, за да получите ТАН. Използвайте кода, за да регистрирате своя резултат в приложението и да предупредите останалите потребители.";
 
+"ExposureSubmissionResult_testCertificate_title" = "COVID сертификат за тестване";
+
+"ExposureSubmissionResult_testCertificate_testCenterNotSupported" = "Не може да бъде издаден официален цифров COVID сертификат за тестване, тъй като този пункт не поддържа издаването на такива.";
+
+"ExposureSubmissionResult_testCertificate_Pending" = "Вашият официален цифров COVID сертификат за тестване все още не е наличен. Щом е готов, той ще се появи в приложението Ви.";
+
+"ExposureSubmissionResult_testCertificate_NotRequested" = "По ваша молба няма да бъде издаден официален цифров COVID сертификат за тестване.";
+
+"ExposureSubmissionResult_testCertificate_AvailableInTab" = "Сертификатът за тестване е наличен на таба „Сертификати“.";
+
 "ExposureSubmissionResult_antigenTestPending" = "Все още няма резултат от теста Ви.";
 
 "ExposureSubmissionResult_antigenTestPendingDesc" = "Резултатът от Вашия тест ще се покаже в приложението веднага щом бъде готов.";
 
 "ExposureSubmissionResult_antigenTestPendingContactJournal" = "Резултатът от теста Ви ще бъде добавен и във Вашия дневник на контактите.";
 
+"ExposureSubmissionResult_pcrTestPendingContactJournal" = "Резултатът от теста Ви ще бъде добавен и във Вашия дневник на контактите.";
+
 "ExposureSubmissionResult_antigenTestPendingContactJournalDesc" = "Резултатът от Вашия тест ще се покаже в приложението веднага щом бъде готов.";
+
+"ExposureSubmissionResult_pcrTestPendingContactJournalDesc" = "Резултатът от Вашия тест ще се покаже в приложението веднага щом бъде готов.";
 
 "ExposureSubmissionResult_antigenTestNegativDesc" = "Бързият тест не потвърди , че имате коронавирус SARS-CoV-2.";
 
@@ -851,13 +865,9 @@
 
 "ExposureSubmissionResult_Timer_Title" = "Резултатът ще е достъпен след";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Title" = "Функция за проверка";
+"ExposureSubmissionResult_Negative_Antigen_Proof_Title" = " ";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Можете да използвате резултата, който се показва тук, като доказателство за отрицателен резултат от бърз тест.\n\nМоля, имайте предвид, че трябва да представите доказателство за резултата от Вашия бърз тест единствено ако законът изисква това. Можете да покажете резултата си чрез приложението или по друг начин. За повече информация, моля запознайте се с критериите за приемане на доказателства за тестване във Вашата федерална провинция.";
-
-"ExposureSubmissionResult_Negative_Antigen_NoProof_Title" = "Без функция за проверка";
-
-"ExposureSubmissionResult_Negative_Antigen_NoProof_Desc" = "Тъй като показаният тук резултат е анонимизиран, той не може да се използва като доказателство за отрицателен резултат от бърз тест.";
+"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Резултатът от Вашия тест е поверителен и не сте задължени да го споделяте. В случаите, когато това се изисква по закон, можете да да използвате който и да е от предоставените начини.";
 
 "ExposureSubmissionResult_Negative_Antigen_NoProof_Title" = "Без функция за проверка";
 
@@ -955,7 +965,7 @@
 "ExposureSubmission_Profile_ProfileTile_Description" = "Спестете време като представите профила си в пункта за тестване.";
 
 /* ExposureSubmission TestCertificate */
-"ExposureSubmission_TestCertificate_Information_Title" = "Сертификат за тест за COVID";
+"ExposureSubmission_TestCertificate_Information_Title" = "COVID сертификат за тестване";
 
 "ExposureSubmission_TestCertificate_Information_PrimaryButton" = "Заявете сертификат за тест";
 
@@ -963,11 +973,11 @@
 
 "ExposureSubmission_TestCertificate_Information_ImageDescription" = "Жена със смартфон използва Corona-Warn-App. Зад нея печат с отметка символизира валиден сертификат.";
 
-"ExposureSubmission_TestCertificate_Information_Section01" = "Сертификатът за тестване се издава само ако получите отрицателен резултат от теста.";
+"ExposureSubmission_TestCertificate_Information_Section01" = "Сертификат за тестване се издава само ако резултатът от теста е отрицателен.";
 
 "ExposureSubmission_TestCertificate_Information_Section02" = "Сертификатът за тестване е валидно доказателство за отрицателен резултат от тест в рамките на ЕС (например при пътуване).";
 
-"ExposureSubmission_TestCertificate_Information_Subheadline" = "Можете да използвате приложението, за да заявите официален електронен сертификат за тестване, който ще бъде добавен в приложението.";
+"ExposureSubmission_TestCertificate_Information_Subheadline" = "Можете да използвате приложението, за да заявите официален цифров сертификат за тестване, който ще бъде добавен вътре.";
 
 "ExposureSubmission_TestCertificate_Information_BirthdayPlaceholder" = "Дата на раждане";
 
@@ -1249,7 +1259,7 @@
 /* Home Test Registration Card */
 "Home_TestRegistration_Title" = "Регистрирайте своя тест";
 
-"Home_TestRegistration_Body" = "Използвайте приложението, за да регистрирате тестовете си и да извлечете резултатите от тях, за да можете да предупредите останалите по-бързо или за да заявите своя сертификат за тестване за COVID-19.";
+"Home_TestRegistration_Body" = "Използвайте приложението, за да регистрирате тестовете си и да извлечете резултатите от тях, за да можете да предупредите останалите по-бързо или за да заявите своя COVID сертификат за тестване.";
 
 "Home_TestRegistration_Button" = "Следващи стъпки";
 
@@ -1530,9 +1540,9 @@
 "NewVersionFeatures_Info_about_abb_information" = "Може да видите промените в тази версия в подраздела „Нови функции“ на информацията за приложението.";
 
 /* Version 2.4 */
-"NewVersionFeature_24_digital_covid_cert_title" = "Сертификат за тест за COVID";
+"NewVersionFeature_24_digital_covid_cert_title" = "COVID сертификат за тестване";
 
-"NewVersionFeature_24_digital_covid_cert_description" = "Вече можете да заявите чрез приложението официален електронен сертификат за тестване и след това да го добавите в него. Този сертификат може да се използва (чрез QR код) в рамките на ЕС като доказателство за отрицателен резултат от тест (например при международни пътувания).";
+"NewVersionFeature_24_digital_covid_cert_description" = "Вече можете да заявите чрез приложението официален цифров COVID сертификат за тестване и след това да го добавите вътре. Този сертификат може да се използва (чрез QR код) в рамките на ЕС като доказателство за отрицателен резултат от тест (например при международни пътувания).";
 
 "NewVersionFeature_24_extended_diary_title" = "Разширение на дневника с контакти";
 
@@ -2434,12 +2444,12 @@
 /* Health Certificate Overview */
 "HealthCertificate_Overview_title" = "Сертификати";
 
-"HealthCertificate_Overview_description" = "Тук се показват електронните ви сертификати за ваксиниране и за тествания.";
+"HealthCertificate_Overview_description" = "Тук се показват цифровите Ви сертификати за ваксиниране и за тествания.";
 
 /* - Vaccination Certificate Registration */
 "VaccinationCertificate_Registration_title" = "Добавете **Електронно доказателство за ваксиниране**";
 
-"VaccinationCertificate_Registration_description" = "Добавете ваксинационните си сертификати в приложението, за да са винаги с вас. За да направите това, сканирайте QR кода от вашия документ.";
+"VaccinationCertificate_Registration_description" = "Добавете ваксинационните си сертификати в приложението, за да са винаги с вас. За целта сканирайте QR кода от вашия документ.";
 
 /* - Vaccination Certificate */
 "VaccinationCertificate_title" = "Електронно **Доказателство за ваксиниране**";
@@ -2449,22 +2459,71 @@
 "VaccinationCertificate_vaccinationValidUntil" = "Валидно до %@";
 
 /* - Test Certificate Info */
-"TestCertificate_Info_title" = "Електронен\n**Сертификат за тестване за COVID**";
+"TestCertificate_Info_title" = "Цифров\n**Сертификат за тестване за COVID**";
 
-"TestCertificate_Info_description" = "Регистрирайте тест на началния екран и дайте съгласие да получите електронен сертификат за тестване. Той ще се покаже тук веднага щом е наличен.";
+"TestCertificate_Info_description" = "Регистрирайте тест от началния екран и дайте съгласие да получите цифров сертификат за тестване. Той ще се покаже тук веднага щом стане наличен.";
+
+/* - Test Certificate */
+"TestCertificate_title" = "Цифров\n**Сертификат за тестване за COVID**";
+
+"TestCertificate_testDate" = "Тестът е извършен на %@";
+
+/* - Test Certificate Request */
+"TestCertificateRequest_title" = "Цифров\n**Сертификат за тестване за COVID**";
+
+"TestCertificateRequest_loadingSubtitle" = "Вашият сертификат се създава...";
+
+"TestCertificateRequest_errorSubtitle" = "Грешка при извличането на сертификата";
+
+"TestCertificateRequest_registrationDate" = "Регистрирано на %@";
+
+"TestCertificateRequest_loadingStateDescription" = "Вашият сертификат се заявява. Това може да отнеме няколко минути...";
+
+"TestCertificateRequest_tryAgainButtonTitle" = "Опитайте пак";
+
+"TestCertificateRequest_removeButtonTitle" = "Изтриване на сертификата за тестване";
+
+/* - Test Certificate Request Error Alert */
+"TestCertificateRequest_ErrorAlert_title" = "Все още има проблем със заявката.";
+
+"TestCertificateRequest_ErrorAlert_Button_title" = "OK";
+
+/* - Test Certificate Request Remove Alert */
+"TestCertificateRequest_RemoveAlert_title" = "Желаете ли да изтриете сертификата?";
+
+"TestCertificateRequest_RemoveAlert_message" = "Ако изтриете този сертификат, не можете да го заявите отново.";
+
+"TestCertificateRequest_RemoveAlert_CancelButton_title" = "Отказ";
+
+"TestCertificateRequest_RemoveAlert_DeleteButton_title" = "Изтриване";
+
+/* Test Certificate Request Errors */
+"TestCertificateRequest_Error_CLIENT_ERROR_CALL_HOTLINE" = "Възникна грешка. Моля, опитайте по-късно или се свържете с горещата линия за технически проблеми, посочена в „Информация за приложението“ -> „Технически въпроси“. (%@)";
+
+"TestCertificateRequest_Error_DCC_EXPIRED" = "Сертификатът вече не е актуален. Можете да го изтриете от Corona-Warn-App. (%@)";
+
+"TestCertificateRequest_Error_DCC_NOT_SUPPORTED_BY_LAB" = "Не можете да заявите сертификат за направен тест, тъй като пунктът не поддържа издаването на такива. Моля, изтрийте сертификата или се свържете с горещата линия за технически проблеми, посочена в „Информация за приложението“ -> „Технически въпроси“ (%@)";
+
+"TestCertificateRequest_Error_E2E_ERROR_CALL_HOTLINE" = "Възникна грешка. Моля, опитайте по-късно или се свържете с горещата линия за технически проблеми, посочена в „Информация за приложението“ -> „Технически въпроси“. (%@)";
+
+"TestCertificateRequest_Error_NO_NETWORK" = "Няма връзка с интернет. Моля, проверете я и опитайте отново. (%@)";
+
+"TestCertificateRequest_Error_TRY_AGAIN" = "Не беше установена връзка. Опитайте отново. (%@)";
+
+"TestCertificateRequest_Error_TRY_AGAIN_DCC_NOT_AVAILABLE_YET" = "Вашият сертификат още не е наличен. Моля, опитайте отново. Ако грешката продължи да възниква, се обърнете към горещата линия за технически проблеми, посочена в „Информация за приложението“ -> „Технически въпроси“. (%@)";
 
 /* Health Certificate Information */
-"HealthCertificate_Info_Title" = "Добавете сертификат за ваксиниране";
+"HealthCertificate_Info_Title" = "Добавете сертификати";
 
 "HealthCertificate_Info_imageDescription" = "Имунизирано лице гледа в смартфона си";
 
-"HealthCertificate_Info_description" = "Добавете електронното си доказателство за ваксиниране в приложението. Когато ваксинационната ви защита бъде завършена, можете да представяте QR кода в приложението си като доказателство за ваксиниране.";
+"HealthCertificate_Info_description" = "Добавете своите цифрови COVID сертификати на ЕС в приложението. Така ще можете да доказвате ваксинационната си защита или резултата от отрицателен тест чрез приложението.";
 
-"HealthCertificate_Info_section01" = "За да добавите сертификат за ваксиниране в приложението, сканирайте QR кода, който сте получили по време на ваксинирането.";
+"HealthCertificate_Info_section01" = "Можете да добавите в приложението своите цифрови сертификати за ваксиниране срещу или тестване за COVID.";
 
-"HealthCertificate_Info_section02" = "Приложението чете информацията от QR кода и го запазва в защитена област в смартфона ви.";
+"HealthCertificate_Info_section02" = "Тези сертификати се считат за валидно доказателство в рамките на ЕС (например при пътуване).";
 
-"HealthCertificate_Info_section03" = "Данните ще останат в смартфона. Те ще бъдат предадени на другите само ако представите ваксинационния си сертификат за проверка.";
+"HealthCertificate_Info_section03" = "След като добавите сертификат, той ще се запази в смартфона Ви. Ще се споделя с останалите само ако представите ваксинационен сертификат.";
 
 "HealthCertificate_Info_primaryButton" = "Напред";
 
@@ -2488,12 +2547,12 @@
 
 "HealthCertifiedPerson_primaryButton" = "Регистрирайте друго ваксиниране";
 
-/* Health Certificate Details */
+/* Vaccination Certificate Details */
 "HealthCertificate_Details_vaccinationCount" = "Ваксиниране %i от %i";
 
 "HealthCertificate_Details_certificate" = "Ваксинационен сертификат";
 
-"HealthCertificate_Details_QRCode_Image_Description" = "QR код със сертификата Ви за ваксиниране %i от %i";
+"HealthCertificate_Details_QRCode_Image_Description" = "QR код с Вашия сертификат";
 
 "HealthCertificate_Details_certificateCount" = "Ваксинационен сертификат %i от %i";
 
@@ -2515,29 +2574,49 @@
 
 "HealthCertificate_Details_identifier" = "Сертификационен номер";
 
-"HealthCertificate_Details_primaryButton" = "Изтриване на сертификат за ваксиниране";
+"HealthCertificate_Details_primaryButton" = "Изтриване на ваксинационния сертификат";
 
-/* Health Certificate Alert delete */
-"HealthCertificate_Alert_title" = "Желаете ли да изтриете сертификата за ваксиниране?";
+/* Vaccination Certificate Delete Alert */
+"HealthCertificate_Alert_title" = "Желаете ли да изтриете ваксинационния сертификат?";
 
-"HealthCertificate_Alert_message" = "Ако изтриете сертификата за ваксиниране, приложението вече няма да може да използва ваксинацията за удостоверяване на вашия ваксинационен статус.";
+"HealthCertificate_Alert_message" = "Ако изтриете сертификата, приложението вече няма да може да използва тази ваксинация за удостоверяване на вашия ваксинационен статус.";
 
 "HealthCertificate_Alert_deleteButton" = "Изтриване";
 
 "HealthCertificate_Alert_cancelButton" = "Отказ";
 
+/* Test Certificate Details */
+"TestCertificate_Details_title" = "Цифров COVID сертификат на ЕС за тестване";
+
+"TestCertificate_Details_subtitle" = "Отрицателен тест за SARS-CoV-2";
+
+"TestCertificate_Details_primaryButton" = "Изтриване на сертификата за тестване";
+
+/* Vaccination Certificate Delete Alert */
+"TestCertificate_Alert_title" = "Желаете ли да изтриете сертификата за тестване?";
+
+"TestCertificate_Alert_message" = "Ако изтриете този сертификат, повече няма да можете да го използвате за доказателство чрез приложението.";
+
+"TestCertificate_Alert_deleteButton" = "Изтриване";
+
+"TestCertificate_Alert_cancelButton" = "Отказ";
+
 /* Health Certificate Errors */
 "HealthCertificate_Error_Title" = "Грешка";
 
-"HealthCertificate_Error_PC_TRY_AGAIN_LATER" = "Сертификатът за ваксиниране не може да бъде удостоверен в момента. Моля, опитайте отново по-късно.";
+"HealthCertificate_Error_FAQ_Description" = "\n\nЗа да разберете как можете да се сдобиете със сертификат за извършена ваксинация, вижте страницата ни с често задавани въпроси (ЧЗВ).";
 
-"HealthCertificate_Error_VC_ALREADY_REGISTERED" = "Сертификатът за ваксиниране вече е регистриран в приложението ви.";
+"HealthCertificate_Error_FAQ_Button_Title" = "ЧЗВ за ваксинационни сертификати";
 
-"HealthCertificate_Error_VC_DIFFERENT_PERSON" = "Личната информация в този сертификат за ваксиниране не съответства на тази във вече регистрираните сертификати. В приложението можете да регистрирате сертификати само за едно лице.";
+"HealthCertificate_Error_PC_TRY_AGAIN_LATER" = "Ваксинационният сертификат не може да бъде удостоверен в момента. Моля, опитайте отново по-късно.";
 
-"HealthCertificate_Error_VC_INVALID" = "Този QR код не е валиден сертификат за ваксиниране.";
+"HealthCertificate_Error_VC_ALREADY_REGISTERED" = "Ваксинационният сертификат вече е регистриран в приложението Ви.";
 
-"HealthCertificate_Error_VC_NOT_YET_SUPPORTED" = "Този сертификат за ваксиниране все още не се поддържа във версията на вашето приложение. Моля, актуализирайте приложението си или се свържете с горещата линия за технически проблеми от “Информация за приложението”.";
+"HealthCertificate_Error_VC_DIFFERENT_PERSON" = "Личната информация в този ваксинационен сертификат не съответства на тази във вече регистрираните сертификати. В приложението можете да регистрирате сертификати само за едно лице.";
 
-"HealthCertificate_Error_VC_SCAN_AGAIN" = "Сертификатът за ваксиниране не може да бъде запазен на смартфона ви. Моля, опитайте отново по-късно или се свържете с горещата линия за технически проблеми от “Информация за приложението”.";
+"HealthCertificate_Error_VC_INVALID" = "Този QR код не е валиден ваксинационен сертификат.";
+
+"HealthCertificate_Error_VC_NOT_YET_SUPPORTED" = "Този ваксинационен сертификат все още не се поддържа във версията на Вашето приложение. Моля, актуализирайте приложението си или се свържете с горещата линия за технически проблеми, посочена в „Информация за приложението“.";
+
+"HealthCertificate_Error_VC_SCAN_AGAIN" = "Ваксинационният сертификат не може да бъде запазен на смартфона Ви. Моля, опитайте отново по-късно или се свържете с горещата линия за технически проблеми, посочена в „Информация за приложението“.";
 

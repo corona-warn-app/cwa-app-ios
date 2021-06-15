@@ -58,9 +58,9 @@
   {
     "component": "JSONSchema.swift",
     "licensor": "Kyle Fuller",
-    "website": "https://github.com/kylef/JSONSchema.swift",
+    "website": "https://github.com/eu-digital-green-certificates/JSONSchema.swift",
     "license": "3-Clause BSD License",
-    "licenseUrl": "https://raw.githubusercontent.com/kylef/JSONSchema.swift/master/LICENSE"
+    "licenseUrl": "https://raw.githubusercontent.com/eu-digital-green-certificates/JSONSchema.swift/master/LICENSE"
   },
   {
     "component": "SWCompression",

@@ -15,6 +15,7 @@ public struct DigitalGreenCertificate: Codable, Equatable {
         case dateOfBirth = "dob"
         case vaccinationEntries = "v"
         case testEntries = "t"
+        case recoveryEntries = "r"
     }
 
     // MARK: - Internal
@@ -24,20 +25,23 @@ public struct DigitalGreenCertificate: Codable, Equatable {
     public let dateOfBirth: String
     public let vaccinationEntries: [VaccinationEntry]?
     public let testEntries: [TestEntry]?
+    public let recoveryEntries: [RecoveryEntry]?
 
     public static func fake(
         version: String = "0.0.0",
         name: Name = .fake(),
         dateOfBirth: String = "1942-01-01",
         vaccinationEntries: [VaccinationEntry]? = nil,
-        testEntries: [TestEntry]? = nil
+        testEntries: [TestEntry]? = nil,
+        recoveryEntries: [RecoveryEntry]? = nil
     ) -> DigitalGreenCertificate {
         DigitalGreenCertificate(
             version: version,
             name: name,
             dateOfBirth: dateOfBirth,
             vaccinationEntries: vaccinationEntries,
-            testEntries: testEntries
+            testEntries: testEntries,
+            recoveryEntries: recoveryEntries
         )
     }
 }
@@ -187,6 +191,72 @@ public struct TestEntry: Codable, Equatable {
             testCenter: testCenter,
             countryOfTest: countryOfTest,
             certificateIssuer: certificateIssuer,
+            uniqueCertificateIdentifier: uniqueCertificateIdentifier
+        )
+    }
+}
+
+public struct RecoveryEntry: Codable, Equatable {
+
+    // MARK: - Init
+
+    public init(
+        diseaseOrAgentTargeted: String,
+        dateOfFirstPositiveNAAResult: String,
+        countryOfTest: String,
+        certificateIssuer: String,
+        certificateValidFrom: String,
+        certificateValidUntil: String,
+        uniqueCertificateIdentifier: String
+    ) {
+        self.diseaseOrAgentTargeted = diseaseOrAgentTargeted
+        self.dateOfFirstPositiveNAAResult = dateOfFirstPositiveNAAResult
+        self.countryOfTest = countryOfTest
+        self.certificateIssuer = certificateIssuer
+        self.certificateValidFrom = certificateValidFrom
+        self.certificateValidUntil = certificateValidUntil
+        self.uniqueCertificateIdentifier = uniqueCertificateIdentifier
+    }
+
+    // MARK: - Protocol Codable
+
+    enum CodingKeys: String, CodingKey {
+        case diseaseOrAgentTargeted = "tg"
+        case dateOfFirstPositiveNAAResult = "fr"
+        case countryOfTest = "co"
+        case certificateIssuer = "is"
+        case certificateValidFrom = "df"
+        case certificateValidUntil = "du"
+        case uniqueCertificateIdentifier = "ci"
+    }
+
+    // MARK: - Internal
+
+    let diseaseOrAgentTargeted: String
+    let dateOfFirstPositiveNAAResult: String
+    let countryOfTest: String
+    let certificateIssuer: String
+    let certificateValidFrom: String
+    let certificateValidUntil: String
+    let uniqueCertificateIdentifier: String
+
+    public static func fake(
+        diseaseOrAgentTargeted: String = "840539006",
+        dateOfFirstPositiveNAAResult: String = "2021-04-21",
+        countryOfTest: String = "NL",
+        certificateIssuer: String = "Ministry of Public Health, Welfare and Sport",
+        certificateValidFrom: String = "2021-05-01",
+        certificateValidUntil: String = "2021-10-21",
+        uniqueCertificateIdentifier: String = "urn:uvci:01:NL:LSP/REC/1289821"
+    ) -> RecoveryEntry {
+
+        RecoveryEntry(
+            diseaseOrAgentTargeted: diseaseOrAgentTargeted,
+            dateOfFirstPositiveNAAResult: dateOfFirstPositiveNAAResult,
+            countryOfTest: countryOfTest,
+            certificateIssuer: certificateIssuer,
+            certificateValidFrom: certificateValidFrom,
+            certificateValidUntil: certificateValidUntil,
             uniqueCertificateIdentifier: uniqueCertificateIdentifier
         )
     }
