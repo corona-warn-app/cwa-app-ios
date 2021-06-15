@@ -197,7 +197,7 @@ final class HealthCertificateViewModel {
 			updateVaccinationCertificateKeyValueCellViewModels(vaccinationEntry: vaccinationEntry)
 		case .test(let testEntry):
 			updateTestCertificateKeyValueCellViewModels(testEntry: testEntry)
-		case .recovery(_):
+		case .recovery:
 			break
 		}
 	}

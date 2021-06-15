@@ -28,9 +28,9 @@ final class HealthCertificateCellViewModel {
 				vaccinationEntry.doseNumber,
 				vaccinationEntry.totalSeriesOfDoses
 			)
-		case .test(_):
+		case .test:
 			return nil
-		case .recovery(_):
+		case .recovery:
 			return nil
 		}
 	}
@@ -44,9 +44,9 @@ final class HealthCertificateCellViewModel {
 					DateFormatter.localizedString(from: $0, dateStyle: .medium, timeStyle: .none)
 				)
 			}
-		case .test(_):
+		case .test:
 			return nil
-		case .recovery(_):
+		case .recovery:
 			return nil
 		}
 	}
@@ -59,9 +59,9 @@ final class HealthCertificateCellViewModel {
 			} else {
 				return UIImage(imageLiteralResourceName: "Icon - Teilschild")
 			}
-		case .test(_):
+		case .test:
 			return UIImage()
-		case .recovery(_):
+		case .recovery:
 			return UIImage()
 		}
 	}
