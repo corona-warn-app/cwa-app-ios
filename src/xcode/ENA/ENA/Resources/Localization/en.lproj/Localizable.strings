@@ -497,7 +497,7 @@
 
 "ExposureSubmissionDispatch_QRCodeButtonTitle" = "Scan QR Code";
 
-"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Receive your test result in the app and warn others or request your COVID-19 test certificate.";
+"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Receive your test result in the app and warn others or request your COVID test certificate.";
 
 "ExposureSubmissionDispatch_TANButtonTitle" = "Enter TAN for PCR Test";
 
@@ -552,7 +552,7 @@
 
 "ExposureSubmissionQRInfo_instruction2" = "Each test can only be scanned once. The app can manage a maximum of one rapid test and one PCR test at the same time.";
 
-"ExposureSubmissionQRInfo_instruction2a" = "If your test result is negative, you can confirm this with an official COVID-19 test certificate. To do so, request the test certificate in the following steps.";
+"ExposureSubmissionQRInfo_instruction2a" = "If your test result is negative, you can confirm this with an official COVID test certificate. To do so, request the test certificate in the following steps.";
 
 "ExposureSubmissionQRInfo_instruction3" = "The app can%@ manage multiple tests at the same time.";
 
@@ -718,13 +718,27 @@
 
 "ExposureSubmissionResult_testPendingDesc" = "As soon as your test result becomes available, it will be displayed in the app.\n\nYou will also receive your test result outside of the app. The public health authorities will notify you, should your test be positive.\n\nIf you are notified of a positive test result outside the app, please delete the test currently registered in the app. Call the number shown under “Request TAN” to get a TAN. You can then use this TAN to register your result in the app and warn others.";
 
+"ExposureSubmissionResult_testCertificate_title" = "COVID Test Certificate";
+
+"ExposureSubmissionResult_testCertificate_testCenterNotSupported" = "An official digital COVID test certificate cannot be issued because this testing point does not support the issuing of test certificates.";
+
+"ExposureSubmissionResult_testCertificate_Pending" = "Your official digital COVID test certificate is not available yet. As soon as it becomes available, it will be displayed in your app.";
+
+"ExposureSubmissionResult_testCertificate_NotRequested" = "No official digital COVID test certificate will be issued, as per your request.";
+
+"ExposureSubmissionResult_testCertificate_AvailableInTab" = "The test certificate is available on the “Certificates” tab.";
+
 "ExposureSubmissionResult_antigenTestPending" = "Your test result is not available yet.";
 
 "ExposureSubmissionResult_antigenTestPendingDesc" = "As soon as your test result becomes available, it will be displayed in the app.";
 
 "ExposureSubmissionResult_antigenTestPendingContactJournal" = "Your test result will be added to your contact journal.";
 
+"ExposureSubmissionResult_pcrTestPendingContactJournal" = "Your test result will be added to your contact journal.";
+
 "ExposureSubmissionResult_antigenTestPendingContactJournalDesc" = "As soon as your test result becomes available, it will be displayed in the app.";
+
+"ExposureSubmissionResult_pcrTestPendingContactJournalDesc" = "As soon as your test result becomes available, it will be displayed in the app.";
 
 "ExposureSubmissionResult_antigenTestNegativDesc" = "The rapid test provided no evidence that you have coronavirus SARS-CoV-2.";
 
@@ -855,9 +869,9 @@
 
 "ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Your test result is private, although some laws may require you to share it. When required, you may show it via any of the ways provided.";
 
-"ExposureSubmissionResult_Negative_Antigen_NoProof_Title" = " ";
+"ExposureSubmissionResult_Negative_Antigen_NoProof_Title" = "No Verification Feature";
 
-"ExposureSubmissionResult_Negative_Antigen_NoProof_Desc" = "Your test result is private, although some laws may require you to share it. When required, you may show it via any of the ways provided.";
+"ExposureSubmissionResult_Negative_Antigen_NoProof_Desc" = "Because the finding here is anonymized, it cannot be used as proof of a negative rapid test result.";
 
 /* Exposure Submission */
 "ExposureSubmissionError_ErrorPrefix" = "A technical error occurred while sending your data. Please contact the technical hotline. You will find the phone number under App Information.";
@@ -1245,7 +1259,7 @@
 /* Home Test Registration Card */
 "Home_TestRegistration_Title" = "Register your Test";
 
-"Home_TestRegistration_Body" = "Use the app to register your tests and retrieve your test results, so you can warn others more quickly, or to request your COVID-19 test certificate.";
+"Home_TestRegistration_Body" = "Use the app to register your tests and retrieve your test results, so you can warn others more quickly, or to request your COVID test certificate.";
 
 "Home_TestRegistration_Button" = "Next Steps";
 
@@ -2449,18 +2463,67 @@
 
 "TestCertificate_Info_description" = "Register a test on the home screen and agree to receive a digital test certificate. As soon as the certificate is available, it is displayed here.";
 
+/* - Test Certificate */
+"TestCertificate_title" = "Digital\n**COVID Test Certificate**";
+
+"TestCertificate_testDate" = "Test performed on %@";
+
+/* - Test Certificate Request */
+"TestCertificateRequest_title" = "Digital\n**COVID Test Certificate**";
+
+"TestCertificateRequest_loadingSubtitle" = "Your certificate is being created...";
+
+"TestCertificateRequest_errorSubtitle" = "Error during certificate retrieval";
+
+"TestCertificateRequest_registrationDate" = "Registered on %@";
+
+"TestCertificateRequest_loadingStateDescription" = "Your certificate is being requested. This may take a few minutes...";
+
+"TestCertificateRequest_tryAgainButtonTitle" = "Try Again";
+
+"TestCertificateRequest_removeButtonTitle" = "Remove Test Certificate";
+
+/* - Test Certificate Request Error Alert */
+"TestCertificateRequest_ErrorAlert_title" = "There are still problems with the request.";
+
+"TestCertificateRequest_ErrorAlert_Button_title" = "OK";
+
+/* - Test Certificate Request Remove Alert */
+"TestCertificateRequest_RemoveAlert_title" = "Do you want to remove the certificate?";
+
+"TestCertificateRequest_RemoveAlert_message" = "If you remove the certificate, you cannot request it again.";
+
+"TestCertificateRequest_RemoveAlert_CancelButton_title" = "Cancel";
+
+"TestCertificateRequest_RemoveAlert_DeleteButton_title" = "Delete";
+
+/* Test Certificate Request Errors */
+"TestCertificateRequest_Error_CLIENT_ERROR_CALL_HOTLINE" = "An error occurred. Please try again later or contact the technical hotline via App Information -> Technical Hotline. (%@)";
+
+"TestCertificateRequest_Error_DCC_EXPIRED" = "This certificate is no longer current. You can remove it from the Corona-Warn-App. (%@)";
+
+"TestCertificateRequest_Error_DCC_NOT_SUPPORTED_BY_LAB" = "You cannot request a test certificate because this testing point does not support the issuing of test certificates. Please remove the certificate or contact the technical hotline via App Information -> Technical Hotline. (%@)";
+
+"TestCertificateRequest_Error_E2E_ERROR_CALL_HOTLINE" = "An error occurred. Please try again later or contact the technical hotline via App Information -> Technical Hotline. (%@)";
+
+"TestCertificateRequest_Error_NO_NETWORK" = "Your Internet connection was lost. Please check the connection and try again. (%@)";
+
+"TestCertificateRequest_Error_TRY_AGAIN" = "Could not establish a connection. Please try again. (%@)";
+
+"TestCertificateRequest_Error_TRY_AGAIN_DCC_NOT_AVAILABLE_YET" = "Your certificate it not available yet. Please try again. If the error persists, please contact the technical hotline via App Information -> Technical Hotline. (%@)";
+
 /* Health Certificate Information */
-"HealthCertificate_Info_Title" = "Add Vaccination Certificate";
+"HealthCertificate_Info_Title" = "Add Certificates";
 
 "HealthCertificate_Info_imageDescription" = "An immunized person is looking at their smartphone";
 
-"HealthCertificate_Info_description" = "Add your digital proof of vaccination in the app. As soon as your vaccination protection is complete, you can present the QR code in your app as proof of your vaccination.";
+"HealthCertificate_Info_description" = "Add your digital EU COVID certificates in the app. This will enable you to prove your vaccination protection or a negative test result with the app.";
 
-"HealthCertificate_Info_section01" = "To add a vaccination certificate in the app, scan the QR code that you received during your vaccination.";
+"HealthCertificate_Info_section01" = "You can add digital EU COVID vaccination certificates or COVID test certificates in the app.";
 
-"HealthCertificate_Info_section02" = "The app reads the information from the QR code and saves it in a secure area on your smartphone.";
+"HealthCertificate_Info_section02" = "These certificates are considered to be valid proof within the EU (e.g. for travel).";
 
-"HealthCertificate_Info_section03" = "The data will remain on the smartphone. It will only be transmitted to others if you present your vaccination certificate for verification.";
+"HealthCertificate_Info_section03" = "After you add a certificate, it will remain on your smartphone. It will only be shared with others if you present a certificate for verification.";
 
 "HealthCertificate_Info_primaryButton" = "Continue";
 
@@ -2484,12 +2547,12 @@
 
 "HealthCertifiedPerson_primaryButton" = "Register Another Vaccination";
 
-/* Health Certificate Details */
+/* Vaccination Certificate Details */
 "HealthCertificate_Details_vaccinationCount" = "Vaccination %i of %i";
 
 "HealthCertificate_Details_certificate" = "Vaccination Certificate";
 
-"HealthCertificate_Details_QRCode_Image_Description" = "A QR code with your vaccination certificate %i of %i";
+"HealthCertificate_Details_QRCode_Image_Description" = "A QR code with your certificate";
 
 "HealthCertificate_Details_certificateCount" = "Vaccination Certificate %i of %i";
 
@@ -2513,7 +2576,7 @@
 
 "HealthCertificate_Details_primaryButton" = "Delete Vaccination Certificate";
 
-/* Health Certificate Alert delete */
+/* Vaccination Certificate Delete Alert */
 "HealthCertificate_Alert_title" = "Do you want to delete the vaccination certificate?";
 
 "HealthCertificate_Alert_message" = "If you delete the vaccination certificate, the app can no longer use the vaccination for the verification of your vaccination status.";
@@ -2522,8 +2585,28 @@
 
 "HealthCertificate_Alert_cancelButton" = "Cancel";
 
+/* Test Certificate Details */
+"TestCertificate_Details_title" = "EU Digital COVID Test Certificate";
+
+"TestCertificate_Details_subtitle" = "Negative SARS-CoV-2 test";
+
+"TestCertificate_Details_primaryButton" = "Remove Test Certificate";
+
+/* Vaccination Certificate Delete Alert */
+"TestCertificate_Alert_title" = "Do you want to remove the test certificate?";
+
+"TestCertificate_Alert_message" = "If you remove the test certificate, you can no longer use it as proof in the app.";
+
+"TestCertificate_Alert_deleteButton" = "Delete";
+
+"TestCertificate_Alert_cancelButton" = "Cancel";
+
 /* Health Certificate Errors */
 "HealthCertificate_Error_Title" = "Error";
+
+"HealthCertificate_Error_FAQ_Description" = "\n\nFor more information about how to receive your vaccination certificate, please see our FAQ page.";
+
+"HealthCertificate_Error_FAQ_Button_Title" = "FAQ for Vaccination Certificates";
 
 "HealthCertificate_Error_PC_TRY_AGAIN_LATER" = "The vaccination certificate cannot be verified right now. Please try again later.";
 

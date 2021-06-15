@@ -509,7 +509,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 					rootController: rootController
 				)
 			case .wrongDeviceTime:
-				return rootController.setupErrorAlert(message: didEndPrematurelyReason.localizedDescription)
+				if !self.store.wasDeviceTimeErrorShown {
+					self.store.wasDeviceTimeErrorShown = true
+					return rootController.setupErrorAlert(message: didEndPrematurelyReason.localizedDescription)
+				} else {
+					return nil
+				}
+
 			default:
 				return nil
 			}
@@ -535,7 +541,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 				let openFAQ: (() -> Void)? = {
 					guard let url = enError.faqURL else { return nil }
 					return {
-						UIApplication.shared.open(url, options: [:])
+						LinkHelper.open(url: url)
 					}
 				}()
 				return rootController.setupErrorAlert(

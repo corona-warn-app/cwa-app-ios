@@ -5,19 +5,7 @@
 import Foundation
 import HealthCertificateToolkit
 
-protocol HealthCertificateData {
-	var base45: Base45 { get }
-	var version: String { get }
-	var name: HealthCertificateToolkit.Name { get }
-	var dateOfBirth: String { get }
-	var dateOfBirthDate: Date? { get }
-	var vaccinationEntry: VaccinationEntry? { get }
-	var testEntry: TestEntry? { get }
-	var type: HealthCertificate.CertificateType { get }
-	var expirationDate: Date { get }
-}
-
-struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable {
+struct HealthCertificate: Codable, Equatable, Comparable {
 
 	// MARK: - Init
 
@@ -39,14 +27,8 @@ struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable 
 	// MARK: - Protocol Comparable
 
 	static func < (lhs: HealthCertificate, rhs: HealthCertificate) -> Bool {
-		if let lhsVaccinationDate = lhs.vaccinationEntry?.dateOfVaccination,
-		   let rhsVaccinationDate = rhs.vaccinationEntry?.dateOfVaccination {
-			return lhsVaccinationDate < rhsVaccinationDate
-		}
-
-		if let lhsSampleCollectionDate = lhs.testEntry?.dateTimeOfSampleCollection,
-		   let rhsSampleCollectionDate = rhs.testEntry?.dateTimeOfSampleCollection {
-			return lhsSampleCollectionDate < rhsSampleCollectionDate
+		if let lhsDate = lhs.sortDate, let rhsDate = rhs.sortDate {
+			return lhsDate < rhsDate
 		}
 
 		return false
@@ -57,6 +39,7 @@ struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable 
 	enum CertificateType {
 		case vaccination(VaccinationEntry)
 		case test(TestEntry)
+		case recovery(RecoveryEntry)
 	}
 
 	let base45: Base45
@@ -77,16 +60,30 @@ struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable 
 		return ISO8601DateFormatter.justLocalDateFormatter.date(from: digitalGreenCertificate.dateOfBirth)
 	}
 
-	var vaccinationEntry: VaccinationEntry? {
-		let vaccinationCertificates = digitalGreenCertificate.vaccinationEntries ?? []
+	var uniqueCertificateIdentifier: String? {
+		vaccinationEntry?.uniqueCertificateIdentifier ?? testEntry?.uniqueCertificateIdentifier
+	}
 
-		return vaccinationCertificates.first
+	var vaccinationEntry: VaccinationEntry? {
+		digitalGreenCertificate.vaccinationEntries?.first
 	}
 
 	var testEntry: TestEntry? {
-		let testCertificates = digitalGreenCertificate.testEntries ?? []
+		digitalGreenCertificate.testEntries?.first
+	}
 
-		return testCertificates.first
+	var recoveryEntry: RecoveryEntry? {
+		digitalGreenCertificate.recoveryEntries?.first
+	}
+
+	var hasTooManyEntries: Bool {
+		let entryCount = [
+			digitalGreenCertificate.vaccinationEntries?.count ?? 0,
+			digitalGreenCertificate.testEntries?.count ?? 0,
+			digitalGreenCertificate.recoveryEntries?.count ?? 0
+		].reduce(0, +)
+
+		return entryCount != 1
 	}
 
 	var type: CertificateType {
@@ -94,6 +91,8 @@ struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable 
 			return .vaccination(vaccinationEntry)
 		} else if let testEntry = testEntry {
 			return .test(testEntry)
+		} else if let recoveryEntry = recoveryEntry {
+			return .recovery(recoveryEntry)
 		}
 
 		fatalError("Unsupported certificates are not added in the first place")
@@ -135,4 +134,16 @@ struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable 
 			fatalError("Decoding the digitalGreenCertificate failed even though decodability was checked at initialization.")
 		}
 	}
+
+	private var sortDate: Date? {
+		switch type {
+		case .vaccination(let vaccinationEntry):
+			return vaccinationEntry.localVaccinationDate
+		case .test(let testEntry):
+			return testEntry.sampleCollectionDate
+		case .recovery(let recoveryEntry):
+			return recoveryEntry.localCertificateValidityStartDate
+		}
+	}
+
 }

@@ -60,14 +60,15 @@ class HomeHealthCertifiedPersonCellModel {
 
 		accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Overview.testCertificateRequestCell
 	}
-	
+
 	// MARK: - Internal
 
-	var title: String
+	let title: String
+	let backgroundImage: UIImage?
+	let iconImage: UIImage?
+	let name: String?
+	let description: String?
+	let accessibilityIdentifier: String?
+	
 	var backgroundGradientType: GradientView.GradientType = .solidGrey
-	var backgroundImage: UIImage?
-	var iconImage: UIImage?
-	var name: String?
-	var description: String?
-	var accessibilityIdentifier: String?
 }

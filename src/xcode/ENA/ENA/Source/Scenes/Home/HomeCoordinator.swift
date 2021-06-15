@@ -87,7 +87,7 @@ class HomeCoordinator: RequiresAppDependencies {
 			},
 			onFAQCellTap: { [weak self] in
 				guard let self = self else { return }
-				self.showWebPage(from: self.rootViewController, urlString: AppStrings.SafariView.targetURL)
+				self.showWebPage(urlString: AppStrings.SafariView.targetURL)
 			},
 			onAppInformationCellTap: { [weak self] in
 				self?.showAppInformation()
@@ -310,8 +310,8 @@ class HomeCoordinator: RequiresAppDependencies {
 		)
 	}
 
-	private func showWebPage(from viewController: UIViewController, urlString: String) {
-		LinkHelper.showWebPage(from: viewController, urlString: urlString)
+	private func showWebPage(urlString: String) {
+		LinkHelper.open(urlString: urlString)
 	}
 
 	private func showAppInformation() {

@@ -75,6 +75,8 @@ class StackViewLabel: UIView {
 	
 	private func setupView() {
 		
+		backgroundColor = nil
+		
 		label = ENALabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
 		addSubview(label)
