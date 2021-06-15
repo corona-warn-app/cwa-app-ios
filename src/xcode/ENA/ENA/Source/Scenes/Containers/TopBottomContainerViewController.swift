@@ -92,7 +92,7 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 				topView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
 				topView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 				topView.topAnchor.constraint(equalTo: view.topAnchor),
-				topView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+				topView.bottomAnchor.constraint(equalTo: bottomView.topAnchor),
 				// bottomView
 				bottomView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
 				bottomView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -125,7 +125,6 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 			.sink { [weak self] notification in
 				
 				guard let self = self,
-					  let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
 					  let animationDuration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double,
 					  let animationCurve = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? Int else {
 					return
@@ -152,10 +151,7 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 		
 		NotificationCenter.default.ocombine.publisher(for: UIApplication.keyboardDidHideNotification)
 			.sink { [weak self] _ in
-				guard let self = self else {
-					return
-				}
-				self.footerViewHandler?.didHideKeyboard()
+				self?.footerViewHandler?.didHideKeyboard()
 			}
 			.store(in: &keyboardSubscriptions)
 		
