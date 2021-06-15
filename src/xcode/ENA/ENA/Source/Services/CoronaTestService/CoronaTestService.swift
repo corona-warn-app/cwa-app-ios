@@ -711,8 +711,8 @@ class CoronaTestService {
 								coronaTestType: coronaTestType,
 								registrationToken: registrationToken,
 								registrationDate: registrationDate,
-								labId: response.labId,
-								retryExecutionIfCertificateIsPending: true
+								retryExecutionIfCertificateIsPending: true,
+								labId: response.labId
 							)
 
 							switch coronaTestType {
