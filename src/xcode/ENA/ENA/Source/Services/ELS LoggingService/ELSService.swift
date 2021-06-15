@@ -171,6 +171,24 @@ extension ErrorLogSubmissionService: ErrorLogHandling {
 		UserDefaults.standard.setValue(true, forKey: ErrorLogSubmissionService.errorLogEnabledKey)
 		ErrorLogSubmissionService.errorLoggingEnabled = true
 		Log.info("===== ELS logging active =====", log: .localData)
+		
+		#if RELEASE
+		Log.info("Release Build.")
+		#elseif AdHoc
+		Log.info("AdHoc Build.")
+		#elseif TestFlight
+		Log.info("Testflight Build.")
+		#elseif Community
+		Log.info("Community Build.")
+		#elseif DEBUG
+		Log.info("Debug Build.")
+		#endif
+			
+		Log.info("Environment: \(Environments().currentEnvironment().name)")
+
+		let clientData = ClientMetadata(etag: nil)
+		Log.info("CWA version number: \(String(describing: clientData.cwaVersion))")
+		Log.info("iOS version number: \(String(describing: clientData.iosVersion))")
 	}
 
 	func fetchExistingLog() -> LogDataItem? {
