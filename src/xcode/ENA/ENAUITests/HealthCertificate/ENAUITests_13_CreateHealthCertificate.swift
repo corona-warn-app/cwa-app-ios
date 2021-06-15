@@ -62,14 +62,10 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		let flashBarButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.ExposureSubmissionQRScanner.flash])
 		flashBarButton.waitAndTap()
 
-		// Certified Person screen
-		let certificateCell = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Person.certificateCell])
-		certificateCell.waitAndTap()
-
 		// Certificate Screen
 		let headlineCell = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Certificate.headline])
 		XCTAssertTrue(headlineCell.waitForExistence(timeout: .short))
-		
+
 		snapshot("screenshot_first_health_certificate")
 	}
 
