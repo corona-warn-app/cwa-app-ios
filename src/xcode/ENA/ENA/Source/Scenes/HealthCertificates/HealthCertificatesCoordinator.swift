@@ -157,13 +157,14 @@ final class HealthCertificatesCoordinator {
 			didScanCertificate: { [weak self] healthCertifiedPerson, healthCertificate in
 				presentingViewController.dismiss(animated: true) {
 					if presentingViewController == self?.viewController {
-						self?.showHealthCertifiedPerson(healthCertifiedPerson, preparePresentation: { [weak self] in
-							self?.showHealthCertificate(
-								healthCertifiedPerson: healthCertifiedPerson,
-								healthCertificate: healthCertificate,
-								shouldPushOnModalNavigationController: true
-							)
-						})
+						self?.showHealthCertificate(healthCertifiedPerson: healthCertifiedPerson, healthCertificate: healthCertificate, shouldPushOnModalNavigationController: false)
+//						self?.showHealthCertifiedPerson(healthCertifiedPerson, preparePresentation: { [weak self] in
+//							self?.showHealthCertificate(
+//								healthCertifiedPerson: healthCertifiedPerson,
+//								healthCertificate: healthCertificate,
+//								shouldPushOnModalNavigationController: true
+//							)
+//						})
 					}
 				}
 			},
