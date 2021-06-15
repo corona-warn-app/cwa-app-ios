@@ -2597,7 +2597,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TestCertificateRequest_Error_TRY_AGAIN_DCC_NOT_AVAILABLE_YET" = "Ihr Zertifikat liegt noch nicht vor. Bitte versuchen Sie es noch einmal. Sollte der Fehler weiterhin bestehen, kontaktieren Sie bitte die technische Hotline über App-Informationen -> Technische Hotline. (%@)";
 
-"TestCertificateRequest_Error_DGC_NOT_SUPPORTED_BY_LAB" = "ToDo (%@)";
+"TestCertificateRequest_Error_DGC_NOT_SUPPORTED_BY_LAB" = "Ein Testzertifikat kann nicht angefordert werden, da diese Teststelle die Ausstellung von Testzertifikaten nicht unterstützt. Bitte entfernen Sie das Zertifikat oder kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline. (%@)";
 
 /* Health Certificate Information */
 
