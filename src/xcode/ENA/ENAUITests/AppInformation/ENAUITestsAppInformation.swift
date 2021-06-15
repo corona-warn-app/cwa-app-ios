@@ -60,9 +60,14 @@ class ENAUITests_02_AppInformation: CWATestCase {
 		// assert cells
 		app.cells["AppStrings.Home.appInformationCardTitle"].waitAndTap()
 
+		XCTAssertTrue(app.state == .runningForeground)
 		app.cells["AppStrings.AppInformation.faqNavigation"].waitAndTap()
-
-		XCTAssertTrue(app.webViews.firstMatch.waitForExistence(timeout: .long)) // web is slow :p
+		
+		// get safari and wait for safari to be in foreground
+		let safari = XCUIApplication(bundleIdentifier: "com.apple.mobilesafari")
+		_ = safari.wait(for: .runningForeground, timeout: .long)
+		
+		XCTAssertTrue(safari.state == .runningForeground)
 	}
 
 	func test_0023_AppInformationFlow_contact() throws {
