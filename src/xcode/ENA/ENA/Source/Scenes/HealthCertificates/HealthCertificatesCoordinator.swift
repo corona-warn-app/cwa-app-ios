@@ -178,8 +178,7 @@ final class HealthCertificatesCoordinator {
 	}
 	
 	private func showHealthCertifiedPerson(
-		_ healthCertifiedPerson: HealthCertifiedPerson,
-		preparePresentation: (() -> Void)? = nil
+		_ healthCertifiedPerson: HealthCertifiedPerson
 	) {
 		let healthCertificatePersonViewController = HealthCertifiedPersonViewController(
 			healthCertificateService: healthCertificateService,
@@ -215,8 +214,6 @@ final class HealthCertificatesCoordinator {
 		)
 
 		modalNavigationController = UINavigationController(rootViewController: healthCertificatePersonViewController)
-		// prepare navigationController controller stack, this may push some viewController before we present it
-		preparePresentation?()
 		viewController.present(modalNavigationController, animated: true)
 	}
 	
