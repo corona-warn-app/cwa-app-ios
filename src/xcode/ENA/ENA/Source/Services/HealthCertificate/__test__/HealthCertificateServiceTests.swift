@@ -368,12 +368,15 @@ class HealthCertificateServiceTests: CWATestCase {
 				countExpectation.fulfill()
 			}
 
+		let completionExpectation = expectation(description: "registerAndExecuteTestCertificateRequest completion called")
 		service.registerAndExecuteTestCertificateRequest(
 			coronaTestType: .pcr,
 			registrationToken: "registrationToken",
 			registrationDate: Date(),
 			retryExecutionIfCertificateIsPending: false
-		)
+		) { _ in
+			completionExpectation.fulfill()
+		}
 
 		service.resetUnseenTestCertificateCount()
 

@@ -181,7 +181,8 @@ class HealthCertificateService {
 		coronaTestType: CoronaTestType,
 		registrationToken: String,
 		registrationDate: Date,
-		retryExecutionIfCertificateIsPending: Bool
+		retryExecutionIfCertificateIsPending: Bool,
+		completion: ((Result<Void, HealthCertificateServiceError.TestCertificateRequestError>) -> Void)? = nil
 	) {
 		Log.info("[HealthCertificateService] Registering test certificate request: (coronaTestType: \(coronaTestType), registrationToken: \(private: registrationToken), registrationDate: \(registrationDate), retryExecutionIfCertificateIsPending: \(retryExecutionIfCertificateIsPending)", log: .api)
 
@@ -196,7 +197,8 @@ class HealthCertificateService {
 
 		executeTestCertificateRequest(
 			testCertificateRequest,
-			retryIfCertificateIsPending: retryExecutionIfCertificateIsPending
+			retryIfCertificateIsPending: retryExecutionIfCertificateIsPending,
+			completion: completion
 		)
 	}
 
