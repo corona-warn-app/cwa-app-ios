@@ -26,6 +26,13 @@ extension FooterViewHandling where Self: UIViewController {
 	func didHideKeyboard() {}
 }
 
+extension UIViewController {
+	
+	var footerViewUpdating: FooterViewUpdating? {
+		return view.superview?.parentViewController as? FooterViewUpdating
+	}
+}
+
 class FooterViewController: UIViewController {
 
 	// MARK: - Init
@@ -122,7 +129,7 @@ class FooterViewController: UIViewController {
 
 	@objc
 	private func didHitPrimaryButton() {
-		guard let footerViewHandler = (view.superview?.parentViewController as? FooterViewUpdating)?.footerViewHandler else {
+		guard let footerViewHandler = footerViewUpdating?.footerViewHandler else {
 			didTapPrimaryButton()
 			return
 		}
@@ -131,7 +138,7 @@ class FooterViewController: UIViewController {
 
 	@objc
 	private func didHitSecondaryButton() {
-		guard let footerViewHandler = (view.superview?.parentViewController as? FooterViewUpdating)?.footerViewHandler else {
+		guard let footerViewHandler = footerViewUpdating?.footerViewHandler else {
 			didTapSecondaryButton()
 			return
 		}
