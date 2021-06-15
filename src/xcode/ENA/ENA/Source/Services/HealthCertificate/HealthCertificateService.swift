@@ -465,13 +465,12 @@ class HealthCertificateService {
 
 			switch result {
 			case .success(let healthCertificateBase45):
-
-				remove(testCertificateRequest: testCertificateRequest)
 				let registerResult = registerHealthCertificate(base45: healthCertificateBase45)
 
 				switch registerResult {
 				case .success:
 					Log.info("[HealthCertificateService] Certificate assembly succeeded", log: .api)
+					remove(testCertificateRequest: testCertificateRequest)
 					completion?(.success(()))
 				case .failure(let error):
 					Log.error("[HealthCertificateService] Assembling certificate failed: Register failed: \(error.localizedDescription)", log: .api)
