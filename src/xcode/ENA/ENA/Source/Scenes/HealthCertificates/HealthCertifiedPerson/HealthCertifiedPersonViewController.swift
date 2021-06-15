@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, DismissHandling, FooterViewHandling {
+class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, DismissHandling {
 
 	// MARK: - Init
 
@@ -15,12 +15,10 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		vaccinationValueSetsProvider: VaccinationValueSetsProvider,
 		dismiss: @escaping () -> Void,
 		didTapHealthCertificate: @escaping (HealthCertificate) -> Void,
-		didTapRegisterAnotherHealthCertificate: @escaping () -> Void,
 		didSwipeToDelete: @escaping (HealthCertificate, @escaping () -> Void) -> Void
 	) {
 		self.dismiss = dismiss
 		self.didTapHealthCertificate = didTapHealthCertificate
-		self.didTapRegisterAnotherHealthCertificate = didTapRegisterAnotherHealthCertificate
 		self.didSwipeToDelete = didSwipeToDelete
 
 		self.viewModel = HealthCertifiedPersonViewModel(
@@ -58,16 +56,6 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 
 	func wasAttemptedToBeDismissed() {
 		dismiss()
-	}
-
-	// MARK: - Protocol FooterViewHandling
-
-	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
-		guard type == .primary else {
-			return
-		}
-
-		didTapRegisterAnotherHealthCertificate()
 	}
 
 	// MARK: - Protocol UITableViewDateSource
@@ -175,7 +163,6 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 
 	private let dismiss: () -> Void
 	private let didTapHealthCertificate: (HealthCertificate) -> Void
-	private let didTapRegisterAnotherHealthCertificate: () -> Void
 	private let didSwipeToDelete: (HealthCertificate, @escaping () -> Void) -> Void
 
 	private let viewModel: HealthCertifiedPersonViewModel

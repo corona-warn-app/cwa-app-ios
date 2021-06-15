@@ -138,8 +138,8 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 
 		parent?.navigationController?.navigationBar.tintColor = .white
 
-		// check is we are the first one on the navigation stack (remember to use parent because we live inside a topBottomContainer)
-		if navigationController?.viewControllers.first == parent {
+		// check is we are the first one on the navigation stack
+		if navigationController?.viewControllers.count == 1 {
 			parent?.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: logoImageView)
 		} else {
 			parent?.navigationItem.titleView = logoImageView

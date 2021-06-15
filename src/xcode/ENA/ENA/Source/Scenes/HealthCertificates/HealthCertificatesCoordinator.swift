@@ -195,10 +195,6 @@ final class HealthCertificatesCoordinator {
 					shouldPushOnModalNavigationController: true
 				)
 			},
-			didTapRegisterAnotherHealthCertificate: { [weak self] in
-				guard let self = self else { return }
-				self.showQRCodeScanner(from: self.modalNavigationController)
-			},
 			didSwipeToDelete: { [weak self] healthCertificate, confirmDeletion in
 				self?.showDeleteAlert(
 					certificateType: healthCertificate.type,
