@@ -36,6 +36,11 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 
 	// MARK: - Init
 
+	deinit {
+		subscriptions.forEach { $0.cancel() }
+		keyboardSubscriptions.forEach { $0.cancel() }
+	}
+	
 	init(
 		topController: TopViewController,
 		bottomController: BottomViewController
@@ -71,6 +76,8 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 		view.addSubview(topView)
 
 		// add bottom controller
+		addChild(bottomViewController)
+		bottomViewController.didMove(toParent: self)
 		let bottomView: UIView = bottomViewController.view
 		bottomView.translatesAutoresizingMaskIntoConstraints = false
 		view.addSubview(bottomView)
@@ -98,17 +105,24 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 			}
 		}
 
-		keyboardDidShownObserver = NotificationCenter.default.addObserver(forName: UIResponder.keyboardDidShowNotification, object: nil, queue: OperationQueue.main) { notification in
-			guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
-				return
+		NotificationCenter.default.ocombine.publisher(for: UIApplication.keyboardDidShowNotification)
+			.sink { [weak self] notification in
+				guard let self = self,
+					  let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
+					return
+				}
+				self.footerViewHandler?.didShowKeyboard(keyboardFrame)
 			}
-			self.footerViewHandler?.didShowKeyboard(keyboardSize)
-		}
-
-		keyboardDidHideObserver = NotificationCenter.default.addObserver(forName: UIResponder.keyboardDidHideNotification, object: nil, queue: OperationQueue.main, using: { [weak self] _ in
-			self?.footerViewHandler?.didHideKeyboard()
-		})
-
+			.store(in: &keyboardSubscriptions)
+		
+		NotificationCenter.default.ocombine.publisher(for: UIApplication.keyboardDidHideNotification)
+			.sink { [weak self] _ in
+				guard let self = self else {
+					return
+				}
+				self.footerViewHandler?.didHideKeyboard()
+			}
+			.store(in: &keyboardSubscriptions)
 	}
 	
 	// MARK: - Protocol DismissHandling
@@ -178,9 +192,8 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 	private let initialHeight: CGFloat
 
 	private var subscriptions: [AnyCancellable] = []
+	private var keyboardSubscriptions: [AnyCancellable] = []
 	private var bottomViewHeightAnchorConstraint: NSLayoutConstraint!
-
-	private var keyboardDidShownObserver: NSObjectProtocol?
 	private var keyboardDidHideObserver: NSObjectProtocol?
 
 	private func updateBottomHeight(_ height: CGFloat, animated: Bool = false, completion: (() -> Void)? = nil) {

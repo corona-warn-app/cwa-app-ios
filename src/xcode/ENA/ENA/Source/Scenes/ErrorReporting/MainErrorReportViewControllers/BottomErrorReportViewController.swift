@@ -130,7 +130,7 @@ class BottomErrorReportViewController: UIViewController {
 
 		stackViewHeightConstraint.constant = isActive ? 180 : 60 // hack: 3 buttons vs 1 button
 
-		if let topBottomController = footerViewUpdating {
+		if let topBottomController = parent as? FooterViewUpdating {
 			let targetSize = CGSize(width: view.bounds.width, height: isActive ? 356 : 220)
 			topBottomController.update(to: targetSize, animated: animated, completion: {
 				Log.debug("Bottom view size: \(targetSize)", log: .ui)

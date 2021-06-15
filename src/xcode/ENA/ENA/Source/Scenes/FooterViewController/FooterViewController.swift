@@ -26,13 +26,6 @@ extension FooterViewHandling where Self: UIViewController {
 	func didHideKeyboard() {}
 }
 
-extension UIViewController {
-	
-	var footerViewUpdating: FooterViewUpdating? {
-		return view.superview?.parentViewController as? FooterViewUpdating
-	}
-}
-
 class FooterViewController: UIViewController {
 
 	// MARK: - Init
@@ -129,7 +122,7 @@ class FooterViewController: UIViewController {
 
 	@objc
 	private func didHitPrimaryButton() {
-		guard let footerViewHandler = footerViewUpdating?.footerViewHandler else {
+		guard let footerViewHandler = (parent as? FooterViewUpdating)?.footerViewHandler else {
 			didTapPrimaryButton()
 			return
 		}
@@ -138,7 +131,7 @@ class FooterViewController: UIViewController {
 
 	@objc
 	private func didHitSecondaryButton() {
-		guard let footerViewHandler = footerViewUpdating?.footerViewHandler else {
+		guard let footerViewHandler = (parent as? FooterViewUpdating)?.footerViewHandler else {
 			didTapSecondaryButton()
 			return
 		}
@@ -254,21 +247,5 @@ class FooterViewController: UIViewController {
 			.receive(on: DispatchQueue.main.ocombine)
 			.assign(to: \.backgroundColor, on: view)
 			.store(in: &subscription)
-	}
-}
-
-// MARK: - Helper for finding parent view controller of a view
-
-fileprivate extension UIView {
-	
-	var parentViewController: UIViewController? {
-	 var parentResponder: UIResponder? = self
-	 while parentResponder != nil {
-		 parentResponder = parentResponder?.next
-		 if let viewController = parentResponder as? UIViewController {
-			 return viewController
-		 }
-	 }
-	 return nil
 	}
 }
