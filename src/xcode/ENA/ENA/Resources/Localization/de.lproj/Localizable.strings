@@ -1600,16 +1600,6 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeature_25_edit_test_profile_description" = "Sie können nun Ihr Schnelltest-Profil in der App bearbeiten, um zum Beispiel Ihre Adresse zu ändern.";
 
-/* Version 2.4 */
-
-"NewVersionFeature_24_digital_covid_cert_title" = "COVID-Testzertifikat";
-
-"NewVersionFeature_24_digital_covid_cert_description" = "Sie können nun über die App ein offizielles digitales Testzertifikat anfordern und anschließend in der App hinzufügen. Sie können das Testzertifikat (QR-Code) innerhalb der EU verwenden, um ein negatives Testergebnis nachzuweisen (z.B. für Auslandsreisen).";
-
-"NewVersionFeature_24_extended_diary_title" = "Erweiterung Kontakt-Tagebuch";
-
-"NewVersionFeature_24_extended_diary_title_description" = "Sobald Ihr Testergebnis vorliegt, wird es nun auch Ihrem Kontakt-Tagebuch hinzugefügt.";
-
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
 
