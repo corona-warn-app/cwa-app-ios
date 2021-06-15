@@ -81,7 +81,7 @@ final class HealthCertificateViewModel {
 
 	let qrCodeCellViewModel: HealthCertificateQRCodeCellViewModel
 
-	@OpenCombine.Published private(set) var gradientType: GradientView.GradientType = .blueOnly
+	@OpenCombine.Published private(set) var gradientType: GradientView.GradientType = .solidGrey
 	@OpenCombine.Published private(set) var healthCertificateKeyValueCellViewModel: [HealthCertificateKeyValueCellViewModel] = []
 
 	var headlineCellViewModel: HealthCertificateSimpleTextCellViewModel {

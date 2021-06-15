@@ -48,15 +48,21 @@ class GradientBackgroundView: UIView {
 		backgroundViewContainer.backgroundColor = .enaColor(for: .cellBackground)
 		addSubview(backgroundViewContainer)
 
-		gradientView.translatesAutoresizingMaskIntoConstraints = false
-		addSubview(gradientView)
-		gradientView.type = type
-		
-		let starsView = UIImageView(image: UIImage(named: "stars"))
+		var starsView = UIImageView()
+		if type == .green {
+			starsView = UIImageView(image: UIImage(named: "green-stars"))
+		} else {
+			starsView = UIImageView(image: UIImage(named: "stars"))
+		}
+
 		if displayStars {
 			starsView.translatesAutoresizingMaskIntoConstraints = false
 			gradientView.addSubview(starsView)
 		}
+
+		gradientView.translatesAutoresizingMaskIntoConstraints = false
+		addSubview(gradientView)
+		gradientView.type = type
 
 		topLayoutConstraint = gradientView.topAnchor.constraint(equalTo: topAnchor)
 		gradientHeightConstraint = gradientView.heightAnchor.constraint(equalToConstant: 150)
@@ -76,8 +82,8 @@ class GradientBackgroundView: UIView {
 		]
 
 		if displayStars {
-			constraints.append(starsView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -33))
-			constraints.append(starsView.topAnchor.constraint(equalTo: topAnchor, constant: 11))
+			constraints.append(starsView.trailingAnchor.constraint(equalTo: gradientView.trailingAnchor, constant: -33))
+			constraints.append(starsView.topAnchor.constraint(equalTo: gradientView.topAnchor, constant: 11))
 			
 			NSLayoutConstraint.activate(
 				constraints
