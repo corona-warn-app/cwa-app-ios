@@ -74,7 +74,7 @@ class TanInputViewController: UITableViewController, FooterViewHandling {
 		}
 	}
 	
-	// MARK: - Protocol ENANavigationControllerWithFooterChild
+	// MARK: - Protocol FooterViewHandling
 	
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
 		viewModel.submitTan()
