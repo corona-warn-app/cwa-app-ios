@@ -60,7 +60,7 @@ class HomeHealthCertifiedPersonCellModel {
 
 		accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Overview.testCertificateRequestCell
 	}
-	
+
 	// MARK: - Internal
 
 	let title: String
