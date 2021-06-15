@@ -13,7 +13,7 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		
 		// ADD NEW FEATURES HERE
 		
-		self.featureVersion = "2.4"
+		self.featureVersion = "2.5"
 		
 		// Digital Covid Certificate
 		self.newVersionFeatures.append(
