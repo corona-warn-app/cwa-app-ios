@@ -160,7 +160,7 @@ extension ClientMock: Client {
 			completeWith(
 				.success(
 					FetchTestResultResponse(
-						labId: nil,
+						labId: "SomeLabId",
 						body:
 							FetchTestResultResponseBody(
 								testResult: TestResult.positive.rawValue,

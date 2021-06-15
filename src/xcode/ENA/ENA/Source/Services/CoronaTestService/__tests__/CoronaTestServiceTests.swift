@@ -394,7 +394,10 @@ class CoronaTestServiceTests: CWATestCase {
 		}
 
 		client.onGetTestResult = { _, _, completion in
-			completion(.success(.fake(testResult: TestResult.pending.rawValue)))
+			completion(.success(.fake(
+									testResult: TestResult.pending.rawValue,
+									labId: "SomeLabId"
+			)))
 		}
 
 		let appConfiguration = CachedAppConfigurationMock()
@@ -451,6 +454,7 @@ class CoronaTestServiceTests: CWATestCase {
 		XCTAssertFalse(pcrTest.journalEntryCreated)
 		XCTAssertFalse(pcrTest.certificateConsentGiven)
 		XCTAssertFalse(pcrTest.certificateRequested)
+		XCTAssertEqual(pcrTest.labId, "SomeLabId")
 
 		XCTAssertEqual(store.pcrTestResultMetadata?.testResult, .pending)
 		XCTAssertEqual(
@@ -999,7 +1003,11 @@ class CoronaTestServiceTests: CWATestCase {
 		}
 
 		client.onGetTestResult = { _, _, completion in
-			completion(.success(.fake(testResult: TestResult.pending.rawValue, sc: 123456789)))
+			completion(.success(.fake(
+									testResult: TestResult.pending.rawValue,
+									sc: 123456789,
+									labId: "SomeLabId"
+			)))
 		}
 
 		let store = MockTestStore()
@@ -1055,6 +1063,7 @@ class CoronaTestServiceTests: CWATestCase {
 		XCTAssertEqual(antigenTest.testedPerson.dateOfBirth, "1964-08-12")
 		XCTAssertEqual(antigenTest.testResult, .pending)
 		XCTAssertEqual(antigenTest.sampleCollectionDate, Date(timeIntervalSince1970: 123456789))
+		XCTAssertEqual(antigenTest.labId, "SomeLabId")
 		XCTAssertNil(antigenTest.finalTestResultReceivedDate)
 		XCTAssertFalse(antigenTest.positiveTestResultWasShown)
 		XCTAssertFalse(antigenTest.isSubmissionConsentGiven)
