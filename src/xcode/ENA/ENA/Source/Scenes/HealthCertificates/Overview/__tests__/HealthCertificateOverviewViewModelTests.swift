@@ -28,6 +28,7 @@ class HealthCertificateOverviewViewModelTests: XCTestCase {
 			coronaTestType: .pcr,
 			registrationToken: "registrationToken",
 			registrationDate: Date(),
+			labId: "SomeLabId",
 			retryExecutionIfCertificateIsPending: false
 		)
 

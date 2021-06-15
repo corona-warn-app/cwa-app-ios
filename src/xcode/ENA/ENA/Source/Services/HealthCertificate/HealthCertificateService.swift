@@ -182,6 +182,7 @@ class HealthCertificateService {
 		registrationToken: String,
 		registrationDate: Date,
 		retryExecutionIfCertificateIsPending: Bool,
+		labId: String?,
 		completion: ((Result<Void, HealthCertificateServiceError.TestCertificateRequestError>) -> Void)? = nil
 	) {
 		Log.info("[HealthCertificateService] Registering test certificate request: (coronaTestType: \(coronaTestType), registrationToken: \(private: registrationToken), registrationDate: \(registrationDate), retryExecutionIfCertificateIsPending: \(retryExecutionIfCertificateIsPending)", log: .api)
@@ -189,7 +190,8 @@ class HealthCertificateService {
 		let testCertificateRequest = TestCertificateRequest(
 			coronaTestType: coronaTestType,
 			registrationToken: registrationToken,
-			registrationDate: registrationDate
+			registrationDate: registrationDate,
+			labId: labId
 		)
 
 		testCertificateRequests.value.append(testCertificateRequest)

@@ -373,6 +373,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			coronaTestType: .pcr,
 			registrationToken: "registrationToken",
 			registrationDate: Date(),
+			labId: "SomeLabId",
 			retryExecutionIfCertificateIsPending: false
 		) { _ in
 			completionExpectation.fulfill()
