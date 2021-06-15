@@ -1010,4 +1010,32 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertFalse(testCertificateRequest.isLoading)
 	}
 
+	func testTestCertificateExecution_PCRAndNoLabId_dgcNotSupportedByLabErrorReturned() {
+
+		let service = HealthCertificateService(
+			store: MockTestStore(),
+			client: ClientMock(),
+			appConfiguration: CachedAppConfigurationMock(),
+			digitalGreenCertificateAccess: MockDigitalGreenCertificateAccess()
+		)
+		let certificateRequest = TestCertificateRequest(
+			coronaTestType: .pcr,
+			registrationToken: "",
+			registrationDate: Date(),
+			labId: nil
+		)
+
+		let expectation = expectation(description: "Completion is called.")
+		service.executeTestCertificateRequest(certificateRequest, retryIfCertificateIsPending: true) { result in
+			guard case let .failure(error) = result,
+				  case .dgcNotSupportedByLab = error else {
+				XCTFail("Error dgcNotSupportedByLab was expected.")
+				expectation.fulfill()
+				return
+			}
+			expectation.fulfill()
+		}
+
+		waitForExpectations(timeout: .short)
+	}
 }
