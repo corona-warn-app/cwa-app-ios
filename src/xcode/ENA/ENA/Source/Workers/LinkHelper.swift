@@ -2,38 +2,30 @@
 // 🦠 Corona-Warn-App
 //
 
-import Foundation
-import SafariServices
 import UIKit
 
 enum LinkHelper {
-	static func showWebPage(from viewController: UIViewController, urlString: String) {
+	
+	typealias Success = Bool
+	
+	@discardableResult
+	static func open(urlString: String) -> Success {
 		if let url = URL(string: urlString) {
-			openLink(withUrl: url, from: viewController)
+			return open(url: url)
 		} else {
 			let error = "\(urlString) is no valid URL"
 			Log.error(error, log: .api)
 			fatalError(error)
 		}
 	}
-
-	static func open(withUrl url: URL, from viewController: UIViewController) {
-		switch url.scheme {
-		case "tel", "mailto":
-			UIApplication.shared.open(url, options: [:], completionHandler: nil)
-		default:
-			openLink(withUrl: url, from: viewController)
+	
+	@discardableResult
+	static func open(url: URL) -> Success {
+		guard UIApplication.shared.canOpenURL(url) else {
+			Log.error("Cannot open url \(url.absoluteString)", log: .api)
+			return false
 		}
-	}
-
-	static func openLink(withUrl url: URL, from viewController: UIViewController) {
-		let config = SFSafariViewController.Configuration()
-		config.entersReaderIfAvailable = false
-		config.barCollapsingEnabled = true
-
-		let vc = SFSafariViewController(url: url, configuration: config)
-		vc.preferredControlTintColor = .enaColor(for: .tint)
-
-		viewController.present(vc, animated: true)
+		UIApplication.shared.open(url, options: [:], completionHandler: nil)
+		return true
 	}
 }

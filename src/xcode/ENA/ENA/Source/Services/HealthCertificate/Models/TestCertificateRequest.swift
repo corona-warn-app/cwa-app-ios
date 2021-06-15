@@ -81,7 +81,8 @@ class TestCertificateRequest: Codable, Equatable {
 		lhs.rsaPublicKeyRegistered == rhs.rsaPublicKeyRegistered &&
 		lhs.encryptedDEK == rhs.encryptedDEK &&
 		lhs.encryptedCOSE == rhs.encryptedCOSE &&
-		lhs.requestExecutionFailed == rhs.requestExecutionFailed
+		lhs.requestExecutionFailed == rhs.requestExecutionFailed &&
+		lhs.isLoading == rhs.isLoading
 	}
 
 	// MARK: - Internal
