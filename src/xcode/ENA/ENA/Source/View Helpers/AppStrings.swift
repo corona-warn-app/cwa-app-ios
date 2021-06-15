@@ -1120,6 +1120,24 @@ enum AppStrings {
 		
 		static let aboutAppInformation = NSLocalizedString("NewVersionFeatures_Info_about_abb_information", comment: "")
 		
+		/* Version 2.5 */
+		
+		static let feature25RecoveryCertTitle = NSLocalizedString("NewVersionFeature_25_recovery_cert_title", comment: "")
+		
+		static let feature25tRecoveryCertDescription = NSLocalizedString("NewVersionFeature_25_recovery_cert_description", comment: "")
+		
+		static let feature25FamilyCertTitle = NSLocalizedString("NewVersionFeature_25_family_certificate_title", comment: "")
+		
+		static let feature25tFamilyCertDescription = NSLocalizedString("NewVersionFeature_25_family_certificate_description", comment: "")
+		
+		static let feature25EnhancedStatisticsTitle = NSLocalizedString("NewVersionFeature_25_enhanced_statistics_title", comment: "")
+		
+		static let feature25tEnhancedStatisticsDescription = NSLocalizedString("NewVersionFeature_25_enhanced_statistics_description", comment: "")
+		
+		static let feature25EditTestProfileTitle = NSLocalizedString("NewVersionFeature_25_edit_test_profile_title", comment: "")
+		
+		static let feature25tEditTestProfileDescription = NSLocalizedString("NewVersionFeature_25_edit_test_profile_description", comment: "")
+		
 		/* Version 2.4 */
 		
 		static let feature24digitalCovidCertTitle = NSLocalizedString("NewVersionFeature_24_digital_covid_cert_title", comment: "")
