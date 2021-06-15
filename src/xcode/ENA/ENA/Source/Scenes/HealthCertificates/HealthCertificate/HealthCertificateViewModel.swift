@@ -12,7 +12,7 @@ final class HealthCertificateViewModel {
 
 	init(
 		healthCertifiedPerson: HealthCertifiedPerson?,
-		healthCertificate: HealthCertificateData,
+		healthCertificate: HealthCertificate,
 		vaccinationValueSetsProvider: VaccinationValueSetsProvider
 	) {
 		self.healthCertificate = healthCertificate
@@ -98,6 +98,9 @@ final class HealthCertificateViewModel {
 		case .test:
 			title = AppStrings.HealthCertificate.Details.TestCertificate.title
 			subtitle = AppStrings.HealthCertificate.Details.TestCertificate.subtitle
+		case .recovery:
+			title = AppStrings.HealthCertificate.Details.RecoveryCertificate.title
+			subtitle = AppStrings.HealthCertificate.Details.RecoveryCertificate.subtitle
 		}
 
 		let attributedTitle = NSAttributedString(
@@ -167,7 +170,7 @@ final class HealthCertificateViewModel {
 		case .topCorner, .bottomCorner:
 			return healthCertificateKeyValueCellViewModel.isEmpty ? 0 : 1
 		case .additionalInfo:
-			return healthCertificate.testEntry != nil ? additionalInfoCellViewModels.count : 0
+			return additionalInfoCellViewModels.count
 		}
 	}
 
@@ -182,7 +185,7 @@ final class HealthCertificateViewModel {
 		case testResult
 	}
 
-	private let healthCertificate: HealthCertificateData
+	private let healthCertificate: HealthCertificate
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProvider
 
 	private var valueSets: SAP_Internal_Dgc_ValueSets?
@@ -194,6 +197,8 @@ final class HealthCertificateViewModel {
 			updateVaccinationCertificateKeyValueCellViewModels(vaccinationEntry: vaccinationEntry)
 		case .test(let testEntry):
 			updateTestCertificateKeyValueCellViewModels(testEntry: testEntry)
+		case .recovery:
+			break
 		}
 	}
 
