@@ -58,19 +58,43 @@ class FooterViewController: UIViewController {
 			bottom: viewModel.topBottomInset,
 			right: viewModel.leftRightInset
 		)
-
-		view.addSubview(primaryButton)
-		view.addSubview(secondaryButton)
+		
+		buttonsStackView = UIStackView()
+		buttonsStackView.alignment = .fill
+		buttonsStackView.axis = .vertical
+		buttonsStackView.distribution = .fill
+		buttonsStackView.translatesAutoresizingMaskIntoConstraints = false
+		view.addSubview(buttonsStackView)
 
 		primaryButton.disabledBackgroundColor = viewModel.primaryCustomDisableBackgroundColor
 		primaryButton.hasBackground = true
 		primaryButton.addTarget(self, action: #selector(didHitPrimaryButton), for: .primaryActionTriggered)
 		primaryButton.translatesAutoresizingMaskIntoConstraints = false
+		buttonsStackView.addArrangedSubview(primaryButton)
+		
+		primaryButtonHeightAnchor = primaryButton.heightAnchor.constraint(equalToConstant: viewModel.buttonHeight)
 		
 		secondaryButton.disabledBackgroundColor = viewModel.secondaryCustomDisableBackgroundColor
 		secondaryButton.hasBackground = true
 		secondaryButton.addTarget(self, action: #selector(didHitSecondaryButton), for: .primaryActionTriggered)
 		secondaryButton.translatesAutoresizingMaskIntoConstraints = false
+		buttonsStackView.addArrangedSubview(secondaryButton)
+		
+		secondaryButtonHeightAnchor = secondaryButton.heightAnchor.constraint(equalToConstant: viewModel.buttonHeight)
+		
+		NSLayoutConstraint.activate([
+			// buttonsStackView
+			buttonsStackView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
+			buttonsStackView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor),
+			buttonsStackView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
+			buttonsStackView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
+			// primaryButton
+			primaryButton.widthAnchor.constraint(equalTo: buttonsStackView.widthAnchor),
+			primaryButtonHeightAnchor,
+			// secondaryButton
+			secondaryButton.widthAnchor.constraint(equalTo: buttonsStackView.widthAnchor),
+			secondaryButtonHeightAnchor
+		])
 
 		updateViewModel()
 	}
@@ -91,7 +115,9 @@ class FooterViewController: UIViewController {
 	private let primaryButton: ENAButton = ENAButton(type: .custom)
 	private let secondaryButton: ENAButton = ENAButton(type: .custom)
 
-	private var buttonConstraints = [NSLayoutConstraint]()
+	private var buttonsStackView: UIStackView!
+	private var primaryButtonHeightAnchor: NSLayoutConstraint!
+	private var secondaryButtonHeightAnchor: NSLayoutConstraint!
 	private var subscription: [AnyCancellable] = []
 
 	@objc
@@ -119,12 +145,21 @@ class FooterViewController: UIViewController {
 		subscription.forEach { $0.cancel() }
 		subscription.removeAll()
 		
-		NSLayoutConstraint.deactivate(buttonConstraints)
-		buttonConstraints.removeAll()
+		primaryButton.isHidden = true
+		secondaryButton.isHidden = true
 		
 		// background color
 		
 		view.backgroundColor = viewModel.backgroundColor
+		
+		// update stack view spacing
+		
+		buttonsStackView.spacing = viewModel.spacer
+		
+		// update button constraints
+		
+		primaryButtonHeightAnchor.constant = viewModel.buttonHeight
+		secondaryButtonHeightAnchor.constant = viewModel.buttonHeight
 		
 		// primary button
 		primaryButton.customTextColor = viewModel.primaryTextColor
@@ -147,22 +182,10 @@ class FooterViewController: UIViewController {
 		secondaryButton.isHidden = !viewModel.isSecondaryButtonEnabled
 		secondaryButton.isEnabled = viewModel.isSecondaryButtonEnabled
 		
-		// update button constraints
-
-		buttonConstraints = [
-			// primaryButton
-			primaryButton.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
-			primaryButton.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor),
-			primaryButton.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor),
-			primaryButton.heightAnchor.constraint(equalToConstant: viewModel.buttonHeight),
-			// secondaryButton
-			secondaryButton.topAnchor.constraint(equalTo: primaryButton.bottomAnchor, constant: viewModel.spacer),
-			secondaryButton.centerXAnchor.constraint(equalTo: primaryButton.centerXAnchor),
-			secondaryButton.widthAnchor.constraint(equalTo: primaryButton.widthAnchor),
-			secondaryButton.heightAnchor.constraint(equalToConstant: viewModel.buttonHeight)
-		]
+		// update layout
 		
-		NSLayoutConstraint.activate(buttonConstraints)
+		view.setNeedsLayout()
+		view.layoutIfNeeded()
 		
 		// subscribe to view model properties
 
