@@ -804,12 +804,13 @@ class CoronaTestServiceTests: CWATestCase {
 		}
 
 		let appConfiguration = CachedAppConfigurationMock()
+		let diaryStore = MockDiaryStore()
 
 		let service = CoronaTestService(
 			client: client,
 			store: store,
 			eventStore: eventStore,
-			diaryStore: MockDiaryStore(),
+			diaryStore: diaryStore,
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
@@ -863,7 +864,8 @@ class CoronaTestServiceTests: CWATestCase {
 		XCTAssertFalse(pcrTest.isSubmissionConsentGiven)
 		XCTAssertNil(pcrTest.submissionTAN)
 		XCTAssertFalse(pcrTest.keysSubmitted)
-		XCTAssertFalse(pcrTest.journalEntryCreated)
+		XCTAssertTrue(pcrTest.journalEntryCreated)
+		XCTAssertFalse(diaryStore.coronaTests.isEmpty)
 		XCTAssertEqual(store.pcrKeySubmissionMetadata?.submittedWithCheckIns, true)
 	}
 
@@ -880,12 +882,13 @@ class CoronaTestServiceTests: CWATestCase {
 		}
 
 		let appConfiguration = CachedAppConfigurationMock()
+		let diaryStore = MockDiaryStore()
 
 		let service = CoronaTestService(
 			client: client,
 			store: store,
 			eventStore: MockEventStore(),
-			diaryStore: MockDiaryStore(),
+			diaryStore: diaryStore,
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
@@ -933,7 +936,8 @@ class CoronaTestServiceTests: CWATestCase {
 		XCTAssertTrue(pcrTest.isSubmissionConsentGiven)
 		XCTAssertNil(pcrTest.submissionTAN)
 		XCTAssertFalse(pcrTest.keysSubmitted)
-		XCTAssertFalse(pcrTest.journalEntryCreated)
+		XCTAssertTrue(pcrTest.journalEntryCreated)
+		XCTAssertFalse(diaryStore.coronaTests.isEmpty)
 	}
 
 	func testRegisterPCRTestWithTeleTAN_RegistrationFails() {
@@ -949,12 +953,12 @@ class CoronaTestServiceTests: CWATestCase {
 		}
 
 		let appConfiguration = CachedAppConfigurationMock()
-
+		let diaryStore = MockDiaryStore()
 		let service = CoronaTestService(
 			client: client,
 			store: store,
 			eventStore: MockEventStore(),
-			diaryStore: MockDiaryStore(),
+			diaryStore: diaryStore,
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
@@ -983,6 +987,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		XCTAssertNil(service.pcrTest)
 		XCTAssertNil(store.pcrTestResultMetadata)
+		XCTAssertTrue(diaryStore.coronaTests.isEmpty)
 	}
 
 	func testRegisterAntigenTestAndGetResult_successWithoutSubmissionConsentGivenWithTestedPerson() {
