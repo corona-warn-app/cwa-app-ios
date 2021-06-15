@@ -64,6 +64,7 @@ class HealthCertificateService {
 
 	private(set) var healthCertifiedPersons = CurrentValueSubject<[HealthCertifiedPerson], Never>([])
 	private(set) var testCertificateRequests = CurrentValueSubject<[TestCertificateRequest], Never>([])
+	private(set) var unseenTestCertificateCount = CurrentValueSubject<Int, Never>(0)
 
 	@discardableResult
 	func registerVaccinationCertificate(
@@ -191,6 +192,8 @@ class HealthCertificateService {
 		)
 
 		testCertificateRequests.value.append(testCertificateRequest)
+		unseenTestCertificateCount.value += 1
+
 		executeTestCertificateRequest(
 			testCertificateRequest,
 			retryIfCertificateIsPending: retryExecutionIfCertificateIsPending
@@ -318,11 +321,16 @@ class HealthCertificateService {
 		}
 	}
 
+	func resetUnseenTestCertificateCount() {
+		unseenTestCertificateCount.value = 0
+	}
+
 	func updatePublishersFromStore() {
 		Log.info("[HealthCertificateService] Updating publishers from store", log: .api)
 
 		healthCertifiedPersons.value = store.healthCertifiedPersons
 		testCertificateRequests.value = store.testCertificateRequests
+		unseenTestCertificateCount.value = store.unseenTestCertificateCount
 	}
 
 	// MARK: - Private
@@ -350,6 +358,12 @@ class HealthCertificateService {
 			.sink { [weak self] in
 				self?.store.testCertificateRequests = $0
 				self?.updateTestCertificateRequestSubscriptions(for: $0)
+			}
+			.store(in: &subscriptions)
+
+		unseenTestCertificateCount
+			.sink { [weak self] in
+				self?.store.unseenTestCertificateCount = $0
 			}
 			.store(in: &subscriptions)
 
