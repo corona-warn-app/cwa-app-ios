@@ -137,7 +137,14 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 		logoImageView.tintColor = .enaColor(for: .textContrast)
 
 		parent?.navigationController?.navigationBar.tintColor = .white
-		parent?.navigationItem.titleView = logoImageView
+
+		// check is we are the first one on the navigation stack
+		if navigationController?.viewControllers.count == 1 {
+			parent?.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: logoImageView)
+		} else {
+			parent?.navigationItem.titleView = logoImageView
+		}
+
 		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton(.contrast)
 
 		// create a transparent navigation bar
