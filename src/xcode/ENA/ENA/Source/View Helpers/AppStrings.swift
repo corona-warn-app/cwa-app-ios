@@ -1917,6 +1917,7 @@ enum AppStrings {
 					static let noNetwork = NSLocalizedString("TestCertificateRequest_Error_NO_NETWORK", comment: "")
 					static let tryAgain = NSLocalizedString("TestCertificateRequest_Error_TRY_AGAIN", comment: "")
 					static let tryAgainDCCNotAvailableYet = NSLocalizedString("TestCertificateRequest_Error_TRY_AGAIN_DCC_NOT_AVAILABLE_YET", comment: "")
+					static let dgcNotSupportedByLab = NSLocalizedString("TestCertificateRequest_Error_DGC_NOT_SUPPORTED_BY_LAB", comment: "")
 				}
 			}
 		}

@@ -645,23 +645,28 @@ class CoronaTestService {
 					completion(.failure(.responseFailure(error)))
 				}
 			case let .success(response):
-				guard let testResult = TestResult(serverResponse: response.testResult) else {
+				guard let testResult = TestResult(serverResponse: response.body.testResult) else {
 					Log.error("[CoronaTestService] Getting test result failed: Unknown test result \(response)", log: .api)
 
 					completion(.failure(.unknownTestResult))
 					return
 				}
 
-				Log.info("[CoronaTestService] Got test result (coronaTestType: \(coronaTestType), testResult: \(testResult)), sampleCollectionDate: \(String(describing: response.sc))", log: .api)
+				Log.info("[CoronaTestService] Got test result (coronaTestType: \(coronaTestType), testResult: \(testResult)), sampleCollectionDate: \(String(describing: response.body.sc))", log: .api)
 				var updatedSampleCollectionDate: Date?
 				switch coronaTestType {
 				case .pcr:
 					Analytics.collect(.testResultMetadata(.updateTestResult(testResult, registrationToken, .pcr)))
+					
 					self.pcrTest?.testResult = testResult
+					self.pcrTest?.labId = response.labId
 				case .antigen:
 					Analytics.collect(.testResultMetadata(.updateTestResult(testResult, registrationToken, .antigen)))
+
 					self.antigenTest?.testResult = testResult
-					updatedSampleCollectionDate = response.sc.map {
+					self.antigenTest?.labId = response.labId
+
+					updatedSampleCollectionDate = response.body.sc.map {
 						Date(timeIntervalSince1970: TimeInterval($0))
 					}
 					self.antigenTest?.sampleCollectionDate = updatedSampleCollectionDate

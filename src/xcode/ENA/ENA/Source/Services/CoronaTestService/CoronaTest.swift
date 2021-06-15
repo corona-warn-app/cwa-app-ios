@@ -158,4 +158,13 @@ enum CoronaTest: Equatable {
 		}
 	}
 
+	var labId: String? {
+		switch self {
+		case .pcr(let test):
+			return test.labId
+		case .antigen(let test):
+			return test.labId
+		}
+	}
+
 }

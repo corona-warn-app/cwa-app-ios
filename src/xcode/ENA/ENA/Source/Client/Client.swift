@@ -246,9 +246,49 @@ extension SubmissionError: LocalizedError {
 	}
 }
 
-struct FetchTestResultResponse: Codable {
+struct FetchTestResultResponseBody: Codable {
 	let testResult: Int
 	let sc: Int?
+
+	static func fake(
+		testResult: Int = 0,
+		sc: Int? = nil
+	) -> FetchTestResultResponseBody {
+		FetchTestResultResponseBody(
+			testResult: testResult,
+			sc: sc
+		)
+	}
+}
+
+struct FetchTestResultResponse: Codable {
+	let labId: String?
+	let body: FetchTestResultResponseBody
+
+	static func fake(
+		labId: String? = nil,
+		body: FetchTestResultResponseBody = .fake()
+	) -> FetchTestResultResponse {
+		FetchTestResultResponse(
+			labId: labId,
+			body: body
+		)
+	}
+
+	static func fake(
+		testResult: Int = 0,
+		sc: Int? = nil,
+		labId: String? = nil
+	) -> FetchTestResultResponse {
+		FetchTestResultResponse(
+			labId: labId,
+			body:
+				FetchTestResultResponseBody(
+					testResult: testResult,
+					sc: sc
+				)
+		)
+	}
 }
 
 /// A container for a downloaded `SAPDownloadedPackage` and its corresponding `ETag`, if given.

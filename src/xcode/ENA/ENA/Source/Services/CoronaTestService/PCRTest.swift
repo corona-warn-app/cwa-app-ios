@@ -24,6 +24,7 @@ struct PCRTest: Equatable {
 
 	var certificateConsentGiven: Bool
 	var certificateRequested: Bool
+	var labId: String?
 
 }
 
@@ -43,6 +44,7 @@ extension PCRTest: Codable {
 		case journalEntryCreated
 		case certificateConsentGiven
 		case certificateRequested
+		case labId
 	}
 
 	init(from decoder: Decoder) throws {
@@ -63,6 +65,7 @@ extension PCRTest: Codable {
 
 		certificateConsentGiven = try container.decodeIfPresent(Bool.self, forKey: .certificateConsentGiven) ?? false
 		certificateRequested = try container.decodeIfPresent(Bool.self, forKey: .certificateRequested) ?? false
+		labId = try container.decodeIfPresent(String.self, forKey: .labId)
 	}
 
 }

@@ -202,11 +202,19 @@ class HealthCertificateService {
 		)
 	}
 
+	// swiftlint:disable:next cyclomatic_complexity
 	func executeTestCertificateRequest(
 		_ testCertificateRequest: TestCertificateRequest,
 		retryIfCertificateIsPending: Bool,
 		completion: ((Result<Void, HealthCertificateServiceError.TestCertificateRequestError>) -> Void)? = nil
 	) {
+		
+		// If we didn't retrieved a labId for a PRC test result, the lab is not supporting test certificates.
+		if testCertificateRequest.coronaTestType == .pcr && testCertificateRequest.labId == nil {
+			completion?(.failure(.dgcNotSupportedByLab))
+			return
+		}
+
 		Log.info("[HealthCertificateService] Executing test certificate request: \(private: testCertificateRequest)", log: .api)
 		testCertificateRequest.isLoading = true
 

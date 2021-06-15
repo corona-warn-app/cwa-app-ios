@@ -394,7 +394,7 @@ class CoronaTestServiceTests: CWATestCase {
 		}
 
 		client.onGetTestResult = { _, _, completion in
-			completion(.success(FetchTestResultResponse(testResult: TestResult.pending.rawValue, sc: nil)))
+			completion(.success(.fake(testResult: TestResult.pending.rawValue)))
 		}
 
 		let appConfiguration = CachedAppConfigurationMock()
@@ -474,7 +474,7 @@ class CoronaTestServiceTests: CWATestCase {
 		}
 
 		client.onGetTestResult = { _, _, completion in
-			completion(.success(FetchTestResultResponse(testResult: TestResult.negative.rawValue, sc: nil)))
+			completion(.success(.fake(testResult: TestResult.negative.rawValue)))
 		}
 
 		let appConfiguration = CachedAppConfigurationMock()
@@ -558,7 +558,7 @@ class CoronaTestServiceTests: CWATestCase {
 		}
 
 		client.onGetTestResult = { _, _, completion in
-			completion(.success(FetchTestResultResponse(testResult: TestResult.negative.rawValue, sc: nil)))
+			completion(.success(.fake(testResult: TestResult.negative.rawValue)))
 		}
 
 		let appConfiguration = CachedAppConfigurationMock()
@@ -618,7 +618,7 @@ class CoronaTestServiceTests: CWATestCase {
 		}
 
 		client.onGetTestResult = { _, _, completion in
-			completion(.success(FetchTestResultResponse(testResult: TestResult.negative.rawValue, sc: nil)))
+			completion(.success(.fake(testResult: TestResult.negative.rawValue)))
 		}
 
 		let appConfiguration = CachedAppConfigurationMock()
@@ -999,7 +999,7 @@ class CoronaTestServiceTests: CWATestCase {
 		}
 
 		client.onGetTestResult = { _, _, completion in
-			completion(.success(FetchTestResultResponse(testResult: TestResult.pending.rawValue, sc: 123456789)))
+			completion(.success(.fake(testResult: TestResult.pending.rawValue, sc: 123456789)))
 		}
 
 		let store = MockTestStore()
@@ -1074,7 +1074,7 @@ class CoronaTestServiceTests: CWATestCase {
 		}
 
 		client.onGetTestResult = { _, _, completion in
-			completion(.success(FetchTestResultResponse(testResult: TestResult.pending.rawValue, sc: nil)))
+			completion(.success(.fake(testResult: TestResult.pending.rawValue)))
 		}
 
 		let store = MockTestStore()
@@ -1154,7 +1154,7 @@ class CoronaTestServiceTests: CWATestCase {
 		}
 
 		client.onGetTestResult = { _, _, completion in
-			completion(.success(FetchTestResultResponse(testResult: TestResult.negative.rawValue, sc: nil)))
+			completion(.success(.fake(testResult: TestResult.negative.rawValue)))
 		}
 
 		let appConfiguration = CachedAppConfigurationMock()
@@ -1329,7 +1329,7 @@ class CoronaTestServiceTests: CWATestCase {
 	func testUpdatePCRTestResult_success() {
 		let client = ClientMock()
 		client.onGetTestResult = { _, _, completion in
-			completion(.success(FetchTestResultResponse(testResult: TestResult.positive.rawValue, sc: nil)))
+			completion(.success(.fake(testResult: TestResult.positive.rawValue)))
 		}
 
 		let store = MockTestStore()
@@ -1379,7 +1379,7 @@ class CoronaTestServiceTests: CWATestCase {
 	func testUpdateAntigenTestResult_success() {
 		let client = ClientMock()
 		client.onGetTestResult = { _, _, completion in
-			completion(.success(FetchTestResultResponse(testResult: TestResult.positive.rawValue, sc: nil)))
+			completion(.success(.fake(testResult: TestResult.positive.rawValue)))
 		}
 
 		let store = MockTestStore()
@@ -1582,7 +1582,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		client.onGetTestResult = { _, _, completion in
-			completion(.success(FetchTestResultResponse(testResult: TestResult.positive.rawValue, sc: nil)))
+			completion(.success(.fake(testResult: TestResult.positive.rawValue)))
 		}
 
 		let store = MockTestStore()
@@ -1628,7 +1628,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		client.onGetTestResult = { _, _, completion in
-			completion(.success(FetchTestResultResponse(testResult: TestResult.positive.rawValue, sc: nil)))
+			completion(.success(.fake(testResult: TestResult.positive.rawValue)))
 		}
 
 		let store = MockTestStore()
@@ -1697,7 +1697,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		client.onGetTestResult = { _, _, completion in
-			completion(.success(FetchTestResultResponse(testResult: TestResult.pending.rawValue, sc: nil)))
+			completion(.success(.fake(testResult: TestResult.pending.rawValue)))
 		}
 
 		let store = MockTestStore()
@@ -1734,7 +1734,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let sampleCollectionDate = Date()
 
 		client.onGetTestResult = { _, _, completion in
-			completion(.success(FetchTestResultResponse(testResult: TestResult.positive.rawValue, sc: Int(sampleCollectionDate.timeIntervalSince1970))))
+			completion(.success(.fake(testResult: TestResult.positive.rawValue, sc: Int(sampleCollectionDate.timeIntervalSince1970))))
 		}
 
 		let diaryStore = MockDiaryStore()
@@ -1785,7 +1785,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		client.onGetTestResult = { _, _, completion in
-			completion(.success(FetchTestResultResponse(testResult: TestResult.pending.rawValue, sc: nil)))
+			completion(.success(.fake(testResult: TestResult.pending.rawValue)))
 		}
 
 		let diaryStore = MockDiaryStore()
@@ -1824,7 +1824,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		client.onGetTestResult = { _, _, completion in
-			completion(.success(FetchTestResultResponse(testResult: TestResult.expired.rawValue, sc: nil)))
+			completion(.success(.fake(testResult: TestResult.expired.rawValue)))
 		}
 
 		let diaryStore = MockDiaryStore()
@@ -1863,7 +1863,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		client.onGetTestResult = { _, _, completion in
-			completion(.success(FetchTestResultResponse(testResult: TestResult.invalid.rawValue, sc: nil)))
+			completion(.success(.fake(testResult: TestResult.invalid.rawValue)))
 		}
 
 		let diaryStore = MockDiaryStore()
@@ -1902,7 +1902,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		client.onGetTestResult = { _, _, completion in
-			completion(.success(FetchTestResultResponse(testResult: TestResult.negative.rawValue, sc: nil)))
+			completion(.success(.fake(testResult: TestResult.negative.rawValue)))
 		}
 
 		let diaryStore = MockDiaryStore()
@@ -1941,7 +1941,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		client.onGetTestResult = { _, _, completion in
-			completion(.success(FetchTestResultResponse(testResult: TestResult.expired.rawValue, sc: nil)))
+			completion(.success(.fake(testResult: TestResult.expired.rawValue)))
 		}
 
 		let store = MockTestStore()
@@ -2005,7 +2005,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		client.onGetTestResult = { _, _, completion in
 			getTestResultExpectation.fulfill()
-			completion(.success(FetchTestResultResponse(testResult: TestResult.expired.rawValue, sc: nil)))
+			completion(.success(.fake(testResult: TestResult.expired.rawValue)))
 		}
 
 		testService.updateTestResults(force: true, presentNotification: false) { _ in }
@@ -2086,7 +2086,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		client.onGetTestResult = { _, _, completion in
 			getTestResultExpectation.fulfill()
-			completion(.success(FetchTestResultResponse(testResult: TestResult.expired.rawValue, sc: nil)))
+			completion(.success(.fake(testResult: TestResult.expired.rawValue)))
 		}
 
 		testService.updateTestResults(force: false, presentNotification: false) { _ in }
@@ -2216,7 +2216,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		client.onGetTestResult = { _, _, completion in
 			getTestResultExpectation.fulfill()
-			completion(.success(FetchTestResultResponse(testResult: TestResult.expired.rawValue, sc: nil)))
+			completion(.success(.fake(testResult: TestResult.expired.rawValue)))
 		}
 
 		testService.updateTestResults(force: false, presentNotification: false) { _ in }
@@ -2256,7 +2256,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		client.onGetTestResult = { _, _, completion in
 			getTestResultExpectation.fulfill()
-			completion(.success(FetchTestResultResponse(testResult: TestResult.expired.rawValue, sc: nil)))
+			completion(.success(.fake(testResult: TestResult.expired.rawValue)))
 		}
 
 		testService.updateTestResults(force: false, presentNotification: false) { _ in }
@@ -2685,7 +2685,7 @@ class CoronaTestServiceTests: CWATestCase {
 			XCTAssertFalse(isFake)
 			XCTAssertEqual(count, 0)
 			count += 1
-			completion(.success(FetchTestResultResponse(testResult: testResult.rawValue, sc: nil)))
+			completion(.success(.fake(testResult: testResult.rawValue)))
 		}
 
 		client.onGetTANForExposureSubmit = { _, isFake, completion in
