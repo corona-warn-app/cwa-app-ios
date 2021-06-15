@@ -677,4 +677,5 @@ private struct EncryptedTestData {
     let input: String
     let output: String
     let decryptedKey: String
+// swiftlint:disable file_length
 }
