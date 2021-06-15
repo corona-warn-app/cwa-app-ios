@@ -6,7 +6,6 @@ import UIKit
 import OpenCombine
 import HealthCertificateToolkit
 
-// swiftlint:disable:next type_body_length
 class HealthCertificateService {
 
 	// MARK: - Init
@@ -29,10 +28,10 @@ class HealthCertificateService {
 
 			// check launch arguments ->
 			if LaunchArguments.healthCertificate.firstHealthCertificate.boolValue {
-				registerVaccinationCertificate(base45: HealthCertificate.firstBase45Mock)
+				registerHealthCertificate(base45: HealthCertificate.firstBase45Mock)
 			} else if LaunchArguments.healthCertificate.firstAndSecondHealthCertificate.boolValue {
-				registerVaccinationCertificate(base45: HealthCertificate.firstBase45Mock)
-				registerVaccinationCertificate(base45: HealthCertificate.lastBase45Mock)
+				registerHealthCertificate(base45: HealthCertificate.firstBase45Mock)
+				registerHealthCertificate(base45: HealthCertificate.lastBase45Mock)
 			}
 
 			if LaunchArguments.healthCertificate.testCertificateRegistered.boolValue {
@@ -66,59 +65,9 @@ class HealthCertificateService {
 	private(set) var testCertificateRequests = CurrentValueSubject<[TestCertificateRequest], Never>([])
 
 	@discardableResult
-	func registerVaccinationCertificate(
-		base45: Base45
-	) -> Result<HealthCertifiedPerson, HealthCertificateServiceError.VaccinationRegistrationError> {
-		Log.info("[HealthCertificateService] Registering health certificate from payload: \(private: base45)", log: .api)
-
-		do {
-			let healthCertificate = try HealthCertificate(base45: base45)
-
-			guard let vaccinationEntry = healthCertificate.vaccinationEntry else {
-				return .failure(.noVaccinationEntry)
-			}
-
-			let healthCertifiedPerson = healthCertifiedPersons.value.first(where: { !$0.vaccinationCertificates.isEmpty }) ??
-				healthCertifiedPersons.value.first(where: { $0.name?.standardizedName == healthCertificate.name.standardizedName && $0.dateOfBirth == healthCertificate.dateOfBirth }) ??
-				HealthCertifiedPerson(healthCertificates: [])
-
-			let isDuplicate = healthCertifiedPerson.healthCertificates
-				.contains(where: { $0.vaccinationEntry?.uniqueCertificateIdentifier == vaccinationEntry.uniqueCertificateIdentifier })
-			if isDuplicate {
-				return .failure(.vaccinationCertificateAlreadyRegistered)
-			}
-
-			let hasDifferentName = healthCertifiedPerson.healthCertificates
-				.contains(where: { $0.name.standardizedName != healthCertificate.name.standardizedName })
-			if hasDifferentName {
-				return .failure(.nameMismatch)
-			}
-
-			let hasDifferentDateOfBirth = healthCertifiedPerson.healthCertificates
-				.contains(where: { $0.dateOfBirth != healthCertificate.dateOfBirth })
-			if hasDifferentDateOfBirth {
-				return .failure(.dateOfBirthMismatch)
-			}
-
-			healthCertifiedPerson.healthCertificates.append(healthCertificate)
-			healthCertifiedPerson.healthCertificates.sort(by: <)
-
-			if !healthCertifiedPersons.value.contains(healthCertifiedPerson) {
-				healthCertifiedPersons.value.append(healthCertifiedPerson)
-			}
-
-			return .success((healthCertifiedPerson))
-		} catch let error as CertificateDecodingError {
-			return .failure(.decodingError(error))
-		} catch {
-			return .failure(.other(error))
-		}
-	}
-
-	@discardableResult
 	func registerHealthCertificate(
 		base45: Base45
-	) -> Result<HealthCertifiedPerson, HealthCertificateServiceError.RegistrationError> {
+	) -> Result<(HealthCertifiedPerson, HealthCertificate), HealthCertificateServiceError.RegistrationError> {
 		Log.info("[HealthCertificateService] Registering health certificate from payload: \(private: base45)", log: .api)
 
 		do {
@@ -130,13 +79,18 @@ class HealthCertificateService {
 					$0.healthCertificates.first?.dateOfBirthDate == healthCertificate.dateOfBirthDate
 				}) ?? HealthCertifiedPerson(healthCertificates: [])
 
+			if healthCertificate.hasTooManyEntries {
+				Log.error("[HealthCertificateService] Registering health certificate failed: certificate has too many entries", log: .api)
+				return .failure(.certificateHasTooManyEntries)
+			}
+
 			let isDuplicate = healthCertifiedPerson.healthCertificates
 				.contains(where: {
 					$0.uniqueCertificateIdentifier == healthCertificate.uniqueCertificateIdentifier
 				})
 			if isDuplicate {
-				Log.error("[HealthCertificateService] Registering health certificate failed: .certificateAlreadyRegistered", log: .api)
-				return .failure(.certificateAlreadyRegistered)
+				Log.error("[HealthCertificateService] Registering health certificate failed:  certificate already registered", log: .api)
+				return .failure(.certificateAlreadyRegistered(healthCertificate.type))
 			}
 
 			healthCertifiedPerson.healthCertificates.append(healthCertificate)
@@ -149,7 +103,7 @@ class HealthCertificateService {
 				Log.info("[HealthCertificateService] Successfully registered health certificate for a person with other existing certificates", log: .api)
 			}
 
-			return .success((healthCertifiedPerson))
+			return .success((healthCertifiedPerson, healthCertificate))
 		} catch let error as CertificateDecodingError {
 			Log.error("[HealthCertificateService] Registering health certificate failed with .decodingError: \(error.localizedDescription)", log: .api)
 			return .failure(.decodingError(error))
