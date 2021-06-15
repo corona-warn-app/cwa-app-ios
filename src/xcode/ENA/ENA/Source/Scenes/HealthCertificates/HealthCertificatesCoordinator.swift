@@ -154,10 +154,14 @@ final class HealthCertificatesCoordinator {
 	private func showQRCodeScanner(from presentingViewController: UIViewController) {
 		let qrCodeScannerViewController = HealthCertificateQRCodeScannerViewController(
 			healthCertificateService: healthCertificateService,
-			didScanCertificate: { [weak self] healthCertifiedPerson in
+			didScanCertificate: { [weak self] healthCertifiedPerson, healthCertificate in
 				presentingViewController.dismiss(animated: true) {
 					if presentingViewController == self?.viewController {
-						self?.showHealthCertifiedPerson(healthCertifiedPerson)
+						self?.showHealthCertificate(
+							healthCertifiedPerson: healthCertifiedPerson,
+							healthCertificate: healthCertificate,
+							shouldPushOnModalNavigationController: false
+						)
 					}
 				}
 			},
@@ -174,7 +178,9 @@ final class HealthCertificatesCoordinator {
 		presentingViewController.present(qrCodeNavigationController, animated: true)
 	}
 	
-	private func showHealthCertifiedPerson(_ healthCertifiedPerson: HealthCertifiedPerson) {
+	private func showHealthCertifiedPerson(
+		_ healthCertifiedPerson: HealthCertifiedPerson
+	) {
 		let healthCertificatePersonViewController = HealthCertifiedPersonViewController(
 			healthCertificateService: healthCertificateService,
 			healthCertifiedPerson: healthCertifiedPerson,
@@ -188,11 +194,6 @@ final class HealthCertificatesCoordinator {
 					healthCertificate: healthCertificate,
 					shouldPushOnModalNavigationController: true
 				)
-			},
-			didTapRegisterAnotherHealthCertificate: { [weak self] in
-				guard let self = self else { return }
-
-				self.showQRCodeScanner(from: self.modalNavigationController)
 			},
 			didSwipeToDelete: { [weak self] healthCertificate, confirmDeletion in
 				self?.showDeleteAlert(
@@ -208,24 +209,9 @@ final class HealthCertificatesCoordinator {
 				)
 			}
 		)
-		
-		let footerViewController = FooterViewController(
-			FooterViewModel(
-				primaryButtonName: AppStrings.HealthCertificate.Person.primaryButton,
-				isPrimaryButtonEnabled: true,
-				isSecondaryButtonEnabled: false,
-				isSecondaryButtonHidden: true,
-				backgroundColor: .enaColor(for: .cellBackground )
-			)
-		)
-		
-		let topBottomContainerViewController = TopBottomContainerViewController(
-			topController: healthCertificatePersonViewController,
-			bottomController: footerViewController
-		)
-		
-		modalNavigationController = UINavigationController(rootViewController: topBottomContainerViewController)
-		viewController.present(self.modalNavigationController, animated: true)
+
+		modalNavigationController = UINavigationController(rootViewController: healthCertificatePersonViewController)
+		viewController.present(modalNavigationController, animated: true)
 	}
 	
 	private func showHealthCertificate(
