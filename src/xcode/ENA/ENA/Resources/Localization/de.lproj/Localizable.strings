@@ -2635,8 +2635,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertifiedPerson_QRCode_Image_Description" = "Ein QR-Code mit dem Status Ihrer Impfung";
 
-"HealthCertifiedPerson_primaryButton" = "Weitere Impfung hinzufügen";
-
 /* Vaccination Certificate Details */
 
 "HealthCertificate_Details_vaccinationCount" = "Impfung %i von %i";
