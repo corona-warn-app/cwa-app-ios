@@ -1164,10 +1164,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 					return
 				}
 
-				UIApplication.shared.open(
-					url,
-					options: [:]
-				)
+				LinkHelper.open(url: url)
 			}
 		)
 

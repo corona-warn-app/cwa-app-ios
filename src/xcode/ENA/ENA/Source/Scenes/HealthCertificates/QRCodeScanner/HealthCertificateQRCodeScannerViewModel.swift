@@ -52,7 +52,7 @@ class HealthCertificateQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutput
 	}
 
 	func didScan(base45: String) {
-		let result = healthCertificateService.registerVaccinationCertificate(base45: base45)
+		let result = healthCertificateService.registerHealthCertificate(base45: base45)
 		switch result {
 		case .success(let healthCertifiedPerson):
 			self.onSuccess(healthCertifiedPerson)

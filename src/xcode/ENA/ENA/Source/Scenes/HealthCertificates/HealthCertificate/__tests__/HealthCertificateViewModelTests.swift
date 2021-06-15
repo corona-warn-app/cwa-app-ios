@@ -17,11 +17,14 @@ class HealthCertificateViewModelTests: CWATestCase {
 		XCTAssertEqual(HealthCertificateViewModel.TableViewSection.map(2), .topCorner)
 		XCTAssertEqual(HealthCertificateViewModel.TableViewSection.map(3), .details)
 		XCTAssertEqual(HealthCertificateViewModel.TableViewSection.map(4), .bottomCorner)
+		XCTAssertEqual(HealthCertificateViewModel.TableViewSection.map(5), .additionalInfo)
+		XCTAssertNil(HealthCertificateViewModel.TableViewSection.map(6))
+
 	}
 
 	func testGIVEN_HealthCertificate_WHEN_CreateViewModel_THEN_IsSetup() throws {
 		// GIVEN
-		let healthCertificate = HealthCertificateMock()
+		let healthCertificate = HealthCertificate.mock()
 		let certifiedPerson = HealthCertifiedPerson(healthCertificates: [])
 		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore())
 
@@ -44,51 +47,10 @@ class HealthCertificateViewModelTests: CWATestCase {
 		XCTAssertEqual(viewModel.numberOfItems(in: .headline), 1)
 		XCTAssertEqual(viewModel.numberOfItems(in: .qrCode), 1)
 		XCTAssertEqual(viewModel.numberOfItems(in: .topCorner), 1)
-		XCTAssertEqual(viewModel.numberOfItems(in: .details), 9)
+		XCTAssertEqual(viewModel.numberOfItems(in: .details), 8)
 		XCTAssertEqual(viewModel.numberOfItems(in: .bottomCorner), 1)
+		XCTAssertEqual(viewModel.numberOfItems(in: .additionalInfo), 2)
+		XCTAssertEqual(viewModel.additionalInfoCellViewModels.count, 2)
 	}
-
-}
-
-struct HealthCertificateMock: HealthCertificateData {
-
-	// MARK: - Init
-
-	init() {
-		self.base45 = ""
-		self.version = ""
-		self.name = Name(
-			familyName: "Mustermann",
-			givenName: "Max",
-			standardizedFamilyName: "die mustermanns",
-			standardizedGivenName: "maxi"
-		)
-		self.dateOfBirth = "1981-12-24"
-		self.dateOfBirthDate = Date()
-		self.vaccinationEntry = nil
-		self.testEntry = nil
-		self.type = .test(TestEntry(diseaseOrAgentTargeted: "", typeOfTest: "", testResult: "", naaTestName: nil, ratTestName: nil, dateTimeOfSampleCollection: "", dateTimeOfTestResult: "", testCenter: "", countryOfTest: "", certificateIssuer: "", uniqueCertificateIdentifier: ""))
-		self.isLastDoseInASeries = false
-		self.expirationDate = Date()
-		self.dateOfVaccination = Date()
-		self.doseNumber = 1
-		self.totalSeriesOfDoses = 2
-	}
-
-	// MARK: - Internal
-
-	let base45: Base45
-	let version: String
-	let name: Name
-	let dateOfBirth: String
-	var dateOfBirthDate: Date?
-	let vaccinationEntry: VaccinationEntry?
-	let testEntry: TestEntry?
-	let type: HealthCertificate.CertificateType
-	let isLastDoseInASeries: Bool
-	var expirationDate: Date
-	var dateOfVaccination: Date?
-	var doseNumber: Int
-	var totalSeriesOfDoses: Int
 
 }

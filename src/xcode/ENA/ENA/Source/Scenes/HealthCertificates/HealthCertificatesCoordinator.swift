@@ -248,6 +248,8 @@ final class HealthCertificatesCoordinator {
 					deleteButtonTitle = AppStrings.HealthCertificate.Alert.deleteButton
 				case .test:
 					deleteButtonTitle = AppStrings.HealthCertificate.Alert.TestCertificate.deleteButton
+				case .recovery:
+					deleteButtonTitle = AppStrings.HealthCertificate.Alert.RecoveryCertificate.deleteButton
 				}
 
 				self?.showDeleteAlert(
@@ -275,6 +277,8 @@ final class HealthCertificatesCoordinator {
 			primaryButtonTitle = AppStrings.HealthCertificate.Details.primaryButton
 		case .test:
 			primaryButtonTitle = AppStrings.HealthCertificate.Details.TestCertificate.primaryButton
+		case .recovery:
+			primaryButtonTitle = AppStrings.HealthCertificate.Details.RecoveryCertificate.primaryButton
 		}
 		
 		let footerViewController = FooterViewController(
@@ -319,6 +323,10 @@ final class HealthCertificatesCoordinator {
 			title = AppStrings.HealthCertificate.Alert.TestCertificate.title
 			message = AppStrings.HealthCertificate.Alert.TestCertificate.message
 			cancelButtonTitle = AppStrings.HealthCertificate.Alert.TestCertificate.cancelButton
+		case .recovery:
+			title = AppStrings.HealthCertificate.Alert.RecoveryCertificate.title
+			message = AppStrings.HealthCertificate.Alert.RecoveryCertificate.message
+			cancelButtonTitle = AppStrings.HealthCertificate.Alert.RecoveryCertificate.cancelButton
 		}
 
 		let alert = UIAlertController(

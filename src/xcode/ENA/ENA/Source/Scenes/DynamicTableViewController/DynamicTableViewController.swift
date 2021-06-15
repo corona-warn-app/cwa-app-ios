@@ -146,10 +146,10 @@ extension DynamicTableViewController {
 	final func execute(action: DynamicAction, cell: UITableViewCell? = nil) {
 		switch action {
 		case let .open(url):
-			if let url = url { LinkHelper.openLink(withUrl: url, from: self) }
+			if let url = url { LinkHelper.open(url: url) }
 
 		case let .call(number):
-			if let url = URL(string: "tel://\(number)") { UIApplication.shared.open(url) }
+			LinkHelper.open(urlString: "tel://\(number)")
 
 		case let .execute(block):
 			block(self, cell)

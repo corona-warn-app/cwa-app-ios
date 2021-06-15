@@ -156,12 +156,7 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 
 	private func callHotline(foreign: Bool = false) {
 		let phoneNumber = foreign ? AppStrings.ExposureSubmission.hotlineNumberForeign : AppStrings.ExposureSubmission.hotlineNumber
-		guard let url = URL(string: "telprompt:\(phoneNumber)"),
-			  UIApplication.shared.canOpenURL(url) else {
-			Log.error("Call failed: telprompt:\(phoneNumber) failed")
-			return
-		}
-		UIApplication.shared.open(url, options: [:], completionHandler: nil)
+		LinkHelper.open(urlString: "telprompt:\(phoneNumber)")
 	}
 }
 
