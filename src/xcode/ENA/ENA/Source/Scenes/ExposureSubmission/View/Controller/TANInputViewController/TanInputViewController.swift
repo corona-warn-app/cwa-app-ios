@@ -15,8 +15,6 @@ class TanInputViewController: UITableViewController, FooterViewHandling {
 	) {
 		self.viewModel = viewModel
 		self.dismiss = dismiss
-		tanInputCell = TANInputCell(viewModel: viewModel)
-		tanErrorCell = TANErrorCell(style: .default, reuseIdentifier: TANErrorCell.cellIdentifier)
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -104,8 +102,8 @@ class TanInputViewController: UITableViewController, FooterViewHandling {
 	private let dismiss: () -> Void
 	private var bindings: Set<AnyCancellable> = []
 	
-	private let tanInputCell: TANInputCell
-	private let tanErrorCell: TANErrorCell
+	private lazy var tanInputCell = TANInputCell(viewModel: viewModel)
+	private lazy var tanErrorCell = TANErrorCell(style: .default, reuseIdentifier: TANErrorCell.cellIdentifier)
 
 	private func setupViews() {
 		
