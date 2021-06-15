@@ -1132,7 +1132,7 @@ enum AppStrings {
 		
 		static let feature25EnhancedStatisticsTitle = NSLocalizedString("NewVersionFeature_25_enhanced_statistics_title", comment: "")
 		
-		static let feature25tEnhancedStatisticsDescription = NSLocalizedString("NewVersionFeature_25_enhanced_statistics_description", comment: "")
+		static let feature25EnhancedStatisticsDescription = NSLocalizedString("NewVersionFeature_25_enhanced_statistics_description", comment: "")
 		
 		static let feature25EditTestProfileTitle = NSLocalizedString("NewVersionFeature_25_edit_test_profile_title", comment: "")
 		
