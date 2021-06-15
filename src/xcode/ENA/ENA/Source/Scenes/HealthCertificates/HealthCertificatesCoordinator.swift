@@ -159,7 +159,7 @@ final class HealthCertificatesCoordinator {
 					if presentingViewController == self?.viewController {
 						self?.showHealthCertificate(
 							healthCertifiedPerson: healthCertifiedPerson,
-							healthCertificate: healthCertificate, 
+							healthCertificate: healthCertificate,
 							shouldPushOnModalNavigationController: false
 						)
 					}
