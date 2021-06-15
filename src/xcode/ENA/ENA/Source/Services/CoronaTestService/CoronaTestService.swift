@@ -654,17 +654,16 @@ class CoronaTestService {
 
 				Log.info("[CoronaTestService] Got test result (coronaTestType: \(coronaTestType), testResult: \(testResult)), sampleCollectionDate: \(String(describing: response.body.sc))", log: .api)
 				var updatedSampleCollectionDate: Date?
+
 				switch coronaTestType {
 				case .pcr:
 					Analytics.collect(.testResultMetadata(.updateTestResult(testResult, registrationToken, .pcr)))
 					
 					self.pcrTest?.testResult = testResult
-					self.pcrTest?.labId = response.labId
 				case .antigen:
 					Analytics.collect(.testResultMetadata(.updateTestResult(testResult, registrationToken, .antigen)))
 
 					self.antigenTest?.testResult = testResult
-					self.antigenTest?.labId = response.labId
 
 					updatedSampleCollectionDate = response.body.sc.map {
 						Date(timeIntervalSince1970: TimeInterval($0))
@@ -712,7 +711,7 @@ class CoronaTestService {
 								coronaTestType: coronaTestType,
 								registrationToken: registrationToken,
 								registrationDate: registrationDate,
-								labId: self.coronaTest(ofType: coronaTestType)?.labId,
+								labId: response.labId,
 								retryExecutionIfCertificateIsPending: true
 							)
 
