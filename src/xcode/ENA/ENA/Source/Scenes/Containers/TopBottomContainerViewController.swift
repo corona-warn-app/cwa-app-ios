@@ -50,7 +50,6 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 
 		// if the the bottom view controller is FooterViewController we use it's viewModel here as well
 		self.footerViewModel = (bottomViewController as? FooterViewController)?.viewModel
-		self.initialHeight = footerViewModel?.height ?? bottomController.view.bounds.height
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -82,28 +81,23 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 		bottomView.translatesAutoresizingMaskIntoConstraints = false
 		view.addSubview(bottomView)
 
+		let initialHeight = footerViewModel?.height ?? bottomView.bounds.height
 		bottomViewHeightAnchorConstraint = bottomView.safeAreaLayoutGuide.heightAnchor.constraint(equalToConstant: initialHeight)
 		
 		NSLayoutConstraint.activate(
 			[
+				// topView
 				topView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
 				topView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 				topView.topAnchor.constraint(equalTo: view.topAnchor),
 				topView.bottomAnchor.constraint(equalTo: bottomView.topAnchor),
+				// bottomView
 				bottomView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
 				bottomView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-				bottomView.topAnchor.constraint(greaterThanOrEqualTo: view.topAnchor),
 				bottomView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
 				bottomViewHeightAnchorConstraint
 			]
 		)
-
-		// if the the bottom view controller is FooterViewController we use it's viewModel here as well
-		if let viewModel = (bottomViewController as? FooterViewController)?.viewModel {
-			UIView.performWithoutAnimation {
-				self.updateFooterViewModel(viewModel)
-			}
-		}
 
 		NotificationCenter.default.ocombine.publisher(for: UIApplication.keyboardDidShowNotification)
 			.sink { [weak self] notification in
@@ -123,6 +117,13 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 				self.footerViewHandler?.didHideKeyboard()
 			}
 			.store(in: &keyboardSubscriptions)
+		
+		// if the the bottom view controller is FooterViewController we use it's viewModel here as well
+		if let viewModel = (bottomViewController as? FooterViewController)?.viewModel {
+			UIView.performWithoutAnimation {
+				self.updateFooterViewModel(viewModel)
+			}
+		}
 	}
 	
 	// MARK: - Protocol DismissHandling
@@ -189,7 +190,6 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 
 	private let topViewController: TopViewController
 	private let bottomViewController: BottomViewController
-	private let initialHeight: CGFloat
 
 	private var subscriptions: [AnyCancellable] = []
 	private var keyboardSubscriptions: [AnyCancellable] = []

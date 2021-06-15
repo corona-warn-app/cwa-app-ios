@@ -148,10 +148,5 @@ class TanInputViewController: UITableViewController, FooterViewHandling {
 				self?.tableView.endUpdates()
 			}
 			.store(in: &bindings)
-
-		viewModel.didDissMissInvalidTanAlert = { [weak self] in
-			self?.footerView?.setLoadingIndicator(false, disable: true, button: .primary)
-			self?.tanInputCell.tanInputView.becomeFirstResponder()
-		}
 	}
 }
