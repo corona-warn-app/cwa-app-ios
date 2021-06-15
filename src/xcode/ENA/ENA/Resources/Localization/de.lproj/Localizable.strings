@@ -2687,6 +2687,10 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TestCertificate_Details_primaryButton" = "Testzertifikat entfernen";
 
+"TestCertificate_Error_FAQ_Description" = "\n\nWeitere Informationen zum Erhalt Ihres Testzertifikats finden Sie in den FAQ.";
+
+"TestCertificate_Error_FAQ_Button_Title" = "FAQ zu Testzertifikaten";
+
 /* Vaccination Certificate Delete Alert */
 
 "TestCertificate_Alert_title" = "Wollen Sie das Testzertifikat wirklich entfernen?";
