@@ -5,7 +5,7 @@
 import Foundation
 import HealthCertificateToolkit
 
-enum HealthCertificateServiceError {
+enum HealthCertificateServiceError: Error {
 
 	enum RegistrationError: LocalizedError {
 		case decodingError(CertificateDecodingError)
@@ -70,6 +70,7 @@ enum HealthCertificateServiceError {
 		case rsaKeyPairGenerationFailed(DCCRSAKeyPairError)
 		case decryptionFailed(Error)
 		case assemblyFailed(CertificateDecodingError)
+		case registrationError(HealthCertificateServiceError.RegistrationError)
 		case other(Error)
 
 		var errorDescription: String? {
@@ -171,6 +172,8 @@ enum HealthCertificateServiceError {
 				}
 			case .other(let error):
 				return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, error.localizedDescription)
+			case .registrationError(let error):
+				return error.errorDescription
 			}
 		}
 	}
