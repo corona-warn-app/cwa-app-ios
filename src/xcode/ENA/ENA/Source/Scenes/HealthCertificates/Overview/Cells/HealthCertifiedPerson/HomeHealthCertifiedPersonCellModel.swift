@@ -44,7 +44,7 @@ class HomeHealthCertifiedPersonCellModel {
 		testCertificate: HealthCertificate
 	) {
 		title = AppStrings.HealthCertificate.Overview.TestCertificate.title
-		backgroundGradientType = .greenWithStars
+		backgroundGradientType = .green
 		name = testCertificate.name.fullName
 		backgroundImage = UIImage(named: "TestCertificate_Background")
 		iconImage = UIImage(named: "TestCertificate_Icon")
