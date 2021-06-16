@@ -10,8 +10,12 @@ class HealthCertifiedPerson: Codable, Equatable {
 
 	// MARK: - Init
 
-	init(healthCertificates: [HealthCertificate]) {
+	init(
+		healthCertificates: [HealthCertificate],
+		isPreferredPerson: Bool = false
+	) {
 		self.healthCertificates = healthCertificates
+		self.isPreferredPerson = isPreferredPerson
 
 		updateVaccinationState()
 		subscribeToNotifications()
@@ -21,12 +25,14 @@ class HealthCertifiedPerson: Codable, Equatable {
 
 	enum CodingKeys: String, CodingKey {
 		case healthCertificates
+		case isPreferredPerson
 	}
 
 	required init(from decoder: Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 
 		healthCertificates = try container.decode([HealthCertificate].self, forKey: .healthCertificates)
+		isPreferredPerson = try container.decodeIfPresent(Bool.self, forKey: .isPreferredPerson) ?? false
 
 		updateVaccinationState()
 		subscribeToNotifications()
@@ -36,6 +42,7 @@ class HealthCertifiedPerson: Codable, Equatable {
 		var container = encoder.container(keyedBy: CodingKeys.self)
 
 		try container.encode(healthCertificates, forKey: .healthCertificates)
+		try container.encode(isPreferredPerson, forKey: .isPreferredPerson)
 	}
 
 	// MARK: - Protocol Equatable
@@ -68,6 +75,14 @@ class HealthCertifiedPerson: Codable, Equatable {
 			updateVaccinationState()
 
 			if healthCertificates != oldValue {
+				objectDidChange.send(self)
+			}
+		}
+	}
+
+	var isPreferredPerson: Bool {
+		didSet {
+			if isPreferredPerson != oldValue {
 				objectDidChange.send(self)
 			}
 		}
