@@ -86,7 +86,7 @@ src/xcode/fastlane/report.xml
 src/xcode/fastlane/Preview.html
 src/xcode/fastlane/screenshots/**/*.png
 src/xcode/fastlane/test_output
-src/xcode/swiftlint.result.json
+swiftlint.result**
 
 # Code Injection
 #

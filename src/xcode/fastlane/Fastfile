@@ -18,6 +18,8 @@
 ENV["LC_ALL"] = "de_DE.UTF-8"
 ENV["LANG"] = "de_DE.UTF-8"
 
+ENV["FASTLANE_SKIP_UPDATE_CHECK"] = "True"
+
 default_platform(:ios)
 
 platform :ios do
@@ -62,14 +64,23 @@ platform :ios do
 
   desc "Lint code"
   lane :lint do
-    swiftlint(
+    status = swiftlint(
+      executable: "../../vendor/swiftlint",
       mode: :lint,
-      output_file: "swiftlint.result.json",
+      output_file: "swiftlint.result",
       config_file: "ENA/.swiftlint.yml",
       strict: true,
-      quiet: false,
-      raise_if_swiftlint_error: true,
-      reporter: "sonarqube"
+      quiet: true,
+      no_cache: false,
+      reporter: "emoji",
+      raise_if_swiftlint_error: false,
+      ignore_exit_status: true
+    )
+
+    # Output issues directly in logs
+    sh(
+      "if [[ -e ../swiftlint.result.txt ]]; then cat ../swiftlint.result.txt; fi;",
+      step_name: "print report"
     )
   end
 
