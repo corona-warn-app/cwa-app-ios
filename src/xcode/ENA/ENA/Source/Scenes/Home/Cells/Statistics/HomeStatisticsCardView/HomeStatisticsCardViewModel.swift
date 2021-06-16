@@ -12,8 +12,6 @@ class HomeStatisticsCardViewModel {
 	// swiftlint:disable cyclomatic_complexity
 	init(for keyFigureCard: SAP_Internal_Stats_KeyFigureCard) {
 		if let primaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .primary }) {
-			primaryValue = primaryFigure.formattedValue(homeStatisticsCard: HomeStatisticsCard(rawValue: keyFigureCard.header.cardID), inPercent: true)
-
 			primaryTrendImage = primaryFigure.trendImage
 			primaryTrendImageTintColor = primaryFigure.trendTintColor
 			primaryTrendAccessibilityLabel = primaryFigure.trendAccessibilityLabel
@@ -21,7 +19,7 @@ class HomeStatisticsCardViewModel {
 		}
 
 		if let secondaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .secondary }) {
-			secondaryValue = secondaryFigure.formattedValue()
+			secondaryValue = secondaryFigure.formattedValue
 
 			secondaryTrendImage = secondaryFigure.trendImage
 			secondaryTrendImageTintColor = secondaryFigure.trendTintColor
@@ -30,7 +28,7 @@ class HomeStatisticsCardViewModel {
 		}
 
 		if let tertiaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .tertiary }) {
-			tertiaryValue = tertiaryFigure.formattedValue()
+			tertiaryValue = tertiaryFigure.formattedValue
 		}
 
 		switch HomeStatisticsCard(rawValue: keyFigureCard.header.cardID) {
@@ -91,7 +89,8 @@ class HomeStatisticsCardViewModel {
 		infoButtonAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.Infections.infoButton
 		illustrationImage = UIImage(named: "Illu_Bestaetigte_Neuinfektionen")
 
-		if keyFigureCard.keyFigures.contains(where: { $0.rank == .primary }) {
+		if let primaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .primary }) {
+			primaryValue = primaryFigure.formattedValue
 			let updateDate = Date(timeIntervalSince1970: TimeInterval(keyFigureCard.header.updatedAt))
 			primaryTitle = updateDate.formatted(
 				todayString: AppStrings.Statistics.Card.Infections.today,
@@ -116,7 +115,8 @@ class HomeStatisticsCardViewModel {
 		infoButtonAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.KeySubmissions.infoButton
 		illustrationImage = UIImage(named: "Illu_Warnende_Personen")
 
-		if keyFigureCard.keyFigures.contains(where: { $0.rank == .primary }) {
+		if let primaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .primary }) {
+			primaryValue = primaryFigure.formattedValue
 			let updateDate = Date(timeIntervalSince1970: TimeInterval(keyFigureCard.header.updatedAt))
 			primaryTitle = updateDate.formatted(
 				todayString: AppStrings.Statistics.Card.KeySubmissions.today,
@@ -141,7 +141,8 @@ class HomeStatisticsCardViewModel {
 		infoButtonAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.Incidence.infoButton
 		illustrationImage = UIImage(named: "Illu_7-Tage-Inzidenz")
 
-		if keyFigureCard.keyFigures.contains(where: { $0.rank == .primary }) {
+		if let primaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .primary }) {
+			primaryValue = primaryFigure.formattedValue
 			let updateDate = Date(timeIntervalSince1970: TimeInterval(keyFigureCard.header.updatedAt))
 			primaryTitle = updateDate.formatted(
 				todayString: AppStrings.Statistics.Card.Incidence.today,
@@ -159,7 +160,8 @@ class HomeStatisticsCardViewModel {
 		infoButtonAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.ReproductionNumber.infoButton
 		illustrationImage = UIImage(named: "Illu_7-Tage-R-Wert")
 
-		if keyFigureCard.keyFigures.contains(where: { $0.rank == .primary }) {
+		if let primaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .primary }) {
+			primaryValue = primaryFigure.formattedValue
 			let updateDate = Date(timeIntervalSince1970: TimeInterval(keyFigureCard.header.updatedAt))
 			primaryTitle = updateDate.formatted(
 				todayString: AppStrings.Statistics.Card.ReproductionNumber.today,
@@ -177,7 +179,8 @@ class HomeStatisticsCardViewModel {
 		illustrationImage = UIImage(named: "AtleastOneVaccinated")
 		subtitle = AppStrings.Statistics.Card.fromNationWide
 
-		if keyFigureCard.keyFigures.contains(where: { $0.rank == .primary }) {
+		if let primaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .primary }) {
+			primaryValue = primaryFigure.formattedValueWithPercent
 			let updateDate = Date(timeIntervalSince1970: TimeInterval(keyFigureCard.header.updatedAt))
 			primaryTitle = updateDate.formatted(
 				todayString: AppStrings.Statistics.Card.AtleastOneVaccinated.today,
@@ -204,7 +207,8 @@ class HomeStatisticsCardViewModel {
 
 		illustrationImage = UIImage(named: "FullyVaccinated")
 
-		if keyFigureCard.keyFigures.contains(where: { $0.rank == .primary }) {
+		if let primaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .primary }) {
+			primaryValue = primaryFigure.formattedValueWithPercent
 			let updateDate = Date(timeIntervalSince1970: TimeInterval(keyFigureCard.header.updatedAt))
 			primaryTitle = updateDate.formatted(
 				todayString: AppStrings.Statistics.Card.FullyVaccinated.today,
@@ -230,7 +234,8 @@ class HomeStatisticsCardViewModel {
 		infoButtonAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.Doses.infoButton
 		illustrationImage = UIImage(named: "Doses")
 
-		if keyFigureCard.keyFigures.contains(where: { $0.rank == .primary }) {
+		if let primaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .primary }) {
+			primaryValue = primaryFigure.formattedValue
 			let updateDate = Date(timeIntervalSince1970: TimeInterval(keyFigureCard.header.updatedAt))
 			primaryTitle = updateDate.formatted(
 				todayString: AppStrings.Statistics.Card.DoseRates.today,

@@ -5,23 +5,7 @@
 import UIKit
 
 extension SAP_Internal_Stats_KeyFigure {
-	func formattedValue(homeStatisticsCard: HomeStatisticsCard? = nil, inPercent: Bool = false) -> String? {
-		guard let card = homeStatisticsCard, inPercent else {
-			return roundedValueString
-		}
-		switch card {
-		case .atLeastOneVaccinatedPerson, .fullyVaccinatedPeople:
-			let numberFormatter = NumberFormatter()
-			numberFormatter.numberStyle = .percent
-			let decimals = max(0, Int(self.decimals))
-			numberFormatter.maximumFractionDigits = Int(decimals)
-			return numberFormatter.string(from: NSNumber(value: value / 100))?.filter({ !$0.isWhitespace })
-		case .infections, .incidence, .keySubmissions, .reproductionNumber, .appliedVaccinationsDoseRates:
-			return roundedValueString
-		}
-	}
-
-	var roundedValueString: String? {
+	var formattedValue: String? {
 		let numberFormatter = NumberFormatter()
 		numberFormatter.numberStyle = .decimal
 
@@ -42,6 +26,14 @@ extension SAP_Internal_Stats_KeyFigure {
 
 			return numberFormatter.string(from: NSNumber(value: value))
 		}
+	}
+
+	var formattedValueWithPercent: String? {
+		let numberFormatter = NumberFormatter()
+		numberFormatter.numberStyle = .percent
+		let decimals = max(0, Int(self.decimals))
+		numberFormatter.maximumFractionDigits = Int(decimals)
+		return numberFormatter.string(from: NSNumber(value: value / 100))?.filter({ !$0.isWhitespace })
 	}
 	
 	var trendImage: UIImage? {
