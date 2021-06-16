@@ -174,7 +174,7 @@ public struct TestEntry: Codable, Equatable {
         naaTestName: String? = nil,
         ratTestName: String? = nil,
         dateTimeOfSampleCollection: String = "2021-05-29T22:34:17.595Z",
-        dateTimeOfTestResult: String? = "2021-05-31T08:58:17.595Z",
+        dateTimeOfTestResult: String = "2021-05-31T08:58:17.595Z",
         testCenter: String = "Rödelheim Esso Tankstelle",
         countryOfTest: String = "DE",
         certificateIssuer: String = "Bundesministerium für Gesundheit",
