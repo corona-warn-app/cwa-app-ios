@@ -27,15 +27,15 @@ class HomeStatisticsCardViewModelTests: CWATestCase {
 	}
 
 	func testVeryHighShortenedFormattedValue() {
-		checkFormattedValue(value: 10_000_000, decimals: 2, expectedString: "10,0 Mio.", inPercent: false)
+		checkFormattedValue(value: 10_000_000, decimals: 2, expectedString: "10.000.000,00", inPercent: false)
 	}
 
 	func testVeryHighShortenedFormattedValueRoundingDown() {
-		checkFormattedValue(value: 10_050_000, decimals: 2, expectedString: "10,0 Mio.", inPercent: false)
+		checkFormattedValue(value: 10_050_000, decimals: 2, expectedString: "10.050.000,00", inPercent: false)
 	}
 
 	func testVeryHighShortenedFormattedValueRoundingUp() {
-		checkFormattedValue(value: 10_050_001, decimals: 2, expectedString: "10,1 Mio.", inPercent: false)
+		checkFormattedValue(value: 10_050_001, decimals: 2, expectedString: "10.050.001,00", inPercent: false)
 	}
 
 	func testTrendImageAndAccessibilityLabelForIncreasingTrend() {
