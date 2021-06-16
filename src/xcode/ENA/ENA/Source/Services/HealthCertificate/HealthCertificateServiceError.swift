@@ -116,6 +116,7 @@ enum HealthCertificateServiceError: Error {
 		case decryptionFailed(Error)
 		case assemblyFailed(CertificateDecodingError)
 		case registrationError(HealthCertificateServiceError.RegistrationError)
+		case dgcNotSupportedByLab
 		case other(Error)
 
 		var errorDescription: String? {
@@ -219,6 +220,8 @@ enum HealthCertificateServiceError: Error {
 				return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, error.localizedDescription)
 			case .registrationError(let error):
 				return error.errorDescription
+			case .dgcNotSupportedByLab:
+				return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.dgcNotSupportedByLab, "DGC_NOT_SUPPORTED_BY_LAB")
 			}
 		}
 	}
