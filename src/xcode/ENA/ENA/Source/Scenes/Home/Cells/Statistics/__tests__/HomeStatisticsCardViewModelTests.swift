@@ -11,31 +11,31 @@ import XCTest
 class HomeStatisticsCardViewModelTests: CWATestCase {
 
 	func testFormattedValueWithoutDecimals() {
-		checkFormattedValue(value: 17.98, decimals: 0, expectedString: "18")
+		checkFormattedValue(value: 17.98, decimals: 0, expectedString: "18", inPercent: true)
 	}
 
 	func testFormattedValueWithNegativeDecimalsIsHandledAsZeroDecimals() {
-		checkFormattedValue(value: 17.98, decimals: -1, expectedString: "18")
+		checkFormattedValue(value: 17.98, decimals: -1, expectedString: "18", inPercent: true)
 	}
 
 	func testFormattedValueWithDecimals() {
-		checkFormattedValue(value: 17.98, decimals: 2, expectedString: "17,98")
+		checkFormattedValue(value: 17.98, decimals: 2, expectedString: "17,98", inPercent: true)
 	}
 
 	func testVeryHighFullyFormattedValue() {
-		checkFormattedValue(value: 9_999_999.99, decimals: 2, expectedString: "9.999.999,99")
+		checkFormattedValue(value: 9_999_999.99, decimals: 2, expectedString: "9.999.999,99", inPercent: true)
 	}
 
 	func testVeryHighShortenedFormattedValue() {
-		checkFormattedValue(value: 10_000_000, decimals: 2, expectedString: "10,0 Mio.")
+		checkFormattedValue(value: 10_000_000, decimals: 2, expectedString: "10,0 Mio.", inPercent: false)
 	}
 
 	func testVeryHighShortenedFormattedValueRoundingDown() {
-		checkFormattedValue(value: 10_050_000, decimals: 2, expectedString: "10,0 Mio.")
+		checkFormattedValue(value: 10_050_000, decimals: 2, expectedString: "10,0 Mio.", inPercent: false)
 	}
 
 	func testVeryHighShortenedFormattedValueRoundingUp() {
-		checkFormattedValue(value: 10_050_001, decimals: 2, expectedString: "10,1 Mio.")
+		checkFormattedValue(value: 10_050_001, decimals: 2, expectedString: "10,1 Mio.", inPercent: false)
 	}
 
 	func testTrendImageAndAccessibilityLabelForIncreasingTrend() {
@@ -680,7 +680,8 @@ class HomeStatisticsCardViewModelTests: CWATestCase {
 	private func checkFormattedValue(
 		value: Double = 0,
 		decimals: Int32 = 0,
-		expectedString: String
+		expectedString: String,
+		inPercent: Bool
 	) {
 		for id in HomeStatisticsCard.allCases.map({ $0.rawValue }) {
 			for rank in [SAP_Internal_Stats_KeyFigure.Rank.primary, .secondary, .tertiary] {
@@ -699,8 +700,9 @@ class HomeStatisticsCardViewModelTests: CWATestCase {
 				case .primary:
 					switch HomeStatisticsCard(rawValue: id) {
 					case .atLeastOneVaccinatedPerson, .fullyVaccinatedPeople:
-						XCTAssertEqual(viewModel.primaryValue, expectedString + AppStrings.Statistics.percent)
-
+						if inPercent {
+							XCTAssertEqual(viewModel.primaryValue, expectedString + AppStrings.Statistics.percent)
+						}
 					case .infections, .incidence, .keySubmissions, .reproductionNumber, .appliedVaccinationsDoseRates:
 						XCTAssertEqual(viewModel.primaryValue, expectedString)
 					case .none:

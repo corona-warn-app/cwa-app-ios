@@ -13,7 +13,8 @@ extension SAP_Internal_Stats_KeyFigure {
 		case .atLeastOneVaccinatedPerson, .fullyVaccinatedPeople:
 			let numberFormatter = NumberFormatter()
 			numberFormatter.numberStyle = .percent
-			numberFormatter.maximumFractionDigits = 2
+			let decimals = max(0, Int(self.decimals))
+			numberFormatter.maximumFractionDigits = Int(decimals)
 			return numberFormatter.string(from: NSNumber(value: value / 100))?.filter({ !$0.isWhitespace })
 		case .infections, .incidence, .keySubmissions, .reproductionNumber, .appliedVaccinationsDoseRates:
 			return roundedValueString
