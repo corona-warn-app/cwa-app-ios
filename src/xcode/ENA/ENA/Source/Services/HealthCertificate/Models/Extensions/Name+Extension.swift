@@ -8,28 +8,41 @@ import HealthCertificateToolkit
 extension Name {
 
 	var fullName: String {
-		var givenName = self.givenName
-		var familyName = self.familyName
-
-		if givenName == nil || givenName?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
-			givenName = standardizedGivenName
-		}
-
-		if familyName == nil || familyName?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
-			familyName = standardizedFamilyName
-		}
-
-		return [givenName, familyName]
-			.compactMap { $0 }
-			.filter { $0.trimmingCharacters(in: .whitespacesAndNewlines) != "" }
-			.joined(separator: " ")
+		return [resolvedGivenName, resolvedFamilyName].formatted()
+	}
+	
+	var reversedFullName: String {
+		return [resolvedFamilyName, resolvedGivenName].formatted()
 	}
 
 	var standardizedName: String {
-		[standardizedGivenName, standardizedFamilyName]
+		return [standardizedGivenName, standardizedFamilyName].formatted()
+	}
+
+	private var resolvedGivenName: String? {
+		var givenName = self.givenName
+		if givenName == nil || givenName?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
+			givenName = standardizedGivenName
+		}
+		return givenName
+	}
+	
+	private var resolvedFamilyName: String? {
+		var familyName = self.familyName
+		if familyName == nil || familyName?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
+			familyName = standardizedFamilyName
+		}
+		return familyName
+	}
+}
+
+fileprivate extension Sequence where Element == String? {
+	
+	func formatted() -> String {
+		return self
 			.compactMap { $0 }
 			.filter { $0.trimmingCharacters(in: .whitespacesAndNewlines) != "" }
 			.joined(separator: " ")
+			
 	}
-
 }
