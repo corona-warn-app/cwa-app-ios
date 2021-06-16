@@ -72,7 +72,7 @@ platform :ios do
       strict: true,
       quiet: true,
       no_cache: false,
-      reporter: "emoji",
+      reporter: "html",
       raise_if_swiftlint_error: false,
       ignore_exit_status: true
     )
