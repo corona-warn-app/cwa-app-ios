@@ -72,7 +72,15 @@ platform :ios do
       strict: true,
       quiet: true,
       no_cache: false,
-      reporter: "html"
+      reporter: "html",
+      raise_if_swiftlint_error: false,
+      ignore_exit_status: false
+    )
+
+    # Output issues directly in logs
+    sh(
+      "if [[ -e ../swiftlint.result.txt ]]; then cat ../swiftlint.result.txt; fi;",
+      step_name: "print report"
     )
   end
 
