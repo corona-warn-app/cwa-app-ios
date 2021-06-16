@@ -105,7 +105,7 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
         /// Schema validation errors:
         /// -Wrong format for dateOfBirth
         /// -Wrong format for dateOfVaccination
-        /// -uniqueCertificateIdentifier length > 50
+        /// -uniqueCertificateIdentifier length > 80
         let fakeCertificate = DigitalGreenCertificate.fake(
             dateOfBirth: "NODateOfBirth",
             vaccinationEntries: [
@@ -165,13 +165,13 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
         /// -Wrong format for dateOfBirth
         /// -Wrong format for dateTimeOfSampleCollection
         /// -Wrong format for dateTimeOfTestResult
-        /// -uniqueCertificateIdentifier length > 50
+        /// -uniqueCertificateIdentifier length > 80
         let fakeCertificate = DigitalGreenCertificate.fake(
             dateOfBirth: "NotADateOfBirth",
             testEntries: [
                 TestEntry.fake(
                     dateTimeOfSampleCollection: "NotADateTimeOfSampleCollection",
-                    uniqueCertificateIdentifier: "Lorem ipsum dolor sit amet, consetetur sadipscing e"
+                    uniqueCertificateIdentifier: "Lorem ipsum dolor sit amet, consetetur sadipscing eLorem ipsum dolor sit amet, consetetur sadipscing e"
                 )
             ]
         )
@@ -208,7 +208,7 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
         }
 
         let containsLengthError = innerSchemaErrors.contains {
-            $0.description == "Length of string is larger than max length 50"
+            $0.description == "Length of string is larger than max length 80"
         }
 
         XCTAssertEqual(innerSchemaErrors.count, 3)
@@ -223,7 +223,7 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
         /// This data contains data which leads to validation errors.
         /// Schema validation errors:
         /// -Wrong format for dateOfFirstPositiveNAAResult
-        /// -uniqueCertificateIdentifier length > 50
+        /// -uniqueCertificateIdentifier length > 80
         let fakeCertificate = DigitalGreenCertificate.fake(
             dateOfBirth: "NotADateOfBirth",
             recoveryEntries: [
@@ -231,7 +231,7 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
                     dateOfFirstPositiveNAAResult: "NotADateOfFirstPositiveNAAResult",
                     certificateValidFrom: "NotACertificateValidFrom",
                     certificateValidUntil: "NotACertificateValidUntil",
-                    uniqueCertificateIdentifier: "Lorem ipsum dolor sit amet, consetetur sadipscing e"
+                    uniqueCertificateIdentifier: "Lorem ipsum dolor sit amet, consetetur sadipscing eLorem ipsum dolor sit amet, consetetur sadipscing e"
                 )
             ]
         )
@@ -264,19 +264,19 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
         }
 
         let containsDateOfFirstPositiveNAAResultError = innerSchemaErrors.contains {
-            $0.description.contains("NotADateOfFirstPositiveNAAResult' is not a valid RFC 3339 formatted date.")
+            $0.description.contains("NotADateOfFirstPositiveNAAResult' does not match pattern")
         }
 
         let containsCertificateValidFromError = innerSchemaErrors.contains {
-            $0.description.contains("NotACertificateValidFrom' is not a valid RFC 3339 formatted date.")
+            $0.description.contains("NotACertificateValidFrom' does not match pattern")
         }
 
         let containsCertificateValidUntilError = innerSchemaErrors.contains {
-            $0.description.contains("NotACertificateValidUntil' is not a valid RFC 3339 formatted date.")
+            $0.description.contains("NotACertificateValidUntil' does not match pattern")
         }
 
         let containsLengthError = innerSchemaErrors.contains {
-            $0.description == "Length of string is larger than max length 50"
+            $0.description == "Length of string is larger than max length 80"
         }
 
         XCTAssertEqual(innerSchemaErrors.count, 5)

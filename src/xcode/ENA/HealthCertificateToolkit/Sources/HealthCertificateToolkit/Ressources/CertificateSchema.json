@@ -28,7 +28,7 @@
       "title": "Date of birth",
       "description": "Date of Birth of the person addressed in the DCC. ISO 8601 date format restricted to range 1900-2099 or empty",
       "type": "string",
-      "pattern": "^((19|20)\\d\\d(-\\d\\d){0,2}){0,1}.*$",
+      "pattern": "^(((19|20)\\d\\d-\\d\\d-\\d\\d(T.*)?)|(((19|20)\\d\\d(-\\d\\d){0,2}))|)$",
       "examples": [
         "1979-04-14",
         "1950",
