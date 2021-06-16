@@ -12,7 +12,7 @@ class HomeStatisticsCardViewModel {
 	// swiftlint:disable cyclomatic_complexity
 	init(for keyFigureCard: SAP_Internal_Stats_KeyFigureCard) {
 		if let primaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .primary }) {
-			primaryValue = primaryFigure.formattedValue(cardRawValue: keyFigureCard.header.cardID)
+			primaryValue = primaryFigure.formattedValue(homeStatisticsCard: HomeStatisticsCard(rawValue: keyFigureCard.header.cardID), inPercent: true)
 
 			primaryTrendImage = primaryFigure.trendImage
 			primaryTrendImageTintColor = primaryFigure.trendTintColor

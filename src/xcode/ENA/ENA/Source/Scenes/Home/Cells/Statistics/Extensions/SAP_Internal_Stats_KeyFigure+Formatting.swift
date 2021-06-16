@@ -5,11 +5,25 @@
 import UIKit
 
 extension SAP_Internal_Stats_KeyFigure {
-	func formattedValue(cardRawValue: Int32? = nil) -> String? {
+	func formattedValue(homeStatisticsCard: HomeStatisticsCard? = nil, inPercent: Bool = false) -> String? {
+		guard let card = homeStatisticsCard, inPercent else {
+			return roundedValueString
+		}
+		switch card {
+		case .atLeastOneVaccinatedPerson, .fullyVaccinatedPeople:
+			let numberFormatter = NumberFormatter()
+			numberFormatter.numberStyle = .percent
+			numberFormatter.maximumFractionDigits = 2
+			return numberFormatter.string(from: NSNumber(value: value / 100))?.filter({ !$0.isWhitespace })
+		case .infections, .incidence, .keySubmissions, .reproductionNumber, .appliedVaccinationsDoseRates:
+			return roundedValueString
+		}
+	}
+
+	var roundedValueString: String? {
 		let numberFormatter = NumberFormatter()
 		numberFormatter.numberStyle = .decimal
-		var formattedString: String?
-		
+
 		if value >= 10_000_000 {
 			numberFormatter.minimumFractionDigits = 1
 			numberFormatter.maximumFractionDigits = 1
@@ -19,31 +33,16 @@ extension SAP_Internal_Stats_KeyFigure {
 				return nil
 			}
 
-			formattedString = String(format: AppStrings.Statistics.Card.million, formattedNumber)
+			return String(format: AppStrings.Statistics.Card.million, formattedNumber)
 		} else {
 			let decimals = max(0, Int(self.decimals))
 			numberFormatter.minimumFractionDigits = Int(decimals)
 			numberFormatter.maximumFractionDigits = Int(decimals)
 
-			formattedString = numberFormatter.string(from: NSNumber(value: value))
-		}
-		guard let cardId = cardRawValue else {
-			return formattedString
-		}
-		switch HomeStatisticsCard(rawValue: cardId) {
-		case .atLeastOneVaccinatedPerson, .fullyVaccinatedPeople:
-			guard let valueString = formattedString else {
-				return formattedString
-			}
-			return valueString + AppStrings.Statistics.percent
-		case .infections, .incidence, .keySubmissions, .reproductionNumber, .appliedVaccinationsDoseRates:
-			return formattedString
-		case .none:
-			Log.info("Statistics card ID \(cardId) is not supported", log: .ui)
-			return formattedString
+			return numberFormatter.string(from: NSNumber(value: value))
 		}
 	}
-
+	
 	var trendImage: UIImage? {
 		switch trend {
 		case .stable:
