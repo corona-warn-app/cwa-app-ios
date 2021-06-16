@@ -58,7 +58,7 @@ class TestCertificateRequest: Codable, Equatable {
 		encryptedDEK = try container.decodeIfPresent(String.self, forKey: .encryptedDEK)
 		encryptedCOSE = try container.decodeIfPresent(String.self, forKey: .encryptedCOSE)
 		requestExecutionFailed = try container.decode(Bool.self, forKey: .requestExecutionFailed)
-		labId = try container.decode(String.self, forKey: .labId)
+		labId = try container.decodeIfPresent(String.self, forKey: .labId)
 		isLoading = !requestExecutionFailed
 	}
 
