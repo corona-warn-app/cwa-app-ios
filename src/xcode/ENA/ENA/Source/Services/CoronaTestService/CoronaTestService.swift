@@ -645,14 +645,14 @@ class CoronaTestService {
 					completion(.failure(.responseFailure(error)))
 				}
 			case let .success(response):
-				guard let testResult = TestResult(serverResponse: response.body.testResult) else {
+				guard let testResult = TestResult(serverResponse: response.testResult) else {
 					Log.error("[CoronaTestService] Getting test result failed: Unknown test result \(response)", log: .api)
 
 					completion(.failure(.unknownTestResult))
 					return
 				}
 
-				Log.info("[CoronaTestService] Got test result (coronaTestType: \(coronaTestType), testResult: \(testResult)), sampleCollectionDate: \(String(describing: response.body.sc))", log: .api)
+				Log.info("[CoronaTestService] Got test result (coronaTestType: \(coronaTestType), testResult: \(testResult)), sampleCollectionDate: \(String(describing: response.sc))", log: .api)
 				var updatedSampleCollectionDate: Date?
 
 				switch coronaTestType {
@@ -665,7 +665,7 @@ class CoronaTestService {
 
 					self.antigenTest?.testResult = testResult
 
-					updatedSampleCollectionDate = response.body.sc.map {
+					updatedSampleCollectionDate = response.sc.map {
 						Date(timeIntervalSince1970: TimeInterval($0))
 					}
 					self.antigenTest?.sampleCollectionDate = updatedSampleCollectionDate

@@ -24,7 +24,7 @@ final class HTTPClientTestResultTests: CWATestCase {
 			defer { successExpectation.fulfill() }
 			switch result {
 			case .success(let response):
-				XCTAssertEqual(testResult, response.body.testResult)
+				XCTAssertEqual(testResult, response.testResult)
 			case .failure:
 				XCTFail("Encountered Error when receiving test result!")
 			}

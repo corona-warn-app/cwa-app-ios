@@ -143,18 +143,10 @@ final class HTTPClient: Client {
 					return
 				}
 				do {
-					let responseBody = try JSONDecoder().decode(
-						FetchTestResultResponseBody.self,
+					let testResultResponse = try JSONDecoder().decode(
+						FetchTestResultResponse.self,
 						from: testResultResponseData
 					)
-
-					let labId = response.httpResponse.value(forCaseInsensitiveHeaderField: "labId")
-
-					let testResultResponse = FetchTestResultResponse(
-						labId: labId,
-						body: responseBody
-					)
-
 					completeWith(.success(testResultResponse))
 				} catch {
 					Log.error("Failed to get test result with invalid response payload structure", log: .api)

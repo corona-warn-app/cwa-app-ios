@@ -246,34 +246,10 @@ extension SubmissionError: LocalizedError {
 	}
 }
 
-struct FetchTestResultResponseBody: Codable {
+struct FetchTestResultResponse: Codable {
 	let testResult: Int
 	let sc: Int?
-
-	static func fake(
-		testResult: Int = 0,
-		sc: Int? = nil
-	) -> FetchTestResultResponseBody {
-		FetchTestResultResponseBody(
-			testResult: testResult,
-			sc: sc
-		)
-	}
-}
-
-struct FetchTestResultResponse: Codable {
 	let labId: String?
-	let body: FetchTestResultResponseBody
-
-	static func fake(
-		labId: String? = nil,
-		body: FetchTestResultResponseBody = .fake()
-	) -> FetchTestResultResponse {
-		FetchTestResultResponse(
-			labId: labId,
-			body: body
-		)
-	}
 
 	static func fake(
 		testResult: Int = 0,
@@ -281,12 +257,9 @@ struct FetchTestResultResponse: Codable {
 		labId: String? = nil
 	) -> FetchTestResultResponse {
 		FetchTestResultResponse(
-			labId: labId,
-			body:
-				FetchTestResultResponseBody(
-					testResult: testResult,
-					sc: sc
-				)
+			testResult: testResult,
+			sc: sc,
+			labId: labId
 		)
 	}
 }
