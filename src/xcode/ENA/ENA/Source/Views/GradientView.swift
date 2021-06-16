@@ -5,7 +5,7 @@
 import UIKit
 
 @IBDesignable
-public class GradientView: UIView {
+class GradientView: UIView {
 
 	// MARK: - Init
 
@@ -22,13 +22,13 @@ public class GradientView: UIView {
 
 	// MARK: - Overrides
 
-	override class public var layerClass: AnyClass {
+	override class var layerClass: AnyClass {
 		return CAGradientLayer.self
 	}
 
 	// MARK: - Internal
 
-	public enum GradientType {
+	enum GradientType {
 		case blueRedTilted
 		case blueOnly
 		case solidGrey
@@ -50,7 +50,7 @@ public class GradientView: UIView {
 
 	}
 
-	public var type: GradientType = .blueRedTilted {
+	var type: GradientType = .blueRedTilted {
 		didSet {
 			setupLayer()
 			setupStars()
