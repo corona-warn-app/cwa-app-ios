@@ -128,6 +128,22 @@ struct HealthCertificate: Codable, Equatable, Comparable {
 		return Date(timeIntervalSince1970: TimeInterval(cborWebTokenHeader.expirationTime))
 	}
 
+	var ageInHours: Int? {
+		guard let sortDate = sortDate else {
+			return nil
+		}
+
+		return Calendar.current.dateComponents([.hour], from: sortDate, to: Date()).day
+	}
+
+	var ageInDays: Int? {
+		guard let sortDate = sortDate else {
+			return nil
+		}
+
+		return Calendar.current.dateComponents([.day], from: sortDate, to: Date()).day
+	}
+
 	// MARK: - Private
 
 	private var cborWebTokenHeader: CBORWebTokenHeader {
