@@ -214,7 +214,7 @@ class HealthCertificateService {
 
 		testCertificateRequest.isLoading = true
 
-		// If we didn't retrieved a labId for a PRC test result, the lab is not supporting test certificates.
+		// If we didn't retrieve a labId for a PRC test result, the lab is not supporting test certificates.
 		if testCertificateRequest.coronaTestType == .pcr && testCertificateRequest.labId == nil {
 			testCertificateRequest.requestExecutionFailed = true
 			testCertificateRequest.isLoading = false
