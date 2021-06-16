@@ -166,7 +166,7 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 	private let didSwipeToDelete: (HealthCertificate, @escaping () -> Void) -> Void
 
 	private let viewModel: HealthCertifiedPersonViewModel
-	private let backgroundView = GradientBackgroundView(type: .solidGrey, doDisplayStars: true)
+	private let backgroundView = GradientBackgroundView(type: .solidGrey)
 	private let tableView = UITableView(frame: .zero, style: .plain)
 
 	private var subscriptions = Set<AnyCancellable>()

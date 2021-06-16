@@ -58,7 +58,7 @@ class HealthCertifiedPerson: Codable, Equatable {
 			case .fullyVaccinated:
 				return .solidGrey
 			case .completelyProtected:
-				return .lightBlue
+				return .lightBlueWithStars
 			}
 		}
 	}

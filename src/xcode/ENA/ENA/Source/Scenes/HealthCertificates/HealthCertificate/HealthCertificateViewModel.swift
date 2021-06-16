@@ -23,7 +23,7 @@ final class HealthCertificateViewModel {
 		)
 
 		if case .test = healthCertificate.type {
-			gradientType = .green
+			gradientType = .greenWithStars
 		} else {
 			healthCertifiedPerson?.$vaccinationState
 				.sink { [weak self] in

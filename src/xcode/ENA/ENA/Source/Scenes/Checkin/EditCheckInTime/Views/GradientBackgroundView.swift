@@ -8,9 +8,8 @@ class GradientBackgroundView: UIView {
 
 	// MARK: - Init
 
-	init(type: GradientView.GradientType = .blueRedTilted, doDisplayStars: Bool = false) {
+	init(type: GradientView.GradientType = .blueRedTilted) {
 		self.type = type
-		self.displayStars = doDisplayStars
 		super.init(frame: .zero)
 		setupView()
 	}
@@ -37,7 +36,6 @@ class GradientBackgroundView: UIView {
 	// MARK: - Private
 
 	private let gradientView = GradientView()
-	private var displayStars: Bool
 	private var topLayoutConstraint: NSLayoutConstraint!
 
 	private func setupView() {
@@ -48,18 +46,6 @@ class GradientBackgroundView: UIView {
 		backgroundViewContainer.backgroundColor = .enaColor(for: .cellBackground)
 		addSubview(backgroundViewContainer)
 
-		var starsView = UIImageView()
-		if type == .green {
-			starsView = UIImageView(image: UIImage(named: "green-stars"))
-		} else {
-			starsView = UIImageView(image: UIImage(named: "stars"))
-		}
-
-		if displayStars {
-			starsView.translatesAutoresizingMaskIntoConstraints = false
-			gradientView.addSubview(starsView)
-		}
-
 		gradientView.translatesAutoresizingMaskIntoConstraints = false
 		addSubview(gradientView)
 		gradientView.type = type
@@ -68,32 +54,20 @@ class GradientBackgroundView: UIView {
 		gradientHeightConstraint = gradientView.heightAnchor.constraint(equalToConstant: 150)
 		gradientHeightConstraint.priority = .defaultHigh
 		
-		var constraints: [NSLayoutConstraint] = [
-			topLayoutConstraint,
-			gradientView.leadingAnchor.constraint(equalTo: leadingAnchor),
-			gradientView.trailingAnchor.constraint(equalTo: trailingAnchor),
-			gradientHeightConstraint,
-			
-			backgroundViewContainer.topAnchor.constraint(equalTo: gradientView.bottomAnchor),
-			backgroundViewContainer.topAnchor.constraint(equalTo: gradientView.bottomAnchor),
-			backgroundViewContainer.leadingAnchor.constraint(equalTo: leadingAnchor),
-			backgroundViewContainer.trailingAnchor.constraint(equalTo: trailingAnchor),
-			backgroundViewContainer.bottomAnchor.constraint(equalTo: bottomAnchor)
-		]
-
-		if displayStars {
-			constraints.append(starsView.trailingAnchor.constraint(equalTo: gradientView.trailingAnchor, constant: -33))
-			constraints.append(starsView.topAnchor.constraint(equalTo: gradientView.topAnchor, constant: 11))
-			
-			NSLayoutConstraint.activate(
-				constraints
-			)
-		} else {
-			NSLayoutConstraint.activate(
-				constraints
-			)
-		}
-
+		NSLayoutConstraint.activate(
+			[
+				topLayoutConstraint,
+				gradientView.leadingAnchor.constraint(equalTo: leadingAnchor),
+				gradientView.trailingAnchor.constraint(equalTo: trailingAnchor),
+				gradientHeightConstraint,
+				
+				backgroundViewContainer.topAnchor.constraint(equalTo: gradientView.bottomAnchor),
+				backgroundViewContainer.topAnchor.constraint(equalTo: gradientView.bottomAnchor),
+				backgroundViewContainer.leadingAnchor.constraint(equalTo: leadingAnchor),
+				backgroundViewContainer.trailingAnchor.constraint(equalTo: trailingAnchor),
+				backgroundViewContainer.bottomAnchor.constraint(equalTo: bottomAnchor)
+			]
+		)
 	}
 
 }

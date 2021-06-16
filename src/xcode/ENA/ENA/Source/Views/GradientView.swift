@@ -5,14 +5,14 @@
 import UIKit
 
 @IBDesignable
-class GradientView: UIView {
+public class GradientView: UIView {
 
 	// MARK: - Init
 
 	override init(frame: CGRect) {
 		super.init(frame: frame)
-
 		setupLayer()
+		setupStars()
 	}
 
 	required init?(coder: NSCoder) {
@@ -22,28 +22,70 @@ class GradientView: UIView {
 
 	// MARK: - Overrides
 
-	override class var layerClass: AnyClass {
+	override class public var layerClass: AnyClass {
 		return CAGradientLayer.self
 	}
 
 	// MARK: - Internal
 
-	enum GradientType {
+	public enum GradientType {
 		case blueRedTilted
 		case blueOnly
 		case solidGrey
 		case lightBlue
 		case green
+		case lightBlueWithStars
+		case greenWithStars
+
+		var starImage: UIImage? {
+			switch self {
+			case .lightBlueWithStars:
+				return UIImage(imageLiteralResourceName: "stars")
+			case .greenWithStars:
+				return UIImage(imageLiteralResourceName: "green-stars")
+			default:
+				return nil
+			}
+		}
+
 	}
 
-	var type: GradientType = .blueRedTilted { didSet { setupLayer() } }
+	public var type: GradientType = .blueRedTilted {
+		didSet {
+			setupLayer()
+			setupStars()
+		}
+	}
 
 	// MARK: - Private
 
+	private var withStars: Bool = false
+	private var starImageView: UIImageView = UIImageView()
+
+	private func setupStars() {
+		guard let image = type.starImage else {
+			starImageView.removeFromSuperview()
+			return
+		}
+
+		starImageView = UIImageView(image: image)
+		starImageView.contentMode = .scaleAspectFit
+		starImageView.translatesAutoresizingMaskIntoConstraints = false
+		addSubview(starImageView)
+
+		NSLayoutConstraint.activate(
+			[
+				starImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -33),
+				starImageView.topAnchor.constraint(equalTo: topAnchor, constant: 11)
+			]
+		)
+	}
+
 	private func setupLayer() {
 		guard let gradientLayer = self.layer as? CAGradientLayer else {
-			Log.debug("Failed to create view with matching layer class", log: .default)
-			return }
+			return
+		}
+
 		switch type {
 		case .blueRedTilted:
 			// magic numbers to create the gradient colors in the right place
@@ -80,7 +122,6 @@ class GradientView: UIView {
 			gradientLayer.locations = [0.0, 1.0]
 			gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
 			gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
-
 		case .green:
 			gradientLayer.colors = [
 				UIColor(red: 40 / 255, green: 132 / 255, blue: 71 / 255, alpha: 1).cgColor,
@@ -89,6 +130,23 @@ class GradientView: UIView {
 			gradientLayer.locations = [0.0, 1.0]
 			gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
 			gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
+		case .lightBlueWithStars:
+			gradientLayer.colors = [
+				UIColor(red: 0 / 255, green: 147 / 255, blue: 200 / 255, alpha: 1).cgColor,
+				UIColor(red: 0 / 255, green: 127 / 255, blue: 173 / 255, alpha: 1).cgColor
+			]
+			gradientLayer.locations = [0.0, 1.0]
+			gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
+			gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
+		case .greenWithStars:
+			gradientLayer.colors = [
+				UIColor(red: 40 / 255, green: 132 / 255, blue: 71 / 255, alpha: 1).cgColor,
+				UIColor(red: 53 / 255, green: 181 / 255, blue: 95 / 255, alpha: 1).cgColor
+			]
+			gradientLayer.locations = [0.0, 1.0]
+			gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
+			gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
 		}
+		setupStars()
 	}
 }
