@@ -64,7 +64,7 @@ class HealthCertificateOverviewViewModel {
 		case .healthCertificate:
 			return healthCertifiedPersons.count
 		case .createHealthCertificate:
-			return healthCertifiedPersons.isEmpty ? 1 : 0
+			return 1
 		case .testCertificates:
 			return testCertificates.count
 		case .testCertificateRequests:

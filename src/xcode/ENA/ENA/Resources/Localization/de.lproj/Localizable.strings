@@ -2603,7 +2603,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Info_imageDescription" = "Eine geschützte Person schaut auf ein Smartphone";
 
-"HealthCertificate_Info_description" = "Fügen Sie ihre digitalen EU COVID-Zertifikate in der App hinzu, um mit der App Ihren Impfschutz oder ein negatives Testergebnis nachweisen zu können.";
+"HealthCertificate_Info_description" = "Fügen Sie Ihre digitalen EU COVID-Zertifikate in der App hinzu, um mit der App Ihren Impfschutz oder ein negatives Testergebnis nachweisen zu können.";
 
 "HealthCertificate_Info_section01" = "Sie können EU digitale COVID-Impfzertifikate oder COVID-Testzertifikate in der App hinzufügen.";
 
@@ -2634,8 +2634,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "HealthCertifiedPerson_vaccinationDate" = "durchgeführt am %@";
 
 "HealthCertifiedPerson_QRCode_Image_Description" = "Ein QR-Code mit dem Status Ihrer Impfung";
-
-"HealthCertifiedPerson_primaryButton" = "Weitere Impfung hinzufügen";
 
 /* Vaccination Certificate Details */
 
@@ -2685,7 +2683,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TestCertificate_Details_primaryButton" = "Testzertifikat entfernen";
 
-/* Vaccination Certificate Delete Alert */
+/* Test Certificate Delete Alert */
 
 "TestCertificate_Alert_title" = "Wollen Sie das Testzertifikat wirklich entfernen?";
 
@@ -2695,6 +2693,24 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TestCertificate_Alert_cancelButton" = "Abbrechen";
 
+/* Recovery Certificate Details */
+
+"RecoveryCertificate_Details_title" = "Genesenenzertifikat";
+
+"RecoveryCertificate_Details_subtitle" = "EU Digitales COVID-Zertifikat";
+
+"RecoveryCertificate_Details_primaryButton" = "Genesenenzertifikat entfernen";
+
+/* Recovery Certificate Delete Alert */
+
+"RecoveryCertificate_Alert_title" = "Wollen Sie das Genesenenzertifikat wirklich entfernen?";
+
+"RecoveryCertificate_Alert_message" = "Wenn Sie das Genesenenzertifikat entfernen, können Sie es nicht mehr als Nachweis in der App verwenden.";
+
+"RecoveryCertificate_Alert_deleteButton" = "Entfernen";
+
+"RecoveryCertificate_Alert_cancelButton" = "Abbrechen";
+
 /* Health Certificate Errors */
 
 "HealthCertificate_Error_Title" = "Fehler";
@@ -2703,14 +2719,10 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Error_FAQ_Button_Title" = "FAQ zu Impfzertifikaten";
 
-"HealthCertificate_Error_PC_TRY_AGAIN_LATER" = "Das Impfzertifikat kann aktuell nicht überprüft werden. Bitte versuchen Sie es später noch einmal.";
+"HealthCertificate_Error_HC_ALREADY_REGISTERED" = "Das Zertifikat ist bereits in Ihrer App registriert.";
 
-"HealthCertificate_Error_VC_ALREADY_REGISTERED" = "Das Impfzertifikat ist bereits in Ihrer App registriert.";
+"HealthCertificate_Error_HC_INVALID" = "Dieser QR-Code ist kein gültiges Zertifikat.";
 
-"HealthCertificate_Error_VC_DIFFERENT_PERSON" = "Die persönlichen Daten dieses Impfzertifikats stimmen nicht mit denen der bereits registrierten Zertifikate überein. Sie können in der App nur Zertifikate einer Person registrieren.";
+"HealthCertificate_Error_HC_NOT_SUPPORTED" = "Dieses Zertifikat wird nicht unterstützt.";
 
-"HealthCertificate_Error_VC_INVALID" = "Dieser QR-Code ist kein gültiges Impfzertifikat.";
-
-"HealthCertificate_Error_VC_NOT_YET_SUPPORTED" = "Dieses Impfzertifikat wird in Ihrer App-Version noch nicht unterstützt. Bitte aktualisieren Sie Ihre App oder wenden Sie sich an die technische Hotline unter „App-Informationen“.";
-
-"HealthCertificate_Error_VC_SCAN_AGAIN" = "Das Impfzertifikat konnte nicht auf Ihrem Smartphone gespeichert werden. Bitte versuchen Sie es später noch einmal oder wenden Sie sich an die technische Hotline unter „App-Informationen“.";
+"HealthCertificate_Error_HC_QR_CODE_ERROR" = "Der QR-Code konnte nicht generiert werden. Sollte der Fehler weiterhin bestehen, kontaktieren Sie die Hotline über App-Informationen -> Technische Hotline.";
