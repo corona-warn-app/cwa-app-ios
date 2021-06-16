@@ -29,3 +29,7 @@
 "Risk_Encounter_Low_FAQ_URL" = "https://www.coronawarn.app/en/faq/";
 
 "HealthCertificate_Info_register_FAQLink" = "https://www.coronawarn.app/en/faq/";
+
+"HealthCertificate_Error_FAQ_Link" = "https://www.coronawarn.app/en/faq/#vac_cert_invalid";
+
+"TestCertificate_Error_FAQ_Link" = "https://www.coronawarn.app/en/faq/#test_cert";

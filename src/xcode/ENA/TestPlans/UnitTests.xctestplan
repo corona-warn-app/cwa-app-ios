@@ -97,6 +97,14 @@
         "identifier" : "85D7595E24570491008175F0",
         "name" : "ENAUITests"
       }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:HealthCertificateToolkit",
+        "identifier" : "HealthCertificateToolkitTests",
+        "name" : "HealthCertificateToolkitTests"
+      }
     }
   ],
   "version" : 1

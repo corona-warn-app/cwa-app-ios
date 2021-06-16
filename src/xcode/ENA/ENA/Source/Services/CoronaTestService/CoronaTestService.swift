@@ -180,7 +180,20 @@ class CoronaTestService {
 					Analytics.collect(.testResultMetadata(.registerNewTestMetadata(Date(), registrationToken, .pcr)))
 					Analytics.collect(.testResultMetadata(.updateTestResult(.positive, registrationToken, .pcr)))
 					Analytics.collect(.keySubmissionMetadata(.submittedWithTeletan(true, .pcr)))
-
+					
+					// Because every test registered per teleTAN is positive, we can add this PCR test as positive in the contact diary.
+					// testDate: For PCR -> registration date
+					// testType: Always PCR
+					// testResult: teleTan is always positive
+					
+					let stringDate = ISO8601DateFormatter.justLocalDateFormatter.string(from: _pcrTest.registrationDate)
+					self?.diaryStore.addCoronaTest(
+						testDate: stringDate,
+						testType: CoronaTestType.pcr.rawValue,
+						testResult: TestResult.positive.rawValue
+					)
+					self?.pcrTest?.journalEntryCreated = true
+					
 					completion(.success(()))
 				case .failure(let error):
 					Log.error("[CoronaTestService] PCR test registration failed: \(error.localizedDescription)", log: .api)
@@ -639,18 +652,23 @@ class CoronaTestService {
 					return
 				}
 
-				Log.info("[CoronaTestService] Got test result (coronaTestType: \(coronaTestType), testResult: \(testResult))", log: .api)
+				Log.info("[CoronaTestService] Got test result (coronaTestType: \(coronaTestType), testResult: \(testResult)), sampleCollectionDate: \(String(describing: response.sc))", log: .api)
+				var updatedSampleCollectionDate: Date?
 
 				switch coronaTestType {
 				case .pcr:
 					Analytics.collect(.testResultMetadata(.updateTestResult(testResult, registrationToken, .pcr)))
+					
 					self.pcrTest?.testResult = testResult
 				case .antigen:
 					Analytics.collect(.testResultMetadata(.updateTestResult(testResult, registrationToken, .antigen)))
+
 					self.antigenTest?.testResult = testResult
-					self.antigenTest?.sampleCollectionDate = response.sc.map {
+
+					updatedSampleCollectionDate = response.sc.map {
 						Date(timeIntervalSince1970: TimeInterval($0))
 					}
+					self.antigenTest?.sampleCollectionDate = updatedSampleCollectionDate
 				}
 
 				switch testResult {
@@ -660,17 +678,24 @@ class CoronaTestService {
 					}
 
 					// only store test result in diary if negative or positive
-					if (testResult == .positive || testResult == .negative) && !coronaTest.journalEntryCreated {
-						// -> store
-						let stringDate = DateFormatter.packagesDayDateFormatter.string(from: registrationDate)
-						self.diaryStore.addCoronaTest(testDate: stringDate, testType: coronaTestType.rawValue, testResult: testResult.rawValue)
-
+					// Warning: check the current coronaTest so that changes are not overlooked
+					//
+					if let journalEntryCreated = self.coronaTest(ofType: coronaTestType)?.journalEntryCreated,
+					   (testResult == .positive || testResult == .negative) && !journalEntryCreated {
 						switch coronaTestType {
 						case .pcr:
 							self.pcrTest?.journalEntryCreated = true
 						case .antigen:
 							self.antigenTest?.journalEntryCreated = true
 						}
+						// PCR -> registration date
+						// antigen -> sample collection date if available otherwise we use point of care consent date
+						// Warning: updatedSampleCollectionDate must get used because the service level struct antigenTest has changed and coronaTest wasn't updated
+						//
+						let stringDate = ISO8601DateFormatter.justLocalDateFormatter.string(from: updatedSampleCollectionDate ?? coronaTest.testDate)
+						Log.debug("Write test result to contact diary at date: \(stringDate)", log: .contactdiary)
+						self.diaryStore.addCoronaTest(testDate: stringDate, testType: coronaTestType.rawValue, testResult: testResult.rawValue)
+
 					}
 
 					if coronaTest.finalTestResultReceivedDate == nil {
@@ -686,7 +711,8 @@ class CoronaTestService {
 								coronaTestType: coronaTestType,
 								registrationToken: registrationToken,
 								registrationDate: registrationDate,
-								retryExecutionIfCertificateIsPending: true
+								retryExecutionIfCertificateIsPending: true,
+								labId: response.labId
 							)
 
 							switch coronaTestType {
@@ -748,7 +774,7 @@ class CoronaTestService {
 				let hoursToDeemTestOutdated = $0.coronaTestParameters.coronaRapidAntigenTestParameters.hoursToDeemTestOutdated
 				guard
 					hoursToDeemTestOutdated != 0,
-					let outdatedDate = Calendar.current.date(byAdding: .hour, value: Int(hoursToDeemTestOutdated), to: antigenTest.pointOfCareConsentDate)
+					let outdatedDate = Calendar.current.date(byAdding: .hour, value: Int(hoursToDeemTestOutdated), to: antigenTest.testDate)
 				else {
 					return
 				}

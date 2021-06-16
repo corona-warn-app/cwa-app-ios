@@ -6,6 +6,7 @@ import XCTest
 import SwiftCBOR
 @testable import HealthCertificateToolkit
 
+// swiftlint:disable line_length type_body_length
 final class DigitalGreenCertificateAccessTests: XCTestCase {
 
     func test_When_DecodeVaccinationCertificateSucceeds_Then_CorrectCertificateIsReturned() {
@@ -52,7 +53,7 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
 
     func test_When_DecodeCertificateFails_Then_Base45DecodingErrorIsReturned() {
         let certificateAccess = DigitalGreenCertificateAccess()
-        let nonBase45WithPrefix = hcPrefix+"==="
+        let nonBase45WithPrefix = hcPrefix + "==="
 
         let result = certificateAccess.extractDigitalGreenCertificate(from: nonBase45WithPrefix)
 
@@ -70,7 +71,7 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
     func test_When_DecodeCertificateFails_Then_CompressionErrorIsReturned() {
         let certificateAccess = DigitalGreenCertificateAccess()
         // "%69 VDL2" == "Hello"
-        let base45NoZip = hcPrefix+"%69 VDL2"
+        let base45NoZip = hcPrefix + "%69 VDL2"
 
         let result = certificateAccess.extractDigitalGreenCertificate(from: base45NoZip)
 
@@ -127,11 +128,11 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
         }
 
         let containsNODateOfBirthError = innerSchemaErrors.contains {
-            $0.description == "'NODateOfBirth' does not match pattern: '^(19|20)\\d{2}-\\d{2}-\\d{2}$'"
+            $0.description.contains("'NODateOfBirth' does not match pattern")
         }
 
         let containsNODateOfVaccination = innerSchemaErrors.contains {
-            $0.description == "'NODateOfVaccination' does not match pattern: '^20\\d{2}-\\d{2}-\\d{2}$'"
+            $0.description.contains("'NODateOfVaccination' does not match pattern")
         }
 
         let containsLengthError = innerSchemaErrors.contains {
@@ -192,11 +193,11 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
         }
 
         let containsDateTimeOfSampleCollectionError = innerSchemaErrors.contains {
-            $0.description.contains("NotADateTimeOfSampleCollection' does not match pattern")
+            $0.description.contains("NotADateTimeOfSampleCollection' is not a valid RFC 3339 formatted date")
         }
 
         let containsDateTimeOfTestResult = innerSchemaErrors.contains {
-            $0.description.contains("NotADateTimeOfTestResult' does not match pattern")
+            $0.description.contains("NotADateTimeOfTestResult' is not a valid RFC 3339 formatted date")
         }
 
         let containsLengthError = innerSchemaErrors.contains {
@@ -208,6 +209,59 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
         XCTAssertTrue(containsDateTimeOfSampleCollectionError)
         XCTAssertTrue(containsDateTimeOfTestResult)
         XCTAssertTrue(containsLengthError)
+    }
+
+    func test_When_DecodeWithFailJSON_Then_SchemaInvalidErrorIsReturned() {
+        for failJsonString in failJsonStrings {
+            guard let jsonData = failJsonString.data(using: .utf8),
+                  let certificate = try? JSONDecoder().decode(DigitalGreenCertificate.self, from: jsonData) else {
+                XCTFail("JSON decoding failed.")
+                return
+            }
+
+            let base45FakeResult = DigitalGreenCertificateFake.makeBase45Fake(from: certificate, and: CBORWebTokenHeader.fake())
+            guard case let .success(base45Fake) = base45FakeResult else {
+                XCTFail("Success expected.")
+                return
+            }
+
+            let validationResult = DigitalGreenCertificateAccess().extractDigitalGreenCertificate(from: base45Fake)
+
+            guard case let .failure(error) = validationResult,
+                  case .HC_JSON_SCHEMA_INVALID(let schemaError) = error,
+                  case .VALIDATION_RESULT_FAILED(let innerSchemaErrors) = schemaError else {
+                XCTFail("Error expected.")
+                return
+            }
+
+            let containsDateError = innerSchemaErrors.contains {
+                $0.description.contains("does not match pattern")
+            }
+
+            XCTAssertTrue(containsDateError)
+        }
+    }
+
+    func test_When_DecodeWithPassJSON_Then_SuccessReturned() {
+        for passJsonString in passJsonStrings {
+            guard let jsonData = passJsonString.data(using: .utf8),
+                  let certificate = try? JSONDecoder().decode(DigitalGreenCertificate.self, from: jsonData) else {
+                XCTFail("JSON decoding failed.")
+                return
+            }
+
+            let base45FakeResult = DigitalGreenCertificateFake.makeBase45Fake(from: certificate, and: CBORWebTokenHeader.fake())
+            guard case let .success(base45Fake) = base45FakeResult else {
+                XCTFail("Success expected.")
+                return
+            }
+
+            let validationResult = DigitalGreenCertificateAccess().extractDigitalGreenCertificate(from: base45Fake)
+            guard case .success = validationResult else {
+                XCTFail("Success expected.")
+                return
+            }
+        }
     }
 
     func test_When_DecodeSucceeds_Then_CorrectHeaderIsReturned() throws {
@@ -265,8 +319,8 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
     }
 
     private lazy var testDataVaccinationCertificate: TestData = {
-        TestData (
-            input: hcPrefix+"6BFOXN*TS0BI$ZD4N9:9S6RCVN5+O30K3/XIV0W23NTDEXWK G2EP4J0BGJLFX3R3VHXK.PJ:2DPF6R:5SVBHABVCNN95SWMPHQUHQN%A0SOE+QQAB-HQ/HQ7IR.SQEEOK9SAI4- 7Y15KBPD34  QWSP0WRGTQFNPLIR.KQNA7N95U/3FJCTG90OARH9P1J4HGZJKBEG%123ZC$0BCI757TLXKIBTV5TN%2LXK-$CH4TSXKZ4S/$K%0KPQ1HEP9.PZE9Q$95:UENEUW6646936HRTO$9KZ56DE/.QC$Q3J62:6LZ6O59++9-G9+E93ZM$96TV6NRN3T59YLQM1VRMP$I/XK$M8PK66YBTJ1ZO8B-S-*O5W41FD$ 81JP%KNEV45G1H*KESHMN2/TU3UQQKE*QHXSMNV25$1PK50C9B/9OK5NE1 9V2:U6A1ELUCT16DEETUM/UIN9P8Q:KPFY1W+UN MUNU8T1PEEG%5TW5A 6YO67N6BBEWED/3LS3N6YU.:KJWKPZ9+CQP2IOMH.PR97QC:ACZAH.SYEDK3EL-FIK9J8JRBC7ADHWQYSK48UNZGG NAVEHWEOSUI2L.9OR8FHB0T5HM7I",
+        TestData(
+            input: hcPrefix + "6BFOXN*TS0BI$ZD4N9:9S6RCVN5+O30K3/XIV0W23NTDEXWK G2EP4J0BGJLFX3R3VHXK.PJ:2DPF6R:5SVBHABVCNN95SWMPHQUHQN%A0SOE+QQAB-HQ/HQ7IR.SQEEOK9SAI4- 7Y15KBPD34  QWSP0WRGTQFNPLIR.KQNA7N95U/3FJCTG90OARH9P1J4HGZJKBEG%123ZC$0BCI757TLXKIBTV5TN%2LXK-$CH4TSXKZ4S/$K%0KPQ1HEP9.PZE9Q$95:UENEUW6646936HRTO$9KZ56DE/.QC$Q3J62:6LZ6O59++9-G9+E93ZM$96TV6NRN3T59YLQM1VRMP$I/XK$M8PK66YBTJ1ZO8B-S-*O5W41FD$ 81JP%KNEV45G1H*KESHMN2/TU3UQQKE*QHXSMNV25$1PK50C9B/9OK5NE1 9V2:U6A1ELUCT16DEETUM/UIN9P8Q:KPFY1W+UN MUNU8T1PEEG%5TW5A 6YO67N6BBEWED/3LS3N6YU.:KJWKPZ9+CQP2IOMH.PR97QC:ACZAH.SYEDK3EL-FIK9J8JRBC7ADHWQYSK48UNZGG NAVEHWEOSUI2L.9OR8FHB0T5HM7I",
             certificate: DigitalGreenCertificate(
                 version: "1.0.0",
                 name: Name(
@@ -301,8 +355,8 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
     }()
 
     private lazy var testDataTestCertificate: TestData = {
-        TestData (
-            input: hcPrefix+"6BFOXN%TSMAHN-HVN8J7UQMJ4/36 L-AHIT91RO4.S-OP %I83V8H9GJLUW5NW6SA3/-2E%5G%5TW5A 6YO6XL6Q3QR$P*NI92K*F2-8B0DJV1JD7U:CJX3CJ7J:ZJ83BTH2R638DJC0J*PIR8T3WS9.S*IJ5OI9YI:8DVFC%PD:NK8WCDAB2DNAHLW 70SO:GOLIROGO3T5ZXK9UO GOP*OSV8WP4K166K8A 6:-OGU6927CORX8Q6I4/$R/ER/ QXZOZZOWP4:/6F0P6HPE65V77ZJ82HPPEPHCRTWA+DPL*OCHP7IRZSP:WBW+QYQ6-B5B11XEDW33D8C. C290AQ5EPPQF67460R6646O59EB9:PE+.PTW5F$PI11UH97-5ZT5VZP0JEWYH:PIREGMCIGDB3LKDVAC7JLKB8UJ06JSVBDKBXEB0VL//ET2ADMG5JD*5ADK45TMN95ZTM+CSUHQN%A400H%UBT16Y5+Z9  38CRVS1I$6P+1VWU5:U2:UI36/8HTWU%/EYUUPWEBSHFKVHIM$AF5JRZ$FKCTYUD$PMYTF6%HJ29H/DA BT 36*N0FCZDRKWBGRINNNRAT94KZ5C95N38TBRJ*CF-7RBA1MOHQT1V472AV86O000*JCLCJ",
+        TestData(
+            input: hcPrefix + "6BFOXN%TSMAHN-HVN8J7UQMJ4/36 L-AHIT91RO4.S-OP %I83V8H9GJLUW5NW6SA3/-2E%5G%5TW5A 6YO6XL6Q3QR$P*NI92K*F2-8B0DJV1JD7U:CJX3CJ7J:ZJ83BTH2R638DJC0J*PIR8T3WS9.S*IJ5OI9YI:8DVFC%PD:NK8WCDAB2DNAHLW 70SO:GOLIROGO3T5ZXK9UO GOP*OSV8WP4K166K8A 6:-OGU6927CORX8Q6I4/$R/ER/ QXZOZZOWP4:/6F0P6HPE65V77ZJ82HPPEPHCRTWA+DPL*OCHP7IRZSP:WBW+QYQ6-B5B11XEDW33D8C. C290AQ5EPPQF67460R6646O59EB9:PE+.PTW5F$PI11UH97-5ZT5VZP0JEWYH:PIREGMCIGDB3LKDVAC7JLKB8UJ06JSVBDKBXEB0VL//ET2ADMG5JD*5ADK45TMN95ZTM+CSUHQN%A400H%UBT16Y5+Z9  38CRVS1I$6P+1VWU5:U2:UI36/8HTWU%/EYUUPWEBSHFKVHIM$AF5JRZ$FKCTYUD$PMYTF6%HJ29H/DA BT 36*N0FCZDRKWBGRINNNRAT94KZ5C95N38TBRJ*CF-7RBA1MOHQT1V472AV86O000*JCLCJ",
             certificate: DigitalGreenCertificate(
                 version: "1.0.0",
                 name: Name(
@@ -349,7 +403,149 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
             decryptedKey: "RinMlpTdzQGw7kllamU9Pz6bTHEWVZi1Ocb4q8wfFSk="
         )
     ]
+
+    private lazy var failJsonStrings: [String] = [
+        /// vaccination date (`dt`) without day (YYYY-MM)
+        """
+            {
+              "dob": "1964-08-12",
+              "nam": {
+                  "fn": "Mustermann",
+                  "fnt": "MUSTERMANN",
+                  "gn": "Erika",
+                  "gnt": "ERIKA"
+              },
+              "v": [
+                {
+                  "ci": "URN:UVCI:01DE/IZ12345A/5CWLU12RNOB9RXSEOP6FG8#W",
+                  "co": "DE",
+                  "dn": 2,
+                  "dt": "2021-05",
+                  "is": "Robert Koch-Institut",
+                  "ma": "ORG-100031184",
+                  "mp": "EU/1/20/1507",
+                  "sd": 2,
+                  "tg": "840539006",
+                  "vp": "1119349007"
+                }
+              ],
+              "ver": "1.0.0"
+            }
+        """,
+        /// vaccination date (`dt`) without day and month (YYYY)
+        """
+            {
+              "dob": "1964-08-12",
+              "nam": {
+                  "fn": "Mustermann",
+                  "fnt": "MUSTERMANN",
+                  "gn": "Erika",
+                  "gnt": "ERIKA"
+              },
+              "v": [
+                {
+                  "ci": "URN:UVCI:01DE/IZ12345A/5CWLU12RNOB9RXSEOP6FG8#W",
+                  "co": "DE",
+                  "dn": 2,
+                  "dt": "2021",
+                  "is": "Robert Koch-Institut",
+                  "ma": "ORG-100031184",
+                  "mp": "EU/1/20/1507",
+                  "sd": 2,
+                  "tg": "840539006",
+                  "vp": "1119349007"
+                }
+              ],
+              "ver": "1.0.0"
+            }
+        """
+    ]
+
+    private lazy var passJsonStrings: [String] = [
+        /// "German reference case"
+        """
+            {
+              "dob": "1964-08-12",
+              "nam": {
+                  "fn": "Mustermann",
+                  "fnt": "MUSTERMANN",
+                  "gn": "Erika",
+                  "gnt": "ERIKA"
+              },
+              "v": [
+                {
+                  "ci": "URN:UVCI:01DE/IZ12345A/5CWLU12RNOB9RXSEOP6FG8#W",
+                  "co": "DE",
+                  "dn": 2,
+                  "dt": "2021-05-29",
+                  "is": "Robert Koch-Institut",
+                  "ma": "ORG-100031184",
+                  "mp": "EU/1/20/1507",
+                  "sd": 2,
+                  "tg": "840539006",
+                  "vp": "1119349007"
+                }
+              ],
+              "ver": "1.0.0"
+            }
+        """,
+        /// dates (`dob` and `dt`) with time information at midnight
+        """
+            {
+              "r": null,
+              "t": null,
+              "v": [
+                {
+                  "ci": "urn:uvci:01:BG:UFR5PLGKU8WDSZK7#0",
+                  "co": "BG",
+                  "dn": 2,
+                  "dt": "2021-03-09T00:00:00",
+                  "is": "Ministry of Health",
+                  "ma": "ORG-100030215",
+                  "mp": "EU/1/20/1528",
+                  "sd": 2,
+                  "tg": "840539006",
+                  "vp": "J07BX03"
+                }
+              ],
+              "dob": "1978-01-26T00:00:00",
+              "nam": {
+                "fn": "ПЕТКОВ",
+                "gn": "СТАМО ГЕОРГИЕВ",
+                "fnt": "PETKOV",
+                "gnt": "STAMO<GEORGIEV"
+              },
+              "ver": "1.0.0"
+            }
+        """,
+        /// vaccination date (`dt`) with real time information
+        """
+            {
+              "ver" : "1.0.0",
+              "nam" : {
+                "fn" : "Rogaliński-Król",
+                "fnt" : "ROGALINSKI<KROL",
+                "gn" : "Stanisław",
+                "gnt" : "STANISLAW"
+              },
+              "dob" : "1958-11-11",
+              "v" : [ {
+                "tg" : "840539006",
+                "vp" : "J07BX03",
+                "mp" : "EU/1/21/1529",
+                "ma" : "ORG-100030215",
+                "dn" : 1,
+                "sd" : 2,
+                "dt" : "2021-03-18T15:31:00+02:00",
+                "co" : "PL",
+                "is" : "Centrum e-Zdrowia",
+                "ci" : "URN:UVCI:01:PL:1/4F86BBF0865B465F9BDD907C3A2C141F"
+              } ]
+            }
+        """
+    ]
 }
+// swiftlint:enable line_length
 
 // MARK: - TestData
 

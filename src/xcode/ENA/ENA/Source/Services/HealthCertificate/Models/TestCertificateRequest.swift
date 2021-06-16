@@ -18,7 +18,8 @@ class TestCertificateRequest: Codable, Equatable {
 		encryptedDEK: String? = nil,
 		encryptedCOSE: String? = nil,
 		requestExecutionFailed: Bool = false,
-		isLoading: Bool = true
+		isLoading: Bool = true,
+		labId: String? = nil
 	) {
 		self.coronaTestType = coronaTestType
 		self.registrationToken = registrationToken
@@ -29,6 +30,7 @@ class TestCertificateRequest: Codable, Equatable {
 		self.encryptedCOSE = encryptedCOSE
 		self.requestExecutionFailed = requestExecutionFailed
 		self.isLoading = isLoading
+		self.labId = labId
 	}
 
 	// MARK: - Protocol Codable
@@ -42,6 +44,7 @@ class TestCertificateRequest: Codable, Equatable {
 		case encryptedDEK
 		case encryptedCOSE
 		case requestExecutionFailed
+		case labId
 	}
 
 	required init(from decoder: Decoder) throws {
@@ -55,6 +58,7 @@ class TestCertificateRequest: Codable, Equatable {
 		encryptedDEK = try container.decodeIfPresent(String.self, forKey: .encryptedDEK)
 		encryptedCOSE = try container.decodeIfPresent(String.self, forKey: .encryptedCOSE)
 		requestExecutionFailed = try container.decode(Bool.self, forKey: .requestExecutionFailed)
+		labId = try container.decodeIfPresent(String.self, forKey: .labId)
 		isLoading = !requestExecutionFailed
 	}
 
@@ -69,6 +73,7 @@ class TestCertificateRequest: Codable, Equatable {
 		try container.encode(encryptedDEK, forKey: .encryptedDEK)
 		try container.encode(encryptedCOSE, forKey: .encryptedCOSE)
 		try container.encode(requestExecutionFailed, forKey: .requestExecutionFailed)
+		try container.encode(labId, forKey: .labId)
 	}
 
 	// MARK: - Protocol Equatable
@@ -81,7 +86,9 @@ class TestCertificateRequest: Codable, Equatable {
 		lhs.rsaPublicKeyRegistered == rhs.rsaPublicKeyRegistered &&
 		lhs.encryptedDEK == rhs.encryptedDEK &&
 		lhs.encryptedCOSE == rhs.encryptedCOSE &&
-		lhs.requestExecutionFailed == rhs.requestExecutionFailed
+		lhs.requestExecutionFailed == rhs.requestExecutionFailed &&
+		lhs.labId == rhs.labId &&
+		lhs.isLoading == rhs.isLoading
 	}
 
 	// MARK: - Internal
@@ -89,6 +96,7 @@ class TestCertificateRequest: Codable, Equatable {
 	let coronaTestType: CoronaTestType
 	let registrationToken: String
 	let registrationDate: Date
+	let labId: String?
 
 	var rsaKeyPair: DCCRSAKeyPair? {
 		didSet {

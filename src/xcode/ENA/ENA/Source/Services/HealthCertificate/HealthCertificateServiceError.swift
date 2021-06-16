@@ -5,7 +5,7 @@
 import Foundation
 import HealthCertificateToolkit
 
-enum HealthCertificateServiceError {
+enum HealthCertificateServiceError: Error {
 
 	enum RegistrationError: LocalizedError {
 		case decodingError(CertificateDecodingError)
@@ -115,6 +115,8 @@ enum HealthCertificateServiceError {
 		case rsaKeyPairGenerationFailed(DCCRSAKeyPairError)
 		case decryptionFailed(Error)
 		case assemblyFailed(CertificateDecodingError)
+		case registrationError(HealthCertificateServiceError.RegistrationError)
+		case dgcNotSupportedByLab
 		case other(Error)
 
 		var errorDescription: String? {
@@ -178,6 +180,8 @@ enum HealthCertificateServiceError {
 					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "RSA_KP_GETTING_DATA_FAILED: \(String(describing: error?.localizedDescription))")
 				case .decryptionFailed(let error):
 					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.e2eErrorCallHotline, "RSA_DECRYPTION_FAILED: \(String(describing: error?.localizedDescription)))")
+				case .encryptionFailed(let error):
+					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.e2eErrorCallHotline, "RSA_ENCRYPTION_FAILED: \(String(describing: error?.localizedDescription)))")
 				}
 			case .decryptionFailed(let error):
 				return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.e2eErrorCallHotline, "RSA_DECRYPTION_FAILED: \(error.localizedDescription)")
@@ -214,6 +218,10 @@ enum HealthCertificateServiceError {
 				}
 			case .other(let error):
 				return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, error.localizedDescription)
+			case .registrationError(let error):
+				return error.errorDescription
+			case .dgcNotSupportedByLab:
+				return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.dgcNotSupportedByLab, "DGC_NOT_SUPPORTED_BY_LAB")
 			}
 		}
 	}

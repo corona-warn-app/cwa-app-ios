@@ -212,10 +212,23 @@ class HealthCertificateQRCodeScannerViewController: UIViewController {
 	private func showErrorAlert(error: Error) {
 		viewModel?.deactivateScanning()
 
+		let errorMessage = error.localizedDescription + AppStrings.HealthCertificate.Error.faqDescription
+
 		let alert = UIAlertController(
 			title: AppStrings.HealthCertificate.Error.title,
-			message: error.localizedDescription,
+			message: errorMessage,
 			preferredStyle: .alert
+		)
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.HealthCertificate.Error.faqButtonTitle,
+				style: .default,
+				handler: { [weak self] _ in
+					if LinkHelper.open(urlString: AppStrings.Links.healthCertificateErrorFAQ) {
+						self?.viewModel?.activateScanning()
+					}
+				}
+			)
 		)
 		alert.addAction(
 			UIAlertAction(

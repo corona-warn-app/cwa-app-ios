@@ -25,10 +25,10 @@ public struct DigitalGreenCertificate: Codable, Equatable {
     public let vaccinationEntries: [VaccinationEntry]?
     public let testEntries: [TestEntry]?
 
-    static func fake(
+    public static func fake(
         version: String = "0.0.0",
         name: Name = .fake(),
-        dateOfBirth: String = "01.01.1942",
+        dateOfBirth: String = "1942-01-01",
         vaccinationEntries: [VaccinationEntry]? = nil,
         testEntries: [TestEntry]? = nil
     ) -> DigitalGreenCertificate {
@@ -74,7 +74,7 @@ public struct VaccinationEntry: Codable, Equatable {
     public let certificateIssuer: String
     public let uniqueCertificateIdentifier: String
 
-    static func fake(
+    public static func fake(
         diseaseOrAgentTargeted: String = "840539006",
         vaccineOrProphylaxis: String = "1119349007",
         vaccineMedicinalProduct: String = "EU/1/20/1528",
@@ -113,7 +113,7 @@ public struct TestEntry: Codable, Equatable {
         naaTestName: String?,
         ratTestName: String?,
         dateTimeOfSampleCollection: String,
-        dateTimeOfTestResult: String,
+        dateTimeOfTestResult: String?,
         testCenter: String,
         countryOfTest: String,
         certificateIssuer: String,
@@ -157,20 +157,20 @@ public struct TestEntry: Codable, Equatable {
     public let naaTestName: String?
     public let ratTestName: String?
     public let dateTimeOfSampleCollection: String
-    public let dateTimeOfTestResult: String
+    public let dateTimeOfTestResult: String?
     public let testCenter: String
     public let countryOfTest: String
     public let certificateIssuer: String
     public let uniqueCertificateIdentifier: String
 
-    static func fake(
+    public static func fake(
         diseaseOrAgentTargeted: String = "840539006",
         typeOfTest: String = "LP6464-4",
         testResult: String = "260415000",
         naaTestName: String? = nil,
         ratTestName: String? = nil,
         dateTimeOfSampleCollection: String = "2021-05-29T22:34:17.595Z",
-        dateTimeOfTestResult: String = "2021-05-31T08:58:17.595Z",
+        dateTimeOfTestResult: String? = nil,
         testCenter: String = "Rödelheim Esso Tankstelle",
         countryOfTest: String = "DE",
         certificateIssuer: String = "Bundesministerium für Gesundheit",

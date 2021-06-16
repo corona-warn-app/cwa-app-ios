@@ -77,7 +77,10 @@ class HealthCertificateOverviewViewModel {
 	}
 
 	func retryTestCertificateRequest(at indexPath: IndexPath) {
-		let testCertificateRequest = self.testCertificateRequests[indexPath.row]
+		guard let testCertificateRequest = testCertificateRequests[safe: indexPath.row] else {
+			return
+		}
+
 		healthCertificateService.executeTestCertificateRequest(
 			testCertificateRequest,
 			retryIfCertificateIsPending: false
@@ -90,6 +93,10 @@ class HealthCertificateOverviewViewModel {
 
 	func remove(testCertificateRequest: TestCertificateRequest) {
 		healthCertificateService.remove(testCertificateRequest: testCertificateRequest)
+	}
+
+	func resetBadgeCount() {
+		healthCertificateService.resetUnseenTestCertificateCount()
 	}
 
 	// MARK: - Private

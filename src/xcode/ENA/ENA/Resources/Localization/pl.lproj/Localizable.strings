@@ -497,7 +497,7 @@
 
 "ExposureSubmissionDispatch_QRCodeButtonTitle" = "Skanuj kod QR";
 
-"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Odbierz wynik testu w aplikacji i ostrzegaj innych lub poproś o certyfikat testu na COVID-19.";
+"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Odbierz wynik testu w aplikacji i ostrzegaj innych lub poproś o certyfikat testu na COVID.";
 
 "ExposureSubmissionDispatch_TANButtonTitle" = "Wpisz TAN do testu PCR";
 
@@ -552,7 +552,7 @@
 
 "ExposureSubmissionQRInfo_instruction2" = "Test można zeskanować tylko raz. Aplikacja może zarządzać maksymalnie jednym szybkim testem i jednym testem PCR jednocześnie.";
 
-"ExposureSubmissionQRInfo_instruction2a" = "Jeśli wynik Twojego testu jest negatywny, możesz to potwierdzić oficjalnym certyfikatem testu na COVID-19. W tym celu poproś o certyfikat testu, wykonując następujące kroki.";
+"ExposureSubmissionQRInfo_instruction2a" = "Jeśli wynik Twojego testu jest negatywny, możesz to potwierdzić oficjalnym certyfikatem testu na COVID. W tym celu poproś o certyfikat testu, wykonując następujące kroki.";
 
 "ExposureSubmissionQRInfo_instruction3" = "Aplikacja może%@ zarządzać wieloma testami w tym samym czasie.";
 
@@ -718,13 +718,27 @@
 
 "ExposureSubmissionResult_testPendingDesc" = "Wynik testu zostanie wyświetlony w aplikacji, jak tylko będzie dostępny.\n\nWynik testu otrzymasz również poza aplikacją. Organ ds. zdrowia publicznego powiadomi Cię, jeśli wynik testu będzie pozytywny.\n\nJeśli otrzymasz powiadomienie o pozytywnym wyniku testu poza aplikacją, usuń test aktualnie zarejestrowany w aplikacji. Zadzwoń na numer podany w sekcji „Poproś o TAN”, aby otrzymać numer TAN. Będziesz mieć wówczas możliwość zarejestrowania swojego wyniku w aplikacji za pomocą tego numeru, aby ostrzegać innych.";
 
+"ExposureSubmissionResult_testCertificate_title" = "Certyfikat testu na COVID";
+
+"ExposureSubmissionResult_testCertificate_testCenterNotSupported" = "Oficjalny cyfrowy certyfikat testu na COVID nie może zostać wydany, ponieważ ten punkt testowania nie wydaje certyfikatów testów.";
+
+"ExposureSubmissionResult_testCertificate_Pending" = "Twój oficjalny cyfrowy certyfikat testu na COVID nie jest jeszcze dostępny. Gdy tylko stanie się dostępny, pojawi się w Twojej aplikacji.";
+
+"ExposureSubmissionResult_testCertificate_NotRequested" = "Zgodnie z Twoją prośbą nie zostanie wydany żaden oficjalny cyfrowy certyfikat testu na COVID.";
+
+"ExposureSubmissionResult_testCertificate_AvailableInTab" = "Certyfikat testu dostępny jest w karcie „Certyfikaty”.";
+
 "ExposureSubmissionResult_antigenTestPending" = "Wynik Twojego testu nie jest jeszcze dostępny.";
 
 "ExposureSubmissionResult_antigenTestPendingDesc" = "Wynik testu zostanie wyświetlony w aplikacji, jak tylko będzie dostępny.";
 
 "ExposureSubmissionResult_antigenTestPendingContactJournal" = "Wynik Twojego testu zostanie dodany do dziennika kontaktów.";
 
+"ExposureSubmissionResult_pcrTestPendingContactJournal" = "Wynik Twojego testu zostanie dodany do dziennika kontaktów.";
+
 "ExposureSubmissionResult_antigenTestPendingContactJournalDesc" = "Wynik testu zostanie wyświetlony w aplikacji, jak tylko będzie dostępny.";
+
+"ExposureSubmissionResult_pcrTestPendingContactJournalDesc" = "Wynik testu zostanie wyświetlony w aplikacji, jak tylko będzie dostępny.";
 
 "ExposureSubmissionResult_antigenTestNegativDesc" = "Szybki test nie dostarczył dowodów na to, że masz koronawirusa SARS-CoV-2.";
 
@@ -1245,7 +1259,7 @@
 /* Home Test Registration Card */
 "Home_TestRegistration_Title" = "Zarejestruj test";
 
-"Home_TestRegistration_Body" = "Aplikacji możesz używać do rejestrowania testów i pobierania ich wyników, aby szybciej ostrzegać innych. Za jej pośrednictwem możesz także poprosić o wydanie certyfikatu testu na COVID-19.";
+"Home_TestRegistration_Body" = "Aplikacji możesz używać do rejestrowania testów i pobierania ich wyników, aby szybciej ostrzegać innych. Za jej pośrednictwem możesz także poprosić o wydanie certyfikatu testu na COVID.";
 
 "Home_TestRegistration_Button" = "Następne kroki";
 
@@ -2449,18 +2463,67 @@
 
 "TestCertificate_Info_description" = "Zarejestruj test na ekranie głównym i wyraź zgodę na otrzymanie cyfrowego certyfikatu testu. Gdy tylko certyfikat będzie dostępny, pojawi się w tym miejscu.";
 
+/* - Test Certificate */
+"TestCertificate_title" = "Cyfrowy\n**certyfikat testu na COVID**";
+
+"TestCertificate_testDate" = "Test wykonany dnia %@";
+
+/* - Test Certificate Request */
+"TestCertificateRequest_title" = "Cyfrowy\n**certyfikat testu na COVID**";
+
+"TestCertificateRequest_loadingSubtitle" = "Certyfikat jest tworzony...";
+
+"TestCertificateRequest_errorSubtitle" = "Błąd podczas pobierania certyfikatu";
+
+"TestCertificateRequest_registrationDate" = "Zarejestrowano dnia %@";
+
+"TestCertificateRequest_loadingStateDescription" = "Żądanie dotyczące certyfikatu jest przetwarzane. Może to potrwać kilka minut...";
+
+"TestCertificateRequest_tryAgainButtonTitle" = "Spróbuj ponownie";
+
+"TestCertificateRequest_removeButtonTitle" = "Usuń certyfikat testu";
+
+/* - Test Certificate Request Error Alert */
+"TestCertificateRequest_ErrorAlert_title" = "Nadal występują problemy z żądaniem.";
+
+"TestCertificateRequest_ErrorAlert_Button_title" = "OK";
+
+/* - Test Certificate Request Remove Alert */
+"TestCertificateRequest_RemoveAlert_title" = "Czy chcesz usunąć certyfikat?";
+
+"TestCertificateRequest_RemoveAlert_message" = "Po usunięciu certyfikatu nie można zażądać go ponownie.";
+
+"TestCertificateRequest_RemoveAlert_CancelButton_title" = "Anuluj";
+
+"TestCertificateRequest_RemoveAlert_DeleteButton_title" = "Usuń";
+
+/* Test Certificate Request Errors */
+"TestCertificateRequest_Error_CLIENT_ERROR_CALL_HOTLINE" = "Wystąpił błąd. Spróbuj ponownie później lub skontaktuj się z infolinią techniczną, korzystając z opcji: Informacje o aplikacji -> Infolinia techniczna. (%@)";
+
+"TestCertificateRequest_Error_DCC_EXPIRED" = "Ten certyfikat nie jest już aktualny. Możesz go usunąć z aplikacji Corona-Warn-App (%@)";
+
+"TestCertificateRequest_Error_DCC_NOT_SUPPORTED_BY_LAB" = "Nie możesz zażądać wydania certyfikatu testu, ponieważ ten punkt testowania nie wydaje certyfikatów testów. Usuń certyfikat lub skontaktuj się z infolinią techniczną, korzystając z opcji: Informacje o aplikacji -> Infolinia techniczna. (%@)";
+
+"TestCertificateRequest_Error_E2E_ERROR_CALL_HOTLINE" = "Wystąpił błąd. Spróbuj ponownie później lub skontaktuj się z infolinią techniczną, korzystając z opcji: Informacje o aplikacji -> Infolinia techniczna. (%@)";
+
+"TestCertificateRequest_Error_NO_NETWORK" = "Połączenie internetowe zostało utracone. Sprawdź połączenie i spróbuj ponownie. (%@)";
+
+"TestCertificateRequest_Error_TRY_AGAIN" = "Nie udało się nawiązać połączenia. Spróbuj ponownie. (%@)";
+
+"TestCertificateRequest_Error_TRY_AGAIN_DCC_NOT_AVAILABLE_YET" = "Twój certyfikat nie jest jeszcze dostępny. Spróbuj ponownie. Jeśli błąd będzie nadal występował, skontaktuj się z infolinią techniczną, korzystając z opcji: Informacje o aplikacji -> Infolinia techniczna. (%@)";
+
 /* Health Certificate Information */
-"HealthCertificate_Info_Title" = "Dodaj świadectwo szczepienia";
+"HealthCertificate_Info_Title" = "Dodaj certyfikaty/świadectwa";
 
 "HealthCertificate_Info_imageDescription" = "Uodporniona osoba patrzy na swój smartfon";
 
-"HealthCertificate_Info_description" = "Dodaj cyfrowy dowód szczepienia w aplikacji. Gdy uzyskasz pełną ochronę poszczepienną, będziesz mógł (mogła) okazywać kod QR z aplikacji jako dowód szczepienia.";
+"HealthCertificate_Info_description" = "Dodaj cyfrowe unijne świadectwa szczepienia przeciw COVID w aplikacji. Umożliwi Ci to udowodnienie za pomocą aplikacji posiadanie ochrony poszczepiennej lub negatywnego wyniku testu.";
 
-"HealthCertificate_Info_section01" = "Aby dodać świadectwo szczepienia w aplikacji, zeskanuj kod QR, który otrzymałeś(-aś) podczas szczepienia.";
+"HealthCertificate_Info_section01" = "W aplikacji możesz dodać unijne cyfrowe świadectwa szczepień przeciw COVID lub certyfikaty testów na COVID.";
 
-"HealthCertificate_Info_section02" = "Aplikacja odczytuje informacje z kodu QR i zapisuje je w bezpiecznym miejscu na Twoim smartfonie.";
+"HealthCertificate_Info_section02" = "Takie świadectwa i certyfikaty są uznawane za ważny dowód w UE (np. w przypadku podróży).";
 
-"HealthCertificate_Info_section03" = "Dane pozostaną na smartfonie. Będą one przekazywane innym osobom tylko wtedy, gdy będziesz przedstawiać świadectwo szczepienia do weryfikacji.";
+"HealthCertificate_Info_section03" = "Po dodaniu certyfikatu pozostanie on na Twoim smartfonie. Zostanie on udostępniony innym tylko podczas jego okazywania w celu weryfikacji.";
 
 "HealthCertificate_Info_primaryButton" = "Kontynuuj";
 
@@ -2484,12 +2547,12 @@
 
 "HealthCertifiedPerson_primaryButton" = "Zarejestruj kolejne szczepienie";
 
-/* Health Certificate Details */
+/* Vaccination Certificate Details */
 "HealthCertificate_Details_vaccinationCount" = "Szczepienie %i %i";
 
 "HealthCertificate_Details_certificate" = "Świadectwo szczepienia";
 
-"HealthCertificate_Details_QRCode_Image_Description" = "Kod QR ze świadectwem Twojego szczepienia %i %i";
+"HealthCertificate_Details_QRCode_Image_Description" = "Kod QR ze świadectwem";
 
 "HealthCertificate_Details_certificateCount" = "Świadectwo szczepienia %i %i";
 
@@ -2513,7 +2576,7 @@
 
 "HealthCertificate_Details_primaryButton" = "Usuń świadectwo szczepienia";
 
-/* Health Certificate Alert delete */
+/* Vaccination Certificate Delete Alert */
 "HealthCertificate_Alert_title" = "Czy chcesz usunąć świadectwo szczepienia?";
 
 "HealthCertificate_Alert_message" = "Jeśli usuniesz świadectwo szczepienia, aplikacja nie będzie już mogła używać szczepienia do weryfikacji statusu szczepienia.";
@@ -2522,8 +2585,28 @@
 
 "HealthCertificate_Alert_cancelButton" = "Anuluj";
 
+/* Test Certificate Details */
+"TestCertificate_Details_title" = "Unijny cyfrowy certyfikat testu na COVID";
+
+"TestCertificate_Details_subtitle" = "Ujemny wynik testu na SARS-CoV-2";
+
+"TestCertificate_Details_primaryButton" = "Usuń certyfikat testu";
+
+/* Vaccination Certificate Delete Alert */
+"TestCertificate_Alert_title" = "Czy chcesz usunąć certyfikat testu?";
+
+"TestCertificate_Alert_message" = "Po usunięciu certyfikatu testu jego użycie jako dowodu w aplikacji nie będzie już możliwe.";
+
+"TestCertificate_Alert_deleteButton" = "Usuń";
+
+"TestCertificate_Alert_cancelButton" = "Anuluj";
+
 /* Health Certificate Errors */
 "HealthCertificate_Error_Title" = "Błąd";
+
+"HealthCertificate_Error_FAQ_Description" = "\n\nWięcej informacji na temat tego, jak otrzymać swoje świadectwo szczepienia, znajduje się na naszej stronie „Często zadawane pytania”.";
+
+"HealthCertificate_Error_FAQ_Button_Title" = "Często zadawane pytania na temat świadectw szczepień";
 
 "HealthCertificate_Error_PC_TRY_AGAIN_LATER" = "W tej chwili nie można zweryfikować świadectwa szczepienia. Spróbuj ponownie później.";
 

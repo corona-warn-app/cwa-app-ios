@@ -81,6 +81,8 @@ class HealthCertificateOverviewViewController: UITableViewController {
 
 		navigationController?.navigationBar.prefersLargeTitles = true
 		navigationController?.navigationBar.sizeToFit()
+
+		viewModel.resetBadgeCount()
 	}
 
 	// MARK: - Protocol UITableViewDataSource
@@ -190,7 +192,10 @@ class HealthCertificateOverviewViewController: UITableViewController {
 			fatalError("Could not dequeue HomeHealthCertifiedPersonTableViewCell")
 		}
 
-		let healthCertifiedPerson = viewModel.healthCertifiedPersons[indexPath.row]
+		guard let healthCertifiedPerson = viewModel.healthCertifiedPersons[safe: indexPath.row] else {
+			return UITableViewCell()
+		}
+
 		let cellModel = HomeHealthCertifiedPersonCellModel(
 			healthCertifiedPerson: healthCertifiedPerson
 		)
@@ -216,8 +221,12 @@ class HealthCertificateOverviewViewController: UITableViewController {
 			fatalError("Could not dequeue HomeHealthCertifiedPersonTableViewCell")
 		}
 
+		guard let testCertificate = viewModel.testCertificates[safe: indexPath.row] else {
+			return UITableViewCell()
+		}
+
 		let cellModel = HomeHealthCertifiedPersonCellModel(
-			testCertificate: viewModel.testCertificates[indexPath.row]
+			testCertificate: testCertificate
 		)
 		cell.configure(with: cellModel)
 
@@ -294,10 +303,24 @@ class HealthCertificateOverviewViewController: UITableViewController {
 
 	private func showErrorAlert(error: HealthCertificateServiceError.TestCertificateRequestError
 	) {
+		let errorMessage = error.localizedDescription + AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.faqDescription
+
 		let alert = UIAlertController(
 			title: AppStrings.HealthCertificate.Overview.TestCertificateRequest.ErrorAlert.title,
-			message: error.localizedDescription,
+			message: errorMessage,
 			preferredStyle: .alert
+		)
+
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.faqButtonTitle,
+				style: .default,
+				handler: { _ in
+					if LinkHelper.open(urlString: AppStrings.Links.testCertificateErrorFAQ) {
+						alert.dismiss(animated: true)
+					}
+				}
+			)
 		)
 
 		let okayAction = UIAlertAction(

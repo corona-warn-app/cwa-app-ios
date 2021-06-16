@@ -118,8 +118,7 @@ final class OnboardingInfoViewController: UIViewController {
 	}
 	
 	private func openSettings() {
-		guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
-		UIApplication.shared.open(url, options: [:], completionHandler: nil)
+		LinkHelper.open(urlString: UIApplication.openSettingsURLString)
 	}
 
 	private func showError(_ error: ExposureNotificationError, from viewController: UIViewController, completion: (() -> Void)?) {
