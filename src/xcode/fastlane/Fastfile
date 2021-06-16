@@ -72,9 +72,7 @@ platform :ios do
       strict: true,
       quiet: true,
       no_cache: false,
-      reporter: "html",
-      raise_if_swiftlint_error: false,
-      ignore_exit_status: true
+      reporter: "html"
     )
 
     # Output issues directly in logs
