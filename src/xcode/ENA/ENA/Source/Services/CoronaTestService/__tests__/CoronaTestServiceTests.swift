@@ -54,7 +54,7 @@ class CoronaTestServiceTests: CWATestCase {
 		XCTAssertFalse(service.hasAtLeastOneShownPositiveOrSubmittedTest)
 	}
 
-	func testOutdatedPublisherSetForAlreadyOutdatedNegativeAntigenTest() {
+	func testOutdatedPublisherSetForAlreadyOutdatedNegativeAntigenTestWithoutSampleCollectionDate() {
 		var defaultAppConfig = CachedAppConfigurationMock.defaultAppConfiguration
 		defaultAppConfig.coronaTestParameters.coronaRapidAntigenTestParameters.hoursToDeemTestOutdated = 48
 		let appConfiguration = CachedAppConfigurationMock(with: defaultAppConfig)
@@ -77,6 +77,55 @@ class CoronaTestServiceTests: CWATestCase {
 
 		service.antigenTest = AntigenTest.mock(
 			pointOfCareConsentDate: Date(timeIntervalSinceNow: -(60 * 60 * 48)),
+			sampleCollectionDate: nil,
+			testResult: .negative
+		)
+
+		let publisherExpectation = expectation(description: "")
+		publisherExpectation.expectedFulfillmentCount = 2
+
+		let expectedValues = [false, true]
+
+		var receivedValues = [Bool]()
+		let subscription = service.$antigenTestIsOutdated
+			.sink {
+				receivedValues.append($0)
+				publisherExpectation.fulfill()
+			}
+
+		waitForExpectations(timeout: .short)
+
+		XCTAssertEqual(receivedValues, expectedValues)
+
+		subscription.cancel()
+	}
+
+	func testOutdatedPublisherSetForAlreadyOutdatedNegativeAntigenTestWithSampleCollectionDate() {
+		var defaultAppConfig = CachedAppConfigurationMock.defaultAppConfiguration
+		defaultAppConfig.coronaTestParameters.coronaRapidAntigenTestParameters.hoursToDeemTestOutdated = 48
+		let appConfiguration = CachedAppConfigurationMock(with: defaultAppConfig)
+
+		let client = ClientMock()
+		let store = MockTestStore()
+
+		let service = CoronaTestService(
+			client: client,
+			store: store,
+			eventStore: MockEventStore(),
+			diaryStore: MockDiaryStore(),
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration
+			)
+		)
+
+		// Outdated only according to sample collection date, not according to point of care consent date
+		// As we are using the sample collection date if set, the test is outdated
+		service.antigenTest = AntigenTest.mock(
+			pointOfCareConsentDate: Date(timeIntervalSinceNow: -(60 * 60 * 46)),
+			sampleCollectionDate: Date(timeIntervalSinceNow: -(60 * 60 * 48)),
 			testResult: .negative
 		)
 
