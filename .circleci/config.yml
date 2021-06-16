@@ -102,10 +102,10 @@ jobs:
       - run:
           name: Swiftlint
           command: |
-            swiftlint --version
+            vendor/swiftlint --version
             cd src/xcode && bundle exec fastlane lint
       - store_artifacts:
-          path: src/xcode/swiftlint.result.json
+          path: src/xcode/swiftlint.result
   test:
     macos:
       xcode: *xcode_version
