@@ -1019,15 +1019,15 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			digitalGreenCertificateAccess: MockDigitalGreenCertificateAccess()
 		)
-		let certificateRequest = TestCertificateRequest(
+
+		let expectation = expectation(description: "Completion is called.")
+		service.registerAndExecuteTestCertificateRequest(
 			coronaTestType: .pcr,
 			registrationToken: "",
 			registrationDate: Date(),
+			retryExecutionIfCertificateIsPending: true,
 			labId: nil
-		)
-
-		let expectation = expectation(description: "Completion is called.")
-		service.executeTestCertificateRequest(certificateRequest, retryIfCertificateIsPending: true) { result in
+		) { result in
 			guard case let .failure(error) = result,
 				  case .dgcNotSupportedByLab = error else {
 				XCTFail("Error dgcNotSupportedByLab was expected.")
@@ -1039,8 +1039,8 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		waitForExpectations(timeout: .short)
 		
-		XCTAssertEqual(service.testCertificateRequests.value.first, certificateRequest)
-		XCTAssertTrue(certificateRequest.requestExecutionFailed)
-		XCTAssertFalse(certificateRequest.isLoading)
+		XCTAssertEqual(service.testCertificateRequests.value.count, 1)
+		XCTAssertTrue(service.testCertificateRequests.value[0].requestExecutionFailed)
+		XCTAssertFalse(service.testCertificateRequests.value[0].isLoading)
 	}
 }
