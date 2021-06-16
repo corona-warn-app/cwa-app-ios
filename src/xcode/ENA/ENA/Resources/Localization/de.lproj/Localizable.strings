@@ -698,9 +698,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_Procedure" = "Infos zum Ablauf:";
 
-"ExposureSubmissionResult_testAdded" = "Ihr Test wurde hinzugefügt.";
+"ExposureSubmissionResult_testAdded" = "Ihr Test wurde hinzugefügt";
 
-"ExposureSubmissionResult_antigenTestAdded" = "Ihr Schnelltest wurde hinzugefügt.";
+"ExposureSubmissionResult_antigenTestAdded" = "Ihr Schnelltest wurde hinzugefügt";
 
 "ExposureSubmissionResult_antigenTestAddedDesc" = "Das Test-Ergebnis wird 48 Stunden hier angezeigt.";
 
@@ -730,7 +730,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_testExpiredDesc" = "Es gab ein Problem bei der Auswertung Ihres Tests. Ihr QR Code ist bereits abgelaufen.";
 
-"ExposureSubmissionResult_testPending" = "Ihr Testergebnis liegt noch nicht vor.";
+"ExposureSubmissionResult_testPending" = "Ihr Testergebnis liegt noch nicht vor";
 
 "ExposureSubmissionResult_testPendingDesc" = "Sobald Ihr Testergebnis vorliegt, wird es Ihnen in der App angezeigt.\n\nSie bekommen Ihr Testergebnis auch außerhalb der App mitgeteilt. Falls Ihr Test positiv ist, bekommen Sie vom Gesundheitsamt eine Mitteilung.\n\nWenn Ihnen außerhalb der App ein positives Testergebnis mitgeteilt wurde, entfernen Sie den aktuell in der App registrierten Test. Rufen Sie die unter „TAN anfragen” angegebene Nummer an, um eine TAN zu erhalten. Registrieren Sie dann Ihr Testergebnis mithilfe der TAN in der App.";
 "ExposureSubmissionResult_testCertificate_title" = "COVID-Testzertifikat";
@@ -743,13 +743,13 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_testCertificate_AvailableInTab" = "Das Testzertifikat liegt im Tab „Zertifikate“ vor.";
 
-"ExposureSubmissionResult_antigenTestPending" = "Ihr Testergebnis liegt noch nicht vor.";
+"ExposureSubmissionResult_antigenTestPending" = "Ihr Testergebnis liegt noch nicht vor";
 
 "ExposureSubmissionResult_antigenTestPendingDesc" = "Sobald Ihr Testergebnis vorliegt, wird es Ihnen in der App angezeigt.";
 
-"ExposureSubmissionResult_antigenTestPendingContactJournal" = "Ihr Testergebnis wird dem Kontakt-Tagebuch hinzugefügt.";
+"ExposureSubmissionResult_antigenTestPendingContactJournal" = "Ihr Testergebnis wird dem Kontakt-Tagebuch hinzugefügt";
 
-"ExposureSubmissionResult_pcrTestPendingContactJournal" = "Ihr Testergebnis wird dem Kontakt-Tagebuch hinzugefügt.";
+"ExposureSubmissionResult_pcrTestPendingContactJournal" = "Ihr Testergebnis wird dem Kontakt-Tagebuch hinzugefügt";
 
 "ExposureSubmissionResult_antigenTestPendingContactJournalDesc" = "Sobald Ihr Testergebnis vorliegt, wird es Ihnen in der App angezeigt.";
 
@@ -763,7 +763,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_testRemove" = "Test entfernen";
 
-"ExposureSubmissionResult_testRemoveDesc" = "Bitte entfernen Sie den Test wieder aus der Corona-Warn-App, damit Sie bei Bedarf einen neuen Test hinterlegen können.";
+"ExposureSubmissionResult_testRemoveDesc" = "Bevor Sie einen neuen Test registrieren können, muss der letzte Test entfernt werden.";
 
 "ExposureSubmissionResult_primaryButtonTitle" = "Weiter mit Symptom-Erfassung";
 
@@ -1001,7 +1001,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_TestCertificate_Information_Section02" = "Das Testzertifikat gilt innerhalb der EU als gültiger Nachweis eines negativen Testergebnisses (z.B. für Reisen).";
 
-"ExposureSubmission_TestCertificate_Information_Subheadline" = "Sie können über die App ein offizielles digitales Testzertifikat anfordern, das anschließend in der App hinzugefügt wird.";
+"ExposureSubmission_TestCertificate_Information_Subheadline" = "Sie können über die App ein offizielles EU digitales Testzertifikat anfordern, das anschließend in der App hinzugefügt wird.";
 
 "ExposureSubmission_TestCertificate_Information_BirthdayPlaceholder" = "Geburtsdatum";
 
@@ -1586,7 +1586,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeature_24_digital_covid_cert_title" = "COVID-Testzertifikat";
 
-"NewVersionFeature_24_digital_covid_cert_description" = "Sie können nun über die App ein offizielles digitales Testzertifikat anfordern und anschließend in der App hinzufügen. Sie können das Testzertifikat (QR-Code) innerhalb der EU verwenden, um ein negatives Testergebnis nachzuweisen (z.B. für Auslandsreisen).";
+"NewVersionFeature_24_digital_covid_cert_description" = "Sie können nun über die App ein offizielles EU digitales Testzertifikat anfordern und anschließend in der App hinzufügen. Sie können das Testzertifikat (QR-Code) innerhalb der EU verwenden, um ein negatives Testergebnis nachzuweisen (z.B. für Auslandsreisen).";
 
 "NewVersionFeature_24_extended_diary_title" = "Erweiterung Kontakt-Tagebuch";
 
@@ -2020,7 +2020,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Info_Title" = "Kennzahlen";
 
-"Statistics_Info_Subtitle" = "Erklärung der bundesweiten Statistiken";
+"Statistics_Info_Subtitle" = "Erklärung der Statistiken";
 
 "Statistics_Info_Infections_Title" = "Bestätigte Neuinfektionen";
 
@@ -2578,13 +2578,13 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* - Vaccination Certificate Registration */
 
-"VaccinationCertificate_Registration_title" = "Digitalen\n**Impfnachweis hinzufügen**";
+"VaccinationCertificate_Registration_title" = "EU Digitalen\n**COVID-Impfnachweis hinzufügen**";
 
 "VaccinationCertificate_Registration_description" = "Fügen Sie Ihre Impfzertifikate in die App hinzu, um sie immer bei sich zu haben. Scannen Sie dafür den QR-Code Ihres Dokuments.";
 
 /* - Vaccination Certificate */
 
-"VaccinationCertificate_title" = "Digitaler\n**Impfnachweis**";
+"VaccinationCertificate_title" = "EU Digitaler\n**COVID-Impfnachweis**";
 
 "VaccinationCertificate_partiallyVaccinated" = "Unvollständiger Impfschutz";
 
@@ -2592,19 +2592,19 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* - Test Certificate Info */
 
-"TestCertificate_Info_title" = "Digitales\n**COVID-Testzertifikat**";
+"TestCertificate_Info_title" = "EU Digitales\n**COVID-Testzertifikat**";
 
 "TestCertificate_Info_description" = "Registrieren Sie einen Test auf der Startseite und stimmen Sie zu, ein digitales Testzertifikat zu erhalten. Sobald das Zertifikat vorliegt, wird es hier angezeigt.";
 
 /* - Test Certificate */
 
-"TestCertificate_title" = "Digitales\n**COVID-Testzertifikat**";
+"TestCertificate_title" = "EU Digitales\n**COVID-Testzertifikat**";
 
 "TestCertificate_testDate" = "Test durchgeführt am %@";
 
 /* - Test Certificate Request */
 
-"TestCertificateRequest_title" = "Digitales\n**COVID-Testzertifikat**";
+"TestCertificateRequest_title" = "EU Digitales\n**COVID-Testzertifikat**";
 
 "TestCertificateRequest_loadingSubtitle" = "Ihr Zertifikat wird gerade erstellt…";
 
@@ -2656,7 +2656,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Info_imageDescription" = "Eine geschützte Person schaut auf ein Smartphone";
 
-"HealthCertificate_Info_description" = "Fügen Sie Ihre digitalen EU COVID-Zertifikate in der App hinzu, um mit der App Ihren Impfschutz oder ein negatives Testergebnis nachweisen zu können.";
+"HealthCertificate_Info_description" = "Fügen Sie Ihre EU digitalen COVID-Zertifikate in der App hinzu, um mit der App Ihren Impfschutz oder ein negatives Testergebnis nachweisen zu können.";
 
 "HealthCertificate_Info_section01" = "Sie können EU digitale COVID-Impfzertifikate oder COVID-Testzertifikate in der App hinzufügen.";
 
@@ -2676,7 +2676,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Health Certified Person Screen */
 
-"HealthCertifiedPerson_title" = "Digitaler Impfnachweis";
+"HealthCertifiedPerson_title" = "EU Digitaler COVID-Impfnachweis";
 
 "HealthCertifiedPerson_subtitle" = "SARS-CoV-2-Impfschutz";
 
@@ -2687,8 +2687,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "HealthCertifiedPerson_vaccinationDate" = "durchgeführt am %@";
 
 "HealthCertifiedPerson_QRCode_Image_Description" = "Ein QR-Code mit dem Status Ihrer Impfung";
-
-"HealthCertifiedPerson_primaryButton" = "Weitere Impfung hinzufügen";
 
 /* Vaccination Certificate Details */
 

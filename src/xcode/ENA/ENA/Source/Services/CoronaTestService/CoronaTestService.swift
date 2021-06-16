@@ -674,7 +674,16 @@ class CoronaTestService {
 					}
 
 					// only store test result in diary if negative or positive
-					if (testResult == .positive || testResult == .negative) && !coronaTest.journalEntryCreated {
+					// Warning: check the current coronaTest so that changes are not overlooked
+					//
+					if let journalEntryCreated = self.coronaTest(ofType: coronaTestType)?.journalEntryCreated,
+					   (testResult == .positive || testResult == .negative) && !journalEntryCreated {
+						switch coronaTestType {
+						case .pcr:
+							self.pcrTest?.journalEntryCreated = true
+						case .antigen:
+							self.antigenTest?.journalEntryCreated = true
+						}
 						// PCR -> registration date
 						// antigen -> sample collection date if available otherwise we use point of care consent date
 						// Warning: updatedSampleCollectionDate must get used because the service level struct antigenTest has changed and coronaTest wasn't updated
@@ -683,12 +692,6 @@ class CoronaTestService {
 						Log.debug("Write test result to contact diary at date: \(stringDate)", log: .contactdiary)
 						self.diaryStore.addCoronaTest(testDate: stringDate, testType: coronaTestType.rawValue, testResult: testResult.rawValue)
 
-						switch coronaTestType {
-						case .pcr:
-							self.pcrTest?.journalEntryCreated = true
-						case .antigen:
-							self.antigenTest?.journalEntryCreated = true
-						}
 					}
 
 					if coronaTest.finalTestResultReceivedDate == nil {
