@@ -164,7 +164,6 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
         /// Schema validation errors:
         /// -Wrong format for dateOfBirth
         /// -Wrong format for dateTimeOfSampleCollection
-        /// -Wrong format for dateTimeOfTestResult
         /// -uniqueCertificateIdentifier length > 80
         let fakeCertificate = DigitalGreenCertificate.fake(
             dateOfBirth: "NotADateOfBirth",
