@@ -1020,7 +1020,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			digitalGreenCertificateAccess: MockDigitalGreenCertificateAccess()
 		)
 
-		let expectation = expectation(description: "Completion is called.")
+		let completionExpectation = expectation(description: "Completion is called.")
 		service.registerAndExecuteTestCertificateRequest(
 			coronaTestType: .pcr,
 			registrationToken: "",
@@ -1031,10 +1031,10 @@ class HealthCertificateServiceTests: CWATestCase {
 			guard case let .failure(error) = result,
 				  case .dgcNotSupportedByLab = error else {
 				XCTFail("Error dgcNotSupportedByLab was expected.")
-				expectation.fulfill()
+				completionExpectation.fulfill()
 				return
 			}
-			expectation.fulfill()
+			completionExpectation.fulfill()
 		}
 
 		waitForExpectations(timeout: .short)
