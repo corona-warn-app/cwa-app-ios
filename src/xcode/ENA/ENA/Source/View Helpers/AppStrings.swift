@@ -1961,7 +1961,6 @@ enum AppStrings {
 			static let dateOfBirth = NSLocalizedString("HealthCertifiedPerson_dateOfBirth", comment: "")
 			static let vaccinationCount = NSLocalizedString("HealthCertifiedPerson_vaccinationCount", comment: "")
 			static let vaccinationDate = NSLocalizedString("HealthCertifiedPerson_vaccinationDate", comment: "")
-			static let primaryButton = NSLocalizedString("HealthCertifiedPerson_primaryButton", comment: "")
 			static let QRCodeImageDescription = NSLocalizedString("HealthCertifiedPerson_QRCode_Image_Description", comment: "")
 		}
 
@@ -1986,6 +1985,12 @@ enum AppStrings {
 				static let subtitle = NSLocalizedString("TestCertificate_Details_subtitle", comment: "")
 				static let primaryButton = NSLocalizedString("TestCertificate_Details_primaryButton", comment: "")
 			}
+
+			enum RecoveryCertificate {
+				static let title = NSLocalizedString("RecoveryCertificate_Details_title", comment: "")
+				static let subtitle = NSLocalizedString("RecoveryCertificate_Details_subtitle", comment: "")
+				static let primaryButton = NSLocalizedString("RecoveryCertificate_Details_primaryButton", comment: "")
+			}
 		}
 
 		enum Alert {
@@ -2000,18 +2005,23 @@ enum AppStrings {
 				static let deleteButton = NSLocalizedString("TestCertificate_Alert_deleteButton", comment: "")
 				static let cancelButton = NSLocalizedString("TestCertificate_Alert_cancelButton", comment: "")
 			}
+
+			enum RecoveryCertificate {
+				static let title = NSLocalizedString("RecoveryCertificate_Alert_title", comment: "")
+				static let message = NSLocalizedString("RecoveryCertificate_Alert_message", comment: "")
+				static let deleteButton = NSLocalizedString("RecoveryCertificate_Alert_deleteButton", comment: "")
+				static let cancelButton = NSLocalizedString("RecoveryCertificate_Alert_cancelButton", comment: "")
+			}
 		}
 
 		enum Error {
 			static let title = NSLocalizedString("HealthCertificate_Error_Title", comment: "")
 			static let faqDescription = NSLocalizedString("HealthCertificate_Error_FAQ_Description", comment: "")
 			static let faqButtonTitle = NSLocalizedString("HealthCertificate_Error_FAQ_Button_Title", comment: "")
-			static let pcTryAgainLater = NSLocalizedString("HealthCertificate_Error_PC_TRY_AGAIN_LATER", comment: "")
-			static let vcAlreadyRegistered = NSLocalizedString("HealthCertificate_Error_VC_ALREADY_REGISTERED", comment: "")
-			static let vcDifferentPerson = NSLocalizedString("HealthCertificate_Error_VC_DIFFERENT_PERSON", comment: "")
-			static let vcInvalid = NSLocalizedString("HealthCertificate_Error_VC_INVALID", comment: "")
-			static let vcNotYetSupported = NSLocalizedString("HealthCertificate_Error_VC_NOT_YET_SUPPORTED", comment: "")
-			static let vcScanAgain = NSLocalizedString("HealthCertificate_Error_VC_SCAN_AGAIN", comment: "")
+			static let hcAlreadyRegistered = NSLocalizedString("HealthCertificate_Error_HC_ALREADY_REGISTERED", comment: "")
+			static let hcInvalid = NSLocalizedString("HealthCertificate_Error_HC_INVALID", comment: "")
+			static let hcNotSupported = NSLocalizedString("HealthCertificate_Error_HC_NOT_SUPPORTED", comment: "")
+			static let hcQRCodeError = NSLocalizedString("HealthCertificate_Error_HC_QR_CODE_ERROR", comment: "")
 		}
 
 	}

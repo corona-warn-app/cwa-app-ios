@@ -283,4 +283,5 @@ final class CheckinCoordinator {
 			}
 			.store(in: &subscriptions)
 	}
+
 }

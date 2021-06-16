@@ -179,6 +179,8 @@ protocol HealthCertificateStoring: AnyObject {
 
 	var testCertificateRequests: [TestCertificateRequest] { get set }
 
+	var unseenTestCertificateCount: Int { get set }
+
 }
 
 /// this section contains only deprecated stuff, please do not add new things here

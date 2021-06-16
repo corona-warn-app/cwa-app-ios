@@ -81,6 +81,8 @@ class HealthCertificateOverviewViewController: UITableViewController {
 
 		navigationController?.navigationBar.prefersLargeTitles = true
 		navigationController?.navigationBar.sizeToFit()
+
+		viewModel.resetBadgeCount()
 	}
 
 	// MARK: - Protocol UITableViewDataSource
