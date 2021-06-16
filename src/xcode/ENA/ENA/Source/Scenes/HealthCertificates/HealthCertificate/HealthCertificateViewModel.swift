@@ -179,6 +179,7 @@ final class HealthCertificateViewModel {
 		case marketingAuthorizationHolder
 		case diseaseOrAgentTargeted
 		case typeOfTest
+		case rapidAntigenTestNameAndManufacturer
 		case testResult
 	}
 
@@ -320,7 +321,7 @@ final class HealthCertificateViewModel {
 				key: "Testhersteller / Test Manufacturer",
 				value: determineValue(
 					key: ratTestName,
-					valueSet: valueSet(by: .marketingAuthorizationHolder)
+					valueSet: valueSet(by: .rapidAntigenTestNameAndManufacturer)
 				)
 			)
 		}
@@ -397,6 +398,8 @@ final class HealthCertificateViewModel {
 			return valueSets.hasTg ? valueSets.tg : nil
 		case .typeOfTest:
 			return valueSets.hasTcTt ? valueSets.tcTt : nil
+		case .rapidAntigenTestNameAndManufacturer:
+			return valueSets.hasTcMa ? valueSets.tcMa : nil
 		case .testResult:
 			return valueSets.hasTcTr ? valueSets.tcTr : nil
 		}
