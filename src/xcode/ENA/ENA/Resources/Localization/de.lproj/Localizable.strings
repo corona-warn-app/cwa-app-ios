@@ -1586,7 +1586,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeature_25_recovery_cert_title" = "COVID-Genesenenzertifikate";
 
-"NewVersionFeature_25_recovery_cert_description" = "Sie können nun in der App auch digitale Genesenenzertifikate hinzufügen. Sie können diese Zertifikate innerhalb der EU verwenden, um eine frühere Infektion nachzuweisen (z.B. für Auslandsreisen).";
+"NewVersionFeature_25_recovery_cert_description" = "Sie können nun in der App auch digitale Genesenenzertifikate hinzufügen. Sie können diese Zertifikate innerhalb der EU verwenden, um eine frühere Infektion nachzuweisen (z.B. für Auslandsreisen).";
 
 "NewVersionFeature_25_family_certificate_title" = "Familienzertifikate";
 
@@ -1594,7 +1594,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeature_25_enhanced_statistics_title" = "Erweiterung Statistiken ";
 
-"NewVersionFeature_25_enhanced_statistics_description" = "Sie können nun bis zu fünf lokale 7-Tage-Inzidenzen in der App hinzufügen. Zusätzlich sind nun folgende Impfstatistiken in der App verfügbar:\n\n\t- Anzahl mindestens einmal geimpfter Personen\n\t- Anzahl vollständig geimpfter Personen\n\t- Anzahl verabreichter Impfdosen";
+"NewVersionFeature_25_enhanced_statistics_description" = "Es sind nun folgende Impfstatistiken in der App verfügbar:\n\n\t- Anzahl mindestens einmal geimpfter Personen\n\t- Anzahl vollständig geimpfter Personen\n\t- Anzahl verabreichter Impfdosen";
 
 "NewVersionFeature_25_edit_test_profile_title" = "Schnelltest-Profil bearbeiten";
 

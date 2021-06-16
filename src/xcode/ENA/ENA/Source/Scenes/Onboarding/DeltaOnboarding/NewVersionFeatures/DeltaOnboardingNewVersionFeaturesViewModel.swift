@@ -31,9 +31,11 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		)
 		
 		// Edit Test Profile
+		/*
 		self.newVersionFeatures.append(
 			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature25EditTestProfileTitle, description: AppStrings.NewVersionFeatures.feature25tEditTestProfileDescription)
 		)
+		*/
 		
 	}
 
