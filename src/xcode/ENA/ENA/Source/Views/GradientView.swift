@@ -83,6 +83,7 @@ class GradientView: UIView {
 
 	private func setupLayer() {
 		guard let gradientLayer = self.layer as? CAGradientLayer else {
+			Log.debug("Failed to create view with matching layer class", log: .default)
 			return
 		}
 
