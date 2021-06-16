@@ -1038,5 +1038,9 @@ class HealthCertificateServiceTests: CWATestCase {
 		}
 
 		waitForExpectations(timeout: .short)
+		
+		XCTAssertEqual(service.testCertificateRequests.value.first, certificateRequest)
+		XCTAssertTrue(certificateRequest.requestExecutionFailed)
+		XCTAssertFalse(certificateRequest.isLoading)
 	}
 }
