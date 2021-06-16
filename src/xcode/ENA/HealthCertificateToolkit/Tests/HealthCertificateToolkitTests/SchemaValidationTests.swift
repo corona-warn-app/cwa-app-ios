@@ -5,6 +5,7 @@
 import XCTest
 @testable import HealthCertificateToolkit
 
+// swiftlint:disable type_body_length
 class SchemaValidationTests: XCTestCase {
     
     func test_When_DecodeVaccinationCertificateFails_Then_SchemaInvalidErrorIsReturned() {

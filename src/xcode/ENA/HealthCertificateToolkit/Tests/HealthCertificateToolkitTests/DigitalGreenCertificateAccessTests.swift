@@ -6,7 +6,7 @@ import XCTest
 import SwiftCBOR
 @testable import HealthCertificateToolkit
 
-// swiftlint:disable line_length type_body_length
+// swiftlint:disable line_length
 final class DigitalGreenCertificateAccessTests: XCTestCase {
 
     func test_When_DecodeVaccinationCertificateSucceeds_Then_CorrectCertificateIsReturned() {
@@ -288,5 +288,4 @@ private struct EncryptedTestData {
     let input: String
     let output: String
     let decryptedKey: String
-// swiftlint:disable file_length
 }
