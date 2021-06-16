@@ -111,7 +111,7 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
             vaccinationEntries: [
                 VaccinationEntry.fake(
                     dateOfVaccination: "NODateOfVaccination",
-                    uniqueCertificateIdentifier: "Lorem ipsum dolor sit amet, consetetur sadipscing e"
+                    uniqueCertificateIdentifier: "Lorem ipsum dolor sit amet, consetetur sadipscing eLorem ipsum dolor sit amet, consetetur sadipscing e"
                 )
             ]
         )
@@ -148,7 +148,7 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
         }
 
         let containsLengthError = innerSchemaErrors.contains {
-            $0.description == "Length of string is larger than max length 50"
+            $0.description == "Length of string is larger than max length 80"
         }
 
         XCTAssertEqual(innerSchemaErrors.count, 3)
@@ -171,7 +171,6 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
             testEntries: [
                 TestEntry.fake(
                     dateTimeOfSampleCollection: "NotADateTimeOfSampleCollection",
-                    dateTimeOfTestResult: "NotADateTimeOfTestResult",
                     uniqueCertificateIdentifier: "Lorem ipsum dolor sit amet, consetetur sadipscing e"
                 )
             ]
@@ -208,18 +207,13 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
             $0.description.contains("NotADateTimeOfSampleCollection' is not a valid RFC 3339 formatted date")
         }
 
-        let containsDateTimeOfTestResult = innerSchemaErrors.contains {
-            $0.description.contains("NotADateTimeOfTestResult' is not a valid RFC 3339 formatted date")
-        }
-
         let containsLengthError = innerSchemaErrors.contains {
             $0.description == "Length of string is larger than max length 50"
         }
 
-        XCTAssertEqual(innerSchemaErrors.count, 4)
+        XCTAssertEqual(innerSchemaErrors.count, 3)
         XCTAssertTrue(containsDateOfBirthError)
         XCTAssertTrue(containsDateTimeOfSampleCollectionError)
-        XCTAssertTrue(containsDateTimeOfTestResult)
         XCTAssertTrue(containsLengthError)
     }
 
@@ -458,7 +452,6 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
                         naaTestName: "EUDCUVMXCMNIXU7OS5UBT0T8T",
                         ratTestName: "1242",
                         dateTimeOfSampleCollection: "2021-05-29T22:34:17.595Z",
-                        dateTimeOfTestResult: "2021-05-31T08:58:17.595Z",
                         testCenter: "General Practitioner 3",
                         countryOfTest: "DE",
                         certificateIssuer: "Bundesministerium für Gesundheit",
