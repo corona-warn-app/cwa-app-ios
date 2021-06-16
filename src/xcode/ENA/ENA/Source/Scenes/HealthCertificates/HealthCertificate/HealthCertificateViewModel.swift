@@ -91,7 +91,7 @@ final class HealthCertificateViewModel {
 
 		let title: String
 		let subtitle: String
-		switch healthCertificate.type {
+		switch healthCertificate.entry {
 		case .vaccination(let vaccinationEntry):
 			title = String(format: AppStrings.HealthCertificate.Details.vaccinationCount, vaccinationEntry.doseNumber, vaccinationEntry.totalSeriesOfDoses)
 			subtitle = AppStrings.HealthCertificate.Details.certificate
@@ -192,7 +192,7 @@ final class HealthCertificateViewModel {
 	private var subscriptions = Set<AnyCancellable>()
 
 	private func updateHealthCertificateKeyValueCellViewModels() {
-		switch healthCertificate.type {
+		switch healthCertificate.entry {
 		case .vaccination(let vaccinationEntry):
 			updateVaccinationCertificateKeyValueCellViewModels(vaccinationEntry: vaccinationEntry)
 		case .test(let testEntry):

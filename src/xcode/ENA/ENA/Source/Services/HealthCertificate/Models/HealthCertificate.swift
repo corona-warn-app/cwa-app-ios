@@ -37,6 +37,12 @@ struct HealthCertificate: Codable, Equatable, Comparable {
 	// MARK: - Internal
 
 	enum CertificateType {
+		case vaccination
+		case test
+		case recovery
+	}
+
+	enum CertificateEntry {
 		case vaccination(VaccinationEntry)
 		case test(TestEntry)
 		case recovery(RecoveryEntry)
@@ -87,6 +93,19 @@ struct HealthCertificate: Codable, Equatable, Comparable {
 	}
 
 	var type: CertificateType {
+		switch entry {
+		case .vaccination:
+			return .vaccination
+		case .test:
+			return .test
+		case .recovery:
+			return .recovery
+		}
+
+		fatalError("Unsupported certificates are not added in the first place")
+	}
+
+	var entry: CertificateEntry {
 		if let vaccinationEntry = vaccinationEntry {
 			return .vaccination(vaccinationEntry)
 		} else if let testEntry = testEntry {
@@ -136,7 +155,7 @@ struct HealthCertificate: Codable, Equatable, Comparable {
 	}
 
 	private var sortDate: Date? {
-		switch type {
+		switch entry {
 		case .vaccination(let vaccinationEntry):
 			return vaccinationEntry.localVaccinationDate
 		case .test(let testEntry):
