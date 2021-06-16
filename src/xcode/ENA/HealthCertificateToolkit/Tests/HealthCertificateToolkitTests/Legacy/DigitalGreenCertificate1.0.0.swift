@@ -5,7 +5,7 @@
 import Foundation
 import SwiftCBOR
 
-public struct DigitalGreenCertificate: Codable, Equatable {
+public struct DigitalGreenCertificate100: Codable, Equatable {
 
     // MARK: - Protocol Codable
 
@@ -15,38 +15,34 @@ public struct DigitalGreenCertificate: Codable, Equatable {
         case dateOfBirth = "dob"
         case vaccinationEntries = "v"
         case testEntries = "t"
-        case recoveryEntries = "r"
     }
 
     // MARK: - Internal
 
     public let version: String
-    public let name: Name
+    public let name: Name100
     public let dateOfBirth: String
-    public let vaccinationEntries: [VaccinationEntry]?
-    public let testEntries: [TestEntry]?
-    public let recoveryEntries: [RecoveryEntry]?
+    public let vaccinationEntries: [VaccinationEntry100]?
+    public let testEntries: [TestEntry100]?
 
     public static func fake(
-        version: String = "1.3.0",
-        name: Name = .fake(),
+        version: String = "1.0.0",
+        name: Name100 = .fake(),
         dateOfBirth: String = "1942-01-01",
-        vaccinationEntries: [VaccinationEntry]? = nil,
-        testEntries: [TestEntry]? = nil,
-        recoveryEntries: [RecoveryEntry]? = nil
-    ) -> DigitalGreenCertificate {
-        DigitalGreenCertificate(
+        vaccinationEntries: [VaccinationEntry100]? = nil,
+        testEntries: [TestEntry100]? = nil
+    ) -> DigitalGreenCertificate100 {
+        DigitalGreenCertificate100(
             version: version,
             name: name,
             dateOfBirth: dateOfBirth,
             vaccinationEntries: vaccinationEntries,
-            testEntries: testEntries,
-            recoveryEntries: recoveryEntries
+            testEntries: testEntries
         )
     }
 }
 
-public struct VaccinationEntry: Codable, Equatable {
+public struct VaccinationEntry100: Codable, Equatable {
 
     // MARK: - Protocol Codable
 
@@ -89,8 +85,8 @@ public struct VaccinationEntry: Codable, Equatable {
         countryOfVaccination: String = "DE",
         certificateIssuer: String = "Bundesministerium für Gesundheit",
         uniqueCertificateIdentifier: String = "01DE/84503/1119349007/DXSGWLWL40SU8ZFKIYIBK39A3#S"
-    ) -> VaccinationEntry {
-        VaccinationEntry(
+    ) -> VaccinationEntry100 {
+        VaccinationEntry100(
             diseaseOrAgentTargeted: diseaseOrAgentTargeted,
             vaccineOrProphylaxis: vaccineOrProphylaxis,
             vaccineMedicinalProduct: vaccineMedicinalProduct,
@@ -106,7 +102,7 @@ public struct VaccinationEntry: Codable, Equatable {
 
 }
 
-public struct TestEntry: Codable, Equatable {
+public struct TestEntry100: Codable, Equatable {
 
     // MARK: - Init
 
@@ -117,7 +113,8 @@ public struct TestEntry: Codable, Equatable {
         naaTestName: String?,
         ratTestName: String?,
         dateTimeOfSampleCollection: String,
-        testCenter: String?,
+        dateTimeOfTestResult: String?,
+        testCenter: String,
         countryOfTest: String,
         certificateIssuer: String,
         uniqueCertificateIdentifier: String
@@ -128,6 +125,7 @@ public struct TestEntry: Codable, Equatable {
         self.naaTestName = naaTestName
         self.ratTestName = ratTestName
         self.dateTimeOfSampleCollection = dateTimeOfSampleCollection
+        self.dateTimeOfTestResult = dateTimeOfTestResult
         self.testCenter = testCenter
         self.countryOfTest = countryOfTest
         self.certificateIssuer = certificateIssuer
@@ -144,6 +142,7 @@ public struct TestEntry: Codable, Equatable {
         case naaTestName = "nm"
         case ratTestName = "ma"
         case dateTimeOfSampleCollection = "sc"
+        case dateTimeOfTestResult = "dr"
         case testCenter = "tc"
         case countryOfTest = "co"
         case certificateIssuer = "is"
@@ -158,7 +157,8 @@ public struct TestEntry: Codable, Equatable {
     public let naaTestName: String?
     public let ratTestName: String?
     public let dateTimeOfSampleCollection: String
-    public let testCenter: String?
+    public let dateTimeOfTestResult: String?
+    public let testCenter: String
     public let countryOfTest: String
     public let certificateIssuer: String
     public let uniqueCertificateIdentifier: String
@@ -170,18 +170,20 @@ public struct TestEntry: Codable, Equatable {
         naaTestName: String? = nil,
         ratTestName: String? = nil,
         dateTimeOfSampleCollection: String = "2021-05-29T22:34:17.595Z",
-        testCenter: String? = nil,
+        dateTimeOfTestResult: String? = nil,
+        testCenter: String = "Rödelheim Esso Tankstelle",
         countryOfTest: String = "DE",
         certificateIssuer: String = "Bundesministerium für Gesundheit",
         uniqueCertificateIdentifier: String = "01DE/00000/1119349007/9QK4WRVMUOUIP7PYVNSFBK9GF"
-    ) -> TestEntry {
-        TestEntry(
+    ) -> TestEntry100 {
+        TestEntry100(
             diseaseOrAgentTargeted: diseaseOrAgentTargeted,
             typeOfTest: typeOfTest,
             testResult: testResult,
             naaTestName: naaTestName,
             ratTestName: ratTestName,
             dateTimeOfSampleCollection: dateTimeOfSampleCollection,
+            dateTimeOfTestResult: dateTimeOfTestResult,
             testCenter: testCenter,
             countryOfTest: countryOfTest,
             certificateIssuer: certificateIssuer,
@@ -190,76 +192,10 @@ public struct TestEntry: Codable, Equatable {
     }
 }
 
-public struct RecoveryEntry: Codable, Equatable {
+public struct Name100: Codable, Equatable {
 
     // MARK: - Init
 
-    public init(
-        diseaseOrAgentTargeted: String,
-        dateOfFirstPositiveNAAResult: String,
-        countryOfTest: String,
-        certificateIssuer: String,
-        certificateValidFrom: String,
-        certificateValidUntil: String,
-        uniqueCertificateIdentifier: String
-    ) {
-        self.diseaseOrAgentTargeted = diseaseOrAgentTargeted
-        self.dateOfFirstPositiveNAAResult = dateOfFirstPositiveNAAResult
-        self.countryOfTest = countryOfTest
-        self.certificateIssuer = certificateIssuer
-        self.certificateValidFrom = certificateValidFrom
-        self.certificateValidUntil = certificateValidUntil
-        self.uniqueCertificateIdentifier = uniqueCertificateIdentifier
-    }
-
-    // MARK: - Protocol Codable
-
-    enum CodingKeys: String, CodingKey {
-        case diseaseOrAgentTargeted = "tg"
-        case dateOfFirstPositiveNAAResult = "fr"
-        case countryOfTest = "co"
-        case certificateIssuer = "is"
-        case certificateValidFrom = "df"
-        case certificateValidUntil = "du"
-        case uniqueCertificateIdentifier = "ci"
-    }
-
-    // MARK: - Internal
-
-    public let diseaseOrAgentTargeted: String
-    public let dateOfFirstPositiveNAAResult: String
-    public let countryOfTest: String
-    public let certificateIssuer: String
-    public let certificateValidFrom: String
-    public let certificateValidUntil: String
-    public let uniqueCertificateIdentifier: String
-
-    public static func fake(
-        diseaseOrAgentTargeted: String = "840539006",
-        dateOfFirstPositiveNAAResult: String = "2021-04-21",
-        countryOfTest: String = "NL",
-        certificateIssuer: String = "Ministry of Public Health, Welfare and Sport",
-        certificateValidFrom: String = "2021-05-01",
-        certificateValidUntil: String = "2021-10-21",
-        uniqueCertificateIdentifier: String = "urn:uvci:01:NL:LSP/REC/1289821"
-    ) -> RecoveryEntry {
-
-        RecoveryEntry(
-            diseaseOrAgentTargeted: diseaseOrAgentTargeted,
-            dateOfFirstPositiveNAAResult: dateOfFirstPositiveNAAResult,
-            countryOfTest: countryOfTest,
-            certificateIssuer: certificateIssuer,
-            certificateValidFrom: certificateValidFrom,
-            certificateValidUntil: certificateValidUntil,
-            uniqueCertificateIdentifier: uniqueCertificateIdentifier
-        )
-    }
-}
-
-public struct Name: Codable, Equatable {
-
-    // MARK: - Init
-    
     public init(
         familyName: String?,
         givenName: String?,
@@ -293,8 +229,8 @@ public struct Name: Codable, Equatable {
         givenName: String? = nil,
         standardizedFamilyName: String = "ERIKA<DOERTE",
         standardizedGivenName: String? = nil
-    ) -> Name {
-        Name(
+    ) -> Name100 {
+        Name100(
             familyName: familyName,
             givenName: givenName,
             standardizedFamilyName: standardizedFamilyName,
