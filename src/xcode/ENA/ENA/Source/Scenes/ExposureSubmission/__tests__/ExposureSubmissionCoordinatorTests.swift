@@ -50,8 +50,7 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 			parentNavigationController: parentNavigationController,
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: coronaTestService,
-			eventProvider: MockEventStore(),
-			antigenTestProfileStore: store
+			eventProvider: MockEventStore()
 		)
 	}
 
