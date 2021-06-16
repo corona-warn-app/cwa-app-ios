@@ -28,7 +28,7 @@ final class HealthCertificateCellViewModel {
 				vaccinationEntry.doseNumber,
 				vaccinationEntry.totalSeriesOfDoses
 			)
-		case .test(_): // swiftlint validator!
+		case .test:
 			return nil
 		case .recovery:
 			return nil
