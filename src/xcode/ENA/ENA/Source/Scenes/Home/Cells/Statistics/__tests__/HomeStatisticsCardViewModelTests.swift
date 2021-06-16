@@ -701,7 +701,7 @@ class HomeStatisticsCardViewModelTests: CWATestCase {
 					switch HomeStatisticsCard(rawValue: id) {
 					case .atLeastOneVaccinatedPerson, .fullyVaccinatedPeople:
 						if inPercent {
-							XCTAssertEqual(viewModel.primaryValue, expectedString + AppStrings.Statistics.percent)
+							XCTAssertEqual(viewModel.primaryValue, expectedString + "%")
 						}
 					case .infections, .incidence, .keySubmissions, .reproductionNumber, .appliedVaccinationsDoseRates:
 						XCTAssertEqual(viewModel.primaryValue, expectedString)

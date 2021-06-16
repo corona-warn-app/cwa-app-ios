@@ -1357,10 +1357,8 @@ enum AppStrings {
 	}
 
 	enum Statistics {
-
 		static let error = NSLocalizedString("Statistics_LoadingError", comment: "")
-		static let percent = NSLocalizedString("Statistics_Card_Percent", comment: "")
-
+		
 		enum Card {
 			static let fromNationWide = NSLocalizedString("Statistics_Card_From_Nationwide", comment: "")
 			static let fromCWA = NSLocalizedString("Statistics_Card_From_CWA", comment: "")
