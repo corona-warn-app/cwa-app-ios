@@ -101,8 +101,6 @@ struct HealthCertificate: Codable, Equatable, Comparable {
 		case .recovery:
 			return .recovery
 		}
-
-		fatalError("Unsupported certificates are not added in the first place")
 	}
 
 	var entry: CertificateEntry {
