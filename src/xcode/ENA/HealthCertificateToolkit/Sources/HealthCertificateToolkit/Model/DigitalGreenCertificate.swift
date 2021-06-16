@@ -117,7 +117,7 @@ public struct TestEntry: Codable, Equatable {
         naaTestName: String?,
         ratTestName: String?,
         dateTimeOfSampleCollection: String,
-        dateTimeOfTestResult: String?,
+        dateTimeOfTestResult: String,
         testCenter: String,
         countryOfTest: String,
         certificateIssuer: String,
@@ -161,7 +161,7 @@ public struct TestEntry: Codable, Equatable {
     public let naaTestName: String?
     public let ratTestName: String?
     public let dateTimeOfSampleCollection: String
-    public let dateTimeOfTestResult: String?
+    public let dateTimeOfTestResult: String
     public let testCenter: String
     public let countryOfTest: String
     public let certificateIssuer: String
@@ -174,7 +174,7 @@ public struct TestEntry: Codable, Equatable {
         naaTestName: String? = nil,
         ratTestName: String? = nil,
         dateTimeOfSampleCollection: String = "2021-05-29T22:34:17.595Z",
-        dateTimeOfTestResult: String? = nil,
+        dateTimeOfTestResult: String? = "2021-05-31T08:58:17.595Z",
         testCenter: String = "Rödelheim Esso Tankstelle",
         countryOfTest: String = "DE",
         certificateIssuer: String = "Bundesministerium für Gesundheit",
