@@ -74,12 +74,6 @@ platform :ios do
       no_cache: false,
       reporter: "html"
     )
-
-    # Output issues directly in logs
-    sh(
-      "if [[ -e ../swiftlint.result.txt ]]; then cat ../swiftlint.result.txt; fi;",
-      step_name: "print report"
-    )
   end
 
   desc "Run tests"
