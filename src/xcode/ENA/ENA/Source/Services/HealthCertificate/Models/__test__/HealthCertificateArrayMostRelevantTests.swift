@@ -10,53 +10,106 @@ import HealthCertificateToolkit
 class HealthCertificateArrayMostRelevantTests: CWATestCase {
 
 	func testMostRelevantHealthCertificate() throws {
-		let validPCRTest = try testCertificate(coronaTestType: .pcr, ageInHours: 47)
-		let validAntigenTest = try testCertificate(coronaTestType: .antigen, ageInHours: 23)
-		let protectingVaccinationCertificate = try vaccinationCertificate(isCompletingSeries: true, ageInDays: 15)
-		let validRecoveryCertificate = try recoveryCertificate(ageInDays: 180)
-		let seriesCompletingVaccinationCertificate = try vaccinationCertificate(isCompletingSeries: true, ageInDays: 14)
-		let otherVaccinationCertificate = try vaccinationCertificate(isCompletingSeries: false, ageInDays: 14)
-		let outdatedRecoveryCertificate = try recoveryCertificate(ageInDays: 181)
-		let outdatedPCRTest = try testCertificate(coronaTestType: .pcr, ageInHours: 48)
-		let outdatedAntigenTest = try testCertificate(coronaTestType: .antigen, ageInHours: 24)
+		let mostRecentValidPCRTest = try testCertificate(coronaTestType: .pcr, ageInHours: 18)
+		let olderValidPCRTest = try testCertificate(coronaTestType: .pcr, ageInHours: 47)
+
+		let mostRecentValidAntigenTest = try testCertificate(coronaTestType: .antigen, ageInHours: 2)
+		let olderValidAntigenTest = try testCertificate(coronaTestType: .antigen, ageInHours: 23)
+
+		let mostRecentProtectingVaccinationCertificate = try vaccinationCertificate(isCompletingSeries: true, ageInDays: 15)
+		let olderProtectingVaccinationCertificate = try vaccinationCertificate(isCompletingSeries: true, ageInDays: 296)
+
+		let mostRecentValidRecoveryCertificate = try recoveryCertificate(ageInDays: 10)
+		let olderValidRecoveryCertificate = try recoveryCertificate(ageInDays: 180)
+
+		let mostRecentSeriesCompletingVaccinationCertificate = try vaccinationCertificate(isCompletingSeries: true, ageInDays: 3)
+		let olderSeriesCompletingVaccinationCertificate = try vaccinationCertificate(isCompletingSeries: true, ageInDays: 14)
+
+		let mostRecentOtherVaccinationCertificate = try vaccinationCertificate(isCompletingSeries: false, ageInDays: 5)
+		let olderOtherVaccinationCertificate = try vaccinationCertificate(isCompletingSeries: false, ageInDays: 14)
+
+		let mostRecentOutdatedRecoveryCertificate = try recoveryCertificate(ageInDays: 181)
+		let olderOutdatedRecoveryCertificate = try recoveryCertificate(ageInDays: 522)
+
+		let mostRecentOutdatedPCRTest = try testCertificate(coronaTestType: .pcr, ageInHours: 48)
+		let olderOutdatedPCRTest = try testCertificate(coronaTestType: .pcr, ageInHours: 1068)
+
+		let mostRecentOutdatedAntigenTest = try testCertificate(coronaTestType: .antigen, ageInHours: 24)
+		let olderOutdatedAntigenTest = try testCertificate(coronaTestType: .antigen, ageInHours: 653)
 
 		var healthCertificates = [
-			validPCRTest,
-			validAntigenTest,
-			protectingVaccinationCertificate,
-			validRecoveryCertificate,
-			seriesCompletingVaccinationCertificate,
-			otherVaccinationCertificate,
-			outdatedRecoveryCertificate,
-			outdatedPCRTest,
-			outdatedAntigenTest
+			mostRecentValidPCRTest,
+			olderValidPCRTest,
+			mostRecentValidAntigenTest,
+			olderValidAntigenTest,
+			mostRecentProtectingVaccinationCertificate,
+			olderProtectingVaccinationCertificate,
+			mostRecentValidRecoveryCertificate,
+			olderValidRecoveryCertificate,
+			mostRecentSeriesCompletingVaccinationCertificate,
+			olderSeriesCompletingVaccinationCertificate,
+			mostRecentOtherVaccinationCertificate,
+			olderOtherVaccinationCertificate,
+			mostRecentOutdatedRecoveryCertificate,
+			olderOutdatedRecoveryCertificate,
+			mostRecentOutdatedPCRTest,
+			olderOutdatedPCRTest,
+			mostRecentOutdatedAntigenTest,
+			olderOutdatedAntigenTest
 		].shuffled()
 
-		XCTAssertEqual(healthCertificates.mostRelevant, validPCRTest)
+		XCTAssertEqual(healthCertificates.mostRelevant, mostRecentValidPCRTest)
 
-		healthCertificates.removeAll(where: { $0 == validPCRTest })
-		XCTAssertEqual(healthCertificates.mostRelevant, validAntigenTest)
+		healthCertificates.removeAll(where: { $0 == mostRecentValidPCRTest })
+		XCTAssertEqual(healthCertificates.mostRelevant, olderValidPCRTest)
 
-		healthCertificates.removeAll(where: { $0 == validAntigenTest })
-		XCTAssertEqual(healthCertificates.mostRelevant, protectingVaccinationCertificate)
+		healthCertificates.removeAll(where: { $0 == olderValidPCRTest })
+		XCTAssertEqual(healthCertificates.mostRelevant, mostRecentValidAntigenTest)
 
-		healthCertificates.removeAll(where: { $0 == protectingVaccinationCertificate })
-		XCTAssertEqual(healthCertificates.mostRelevant, validRecoveryCertificate)
+		healthCertificates.removeAll(where: { $0 == mostRecentValidAntigenTest })
+		XCTAssertEqual(healthCertificates.mostRelevant, olderValidAntigenTest)
 
-		healthCertificates.removeAll(where: { $0 == validRecoveryCertificate })
-		XCTAssertEqual(healthCertificates.mostRelevant, seriesCompletingVaccinationCertificate)
+		healthCertificates.removeAll(where: { $0 == olderValidAntigenTest })
+		XCTAssertEqual(healthCertificates.mostRelevant, mostRecentProtectingVaccinationCertificate)
 
-		healthCertificates.removeAll(where: { $0 == seriesCompletingVaccinationCertificate })
-		XCTAssertEqual(healthCertificates.mostRelevant, otherVaccinationCertificate)
+		healthCertificates.removeAll(where: { $0 == mostRecentProtectingVaccinationCertificate })
+		XCTAssertEqual(healthCertificates.mostRelevant, olderProtectingVaccinationCertificate)
 
-		healthCertificates.removeAll(where: { $0 == otherVaccinationCertificate })
-		XCTAssertEqual(healthCertificates.mostRelevant, outdatedRecoveryCertificate)
+		healthCertificates.removeAll(where: { $0 == olderProtectingVaccinationCertificate })
+		XCTAssertEqual(healthCertificates.mostRelevant, mostRecentValidRecoveryCertificate)
 
-		healthCertificates.removeAll(where: { $0 == outdatedRecoveryCertificate })
-		XCTAssertEqual(healthCertificates.mostRelevant, outdatedPCRTest)
+		healthCertificates.removeAll(where: { $0 == mostRecentValidRecoveryCertificate })
+		XCTAssertEqual(healthCertificates.mostRelevant, olderValidRecoveryCertificate)
 
-		healthCertificates.removeAll(where: { $0 == outdatedPCRTest })
-		XCTAssertEqual(healthCertificates.mostRelevant, outdatedAntigenTest)
+		healthCertificates.removeAll(where: { $0 == olderValidRecoveryCertificate })
+		XCTAssertEqual(healthCertificates.mostRelevant, mostRecentSeriesCompletingVaccinationCertificate)
+
+		healthCertificates.removeAll(where: { $0 == mostRecentSeriesCompletingVaccinationCertificate })
+		XCTAssertEqual(healthCertificates.mostRelevant, olderSeriesCompletingVaccinationCertificate)
+
+		healthCertificates.removeAll(where: { $0 == olderSeriesCompletingVaccinationCertificate })
+		XCTAssertEqual(healthCertificates.mostRelevant, mostRecentOtherVaccinationCertificate)
+
+		healthCertificates.removeAll(where: { $0 == mostRecentOtherVaccinationCertificate })
+		XCTAssertEqual(healthCertificates.mostRelevant, olderOtherVaccinationCertificate)
+
+		healthCertificates.removeAll(where: { $0 == olderOtherVaccinationCertificate })
+		XCTAssertEqual(healthCertificates.mostRelevant, mostRecentOutdatedRecoveryCertificate)
+
+		healthCertificates.removeAll(where: { $0 == mostRecentOutdatedRecoveryCertificate })
+		XCTAssertEqual(healthCertificates.mostRelevant, olderOutdatedRecoveryCertificate)
+
+		healthCertificates.removeAll(where: { $0 == olderOutdatedRecoveryCertificate })
+		XCTAssertEqual(healthCertificates.mostRelevant, mostRecentOutdatedPCRTest)
+
+		healthCertificates.removeAll(where: { $0 == mostRecentOutdatedPCRTest })
+		XCTAssertEqual(healthCertificates.mostRelevant, olderOutdatedPCRTest)
+
+		healthCertificates.removeAll(where: { $0 == olderOutdatedPCRTest })
+		XCTAssertEqual(healthCertificates.mostRelevant, mostRecentOutdatedAntigenTest)
+
+		healthCertificates.removeAll(where: { $0 == mostRecentOutdatedAntigenTest })
+		XCTAssertEqual(healthCertificates.mostRelevant, olderOutdatedAntigenTest)
 	}
 
 	// MARK: - Private
