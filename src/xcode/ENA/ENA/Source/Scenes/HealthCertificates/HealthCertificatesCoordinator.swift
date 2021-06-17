@@ -92,6 +92,9 @@ final class HealthCertificatesCoordinator {
 					healthCertificate: testCertificate,
 					shouldPushOnModalNavigationController: false
 				)
+			},
+			onMissingPermissionsButtonTap: { [weak self] in
+				self?.showSettings()
 			}
 		)
 	}()
@@ -343,6 +346,10 @@ final class HealthCertificatesCoordinator {
 				self?.viewController.tabBarItem.badgeValue = $0 > 0 ? String($0) : nil
 			}
 			.store(in: &subscriptions)
+	}
+	
+	private func showSettings() {
+		LinkHelper.open(urlString: UIApplication.openSettingsURLString)
 	}
 	
 }

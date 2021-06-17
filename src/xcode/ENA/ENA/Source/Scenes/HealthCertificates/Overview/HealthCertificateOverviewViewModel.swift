@@ -4,16 +4,21 @@
 
 import UIKit
 import OpenCombine
+import AVFoundation
 
 class HealthCertificateOverviewViewModel {
 
 	// MARK: - Init
 
 	init(
-		healthCertificateService: HealthCertificateService
+		healthCertificateService: HealthCertificateService,
+		cameraAuthorizationStatus: @escaping () -> AVAuthorizationStatus = {
+			AVCaptureDevice.authorizationStatus(for: .video)
+		}
 	) {
 		self.healthCertificateService = healthCertificateService
-
+		self.cameraAuthorizationStatus = cameraAuthorizationStatus
+		
 		healthCertificateService.healthCertifiedPersons
 			.sink { self.healthCertifiedPersons = $0 }
 			.store(in: &subscriptions)
@@ -34,6 +39,7 @@ class HealthCertificateOverviewViewModel {
 
 	enum Section: Int, CaseIterable {
 		case createCertificate
+		case missingPermission
 		case testCertificateRequest
 		case healthCertificate
 	}
@@ -48,7 +54,7 @@ class HealthCertificateOverviewViewModel {
 	}
 
 	var isEmptyStateVisible: Bool {
-		isEmpty
+		isEmpty && !showMissingPermissionSection
 	}
 	
 	var numberOfSections: Int {
@@ -58,7 +64,9 @@ class HealthCertificateOverviewViewModel {
 	func numberOfRows(in section: Int) -> Int {
 		switch Section(rawValue: section) {
 		case .createCertificate:
-			return 1
+			return showMissingPermissionSection ? 0 : 1
+		case .missingPermission:
+			return showMissingPermissionSection ? 1 : 0
 		case .testCertificateRequest:
 			return testCertificateRequests.count
 		case .healthCertificate:
@@ -94,6 +102,13 @@ class HealthCertificateOverviewViewModel {
 	// MARK: - Private
 
 	private let healthCertificateService: HealthCertificateService
+	private let cameraAuthorizationStatus: () -> AVAuthorizationStatus
 	private var subscriptions = Set<AnyCancellable>()
+	
+	private var showMissingPermissionSection: Bool {
+		let status = cameraAuthorizationStatus()
+
+		return status != .notDetermined && status != .authorized
+	}
 
 }
