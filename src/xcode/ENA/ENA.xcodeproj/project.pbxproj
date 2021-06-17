@@ -3794,6 +3794,15 @@
 			path = __tests__;
 			sourceTree = "<group>";
 		};
+		501ABC51267B84D9008F37CA /* MissingPermissionCell */ = {
+			isa = PBXGroup;
+			children = (
+				BADB7BEF25F66178001065FA /* MissingPermissionsTableViewCell.swift */,
+				01EEC09E260224FF00924E15 /* MissingPermissionsCellModel.swift */,
+			);
+			path = MissingPermissionCell;
+			sourceTree = "<group>";
+		};
 		50293D51267A3FFB004B3EBE /* CreateCertificate */ = {
 			isa = PBXGroup;
 			children = (
@@ -4493,6 +4502,7 @@
 		8595BF5D246032C40056EA27 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				501ABC51267B84D9008F37CA /* MissingPermissionCell */,
 				B10F9B88249961B500C418F4 /* __tests__ */,
 				51B5B41A246E059700DC5D3E /* Common */,
 				853D987824694A1E00490DBA /* BaseElements */,
@@ -6591,8 +6601,6 @@
 			isa = PBXGroup;
 			children = (
 				BAC7291026037B80006D83C7 /* __tests__ */,
-				BADB7BEF25F66178001065FA /* MissingPermissionsTableViewCell.swift */,
-				01EEC09E260224FF00924E15 /* MissingPermissionsCellModel.swift */,
 				01F6702425FF80480069C4F9 /* AddCheckinCellModel.swift */,
 				01F6702625FF80490069C4F9 /* CheckinCellModel.swift */,
 			);

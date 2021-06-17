@@ -86,13 +86,6 @@ final class HealthCertificatesCoordinator {
 			onCertifiedPersonTap: { [weak self] healthCertifiedPerson in
 				self?.showHealthCertifiedPerson(healthCertifiedPerson)
 			},
-			onTestCertificateTap: { [weak self] testCertificate in
-				self?.showHealthCertificate(
-					healthCertifiedPerson: nil,
-					healthCertificate: testCertificate,
-					shouldPushOnModalNavigationController: false
-				)
-			},
 			onMissingPermissionsButtonTap: { [weak self] in
 				self?.showSettings()
 			}

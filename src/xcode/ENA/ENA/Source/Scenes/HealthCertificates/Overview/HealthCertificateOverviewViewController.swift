@@ -14,14 +14,12 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		onInfoBarButtonItemTap: @escaping () -> Void,
 		onCreateHealthCertificateTap: @escaping () -> Void,
 		onCertifiedPersonTap: @escaping (HealthCertifiedPerson) -> Void,
-		onTestCertificateTap: @escaping (HealthCertificate) -> Void,
 		onMissingPermissionsButtonTap: @escaping () -> Void
 	) {
 		self.viewModel = viewModel
 		self.onInfoBarButtonItemTap = onInfoBarButtonItemTap
 		self.onCreateHealthCertificateTap = onCreateHealthCertificateTap
 		self.onCertifiedPersonTap = onCertifiedPersonTap
-		self.onTestCertificateTap = onTestCertificateTap
 		self.onMissingPermissionsButtonTap = onMissingPermissionsButtonTap
 
 		super.init(style: .grouped)
@@ -134,7 +132,6 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	private let onInfoBarButtonItemTap: () -> Void
 	private let onCreateHealthCertificateTap: () -> Void
 	private let onCertifiedPersonTap: (HealthCertifiedPerson) -> Void
-	private let onTestCertificateTap: (HealthCertificate) -> Void
 	private let onMissingPermissionsButtonTap: () -> Void
 	
 	private var subscriptions = Set<AnyCancellable>()
