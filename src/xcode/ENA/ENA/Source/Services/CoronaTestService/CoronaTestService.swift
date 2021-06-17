@@ -654,13 +654,17 @@ class CoronaTestService {
 
 				Log.info("[CoronaTestService] Got test result (coronaTestType: \(coronaTestType), testResult: \(testResult)), sampleCollectionDate: \(String(describing: response.sc))", log: .api)
 				var updatedSampleCollectionDate: Date?
+
 				switch coronaTestType {
 				case .pcr:
 					Analytics.collect(.testResultMetadata(.updateTestResult(testResult, registrationToken, .pcr)))
+					
 					self.pcrTest?.testResult = testResult
 				case .antigen:
 					Analytics.collect(.testResultMetadata(.updateTestResult(testResult, registrationToken, .antigen)))
+
 					self.antigenTest?.testResult = testResult
+
 					updatedSampleCollectionDate = response.sc.map {
 						Date(timeIntervalSince1970: TimeInterval($0))
 					}
@@ -707,7 +711,8 @@ class CoronaTestService {
 								coronaTestType: coronaTestType,
 								registrationToken: registrationToken,
 								registrationDate: registrationDate,
-								retryExecutionIfCertificateIsPending: true
+								retryExecutionIfCertificateIsPending: true,
+								labId: response.labId
 							)
 
 							switch coronaTestType {
@@ -769,7 +774,7 @@ class CoronaTestService {
 				let hoursToDeemTestOutdated = $0.coronaTestParameters.coronaRapidAntigenTestParameters.hoursToDeemTestOutdated
 				guard
 					hoursToDeemTestOutdated != 0,
-					let outdatedDate = Calendar.current.date(byAdding: .hour, value: Int(hoursToDeemTestOutdated), to: antigenTest.pointOfCareConsentDate)
+					let outdatedDate = Calendar.current.date(byAdding: .hour, value: Int(hoursToDeemTestOutdated), to: antigenTest.testDate)
 				else {
 					return
 				}

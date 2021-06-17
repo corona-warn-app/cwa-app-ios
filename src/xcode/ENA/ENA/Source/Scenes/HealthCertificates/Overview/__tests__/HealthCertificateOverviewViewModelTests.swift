@@ -28,7 +28,8 @@ class HealthCertificateOverviewViewModelTests: XCTestCase {
 			coronaTestType: .pcr,
 			registrationToken: "registrationToken",
 			registrationDate: Date(),
-			retryExecutionIfCertificateIsPending: false
+			retryExecutionIfCertificateIsPending: false,
+			labId: "SomeLabId"
 		)
 
 		viewModel.retryTestCertificateRequest(at: IndexPath(row: 0, section: 0))
