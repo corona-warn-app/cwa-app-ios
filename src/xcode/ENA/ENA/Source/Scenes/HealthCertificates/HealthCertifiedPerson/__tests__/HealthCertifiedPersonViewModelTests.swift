@@ -19,7 +19,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 		let viewModel = HealthCertifiedPersonViewModel(
 			healthCertificateService: service,
 			healthCertifiedPerson: HealthCertifiedPerson(healthCertificates: []),
-			vaccinationValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
+			healthCertificateValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
 			dismiss: {}
 		)
 
@@ -59,7 +59,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 					HealthCertificate.mock()
 				]
 			),
-			vaccinationValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
+			healthCertificateValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
 			dismiss: {}
 		)
 
@@ -98,7 +98,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 		let viewModel = HealthCertifiedPersonViewModel(
 			healthCertificateService: service,
 			healthCertifiedPerson: healthCertifiedPerson,
-			vaccinationValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
+			healthCertificateValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
 			dismiss: {}
 		)
 
