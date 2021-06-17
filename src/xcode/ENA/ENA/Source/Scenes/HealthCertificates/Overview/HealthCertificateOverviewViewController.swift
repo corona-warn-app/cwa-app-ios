@@ -303,10 +303,24 @@ class HealthCertificateOverviewViewController: UITableViewController {
 
 	private func showErrorAlert(error: HealthCertificateServiceError.TestCertificateRequestError
 	) {
+		let errorMessage = error.localizedDescription + AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.faqDescription
+
 		let alert = UIAlertController(
 			title: AppStrings.HealthCertificate.Overview.TestCertificateRequest.ErrorAlert.title,
-			message: error.localizedDescription,
+			message: errorMessage,
 			preferredStyle: .alert
+		)
+
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.faqButtonTitle,
+				style: .default,
+				handler: { _ in
+					if LinkHelper.open(urlString: AppStrings.Links.testCertificateErrorFAQ) {
+						alert.dismiss(animated: true)
+					}
+				}
+			)
 		)
 
 		let okayAction = UIAlertAction(

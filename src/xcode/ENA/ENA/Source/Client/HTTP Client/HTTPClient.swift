@@ -143,11 +143,11 @@ final class HTTPClient: Client {
 					return
 				}
 				do {
-					let response = try JSONDecoder().decode(
+					let testResultResponse = try JSONDecoder().decode(
 						FetchTestResultResponse.self,
 						from: testResultResponseData
 					)
-					completeWith(.success(response))
+					completeWith(.success(testResultResponse))
 				} catch {
 					Log.error("Failed to get test result with invalid response payload structure", log: .api)
 					completeWith(.failure(.invalidResponse))
