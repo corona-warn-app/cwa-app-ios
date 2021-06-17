@@ -5,30 +5,23 @@
 import UIKit
 
 extension SAP_Internal_Stats_KeyFigure {
-
 	var formattedValue: String? {
+		let decimals = max(0, Int(self.decimals))
 		let numberFormatter = NumberFormatter()
 		numberFormatter.numberStyle = .decimal
-
-		if value >= 10_000_000 {
-			numberFormatter.minimumFractionDigits = 1
-			numberFormatter.maximumFractionDigits = 1
-
-			let value = self.value / 1_000_000
-			guard let formattedNumber = numberFormatter.string(from: NSNumber(value: value)) else {
-				return nil
-			}
-
-			return String(format: AppStrings.Statistics.Card.million, formattedNumber)
-		} else {
-			let decimals = max(0, Int(self.decimals))
-			numberFormatter.minimumFractionDigits = Int(decimals)
-			numberFormatter.maximumFractionDigits = Int(decimals)
-
-			return numberFormatter.string(from: NSNumber(value: value))
-		}
+		numberFormatter.minimumFractionDigits = Int(decimals)
+		numberFormatter.maximumFractionDigits = Int(decimals)
+		return numberFormatter.string(from: NSNumber(value: value))
 	}
 
+	var formattedValueWithPercent: String? {
+		let numberFormatter = NumberFormatter()
+		numberFormatter.numberStyle = .percent
+		let decimals = max(0, Int(self.decimals))
+		numberFormatter.maximumFractionDigits = Int(decimals)
+		return numberFormatter.string(from: NSNumber(value: value / 100))?.filter({ !$0.isWhitespace })
+	}
+	
 	var trendImage: UIImage? {
 		switch trend {
 		case .stable:
