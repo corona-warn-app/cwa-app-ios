@@ -35,14 +35,11 @@ class GradientView: UIView {
 		case lightBlue
 		case green
 		case lightBlueWithStars
-		case greenWithStars
 
 		var starImage: UIImage? {
 			switch self {
 			case .lightBlueWithStars:
 				return UIImage(imageLiteralResourceName: "stars")
-			case .greenWithStars:
-				return UIImage(imageLiteralResourceName: "green-stars")
 			default:
 				return nil
 			}
@@ -135,14 +132,6 @@ class GradientView: UIView {
 			gradientLayer.colors = [
 				UIColor(red: 0 / 255, green: 147 / 255, blue: 200 / 255, alpha: 1).cgColor,
 				UIColor(red: 0 / 255, green: 127 / 255, blue: 173 / 255, alpha: 1).cgColor
-			]
-			gradientLayer.locations = [0.0, 1.0]
-			gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
-			gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
-		case .greenWithStars:
-			gradientLayer.colors = [
-				UIColor(red: 40 / 255, green: 132 / 255, blue: 71 / 255, alpha: 1).cgColor,
-				UIColor(red: 53 / 255, green: 181 / 255, blue: 95 / 255, alpha: 1).cgColor
 			]
 			gradientLayer.locations = [0.0, 1.0]
 			gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
