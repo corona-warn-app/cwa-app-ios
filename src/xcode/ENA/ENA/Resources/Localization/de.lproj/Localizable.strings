@@ -2022,21 +2022,37 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Info_Subtitle" = "Erklärung der Statistiken";
 
+"Statistics_Info_Local7Days_Title" = "Lokale 7-Tage-Inzidenz";
+
+"Statistics_Info_Local7Days_Text" = "Gesamtzahl der bestätigten Neuinfektionen der letzten 7 Tage (nach Meldedatum) pro 100.000 Einwohner im konfigurierten Kreis oder Bundesland.";
+
+"Statistics_Info_Incidence_Title" = "7-Tage-Inzidenz";
+
+"Statistics_Info_Incidence_Text" = "Gesamtzahl der bestätigten Neuinfektionen der letzten 7 Tage (nach Meldedatum) pro 100.000 Einwohner";
+
 "Statistics_Info_Infections_Title" = "Bestätigte Neuinfektionen";
 
 "Statistics_Info_Infections_Text" = "Anzahl der an das RKI übermittelten Corona-positiv getesteten Personen";
 
 "Statistics_Info_KeySubmissions_Title" = "Warnende Personen";
 
-"Statistics_Info_KeySubmissions_Text" = "Anzahl der Corona-positiv getesteten Personen, die mithilfe der App ihre Mitmenschen gewarnt haben";
-
-"Statistics_Info_Incidence_Title" = "7-Tage-Inzidenz";
-
-"Statistics_Info_Incidence_Text" = "Gesamtzahl der bestätigten Neuinfektionen der letzten 7 Tage (nach Meldedatum) pro 100.000 Einwohner";
+"Statistics_Info_KeySubmissions_Text" = "Anzahl der über einen PCR-Test Corona-positiv getesteten Personen, die mithilfe der App ihre Mitmenschen gewarnt haben ";
 
 "Statistics_Info_ReproductionNumber_Title" = "7-Tage-R-Wert";
 
 "Statistics_Info_ReproductionNumber_Text" = "Die Reproduktionszahl R gibt an, wie viele Personen im Durchschnitt von einer infizierten Person angesteckt wurden. Der aktuelle Wert berücksichtigt Daten bis vor 5 Tagen.";
+
+"Statistics_Info_AtLeastOnce_Title" = "Mindestens einmal geimpfte Personen";
+
+"Statistics_Info_AtLeastOnce_Text" = "Anzahl der an das RKI übermittelten Personen, die die erste Impfdosis erhalten haben.";
+
+"Statistics_Info_FullyVaccinated_Title" = "Vollständig geimpfte Personen";
+
+"Statistics_Info_FullyVaccinated_Text" = "Anzahl der an das RKI übermittelten Personen, die die alle notwendigen Impfdosen erhalten haben.";
+
+"Statistics_Info_DosesAdministered_Title" = "Verabreichte Impfdosen";
+
+"Statistics_Info_DosesAdministered_Text" = "Anzahl der Impfdosen, die bisher bundesweit  verabreicht wurden.";
 
 "Statistics_Info_FAQLink_Text" = "Weitere Informationen finden Sie in den FAQ:";
 
