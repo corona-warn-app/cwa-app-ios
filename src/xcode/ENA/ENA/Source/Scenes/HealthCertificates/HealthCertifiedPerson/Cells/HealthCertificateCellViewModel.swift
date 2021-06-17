@@ -28,7 +28,7 @@ final class HealthCertificateCellViewModel {
 				vaccinationEntry.doseNumber,
 				vaccinationEntry.totalSeriesOfDoses
 			)
-		case .test(_): // validator
+		case .test:
 			return nil
 		case .recovery:
 			return nil
