@@ -2628,7 +2628,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TestCertificateRequest_RemoveAlert_title" = "Wollen Sie das Zertifikat wirklich entfernen?";
 
-"TestCertificateRequest_RemoveAlert_message" = "Wenn das Zertifikat enfernt wird, kann es nicht noch einmal angefordert werden.";
+"TestCertificateRequest_RemoveAlert_message" = "Wenn das Zertifikat entfernt wird, kann es nicht noch einmal angefordert werden.";
 
 "TestCertificateRequest_RemoveAlert_CancelButton_title" = "Abbrechen";
 
