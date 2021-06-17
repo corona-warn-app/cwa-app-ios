@@ -2512,6 +2512,8 @@
 
 "TestCertificateRequest_Error_TRY_AGAIN_DCC_NOT_AVAILABLE_YET" = "Certificatul dvs. nu este disponibil încă. Încercați din nou. Dacă eroarea persistă, contactați hotline-ul tehnic prin Informații aplicație -> Hotline tehnic. (%@)";
 
+"TestCertificateRequest_Error_DGC_NOT_SUPPORTED_BY_LAB" = "Nu puteți solicita un certificat de test deoarece acest punct de testare nu suportă emiterea de certificate de test. Eliminați certificatul sau contactați hotline-ul tehnic prin Informații aplicație -> Hotline tehnic. (%@)";
+
 /* Health Certificate Information */
 "HealthCertificate_Info_Title" = "Adăugarea certificatelor";
 
@@ -2591,6 +2593,10 @@
 "TestCertificate_Details_subtitle" = "Test SARS-CoV-2 negativ";
 
 "TestCertificate_Details_primaryButton" = "Eliminare certificat de test";
+
+"TestCertificate_Error_FAQ_Description" = "\n\nPentru mai multe informații despre modul în care puteți primi certificatul dvs. de test, consultați pagina noastră de întrebări frecvente.";
+
+"TestCertificate_Error_FAQ_Button_Title" = "Întrebări frecvente privind certificatele de test";
 
 /* Vaccination Certificate Delete Alert */
 "TestCertificate_Alert_title" = "Doriți să eliminați certificatul de test?";

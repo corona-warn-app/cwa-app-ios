@@ -2512,6 +2512,8 @@
 
 "TestCertificateRequest_Error_TRY_AGAIN_DCC_NOT_AVAILABLE_YET" = "Twój certyfikat nie jest jeszcze dostępny. Spróbuj ponownie. Jeśli błąd będzie nadal występował, skontaktuj się z infolinią techniczną, korzystając z opcji: Informacje o aplikacji -> Infolinia techniczna. (%@)";
 
+"TestCertificateRequest_Error_DGC_NOT_SUPPORTED_BY_LAB" = "Nie możesz zażądać wydania certyfikatu testu, ponieważ ten punkt testowania nie wydaje certyfikatów testów. Usuń certyfikat lub skontaktuj się z infolinią techniczną, korzystając z opcji: Informacje o aplikacji -> Infolinia techniczna. (%@)";
+
 /* Health Certificate Information */
 "HealthCertificate_Info_Title" = "Dodaj certyfikaty/świadectwa";
 
@@ -2591,6 +2593,10 @@
 "TestCertificate_Details_subtitle" = "Ujemny wynik testu na SARS-CoV-2";
 
 "TestCertificate_Details_primaryButton" = "Usuń certyfikat testu";
+
+"TestCertificate_Error_FAQ_Description" = "\n\nWięcej informacji na temat tego, jak otrzymać swój certyfikat testu, znajduje się na naszej stronie „Często zadawane pytania”.";
+
+"TestCertificate_Error_FAQ_Button_Title" = "Często zadawane pytania na temat certyfikatów testów";
 
 /* Vaccination Certificate Delete Alert */
 "TestCertificate_Alert_title" = "Czy chcesz usunąć certyfikat testu?";
