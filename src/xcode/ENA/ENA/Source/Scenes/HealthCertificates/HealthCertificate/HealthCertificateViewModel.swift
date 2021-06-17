@@ -6,6 +6,7 @@ import UIKit
 import OpenCombine
 import HealthCertificateToolkit
 
+// swiftlint:disable:next type_body_length
 final class HealthCertificateViewModel {
 
 	// MARK: - Init
@@ -32,9 +33,6 @@ final class HealthCertificateViewModel {
 				.store(in: &subscriptions)
 		}
 
-		if case .recovery = healthCertificate.type {
-			gradientType = .lightBlue
-		}
 		updateHealthCertificateKeyValueCellViewModels()
 
 		// load certificate value sets
