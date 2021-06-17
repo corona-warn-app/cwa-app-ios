@@ -32,6 +32,9 @@ final class HealthCertificateViewModel {
 				.store(in: &subscriptions)
 		}
 
+		if case .recovery = healthCertificate.type {
+			gradientType = .blueOnly
+		}
 		updateHealthCertificateKeyValueCellViewModels()
 
 		// load certificate value sets
@@ -198,8 +201,8 @@ final class HealthCertificateViewModel {
 			updateVaccinationCertificateKeyValueCellViewModels(vaccinationEntry: vaccinationEntry)
 		case .test(let testEntry):
 			updateTestCertificateKeyValueCellViewModels(testEntry: testEntry)
-		case .recovery:
-			break
+		case .recovery(let recoveryEntry):
+			updateRecoveryCertificateKeyValueCellViewModels(recoveryEntry: recoveryEntry)
 		}
 	}
 
@@ -387,6 +390,77 @@ final class HealthCertificateViewModel {
 		.compactMap { $0 }
 	}
 
+	/// these strings here are on purpose not localized
+	///
+	private func updateRecoveryCertificateKeyValueCellViewModels(recoveryEntry: RecoveryEntry) {
+		let nameCellViewModel = HealthCertificateKeyValueCellViewModel(
+			key: "Name, Vorname / Name, First Name",
+			value: healthCertificate.name.fullName,
+			topSpace: 2.0
+		)
+
+		var dateOfBirthCellViewModel: HealthCertificateKeyValueCellViewModel?
+		if let dateOfBirthDate = healthCertificate.dateOfBirthDate {
+			dateOfBirthCellViewModel = HealthCertificateKeyValueCellViewModel(
+				key: "Geburtsdatum / Date of Birth (YYYY-MM-DD)",
+				value: ISO8601DateFormatter.justLocalDateFormatter.string(from: dateOfBirthDate)
+			)
+		}
+
+		let diseaseOrAgentTargetedCellViewModel = HealthCertificateKeyValueCellViewModel(
+			key: "Genesen von / Recovered from",
+			value: determineValue(
+				key: recoveryEntry.diseaseOrAgentTargeted,
+				valueSet: valueSet(by: .diseaseOrAgentTargeted)
+			)
+		)
+
+		let dateOfFirstPositiveNAAResultCellViewModel = HealthCertificateKeyValueCellViewModel(
+			key: "Datum des ersten positiven Testergebnisses / Date of first positive test result (YYYY-MM-DD)",
+			value: recoveryEntry.dateOfFirstPositiveNAAResult
+		)
+
+		let localizedCountryName = Country(countryCode: recoveryEntry.countryOfTest)?.localizedName
+		let countryCellViewModel = HealthCertificateKeyValueCellViewModel(
+			key: "Land der Testung / Member State of Test",
+			value: localizedCountryName ?? recoveryEntry.countryOfTest
+		)
+
+		let issuerCellViewModel = HealthCertificateKeyValueCellViewModel(
+			key: "Zertifikataussteller / Certificate Issuer",
+			value: recoveryEntry.certificateIssuer
+		)
+
+		let certificateValidFromCellViewModel = HealthCertificateKeyValueCellViewModel(
+			key: "Zertifikat gültig ab / Certificate valid from (YYYY-MM-DD) ",
+			value: recoveryEntry.certificateValidFrom
+		)
+		
+		let certificateValidUntilCellViewModel = HealthCertificateKeyValueCellViewModel(
+			key: "Zertifikat gültig bis  / Certificate valid until  (YYYY-MM-DD) ",
+			value: recoveryEntry.certificateValidUntil
+		)
+		
+		let certificateNumberCellViewModel = HealthCertificateKeyValueCellViewModel(
+			key: "Zertifikatkennung / Unique Certificate Identifier",
+			value: recoveryEntry.uniqueCertificateIdentifier,
+			isBottomSeparatorHidden: true,
+			bottomSpace: 2.0
+		)
+
+		healthCertificateKeyValueCellViewModel = [
+			nameCellViewModel,
+			dateOfBirthCellViewModel,
+			diseaseOrAgentTargetedCellViewModel,
+			dateOfFirstPositiveNAAResultCellViewModel,
+			countryCellViewModel,
+			issuerCellViewModel,
+			certificateValidFromCellViewModel,
+			certificateValidUntilCellViewModel,
+			certificateNumberCellViewModel
+		]
+		.compactMap { $0 }
+	}
 	private func valueSet(by type: ValueSetType) -> SAP_Internal_Dgc_ValueSet? {
 		guard let valueSets = valueSets else {
 			Log.error("tried to read from unavailable value sets", log: .vaccination)
