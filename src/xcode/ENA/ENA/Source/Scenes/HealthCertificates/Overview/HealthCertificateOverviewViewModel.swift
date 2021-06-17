@@ -42,6 +42,15 @@ class HealthCertificateOverviewViewModel {
 	@DidSetPublished var testCertificateRequests: [TestCertificateRequest] = []
 	@DidSetPublished var testCertificateRequestError: HealthCertificateServiceError.TestCertificateRequestError?
 
+	var isEmpty: Bool {
+		numberOfRows(in: Section.testCertificateRequest.rawValue) == 0 &&
+		numberOfRows(in: Section.healthCertificate.rawValue) == 0
+	}
+
+	var isEmptyStateVisible: Bool {
+		isEmpty
+	}
+	
 	var numberOfSections: Int {
 		Section.allCases.count
 	}
