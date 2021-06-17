@@ -30,7 +30,11 @@ class ENALabel: UILabel {
 
 	// MARK: - Internal
 
-	var style: Style = .body { didSet { applyStyle() } }
+	var style: Style? {
+		didSet {
+			applyStyle()
+		}
+	}
 	var onAccessibilityFocus: (() -> Void)?
 
 	override var text: String? {
@@ -46,13 +50,12 @@ class ENALabel: UILabel {
 			if let style = Style(rawValue: ibEnaStyle) {
 				self.style = style
 			} else {
-				self.style = .body
 				Log.error("Invalid text style set for \(String(describing: ENALabel.self)): \(ibEnaStyle)", log: .ui)
 			}
 		}
 	}
 
-	private func fontForCurrentTextStyle(weight: UIFont.Weight? = nil) -> UIFont {
+	private func font(for style: Style, weight: UIFont.Weight? = nil) -> UIFont {
 		let metrics = UIFontMetrics(forTextStyle: style.textStyle)
 		let systemFont = UIFont.systemFont(ofSize: style.fontSize, weight: weight ?? UIFont.Weight(style.fontWeight))
 		return metrics.scaledFont(for: systemFont)
@@ -64,14 +67,14 @@ class ENALabel: UILabel {
 	}
 
 	private func applyHighlighting() {
-		guard let text = text else {
+		guard let text = text, let style = style else {
 			return
 		}
 
 		let components = text.components(separatedBy: "**")
 
 		guard components.count > 1 else {
-			self.font = fontForCurrentTextStyle()
+			self.font = font(for: style)
 			return
 		}
 
@@ -80,7 +83,7 @@ class ENALabel: UILabel {
 
 		attributedText = sequence.reduce(into: attributedString) { string, pair in
 			let isHighlighted = !pair.offset.isMultiple(of: 2)
-			let font = fontForCurrentTextStyle(weight: isHighlighted ? style.highlightedWeight : style.nonHighlightedWeight)
+			let font = font(for: style, weight: isHighlighted ? style.highlightedWeight : style.nonHighlightedWeight)
 
 			string.append(NSAttributedString(
 				string: pair.element,
