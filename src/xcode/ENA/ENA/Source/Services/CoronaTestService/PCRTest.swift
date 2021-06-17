@@ -24,7 +24,6 @@ struct PCRTest: Equatable {
 
 	var certificateConsentGiven: Bool
 	var certificateRequested: Bool
-
 }
 
 extension PCRTest: Codable {

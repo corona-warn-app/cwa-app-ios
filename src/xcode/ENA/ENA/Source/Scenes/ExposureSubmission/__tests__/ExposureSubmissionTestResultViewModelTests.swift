@@ -181,7 +181,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		let appConfiguration = CachedAppConfigurationMock()
 
 		client.onGetTestResult = { _, _, completion in
-			completion(.success(FetchTestResultResponse(testResult: TestResult.negative.rawValue, sc: nil)))
+			completion(.success(.fake(testResult: TestResult.negative.rawValue)))
 			getTestResultExpectation.fulfill()
 		}
 
@@ -327,7 +327,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 				XCTFail(error.localizedDescription)
 			}
 
-			completion(.success(FetchTestResultResponse(testResult: TestResult.pending.rawValue, sc: nil)))
+			completion(.success(.fake(testResult: TestResult.pending.rawValue)))
 
 			getTestResultExpectation.fulfill()
 		}

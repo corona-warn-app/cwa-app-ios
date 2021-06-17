@@ -11,7 +11,7 @@ class HomeHealthCertifiedPersonCellModelTests: XCTestCase {
 	func testGIVEN_completelyProtectedCertifiedPerson_THEN_IsSetupCorrectly() throws {
 		// GIVEN
 		let healthCertificate1 = try healthCertificate(daysOffset: -35, doseNumber: 1, identifier: "01DE/84503/1119349007/DXSGWLWL40SU8ZFKIYIBK39A3#S", dateOfBirth: "1988-06-07")
-		let healthCertificate2 = try healthCertificate(daysOffset: -20, doseNumber: 2, identifier: "01DE/84503/1119349007/DXSGWWLW40SU8ZFKIYIBK39A3#S", dateOfBirth: "1988-06-07")
+		let healthCertificate2 = try healthCertificate(daysOffset: -15, doseNumber: 2, identifier: "01DE/84503/1119349007/DXSGWWLW40SU8ZFKIYIBK39A3#S", dateOfBirth: "1988-06-07")
 
 		let healthCertifiedPerson = HealthCertifiedPerson(
 			healthCertificates: [
@@ -70,7 +70,7 @@ class HomeHealthCertifiedPersonCellModelTests: XCTestCase {
 	func testGIVEN_fullyVaccinatedCertifiedPerson_THEN_IsSetupCorrectly() throws {
 		// GIVEN
 		let healthCertificate1 = try healthCertificate(daysOffset: -24, doseNumber: 1, identifier: "01DE/84503/1119349007/DXSGWLWL40SU8ZFKIYIBK39A3#S", dateOfBirth: "1988-06-07")
-		let healthCertificate2 = try healthCertificate(daysOffset: -12, doseNumber: 2, identifier: "01DE/84503/1119349007/DXSGWWLW40SU8ZFKIYIBK39A3#S", dateOfBirth: "1988-06-07")
+		let healthCertificate2 = try healthCertificate(daysOffset: -14, doseNumber: 2, identifier: "01DE/84503/1119349007/DXSGWWLW40SU8ZFKIYIBK39A3#S", dateOfBirth: "1988-06-07")
 
 		let healthCertifiedPerson = HealthCertifiedPerson(
 			healthCertificates: [

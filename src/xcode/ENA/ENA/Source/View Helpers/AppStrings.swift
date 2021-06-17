@@ -42,6 +42,7 @@ enum AppStrings {
 		static let exposureDetectionFAQ = NSLocalizedString("ExposureDetection_high_faq_URL", tableName: "Localizable.links", comment: "")
 		static let healthCertificateFAQ = NSLocalizedString("HealthCertificate_Info_register_FAQLink", tableName: "Localizable.links", comment: "")
 		static let healthCertificateErrorFAQ = NSLocalizedString("HealthCertificate_Error_FAQ_Link", tableName: "Localizable.links", comment: "")
+		static let testCertificateErrorFAQ = NSLocalizedString("TestCertificate_Error_FAQ_Link", tableName: "Localizable.links", comment: "")
 	}
 
 	enum QuickActions {
@@ -1949,6 +1950,9 @@ enum AppStrings {
 					static let noNetwork = NSLocalizedString("TestCertificateRequest_Error_NO_NETWORK", comment: "")
 					static let tryAgain = NSLocalizedString("TestCertificateRequest_Error_TRY_AGAIN", comment: "")
 					static let tryAgainDCCNotAvailableYet = NSLocalizedString("TestCertificateRequest_Error_TRY_AGAIN_DCC_NOT_AVAILABLE_YET", comment: "")
+					static let dgcNotSupportedByLab = NSLocalizedString("TestCertificateRequest_Error_DGC_NOT_SUPPORTED_BY_LAB", comment: "")
+					static let faqDescription = NSLocalizedString("TestCertificate_Error_FAQ_Description", comment: "")
+					static let faqButtonTitle = NSLocalizedString("TestCertificate_Error_FAQ_Button_Title", comment: "")
 				}
 			}
 		}
