@@ -1992,7 +1992,9 @@ enum AppStrings {
 
 		enum Details {
 			static let vaccinationCount = NSLocalizedString("HealthCertificate_Details_vaccinationCount", comment: "")
-			static let certificate = NSLocalizedString("HealthCertificate_Details_certificate", comment: "")
+			static let vaccinationCertificate = NSLocalizedString("HealthCertificate_Details_certificate", comment: "")
+			static let euCovidCertificate =
+				NSLocalizedString("HealthCertificate_Details_EU_Covid_Certificate", comment: "")
 			static let QRCodeImageDescription = NSLocalizedString("HealthCertificate_Details_QRCode_Image_Description", comment: "")
 			static let certificateCount = NSLocalizedString("HealthCertificate_Details_certificateCount", comment: "")
 			static let validity = NSLocalizedString("HealthCertificate_Details_validity", comment: "")
