@@ -10,13 +10,8 @@ class HealthCertificateDetailsQRCodeCell: UITableViewCell, ReuseIdentifierProvid
 
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
+		
 		setupView()
-		isAccessibilityElement = false
-
-		qrCodeImageView.isAccessibilityElement = true
-		qrCodeImageView.accessibilityTraits = .image
-
-		accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.qrCodeCell
 	}
 
 	@available(*, unavailable)
@@ -89,6 +84,12 @@ class HealthCertificateDetailsQRCodeCell: UITableViewCell, ReuseIdentifierProvid
 			]
 		)
 
+		isAccessibilityElement = false
+
+		qrCodeImageView.isAccessibilityElement = true
+		qrCodeImageView.accessibilityTraits = .image
+
+		accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.qrCodeCell
 	}
 
 	private func updateBorderWidth() {
