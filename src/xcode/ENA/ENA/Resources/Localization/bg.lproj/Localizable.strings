@@ -2512,6 +2512,8 @@
 
 "TestCertificateRequest_Error_TRY_AGAIN_DCC_NOT_AVAILABLE_YET" = "Вашият сертификат още не е наличен. Моля, опитайте отново. Ако грешката продължи да възниква, се обърнете към горещата линия за технически проблеми, посочена в „Информация за приложението“ -> „Технически въпроси“. (%@)";
 
+"TestCertificateRequest_Error_DGC_NOT_SUPPORTED_BY_LAB" = "Не можете да заявите сертификат за направен тест, тъй като пунктът не поддържа издаването на такива. Моля, изтрийте сертификата или се свържете с горещата линия за технически проблеми, посочена в „Информация за приложението“ -> „Технически въпроси“ (%@)";
+
 /* Health Certificate Information */
 "HealthCertificate_Info_Title" = "Добавете сертификати";
 
@@ -2591,6 +2593,10 @@
 "TestCertificate_Details_subtitle" = "Отрицателен тест за SARS-CoV-2";
 
 "TestCertificate_Details_primaryButton" = "Изтриване на сертификата за тестване";
+
+"TestCertificate_Error_FAQ_Description" = "\n\nЗа да разберете как можете да се сдобиете със сертификат за извършен тест, вижте страницата ни с често задавани въпроси (ЧЗВ).";
+
+"TestCertificate_Error_FAQ_Button_Title" = "ЧЗВ за сертификати за извършен тест";
 
 /* Vaccination Certificate Delete Alert */
 "TestCertificate_Alert_title" = "Желаете ли да изтриете сертификата за тестване?";

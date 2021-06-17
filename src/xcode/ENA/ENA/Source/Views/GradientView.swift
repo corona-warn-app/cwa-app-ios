@@ -11,8 +11,8 @@ class GradientView: UIView {
 
 	override init(frame: CGRect) {
 		super.init(frame: frame)
-
 		setupLayer()
+		setupStars()
 	}
 
 	required init?(coder: NSCoder) {
@@ -34,16 +34,57 @@ class GradientView: UIView {
 		case solidGrey
 		case lightBlue
 		case green
+		case lightBlueWithStars
+
+		var starImage: UIImage? {
+			switch self {
+			case .lightBlueWithStars:
+				return UIImage(imageLiteralResourceName: "stars")
+			default:
+				return nil
+			}
+		}
+
 	}
 
-	var type: GradientType = .blueRedTilted { didSet { setupLayer() } }
+	var type: GradientType = .blueRedTilted {
+		didSet {
+			setupLayer()
+			setupStars()
+		}
+	}
 
 	// MARK: - Private
+
+	private var starImageView: UIImageView?
+
+	private func setupStars() {
+		if starImageView != nil {
+			starImageView?.removeFromSuperview()
+			starImageView = nil
+		}
+
+		if let image = type.starImage {
+			let starImageView = UIImageView(image: image)
+			starImageView.contentMode = .scaleAspectFit
+			starImageView.translatesAutoresizingMaskIntoConstraints = false
+			addSubview(starImageView)
+			NSLayoutConstraint.activate(
+				[
+					starImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -33),
+					starImageView.topAnchor.constraint(equalTo: topAnchor, constant: 11)
+				]
+			)
+			self.starImageView = starImageView
+		}
+	}
 
 	private func setupLayer() {
 		guard let gradientLayer = self.layer as? CAGradientLayer else {
 			Log.debug("Failed to create view with matching layer class", log: .default)
-			return }
+			return
+		}
+
 		switch type {
 		case .blueRedTilted:
 			// magic numbers to create the gradient colors in the right place
@@ -80,7 +121,6 @@ class GradientView: UIView {
 			gradientLayer.locations = [0.0, 1.0]
 			gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
 			gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
-
 		case .green:
 			gradientLayer.colors = [
 				UIColor(red: 40 / 255, green: 132 / 255, blue: 71 / 255, alpha: 1).cgColor,
@@ -89,6 +129,15 @@ class GradientView: UIView {
 			gradientLayer.locations = [0.0, 1.0]
 			gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
 			gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
+		case .lightBlueWithStars:
+			gradientLayer.colors = [
+				UIColor(red: 0 / 255, green: 147 / 255, blue: 200 / 255, alpha: 1).cgColor,
+				UIColor(red: 0 / 255, green: 127 / 255, blue: 173 / 255, alpha: 1).cgColor
+			]
+			gradientLayer.locations = [0.0, 1.0]
+			gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
+			gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
 		}
+		setupStars()
 	}
 }
