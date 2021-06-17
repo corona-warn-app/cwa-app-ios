@@ -2512,6 +2512,8 @@
 
 "TestCertificateRequest_Error_TRY_AGAIN_DCC_NOT_AVAILABLE_YET" = "Sertifikanız henüz çıkmadı. Lütfen tekrar deneyin. Hata devam ederse lütfen Uygulama Bilgileri -> Teknik Yardım Hattı üzerinden teknik yardım hattı ile iletişime geçin. (%@)";
 
+"TestCertificateRequest_Error_DGC_NOT_SUPPORTED_BY_LAB" = "Bu test noktasında test sertifikalarının düzenlenmesi desteklenmediğinden bir test sertifikası talep edemezsiniz. Lütfen sertifikayı kaldırın veya Uygulama Bilgileri -> Teknik Yardım Hattı üzerinden teknik yardım hattı ile iletişime geçin. (%@)";
+
 /* Health Certificate Information */
 "HealthCertificate_Info_Title" = "Sertifikalar Ekle";
 
@@ -2591,6 +2593,10 @@
 "TestCertificate_Details_subtitle" = "Negatif SARS-CoV-2 testi";
 
 "TestCertificate_Details_primaryButton" = "Test Sertifikasını Kaldır";
+
+"TestCertificate_Error_FAQ_Description" = "\n\nTest sertifikanızı nasıl alacağınız hakkında daha fazla bilgi için lütfen SSS sayfamıza bakın.";
+
+"TestCertificate_Error_FAQ_Button_Title" = "Test Sertifikaları için SSS";
 
 /* Vaccination Certificate Delete Alert */
 "TestCertificate_Alert_title" = "Test sertifikasını kaldırmak istiyor musunuz?";
