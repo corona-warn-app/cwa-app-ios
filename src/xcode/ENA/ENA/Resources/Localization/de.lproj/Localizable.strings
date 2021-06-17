@@ -2696,6 +2696,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Details_certificate" = "Impfzertifikat";
 
+"HealthCertificate_Details_EU_Covid_Certificate" = "EU Digitales COVID-Zertifikat";
+
 "HealthCertificate_Details_QRCode_Image_Description" = "Ein QR-Code mit Ihrem Zertifikat";
 
 "HealthCertificate_Details_certificateCount" = "Impfzertifikat %i von %i";
@@ -2732,7 +2734,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Test Certificate Details */
 
-"TestCertificate_Details_title" = "EU Digitales COVID-Testzertifikat";
+"TestCertificate_Details_title" = "Testzertifikat";
 
 "TestCertificate_Details_subtitle" = "negativer SARS-CoV-2-Test";
 
