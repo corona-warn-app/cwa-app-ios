@@ -287,13 +287,10 @@ final class HealthCertificateViewModel {
 			topSpace: 2.0
 		)
 
-		var dateOfBirthCellViewModel: HealthCertificateKeyValueCellViewModel?
-		if let dateOfBirthDate = healthCertificate.dateOfBirthDate {
-			dateOfBirthCellViewModel = HealthCertificateKeyValueCellViewModel(
-				key: "Geburtsdatum / Date of Birth",
-				value: DateFormatter.localizedString(from: dateOfBirthDate, dateStyle: .medium, timeStyle: .none)
-			)
-		}
+		let dateOfBirthCellViewModel = HealthCertificateKeyValueCellViewModel(
+			key: "Geburtsdatum / Date of Birth",
+			value: DCCDateStringFormatter.formatedString(from: healthCertificate.dateOfBirth)
+		)
 
 		let diseaseOrAgentTargetedCellViewModel = HealthCertificateKeyValueCellViewModel(
 			key: "Zielkrankheit oder. -erreger / Disease or Agent Targeted",

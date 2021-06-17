@@ -222,15 +222,14 @@ final class HealthCertifiedPersonViewModel {
 
 	private var dateOfBirth: String? {
 		guard
-			let dateOfBirthString = healthCertifiedPerson.dateOfBirth,
-			let dateOfBirthDate = ISO8601DateFormatter.justLocalDateFormatter.date(from: dateOfBirthString)
+			let dateOfBirthString = healthCertifiedPerson.dateOfBirth
 		else {
 			return nil
 		}
 
 		return String(
 			format: AppStrings.HealthCertificate.Person.dateOfBirth,
-			DateFormatter.localizedString(from: dateOfBirthDate, dateStyle: .medium, timeStyle: .none)
+			DCCDateStringFormatter.formatedString(from: dateOfBirthString)
 		)
 	}
 
