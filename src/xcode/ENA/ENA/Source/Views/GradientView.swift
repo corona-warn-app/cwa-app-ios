@@ -56,29 +56,27 @@ class GradientView: UIView {
 
 	// MARK: - Private
 
-	private var withStars: Bool = false
-	private var starImageView: UIImageView = UIImageView()
+	private var starImageView: UIImageView?
 
 	private func setupStars() {
-		guard let image = type.starImage else {
-			starImageView.removeFromSuperview()
-			return
+		if starImageView != nil {
+			starImageView?.removeFromSuperview()
+			starImageView = nil
 		}
 
-		if starImageView.image != nil {
-			starImageView.removeFromSuperview()
+		if let image = type.starImage {
+			let starImageView = UIImageView(image: image)
+			starImageView.contentMode = .scaleAspectFit
+			starImageView.translatesAutoresizingMaskIntoConstraints = false
+			addSubview(starImageView)
+			NSLayoutConstraint.activate(
+				[
+					starImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -33),
+					starImageView.topAnchor.constraint(equalTo: topAnchor, constant: 11)
+				]
+			)
+			self.starImageView = starImageView
 		}
-		starImageView = UIImageView(image: image)
-		starImageView.contentMode = .scaleAspectFit
-		starImageView.translatesAutoresizingMaskIntoConstraints = false
-		addSubview(starImageView)
-
-		NSLayoutConstraint.activate(
-			[
-				starImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -33),
-				starImageView.topAnchor.constraint(equalTo: topAnchor, constant: 11)
-			]
-		)
 	}
 
 	private func setupLayer() {
