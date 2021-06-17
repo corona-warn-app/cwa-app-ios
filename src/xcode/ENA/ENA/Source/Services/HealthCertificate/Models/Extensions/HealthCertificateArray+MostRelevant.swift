@@ -10,18 +10,16 @@ extension Array where Element == HealthCertificate {
 
 	var mostRelevant: HealthCertificate? {
 		let sortedHealthCertificates = sorted()
-		let pcrTestType = "LP6464-4"
-		let antigenTestType = "LP217198-3"
 
 		// PCR Test Certificate < 48 hours
 
 		let currentPCRTest = sortedHealthCertificates
 			.last {
-				guard let typeOfTest = $0.testEntry?.typeOfTest, let ageInHours = $0.ageInHours else {
+				guard let coronaTestType = $0.testEntry?.coronaTestType, let ageInHours = $0.ageInHours else {
 					return false
 				}
 
-				return typeOfTest == pcrTestType && ageInHours < 48
+				return coronaTestType == .pcr && ageInHours < 48
 			}
 
 		if let currentPCRTest = currentPCRTest {
@@ -32,11 +30,11 @@ extension Array where Element == HealthCertificate {
 
 		let currentAntigenTest = sortedHealthCertificates
 			.last {
-				guard let typeOfTest = $0.testEntry?.typeOfTest, let ageInHours = $0.ageInHours else {
+				guard let coronaTestType = $0.testEntry?.coronaTestType, let ageInHours = $0.ageInHours else {
 					return false
 				}
 
-				return typeOfTest == antigenTestType && ageInHours < 24
+				return coronaTestType == .antigen && ageInHours < 24
 			}
 
 		if let currentAntigenTest = currentAntigenTest {
@@ -102,13 +100,13 @@ extension Array where Element == HealthCertificate {
 
 		// PCR Test Certificate > 48 hours
 
-		if let otherPCRTestCertificate = sortedHealthCertificates.last(where: { $0.testEntry?.typeOfTest == pcrTestType }) {
+		if let otherPCRTestCertificate = sortedHealthCertificates.last(where: { $0.testEntry?.coronaTestType == .pcr }) {
 			return otherPCRTestCertificate
 		}
 
 		// RAT Test Certificate > 24 hours
 
-		if let otherAntigenTestCertificate = sortedHealthCertificates.last(where: { $0.testEntry?.typeOfTest == antigenTestType }) {
+		if let otherAntigenTestCertificate = sortedHealthCertificates.last(where: { $0.testEntry?.coronaTestType == .antigen }) {
 			return otherAntigenTestCertificate
 		}
 

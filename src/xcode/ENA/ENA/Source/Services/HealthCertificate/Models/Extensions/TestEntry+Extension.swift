@@ -15,4 +15,15 @@ extension TestEntry {
 			ISO8601DateFormatter().date(from: dateTimeOfSampleCollection)
 	}
 
+	var coronaTestType: CoronaTestType? {
+		switch typeOfTest {
+		case "LP6464-4":
+			return .pcr
+		case "LP217198-3":
+			return .antigen
+		default:
+			return nil
+		}
+	}
+
 }
