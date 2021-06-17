@@ -336,17 +336,15 @@ class HealthCertificateOverviewViewController: UITableViewController {
 
 		// Since we set the empty state view as a background view we need to push it below the add cell by
 		// adding top padding for the height of the add cell …
-		emptyStateView.additionalTopPadding = tableView.rectForRow(at: IndexPath(row: 0, section: 0)).maxY
+		emptyStateView.additionalTopPadding = tableView.rectForRow(at: IndexPath(row: 0, section: 0)).height
 		// … + the height of the navigation bar
-		emptyStateView.additionalTopPadding += parent?.navigationController?.navigationBar.frame.height ?? 0
+		emptyStateView.additionalTopPadding += self.navigationController?.navigationBar.frame.height ?? 0
 		// … + the height of the status bar
 		if #available(iOS 13.0, *) {
 			emptyStateView.additionalTopPadding += UIApplication.shared.windows.first?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
 		} else {
 			emptyStateView.additionalTopPadding += UIApplication.shared.statusBarFrame.height
 		}
-
 		tableView.backgroundView = viewModel.isEmptyStateVisible ? emptyStateView : nil
 	}
-
 }

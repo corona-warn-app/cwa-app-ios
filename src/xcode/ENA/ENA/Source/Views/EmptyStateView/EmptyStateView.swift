@@ -83,7 +83,7 @@ class EmptyStateView: UIView {
 		stackView.addArrangedSubview(descriptionLabel)
 
 		topConstraint = containerView.topAnchor.constraint(greaterThanOrEqualTo: topAnchor)
-
+		let percentageWidth = UIScreen.main.bounds.width / 3
 		NSLayoutConstraint.activate([
 			containerView.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor),
 			topConstraint,
@@ -97,7 +97,7 @@ class EmptyStateView: UIView {
 			stackView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
 			stackView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
 			imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor),
-			imageView.widthAnchor.constraint(lessThanOrEqualToConstant: 200)
+			imageView.widthAnchor.constraint(lessThanOrEqualToConstant: percentageWidth)
 		])
 	}
 

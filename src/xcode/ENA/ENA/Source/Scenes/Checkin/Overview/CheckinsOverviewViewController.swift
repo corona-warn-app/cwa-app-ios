@@ -203,6 +203,12 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 
 		DispatchQueue.main.async { [self] in
 			tableView.performBatchUpdates(nil, completion: nil)
+			
+			// Keep the other visible cells maskToBounds off during the animation to avoid flickering shadows due to them being cut off (https://stackoverflow.com/a/59581645)
+			for cell in tableView.visibleCells {
+				cell.layer.masksToBounds = false
+				cell.contentView.layer.masksToBounds = false
+			}
 		}
 	}
 
@@ -289,7 +295,6 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 		} else {
 			emptyStateView.additionalTopPadding += UIApplication.shared.statusBarFrame.height
 		}
-
 		tableView.backgroundView = viewModel.isEmptyStateVisible ? emptyStateView : nil
 	}
 
