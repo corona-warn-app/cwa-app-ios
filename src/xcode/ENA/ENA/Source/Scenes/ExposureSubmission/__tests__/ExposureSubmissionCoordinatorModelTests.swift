@@ -863,7 +863,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 
 		let client = ClientMock()
 		client.onGetTestResult = { _, _, completion in
-			completion(.success(FetchTestResultResponse(testResult: expectedTestResult.rawValue, sc: nil)))
+			completion(.success(.fake(testResult: expectedTestResult.rawValue)))
 		}
 
 		let store = MockTestStore()
