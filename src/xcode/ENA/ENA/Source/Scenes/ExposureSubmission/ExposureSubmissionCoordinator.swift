@@ -23,7 +23,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	) {
 		self.parentNavigationController = parentNavigationController
 		self.antigenTestProfileStore = antigenTestProfileStore
-
+		
 		super.init()
 
 		model = ExposureSubmissionCoordinatorModel(
@@ -176,7 +176,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 	private var model: ExposureSubmissionCoordinatorModel!
 	private let antigenTestProfileStore: AntigenTestProfileStoring
-
+	
 	private func push(_ vc: UIViewController) {
 		self.navigationController?.pushViewController(vc, animated: true)
 	}

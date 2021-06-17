@@ -34,7 +34,15 @@ class HomeStatisticsCardView: UIView {
 		primaryValueLabel.onAccessibilityFocus = { [weak self] in
 			self?.onAccessibilityFocus?()
 		}
-		
+		primarySubtitleLabel.style = .body
+		primarySubtitleLabel.textColor = .enaColor(for: .textPrimary2)
+		primarySubtitleLabel.numberOfLines = 0
+		primarySubtitleLabel.adjustsFontSizeToFitWidth = true
+		primarySubtitleLabel.allowsDefaultTighteningForTruncation = true
+		primarySubtitleLabel.onAccessibilityFocus = { [weak self] in
+			self?.onAccessibilityFocus?()
+		}
+
 		secondaryTitleLabel.style = .body
 		secondaryTitleLabel.textColor = .enaColor(for: .textPrimary2)
 		secondaryTitleLabel.numberOfLines = 0
@@ -69,16 +77,9 @@ class HomeStatisticsCardView: UIView {
 			self?.onAccessibilityFocus?()
 		}
 
-		footnoteLabel.adjustsFontSizeToFitWidth = true
-		footnoteLabel.allowsDefaultTighteningForTruncation = true
-		footnoteLabel.onAccessibilityFocus = { [weak self] in
-			self?.onAccessibilityFocus?()
-		}
-
 		primaryTrendImageView.layer.cornerRadius = primaryTrendImageView.bounds.width / 2
 		secondaryTrendImageView.layer.cornerRadius = secondaryTrendImageView.bounds.width / 2
 	}
-
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 		super.traitCollectionDidChange(previousTraitCollection)
 
@@ -139,9 +140,13 @@ class HomeStatisticsCardView: UIView {
 				accessibilityElements.append(tertiaryTitleLabel)
 			}
 
-			if viewModel?.footnote != nil, let footnoteLabel = self.footnoteLabel {
-				footnoteLabel.accessibilityTraits = UIAccessibilityTraits.link
-				accessibilityElements.append(footnoteLabel)
+			if viewModel?.subtitle != nil, let subtitleLabel = self.subtitleLabel {
+				subtitleLabel.accessibilityTraits = UIAccessibilityTraits.link
+				accessibilityElements.append(subtitleLabel)
+			}
+			if viewModel?.primarySubtitle != nil, let primarySubtitleLabel = self.primarySubtitleLabel {
+				primarySubtitleLabel.accessibilityTraits = UIAccessibilityTraits.link
+				accessibilityElements.append(primarySubtitleLabel)
 			}
 
 			return accessibilityElements
@@ -153,12 +158,14 @@ class HomeStatisticsCardView: UIView {
 	// MARK: - Internal
 
 	@IBOutlet weak var titleLabel: ENALabel!
+	@IBOutlet weak var subtitleLabel: ENALabel!
 	@IBOutlet weak var infoButton: UIButton!
 
 	@IBOutlet weak var illustrationImageView: UIImageView!
 
 	@IBOutlet weak var primaryTitleLabel: StackViewLabel!
 	@IBOutlet weak var primaryValueLabel: StackViewLabel!
+	@IBOutlet weak var primarySubtitleLabel: StackViewLabel!
 	@IBOutlet weak var primaryTrendImageView: UIImageView!
 
 	@IBOutlet weak var secondaryTitleLabel: StackViewLabel!
@@ -179,7 +186,7 @@ class HomeStatisticsCardView: UIView {
 			.sink { [weak self] in
 				self?.titleLabel.isHidden = $0 == nil
 				self?.titleLabel.text = $0
-				self?.titleLabel.accessibilityIdentifier = viewModel.titleAccessiblityIdentifier
+				self?.titleLabel.accessibilityIdentifier = viewModel.titleAccessibilityIdentifier
 			}
 			.store(in: &subscriptions)
 
@@ -234,6 +241,13 @@ class HomeStatisticsCardView: UIView {
 			}
 			.store(in: &subscriptions)
 
+		viewModel.$primarySubtitle
+			.sink { [weak self] in
+				self?.primarySubtitleLabel.isHidden = $0 == nil
+				self?.primarySubtitleLabel.text = $0
+			}
+			.store(in: &subscriptions)
+
 		viewModel.$secondaryTrendImage
 			.sink { [weak self] in
 				self?.secondaryTrendImageView.isHidden = $0 == nil
@@ -267,10 +281,10 @@ class HomeStatisticsCardView: UIView {
 			}
 			.store(in: &subscriptions)
 
-		viewModel.$footnote
+		viewModel.$subtitle
 			.sink { [weak self] in
-				self?.footnoteLabel.isHidden = $0 == nil
-				self?.footnoteLabel.text = $0
+				self?.subtitleLabel.isHidden = $0 == nil
+				self?.subtitleLabel.text = $0
 			}
 			.store(in: &subscriptions)
 

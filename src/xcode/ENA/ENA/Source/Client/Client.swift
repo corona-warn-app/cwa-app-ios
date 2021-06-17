@@ -249,6 +249,19 @@ extension SubmissionError: LocalizedError {
 struct FetchTestResultResponse: Codable {
 	let testResult: Int
 	let sc: Int?
+	let labId: String?
+
+	static func fake(
+		testResult: Int = 0,
+		sc: Int? = nil,
+		labId: String? = nil
+	) -> FetchTestResultResponse {
+		FetchTestResultResponse(
+			testResult: testResult,
+			sc: sc,
+			labId: labId
+		)
+	}
 }
 
 /// A container for a downloaded `SAPDownloadedPackage` and its corresponding `ETag`, if given.

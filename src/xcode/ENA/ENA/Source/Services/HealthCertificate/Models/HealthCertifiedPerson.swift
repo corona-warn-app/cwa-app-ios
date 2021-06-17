@@ -131,7 +131,7 @@ class HealthCertifiedPerson: Codable, Equatable {
 			return nil
 		}
 
-		return Calendar.autoupdatingCurrent.date(byAdding: .day, value: 14, to: vaccinationDate)
+		return Calendar.autoupdatingCurrent.date(byAdding: .day, value: 15, to: vaccinationDate)
 	}
 
 	private var vaccinationExpirationDate: Date? {
