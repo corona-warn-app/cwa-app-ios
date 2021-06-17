@@ -131,7 +131,7 @@ struct HealthCertificate: Codable, Equatable, Comparable {
 			return nil
 		}
 
-		return Calendar.current.dateComponents([.hour], from: sortDate, to: Date()).day
+		return Calendar.current.dateComponents([.hour], from: sortDate, to: Date()).hour
 	}
 
 	var ageInDays: Int? {

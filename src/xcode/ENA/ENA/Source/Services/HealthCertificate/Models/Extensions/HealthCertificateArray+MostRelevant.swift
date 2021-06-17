@@ -94,20 +94,20 @@ extension Array where Element == HealthCertificate {
 
 		// Recovery Certificate > 180 days
 
-		if let otherRecoveryCertificate = sortedHealthCertificates.last(where: { $0.type == .recovery }) {
-			return otherRecoveryCertificate
+		if let outdatedRecoveryCertificate = sortedHealthCertificates.last(where: { $0.type == .recovery }) {
+			return outdatedRecoveryCertificate
 		}
 
 		// PCR Test Certificate > 48 hours
 
-		if let otherPCRTestCertificate = sortedHealthCertificates.last(where: { $0.testEntry?.coronaTestType == .pcr }) {
-			return otherPCRTestCertificate
+		if let outdatedPCRTestCertificate = sortedHealthCertificates.last(where: { $0.testEntry?.coronaTestType == .pcr }) {
+			return outdatedPCRTestCertificate
 		}
 
 		// RAT Test Certificate > 24 hours
 
-		if let otherAntigenTestCertificate = sortedHealthCertificates.last(where: { $0.testEntry?.coronaTestType == .antigen }) {
-			return otherAntigenTestCertificate
+		if let outdatedAntigenTestCertificate = sortedHealthCertificates.last(where: { $0.testEntry?.coronaTestType == .antigen }) {
+			return outdatedAntigenTestCertificate
 		}
 
 		// Fallback
