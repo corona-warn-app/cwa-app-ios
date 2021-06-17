@@ -65,6 +65,9 @@ class GradientView: UIView {
 			return
 		}
 
+		if starImageView.image != nil {
+			starImageView.removeFromSuperview()
+		}
 		starImageView = UIImageView(image: image)
 		starImageView.contentMode = .scaleAspectFit
 		starImageView.translatesAutoresizingMaskIntoConstraints = false
