@@ -131,6 +131,8 @@ final class MockTestStore: Store, PPAnalyticsData {
 
 	var healthCertificateInfoScreenShown: Bool = false
 	var healthCertifiedPersons: [HealthCertifiedPerson] = []
+	var testCertificateRequests: [TestCertificateRequest] = []
+	var unseenTestCertificateCount: Int = 0
 
 	// MARK: - Protocol VaccinationCaching
 

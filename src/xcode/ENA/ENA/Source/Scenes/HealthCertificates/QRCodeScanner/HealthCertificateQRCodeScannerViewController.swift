@@ -10,8 +10,8 @@ class HealthCertificateQRCodeScannerViewController: UIViewController {
 	// MARK: - Init
 
 	init(
-		healthCertificateService: HealthCertificateServiceProviding,
-		didScanCertificate: @escaping (HealthCertifiedPerson) -> Void,
+		healthCertificateService: HealthCertificateService,
+		didScanCertificate: @escaping (HealthCertifiedPerson, HealthCertificate) -> Void,
 		dismiss: @escaping () -> Void
 	) {
 		self.didScanCertificate = didScanCertificate
@@ -21,10 +21,10 @@ class HealthCertificateQRCodeScannerViewController: UIViewController {
 		
 		viewModel = HealthCertificateQRCodeScannerViewModel(
 			healthCertificateService: healthCertificateService,
-			onSuccess: { [weak self] healthCertifiedPerson in
+			onSuccess: { [weak self] healthCertifiedPerson, healthCertificate in
 				AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
 				self?.viewModel?.deactivateScanning()
-				didScanCertificate(healthCertifiedPerson)
+				didScanCertificate(healthCertifiedPerson, healthCertificate)
 			},
 			onError: { error in
 				switch error {
@@ -61,7 +61,8 @@ class HealthCertificateQRCodeScannerViewController: UIViewController {
 
 		#if targetEnvironment(simulator) && DEBUG
 			if !isUITesting {
-				didScanCertificate(HealthCertifiedPerson(healthCertificates: [HealthCertificate.mock(base45: HealthCertificate.lastBase45Mock)]))
+				let healthCertificate = HealthCertificate.mock(base45: HealthCertificate.lastBase45Mock)
+				didScanCertificate(HealthCertifiedPerson(healthCertificates: [healthCertificate]), healthCertificate)
 			}
 		#endif
 	}
@@ -74,7 +75,7 @@ class HealthCertificateQRCodeScannerViewController: UIViewController {
 	// MARK: - Private
 
 	private let focusView = QRScannerFocusView()
-	private let didScanCertificate: (HealthCertifiedPerson) -> Void
+	private let didScanCertificate: (HealthCertifiedPerson, HealthCertificate) -> Void
 	private let dismiss: () -> Void
 
 	private var viewModel: HealthCertificateQRCodeScannerViewModel?
@@ -212,10 +213,23 @@ class HealthCertificateQRCodeScannerViewController: UIViewController {
 	private func showErrorAlert(error: Error) {
 		viewModel?.deactivateScanning()
 
+		let errorMessage = error.localizedDescription + AppStrings.HealthCertificate.Error.faqDescription
+
 		let alert = UIAlertController(
 			title: AppStrings.HealthCertificate.Error.title,
-			message: error.localizedDescription,
+			message: errorMessage,
 			preferredStyle: .alert
+		)
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.HealthCertificate.Error.faqButtonTitle,
+				style: .default,
+				handler: { [weak self] _ in
+					if LinkHelper.open(urlString: AppStrings.Links.healthCertificateErrorFAQ) {
+						self?.viewModel?.activateScanning()
+					}
+				}
+			)
 		)
 		alert.addAction(
 			UIAlertAction(

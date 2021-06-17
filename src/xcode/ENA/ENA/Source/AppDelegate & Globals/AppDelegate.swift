@@ -194,7 +194,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			store: store,
 			eventStore: eventStore,
 			diaryStore: contactDiaryStore,
-			appConfiguration: appConfigurationProvider
+			appConfiguration: appConfigurationProvider,
+			healthCertificateService: healthCertificateService
 		)
 	}()
 
@@ -296,7 +297,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		deviceCheck: PPACDeviceCheck()
 	)
 
-	private lazy var healthCertificateService: HealthCertificateServiceProviding = HealthCertificateService(store: store)
+	private lazy var healthCertificateService: HealthCertificateService = HealthCertificateService(
+		store: store,
+		client: client,
+		appConfiguration: appConfigurationProvider
+	)
 
 	#if targetEnvironment(simulator) || COMMUNITY
 	// Enable third party contributors that do not have the required
@@ -504,7 +509,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 					rootController: rootController
 				)
 			case .wrongDeviceTime:
-				return rootController.setupErrorAlert(message: didEndPrematurelyReason.localizedDescription)
+				if !self.store.wasDeviceTimeErrorShown {
+					self.store.wasDeviceTimeErrorShown = true
+					return rootController.setupErrorAlert(message: didEndPrematurelyReason.localizedDescription)
+				} else {
+					return nil
+				}
+
 			default:
 				return nil
 			}
@@ -530,7 +541,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 				let openFAQ: (() -> Void)? = {
 					guard let url = enError.faqURL else { return nil }
 					return {
-						UIApplication.shared.open(url, options: [:])
+						LinkHelper.open(url: url)
 					}
 				}()
 				return rootController.setupErrorAlert(

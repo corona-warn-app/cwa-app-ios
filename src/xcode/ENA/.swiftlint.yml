@@ -205,6 +205,7 @@ included:
   - ENA
   - ENATests
   - ENAUITests
+  - HealthCertificateToolkit
 
 # Excluded paths (takes precedence over 'included')
 excluded: # paths to ignore during linting. Takes precedence over `included`.
@@ -281,4 +282,12 @@ custom_rules:
     match_kinds:
       - identifier
     message: "Please use `TapAndWait()`. This includes waitForExistence()."
+    severity: error
+  no_safari_view_controller_usage:
+    name: "Do not use SFSafariViewController"
+    regex: "SFSafariViewController"
+    capture_group: 0
+    match_kinds:
+      - identifier
+    message: "Please use `LinkHelper.open(_:)` to open links and urls."
     severity: error

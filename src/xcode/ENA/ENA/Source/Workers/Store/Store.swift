@@ -177,6 +177,10 @@ protocol HealthCertificateStoring: AnyObject {
 
 	var healthCertifiedPersons: [HealthCertifiedPerson] { get set }
 
+	var testCertificateRequests: [TestCertificateRequest] { get set }
+
+	var unseenTestCertificateCount: Int { get set }
+
 }
 
 /// this section contains only deprecated stuff, please do not add new things here

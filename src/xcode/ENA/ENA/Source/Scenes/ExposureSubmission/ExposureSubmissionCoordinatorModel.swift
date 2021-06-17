@@ -43,6 +43,27 @@ class ExposureSubmissionCoordinatorModel {
 	}
 
 	let eventProvider: EventProviding
+
+	func shouldShowOverrideTestNotice(for coronaTestType: CoronaTestType) -> Bool {
+		if let oldTest = coronaTestService.coronaTest(ofType: coronaTestType),
+		   oldTest.testResult != .expired,
+		   !(oldTest.type == .antigen && coronaTestService.antigenTestIsOutdated) {
+			return true
+		} else {
+			return false
+		}
+	}
+
+	func shouldShowTestCertificateScreen(with testRegistrationInformation: CoronaTestRegistrationInformation) -> Bool {
+		switch testRegistrationInformation {
+		case .pcr:
+			return true
+		case .antigen(qrCodeInformation: let qrCodeInformation):
+			return qrCodeInformation.certificateSupportedByPointOfCare ?? false
+		case .teleTAN:
+			return false
+		}
+	}
 	
 	var shouldShowSymptomsOnsetScreen = false
 
@@ -119,7 +140,7 @@ class ExposureSubmissionCoordinatorModel {
 	func registerTestAndGetResult(
 		for testType: CoronaTestRegistrationInformation,
 		isSubmissionConsentGiven: Bool,
-		certificateConsent: CoronaTestCertificateConsent,
+		certificateConsent: TestCertificateConsent,
 		isLoading: @escaping (Bool) -> Void,
 		onSuccess: @escaping (TestResult) -> Void,
 		onError: @escaping (CoronaTestServiceError) -> Void

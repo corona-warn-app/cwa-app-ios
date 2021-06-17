@@ -21,36 +21,48 @@ final class HealthCertificateCellViewModel {
 	let gradientType: GradientView.GradientType
 
 	var headline: String? {
-		guard
-			let doseNumber = healthCertificate.vaccinationCertificates.first?.doseNumber,
-			let totalSeriesOfDoses = healthCertificate.vaccinationCertificates.first?.totalSeriesOfDoses
-		else {
+		switch healthCertificate.type {
+		case .vaccination(let vaccinationEntry):
+			return String(
+				format: AppStrings.HealthCertificate.Person.vaccinationCount,
+				vaccinationEntry.doseNumber,
+				vaccinationEntry.totalSeriesOfDoses
+			)
+		case .test:
+			return nil
+		case .recovery:
 			return nil
 		}
-
-		return String(
-			format: AppStrings.HealthCertificate.Person.vaccinationCount,
-			doseNumber,
-			totalSeriesOfDoses
-		)
 	}
 
 	var detail: String? {
-		guard let dateOfVaccination = healthCertificate.dateOfVaccination else {
+		switch healthCertificate.type {
+		case .vaccination(let vaccinationEntry):
+			return vaccinationEntry.localVaccinationDate.map {
+				String(
+					format: AppStrings.HealthCertificate.Person.vaccinationDate,
+					DateFormatter.localizedString(from: $0, dateStyle: .medium, timeStyle: .none)
+				)
+			}
+		case .test:
+			return nil
+		case .recovery:
 			return nil
 		}
-
-		return String(
-			format: AppStrings.HealthCertificate.Person.vaccinationDate,
-			DateFormatter.localizedString(from: dateOfVaccination, dateStyle: .medium, timeStyle: .none)
-		)
 	}
 
 	var image: UIImage {
-		if healthCertificate.isLastDoseInASeries {
-			return UIImage(imageLiteralResourceName: "Icon - Vollschild")
-		} else {
-			return UIImage(imageLiteralResourceName: "Icon - Teilschild")
+		switch healthCertificate.type {
+		case .vaccination(let vaccinationEntry):
+			if vaccinationEntry.isLastDoseInASeries {
+				return UIImage(imageLiteralResourceName: "Icon - Vollschild")
+			} else {
+				return UIImage(imageLiteralResourceName: "Icon - Teilschild")
+			}
+		case .test:
+			return UIImage()
+		case .recovery:
+			return UIImage()
 		}
 	}
 

@@ -10,13 +10,29 @@ class HealthCertificateOverviewViewModel {
 	// MARK: - Init
 
 	init(
-		healthCertificateService: HealthCertificateServiceProviding
+		healthCertificateService: HealthCertificateService
 	) {
 		self.healthCertificateService = healthCertificateService
 
 		healthCertificateService.healthCertifiedPersons
 			.sink { healthCertifiedPersons in
 				self.healthCertifiedPersons = healthCertifiedPersons
+					.filter { !$0.vaccinationCertificates.isEmpty }
+				self.testCertificates = healthCertifiedPersons
+					.flatMap { $0.testCertificates }
+					.sorted()
+					.reversed()
+			}
+			.store(in: &subscriptions)
+
+		healthCertificateService.testCertificateRequests
+			.sink { testCertificateRequests in
+				let updatedTestCertificateRequests = testCertificateRequests
+					.sorted { $0.registrationDate > $1.registrationDate }
+
+				if updatedTestCertificateRequests.map({ $0.registrationToken }) != self.testCertificateRequests.map({ $0.registrationToken }) {
+					self.testCertificateRequests = updatedTestCertificateRequests
+				}
 			}
 			.store(in: &subscriptions)
 	}
@@ -27,10 +43,15 @@ class HealthCertificateOverviewViewModel {
 		case description
 		case healthCertificate
 		case createHealthCertificate
+		case testCertificates
+		case testCertificateRequests
 		case testCertificateInfo
 	}
 
-	@OpenCombine.Published var healthCertifiedPersons: [HealthCertifiedPerson] = []
+	@DidSetPublished var healthCertifiedPersons: [HealthCertifiedPerson] = []
+	@DidSetPublished var testCertificates: [HealthCertificate] = []
+	@DidSetPublished var testCertificateRequests: [TestCertificateRequest] = []
+	@DidSetPublished var testCertificateRequestError: HealthCertificateServiceError.TestCertificateRequestError?
 
 	var numberOfSections: Int {
 		Section.allCases.count
@@ -43,26 +64,44 @@ class HealthCertificateOverviewViewModel {
 		case .healthCertificate:
 			return healthCertifiedPersons.count
 		case .createHealthCertificate:
-			return healthCertifiedPersons.isEmpty ? 1 : 0
-		case .testCertificateInfo:
 			return 1
+		case .testCertificates:
+			return testCertificates.count
+		case .testCertificateRequests:
+			return testCertificateRequests.count
+		case .testCertificateInfo:
+			return testCertificates.isEmpty && testCertificateRequests.isEmpty ? 1 : 0
 		case .none:
 			fatalError("Invalid section")
 		}
 	}
 
-	func healthCertifiedPerson(at indexPath: IndexPath) -> HealthCertifiedPerson? {
-		guard Section(rawValue: indexPath.section) == .healthCertificate,
-			  healthCertificateService.healthCertifiedPersons.value.indices.contains(indexPath.row) else {
-			Log.debug("Tried to access unknown healthCertifiedPersons - stop")
-			return nil
+	func retryTestCertificateRequest(at indexPath: IndexPath) {
+		guard let testCertificateRequest = testCertificateRequests[safe: indexPath.row] else {
+			return
 		}
-		return healthCertificateService.healthCertifiedPersons.value[indexPath.row]
+
+		healthCertificateService.executeTestCertificateRequest(
+			testCertificateRequest,
+			retryIfCertificateIsPending: false
+		) { [weak self] result in
+			if case .failure(let error) = result {
+				self?.testCertificateRequestError = error
+			}
+		}
+	}
+
+	func remove(testCertificateRequest: TestCertificateRequest) {
+		healthCertificateService.remove(testCertificateRequest: testCertificateRequest)
+	}
+
+	func resetBadgeCount() {
+		healthCertificateService.resetUnseenTestCertificateCount()
 	}
 
 	// MARK: - Private
 
-	private let healthCertificateService: HealthCertificateServiceProviding
+	private let healthCertificateService: HealthCertificateService
 	private var subscriptions = Set<AnyCancellable>()
 
 }

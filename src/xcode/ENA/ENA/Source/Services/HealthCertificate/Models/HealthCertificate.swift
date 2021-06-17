@@ -5,21 +5,7 @@
 import Foundation
 import HealthCertificateToolkit
 
-protocol HealthCertificateData {
-	var base45: Base45 { get }
-	var version: String { get }
-	var name: HealthCertificateToolkit.Name { get }
-	var dateOfBirth: String { get }
-	var dateOfBirthDate: Date? { get }
-	var vaccinationCertificates: [VaccinationCertificate] { get }
-	var isLastDoseInASeries: Bool { get }
-	var expirationDate: Date { get }
-	var dateOfVaccination: Date? { get }
-	var doseNumber: Int { get }
-	var totalSeriesOfDoses: Int { get }
-}
-
-struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable {
+struct HealthCertificate: Codable, Equatable, Comparable {
 
 	// MARK: - Init
 
@@ -41,17 +27,20 @@ struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable 
 	// MARK: - Protocol Comparable
 
 	static func < (lhs: HealthCertificate, rhs: HealthCertificate) -> Bool {
-		guard
-			let lhsVaccinationDate = lhs.vaccinationCertificates.first?.dateOfVaccination,
-			let rhsVaccinationDate = rhs.vaccinationCertificates.first?.dateOfVaccination
-		else {
-			return false
+		if let lhsDate = lhs.sortDate, let rhsDate = rhs.sortDate {
+			return lhsDate < rhsDate
 		}
 
-		return lhsVaccinationDate < rhsVaccinationDate
+		return false
 	}
 
 	// MARK: - Internal
+
+	enum CertificateType {
+		case vaccination(VaccinationEntry)
+		case test(TestEntry)
+		case recovery(RecoveryEntry)
+	}
 
 	let base45: Base45
 
@@ -71,43 +60,53 @@ struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable 
 		return ISO8601DateFormatter.justLocalDateFormatter.date(from: digitalGreenCertificate.dateOfBirth)
 	}
 
-	var vaccinationCertificates: [VaccinationCertificate] {
-		digitalGreenCertificate.vaccinationCertificates ?? []
+	var uniqueCertificateIdentifier: String? {
+		vaccinationEntry?.uniqueCertificateIdentifier ?? testEntry?.uniqueCertificateIdentifier
 	}
 
-	var isLastDoseInASeries: Bool {
-		digitalGreenCertificate.isLastDoseInASeries
+	var vaccinationEntry: VaccinationEntry? {
+		digitalGreenCertificate.vaccinationEntries?.first
+	}
+
+	var testEntry: TestEntry? {
+		digitalGreenCertificate.testEntries?.first
+	}
+
+	var recoveryEntry: RecoveryEntry? {
+		digitalGreenCertificate.recoveryEntries?.first
+	}
+
+	var hasTooManyEntries: Bool {
+		let entryCount = [
+			digitalGreenCertificate.vaccinationEntries?.count ?? 0,
+			digitalGreenCertificate.testEntries?.count ?? 0,
+			digitalGreenCertificate.recoveryEntries?.count ?? 0
+		].reduce(0, +)
+
+		return entryCount != 1
+	}
+
+	var type: CertificateType {
+		if let vaccinationEntry = vaccinationEntry {
+			return .vaccination(vaccinationEntry)
+		} else if let testEntry = testEntry {
+			return .test(testEntry)
+		} else if let recoveryEntry = recoveryEntry {
+			return .recovery(recoveryEntry)
+		}
+
+		fatalError("Unsupported certificates are not added in the first place")
 	}
 
 	var expirationDate: Date {
 		#if DEBUG
-		if isUITesting, let dateOfVaccination = dateOfVaccination {
-			return Calendar.current.date(byAdding: .year, value: 1, to: dateOfVaccination) ?? Date(timeIntervalSince1970: TimeInterval(cborWebTokenHeader.expirationTime))
+		if isUITesting, let localVaccinationDate = vaccinationEntry?.localVaccinationDate {
+			return Calendar.current.date(byAdding: .year, value: 1, to: localVaccinationDate) ??
+				Date(timeIntervalSince1970: TimeInterval(cborWebTokenHeader.expirationTime))
 		}
 		#endif
 
 		return Date(timeIntervalSince1970: TimeInterval(cborWebTokenHeader.expirationTime))
-	}
-
-	var dateOfVaccination: Date? {
-		guard let dateString = vaccinationCertificates.first?.dateOfVaccination else {
-			return nil
-		}
-		return ISO8601DateFormatter.justLocalDateFormatter.date(from: dateString)
-	}
-
-	var doseNumber: Int {
-		guard let vaccinationCertificate = vaccinationCertificates.last else {
-			return 0
-		}
-		return vaccinationCertificate.doseNumber
-	}
-	
-	var totalSeriesOfDoses: Int {
-		guard let vaccinationCertificate = vaccinationCertificates.last else {
-			return 0
-		}
-		return vaccinationCertificate.totalSeriesOfDoses
 	}
 
 	// MARK: - Private
@@ -135,4 +134,16 @@ struct HealthCertificate: HealthCertificateData, Codable, Equatable, Comparable 
 			fatalError("Decoding the digitalGreenCertificate failed even though decodability was checked at initialization.")
 		}
 	}
+
+	private var sortDate: Date? {
+		switch type {
+		case .vaccination(let vaccinationEntry):
+			return vaccinationEntry.localVaccinationDate
+		case .test(let testEntry):
+			return testEntry.sampleCollectionDate
+		case .recovery(let recoveryEntry):
+			return recoveryEntry.localCertificateValidityStartDate
+		}
+	}
+
 }

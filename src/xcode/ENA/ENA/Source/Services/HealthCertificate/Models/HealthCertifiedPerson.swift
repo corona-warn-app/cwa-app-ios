@@ -4,6 +4,7 @@
 
 import UIKit
 import OpenCombine
+import HealthCertificateToolkit
 
 class HealthCertifiedPerson: Codable, Equatable {
 
@@ -82,12 +83,20 @@ class HealthCertifiedPerson: Codable, Equatable {
 
 	var objectDidChange = OpenCombine.PassthroughSubject<HealthCertifiedPerson, Never>()
 
-	var fullName: String? {
-		healthCertificates.first?.name.fullName
+	var name: Name? {
+		healthCertificates.first?.name
 	}
 
 	var dateOfBirth: String? {
 		healthCertificates.first?.dateOfBirth
+	}
+
+	var vaccinationCertificates: [HealthCertificate] {
+		healthCertificates.filter { $0.vaccinationEntry != nil }
+	}
+
+	var testCertificates: [HealthCertificate] {
+		healthCertificates.filter { $0.testEntry != nil }
 	}
 
 	// MARK: - Private
@@ -96,8 +105,8 @@ class HealthCertifiedPerson: Codable, Equatable {
 
 	private var completeVaccinationProtectionDate: Date? {
 		guard
-			let lastVaccination = healthCertificates.last(where: { $0.isLastDoseInASeries }),
-			let vaccinationDateString = lastVaccination.vaccinationCertificates.first?.dateOfVaccination,
+			let lastVaccination = vaccinationCertificates.last(where: { $0.vaccinationEntry?.isLastDoseInASeries ?? false }),
+			let vaccinationDateString = lastVaccination.vaccinationEntry?.dateOfVaccination,
 			let vaccinationDate = ISO8601DateFormatter.justLocalDateFormatter.date(from: vaccinationDateString)
 		else {
 			return nil
@@ -107,7 +116,7 @@ class HealthCertifiedPerson: Codable, Equatable {
 	}
 
 	private var vaccinationExpirationDate: Date? {
-		guard let lastVaccination = healthCertificates.last(where: { $0.isLastDoseInASeries }) else {
+		guard let lastVaccination = vaccinationCertificates.last(where: { $0.vaccinationEntry?.isLastDoseInASeries ?? false }) else {
 			return nil
 		}
 

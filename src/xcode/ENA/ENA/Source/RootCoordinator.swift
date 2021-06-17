@@ -32,7 +32,7 @@ class RootCoordinator: RequiresAppDependencies {
 		eventCheckoutService: EventCheckoutService,
 		otpService: OTPServiceProviding,
 		ppacService: PrivacyPreservingAccessControl,
-		healthCertificateService: HealthCertificateServiceProviding
+		healthCertificateService: HealthCertificateService
 	) {
 		self.delegate = delegate
 		self.coronaTestService = coronaTestService
@@ -194,7 +194,7 @@ class RootCoordinator: RequiresAppDependencies {
 	private let eventCheckoutService: EventCheckoutService
 	private let otpService: OTPServiceProviding
 	private let ppacService: PrivacyPreservingAccessControl
-	private let healthCertificateService: HealthCertificateServiceProviding
+	private let healthCertificateService: HealthCertificateService
 	private let tabBarController = UITabBarController()
 
 	private var homeCoordinator: HomeCoordinator?

@@ -4,7 +4,7 @@
 
 import Foundation
 
-enum CoronaTestType: Int, CaseIterable, Codable {
+enum CoronaTestType: Int, CaseIterable, Codable, Equatable {
 	case pcr
 	case antigen
 }
@@ -101,6 +101,24 @@ enum CoronaTest: Equatable {
 			return pcrTest.journalEntryCreated
 		case .antigen(let antigenTest):
 			return antigenTest.journalEntryCreated
+		}
+	}
+
+	var certificateConsentGiven: Bool {
+		switch self {
+		case .pcr(let pcrTest):
+			return pcrTest.certificateConsentGiven
+		case .antigen(let antigenTest):
+			return antigenTest.certificateConsentGiven
+		}
+	}
+
+	var certificateRequested: Bool {
+		switch self {
+		case .pcr(let pcrTest):
+			return pcrTest.certificateRequested
+		case .antigen(let antigenTest):
+			return antigenTest.certificateRequested
 		}
 	}
 

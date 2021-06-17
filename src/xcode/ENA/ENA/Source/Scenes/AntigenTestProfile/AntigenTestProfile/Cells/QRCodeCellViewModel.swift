@@ -40,6 +40,7 @@ struct QRCodeCellViewModel {
 	}
 
 	func vCardV4(revDate: Date = Date()) -> String {
+		// https://tools.ietf.org/id/draft-ietf-vcarddav-vcardrev-02.html
 		let placeholder = """
 			BEGIN:VCARD
 			VERSION:4.0
@@ -48,7 +49,7 @@ struct QRCodeCellViewModel {
 			BDAY:%@
 			EMAIL;TYPE=home:%@
 			TEL;TYPE="cell,home":%@
-			ADR;type=home:;;%@;%@;;%@;
+			ADR;TYPE=home:;;%@;%@;;%@;
 			REV:%@
 			END:VCARD
 			"""
@@ -79,6 +80,7 @@ struct QRCodeCellViewModel {
 		}
 		// removed line breaks
 		var output = input.filter { !"\n\r".contains($0) }
+		output = output.replacingOccurrences(of: "\\", with: "\\\\")
 		output = output.replacingOccurrences(of: ";", with: "\\;")
 		output = output.replacingOccurrences(of: ",", with: "\\,")
 		return output

@@ -13,22 +13,46 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		viewModel: HealthCertificateOverviewViewModel,
 		onInfoBarButtonItemTap: @escaping () -> Void,
 		onCreateHealthCertificateTap: @escaping () -> Void,
-		onCertifiedPersonTap: @escaping (HealthCertifiedPerson) -> Void
+		onCertifiedPersonTap: @escaping (HealthCertifiedPerson) -> Void,
+		onTestCertificateTap: @escaping (HealthCertificate) -> Void
 	) {
 		self.viewModel = viewModel
 		self.onInfoBarButtonItemTap = onInfoBarButtonItemTap
 		self.onCreateHealthCertificateTap = onCreateHealthCertificateTap
 		self.onCertifiedPersonTap = onCertifiedPersonTap
+		self.onTestCertificateTap = onTestCertificateTap
 
 		super.init(style: .grouped)
 		
 		viewModel.$healthCertifiedPersons
 			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] _ in
-				self?.tableView.reloadSections([
-					HealthCertificateOverviewViewModel.Section.healthCertificate.rawValue,
-					HealthCertificateOverviewViewModel.Section.createHealthCertificate.rawValue
-				], with: .none)
+				self?.tableView.reloadData()
+			}
+			.store(in: &subscriptions)
+
+		viewModel.$testCertificates
+			.receive(on: DispatchQueue.OCombine(.main))
+			.sink { [weak self] _ in
+				self?.tableView.reloadData()
+			}
+			.store(in: &subscriptions)
+
+		viewModel.$testCertificateRequests
+			.receive(on: DispatchQueue.OCombine(.main))
+			.sink { [weak self] _ in
+				self?.tableView.reloadData()
+			}
+			.store(in: &subscriptions)
+
+		viewModel.$testCertificateRequestError
+			.sink { [weak self] in
+				guard let self = self, let error = $0 else {
+					return
+				}
+
+				self.viewModel.testCertificateRequestError = nil
+				self.showErrorAlert(error: error)
 			}
 			.store(in: &subscriptions)
 	}
@@ -57,6 +81,8 @@ class HealthCertificateOverviewViewController: UITableViewController {
 
 		navigationController?.navigationBar.prefersLargeTitles = true
 		navigationController?.navigationBar.sizeToFit()
+
+		viewModel.resetBadgeCount()
 	}
 
 	// MARK: - Protocol UITableViewDataSource
@@ -74,9 +100,13 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		case .description:
 			return descriptionCell(forRowAt: indexPath)
 		case .healthCertificate:
-			return healthCertificateCell(forRowAt: indexPath)
+			return healthCertifiedPersonCell(forRowAt: indexPath)
 		case .createHealthCertificate:
 			return vaccinationRegistrationCell(forRowAt: indexPath)
+		case .testCertificates:
+			return testCertificateCell(forRowAt: indexPath)
+		case .testCertificateRequests:
+			return testCertificateRequestCell(forRowAt: indexPath)
 		case .testCertificateInfo:
 			return testCertificateInfoCell(forRowAt: indexPath)
 		case .none:
@@ -93,9 +123,11 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		case .createHealthCertificate:
 			onCreateHealthCertificateTap()
 		case .healthCertificate:
-			if let healthCertifiedPerson = viewModel.healthCertifiedPerson(at: indexPath) {
-				onCertifiedPersonTap(healthCertifiedPerson)
-			}
+			onCertifiedPersonTap(viewModel.healthCertifiedPersons[indexPath.row])
+		case .testCertificates:
+			onTestCertificateTap(viewModel.testCertificates[indexPath.row])
+		case .testCertificateRequests:
+			break
 		case .testCertificateInfo:
 			break
 		case .none:
@@ -110,6 +142,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	private let onInfoBarButtonItemTap: () -> Void
 	private let onCreateHealthCertificateTap: () -> Void
 	private let onCertifiedPersonTap: (HealthCertifiedPerson) -> Void
+	private let onTestCertificateTap: (HealthCertificate) -> Void
 
 	private var subscriptions = Set<AnyCancellable>()
 
@@ -136,6 +169,10 @@ class HealthCertificateOverviewViewController: UITableViewController {
 			forCellReuseIdentifier: HomeHealthCertificateRegistrationTableViewCell.reuseIdentifier
 		)
 		tableView.register(
+			UINib(nibName: String(describing: TestCertificateRequestTableViewCell.self), bundle: nil),
+			forCellReuseIdentifier: TestCertificateRequestTableViewCell.reuseIdentifier
+		)
+		tableView.register(
 			UINib(nibName: String(describing: TestCertificateInfoTableViewCell.self), bundle: nil),
 			forCellReuseIdentifier: TestCertificateInfoTableViewCell.reuseIdentifier
 		)
@@ -150,12 +187,15 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		tableView.estimatedRowHeight = 500
 	}
 	
-	private func healthCertificateCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+	private func healthCertifiedPersonCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: HomeHealthCertifiedPersonTableViewCell.reuseIdentifier, for: indexPath) as? HomeHealthCertifiedPersonTableViewCell else {
 			fatalError("Could not dequeue HomeHealthCertifiedPersonTableViewCell")
 		}
 
-		let healthCertifiedPerson = viewModel.healthCertifiedPersons[indexPath.row]
+		guard let healthCertifiedPerson = viewModel.healthCertifiedPersons[safe: indexPath.row] else {
+			return UITableViewCell()
+		}
+
 		let cellModel = HomeHealthCertifiedPersonCellModel(
 			healthCertifiedPerson: healthCertifiedPerson
 		)
@@ -171,6 +211,48 @@ class HealthCertificateOverviewViewController: UITableViewController {
 
 		cell.configure(
 			with: HomeHealthCertificateRegistrationCellModel()
+		)
+
+		return cell
+	}
+
+	private func testCertificateCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: HomeHealthCertifiedPersonTableViewCell.reuseIdentifier, for: indexPath) as? HomeHealthCertifiedPersonTableViewCell else {
+			fatalError("Could not dequeue HomeHealthCertifiedPersonTableViewCell")
+		}
+
+		guard let testCertificate = viewModel.testCertificates[safe: indexPath.row] else {
+			return UITableViewCell()
+		}
+
+		let cellModel = HomeHealthCertifiedPersonCellModel(
+			testCertificate: testCertificate
+		)
+		cell.configure(with: cellModel)
+
+		return cell
+	}
+
+	private func testCertificateRequestCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: TestCertificateRequestTableViewCell.reuseIdentifier, for: indexPath) as? TestCertificateRequestTableViewCell else {
+			fatalError("Could not dequeue TestCertificateRequestTableViewCell")
+		}
+
+		cell.configure(
+			with: TestCertificateRequestCellModel(
+				testCertificateRequest: viewModel.testCertificateRequests[indexPath.row]
+			),
+			onTryAgainButtonTap: { [weak self] in
+				self?.viewModel.retryTestCertificateRequest(at: indexPath)
+			},
+			onRemoveButtonTap: { [weak self] in
+				guard let self = self else { return }
+
+				self.showDeleteAlert(testCertificateRequest: self.viewModel.testCertificateRequests[indexPath.row])
+			},
+			onUpdate: { [weak self] in
+				self?.animateChanges(of: cell)
+			}
 		)
 
 		return cell
@@ -198,6 +280,76 @@ class HealthCertificateOverviewViewController: UITableViewController {
 
 	@IBAction private func infoButtonTapped() {
 		onInfoBarButtonItemTap()
+	}
+
+	private func animateChanges(of cell: UITableViewCell) {
+		// DispatchQueue prevents undefined behaviour in `visibleCells` while cells are being updated
+		// https://developer.apple.com/forums/thread/117537
+		DispatchQueue.main.async { [self] in
+			guard tableView.visibleCells.contains(cell) else {
+				return
+			}
+
+			// Animate the changed cell height
+			tableView.performBatchUpdates(nil, completion: nil)
+
+			// Keep the other visible cells maskToBounds off during the animation to avoid flickering shadows due to them being cut off (https://stackoverflow.com/a/59581645)
+			for cell in tableView.visibleCells {
+				cell.layer.masksToBounds = false
+				cell.contentView.layer.masksToBounds = false
+			}
+		}
+	}
+
+	private func showErrorAlert(error: HealthCertificateServiceError.TestCertificateRequestError
+	) {
+		let alert = UIAlertController(
+			title: AppStrings.HealthCertificate.Overview.TestCertificateRequest.ErrorAlert.title,
+			message: error.localizedDescription,
+			preferredStyle: .alert
+		)
+
+		let okayAction = UIAlertAction(
+			title: AppStrings.HealthCertificate.Overview.TestCertificateRequest.ErrorAlert.buttonTitle,
+			style: .cancel,
+			handler: { _ in
+				alert.dismiss(animated: true)
+			}
+		)
+
+		alert.addAction(okayAction)
+
+		present(alert, animated: true, completion: nil)
+	}
+
+	private func showDeleteAlert(
+		testCertificateRequest: TestCertificateRequest
+	) {
+		let alert = UIAlertController(
+			title: AppStrings.HealthCertificate.Overview.TestCertificateRequest.DeleteAlert.title,
+			message: AppStrings.HealthCertificate.Overview.TestCertificateRequest.DeleteAlert.message,
+			preferredStyle: .alert
+		)
+
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.HealthCertificate.Overview.TestCertificateRequest.DeleteAlert.cancelButtonTitle,
+				style: .cancel,
+				handler: nil
+			)
+		)
+
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.HealthCertificate.Overview.TestCertificateRequest.DeleteAlert.deleteButtonTitle,
+				style: .destructive,
+				handler: { [weak self] _ in
+					self?.viewModel.remove(testCertificateRequest: testCertificateRequest)
+				}
+			)
+		)
+
+		present(alert, animated: true)
 	}
 
 }

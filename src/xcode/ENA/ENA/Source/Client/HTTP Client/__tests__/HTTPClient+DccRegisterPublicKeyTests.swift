@@ -19,7 +19,7 @@ final class HTTPClientDccRegisterPublicKeyTests: CWATestCase {
 
 		// WHEN
 		var resultSuccess: Bool = false
-		HTTPClient.makeWith(mock: stack).dccRegisterPublicKey(token: "myToken", publicKey: Data()) { result in
+		HTTPClient.makeWith(mock: stack).dccRegisterPublicKey(token: "myToken", publicKey: "") { result in
 			switch result {
 			case .success:
 				resultSuccess = true
@@ -45,7 +45,7 @@ final class HTTPClientDccRegisterPublicKeyTests: CWATestCase {
 
 		// WHEN
 		var resultError: DCCErrors.RegistrationError?
-		HTTPClient.makeWith(mock: stack).dccRegisterPublicKey(token: "myToken", publicKey: Data()) { result in
+		HTTPClient.makeWith(mock: stack).dccRegisterPublicKey(token: "myToken", publicKey: "") { result in
 			switch result {
 			case .success:
 				XCTFail("Test should not succeed")
@@ -72,7 +72,7 @@ final class HTTPClientDccRegisterPublicKeyTests: CWATestCase {
 
 		// WHEN
 		var resultError: DCCErrors.RegistrationError?
-		HTTPClient.makeWith(mock: stack).dccRegisterPublicKey(token: "myToken", publicKey: Data()) { result in
+		HTTPClient.makeWith(mock: stack).dccRegisterPublicKey(token: "myToken", publicKey: "") { result in
 			switch result {
 			case .success:
 				XCTFail("Test should not succeed")
@@ -99,7 +99,7 @@ final class HTTPClientDccRegisterPublicKeyTests: CWATestCase {
 
 		// WHEN
 		var resultError: DCCErrors.RegistrationError?
-		HTTPClient.makeWith(mock: stack).dccRegisterPublicKey(token: "myToken", publicKey: Data()) { result in
+		HTTPClient.makeWith(mock: stack).dccRegisterPublicKey(token: "myToken", publicKey: "") { result in
 			switch result {
 			case .success:
 				XCTFail("Test should not succeed")
@@ -126,7 +126,7 @@ final class HTTPClientDccRegisterPublicKeyTests: CWATestCase {
 
 		// WHEN
 		var resultError: DCCErrors.RegistrationError?
-		HTTPClient.makeWith(mock: stack).dccRegisterPublicKey(token: "myToken", publicKey: Data()) { result in
+		HTTPClient.makeWith(mock: stack).dccRegisterPublicKey(token: "myToken", publicKey: "") { result in
 			switch result {
 			case .success:
 				XCTFail("Test should not succeed")
@@ -153,7 +153,7 @@ final class HTTPClientDccRegisterPublicKeyTests: CWATestCase {
 
 		// WHEN
 		var resultError: DCCErrors.RegistrationError?
-		HTTPClient.makeWith(mock: stack).dccRegisterPublicKey(token: "myToken", publicKey: Data()) { result in
+		HTTPClient.makeWith(mock: stack).dccRegisterPublicKey(token: "myToken", publicKey: "") { result in
 			switch result {
 			case .success:
 				XCTFail("Test should not succeed")
@@ -180,7 +180,7 @@ final class HTTPClientDccRegisterPublicKeyTests: CWATestCase {
 
 		// WHEN
 		var resultError: DCCErrors.RegistrationError?
-		HTTPClient.makeWith(mock: stack).dccRegisterPublicKey(token: "myToken", publicKey: Data()) { result in
+		HTTPClient.makeWith(mock: stack).dccRegisterPublicKey(token: "myToken", publicKey: "") { result in
 			switch result {
 			case .success:
 				XCTFail("Test should not succeed")
@@ -202,6 +202,78 @@ final class HTTPClientDccRegisterPublicKeyTests: CWATestCase {
 		}
 
 		XCTAssertEqual(responseStatusCode, 502)
+	}
+
+	func testGIVEN_ErrorLog_WHEN_DCCRegisterPublicKey_THEN_defaultServerError_IsReturned() throws {
+		// GIVEN
+		let stack = MockNetworkStack(
+			httpStatus: 502,
+			responseData: nil
+		)
+
+		let expectation = self.expectation(description: "completion handler is called without an error")
+
+		// WHEN
+		var resultError: DCCErrors.RegistrationError?
+		HTTPClient.makeWith(mock: stack).dccRegisterPublicKey(token: "myToken", publicKey: "") { result in
+			switch result {
+			case .success:
+				XCTFail("Test should not succeed")
+			case let .failure(error):
+				resultError = error
+			}
+			expectation.fulfill()
+		}
+
+		// THEN
+		waitForExpectations(timeout: .short)
+		let realError = try XCTUnwrap(resultError)
+		XCTAssertEqual(realError, .defaultServerError(URLSession.Response.Failure.noResponse))
+	}
+
+
+	func testGIVEN_ErrorLog_WHEN_DCCRegisterPublicKey_THEN_noNetworkConnection_IsReturned() throws {
+		// GIVEN
+		let url = URL(staticString: "https://localhost:8080")
+		let notConnectedError = NSError(
+			domain: NSURLErrorDomain,
+			code: NSURLErrorNotConnectedToInternet,
+			userInfo: nil
+		)
+
+		let session = MockUrlSession(
+			data: nil,
+			nextResponse: HTTPURLResponse(
+				url: url,
+				statusCode: 500,
+				httpVersion: nil,
+				headerFields: nil
+			),
+			error: notConnectedError
+		)
+
+		let stack = MockNetworkStack(
+			mockSession: session
+		)
+
+		let expectation = self.expectation(description: "completion handler is called without an error")
+
+		// WHEN
+		var resultError: DCCErrors.RegistrationError?
+		HTTPClient.makeWith(mock: stack).dccRegisterPublicKey(token: "myToken", publicKey: "") { result in
+			switch result {
+			case .success:
+				XCTFail("Test should not succeed")
+			case let .failure(error):
+				resultError = error
+			}
+			expectation.fulfill()
+		}
+
+		// THEN
+		waitForExpectations(timeout: .short)
+		let realError = try XCTUnwrap(resultError)
+		XCTAssertEqual(realError, .noNetworkConnection)
 	}
 
 }

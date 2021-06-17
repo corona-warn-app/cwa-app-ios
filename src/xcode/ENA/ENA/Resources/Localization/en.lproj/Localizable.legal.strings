@@ -194,12 +194,12 @@
 
 "HealthCertificate_Info_Legal_headline" = "Data protection and data security";
 
-"HealthCertificate_Info_Legal_section01" = "Using the digital vaccination certificate feature is voluntary. There are other ways to prove that you are fully vaccinated (e.g. using a yellow vaccination booklet).";
+"HealthCertificate_Info_Legal_section01" = "Using the digital COVID-19 certificates is voluntary. There are other ways to prove that you are fully vaccinated or have a negative test result.";
 
-"HealthCertificate_Info_Legal_section02" = "The vaccination certificate contains your COVID-19 vaccination details. In cases where you are required by law to prove that you have been vaccinated, it is sufficient to show the QR code in the app. Do not provide vaccination certificates or QR codes to anyone if you do not want the data to be read.";
+"HealthCertificate_Info_Legal_section02" = "The COVID-19 certificates contain your personal data (concerning vaccinations or your test result). In cases where you are required by law to prove your vaccination status or test result, it is sufficient to show the QR code of the certificate in the app. Do not provide your certificates or the QR codes to anyone if you do not want the data to be read.";
 
-"HealthCertificate_Info_Legal_section03" = "If you present the QR code in the app and it is scanned using the verification app, others will be able to tell whether you are fully vaccinated. During verification, the official verification app will also display your name and date of birth.";
+"HealthCertificate_Info_Legal_section03" = "When you present the QR code of a certificate in the app for verification, others will be able to find out your test result or whether you are fully vaccinated. During verification, the official verification app will also display your name and date of birth.";
 
-"HealthCertificate_Info_Legal_section04" = "You have the possibility to delete vaccination certificates in the app at any time. Until then, the vaccination certificates will be stored on your smartphone.";
+"HealthCertificate_Info_Legal_section04" = "You have the possibility to delete COVID-19 certificates in the app at any time. Until then, the certificates will be stored on your smartphone.";
 
 "HealthCertificate_Info_disclaimer" = "Detailed information about this data processing is available in the privacy notice";

@@ -41,13 +41,13 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		start(with: self.getInitialViewController())
 	}
 
-	func start(with testInformationResult: Result<CoronaTestRegistrationInformation, QRCodeError>) {
+	func start(with testRegistrationInformationResult: Result<CoronaTestRegistrationInformation, QRCodeError>) {
 		model.exposureSubmissionService.loadSupportedCountries(
 			isLoading: { _ in },
 			onSuccess: { supportedCountries in
-				switch testInformationResult {
-				case let .success(testInformation):
-					let qrInfoScreen = self.makeQRInfoScreen(supportedCountries: supportedCountries, testInformation: testInformation)
+				switch testRegistrationInformationResult {
+				case let .success(testRegistrationInformation):
+					let qrInfoScreen = self.makeQRInfoScreen(supportedCountries: supportedCountries, testRegistrationInformation: testRegistrationInformation)
 					self.start(with: qrInfoScreen)
 				case let .failure(qrCodeError):
 					switch qrCodeError {
@@ -90,11 +90,10 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	}
 
 	func showTanScreen() {
-
 		let tanInputViewModel = TanInputViewModel(
 			coronaTestService: model.coronaTestService,
 			onSuccess: { [weak self] testRegistrationInformation, isLoading in
-				self?.handleCoronaTestRegistrationInformation(testRegistrationInformation, isConsentGiven: false, isLoading: isLoading)
+				self?.showOverrideTestNoticeIfNecessary(testRegistrationInformation: testRegistrationInformation, submissionConsentGiven: false, isLoading: isLoading)
 			}
 		)
 
@@ -407,7 +406,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		push(vc)
 	}
 
-	private func makeQRInfoScreen(supportedCountries: [Country], testInformation: CoronaTestRegistrationInformation?) -> UIViewController {
+	private func makeQRInfoScreen(supportedCountries: [Country], testRegistrationInformation: CoronaTestRegistrationInformation?) -> UIViewController {
 		let vc = ExposureSubmissionQRInfoViewController(
 			supportedCountries: supportedCountries,
 			onPrimaryButtonTap: { [weak self] isLoading in
@@ -418,22 +417,22 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 								switch error.toExposureSubmissionError() {
 								case .notAuthorized:
 									// user did not authorize -> continue to scanning the qr code
-									self?.showQRScreen(testInformation: testInformation, isLoading: isLoading)
+									self?.showQRScreen(testRegistrationInformation: testRegistrationInformation, isLoading: isLoading)
 								default:
 									// present alert
 									let alert = UIAlertController.errorAlert(message: error.localizedDescription, completion: { [weak self] in
-										self?.showQRScreen(testInformation: testInformation, isLoading: isLoading)
+										self?.showQRScreen(testRegistrationInformation: testRegistrationInformation, isLoading: isLoading)
 									})
 									self?.navigationController?.present(alert, animated: true, completion: nil)
 								}
 							} else {
 								// continue to scanning the qr code
-								self?.showQRScreen(testInformation: testInformation, isLoading: isLoading)
+								self?.showQRScreen(testRegistrationInformation: testRegistrationInformation, isLoading: isLoading)
 							}
 						}
 					})
 				} else {
-					self?.showQRScreen(testInformation: testInformation, isLoading: isLoading)
+					self?.showQRScreen(testRegistrationInformation: testRegistrationInformation, isLoading: isLoading)
 				}
 			},
 			dismiss: { [weak self] in self?.dismiss() }
@@ -458,18 +457,26 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	}
 
 	private func showQRInfoScreen(supportedCountries: [Country]) {
-		push(makeQRInfoScreen(supportedCountries: supportedCountries, testInformation: nil))
+		push(makeQRInfoScreen(supportedCountries: supportedCountries, testRegistrationInformation: nil))
 	}
 
-	private func showQRScreen(testInformation: CoronaTestRegistrationInformation?, isLoading: @escaping (Bool) -> Void) {
-		if let testInformation = testInformation {
-			handleCoronaTestRegistrationInformation(testInformation, isConsentGiven: true, isLoading: isLoading)
+	private func showQRScreen(testRegistrationInformation: CoronaTestRegistrationInformation?, isLoading: @escaping (Bool) -> Void) {
+		if let testRegistrationInformation = testRegistrationInformation {
+			showOverrideTestNoticeIfNecessary(
+				testRegistrationInformation: testRegistrationInformation,
+				submissionConsentGiven: true,
+				isLoading: isLoading
+			)
 		} else {
 			let scannerViewController = ExposureSubmissionQRScannerViewController(
-				onSuccess: { testQRCodeInformation in
+				onSuccess: { testRegistrationInformation in
 					DispatchQueue.main.async { [weak self] in
 						self?.presentedViewController?.dismiss(animated: true) {
-							self?.handleCoronaTestRegistrationInformation(testQRCodeInformation, isConsentGiven: true, isLoading: isLoading)
+							self?.showOverrideTestNoticeIfNecessary(
+								testRegistrationInformation: testRegistrationInformation,
+								submissionConsentGiven: true,
+								isLoading: isLoading
+							)
 						}
 					}
 				},
@@ -513,21 +520,50 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		}
 
 	}
-	
-	private func handleCoronaTestRegistrationInformation(_ testRegistrationInformation: CoronaTestRegistrationInformation, isConsentGiven: Bool, isLoading: @escaping (Bool) -> Void) {
-		if let oldTest = self.model.coronaTestService.coronaTest(ofType: testRegistrationInformation.testType),
-		   oldTest.testResult != .expired,
-		   !(oldTest.type == .antigen && self.model.coronaTestService.antigenTestIsOutdated) {
-			self.showOverrideTestNotice(testQRCodeInformation: testRegistrationInformation, submissionConsentGiven: isConsentGiven)
-		} else {
-			self.registerTestAndGetResult(
-				with: testRegistrationInformation,
-				submissionConsentGiven: isConsentGiven,
-				// Set to appropriate value (EXPOSUREAPP-7585)
-				certificateConsent: .notGiven,
+
+	// show an overwrite notice screen if a test of given type was registered before
+	// registerTestAndGetResult will update the loading state of the primary button later
+	private func showOverrideTestNoticeIfNecessary(
+		testRegistrationInformation: CoronaTestRegistrationInformation,
+		submissionConsentGiven: Bool,
+		isLoading: @escaping (Bool) -> Void
+	) {
+		guard model.shouldShowOverrideTestNotice(for: testRegistrationInformation.testType) else {
+			showTestCertificateScreenIfNecessary(
+				testRegistrationInformation: testRegistrationInformation,
+				submissionConsentGiven: submissionConsentGiven,
 				isLoading: isLoading
 			)
+
+			return
 		}
+
+		let footerViewModel = FooterViewModel(
+			primaryButtonName: AppStrings.ExposureSubmission.OverwriteNotice.primaryButton,
+			isSecondaryButtonHidden: true
+		)
+
+		let overwriteNoticeViewController = TestOverwriteNoticeViewController(
+			testType: testRegistrationInformation.testType,
+			didTapPrimaryButton: { [weak self] in
+				self?.showTestCertificateScreenIfNecessary(
+					testRegistrationInformation: testRegistrationInformation,
+					submissionConsentGiven: submissionConsentGiven,
+					isLoading: { isLoading in
+						footerViewModel.setLoadingIndicator(isLoading, disable: isLoading, button: .primary)
+					}
+				)
+			},
+			didTapCloseButton: { [weak self] in
+				// on cancel the submission flow is stopped immediately
+				self?.parentNavigationController?.dismiss(animated: true)
+			}
+		)
+
+		let footerViewController = FooterViewController(footerViewModel)
+		let topBottomViewController = TopBottomContainerViewController(topController: overwriteNoticeViewController, bottomController: footerViewController)
+		topBottomViewController.navigationItem.hidesBackButton = true
+		push(topBottomViewController)
 	}
 
 	private func showTestResultAvailableScreen() {
@@ -835,12 +871,39 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		push(topBottomContainerViewController)
 	}
 
-	// MARK: TestCertificateInfo
+	// MARK: Test Certificate
 
-	private func showTestCertificateInfo() {
+	private func showTestCertificateScreenIfNecessary(
+		testRegistrationInformation: CoronaTestRegistrationInformation,
+		submissionConsentGiven: Bool,
+		isLoading: @escaping (Bool) -> Void
+	) {
+		guard model.shouldShowTestCertificateScreen(with: testRegistrationInformation) else {
+			self.registerTestAndGetResult(
+				with: testRegistrationInformation,
+				submissionConsentGiven: submissionConsentGiven,
+				certificateConsent: .notGiven,
+				isLoading: isLoading
+			)
+
+			return
+		}
+
+		let footerViewModel = FooterViewModel(
+			primaryButtonName: AppStrings.ExposureSubmission.TestCertificate.Info.primaryButton,
+			secondaryButtonName: AppStrings.ExposureSubmission.TestCertificate.Info.secondaryButton,
+			isPrimaryButtonEnabled: true,
+			isSecondaryButtonEnabled: true,
+			isPrimaryButtonHidden: false,
+			isSecondaryButtonHidden: false,
+			primaryButtonColor: .enaColor(for: .buttonPrimary),
+			secondaryButtonInverted: true,
+			backgroundColor: .enaColor(for: .background)
+		)
+
 		let testCertificateViewController = ExposureSubmissionTestCertificateViewController(
 			ExposureSubmissionTestCertificateViewModel(
-				testType: .pcr,
+				testType: testRegistrationInformation.testType,
 				presentDisclaimer: { [weak self] in
 					self?.showDataPrivacy()
 				}
@@ -856,24 +919,22 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 					)
 				)
 			},
-			didTapPrimaryButton: { testType, optionalBirthDateString in
-				Log.debug("NYD - \(testType), \(String(describing: optionalBirthDateString))")
+			didTapPrimaryButton: { [weak self] optionalBirthDateString, isLoading in
+				self?.registerTestAndGetResult(
+					with: testRegistrationInformation,
+					submissionConsentGiven: submissionConsentGiven,
+					certificateConsent: .given(dateOfBirth: optionalBirthDateString),
+					isLoading: isLoading
+				)
 			},
-			didTapSecondaryButton: { [weak self] in
-				self?.navigationController?.dismiss(animated: true)
+			didTapSecondaryButton: { [weak self] isLoading in
+				self?.registerTestAndGetResult(
+					with: testRegistrationInformation,
+					submissionConsentGiven: submissionConsentGiven,
+					certificateConsent: .notGiven,
+					isLoading: isLoading
+				)
 			}
-		)
-
-		let footerViewModel = FooterViewModel(
-			primaryButtonName: AppStrings.ExposureSubmission.TestCertificate.Info.primaryButton,
-			secondaryButtonName: AppStrings.ExposureSubmission.TestCertificate.Info.secondaryButton,
-			isPrimaryButtonEnabled: true,
-			isSecondaryButtonEnabled: true,
-			isPrimaryButtonHidden: false,
-			isSecondaryButtonHidden: false,
-			primaryButtonColor: .enaColor(for: .buttonPrimary),
-			secondaryButtonInverted: true,
-			backgroundColor: .enaColor(for: .background)
 		)
 
 		let footerViewController = FooterViewController(footerViewModel)
@@ -914,7 +975,6 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	// MARK: Cancel Alerts
 
 	private func showTestResultAvailableCloseAlert() {
-
 		let alert = UIAlertController(
 			title: AppStrings.ExposureSubmissionTestResultAvailable.closeAlertTitle,
 			message: nil,
@@ -1104,10 +1164,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 					return
 				}
 
-				UIApplication.shared.open(
-					url,
-					options: [:]
-				)
+				LinkHelper.open(url: url)
 			}
 		)
 
@@ -1116,47 +1173,10 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 	// MARK: Test Result Helper
 
-	// show a overwrite notice screen if a test of give type was registered before
-	// registerTestAndGetResult will update the loading state of the primary button
-	private func showOverrideTestNotice(
-		testQRCodeInformation: CoronaTestRegistrationInformation,
-		submissionConsentGiven: Bool
-	) {
-
-		let footerViewModel = FooterViewModel(
-			primaryButtonName: AppStrings.ExposureSubmission.OverwriteNotice.primaryButton,
-			isSecondaryButtonHidden: true
-		)
-
-		let overwriteNoticeViewController = TestOverwriteNoticeViewController(
-			testType: testQRCodeInformation.testType,
-			didTapPrimaryButton: { [weak self] in
-				self?.registerTestAndGetResult(
-					with: testQRCodeInformation,
-					submissionConsentGiven: submissionConsentGiven,
-					// Set to appropriate value (EXPOSUREAPP-7585)
-					certificateConsent: .notGiven,
-					isLoading: { isLoading in
-						footerViewModel.setLoadingIndicator(isLoading, disable: isLoading, button: .primary)
-					}
-				)
-			},
-			didTapCloseButton: { [weak self] in
-				// on cancel the submission flow is stopped immediately
-				self?.parentNavigationController?.dismiss(animated: true)
-			}
-		)
-
-		let footerViewController = FooterViewController(footerViewModel)
-		let topBottomViewController = TopBottomContainerViewController(topController: overwriteNoticeViewController, bottomController: footerViewController)
-		topBottomViewController.navigationItem.hidesBackButton = true
-		push(topBottomViewController)
-	}
-
 	private func registerTestAndGetResult(
 		with testQRCodeInformation: CoronaTestRegistrationInformation,
 		submissionConsentGiven: Bool,
-		certificateConsent: CoronaTestCertificateConsent,
+		certificateConsent: TestCertificateConsent,
 		isLoading: @escaping (Bool) -> Void
 	) {
 		model.registerTestAndGetResult(
@@ -1199,7 +1219,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 							self?.dismiss()
 						},
 						secondaryActionCompletion: { [weak self] in
-							self?.showQRScreen(testInformation: nil, isLoading: isLoading)
+							self?.showQRScreen(testRegistrationInformation: nil, isLoading: isLoading)
 						}
 					)
 				case .testExpired:

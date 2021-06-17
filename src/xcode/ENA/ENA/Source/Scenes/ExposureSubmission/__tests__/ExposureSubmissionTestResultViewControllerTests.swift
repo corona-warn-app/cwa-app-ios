@@ -17,7 +17,9 @@ class ExposureSubmissionViewControllerTests: CWATestCase {
 	}
 
 	private func createVC(coronaTest: CoronaTest) -> ExposureSubmissionTestResultViewController {
+		let client = ClientMock()
 		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
 		
 		switch coronaTest.type {
 		case .pcr:
@@ -30,11 +32,16 @@ class ExposureSubmissionViewControllerTests: CWATestCase {
 			viewModel: ExposureSubmissionTestResultViewModel(
 				coronaTestType: coronaTest.type,
 				coronaTestService: CoronaTestService(
-					client: ClientMock(),
+					client: client,
 					store: store,
 					eventStore: MockEventStore(),
 					diaryStore: MockDiaryStore(),
-					appConfiguration: CachedAppConfigurationMock()
+					appConfiguration: appConfiguration,
+					healthCertificateService: HealthCertificateService(
+						store: store,
+						client: client,
+						appConfiguration: appConfiguration
+					)
 				),
 				onSubmissionConsentCellTap: { _ in },
 				onContinueWithSymptomsFlowButtonTap: { },

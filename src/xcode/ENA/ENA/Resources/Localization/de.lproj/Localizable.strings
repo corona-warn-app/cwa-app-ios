@@ -512,7 +512,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionDispatch_QRCodeButtonTitle" = "QR-Code scannen";
 
-"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Erhalten Sie Ihr Testergebnis in der App und warnen Sie andere oder fordern Sie Ihr COVID-19-Testzertifikat an.";
+"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Erhalten Sie Ihr Testergebnis in der App und warnen Sie andere oder fordern Sie Ihr COVID-Testzertifikat an.";
 
 "ExposureSubmissionDispatch_TANButtonTitle" = "TAN für PCR-Test eingeben";
 
@@ -568,7 +568,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionQRInfo_instruction2" = "Jeder Test kann nur einmal gescannt werden. Die App kann maximal einen Schnelltest und einen PCR-Test gleichzeitig verwalten.";
 
-"ExposureSubmissionQRInfo_instruction2a" = "Wenn Ihr Testergebnis negativ ist, können Sie dies in Form eines offiziellen COVID-19-Testzertifikats bestätigen lassen. Fordern Sie hierfür in den folgenden Schritten das Testzertifikat an.";
+"ExposureSubmissionQRInfo_instruction2a" = "Wenn Ihr Testergebnis negativ ist, können Sie dies in Form eines offiziellen COVID-Testzertifikats bestätigen lassen. Fordern Sie hierfür in den folgenden Schritten das Testzertifikat an.";
 
 "ExposureSubmissionQRInfo_instruction3" = "Die App kann %@ gleichzeitig mehrere Tests verwalten.";
 
@@ -698,9 +698,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_Procedure" = "Infos zum Ablauf:";
 
-"ExposureSubmissionResult_testAdded" = "Ihr Test wurde hinzugefügt.";
+"ExposureSubmissionResult_testAdded" = "Ihr Test wurde hinzugefügt";
 
-"ExposureSubmissionResult_antigenTestAdded" = "Ihr Schnelltest wurde hinzugefügt.";
+"ExposureSubmissionResult_antigenTestAdded" = "Ihr Schnelltest wurde hinzugefügt";
 
 "ExposureSubmissionResult_antigenTestAddedDesc" = "Das Test-Ergebnis wird 48 Stunden hier angezeigt.";
 
@@ -730,17 +730,30 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_testExpiredDesc" = "Es gab ein Problem bei der Auswertung Ihres Tests. Ihr QR Code ist bereits abgelaufen.";
 
-"ExposureSubmissionResult_testPending" = "Ihr Testergebnis liegt noch nicht vor.";
+"ExposureSubmissionResult_testPending" = "Ihr Testergebnis liegt noch nicht vor";
 
 "ExposureSubmissionResult_testPendingDesc" = "Sobald Ihr Testergebnis vorliegt, wird es Ihnen in der App angezeigt.\n\nSie bekommen Ihr Testergebnis auch außerhalb der App mitgeteilt. Falls Ihr Test positiv ist, bekommen Sie vom Gesundheitsamt eine Mitteilung.\n\nWenn Ihnen außerhalb der App ein positives Testergebnis mitgeteilt wurde, entfernen Sie den aktuell in der App registrierten Test. Rufen Sie die unter „TAN anfragen” angegebene Nummer an, um eine TAN zu erhalten. Registrieren Sie dann Ihr Testergebnis mithilfe der TAN in der App.";
+"ExposureSubmissionResult_testCertificate_title" = "COVID-Testzertifikat";
 
-"ExposureSubmissionResult_antigenTestPending" = "Ihr Testergebnis liegt noch nicht vor.";
+"ExposureSubmissionResult_testCertificate_testCenterNotSupported" = "Ein offizielles digitales COVID-Testzertifikat kann nicht ausgestellt werden, da diese Teststelle die Ausstellung der Testzertifikate nicht unterstützt.";
+
+"ExposureSubmissionResult_testCertificate_Pending" = "Ihr offizielles digitales COVID-Testzertifikat liegt noch nicht vor. Sobald es vorliegt, wird es Ihnen in der App angezeigt.";
+
+"ExposureSubmissionResult_testCertificate_NotRequested" = "Auf Ihren Wunsch hin wird kein offizielles digitales COVID-Testzertifikat ausgestellt.";
+
+"ExposureSubmissionResult_testCertificate_AvailableInTab" = "Das Testzertifikat liegt im Tab „Zertifikate“ vor.";
+
+"ExposureSubmissionResult_antigenTestPending" = "Ihr Testergebnis liegt noch nicht vor";
 
 "ExposureSubmissionResult_antigenTestPendingDesc" = "Sobald Ihr Testergebnis vorliegt, wird es Ihnen in der App angezeigt.";
 
-"ExposureSubmissionResult_antigenTestPendingContactJournal" = "Ihr Testergebnis wird dem Kontakt-Tagebuch hinzugefügt.";
+"ExposureSubmissionResult_antigenTestPendingContactJournal" = "Ihr Testergebnis wird dem Kontakt-Tagebuch hinzugefügt";
+
+"ExposureSubmissionResult_pcrTestPendingContactJournal" = "Ihr Testergebnis wird dem Kontakt-Tagebuch hinzugefügt";
 
 "ExposureSubmissionResult_antigenTestPendingContactJournalDesc" = "Sobald Ihr Testergebnis vorliegt, wird es Ihnen in der App angezeigt.";
+
+"ExposureSubmissionResult_pcrTestPendingContactJournalDesc" = "Sobald Ihr Testergebnis vorliegt, wird es Ihnen in der App angezeigt.";
 
 "ExposureSubmissionResult_antigenTestNegativDesc" = "Der Schnelltest hat keinen Nachweis für das Coronavirus SARS-CoV-2 bei Ihnen ergeben.";
 
@@ -750,7 +763,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_testRemove" = "Test entfernen";
 
-"ExposureSubmissionResult_testRemoveDesc" = "Bitte entfernen Sie den Test wieder aus der Corona-Warn-App, damit Sie bei Bedarf einen neuen Test hinterlegen können.";
+"ExposureSubmissionResult_testRemoveDesc" = "Bevor Sie einen neuen Test registrieren können, muss der letzte Test entfernt werden.";
 
 "ExposureSubmissionResult_primaryButtonTitle" = "Weiter mit Symptom-Erfassung";
 
@@ -988,7 +1001,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_TestCertificate_Information_Section02" = "Das Testzertifikat gilt innerhalb der EU als gültiger Nachweis eines negativen Testergebnisses (z.B. für Reisen).";
 
-"ExposureSubmission_TestCertificate_Information_Subheadline" = "Sie können über die App ein offizielles digitales Testzertifikat anfordern, das anschließend in der App hinzugefügt wird.";
+"ExposureSubmission_TestCertificate_Information_Subheadline" = "Sie können über die App ein offizielles EU digitales Testzertifikat anfordern, das anschließend in der App hinzugefügt wird.";
 
 "ExposureSubmission_TestCertificate_Information_BirthdayPlaceholder" = "Geburtsdatum";
 
@@ -1284,7 +1297,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Home_TestRegistration_Title" = "Test registrieren";
 
-"Home_TestRegistration_Body" = "Nutzen Sie die App, um Ihr Testergebnis abzurufen und andere schneller warnen zu können, oder um Ihr COVID-19-Testzertifikat anzufordern.";
+"Home_TestRegistration_Body" = "Nutzen Sie die App, um Ihr Testergebnis abzurufen und andere schneller warnen zu können, oder um Ihr COVID-Testzertifikat anzufordern.";
 
 "Home_TestRegistration_Button" = "Nächste Schritte";
 
@@ -1573,7 +1586,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeature_24_digital_covid_cert_title" = "COVID-Testzertifikat";
 
-"NewVersionFeature_24_digital_covid_cert_description" = "Sie können nun über die App ein offizielles digitales Testzertifikat anfordern und anschließend in der App hinzufügen. Sie können das Testzertifikat (QR-Code) innerhalb der EU verwenden, um ein negatives Testergebnis nachzuweisen (z.B. für Auslandsreisen).";
+"NewVersionFeature_24_digital_covid_cert_description" = "Sie können nun über die App ein offizielles EU digitales Testzertifikat anfordern und anschließend in der App hinzufügen. Sie können das Testzertifikat (QR-Code) innerhalb der EU verwenden, um ein negatives Testergebnis nachzuweisen (z.B. für Auslandsreisen).";
 
 "NewVersionFeature_24_extended_diary_title" = "Erweiterung Kontakt-Tagebuch";
 
@@ -1892,6 +1905,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Card_Million" = "%@ Mio.";
 
+/* - General Card Texts */
+
+"Statistics_Card_From_Nationwide" = "Bundesweit";
+"Statistics_Card_From_CWA" = "über die Corona-Warn-App";
+
 /* - Infections Card */
 
 "Statistics_Card_Infections_Title" = "Bestätigte Neuinfektionen";
@@ -1946,6 +1964,54 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Card_ReproductionNumber_SecondaryLabelTitle" = "durchschnittliche Ansteckungen pro infizierter Person";
 
+/* - At least one person vaccinated card */
+
+"Statistics_Card_AtLeastOneVaccinated_Title" = "Mindestens einmal geimpfte Personen";
+
+"Statistics_Card_AtLeastOneVaccinated_Today" = "Aktuell";
+
+"Statistics_Card_AtLeastOneVaccinated_Yesterday" = "Bis Gestern";
+
+"Statistics_Card_AtLeastOneVaccinated_Date" = "Bis %@";
+
+"Statistics_Card_AtLeastOneVaccinated_SecondaryLabelTitle" = "der Gesamtbevölkerung";
+
+"Statistics_Card_AtLeastOneVaccinated_TertiaryLabelTitle" = "Gesamt";
+
+"Statistics_Card_AtLeastOneVaccinated_SecondarySubtitleLabel" = "der Gesamtbevölkerung";
+
+
+
+/* - Fully vaccinated people card */
+
+"Statistics_Card_FullyVaccinated_Title" = "Vollständig geimpfte Personen";
+
+"Statistics_Card_FullyVaccinated_Today" = "Aktuell";
+
+"Statistics_Card_FullyVaccinated_Yesterday" = "Bis Gestern";
+
+"Statistics_Card_FullyVaccinated_Date" = "Bis %@";
+
+"Statistics_Card_FullyVaccinated_SecondaryLabelTitle" = "der Gesamtbevölkerung";
+
+"Statistics_Card_FullyVaccinated_TertiaryLabelTitle" = "Gesamt";
+
+"Statistics_Card_FullyVaccinated_SecondarySubtitleLabel" = "der Gesamtbevölkerung";
+
+/* - Applied vaccination dose rates card */
+ 
+"Statistics_Card_AppliedDoseRates_Title" = "Verabreichte Impfdosen";
+
+"Statistics_Card_AppliedDoseRates_Today" = "Aktuell";
+
+"Statistics_Card_AppliedDoseRates_Yesterday" = "Bis Gestern";
+
+"Statistics_Card_AppliedDoseRates_Date" = "Bis %@";
+
+"Statistics_Card_AppliedDoseRates_SecondaryLabelTitle" = "7-Tage-Mittelwert";
+
+"Statistics_Card_AppliedDoseRates_TertiaryLabelTitle" = "Gesamt";
+
 /* Error */
 
 "Statistics_LoadingError" = "Die Statistiken konnten nicht geladen werden. Bitte schließen Sie die App und versuchen Sie es erneut.";
@@ -1954,7 +2020,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Info_Title" = "Kennzahlen";
 
-"Statistics_Info_Subtitle" = "Erklärung der bundesweiten Statistiken";
+"Statistics_Info_Subtitle" = "Erklärung der Statistiken";
 
 "Statistics_Info_Infections_Title" = "Bestätigte Neuinfektionen";
 
@@ -2512,13 +2578,13 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* - Vaccination Certificate Registration */
 
-"VaccinationCertificate_Registration_title" = "Digitalen\n**Impfnachweis hinzufügen**";
+"VaccinationCertificate_Registration_title" = "EU Digitalen\n**COVID-Impfnachweis hinzufügen**";
 
 "VaccinationCertificate_Registration_description" = "Fügen Sie Ihre Impfzertifikate in die App hinzu, um sie immer bei sich zu haben. Scannen Sie dafür den QR-Code Ihres Dokuments.";
 
 /* - Vaccination Certificate */
 
-"VaccinationCertificate_title" = "Digitaler\n**Impfnachweis**";
+"VaccinationCertificate_title" = "EU Digitaler\n**COVID-Impfnachweis**";
 
 "VaccinationCertificate_partiallyVaccinated" = "Unvollständiger Impfschutz";
 
@@ -2526,23 +2592,77 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* - Test Certificate Info */
 
-"TestCertificate_Info_title" = "Digitales\n**COVID-Testzertifikat**";
+"TestCertificate_Info_title" = "EU Digitales\n**COVID-Testzertifikat**";
 
 "TestCertificate_Info_description" = "Registrieren Sie einen Test auf der Startseite und stimmen Sie zu, ein digitales Testzertifikat zu erhalten. Sobald das Zertifikat vorliegt, wird es hier angezeigt.";
 
+/* - Test Certificate */
+
+"TestCertificate_title" = "EU Digitales\n**COVID-Testzertifikat**";
+
+"TestCertificate_testDate" = "Test durchgeführt am %@";
+
+/* - Test Certificate Request */
+
+"TestCertificateRequest_title" = "EU Digitales\n**COVID-Testzertifikat**";
+
+"TestCertificateRequest_loadingSubtitle" = "Ihr Zertifikat wird gerade erstellt…";
+
+"TestCertificateRequest_errorSubtitle" = "Fehler bei der Zertifikatsabfrage";
+
+"TestCertificateRequest_registrationDate" = "Registriert am %@";
+
+"TestCertificateRequest_loadingStateDescription" = "Ihr Zertifikat wird gerade angefragt, dies kann einige Minuten dauern…";
+
+"TestCertificateRequest_tryAgainButtonTitle" = "Nochmal versuchen";
+
+"TestCertificateRequest_removeButtonTitle" = "Testzertifikat entfernen";
+
+/* - Test Certificate Request Error Alert */
+
+"TestCertificateRequest_ErrorAlert_title" = "Es gibt weiterhin Probleme bei der Abfrage";
+
+"TestCertificateRequest_ErrorAlert_Button_title" = "OK";
+
+/* - Test Certificate Request Remove Alert */
+
+"TestCertificateRequest_RemoveAlert_title" = "Wollen Sie das Zertifikat wirklich entfernen?";
+
+"TestCertificateRequest_RemoveAlert_message" = "Wenn das Zertifikat enfernt wird, kann es nicht noch einmal angefordert werden.";
+
+"TestCertificateRequest_RemoveAlert_CancelButton_title" = "Abbrechen";
+
+"TestCertificateRequest_RemoveAlert_DeleteButton_title" = "Entfernen";
+
+/* Test Certificate Request Errors */
+
+"TestCertificateRequest_Error_CLIENT_ERROR_CALL_HOTLINE" = "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später noch einmal oder kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline. (%@)";
+
+"TestCertificateRequest_Error_DCC_EXPIRED" = "Das Zertifikat ist nicht mehr aktuell, Sie können es aus der Corona-App entfernen. (%@)";
+
+"TestCertificateRequest_Error_DCC_NOT_SUPPORTED_BY_LAB" = "Ein Testzertifikat kann nicht angefordert werden, da diese Teststelle die Ausstellung von Testzertifikaten nicht unterstützt. Bitte entfernen Sie das Zertifikat oder kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline. (%@)";
+
+"TestCertificateRequest_Error_E2E_ERROR_CALL_HOTLINE" = "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später noch einmal oder kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline. (%@)";
+
+"TestCertificateRequest_Error_NO_NETWORK" = "Ihre Internetverbindung wurde unterbrochen. Bitte prüfen Sie die Verbindung und versuchen Sie es erneut. (%@)";
+
+"TestCertificateRequest_Error_TRY_AGAIN" = "Es konnte keine Verbindung hergestellt werden. Bitte versuchen Sie es erneut. (%@)";
+
+"TestCertificateRequest_Error_TRY_AGAIN_DCC_NOT_AVAILABLE_YET" = "Ihr Zertifikat liegt noch nicht vor. Bitte versuchen Sie es noch einmal. Sollte der Fehler weiterhin bestehen, kontaktieren Sie bitte die technische Hotline über App-Informationen -> Technische Hotline. (%@)";
+
 /* Health Certificate Information */
 
-"HealthCertificate_Info_Title" = "Impfzertifikat hinzufügen";
+"HealthCertificate_Info_Title" = "Zertifikate hinzufügen";
 
 "HealthCertificate_Info_imageDescription" = "Eine geschützte Person schaut auf ein Smartphone";
 
-"HealthCertificate_Info_description" = "Fügen Sie Ihren digitalen Impfnachweis in der App hinzu. Sobald Ihr Impfschutz vollständig ist, können Sie den QR-Code in der App vorzeigen, um Ihren Impfschutz nachzuweisen.";
+"HealthCertificate_Info_description" = "Fügen Sie Ihre EU digitalen COVID-Zertifikate in der App hinzu, um mit der App Ihren Impfschutz oder ein negatives Testergebnis nachweisen zu können.";
 
-"HealthCertificate_Info_section01" = "Um ein Impfzertifikat in die App hinzuzufügen, scannen Sie den QR-Code, den Sie bei der Impfung erhalten haben.";
+"HealthCertificate_Info_section01" = "Sie können EU digitale COVID-Impfzertifikate oder COVID-Testzertifikate in der App hinzufügen.";
 
-"HealthCertificate_Info_section02" = "Die App liest die Informationen aus dem QR-Code aus und speichert diese in einem sicheren Bereich Ihres Smartphones.";
+"HealthCertificate_Info_section02" = "Die Zertifikate gelten innerhalb der EU als gültiger Nachweis (z.B. für Reisen).";
 
-"HealthCertificate_Info_section03" = "Die Daten bleiben auf Ihrem Smartphone. Eine Übertragung an andere Personen findet nur statt, wenn Sie diesen Ihr Impfzertifikat zur Überprüfung vorzeigen.";
+"HealthCertificate_Info_section03" = "Nach dem Hinzufügen bleiben die Zertifikate auf Ihrem Smartphone. Andere Personen können Ihre Daten nur einsehen, wenn Sie diesen ein Zertifikat zur Überprüfung vorzeigen.";
 
 "HealthCertificate_Info_primaryButton" = "Weiter";
 
@@ -2556,7 +2676,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Health Certified Person Screen */
 
-"HealthCertifiedPerson_title" = "Digitaler Impfnachweis";
+"HealthCertifiedPerson_title" = "EU Digitaler COVID-Impfnachweis";
 
 "HealthCertifiedPerson_subtitle" = "SARS-CoV-2-Impfschutz";
 
@@ -2568,15 +2688,13 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertifiedPerson_QRCode_Image_Description" = "Ein QR-Code mit dem Status Ihrer Impfung";
 
-"HealthCertifiedPerson_primaryButton" = "Weitere Impfung hinzufügen";
-
-/* Health Certificate Details */
+/* Vaccination Certificate Details */
 
 "HealthCertificate_Details_vaccinationCount" = "Impfung %i von %i";
 
 "HealthCertificate_Details_certificate" = "Impfzertifikat";
 
-"HealthCertificate_Details_QRCode_Image_Description" = "Ein QR-Code mit Ihrem Impfzertifikat %i von %i";
+"HealthCertificate_Details_QRCode_Image_Description" = "Ein QR-Code mit Ihrem Zertifikat";
 
 "HealthCertificate_Details_certificateCount" = "Impfzertifikat %i von %i";
 
@@ -2600,7 +2718,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Details_primaryButton" = "Impfzertifikat entfernen";
 
-/* Health Certificate Alert delete */
+/* Vaccination Certificate Delete Alert */
 
 "HealthCertificate_Alert_title" = "Wollen Sie das Impfzertifikat wirklich entfernen?";
 
@@ -2610,18 +2728,54 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Alert_cancelButton" = "Abbrechen";
 
+/* Test Certificate Details */
+
+"TestCertificate_Details_title" = "EU Digitales COVID-Testzertifikat";
+
+"TestCertificate_Details_subtitle" = "negativer SARS-CoV-2-Test";
+
+"TestCertificate_Details_primaryButton" = "Testzertifikat entfernen";
+
+/* Test Certificate Delete Alert */
+
+"TestCertificate_Alert_title" = "Wollen Sie das Testzertifikat wirklich entfernen?";
+
+"TestCertificate_Alert_message" = "Wenn Sie das Testzertifikat entfernen, können Sie es nicht mehr als Nachweis in der App verwenden.";
+
+"TestCertificate_Alert_deleteButton" = "Entfernen";
+
+"TestCertificate_Alert_cancelButton" = "Abbrechen";
+
+/* Recovery Certificate Details */
+
+"RecoveryCertificate_Details_title" = "Genesenenzertifikat";
+
+"RecoveryCertificate_Details_subtitle" = "EU Digitales COVID-Zertifikat";
+
+"RecoveryCertificate_Details_primaryButton" = "Genesenenzertifikat entfernen";
+
+/* Recovery Certificate Delete Alert */
+
+"RecoveryCertificate_Alert_title" = "Wollen Sie das Genesenenzertifikat wirklich entfernen?";
+
+"RecoveryCertificate_Alert_message" = "Wenn Sie das Genesenenzertifikat entfernen, können Sie es nicht mehr als Nachweis in der App verwenden.";
+
+"RecoveryCertificate_Alert_deleteButton" = "Entfernen";
+
+"RecoveryCertificate_Alert_cancelButton" = "Abbrechen";
+
 /* Health Certificate Errors */
 
 "HealthCertificate_Error_Title" = "Fehler";
 
-"HealthCertificate_Error_PC_TRY_AGAIN_LATER" = "Das Impfzertifikat kann aktuell nicht überprüft werden. Bitte versuchen Sie es später noch einmal.";
+"HealthCertificate_Error_FAQ_Description" = "\n\nWeitere Informationen zum Erhalt Ihres Impfzertifikats finden Sie in den FAQ.";
 
-"HealthCertificate_Error_VC_ALREADY_REGISTERED" = "Das Impfzertifikat ist bereits in Ihrer App registriert.";
+"HealthCertificate_Error_FAQ_Button_Title" = "FAQ zu Impfzertifikaten";
 
-"HealthCertificate_Error_VC_DIFFERENT_PERSON" = "Die persönlichen Daten dieses Impfzertifikats stimmen nicht mit denen der bereits registrierten Zertifikate überein. Sie können in der App nur Zertifikate einer Person registrieren.";
+"HealthCertificate_Error_HC_ALREADY_REGISTERED" = "Das Zertifikat ist bereits in Ihrer App registriert.";
 
-"HealthCertificate_Error_VC_INVALID" = "Dieser QR-Code ist kein gültiges Impfzertifikat.";
+"HealthCertificate_Error_HC_INVALID" = "Dieser QR-Code ist kein gültiges Zertifikat.";
 
-"HealthCertificate_Error_VC_NOT_YET_SUPPORTED" = "Dieses Impfzertifikat wird in Ihrer App-Version noch nicht unterstützt. Bitte aktualisieren Sie Ihre App oder wenden Sie sich an die technische Hotline unter „App-Informationen“.";
+"HealthCertificate_Error_HC_NOT_SUPPORTED" = "Dieses Zertifikat wird nicht unterstützt.";
 
-"HealthCertificate_Error_VC_SCAN_AGAIN" = "Das Impfzertifikat konnte nicht auf Ihrem Smartphone gespeichert werden. Bitte versuchen Sie es später noch einmal oder wenden Sie sich an die technische Hotline unter „App-Informationen“.";
+"HealthCertificate_Error_HC_QR_CODE_ERROR" = "Der QR-Code konnte nicht generiert werden. Sollte der Fehler weiterhin bestehen, kontaktieren Sie die Hotline über App-Informationen -> Technische Hotline.";

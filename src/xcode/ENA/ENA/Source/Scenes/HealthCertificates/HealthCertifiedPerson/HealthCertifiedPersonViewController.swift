@@ -5,22 +5,20 @@
 import UIKit
 import OpenCombine
 
-class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, DismissHandling, FooterViewHandling {
+class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, DismissHandling {
 
 	// MARK: - Init
 
 	init(
-		healthCertificateService: HealthCertificateServiceProviding,
+		healthCertificateService: HealthCertificateService,
 		healthCertifiedPerson: HealthCertifiedPerson,
 		vaccinationValueSetsProvider: VaccinationValueSetsProvider,
 		dismiss: @escaping () -> Void,
 		didTapHealthCertificate: @escaping (HealthCertificate) -> Void,
-		didTapRegisterAnotherHealthCertificate: @escaping () -> Void,
 		didSwipeToDelete: @escaping (HealthCertificate, @escaping () -> Void) -> Void
 	) {
 		self.dismiss = dismiss
 		self.didTapHealthCertificate = didTapHealthCertificate
-		self.didTapRegisterAnotherHealthCertificate = didTapRegisterAnotherHealthCertificate
 		self.didSwipeToDelete = didSwipeToDelete
 
 		self.viewModel = HealthCertifiedPersonViewModel(
@@ -58,16 +56,6 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 
 	func wasAttemptedToBeDismissed() {
 		dismiss()
-	}
-
-	// MARK: - Protocol FooterViewHandling
-
-	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
-		guard type == .primary else {
-			return
-		}
-
-		didTapRegisterAnotherHealthCertificate()
 	}
 
 	// MARK: - Protocol UITableViewDateSource
@@ -175,7 +163,6 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 
 	private let dismiss: () -> Void
 	private let didTapHealthCertificate: (HealthCertificate) -> Void
-	private let didTapRegisterAnotherHealthCertificate: () -> Void
 	private let didSwipeToDelete: (HealthCertificate, @escaping () -> Void) -> Void
 
 	private let viewModel: HealthCertifiedPersonViewModel
@@ -193,10 +180,10 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		let logoImageView = UIImageView(image: logoImage)
 		logoImageView.tintColor = .enaColor(for: .textContrast)
 
-		parent?.navigationController?.navigationBar.tintColor = .white
-		parent?.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: logoImageView)
-		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton(.contrast)
-		parent?.navigationItem.hidesBackButton = true
+		navigationController?.navigationBar.tintColor = .white
+		navigationItem.leftBarButtonItem = UIBarButtonItem(customView: logoImageView)
+		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton(.contrast)
+		navigationItem.hidesBackButton = true
 
 		// create a transparent navigation bar
 		let emptyImage = UIImage()
@@ -205,9 +192,9 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		navigationController?.navigationBar.isTranslucent = true
 		navigationController?.view.backgroundColor = .clear
 
-		parent?.navigationController?.navigationBar.prefersLargeTitles = false
-		parent?.navigationController?.navigationBar.sizeToFit()
-		parent?.navigationItem.largeTitleDisplayMode = .never
+		navigationController?.navigationBar.prefersLargeTitles = false
+		navigationController?.navigationBar.sizeToFit()
+		navigationItem.largeTitleDisplayMode = .never
 	}
 
 	private func setupBackground() {

@@ -470,6 +470,19 @@ enum AccessibilityIdentifiers {
 			static let title = "AppStrings.Statistics.Card.ReproductionNumber.title"
 			static let infoButton = "AppStrings.Statistics.Card.ReproductionNumber.infoButton"
 		}
+		enum AtLeastOneVaccination {
+			static let title = "AppStrings.Statistics.Card.AtLeastOneVaccination.title"
+			static let infoButton = "AppStrings.Statistics.Card.AtLeastOneVaccination.infoButton"
+		}
+		enum FullyVaccinated {
+			static let title = "AppStrings.Statistics.Card.FullyVaccinated.title"
+			static let infoButton = "AppStrings.Statistics.Card.FullyVaccinated.infoButton"
+		}
+		enum Doses {
+			static let title = "AppStrings.Statistics.Card.Doses.title"
+			static let infoButton = "AppStrings.Statistics.Card.Doses.infoButton"
+		}
+
 	}
 	
 	enum UpdateOSScreen {
@@ -609,6 +622,8 @@ enum AccessibilityIdentifiers {
 		enum Overview {
 			static let vaccinationCertificateRegistrationCell = "AccessibilityIdentifiers.HealthCertificate.vaccinationCertificateRegistrationCell"
 			static let vaccinationCertificateCell = "AppStrings.HealthCertificate.vaccinationCertificateCell"
+			static let testCertificateRequestCell = "AppStrings.HealthCertificate.testCertificateRequestCell"
+			static let testCertificateInfoCell = "AppStrings.HealthCertificate.testCertificateInfoCell"
 		}
 
 		enum Info {

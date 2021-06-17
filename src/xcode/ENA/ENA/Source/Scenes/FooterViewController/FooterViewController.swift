@@ -127,7 +127,7 @@ class FooterViewController: UIViewController {
 		view.backgroundColor = viewModel.backgroundColor
 		
 		// primary button
-		
+		primaryButton.customTextColor = viewModel.primaryTextColor
 		primaryButton.enabledBackgroundColor = viewModel.primaryButtonColor
 		primaryButton.hasBackground = !viewModel.primaryButtonInverted
 		primaryButton.setTitle(viewModel.primaryButtonName, for: .normal)
@@ -138,6 +138,7 @@ class FooterViewController: UIViewController {
 		
 		// secondary button
 		
+		secondaryButton.customTextColor = viewModel.primaryTextColor
 		secondaryButton.enabledBackgroundColor = viewModel.secondaryButtonColor
 		secondaryButton.hasBackground = !viewModel.secondaryButtonInverted
 		secondaryButton.setTitle(viewModel.secondaryButtonName, for: .normal)

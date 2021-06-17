@@ -65,9 +65,6 @@ enum Route {
 				informationArray.append(String(testInformation.timestamp))
 				informationArray.append(testInformation.testID ?? "")
 				informationArray.append(testInformation.cryptographicSalt ?? "")
-				if let certificateSupportedByPointOfCare = testInformation.certificateSupportedByPointOfCare {
-					informationArray.append(certificateSupportedByPointOfCare ? "1" : "0")
-				}
 
 				let informationString = informationArray.joined(separator: "#")
 				let recomputedHashString = ENAHasher.sha256(informationString)

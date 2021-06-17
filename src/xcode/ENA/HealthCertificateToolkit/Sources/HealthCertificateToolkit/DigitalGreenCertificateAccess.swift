@@ -16,6 +16,7 @@ let hcPrefix = "HC1:"
 public protocol DigitalGreenCertificateAccessProtocol {
     func extractCBORWebTokenHeader(from base45: Base45) -> Result<CBORWebTokenHeader, CertificateDecodingError>
     func extractDigitalGreenCertificate(from base45: Base45) -> Result<DigitalGreenCertificate, CertificateDecodingError>
+    func convertToBase45(from base64: Base64, with dataEncryptionKey: Data) -> Result<Base45, CertificateDecodingError>
 }
 
 public struct DigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtocol {
@@ -27,125 +28,118 @@ public struct DigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtoc
     // MARK: - Public
 
     public func extractCBORWebTokenHeader(from base45: Base45) -> Result<CBORWebTokenHeader, CertificateDecodingError> {
-        let cborDataResult = extractCBOR(from: base45)
-
-        switch cborDataResult {
-        case let .success(cborData):
-            return extractHeader(from: cborData)
-        case let .failure(error):
-            return .failure(error)
-        }
+        removePrefix(from: base45)
+            .flatMap(convertBase45ToData)
+            .flatMap(decompressZLib)
+            .flatMap(decodeCBORWebTokenEntries)
+            .flatMap(extractPayload)
+            .flatMap(decodePayload)
+            .flatMap(extractHeader)
     }
 
     public func extractDigitalGreenCertificate(from base45: Base45) -> Result<DigitalGreenCertificate, CertificateDecodingError> {
-        let cborDataResult = extractCBOR(from: base45)
-
-        switch cborDataResult {
-        case let .success(cborData):
-            return extractCertificate(from: cborData)
-        case let .failure(error):
-            return .failure(error)
-        }
+        removePrefix(from: base45)
+            .flatMap(convertBase45ToData)
+            .flatMap(decompressZLib)
+            .flatMap(decodeCBORWebTokenEntries)
+            .flatMap(extractPayload)
+            .flatMap(decodePayload)
+            .flatMap(extractDigitalGreenCertificate)
     }
 
     public func convertToBase45(from base64: Base64, with dataEncryptionKey: Data) -> Result<Base45, CertificateDecodingError> {
-        guard let cborData = Data(base64Encoded: base64) else {
-            return .failure(.HC_BASE45_DECODING_FAILED(nil))
+        decryptAndComposeToWebToken(from: base64, dataEncryptionKey: dataEncryptionKey)
+            .flatMap(compressWithZLib)
+            .flatMap(encodeWithBase45)
+            .map {
+                // Add prefix
+                hcPrefix + $0
+            }
+    }
+
+    // MARK: - Internal
+
+    func decryptAndComposeToWebToken(from base64: Base64, dataEncryptionKey: Data) -> Result<CBOR, CertificateDecodingError> {
+        let entriesResult = convertBase64ToData(base64: base64)
+            .flatMap(decodeCBORWebTokenEntries)
+
+        guard case let .success(webTokenEntries) = entriesResult else {
+            return .failure(.AES_DECRYPTION_FAILED)
         }
 
-        let result = decodeCBORWebTokenEntries(from: cborData)
+        return convertBase64ToData(base64: base64)
+            .flatMap(decodeCBORWebTokenEntries)
+            .flatMap(extractPayload)
+            .flatMap { decryptPayload(payload: $0, dataEncryptionKey: dataEncryptionKey) }
+            .map { reassembleCose(webTokenEntries: webTokenEntries, payload: $0) }
+    }
 
-        if case let .failure(error) = result {
-            return .failure(error)
-        }
+    // MARK: - Private
 
-        guard case let .success(cborWebTokenEntries) = result else {
-            fatalError("Has to be a success at this point, because of previous check.")
-        }
+    private func reassembleCose(webTokenEntries: [CBOR], payload: Data) -> CBOR {
+        let protectedHeader = webTokenEntries[0]
+        let unprotectedHeader = webTokenEntries[1]
+        let signature = webTokenEntries[3]
 
-        let protectedHeader = cborWebTokenEntries[0]
-        let unprotectedHeader = cborWebTokenEntries[1]
+        let cborWebTokenMessage = CBOR.array([
+            protectedHeader,
+            unprotectedHeader,
+            CBOR.byteString([UInt8](payload)),
+            signature
+        ])
+
+        return CBOR.tagged(CBOR.Tag(rawValue: 18), cborWebTokenMessage)
+    }
+
+    private func extractPayload(from cborWebTokenEntries: [CBOR]) -> Result<Data, CertificateDecodingError> {
         let payload = cborWebTokenEntries[2]
-        let signature = cborWebTokenEntries[3]
-
-        guard case let .byteString(bytes) = payload else {
+        if case let .byteString(payloadBytes) = payload {
+            return .success(Data(payloadBytes))
+        } else {
             return .failure(.HC_COSE_MESSAGE_INVALID)
         }
+    }
 
+    private func decryptPayload(payload: Data, dataEncryptionKey: Data) -> Result<Data, CertificateDecodingError> {
         let aesEncryption = AESEncryption(
             encryptionKey: dataEncryptionKey,
             initializationVector: AESEncryptionConstants.initializationVector
         )
 
-        let decryptedResult = aesEncryption.decrypt(data: Data(bytes))
-
-        guard case let .success(decryptedPayload) = decryptedResult else {
+        let decryptedResult = aesEncryption.decrypt(data: payload)
+        if case let .success(decryptedPayload) = decryptedResult {
+            return .success(decryptedPayload)
+        } else {
             return .failure(.AES_DECRYPTION_FAILED)
         }
-
-        let cborWebTokenMessage = CBOR.array([
-            protectedHeader,
-            unprotectedHeader,
-            CBOR.byteString([UInt8](decryptedPayload)),
-            signature
-        ])
-
-        let cborWebToken = CBOR.tagged(CBOR.Tag(rawValue: 18), cborWebTokenMessage)
-
-        let cborWebTokenData = Data(cborWebToken.encode())
-
-        let compressedCBORWebToken = cborWebTokenData.compressZLib()
-        let base45CBORWebToken = compressedCBORWebToken.toBase45()
-        let prefixedBase45CBORWebToken = hcPrefix+base45CBORWebToken
-
-        return .success(prefixedBase45CBORWebToken)
     }
 
-    // MARK: - Internal
-
-    func extractCBOR(from base45: Base45) -> Result<CBORData, CertificateDecodingError> {
-        guard base45.hasPrefix(hcPrefix) else {
-            return .failure(.HC_PREFIX_INVALID)
-        }
-        let base45WithoutPrefix = base45.dropPrefix(hcPrefix)
-
-        let _zipData: Data?
+    private func decompressZLib(form data: Data) -> Result<Data, CertificateDecodingError> {
         do {
-            _zipData = try base45WithoutPrefix.fromBase45()
-        } catch {
-            return .failure(.HC_BASE45_DECODING_FAILED(error))
-        }
-
-        guard let zipData = _zipData else {
-            fatalError("zipData should not be nil at this point.")
-        }
-
-        let _cborData: Data?
-        do {
-            _cborData = try zipData.decompressZLib()
+            let data = try data.decompressZLib()
+            return .success(data)
         } catch {
             return .failure(.HC_ZLIB_DECOMPRESSION_FAILED(error))
         }
-
-        guard let cborData = _cborData else {
-            fatalError("cborData should not be nil at this point.")
-        }
-
-        return .success(cborData)
     }
 
-    func extractHeader(from cborData: CBORData) -> Result<CBORWebTokenHeader, CertificateDecodingError> {
-        let webTokenResult = decodeCBORWebTokenPayload(from: cborData)
-
-        switch webTokenResult {
-        case let .success(cborWebToken):
-            return extractHeader(from: cborWebToken)
-        case let .failure(error):
-            return .failure(error)
+    private func convertBase45ToData(base45: Base45) -> Result<Data, CertificateDecodingError> {
+        do {
+            let data = try base45.fromBase45()
+            return .success(data)
+        } catch {
+            return .failure(.HC_BASE45_DECODING_FAILED(error))
         }
     }
 
-    func extractHeader(from cborWebToken: CBOR) -> Result<CBORWebTokenHeader, CertificateDecodingError> {
+    private func removePrefix(from base45: Base45) -> Result<Base45, CertificateDecodingError> {
+        guard base45.hasPrefix(hcPrefix) else {
+            return .failure(.HC_PREFIX_INVALID)
+        }
+        return .success(base45.dropPrefix(hcPrefix))
+    }
+
+    private func extractHeader(from cborWebToken: CBOR) -> Result<CBORWebTokenHeader, CertificateDecodingError> {
 
         // 1: Issuer (2-letter country code)
         guard let issuerElement = cborWebToken[1],
@@ -173,18 +167,7 @@ public struct DigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtoc
         ))
     }
 
-    func extractCertificate(from cborData: CBORData) -> Result<DigitalGreenCertificate, CertificateDecodingError> {
-        let webTokenResult = decodeCBORWebTokenPayload(from: cborData)
-
-        switch webTokenResult {
-        case let .success(cborWebToken):
-            return extractDigitalGreenCertificate(from: cborWebToken)
-        case let .failure(error):
-            return .failure(error)
-        }
-    }
-
-    func extractDigitalGreenCertificate(from cborWebToken: CBOR) -> Result<DigitalGreenCertificate, CertificateDecodingError> {
+    private func extractDigitalGreenCertificate(from cborWebToken: CBOR) -> Result<DigitalGreenCertificate, CertificateDecodingError> {
 
         // -260: Container of Digital Green Certificate
         guard let healthCertificateElement = cborWebToken[-260],
@@ -197,127 +180,128 @@ public struct DigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtoc
             return .failure(.HC_CBORWEBTOKEN_NO_DIGITALGREENCERTIFICATE)
         }
 
-        switch validateSchema(of: healthCertificateCBOR) {
-        case .success:
-            guard case let CBOR.map(certificateMap) = healthCertificateCBOR else {
-                fatalError("healthCertificateCBOR should be a map at this point.")
-            }
+        return loadSchemaAsDict()
+            .flatMap { validateSchema(of: healthCertificateCBOR, schemaDict: $0) }
+            .flatMap(convertCBORToStruct)
+    }
 
-            let dictionary = certificateMap.anyMap
+    private func convertCBORToStruct(_ cbor: CBOR) -> Result<DigitalGreenCertificate, CertificateDecodingError> {
+        guard case let CBOR.map(certificateMap) = cbor else {
+            fatalError("healthCertificateCBOR should be a map at this point.")
+        }
 
-            let _healthCertificate: DigitalGreenCertificate?
-            do {
-                _healthCertificate = try JSONDecoder().decode(DigitalGreenCertificate.self, from: JSONSerialization.data(withJSONObject: dictionary))
-            } catch {
-                return .failure(.HC_CBOR_DECODING_FAILED(error))
-            }
-
-            guard let healthCertificate = _healthCertificate else {
-                fatalError("healthCertificate should not be nil at this point.")
-            }
-
+        do {
+            let healthCertificate = try JSONDecoder().decode(DigitalGreenCertificate.self, from: JSONSerialization.data(withJSONObject: certificateMap.anyMap))
             return .success(healthCertificate)
-
-        case let .failure(error):
-            return .failure(error)
+        } catch {
+            return .failure(.HC_CBOR_DECODING_FAILED(error))
         }
     }
 
-    // MARK: - Private
-
-    private func validateSchema(of certificate: CBOR) -> Result<Void, CertificateDecodingError> {
-
-        guard case let CBOR.map(certificateMap) = certificate,
-            let schemaURL = Bundle.module.url(forResource: "CertificateSchema", withExtension: "json"),
+    private func loadSchemaAsDict() -> Result<[String: Any], CertificateDecodingError> {
+        guard let schemaURL = Bundle.module.url(forResource: "CertificateSchema", withExtension: "json"),
               let schemaData = FileManager.default.contents(atPath: schemaURL.path) else {
-
             return .failure(.HC_JSON_SCHEMA_INVALID(.FILE_NOT_FOUND))
         }
-
         guard let schemaDict = try? JSONSerialization.jsonObject(with: schemaData) as? [String: Any] else {
             return .failure(.HC_JSON_SCHEMA_INVALID(.DECODING_FAILED))
-
         }
+        return .success(schemaDict)
+    }
 
-        let _validationResult: ValidationResult?
+    private func validateSchema(of certificate: CBOR, schemaDict: [String: Any]) -> Result<CBOR, CertificateDecodingError> {
         do {
-            _validationResult = try JSONSchema.validate(certificateMap.anyMap, schema: schemaDict)
+            guard case let CBOR.map(certificateMap) = certificate else {
+                return .failure(.HC_JSON_SCHEMA_INVALID(.DECODING_FAILED))
+            }
+
+            let validationResult = try JSONSchema.validate(certificateMap.anyMap, schema: schemaDict)
+
+            switch validationResult {
+            case .invalid(let errors):
+                return .failure(.HC_JSON_SCHEMA_INVALID(.VALIDATION_RESULT_FAILED(errors)))
+            case .valid:
+                return .success((certificate))
+            }
         } catch {
             return .failure(.HC_JSON_SCHEMA_INVALID(.VALIDATION_FAILED(error)))
         }
-
-        guard let validationResult = _validationResult else {
-            fatalError("validationResult should not be nil at this point.")
-        }
-
-        switch validationResult {
-        case .invalid(let errors):
-            return .failure(.HC_JSON_SCHEMA_INVALID(.VALIDATION_RESULT_FAILED(errors)))
-        case .valid:
-            return .success(())
-        }
     }
 
-    /// More information about the CBOR Web Token (CWT) https://datatracker.ietf.org/doc/html/rfc8392
-    private func decodeCBORWebTokenPayload(from cborData: CBORData) -> Result<CBOR, CertificateDecodingError>  {
-        let result = decodeCBORWebTokenEntries(from: cborData)
-
-        if case let .failure(error) = result {
-            return .failure(error)
-        }
-
-        guard case let .success(cborWebTokenEntries) = result else {
-            fatalError("Has to be a success at this point, because of previous check.")
-        }
-
-        guard case let CBOR.byteString(payloadBytes) = cborWebTokenEntries[2] else {
-            return .failure(.HC_COSE_MESSAGE_INVALID)
-        }
-
-        let payloadDecoder = CBORDecoder(input: [UInt8](payloadBytes))
-
-        let _payload: CBOR?
+    private func decodePayload(from data: Data) -> Result<CBOR, CertificateDecodingError> {
+        let payloadDecoder = CBORDecoder(input: [UInt8](data))
         do {
-            _payload = try payloadDecoder.decodeItem()
+            guard let payload = try payloadDecoder.decodeItem() else {
+                return .failure(.HC_CBOR_DECODING_FAILED(nil))
+            }
+            return .success(payload)
         } catch {
             return .failure(.HC_CBOR_DECODING_FAILED(error))
         }
-
-        guard let payload = _payload else {
-            fatalError("payload should not be nil at this point.")
-        }
-
-        return .success(payload)
     }
 
-    private func decodeCBORWebTokenEntries(from cborData: CBORData) -> Result<[CBOR], CertificateDecodingError>  {
-        let cborDecoder = CBORDecoder(input: [UInt8](cborData))
+    private func decodeCBORWebTokenEntries(from cborData: CBORData) -> Result<[CBOR], CertificateDecodingError> {
+        decodeDataToCBOR(cborData)
+            .flatMap(extractCOSE)
+            .flatMap(extractWebTokenEntries)
+    }
 
-        let _cborPayload: CBOR?
+    private func decodeDataToCBOR(_ cborData: CBORData) -> Result<CBOR, CertificateDecodingError> {
         do {
-            _cborPayload = try cborDecoder.decodeItem()
+            let cborDecoder = CBORDecoder(input: [UInt8](cborData))
+            guard let cbor = try cborDecoder.decodeItem() else {
+                return .failure(.HC_CBOR_DECODING_FAILED(nil))
+            }
+            return .success(cbor)
         } catch {
             return .failure(.HC_CBOR_DECODING_FAILED(error))
         }
-        guard let cborPayload = _cborPayload else {
-            fatalError("cborPayload should not be nil at this point.")
-        }
+    }
 
-        guard case let CBOR.tagged(tag, messageElement) = cborPayload,
+    private func extractCOSE(from cborPayload: CBOR) -> Result<CBOR, CertificateDecodingError> {
+        guard case let CBOR.tagged(tag, cborWebTokenMessage) = cborPayload,
               // 18: CBOR tag value for a COSE Single Signer Data Object
               tag.rawValue == 18 else {
 
             return .failure(.HC_COSE_TAG_INVALID)
         }
 
+        return .success(cborWebTokenMessage)
+    }
+
+    private func extractWebTokenEntries(_ cborWebToken: CBOR) -> Result<[CBOR], CertificateDecodingError> {
         guard
-            case let CBOR.array(cborWebTokenEntries) = messageElement,
+            case let CBOR.array(cborWebTokenEntries) = cborWebToken,
             // The message has to have 4 entries.
             cborWebTokenEntries.count == 4 else {
 
             return .failure(.HC_COSE_MESSAGE_INVALID)
         }
-
         return .success(cborWebTokenEntries)
+    }
+
+    private func compressWithZLib(cborWebToken: CBOR) -> Result<Data, CertificateDecodingError> {
+        let cborWebTokenData = Data(cborWebToken.encode())
+        let compressedCBORWebToken = cborWebTokenData.compressZLib()
+        guard !compressedCBORWebToken.isEmpty else {
+            return .failure(.HC_ZLIB_COMPRESSION_FAILED)
+        }
+        return .success(compressedCBORWebToken)
+    }
+
+    private func encodeWithBase45(data: Data) -> Result<String, CertificateDecodingError> {
+        let encodedData = data.toBase45()
+        guard !encodedData.isEmpty else {
+            return .failure(.HC_BASE45_ENCODING_FAILED)
+        }
+        return .success(encodedData)
+    }
+
+    private func convertBase64ToData(base64: Base64) -> Result<Data, CertificateDecodingError> {
+        if let cborData = Data(base64Encoded: base64) {
+            return .success(cborData)
+        } else {
+            return .failure(.HC_BASE45_DECODING_FAILED(nil))
+        }
     }
 }
