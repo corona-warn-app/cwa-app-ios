@@ -12,6 +12,8 @@ extension Name {
 	}
 	
 	var reversedFullName: String {
+		var resolvedFamilyName = self.resolvedFamilyName ?? ""
+		resolvedFamilyName += ","
 		return [resolvedFamilyName, resolvedGivenName].formatted()
 	}
 
