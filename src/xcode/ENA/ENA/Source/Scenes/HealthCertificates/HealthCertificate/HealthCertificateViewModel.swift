@@ -33,7 +33,7 @@ final class HealthCertificateViewModel {
 		}
 
 		if case .recovery = healthCertificate.type {
-			gradientType = .blueOnly
+			gradientType = .lightBlue
 		}
 		updateHealthCertificateKeyValueCellViewModels()
 
