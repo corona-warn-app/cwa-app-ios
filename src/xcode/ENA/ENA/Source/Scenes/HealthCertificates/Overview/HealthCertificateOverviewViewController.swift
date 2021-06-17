@@ -31,13 +31,6 @@ class HealthCertificateOverviewViewController: UITableViewController {
 			}
 			.store(in: &subscriptions)
 
-		viewModel.$testCertificates
-			.receive(on: DispatchQueue.OCombine(.main))
-			.sink { [weak self] _ in
-				self?.tableView.reloadData()
-			}
-			.store(in: &subscriptions)
-
 		viewModel.$testCertificateRequests
 			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] _ in
@@ -97,18 +90,12 @@ class HealthCertificateOverviewViewController: UITableViewController {
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		switch HealthCertificateOverviewViewModel.Section(rawValue: indexPath.section) {
-		case .description:
-			return descriptionCell(forRowAt: indexPath)
+		case .createCertificate:
+			return createCertificateCell(forRowAt: indexPath)
+		case .testCertificateRequest:
+			return testCertificateRequestCell(forRowAt: indexPath)
 		case .healthCertificate:
 			return healthCertifiedPersonCell(forRowAt: indexPath)
-		case .createHealthCertificate:
-			return vaccinationRegistrationCell(forRowAt: indexPath)
-		case .testCertificates:
-			return testCertificateCell(forRowAt: indexPath)
-		case .testCertificateRequests:
-			return testCertificateRequestCell(forRowAt: indexPath)
-		case .testCertificateInfo:
-			return testCertificateInfoCell(forRowAt: indexPath)
 		case .none:
 			fatalError("Invalid section")
 		}
@@ -118,18 +105,12 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		switch HealthCertificateOverviewViewModel.Section(rawValue: indexPath.section) {
-		case .description:
-			break
-		case .createHealthCertificate:
+		case .createCertificate:
 			onCreateHealthCertificateTap()
+		case .testCertificateRequest:
+			break
 		case .healthCertificate:
 			onCertifiedPersonTap(viewModel.healthCertifiedPersons[indexPath.row])
-		case .testCertificates:
-			onTestCertificateTap(viewModel.testCertificates[indexPath.row])
-		case .testCertificateRequests:
-			break
-		case .testCertificateInfo:
-			break
 		case .none:
 			fatalError("Invalid section")
 		}
@@ -157,24 +138,17 @@ class HealthCertificateOverviewViewController: UITableViewController {
 
 	private func setupTableView() {
 		tableView.register(
-			UINib(nibName: String(describing: HealthCertificateOverviewDescriptionTableViewCell.self), bundle: nil),
-			forCellReuseIdentifier: HealthCertificateOverviewDescriptionTableViewCell.reuseIdentifier
-		)
-		tableView.register(
-			UINib(nibName: String(describing: HomeHealthCertifiedPersonTableViewCell.self), bundle: nil),
-			forCellReuseIdentifier: HomeHealthCertifiedPersonTableViewCell.reuseIdentifier
-		)
-		tableView.register(
-			UINib(nibName: String(describing: HomeHealthCertificateRegistrationTableViewCell.self), bundle: nil),
-			forCellReuseIdentifier: HomeHealthCertificateRegistrationTableViewCell.reuseIdentifier
+			UINib(nibName: String(describing: AddCertificateTableViewCell.self), bundle: nil),
+			forCellReuseIdentifier: AddCertificateTableViewCell.reuseIdentifier
 		)
 		tableView.register(
 			UINib(nibName: String(describing: TestCertificateRequestTableViewCell.self), bundle: nil),
 			forCellReuseIdentifier: TestCertificateRequestTableViewCell.reuseIdentifier
 		)
+		
 		tableView.register(
-			UINib(nibName: String(describing: TestCertificateInfoTableViewCell.self), bundle: nil),
-			forCellReuseIdentifier: TestCertificateInfoTableViewCell.reuseIdentifier
+			UINib(nibName: String(describing: HomeHealthCertifiedPersonTableViewCell.self), bundle: nil),
+			forCellReuseIdentifier: HomeHealthCertifiedPersonTableViewCell.reuseIdentifier
 		)
 
 		tableView.separatorStyle = .none
@@ -187,52 +161,15 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		tableView.estimatedRowHeight = 500
 	}
 	
-	private func healthCertifiedPersonCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: HomeHealthCertifiedPersonTableViewCell.reuseIdentifier, for: indexPath) as? HomeHealthCertifiedPersonTableViewCell else {
-			fatalError("Could not dequeue HomeHealthCertifiedPersonTableViewCell")
+	private func createCertificateCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AddCertificateTableViewCell.self), for: indexPath) as? AddCertificateTableViewCell else {
+			fatalError("Could not dequeue CreateCertificateTableViewCell")
 		}
 
-		guard let healthCertifiedPerson = viewModel.healthCertifiedPersons[safe: indexPath.row] else {
-			return UITableViewCell()
-		}
-
-		let cellModel = HomeHealthCertifiedPersonCellModel(
-			healthCertifiedPerson: healthCertifiedPerson
-		)
-		cell.configure(with: cellModel)
-
+		cell.configure(cellModel: AddCertificateCellModel())
 		return cell
 	}
-
-	private func vaccinationRegistrationCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: HomeHealthCertificateRegistrationTableViewCell.reuseIdentifier, for: indexPath) as? HomeHealthCertificateRegistrationTableViewCell else {
-			fatalError("Could not dequeue HomeHealthCertificateRegistrationTableViewCell")
-		}
-
-		cell.configure(
-			with: HomeHealthCertificateRegistrationCellModel()
-		)
-
-		return cell
-	}
-
-	private func testCertificateCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: HomeHealthCertifiedPersonTableViewCell.reuseIdentifier, for: indexPath) as? HomeHealthCertifiedPersonTableViewCell else {
-			fatalError("Could not dequeue HomeHealthCertifiedPersonTableViewCell")
-		}
-
-		guard let testCertificate = viewModel.testCertificates[safe: indexPath.row] else {
-			return UITableViewCell()
-		}
-
-		let cellModel = HomeHealthCertifiedPersonCellModel(
-			testCertificate: testCertificate
-		)
-		cell.configure(with: cellModel)
-
-		return cell
-	}
-
+	
 	private func testCertificateRequestCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: TestCertificateRequestTableViewCell.reuseIdentifier, for: indexPath) as? TestCertificateRequestTableViewCell else {
 			fatalError("Could not dequeue TestCertificateRequestTableViewCell")
@@ -257,23 +194,20 @@ class HealthCertificateOverviewViewController: UITableViewController {
 
 		return cell
 	}
-
-	private func testCertificateInfoCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: TestCertificateInfoTableViewCell.reuseIdentifier, for: indexPath) as? TestCertificateInfoTableViewCell else {
-			fatalError("Could not dequeue TestCertificateInfoTableViewCell")
+	
+	private func healthCertifiedPersonCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: HomeHealthCertifiedPersonTableViewCell.reuseIdentifier, for: indexPath) as? HomeHealthCertifiedPersonTableViewCell else {
+			fatalError("Could not dequeue HomeHealthCertifiedPersonTableViewCell")
 		}
 
-		cell.configure(
-			with: TestCertificateInfoCellModel()
+		guard let healthCertifiedPerson = viewModel.healthCertifiedPersons[safe: indexPath.row] else {
+			return UITableViewCell()
+		}
+
+		let cellModel = HomeHealthCertifiedPersonCellModel(
+			healthCertifiedPerson: healthCertifiedPerson
 		)
-
-		return cell
-	}
-
-	private func descriptionCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: HealthCertificateOverviewDescriptionTableViewCell.reuseIdentifier, for: indexPath) as? HealthCertificateOverviewDescriptionTableViewCell else {
-			fatalError("Could not dequeue HealthCertificateOverviewDescriptionTableViewCell")
-		}
+		cell.configure(with: cellModel)
 
 		return cell
 	}

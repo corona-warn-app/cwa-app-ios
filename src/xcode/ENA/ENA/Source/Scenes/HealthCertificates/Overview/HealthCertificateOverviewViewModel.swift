@@ -15,14 +15,7 @@ class HealthCertificateOverviewViewModel {
 		self.healthCertificateService = healthCertificateService
 
 		healthCertificateService.healthCertifiedPersons
-			.sink { healthCertifiedPersons in
-				self.healthCertifiedPersons = healthCertifiedPersons
-					.filter { !$0.vaccinationCertificates.isEmpty }
-				self.testCertificates = healthCertifiedPersons
-					.flatMap { $0.testCertificates }
-					.sorted()
-					.reversed()
-			}
+			.sink { self.healthCertifiedPersons = $0 }
 			.store(in: &subscriptions)
 
 		healthCertificateService.testCertificateRequests
@@ -40,16 +33,12 @@ class HealthCertificateOverviewViewModel {
 	// MARK: - Internal
 
 	enum Section: Int, CaseIterable {
-		case description
+		case createCertificate
+		case testCertificateRequest
 		case healthCertificate
-		case createHealthCertificate
-		case testCertificates
-		case testCertificateRequests
-		case testCertificateInfo
 	}
 
 	@DidSetPublished var healthCertifiedPersons: [HealthCertifiedPerson] = []
-	@DidSetPublished var testCertificates: [HealthCertificate] = []
 	@DidSetPublished var testCertificateRequests: [TestCertificateRequest] = []
 	@DidSetPublished var testCertificateRequestError: HealthCertificateServiceError.TestCertificateRequestError?
 
@@ -59,18 +48,12 @@ class HealthCertificateOverviewViewModel {
 
 	func numberOfRows(in section: Int) -> Int {
 		switch Section(rawValue: section) {
-		case .description:
+		case .createCertificate:
 			return 1
+		case .testCertificateRequest:
+			return testCertificateRequests.count
 		case .healthCertificate:
 			return healthCertifiedPersons.count
-		case .createHealthCertificate:
-			return 1
-		case .testCertificates:
-			return testCertificates.count
-		case .testCertificateRequests:
-			return testCertificateRequests.count
-		case .testCertificateInfo:
-			return testCertificates.isEmpty && testCertificateRequests.isEmpty ? 1 : 0
 		case .none:
 			fatalError("Invalid section")
 		}

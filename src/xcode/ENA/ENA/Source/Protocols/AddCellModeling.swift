@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-protocol AddEventCellModel {
+protocol AddCellModeling {
 
 	var text: String { get }
 
