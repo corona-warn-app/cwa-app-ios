@@ -62,14 +62,10 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		let flashBarButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.ExposureSubmissionQRScanner.flash])
 		flashBarButton.waitAndTap()
 
-		// Certified Person screen
-		let certificateCell = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Person.certificateCell])
-		certificateCell.waitAndTap()
-
 		// Certificate Screen
 		let headlineCell = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Certificate.headline])
 		XCTAssertTrue(headlineCell.waitForExistence(timeout: .short))
-		
+
 		snapshot("screenshot_first_health_certificate")
 	}
 
@@ -80,28 +76,20 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 
 		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
 
-		let healthCertificateCell = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.vaccinationCertificateCell])
-		XCTAssertTrue(healthCertificateCell.waitForExistence(timeout: .short))
-		
 		snapshot("screenshot_certificate_overview_vaccination_grey")
-		healthCertificateCell.waitAndTap()
 
-		// Certified person screen
-		let primaryButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton])
-		primaryButton.waitAndTap()
+		/// Home Screen
+		let registerCertificateTitle = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.vaccinationCertificateRegistrationCell])
+		registerCertificateTitle.waitAndTap()
 
 		// QRCode Scanner - close via flash will submit a healthCertificate
 		let flashBarButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.ExposureSubmissionQRScanner.flash])
 		flashBarButton.waitAndTap()
 
-		// Certified Person screen
-		let certificateCell = app.cells.matching(identifier: AccessibilityIdentifiers.HealthCertificate.Person.certificateCell).element(boundBy: 1)
-		certificateCell.waitAndTap()
-
 		// Certificate Screen
 		let headlineCell = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Certificate.headline])
 		XCTAssertTrue(headlineCell.waitForExistence(timeout: .short))
-		
+
 		snapshot("screenshot_second_health_certificate")
 	}
 

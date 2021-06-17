@@ -43,7 +43,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		let result = service.registerHealthCertificate(base45: testCertificateBase45)
 
 		switch result {
-		case.success(let healthCertifiedPerson):
+		case let .success((healthCertifiedPerson, _)):
 			XCTAssertEqual(healthCertifiedPerson.healthCertificates, [testCertificate])
 		case .failure:
 			XCTFail("Registration should succeed")
@@ -85,7 +85,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		var registrationResult = service.registerHealthCertificate(base45: firstTestCertificateBase45)
 
 		switch registrationResult {
-		case.success(let healthCertifiedPerson):
+		case let .success((healthCertifiedPerson, _)):
 			XCTAssertEqual(healthCertifiedPerson.healthCertificates, [firstTestCertificate])
 		case .failure:
 			XCTFail("Registration should succeed")
@@ -146,7 +146,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		registrationResult = service.registerHealthCertificate(base45: secondTestCertificateBase45)
 
 		switch registrationResult {
-		case.success(let healthCertifiedPerson):
+		case let .success((healthCertifiedPerson, _)):
 			XCTAssertEqual(healthCertifiedPerson.healthCertificates, [firstTestCertificate, secondTestCertificate])
 		case .failure(let error):
 			XCTFail("Registration should succeed, failed with error: \(error.localizedDescription)")
@@ -171,7 +171,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		registrationResult = service.registerHealthCertificate(base45: firstVaccinationCertificateBase45)
 
 		switch registrationResult {
-		case.success(let healthCertifiedPerson):
+		case let .success((healthCertifiedPerson, _)):
 			XCTAssertEqual(healthCertifiedPerson.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
 		case .failure(let error):
 			XCTFail("Registration should succeed, failed with error: \(error.localizedDescription)")
@@ -196,7 +196,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		registrationResult = service.registerHealthCertificate(base45: secondVaccinationCertificateBase45)
 
 		switch registrationResult {
-		case.success(let healthCertifiedPerson):
+		case let .success((healthCertifiedPerson, _)):
 			XCTAssertEqual(healthCertifiedPerson.healthCertificates, [secondVaccinationCertificate])
 		case .failure(let error):
 			XCTFail("Registration should succeed, failed with error: \(error.localizedDescription)")
@@ -222,7 +222,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		registrationResult = service.registerHealthCertificate(base45: thirdTestCertificateBase45)
 
 		switch registrationResult {
-		case.success(let healthCertifiedPerson):
+		case let .success((healthCertifiedPerson, _)):
 			XCTAssertEqual(healthCertifiedPerson.healthCertificates, [thirdTestCertificate, secondVaccinationCertificate])
 		case .failure(let error):
 			XCTFail("Registration should succeed, failed with error: \(error.localizedDescription)")
@@ -384,23 +384,40 @@ class HealthCertificateServiceTests: CWATestCase {
 				}
 			}
 
+		let expectedCounts = [0, 1, 0]
+		let countExpectation = expectation(description: "Count updated")
+		countExpectation.expectedFulfillmentCount = expectedCounts.count
+		var receivedCounts = [Int]()
+		let countSubscription = service.unseenTestCertificateCount
+			.sink {
+				receivedCounts.append($0)
+				countExpectation.fulfill()
+			}
+
+		let completionExpectation = expectation(description: "registerAndExecuteTestCertificateRequest completion called")
 		service.registerAndExecuteTestCertificateRequest(
 			coronaTestType: .pcr,
 			registrationToken: "registrationToken",
 			registrationDate: Date(),
 			retryExecutionIfCertificateIsPending: false
-		)
+		) { _ in
+			completionExpectation.fulfill()
+		}
+
+		service.resetUnseenTestCertificateCount()
 
 		waitForExpectations(timeout: .medium)
 
 		requestsSubscription.cancel()
 		personsSubscription.cancel()
+		countSubscription.cancel()
 
 		XCTAssertEqual(
 			try XCTUnwrap(service.healthCertifiedPersons.value.first).healthCertificates.first?.base45,
 			base45TestCertificate
 		)
 		XCTAssertTrue(service.testCertificateRequests.value.isEmpty)
+		XCTAssertEqual(receivedCounts, expectedCounts)
 	}
 
 	func testTestCertificateExecution_NewTestCertificateRequest() throws {
