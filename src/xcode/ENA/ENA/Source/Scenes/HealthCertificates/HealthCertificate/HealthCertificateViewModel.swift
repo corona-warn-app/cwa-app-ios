@@ -24,7 +24,7 @@ final class HealthCertificateViewModel {
 		)
 
 		if case .test = healthCertificate.type {
-			gradientType = .green
+			gradientType = .lightBlueWithStars
 		} else {
 			healthCertifiedPerson?.$vaccinationState
 				.sink { [weak self] in
@@ -93,12 +93,12 @@ final class HealthCertificateViewModel {
 		let title: String
 		let subtitle: String
 		switch healthCertificate.type {
-		case .vaccination(let vaccinationEntry):
-			title = String(format: AppStrings.HealthCertificate.Details.vaccinationCount, vaccinationEntry.doseNumber, vaccinationEntry.totalSeriesOfDoses)
-			subtitle = AppStrings.HealthCertificate.Details.certificate
+		case .vaccination:
+			title = AppStrings.HealthCertificate.Details.vaccinationCertificate
+			subtitle = AppStrings.HealthCertificate.Details.euCovidCertificate
 		case .test:
 			title = AppStrings.HealthCertificate.Details.TestCertificate.title
-			subtitle = AppStrings.HealthCertificate.Details.TestCertificate.subtitle
+			subtitle = AppStrings.HealthCertificate.Details.euCovidCertificate
 		case .recovery:
 			title = AppStrings.HealthCertificate.Details.RecoveryCertificate.title
 			subtitle = AppStrings.HealthCertificate.Details.RecoveryCertificate.subtitle
@@ -142,7 +142,7 @@ final class HealthCertificateViewModel {
 				backgroundColor: .enaColor(for: .cellBackground2),
 				textAlignment: .left,
 				// swiftlint:disable:next line_length
-				text: "Diese Bescheinigung ist kein Reisedokument. Die wissenschaftlichen Erkenntnisse zu COVID-19 in den Bereichen Impfung, Testung und Genesung entwickeln sich fortlaufend weiter, auch im Hinblick auf neue besorgniserregende Virusvarianten. Bitte informieren Sie sich vor Reiseantritt über die am Zielort geltenden Gesundheitsmaßnahmen und entsprechenden Beschränkungen.\nInformationen über die in den jeweiligen EU-Ländern geltenden Einreisebestimmungen finden Sie unter https://reopen.europa.eu/de.",
+				text: "Diese Bescheinigung ist kein Reisedokument. Die wissenschaftlichen Erkenntnisse zu COVID-19 in den Bereichen Impfung, Testung und Genesung entwickeln sich fortlaufend weiter, auch im Hinblick auf neue besorgniserregende Virusvarianten. Bitte informieren Sie sich vor Reiseantritt über die am Zielort geltenden Gesundheitsmaßnahmen und entsprechenden Beschränkungen.\nInformationen über die in den jeweiligen EU-Ländern geltenden Einreisebestimmungen finden Sie unter\n https://reopen.europa.eu/de.",
 				topSpace: 16.0,
 				font: .enaFont(for: .body),
 				borderColor: .enaColor(for: .hairline),
@@ -151,7 +151,7 @@ final class HealthCertificateViewModel {
 			HealthCertificateSimpleTextCellViewModel(
 				backgroundColor: .enaColor(for: .cellBackground2),
 				textAlignment: .left,
-				text: "This certificate is not a travel document. The scientific evidence on COVID-19 vaccination, testing, and recovery continues to evolve, also in view of new variants of concern of the virus. Before traveling, please check the applicable public health measures and related restrictions applied at the point of destination.\nInformation on the current travel restrictions that apply to EU countries is available at https://reopen.europa.eu/en.",
+				text: "This certificate is not a travel document. The scientific evidence on COVID-19 vaccination, testing, and recovery continues to evolve, also in view of new variants of concern of the virus. Before traveling, please check the applicable public health measures and related restrictions applied at the point of destination.\nInformation on the current travel restrictions that apply to EU countries is available at\n https://reopen.europa.eu/en.",
 				topSpace: 16.0,
 				font: .enaFont(for: .body),
 				borderColor: .enaColor(for: .hairline),
@@ -205,63 +205,81 @@ final class HealthCertificateViewModel {
 	}
 
 	private func updateVaccinationCertificateKeyValueCellViewModels(vaccinationEntry: VaccinationEntry) {
-		// person cell - always visible
-		var dateOfBirth: String = ""
-		if let date = healthCertificate.dateOfBirthDate {
-			dateOfBirth = DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .none)
-		}
 		let nameCellViewModel = HealthCertificateKeyValueCellViewModel(
-			key: healthCertificate.name.fullName,
-			value: String(format: AppStrings.HealthCertificate.Details.dateOfBirth, dateOfBirth),
-			topSpace: 2.0
+			key: "Name, Vorname / Name, First Name",
+			value: healthCertificate.name.fullName,
+			topSpace: 0.0
 		)
-
-		// all vaccinationCertificate cell data - optional values
-		var dateCellViewModel: HealthCertificateKeyValueCellViewModel?
-		if	let localVaccinationDate = vaccinationEntry.localVaccinationDate {
-			dateCellViewModel = HealthCertificateKeyValueCellViewModel(
-				key: AppStrings.HealthCertificate.Details.dateOfVaccination,
-				value: DateFormatter.localizedString(from: localVaccinationDate, dateStyle: .medium, timeStyle: .none)
+		
+		var dateOfBirthCellViewModel: HealthCertificateKeyValueCellViewModel?
+		if let dateOfBirthDate = healthCertificate.dateOfBirthDate {
+			dateOfBirthCellViewModel = HealthCertificateKeyValueCellViewModel(
+				key: "Geburtsdatum / Date of Birth (YYYY-MM-DD)",
+				value: ISO8601DateFormatter.justLocalDateFormatter.string(from: dateOfBirthDate)
 			)
 		}
-
+		
+		let diseaseCellViewModel = HealthCertificateKeyValueCellViewModel(
+			key: "Zielkrankheit oder -erreger / Disease or Agent Targeted",
+			value: determineValue(
+				key: vaccinationEntry.vaccineMedicinalProduct,
+				valueSet: valueSet(by: .diseaseOrAgentTargeted)
+			)
+		)
+		
 		let vaccineCellViewModel = HealthCertificateKeyValueCellViewModel(
-			key: AppStrings.HealthCertificate.Details.vaccine,
+			key: "Impfstoff / Vaccine",
 			value: determineValue(
 				key: vaccinationEntry.vaccineMedicinalProduct,
 				valueSet: valueSet(by: .vaccineMedicinalProduct)
 			)
 		)
-
-		let manufacturerCellViewModel = HealthCertificateKeyValueCellViewModel(
-			key: AppStrings.HealthCertificate.Details.manufacture,
-			value: determineValue(
-				key: vaccinationEntry.marketingAuthorizationHolder,
-				valueSet: valueSet(by: .marketingAuthorizationHolder)
-			)
-		)
-
+		
 		let vaccineTypeCellViewModel = HealthCertificateKeyValueCellViewModel(
-			key: AppStrings.HealthCertificate.Details.vaccineType,
+			key: "Art des Impfstoffs / Vaccine Type",
 			value: determineValue(
 				key: vaccinationEntry.vaccineOrProphylaxis,
 				valueSet: valueSet(by: .vaccineOrProphylaxis)
 			)
 		)
 
-		let issuerCellViewModel = HealthCertificateKeyValueCellViewModel(
-			key: AppStrings.HealthCertificate.Details.issuer,
-			value: vaccinationEntry.certificateIssuer
+		let manufacturerCellViewModel = HealthCertificateKeyValueCellViewModel(
+			key: "Hersteller / Manufacturer",
+			value: determineValue(
+				key: vaccinationEntry.marketingAuthorizationHolder,
+				valueSet: valueSet(by: .marketingAuthorizationHolder)
+			)
 		)
+
+		let vaccinationCountCellViewModel = HealthCertificateKeyValueCellViewModel(
+			key: "Nummer der Impfung / Number in a series of vaccinations",
+			value: String(
+				format: AppStrings.HealthCertificate.Details.certificateCount,
+			 vaccinationEntry.doseNumber, vaccinationEntry.totalSeriesOfDoses
+		 )
+		)
+		
+		var dateCellViewModel: HealthCertificateKeyValueCellViewModel?
+		if	let localVaccinationDate = vaccinationEntry.localVaccinationDate {
+			dateCellViewModel = HealthCertificateKeyValueCellViewModel(
+				key: "Datum der Impfung / Date of Vaccination (YYYY-MM-DD)",
+				value: ISO8601DateFormatter.justLocalDateFormatter.string(from: localVaccinationDate)
+			)
+		}
 
 		let localizedCountryName = Country(countryCode: vaccinationEntry.countryOfVaccination)?.localizedName
 		let countryCellViewModel = HealthCertificateKeyValueCellViewModel(
-			key: AppStrings.HealthCertificate.Details.country,
+			key: "Land der Impfung / Member State of Vaccination",
 			value: localizedCountryName ?? vaccinationEntry.countryOfVaccination
+		)
+		
+		let issuerCellViewModel = HealthCertificateKeyValueCellViewModel(
+			key: "Zertifikataussteller / Certificate Issuer ",
+			value: vaccinationEntry.certificateIssuer
 		)
 
 		let certificateNumberCellViewModel = HealthCertificateKeyValueCellViewModel(
-			key: AppStrings.HealthCertificate.Details.identifier,
+			key: "Zertifikatkennung / Unique Certificate Identifier",
 			value: vaccinationEntry.uniqueCertificateIdentifier,
 			isBottomSeparatorHidden: true,
 			bottomSpace: 2.0
@@ -269,12 +287,15 @@ final class HealthCertificateViewModel {
 
 		healthCertificateKeyValueCellViewModel = [
 			nameCellViewModel,
-			dateCellViewModel,
+			dateOfBirthCellViewModel,
+			diseaseCellViewModel,
 			vaccineCellViewModel,
-			manufacturerCellViewModel,
 			vaccineTypeCellViewModel,
-			issuerCellViewModel,
+			manufacturerCellViewModel,
+			vaccinationCountCellViewModel,
+			dateCellViewModel,
 			countryCellViewModel,
+			issuerCellViewModel,
 			certificateNumberCellViewModel
 		]
 		.compactMap { $0 }
@@ -285,15 +306,15 @@ final class HealthCertificateViewModel {
 	private func updateTestCertificateKeyValueCellViewModels(testEntry: TestEntry) {
 		let nameCellViewModel = HealthCertificateKeyValueCellViewModel(
 			key: "Name, Vorname / Name, First Name",
-			value: healthCertificate.name.fullName,
+			value: healthCertificate.name.reversedFullName,
 			topSpace: 2.0
 		)
 
 		var dateOfBirthCellViewModel: HealthCertificateKeyValueCellViewModel?
 		if let dateOfBirthDate = healthCertificate.dateOfBirthDate {
 			dateOfBirthCellViewModel = HealthCertificateKeyValueCellViewModel(
-				key: "Geburtsdatum / Date of Birth",
-				value: DateFormatter.localizedString(from: dateOfBirthDate, dateStyle: .medium, timeStyle: .none)
+				key: "Geburtsdatum / Date of Birth (YYYY-MM-DD)",
+				value: ISO8601DateFormatter.justLocalDateFormatter.string(from: dateOfBirthDate)
 			)
 		}
 
@@ -332,11 +353,13 @@ final class HealthCertificateViewModel {
 			)
 		}
 
+		let customDateFormatter = DateFormatter()
+		customDateFormatter.dateFormat = "yyyy-MM-dd HH:mm 'UTC' x"
 		var dateTimeOfSampleCollectionCellViewModel: HealthCertificateKeyValueCellViewModel?
 		if let sampleCollectionDate = testEntry.sampleCollectionDate {
 			dateTimeOfSampleCollectionCellViewModel = HealthCertificateKeyValueCellViewModel(
-				key: "Datum und Uhrzeit der Probenahme / Date and Time of Sample Collection",
-				value: DateFormatter.localizedString(from: sampleCollectionDate, dateStyle: .medium, timeStyle: .short)
+				key: "Datum und Uhrzeit der Probenahme / Date and Time of Sample Collection (YYYY-MM-DD hh:mm Z)",
+				value: customDateFormatter.string(from: sampleCollectionDate)
 			)
 		}
 
