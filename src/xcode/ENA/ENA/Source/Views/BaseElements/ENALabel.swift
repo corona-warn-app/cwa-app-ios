@@ -55,7 +55,7 @@ class ENALabel: UILabel {
 		}
 	}
 
-	private func font(for style: Style, weight: UIFont.Weight? = nil) -> UIFont {
+	private func fontForStyle(_ style: Style, weight: UIFont.Weight? = nil) -> UIFont {
 		let metrics = UIFontMetrics(forTextStyle: style.textStyle)
 		let systemFont = UIFont.systemFont(ofSize: style.fontSize, weight: weight ?? UIFont.Weight(style.fontWeight))
 		return metrics.scaledFont(for: systemFont)
@@ -74,7 +74,7 @@ class ENALabel: UILabel {
 		let components = text.components(separatedBy: "**")
 
 		guard components.count > 1 else {
-			self.font = font(for: style)
+			self.font = fontForStyle(style)
 			return
 		}
 
@@ -83,7 +83,7 @@ class ENALabel: UILabel {
 
 		attributedText = sequence.reduce(into: attributedString) { string, pair in
 			let isHighlighted = !pair.offset.isMultiple(of: 2)
-			let font = font(for: style, weight: isHighlighted ? style.highlightedWeight : style.nonHighlightedWeight)
+			let font = fontForStyle(style, weight: isHighlighted ? style.highlightedWeight : style.nonHighlightedWeight)
 
 			string.append(NSAttributedString(
 				string: pair.element,
