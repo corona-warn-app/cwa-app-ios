@@ -2596,7 +2596,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Overview_EmptyDescription" = "Hier werden die gespeicherten digitalen Impfzertifikate, Genesenenzertifikate und Testzertifikate angezeigt.";
 
-"HealthCertificate_Overview_EmptyImageDescription" = "Zertifikatssigel mit digitalem Zertifikat im Hintergrund";
+"HealthCertificate_Overview_EmptyImageDescription" = "Zertifikatssiegel mit digitalem Zertifikat im Hintergrund";
 
 /* - Vaccination Certificate */
 

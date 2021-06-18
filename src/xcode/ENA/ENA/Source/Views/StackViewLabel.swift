@@ -64,7 +64,7 @@ class StackViewLabel: UIView {
 		set { label.textColor = newValue }
 	}
 	
-	var style: ENALabel.Style {
+	var style: ENALabel.Style? {
 		get { label.style }
 		set { label.style = newValue }
 	}

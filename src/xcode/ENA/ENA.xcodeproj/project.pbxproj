@@ -456,6 +456,7 @@
 		5017F64D25FFAD11003A812E /* PPASubmissionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5017F64C25FFAD11003A812E /* PPASubmissionState.swift */; };
 		5017F65F25FFC1E8003A812E /* ClientMetadataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5017F65E25FFC1E8003A812E /* ClientMetadataTests.swift */; };
 		501ABC50267B4B04008F37CA /* HealthCertificateOverviewEmptyStateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501ABC4F267B4B04008F37CA /* HealthCertificateOverviewEmptyStateViewModel.swift */; };
+		501ABC53267B9651008F37CA /* AddCertificateCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501ABC52267B9651008F37CA /* AddCertificateCellModelTests.swift */; };
 		5021532925C988D80006842D /* OTPResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5021532825C988D80006842D /* OTPResponse.swift */; };
 		50293D55267A4191004B3EBE /* AddCertificateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50293D52267A417D004B3EBE /* AddCertificateTableViewCell.swift */; };
 		50293D56267A41BC004B3EBE /* AddCertificateCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50293D54267A417D004B3EBE /* AddCertificateCellModel.swift */; };
@@ -1060,8 +1061,6 @@
 		BAC939D2261F5389008BECED /* TestOverwriteNoticeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC939D1261F5389008BECED /* TestOverwriteNoticeViewModel.swift */; };
 		BAC939D8261F5D08008BECED /* DismissHandlingNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC939D7261F5D08008BECED /* DismissHandlingNavigationController.swift */; };
 		BACBA7072672504200B304D0 /* TestCertificateRequestCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACBA7062672504200B304D0 /* TestCertificateRequestCellModelTests.swift */; };
-		BACBA7092672566F00B304D0 /* TestCertificateInfoCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACBA7082672566F00B304D0 /* TestCertificateInfoCellModelTests.swift */; };
-		BACBA70B2672572A00B304D0 /* HomeHealthCertificateRegistrationCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACBA70A2672572A00B304D0 /* HomeHealthCertificateRegistrationCellModelTests.swift */; };
 		BACCCC7525ADB9FD00195AC3 /* RiskLegendeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACCCC7425ADB9FD00195AC3 /* RiskLegendeTest.swift */; };
 		BACD176B2624978200104AD9 /* TestOverwriteNoticeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACD176A2624978200104AD9 /* TestOverwriteNoticeViewModelTests.swift */; };
 		BACD671725B7002F00BAF5D0 /* RiskCalculationResultTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACD671625B7002F00BAF5D0 /* RiskCalculationResultTests.swift */; };
@@ -1669,6 +1668,7 @@
 		5017F64C25FFAD11003A812E /* PPASubmissionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPASubmissionState.swift; sourceTree = "<group>"; };
 		5017F65E25FFC1E8003A812E /* ClientMetadataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientMetadataTests.swift; sourceTree = "<group>"; };
 		501ABC4F267B4B04008F37CA /* HealthCertificateOverviewEmptyStateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateOverviewEmptyStateViewModel.swift; sourceTree = "<group>"; };
+		501ABC52267B9651008F37CA /* AddCertificateCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCertificateCellModelTests.swift; sourceTree = "<group>"; };
 		5021532825C988D80006842D /* OTPResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPResponse.swift; sourceTree = "<group>"; };
 		50293D52267A417D004B3EBE /* AddCertificateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCertificateTableViewCell.swift; sourceTree = "<group>"; };
 		50293D53267A417D004B3EBE /* AddCertificateTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddCertificateTableViewCell.xib; sourceTree = "<group>"; };
@@ -2297,8 +2297,6 @@
 		BAC939D1261F5389008BECED /* TestOverwriteNoticeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestOverwriteNoticeViewModel.swift; sourceTree = "<group>"; };
 		BAC939D7261F5D08008BECED /* DismissHandlingNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissHandlingNavigationController.swift; sourceTree = "<group>"; };
 		BACBA7062672504200B304D0 /* TestCertificateRequestCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCertificateRequestCellModelTests.swift; sourceTree = "<group>"; };
-		BACBA7082672566F00B304D0 /* TestCertificateInfoCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCertificateInfoCellModelTests.swift; sourceTree = "<group>"; };
-		BACBA70A2672572A00B304D0 /* HomeHealthCertificateRegistrationCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHealthCertificateRegistrationCellModelTests.swift; sourceTree = "<group>"; };
 		BACCCC7425ADB9FD00195AC3 /* RiskLegendeTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskLegendeTest.swift; sourceTree = "<group>"; };
 		BACD176A2624978200104AD9 /* TestOverwriteNoticeViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestOverwriteNoticeViewModelTests.swift; sourceTree = "<group>"; };
 		BACD671625B7002F00BAF5D0 /* RiskCalculationResultTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskCalculationResultTests.swift; sourceTree = "<group>"; };
@@ -3793,6 +3791,15 @@
 			path = __tests__;
 			sourceTree = "<group>";
 		};
+		501ABC51267B84D9008F37CA /* MissingPermissionCell */ = {
+			isa = PBXGroup;
+			children = (
+				BADB7BEF25F66178001065FA /* MissingPermissionsTableViewCell.swift */,
+				01EEC09E260224FF00924E15 /* MissingPermissionsCellModel.swift */,
+			);
+			path = MissingPermissionCell;
+			sourceTree = "<group>";
+		};
 		50293D51267A3FFB004B3EBE /* CreateCertificate */ = {
 			isa = PBXGroup;
 			children = (
@@ -4492,6 +4499,7 @@
 		8595BF5D246032C40056EA27 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				501ABC51267B84D9008F37CA /* MissingPermissionCell */,
 				B10F9B88249961B500C418F4 /* __tests__ */,
 				51B5B41A246E059700DC5D3E /* Common */,
 				853D987824694A1E00490DBA /* BaseElements */,
@@ -6591,8 +6599,6 @@
 			isa = PBXGroup;
 			children = (
 				BAC7291026037B80006D83C7 /* __tests__ */,
-				BADB7BEF25F66178001065FA /* MissingPermissionsTableViewCell.swift */,
-				01EEC09E260224FF00924E15 /* MissingPermissionsCellModel.swift */,
 				01F6702425FF80480069C4F9 /* AddCheckinCellModel.swift */,
 				01F6702625FF80490069C4F9 /* CheckinCellModel.swift */,
 			);
@@ -6630,10 +6636,9 @@
 		BACBA7052672503400B304D0 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
-				BACBA70A2672572A00B304D0 /* HomeHealthCertificateRegistrationCellModelTests.swift */,
 				BAAAF130267366A700F9666B /* HomeHealthCertifiedPersonCellModelTests.swift */,
-				BACBA7082672566F00B304D0 /* TestCertificateInfoCellModelTests.swift */,
 				BACBA7062672504200B304D0 /* TestCertificateRequestCellModelTests.swift */,
+				501ABC52267B9651008F37CA /* AddCertificateCellModelTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -8194,7 +8199,6 @@
 				010B3D3B25A8667C00EB44AB /* ExposureDetectionViewModelTests.swift in Sources */,
 				01DDF44A2657B0460043B4E1 /* Locale+SupportedLanguageTests.swift in Sources */,
 				AB68881E25DA734100907465 /* ContactDiaryAccess.swift in Sources */,
-				BACBA7092672566F00B304D0 /* TestCertificateInfoCellModelTests.swift in Sources */,
 				01A6C30E2626DE8200B6E95A /* HomeTestRegistrationCellModelTests.swift in Sources */,
 				016961B32549649900FF92E3 /* ExposureSubmissionTestResultViewModelTests.swift in Sources */,
 				015692E424B48C3F0033F35E /* TimeInterval+Convenience.swift in Sources */,
@@ -8298,7 +8302,6 @@
 				A32842672492359E006B1F09 /* MockExposureSubmissionNavigationControllerChild.swift in Sources */,
 				BACBA7072672504200B304D0 /* TestCertificateRequestCellModelTests.swift in Sources */,
 				F25247312484456800C5556B /* DynamicTableViewModelTests.swift in Sources */,
-				BACBA70B2672572A00B304D0 /* HomeHealthCertificateRegistrationCellModelTests.swift in Sources */,
 				B15382E7248290BB0010F007 /* AppleFilesWriterTests.swift in Sources */,
 				50373EC925FBD08A000109AE /* HTTPClient+TraceWarningPackageDownloadTests.swift in Sources */,
 				AB1FCBD42521FC47005930BA /* EnvironmentTests.swift in Sources */,
@@ -8348,6 +8351,7 @@
 				0138F5FC25EFDBCD00A9B075 /* HomeTraceLocationsCellModelTests.swift in Sources */,
 				356FBF49255EC27A00959346 /* CacheAppConfigMockTests.swift in Sources */,
 				01CF95DD253083B2007B72F7 /* CodableExposureDetectionSummary+Helpers.swift in Sources */,
+				501ABC53267B9651008F37CA /* AddCertificateCellModelTests.swift in Sources */,
 				01A1B452252DFDC400841B63 /* FakeMetadataMachineReadableObject.swift in Sources */,
 				3598D99A24FE280700483F1F /* CountryTests.swift in Sources */,
 				50AA526825FBA0CC000C77BB /* HTTPClient+TraceWarningPackageDiscoveryTests.swift in Sources */,
