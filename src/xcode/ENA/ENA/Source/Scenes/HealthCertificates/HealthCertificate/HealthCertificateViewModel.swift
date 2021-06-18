@@ -459,6 +459,7 @@ final class HealthCertificateViewModel {
 		]
 		.compactMap { $0 }
 	}
+	
 	private func valueSet(by type: ValueSetType) -> SAP_Internal_Dgc_ValueSet? {
 		guard let valueSets = valueSets else {
 			Log.error("tried to read from unavailable value sets", log: .vaccination)
