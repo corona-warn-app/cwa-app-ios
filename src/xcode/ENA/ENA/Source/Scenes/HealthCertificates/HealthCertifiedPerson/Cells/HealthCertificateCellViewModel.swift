@@ -21,7 +21,7 @@ final class HealthCertificateCellViewModel {
 	let gradientType: GradientView.GradientType
 
 	var headline: String? {
-		switch healthCertificate.type {
+		switch healthCertificate.entry {
 		case .vaccination(let vaccinationEntry):
 			return String(
 				format: AppStrings.HealthCertificate.Person.vaccinationCount,
@@ -36,7 +36,7 @@ final class HealthCertificateCellViewModel {
 	}
 
 	var detail: String? {
-		switch healthCertificate.type {
+		switch healthCertificate.entry {
 		case .vaccination(let vaccinationEntry):
 			return vaccinationEntry.localVaccinationDate.map {
 				String(
@@ -52,7 +52,7 @@ final class HealthCertificateCellViewModel {
 	}
 
 	var image: UIImage {
-		switch healthCertificate.type {
+		switch healthCertificate.entry {
 		case .vaccination(let vaccinationEntry):
 			if vaccinationEntry.isLastDoseInASeries {
 				return UIImage(imageLiteralResourceName: "VaccinationCertificate_FullyVaccinated_Icon")
