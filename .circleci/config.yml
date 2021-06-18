@@ -101,9 +101,28 @@ jobs:
           key: *tools_cache_key
       - run:
           name: Swiftlint
-          command: cd src/xcode && bundle exec fastlane lint
+          command: |
+            vendor/swiftlint --version
+            cd src/xcode && bundle exec fastlane lint
       - store_artifacts:
-          path: src/xcode/swiftlint.result.json
+          path: src/xcode/swiftlint.html
+  analyze:
+    macos:
+      xcode: *xcode_version
+    steps:
+      - attach_workspace:
+          at: .
+      - restore_cache:
+          key: *cache_key
+      - restore_cache:
+          key: *tools_cache_key
+      - run:
+          name: Analyze (experimental)
+          command: |
+            vendor/swiftlint --version
+            cd src/xcode && bundle exec fastlane analyze || true
+      - store_artifacts:
+          path: src/xcode/swiftlint.analyze.html
   test:
     macos:
       xcode: *xcode_version
