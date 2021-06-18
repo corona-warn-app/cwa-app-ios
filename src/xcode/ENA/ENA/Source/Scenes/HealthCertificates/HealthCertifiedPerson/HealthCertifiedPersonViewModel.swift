@@ -85,13 +85,13 @@ final class HealthCertifiedPersonViewModel {
 	@OpenCombine.Published private(set) var updateError: Error?
 
 	var qrCodeCellViewModel: HealthCertificateQRCodeCellViewModel {
-		guard let latestHealthCertificate = healthCertifiedPerson.healthCertificates.last
+		guard let mostRelevantHealthCertificate = healthCertifiedPerson.mostRelevantHealthCertificate
 			else {
 			fatalError("Cell cannot be shown without a health certificate")
 		}
 
 		return HealthCertificateQRCodeCellViewModel(
-			healthCertificate: latestHealthCertificate,
+			healthCertificate: mostRelevantHealthCertificate,
 			accessibilityText: AppStrings.HealthCertificate.Person.QRCodeImageDescription
 		)
 	}
