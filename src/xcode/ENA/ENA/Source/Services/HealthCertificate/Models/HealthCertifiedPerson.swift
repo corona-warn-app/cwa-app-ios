@@ -17,6 +17,9 @@ class HealthCertifiedPerson: Codable, Equatable {
 		self.healthCertificates = healthCertificates
 		self.isPreferredPerson = isPreferredPerson
 
+		// TODO: Update on changes
+		self.mostRelevantHealthCertificate = healthCertificates.mostRelevant
+
 		updateVaccinationState()
 		subscribeToNotifications()
 	}
@@ -33,6 +36,8 @@ class HealthCertifiedPerson: Codable, Equatable {
 
 		healthCertificates = try container.decode([HealthCertificate].self, forKey: .healthCertificates)
 		isPreferredPerson = try container.decodeIfPresent(Bool.self, forKey: .isPreferredPerson) ?? false
+
+		self.mostRelevantHealthCertificate = healthCertificates.mostRelevant
 
 		updateVaccinationState()
 		subscribeToNotifications()
@@ -96,6 +101,14 @@ class HealthCertifiedPerson: Codable, Equatable {
 		}
 	}
 
+	var mostRelevantHealthCertificate: HealthCertificate? {
+		didSet {
+			if mostRelevantHealthCertificate != oldValue {
+				objectDidChange.send(self)
+			}
+		}
+	}
+
 	var objectDidChange = OpenCombine.PassthroughSubject<HealthCertifiedPerson, Never>()
 
 	var name: Name? {
@@ -112,10 +125,6 @@ class HealthCertifiedPerson: Codable, Equatable {
 
 	var testCertificates: [HealthCertificate] {
 		healthCertificates.filter { $0.testEntry != nil }
-	}
-
-	var mostRelevantHealthCertificate: HealthCertificate? {
-		healthCertificates.mostRelevant
 	}
 
 	// MARK: - Private
