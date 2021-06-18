@@ -16,14 +16,20 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: true)
 		app.setLaunchArgument(LaunchArguments.onboarding.setCurrentOnboardingVersion, to: true)
 		app.setLaunchArgument(LaunchArguments.infoScreen.userNeedsToBeInformedAboutHowRiskDetectionWorks, to: false)
+		app.setLaunchArgument(LaunchArguments.statistics.useMockDataForStatistics, to: true)
+
 	}
 	
 	func test_StatisticsCardTitles() throws {
 		// GIVEN
-		let title1 = AccessibilityIdentifiers.Statistics.Infections.title
-		let title2 = AccessibilityIdentifiers.Statistics.KeySubmissions.title
-		let title3 = AccessibilityIdentifiers.Statistics.Incidence.title
+		let title1 = AccessibilityIdentifiers.Statistics.Incidence.title
+		let title2 = AccessibilityIdentifiers.Statistics.Infections.title
+		let title3 = AccessibilityIdentifiers.Statistics.KeySubmissions.title
 		let title4 = AccessibilityIdentifiers.Statistics.ReproductionNumber.title
+		let title5 = AccessibilityIdentifiers.Statistics.AtLeastOneVaccination.title
+		let title6 = AccessibilityIdentifiers.Statistics.FullyVaccinated.title
+		let title7 = AccessibilityIdentifiers.Statistics.Doses.title
+
 		let layoutDirection = UIView.userInterfaceLayoutDirection(for: UIView().semanticContentAttribute)
 
 		// WHEN
@@ -34,6 +40,12 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		// THEN
 		switch layoutDirection {
 		case .rightToLeft:
+			XCTAssertTrue(self.app.staticTexts[title4].waitForExistence(timeout: .medium))
+			app.staticTexts[title7].swipeLeft()
+			XCTAssertTrue(self.app.staticTexts[title6].waitForExistence(timeout: .medium))
+			app.staticTexts[title6].swipeLeft()
+			XCTAssertTrue(self.app.staticTexts[title5].waitForExistence(timeout: .medium))
+			app.staticTexts[title5].swipeLeft()
 			XCTAssertTrue(self.app.staticTexts[title4].waitForExistence(timeout: .medium))
 			app.staticTexts[title4].swipeLeft()
 			XCTAssertTrue(self.app.staticTexts[title3].waitForExistence(timeout: .medium))
@@ -50,15 +62,22 @@ class ENAUITests_01b_Statistics: CWATestCase {
 			XCTAssertTrue(self.app.staticTexts[title3].waitForExistence(timeout: .medium))
 			app.staticTexts[title3].swipeLeft()
 			XCTAssertTrue(self.app.staticTexts[title4].waitForExistence(timeout: .medium))
-			app.staticTexts[title4].swipeRight()
+			app.staticTexts[title4].swipeLeft()
+			XCTAssertTrue(self.app.staticTexts[title5].waitForExistence(timeout: .medium))
+			app.staticTexts[title5].swipeLeft()
+			XCTAssertTrue(self.app.staticTexts[title6].waitForExistence(timeout: .medium))
+			app.staticTexts[title6].swipeLeft()
+			XCTAssertTrue(self.app.staticTexts[title4].waitForExistence(timeout: .medium))
+			app.staticTexts[title7].swipeRight()
+
 		}
 	}
 	
 	func test_StatisticsCardInfoButtons() throws {
 		// GIVEN
-		let title1 = AccessibilityIdentifiers.Statistics.Infections.title
-		let title2 = AccessibilityIdentifiers.Statistics.KeySubmissions.title
-		let title3 = AccessibilityIdentifiers.Statistics.Incidence.title
+		let title1 = AccessibilityIdentifiers.Statistics.Incidence.title
+		let title2 = AccessibilityIdentifiers.Statistics.Infections.title
+		let title3 = AccessibilityIdentifiers.Statistics.KeySubmissions.title
 		let title4 = AccessibilityIdentifiers.Statistics.ReproductionNumber.title
 		let layoutDirection = UIView.userInterfaceLayoutDirection(for: UIView().semanticContentAttribute)
 		
@@ -83,13 +102,13 @@ class ENAUITests_01b_Statistics: CWATestCase {
 			app.staticTexts[title1].swipeRight()
 
 		default:
-			cardInfectionsInfoScreenTest(title1)
+			cardIncidenceInfoScreenTest(title1)
 			app.staticTexts[title1].swipeLeft()
 			
-			cardKeySubmissionsInfoScreenTest(title2)
+			cardInfectionsInfoScreenTest(title2)
 			app.staticTexts[title2].swipeLeft()
 			
-			cardIncidenceInfoScreenTest(title3)
+			cardKeySubmissionsInfoScreenTest(title3)
 			app.staticTexts[title3].swipeLeft()
 			
 			cardReproductionNumberInfoScreenTest(title4)
@@ -127,14 +146,14 @@ class ENAUITests_01b_Statistics: CWATestCase {
 			cardInfectionsInfoScreenTest(infectionsTitle)
 			app.staticTexts[infectionsTitle].swipeRight()
 		default:
+			XCTAssert(self.app.staticTexts[incidenceTitle].waitForExistence(timeout: .medium))
+			app.staticTexts[incidenceTitle].swipeLeft()
 			XCTAssert(self.app.staticTexts[infectionsTitle].waitForExistence(timeout: .medium))
+			snapshot("statistics_7Day_incidence")
 			app.staticTexts[infectionsTitle].swipeLeft()
 			XCTAssert(self.app.staticTexts[keySubmissionsTitle].waitForExistence(timeout: .medium))
-			snapshot("statistics_persons_warned")
+			snapshot("statistics_key_submissions")
 			app.staticTexts[keySubmissionsTitle].swipeLeft()
-			XCTAssert(self.app.staticTexts[incidenceTitle].waitForExistence(timeout: .medium))
-			snapshot("statistics_7Day_incidence")
-			app.staticTexts[incidenceTitle].swipeLeft()
 			XCTAssert(self.app.staticTexts[reproductionNumberTitle].waitForExistence(timeout: .medium))
 			snapshot("statistics_7Day_rvalue")
 			cardReproductionNumberOpenInfoScreen(reproductionNumberTitle)

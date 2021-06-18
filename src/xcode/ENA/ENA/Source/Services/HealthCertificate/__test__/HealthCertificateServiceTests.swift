@@ -399,7 +399,8 @@ class HealthCertificateServiceTests: CWATestCase {
 			coronaTestType: .pcr,
 			registrationToken: "registrationToken",
 			registrationDate: Date(),
-			retryExecutionIfCertificateIsPending: false
+			retryExecutionIfCertificateIsPending: false,
+			labId: "SomeLabId"
 		) { _ in
 			completionExpectation.fulfill()
 		}
@@ -1036,4 +1037,36 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertFalse(testCertificateRequest.isLoading)
 	}
 
+	func testTestCertificateExecution_PCRAndNoLabId_dgcNotSupportedByLabErrorReturned() {
+
+		let service = HealthCertificateService(
+			store: MockTestStore(),
+			client: ClientMock(),
+			appConfiguration: CachedAppConfigurationMock(),
+			digitalGreenCertificateAccess: MockDigitalGreenCertificateAccess()
+		)
+
+		let completionExpectation = expectation(description: "Completion is called.")
+		service.registerAndExecuteTestCertificateRequest(
+			coronaTestType: .pcr,
+			registrationToken: "",
+			registrationDate: Date(),
+			retryExecutionIfCertificateIsPending: true,
+			labId: nil
+		) { result in
+			guard case let .failure(error) = result,
+				  case .dgcNotSupportedByLab = error else {
+				XCTFail("Error dgcNotSupportedByLab was expected.")
+				completionExpectation.fulfill()
+				return
+			}
+			completionExpectation.fulfill()
+		}
+
+		waitForExpectations(timeout: .short)
+		
+		XCTAssertEqual(service.testCertificateRequests.value.count, 1)
+		XCTAssertTrue(service.testCertificateRequests.value[0].requestExecutionFailed)
+		XCTAssertFalse(service.testCertificateRequests.value[0].isLoading)
+	}
 }
