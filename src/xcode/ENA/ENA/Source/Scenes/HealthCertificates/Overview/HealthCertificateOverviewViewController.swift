@@ -161,10 +161,9 @@ class HealthCertificateOverviewViewController: UITableViewController {
 			UINib(nibName: String(describing: HealthCertificateOverviewDescriptionTableViewCell.self), bundle: nil),
 			forCellReuseIdentifier: HealthCertificateOverviewDescriptionTableViewCell.reuseIdentifier
 		)
-		tableView.register(
-			UINib(nibName: String(describing: HomeHealthCertifiedPersonTableViewCell.self), bundle: nil),
-			forCellReuseIdentifier: HomeHealthCertifiedPersonTableViewCell.reuseIdentifier
-		)
+
+		tableView.register(HealthCertifiedPersonTableViewCell.self, forCellReuseIdentifier: HealthCertifiedPersonTableViewCell.reuseIdentifier)
+
 		tableView.register(
 			UINib(nibName: String(describing: HomeHealthCertificateRegistrationTableViewCell.self), bundle: nil),
 			forCellReuseIdentifier: HomeHealthCertificateRegistrationTableViewCell.reuseIdentifier
@@ -189,7 +188,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	}
 	
 	private func healthCertifiedPersonCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: HomeHealthCertifiedPersonTableViewCell.reuseIdentifier, for: indexPath) as? HomeHealthCertifiedPersonTableViewCell else {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: HealthCertifiedPersonTableViewCell.reuseIdentifier, for: indexPath) as? HealthCertifiedPersonTableViewCell else {
 			fatalError("Could not dequeue HomeHealthCertifiedPersonTableViewCell")
 		}
 
@@ -197,7 +196,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 			return UITableViewCell()
 		}
 
-		let cellModel = HomeHealthCertifiedPersonCellModel(
+		let cellModel = HealthCertifiedPersonCellModel(
 			healthCertifiedPerson: healthCertifiedPerson
 		)
 		cell.configure(with: cellModel)
@@ -218,7 +217,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	}
 
 	private func testCertificateCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: HomeHealthCertifiedPersonTableViewCell.reuseIdentifier, for: indexPath) as? HomeHealthCertifiedPersonTableViewCell else {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: HealthCertifiedPersonTableViewCell.reuseIdentifier, for: indexPath) as? HealthCertifiedPersonTableViewCell else {
 			fatalError("Could not dequeue HomeHealthCertifiedPersonTableViewCell")
 		}
 
@@ -226,7 +225,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 			return UITableViewCell()
 		}
 
-		let cellModel = HomeHealthCertifiedPersonCellModel(
+		let cellModel = HealthCertifiedPersonCellModel(
 			testCertificate: testCertificate
 		)
 		cell.configure(with: cellModel)

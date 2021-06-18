@@ -20,7 +20,7 @@ class HomeHealthCertifiedPersonCellModelTests: XCTestCase {
 			]
 		)
 
-		let viewModel = HomeHealthCertifiedPersonCellModel(healthCertifiedPerson: healthCertifiedPerson)
+		let viewModel = HealthCertifiedPersonCellModel(healthCertifiedPerson: healthCertifiedPerson)
 
 		guard case let .completelyProtected(expirationDate) = healthCertifiedPerson.vaccinationState else {
 			XCTFail("Not completelyProtected")
@@ -50,7 +50,7 @@ class HomeHealthCertifiedPersonCellModelTests: XCTestCase {
 				healthCertificate1
 			]
 		)
-		let viewModel = HomeHealthCertifiedPersonCellModel(healthCertifiedPerson: healthCertifiedPerson)
+		let viewModel = HealthCertifiedPersonCellModel(healthCertifiedPerson: healthCertifiedPerson)
 
 		guard case .partiallyVaccinated = healthCertifiedPerson.vaccinationState else {
 			XCTFail("Not partiallyVaccinated")
@@ -78,7 +78,7 @@ class HomeHealthCertifiedPersonCellModelTests: XCTestCase {
 				healthCertificate2
 			]
 		)
-		let viewModel = HomeHealthCertifiedPersonCellModel(healthCertifiedPerson: healthCertifiedPerson)
+		let viewModel = HealthCertifiedPersonCellModel(healthCertifiedPerson: healthCertifiedPerson)
 
 		guard case let .fullyVaccinated(daysUntilCompleteProtection) = healthCertifiedPerson.vaccinationState else {
 			XCTFail("Not fullyVaccinated")
@@ -111,7 +111,7 @@ class HomeHealthCertifiedPersonCellModelTests: XCTestCase {
 		)
 		let testCertificate = try HealthCertificate(base45: firstTestCertificateBase45)
 
-		let viewModel = HomeHealthCertifiedPersonCellModel(testCertificate: testCertificate)
+		let viewModel = HealthCertifiedPersonCellModel(testCertificate: testCertificate)
 		let sampleCollectionDate = try XCTUnwrap(testCertificate.testEntry?.sampleCollectionDate)
 
 		// THEN

@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-class HomeHealthCertifiedPersonCellModel {
+class HealthCertifiedPersonCellModel {
 
 	// MARK: - Init
 
@@ -18,19 +18,13 @@ class HomeHealthCertifiedPersonCellModel {
 
 		switch healthCertifiedPerson.vaccinationState {
 		case .partiallyVaccinated:
-			backgroundImage = UIImage(named: "VaccinationCertificate_PartiallyVaccinated_Background")
-			iconImage = UIImage(named: "VaccinationCertificate_PartiallyVaccinated_Icon")
 			description = AppStrings.HealthCertificate.Overview.VaccinationCertificate.partiallyVaccinated
 		case .fullyVaccinated(daysUntilCompleteProtection: let daysUntilCompleteProtection):
-			backgroundImage = UIImage(named: "VaccinationCertificate_FullyVaccinated_Background")
-			iconImage = UIImage(named: "VaccinationCertificate_FullyVaccinated_Icon")
 			description = String(
 				format: AppStrings.HealthCertificate.Overview.VaccinationCertificate.daysUntilCompleteProtection,
 				daysUntilCompleteProtection
 			)
 		case .completelyProtected(let expirationDate):
-			backgroundImage = UIImage(named: "VaccinationCertificate_CompletelyProtected_Background")
-			iconImage = UIImage(named: "VaccinationCertificate_CompletelyProtected_Icon")
 			description = String(
 				format: AppStrings.HealthCertificate.Overview.VaccinationCertificate.vaccinationValidUntil,
 				DateFormatter.localizedString(from: expirationDate, dateStyle: .medium, timeStyle: .none)
@@ -46,8 +40,6 @@ class HomeHealthCertifiedPersonCellModel {
 		title = AppStrings.HealthCertificate.Overview.TestCertificate.title
 		backgroundGradientType = .lightBlue(withStars: false)
 		name = testCertificate.name.fullName
-		backgroundImage = UIImage(named: "TestCertificate_Background")
-		iconImage = UIImage(named: "TestCertificate_Icon")
 
 		if let sampleCollectionDate = testCertificate.testEntry?.sampleCollectionDate {
 			description = String(
@@ -64,8 +56,6 @@ class HomeHealthCertifiedPersonCellModel {
 	// MARK: - Internal
 
 	let title: String
-	let backgroundImage: UIImage?
-	let iconImage: UIImage?
 	let name: String?
 	let description: String?
 	let accessibilityIdentifier: String?

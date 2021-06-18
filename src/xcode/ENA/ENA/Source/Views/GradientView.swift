@@ -11,7 +11,7 @@ class GradientView: UIView {
 
 	init(
 		type: GradientType = .solidGrey,
-		frame: CGRect
+		frame: CGRect = .zero
 	) {
 		super.init(frame: frame)
 		setupView()
