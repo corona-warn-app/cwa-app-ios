@@ -46,6 +46,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 			.store(in: &subscriptions)
 
 		viewModel.$testCertificateRequestError
+			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] in
 				guard let self = self, let error = $0 else {
 					return
