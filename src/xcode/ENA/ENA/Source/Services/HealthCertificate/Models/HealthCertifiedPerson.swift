@@ -10,8 +10,12 @@ class HealthCertifiedPerson: Codable, Equatable {
 
 	// MARK: - Init
 
-	init(healthCertificates: [HealthCertificate]) {
+	init(
+		healthCertificates: [HealthCertificate],
+		isPreferredPerson: Bool = false
+	) {
 		self.healthCertificates = healthCertificates
+		self.isPreferredPerson = isPreferredPerson
 
 		updateVaccinationState()
 		subscribeToNotifications()
@@ -21,12 +25,14 @@ class HealthCertifiedPerson: Codable, Equatable {
 
 	enum CodingKeys: String, CodingKey {
 		case healthCertificates
+		case isPreferredPerson
 	}
 
 	required init(from decoder: Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 
 		healthCertificates = try container.decode([HealthCertificate].self, forKey: .healthCertificates)
+		isPreferredPerson = try container.decodeIfPresent(Bool.self, forKey: .isPreferredPerson) ?? false
 
 		updateVaccinationState()
 		subscribeToNotifications()
@@ -36,6 +42,7 @@ class HealthCertifiedPerson: Codable, Equatable {
 		var container = encoder.container(keyedBy: CodingKeys.self)
 
 		try container.encode(healthCertificates, forKey: .healthCertificates)
+		try container.encode(isPreferredPerson, forKey: .isPreferredPerson)
 	}
 
 	// MARK: - Protocol Equatable
@@ -73,6 +80,14 @@ class HealthCertifiedPerson: Codable, Equatable {
 		}
 	}
 
+	var isPreferredPerson: Bool {
+		didSet {
+			if isPreferredPerson != oldValue {
+				objectDidChange.send(self)
+			}
+		}
+	}
+
 	@OpenCombine.Published var vaccinationState: VaccinationState = .partiallyVaccinated {
 		didSet {
 			if vaccinationState != oldValue {
@@ -99,13 +114,17 @@ class HealthCertifiedPerson: Codable, Equatable {
 		healthCertificates.filter { $0.testEntry != nil }
 	}
 
+	var mostRelevantHealthCertificate: HealthCertificate? {
+		healthCertificates.mostRelevant
+	}
+
 	// MARK: - Private
 
 	private var subscriptions = Set<AnyCancellable>()
 
 	private var completeVaccinationProtectionDate: Date? {
 		guard
-			let lastVaccination = vaccinationCertificates.last(where: { $0.vaccinationEntry?.isLastDoseInASeries ?? false }),
+			let lastVaccination = vaccinationCertificates.filter({ $0.vaccinationEntry?.isLastDoseInASeries ?? false }).max(),
 			let vaccinationDateString = lastVaccination.vaccinationEntry?.dateOfVaccination,
 			let vaccinationDate = ISO8601DateFormatter.justLocalDateFormatter.date(from: vaccinationDateString)
 		else {
