@@ -55,14 +55,14 @@ final class HealthCertificateCellViewModel {
 		switch healthCertificate.type {
 		case .vaccination(let vaccinationEntry):
 			if vaccinationEntry.isLastDoseInASeries {
-				return UIImage(imageLiteralResourceName: "Icon - Vollschild")
+				return UIImage(imageLiteralResourceName: "VaccinationCertificate_FullyVaccinated_Icon")
 			} else {
-				return UIImage(imageLiteralResourceName: "Icon - Teilschild")
+				return UIImage(imageLiteralResourceName: "VaccinationCertificate_PartiallyVaccinated_Icon")
 			}
 		case .test:
-			return UIImage()
+			return UIImage(imageLiteralResourceName: "TestCertificate_Icon")
 		case .recovery:
-			return UIImage()
+			return UIImage(imageLiteralResourceName: "RecoveryCertificate_Icon")
 		}
 	}
 
