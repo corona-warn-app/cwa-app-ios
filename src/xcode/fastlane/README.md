@@ -36,6 +36,11 @@ Build project (Community)
 fastlane ios lint
 ```
 Lint code
+### ios analyze
+```
+fastlane ios analyze
+```
+Static code analysis via swiftlint's experimental feature
 ### ios test
 ```
 fastlane ios test
