@@ -812,6 +812,8 @@
 		ABAC9D2E2624938100EB183F /* TestResultTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAC9D2D2624938100EB183F /* TestResultTests.swift */; };
 		ABBF425D261DD7B5002A9A2B /* CheckinTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBF425C261DD7B5002A9A2B /* CheckinTests.swift */; };
 		ABBF429626209952002A9A2B /* Checkin+Update.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBF429526209952002A9A2B /* Checkin+Update.swift */; };
+		ABC1C273267B854E00223625 /* DCCDateStringFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC1C271267B854500223625 /* DCCDateStringFormatterTests.swift */; };
+		ABC1C275267B874F00223625 /* DCCDateStringFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC1C274267B874F00223625 /* DCCDateStringFormatter.swift */; };
 		ABD032352658068E00A8E533 /* PPAAnalyticsSubmissionCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD032342658068E00A8E533 /* PPAAnalyticsSubmissionCollector.swift */; };
 		ABD08257260C7FE9007C4B24 /* CheckinRiskCalculationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD08252260C7FDE007C4B24 /* CheckinRiskCalculationTests.swift */; };
 		ABD0828F260E08D6007C4B24 /* TraceWarningMatcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD0828E260E08D6007C4B24 /* TraceWarningMatcherTests.swift */; };
@@ -2059,6 +2061,8 @@
 		ABAE0A3E257FAC970030ED47 /* ContactDiaryStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryStoreTests.swift; sourceTree = "<group>"; };
 		ABBF425C261DD7B5002A9A2B /* CheckinTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckinTests.swift; sourceTree = "<group>"; };
 		ABBF429526209952002A9A2B /* Checkin+Update.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Checkin+Update.swift"; sourceTree = "<group>"; };
+		ABC1C271267B854500223625 /* DCCDateStringFormatterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCCDateStringFormatterTests.swift; sourceTree = "<group>"; };
+		ABC1C274267B874F00223625 /* DCCDateStringFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCCDateStringFormatter.swift; sourceTree = "<group>"; };
 		ABD032342658068E00A8E533 /* PPAAnalyticsSubmissionCollector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PPAAnalyticsSubmissionCollector.swift; sourceTree = "<group>"; };
 		ABD08252260C7FDE007C4B24 /* CheckinRiskCalculationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinRiskCalculationTests.swift; sourceTree = "<group>"; };
 		ABD0828E260E08D6007C4B24 /* TraceWarningMatcherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraceWarningMatcherTests.swift; sourceTree = "<group>"; };
@@ -5376,6 +5380,23 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		ABC1C26D267B7FCB00223625 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				ABC1C270267B851B00223625 /* __tests__ */,
+				ABC1C274267B874F00223625 /* DCCDateStringFormatter.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		ABC1C270267B851B00223625 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				ABC1C271267B854500223625 /* DCCDateStringFormatterTests.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
 		ABD2F632254C531100DC1958 /* KeyPackageDownload */ = {
 			isa = PBXGroup;
 			children = (
@@ -5972,6 +5993,7 @@
 		BA01BA5E264423B000D906B6 /* HealthCertificates */ = {
 			isa = PBXGroup;
 			children = (
+				ABC1C26D267B7FCB00223625 /* Utils */,
 				BA5B7FBF26458EF400502087 /* HealthCertificatesCoordinator.swift */,
 				01CBB820265E73000094CF8B /* Overview */,
 				BA5B7FC026458EF400502087 /* Cells */,
@@ -7777,6 +7799,7 @@
 				BA4693B125C82F0A004B2DBB /* DMPPACViewModel.swift in Sources */,
 				BA5B7FCE26458EF400502087 /* HealthCertificateViewModel.swift in Sources */,
 				0138F55025ECD44300A9B075 /* exposure_detection_parameters.pb.swift in Sources */,
+				ABC1C275267B874F00223625 /* DCCDateStringFormatter.swift in Sources */,
 				35EA68522555488600335F73 /* SQLiteError.swift in Sources */,
 				016E260325AF20300077C64C /* HomeStatisticsCardView.swift in Sources */,
 				BAD962FB25668F4000FAB615 /* TestResultAvailableViewController.swift in Sources */,
@@ -8378,6 +8401,7 @@
 				5051CBB6260BCF6D003FC7C1 /* Int+DateFromUnixTimestampInHours.swift in Sources */,
 				B15382FE248424F00010F007 /* ExposureDetectionTests.swift in Sources */,
 				BA69A80525CDA6B300023265 /* SelectValueCellViewModelTests.swift in Sources */,
+				ABC1C273267B854E00223625 /* DCCDateStringFormatterTests.swift in Sources */,
 				A372DA3F24BEF773003248BB /* ExposureSubmissionCoordinatorTests.swift in Sources */,
 				01D16C6024ED6D9A007DB387 /* MockBackgroundRefreshStatusProvider.swift in Sources */,
 				0120ECFE2587631200F78944 /* DiaryDayAddCellModelTest.swift in Sources */,
