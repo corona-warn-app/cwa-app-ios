@@ -15,8 +15,8 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 
 		qrCodeImageView.isAccessibilityElement = true
 		qrCodeImageView.accessibilityTraits = .image
-		certificateCountLabel.isAccessibilityElement = true
-		validityLabel.isAccessibilityElement = true
+		titleLabel.isAccessibilityElement = true
+		subtitleLabel.isAccessibilityElement = true
 
 		accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.qrCodeCell
 	}
@@ -43,19 +43,19 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 		backgroundContainerView.backgroundColor = cellViewModel.backgroundColor
 		backgroundContainerView.layer.borderColor = cellViewModel.borderColor.cgColor
 
-		certificateCountLabel.text = cellViewModel.certificate
-		certificateCountLabel.isHidden = cellViewModel.certificate == nil
+		titleLabel.text = cellViewModel.title
+		titleLabel.isHidden = cellViewModel.title == nil
 
-		validityLabel.text = cellViewModel.validity
-		validityLabel.isHidden = cellViewModel.validity == nil
+		subtitleLabel.text = cellViewModel.subtitle
+		subtitleLabel.isHidden = cellViewModel.subtitle == nil
 	}
 
 	// MARK: - Private
 
 	private let backgroundContainerView = UIView()
 	private let qrCodeImageView = UIImageView()
-	private let certificateCountLabel = ENALabel()
-	private let validityLabel = ENALabel()
+	private let titleLabel = ENALabel()
+	private let subtitleLabel = ENALabel()
 	private let stackView = UIStackView()
 
 	private func setupView() {
@@ -77,13 +77,15 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 		qrCodeImageView.layer.magnificationFilter = CALayerContentsFilter.nearest
 		stackView.addArrangedSubview(qrCodeImageView)
 
-		certificateCountLabel.font = .enaFont(for: .headline)
-		certificateCountLabel.numberOfLines = 0
-		stackView.addArrangedSubview(certificateCountLabel)
+		titleLabel.style = .headline
+		titleLabel.textColor = .enaColor(for: .textPrimary1)
+		titleLabel.numberOfLines = 0
+		stackView.addArrangedSubview(titleLabel)
 
-		validityLabel.font = .enaFont(for: .body)
-		validityLabel.numberOfLines = 0
-		stackView.addArrangedSubview(validityLabel)
+		subtitleLabel.style = .subheadline
+		subtitleLabel.textColor = .enaColor(for: .textPrimary2)
+		subtitleLabel.numberOfLines = 0
+		stackView.addArrangedSubview(subtitleLabel)
 
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		stackView.alignment = .leading
