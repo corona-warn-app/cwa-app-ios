@@ -83,7 +83,10 @@ class EmptyStateView: UIView {
 		stackView.addArrangedSubview(descriptionLabel)
 
 		topConstraint = containerView.topAnchor.constraint(greaterThanOrEqualTo: topAnchor)
+		
+		// We take a number for that the image is not too big and not too small and fits for big and small devices for all four occurrences of the EmptyStateView (in CertificatesOverview, CheckinOverview, TraceLocationsOverview, ContactDiaryDay). The result was 3.
 		let percentageWidth = UIScreen.main.bounds.width / 3
+		
 		NSLayoutConstraint.activate([
 			containerView.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor),
 			topConstraint,
