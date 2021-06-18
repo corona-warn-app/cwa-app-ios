@@ -1042,7 +1042,7 @@ private extension URLRequest {
 		// Create body.
 		var originalBody: [String: String] = [:]
 		if let dateOfBirthKey = dateOfBirthKey {
-			originalBody = ["key": key, "keyDOB": dateOfBirthKey, "keyType": type]
+			originalBody = ["key": key, "keyDob": dateOfBirthKey, "keyType": type]
 		} else {
 			originalBody = ["key": key, "keyType": type]
 		}
