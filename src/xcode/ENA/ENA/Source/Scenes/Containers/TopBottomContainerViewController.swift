@@ -139,7 +139,7 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 			}
 			.store(in: &keyboardSubscriptions)
 		
-		NotificationCenter.default.ocombine.publisher(for: UIApplication.keyboardDidHideNotification)
+		NotificationCenter.default.ocombine.publisher(for: UIApplication.keyboardDidShowNotification)
 			.sink { [weak self] notification in
 				guard let self = self,
 					  let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
