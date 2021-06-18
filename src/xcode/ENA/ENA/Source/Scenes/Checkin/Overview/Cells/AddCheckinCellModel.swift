@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-class AddCheckinCellModel: AddCellModeling {
+class AddCheckinCellModel: AddButtonAsTableViewCelling {
 
 	// MARK: - Internal
 

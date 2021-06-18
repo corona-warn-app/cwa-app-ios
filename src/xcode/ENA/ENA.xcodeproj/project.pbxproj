@@ -48,13 +48,11 @@
 		0138F62525F1147500A9B075 /* EmptyStateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F62425F1147500A9B075 /* EmptyStateViewModel.swift */; };
 		0138F65425F1174200A9B075 /* TraceLocationsOverviewEmptyStateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F63D25F1173F00A9B075 /* TraceLocationsOverviewEmptyStateViewModel.swift */; };
 		0138F65525F1174200A9B075 /* TraceLocationsOverviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F63F25F1173F00A9B075 /* TraceLocationsOverviewViewModel.swift */; };
-		0138F65625F1174200A9B075 /* AddEventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F64425F1174000A9B075 /* AddEventTableViewCell.swift */; };
-		0138F65A25F1174200A9B075 /* AddCellModeling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F64325F1174000A9B075 /* AddCellModeling.swift */; };
+		0138F65A25F1174200A9B075 /* AddButtonAsTableViewCelling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F64325F1174000A9B075 /* AddButtonAsTableViewCelling.swift */; };
 		0138F65D25F1174200A9B075 /* TraceLocationsOverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F64025F1173F00A9B075 /* TraceLocationsOverviewViewController.swift */; };
 		0138F68F25F21C8000A9B075 /* EventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F68D25F21C8000A9B075 /* EventTableViewCell.swift */; };
 		0138F69025F21C8000A9B075 /* TraceLocationCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F68E25F21C8000A9B075 /* TraceLocationCellModel.swift */; };
 		0138F6A025F21CC600A9B075 /* EventTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0138F68C25F21C8000A9B075 /* EventTableViewCell.xib */; };
-		0138F6A425F2220300A9B075 /* AddEventTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0138F64225F1174000A9B075 /* AddEventTableViewCell.xib */; };
 		0138F6AE25F25B1400A9B075 /* TraceLocationsInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F6A925F25B1400A9B075 /* TraceLocationsInfoViewController.swift */; };
 		0138F6AF25F25B1400A9B075 /* TraceLocationsInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F6AA25F25B1400A9B075 /* TraceLocationsInfoViewModel.swift */; };
 		0138F6CA25F6133E00A9B075 /* TraceLocationDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F6C525F36C5800A9B075 /* TraceLocationDetailsViewController.swift */; };
@@ -458,9 +456,9 @@
 		501ABC50267B4B04008F37CA /* HealthCertificateOverviewEmptyStateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501ABC4F267B4B04008F37CA /* HealthCertificateOverviewEmptyStateViewModel.swift */; };
 		501ABC53267B9651008F37CA /* AddCertificateCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501ABC52267B9651008F37CA /* AddCertificateCellModelTests.swift */; };
 		5021532925C988D80006842D /* OTPResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5021532825C988D80006842D /* OTPResponse.swift */; };
-		50293D55267A4191004B3EBE /* AddCertificateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50293D52267A417D004B3EBE /* AddCertificateTableViewCell.swift */; };
+		50293D55267A4191004B3EBE /* AddButtonAsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50293D52267A417D004B3EBE /* AddButtonAsTableViewCell.swift */; };
 		50293D56267A41BC004B3EBE /* AddCertificateCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50293D54267A417D004B3EBE /* AddCertificateCellModel.swift */; };
-		50293D57267A41C1004B3EBE /* AddCertificateTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50293D53267A417D004B3EBE /* AddCertificateTableViewCell.xib */; };
+		50293D57267A41C1004B3EBE /* AddButtonAsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50293D53267A417D004B3EBE /* AddButtonAsTableViewCell.xib */; };
 		50352C8B25C94961007193D2 /* OTPServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50352C8A25C94961007193D2 /* OTPServiceTests.swift */; };
 		50352C9F25C96687007193D2 /* HTTPClient+AuthorizationOTPEdusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50352C9725C9665A007193D2 /* HTTPClient+AuthorizationOTPEdusTests.swift */; };
 		50373EC925FBD08A000109AE /* HTTPClient+TraceWarningPackageDownloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50373EC825FBD08A000109AE /* HTTPClient+TraceWarningPackageDownloadTests.swift */; };
@@ -1271,9 +1269,7 @@
 		0138F63D25F1173F00A9B075 /* TraceLocationsOverviewEmptyStateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationsOverviewEmptyStateViewModel.swift; sourceTree = "<group>"; };
 		0138F63F25F1173F00A9B075 /* TraceLocationsOverviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationsOverviewViewModel.swift; sourceTree = "<group>"; };
 		0138F64025F1173F00A9B075 /* TraceLocationsOverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationsOverviewViewController.swift; sourceTree = "<group>"; };
-		0138F64225F1174000A9B075 /* AddEventTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddEventTableViewCell.xib; sourceTree = "<group>"; };
-		0138F64325F1174000A9B075 /* AddCellModeling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCellModeling.swift; sourceTree = "<group>"; };
-		0138F64425F1174000A9B075 /* AddEventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventTableViewCell.swift; sourceTree = "<group>"; };
+		0138F64325F1174000A9B075 /* AddButtonAsTableViewCelling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddButtonAsTableViewCelling.swift; sourceTree = "<group>"; };
 		0138F68C25F21C8000A9B075 /* EventTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventTableViewCell.xib; sourceTree = "<group>"; };
 		0138F68D25F21C8000A9B075 /* EventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTableViewCell.swift; sourceTree = "<group>"; };
 		0138F68E25F21C8000A9B075 /* TraceLocationCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationCellModel.swift; sourceTree = "<group>"; };
@@ -1670,8 +1666,8 @@
 		501ABC4F267B4B04008F37CA /* HealthCertificateOverviewEmptyStateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateOverviewEmptyStateViewModel.swift; sourceTree = "<group>"; };
 		501ABC52267B9651008F37CA /* AddCertificateCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCertificateCellModelTests.swift; sourceTree = "<group>"; };
 		5021532825C988D80006842D /* OTPResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPResponse.swift; sourceTree = "<group>"; };
-		50293D52267A417D004B3EBE /* AddCertificateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCertificateTableViewCell.swift; sourceTree = "<group>"; };
-		50293D53267A417D004B3EBE /* AddCertificateTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddCertificateTableViewCell.xib; sourceTree = "<group>"; };
+		50293D52267A417D004B3EBE /* AddButtonAsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddButtonAsTableViewCell.swift; sourceTree = "<group>"; };
+		50293D53267A417D004B3EBE /* AddButtonAsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddButtonAsTableViewCell.xib; sourceTree = "<group>"; };
 		50293D54267A417D004B3EBE /* AddCertificateCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCertificateCellModel.swift; sourceTree = "<group>"; };
 		50352C8A25C94961007193D2 /* OTPServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPServiceTests.swift; sourceTree = "<group>"; };
 		50352C9725C9665A007193D2 /* HTTPClient+AuthorizationOTPEdusTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClient+AuthorizationOTPEdusTests.swift"; sourceTree = "<group>"; };
@@ -2640,8 +2636,6 @@
 		0138F64125F1173F00A9B075 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				0138F64425F1174000A9B075 /* AddEventTableViewCell.swift */,
-				0138F64225F1174000A9B075 /* AddEventTableViewCell.xib */,
 				0138F68D25F21C8000A9B075 /* EventTableViewCell.swift */,
 				0138F68C25F21C8000A9B075 /* EventTableViewCell.xib */,
 				01F6701125FF79830069C4F9 /* EventCellModel.swift */,
@@ -3800,11 +3794,19 @@
 			path = MissingPermissionCell;
 			sourceTree = "<group>";
 		};
+		501ABC54267C9FD7008F37CA /* AddButtonAsTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				50293D52267A417D004B3EBE /* AddButtonAsTableViewCell.swift */,
+				50293D53267A417D004B3EBE /* AddButtonAsTableViewCell.xib */,
+				0138F64325F1174000A9B075 /* AddButtonAsTableViewCelling.swift */,
+			);
+			path = AddButtonAsTableViewCell;
+			sourceTree = "<group>";
+		};
 		50293D51267A3FFB004B3EBE /* CreateCertificate */ = {
 			isa = PBXGroup;
 			children = (
-				50293D52267A417D004B3EBE /* AddCertificateTableViewCell.swift */,
-				50293D53267A417D004B3EBE /* AddCertificateTableViewCell.xib */,
 				50293D54267A417D004B3EBE /* AddCertificateCellModel.swift */,
 			);
 			path = CreateCertificate;
@@ -4213,7 +4215,6 @@
 				ABE961E625F29A6F00D0F699 /* Store */,
 				B18CADAD24782FA4006F53F0 /* ExposureStateUpdating.swift */,
 				FEDCE1600374711EC77FF572 /* RequiresAppDependencies.swift */,
-				0138F64325F1174000A9B075 /* AddCellModeling.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -4499,8 +4500,9 @@
 		8595BF5D246032C40056EA27 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				501ABC51267B84D9008F37CA /* MissingPermissionCell */,
 				B10F9B88249961B500C418F4 /* __tests__ */,
+				501ABC54267C9FD7008F37CA /* AddButtonAsTableViewCell */,
+				501ABC51267B84D9008F37CA /* MissingPermissionCell */,
 				51B5B41A246E059700DC5D3E /* Common */,
 				853D987824694A1E00490DBA /* BaseElements */,
 				0138F63025F114E700A9B075 /* EmptyStateView */,
@@ -7259,7 +7261,6 @@
 				5093B9A9260DEB2D007C0B09 /* TraceLocationCheckinViewController.xib in Resources */,
 				01A4DCDE2592692D007D5794 /* HomeImageItemView.xib in Resources */,
 				01A6C2FE2626DE2200B6E95A /* HomeTestRegistrationTableViewCell.xib in Resources */,
-				0138F6A425F2220300A9B075 /* AddEventTableViewCell.xib in Resources */,
 				01B72BFF2583B57300A3E3BC /* DiaryEditEntriesTableViewCell.xib in Resources */,
 				01E4298E251DCDC90057FCBE /* Localizable.legal.strings in Resources */,
 				01A6EFC7258BE9C20001D8C2 /* NotificationSettingsOnTableViewCell.xib in Resources */,
@@ -7275,7 +7276,7 @@
 				8F4E623B25EE878E00FF4F0A /* BottomErrorReportViewController.xib in Resources */,
 				01C6AC21252B21DF0052814D /* ExposureSubmissionQRScannerViewController.xib in Resources */,
 				01D02667258B750800B6389A /* ExposureDetectionViewController.xib in Resources */,
-				50293D57267A41C1004B3EBE /* AddCertificateTableViewCell.xib in Resources */,
+				50293D57267A41C1004B3EBE /* AddButtonAsTableViewCell.xib in Resources */,
 				8539874F2467094E00D28B62 /* AppIcon.xcassets in Resources */,
 				017AD105259DC20E00FA2B3F /* HomeShownPositiveTestResultTableViewCell.xib in Resources */,
 				0138F6A025F21CC600A9B075 /* EventTableViewCell.xib in Resources */,
@@ -7638,7 +7639,7 @@
 				BA01BA65264423CF00D906B6 /* HealthCertificateInfoViewController.swift in Sources */,
 				50BD2E6424FE232E00932566 /* AppInformationImprintViewModel.swift in Sources */,
 				71330E4724810A0C00EB10F6 /* DynamicTableViewFooter.swift in Sources */,
-				0138F65A25F1174200A9B075 /* AddCellModeling.swift in Sources */,
+				0138F65A25F1174200A9B075 /* AddButtonAsTableViewCelling.swift in Sources */,
 				B1D431CB246C84A400E728AD /* DownloadedPackagesStoreV1.swift in Sources */,
 				714194EA247A65C60072A090 /* DynamicTableViewHeaderSeparatorView.swift in Sources */,
 				50FA072B26023784003C1E46 /* TraceWarningPackageDownload.swift in Sources */,
@@ -8014,7 +8015,6 @@
 				ABD2F634254C533200DC1958 /* KeyPackageDownload.swift in Sources */,
 				A1C683FC24AEC9EE00B90D12 /* DynamicTableViewTextCell.swift in Sources */,
 				710224F624910661000C5DEF /* ExposureSubmissionDynamicCell.swift in Sources */,
-				0138F65625F1174200A9B075 /* AddEventTableViewCell.swift in Sources */,
 				EEF1067A246EBF8B009DFB4E /* ResetViewController.swift in Sources */,
 				AB190EC125FB761500FBFF0D /* SecureSQLStore.swift in Sources */,
 				0138F5F425EFDBC300A9B075 /* HomeTraceLocationsCellModel.swift in Sources */,
@@ -8066,7 +8066,7 @@
 				0112170A2617695100320745 /* FakeRequestService.swift in Sources */,
 				71330E41248109F600EB10F6 /* DynamicTableViewSection.swift in Sources */,
 				BA6CC737260CF63B00F191FB /* CheckInHeaderCell.swift in Sources */,
-				50293D55267A4191004B3EBE /* AddCertificateTableViewCell.swift in Sources */,
+				50293D55267A4191004B3EBE /* AddButtonAsTableViewCell.swift in Sources */,
 				710ABB292475353900948792 /* DynamicTableViewModel.swift in Sources */,
 				01E102682668D83B009ED803 /* DCCRSAKeyPair.swift in Sources */,
 				AB5F84C024FE2EB3000400D4 /* DownloadedPackagesStoreV0.swift in Sources */,
