@@ -23,7 +23,7 @@ struct HealthCertificateQRCodeCellViewModel {
 
 		self.accessibilityText = accessibilityText
 
-		switch healthCertificate.type {
+		switch healthCertificate.entry {
 		case .vaccination(let vaccinationEntry):
 			var dateOfVaccination: String = ""
 			if let localVaccinationDate = vaccinationEntry.localVaccinationDate {
