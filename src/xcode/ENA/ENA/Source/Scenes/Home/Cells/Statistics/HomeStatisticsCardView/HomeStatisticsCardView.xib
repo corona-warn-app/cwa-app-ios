@@ -162,8 +162,8 @@
                                                 </view>
                                             </subviews>
                                         </stackView>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Illu_Warnende_Personen" translatesAutoresizingMaskIntoConstraints="NO" id="TH2-hV-4Si">
-                                            <rect key="frame" x="315" y="0.0" width="128" height="153.5"/>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" image="Illu_Warnende_Personen" translatesAutoresizingMaskIntoConstraints="NO" id="TH2-hV-4Si">
+                                            <rect key="frame" x="315" y="0.0" width="128" height="157"/>
                                         </imageView>
                                     </subviews>
                                 </stackView>
