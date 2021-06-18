@@ -299,7 +299,7 @@ final class HealthCertificateViewModel {
 	private func updateTestCertificateKeyValueCellViewModels(testEntry: TestEntry) {
 		let nameCellViewModel = HealthCertificateKeyValueCellViewModel(
 			key: "Name, Vorname / Name, First Name",
-			value: healthCertificate.name.fullName,
+			value: healthCertificate.name.reversedFullName,
 			topSpace: 2.0
 		)
 
