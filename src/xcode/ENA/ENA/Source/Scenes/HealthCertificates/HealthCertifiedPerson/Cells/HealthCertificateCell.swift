@@ -32,9 +32,12 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 	func configure(_ cellViewModel: HealthCertificateCellViewModel) {
 		gradientBackground.type = cellViewModel.gradientType
 		iconImageView.image = cellViewModel.image
+
 		headlineLabel.text = cellViewModel.headline
 		subheadlineLabel.text = cellViewModel.subheadline
 		detailsLabel.text = cellViewModel.detail
+
+		currentlyUsedStackView.isHidden = !cellViewModel.isCurrentlyUsedCertificateHintVisible
 	}
 
 	// MARK: - Private
@@ -45,6 +48,9 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 	private let headlineLabel = ENALabel()
 	private let subheadlineLabel = ENALabel()
 	private let detailsLabel = ENALabel()
+	private let currentlyUsedStackView = UIStackView()
+	private let currentlyUsedImageView = UIImageView()
+	private let currentlyUsedLabel = ENALabel()
 	private let iconImageView = UIImageView()
 	private let gradientBackground = GradientView()
 
@@ -96,9 +102,24 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		subheadlineDetailsStackView.axis = .vertical
 		subheadlineDetailsStackView.spacing = 0
 
-		let vStackView = UIStackView(arrangedSubviews: [headlineStackView, subheadlineDetailsStackView])
+		currentlyUsedImageView.image = UIImage(named: "CurrentlyUsedCertificate_Icon")
+		currentlyUsedImageView.contentMode = .scaleAspectFit
+		currentlyUsedImageView.setContentHuggingPriority(.required, for: .horizontal)
+		currentlyUsedStackView.addArrangedSubview(currentlyUsedImageView)
+
+		currentlyUsedLabel.style = .subheadline
+		currentlyUsedLabel.textColor = .enaColor(for: .textPrimary2)
+		currentlyUsedLabel.numberOfLines = 0
+		currentlyUsedLabel.text = AppStrings.HealthCertificate.Person.currentlyUsedCertificate
+		currentlyUsedStackView.addArrangedSubview(currentlyUsedLabel)
+
+		currentlyUsedStackView.axis = .horizontal
+		currentlyUsedStackView.alignment = .top
+		currentlyUsedStackView.spacing = 6
+
+		let vStackView = UIStackView(arrangedSubviews: [headlineStackView, subheadlineDetailsStackView, currentlyUsedStackView])
 		vStackView.axis = .vertical
-		vStackView.spacing = 4
+		vStackView.spacing = 6
 
 		gradientBackground.type = .solidGrey
 		gradientBackground.translatesAutoresizingMaskIntoConstraints = false
