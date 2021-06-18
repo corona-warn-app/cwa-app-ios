@@ -40,7 +40,7 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		// THEN
 		switch layoutDirection {
 		case .rightToLeft:
-			XCTAssertTrue(self.app.staticTexts[title4].waitForExistence(timeout: .medium))
+			XCTAssertTrue(self.app.staticTexts[title7].waitForExistence(timeout: .medium))
 			app.staticTexts[title7].swipeLeft()
 			XCTAssertTrue(self.app.staticTexts[title6].waitForExistence(timeout: .medium))
 			app.staticTexts[title6].swipeLeft()
@@ -67,7 +67,7 @@ class ENAUITests_01b_Statistics: CWATestCase {
 			app.staticTexts[title5].swipeLeft()
 			XCTAssertTrue(self.app.staticTexts[title6].waitForExistence(timeout: .medium))
 			app.staticTexts[title6].swipeLeft()
-			XCTAssertTrue(self.app.staticTexts[title4].waitForExistence(timeout: .medium))
+			XCTAssertTrue(self.app.staticTexts[title7].waitForExistence(timeout: .medium))
 			app.staticTexts[title7].swipeRight()
 
 		}
