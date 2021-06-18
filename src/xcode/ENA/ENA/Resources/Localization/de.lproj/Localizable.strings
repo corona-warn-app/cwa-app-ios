@@ -2694,17 +2694,31 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Health Certified Person Screen */
 
-"HealthCertifiedPerson_title" = "EU Digitaler COVID-Impfnachweis";
-
-"HealthCertifiedPerson_subtitle" = "SARS-CoV-2-Impfschutz";
+"HealthCertifiedPerson_title" = "EU Digitales COVID-Zertifikat";
 
 "HealthCertifiedPerson_dateOfBirth" = "geboren %@";
 
-"HealthCertifiedPerson_vaccinationCount" = "Impfung %i von %i";
+"HealthCertifiedPerson_QRCode_Image_Description" = "Ein QR-Code mit dem aktuellen Zertifikat";
 
-"HealthCertifiedPerson_vaccinationDate" = "durchgeführt am %@";
+"HealthCertifiedPerson_VaccinationCertificate_headline" = "Impfzertifikat";
 
-"HealthCertifiedPerson_QRCode_Image_Description" = "Ein QR-Code mit dem Status Ihrer Impfung";
+"HealthCertifiedPerson_VaccinationCertificate_vaccinationCount" = "Impfung %i von %i";
+
+"HealthCertifiedPerson_VaccinationCertificate_vaccinationDate" = "geimpft am %@";
+
+"HealthCertifiedPerson_TestCertificate_headline" = "Testzertifikat";
+
+"HealthCertifiedPerson_TestCertificate_pcrTest" = "PCR-Test";
+
+"HealthCertifiedPerson_TestCertificate_antigenTest" = "Schnelltest";
+
+"HealthCertifiedPerson_TestCertificate_sampleCollectionDate" = "Probenahme am %@";
+
+"HealthCertifiedPerson_RecoveryCertificate_headline" = "Genesenenzertifikat";
+
+"HealthCertifiedPerson_RecoveryCertificate_validityDate" = "gültig bis %@";
+
+"HealthCertifiedPerson_currentlyUsedCertificate" = "Aktuell verwendetes Zertifikat";
 
 /* Vaccination Certificate Details */
 
