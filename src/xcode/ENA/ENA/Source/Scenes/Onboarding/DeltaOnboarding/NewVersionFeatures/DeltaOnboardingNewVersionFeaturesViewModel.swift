@@ -22,7 +22,7 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		
 		// Family Certificate
 		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature25FamilyCertTitle, description: AppStrings.NewVersionFeatures.feature25tFamilyCertDescription)
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature25FamilyCertTitle, description: AppStrings.NewVersionFeatures.feature25FamilyCertDescription)
 		)
 		
 		// Extended Statistics
