@@ -1,3 +1,4 @@
 # Exclude vendored code from project language stats
 sqlite3.h linguist-vendored
 sqlite3.c linguist-vendored
+vendor/swiftlint filter=lfs diff=lfs merge=lfs -text
