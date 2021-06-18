@@ -2512,6 +2512,8 @@
 
 "TestCertificateRequest_Error_TRY_AGAIN_DCC_NOT_AVAILABLE_YET" = "Your certificate it not available yet. Please try again. If the error persists, please contact the technical hotline via App Information -> Technical Hotline. (%@)";
 
+"TestCertificateRequest_Error_DGC_NOT_SUPPORTED_BY_LAB" = "You cannot request a test certificate because this testing point does not support the issuing of test certificates. Please remove the certificate or contact the technical hotline via App Information -> Technical Hotline. (%@)";
+
 /* Health Certificate Information */
 "HealthCertificate_Info_Title" = "Add Certificates";
 
@@ -2591,6 +2593,10 @@
 "TestCertificate_Details_subtitle" = "Negative SARS-CoV-2 test";
 
 "TestCertificate_Details_primaryButton" = "Remove Test Certificate";
+
+"TestCertificate_Error_FAQ_Description" = "\n\nFor more information about how to receive your test certificate, please see our FAQ page.";
+
+"TestCertificate_Error_FAQ_Button_Title" = "FAQ for Test Certificates";
 
 /* Vaccination Certificate Delete Alert */
 "TestCertificate_Alert_title" = "Do you want to remove the test certificate?";

@@ -137,6 +137,7 @@ class HealthCertificateService {
 		registrationToken: String,
 		registrationDate: Date,
 		retryExecutionIfCertificateIsPending: Bool,
+		labId: String?,
 		completion: ((Result<Void, HealthCertificateServiceError.TestCertificateRequestError>) -> Void)? = nil
 	) {
 		Log.info("[HealthCertificateService] Registering test certificate request: (coronaTestType: \(coronaTestType), registrationToken: \(private: registrationToken), registrationDate: \(registrationDate), retryExecutionIfCertificateIsPending: \(retryExecutionIfCertificateIsPending)", log: .api)
@@ -144,7 +145,8 @@ class HealthCertificateService {
 		let testCertificateRequest = TestCertificateRequest(
 			coronaTestType: coronaTestType,
 			registrationToken: registrationToken,
-			registrationDate: registrationDate
+			registrationDate: registrationDate,
+			labId: labId
 		)
 
 		testCertificateRequests.value.append(testCertificateRequest)
@@ -157,13 +159,23 @@ class HealthCertificateService {
 		)
 	}
 
+	// swiftlint:disable:next cyclomatic_complexity
 	func executeTestCertificateRequest(
 		_ testCertificateRequest: TestCertificateRequest,
 		retryIfCertificateIsPending: Bool,
 		completion: ((Result<Void, HealthCertificateServiceError.TestCertificateRequestError>) -> Void)? = nil
 	) {
 		Log.info("[HealthCertificateService] Executing test certificate request: \(private: testCertificateRequest)", log: .api)
+
 		testCertificateRequest.isLoading = true
+
+		// If we didn't retrieve a labId for a PRC test result, the lab is not supporting test certificates.
+		if testCertificateRequest.coronaTestType == .pcr && testCertificateRequest.labId == nil {
+			testCertificateRequest.requestExecutionFailed = true
+			testCertificateRequest.isLoading = false
+			completion?(.failure(.dgcNotSupportedByLab))
+			return
+		}
 
 		do {
 			let rsaKeyPair = try testCertificateRequest.rsaKeyPair ?? DCCRSAKeyPair(registrationToken: testCertificateRequest.registrationToken)
