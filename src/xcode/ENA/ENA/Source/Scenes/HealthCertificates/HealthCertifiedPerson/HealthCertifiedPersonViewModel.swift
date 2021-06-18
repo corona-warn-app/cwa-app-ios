@@ -20,13 +20,6 @@ final class HealthCertifiedPersonViewModel {
 		self.healthCertifiedPerson = healthCertifiedPerson
 		self.healtCertificateValueSetsProvider = healthCertificateValueSetsProvider
 
-		// setup gradient update
-		healthCertifiedPerson.$vaccinationState
-			.sink { [weak self] in
-				self?.gradientType = $0.gradientType
-			}
-			.store(in: &subscriptions)
-
 		healthCertifiedPerson.objectDidChange
 			.sink { [weak self] healthCertifiedPerson in
 				guard !healthCertifiedPerson.healthCertificates.isEmpty else {
@@ -80,7 +73,7 @@ final class HealthCertifiedPersonViewModel {
 		)
 	}()
 
-	@OpenCombine.Published private(set) var gradientType: GradientView.GradientType = .solidGrey
+	@OpenCombine.Published private(set) var gradientType: GradientView.GradientType = .lightBlueWithStars
 	@OpenCombine.Published private(set) var triggerReload: Bool = false
 	@OpenCombine.Published private(set) var updateError: Error?
 

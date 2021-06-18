@@ -22,16 +22,6 @@ final class HealthCertificateViewModel {
 			accessibilityText: AppStrings.HealthCertificate.Details.QRCodeImageDescription
 		)
 
-		if case .test = healthCertificate.type {
-			gradientType = .lightBlueWithStars
-		} else {
-			healthCertifiedPerson?.$vaccinationState
-				.sink { [weak self] in
-					self?.gradientType = $0.gradientType
-				}
-				.store(in: &subscriptions)
-		}
-
 		updateHealthCertificateKeyValueCellViewModels()
 
 		// load certificate value sets
@@ -81,7 +71,7 @@ final class HealthCertificateViewModel {
 
 	let qrCodeCellViewModel: HealthCertificateQRCodeCellViewModel
 
-	@OpenCombine.Published private(set) var gradientType: GradientView.GradientType = .solidGrey
+	@OpenCombine.Published private(set) var gradientType: GradientView.GradientType = .lightBlueWithStars
 	@OpenCombine.Published private(set) var healthCertificateKeyValueCellViewModel: [HealthCertificateKeyValueCellViewModel] = []
 
 	var headlineCellViewModel: HealthCertificateSimpleTextCellViewModel {

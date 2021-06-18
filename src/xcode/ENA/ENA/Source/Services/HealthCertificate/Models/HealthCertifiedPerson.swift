@@ -88,7 +88,7 @@ class HealthCertifiedPerson: Codable, Equatable {
 		}
 	}
 
-	@OpenCombine.Published var vaccinationState: VaccinationState = .partiallyVaccinated {
+	var vaccinationState: VaccinationState = .partiallyVaccinated {
 		didSet {
 			if vaccinationState != oldValue {
 				objectDidChange.send(self)
