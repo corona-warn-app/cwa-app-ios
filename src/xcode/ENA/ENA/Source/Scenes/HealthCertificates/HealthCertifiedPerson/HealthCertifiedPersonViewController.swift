@@ -99,6 +99,22 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		}
 	}
 
+	func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+		if HealthCertifiedPersonViewModel.TableViewSection.map(section) == .certificates {
+			let footerView = UIView()
+			footerView.backgroundColor = .clear
+
+			return footerView
+		} else {
+			return UIView()
+		}
+	}
+
+	func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+		let section = HealthCertifiedPersonViewModel.TableViewSection.map(section)
+		return viewModel.heightForFooter(in: section)
+	}
+
 	// MARK: - Protocol UITableViewDelegate
 
 	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

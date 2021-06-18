@@ -158,6 +158,15 @@ final class HealthCertifiedPersonViewModel {
 		}
 	}
 
+	func heightForFooter(in section: TableViewSection) -> CGFloat {
+		switch section {
+		case .certificates:
+			return 12
+		default:
+			return 0
+		}
+	}
+
 	func healthCertificateCellViewModel(row: Int) -> HealthCertificateCellViewModel {
 		HealthCertificateCellViewModel(
 			healthCertificate: healthCertifiedPerson.healthCertificates[row],
