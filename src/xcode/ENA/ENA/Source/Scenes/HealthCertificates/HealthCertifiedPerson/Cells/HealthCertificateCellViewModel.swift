@@ -63,7 +63,11 @@ final class HealthCertificateCellViewModel {
 		switch healthCertificate.entry {
 		case .vaccination(let vaccinationEntry):
 			if vaccinationEntry.isLastDoseInASeries {
-				return UIImage(imageLiteralResourceName: "VaccinationCertificate_FullyVaccinated_Icon")
+				if case .completelyProtected = healthCertifiedPerson.vaccinationState {
+					return UIImage(imageLiteralResourceName: "VaccinationCertificate_CompletelyProtected_Icon")
+				} else {
+					return UIImage(imageLiteralResourceName: "VaccinationCertificate_FullyVaccinated_Icon")
+				}
 			} else {
 				return UIImage(imageLiteralResourceName: "VaccinationCertificate_PartiallyVaccinated_Icon")
 			}
