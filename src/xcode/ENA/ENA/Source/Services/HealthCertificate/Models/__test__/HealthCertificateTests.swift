@@ -432,11 +432,11 @@ class HealthCertificateTests: XCTestCase {
 		// WHEN
 		
 		let healthCertificate = try HealthCertificate(base45: base45)
-		let type = healthCertificate.type
+		let entry = healthCertificate.entry
 		
 		// THEN
 		
-		guard case let .vaccination(vaccinationEntry) = type else {
+		guard case let .vaccination(vaccinationEntry) = entry else {
 			XCTFail("This should only contain a vaccinationEntry, nothing else")
 			return
 		}
@@ -467,11 +467,11 @@ class HealthCertificateTests: XCTestCase {
 		// WHEN
 		
 		let healthCertificate = try HealthCertificate(base45: base45)
-		let type = healthCertificate.type
+		let entry = healthCertificate.entry
 		
 		// THEN
 		
-		guard case let .test(testEntry) = type else {
+		guard case let .test(testEntry) = entry else {
 			XCTFail("This should only contain a testEntry, nothing else")
 			return
 		}
