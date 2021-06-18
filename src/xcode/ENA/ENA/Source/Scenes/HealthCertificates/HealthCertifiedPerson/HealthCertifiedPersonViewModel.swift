@@ -189,7 +189,8 @@ final class HealthCertifiedPersonViewModel {
 	func healthCertificateCellViewModel(row: Int) -> HealthCertificateCellViewModel {
 		HealthCertificateCellViewModel(
 			healthCertificate: healthCertifiedPerson.healthCertificates[row],
-			gradientType: gradientType
+			healthCertifiedPerson: healthCertifiedPerson,
+			healthCertificateService: healthCertificateService
 		)
 	}
 

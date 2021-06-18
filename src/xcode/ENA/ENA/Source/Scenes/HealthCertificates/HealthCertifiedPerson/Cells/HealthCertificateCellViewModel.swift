@@ -10,15 +10,23 @@ final class HealthCertificateCellViewModel {
 	
 	init(
 		healthCertificate: HealthCertificate,
-		gradientType: GradientView.GradientType
+		healthCertifiedPerson: HealthCertifiedPerson,
+		healthCertificateService: HealthCertificateService
 	) {
 		self.healthCertificate = healthCertificate
-		self.gradientType = gradientType
+		self.healthCertifiedPerson = healthCertifiedPerson
+		self.healthCertificateService = healthCertificateService
 	}
 
 	// MARK: - Internal
 
-	let gradientType: GradientView.GradientType
+	var gradientType: GradientView.GradientType {
+		if healthCertificate == healthCertifiedPerson.mostRelevantHealthCertificate {
+			return .lightBlue
+		} else {
+			return .solidGrey
+		}
+	}
 
 	var headline: String? {
 		switch healthCertificate.entry {
@@ -69,5 +77,7 @@ final class HealthCertificateCellViewModel {
 	// MARK: - Private
 
 	private let healthCertificate: HealthCertificate
+	private let healthCertifiedPerson: HealthCertifiedPerson
+	private let healthCertificateService: HealthCertificateService
 
 }
