@@ -69,32 +69,11 @@ final class HealthCertifiedPersonViewModel {
 	}
 
 	let headerCellViewModel: HealthCertificateSimpleTextCellViewModel = {
-		let centerParagraphStyle = NSMutableParagraphStyle()
-		centerParagraphStyle.alignment = .center
-		centerParagraphStyle.lineSpacing = 10.0
-
-		let attributedHeadline = NSAttributedString(
-			string: AppStrings.HealthCertificate.Person.title,
-			attributes: [
-				.font: UIFont.enaFont(for: .headline),
-				.foregroundColor: UIColor.enaColor(for: .textContrast),
-				.paragraphStyle: centerParagraphStyle
-			]
-		)
-
-		let attributedSubheadline = NSAttributedString(
-			string: AppStrings.HealthCertificate.Person.subtitle,
-			attributes: [
-				.font: UIFont.enaFont(for: .body),
-				.foregroundColor: UIColor.enaColor(for: .textContrast),
-				.paragraphStyle: centerParagraphStyle
-			]
-		)
-
-		return HealthCertificateSimpleTextCellViewModel(
+		HealthCertificateSimpleTextCellViewModel(
 			backgroundColor: .clear,
+			textColor: .enaColor(for: .textContrast),
 			textAlignment: .center,
-			attributedText: [attributedHeadline, attributedSubheadline].joined(with: "\n"),
+			text: AppStrings.HealthCertificate.Person.title,
 			topSpace: 42.0,
 			font: .enaFont(for: .headline),
 			accessibilityTraits: .staticText
@@ -156,8 +135,8 @@ final class HealthCertifiedPersonViewModel {
 		let attributedDetails = NSAttributedString(
 			string: dateOfBirth ?? "",
 			attributes: [
-				.font: UIFont.enaFont(for: .body),
-				.foregroundColor: UIColor.enaColor(for: .textPrimary1)
+				.font: UIFont.enaFont(for: .subheadline),
+				.foregroundColor: UIColor.enaColor(for: .textPrimary2)
 			]
 		)
 

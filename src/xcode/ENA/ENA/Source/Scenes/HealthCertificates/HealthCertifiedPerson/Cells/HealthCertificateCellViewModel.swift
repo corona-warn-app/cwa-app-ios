@@ -29,14 +29,30 @@ final class HealthCertificateCellViewModel {
 	}
 
 	var headline: String? {
+		switch healthCertificate.type {
+		case .vaccination:
+			return AppStrings.HealthCertificate.Person.VaccinationCertificate.headline
+		case .test:
+			return AppStrings.HealthCertificate.Person.TestCertificate.headline
+		case .recovery:
+			return AppStrings.HealthCertificate.Person.RecoveryCertificate.headline
+		}
+	}
+
+	var subheadline: String? {
 		switch healthCertificate.entry {
 		case .vaccination(let vaccinationEntry):
 			return String(
-				format: AppStrings.HealthCertificate.Person.vaccinationCount,
+				format: AppStrings.HealthCertificate.Person.VaccinationCertificate.vaccinationCount,
 				vaccinationEntry.doseNumber,
 				vaccinationEntry.totalSeriesOfDoses
 			)
+		case .test(let testEntry) where testEntry.coronaTestType == .pcr:
+			return AppStrings.HealthCertificate.Person.TestCertificate.pcrTest
+		case .test(let testEntry) where testEntry.coronaTestType == .antigen:
+			return AppStrings.HealthCertificate.Person.TestCertificate.antigenTest
 		case .test:
+			// In case the test type could not be determined
 			return nil
 		case .recovery:
 			return nil
@@ -48,14 +64,24 @@ final class HealthCertificateCellViewModel {
 		case .vaccination(let vaccinationEntry):
 			return vaccinationEntry.localVaccinationDate.map {
 				String(
-					format: AppStrings.HealthCertificate.Person.vaccinationDate,
+					format: AppStrings.HealthCertificate.Person.VaccinationCertificate.vaccinationDate,
 					DateFormatter.localizedString(from: $0, dateStyle: .medium, timeStyle: .none)
 				)
 			}
-		case .test:
-			return nil
-		case .recovery:
-			return nil
+		case .test(let testEntry):
+			return testEntry.sampleCollectionDate.map {
+				String(
+					format: AppStrings.HealthCertificate.Person.TestCertificate.sampleCollectionDate,
+					DateFormatter.localizedString(from: $0, dateStyle: .medium, timeStyle: .none)
+				)
+			}
+		case .recovery(let recoveryEntry):
+			return recoveryEntry.localCertificateValidityEndDate.map {
+				String(
+					format: AppStrings.HealthCertificate.Person.RecoveryCertificate.validityDate,
+					DateFormatter.localizedString(from: $0, dateStyle: .medium, timeStyle: .none)
+				)
+			}
 		}
 	}
 
@@ -76,6 +102,10 @@ final class HealthCertificateCellViewModel {
 		case .recovery:
 			return UIImage(imageLiteralResourceName: "RecoveryCertificate_Icon")
 		}
+	}
+
+	var isCurrentlyUsedCertificateHintVisible: Bool {
+		healthCertificate == healthCertifiedPerson.mostRelevantHealthCertificate
 	}
 
 	// MARK: - Private
