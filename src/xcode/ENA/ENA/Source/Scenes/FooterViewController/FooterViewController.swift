@@ -72,8 +72,8 @@ class FooterViewController: UIViewController {
 		primaryButton.translatesAutoresizingMaskIntoConstraints = false
 		buttonsStackView.addArrangedSubview(primaryButton)
 		
-		primaryButtonHeightAnchor = primaryButton.heightAnchor.constraint(equalToConstant: viewModel.buttonHeight)
-		primaryButtonHeightAnchor.priority = .defaultHigh
+		primaryButtonHeightConstraint = primaryButton.heightAnchor.constraint(equalToConstant: viewModel.buttonHeight)
+		primaryButtonHeightConstraint.priority = .defaultHigh
 		
 		secondaryButton.disabledBackgroundColor = viewModel.secondaryCustomDisableBackgroundColor
 		secondaryButton.hasBackground = true
@@ -81,8 +81,8 @@ class FooterViewController: UIViewController {
 		secondaryButton.translatesAutoresizingMaskIntoConstraints = false
 		buttonsStackView.addArrangedSubview(secondaryButton)
 		
-		secondaryButtonHeightAnchor = secondaryButton.heightAnchor.constraint(equalToConstant: viewModel.buttonHeight)
-		secondaryButtonHeightAnchor.priority = .defaultHigh
+		secondaryButtonHeightConstraint = secondaryButton.heightAnchor.constraint(equalToConstant: viewModel.buttonHeight)
+		secondaryButtonHeightConstraint.priority = .defaultHigh
 		
 		NSLayoutConstraint.activate([
 			// buttonsStackView
@@ -92,10 +92,10 @@ class FooterViewController: UIViewController {
 			buttonsStackView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
 			// primaryButton
 			primaryButton.widthAnchor.constraint(equalTo: buttonsStackView.widthAnchor),
-			primaryButtonHeightAnchor,
+			primaryButtonHeightConstraint,
 			// secondaryButton
 			secondaryButton.widthAnchor.constraint(equalTo: buttonsStackView.widthAnchor),
-			secondaryButtonHeightAnchor
+			secondaryButtonHeightConstraint
 		])
 
 		updateViewModel()
@@ -118,8 +118,8 @@ class FooterViewController: UIViewController {
 	private let secondaryButton: ENAButton = ENAButton(type: .custom)
 
 	private var buttonsStackView: UIStackView!
-	private var primaryButtonHeightAnchor: NSLayoutConstraint!
-	private var secondaryButtonHeightAnchor: NSLayoutConstraint!
+	private var primaryButtonHeightConstraint: NSLayoutConstraint!
+	private var secondaryButtonHeightConstraint: NSLayoutConstraint!
 	private var subscription: [AnyCancellable] = []
 
 	@objc
@@ -147,6 +147,7 @@ class FooterViewController: UIViewController {
 		subscription.forEach { $0.cancel() }
 		subscription.removeAll()
 		
+		// hiding these views will force the stack view to update its layout
 		primaryButton.isHidden = true
 		secondaryButton.isHidden = true
 		
@@ -160,8 +161,8 @@ class FooterViewController: UIViewController {
 		
 		// update button constraints
 		
-		primaryButtonHeightAnchor.constant = viewModel.buttonHeight
-		secondaryButtonHeightAnchor.constant = viewModel.buttonHeight
+		primaryButtonHeightConstraint.constant = viewModel.buttonHeight
+		secondaryButtonHeightConstraint.constant = viewModel.buttonHeight
 		
 		// primary button
 		primaryButton.customTextColor = viewModel.primaryTextColor

@@ -84,7 +84,7 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 		let initialHeight = footerViewModel?.height ?? bottomView.bounds.height
 		bottomViewHeightAnchorConstraint = bottomView.safeAreaLayoutGuide.heightAnchor.constraint(equalToConstant: initialHeight)
 		
-		bottomViewBottomAnchorAnchorConstraint = bottomView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+		bottomViewBottomConstraint = bottomView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
 		
 		NSLayoutConstraint.activate(
 			[
@@ -96,7 +96,7 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 				// bottomView
 				bottomView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
 				bottomView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-				bottomViewBottomAnchorAnchorConstraint,
+				bottomViewBottomConstraint,
 				bottomViewHeightAnchorConstraint
 			]
 		)
@@ -112,7 +112,7 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 					return
 				}
 				
-				self.bottomViewBottomAnchorAnchorConstraint.constant = -keyboardFrame.height
+				self.bottomViewBottomConstraint.constant = -keyboardFrame.height
 				
 				let options = UIView.AnimationOptions(rawValue: ((UInt(animationCurve << 16))))
 				UIView.animate(withDuration: animationDuration, delay: 0, options: options, animations: { [weak self] in
@@ -130,7 +130,7 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 					return
 				}
 				
-				self.bottomViewBottomAnchorAnchorConstraint.constant = -self.view.safeAreaInsets.bottom
+				self.bottomViewBottomConstraint.constant = -self.view.safeAreaInsets.bottom
 				
 				let options = UIView.AnimationOptions(rawValue: ((UInt(animationCurve << 16))))
 				UIView.animate(withDuration: animationDuration, delay: 0, options: options, animations: { [weak self] in
@@ -231,7 +231,7 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 	private var subscriptions: [AnyCancellable] = []
 	private var keyboardSubscriptions: [AnyCancellable] = []
 	private var bottomViewHeightAnchorConstraint: NSLayoutConstraint!
-	private var bottomViewBottomAnchorAnchorConstraint: NSLayoutConstraint!
+	private var bottomViewBottomConstraint: NSLayoutConstraint!
 
 	private func updateBottomHeight(_ height: CGFloat, animated: Bool = false, completion: (() -> Void)? = nil) {
 		guard bottomViewHeightAnchorConstraint.constant != height else {
