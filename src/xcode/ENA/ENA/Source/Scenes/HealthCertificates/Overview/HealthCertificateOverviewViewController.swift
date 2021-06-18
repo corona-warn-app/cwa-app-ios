@@ -182,6 +182,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		}
 
 		cell.configure(cellModel: AddCertificateCellModel())
+		cell.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Overview.addCertificateCell
 		return cell
 	}
 	
