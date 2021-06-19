@@ -55,7 +55,7 @@ class HTMLViewController: UIViewController, DismissHandling {
 		
 		if let url = Bundle.main.url(forResource: infoModel.urlResourceName, withExtension: "html") {
 			do {
-				try htmlTextView.load(from: url)
+				try htmlView.load(from: url)
 			} catch {
 				Log.error("Could not load url \(url)", log: .ui, error: error)
 			}
@@ -71,7 +71,7 @@ class HTMLViewController: UIViewController, DismissHandling {
 	}
 
 	@IBOutlet private weak var imageView: UIImageView!
-	@IBOutlet private weak var htmlTextView: HtmlTextView!
+	@IBOutlet private weak var htmlView: HTMLView!
 	@IBOutlet private weak var htmlTitleLabel: ENALabel!
 	
 	private let infoModel: HtmlInfoModel
