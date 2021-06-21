@@ -1917,12 +1917,10 @@ enum AppStrings {
 			static let emptyTitle = NSLocalizedString("HealthCertificate_Overview_EmptyTitle", comment: "")
 			static let emptyDescription = NSLocalizedString("HealthCertificate_Overview_EmptyDescription", comment: "")
 			static let emptyImageDescription = NSLocalizedString("HealthCertificate_Overview_EmptyImageDescription", comment: "")
+            static let covidCertificate = NSLocalizedString("HealthCertificate_Overview_Covid_Certificate", comment: "")
 
 			enum VaccinationCertificate {
 				static let title = NSLocalizedString("VaccinationCertificate_title", comment: "")
-				static let partiallyVaccinated = NSLocalizedString("VaccinationCertificate_partiallyVaccinated", comment: "")
-				static let daysUntilCompleteProtection = NSLocalizedString("VaccinationCertificate_daysUntilCompleteProtection", comment: "")
-				static let vaccinationValidUntil = NSLocalizedString("VaccinationCertificate_vaccinationValidUntil", comment: "")
 			}
 
 			enum TestCertificateInfo {
@@ -1932,7 +1930,6 @@ enum AppStrings {
 
 			enum TestCertificate {
 				static let title = NSLocalizedString("TestCertificate_title", comment: "")
-				static let testDate = NSLocalizedString("TestCertificate_testDate", comment: "")
 			}
 
 			enum TestCertificateRequest {

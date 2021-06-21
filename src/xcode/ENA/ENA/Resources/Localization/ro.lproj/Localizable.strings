@@ -2454,10 +2454,6 @@
 /* - Vaccination Certificate */
 "VaccinationCertificate_title" = "Dovada digitală\na vaccinării";
 
-"VaccinationCertificate_partiallyVaccinated" = "Vaccinare incompletă";
-
-"VaccinationCertificate_vaccinationValidUntil" = "Valabil până la %@";
-
 /* - Test Certificate Info */
 "TestCertificate_Info_title" = "Certificat\nde test COVID digital UE";
 
@@ -2465,8 +2461,6 @@
 
 /* - Test Certificate */
 "TestCertificate_title" = "Certificat\nde test COVID digital";
-
-"TestCertificate_testDate" = "Test efectuat pe %@";
 
 /* - Test Certificate Request */
 "TestCertificateRequest_title" = "Certificat\nde test COVID digital";

@@ -2454,10 +2454,6 @@
 /* - Vaccination Certificate */
 "VaccinationCertificate_title" = "Digital **Proof\nof Vaccination**";
 
-"VaccinationCertificate_partiallyVaccinated" = "Vaccination incomplete";
-
-"VaccinationCertificate_vaccinationValidUntil" = "Valid through %@";
-
 /* - Test Certificate Info */
 "TestCertificate_Info_title" = "Digital\n**COVID Test Certificate**";
 
@@ -2465,8 +2461,6 @@
 
 /* - Test Certificate */
 "TestCertificate_title" = "Digital\n**COVID Test Certificate**";
-
-"TestCertificate_testDate" = "Test performed on %@";
 
 /* - Test Certificate Request */
 "TestCertificateRequest_title" = "Digital\n**COVID Test Certificate**";

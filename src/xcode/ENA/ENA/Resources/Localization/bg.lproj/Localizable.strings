@@ -2454,10 +2454,6 @@
 /* - Vaccination Certificate */
 "VaccinationCertificate_title" = "Електронно **Доказателство за ваксиниране**";
 
-"VaccinationCertificate_partiallyVaccinated" = "Ваксинирането не е пълно";
-
-"VaccinationCertificate_vaccinationValidUntil" = "Валидно до %@";
-
 /* - Test Certificate Info */
 "TestCertificate_Info_title" = "Цифров\n**Сертификат за тестване за COVID**";
 
@@ -2465,8 +2461,6 @@
 
 /* - Test Certificate */
 "TestCertificate_title" = "Цифров\n**Сертификат за тестване за COVID**";
-
-"TestCertificate_testDate" = "Тестът е извършен на %@";
 
 /* - Test Certificate Request */
 "TestCertificateRequest_title" = "Цифров\n**Сертификат за тестване за COVID**";

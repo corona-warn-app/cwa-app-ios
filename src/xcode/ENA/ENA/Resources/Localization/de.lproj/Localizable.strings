@@ -2610,10 +2610,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "VaccinationCertificate_title" = "EU Digitaler\n**COVID-Impfnachweis**";
 
-"VaccinationCertificate_partiallyVaccinated" = "Unvollständiger Impfschutz";
-
-"VaccinationCertificate_vaccinationValidUntil" = "Gültig bis einschließlich %@";
-
 /* - Test Certificate Info */
 
 "TestCertificate_Info_title" = "EU Digitales\n**COVID-Testzertifikat**";
@@ -2623,8 +2619,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 /* - Test Certificate */
 
 "TestCertificate_title" = "EU Digitales\n**COVID-Testzertifikat**";
-
-"TestCertificate_testDate" = "Test durchgeführt am %@";
 
 /* - Test Certificate Request */
 

@@ -2454,10 +2454,6 @@
 /* - Vaccination Certificate */
 "VaccinationCertificate_title" = "Cyfrowy **dowód\nszczepienia**";
 
-"VaccinationCertificate_partiallyVaccinated" = "Niepełne zaszczepienie";
-
-"VaccinationCertificate_vaccinationValidUntil" = "Ważne do %@";
-
 /* - Test Certificate Info */
 "TestCertificate_Info_title" = "Cyfrowy\n**certyfikat testu na COVID**";
 
@@ -2465,8 +2461,6 @@
 
 /* - Test Certificate */
 "TestCertificate_title" = "Cyfrowy\n**certyfikat testu na COVID**";
-
-"TestCertificate_testDate" = "Test wykonany dnia %@";
 
 /* - Test Certificate Request */
 "TestCertificateRequest_title" = "Cyfrowy\n**certyfikat testu na COVID**";

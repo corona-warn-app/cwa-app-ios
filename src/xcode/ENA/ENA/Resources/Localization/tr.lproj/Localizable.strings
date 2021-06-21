@@ -2454,10 +2454,6 @@
 /* - Vaccination Certificate */
 "VaccinationCertificate_title" = "Dijital **Aşı\nKanıtı**";
 
-"VaccinationCertificate_partiallyVaccinated" = "Aşı tamamlanmadı";
-
-"VaccinationCertificate_vaccinationValidUntil" = "Son geçerlilik tarihi: %@";
-
 /* - Test Certificate Info */
 "TestCertificate_Info_title" = "Dijital\n**COVID Test Sertifikası**";
 
@@ -2465,8 +2461,6 @@
 
 /* - Test Certificate */
 "TestCertificate_title" = "Dijital\n**COVID Test Sertifikası**";
-
-"TestCertificate_testDate" = "Testin gerçekleştirildiği tarih: %@";
 
 /* - Test Certificate Request */
 "TestCertificateRequest_title" = "Dijital\n**COVID Test Sertifikası**";
