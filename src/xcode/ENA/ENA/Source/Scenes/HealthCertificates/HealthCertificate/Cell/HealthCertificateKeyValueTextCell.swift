@@ -29,8 +29,8 @@ class HealthCertificateKeyValueTextCell: UITableViewCell, ReuseIdentifierProvidi
 		headlineTextLabel.text = cellViewModel.headline
 		detailsTextLabel.text = cellViewModel.text
 		bottomSeparatorView.isHidden = cellViewModel.isBottomSeparatorHidden
-		topSpaceLayoutConstraint.constant = cellViewModel.topSpace ?? 12.0
-		bottomSpaceLayoutConstraint.constant = cellViewModel.bottomSpace ?? -6.0
+		topSpaceLayoutConstraint.constant = cellViewModel.topSpace ?? 8.0
+		bottomSpaceLayoutConstraint.constant = cellViewModel.bottomSpace ?? -8.0
 	}
 
 	// MARK: - Private
