@@ -201,7 +201,7 @@ final class HealthCertificatesCoordinator {
 					certificateType: healthCertificate.type,
 					submitAction: UIAlertAction(
 						title: AppStrings.HealthCertificate.Alert.deleteButton,
-						style: .default,
+						style: .destructive,
 						handler: { _ in
 							self?.healthCertificateService.removeHealthCertificate(healthCertificate)
 							confirmDeletion()
@@ -243,7 +243,7 @@ final class HealthCertificatesCoordinator {
 					certificateType: healthCertificate.type,
 					submitAction: UIAlertAction(
 						title: deleteButtonTitle,
-						style: .default,
+						style: .destructive,
 						handler: { _ in
 							self?.healthCertificateService.removeHealthCertificate(healthCertificate)
 
