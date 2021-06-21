@@ -40,13 +40,10 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	// MARK: - Internal
 
 	func configure(with cellModel: HealthCertifiedPersonCellModel) {
-//		descriptionLabel.text = cellModel.description
-//		descriptionLabel.isHidden = cellModel.description == nil
-//
-//		titleLabel.text = cellModel.title
-//		nameLabel.text = cellModel.name
-//		gradientView.type = cellModel.backgroundGradientType
-//
+		descriptionLabel.text = cellModel.description
+		titleLabel.text = cellModel.title
+		nameLabel.text = cellModel.name
+		gradientView.type = cellModel.backgroundGradientType
 //		accessibilityIdentifier = cellModel.accessibilityIdentifier
 	}
 	
@@ -95,6 +92,16 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		}
 		topContainerView.addSubview(bottomView)
 
+		let stackView = UIStackView(arrangedSubviews: [titleLabel, descriptionLabel])
+		stackView.translatesAutoresizingMaskIntoConstraints = false
+		stackView.axis = .vertical
+		stackView.spacing = 4.0
+		gradientView.addSubview(stackView)
+
+		nameLabel.font = .enaFont(for: .title2, weight: .regular, italic: false)
+		nameLabel.translatesAutoresizingMaskIntoConstraints = false
+		gradientView.addSubview(nameLabel)
+
 		NSLayoutConstraint.activate(
 			[
 				topContainerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.0),
@@ -112,6 +119,15 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 				bottomView.trailingAnchor.constraint(equalTo: topContainerView.trailingAnchor),
 				bottomView.bottomAnchor.constraint(equalTo: topContainerView.bottomAnchor),
 				bottomView.heightAnchor.constraint(equalToConstant: 90.0),
+
+				stackView.leadingAnchor.constraint(equalTo: gradientView.leadingAnchor, constant: 15.0),
+				stackView.topAnchor.constraint(equalTo: gradientView.topAnchor, constant: 20.0),
+				stackView.trailingAnchor.constraint(equalTo: gradientView.trailingAnchor, constant: -15.0),
+
+				nameLabel.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 15.0),
+				nameLabel.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
+				nameLabel.leadingAnchor.constraint(equalTo: stackView.leadingAnchor)
+
 			]
 		)
 
