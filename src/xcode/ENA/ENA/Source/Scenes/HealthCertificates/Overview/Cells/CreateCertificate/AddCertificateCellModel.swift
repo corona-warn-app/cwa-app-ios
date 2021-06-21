@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-class AddCertificateCellModel: AddCellModeling {
+class AddCertificateCellModel: AddButtonAsTableViewCelling {
 	
 	// MARK: - Internal
 

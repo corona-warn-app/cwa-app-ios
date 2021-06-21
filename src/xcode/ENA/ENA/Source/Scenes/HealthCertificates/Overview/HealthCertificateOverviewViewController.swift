@@ -41,6 +41,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 			.store(in: &subscriptions)
 
 		viewModel.$testCertificateRequestError
+			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] in
 				guard let self = self, let error = $0 else {
 					return
@@ -147,8 +148,8 @@ class HealthCertificateOverviewViewController: UITableViewController {
 
 	private func setupTableView() {
 		tableView.register(
-			UINib(nibName: String(describing: AddCertificateTableViewCell.self), bundle: nil),
-			forCellReuseIdentifier: AddCertificateTableViewCell.reuseIdentifier
+			UINib(nibName: String(describing: AddButtonAsTableViewCell.self), bundle: nil),
+			forCellReuseIdentifier: AddButtonAsTableViewCell.reuseIdentifier
 		)
 		
 		tableView.register(
@@ -177,11 +178,12 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	}
 	
 	private func addCertificateCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AddCertificateTableViewCell.self), for: indexPath) as? AddCertificateTableViewCell else {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AddButtonAsTableViewCell.self), for: indexPath) as? AddButtonAsTableViewCell else {
 			fatalError("Could not dequeue CreateCertificateTableViewCell")
 		}
 
 		cell.configure(cellModel: AddCertificateCellModel())
+		cell.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Overview.addCertificateCell
 		return cell
 	}
 	

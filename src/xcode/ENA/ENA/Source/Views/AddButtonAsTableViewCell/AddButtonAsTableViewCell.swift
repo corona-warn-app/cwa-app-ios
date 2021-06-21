@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-class AddCertificateTableViewCell: UITableViewCell, ReuseIdentifierProviding {
+class AddButtonAsTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 
 	// MARK: - Overrides
 
@@ -35,7 +35,7 @@ class AddCertificateTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 
 	// MARK: - Internal
 
-	func configure(cellModel: AddCertificateCellModel) {
+	func configure(cellModel: AddButtonAsTableViewCelling) {
 		label.text = cellModel.text
 		containerView.accessibilityLabel = cellModel.text
 
@@ -62,6 +62,6 @@ class AddCertificateTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 	@IBOutlet private weak var label: ENALabel!
 
 	private var subscriptions = Set<AnyCancellable>()
-	private var cellModel: AddCertificateCellModel?
+	private var cellModel: AddButtonAsTableViewCelling?
     
 }
