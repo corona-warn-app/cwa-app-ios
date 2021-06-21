@@ -10,8 +10,7 @@ class AppInformationViewController: DynamicTableViewController, NavigationBarOpa
 	// MARK: - Init
 	
 	init(
-		ppacService: PrivacyPreservingAccessControl,
-		otpService: OTPServiceProviding
+		elsService: ErrorLogSubmissionProviding
 	) {
 		
 		self.model = [
@@ -49,8 +48,7 @@ class AppInformationViewController: DynamicTableViewController, NavigationBarOpa
 				text: AppStrings.ErrorReport.title,
 				accessibilityIdentifier: AccessibilityIdentifiers.ErrorReport.navigation,
 				action: .pushErrorLogsCoordinator(
-					ppacService: ppacService,
-					otpService: otpService
+					elsService: elsService
 				)
 			),
 			.imprint: AppInformationCellModel(

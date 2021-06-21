@@ -5,6 +5,8 @@
 import Foundation
 import OpenCombine
 
+protocol ErrorLogSubmissionProviding: ErrorLogSubmitting, ErrorLogHandling {}
+
 protocol ErrorLogSubmitting {
 
 	typealias ELSAuthenticationResponse = (Result<String, ELSError>) -> Void
@@ -43,7 +45,7 @@ struct ErrorLogUploadReceipt: Codable {
 }
 
 /// Handler for the log file uploading process
-final class ErrorLogSubmissionService: ErrorLogSubmitting {
+final class ErrorLogSubmissionService: ErrorLogSubmissionProviding {
 	
 	// MARK: - Init
 	

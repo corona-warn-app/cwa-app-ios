@@ -13,13 +13,15 @@ class HomeCoordinator: RequiresAppDependencies {
 		otpService: OTPServiceProviding,
 		ppacService: PrivacyPreservingAccessControl,
 		eventStore: EventStoringProviding,
-		coronaTestService: CoronaTestService
+		coronaTestService: CoronaTestService,
+		elsService: ErrorLogSubmissionProviding
 	) {
 		self.delegate = delegate
 		self.otpService = otpService
 		self.ppacService = ppacService
 		self.eventStore = eventStore
 		self.coronaTestService = coronaTestService
+		self.elsService = elsService
 	}
 
 	deinit {
@@ -129,11 +131,12 @@ class HomeCoordinator: RequiresAppDependencies {
 	}
 
 	// MARK: - Private
-
+	
 	private let ppacService: PrivacyPreservingAccessControl
 	private let otpService: OTPServiceProviding
 	private let eventStore: EventStoringProviding
 	private let coronaTestService: CoronaTestService
+	private let elsService: ErrorLogSubmissionProviding
 
 	private var homeController: HomeTableViewController?
 	private var homeState: HomeState?
@@ -317,8 +320,7 @@ class HomeCoordinator: RequiresAppDependencies {
 	private func showAppInformation() {
 		rootViewController.pushViewController(
 			AppInformationViewController(
-				ppacService: ppacService,
-				otpService: otpService
+				elsService: elsService
 			),
 			animated: true
 		)

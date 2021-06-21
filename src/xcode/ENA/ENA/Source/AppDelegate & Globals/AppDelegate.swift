@@ -56,7 +56,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		super.init()
 
-		// Make the analytics working. Should not be called later than at this moment of app initialisation.
+		// Make the analytics working. Should not be called later than at this moment of app initialization.
 		
 		let testResultCollector = PPAAnalyticsTestResultCollector(
 			store: store
@@ -74,6 +74,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			testResultCollector: testResultCollector,
 			submissionCollector: submissionCollector
 		)
+		
+		// Let ELS run for our testers as soon as possible to see any possible errors in startup, too. Only in release builds we wait for the user to start it manually.
+		#if !RELEASE
+		elsService.startLogging()
+		#endif
 
 		// Migrate the old pcr test structure from versions older than v2.1
 		coronaTestService.migrate()
@@ -300,6 +305,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		store: store,
 		client: client,
 		appConfiguration: appConfigurationProvider
+	)
+	
+	/// Reference to the ELS server handling error log recording & submission
+	private lazy var elsService: ErrorLogSubmissionProviding = ErrorLogSubmissionService(
+		client: client,
+		store: store,
+		ppacService: ppacService,
+		otpService: otpService
 	)
 
 	#if targetEnvironment(simulator) || COMMUNITY
@@ -569,7 +582,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		eventCheckoutService: eventCheckoutService,
 		otpService: otpService,
 		ppacService: ppacService,
-		healthCertificateService: healthCertificateService
+		healthCertificateService: healthCertificateService,
+		elsService: elsService
 	)
 
 	private lazy var appUpdateChecker = AppUpdateCheckHelper(appConfigurationProvider: self.appConfigurationProvider, store: self.store)
