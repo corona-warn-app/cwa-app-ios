@@ -29,7 +29,6 @@ class HomeHealthCertifiedPersonCellModelTests: XCTestCase {
 
 		// THEN
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.VaccinationCertificate.title)
-		XCTAssertEqual(viewModel.backgroundGradientType, healthCertifiedPerson.vaccinationState.gradientType)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
 		XCTAssertEqual(viewModel.backgroundImage, UIImage(named: "VaccinationCertificate_CompletelyProtected_Background"))
 		XCTAssertEqual(viewModel.iconImage, UIImage(named: "VaccinationCertificate_CompletelyProtected_Icon"))
@@ -59,7 +58,6 @@ class HomeHealthCertifiedPersonCellModelTests: XCTestCase {
 
 		// THEN
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.VaccinationCertificate.title)
-		XCTAssertEqual(viewModel.backgroundGradientType, healthCertifiedPerson.vaccinationState.gradientType)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
 		XCTAssertEqual(viewModel.backgroundImage, UIImage(named: "VaccinationCertificate_PartiallyVaccinated_Background"))
 		XCTAssertEqual(viewModel.iconImage, UIImage(named: "VaccinationCertificate_PartiallyVaccinated_Icon"))
@@ -87,7 +85,6 @@ class HomeHealthCertifiedPersonCellModelTests: XCTestCase {
 
 		// THEN
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.VaccinationCertificate.title)
-		XCTAssertEqual(viewModel.backgroundGradientType, healthCertifiedPerson.vaccinationState.gradientType)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
 		XCTAssertEqual(viewModel.backgroundImage, UIImage(named: "VaccinationCertificate_FullyVaccinated_Background"))
 		XCTAssertEqual(viewModel.iconImage, UIImage(named: "VaccinationCertificate_FullyVaccinated_Icon"))

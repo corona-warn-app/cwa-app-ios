@@ -13,7 +13,7 @@ class HomeHealthCertifiedPersonCellModel {
 		healthCertifiedPerson: HealthCertifiedPerson
 	) {
 		title = AppStrings.HealthCertificate.Overview.VaccinationCertificate.title
-		backgroundGradientType = healthCertifiedPerson.vaccinationState.gradientType
+		backgroundGradientType = .lightBlue
 		name = healthCertifiedPerson.name?.fullName
 
 		switch healthCertifiedPerson.vaccinationState {

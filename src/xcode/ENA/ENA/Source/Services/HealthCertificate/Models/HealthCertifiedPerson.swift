@@ -62,17 +62,6 @@ class HealthCertifiedPerson: Codable, Equatable {
 		case partiallyVaccinated
 		case fullyVaccinated(daysUntilCompleteProtection: Int)
 		case completelyProtected(expirationDate: Date)
-
-		var gradientType: GradientView.GradientType {
-			switch self {
-			case .partiallyVaccinated:
-				return .solidGrey
-			case .fullyVaccinated:
-				return .solidGrey
-			case .completelyProtected:
-				return .lightBlueWithStars
-			}
-		}
 	}
 
 	var healthCertificates: [HealthCertificate] {
