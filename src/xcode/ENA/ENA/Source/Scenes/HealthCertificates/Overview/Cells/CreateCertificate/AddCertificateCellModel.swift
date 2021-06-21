@@ -5,11 +5,11 @@
 import UIKit
 import OpenCombine
 
-class AddCheckinCellModel: AddButtonAsTableViewCelling {
-
+class AddCertificateCellModel: AddButtonAsTableViewCelling {
+	
 	// MARK: - Internal
 
-	let text: String = AppStrings.Checkins.Overview.scanButtonTitle
+	let text: String = AppStrings.HealthCertificate.Overview.addCertificate
 
 	var iconImagePublisher = CurrentValueSubject<UIImage?, Never>(UIImage(named: "Icons_qrScan"))
 	var textColorPublisher = CurrentValueSubject<UIColor, Never>(.enaColor(for: .textPrimary1))
@@ -20,5 +20,5 @@ class AddCheckinCellModel: AddButtonAsTableViewCelling {
 		textColorPublisher.value = enabled ? .enaColor(for: .textPrimary1) : .enaColor(for: .textPrimary2)
 		accessibilityTraitsPublisher.value = enabled ? [.button] : [.button, .notEnabled]
 	}
-    
+
 }
