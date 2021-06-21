@@ -66,10 +66,12 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	private func setupView() {
 		let topContainerView = UIView()
 		topContainerView.translatesAutoresizingMaskIntoConstraints = false
-		topContainerView.backgroundColor = .enaColor(for: .cellBackground) //.red
-//		topContainerView.layer.borderWidth = 1.0
-//		topContainerView.layer.borderColor = UIColor.enaColor(for: .hairline).cgColor
-//		topContainerView.layer.cornerRadius = 14
+		topContainerView.backgroundColor = .enaColor(for: .cellBackground)
+		topContainerView.layer.masksToBounds = true
+		topContainerView.layer.cornerRadius = 12
+		if #available(iOS 13.0, *) {
+			topContainerView.layer.cornerCurve = .continuous
+		}
 		contentView.addSubview(topContainerView)
 
 		let gradientView = GradientView(type: .mediumBlue(withStars: true))
@@ -82,17 +84,20 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		}
 		topContainerView.addSubview(gradientView)
 
-//		let outerContainer = UIView()
-//		outerContainer.backgroundColor = .red // .enaColor(for: .cellBackground)
-//		outerContainer.translatesAutoresizingMaskIntoConstraints = false
-//		contentView.addSubview(outerContainer)
-
-//		gradientView.translatesAutoresizingMaskIntoConstraints = false
-//		contentView.addSubview(gradientView)
+		let bottomView = UIView()
+		bottomView.translatesAutoresizingMaskIntoConstraints = false
+		bottomView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+		bottomView.layer.cornerRadius = 12
+		bottomView.layer.borderWidth = 1
+		bottomView.layer.borderColor = UIColor.enaColor(for: .hairline).cgColor
+		if #available(iOS 13.0, *) {
+			bottomView.layer.cornerCurve = .continuous
+		}
+		topContainerView.addSubview(bottomView)
 
 		NSLayoutConstraint.activate(
 			[
-				topContainerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8.0),
+				topContainerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.0),
 				topContainerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16.0),
 				topContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.0),
 				topContainerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8.0),
@@ -100,8 +105,13 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 				gradientView.leadingAnchor.constraint(equalTo: topContainerView.leadingAnchor),
 				gradientView.topAnchor.constraint(equalTo: topContainerView.topAnchor),
 				gradientView.trailingAnchor.constraint(equalTo: topContainerView.trailingAnchor),
-				gradientView.bottomAnchor.constraint(equalTo: topContainerView.bottomAnchor, constant: -180), //update later
-				gradientView.heightAnchor.constraint(equalToConstant: 180.0)
+				gradientView.heightAnchor.constraint(equalToConstant: 180.0),
+
+				bottomView.leadingAnchor.constraint(equalTo: topContainerView.leadingAnchor),
+				bottomView.topAnchor.constraint(equalTo: gradientView.bottomAnchor, constant: -1.0),
+				bottomView.trailingAnchor.constraint(equalTo: topContainerView.trailingAnchor),
+				bottomView.bottomAnchor.constraint(equalTo: topContainerView.bottomAnchor),
+				bottomView.heightAnchor.constraint(equalToConstant: 90.0),
 			]
 		)
 
