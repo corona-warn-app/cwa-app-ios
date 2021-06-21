@@ -87,7 +87,6 @@ class GradientView: UIView {
 			Log.debug("Failed to create view with matching layer class", log: .default)
 			return
 		}
-		Log.debug("\(type) - try to load image", log: .default)
 		imageView.image = type.starImage
 
 		switch type {

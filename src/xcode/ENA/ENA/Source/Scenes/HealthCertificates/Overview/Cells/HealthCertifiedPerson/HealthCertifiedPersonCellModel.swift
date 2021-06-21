@@ -15,7 +15,7 @@ class HealthCertifiedPersonCellModel {
 		title = AppStrings.HealthCertificate.Overview.VaccinationCertificate.title
 		backgroundGradientType = healthCertifiedPerson.vaccinationState.gradientType
 		name = healthCertifiedPerson.name?.fullName
-
+		certificate = healthCertifiedPerson.healthCertificates.mostRelevant
 		switch healthCertifiedPerson.vaccinationState {
 		case .partiallyVaccinated:
 			description = AppStrings.HealthCertificate.Overview.VaccinationCertificate.partiallyVaccinated
@@ -40,6 +40,7 @@ class HealthCertifiedPersonCellModel {
 		title = AppStrings.HealthCertificate.Overview.TestCertificate.title
 		backgroundGradientType = .lightBlue(withStars: false)
 		name = testCertificate.name.fullName
+		certificate = testCertificate
 
 		if let sampleCollectionDate = testCertificate.testEntry?.sampleCollectionDate {
 			description = String(
@@ -59,6 +60,7 @@ class HealthCertifiedPersonCellModel {
 	let name: String?
 	let description: String?
 	let accessibilityIdentifier: String?
+	let certificate: HealthCertificate?
 	
 	var backgroundGradientType: GradientView.GradientType = .solidGrey
 }

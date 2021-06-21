@@ -44,6 +44,20 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		titleLabel.text = cellModel.title
 		nameLabel.text = cellModel.name
 		gradientView.type = cellModel.backgroundGradientType
+
+		// add a placeholder image and process the QRCode image in background to smooth scrolling a bit
+		qrCodeImageView.image = placeHolderImage
+		DispatchQueue.global(qos: .userInteractive).async {
+			let qrCodeImage = UIImage.qrCode(
+				with: cellModel.certificate?.base45 ?? "",
+				encoding: .utf8,
+				size: CGSize(width: 280, height: 280),
+				qrCodeErrorCorrectionLevel: .medium
+			)
+			DispatchQueue.main.async { [weak self] in
+				self?.qrCodeImageView.image = qrCodeImage
+			}
+		}
 //		accessibilityIdentifier = cellModel.accessibilityIdentifier
 	}
 	
@@ -52,7 +66,9 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	private let titleLabel: ENALabel = ENALabel()
 	private let descriptionLabel: ENALabel = ENALabel()
 	private let nameLabel: ENALabel = ENALabel()
-	private let gradientView: GradientView = GradientView(type: .lightBlue(withStars: false), frame: CGRect(x: 0, y: 0, width: 320, height: 180))
+	private let gradientView: GradientView = GradientView(type: .lightBlue(withStars: false))
+	private let qrCodeImageView: UIImageView = UIImageView()
+	private let placeHolderImage: UIImage? = UIImage.with(color: .enaColor(for: .background))
 
 //	private func setupAccessibility() {
 //		containerView.accessibilityElements = [titleLabel as Any, nameLabel as Any, descriptionLabel as Any]
@@ -63,7 +79,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	private func setupView() {
 		let topContainerView = UIView()
 		topContainerView.translatesAutoresizingMaskIntoConstraints = false
-		topContainerView.backgroundColor = .enaColor(for: .cellBackground)
+		topContainerView.backgroundColor = .enaColor(for: .background)
 		topContainerView.layer.masksToBounds = true
 		topContainerView.layer.cornerRadius = 12
 		if #available(iOS 13.0, *) {
@@ -82,6 +98,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		topContainerView.addSubview(gradientView)
 
 		let bottomView = UIView()
+		bottomView.backgroundColor = .enaColor(for: .background)
 		bottomView.translatesAutoresizingMaskIntoConstraints = false
 		bottomView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
 		bottomView.layer.cornerRadius = 12
@@ -92,15 +109,34 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		}
 		topContainerView.addSubview(bottomView)
 
+		titleLabel.textColor = .enaColor(for: .textContrast)
+		titleLabel.font = .enaFont(for: .body)
+		descriptionLabel.textColor = .enaColor(for: .textContrast)
+		descriptionLabel.font = .enaFont(for: .headline)
 		let stackView = UIStackView(arrangedSubviews: [titleLabel, descriptionLabel])
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		stackView.axis = .vertical
 		stackView.spacing = 4.0
 		gradientView.addSubview(stackView)
 
+		nameLabel.textColor = .enaColor(for: .textContrast)
 		nameLabel.font = .enaFont(for: .title2, weight: .regular, italic: false)
 		nameLabel.translatesAutoresizingMaskIntoConstraints = false
 		gradientView.addSubview(nameLabel)
+
+		let qrCodeContainerView = UIView()
+		qrCodeContainerView.translatesAutoresizingMaskIntoConstraints = false
+		qrCodeContainerView.backgroundColor = .enaColor(for: .background)
+		qrCodeContainerView.layer.cornerRadius = 12
+		qrCodeContainerView.layer.borderWidth = 1
+		qrCodeContainerView.layer.borderColor = UIColor.enaColor(for: .hairline).cgColor
+		if #available(iOS 13.0, *) {
+			qrCodeContainerView.layer.cornerCurve = .continuous
+		}
+		contentView.addSubview(qrCodeContainerView)
+
+		qrCodeImageView.translatesAutoresizingMaskIntoConstraints = false
+		qrCodeContainerView.addSubview(qrCodeImageView)
 
 		NSLayoutConstraint.activate(
 			[
@@ -112,22 +148,31 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 				gradientView.leadingAnchor.constraint(equalTo: topContainerView.leadingAnchor),
 				gradientView.topAnchor.constraint(equalTo: topContainerView.topAnchor),
 				gradientView.trailingAnchor.constraint(equalTo: topContainerView.trailingAnchor),
-				gradientView.heightAnchor.constraint(equalToConstant: 180.0),
+				gradientView.bottomAnchor.constraint(equalTo: qrCodeImageView.centerYAnchor),
 
 				bottomView.leadingAnchor.constraint(equalTo: topContainerView.leadingAnchor),
 				bottomView.topAnchor.constraint(equalTo: gradientView.bottomAnchor, constant: -1.0),
 				bottomView.trailingAnchor.constraint(equalTo: topContainerView.trailingAnchor),
 				bottomView.bottomAnchor.constraint(equalTo: topContainerView.bottomAnchor),
-				bottomView.heightAnchor.constraint(equalToConstant: 90.0),
 
 				stackView.leadingAnchor.constraint(equalTo: gradientView.leadingAnchor, constant: 15.0),
 				stackView.topAnchor.constraint(equalTo: gradientView.topAnchor, constant: 20.0),
 				stackView.trailingAnchor.constraint(equalTo: gradientView.trailingAnchor, constant: -15.0),
 
-				nameLabel.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 15.0),
+				nameLabel.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 17.0),
 				nameLabel.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
-				nameLabel.leadingAnchor.constraint(equalTo: stackView.leadingAnchor)
+				nameLabel.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
 
+				qrCodeContainerView.leadingAnchor.constraint(equalTo: topContainerView.leadingAnchor, constant: 16.0),
+				qrCodeContainerView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 20.0),
+				qrCodeContainerView.trailingAnchor.constraint(equalTo: topContainerView.trailingAnchor, constant: -16.0),
+				qrCodeContainerView.bottomAnchor.constraint(equalTo: bottomView.bottomAnchor, constant: -24.0),
+				qrCodeContainerView.widthAnchor.constraint(equalTo: qrCodeContainerView.heightAnchor),
+
+				qrCodeImageView.centerXAnchor.constraint(equalTo: qrCodeContainerView.centerXAnchor),
+				qrCodeImageView.centerYAnchor.constraint(equalTo: qrCodeContainerView.centerYAnchor),
+				qrCodeImageView.widthAnchor.constraint(equalTo: qrCodeContainerView.widthAnchor, constant: -32.0),
+				qrCodeImageView.heightAnchor.constraint(equalTo: qrCodeContainerView.heightAnchor, constant: -32.0)
 			]
 		)
 
