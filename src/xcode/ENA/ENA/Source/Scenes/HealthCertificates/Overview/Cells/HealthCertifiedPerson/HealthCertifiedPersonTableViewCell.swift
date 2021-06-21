@@ -29,11 +29,9 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	// MARK: - Internal
 
 	func configure(with cellModel: HealthCertifiedPersonCellModel) {
-		titleLabel.text = cellModel.title
-		certificateType.text = cellModel.description
+		titleLabel.attributedText = cellModel.attributedText
 		nameLabel.text = cellModel.name
 		gradientView.type = cellModel.backgroundGradientType
-
 		// add a placeholder image and process the QRCode image in background to smooth scrolling a bit
 		qrCodeImageView.image = placeHolderImage
 		DispatchQueue.global(qos: .userInteractive).async {
@@ -47,6 +45,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 				self?.qrCodeImageView.image = qrCodeImage
 			}
 		}
+		qrCodeImageView.accessibilityLabel = AppStrings.HealthCertificate.Overview.covidDescription
 		accessibilityIdentifier = cellModel.accessibilityIdentifier
 	}
 	
@@ -54,14 +53,15 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 
 	private let cardView: CardView = CardView()
 	private let titleLabel: ENALabel = ENALabel()
-	private let certificateType: ENALabel = ENALabel()
 	private let nameLabel: ENALabel = ENALabel()
 	private let gradientView: GradientView = GradientView(type: .lightBlue(withStars: false))
 	private let qrCodeImageView: UIImageView = UIImageView()
 	private let placeHolderImage: UIImage? = UIImage.with(color: .enaColor(for: .background))
 
 	private func setupAccessibility() {
-//		contentView.accessibilityElements = [titleLabel as Any, descriptionLabel as Any, nameLabel as Any]
+		cardView.accessibilityElements = [titleLabel as Any, nameLabel as Any, qrCodeImageView as Any]
+		cardView.accessibilityTraits = [.staticText, .button]
+		qrCodeImageView.isAccessibilityElement = true
 	}
 
 	private func setupView() {
@@ -93,20 +93,15 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		bottomView.translatesAutoresizingMaskIntoConstraints = false
 		topContainerView.addSubview(bottomView)
 
-		titleLabel.textColor = .enaColor(for: .textContrast)
-		titleLabel.font = .enaFont(for: .body)
-		certificateType.textColor = .enaColor(for: .textContrast)
-		certificateType.font = .enaFont(for: .headline)
-		let stackView = UIStackView(arrangedSubviews: [titleLabel, certificateType])
-		stackView.translatesAutoresizingMaskIntoConstraints = false
-		stackView.axis = .vertical
-		stackView.spacing = 4.0
-		gradientView.addSubview(stackView)
-
+		titleLabel.numberOfLines = 0
 		nameLabel.textColor = .enaColor(for: .textContrast)
 		nameLabel.font = .enaFont(for: .title2, weight: .regular, italic: false)
-		nameLabel.translatesAutoresizingMaskIntoConstraints = false
-		gradientView.addSubview(nameLabel)
+
+		let stackView = UIStackView(arrangedSubviews: [titleLabel, nameLabel])
+		stackView.translatesAutoresizingMaskIntoConstraints = false
+		stackView.axis = .vertical
+		stackView.spacing = 16.0
+		gradientView.addSubview(stackView)
 
 		let qrCodeContainerView = UIView()
 		qrCodeContainerView.translatesAutoresizingMaskIntoConstraints = false
@@ -148,12 +143,8 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 				stackView.topAnchor.constraint(equalTo: gradientView.topAnchor, constant: 20.0),
 				stackView.trailingAnchor.constraint(equalTo: gradientView.trailingAnchor, constant: -15.0),
 
-				nameLabel.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 17.0),
-				nameLabel.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
-				nameLabel.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
-
 				qrCodeContainerView.leadingAnchor.constraint(equalTo: topContainerView.leadingAnchor, constant: 16.0),
-				qrCodeContainerView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 20.0),
+				qrCodeContainerView.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 20.0),
 				qrCodeContainerView.trailingAnchor.constraint(equalTo: topContainerView.trailingAnchor, constant: -16.0),
 				qrCodeContainerView.bottomAnchor.constraint(equalTo: bottomView.bottomAnchor, constant: -24.0),
 				qrCodeContainerView.widthAnchor.constraint(equalTo: qrCodeContainerView.heightAnchor),
