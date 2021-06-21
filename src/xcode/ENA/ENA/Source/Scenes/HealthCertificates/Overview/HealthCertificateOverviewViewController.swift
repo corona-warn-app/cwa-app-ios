@@ -229,13 +229,13 @@ class HealthCertificateOverviewViewController: UITableViewController {
 			fatalError("Could not dequeue HomeHealthCertifiedPersonTableViewCell")
 		}
 
-		guard let healthCertifiedPerson = viewModel.healthCertifiedPersons[safe: indexPath.row] else {
+		guard let healthCertifiedPerson = viewModel.healthCertifiedPersons[safe: indexPath.row],
+			  let cellModel = HealthCertifiedPersonCellModel(
+				healthCertifiedPerson: healthCertifiedPerson
+			  ) else {
 			return UITableViewCell()
 		}
 
-		let cellModel = HealthCertifiedPersonCellModel(
-			healthCertifiedPerson: healthCertifiedPerson
-		)
 		cell.configure(with: cellModel)
 
 		return cell

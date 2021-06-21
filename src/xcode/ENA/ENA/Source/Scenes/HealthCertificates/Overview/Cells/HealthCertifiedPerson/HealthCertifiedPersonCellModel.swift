@@ -9,28 +9,18 @@ class HealthCertifiedPersonCellModel {
 
 	// MARK: - Init
 
-	init(
+	init?(
 		healthCertifiedPerson: HealthCertifiedPerson
 	) {
+		guard let mostRelevantCertificate = healthCertifiedPerson.healthCertificates.mostRelevant else {
+			Log.error("failed to get mostRelevant health certificate")
+			return nil
+		}
 		title = AppStrings.HealthCertificate.Overview.VaccinationCertificate.title
 		backgroundGradientType = healthCertifiedPerson.vaccinationState.gradientType
 		name = healthCertifiedPerson.name?.fullName
-		certificate = healthCertifiedPerson.healthCertificates.mostRelevant
-		switch healthCertifiedPerson.vaccinationState {
-		case .partiallyVaccinated:
-			description = AppStrings.HealthCertificate.Overview.VaccinationCertificate.partiallyVaccinated
-		case .fullyVaccinated(daysUntilCompleteProtection: let daysUntilCompleteProtection):
-			description = String(
-				format: AppStrings.HealthCertificate.Overview.VaccinationCertificate.daysUntilCompleteProtection,
-				daysUntilCompleteProtection
-			)
-		case .completelyProtected(let expirationDate):
-			description = String(
-				format: AppStrings.HealthCertificate.Overview.VaccinationCertificate.vaccinationValidUntil,
-				DateFormatter.localizedString(from: expirationDate, dateStyle: .medium, timeStyle: .none)
-			)
-		}
-
+		certificate = mostRelevantCertificate
+		description = AppStrings.HealthCertificate.Overview.covidCertificate
 		accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Overview.vaccinationCertificateCell
 	}
 
@@ -41,16 +31,7 @@ class HealthCertifiedPersonCellModel {
 		backgroundGradientType = .lightBlue(withStars: false)
 		name = testCertificate.name.fullName
 		certificate = testCertificate
-
-		if let sampleCollectionDate = testCertificate.testEntry?.sampleCollectionDate {
-			description = String(
-				format: AppStrings.HealthCertificate.Overview.TestCertificate.testDate,
-				DateFormatter.localizedString(from: sampleCollectionDate, dateStyle: .medium, timeStyle: .short)
-			)
-		} else {
-			description = nil
-		}
-
+		description = AppStrings.HealthCertificate.Overview.covidCertificate
 		accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Overview.testCertificateRequestCell
 	}
 
@@ -58,9 +39,8 @@ class HealthCertifiedPersonCellModel {
 
 	let title: String
 	let name: String?
-	let description: String?
-	let accessibilityIdentifier: String?
-	let certificate: HealthCertificate?
-	
-	var backgroundGradientType: GradientView.GradientType = .solidGrey
+	let description: String
+	let accessibilityIdentifier: String
+	let certificate: HealthCertificate
+	let backgroundGradientType: GradientView.GradientType
 }

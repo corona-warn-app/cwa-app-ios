@@ -38,7 +38,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		qrCodeImageView.image = placeHolderImage
 		DispatchQueue.global(qos: .userInteractive).async {
 			let qrCodeImage = UIImage.qrCode(
-				with: cellModel.certificate?.base45 ?? "",
+				with: cellModel.certificate.base45,
 				encoding: .utf8,
 				size: CGSize(width: 280, height: 280),
 				qrCodeErrorCorrectionLevel: .medium
