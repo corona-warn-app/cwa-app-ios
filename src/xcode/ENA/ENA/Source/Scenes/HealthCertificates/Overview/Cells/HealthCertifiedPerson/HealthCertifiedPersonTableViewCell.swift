@@ -12,6 +12,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		setupView()
+		setupAccessibility()
 	}
 
 	@available(*, unavailable)
@@ -19,29 +20,17 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		fatalError("init(coder:) has not been implemented")
 	}
 
-//	override func awakeFromNib() {
-//		super.awakeFromNib()
-//
-//		backgroundGradientView.type = .solidGrey
-//		backgroundGradientView.layer.cornerRadius = 14
-//
-//		if #available(iOS 13.0, *) {
-//			backgroundGradientView.layer.cornerCurve = .continuous
-//		}
-//		setupAccessibility()
-//	}
-//
-//	override func setHighlighted(_ highlighted: Bool, animated: Bool) {
-//		super.setHighlighted(highlighted, animated: animated)
-//
-//		containerView.setHighlighted(highlighted, animated: animated)
-//	}
+	override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+		super.setHighlighted(highlighted, animated: animated)
+
+		cardView.setHighlighted(highlighted, animated: animated)
+	}
 
 	// MARK: - Internal
 
 	func configure(with cellModel: HealthCertifiedPersonCellModel) {
-		descriptionLabel.text = cellModel.description
 		titleLabel.text = cellModel.title
+		certificateType.text = cellModel.description
 		nameLabel.text = cellModel.name
 		gradientView.type = cellModel.backgroundGradientType
 
@@ -58,25 +47,27 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 				self?.qrCodeImageView.image = qrCodeImage
 			}
 		}
-//		accessibilityIdentifier = cellModel.accessibilityIdentifier
+		accessibilityIdentifier = cellModel.accessibilityIdentifier
 	}
 	
 	// MARK: - Private
 
+	private let cardView: CardView = CardView()
 	private let titleLabel: ENALabel = ENALabel()
-	private let descriptionLabel: ENALabel = ENALabel()
+	private let certificateType: ENALabel = ENALabel()
 	private let nameLabel: ENALabel = ENALabel()
 	private let gradientView: GradientView = GradientView(type: .lightBlue(withStars: false))
 	private let qrCodeImageView: UIImageView = UIImageView()
 	private let placeHolderImage: UIImage? = UIImage.with(color: .enaColor(for: .background))
 
-//	private func setupAccessibility() {
-//		containerView.accessibilityElements = [titleLabel as Any, nameLabel as Any, descriptionLabel as Any]
-//
-//		titleLabel.accessibilityTraits = [.header, .button]
-//	}
+	private func setupAccessibility() {
+//		contentView.accessibilityElements = [titleLabel as Any, descriptionLabel as Any, nameLabel as Any]
+	}
 
 	private func setupView() {
+		cardView.translatesAutoresizingMaskIntoConstraints = false
+		contentView.addSubview(cardView)
+
 		let topContainerView = UIView()
 		topContainerView.translatesAutoresizingMaskIntoConstraints = false
 		topContainerView.backgroundColor = .enaColor(for: .background)
@@ -85,7 +76,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		if #available(iOS 13.0, *) {
 			topContainerView.layer.cornerCurve = .continuous
 		}
-		contentView.addSubview(topContainerView)
+		cardView.addSubview(topContainerView)
 
 		let gradientView = GradientView(type: .mediumBlue(withStars: true))
 		gradientView.translatesAutoresizingMaskIntoConstraints = false
@@ -100,20 +91,13 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		let bottomView = UIView()
 		bottomView.backgroundColor = .enaColor(for: .background)
 		bottomView.translatesAutoresizingMaskIntoConstraints = false
-		bottomView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-		bottomView.layer.cornerRadius = 12
-		bottomView.layer.borderWidth = 1
-		bottomView.layer.borderColor = UIColor.enaColor(for: .hairline).cgColor
-		if #available(iOS 13.0, *) {
-			bottomView.layer.cornerCurve = .continuous
-		}
 		topContainerView.addSubview(bottomView)
 
 		titleLabel.textColor = .enaColor(for: .textContrast)
 		titleLabel.font = .enaFont(for: .body)
-		descriptionLabel.textColor = .enaColor(for: .textContrast)
-		descriptionLabel.font = .enaFont(for: .headline)
-		let stackView = UIStackView(arrangedSubviews: [titleLabel, descriptionLabel])
+		certificateType.textColor = .enaColor(for: .textContrast)
+		certificateType.font = .enaFont(for: .headline)
+		let stackView = UIStackView(arrangedSubviews: [titleLabel, certificateType])
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		stackView.axis = .vertical
 		stackView.spacing = 4.0
@@ -133,17 +117,22 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		if #available(iOS 13.0, *) {
 			qrCodeContainerView.layer.cornerCurve = .continuous
 		}
-		contentView.addSubview(qrCodeContainerView)
+		cardView.addSubview(qrCodeContainerView)
 
 		qrCodeImageView.translatesAutoresizingMaskIntoConstraints = false
 		qrCodeContainerView.addSubview(qrCodeImageView)
 
 		NSLayoutConstraint.activate(
 			[
-				topContainerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.0),
-				topContainerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16.0),
-				topContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.0),
-				topContainerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8.0),
+				cardView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.0),
+				cardView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16.0),
+				cardView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.0),
+				cardView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8.0),
+
+				topContainerView.leadingAnchor.constraint(equalTo: cardView.leadingAnchor),
+				topContainerView.topAnchor.constraint(equalTo: cardView.topAnchor),
+				topContainerView.trailingAnchor.constraint(equalTo: cardView.trailingAnchor),
+				topContainerView.bottomAnchor.constraint(equalTo: cardView.bottomAnchor),
 
 				gradientView.leadingAnchor.constraint(equalTo: topContainerView.leadingAnchor),
 				gradientView.topAnchor.constraint(equalTo: topContainerView.topAnchor),

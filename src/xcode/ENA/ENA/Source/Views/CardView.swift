@@ -8,9 +8,40 @@ class CardView: UIView {
 
 	// MARK: - Overrides
 
-	override func awakeFromNib() {
-		super.awakeFromNib()
+	override init(frame: CGRect) {
+		super.init(frame: frame)
+		setup()
+	}
 
+	required init?(coder: NSCoder) {
+		super.init(coder: coder)
+		setup()
+	}
+
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+
+		setLayerColors()
+	}
+
+	// MARK: - Internal
+
+	@IBInspectable var hasBorder: Bool = true {
+		didSet {
+			setBorderWidth()
+		}
+	}
+
+	func setHighlighted(_ highlighted: Bool, animated: Bool) {
+		highlightView.backgroundColor = highlighted ? .enaColor(for: .listHighlight) : .clear
+	}
+
+	// MARK: - Private
+
+	private let cornerRadius: CGFloat = 14.0
+	private let highlightView = UIView()
+
+	private func setup() {
 		translatesAutoresizingMaskIntoConstraints = false
 		clipsToBounds = false
 		layer.cornerRadius = cornerRadius
@@ -42,30 +73,6 @@ class CardView: UIView {
 			highlightView.layer.cornerCurve = .continuous
 		}
 	}
-
-	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-		super.traitCollectionDidChange(previousTraitCollection)
-
-		setLayerColors()
-	}
-
-	// MARK: - Internal
-
-	@IBInspectable var hasBorder: Bool = true {
-		didSet {
-			setBorderWidth()
-		}
-	}
-
-	func setHighlighted(_ highlighted: Bool, animated: Bool) {
-		highlightView.backgroundColor = highlighted ? .enaColor(for: .listHighlight) : .clear
-	}
-
-	// MARK: - Private
-
-	private let cornerRadius: CGFloat = 14.0
-
-	private let highlightView = UIView()
 
 	private func setLayerColors() {
 		layer.shadowColor = UIColor.enaColor(for: .cardShadow).cgColor
