@@ -204,6 +204,7 @@ final class HealthCertificateViewModel {
 		}
 	}
 
+	/// these strings here are on purpose not localized
 	private func updateVaccinationCertificateKeyValueCellViewModels(vaccinationEntry: VaccinationEntry) {
 		let nameCellViewModel = HealthCertificateKeyValueCellViewModel(
 			key: "Name, Vorname / Name, First Name",
@@ -302,7 +303,6 @@ final class HealthCertificateViewModel {
 	}
 
 	/// these strings here are on purpose not localized
-	///
 	private func updateTestCertificateKeyValueCellViewModels(testEntry: TestEntry) {
 		let nameCellViewModel = HealthCertificateKeyValueCellViewModel(
 			key: "Name, Vorname / Name, First Name",
@@ -412,7 +412,6 @@ final class HealthCertificateViewModel {
 	}
 
 	/// these strings here are on purpose not localized
-	///
 	private func updateRecoveryCertificateKeyValueCellViewModels(recoveryEntry: RecoveryEntry) {
 		let nameCellViewModel = HealthCertificateKeyValueCellViewModel(
 			key: "Name, Vorname / Name, First Name",
