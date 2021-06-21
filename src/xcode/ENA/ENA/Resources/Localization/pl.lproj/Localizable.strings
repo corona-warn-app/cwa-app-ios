@@ -2451,16 +2451,10 @@
 
 "VaccinationCertificate_Registration_description" = "Dodaj swoje świadectwa szczepienia w aplikacji, aby mieć je zawsze przy sobie. W tym celu zeskanuj kod QR znajdujący się na dokumencie.";
 
-/* - Vaccination Certificate */
-"VaccinationCertificate_title" = "Cyfrowy **dowód\nszczepienia**";
-
 /* - Test Certificate Info */
 "TestCertificate_Info_title" = "Cyfrowy\n**certyfikat testu na COVID**";
 
 "TestCertificate_Info_description" = "Zarejestruj test na ekranie głównym i wyraź zgodę na otrzymanie cyfrowego certyfikatu testu. Gdy tylko certyfikat będzie dostępny, pojawi się w tym miejscu.";
-
-/* - Test Certificate */
-"TestCertificate_title" = "Cyfrowy\n**certyfikat testu na COVID**";
 
 /* - Test Certificate Request */
 "TestCertificateRequest_title" = "Cyfrowy\n**certyfikat testu na COVID**";

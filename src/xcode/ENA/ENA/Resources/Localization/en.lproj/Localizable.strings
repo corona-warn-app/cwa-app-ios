@@ -2451,16 +2451,10 @@
 
 "VaccinationCertificate_Registration_description" = "Add your vaccination certificates in the app so you always have them with you. To do so, scan the QR code on your document.";
 
-/* - Vaccination Certificate */
-"VaccinationCertificate_title" = "Digital **Proof\nof Vaccination**";
-
 /* - Test Certificate Info */
 "TestCertificate_Info_title" = "Digital\n**COVID Test Certificate**";
 
 "TestCertificate_Info_description" = "Register a test on the home screen and agree to receive a digital test certificate. As soon as the certificate is available, it is displayed here.";
-
-/* - Test Certificate */
-"TestCertificate_title" = "Digital\n**COVID Test Certificate**";
 
 /* - Test Certificate Request */
 "TestCertificateRequest_title" = "Digital\n**COVID Test Certificate**";

@@ -2451,16 +2451,10 @@
 
 "VaccinationCertificate_Registration_description" = "Добавете ваксинационните си сертификати в приложението, за да са винаги с вас. За целта сканирайте QR кода от вашия документ.";
 
-/* - Vaccination Certificate */
-"VaccinationCertificate_title" = "Електронно **Доказателство за ваксиниране**";
-
 /* - Test Certificate Info */
 "TestCertificate_Info_title" = "Цифров\n**Сертификат за тестване за COVID**";
 
 "TestCertificate_Info_description" = "Регистрирайте тест от началния екран и дайте съгласие да получите цифров сертификат за тестване. Той ще се покаже тук веднага щом стане наличен.";
-
-/* - Test Certificate */
-"TestCertificate_title" = "Цифров\n**Сертификат за тестване за COVID**";
 
 /* - Test Certificate Request */
 "TestCertificateRequest_title" = "Цифров\n**Сертификат за тестване за COVID**";

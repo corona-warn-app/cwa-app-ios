@@ -2451,16 +2451,10 @@
 
 "VaccinationCertificate_Registration_description" = "Her zaman erişebilmek için uygulamaya aşı sertifikalarınızı ekleyin. Bunun için, belgenizdeki QR kodu tarayın.";
 
-/* - Vaccination Certificate */
-"VaccinationCertificate_title" = "Dijital **Aşı\nKanıtı**";
-
 /* - Test Certificate Info */
 "TestCertificate_Info_title" = "Dijital\n**COVID Test Sertifikası**";
 
 "TestCertificate_Info_description" = "Ana ekranda bir testi kaydedin ve dijital test sertifikası almayı kabul edin. Sertifika düzenlenir düzenlenmez burada görüntülenir.";
-
-/* - Test Certificate */
-"TestCertificate_title" = "Dijital\n**COVID Test Sertifikası**";
 
 /* - Test Certificate Request */
 "TestCertificateRequest_title" = "Dijital\n**COVID Test Sertifikası**";
