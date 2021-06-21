@@ -122,4 +122,3 @@ enum LaunchArguments {
 		static let recoveryCertificateRegistered = LaunchArgument(name: "recoveryCertificateRegistered")
 	}
 }
-
