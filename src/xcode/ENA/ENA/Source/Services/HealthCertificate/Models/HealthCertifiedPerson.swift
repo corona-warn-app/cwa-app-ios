@@ -17,11 +17,7 @@ class HealthCertifiedPerson: Codable, Equatable {
 		self.healthCertificates = healthCertificates
 		self.isPreferredPerson = isPreferredPerson
 
-		// TODO: Update when appropriate
-		self.mostRelevantHealthCertificate = healthCertificates.mostRelevant
-
-		updateVaccinationState()
-		subscribeToNotifications()
+		setup()
 	}
 
 	// MARK: - Protocol Codable
@@ -37,10 +33,7 @@ class HealthCertifiedPerson: Codable, Equatable {
 		healthCertificates = try container.decode([HealthCertificate].self, forKey: .healthCertificates)
 		isPreferredPerson = try container.decodeIfPresent(Bool.self, forKey: .isPreferredPerson) ?? false
 
-		self.mostRelevantHealthCertificate = healthCertificates.mostRelevant
-
-		updateVaccinationState()
-		subscribeToNotifications()
+		setup()
 	}
 
 	func encode(to encoder: Encoder) throws {
@@ -69,7 +62,7 @@ class HealthCertifiedPerson: Codable, Equatable {
 		didSet {
 			if healthCertificates != oldValue {
 				updateVaccinationState()
-				mostRelevantHealthCertificate = healthCertificates.mostRelevant
+				updateMostRelevantHealthCertificate()
 
 				objectDidChange.send(self)
 			}
@@ -121,6 +114,7 @@ class HealthCertifiedPerson: Codable, Equatable {
 	// MARK: - Private
 
 	private var subscriptions = Set<AnyCancellable>()
+	private var mostRelevantCertificateTimer: Timer?
 
 	private var completeVaccinationProtectionDate: Date? {
 		guard
@@ -140,6 +134,14 @@ class HealthCertifiedPerson: Codable, Equatable {
 		}
 
 		return lastVaccination.expirationDate
+	}
+
+	private func setup() {
+		updateVaccinationState()
+		updateMostRelevantHealthCertificate()
+
+		subscribeToNotifications()
+		scheduleMostRelevantCertificateTimer()
 	}
 
 	private func updateVaccinationState() {
@@ -174,8 +176,44 @@ class HealthCertifiedPerson: Codable, Equatable {
 			.publisher(for: UIApplication.significantTimeChangeNotification)
 			.sink { [weak self] _ in
 				self?.updateVaccinationState()
+				self?.scheduleMostRelevantCertificateTimer()
 			}
 			.store(in: &subscriptions)
+	}
+
+	private func scheduleMostRelevantCertificateTimer() {
+		mostRelevantCertificateTimer?.invalidate()
+		NotificationCenter.default.removeObserver(self, name: UIApplication.didEnterBackgroundNotification, object: nil)
+		NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
+
+		guard let nextMostRelevantCertificateChangeDate = healthCertificates.nextMostRelevantChangeDate else {
+			return
+		}
+
+		// Schedule new timer.
+		NotificationCenter.default.addObserver(self, selector: #selector(invalidateTimer), name: UIApplication.didEnterBackgroundNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(refreshUpdateTimerAfterResumingFromBackground), name: UIApplication.didBecomeActiveNotification, object: nil)
+
+		mostRelevantCertificateTimer = Timer(fireAt: nextMostRelevantCertificateChangeDate, interval: 0, target: self, selector: #selector(updateMostRelevantHealthCertificate), userInfo: nil, repeats: false)
+
+		guard let mostRelevantCertificateTimer = mostRelevantCertificateTimer else { return }
+		RunLoop.current.add(mostRelevantCertificateTimer, forMode: .common)
+	}
+
+	@objc
+	private func invalidateTimer() {
+		mostRelevantCertificateTimer?.invalidate()
+	}
+
+	@objc
+	private func refreshUpdateTimerAfterResumingFromBackground() {
+		updateMostRelevantHealthCertificate()
+		scheduleMostRelevantCertificateTimer()
+	}
+
+	@objc
+	private func updateMostRelevantHealthCertificate() {
+		mostRelevantHealthCertificate = healthCertificates.mostRelevant
 	}
 
 }
