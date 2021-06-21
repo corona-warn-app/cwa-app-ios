@@ -83,7 +83,7 @@ class HealthCertifiedPerson: Codable, Equatable {
 		}
 	}
 
-	var vaccinationState: VaccinationState = .partiallyVaccinated {
+	var vaccinationState: VaccinationState = .notVaccinated {
 		didSet {
 			if vaccinationState != oldValue {
 				objectDidChange.send(self)
@@ -154,8 +154,10 @@ class HealthCertifiedPerson: Codable, Equatable {
 			} else {
 				vaccinationState = .completelyProtected(expirationDate: vaccinationExpirationDate)
 			}
-		} else {
+		} else if !vaccinationCertificates.isEmpty {
 			vaccinationState = .partiallyVaccinated
+		} else {
+			vaccinationState = .notVaccinated
 		}
 	}
 
