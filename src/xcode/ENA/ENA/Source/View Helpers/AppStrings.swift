@@ -1998,6 +1998,7 @@ enum AppStrings {
 
 		enum Person {
 			static let title = NSLocalizedString("HealthCertifiedPerson_title", comment: "")
+			static let partiallyVaccinated = NSLocalizedString("HealthCertifiedPerson_partiallyVaccinated", comment: "")
 			static let daysUntilCompleteProtection = NSLocalizedString("HealthCertifiedPerson_daysUntilCompleteProtection", comment: "")
 			static let dateOfBirth = NSLocalizedString("HealthCertifiedPerson_dateOfBirth", comment: "")
 			static let QRCodeImageDescription = NSLocalizedString("HealthCertifiedPerson_QRCode_Image_Description", comment: "")
