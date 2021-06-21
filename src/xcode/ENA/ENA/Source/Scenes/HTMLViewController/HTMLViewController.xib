@@ -12,10 +12,12 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HTMLViewController" customModule="ENA" customModuleProvider="target">
             <connections>
+                <outlet property="containerView" destination="LBE-CT-zfY" id="3q4-3F-HXe"/>
                 <outlet property="htmlTitleLabel" destination="Oiy-t1-IjW" id="P17-aH-u5Q"/>
                 <outlet property="htmlView" destination="0PT-JF-kGv" id="QmS-WP-5Fb"/>
                 <outlet property="imageView" destination="gaC-oR-IRe" id="9gZ-sG-Psb"/>
                 <outlet property="view" destination="iN0-l3-epB" id="BzF-9q-qfq"/>
+                <outlet property="webViewHeight" destination="eO3-YO-0rj" id="OHI-Lz-SPZ"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -27,46 +29,49 @@
                     <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LBE-CT-zfY" userLabel="ContentView">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="814.5"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="774.5"/>
                             <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="1mA-UP-9X5">
-                                    <rect key="frame" x="20" y="0.0" width="374" height="814.5"/>
-                                    <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gaC-oR-IRe">
-                                            <rect key="frame" x="0.0" y="0.0" width="374" height="230"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="230" id="7J5-bx-WGz"/>
-                                            </constraints>
-                                        </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oiy-t1-IjW" userLabel="htmlTitleLabel" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="262" width="374" height="20.5"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="title2"/>
-                                            </userDefinedRuntimeAttributes>
-                                        </label>
-                                        <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0PT-JF-kGv">
-                                            <rect key="frame" x="0.0" y="314.5" width="374" height="500"/>
-                                            <color key="backgroundColor" name="ENA Background Color"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="500" id="eO3-YO-0rj"/>
-                                            </constraints>
-                                            <wkWebViewConfiguration key="configuration">
-                                                <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
-                                                <wkPreferences key="preferences"/>
-                                            </wkWebViewConfiguration>
-                                        </wkWebView>
-                                    </subviews>
-                                </stackView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oiy-t1-IjW" userLabel="htmlTitleLabel" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                    <rect key="frame" x="20" y="246" width="374" height="20.5"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="title2"/>
+                                    </userDefinedRuntimeAttributes>
+                                </label>
+                                <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0PT-JF-kGv" customClass="HTMLView" customModule="ENA" customModuleProvider="target">
+                                    <rect key="frame" x="20" y="274.5" width="374" height="500"/>
+                                    <color key="backgroundColor" name="ENA Background Color"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="500" id="eO3-YO-0rj"/>
+                                    </constraints>
+                                    <wkWebViewConfiguration key="configuration">
+                                        <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                        <wkPreferences key="preferences" minimumFontSize="6"/>
+                                    </wkWebViewConfiguration>
+                                </wkWebView>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gaC-oR-IRe">
+                                    <rect key="frame" x="20" y="8" width="374" height="230"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="230" id="7J5-bx-WGz"/>
+                                    </constraints>
+                                </imageView>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
-                                <constraint firstAttribute="bottom" secondItem="1mA-UP-9X5" secondAttribute="bottom" id="4pd-O4-Uva"/>
-                                <constraint firstItem="1mA-UP-9X5" firstAttribute="top" secondItem="LBE-CT-zfY" secondAttribute="top" id="KWv-0n-ZBG"/>
-                                <constraint firstAttribute="trailing" secondItem="1mA-UP-9X5" secondAttribute="trailing" constant="20" id="oId-yQ-5dG"/>
-                                <constraint firstItem="1mA-UP-9X5" firstAttribute="leading" secondItem="LBE-CT-zfY" secondAttribute="leading" constant="20" id="u29-C4-sBH"/>
+                                <constraint firstAttribute="trailing" secondItem="gaC-oR-IRe" secondAttribute="trailing" constant="20" symbolic="YES" id="9gW-Ri-AgA"/>
+                                <constraint firstAttribute="trailing" secondItem="Oiy-t1-IjW" secondAttribute="trailing" constant="20" symbolic="YES" id="BeU-pO-Cf9"/>
+                                <constraint firstItem="Oiy-t1-IjW" firstAttribute="top" secondItem="gaC-oR-IRe" secondAttribute="bottom" constant="8" symbolic="YES" id="JGb-Mh-A2V"/>
+                                <constraint firstItem="gaC-oR-IRe" firstAttribute="leading" secondItem="LBE-CT-zfY" secondAttribute="leading" constant="20" symbolic="YES" id="Krk-qR-DZU"/>
+                                <constraint firstItem="gaC-oR-IRe" firstAttribute="top" secondItem="LBE-CT-zfY" secondAttribute="top" constant="8" id="X6j-7Q-Gwf"/>
+                                <constraint firstAttribute="trailing" secondItem="0PT-JF-kGv" secondAttribute="trailing" constant="20" symbolic="YES" id="Xc0-Ee-LJc"/>
+                                <constraint firstItem="0PT-JF-kGv" firstAttribute="top" secondItem="Oiy-t1-IjW" secondAttribute="bottom" constant="8" id="YRe-ck-IjS"/>
+                                <constraint firstItem="0PT-JF-kGv" firstAttribute="leading" secondItem="LBE-CT-zfY" secondAttribute="leading" constant="20" symbolic="YES" id="eQ1-3n-6II"/>
+                                <constraint firstAttribute="bottom" secondItem="0PT-JF-kGv" secondAttribute="bottom" id="ks2-RG-l7I"/>
+                                <constraint firstItem="0PT-JF-kGv" firstAttribute="top" secondItem="Oiy-t1-IjW" secondAttribute="bottom" constant="8" symbolic="YES" id="rGr-Uv-77Q"/>
+                                <constraint firstItem="Oiy-t1-IjW" firstAttribute="top" secondItem="gaC-oR-IRe" secondAttribute="bottom" constant="8" id="tac-ZV-7oK"/>
+                                <constraint firstItem="Oiy-t1-IjW" firstAttribute="leading" secondItem="LBE-CT-zfY" secondAttribute="leading" constant="20" symbolic="YES" id="wtD-pg-EvW"/>
                             </constraints>
                         </view>
                     </subviews>
