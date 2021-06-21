@@ -17,6 +17,10 @@ class HomeHealthCertifiedPersonCellModel {
 		name = healthCertifiedPerson.name?.fullName
 
 		switch healthCertifiedPerson.vaccinationState {
+		case .notVaccinated:
+			backgroundImage = UIImage(named: "VaccinationCertificate_PartiallyVaccinated_Background")
+			iconImage = UIImage(named: "VaccinationCertificate_PartiallyVaccinated_Icon")
+			description = AppStrings.HealthCertificate.Overview.VaccinationCertificate.partiallyVaccinated
 		case .partiallyVaccinated:
 			backgroundImage = UIImage(named: "VaccinationCertificate_PartiallyVaccinated_Background")
 			iconImage = UIImage(named: "VaccinationCertificate_PartiallyVaccinated_Icon")

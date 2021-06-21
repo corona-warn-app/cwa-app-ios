@@ -59,6 +59,7 @@ class HealthCertifiedPerson: Codable, Equatable {
 	// MARK: - Internal
 
 	enum VaccinationState: Equatable {
+		case notVaccinated
 		case partiallyVaccinated
 		case fullyVaccinated(daysUntilCompleteProtection: Int)
 		case completelyProtected(expirationDate: Date)
