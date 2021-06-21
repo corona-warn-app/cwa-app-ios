@@ -378,16 +378,12 @@ class HealthCertificateTests: XCTestCase {
 		
 		// GIVEN
 			
-		let testEntry1 = TestEntry.fake(
-			testCenter: "Frankfurt Ginnheim Stadtplatz"
-		)
-		
-		let testEntry2 = TestEntry.fake(
+		let testEntry = TestEntry.fake(
 			testCenter: "Karben Bürgerzentrum"
 		)
 		
 		let dgcCertificate = DigitalGreenCertificate.fake(
-			testEntries: [testEntry2, testEntry1]
+			testEntries: [testEntry]
 		)
 		
 		let result = DigitalGreenCertificateFake.makeBase45Fake(
@@ -432,11 +428,11 @@ class HealthCertificateTests: XCTestCase {
 		// WHEN
 		
 		let healthCertificate = try HealthCertificate(base45: base45)
-		let type = healthCertificate.type
+		let entry = healthCertificate.entry
 		
 		// THEN
 		
-		guard case let .vaccination(vaccinationEntry) = type else {
+		guard case let .vaccination(vaccinationEntry) = entry else {
 			XCTFail("This should only contain a vaccinationEntry, nothing else")
 			return
 		}
@@ -467,11 +463,11 @@ class HealthCertificateTests: XCTestCase {
 		// WHEN
 		
 		let healthCertificate = try HealthCertificate(base45: base45)
-		let type = healthCertificate.type
+		let entry = healthCertificate.entry
 		
 		// THEN
 		
-		guard case let .test(testEntry) = type else {
+		guard case let .test(testEntry) = entry else {
 			XCTFail("This should only contain a testEntry, nothing else")
 			return
 		}
@@ -599,14 +595,16 @@ class HealthCertificateTests: XCTestCase {
 		let secondWrongCertificate = try HealthCertificate(base45: secondWrongCertificateBase45)
 		let thirdWrongCertificate = try HealthCertificate(base45: thirdWrongCertificateBase45)
 		let fourthWrongCertificate = try HealthCertificate(base45: fourthWrongCertificateBase45)
-		let fifthWrongCertificate = try HealthCertificate(base45: fifthWrongCertificateBase45)
 
 		// WHEN / THEN
 		XCTAssertTrue(firstWrongCertificate.hasTooManyEntries)
 		XCTAssertTrue(secondWrongCertificate.hasTooManyEntries)
 		XCTAssertTrue(thirdWrongCertificate.hasTooManyEntries)
 		XCTAssertTrue(fourthWrongCertificate.hasTooManyEntries)
-		XCTAssertTrue(fifthWrongCertificate.hasTooManyEntries)
+
+		// In case of more than 1 entry for vaccinationEntries the initializer of HealthCertificate will fail due to a json schema validation error.
+		let fifthWrongCertificate = try? HealthCertificate(base45: fifthWrongCertificateBase45)
+		XCTAssertNil(fifthWrongCertificate)
 	}
 
 }

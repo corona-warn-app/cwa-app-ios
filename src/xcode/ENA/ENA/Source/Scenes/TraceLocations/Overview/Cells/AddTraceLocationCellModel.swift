@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-class AddTraceLocationCellModel: AddEventCellModel {
+class AddTraceLocationCellModel: AddButtonAsTableViewCelling {
 
 	// MARK: - Internal
 

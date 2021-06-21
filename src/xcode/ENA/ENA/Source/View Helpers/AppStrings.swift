@@ -1913,12 +1913,10 @@ enum AppStrings {
 	enum HealthCertificate {
 		enum Overview {
 			static let title = NSLocalizedString("HealthCertificate_Overview_title", comment: "")
-			static let description = NSLocalizedString("HealthCertificate_Overview_description", comment: "")
-
-			enum VaccinationCertificateRegistration {
-				static let title = NSLocalizedString("VaccinationCertificate_Registration_title", comment: "")
-				static let description = NSLocalizedString("VaccinationCertificate_Registration_description", comment: "")
-			}
+			static let addCertificate = NSLocalizedString("HealthCertificate_Overview_add", comment: "")
+			static let emptyTitle = NSLocalizedString("HealthCertificate_Overview_EmptyTitle", comment: "")
+			static let emptyDescription = NSLocalizedString("HealthCertificate_Overview_EmptyDescription", comment: "")
+			static let emptyImageDescription = NSLocalizedString("HealthCertificate_Overview_EmptyImageDescription", comment: "")
 
 			enum VaccinationCertificate {
 				static let title = NSLocalizedString("VaccinationCertificate_title", comment: "")

@@ -193,7 +193,7 @@ final class HealthCertificateViewModel {
 	private var subscriptions = Set<AnyCancellable>()
 
 	private func updateHealthCertificateKeyValueCellViewModels() {
-		switch healthCertificate.type {
+		switch healthCertificate.entry {
 		case .vaccination(let vaccinationEntry):
 			updateVaccinationCertificateKeyValueCellViewModels(vaccinationEntry: vaccinationEntry)
 		case .test(let testEntry):
@@ -209,15 +209,12 @@ final class HealthCertificateViewModel {
 			value: healthCertificate.name.fullName,
 			topSpace: 0.0
 		)
-		
-		var dateOfBirthCellViewModel: HealthCertificateKeyValueCellViewModel?
-		if let dateOfBirthDate = healthCertificate.dateOfBirthDate {
-			dateOfBirthCellViewModel = HealthCertificateKeyValueCellViewModel(
-				key: "Geburtsdatum / Date of Birth (YYYY-MM-DD)",
-				value: ISO8601DateFormatter.justLocalDateFormatter.string(from: dateOfBirthDate)
-			)
-		}
-		
+
+		let dateOfBirthCellViewModel = HealthCertificateKeyValueCellViewModel(
+			key: "Geburtsdatum / Date of Birth (YYYY-MM-DD)",
+			value: DCCDateStringFormatter.formatedString(from: healthCertificate.dateOfBirth)
+		)
+
 		let diseaseCellViewModel = HealthCertificateKeyValueCellViewModel(
 			key: "Zielkrankheit oder -erreger / Disease or Agent Targeted",
 			value: determineValue(
@@ -257,14 +254,11 @@ final class HealthCertificateViewModel {
 			 vaccinationEntry.doseNumber, vaccinationEntry.totalSeriesOfDoses
 		 )
 		)
-		
-		var dateCellViewModel: HealthCertificateKeyValueCellViewModel?
-		if	let localVaccinationDate = vaccinationEntry.localVaccinationDate {
-			dateCellViewModel = HealthCertificateKeyValueCellViewModel(
-				key: "Datum der Impfung / Date of Vaccination (YYYY-MM-DD)",
-				value: ISO8601DateFormatter.justLocalDateFormatter.string(from: localVaccinationDate)
-			)
-		}
+
+		let dateCellViewModel = HealthCertificateKeyValueCellViewModel(
+			key: "Datum der Impfung / Date of Vaccination (YYYY-MM-DD)",
+			value: DCCDateStringFormatter.formatedString(from: vaccinationEntry.dateOfVaccination)
+		)
 
 		let localizedCountryName = Country(countryCode: vaccinationEntry.countryOfVaccination)?.localizedName
 		let countryCellViewModel = HealthCertificateKeyValueCellViewModel(
@@ -309,13 +303,10 @@ final class HealthCertificateViewModel {
 			topSpace: 2.0
 		)
 
-		var dateOfBirthCellViewModel: HealthCertificateKeyValueCellViewModel?
-		if let dateOfBirthDate = healthCertificate.dateOfBirthDate {
-			dateOfBirthCellViewModel = HealthCertificateKeyValueCellViewModel(
-				key: "Geburtsdatum / Date of Birth (YYYY-MM-DD)",
-				value: ISO8601DateFormatter.justLocalDateFormatter.string(from: dateOfBirthDate)
-			)
-		}
+		let dateOfBirthCellViewModel = HealthCertificateKeyValueCellViewModel(
+			key: "Geburtsdatum / Date of Birth (YYYY-MM-DD)",
+			value: DCCDateStringFormatter.formatedString(from: healthCertificate.dateOfBirth)
+		)
 
 		let diseaseOrAgentTargetedCellViewModel = HealthCertificateKeyValueCellViewModel(
 			key: "Zielkrankheit oder. -erreger / Disease or Agent Targeted",
