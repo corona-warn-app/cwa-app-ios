@@ -1121,15 +1121,23 @@ enum AppStrings {
 		
 		static let aboutAppInformation = NSLocalizedString("NewVersionFeatures_Info_about_abb_information", comment: "")
 		
-		/* Version 2.4 */
+		/* Version 2.5 */
 		
-		static let feature24digitalCovidCertTitle = NSLocalizedString("NewVersionFeature_24_digital_covid_cert_title", comment: "")
+		static let feature25RecoveryCertTitle = NSLocalizedString("NewVersionFeature_25_recovery_cert_title", comment: "")
 		
-		static let feature24digitalCovidCertDescription = NSLocalizedString("NewVersionFeature_24_digital_covid_cert_description", comment: "")
+		static let feature25tRecoveryCertDescription = NSLocalizedString("NewVersionFeature_25_recovery_cert_description", comment: "")
 		
-		static let feature24ExtendedDiaryTitle = NSLocalizedString("NewVersionFeature_24_extended_diary_title", comment: "")
+		static let feature25FamilyCertTitle = NSLocalizedString("NewVersionFeature_25_family_certificate_title", comment: "")
 		
-		static let feature24ExtendedDiaryDescription = NSLocalizedString("NewVersionFeature_24_extended_diary_title_description", comment: "")
+		static let feature25FamilyCertDescription = NSLocalizedString("NewVersionFeature_25_family_certificate_description", comment: "")
+		
+		static let feature25EnhancedStatisticsTitle = NSLocalizedString("NewVersionFeature_25_enhanced_statistics_title", comment: "")
+		
+		static let feature25EnhancedStatisticsDescription = NSLocalizedString("NewVersionFeature_25_enhanced_statistics_description", comment: "")
+		
+		static let feature25EditTestProfileTitle = NSLocalizedString("NewVersionFeature_25_edit_test_profile_title", comment: "")
+		
+		static let feature25tEditTestProfileDescription = NSLocalizedString("NewVersionFeature_25_edit_test_profile_description", comment: "")
 
 	}
 	
@@ -1905,12 +1913,10 @@ enum AppStrings {
 	enum HealthCertificate {
 		enum Overview {
 			static let title = NSLocalizedString("HealthCertificate_Overview_title", comment: "")
-			static let description = NSLocalizedString("HealthCertificate_Overview_description", comment: "")
-
-			enum VaccinationCertificateRegistration {
-				static let title = NSLocalizedString("VaccinationCertificate_Registration_title", comment: "")
-				static let description = NSLocalizedString("VaccinationCertificate_Registration_description", comment: "")
-			}
+			static let addCertificate = NSLocalizedString("HealthCertificate_Overview_add", comment: "")
+			static let emptyTitle = NSLocalizedString("HealthCertificate_Overview_EmptyTitle", comment: "")
+			static let emptyDescription = NSLocalizedString("HealthCertificate_Overview_EmptyDescription", comment: "")
+			static let emptyImageDescription = NSLocalizedString("HealthCertificate_Overview_EmptyImageDescription", comment: "")
 
 			enum VaccinationCertificate {
 				static let title = NSLocalizedString("VaccinationCertificate_title", comment: "")

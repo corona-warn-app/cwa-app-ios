@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-protocol AddEventCellModel {
+protocol AddButtonAsTableViewCelling {
 
 	var text: String { get }
 

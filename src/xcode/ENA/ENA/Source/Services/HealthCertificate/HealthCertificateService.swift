@@ -47,6 +47,20 @@ class HealthCertificateService {
 					registerHealthCertificate(base45: base45)
 				}
 			}
+			
+			if LaunchArguments.healthCertificate.recoveryCertificateRegistered.boolValue {
+				let result = DigitalGreenCertificateFake.makeBase45Fake(
+					from: DigitalGreenCertificate.fake(
+						recoveryEntries: [
+						 RecoveryEntry.fake()
+					 ]
+				 ),
+					and: CBORWebTokenHeader.fake()
+				)
+				if case let .success(base45) = result {
+					registerHealthCertificate(base45: base45)
+				}
+			}
 
 			return
 		}
