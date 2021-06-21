@@ -200,7 +200,6 @@ class HealthCertificateOverviewViewController: UITableViewController {
 			healthCertifiedPerson: healthCertifiedPerson
 		)
 		cell.configure(with: cellModel)
-
 		return cell
 	}
 

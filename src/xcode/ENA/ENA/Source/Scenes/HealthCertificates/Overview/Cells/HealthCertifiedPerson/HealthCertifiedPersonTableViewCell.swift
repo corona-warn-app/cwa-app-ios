@@ -40,14 +40,14 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	// MARK: - Internal
 
 	func configure(with cellModel: HealthCertifiedPersonCellModel) {
-		descriptionLabel.text = cellModel.description
-		descriptionLabel.isHidden = cellModel.description == nil
-
-		titleLabel.text = cellModel.title
-		nameLabel.text = cellModel.name
-		gradientView.type = cellModel.backgroundGradientType
-
-		accessibilityIdentifier = cellModel.accessibilityIdentifier
+//		descriptionLabel.text = cellModel.description
+//		descriptionLabel.isHidden = cellModel.description == nil
+//
+//		titleLabel.text = cellModel.title
+//		nameLabel.text = cellModel.name
+//		gradientView.type = cellModel.backgroundGradientType
+//
+//		accessibilityIdentifier = cellModel.accessibilityIdentifier
 	}
 	
 	// MARK: - Private
@@ -55,7 +55,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	private let titleLabel: ENALabel = ENALabel()
 	private let descriptionLabel: ENALabel = ENALabel()
 	private let nameLabel: ENALabel = ENALabel()
-	private let gradientView: GradientView = GradientView(type: .lightBlue(withStars: true))
+	private let gradientView: GradientView = GradientView(type: .lightBlue(withStars: false), frame: CGRect(x: 0, y: 0, width: 320, height: 180))
 
 //	private func setupAccessibility() {
 //		containerView.accessibilityElements = [titleLabel as Any, nameLabel as Any, descriptionLabel as Any]
@@ -64,28 +64,44 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 //	}
 
 	private func setupView() {
-		let outerContainer = UIView()
-		outerContainer.backgroundColor = .enaColor(for: .cellBackground)
-		outerContainer.translatesAutoresizingMaskIntoConstraints = false
-		outerContainer.layer.borderWidth = 1.0
-		outerContainer.layer.borderColor = UIColor.enaColor(for: .hairline).cgColor
-		outerContainer.layer.cornerRadius = 14
-		contentView.addSubview(outerContainer)
+		let topContainerView = UIView()
+		topContainerView.translatesAutoresizingMaskIntoConstraints = false
+		topContainerView.backgroundColor = .enaColor(for: .cellBackground) //.red
+//		topContainerView.layer.borderWidth = 1.0
+//		topContainerView.layer.borderColor = UIColor.enaColor(for: .hairline).cgColor
+//		topContainerView.layer.cornerRadius = 14
+		contentView.addSubview(topContainerView)
 
+		let gradientView = GradientView(type: .mediumBlue(withStars: true))
 		gradientView.translatesAutoresizingMaskIntoConstraints = false
-		outerContainer.addSubview(gradientView)
+		gradientView.layer.masksToBounds = true
+		gradientView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+		gradientView.layer.cornerRadius = 12
+		if #available(iOS 13.0, *) {
+			gradientView.layer.cornerCurve = .continuous
+		}
+		topContainerView.addSubview(gradientView)
+
+//		let outerContainer = UIView()
+//		outerContainer.backgroundColor = .red // .enaColor(for: .cellBackground)
+//		outerContainer.translatesAutoresizingMaskIntoConstraints = false
+//		contentView.addSubview(outerContainer)
+
+//		gradientView.translatesAutoresizingMaskIntoConstraints = false
+//		contentView.addSubview(gradientView)
 
 		NSLayoutConstraint.activate(
 			[
-				gradientView.leadingAnchor.constraint(equalTo: outerContainer.leadingAnchor),
-				gradientView.topAnchor.constraint(equalTo: outerContainer.topAnchor),
-				gradientView.trailingAnchor.constraint(equalTo: outerContainer.trailingAnchor),
-				gradientView.bottomAnchor.constraint(equalTo: outerContainer.bottomAnchor, constant: -167), //update later
+				topContainerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8.0),
+				topContainerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16.0),
+				topContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.0),
+				topContainerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8.0),
 
-				outerContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8.0),
-				outerContainer.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16.0),
-				outerContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.0),
-				outerContainer.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8.0)
+				gradientView.leadingAnchor.constraint(equalTo: topContainerView.leadingAnchor),
+				gradientView.topAnchor.constraint(equalTo: topContainerView.topAnchor),
+				gradientView.trailingAnchor.constraint(equalTo: topContainerView.trailingAnchor),
+				gradientView.bottomAnchor.constraint(equalTo: topContainerView.bottomAnchor, constant: -180), //update later
+				gradientView.heightAnchor.constraint(equalToConstant: 180.0)
 			]
 		)
 
