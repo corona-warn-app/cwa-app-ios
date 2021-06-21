@@ -2590,13 +2590,13 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Overview_title" = "Zertifikate";
 
-"HealthCertificate_Overview_description" = "Hier werden Ihre digitalen Impfzertifikate und Testzertifikate angezeigt.";
+"HealthCertificate_Overview_add" = "Zertifikat hinzufügen";
 
-/* - Vaccination Certificate Registration */
+"HealthCertificate_Overview_EmptyTitle" = "Noch keine Zertifikate vorhanden";
 
-"VaccinationCertificate_Registration_title" = "EU Digitalen\n**COVID-Impfnachweis hinzufügen**";
+"HealthCertificate_Overview_EmptyDescription" = "Hier werden die gespeicherten digitalen Impfzertifikate, Genesenenzertifikate und Testzertifikate angezeigt.";
 
-"VaccinationCertificate_Registration_description" = "Fügen Sie Ihre Impfzertifikate in die App hinzu, um sie immer bei sich zu haben. Scannen Sie dafür den QR-Code Ihres Dokuments.";
+"HealthCertificate_Overview_EmptyImageDescription" = "Zertifikatssiegel mit digitalem Zertifikat im Hintergrund";
 
 /* - Vaccination Certificate */
 
