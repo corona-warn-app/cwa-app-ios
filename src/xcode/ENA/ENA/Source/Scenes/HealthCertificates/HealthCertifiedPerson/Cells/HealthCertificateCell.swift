@@ -143,8 +143,6 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 
 		backgroundContainerView.accessibilityElements = [headlineTextLabel as Any, detailsTextLabel as Any]
 		headlineTextLabel.accessibilityTraits = [.staticText, .button]
-		
-		
 	}
 
 	private func updateBorderWidth() {
