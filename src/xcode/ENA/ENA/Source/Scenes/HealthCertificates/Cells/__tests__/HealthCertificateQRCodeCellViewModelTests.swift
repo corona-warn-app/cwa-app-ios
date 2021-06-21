@@ -17,8 +17,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		// THEN
 		XCTAssertEqual(viewModel.backgroundColor, .enaColor(for: .cellBackground2))
 		XCTAssertEqual(viewModel.borderColor, .enaColor(for: .hairline))
-		XCTAssertEqual(viewModel.certificate, "Impfzertifikat 2 von 2")
-		XCTAssertEqual(viewModel.validity, "Geimpft 02.02.2021 - gültig bis 03.06.2021")
+		XCTAssertEqual(viewModel.title, "Impfzertifikat")
+		XCTAssertEqual(viewModel.subtitle, "geimpft am 02.02.2021")
 		XCTAssertNil(viewModel.accessibilityText)
 	}
 
