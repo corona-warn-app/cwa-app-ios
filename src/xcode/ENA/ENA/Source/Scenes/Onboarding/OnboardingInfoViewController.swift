@@ -6,11 +6,13 @@ import UIKit
 import OpenCombine
 import UserNotifications
 import ExposureNotification
+import WebKit
 
 // swiftlint:disable:next type_body_length
 final class OnboardingInfoViewController: UIViewController {
 
 	@IBOutlet var scrollView: UIScrollView!
+	@IBOutlet var containerView: UIView!
 	@IBOutlet var stackView: UIStackView!
 	
 	// MARK: - Init
@@ -82,7 +84,7 @@ final class OnboardingInfoViewController: UIViewController {
 	private var pageType: OnboardingPageType
 	private var exposureManager: ExposureManager
 	private var store: Store
-	private var htmlTextView: HtmlTextView?
+	private var webView: HTMLView?
 	private var onboardingInfo: OnboardingInfo?
 	private var supportedCountries: [Country]?
 	private var client: Client
@@ -282,18 +284,27 @@ final class OnboardingInfoViewController: UIViewController {
 			)
 		case .privacyPage:
 			innerStackView.isHidden = true
-			let textView = HtmlTextView()
-			textView.layoutMargins = .zero
-			textView.delegate = self
+			let htmlView = HTMLView()
+			htmlView.translatesAutoresizingMaskIntoConstraints = false
+			htmlView.scrollView.isScrollEnabled = false // should already be disabled but it's not, so lets disable it again :-|
+			htmlView.navigationDelegate = self // used to size the webview after loading HTML
 			if let url = Bundle.main.url(forResource: "privacy-policy", withExtension: "html") {
 				do {
-					try textView.load(from: url)
+					try htmlView.load(from: url)
 				} catch {
 					Log.error("Could not load url \(url)", log: .ui, error: error)
 				}
 			}
-			stackView.addArrangedSubview(textView)
-			htmlTextView = textView
+			containerView.addSubview(htmlView)
+			webView = htmlView
+
+			NSLayoutConstraint.activate([
+				htmlView.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 8),
+				htmlView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
+				htmlView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: 0),
+				htmlView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16)
+			])
+			
 			addSkipAccessibilityActionToHeader()
 		default:
 			break
@@ -445,7 +456,7 @@ final class OnboardingInfoViewController: UIViewController {
 		let actionName = AppStrings.Onboarding.onboardingContinue
 		let skipAction = UIAccessibilityCustomAction(name: actionName, target: self, selector: #selector(skip(_:)))
 		titleLabel.accessibilityCustomActions = [skipAction]
-		htmlTextView?.accessibilityCustomActions = [skipAction]
+		webView?.accessibilityCustomActions = [skipAction]
 	}
 
 	@objc
@@ -453,4 +464,23 @@ final class OnboardingInfoViewController: UIViewController {
 		didTapNextButton(sender)
 	}
 	
+}
+
+extension OnboardingInfoViewController: WKNavigationDelegate {
+
+	func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+		webView.evaluateJavaScript("document.readyState", completionHandler: { complete, error in
+			if complete != nil {
+				self.webView?.evaluateJavaScript("document.body.scrollHeight", completionHandler: { [weak self] height, error in
+					if let height = height as? CGFloat {
+						Log.debug("Set content height to \(height) @\(UIScreen.main.scale)x")
+						self?.webView?.heightAnchor.constraint(equalToConstant: height).isActive = true
+						self?.webView?.sizeToFit()
+					} else {
+						Log.error("Could not get website height! \(error?.localizedDescription ?? "")", error: error)
+					}
+				})
+			}
+		})
+	}
 }

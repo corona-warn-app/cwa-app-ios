@@ -89,7 +89,6 @@ extension HTMLViewController: WKNavigationDelegate {
                 self.htmlView.evaluateJavaScript("document.body.scrollHeight", completionHandler: { [weak self] height, error in
                     if let height = height as? CGFloat {
                         Log.debug("Set content height to \(height) @\(UIScreen.main.scale)x")
-
                         self?.webViewHeight.constant = height
                     } else {
                         Log.error("Could not get website height! \(error?.localizedDescription ?? "")", error: error)
