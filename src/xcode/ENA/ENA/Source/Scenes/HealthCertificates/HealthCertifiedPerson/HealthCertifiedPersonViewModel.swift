@@ -45,7 +45,7 @@ final class HealthCertifiedPersonViewModel {
 	enum TableViewSection: Int, CaseIterable {
 		case header
 		case qrCode
-		case fullyVaccinatedHint
+		case vaccinationHint
 		case person
 		case certificates
 
@@ -89,18 +89,25 @@ final class HealthCertifiedPersonViewModel {
 		)
 	}
 
-	var fullyVaccinatedHintCellViewModel: HealthCertificateSimpleTextCellViewModel {
-		guard case .fullyVaccinated(daysUntilCompleteProtection: let daysUntilCompleteProtection) = healthCertifiedPerson.vaccinationState else {
-			fatalError("Cell cannot be shown in any other vaccination state than .fullyVaccinated")
+	var vaccinationHintCellViewModel: HealthCertificateSimpleTextCellViewModel {
+		let text: String
+
+		switch healthCertifiedPerson.vaccinationState {
+		case .partiallyVaccinated:
+			text = AppStrings.HealthCertificate.Person.partiallyVaccinated
+		case .fullyVaccinated(daysUntilCompleteProtection: let daysUntilCompleteProtection):
+			text = String(
+				format: AppStrings.HealthCertificate.Person.daysUntilCompleteProtection,
+				daysUntilCompleteProtection
+			)
+		case .notVaccinated, .completelyProtected:
+			fatalError("Cell cannot be shown in any other vaccination state than .partiallyVaccinated or .fullyVaccinated")
 		}
 
 		return HealthCertificateSimpleTextCellViewModel(
 			backgroundColor: .enaColor(for: .cellBackground2),
 			textAlignment: .left,
-			text: String(
-				format: AppStrings.HealthCertificate.Person.daysUntilCompleteProtection,
-				daysUntilCompleteProtection
-			),
+			text: text,
 			topSpace: 16.0,
 			font: .enaFont(for: .body),
 			borderColor: .enaColor(for: .hairline),
@@ -108,10 +115,11 @@ final class HealthCertifiedPersonViewModel {
 		)
 	}
 
-	var fullyVaccinatedHintIsVisible: Bool {
-		if case .fullyVaccinated = healthCertifiedPerson.vaccinationState {
+	var vaccinationHintIsVisible: Bool {
+		switch healthCertifiedPerson.vaccinationState {
+		case .partiallyVaccinated, .fullyVaccinated:
 			return true
-		} else {
+		case .notVaccinated, .completelyProtected:
 			return false
 		}
 	}
@@ -149,8 +157,8 @@ final class HealthCertifiedPersonViewModel {
 			return 1
 		case .qrCode:
 			return 1
-		case .fullyVaccinatedHint:
-			return fullyVaccinatedHintIsVisible ? 1 : 0
+		case .vaccinationHint:
+			return vaccinationHintIsVisible ? 1 : 0
 		case .person:
 			return 1
 		case .certificates:

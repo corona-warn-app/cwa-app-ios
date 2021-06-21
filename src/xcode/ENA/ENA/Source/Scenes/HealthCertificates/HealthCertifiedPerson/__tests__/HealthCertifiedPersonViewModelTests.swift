@@ -26,20 +26,20 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 		// THEN
 		XCTAssertEqual(viewModel.numberOfItems(in: .header), 1)
 		XCTAssertEqual(viewModel.numberOfItems(in: .qrCode), 1)
-		XCTAssertEqual(viewModel.numberOfItems(in: .fullyVaccinatedHint), 0)
+		XCTAssertEqual(viewModel.numberOfItems(in: .vaccinationHint), 0)
 		XCTAssertEqual(viewModel.numberOfItems(in: .person), 1)
 		XCTAssertEqual(viewModel.numberOfItems(in: .certificates), 0)
 
 		XCTAssertFalse(viewModel.canEditRow(at: IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.header.rawValue)))
 		XCTAssertFalse(viewModel.canEditRow(at: IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.qrCode.rawValue)))
-		XCTAssertFalse(viewModel.canEditRow(at: IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.fullyVaccinatedHint.rawValue)))
+		XCTAssertFalse(viewModel.canEditRow(at: IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.vaccinationHint.rawValue)))
 		XCTAssertFalse(viewModel.canEditRow(at: IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.person.rawValue)))
 		XCTAssertTrue(viewModel.canEditRow(at: IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.certificates.rawValue)))
 
 		XCTAssertEqual(HealthCertifiedPersonViewModel.TableViewSection.numberOfSections, 5)
 		XCTAssertEqual(HealthCertifiedPersonViewModel.TableViewSection.map(0), .header)
 		XCTAssertEqual(HealthCertifiedPersonViewModel.TableViewSection.map(1), .qrCode)
-		XCTAssertEqual(HealthCertifiedPersonViewModel.TableViewSection.map(2), .fullyVaccinatedHint)
+		XCTAssertEqual(HealthCertifiedPersonViewModel.TableViewSection.map(2), .vaccinationHint)
 		XCTAssertEqual(HealthCertifiedPersonViewModel.TableViewSection.map(3), .person)
 		XCTAssertEqual(HealthCertifiedPersonViewModel.TableViewSection.map(4), .certificates)
 	}
@@ -70,7 +70,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 		let healthCertificate = try XCTUnwrap(viewModel.healthCertificate(for: IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.certificates.rawValue)))
 
 		// THEN
-		XCTAssertFalse(viewModel.fullyVaccinatedHintIsVisible)
+		XCTAssertFalse(viewModel.vaccinationHintIsVisible)
 		XCTAssertEqual(qrCodeCellViewModel.accessibilityText, AppStrings.HealthCertificate.Person.QRCodeImageDescription)
 		XCTAssertEqual(personCellViewModel.attributedText?.string, "Erika Dörte Schmitt Mustermann\ngeboren 12.08.1964")
 		XCTAssertEqual(healthCertificate.name.fullName, "Erika Dörte Schmitt Mustermann")
@@ -101,23 +101,23 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			dismiss: {}
 		)
 
-		let fullyVaccinatedHintCellViewModel = viewModel.fullyVaccinatedHintCellViewModel
+		let vaccinationHintCellViewModel = viewModel.vaccinationHintCellViewModel
 		guard case .fullyVaccinated(daysUntilCompleteProtection: let daysUntilCompleteProtection) = healthCertifiedPerson.vaccinationState else {
 			fatalError("Cell cannot be shown in any other vaccination state than .fullyVaccinated")
 		}
 
 		// THEN
-		XCTAssertEqual(viewModel.numberOfItems(in: .fullyVaccinatedHint), 1)
-		XCTAssertEqual(fullyVaccinatedHintCellViewModel.backgroundColor, .enaColor(for: .cellBackground2))
-		XCTAssertEqual(fullyVaccinatedHintCellViewModel.textAlignment, .left)
-		XCTAssertEqual(fullyVaccinatedHintCellViewModel.text, String(
+		XCTAssertEqual(viewModel.numberOfItems(in: .vaccinationHint), 1)
+		XCTAssertEqual(vaccinationHintCellViewModel.backgroundColor, .enaColor(for: .cellBackground2))
+		XCTAssertEqual(vaccinationHintCellViewModel.textAlignment, .left)
+		XCTAssertEqual(vaccinationHintCellViewModel.text, String(
 			format: AppStrings.HealthCertificate.Person.daysUntilCompleteProtection,
 			daysUntilCompleteProtection
 		))
-		XCTAssertEqual(fullyVaccinatedHintCellViewModel.topSpace, 16.0)
-		XCTAssertEqual(fullyVaccinatedHintCellViewModel.font, .enaFont(for: .body))
-		XCTAssertEqual(fullyVaccinatedHintCellViewModel.borderColor, .enaColor(for: .hairline))
-		XCTAssertEqual(fullyVaccinatedHintCellViewModel.accessibilityTraits, .staticText)
+		XCTAssertEqual(vaccinationHintCellViewModel.topSpace, 16.0)
+		XCTAssertEqual(vaccinationHintCellViewModel.font, .enaFont(for: .body))
+		XCTAssertEqual(vaccinationHintCellViewModel.borderColor, .enaColor(for: .hairline))
+		XCTAssertEqual(vaccinationHintCellViewModel.accessibilityTraits, .staticText)
 
 	}
 

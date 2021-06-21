@@ -82,9 +82,9 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 			cell.configure(with: viewModel.qrCodeCellViewModel)
 			return cell
 
-		case .fullyVaccinatedHint:
+		case .vaccinationHint:
 			let cell = tableView.dequeueReusableCell(cellType: HealthCertificateSimpleTextCell.self, for: indexPath)
-			cell.configure(with: viewModel.fullyVaccinatedHintCellViewModel)
+			cell.configure(with: viewModel.vaccinationHintCellViewModel)
 			return cell
 
 		case .person:
@@ -150,7 +150,7 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 	func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
 		guard editingStyle == .delete, let healthCertificate = viewModel.healthCertificate(for: indexPath) else { return }
 
-		let fullyVaccinatedHintWasVisible = viewModel.fullyVaccinatedHintIsVisible
+		let vaccinationHintWasVisible = viewModel.vaccinationHintIsVisible
 
 		self.didSwipeToDelete(healthCertificate) { [weak self] in
 			guard let self = self else { return }
@@ -160,8 +160,8 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 			tableView.performBatchUpdates({
 				var indexPaths = [indexPath]
 
-				if fullyVaccinatedHintWasVisible && !self.viewModel.fullyVaccinatedHintIsVisible {
-					indexPaths.append(IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.fullyVaccinatedHint.rawValue))
+				if vaccinationHintWasVisible && !self.viewModel.vaccinationHintIsVisible {
+					indexPaths.append(IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.vaccinationHint.rawValue))
 				}
 
 				tableView.deleteRows(at: indexPaths, with: .automatic)
