@@ -17,7 +17,7 @@ class HealthCertifiedPerson: Codable, Equatable {
 		self.healthCertificates = healthCertificates
 		self.isPreferredPerson = isPreferredPerson
 
-		// TODO: Update on changes
+		// TODO: Update when appropriate
 		self.mostRelevantHealthCertificate = healthCertificates.mostRelevant
 
 		updateVaccinationState()
@@ -67,9 +67,10 @@ class HealthCertifiedPerson: Codable, Equatable {
 
 	var healthCertificates: [HealthCertificate] {
 		didSet {
-			updateVaccinationState()
-
 			if healthCertificates != oldValue {
+				updateVaccinationState()
+				mostRelevantHealthCertificate = healthCertificates.mostRelevant
+
 				objectDidChange.send(self)
 			}
 		}
