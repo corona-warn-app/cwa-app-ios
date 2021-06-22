@@ -8,33 +8,7 @@ import HealthCertificateToolkit
 
 class HealthCertifiedPersonCellModelTests: XCTestCase {
 
-	func testGIVEN_completelyProtectedCertifiedPerson_THEN_IsSetupCorrectly() throws {
-		// GIVEN
-		let healthCertificate1 = try healthCertificate(daysOffset: -35, doseNumber: 1, identifier: "01DE/84503/1119349007/DXSGWLWL40SU8ZFKIYIBK39A3#S", dateOfBirth: "1988-06-07")
-		let healthCertificate2 = try healthCertificate(daysOffset: -15, doseNumber: 2, identifier: "01DE/84503/1119349007/DXSGWWLW40SU8ZFKIYIBK39A3#S", dateOfBirth: "1988-06-07")
-
-		let healthCertifiedPerson = HealthCertifiedPerson(
-			healthCertificates: [
-				healthCertificate1,
-				healthCertificate2
-			]
-		)
-
-		let viewModel = try XCTUnwrap(HealthCertifiedPersonCellModel(healthCertifiedPerson: healthCertifiedPerson))
-
-		guard case .completelyProtected = healthCertifiedPerson.vaccinationState else {
-			XCTFail("Not completelyProtected")
-			return
-		}
-
-		// THEN
-		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
-		XCTAssertEqual(viewModel.backgroundGradientType, healthCertifiedPerson.vaccinationState.gradientType)
-		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
-		XCTAssertEqual(viewModel.accessibilityIdentifier, AccessibilityIdentifiers.HealthCertificate.Overview.vaccinationCertificateCell)
-	}
-
-	func testGIVEN_partiallyVaccinatedCertifiedPerson_THEN_IsSetupCorrectly() throws {
+	func testGIVEN_healthCertifiedPerson_THEN_IsSetupCorrectly() throws {
 		// GIVEN
 		let healthCertificate1 = try healthCertificate(daysOffset: -24, doseNumber: 1, identifier: "01DE/84503/1119349007/DXSGWLWL40SU8ZFKIYIBK39A3#S", dateOfBirth: "1988-06-07")
 
@@ -47,31 +21,6 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 
 		guard case .partiallyVaccinated = healthCertifiedPerson.vaccinationState else {
 			XCTFail("Not partiallyVaccinated")
-			return
-		}
-
-		// THEN
-		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
-		XCTAssertEqual(viewModel.backgroundGradientType, healthCertifiedPerson.vaccinationState.gradientType)
-		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
-		XCTAssertEqual(viewModel.accessibilityIdentifier, AccessibilityIdentifiers.HealthCertificate.Overview.vaccinationCertificateCell)
-	}
-
-	func testGIVEN_fullyVaccinatedCertifiedPerson_THEN_IsSetupCorrectly() throws {
-		// GIVEN
-		let healthCertificate1 = try healthCertificate(daysOffset: -24, doseNumber: 1, identifier: "01DE/84503/1119349007/DXSGWLWL40SU8ZFKIYIBK39A3#S", dateOfBirth: "1988-06-07")
-		let healthCertificate2 = try healthCertificate(daysOffset: -14, doseNumber: 2, identifier: "01DE/84503/1119349007/DXSGWWLW40SU8ZFKIYIBK39A3#S", dateOfBirth: "1988-06-07")
-
-		let healthCertifiedPerson = HealthCertifiedPerson(
-			healthCertificates: [
-				healthCertificate1,
-				healthCertificate2
-			]
-		)
-		let viewModel = try XCTUnwrap(HealthCertifiedPersonCellModel(healthCertifiedPerson: healthCertifiedPerson))
-
-		guard case .fullyVaccinated = healthCertifiedPerson.vaccinationState else {
-			XCTFail("Not fullyVaccinated")
 			return
 		}
 
