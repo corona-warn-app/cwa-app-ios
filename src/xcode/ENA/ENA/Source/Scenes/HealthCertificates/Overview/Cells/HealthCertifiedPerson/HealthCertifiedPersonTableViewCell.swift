@@ -54,7 +54,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	private let cardView: CardView = CardView()
 	private let titleLabel: ENALabel = ENALabel()
 	private let nameLabel: ENALabel = ENALabel()
-	private let gradientView: GradientView = GradientView(type: .lightBlue(withStars: false))
+	private let gradientView: GradientView = GradientView()
 	private let qrCodeImageView: UIImageView = UIImageView()
 	private let placeHolderImage: UIImage? = UIImage.with(color: .enaColor(for: .background))
 
@@ -78,7 +78,6 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		}
 		cardView.addSubview(topContainerView)
 
-		let gradientView = GradientView(type: .mediumBlue(withStars: true))
 		gradientView.translatesAutoresizingMaskIntoConstraints = false
 		gradientView.layer.masksToBounds = true
 		gradientView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
