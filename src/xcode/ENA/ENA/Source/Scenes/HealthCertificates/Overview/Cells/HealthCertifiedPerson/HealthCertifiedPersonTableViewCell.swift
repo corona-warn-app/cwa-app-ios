@@ -39,7 +39,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 				with: cellModel.certificate.base45,
 				encoding: .utf8,
 				size: CGSize(width: 280, height: 280),
-				qrCodeErrorCorrectionLevel: .medium
+				qrCodeErrorCorrectionLevel: .quartile
 			)
 			DispatchQueue.main.async { [weak self] in
 				self?.qrCodeImageView.image = qrCodeImage
