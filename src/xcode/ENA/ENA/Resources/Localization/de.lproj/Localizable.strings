@@ -2606,7 +2606,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Overview_EmptyImageDescription" = "Zertifikatssiegel mit digitalem Zertifikat im Hintergrund";
 
-"HealthCertificate_Overview_Covid_Title" = "EU Digitales";
+"HealthCertificate_Overview_Covid_Title" = "Digitales\n**COVID-Zertifikat der EU**";
 
 "HealthCertificate_Overview_Covid_Certificate" = "COVID-Zertifikat";
 

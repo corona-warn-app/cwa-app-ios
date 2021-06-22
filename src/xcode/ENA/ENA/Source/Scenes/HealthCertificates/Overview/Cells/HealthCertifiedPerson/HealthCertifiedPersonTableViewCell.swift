@@ -29,7 +29,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	// MARK: - Internal
 
 	func configure(with cellModel: HealthCertifiedPersonCellModel) {
-		titleLabel.attributedText = cellModel.attributedText
+		titleLabel.text = cellModel.title
 		nameLabel.text = cellModel.name
 		gradientView.type = cellModel.backgroundGradientType
 		// add a placeholder image and process the QRCode image in background to smooth scrolling a bit
@@ -52,8 +52,8 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	// MARK: - Private
 
 	private let cardView: CardView = CardView()
-	private let titleLabel: ENALabel = ENALabel()
-	private let nameLabel: ENALabel = ENALabel()
+	private let titleLabel: ENALabel = ENALabel(style: .body)
+	private let nameLabel: ENALabel = ENALabel(style: .title2)
 	private let gradientView: GradientView = GradientView()
 	private let qrCodeImageView: UIImageView = UIImageView()
 	private let placeHolderImage: UIImage? = UIImage.with(color: .enaColor(for: .background))
