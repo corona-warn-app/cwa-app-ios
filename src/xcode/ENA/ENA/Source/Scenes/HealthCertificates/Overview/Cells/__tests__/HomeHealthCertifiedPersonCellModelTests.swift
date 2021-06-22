@@ -31,7 +31,6 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.backgroundGradientType, healthCertifiedPerson.vaccinationState.gradientType)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
-		XCTAssertEqual(viewModel.description, AppStrings.HealthCertificate.Overview.covidCertificate)
 		XCTAssertEqual(viewModel.accessibilityIdentifier, AccessibilityIdentifiers.HealthCertificate.Overview.vaccinationCertificateCell)
 	}
 
@@ -55,7 +54,6 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.backgroundGradientType, healthCertifiedPerson.vaccinationState.gradientType)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
-		XCTAssertEqual(viewModel.description, AppStrings.HealthCertificate.Overview.covidCertificate)
 		XCTAssertEqual(viewModel.accessibilityIdentifier, AccessibilityIdentifiers.HealthCertificate.Overview.vaccinationCertificateCell)
 	}
 
@@ -81,32 +79,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.backgroundGradientType, healthCertifiedPerson.vaccinationState.gradientType)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
-		XCTAssertEqual(viewModel.description, AppStrings.HealthCertificate.Overview.covidCertificate)
 		XCTAssertEqual(viewModel.accessibilityIdentifier, AccessibilityIdentifiers.HealthCertificate.Overview.vaccinationCertificateCell)
-	}
-
-	func testGIVEN_testCertificate_THEN_IsSetupCorrectly() throws {
-		// GIVEN
-		let firstTestCertificateBase45 = try base45Fake(
-			from: DigitalGreenCertificate.fake(
-				name: .fake(standardizedFamilyName: "TEUBER", standardizedGivenName: "KAI"),
-				testEntries: [TestEntry.fake(
-					dateTimeOfSampleCollection: "2021-05-29T22:34:17.595Z",
-					uniqueCertificateIdentifier: "0"
-				)]
-			)
-		)
-		let testCertificate = try HealthCertificate(base45: firstTestCertificateBase45)
-
-		let viewModel = HealthCertifiedPersonCellModel(testCertificate: testCertificate)
-		_ = try XCTUnwrap(testCertificate.testEntry?.sampleCollectionDate)
-
-		// THEN
-		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
-		XCTAssertEqual(viewModel.backgroundGradientType, .lightBlue(withStars: true))
-		XCTAssertEqual(viewModel.name, testCertificate.name.fullName)
-		XCTAssertEqual(viewModel.description, AppStrings.HealthCertificate.Overview.covidCertificate)
-		XCTAssertEqual(viewModel.accessibilityIdentifier, AccessibilityIdentifiers.HealthCertificate.Overview.testCertificateRequestCell)
 	}
 
 }
