@@ -125,20 +125,9 @@ final class HealthCertifiedPersonViewModel {
 	}
 
 	var personCellViewModel: PreferredPersonCellModel {
-		let attributedName = NSAttributedString(
-			string: healthCertifiedPerson.name?.fullName ?? "",
-			attributes: [
-				.font: UIFont.enaFont(for: .headline),
-				.foregroundColor: UIColor.enaColor(for: .textPrimary1)
-			]
-		)
-
-		let attributedDetails = NSAttributedString(
-			string: dateOfBirth ?? "",
-			attributes: [
-				.font: UIFont.enaFont(for: .subheadline),
-				.foregroundColor: UIColor.enaColor(for: .textPrimary2)
-			]
+		PreferredPersonCellModel(
+			healthCertifiedPerson: healthCertifiedPerson,
+			healthCertificateService: healthCertificateService
 		)
 	}
 
