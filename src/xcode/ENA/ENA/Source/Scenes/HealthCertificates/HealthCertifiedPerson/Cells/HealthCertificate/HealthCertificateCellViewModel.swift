@@ -22,7 +22,7 @@ final class HealthCertificateCellViewModel {
 
 	var gradientType: GradientView.GradientType {
 		if healthCertificate == healthCertifiedPerson.mostRelevantHealthCertificate {
-			return .lightBlue
+			return .lightBlue(withStars: false)
 		} else {
 			return .solidGrey
 		}

@@ -8,6 +8,14 @@ import UIKit
 @IBDesignable
 class ENALabel: UILabel {
 
+	// MARK: - Init
+
+	convenience init(style: Style = .body) {
+		self.init()
+		self.style = style
+		applyStyle()
+	}
+
 	// MARK: - Overrides
 
 	override func prepareForInterfaceBuilder() {
