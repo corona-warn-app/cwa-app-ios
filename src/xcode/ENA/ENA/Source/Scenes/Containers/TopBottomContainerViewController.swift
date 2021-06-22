@@ -114,7 +114,7 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 				
 				self.bottomViewBottomConstraint.constant = -keyboardFrame.height
 				
-				let options = UIView.AnimationOptions(rawValue: ((UInt(animationCurve << 16))))
+				let options = UIView.AnimationOptions(rawValue: (UInt(animationCurve << 16)))
 				UIView.animate(withDuration: animationDuration, delay: 0, options: options, animations: { [weak self] in
 					self?.view.layoutIfNeeded()
 				}, completion: nil)
@@ -132,7 +132,7 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 				
 				self.bottomViewBottomConstraint.constant = -self.view.safeAreaInsets.bottom
 				
-				let options = UIView.AnimationOptions(rawValue: ((UInt(animationCurve << 16))))
+				let options = UIView.AnimationOptions(rawValue: (UInt(animationCurve << 16)))
 				UIView.animate(withDuration: animationDuration, delay: 0, options: options, animations: { [weak self] in
 					self?.view.layoutIfNeeded()
 				}, completion: nil)
