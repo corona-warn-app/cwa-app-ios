@@ -12,9 +12,6 @@ class PreferredPersonTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 
 		setupView()
-
-		isAccessibilityElement = false
-		contentTextLabel.isAccessibilityElement = true
 	}
 
 	@available(*, unavailable)
@@ -23,12 +20,6 @@ class PreferredPersonTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 	}
 
 	// MARK: - Overrides
-
-	override func prepareForReuse() {
-		super.prepareForReuse()
-
-		contentTextLabel.attributedText = nil
-	}
 
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 		super.traitCollectionDidChange(previousTraitCollection)
@@ -39,14 +30,18 @@ class PreferredPersonTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 	// MARK: - Internal
 
 	func configure(with cellModel: PreferredPersonCellModel) {
-
+		nameLabel.text = cellModel.name
+		dateOfBirthLabel.text = cellModel.dateOfBirth
+		preferredPersonSwitch.isOn = cellModel.isPreferredPerson
 	}
 
 	// MARK: - Private
 
 	private let backgroundContainerView = UIView()
-	private let contentTextLabel = ENALabel()
-	private var topSpaceLayoutConstraint: NSLayoutConstraint!
+
+	private let nameLabel = ENALabel(style: .headline)
+	private let dateOfBirthLabel = ENALabel(style: .body)
+	private let preferredPersonSwitch = UISwitch()
 
 	private func setupView() {
 		backgroundColor = .clear
@@ -66,13 +61,36 @@ class PreferredPersonTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 		contentView.addSubview(backgroundContainerView)
 
 		let contentStackView = UIStackView()
-
+		contentStackView.axis = .vertical
+		contentStackView.spacing = 6
+		contentStackView.translatesAutoresizingMaskIntoConstraints = false
 		backgroundContainerView.addSubview(contentStackView)
 
+		let topContentStackView = UIStackView()
+		topContentStackView.axis = .horizontal
+		topContentStackView.alignment = .center
+		contentStackView.addArrangedSubview(topContentStackView)
 
-		contentTextLabel.translatesAutoresizingMaskIntoConstraints = false
-		contentTextLabel.numberOfLines = 0
+		let personalDataStackView = UIStackView()
+		personalDataStackView.axis = .vertical
+		topContentStackView.addArrangedSubview(personalDataStackView)
 
+		nameLabel.numberOfLines = 0
+		nameLabel.textColor = .enaColor(for: .textPrimary1)
+		personalDataStackView.addArrangedSubview(nameLabel)
+
+		dateOfBirthLabel.numberOfLines = 0
+		dateOfBirthLabel.textColor = .enaColor(for: .textPrimary2)
+		personalDataStackView.addArrangedSubview(dateOfBirthLabel)
+
+		preferredPersonSwitch.onTintColor = .enaColor(for: .tint)
+		preferredPersonSwitch.setContentHuggingPriority(.required, for: .horizontal)
+		topContentStackView.addArrangedSubview(preferredPersonSwitch)
+
+		let descriptionLabel = ENALabel(style: .body)
+		descriptionLabel.text = AppStrings.HealthCertificate.Person.preferredPersonDescription
+		descriptionLabel.numberOfLines = 0
+		contentStackView.addArrangedSubview(descriptionLabel)
 
 		NSLayoutConstraint.activate(
 			[
@@ -81,10 +99,10 @@ class PreferredPersonTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 				backgroundContainerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.0),
 				backgroundContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.0),
 
-				contentTextLabel.topAnchor.constraint(equalTo: backgroundContainerView.topAnchor, constant: 16.0),
-				contentTextLabel.bottomAnchor.constraint(equalTo: backgroundContainerView.bottomAnchor, constant: -16.0),
-				contentTextLabel.leadingAnchor.constraint(equalTo: backgroundContainerView.leadingAnchor, constant: 16.0),
-				contentTextLabel.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor, constant: -16.0)
+				contentStackView.topAnchor.constraint(equalTo: backgroundContainerView.topAnchor, constant: 16.0),
+				contentStackView.bottomAnchor.constraint(equalTo: backgroundContainerView.bottomAnchor, constant: -16.0),
+				contentStackView.leadingAnchor.constraint(equalTo: backgroundContainerView.leadingAnchor, constant: 16.0),
+				contentStackView.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor, constant: -16.0)
 			]
 		)
 	}

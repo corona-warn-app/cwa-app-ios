@@ -265,6 +265,10 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 			HealthCertificateCell.self,
 			forCellReuseIdentifier: HealthCertificateCell.reuseIdentifier
 		)
+		tableView.register(
+			PreferredPersonTableViewCell.self,
+			forCellReuseIdentifier: PreferredPersonTableViewCell.reuseIdentifier
+		)
 	}
 
 	private func setupViewModel() {
