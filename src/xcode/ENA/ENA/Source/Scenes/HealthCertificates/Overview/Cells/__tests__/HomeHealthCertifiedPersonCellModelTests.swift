@@ -6,7 +6,7 @@ import XCTest
 import HealthCertificateToolkit
 @testable import ENA
 
-class HomeHealthCertifiedPersonCellModelTests: XCTestCase {
+class HealthCertifiedPersonCellModelTests: XCTestCase {
 
 	func testGIVEN_completelyProtectedCertifiedPerson_THEN_IsSetupCorrectly() throws {
 		// GIVEN
@@ -20,24 +20,18 @@ class HomeHealthCertifiedPersonCellModelTests: XCTestCase {
 			]
 		)
 
-		let viewModel = HealthCertifiedPersonCellModel(healthCertifiedPerson: healthCertifiedPerson)
+		let viewModel = try XCTUnwrap(HealthCertifiedPersonCellModel(healthCertifiedPerson: healthCertifiedPerson))
 
-		guard case let .completelyProtected(expirationDate) = healthCertifiedPerson.vaccinationState else {
+		guard case .completelyProtected = healthCertifiedPerson.vaccinationState else {
 			XCTFail("Not completelyProtected")
 			return
 		}
 
 		// THEN
-		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.VaccinationCertificate.title)
+		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.backgroundGradientType, healthCertifiedPerson.vaccinationState.gradientType)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
-		XCTAssertEqual(viewModel.backgroundImage, UIImage(named: "VaccinationCertificate_CompletelyProtected_Background"))
-		XCTAssertEqual(viewModel.iconImage, UIImage(named: "VaccinationCertificate_CompletelyProtected_Icon"))
-		XCTAssertEqual(viewModel.description, String(
-						format: AppStrings.HealthCertificate.Overview.VaccinationCertificate.vaccinationValidUntil,
-						DateFormatter.localizedString(from: expirationDate, dateStyle: .medium, timeStyle: .none
-						))
-		)
+		XCTAssertEqual(viewModel.description, AppStrings.HealthCertificate.Overview.covidCertificate)
 		XCTAssertEqual(viewModel.accessibilityIdentifier, AccessibilityIdentifiers.HealthCertificate.Overview.vaccinationCertificateCell)
 	}
 
@@ -50,7 +44,7 @@ class HomeHealthCertifiedPersonCellModelTests: XCTestCase {
 				healthCertificate1
 			]
 		)
-		let viewModel = HealthCertifiedPersonCellModel(healthCertifiedPerson: healthCertifiedPerson)
+		let viewModel = try XCTUnwrap(HealthCertifiedPersonCellModel(healthCertifiedPerson: healthCertifiedPerson))
 
 		guard case .partiallyVaccinated = healthCertifiedPerson.vaccinationState else {
 			XCTFail("Not partiallyVaccinated")
@@ -58,12 +52,10 @@ class HomeHealthCertifiedPersonCellModelTests: XCTestCase {
 		}
 
 		// THEN
-		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.VaccinationCertificate.title)
+		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.backgroundGradientType, healthCertifiedPerson.vaccinationState.gradientType)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
-		XCTAssertEqual(viewModel.backgroundImage, UIImage(named: "VaccinationCertificate_PartiallyVaccinated_Background"))
-		XCTAssertEqual(viewModel.iconImage, UIImage(named: "VaccinationCertificate_PartiallyVaccinated_Icon"))
-		XCTAssertEqual(viewModel.description, AppStrings.HealthCertificate.Overview.VaccinationCertificate.partiallyVaccinated)
+		XCTAssertEqual(viewModel.description, AppStrings.HealthCertificate.Overview.covidCertificate)
 		XCTAssertEqual(viewModel.accessibilityIdentifier, AccessibilityIdentifiers.HealthCertificate.Overview.vaccinationCertificateCell)
 	}
 
@@ -78,23 +70,18 @@ class HomeHealthCertifiedPersonCellModelTests: XCTestCase {
 				healthCertificate2
 			]
 		)
-		let viewModel = HealthCertifiedPersonCellModel(healthCertifiedPerson: healthCertifiedPerson)
+		let viewModel = try XCTUnwrap(HealthCertifiedPersonCellModel(healthCertifiedPerson: healthCertifiedPerson))
 
-		guard case let .fullyVaccinated(daysUntilCompleteProtection) = healthCertifiedPerson.vaccinationState else {
+		guard case .fullyVaccinated = healthCertifiedPerson.vaccinationState else {
 			XCTFail("Not fullyVaccinated")
 			return
 		}
 
 		// THEN
-		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.VaccinationCertificate.title)
+		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.backgroundGradientType, healthCertifiedPerson.vaccinationState.gradientType)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
-		XCTAssertEqual(viewModel.backgroundImage, UIImage(named: "VaccinationCertificate_FullyVaccinated_Background"))
-		XCTAssertEqual(viewModel.iconImage, UIImage(named: "VaccinationCertificate_FullyVaccinated_Icon"))
-		XCTAssertEqual(viewModel.description, String(
-			format: AppStrings.HealthCertificate.Overview.VaccinationCertificate.daysUntilCompleteProtection,
-			daysUntilCompleteProtection
-		))
+		XCTAssertEqual(viewModel.description, AppStrings.HealthCertificate.Overview.covidCertificate)
 		XCTAssertEqual(viewModel.accessibilityIdentifier, AccessibilityIdentifiers.HealthCertificate.Overview.vaccinationCertificateCell)
 	}
 
@@ -112,18 +99,13 @@ class HomeHealthCertifiedPersonCellModelTests: XCTestCase {
 		let testCertificate = try HealthCertificate(base45: firstTestCertificateBase45)
 
 		let viewModel = HealthCertifiedPersonCellModel(testCertificate: testCertificate)
-		let sampleCollectionDate = try XCTUnwrap(testCertificate.testEntry?.sampleCollectionDate)
+		_ = try XCTUnwrap(testCertificate.testEntry?.sampleCollectionDate)
 
 		// THEN
-		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.TestCertificate.title)
-		XCTAssertEqual(viewModel.backgroundGradientType, .green)
+		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
+		XCTAssertEqual(viewModel.backgroundGradientType, .lightBlue(withStars: true))
 		XCTAssertEqual(viewModel.name, testCertificate.name.fullName)
-		XCTAssertEqual(viewModel.backgroundImage, UIImage(named: "TestCertificate_Background"))
-		XCTAssertEqual(viewModel.iconImage, UIImage(named: "TestCertificate_Icon"))
-		XCTAssertEqual(viewModel.description, String(
-			format: AppStrings.HealthCertificate.Overview.TestCertificate.testDate,
-			DateFormatter.localizedString(from: sampleCollectionDate, dateStyle: .medium, timeStyle: .short)
-		))
+		XCTAssertEqual(viewModel.description, AppStrings.HealthCertificate.Overview.covidCertificate)
 		XCTAssertEqual(viewModel.accessibilityIdentifier, AccessibilityIdentifiers.HealthCertificate.Overview.testCertificateRequestCell)
 	}
 

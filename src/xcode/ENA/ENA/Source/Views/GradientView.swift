@@ -39,7 +39,7 @@ class GradientView: UIView {
 
 	// MARK: - Internal
 
-	enum GradientType {
+	enum GradientType: Equatable {
 		case blueRedTilted
 		case blueOnly
 		case solidGrey
