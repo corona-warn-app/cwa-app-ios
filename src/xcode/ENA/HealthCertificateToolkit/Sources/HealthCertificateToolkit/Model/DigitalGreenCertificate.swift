@@ -105,7 +105,7 @@ public struct VaccinationEntry: Codable, Equatable {
         uniqueCertificateIdentifier = try container.decode(String.self, forKey: .uniqueCertificateIdentifier)
         // EU Spec says "Exactly 1 (one) non-empty "vp", "mp" or "ma" field MUST be provided"
         if vaccineOrProphylaxis.isEmpty && vaccineMedicinalProduct.isEmpty && marketingAuthorizationHolder.isEmpty {
-            throw CertificateDecodingError.HC_JSON_SCHEMA_INVALID(.VALIDATION_FAILED(Error.oneNoneEmptyFieldNotProvided))
+            throw CertificateDecodingError.HC_JSON_SCHEMA_INVALID(.VALIDATION_FAILED(Error.oneNonEmptyFieldNotProvided))
         }
     }
 
@@ -138,7 +138,7 @@ public struct VaccinationEntry: Codable, Equatable {
     // MARK: - Private
     
     enum Error: Swift.Error {
-        case oneNoneEmptyFieldNotProvided
+        case oneNonEmptyFieldNotProvided
     }
 }
 
