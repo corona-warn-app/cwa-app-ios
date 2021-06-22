@@ -23,17 +23,6 @@ class HealthCertifiedPersonCellModel {
 		accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Overview.vaccinationCertificateCell
 	}
 
-	// - remove later
-	init(
-		testCertificate: HealthCertificate
-	) {
-		title = AppStrings.HealthCertificate.Overview.covidTitle
-		backgroundGradientType = .lightBlue(withStars: true)
-		name = testCertificate.name.fullName
-		certificate = testCertificate
-		accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Overview.testCertificateRequestCell
-	}
-
 	// MARK: - Internal
 	
 	let title: String
