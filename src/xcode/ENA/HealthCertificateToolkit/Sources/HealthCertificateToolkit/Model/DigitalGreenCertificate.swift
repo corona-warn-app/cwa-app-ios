@@ -28,7 +28,7 @@ public struct DigitalGreenCertificate: Codable, Equatable {
     public let recoveryEntries: [RecoveryEntry]?
 
     public static func fake(
-        version: String = "0.0.0",
+        version: String = "1.3.0",
         name: Name = .fake(),
         dateOfBirth: String = "1942-01-01",
         vaccinationEntries: [VaccinationEntry]? = nil,
@@ -117,8 +117,7 @@ public struct TestEntry: Codable, Equatable {
         naaTestName: String?,
         ratTestName: String?,
         dateTimeOfSampleCollection: String,
-        dateTimeOfTestResult: String?,
-        testCenter: String,
+        testCenter: String?,
         countryOfTest: String,
         certificateIssuer: String,
         uniqueCertificateIdentifier: String
@@ -129,7 +128,6 @@ public struct TestEntry: Codable, Equatable {
         self.naaTestName = naaTestName
         self.ratTestName = ratTestName
         self.dateTimeOfSampleCollection = dateTimeOfSampleCollection
-        self.dateTimeOfTestResult = dateTimeOfTestResult
         self.testCenter = testCenter
         self.countryOfTest = countryOfTest
         self.certificateIssuer = certificateIssuer
@@ -146,7 +144,6 @@ public struct TestEntry: Codable, Equatable {
         case naaTestName = "nm"
         case ratTestName = "ma"
         case dateTimeOfSampleCollection = "sc"
-        case dateTimeOfTestResult = "dr"
         case testCenter = "tc"
         case countryOfTest = "co"
         case certificateIssuer = "is"
@@ -161,8 +158,7 @@ public struct TestEntry: Codable, Equatable {
     public let naaTestName: String?
     public let ratTestName: String?
     public let dateTimeOfSampleCollection: String
-    public let dateTimeOfTestResult: String?
-    public let testCenter: String
+    public let testCenter: String?
     public let countryOfTest: String
     public let certificateIssuer: String
     public let uniqueCertificateIdentifier: String
@@ -174,8 +170,7 @@ public struct TestEntry: Codable, Equatable {
         naaTestName: String? = nil,
         ratTestName: String? = nil,
         dateTimeOfSampleCollection: String = "2021-05-29T22:34:17.595Z",
-        dateTimeOfTestResult: String? = nil,
-        testCenter: String = "Rödelheim Esso Tankstelle",
+        testCenter: String? = nil,
         countryOfTest: String = "DE",
         certificateIssuer: String = "Bundesministerium für Gesundheit",
         uniqueCertificateIdentifier: String = "01DE/00000/1119349007/9QK4WRVMUOUIP7PYVNSFBK9GF"
@@ -187,7 +182,6 @@ public struct TestEntry: Codable, Equatable {
             naaTestName: naaTestName,
             ratTestName: ratTestName,
             dateTimeOfSampleCollection: dateTimeOfSampleCollection,
-            dateTimeOfTestResult: dateTimeOfTestResult,
             testCenter: testCenter,
             countryOfTest: countryOfTest,
             certificateIssuer: certificateIssuer,
