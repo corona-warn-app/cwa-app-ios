@@ -90,11 +90,11 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		headlineStackView.axis = .horizontal
 		headlineStackView.spacing = 8
 
-		subheadlineLabel.style = .subheadline
+		subheadlineLabel.style = .body
 		subheadlineLabel.textColor = .enaColor(for: .textPrimary2)
 		subheadlineLabel.numberOfLines = 0
 
-		detailsLabel.style = .subheadline
+		detailsLabel.style = .body
 		detailsLabel.textColor = .enaColor(for: .textPrimary2)
 		detailsLabel.numberOfLines = 0
 
@@ -107,7 +107,7 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		currentlyUsedImageView.setContentHuggingPriority(.required, for: .horizontal)
 		currentlyUsedStackView.addArrangedSubview(currentlyUsedImageView)
 
-		currentlyUsedLabel.style = .subheadline
+		currentlyUsedLabel.style = .body
 		currentlyUsedLabel.textColor = .enaColor(for: .textPrimary2)
 		currentlyUsedLabel.numberOfLines = 0
 		currentlyUsedLabel.text = AppStrings.HealthCertificate.Person.currentlyUsedCertificate

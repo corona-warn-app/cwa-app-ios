@@ -29,7 +29,7 @@ struct HealthCertificateKeyValueCellViewModel {
 
 	// MARK: - Internal
 
-	let headlineFont: UIFont = .enaFont(for: .footnote)
+	let headlineFont: UIFont = .enaFont(for: .subheadline)
 	let textFont: UIFont = .enaFont(for: .body)
 	let headlineTextColor: UIColor = .enaColor(for: .textPrimary2)
 	let textTextColor: UIColor = .enaColor(for: .textPrimary1)

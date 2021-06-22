@@ -82,7 +82,7 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 		titleLabel.numberOfLines = 0
 		stackView.addArrangedSubview(titleLabel)
 
-		subtitleLabel.style = .subheadline
+		subtitleLabel.style = .body
 		subtitleLabel.textColor = .enaColor(for: .textPrimary2)
 		subtitleLabel.numberOfLines = 0
 		stackView.addArrangedSubview(subtitleLabel)
