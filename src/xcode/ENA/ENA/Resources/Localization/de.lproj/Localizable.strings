@@ -733,7 +733,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ExposureSubmissionResult_testPending" = "Ihr Testergebnis liegt noch nicht vor";
 
 "ExposureSubmissionResult_testPendingDesc" = "Sobald Ihr Testergebnis vorliegt, wird es Ihnen in der App angezeigt.\n\nSie bekommen Ihr Testergebnis auch außerhalb der App mitgeteilt. Falls Ihr Test positiv ist, bekommen Sie vom Gesundheitsamt eine Mitteilung.\n\nWenn Ihnen außerhalb der App ein positives Testergebnis mitgeteilt wurde, entfernen Sie den aktuell in der App registrierten Test. Rufen Sie die unter „TAN anfragen” angegebene Nummer an, um eine TAN zu erhalten. Registrieren Sie dann Ihr Testergebnis mithilfe der TAN in der App.";
-"ExposureSubmissionResult_testCertificate_title" = "COVID-Testzertifikat";
+"ExposureSubmissionResult_testCertificate_title" = "Ihr COVID-Testzertifikat";
 
 "ExposureSubmissionResult_testCertificate_testCenterNotSupported" = "Ein offizielles digitales COVID-Testzertifikat kann nicht ausgestellt werden, da diese Teststelle die Ausstellung der Testzertifikate nicht unterstützt.";
 
@@ -1001,7 +1001,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_TestCertificate_Information_Section02" = "Das Testzertifikat gilt innerhalb der EU als gültiger Nachweis eines negativen Testergebnisses (z.B. für Reisen).";
 
-"ExposureSubmission_TestCertificate_Information_Subheadline" = "Sie können über die App ein offizielles EU digitales Testzertifikat anfordern, das anschließend in der App hinzugefügt wird.";
+"ExposureSubmission_TestCertificate_Information_Subheadline" = "Sie können über die App ein offizielles digitales COVID-Testzertifikat der EU anfordern, das anschließend in der App hinzugefügt wird.";
 
 "ExposureSubmission_TestCertificate_Information_BirthdayPlaceholder" = "Geburtsdatum";
 
@@ -1582,15 +1582,23 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Informationen unter dem Menüpunkt „Neue Funktionen”.";
 
-/* Version 2.4 */
+/* Version 2.5 */
 
-"NewVersionFeature_24_digital_covid_cert_title" = "COVID-Testzertifikat";
+"NewVersionFeature_25_recovery_cert_title" = "COVID-Genesenenzertifikate";
 
-"NewVersionFeature_24_digital_covid_cert_description" = "Sie können nun über die App ein offizielles EU digitales Testzertifikat anfordern und anschließend in der App hinzufügen. Sie können das Testzertifikat (QR-Code) innerhalb der EU verwenden, um ein negatives Testergebnis nachzuweisen (z.B. für Auslandsreisen).";
+"NewVersionFeature_25_recovery_cert_description" = "Sie können nun in der App auch digitale Genesenenzertifikate hinzufügen. Sie können diese Zertifikate innerhalb der EU verwenden, um eine frühere Infektion nachzuweisen (z.B. für Auslandsreisen).";
 
-"NewVersionFeature_24_extended_diary_title" = "Erweiterung Kontakt-Tagebuch";
+"NewVersionFeature_25_family_certificate_title" = "Familienzertifikate";
 
-"NewVersionFeature_24_extended_diary_title_description" = "Sobald Ihr Testergebnis vorliegt, wird es nun auch Ihrem Kontakt-Tagebuch hinzugefügt.";
+"NewVersionFeature_25_family_certificate_description" = "Sie können nun digitale COVID-Zertifikate von Familienmitgliedern in der App hinzufügen und verwalten, um die Zertifikate vorzeigen zu können (z.B. bei Auslandsreisen).";
+
+"NewVersionFeature_25_enhanced_statistics_title" = "Erweiterung Statistiken ";
+
+"NewVersionFeature_25_enhanced_statistics_description" = "Es sind nun folgende Impfstatistiken in der App verfügbar:\n\n\t- Anzahl mindestens einmal geimpfter Personen\n\t- Anzahl vollständig geimpfter Personen\n\t- Anzahl verabreichter Impfdosen";
+
+"NewVersionFeature_25_edit_test_profile_title" = "Schnelltest-Profil bearbeiten";
+
+"NewVersionFeature_25_edit_test_profile_description" = "Sie können nun Ihr Schnelltest-Profil in der App bearbeiten, um zum Beispiel Ihre Adresse zu ändern.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
@@ -1999,7 +2007,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "Statistics_Card_FullyVaccinated_SecondarySubtitleLabel" = "der Gesamtbevölkerung";
 
 /* - Applied vaccination dose rates card */
- 
+
 "Statistics_Card_AppliedDoseRates_Title" = "Verabreichte Impfdosen";
 
 "Statistics_Card_AppliedDoseRates_Today" = "Aktuell";
@@ -2590,37 +2598,39 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Overview_title" = "Zertifikate";
 
-"HealthCertificate_Overview_description" = "Hier werden Ihre digitalen Impfzertifikate und Testzertifikate angezeigt.";
+"HealthCertificate_Overview_add" = "Zertifikat hinzufügen";
 
-/* - Vaccination Certificate Registration */
+"HealthCertificate_Overview_EmptyTitle" = "Noch keine Zertifikate vorhanden";
 
-"VaccinationCertificate_Registration_title" = "EU Digitalen\n**COVID-Impfnachweis hinzufügen**";
+"HealthCertificate_Overview_EmptyDescription" = "Hier werden die gespeicherten digitalen Impfzertifikate, Genesenenzertifikate und Testzertifikate angezeigt.";
 
-"VaccinationCertificate_Registration_description" = "Fügen Sie Ihre Impfzertifikate in die App hinzu, um sie immer bei sich zu haben. Scannen Sie dafür den QR-Code Ihres Dokuments.";
+"HealthCertificate_Overview_EmptyImageDescription" = "Zertifikatssiegel mit digitalem Zertifikat im Hintergrund";
 
-/* - Vaccination Certificate */
+"HealthCertificate_Overview_Covid_Title" = "Digitales\n**COVID-Zertifikat der EU**";
 
-"VaccinationCertificate_title" = "EU Digitaler\n**COVID-Impfnachweis**";
+"VaccinationCertificate_title" = "Digitaler\n**COVID-Impfnachweis der EU**";
 
 "VaccinationCertificate_partiallyVaccinated" = "Unvollständiger Impfschutz";
 
 "VaccinationCertificate_vaccinationValidUntil" = "Gültig bis einschließlich %@";
 
+"HealthCertificate_Overview_Covid_Certificate_Description" = "Ein QR-Code mit dem Zertifikat";
+
 /* - Test Certificate Info */
 
-"TestCertificate_Info_title" = "EU Digitales\n**COVID-Testzertifikat**";
+"TestCertificate_Info_title" = "Digitales\n**COVID-Testzertifikat der EU**";
 
 "TestCertificate_Info_description" = "Registrieren Sie einen Test auf der Startseite und stimmen Sie zu, ein digitales Testzertifikat zu erhalten. Sobald das Zertifikat vorliegt, wird es hier angezeigt.";
 
 /* - Test Certificate */
 
-"TestCertificate_title" = "EU Digitales\n**COVID-Testzertifikat**";
+"TestCertificate_title" = "Digitales\n**COVID-Testzertifikat der EU**";
 
 "TestCertificate_testDate" = "Test durchgeführt am %@";
 
 /* - Test Certificate Request */
 
-"TestCertificateRequest_title" = "EU Digitales\n**COVID-Testzertifikat**";
+"TestCertificateRequest_title" = "Digitales\n**COVID-Testzertifikat der EU**";
 
 "TestCertificateRequest_loadingSubtitle" = "Ihr Zertifikat wird gerade erstellt…";
 
@@ -2674,9 +2684,9 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Info_imageDescription" = "Eine geschützte Person schaut auf ein Smartphone";
 
-"HealthCertificate_Info_description" = "Fügen Sie Ihre EU digitalen COVID-Zertifikate in der App hinzu, um mit der App Ihren Impfschutz oder ein negatives Testergebnis nachweisen zu können.";
+"HealthCertificate_Info_description" = "Fügen Sie Ihre digitalen COVID-Zertifikate der EU in der App hinzu, um mit der App Ihren Impfschutz oder ein negatives Testergebnis nachweisen zu können.";
 
-"HealthCertificate_Info_section01" = "Sie können EU digitale COVID-Impfzertifikate oder COVID-Testzertifikate in der App hinzufügen.";
+"HealthCertificate_Info_section01" = "Sie können digitale COVID-Impfzertifikate oder COVID-Testzertifikate der EU in der App hinzufügen.";
 
 "HealthCertificate_Info_section02" = "Die Zertifikate gelten innerhalb der EU als gültiger Nachweis (z.B. für Reisen).";
 
@@ -2694,7 +2704,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Health Certified Person Screen */
 
-"HealthCertifiedPerson_title" = "EU Digitaler COVID-Impfnachweis";
+"HealthCertifiedPerson_title" = "Digitaler COVID-Impfnachweis der EU";
 
 "HealthCertifiedPerson_subtitle" = "SARS-CoV-2-Impfschutz";
 
@@ -2712,7 +2722,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Details_certificate" = "Impfzertifikat";
 
-"HealthCertificate_Details_EU_Covid_Certificate" = "EU Digitales COVID-Zertifikat";
+"HealthCertificate_Details_EU_Covid_Certificate" = "Digitales COVID-Zertifikat der EU";
 
 "HealthCertificate_Details_QRCode_Image_Description" = "Ein QR-Code mit Ihrem Zertifikat";
 
@@ -2774,7 +2784,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "RecoveryCertificate_Details_title" = "Genesenenzertifikat";
 
-"RecoveryCertificate_Details_subtitle" = "EU Digitales COVID-Zertifikat";
+"RecoveryCertificate_Details_subtitle" = "Digitales COVID-Zertifikat der EU";
 
 "RecoveryCertificate_Details_primaryButton" = "Genesenenzertifikat entfernen";
 

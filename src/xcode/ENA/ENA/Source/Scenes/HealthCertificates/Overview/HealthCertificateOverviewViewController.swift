@@ -14,13 +14,13 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		onInfoBarButtonItemTap: @escaping () -> Void,
 		onCreateHealthCertificateTap: @escaping () -> Void,
 		onCertifiedPersonTap: @escaping (HealthCertifiedPerson) -> Void,
-		onTestCertificateTap: @escaping (HealthCertificate) -> Void
+		onMissingPermissionsButtonTap: @escaping () -> Void
 	) {
 		self.viewModel = viewModel
 		self.onInfoBarButtonItemTap = onInfoBarButtonItemTap
 		self.onCreateHealthCertificateTap = onCreateHealthCertificateTap
 		self.onCertifiedPersonTap = onCertifiedPersonTap
-		self.onTestCertificateTap = onTestCertificateTap
+		self.onMissingPermissionsButtonTap = onMissingPermissionsButtonTap
 
 		super.init(style: .grouped)
 		
@@ -28,13 +28,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] _ in
 				self?.tableView.reloadData()
-			}
-			.store(in: &subscriptions)
-
-		viewModel.$testCertificates
-			.receive(on: DispatchQueue.OCombine(.main))
-			.sink { [weak self] _ in
-				self?.tableView.reloadData()
+				self?.updateEmptyState()
 			}
 			.store(in: &subscriptions)
 
@@ -42,10 +36,12 @@ class HealthCertificateOverviewViewController: UITableViewController {
 			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] _ in
 				self?.tableView.reloadData()
+				self?.updateEmptyState()
 			}
 			.store(in: &subscriptions)
 
 		viewModel.$testCertificateRequestError
+			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] in
 				guard let self = self, let error = $0 else {
 					return
@@ -72,6 +68,9 @@ class HealthCertificateOverviewViewController: UITableViewController {
 
 		navigationItem.largeTitleDisplayMode = .automatic
 		tableView.backgroundColor = .enaColor(for: .darkBackground)
+		
+		tableView.reloadData()
+		updateEmptyState()
 
 		title = AppStrings.HealthCertificate.Overview.title
 	}
@@ -97,18 +96,14 @@ class HealthCertificateOverviewViewController: UITableViewController {
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		switch HealthCertificateOverviewViewModel.Section(rawValue: indexPath.section) {
-		case .description:
-			return descriptionCell(forRowAt: indexPath)
+		case .createCertificate:
+			return addCertificateCell(forRowAt: indexPath)
+		case .missingPermission:
+			return missingPermissionsCell(forRowAt: indexPath)
+		case .testCertificateRequest:
+			return testCertificateRequestCell(forRowAt: indexPath)
 		case .healthCertificate:
 			return healthCertifiedPersonCell(forRowAt: indexPath)
-		case .createHealthCertificate:
-			return vaccinationRegistrationCell(forRowAt: indexPath)
-		case .testCertificates:
-			return testCertificateCell(forRowAt: indexPath)
-		case .testCertificateRequests:
-			return testCertificateRequestCell(forRowAt: indexPath)
-		case .testCertificateInfo:
-			return testCertificateInfoCell(forRowAt: indexPath)
 		case .none:
 			fatalError("Invalid section")
 		}
@@ -118,23 +113,19 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		switch HealthCertificateOverviewViewModel.Section(rawValue: indexPath.section) {
-		case .description:
-			break
-		case .createHealthCertificate:
+		case .createCertificate:
 			onCreateHealthCertificateTap()
+		case .missingPermission:
+			return
+		case .testCertificateRequest:
+			break
 		case .healthCertificate:
 			onCertifiedPersonTap(viewModel.healthCertifiedPersons[indexPath.row])
-		case .testCertificates:
-			onTestCertificateTap(viewModel.testCertificates[indexPath.row])
-		case .testCertificateRequests:
-			break
-		case .testCertificateInfo:
-			break
 		case .none:
 			fatalError("Invalid section")
 		}
 	}
-
+	
 	// MARK: - Private
 
 	private let viewModel: HealthCertificateOverviewViewModel
@@ -142,8 +133,8 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	private let onInfoBarButtonItemTap: () -> Void
 	private let onCreateHealthCertificateTap: () -> Void
 	private let onCertifiedPersonTap: (HealthCertifiedPerson) -> Void
-	private let onTestCertificateTap: (HealthCertificate) -> Void
-
+	private let onMissingPermissionsButtonTap: () -> Void
+	
 	private var subscriptions = Set<AnyCancellable>()
 
 	private func setupBarButtonItems() {
@@ -157,25 +148,21 @@ class HealthCertificateOverviewViewController: UITableViewController {
 
 	private func setupTableView() {
 		tableView.register(
-			UINib(nibName: String(describing: HealthCertificateOverviewDescriptionTableViewCell.self), bundle: nil),
-			forCellReuseIdentifier: HealthCertificateOverviewDescriptionTableViewCell.reuseIdentifier
+			UINib(nibName: String(describing: AddButtonAsTableViewCell.self), bundle: nil),
+			forCellReuseIdentifier: AddButtonAsTableViewCell.reuseIdentifier
 		)
+		
 		tableView.register(
-			UINib(nibName: String(describing: HomeHealthCertifiedPersonTableViewCell.self), bundle: nil),
-			forCellReuseIdentifier: HomeHealthCertifiedPersonTableViewCell.reuseIdentifier
+			MissingPermissionsTableViewCell.self,
+			forCellReuseIdentifier: MissingPermissionsTableViewCell.reuseIdentifier
 		)
-		tableView.register(
-			UINib(nibName: String(describing: HomeHealthCertificateRegistrationTableViewCell.self), bundle: nil),
-			forCellReuseIdentifier: HomeHealthCertificateRegistrationTableViewCell.reuseIdentifier
-		)
+		
 		tableView.register(
 			UINib(nibName: String(describing: TestCertificateRequestTableViewCell.self), bundle: nil),
 			forCellReuseIdentifier: TestCertificateRequestTableViewCell.reuseIdentifier
 		)
-		tableView.register(
-			UINib(nibName: String(describing: TestCertificateInfoTableViewCell.self), bundle: nil),
-			forCellReuseIdentifier: TestCertificateInfoTableViewCell.reuseIdentifier
-		)
+
+		tableView.register(HealthCertifiedPersonTableViewCell.self, forCellReuseIdentifier: HealthCertifiedPersonTableViewCell.reuseIdentifier)
 
 		tableView.separatorStyle = .none
 		tableView.rowHeight = UITableView.automaticDimension
@@ -187,52 +174,31 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		tableView.estimatedRowHeight = 500
 	}
 	
-	private func healthCertifiedPersonCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: HomeHealthCertifiedPersonTableViewCell.reuseIdentifier, for: indexPath) as? HomeHealthCertifiedPersonTableViewCell else {
-			fatalError("Could not dequeue HomeHealthCertifiedPersonTableViewCell")
+	private func addCertificateCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AddButtonAsTableViewCell.self), for: indexPath) as? AddButtonAsTableViewCell else {
+			fatalError("Could not dequeue CreateCertificateTableViewCell")
 		}
 
-		guard let healthCertifiedPerson = viewModel.healthCertifiedPersons[safe: indexPath.row] else {
-			return UITableViewCell()
-		}
-
-		let cellModel = HomeHealthCertifiedPersonCellModel(
-			healthCertifiedPerson: healthCertifiedPerson
-		)
-		cell.configure(with: cellModel)
-
+		cell.configure(cellModel: AddCertificateCellModel())
+		cell.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Overview.addCertificateCell
 		return cell
 	}
-
-	private func vaccinationRegistrationCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: HomeHealthCertificateRegistrationTableViewCell.reuseIdentifier, for: indexPath) as? HomeHealthCertificateRegistrationTableViewCell else {
-			fatalError("Could not dequeue HomeHealthCertificateRegistrationTableViewCell")
+	
+	private func missingPermissionsCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: MissingPermissionsTableViewCell.reuseIdentifier, for: indexPath) as? MissingPermissionsTableViewCell else {
+			fatalError("Could not dequeue MissingPermissionsTableViewCell")
 		}
 
 		cell.configure(
-			with: HomeHealthCertificateRegistrationCellModel()
+			cellModel: MissingPermissionsCellModel(),
+			onButtonTap: { [weak self] in
+				self?.onMissingPermissionsButtonTap()
+			}
 		)
 
 		return cell
 	}
-
-	private func testCertificateCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: HomeHealthCertifiedPersonTableViewCell.reuseIdentifier, for: indexPath) as? HomeHealthCertifiedPersonTableViewCell else {
-			fatalError("Could not dequeue HomeHealthCertifiedPersonTableViewCell")
-		}
-
-		guard let testCertificate = viewModel.testCertificates[safe: indexPath.row] else {
-			return UITableViewCell()
-		}
-
-		let cellModel = HomeHealthCertifiedPersonCellModel(
-			testCertificate: testCertificate
-		)
-		cell.configure(with: cellModel)
-
-		return cell
-	}
-
+	
 	private func testCertificateRequestCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: TestCertificateRequestTableViewCell.reuseIdentifier, for: indexPath) as? TestCertificateRequestTableViewCell else {
 			fatalError("Could not dequeue TestCertificateRequestTableViewCell")
@@ -257,23 +223,20 @@ class HealthCertificateOverviewViewController: UITableViewController {
 
 		return cell
 	}
-
-	private func testCertificateInfoCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: TestCertificateInfoTableViewCell.reuseIdentifier, for: indexPath) as? TestCertificateInfoTableViewCell else {
-			fatalError("Could not dequeue TestCertificateInfoTableViewCell")
+	
+	private func healthCertifiedPersonCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: HealthCertifiedPersonTableViewCell.reuseIdentifier, for: indexPath) as? HealthCertifiedPersonTableViewCell else {
+			fatalError("Could not dequeue HomeHealthCertifiedPersonTableViewCell")
 		}
 
-		cell.configure(
-			with: TestCertificateInfoCellModel()
-		)
-
-		return cell
-	}
-
-	private func descriptionCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: HealthCertificateOverviewDescriptionTableViewCell.reuseIdentifier, for: indexPath) as? HealthCertificateOverviewDescriptionTableViewCell else {
-			fatalError("Could not dequeue HealthCertificateOverviewDescriptionTableViewCell")
+		guard let healthCertifiedPerson = viewModel.healthCertifiedPersons[safe: indexPath.row],
+			  let cellModel = HealthCertifiedPersonCellModel(
+				healthCertifiedPerson: healthCertifiedPerson
+			  ) else {
+			return UITableViewCell()
 		}
+
+		cell.configure(with: cellModel)
 
 		return cell
 	}
@@ -359,11 +322,28 @@ class HealthCertificateOverviewViewController: UITableViewController {
 				style: .destructive,
 				handler: { [weak self] _ in
 					self?.viewModel.remove(testCertificateRequest: testCertificateRequest)
+					self?.updateEmptyState()
 				}
 			)
 		)
 
 		present(alert, animated: true)
 	}
+	
+	private func updateEmptyState() {
+		let emptyStateView = EmptyStateView(viewModel: HealthCertificateOverviewEmptyStateViewModel())
 
+		// Since we set the empty state view as a background view we need to push it below the add cell by
+		// adding top padding for the height of the add cell …
+		emptyStateView.additionalTopPadding = tableView.rectForRow(at: IndexPath(row: 0, section: 0)).height
+		// … + the height of the navigation bar
+		emptyStateView.additionalTopPadding += self.navigationController?.navigationBar.frame.height ?? 0
+		// … + the height of the status bar
+		if #available(iOS 13.0, *) {
+			emptyStateView.additionalTopPadding += UIApplication.shared.windows.first?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
+		} else {
+			emptyStateView.additionalTopPadding += UIApplication.shared.statusBarFrame.height
+		}
+		tableView.backgroundView = viewModel.isEmptyStateVisible ? emptyStateView : nil
+	}
 }
