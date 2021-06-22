@@ -7423,7 +7423,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# ignore CI builds - swiftlint is handled separately there\nif [ -z \"${CI}\" ]; then\n  ${PROJECT_DIR}/../../../vendor/swiftlint lint --quiet\nfi\n";
+			shellScript = "# Run swiftlint in local development.\n# Ignore CI builds, swiftlint is handled separately there.\nif [ -z \"${CI}\" ] && [ -z \"${JENKINS_HOME}\" ]; then\n  \"${PROJECT_DIR}/../../../vendor/swiftlint\" lint --quiet\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
