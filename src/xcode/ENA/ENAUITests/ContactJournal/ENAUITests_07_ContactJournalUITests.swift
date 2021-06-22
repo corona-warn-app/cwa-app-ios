@@ -255,8 +255,16 @@ class ENAUITests_07_ContactJournal: CWATestCase {
 		addLocationToDayEntry("Pizzabude")
 
 		// Select duration.
-
-		app.otherElements["Hours"].firstMatch.waitAndTap()
+		
+		// Until iOS 14.4 the datePicker was declared as "OtherElement" with an label called "Hours". From 14.5 and above, Apple changed the XCUIElement to "TextField" (🤷‍♂️) and its label is now localized. We cannot set any identifier. Because of this we do some magic and we take the remaining one without any identifier.
+		if #available(iOS 14.5, *) {
+			let datePickerAsTextField = app.textFields.element(boundBy: 1)
+			XCTAssertTrue(datePickerAsTextField.identifier.isEmpty)
+			datePickerAsTextField.firstMatch.waitAndTap()
+		} else {
+			app.otherElements["Hours"].firstMatch.waitAndTap()
+		}
+		
 		app.keys["0"].waitAndTap()
 		app.keys["4"].waitAndTap()
 		app.keys["2"].waitAndTap()
