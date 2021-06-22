@@ -88,7 +88,7 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 					}
 				}
 								
-				let options = UIView.AnimationOptions(rawValue: ((UInt(animationCurve << 16))))
+				let options = UIView.AnimationOptions(rawValue: (UInt(animationCurve << 16)))
 				UIView.animate(withDuration: animationDuration, delay: 0, options: options, animations: { [weak self] in
 					self?.tableView.scrollIndicatorInsets.bottom = keyboardInset
 					self?.tableView.contentInset.bottom = keyboardInset
@@ -109,7 +109,7 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 					return
 				}
 				
-				let options = UIView.AnimationOptions(rawValue: ((UInt(animationCurve << 16))))
+				let options = UIView.AnimationOptions(rawValue: (UInt(animationCurve << 16)))
 				UIView.animate(withDuration: animationDuration, delay: 0, options: options, animations: { [weak self] in
 					self?.tableView.scrollIndicatorInsets.bottom = 0
 					self?.tableView.contentInset.bottom = 0
