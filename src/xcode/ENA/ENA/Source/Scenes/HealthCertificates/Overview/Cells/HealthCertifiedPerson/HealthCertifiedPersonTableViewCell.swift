@@ -65,6 +65,8 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	}
 
 	private func setupView() {
+		contentView.backgroundColor = .enaColor(for: .darkBackground)
+
 		cardView.translatesAutoresizingMaskIntoConstraints = false
 		contentView.addSubview(cardView)
 
@@ -104,7 +106,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 
 		let qrCodeContainerView = UIView()
 		qrCodeContainerView.translatesAutoresizingMaskIntoConstraints = false
-		qrCodeContainerView.backgroundColor = .enaColor(for: .background)
+		qrCodeContainerView.backgroundColor = .enaColor(for: .cellBackground2)
 		qrCodeContainerView.layer.cornerRadius = 12
 		qrCodeContainerView.layer.borderWidth = 1
 		qrCodeContainerView.layer.borderColor = UIColor.enaColor(for: .hairline).cgColor
