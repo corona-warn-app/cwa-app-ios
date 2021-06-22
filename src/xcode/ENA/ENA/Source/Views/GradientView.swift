@@ -47,14 +47,14 @@ class GradientView: UIView {
 		case mediumBlue(withStars: Bool)
 		case darkBlue(withStars: Bool)
 
-		var starImage: UIImage? {
+		var starsColor: UIColor? {
 			switch self {
 			case let .lightBlue(withStars):
-				return withStars ? UIImage(imageLiteralResourceName: "lightBlueStars") : nil
+				return withStars ? UIColor(red: 1.0 / 255.0, green: 145.0 / 255.0, blue: 198.0 / 255.0, alpha: 1.0) : nil
 			case let .mediumBlue(withStars):
-				return withStars ? UIImage(imageLiteralResourceName: "mediumBlueStars") : nil
+				return withStars ? UIColor(red: 7.0 / 255.0, green: 106.0 / 255.0, blue: 159.0 / 255.0, alpha: 1.0) : nil
 			case let .darkBlue(withStars):
-				return withStars ? UIImage(imageLiteralResourceName: "darkBlueStars") : nil
+				return withStars ? UIColor(red: 2.0 / 255.0, green: 90.0 / 255.0, blue: 143.0 / 255.0, alpha: 1.0) : nil
 			default:
 				return nil
 			}
@@ -76,8 +76,8 @@ class GradientView: UIView {
 		addSubview(imageView)
 		NSLayoutConstraint.activate(
 			[
-				imageView.topAnchor.constraint(equalTo: topAnchor),
-				imageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30)
+				imageView.topAnchor.constraint(equalTo: topAnchor, constant: 10.0),
+				imageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -33.0)
 			]
 		)
 	}
@@ -87,8 +87,15 @@ class GradientView: UIView {
 			Log.debug("Failed to create view with matching layer class", log: .default)
 			return
 		}
-		imageView.image = type.starImage
+		// update stars view
+		if let starsColor = type.starsColor {
+			imageView.tintColor = starsColor
+			imageView.image = UIImage(imageLiteralResourceName: "EUStarsGroup")
+		} else {
+			imageView.image = nil
+		}
 
+		// update gradient layer
 		switch type {
 		case .blueRedTilted:
 			// magic numbers to create the gradient colors in the right place

@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "mediumBlueStars.pdf",
+      "filename" : "lightStarsNew.pdf",
       "idiom" : "universal"
     }
   ],
@@ -10,6 +10,6 @@
     "version" : 1
   },
   "properties" : {
-    "template-rendering-intent" : "original"
+    "template-rendering-intent" : "template"
   }
 }
