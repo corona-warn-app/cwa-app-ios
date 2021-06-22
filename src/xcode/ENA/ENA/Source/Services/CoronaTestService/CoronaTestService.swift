@@ -674,7 +674,7 @@ class CoronaTestService {
 
 				switch testResult {
 				case .positive, .negative, .invalid:
-					if case .positive = testResult, !coronaTest.keysSubmitted {
+					if case .positive = testResult, let coronaTest = self.coronaTest(ofType: coronaTestType), !coronaTest.keysSubmitted {
 						self.createKeySubmissionMetadataDefaultValues(for: coronaTest)
 					}
 
@@ -699,7 +699,7 @@ class CoronaTestService {
 
 					}
 
-					if coronaTest.finalTestResultReceivedDate == nil {
+					if self.coronaTest(ofType: coronaTestType)?.finalTestResultReceivedDate == nil {
 						switch coronaTestType {
 						case .pcr:
 							self.pcrTest?.finalTestResultReceivedDate = Date()

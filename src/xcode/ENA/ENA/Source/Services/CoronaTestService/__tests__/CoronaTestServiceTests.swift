@@ -1677,8 +1677,7 @@ class CoronaTestServiceTests: CWATestCase {
 		}
 		waitForExpectations(timeout: .short)
 
-		// has to be 6 because each call to "updateTestResults()" add one notification for antigen and one for pcr
-		XCTAssertEqual(mockNotificationCenter.notificationRequests.count, 6)
+		XCTAssertEqual(mockNotificationCenter.notificationRequests.count, 2)
 	}
 
 	func test_When_UpdatePresentNotificationFalse_Then_NotificationShouldNOTBePresented() {
