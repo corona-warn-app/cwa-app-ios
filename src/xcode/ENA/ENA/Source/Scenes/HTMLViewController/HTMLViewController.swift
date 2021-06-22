@@ -97,4 +97,13 @@ extension HTMLViewController: WKNavigationDelegate {
             }
         })
     }
+
+	func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+		if navigationAction.navigationType == .linkActivated, let url = navigationAction.request.url {
+			LinkHelper.open(url: url)
+			decisionHandler(.cancel)
+		} else {
+			decisionHandler(.allow)
+		}
+	}
 }
