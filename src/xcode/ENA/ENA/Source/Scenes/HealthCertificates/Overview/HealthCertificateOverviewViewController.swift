@@ -161,11 +161,8 @@ class HealthCertificateOverviewViewController: UITableViewController {
 			UINib(nibName: String(describing: TestCertificateRequestTableViewCell.self), bundle: nil),
 			forCellReuseIdentifier: TestCertificateRequestTableViewCell.reuseIdentifier
 		)
-		
-		tableView.register(
-			UINib(nibName: String(describing: HomeHealthCertifiedPersonTableViewCell.self), bundle: nil),
-			forCellReuseIdentifier: HomeHealthCertifiedPersonTableViewCell.reuseIdentifier
-		)
+
+		tableView.register(HealthCertifiedPersonTableViewCell.self, forCellReuseIdentifier: HealthCertifiedPersonTableViewCell.reuseIdentifier)
 
 		tableView.separatorStyle = .none
 		tableView.rowHeight = UITableView.automaticDimension
@@ -228,17 +225,17 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	}
 	
 	private func healthCertifiedPersonCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: HomeHealthCertifiedPersonTableViewCell.reuseIdentifier, for: indexPath) as? HomeHealthCertifiedPersonTableViewCell else {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: HealthCertifiedPersonTableViewCell.reuseIdentifier, for: indexPath) as? HealthCertifiedPersonTableViewCell else {
 			fatalError("Could not dequeue HomeHealthCertifiedPersonTableViewCell")
 		}
 
-		guard let healthCertifiedPerson = viewModel.healthCertifiedPersons[safe: indexPath.row] else {
+		guard let healthCertifiedPerson = viewModel.healthCertifiedPersons[safe: indexPath.row],
+			  let cellModel = HealthCertifiedPersonCellModel(
+				healthCertifiedPerson: healthCertifiedPerson
+			  ) else {
 			return UITableViewCell()
 		}
 
-		let cellModel = HomeHealthCertifiedPersonCellModel(
-			healthCertifiedPerson: healthCertifiedPerson
-		)
 		cell.configure(with: cellModel)
 
 		return cell
