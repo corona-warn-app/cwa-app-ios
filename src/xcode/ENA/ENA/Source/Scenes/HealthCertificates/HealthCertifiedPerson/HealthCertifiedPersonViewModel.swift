@@ -124,7 +124,7 @@ final class HealthCertifiedPersonViewModel {
 		}
 	}
 
-	var personCellViewModel: HealthCertificateSimpleTextCellViewModel {
+	var personCellViewModel: PreferredPersonCellModel {
 		let attributedName = NSAttributedString(
 			string: healthCertifiedPerson.name?.fullName ?? "",
 			attributes: [
@@ -139,15 +139,6 @@ final class HealthCertifiedPersonViewModel {
 				.font: UIFont.enaFont(for: .subheadline),
 				.foregroundColor: UIColor.enaColor(for: .textPrimary2)
 			]
-		)
-
-		return HealthCertificateSimpleTextCellViewModel(
-			backgroundColor: .enaColor(for: .cellBackground2),
-			attributedText: [attributedName, attributedDetails].joined(with: "\n"),
-			topSpace: 16.0,
-			font: .enaFont(for: .headline),
-			borderColor: .enaColor(for: .hairline),
-			accessibilityTraits: .staticText
 		)
 	}
 
