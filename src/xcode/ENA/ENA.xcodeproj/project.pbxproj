@@ -335,6 +335,7 @@
 		2E67C3D525BAFFC8008C6C90 /* DiaryExportItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E67C3D425BAFFC8008C6C90 /* DiaryExportItem.swift */; };
 		2EA7A4F626398EAC0069E865 /* CreateAntigenTestProfileDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA7A4F526398EAC0069E865 /* CreateAntigenTestProfileDescriptionCell.swift */; };
 		2EA7A4F826398ED70069E865 /* CreateAntigenTestProfileInputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA7A4F726398ED70069E865 /* CreateAntigenTestProfileInputCell.swift */; };
+		2EB7D6912681CC2100633D30 /* TopBottomContainerViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB7D68D2681CB6600633D30 /* TopBottomContainerViewControllerTests.swift */; };
 		2EDE67F9266E406900864D53 /* StackViewLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDE67F8266E406900864D53 /* StackViewLabel.swift */; };
 		2EDE67FB266E63A600864D53 /* StackViewLabelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDE67FA266E63A600864D53 /* StackViewLabelTests.swift */; };
 		2F26CE2E248B9C4F00BE30EE /* UIViewController+BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F26CE2D248B9C4F00BE30EE /* UIViewController+BackButton.swift */; };
@@ -1553,6 +1554,7 @@
 		2E67C3D425BAFFC8008C6C90 /* DiaryExportItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiaryExportItem.swift; sourceTree = "<group>"; };
 		2EA7A4F526398EAC0069E865 /* CreateAntigenTestProfileDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAntigenTestProfileDescriptionCell.swift; sourceTree = "<group>"; };
 		2EA7A4F726398ED70069E865 /* CreateAntigenTestProfileInputCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAntigenTestProfileInputCell.swift; sourceTree = "<group>"; };
+		2EB7D68D2681CB6600633D30 /* TopBottomContainerViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBottomContainerViewControllerTests.swift; sourceTree = "<group>"; };
 		2EDE67F8266E406900864D53 /* StackViewLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackViewLabel.swift; sourceTree = "<group>"; };
 		2EDE67FA266E63A600864D53 /* StackViewLabelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackViewLabelTests.swift; sourceTree = "<group>"; };
 		2F26CE2D248B9C4F00BE30EE /* UIViewController+BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+BackButton.swift"; sourceTree = "<group>"; };
@@ -3460,6 +3462,14 @@
 				2E4C3FE8263AA6B800E9FAFF /* ENAUITests_12_AntigenTestProfile.swift */,
 			);
 			path = AntigenTestProfile;
+			sourceTree = "<group>";
+		};
+		2EB7D68C2681CB4E00633D30 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				2EB7D68D2681CB6600633D30 /* TopBottomContainerViewControllerTests.swift */,
+			);
+			path = __tests__;
 			sourceTree = "<group>";
 		};
 		2F3D95352518BCBA002B2C81 /* EUSettings */ = {
@@ -6237,6 +6247,7 @@
 		BA63815825E69D1000A642BB /* Containers */ = {
 			isa = PBXGroup;
 			children = (
+				2EB7D68C2681CB4E00633D30 /* __tests__ */,
 				BA941DCD25E5450D003F9653 /* TopBottomContainerViewController.swift */,
 			);
 			path = Containers;
@@ -8367,6 +8378,7 @@
 				5051CBB6260BCF6D003FC7C1 /* Int+DateFromUnixTimestampInHours.swift in Sources */,
 				B15382FE248424F00010F007 /* ExposureDetectionTests.swift in Sources */,
 				BA69A80525CDA6B300023265 /* SelectValueCellViewModelTests.swift in Sources */,
+				2EB7D6912681CC2100633D30 /* TopBottomContainerViewControllerTests.swift in Sources */,
 				ABC1C273267B854E00223625 /* DCCDateStringFormatterTests.swift in Sources */,
 				A372DA3F24BEF773003248BB /* ExposureSubmissionCoordinatorTests.swift in Sources */,
 				01D16C6024ED6D9A007DB387 /* MockBackgroundRefreshStatusProvider.swift in Sources */,
