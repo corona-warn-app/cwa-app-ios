@@ -63,7 +63,7 @@ public struct VaccinationEntry: Codable, Equatable {
         case uniqueCertificateIdentifier = "ci"
     }
 
-    // MARK: - Internal
+    // MARK: - Public
 
     public let diseaseOrAgentTargeted: String
     public let vaccineOrProphylaxis: String
@@ -77,6 +77,37 @@ public struct VaccinationEntry: Codable, Equatable {
     public let countryOfVaccination: String
     public let certificateIssuer: String
     public let uniqueCertificateIdentifier: String
+    
+    public init(diseaseOrAgentTargeted: String, vaccineOrProphylaxis: String, vaccineMedicinalProduct: String, marketingAuthorizationHolder: String, doseNumber: Int, totalSeriesOfDoses: Int, dateOfVaccination: String, countryOfVaccination: String, certificateIssuer: String, uniqueCertificateIdentifier: String) {
+        self.diseaseOrAgentTargeted = diseaseOrAgentTargeted
+        self.vaccineOrProphylaxis = vaccineOrProphylaxis
+        self.vaccineMedicinalProduct = vaccineMedicinalProduct
+        self.marketingAuthorizationHolder = marketingAuthorizationHolder
+        self.doseNumber = doseNumber
+        self.totalSeriesOfDoses = totalSeriesOfDoses
+        self.dateOfVaccination = dateOfVaccination
+        self.countryOfVaccination = countryOfVaccination
+        self.certificateIssuer = certificateIssuer
+        self.uniqueCertificateIdentifier = uniqueCertificateIdentifier
+    }
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        diseaseOrAgentTargeted = try container.decode(String.self, forKey: .diseaseOrAgentTargeted)
+        vaccineOrProphylaxis = try container.decode(String.self, forKey: .vaccineOrProphylaxis)
+        vaccineMedicinalProduct = try container.decode(String.self, forKey: .vaccineMedicinalProduct)
+        marketingAuthorizationHolder = try container.decode(String.self, forKey: .marketingAuthorizationHolder)
+        doseNumber = try container.decode(Int.self, forKey: .doseNumber)
+        totalSeriesOfDoses = try container.decode(Int.self, forKey: .totalSeriesOfDoses)
+        dateOfVaccination = try container.decode(String.self, forKey: .dateOfVaccination)
+        countryOfVaccination = try container.decode(String.self, forKey: .countryOfVaccination)
+        certificateIssuer = try container.decode(String.self, forKey: .certificateIssuer)
+        uniqueCertificateIdentifier = try container.decode(String.self, forKey: .uniqueCertificateIdentifier)
+        // EU Spec says "Exactly 1 (one) non-empty "vp", "mp" or "ma" field MUST be provided"
+        if vaccineOrProphylaxis.isEmpty && vaccineMedicinalProduct.isEmpty && marketingAuthorizationHolder.isEmpty {
+            throw CertificateDecodingError.HC_JSON_SCHEMA_INVALID(.VALIDATION_FAILED(Error.oneNoneEmptyFieldNotProvided))
+        }
+    }
 
     public static func fake(
         diseaseOrAgentTargeted: String = "840539006",
@@ -104,6 +135,11 @@ public struct VaccinationEntry: Codable, Equatable {
         )
     }
 
+    // MARK: - Private
+    
+    enum Error: Swift.Error {
+        case oneNoneEmptyFieldNotProvided
+    }
 }
 
 public struct TestEntry: Codable, Equatable {
