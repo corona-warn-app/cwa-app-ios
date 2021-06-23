@@ -370,8 +370,14 @@ class HealthCertificateService {
 							}
 					}
 
-					// Trigger publisher to inform subscribers and update store
-					self.healthCertifiedPersons.value = self.healthCertifiedPersons.value
+					let preferredPerson = self.healthCertifiedPersons.value
+						.filter { $0.isPreferredPerson }
+
+					let sortedOtherPersons = self.healthCertifiedPersons.value
+						.filter { !$0.isPreferredPerson }
+						.sorted { $0.name?.fullName ?? "" < $1.name?.fullName ?? "" }
+
+					self.healthCertifiedPersons.value = preferredPerson + sortedOtherPersons
 				}
 				.store(in: &healthCertifiedPersonSubscriptions)
 		}
