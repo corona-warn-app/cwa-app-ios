@@ -82,7 +82,7 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 						completion(.failure(error))
 					}
 				}
-				Log.info("2nd child added to process", log: .riskDetection)
+				Log.info("2nd child added to progress", log: .riskDetection)
 				progress.addChild(exposureWindowsProgress, withPendingUnitCount: 1)
 			} else if let error = error {
 				self.clearCacheOnErrorBadParameter(error: error)
@@ -90,7 +90,7 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 			}
 		}
 
-		Log.info("1st child added to process", log: .riskDetection)
+		Log.info("1st child added to progress", log: .riskDetection)
 		progress.addChild(detectExposuresProgress, withPendingUnitCount: 1)
 
 		return progress
