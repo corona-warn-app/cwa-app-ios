@@ -137,6 +137,16 @@ extension HTTPClient {
 			)
 		}
 
+		func localStatisticsURL(administrativeUnit: String) -> URL {
+			endpoints
+				.distribution
+				.appending(
+					"version",
+					apiVersion,
+					"local_stats_\(administrativeUnit)"
+			)
+		}
+
 		var submissionURL: URL {
 			endpoints
 				.submission
