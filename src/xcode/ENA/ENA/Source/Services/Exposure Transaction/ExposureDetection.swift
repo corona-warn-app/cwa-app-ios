@@ -43,7 +43,10 @@ final class ExposureDetection {
 	}
 
 	private func detectExposureWindows(writtenPackages: WrittenPackages, exposureConfiguration: ENExposureConfiguration) {
-		progress?.cancel()
+		if progress != nil {
+			Log.error("previous running process found, will try to cancel", log: .riskDetection)
+			progress?.cancel()
+		}
 		progress = delegate?.detectExposureWindows(
 			self,
 			detectSummaryWithConfiguration: exposureConfiguration,
