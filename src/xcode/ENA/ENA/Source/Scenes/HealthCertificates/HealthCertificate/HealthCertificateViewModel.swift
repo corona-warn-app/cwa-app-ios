@@ -405,13 +405,10 @@ final class HealthCertificateViewModel {
 			topSpace: 2.0
 		)
 
-		var dateOfBirthCellViewModel: HealthCertificateKeyValueCellViewModel?
-		if let dateOfBirthDate = healthCertificate.dateOfBirthDate {
-			dateOfBirthCellViewModel = HealthCertificateKeyValueCellViewModel(
-				key: "Geburtsdatum / Date of Birth (YYYY-MM-DD)",
-				value: ISO8601DateFormatter.justLocalDateFormatter.string(from: dateOfBirthDate)
-			)
-		}
+		let dateOfBirthCellViewModel = HealthCertificateKeyValueCellViewModel(
+			key: "Geburtsdatum / Date of Birth (YYYY-MM-DD)",
+			value: DCCDateStringFormatter.formatedString(from: healthCertificate.dateOfBirth)
+		)
 
 		let diseaseOrAgentTargetedCellViewModel = HealthCertificateKeyValueCellViewModel(
 			key: "Genesen von / Recovered from",
@@ -423,7 +420,7 @@ final class HealthCertificateViewModel {
 
 		let dateOfFirstPositiveNAAResultCellViewModel = HealthCertificateKeyValueCellViewModel(
 			key: "Datum des ersten positiven Testergebnisses / Date of first positive test result (YYYY-MM-DD)",
-			value: recoveryEntry.dateOfFirstPositiveNAAResult
+			value: DCCDateStringFormatter.formatedString(from: recoveryEntry.dateOfFirstPositiveNAAResult)
 		)
 
 		let localizedCountryName = Country(countryCode: recoveryEntry.countryOfTest)?.localizedName
