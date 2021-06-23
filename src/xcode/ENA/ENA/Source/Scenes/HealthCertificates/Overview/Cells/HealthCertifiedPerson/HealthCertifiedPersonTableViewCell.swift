@@ -39,7 +39,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 				with: cellModel.certificate.base45,
 				encoding: .utf8,
 				size: CGSize(width: 280, height: 280),
-				qrCodeErrorCorrectionLevel: .quartile
+				qrCodeErrorCorrectionLevel: .medium
 			)
 			DispatchQueue.main.async { [weak self] in
 				self?.qrCodeImageView.image = qrCodeImage
@@ -51,11 +51,11 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	
 	// MARK: - Private
 
-	private let cardView: CardView = CardView()
-	private let titleLabel: ENALabel = ENALabel(style: .body)
-	private let nameLabel: ENALabel = ENALabel(style: .title2)
-	private let gradientView: GradientView = GradientView()
-	private let qrCodeImageView: UIImageView = UIImageView()
+	private let cardView = CardView()
+	private let titleLabel = ENALabel(style: .body)
+	private let nameLabel = ENALabel(style: .title2)
+	private let gradientView = GradientView()
+	private let qrCodeImageView = UIImageView()
 	private let placeHolderImage: UIImage? = UIImage.with(color: .enaColor(for: .background))
 
 	private func setupAccessibility() {
@@ -68,33 +68,35 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		contentView.backgroundColor = .enaColor(for: .darkBackground)
 
 		cardView.translatesAutoresizingMaskIntoConstraints = false
+		cardView.hasBorder = false
 		contentView.addSubview(cardView)
-
-		let topContainerView = UIView()
-		topContainerView.translatesAutoresizingMaskIntoConstraints = false
-		topContainerView.backgroundColor = .enaColor(for: .background)
-		topContainerView.layer.masksToBounds = true
-		topContainerView.layer.cornerRadius = 12
-		if #available(iOS 13.0, *) {
-			topContainerView.layer.cornerCurve = .continuous
-		}
-		cardView.addSubview(topContainerView)
 
 		gradientView.translatesAutoresizingMaskIntoConstraints = false
 		gradientView.layer.masksToBounds = true
 		gradientView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-		gradientView.layer.cornerRadius = 12
+		gradientView.layer.cornerRadius = 14.0
 		if #available(iOS 13.0, *) {
 			gradientView.layer.cornerCurve = .continuous
 		}
-		topContainerView.addSubview(gradientView)
+		cardView.addSubview(gradientView)
 
 		let bottomView = UIView()
 		bottomView.backgroundColor = .enaColor(for: .background)
 		bottomView.translatesAutoresizingMaskIntoConstraints = false
-		topContainerView.addSubview(bottomView)
+		bottomView.clipsToBounds = false
+		bottomView.layer.borderWidth = 1.0
+		bottomView.layer.borderColor = UIColor.enaColor(for: .cardShadow).cgColor
+		bottomView.layer.cornerRadius = 14.0
+		bottomView.layer.maskedCorners = [ .layerMaxXMaxYCorner, .layerMinXMaxYCorner]
+		if #available(iOS 13.0, *) {
+			bottomView.layer.cornerCurve = .continuous
+		}
+
+		cardView.addSubview(bottomView)
 
 		titleLabel.numberOfLines = 0
+		titleLabel.textColor = .enaColor(for: .textContrast)
+
 		nameLabel.textColor = .enaColor(for: .textContrast)
 		nameLabel.font = .enaFont(for: .title2, weight: .regular, italic: false)
 
@@ -107,7 +109,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		let qrCodeContainerView = UIView()
 		qrCodeContainerView.translatesAutoresizingMaskIntoConstraints = false
 		qrCodeContainerView.backgroundColor = .enaColor(for: .cellBackground2)
-		qrCodeContainerView.layer.cornerRadius = 12
+		qrCodeContainerView.layer.cornerRadius = 14
 		qrCodeContainerView.layer.borderWidth = 1
 		qrCodeContainerView.layer.borderColor = UIColor.enaColor(for: .hairline).cgColor
 		if #available(iOS 13.0, *) {
@@ -125,28 +127,23 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 				cardView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.0),
 				cardView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8.0),
 
-				topContainerView.leadingAnchor.constraint(equalTo: cardView.leadingAnchor),
-				topContainerView.topAnchor.constraint(equalTo: cardView.topAnchor),
-				topContainerView.trailingAnchor.constraint(equalTo: cardView.trailingAnchor),
-				topContainerView.bottomAnchor.constraint(equalTo: cardView.bottomAnchor),
-
-				gradientView.leadingAnchor.constraint(equalTo: topContainerView.leadingAnchor),
-				gradientView.topAnchor.constraint(equalTo: topContainerView.topAnchor),
-				gradientView.trailingAnchor.constraint(equalTo: topContainerView.trailingAnchor),
+				gradientView.leadingAnchor.constraint(equalTo: cardView.leadingAnchor),
+				gradientView.topAnchor.constraint(equalTo: cardView.topAnchor),
+				gradientView.trailingAnchor.constraint(equalTo: cardView.trailingAnchor),
 				gradientView.bottomAnchor.constraint(equalTo: qrCodeImageView.centerYAnchor),
 
-				bottomView.leadingAnchor.constraint(equalTo: topContainerView.leadingAnchor),
+				bottomView.leadingAnchor.constraint(equalTo: cardView.leadingAnchor),
 				bottomView.topAnchor.constraint(equalTo: gradientView.bottomAnchor, constant: -1.0),
-				bottomView.trailingAnchor.constraint(equalTo: topContainerView.trailingAnchor),
-				bottomView.bottomAnchor.constraint(equalTo: topContainerView.bottomAnchor),
+				bottomView.trailingAnchor.constraint(equalTo: cardView.trailingAnchor),
+				bottomView.bottomAnchor.constraint(equalTo: cardView.bottomAnchor),
 
 				stackView.leadingAnchor.constraint(equalTo: gradientView.leadingAnchor, constant: 15.0),
 				stackView.topAnchor.constraint(equalTo: gradientView.topAnchor, constant: 20.0),
 				stackView.trailingAnchor.constraint(equalTo: gradientView.trailingAnchor, constant: -15.0),
 
-				qrCodeContainerView.leadingAnchor.constraint(equalTo: topContainerView.leadingAnchor, constant: 16.0),
+				qrCodeContainerView.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 16.0),
 				qrCodeContainerView.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 20.0),
-				qrCodeContainerView.trailingAnchor.constraint(equalTo: topContainerView.trailingAnchor, constant: -16.0),
+				qrCodeContainerView.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -16.0),
 				qrCodeContainerView.bottomAnchor.constraint(equalTo: bottomView.bottomAnchor, constant: -24.0),
 				qrCodeContainerView.widthAnchor.constraint(equalTo: qrCodeContainerView.heightAnchor),
 
