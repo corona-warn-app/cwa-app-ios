@@ -12,33 +12,36 @@ class HomeStatisticsCardView: UIView {
 	override func awakeFromNib() {
 		super.awakeFromNib()
 
-		titleLabel.adjustsFontSizeToFitWidth = true
-		titleLabel.allowsDefaultTighteningForTruncation = true
+		let adjustsFontSizeToFitWidth = false
+		let allowsDefaultTighteningForTruncation = true
+
+		titleLabel.adjustsFontSizeToFitWidth = adjustsFontSizeToFitWidth
+		titleLabel.allowsDefaultTighteningForTruncation = allowsDefaultTighteningForTruncation
 		titleLabel.onAccessibilityFocus = { [weak self] in
 			self?.onAccessibilityFocus?()
 		}
-		
+
 		primaryTitleLabel.style = .body
 		primaryTitleLabel.textColor = .enaColor(for: .textPrimary2)
 		primaryTitleLabel.numberOfLines = 0
-		primaryTitleLabel.adjustsFontSizeToFitWidth = true
-		primaryTitleLabel.allowsDefaultTighteningForTruncation = true
+		primaryTitleLabel.adjustsFontSizeToFitWidth = adjustsFontSizeToFitWidth
+		primaryTitleLabel.allowsDefaultTighteningForTruncation = allowsDefaultTighteningForTruncation
 		primaryTitleLabel.onAccessibilityFocus = { [weak self] in
 			self?.onAccessibilityFocus?()
 		}
-		
+
 		primaryValueLabel.style = .title1
 		primaryValueLabel.numberOfLines = 0
-		primaryValueLabel.adjustsFontSizeToFitWidth = true
-		primaryValueLabel.allowsDefaultTighteningForTruncation = true
+		primaryValueLabel.adjustsFontSizeToFitWidth = adjustsFontSizeToFitWidth
+		primaryValueLabel.allowsDefaultTighteningForTruncation = allowsDefaultTighteningForTruncation
 		primaryValueLabel.onAccessibilityFocus = { [weak self] in
 			self?.onAccessibilityFocus?()
 		}
 		primarySubtitleLabel.style = .body
 		primarySubtitleLabel.textColor = .enaColor(for: .textPrimary2)
 		primarySubtitleLabel.numberOfLines = 0
-		primarySubtitleLabel.adjustsFontSizeToFitWidth = true
-		primarySubtitleLabel.allowsDefaultTighteningForTruncation = true
+		primarySubtitleLabel.adjustsFontSizeToFitWidth = adjustsFontSizeToFitWidth
+		primarySubtitleLabel.allowsDefaultTighteningForTruncation = allowsDefaultTighteningForTruncation
 		primarySubtitleLabel.onAccessibilityFocus = { [weak self] in
 			self?.onAccessibilityFocus?()
 		}
@@ -46,33 +49,33 @@ class HomeStatisticsCardView: UIView {
 		secondaryTitleLabel.style = .body
 		secondaryTitleLabel.textColor = .enaColor(for: .textPrimary2)
 		secondaryTitleLabel.numberOfLines = 0
-		secondaryTitleLabel.adjustsFontSizeToFitWidth = true
-		secondaryTitleLabel.allowsDefaultTighteningForTruncation = true
+		secondaryTitleLabel.adjustsFontSizeToFitWidth = adjustsFontSizeToFitWidth
+		secondaryTitleLabel.allowsDefaultTighteningForTruncation = allowsDefaultTighteningForTruncation
 		secondaryTitleLabel.onAccessibilityFocus = { [weak self] in
 			self?.onAccessibilityFocus?()
 		}
-		
+
 		secondaryValueLabel.style = .headline
 		secondaryValueLabel.numberOfLines = 0
-		secondaryValueLabel.adjustsFontSizeToFitWidth = true
-		secondaryValueLabel.allowsDefaultTighteningForTruncation = true
+		secondaryValueLabel.adjustsFontSizeToFitWidth = adjustsFontSizeToFitWidth
+		secondaryValueLabel.allowsDefaultTighteningForTruncation = allowsDefaultTighteningForTruncation
 		secondaryValueLabel.onAccessibilityFocus = { [weak self] in
 			self?.onAccessibilityFocus?()
 		}
-		
+
 		tertiaryTitleLabel.style = .body
 		tertiaryTitleLabel.textColor = .enaColor(for: .textPrimary2)
 		tertiaryTitleLabel.numberOfLines = 0
-		tertiaryTitleLabel.adjustsFontSizeToFitWidth = true
-		tertiaryTitleLabel.allowsDefaultTighteningForTruncation = true
+		tertiaryTitleLabel.adjustsFontSizeToFitWidth = adjustsFontSizeToFitWidth
+		tertiaryTitleLabel.allowsDefaultTighteningForTruncation = allowsDefaultTighteningForTruncation
 		tertiaryTitleLabel.onAccessibilityFocus = { [weak self] in
 			self?.onAccessibilityFocus?()
 		}
-		
+
 		tertiaryValueLabel.style = .headline
 		tertiaryValueLabel.numberOfLines = 0
-		tertiaryValueLabel.adjustsFontSizeToFitWidth = true
-		tertiaryValueLabel.allowsDefaultTighteningForTruncation = true
+		tertiaryValueLabel.adjustsFontSizeToFitWidth = adjustsFontSizeToFitWidth
+		tertiaryValueLabel.allowsDefaultTighteningForTruncation = allowsDefaultTighteningForTruncation
 		tertiaryValueLabel.onAccessibilityFocus = { [weak self] in
 			self?.onAccessibilityFocus?()
 		}
@@ -107,7 +110,7 @@ class HomeStatisticsCardView: UIView {
 					primaryAccessibilityLabel?.append(" ")
 					primaryAccessibilityLabel?.append(primaryValueLabel.text ?? "")
 				}
-				
+
 				primaryTitleLabel.accessibilityLabel = primaryAccessibilityLabel
 				accessibilityElements.append(primaryTitleLabel)
 			}

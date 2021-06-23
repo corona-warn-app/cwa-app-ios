@@ -1001,7 +1001,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_TestCertificate_Information_Section02" = "Das Testzertifikat gilt innerhalb der EU als gültiger Nachweis eines negativen Testergebnisses (z.B. für Reisen).";
 
-"ExposureSubmission_TestCertificate_Information_Subheadline" = "Sie können über die App ein offizielles EU digitales Testzertifikat anfordern, das anschließend in der App hinzugefügt wird.";
+"ExposureSubmission_TestCertificate_Information_Subheadline" = "Sie können über die App ein offizielles digitales COVID-Testzertifikat der EU anfordern, das anschließend in der App hinzugefügt wird.";
 
 "ExposureSubmission_TestCertificate_Information_BirthdayPlaceholder" = "Geburtsdatum";
 
@@ -2606,29 +2606,31 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Overview_EmptyImageDescription" = "Zertifikatssiegel mit digitalem Zertifikat im Hintergrund";
 
-/* - Vaccination Certificate */
+"HealthCertificate_Overview_Covid_Title" = "Digitales\n**COVID-Zertifikat der EU**";
 
-"VaccinationCertificate_title" = "EU Digitaler\n**COVID-Impfnachweis**";
+"VaccinationCertificate_title" = "Digitaler\n**COVID-Impfnachweis der EU**";
 
 "VaccinationCertificate_partiallyVaccinated" = "Unvollständiger Impfschutz";
 
 "VaccinationCertificate_vaccinationValidUntil" = "Gültig bis einschließlich %@";
 
+"HealthCertificate_Overview_Covid_Certificate_Description" = "Ein QR-Code mit dem Zertifikat";
+
 /* - Test Certificate Info */
 
-"TestCertificate_Info_title" = "EU Digitales\n**COVID-Testzertifikat**";
+"TestCertificate_Info_title" = "Digitales\n**COVID-Testzertifikat der EU**";
 
 "TestCertificate_Info_description" = "Registrieren Sie einen Test auf der Startseite und stimmen Sie zu, ein digitales Testzertifikat zu erhalten. Sobald das Zertifikat vorliegt, wird es hier angezeigt.";
 
 /* - Test Certificate */
 
-"TestCertificate_title" = "EU Digitales\n**COVID-Testzertifikat**";
+"TestCertificate_title" = "Digitales\n**COVID-Testzertifikat der EU**";
 
 "TestCertificate_testDate" = "Test durchgeführt am %@";
 
 /* - Test Certificate Request */
 
-"TestCertificateRequest_title" = "EU Digitales\n**COVID-Testzertifikat**";
+"TestCertificateRequest_title" = "Digitales\n**COVID-Testzertifikat der EU**";
 
 "TestCertificateRequest_loadingSubtitle" = "Ihr Zertifikat wird gerade erstellt…";
 
@@ -2682,9 +2684,9 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Info_imageDescription" = "Eine geschützte Person schaut auf ein Smartphone";
 
-"HealthCertificate_Info_description" = "Fügen Sie Ihre EU digitalen COVID-Zertifikate in der App hinzu, um mit der App Ihren Impfschutz oder ein negatives Testergebnis nachweisen zu können.";
+"HealthCertificate_Info_description" = "Fügen Sie Ihre digitalen COVID-Zertifikate der EU in der App hinzu, um mit der App Ihren Impfschutz oder ein negatives Testergebnis nachweisen zu können.";
 
-"HealthCertificate_Info_section01" = "Sie können EU digitale COVID-Impfzertifikate oder COVID-Testzertifikate in der App hinzufügen.";
+"HealthCertificate_Info_section01" = "Sie können digitale COVID-Impfzertifikate oder COVID-Testzertifikate der EU in der App hinzufügen.";
 
 "HealthCertificate_Info_section02" = "Die Zertifikate gelten innerhalb der EU als gültiger Nachweis (z.B. für Reisen).";
 
@@ -2702,7 +2704,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Health Certified Person Screen */
 
-"HealthCertifiedPerson_title" = "EU Digitaler COVID-Impfnachweis";
+"HealthCertifiedPerson_title" = "Digitaler COVID-Impfnachweis der EU";
 
 "HealthCertifiedPerson_subtitle" = "SARS-CoV-2-Impfschutz";
 
@@ -2720,7 +2722,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Details_certificate" = "Impfzertifikat";
 
-"HealthCertificate_Details_EU_Covid_Certificate" = "EU Digitales COVID-Zertifikat";
+"HealthCertificate_Details_EU_Covid_Certificate" = "Digitales COVID-Zertifikat der EU";
 
 "HealthCertificate_Details_QRCode_Image_Description" = "Ein QR-Code mit Ihrem Zertifikat";
 
@@ -2782,7 +2784,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "RecoveryCertificate_Details_title" = "Genesenenzertifikat";
 
-"RecoveryCertificate_Details_subtitle" = "EU Digitales COVID-Zertifikat";
+"RecoveryCertificate_Details_subtitle" = "Digitales COVID-Zertifikat der EU";
 
 "RecoveryCertificate_Details_primaryButton" = "Genesenenzertifikat entfernen";
 

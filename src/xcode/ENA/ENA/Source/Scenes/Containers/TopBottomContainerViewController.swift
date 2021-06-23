@@ -36,6 +36,11 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 
 	// MARK: - Init
 
+	deinit {
+		subscriptions.forEach { $0.cancel() }
+		keyboardSubscriptions.forEach { $0.cancel() }
+	}
+	
 	init(
 		topController: TopViewController,
 		bottomController: BottomViewController
@@ -45,7 +50,6 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 
 		// if the the bottom view controller is FooterViewController we use it's viewModel here as well
 		self.footerViewModel = (bottomViewController as? FooterViewController)?.viewModel
-		self.initialHeight = footerViewModel?.height ?? bottomController.view.bounds.height
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -75,71 +79,90 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 		bottomViewController.didMove(toParent: self)
 		let bottomView: UIView = bottomViewController.view
 		bottomView.translatesAutoresizingMaskIntoConstraints = false
-
-		bottomViewHeightAnchorConstraint = bottomView.safeAreaLayoutGuide.heightAnchor.constraint(equalToConstant: initialHeight)
-		bottomViewBottomAnchorConstraint = bottomView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-		
 		view.addSubview(bottomView)
+
+		let initialHeight = footerViewModel?.height ?? bottomView.bounds.height
+		bottomViewHeightAnchorConstraint = bottomView.safeAreaLayoutGuide.heightAnchor.constraint(equalToConstant: initialHeight)
+		
+		bottomViewBottomConstraint = bottomView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+		
 		NSLayoutConstraint.activate(
 			[
+				// topView
 				topView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
 				topView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 				topView.topAnchor.constraint(equalTo: view.topAnchor),
+				topView.bottomAnchor.constraint(equalTo: bottomView.topAnchor),
+				// bottomView
 				bottomView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
 				bottomView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-				bottomView.topAnchor.constraint(equalTo: topView.bottomAnchor),
-				bottomViewBottomAnchorConstraint,
+				bottomViewBottomConstraint,
 				bottomViewHeightAnchorConstraint
 			]
 		)
 
+		NotificationCenter.default.ocombine.publisher(for: UIApplication.keyboardWillShowNotification)
+			.append(NotificationCenter.default.ocombine.publisher(for: UIApplication.keyboardWillChangeFrameNotification))
+			.sink { [weak self] notification in
+				
+				guard let self = self,
+					  let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
+					  let animationDuration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double,
+					  let animationCurve = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? Int else {
+					return
+				}
+				
+				self.bottomViewBottomConstraint.constant = -keyboardFrame.height
+				
+				let options = UIView.AnimationOptions(rawValue: (UInt(animationCurve << 16)))
+				UIView.animate(withDuration: animationDuration, delay: 0, options: options, animations: { [weak self] in
+					self?.view.layoutIfNeeded()
+				}, completion: nil)
+			}
+			.store(in: &keyboardSubscriptions)
+		
+		NotificationCenter.default.ocombine.publisher(for: UIApplication.keyboardWillHideNotification)
+			.sink { [weak self] notification in
+				
+				guard let self = self,
+					  let animationDuration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double,
+					  let animationCurve = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? Int else {
+					return
+				}
+				
+				self.bottomViewBottomConstraint.constant = -self.view.safeAreaInsets.bottom
+				
+				let options = UIView.AnimationOptions(rawValue: (UInt(animationCurve << 16)))
+				UIView.animate(withDuration: animationDuration, delay: 0, options: options, animations: { [weak self] in
+					self?.view.layoutIfNeeded()
+				}, completion: nil)
+			}
+			.store(in: &keyboardSubscriptions)
+		
+		NotificationCenter.default.ocombine.publisher(for: UIApplication.keyboardDidShowNotification)
+			.sink { [weak self] notification in
+				guard let self = self,
+					  let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
+					return
+				}
+				self.footerViewHandler?.didShowKeyboard(keyboardFrame)
+			}
+			.store(in: &keyboardSubscriptions)
+		
+		NotificationCenter.default.ocombine.publisher(for: UIApplication.keyboardDidHideNotification)
+			.sink { [weak self] _ in
+				self?.footerViewHandler?.didHideKeyboard()
+			}
+			.store(in: &keyboardSubscriptions)
+		
 		// if the the bottom view controller is FooterViewController we use it's viewModel here as well
 		if let viewModel = (bottomViewController as? FooterViewController)?.viewModel {
 			UIView.performWithoutAnimation {
 				self.updateFooterViewModel(viewModel)
 			}
 		}
-
-		NotificationCenter.default.ocombine.publisher(for: UIApplication.keyboardWillShowNotification)
-			.sink { [weak self] notification in
-				let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
-
-				guard let self = self, let keyboardHeight = keyboardSize?.height else {
-					return
-				}
-
-				self.bottomViewBottomAnchorConstraint.constant = -(keyboardHeight - self.view.safeAreaInsets.bottom - self.bottomViewController.view.safeAreaInsets.bottom)
-
-				UIView.animate(withDuration: 0.5) {
-					self.view.layoutIfNeeded()
-				}
-			}
-			.store(in: &subscriptions)
-
-		NotificationCenter.default.ocombine.publisher(for: UIApplication.keyboardWillHideNotification)
-			.sink { [weak self] _ in
-				self?.bottomViewBottomAnchorConstraint.constant = 0
-
-				UIView.animate(withDuration: 0.5) {
-					self?.view.layoutIfNeeded()
-				}
-			}
-			.store(in: &subscriptions)
-
-
-		keyboardDidShownObserver = NotificationCenter.default.addObserver(forName: UIResponder.keyboardDidShowNotification, object: nil, queue: OperationQueue.main) { notification in
-			guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
-				return
-			}
-			self.footerViewHandler?.didShowKeyboard(keyboardSize)
-		}
-
-		keyboardDidHideObserver = NotificationCenter.default.addObserver(forName: UIResponder.keyboardDidHideNotification, object: nil, queue: OperationQueue.main, using: { [weak self] _ in
-			self?.footerViewHandler?.didHideKeyboard()
-		})
-
 	}
-
+	
 	// MARK: - Protocol DismissHandling
 
 	func wasAttemptedToBeDismissed() {
@@ -204,23 +227,21 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 
 	private let topViewController: TopViewController
 	private let bottomViewController: BottomViewController
-	private let initialHeight: CGFloat
 
 	private var subscriptions: [AnyCancellable] = []
+	private var keyboardSubscriptions: [AnyCancellable] = []
 	private var bottomViewHeightAnchorConstraint: NSLayoutConstraint!
-	private var bottomViewBottomAnchorConstraint: NSLayoutConstraint!
-
-	private var keyboardDidShownObserver: NSObjectProtocol?
-	private var keyboardDidHideObserver: NSObjectProtocol?
+	private var bottomViewBottomConstraint: NSLayoutConstraint!
 
 	private func updateBottomHeight(_ height: CGFloat, animated: Bool = false, completion: (() -> Void)? = nil) {
 		guard bottomViewHeightAnchorConstraint.constant != height else {
 			Log.debug("no height change found")
 			return
 		}
+		view.setNeedsLayout()
+		bottomViewHeightAnchorConstraint.constant = height
 		let duration = animated ? 0.35 : 0.0
 		let animator = UIViewPropertyAnimator(duration: duration, curve: .easeInOut) { [weak self] in
-			self?.bottomViewHeightAnchorConstraint.constant = height
 			self?.view.layoutIfNeeded()
 		}
 		animator.addCompletion { _ in
