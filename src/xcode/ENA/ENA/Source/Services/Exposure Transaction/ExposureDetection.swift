@@ -97,9 +97,9 @@ final class ExposureDetection {
 			"Tried to end a detection prematurely is only possible if a detection is currently running."
 		)
 
-		DispatchQueue.main.async { [weak self] in
-			self?.completion?(.failure(reason))
-			self?.completion = nil
+		DispatchQueue.main.async {
+			self.completion?(.failure(reason))
+			self.completion = nil
 		}
 	}
 
@@ -112,9 +112,9 @@ final class ExposureDetection {
 			"Tried report exposure windows but no completion handler is set."
 		)
 		
-		DispatchQueue.main.async { [weak self] in
-			self?.completion?(.success(exposureWindows))
-			self?.completion = nil
+		DispatchQueue.main.async {
+			self.completion?(.success(exposureWindows))
+			self.completion = nil
 		}
 	}
 
