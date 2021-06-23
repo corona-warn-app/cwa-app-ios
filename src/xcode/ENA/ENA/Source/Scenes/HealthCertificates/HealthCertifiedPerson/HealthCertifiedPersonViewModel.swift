@@ -31,6 +31,12 @@ final class HealthCertifiedPersonViewModel {
 			}
 			.store(in: &subscriptions)
 
+		healthCertifiedPerson.$gradientType
+			.sink { [weak self] in
+				self?.gradientType = $0
+			}
+			.store(in: &subscriptions)
+
 		// load certificate value sets
 		healthCertificateValueSetsProvider.latestVaccinationCertificateValueSets()
 			.sink(

@@ -45,6 +45,11 @@ final class HealthCertificateViewModel {
 			)
 			.store(in: &subscriptions)
 
+		healthCertifiedPerson?.$gradientType
+			.sink { [weak self] in
+				self?.gradientType = $0
+			}
+			.store(in: &subscriptions)
 	}
 
 	// MARK: - Internal

@@ -351,6 +351,7 @@ class HealthCertificateService {
 			.store(in: &subscriptions)
 
 		subscribeToNotifications()
+		updatePersonsSortingAndGradients()
 	}
 
 	private func updateHealthCertifiedPersonSubscriptions(for healthCertifiedPersons: [HealthCertifiedPerson]) {
@@ -370,17 +371,28 @@ class HealthCertificateService {
 							}
 					}
 
-					let preferredPerson = self.healthCertifiedPersons.value
-						.filter { $0.isPreferredPerson }
-
-					let sortedOtherPersons = self.healthCertifiedPersons.value
-						.filter { !$0.isPreferredPerson }
-						.sorted { $0.name?.fullName ?? "" < $1.name?.fullName ?? "" }
-
-					self.healthCertifiedPersons.value = preferredPerson + sortedOtherPersons
+					self.updatePersonsSortingAndGradients()
 				}
 				.store(in: &healthCertifiedPersonSubscriptions)
 		}
+	}
+
+	private func updatePersonsSortingAndGradients() {
+		let preferredPerson = self.healthCertifiedPersons.value
+			.filter { $0.isPreferredPerson }
+
+		let sortedOtherPersons = self.healthCertifiedPersons.value
+			.filter { !$0.isPreferredPerson }
+			.sorted { $0.name?.fullName ?? "" < $1.name?.fullName ?? "" }
+
+		self.healthCertifiedPersons.value = preferredPerson + sortedOtherPersons
+
+		let gradientTypes: [GradientView.GradientType] = [.lightBlue(withStars: true), .mediumBlue(withStars: true), .darkBlue(withStars: true)]
+		self.healthCertifiedPersons.value
+			.enumerated()
+			.forEach { index, person in
+				person.gradientType = gradientTypes[index % 3]
+			}
 	}
 
 	private func updateTestCertificateRequestSubscriptions(for testCertificateRequests: [TestCertificateRequest]) {
