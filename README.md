@@ -42,6 +42,10 @@ The goal of this project is to develop the official Corona-Warn-App for Germany 
    brew install swiftlint
    ```
 
+   **Note for users of Xcode 12.5 with SwiftLint version 0.43.1:**
+   This particular version of SwiftLint does not detect a certain set of issues, which our CI (currently running Xcode 12.4) does.
+   To mitigate this problem we use a self compiled version of [SwiftLint fixing this problem](https://github.com/realm/SwiftLint/pull/3618). This version id tracked by `git lfs` which needs to be installed or supported by your git client.
+
 5. (Optional) Set up fastlane:
    Make sure you have the latest version of the Xcode command line tools installed:
 
