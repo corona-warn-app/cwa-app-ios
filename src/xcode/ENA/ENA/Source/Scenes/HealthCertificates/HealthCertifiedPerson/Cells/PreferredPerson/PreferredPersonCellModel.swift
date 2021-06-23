@@ -34,7 +34,7 @@ struct PreferredPersonCellModel {
 	}
 
 	func setAsPreferredPerson(_ newValue: Bool) {
-
+		healthCertifiedPerson.isPreferredPerson = newValue
 	}
 
 	// MARK: - Private

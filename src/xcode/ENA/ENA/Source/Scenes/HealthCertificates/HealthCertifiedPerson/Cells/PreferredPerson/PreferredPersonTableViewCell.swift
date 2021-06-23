@@ -33,6 +33,8 @@ class PreferredPersonTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 		nameLabel.text = cellModel.name
 		dateOfBirthLabel.text = cellModel.dateOfBirth
 		preferredPersonSwitch.isOn = cellModel.isPreferredPerson
+
+		self.cellModel = cellModel
 	}
 
 	// MARK: - Private
@@ -42,6 +44,8 @@ class PreferredPersonTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 	private let nameLabel = ENALabel(style: .headline)
 	private let dateOfBirthLabel = ENALabel(style: .body)
 	private let preferredPersonSwitch = UISwitch()
+
+	private var cellModel: PreferredPersonCellModel?
 
 	private func setupView() {
 		backgroundColor = .clear
@@ -85,6 +89,7 @@ class PreferredPersonTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 
 		preferredPersonSwitch.onTintColor = .enaColor(for: .tint)
 		preferredPersonSwitch.setContentHuggingPriority(.required, for: .horizontal)
+		preferredPersonSwitch.addTarget(self, action: #selector(didTogglePreferredPersonSwitch(sender:)), for: .valueChanged)
 		topContentStackView.addArrangedSubview(preferredPersonSwitch)
 
 		let descriptionLabel = ENALabel(style: .body)
@@ -109,6 +114,11 @@ class PreferredPersonTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 
 	private func updateBorderWidth() {
 		backgroundContainerView.layer.borderWidth = traitCollection.userInterfaceStyle == .dark ? 0 : 1
+	}
+
+	@objc
+	private func didTogglePreferredPersonSwitch(sender: UISwitch) {
+		cellModel?.setAsPreferredPerson(sender.isOn)
 	}
 
 }

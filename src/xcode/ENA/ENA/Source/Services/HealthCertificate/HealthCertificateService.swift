@@ -358,8 +358,18 @@ class HealthCertificateService {
 
 		healthCertifiedPersons.forEach { healthCertifiedPerson in
 			healthCertifiedPerson.objectDidChange
-				.sink { [weak self] _ in
+				.sink { [weak self] healthCertifiedPerson in
 					guard let self = self else { return }
+
+					if healthCertifiedPerson.isPreferredPerson {
+						// Set isPreferredPerson = false on all other persons to only have one preferred person
+						self.healthCertifiedPersons.value
+							.filter { $0 != healthCertifiedPerson }
+							.forEach {
+								$0.isPreferredPerson = false
+							}
+					}
+
 					// Trigger publisher to inform subscribers and update store
 					self.healthCertifiedPersons.value = self.healthCertifiedPersons.value
 				}
