@@ -55,12 +55,11 @@ class HTMLViewController: UIViewController, DismissHandling {
 		htmlTitleLabel.accessibilityIdentifier = infoModel.titleAccessabliltyIdentfier
 		
 		if let url = Bundle.main.url(forResource: infoModel.urlResourceName, withExtension: "html") {
-			do {
-				htmlView.navigationDelegate = self
-				try htmlView.load(from: url)
-			} catch {
-				Log.error("Could not load url \(url)", log: .ui, error: error)
-			}
+			htmlView.navigationDelegate = self
+			let request = URLRequest(url: url)
+			htmlView.load(request)
+		} else {
+			Log.error("Could not load url \(infoModel.urlResourceName).html", log: .ui, error: nil)
 		}
 	}
 	

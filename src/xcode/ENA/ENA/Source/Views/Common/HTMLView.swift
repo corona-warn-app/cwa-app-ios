@@ -29,6 +29,7 @@ final class HTMLView: WKWebView {
 		// We currently deal with local HTML, so no need to handle Cookies, etc. for now
 		let config = WKWebViewConfiguration()
 		super.init(frame: .zero, configuration: config)
+		setup()
 	}
 
 	private func setup() {
@@ -40,12 +41,5 @@ final class HTMLView: WKWebView {
 
 	override var intrinsicContentSize: CGSize {
 		return scrollView.contentSize
-	  }
-
-	func load(from url: URL) throws {
-		let request = URLRequest(url: url)
-		if load(request) == nil {
-			throw WebViewError.cannotLoad
-		}
 	}
 }

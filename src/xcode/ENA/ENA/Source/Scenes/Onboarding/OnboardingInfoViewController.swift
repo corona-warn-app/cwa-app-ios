@@ -286,14 +286,11 @@ final class OnboardingInfoViewController: UIViewController {
 			innerStackView.isHidden = true
 			let htmlView = HTMLView()
 			htmlView.translatesAutoresizingMaskIntoConstraints = false
-			htmlView.scrollView.isScrollEnabled = false // should already be disabled but it's not, so lets disable it again :-|
 			htmlView.navigationDelegate = self // used to size the webview after loading HTML
 			if let url = Bundle.main.url(forResource: "privacy-policy", withExtension: "html") {
-				do {
-					try htmlView.load(from: url)
-				} catch {
-					Log.error("Could not load url \(url)", log: .ui, error: error)
-				}
+				htmlView.load(URLRequest(url: url))
+			} else {
+				Log.error("Could not load privacy-policy.html", log: .ui, error: nil)
 			}
 			containerView.addSubview(htmlView)
 			webView = htmlView
