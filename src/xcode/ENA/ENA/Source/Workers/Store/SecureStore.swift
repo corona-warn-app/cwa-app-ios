@@ -353,6 +353,13 @@ extension SecureStore: StatisticsCaching {
 	}
 }
 
+extension SecureStore: LocalStatisticsCaching {
+	var localStatistics: LocalStatisticsMetadata? {
+		get { kvStore["localStatistics"] as LocalStatisticsMetadata? ?? nil }
+		set { kvStore["localStatistics"] = newValue }
+	}
+}
+
 extension SecureStore: PrivacyPreservingProviding {
 
 	var isPrivacyPreservingAnalyticsConsentGiven: Bool {

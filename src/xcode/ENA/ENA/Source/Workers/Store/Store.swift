@@ -99,6 +99,10 @@ protocol StatisticsCaching: AnyObject {
 	var statistics: StatisticsMetadata? { get set }
 }
 
+protocol LocalStatisticsCaching: AnyObject {
+	var localStatistics: LocalStatisticsMetadata? { get set }
+}
+
 protocol PrivacyPreservingProviding: AnyObject {
 	/// A boolean storing if the user has already confirmed to collect and submit the data for PPA. By setting it, the existing anlytics data will be reset.
 	var isPrivacyPreservingAnalyticsConsentGiven: Bool { get set }
@@ -230,6 +234,7 @@ protocol Store:
 	EventRegistrationCaching,
 	PrivacyPreservingProviding,
 	StatisticsCaching,
+	LocalStatisticsCaching,
 	StoreProtocol,
 	WarnOthersTimeIntervalStoring,
 	HealthCertificateStoring,

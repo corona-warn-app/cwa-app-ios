@@ -59,6 +59,10 @@ final class MockTestStore: Store, PPAnalyticsData {
 	// MARK: - StatisticsCaching
 
 	var statistics: StatisticsMetadata?
+	
+	// MARK: - LocalStatisticsCaching
+
+	var localStatistics: LocalStatisticsMetadata?
 
 	// MARK: - PrivacyPreservingProviding
 
