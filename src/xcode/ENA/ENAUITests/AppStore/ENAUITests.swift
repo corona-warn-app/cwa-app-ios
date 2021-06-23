@@ -108,7 +108,6 @@ class ENAUITests: CWATestCase {
 		app.setPreferredContentSizeCategory(accessibility: .normal, size: .M)
 		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: true)
 		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
-		app.setLaunchArgument(LaunchArguments.statistics.useMockDataForStatistics, to: true) // prevent failing tests for 1.11; use "NO" for 1.12
 		app.launch()
 
 		app.swipeUp(velocity: .slow)
