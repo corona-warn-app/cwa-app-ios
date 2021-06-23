@@ -18,7 +18,7 @@ struct HealthCertificateQRCodeCellViewModel {
 			with: healthCertificate.base45,
 			encoding: .utf8,
 			size: CGSize(width: qrCodeSize, height: qrCodeSize),
-			qrCodeErrorCorrectionLevel: .quartile
+			qrCodeErrorCorrectionLevel: .medium
 		) ?? UIImage()
 
 		self.accessibilityText = accessibilityText
