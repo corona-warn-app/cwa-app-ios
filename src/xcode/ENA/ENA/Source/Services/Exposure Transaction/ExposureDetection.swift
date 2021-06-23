@@ -36,14 +36,15 @@ final class ExposureDetection {
 
 	private func writeKeyPackagesToFileSystem(completion: (WrittenPackages) -> Void) {
 		if let writtenPackages = self.delegate?.exposureDetectionWriteDownloadedPackages(country: country) {
-			completion(WrittenPackages(urls: writtenPackages.urls))
+			completion(writtenPackages)
 		} else {
 			endPrematurely(reason: .unableToWriteDiagnosisKeys)
 		}
 	}
 
 	private func detectExposureWindows(writtenPackages: WrittenPackages, exposureConfiguration: ENExposureConfiguration) {
-		self.progress = self.delegate?.detectExposureWindows(
+		progress?.cancel()
+		progress = delegate?.detectExposureWindows(
 			self,
 			detectSummaryWithConfiguration: exposureConfiguration,
 			writtenPackages: writtenPackages
@@ -69,7 +70,7 @@ final class ExposureDetection {
 
         Log.info("ExposureDetection: Start writing packages to file system.", log: .riskDetection)
 
-        self.writeKeyPackagesToFileSystem { [weak self] writtenPackages in
+        writeKeyPackagesToFileSystem { [weak self] writtenPackages in
             guard let self = self else { return }
 
             Log.info("ExposureDetection: Completed writing packages to file system.", log: .riskDetection)
@@ -96,9 +97,9 @@ final class ExposureDetection {
 			"Tried to end a detection prematurely is only possible if a detection is currently running."
 		)
 
-		DispatchQueue.main.async {
-			self.completion?(.failure(reason))
-			self.completion = nil
+		DispatchQueue.main.async { [weak self] in
+			self?.completion?(.failure(reason))
+			self?.completion = nil
 		}
 	}
 
@@ -111,9 +112,9 @@ final class ExposureDetection {
 			"Tried report exposure windows but no completion handler is set."
 		)
 		
-		DispatchQueue.main.async {
-			self.completion?(.success(exposureWindows))
-			self.completion = nil
+		DispatchQueue.main.async { [weak self] in
+			self?.completion?(.success(exposureWindows))
+			self?.completion = nil
 		}
 	}
 

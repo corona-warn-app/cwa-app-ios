@@ -65,7 +65,7 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 		writtenPackages: WrittenPackages,
 		completion: @escaping (Result<[ENExposureWindow], Error>) -> Void
 	) -> Progress {
-		let progress = Progress()
+		let progress = Progress(totalUnitCount: 2)
 
 		let detectExposuresProgress = exposureDetector.detectExposures(
 			configuration: configuration,
