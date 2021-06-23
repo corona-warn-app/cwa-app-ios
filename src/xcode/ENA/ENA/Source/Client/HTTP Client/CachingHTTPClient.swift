@@ -4,8 +4,7 @@
 
 import Foundation
 
-class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, QRCodePosterTemplateFetching, VaccinationValueSetsFetching {
-
+class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, LocalStatisticsFetching, QRCodePosterTemplateFetching, VaccinationValueSetsFetching {
 	private let environmentProvider: EnvironmentProviding
 
 	enum CacheError: Error {
@@ -50,7 +49,10 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, QRCodePos
 	/// - Parameters:
 	///   - etag: an optional ETag to download only versions that differ the given tag
 	///   - completion: result handler
-	func fetchAppConfiguration(etag: String? = nil, completion: @escaping AppConfigResultHandler) {
+	func fetchAppConfiguration(
+		etag: String? = nil,
+		completion: @escaping AppConfigResultHandler
+	) {
 		// Manual ETagging because we don't use native cache
 		var headers: [String: String]?
 		if let etag = etag {
@@ -84,7 +86,14 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, QRCodePos
 
 	// MARK: - StatisticsFetching
 
-	func fetchStatistics(etag: String?, completion: @escaping StatisticsFetchingResultHandler) {
+	/// Fetches statistics
+	/// - Parameters:
+	///   - etag: an optional ETag to download only versions that differ the given tag
+	///   - completion: result handler
+	func fetchStatistics(
+		etag: String?,
+		completion: @escaping StatisticsFetchingResultHandler
+	) {
 		// Manual ETagging because we don't use native cache
 		var headers: [String: String]?
 		if let etag = etag {
@@ -145,6 +154,10 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, QRCodePos
 	
 	// MARK: VaccinationValueSetsFetching
 	
+	/// Fetches vaccination value sets
+	/// - Parameters:
+	///   - etag: an optional ETag to download only versions that differ the given tag
+	///   - completion: result handler
 	func fetchVaccinationValueSets(
 		etag: String?,
 		completion: @escaping VaccinationValueSetsCompletionHandler
@@ -173,6 +186,44 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, QRCodePos
 			}
 		}
 	}
+
+	// MARK: LocalStatisticsFetching
+	
+	/// Fetches local statistics
+	/// - Parameters:
+	///   - administrativeUnit: string to pass administrative unit to the API to get local statistics
+	///   - etag: an optional ETag to download only versions that differ the given tag
+	///   - completion: result handler
+	func fetchLocalStatistics(
+		administrativeUnit: String,
+		eTag: String?,
+		completion: @escaping LocalStatisticsCompletionHandler
+	) {
+		// Manual ETagging because we don't use native cache
+		var headers: [String: String]?
+		if let eTag = eTag {
+			headers = ["If-None-Match": eTag]
+		}
+
+		let url = configuration.localStatisticsURL(administrativeUnit: administrativeUnit)
+		session.GET(url, extraHeaders: headers) { result in
+			switch result {
+			case .success(let response):
+				do {
+					let package = try self.verifyPackage(in: response)
+					let localStatistics = try SAP_Internal_Stats_LocalStatistics(serializedData: package.bin)
+					let responseETag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag")
+					let localStatisticsResponse = LocalStatisticsResponse(localStatistics, responseETag)
+					completion(.success(localStatisticsResponse))
+				} catch {
+					completion(.failure(error))
+				}
+			case .failure(let error):
+				completion(.failure(error))
+			}
+		}
+	}
+	
 	// MARK: - Helpers
 
 	private func verifyPackage(in response: URLSession.Response) throws -> SAPDownloadedPackage {
