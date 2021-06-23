@@ -40,8 +40,7 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating, RequiresAppDepend
 				var items = self.store.elsUploadHistory
 				items.append(ErrorLogUploadReceipt(id: "FakeReceiptID001", timestamp: Date()))
 				items.append(ErrorLogUploadReceipt(id: "FakeReceiptID002", timestamp: Date()))
-				var store = self.store // quick hack to allow writing
-				store.elsUploadHistory = items
+				self.store.elsUploadHistory = items
 			}
 		}
 		#endif
@@ -161,8 +160,7 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating, RequiresAppDepend
 						// Let's make history ;)
 						var items = self.store.elsUploadHistory
 						items.append(ErrorLogUploadReceipt(id: response.id, timestamp: Date()))
-						var store = self.store // quick hack to allow writing
-						store.elsUploadHistory = items
+						self.store.elsUploadHistory = items
 
 						Log.info("ELS log submitted successfully", log: .els)
 						self.rootViewController.navigationController?.popViewController(animated: true)

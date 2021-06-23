@@ -119,9 +119,13 @@ protocol ErrorLogProviding: AnyObject {
 	var otpTokenEls: OTPToken? { get set }
 	/// Date of last otp authorization
 	var otpElsAuthorizationDate: Date? { get set }
+	#if !RELEASE
+	/// For DeveloperMenu - Indicates if the ELS shall be activated or not at startup
+	var elsLoggingActiveAtStartup: Bool { get set }
+	#endif
 }
 
-protocol ErrorLogUploadHistoryProviding {
+protocol ErrorLogUploadHistoryProviding: AnyObject {
 	/// Collection of previous upload 'receipts'
 	var elsUploadHistory: [ErrorLogUploadReceipt] { get set }
 }

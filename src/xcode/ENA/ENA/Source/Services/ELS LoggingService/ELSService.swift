@@ -160,6 +160,8 @@ final class ErrorLogSubmissionService: ErrorLogSubmissionProviding {
 extension ErrorLogSubmissionService: ErrorLogHandling {
 
 	private static let errorLogEnabledKey = "elsLogActive"
+	/// We need that it in the StringInterpolation+Private.swift.
+	public static let keyElsLoggingCensoring = "elsLoggingCensoring"
 
 	/// Flag to indicate wether the ELS logging is active or not.
 	///

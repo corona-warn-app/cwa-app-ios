@@ -77,7 +77,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		
 		// Let ELS run for our testers as soon as possible to see any possible errors in startup, too. Only in release builds we wait for the user to start it manually.
 		#if !RELEASE
-		elsService.startLogging()
+		if store.elsLoggingActiveAtStartup {
+			elsService.startLogging()
+		} else {
+			Log.warning("ELS is not set to be active at app startup.")
+		}
 		#endif
 
 		// Migrate the old pcr test structure from versions older than v2.1

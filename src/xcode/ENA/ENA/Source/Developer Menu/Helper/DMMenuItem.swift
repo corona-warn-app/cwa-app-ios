@@ -16,6 +16,7 @@ enum DMMenuItem: Int, CaseIterable {
 	case manuallyRequestRisk
 	case debugRiskCalculation
 	case errorLog
+	case els
 	case sendFakeRequest
 	case store
 	case onboardingVersion
@@ -58,6 +59,7 @@ extension DMMenuItem {
 		case .manuallyRequestRisk: return "Manually Request Risk"
 		case .debugRiskCalculation: return "Debug Risk Calculation"
 		case .errorLog: return "Error Log"
+		case .els: return "ELS Options"
 		case .sendFakeRequest: return "Send fake Request"
 		case .store: return "Store Contents"
 		case .onboardingVersion: return "Onboarding Version"
@@ -88,6 +90,7 @@ extension DMMenuItem {
 		case .manuallyRequestRisk: return "Manually requests the current risk"
 		case .debugRiskCalculation: return "See the most recent risk calculation values"
 		case .errorLog: return "View all errors logged by the app"
+		case .els: return "Some options to control ELS settings"
 		case .sendFakeRequest: return "Sends a fake request for testing plausible deniability"
 		case .store: return "See the contents of the encrypted store used by the app"
 		case .onboardingVersion: return "Set the onboarding version"

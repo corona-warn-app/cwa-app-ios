@@ -496,6 +496,8 @@
 		5081EEFE25FF9C5E004B8FDE /* CheckinsInfoScreenViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5081EEFD25FF9C5E004B8FDE /* CheckinsInfoScreenViewModelTest.swift */; };
 		5081EF0625FFB7E0004B8FDE /* CheckinsInfoScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5081EF0525FFB7E0004B8FDE /* CheckinsInfoScreenViewController.swift */; };
 		5081EF0E25FFDEC7004B8FDE /* ENAUITests_10_CheckIns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5081EF0D25FFDEC7004B8FDE /* ENAUITests_10_CheckIns.swift */; };
+		508488A126822FA5004299E6 /* DMErrorLogSharingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5084889F26822D91004299E6 /* DMErrorLogSharingViewModel.swift */; };
+		508488A226822FA5004299E6 /* DMErrorLogSharingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508488A026822D91004299E6 /* DMErrorLogSharingViewController.swift */; };
 		5089F95C2632D3B000E722D2 /* HTTPClient+AuthorizationOTPElsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5089F9572632D3AB00E722D2 /* HTTPClient+AuthorizationOTPElsTests.swift */; };
 		508ACB6125DE6393006B9945 /* PPADataType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508ACB6025DE6393006B9945 /* PPADataType.swift */; };
 		508DB7D525D6B49E00F153D6 /* DataDonationDetailsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508DB7D425D6B49E00F153D6 /* DataDonationDetailsViewModelTests.swift */; };
@@ -1713,6 +1715,8 @@
 		5081EEFD25FF9C5E004B8FDE /* CheckinsInfoScreenViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinsInfoScreenViewModelTest.swift; sourceTree = "<group>"; };
 		5081EF0525FFB7E0004B8FDE /* CheckinsInfoScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinsInfoScreenViewController.swift; sourceTree = "<group>"; };
 		5081EF0D25FFDEC7004B8FDE /* ENAUITests_10_CheckIns.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_10_CheckIns.swift; sourceTree = "<group>"; };
+		5084889F26822D91004299E6 /* DMErrorLogSharingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMErrorLogSharingViewModel.swift; sourceTree = "<group>"; };
+		508488A026822D91004299E6 /* DMErrorLogSharingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMErrorLogSharingViewController.swift; sourceTree = "<group>"; };
 		5089F9572632D3AB00E722D2 /* HTTPClient+AuthorizationOTPElsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClient+AuthorizationOTPElsTests.swift"; sourceTree = "<group>"; };
 		5089F9692632D4CB00E722D2 /* HTTPClient+SubmitErrorLogFileTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClient+SubmitErrorLogFileTests.swift"; sourceTree = "<group>"; };
 		508ACB6025DE6393006B9945 /* PPADataType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPADataType.swift; sourceTree = "<group>"; };
@@ -3954,6 +3958,15 @@
 			path = __test__;
 			sourceTree = "<group>";
 		};
+		5084889E26822D53004299E6 /* DMErrorLogSharing */ = {
+			isa = PBXGroup;
+			children = (
+				508488A026822D91004299E6 /* DMErrorLogSharingViewController.swift */,
+				5084889F26822D91004299E6 /* DMErrorLogSharingViewModel.swift */,
+			);
+			path = DMErrorLogSharing;
+			sourceTree = "<group>";
+		};
 		508ACB5825DE6205006B9945 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
@@ -5751,6 +5764,7 @@
 				504E8B2B25D41CBD00CAFBDF /* DMPPAMostRecentData.swift */,
 				ABE9612925EFEB4E00D0F699 /* DMInstallationDate */,
 				358249E925E910AF00BFF303 /* DMLogging */,
+				5084889E26822D53004299E6 /* DMErrorLogSharing */,
 				BA6D164D255ADD8600ED3492 /* DMWifiClient */,
 				EBDE11B6255EC2D7008C0F51 /* DMDeviceTimeCheck */,
 				BA4693AF25C82ED3004B2DBB /* DMPPACService */,
@@ -7852,6 +7866,7 @@
 				50AA51FB25FA4D89000C77BB /* TraceWarningDiscoveryResponse.swift in Sources */,
 				EE22DB8D247FB43A001B0A71 /* ActionTableViewCell.swift in Sources */,
 				019C9F3B258951BE00B26392 /* DiaryEntry.swift in Sources */,
+				508488A126822FA5004299E6 /* DMErrorLogSharingViewModel.swift in Sources */,
 				BAE2101025C8460900162966 /* PPACDeviceCheck.swift in Sources */,
 				01A4DC6C25922EB4007D5794 /* HomeRiskTableViewCell.swift in Sources */,
 				BA6C8AF4254D65E1008344F5 /* ScanInstance.swift in Sources */,
@@ -7920,6 +7935,7 @@
 				50C0298525E4067400460FA4 /* UserMetadata.swift in Sources */,
 				8FDB940B261FBAAA00BA8CB1 /* CoronaTestRegistrationInformation.swift in Sources */,
 				BAEB174525E567830012FEF9 /* FooterViewModel.swift in Sources */,
+				508488A226822FA5004299E6 /* DMErrorLogSharingViewController.swift in Sources */,
 				BA5B7FDB26458EF400502087 /* HealthCertifiedPersonViewModel.swift in Sources */,
 				8FA88F9F2613A7E300FD36DA /* EncodingType.swift in Sources */,
 				AB126873254C05A7006E9194 /* ENAFormatter.swift in Sources */,

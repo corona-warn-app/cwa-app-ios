@@ -403,6 +403,13 @@ extension SecureStore: ErrorLogProviding {
 		get { kvStore["otpElsAuthorizationDate"] as Date? }
 		set { kvStore["otpElsAuthorizationDate"] = newValue }
 	}
+	
+	#if !RELEASE
+	var elsLoggingActiveAtStartup: Bool {
+		get { kvStore["elsLoggingActiveAtStartup"] as Bool? ?? true }
+		set { kvStore["elsLoggingActiveAtStartup"] = newValue }
+	}
+	#endif
 }
 
 extension SecureStore: ErrorLogUploadHistoryProviding {
