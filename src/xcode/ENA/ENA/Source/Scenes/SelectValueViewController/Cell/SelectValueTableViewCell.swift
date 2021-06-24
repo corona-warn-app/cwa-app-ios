@@ -22,9 +22,11 @@ final class SelectValueTableViewCell: UITableViewCell {
 
 	// MARK: - Internal
 
-	func configure(_ cellViewModel: SelectValueCellViewModel) {
+	func configure(_ cellViewModel: SelectValueCellViewModel, isEnabled: Bool = true) {
 		selectableValueLabel.text = cellViewModel.text
-		accessoryView = UIImageView(image: cellViewModel.checkmarkImage)
+		selectableValueLabel.isEnabled = isEnabled
+		isUserInteractionEnabled = isEnabled
+		accessoryView = isEnabled ? UIImageView(image: cellViewModel.image) : nil
 	}
 
 
