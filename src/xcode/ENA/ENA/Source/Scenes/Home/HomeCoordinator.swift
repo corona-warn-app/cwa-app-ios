@@ -116,8 +116,12 @@ class HomeCoordinator: RequiresAppDependencies {
 			onDismissState: { [weak self] in
 				self?.rootViewController.presentedViewController?.dismiss(animated: true, completion: nil)
 			},
-			onDismissDistrict: { [weak self] in
-				self?.rootViewController.presentedViewController?.dismiss(animated: true, completion: nil)
+			onDismissDistrict: { [weak self] dismissToRoot in
+				if dismissToRoot {
+					self?.rootViewController.dismiss(animated: true, completion: nil)
+				} else {
+					self?.rootViewController.presentedViewController?.dismiss(animated: true, completion: nil)
+				}
 			}
 		)
 

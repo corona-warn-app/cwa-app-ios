@@ -31,7 +31,7 @@ class AddStatisticsCardView: CustomDashedView {
 		onAddStateButtonTap: @escaping (SelectValueTableViewController) -> Void,
 		onAddDistrict: @escaping (SelectValueTableViewController) -> Void,
 		onDismissState: @escaping () -> Void,
-		onDismissDistrict: @escaping () -> Void,
+		onDismissDistrict: @escaping (Bool) -> Void,
 		onEditButtonTap: @escaping () -> Void,
 		onAccessibilityFocus: @escaping () -> Void
 	) {
@@ -82,8 +82,10 @@ class AddStatisticsCardView: CustomDashedView {
 	private func presentAddLocalStatisticsDistrict(selectValueViewModel: SelectValueViewModel) {
 		let selectValueViewController = SelectValueTableViewController(
 			selectValueViewModel,
+			closeOnSelection: true,
 			dismiss: { [weak self] in
-				self?.onDismissDistrict?()
+				let dismissToRoot = self?.viewModel?.district == nil ? false : true
+				self?.onDismissDistrict?(dismissToRoot)
 			}
 		)
 		onAddDistrict?(selectValueViewController)
@@ -92,7 +94,7 @@ class AddStatisticsCardView: CustomDashedView {
 	private var onAddStateButtonTap: ((SelectValueTableViewController) -> Void)?
 	private var onAddDistrict: ((SelectValueTableViewController) -> Void)?
 	private var onDismissState: (() -> Void)?
-	private var onDismissDistrict: (() -> Void)?
+	private var onDismissDistrict: ((Bool) -> Void)?
 	private var onEditButtonTap: (() -> Void)?
 	private var onAccessibilityFocus: (() -> Void)?
 	private var viewModel: AddStatisticsCardsViewModel?
