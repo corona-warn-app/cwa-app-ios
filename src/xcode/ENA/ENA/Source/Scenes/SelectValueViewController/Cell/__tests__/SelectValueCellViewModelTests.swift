@@ -24,7 +24,7 @@ class SelectValueCellViewModelTests: CWATestCase {
 		let cellViewModel = SelectValueCellViewModel(text: "test value", isSelected: true)
 
 		// WHEN
-		let image = cellViewModel.checkmarkImage
+		let image = cellViewModel.image
 
 		// THEN
 		XCTAssertEqual(UIImage(imageLiteralResourceName: "Icons_Checkmark"), image)
@@ -35,7 +35,7 @@ class SelectValueCellViewModelTests: CWATestCase {
 		let cellViewModel = SelectValueCellViewModel(text: "test value", isSelected: false)
 
 		// WHEN
-		let image = cellViewModel.checkmarkImage
+		let image = cellViewModel.image
 
 		// THEN
 		XCTAssertNil(image)
