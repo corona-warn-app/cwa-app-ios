@@ -49,7 +49,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 					onInfoButtonTap: onInfoButtonTap,
 					onAccessibilityFocus: onAccessibilityFocus
 				)
-				self?.scrollView.setContentOffset(CGPoint(x: self?.scrollView.frame.size.width ?? 0, y: 0), animated: true)
+				self?.scrollView.bounds.origin.x = self?.scrollView.frame.size.width ?? 0
 
 				onUpdate()
 			}
