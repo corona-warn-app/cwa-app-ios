@@ -76,7 +76,7 @@ class ExposureSubmissionTestCertificateViewModel {
 						color: .enaColor(for: .background)
 					),
 					.icon(
-						UIImage(imageLiteralResourceName: "Icons_Certificates_01"),
+						UIImage(imageLiteralResourceName: "Icons_Certificates_02"),
 						text: .string(AppStrings.ExposureSubmission.TestCertificate.Info.section_1),
 						alignment: .top
 					),
@@ -85,7 +85,7 @@ class ExposureSubmissionTestCertificateViewModel {
 						color: .enaColor(for: .background)
 					),
 					.icon(
-						UIImage(imageLiteralResourceName: "Icons_Certificates_02"),
+						UIImage(imageLiteralResourceName: "Icons_Certificates_01"),
 						text: .string(AppStrings.ExposureSubmission.TestCertificate.Info.section_2),
 						alignment: .top
 					)
