@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="AddStatisticsCardView" customModule="ENA" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="511" height="349"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bgn-Rj-gFT" userLabel="DashedView" customClass="CustomDashedView" customModule="ENA" customModuleProvider="target">
+                    <rect key="frame" x="5" y="44" width="501" height="271"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lokale 7-Tage-Inzidenz hinzufügen" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wcn-ks-Lju" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                            <rect key="frame" x="117" y="165.5" width="267" height="20.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ypy-E2-Kp1">
+                            <rect key="frame" x="234.5" y="119.5" width="32" height="32"/>
+                            <state key="normal" image="Icon_Add">
+                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
+                            </state>
+                            <connections>
+                                <action selector="addLocalIncidencePressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="erH-0m-et2"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstItem="wcn-ks-Lju" firstAttribute="centerX" secondItem="ypy-E2-Kp1" secondAttribute="centerX" id="6Ct-Ox-FdT"/>
+                        <constraint firstItem="wcn-ks-Lju" firstAttribute="centerY" secondItem="ypy-E2-Kp1" secondAttribute="centerY" constant="40" id="Fho-25-BH8"/>
+                        <constraint firstItem="ypy-E2-Kp1" firstAttribute="centerY" secondItem="bgn-Rj-gFT" secondAttribute="centerY" id="bu7-eB-2EK"/>
+                        <constraint firstItem="ypy-E2-Kp1" firstAttribute="centerX" secondItem="bgn-Rj-gFT" secondAttribute="centerX" id="dFs-JK-huQ"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="dashWidth">
+                            <real key="value" value="2"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="dashColor">
+                            <color key="value" name="ENA Risk Neutral Color"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="dashLength">
+                            <real key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="betweenDashesSpace">
+                            <real key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="15"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <gestureRecognizers/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="bgn-Rj-gFT" secondAttribute="trailing" constant="5" id="2xH-8l-UJX"/>
+                <constraint firstItem="bgn-Rj-gFT" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="3pW-nv-fST"/>
+                <constraint firstItem="bgn-Rj-gFT" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="5" id="ds0-L3-55F"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="bgn-Rj-gFT" secondAttribute="bottom" id="pDZ-V2-dcS"/>
+                <constraint firstItem="ypy-E2-Kp1" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="yV0-3P-M6C"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="addLocalIncidenceLabel" destination="wcn-ks-Lju" id="cbQ-XD-0jy"/>
+            </connections>
+            <point key="canvasLocation" x="165.94202898550725" y="-47.209821428571423"/>
+        </view>
+    </objects>
+    <designables>
+        <designable name="wcn-ks-Lju">
+            <size key="intrinsicContentSize" width="267" height="20.5"/>
+        </designable>
+    </designables>
+    <resources>
+        <image name="Icon_Add" width="32" height="32"/>
+        <namedColor name="ENA Risk Neutral Color">
+            <color red="0.36470588235294116" green="0.43529411764705883" blue="0.50196078431372548" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
