@@ -63,7 +63,6 @@ class DMErrorLogSharingViewController: UITableViewController {
 
 	private func setupTableView() {
 		tableView.estimatedRowHeight = 45.0
-		tableView.rowHeight = UITableView.automaticDimension
 
 		tableView.register(UINib(nibName: "DMSwitchTableViewCell", bundle: nil), forCellReuseIdentifier: DMSwitchTableViewCell.reuseIdentifier)
 

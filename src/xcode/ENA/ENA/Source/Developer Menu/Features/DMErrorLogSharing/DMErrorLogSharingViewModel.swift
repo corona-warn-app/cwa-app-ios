@@ -40,7 +40,7 @@ final class DMErrorLogSharingViewModel {
 		switch section {
 		case .toggleCensoring:
 			return DMSwitchCellViewModel(
-				labelText: "Toggle ELS Log file shall be censored",
+				labelText: "ELS Log file shall be censored",
 				isOn: {
 					let elsLoggingCensoring = UserDefaults.standard.bool(forKey: ErrorLogSubmissionService.keyElsLoggingCensoring)
 					return elsLoggingCensoring
@@ -52,7 +52,7 @@ final class DMErrorLogSharingViewModel {
 			
 		case .toggleActiveStartState:
 			return DMSwitchCellViewModel(
-				labelText: "Toggle ELS shall be active at startup",
+				labelText: "ELS shall be active at startup",
 				isOn: { [store] in
 					return store.elsLoggingActiveAtStartup
 				},
