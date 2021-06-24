@@ -18,27 +18,45 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 	// MARK: - Internal
 
 	func configure(
-		with cellModel: HomeStatisticsCellModel,
+		with keyFigureCellModel: HomeStatisticsCellModel,
+		store: Store,
 		onInfoButtonTap: @escaping () -> Void,
+		onAddLocalStatisticsButtonTap: @escaping (SelectValueTableViewController) -> Void,
+		onAddDistrict: @escaping (SelectValueTableViewController) -> Void,
+		onDismissState: @escaping () -> Void,
+		onDismissDistrict: @escaping () -> Void,
+		onEditLocalStatisticsButtonTap: @escaping () -> Void,
 		onAccessibilityFocus: @escaping () -> Void,
 		onUpdate: @escaping () -> Void
 	) {
 		guard !isConfigured else { return }
 
-		cellModel.$keyFigureCards
+		keyFigureCellModel.$keyFigureCards
 			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] in
-				self?.configure(
+				self?.clearStackView()
+				self?.configureAddLocalStatisticsCell(
+					store: store,
+					onAddLocalStatisticsButtonTap: onAddLocalStatisticsButtonTap,
+					onAddDistrict: onAddDistrict,
+					onDismissState: onDismissState,
+					onDismissDistrict: onDismissDistrict,
+					onEditLocalStatisticsButtonTap: onEditLocalStatisticsButtonTap,
+					onAccessibilityFocus: onAccessibilityFocus
+				)
+				self?.configureKeyFigureCells(
 					for: $0,
 					onInfoButtonTap: onInfoButtonTap,
 					onAccessibilityFocus: onAccessibilityFocus
 				)
+				self?.scrollView.setContentOffset(CGPoint(x: self?.scrollView.frame.size.width ?? 0, y: 0), animated: true)
+
 				onUpdate()
 			}
 			.store(in: &subscriptions)
 
 		// Retaining cell model so it gets updated
-		self.cellModel = cellModel
+		self.cellModel = keyFigureCellModel
 
 		isConfigured = true
 	}
@@ -54,16 +72,58 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 	private var cellModel: HomeStatisticsCellModel?
 	private var isConfigured: Bool = false
 	private var subscriptions = Set<AnyCancellable>()
-
-	private func configure(
-		for keyFigureCards: [SAP_Internal_Stats_KeyFigureCard],
-		onInfoButtonTap: @escaping () -> Void,
-		onAccessibilityFocus: @escaping () -> Void
-	) {
+	
+	private func clearStackView() {
 		stackView.arrangedSubviews.forEach {
 			stackView.removeArrangedSubview($0)
 			$0.removeFromSuperview()
 		}
+	}
+	
+	private func configureAddLocalStatisticsCell(
+		store: Store,
+		onAddLocalStatisticsButtonTap: @escaping (SelectValueTableViewController) -> Void,
+		onAddDistrict: @escaping (SelectValueTableViewController) -> Void,
+		onDismissState: @escaping () -> Void,
+		onDismissDistrict: @escaping () -> Void,
+		onEditLocalStatisticsButtonTap: @escaping () -> Void,
+		onAccessibilityFocus: @escaping () -> Void
+	) {
+		guard let jsonFileURL = Bundle.main.url(forResource: "ppdd-ppa-administrative-unit-set-ua-approved", withExtension: "json") else {
+			preconditionFailure("missing json file")
+		}
+		let localStatisticsModel = AddLocalStatisticsModel(store: store, jsonFileURL: jsonFileURL)
+
+		let addNibName = String(describing: AddStatisticsCardView.self)
+		let addNib = UINib(nibName: addNibName, bundle: .main)
+		if let addLocalStatisticsCardView = addNib.instantiate(withOwner: self, options: nil).first as? AddStatisticsCardView {
+			stackView.addArrangedSubview(addLocalStatisticsCardView)
+			addLocalStatisticsCardView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
+			addLocalStatisticsCardView.configure(
+				localStatisticsModel: localStatisticsModel,
+				availableCardsState: .empty, // TODO get state based on the current number of local statistics cards
+				onAddStateButtonTap: { selectValueViewController in
+					onAddLocalStatisticsButtonTap(selectValueViewController)
+				}, onAddDistrict: { selectValueViewController in
+					onAddDistrict(selectValueViewController)
+				}, onDismissState: {
+					onDismissState()
+				}, onDismissDistrict: {
+					onDismissDistrict()
+				}, onEditButtonTap: {
+					onEditLocalStatisticsButtonTap()
+				}, onAccessibilityFocus: {
+					onAccessibilityFocus()
+				}
+			)
+		}
+	}
+	
+	private func configureKeyFigureCells(
+		for keyFigureCards: [SAP_Internal_Stats_KeyFigureCard],
+		onInfoButtonTap: @escaping () -> Void,
+		onAccessibilityFocus: @escaping () -> Void
+	) {
 		for keyFigureCard in keyFigureCards {
 			let nibName = String(describing: HomeStatisticsCardView.self)
 			let nib = UINib(nibName: nibName, bundle: .main)
@@ -96,7 +156,6 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 				}
 			}
 		}
-
 		topConstraint.constant = keyFigureCards.isEmpty ? 0 : 12
 		bottomConstraint.constant = keyFigureCards.isEmpty ? 0 : 12
 		
