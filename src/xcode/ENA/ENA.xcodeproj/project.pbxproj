@@ -131,6 +131,8 @@
 		0190B225255C423600CF4244 /* Date+Age.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0190B224255C423600CF4244 /* Date+Age.swift */; };
 		019155712680E2FA00D49C88 /* PreferredPersonCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0191556F2680E0DA00D49C88 /* PreferredPersonCellModel.swift */; };
 		019155722680E2FA00D49C88 /* PreferredPersonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019155702680E0DB00D49C88 /* PreferredPersonTableViewCell.swift */; };
+		01915574268475EB00D49C88 /* HealthCertificateCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01915573268475EB00D49C88 /* HealthCertificateCellViewModelTests.swift */; };
+		019155762684AE9600D49C88 /* XCTestCase+HealthCertificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019155752684AE1E00D49C88 /* XCTestCase+HealthCertificate.swift */; };
 		01960F4326654438000D714E /* TestCertificateConsent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01960F42266542C1000D714E /* TestCertificateConsent.swift */; };
 		019BFC6C24C9901A0053973D /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 0DFCC2702484DC8400E2811D /* sqlite3.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		019C9F0025894BAA00B26392 /* DiaryStoringProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019C9EFF25894BAA00B26392 /* DiaryStoringProviding.swift */; };
@@ -1349,6 +1351,8 @@
 		0190B224255C423600CF4244 /* Date+Age.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Age.swift"; sourceTree = "<group>"; };
 		0191556F2680E0DA00D49C88 /* PreferredPersonCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferredPersonCellModel.swift; sourceTree = "<group>"; };
 		019155702680E0DB00D49C88 /* PreferredPersonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferredPersonTableViewCell.swift; sourceTree = "<group>"; };
+		01915573268475EB00D49C88 /* HealthCertificateCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateCellViewModelTests.swift; sourceTree = "<group>"; };
+		019155752684AE1E00D49C88 /* XCTestCase+HealthCertificate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+HealthCertificate.swift"; sourceTree = "<group>"; };
 		01960F42266542C1000D714E /* TestCertificateConsent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCertificateConsent.swift; sourceTree = "<group>"; };
 		019C9EFF25894BAA00B26392 /* DiaryStoringProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryStoringProviding.swift; sourceTree = "<group>"; };
 		019C9F0725894BE900B26392 /* MockDiaryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDiaryStore.swift; sourceTree = "<group>"; };
@@ -5816,6 +5820,7 @@
 				015692E324B48C3F0033F35E /* TimeInterval+Convenience.swift */,
 				AB5F84BC24F92E92000400D4 /* SerialMigratorFake.swift */,
 				01CF95DC25308346007B72F7 /* CodableExposureDetectionSummary+Helpers.swift */,
+				019155752684AE1E00D49C88 /* XCTestCase+HealthCertificate.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -6827,6 +6832,7 @@
 			isa = PBXGroup;
 			children = (
 				BAE106E326710E19002D91FB /* HealthCertifiedPersonViewModelTests.swift */,
+				01915573268475EB00D49C88 /* HealthCertificateCellViewModelTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -8362,6 +8368,7 @@
 				50C0299A25E4067B00460FA4 /* UserdataTests.swift in Sources */,
 				A32842672492359E006B1F09 /* MockExposureSubmissionNavigationControllerChild.swift in Sources */,
 				BACBA7072672504200B304D0 /* TestCertificateRequestCellModelTests.swift in Sources */,
+				01915574268475EB00D49C88 /* HealthCertificateCellViewModelTests.swift in Sources */,
 				F25247312484456800C5556B /* DynamicTableViewModelTests.swift in Sources */,
 				B15382E7248290BB0010F007 /* AppleFilesWriterTests.swift in Sources */,
 				50373EC925FBD08A000109AE /* HTTPClient+TraceWarningPackageDownloadTests.swift in Sources */,
@@ -8406,6 +8413,7 @@
 				ABC1C273267B854E00223625 /* DCCDateStringFormatterTests.swift in Sources */,
 				A372DA3F24BEF773003248BB /* ExposureSubmissionCoordinatorTests.swift in Sources */,
 				01D16C6024ED6D9A007DB387 /* MockBackgroundRefreshStatusProvider.swift in Sources */,
+				019155762684AE9600D49C88 /* XCTestCase+HealthCertificate.swift in Sources */,
 				0120ECFE2587631200F78944 /* DiaryDayAddCellModelTest.swift in Sources */,
 				BA0E47DD266FC6850037F552 /* HealthCertificateQRCodeCellViewModelTests.swift in Sources */,
 				BAAAF13426739FBA00F9666B /* HealthCertificateOverviewViewModelTests.swift in Sources */,
