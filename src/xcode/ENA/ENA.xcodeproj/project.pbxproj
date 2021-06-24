@@ -370,6 +370,8 @@
 		341DC32F26823F100003E6BA /* LocalStatisticsProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 341DC32E26823F100003E6BA /* LocalStatisticsProviding.swift */; };
 		341DC3312682401D0003E6BA /* LocalStatisticsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 341DC3302682401D0003E6BA /* LocalStatisticsProvider.swift */; };
 		341DC333268243470003E6BA /* LocalStatisticsMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 341DC332268243470003E6BA /* LocalStatisticsMetadata.swift */; };
+		341DC33726849D1F0003E6BA /* LocalStatisticsProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 341DC335268485EF0003E6BA /* LocalStatisticsProviderTests.swift */; };
+		341DC33A26849E3A0003E6BA /* default_local_statistics.bin in Resources */ = {isa = PBXBuildFile; fileRef = 341DC33926849E3A0003E6BA /* default_local_statistics.bin */; };
 		3456D95225EFD4DE00A62F5D /* ErrorReportHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3456D95125EFD4DE00A62F5D /* ErrorReportHistoryViewController.swift */; };
 		3456D95725EFD51900A62F5D /* ErrorReportHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3456D95625EFD51900A62F5D /* ErrorReportHistoryViewModel.swift */; };
 		3456D95C25EFE02E00A62F5D /* ErrorReportHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3456D95B25EFE02E00A62F5D /* ErrorReportHistoryCell.swift */; };
@@ -1595,6 +1597,8 @@
 		341DC32E26823F100003E6BA /* LocalStatisticsProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStatisticsProviding.swift; sourceTree = "<group>"; };
 		341DC3302682401D0003E6BA /* LocalStatisticsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStatisticsProvider.swift; sourceTree = "<group>"; };
 		341DC332268243470003E6BA /* LocalStatisticsMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStatisticsMetadata.swift; sourceTree = "<group>"; };
+		341DC335268485EF0003E6BA /* LocalStatisticsProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStatisticsProviderTests.swift; sourceTree = "<group>"; };
+		341DC33926849E3A0003E6BA /* default_local_statistics.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = default_local_statistics.bin; sourceTree = "<group>"; };
 		3456D95125EFD4DE00A62F5D /* ErrorReportHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorReportHistoryViewController.swift; sourceTree = "<group>"; };
 		3456D95625EFD51900A62F5D /* ErrorReportHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorReportHistoryViewModel.swift; sourceTree = "<group>"; };
 		3456D95B25EFE02E00A62F5D /* ErrorReportHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorReportHistoryCell.swift; sourceTree = "<group>"; };
@@ -3556,11 +3560,29 @@
 		341DC32D26823DDB0003E6BA /* LocalStatistics */ = {
 			isa = PBXGroup;
 			children = (
+				341DC334268485CA0003E6BA /* __tests__ */,
 				341DC32E26823F100003E6BA /* LocalStatisticsProviding.swift */,
 				341DC3302682401D0003E6BA /* LocalStatisticsProvider.swift */,
 				341DC332268243470003E6BA /* LocalStatisticsMetadata.swift */,
 			);
 			path = LocalStatistics;
+			sourceTree = "<group>";
+		};
+		341DC334268485CA0003E6BA /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				341DC33826849E1B0003E6BA /* sample_local_statistics */,
+				341DC335268485EF0003E6BA /* LocalStatisticsProviderTests.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
+		341DC33826849E1B0003E6BA /* sample_local_statistics */ = {
+			isa = PBXGroup;
+			children = (
+				341DC33926849E3A0003E6BA /* default_local_statistics.bin */,
+			);
+			path = sample_local_statistics;
 			sourceTree = "<group>";
 		};
 		3456D95025EFD2A700A62F5D /* ErrorReportHistory */ = {
@@ -7273,6 +7295,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				01F2A5BA2581181A00DA96A6 /* DiaryDayAddTableViewCell.xib in Resources */,
+				341DC33A26849E3A0003E6BA /* default_local_statistics.bin in Resources */,
 				01F2A59725803D2600DA96A6 /* DiaryOverviewDescriptionTableViewCell.xib in Resources */,
 				01D026C0258BACCE00B6389A /* ExposureDetectionRiskTextCell.xib in Resources */,
 				8F012648267B592200630CDA /* stats.bin in Resources */,
@@ -8462,6 +8485,7 @@
 				A32842612490E2AC006B1F09 /* ExposureSubmissionWarnOthersViewControllerTests.swift in Sources */,
 				50FA07882609ECB3003C1E46 /* TraceWarningPackageDownloadTests.swift in Sources */,
 				AB5F84B424F8FA26000400D4 /* SerialMigratorTests.swift in Sources */,
+				341DC33726849D1F0003E6BA /* LocalStatisticsProviderTests.swift in Sources */,
 				AB190EED25FF6C3700FBFF0D /* ContactDiaryMigration3To4Tests.swift in Sources */,
 				B17A44A22464906A00CB195E /* KeyTests.swift in Sources */,
 				017D8D9A263AF3730009E91C /* HealthCertificateServiceTests.swift in Sources */,
