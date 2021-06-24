@@ -72,7 +72,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 		// THEN
 		XCTAssertFalse(viewModel.vaccinationHintIsVisible)
 		XCTAssertEqual(qrCodeCellViewModel.accessibilityText, AppStrings.HealthCertificate.Person.QRCodeImageDescription)
-		XCTAssertEqual(healthCertificateCellViewModel.gradientType, .lightBlue(withStars: true))
+		XCTAssertEqual(healthCertificateCellViewModel.gradientType, .lightBlue(withStars: false))
 		XCTAssertEqual(healthCertificate.name.fullName, "Erika Dörte Schmitt Mustermann")
 	}
 
