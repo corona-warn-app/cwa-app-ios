@@ -16,7 +16,11 @@ class HomeStatisticsTableViewCell: UITableViewCell {
     }
 
 	// MARK: - Internal
+	override func layoutSubviews() {
+		super.layoutSubviews()
+		self.scrollView.bounds.origin.x = self.scrollView.frame.size.width
 
+	}
 	func configure(
 		with keyFigureCellModel: HomeStatisticsCellModel,
 		store: Store,
@@ -49,7 +53,6 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 					onInfoButtonTap: onInfoButtonTap,
 					onAccessibilityFocus: onAccessibilityFocus
 				)
-				self?.scrollView.bounds.origin.x = self?.scrollView.frame.size.width ?? 0
 
 				onUpdate()
 			}
