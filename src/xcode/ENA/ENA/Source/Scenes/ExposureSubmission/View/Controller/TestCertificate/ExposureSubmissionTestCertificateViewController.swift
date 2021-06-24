@@ -64,7 +64,7 @@ class ExposureSubmissionTestCertificateViewController: DynamicTableViewControlle
 			didTapSecondaryButton { [weak self] isLoading in
 				guard let self = self else { return }
 
-				self.footerView?.setLoadingIndicator(false, disable: isLoading ? true : self.viewModel.isPrimaryButtonEnabled, button: .primary)
+				self.footerView?.setLoadingIndicator(false, disable: isLoading ? true : !self.viewModel.isPrimaryButtonEnabled, button: .primary)
 				self.footerView?.setLoadingIndicator(isLoading, disable: isLoading, button: .secondary)
 
 				// Required to disable changing the date of birth while loading
