@@ -9,7 +9,7 @@ class SelectValueViewModelTests: CWATestCase {
 
 	func testGIVEN_emptyValues_WHEN_getCount_THEN_IsOne() {
 		// GIVEN
-		let viewModel = SelectValueViewModel([], title: "", accessibilityIdentifier: "")
+		let viewModel = SelectValueViewModel([], title: "", accessibilityIdentifier: "", selectionCellIconType: .checkmark)
 
 		// WHEN
 		let count = viewModel.numberOfSelectableValues
@@ -62,10 +62,10 @@ class SelectValueViewModelTests: CWATestCase {
 
 		// THEN
 		XCTAssertEqual("3", selectedCellViewModel.text)
-		XCTAssertEqual(UIImage(imageLiteralResourceName: "Icons_Checkmark"), selectedCellViewModel.checkmarkImage)
+		XCTAssertEqual(UIImage(imageLiteralResourceName: "Icons_Checkmark"), selectedCellViewModel.image)
 
 		XCTAssertEqual("keine Angabe", unselectedCellViewModel.text)
-		XCTAssertNil(unselectedCellViewModel.checkmarkImage)
+		XCTAssertNil(unselectedCellViewModel.image)
 	}
 
 
@@ -80,10 +80,10 @@ class SelectValueViewModelTests: CWATestCase {
 
 		// THEN
 		XCTAssertEqual("keine Angabe", selectedCellViewModel.text)
-		XCTAssertEqual(UIImage(imageLiteralResourceName: "Icons_Checkmark"), selectedCellViewModel.checkmarkImage)
+		XCTAssertEqual(UIImage(imageLiteralResourceName: "Icons_Checkmark"), selectedCellViewModel.image)
 
 		XCTAssertEqual("2", unselectedCellViewModel.text)
-		XCTAssertNil(unselectedCellViewModel.checkmarkImage)
+		XCTAssertNil(unselectedCellViewModel.image)
 	}
 
 	func testGIVEN_ViewModel_WHEN_SelectNoValue_THEN_SelectedValueIsNil() {
