@@ -44,7 +44,8 @@ final class SelectValueTableViewController: UITableViewController {
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(cellType: SelectValueTableViewCell.self, for: indexPath)
-		cell.configure(viewModel.cellViewModel(for: indexPath))
+		let isEnabled = indexPath.item == 0 ? viewModel.isInitialCellEnabled : true
+		cell.configure(viewModel.cellViewModel(for: indexPath), isEnabled: isEnabled)
 		return cell
 	}
 
