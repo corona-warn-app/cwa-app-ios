@@ -36,14 +36,18 @@ final class ExposureDetection {
 
 	private func writeKeyPackagesToFileSystem(completion: (WrittenPackages) -> Void) {
 		if let writtenPackages = self.delegate?.exposureDetectionWriteDownloadedPackages(country: country) {
-			completion(WrittenPackages(urls: writtenPackages.urls))
+			completion(writtenPackages)
 		} else {
 			endPrematurely(reason: .unableToWriteDiagnosisKeys)
 		}
 	}
 
 	private func detectExposureWindows(writtenPackages: WrittenPackages, exposureConfiguration: ENExposureConfiguration) {
-		self.progress = self.delegate?.detectExposureWindows(
+		if progress != nil {
+			Log.error("previous running progress found, will try to cancel", log: .riskDetection)
+			progress?.cancel()
+		}
+		progress = delegate?.detectExposureWindows(
 			self,
 			detectSummaryWithConfiguration: exposureConfiguration,
 			writtenPackages: writtenPackages
@@ -69,7 +73,7 @@ final class ExposureDetection {
 
         Log.info("ExposureDetection: Start writing packages to file system.", log: .riskDetection)
 
-        self.writeKeyPackagesToFileSystem { [weak self] writtenPackages in
+        writeKeyPackagesToFileSystem { [weak self] writtenPackages in
             guard let self = self else { return }
 
             Log.info("ExposureDetection: Completed writing packages to file system.", log: .riskDetection)
