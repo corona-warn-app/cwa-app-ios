@@ -10,12 +10,10 @@ final class HealthCertificateCellViewModel {
 	
 	init(
 		healthCertificate: HealthCertificate,
-		healthCertifiedPerson: HealthCertifiedPerson,
-		healthCertificateService: HealthCertificateService
+		healthCertifiedPerson: HealthCertifiedPerson
 	) {
 		self.healthCertificate = healthCertificate
 		self.healthCertifiedPerson = healthCertifiedPerson
-		self.healthCertificateService = healthCertificateService
 	}
 
 	// MARK: - Internal
@@ -112,6 +110,5 @@ final class HealthCertificateCellViewModel {
 
 	private let healthCertificate: HealthCertificate
 	private let healthCertifiedPerson: HealthCertifiedPerson
-	private let healthCertificateService: HealthCertificateService
 
 }

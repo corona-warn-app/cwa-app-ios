@@ -164,8 +164,7 @@ final class HealthCertifiedPersonViewModel {
 	func healthCertificateCellViewModel(row: Int) -> HealthCertificateCellViewModel {
 		HealthCertificateCellViewModel(
 			healthCertificate: healthCertifiedPerson.healthCertificates[row],
-			healthCertifiedPerson: healthCertifiedPerson,
-			healthCertificateService: healthCertificateService
+			healthCertifiedPerson: healthCertifiedPerson
 		)
 	}
 
