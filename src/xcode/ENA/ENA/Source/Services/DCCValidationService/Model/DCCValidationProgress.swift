@@ -8,8 +8,8 @@ struct DCCValidationProgress {
 	
 	// MARK: - Internal
 
-	let expirationCheck: Bool
-	let jsonSchemaCheck: Bool
-	let acceptanceRuleValidation: String?
-	let invalidationRuleValidation: String?
+	var expirationCheck: Bool
+	var jsonSchemaCheck: Bool
+	var acceptanceRuleValidation: String?
+	var invalidationRuleValidation: String?
 }
