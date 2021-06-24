@@ -38,7 +38,6 @@ final class TanInputViewModel {
 	let digitGroups: [Int] = [3, 3, 4]
 
 	var isInputBlocked: Bool = false
-	var didDissMissInvalidTanAlert: (() -> Void)?
 
 	var isNumberOfDigitsReached: Bool {
 		let count = text.count

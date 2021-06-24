@@ -86,12 +86,8 @@ final class HealthCertificatesCoordinator {
 			onCertifiedPersonTap: { [weak self] healthCertifiedPerson in
 				self?.showHealthCertifiedPerson(healthCertifiedPerson)
 			},
-			onTestCertificateTap: { [weak self] testCertificate in
-				self?.showHealthCertificate(
-					healthCertifiedPerson: nil,
-					healthCertificate: testCertificate,
-					shouldPushOnModalNavigationController: false
-				)
+			onMissingPermissionsButtonTap: { [weak self] in
+				self?.showSettings()
 			}
 		)
 	}()
@@ -343,6 +339,10 @@ final class HealthCertificatesCoordinator {
 				self?.viewController.tabBarItem.badgeValue = $0 > 0 ? String($0) : nil
 			}
 			.store(in: &subscriptions)
+	}
+	
+	private func showSettings() {
+		LinkHelper.open(urlString: UIApplication.openSettingsURLString)
 	}
 	
 }

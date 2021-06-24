@@ -13,12 +13,12 @@ final class HealthCertifiedPersonViewModel {
 	init(
 		healthCertificateService: HealthCertificateService,
 		healthCertifiedPerson: HealthCertifiedPerson,
-		vaccinationValueSetsProvider: VaccinationValueSetsProvider,
+		healthCertificateValueSetsProvider: VaccinationValueSetsProvider,
 		dismiss: @escaping () -> Void
 	) {
 		self.healthCertificateService = healthCertificateService
 		self.healthCertifiedPerson = healthCertifiedPerson
-		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
+		self.healtCertificateValueSetsProvider = healthCertificateValueSetsProvider
 
 		// setup gradient update
 		healthCertifiedPerson.$vaccinationState
@@ -29,7 +29,7 @@ final class HealthCertifiedPersonViewModel {
 
 		healthCertifiedPerson.objectDidChange
 			.sink { [weak self] healthCertifiedPerson in
-				guard !healthCertifiedPerson.vaccinationCertificates.isEmpty else {
+				guard !healthCertifiedPerson.healthCertificates.isEmpty else {
 					dismiss()
 					return
 				}
@@ -39,7 +39,7 @@ final class HealthCertifiedPersonViewModel {
 			.store(in: &subscriptions)
 
 		// load certificate value sets
-		vaccinationValueSetsProvider.latestVaccinationCertificateValueSets()
+		healthCertificateValueSetsProvider.latestVaccinationCertificateValueSets()
 			.sink(
 				receiveCompletion: { _ in },
 				receiveValue: { _ in }
@@ -106,7 +106,7 @@ final class HealthCertifiedPersonViewModel {
 	@OpenCombine.Published private(set) var updateError: Error?
 
 	var qrCodeCellViewModel: HealthCertificateQRCodeCellViewModel {
-		guard let latestHealthCertificate = healthCertifiedPerson.vaccinationCertificates.last
+		guard let latestHealthCertificate = healthCertifiedPerson.healthCertificates.last
 			else {
 			fatalError("Cell cannot be shown without a health certificate")
 		}
@@ -182,23 +182,23 @@ final class HealthCertifiedPersonViewModel {
 		case .person:
 			return 1
 		case .certificates:
-			return healthCertifiedPerson.vaccinationCertificates.count
+			return healthCertifiedPerson.healthCertificates.count
 		}
 	}
 
 	func healthCertificateCellViewModel(row: Int) -> HealthCertificateCellViewModel {
 		HealthCertificateCellViewModel(
-			healthCertificate: healthCertifiedPerson.vaccinationCertificates[row],
+			healthCertificate: healthCertifiedPerson.healthCertificates[row],
 			gradientType: gradientType
 		)
 	}
 
 	func healthCertificate(for indexPath: IndexPath) -> HealthCertificate? {
 		guard TableViewSection.map(indexPath.section) == .certificates,
-			  healthCertifiedPerson.vaccinationCertificates.indices.contains(indexPath.row) else {
+			  healthCertifiedPerson.healthCertificates.indices.contains(indexPath.row) else {
 			return nil
 		}
-		return healthCertifiedPerson.vaccinationCertificates[indexPath.row]
+		return healthCertifiedPerson.healthCertificates[indexPath.row]
 	}
 
 	func canEditRow(at indexPath: IndexPath) -> Bool {
@@ -210,14 +210,14 @@ final class HealthCertifiedPersonViewModel {
 			return
 		}
 
-		healthCertificateService.removeHealthCertificate(healthCertifiedPerson.vaccinationCertificates[indexPath.row])
+		healthCertificateService.removeHealthCertificate(healthCertifiedPerson.healthCertificates[indexPath.row])
 	}
 
 	// MARK: - Private
 
 	private let healthCertifiedPerson: HealthCertifiedPerson
 	private let healthCertificateService: HealthCertificateService
-	private let vaccinationValueSetsProvider: VaccinationValueSetsProvider
+	private let healtCertificateValueSetsProvider: VaccinationValueSetsProvider
 	private var subscriptions = Set<AnyCancellable>()
 
 	private var dateOfBirth: String? {

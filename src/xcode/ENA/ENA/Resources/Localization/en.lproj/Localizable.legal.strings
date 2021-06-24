@@ -203,3 +203,17 @@
 "HealthCertificate_Info_Legal_section04" = "You have the possibility to delete COVID-19 certificates in the app at any time. Until then, the certificates will be stored on your smartphone.";
 
 "HealthCertificate_Info_disclaimer" = "Detailed information about this data processing is available in the privacy notice";
+
+/* ExposureSubmission TestCertificate */
+
+"ExposureSubmission_TestCertificate_Information_Legal_Headline" = "Data protection and data security";
+
+"ExposureSubmission_TestCertificate_Information_Legal_Text_1" = "Requesting and using a digital COVID test certificate is voluntary. There are other ways to prove that you have a negative test certificate.";
+
+"ExposureSubmission_TestCertificate_Information_Legal_Text_2" = "To create your test certificate, data is transmitted once in encrypted form to the RKI. The RKI signs this data electronically to confirm its validity. The RKI will not store the data.";
+
+"ExposureSubmission_TestCertificate_Information_Legal_Text_3" = "The COVID test certificate contains the data about your coronavirus test. In cases where you are required by law to prove a negative test result, it is sufficient to show the QR code in the app. Do not provide the test certificate to anyone if you do not want the data to be read.";
+
+"ExposureSubmission_TestCertificate_Information_Legal_Text_4" = "If you present the QR code of the test certificate in the app and it is scanned using the verification app, others will be able to find out your test result. During verification, the official verification app will also display your name and date of birth.";
+
+"ExposureSubmission_TestCertificate_Information_Legal_Text_5" = "You have the possibility to delete test certificates in the app at any time. Until then, the test certificates will be stored on your smartphone.";

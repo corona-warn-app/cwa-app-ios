@@ -24,7 +24,7 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		self.viewModel = HealthCertifiedPersonViewModel(
 			healthCertificateService: healthCertificateService,
 			healthCertifiedPerson: healthCertifiedPerson,
-			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			healthCertificateValueSetsProvider: vaccinationValueSetsProvider,
 			dismiss: dismiss
 		)
 

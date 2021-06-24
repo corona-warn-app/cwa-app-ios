@@ -179,8 +179,8 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 
 	private func setupTableView() {
 		tableView.register(
-			UINib(nibName: String(describing: AddEventTableViewCell.self), bundle: nil),
-			forCellReuseIdentifier: String(describing: AddEventTableViewCell.self)
+			UINib(nibName: String(describing: AddButtonAsTableViewCell.self), bundle: nil),
+			forCellReuseIdentifier: String(describing: AddButtonAsTableViewCell.self)
 		)
 
 		tableView.register(
@@ -203,6 +203,12 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 
 		DispatchQueue.main.async { [self] in
 			tableView.performBatchUpdates(nil, completion: nil)
+			
+			// Keep the other visible cells maskToBounds off during the animation to avoid flickering shadows due to them being cut off (https://stackoverflow.com/a/59581645)
+			for cell in tableView.visibleCells {
+				cell.layer.masksToBounds = false
+				cell.contentView.layer.masksToBounds = false
+			}
 		}
 	}
 
@@ -235,8 +241,8 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 	}
 
 	private func checkinAddCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AddEventTableViewCell.self), for: indexPath) as? AddEventTableViewCell else {
-			fatalError("Could not dequeue AddEventTableViewCell")
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AddButtonAsTableViewCell.self), for: indexPath) as? AddButtonAsTableViewCell else {
+			fatalError("Could not dequeue AddButtonAsTableViewCell")
 		}
 
 		cell.configure(cellModel: addEntryCellModel)
@@ -289,7 +295,6 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 		} else {
 			emptyStateView.additionalTopPadding += UIApplication.shared.statusBarFrame.height
 		}
-
 		tableView.backgroundView = viewModel.isEmptyStateVisible ? emptyStateView : nil
 	}
 
