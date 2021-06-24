@@ -71,8 +71,8 @@ class HTMLViewController: UIViewController, DismissHandling {
 		}
 	}
 
-    @IBOutlet private weak var containerView: UIView!
-    @IBOutlet private weak var imageView: UIImageView!
+	@IBOutlet private weak var containerView: UIView!
+	@IBOutlet private weak var imageView: UIImageView!
 	@IBOutlet private weak var htmlView: HTMLView!
 	@IBOutlet private weak var htmlTitleLabel: ENALabel!
     @IBOutlet private weak var webViewHeight: NSLayoutConstraint!
