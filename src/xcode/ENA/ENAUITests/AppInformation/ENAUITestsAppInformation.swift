@@ -115,6 +115,15 @@ class ENAUITests_02_AppInformation: CWATestCase {
 		XCTAssertTrue(app.images["AppStrings.AppInformation.termsImageDescription"].waitForExistence(timeout: .medium))
 	}
 	
+	func test_0026a_AppInformationFlow_ErrorReportsShouldBeActiveForDebugAsDefault() throws {
+		app.launch()
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .short))
+		navigateToErrorReporting()
+		app.swipeUp(velocity: .fast)
+
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ErrorReport.stopAndDeleteButton].exists)
+	}
+	
 	func test_0026_AppInformationFlow_ErrorReports() throws {
 		app.setLaunchArgument(LaunchArguments.errorReport.elsLogActive, to: false)
 		app.launch()

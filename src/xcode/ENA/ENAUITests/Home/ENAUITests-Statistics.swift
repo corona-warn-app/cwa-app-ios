@@ -16,8 +16,6 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: true)
 		app.setLaunchArgument(LaunchArguments.onboarding.setCurrentOnboardingVersion, to: true)
 		app.setLaunchArgument(LaunchArguments.infoScreen.userNeedsToBeInformedAboutHowRiskDetectionWorks, to: false)
-		app.setLaunchArgument(LaunchArguments.statistics.useMockDataForStatistics, to: true)
-
 	}
 	
 	func test_StatisticsCardTitles() throws {
