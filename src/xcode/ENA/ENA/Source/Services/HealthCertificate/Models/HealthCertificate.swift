@@ -11,8 +11,8 @@ struct HealthCertificate: Codable, Equatable, Comparable {
 
 	init(base45: Base45) throws {
 		self.base45 = base45
-		self.cborWebTokenHeader = Self.extractCBORWebTokenHeader(from: base45)
-		self.digitalGreenCertificate = Self.extractDigitalGreenCertificate(from: base45)
+		self.cborWebTokenHeader = try Self.extractCBORWebTokenHeader(from: base45)
+		self.digitalGreenCertificate = try Self.extractDigitalGreenCertificate(from: base45)
 	}
 
 	// MARK: - Protocol Codable
@@ -26,8 +26,8 @@ struct HealthCertificate: Codable, Equatable, Comparable {
 
 		base45 = try container.decode(Base45.self, forKey: .base45)
 
-		self.cborWebTokenHeader = Self.extractCBORWebTokenHeader(from: base45)
-		self.digitalGreenCertificate = Self.extractDigitalGreenCertificate(from: base45)
+		self.cborWebTokenHeader = try Self.extractCBORWebTokenHeader(from: base45)
+		self.digitalGreenCertificate = try Self.extractDigitalGreenCertificate(from: base45)
 	}
 
 	func encode(to encoder: Encoder) throws {
@@ -170,7 +170,7 @@ struct HealthCertificate: Codable, Equatable, Comparable {
 		}
 	}
 
-	private static func extractCBORWebTokenHeader(from base45: Base45) -> CBORWebTokenHeader {
+	private static func extractCBORWebTokenHeader(from base45: Base45) throws -> CBORWebTokenHeader {
 		let webTokenHeaderResult = DigitalGreenCertificateAccess().extractCBORWebTokenHeader(from: base45)
 
 		switch webTokenHeaderResult {
@@ -178,11 +178,11 @@ struct HealthCertificate: Codable, Equatable, Comparable {
 			return cborWebTokenHeader
 		case .failure(let error):
 			Log.error("Failed to decode header of health certificate with error", log: .vaccination, error: error)
-			fatalError("Decoding the cborWebTokenHeader failed even though decodability was checked at initialization.")
+			throw error
 		}
 	}
 
-	private static func extractDigitalGreenCertificate(from base45: Base45) -> DigitalGreenCertificate {
+	private static func extractDigitalGreenCertificate(from base45: Base45) throws -> DigitalGreenCertificate {
 		let certificateResult = DigitalGreenCertificateAccess().extractDigitalGreenCertificate(from: base45)
 
 		switch certificateResult {
@@ -190,7 +190,7 @@ struct HealthCertificate: Codable, Equatable, Comparable {
 			return digitalGreenCertificate
 		case .failure(let error):
 			Log.error("Failed to decode health certificate with error", log: .vaccination, error: error)
-			fatalError("Decoding the digitalGreenCertificate failed even though decodability was checked at initialization.")
+			throw error
 		}
 	}
 
