@@ -50,12 +50,21 @@ final class DCCValidationService: DCCValidationProviding {
 			completion(.failure(progress))
 			
 		case let .success(progress):
-			break
+			
+			// 2. update/ download value sets
+			updateValueSets(
+				completion: { result in
+					switch result {
+					case let .failure(error):
+						completion(.failure(error))
+					case let .success(valueSets):
+						
+						break
+		
+					}
+				})
 		}
-		
-		// 2. update/ download value sets
-		
-		
+
 		// 3. update/ download acceptance rules
 		
 		// 4. update/ download invalidation rules
@@ -81,6 +90,8 @@ final class DCCValidationService: DCCValidationProviding {
 	
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProvider
 	
+	private var subscriptions = Set<AnyCancellable>()
+	
 	private func applyTechnicalValidation(
 		validationClock: Date,
 		expirationDate: Date
@@ -104,9 +115,8 @@ final class DCCValidationService: DCCValidationProviding {
 	}
 	
 	private func updateValueSets(
-	
+		completion: @escaping (Result<SAP_Internal_Dgc_ValueSets, DCCValidationError>) -> Void
 	) {
-		
 		vaccinationValueSetsProvider.latestVaccinationCertificateValueSets()
 			.sink(
 				receiveCompletion: { result in
@@ -114,14 +124,21 @@ final class DCCValidationService: DCCValidationProviding {
 					case .finished:
 						break
 					case .failure(let error):
-						if case CachingHTTPClient.CacheError.dataVerificationError = error {
-							Log.error("Signature verification error.", log: .vaccination, error: error)
+						if case let URLSession.Response.Failure.httpError(_, response) = error {
+							switch response.statusCode {
+							case 500...509:
+								completion(.failure(.VALUE_SET_SERVER_ERROR))
+							default:
+								Log.error("Unhandled Status Code while fetching certificate value sets", log: .vaccination, error: error)
+							}
+							
+						} else if case URLSession.Response.Failure.noNetworkConnection = error {
+							completion(.failure(.NO_NETWORK))
 						}
-						Log.error("Could not fetch Vaccination value sets protobuf.", log: .vaccination, error: error)
 					}
-				}, receiveValue: { [weak self] valueSets in
-					self?.valueSets = valueSets
-					self?.updateHealthCertificateKeyValueCellViewModels()
+					
+				}, receiveValue: { valueSets in
+					completion(.success(valueSets))
 				}
 			)
 			.store(in: &subscriptions)

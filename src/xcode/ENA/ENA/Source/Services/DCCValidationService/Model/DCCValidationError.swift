@@ -24,7 +24,7 @@ enum DCCValidationError: Error {
 	case ONBOARDED_COUNTRIES_JSON_ARCHIVE_SIGNATURE_INVALID (DCCValidationProgress)
 	case ONBOARDED_COUNTRIES_JSON_EXTRACTION_FAILED (DCCValidationProgress)
 	case ONBOARDED_COUNTRIES_SERVER_ERROR (DCCValidationProgress)
-	case NO_NETWORK (DCCValidationProgress)
-	case VALUE_SET_SERVER_ERROR (DCCValidationProgress)
+	case NO_NETWORK
+	case VALUE_SET_SERVER_ERROR
 
 }
