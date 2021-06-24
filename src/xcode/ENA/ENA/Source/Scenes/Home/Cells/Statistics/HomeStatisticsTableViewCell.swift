@@ -24,7 +24,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		onAddLocalStatisticsButtonTap: @escaping (SelectValueTableViewController) -> Void,
 		onAddDistrict: @escaping (SelectValueTableViewController) -> Void,
 		onDismissState: @escaping () -> Void,
-		onDismissDistrict: @escaping () -> Void,
+		onDismissDistrict: @escaping (Bool) -> Void,
 		onEditLocalStatisticsButtonTap: @escaping () -> Void,
 		onAccessibilityFocus: @escaping () -> Void,
 		onUpdate: @escaping () -> Void
@@ -85,7 +85,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		onAddLocalStatisticsButtonTap: @escaping (SelectValueTableViewController) -> Void,
 		onAddDistrict: @escaping (SelectValueTableViewController) -> Void,
 		onDismissState: @escaping () -> Void,
-		onDismissDistrict: @escaping () -> Void,
+		onDismissDistrict: @escaping (Bool) -> Void,
 		onEditLocalStatisticsButtonTap: @escaping () -> Void,
 		onAccessibilityFocus: @escaping () -> Void
 	) {
@@ -108,8 +108,8 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 					onAddDistrict(selectValueViewController)
 				}, onDismissState: {
 					onDismissState()
-				}, onDismissDistrict: {
-					onDismissDistrict()
+				}, onDismissDistrict: { dismissToRoot in
+					onDismissDistrict(dismissToRoot)
 				}, onEditButtonTap: {
 					onEditLocalStatisticsButtonTap()
 				}, onAccessibilityFocus: {

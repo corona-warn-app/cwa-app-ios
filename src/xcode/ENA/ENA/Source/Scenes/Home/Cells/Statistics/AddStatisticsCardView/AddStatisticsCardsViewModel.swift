@@ -92,7 +92,7 @@ class AddStatisticsCardsViewModel {
 	}
 	
 	private var federalState: String?
-	private var district: String?
+	private(set) var district: String?
 	private var subscriptions: [AnyCancellable] = []
 
 	private let localStatisticsModel: AddLocalStatisticsModel

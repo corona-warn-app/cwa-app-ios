@@ -30,7 +30,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		onAddLocalStatisticsTap: @escaping (SelectValueTableViewController) -> Void,
 		onAddDistrict: @escaping (SelectValueTableViewController) -> Void,
 		onDismissState: @escaping () -> Void,
-		onDismissDistrict: @escaping () -> Void
+		onDismissDistrict: @escaping (Bool) -> Void
 	) {
 		self.viewModel = viewModel
 		self.appConfigurationProvider = appConfigurationProvider
@@ -335,7 +335,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	private var onAddStateButtonTap: (SelectValueTableViewController) -> Void
 	private var onAddDistrict: (SelectValueTableViewController) -> Void
 	private var onDismissState: () -> Void
-	private var onDismissDistrict: () -> Void
+	private var onDismissDistrict: (Bool) -> Void
 
 	private var deltaOnboardingCoordinator: DeltaOnboardingCoordinator?
 	private var riskCell: UITableViewCell?
@@ -607,8 +607,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			onDismissState: { [weak self] in
 				self?.onDismissState()
 			},
-			onDismissDistrict: { [weak self] in
-				self?.onDismissDistrict()
+			onDismissDistrict: { [weak self] dismissToRoot in
+				self?.onDismissDistrict(dismissToRoot)
 			},
 			onEditLocalStatisticsButtonTap: {
 				Log.warning("Edit Functionality Should Be Added")
