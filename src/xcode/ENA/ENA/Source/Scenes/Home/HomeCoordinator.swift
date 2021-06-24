@@ -63,6 +63,7 @@ class HomeCoordinator: RequiresAppDependencies {
 			),
 			appConfigurationProvider: appConfigurationProvider,
 			route: route,
+			store: store,
 			onInfoBarButtonItemTap: { [weak self] in
 				self?.showRiskLegend()
 			},
@@ -98,7 +99,25 @@ class HomeCoordinator: RequiresAppDependencies {
 				self?.showSettings(enState: enState)
 			},
 			showTestInformationResult: { [weak self] testInformationResult in
-			   self?.showExposureSubmission(testInformationResult: testInformationResult)
+				self?.showExposureSubmission(testInformationResult: testInformationResult)
+			},
+			onAddLocalStatisticsTap: { [weak self] selectValueViewController in
+				self?.rootViewController.present(
+					UINavigationController(rootViewController: selectValueViewController),
+					animated: true
+				)
+			},
+			onAddDistrict: { [weak self] selectValueViewController in
+				self?.rootViewController.presentedViewController?.present(
+					UINavigationController(rootViewController: selectValueViewController),
+					animated: true
+				)
+			},
+			onDismissState: { [weak self] in
+				self?.rootViewController.presentedViewController?.dismiss(animated: true, completion: nil)
+			},
+			onDismissDistrict: { [weak self] in
+				self?.rootViewController.presentedViewController?.dismiss(animated: true, completion: nil)
 			}
 		)
 
