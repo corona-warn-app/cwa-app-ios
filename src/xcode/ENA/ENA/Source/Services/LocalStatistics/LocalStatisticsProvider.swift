@@ -67,7 +67,7 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 		guard let lastFetch = store.localStatistics?.lastLocalStatisticsFetchDate else {
 			return true
 		}
-		Log.debug("timestamp >= 300s? \(abs(Date().timeIntervalSince(lastFetch))) >= 300)", log: .vaccination)
+		Log.debug("timestamp >= 300s? \(abs(Date().timeIntervalSince(lastFetch))) >= 300)", log: .localStatistics)
 		return abs(Date().timeIntervalSince(lastFetch)) >= 300
 	}
 }
