@@ -11,13 +11,12 @@ class AddStatisticsCardView: CustomDashedView {
 	override func awakeFromNib() {
 		super.awakeFromNib()
 		
-		self.addLocalIncidenceLabel.text = AppStrings.Statistics.AddCard.SevenDayIncidence
 		let borderColor: UIColor = .enaColor(for: .backgroundLightGray)
 		layer.borderColor = borderColor.cgColor
+		addLocalIncidenceLabel.text = AppStrings.Statistics.AddCard.sevenDayIncidence
 		addLocalIncidenceLabel.onAccessibilityFocus = { [weak self] in
 			self?.onAccessibilityFocus?()
 		}
-
 	}
 	// if local cards = 0: only show add button
 	// if 0 < local cards < 5: show add and edit
@@ -45,7 +44,7 @@ class AddStatisticsCardView: CustomDashedView {
 		self.onAccessibilityFocus = onAccessibilityFocus
 	}
 
-	@IBAction func addLocalIncidencePressed(_ sender: Any) {
+	@IBAction func onAddLocalIncidenceButtonPressed(_ sender: Any) {
 		guard let model = self.model else {
 			Log.warning("AddStatistics model is nil", log: .localStatistics)
 			return
@@ -64,8 +63,6 @@ class AddStatisticsCardView: CustomDashedView {
 	}
 	
 	@IBOutlet weak var addLocalIncidenceLabel: ENALabel!
-	// WE NEED LocalStatisticsModel INJECTION
-	// WE NEED COMPLETION HANDLERS FOR DISMISS AND SHOW
 
 	// MARK: - Private
 
@@ -103,6 +100,6 @@ class AddStatisticsCardView: CustomDashedView {
 
 enum CreatedLocalStatisticsState {
 	case empty // 0
-	case NotYetFull // 0 < number of local statistics cards < 5
+	case notYetFull // 0 < number of local statistics cards < 5
 	case full // 5
 }

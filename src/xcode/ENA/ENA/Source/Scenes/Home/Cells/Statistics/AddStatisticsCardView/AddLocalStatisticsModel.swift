@@ -41,8 +41,8 @@ struct AddLocalStatisticsModel {
 		})
 	}
 
-//	mutating func save() {
-		// save the returnedLocalStatisticsFrom the API to the store
+//	mutating func saveLocalStatistics() {
+		// save the returned LocalStatistics From the API to the store
 //	}
 
 	// MARK: - Private
