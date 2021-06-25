@@ -92,6 +92,9 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var ppacApiTokenEls: TimestampedToken?
 	var otpTokenEls: OTPToken?
 	var otpElsAuthorizationDate: Date?
+	#if !RELEASE
+	var elsLoggingActiveAtStartup: Bool = true
+	#endif
 
 	// MARK: - ErrorLogHistory
 
