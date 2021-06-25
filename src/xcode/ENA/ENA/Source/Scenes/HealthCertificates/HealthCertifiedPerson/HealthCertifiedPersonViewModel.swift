@@ -195,18 +195,4 @@ final class HealthCertifiedPersonViewModel {
 	private let healtCertificateValueSetsProvider: VaccinationValueSetsProvider
 	private var subscriptions = Set<AnyCancellable>()
 
-	private var dateOfBirth: String? {
-		guard
-			let dateOfBirthString = healthCertifiedPerson.dateOfBirth,
-			let dateOfBirthDate = ISO8601DateFormatter.justLocalDateFormatter.date(from: dateOfBirthString)
-		else {
-			return nil
-		}
-
-		return String(
-			format: AppStrings.HealthCertificate.Person.dateOfBirth,
-			DateFormatter.localizedString(from: dateOfBirthDate, dateStyle: .medium, timeStyle: .none)
-		)
-	}
-
 }
