@@ -14,6 +14,7 @@ enum DCCDateStringFormatter {
 		let formattedString = Self.formattedString(from: string)
 
 		let inputDateFormatter = DateFormatter()
+		inputDateFormatter.calendar = Calendar(identifier: .gregorian)
 
 		let outputDateFormatter = DateFormatter()
 		outputDateFormatter.locale = Locale.current
