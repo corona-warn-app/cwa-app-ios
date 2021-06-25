@@ -124,6 +124,7 @@ extension URLSession.Response {
 		case qrDoesNotExist
 		case regTokenNotExist
 		case invalidResponse
+		case invalidRequest
 		case noNetworkConnection
 		case serverError(Int)
 		case fakeResponse
