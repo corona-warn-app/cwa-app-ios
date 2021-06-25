@@ -92,10 +92,10 @@ extension HTMLViewController: WKNavigationDelegate {
                     } else {
                         Log.error("Could not get website height! \(error?.localizedDescription ?? "")", error: error)
                     }
-                })
-            }
-        })
-    }
+				})
+			}
+		})
+	}
 
 	func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
 		if navigationAction.navigationType == .linkActivated, let url = navigationAction.request.url {
