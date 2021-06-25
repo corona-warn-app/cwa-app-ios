@@ -84,7 +84,7 @@ class AddStatisticsCardView: CustomDashedView {
 			selectValueViewModel,
 			closeOnSelection: true,
 			dismiss: { [weak self] in
-				let dismissToRoot = self?.viewModel?.district == nil ? false : true
+				let dismissToRoot = self?.viewModel?.district != nil
 				self?.onDismissDistrict?(dismissToRoot)
 			}
 		)
