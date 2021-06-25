@@ -132,9 +132,8 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 	private var tableContentObserver: NSKeyValueObservation!
 
 	private func setupNavigationBar() {
-		let logoImage = UIImage(imageLiteralResourceName: "Corona-Warn-App").withRenderingMode(.alwaysTemplate)
+		let logoImage = UIImage(imageLiteralResourceName: "Corona-Warn-App-Small").withRenderingMode(.alwaysTemplate)
 		let logoImageView = UIImageView(image: logoImage)
-		logoImageView.tintColor = .enaColor(for: .textContrast)
 
 		parent?.navigationController?.navigationBar.tintColor = .white
 
