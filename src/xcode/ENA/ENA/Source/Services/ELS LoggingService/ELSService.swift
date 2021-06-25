@@ -5,6 +5,8 @@
 import Foundation
 import OpenCombine
 
+protocol ErrorLogSubmissionProviding: ErrorLogSubmitting, ErrorLogHandling {}
+
 protocol ErrorLogSubmitting {
 
 	typealias ELSAuthenticationResponse = (Result<String, ELSError>) -> Void
@@ -43,7 +45,7 @@ struct ErrorLogUploadReceipt: Codable {
 }
 
 /// Handler for the log file uploading process
-final class ErrorLogSubmissionService: ErrorLogSubmitting {
+final class ErrorLogSubmissionService: ErrorLogSubmissionProviding {
 	
 	// MARK: - Init
 	
@@ -158,6 +160,8 @@ final class ErrorLogSubmissionService: ErrorLogSubmitting {
 extension ErrorLogSubmissionService: ErrorLogHandling {
 
 	private static let errorLogEnabledKey = "elsLogActive"
+	/// We need that it in the StringInterpolation+Private.swift.
+	public static let keyElsLoggingCensoring = "elsLoggingCensoring"
 
 	/// Flag to indicate wether the ELS logging is active or not.
 	///
