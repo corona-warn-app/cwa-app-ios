@@ -616,7 +616,7 @@ final class HTTPClient: Client {
 	}
 	
 	func getDccOnboardedCountries(
-		isFake: Bool,
+		isFake: Bool = false,
 		completion: @escaping DCCOnboardedCountriesCompletionHandler
 	) {
 		guard let request = try? URLRequest.dccOnboardedCountryRequest(
