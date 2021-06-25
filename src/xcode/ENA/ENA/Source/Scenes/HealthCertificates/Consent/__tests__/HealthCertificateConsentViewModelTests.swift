@@ -16,7 +16,7 @@ class HealthCertificateConsentViewModelTests: CWATestCase {
 
 		// THEN
 		XCTAssertEqual(dynamicTableViewModel.numberOfSection, 3)
-		XCTAssertEqual(dynamicTableViewModel.numberOfRows(section: 0), 4)
+		XCTAssertEqual(dynamicTableViewModel.numberOfRows(section: 0), 5)
 		XCTAssertEqual(dynamicTableViewModel.numberOfRows(section: 1), 1)
 		XCTAssertEqual(dynamicTableViewModel.numberOfRows(section: 2), 1)
 	}
