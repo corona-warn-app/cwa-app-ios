@@ -77,7 +77,8 @@ class GradientView: UIView {
 		NSLayoutConstraint.activate(
 			[
 				imageView.topAnchor.constraint(equalTo: topAnchor, constant: 10.0),
-				imageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -33.0)
+				imageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -33.0),
+				// imageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20.0)
 			]
 		)
 	}
