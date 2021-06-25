@@ -149,15 +149,18 @@
         },
         "vp": {
           "description": "vaccine or prophylaxis",
-          "$ref": "#/$defs/vaccine-prophylaxis"
+          "$ref": "#/$defs/vaccine-prophylaxis",
+          "minLength": 1
         },
         "mp": {
           "description": "vaccine medicinal product",
-          "$ref": "#/$defs/vaccine-medicinal-product"
+          "$ref": "#/$defs/vaccine-medicinal-product",
+          "minLength": 1
         },
         "ma": {
           "description": "Marketing Authorization Holder - if no MAH present, then manufacturer",
-          "$ref": "#/$defs/vaccine-mah-manf"
+          "$ref": "#/$defs/vaccine-mah-manf",
+          "minLength": 1
         },
         "dn": {
           "description": "Dose Number",
