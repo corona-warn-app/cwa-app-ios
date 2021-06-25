@@ -25,6 +25,7 @@ protocol Client {
 	typealias TraceWarningPackageDownloadCompletionHandler = (Result<PackageDownloadResponse, TraceWarningError>) -> Void
 	typealias DigitalCovid19CertificateCompletionHandler = (Result<DCCResponse, DCCErrors.DigitalCovid19CertificateError>) -> Void
 	typealias DCCRegistrationCompletionHandler = (Result<Void, DCCErrors.RegistrationError>) -> Void
+	typealias DCCOnboardedCountriesCompletionHandler = (Result<PackageDownloadResponse, Failure>) -> Void
 	
 	// MARK: Interacting with a Client
 
@@ -198,6 +199,13 @@ protocol Client {
 		registrationToken token: String,
 		isFake: Bool,
 		completion: @escaping DigitalCovid19CertificateCompletionHandler
+	)
+	
+	// MARK: DccValidation
+	
+	func getDccOnboardedCountries(
+		isFake: Bool,
+		completion: @escaping DCCOnboardedCountriesCompletionHandler
 	)
 }
 
