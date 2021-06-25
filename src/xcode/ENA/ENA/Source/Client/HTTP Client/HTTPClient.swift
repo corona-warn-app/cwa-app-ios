@@ -614,7 +614,51 @@ final class HTTPClient: Client {
 			}
 		})
 	}
-
+	
+	func getDccOnboardedCountries(
+		isFake: Bool,
+		completion: @escaping DCCOnboardedCountriesCompletionHandler
+	) {
+		guard let request = try? URLRequest.dccOnboardedCountryRequest(
+				configuration: configuration,
+				headerValue: isFake ? 1 : 0) else {
+			Log.error("Could not create url request for dcc onboarded countries", log: .api)
+			completion(.failure(.invalidRequest))
+			return
+		}
+		
+		session.response(for: request, completion: { result in
+			switch result {
+			case let .success(response):
+				switch response.statusCode {
+				case 200:
+					guard let body = response.body else {
+						Log.error("Could not get body from response", log: .api)
+						completion(.failure(.invalidResponse))
+						return
+					}
+					guard let sapPackage = SAPDownloadedPackage(compressedData: body) else {
+						Log.error("Could not create sapPackage", log: .api)
+						completion(.failure(.invalidResponse))
+						return
+					}
+					let etag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag")
+					let packageDownloadResponse = PackageDownloadResponse(package: sapPackage, etag: etag)
+					Log.info("Successfully got list of dcc onboarded countries", log: .api)
+					completion(.success(packageDownloadResponse))
+				case 304:
+					Log.info("Content was not modified - 304.", log: .api)
+					completion(.failure(.notModified))
+				default:
+					Log.error("Generell server error.", log: .api)
+					completion(.failure(.serverError(response.statusCode)))
+				}
+			case let .failure(error):
+				Log.error("Failure at GET for list of dcc onboarded countries.", log: .api, error: error)
+				completion(.failure(.invalidResponse))
+			}
+		})
+	}
 
 	// MARK: - Public
 
@@ -1321,6 +1365,32 @@ private extension URLRequest {
 		let paddedData = try getPaddedRequestBody(for: originalBody)
 		request.httpBody = paddedData
 
+		return request
+	}
+	
+	static func dccOnboardedCountryRequest(
+		configuration: HTTPClient.Configuration,
+		headerValue: Int
+	) throws -> URLRequest {
+		
+		var request = URLRequest(url: configuration.dccOnboardedCountriesURL)
+		
+		request.setValue(
+			"\(headerValue)",
+			// Requests with a value of "0" will be fully processed.
+			// Any other value indicates that this request shall be
+			// handled as a fake request." ,
+			forHTTPHeaderField: "cwa-fake"
+		)
+		
+		// Add header padding.
+		request.setValue(
+			String.getRandomString(of: 14),
+			forHTTPHeaderField: "cwa-header-padding"
+		)
+		
+		request.httpMethod = HttpMethod.get
+	
 		return request
 	}
 	

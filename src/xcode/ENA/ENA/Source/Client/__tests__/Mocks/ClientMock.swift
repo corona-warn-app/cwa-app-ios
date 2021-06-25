@@ -64,6 +64,7 @@ final class ClientMock {
 	var onTraceWarningDownload: ((String, Int, @escaping TraceWarningPackageDownloadCompletionHandler) -> Void)?
 	var onDCCRegisterPublicKey: ((Bool, String, String, @escaping DCCRegistrationCompletionHandler) -> Void)?
 	var onGetDigitalCovid19Certificate: ((String, Bool, @escaping DigitalCovid19CertificateCompletionHandler) -> Void)?
+	var onGetDccOnboardedCountries: ((Bool, @escaping DCCOnboardedCountriesCompletionHandler) -> Void)?
 }
 
 extension ClientMock: ClientWifiOnly {
@@ -109,7 +110,6 @@ extension ClientMock: ClientWifiOnly {
 }
 
 extension ClientMock: Client {
-
 	private static let dummyResponse = PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data()), etag: "\"etag\"")
 
 	func availableDays(forCountry country: String, completion: @escaping AvailableDaysCompletionHandler) {
@@ -275,7 +275,6 @@ extension ClientMock: Client {
 		registrationToken token: String,
 		isFake: Bool,
 		completion: @escaping DigitalCovid19CertificateCompletionHandler
-
 	) {
 		guard let onGetDigitalCovid19Certificate = self.onGetDigitalCovid19Certificate else {
 			completion(.success((DCCResponse(dek: "dataEncryptionKey", dcc: "coseObject"))))
@@ -283,5 +282,17 @@ extension ClientMock: Client {
 		}
 		onGetDigitalCovid19Certificate(token, isFake, completion)
 	}
+	
+	func getDccOnboardedCountries(
+		isFake: Bool,
+		completion: @escaping DCCOnboardedCountriesCompletionHandler
+	) {
+		guard let onGetDccOnboardedCountries = self.onGetDccOnboardedCountries else {
+			completion(.success(downloadedPackage ?? ClientMock.dummyResponse))
+			return
+		}
+		onGetDccOnboardedCountries(isFake, completion)
+	}
+	
 }
 #endif
