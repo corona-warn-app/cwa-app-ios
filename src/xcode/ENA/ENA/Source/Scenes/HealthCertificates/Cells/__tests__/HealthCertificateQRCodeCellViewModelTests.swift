@@ -35,13 +35,17 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 	func testGIVEN_ViewModelWithTestCertificate_THEN_IsInitCorrect() throws {
 		// GIVEN
+		let date = Date()
+		let dateTimeOfSampleCollection = ISO8601DateFormatter.string(from: date, timeZone: .current, formatOptions: .withInternetDateTime)
+		let formattedDate = DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .short)
+
 		let viewModel = HealthCertificateQRCodeCellViewModel(
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
 					from: DigitalGreenCertificate.fake(
 						testEntries: [
 							TestEntry.fake(
-								dateTimeOfSampleCollection: "2021-05-29T14:36:00.000Z"
+								dateTimeOfSampleCollection: dateTimeOfSampleCollection
 							)
 						]
 					)
@@ -54,7 +58,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.backgroundColor, .enaColor(for: .cellBackground2))
 		XCTAssertEqual(viewModel.borderColor, .enaColor(for: .hairline))
 		XCTAssertEqual(viewModel.title, "Testzertifikat")
-		XCTAssertEqual(viewModel.subtitle, "Probenahme am 29.05.21, 16:36")
+		XCTAssertEqual(viewModel.subtitle, "Probenahme am \(formattedDate)")
 		XCTAssertNil(viewModel.accessibilityText)
 	}
 
