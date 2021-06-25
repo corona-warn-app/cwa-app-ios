@@ -29,7 +29,7 @@ struct HealthCertificateQRCodeCellViewModel {
 			self.subtitle = vaccinationEntry.localVaccinationDate.map {
 				String(
 					format: AppStrings.HealthCertificate.Person.VaccinationCertificate.vaccinationDate,
-					DateFormatter.localizedString(from: $0, dateStyle: .medium, timeStyle: .none)
+					DateFormatter.localizedString(from: $0, dateStyle: .short, timeStyle: .none)
 				)
 			}
 		case .test(let testEntry):
@@ -37,7 +37,7 @@ struct HealthCertificateQRCodeCellViewModel {
 			self.subtitle = testEntry.sampleCollectionDate.map {
 				String(
 					format: AppStrings.HealthCertificate.Person.TestCertificate.sampleCollectionDate,
-					DateFormatter.localizedString(from: $0, dateStyle: .medium, timeStyle: .none)
+					DateFormatter.localizedString(from: $0, dateStyle: .short, timeStyle: .short)
 				)
 			}
 		case .recovery(let recoveryEntry):
@@ -45,7 +45,7 @@ struct HealthCertificateQRCodeCellViewModel {
 			self.subtitle = recoveryEntry.localCertificateValidityEndDate.map {
 				String(
 					format: AppStrings.HealthCertificate.Person.RecoveryCertificate.validityDate,
-					DateFormatter.localizedString(from: $0, dateStyle: .medium, timeStyle: .none)
+					DateFormatter.localizedString(from: $0, dateStyle: .short, timeStyle: .none)
 				)
 			}
 		}

@@ -63,21 +63,21 @@ final class HealthCertificateCellViewModel {
 			return vaccinationEntry.localVaccinationDate.map {
 				String(
 					format: AppStrings.HealthCertificate.Person.VaccinationCertificate.vaccinationDate,
-					DateFormatter.localizedString(from: $0, dateStyle: .medium, timeStyle: .none)
+					DateFormatter.localizedString(from: $0, dateStyle: .short, timeStyle: .none)
 				)
 			}
 		case .test(let testEntry):
 			return testEntry.sampleCollectionDate.map {
 				String(
 					format: AppStrings.HealthCertificate.Person.TestCertificate.sampleCollectionDate,
-					DateFormatter.localizedString(from: $0, dateStyle: .medium, timeStyle: .none)
+					DateFormatter.localizedString(from: $0, dateStyle: .short, timeStyle: .none)
 				)
 			}
 		case .recovery(let recoveryEntry):
 			return recoveryEntry.localCertificateValidityEndDate.map {
 				String(
 					format: AppStrings.HealthCertificate.Person.RecoveryCertificate.validityDate,
-					DateFormatter.localizedString(from: $0, dateStyle: .medium, timeStyle: .none)
+					DateFormatter.localizedString(from: $0, dateStyle: .short, timeStyle: .none)
 				)
 			}
 		}

@@ -29,7 +29,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.backgroundColor, .enaColor(for: .cellBackground2))
 		XCTAssertEqual(viewModel.borderColor, .enaColor(for: .hairline))
 		XCTAssertEqual(viewModel.title, "Impfzertifikat")
-		XCTAssertEqual(viewModel.subtitle, "geimpft am 01.06.2021")
+		XCTAssertEqual(viewModel.subtitle, "geimpft am 01.06.21")
 		XCTAssertNil(viewModel.accessibilityText)
 	}
 
@@ -54,7 +54,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.backgroundColor, .enaColor(for: .cellBackground2))
 		XCTAssertEqual(viewModel.borderColor, .enaColor(for: .hairline))
 		XCTAssertEqual(viewModel.title, "Testzertifikat")
-		XCTAssertEqual(viewModel.subtitle, "Probenahme am 29.05.2021")
+		XCTAssertEqual(viewModel.subtitle, "Probenahme am 29.05.21, 16:36")
 		XCTAssertNil(viewModel.accessibilityText)
 	}
 
@@ -79,7 +79,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.backgroundColor, .enaColor(for: .cellBackground2))
 		XCTAssertEqual(viewModel.borderColor, .enaColor(for: .hairline))
 		XCTAssertEqual(viewModel.title, "Genesenenzertifikat")
-		XCTAssertEqual(viewModel.subtitle, "gültig bis 03.12.2021")
+		XCTAssertEqual(viewModel.subtitle, "gültig bis 03.12.21")
 		XCTAssertNil(viewModel.accessibilityText)
 	}
 

@@ -33,7 +33,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.gradientType, .lightBlue(withStars: false))
 		XCTAssertEqual(viewModel.headline, "Impfzertifikat")
 		XCTAssertEqual(viewModel.subheadline, "Impfung 1 von 2")
-		XCTAssertEqual(viewModel.detail, "geimpft am 01.06.2021")
+		XCTAssertEqual(viewModel.detail, "geimpft am 01.06.21")
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "VaccinationCertificate_PartiallyVaccinated_Icon"))
 		XCTAssertTrue(viewModel.isCurrentlyUsedCertificateHintVisible)
 	}
@@ -114,7 +114,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.gradientType, .lightBlue(withStars: false))
 		XCTAssertEqual(viewModel.headline, "Testzertifikat")
 		XCTAssertEqual(viewModel.subheadline, "PCR-Test")
-		XCTAssertEqual(viewModel.detail, "Probenahme am 29.05.2021")
+		XCTAssertEqual(viewModel.detail, "Probenahme am 29.05.21")
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "TestCertificate_Icon"))
 		XCTAssertTrue(viewModel.isCurrentlyUsedCertificateHintVisible)
 	}
@@ -143,7 +143,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.gradientType, .lightBlue(withStars: false))
 		XCTAssertEqual(viewModel.headline, "Testzertifikat")
 		XCTAssertEqual(viewModel.subheadline, "Schnelltest")
-		XCTAssertEqual(viewModel.detail, "Probenahme am 13.05.2021")
+		XCTAssertEqual(viewModel.detail, "Probenahme am 13.05.21")
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "TestCertificate_Icon"))
 		XCTAssertTrue(viewModel.isCurrentlyUsedCertificateHintVisible)
 	}
@@ -172,7 +172,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.gradientType, .lightBlue(withStars: false))
 		XCTAssertEqual(viewModel.headline, "Testzertifikat")
 		XCTAssertNil(viewModel.subheadline)
-		XCTAssertEqual(viewModel.detail, "Probenahme am 13.05.2021")
+		XCTAssertEqual(viewModel.detail, "Probenahme am 13.05.21")
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "TestCertificate_Icon"))
 		XCTAssertTrue(viewModel.isCurrentlyUsedCertificateHintVisible)
 	}
@@ -200,7 +200,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.gradientType, .lightBlue(withStars: false))
 		XCTAssertEqual(viewModel.headline, "Genesenenzertifikat")
 		XCTAssertNil(viewModel.subheadline)
-		XCTAssertEqual(viewModel.detail, "gültig bis 18.03.2022")
+		XCTAssertEqual(viewModel.detail, "gültig bis 18.03.22")
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "RecoveryCertificate_Icon"))
 		XCTAssertTrue(viewModel.isCurrentlyUsedCertificateHintVisible)
 	}
