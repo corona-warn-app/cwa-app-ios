@@ -89,7 +89,7 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 
 		case .person:
 			let cell = tableView.dequeueReusableCell(cellType: PreferredPersonTableViewCell.self, for: indexPath)
-			cell.configure(with: viewModel.personCellViewModel)
+			cell.configure(with: viewModel.preferredPersonCellModel)
 			return cell
 
 		case .certificates:

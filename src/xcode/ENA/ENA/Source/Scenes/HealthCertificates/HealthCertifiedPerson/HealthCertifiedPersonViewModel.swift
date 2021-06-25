@@ -130,7 +130,7 @@ final class HealthCertifiedPersonViewModel {
 		}
 	}
 
-	var personCellViewModel: PreferredPersonCellModel {
+	var preferredPersonCellModel: PreferredPersonCellModel {
 		PreferredPersonCellModel(
 			healthCertifiedPerson: healthCertifiedPerson,
 			healthCertificateService: healthCertificateService
