@@ -21,6 +21,8 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		self.scrollView.bounds.origin.x = self.scrollView.frame.size.width
 
 	}
+	
+	// swiftlint:disable:next function_parameter_count
 	func configure(
 		with keyFigureCellModel: HomeStatisticsCellModel,
 		store: Store,
