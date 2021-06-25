@@ -14,6 +14,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		viewModel: HomeTableViewModel,
 		appConfigurationProvider: AppConfigurationProviding,
 		route: Route?,
+		store: Store,
 		onInfoBarButtonItemTap: @escaping () -> Void,
 		onExposureLoggingCellTap: @escaping (ENStateHandler.State) -> Void,
 		onRiskCellTap: @escaping (HomeState) -> Void,
@@ -25,11 +26,16 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		onFAQCellTap: @escaping () -> Void,
 		onAppInformationCellTap: @escaping () -> Void,
 		onSettingsCellTap: @escaping (ENStateHandler.State) -> Void,
-		showTestInformationResult: @escaping (Result<CoronaTestRegistrationInformation, QRCodeError>) -> Void
+		showTestInformationResult: @escaping (Result<CoronaTestRegistrationInformation, QRCodeError>) -> Void,
+		onAddLocalStatisticsTap: @escaping (SelectValueTableViewController) -> Void,
+		onAddDistrict: @escaping (SelectValueTableViewController) -> Void,
+		onDismissState: @escaping () -> Void,
+		onDismissDistrict: @escaping (Bool) -> Void
 	) {
 		self.viewModel = viewModel
 		self.appConfigurationProvider = appConfigurationProvider
 		self.route = route
+		self.store = store
 		self.onInfoBarButtonItemTap = onInfoBarButtonItemTap
 		self.onExposureLoggingCellTap = onExposureLoggingCellTap
 		self.onRiskCellTap = onRiskCellTap
@@ -42,6 +48,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		self.onAppInformationCellTap = onAppInformationCellTap
 		self.onSettingsCellTap = onSettingsCellTap
 		self.showTestInformationResult = showTestInformationResult
+		self.onAddStateButtonTap = onAddLocalStatisticsTap
+		self.onAddDistrict = onAddDistrict
+		self.onDismissState = onDismissState
+		self.onDismissDistrict = onDismissDistrict
 
 		super.init(style: .grouped)
 
@@ -308,6 +318,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 	private let viewModel: HomeTableViewModel
 	private let appConfigurationProvider: AppConfigurationProviding
+	private let store: Store
 
 	private let onInfoBarButtonItemTap: () -> Void
 	private let onExposureLoggingCellTap: (ENStateHandler.State) -> Void
@@ -321,6 +332,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	private let onAppInformationCellTap: () -> Void
 	private let onSettingsCellTap: (ENStateHandler.State) -> Void
 	private let showTestInformationResult: (Result<CoronaTestRegistrationInformation, QRCodeError>) -> Void
+	private var onAddStateButtonTap: (SelectValueTableViewController) -> Void
+	private var onAddDistrict: (SelectValueTableViewController) -> Void
+	private var onDismissState: () -> Void
+	private var onDismissDistrict: (Bool) -> Void
 
 	private var deltaOnboardingCoordinator: DeltaOnboardingCoordinator?
 	private var riskCell: UITableViewCell?
@@ -579,8 +594,24 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 		cell.configure(
 			with: HomeStatisticsCellModel(homeState: viewModel.state),
+			store: self.store,
 			onInfoButtonTap: { [weak self] in
 				self?.onStatisticsInfoButtonTap()
+			},
+			onAddLocalStatisticsButtonTap: { [weak self] selectValueViewController in
+				self?.onAddStateButtonTap(selectValueViewController)
+			},
+			onAddDistrict: { [weak self] selectValueViewController in
+				self?.onAddDistrict(selectValueViewController)
+			},
+			onDismissState: { [weak self] in
+				self?.onDismissState()
+			},
+			onDismissDistrict: { [weak self] dismissToRoot in
+				self?.onDismissDistrict(dismissToRoot)
+			},
+			onEditLocalStatisticsButtonTap: {
+				Log.warning("Edit Functionality Should Be Added")
 			},
 			onAccessibilityFocus: { [weak self] in
 				self?.tableView.contentOffset.x = 0

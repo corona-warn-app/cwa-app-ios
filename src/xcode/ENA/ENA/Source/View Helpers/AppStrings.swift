@@ -1367,7 +1367,11 @@ enum AppStrings {
 
 	enum Statistics {
 		static let error = NSLocalizedString("Statistics_LoadingError", comment: "")
-		
+		enum AddCard {
+			static let sevenDayIncidence = NSLocalizedString("Statistics_Add_SevenDayIncidence", comment: "")
+			static let stateWide = NSLocalizedString("Statistics_Add_fromTheWholeCountry", comment: "")
+
+		}
 		enum Card {
 			static let fromNationWide = NSLocalizedString("Statistics_Card_From_Nationwide", comment: "")
 			static let fromCWA = NSLocalizedString("Statistics_Card_From_CWA", comment: "")
@@ -1489,7 +1493,6 @@ enum AppStrings {
 			static let trendsFootnote = NSLocalizedString("Statistics_Info_Trends_Footnote", comment: "")
 			static let titleImageAccLabel = NSLocalizedString("Statistics_Info_Image_AccLabel", comment: "")
 		}
-
 	}
 	
 	enum UpdateOS {

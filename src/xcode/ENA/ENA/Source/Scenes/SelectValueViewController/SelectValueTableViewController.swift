@@ -11,8 +11,8 @@ final class SelectValueTableViewController: UITableViewController {
 
 	init(
 		_ viewModel: SelectValueViewModel,
-		dismiss: @escaping () -> Void,
-		closeOnSelection: Bool = true
+		closeOnSelection: Bool = true,
+		dismiss: @escaping () -> Void
 	) {
 		self.viewModel = viewModel
 		self.dismiss = dismiss
@@ -44,7 +44,8 @@ final class SelectValueTableViewController: UITableViewController {
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(cellType: SelectValueTableViewCell.self, for: indexPath)
-		cell.configure(viewModel.cellViewModel(for: indexPath))
+		let isEnabled = indexPath.item > 0 ? true : viewModel.isInitialCellEnabled
+		cell.configure(viewModel.cellViewModel(for: indexPath), isEnabled: isEnabled)
 		return cell
 	}
 
