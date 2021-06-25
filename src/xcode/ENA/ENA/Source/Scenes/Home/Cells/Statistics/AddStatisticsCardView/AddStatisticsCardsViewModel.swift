@@ -11,11 +11,11 @@ class AddStatisticsCardsViewModel {
 	
 	init(
 		localStatisticsModel: AddLocalStatisticsModel,
-		presentSelectStateList: @escaping (SelectValueViewModel) -> Void,
-		presentSelectDistrictList: @escaping (SelectValueViewModel) -> Void
+		presentFederalStatesList: @escaping (SelectValueViewModel) -> Void,
+		presentSelectDistrictsList: @escaping (SelectValueViewModel) -> Void
 	) {
-		self.presentSelectValueList = presentSelectStateList
-		self.presentSelectDistrictList = presentSelectDistrictList
+		self.presentFederalStatesList = presentFederalStatesList
+		self.presentSelectDistrictsList = presentSelectDistrictsList
 		self.localStatisticsModel = localStatisticsModel
 	}
 
@@ -38,7 +38,7 @@ class AddStatisticsCardsViewModel {
 			self?.federalState = state
 			self?.showSelectDistrictList(for: state)
 		}.store(in: &subscriptions)
-		presentSelectValueList(selectValueViewModel)
+		presentFederalStatesList(selectValueViewModel)
 	}
 	
 	// MARK: - Private
@@ -50,7 +50,7 @@ class AddStatisticsCardsViewModel {
 			title: AppStrings.DataDonation.ValueSelection.Title.Region,
 			preselected: nil,
 			isInitialCellEnabled: false,
-			initialString: AppStrings.Statistics.AddCard.fromTheWholeCountry,
+			initialString: AppStrings.Statistics.AddCard.stateWide,
 			accessibilityIdentifier: AccessibilityIdentifiers.DataDonation.regionCell,
 			selectionCellIconType: .none
 		)
@@ -63,7 +63,7 @@ class AddStatisticsCardsViewModel {
 			self?.generateFilterID(for: unWrappedDistrict)
 		}.store(in: &subscriptions)
 
-		presentSelectDistrictList(selectValueViewModel)
+		presentSelectDistrictsList(selectValueViewModel)
 	}
 
 	private func generateFilterID(for district: String) {
@@ -96,6 +96,6 @@ class AddStatisticsCardsViewModel {
 	private var subscriptions: [AnyCancellable] = []
 
 	private let localStatisticsModel: AddLocalStatisticsModel
-	private let presentSelectValueList: (SelectValueViewModel) -> Void
-	private let presentSelectDistrictList: (SelectValueViewModel) -> Void
+	private let presentFederalStatesList: (SelectValueViewModel) -> Void
+	private let presentSelectDistrictsList: (SelectValueViewModel) -> Void
 }
