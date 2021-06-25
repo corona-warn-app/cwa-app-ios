@@ -51,10 +51,10 @@ class AddStatisticsCardView: CustomDashedView {
 		}
 		viewModel = AddStatisticsCardsViewModel(
 			localStatisticsModel: model,
-			presentSelectStateList: { selectedStateValueViewModel in
+			presentFederalStatesList: { selectedStateValueViewModel in
 				self.presentAddLocalStatistics(selectValueViewModel: selectedStateValueViewModel)
 			},
-			presentSelectDistrictList: { selectedDistrictValueViewModel in
+			presentSelectDistrictsList: { selectedDistrictValueViewModel in
 				self.presentAddLocalStatisticsDistrict(selectValueViewModel: selectedDistrictValueViewModel)
 				
 			}
