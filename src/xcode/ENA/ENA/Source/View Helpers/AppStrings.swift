@@ -1368,7 +1368,7 @@ enum AppStrings {
 	enum Statistics {
 		static let error = NSLocalizedString("Statistics_LoadingError", comment: "")
 		enum AddCard {
-			static let SevenDayIncidence = NSLocalizedString("Statistics_Add_SevenDayIncidence", comment: "")
+			static let sevenDayIncidence = NSLocalizedString("Statistics_Add_SevenDayIncidence", comment: "")
 			static let fromTheWholeCountry = NSLocalizedString("Statistics_Add_fromTheWholeCountry", comment: "")
 
 		}
