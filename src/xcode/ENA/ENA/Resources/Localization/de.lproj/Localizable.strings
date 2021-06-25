@@ -2692,6 +2692,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Info_section03" = "Nach dem Hinzufügen bleiben die Zertifikate auf Ihrem Smartphone. Andere Personen können Ihre Daten nur einsehen, wenn Sie diesen ein Zertifikat zur Überprüfung vorzeigen.";
 
+"HealthCertificate_Info_section04" = "Fügen Sie existierende Zertifikate für sich und Ihre Familienmitglieder hinzu.";
+
 "HealthCertificate_Info_primaryButton" = "Weiter";
 
 /* QR Scanner */
