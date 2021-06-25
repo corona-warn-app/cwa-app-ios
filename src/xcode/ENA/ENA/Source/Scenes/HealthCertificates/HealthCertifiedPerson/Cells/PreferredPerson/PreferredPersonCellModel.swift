@@ -26,7 +26,7 @@ struct PreferredPersonCellModel {
 	var dateOfBirth: String? {
 		healthCertifiedPerson.dateOfBirth
 			.flatMap {
-				DCCDateStringFormatter.formattedString(from: $0)
+				DCCDateStringFormatter.localizedFormattedString(from: $0)
 			}
 			.flatMap {
 				String(format: AppStrings.HealthCertificate.Person.dateOfBirth, $0)
