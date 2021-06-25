@@ -103,6 +103,8 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 			vc = DMLastSubmissionRequestViewController(lastSubmissionRequest: UserDefaults.standard.dmLastSubmissionRequest)
 		case .errorLog:
 			vc = DMLogsViewController()
+		case .els:
+			vc = DMErrorLogSharingViewController(store: store)
 		case .sendFakeRequest:
 			vc = nil
 			sendFakeRequest()

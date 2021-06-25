@@ -12,7 +12,16 @@ extension String.StringInterpolation {
 	mutating func appendInterpolation<T>(private value: T, public text: String = "") {
 		#if !RELEASE
 			// Community, Debug, TestFlight, AdHoc
+		
+			// For our testers, we have a toggle to turn off/on the censoring in non-release branch. For this and because we cannot have the store here, we read our the correspoding property directly from the user default.
+
+		let elsLoggingCensoring = UserDefaults.standard.bool(forKey: ErrorLogSubmissionService.keyElsLoggingCensoring)
+		if elsLoggingCensoring {
+			text.isEmpty ? appendLiteral("🙈🙉🙊") : appendLiteral("🙈🙉🙊. (Censoring cause: " + text + ")")
+		} else {
 			appendLiteral(String(describing: value))
+		}
+		
 		#else
 			// Release
 			text.isEmpty ? appendLiteral("🙈🙉🙊") : appendLiteral("🙈🙉🙊. (Censoring cause: " + text + ")")
