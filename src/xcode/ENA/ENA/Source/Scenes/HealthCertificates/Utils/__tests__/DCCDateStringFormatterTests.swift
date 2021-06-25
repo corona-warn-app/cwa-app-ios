@@ -13,7 +13,7 @@ class DCCDateStringFormatterTests: XCTestCase {
 				XCTFail("String expected.")
 				return
 			}
-			let formattedDOB = DCCDateStringFormatter.formatedString(from: dob)
+			let formattedDOB = DCCDateStringFormatter.formattedString(from: dob)
 			let expected = dateOfBirthFormattingTestData["formatted"]
 			XCTAssertEqual(formattedDOB, expected)
 		}

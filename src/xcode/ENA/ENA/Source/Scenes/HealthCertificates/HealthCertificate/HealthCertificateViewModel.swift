@@ -209,7 +209,7 @@ final class HealthCertificateViewModel {
 
 		let dateOfBirthCellViewModel = HealthCertificateKeyValueCellViewModel(
 			key: "Geburtsdatum / Date of Birth (YYYY-MM-DD)",
-			value: DCCDateStringFormatter.formatedString(from: healthCertificate.dateOfBirth)
+			value: DCCDateStringFormatter.formattedString(from: healthCertificate.dateOfBirth)
 		)
 
 		let diseaseCellViewModel = HealthCertificateKeyValueCellViewModel(
@@ -254,7 +254,7 @@ final class HealthCertificateViewModel {
 
 		let dateCellViewModel = HealthCertificateKeyValueCellViewModel(
 			key: "Datum der Impfung / Date of Vaccination (YYYY-MM-DD)",
-			value: DCCDateStringFormatter.formatedString(from: vaccinationEntry.dateOfVaccination)
+			value: DCCDateStringFormatter.formattedString(from: vaccinationEntry.dateOfVaccination)
 		)
 
 		let localizedCountryName = Country(countryCode: vaccinationEntry.countryOfVaccination)?.localizedName
@@ -301,7 +301,7 @@ final class HealthCertificateViewModel {
 
 		let dateOfBirthCellViewModel = HealthCertificateKeyValueCellViewModel(
 			key: "Geburtsdatum / Date of Birth (YYYY-MM-DD)",
-			value: DCCDateStringFormatter.formatedString(from: healthCertificate.dateOfBirth)
+			value: DCCDateStringFormatter.formattedString(from: healthCertificate.dateOfBirth)
 		)
 
 		let diseaseOrAgentTargetedCellViewModel = HealthCertificateKeyValueCellViewModel(
@@ -407,7 +407,7 @@ final class HealthCertificateViewModel {
 
 		let dateOfBirthCellViewModel = HealthCertificateKeyValueCellViewModel(
 			key: "Geburtsdatum / Date of Birth (YYYY-MM-DD)",
-			value: DCCDateStringFormatter.formatedString(from: healthCertificate.dateOfBirth)
+			value: DCCDateStringFormatter.formattedString(from: healthCertificate.dateOfBirth)
 		)
 
 		let diseaseOrAgentTargetedCellViewModel = HealthCertificateKeyValueCellViewModel(
@@ -420,7 +420,7 @@ final class HealthCertificateViewModel {
 
 		let dateOfFirstPositiveNAAResultCellViewModel = HealthCertificateKeyValueCellViewModel(
 			key: "Datum des ersten positiven Testergebnisses / Date of first positive test result (YYYY-MM-DD)",
-			value: DCCDateStringFormatter.formatedString(from: recoveryEntry.dateOfFirstPositiveNAAResult)
+			value: DCCDateStringFormatter.formattedString(from: recoveryEntry.dateOfFirstPositiveNAAResult)
 		)
 
 		let localizedCountryName = Country(countryCode: recoveryEntry.countryOfTest)?.localizedName
