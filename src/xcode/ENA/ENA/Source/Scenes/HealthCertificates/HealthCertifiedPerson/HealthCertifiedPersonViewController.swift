@@ -106,7 +106,7 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 
 			return footerView
 		} else {
-			return UIView()
+			return nil
 		}
 	}
 
