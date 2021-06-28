@@ -1,3 +1,3 @@
 # HealthCertificateToolkit
 
-This toolkit decodes a digital green certificate.
+This toolkit decodes a digital covid certificate.
