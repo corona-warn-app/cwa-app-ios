@@ -4,18 +4,20 @@
 
 
 import UIKit
+import OpenCombine
 
 final class StatisticsViewController: UIViewController, UICollectionViewDataSource {
 
-	static let height: CGFloat = 150
+	static let height: CGFloat = 239 // from old satistics cell
+	static let width: CGFloat = 250 // from old satistics cell
 
-	var cellModel: HomeStatisticsCellModel?
+	var statistics: [SAP_Internal_Stats_KeyFigureCard] = []
 
 	lazy var collectionView: UICollectionView = {
 		let layout = PagingCollectionViewLayout()
 		layout.sectionInset = .init(top: 0, left: spacing, bottom: 0, right: spacing)
 		layout.minimumLineSpacing = cellSpacing
-		layout.itemSize = .init(width: cellWidth, height: Self.height - 20)
+		layout.itemSize = .init(width: Self.width, height: Self.height - 20)
 		layout.scrollDirection = .horizontal
 
 		let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -23,9 +25,9 @@ final class StatisticsViewController: UIViewController, UICollectionViewDataSour
 		collectionView.showsHorizontalScrollIndicator = false
 		collectionView.decelerationRate = .fast
 		collectionView.dataSource = self
-		collectionView.backgroundColor = .magenta // debug!
+		collectionView.backgroundColor = .magenta.withAlphaComponent(0.3) // debug!
 
-		collectionView.register(StatisticCell.self, forCellWithReuseIdentifier: StatisticCell.reuseIdentifier)
+		collectionView.register(UINib(nibName: "StatisticCell", bundle: nil), forCellWithReuseIdentifier: StatisticCell.reuseIdentifier)
 
 		return collectionView
 	}()
@@ -37,7 +39,6 @@ final class StatisticsViewController: UIViewController, UICollectionViewDataSour
 	private lazy var cellWidth = { 0.85 * width }()
 	private lazy var spacing = { 1 / 8 * width }()
 	private lazy var cellSpacing = { 1 / 16 * width }()
-
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -58,7 +59,7 @@ final class StatisticsViewController: UIViewController, UICollectionViewDataSour
 	}
 
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		return 5
+		return statistics.count
 	}
 
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -66,6 +67,8 @@ final class StatisticsViewController: UIViewController, UICollectionViewDataSour
 			preconditionFailure()
 		}
 		cell.label.text = indexPath.debugDescription
+		cell.backgroundColor = .green
+		Log.debug("configuring stat @ \(indexPath)", log: .ui)
 		return cell
 	}
 }

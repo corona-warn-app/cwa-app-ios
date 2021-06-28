@@ -12,8 +12,13 @@ class HomeStatisticsTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
 
-		self.addGestureRecognizer(scrollView.panGestureRecognizer)
+		// quick hack
+		contentView.heightAnchor.constraint(equalToConstant: StatisticsViewController.height).isActive = true
     }
+
+	override func willMove(toSuperview newSuperview: UIView?) {
+		super.willMove(toSuperview: newSuperview)
+	}
 
 	// MARK: - Internal
 
@@ -33,6 +38,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 					onInfoButtonTap: onInfoButtonTap,
 					onAccessibilityFocus: onAccessibilityFocus
 				)
+				self?.statisticsViewController.collectionView.reloadData()
 				onUpdate()
 			}
 			.store(in: &subscriptions)
@@ -41,6 +47,25 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		self.cellModel = cellModel
 
 		isConfigured = true
+	}
+
+	func add(statisticsViewController: StatisticsViewController, for parent: UIViewController) {
+		assert(superview != nil)
+		self.statisticsViewController = statisticsViewController
+		statisticsViewController.willMove(toParent: parent)
+		statisticsViewController.loadViewIfNeeded()
+		contentView.addSubview(statisticsViewController.view)
+		statisticsViewController.didMove(toParent: parent)
+		NSLayoutConstraint.activate([
+			statisticsViewController.view.topAnchor.constraint(equalTo: contentView.topAnchor),
+			statisticsViewController.view.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+			statisticsViewController.view.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+			statisticsViewController.view.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+			statisticsViewController.view.heightAnchor.constraint(equalToConstant: StatisticsViewController.height)
+		])
+
+		//setNeedsLayout()
+		statisticsViewController.collectionView.reloadData()
 	}
 
 	// MARK: - Private
@@ -55,11 +80,16 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 	private var isConfigured: Bool = false
 	private var subscriptions = Set<AnyCancellable>()
 
+	lazy var statisticsViewController = StatisticsViewController()
+
 	private func configure(
 		for keyFigureCards: [SAP_Internal_Stats_KeyFigureCard],
 		onInfoButtonTap: @escaping () -> Void,
 		onAccessibilityFocus: @escaping () -> Void
 	) {
+		statisticsViewController.statistics = keyFigureCards
+		Log.debug("Added \(keyFigureCards.count) statistic entities", log: .ui)
+		/*
 		stackView.arrangedSubviews.forEach {
 			stackView.removeArrangedSubview($0)
 			$0.removeFromSuperview()
@@ -107,5 +137,6 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		}
 
 		accessibilityElements = stackView.arrangedSubviews
+		*/
 	}
 }

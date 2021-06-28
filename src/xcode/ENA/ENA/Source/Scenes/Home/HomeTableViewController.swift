@@ -577,6 +577,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			fatalError("Could not dequeue HomeStatisticsTableViewCell")
 		}
 
+		// only working because we don't dequeue this home table view
+		let statsVC = StatisticsViewController()
+		cell.add(statisticsViewController: statsVC, for: self)
+
 		cell.configure(
 			with: HomeStatisticsCellModel(homeState: viewModel.state),
 			onInfoButtonTap: { [weak self] in
