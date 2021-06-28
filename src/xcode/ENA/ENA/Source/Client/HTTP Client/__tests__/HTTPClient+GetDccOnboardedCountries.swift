@@ -22,7 +22,7 @@ final class HTTPClientGetDccOnboardedCountriesTests: CWATestCase {
 		// WHEN
 		var response: PackageDownloadResponse?
 		let client = HTTPClient.makeWith(mock: stack)
-		client.getDccOnboardedCountries(completion: { result in
+		client.getDCCOnboardedCountries(completion: { result in
 			switch result {
 			case let .success(package):
 				response = package
@@ -49,10 +49,10 @@ final class HTTPClientGetDccOnboardedCountriesTests: CWATestCase {
 		var failure: URLSession.Response.Failure?
 		
 		// WHEN
-		client.getDccOnboardedCountries(completion: { result in
+		client.getDCCOnboardedCountries(completion: { result in
 			switch result {
 			case .success:
-				XCTFail("This test should not success.")
+				XCTFail("This test should not succeed.")
 			case let .failure(error):
 				failure = error
 				expectation.fulfill()
@@ -74,10 +74,10 @@ final class HTTPClientGetDccOnboardedCountriesTests: CWATestCase {
 		var failure: URLSession.Response.Failure?
 		
 		// WHEN
-		client.getDccOnboardedCountries(completion: { result in
+		client.getDCCOnboardedCountries(completion: { result in
 			switch result {
 			case .success:
-				XCTFail("This test should not success.")
+				XCTFail("This test should not succeed.")
 			case let .failure(error):
 				failure = error
 				expectation.fulfill()
@@ -99,10 +99,10 @@ final class HTTPClientGetDccOnboardedCountriesTests: CWATestCase {
 		var failure: URLSession.Response.Failure?
 		
 		// WHEN
-		client.getDccOnboardedCountries(completion: { result in
+		client.getDCCOnboardedCountries(completion: { result in
 			switch result {
 			case .success:
-				XCTFail("This test should not success.")
+				XCTFail("This test should not succeed.")
 			case let .failure(error):
 				failure = error
 				expectation.fulfill()
@@ -124,10 +124,10 @@ final class HTTPClientGetDccOnboardedCountriesTests: CWATestCase {
 		var failure: URLSession.Response.Failure?
 		
 		// WHEN
-		client.getDccOnboardedCountries(completion: { result in
+		client.getDCCOnboardedCountries(completion: { result in
 			switch result {
 			case .success:
-				XCTFail("This test should not success.")
+				XCTFail("This test should not succeed.")
 			case let .failure(error):
 				failure = error
 				expectation.fulfill()
