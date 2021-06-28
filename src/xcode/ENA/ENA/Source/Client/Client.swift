@@ -203,6 +203,10 @@ protocol Client {
 	
 	// MARK: DccValidation
 	
+	/// GET call to receive the list of onboarded countries as a ResponsePackageDownload. Must be extracted and verified afterwards.
+	/// - Parameters:
+	///   - isFake: Flag to indicate a fake request
+	///   - completion: The completion handler of the call, which contains a ResponsePackageDownload or a URLSession.Response.Failure
 	func getDccOnboardedCountries(
 		isFake: Bool,
 		completion: @escaping DCCOnboardedCountriesCompletionHandler
