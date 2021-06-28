@@ -38,6 +38,12 @@ class CreateAntigenTestProfileViewController: UITableViewController, FooterViewH
 		setupBindings()
 	}
 	
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+		// dismiss any presented keyboard
+		view.endEditing(true)
+	}
+	
 	override func numberOfSections(in tableView: UITableView) -> Int {
 		return 1
 	}
