@@ -17,7 +17,6 @@ class HealthCertificateService {
 		appConfiguration: AppConfigurationProviding,
 		digitalGreenCertificateAccess: DigitalGreenCertificateAccessProtocol = DigitalGreenCertificateAccess()
 	) {
-
 		#if DEBUG
 		if isUITesting {
 			self.store = MockTestStore()
@@ -115,6 +114,7 @@ class HealthCertificateService {
 			if !healthCertifiedPersons.value.contains(healthCertifiedPerson) {
 				Log.info("[HealthCertificateService] Successfully registered health certificate for a new person", log: .api)
 				healthCertifiedPersons.value.append(healthCertifiedPerson)
+				updatePersonsSortingAndGradients()
 			} else {
 				Log.info("[HealthCertificateService] Successfully registered health certificate for a person with other existing certificates", log: .api)
 			}
