@@ -387,6 +387,11 @@
 		34FE15C2260914030002CB69 /* QRCodePosterTemplateProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FE1580260126080002CB69 /* QRCodePosterTemplateProviding.swift */; };
 		34FE15C3260914030002CB69 /* QRCodePosterTemplateMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FE1585260131830002CB69 /* QRCodePosterTemplateMetadata.swift */; };
 		34FE15C4260914030002CB69 /* QRCodePosterTemplateProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FE158D260135E20002CB69 /* QRCodePosterTemplateProvider.swift */; };
+		3507B03D2689B2600089BB44 /* HomeStatisticsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3507B03C2689B2600089BB44 /* HomeStatisticsCell.swift */; };
+		3507B0422689B4BC0089BB44 /* StatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3507B0412689B4BC0089BB44 /* StatisticsViewController.swift */; };
+		3507B0442689B5710089BB44 /* PagingCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3507B0432689B5710089BB44 /* PagingCollectionViewLayout.swift */; };
+		3507B0472689C6D90089BB44 /* StatisticCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3507B0452689C6D90089BB44 /* StatisticCell.swift */; };
+		3507B0482689C6D90089BB44 /* StatisticCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3507B0462689C6D90089BB44 /* StatisticCell.xib */; };
 		350B26C5265E4E8D00180183 /* CWATestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350B26C4265E4E8D00180183 /* CWATestCase.swift */; };
 		350B26C6265E4E8D00180183 /* CWATestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350B26C4265E4E8D00180183 /* CWATestCase.swift */; };
 		3518DD6525BA2D060090A26B /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3518DD6425BA2D060090A26B /* NotificationManager.swift */; };
@@ -1608,6 +1613,11 @@
 		34FE15A72604F99D0002CB69 /* UIColor+HEX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+HEX.swift"; sourceTree = "<group>"; };
 		35075C092526378D00DE92F7 /* AllTests.xctestplan */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = AllTests.xctestplan; path = TestPlans/AllTests.xctestplan; sourceTree = "<group>"; };
 		35075C0E252637C300DE92F7 /* SmokeTests.xctestplan */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SmokeTests.xctestplan; path = TestPlans/SmokeTests.xctestplan; sourceTree = "<group>"; };
+		3507B03C2689B2600089BB44 /* HomeStatisticsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeStatisticsCell.swift; sourceTree = "<group>"; };
+		3507B0412689B4BC0089BB44 /* StatisticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewController.swift; sourceTree = "<group>"; };
+		3507B0432689B5710089BB44 /* PagingCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingCollectionViewLayout.swift; sourceTree = "<group>"; };
+		3507B0452689C6D90089BB44 /* StatisticCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticCell.swift; sourceTree = "<group>"; };
+		3507B0462689C6D90089BB44 /* StatisticCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatisticCell.xib; sourceTree = "<group>"; };
 		350B26C4265E4E8D00180183 /* CWATestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CWATestCase.swift; sourceTree = "<group>"; };
 		35163D23251CFCCB00D220CA /* CachingHTTPClientMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachingHTTPClientMock.swift; sourceTree = "<group>"; };
 		35178CCA26553EDC00FFB31E /* UITests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = UITests.xctestplan; path = TestPlans/UITests.xctestplan; sourceTree = "<group>"; };
@@ -2744,6 +2754,7 @@
 				0130F66625B1813000B6BDA3 /* HomeStatisticsCard.swift */,
 				0105D88B25B87300007E288B /* HomeStatisticsCardView */,
 				0105D88F25B8731D007E288B /* Extensions */,
+				3507B03E2689B39D0089BB44 /* v2 */,
 			);
 			path = Statistics;
 			sourceTree = "<group>";
@@ -3619,6 +3630,18 @@
 				35178CCB26553EDC00FFB31E /* UnitTests.xctestplan */,
 			);
 			name = TestPlans;
+			sourceTree = "<group>";
+		};
+		3507B03E2689B39D0089BB44 /* v2 */ = {
+			isa = PBXGroup;
+			children = (
+				3507B03C2689B2600089BB44 /* HomeStatisticsCell.swift */,
+				3507B0412689B4BC0089BB44 /* StatisticsViewController.swift */,
+				3507B0432689B5710089BB44 /* PagingCollectionViewLayout.swift */,
+				3507B0452689C6D90089BB44 /* StatisticCell.swift */,
+				3507B0462689C6D90089BB44 /* StatisticCell.xib */,
+			);
+			path = v2;
 			sourceTree = "<group>";
 		};
 		3525AC2F25E7BDAF002DDC82 /* Logging */ = {
@@ -7291,6 +7314,7 @@
 				01D026C1258BACCE00B6389A /* ExposureDetectionRiskRefreshCell.xib in Resources */,
 				50C5C1B525891CC800C4817A /* DynamicLegalExtendedCell.xib in Resources */,
 				3456D96125EFE08E00A62F5D /* ErrorReportHistoryCell.xib in Resources */,
+				3507B0482689C6D90089BB44 /* StatisticCell.xib in Resources */,
 				BA8824D725D2A88800AD9B11 /* ppdd-ppa-administrative-unit-set-ua-approved.json in Resources */,
 				EB7057D724E6BACA002235B4 /* InfoBoxView.xib in Resources */,
 				3494D90D261C566200EC532C /* default_qr_code_poster_template_ios.bin in Resources */,
@@ -7505,6 +7529,7 @@
 				BAC2F58626667A84008A6C7B /* DCCErrors.swift in Sources */,
 				BA112E0A25559CDD007F5712 /* ClientWifiOnly.swift in Sources */,
 				35E121DA25B273280098D754 /* card_header.pb.swift in Sources */,
+				3507B0422689B4BC0089BB44 /* StatisticsViewController.swift in Sources */,
 				EB8A39DB261DCE6000AFA709 /* Foundation+Base64URL.swift in Sources */,
 				0138F5F225EFDBC300A9B075 /* HomeTraceLocationsTableViewCell.swift in Sources */,
 				35E121DB25B273280098D754 /* statistics.pb.swift in Sources */,
@@ -7705,6 +7730,7 @@
 				019C9F2D258951B700B26392 /* ContactPersonEncounter.swift in Sources */,
 				35E121DC25B273280098D754 /* key_figure_card.pb.swift in Sources */,
 				711EFCC72492EE31005FEF21 /* ENAFooterView.swift in Sources */,
+				3507B03D2689B2600089BB44 /* HomeStatisticsCell.swift in Sources */,
 				AB7DE73925C8528700C52B3F /* ExposureDetectionSurveyCellModel.swift in Sources */,
 				016E264C25B0327B0077C64C /* HomeStatisticsCardViewModel.swift in Sources */,
 				8FA88FAA2613B38D00FD36DA /* QRCodeVerificationHelper.swift in Sources */,
@@ -7765,6 +7791,7 @@
 				34FE156A26010A840002CB69 /* TraceLocation+GenerateQRCode.swift in Sources */,
 				35714896260F85E4007DE1CA /* ExposureSubmissionService+CheckinSubmission.swift in Sources */,
 				B1EAEC8B24711884003BE9A2 /* URLSession+Convenience.swift in Sources */,
+				3507B0442689B5710089BB44 /* PagingCollectionViewLayout.swift in Sources */,
 				AB190E9E25FB684F00FBFF0D /* DeleteAllCheckins.swift in Sources */,
 				ABE9613A25EFEBE800D0F699 /* DaysSinceInstallTableViewCell.swift in Sources */,
 				AB190E7825FB5CE800FBFF0D /* CreateTraceLocationQuery.swift in Sources */,
@@ -8109,6 +8136,7 @@
 				BA94BBBD260DF51F005CF38F /* CheckInNoticeCell.swift in Sources */,
 				EB67B5DB262AD48F00218EC7 /* ExposureSubmissionCheckinsViewController.swift in Sources */,
 				01909882257E675D0065D050 /* DiaryContactPerson.swift in Sources */,
+				3507B0472689C6D90089BB44 /* StatisticCell.swift in Sources */,
 				016E262F25AF45770077C64C /* StatisticsInfoViewController.swift in Sources */,
 				8F7FD70F25E3EFAC006CDE01 /* HTMLViewController.swift in Sources */,
 				AB1BA92D25C30406002EA97F /* SurveyConsentViewController.swift in Sources */,
