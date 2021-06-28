@@ -665,7 +665,43 @@ final class HTTPClient: Client {
 		ruleType: RuleType,
 		completion: @escaping DCCRuleTypeCompletionHandler
 	) {
+		guard let request = try? URLRequest.dccRulesRequest(
+				ruleType: ruleType,
+				configuration: configuration,
+				headerValue: isFake ? 1 : 0) else {
+			Log.error("Could not create url request for rule type: \(ruleType)", log: .api)
+			completion(.failure(.invalidRequest))
+			return
+		}
 		
+		session.response(for: request, completion: { result in
+			switch result {
+			case let .success(response):
+				switch response.statusCode {
+				case 200:
+					guard let body = response.body else {
+						Log.error("Could not get body from response", log: .api)
+						completion(.failure(.invalidResponse))
+						return
+					}
+					guard let sapPackage = SAPDownloadedPackage(compressedData: body) else {
+						Log.error("Could not create sapPackage", log: .api)
+						completion(.failure(.invalidResponse))
+						return
+					}
+					let etag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag")
+					let packageDownloadResponse = PackageDownloadResponse(package: sapPackage, etag: etag)
+					Log.info("Successfully got rules for ruleType: \(ruleType)", log: .api)
+					completion(.success(packageDownloadResponse))
+				default:
+					Log.error("Generell server error.", log: .api)
+					completion(.failure(.serverError(response.statusCode)))
+				}
+			case let .failure(error):
+				Log.error("Failure at GET for rules of type: \(ruleType).", log: .api, error: error)
+				completion(.failure(.invalidResponse))
+			}
+		})
 	}
 
 	// MARK: - Public
