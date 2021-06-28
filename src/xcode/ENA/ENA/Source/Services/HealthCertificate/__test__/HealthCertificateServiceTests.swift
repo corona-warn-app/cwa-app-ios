@@ -203,8 +203,9 @@ class HealthCertificateServiceTests: CWATestCase {
 		}
 
 		XCTAssertEqual(store.healthCertifiedPersons.count, 2)
-		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
-		XCTAssertEqual(store.healthCertifiedPersons.last?.healthCertificates, [secondVaccinationCertificate])
+		// New health certified person comes first due to alphabetical ordering
+		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [secondVaccinationCertificate])
+		XCTAssertEqual(store.healthCertifiedPersons.last?.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
 
 		// Register test certificate for second person
 
@@ -229,7 +230,6 @@ class HealthCertificateServiceTests: CWATestCase {
 		}
 
 		XCTAssertEqual(store.healthCertifiedPersons.count, 2)
-		// New health certified person comes first due to alphabetical ordering
 		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [thirdTestCertificate, secondVaccinationCertificate])
 		XCTAssertEqual(store.healthCertifiedPersons.last?.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
 	}
