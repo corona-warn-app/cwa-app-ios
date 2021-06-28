@@ -659,6 +659,14 @@ final class HTTPClient: Client {
 			}
 		})
 	}
+	
+	func getRules(
+		isFake: Bool = false,
+		ruleType: RuleType,
+		completion: @escaping DCCRuleTypeCompletionHandler
+	) {
+		
+	}
 
 	// MARK: - Public
 

@@ -65,6 +65,7 @@ final class ClientMock {
 	var onDCCRegisterPublicKey: ((Bool, String, String, @escaping DCCRegistrationCompletionHandler) -> Void)?
 	var onGetDigitalCovid19Certificate: ((String, Bool, @escaping DigitalCovid19CertificateCompletionHandler) -> Void)?
 	var onGetDccOnboardedCountries: ((Bool, @escaping DCCOnboardedCountriesCompletionHandler) -> Void)?
+	var onGetRules: ((Bool, RuleType, @escaping DCCRuleTypeCompletionHandler) -> Void)?
 }
 
 extension ClientMock: ClientWifiOnly {
@@ -292,6 +293,18 @@ extension ClientMock: Client {
 			return
 		}
 		onGetDccOnboardedCountries(isFake, completion)
+	}
+	
+	func getRules(
+		isFake: Bool,
+		ruleType: RuleType,
+		completion: @escaping DCCRuleTypeCompletionHandler
+	) {
+		guard let onGetRules = self.onGetRules else {
+			completion(.success(downloadedPackage ?? ClientMock.dummyResponse))
+			return
+		}
+		onGetRules(isFake, ruleType, completion)
 	}
 	
 }
