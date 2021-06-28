@@ -53,6 +53,11 @@ struct HealthCertificateInfoViewModel {
 						UIImage(imageLiteralResourceName: "Icons - Smartphone"),
 						text: .string(AppStrings.HealthCertificate.Info.section03),
 						alignment: .top
+					),
+					.icon(
+						UIImage(imageLiteralResourceName: "Icons_Certificates_04"),
+						text: .string(AppStrings.HealthCertificate.Info.section04),
+						alignment: .top
 					)
 				]
 			),

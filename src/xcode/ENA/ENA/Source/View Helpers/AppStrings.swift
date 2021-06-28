@@ -1963,6 +1963,7 @@ enum AppStrings {
 			static let section01 = NSLocalizedString("HealthCertificate_Info_section01", comment: "")
 			static let section02 = NSLocalizedString("HealthCertificate_Info_section02", comment: "")
 			static let section03 = NSLocalizedString("HealthCertificate_Info_section03", comment: "")
+			static let section04 = NSLocalizedString("HealthCertificate_Info_section04", comment: "")
 
 			enum Legal {
 				static let headline = NSLocalizedString("HealthCertificate_Info_Legal_headline", tableName: "Localizable.legal", comment: "")

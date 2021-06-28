@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "CurrentlyUsedCertificate_Icon.pdf",
+      "filename" : "icon_export_textformat.pdf",
       "idiom" : "universal"
     },
     {
@@ -11,7 +11,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "CurrentlyUsedCertificate_Icon_dark.pdf",
+      "filename" : "icon_export_textformat_dark.pdf",
       "idiom" : "universal"
     }
   ],

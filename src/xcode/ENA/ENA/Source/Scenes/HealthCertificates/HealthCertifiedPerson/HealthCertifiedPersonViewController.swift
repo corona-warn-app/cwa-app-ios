@@ -106,7 +106,7 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 
 			return footerView
 		} else {
-			return UIView()
+			return nil
 		}
 	}
 
@@ -192,9 +192,8 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 	private var isAnimatingChanges = false
 
 	private func setupNavigationBar() {
-		let logoImage = UIImage(imageLiteralResourceName: "Corona-Warn-App").withRenderingMode(.alwaysTemplate)
+		let logoImage = UIImage(imageLiteralResourceName: "Corona-Warn-App-Small").withRenderingMode(.alwaysTemplate)
 		let logoImageView = UIImageView(image: logoImage)
-		logoImageView.tintColor = .enaColor(for: .textContrast)
 
 		navigationController?.navigationBar.tintColor = .white
 		navigationItem.leftBarButtonItem = UIBarButtonItem(customView: logoImageView)
