@@ -65,6 +65,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	}
 
 	private func setupView() {
+		selectionStyle = .none
 		contentView.backgroundColor = .enaColor(for: .darkBackground)
 
 		cardView.translatesAutoresizingMaskIntoConstraints = false
