@@ -38,6 +38,8 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		detailsLabel.text = cellViewModel.detail
 
 		currentlyUsedStackView.isHidden = !cellViewModel.isCurrentlyUsedCertificateHintVisible
+
+		setupAccessibility()
 	}
 
 	// MARK: - Private
@@ -174,6 +176,13 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		accessibilityElements = [backgroundContainerView as Any]
 
 		backgroundContainerView.accessibilityElements = [headlineLabel as Any, subheadlineLabel as Any, detailsLabel as Any]
+
+		if currentlyUsedStackView.isHidden {
+			backgroundContainerView.accessibilityElements = [headlineLabel as Any, subheadlineLabel as Any, detailsLabel as Any]
+		} else {
+			backgroundContainerView.accessibilityElements = [headlineLabel as Any, subheadlineLabel as Any, detailsLabel as Any, currentlyUsedLabel as Any]
+		}
+
 		headlineLabel.accessibilityTraits = [.staticText, .button]
 	}
 
