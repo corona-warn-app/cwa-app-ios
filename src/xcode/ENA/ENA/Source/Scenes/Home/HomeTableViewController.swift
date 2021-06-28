@@ -598,24 +598,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 		cell.configure(
 			with: HomeStatisticsCellModel(homeState: viewModel.state),
-			store: self.store,
 			onInfoButtonTap: { [weak self] in
 				self?.onStatisticsInfoButtonTap()
-			},
-			onAddLocalStatisticsButtonTap: { [weak self] selectValueViewController in
-				self?.onAddStateButtonTap(selectValueViewController)
-			},
-			onAddDistrict: { [weak self] selectValueViewController in
-				self?.onAddDistrict(selectValueViewController)
-			},
-			onDismissState: { [weak self] in
-				self?.onDismissState()
-			},
-			onDismissDistrict: { [weak self] dismissToRoot in
-				self?.onDismissDistrict(dismissToRoot)
-			},
-			onEditLocalStatisticsButtonTap: {
-				Log.warning("Edit Functionality Should Be Added")
 			},
 			onAccessibilityFocus: { [weak self] in
 				self?.tableView.contentOffset.x = 0

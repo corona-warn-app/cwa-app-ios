@@ -1,4 +1,4 @@
-////
+//
 // 🦠 Corona-Warn-App
 //
 
@@ -9,12 +9,12 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 
 	// MARK: - Overrides
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
+	override func awakeFromNib() {
+		super.awakeFromNib()
 
 		// quick hack
 		contentView.heightAnchor.constraint(equalToConstant: StatisticsViewController.height).isActive = true
-    }
+	}
 
 	override func willMove(toSuperview newSuperview: UIView?) {
 		super.willMove(toSuperview: newSuperview)
@@ -23,33 +23,17 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 	// MARK: - Internal
 
 	func configure(
-		with keyFigureCellModel: HomeStatisticsCellModel,
-		store: Store,
+		with cellModel: HomeStatisticsCellModel,
 		onInfoButtonTap: @escaping () -> Void,
-		onAddLocalStatisticsButtonTap: @escaping (SelectValueTableViewController) -> Void,
-		onAddDistrict: @escaping (SelectValueTableViewController) -> Void,
-		onDismissState: @escaping () -> Void,
-		onDismissDistrict: @escaping (Bool) -> Void,
-		onEditLocalStatisticsButtonTap: @escaping () -> Void,
 		onAccessibilityFocus: @escaping () -> Void,
 		onUpdate: @escaping () -> Void
 	) {
 		guard !isConfigured else { return }
 
-		keyFigureCellModel.$keyFigureCards
+		cellModel.$keyFigureCards
 			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] in
-				self?.clearStackView()
-				self?.configureAddLocalStatisticsCell(
-					store: store,
-					onAddLocalStatisticsButtonTap: onAddLocalStatisticsButtonTap,
-					onAddDistrict: onAddDistrict,
-					onDismissState: onDismissState,
-					onDismissDistrict: onDismissDistrict,
-					onEditLocalStatisticsButtonTap: onEditLocalStatisticsButtonTap,
-					onAccessibilityFocus: onAccessibilityFocus
-				)
-				self?.configureKeyFigureCells(
+				self?.configure(
 					for: $0,
 					onInfoButtonTap: onInfoButtonTap,
 					onAccessibilityFocus: onAccessibilityFocus
@@ -60,7 +44,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 			.store(in: &subscriptions)
 
 		// Retaining cell model so it gets updated
-		self.cellModel = keyFigureCellModel
+		self.cellModel = cellModel
 
 		isConfigured = true
 	}
@@ -107,94 +91,49 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		Log.debug("Added \(keyFigureCards.count) statistic entities", log: .ui)
 		/*
 		stackView.arrangedSubviews.forEach {
-			stackView.removeArrangedSubview($0)
-			$0.removeFromSuperview()
+		stackView.removeArrangedSubview($0)
+		$0.removeFromSuperview()
 		}
-	}
-	
-	private func configureAddLocalStatisticsCell(
-		store: Store,
-		onAddLocalStatisticsButtonTap: @escaping (SelectValueTableViewController) -> Void,
-		onAddDistrict: @escaping (SelectValueTableViewController) -> Void,
-		onDismissState: @escaping () -> Void,
-		onDismissDistrict: @escaping (Bool) -> Void,
-		onEditLocalStatisticsButtonTap: @escaping () -> Void,
-		onAccessibilityFocus: @escaping () -> Void
-	) {
-		guard let jsonFileURL = Bundle.main.url(forResource: "ppdd-ppa-administrative-unit-set-ua-approved", withExtension: "json") else {
-			preconditionFailure("missing json file")
-		}
-		let localStatisticsModel = AddLocalStatisticsModel(store: store, jsonFileURL: jsonFileURL)
-
-		let addNibName = String(describing: AddStatisticsCardView.self)
-		let addNib = UINib(nibName: addNibName, bundle: .main)
-		if let addLocalStatisticsCardView = addNib.instantiate(withOwner: self, options: nil).first as? AddStatisticsCardView {
-			stackView.addArrangedSubview(addLocalStatisticsCardView)
-			addLocalStatisticsCardView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
-			addLocalStatisticsCardView.configure(
-				localStatisticsModel: localStatisticsModel,
-				availableCardsState: .empty, // TODO get state based on the current number of local statistics cards
-				onAddStateButtonTap: { selectValueViewController in
-					onAddLocalStatisticsButtonTap(selectValueViewController)
-				}, onAddDistrict: { selectValueViewController in
-					onAddDistrict(selectValueViewController)
-				}, onDismissState: {
-					onDismissState()
-				}, onDismissDistrict: { dismissToRoot in
-					onDismissDistrict(dismissToRoot)
-				}, onEditButtonTap: {
-					onEditLocalStatisticsButtonTap()
-				}, onAccessibilityFocus: {
-					onAccessibilityFocus()
-				}
-			)
-		}
-	}
-	
-	private func configureKeyFigureCells(
-		for keyFigureCards: [SAP_Internal_Stats_KeyFigureCard],
-		onInfoButtonTap: @escaping () -> Void,
-		onAccessibilityFocus: @escaping () -> Void
-	) {
 		for keyFigureCard in keyFigureCards {
-			let nibName = String(describing: HomeStatisticsCardView.self)
-			let nib = UINib(nibName: nibName, bundle: .main)
+		let nibName = String(describing: HomeStatisticsCardView.self)
+		let nib = UINib(nibName: nibName, bundle: .main)
 
-			if let statisticsCardView = nib.instantiate(withOwner: self, options: nil).first as? HomeStatisticsCardView {
-				stackView.addArrangedSubview(statisticsCardView)
+		if let statisticsCardView = nib.instantiate(withOwner: self, options: nil).first as? HomeStatisticsCardView {
+		stackView.addArrangedSubview(statisticsCardView)
 
-				statisticsCardView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
-				statisticsCardView.configure(
-					viewModel: HomeStatisticsCardViewModel(for: keyFigureCard),
-					onInfoButtonTap: {
-						onInfoButtonTap()
-					},
-					onAccessibilityFocus: { [weak self] in
-						self?.scrollView.scrollRectToVisible(statisticsCardView.frame, animated: false)
-						onAccessibilityFocus()
-						UIAccessibility.post(notification: .layoutChanged, argument: nil)
-					}
-				)
-
-				let cardViewCount = stackView.arrangedSubviews.count
-				if cardViewCount > 1, let previousCardView = stackView.arrangedSubviews[cardViewCount - 2] as? HomeStatisticsCardView {
-					NSLayoutConstraint.activate([
-						statisticsCardView.titleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.titleLabel.firstBaselineAnchor),
-						statisticsCardView.primaryTitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.primaryTitleLabel.firstBaselineAnchor),
-						statisticsCardView.secondaryTitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.secondaryTitleLabel.firstBaselineAnchor),
-						statisticsCardView.primarySubtitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.primarySubtitleLabel.firstBaselineAnchor),
-						statisticsCardView.tertiaryTitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.tertiaryTitleLabel.firstBaselineAnchor)
-					])
-				}
-			}
+		statisticsCardView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
+		statisticsCardView.configure(
+		viewModel: HomeStatisticsCardViewModel(for: keyFigureCard),
+		onInfoButtonTap: {
+		onInfoButtonTap()
+		},
+		onAccessibilityFocus: { [weak self] in
+		self?.scrollView.scrollRectToVisible(statisticsCardView.frame, animated: false)
+		onAccessibilityFocus()
+		UIAccessibility.post(notification: .layoutChanged, argument: nil)
 		}
+		)
+
+		let cardViewCount = stackView.arrangedSubviews.count
+		if cardViewCount > 1, let previousCardView = stackView.arrangedSubviews[cardViewCount - 2] as? HomeStatisticsCardView {
+		NSLayoutConstraint.activate([
+		statisticsCardView.titleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.titleLabel.firstBaselineAnchor),
+		statisticsCardView.primaryTitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.primaryTitleLabel.firstBaselineAnchor),
+		statisticsCardView.secondaryTitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.secondaryTitleLabel.firstBaselineAnchor),
+		statisticsCardView.primarySubtitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.primarySubtitleLabel.firstBaselineAnchor),
+		statisticsCardView.tertiaryTitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.tertiaryTitleLabel.firstBaselineAnchor)
+		])
+		}
+		}
+		}
+
 		topConstraint.constant = keyFigureCards.isEmpty ? 0 : 12
 		bottomConstraint.constant = keyFigureCards.isEmpty ? 0 : 12
-		
+
 		if UIDevice.current.userInterfaceIdiom == .phone && UIScreen.main.bounds.size.width <= 320 {
-			trailingConstraint.constant = 12
+		trailingConstraint.constant = 12
 		} else {
-			trailingConstraint.constant = 65
+		trailingConstraint.constant = 65
 		}
 
 		accessibilityElements = stackView.arrangedSubviews
