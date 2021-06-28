@@ -99,13 +99,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		}
 	}
 
-	@DidSetPublished var gradientType: GradientView.GradientType = .lightBlue(withStars: true) {
-		didSet {
-			if gradientType != oldValue {
-				objectDidChange.send(self)
-			}
-		}
-	}
+	@DidSetPublished var gradientType: GradientView.GradientType = .lightBlue(withStars: true)
 
 	var objectDidChange = OpenCombine.PassthroughSubject<HealthCertifiedPerson, Never>()
 
