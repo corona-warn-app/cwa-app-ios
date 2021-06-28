@@ -6,7 +6,7 @@ import UIKit
 import OpenCombine
 import HealthCertificateToolkit
 
-class HealthCertifiedPerson: Codable, Equatable {
+class HealthCertifiedPerson: Codable, Equatable, Comparable {
 
 	// MARK: - Init
 
@@ -47,6 +47,12 @@ class HealthCertifiedPerson: Codable, Equatable {
 
 	static func == (lhs: HealthCertifiedPerson, rhs: HealthCertifiedPerson) -> Bool {
 		lhs.healthCertificates == rhs.healthCertificates
+	}
+
+	// MARK: - Protocol Comparable
+
+	static func < (lhs: HealthCertifiedPerson, rhs: HealthCertifiedPerson) -> Bool {
+		return lhs.isPreferredPerson && !rhs.isPreferredPerson || lhs.name?.fullName ?? "" < rhs.name?.fullName ?? ""
 	}
 
 	// MARK: - Internal
