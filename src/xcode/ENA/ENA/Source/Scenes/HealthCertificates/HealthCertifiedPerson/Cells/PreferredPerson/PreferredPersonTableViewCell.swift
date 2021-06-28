@@ -110,6 +110,9 @@ class PreferredPersonTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 				contentStackView.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor, constant: -16.0)
 			]
 		)
+
+		preferredPersonSwitch.accessibilityLabel = AppStrings.HealthCertificate.Person.preferredPersonDescription
+		accessibilityElements = [personalDataStackView as Any, preferredPersonSwitch as Any]
 	}
 
 	private func updateBorderWidth() {
