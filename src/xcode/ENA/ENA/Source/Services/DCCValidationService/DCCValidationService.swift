@@ -59,6 +59,7 @@ final class DCCValidationService: DCCValidationProviding {
 						completion(.failure(error))
 					case let .success(valueSets):
 						
+						// reminder: Caching of the onboarded countries list
 						break
 		
 					}
