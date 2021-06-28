@@ -15,6 +15,8 @@ class HealthCertifiedPersonTests: CWATestCase {
 		let healthCertificate = HealthCertificate.mock(base45: HealthCertificate.firstBase45Mock)
 
 		let objectDidChangeExpectation = expectation(description: "objectDidChange publisher updated")
+		// One update from the vaccination state, one from the most relevant certificate determination and one from extending the health certificate array itself
+		objectDidChangeExpectation.expectedFulfillmentCount = 3
 
 		let subscription = healthCertifiedPerson.objectDidChange
 			.sink {

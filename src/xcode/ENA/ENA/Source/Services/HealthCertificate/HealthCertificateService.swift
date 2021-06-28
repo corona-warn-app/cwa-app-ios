@@ -351,6 +351,7 @@ class HealthCertificateService {
 			.store(in: &subscriptions)
 
 		subscribeToNotifications()
+		updatePersonsSortingAndGradients()
 	}
 
 	private func updateHealthCertifiedPersonSubscriptions(for healthCertifiedPersons: [HealthCertifiedPerson]) {
@@ -358,13 +359,40 @@ class HealthCertificateService {
 
 		healthCertifiedPersons.forEach { healthCertifiedPerson in
 			healthCertifiedPerson.objectDidChange
-				.sink { [weak self] _ in
+				.sink { [weak self] healthCertifiedPerson in
 					guard let self = self else { return }
-					// Trigger publisher to inform subscribers and update store
-					self.healthCertifiedPersons.value = self.healthCertifiedPersons.value
+
+					if healthCertifiedPerson.isPreferredPerson {
+						// Set isPreferredPerson = false on all other persons to only have one preferred person
+						self.healthCertifiedPersons.value
+							.filter { $0 != healthCertifiedPerson }
+							.forEach {
+								$0.isPreferredPerson = false
+							}
+					}
+
+					self.updatePersonsSortingAndGradients()
 				}
 				.store(in: &healthCertifiedPersonSubscriptions)
 		}
+	}
+
+	private func updatePersonsSortingAndGradients() {
+		let preferredPerson = self.healthCertifiedPersons.value
+			.filter { $0.isPreferredPerson }
+
+		let sortedOtherPersons = self.healthCertifiedPersons.value
+			.filter { !$0.isPreferredPerson }
+			.sorted { $0.name?.fullName ?? "" < $1.name?.fullName ?? "" }
+
+		self.healthCertifiedPersons.value = preferredPerson + sortedOtherPersons
+
+		let gradientTypes: [GradientView.GradientType] = [.lightBlue(withStars: true), .mediumBlue(withStars: true), .darkBlue(withStars: true)]
+		self.healthCertifiedPersons.value
+			.enumerated()
+			.forEach { index, person in
+				person.gradientType = gradientTypes[index % 3]
+			}
 	}
 
 	private func updateTestCertificateRequestSubscriptions(for testCertificateRequests: [TestCertificateRequest]) {
