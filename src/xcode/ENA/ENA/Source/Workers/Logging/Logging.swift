@@ -24,8 +24,6 @@ extension OSLog {
 	/// PPAC
 	static let ppac = OSLog(subsystem: subsystem, category: "ppac")
 	/// OTP
-	static let localStatistics = OSLog(subsystem: subsystem, category: "localStatistics")
-	/// OTP
 	static let otp = OSLog(subsystem: subsystem, category: "otp")
 	/// Survey
 	static let survey = OSLog(subsystem: subsystem, category: "survey")
