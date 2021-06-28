@@ -64,7 +64,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		case completelyProtected(expirationDate: Date)
 	}
 
-	var healthCertificates: [HealthCertificate] {
+	@DidSetPublished var healthCertificates: [HealthCertificate] {
 		didSet {
 			if healthCertificates != oldValue {
 				updateVaccinationState()
@@ -75,7 +75,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		}
 	}
 
-	var isPreferredPerson: Bool {
+	@DidSetPublished var isPreferredPerson: Bool {
 		didSet {
 			if isPreferredPerson != oldValue {
 				objectDidChange.send(self)
@@ -83,7 +83,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		}
 	}
 
-	var vaccinationState: VaccinationState = .notVaccinated {
+	@DidSetPublished var vaccinationState: VaccinationState = .notVaccinated {
 		didSet {
 			if vaccinationState != oldValue {
 				objectDidChange.send(self)
@@ -91,7 +91,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		}
 	}
 
-	var mostRelevantHealthCertificate: HealthCertificate? {
+	@DidSetPublished var mostRelevantHealthCertificate: HealthCertificate? {
 		didSet {
 			if mostRelevantHealthCertificate != oldValue {
 				objectDidChange.send(self)
