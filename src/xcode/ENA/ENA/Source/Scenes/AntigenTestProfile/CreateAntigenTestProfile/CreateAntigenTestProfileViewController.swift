@@ -136,6 +136,13 @@ class CreateAntigenTestProfileViewController: UITableViewController, FooterViewH
 		return true
 	}
 	
+	func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+		return string.trimmingCharacters(in: CharacterSet.alphanumerics).isEmpty
+			|| string.trimmingCharacters(in: CharacterSet.punctuationCharacters).isEmpty
+			|| string.trimmingCharacters(in: CharacterSet.symbols).isEmpty
+			|| string.contains(where: { $0 == "@" })
+	}
+	
 	// MARK: - Private
 	
 	enum Row: Int, CaseIterable {
