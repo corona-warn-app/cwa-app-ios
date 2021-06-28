@@ -137,7 +137,9 @@ class HealthCertificateService {
 				Log.info("[HealthCertificateService] Removed health certificate at index \(index)", log: .api)
 
 				if healthCertifiedPerson.healthCertificates.isEmpty {
-					healthCertifiedPersons.value.removeAll(where: { $0 == healthCertifiedPerson })
+					healthCertifiedPersons.value = healthCertifiedPersons.value
+						.filter { $0 != healthCertifiedPerson }
+						.sorted()
 
 					Log.info("[HealthCertificateService] Removed health certified person", log: .api)
 				}
