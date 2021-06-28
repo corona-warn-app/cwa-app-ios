@@ -30,7 +30,7 @@
                     </label>
                 </subviews>
             </view>
-            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <viewLayoutGuide key="safeArea" id="MIa-Zy-WJY"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="EFO-id-5DS" secondAttribute="bottom" constant="8" id="FLv-4t-cfb"/>
                 <constraint firstItem="EFO-id-5DS" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="W2d-Mw-yuC"/>

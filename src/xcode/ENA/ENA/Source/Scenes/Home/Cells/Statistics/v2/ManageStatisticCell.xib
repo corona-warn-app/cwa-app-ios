@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ManageStatisticCell" id="gTV-IL-0wX" customClass="ManageStatisticCell" customModule="ENA" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="250" height="239"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="250" height="239"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mk1-eW-GGY" userLabel="container">
+                        <rect key="frame" x="0.0" y="0.0" width="250" height="239"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="l8c-mw-zei">
+                                <rect key="frame" x="0.0" y="0.0" width="250" height="239"/>
+                            </stackView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="250" id="3wk-Gg-UqW"/>
+                            <constraint firstAttribute="height" constant="239" id="5wG-vA-Jtb"/>
+                            <constraint firstItem="l8c-mw-zei" firstAttribute="centerX" secondItem="Mk1-eW-GGY" secondAttribute="centerX" id="Ho8-jC-UwU"/>
+                            <constraint firstItem="l8c-mw-zei" firstAttribute="centerY" secondItem="Mk1-eW-GGY" secondAttribute="centerY" id="JYt-Tr-h0C"/>
+                            <constraint firstItem="l8c-mw-zei" firstAttribute="top" secondItem="Mk1-eW-GGY" secondAttribute="top" id="W6c-yy-R41"/>
+                            <constraint firstItem="l8c-mw-zei" firstAttribute="leading" secondItem="Mk1-eW-GGY" secondAttribute="leading" id="mAy-ZN-dYQ"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstItem="Mk1-eW-GGY" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="SBb-Rw-jd2"/>
+                <constraint firstItem="Mk1-eW-GGY" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="zG1-iS-HSl"/>
+            </constraints>
+            <size key="customSize" width="281" height="259"/>
+            <connections>
+                <outlet property="stackView" destination="l8c-mw-zei" id="GeH-Ac-Ugl"/>
+            </connections>
+            <point key="canvasLocation" x="-147.82608695652175" y="62.611607142857139"/>
+        </collectionViewCell>
+    </objects>
+</document>

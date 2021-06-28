@@ -8,9 +8,18 @@ import OpenCombine
 
 final class StatisticsViewController: UIViewController, UICollectionViewDataSource {
 
+	enum DataStructureError: Error {
+		case invalidIndex
+	}
+
 	static let height: CGFloat = 239 // from old satistics cell
 	static let width: CGFloat = 250 // from old satistics cell
 
+	private let maxCountUserdefinedStatistics = 5
+
+	/// User-selected 'local/regional' statistics
+	var userDefinedStatistics: [SAP_Internal_Stats_KeyFigureCard] = []
+	/// The global statistics for everybody
 	var statistics: [SAP_Internal_Stats_KeyFigureCard] = []
 
 	lazy var collectionView: UICollectionView = {
@@ -25,9 +34,11 @@ final class StatisticsViewController: UIViewController, UICollectionViewDataSour
 		collectionView.showsHorizontalScrollIndicator = false
 		collectionView.decelerationRate = .fast
 		collectionView.dataSource = self
+		collectionView.delegate = self
 		collectionView.backgroundColor = .magenta.withAlphaComponent(0.3) // debug!
 
 		collectionView.register(UINib(nibName: "StatisticCell", bundle: nil), forCellWithReuseIdentifier: StatisticCell.reuseIdentifier)
+		collectionView.register(UINib(nibName: "ManageStatisticCell", bundle: nil), forCellWithReuseIdentifier: ManageStatisticCell.reuseIdentifier)
 
 		return collectionView
 	}()
@@ -55,27 +66,83 @@ final class StatisticsViewController: UIViewController, UICollectionViewDataSour
 	// MARK: - UICollectionViewDataSource
 
 	func numberOfSections(in collectionView: UICollectionView) -> Int {
-		1
+		// We currently stick to one section although it could make sense to go to two:
+		// 1. 'configurable' local statistics
+		// 2. 'fixed' global statistics
+		return 1
 	}
 
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		return statistics.count
+		// general structure:
+		// [add button/cell, if available] | [user defined statistics, if any] | [global statistics]
+		return (canAddMoreStats() ? 1 : 0) + userDefinedStatistics.count + statistics.count
 	}
 
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+		if indexPath.row == 0 {
+			guard let managementCell = collectionView.dequeueReusableCell(withReuseIdentifier: ManageStatisticCell.reuseIdentifier, for: indexPath) as? ManageStatisticCell else {
+				preconditionFailure()
+			}
+			return managementCell
+		}
+
 		guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: StatisticCell.reuseIdentifier, for: indexPath) as? StatisticCell else {
 			preconditionFailure()
 		}
-		cell.label.text = indexPath.debugDescription
-		cell.backgroundColor = .green
-		Log.debug("configuring stat @ \(indexPath)", log: .ui)
-		return cell
+
+		do {
+			let data = try statisticData(for: indexPath)
+
+			cell.label.text = indexPath.debugDescription // dummy
+			cell.label.textColor = data.isUser ? .green : .blue // dummy
+			cell.addStyling()
+			return cell
+		} catch {
+			preconditionFailure("Invalid configuration") // needs a better description...
+		}
+	}
+
+	// MARK: - Cell Management
+
+	private func canAddMoreStats() -> Bool {
+		return userDefinedStatistics.count < maxCountUserdefinedStatistics
+	}
+
+	private func insertLocalStatisticCell() {
+		userDefinedStatistics.append(SAP_Internal_Stats_KeyFigureCard())
+		// insert on 2nd position
+		collectionView.insertItems(at: [IndexPath(row: 1, section: 0)])
+	}
+
+	private func statisticData(for indexPath: IndexPath) throws -> (statistic: SAP_Internal_Stats_KeyFigureCard, isUser: Bool) {
+		guard indexPath.row > 0 else {
+			// management cell
+			throw DataStructureError.invalidIndex
+		}
+
+		let row = indexPath.row - 1 // management cell
+		if row < userDefinedStatistics.count {
+			// 'userdefined' statistics
+			return (userDefinedStatistics[row], true)
+		} else {
+			// 'fixed' statistics
+			return (statistics[row - userDefinedStatistics.count], false)
+		}
 	}
 }
 
+extension StatisticsViewController: UICollectionViewDelegate {
+	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		if canAddMoreStats(), indexPath.section == 0, indexPath.row == 0 {
+			// TODO: selection dialog
+			insertLocalStatisticCell(/* params... */)
+		}
+	}
+}
 
 private extension UICollectionViewCell {
 	func addStyling() {
+		#warning("mock!")
 		layer.borderWidth = 0.5
 		layer.borderColor = UIColor.systemGray.withAlphaComponent(0.5).cgColor
 
