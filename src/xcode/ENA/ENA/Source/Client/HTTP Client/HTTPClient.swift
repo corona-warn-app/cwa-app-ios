@@ -1402,6 +1402,33 @@ private extension URLRequest {
 		return request
 	}
 	
+	static func dccRulesRequest(
+		ruleType: RuleType,
+		configuration: HTTPClient.Configuration,
+		headerValue: Int
+	) throws -> URLRequest {
+		
+		var request = URLRequest(url: configuration.dccRulesURL(rulePath: ruleType.urlPath))
+		
+		request.setValue(
+			"\(headerValue)",
+			// Requests with a value of "0" will be fully processed.
+			// Any other value indicates that this request shall be
+			// handled as a fake request." ,
+			forHTTPHeaderField: "cwa-fake"
+		)
+		
+		// Add header padding.
+		request.setValue(
+			String.getRandomString(of: 14),
+			forHTTPHeaderField: "cwa-header-padding"
+		)
+		
+		request.httpMethod = HttpMethod.get
+	
+		return request
+	}
+	
 	// MARK: - Helper methods for adding padding to the requests.
 	
 	/// This method recreates the request body with a padding that consists of a random string.
