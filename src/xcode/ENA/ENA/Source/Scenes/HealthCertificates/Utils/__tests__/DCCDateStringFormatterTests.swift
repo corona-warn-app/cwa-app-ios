@@ -8,7 +8,7 @@ import XCTest
 class DCCDateStringFormatterTests: XCTestCase {
 
 	func testGIVEN_UnformattedDateOfBirth_When_Formatting_THEN_FormatIsCorrect() throws {
-		for dateOfBirthFormattingTestData in dateOfBirthFormattingTestData {
+		for dateOfBirthFormattingTestData in dateOfBirthFormattingTestEntries {
 			guard let dob = dateOfBirthFormattingTestData["dob"] else {
 				XCTFail("String expected.")
 				return
@@ -24,7 +24,7 @@ class DCCDateStringFormatterTests: XCTestCase {
 		}
 	}
 
-	let dateOfBirthFormattingTestData = [
+	let dateOfBirthFormattingTestEntries = [
 		[
 			"dob": "1964-08-12",
 			"formatted": "1964-08-12",
