@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import WebKit
 
 class HTMLViewController: UIViewController, DismissHandling {
 	
@@ -54,11 +55,11 @@ class HTMLViewController: UIViewController, DismissHandling {
 		htmlTitleLabel.accessibilityIdentifier = infoModel.titleAccessabliltyIdentfier
 		
 		if let url = Bundle.main.url(forResource: infoModel.urlResourceName, withExtension: "html") {
-			do {
-				try htmlTextView.load(from: url)
-			} catch {
-				Log.error("Could not load url \(url)", log: .ui, error: error)
-			}
+			htmlView.navigationDelegate = self
+			let request = URLRequest(url: url)
+			htmlView.load(request)
+		} else {
+			Log.error("Could not load url \(infoModel.urlResourceName).html", log: .ui, error: nil)
 		}
 	}
 	
@@ -70,9 +71,38 @@ class HTMLViewController: UIViewController, DismissHandling {
 		}
 	}
 
+	@IBOutlet private weak var containerView: UIView!
 	@IBOutlet private weak var imageView: UIImageView!
-	@IBOutlet private weak var htmlTextView: HtmlTextView!
+	@IBOutlet private weak var htmlView: HTMLView!
 	@IBOutlet private weak var htmlTitleLabel: ENALabel!
-	
+    @IBOutlet private weak var webViewHeight: NSLayoutConstraint!
+
 	private let infoModel: HtmlInfoModel
+}
+
+extension HTMLViewController: WKNavigationDelegate {
+
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        htmlView.evaluateJavaScript("document.readyState", completionHandler: { complete, error in
+            if complete != nil {
+                self.htmlView.evaluateJavaScript("document.body.scrollHeight", completionHandler: { [weak self] height, error in
+                    if let height = height as? CGFloat {
+                        Log.debug("Set content height to \(height) @\(UIScreen.main.scale)x")
+                        self?.webViewHeight.constant = height
+                    } else {
+                        Log.error("Could not get website height! \(error?.localizedDescription ?? "")", error: error)
+                    }
+				})
+			}
+		})
+	}
+
+	func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+		if navigationAction.navigationType == .linkActivated, let url = navigationAction.request.url {
+			LinkHelper.open(url: url)
+			decisionHandler(.cancel)
+		} else {
+			decisionHandler(.allow)
+		}
+	}
 }
