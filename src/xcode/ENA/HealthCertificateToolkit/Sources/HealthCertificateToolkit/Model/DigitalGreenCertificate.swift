@@ -63,7 +63,7 @@ public struct VaccinationEntry: Codable, Equatable {
         case uniqueCertificateIdentifier = "ci"
     }
 
-    // MARK: - Internal
+    // MARK: - Public
 
     public let diseaseOrAgentTargeted: String
     public let vaccineOrProphylaxis: String
@@ -103,7 +103,6 @@ public struct VaccinationEntry: Codable, Equatable {
             uniqueCertificateIdentifier: uniqueCertificateIdentifier
         )
     }
-
 }
 
 public struct TestEntry: Codable, Equatable {
