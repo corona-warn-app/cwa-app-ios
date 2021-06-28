@@ -4,8 +4,9 @@
 
 import Foundation
 import UIKit
+import OpenCombine
 
-struct PreferredPersonCellModel {
+class PreferredPersonCellModel {
 
 	// MARK: - Init
 
@@ -15,6 +16,12 @@ struct PreferredPersonCellModel {
 	) {
 		self.healthCertifiedPerson = healthCertifiedPerson
 		self.healthCertificateService = healthCertificateService
+
+		healthCertifiedPerson.$isPreferredPerson
+			.sink { [weak self] in
+				self?.isPreferredPerson = $0
+			}
+			.store(in: &subscriptions)
 	}
 
 	// MARK: - Internal
@@ -33,9 +40,7 @@ struct PreferredPersonCellModel {
 			}
 	}
 
-	var isPreferredPerson: Bool {
-		healthCertifiedPerson.isPreferredPerson
-	}
+	@DidSetPublished var isPreferredPerson: Bool = false
 
 	func setAsPreferredPerson(_ newValue: Bool) {
 		healthCertifiedPerson.isPreferredPerson = newValue
@@ -45,5 +50,7 @@ struct PreferredPersonCellModel {
 
 	let healthCertifiedPerson: HealthCertifiedPerson
 	let healthCertificateService: HealthCertificateService
+
+	private var subscriptions = Set<AnyCancellable>()
 
 }
