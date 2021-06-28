@@ -140,6 +140,7 @@ class HealthCertificateService {
 					healthCertifiedPersons.value = healthCertifiedPersons.value
 						.filter { $0 != healthCertifiedPerson }
 						.sorted()
+					updateGradients()
 
 					Log.info("[HealthCertificateService] Removed health certified person", log: .api)
 				}
