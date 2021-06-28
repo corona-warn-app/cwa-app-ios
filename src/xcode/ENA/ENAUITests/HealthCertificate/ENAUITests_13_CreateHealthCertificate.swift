@@ -107,7 +107,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 
 		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
 
-		let certificateTitle = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.vaccinationCertificateCell])
+		let certificateTitle = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell])
 		
 		snapshot("screenshot_vaccination_certificate_overview")
 		certificateTitle.waitAndTap()
@@ -133,8 +133,8 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		// Navigate to Certificates Tab.
 		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
 		
-		// Navigate to the test certificate overview screen
-		app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.vaccinationCertificateCell].waitAndTap()
+		// Navigate to the person screen
+		app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].waitAndTap()
 		
 		snapshot("screenshot_test_certificate_overview_part1")
 		app.swipeUp(velocity: .slow)
@@ -156,8 +156,8 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		// Navigate to Certificates Tab.
 		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
 
-		// Navigate to the recovery certificate overview screen
-		app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.vaccinationCertificateCell].waitAndTap()
+		// Navigate to the person screen
+		app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].waitAndTap()
 
 		snapshot("screenshot_recovery_certificate_overview_part1")
 		app.swipeUp(velocity: .slow)
@@ -180,7 +180,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		// Navigate to Certificates Tab.
 		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
 
-		let healthCertificateCell = app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.vaccinationCertificateCell]
+		let healthCertificateCell = app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell]
 		XCTAssertTrue(healthCertificateCell.waitForExistence(timeout: .short))
 
 		snapshot("screenshot_certificate_overview_vaccination_and_test_certificate")
