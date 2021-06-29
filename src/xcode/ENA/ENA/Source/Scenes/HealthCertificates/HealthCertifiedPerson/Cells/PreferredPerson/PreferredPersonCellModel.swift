@@ -5,7 +5,7 @@
 import Foundation
 import OpenCombine
 
-class PreferredPersonCellModel {
+final class PreferredPersonCellModel {
 
 	// MARK: - Init
 
