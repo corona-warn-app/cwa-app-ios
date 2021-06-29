@@ -156,17 +156,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 						UIAccessibility.post(notification: .layoutChanged, argument: nil)
 					}
 				)
-
-				let cardViewCount = stackView.arrangedSubviews.count
-				if cardViewCount > 1, let previousCardView = stackView.arrangedSubviews[cardViewCount - 2] as? HomeStatisticsCardView {
-					NSLayoutConstraint.activate([
-						statisticsCardView.titleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.titleLabel.firstBaselineAnchor),
-						statisticsCardView.primaryTitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.primaryTitleLabel.firstBaselineAnchor),
-						statisticsCardView.secondaryTitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.secondaryTitleLabel.firstBaselineAnchor),
-						statisticsCardView.primarySubtitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.primarySubtitleLabel.firstBaselineAnchor),
-						statisticsCardView.tertiaryTitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.tertiaryTitleLabel.firstBaselineAnchor)
-					])
-				}
+				configureBaselines(statisticsCardView: statisticsCardView)
 			}
 		}
 		topConstraint.constant = keyFigureCards.isEmpty ? 0 : 12
@@ -179,5 +169,18 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		}
 
 		accessibilityElements = stackView.arrangedSubviews
+	}
+	
+	private func configureBaselines(statisticsCardView: HomeStatisticsCardView) {
+		let cardViewCount = stackView.arrangedSubviews.count
+		if cardViewCount > 1, let previousCardView = stackView.arrangedSubviews[cardViewCount - 2] as? HomeStatisticsCardView {
+			NSLayoutConstraint.activate([
+				statisticsCardView.titleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.titleLabel.firstBaselineAnchor),
+				statisticsCardView.primaryTitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.primaryTitleLabel.firstBaselineAnchor),
+				statisticsCardView.secondaryTitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.secondaryTitleLabel.firstBaselineAnchor),
+				statisticsCardView.primarySubtitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.primarySubtitleLabel.firstBaselineAnchor),
+				statisticsCardView.tertiaryTitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.tertiaryTitleLabel.firstBaselineAnchor)
+			])
+		}
 	}
 }
