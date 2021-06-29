@@ -682,9 +682,9 @@
 
 "ExposureSubmissionResult_Procedure" = "Cum funcționează:";
 
-"ExposureSubmissionResult_testAdded" = "Testul dvs. a fost adăugat.";
+"ExposureSubmissionResult_testAdded" = "Testul dvs. a fost adăugat";
 
-"ExposureSubmissionResult_antigenTestAdded" = "Testul dvs. rapid a fost adăugat.";
+"ExposureSubmissionResult_antigenTestAdded" = "Testul dvs. rapid a fost adăugat";
 
 "ExposureSubmissionResult_antigenTestAddedDesc" = "Rezultatul testului dvs. este afișat timp de 48 de ore.";
 
@@ -714,11 +714,11 @@
 
 "ExposureSubmissionResult_testExpiredDesc" = "A apărut o problemă la evaluarea testului dvs. Codul dvs. QR a expirat deja.";
 
-"ExposureSubmissionResult_testPending" = "Rezultatul testului dvs. nu este încă disponibil.";
+"ExposureSubmissionResult_testPending" = "Rezultatul testului dvs. nu este încă disponibil";
 
 "ExposureSubmissionResult_testPendingDesc" = "Imediat ce devine disponibil, rezultatul testului dvs. va fi afișat în aplicație.\n\nDe asemenea, veți primi rezultatul testului în afara aplicației. Autoritățile de sănătate publică vă vor anunța dacă testul dvs. este pozitiv.\n\nDacă sunteți notificat privind un rezultat pozitiv al testului în afara aplicației, ștergeți testul curent înregistrat în aplicație. Apelați numărul indicat la „Solicitare TAN” pentru a obține un număr TAN. Apoi, puteți utiliza acest TAN pentru a vă înregistra rezultatul în aplicație și pentru a-i avertiza pe ceilalți.";
 
-"ExposureSubmissionResult_testCertificate_title" = "Certificat de test COVID";
+"ExposureSubmissionResult_testCertificate_title" = "Certificatul dvs. de test COVID";
 
 "ExposureSubmissionResult_testCertificate_testCenterNotSupported" = "Un certificat de test COVID digital oficial nu poate fi emis deoarece acest punct de testare nu suportă emiterea de certificate de test.";
 
@@ -728,13 +728,13 @@
 
 "ExposureSubmissionResult_testCertificate_AvailableInTab" = "Certificatul de test este disponibil pe tabul „Certificate”.";
 
-"ExposureSubmissionResult_antigenTestPending" = "Rezultatul testului dvs. nu este încă disponibil.";
+"ExposureSubmissionResult_antigenTestPending" = "Rezultatul testului dvs. nu este încă disponibil";
 
 "ExposureSubmissionResult_antigenTestPendingDesc" = "Imediat ce devine disponibil, rezultatul testului dvs. va fi afișat în aplicație.";
 
-"ExposureSubmissionResult_antigenTestPendingContactJournal" = "Rezultatul testului dvs. va fi adăugat la jurnalul dvs. de contacte.";
+"ExposureSubmissionResult_antigenTestPendingContactJournal" = "Rezultatul testului dvs. va fi adăugat la jurnalul dvs. de contacte";
 
-"ExposureSubmissionResult_pcrTestPendingContactJournal" = "Rezultatul testului dvs. va fi adăugat la jurnalul dvs. de contacte.";
+"ExposureSubmissionResult_pcrTestPendingContactJournal" = "Rezultatul testului dvs. va fi adăugat la jurnalul dvs. de contacte";
 
 "ExposureSubmissionResult_antigenTestPendingContactJournalDesc" = "Imediat ce devine disponibil, rezultatul testului dvs. va fi afișat în aplicație.";
 
@@ -748,7 +748,7 @@
 
 "ExposureSubmissionResult_testRemove" = "Ștergere test";
 
-"ExposureSubmissionResult_testRemoveDesc" = "Ștergeți testul din Corona-Warn-App pentru a salva un nou cod de test aici dacă este necesar.";
+"ExposureSubmissionResult_testRemoveDesc" = "Trebuie să eliminați ultimul test înainte de a putea înregistra unul nou.";
 
 "ExposureSubmissionResult_primaryButtonTitle" = "Introducere simptome";
 
@@ -977,7 +977,7 @@
 
 "ExposureSubmission_TestCertificate_Information_Section02" = "Certificatul de test este o dovadă valabilă a unui rezultat de test negativ în UE (de exemplu, în scop de călătorie).";
 
-"ExposureSubmission_TestCertificate_Information_Subheadline" = "Puteți utiliza aplicația pentru a solicita un certificat de test digital oficial, care este apoi adăugat în aplicație.";
+"ExposureSubmission_TestCertificate_Information_Subheadline" = "Puteți utiliza aplicația pentru a solicita un certificat de test COVID digital UE oficial, care este apoi adăugat în aplicație.";
 
 "ExposureSubmission_TestCertificate_Information_BirthdayPlaceholder" = "Data nașterii";
 
@@ -1539,14 +1539,22 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Modificările din această versiune pot fi găsite în informațiile aplicației, la „Caracteristici noi”.";
 
-/* Version 2.4 */
-"NewVersionFeature_24_digital_covid_cert_title" = "Certificat de test COVID";
+/* Version 2.5 */
+"NewVersionFeature_25_recovery_cert_title" = "Certificat de recuperare COVID";
 
-"NewVersionFeature_24_digital_covid_cert_description" = "Acum puteți solicita un certificat de test digital oficial prin aplicație și apoi îl puteți adăuga în aplicație. Puteți utiliza acest certificat de test (cod QR) în UE pentru a face dovada unui rezultat de test negativ (de exemplu, pentru călătoria internațională).";
+"NewVersionFeature_25_recovery_cert_description" = "Acum puteți solicita și certificate digitale de recuperare prin aplicație și apoi le puteți adăuga în aplicație. Puteți utiliza aceste certificate în UE pentru a face dovada recuperării de la o infecție anterioară (de exemplu, pentru călătoria internațională).";
 
-"NewVersionFeature_24_extended_diary_title" = "Extinderea jurnalului de contacte";
+"NewVersionFeature_25_family_certificate_title" = "Certificate de familie";
 
-"NewVersionFeature_24_extended_diary_title_description" = "De îndată ce rezultatul testului dvs. este disponibil, acum acesta este adăugat și la jurnalul dvs. de contacte.";
+"NewVersionFeature_25_family_certificate_description" = "Acum puteți adăuga și gestiona certificate COVID digitale ale membrilor familiei în aplicație, pe care le puteți transmite când este nevoie (pentru călătoria internațională, de exemplu).";
+
+"NewVersionFeature_25_enhanced_statistics_title" = "Statistică extinsă ";
+
+"NewVersionFeature_25_enhanced_statistics_description" = "Următoarele statistici privind vaccinarea sunt acum disponibile în aplicație:\n\n\t- Numărul de persoane care au primit cel puțin o doză de vaccin\n\t- Numărul de persoane care sunt complet vaccinate\n\t- Numărul de doze de vaccin administrate";
+
+"NewVersionFeature_25_edit_test_profile_title" = "Editarea profilului de test rapid";
+
+"NewVersionFeature_25_edit_test_profile_description" = "Acum puteți edita profilul dvs. de test rapid în aplicație, de exemplu, pentru a vă modifica adresa.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Înregistrare transnațională a expunerilor în jurnal";
@@ -1854,6 +1862,11 @@
 /* - Number Formatting */
 "Statistics_Card_Million" = "%@ milion(e)";
 
+/* - General Card Texts */
+"Statistics_Card_From_Nationwide" = "La nivel național";
+
+"Statistics_Card_From_CWA" = "prin aplicația Corona-Warn";
+
 /* - Infections Card */
 "Statistics_Card_Infections_Title" = "Infecții noi confirmate";
 
@@ -1904,13 +1917,64 @@
 
 "Statistics_Card_ReproductionNumber_SecondaryLabelTitle" = "infecții medii de la fiecare persoană infectată";
 
+/* - At least one person vaccinated card */
+"Statistics_Card_AtLeastOneVaccinated_Title" = "Persoane care au primit cel puțin o doză de vaccin";
+
+"Statistics_Card_AtLeastOneVaccinated_Today" = "Curent";
+
+"Statistics_Card_AtLeastOneVaccinated_Yesterday" = "Până ieri";
+
+"Statistics_Card_AtLeastOneVaccinated_Date" = "Până la %@";
+
+"Statistics_Card_AtLeastOneVaccinated_SecondaryLabelTitle" = "din numărul total al populației";
+
+"Statistics_Card_AtLeastOneVaccinated_TertiaryLabelTitle" = "Total";
+
+"Statistics_Card_AtLeastOneVaccinated_SecondarySubtitleLabel" = "din numărul total al populației";
+
+/* - Fully vaccinated people card */
+"Statistics_Card_FullyVaccinated_Title" = "persoane care sunt complet vaccinate";
+
+"Statistics_Card_FullyVaccinated_Today" = "Curent";
+
+"Statistics_Card_FullyVaccinated_Yesterday" = "Până ieri";
+
+"Statistics_Card_FullyVaccinated_Date" = "Până la %@";
+
+"Statistics_Card_FullyVaccinated_SecondaryLabelTitle" = "din numărul total al populației";
+
+"Statistics_Card_FullyVaccinated_TertiaryLabelTitle" = "Total";
+
+"Statistics_Card_FullyVaccinated_SecondarySubtitleLabel" = "din numărul total al populației";
+
+/* - Applied vaccination dose rates card */
+"Statistics_Card_AppliedDoseRates_Title" = "Doze de vaccin administrate";
+
+"Statistics_Card_AppliedDoseRates_Today" = "Curent";
+
+"Statistics_Card_AppliedDoseRates_Yesterday" = "Până ieri";
+
+"Statistics_Card_AppliedDoseRates_Date" = "Până la %@";
+
+"Statistics_Card_AppliedDoseRates_SecondaryLabelTitle" = "Media pe 7 zile";
+
+"Statistics_Card_AppliedDoseRates_TertiaryLabelTitle" = "Total";
+
 /* Error */
 "Statistics_LoadingError" = "Statistica nu poate fi încărcată. Închideți aplicația și reîncercați.";
 
 /* - Info Screen */
 "Statistics_Info_Title" = "Indicatori";
 
-"Statistics_Info_Subtitle" = "Explicația statisticii la nivel național";
+"Statistics_Info_Subtitle" = "Explicarea statisticii";
+
+"Statistics_Info_Local7Days_Title" = "Incidența pe 7 zile la nivel local";
+
+"Statistics_Info_Local7Days_Text" = "Numărul total de infecții noi confirmate în ultimele 7 zile (după data de raportare) la 100.000 de locuitori în districtul sau statul federal configurat.";
+
+"Statistics_Info_Incidence_Title" = "Incidența pe 7 zile";
+
+"Statistics_Info_Incidence_Text" = "Numărul total de infecții noi confirmate în ultimele 7 zile (după data de raportare) la 100.000 de locuitori";
 
 "Statistics_Info_Infections_Title" = "Infecții noi confirmate";
 
@@ -1918,15 +1982,23 @@
 
 "Statistics_Info_KeySubmissions_Title" = "Avertizări de la utilizatorii aplicației";
 
-"Statistics_Info_KeySubmissions_Text" = "Numărul de utilizatori ai aplicației care au fost diagnosticați cu coronavirus și care i-au avertizat pe ceilalți prin aplicație";
-
-"Statistics_Info_Incidence_Title" = "Incidența pe 7 zile";
-
-"Statistics_Info_Incidence_Text" = "Numărul total de infecții noi confirmate în ultimele 7 zile (după data de raportare) la 100.000 de locuitori";
+"Statistics_Info_KeySubmissions_Text" = "Numărul de utilizatori ai aplicației care au fost diagnosticați cu coronavirus prin test PCR și care i-au avertizat pe ceilalți prin aplicație";
 
 "Statistics_Info_ReproductionNumber_Title" = "Valoarea R pe 7 zile";
 
 "Statistics_Info_ReproductionNumber_Text" = "Numărul de reproducție R indică câte persoane a infectat mai departe, în medie, o persoană infectată. Valoarea curentă ia în considerare cel mult ultimele 5 zile.";
+
+"Statistics_Info_AtLeastOnce_Title" = "Persoane care au primit cel puțin o doză de vaccin";
+
+"Statistics_Info_AtLeastOnce_Text" = "Numărul de persoane raportat la RKI care au primit prima doză de vaccin.";
+
+"Statistics_Info_FullyVaccinated_Title" = "Persoane care sunt complet vaccinate";
+
+"Statistics_Info_FullyVaccinated_Text" = "Numărul de persoane raportat la RKI care au primit toate dozele de vaccin necesare.";
+
+"Statistics_Info_DosesAdministered_Title" = "Doze de vaccin administrate";
+
+"Statistics_Info_DosesAdministered_Text" = "Numărul de doze de vaccin care au fost administrate la nivel național până în prezent.";
 
 "Statistics_Info_FAQLink_Text" = "Pentru mai multe informații, consultați pagina noastră de întrebări frecvente:";
 
@@ -2444,32 +2516,36 @@
 /* Health Certificate Overview */
 "HealthCertificate_Overview_title" = "Certificate";
 
-"HealthCertificate_Overview_description" = "Certificatele dvs. de vaccinare digitale și certificatele de test digitale sunt afișate aici.";
+"HealthCertificate_Overview_add" = "Adăugare certificat";
 
-/* - Vaccination Certificate Registration */
-"VaccinationCertificate_Registration_title" = "Adăugarea dovezii\ndigitale a vaccinării";
+"HealthCertificate_Overview_EmptyTitle" = "Nu sunt încă disponibile certificate";
 
-"VaccinationCertificate_Registration_description" = "Adăugați certificatele dvs. de vaccinare în aplicație pentru a le avea mereu cu dvs. Pentru aceasta, scanați codul QR din documentul dvs.";
+"HealthCertificate_Overview_EmptyDescription" = "Certificatele de vaccinare digitale, certificatele de recuperare și certificatele de test salvate sunt afișate aici.";
 
-/* - Vaccination Certificate */
-"VaccinationCertificate_title" = "Dovada digitală\na vaccinării";
+"HealthCertificate_Overview_EmptyImageDescription" = "Sigiliu certificat cu certificat digital în fundal";
+
+"HealthCertificate_Overview_Covid_Title" = "**Certificat COVID digital**\nUE";
+
+"VaccinationCertificate_title" = "**Certificat de vaccinare digital**\nUE";
 
 "VaccinationCertificate_partiallyVaccinated" = "Vaccinare incompletă";
 
 "VaccinationCertificate_vaccinationValidUntil" = "Valabil până la %@";
 
+"HealthCertificate_Overview_Covid_Certificate_Description" = "Un cod QR cu certificatul";
+
 /* - Test Certificate Info */
-"TestCertificate_Info_title" = "Certificat\nde test COVID digital UE";
+"TestCertificate_Info_title" = "**Certificat de test COVID digital**\nUE";
 
 "TestCertificate_Info_description" = "Înregistrați un test pe ecranul inițial și consimțiți să primiți un certificat de test digital. De îndată ce este disponibil certificatul, acesta este afișat aici.";
 
 /* - Test Certificate */
-"TestCertificate_title" = "Certificat\nde test COVID digital";
+"TestCertificate_title" = "**Certificat de test COVID digital**\nUE";
 
 "TestCertificate_testDate" = "Test efectuat pe %@";
 
 /* - Test Certificate Request */
-"TestCertificateRequest_title" = "Certificat\nde test COVID digital";
+"TestCertificateRequest_title" = "**Certificat de test COVID digital**\nUE";
 
 "TestCertificateRequest_loadingSubtitle" = "Certificatul dvs. este în curs de creare...";
 
@@ -2519,13 +2595,15 @@
 
 "HealthCertificate_Info_imageDescription" = "O persoană imunizată se uită pe smartphone";
 
-"HealthCertificate_Info_description" = "Adăugați certificatele dvs. de COVID UE digitale în aplicație. Acest lucru vă ajută să dovediți protecția dvs. prin vaccinare sau să arătați un rezultat de test negativ în aplicație.";
+"HealthCertificate_Info_description" = "Adăugați certificatele dvs. de COVID digitale UE în aplicație. Acest lucru vă ajută să dovediți protecția dvs. prin vaccinare sau să arătați un rezultat de test negativ în aplicație.";
 
-"HealthCertificate_Info_section01" = "Puteți adăuga certificate de vaccinare COVID UE digitale sau certificate de test COVID în aplicație.";
+"HealthCertificate_Info_section01" = "Puteți adăuga certificate de vaccinare COVID digitale UE sau certificate de test COVID UE în aplicație.";
 
 "HealthCertificate_Info_section02" = "Aceste certificate sunt considerate o dovadă valabilă în UE (de exemplu, în scop de călătorie).";
 
 "HealthCertificate_Info_section03" = "După ce adăugați un certificat, acesta rămâne pe smartphone-ul dvs. Va fi partajat cu alte persoane doar dacă prezentați un certificat pentru verificare.";
+
+"HealthCertificate_Info_section04" = "Adăugați certificatele existente pentru dvs. și membrii familiei dvs.";
 
 "HealthCertificate_Info_primaryButton" = "Continuare";
 
@@ -2535,7 +2613,7 @@
 "HealthCertificate_QRScanner_instruction" = "Scanare cod QR și înregistrare";
 
 /* Health Certified Person Screen */
-"HealthCertifiedPerson_title" = "Dovada digitală a vaccinării";
+"HealthCertifiedPerson_title" = "Dovada digitală UE a vaccinării";
 
 "HealthCertifiedPerson_subtitle" = "Protecție prin vaccinare împotriva SARS-CoV-2";
 
@@ -2547,12 +2625,12 @@
 
 "HealthCertifiedPerson_QRCode_Image_Description" = "Un cod QR cu starea vaccinării dvs.";
 
-"HealthCertifiedPerson_primaryButton" = "Înregistrare altă vaccinare";
-
 /* Vaccination Certificate Details */
 "HealthCertificate_Details_vaccinationCount" = "Vaccinarea %i din %i";
 
 "HealthCertificate_Details_certificate" = "Certificat de vaccinare";
+
+"HealthCertificate_Details_EU_Covid_Certificate" = "Certificat COVID digital UE";
 
 "HealthCertificate_Details_QRCode_Image_Description" = "Un cod QR cu certificatul dvs. de vaccinare";
 
@@ -2588,7 +2666,7 @@
 "HealthCertificate_Alert_cancelButton" = "Anulare";
 
 /* Test Certificate Details */
-"TestCertificate_Details_title" = "Certificat de test COVID digital UE";
+"TestCertificate_Details_title" = "Certificat de test";
 
 "TestCertificate_Details_subtitle" = "Test SARS-CoV-2 negativ";
 
@@ -2598,7 +2676,7 @@
 
 "TestCertificate_Error_FAQ_Button_Title" = "Întrebări frecvente privind certificatele de test";
 
-/* Vaccination Certificate Delete Alert */
+/* Test Certificate Delete Alert */
 "TestCertificate_Alert_title" = "Doriți să eliminați certificatul de test?";
 
 "TestCertificate_Alert_message" = "Dacă eliminați certificatul de test, nu îl mai puteți utiliza ca dovadă în aplicație.";
@@ -2607,6 +2685,22 @@
 
 "TestCertificate_Alert_cancelButton" = "Anulare";
 
+/* Recovery Certificate Details */
+"RecoveryCertificate_Details_title" = "Certificat de recuperare";
+
+"RecoveryCertificate_Details_subtitle" = "Certificat COVID digital UE";
+
+"RecoveryCertificate_Details_primaryButton" = "Eliminare certificat de recuperare";
+
+/* Recovery Certificate Delete Alert */
+"RecoveryCertificate_Alert_title" = "Doriți să eliminați certificatul de recuperare?";
+
+"RecoveryCertificate_Alert_message" = "Dacă eliminați certificatul de recuperare, nu îl mai puteți utiliza ca dovadă în aplicație.";
+
+"RecoveryCertificate_Alert_deleteButton" = "Eliminare";
+
+"RecoveryCertificate_Alert_cancelButton" = "Anulare";
+
 /* Health Certificate Errors */
 "HealthCertificate_Error_Title" = "Eroare";
 
@@ -2614,15 +2708,11 @@
 
 "HealthCertificate_Error_FAQ_Button_Title" = "Întrebări frecvente privind certificatele de vaccinare";
 
-"HealthCertificate_Error_PC_TRY_AGAIN_LATER" = "Certificatul de vaccinare nu poate fi verificat chiar acum. Încercați din nou mai târziu.";
+"HealthCertificate_Error_HC_ALREADY_REGISTERED" = "Certificatul este deja înregistrat în aplicația dvs.";
 
-"HealthCertificate_Error_VC_ALREADY_REGISTERED" = "Certificatul de vaccinare este deja înregistrat în aplicația dvs.";
+"HealthCertificate_Error_HC_INVALID" = "Acest cod QR nu este un certificat valabil.";
 
-"HealthCertificate_Error_VC_DIFFERENT_PERSON" = "Informațiile personale din acest certificat de vaccinare nu corespund cu cele din certificatele deja înregistrate. Puteți înregistra certificate pentru o singură persoană în aplicație.";
+"HealthCertificate_Error_HC_NOT_SUPPORTED" = "Acest certificat nu este acceptat.";
 
-"HealthCertificate_Error_VC_INVALID" = "Acest cod QR nu este un certificat de vaccinare valabil.";
-
-"HealthCertificate_Error_VC_NOT_YET_SUPPORTED" = "Acest certificat de vaccinare nu este încă acceptat de versiunea aplicației dvs. Actualizați-vă aplicația sau contactați hotline-ul tehnic din „Informații aplicație”.";
-
-"HealthCertificate_Error_VC_SCAN_AGAIN" = "Certificatul de vaccinare nu a putut fi salvat pe smartphone-ul dvs. Încercați din nou mai târziu sau contactați hotline-ul tehnic din „Informații aplicație”.";
+"HealthCertificate_Error_HC_QR_CODE_ERROR" = "Codul QR nu a putut fi generat. Dacă eroarea persistă, contactați hotline-ul tehnic prin Informații aplicație -> Hotline tehnic.";
 
