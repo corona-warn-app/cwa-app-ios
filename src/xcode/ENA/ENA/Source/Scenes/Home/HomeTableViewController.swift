@@ -609,6 +609,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			},
 			onDismissDistrict: { [weak self] dismissToRoot in
 				self?.onDismissDistrict(dismissToRoot)
+			}, onFetchFederalState: { [weak self] federalState in
+				self?.fetchLocalStatistics(federalStateId: federalState)
 			},
 			onEditLocalStatisticsButtonTap: {
 				Log.warning("Edit Functionality Should Be Added")
@@ -839,5 +841,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		}
 	}
 
+	private func fetchLocalStatistics(federalStateId id: LocalStatisticsDistrict) {
+		DispatchQueue.main.async { [weak self] in
+			self?.viewModel.state.updateLocalStatistics(localStatisticsDistrict: id)
+		}
+	}
 	// swiftlint:disable:next file_length
 }

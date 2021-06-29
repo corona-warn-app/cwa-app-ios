@@ -12,10 +12,12 @@ class AddStatisticsCardsViewModel {
 	init(
 		localStatisticsModel: AddLocalStatisticsModel,
 		presentFederalStatesList: @escaping (SelectValueViewModel) -> Void,
-		presentSelectDistrictsList: @escaping (SelectValueViewModel) -> Void
+		presentSelectDistrictsList: @escaping (SelectValueViewModel) -> Void,
+		onFetchFederalState: @escaping (LocalStatisticsDistrict) -> Void
 	) {
 		self.presentFederalStatesList = presentFederalStatesList
 		self.presentSelectDistrictsList = presentSelectDistrictsList
+		self.onFetchFederalState = onFetchFederalState
 		self.localStatisticsModel = localStatisticsModel
 	}
 

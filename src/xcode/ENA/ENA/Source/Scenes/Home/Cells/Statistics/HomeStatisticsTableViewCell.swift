@@ -31,6 +31,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		onAddDistrict: @escaping (SelectValueTableViewController) -> Void,
 		onDismissState: @escaping () -> Void,
 		onDismissDistrict: @escaping (Bool) -> Void,
+		onFetchFederalState: @escaping (LocalStatisticsDistrict) -> Void,
 		onEditLocalStatisticsButtonTap: @escaping () -> Void,
 		onAccessibilityFocus: @escaping () -> Void,
 		onUpdate: @escaping () -> Void
@@ -47,6 +48,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 					onAddDistrict: onAddDistrict,
 					onDismissState: onDismissState,
 					onDismissDistrict: onDismissDistrict,
+					onFetchFederalState: onFetchFederalState,
 					onEditLocalStatisticsButtonTap: onEditLocalStatisticsButtonTap,
 					onAccessibilityFocus: onAccessibilityFocus
 				)
@@ -91,6 +93,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		onAddDistrict: @escaping (SelectValueTableViewController) -> Void,
 		onDismissState: @escaping () -> Void,
 		onDismissDistrict: @escaping (Bool) -> Void,
+		onFetchFederalState: @escaping (LocalStatisticsDistrict) -> Void,
 		onEditLocalStatisticsButtonTap: @escaping () -> Void,
 		onAccessibilityFocus: @escaping () -> Void
 	) {
@@ -115,7 +118,11 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 					onDismissState()
 				}, onDismissDistrict: { dismissToRoot in
 					onDismissDistrict(dismissToRoot)
-				}, onEditButtonTap: {
+				}, onFetchFederalState: { district in
+					self.district = district
+					onFetchFederalState(district)
+				},
+				onEditButtonTap: {
 					onEditLocalStatisticsButtonTap()
 				}, onAccessibilityFocus: {
 					onAccessibilityFocus()
@@ -123,7 +130,8 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 			)
 		}
 	}
-	
+	private (set)var district: LocalStatisticsDistrict?
+
 	private func configureKeyFigureCells(
 		for keyFigureCards: [SAP_Internal_Stats_KeyFigureCard],
 		onInfoButtonTap: @escaping () -> Void,
