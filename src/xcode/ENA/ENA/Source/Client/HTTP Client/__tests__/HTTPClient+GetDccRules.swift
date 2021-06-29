@@ -38,6 +38,81 @@ final class HTTPClientGetDccRulesTests: CWATestCase {
 		self.assertPackageFormat(for: try XCTUnwrap(response))
 	}
 	
+	func testGIVEN_Client_WHEN_SapPackageCouldNotBeCreated_THEN_Failure_InvalidResponseIsReturned() {
+		// GIVEN
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			responseData: Data())
+		let client = HTTPClient.makeWith(mock: stack)
+		let expectation = self.expectation(description: "completion handler is called with notModified failure")
+		var failure: URLSession.Response.Failure?
+		
+		// WHEN
+		client.getRules(ruleType: .invalidation, completion: { result in
+			switch result {
+			case .success:
+				XCTFail("This test should not succeed.")
+			case let .failure(error):
+				failure = error
+				expectation.fulfill()
+			}
+		})
+	
+		// THEN
+		waitForExpectations(timeout: .short)
+		XCTAssertEqual(failure, .invalidResponse)
+	}
+	
+	func testGIVEN_Client_WHEN_OtherHttpStatusCode_THEN_Failure_ServerErrorIsReturned() {
+		// GIVEN
+		let stack = MockNetworkStack(
+			httpStatus: 504,
+			responseData: Data())
+		let client = HTTPClient.makeWith(mock: stack)
+		let expectation = self.expectation(description: "completion handler is called with serverError failure")
+		var failure: URLSession.Response.Failure?
+		
+		// WHEN
+		client.getRules(ruleType: .acceptance, completion: { result in
+			switch result {
+			case .success:
+				XCTFail("This test should not succeed.")
+			case let .failure(error):
+				failure = error
+				expectation.fulfill()
+			}
+		})
+	
+		// THEN
+		waitForExpectations(timeout: .short)
+		XCTAssertEqual(failure, .serverError(504))
+	}
+	
+	func testGIVEN_Client_WHEN_Failure_THEN_Failure_InvalidResponseIsReturned() {
+		// GIVEN
+		let stack = MockNetworkStack(
+			httpStatus: 504,
+			responseData: nil)
+		let client = HTTPClient.makeWith(mock: stack)
+		let expectation = self.expectation(description: "completion handler is called with invalidResponse failure")
+		var failure: URLSession.Response.Failure?
+		
+		// WHEN
+		client.getRules(ruleType: .invalidation, completion: { result in
+			switch result {
+			case .success:
+				XCTFail("This test should not succeed.")
+			case let .failure(error):
+				failure = error
+				expectation.fulfill()
+			}
+		})
+	
+		// THEN
+		waitForExpectations(timeout: .short)
+		XCTAssertEqual(failure, .invalidResponse)
+	}
+	
 	// MARK: - Private
 	
 	private let binFileSize = 50
