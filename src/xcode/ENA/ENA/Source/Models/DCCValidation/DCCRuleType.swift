@@ -4,7 +4,7 @@
 
 import Foundation
 
-enum RuleType {
+enum DCCRuleType {
 	case acceptance
 	case invalidation
 	

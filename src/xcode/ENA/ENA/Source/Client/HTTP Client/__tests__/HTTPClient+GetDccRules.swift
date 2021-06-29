@@ -22,7 +22,7 @@ final class HTTPClientGetDccRulesTests: CWATestCase {
 		// WHEN
 		var response: PackageDownloadResponse?
 		let client = HTTPClient.makeWith(mock: stack)
-		client.getRules(ruleType: .acceptance, completion: { result in
+		client.getDCCRules(ruleType: .acceptance, completion: { result in
 			switch result {
 			case let .success(package):
 				response = package
@@ -48,7 +48,7 @@ final class HTTPClientGetDccRulesTests: CWATestCase {
 		var failure: URLSession.Response.Failure?
 		
 		// WHEN
-		client.getRules(ruleType: .invalidation, completion: { result in
+		client.getDCCRules(ruleType: .invalidation, completion: { result in
 			switch result {
 			case .success:
 				XCTFail("This test should not succeed.")
@@ -73,7 +73,7 @@ final class HTTPClientGetDccRulesTests: CWATestCase {
 		var failure: URLSession.Response.Failure?
 		
 		// WHEN
-		client.getRules(ruleType: .acceptance, completion: { result in
+		client.getDCCRules(ruleType: .acceptance, completion: { result in
 			switch result {
 			case .success:
 				XCTFail("This test should not succeed.")
@@ -98,7 +98,7 @@ final class HTTPClientGetDccRulesTests: CWATestCase {
 		var failure: URLSession.Response.Failure?
 		
 		// WHEN
-		client.getRules(ruleType: .invalidation, completion: { result in
+		client.getDCCRules(ruleType: .invalidation, completion: { result in
 			switch result {
 			case .success:
 				XCTFail("This test should not succeed.")

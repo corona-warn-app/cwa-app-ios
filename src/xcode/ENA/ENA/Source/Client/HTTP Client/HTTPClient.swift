@@ -650,7 +650,7 @@ final class HTTPClient: Client {
 					Log.info("Content was not modified - 304.", log: .api)
 					completion(.failure(.notModified))
 				default:
-					Log.error("Generel server error.", log: .api)
+					Log.error("General server error.", log: .api)
 					completion(.failure(.serverError(response.statusCode)))
 				}
 			case let .failure(error):
@@ -660,9 +660,9 @@ final class HTTPClient: Client {
 		})
 	}
 	
-	func getRules(
+	func getDCCRules(
 		isFake: Bool = false,
-		ruleType: RuleType,
+		ruleType: DCCRuleType,
 		completion: @escaping DCCRulesCompletionHandler
 	) {
 		guard let request = try? URLRequest.dccRulesRequest(
@@ -694,7 +694,7 @@ final class HTTPClient: Client {
 					Log.info("Successfully got rules for ruleType: \(ruleType)", log: .api)
 					completion(.success(packageDownloadResponse))
 				default:
-					Log.error("Generel server error.", log: .api)
+					Log.error("General server error.", log: .api)
 					completion(.failure(.serverError(response.statusCode)))
 				}
 			case let .failure(error):
@@ -1439,7 +1439,7 @@ private extension URLRequest {
 	}
 	
 	static func dccRulesRequest(
-		ruleType: RuleType,
+		ruleType: DCCRuleType,
 		configuration: HTTPClient.Configuration,
 		headerValue: Int
 	) throws -> URLRequest {

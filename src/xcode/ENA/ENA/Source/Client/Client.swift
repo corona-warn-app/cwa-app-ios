@@ -216,11 +216,11 @@ protocol Client {
 	/// GET call to receive the rules of a specified type (acceptance or invalidation) as a PackageDownloadResponse. Must be extracted and verified afterwards.
 	/// - Parameters:
 	///   - isFake: Flag to indicate a fake request
-	///   - ruleType: Get the rules for the specified type (	acceptance or invalidation)
+	///   - ruleType: Get the rules for the specified type (acceptance or invalidation)
 	///   - completion: The completion handler of the call, which contains a PackageDownloadResponse or a URLSession.Response.Failure
-	func getRules(
+	func getDCCRules(
 		isFake: Bool,
-		ruleType: RuleType,
+		ruleType: DCCRuleType,
 		completion: @escaping DCCRulesCompletionHandler
 	)
 }
