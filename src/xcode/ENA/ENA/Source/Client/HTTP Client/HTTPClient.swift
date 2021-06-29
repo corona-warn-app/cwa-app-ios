@@ -663,7 +663,7 @@ final class HTTPClient: Client {
 	func getRules(
 		isFake: Bool = false,
 		ruleType: RuleType,
-		completion: @escaping DCCRuleTypeCompletionHandler
+		completion: @escaping DCCRulesCompletionHandler
 	) {
 		guard let request = try? URLRequest.dccRulesRequest(
 				ruleType: ruleType,

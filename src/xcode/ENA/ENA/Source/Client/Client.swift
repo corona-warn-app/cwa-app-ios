@@ -26,7 +26,7 @@ protocol Client {
 	typealias DigitalCovid19CertificateCompletionHandler = (Result<DCCResponse, DCCErrors.DigitalCovid19CertificateError>) -> Void
 	typealias DCCRegistrationCompletionHandler = (Result<Void, DCCErrors.RegistrationError>) -> Void
 	typealias DCCOnboardedCountriesCompletionHandler = (Result<PackageDownloadResponse, Failure>) -> Void
-	typealias DCCRuleTypeCompletionHandler = (Result<PackageDownloadResponse, Failure>) -> Void
+	typealias DCCRulesCompletionHandler = (Result<PackageDownloadResponse, Failure>) -> Void
 	
 	// MARK: Interacting with a Client
 
@@ -221,7 +221,7 @@ protocol Client {
 	func getRules(
 		isFake: Bool,
 		ruleType: RuleType,
-		completion: @escaping DCCRuleTypeCompletionHandler
+		completion: @escaping DCCRulesCompletionHandler
 	)
 }
 
