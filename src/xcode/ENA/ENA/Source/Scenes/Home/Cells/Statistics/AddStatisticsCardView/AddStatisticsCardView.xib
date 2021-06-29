@@ -31,7 +31,7 @@
                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
                             </state>
                             <connections>
-                                <action selector="addLocalIncidencePressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="erH-0m-et2"/>
+                                <action selector="onAddLocalIncidenceButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="y21-7S-wQ0"/>
                             </connections>
                         </button>
                     </subviews>
