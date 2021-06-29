@@ -5,7 +5,7 @@
 import Foundation
 import SwiftCBOR
 
-public struct DigitalGreenCertificate100: Codable, Equatable {
+public struct DigitalCovidCertificate100: Codable, Equatable {
 
     // MARK: - Protocol Codable
 
@@ -31,8 +31,8 @@ public struct DigitalGreenCertificate100: Codable, Equatable {
         dateOfBirth: String = "1942-01-01",
         vaccinationEntries: [VaccinationEntry100]? = nil,
         testEntries: [TestEntry100]? = nil
-    ) -> DigitalGreenCertificate100 {
-        DigitalGreenCertificate100(
+    ) -> DigitalCovidCertificate100 {
+        DigitalCovidCertificate100(
             version: version,
             name: name,
             dateOfBirth: dateOfBirth,

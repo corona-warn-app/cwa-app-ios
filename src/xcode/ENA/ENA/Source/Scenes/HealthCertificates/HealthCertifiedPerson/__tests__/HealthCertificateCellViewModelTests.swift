@@ -11,7 +11,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testViewModelWithIncompleteVaccinationCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalGreenCertificate.fake(
+				from: DigitalCovidCertificate.fake(
 					vaccinationEntries: [
 						VaccinationEntry.fake(
 							doseNumber: 1,
@@ -93,7 +93,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testViewModelWithPCRTestCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalGreenCertificate.fake(
+				from: DigitalCovidCertificate.fake(
 					testEntries: [
 						TestEntry.fake(
 							typeOfTest: "LP6464-4",
@@ -122,7 +122,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testViewModelWithAntigenTestCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalGreenCertificate.fake(
+				from: DigitalCovidCertificate.fake(
 					testEntries: [
 						TestEntry.fake(
 							typeOfTest: "LP217198-3",
@@ -151,7 +151,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testViewModelWithTestCertificateOfUnknownType() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalGreenCertificate.fake(
+				from: DigitalCovidCertificate.fake(
 					testEntries: [
 						TestEntry.fake(
 							typeOfTest: "LP123456-7",
@@ -180,7 +180,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testViewModelWithRecoveryCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalGreenCertificate.fake(
+				from: DigitalCovidCertificate.fake(
 					recoveryEntries: [
 						RecoveryEntry.fake(
 							certificateValidUntil: "2022-03-18T07:12:45.132Z"
