@@ -61,6 +61,8 @@ final class StatisticsViewController: UIViewController, UICollectionViewDataSour
 			collectionView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
 			collectionView.heightAnchor.constraint(equalToConstant: StatisticsViewController.height)
 		])
+
+		setEditing(true, animated: true)
 	}
 
 	// MARK: - UICollectionViewDataSource
@@ -92,14 +94,20 @@ final class StatisticsViewController: UIViewController, UICollectionViewDataSour
 
 		do {
 			let data = try statisticData(for: indexPath)
-
-			cell.label.text = indexPath.debugDescription // dummy
-			cell.label.textColor = data.isUser ? .green : .blue // dummy
+			let model = HomeStatisticsCardViewModel(for: data.statistic)
+			cell.configure(
+				viewModel: model,
+				onInfoButtonTap: {},
+				onAccessibilityFocus: {})
 			cell.addStyling()
 			return cell
 		} catch {
 			preconditionFailure("Invalid configuration") // needs a better description...
 		}
+	}
+
+	func collectionView(_ collectionView: UICollectionView, canEditItemAt indexPath: IndexPath) -> Bool {
+		true
 	}
 
 	// MARK: - Cell Management
