@@ -15,7 +15,7 @@ class HealthCertificateService {
 		store: HealthCertificateStoring,
 		client: Client,
 		appConfiguration: AppConfigurationProviding,
-		digitalGreenCertificateAccess: DigitalGreenCertificateAccessProtocol = DigitalGreenCertificateAccess()
+		digitalCovidCertificateAccess: DigitalCovidCertificateAccessProtocol = DigitalCovidCertificateAccess()
 	) {
 
 		#if DEBUG
@@ -23,7 +23,7 @@ class HealthCertificateService {
 			self.store = MockTestStore()
 			self.client = ClientMock()
 			self.appConfiguration = CachedAppConfigurationMock()
-			self.digitalGreenCertificateAccess = digitalGreenCertificateAccess
+			self.digitalCovidCertificateAccess = digitalCovidCertificateAccess
 
 			setup()
 
@@ -36,8 +36,8 @@ class HealthCertificateService {
 			}
 
 			if LaunchArguments.healthCertificate.testCertificateRegistered.boolValue {
-				let result = DigitalGreenCertificateFake.makeBase45Fake(
-					from: DigitalGreenCertificate.fake(
+				let result = DigitalCovidCertificateFake.makeBase45Fake(
+					from: DigitalCovidCertificate.fake(
 						name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"),
 						testEntries: [TestEntry.fake(dateTimeOfSampleCollection: "2021-04-12T16:01:00Z")]
 					),
@@ -49,8 +49,8 @@ class HealthCertificateService {
 			}
 			
 			if LaunchArguments.healthCertificate.recoveryCertificateRegistered.boolValue {
-				let result = DigitalGreenCertificateFake.makeBase45Fake(
-					from: DigitalGreenCertificate.fake(
+				let result = DigitalCovidCertificateFake.makeBase45Fake(
+					from: DigitalCovidCertificate.fake(
 						recoveryEntries: [
 						 RecoveryEntry.fake()
 					 ]
@@ -69,7 +69,7 @@ class HealthCertificateService {
 		self.store = store
 		self.client = client
 		self.appConfiguration = appConfiguration
-		self.digitalGreenCertificateAccess = digitalGreenCertificateAccess
+		self.digitalCovidCertificateAccess = digitalCovidCertificateAccess
 
 		setup()
 	}
@@ -137,7 +137,10 @@ class HealthCertificateService {
 				Log.info("[HealthCertificateService] Removed health certificate at index \(index)", log: .api)
 
 				if healthCertifiedPerson.healthCertificates.isEmpty {
-					healthCertifiedPersons.value.removeAll(where: { $0 == healthCertifiedPerson })
+					healthCertifiedPersons.value = healthCertifiedPersons.value
+						.filter { $0 != healthCertifiedPerson }
+						.sorted()
+					updateGradients()
 
 					Log.info("[HealthCertificateService] Removed health certified person", log: .api)
 				}
@@ -322,7 +325,7 @@ class HealthCertificateService {
 	private let store: HealthCertificateStoring
 	private let client: Client
 	private let appConfiguration: AppConfigurationProviding
-	private let digitalGreenCertificateAccess: DigitalGreenCertificateAccessProtocol
+	private let digitalCovidCertificateAccess: DigitalCovidCertificateAccessProtocol
 
 	private var healthCertifiedPersonSubscriptions = Set<AnyCancellable>()
 	private var testCertificateRequestSubscriptions = Set<AnyCancellable>()
@@ -479,7 +482,7 @@ class HealthCertificateService {
 
 		do {
 			let decodedDEK = try rsaKeyPair.decrypt(encryptedDEKData)
-			let result = digitalGreenCertificateAccess.convertToBase45(from: encryptedCOSE, with: decodedDEK)
+			let result = digitalCovidCertificateAccess.convertToBase45(from: encryptedCOSE, with: decodedDEK)
 
 			switch result {
 			case .success(let healthCertificateBase45):
