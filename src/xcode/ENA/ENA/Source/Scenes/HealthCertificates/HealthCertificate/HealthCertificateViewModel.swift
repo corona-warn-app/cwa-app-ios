@@ -215,7 +215,7 @@ final class HealthCertificateViewModel {
 		let diseaseCellViewModel = HealthCertificateKeyValueCellViewModel(
 			key: "Zielkrankheit oder -erreger / Disease or Agent Targeted",
 			value: determineValue(
-				key: vaccinationEntry.vaccineMedicinalProduct,
+				key: vaccinationEntry.diseaseOrAgentTargeted,
 				valueSet: valueSet(by: .diseaseOrAgentTargeted)
 			)
 		)
