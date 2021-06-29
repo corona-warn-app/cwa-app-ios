@@ -615,7 +615,7 @@ final class HTTPClient: Client {
 		})
 	}
 	
-	func getDccOnboardedCountries(
+	func getDCCOnboardedCountries(
 		isFake: Bool = false,
 		completion: @escaping DCCOnboardedCountriesCompletionHandler
 	) {
@@ -650,7 +650,7 @@ final class HTTPClient: Client {
 					Log.info("Content was not modified - 304.", log: .api)
 					completion(.failure(.notModified))
 				default:
-					Log.error("Generell server error.", log: .api)
+					Log.error("Generel server error.", log: .api)
 					completion(.failure(.serverError(response.statusCode)))
 				}
 			case let .failure(error):

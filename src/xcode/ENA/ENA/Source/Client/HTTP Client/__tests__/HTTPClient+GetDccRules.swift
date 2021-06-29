@@ -38,8 +38,6 @@ final class HTTPClientGetDccRulesTests: CWATestCase {
 		self.assertPackageFormat(for: try XCTUnwrap(response))
 	}
 	
-	
-	
 	// MARK: - Private
 	
 	private let binFileSize = 50
