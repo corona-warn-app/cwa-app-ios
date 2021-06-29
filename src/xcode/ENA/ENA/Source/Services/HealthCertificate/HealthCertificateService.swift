@@ -114,7 +114,8 @@ class HealthCertificateService {
 
 			if !healthCertifiedPersons.value.contains(healthCertifiedPerson) {
 				Log.info("[HealthCertificateService] Successfully registered health certificate for a new person", log: .api)
-				healthCertifiedPersons.value.append(healthCertifiedPerson)
+				healthCertifiedPersons.value = (healthCertifiedPersons.value + [healthCertifiedPerson]).sorted()
+				updateGradients()
 			} else {
 				Log.info("[HealthCertificateService] Successfully registered health certificate for a person with other existing certificates", log: .api)
 			}
@@ -351,7 +352,7 @@ class HealthCertificateService {
 			.store(in: &subscriptions)
 
 		subscribeToNotifications()
-		updatePersonsSortingAndGradients()
+		updateGradients()
 	}
 
 	private func updateHealthCertifiedPersonSubscriptions(for healthCertifiedPersons: [HealthCertifiedPerson]) {
@@ -371,22 +372,14 @@ class HealthCertificateService {
 							}
 					}
 
-					self.updatePersonsSortingAndGradients()
+					self.healthCertifiedPersons.value = self.healthCertifiedPersons.value.sorted()
+					self.updateGradients()
 				}
 				.store(in: &healthCertifiedPersonSubscriptions)
 		}
 	}
 
-	private func updatePersonsSortingAndGradients() {
-		let preferredPerson = self.healthCertifiedPersons.value
-			.filter { $0.isPreferredPerson }
-
-		let sortedOtherPersons = self.healthCertifiedPersons.value
-			.filter { !$0.isPreferredPerson }
-			.sorted { $0.name?.fullName ?? "" < $1.name?.fullName ?? "" }
-
-		self.healthCertifiedPersons.value = preferredPerson + sortedOtherPersons
-
+	private func updateGradients() {
 		let gradientTypes: [GradientView.GradientType] = [.lightBlue(withStars: true), .mediumBlue(withStars: true), .darkBlue(withStars: true)]
 		self.healthCertifiedPersons.value
 			.enumerated()
