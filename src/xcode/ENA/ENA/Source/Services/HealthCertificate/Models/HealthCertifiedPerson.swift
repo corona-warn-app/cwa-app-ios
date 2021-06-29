@@ -52,7 +52,11 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	// MARK: - Protocol Comparable
 
 	static func < (lhs: HealthCertifiedPerson, rhs: HealthCertifiedPerson) -> Bool {
-		return lhs.isPreferredPerson && !rhs.isPreferredPerson || lhs.name?.fullName ?? "" < rhs.name?.fullName ?? ""
+		let preferredPersonPrecedesNonPreferred = lhs.isPreferredPerson && !rhs.isPreferredPerson
+		let haveSamePreferredStateAndAreInAlphabeticalOrder = lhs.isPreferredPerson == rhs.isPreferredPerson && lhs.name?.fullName ?? "" < rhs.name?.fullName ?? ""
+
+		return preferredPersonPrecedesNonPreferred || haveSamePreferredStateAndAreInAlphabeticalOrder
+
 	}
 
 	// MARK: - Internal
