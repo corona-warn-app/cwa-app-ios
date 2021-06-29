@@ -6,7 +6,7 @@ import Foundation
 import base45_swift
 import SwiftCBOR
 
-public enum DigitalGreenCertificateFake {
+public enum DigitalCovidCertificateFake {
 
     public static func makeBase45Fake(from certificate: Codable, and header: CBORWebTokenHeader) -> Result<Base45, CertificateDecodingError> {
 
@@ -62,7 +62,7 @@ public enum DigitalGreenCertificateFake {
     }
     
     public static func makeBase45CorruptFake(
-        from certificate: DigitalGreenCertificate,
+        from certificate: DigitalCovidCertificate,
         and header: CBORWebTokenHeader = CBORWebTokenHeader.fake()
     ) -> Result<Base45, CertificateDecodingError> {
 

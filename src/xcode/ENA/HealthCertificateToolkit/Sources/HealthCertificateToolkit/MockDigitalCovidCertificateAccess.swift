@@ -4,7 +4,7 @@
 
 import Foundation
 
-public struct MockDigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtocol {
+public struct MockDigitalCovidCertificateAccess: DigitalCovidCertificateAccessProtocol {
 
     // MARK: - Init
 
@@ -13,7 +13,7 @@ public struct MockDigitalGreenCertificateAccess: DigitalGreenCertificateAccessPr
     // MARK: - Public
 
     public var extractedCBORWebTokenHeader: Result<CBORWebTokenHeader, CertificateDecodingError>?
-    public var extractedDigitalGreenCertificate: Result<DigitalGreenCertificate, CertificateDecodingError>?
+    public var extractedDigitalCovidCertificate: Result<DigitalCovidCertificate, CertificateDecodingError>?
     public var convertedToBase45: Result<Base45, CertificateDecodingError>?
 
     public func extractCBORWebTokenHeader(from base45: Base45) -> Result<CBORWebTokenHeader, CertificateDecodingError> {
@@ -24,18 +24,18 @@ public struct MockDigitalGreenCertificateAccess: DigitalGreenCertificateAccessPr
         return extractedCBORWebTokenHeader
     }
 
-    public func extractDigitalGreenCertificate(from base45: Base45) -> Result<DigitalGreenCertificate, CertificateDecodingError> {
-        guard let extractedDigitalGreenCertificate = extractedDigitalGreenCertificate else {
-            return .success(DigitalGreenCertificate.fake())
+    public func extractDigitalCovidCertificate(from base45: Base45) -> Result<DigitalCovidCertificate, CertificateDecodingError> {
+        guard let extractedDigitalCovidCertificate = extractedDigitalCovidCertificate else {
+            return .success(DigitalCovidCertificate.fake())
         }
 
-        return extractedDigitalGreenCertificate
+        return extractedDigitalCovidCertificate
     }
 
     public func convertToBase45(from base64: Base64, with dataEncryptionKey: Data) -> Result<Base45, CertificateDecodingError> {
         guard let convertedToBase45 = convertedToBase45 else {
-            return DigitalGreenCertificateFake.makeBase45Fake(
-                from: DigitalGreenCertificate.fake(),
+            return DigitalCovidCertificateFake.makeBase45Fake(
+                from: DigitalCovidCertificate.fake(),
                 and: CBORWebTokenHeader.fake()
             )
         }
