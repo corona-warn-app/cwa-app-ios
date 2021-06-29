@@ -34,7 +34,7 @@
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" image="Illu_Warnende_Personen" translatesAutoresizingMaskIntoConstraints="NO" id="lG5-IG-zhb">
-                                <rect key="frame" x="129" y="80" width="129" height="132"/>
+                                <rect key="frame" x="142" y="72.5" width="116" height="119"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="lG5-IG-zhb" secondAttribute="height" multiplier="43:44" id="evM-PE-Gkb"/>
                                 </constraints>
@@ -57,8 +57,8 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="subheadline"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uiS-41-C8l" userLabel="Primary Title" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                <rect key="frame" x="8" y="80" width="33" height="16"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uiS-41-C8l" userLabel="Primary Title" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                <rect key="frame" x="8" y="72.5" width="33" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" name="ENA Text Primary 2 Color"/>
                                 <nil key="highlightedColor"/>
@@ -67,7 +67,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qg3-mg-jyh" userLabel="Primary Value View">
-                                <rect key="frame" x="8" y="98" width="56" height="19"/>
+                                <rect key="frame" x="8" y="90.5" width="56" height="19"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cI5-0N-VlT">
                                         <rect key="frame" x="37" y="0.0" width="19" height="19"/>
@@ -98,8 +98,8 @@
                                     <constraint firstItem="X8v-lw-IDk" firstAttribute="leading" secondItem="qg3-mg-jyh" secondAttribute="leading" id="iGZ-6h-TkW"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8yo-Gj-7Zr" userLabel="Primary Subtitle" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                <rect key="frame" x="8" y="119" width="33" height="16"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8yo-Gj-7Zr" userLabel="Primary Subtitle" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                <rect key="frame" x="8" y="111.5" width="33" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" name="ENA Text Primary 2 Color"/>
                                 <nil key="highlightedColor"/>
@@ -108,10 +108,10 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FJ7-m5-GFV" userLabel="Secondary Item View">
-                                <rect key="frame" x="8" y="127.5" width="56" height="37"/>
+                                <rect key="frame" x="8" y="121.5" width="56" height="21"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tVQ-sZ-E0G" userLabel="Secondary Title" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="56" height="16"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="56" height="0.0"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="textColor" name="ENA Text Primary 2 Color"/>
                                         <nil key="highlightedColor"/>
@@ -120,7 +120,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VWy-wb-jgw" userLabel="Secondary Value View">
-                                        <rect key="frame" x="0.0" y="18" width="56" height="19"/>
+                                        <rect key="frame" x="0.0" y="2" width="56" height="19"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NyP-1Y-umM" userLabel="Secondary Value" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="33" height="19"/>
@@ -139,7 +139,6 @@
                                                 </constraints>
                                             </imageView>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemOrangeColor"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="kjh-gs-46P" secondAttribute="trailing" id="0de-JB-u2l"/>
                                             <constraint firstItem="NyP-1Y-umM" firstAttribute="top" secondItem="VWy-wb-jgw" secondAttribute="top" id="363-He-jQc"/>
@@ -153,7 +152,6 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemYellowColor"/>
                                 <constraints>
                                     <constraint firstItem="tVQ-sZ-E0G" firstAttribute="top" secondItem="FJ7-m5-GFV" secondAttribute="top" id="0Vo-4I-pSZ"/>
                                     <constraint firstItem="VWy-wb-jgw" firstAttribute="top" secondItem="tVQ-sZ-E0G" secondAttribute="bottom" constant="2" id="910-tL-eqc"/>
@@ -165,7 +163,7 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ztt-N8-4eH" userLabel="Ternary Title" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                <rect key="frame" x="8" y="178" width="33" height="16"/>
+                                <rect key="frame" x="8" y="170" width="33" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" name="ENA Text Primary 2 Color"/>
                                 <nil key="highlightedColor"/>
@@ -174,7 +172,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b91-qB-ewI" userLabel="Ternary Value" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                <rect key="frame" x="8" y="196" width="33" height="16"/>
+                                <rect key="frame" x="8" y="188" width="33" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -190,17 +188,17 @@
                             <constraint firstAttribute="trailing" secondItem="cI5-0N-VlT" secondAttribute="trailing" constant="194" id="2HL-e6-fQI"/>
                             <constraint firstItem="FJ7-m5-GFV" firstAttribute="leading" secondItem="0va-VA-sPP" secondAttribute="leading" constant="8" id="5zk-Mf-r0b"/>
                             <constraint firstItem="51i-oS-U8J" firstAttribute="firstBaseline" secondItem="xVH-tu-FSN" secondAttribute="firstBaseline" id="6NA-Fb-Lom"/>
-                            <constraint firstItem="lG5-IG-zhb" firstAttribute="width" secondItem="0va-VA-sPP" secondAttribute="width" multiplier="1/2" id="7n0-eH-skI"/>
+                            <constraint firstItem="lG5-IG-zhb" firstAttribute="width" secondItem="0va-VA-sPP" secondAttribute="width" multiplier="0.45" id="7n0-eH-skI"/>
                             <constraint firstItem="lG5-IG-zhb" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="FJ7-m5-GFV" secondAttribute="trailing" constant="8" id="B5O-Mz-t1F"/>
                             <constraint firstItem="8yo-Gj-7Zr" firstAttribute="leading" secondItem="0va-VA-sPP" secondAttribute="leading" constant="8" id="Ed9-j5-rIH"/>
+                            <constraint firstItem="uiS-41-C8l" firstAttribute="top" secondItem="tYE-br-OPW" secondAttribute="bottom" priority="999" constant="20" id="F9L-iQ-BMX"/>
                             <constraint firstItem="qg3-mg-jyh" firstAttribute="leading" secondItem="0va-VA-sPP" secondAttribute="leading" constant="8" id="Ge2-Yk-wnd"/>
                             <constraint firstItem="xVH-tu-FSN" firstAttribute="top" relation="greaterThanOrEqual" secondItem="0va-VA-sPP" secondAttribute="top" constant="4" id="Hgq-6d-bUC"/>
                             <constraint firstItem="tYE-br-OPW" firstAttribute="leading" secondItem="0va-VA-sPP" secondAttribute="leading" constant="8" id="I38-LL-aME"/>
                             <constraint firstItem="51i-oS-U8J" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="tYE-br-OPW" secondAttribute="trailing" constant="8" id="ITL-qD-JdM"/>
                             <constraint firstItem="uiS-41-C8l" firstAttribute="top" relation="greaterThanOrEqual" secondItem="tYE-br-OPW" secondAttribute="bottom" constant="4" id="L95-Li-D8r"/>
                             <constraint firstItem="tYE-br-OPW" firstAttribute="top" secondItem="xVH-tu-FSN" secondAttribute="bottom" constant="4" id="Mah-zm-vRa"/>
-                            <constraint firstAttribute="bottom" secondItem="lG5-IG-zhb" secondAttribute="bottom" constant="8" id="OKn-HS-Bto"/>
-                            <constraint firstItem="cI5-0N-VlT" firstAttribute="top" secondItem="0va-VA-sPP" secondAttribute="top" constant="98" id="Ohf-3s-n6k"/>
+                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="lG5-IG-zhb" secondAttribute="bottom" constant="8" id="OKn-HS-Bto"/>
                             <constraint firstItem="qg3-mg-jyh" firstAttribute="top" secondItem="uiS-41-C8l" secondAttribute="bottom" constant="2" id="PI8-cz-2Jp"/>
                             <constraint firstItem="uiS-41-C8l" firstAttribute="leading" secondItem="0va-VA-sPP" secondAttribute="leading" constant="8" id="Plb-jL-huF"/>
                             <constraint firstItem="lG5-IG-zhb" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="uiS-41-C8l" secondAttribute="trailing" id="Qqb-ZL-cnz"/>
@@ -208,10 +206,10 @@
                             <constraint firstItem="ztt-N8-4eH" firstAttribute="leading" secondItem="0va-VA-sPP" secondAttribute="leading" constant="8" id="Tmt-M2-AKI"/>
                             <constraint firstItem="b91-qB-ewI" firstAttribute="top" secondItem="ztt-N8-4eH" secondAttribute="bottom" constant="2" id="UQx-kp-UR3"/>
                             <constraint firstItem="lG5-IG-zhb" firstAttribute="centerY" secondItem="FJ7-m5-GFV" secondAttribute="centerY" id="Yho-sq-Ko6"/>
-                            <constraint firstAttribute="bottom" secondItem="b91-qB-ewI" secondAttribute="bottom" constant="8" id="bT4-9w-efs"/>
+                            <constraint firstAttribute="bottom" secondItem="b91-qB-ewI" secondAttribute="bottom" constant="16" id="bT4-9w-efs"/>
                             <constraint firstItem="cI5-0N-VlT" firstAttribute="leading" secondItem="X8v-lw-IDk" secondAttribute="trailing" constant="4" id="btO-tC-DHn"/>
+                            <constraint firstItem="FJ7-m5-GFV" firstAttribute="top" secondItem="qg3-mg-jyh" secondAttribute="bottom" constant="12" id="c3w-bY-4Uh"/>
                             <constraint firstItem="xVH-tu-FSN" firstAttribute="leading" secondItem="0va-VA-sPP" secondAttribute="leading" constant="8" id="dOq-yy-lWw"/>
-                            <constraint firstAttribute="bottom" secondItem="cI5-0N-VlT" secondAttribute="bottom" constant="103" id="hy0-VX-Kgg"/>
                             <constraint firstItem="51i-oS-U8J" firstAttribute="top" secondItem="0va-VA-sPP" secondAttribute="top" id="kZp-ub-YvZ"/>
                             <constraint firstItem="lG5-IG-zhb" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ztt-N8-4eH" secondAttribute="trailing" constant="8" id="m07-Zm-wKB"/>
                             <constraint firstItem="lG5-IG-zhb" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8yo-Gj-7Zr" secondAttribute="trailing" constant="8" id="ocY-Cd-6TF"/>
@@ -289,12 +287,6 @@
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemOrangeColor">
-            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemYellowColor">
-            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

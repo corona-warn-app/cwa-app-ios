@@ -12,10 +12,8 @@ final class StatisticsViewController: UIViewController, UICollectionViewDataSour
 		case invalidIndex
 	}
 
-	static let height: CGFloat = 239 // from old satistics cell
-	static let width: CGFloat = 250 // from old satistics cell
-
-	private let maxCountUserdefinedStatistics = 5
+	static let height: CGFloat = 300
+	let width: CGFloat = UIScreen.main.bounds.width * 0.8
 
 	/// User-selected 'local/regional' statistics
 	var userDefinedStatistics: [SAP_Internal_Stats_KeyFigureCard] = []
@@ -26,7 +24,7 @@ final class StatisticsViewController: UIViewController, UICollectionViewDataSour
 		let layout = PagingCollectionViewLayout()
 		layout.sectionInset = .init(top: 0, left: spacing, bottom: 0, right: spacing)
 		layout.minimumLineSpacing = cellSpacing
-		layout.itemSize = .init(width: Self.width, height: Self.height - 20)
+		layout.itemSize = .init(width: width, height: Self.height - 20) // '20' = shadow offset
 		layout.scrollDirection = .horizontal
 
 		let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -35,19 +33,14 @@ final class StatisticsViewController: UIViewController, UICollectionViewDataSour
 		collectionView.decelerationRate = .fast
 		collectionView.dataSource = self
 		collectionView.delegate = self
-		collectionView.backgroundColor = .magenta.withAlphaComponent(0.3) // debug!
-
+		collectionView.backgroundColor = .enaColor(for: .darkBackground)
 		collectionView.register(UINib(nibName: "StatisticCell", bundle: nil), forCellWithReuseIdentifier: StatisticCell.reuseIdentifier)
 		collectionView.register(UINib(nibName: "ManageStatisticCell", bundle: nil), forCellWithReuseIdentifier: ManageStatisticCell.reuseIdentifier)
 
 		return collectionView
 	}()
 
-	// clamped: shortest side or 300pt max
-	private lazy var width = {
-		min(min(UIScreen.main.bounds.width, UIScreen.main.bounds.height), 300)
-	}()
-	private lazy var cellWidth = { 0.85 * width }()
+	private let maxCountUserdefinedStatistics = 5
 	private lazy var spacing = { 1 / 8 * width }()
 	private lazy var cellSpacing = { 1 / 16 * width }()
 
