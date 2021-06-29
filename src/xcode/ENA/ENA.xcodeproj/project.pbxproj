@@ -468,6 +468,8 @@
 		503DB1A7255D822E00576E57 /* ExposureSubmissionIntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503DB1A6255D822E00576E57 /* ExposureSubmissionIntroViewController.swift */; };
 		503DB1AC255D826900576E57 /* ExposureSubmissionIntroViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503DB1AB255D826900576E57 /* ExposureSubmissionIntroViewModel.swift */; };
 		50412F2E2689B4DA00E4087C /* RuleType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50412F2D2689B4DA00E4087C /* RuleType.swift */; };
+		50412F312689D2F300E4087C /* HTTPClient+GetDccRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50412F302689D2F300E4087C /* HTTPClient+GetDccRules.swift */; };
+		50412F32268AFA3500E4087C /* api-response-rule in Resources */ = {isa = PBXBuildFile; fileRef = 50412F2F2689D2D700E4087C /* api-response-rule */; };
 		504BB0AC25EE204A006B0E54 /* ErrorReportDetailInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504BB0AB25EE204A006B0E54 /* ErrorReportDetailInformationViewController.swift */; };
 		504BB0B525EE2392006B0E54 /* ErrorReportDetailInformationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504BB0B425EE2392006B0E54 /* ErrorReportDetailInformationViewModel.swift */; };
 		504C9CC925C44C180005875B /* OTPService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504C9CC825C44C180005875B /* OTPService.swift */; };
@@ -1688,6 +1690,7 @@
 		503DB1AB255D826900576E57 /* ExposureSubmissionIntroViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionIntroViewModel.swift; sourceTree = "<group>"; };
 		50412F2D2689B4DA00E4087C /* RuleType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleType.swift; sourceTree = "<group>"; };
 		50412F2F2689D2D700E4087C /* api-response-rule */ = {isa = PBXFileReference; lastKnownFileType = file; path = "api-response-rule"; sourceTree = "<group>"; };
+		50412F302689D2F300E4087C /* HTTPClient+GetDccRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClient+GetDccRules.swift"; sourceTree = "<group>"; };
 		504BB0AB25EE204A006B0E54 /* ErrorReportDetailInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorReportDetailInformationViewController.swift; sourceTree = "<group>"; };
 		504BB0B425EE2392006B0E54 /* ErrorReportDetailInformationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorReportDetailInformationViewModel.swift; sourceTree = "<group>"; };
 		504C9CC825C44C180005875B /* OTPService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPService.swift; sourceTree = "<group>"; };
@@ -5912,6 +5915,7 @@
 				50373EC825FBD08A000109AE /* HTTPClient+TraceWarningPackageDownloadTests.swift */,
 				5058DF862667666400858446 /* HTTPClient+GetDigitalCovid19CertificateTests.swift */,
 				5078DCA72686085700535917 /* HTTPClient+GetDccOnboardedCountries.swift */,
+				50412F302689D2F300E4087C /* HTTPClient+GetDccRules.swift */,
 				A1877CA9248F247D006FEFC0 /* SAPDownloadedPackageTests.swift */,
 				B1EAEC8D247118CB003BE9A2 /* URLSession+ConvenienceTests.swift */,
 				BA8BBA07255A90690034D4BC /* WifiHTTPClientTests.swift */,
@@ -7388,6 +7392,7 @@
 				F252472F2483955B00C5556B /* DynamicTableViewControllerFake.storyboard in Resources */,
 				50FA071126021180003C1E46 /* api-response-traceWarning in Resources */,
 				01571B7A255E9A6F00E4E891 /* config-wru-2020-11-13 in Resources */,
+				50412F32268AFA3500E4087C /* api-response-rule in Resources */,
 				BA7D178125D549B3006B9EBF /* testData.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -8408,6 +8413,7 @@
 				BA6C8B24254D76ED008344F5 /* ExposureWindowTestCase.swift in Sources */,
 				01A97DD32506769F00C07C37 /* DatePickerDayViewModelTests.swift in Sources */,
 				BA11D5BA2588D590005DCD6B /* DiaryAddAndEditEntryViewModelTest.swift in Sources */,
+				50412F312689D2F300E4087C /* HTTPClient+GetDccRules.swift in Sources */,
 				507685D325E8EA040039B7B6 /* UserMetadataTests.swift in Sources */,
 				F2DC809224898B1800EDC40A /* DynamicTableViewControllerHeaderTests.swift in Sources */,
 				01F52FFC2552E6F600997A26 /* ENARangeTest.swift in Sources */,
