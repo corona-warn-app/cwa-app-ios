@@ -57,17 +57,63 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 					onInfoButtonTap: onInfoButtonTap,
 					onAccessibilityFocus: onAccessibilityFocus
 				)
-
 				onUpdate()
 			}
 			.store(in: &subscriptions)
-
 		// Retaining cell model so it gets updated
 		self.cellModel = keyFigureCellModel
 
 		isConfigured = true
-	}
 
+		keyFigureCellModel.$localAdministrativeUnitStatistics
+			.receive(on: DispatchQueue.OCombine(.main))
+			.sink { administrativeUnitsData in
+				self.insertLocalStatistics(
+					administrativeUnitsData: administrativeUnitsData,
+					onInfoButtonTap: onInfoButtonTap,
+					onAccessibilityFocus: onAccessibilityFocus
+				)
+				onUpdate()
+			}
+			.store(in: &subscriptions)
+	}
+	
+	func insertLocalStatistics(
+		administrativeUnitsData: [SAP_Internal_Stats_AdministrativeUnitData],
+		onInfoButtonTap:  @escaping () -> Void,
+		onAccessibilityFocus: @escaping () -> Void
+	) {
+		let administrativeUnit = administrativeUnitsData.first {
+			$0.administrativeUnitShortID == UInt32(district?.districtId ?? "0")
+		}
+		
+		guard let adminUnit = administrativeUnit, let districtName = district?.districtName else {
+			// TO DO Error handling
+			return
+		}
+		let nibName = String(describing: HomeStatisticsCardView.self)
+		let nib = UINib(nibName: nibName, bundle: .main)
+
+		if let statisticsCardView = nib.instantiate(withOwner: self, options: nil).first as? HomeStatisticsCardView {
+			if !stackView.arrangedSubviews.isEmpty {
+				stackView.insertArrangedSubview(statisticsCardView, at: 1)
+
+				statisticsCardView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
+				statisticsCardView.configure(
+					viewModel: HomeStatisticsCardViewModel(administrativeUnitData: adminUnit, district: districtName),
+					onInfoButtonTap: {
+						onInfoButtonTap()
+					},
+					onAccessibilityFocus: { [weak self] in
+						self?.scrollView.scrollRectToVisible(statisticsCardView.frame, animated: false)
+						onAccessibilityFocus()
+						UIAccessibility.post(notification: .layoutChanged, argument: nil)
+					}
+				)
+				configureBaselines(statisticsCardView: statisticsCardView)
+			}
+		}
+	}
 	// MARK: - Private
 
 	@IBOutlet private weak var scrollView: UIScrollView!
@@ -104,9 +150,11 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 
 		let addNibName = String(describing: AddStatisticsCardView.self)
 		let addNib = UINib(nibName: addNibName, bundle: .main)
+		
 		if let addLocalStatisticsCardView = addNib.instantiate(withOwner: self, options: nil).first as? AddStatisticsCardView {
 			stackView.addArrangedSubview(addLocalStatisticsCardView)
 			addLocalStatisticsCardView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
+			
 			addLocalStatisticsCardView.configure(
 				localStatisticsModel: localStatisticsModel,
 				availableCardsState: .empty, // TODO get state based on the current number of local statistics cards
