@@ -251,6 +251,16 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		XCTAssertEqual(store.healthCertifiedPersons.last?.healthCertificates, [thirdTestCertificate, secondVaccinationCertificate])
 		XCTAssertEqual(service.healthCertifiedPersons.value.last?.gradientType, .mediumBlue(withStars: true))
+
+		// Remove all certificates of first person and check that person is removed and gradient is correct
+
+		service.removeHealthCertificate(firstVaccinationCertificate)
+		service.removeHealthCertificate(firstTestCertificate)
+		service.removeHealthCertificate(secondTestCertificate)
+
+		XCTAssertEqual(store.healthCertifiedPersons.count, 1)
+		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [thirdTestCertificate, secondVaccinationCertificate])
+		XCTAssertEqual(service.healthCertifiedPersons.value.first?.gradientType, .lightBlue(withStars: true))
 	}
 
 	func testLoadingCertificatesFromStoreAndRemovingCertificates() throws {
