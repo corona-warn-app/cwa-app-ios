@@ -143,6 +143,7 @@ class CreateAntigenTestProfileViewController: UITableViewController, FooterViewH
 	}
 	
 	func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+		// filtering out emojis and any other unwanted charaters. these are not wanted in the test profile.
 		return string.trimmingCharacters(in: CharacterSet.alphanumerics).isEmpty
 			|| string.trimmingCharacters(in: CharacterSet.punctuationCharacters).isEmpty
 			|| string.trimmingCharacters(in: CharacterSet.symbols).isEmpty
