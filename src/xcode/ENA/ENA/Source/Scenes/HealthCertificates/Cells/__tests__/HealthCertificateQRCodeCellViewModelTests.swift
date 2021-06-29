@@ -13,7 +13,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		let viewModel = HealthCertificateQRCodeCellViewModel(
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalGreenCertificate.fake(
+					from: DigitalCovidCertificate.fake(
 						vaccinationEntries: [
 							VaccinationEntry.fake(
 								dateOfVaccination: "2021-06-01"
@@ -42,7 +42,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		let viewModel = HealthCertificateQRCodeCellViewModel(
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalGreenCertificate.fake(
+					from: DigitalCovidCertificate.fake(
 						testEntries: [
 							TestEntry.fake(
 								dateTimeOfSampleCollection: dateTimeOfSampleCollection
@@ -67,7 +67,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		let viewModel = HealthCertificateQRCodeCellViewModel(
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalGreenCertificate.fake(
+					from: DigitalCovidCertificate.fake(
 						recoveryEntries: [
 							RecoveryEntry.fake(
 								certificateValidUntil: "2021-12-03T07:12:45.132Z"
