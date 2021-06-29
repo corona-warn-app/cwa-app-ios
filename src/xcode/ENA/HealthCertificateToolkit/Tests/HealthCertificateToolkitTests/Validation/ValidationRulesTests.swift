@@ -23,4 +23,3 @@ class ValidationRulesTests: XCTestCase {
         XCTAssertEqual(validationRules.rules, rules)
     }
 }
-

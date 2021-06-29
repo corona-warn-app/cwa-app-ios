@@ -13,4 +13,8 @@ struct ValidationRules {
     init(cborData: CBORData) throws {
         self.rules = try CodableCBORDecoder().decode([Rule].self, from: cborData)
     }
+
+    func applyTechnicalValidation(validationClock: TimeInterval, expirationDate: TimeInterval, digitalCoronaCertificate: DigitalGreenCertificate) {
+
+    }
 }
