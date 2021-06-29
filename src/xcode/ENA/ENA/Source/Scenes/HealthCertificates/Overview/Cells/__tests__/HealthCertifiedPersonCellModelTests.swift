@@ -27,7 +27,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		// THEN
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
-		XCTAssertEqual(viewModel.accessibilityIdentifier, AccessibilityIdentifiers.HealthCertificate.Overview.vaccinationCertificateCell)
+		XCTAssertEqual(viewModel.accessibilityIdentifier, AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell)
 	}
 
 }

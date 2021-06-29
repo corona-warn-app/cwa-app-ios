@@ -20,7 +20,7 @@ class HealthCertifiedPersonCellModel {
 		backgroundGradientType = healthCertifiedPerson.gradientType
 		name = healthCertifiedPerson.name?.fullName
 		certificate = mostRelevantCertificate
-		accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Overview.vaccinationCertificateCell
+		accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell
 	}
 
 	// MARK: - Internal
