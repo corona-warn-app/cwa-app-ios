@@ -2810,7 +2810,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Recovery Certificate Delete Alert */
 
-"RecoveryCertificate_Alert_title" = "Wollen Sie das Genesenenzertifikat wirklich entfernen?";
+"RecoveryCertificate_Alert_title" = "Wollen Sie das Zertifikat entfernen?";
 
 "RecoveryCertificate_Alert_message" = "Wenn Sie das Genesenenzertifikat entfernen, können Sie es nicht mehr als Nachweis in der App verwenden.";
 
