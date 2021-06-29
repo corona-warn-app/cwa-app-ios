@@ -671,6 +671,7 @@
 		8FA88F9F2613A7E300FD36DA /* EncodingType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA88F9E2613A7E300FD36DA /* EncodingType.swift */; };
 		8FA88FAA2613B38D00FD36DA /* QRCodeVerificationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA88FA92613B38D00FD36DA /* QRCodeVerificationHelper.swift */; };
 		8FA88FE02616692000FD36DA /* TraceLocationDetailViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA88FDF2616692000FD36DA /* TraceLocationDetailViewModelTests.swift */; };
+		8FB331B6268BD8EE00804747 /* LocalStatisticsDistrict.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB331B5268BD8EE00804747 /* LocalStatisticsDistrict.swift */; };
 		8FB5A61625DD65D500679990 /* TestResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA9E39224D2F2920030561C /* TestResult.swift */; };
 		8FDB9403261FBA3800BA8CB1 /* AntigenTestQRCodeInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDB9402261FBA3800BA8CB1 /* AntigenTestQRCodeInformation.swift */; };
 		8FDB940B261FBAAA00BA8CB1 /* CoronaTestRegistrationInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDB940A261FBAAA00BA8CB1 /* CoronaTestRegistrationInformation.swift */; };
@@ -1920,6 +1921,7 @@
 		8FA88F9E2613A7E300FD36DA /* EncodingType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncodingType.swift; sourceTree = "<group>"; };
 		8FA88FA92613B38D00FD36DA /* QRCodeVerificationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeVerificationHelper.swift; sourceTree = "<group>"; };
 		8FA88FDF2616692000FD36DA /* TraceLocationDetailViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationDetailViewModelTests.swift; sourceTree = "<group>"; };
+		8FB331B5268BD8EE00804747 /* LocalStatisticsDistrict.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStatisticsDistrict.swift; sourceTree = "<group>"; };
 		8FDB9402261FBA3800BA8CB1 /* AntigenTestQRCodeInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntigenTestQRCodeInformation.swift; sourceTree = "<group>"; };
 		8FDB940A261FBAAA00BA8CB1 /* CoronaTestRegistrationInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaTestRegistrationInformation.swift; sourceTree = "<group>"; };
 		8FE6CEFC2617482C006BFB82 /* CheckinQRCodeScannerViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinQRCodeScannerViewModelTests.swift; sourceTree = "<group>"; };
@@ -4833,6 +4835,7 @@
 			children = (
 				8F3BB9392684A890000B9A95 /* LocalStatisticsFederalState.swift */,
 				8F499B082682357D0047C1A6 /* AddStatisticsCardsViewModel.swift */,
+				8FB331B5268BD8EE00804747 /* LocalStatisticsDistrict.swift */,
 				8F3BB9372684A3F0000B9A95 /* AddLocalStatisticsModel.swift */,
 				8F499B04267CDE530047C1A6 /* AddStatisticsCardView.swift */,
 				8F499B02267CDE420047C1A6 /* AddStatisticsCardView.xib */,
@@ -7752,6 +7755,7 @@
 				35AAA19126139FE500D3A4C1 /* Array+SaveAccess.swift in Sources */,
 				50680B9A26164439002EA256 /* DMDMMostRecentTraceLocationCheckedIntoViewController.swift in Sources */,
 				BA6C8AAE254D6476008344F5 /* ENARange.swift in Sources */,
+				8FB331B6268BD8EE00804747 /* LocalStatisticsDistrict.swift in Sources */,
 				BA01BA65264423CF00D906B6 /* HealthCertificateInfoViewController.swift in Sources */,
 				50BD2E6424FE232E00932566 /* AppInformationImprintViewModel.swift in Sources */,
 				71330E4724810A0C00EB10F6 /* DynamicTableViewFooter.swift in Sources */,
