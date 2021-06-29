@@ -114,7 +114,8 @@ class HealthCertificateService {
 
 			if !healthCertifiedPersons.value.contains(healthCertifiedPerson) {
 				Log.info("[HealthCertificateService] Successfully registered health certificate for a new person", log: .api)
-				healthCertifiedPersons.value.append(healthCertifiedPerson)
+				healthCertifiedPersons.value = (healthCertifiedPersons.value + [healthCertifiedPerson]).sorted()
+				updateGradients()
 			} else {
 				Log.info("[HealthCertificateService] Successfully registered health certificate for a person with other existing certificates", log: .api)
 			}
@@ -351,6 +352,7 @@ class HealthCertificateService {
 			.store(in: &subscriptions)
 
 		subscribeToNotifications()
+		updateGradients()
 	}
 
 	private func updateHealthCertifiedPersonSubscriptions(for healthCertifiedPersons: [HealthCertifiedPerson]) {
@@ -358,13 +360,32 @@ class HealthCertificateService {
 
 		healthCertifiedPersons.forEach { healthCertifiedPerson in
 			healthCertifiedPerson.objectDidChange
-				.sink { [weak self] _ in
+				.sink { [weak self] healthCertifiedPerson in
 					guard let self = self else { return }
-					// Trigger publisher to inform subscribers and update store
-					self.healthCertifiedPersons.value = self.healthCertifiedPersons.value
+
+					if healthCertifiedPerson.isPreferredPerson {
+						// Set isPreferredPerson = false on all other persons to only have one preferred person
+						self.healthCertifiedPersons.value
+							.filter { $0 != healthCertifiedPerson }
+							.forEach {
+								$0.isPreferredPerson = false
+							}
+					}
+
+					self.healthCertifiedPersons.value = self.healthCertifiedPersons.value.sorted()
+					self.updateGradients()
 				}
 				.store(in: &healthCertifiedPersonSubscriptions)
 		}
+	}
+
+	private func updateGradients() {
+		let gradientTypes: [GradientView.GradientType] = [.lightBlue(withStars: true), .mediumBlue(withStars: true), .darkBlue(withStars: true)]
+		self.healthCertifiedPersons.value
+			.enumerated()
+			.forEach { index, person in
+				person.gradientType = gradientTypes[index % 3]
+			}
 	}
 
 	private func updateTestCertificateRequestSubscriptions(for testCertificateRequests: [TestCertificateRequest]) {

@@ -71,7 +71,7 @@ class LogDataItem: NSObject, UIActivityItemSource {
 	func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivity.ActivityType?) -> Any? {
 		do {
 			let temporaryURL = URL(fileURLWithPath: NSTemporaryDirectory().appending("cwa-log.zip"))
-			try compressedData.write(to: temporaryURL, options: [])
+			try compressedData.write(to: temporaryURL, options: .atomic)
 			return temporaryURL
 		} catch {
 			Log.error("", log: .localData, error: error)

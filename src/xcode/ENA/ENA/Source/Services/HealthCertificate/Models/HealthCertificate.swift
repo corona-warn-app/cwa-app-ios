@@ -10,18 +10,30 @@ struct HealthCertificate: Codable, Equatable, Comparable {
 	// MARK: - Init
 
 	init(base45: Base45) throws {
-		// Ensure the data will be decodable on the fly later on, even though we don't store the decoded data
-		if case .failure(let error) = DigitalGreenCertificateAccess().extractCBORWebTokenHeader(from: base45) {
-			Log.error("Failed to decode header of health certificate with error", log: .vaccination, error: error)
-			throw error
-		}
-
-		if case .failure(let error) = DigitalGreenCertificateAccess().extractDigitalGreenCertificate(from: base45) {
-			Log.error("Failed to decode health certificate with error", log: .vaccination, error: error)
-			throw error
-		}
-
 		self.base45 = base45
+		self.cborWebTokenHeader = try Self.extractCBORWebTokenHeader(from: base45)
+		self.digitalGreenCertificate = try Self.extractDigitalGreenCertificate(from: base45)
+	}
+
+	// MARK: - Protocol Codable
+
+	enum CodingKeys: String, CodingKey {
+		case base45
+	}
+
+	init(from decoder: Decoder) throws {
+		let container = try decoder.container(keyedBy: CodingKeys.self)
+
+		base45 = try container.decode(Base45.self, forKey: .base45)
+
+		self.cborWebTokenHeader = try Self.extractCBORWebTokenHeader(from: base45)
+		self.digitalGreenCertificate = try Self.extractDigitalGreenCertificate(from: base45)
+	}
+
+	func encode(to encoder: Encoder) throws {
+		var container = encoder.container(keyedBy: CodingKeys.self)
+
+		try container.encode(base45, forKey: .base45)
 	}
 
 	// MARK: - Protocol Comparable
@@ -144,29 +156,8 @@ struct HealthCertificate: Codable, Equatable, Comparable {
 
 	// MARK: - Private
 
-	private var cborWebTokenHeader: CBORWebTokenHeader {
-		let result = DigitalGreenCertificateAccess().extractCBORWebTokenHeader(from: base45)
-
-		switch result {
-		case .success(let cborWebTokenHeader):
-			return cborWebTokenHeader
-		case .failure(let error):
-			Log.error("Failed to decode header of health certificate with error", log: .vaccination, error: error)
-			fatalError("Decoding the cborWebTokenHeader failed even though decodability was checked at initialization.")
-		}
-	}
-
-	private var digitalGreenCertificate: DigitalGreenCertificate {
-		let result = DigitalGreenCertificateAccess().extractDigitalGreenCertificate(from: base45)
-
-		switch result {
-		case .success(let digitalGreenCertificate):
-			return digitalGreenCertificate
-		case .failure(let error):
-			Log.error("Failed to decode health certificate with error", log: .vaccination, error: error)
-			fatalError("Decoding the digitalGreenCertificate failed even though decodability was checked at initialization.")
-		}
-	}
+	private let cborWebTokenHeader: CBORWebTokenHeader
+	private let digitalGreenCertificate: DigitalGreenCertificate
 
 	private var sortDate: Date? {
 		switch entry {
@@ -176,6 +167,30 @@ struct HealthCertificate: Codable, Equatable, Comparable {
 			return testEntry.sampleCollectionDate
 		case .recovery(let recoveryEntry):
 			return recoveryEntry.localCertificateValidityStartDate
+		}
+	}
+
+	private static func extractCBORWebTokenHeader(from base45: Base45) throws -> CBORWebTokenHeader {
+		let webTokenHeaderResult = DigitalGreenCertificateAccess().extractCBORWebTokenHeader(from: base45)
+
+		switch webTokenHeaderResult {
+		case .success(let cborWebTokenHeader):
+			return cborWebTokenHeader
+		case .failure(let error):
+			Log.error("Failed to decode header of health certificate with error", log: .vaccination, error: error)
+			throw error
+		}
+	}
+
+	private static func extractDigitalGreenCertificate(from base45: Base45) throws -> DigitalGreenCertificate {
+		let certificateResult = DigitalGreenCertificateAccess().extractDigitalGreenCertificate(from: base45)
+
+		switch certificateResult {
+		case .success(let digitalGreenCertificate):
+			return digitalGreenCertificate
+		case .failure(let error):
+			Log.error("Failed to decode health certificate with error", log: .vaccination, error: error)
+			throw error
 		}
 	}
 
