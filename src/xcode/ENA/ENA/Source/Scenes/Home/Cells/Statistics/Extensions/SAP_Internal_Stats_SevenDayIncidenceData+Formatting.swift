@@ -2,7 +2,7 @@
 // 🦠 Corona-Warn-App
 //
 
-import Foundation
+import UIKit
 
 extension SAP_Internal_Stats_SevenDayIncidenceData {
 	

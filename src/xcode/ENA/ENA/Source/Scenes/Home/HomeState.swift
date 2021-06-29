@@ -142,7 +142,7 @@ class HomeState: ENStateHandlerUpdating {
 	}
 	
 	func updateLocalStatistics(localStatisticsDistrict: LocalStatisticsDistrict) {
-		localStatisticsProvider.latestLocalStatistics(localStatisticsDistrict: String(localStatisticsDistrict.federalState.id), eTag: nil)
+		localStatisticsProvider.latestLocalStatistics(administrativeUnit: String(localStatisticsDistrict.federalState.id), eTag: nil)
 			.sink(
 				receiveCompletion: { [weak self] result in
 					switch result {
