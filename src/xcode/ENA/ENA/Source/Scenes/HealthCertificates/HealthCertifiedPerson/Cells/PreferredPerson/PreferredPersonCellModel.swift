@@ -3,7 +3,6 @@
 //
 
 import Foundation
-import UIKit
 import OpenCombine
 
 class PreferredPersonCellModel {
