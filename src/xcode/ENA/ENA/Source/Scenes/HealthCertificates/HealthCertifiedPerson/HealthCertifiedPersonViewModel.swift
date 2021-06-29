@@ -20,13 +20,6 @@ final class HealthCertifiedPersonViewModel {
 		self.healthCertifiedPerson = healthCertifiedPerson
 		self.healtCertificateValueSetsProvider = healthCertificateValueSetsProvider
 
-		// setup gradient update
-		healthCertifiedPerson.$vaccinationState
-			.sink { [weak self] in
-				self?.gradientType = $0.gradientType
-			}
-			.store(in: &subscriptions)
-
 		healthCertifiedPerson.objectDidChange
 			.sink { [weak self] healthCertifiedPerson in
 				guard !healthCertifiedPerson.healthCertificates.isEmpty else {
@@ -35,6 +28,12 @@ final class HealthCertifiedPersonViewModel {
 				}
 
 				self?.triggerReload = true
+			}
+			.store(in: &subscriptions)
+
+		healthCertifiedPerson.$gradientType
+			.sink { [weak self] in
+				self?.gradientType = $0
 			}
 			.store(in: &subscriptions)
 
@@ -52,7 +51,7 @@ final class HealthCertifiedPersonViewModel {
 	enum TableViewSection: Int, CaseIterable {
 		case header
 		case qrCode
-		case fullyVaccinatedHint
+		case vaccinationHint
 		case person
 		case certificates
 
@@ -69,66 +68,52 @@ final class HealthCertifiedPersonViewModel {
 	}
 
 	let headerCellViewModel: HealthCertificateSimpleTextCellViewModel = {
-		let centerParagraphStyle = NSMutableParagraphStyle()
-		centerParagraphStyle.alignment = .center
-		centerParagraphStyle.lineSpacing = 10.0
-
-		let attributedHeadline = NSAttributedString(
-			string: AppStrings.HealthCertificate.Person.title,
-			attributes: [
-				.font: UIFont.enaFont(for: .headline),
-				.foregroundColor: UIColor.enaColor(for: .textContrast),
-				.paragraphStyle: centerParagraphStyle
-			]
-		)
-
-		let attributedSubheadline = NSAttributedString(
-			string: AppStrings.HealthCertificate.Person.subtitle,
-			attributes: [
-				.font: UIFont.enaFont(for: .body),
-				.foregroundColor: UIColor.enaColor(for: .textContrast),
-				.paragraphStyle: centerParagraphStyle
-			]
-		)
-
-		return HealthCertificateSimpleTextCellViewModel(
+		HealthCertificateSimpleTextCellViewModel(
 			backgroundColor: .clear,
+			textColor: .enaColor(for: .textContrast),
 			textAlignment: .center,
-			attributedText: [attributedHeadline, attributedSubheadline].joined(with: "\n"),
+			text: AppStrings.HealthCertificate.Person.title,
 			topSpace: 42.0,
 			font: .enaFont(for: .headline),
 			accessibilityTraits: .staticText
 		)
 	}()
 
-	@OpenCombine.Published private(set) var gradientType: GradientView.GradientType = .solidGrey
+	@OpenCombine.Published private(set) var gradientType: GradientView.GradientType = .lightBlue(withStars: true)
 	@OpenCombine.Published private(set) var triggerReload: Bool = false
 	@OpenCombine.Published private(set) var updateError: Error?
 
 	var qrCodeCellViewModel: HealthCertificateQRCodeCellViewModel {
-		guard let latestHealthCertificate = healthCertifiedPerson.healthCertificates.last
+		guard let mostRelevantHealthCertificate = healthCertifiedPerson.mostRelevantHealthCertificate
 			else {
 			fatalError("Cell cannot be shown without a health certificate")
 		}
 
 		return HealthCertificateQRCodeCellViewModel(
-			healthCertificate: latestHealthCertificate,
+			healthCertificate: mostRelevantHealthCertificate,
 			accessibilityText: AppStrings.HealthCertificate.Person.QRCodeImageDescription
 		)
 	}
 
-	var fullyVaccinatedHintCellViewModel: HealthCertificateSimpleTextCellViewModel {
-		guard case .fullyVaccinated(daysUntilCompleteProtection: let daysUntilCompleteProtection) = healthCertifiedPerson.vaccinationState else {
-			fatalError("Cell cannot be shown in any other vaccination state than .fullyVaccinated")
+	var vaccinationHintCellViewModel: HealthCertificateSimpleTextCellViewModel {
+		let text: String
+
+		switch healthCertifiedPerson.vaccinationState {
+		case .partiallyVaccinated:
+			text = AppStrings.HealthCertificate.Person.partiallyVaccinated
+		case .fullyVaccinated(daysUntilCompleteProtection: let daysUntilCompleteProtection):
+			text = String(
+				format: AppStrings.HealthCertificate.Person.daysUntilCompleteProtection,
+				daysUntilCompleteProtection
+			)
+		case .notVaccinated, .completelyProtected:
+			fatalError("Cell cannot be shown in any other vaccination state than .partiallyVaccinated or .fullyVaccinated")
 		}
 
 		return HealthCertificateSimpleTextCellViewModel(
 			backgroundColor: .enaColor(for: .cellBackground2),
 			textAlignment: .left,
-			text: String(
-				format: AppStrings.HealthCertificate.Person.daysUntilCompleteProtection,
-				daysUntilCompleteProtection
-			),
+			text: text,
 			topSpace: 16.0,
 			font: .enaFont(for: .body),
 			borderColor: .enaColor(for: .hairline),
@@ -136,38 +121,19 @@ final class HealthCertifiedPersonViewModel {
 		)
 	}
 
-	var fullyVaccinatedHintIsVisible: Bool {
-		if case .fullyVaccinated = healthCertifiedPerson.vaccinationState {
+	var vaccinationHintIsVisible: Bool {
+		switch healthCertifiedPerson.vaccinationState {
+		case .partiallyVaccinated, .fullyVaccinated:
 			return true
-		} else {
+		case .notVaccinated, .completelyProtected:
 			return false
 		}
 	}
 
-	var personCellViewModel: HealthCertificateSimpleTextCellViewModel {
-		let attributedName = NSAttributedString(
-			string: healthCertifiedPerson.name?.fullName ?? "",
-			attributes: [
-				.font: UIFont.enaFont(for: .headline),
-				.foregroundColor: UIColor.enaColor(for: .textPrimary1)
-			]
-		)
-
-		let attributedDetails = NSAttributedString(
-			string: dateOfBirth ?? "",
-			attributes: [
-				.font: UIFont.enaFont(for: .body),
-				.foregroundColor: UIColor.enaColor(for: .textPrimary1)
-			]
-		)
-
-		return HealthCertificateSimpleTextCellViewModel(
-			backgroundColor: .enaColor(for: .cellBackground2),
-			attributedText: [attributedName, attributedDetails].joined(with: "\n"),
-			topSpace: 16.0,
-			font: .enaFont(for: .headline),
-			borderColor: .enaColor(for: .hairline),
-			accessibilityTraits: .staticText
+	var preferredPersonCellModel: PreferredPersonCellModel {
+		PreferredPersonCellModel(
+			healthCertifiedPerson: healthCertifiedPerson,
+			healthCertificateService: healthCertificateService
 		)
 	}
 
@@ -177,8 +143,8 @@ final class HealthCertifiedPersonViewModel {
 			return 1
 		case .qrCode:
 			return 1
-		case .fullyVaccinatedHint:
-			return fullyVaccinatedHintIsVisible ? 1 : 0
+		case .vaccinationHint:
+			return vaccinationHintIsVisible ? 1 : 0
 		case .person:
 			return 1
 		case .certificates:
@@ -186,10 +152,19 @@ final class HealthCertifiedPersonViewModel {
 		}
 	}
 
+	func heightForFooter(in section: TableViewSection) -> CGFloat {
+		switch section {
+		case .certificates:
+			return 12
+		default:
+			return 0
+		}
+	}
+
 	func healthCertificateCellViewModel(row: Int) -> HealthCertificateCellViewModel {
 		HealthCertificateCellViewModel(
 			healthCertificate: healthCertifiedPerson.healthCertificates[row],
-			gradientType: gradientType
+			healthCertifiedPerson: healthCertifiedPerson
 		)
 	}
 
@@ -219,19 +194,5 @@ final class HealthCertifiedPersonViewModel {
 	private let healthCertificateService: HealthCertificateService
 	private let healtCertificateValueSetsProvider: VaccinationValueSetsProvider
 	private var subscriptions = Set<AnyCancellable>()
-
-	private var dateOfBirth: String? {
-		guard
-			let dateOfBirthString = healthCertifiedPerson.dateOfBirth,
-			let dateOfBirthDate = ISO8601DateFormatter.justLocalDateFormatter.date(from: dateOfBirthString)
-		else {
-			return nil
-		}
-
-		return String(
-			format: AppStrings.HealthCertificate.Person.dateOfBirth,
-			DateFormatter.localizedString(from: dateOfBirthDate, dateStyle: .medium, timeStyle: .none)
-		)
-	}
 
 }

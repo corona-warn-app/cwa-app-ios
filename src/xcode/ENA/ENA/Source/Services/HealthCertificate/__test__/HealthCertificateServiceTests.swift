@@ -179,6 +179,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		XCTAssertEqual(store.healthCertifiedPersons.count, 1)
 		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
+		XCTAssertEqual(service.healthCertifiedPersons.value.first?.gradientType, .lightBlue(withStars: true))
 
 		// Register vaccination certificate for other person
 
@@ -203,8 +204,13 @@ class HealthCertificateServiceTests: CWATestCase {
 		}
 
 		XCTAssertEqual(store.healthCertifiedPersons.count, 2)
-		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
-		XCTAssertEqual(store.healthCertifiedPersons.last?.healthCertificates, [secondVaccinationCertificate])
+
+		// New health certified person comes first due to alphabetical ordering
+		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [secondVaccinationCertificate])
+		XCTAssertEqual(service.healthCertifiedPersons.value.first?.gradientType, .lightBlue(withStars: true))
+
+		XCTAssertEqual(store.healthCertifiedPersons.last?.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
+		XCTAssertEqual(service.healthCertifiedPersons.value.last?.gradientType, .mediumBlue(withStars: true))
 
 		// Register test certificate for second person
 
@@ -229,8 +235,22 @@ class HealthCertificateServiceTests: CWATestCase {
 		}
 
 		XCTAssertEqual(store.healthCertifiedPersons.count, 2)
+
+		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [thirdTestCertificate, secondVaccinationCertificate])
+		XCTAssertEqual(service.healthCertifiedPersons.value.first?.gradientType, .lightBlue(withStars: true))
+
+		XCTAssertEqual(store.healthCertifiedPersons.last?.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
+		XCTAssertEqual(service.healthCertifiedPersons.value.last?.gradientType, .mediumBlue(withStars: true))
+
+		// Set last person as preferred person and check that positions switched and gradients are correct
+
+		service.healthCertifiedPersons.value.last?.isPreferredPerson = true
+
 		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
+		XCTAssertEqual(service.healthCertifiedPersons.value.first?.gradientType, .lightBlue(withStars: true))
+
 		XCTAssertEqual(store.healthCertifiedPersons.last?.healthCertificates, [thirdTestCertificate, secondVaccinationCertificate])
+		XCTAssertEqual(service.healthCertifiedPersons.value.last?.gradientType, .mediumBlue(withStars: true))
 	}
 
 	func testLoadingCertificatesFromStoreAndRemovingCertificates() throws {
@@ -244,7 +264,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		let healthCertificate1 = try HealthCertificate(
 			base45: try base45Fake(from: DigitalGreenCertificate.fake(
-				name: .fake(standardizedFamilyName: "MUSTERMANN", standardizedGivenName: "PHILIPP"),
+				name: .fake(standardizedFamilyName: "MUSTERMANN", standardizedGivenName: "DORA"),
 				testEntries: [TestEntry.fake(
 					dateTimeOfSampleCollection: "2021-04-30T22:34:17.595Z",
 					uniqueCertificateIdentifier: "0"
@@ -264,7 +284,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		let healthCertificate3 = try HealthCertificate(
 			base45: try base45Fake(from: DigitalGreenCertificate.fake(
-				name: .fake(standardizedFamilyName: "MUSTERMANN", standardizedGivenName: "DORA"),
+				name: .fake(standardizedFamilyName: "MUSTERMANN", standardizedGivenName: "PHILIPP"),
 				testEntries: [TestEntry.fake(
 					dateTimeOfSampleCollection: "2021-05-16T22:34:17.595Z",
 					uniqueCertificateIdentifier: "2"

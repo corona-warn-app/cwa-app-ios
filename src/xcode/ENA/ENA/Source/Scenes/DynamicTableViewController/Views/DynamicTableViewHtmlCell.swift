@@ -6,7 +6,7 @@ import Foundation
 import UIKit
 
 class DynamicTableViewHtmlCell: UITableViewCell {
-	let textView = HtmlTextView()
+	let webView = HTMLView()
 
 	required init?(coder: NSCoder) {
 		super.init(coder: coder)
@@ -19,14 +19,13 @@ class DynamicTableViewHtmlCell: UITableViewCell {
 	}
 
 	private func setup() {
-		textView.translatesAutoresizingMaskIntoConstraints = false
-		textView.isScrollEnabled = false
+		webView.translatesAutoresizingMaskIntoConstraints = false
 
 		contentView.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
-		contentView.addSubview(textView)
-		contentView.layoutMarginsGuide.topAnchor.constraint(equalTo: textView.topAnchor).isActive = true
-		contentView.layoutMarginsGuide.bottomAnchor.constraint(equalTo: textView.bottomAnchor).isActive = true
-		contentView.layoutMarginsGuide.leadingAnchor.constraint(equalTo: textView.leadingAnchor).isActive = true
-		contentView.layoutMarginsGuide.trailingAnchor.constraint(equalTo: textView.trailingAnchor).isActive = true
+		contentView.addSubview(webView)
+		contentView.layoutMarginsGuide.topAnchor.constraint(equalTo: webView.topAnchor).isActive = true
+		contentView.layoutMarginsGuide.bottomAnchor.constraint(equalTo: webView.bottomAnchor).isActive = true
+		contentView.layoutMarginsGuide.leadingAnchor.constraint(equalTo: webView.leadingAnchor).isActive = true
+		contentView.layoutMarginsGuide.trailingAnchor.constraint(equalTo: webView.trailingAnchor).isActive = true
 	}
 }

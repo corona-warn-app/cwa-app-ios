@@ -82,14 +82,14 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 			cell.configure(with: viewModel.qrCodeCellViewModel)
 			return cell
 
-		case .fullyVaccinatedHint:
+		case .vaccinationHint:
 			let cell = tableView.dequeueReusableCell(cellType: HealthCertificateSimpleTextCell.self, for: indexPath)
-			cell.configure(with: viewModel.fullyVaccinatedHintCellViewModel)
+			cell.configure(with: viewModel.vaccinationHintCellViewModel)
 			return cell
 
 		case .person:
-			let cell = tableView.dequeueReusableCell(cellType: HealthCertificateSimpleTextCell.self, for: indexPath)
-			cell.configure(with: viewModel.personCellViewModel)
+			let cell = tableView.dequeueReusableCell(cellType: PreferredPersonTableViewCell.self, for: indexPath)
+			cell.configure(with: viewModel.preferredPersonCellModel)
 			return cell
 
 		case .certificates:
@@ -97,6 +97,22 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 			cell.configure(viewModel.healthCertificateCellViewModel(row: indexPath.row))
 			return cell
 		}
+	}
+
+	func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+		if HealthCertifiedPersonViewModel.TableViewSection.map(section) == .certificates {
+			let footerView = UIView()
+			footerView.backgroundColor = .clear
+
+			return footerView
+		} else {
+			return nil
+		}
+	}
+
+	func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+		let section = HealthCertifiedPersonViewModel.TableViewSection.map(section)
+		return viewModel.heightForFooter(in: section)
 	}
 
 	// MARK: - Protocol UITableViewDelegate
@@ -134,7 +150,7 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 	func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
 		guard editingStyle == .delete, let healthCertificate = viewModel.healthCertificate(for: indexPath) else { return }
 
-		let fullyVaccinatedHintWasVisible = viewModel.fullyVaccinatedHintIsVisible
+		let vaccinationHintWasVisible = viewModel.vaccinationHintIsVisible
 
 		self.didSwipeToDelete(healthCertificate) { [weak self] in
 			guard let self = self else { return }
@@ -144,8 +160,8 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 			tableView.performBatchUpdates({
 				var indexPaths = [indexPath]
 
-				if fullyVaccinatedHintWasVisible && !self.viewModel.fullyVaccinatedHintIsVisible {
-					indexPaths.append(IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.fullyVaccinatedHint.rawValue))
+				if vaccinationHintWasVisible && !self.viewModel.vaccinationHintIsVisible {
+					indexPaths.append(IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.vaccinationHint.rawValue))
 				}
 
 				tableView.deleteRows(at: indexPaths, with: .automatic)
@@ -176,9 +192,8 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 	private var isAnimatingChanges = false
 
 	private func setupNavigationBar() {
-		let logoImage = UIImage(imageLiteralResourceName: "Corona-Warn-App").withRenderingMode(.alwaysTemplate)
+		let logoImage = UIImage(imageLiteralResourceName: "Corona-Warn-App-Small").withRenderingMode(.alwaysTemplate)
 		let logoImageView = UIImageView(image: logoImage)
-		logoImageView.tintColor = .enaColor(for: .textContrast)
 
 		navigationController?.navigationBar.tintColor = .white
 		navigationItem.leftBarButtonItem = UIBarButtonItem(customView: logoImageView)
@@ -248,6 +263,10 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		tableView.register(
 			HealthCertificateCell.self,
 			forCellReuseIdentifier: HealthCertificateCell.reuseIdentifier
+		)
+		tableView.register(
+			PreferredPersonTableViewCell.self,
+			forCellReuseIdentifier: PreferredPersonTableViewCell.reuseIdentifier
 		)
 	}
 

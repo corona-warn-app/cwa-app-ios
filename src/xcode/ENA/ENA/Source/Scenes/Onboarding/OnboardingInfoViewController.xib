@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -13,6 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OnboardingInfoViewController" customModule="ENA" customModuleProvider="target">
             <connections>
                 <outlet property="boldLabel" destination="Nk7-Zk-JE2" id="9ac-v1-q7m"/>
+                <outlet property="containerView" destination="fqq-PR-maG" id="5CQ-vZ-PtO"/>
                 <outlet property="footerView" destination="yjp-QW-juI" id="kEl-zf-fY8"/>
                 <outlet property="ignoreButton" destination="9f7-Oe-AOV" id="sOM-OY-eJI"/>
                 <outlet property="imageView" destination="03z-yc-6d8" id="PiJ-Ct-Ilk"/>
@@ -35,14 +36,14 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s0i-qY-dv1">
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s0i-qY-dv1">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                     <subviews>
-                        <view contentMode="scaleToFill" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fqq-PR-maG">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="678.66666666666663"/>
+                        <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fqq-PR-maG" userLabel="Container View">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="686.5"/>
                             <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="u0Z-dj-KUh">
-                                    <rect key="frame" x="16" y="16" width="382" height="678.5"/>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="u0Z-dj-KUh">
+                                    <rect key="frame" x="16" y="16" width="382" height="654.5"/>
                                     <subviews>
                                         <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="jKw-RG-YP1">
                                             <rect key="frame" x="0.0" y="0.0" width="382" height="229"/>
@@ -120,7 +121,7 @@
                                             </constraints>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="800" verticalCompressionResistancePriority="50" text="Title 1" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PuR-3M-Pvl" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="476.5" width="382" height="33.5"/>
+                                            <rect key="frame" x="0.0" y="476.5" width="382" height="20.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" name="ENA Text Primary 1 Color"/>
                                             <nil key="highlightedColor"/>
@@ -128,8 +129,8 @@
                                                 <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="title1"/>
                                             </userDefinedRuntimeAttributes>
                                         </label>
-                                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="Lgs-ln-Zc7">
-                                            <rect key="frame" x="0.0" y="542" width="382" height="136.5"/>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="Lgs-ln-Zc7">
+                                            <rect key="frame" x="0.0" y="529" width="382" height="125.5"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Headline" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nk7-Zk-JE2" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="382" height="20.5"/>
@@ -141,7 +142,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subheadline" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="znr-XX-rfp" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="44.5" width="382" height="18"/>
+                                                    <rect key="frame" x="0.0" y="44.5" width="382" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" name="ENA Text Primary 1 Color"/>
                                                     <nil key="highlightedColor"/>
@@ -149,8 +150,8 @@
                                                         <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="subheadline"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" contentInsetAdjustmentBehavior="never" editable="NO" allowsEditingTextAttributes="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vwe-7A-NHS">
-                                                    <rect key="frame" x="0.0" y="86.5" width="382" height="50"/>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" contentInsetAdjustmentBehavior="never" editable="NO" allowsEditingTextAttributes="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vwe-7A-NHS">
+                                                    <rect key="frame" x="0.0" y="89" width="382" height="36.5"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <accessibility key="accessibilityConfiguration">
                                                         <accessibilityTraits key="traits" link="YES"/>
@@ -169,7 +170,7 @@
                                 <constraint firstItem="03z-yc-6d8" firstAttribute="leading" secondItem="fqq-PR-maG" secondAttribute="leading" id="BET-wA-eAz"/>
                                 <constraint firstItem="u0Z-dj-KUh" firstAttribute="leading" secondItem="fqq-PR-maG" secondAttribute="leadingMargin" id="UQo-xN-LaJ"/>
                                 <constraint firstAttribute="trailing" secondItem="03z-yc-6d8" secondAttribute="trailing" id="VkS-tX-y37"/>
-                                <constraint firstAttribute="bottomMargin" secondItem="u0Z-dj-KUh" secondAttribute="bottom" id="Z1n-Ov-IHt"/>
+                                <constraint firstAttribute="bottomMargin" secondItem="u0Z-dj-KUh" secondAttribute="bottom" priority="750" id="Z1n-Ov-IHt"/>
                                 <constraint firstItem="u0Z-dj-KUh" firstAttribute="top" secondItem="fqq-PR-maG" secondAttribute="topMargin" id="aAn-Qd-GSS"/>
                                 <constraint firstAttribute="trailingMargin" secondItem="u0Z-dj-KUh" secondAttribute="trailing" id="q3m-8x-9GS"/>
                             </constraints>
@@ -251,25 +252,25 @@
             <size key="intrinsicContentSize" width="41.5" height="20.5"/>
         </designable>
         <designable name="9f7-Oe-AOV">
-            <size key="intrinsicContentSize" width="67" height="50"/>
+            <size key="intrinsicContentSize" width="51" height="34"/>
         </designable>
         <designable name="Nk7-Zk-JE2">
-            <size key="intrinsicContentSize" width="70.5" height="20.5"/>
+            <size key="intrinsicContentSize" width="67" height="20.5"/>
         </designable>
         <designable name="PuR-3M-Pvl">
-            <size key="intrinsicContentSize" width="77" height="33.5"/>
+            <size key="intrinsicContentSize" width="45" height="20.5"/>
         </designable>
         <designable name="lge-Dm-wcC">
             <size key="intrinsicContentSize" width="41.5" height="20.5"/>
         </designable>
         <designable name="vh2-Dv-3W6">
-            <size key="intrinsicContentSize" width="33" height="16"/>
+            <size key="intrinsicContentSize" width="41.5" height="20.5"/>
         </designable>
         <designable name="vo8-Zn-enn">
-            <size key="intrinsicContentSize" width="54" height="50"/>
+            <size key="intrinsicContentSize" width="38" height="34"/>
         </designable>
         <designable name="znr-XX-rfp">
-            <size key="intrinsicContentSize" width="85" height="18"/>
+            <size key="intrinsicContentSize" width="94.5" height="20.5"/>
         </designable>
     </designables>
     <resources>
