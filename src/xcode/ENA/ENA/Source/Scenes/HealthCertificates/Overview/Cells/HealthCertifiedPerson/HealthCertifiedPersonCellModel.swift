@@ -17,10 +17,10 @@ class HealthCertifiedPersonCellModel {
 			return nil
 		}
 		title = AppStrings.HealthCertificate.Overview.covidTitle
-		backgroundGradientType = healthCertifiedPerson.vaccinationState.gradientType
+		backgroundGradientType = healthCertifiedPerson.gradientType
 		name = healthCertifiedPerson.name?.fullName
 		certificate = mostRelevantCertificate
-		accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Overview.vaccinationCertificateCell
+		accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell
 	}
 
 	// MARK: - Internal
