@@ -694,7 +694,7 @@ final class HTTPClient: Client {
 					Log.info("Successfully got rules for ruleType: \(ruleType)", log: .api)
 					completion(.success(packageDownloadResponse))
 				default:
-					Log.error("Generell server error.", log: .api)
+					Log.error("Generel server error.", log: .api)
 					completion(.failure(.serverError(response.statusCode)))
 				}
 			case let .failure(error):
