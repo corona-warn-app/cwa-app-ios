@@ -20,14 +20,31 @@ final class HealthCertifiedPersonViewModel {
 		self.healthCertifiedPerson = healthCertifiedPerson
 		self.healtCertificateValueSetsProvider = healthCertificateValueSetsProvider
 
-		healthCertifiedPerson.objectDidChange
-			.sink { [weak self] healthCertifiedPerson in
-				guard !healthCertifiedPerson.healthCertificates.isEmpty else {
+		healthCertifiedPerson.$healthCertificates
+			.sink { [weak self] in
+				guard !$0.isEmpty else {
 					dismiss()
 					return
 				}
 
-				self?.triggerReload = true
+				self?.triggerCertificatesReload = true
+			}
+			.store(in: &subscriptions)
+
+		healthCertifiedPerson.$vaccinationState
+			.sink { [weak self] _ in
+				self?.triggerCertificatesReload = true
+			}
+			.store(in: &subscriptions)
+
+		healthCertifiedPerson.$mostRelevantHealthCertificate
+			.sink { [weak self] in
+				guard $0 != nil else {
+					dismiss()
+					return
+				}
+
+				self?.triggerQRCodeReload = true
 			}
 			.store(in: &subscriptions)
 
@@ -80,7 +97,8 @@ final class HealthCertifiedPersonViewModel {
 	}()
 
 	@OpenCombine.Published private(set) var gradientType: GradientView.GradientType = .lightBlue(withStars: true)
-	@OpenCombine.Published private(set) var triggerReload: Bool = false
+	@OpenCombine.Published private(set) var triggerQRCodeReload: Bool = false
+	@OpenCombine.Published private(set) var triggerCertificatesReload: Bool = false
 	@OpenCombine.Published private(set) var updateError: Error?
 
 	var qrCodeCellViewModel: HealthCertificateQRCodeCellViewModel {
