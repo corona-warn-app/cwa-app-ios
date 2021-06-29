@@ -25,6 +25,7 @@ protocol Client {
 	typealias TraceWarningPackageDownloadCompletionHandler = (Result<PackageDownloadResponse, TraceWarningError>) -> Void
 	typealias DigitalCovid19CertificateCompletionHandler = (Result<DCCResponse, DCCErrors.DigitalCovid19CertificateError>) -> Void
 	typealias DCCRegistrationCompletionHandler = (Result<Void, DCCErrors.RegistrationError>) -> Void
+	typealias DCCOnboardedCountriesCompletionHandler = (Result<PackageDownloadResponse, Failure>) -> Void
 	
 	// MARK: Interacting with a Client
 
@@ -198,6 +199,17 @@ protocol Client {
 		registrationToken token: String,
 		isFake: Bool,
 		completion: @escaping DigitalCovid19CertificateCompletionHandler
+	)
+	
+	// MARK: DccValidation
+	
+	/// GET call to receive the list of onboarded countries as a ResponsePackageDownload. Must be extracted and verified afterwards.
+	/// - Parameters:
+	///   - isFake: Flag to indicate a fake request
+	///   - completion: The completion handler of the call, which contains a ResponsePackageDownload or a URLSession.Response.Failure
+	func getDCCOnboardedCountries(
+		isFake: Bool,
+		completion: @escaping DCCOnboardedCountriesCompletionHandler
 	)
 }
 

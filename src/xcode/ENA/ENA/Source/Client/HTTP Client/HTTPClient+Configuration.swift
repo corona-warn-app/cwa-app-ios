@@ -256,7 +256,7 @@ extension HTTPClient {
 			)
 		}
 		
-		var vaccinationValueSets: URL {
+		var vaccinationValueSetsURL: URL {
 			endpoints
 				.distribution
 				.appending(
@@ -285,6 +285,17 @@ extension HTTPClient {
 					"version",
 					apiVersion,
 					"dcc"
+				)
+		}
+		
+		var dccOnboardedCountriesURL: URL {
+			endpoints
+				.distribution
+				.appending(
+					"version",
+					apiVersion,
+					"ehn-dgc",
+					"onboarded-countries"
 				)
 		}
 	}

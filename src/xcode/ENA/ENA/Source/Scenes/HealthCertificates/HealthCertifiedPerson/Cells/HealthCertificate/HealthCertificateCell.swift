@@ -31,9 +31,15 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 
 	func configure(_ cellViewModel: HealthCertificateCellViewModel) {
 		gradientBackground.type = cellViewModel.gradientType
-		shieldImageView.image = cellViewModel.image
-		headlineTextLabel.text = cellViewModel.headline
-		detailsTextLabel.text = cellViewModel.detail
+		iconImageView.image = cellViewModel.image
+
+		headlineLabel.text = cellViewModel.headline
+		subheadlineLabel.text = cellViewModel.subheadline
+		detailsLabel.text = cellViewModel.detail
+
+		currentlyUsedStackView.isHidden = !cellViewModel.isCurrentlyUsedCertificateHintVisible
+
+		setupAccessibility()
 	}
 
 	// MARK: - Private
@@ -41,9 +47,13 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 	private let backgroundContainerView = UIView()
 	private let disclosureContainerView = UIView()
 	private let disclosureImageView = UIImageView()
-	private let headlineTextLabel = ENALabel()
-	private let detailsTextLabel = ENALabel()
-	private let shieldImageView = UIImageView()
+	private let headlineLabel = ENALabel()
+	private let subheadlineLabel = ENALabel()
+	private let detailsLabel = ENALabel()
+	private let currentlyUsedStackView = UIStackView()
+	private let currentlyUsedImageView = UIImageView()
+	private let currentlyUsedLabel = ENALabel()
+	private let iconImageView = UIImageView()
 	private let gradientBackground = GradientView()
 
 	private func setupView() {
@@ -65,9 +75,9 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		backgroundContainerView.translatesAutoresizingMaskIntoConstraints = false
 		contentView.addSubview(backgroundContainerView)
 
-		headlineTextLabel.font = .enaFont(for: .headline)
-		headlineTextLabel.numberOfLines = 0
-		headlineTextLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
+		headlineLabel.style = .headline
+		headlineLabel.numberOfLines = 0
+		headlineLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
 
 		disclosureImageView.image = UIImage(named: "Icons_Chevron_plain")
 		disclosureImageView.contentMode = .scaleAspectFit
@@ -76,18 +86,42 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		disclosureContainerView.addSubview(disclosureImageView)
 		disclosureContainerView.setContentHuggingPriority(.defaultHigh, for: .horizontal)
 
-		let headlineStackView = UIStackView(arrangedSubviews: [headlineTextLabel, disclosureContainerView])
+		let headlineStackView = UIStackView(arrangedSubviews: [headlineLabel, disclosureContainerView])
 		headlineStackView.alignment = .bottom
 		headlineStackView.distribution = .fill
 		headlineStackView.axis = .horizontal
-		headlineStackView.spacing = 8.0
+		headlineStackView.spacing = 8
 
-		detailsTextLabel.font = .enaFont(for: .subheadline)
-		detailsTextLabel.numberOfLines = 0
+		subheadlineLabel.style = .body
+		subheadlineLabel.textColor = .enaColor(for: .textPrimary2)
+		subheadlineLabel.numberOfLines = 0
 
-		let vStackView = UIStackView(arrangedSubviews: [headlineStackView, detailsTextLabel])
+		detailsLabel.style = .body
+		detailsLabel.textColor = .enaColor(for: .textPrimary2)
+		detailsLabel.numberOfLines = 0
+
+		let subheadlineDetailsStackView = UIStackView(arrangedSubviews: [subheadlineLabel, detailsLabel])
+		subheadlineDetailsStackView.axis = .vertical
+		subheadlineDetailsStackView.spacing = 0
+
+		currentlyUsedImageView.image = UIImage(named: "CurrentlyUsedCertificate_Icon")
+		currentlyUsedImageView.contentMode = .scaleAspectFit
+		currentlyUsedImageView.setContentHuggingPriority(.required, for: .horizontal)
+		currentlyUsedStackView.addArrangedSubview(currentlyUsedImageView)
+
+		currentlyUsedLabel.style = .body
+		currentlyUsedLabel.textColor = .enaColor(for: .textPrimary2)
+		currentlyUsedLabel.numberOfLines = 0
+		currentlyUsedLabel.text = AppStrings.HealthCertificate.Person.currentlyUsedCertificate
+		currentlyUsedStackView.addArrangedSubview(currentlyUsedLabel)
+
+		currentlyUsedStackView.axis = .horizontal
+		currentlyUsedStackView.alignment = .top
+		currentlyUsedStackView.spacing = 6
+
+		let vStackView = UIStackView(arrangedSubviews: [headlineStackView, subheadlineDetailsStackView, currentlyUsedStackView])
 		vStackView.axis = .vertical
-		vStackView.spacing = 8.0
+		vStackView.spacing = 6
 
 		gradientBackground.type = .solidGrey
 		gradientBackground.translatesAutoresizingMaskIntoConstraints = false
@@ -97,9 +131,9 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		gradientBackground.layer.cornerRadius = 15.0
 		gradientBackground.layer.masksToBounds = true
 
-		shieldImageView.contentMode = .center
-		shieldImageView.translatesAutoresizingMaskIntoConstraints = false
-		gradientBackground.addSubview(shieldImageView)
+		iconImageView.contentMode = .center
+		iconImageView.translatesAutoresizingMaskIntoConstraints = false
+		gradientBackground.addSubview(iconImageView)
 
 		let hStackView = UIStackView(arrangedSubviews: [gradientBackground, vStackView])
 		hStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -119,10 +153,10 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 				gradientBackground.widthAnchor.constraint(equalToConstant: 96.0),
 				gradientBackground.heightAnchor.constraint(equalToConstant: 96.0),
 
-				shieldImageView.widthAnchor.constraint(equalTo: gradientBackground.widthAnchor),
-				shieldImageView.heightAnchor.constraint(equalTo: gradientBackground.heightAnchor),
-				shieldImageView.centerXAnchor.constraint(equalTo: gradientBackground.centerXAnchor),
-				shieldImageView.centerYAnchor.constraint(equalTo: gradientBackground.centerYAnchor),
+				iconImageView.widthAnchor.constraint(equalTo: gradientBackground.widthAnchor),
+				iconImageView.heightAnchor.constraint(equalTo: gradientBackground.heightAnchor),
+				iconImageView.centerXAnchor.constraint(equalTo: gradientBackground.centerXAnchor),
+				iconImageView.centerYAnchor.constraint(equalTo: gradientBackground.centerYAnchor),
 
 				hStackView.topAnchor.constraint(equalTo: backgroundContainerView.topAnchor, constant: 16.0),
 				hStackView.bottomAnchor.constraint(equalTo: backgroundContainerView.bottomAnchor, constant: -24.0),
@@ -132,7 +166,7 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 				disclosureContainerView.leadingAnchor.constraint(equalTo: disclosureImageView.leadingAnchor),
 				disclosureContainerView.trailingAnchor.constraint(equalTo: disclosureImageView.trailingAnchor),
 
-				disclosureImageView.bottomAnchor.constraint(equalTo: headlineTextLabel.firstBaselineAnchor),
+				disclosureImageView.bottomAnchor.constraint(equalTo: headlineLabel.firstBaselineAnchor),
 				disclosureImageView.widthAnchor.constraint(equalToConstant: 7)
 			]
 		)
@@ -141,8 +175,15 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 	private func setupAccessibility() {
 		accessibilityElements = [backgroundContainerView as Any]
 
-		backgroundContainerView.accessibilityElements = [headlineTextLabel as Any, detailsTextLabel as Any]
-		headlineTextLabel.accessibilityTraits = [.staticText, .button]
+		backgroundContainerView.accessibilityElements = [headlineLabel as Any, subheadlineLabel as Any, detailsLabel as Any]
+
+		if currentlyUsedStackView.isHidden {
+			backgroundContainerView.accessibilityElements = [headlineLabel as Any, subheadlineLabel as Any, detailsLabel as Any]
+		} else {
+			backgroundContainerView.accessibilityElements = [headlineLabel as Any, subheadlineLabel as Any, detailsLabel as Any, currentlyUsedLabel as Any]
+		}
+
+		headlineLabel.accessibilityTraits = [.staticText, .button]
 	}
 
 	private func updateBorderWidth() {
