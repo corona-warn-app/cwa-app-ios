@@ -98,7 +98,7 @@ final class DCCValidationService: DCCValidationProviding {
 		expirationDate: Date
 	) -> Result<DCCValidationProgress, DCCValidationError> {
 		
-		// JsonSchemaCheck is always true because we expect here a DigitalGreenCertificate, wich was already json schema validated at its creation.
+		// JsonSchemaCheck is always true because we expect here a DigitalGreenCertificate, which was already json schema validated at its creation.
 		var progress = DCCValidationProgress(
 			expirationCheck: false,
 			jsonSchemaCheck: true,
