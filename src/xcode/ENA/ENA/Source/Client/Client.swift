@@ -209,6 +209,7 @@ protocol Client {
 	///   - isFake: Flag to indicate a fake request
 	///   - completion: The completion handler of the call, which contains a ResponsePackageDownload or a URLSession.Response.Failure
 	func getDCCOnboardedCountries(
+		eTag: String?,
 		isFake: Bool,
 		completion: @escaping DCCOnboardedCountriesCompletionHandler
 	)
@@ -219,6 +220,7 @@ protocol Client {
 	///   - ruleType: Get the rules for the specified type (acceptance or invalidation)
 	///   - completion: The completion handler of the call, which contains a PackageDownloadResponse or a URLSession.Response.Failure
 	func getDCCRules(
+		eTag: String?,
 		isFake: Bool,
 		ruleType: DCCRuleType,
 		completion: @escaping DCCRulesCompletionHandler

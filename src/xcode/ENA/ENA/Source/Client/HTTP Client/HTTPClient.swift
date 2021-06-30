@@ -616,11 +616,13 @@ final class HTTPClient: Client {
 	}
 	
 	func getDCCOnboardedCountries(
+		eTag: String? = nil,
 		isFake: Bool = false,
 		completion: @escaping DCCOnboardedCountriesCompletionHandler
 	) {
 		guard let request = try? URLRequest.dccOnboardedCountryRequest(
 				configuration: configuration,
+				eTag: eTag,
 				headerValue: isFake ? 1 : 0) else {
 			Log.error("Could not create url request for dcc onboarded countries", log: .api)
 			completion(.failure(.invalidRequest))
@@ -661,6 +663,7 @@ final class HTTPClient: Client {
 	}
 	
 	func getDCCRules(
+		eTag: String? = nil,
 		isFake: Bool = false,
 		ruleType: DCCRuleType,
 		completion: @escaping DCCRulesCompletionHandler
@@ -668,6 +671,7 @@ final class HTTPClient: Client {
 		guard let request = try? URLRequest.dccRulesRequest(
 				ruleType: ruleType,
 				configuration: configuration,
+				eTag: eTag,
 				headerValue: isFake ? 1 : 0) else {
 			Log.error("Could not create url request for rule type: \(ruleType)", log: .api)
 			completion(.failure(.invalidRequest))
@@ -1414,10 +1418,18 @@ private extension URLRequest {
 	
 	static func dccOnboardedCountryRequest(
 		configuration: HTTPClient.Configuration,
+		eTag: String?,
 		headerValue: Int
 	) throws -> URLRequest {
 		
 		var request = URLRequest(url: configuration.dccOnboardedCountriesURL)
+		
+		if let eTag = eTag {
+			request.setValue(
+				eTag,
+				forHTTPHeaderField: "If-None-Match"
+			)
+		}
 		
 		request.setValue(
 			"\(headerValue)",
@@ -1441,10 +1453,18 @@ private extension URLRequest {
 	static func dccRulesRequest(
 		ruleType: DCCRuleType,
 		configuration: HTTPClient.Configuration,
+		eTag: String?,
 		headerValue: Int
 	) throws -> URLRequest {
 		
 		var request = URLRequest(url: configuration.dccRulesURL(rulePath: ruleType.urlPath))
+		
+		if let eTag = eTag {
+			request.setValue(
+				eTag,
+				forHTTPHeaderField: "If-None-Match"
+			)
+		}
 		
 		request.setValue(
 			"\(headerValue)",

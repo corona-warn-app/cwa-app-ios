@@ -53,7 +53,7 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 
-		setupNavigationBar()
+		setupNavigationBar(animated: animated)
 	}
 
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -167,7 +167,7 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 		didTapDeleteProfile()
 	}
 
-	private func setupNavigationBar() {
+	private func setupNavigationBar(animated: Bool) {
 		let logoImage = UIImage(imageLiteralResourceName: "Corona-Warn-App").withRenderingMode(.alwaysTemplate)
 		let logoImageView = UIImageView(image: logoImage)
 		logoImageView.tintColor = .enaColor(for: .textContrast)
@@ -177,8 +177,11 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 		parent?.navigationItem.titleView = logoImageView
 		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton(.contrast)
 
-		// remove previous view controllers from the stack, we will return to the rootViewController by back button here
-		navigationController?.viewControllers = [navigationController?.viewControllers.first, navigationController?.viewControllers.last].compactMap { $0 }
+		if isBeingPresented {
+			// remove previous view controllers from the stack, we will return to the rootViewController by back button here
+			let viewControllers = [navigationController?.viewControllers.first, navigationController?.viewControllers.last].compactMap { $0 }
+			navigationController?.setViewControllers(viewControllers, animated: animated)
+		}
 
 		// keep old images for restoration
 		originalBackgroundImage = navigationController?.navigationBar.backgroundImage(for: .default)
