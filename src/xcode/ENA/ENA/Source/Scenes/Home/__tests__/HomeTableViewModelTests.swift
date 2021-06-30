@@ -21,6 +21,10 @@ class HomeTableViewModelTests: CWATestCase {
 				statisticsProvider: StatisticsProvider(
 					client: CachingHTTPClientMock(),
 					store: store
+				),
+				localStatisticsProvider: LocalStatisticsProvider(
+					client: CachingHTTPClientMock(),
+					store: store
 				)
 			),
 			store: store,
@@ -95,7 +99,11 @@ class HomeTableViewModelTests: CWATestCase {
 				statisticsProvider: StatisticsProvider(
 					client: CachingHTTPClientMock(),
 					store: store
-				)
+				),
+				localStatisticsProvider: LocalStatisticsProvider(
+				 client: CachingHTTPClientMock(),
+				 store: store
+			 )
 			),
 			store: store,
 			coronaTestService: CoronaTestService(
@@ -138,7 +146,11 @@ class HomeTableViewModelTests: CWATestCase {
 				statisticsProvider: StatisticsProvider(
 					client: CachingHTTPClientMock(),
 					store: store
-				)
+				),
+				localStatisticsProvider: LocalStatisticsProvider(
+				 client: CachingHTTPClientMock(),
+				 store: store
+			 )
 			),
 			store: store,
 			coronaTestService: CoronaTestService(
@@ -174,7 +186,11 @@ class HomeTableViewModelTests: CWATestCase {
 				statisticsProvider: StatisticsProvider(
 					client: CachingHTTPClientMock(),
 					store: store
-				)
+				),
+				localStatisticsProvider: LocalStatisticsProvider(
+				 client: CachingHTTPClientMock(),
+				 store: store
+			 )
 			),
 			store: store,
 			coronaTestService: CoronaTestService(
@@ -217,7 +233,11 @@ class HomeTableViewModelTests: CWATestCase {
 				statisticsProvider: StatisticsProvider(
 					client: CachingHTTPClientMock(),
 					store: store
-				)
+				),
+				localStatisticsProvider: LocalStatisticsProvider(
+				 client: CachingHTTPClientMock(),
+				 store: store
+			 )
 			),
 			store: store,
 			coronaTestService: CoronaTestService(

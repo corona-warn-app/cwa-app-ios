@@ -44,6 +44,9 @@ class HomeRiskCellModelTests: CWATestCase {
 			statisticsProvider: StatisticsProvider(
 				client: CachingHTTPClientMock(),
 				store: store
+			), localStatisticsProvider: LocalStatisticsProvider(
+				client: CachingHTTPClientMock(),
+				store: store
 			)
 		)
 		homeState.updateDetectionMode(.automatic)
@@ -171,6 +174,9 @@ class HomeRiskCellModelTests: CWATestCase {
 			statisticsProvider: StatisticsProvider(
 				client: CachingHTTPClientMock(),
 				store: store
+			), localStatisticsProvider: LocalStatisticsProvider(
+				client: CachingHTTPClientMock(),
+				store: store
 			)
 		)
 		homeState.updateDetectionMode(.automatic)
@@ -274,6 +280,10 @@ class HomeRiskCellModelTests: CWATestCase {
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
 			statisticsProvider: StatisticsProvider(
+				client: CachingHTTPClientMock(),
+				store: store
+			),
+			localStatisticsProvider: LocalStatisticsProvider(
 				client: CachingHTTPClientMock(),
 				store: store
 			)
@@ -384,6 +394,10 @@ class HomeRiskCellModelTests: CWATestCase {
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
 			statisticsProvider: StatisticsProvider(
+				client: CachingHTTPClientMock(),
+				store: store
+			),
+			localStatisticsProvider: LocalStatisticsProvider(
 				client: CachingHTTPClientMock(),
 				store: store
 			)
@@ -508,6 +522,10 @@ class HomeRiskCellModelTests: CWATestCase {
 			statisticsProvider: StatisticsProvider(
 				client: CachingHTTPClientMock(),
 				store: store
+			),
+			localStatisticsProvider: LocalStatisticsProvider(
+				client: CachingHTTPClientMock(),
+				store: store
 			)
 		)
 		homeState.updateDetectionMode(.manual)
@@ -567,6 +585,10 @@ class HomeRiskCellModelTests: CWATestCase {
 			statisticsProvider: StatisticsProvider(
 				client: CachingHTTPClientMock(),
 				store: store
+			),
+			localStatisticsProvider: LocalStatisticsProvider(
+				client: CachingHTTPClientMock(),
+				store: store
 			)
 		)
 		homeState.updateDetectionMode(.manual)
@@ -612,6 +634,10 @@ class HomeRiskCellModelTests: CWATestCase {
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
 			statisticsProvider: StatisticsProvider(
+				client: CachingHTTPClientMock(),
+				store: store
+			),
+			localStatisticsProvider: LocalStatisticsProvider(
 				client: CachingHTTPClientMock(),
 				store: store
 			)
@@ -660,6 +686,10 @@ class HomeRiskCellModelTests: CWATestCase {
 			statisticsProvider: StatisticsProvider(
 				client: CachingHTTPClientMock(),
 				store: store
+			),
+			localStatisticsProvider: LocalStatisticsProvider(
+				client: CachingHTTPClientMock(),
+				store: store
 			)
 		)
 		homeState.riskState = .inactive
@@ -706,6 +736,10 @@ class HomeRiskCellModelTests: CWATestCase {
 			statisticsProvider: StatisticsProvider(
 				client: CachingHTTPClientMock(),
 				store: store
+			),
+			localStatisticsProvider: LocalStatisticsProvider(
+				client: CachingHTTPClientMock(),
+				store: store
 			)
 		)
 
@@ -738,6 +772,10 @@ class HomeRiskCellModelTests: CWATestCase {
 			statisticsProvider: StatisticsProvider(
 				client: CachingHTTPClientMock(),
 				store: store
+			),
+			localStatisticsProvider: LocalStatisticsProvider(
+				client: CachingHTTPClientMock(),
+				store: store
 			)
 		)
 
@@ -768,6 +806,10 @@ class HomeRiskCellModelTests: CWATestCase {
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
 			statisticsProvider: StatisticsProvider(
+				client: CachingHTTPClientMock(),
+				store: store
+			),
+			localStatisticsProvider: LocalStatisticsProvider(
 				client: CachingHTTPClientMock(),
 				store: store
 			)

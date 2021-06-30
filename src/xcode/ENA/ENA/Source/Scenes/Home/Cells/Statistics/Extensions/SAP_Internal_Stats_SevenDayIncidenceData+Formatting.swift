@@ -7,7 +7,7 @@ import UIKit
 extension SAP_Internal_Stats_SevenDayIncidenceData {
 	
 	var formattedValue: String? {
-		let decimals = max(0, Int(self.value))
+		let decimals = max(0, 1)
 		let numberFormatter = NumberFormatter()
 		numberFormatter.numberStyle = .decimal
 		numberFormatter.minimumFractionDigits = Int(decimals)

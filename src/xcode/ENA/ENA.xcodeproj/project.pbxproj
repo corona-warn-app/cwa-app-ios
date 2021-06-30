@@ -673,6 +673,7 @@
 		8FA88FE02616692000FD36DA /* TraceLocationDetailViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA88FDF2616692000FD36DA /* TraceLocationDetailViewModelTests.swift */; };
 		8FB331B6268BD8EE00804747 /* LocalStatisticsDistrict.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB331B5268BD8EE00804747 /* LocalStatisticsDistrict.swift */; };
 		8FB331B8268BDA5C00804747 /* SAP_Internal_Stats_SevenDayIncidenceData+Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB331B7268BDA5C00804747 /* SAP_Internal_Stats_SevenDayIncidenceData+Formatting.swift */; };
+		8FB331BB268C574900804747 /* LocalStats.bin in Resources */ = {isa = PBXBuildFile; fileRef = 8FB331BA268C574900804747 /* LocalStats.bin */; };
 		8FB5A61625DD65D500679990 /* TestResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA9E39224D2F2920030561C /* TestResult.swift */; };
 		8FDB9403261FBA3800BA8CB1 /* AntigenTestQRCodeInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDB9402261FBA3800BA8CB1 /* AntigenTestQRCodeInformation.swift */; };
 		8FDB940B261FBAAA00BA8CB1 /* CoronaTestRegistrationInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDB940A261FBAAA00BA8CB1 /* CoronaTestRegistrationInformation.swift */; };
@@ -1924,6 +1925,7 @@
 		8FA88FDF2616692000FD36DA /* TraceLocationDetailViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationDetailViewModelTests.swift; sourceTree = "<group>"; };
 		8FB331B5268BD8EE00804747 /* LocalStatisticsDistrict.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStatisticsDistrict.swift; sourceTree = "<group>"; };
 		8FB331B7268BDA5C00804747 /* SAP_Internal_Stats_SevenDayIncidenceData+Formatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SAP_Internal_Stats_SevenDayIncidenceData+Formatting.swift"; sourceTree = "<group>"; };
+		8FB331BA268C574900804747 /* LocalStats.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = LocalStats.bin; sourceTree = "<group>"; };
 		8FDB9402261FBA3800BA8CB1 /* AntigenTestQRCodeInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntigenTestQRCodeInformation.swift; sourceTree = "<group>"; };
 		8FDB940A261FBAAA00BA8CB1 /* CoronaTestRegistrationInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaTestRegistrationInformation.swift; sourceTree = "<group>"; };
 		8FE6CEFC2617482C006BFB82 /* CheckinQRCodeScannerViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinQRCodeScannerViewModelTests.swift; sourceTree = "<group>"; };
@@ -3789,6 +3791,7 @@
 		35E1219D25B19D8C0098D754 /* sample_stats */ = {
 			isa = PBXGroup;
 			children = (
+				8FB331BA268C574900804747 /* LocalStats.bin */,
 				8F012647267B592200630CDA /* stats.bin */,
 			);
 			path = sample_stats;
@@ -7415,6 +7418,7 @@
 				01D02697258BA0E000B6389A /* ExposureDetectionLoadingCell.xib in Resources */,
 				0138F5F325EFDBC300A9B075 /* HomeTraceLocationsTableViewCell.xib in Resources */,
 				01D02688258B9CB200B6389A /* ExposureDetectionHeaderCell.xib in Resources */,
+				8FB331BB268C574900804747 /* LocalStats.bin in Resources */,
 				01DF188E2608D3BB00A002E4 /* TraceLocationConfigurationViewController.xib in Resources */,
 				AB7DE73A25C8528700C52B3F /* ExposureDetectionSurveyTableViewCell.xib in Resources */,
 				01D026A5258BA20E00B6389A /* ExposureDetectionHotlineCell.xib in Resources */,

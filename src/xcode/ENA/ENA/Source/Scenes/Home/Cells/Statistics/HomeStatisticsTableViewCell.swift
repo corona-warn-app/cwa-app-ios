@@ -125,7 +125,8 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 	private var cellModel: HomeStatisticsCellModel?
 	private var isConfigured: Bool = false
 	private var subscriptions = Set<AnyCancellable>()
-	
+	private var district: LocalStatisticsDistrict?
+
 	private func clearStackView() {
 		stackView.arrangedSubviews.forEach {
 			stackView.removeArrangedSubview($0)
@@ -178,8 +179,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 			)
 		}
 	}
-	private (set)var district: LocalStatisticsDistrict?
-
+	
 	private func configureKeyFigureCells(
 		for keyFigureCards: [SAP_Internal_Stats_KeyFigureCard],
 		onInfoButtonTap: @escaping () -> Void,
