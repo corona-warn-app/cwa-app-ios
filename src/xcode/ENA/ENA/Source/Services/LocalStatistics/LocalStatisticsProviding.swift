@@ -17,7 +17,7 @@ protocol LocalStatisticsFetching {
 	typealias LocalStatisticsCompletionHandler = (Result<LocalStatisticsResponse, Error>) -> Void
 
 	func fetchLocalStatistics(
-		groupID: String,
+		groupID: GroupIdentifier,
 		eTag: String?,
 		completion: @escaping (Result<LocalStatisticsResponse, Error>) -> Void
 	)
