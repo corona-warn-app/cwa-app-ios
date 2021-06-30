@@ -98,6 +98,10 @@ class HomeStatisticsCardView: UIView {
 				accessibilityElements.append(titleLabel)
 			}
 
+			if viewModel?.subtitle != nil, let subtitleLabel = self.subtitleLabel {
+				accessibilityElements.append(subtitleLabel)
+			}
+
 			if let infoButton = self.infoButton {
 				accessibilityElements.append(infoButton)
 				infoButton.accessibilityTraits = UIAccessibilityTraits.button
@@ -106,9 +110,13 @@ class HomeStatisticsCardView: UIView {
 
 			if viewModel?.primaryTitle != nil, let primaryTitleLabel = self.primaryTitleLabel {
 				var primaryAccessibilityLabel = primaryTitleLabel.text
-				if viewModel?.primaryValue != nil, let primaryValueLabel = self.primaryValueLabel {
-					primaryAccessibilityLabel?.append(" ")
-					primaryAccessibilityLabel?.append(primaryValueLabel.text ?? "")
+
+				if let primaryValue = viewModel?.primaryValue {
+					primaryAccessibilityLabel?.append(" \(primaryValue)")
+				}
+
+				if let primarySubtitle = viewModel?.primarySubtitle {
+					primaryAccessibilityLabel?.append(" \(primarySubtitle)")
 				}
 
 				primaryTitleLabel.accessibilityLabel = primaryAccessibilityLabel
@@ -141,15 +149,6 @@ class HomeStatisticsCardView: UIView {
 				}
 				tertiaryTitleLabel.accessibilityLabel = tertiaryAccessibilityLabel
 				accessibilityElements.append(tertiaryTitleLabel)
-			}
-
-			if viewModel?.subtitle != nil, let subtitleLabel = self.subtitleLabel {
-				subtitleLabel.accessibilityTraits = UIAccessibilityTraits.link
-				accessibilityElements.append(subtitleLabel)
-			}
-			if viewModel?.primarySubtitle != nil, let primarySubtitleLabel = self.primarySubtitleLabel {
-				primarySubtitleLabel.accessibilityTraits = UIAccessibilityTraits.link
-				accessibilityElements.append(primarySubtitleLabel)
 			}
 
 			return accessibilityElements
