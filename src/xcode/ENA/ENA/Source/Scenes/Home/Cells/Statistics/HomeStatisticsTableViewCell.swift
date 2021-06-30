@@ -106,7 +106,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 			addLocalStatisticsCardView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
 			addLocalStatisticsCardView.configure(
 				localStatisticsModel: localStatisticsModel,
-				availableCardsState: .empty, // TODO get state based on the current number of local statistics cards
+				availableCardsState: .empty, // TO-DO get state based on the current number of local statistics cards
 				onAddStateButtonTap: { selectValueViewController in
 					onAddLocalStatisticsButtonTap(selectValueViewController)
 				}, onAddDistrict: { selectValueViewController in

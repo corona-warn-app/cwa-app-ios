@@ -83,7 +83,7 @@ class AddStatisticsCardsViewModel {
 	}
 	
 	private func fetchLocalStatistics(stateID: String, districtID: String) {
-		// TODO Inject Statistics Provider to fetch local statistics
+		// TO-DO Inject Statistics Provider to fetch local statistics
 		
 		// Use the stateID to fetchLocalStatistics
 		// Use the DistrictID to filter the response for the userDistrict
