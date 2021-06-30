@@ -193,19 +193,28 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 
 		// Navigate to Certificates Tab.
 		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
-		snapshot("screenshot_certificate_family_certificats-cert-1")
-		app.swipeUp(velocity: .slow)
 		
-		snapshot("screenshot_certificate_family_certificats-cert-2")
-		app.swipeUp(velocity: .slow)
-		
-		snapshot("screenshot_certificate_family_certificats-cert-3")
-		app.swipeUp(velocity: .slow)
-		
-		snapshot("screenshot_certificate_family_certificats-cert-4")
-
-		let healthCertificateCell = app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell]
+		var healthCertificateCell = app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell]
 		XCTAssertTrue(healthCertificateCell.waitForExistence(timeout: .short))
+		snapshot("screenshot_certificate_family_certificats-cert-1")
+		
+		app.swipeUp(velocity: .slow)
+		
+		healthCertificateCell = app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell]
+		XCTAssertTrue(healthCertificateCell.waitForExistence(timeout: .short))
+		snapshot("screenshot_certificate_family_certificats-cert-2")
+		
+		app.swipeUp(velocity: .slow)
+		
+		healthCertificateCell = app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell]
+		XCTAssertTrue(healthCertificateCell.waitForExistence(timeout: .short))
+		snapshot("screenshot_certificate_family_certificats-cert-3")
+		
+		app.swipeUp(velocity: .slow)
+
+		healthCertificateCell = app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell]
+		XCTAssertTrue(healthCertificateCell.waitForExistence(timeout: .short))
+		snapshot("screenshot_certificate_family_certificats-cert-4")
 
 		snapshot("screenshot_certificate_family_certificats")
 	}
