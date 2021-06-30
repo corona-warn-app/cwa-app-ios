@@ -4,7 +4,10 @@
 
 import Foundation
 
-enum DCCOnboardedCountriesError {
+enum DCCOnboardedCountriesError: Error {
+	
+	// MARK: - Internal
+	
 	case ONBOARDED_COUNTRIES_CLIENT_ERROR
 	case ONBOARDED_COUNTRIES_JSON_ARCHIVE_FILE_MISSING
 	case ONBOARDED_COUNTRIES_JSON_ARCHIVE_SIGNATURE_INVALID
