@@ -62,7 +62,7 @@ final class MockTestStore: Store, PPAnalyticsData {
 	
 	// MARK: - LocalStatisticsCaching
 
-	var localStatistics: LocalStatisticsMetadata?
+	var localStatistics: [LocalStatisticsMetadata] = []
 
 	// MARK: - PrivacyPreservingProviding
 
