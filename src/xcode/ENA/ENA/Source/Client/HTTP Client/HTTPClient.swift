@@ -655,7 +655,7 @@ final class HTTPClient: Client {
 				}
 			case let .failure(error):
 				Log.error("Failure at GET for list of dcc onboarded countries.", log: .api, error: error)
-				completion(.failure(.invalidResponse))
+				completion(.failure(error))
 			}
 		})
 	}
