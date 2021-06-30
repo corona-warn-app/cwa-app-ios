@@ -533,6 +533,37 @@ class HomeStatisticsCardViewModelTests: CWATestCase {
 
 	// MARK: - Reproduction Numbers Card
 
+	func testLocalStatisticsCard() {
+		let administrativeUnitName = "Heidelberg"
+		let viewModel = HomeStatisticsCardViewModel(
+			administrativeUnitData: administrativeUnitData(trend: .increasing, value: 43.1),
+			district: administrativeUnitName
+		)
+
+		XCTAssertEqual(viewModel.title, AppStrings.Statistics.AddCard.localCardTitle)
+		XCTAssertEqual(viewModel.subtitle, administrativeUnitName)
+		XCTAssertEqual(viewModel.illustrationImage, UIImage(named: "LocalIncidence"))
+		XCTAssertEqual(viewModel.primaryValue, "43,1")
+		XCTAssertEqual(viewModel.primaryTrendImage, UIImage(named: "Pfeil_steigend_plain"))
+		XCTAssertEqual(viewModel.primaryTrendImageTintColor, .enaColor(for: .riskHigh))
+		XCTAssertEqual(viewModel.primaryTrendAccessibilityLabel, AppStrings.Statistics.Card.trendIncreasing)
+		XCTAssertEqual(viewModel.primaryTrendAccessibilityValue, AppStrings.Statistics.Card.trendSemanticNegative)
+		XCTAssertEqual(viewModel.primarySubtitle, AppStrings.Statistics.AddCard.localCardPrimarySubtitle)
+	}
+	
+	private func administrativeUnitData(trend: SAP_Internal_Stats_KeyFigure.Trend, value: Double) -> SAP_Internal_Stats_AdministrativeUnitData {
+		var administrativeUnitData = SAP_Internal_Stats_AdministrativeUnitData()
+		administrativeUnitData.administrativeUnitShortID = 1432
+		var sevenDayIncidence = SAP_Internal_Stats_SevenDayIncidenceData()
+		sevenDayIncidence.trend = trend
+		sevenDayIncidence.value = value
+		administrativeUnitData.sevenDayIncidence = sevenDayIncidence
+		return administrativeUnitData
+	}
+
+	
+	// MARK: - Reproduction Numbers Card
+
 	func testReproductionNumberCardStaticValues() {
 		let viewModel = HomeStatisticsCardViewModel(
 			for: keyFigureCard(
