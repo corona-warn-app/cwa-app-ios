@@ -827,5 +827,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		}
 	}
 
+	private func fetchLocalStatistics(federalStateId id: LocalStatisticsDistrict) {
+		DispatchQueue.main.async { [weak self] in
+			self?.viewModel.state.updateLocalStatistics(localStatisticsDistrict: id)
+		}
+	}
 	// swiftlint:disable:next file_length
 }

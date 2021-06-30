@@ -14,7 +14,8 @@ class HomeState: ENStateHandlerUpdating {
 		riskProvider: RiskProviding,
 		exposureManagerState: ExposureManagerState,
 		enState: ENStateHandler.State,
-		statisticsProvider: StatisticsProviding
+		statisticsProvider: StatisticsProviding,
+		localStatisticsProvider: LocalStatisticsProviding
 	) {
 		if let riskCalculationResult = store.enfRiskCalculationResult,
 		   let checkinCalculationResult = store.checkinRiskCalculationResult {
@@ -43,7 +44,7 @@ class HomeState: ENStateHandlerUpdating {
 		self.exposureManagerState = exposureManagerState
 		self.enState = enState
 		self.statisticsProvider = statisticsProvider
-
+		self.localStatisticsProvider = localStatisticsProvider
 		self.exposureDetectionInterval = riskProvider.riskProvidingConfiguration.exposureDetectionInterval.hour ?? RiskProvidingConfiguration.defaultExposureDetectionsInterval
 
 		observeRisk()
@@ -68,6 +69,7 @@ class HomeState: ENStateHandlerUpdating {
 	@OpenCombine.Published var enState: ENStateHandler.State
 
 	@OpenCombine.Published var statistics: SAP_Internal_Stats_Statistics = SAP_Internal_Stats_Statistics()
+	@OpenCombine.Published var localStatistics: SAP_Internal_Stats_LocalStatistics = SAP_Internal_Stats_LocalStatistics()
 	@OpenCombine.Published var statisticsLoadingError: StatisticsLoadingError?
 
 	@OpenCombine.Published private(set) var exposureDetectionInterval: Int
@@ -138,12 +140,33 @@ class HomeState: ENStateHandlerUpdating {
 			)
 			.store(in: &subscriptions)
 	}
-
+	
+	func updateLocalStatistics(localStatisticsDistrict: LocalStatisticsDistrict) {
+		localStatisticsProvider.latestLocalStatistics(groupID: String(localStatisticsDistrict.federalState.groupID), eTag: nil)
+			.sink(
+				receiveCompletion: { [weak self] result in
+					switch result {
+					case .finished:
+						break
+					case .failure(let error):
+						// Propagate signature verification error to the user
+						if case CachingHTTPClient.CacheError.dataVerificationError = error {
+							self?.statisticsLoadingError = .dataVerificationError
+						}
+						Log.error("[HomeState] Could not load statistics: \(error)", log: .api)
+					}
+				}, receiveValue: { [weak self] in
+					self?.localStatistics = $0
+				}
+			)
+			.store(in: &subscriptions)
+	}
 	// MARK: - Private
 
 	private let store: Store
 
 	private let statisticsProvider: StatisticsProviding
+	private let localStatisticsProvider: LocalStatisticsProviding
 	private var subscriptions = Set<AnyCancellable>()
 
 	private let riskProvider: RiskProviding

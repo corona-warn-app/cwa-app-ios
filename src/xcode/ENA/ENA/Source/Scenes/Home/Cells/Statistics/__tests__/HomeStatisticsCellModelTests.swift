@@ -20,6 +20,9 @@ class HomeStatisticsCellModelTests: CWATestCase {
 			statisticsProvider: StatisticsProvider(
 				client: CachingHTTPClientMock(),
 				store: store
+			), localStatisticsProvider: LocalStatisticsProvider(
+				client: CachingHTTPClientMock(),
+				store: store
 			)
 		)
 		homeState.statistics.keyFigureCards = []
@@ -52,9 +55,68 @@ class HomeStatisticsCellModelTests: CWATestCase {
 
 		subscription.cancel()
 	}
+	
+	func testForwardingLocalStatistics() throws {
+		let store = MockTestStore()
+
+		let homeState = HomeState(
+			store: store,
+			riskProvider: MockRiskProvider(),
+			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
+			enState: .enabled,
+			statisticsProvider: StatisticsProvider(
+				client: CachingHTTPClientMock(),
+				store: store
+			), localStatisticsProvider: LocalStatisticsProvider(
+				client: CachingHTTPClientMock(),
+				store: store
+			)
+		)
+		homeState.localStatistics.administrativeUnitData = []
+
+		let cellModel = HomeStatisticsCellModel(
+			homeState: homeState
+		)
+
+		let sinkExpectation = expectation(description: "keyFigureCards received")
+		sinkExpectation.expectedFulfillmentCount = 2
+
+		var receivedValues = [[SAP_Internal_Stats_AdministrativeUnitData]]()
+		let subscription = cellModel.$localAdministrativeUnitStatistics.sink {
+			receivedValues.append($0)
+			sinkExpectation.fulfill()
+		}
+
+		var loadedStatistics = SAP_Internal_Stats_LocalStatistics()
+//		loadedStatistics.cardIDSequence = [1, 3, 2, 17]
+		loadedStatistics.administrativeUnitData = [
+			administrativeUnitData(administrativeUnitShortID: 12005),
+			administrativeUnitData(administrativeUnitShortID: 12006),
+			administrativeUnitData(administrativeUnitShortID: 12007),
+			administrativeUnitData(administrativeUnitShortID: 12008)
+		]
+
+		homeState.localStatistics = loadedStatistics
+
+		waitForExpectations(timeout: .short)
+
+		XCTAssertEqual(
+			receivedValues,
+			[
+				[],
+				[
+					administrativeUnitData(administrativeUnitShortID: 12005),
+					administrativeUnitData(administrativeUnitShortID: 12006),
+					administrativeUnitData(administrativeUnitShortID: 12007),
+					administrativeUnitData(administrativeUnitShortID: 12008)
+				]
+			]
+		)
+
+		subscription.cancel()
+	}
 
 	// MARK: - Private
-
 	private func keyFigureCard(
 		cardID: Int32 = 0
 	) -> SAP_Internal_Stats_KeyFigureCard {
@@ -67,4 +129,15 @@ class HomeStatisticsCellModelTests: CWATestCase {
 		return card
 	}
 
+	private func administrativeUnitData(
+		administrativeUnitShortID: UInt32 = 0
+	) -> SAP_Internal_Stats_AdministrativeUnitData {
+		var administrativeUnitData = SAP_Internal_Stats_AdministrativeUnitData()
+		administrativeUnitData.administrativeUnitShortID = administrativeUnitShortID
+		var sevenDayIncidence = SAP_Internal_Stats_SevenDayIncidenceData()
+		sevenDayIncidence.trend = .increasing
+		sevenDayIncidence.value = 50
+		administrativeUnitData.sevenDayIncidence = sevenDayIncidence
+		return administrativeUnitData
+	}
 }

@@ -354,8 +354,8 @@ extension SecureStore: StatisticsCaching {
 }
 
 extension SecureStore: LocalStatisticsCaching {
-	var localStatistics: LocalStatisticsMetadata? {
-		get { kvStore["localStatistics"] as LocalStatisticsMetadata? ?? nil }
+	var localStatistics: [LocalStatisticsMetadata] {
+		get { kvStore["localStatistics"] as [LocalStatisticsMetadata]? ?? [] }
 		set { kvStore["localStatistics"] = newValue }
 	}
 }

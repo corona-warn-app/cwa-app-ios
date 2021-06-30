@@ -4,6 +4,8 @@
 
 import Foundation
 
+typealias GroupIdentifier = String
+
 class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, LocalStatisticsFetching, QRCodePosterTemplateFetching, VaccinationValueSetsFetching {
 	private let environmentProvider: EnvironmentProviding
 
@@ -193,11 +195,11 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, LocalStat
 	
 	/// Fetches local statistics
 	/// - Parameters:
-	///   - administrativeUnit: string to pass administrative unit to the API to get local statistics
+	///   - groupID: string to pass group ID to the API to get local statistics
 	///   - etag: an optional ETag to download only versions that differ the given tag
 	///   - completion: result handler
 	func fetchLocalStatistics(
-		administrativeUnit: AdministrativeUnit,
+		groupID: GroupIdentifier,
 		eTag: String?,
 		completion: @escaping LocalStatisticsCompletionHandler
 	) {
@@ -207,7 +209,7 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, LocalStat
 			headers = ["If-None-Match": eTag]
 		}
 
-		let url = configuration.localStatisticsURL(administrativeUnit: administrativeUnit)
+		let url = configuration.localStatisticsURL(groupID: groupID)
 		session.GET(url, extraHeaders: headers) { result in
 			switch result {
 			case .success(let response):
@@ -215,7 +217,7 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, LocalStat
 					let package = try self.verifyPackage(in: response)
 					let localStatistics = try SAP_Internal_Stats_LocalStatistics(serializedData: package.bin)
 					let responseETag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag")
-					let localStatisticsResponse = LocalStatisticsResponse(localStatistics, responseETag)
+					let localStatisticsResponse = LocalStatisticsResponse(localStatistics, responseETag, groupID)
 					completion(.success(localStatisticsResponse))
 				} catch {
 					completion(.failure(error))

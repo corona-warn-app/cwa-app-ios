@@ -80,6 +80,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 	private var cellModel: HomeStatisticsCellModel?
 	private var isConfigured: Bool = false
 	private var subscriptions = Set<AnyCancellable>()
+	private var district: LocalStatisticsDistrict?
 
 	lazy var statisticsViewController = StatisticsViewController()
 

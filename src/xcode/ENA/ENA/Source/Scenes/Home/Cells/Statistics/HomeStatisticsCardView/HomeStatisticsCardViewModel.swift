@@ -51,6 +51,27 @@ class HomeStatisticsCardViewModel {
 		}
 	}
 	
+	init(administrativeUnitData: SAP_Internal_Stats_AdministrativeUnitData, district: String) {
+		let sevenDayTrend = administrativeUnitData.sevenDayIncidence
+		
+		title = AppStrings.Statistics.AddCard.localCardTitle
+		subtitle = district
+		illustrationImage = UIImage(named: "LocalIncidence")
+		primaryValue = sevenDayTrend.formattedValue
+		primaryTrendImage = sevenDayTrend.trendImage
+		primaryTrendImageTintColor = sevenDayTrend.trendTintColor
+		primaryTrendAccessibilityLabel = sevenDayTrend.trendAccessibilityLabel
+		primaryTrendAccessibilityValue = sevenDayTrend.trendAccessibilityValue
+
+		let updateDate = Date(timeIntervalSince1970: TimeInterval(administrativeUnitData.updatedAt))
+		primaryTitle = updateDate.formatted(
+			todayString: AppStrings.Statistics.Card.Infections.today,
+			yesterdayString: AppStrings.Statistics.Card.Infections.yesterday,
+			otherDateString: AppStrings.Statistics.Card.Infections.date
+		)
+		primarySubtitle = AppStrings.Statistics.AddCard.localCardPrimarySubtitle
+	}
+	
 	// swiftlint:enable cyclomatic_complexity
 	// MARK: - Internal
 	

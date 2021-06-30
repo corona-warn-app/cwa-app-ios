@@ -100,7 +100,7 @@ protocol StatisticsCaching: AnyObject {
 }
 
 protocol LocalStatisticsCaching: AnyObject {
-	var localStatistics: LocalStatisticsMetadata? { get set }
+	var localStatistics: [LocalStatisticsMetadata] { get set }
 }
 
 protocol PrivacyPreservingProviding: AnyObject {

@@ -15,10 +15,10 @@ class LocalStatisticsProviderTests: CWATestCase {
 		fetchedFromClientExpectation.expectedFulfillmentCount = 1
 
 		let store = MockTestStore()
-		XCTAssertNil(store.localStatistics)
+		XCTAssertEqual(store.localStatistics, [])
 
 		let client = CachingHTTPClientMock()
-		client.fetchLocalStatistics(administrativeUnit: "1", eTag: "fake") { result in
+		client.fetchLocalStatistics(groupID: "1", eTag: "fake") { result in
 			switch result {
 			case .success(let response):
 				XCTAssertNotNil(response.eTag)
@@ -40,7 +40,7 @@ class LocalStatisticsProviderTests: CWATestCase {
 		let store = MockTestStore()
 		let client = CachingHTTPClientMock()
 		let provider = LocalStatisticsProvider(client: client, store: store)
-		provider.latestLocalStatistics(administrativeUnit: "1", eTag: "fake")
+		provider.latestLocalStatistics(groupID: "1", eTag: "fake")
 			.sink(receiveCompletion: { result in
 				switch result {
 				case .finished:
@@ -67,7 +67,7 @@ class LocalStatisticsProviderTests: CWATestCase {
 		}
 		
 		let provider = LocalStatisticsProvider(client: client, store: store)
-		provider.latestLocalStatistics(administrativeUnit: "1", eTag: "fake")
+		provider.latestLocalStatistics(groupID: "1", eTag: "fake")
 			.sink(receiveCompletion: { result in
 				switch result {
 				case .finished:
@@ -86,11 +86,12 @@ class LocalStatisticsProviderTests: CWATestCase {
 		valueNotChangedExpectation.expectedFulfillmentCount = 2
 		
 		let store = MockTestStore()
-		store.localStatistics = LocalStatisticsMetadata(
+		store.localStatistics.append(LocalStatisticsMetadata(
+			groupID: "1",
 			lastLocalStatisticsETag: "fake",
 			lastLocalStatisticsFetchDate: try XCTUnwrap(301.secondsAgo),
 			localStatistics: CachingHTTPClientMock.staticLocalStatistics
-		)
+		))
 		// Fake, backend returns HTTP 304
 		let client = CachingHTTPClientMock()
 		client.onFetchLocalStatistics = { _, completeWith in
@@ -100,7 +101,7 @@ class LocalStatisticsProviderTests: CWATestCase {
 		}
 		
 		let provider = LocalStatisticsProvider(client: client, store: store)
-		provider.latestLocalStatistics(administrativeUnit: "1", eTag: "fake")
+		provider.latestLocalStatistics(groupID: "1", eTag: "fake")
 			.sink(receiveCompletion: { result in
 				switch result {
 				case .finished:
