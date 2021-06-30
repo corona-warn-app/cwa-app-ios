@@ -855,8 +855,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				)
 
 			},
-			didTapInfoProfile: {
-				// Todo: Navigate to profile info
+			didTapInfoProfile: { [weak self] in
+				self?.showAntigenTestProfileInformation()
 			},
 			didTapEditProfile: { [weak self] in
 				self?.showAntigenTestProfileInput(editMode: true)
