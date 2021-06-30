@@ -59,7 +59,7 @@ class HealthCertificateService {
 				let result2 = DigitalCovidCertificateFake.makeBase45Fake(
 					from: DigitalCovidCertificate.fake(
 						name: .fake(familyName: "Schneider", givenName: "Victoria", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "VICTORIA"),
-						testEntries: [TestEntry.fake(dateTimeOfSampleCollection: "2021-04-12T17:01:00Z")]
+						testEntries: [TestEntry.fake(dateTimeOfSampleCollection: "2021-04-13T18:01:00Z")]
 					),
 					and: CBORWebTokenHeader.fake()
 				)
@@ -69,7 +69,7 @@ class HealthCertificateService {
 				let result3 = DigitalCovidCertificateFake.makeBase45Fake(
 					from: DigitalCovidCertificate.fake(
 						name: .fake(familyName: "Schneider", givenName: "Thomas", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "THOMAS"),
-						testEntries: [TestEntry.fake(dateTimeOfSampleCollection: "2021-04-12T17:01:00Z")]
+						testEntries: [TestEntry.fake(dateTimeOfSampleCollection: "2021-04-15T12:01:00Z")]
 					),
 					and: CBORWebTokenHeader.fake()
 				)
