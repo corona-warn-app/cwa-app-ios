@@ -52,10 +52,11 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 	func add(statisticsViewController: StatisticsViewController, for parent: UIViewController) {
 		assert(superview != nil)
 		self.statisticsViewController = statisticsViewController
-		statisticsViewController.willMove(toParent: parent)
 		statisticsViewController.loadViewIfNeeded()
+		statisticsViewController.willMove(toParent: parent)
 		contentView.addSubview(statisticsViewController.view)
 		statisticsViewController.didMove(toParent: parent)
+
 		NSLayoutConstraint.activate([
 			statisticsViewController.view.topAnchor.constraint(equalTo: contentView.topAnchor),
 			statisticsViewController.view.leftAnchor.constraint(equalTo: contentView.leftAnchor),
@@ -64,8 +65,8 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 			statisticsViewController.view.heightAnchor.constraint(equalToConstant: StatisticsViewController.height)
 		])
 
-		//setNeedsLayout()
 		statisticsViewController.collectionView.reloadData()
+		statisticsViewController.collectionView.setContentOffset(CGPoint(x: 100, y: 0), animated: false)
 	}
 
 	// MARK: - Private

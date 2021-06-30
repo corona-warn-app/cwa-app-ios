@@ -9,6 +9,8 @@ class StatisticCell: UICollectionViewCell {
 
 	static let reuseIdentifier = "StatisticCell"
 
+	@IBOutlet weak var containerView: UIView!
+
 	@IBOutlet weak var titleLabel: ENALabel!
 	@IBOutlet weak var subtitleLabel: ENALabel!
 	@IBOutlet weak var infoButton: UIButton!
@@ -32,6 +34,9 @@ class StatisticCell: UICollectionViewCell {
 
 		let adjustsFontSizeToFitWidth = false
 		let allowsDefaultTighteningForTruncation = true
+
+		layer.cornerRadius = 14
+		containerView.layer.cornerRadius = layer.cornerRadius
 
 		titleLabel.adjustsFontSizeToFitWidth = adjustsFontSizeToFitWidth
 		titleLabel.allowsDefaultTighteningForTruncation = allowsDefaultTighteningForTruncation

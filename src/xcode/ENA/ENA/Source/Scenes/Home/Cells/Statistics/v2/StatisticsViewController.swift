@@ -32,7 +32,7 @@ final class StatisticsViewController: UIViewController, UICollectionViewDataSour
 		collectionView.showsHorizontalScrollIndicator = false
 		collectionView.decelerationRate = .fast
 		collectionView.dataSource = self
-		collectionView.backgroundColor = .enaColor(for: .darkBackground)
+		collectionView.backgroundColor = .clear
 		collectionView.register(UINib(nibName: "StatisticCell", bundle: nil), forCellWithReuseIdentifier: StatisticCell.reuseIdentifier)
 		collectionView.register(UINib(nibName: "ManageStatisticCell", bundle: nil), forCellWithReuseIdentifier: ManageStatisticCell.reuseIdentifier)
 
@@ -58,8 +58,6 @@ final class StatisticsViewController: UIViewController, UICollectionViewDataSour
 			collectionView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
 			collectionView.heightAnchor.constraint(equalToConstant: StatisticsViewController.height)
 		])
-
-		setEditing(true, animated: true)
 	}
 
 	// MARK: - UICollectionViewDataSource
@@ -104,6 +102,7 @@ final class StatisticsViewController: UIViewController, UICollectionViewDataSour
 				onInfoButtonTap: {},
 				onAccessibilityFocus: {})
 			cell.addStyling()
+			// TODO: baselines
 			return cell
 		} catch {
 			preconditionFailure("Invalid configuration") // needs a better description...
@@ -158,15 +157,10 @@ final class StatisticsViewController: UIViewController, UICollectionViewDataSour
 private extension UICollectionViewCell {
 	func addStyling() {
 		// FIXME: needs update to real values!
-		layer.borderWidth = 0.5
-		layer.borderColor = UIColor.systemGray.withAlphaComponent(0.5).cgColor
-
 		layer.shadowColor = UIColor.darkGray.cgColor
-		layer.shadowOffset = CGSize(width: 3, height: 3)
-		layer.shadowRadius = 3
-		layer.shadowOpacity = 0.4
+		layer.shadowOffset = CGSize(width: 0, height: 0)
+		layer.shadowRadius = 6
+		layer.shadowOpacity = 0.2
 		layer.masksToBounds = false
-
-		isOpaque = false
 	}
 }
