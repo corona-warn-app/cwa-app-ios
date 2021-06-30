@@ -7,8 +7,8 @@ import OpenCombine
 import HealthCertificateToolkit
 
 protocol DCCValidationProviding {
-	func availableCountries(
-		completion: @escaping (Result<[Country], DCCValidationError>) -> Void
+	func onboardedCountries(
+		completion: @escaping (Result<[Country], DCCOnboardedCountriesError>) -> Void
 	)
 	
 	func validateDcc(
@@ -17,7 +17,7 @@ protocol DCCValidationProviding {
 		arrivalCountry: String,
 		validationClock: Date,
 		cborWebToken: CBORWebTokenHeader,
-		completion: @escaping (Result<DCCValidationProgress, DCCValidationError>) -> Void
+		completion: @escaping (Result<DCCValidationReport, DCCValidationError>) -> Void
 	)
 }
 
@@ -39,8 +39,8 @@ final class DCCValidationService: DCCValidationProviding {
 	
 	// MARK: - Protocol DCCValidationProviding
 	
-	func availableCountries(
-		completion: @escaping (Result<[Country], DCCValidationError>) -> Void
+	func onboardedCountries(
+		completion: @escaping (Result<[Country], DCCOnboardedCountriesError>) -> Void
 	) {
 		
 	}
@@ -51,7 +51,7 @@ final class DCCValidationService: DCCValidationProviding {
 		arrivalCountry: String,
 		validationClock: Date,
 		cborWebToken: CBORWebTokenHeader,
-		completion: @escaping (Result<DCCValidationProgress, DCCValidationError>) -> Void
+		completion: @escaping (Result<DCCValidationReport, DCCValidationError>) -> Void
 	) {
 		// 1. Apply technical validation
 		

@@ -4,7 +4,7 @@
 
 import Foundation
 
-struct DCCValidationProgress {
+struct DCCValidationReport {
 	
 	// MARK: - Internal
 
