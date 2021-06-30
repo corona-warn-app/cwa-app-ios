@@ -13,6 +13,7 @@ class ExposureSubmissionIntroViewModelTests: CWATestCase {
 
 		let viewModel = ExposureSubmissionIntroViewModel(
 			onQRCodeButtonTap: { _ in },
+			onFindTestCentersTap: { },
 			onTANButtonTap: { },
 			onHotlineButtonTap: { },
 			onRapidTestProfileTap: { },
@@ -30,6 +31,7 @@ class ExposureSubmissionIntroViewModelTests: CWATestCase {
 
 		let viewModel = ExposureSubmissionIntroViewModel(
 			onQRCodeButtonTap: { _ in },
+			onFindTestCentersTap: { },
 			onTANButtonTap: { },
 			onHotlineButtonTap: { },
 			onRapidTestProfileTap: { },
