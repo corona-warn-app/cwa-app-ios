@@ -2712,7 +2712,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertifiedPerson_title" = "Digitales COVID-Zertifikat der EU";
 
-"HealthCertifiedPerson_partiallyVaccinated" = "Sie haben noch nicht alle derzeit geplanten Impfungen erhalten. Daher ist ihr Impfschutz noch nicht vollständig.";
+"HealthCertifiedPerson_partiallyVaccinated" = "Sie haben noch nicht alle derzeit geplanten Impfungen erhalten. Daher ist Ihr Impfschutz noch nicht vollständig.";
 
 "HealthCertifiedPerson_dateOfBirth" = "geboren %@";
 

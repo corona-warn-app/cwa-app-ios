@@ -12,7 +12,7 @@ struct HealthCertificate: Codable, Equatable, Comparable {
 	init(base45: Base45) throws {
 		self.base45 = base45
 		self.cborWebTokenHeader = try Self.extractCBORWebTokenHeader(from: base45)
-		self.digitalGreenCertificate = try Self.extractDigitalGreenCertificate(from: base45)
+		self.digitalCovidCertificate = try Self.extractDigitalCovidCertificate(from: base45)
 	}
 
 	// MARK: - Protocol Codable
@@ -27,7 +27,7 @@ struct HealthCertificate: Codable, Equatable, Comparable {
 		base45 = try container.decode(Base45.self, forKey: .base45)
 
 		self.cborWebTokenHeader = try Self.extractCBORWebTokenHeader(from: base45)
-		self.digitalGreenCertificate = try Self.extractDigitalGreenCertificate(from: base45)
+		self.digitalCovidCertificate = try Self.extractDigitalCovidCertificate(from: base45)
 	}
 
 	func encode(to encoder: Encoder) throws {
@@ -63,19 +63,19 @@ struct HealthCertificate: Codable, Equatable, Comparable {
 	let base45: Base45
 
 	var version: String {
-		digitalGreenCertificate.version
+		digitalCovidCertificate.version
 	}
 
 	var name: HealthCertificateToolkit.Name {
-		digitalGreenCertificate.name
+		digitalCovidCertificate.name
 	}
 
 	var dateOfBirth: String {
-		digitalGreenCertificate.dateOfBirth
+		digitalCovidCertificate.dateOfBirth
 	}
 
 	var dateOfBirthDate: Date? {
-		return ISO8601DateFormatter.justLocalDateFormatter.date(from: digitalGreenCertificate.dateOfBirth)
+		return ISO8601DateFormatter.justLocalDateFormatter.date(from: digitalCovidCertificate.dateOfBirth)
 	}
 
 	var uniqueCertificateIdentifier: String? {
@@ -83,22 +83,22 @@ struct HealthCertificate: Codable, Equatable, Comparable {
 	}
 
 	var vaccinationEntry: VaccinationEntry? {
-		digitalGreenCertificate.vaccinationEntries?.first
+		digitalCovidCertificate.vaccinationEntries?.first
 	}
 
 	var testEntry: TestEntry? {
-		digitalGreenCertificate.testEntries?.first
+		digitalCovidCertificate.testEntries?.first
 	}
 
 	var recoveryEntry: RecoveryEntry? {
-		digitalGreenCertificate.recoveryEntries?.first
+		digitalCovidCertificate.recoveryEntries?.first
 	}
 
 	var hasTooManyEntries: Bool {
 		let entryCount = [
-			digitalGreenCertificate.vaccinationEntries?.count ?? 0,
-			digitalGreenCertificate.testEntries?.count ?? 0,
-			digitalGreenCertificate.recoveryEntries?.count ?? 0
+			digitalCovidCertificate.vaccinationEntries?.count ?? 0,
+			digitalCovidCertificate.testEntries?.count ?? 0,
+			digitalCovidCertificate.recoveryEntries?.count ?? 0
 		].reduce(0, +)
 
 		return entryCount != 1
@@ -157,7 +157,7 @@ struct HealthCertificate: Codable, Equatable, Comparable {
 	// MARK: - Private
 
 	private let cborWebTokenHeader: CBORWebTokenHeader
-	private let digitalGreenCertificate: DigitalGreenCertificate
+	private let digitalCovidCertificate: DigitalCovidCertificate
 
 	private var sortDate: Date? {
 		switch entry {
@@ -171,7 +171,7 @@ struct HealthCertificate: Codable, Equatable, Comparable {
 	}
 
 	private static func extractCBORWebTokenHeader(from base45: Base45) throws -> CBORWebTokenHeader {
-		let webTokenHeaderResult = DigitalGreenCertificateAccess().extractCBORWebTokenHeader(from: base45)
+		let webTokenHeaderResult = DigitalCovidCertificateAccess().extractCBORWebTokenHeader(from: base45)
 
 		switch webTokenHeaderResult {
 		case .success(let cborWebTokenHeader):
@@ -182,12 +182,12 @@ struct HealthCertificate: Codable, Equatable, Comparable {
 		}
 	}
 
-	private static func extractDigitalGreenCertificate(from base45: Base45) throws -> DigitalGreenCertificate {
-		let certificateResult = DigitalGreenCertificateAccess().extractDigitalGreenCertificate(from: base45)
+	private static func extractDigitalCovidCertificate(from base45: Base45) throws -> DigitalCovidCertificate {
+		let certificateResult = DigitalCovidCertificateAccess().extractDigitalCovidCertificate(from: base45)
 
 		switch certificateResult {
-		case .success(let digitalGreenCertificate):
-			return digitalGreenCertificate
+		case .success(let digitalCovidCertificate):
+			return digitalCovidCertificate
 		case .failure(let error):
 			Log.error("Failed to decode health certificate with error", log: .vaccination, error: error)
 			throw error
