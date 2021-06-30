@@ -15,7 +15,6 @@ protocol LocalStatisticsFetching {
 	var signatureVerifier: SignatureVerifier { get }
 
 	typealias LocalStatisticsCompletionHandler = (Result<LocalStatisticsResponse, Error>) -> Void
-	// typealias GroupIdentifier = String
 
 	func fetchLocalStatistics(
 		groupID: GroupIdentifier,
@@ -29,8 +28,6 @@ struct LocalStatisticsResponse {
 	let eTag: String?
 	let timestamp: Date
 	let groupID: GroupIdentifier
-	
-	// typealias GroupIdentifier = String
 
 	init(_ localStatistics: SAP_Internal_Stats_LocalStatistics, _ eTag: String? = nil, _ groupID: GroupIdentifier) {
 		self.groupID = groupID
