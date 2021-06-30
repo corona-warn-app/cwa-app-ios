@@ -12,7 +12,7 @@ protocol DCCValidationProviding {
 	)
 	
 	func validateDcc(
-		dcc: DigitalGreenCertificate,
+		dcc: DigitalCovidCertificate,
 		issuerCountry: String,
 		arrivalCountry: String,
 		validationClock: Date,
@@ -44,7 +44,7 @@ final class DCCValidationService: DCCValidationProviding {
 	}
 	
 	func validateDcc(
-		dcc: DigitalGreenCertificate,
+		dcc: DigitalCovidCertificate,
 		issuerCountry: String,
 		arrivalCountry: String,
 		validationClock: Date,
