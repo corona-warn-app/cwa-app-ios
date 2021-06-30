@@ -53,7 +53,7 @@ class HomeStatisticsCardViewModel {
 	
 	init(administrativeUnitData: SAP_Internal_Stats_AdministrativeUnitData, district: String) {
 		let sevenDayTrend = administrativeUnitData.sevenDayIncidence
-		title = "Lokale 7-Tage-Inzidenz"
+		title = AppStrings.Statistics.AddCard.localCardTitle
 		subtitle = district
 		illustrationImage = UIImage(named: "LocalIncidence")
 		primaryValue = sevenDayTrend.formattedValue
