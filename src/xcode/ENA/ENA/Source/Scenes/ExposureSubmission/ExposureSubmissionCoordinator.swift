@@ -847,6 +847,12 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				)
 
 			},
+			didTapInfoProfile: {
+				// Todo: Navigate to profile info
+			},
+			didTapEditProfile: {
+				// Todo: navigate to profile edit screen.
+			},
 			didTapDeleteProfile: { [weak self] in
 				self?.navigationController?.popViewController(animated: true)
 			}, dismiss: { [weak self] in self?.dismiss() }
