@@ -13,13 +13,13 @@ public typealias CBORData = Data
 
 let hcPrefix = "HC1:"
 
-public protocol DigitalGreenCertificateAccessProtocol {
+public protocol DigitalCovidCertificateAccessProtocol {
     func extractCBORWebTokenHeader(from base45: Base45) -> Result<CBORWebTokenHeader, CertificateDecodingError>
-    func extractDigitalGreenCertificate(from base45: Base45) -> Result<DigitalGreenCertificate, CertificateDecodingError>
+    func extractDigitalCovidCertificate(from base45: Base45) -> Result<DigitalCovidCertificate, CertificateDecodingError>
     func convertToBase45(from base64: Base64, with dataEncryptionKey: Data) -> Result<Base45, CertificateDecodingError>
 }
 
-public struct DigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtocol {
+public struct DigitalCovidCertificateAccess: DigitalCovidCertificateAccessProtocol {
 
     // MARK: - Init
 
@@ -37,14 +37,14 @@ public struct DigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtoc
             .flatMap(extractHeader)
     }
 
-    public func extractDigitalGreenCertificate(from base45: Base45) -> Result<DigitalGreenCertificate, CertificateDecodingError> {
+    public func extractDigitalCovidCertificate(from base45: Base45) -> Result<DigitalCovidCertificate, CertificateDecodingError> {
         removePrefix(from: base45)
             .flatMap(convertBase45ToData)
             .flatMap(decompressZLib)
             .flatMap(decodeCBORWebTokenEntries)
             .flatMap(extractPayload)
             .flatMap(decodePayload)
-            .flatMap(extractDigitalGreenCertificate)
+            .flatMap(extractDigitalCovidCertificate)
     }
 
     public func convertToBase45(from base64: Base64, with dataEncryptionKey: Data) -> Result<Base45, CertificateDecodingError> {
@@ -167,15 +167,15 @@ public struct DigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtoc
         ))
     }
 
-    private func extractDigitalGreenCertificate(from cborWebToken: CBOR) -> Result<DigitalGreenCertificate, CertificateDecodingError> {
+    private func extractDigitalCovidCertificate(from cborWebToken: CBOR) -> Result<DigitalCovidCertificate, CertificateDecodingError> {
 
-        // -260: Container of Digital Green Certificate
+        // -260: Container of Digital Covid Certificate
         guard let healthCertificateElement = cborWebToken[-260],
               case let .map(healthCertificateMap) = healthCertificateElement else {
             return .failure(.HC_CBORWEBTOKEN_NO_HEALTHCERTIFICATE)
         }
 
-        // 1: Digital Green Certificate
+        // 1: Digital Covid Certificate
         guard  let healthCertificateCBOR = healthCertificateMap[1] else {
             return .failure(.HC_CBORWEBTOKEN_NO_DIGITALGREENCERTIFICATE)
         }
@@ -185,13 +185,13 @@ public struct DigitalGreenCertificateAccess: DigitalGreenCertificateAccessProtoc
             .flatMap(convertCBORToStruct)
     }
 
-    private func convertCBORToStruct(_ cbor: CBOR) -> Result<DigitalGreenCertificate, CertificateDecodingError> {
+    private func convertCBORToStruct(_ cbor: CBOR) -> Result<DigitalCovidCertificate, CertificateDecodingError> {
         guard case let CBOR.map(certificateMap) = cbor else {
             fatalError("healthCertificateCBOR should be a map at this point.")
         }
 
         do {
-            let healthCertificate = try JSONDecoder().decode(DigitalGreenCertificate.self, from: JSONSerialization.data(withJSONObject: certificateMap.anyMap))
+            let healthCertificate = try JSONDecoder().decode(DigitalCovidCertificate.self, from: JSONSerialization.data(withJSONObject: certificateMap.anyMap))
             return .success(healthCertificate)
         } catch {
             return .failure(.HC_CBOR_DECODING_FAILED(error))

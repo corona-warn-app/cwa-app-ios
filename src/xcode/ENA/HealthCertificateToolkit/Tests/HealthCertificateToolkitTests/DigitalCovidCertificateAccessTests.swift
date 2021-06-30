@@ -7,11 +7,11 @@ import SwiftCBOR
 @testable import HealthCertificateToolkit
 
 // swiftlint:disable line_length
-final class DigitalGreenCertificateAccessTests: XCTestCase {
+final class DigitalCovidCertificateAccessTests: XCTestCase {
 
     func test_When_DecodeVaccinationCertificateSucceeds_Then_CorrectCertificateIsReturned() {
-        let certificateAccess = DigitalGreenCertificateAccess()
-        let result = certificateAccess.extractDigitalGreenCertificate(from: testDataVaccinationCertificate.input)
+        let certificateAccess = DigitalCovidCertificateAccess()
+        let result = certificateAccess.extractDigitalCovidCertificate(from: testDataVaccinationCertificate.input)
 
         guard case let .success(healthCertificate) = result else {
             XCTFail("Success expected.")
@@ -22,8 +22,8 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
     }
 
     func test_When_DecodeTestCertificateSucceeds_Then_CorrectCertificateIsReturned() {
-        let certificateAccess = DigitalGreenCertificateAccess()
-        let result = certificateAccess.extractDigitalGreenCertificate(from: testDataTestCertificate.input)
+        let certificateAccess = DigitalCovidCertificateAccess()
+        let result = certificateAccess.extractDigitalCovidCertificate(from: testDataTestCertificate.input)
 
         guard case let .success(healthCertificate) = result else {
             XCTFail("Success expected.")
@@ -34,8 +34,8 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
     }
 
     func test_When_DecodeRecoveryCertificateSucceeds_Then_CorrectCertificateIsReturned() {
-        let certificateAccess = DigitalGreenCertificateAccess()
-        let result = certificateAccess.extractDigitalGreenCertificate(from: testDataRecoveryCertificate.input)
+        let certificateAccess = DigitalCovidCertificateAccess()
+        let result = certificateAccess.extractDigitalCovidCertificate(from: testDataRecoveryCertificate.input)
 
         guard case let .success(healthCertificate) = result else {
             XCTFail("Success expected.")
@@ -46,11 +46,11 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
     }
 
     func test_When_DecodeCertificateFails_Then_PrefixInvalidErrorIsReturned() {
-        let certificateAccess = DigitalGreenCertificateAccess()
+        let certificateAccess = DigitalCovidCertificateAccess()
         // "%69 VDL2" == "Hello"
         let base45WithoutPrefix = "%69 VDL2"
 
-        let result = certificateAccess.extractDigitalGreenCertificate(from: base45WithoutPrefix)
+        let result = certificateAccess.extractDigitalCovidCertificate(from: base45WithoutPrefix)
 
         guard case let .failure(error) = result else {
             XCTFail("Error expected.")
@@ -64,10 +64,10 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
     }
 
     func test_When_DecodeCertificateFails_Then_Base45DecodingErrorIsReturned() {
-        let certificateAccess = DigitalGreenCertificateAccess()
+        let certificateAccess = DigitalCovidCertificateAccess()
         let nonBase45WithPrefix = hcPrefix + "==="
 
-        let result = certificateAccess.extractDigitalGreenCertificate(from: nonBase45WithPrefix)
+        let result = certificateAccess.extractDigitalCovidCertificate(from: nonBase45WithPrefix)
 
         guard case let .failure(error) = result else {
             XCTFail("Error expected.")
@@ -81,11 +81,11 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
     }
 
     func test_When_DecodeCertificateFails_Then_CompressionErrorIsReturned() {
-        let certificateAccess = DigitalGreenCertificateAccess()
+        let certificateAccess = DigitalCovidCertificateAccess()
         // "%69 VDL2" == "Hello"
         let base45NoZip = hcPrefix + "%69 VDL2"
 
-        let result = certificateAccess.extractDigitalGreenCertificate(from: base45NoZip)
+        let result = certificateAccess.extractDigitalCovidCertificate(from: base45NoZip)
 
         guard case let .failure(error) = result else {
             XCTFail("Error expected.")
@@ -99,7 +99,7 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
     }
 
     func test_When_DecodeSucceeds_Then_CorrectHeaderIsReturned() throws {
-        let certificateAccess = DigitalGreenCertificateAccess()
+        let certificateAccess = DigitalCovidCertificateAccess()
 
         let result = certificateAccess.extractCBORWebTokenHeader(from: testDataVaccinationCertificate.input)
 
@@ -114,7 +114,7 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
     }
 
     func test_When_DecryptAndComposeToWebToken_Then_CorrectWebTokenIsReturned() throws {
-        let certificateAccess = DigitalGreenCertificateAccess()
+        let certificateAccess = DigitalCovidCertificateAccess()
 
         for encryptedTestData in encryptedTestDatas {
             let keyData = try XCTUnwrap(Data(base64Encoded: encryptedTestData.decryptedKey))
@@ -132,7 +132,7 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
     }
 
     func test_When_ConvertToBase45_And_ExtractCertificate_Then_SuccessIsReturned() throws {
-        let certificateAccess = DigitalGreenCertificateAccess()
+        let certificateAccess = DigitalCovidCertificateAccess()
 
         for encryptedTestData in encryptedTestDatas {
             let keyData = try XCTUnwrap(Data(base64Encoded: encryptedTestData.decryptedKey))
@@ -143,7 +143,7 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
                 return
             }
 
-            let extractResult = certificateAccess.extractDigitalGreenCertificate(from: base45)
+            let extractResult = certificateAccess.extractDigitalCovidCertificate(from: base45)
 
             guard case .success = extractResult else {
                 XCTFail("Success expected.")
@@ -155,7 +155,7 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
     private lazy var testDataVaccinationCertificate: TestData = {
         TestData(
             input: hcPrefix + "6BFOXN*TS0BI$ZD4N9:9S6RCVN5+O30K3/XIV0W23NTDEXWK G2EP4J0BGJLFX3R3VHXK.PJ:2DPF6R:5SVBHABVCNN95SWMPHQUHQN%A0SOE+QQAB-HQ/HQ7IR.SQEEOK9SAI4- 7Y15KBPD34  QWSP0WRGTQFNPLIR.KQNA7N95U/3FJCTG90OARH9P1J4HGZJKBEG%123ZC$0BCI757TLXKIBTV5TN%2LXK-$CH4TSXKZ4S/$K%0KPQ1HEP9.PZE9Q$95:UENEUW6646936HRTO$9KZ56DE/.QC$Q3J62:6LZ6O59++9-G9+E93ZM$96TV6NRN3T59YLQM1VRMP$I/XK$M8PK66YBTJ1ZO8B-S-*O5W41FD$ 81JP%KNEV45G1H*KESHMN2/TU3UQQKE*QHXSMNV25$1PK50C9B/9OK5NE1 9V2:U6A1ELUCT16DEETUM/UIN9P8Q:KPFY1W+UN MUNU8T1PEEG%5TW5A 6YO67N6BBEWED/3LS3N6YU.:KJWKPZ9+CQP2IOMH.PR97QC:ACZAH.SYEDK3EL-FIK9J8JRBC7ADHWQYSK48UNZGG NAVEHWEOSUI2L.9OR8FHB0T5HM7I",
-            certificate: DigitalGreenCertificate(
+            certificate: DigitalCovidCertificate(
                 version: "1.0.0",
                 name: Name(
                     familyName: "Schmitt Mustermann",
@@ -192,7 +192,7 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
     private lazy var testDataTestCertificate: TestData = {
         TestData(
             input: hcPrefix + "6BFOXN%TSMAHN-HVN8J7UQMJ4/36 L-AHIT91RO4.S-OP %I83V8H9GJLUW5NW6SA3/-2E%5G%5TW5A 6YO6XL6Q3QR$P*NI92K*F2-8B0DJV1JD7U:CJX3CJ7J:ZJ83BTH2R638DJC0J*PIR8T3WS9.S*IJ5OI9YI:8DVFC%PD:NK8WCDAB2DNAHLW 70SO:GOLIROGO3T5ZXK9UO GOP*OSV8WP4K166K8A 6:-OGU6927CORX8Q6I4/$R/ER/ QXZOZZOWP4:/6F0P6HPE65V77ZJ82HPPEPHCRTWA+DPL*OCHP7IRZSP:WBW+QYQ6-B5B11XEDW33D8C. C290AQ5EPPQF67460R6646O59EB9:PE+.PTW5F$PI11UH97-5ZT5VZP0JEWYH:PIREGMCIGDB3LKDVAC7JLKB8UJ06JSVBDKBXEB0VL//ET2ADMG5JD*5ADK45TMN95ZTM+CSUHQN%A400H%UBT16Y5+Z9  38CRVS1I$6P+1VWU5:U2:UI36/8HTWU%/EYUUPWEBSHFKVHIM$AF5JRZ$FKCTYUD$PMYTF6%HJ29H/DA BT 36*N0FCZDRKWBGRINNNRAT94KZ5C95N38TBRJ*CF-7RBA1MOHQT1V472AV86O000*JCLCJ",
-            certificate: DigitalGreenCertificate(
+            certificate: DigitalCovidCertificate(
                 version: "1.0.0",
                 name: Name(
                     familyName: "Falorni",
@@ -229,7 +229,7 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
     private lazy var testDataRecoveryCertificate: TestData = {
         TestData(
             input: hcPrefix + "6BFOXN%TSMAHN-HVN8J7UQMJ4/36 L-AH+UC1RO4.S-OPT-I9QKUXI.I5HCF-+AF/8X*G-O9UVPQRHIY1VS1NQ1 WUQRELS4 CTHE7L4LXTC%*400THMVL%20YCZ/KD*S+*4KCTBYKGVV+TV F76AL**I$MV4$0ADF0NNNIV+*4.$S6ZC0JBW63MD34LT483F 2K%5PF5RBQ746B46O1N646EN95O5PF6846A$Q 76SW6SH932QXF7AC5ADNXMQ*Q6NY4 478L6IWM$S4O65YR60D4%IUOD4*EV3LCIS8DKD5C9PG9QVA0932QE+G9AXG/01%CMPK95%L//6JWE/.Q100R$FTM8*N9TL2A-FUTVC1OJ$5I5UH8T-0OG60NJOQ3T%80C6S23OS-5172W1CH$6:7Q5$VT6EY$NY+LV$2R3A1MMLHP2/L7O59SG6.2..TYUVNYT0G6-27$WBZP6NM13.60R3GSMF4ARSV*JO5PU.DGE39Y1GY8RN004GF 2",
-            certificate: DigitalGreenCertificate(
+            certificate: DigitalCovidCertificate(
                 version: "1.0.0",
                 name: Name(
                     familyName: "Martinelli",
@@ -280,7 +280,7 @@ final class DigitalGreenCertificateAccessTests: XCTestCase {
 
 private struct TestData {
     let input: String
-    let certificate: DigitalGreenCertificate
+    let certificate: DigitalCovidCertificate
     let header: CBORWebTokenHeader
 }
 

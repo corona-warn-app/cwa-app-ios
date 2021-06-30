@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import OpenCombine
 
 class PreferredPersonTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 
@@ -27,12 +28,22 @@ class PreferredPersonTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 		updateBorderWidth()
 	}
 
+	override func prepareForReuse() {
+		super.prepareForReuse()
+
+		subscriptions = []
+		cellModel = nil
+	}
+
 	// MARK: - Internal
 
 	func configure(with cellModel: PreferredPersonCellModel) {
 		nameLabel.text = cellModel.name
 		dateOfBirthLabel.text = cellModel.dateOfBirth
-		preferredPersonSwitch.isOn = cellModel.isPreferredPerson
+
+		cellModel.$isPreferredPerson
+			.assign(to: \.isOn, on: preferredPersonSwitch)
+			.store(in: &subscriptions)
 
 		self.cellModel = cellModel
 	}
@@ -46,6 +57,7 @@ class PreferredPersonTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 	private let preferredPersonSwitch = UISwitch()
 
 	private var cellModel: PreferredPersonCellModel?
+	private var subscriptions = Set<AnyCancellable>()
 
 	private func setupView() {
 		backgroundColor = .clear
