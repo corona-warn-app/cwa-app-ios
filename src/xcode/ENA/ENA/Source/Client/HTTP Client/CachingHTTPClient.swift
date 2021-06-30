@@ -12,7 +12,7 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, LocalStat
 		case dataVerificationError(message: String?)
 	}
 
-	typealias groupID = String
+	typealias GroupIdentifier = String
 
 	/// The client configuration - mostly server endpoints per environment
 	var configuration: HTTPClient.Configuration {
