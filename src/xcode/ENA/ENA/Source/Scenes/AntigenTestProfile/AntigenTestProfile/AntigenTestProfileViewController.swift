@@ -70,26 +70,18 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 			didTapContinue({ _ in Log.debug("is loading closure here") })
 		case .secondary:
 			
-			let alert = UIAlertController(
-				title: AppStrings.AntigenProfile.Profile.deleteAlertTitle,
-				message: AppStrings.AntigenProfile.Profile.deleteAlertDescription,
-				preferredStyle: .alert
-			)
-			
-			let deleteAction = UIAlertAction(
-				title: AppStrings.AntigenProfile.Profile.deleteAlertDeleteButtonTitle,
-				style: .destructive,
-				handler: { [weak self] _ in
-					self?.viewModel.deleteProfile()
-					self?.didTapDeleteProfile()
-				}
-			)
-			alert.addAction(deleteAction)
-			
-			let cancelAction = UIAlertAction(title: AppStrings.Common.alertActionCancel, style: .cancel)
-			alert.addAction(cancelAction)
-			
-			present(alert, animated: true, completion: nil)
+			let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+			ac.addAction(UIAlertAction(title: AppStrings.AntigenProfile.Profile.editActionTitle, style: .default, handler: { _ in
+
+			}))
+			ac.addAction(UIAlertAction(title: AppStrings.AntigenProfile.Profile.deleteActionTitle, style: .destructive, handler: { [weak self] _ in
+				self?.presentDeleteConfirmationAlert()
+			}))
+			ac.addAction(UIAlertAction(title: AppStrings.AntigenProfile.Profile.cancelActionTitle, style: .cancel, handler: { _ in
+
+			}))
+			ac.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItem
+			present(ac, animated: true)
 		}
 	}
 
@@ -241,4 +233,26 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 		tableView.register(QRCodeCell.self, forCellReuseIdentifier: QRCodeCell.reuseIdentifier)
 	}
 
+	private func presentDeleteConfirmationAlert() {
+		let alert = UIAlertController(
+			title: AppStrings.AntigenProfile.Profile.deleteAlertTitle,
+			message: AppStrings.AntigenProfile.Profile.deleteAlertDescription,
+			preferredStyle: .alert
+		)
+
+		let deleteAction = UIAlertAction(
+			title: AppStrings.AntigenProfile.Profile.deleteAlertDeleteButtonTitle,
+			style: .destructive,
+			handler: { [weak self] _ in
+				self?.viewModel.deleteProfile()
+				self?.didTapDeleteProfile()
+			}
+		)
+		alert.addAction(deleteAction)
+
+		let cancelAction = UIAlertAction(title: AppStrings.Common.alertActionCancel, style: .cancel)
+		alert.addAction(cancelAction)
+
+		present(alert, animated: true, completion: nil)
+	}
 }

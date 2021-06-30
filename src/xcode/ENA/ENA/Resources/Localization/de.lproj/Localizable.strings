@@ -975,7 +975,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_Antigen_Profile_Primary_Button" = "Weiter";
 
-"ExposureSubmission_Antigen_Profile_Secondary_Button" = "Schnelltest-Profil entfernen";
+"ExposureSubmission_Antigen_Profile_Secondary_Button" = "Bearbeiten";
 
 /* ExposureSubmission AntigenTest */
 
@@ -2587,6 +2587,12 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "AntigenProfile_Create_Save_Button_Title" = "Speichern";
 
 /* Antigen Profile */
+
+"AntigenProfile_Edit_Action_Title" = "Schnelltest-Profil bearbeiten";
+
+"AntigenProfile_Delete_Action_Title" = "Schnelltest-Profil entfernen";
+
+"AntigenProfile_Cancel_Action_Title" = "Abbrechen";
 
 "AntigenProfile_Delete_Alert_Title" = "Wollen Sie das Schnelltest-Profil entfernen?";
 
