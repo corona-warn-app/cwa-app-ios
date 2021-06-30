@@ -10,32 +10,32 @@ import XCTest
 // swiftlint:disable:next type_body_length
 class HomeStatisticsCardViewModelTests: CWATestCase {
 
-	func testFormattedValueWithoutDecimals() {
-		checkFormattedValue(value: 17.98, decimals: 0, expectedString: "18", inPercent: true)
+	func testFormattedSmallValueWithoutDecimals() {
+		checkFormattedValue(value: 0.1798, decimals: 0, expectedString: "0", expectedStringWithPercent: "18%")
 	}
 
-	func testFormattedValueWithNegativeDecimalsIsHandledAsZeroDecimals() {
-		checkFormattedValue(value: 17.98, decimals: -1, expectedString: "18", inPercent: true)
+	func testFormattedSmallValueWithNegativeDecimalsIsHandledAsZeroDecimals() {
+		checkFormattedValue(value: 0.1798, decimals: -1, expectedString: "0", expectedStringWithPercent: "18%")
 	}
 
-	func testFormattedValueWithDecimals() {
-		checkFormattedValue(value: 17.98, decimals: 2, expectedString: "17,98", inPercent: true)
+	func testFormattedSmallValueWithDecimals() {
+		checkFormattedValue(value: 0.1798, decimals: 2, expectedString: "0,18", expectedStringWithPercent: "17,98%")
 	}
 
-	func testVeryHighFullyFormattedValue() {
-		checkFormattedValue(value: 9_999_999.99, decimals: 2, expectedString: "9.999.999,99", inPercent: true)
+	func testFormattedMediumValueWithoutDecimals() {
+		checkFormattedValue(value: 17.98, decimals: 0, expectedString: "18", expectedStringWithPercent: "1.798%")
 	}
 
-	func testVeryHighShortenedFormattedValue() {
-		checkFormattedValue(value: 10_000_000, decimals: 2, expectedString: "10.000.000,00", inPercent: false)
+	func testFormattedMediumValueWithNegativeDecimalsIsHandledAsZeroDecimals() {
+		checkFormattedValue(value: 17.98, decimals: -1, expectedString: "18", expectedStringWithPercent: "1.798%")
 	}
 
-	func testVeryHighShortenedFormattedValueRoundingDown() {
-		checkFormattedValue(value: 10_050_000, decimals: 2, expectedString: "10.050.000,00", inPercent: false)
+	func testFormattedMediumValueWithDecimals() {
+		checkFormattedValue(value: 17.98, decimals: 2, expectedString: "17,98", expectedStringWithPercent: "1.798%")
 	}
 
-	func testVeryHighShortenedFormattedValueRoundingUp() {
-		checkFormattedValue(value: 10_050_001, decimals: 2, expectedString: "10.050.001,00", inPercent: false)
+	func testVeryHighFormattedValue() {
+		checkFormattedValue(value: 10_000_000, decimals: 2, expectedString: "10.000.000,00", expectedStringWithPercent: "1.000.000.000%")
 	}
 
 	func testTrendImageAndAccessibilityLabelForIncreasingTrend() {
@@ -681,7 +681,7 @@ class HomeStatisticsCardViewModelTests: CWATestCase {
 		value: Double = 0,
 		decimals: Int32 = 0,
 		expectedString: String,
-		inPercent: Bool
+		expectedStringWithPercent: String
 	) {
 		for id in HomeStatisticsCard.allCases.map({ $0.rawValue }) {
 			for rank in [SAP_Internal_Stats_KeyFigure.Rank.primary, .secondary, .tertiary] {
@@ -700,9 +700,7 @@ class HomeStatisticsCardViewModelTests: CWATestCase {
 				case .primary:
 					switch HomeStatisticsCard(rawValue: id) {
 					case .atLeastOneVaccinatedPerson, .fullyVaccinatedPeople:
-						if inPercent {
-							XCTAssertEqual(viewModel.primaryValue, expectedString + "%")
-						}
+						XCTAssertEqual(viewModel.primaryValue, expectedStringWithPercent)
 					case .infections, .incidence, .keySubmissions, .reproductionNumber, .appliedVaccinationsDoseRates:
 						XCTAssertEqual(viewModel.primaryValue, expectedString)
 					case .none:
