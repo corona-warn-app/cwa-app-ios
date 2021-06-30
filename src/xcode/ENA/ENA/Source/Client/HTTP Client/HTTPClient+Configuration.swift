@@ -298,6 +298,17 @@ extension HTTPClient {
 					"onboarded-countries"
 				)
 		}
+				
+		func dccRulesURL(rulePath: String) -> URL {
+			endpoints
+				.distribution
+				.appending(
+					"version",
+					apiVersion,
+					"ehn-dgc",
+					rulePath
+				)
+		}
 	}
 }
 
