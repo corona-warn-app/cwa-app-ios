@@ -74,6 +74,7 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="addLocalIncidenceLabel" destination="wcn-ks-Lju" id="cbQ-XD-0jy"/>
+                <outlet property="addLocalIncidencesButton" destination="ypy-E2-Kp1" id="o63-Vp-zsm"/>
             </connections>
             <point key="canvasLocation" x="165.94202898550725" y="-47.209821428571423"/>
         </view>

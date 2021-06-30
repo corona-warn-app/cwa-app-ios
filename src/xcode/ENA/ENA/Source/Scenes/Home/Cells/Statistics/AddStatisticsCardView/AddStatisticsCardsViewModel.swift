@@ -30,7 +30,7 @@ class AddStatisticsCardsViewModel {
 			preselected: nil,
 			isInitialCellEnabled: false,
 			initialString: AppStrings.Statistics.Card.fromNationWide,
-			accessibilityIdentifier: AccessibilityIdentifiers.DataDonation.federalStateCell,
+			accessibilityIdentifier: AccessibilityIdentifiers.LocalStatistics.selectState,
 			selectionCellIconType: .discloseIndicator
 		)
 		selectValueViewModel.$selectedValue.sink { [weak self] federalState in
@@ -53,7 +53,7 @@ class AddStatisticsCardsViewModel {
 			preselected: nil,
 			isInitialCellEnabled: false,
 			initialString: AppStrings.Statistics.AddCard.stateWide,
-			accessibilityIdentifier: AccessibilityIdentifiers.DataDonation.regionCell,
+			accessibilityIdentifier: AccessibilityIdentifiers.LocalStatistics.selectDistrict,
 			selectionCellIconType: .none
 		)
 		selectValueViewModel.$selectedValue.sink { [weak self] district in
@@ -76,13 +76,17 @@ class AddStatisticsCardsViewModel {
 			Log.warning("districtIDValue, federalStateString or state is nil", log: .localStatistics)
 			return
 		}
-		let districtIDWithPadding = String(describing: districtIDValue)
-		let districtIDWithoutPadding = String(describing: districtIDWithPadding.dropFirst(3))
+		// eg id = 1100452
+		// Convert the id value to string so we can remove the first 3 characters
+		let districtIDWithoutPadding = String(describing: districtIDValue).dropFirst(3)
+		// eg districtIDWithoutPadding = "0452"
+		let districtIDWithoutLeadingZeros = String(Int(districtIDWithoutPadding) ?? 0)
+		// eg districtIDWithoutPaddingValue = "452"
 
 		let localDistrict = LocalStatisticsDistrict(
 			federalState: state,
 			districtName: district,
-			districtId: districtIDWithoutPadding
+			districtId: districtIDWithoutLeadingZeros
 		)
 		self.district = localDistrict
 		onFetchFederalState(localDistrict)
