@@ -5,11 +5,11 @@
 import XCTest
 @testable import HealthCertificateToolkit
 
-class DigitalGreenCertificateFakeTests: XCTestCase {
+class DigitalCovidCertificateFakeTests: XCTestCase {
     
     func test_When_makeFake_Then_CorrectFakeIsReturned() {
-        let certificateAccess = DigitalGreenCertificateAccess()
-        let result = DigitalGreenCertificateFake.makeBase45Fake(
+        let certificateAccess = DigitalCovidCertificateAccess()
+        let result = DigitalCovidCertificateFake.makeBase45Fake(
             from: testCertificate,
             and: testHeader
         )
@@ -19,7 +19,7 @@ class DigitalGreenCertificateFakeTests: XCTestCase {
             return
         }
         
-        let extractResult = certificateAccess.extractDigitalGreenCertificate(from: base45)
+        let extractResult = certificateAccess.extractDigitalCovidCertificate(from: base45)
         
         guard case .success(let certificate) = extractResult else {
             XCTFail("Success expected.")
@@ -29,8 +29,8 @@ class DigitalGreenCertificateFakeTests: XCTestCase {
         XCTAssertEqual(certificate, testCertificate)
     }
     
-    private lazy var testCertificate: DigitalGreenCertificate = {
-        DigitalGreenCertificate(
+    private lazy var testCertificate: DigitalCovidCertificate = {
+        DigitalCovidCertificate(
             version: "1.0.0",
             name: Name(
                 familyName: "Schmitt Mustermann",

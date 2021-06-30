@@ -12,9 +12,9 @@ extension XCTestCase {
 		case failed
 	}
 
-	func base45Fake(from digitalGreenCertificate: DigitalGreenCertificate) throws -> Base45 {
-		let base45Result = DigitalGreenCertificateFake.makeBase45Fake(
-			from: digitalGreenCertificate,
+	func base45Fake(from digitalCovidCertificate: DigitalCovidCertificate) throws -> Base45 {
+		let base45Result = DigitalCovidCertificateFake.makeBase45Fake(
+			from: digitalCovidCertificate,
 			and: CBORWebTokenHeader.fake()
 		)
 
@@ -42,7 +42,7 @@ extension XCTestCase {
 		)
 
 		let firstTestCertificateBase45 = try base45Fake(
-			from: DigitalGreenCertificate.fake(
+			from: DigitalCovidCertificate.fake(
 				dateOfBirth: dateOfBirth,
 				vaccinationEntries: [
 					vaccinationEntry
