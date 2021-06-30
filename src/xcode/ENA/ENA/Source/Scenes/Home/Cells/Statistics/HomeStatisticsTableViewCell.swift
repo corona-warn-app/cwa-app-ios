@@ -133,6 +133,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		}
 	}
 	
+	// swiftlint:disable:next function_parameter_count
 	private func configureAddLocalStatisticsCell(
 		store: Store,
 		onAddLocalStatisticsButtonTap: @escaping (SelectValueTableViewController) -> Void,
@@ -178,6 +179,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 			)
 		}
 	}
+
 	private (set)var district: LocalStatisticsDistrict?
 
 	private func configureKeyFigureCells(
