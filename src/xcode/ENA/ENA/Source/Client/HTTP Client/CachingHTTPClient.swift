@@ -14,6 +14,8 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, LocalStat
 		case dataVerificationError(message: String?)
 	}
 
+	typealias AdministrativeUnit = String
+
 	/// The client configuration - mostly server endpoints per environment
 	var configuration: HTTPClient.Configuration {
 		HTTPClient.Configuration.makeDefaultConfiguration(
