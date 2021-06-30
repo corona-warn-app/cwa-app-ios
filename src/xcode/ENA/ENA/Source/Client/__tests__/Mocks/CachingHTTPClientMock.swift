@@ -117,9 +117,9 @@ final class CachingHTTPClientMock: CachingHTTPClient {
 	
 	var onFetchLocalStatistics: ((String?, @escaping CachingHTTPClient.LocalStatisticsCompletionHandler) -> Void)?
 		
-	override func fetchLocalStatistics(administrativeUnit: String, eTag: String?, completion: @escaping CachingHTTPClient.LocalStatisticsCompletionHandler) {
+	override func fetchLocalStatistics(groupID: GroupIdentifier, eTag: String?, completion: @escaping CachingHTTPClient.LocalStatisticsCompletionHandler) {
 		guard let handler = self.onFetchLocalStatistics else {
-			let response = LocalStatisticsResponse(CachingHTTPClientMock.staticLocalStatistics, "fake")
+			let response = LocalStatisticsResponse(CachingHTTPClientMock.staticLocalStatistics, "fake", "1")
 			completion(.success(response))
 			return
 		}

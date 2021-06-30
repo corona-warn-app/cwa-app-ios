@@ -16,11 +16,14 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 
 	// MARK: - Internal
 
-	func latestLocalStatistics(administrativeUnit: String, eTag: String? = nil) -> AnyPublisher<SAP_Internal_Stats_LocalStatistics, Error> {
-		let etag = store.localStatistics?.lastLocalStatisticsETag
-
-		guard let cached = store.localStatistics, !shouldFetch() else {
-			return fetchLocalStatistics(administrativeUnit: administrativeUnit, eTag: etag).eraseToAnyPublisher()
+	func latestLocalStatistics(groupID: GroupIdentifier, eTag: String? = nil) -> AnyPublisher<SAP_Internal_Stats_LocalStatistics, Error> {
+		let localStatistics = store.localStatistics.filter({
+			$0.groupID == groupID
+		}).compactMap { $0 }.first
+		
+		guard let cached = localStatistics, !shouldFetch(store: store, groupID: groupID) else {
+			let etag = localStatistics?.lastLocalStatisticsETag
+			return fetchLocalStatistics(groupID: groupID, eTag: etag).eraseToAnyPublisher()
 		}
 		// return cached data; no error
 		return Just(cached.localStatistics)
@@ -33,24 +36,29 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 	private let client: LocalStatisticsFetching
 	private let store: LocalStatisticsCaching
 
-	private func fetchLocalStatistics(administrativeUnit: String, eTag: String? = nil) -> Future<SAP_Internal_Stats_LocalStatistics, Error> {
+	private func fetchLocalStatistics(groupID: GroupIdentifier, eTag: String? = nil) -> Future<SAP_Internal_Stats_LocalStatistics, Error> {
 		return Future { promise in
-			self.client.fetchLocalStatistics(administrativeUnit: administrativeUnit, eTag: eTag) { result in
+			self.client.fetchLocalStatistics(groupID: groupID, eTag: eTag) { result in
 				switch result {
 				case .success(let response):
 					// cache
-					self.store.localStatistics = LocalStatisticsMetadata(with: response)
+					self.store.localStatistics.append(LocalStatisticsMetadata(with: response))
 					promise(.success(response.localStatistics))
 				case .failure(let error):
 					Log.error(error.localizedDescription, log: .vaccination)
 					switch error {
 					case URLSessionError.notModified:
-						self.store.localStatistics?.refreshLastLocalStatisticsFetchDate()
+						var localStatistics = self.store.localStatistics.filter({
+							$0.groupID == groupID
+						}).compactMap { $0 }.first
+						localStatistics?.refreshLastLocalStatisticsFetchDate()
 					default:
 						break
 					}
 					// return cached if it exists
-					if let cachedLocalStatistics = self.store.localStatistics {
+					if let cachedLocalStatistics = self.store.localStatistics.filter({
+						$0.groupID == groupID
+					}).compactMap({ $0 }).first {
 						promise(.success(cachedLocalStatistics.localStatistics))
 					} else {
 						promise(.failure(error))
@@ -60,11 +68,14 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 		}
 	}
 
-	private func shouldFetch() -> Bool {
-		if store.localStatistics == nil { return true }
+	private func shouldFetch(store: LocalStatisticsCaching, groupID: GroupIdentifier) -> Bool {
+		let localStatistics = store.localStatistics.filter({
+			$0.groupID == groupID
+		}).compactMap { $0 }.first
+		if localStatistics == nil { return true }
 
 		// naive cache control
-		guard let lastFetch = store.localStatistics?.lastLocalStatisticsFetchDate else {
+		guard let lastFetch = localStatistics?.lastLocalStatisticsFetchDate else {
 			return true
 		}
 		Log.debug("timestamp >= 300s? \(abs(Date().timeIntervalSince(lastFetch))) >= 300)", log: .localStatistics)
