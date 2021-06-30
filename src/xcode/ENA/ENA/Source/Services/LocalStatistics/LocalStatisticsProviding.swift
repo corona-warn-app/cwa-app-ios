@@ -29,7 +29,7 @@ struct LocalStatisticsResponse {
 	let timestamp: Date
 	let groupID: GroupIdentifier
 
-	init(_ localStatistics: SAP_Internal_Stats_LocalStatistics, _ eTag: String? = nil, _ groupID: String) {
+	init(_ localStatistics: SAP_Internal_Stats_LocalStatistics, _ eTag: String? = nil, _ groupID: GroupIdentifier) {
 		self.groupID = groupID
 		self.localStatistics = localStatistics
 		self.eTag = eTag
