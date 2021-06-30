@@ -170,6 +170,7 @@
                             </subviews>
                         </stackView>
                     </subviews>
+                    <color key="backgroundColor" name="ENA Background Color"/>
                     <constraints>
                         <constraint firstItem="Ssi-15-Ma9" firstAttribute="top" secondItem="Vvk-0F-7Ew" secondAttribute="top" id="cku-vM-07y"/>
                         <constraint firstItem="Ssi-15-Ma9" firstAttribute="leading" secondItem="Vvk-0F-7Ew" secondAttribute="leading" constant="16" identifier="statCell.stack.leading" id="l0s-6o-zST"/>

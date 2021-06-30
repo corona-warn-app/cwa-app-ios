@@ -8,61 +8,34 @@ class CustomDashedView: UIView {
 	
 	// MARK: - Internal
 	
-	@IBInspectable var cornerRadius: CGFloat = 15 {
+	@IBInspectable var cornerRadius: CGFloat = 0 {
 		didSet {
 			layer.cornerRadius = cornerRadius
 			layer.masksToBounds = cornerRadius > 0
 		}
 	}
-	@IBInspectable var dashWidth: CGFloat = 2
-	@IBInspectable var dashColor: UIColor = UIColor.enaColor(for: .riskNeutral)
-	@IBInspectable var dashLength: CGFloat = 5
-	@IBInspectable var betweenDashesSpace: CGFloat = 5
+	@IBInspectable var dashWidth: CGFloat = 0
+	@IBInspectable var dashColor: UIColor = .clear
+	@IBInspectable var dashLength: CGFloat = 0
+	@IBInspectable var betweenDashesSpace: CGFloat = 0
 
-	var dashBorder: CAShapeLayer!
-
-	init() {
-		super.init(frame: .zero)
-		setup()
-	}
-
-	override init(frame: CGRect) {
-		super.init(frame: frame)
-		setup()
-	}
-
-	required init?(coder: NSCoder) {
-		super.init(coder: coder)
-		setup()
-	}
+	var dashBorder: CAShapeLayer?
 
 	override func layoutSubviews() {
 		super.layoutSubviews()
-
-		updateBorder()
-	}
-
-	private func setup() {
-		layer.cornerRadius = cornerRadius
-		clipsToBounds = true
-
-		updateBorder()
-	}
-
-	private func updateBorder() {
-		self.dashBorder?.removeFromSuperlayer()
-
-		let dashedBorder = CAShapeLayer()
-		dashedBorder.lineWidth = dashWidth
-		dashedBorder.strokeColor = dashColor.cgColor
-		dashedBorder.lineDashPattern = [dashLength, betweenDashesSpace] as [NSNumber]
-		dashedBorder.fillColor = UIColor.clear.cgColor
+		dashBorder?.removeFromSuperlayer()
+		let dashBorder = CAShapeLayer()
+		dashBorder.lineWidth = dashWidth
+		dashBorder.strokeColor = dashColor.cgColor
+		dashBorder.lineDashPattern = [dashLength, betweenDashesSpace] as [NSNumber]
+		dashBorder.frame = bounds
+		dashBorder.fillColor = nil
 		if cornerRadius > 0 {
-			dashedBorder.path = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
+			dashBorder.path = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
 		} else {
-			dashedBorder.path = UIBezierPath(rect: bounds).cgPath
+			dashBorder.path = UIBezierPath(rect: bounds).cgPath
 		}
-		layer.addSublayer(dashedBorder)
-		self.dashBorder = dashedBorder
+		layer.addSublayer(dashBorder)
+		self.dashBorder = dashBorder
 	}
 }

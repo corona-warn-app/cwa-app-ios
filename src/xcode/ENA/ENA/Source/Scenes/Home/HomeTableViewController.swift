@@ -592,14 +592,28 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			fatalError("Could not dequeue HomeStatisticsTableViewCell")
 		}
 
-		// only working because we don't dequeue this home table view
-		let statsVC = StatisticsViewController()
-		cell.add(statisticsViewController: statsVC, for: self)
-
 		cell.configure(
 			with: HomeStatisticsCellModel(homeState: viewModel.state),
+			store: self.store,
 			onInfoButtonTap: { [weak self] in
 				self?.onStatisticsInfoButtonTap()
+			},
+			onAddLocalStatisticsButtonTap: { [weak self] selectValueViewController in
+				self?.onAddStateButtonTap(selectValueViewController)
+			},
+			onAddDistrict: { [weak self] selectValueViewController in
+				self?.onAddDistrict(selectValueViewController)
+			},
+			onDismissState: { [weak self] in
+				self?.onDismissState()
+			},
+			onDismissDistrict: { [weak self] dismissToRoot in
+				self?.onDismissDistrict(dismissToRoot)
+			}, onFetchFederalState: { [weak self] federalState in
+				self?.fetchLocalStatistics(federalStateId: federalState)
+			},
+			onEditLocalStatisticsButtonTap: {
+				Log.warning("Edit Functionality Should Be Added")
 			},
 			onAccessibilityFocus: { [weak self] in
 				self?.tableView.contentOffset.x = 0

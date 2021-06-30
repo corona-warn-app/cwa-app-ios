@@ -78,6 +78,11 @@
             <point key="canvasLocation" x="165.94202898550725" y="-47.209821428571423"/>
         </view>
     </objects>
+    <designables>
+        <designable name="wcn-ks-Lju">
+            <size key="intrinsicContentSize" width="267" height="20.5"/>
+        </designable>
+    </designables>
     <resources>
         <image name="Icon_Add" width="32" height="32"/>
         <namedColor name="ENA Risk Neutral Color">
