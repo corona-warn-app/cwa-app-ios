@@ -215,8 +215,6 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		healthCertificateCell = app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell]
 		XCTAssertTrue(healthCertificateCell.waitForExistence(timeout: .short))
 		snapshot("screenshot_certificate_family_certificats-cert-4")
-
-		snapshot("screenshot_certificate_family_certificats")
 	}
 
 }
