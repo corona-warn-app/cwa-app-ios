@@ -71,6 +71,9 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 		case .secondary:
 			
 			let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+			ac.addAction(UIAlertAction(title: AppStrings.AntigenProfile.Profile.infoActionTitle, style: .default, handler: { _ in
+
+			}))
 			ac.addAction(UIAlertAction(title: AppStrings.AntigenProfile.Profile.editActionTitle, style: .default, handler: { _ in
 
 			}))
