@@ -110,14 +110,13 @@ class HomeStatisticsCardView: UIView {
 
 			if viewModel?.primaryTitle != nil, let primaryTitleLabel = self.primaryTitleLabel {
 				var primaryAccessibilityLabel = primaryTitleLabel.text
-				if viewModel?.primaryValue != nil, let primaryValueLabel = self.primaryValueLabel {
-					primaryAccessibilityLabel?.append(" ")
-					primaryAccessibilityLabel?.append(primaryValueLabel.text ?? "")
+
+				if let primaryValue = viewModel?.primaryValue {
+					primaryAccessibilityLabel?.append(" \(primaryValue)")
 				}
 
-				if viewModel?.primarySubtitle != nil, let primarySubtitleLabel = self.primarySubtitleLabel {
-					primaryAccessibilityLabel?.append(" ")
-					primaryAccessibilityLabel?.append(primarySubtitleLabel.text ?? "")
+				if let primarySubtitle = viewModel?.primarySubtitle {
+					primaryAccessibilityLabel?.append(" \(primarySubtitle)")
 				}
 
 				primaryTitleLabel.accessibilityLabel = primaryAccessibilityLabel
