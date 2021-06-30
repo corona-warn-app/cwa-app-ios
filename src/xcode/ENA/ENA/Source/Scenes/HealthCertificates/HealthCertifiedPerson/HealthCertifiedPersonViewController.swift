@@ -232,7 +232,6 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 				tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 				tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
 				tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-
 			]
 		)
 
@@ -276,12 +275,30 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 			.assign(to: \.type, on: backgroundView)
 			.store(in: &subscriptions)
 
-		viewModel.$triggerReload
+		viewModel.$triggerQRCodeReload
 			.receive(on: DispatchQueue.main.ocombine)
-			.sink { [weak self] triggerReload in
-				guard triggerReload, let self = self, !self.isAnimatingChanges else { return }
+			.sink { [weak self] triggerCertificatesReload in
+				guard triggerCertificatesReload, let self = self, !self.isAnimatingChanges else { return }
 
-				self.tableView.reloadData()
+				self.tableView.reloadSections(
+					[HealthCertifiedPersonViewModel.TableViewSection.qrCode.rawValue],
+					with: .none
+				)
+			}
+			.store(in: &subscriptions)
+
+		viewModel.$triggerCertificatesReload
+			.receive(on: DispatchQueue.main.ocombine)
+			.sink { [weak self] triggerCertificatesReload in
+				guard triggerCertificatesReload, let self = self, !self.isAnimatingChanges else { return }
+
+				self.tableView.reloadSections(
+					[
+						HealthCertifiedPersonViewModel.TableViewSection.vaccinationHint.rawValue,
+						HealthCertifiedPersonViewModel.TableViewSection.certificates.rawValue
+					],
+					with: .none
+				)
 			}
 			.store(in: &subscriptions)
 	}
