@@ -8,7 +8,7 @@ import HealthCertificateToolkit
 
 protocol DCCValidationProviding {
 	func onboardedCountries(
-		completion: @escaping (Result<[Country], DCCValidationError>) -> Void
+		completion: @escaping (Result<[Country], DCCOnboardedCountriesError>) -> Void
 	)
 	
 	func validateDcc(
@@ -38,7 +38,7 @@ final class DCCValidationService: DCCValidationProviding {
 	// MARK: - Protocol DCCValidationProviding
 	
 	func onboardedCountries(
-		completion: @escaping (Result<[Country], DCCValidationError>) -> Void
+		completion: @escaping (Result<[Country], DCCOnboardedCountriesError>) -> Void
 	) {
 		
 	}
