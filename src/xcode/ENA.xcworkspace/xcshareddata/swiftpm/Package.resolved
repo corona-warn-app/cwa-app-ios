@@ -20,12 +20,30 @@
         }
       },
       {
+        "package": "CertLogic",
+        "repositoryURL": "https://github.com/eu-digital-green-certificates/dgc-certlogic-ios",
+        "state": {
+          "branch": "main",
+          "revision": "9e09383896854d6c6f450d7fb8bdb1ec2cab0a43",
+          "version": null
+        }
+      },
+      {
         "package": "FMDB",
         "repositoryURL": "https://github.com/ccgus/fmdb.git",
         "state": {
           "branch": null,
           "revision": "61e51fde7f7aab6554f30ab061cc588b28a97d04",
           "version": "2.7.7"
+        }
+      },
+      {
+        "package": "jsonlogic",
+        "repositoryURL": "https://github.com/eu-digital-green-certificates/json-logic-swift.git",
+        "state": {
+          "branch": null,
+          "revision": "4a385289bf0ab35bba5840310368013d1592d530",
+          "version": "1.1.4"
         }
       },
       {
@@ -89,6 +107,15 @@
           "branch": null,
           "revision": "668c26fc3373d5f1bccbaad7665ca6048797e324",
           "version": "0.4.3"
+        }
+      },
+      {
+        "package": "SwiftyJSON",
+        "repositoryURL": "https://github.com/SwiftyJSON/SwiftyJSON.git",
+        "state": {
+          "branch": null,
+          "revision": "b3dcd7dbd0d488e1a7077cb33b00f2083e382f07",
+          "version": "5.0.1"
         }
       },
       {
