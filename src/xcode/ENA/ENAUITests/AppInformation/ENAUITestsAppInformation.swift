@@ -98,6 +98,13 @@ class ENAUITests_02_AppInformation: CWATestCase {
 		app.cells["AppStrings.AppInformation.privacyNavigation"].waitAndTap()
 
 		XCTAssertTrue(app.images["AppStrings.AppInformation.privacyImageDescription"].waitForExistence(timeout: .medium))
+
+		XCTAssertTrue(app.webViews["HTMLView"].waitForExistence(timeout: .medium))
+		let webView = app.webViews["HTMLView"]
+		let firstLink = webView.links.firstMatch
+		XCTAssertTrue(firstLink.exists)
+		XCTAssertTrue(firstLink.isHittable)
+		firstLink.waitAndTap(.medium)
 	}
 
 	func test_0025_AppInformationFlow_terms() throws {

@@ -228,8 +228,8 @@ final class SecureStore: Store, AntigenTestProfileStoring {
     // MARK: - Protocol HealthCertificateStoring
 
 	var healthCertificateInfoScreenShown: Bool {
-		get { kvStore["healthCertificateInfoScreenShown"] as Bool? ?? false }
-		set { kvStore["healthCertificateInfoScreenShown"] = newValue }
+		get { kvStore["healthCertificateInfoScreenShown25"] as Bool? ?? false }
+		set { kvStore["healthCertificateInfoScreenShown25"] = newValue }
 	}
 
     var healthCertifiedPersons: [HealthCertifiedPerson] {
