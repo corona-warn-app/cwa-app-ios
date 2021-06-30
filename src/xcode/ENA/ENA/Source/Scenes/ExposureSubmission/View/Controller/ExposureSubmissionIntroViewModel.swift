@@ -111,7 +111,7 @@ class ExposureSubmissionIntroViewModel {
 				.imageCard(
 					title: AppStrings.ExposureSubmissionDispatch.findTestCentersButtonTitle,
 					description: AppStrings.ExposureSubmissionDispatch.findTestCentersButtonDescription,
-					image: UIImage(named: "Illu_Submission_QRCode"),
+					image: UIImage(named: "Illu_Submission_Test_Centers"),
 					action: .execute { [weak self] _, _ in self?.onFindTestCentersTap() },
 					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.findTestCentersButtonDescription
 				),
