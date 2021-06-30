@@ -34,7 +34,49 @@ class HealthCertificateService {
 				registerHealthCertificate(base45: HealthCertificate.firstBase45Mock)
 				registerHealthCertificate(base45: HealthCertificate.lastBase45Mock)
 			}
-
+			
+			if LaunchArguments.healthCertificate.familyCertificate.boolValue {
+				let result = DigitalCovidCertificateFake.makeBase45Fake(
+					from: DigitalCovidCertificate.fake(
+						name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"),
+						testEntries: [TestEntry.fake(dateTimeOfSampleCollection: "2021-04-12T16:01:00Z")]
+					),
+					and: CBORWebTokenHeader.fake()
+				)
+				if case let .success(base45) = result {
+					registerHealthCertificate(base45: base45)
+				}
+				let result1 = DigitalCovidCertificateFake.makeBase45Fake(
+					from: DigitalCovidCertificate.fake(
+						name: .fake(familyName: "Schneider", givenName: "Toni", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "TONI"),
+						testEntries: [TestEntry.fake(dateTimeOfSampleCollection: "2021-04-12T17:01:00Z")]
+					),
+					and: CBORWebTokenHeader.fake()
+				)
+				if case let .success(base45) = result1 {
+					registerHealthCertificate(base45: base45)
+				}
+				let result2 = DigitalCovidCertificateFake.makeBase45Fake(
+					from: DigitalCovidCertificate.fake(
+						name: .fake(familyName: "Schneider", givenName: "Victoria", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "VICTORIA"),
+						testEntries: [TestEntry.fake(dateTimeOfSampleCollection: "2021-04-12T17:01:00Z")]
+					),
+					and: CBORWebTokenHeader.fake()
+				)
+				if case let .success(base45) = result2 {
+					registerHealthCertificate(base45: base45)
+				}
+				let result3 = DigitalCovidCertificateFake.makeBase45Fake(
+					from: DigitalCovidCertificate.fake(
+						name: .fake(familyName: "Schneider", givenName: "Thomas", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "THOMAS"),
+						testEntries: [TestEntry.fake(dateTimeOfSampleCollection: "2021-04-12T17:01:00Z")]
+					),
+					and: CBORWebTokenHeader.fake()
+				)
+				if case let .success(base45) = result3 {
+					registerHealthCertificate(base45: base45)
+				}
+			}
 			if LaunchArguments.healthCertificate.testCertificateRegistered.boolValue {
 				let result = DigitalCovidCertificateFake.makeBase45Fake(
 					from: DigitalCovidCertificate.fake(
