@@ -58,6 +58,9 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 		super.viewWillAppear(animated)
 
 		setupNavigationBar(animated: animated)
+
+		viewModel.refreshProfile()
+		tableView.reloadData()
 	}
 
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -147,7 +150,7 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 
 	// MARK: - Private
 	
-	private let viewModel: AntigenTestProfileViewModel
+	private var viewModel: AntigenTestProfileViewModel
 	private let didTapContinue: (@escaping (Bool) -> Void) -> Void
 	private let didTapInfoProfile: () -> Void
 	private let didTapEditProfile: () -> Void

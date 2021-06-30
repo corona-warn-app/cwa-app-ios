@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-final class CreateAntigenTestProfileViewModel {
+final class AntigenTestProfileInputViewModel {
 
 	// MARK: - Init
 	
@@ -13,7 +13,7 @@ final class CreateAntigenTestProfileViewModel {
 		store: AntigenTestProfileStoring
 	) {
 		self.store = store
-		self.antigenTestProfile = AntigenTestProfile()
+		self.antigenTestProfile = store.antigenTestProfile ?? AntigenTestProfile()
 	}
 
 	// MARK: - Internal

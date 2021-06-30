@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-class CreateAntigenTestProfileViewController: UITableViewController, FooterViewHandling, DismissHandling, UITextFieldDelegate {
+class AntigenTestProfileInputViewController: UITableViewController, FooterViewHandling, DismissHandling, UITextFieldDelegate {
 
 	// MARK: - Init
 
@@ -18,7 +18,7 @@ class CreateAntigenTestProfileViewController: UITableViewController, FooterViewH
 		didTapSave: @escaping () -> Void,
 		dismiss: @escaping () -> Void
 	) {
-		self.viewModel = CreateAntigenTestProfileViewModel(store: store)
+		self.viewModel = AntigenTestProfileInputViewModel(store: store)
 		self.didTapSave = didTapSave
 		self.dismiss = dismiss
 
@@ -49,12 +49,12 @@ class CreateAntigenTestProfileViewController: UITableViewController, FooterViewH
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		switch Row(rawValue: indexPath.row) {
 		case .description:
-			guard let cell = tableView.dequeueReusableCell(withIdentifier: CreateAntigenTestProfileDescriptionCell.reuseIdentifier, for: indexPath) as? CreateAntigenTestProfileDescriptionCell else {
+			guard let cell = tableView.dequeueReusableCell(withIdentifier: AntigenTestProfileInputDescriptionCell.reuseIdentifier, for: indexPath) as? AntigenTestProfileInputDescriptionCell else {
 				fatalError("Wrong cell")
 			}
 			return cell
 		case .inputFields:
-			guard let cell = tableView.dequeueReusableCell(withIdentifier: CreateAntigenTestProfileInputCell.reuseIdentifier, for: indexPath) as? CreateAntigenTestProfileInputCell else {
+			guard let cell = tableView.dequeueReusableCell(withIdentifier: AntigenTestProfileInputCell.reuseIdentifier, for: indexPath) as? AntigenTestProfileInputCell else {
 				fatalError("Wrong cell")
 			}
 			
@@ -127,7 +127,7 @@ class CreateAntigenTestProfileViewController: UITableViewController, FooterViewH
 			textField.resignFirstResponder()
 			return true
 		}
-		if let cell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? CreateAntigenTestProfileInputCell,
+		if let cell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? AntigenTestProfileInputCell,
 		   let currentIndex = cell.textFields.firstIndex(of: textField), (currentIndex + 1) < cell.textFields.count {
 			cell.textFields[currentIndex + 1].becomeFirstResponder()
 		} else {
@@ -145,7 +145,7 @@ class CreateAntigenTestProfileViewController: UITableViewController, FooterViewH
 
 	// MARK: - Private
 
-	private var viewModel: CreateAntigenTestProfileViewModel
+	private var viewModel: AntigenTestProfileInputViewModel
 	private let didTapSave: () -> Void
 	private let dismiss: () -> Void
 	private let dateOfBirthFormatter = AntigenTestProfileViewModel.dateOfBirthFormatter()
@@ -159,8 +159,8 @@ class CreateAntigenTestProfileViewController: UITableViewController, FooterViewH
 		view.backgroundColor = .enaColor(for: .background)
 
 		tableView.separatorStyle = .none
-		tableView.register(CreateAntigenTestProfileDescriptionCell.self, forCellReuseIdentifier: CreateAntigenTestProfileDescriptionCell.reuseIdentifier)
-		tableView.register(CreateAntigenTestProfileInputCell.self, forCellReuseIdentifier: CreateAntigenTestProfileInputCell.reuseIdentifier)
+		tableView.register(AntigenTestProfileInputDescriptionCell.self, forCellReuseIdentifier: AntigenTestProfileInputDescriptionCell.reuseIdentifier)
+		tableView.register(AntigenTestProfileInputCell.self, forCellReuseIdentifier: AntigenTestProfileInputCell.reuseIdentifier)
 		tableView.keyboardDismissMode = .interactive
 	}
 	
@@ -190,7 +190,7 @@ class CreateAntigenTestProfileViewController: UITableViewController, FooterViewH
 	@objc
 	private func dateOfBirthDidChange(datePicker: UIDatePicker) {
 		viewModel.update(datePicker.date, keyPath: \.dateOfBirth)
-		if let cell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? CreateAntigenTestProfileInputCell {
+		if let cell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? AntigenTestProfileInputCell {
 			cell.textFields[2].text = dateOfBirthFormatter.string(from: datePicker.date)
 		}
 	}
