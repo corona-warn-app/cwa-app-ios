@@ -120,8 +120,6 @@ enum LaunchArguments {
 		static let firstAndSecondHealthCertificate = LaunchArgument(name: "firstAndSecondHealthCertificate")
 		static let testCertificateRegistered = LaunchArgument(name: "testCertificateRegistered")
 		static let recoveryCertificateRegistered = LaunchArgument(name: "recoveryCertificateRegistered")
-		
-		// [KGA]
-		static let familyCertificate = LaunchArgument(name: "familyCertificate")
+		static let familyCertificate = LaunchArgument(name: "familyCertificates")
 	}
 }
