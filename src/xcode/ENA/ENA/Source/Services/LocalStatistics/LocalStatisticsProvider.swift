@@ -16,7 +16,7 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 
 	// MARK: - Internal
 
-	func latestLocalStatistics(groupID: String, eTag: String? = nil) -> AnyPublisher<SAP_Internal_Stats_LocalStatistics, Error> {
+	func latestLocalStatistics(groupID: GroupIdentifier, eTag: String? = nil) -> AnyPublisher<SAP_Internal_Stats_LocalStatistics, Error> {
 		let localStatistics = store.localStatistics.filter({
 			$0.groupID == groupID
 		}).compactMap { $0 }.first
@@ -36,7 +36,7 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 	private let client: LocalStatisticsFetching
 	private let store: LocalStatisticsCaching
 
-	private func fetchLocalStatistics(groupID: String, eTag: String? = nil) -> Future<SAP_Internal_Stats_LocalStatistics, Error> {
+	private func fetchLocalStatistics(groupID: GroupIdentifier, eTag: String? = nil) -> Future<SAP_Internal_Stats_LocalStatistics, Error> {
 		return Future { promise in
 			self.client.fetchLocalStatistics(groupID: groupID, eTag: eTag) { result in
 				switch result {
@@ -68,7 +68,7 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 		}
 	}
 
-	private func shouldFetch(store: LocalStatisticsCaching, groupID: String) -> Bool {
+	private func shouldFetch(store: LocalStatisticsCaching, groupID: GroupIdentifier) -> Bool {
 		let localStatistics = store.localStatistics.filter({
 			$0.groupID == groupID
 		}).compactMap { $0 }.first

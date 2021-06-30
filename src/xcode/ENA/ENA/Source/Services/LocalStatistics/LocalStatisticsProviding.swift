@@ -6,7 +6,7 @@ import Foundation
 import OpenCombine
 
 protocol LocalStatisticsProviding {
-	func latestLocalStatistics(groupID: String, eTag: String?) -> AnyPublisher<SAP_Internal_Stats_LocalStatistics, Error>
+	func latestLocalStatistics(groupID: GroupIdentifier, eTag: String?) -> AnyPublisher<SAP_Internal_Stats_LocalStatistics, Error>
 }
 
 protocol LocalStatisticsFetching {
@@ -15,7 +15,7 @@ protocol LocalStatisticsFetching {
 	var signatureVerifier: SignatureVerifier { get }
 
 	typealias LocalStatisticsCompletionHandler = (Result<LocalStatisticsResponse, Error>) -> Void
-	typealias GroupIdentifier = String
+	// typealias GroupIdentifier = String
 
 	func fetchLocalStatistics(
 		groupID: GroupIdentifier,
@@ -30,7 +30,7 @@ struct LocalStatisticsResponse {
 	let timestamp: Date
 	let groupID: GroupIdentifier
 	
-	typealias GroupIdentifier = String
+	// typealias GroupIdentifier = String
 
 	init(_ localStatistics: SAP_Internal_Stats_LocalStatistics, _ eTag: String? = nil, _ groupID: GroupIdentifier) {
 		self.groupID = groupID

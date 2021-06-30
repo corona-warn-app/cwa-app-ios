@@ -137,7 +137,7 @@ extension HTTPClient {
 			)
 		}
 
-		func localStatisticsURL(groupID: String) -> URL {
+		func localStatisticsURL(groupID: GroupIdentifier) -> URL {
 			endpoints
 				.distribution
 				.appending(

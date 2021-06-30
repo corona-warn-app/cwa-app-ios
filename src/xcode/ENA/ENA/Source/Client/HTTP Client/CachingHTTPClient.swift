@@ -4,6 +4,8 @@
 
 import Foundation
 
+typealias GroupIdentifier = String
+
 class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, LocalStatisticsFetching, QRCodePosterTemplateFetching, VaccinationValueSetsFetching {
 	private let environmentProvider: EnvironmentProviding
 
@@ -11,8 +13,6 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, LocalStat
 		case dataFetchError(message: String?)
 		case dataVerificationError(message: String?)
 	}
-
-	typealias GroupIdentifier = String
 
 	/// The client configuration - mostly server endpoints per environment
 	var configuration: HTTPClient.Configuration {
