@@ -35,7 +35,7 @@ class HealthCertificateService {
 				registerHealthCertificate(base45: HealthCertificate.lastBase45Mock)
 			}
 			
-			if LaunchArguments.healthCertificate.familyCertificate.boolValue {
+			if LaunchArguments.healthCertificate.familyCertificates.boolValue {
 				let result = DigitalCovidCertificateFake.makeBase45Fake(
 					from: DigitalCovidCertificate.fake(
 						name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"),
