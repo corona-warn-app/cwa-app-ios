@@ -197,7 +197,7 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, LocalStat
 	///   - etag: an optional ETag to download only versions that differ the given tag
 	///   - completion: result handler
 	func fetchLocalStatistics(
-		groupID: groupID,
+		groupID: GroupIdentifier,
 		eTag: String?,
 		completion: @escaping LocalStatisticsCompletionHandler
 	) {
