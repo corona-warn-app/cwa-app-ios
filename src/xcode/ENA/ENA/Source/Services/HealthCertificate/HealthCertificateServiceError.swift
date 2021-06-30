@@ -117,7 +117,21 @@ enum HealthCertificateServiceError: Error {
 				case .testResultNotYetReceived:
 					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.e2eErrorCallHotline, "DCC_COMP_412")
 				case .internalServerError(reason: let reason):
-					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "DCC_COMP_500_\(String(describing: reason))")
+					switch reason {
+					case "INTERNAL":
+						return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "DCC_COMP_500_INTERNAL")
+					case "LAB_INVALID_RESPONSE":
+						return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.e2eErrorCallHotline, "DCC_COMP_500_LAB_INVALID_RESPONSE")
+					case "SIGNING_CLIENT_ERROR":
+						return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.e2eErrorCallHotline, "DCC_COMP_500_SIGNING_CLIENT_ERROR")
+					case "SIGNING_SERVER_ERROR":
+						return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.e2eErrorCallHotline, "DCC_COMP_500_SIGNING_SERVER_ERROR")
+					case .some(let reason):
+						return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "DCC_COMP_500_\(reason)")
+					case .none:
+						return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "DCC_COMP_500")
+					}
+
 				case .defaultServerError(let error):
 					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "DCC_COMP_FAILED (\(error.localizedDescription)")
 				case .noNetworkConnection:
