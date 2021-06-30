@@ -193,7 +193,7 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, LocalStat
 	
 	/// Fetches local statistics
 	/// - Parameters:
-	///   - groupID: string to pass federal state ID to the API to get local statistics
+	///   - groupID: string to pass group ID to the API to get local statistics
 	///   - etag: an optional ETag to download only versions that differ the given tag
 	///   - completion: result handler
 	func fetchLocalStatistics(
