@@ -49,7 +49,8 @@ class HomeCoordinator: RequiresAppDependencies {
 			riskProvider: riskProvider,
 			exposureManagerState: exposureManager.exposureManagerState,
 			enState: enStateHandler.state,
-			statisticsProvider: statisticsProvider
+			statisticsProvider: statisticsProvider,
+			localStatisticsProvider: localStatisticsProvider
 		)
 
 		let homeController = HomeTableViewController(
@@ -212,7 +213,23 @@ class HomeCoordinator: RequiresAppDependencies {
 				store: store
 			)
 		}()
-		
+	
+	private lazy var localStatisticsProvider: LocalStatisticsProviding = {
+			#if DEBUG
+			if isUITesting {
+				return LocalStatisticsProvider(
+					client: CachingHTTPClientMock(),
+					store: store
+				)
+			}
+			#endif
+
+			return LocalStatisticsProvider(
+				client: CachingHTTPClient(),
+				store: store
+			)
+		}()
+
 		private lazy var qrCodePosterTemplateProvider: QRCodePosterTemplateProvider = {
 			return QRCodePosterTemplateProvider(
 				client: CachingHTTPClient(),

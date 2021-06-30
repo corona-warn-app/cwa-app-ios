@@ -109,6 +109,10 @@ class HomeExposureLoggingCellModelTests: CWATestCase {
 			statisticsProvider: StatisticsProvider(
 				client: CachingHTTPClientMock(),
 				store: store
+			),
+			localStatisticsProvider: LocalStatisticsProvider(
+				client: CachingHTTPClientMock(),
+				store: store
 			)
 		)
 	}

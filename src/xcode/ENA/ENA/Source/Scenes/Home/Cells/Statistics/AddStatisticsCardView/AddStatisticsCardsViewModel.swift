@@ -12,10 +12,12 @@ class AddStatisticsCardsViewModel {
 	init(
 		localStatisticsModel: AddLocalStatisticsModel,
 		presentFederalStatesList: @escaping (SelectValueViewModel) -> Void,
-		presentSelectDistrictsList: @escaping (SelectValueViewModel) -> Void
+		presentSelectDistrictsList: @escaping (SelectValueViewModel) -> Void,
+		onFetchFederalState: @escaping (LocalStatisticsDistrict) -> Void
 	) {
 		self.presentFederalStatesList = presentFederalStatesList
 		self.presentSelectDistrictsList = presentSelectDistrictsList
+		self.onFetchFederalState = onFetchFederalState
 		self.localStatisticsModel = localStatisticsModel
 	}
 
@@ -59,7 +61,6 @@ class AddStatisticsCardsViewModel {
 				Log.warning("AddStatistics District is nil", log: .localStatistics)
 				return
 			}
-			self?.district = unWrappedDistrict
 			self?.generateFilterID(for: unWrappedDistrict)
 		}.store(in: &subscriptions)
 
@@ -72,30 +73,27 @@ class AddStatisticsCardsViewModel {
 			  let federalStateString = self.federalState,
 			  let state = LocalStatisticsFederalState(rawValue: federalStateString)
 		else {
-			Log.warning("districtIDValue, fedralStateString or state is nil", log: .localStatistics)
+			Log.warning("districtIDValue, federalStateString or state is nil", log: .localStatistics)
 			return
 		}
 		let districtIDWithPadding = String(describing: districtIDValue)
 		let districtIDWithoutPadding = String(describing: districtIDWithPadding.dropFirst(3))
-		let fetchID = String(describing: state.groupID)
-		
-		fetchLocalStatistics(stateID: fetchID, districtID: districtIDWithoutPadding)
-	}
-	
-	private func fetchLocalStatistics(stateID: String, districtID: String) {
-		// TO-DO Inject Statistics Provider to fetch local statistics
-		
-		// Use the stateID to fetchLocalStatistics
-		// Use the DistrictID to filter the response for the userDistrict
-		// Persist the Returned user District with a time stamp
-		// On app lunch we should show persisted Districts if we are still on the same day otherwise re-fetch
+
+		let localDistrict = LocalStatisticsDistrict(
+			federalState: state,
+			districtName: district,
+			districtId: districtIDWithoutPadding
+		)
+		self.district = localDistrict
+		onFetchFederalState(localDistrict)
 	}
 	
 	private var federalState: String?
-	private(set) var district: String?
+	private(set) var district: LocalStatisticsDistrict?
 	private var subscriptions: [AnyCancellable] = []
 
 	private let localStatisticsModel: AddLocalStatisticsModel
 	private let presentFederalStatesList: (SelectValueViewModel) -> Void
 	private let presentSelectDistrictsList: (SelectValueViewModel) -> Void
+	private let onFetchFederalState: (LocalStatisticsDistrict) -> Void
 }

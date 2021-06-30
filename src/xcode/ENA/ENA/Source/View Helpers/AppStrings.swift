@@ -1369,7 +1369,9 @@ enum AppStrings {
 		static let error = NSLocalizedString("Statistics_LoadingError", comment: "")
 		enum AddCard {
 			static let sevenDayIncidence = NSLocalizedString("Statistics_Add_SevenDayIncidence", comment: "")
+			static let localCardTitle = NSLocalizedString("Statistics_Add_LocalCardTitle", comment: "")
 			static let stateWide = NSLocalizedString("Statistics_Add_fromTheWholeCountry", comment: "")
+			static let localCardPrimarySubtitle = NSLocalizedString("Statistics_Card_Add_LocalCardPrimarySubtitle", comment: "")
 
 		}
 		enum Card {

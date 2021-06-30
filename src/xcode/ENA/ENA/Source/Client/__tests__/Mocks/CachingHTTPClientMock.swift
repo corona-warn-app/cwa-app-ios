@@ -51,7 +51,7 @@ final class CachingHTTPClientMock: CachingHTTPClient {
 	
 	static let staticLocalStatistics: SAP_Internal_Stats_LocalStatistics = {
 		guard
-			let url = Bundle(for: CachingHTTPClientMock.self).url(forResource: "default_local_statistics", withExtension: "bin"),
+			let url = Bundle(for: CachingHTTPClientMock.self).url(forResource: "LocalStats", withExtension: "bin"),
 			let data = try? Data(contentsOf: url),
 			let localStatistics = try? SAP_Internal_Stats_LocalStatistics(serializedData: data)
 		else {

@@ -31,6 +31,7 @@ class AddStatisticsCardView: CustomDashedView {
 		onAddDistrict: @escaping (SelectValueTableViewController) -> Void,
 		onDismissState: @escaping () -> Void,
 		onDismissDistrict: @escaping (Bool) -> Void,
+		onFetchFederalState: @escaping (LocalStatisticsDistrict) -> Void,
 		onEditButtonTap: @escaping () -> Void,
 		onAccessibilityFocus: @escaping () -> Void
 	) {
@@ -40,6 +41,7 @@ class AddStatisticsCardView: CustomDashedView {
 		self.onAddDistrict = onAddDistrict
 		self.onDismissState = onDismissState
 		self.onDismissDistrict = onDismissDistrict
+		self.onFetchFederalState = onFetchFederalState
 		self.onEditButtonTap = onEditButtonTap
 		self.onAccessibilityFocus = onAccessibilityFocus
 	}
@@ -57,6 +59,8 @@ class AddStatisticsCardView: CustomDashedView {
 			presentSelectDistrictsList: { selectedDistrictValueViewModel in
 				self.presentAddLocalStatisticsDistrict(selectValueViewModel: selectedDistrictValueViewModel)
 				
+			}, onFetchFederalState: { [weak self] district in
+				self?.onFetchFederalState?(district)
 			}
 		)
 		viewModel?.presentStateSelection()
@@ -92,6 +96,7 @@ class AddStatisticsCardView: CustomDashedView {
 	private var onAddDistrict: ((SelectValueTableViewController) -> Void)?
 	private var onDismissState: (() -> Void)?
 	private var onDismissDistrict: ((Bool) -> Void)?
+	private var onFetchFederalState: ((LocalStatisticsDistrict) -> Void)?
 	private var onEditButtonTap: (() -> Void)?
 	private var onAccessibilityFocus: (() -> Void)?
 	private var viewModel: AddStatisticsCardsViewModel?

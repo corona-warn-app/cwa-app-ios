@@ -31,6 +31,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		onAddDistrict: @escaping (SelectValueTableViewController) -> Void,
 		onDismissState: @escaping () -> Void,
 		onDismissDistrict: @escaping (Bool) -> Void,
+		onFetchFederalState: @escaping (LocalStatisticsDistrict) -> Void,
 		onEditLocalStatisticsButtonTap: @escaping () -> Void,
 		onAccessibilityFocus: @escaping () -> Void,
 		onUpdate: @escaping () -> Void
@@ -47,6 +48,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 					onAddDistrict: onAddDistrict,
 					onDismissState: onDismissState,
 					onDismissDistrict: onDismissDistrict,
+					onFetchFederalState: onFetchFederalState,
 					onEditLocalStatisticsButtonTap: onEditLocalStatisticsButtonTap,
 					onAccessibilityFocus: onAccessibilityFocus
 				)
@@ -55,17 +57,63 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 					onInfoButtonTap: onInfoButtonTap,
 					onAccessibilityFocus: onAccessibilityFocus
 				)
-
 				onUpdate()
 			}
 			.store(in: &subscriptions)
-
 		// Retaining cell model so it gets updated
 		self.cellModel = keyFigureCellModel
 
 		isConfigured = true
-	}
 
+		keyFigureCellModel.$localAdministrativeUnitStatistics
+			.receive(on: DispatchQueue.OCombine(.main))
+			.sink { administrativeUnitsData in
+				self.insertLocalStatistics(
+					administrativeUnitsData: administrativeUnitsData,
+					onInfoButtonTap: onInfoButtonTap,
+					onAccessibilityFocus: onAccessibilityFocus
+				)
+				onUpdate()
+			}
+			.store(in: &subscriptions)
+	}
+	
+	func insertLocalStatistics(
+		administrativeUnitsData: [SAP_Internal_Stats_AdministrativeUnitData],
+		onInfoButtonTap:  @escaping () -> Void,
+		onAccessibilityFocus: @escaping () -> Void
+	) {
+		let administrativeUnit = administrativeUnitsData.first {
+			$0.administrativeUnitShortID == UInt32(district?.districtId ?? "0")
+		}
+		
+		guard let adminUnit = administrativeUnit, let districtName = district?.districtName else {
+			// TO DO Error handling
+			return
+		}
+		let nibName = String(describing: HomeStatisticsCardView.self)
+		let nib = UINib(nibName: nibName, bundle: .main)
+
+		if let statisticsCardView = nib.instantiate(withOwner: self, options: nil).first as? HomeStatisticsCardView {
+			if !stackView.arrangedSubviews.isEmpty {
+				stackView.insertArrangedSubview(statisticsCardView, at: 1)
+
+				statisticsCardView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
+				statisticsCardView.configure(
+					viewModel: HomeStatisticsCardViewModel(administrativeUnitData: adminUnit, district: districtName),
+					onInfoButtonTap: {
+						onInfoButtonTap()
+					},
+					onAccessibilityFocus: { [weak self] in
+						self?.scrollView.scrollRectToVisible(statisticsCardView.frame, animated: false)
+						onAccessibilityFocus()
+						UIAccessibility.post(notification: .layoutChanged, argument: nil)
+					}
+				)
+				configureBaselines(statisticsCardView: statisticsCardView)
+			}
+		}
+	}
 	// MARK: - Private
 
 	@IBOutlet private weak var scrollView: UIScrollView!
@@ -77,7 +125,8 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 	private var cellModel: HomeStatisticsCellModel?
 	private var isConfigured: Bool = false
 	private var subscriptions = Set<AnyCancellable>()
-	
+	private var district: LocalStatisticsDistrict?
+
 	private func clearStackView() {
 		stackView.arrangedSubviews.forEach {
 			stackView.removeArrangedSubview($0)
@@ -85,12 +134,14 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		}
 	}
 	
+	// swiftlint:disable:next function_parameter_count
 	private func configureAddLocalStatisticsCell(
 		store: Store,
 		onAddLocalStatisticsButtonTap: @escaping (SelectValueTableViewController) -> Void,
 		onAddDistrict: @escaping (SelectValueTableViewController) -> Void,
 		onDismissState: @escaping () -> Void,
 		onDismissDistrict: @escaping (Bool) -> Void,
+		onFetchFederalState: @escaping (LocalStatisticsDistrict) -> Void,
 		onEditLocalStatisticsButtonTap: @escaping () -> Void,
 		onAccessibilityFocus: @escaping () -> Void
 	) {
@@ -101,12 +152,14 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 
 		let addNibName = String(describing: AddStatisticsCardView.self)
 		let addNib = UINib(nibName: addNibName, bundle: .main)
+		
 		if let addLocalStatisticsCardView = addNib.instantiate(withOwner: self, options: nil).first as? AddStatisticsCardView {
 			stackView.addArrangedSubview(addLocalStatisticsCardView)
 			addLocalStatisticsCardView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
+			
 			addLocalStatisticsCardView.configure(
 				localStatisticsModel: localStatisticsModel,
-				availableCardsState: .empty, // TO-DO get state based on the current number of local statistics cards
+				availableCardsState: .empty, // TODO get state based on the current number of local statistics cards
 				onAddStateButtonTap: { selectValueViewController in
 					onAddLocalStatisticsButtonTap(selectValueViewController)
 				}, onAddDistrict: { selectValueViewController in
@@ -115,7 +168,11 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 					onDismissState()
 				}, onDismissDistrict: { dismissToRoot in
 					onDismissDistrict(dismissToRoot)
-				}, onEditButtonTap: {
+				}, onFetchFederalState: { district in
+					self.district = district
+					onFetchFederalState(district)
+				},
+				onEditButtonTap: {
 					onEditLocalStatisticsButtonTap()
 				}, onAccessibilityFocus: {
 					onAccessibilityFocus()
@@ -148,17 +205,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 						UIAccessibility.post(notification: .layoutChanged, argument: nil)
 					}
 				)
-
-				let cardViewCount = stackView.arrangedSubviews.count
-				if cardViewCount > 1, let previousCardView = stackView.arrangedSubviews[cardViewCount - 2] as? HomeStatisticsCardView {
-					NSLayoutConstraint.activate([
-						statisticsCardView.titleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.titleLabel.firstBaselineAnchor),
-						statisticsCardView.primaryTitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.primaryTitleLabel.firstBaselineAnchor),
-						statisticsCardView.secondaryTitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.secondaryTitleLabel.firstBaselineAnchor),
-						statisticsCardView.primarySubtitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.primarySubtitleLabel.firstBaselineAnchor),
-						statisticsCardView.tertiaryTitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.tertiaryTitleLabel.firstBaselineAnchor)
-					])
-				}
+				configureBaselines(statisticsCardView: statisticsCardView)
 			}
 		}
 		topConstraint.constant = keyFigureCards.isEmpty ? 0 : 12
@@ -171,5 +218,18 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		}
 
 		accessibilityElements = stackView.arrangedSubviews
+	}
+	
+	private func configureBaselines(statisticsCardView: HomeStatisticsCardView) {
+		let cardViewCount = stackView.arrangedSubviews.count
+		if cardViewCount > 1, let previousCardView = stackView.arrangedSubviews[cardViewCount - 2] as? HomeStatisticsCardView {
+			NSLayoutConstraint.activate([
+				statisticsCardView.titleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.titleLabel.firstBaselineAnchor),
+				statisticsCardView.primaryTitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.primaryTitleLabel.firstBaselineAnchor),
+				statisticsCardView.secondaryTitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.secondaryTitleLabel.firstBaselineAnchor),
+				statisticsCardView.primarySubtitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.primarySubtitleLabel.firstBaselineAnchor),
+				statisticsCardView.tertiaryTitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.tertiaryTitleLabel.firstBaselineAnchor)
+			])
+		}
 	}
 }
