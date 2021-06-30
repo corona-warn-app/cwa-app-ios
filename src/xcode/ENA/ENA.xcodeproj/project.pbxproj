@@ -482,6 +482,7 @@
 		504E8B1425D400DF00CAFBDF /* DMPPAnalyticsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E8B1325D400DF00CAFBDF /* DMPPAnalyticsViewModel.swift */; };
 		504E8B2C25D41CBD00CAFBDF /* DMPPAMostRecentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E8B2B25D41CBD00CAFBDF /* DMPPAMostRecentData.swift */; };
 		5051CBB6260BCF6D003FC7C1 /* Int+DateFromUnixTimestampInHours.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5051CBAE260BCE70003FC7C1 /* Int+DateFromUnixTimestampInHours.swift */; };
+		5054BF98268C561E00B0BDF4 /* DCCOnboardedCountriesError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5054BF97268C561E00B0BDF4 /* DCCOnboardedCountriesError.swift */; };
 		5055EC01267239690062C15E /* HealthCertificateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5055EC00267239690062C15E /* HealthCertificateTests.swift */; };
 		5055EC0326726B590062C15E /* CertificateDecodingError+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5055EC0226726B590062C15E /* CertificateDecodingError+Equatable.swift */; };
 		5058DF7C2666CC7700858446 /* DCCResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5058DF7B2666CC7700858446 /* DCCResponse.swift */; };
@@ -501,7 +502,7 @@
 		507685CB25E80E600039B7B6 /* TestDummyPPAnalyticsDataImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507685CA25E80E600039B7B6 /* TestDummyPPAnalyticsDataImplementation.swift */; };
 		507685D325E8EA040039B7B6 /* UserMetadataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507685D225E8EA040039B7B6 /* UserMetadataTests.swift */; };
 		5078DCA12684B3ED00535917 /* DCCValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5078DCA02684B3ED00535917 /* DCCValidationService.swift */; };
-		5078DCA42684B5FB00535917 /* DCCValidationProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5078DCA32684B5FB00535917 /* DCCValidationProgress.swift */; };
+		5078DCA42684B5FB00535917 /* DCCValidationReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5078DCA32684B5FB00535917 /* DCCValidationReport.swift */; };
 		5078DCA62684B60400535917 /* DCCValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5078DCA52684B60400535917 /* DCCValidationError.swift */; };
 		5078DCA92686085C00535917 /* HTTPClient+GetDccOnboardedCountries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5078DCA72686085700535917 /* HTTPClient+GetDccOnboardedCountries.swift */; };
 		5078DCAB2686122200535917 /* api-response-onboardedCountries in Resources */ = {isa = PBXBuildFile; fileRef = 5078DCAA2686112C00535917 /* api-response-onboardedCountries */; };
@@ -1709,6 +1710,7 @@
 		504E8B1325D400DF00CAFBDF /* DMPPAnalyticsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMPPAnalyticsViewModel.swift; sourceTree = "<group>"; };
 		504E8B2B25D41CBD00CAFBDF /* DMPPAMostRecentData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMPPAMostRecentData.swift; sourceTree = "<group>"; };
 		5051CBAE260BCE70003FC7C1 /* Int+DateFromUnixTimestampInHours.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+DateFromUnixTimestampInHours.swift"; sourceTree = "<group>"; };
+		5054BF97268C561E00B0BDF4 /* DCCOnboardedCountriesError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCCOnboardedCountriesError.swift; sourceTree = "<group>"; };
 		5055EC00267239690062C15E /* HealthCertificateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateTests.swift; sourceTree = "<group>"; };
 		5055EC0226726B590062C15E /* CertificateDecodingError+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CertificateDecodingError+Equatable.swift"; sourceTree = "<group>"; };
 		5058DF7B2666CC7700858446 /* DCCResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCCResponse.swift; sourceTree = "<group>"; };
@@ -1730,11 +1732,11 @@
 		506AB74B265800C7004AE743 /* DMPPAActualDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMPPAActualDataViewModel.swift; sourceTree = "<group>"; };
 		507685CA25E80E600039B7B6 /* TestDummyPPAnalyticsDataImplementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDummyPPAnalyticsDataImplementation.swift; sourceTree = "<group>"; };
 		507685D225E8EA040039B7B6 /* UserMetadataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMetadataTests.swift; sourceTree = "<group>"; };
+		5078DCA02684B3ED00535917 /* DCCValidationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCCValidationService.swift; sourceTree = "<group>"; };
+		5078DCA32684B5FB00535917 /* DCCValidationReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCCValidationReport.swift; sourceTree = "<group>"; };
+		5078DCA52684B60400535917 /* DCCValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCCValidationError.swift; sourceTree = "<group>"; };
 		5078DCA72686085700535917 /* HTTPClient+GetDccOnboardedCountries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClient+GetDccOnboardedCountries.swift"; sourceTree = "<group>"; };
 		5078DCAA2686112C00535917 /* api-response-onboardedCountries */ = {isa = PBXFileReference; lastKnownFileType = file; path = "api-response-onboardedCountries"; sourceTree = "<group>"; };
-		5078DCA02684B3ED00535917 /* DCCValidationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCCValidationService.swift; sourceTree = "<group>"; };
-		5078DCA32684B5FB00535917 /* DCCValidationProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCCValidationProgress.swift; sourceTree = "<group>"; };
-		5078DCA52684B60400535917 /* DCCValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCCValidationError.swift; sourceTree = "<group>"; };
 		5081EEF025FF739B004B8FDE /* CheckinsInfoScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinsInfoScreenViewModel.swift; sourceTree = "<group>"; };
 		5081EEFD25FF9C5E004B8FDE /* CheckinsInfoScreenViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinsInfoScreenViewModelTest.swift; sourceTree = "<group>"; };
 		5081EF0525FFB7E0004B8FDE /* CheckinsInfoScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinsInfoScreenViewController.swift; sourceTree = "<group>"; };
@@ -3993,8 +3995,9 @@
 		5078DC9F2684B3DD00535917 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				5078DCA32684B5FB00535917 /* DCCValidationProgress.swift */,
+				5078DCA32684B5FB00535917 /* DCCValidationReport.swift */,
 				5078DCA52684B60400535917 /* DCCValidationError.swift */,
+				5054BF97268C561E00B0BDF4 /* DCCOnboardedCountriesError.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -8203,6 +8206,7 @@
 				01E102682668D83B009ED803 /* DCCRSAKeyPair.swift in Sources */,
 				AB5F84C024FE2EB3000400D4 /* DownloadedPackagesStoreV0.swift in Sources */,
 				518A69FB24687D5800444E66 /* RiskLevel.swift in Sources */,
+				5054BF98268C561E00B0BDF4 /* DCCOnboardedCountriesError.swift in Sources */,
 				EBCD2412250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift in Sources */,
 				AB7420B7251B69E2006666AC /* DeltaOnboardingCoordinator.swift in Sources */,
 				ABE961E225F29A5000D0F699 /* EventStoreSchemaV1.swift in Sources */,
@@ -8287,7 +8291,7 @@
 				504E8B1425D400DF00CAFBDF /* DMPPAnalyticsViewModel.swift in Sources */,
 				01F6701225FF79830069C4F9 /* EventCellModel.swift in Sources */,
 				BA9BCF6225B0875100DD7974 /* DiaryOverviewDayCellModel.swift in Sources */,
-				5078DCA42684B5FB00535917 /* DCCValidationProgress.swift in Sources */,
+				5078DCA42684B5FB00535917 /* DCCValidationReport.swift in Sources */,
 				01EA17622590EAAF00E98E02 /* HomeTableViewController.swift in Sources */,
 				017D8DA6263B02F70009E91C /* HealthCertificate.swift in Sources */,
 				35BF067525DB1BA900D3868B /* AppDelegate+QuickActions.swift in Sources */,
