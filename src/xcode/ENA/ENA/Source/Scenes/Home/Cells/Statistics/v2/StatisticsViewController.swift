@@ -32,7 +32,6 @@ final class StatisticsViewController: UIViewController, UICollectionViewDataSour
 		collectionView.showsHorizontalScrollIndicator = false
 		collectionView.decelerationRate = .fast
 		collectionView.dataSource = self
-		collectionView.delegate = self
 		collectionView.backgroundColor = .enaColor(for: .darkBackground)
 		collectionView.register(UINib(nibName: "StatisticCell", bundle: nil), forCellWithReuseIdentifier: StatisticCell.reuseIdentifier)
 		collectionView.register(UINib(nibName: "ManageStatisticCell", bundle: nil), forCellWithReuseIdentifier: ManageStatisticCell.reuseIdentifier)
@@ -43,6 +42,11 @@ final class StatisticsViewController: UIViewController, UICollectionViewDataSour
 	private let maxCountUserdefinedStatistics = 5
 	private lazy var spacing = { 1 / 8 * width }()
 	private lazy var cellSpacing = { 1 / 16 * width }()
+
+	/// Is the collection view in edit mode
+	///
+	/// Don't confuse this with iOS 14's `isEditing` which is not used here!
+	private var isEditMode: Bool = false
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -78,6 +82,13 @@ final class StatisticsViewController: UIViewController, UICollectionViewDataSour
 			guard let managementCell = collectionView.dequeueReusableCell(withReuseIdentifier: ManageStatisticCell.reuseIdentifier, for: indexPath) as? ManageStatisticCell else {
 				preconditionFailure()
 			}
+			managementCell.handleAdd = {
+				// TODO: handler for add element call
+			}
+			managementCell.handleModify = {
+				// TODO: handler for modify element call
+				self.isEditMode.toggle()
+			}
 			return managementCell
 		}
 
@@ -99,8 +110,19 @@ final class StatisticsViewController: UIViewController, UICollectionViewDataSour
 		}
 	}
 
-	func collectionView(_ collectionView: UICollectionView, canEditItemAt indexPath: IndexPath) -> Bool {
-		true
+	/// Determines if a cell can be edited or not
+	/// - Parameters:
+	///   - collectionView: The context collection view
+	///   - indexPath: The current IndexPath to check
+	/// - Returns: `true` if the view can be edited, `false` if not
+	private func collectionView(_ collectionView: UICollectionView, canEditItemAt indexPath: IndexPath) -> Bool {
+		do {
+			let result = try statisticData(for: indexPath)
+			return result.isUser
+		} catch {
+			// intentionally ignoring the error here as it can happen for cell 0,0
+			return false
+		}
 	}
 
 	// MARK: - Cell Management
@@ -111,8 +133,9 @@ final class StatisticsViewController: UIViewController, UICollectionViewDataSour
 
 	private func insertLocalStatisticCell() {
 		userDefinedStatistics.append(SAP_Internal_Stats_KeyFigureCard())
-		// insert on 2nd position
+		// insert always on 2nd position
 		collectionView.insertItems(at: [IndexPath(row: 1, section: 0)])
+		// TODO: update management cell
 	}
 
 	private func statisticData(for indexPath: IndexPath) throws -> (statistic: SAP_Internal_Stats_KeyFigureCard, isUser: Bool) {
@@ -132,18 +155,9 @@ final class StatisticsViewController: UIViewController, UICollectionViewDataSour
 	}
 }
 
-extension StatisticsViewController: UICollectionViewDelegate {
-	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		if canAddMoreStats(), indexPath.section == 0, indexPath.row == 0 {
-			// TODO: selection dialog
-			insertLocalStatisticCell(/* params... */)
-		}
-	}
-}
-
 private extension UICollectionViewCell {
 	func addStyling() {
-		#warning("mock!")
+		// FIXME: needs update to real values!
 		layer.borderWidth = 0.5
 		layer.borderColor = UIColor.systemGray.withAlphaComponent(0.5).cgColor
 
