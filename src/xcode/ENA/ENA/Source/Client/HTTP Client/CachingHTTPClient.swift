@@ -12,7 +12,7 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, LocalStat
 		case dataVerificationError(message: String?)
 	}
 
-	typealias FederalStateID = String
+	typealias groupID = String
 
 	/// The client configuration - mostly server endpoints per environment
 	var configuration: HTTPClient.Configuration {
@@ -193,11 +193,11 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, LocalStat
 	
 	/// Fetches local statistics
 	/// - Parameters:
-	///   - federalStateID: string to pass federal state ID to the API to get local statistics
+	///   - groupID: string to pass federal state ID to the API to get local statistics
 	///   - etag: an optional ETag to download only versions that differ the given tag
 	///   - completion: result handler
 	func fetchLocalStatistics(
-		federalStateID: FederalStateID,
+		groupID: groupID,
 		eTag: String?,
 		completion: @escaping LocalStatisticsCompletionHandler
 	) {
@@ -207,7 +207,7 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, LocalStat
 			headers = ["If-None-Match": eTag]
 		}
 
-		let url = configuration.localStatisticsURL(federalStateID: federalStateID)
+		let url = configuration.localStatisticsURL(groupID: groupID)
 		session.GET(url, extraHeaders: headers) { result in
 			switch result {
 			case .success(let response):
@@ -215,7 +215,7 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, LocalStat
 					let package = try self.verifyPackage(in: response)
 					let localStatistics = try SAP_Internal_Stats_LocalStatistics(serializedData: package.bin)
 					let responseETag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag")
-					let localStatisticsResponse = LocalStatisticsResponse(localStatistics, responseETag, federalStateID)
+					let localStatisticsResponse = LocalStatisticsResponse(localStatistics, responseETag, groupID)
 					completion(.success(localStatisticsResponse))
 				} catch {
 					completion(.failure(error))

@@ -18,7 +18,7 @@ class LocalStatisticsProviderTests: CWATestCase {
 		XCTAssertEqual(store.localStatistics, [])
 
 		let client = CachingHTTPClientMock()
-		client.fetchLocalStatistics(federalStateID: "1", eTag: "fake") { result in
+		client.fetchLocalStatistics(groupID: "1", eTag: "fake") { result in
 			switch result {
 			case .success(let response):
 				XCTAssertNotNil(response.eTag)
@@ -40,7 +40,7 @@ class LocalStatisticsProviderTests: CWATestCase {
 		let store = MockTestStore()
 		let client = CachingHTTPClientMock()
 		let provider = LocalStatisticsProvider(client: client, store: store)
-		provider.latestLocalStatistics(federalStateID: "1", eTag: "fake")
+		provider.latestLocalStatistics(groupID: "1", eTag: "fake")
 			.sink(receiveCompletion: { result in
 				switch result {
 				case .finished:
@@ -67,7 +67,7 @@ class LocalStatisticsProviderTests: CWATestCase {
 		}
 		
 		let provider = LocalStatisticsProvider(client: client, store: store)
-		provider.latestLocalStatistics(federalStateID: "1", eTag: "fake")
+		provider.latestLocalStatistics(groupID: "1", eTag: "fake")
 			.sink(receiveCompletion: { result in
 				switch result {
 				case .finished:
@@ -87,7 +87,7 @@ class LocalStatisticsProviderTests: CWATestCase {
 		
 		let store = MockTestStore()
 		store.localStatistics.append(LocalStatisticsMetadata(
-			federalStateID: "1",
+			groupID: "1",
 			lastLocalStatisticsETag: "fake",
 			lastLocalStatisticsFetchDate: try XCTUnwrap(301.secondsAgo),
 			localStatistics: CachingHTTPClientMock.staticLocalStatistics
@@ -101,7 +101,7 @@ class LocalStatisticsProviderTests: CWATestCase {
 		}
 		
 		let provider = LocalStatisticsProvider(client: client, store: store)
-		provider.latestLocalStatistics(federalStateID: "1", eTag: "fake")
+		provider.latestLocalStatistics(groupID: "1", eTag: "fake")
 			.sink(receiveCompletion: { result in
 				switch result {
 				case .finished:

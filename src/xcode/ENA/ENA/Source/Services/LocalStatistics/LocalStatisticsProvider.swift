@@ -16,14 +16,14 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 
 	// MARK: - Internal
 
-	func latestLocalStatistics(federalStateID: String, eTag: String? = nil) -> AnyPublisher<SAP_Internal_Stats_LocalStatistics, Error> {
+	func latestLocalStatistics(groupID: String, eTag: String? = nil) -> AnyPublisher<SAP_Internal_Stats_LocalStatistics, Error> {
 		let localStatistics = store.localStatistics.filter({
-			$0.federalStateID == federalStateID
+			$0.groupID == groupID
 		}).compactMap { $0 }.first
 		
-		guard let cached = localStatistics, !shouldFetch(store: store, federalStateID: federalStateID) else {
+		guard let cached = localStatistics, !shouldFetch(store: store, groupID: groupID) else {
 			let etag = localStatistics?.lastLocalStatisticsETag
-			return fetchLocalStatistics(federalStateID: federalStateID, eTag: etag).eraseToAnyPublisher()
+			return fetchLocalStatistics(groupID: groupID, eTag: etag).eraseToAnyPublisher()
 		}
 		// return cached data; no error
 		return Just(cached.localStatistics)
@@ -36,9 +36,9 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 	private let client: LocalStatisticsFetching
 	private let store: LocalStatisticsCaching
 
-	private func fetchLocalStatistics(federalStateID: String, eTag: String? = nil) -> Future<SAP_Internal_Stats_LocalStatistics, Error> {
+	private func fetchLocalStatistics(groupID: String, eTag: String? = nil) -> Future<SAP_Internal_Stats_LocalStatistics, Error> {
 		return Future { promise in
-			self.client.fetchLocalStatistics(federalStateID: federalStateID, eTag: eTag) { result in
+			self.client.fetchLocalStatistics(groupID: groupID, eTag: eTag) { result in
 				switch result {
 				case .success(let response):
 					// cache
@@ -49,7 +49,7 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 					switch error {
 					case URLSessionError.notModified:
 						var localStatistics = self.store.localStatistics.filter({
-							$0.federalStateID == federalStateID
+							$0.groupID == groupID
 						}).compactMap { $0 }.first
 						localStatistics?.refreshLastLocalStatisticsFetchDate()
 					default:
@@ -57,7 +57,7 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 					}
 					// return cached if it exists
 					if let cachedLocalStatistics = self.store.localStatistics.filter({
-						$0.federalStateID == federalStateID
+						$0.groupID == groupID
 					}).compactMap({ $0 }).first {
 						promise(.success(cachedLocalStatistics.localStatistics))
 					} else {
@@ -68,9 +68,9 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 		}
 	}
 
-	private func shouldFetch(store: LocalStatisticsCaching, federalStateID: String) -> Bool {
+	private func shouldFetch(store: LocalStatisticsCaching, groupID: String) -> Bool {
 		let localStatistics = store.localStatistics.filter({
-			$0.federalStateID == federalStateID
+			$0.groupID == groupID
 		}).compactMap { $0 }.first
 		if localStatistics == nil { return true }
 

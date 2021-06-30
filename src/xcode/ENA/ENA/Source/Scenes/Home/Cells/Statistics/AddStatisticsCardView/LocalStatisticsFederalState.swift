@@ -25,7 +25,7 @@ enum LocalStatisticsFederalState: String, CaseIterable, Codable {
 	case thüringen = "Thüringen"
 	
 	// only for local statistics
-	var id: Int {
+	var groupID: Int {
 		switch self {
 		case .badenWürttemberg:
 			return 1

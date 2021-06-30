@@ -137,13 +137,13 @@ extension HTTPClient {
 			)
 		}
 
-		func localStatisticsURL(federalStateID: String) -> URL {
+		func localStatisticsURL(groupID: String) -> URL {
 			endpoints
 				.distribution
 				.appending(
 					"version",
 					apiVersion,
-					"local_stats_\(federalStateID)"
+					"local_stats_\(groupID)"
 			)
 		}
 
