@@ -23,16 +23,6 @@ final class HealthCertificateViewModel {
 			accessibilityText: AppStrings.HealthCertificate.Details.QRCodeImageDescription
 		)
 
-		if case .test = healthCertificate.type {
-			gradientType = .lightBlue(withStars: true)
-		} else {
-			healthCertifiedPerson?.$vaccinationState
-				.sink { [weak self] in
-					self?.gradientType = $0.gradientType
-				}
-				.store(in: &subscriptions)
-		}
-
 		updateHealthCertificateKeyValueCellViewModels()
 
 		// load certificate value sets
@@ -55,6 +45,11 @@ final class HealthCertificateViewModel {
 			)
 			.store(in: &subscriptions)
 
+		healthCertifiedPerson?.$gradientType
+			.sink { [weak self] in
+				self?.gradientType = $0
+			}
+			.store(in: &subscriptions)
 	}
 
 	// MARK: - Internal
@@ -82,7 +77,7 @@ final class HealthCertificateViewModel {
 
 	let qrCodeCellViewModel: HealthCertificateQRCodeCellViewModel
 
-	@OpenCombine.Published private(set) var gradientType: GradientView.GradientType = .solidGrey
+	@OpenCombine.Published private(set) var gradientType: GradientView.GradientType = .lightBlue(withStars: true)
 	@OpenCombine.Published private(set) var healthCertificateKeyValueCellViewModel: [HealthCertificateKeyValueCellViewModel] = []
 
 	var headlineCellViewModel: HealthCertificateSimpleTextCellViewModel {
@@ -214,13 +209,13 @@ final class HealthCertificateViewModel {
 
 		let dateOfBirthCellViewModel = HealthCertificateKeyValueCellViewModel(
 			key: "Geburtsdatum / Date of Birth (YYYY-MM-DD)",
-			value: DCCDateStringFormatter.formatedString(from: healthCertificate.dateOfBirth)
+			value: DCCDateStringFormatter.formattedString(from: healthCertificate.dateOfBirth)
 		)
 
 		let diseaseCellViewModel = HealthCertificateKeyValueCellViewModel(
 			key: "Zielkrankheit oder -erreger / Disease or Agent Targeted",
 			value: determineValue(
-				key: vaccinationEntry.vaccineMedicinalProduct,
+				key: vaccinationEntry.diseaseOrAgentTargeted,
 				valueSet: valueSet(by: .diseaseOrAgentTargeted)
 			)
 		)
@@ -259,7 +254,7 @@ final class HealthCertificateViewModel {
 
 		let dateCellViewModel = HealthCertificateKeyValueCellViewModel(
 			key: "Datum der Impfung / Date of Vaccination (YYYY-MM-DD)",
-			value: DCCDateStringFormatter.formatedString(from: vaccinationEntry.dateOfVaccination)
+			value: DCCDateStringFormatter.formattedString(from: vaccinationEntry.dateOfVaccination)
 		)
 
 		let localizedCountryName = Country(countryCode: vaccinationEntry.countryOfVaccination)?.localizedName
@@ -306,7 +301,7 @@ final class HealthCertificateViewModel {
 
 		let dateOfBirthCellViewModel = HealthCertificateKeyValueCellViewModel(
 			key: "Geburtsdatum / Date of Birth (YYYY-MM-DD)",
-			value: DCCDateStringFormatter.formatedString(from: healthCertificate.dateOfBirth)
+			value: DCCDateStringFormatter.formattedString(from: healthCertificate.dateOfBirth)
 		)
 
 		let diseaseOrAgentTargetedCellViewModel = HealthCertificateKeyValueCellViewModel(
@@ -412,7 +407,7 @@ final class HealthCertificateViewModel {
 
 		let dateOfBirthCellViewModel = HealthCertificateKeyValueCellViewModel(
 			key: "Geburtsdatum / Date of Birth (YYYY-MM-DD)",
-			value: DCCDateStringFormatter.formatedString(from: healthCertificate.dateOfBirth)
+			value: DCCDateStringFormatter.formattedString(from: healthCertificate.dateOfBirth)
 		)
 
 		let diseaseOrAgentTargetedCellViewModel = HealthCertificateKeyValueCellViewModel(
@@ -425,7 +420,7 @@ final class HealthCertificateViewModel {
 
 		let dateOfFirstPositiveNAAResultCellViewModel = HealthCertificateKeyValueCellViewModel(
 			key: "Datum des ersten positiven Testergebnisses / Date of first positive test result (YYYY-MM-DD)",
-			value: DCCDateStringFormatter.formatedString(from: recoveryEntry.dateOfFirstPositiveNAAResult)
+			value: DCCDateStringFormatter.formattedString(from: recoveryEntry.dateOfFirstPositiveNAAResult)
 		)
 
 		let localizedCountryName = Country(countryCode: recoveryEntry.countryOfTest)?.localizedName

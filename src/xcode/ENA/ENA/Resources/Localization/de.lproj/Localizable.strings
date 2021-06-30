@@ -1986,7 +1986,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Card_AtLeastOneVaccinated_Title" = "Mindestens einmal geimpfte Personen";
 
-"Statistics_Card_AtLeastOneVaccinated_Today" = "Aktuell";
+"Statistics_Card_AtLeastOneVaccinated_Today" = "Bis heute";
 
 "Statistics_Card_AtLeastOneVaccinated_Yesterday" = "Bis Gestern";
 
@@ -2004,7 +2004,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Card_FullyVaccinated_Title" = "Vollständig geimpfte Personen";
 
-"Statistics_Card_FullyVaccinated_Today" = "Aktuell";
+"Statistics_Card_FullyVaccinated_Today" = "Bis heute";
 
 "Statistics_Card_FullyVaccinated_Yesterday" = "Bis Gestern";
 
@@ -2020,11 +2020,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Card_AppliedDoseRates_Title" = "Verabreichte Impfdosen";
 
-"Statistics_Card_AppliedDoseRates_Today" = "Aktuell";
+"Statistics_Card_AppliedDoseRates_Today" = "Heute";
 
-"Statistics_Card_AppliedDoseRates_Yesterday" = "Bis Gestern";
+"Statistics_Card_AppliedDoseRates_Yesterday" = "Gestern";
 
-"Statistics_Card_AppliedDoseRates_Date" = "Bis %@";
+"Statistics_Card_AppliedDoseRates_Date" = "%@";
 
 "Statistics_Card_AppliedDoseRates_SecondaryLabelTitle" = "7-Tage-Mittelwert";
 
@@ -2716,17 +2716,35 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Health Certified Person Screen */
 
-"HealthCertifiedPerson_title" = "Digitaler COVID-Impfnachweis der EU";
+"HealthCertifiedPerson_title" = "Digitales COVID-Zertifikat der EU";
 
-"HealthCertifiedPerson_subtitle" = "SARS-CoV-2-Impfschutz";
+"HealthCertifiedPerson_partiallyVaccinated" = "Sie haben noch nicht alle derzeit geplanten Impfungen erhalten. Daher ist Ihr Impfschutz noch nicht vollständig.";
 
 "HealthCertifiedPerson_dateOfBirth" = "geboren %@";
 
-"HealthCertifiedPerson_vaccinationCount" = "Impfung %i von %i";
+"HealthCertifiedPerson_preferredPersonDescription" = "Mein Smartphone, meine App. Zertifikate für mich erscheinen in der Liste an erster Stelle.";
 
-"HealthCertifiedPerson_vaccinationDate" = "durchgeführt am %@";
+"HealthCertifiedPerson_QRCode_Image_Description" = "Ein QR-Code mit dem aktuellen Zertifikat";
 
-"HealthCertifiedPerson_QRCode_Image_Description" = "Ein QR-Code mit dem Status Ihrer Impfung";
+"HealthCertifiedPerson_VaccinationCertificate_headline" = "Impfzertifikat";
+
+"HealthCertifiedPerson_VaccinationCertificate_vaccinationCount" = "Impfung %i von %i";
+
+"HealthCertifiedPerson_VaccinationCertificate_vaccinationDate" = "geimpft am %@";
+
+"HealthCertifiedPerson_TestCertificate_headline" = "Testzertifikat";
+
+"HealthCertifiedPerson_TestCertificate_pcrTest" = "PCR-Test";
+
+"HealthCertifiedPerson_TestCertificate_antigenTest" = "Schnelltest";
+
+"HealthCertifiedPerson_TestCertificate_sampleCollectionDate" = "Probenahme am %@";
+
+"HealthCertifiedPerson_RecoveryCertificate_headline" = "Genesenenzertifikat";
+
+"HealthCertifiedPerson_RecoveryCertificate_validityDate" = "gültig bis %@";
+
+"HealthCertifiedPerson_currentlyUsedCertificate" = "Aktuell verwendetes Zertifikat";
 
 /* Vaccination Certificate Details */
 

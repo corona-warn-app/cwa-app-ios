@@ -9,14 +9,14 @@ import XCTest
 class SchemaValidationTests: XCTestCase {
     
     func test_When_DecodeVaccinationCertificateFails_Then_SchemaInvalidErrorIsReturned() {
-        let certificateAccess = DigitalGreenCertificateAccess()
+        let certificateAccess = DigitalCovidCertificateAccess()
 
         /// This data contains data which leads to validation errors.
         /// Schema validation errors:
         /// -Wrong format for dateOfBirth
         /// -Wrong format for dateOfVaccination
         /// -uniqueCertificateIdentifier length > 80
-        let fakeCertificate = DigitalGreenCertificate.fake(
+        let fakeCertificate = DigitalCovidCertificate.fake(
             dateOfBirth: "NODateOfBirth",
             vaccinationEntries: [
                 VaccinationEntry.fake(
@@ -26,13 +26,13 @@ class SchemaValidationTests: XCTestCase {
             ]
         )
 
-        let base45FakeResult = DigitalGreenCertificateFake.makeBase45Fake(from: fakeCertificate, and: CBORWebTokenHeader.fake())
+        let base45FakeResult = DigitalCovidCertificateFake.makeBase45Fake(from: fakeCertificate, and: CBORWebTokenHeader.fake())
         guard case let .success(base45Fake) = base45FakeResult else {
             XCTFail("Success expected.")
             return
         }
 
-        let result = certificateAccess.extractDigitalGreenCertificate(from: base45Fake)
+        let result = certificateAccess.extractDigitalCovidCertificate(from: base45Fake)
 
         guard case let .failure(error) = result else {
             XCTFail("Error expected.")
@@ -68,14 +68,14 @@ class SchemaValidationTests: XCTestCase {
     }
 
     func test_When_DecodeTestCertificateFails_Then_SchemaInvalidErrorIsReturned() {
-        let certificateAccess = DigitalGreenCertificateAccess()
+        let certificateAccess = DigitalCovidCertificateAccess()
 
         /// This data contains data which leads to validation errors.
         /// Schema validation errors:
         /// -Wrong format for dateOfBirth
         /// -Wrong format for dateTimeOfSampleCollection
         /// -uniqueCertificateIdentifier length > 80
-        let fakeCertificate = DigitalGreenCertificate.fake(
+        let fakeCertificate = DigitalCovidCertificate.fake(
             dateOfBirth: "NotADateOfBirth",
             testEntries: [
                 TestEntry.fake(
@@ -85,13 +85,13 @@ class SchemaValidationTests: XCTestCase {
             ]
         )
 
-        let base45FakeResult = DigitalGreenCertificateFake.makeBase45Fake(from: fakeCertificate, and: CBORWebTokenHeader.fake())
+        let base45FakeResult = DigitalCovidCertificateFake.makeBase45Fake(from: fakeCertificate, and: CBORWebTokenHeader.fake())
         guard case let .success(base45Fake) = base45FakeResult else {
             XCTFail("Success expected.")
             return
         }
 
-        let result = certificateAccess.extractDigitalGreenCertificate(from: base45Fake)
+        let result = certificateAccess.extractDigitalCovidCertificate(from: base45Fake)
 
         guard case let .failure(error) = result else {
             XCTFail("Error expected.")
@@ -127,13 +127,13 @@ class SchemaValidationTests: XCTestCase {
     }
 
     func test_When_DecodeRecoveryCertificateFails_Then_SchemaInvalidErrorIsReturned() {
-        let certificateAccess = DigitalGreenCertificateAccess()
+        let certificateAccess = DigitalCovidCertificateAccess()
 
         /// This data contains data which leads to validation errors.
         /// Schema validation errors:
         /// -Wrong format for dateOfFirstPositiveNAAResult
         /// -uniqueCertificateIdentifier length > 80
-        let fakeCertificate = DigitalGreenCertificate.fake(
+        let fakeCertificate = DigitalCovidCertificate.fake(
             dateOfBirth: "NotADateOfBirth",
             recoveryEntries: [
                 RecoveryEntry.fake(
@@ -145,13 +145,13 @@ class SchemaValidationTests: XCTestCase {
             ]
         )
 
-        let base45FakeResult = DigitalGreenCertificateFake.makeBase45Fake(from: fakeCertificate, and: CBORWebTokenHeader.fake())
+        let base45FakeResult = DigitalCovidCertificateFake.makeBase45Fake(from: fakeCertificate, and: CBORWebTokenHeader.fake())
         guard case let .success(base45Fake) = base45FakeResult else {
             XCTFail("Success expected.")
             return
         }
 
-        let result = certificateAccess.extractDigitalGreenCertificate(from: base45Fake)
+        let result = certificateAccess.extractDigitalCovidCertificate(from: base45Fake)
 
         guard case let .failure(error) = result else {
             XCTFail("Error expected.")
@@ -199,18 +199,18 @@ class SchemaValidationTests: XCTestCase {
     func test_When_DecodeWithFailJSON_Then_SchemaInvalidErrorIsReturned() {
         for failJsonString in validationFailJsonStrings {
             guard let jsonData = failJsonString.data(using: .utf8),
-                  let certificate = try? JSONDecoder().decode(DigitalGreenCertificate.self, from: jsonData) else {
+                  let certificate = try? JSONDecoder().decode(DigitalCovidCertificate.self, from: jsonData) else {
                 XCTFail("JSON decoding failed.")
                 return
             }
 
-            let base45FakeResult = DigitalGreenCertificateFake.makeBase45Fake(from: certificate, and: CBORWebTokenHeader.fake())
+            let base45FakeResult = DigitalCovidCertificateFake.makeBase45Fake(from: certificate, and: CBORWebTokenHeader.fake())
             guard case let .success(base45Fake) = base45FakeResult else {
                 XCTFail("Success expected.")
                 return
             }
 
-            let validationResult = DigitalGreenCertificateAccess().extractDigitalGreenCertificate(from: base45Fake)
+            let validationResult = DigitalCovidCertificateAccess().extractDigitalCovidCertificate(from: base45Fake)
 
             guard case let .failure(error) = validationResult,
                   case .HC_JSON_SCHEMA_INVALID(let schemaError) = error,
@@ -230,18 +230,18 @@ class SchemaValidationTests: XCTestCase {
     func test_When_DecodeWithPassJSON_Then_SuccessReturned() {
         for passJsonString in validationPassJsonStrings {
             guard let jsonData = passJsonString.data(using: .utf8),
-                  let certificate = try? JSONDecoder().decode(DigitalGreenCertificate.self, from: jsonData) else {
+                  let certificate = try? JSONDecoder().decode(DigitalCovidCertificate.self, from: jsonData) else {
                 XCTFail("JSON decoding failed.")
                 return
             }
 
-            let base45FakeResult = DigitalGreenCertificateFake.makeBase45Fake(from: certificate, and: CBORWebTokenHeader.fake())
+            let base45FakeResult = DigitalCovidCertificateFake.makeBase45Fake(from: certificate, and: CBORWebTokenHeader.fake())
             guard case let .success(base45Fake) = base45FakeResult else {
                 XCTFail("Success expected.")
                 return
             }
 
-            let validationResult = DigitalGreenCertificateAccess().extractDigitalGreenCertificate(from: base45Fake)
+            let validationResult = DigitalCovidCertificateAccess().extractDigitalCovidCertificate(from: base45Fake)
             guard case .success = validationResult else {
                 XCTFail("Success expected.")
                 return
