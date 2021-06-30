@@ -78,6 +78,7 @@ class AddStatisticsCardsViewModel {
 		}
 		let districtIDWithPadding = String(describing: districtIDValue)
 		let districtIDWithoutPadding = String(describing: districtIDWithPadding.dropFirst(3))
+
 		let localDistrict = LocalStatisticsDistrict(
 			federalState: state,
 			districtName: district,
