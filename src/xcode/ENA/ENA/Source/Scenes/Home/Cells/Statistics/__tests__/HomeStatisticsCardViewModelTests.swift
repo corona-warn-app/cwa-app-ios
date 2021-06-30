@@ -151,7 +151,7 @@ class HomeStatisticsCardViewModelTests: CWATestCase {
 			)
 		)
 
-		XCTAssertEqual(viewModel.primaryTitle, "Aktuell")
+		XCTAssertEqual(viewModel.primaryTitle, "Bis heute")
 	}
 
 	func testAtLeastOnceVaccinatedCardPrimaryTitleYesterday() throws {
@@ -221,7 +221,7 @@ class HomeStatisticsCardViewModelTests: CWATestCase {
 			)
 		)
 
-		XCTAssertEqual(viewModel.primaryTitle, "Aktuell")
+		XCTAssertEqual(viewModel.primaryTitle, "Bis heute")
 	}
 
 	func testFullyVaccinatedCardPrimaryTitleYesterday() throws {
@@ -290,7 +290,7 @@ class HomeStatisticsCardViewModelTests: CWATestCase {
 			)
 		)
 
-		XCTAssertEqual(viewModel.primaryTitle, "Aktuell")
+		XCTAssertEqual(viewModel.primaryTitle, "Heute")
 	}
 
 	func testDosesCardPrimaryTitleYesterday() throws {
@@ -308,7 +308,7 @@ class HomeStatisticsCardViewModelTests: CWATestCase {
 			)
 		)
 
-		XCTAssertEqual(viewModel.primaryTitle, "Bis Gestern")
+		XCTAssertEqual(viewModel.primaryTitle, "Gestern")
 	}
 
 	func testDosesCardPrimaryTitleOtherDate() throws {
@@ -324,7 +324,7 @@ class HomeStatisticsCardViewModelTests: CWATestCase {
 			)
 		)
 
-		XCTAssertEqual(viewModel.primaryTitle, "Bis 17.01.2021")
+		XCTAssertEqual(viewModel.primaryTitle, "17.01.2021")
 	}
 
 	// MARK: - Infections Card
