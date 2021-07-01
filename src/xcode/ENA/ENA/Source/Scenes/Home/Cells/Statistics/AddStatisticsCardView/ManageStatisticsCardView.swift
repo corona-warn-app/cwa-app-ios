@@ -42,7 +42,7 @@ class ManageStatisticsCardView: UIView {
 		self.onEditButtonTap = onEditButtonTap
 		self.onAccessibilityFocus = onAccessibilityFocus
 
-		updateUI(for: /*availableCardsState*/ .notYetFull)
+		updateUI(for: /* TODO: availableCardsState*/ .notYetFull)
 	}
 
 	@IBAction func onAddLocalIncidenceButtonPressed(_ sender: Any) {
@@ -66,7 +66,6 @@ class ManageStatisticsCardView: UIView {
 	}
 
 	@IBOutlet weak var stackView: UIStackView!
-	//@IBOutlet weak var addLocalIncidenceLabel: ENALabel!
 
 	func updateUI(for state: LocalStatisticsState) {
 		// clear

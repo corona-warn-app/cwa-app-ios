@@ -11,6 +11,12 @@ class CustomDashedView: UIView {
 	}
 	
 	// MARK: - Internal
+
+	let label: ENALabel = {
+		let label = ENALabel()
+		// configure
+		return label
+	}()
 	
 	@IBInspectable var cornerRadius: CGFloat = 15 {
 		didSet {
