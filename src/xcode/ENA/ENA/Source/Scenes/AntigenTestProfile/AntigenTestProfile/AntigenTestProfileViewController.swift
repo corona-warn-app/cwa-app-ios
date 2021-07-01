@@ -77,19 +77,26 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 			didTapContinue({ _ in Log.debug("is loading closure here") })
 		case .secondary:
 			
-			let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-			ac.addAction(UIAlertAction(title: AppStrings.AntigenProfile.Profile.infoActionTitle, style: .default, handler: { [weak self] _ in
+			let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+			alertController.addAction(UIAlertAction(title: AppStrings.AntigenProfile.Profile.infoActionTitle, style: .default, handler: { [weak self] _ in
 				self?.didTapInfoProfile()
 			}))
-			ac.addAction(UIAlertAction(title: AppStrings.AntigenProfile.Profile.editActionTitle, style: .default, handler: { [weak self] _ in
+
+			let editAction = UIAlertAction(title: AppStrings.AntigenProfile.Profile.editActionTitle, style: .default, handler: { [weak self] _ in
 				self?.didTapEditProfile()
-			}))
-			ac.addAction(UIAlertAction(title: AppStrings.AntigenProfile.Profile.deleteActionTitle, style: .destructive, handler: { [weak self] _ in
+			})
+			editAction.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.editAction
+			alertController.addAction(editAction)
+
+			let deleteAction = UIAlertAction(title: AppStrings.AntigenProfile.Profile.deleteActionTitle, style: .destructive, handler: { [weak self] _ in
 				self?.presentDeleteConfirmationAlert()
-			}))
-			ac.addAction(UIAlertAction(title: AppStrings.AntigenProfile.Profile.cancelActionTitle, style: .cancel, handler: nil))
-			ac.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItem
-			present(ac, animated: true)
+			})
+			deleteAction.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.deleteAction
+			alertController.addAction(deleteAction)
+
+			alertController.addAction(UIAlertAction(title: AppStrings.AntigenProfile.Profile.cancelActionTitle, style: .cancel, handler: nil))
+			alertController.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItem
+			present(alertController, animated: true)
 		}
 	}
 
