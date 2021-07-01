@@ -145,6 +145,9 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 					}
 				)
 			},
+			onFindTestCentersTap: {
+				LinkHelper.open(urlString: AppStrings.Links.findTestCentersFAQ)
+			},
 			onTANButtonTap: { [weak self] in self?.showTanScreen() },
 			onHotlineButtonTap: { [weak self] in self?.showHotlineScreen() },
 			onRapidTestProfileTap: { [weak self] in
