@@ -461,9 +461,6 @@ enum AccessibilityIdentifiers {
 	}
 	
 	enum Statistics {
-		enum LocalStatistics {
-			
-		}
 		enum Infections {
 			static let title = "AppStrings.Statistics.Card.Infections.title"
 			static let infoButton = "AppStrings.Statistics.Card.Infections.infoButton"
