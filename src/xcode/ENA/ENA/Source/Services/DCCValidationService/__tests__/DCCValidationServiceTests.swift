@@ -11,11 +11,9 @@ class DCCValidationServiceTests: XCTestCase {
 	
 	// MARK:- Success
 	
-	func testGIVEN_ValidationService_WHEN_GetOnbaordedCountriesHappyCase_THEN_CountriesAreReturned() {
-		
+	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_HappyCase_THEN_CountriesAreReturned() {
 		// GIVEN
 		let client = ClientMock()
-		
 		client.onGetDCCOnboardedCountries = { [weak self] _, completion in
 			guard let self = self else {
 				XCTFail("Could not create strong self")
@@ -50,7 +48,7 @@ class DCCValidationServiceTests: XCTestCase {
 		XCTAssertTrue(countries.contains(onboardedCountriesFake[1]))
 	}
 	
-	func testGIVEN_ValidationService_WHEN_GetCachedOnbaordedCountriesHappyCase_THEN_CachedCountriesAreReturned() {
+	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_HTTPNotModified_THEN_CachedCountriesAreReturned() {
 		// GIVEN
 		let client = ClientMock()
 		client.onGetDCCOnboardedCountries = { _, completion in
