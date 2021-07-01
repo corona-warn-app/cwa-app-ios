@@ -14,3 +14,13 @@ public var onboardedCountriesCBORDataFake: Data {
     )
     return Data(cborCountries.encode())
 }
+
+public var onboardedCountriesCorruptCBORDataFake: Data {
+    let cborCountries = CBOR.array(
+        [
+            CBOR.null,
+            CBOR.unsignedInt(42)
+        ]
+    )
+    return Data(cborCountries.encode())
+}
