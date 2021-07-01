@@ -28,12 +28,10 @@ final class DCCValidationService: DCCValidationProviding {
 	init(
 		store: Store,
 		client: Client,
-		vaccinationValueSetsProvider: VaccinationValueSetsProvider,
 		signatureVerifier: SignatureVerification = SignatureVerifier()
 	) {
 		self.store = store
 		self.client = client
-		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
 		self.signatureVerifier = signatureVerifier
 	}
 	
@@ -78,44 +76,6 @@ final class DCCValidationService: DCCValidationProviding {
 		cborWebToken: CBORWebTokenHeader,
 		completion: @escaping (Result<DCCValidationReport, DCCValidationError>) -> Void
 	) {
-		// 1. Apply technical validation
-		let expirationDate = Date(timeIntervalSince1970: TimeInterval(cborWebToken.expirationTime))
-		let result = applyTechnicalValidation(validationClock: validationClock, expirationDate: expirationDate)
-		
-		switch result {
-		case let .failure(progress):
-			completion(.failure(progress))
-			
-		case let .success(progress):
-			
-			// 2. update/ download value sets
-			updateValueSets(
-				completion: { result in
-					switch result {
-					case let .failure(error):
-						completion(.failure(error))
-					case let .success(valueSets):
-						
-						// reminder: Caching of the onboarded countries list
-						break
-		
-					}
-				})
-		}
-
-		// 3. update/ download acceptance rules
-		
-		// 4. update/ download invalidation rules
-		
-		// 5. assemble external rule params
-		
-		// 6. assemble external rule params for acceptance rules
-		
-		// 7. apply acceptance rules
-		
-		// 8. assemble external rule params for invalidation rules
-		
-		// 9. apply invalidation rules
 
 	}
 		
@@ -127,10 +87,7 @@ final class DCCValidationService: DCCValidationProviding {
 	
 	private let store: Store
 	private let client: Client
-	private let vaccinationValueSetsProvider: VaccinationValueSetsProvider
 	private let signatureVerifier: SignatureVerification
-	
-	private var subscriptions = Set<AnyCancellable>()
 	
 	private func onboardedCountriesSuccessHandler(
 		packageDownloadResponse: PackageDownloadResponse,
@@ -223,56 +180,5 @@ final class DCCValidationService: DCCValidationProviding {
 		case .failure:
 			completion(.failure(.ONBOARDED_COUNTRIES_JSON_DECODING_FAILED))
 		}
-	}
-	
-	private func applyTechnicalValidation(
-		validationClock: Date,
-		expirationDate: Date
-	) -> Result<DCCValidationReport, DCCValidationError> {
-		// JsonSchemaCheck is always true because we expect here a DigitalGreenCertificate, which was already json schema validated at its creation.
-		var progress = DCCValidationReport(
-			expirationCheck: false,
-			jsonSchemaCheck: true,
-			acceptanceRuleValidation: nil,
-			invalidationRuleValidation: nil
-		)
-		
-		// Check expiration date
-		guard expirationDate >= validationClock else {
-			return .failure(DCCValidationError.TECHNICAL_VALIDATION_FAILED(progress))
-		}
-		progress.expirationCheck = true
-		
-		return .success(progress)
-	}
-	
-	private func updateValueSets(
-		completion: @escaping (Result<SAP_Internal_Dgc_ValueSets, DCCValidationError>) -> Void
-	) {
-		vaccinationValueSetsProvider.latestVaccinationCertificateValueSets()
-			.sink(
-				receiveCompletion: { result in
-					switch result {
-					case .finished:
-						break
-					case .failure(let error):
-						if case let URLSession.Response.Failure.httpError(_, response) = error {
-							switch response.statusCode {
-							case 500...509:
-								completion(.failure(.VALUE_SET_SERVER_ERROR))
-							default:
-								Log.error("Unhandled Status Code while fetching certificate value sets", log: .vaccination, error: error)
-							}
-							
-						} else if case URLSession.Response.Failure.noNetworkConnection = error {
-							completion(.failure(.NO_NETWORK))
-						}
-					}
-					
-				}, receiveValue: { valueSets in
-					completion(.success(valueSets))
-				}
-			)
-			.store(in: &subscriptions)
 	}
 }
