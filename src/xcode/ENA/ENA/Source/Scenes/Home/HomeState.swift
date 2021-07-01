@@ -161,6 +161,7 @@ class HomeState: ENStateHandlerUpdating {
 			)
 			.store(in: &subscriptions)
 	}
+
 	// MARK: - Private
 
 	private let store: Store
