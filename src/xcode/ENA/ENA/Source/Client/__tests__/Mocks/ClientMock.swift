@@ -285,6 +285,7 @@ extension ClientMock: Client {
 	}
 	
 	func getDCCOnboardedCountries(
+		eTag: String?,
 		isFake: Bool,
 		completion: @escaping DCCOnboardedCountriesCompletionHandler
 	) {
@@ -296,6 +297,7 @@ extension ClientMock: Client {
 	}
 	
 	func getDCCRules(
+		eTag: String?,
 		isFake: Bool,
 		ruleType: DCCRuleType,
 		completion: @escaping DCCRulesCompletionHandler
