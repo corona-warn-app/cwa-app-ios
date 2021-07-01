@@ -25,7 +25,7 @@ class ENAUITests_12_AntigenTestProfile: CWATestCase {
 	
 	// MARK: - Tests
 	
-	func test_FIRST_CreateAntigenTestProfile_THEN_EditProfile_THEN_DeleteProfile() throws {
+	func test_screenshot_FIRST_CreateAntigenTestProfile_THEN_EditProfile_THEN_DeleteProfile() throws {
 		
 		app.launch()
 		
@@ -67,17 +67,19 @@ class ENAUITests_12_AntigenTestProfile: CWATestCase {
 
 		let backButton = try XCTUnwrap(app.navigationBars.buttons.element(boundBy: 0))
 		backButton.waitAndTap()
-		
+
 		/// -> Antigen Test Information Screen
 		
 		let continueButton = app.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Information.continueButton]
 		continueButton.waitAndTap()
-		
+
 		/// Create Antigen Test Profile Screen
 
 		let saveProfileButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Create.saveButton])
 		XCTAssertTrue(saveProfileButton.waitForExistence(timeout: .short))
 		XCTAssertFalse(saveProfileButton.isEnabled)
+
+		snapshot("antigentestprofile_screenshot_create_profile_screen")
 		
 		let firstNameTextField = try XCTUnwrap(app.cells.textFields[AccessibilityIdentifiers.AntigenProfile.Create.firstNameTextField])
 		firstNameTextField.waitAndTap()
@@ -110,7 +112,7 @@ class ENAUITests_12_AntigenTestProfile: CWATestCase {
 		let emailAddressTextField = try XCTUnwrap(app.cells.textFields[AccessibilityIdentifiers.AntigenProfile.Create.emailAddressTextField])
 		emailAddressTextField.waitAndTap()
 		emailAddressTextField.typeText("bastian@bastian.codes")
-		
+
 		XCTAssertTrue(saveProfileButton.isEnabled)
 		saveProfileButton.waitAndTap()
 		
@@ -120,7 +122,9 @@ class ENAUITests_12_AntigenTestProfile: CWATestCase {
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.continueButton].waitForExistence(timeout: .short))
 		// edit profile button exists
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.editButton].waitForExistence(timeout: .short))
-		
+
+		snapshot("antigentestprofile_screenshot_profile_screen")
+
 		let closeButton = try XCTUnwrap(app.navigationBars.buttons.element(boundBy: 1))
 		closeButton.waitAndTap()
 		
@@ -139,6 +143,8 @@ class ENAUITests_12_AntigenTestProfile: CWATestCase {
 		// edit profile button exists
 		var editTestProfileButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.editButton])
 		editTestProfileButton.waitAndTap()
+
+		snapshot("antigentestprofile_screenshot_edit_actions")
 
 		/// Edit Antigen Test Profile Screen
 
