@@ -364,6 +364,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	}
 
 	private func setupTableView() {
+		tableView.accessibilityIdentifier = AccessibilityIdentifiers.Home.tableView
+		
 		tableView.register(
 			UINib(nibName: String(describing: HomeExposureLoggingTableViewCell.self), bundle: nil),
 			forCellReuseIdentifier: String(describing: HomeExposureLoggingTableViewCell.self)

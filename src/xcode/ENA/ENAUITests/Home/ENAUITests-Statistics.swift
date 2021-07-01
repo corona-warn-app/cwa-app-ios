@@ -18,6 +18,30 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		app.setLaunchArgument(LaunchArguments.infoScreen.userNeedsToBeInformedAboutHowRiskDetectionWorks, to: false)
 	}
 	
+	func test_AddStatisticsButton_flow() {
+		let firstCardTitle = AccessibilityIdentifiers.Statistics.Incidence.title
+		let addLocalStatisticsButton = AccessibilityIdentifiers.LocalStatistics.addLocalIncidencesButton
+		let localStatisticsViewTitle = AccessibilityIdentifiers.LocalStatistics.localStatisticsCard
+		// WHEN
+		app.setPreferredContentSizeCategory(accessibility: .normal, size: .S)
+		app.launch()
+		app.swipeUp(velocity: .slow)
+		XCTAssertTrue(self.app.staticTexts[firstCardTitle].waitForExistence(timeout: .medium))
+		app.staticTexts[firstCardTitle].swipeRight()
+		XCTAssertTrue(self.app.staticTexts[AccessibilityIdentifiers.LocalStatistics.addLocalIncidenceLabel].waitForExistence(timeout: .medium))
+		app.buttons[addLocalStatisticsButton].waitAndTap()
+		XCTAssertTrue(app.tables[AccessibilityIdentifiers.LocalStatistics.selectState].waitForExistence(timeout: .short))
+		// Tap on some data entry. Then we should be on select district screen.
+		app.cells.element(boundBy: 1).waitAndTap()
+		XCTAssertTrue(app.tables[AccessibilityIdentifiers.LocalStatistics.selectDistrict].waitForExistence(timeout: .short))
+		// Tap on some data entry. Then we should be back on the homescreen.
+		app.cells.element(boundBy: 14).waitAndTap()
+		// the Local statistics card will appear.
+		XCTAssertTrue(app.tables[AccessibilityIdentifiers.Home.tableView].waitForExistence(timeout: .medium))
+//		app.swipeDown(velocity: .slow)
+//		XCTAssertTrue(self.app.staticTexts[localStatisticsViewTitle].waitForExistence(timeout: .medium))
+	}
+	
 	func test_StatisticsCardTitles() throws {
 		// GIVEN
 		let title1 = AccessibilityIdentifiers.Statistics.Incidence.title

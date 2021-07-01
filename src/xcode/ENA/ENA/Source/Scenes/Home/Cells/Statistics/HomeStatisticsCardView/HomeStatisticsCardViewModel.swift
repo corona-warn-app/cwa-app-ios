@@ -55,6 +55,7 @@ class HomeStatisticsCardViewModel {
 		let sevenDayTrend = administrativeUnitData.sevenDayIncidence
 		
 		title = AppStrings.Statistics.AddCard.localCardTitle
+		titleAccessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.localStatisticsCard
 		subtitle = district
 		illustrationImage = UIImage(named: "LocalIncidence")
 		primaryValue = sevenDayTrend.formattedValue
