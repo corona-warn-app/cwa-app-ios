@@ -84,17 +84,29 @@ class ManageStatisticsCardView: UIView {
 		case .empty:
 			// just 'add'
 			let add = CustomDashedView.instance(for: .add)
+			add.tapHandler = {
+				Log.debug("add…", log: .ui)
+			}
 			stackView.addArrangedSubview(add)
 		case .notYetFull:
 			// 'add' & 'modify'
 			let add = CustomDashedView.instance(for: .add)
+			add.tapHandler = {
+				Log.debug("add…", log: .ui)
+			}
 			stackView.addArrangedSubview(add)
 
 			let modify = CustomDashedView.instance(for: .modify)
+			modify.tapHandler = {
+				Log.debug("modify…", log: .ui)
+			}
 			stackView.addArrangedSubview(modify)
 		case .full:
 			// just 'modify'
 			let modify = CustomDashedView.instance(for: .modify)
+			modify.tapHandler = {
+				Log.debug("modify…", log: .ui)
+			}
 			stackView.addArrangedSubview(modify)
 		}
 	}

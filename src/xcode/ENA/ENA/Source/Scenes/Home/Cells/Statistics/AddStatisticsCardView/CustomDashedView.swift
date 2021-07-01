@@ -29,7 +29,10 @@ class CustomDashedView: UIView {
 	/// Dash pattern - gap length
 	@IBInspectable var betweenDashesSpace: CGFloat = 5
 
-	var dashBorder: CAShapeLayer?
+	var tapHandler: (() -> Void)?
+
+	private var dashBorder: CAShapeLayer?
+	private lazy var tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(onTap))
 
 	class func instance(for mode: Mode) -> CustomDashedView {
 		let nibName = String(describing: Self.self)
@@ -68,5 +71,17 @@ class CustomDashedView: UIView {
 			label.text = "modify"
 			icon.image = UIImage(named: "Icon_Add") // FIXME: set correct one!
 		}
+
+		// ensure we don't assign this one multiple times
+		gestureRecognizers?.forEach { rec in
+			removeGestureRecognizer(rec)
+		}
+		// add tap recognizer
+		self.addGestureRecognizer(tapRecognizer)
+	}
+
+	@objc
+	private func onTap(_ sender: UITapGestureRecognizer) {
+		tapHandler?()
 	}
 }
