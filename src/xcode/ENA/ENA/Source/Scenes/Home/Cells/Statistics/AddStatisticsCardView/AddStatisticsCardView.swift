@@ -18,6 +18,7 @@ class AddStatisticsCardView: CustomDashedView {
 			self?.onAccessibilityFocus?()
 		}
 	}
+	
 	// if local cards = 0: only show add button
 	// if 0 < local cards < 5: show add and edit
 	// if local cards = 5: show add and edit {disable add}
@@ -31,7 +32,7 @@ class AddStatisticsCardView: CustomDashedView {
 		onAddDistrict: @escaping (SelectValueTableViewController) -> Void,
 		onDismissState: @escaping () -> Void,
 		onDismissDistrict: @escaping (Bool) -> Void,
-		onFetchFederalState: @escaping (LocalStatisticsDistrict) -> Void,
+		onFetchGroupData: @escaping (LocalStatisticsDistrict) -> Void,
 		onEditButtonTap: @escaping () -> Void,
 		onAccessibilityFocus: @escaping () -> Void
 	) {
@@ -41,7 +42,7 @@ class AddStatisticsCardView: CustomDashedView {
 		self.onAddDistrict = onAddDistrict
 		self.onDismissState = onDismissState
 		self.onDismissDistrict = onDismissDistrict
-		self.onFetchFederalState = onFetchFederalState
+		self.onFetchGroupData = onFetchGroupData
 		self.onEditButtonTap = onEditButtonTap
 		self.onAccessibilityFocus = onAccessibilityFocus
 	}
@@ -59,8 +60,8 @@ class AddStatisticsCardView: CustomDashedView {
 			presentSelectDistrictsList: { selectedDistrictValueViewModel in
 				self.presentAddLocalStatisticsDistrict(selectValueViewModel: selectedDistrictValueViewModel)
 				
-			}, onFetchFederalState: { [weak self] district in
-				self?.onFetchFederalState?(district)
+			}, onFetchGroupData: { [weak self] district in
+				self?.onFetchGroupData?(district)
 			}
 		)
 		viewModel?.presentStateSelection()
@@ -96,7 +97,7 @@ class AddStatisticsCardView: CustomDashedView {
 	private var onAddDistrict: ((SelectValueTableViewController) -> Void)?
 	private var onDismissState: (() -> Void)?
 	private var onDismissDistrict: ((Bool) -> Void)?
-	private var onFetchFederalState: ((LocalStatisticsDistrict) -> Void)?
+	private var onFetchGroupData: ((LocalStatisticsDistrict) -> Void)?
 	private var onEditButtonTap: (() -> Void)?
 	private var onAccessibilityFocus: (() -> Void)?
 	private var viewModel: AddStatisticsCardsViewModel?

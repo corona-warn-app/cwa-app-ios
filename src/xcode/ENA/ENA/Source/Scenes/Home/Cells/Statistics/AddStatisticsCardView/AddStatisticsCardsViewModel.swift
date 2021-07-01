@@ -13,11 +13,11 @@ class AddStatisticsCardsViewModel {
 		localStatisticsModel: AddLocalStatisticsModel,
 		presentFederalStatesList: @escaping (SelectValueViewModel) -> Void,
 		presentSelectDistrictsList: @escaping (SelectValueViewModel) -> Void,
-		onFetchFederalState: @escaping (LocalStatisticsDistrict) -> Void
+		onFetchGroupData: @escaping (LocalStatisticsDistrict) -> Void
 	) {
 		self.presentFederalStatesList = presentFederalStatesList
 		self.presentSelectDistrictsList = presentSelectDistrictsList
-		self.onFetchFederalState = onFetchFederalState
+		self.onFetchGroupData = onFetchGroupData
 		self.localStatisticsModel = localStatisticsModel
 	}
 
@@ -85,7 +85,7 @@ class AddStatisticsCardsViewModel {
 			districtId: districtIDWithoutPadding
 		)
 		self.district = localDistrict
-		onFetchFederalState(localDistrict)
+		onFetchGroupData(localDistrict)
 	}
 	
 	private var federalState: String?
@@ -95,5 +95,5 @@ class AddStatisticsCardsViewModel {
 	private let localStatisticsModel: AddLocalStatisticsModel
 	private let presentFederalStatesList: (SelectValueViewModel) -> Void
 	private let presentSelectDistrictsList: (SelectValueViewModel) -> Void
-	private let onFetchFederalState: (LocalStatisticsDistrict) -> Void
+	private let onFetchGroupData: (LocalStatisticsDistrict) -> Void
 }
