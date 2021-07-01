@@ -201,7 +201,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		app.swipeUp(velocity: .slow)
 		
 		healthCertificateCell = app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell]
-		snapshot("screenshot_certificate_family_certificats-cert-2")
+		snapshot("screenshot_certificate_family_certificate-cert-2")
 		
 		app.swipeUp(velocity: .slow)
 		
