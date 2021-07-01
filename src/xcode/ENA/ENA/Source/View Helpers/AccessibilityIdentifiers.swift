@@ -251,6 +251,7 @@ enum AccessibilityIdentifiers {
 		static let qrCodeButtonDescription = "AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"
 		static let tanButtonDescription = "AppStrings.ExposureSubmissionDispatch.tanButtonDescription"
 		static let hotlineButtonDescription = "AppStrings.ExposureSubmissionDispatch.hotlineButtonDescription"
+		static let findTestCentersButtonDescription = "AppStrings.ExposureSubmissionDispatch.findTestCentersButtonDescription"
 	}
 	
 	enum ExposureSubmissionResult {
@@ -622,7 +623,7 @@ enum AccessibilityIdentifiers {
 		enum Overview {
 			static let addCertificateCell =
 				"addCertificateCell"
-			static let vaccinationCertificateCell = "AppStrings.HealthCertificate.vaccinationCertificateCell"
+			static let healthCertifiedPersonCell = "AppStrings.HealthCertificate.healthCertifiedPersonCell"
 			static let testCertificateRequestCell = "AppStrings.HealthCertificate.testCertificateRequestCell"
 		}
 

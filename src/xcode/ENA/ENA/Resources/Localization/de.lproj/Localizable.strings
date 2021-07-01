@@ -500,7 +500,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 /* Exposure Submission Dispatch */
 
-"ExposureSubmission_DispatchTitle" = "Test registrieren";
+"ExposureSubmission_DispatchTitle" = "Ihre Testverwaltung";
 
 "ExposureSubmissionIntroduction_AccImageDescription" = "Ein Smartphone übermittelt einen positiven Testbefund verschlüsselt ins System.";
 
@@ -521,6 +521,10 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ExposureSubmissionDispatch_HotlineButtonTitle" = "TAN für PCR-Test anfragen";
 
 "ExposureSubmissionDispatch_HotlineButtonDescription" = "Rufen Sie uns an und erhalten Sie eine TAN für Ihren PCR-Test.";
+
+"ExposureSubmissionDispatch_FindTestCentersTitle" = "Testmöglichkeit finden";
+
+"ExposureSubmissionDispatch_FindTestCentersDescription" = "Finden Sie Teststellen in Ihrer Nähe.";
 
 /* Exposure Submission Hotline */
 
@@ -893,7 +897,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 /* Exposure Submission */
 
-"ExposureSubmissionError_ErrorPrefix" = "Es ist einen technischer Fehler bei der Übertragung Ihrer Daten aufgetreten. Wenden Sie sich bitte an die technische Hotline. Die Nummer finden Sie unter App-Informationen.";
+"ExposureSubmissionError_ErrorPrefix" = "Es ist ein technischer Fehler bei der Übertragung Ihrer Daten aufgetreten. Wenden Sie sich bitte an die technische Hotline. Die Nummer finden Sie unter App-Informationen.";
 
 "ExposureSubmissionError_NoKeys" = "Keine Positivkennung verfügbar. Bitte versuchen Sie es morgen erneut.";
 
@@ -1295,11 +1299,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 /* Home Test Registration Card */
 
-"Home_TestRegistration_Title" = "Test registrieren";
+"Home_TestRegistration_Title" = "Sie lassen sich testen?";
 
-"Home_TestRegistration_Body" = "Nutzen Sie die App, um Ihr Testergebnis abzurufen und andere schneller warnen zu können, oder um Ihr COVID-Testzertifikat anzufordern.";
+"Home_TestRegistration_Body" = "Finden sie Teststellen in ihrer Umgebung und registrieren sie einen Test, um andere schneller warnen zu können, oder ihr digitales COVID-Testzertifikat anzufordern.";
 
-"Home_TestRegistration_Button" = "Nächste Schritte";
+"Home_TestRegistration_Button" = "Weiter";
 
 /* Home Trace Locations Card */
 
@@ -1976,7 +1980,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Card_AtLeastOneVaccinated_Title" = "Mindestens einmal geimpfte Personen";
 
-"Statistics_Card_AtLeastOneVaccinated_Today" = "Aktuell";
+"Statistics_Card_AtLeastOneVaccinated_Today" = "Bis heute";
 
 "Statistics_Card_AtLeastOneVaccinated_Yesterday" = "Bis Gestern";
 
@@ -1994,7 +1998,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Card_FullyVaccinated_Title" = "Vollständig geimpfte Personen";
 
-"Statistics_Card_FullyVaccinated_Today" = "Aktuell";
+"Statistics_Card_FullyVaccinated_Today" = "Bis heute";
 
 "Statistics_Card_FullyVaccinated_Yesterday" = "Bis Gestern";
 
@@ -2010,11 +2014,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Card_AppliedDoseRates_Title" = "Verabreichte Impfdosen";
 
-"Statistics_Card_AppliedDoseRates_Today" = "Aktuell";
+"Statistics_Card_AppliedDoseRates_Today" = "Heute";
 
-"Statistics_Card_AppliedDoseRates_Yesterday" = "Bis Gestern";
+"Statistics_Card_AppliedDoseRates_Yesterday" = "Gestern";
 
-"Statistics_Card_AppliedDoseRates_Date" = "Bis %@";
+"Statistics_Card_AppliedDoseRates_Date" = "%@";
 
 "Statistics_Card_AppliedDoseRates_SecondaryLabelTitle" = "7-Tage-Mittelwert";
 
@@ -2692,6 +2696,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Info_section03" = "Nach dem Hinzufügen bleiben die Zertifikate auf Ihrem Smartphone. Andere Personen können Ihre Daten nur einsehen, wenn Sie diesen ein Zertifikat zur Überprüfung vorzeigen.";
 
+"HealthCertificate_Info_section04" = "Fügen Sie existierende Zertifikate für sich und Ihre Familienmitglieder hinzu.";
+
 "HealthCertificate_Info_primaryButton" = "Weiter";
 
 /* QR Scanner */
@@ -2704,17 +2710,35 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Health Certified Person Screen */
 
-"HealthCertifiedPerson_title" = "Digitaler COVID-Impfnachweis der EU";
+"HealthCertifiedPerson_title" = "Digitales COVID-Zertifikat der EU";
 
-"HealthCertifiedPerson_subtitle" = "SARS-CoV-2-Impfschutz";
+"HealthCertifiedPerson_partiallyVaccinated" = "Sie haben noch nicht alle derzeit geplanten Impfungen erhalten. Daher ist Ihr Impfschutz noch nicht vollständig.";
 
 "HealthCertifiedPerson_dateOfBirth" = "geboren %@";
 
-"HealthCertifiedPerson_vaccinationCount" = "Impfung %i von %i";
+"HealthCertifiedPerson_preferredPersonDescription" = "Mein Smartphone, meine App. Zertifikate für mich erscheinen in der Liste an erster Stelle.";
 
-"HealthCertifiedPerson_vaccinationDate" = "durchgeführt am %@";
+"HealthCertifiedPerson_QRCode_Image_Description" = "Ein QR-Code mit dem aktuellen Zertifikat";
 
-"HealthCertifiedPerson_QRCode_Image_Description" = "Ein QR-Code mit dem Status Ihrer Impfung";
+"HealthCertifiedPerson_VaccinationCertificate_headline" = "Impfzertifikat";
+
+"HealthCertifiedPerson_VaccinationCertificate_vaccinationCount" = "Impfung %i von %i";
+
+"HealthCertifiedPerson_VaccinationCertificate_vaccinationDate" = "geimpft am %@";
+
+"HealthCertifiedPerson_TestCertificate_headline" = "Testzertifikat";
+
+"HealthCertifiedPerson_TestCertificate_pcrTest" = "PCR-Test";
+
+"HealthCertifiedPerson_TestCertificate_antigenTest" = "Schnelltest";
+
+"HealthCertifiedPerson_TestCertificate_sampleCollectionDate" = "Probenahme am %@";
+
+"HealthCertifiedPerson_RecoveryCertificate_headline" = "Genesenenzertifikat";
+
+"HealthCertifiedPerson_RecoveryCertificate_validityDate" = "gültig bis %@";
+
+"HealthCertifiedPerson_currentlyUsedCertificate" = "Aktuell verwendetes Zertifikat";
 
 /* Vaccination Certificate Details */
 

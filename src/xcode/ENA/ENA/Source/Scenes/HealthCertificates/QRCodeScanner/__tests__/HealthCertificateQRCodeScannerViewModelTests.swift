@@ -105,7 +105,7 @@ class HealthCertificateQRCodeScannerViewModelTests: CWATestCase {
 		XCTAssertFalse(viewModel.isScanningActivated)
 	}
 
-	func testInitalUnsuccessfulScanWithSuccessfulRetry() {
+	func testInitialUnsuccessfulScanWithSuccessfulRetry() {
 		let validBase45 = mockBase45
 		let emptyBase45 = ""
 

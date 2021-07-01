@@ -8,6 +8,35 @@ import HealthCertificateToolkit
 
 extension Array where Element == HealthCertificate {
 
+	var nextMostRelevantChangeDate: Date? {
+		guard let mostRelevant = mostRelevant,
+			  let ageInHours = mostRelevant.ageInHours,
+			  let ageInDays = mostRelevant.ageInDays else {
+			return nil
+		}
+
+		switch mostRelevant.entry {
+		case .vaccination(let vaccinationEntry) where vaccinationEntry.isLastDoseInASeries && ageInDays <= 14:
+			return vaccinationEntry.localVaccinationDate.flatMap {
+				Calendar.current.date(byAdding: .day, value: 15, to: $0)
+			}
+		case .test(let testEntry) where testEntry.coronaTestType == .antigen && ageInHours < 24:
+			return testEntry.sampleCollectionDate.flatMap {
+				Calendar.current.date(byAdding: .hour, value: 24, to: $0)
+			}
+		case .test(let testEntry) where testEntry.coronaTestType == .pcr && ageInHours < 48:
+			return testEntry.sampleCollectionDate.flatMap {
+				Calendar.current.date(byAdding: .hour, value: 48, to: $0)
+			}
+		case .recovery(let recoveryEntry):
+			return recoveryEntry.localCertificateValidityStartDate.flatMap {
+				Calendar.current.date(byAdding: .day, value: 181, to: $0)
+			}
+		default:
+			return nil
+		}
+	}
+
 	var mostRelevant: HealthCertificate? {
 		let sortedHealthCertificates = sorted()
 

@@ -33,10 +33,13 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		let disclaimerButton = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Info.disclaimer])
 		
 		snapshot("screenshot_health_certificate_consent_screen")
+		
 		disclaimerButton.waitAndTap()
 
 		// data privacy
 		XCTAssertTrue(app.images[AccessibilityIdentifiers.AppInformation.privacyImageDescription].waitForExistence(timeout: .extraLong))
+
+		snapshot("screenshot_health_certificate_data_privacy")
 
 		let backButton = try XCTUnwrap(app.navigationBars.buttons.element(boundBy: 0))
 		backButton.waitAndTap()
@@ -46,6 +49,8 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		primaryButton.waitAndTap()
 
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.addCertificateCell].waitForExistence(timeout: .short))
+		
+		snapshot("screenshot_health_certificate_empty_screen")
 	}
 
 	func test_screenshot_CreateAntigenTestProfileWithFirstCertificate() throws {
@@ -66,7 +71,9 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		let headlineCell = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Certificate.headline])
 		XCTAssertTrue(headlineCell.waitForExistence(timeout: .short))
 
-		snapshot("screenshot_first_health_certificate")
+		snapshot("screenshot_first_vaccination_certificate_details_part1")
+		app.swipeUp(velocity: .slow)
+		snapshot("screenshot_first_vaccination_certificate_details_part2")
 	}
 
 	func test_screenshot_CreateAntigenTestProfileWithLastCertificate() throws {
@@ -75,8 +82,6 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		app.launch()
 
 		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
-
-		snapshot("screenshot_certificate_overview_vaccination_grey")
 
 		/// Home Screen
 		let registerCertificateTitle = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.addCertificateCell])
@@ -90,7 +95,9 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		let headlineCell = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Certificate.headline])
 		XCTAssertTrue(headlineCell.waitForExistence(timeout: .short))
 
-		snapshot("screenshot_second_health_certificate")
+		snapshot("screenshot_second_vaccination_certificate_details_part1")
+		app.swipeUp(velocity: .slow)
+		snapshot("screenshot_second_vaccination_certificate_details_part2")
 	}
 
 	func test_screenshot_ShowCertificate() throws {
@@ -100,23 +107,24 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 
 		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
 
-		let certificateTitle = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.vaccinationCertificateCell])
+		let certificateTitle = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell])
 		
-		snapshot("screenshot_certificate_overview_vaccination_blue")
+		snapshot("screenshot_vaccination_certificate_overview")
 		certificateTitle.waitAndTap()
 
 		let qrCodeCell = app.cells[AccessibilityIdentifiers.HealthCertificate.qrCodeCell]
 		XCTAssertTrue(qrCodeCell.waitForExistence(timeout: .short))
 
-		snapshot("screenshot_health_certificate_blue")
-
+		snapshot("screenshot_vaccination_certificate_overview_part1")
+		app.swipeUp(velocity: .slow)
+		snapshot("screenshot_vaccination_certificate_overview_part2")
+		
 		// Certified Person screen
 		let certificateCells = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Person.certificateCell])
 		XCTAssertTrue(certificateCells.waitForExistence(timeout: .short))
 		XCTAssertEqual(app.cells.matching(identifier: AccessibilityIdentifiers.HealthCertificate.Person.certificateCell).count, 2)
 	}
 
-	/*
 	func test_screenshot_TestCertificate() throws {
 		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
 		app.setLaunchArgument(LaunchArguments.healthCertificate.testCertificateRegistered, to: true)
@@ -124,16 +132,22 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 
 		// Navigate to Certificates Tab.
 		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
+		
+		// Navigate to the person screen
+		app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].waitAndTap()
+		
+		snapshot("screenshot_test_certificate_overview_part1")
+		app.swipeUp(velocity: .slow)
+		snapshot("screenshot_test_certificate_overview_part2")
 
-		app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.testCertificateRequestCell].waitAndTap()
-
+		// Navigatate to test certificate details screen
 		app.cells[AccessibilityIdentifiers.HealthCertificate.Person.certificateCell].waitAndTap()
 
-		snapshot("screenshot_test_certificate")
+		snapshot("screenshot_test_certificate_details_part1")
+		app.swipeUp(velocity: .slow)
+		snapshot("screenshot_test_certificate_details_part2")
 	}
-	*/
-
-	/*
+  
 	func test_screenshot_RecoveryCertificate() throws {
 		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
 		app.setLaunchArgument(LaunchArguments.healthCertificate.recoveryCertificateRegistered, to: true)
@@ -142,16 +156,20 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		// Navigate to Certificates Tab.
 		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
 
-		app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.vaccinationCertificateCell].waitAndTap()
+		// Navigate to the person screen
+		app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].waitAndTap()
 
+		snapshot("screenshot_recovery_certificate_overview_part1")
+		app.swipeUp(velocity: .slow)
+		snapshot("screenshot_recovery_certificate_overview_part2")
+	
+		// Navigatate to recovery certificate details screen
 		app.cells[AccessibilityIdentifiers.HealthCertificate.Person.certificateCell].waitAndTap()
 
-		snapshot("screenshot_recovery_certificate_part1")
-		
+		snapshot("screenshot_recovery_certificate_details_part1")
 		app.swipeUp(velocity: .slow)
-		snapshot("screenshot_recovery_certificate_part2")
+		snapshot("screenshot_recovery_certificate_details_part2")
 	}
-	*/
 
 	func test_screenshot_CompleteVaccinationProtectionWithTestCertificate() throws {
 		app.setLaunchArgument(LaunchArguments.healthCertificate.firstAndSecondHealthCertificate, to: true)
@@ -162,7 +180,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		// Navigate to Certificates Tab.
 		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
 
-		let healthCertificateCell = app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.vaccinationCertificateCell]
+		let healthCertificateCell = app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell]
 		XCTAssertTrue(healthCertificateCell.waitForExistence(timeout: .short))
 
 		snapshot("screenshot_certificate_overview_vaccination_and_test_certificate")
