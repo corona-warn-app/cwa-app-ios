@@ -18,6 +18,6 @@ class OnboardedCountriesAccessTests: XCTestCase {
             return
         }
 
-        XCTAssertEqual(onboardedCountries, ["DE", "IT", "FR"])
+        XCTAssertEqual(onboardedCountries, ["DE", "FR"])
     }
 }
