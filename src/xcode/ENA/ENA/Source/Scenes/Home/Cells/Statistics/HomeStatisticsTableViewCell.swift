@@ -158,10 +158,10 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		}
 		let localStatisticsModel = LocalStatisticsModel(store: store, jsonFileURL: jsonFileURL)
 
-		let addNibName = String(describing: ManageStatisticsCardView.self)
-		let addNib = UINib(nibName: addNibName, bundle: .main)
+		let nibName = String(describing: ManageStatisticsCardView.self)
+		let nib = UINib(nibName: nibName, bundle: .main)
 		
-		if let manageLocalStatisticsCardView = addNib.instantiate(withOwner: self, options: nil).first as? ManageStatisticsCardView {
+		if let manageLocalStatisticsCardView = nib.instantiate(withOwner: self, options: nil).first as? ManageStatisticsCardView {
 			stackView.addArrangedSubview(manageLocalStatisticsCardView)
 			manageLocalStatisticsCardView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
 			

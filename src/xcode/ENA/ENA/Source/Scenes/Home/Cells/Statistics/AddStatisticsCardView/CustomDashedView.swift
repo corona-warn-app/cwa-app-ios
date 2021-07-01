@@ -12,11 +12,8 @@ class CustomDashedView: UIView {
 	
 	// MARK: - Internal
 
-	let label: ENALabel = {
-		let label = ENALabel()
-		// configure
-		return label
-	}()
+	@IBOutlet weak var label: ENALabel!
+	@IBOutlet weak var icon: UIImageView!
 	
 	@IBInspectable var cornerRadius: CGFloat = 15 {
 		didSet {
@@ -34,14 +31,12 @@ class CustomDashedView: UIView {
 
 	var dashBorder: CAShapeLayer?
 
-	required init(mode: Mode) {
-		super.init(frame: .zero)
-
-		configure(for: mode)
-	}
-
-	required init?(coder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
+	class func instance(for mode: Mode) -> CustomDashedView {
+		let nibName = String(describing: Self.self)
+		// swiftlint:disable:next force_cast
+		let view = UINib(nibName: nibName, bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! CustomDashedView
+		view.configure(for: mode)
+		return view
 	}
 
 	override func layoutSubviews() {
@@ -67,9 +62,11 @@ class CustomDashedView: UIView {
 	private func configure(for mode: Mode) {
 		switch mode {
 		case .add:
-			backgroundColor = .green
+			label.text = "add"
+			icon.image = UIImage(named: "Icon_Add")
 		case .modify:
-			backgroundColor = .orange
+			label.text = "modify"
+			icon.image = UIImage(named: "Icon_Add") // FIXME: set correct one!
 		}
 	}
 }

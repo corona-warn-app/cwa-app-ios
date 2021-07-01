@@ -44,7 +44,8 @@ class ManageStatisticsCardView: UIView {
 		self.onEditButtonTap = onEditButtonTap
 		self.onAccessibilityFocus = onAccessibilityFocus
 
-		updateUI(for: availableCardsState)
+		// FIXME: development code
+		updateUI(for: .notYetFull /*availableCardsState*/)
 	}
 
 	@IBAction func onAddLocalIncidenceButtonPressed(_ sender: Any) {
@@ -82,18 +83,18 @@ class ManageStatisticsCardView: UIView {
 		switch state {
 		case .empty:
 			// just 'add'
-			let add = CustomDashedView(mode: .add)
+			let add = CustomDashedView.instance(for: .add)
 			stackView.addArrangedSubview(add)
 		case .notYetFull:
 			// 'add' & 'modify'
-			let add = CustomDashedView(mode: .add)
+			let add = CustomDashedView.instance(for: .add)
 			stackView.addArrangedSubview(add)
 
-			let modify = CustomDashedView(mode: .modify)
+			let modify = CustomDashedView.instance(for: .modify)
 			stackView.addArrangedSubview(modify)
 		case .full:
 			// just 'modify'
-			let modify = CustomDashedView(mode: .modify)
+			let modify = CustomDashedView.instance(for: .modify)
 			stackView.addArrangedSubview(modify)
 		}
 	}
