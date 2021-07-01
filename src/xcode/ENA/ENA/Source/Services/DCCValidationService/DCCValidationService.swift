@@ -44,26 +44,30 @@ final class DCCValidationService: DCCValidationProviding {
 	func onboardedCountries(
 		completion: @escaping (Result<[Country], DCCOnboardedCountriesError>) -> Void
 	) {
-		client.getDCCOnboardedCountries(isFake: false, completion: { [weak self] result in
-			guard let self = self else {
-				Log.error("Could not create strong self")
-				completion(.failure(.ONBOARDED_COUNTRIES_CLIENT_ERROR))
-				return
+		client.getDCCOnboardedCountries(
+			eTag: store.onboardedCountriesCache?.lastOnboardedCountriesETag,
+			isFake: false,
+			completion: { [weak self] result in
+				guard let self = self else {
+					Log.error("Could not create strong self")
+					completion(.failure(.ONBOARDED_COUNTRIES_CLIENT_ERROR))
+					return
+				}
+				
+				switch result {
+				case let .success(packageDownloadResponse):
+					self.onboardedCountriesSuccessHandler(
+						packageDownloadResponse: packageDownloadResponse,
+						completion: completion
+					)
+				case let .failure(error):
+					self.onboardedCountriesFailureHandler(
+						error: error,
+						completion: completion
+					)
+				}
 			}
-			
-			switch result {
-			case let .success(packageDownloadResponse):
-				self.onboardedCountriesSuccessHandler(
-					packageDownloadResponse: packageDownloadResponse,
-					completion: completion
-				)
-			case let .failure(error):
-				self.onboardedCountriesFailureHandler(
-					error: error,
-					completion: completion
-				)
-			}
-		})
+		)
 	}
 	
 	func validateDcc(
@@ -141,9 +145,6 @@ final class DCCValidationService: DCCValidationProviding {
 			return
 		}
 		
-		// save eTag for caching
-//		let store.onboardedCountriesETag = eTag
-		
 		Log.info("Successfully verified eTag. Proceed with package extraction...")
 		
 		guard !packageDownloadResponse.isEmpty else {
@@ -154,7 +155,7 @@ final class DCCValidationService: DCCValidationProviding {
 		
 		guard let sapDownloadedPackage = packageDownloadResponse.package else {
 			Log.error("Could not extract sapDownloadedPacakge. Return with failure.")
-			completion(.failure(.ONBOARDED_COUNTRIES_JSON_ARCHIVE_FILE_MISSING))
+			completion(.failure(.ONBOARDED_COUNTRIES_JSON_EXTRACTION_FAILED))
 			return
 		}
 		Log.info("Successfully extracted sapDownloadedPackage. Proceed with package verification...")
@@ -170,6 +171,11 @@ final class DCCValidationService: DCCValidationProviding {
 			switch result {
 			case let .success(countries):
 				Log.info("Successfully decoded country codes. Returning now.")
+				// Save in success case for caching
+				let receivedOnboardedCountries = OnboardedCountriesCache(
+					onboardedCountries: countries,
+					lastOnboardedCountriesETag: eTag)
+				store.onboardedCountriesCache = receivedOnboardedCountries
 				completion(.success(countries))
 			case let .failure(error):
 				Log.error("Could not decode CBOR from package with error:", error: error)
@@ -184,8 +190,13 @@ final class DCCValidationService: DCCValidationProviding {
 	) {
 		switch error {
 		case .notModified:
-			// TODO Caching
-			break
+			// Normally we should have cached something before
+			if let cachedOnboardedCountries = store.onboardedCountriesCache?.onboardedCountries {
+				completion(.success(cachedOnboardedCountries))
+			} else {
+				// If not, return edge case error
+				completion(.failure(.ONBOARDED_COUNTRIES_MISSING_CACHE))
+			}
 		case .noNetworkConnection:
 			completion(.failure(.NO_NETWORK))
 		case let .serverError(statusCode):
@@ -210,8 +221,8 @@ final class DCCValidationService: DCCValidationProviding {
 				Country(countryCode: $0)
 			}
 			completion(.success(countries))
-		case let .failure(error):
-			completion(.failure(.ONBOARDED_COUNTRIES_JSON_EXTRACTION_FAILED(error)))
+		case .failure:
+			completion(.failure(.ONBOARDED_COUNTRIES_JSON_DECODING_FAILED))
 		}
 	}
 	
