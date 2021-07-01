@@ -9,7 +9,7 @@ import HealthCertificateToolkit
 
 class DCCValidationServiceTests: XCTestCase {
 	
-	// MARK:- Success
+	// MARK: - Success
 	
 	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_HappyCase_THEN_CountriesAreReturned() {
 		// GIVEN
@@ -84,7 +84,7 @@ class DCCValidationServiceTests: XCTestCase {
 		XCTAssertEqual(countries, store.onboardedCountriesCache?.onboardedCountries)
 	}
 	
-	// MARK:- Failures
+	// MARK: - Failures
 	
 	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_MissingETag_THEN_ONBOARDED_COUNTRIES_JSON_ARCHIVE_SIGNATURE_INVALIDIsReturned() {
 		// GIVEN
