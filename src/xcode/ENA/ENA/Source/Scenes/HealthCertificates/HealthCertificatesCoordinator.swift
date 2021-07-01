@@ -193,20 +193,25 @@ final class HealthCertificatesCoordinator {
 				self?.viewController.dismiss(animated: true)
 			},
 			didTapValidationButton: { [weak self] healthCertificate, setLoadingState in
+				guard let self = self else { return }
+
 				setLoadingState(true)
 
-				self?.dccValidationService.onboardedCountries { result in
+				self.dccValidationService.onboardedCountries { result in
 					setLoadingState(false)
 
 					switch result {
 					case .success(let countries):
-						self?.showValidationScreen(
+						self.showValidationScreen(
 							healthCertificate: healthCertificate,
 							countries: countries
 						)
-					case .failure:
-						// TODO: Show error alert
-						break
+					case .failure(let error):
+						self.showErrorAlert(
+							title: AppStrings.HealthCertificate.ValidationError.title,
+							error: error,
+							from: self.modalNavigationController
+						)
 					}
 				}
 			},
@@ -273,22 +278,27 @@ final class HealthCertificatesCoordinator {
 				self?.viewController.dismiss(animated: true)
 			},
 			didTapValidationButton: { [weak self] in
+				guard let self = self else { return }
+
 				footerViewModel.setLoadingIndicator(true, disable: true, button: .primary)
 				footerViewModel.setLoadingIndicator(false, disable: true, button: .secondary)
 
-				self?.dccValidationService.onboardedCountries { result in
+				self.dccValidationService.onboardedCountries { result in
 					footerViewModel.setLoadingIndicator(false, disable: false, button: .primary)
 					footerViewModel.setLoadingIndicator(false, disable: false, button: .secondary)
 
 					switch result {
 					case .success(let countries):
-						self?.showValidationScreen(
+						self.showValidationScreen(
 							healthCertificate: healthCertificate,
 							countries: countries
 						)
-					case .failure:
-						// TODO: Show error alert
-						break
+					case .failure(let error):
+						self.showErrorAlert(
+							title: AppStrings.HealthCertificate.ValidationError.title,
+							error: error,
+							from: self.modalNavigationController
+						)
 					}
 				}
 			},
@@ -380,6 +390,29 @@ final class HealthCertificatesCoordinator {
 		)
 		alert.addAction(submitAction)
 		modalNavigationController.present(alert, animated: true)
+	}
+
+	private func showErrorAlert(
+		title: String,
+		error: Error,
+		from presentingViewController: UIViewController
+	) {
+		let alert = UIAlertController(
+			title: title,
+			message: error.localizedDescription,
+			preferredStyle: .alert
+		)
+
+		let okayAction = UIAlertAction(
+			title: AppStrings.Common.alertActionOk,
+			style: .cancel,
+			handler: { _ in
+				alert.dismiss(animated: true)
+			}
+		)
+		alert.addAction(okayAction)
+
+		presentingViewController.present(alert, animated: true, completion: nil)
 	}
 
 	private func setupCertificateBadgeCount() {
