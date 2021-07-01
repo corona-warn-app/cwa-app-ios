@@ -79,7 +79,6 @@ final class DCCValidationService: DCCValidationProviding {
 		completion: @escaping (Result<DCCValidationReport, DCCValidationError>) -> Void
 	) {
 		// 1. Apply technical validation
-		
 		let expirationDate = Date(timeIntervalSince1970: TimeInterval(cborWebToken.expirationTime))
 		let result = applyTechnicalValidation(validationClock: validationClock, expirationDate: expirationDate)
 		
@@ -239,7 +238,7 @@ final class DCCValidationService: DCCValidationProviding {
 		)
 		
 		// Check expiration date
-		guard expirationDate <= validationClock else {
+		guard expirationDate >= validationClock else {
 			return .failure(DCCValidationError.TECHNICAL_VALIDATION_FAILED(progress))
 		}
 		progress.expirationCheck = true
