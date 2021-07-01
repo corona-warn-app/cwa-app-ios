@@ -14,10 +14,12 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 		healthCertificate: HealthCertificate,
 		vaccinationValueSetsProvider: VaccinationValueSetsProvider,
 		dismiss: @escaping () -> Void,
-		didTapDelete: @escaping () -> Void
+		didTapValidationButton: @escaping () -> Void,
+		didTapDeleteButton: @escaping () -> Void
 	) {
 		self.dismiss = dismiss
-		self.didTapDelete = didTapDelete
+		self.didTapValidationButton = didTapValidationButton
+		self.didTapDeleteButton = didTapDeleteButton
 		self.viewModel = HealthCertificateViewModel(
 			healthCertifiedPerson: healthCertifiedPerson,
 			healthCertificate: healthCertificate,
@@ -56,10 +58,12 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 	// MARK: - Protocol FooterViewHandling
 
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
-		guard type == .primary else {
-			return
+		switch type {
+		case .primary:
+			didTapValidationButton()
+		case .secondary:
+			didTapDeleteButton()
 		}
-		didTapDelete()
 	}
 
 	// MARK: - Protocol UITableViewDateSource
@@ -121,7 +125,8 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 	// MARK: - Private
 
 	private let dismiss: () -> Void
-	private let didTapDelete: () -> Void
+	private let didTapValidationButton: () -> Void
+	private let didTapDeleteButton: () -> Void
 
 	private let viewModel: HealthCertificateViewModel
 	private let backgroundView = GradientBackgroundView(type: .solidGrey)
