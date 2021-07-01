@@ -4,7 +4,7 @@
 
 import UIKit
 
-class AddStatisticsCardView: CustomDashedView {
+class ManageStatisticsCardView: UIView {
 	
 	// MARK: - Overrides
 
@@ -13,20 +13,17 @@ class AddStatisticsCardView: CustomDashedView {
 		
 		let borderColor: UIColor = .enaColor(for: .backgroundLightGray)
 		layer.borderColor = borderColor.cgColor
-		addLocalIncidenceLabel.text = AppStrings.Statistics.AddCard.sevenDayIncidence
-		addLocalIncidenceLabel.onAccessibilityFocus = { [weak self] in
-			self?.onAccessibilityFocus?()
-		}
+		/// FIXME: will move to dashed view
+//		addLocalIncidenceLabel.text = AppStrings.Statistics.AddCard.sevenDayIncidence
+//		addLocalIncidenceLabel.onAccessibilityFocus = { [weak self] in
+//			self?.onAccessibilityFocus?()
+//		}
 	}
-	// if local cards = 0: only show add button
-	// if 0 < local cards < 5: show add and edit
-	// if local cards = 5: show add and edit {disable add}
-	// we can also pass store or something else to check the number or create enum for case
 	
 	// swiftlint:disable:next function_parameter_count
 	func configure(
-		localStatisticsModel: AddLocalStatisticsModel,
-		availableCardsState: CreatedLocalStatisticsState,
+		localStatisticsModel: LocalStatisticsModel,
+		availableCardsState: LocalStatisticsState,
 		onAddStateButtonTap: @escaping (SelectValueTableViewController) -> Void,
 		onAddDistrict: @escaping (SelectValueTableViewController) -> Void,
 		onDismissState: @escaping () -> Void,
@@ -44,6 +41,8 @@ class AddStatisticsCardView: CustomDashedView {
 		self.onFetchFederalState = onFetchFederalState
 		self.onEditButtonTap = onEditButtonTap
 		self.onAccessibilityFocus = onAccessibilityFocus
+
+		updateUI(for: /*availableCardsState*/ .notYetFull)
 	}
 
 	@IBAction func onAddLocalIncidenceButtonPressed(_ sender: Any) {
@@ -51,7 +50,7 @@ class AddStatisticsCardView: CustomDashedView {
 			Log.warning("AddStatistics model is nil", log: .localStatistics)
 			return
 		}
-		viewModel = AddStatisticsCardsViewModel(
+		viewModel = ManageStatisticsCardsViewModel(
 			localStatisticsModel: model,
 			presentFederalStatesList: { selectedStateValueViewModel in
 				self.presentAddLocalStatistics(selectValueViewModel: selectedStateValueViewModel)
@@ -65,8 +64,35 @@ class AddStatisticsCardView: CustomDashedView {
 		)
 		viewModel?.presentStateSelection()
 	}
-	
-	@IBOutlet weak var addLocalIncidenceLabel: ENALabel!
+
+	@IBOutlet weak var stackView: UIStackView!
+	//@IBOutlet weak var addLocalIncidenceLabel: ENALabel!
+
+	func updateUI(for state: LocalStatisticsState) {
+		// clear
+		stackView.arrangedSubviews.forEach { subview in
+			stackView.removeArrangedSubview(subview)
+			subview.removeFromSuperview()
+		}
+
+		switch state {
+		case .empty:
+			// just 'add'
+			let add = CustomDashedView(mode: .add)
+			stackView.addArrangedSubview(add)
+		case .notYetFull:
+			// 'add' & 'modify'
+			let add = CustomDashedView(mode: .add)
+			stackView.addArrangedSubview(add)
+
+			let modify = CustomDashedView(mode: .modify)
+			stackView.addArrangedSubview(modify)
+		case .full:
+			// just 'modify'
+			let modify = CustomDashedView(mode: .modify)
+			stackView.addArrangedSubview(modify)
+		}
+	}
 
 	// MARK: - Private
 
@@ -99,12 +125,15 @@ class AddStatisticsCardView: CustomDashedView {
 	private var onFetchFederalState: ((LocalStatisticsDistrict) -> Void)?
 	private var onEditButtonTap: (() -> Void)?
 	private var onAccessibilityFocus: (() -> Void)?
-	private var viewModel: AddStatisticsCardsViewModel?
-	private var model: AddLocalStatisticsModel?
+	private var viewModel: ManageStatisticsCardsViewModel?
+	private var model: LocalStatisticsModel?
 }
 
-enum CreatedLocalStatisticsState {
-	case empty // 0
-	case notYetFull // 0 < number of local statistics cards < 5
-	case full // 5
+enum LocalStatisticsState {
+	/// No local stats selected
+	case empty
+	/// Can add more local statistics
+	case notYetFull
+	/// The maximum number of local statistics selected
+	case full
 }

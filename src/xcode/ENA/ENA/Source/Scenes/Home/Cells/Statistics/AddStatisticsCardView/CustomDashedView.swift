@@ -5,24 +5,43 @@
 import UIKit
 
 class CustomDashedView: UIView {
+
+	enum Mode {
+		case add, modify
+	}
 	
 	// MARK: - Internal
 	
-	@IBInspectable var cornerRadius: CGFloat = 0 {
+	@IBInspectable var cornerRadius: CGFloat = 15 {
 		didSet {
 			layer.cornerRadius = cornerRadius
 			layer.masksToBounds = cornerRadius > 0
 		}
 	}
-	@IBInspectable var dashWidth: CGFloat = 0
-	@IBInspectable var dashColor: UIColor = .clear
-	@IBInspectable var dashLength: CGFloat = 0
-	@IBInspectable var betweenDashesSpace: CGFloat = 0
+	@IBInspectable var dashWidth: CGFloat = 2
+	@IBInspectable var dashColor: UIColor = .enaColor(for: .riskNeutral)
+
+	/// Dash pattern - dash length
+	@IBInspectable var dashLength: CGFloat = 5
+	/// Dash pattern - gap length
+	@IBInspectable var betweenDashesSpace: CGFloat = 5
 
 	var dashBorder: CAShapeLayer?
 
+	required init(mode: Mode) {
+		super.init(frame: .zero)
+
+		configure(for: mode)
+	}
+
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+
 	override func layoutSubviews() {
 		super.layoutSubviews()
+
+		// simple way to handle layer resizing
 		dashBorder?.removeFromSuperlayer()
 		let dashBorder = CAShapeLayer()
 		dashBorder.lineWidth = dashWidth
@@ -37,5 +56,14 @@ class CustomDashedView: UIView {
 		}
 		layer.addSublayer(dashBorder)
 		self.dashBorder = dashBorder
+	}
+
+	private func configure(for mode: Mode) {
+		switch mode {
+		case .add:
+			backgroundColor = .green
+		case .modify:
+			backgroundColor = .orange
+		}
 	}
 }

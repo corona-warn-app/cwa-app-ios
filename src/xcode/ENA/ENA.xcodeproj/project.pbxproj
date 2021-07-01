@@ -647,15 +647,15 @@
 		8F39D094263F6F5D0096F4E2 /* VaccinationValueDataSets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F39D093263F6F5D0096F4E2 /* VaccinationValueDataSets.swift */; };
 		8F39D09D26401E3E0096F4E2 /* VaccinationValueSetsProvidingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F39D09C26401E3E0096F4E2 /* VaccinationValueSetsProvidingTests.swift */; };
 		8F3A0A722666490200D390E3 /* ENAUITests_04a_ExposureSubmission.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32842642491136E006B1F09 /* ENAUITests_04a_ExposureSubmission.swift */; };
-		8F3BB9382684A3F0000B9A95 /* AddLocalStatisticsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3BB9372684A3F0000B9A95 /* AddLocalStatisticsModel.swift */; };
+		8F3BB9382684A3F0000B9A95 /* LocalStatisticsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3BB9372684A3F0000B9A95 /* LocalStatisticsModel.swift */; };
 		8F3BB93A2684A890000B9A95 /* LocalStatisticsFederalState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3BB9392684A890000B9A95 /* LocalStatisticsFederalState.swift */; };
 		8F3D71AA25A86AD300D52CCD /* HomeExposureLoggingCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3D71A925A86AD300D52CCD /* HomeExposureLoggingCellModelTests.swift */; };
 		8F43A3CB25D55A3E008FD630 /* ppa_data.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F43A3C925D55A3D008FD630 /* ppa_data.pb.swift */; };
 		8F43A3CC25D55A3E008FD630 /* ppa_data_request_ios.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F43A3CA25D55A3E008FD630 /* ppa_data_request_ios.pb.swift */; };
-		8F499B03267CDE420047C1A6 /* AddStatisticsCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F499B02267CDE420047C1A6 /* AddStatisticsCardView.xib */; };
-		8F499B05267CDE530047C1A6 /* AddStatisticsCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F499B04267CDE530047C1A6 /* AddStatisticsCardView.swift */; };
+		8F499B03267CDE420047C1A6 /* ManageStatisticsCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F499B02267CDE420047C1A6 /* ManageStatisticsCardView.xib */; };
+		8F499B05267CDE530047C1A6 /* ManageStatisticsCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F499B04267CDE530047C1A6 /* ManageStatisticsCardView.swift */; };
 		8F499B072681496D0047C1A6 /* CustomDashedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F499B062681496D0047C1A6 /* CustomDashedView.swift */; };
-		8F499B092682357D0047C1A6 /* AddStatisticsCardsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F499B082682357D0047C1A6 /* AddStatisticsCardsViewModel.swift */; };
+		8F499B092682357D0047C1A6 /* ManageStatisticsCardsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F499B082682357D0047C1A6 /* ManageStatisticsCardsViewModel.swift */; };
 		8F4E623325EE878400FF4F0A /* ErrorReportCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4E623125EE878400FF4F0A /* ErrorReportCoordinator.swift */; };
 		8F4E623425EE878400FF4F0A /* ErrorLoggingStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4E623225EE878400FF4F0A /* ErrorLoggingStatus.swift */; };
 		8F4E623A25EE878E00FF4F0A /* BottomErrorReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4E623825EE878E00FF4F0A /* BottomErrorReportViewController.swift */; };
@@ -1905,15 +1905,15 @@
 		8F39D083263F63420096F4E2 /* els_otp.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = els_otp.pb.swift; sourceTree = "<group>"; };
 		8F39D093263F6F5D0096F4E2 /* VaccinationValueDataSets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationValueDataSets.swift; sourceTree = "<group>"; };
 		8F39D09C26401E3E0096F4E2 /* VaccinationValueSetsProvidingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationValueSetsProvidingTests.swift; sourceTree = "<group>"; };
-		8F3BB9372684A3F0000B9A95 /* AddLocalStatisticsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLocalStatisticsModel.swift; sourceTree = "<group>"; };
+		8F3BB9372684A3F0000B9A95 /* LocalStatisticsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStatisticsModel.swift; sourceTree = "<group>"; };
 		8F3BB9392684A890000B9A95 /* LocalStatisticsFederalState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStatisticsFederalState.swift; sourceTree = "<group>"; };
 		8F3D71A925A86AD300D52CCD /* HomeExposureLoggingCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeExposureLoggingCellModelTests.swift; sourceTree = "<group>"; };
 		8F43A3C925D55A3D008FD630 /* ppa_data.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ppa_data.pb.swift; sourceTree = "<group>"; };
 		8F43A3CA25D55A3E008FD630 /* ppa_data_request_ios.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ppa_data_request_ios.pb.swift; sourceTree = "<group>"; };
-		8F499B02267CDE420047C1A6 /* AddStatisticsCardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddStatisticsCardView.xib; sourceTree = "<group>"; };
-		8F499B04267CDE530047C1A6 /* AddStatisticsCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddStatisticsCardView.swift; sourceTree = "<group>"; };
+		8F499B02267CDE420047C1A6 /* ManageStatisticsCardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ManageStatisticsCardView.xib; sourceTree = "<group>"; };
+		8F499B04267CDE530047C1A6 /* ManageStatisticsCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageStatisticsCardView.swift; sourceTree = "<group>"; };
 		8F499B062681496D0047C1A6 /* CustomDashedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDashedView.swift; sourceTree = "<group>"; };
-		8F499B082682357D0047C1A6 /* AddStatisticsCardsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddStatisticsCardsViewModel.swift; sourceTree = "<group>"; };
+		8F499B082682357D0047C1A6 /* ManageStatisticsCardsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageStatisticsCardsViewModel.swift; sourceTree = "<group>"; };
 		8F4E623125EE878400FF4F0A /* ErrorReportCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorReportCoordinator.swift; sourceTree = "<group>"; };
 		8F4E623225EE878400FF4F0A /* ErrorLoggingStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorLoggingStatus.swift; sourceTree = "<group>"; };
 		8F4E623825EE878E00FF4F0A /* BottomErrorReportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomErrorReportViewController.swift; sourceTree = "<group>"; };
@@ -4870,11 +4870,11 @@
 			isa = PBXGroup;
 			children = (
 				8F3BB9392684A890000B9A95 /* LocalStatisticsFederalState.swift */,
-				8F499B082682357D0047C1A6 /* AddStatisticsCardsViewModel.swift */,
+				8F499B082682357D0047C1A6 /* ManageStatisticsCardsViewModel.swift */,
 				8FB331B5268BD8EE00804747 /* LocalStatisticsDistrict.swift */,
-				8F3BB9372684A3F0000B9A95 /* AddLocalStatisticsModel.swift */,
-				8F499B04267CDE530047C1A6 /* AddStatisticsCardView.swift */,
-				8F499B02267CDE420047C1A6 /* AddStatisticsCardView.xib */,
+				8F3BB9372684A3F0000B9A95 /* LocalStatisticsModel.swift */,
+				8F499B04267CDE530047C1A6 /* ManageStatisticsCardView.swift */,
+				8F499B02267CDE420047C1A6 /* ManageStatisticsCardView.xib */,
 				8F499B062681496D0047C1A6 /* CustomDashedView.swift */,
 			);
 			path = AddStatisticsCardView;
@@ -7459,7 +7459,7 @@
 				01D026A5258BA20E00B6389A /* ExposureDetectionHotlineCell.xib in Resources */,
 				01D02761258BD58600B6389A /* ResetViewController.xib in Resources */,
 				01A4DCE625926934007D5794 /* HomeTextItemView.xib in Resources */,
-				8F499B03267CDE420047C1A6 /* AddStatisticsCardView.xib in Resources */,
+				8F499B03267CDE420047C1A6 /* ManageStatisticsCardView.xib in Resources */,
 				AB8B0D3225305384009C067B /* Localizable.links.strings in Resources */,
 				01F2A5C42581183800DA96A6 /* DiaryDayEntryTableViewCell.xib in Resources */,
 			);
@@ -7981,7 +7981,7 @@
 				EB3B3499262B109E00B1801E /* ExposureSubmissionCheckinDescriptionTableViewCell.swift in Sources */,
 				710ABB27247533FA00948792 /* DynamicTableViewController.swift in Sources */,
 				B184A380248FFCBE007180F6 /* SecureStore.swift in Sources */,
-				8F499B092682357D0047C1A6 /* AddStatisticsCardsViewModel.swift in Sources */,
+				8F499B092682357D0047C1A6 /* ManageStatisticsCardsViewModel.swift in Sources */,
 				0138F6FA25F66E8D00A9B075 /* TraceLocationPrintVersionViewModel.swift in Sources */,
 				945CCFE625D68C2E007ADB4F /* AppOnboardingNavigationController.swift in Sources */,
 				713EA26124798AD100AB7EE8 /* ExposureDetectionHotlineCell.swift in Sources */,
@@ -8276,13 +8276,13 @@
 				B14D0CDB246E968C00D5BEBC /* String+Today.swift in Sources */,
 				85142501245DA0B3009D2791 /* UIViewController+Alert.swift in Sources */,
 				B103193224E18A0A00DD02EF /* DMMenuItem.swift in Sources */,
-				8F3BB9382684A3F0000B9A95 /* AddLocalStatisticsModel.swift in Sources */,
+				8F3BB9382684A3F0000B9A95 /* LocalStatisticsModel.swift in Sources */,
 				BADB7BF025F66178001065FA /* MissingPermissionsTableViewCell.swift in Sources */,
 				013A551F260B48250092B5B1 /* TraceLocationType.swift in Sources */,
 				94BACE6A25D27DC2007B2A99 /* DeltaOnboardingDataDonation.swift in Sources */,
 				347FBB41260E405000672770 /* TraceLocationDetailsHeaderCell.swift in Sources */,
 				0190B225255C423600CF4244 /* Date+Age.swift in Sources */,
-				8F499B05267CDE530047C1A6 /* AddStatisticsCardView.swift in Sources */,
+				8F499B05267CDE530047C1A6 /* ManageStatisticsCardView.swift in Sources */,
 				352E0F19255D537C00DC3E20 /* AppConfiguration+Validation.swift in Sources */,
 				AB190E9925FB677800FBFF0D /* DeleteCheckinQuery.swift in Sources */,
 				506A2F2025D2A08900B7DDFB /* DataDonationDetailsViewController.swift in Sources */,
