@@ -42,10 +42,6 @@ class ENAButton: DynamicTypeButton {
 		return size
 	}
 
-	// MARK: - Protocol <#Name#>
-
-	// MARK: - Public
-
 	// MARK: - Internal
 
 	@IBInspectable var enabledBackgroundColor: UIColor?
