@@ -258,25 +258,27 @@ final class HealthCertificatesCoordinator {
 			}
 		)
 
-		let primaryButtonTitle: String
+		let deleteButtonTitle: String
 		switch healthCertificate.type {
 		case .vaccination:
-			primaryButtonTitle = AppStrings.HealthCertificate.Details.primaryButton
+			deleteButtonTitle = AppStrings.HealthCertificate.Details.deleteButtonTitle
 		case .test:
-			primaryButtonTitle = AppStrings.HealthCertificate.Details.TestCertificate.primaryButton
+			deleteButtonTitle = AppStrings.HealthCertificate.Details.TestCertificate.primaryButton
 		case .recovery:
-			primaryButtonTitle = AppStrings.HealthCertificate.Details.RecoveryCertificate.primaryButton
+			deleteButtonTitle = AppStrings.HealthCertificate.Details.RecoveryCertificate.primaryButton
 		}
 		
 		let footerViewController = FooterViewController(
 			FooterViewModel(
-				primaryButtonName: primaryButtonTitle,
+				primaryButtonName: AppStrings.HealthCertificate.Details.validationButtonTitle,
+				secondaryButtonName: deleteButtonTitle,
 				isPrimaryButtonEnabled: true,
-				isSecondaryButtonEnabled: false,
-				isSecondaryButtonHidden: true,
-				primaryButtonInverted: true,
+				isSecondaryButtonEnabled: true,
+				isSecondaryButtonHidden: false,
+				primaryButtonInverted: false,
+				secondaryButtonInverted: true,
 				backgroundColor: .enaColor(for: .cellBackground),
-				primaryTextColor: .systemRed
+				secondaryTextColor: .systemRed
 			)
 		)
 		

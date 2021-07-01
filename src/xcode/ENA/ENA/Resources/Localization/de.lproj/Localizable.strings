@@ -2768,7 +2768,9 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Details_identifier" = "Zertifikationsnummer";
 
-"HealthCertificate_Details_primaryButton" = "Impfzertifikat entfernen";
+"HealthCertificate_Details_validationButtonTitle" = "Gültigkeit prüfen";
+
+"HealthCertificate_Details_deleteButtonTitle" = "Impfzertifikat entfernen";
 
 /* Vaccination Certificate Delete Alert */
 
