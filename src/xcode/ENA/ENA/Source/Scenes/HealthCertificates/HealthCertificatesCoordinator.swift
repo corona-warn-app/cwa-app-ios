@@ -192,6 +192,24 @@ final class HealthCertificatesCoordinator {
 			dismiss: { [weak self] in
 				self?.viewController.dismiss(animated: true)
 			},
+			didTapValidationButton: { [weak self] healthCertificate, setLoadingState in
+				setLoadingState(true)
+
+				self?.dccValidationService.onboardedCountries { result in
+					setLoadingState(false)
+
+					switch result {
+					case .success(let countries):
+						self?.showValidationScreen(
+							healthCertificate: healthCertificate,
+							countries: countries
+						)
+					case .failure:
+						// TODO: Show error alert
+						break
+					}
+				}
+			},
 			didTapHealthCertificate: { [weak self] healthCertificate in
 				self?.showHealthCertificate(
 					healthCertifiedPerson: healthCertifiedPerson,
@@ -264,7 +282,10 @@ final class HealthCertificatesCoordinator {
 
 					switch result {
 					case .success(let countries):
-						self?.showValidationScreen(countries: countries)
+						self?.showValidationScreen(
+							healthCertificate: healthCertificate,
+							countries: countries
+						)
 					case .failure:
 						// TODO: Show error alert
 						break
@@ -315,7 +336,10 @@ final class HealthCertificatesCoordinator {
 		}
 	}
 
-	private func showValidationScreen(countries: [Country]) {
+	private func showValidationScreen(
+		healthCertificate: HealthCertificate,
+		countries: [Country]
+	) {
 		print("Show validation")
 	}
 	

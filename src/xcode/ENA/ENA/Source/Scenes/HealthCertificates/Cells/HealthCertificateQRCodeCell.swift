@@ -37,6 +37,8 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 	// MARK: - Internal
 
 	func configure(with cellViewModel: HealthCertificateQRCodeCellViewModel) {
+		self.cellViewModel = cellViewModel
+
 		qrCodeImageView.image = cellViewModel.qrCodeImage
 		qrCodeImageView.accessibilityLabel = cellViewModel.accessibilityText
 
@@ -58,6 +60,8 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 	private let subtitleLabel = ENALabel()
 	private let validationButton = ENAButton()
 	private let stackView = UIStackView()
+
+	private var cellViewModel: HealthCertificateQRCodeCellViewModel?
 
 	private func setupView() {
 		backgroundColor = .clear
@@ -95,6 +99,7 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 			AppStrings.HealthCertificate.Person.validationButtonTitle,
 			for: .normal
 		)
+		validationButton.addTarget(self, action: #selector(validationButtonTapped), for: .primaryActionTriggered)
 		stackView.addArrangedSubview(validationButton)
 
 		stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -123,6 +128,14 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 
 	private func updateBorderWidth() {
 		backgroundContainerView.layer.borderWidth = traitCollection.userInterfaceStyle == .dark ? 0 : 1
+	}
+
+	@objc
+	private func validationButtonTapped() {
+		cellViewModel?.didTapValidationButton { [weak self] isLoading in
+			self?.validationButton.isLoading = isLoading
+			self?.validationButton.isEnabled = !isLoading
+		}
 	}
 
 }
