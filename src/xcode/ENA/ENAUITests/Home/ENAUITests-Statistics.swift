@@ -20,7 +20,7 @@ class ENAUITests_01b_Statistics: CWATestCase {
 	
 	func test_AddStatisticsButton_flow() {
 		let firstCardTitle = AccessibilityIdentifiers.Statistics.Incidence.title
-		let addLocalStatisticsButton = "addLocalIncidencesButton"
+		let addLocalStatisticsButton = AccessibilityIdentifiers.LocalStatistics.addLocalIncidencesButton
 		let localStatisticsViewTitle = AccessibilityIdentifiers.LocalStatistics.localStatisticsCard
 		// WHEN
 		app.setPreferredContentSizeCategory(accessibility: .normal, size: .S)
@@ -28,7 +28,7 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		app.swipeUp(velocity: .slow)
 		XCTAssertTrue(self.app.staticTexts[firstCardTitle].waitForExistence(timeout: .medium))
 		app.staticTexts[firstCardTitle].swipeRight()
-		XCTAssertTrue(self.app.staticTexts["addLocalIncidenceLabel"].waitForExistence(timeout: .medium))
+		XCTAssertTrue(self.app.staticTexts[AccessibilityIdentifiers.LocalStatistics.addLocalIncidenceLabel].waitForExistence(timeout: .medium))
 		app.buttons[addLocalStatisticsButton].waitAndTap()
 		XCTAssertTrue(app.tables[AccessibilityIdentifiers.LocalStatistics.selectState].waitForExistence(timeout: .short))
 		// Tap on some data entry. Then we should be on select district screen.

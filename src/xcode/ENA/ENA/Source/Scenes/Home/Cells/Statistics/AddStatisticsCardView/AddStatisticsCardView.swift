@@ -14,8 +14,8 @@ class AddStatisticsCardView: CustomDashedView {
 		let borderColor: UIColor = .enaColor(for: .backgroundLightGray)
 		layer.borderColor = borderColor.cgColor
 		addLocalIncidenceLabel.text = AppStrings.Statistics.AddCard.sevenDayIncidence
-		addLocalIncidenceLabel.accessibilityIdentifier = "addLocalIncidenceLabel"
-		addLocalIncidencesButton.accessibilityIdentifier = "addLocalIncidencesButton"
+		addLocalIncidenceLabel.accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.addLocalIncidenceLabel
+		addLocalIncidencesButton.accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.addLocalIncidencesButton
 		addLocalIncidenceLabel.onAccessibilityFocus = { [weak self] in
 			self?.onAccessibilityFocus?()
 		}
