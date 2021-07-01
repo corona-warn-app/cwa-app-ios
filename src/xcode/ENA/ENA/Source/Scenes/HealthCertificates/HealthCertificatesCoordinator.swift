@@ -12,10 +12,12 @@ final class HealthCertificatesCoordinator {
 	init(
 		store: HealthCertificateStoring,
 		healthCertificateService: HealthCertificateService,
+		healthCertificateValidationService: HealthCertificateValidationProviding,
 		vaccinationValueSetsProvider: VaccinationValueSetsProvider
 	) {
 		self.store = store
 		self.healthCertificateService = healthCertificateService
+		self.healthCertificateValidationService = healthCertificateValidationService
 		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
 
 		#if DEBUG
@@ -57,6 +59,7 @@ final class HealthCertificatesCoordinator {
 	
 	private let store: HealthCertificateStoring
 	private let healthCertificateService: HealthCertificateService
+	private let healthCertificateValidationService: HealthCertificateValidationProviding
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProvider
 
 	private var modalNavigationController: UINavigationController!
