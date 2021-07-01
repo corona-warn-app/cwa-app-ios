@@ -16,9 +16,7 @@ struct MockHealthCertificateValidationService: HealthCertificateValidationProvid
 		].compactMap { $0 }
 	)
 
-	var validationResult: Result<HealthCertificateValidationReport, HealthCertificateValidationError> = .success(
-		HealthCertificateValidationReport(expirationCheck: true, jsonSchemaCheck: true, acceptanceRuleValidation: nil, invalidationRuleValidation: nil)
-	)
+	var validationResult: Result<HealthCertificateValidationReport, HealthCertificateValidationError> = .success(.validationPassed)
 
 	func onboardedCountries(
 		completion: @escaping (Result<[Country], ValidationOnboardedCountriesError>) -> Void
