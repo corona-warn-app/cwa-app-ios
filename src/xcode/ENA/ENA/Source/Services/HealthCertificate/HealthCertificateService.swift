@@ -11,6 +11,7 @@ class HealthCertificateService {
 
 	// MARK: - Init
 
+	// swiftlint:disable:next cyclomatic_complexity
 	init(
 		store: HealthCertificateStoring,
 		client: Client,
