@@ -109,15 +109,16 @@ class ENAButton: DynamicTypeButton {
 			backgroundColor = style.backgroundColor
 			setTitleColor(style.foregroundColor, for: .normal)
 			activityIndicator?.color = style.foregroundColor
+			layer.borderColor = style.foregroundColor.cgColor
 		} else {
 			backgroundColor = style.disabledBackgroundColor
 			setTitleColor(style.disabledForegroundColor.withAlphaComponent(0.5), for: .disabled)
 			activityIndicator?.color = style.disabledForegroundColor.withAlphaComponent(0.5)
+			layer.borderColor = style.disabledForegroundColor.withAlphaComponent(0.5).cgColor
 		}
 
 		if hasBorder {
 			layer.borderWidth = 1
-			layer.borderColor = style.foregroundColor.cgColor
 			layer.cornerRadius = 8
 		} else {
 			layer.borderWidth = 0
