@@ -86,7 +86,113 @@ class DCCValidationServiceTests: XCTestCase {
 	
 	// MARK:- Failures
 	
+	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_MissingETag_THEN_ONBOARDED_COUNTRIES_JSON_ARCHIVE_SIGNATURE_INVALIDIsReturned() {
+		// GIVEN
 	
+	
+		// WHEN
+	
+	
+		// THEN
+	
+	
+	}
+	
+	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_EmptyPackage_THEN_ONBOARDED_COUNTRIES_JSON_ARCHIVE_FILE_MISSINGIsReturned() {
+		// GIVEN
+	
+	
+		// WHEN
+	
+	
+		// THEN
+	
+	
+	}
+	
+	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_EmptySAPPackage_THEN_ONBOARDED_COUNTRIES_JSON_EXTRACTION_FAILEDIsReturned() {
+		// GIVEN
+	
+	
+		// WHEN
+	
+	
+		// THEN
+	
+	
+	}
+	
+	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_WrongSignature_THEN_ONBOARDED_COUNTRIES_JSON_ARCHIVE_SIGNATURE_INVALIDIsReturned() {
+		// GIVEN
+	
+	
+		// WHEN
+	
+	
+		// THEN
+	
+	
+	}
+	
+	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_CorruptCBOR_THEN_ONBOARDED_COUNTRIES_JSON_DECODING_FAILEDIsReturned() {
+		// GIVEN
+	
+	
+		// WHEN
+	
+	
+		// THEN
+	
+	
+	}
+	
+	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_BadNetworkConnection_THEN_ONBOARDED_COUNTRIES_NO_NETWORKIsReturned() {
+		// GIVEN
+	
+	
+		// WHEN
+	
+	
+		// THEN
+	
+	
+	}
+	
+	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_NotModified_THEN_ONBOARDED_COUNTRIES_MISSING_CACHEIsReturned() {
+		// GIVEN
+	
+	
+		// WHEN
+	
+	
+		// THEN
+	
+	
+	}
+	
+	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_HTTP40x_THEN_ONBOARDED_COUNTRIES_CLIENT_ERRORIsReturned() {
+		// GIVEN
+	
+	
+		// WHEN
+	
+	
+		// THEN
+	
+	
+	}
+	
+	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_HTTP50x_THEN_ONBOARDED_COUNTRIES_SERVER_ERRORIsReturned() {
+		// GIVEN
+	
+	
+		// WHEN
+	
+	
+		// THEN
+	
+	
+	}
 	
 	private lazy var dummyOnboardedCountriesResponse: PackageDownloadResponse = {
 		let fakeData = onboardedCountriesCBORDataFake
