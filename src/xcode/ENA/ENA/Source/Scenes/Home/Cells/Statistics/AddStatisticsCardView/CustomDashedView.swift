@@ -69,7 +69,7 @@ class CustomDashedView: UIView {
 			icon.image = UIImage(named: "Icon_Add")
 		case .modify:
 			label.text = "modify"
-			icon.image = UIImage(named: "Icon_Add") // FIXME: set correct one!
+			icon.image = UIImage(named: "Icon_Modify")
 		}
 
 		// ensure we don't assign this one multiple times
