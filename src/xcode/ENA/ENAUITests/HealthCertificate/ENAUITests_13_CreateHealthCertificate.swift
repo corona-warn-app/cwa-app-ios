@@ -196,7 +196,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		
 		var healthCertificateCell = app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell]
 		XCTAssertTrue(healthCertificateCell.waitForExistence(timeout: .short))
-		snapshot("screenshot_certificate_family_certificats-cert-1")
+		snapshot("screenshot_certificate_family_certificate-cert-1")
 		
 		app.swipeUp(velocity: .slow)
 		
