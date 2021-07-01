@@ -8,7 +8,7 @@ import XCTest
 import SwiftyJSON
 @testable import HealthCertificateToolkit
 
-class ValidationRulesTests: XCTestCase {
+class ValidationRulesAccessTests: XCTestCase {
 
     func test_CreateValidationRules() throws {
         let rules = [
@@ -18,8 +18,13 @@ class ValidationRulesTests: XCTestCase {
         ]
 
         let cbor = try CodableCBOREncoder().encode(rules)
-        let validationRules = try ValidationRules(cborData: cbor)
+        let result = ValidationRulesAccess().extractValidationRules(from: cbor)
 
-        XCTAssertEqual(validationRules.rules, rules)
+        guard case let .success(validationRules) = result else {
+            XCTFail("Success expected.")
+            return
+        }
+
+        XCTAssertEqual(validationRules.count, 3)
     }
 }
