@@ -102,16 +102,11 @@ final class DCCValidationService: DCCValidationProviding {
 		}
 		
 		Log.info("Successfully verified eTag. Proceed with package extraction...")
-		
-		guard !packageDownloadResponse.isEmpty else {
-			Log.error("Package is empty. Return with failure.")
+				
+		guard !packageDownloadResponse.isEmpty,
+			  let sapDownloadedPackage = packageDownloadResponse.package else {
+			Log.error("PackageDownloadResponse is empty. Return with failure.")
 			completion(.failure(.ONBOARDED_COUNTRIES_JSON_ARCHIVE_FILE_MISSING))
-			return
-		}
-		
-		guard let sapDownloadedPackage = packageDownloadResponse.package else {
-			Log.error("Could not extract sapDownloadedPacakge. Return with failure.")
-			completion(.failure(.ONBOARDED_COUNTRIES_JSON_EXTRACTION_FAILED))
 			return
 		}
 		Log.info("Successfully extracted sapDownloadedPackage. Proceed with package verification...")
