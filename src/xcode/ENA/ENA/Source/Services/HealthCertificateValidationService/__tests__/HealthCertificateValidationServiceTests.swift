@@ -14,7 +14,7 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_HappyCase_THEN_CountriesAreReturned() {
 		// GIVEN
 		let client = ClientMock()
-		client.onGetOnboardedCountries = { [weak self] _, completion in
+		client.onValidationOnboardedCountries = { [weak self] _, completion in
 			guard let self = self else {
 				XCTFail("Could not create strong self")
 				return
@@ -51,7 +51,7 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_HTTPNotModified_THEN_CachedCountriesAreReturned() {
 		// GIVEN
 		let client = ClientMock()
-		client.onGetOnboardedCountries = { _, completion in
+		client.onValidationOnboardedCountries = { _, completion in
 			completion(.failure(.notModified))
 		}
 		let store = MockTestStore()
@@ -89,7 +89,7 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_MissingETag_THEN_ONBOARDED_COUNTRIES_JSON_ARCHIVE_SIGNATURE_INVALIDIsReturned() {
 		// GIVEN
 		let client = ClientMock()
-		client.onGetOnboardedCountries = { _, completion in
+		client.onValidationOnboardedCountries = { _, completion in
 			let package = SAPDownloadedPackage(
 				keysBin: Data(),
 				signature: Data()
@@ -129,7 +129,7 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_EmptyPackage_THEN_ONBOARDED_COUNTRIES_JSON_ARCHIVE_FILE_MISSINGIsReturned() {
 		// GIVEN
 		let client = ClientMock()
-		client.onGetOnboardedCountries = { _, completion in
+		client.onValidationOnboardedCountries = { _, completion in
 			let response = PackageDownloadResponse(
 				package: nil,
 				etag: "SomeETag"
@@ -165,7 +165,7 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_WrongSignature_THEN_ONBOARDED_COUNTRIES_JSON_ARCHIVE_SIGNATURE_INVALIDIsReturned() {
 		// GIVEN
 		let client = ClientMock()
-		client.onGetOnboardedCountries = { _, completion in
+		client.onValidationOnboardedCountries = { _, completion in
 			let package = SAPDownloadedPackage(
 				keysBin: Data(),
 				signature: Data()
@@ -204,7 +204,7 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_CorruptCBOR_THEN_ONBOARDED_COUNTRIES_JSON_DECODING_FAILEDIsReturned() {
 		// GIVEN
 		let client = ClientMock()
-		client.onGetOnboardedCountries = { _, completion in
+		client.onValidationOnboardedCountries = { _, completion in
 			let package = SAPDownloadedPackage(
 				keysBin: onboardedCountriesCorruptCBORDataFake,
 				signature: Data()
@@ -244,7 +244,7 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_BadNetworkConnection_THEN_ONBOARDED_COUNTRIES_NO_NETWORKIsReturned() {
 		// GIVEN
 		let client = ClientMock()
-		client.onGetOnboardedCountries = { _, completion in
+		client.onValidationOnboardedCountries = { _, completion in
 			completion(.failure(.noNetworkConnection))
 		}
 		let store = MockTestStore()
@@ -274,7 +274,7 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_NotModified_THEN_ONBOARDED_COUNTRIES_MISSING_CACHEIsReturned() {
 		// GIVEN
 		let client = ClientMock()
-		client.onGetOnboardedCountries = { _, completion in
+		client.onValidationOnboardedCountries = { _, completion in
 			completion(.failure(.notModified))
 		}
 		let store = MockTestStore()
@@ -305,7 +305,7 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_HTTP40x_THEN_ONBOARDED_COUNTRIES_CLIENT_ERRORIsReturned() {
 		// GIVEN
 		let client = ClientMock()
-		client.onGetOnboardedCountries = { _, completion in
+		client.onValidationOnboardedCountries = { _, completion in
 			completion(.failure(.serverError(404)))
 		}
 		let store = MockTestStore()
@@ -336,7 +336,7 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_HTTP50x_THEN_ONBOARDED_COUNTRIES_SERVER_ERRORIsReturned() {
 		// GIVEN
 		let client = ClientMock()
-		client.onGetOnboardedCountries = { _, completion in
+		client.onValidationOnboardedCountries = { _, completion in
 			completion(.failure(.serverError(500)))
 		}
 		let store = MockTestStore()
@@ -367,7 +367,7 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_DefaultHTTPError_THEN_ONBOARDED_COUNTRIES_SERVER_ERRORIsReturned() {
 		// GIVEN
 		let client = ClientMock()
-		client.onGetOnboardedCountries = { _, completion in
+		client.onValidationOnboardedCountries = { _, completion in
 			completion(.failure(.noResponse))
 		}
 		let store = MockTestStore()

@@ -510,7 +510,7 @@
 		5078DCA12684B3ED00535917 /* HealthCertificateValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5078DCA02684B3ED00535917 /* HealthCertificateValidationService.swift */; };
 		5078DCA42684B5FB00535917 /* HealthCertificateValidationReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5078DCA32684B5FB00535917 /* HealthCertificateValidationReport.swift */; };
 		5078DCA62684B60400535917 /* HealthCertificateValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5078DCA52684B60400535917 /* HealthCertificateValidationError.swift */; };
-		5078DCA92686085C00535917 /* HTTPClient+GetDccOnboardedCountries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5078DCA72686085700535917 /* HTTPClient+GetDccOnboardedCountries.swift */; };
+		5078DCA92686085C00535917 /* HTTPClient+ValidationOnboardedCountries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5078DCA72686085700535917 /* HTTPClient+ValidationOnboardedCountries.swift */; };
 		5078DCAB2686122200535917 /* api-response-onboardedCountries in Resources */ = {isa = PBXBuildFile; fileRef = 5078DCAA2686112C00535917 /* api-response-onboardedCountries */; };
 		5081EEF125FF739B004B8FDE /* CheckinsInfoScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5081EEF025FF739B004B8FDE /* CheckinsInfoScreenViewModel.swift */; };
 		5081EEFE25FF9C5E004B8FDE /* CheckinsInfoScreenViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5081EEFD25FF9C5E004B8FDE /* CheckinsInfoScreenViewModelTest.swift */; };
@@ -1747,7 +1747,7 @@
 		5078DCA02684B3ED00535917 /* HealthCertificateValidationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateValidationService.swift; sourceTree = "<group>"; };
 		5078DCA32684B5FB00535917 /* HealthCertificateValidationReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateValidationReport.swift; sourceTree = "<group>"; };
 		5078DCA52684B60400535917 /* HealthCertificateValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateValidationError.swift; sourceTree = "<group>"; };
-		5078DCA72686085700535917 /* HTTPClient+GetDccOnboardedCountries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClient+GetDccOnboardedCountries.swift"; sourceTree = "<group>"; };
+		5078DCA72686085700535917 /* HTTPClient+ValidationOnboardedCountries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClient+ValidationOnboardedCountries.swift"; sourceTree = "<group>"; };
 		5078DCAA2686112C00535917 /* api-response-onboardedCountries */ = {isa = PBXFileReference; lastKnownFileType = file; path = "api-response-onboardedCountries"; sourceTree = "<group>"; };
 		5081EEF025FF739B004B8FDE /* CheckinsInfoScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinsInfoScreenViewModel.swift; sourceTree = "<group>"; };
 		5081EEFD25FF9C5E004B8FDE /* CheckinsInfoScreenViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinsInfoScreenViewModelTest.swift; sourceTree = "<group>"; };
@@ -4002,7 +4002,7 @@
 			path = Mocks;
 			sourceTree = "<group>";
 		};
-		5078DC9E2684B3A400535917 /* DCCValidationService */ = {
+		5078DC9E2684B3A400535917 /* HealthCertificateValidationService */ = {
 			isa = PBXGroup;
 			children = (
 				5078DCA22684B3F400535917 /* __tests__ */,
@@ -4010,7 +4010,7 @@
 				01E0D3A6268DC7A200E32CF9 /* MockHealthCertificateValidationService.swift */,
 				5078DCA02684B3ED00535917 /* HealthCertificateValidationService.swift */,
 			);
-			path = DCCValidationService;
+			path = HealthCertificateValidationService;
 			sourceTree = "<group>";
 		};
 		5078DC9F2684B3DD00535917 /* Model */ = {
@@ -4803,7 +4803,7 @@
 			children = (
 				B15382DC248270220010F007 /* __tests__ */,
 				011216F22617360800320745 /* CoronaTestService */,
-				5078DC9E2684B3A400535917 /* DCCValidationService */,
+				5078DC9E2684B3A400535917 /* HealthCertificateValidationService */,
 				01FD3ED625D2F0D00049497A /* DeadmanNotification */,
 				BAC2F58326667A42008A6C7B /* DGCRegistration */,
 				B1D431C9246C848E00E728AD /* DownloadedPackagesStore */,
@@ -5991,7 +5991,7 @@
 				50AA526725FBA0CC000C77BB /* HTTPClient+TraceWarningPackageDiscoveryTests.swift */,
 				50373EC825FBD08A000109AE /* HTTPClient+TraceWarningPackageDownloadTests.swift */,
 				5058DF862667666400858446 /* HTTPClient+GetDigitalCovid19CertificateTests.swift */,
-				5078DCA72686085700535917 /* HTTPClient+GetDccOnboardedCountries.swift */,
+				5078DCA72686085700535917 /* HTTPClient+ValidationOnboardedCountries.swift */,
 				50412F302689D2F300E4087C /* HTTPClient+GetDccRules.swift */,
 				A1877CA9248F247D006FEFC0 /* SAPDownloadedPackageTests.swift */,
 				B1EAEC8D247118CB003BE9A2 /* URLSession+ConvenienceTests.swift */,
@@ -8386,7 +8386,7 @@
 				BA573D5E2608CBD3006ED1A6 /* TraceLocationTypeSelectionViewModelTests.swift in Sources */,
 				017AD13625A3238300FA2B3F /* iOS13TestCase.swift in Sources */,
 				A1E419552495A8060016E52A /* HTTPClient+GetTestResultTests.swift in Sources */,
-				5078DCA92686085C00535917 /* HTTPClient+GetDccOnboardedCountries.swift in Sources */,
+				5078DCA92686085C00535917 /* HTTPClient+ValidationOnboardedCountries.swift in Sources */,
 				BA3FA3E22667BDF700F11C06 /* HTTPClient+DccRegisterPublicKeyTests.swift in Sources */,
 				01D16C5E24ED69CA007DB387 /* BackgroundAppRefreshViewModelTests.swift in Sources */,
 				A14BDEC024A1AD660063E4EC /* MockExposureDetector.swift in Sources */,

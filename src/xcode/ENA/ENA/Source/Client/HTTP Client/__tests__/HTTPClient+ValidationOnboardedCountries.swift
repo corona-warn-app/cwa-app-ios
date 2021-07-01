@@ -6,7 +6,7 @@
 import Foundation
 import XCTest
 
-final class HTTPClientGetDccOnboardedCountriesTests: CWATestCase {
+final class HTTPClientValidationOnboardedCountriesTests: CWATestCase {
 	
 	func testGIVEN_Client_WHEN_HappyPath_THEN_PackageIsReturned() throws {
 					
