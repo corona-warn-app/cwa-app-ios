@@ -4,7 +4,7 @@
 
 import Foundation
 
-struct DCCValidationReport {
+struct HealthCertificateValidationReport {
 	
 	// MARK: - Internal
 
