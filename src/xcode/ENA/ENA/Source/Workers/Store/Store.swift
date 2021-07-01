@@ -222,6 +222,13 @@ protocol CoronaTestStoringLegacy {
 
 }
 
+protocol DCCValidationCaching: AnyObject {
+	
+	/// The cache for the onboarded countries. Contains the eTag and the countries received before or nil, when never cached.
+	var onboardedCountriesCache: OnboardedCountriesCache? { get set }
+}
+
+
 // swiftlint:disable all
 /// Wrapper protocol
 protocol Store:
@@ -229,14 +236,15 @@ protocol Store:
 	AppConfigCaching,
 	CoronaTestStoring,
 	CoronaTestStoringLegacy,
+	DCCValidationCaching,
 	ErrorLogProviding,
 	ErrorLogUploadHistoryProviding,
 	EventRegistrationCaching,
+	HealthCertificateStoring,
 	PrivacyPreservingProviding,
 	StatisticsCaching,
 	StoreProtocol,
-	WarnOthersTimeIntervalStoring,
-	HealthCertificateStoring,
-	VaccinationCaching
+	VaccinationCaching,
+	WarnOthersTimeIntervalStoring
 {}
 // swiftlint:enable all

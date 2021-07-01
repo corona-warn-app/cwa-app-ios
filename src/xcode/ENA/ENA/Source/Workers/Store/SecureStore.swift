@@ -254,6 +254,15 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 		set { kvStore["vaccinationCertificateValueDataSets"] = newValue }
 	}
 	
+	// MARK: - Protocol DCCValidationCaching
+	
+	var onboardedCountriesCache: OnboardedCountriesCache? {
+		get { kvStore["onboardedCountriesCache"] as OnboardedCountriesCache? ?? nil }
+		set { kvStore["onboardedCountriesCache"] = newValue }
+	}
+	
+	// MARK: - Non-Release Stuff
+	
 	#if !RELEASE
 
 	// Settings from the debug menu.
