@@ -50,8 +50,46 @@ class DCCValidationServiceTests: XCTestCase {
 		XCTAssertTrue(countries.contains(onboardedCountriesFake[1]))
 	}
 	
+	func testGIVEN_ValidationService_WHEN_GetCachedOnbaordedCountriesHappyCase_THEN_CachedCountriesAreReturned() {
+		// GIVEN
+		let client = ClientMock()
+		client.onGetDCCOnboardedCountries = { _, completion in
+			completion(.failure(.notModified))
+		}
+		let store = MockTestStore()
+		let cachedOnboardedCountries = OnboardedCountriesCache(
+			onboardedCountries: onboardedCountriesFake,
+			lastOnboardedCountriesETag: "FakeETagNotModified"
+		)
+		store.onboardedCountriesCache = cachedOnboardedCountries
+		let validationService = DCCValidationService(
+			store: store,
+			client: client,
+			signatureVerifier: MockVerifier()
+		)
+		let expectation = self.expectation(description: "Test should success with new countries")
+		var countries: [Country] = []
 		
+		// WHEN
+		validationService.onboardedCountries(completion: { result in
+			switch result {
+			case let .success(countriesResponse):
+				countries = countriesResponse
+				expectation.fulfill()
+			case let .failure(error):
+				XCTFail("Test should not fail with error: \(error)")
+			}
+		})
 		
+		// THEN
+		waitForExpectations(timeout: .short)
+		XCTAssertEqual(countries, store.onboardedCountriesCache?.onboardedCountries)
+	}
+	
+	// MARK:- Failures
+	
+	
+	
 	private lazy var dummyOnboardedCountriesResponse: PackageDownloadResponse = {
 		let fakeData = onboardedCountriesCBORDataFake
 				
