@@ -56,6 +56,7 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 	private let qrCodeImageView = UIImageView()
 	private let titleLabel = ENALabel()
 	private let subtitleLabel = ENALabel()
+	private let validationButton = ENAButton()
 	private let stackView = UIStackView()
 
 	private func setupView() {
@@ -86,9 +87,18 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 		subtitleLabel.textColor = .enaColor(for: .textPrimary2)
 		subtitleLabel.numberOfLines = 0
 		stackView.addArrangedSubview(subtitleLabel)
+		stackView.setCustomSpacing(12, after: subtitleLabel)
+
+		validationButton.hasBorder = true
+		validationButton.hasBackground = false
+		validationButton.setTitle(
+			AppStrings.HealthCertificate.Person.validationButtonTitle,
+			for: .normal
+		)
+		stackView.addArrangedSubview(validationButton)
 
 		stackView.translatesAutoresizingMaskIntoConstraints = false
-		stackView.alignment = .leading
+		stackView.alignment = .fill
 		stackView.axis = .vertical
 		stackView.spacing = 4.0
 		backgroundContainerView.addSubview(stackView)
