@@ -29,6 +29,7 @@ enum AccessibilityIdentifiers {
 		static let activateCardOffTitle = "AppStrings.Home.activateCardOffTitle"
 		static let activateCardBluetoothOffTitle = "AppStrings.Home.activateCardBluetoothOffTitle"
 		static let riskCardIntervalUpdateTitle = "AppStrings.Home.riskCardIntervalUpdateTitle"
+		static let tableView = "AppStrings.Home.tableView"
 
 		enum RiskTableViewCell {
 			static let topContainer = "[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer]"
@@ -357,7 +358,13 @@ enum AccessibilityIdentifiers {
 		static let optionNo = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.optionNo"
 		static let optionNone = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.optionNone"
 	}
-	
+	enum LocalStatistics {
+		static let selectState = "AppStrings.LocalStatistics.selectState"
+		static let selectDistrict = "AppStrings.LocalStatistics.selectDistrict"
+		static let localStatisticsCard = "AppStrings.LocalStatistics.localStatisticsCard"
+		static let addLocalIncidencesButton = "AppStrings.LocalStatistics.addLocalIncidencesButton"
+		static let addLocalIncidenceLabel = "AppStrings.LocalStatistics.addLocalIncidenceLabel"
+	}
 	enum ExposureSubmissionWarnEuropeCountrySelection {
 		static let description1 = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.description1"
 		static let description2 = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.description2"

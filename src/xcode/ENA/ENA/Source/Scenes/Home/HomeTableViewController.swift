@@ -364,6 +364,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	}
 
 	private func setupTableView() {
+		tableView.accessibilityIdentifier = AccessibilityIdentifiers.Home.tableView
+		
 		tableView.register(
 			UINib(nibName: String(describing: HomeExposureLoggingTableViewCell.self), bundle: nil),
 			forCellReuseIdentifier: String(describing: HomeExposureLoggingTableViewCell.self)
@@ -609,8 +611,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			},
 			onDismissDistrict: { [weak self] dismissToRoot in
 				self?.onDismissDistrict(dismissToRoot)
-			}, onFetchFederalState: { [weak self] federalState in
-				self?.fetchLocalStatistics(federalStateId: federalState)
+			}, onFetchGroupData: { [weak self] district in
+				self?.fetchLocalStatistics(district: district)
 			},
 			onEditLocalStatisticsButtonTap: {
 				Log.warning("Edit Functionality Should Be Added")
@@ -841,9 +843,9 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		}
 	}
 
-	private func fetchLocalStatistics(federalStateId id: LocalStatisticsDistrict) {
+	private func fetchLocalStatistics(district: LocalStatisticsDistrict) {
 		DispatchQueue.main.async { [weak self] in
-			self?.viewModel.state.updateLocalStatistics(localStatisticsDistrict: id)
+			self?.viewModel.state.updateLocalStatistics(groupID: String(district.federalState.groupID))
 		}
 	}
 	// swiftlint:disable:next file_length

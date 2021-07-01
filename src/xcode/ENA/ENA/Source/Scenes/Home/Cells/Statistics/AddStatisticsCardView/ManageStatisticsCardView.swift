@@ -13,8 +13,10 @@ class ManageStatisticsCardView: UIView {
 		
 		let borderColor: UIColor = .enaColor(for: .backgroundLightGray)
 		layer.borderColor = borderColor.cgColor
-		/// FIXME: will move to dashed view
+		// TODO: will move to the `CustomDashedView`
 //		addLocalIncidenceLabel.text = AppStrings.Statistics.AddCard.sevenDayIncidence
+//		addLocalIncidenceLabel.accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.addLocalIncidenceLabel
+//		addLocalIncidencesButton.accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.addLocalIncidencesButton
 //		addLocalIncidenceLabel.onAccessibilityFocus = { [weak self] in
 //			self?.onAccessibilityFocus?()
 //		}
@@ -28,7 +30,7 @@ class ManageStatisticsCardView: UIView {
 		onAddDistrict: @escaping (SelectValueTableViewController) -> Void,
 		onDismissState: @escaping () -> Void,
 		onDismissDistrict: @escaping (Bool) -> Void,
-		onFetchFederalState: @escaping (LocalStatisticsDistrict) -> Void,
+		onFetchGroupData: @escaping (LocalStatisticsDistrict) -> Void,
 		onEditButtonTap: @escaping () -> Void,
 		onAccessibilityFocus: @escaping () -> Void
 	) {
@@ -38,11 +40,11 @@ class ManageStatisticsCardView: UIView {
 		self.onAddDistrict = onAddDistrict
 		self.onDismissState = onDismissState
 		self.onDismissDistrict = onDismissDistrict
-		self.onFetchFederalState = onFetchFederalState
+		self.onFetchGroupData = onFetchGroupData
 		self.onEditButtonTap = onEditButtonTap
 		self.onAccessibilityFocus = onAccessibilityFocus
 
-		updateUI(for: /* TODO: availableCardsState*/ .notYetFull)
+		updateUI(for: availableCardsState)
 	}
 
 	@IBAction func onAddLocalIncidenceButtonPressed(_ sender: Any) {
@@ -58,14 +60,17 @@ class ManageStatisticsCardView: UIView {
 			presentSelectDistrictsList: { selectedDistrictValueViewModel in
 				self.presentAddLocalStatisticsDistrict(selectValueViewModel: selectedDistrictValueViewModel)
 				
-			}, onFetchFederalState: { [weak self] district in
-				self?.onFetchFederalState?(district)
+			}, onFetchGroupData: { [weak self] district in
+				self?.onFetchGroupData?(district)
 			}
 		)
 		viewModel?.presentStateSelection()
 	}
 
 	@IBOutlet weak var stackView: UIStackView!
+	// TODO: These two guys will move to the `CustomDashedView`
+	// @IBOutlet weak var addLocalIncidenceLabel: ENALabel!
+	// @IBOutlet weak var addLocalIncidencesButton: UIButton!
 
 	func updateUI(for state: LocalStatisticsState) {
 		// clear
@@ -92,7 +97,7 @@ class ManageStatisticsCardView: UIView {
 			stackView.addArrangedSubview(modify)
 		}
 	}
-
+	
 	// MARK: - Private
 
 	private func presentAddLocalStatistics(selectValueViewModel: SelectValueViewModel) {
@@ -121,7 +126,7 @@ class ManageStatisticsCardView: UIView {
 	private var onAddDistrict: ((SelectValueTableViewController) -> Void)?
 	private var onDismissState: (() -> Void)?
 	private var onDismissDistrict: ((Bool) -> Void)?
-	private var onFetchFederalState: ((LocalStatisticsDistrict) -> Void)?
+	private var onFetchGroupData: ((LocalStatisticsDistrict) -> Void)?
 	private var onEditButtonTap: (() -> Void)?
 	private var onAccessibilityFocus: (() -> Void)?
 	private var viewModel: ManageStatisticsCardsViewModel?
