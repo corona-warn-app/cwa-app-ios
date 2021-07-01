@@ -5,12 +5,12 @@
 import Foundation
 import OpenCombine
 
-class AddStatisticsCardsViewModel {
+class ManageStatisticsCardsViewModel {
 	
 	// MARK: - Init
 	
 	init(
-		localStatisticsModel: AddLocalStatisticsModel,
+		localStatisticsModel: LocalStatisticsModel,
 		presentFederalStatesList: @escaping (SelectValueViewModel) -> Void,
 		presentSelectDistrictsList: @escaping (SelectValueViewModel) -> Void,
 		onFetchGroupData: @escaping (LocalStatisticsDistrict) -> Void
@@ -96,7 +96,7 @@ class AddStatisticsCardsViewModel {
 	private(set) var district: LocalStatisticsDistrict?
 	private var subscriptions: [AnyCancellable] = []
 
-	private let localStatisticsModel: AddLocalStatisticsModel
+	private let localStatisticsModel: LocalStatisticsModel
 	private let presentFederalStatesList: (SelectValueViewModel) -> Void
 	private let presentSelectDistrictsList: (SelectValueViewModel) -> Void
 	private let onFetchGroupData: (LocalStatisticsDistrict) -> Void

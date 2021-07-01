@@ -4,7 +4,7 @@
 
 import Foundation
 
-struct AddLocalStatisticsModel {
+struct LocalStatisticsModel {
 
 	// MARK: - Init
 
