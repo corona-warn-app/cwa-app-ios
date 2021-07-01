@@ -1980,7 +1980,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Card_AtLeastOneVaccinated_Title" = "Mindestens einmal geimpfte Personen";
 
-"Statistics_Card_AtLeastOneVaccinated_Today" = "Aktuell";
+"Statistics_Card_AtLeastOneVaccinated_Today" = "Bis heute";
 
 "Statistics_Card_AtLeastOneVaccinated_Yesterday" = "Bis Gestern";
 
@@ -1998,7 +1998,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Card_FullyVaccinated_Title" = "Vollständig geimpfte Personen";
 
-"Statistics_Card_FullyVaccinated_Today" = "Aktuell";
+"Statistics_Card_FullyVaccinated_Today" = "Bis heute";
 
 "Statistics_Card_FullyVaccinated_Yesterday" = "Bis Gestern";
 
@@ -2014,11 +2014,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Card_AppliedDoseRates_Title" = "Verabreichte Impfdosen";
 
-"Statistics_Card_AppliedDoseRates_Today" = "Aktuell";
+"Statistics_Card_AppliedDoseRates_Today" = "Heute";
 
-"Statistics_Card_AppliedDoseRates_Yesterday" = "Bis Gestern";
+"Statistics_Card_AppliedDoseRates_Yesterday" = "Gestern";
 
-"Statistics_Card_AppliedDoseRates_Date" = "Bis %@";
+"Statistics_Card_AppliedDoseRates_Date" = "%@";
 
 "Statistics_Card_AppliedDoseRates_SecondaryLabelTitle" = "7-Tage-Mittelwert";
 

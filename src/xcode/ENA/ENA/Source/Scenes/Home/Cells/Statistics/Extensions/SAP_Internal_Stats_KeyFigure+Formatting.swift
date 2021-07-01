@@ -19,7 +19,7 @@ extension SAP_Internal_Stats_KeyFigure {
 		numberFormatter.numberStyle = .percent
 		let decimals = max(0, Int(self.decimals))
 		numberFormatter.maximumFractionDigits = Int(decimals)
-		return numberFormatter.string(from: NSNumber(value: value / 100))?.filter({ !$0.isWhitespace })
+		return numberFormatter.string(from: NSNumber(value: value))?.filter({ !$0.isWhitespace })
 	}
 	
 	var trendImage: UIImage? {
