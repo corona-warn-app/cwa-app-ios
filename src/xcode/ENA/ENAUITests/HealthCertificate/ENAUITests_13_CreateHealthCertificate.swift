@@ -185,5 +185,35 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 
 		snapshot("screenshot_certificate_overview_vaccination_and_test_certificate")
 	}
+	
+	func test_screenshot_MultipleFamilyTestCertificates() throws {
+		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
+		app.setLaunchArgument(LaunchArguments.healthCertificate.familyCertificates, to: true)
+		app.launch()
+
+		// Navigate to Certificates Tab.
+		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
+		
+		var healthCertificateCell = app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell]
+		XCTAssertTrue(healthCertificateCell.waitForExistence(timeout: .short))
+		snapshot("screenshot_certificate_family_certificate-cert-1")
+		
+		app.swipeUp(velocity: .slow)
+		
+		healthCertificateCell = app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell]
+		snapshot("screenshot_certificate_family_certificate-cert-2")
+		
+		app.swipeUp(velocity: .slow)
+		
+		healthCertificateCell = app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell]
+		snapshot("screenshot_certificate_family_certificate-cert-3")
+		
+		app.swipeUp(velocity: .slow)
+
+		healthCertificateCell = app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell]
+		snapshot("screenshot_certificate_family_certificate-cert-4")
+		
+		XCTAssertEqual(app.cells.matching(identifier: AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell).count, 4)
+	}
 
 }
