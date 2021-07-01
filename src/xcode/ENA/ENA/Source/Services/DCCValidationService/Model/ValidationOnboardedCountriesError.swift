@@ -4,8 +4,8 @@
 
 import Foundation
 
-enum DCCOnboardedCountriesError: LocalizedError {
-	
+enum ValidationOnboardedCountriesError: LocalizedError {
+
 	// MARK: - Internal
 	
 	case ONBOARDED_COUNTRIES_CLIENT_ERROR
