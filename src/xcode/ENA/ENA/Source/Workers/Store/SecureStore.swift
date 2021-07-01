@@ -358,6 +358,11 @@ extension SecureStore: LocalStatisticsCaching {
 		get { kvStore["localStatistics"] as [LocalStatisticsMetadata]? ?? [] }
 		set { kvStore["localStatistics"] = newValue }
 	}
+	
+	var selectedAdministrativeUnitIDs: [String] {
+		get { kvStore["selectedAdministrativeUnitIDs"] as [String]? ?? [] }
+		set { kvStore["selectedAdministrativeUnitIDs"] = newValue }
+	}
 }
 
 extension SecureStore: PrivacyPreservingProviding {

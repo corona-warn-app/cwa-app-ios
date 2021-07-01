@@ -31,7 +31,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		onAddDistrict: @escaping (SelectValueTableViewController) -> Void,
 		onDismissState: @escaping () -> Void,
 		onDismissDistrict: @escaping (Bool) -> Void,
-		onFetchFederalState: @escaping (LocalStatisticsDistrict) -> Void,
+		onFetchGroupData: @escaping (LocalStatisticsDistrict) -> Void,
 		onEditLocalStatisticsButtonTap: @escaping () -> Void,
 		onAccessibilityFocus: @escaping () -> Void,
 		onUpdate: @escaping () -> Void
@@ -48,7 +48,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 					onAddDistrict: onAddDistrict,
 					onDismissState: onDismissState,
 					onDismissDistrict: onDismissDistrict,
-					onFetchFederalState: onFetchFederalState,
+					onFetchGroupData: onFetchGroupData,
 					onEditLocalStatisticsButtonTap: onEditLocalStatisticsButtonTap,
 					onAccessibilityFocus: onAccessibilityFocus
 				)
@@ -69,6 +69,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { administrativeUnitsData in
 				self.insertLocalStatistics(
+					store: store,
 					administrativeUnitsData: administrativeUnitsData,
 					onInfoButtonTap: onInfoButtonTap,
 					onAccessibilityFocus: onAccessibilityFocus
@@ -79,6 +80,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 	}
 	
 	func insertLocalStatistics(
+		store: Store,
 		administrativeUnitsData: [SAP_Internal_Stats_AdministrativeUnitData],
 		onInfoButtonTap:  @escaping () -> Void,
 		onAccessibilityFocus: @escaping () -> Void
@@ -91,6 +93,12 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 			// TO DO Error handling
 			return
 		}
+		
+		let administrativeUnitID = String(adminUnit.administrativeUnitShortID)
+		if !store.selectedAdministrativeUnitIDs.contains(administrativeUnitID) {
+			store.selectedAdministrativeUnitIDs.append(administrativeUnitID)
+		}
+
 		let nibName = String(describing: HomeStatisticsCardView.self)
 		let nib = UINib(nibName: nibName, bundle: .main)
 
@@ -141,7 +149,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		onAddDistrict: @escaping (SelectValueTableViewController) -> Void,
 		onDismissState: @escaping () -> Void,
 		onDismissDistrict: @escaping (Bool) -> Void,
-		onFetchFederalState: @escaping (LocalStatisticsDistrict) -> Void,
+		onFetchGroupData: @escaping (LocalStatisticsDistrict) -> Void,
 		onEditLocalStatisticsButtonTap: @escaping () -> Void,
 		onAccessibilityFocus: @escaping () -> Void
 	) {
@@ -157,9 +165,21 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 			stackView.addArrangedSubview(addLocalStatisticsCardView)
 			addLocalStatisticsCardView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
 			
+			let localStatisticsAvailableCardsState: CreatedLocalStatisticsState
+			switch store.selectedAdministrativeUnitIDs.count {
+			case 0:
+				localStatisticsAvailableCardsState = .empty
+			case let count where count < 5:
+				localStatisticsAvailableCardsState = .notYetFull
+			case 5:
+				localStatisticsAvailableCardsState = .full
+			default:
+				localStatisticsAvailableCardsState = .empty
+			}
+
 			addLocalStatisticsCardView.configure(
 				localStatisticsModel: localStatisticsModel,
-				availableCardsState: .empty, // TODO get state based on the current number of local statistics cards
+				availableCardsState: localStatisticsAvailableCardsState,
 				onAddStateButtonTap: { selectValueViewController in
 					onAddLocalStatisticsButtonTap(selectValueViewController)
 				}, onAddDistrict: { selectValueViewController in
@@ -168,9 +188,9 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 					onDismissState()
 				}, onDismissDistrict: { dismissToRoot in
 					onDismissDistrict(dismissToRoot)
-				}, onFetchFederalState: { district in
+				}, onFetchGroupData: { district in
 					self.district = district
-					onFetchFederalState(district)
+					onFetchGroupData(district)
 				},
 				onEditButtonTap: {
 					onEditLocalStatisticsButtonTap()
