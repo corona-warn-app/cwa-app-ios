@@ -22,7 +22,7 @@ final class HTTPClientGetDccOnboardedCountriesTests: CWATestCase {
 		// WHEN
 		var response: PackageDownloadResponse?
 		let client = HTTPClient.makeWith(mock: stack)
-		client.getOnboardedCountries(completion: { result in
+		client.validationOnboardedCountries(completion: { result in
 			switch result {
 			case let .success(package):
 				response = package
@@ -49,7 +49,7 @@ final class HTTPClientGetDccOnboardedCountriesTests: CWATestCase {
 		var failure: URLSession.Response.Failure?
 		
 		// WHEN
-		client.getOnboardedCountries(completion: { result in
+		client.validationOnboardedCountries(completion: { result in
 			switch result {
 			case .success:
 				XCTFail("This test should not succeed.")
@@ -74,7 +74,7 @@ final class HTTPClientGetDccOnboardedCountriesTests: CWATestCase {
 		var failure: URLSession.Response.Failure?
 		
 		// WHEN
-		client.getOnboardedCountries(completion: { result in
+		client.validationOnboardedCountries(completion: { result in
 			switch result {
 			case .success:
 				XCTFail("This test should not succeed.")
@@ -99,7 +99,7 @@ final class HTTPClientGetDccOnboardedCountriesTests: CWATestCase {
 		var failure: URLSession.Response.Failure?
 		
 		// WHEN
-		client.getOnboardedCountries(completion: { result in
+		client.validationOnboardedCountries(completion: { result in
 			switch result {
 			case .success:
 				XCTFail("This test should not succeed.")
@@ -124,7 +124,7 @@ final class HTTPClientGetDccOnboardedCountriesTests: CWATestCase {
 		var failure: URLSession.Response.Failure?
 		
 		// WHEN
-		client.getOnboardedCountries(completion: { result in
+		client.validationOnboardedCountries(completion: { result in
 			switch result {
 			case .success:
 				XCTFail("This test should not succeed.")

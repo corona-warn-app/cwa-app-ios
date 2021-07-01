@@ -222,10 +222,10 @@ protocol CoronaTestStoringLegacy {
 
 }
 
-protocol DCCValidationCaching: AnyObject {
+protocol HealthCertificateValidationCaching: AnyObject {
 	
 	/// The cache for the onboarded countries. Contains the eTag and the countries received before or nil, when never cached.
-	var onboardedCountriesCache: OnboardedCountriesCache? { get set }
+	var validationOnboardedCountriesCache: ValidationOnboardedCountriesCache? { get set }
 }
 
 
@@ -236,7 +236,7 @@ protocol Store:
 	AppConfigCaching,
 	CoronaTestStoring,
 	CoronaTestStoringLegacy,
-	DCCValidationCaching,
+	HealthCertificateValidationCaching,
 	ErrorLogProviding,
 	ErrorLogUploadHistoryProviding,
 	EventRegistrationCaching,

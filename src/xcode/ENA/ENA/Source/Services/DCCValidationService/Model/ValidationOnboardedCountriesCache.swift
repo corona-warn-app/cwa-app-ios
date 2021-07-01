@@ -4,7 +4,7 @@
 
 import Foundation
 
-struct OnboardedCountriesCache: Codable, Equatable {
+struct ValidationOnboardedCountriesCache: Codable, Equatable {
     
     // MARK: - Init
     

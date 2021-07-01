@@ -55,7 +55,7 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 			completion(.failure(.notModified))
 		}
 		let store = MockTestStore()
-		let cachedOnboardedCountries = OnboardedCountriesCache(
+		let cachedOnboardedCountries = ValidationOnboardedCountriesCache(
 			onboardedCountries: onboardedCountriesFake,
 			lastOnboardedCountriesETag: "FakeETagNotModified"
 		)

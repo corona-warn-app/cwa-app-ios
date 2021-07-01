@@ -64,7 +64,7 @@ final class ClientMock {
 	var onTraceWarningDownload: ((String, Int, @escaping TraceWarningPackageDownloadCompletionHandler) -> Void)?
 	var onDCCRegisterPublicKey: ((Bool, String, String, @escaping DCCRegistrationCompletionHandler) -> Void)?
 	var onGetDigitalCovid19Certificate: ((String, Bool, @escaping DigitalCovid19CertificateCompletionHandler) -> Void)?
-	var onGetOnboardedCountries: ((Bool, @escaping DCCOnboardedCountriesCompletionHandler) -> Void)?
+	var onGetOnboardedCountries: ((Bool, @escaping ValidationOnboardedCountriesCompletionHandler) -> Void)?
 	var onGetDCCRules: ((Bool, DCCRuleType, @escaping DCCRulesCompletionHandler) -> Void)?
 }
 
@@ -284,10 +284,10 @@ extension ClientMock: Client {
 		onGetDigitalCovid19Certificate(token, isFake, completion)
 	}
 	
-	func getOnboardedCountries(
+	func validationOnboardedCountries(
 		eTag: String?,
 		isFake: Bool,
-		completion: @escaping DCCOnboardedCountriesCompletionHandler
+		completion: @escaping ValidationOnboardedCountriesCompletionHandler
 	) {
 		guard let onGetOnboardedCountries = self.onGetOnboardedCountries else {
 			completion(.success(downloadedPackage ?? ClientMock.dummyResponse))

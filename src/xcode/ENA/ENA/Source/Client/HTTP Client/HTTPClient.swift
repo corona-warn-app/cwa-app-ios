@@ -615,16 +615,16 @@ final class HTTPClient: Client {
 		})
 	}
 	
-	func getOnboardedCountries(
+	func validationOnboardedCountries(
 		eTag: String? = nil,
 		isFake: Bool = false,
-		completion: @escaping DCCOnboardedCountriesCompletionHandler
+		completion: @escaping ValidationOnboardedCountriesCompletionHandler
 	) {
-		guard let request = try? URLRequest.dccOnboardedCountryRequest(
+		guard let request = try? URLRequest.validationOnboardedCountriesRequest(
 				configuration: configuration,
 				eTag: eTag,
 				headerValue: isFake ? 1 : 0) else {
-			Log.error("Could not create url request for dcc onboarded countries", log: .api)
+			Log.error("Could not create url request for onboarded countries", log: .api)
 			completion(.failure(.invalidRequest))
 			return
 		}
@@ -646,7 +646,7 @@ final class HTTPClient: Client {
 					}
 					let etag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag")
 					let packageDownloadResponse = PackageDownloadResponse(package: sapPackage, etag: etag)
-					Log.info("Successfully got list of dcc onboarded countries", log: .api)
+					Log.info("Successfully got list of onboarded countries", log: .api)
 					completion(.success(packageDownloadResponse))
 				case 304:
 					Log.info("Content was not modified - 304.", log: .api)
@@ -656,7 +656,7 @@ final class HTTPClient: Client {
 					completion(.failure(.serverError(response.statusCode)))
 				}
 			case let .failure(error):
-				Log.error("Failure at GET for list of dcc onboarded countries.", log: .api, error: error)
+				Log.error("Failure at GET for list of onboarded countries.", log: .api, error: error)
 				completion(.failure(error))
 			}
 		})
@@ -1416,13 +1416,13 @@ private extension URLRequest {
 		return request
 	}
 	
-	static func dccOnboardedCountryRequest(
+	static func validationOnboardedCountriesRequest(
 		configuration: HTTPClient.Configuration,
 		eTag: String?,
 		headerValue: Int
 	) throws -> URLRequest {
 		
-		var request = URLRequest(url: configuration.dccOnboardedCountriesURL)
+		var request = URLRequest(url: configuration.validationOnboardedCountriesURL)
 		
 		if let eTag = eTag {
 			request.setValue(

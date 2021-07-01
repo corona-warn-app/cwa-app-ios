@@ -141,9 +141,9 @@ final class MockTestStore: Store, PPAnalyticsData {
 
 	var vaccinationCertificateValueDataSets: VaccinationValueDataSets?
 	
-	// MARK: - Protocol DCCValidationCaching
+	// MARK: - Protocol HealthCertificateValidationCaching
 
-	var onboardedCountriesCache: OnboardedCountriesCache?
+	var validationOnboardedCountriesCache: ValidationOnboardedCountriesCache?
 	
 	// MARK: - CoronaTestStoringLegacy
 

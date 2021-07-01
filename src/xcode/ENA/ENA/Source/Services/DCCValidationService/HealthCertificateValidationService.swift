@@ -40,8 +40,8 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 	func onboardedCountries(
 		completion: @escaping (Result<[Country], ValidationOnboardedCountriesError>) -> Void
 	) {
-		client.getOnboardedCountries(
-			eTag: store.onboardedCountriesCache?.lastOnboardedCountriesETag,
+		client.validationOnboardedCountries(
+			eTag: store.validationOnboardedCountriesCache?.lastOnboardedCountriesETag,
 			isFake: false,
 			completion: { [weak self] result in
 				guard let self = self else {
@@ -119,10 +119,10 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 			case let .success(countries):
 				Log.info("Successfully decoded country codes. Returning now.")
 				// Save in success case for caching
-				let receivedOnboardedCountries = OnboardedCountriesCache(
+				let receivedOnboardedCountries = ValidationOnboardedCountriesCache(
 					onboardedCountries: countries,
 					lastOnboardedCountriesETag: eTag)
-				store.onboardedCountriesCache = receivedOnboardedCountries
+				store.validationOnboardedCountriesCache = receivedOnboardedCountries
 				completion(.success(countries))
 			case let .failure(error):
 				Log.error("Could not decode CBOR from package with error:", error: error)
@@ -138,7 +138,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		switch error {
 		case .notModified:
 			// Normally we should have cached something before
-			if let cachedOnboardedCountries = store.onboardedCountriesCache?.onboardedCountries {
+			if let cachedOnboardedCountries = store.validationOnboardedCountriesCache?.onboardedCountries {
 				completion(.success(cachedOnboardedCountries))
 			} else {
 				// If not, return edge case error
