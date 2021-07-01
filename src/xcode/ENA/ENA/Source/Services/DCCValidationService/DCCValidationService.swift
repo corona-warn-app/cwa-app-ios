@@ -154,7 +154,7 @@ final class DCCValidationService: DCCValidationProviding {
 				completion(.failure(.ONBOARDED_COUNTRIES_MISSING_CACHE))
 			}
 		case .noNetworkConnection:
-			completion(.failure(.NO_NETWORK))
+			completion(.failure(.ONBOARDED_COUNTRIES_NO_NETWORK))
 		case let .serverError(statusCode):
 			switch statusCode {
 			case 400...409:
