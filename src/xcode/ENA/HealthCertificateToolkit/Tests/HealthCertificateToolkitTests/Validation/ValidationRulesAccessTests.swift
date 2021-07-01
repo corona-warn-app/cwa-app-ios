@@ -27,4 +27,24 @@ class ValidationRulesAccessTests: XCTestCase {
 
         XCTAssertEqual(validationRules.count, 3)
     }
+
+    func test_ApplyValidationRules() {
+        let rules = [
+            Rule.fake(),
+            Rule.fake(),
+            Rule.fake()
+        ]
+
+        let certificate = DigitalCovidCertificate.fake()
+        let externalParameters = ExternalParameter.fake()
+
+        let result = ValidationRulesAccess().applyValidationRules(rules, to: certificate, externalRules: externalParameters)
+
+        guard case let .success(validationResults) = result else {
+            XCTFail("Success expected.")
+            return
+        }
+
+        print(validationResults)
+    }
 }

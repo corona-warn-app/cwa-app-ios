@@ -4,6 +4,7 @@
 
 import CertLogic
 import SwiftyJSON
+import Foundation
 
 extension Rule {
 
@@ -35,5 +36,22 @@ public extension Description {
         desc: String = "desc"
     ) -> Description {
         Description(lang: lang, desc: desc)
+    }
+}
+
+public extension ExternalParameter {
+
+    static func fake(
+        validationClock: Date = Date(),
+        valueSets: Dictionary<String, [String]> = ["": [""]],
+        countryCode: String = "CZ",
+        issueCountryCode: String = "DE",
+        exp: Date = Date(),
+        iat: Date = Date(),
+        certificationType: CertificateType = .general,
+        kid: String? = nil,
+        region: String? = nil
+    ) -> ExternalParameter {
+        ExternalParameter(validationClock: validationClock, valueSets: valueSets, countryCode: countryCode, exp: exp, iat: iat, certificationType: certificationType, issueCountryCode: issueCountryCode)
     }
 }

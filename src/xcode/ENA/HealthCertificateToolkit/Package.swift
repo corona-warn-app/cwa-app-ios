@@ -28,7 +28,10 @@ let package = Package(
         .target(
             name: "HealthCertificateToolkit",
             dependencies: ["SwiftCBOR", "base45-swift", "JSONSchema", "SWCompression", "CertLogic"],
-            resources: [.process("Access/Ressources/CertificateSchema.json")]
+            resources: [
+                .process("CertificateAccess/Ressources/CertificateSchema.json"),
+                .process("Validation/Ressources/dcc-validation-rule.json")
+            ]
         ),
         .testTarget(
             name: "HealthCertificateToolkitTests",
