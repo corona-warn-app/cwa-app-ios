@@ -1372,7 +1372,7 @@ enum AppStrings {
 			static let localCardTitle = NSLocalizedString("Statistics_Add_LocalCardTitle", comment: "")
 			static let stateWide = NSLocalizedString("Statistics_Add_fromTheWholeCountry", comment: "")
 			static let localCardPrimarySubtitle = NSLocalizedString("Statistics_Card_Add_LocalCardPrimarySubtitle", comment: "")
-
+			static let modify = NSLocalizedString("Statistics_Card_Manage", comment: "")
 		}
 		enum Card {
 			static let fromNationWide = NSLocalizedString("Statistics_Card_From_Nationwide", comment: "")

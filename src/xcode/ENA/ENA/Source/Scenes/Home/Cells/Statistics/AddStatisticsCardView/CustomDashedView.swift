@@ -65,11 +65,17 @@ class CustomDashedView: UIView {
 	private func configure(for mode: Mode) {
 		switch mode {
 		case .add:
-			label.text = "add"
+			label.text = AppStrings.Statistics.AddCard.sevenDayIncidence
+			label.accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.addLocalIncidenceLabel
+
 			icon.image = UIImage(named: "Icon_Add")
+			self.accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.addLocalIncidencesButton
 		case .modify:
-			label.text = "modify"
+			label.text = AppStrings.Statistics.AddCard.modify
+			label.accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.modifyLocalIncidenceLabel
+
 			icon.image = UIImage(named: "Icon_Modify")
+			self.accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.modifyLocalIncidencesButton
 		}
 
 		// ensure we don't assign this one multiple times

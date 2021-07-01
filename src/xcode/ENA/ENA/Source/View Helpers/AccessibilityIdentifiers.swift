@@ -364,6 +364,8 @@ enum AccessibilityIdentifiers {
 		static let localStatisticsCard = "AppStrings.LocalStatistics.localStatisticsCard"
 		static let addLocalIncidencesButton = "AppStrings.LocalStatistics.addLocalIncidencesButton"
 		static let addLocalIncidenceLabel = "AppStrings.LocalStatistics.addLocalIncidenceLabel"
+		static let modifyLocalIncidencesButton = "AppStrings.LocalStatistics.modifyLocalIncidencesButton"
+		static let modifyLocalIncidenceLabel = "AppStrings.LocalStatistics.modifyLocalIncidenceLabel"
 	}
 	enum ExposureSubmissionWarnEuropeCountrySelection {
 		static let description1 = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.description1"
