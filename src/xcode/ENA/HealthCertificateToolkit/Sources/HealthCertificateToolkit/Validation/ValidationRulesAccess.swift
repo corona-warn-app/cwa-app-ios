@@ -6,7 +6,9 @@ import Foundation
 import SwiftCBOR
 import CertLogic
 
-struct ValidationRulesAccess {
+public struct ValidationRulesAccess {
+
+    public init() {}
 
     public func extractValidationRules(from cborData: CBORData) -> Swift.Result<[Rule], RuleValidationError> {
         do {
