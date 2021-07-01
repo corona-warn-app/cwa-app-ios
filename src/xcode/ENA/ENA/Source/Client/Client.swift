@@ -208,7 +208,7 @@ protocol Client {
 	/// - Parameters:
 	///   - isFake: Flag to indicate a fake request
 	///   - completion: The completion handler of the call, which contains a ResponsePackageDownload or a URLSession.Response.Failure
-	func getDCCOnboardedCountries(
+	func getOnboardedCountries(
 		eTag: String?,
 		isFake: Bool,
 		completion: @escaping DCCOnboardedCountriesCompletionHandler

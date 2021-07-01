@@ -40,7 +40,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 	func onboardedCountries(
 		completion: @escaping (Result<[Country], ValidationOnboardedCountriesError>) -> Void
 	) {
-		client.getDCCOnboardedCountries(
+		client.getOnboardedCountries(
 			eTag: store.onboardedCountriesCache?.lastOnboardedCountriesETag,
 			isFake: false,
 			completion: { [weak self] result in

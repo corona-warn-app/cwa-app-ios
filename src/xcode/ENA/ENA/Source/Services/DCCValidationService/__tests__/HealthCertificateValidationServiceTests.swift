@@ -14,7 +14,7 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_HappyCase_THEN_CountriesAreReturned() {
 		// GIVEN
 		let client = ClientMock()
-		client.onboardedCountries = { [weak self] _, completion in
+		client.onGetOnboardedCountries = { [weak self] _, completion in
 			guard let self = self else {
 				XCTFail("Could not create strong self")
 				return
@@ -22,7 +22,7 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 			completion(.success(self.dummyOnboardedCountriesResponse))
 		}
 		let store = MockTestStore()
-		let validationService = DCCValidationService(
+		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			signatureVerifier: MockVerifier()
@@ -51,7 +51,7 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_HTTPNotModified_THEN_CachedCountriesAreReturned() {
 		// GIVEN
 		let client = ClientMock()
-		client.onboardedCountries = { _, completion in
+		client.onGetOnboardedCountries = { _, completion in
 			completion(.failure(.notModified))
 		}
 		let store = MockTestStore()
@@ -60,7 +60,7 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 			lastOnboardedCountriesETag: "FakeETagNotModified"
 		)
 		store.onboardedCountriesCache = cachedOnboardedCountries
-		let validationService = DCCValidationService(
+		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			signatureVerifier: MockVerifier()
@@ -89,7 +89,7 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_MissingETag_THEN_ONBOARDED_COUNTRIES_JSON_ARCHIVE_SIGNATURE_INVALIDIsReturned() {
 		// GIVEN
 		let client = ClientMock()
-		client.onboardedCountries = { _, completion in
+		client.onGetOnboardedCountries = { _, completion in
 			let package = SAPDownloadedPackage(
 				keysBin: Data(),
 				signature: Data()
@@ -102,13 +102,13 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 			completion(.success(response))
 		}
 		let store = MockTestStore()
-		let validationService = DCCValidationService(
+		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			signatureVerifier: MockVerifier()
 		)
 		let expectation = self.expectation(description: "Test should fail ONBOARDED_COUNTRIES_JSON_ARCHIVE_SIGNATURE_INVALID")
-		var receivedError: DCCOnboardedCountriesError?
+		var receivedError: ValidationOnboardedCountriesError?
 	
 		// WHEN
 		validationService.onboardedCountries(completion: { result in
@@ -129,7 +129,7 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_EmptyPackage_THEN_ONBOARDED_COUNTRIES_JSON_ARCHIVE_FILE_MISSINGIsReturned() {
 		// GIVEN
 		let client = ClientMock()
-		client.onboardedCountries = { _, completion in
+		client.onGetOnboardedCountries = { _, completion in
 			let response = PackageDownloadResponse(
 				package: nil,
 				etag: "SomeETag"
@@ -138,13 +138,13 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 			completion(.success(response))
 		}
 		let store = MockTestStore()
-		let validationService = DCCValidationService(
+		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			signatureVerifier: MockVerifier()
 		)
 		let expectation = self.expectation(description: "Test should fail ONBOARDED_COUNTRIES_JSON_ARCHIVE_FILE_MISSING")
-		var receivedError: DCCOnboardedCountriesError?
+		var receivedError: ValidationOnboardedCountriesError?
 	
 		// WHEN
 		validationService.onboardedCountries(completion: { result in
@@ -165,7 +165,7 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_WrongSignature_THEN_ONBOARDED_COUNTRIES_JSON_ARCHIVE_SIGNATURE_INVALIDIsReturned() {
 		// GIVEN
 		let client = ClientMock()
-		client.onboardedCountries = { _, completion in
+		client.onGetOnboardedCountries = { _, completion in
 			let package = SAPDownloadedPackage(
 				keysBin: Data(),
 				signature: Data()
@@ -178,12 +178,12 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 			completion(.success(response))
 		}
 		let store = MockTestStore()
-		let validationService = DCCValidationService(
+		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client
 		)
 		let expectation = self.expectation(description: "Test should fail ONBOARDED_COUNTRIES_JSON_ARCHIVE_SIGNATURE_INVALID")
-		var receivedError: DCCOnboardedCountriesError?
+		var receivedError: ValidationOnboardedCountriesError?
 	
 		// WHEN
 		validationService.onboardedCountries(completion: { result in
@@ -204,7 +204,7 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_CorruptCBOR_THEN_ONBOARDED_COUNTRIES_JSON_DECODING_FAILEDIsReturned() {
 		// GIVEN
 		let client = ClientMock()
-		client.onboardedCountries = { _, completion in
+		client.onGetOnboardedCountries = { _, completion in
 			let package = SAPDownloadedPackage(
 				keysBin: onboardedCountriesCorruptCBORDataFake,
 				signature: Data()
@@ -217,13 +217,13 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 			completion(.success(response))
 		}
 		let store = MockTestStore()
-		let validationService = DCCValidationService(
+		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			signatureVerifier: MockVerifier()
 		)
 		let expectation = self.expectation(description: "Test should fail ONBOARDED_COUNTRIES_JSON_DECODING_FAILED")
-		var receivedError: DCCOnboardedCountriesError?
+		var receivedError: ValidationOnboardedCountriesError?
 	
 		// WHEN
 		validationService.onboardedCountries(completion: { result in
@@ -244,16 +244,16 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_BadNetworkConnection_THEN_ONBOARDED_COUNTRIES_NO_NETWORKIsReturned() {
 		// GIVEN
 		let client = ClientMock()
-		client.onboardedCountries = { _, completion in
+		client.onGetOnboardedCountries = { _, completion in
 			completion(.failure(.noNetworkConnection))
 		}
 		let store = MockTestStore()
-		let validationService = DCCValidationService(
+		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client
 		)
 		let expectation = self.expectation(description: "Test should fail ONBOARDED_COUNTRIES_NO_NETWORK")
-		var receivedError: DCCOnboardedCountriesError?
+		var receivedError: ValidationOnboardedCountriesError?
 	
 		// WHEN
 		validationService.onboardedCountries(completion: { result in
@@ -274,17 +274,17 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_NotModified_THEN_ONBOARDED_COUNTRIES_MISSING_CACHEIsReturned() {
 		// GIVEN
 		let client = ClientMock()
-		client.onboardedCountries = { _, completion in
+		client.onGetOnboardedCountries = { _, completion in
 			completion(.failure(.notModified))
 		}
 		let store = MockTestStore()
 		// And now we do not save something cached in the store.
-		let validationService = DCCValidationService(
+		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client
 		)
 		let expectation = self.expectation(description: "Test should fail ONBOARDED_COUNTRIES_MISSING_CACHE")
-		var receivedError: DCCOnboardedCountriesError?
+		var receivedError: ValidationOnboardedCountriesError?
 	
 		// WHEN
 		validationService.onboardedCountries(completion: { result in
@@ -305,17 +305,17 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_HTTP40x_THEN_ONBOARDED_COUNTRIES_CLIENT_ERRORIsReturned() {
 		// GIVEN
 		let client = ClientMock()
-		client.onboardedCountries = { _, completion in
+		client.onGetOnboardedCountries = { _, completion in
 			completion(.failure(.serverError(404)))
 		}
 		let store = MockTestStore()
 		// And now we do not save something cached in the store.
-		let validationService = DCCValidationService(
+		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client
 		)
 		let expectation = self.expectation(description: "Test should fail ONBOARDED_COUNTRIES_CLIENT_ERROR")
-		var receivedError: DCCOnboardedCountriesError?
+		var receivedError: ValidationOnboardedCountriesError?
 	
 		// WHEN
 		validationService.onboardedCountries(completion: { result in
@@ -336,17 +336,17 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_HTTP50x_THEN_ONBOARDED_COUNTRIES_SERVER_ERRORIsReturned() {
 		// GIVEN
 		let client = ClientMock()
-		client.onboardedCountries = { _, completion in
+		client.onGetOnboardedCountries = { _, completion in
 			completion(.failure(.serverError(500)))
 		}
 		let store = MockTestStore()
 		// And now we do not save something cached in the store.
-		let validationService = DCCValidationService(
+		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client
 		)
 		let expectation = self.expectation(description: "Test should fail ONBOARDED_COUNTRIES_SERVER_ERROR")
-		var receivedError: DCCOnboardedCountriesError?
+		var receivedError: ValidationOnboardedCountriesError?
 	
 		// WHEN
 		validationService.onboardedCountries(completion: { result in
@@ -367,17 +367,17 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_DefaultHTTPError_THEN_ONBOARDED_COUNTRIES_SERVER_ERRORIsReturned() {
 		// GIVEN
 		let client = ClientMock()
-		client.onboardedCountries = { _, completion in
+		client.onGetOnboardedCountries = { _, completion in
 			completion(.failure(.noResponse))
 		}
 		let store = MockTestStore()
 		// And now we do not save something cached in the store.
-		let validationService = DCCValidationService(
+		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client
 		)
 		let expectation = self.expectation(description: "Test should fail ONBOARDED_COUNTRIES_SERVER_ERROR")
-		var receivedError: DCCOnboardedCountriesError?
+		var receivedError: ValidationOnboardedCountriesError?
 	
 		// WHEN
 		validationService.onboardedCountries(completion: { result in

@@ -615,7 +615,7 @@ final class HTTPClient: Client {
 		})
 	}
 	
-	func getDCCOnboardedCountries(
+	func getOnboardedCountries(
 		eTag: String? = nil,
 		isFake: Bool = false,
 		completion: @escaping DCCOnboardedCountriesCompletionHandler
