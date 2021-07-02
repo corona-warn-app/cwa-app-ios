@@ -2048,23 +2048,22 @@ enum AppStrings {
 		}
 
 		enum Alert {
-			static let title = NSLocalizedString("HealthCertificate_Alert_title", comment: "")
-			static let message = NSLocalizedString("HealthCertificate_Alert_message", comment: "")
 			static let deleteButton = NSLocalizedString("HealthCertificate_Alert_deleteButton", comment: "")
 			static let cancelButton = NSLocalizedString("HealthCertificate_Alert_cancelButton", comment: "")
+
+			enum VaccinationCertificate {
+				static let title = NSLocalizedString("VaccinationCertificate_Alert_title", comment: "")
+			 static let message = NSLocalizedString("VaccinationCertificate_Alert_message", comment: "")
+			}
 
 			enum TestCertificate {
 				static let title = NSLocalizedString("TestCertificate_Alert_title", comment: "")
 				static let message = NSLocalizedString("TestCertificate_Alert_message", comment: "")
-				static let deleteButton = NSLocalizedString("TestCertificate_Alert_deleteButton", comment: "")
-				static let cancelButton = NSLocalizedString("TestCertificate_Alert_cancelButton", comment: "")
 			}
 
 			enum RecoveryCertificate {
 				static let title = NSLocalizedString("RecoveryCertificate_Alert_title", comment: "")
 				static let message = NSLocalizedString("RecoveryCertificate_Alert_message", comment: "")
-				static let deleteButton = NSLocalizedString("RecoveryCertificate_Alert_deleteButton", comment: "")
-				static let cancelButton = NSLocalizedString("RecoveryCertificate_Alert_cancelButton", comment: "")
 			}
 		}
 

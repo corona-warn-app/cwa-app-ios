@@ -193,24 +193,21 @@ final class HealthCertificatesCoordinator {
 				self?.viewController.dismiss(animated: true)
 			},
 			didTapValidationButton: { [weak self] healthCertificate, setLoadingState in
-				guard let self = self else { return }
-
 				setLoadingState(true)
 
-				self.healthCertificateValidationService.onboardedCountries { result in
+				self?.healthCertificateValidationService.onboardedCountries { result in
 					setLoadingState(false)
 
 					switch result {
 					case .success(let countries):
-						self.showValidationScreen(
+						self?.showValidationFlow(
 							healthCertificate: healthCertificate,
 							countries: countries
 						)
 					case .failure(let error):
-						self.showErrorAlert(
+						self?.showErrorAlert(
 							title: AppStrings.HealthCertificate.ValidationError.title,
-							error: error,
-							from: self.modalNavigationController
+							error: error
 						)
 					}
 				}
@@ -278,46 +275,32 @@ final class HealthCertificatesCoordinator {
 				self?.viewController.dismiss(animated: true)
 			},
 			didTapValidationButton: { [weak self] in
-				guard let self = self else { return }
-
 				footerViewModel.setLoadingIndicator(true, disable: true, button: .primary)
 				footerViewModel.setLoadingIndicator(false, disable: true, button: .secondary)
 
-				self.healthCertificateValidationService.onboardedCountries { result in
+				self?.healthCertificateValidationService.onboardedCountries { result in
 					footerViewModel.setLoadingIndicator(false, disable: false, button: .primary)
 					footerViewModel.setLoadingIndicator(false, disable: false, button: .secondary)
 
 					switch result {
 					case .success(let countries):
-						self.showValidationScreen(
+						self?.showValidationFlow(
 							healthCertificate: healthCertificate,
 							countries: countries
 						)
 					case .failure(let error):
-						self.showErrorAlert(
+						self?.showErrorAlert(
 							title: AppStrings.HealthCertificate.ValidationError.title,
-							error: error,
-							from: self.modalNavigationController
+							error: error
 						)
 					}
 				}
 			},
 			didTapDeleteButton: { [weak self] in
-				let deleteButtonTitle: String
-
-				switch healthCertificate.type {
-				case .vaccination:
-					deleteButtonTitle = AppStrings.HealthCertificate.Alert.deleteButton
-				case .test:
-					deleteButtonTitle = AppStrings.HealthCertificate.Alert.TestCertificate.deleteButton
-				case .recovery:
-					deleteButtonTitle = AppStrings.HealthCertificate.Alert.RecoveryCertificate.deleteButton
-				}
-
 				self?.showDeleteAlert(
 					certificateType: healthCertificate.type,
 					submitAction: UIAlertAction(
-						title: deleteButtonTitle,
+						title: AppStrings.HealthCertificate.Alert.deleteButton,
 						style: .destructive,
 						handler: { _ in
 							self?.healthCertificateService.removeHealthCertificate(healthCertificate)
@@ -346,7 +329,7 @@ final class HealthCertificatesCoordinator {
 		}
 	}
 
-	private func showValidationScreen(
+	private func showValidationFlow(
 		healthCertificate: HealthCertificate,
 		countries: [Country]
 	) {
@@ -359,21 +342,17 @@ final class HealthCertificatesCoordinator {
 	) {
 		let title: String
 		let message: String
-		let cancelButtonTitle: String
 
 		switch certificateType {
 		case .vaccination:
-			title = AppStrings.HealthCertificate.Alert.title
-			message = AppStrings.HealthCertificate.Alert.message
-			cancelButtonTitle = AppStrings.HealthCertificate.Alert.cancelButton
+			title = AppStrings.HealthCertificate.Alert.VaccinationCertificate.title
+			message = AppStrings.HealthCertificate.Alert.VaccinationCertificate.message
 		case .test:
 			title = AppStrings.HealthCertificate.Alert.TestCertificate.title
 			message = AppStrings.HealthCertificate.Alert.TestCertificate.message
-			cancelButtonTitle = AppStrings.HealthCertificate.Alert.TestCertificate.cancelButton
 		case .recovery:
 			title = AppStrings.HealthCertificate.Alert.RecoveryCertificate.title
 			message = AppStrings.HealthCertificate.Alert.RecoveryCertificate.message
-			cancelButtonTitle = AppStrings.HealthCertificate.Alert.RecoveryCertificate.cancelButton
 		}
 
 		let alert = UIAlertController(
@@ -383,7 +362,7 @@ final class HealthCertificatesCoordinator {
 		)
 		alert.addAction(
 			UIAlertAction(
-				title: cancelButtonTitle,
+				title: AppStrings.HealthCertificate.Alert.cancelButton,
 				style: .cancel,
 				handler: nil
 			)
@@ -394,8 +373,7 @@ final class HealthCertificatesCoordinator {
 
 	private func showErrorAlert(
 		title: String,
-		error: Error,
-		from presentingViewController: UIViewController
+		error: Error
 	) {
 		let alert = UIAlertController(
 			title: title,
@@ -412,7 +390,7 @@ final class HealthCertificatesCoordinator {
 		)
 		alert.addAction(okayAction)
 
-		presentingViewController.present(alert, animated: true, completion: nil)
+		modalNavigationController.present(alert, animated: true, completion: nil)
 	}
 
 	private func setupCertificateBadgeCount() {

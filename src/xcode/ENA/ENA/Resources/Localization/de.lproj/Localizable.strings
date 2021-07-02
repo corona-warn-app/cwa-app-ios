@@ -2776,15 +2776,17 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Details_deleteButtonTitle" = "Impfzertifikat entfernen";
 
-/* Vaccination Certificate Delete Alert */
-
-"HealthCertificate_Alert_title" = "Wollen Sie das Impfzertifikat wirklich entfernen?";
-
-"HealthCertificate_Alert_message" = "Wenn Sie das Impfzertifikat entfernen, kann die App die Impfung nicht mehr für die Prüfung Ihres Impfstatus berücksichtigen.";
+/* Health Certificate Delete Alert */
 
 "HealthCertificate_Alert_deleteButton" = "Entfernen";
 
 "HealthCertificate_Alert_cancelButton" = "Abbrechen";
+
+/* Vaccination Certificate Delete Alert */
+
+"VaccinationCertificate_Alert_title" = "Wollen Sie das Impfzertifikat wirklich entfernen?";
+
+"VaccinationCertificate_Alert_message" = "Wenn Sie das Impfzertifikat entfernen, kann die App die Impfung nicht mehr für die Prüfung Ihres Impfstatus berücksichtigen.";
 
 /* Test Certificate Details */
 
@@ -2804,10 +2806,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TestCertificate_Alert_message" = "Wenn Sie das Testzertifikat entfernen, können Sie es nicht mehr als Nachweis in der App verwenden.";
 
-"TestCertificate_Alert_deleteButton" = "Entfernen";
-
-"TestCertificate_Alert_cancelButton" = "Abbrechen";
-
 /* Recovery Certificate Details */
 
 "RecoveryCertificate_Details_title" = "Genesenenzertifikat";
@@ -2821,10 +2819,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "RecoveryCertificate_Alert_title" = "Wollen Sie das Genesenenzertifikat wirklich entfernen?";
 
 "RecoveryCertificate_Alert_message" = "Wenn Sie das Genesenenzertifikat entfernen, können Sie es nicht mehr als Nachweis in der App verwenden.";
-
-"RecoveryCertificate_Alert_deleteButton" = "Entfernen";
-
-"RecoveryCertificate_Alert_cancelButton" = "Abbrechen";
 
 /* Health Certificate Errors */
 
