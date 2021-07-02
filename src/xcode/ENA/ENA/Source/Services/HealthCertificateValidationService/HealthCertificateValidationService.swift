@@ -5,6 +5,8 @@
 import Foundation
 import OpenCombine
 import HealthCertificateToolkit
+// Do not import everything, just the datatypes we need to make a clean cut.
+import class CertLogic.Rule
 
 protocol HealthCertificateValidationProviding {
 	func onboardedCountries(
@@ -73,6 +75,44 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		completion: @escaping (Result<HealthCertificateValidationReport, HealthCertificateValidationError>) -> Void
 	) {
 		
+//		applyTechnicalValidation(validationClock: validationClock, expirationDate: <#T##Date#>)
+//		
+//		switch result {
+//		case let .failure(progress):
+//			completion(.failure(progress))
+//			
+//		case let .success(progress):
+//			
+//			// 2. update/ download value sets
+//			updateValueSets(
+//				completion: { result in
+//					switch result {
+//					case let .failure(error):
+//						completion(.failure(error))
+//					case let .success(valueSets):
+//						
+//						downloadAcceptanceRules()
+//						
+//						break
+//		
+//					}
+//				})
+//		}
+
+		// 3. update/ download acceptance rules
+		
+		// 4. update/ download invalidation rules
+		
+		// 5. assemble external rule params
+		
+		// 6. assemble external rule params for acceptance rules
+		
+		// 7. apply acceptance rules
+		
+		// 8. assemble external rule params for invalidation rules
+		
+		// 9. apply invalidation rules
+
 	}
 		
 	// MARK: - Public
@@ -84,7 +124,9 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 	private let store: Store
 	private let client: Client
 	private let signatureVerifier: SignatureVerification
-
+	
+	private var subscriptions = Set<AnyCancellable>()
+	
 	private func onboardedCountriesSuccessHandler(
 		packageDownloadResponse: PackageDownloadResponse,
 		completion: @escaping (Result<[Country], ValidationOnboardedCountriesError>) -> Void
@@ -172,4 +214,105 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 			completion(.failure(.ONBOARDED_COUNTRIES_JSON_DECODING_FAILED))
 		}
 	}
+	
+	// MARK: - 1. Apply technical validation
+	
+	private func applyTechnicalValidation(
+		validationClock: Date,
+		expirationDate: Date
+	) -> Result<DCCValidationReport, DCCValidationError> {
+		// JsonSchemaCheck is always true because we expect here a DigitalGreenCertificate, which was already json schema validated at its creation.
+		var progress = DCCValidationReport(
+			expirationCheck: false,
+			jsonSchemaCheck: true,
+			acceptanceRuleValidation: nil,
+			invalidationRuleValidation: nil
+		)
+		
+		// Check expiration date
+		guard expirationDate >= validationClock else {
+			return .failure(DCCValidationError.TECHNICAL_VALIDATION_FAILED(progress))
+		}
+		progress.expirationCheck = true
+		
+		return .success(progress)
+	}
+	
+	// MARK: - 2. Update/ download value sets
+	
+	private func updateValueSets(
+		completion: @escaping (Result<SAP_Internal_Dgc_ValueSets, DCCValidationError>) -> Void
+	) {
+		vaccinationValueSetsProvider.latestVaccinationCertificateValueSets()
+			.sink(
+				receiveCompletion: { result in
+					switch result {
+					case .finished:
+						break
+					case .failure(let error):
+						if case let URLSession.Response.Failure.httpError(_, response) = error {
+							switch response.statusCode {
+							case 500...509:
+								completion(.failure(.VALUE_SET_SERVER_ERROR))
+							default:
+								Log.error("Unhandled Status Code while fetching certificate value sets", log: .vaccination, error: error)
+							}
+							
+						} else if case URLSession.Response.Failure.noNetworkConnection = error {
+							completion(.failure(.NO_NETWORK))
+						}
+					}
+					
+				}, receiveValue: { valueSets in
+					completion(.success(valueSets))
+				}
+			)
+			.store(in: &subscriptions)
+	}
+	
+	// MARK: - 3. Update/ download acceptance rules
+	
+	private func downloadAcceptanceRule(
+		completion: (Result<[Rule], DCCValidationError>) -> Void
+	) {
+		client.getDCCRules(
+			eTag: store.acceptanceRulesCache?.lastValidationRulesETag,
+			isFake: false,
+			ruleType: .acceptance,
+			completion: { [weak self] result in
+				guard let self = self else {
+					Log.error("Could not create strong self")
+					// completion(.failure(.ACCEPTANCE_RULE_CLIENT_ERROR(<#T##DCCValidationReport#>)))
+					return
+				}
+				
+				switch result {
+				case let .success(packageDownloadResponse):
+					self.onboardedCountriesSuccessHandler(
+						packageDownloadResponse: packageDownloadResponse,
+						completion: completion
+					)
+				case let .failure(error):
+					self.onboardedCountriesFailureHandler(
+						error: error,
+						completion: completion
+					)
+				}
+					
+			}
+		)
+		
+	}
+	
+	// MARK: - 4. Update/ download invalidation rules
+	
+	// MARK: - 5. Assemble external rule parameters
+	
+	// MARK: - 6. Assemble external rule parameters for acceptance rules
+	
+	// MARK: - 7. Apply acceptance rules
+	
+	// MARK: - 8. Assemble external rule parameter for invalidation rules
+	
+	// MARK: - 9. Apply invalidation rules
 }

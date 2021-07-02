@@ -261,6 +261,16 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 		set { kvStore["validationOnboardedCountriesCache"] = newValue }
 	}
 	
+	var acceptanceRulesCache: ValidationRulesCache? {
+		get { kvStore["acceptanceRulesCache"] as ValidationRulesCache? ?? nil }
+		set { kvStore["acceptanceRulesCache"] = newValue }
+	}
+	
+	var invalidationRulesCache: ValidationRulesCache? {
+		get { kvStore["invalidationRulesCache"] as ValidationRulesCache? ?? nil }
+		set { kvStore["invalidationRulesCache"] = newValue }
+	}
+	
 	// MARK: - Non-Release Stuff
 	
 	#if !RELEASE
