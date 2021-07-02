@@ -1,4 +1,4 @@
-////
+//
 // 🦠 Corona-Warn-App
 //
 
@@ -63,6 +63,7 @@ final class HealthCertificatesCoordinator {
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProvider
 
 	private var modalNavigationController: UINavigationController!
+	private var validationCoordinator: HealthCertificateValidationCoordinator?
 
 	private var subscriptions = Set<AnyCancellable>()
 
@@ -333,13 +334,15 @@ final class HealthCertificatesCoordinator {
 		healthCertificate: HealthCertificate,
 		countries: [Country]
 	) {
-		let coordinator = HealthCertificateValidationCoordinator(
+		validationCoordinator = HealthCertificateValidationCoordinator(
 			parentViewController: modalNavigationController,
+			healthCertificate: healthCertificate,
+			countries: countries,
 			store: store,
 			healthCertificateValidationService: healthCertificateValidationService
 		)
 
-		coordinator.start()
+		validationCoordinator?.start()
 	}
 	
 	private func showDeleteAlert(
