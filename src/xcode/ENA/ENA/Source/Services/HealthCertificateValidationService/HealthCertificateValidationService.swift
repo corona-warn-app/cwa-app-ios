@@ -7,6 +7,7 @@ import OpenCombine
 import HealthCertificateToolkit
 // Do not import everything, just the datatypes we need to make a clean cut.
 import class CertLogic.Rule
+import class CertLogic.ExternalParameter
 
 protocol HealthCertificateValidationProviding {
 	func onboardedCountries(
@@ -110,7 +111,18 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 											completion(.failure(error))
 										case let .success(invalidationRules):
 											
+											let acceptanceRuleParameter = self.assembleAcceptanceExternalRuleParameters(
+												healthCertificate: healthCertificate,
+												arrivalCountry: arrivalCountry,
+												validationClock: validationClock
+											)
 											
+											let invalidationRuleParameter = self.assembleInvalidationExternalRuleParameters(
+												healthCertificate: healthCertificate,
+												validationClock: validationClock
+											)
+											
+
 											break
 										}
 									}
@@ -514,9 +526,73 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		}
 	}
 	
-	// MARK: - 4. Update/ download invalidation rules
+	// MARK: - External rule parameters
 	
-	// MARK: - 5. Assemble external rule parameters
+	private func assembleAcceptanceExternalRuleParameters(
+		healthCertificate: HealthCertificate,
+		arrivalCountry: String,
+		validationClock: Date,
+		valueSet: SAP_Internal_Dgc_ValueSets
+	) -> ExternalParameter {
+		
+		let mappedValueSets = mapValueSetsForExternalParameter(valueSet: valueSet)
+		
+		let externalRuleParameter = ExternalParameter(
+			validationClock: validationClock,
+			valueSets: mappedValueSets,
+			countryCode: arrivalCountry,
+			exp: healthCertificate.cborWebTokenHeader.expirationTime,
+			iat: healthCertificate.cborWebTokenHeader.issuedAt,
+			certificationType: healthCertificate.type,
+			issueCountryCode: "DE"
+		)
+		
+		return externalRuleParameter
+	}
+	
+	private func assembleInvalidationExternalRuleParameters(
+		healthCertificate: HealthCertificate,
+		arrivalCountry: String,
+		valueSet: SAP_Internal_Dgc_ValueSets
+	) -> ExternalParameter {
+		
+		let mappedValueSets = mapValueSetsForExternalParameter(valueSet: valueSet)
+		
+		let externalRuleParameter = ExternalParameter(
+			validationClock: validationClock,
+			valueSets: valueSets,
+			countryCode: healthCertificate.cborWebTokenHeader.issuer,
+			exp: healthCertificate.cborWebTokenHeader.expirationTime,
+			iat: healthCertificate.cborWebTokenHeader.issuedAt,
+			certificationType: healthCertificate.type,
+			issueCountryCode: "DE"
+		)
+		
+		return externalRuleParameter
+	}
+	
+	/// Maps our valueSet on the value set of CertLogic. See https://github.com/corona-warn-app/cwa-app-tech-spec/blob/proposal/business-rules-dcc/docs/spec/dgc-validation-rules-client.md#data-structure-of-external-rule-parameters
+	private func mapValueSetsForExternalParameter(
+		valueSet: SAP_Internal_Dgc_ValueSets
+	) -> [String: [String]] {
+		var dictionary: [String: [String]]
+		dictionary["country-2-codes"] = allCountryCodes
+		dictionary["covid-19-lab-result"] = valueSet.tcTr.items.map { $0.key }
+		dictionary["covid-19-lab-test-manufacturer-and-name"] = valueSet.ma.items.map { $0.key }
+		dictionary["covid-19-lab-test-type"] = valueSet.tcTt.items.map { $0.key }
+		dictionary["disease-agent-targeted"] = valueSet.tg.items.map { $0.key }
+		dictionary["sct-vaccines-covid-19"] = valueSet.vp.items.map { $0.key }
+		dictionary["vaccines-covid-19-auth-holders"] = valueSet.ma.items.map { $0.key }
+		dictionary["vaccines-covid-19-names"] = valueSet.mp.items.map { $0.key }
+		return dictionary
+	}
+	
+	private var allCountryCodes: [String] {
+		// This list of country codes comes from our techspec 1:1 as it is. Because we want to keep the copied format, we disable swiftlint here.
+		// swiftlint:disable line_length
+		// swiftlint:disable comma
+		return ["AD","AE","AF","AG","AI","AL","AM","AO","AQ","AR","AS","AT","AU","AW","AX","AZ","BA","BB","BD","BE","BF","BG","BH","BI","BJ","BL","BM","BN","BO","BQ","BR","BS","BT","BV","BW","BY","BZ","CA","CC","CD","CF","CG","CH","CI","CK","CL","CM","CN","CO","CR","CU","CV","CW","CX","CY","CZ","DE","DJ","DK","DM","DO","DZ","EC","EE","EG","EH","ER","ES","ET","FI","FJ","FK","FM","FO","FR","GA","GB","GD","GE","GF","GG","GH","GI","GL","GM","GN","GP","GQ","GR","GS","GT","GU","GW","GY","HK","HM","HN","HR","HT","HU","ID","IE","IL","IM","IN","IO","IQ","IR","IS","IT","JE","JM","JO","JP","KE","KG","KH","KI","KM","KN","KP","KR","KW","KY","KZ","LA","LB","LC","LI","LK","LR","LS","LT","LU","LV","LY","MA","MC","MD","ME","MF","MG","MH","MK","ML","MM","MN","MO","MP","MQ","MR","MS","MT","MU","MV","MW","MX","MY","MZ","NA","NC","NE","NF","NG","NI","NL","NO","NP","NR","NU","NZ","OM","PA","PE","PF","PG","PH","PK","PL","PM","PN","PR","PS","PT","PW","PY","QA","RE","RO","RS","RU","RW","SA","SB","SC","SD","SE","SG","SH","SI","SJ","SK","SL","SM","SN","SO","SR","SS","ST","SV","SX","SY","SZ","TC","TD","TF","TG","TH","TJ","TK","TL","TM","TN","TO","TR","TT","TV","TW","TZ","UA","UG","UM","US","UY","UZ","VA","VC","VE","VG","VI","VN","VU","WF","WS","YE","YT","ZA","ZM","ZW"]
+	}
 	
 	// MARK: - 6. Assemble external rule parameters for acceptance rules
 	
