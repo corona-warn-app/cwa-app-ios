@@ -86,7 +86,6 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		guard expirationDate >= validationClock else {
 			return completion(.failure(.TECHNICAL_VALIDATION_FAILED))
 		}
-				
 
 		// 2. update/ download value sets
 		updateValueSets(
@@ -130,13 +129,39 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 												validationClock: validationClock,
 												valueSet: valueSets
 											)
-											
-											
+
 											// 7. apply acceptance rules
-													
+
+											let accpeptanceRulesResult = ValidationRulesAccess().applyValidationRules(
+												acceptanceRules,
+												to: healthCertificate.digitalCovidCertificate,
+												externalRules: acceptanceRuleParameter
+											)
+
+											guard case let .success(accpeptanceRulesValidations) = accpeptanceRulesResult else {
+												if case let .failure(error) = accpeptanceRulesResult {
+													completion(.failure(.ACCEPTANCE_RULE_VALIDATION_ERROR(error)))
+												}
+												return
+											}
+
 											// 9. apply invalidation rules
 											
-											
+											let invaldationRulesResult = ValidationRulesAccess().applyValidationRules(
+												invalidationRules,
+												to: healthCertificate.digitalCovidCertificate,
+												externalRules: invalidationRuleParameter
+											)
+
+											guard case let .success(invaldationRulesValidations) = invaldationRulesResult else {
+												if case let .failure(error) = invaldationRulesResult {
+													completion(.failure(.INVALIDATION_RULE_VALIDATION_ERROR(error)))
+												}
+												return
+											}
+
+											let combinedRuleValidations = accpeptanceRulesValidations + invaldationRulesValidations
+
 											// if all rules contains .passed, we call this:
 											completion(.success(.validationPassed))
 											
