@@ -59,7 +59,7 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 			onboardedCountries: onboardedCountriesFake,
 			lastOnboardedCountriesETag: "FakeETagNotModified"
 		)
-		store.onboardedCountriesCache = cachedOnboardedCountries
+		store.validationOnboardedCountriesCache = cachedOnboardedCountries
 		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
@@ -81,7 +81,7 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 		
 		// THEN
 		waitForExpectations(timeout: .short)
-		XCTAssertEqual(countries, store.onboardedCountriesCache?.onboardedCountries)
+		XCTAssertEqual(countries, store.validationOnboardedCountriesCache?.onboardedCountries)
 	}
 	
 	// MARK: - Failures
