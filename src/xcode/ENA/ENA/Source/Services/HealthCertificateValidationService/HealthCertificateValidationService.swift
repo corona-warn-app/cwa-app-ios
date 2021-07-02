@@ -8,6 +8,7 @@ import HealthCertificateToolkit
 // Do not import everything, just the datatypes we need to make a clean cut.
 import class CertLogic.Rule
 import class CertLogic.ExternalParameter
+import enum CertLogic.CertificateType
 
 protocol HealthCertificateValidationProviding {
 	func onboardedCountries(
@@ -114,16 +115,18 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 											let acceptanceRuleParameter = self.assembleAcceptanceExternalRuleParameters(
 												healthCertificate: healthCertificate,
 												arrivalCountry: arrivalCountry,
-												validationClock: validationClock
+												validationClock: validationClock,
+												valueSet: valueSets
 											)
 											
 											let invalidationRuleParameter = self.assembleInvalidationExternalRuleParameters(
 												healthCertificate: healthCertificate,
-												validationClock: validationClock
+												arrivalCountry: arrivalCountry,
+												validationClock: validationClock,
+												valueSet: valueSets
 											)
 											
-
-											break
+											completion(.success(.validationPassed))
 										}
 									}
 								)
@@ -536,15 +539,16 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 	) -> ExternalParameter {
 		
 		let mappedValueSets = mapValueSetsForExternalParameter(valueSet: valueSet)
+		let mappedCertificateType = mapForExternalParameter(healthCertificate.type)
 		
 		let externalRuleParameter = ExternalParameter(
 			validationClock: validationClock,
 			valueSets: mappedValueSets,
 			countryCode: arrivalCountry,
-			exp: healthCertificate.cborWebTokenHeader.expirationTime,
-			iat: healthCertificate.cborWebTokenHeader.issuedAt,
-			certificationType: healthCertificate.type,
-			issueCountryCode: "DE"
+			exp: mapUnixTimestampsInSecondsToDate(healthCertificate.cborWebTokenHeader.expirationTime),
+			iat: mapUnixTimestampsInSecondsToDate(healthCertificate.cborWebTokenHeader.issuedAt),
+			certificationType: mappedCertificateType,
+			issueCountryCode: healthCertificate.cborWebTokenHeader.issuer
 		)
 		
 		return externalRuleParameter
@@ -553,19 +557,21 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 	private func assembleInvalidationExternalRuleParameters(
 		healthCertificate: HealthCertificate,
 		arrivalCountry: String,
+		validationClock: Date,
 		valueSet: SAP_Internal_Dgc_ValueSets
 	) -> ExternalParameter {
 		
 		let mappedValueSets = mapValueSetsForExternalParameter(valueSet: valueSet)
-		
+		let mappedCertificateType = mapForExternalParameter(healthCertificate.type)
+
 		let externalRuleParameter = ExternalParameter(
 			validationClock: validationClock,
-			valueSets: valueSets,
+			valueSets: mappedValueSets,
 			countryCode: healthCertificate.cborWebTokenHeader.issuer,
-			exp: healthCertificate.cborWebTokenHeader.expirationTime,
-			iat: healthCertificate.cborWebTokenHeader.issuedAt,
-			certificationType: healthCertificate.type,
-			issueCountryCode: "DE"
+			exp: mapUnixTimestampsInSecondsToDate(healthCertificate.cborWebTokenHeader.expirationTime),
+			iat: mapUnixTimestampsInSecondsToDate(healthCertificate.cborWebTokenHeader.issuedAt),
+			certificationType: mappedCertificateType,
+			issueCountryCode: healthCertificate.cborWebTokenHeader.issuer
 		)
 		
 		return externalRuleParameter
@@ -575,7 +581,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 	private func mapValueSetsForExternalParameter(
 		valueSet: SAP_Internal_Dgc_ValueSets
 	) -> [String: [String]] {
-		var dictionary: [String: [String]]
+		var dictionary = [String: [String]]()
 		dictionary["country-2-codes"] = allCountryCodes
 		dictionary["covid-19-lab-result"] = valueSet.tcTr.items.map { $0.key }
 		dictionary["covid-19-lab-test-manufacturer-and-name"] = valueSet.ma.items.map { $0.key }
@@ -592,6 +598,25 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		// swiftlint:disable line_length
 		// swiftlint:disable comma
 		return ["AD","AE","AF","AG","AI","AL","AM","AO","AQ","AR","AS","AT","AU","AW","AX","AZ","BA","BB","BD","BE","BF","BG","BH","BI","BJ","BL","BM","BN","BO","BQ","BR","BS","BT","BV","BW","BY","BZ","CA","CC","CD","CF","CG","CH","CI","CK","CL","CM","CN","CO","CR","CU","CV","CW","CX","CY","CZ","DE","DJ","DK","DM","DO","DZ","EC","EE","EG","EH","ER","ES","ET","FI","FJ","FK","FM","FO","FR","GA","GB","GD","GE","GF","GG","GH","GI","GL","GM","GN","GP","GQ","GR","GS","GT","GU","GW","GY","HK","HM","HN","HR","HT","HU","ID","IE","IL","IM","IN","IO","IQ","IR","IS","IT","JE","JM","JO","JP","KE","KG","KH","KI","KM","KN","KP","KR","KW","KY","KZ","LA","LB","LC","LI","LK","LR","LS","LT","LU","LV","LY","MA","MC","MD","ME","MF","MG","MH","MK","ML","MM","MN","MO","MP","MQ","MR","MS","MT","MU","MV","MW","MX","MY","MZ","NA","NC","NE","NF","NG","NI","NL","NO","NP","NR","NU","NZ","OM","PA","PE","PF","PG","PH","PK","PL","PM","PN","PR","PS","PT","PW","PY","QA","RE","RO","RS","RU","RW","SA","SB","SC","SD","SE","SG","SH","SI","SJ","SK","SL","SM","SN","SO","SR","SS","ST","SV","SX","SY","SZ","TC","TD","TF","TG","TH","TJ","TK","TL","TM","TN","TO","TR","TT","TV","TW","TZ","UA","UG","UM","US","UY","UZ","VA","VC","VE","VG","VI","VN","VU","WF","WS","YE","YT","ZA","ZM","ZW"]
+	}
+	
+	private func mapForExternalParameter(_ certificateType: HealthCertificate.CertificateType) -> CertLogic.CertificateType {
+		switch certificateType {
+		case .vaccination:
+			return .vacctination
+		case .test:
+			return .test
+		case .recovery:
+			return .recovery
+		}
+	}
+	
+	private func mapUnixTimestampsInSecondsToDate(_ timestamp: UInt64?) -> Date {
+		guard let timestamp = timestamp else {
+			// TODO: What should we do here?
+			fatalError("This should not happen")
+		}
+		return Date(timeIntervalSince1970: TimeInterval(timestamp))
 	}
 	
 	// MARK: - 6. Assemble external rule parameters for acceptance rules
