@@ -37,7 +37,7 @@ final class HTMLView: WKWebView {
 		isOpaque = false
 		scrollView.isScrollEnabled = false
 
-		accessibilityIdentifier = "HTMLView"
+		accessibilityIdentifier = AccessibilityIdentifiers.General.webView
 		scrollView.delegate = self
 	}
 
