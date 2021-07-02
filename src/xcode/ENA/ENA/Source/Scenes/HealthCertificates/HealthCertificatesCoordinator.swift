@@ -333,7 +333,13 @@ final class HealthCertificatesCoordinator {
 		healthCertificate: HealthCertificate,
 		countries: [Country]
 	) {
-		print("Show validation")
+		let coordinator = HealthCertificateValidationCoordinator(
+			parentViewController: modalNavigationController,
+			store: store,
+			healthCertificateValidationService: healthCertificateValidationService
+		)
+
+		coordinator.start()
 	}
 	
 	private func showDeleteAlert(
