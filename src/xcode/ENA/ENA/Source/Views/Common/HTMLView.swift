@@ -34,6 +34,7 @@ final class HTMLView: WKWebView {
 
 	private func setup() {
 		backgroundColor = nil
+		isOpaque = false
 		scrollView.isScrollEnabled = false
 
 		accessibilityIdentifier = "HTMLView"
