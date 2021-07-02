@@ -40,7 +40,7 @@ class ValidationRulesAccessTests: XCTestCase {
 
         let result = ValidationRulesAccess().applyValidationRules(rules, to: certificate, externalRules: externalParameters)
 
-        guard case let .success(validationResults) = result else {
+        guard case let .success = result else {
             XCTFail("Success expected.")
             return
         }
