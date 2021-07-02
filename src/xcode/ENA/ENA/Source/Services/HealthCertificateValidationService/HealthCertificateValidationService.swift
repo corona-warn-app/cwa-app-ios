@@ -115,8 +115,6 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		
 		// 9. apply invalidation rules
 
-	
-		
 	// MARK: - Public
 	
 	// MARK: - Internal
@@ -257,27 +255,20 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 	private func downloadAcceptanceRule(
 		completion: (Result<[Rule], HealthCertificateValidationError>) -> Void
 	) {
+		
 		client.getDCCRules(
 			eTag: store.acceptanceRulesCache?.lastValidationRulesETag,
 			isFake: false,
 			ruleType: .acceptance,
-			completion: { [weak self] result in
-				guard let self = self else {
-					Log.error("Could not create strong self")
-					 completion(.failure(.ACCEPTANCE_RULE_CLIENT_ERROR))
-					return
-				}
+			completion: { result in
 				switch result {
-				
 				case let .success(packageDownloadResponse):
 					break
 				case let .failure(error):
-					completion(.failure(.ACCEPTANCE_RULE_SERVER_ERROR)
+					break
 				}
-					
 			}
 		)
-		
 	}
 	
 	// MARK: - 4. Update/ download invalidation rules
