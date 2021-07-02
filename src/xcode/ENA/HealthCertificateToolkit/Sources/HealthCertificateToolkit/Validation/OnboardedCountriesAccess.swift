@@ -13,8 +13,9 @@ public struct OnboardedCountriesAccess {
     
     // MARK: - Public
 
-    public func extractCountryCodes(from cborData: CBORData) -> Result<[String], RuleValidationError> {
+    public init() {}
 
+    public func extractCountryCodes(from cborData: CBORData) -> Result<[String], RuleValidationError> {
         do {
             let countryCodes = try CodableCBORDecoder().decode([String].self, from: cborData)
             return .success(countryCodes)
