@@ -166,7 +166,8 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 				// Save in success case for caching
 				let receivedOnboardedCountries = ValidationOnboardedCountriesCache(
 					onboardedCountries: countries,
-					lastOnboardedCountriesETag: eTag)
+					lastOnboardedCountriesETag: eTag
+				)
 				store.validationOnboardedCountriesCache = receivedOnboardedCountries
 				completion(.success(countries))
 			case let .failure(error):
@@ -250,8 +251,6 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 			.store(in: &subscriptions)
 	}
 	
-	// MARK: - 3. Update/ download acceptance rules
-	
 	private func downloadAcceptanceRule(
 		completion: (Result<[Rule], HealthCertificateValidationError>) -> Void
 	) {
@@ -263,12 +262,72 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 			completion: { result in
 				switch result {
 				case let .success(packageDownloadResponse):
-					break
+					Log.info("Successfully received acceptance rules package. Proceed with eTag verification...")
+
+					guard let eTag = packageDownloadResponse.etag else {
+						Log.error("ETag of package is missing. Return with failure.")
+						completion(.failure(.ACCEPTANCE_RULE_JSON_ARCHIVE_SIGNATURE_INVALID))
+						return
+					}
+					
+					Log.info("Successfully verified eTag. Proceed with package extraction...")
+							
+					guard !packageDownloadResponse.isEmpty,
+						  let sapDownloadedPackage = packageDownloadResponse.package else {
+						Log.error("PackageDownloadResponse is empty. Return with failure.")
+						completion(.failure(.ACCEPTANCE_RULE_JSON_ARCHIVE_FILE_MISSING))
+						return
+					}
+					Log.info("Successfully extracted sapDownloadedPackage. Proceed with package verification...")
+					
+					guard self.signatureVerifier.verify(sapDownloadedPackage) else {
+						Log.error("Verification of sapDownloadedPackage failed. Return with failure")
+						completion(.failure(.ACCEPTANCE_RULE_JSON_ARCHIVE_SIGNATURE_INVALID))
+						return
+					}
+					Log.info("Successfully verified sapDownloadedPackage. Proceed now with CBOR decoding...")
+					
+					
+					self.acceptanceRules(sapDownloadedPackage.bin, completion: { [weak self] result in
+						switch result {
+						case let .success(acceptanceRules):
+							
+							guard let self = self else {
+								Log.error("Could not create strong self")
+								completion(.failure(.ACCEPTANCE_RULE_CLIENT_ERROR))
+								return
+							}
+							
+							Log.info("Successfully decoded acceptance rules. Returning now.")
+							// Save in success case for caching
+							let receivedAcceptanceRules = ValidationRulesCache(
+								validationRules: acceptanceRules,
+								lastValidationRulesETag: eTag
+							)
+							self.store.acceptanceRulesCache = receivedAcceptanceRules
+							completion(.success(acceptanceRules))
+						case let .failure(error):
+							Log.error("Could not decode CBOR from package with error:", error: error)
+							completion(.failure(error))
+						}
+					})
 				case let .failure(error):
 					break
 				}
 			}
 		)
+	}
+	
+	/// Extracts by the HealthCertificateToolkit the list of countrys. Expects the list as CBOR-Data and return for success the list of Country-Objects.
+	private func acceptanceRules(_ data: Data, completion: (Result<[Rule], HealthCertificateValidationError>) -> Void) {
+		let extractAcceptanceRulesResult = ValidationRulesAccess().extractValidationRules(from: data)
+		
+		switch extractAcceptanceRulesResult {
+		case let .success(acceptanceRules):
+			completion(.success(acceptanceRules))
+		case .failure:
+			completion(.failure(.ACCEPTANCE_RULE_JSON_DECODING_FAILED))
+		}
 	}
 	
 	// MARK: - 4. Update/ download invalidation rules
