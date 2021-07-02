@@ -1920,7 +1920,7 @@
 /* - At least one person vaccinated card */
 "Statistics_Card_AtLeastOneVaccinated_Title" = "Persoane care au primit cel puțin o doză de vaccin";
 
-"Statistics_Card_AtLeastOneVaccinated_Today" = "Curent";
+"Statistics_Card_AtLeastOneVaccinated_Today" = "Până astăzi";
 
 "Statistics_Card_AtLeastOneVaccinated_Yesterday" = "Până ieri";
 
@@ -1933,9 +1933,9 @@
 "Statistics_Card_AtLeastOneVaccinated_SecondarySubtitleLabel" = "din numărul total al populației";
 
 /* - Fully vaccinated people card */
-"Statistics_Card_FullyVaccinated_Title" = "persoane care sunt complet vaccinate";
+"Statistics_Card_FullyVaccinated_Title" = "Persoane care sunt complet vaccinate";
 
-"Statistics_Card_FullyVaccinated_Today" = "Curent";
+"Statistics_Card_FullyVaccinated_Today" = "Până astăzi";
 
 "Statistics_Card_FullyVaccinated_Yesterday" = "Până ieri";
 
@@ -1950,11 +1950,11 @@
 /* - Applied vaccination dose rates card */
 "Statistics_Card_AppliedDoseRates_Title" = "Doze de vaccin administrate";
 
-"Statistics_Card_AppliedDoseRates_Today" = "Curent";
+"Statistics_Card_AppliedDoseRates_Today" = "Astăzi";
 
-"Statistics_Card_AppliedDoseRates_Yesterday" = "Până ieri";
+"Statistics_Card_AppliedDoseRates_Yesterday" = "Ieri";
 
-"Statistics_Card_AppliedDoseRates_Date" = "Până la %@";
+"Statistics_Card_AppliedDoseRates_Date" = "%@";
 
 "Statistics_Card_AppliedDoseRates_SecondaryLabelTitle" = "Media pe 7 zile";
 
@@ -2613,17 +2613,35 @@
 "HealthCertificate_QRScanner_instruction" = "Scanare cod QR și înregistrare";
 
 /* Health Certified Person Screen */
-"HealthCertifiedPerson_title" = "Dovada digitală UE a vaccinării";
+"HealthCertifiedPerson_title" = "Certificat COVID digital UE";
 
-"HealthCertifiedPerson_subtitle" = "Protecție prin vaccinare împotriva SARS-CoV-2";
+"HealthCertifiedPerson_partiallyVaccinated" = "Nu ați primit încă toate vaccinările planificate curente. Astfel, protecția dvs. prin vaccinare nu este completă încă.";
 
 "HealthCertifiedPerson_dateOfBirth" = "Născut(ă) pe %@";
 
-"HealthCertifiedPerson_vaccinationCount" = "Vaccinarea %i din %i";
+"HealthCertifiedPerson_preferredPersonDescription" = "Smartphone-ul meu, aplicația mea. Certificatele pentru mine apar în partea de sus a listei.";
 
-"HealthCertifiedPerson_vaccinationDate" = "Efectuată pe %@";
+"HealthCertifiedPerson_QRCode_Image_Description" = "Un cod QR cu certificatul curent";
 
-"HealthCertifiedPerson_QRCode_Image_Description" = "Un cod QR cu starea vaccinării dvs.";
+"HealthCertifiedPerson_VaccinationCertificate_headline" = "Certificat de vaccinare";
+
+"HealthCertifiedPerson_VaccinationCertificate_vaccinationCount" = "Vaccinarea %i din %i";
+
+"HealthCertifiedPerson_VaccinationCertificate_vaccinationDate" = "vaccinat(ă) pe %@";
+
+"HealthCertifiedPerson_TestCertificate_headline" = "Certificat de test";
+
+"HealthCertifiedPerson_TestCertificate_pcrTest" = "Test PCR";
+
+"HealthCertifiedPerson_TestCertificate_antigenTest" = "Test rapid";
+
+"HealthCertifiedPerson_TestCertificate_sampleCollectionDate" = "Probă prelevată %@";
+
+"HealthCertifiedPerson_RecoveryCertificate_headline" = "Certificat de recuperare";
+
+"HealthCertifiedPerson_RecoveryCertificate_validityDate" = "valabil până la %@";
+
+"HealthCertifiedPerson_currentlyUsedCertificate" = "Certificat utilizat în prezent";
 
 /* Vaccination Certificate Details */
 "HealthCertificate_Details_vaccinationCount" = "Vaccinarea %i din %i";

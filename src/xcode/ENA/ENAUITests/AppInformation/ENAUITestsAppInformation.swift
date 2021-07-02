@@ -99,8 +99,8 @@ class ENAUITests_02_AppInformation: CWATestCase {
 
 		XCTAssertTrue(app.images["AppStrings.AppInformation.privacyImageDescription"].waitForExistence(timeout: .medium))
 
-		XCTAssertTrue(app.webViews["HTMLView"].waitForExistence(timeout: .medium))
-		let webView = app.webViews["HTMLView"]
+		XCTAssertTrue(app.webViews[AccessibilityIdentifiers.General.webView].waitForExistence(timeout: .medium))
+		let webView = app.webViews[AccessibilityIdentifiers.General.webView]
 		let firstLink = webView.links.firstMatch
 		XCTAssertTrue(firstLink.exists)
 		XCTAssertTrue(firstLink.isHittable)
