@@ -16,6 +16,18 @@ html, body, table {
 	}
 }
 
+@media (prefers-color-scheme: dark) {
+	body {
+		color: white;
+	}
+	a:link {
+		color: #0096e2;
+	}
+	a:visited {
+		color: #9d57df;
+	}
+}
+
 /* Headlines & text */
 
 h1 {
