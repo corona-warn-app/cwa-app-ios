@@ -1920,7 +1920,7 @@
 /* - At least one person vaccinated card */
 "Statistics_Card_AtLeastOneVaccinated_Title" = "Лица, получили поне една доза ваксина";
 
-"Statistics_Card_AtLeastOneVaccinated_Today" = "Към настоящия момент";
+"Statistics_Card_AtLeastOneVaccinated_Today" = "До днес";
 
 "Statistics_Card_AtLeastOneVaccinated_Yesterday" = "До вчера";
 
@@ -1933,9 +1933,9 @@
 "Statistics_Card_AtLeastOneVaccinated_SecondarySubtitleLabel" = "от общия брой на населението";
 
 /* - Fully vaccinated people card */
-"Statistics_Card_FullyVaccinated_Title" = "напълно ваксинирани лица";
+"Statistics_Card_FullyVaccinated_Title" = "Напълно ваксинирани лица";
 
-"Statistics_Card_FullyVaccinated_Today" = "Към настоящия момент";
+"Statistics_Card_FullyVaccinated_Today" = "До днес";
 
 "Statistics_Card_FullyVaccinated_Yesterday" = "До вчера";
 
@@ -1950,11 +1950,11 @@
 /* - Applied vaccination dose rates card */
 "Statistics_Card_AppliedDoseRates_Title" = "Поставени дози ваксини";
 
-"Statistics_Card_AppliedDoseRates_Today" = "Към настоящия момент";
+"Statistics_Card_AppliedDoseRates_Today" = "Днес";
 
-"Statistics_Card_AppliedDoseRates_Yesterday" = "До вчера";
+"Statistics_Card_AppliedDoseRates_Yesterday" = "Вчера";
 
-"Statistics_Card_AppliedDoseRates_Date" = "До %@";
+"Statistics_Card_AppliedDoseRates_Date" = "%@";
 
 "Statistics_Card_AppliedDoseRates_SecondaryLabelTitle" = "Средно за последните 7 дни";
 
@@ -2613,17 +2613,35 @@
 "HealthCertificate_QRScanner_instruction" = "Сканирайте QR кода и се регистрирайте";
 
 /* Health Certified Person Screen */
-"HealthCertifiedPerson_title" = "Цифрово доказателство за ваксинация на ЕС";
+"HealthCertifiedPerson_title" = "Цифров сертификат за COVID на ЕС";
 
-"HealthCertifiedPerson_subtitle" = "Ваксинационна защита срещу SARS-CoV-2";
+"HealthCertifiedPerson_partiallyVaccinated" = "Не сте получили всички планирани за момента ваксинации – Вашата ваксинационна защита все още не е пълна.";
 
 "HealthCertifiedPerson_dateOfBirth" = "Дата на раждане %@";
 
-"HealthCertifiedPerson_vaccinationCount" = "Ваксиниране %i от %i";
+"HealthCertifiedPerson_preferredPersonDescription" = "Моят смартфон, моето приложение. Моите сертификати се показват най-отгоре в списъка.";
 
-"HealthCertifiedPerson_vaccinationDate" = "Извършено на %@";
+"HealthCertifiedPerson_QRCode_Image_Description" = "QR код с текущия сертификат";
 
-"HealthCertifiedPerson_QRCode_Image_Description" = "QR код със статуса на ваксинацията Ви.";
+"HealthCertifiedPerson_VaccinationCertificate_headline" = "Сертификат за ваксинация";
+
+"HealthCertifiedPerson_VaccinationCertificate_vaccinationCount" = "Ваксинация %i от %i";
+
+"HealthCertifiedPerson_VaccinationCertificate_vaccinationDate" = "Дата на ваксинация: %@";
+
+"HealthCertifiedPerson_TestCertificate_headline" = "Сертификат за тест";
+
+"HealthCertifiedPerson_TestCertificate_pcrTest" = "PCR тест";
+
+"HealthCertifiedPerson_TestCertificate_antigenTest" = "Бърз тест";
+
+"HealthCertifiedPerson_TestCertificate_sampleCollectionDate" = "Взета проба %@";
+
+"HealthCertifiedPerson_RecoveryCertificate_headline" = "Сертификат за възстановяване";
+
+"HealthCertifiedPerson_RecoveryCertificate_validityDate" = "валиден до %@";
+
+"HealthCertifiedPerson_currentlyUsedCertificate" = "Текущо използван сертификат";
 
 /* Vaccination Certificate Details */
 "HealthCertificate_Details_vaccinationCount" = "Ваксиниране %i от %i";
