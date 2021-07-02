@@ -4,7 +4,7 @@
 
 import Foundation
 
-enum DCCOnboardedCountriesError: Error {
+enum ValidationOnboardedCountriesError: Error {
 	
 	// MARK: - Internal
 	
