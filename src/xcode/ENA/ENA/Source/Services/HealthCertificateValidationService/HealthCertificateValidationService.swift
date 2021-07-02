@@ -159,22 +159,25 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		}
 		Log.info("Successfully verified sapDownloadedPackage. Proceed now with CBOR decoding...")
 		
-		self.countryCodes(sapDownloadedPackage.bin, completion: { result in
-			switch result {
-			case let .success(countries):
-				Log.info("Successfully decoded country codes. Returning now.")
-				// Save in success case for caching
-				let receivedOnboardedCountries = ValidationOnboardedCountriesCache(
-					onboardedCountries: countries,
-					lastOnboardedCountriesETag: eTag
-				)
-				store.validationOnboardedCountriesCache = receivedOnboardedCountries
-				completion(.success(countries))
-			case let .failure(error):
-				Log.error("Could not decode CBOR from package with error:", error: error)
-				completion(.failure(error))
+		self.countryCodes(
+			cborData: sapDownloadedPackage.bin,
+			completion: { result in
+				switch result {
+				case let .success(countries):
+					Log.info("Successfully decoded country codes. Returning now.")
+					// Save in success case for caching
+					let receivedOnboardedCountries = ValidationOnboardedCountriesCache(
+						onboardedCountries: countries,
+						lastOnboardedCountriesETag: eTag
+					)
+					store.validationOnboardedCountriesCache = receivedOnboardedCountries
+					completion(.success(countries))
+				case let .failure(error):
+					Log.error("Could not decode CBOR from package with error:", error: error)
+					completion(.failure(error))
+				}
 			}
-		})
+		)
 	}
 	
 	private func onboardedCountriesFailureHandler(
@@ -206,11 +209,11 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 	
 	/// Extracts by the HealthCertificateToolkit the list of countrys. Expects the list as CBOR-Data and return for success the list of Country-Objects.
 	private func countryCodes(
-		_ data: Data,
+		cborData: Data,
 		completion: (Result<[Country], ValidationOnboardedCountriesError>
 		) -> Void
 	) {
-		let extractOnboardedCountryCodesResult = OnboardedCountriesAccess().extractCountryCodes(from: data)
+		let extractOnboardedCountryCodesResult = OnboardedCountriesAccess().extractCountryCodes(from: cborData)
 		
 		switch extractOnboardedCountryCodesResult {
 		case let .success(countryCodes):
