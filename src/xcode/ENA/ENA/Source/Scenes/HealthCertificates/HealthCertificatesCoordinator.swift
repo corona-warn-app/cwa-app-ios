@@ -197,7 +197,7 @@ final class HealthCertificatesCoordinator {
 
 				setLoadingState(true)
 
-				self.dccValidationService.onboardedCountries { result in
+				self.healthCertificateValidationService.onboardedCountries { result in
 					setLoadingState(false)
 
 					switch result {
@@ -283,7 +283,7 @@ final class HealthCertificatesCoordinator {
 				footerViewModel.setLoadingIndicator(true, disable: true, button: .primary)
 				footerViewModel.setLoadingIndicator(false, disable: true, button: .secondary)
 
-				self.dccValidationService.onboardedCountries { result in
+				self.healthCertificateValidationService.onboardedCountries { result in
 					footerViewModel.setLoadingIndicator(false, disable: false, button: .primary)
 					footerViewModel.setLoadingIndicator(false, disable: false, button: .secondary)
 
