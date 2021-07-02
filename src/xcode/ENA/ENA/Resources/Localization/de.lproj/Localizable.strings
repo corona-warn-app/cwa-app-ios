@@ -2684,9 +2684,9 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Info_imageDescription" = "Eine geschützte Person schaut auf ein Smartphone";
 
-"HealthCertificate_Info_description" = "Fügen Sie Ihre digitalen COVID-Zertifikate der EU in der App hinzu, um mit der App Ihren Impfschutz oder ein negatives Testergebnis nachweisen zu können.";
+"HealthCertificate_Info_description" = "Fügen Sie Ihre digitalen COVID-Zertifikate der EU in der App hinzu, um mit der App den Impfschutz, ein negatives Testergebnis oder eine überstandene Infektion nachweisen zu können.";
 
-"HealthCertificate_Info_section01" = "Sie können digitale COVID-Impfzertifikate oder COVID-Testzertifikate der EU in der App hinzufügen.";
+"HealthCertificate_Info_section01" = "Sie können digitale COVID-Impfzertifikate, COVID-Testzertifikate und COVID-Genesenenzertifikate der EU in der App hinzufügen.";
 
 "HealthCertificate_Info_section02" = "Die Zertifikate gelten innerhalb der EU als gültiger Nachweis (z.B. für Reisen).";
 
