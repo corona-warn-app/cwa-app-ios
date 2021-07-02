@@ -120,5 +120,6 @@ enum LaunchArguments {
 		static let firstAndSecondHealthCertificate = LaunchArgument(name: "firstAndSecondHealthCertificate")
 		static let testCertificateRegistered = LaunchArgument(name: "testCertificateRegistered")
 		static let recoveryCertificateRegistered = LaunchArgument(name: "recoveryCertificateRegistered")
+		static let familyCertificates = LaunchArgument(name: "familyCertificates")
 	}
 }
