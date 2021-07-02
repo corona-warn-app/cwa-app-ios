@@ -443,6 +443,8 @@ enum AccessibilityIdentifiers {
 		static let secondaryFooterButton = "General.secondaryFooterButton"
 		static let cancelButton = "General.cancelButton"
 		static let defaultButton = "General.defaultButton"
+
+		static let webView = "HTMLView"
 	}
 	
 	enum DatePickerOption {
