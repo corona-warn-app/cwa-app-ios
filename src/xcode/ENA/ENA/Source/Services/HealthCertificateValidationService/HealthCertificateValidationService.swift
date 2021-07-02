@@ -112,6 +112,10 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 											completion(.failure(error))
 										case let .success(invalidationRules):
 											
+											// 5. assemble external rule params
+											// Do we need the common external rule params?
+											
+											// 6. assemble external rule params for acceptance rules
 											let acceptanceRuleParameter = self.assembleAcceptanceExternalRuleParameters(
 												healthCertificate: healthCertificate,
 												arrivalCountry: arrivalCountry,
@@ -119,6 +123,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 												valueSet: valueSets
 											)
 											
+											// 8. assemble external rule params for invalidation rules
 											let invalidationRuleParameter = self.assembleInvalidationExternalRuleParameters(
 												healthCertificate: healthCertificate,
 												arrivalCountry: arrivalCountry,
@@ -126,7 +131,20 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 												valueSet: valueSets
 											)
 											
+											
+											// 7. apply acceptance rules
+													
+											// 9. apply invalidation rules
+											
+											
+											// if all rules contains .passed, we call this:
 											completion(.success(.validationPassed))
+											
+											// if all rules contains .open, we call this with the corresponding rules:
+											// completion(.success(.validationOpen([]))
+											
+											// if one rule contains .fail, we call this with the corresponding rules:
+											// completion(.success(.validationPassed))
 										}
 									}
 								)
@@ -137,16 +155,6 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 			}
 		)
 	}
-
-		// 5. assemble external rule params
-		
-		// 6. assemble external rule params for acceptance rules
-		
-		// 7. apply acceptance rules
-		
-		// 8. assemble external rule params for invalidation rules
-		
-		// 9. apply invalidation rules
 
 	// MARK: - Public
 	
@@ -618,12 +626,4 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		}
 		return Date(timeIntervalSince1970: TimeInterval(timestamp))
 	}
-	
-	// MARK: - 6. Assemble external rule parameters for acceptance rules
-	
-	// MARK: - 7. Apply acceptance rules
-	
-	// MARK: - 8. Assemble external rule parameter for invalidation rules
-	
-	// MARK: - 9. Apply invalidation rules
 }
