@@ -274,7 +274,11 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 		cell.configure(
 			cellModel: cellModel,
 			onButtonTap: { [weak self] in
-				self?.viewModel.didTapEntryCellButton(at: indexPath)
+				guard let self = self,
+					  let currentIndexPath = self.tableView.indexPath(for: cell) else {
+					return
+				}
+				self.viewModel.didTapEntryCellButton(at: currentIndexPath)
 			}
 		)
 
