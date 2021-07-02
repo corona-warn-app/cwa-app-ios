@@ -28,10 +28,12 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 	init(
 		store: Store,
 		client: Client,
+		vaccinationValueSetsProvider: VaccinationValueSetsProvider,
 		signatureVerifier: SignatureVerification = SignatureVerifier()
 	) {
 		self.store = store
 		self.client = client
+		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
 		self.signatureVerifier = signatureVerifier
 	}
 	
@@ -75,29 +77,29 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		completion: @escaping (Result<HealthCertificateValidationReport, HealthCertificateValidationError>) -> Void
 	) {
 		
-//		applyTechnicalValidation(validationClock: validationClock, expirationDate: <#T##Date#>)
-//		
-//		switch result {
-//		case let .failure(progress):
-//			completion(.failure(progress))
-//			
-//		case let .success(progress):
-//			
-//			// 2. update/ download value sets
-//			updateValueSets(
-//				completion: { result in
-//					switch result {
-//					case let .failure(error):
-//						completion(.failure(error))
-//					case let .success(valueSets):
-//						
-//						downloadAcceptanceRules()
-//						
-//						break
-//		
-//					}
-//				})
-//		}
+		// 1. Apply technical validation
+		let expirationDate = Date(timeIntervalSince1970: TimeInterval(healthCertificate.cborWebTokenHeader.expirationTime))
+		
+		// NOTE: We expect here a HealthCertificate, which was already json schema validated at its creation time. So the JsonSchemaCheck will here always be true. So we only have to check for the expirationTime of the certificate.
+		guard expirationDate >= validationClock else {
+			return completion(.failure(.TECHNICAL_VALIDATION_FAILED))
+		}
+				
+
+		// 2. update/ download value sets
+		updateValueSets(
+			completion: { result in
+				switch result {
+				case let .failure(error):
+					completion(.failure(error))
+				case let .success(valueSets):
+					break
+					
+				}
+			}
+		)
+	}
+
 
 		// 3. update/ download acceptance rules
 		
@@ -113,7 +115,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		
 		// 9. apply invalidation rules
 
-	}
+	
 		
 	// MARK: - Public
 	
@@ -123,9 +125,12 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 	
 	private let store: Store
 	private let client: Client
+	private let vaccinationValueSetsProvider: VaccinationValueSetsProvider
 	private let signatureVerifier: SignatureVerification
 	
 	private var subscriptions = Set<AnyCancellable>()
+	
+	// MARK: - Onboarded Countries
 	
 	private func onboardedCountriesSuccessHandler(
 		packageDownloadResponse: PackageDownloadResponse,
@@ -215,33 +220,10 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		}
 	}
 	
-	// MARK: - 1. Apply technical validation
-	
-	private func applyTechnicalValidation(
-		validationClock: Date,
-		expirationDate: Date
-	) -> Result<DCCValidationReport, DCCValidationError> {
-		// JsonSchemaCheck is always true because we expect here a DigitalGreenCertificate, which was already json schema validated at its creation.
-		var progress = DCCValidationReport(
-			expirationCheck: false,
-			jsonSchemaCheck: true,
-			acceptanceRuleValidation: nil,
-			invalidationRuleValidation: nil
-		)
-		
-		// Check expiration date
-		guard expirationDate >= validationClock else {
-			return .failure(DCCValidationError.TECHNICAL_VALIDATION_FAILED(progress))
-		}
-		progress.expirationCheck = true
-		
-		return .success(progress)
-	}
-	
-	// MARK: - 2. Update/ download value sets
+	// MARK: - Rule Validation
 	
 	private func updateValueSets(
-		completion: @escaping (Result<SAP_Internal_Dgc_ValueSets, DCCValidationError>) -> Void
+		completion: @escaping (Result<SAP_Internal_Dgc_ValueSets, HealthCertificateValidationError>) -> Void
 	) {
 		vaccinationValueSetsProvider.latestVaccinationCertificateValueSets()
 			.sink(
@@ -273,7 +255,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 	// MARK: - 3. Update/ download acceptance rules
 	
 	private func downloadAcceptanceRule(
-		completion: (Result<[Rule], DCCValidationError>) -> Void
+		completion: (Result<[Rule], HealthCertificateValidationError>) -> Void
 	) {
 		client.getDCCRules(
 			eTag: store.acceptanceRulesCache?.lastValidationRulesETag,
@@ -282,21 +264,15 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 			completion: { [weak self] result in
 				guard let self = self else {
 					Log.error("Could not create strong self")
-					// completion(.failure(.ACCEPTANCE_RULE_CLIENT_ERROR(<#T##DCCValidationReport#>)))
+					 completion(.failure(.ACCEPTANCE_RULE_CLIENT_ERROR))
 					return
 				}
-				
 				switch result {
+				
 				case let .success(packageDownloadResponse):
-					self.onboardedCountriesSuccessHandler(
-						packageDownloadResponse: packageDownloadResponse,
-						completion: completion
-					)
+					break
 				case let .failure(error):
-					self.onboardedCountriesFailureHandler(
-						error: error,
-						completion: completion
-					)
+					completion(.failure(.ACCEPTANCE_RULE_SERVER_ERROR)
 				}
 					
 			}
