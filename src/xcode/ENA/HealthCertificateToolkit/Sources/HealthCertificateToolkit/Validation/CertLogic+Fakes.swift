@@ -43,7 +43,7 @@ public extension ExternalParameter {
 
     static func fake(
         validationClock: Date = Date(),
-        valueSets: Dictionary<String, [String]> = ["": [""]],
+        valueSets: [String: [String]] = ["": [""]],
         countryCode: String = "CZ",
         issueCountryCode: String = "DE",
         exp: Date = Date(),
