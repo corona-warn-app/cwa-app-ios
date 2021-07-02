@@ -44,7 +44,5 @@ class ValidationRulesAccessTests: XCTestCase {
             XCTFail("Success expected.")
             return
         }
-
-        print(validationResults)
     }
 }
