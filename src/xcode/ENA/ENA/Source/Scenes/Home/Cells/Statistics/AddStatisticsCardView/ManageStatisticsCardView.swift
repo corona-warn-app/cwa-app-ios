@@ -13,13 +13,6 @@ class ManageStatisticsCardView: UIView {
 		
 		let borderColor: UIColor = .enaColor(for: .backgroundLightGray)
 		layer.borderColor = borderColor.cgColor
-		// TODO: will move to the `CustomDashedView`
-//		addLocalIncidenceLabel.text = AppStrings.Statistics.AddCard.sevenDayIncidence
-//		addLocalIncidenceLabel.accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.addLocalIncidenceLabel
-//		addLocalIncidencesButton.accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.addLocalIncidencesButton
-//		addLocalIncidenceLabel.onAccessibilityFocus = { [weak self] in
-//			self?.onAccessibilityFocus?()
-//		}
 	}
 	
 	// swiftlint:disable:next function_parameter_count
@@ -80,34 +73,35 @@ class ManageStatisticsCardView: UIView {
 			subview.removeFromSuperview()
 		}
 
+		let addView = { () -> CustomDashedView in
+			let add = CustomDashedView.instance(for: .add)
+			add.tapHandler = {
+				Log.debug("add…", log: .ui)
+			}
+			add.label.onAccessibilityFocus = onAccessibilityFocus
+			return add
+		}()
+
+		let modifyView = { () -> CustomDashedView in
+			let modify = CustomDashedView.instance(for: .modify)
+			modify.tapHandler = {
+				Log.debug("modify…", log: .ui)
+			}
+			modify.label.onAccessibilityFocus = onAccessibilityFocus
+			return modify
+		}()
+
 		switch state {
 		case .empty:
 			// just 'add'
-			let add = CustomDashedView.instance(for: .add)
-			add.tapHandler = {
-				Log.debug("add…", log: .ui)
-			}
-			stackView.addArrangedSubview(add)
+			stackView.addArrangedSubview(addView)
 		case .notYetFull:
 			// 'add' & 'modify'
-			let add = CustomDashedView.instance(for: .add)
-			add.tapHandler = {
-				Log.debug("add…", log: .ui)
-			}
-			stackView.addArrangedSubview(add)
-
-			let modify = CustomDashedView.instance(for: .modify)
-			modify.tapHandler = {
-				Log.debug("modify…", log: .ui)
-			}
-			stackView.addArrangedSubview(modify)
+			stackView.addArrangedSubview(addView)
+			stackView.addArrangedSubview(modifyView)
 		case .full:
 			// just 'modify'
-			let modify = CustomDashedView.instance(for: .modify)
-			modify.tapHandler = {
-				Log.debug("modify…", log: .ui)
-			}
-			stackView.addArrangedSubview(modify)
+			stackView.addArrangedSubview(modifyView)
 		}
 	}
 	
