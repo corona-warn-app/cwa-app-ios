@@ -69,7 +69,7 @@ class HomeState: ENStateHandlerUpdating {
 	@OpenCombine.Published var enState: ENStateHandler.State
 
 	@OpenCombine.Published var statistics: SAP_Internal_Stats_Statistics = SAP_Internal_Stats_Statistics()
-	@OpenCombine.Published var localStatistics: SAP_Internal_Stats_LocalStatistics = SAP_Internal_Stats_LocalStatistics()
+	@OpenCombine.Published var localStatistics: SelectedLocalStatisticsTuple
 	@OpenCombine.Published var statisticsLoadingError: StatisticsLoadingError?
 
 	@OpenCombine.Published private(set) var exposureDetectionInterval: Int
@@ -141,8 +141,8 @@ class HomeState: ENStateHandlerUpdating {
 			.store(in: &subscriptions)
 	}
 	
-	func updateLocalStatistics(groupID: GroupIdentifier) {
-		localStatisticsProvider.latestLocalStatistics(groupID: groupID, eTag: nil)
+	func updateLocalStatistics(selectedLocalStatisticsDistrict: LocalStatisticsDistrict) {
+		localStatisticsProvider.latestLocalStatistics(groupID: String(selectedLocalStatisticsDistrict.federalState.groupID), eTag: nil)
 			.sink(
 				receiveCompletion: { [weak self] result in
 					switch result {
@@ -156,11 +156,12 @@ class HomeState: ENStateHandlerUpdating {
 						Log.error("[HomeState] Could not load statistics: \(error)", log: .api)
 					}
 				}, receiveValue: { [weak self] in
-					self?.localStatistics = $0
+					self?.localStatistics = SelectedLocalStatisticsTuple(localStatisticsData: $0, localStatisticsDistrict: selectedLocalStatisticsDistrict)
 				}
 			)
 			.store(in: &subscriptions)
 	}
+
 	// MARK: - Private
 
 	private let store: Store

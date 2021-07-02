@@ -93,11 +93,6 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 			// TO DO Error handling
 			return
 		}
-		
-		let administrativeUnitID = String(adminUnit.administrativeUnitShortID)
-		if !store.selectedAdministrativeUnitIDs.contains(administrativeUnitID) {
-			store.selectedAdministrativeUnitIDs.append(administrativeUnitID)
-		}
 
 		let nibName = String(describing: HomeStatisticsCardView.self)
 		let nib = UINib(nibName: nibName, bundle: .main)
@@ -166,7 +161,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 			addLocalStatisticsCardView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
 			
 			let localStatisticsAvailableCardsState: CreatedLocalStatisticsState
-			switch store.selectedAdministrativeUnitIDs.count {
+			switch store.selectedLocalStatisticsDistricts.count {
 			case 0:
 				localStatisticsAvailableCardsState = .empty
 			case let count where count < 5:

@@ -63,7 +63,7 @@ final class MockTestStore: Store, PPAnalyticsData {
 	// MARK: - LocalStatisticsCaching
 
 	var localStatistics: [LocalStatisticsMetadata] = []
-	var selectedAdministrativeUnitIDs: [String] = []
+	var selectedLocalStatisticsDistricts: [LocalStatisticsDistrict] = []
 
 	// MARK: - PrivacyPreservingProviding
 

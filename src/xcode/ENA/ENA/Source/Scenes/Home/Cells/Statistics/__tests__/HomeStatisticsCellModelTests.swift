@@ -88,7 +88,7 @@ class HomeStatisticsCellModelTests: CWATestCase {
 		}
 
 		var loadedStatistics = SAP_Internal_Stats_LocalStatistics()
-//		loadedStatistics.cardIDSequence = [1, 3, 2, 17]
+
 		loadedStatistics.administrativeUnitData = [
 			administrativeUnitData(administrativeUnitShortID: 12005),
 			administrativeUnitData(administrativeUnitShortID: 12006),
