@@ -2822,9 +2822,9 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Error_Title" = "Fehler";
 
-"HealthCertificate_Error_FAQ_Description" = "\n\nWeitere Informationen zum Erhalt Ihres Impfzertifikats finden Sie in den FAQ.";
+"HealthCertificate_Error_FAQ_Description" = "\n\nWeitere Informationen zum Erhalt Ihres Zertifikats finden Sie in den FAQ.";
 
-"HealthCertificate_Error_FAQ_Button_Title" = "FAQ zu Impfzertifikaten";
+"HealthCertificate_Error_FAQ_Button_Title" = "FAQ zu Zertifikaten";
 
 "HealthCertificate_Error_HC_ALREADY_REGISTERED" = "Das Zertifikat ist bereits in Ihrer App registriert.";
 
