@@ -392,7 +392,8 @@ final class ENAExposureManager: NSObject, ExposureManager {
 				completion(ExposureNotificationError.unknown(error.localizedDescription))
 			}
 		} else {
-			completion(ExposureNotificationError.unknown("Could not cast ENError to Error"))
+			Log.error("Casting error from error to ENError", error: error)
+			completion(ExposureNotificationError.unknown("Could not cast ENError to Error: \(error.localizedDescription)"))
 		}
 	}
 
