@@ -153,7 +153,7 @@ class HomeState: ENStateHandlerUpdating {
 						if case CachingHTTPClient.CacheError.dataVerificationError = error {
 							self?.statisticsLoadingError = .dataVerificationError
 						}
-						Log.error("[HomeState] Could not load statistics: \(error)", log: .api)
+						Log.error("[HomeState] Could not load local statistics: \(error)", log: .api)
 					}
 				}, receiveValue: { [weak self] in
 					self?.localStatistics = $0

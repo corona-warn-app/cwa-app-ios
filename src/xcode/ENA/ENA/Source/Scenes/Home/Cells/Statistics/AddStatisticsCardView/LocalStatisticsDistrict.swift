@@ -57,7 +57,7 @@ struct SelectedLocalStatisticsTuple {
 	// MARK: - Init
 
 	init(
-		localStatisticsData: SAP_Internal_Stats_LocalStatistics,
+		localStatisticsData: [SAP_Internal_Stats_AdministrativeUnitData],
 		localStatisticsDistrict: LocalStatisticsDistrict
 	) {
 		self.localStatisticsData = localStatisticsData
@@ -66,6 +66,6 @@ struct SelectedLocalStatisticsTuple {
 	
 	// MARK: - Internal
 
-	var localStatisticsData: SAP_Internal_Stats_LocalStatistics
+	var localStatisticsData: [SAP_Internal_Stats_AdministrativeUnitData]
 	var localStatisticsDistrict: LocalStatisticsDistrict
 }

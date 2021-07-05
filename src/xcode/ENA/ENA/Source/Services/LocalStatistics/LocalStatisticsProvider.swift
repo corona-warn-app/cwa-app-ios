@@ -35,6 +35,26 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 
 	private let client: LocalStatisticsFetching
 	private let store: LocalStatisticsCaching
+	private var selectedLocalStatisticsTuple: [SelectedLocalStatisticsTuple]
+
+	private func fetchSavedLocalStatistics(savedlocalStatisticsDistricts: [LocalStatisticsDistrict]) -> Future<SelectedLocalStatisticsTuple, Error> {
+		for localStatisticsDistrict in savedlocalStatisticsDistricts {
+			fetchLocalStatistics(groupID: String(localStatisticsDistrict.federalState.groupID), eTag: nil)
+				.sink(
+				receiveCompletion: { [weak self] result in
+					switch result {
+					case .finished:
+						break
+					case .failure(let error):
+						Log.error("[LocalStatisticsProvider] Could not fetch save local statistics: \(error)", log: .api)
+					}
+				}, receiveValue: { [weak self] in
+					self?.selectedLocalStatisticsTuple.append(SelectedLocalStatisticsTuple(localStatisticsData: $0.administrativeUnitData, localStatisticsDistrict: localStatisticsDistrict))
+				}
+			)
+		}
+		return Future { }
+	}
 
 	private func fetchLocalStatistics(groupID: GroupIdentifier, eTag: String? = nil) -> Future<SAP_Internal_Stats_LocalStatistics, Error> {
 		return Future { promise in
