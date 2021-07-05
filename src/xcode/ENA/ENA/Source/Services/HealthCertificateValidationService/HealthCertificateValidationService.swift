@@ -399,7 +399,8 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 	) {
 		
 		// if one rule contains .fail, we call this with the corresponding rules:
-		guard combinedRuleValidations.contains(where: { $0.result == .fail}) else {
+		guard combinedRuleValidations.contains( where: { $0.result == .fail }) else {
+			// TODO: Do we return all results or only the open and failed ones?
 			completion(.success(.validationFailed(combinedRuleValidations)))
 			return
 		}
