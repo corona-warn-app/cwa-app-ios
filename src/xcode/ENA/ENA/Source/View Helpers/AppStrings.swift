@@ -1904,6 +1904,10 @@ enum AppStrings {
 		}
 		
 		enum Profile {
+			static let infoActionTitle = NSLocalizedString("AntigenProfile_Info_Action_Title", comment: "")
+			static let editActionTitle = NSLocalizedString("AntigenProfile_Edit_Action_Title", comment: "")
+			static let deleteActionTitle = NSLocalizedString("AntigenProfile_Delete_Action_Title", comment: "")
+			static let cancelActionTitle = NSLocalizedString("AntigenProfile_Cancel_Action_Title", comment: "")
 			static let deleteAlertTitle = NSLocalizedString("AntigenProfile_Delete_Alert_Title", comment: "")
 			static let deleteAlertDescription = NSLocalizedString("AntigenProfile_Delete_Alert_Description", comment: "")
 			static let deleteAlertDeleteButtonTitle = NSLocalizedString("AntigenProfile_Delete_Alert_Delete_Button_Title", comment: "")
