@@ -838,7 +838,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		DispatchQueue.main.async { [weak self] in
 			self?.viewModel.updateTestResult()
 			self?.viewModel.state.updateStatistics()
-			self?.fetchSelectedLocalStatistics()
+			// self?.fetchSelectedLocalStatistics()
 		}
 	}
 
@@ -851,6 +851,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	}
 
 	private func fetchLocalStatistics(district: LocalStatisticsDistrict) {
+		// check for the selected district in persisted districts
 		let selectedLocalStatisticsDistrict = store.selectedLocalStatisticsDistricts.filter({
 			$0.districtId == district.districtId
 		}).compactMap { $0 }.first

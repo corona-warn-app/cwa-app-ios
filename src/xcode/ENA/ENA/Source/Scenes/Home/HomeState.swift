@@ -69,7 +69,7 @@ class HomeState: ENStateHandlerUpdating {
 	@OpenCombine.Published var enState: ENStateHandler.State
 
 	@OpenCombine.Published var statistics: SAP_Internal_Stats_Statistics = SAP_Internal_Stats_Statistics()
-	@OpenCombine.Published var localStatistics: SelectedLocalStatisticsTuple
+	@OpenCombine.Published var localStatistics: SAP_Internal_Stats_LocalStatistics = SAP_Internal_Stats_LocalStatistics()
 	@OpenCombine.Published var statisticsLoadingError: StatisticsLoadingError?
 
 	@OpenCombine.Published private(set) var exposureDetectionInterval: Int
@@ -156,7 +156,7 @@ class HomeState: ENStateHandlerUpdating {
 						Log.error("[HomeState] Could not load statistics: \(error)", log: .api)
 					}
 				}, receiveValue: { [weak self] in
-					self?.localStatistics = SelectedLocalStatisticsTuple(localStatisticsData: $0, localStatisticsDistrict: selectedLocalStatisticsDistrict)
+					self?.localStatistics = $0
 				}
 			)
 			.store(in: &subscriptions)

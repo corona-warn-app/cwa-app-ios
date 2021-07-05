@@ -25,7 +25,7 @@ class HomeStatisticsCellModel {
 
 		homeState.$localStatistics
 			.sink { [weak self] localStatistics in
-				self?.localAdministrativeUnitStatistics = localStatistics
+				self?.localAdministrativeUnitStatistics = localStatistics.administrativeUnitData
 			}
 			.store(in: &subscriptions)
 	}
@@ -33,7 +33,7 @@ class HomeStatisticsCellModel {
 	// MARK: - Internal
 
 	@OpenCombine.Published private(set) var keyFigureCards = [SAP_Internal_Stats_KeyFigureCard]()
-	@OpenCombine.Published private(set) var localAdministrativeUnitStatistics: SelectedLocalStatisticsTuple = SelectedLocalStatisticsTuple(localStatisticsData: SAP_Internal_Stats_LocalStatistics(), localStatisticsDistrict: LocalStatisticsDistrict(federalState: LocalStatisticsFederalState(), districtName: "", districtId: ""))
+	@OpenCombine.Published private(set) var localAdministrativeUnitStatistics = [SAP_Internal_Stats_AdministrativeUnitData]()
 
 	// MARK: - Private
 
