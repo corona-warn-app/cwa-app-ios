@@ -141,8 +141,8 @@ class HomeState: ENStateHandlerUpdating {
 			.store(in: &subscriptions)
 	}
 	
-	func updateLocalStatistics(groupID: GroupIdentifier) {
-		localStatisticsProvider.latestLocalStatistics(groupID: groupID, eTag: nil)
+	func updateLocalStatistics(selectedLocalStatisticsDistrict: LocalStatisticsDistrict) {
+		localStatisticsProvider.latestLocalStatistics(groupID: String(selectedLocalStatisticsDistrict.federalState.groupID), eTag: nil)
 			.sink(
 				receiveCompletion: { [weak self] result in
 					switch result {
@@ -161,6 +161,7 @@ class HomeState: ENStateHandlerUpdating {
 			)
 			.store(in: &subscriptions)
 	}
+
 	// MARK: - Private
 
 	private let store: Store

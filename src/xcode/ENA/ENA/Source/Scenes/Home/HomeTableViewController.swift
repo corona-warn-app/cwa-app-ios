@@ -840,12 +840,31 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		DispatchQueue.main.async { [weak self] in
 			self?.viewModel.updateTestResult()
 			self?.viewModel.state.updateStatistics()
+			// self?.fetchSelectedLocalStatistics()
+		}
+	}
+
+	private func fetchSelectedLocalStatistics() {
+		for selectedLocalStatisticsDistrict in store.selectedLocalStatisticsDistricts {
+			DispatchQueue.main.async { [weak self] in
+				self?.viewModel.state.updateLocalStatistics(selectedLocalStatisticsDistrict: selectedLocalStatisticsDistrict)
+			}
 		}
 	}
 
 	private func fetchLocalStatistics(district: LocalStatisticsDistrict) {
-		DispatchQueue.main.async { [weak self] in
-			self?.viewModel.state.updateLocalStatistics(groupID: String(district.federalState.groupID))
+		// check for the selected district in persisted districts
+		let selectedLocalStatisticsDistrict = store.selectedLocalStatisticsDistricts.filter({
+			$0.districtId == district.districtId
+		}).compactMap { $0 }.first
+		
+		// selected district is not there in presisted districts
+		if selectedLocalStatisticsDistrict == nil {
+			store.selectedLocalStatisticsDistricts.append(district)
+			
+			DispatchQueue.main.async { [weak self] in
+				self?.viewModel.state.updateLocalStatistics(selectedLocalStatisticsDistrict: district)
+			}
 		}
 	}
 	// swiftlint:disable:next file_length

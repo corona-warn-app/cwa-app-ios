@@ -359,9 +359,9 @@ extension SecureStore: LocalStatisticsCaching {
 		set { kvStore["localStatistics"] = newValue }
 	}
 	
-	var selectedAdministrativeUnitIDs: [String] {
-		get { kvStore["selectedAdministrativeUnitIDs"] as [String]? ?? [] }
-		set { kvStore["selectedAdministrativeUnitIDs"] = newValue }
+	var selectedLocalStatisticsDistricts: [LocalStatisticsDistrict] {
+		get { kvStore["selectedLocalStatisticsDistricts"] as [LocalStatisticsDistrict]? ?? [] }
+		set { kvStore["selectedLocalStatisticsDistricts"] = newValue }
 	}
 }
 

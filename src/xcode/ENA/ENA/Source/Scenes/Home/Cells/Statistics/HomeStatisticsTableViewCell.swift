@@ -42,7 +42,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] in
 				self?.clearStackView()
-				self?.configureAddLocalStatisticsCell(
+				self?.configureLocalStatisticsCell(
 					store: store,
 					onAddLocalStatisticsButtonTap: onAddLocalStatisticsButtonTap,
 					onAddDistrict: onAddDistrict,
@@ -93,11 +93,6 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 			// TO DO Error handling
 			return
 		}
-		
-		let administrativeUnitID = String(adminUnit.administrativeUnitShortID)
-		if !store.selectedAdministrativeUnitIDs.contains(administrativeUnitID) {
-			store.selectedAdministrativeUnitIDs.append(administrativeUnitID)
-		}
 
 		let nibName = String(describing: HomeStatisticsCardView.self)
 		let nib = UINib(nibName: nibName, bundle: .main)
@@ -143,7 +138,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 	}
 	
 	// swiftlint:disable:next function_parameter_count
-	private func configureAddLocalStatisticsCell(
+	private func configureLocalStatisticsCell(
 		store: Store,
 		onAddLocalStatisticsButtonTap: @escaping (SelectValueTableViewController) -> Void,
 		onAddDistrict: @escaping (SelectValueTableViewController) -> Void,
@@ -165,8 +160,10 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 			stackView.addArrangedSubview(manageLocalStatisticsCardView)
 			manageLocalStatisticsCardView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
 			
+
 			let localStatisticsAvailableCardsState: LocalStatisticsState
-			switch store.selectedAdministrativeUnitIDs.count {
+			switch store.selectedLocalStatisticsDistricts.count {
+
 			case 0:
 				localStatisticsAvailableCardsState = .empty
 			case let count where count < 5:

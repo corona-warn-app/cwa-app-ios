@@ -22,10 +22,10 @@ class HomeStatisticsCellModel {
 					}
 			}
 			.store(in: &subscriptions)
-		
+
 		homeState.$localStatistics
-			.sink { [weak self] statistics in
-				self?.localAdministrativeUnitStatistics = statistics.administrativeUnitData
+			.sink { [weak self] localStatistics in
+				self?.localAdministrativeUnitStatistics = localStatistics.administrativeUnitData
 			}
 			.store(in: &subscriptions)
 	}

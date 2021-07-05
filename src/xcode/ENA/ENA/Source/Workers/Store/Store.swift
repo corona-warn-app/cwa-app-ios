@@ -101,7 +101,7 @@ protocol StatisticsCaching: AnyObject {
 
 protocol LocalStatisticsCaching: AnyObject {
 	var localStatistics: [LocalStatisticsMetadata] { get set }
-	var selectedAdministrativeUnitIDs: [String] { get set }
+	var selectedLocalStatisticsDistricts: [LocalStatisticsDistrict] { get set }
 }
 
 protocol PrivacyPreservingProviding: AnyObject {
