@@ -12,7 +12,20 @@ public struct ValidationRulesAccess {
 
     public func extractValidationRules(from cborData: CBORData) -> Swift.Result<[Rule], RuleValidationError> {
         do {
-            let rules = try CodableCBORDecoder().decode([Rule].self, from: cborData)
+            let cborDecoder = CBORDecoder.init(input: [UInt8](cborData))
+            guard let cbor = try cborDecoder.decodeItem(),
+                  case let .array(cborRules) = cbor else {
+                return .failure(.CBOR_DECODING_FAILED(nil))
+            }
+
+            var rules = [Rule]()
+            for cborRule in cborRules {
+                guard case let .map(cborRuleMap) = cborRule else {
+                    return .failure(.CBOR_DECODING_FAILED(nil))
+                }
+                let rule = try JSONDecoder().decode(Rule.self, from: JSONSerialization.data(withJSONObject: cborRuleMap.anyMap))
+                rules.append(rule)
+            }
             return .success(rules)
         } catch {
             return .failure(.CBOR_DECODING_FAILED(error))
