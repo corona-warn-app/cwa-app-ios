@@ -208,7 +208,7 @@
 
 "ExposureSubmission_TestCertificate_Information_Legal_Headline" = "Data protection and data security";
 
-"ExposureSubmission_TestCertificate_Information_Legal_Text_1" = "Requesting and using a digital COVID test certificate is voluntary. There are other ways to prove that you have a negative test certificate.";
+"ExposureSubmission_TestCertificate_Information_Legal_Text_1" = "Requesting and using a digital COVID test certificate is voluntary. There are other ways to prove that you have a negative test result.";
 
 "ExposureSubmission_TestCertificate_Information_Legal_Text_2" = "To create your test certificate, data is transmitted once in encrypted form to the RKI. The RKI signs this data electronically to confirm its validity. The RKI will not store the data.";
 
