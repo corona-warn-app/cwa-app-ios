@@ -2595,9 +2595,9 @@
 
 "HealthCertificate_Info_imageDescription" = "Имунизирано лице гледа в смартфона си";
 
-"HealthCertificate_Info_description" = "Добавете своите цифрови сертификати за COVID в приложението. Така, с помощта на приложението ще може докажете, че имате ваксинационна защита или отрицателен резултат от тест.";
+"HealthCertificate_Info_description" = "Добавете в приложението Вашите цифрови сертификати за COVID на ЕС. Така ще можете да докажете, че имате ваксинационна защита и отрицателен резултат от тест или че сте се възстановили от инфекция.";
 
-"HealthCertificate_Info_section01" = "Може да добавите в приложението сертификати на ЕС за ваксинация срещу COVID или такива за тестове за COVID.";
+"HealthCertificate_Info_section01" = "В приложението можете да добавите цифрови сертификати на ЕС за ваксинация, тест или възстановяване от COVID.";
 
 "HealthCertificate_Info_section02" = "Тези сертификати се считат за валидно доказателство в рамките на ЕС (например при пътуване).";
 
@@ -2722,9 +2722,9 @@
 /* Health Certificate Errors */
 "HealthCertificate_Error_Title" = "Грешка";
 
-"HealthCertificate_Error_FAQ_Description" = "\n\nЗа да разберете как можете да се сдобиете със сертификат за извършена ваксинация, вижте страницата ни с често задавани въпроси (ЧЗВ).";
+"HealthCertificate_Error_FAQ_Description" = "\n\nЗа да разберете как може да се сдобиете със сертификат, вижте страницата ни с често задавани въпроси (ЧЗВ).";
 
-"HealthCertificate_Error_FAQ_Button_Title" = "ЧЗВ за сертификатите за ваксинация";
+"HealthCertificate_Error_FAQ_Button_Title" = "ЧЗВ за сертификати";
 
 "HealthCertificate_Error_HC_ALREADY_REGISTERED" = "Сертификатът вече е регистриран в приложението Ви.";
 

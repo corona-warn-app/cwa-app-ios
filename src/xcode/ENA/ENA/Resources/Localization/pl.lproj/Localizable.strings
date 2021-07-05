@@ -2595,9 +2595,9 @@
 
 "HealthCertificate_Info_imageDescription" = "Uodporniona osoba patrzy na swój smartfon";
 
-"HealthCertificate_Info_description" = "Dodaj unijne cyfrowe certyfikaty COVID w aplikacji. Umożliwi Ci to udowodnienie za pomocą aplikacji posiadanie ochrony poszczepiennej lub negatywnego wyniku testu.";
+"HealthCertificate_Info_description" = "Dodaj unijne cyfrowe certyfikaty COVID w aplikacji. Umożliwi Ci to udowodnienie za pomocą aplikacji posiadania ochrony poszczepiennej, negatywnego wyniku testu lub przebycia infekcji.";
 
-"HealthCertificate_Info_section01" = "W aplikacji możesz dodać unijne cyfrowe certyfikaty szczepień przeciw COVID lub unijne certyfikaty testów na COVID.";
+"HealthCertificate_Info_section01" = "W aplikacji można dodawać unijne cyfrowe certyfikaty szczepień przeciwko COVID, certyfikaty testów na COVID i certyfikaty statusu ozdrowieńca COVID.";
 
 "HealthCertificate_Info_section02" = "Takie certyfikaty są uznawane za ważny dowód w UE (np. w przypadku podróży).";
 
@@ -2722,9 +2722,9 @@
 /* Health Certificate Errors */
 "HealthCertificate_Error_Title" = "Błąd";
 
-"HealthCertificate_Error_FAQ_Description" = "\n\nWięcej informacji na temat tego, jak otrzymać certyfikat szczepienia, znajduje się na naszej stronie „Często zadawane pytania”.";
+"HealthCertificate_Error_FAQ_Description" = "\n\nWięcej informacji na temat tego, jak otrzymać certyfikat, znajduje się na naszej stronie „Często zadawane pytania”.";
 
-"HealthCertificate_Error_FAQ_Button_Title" = "Często zadawane pytania na temat certyfikatów szczepień";
+"HealthCertificate_Error_FAQ_Button_Title" = "Często zadawane pytania na temat certyfikatów";
 
 "HealthCertificate_Error_HC_ALREADY_REGISTERED" = "Certyfikat jest już zarejestrowany w Twojej aplikacji.";
 
