@@ -12,10 +12,13 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 	init(client: LocalStatisticsFetching, store: Store) {
 		self.client = client
 		self.store = store
+		
+		self.selectedLocalStatisticsTuples = []
 	}
 
 	// MARK: - Internal
 
+	// function to get local statistics for a particular group
 	func latestLocalStatistics(groupID: GroupIdentifier, eTag: String? = nil) -> AnyPublisher<SAP_Internal_Stats_LocalStatistics, Error> {
 		let localStatistics = store.localStatistics.filter({
 			$0.groupID == groupID
@@ -30,30 +33,51 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 			.setFailureType(to: Error.self)
 			.eraseToAnyPublisher()
 	}
+	
+	// function to get local statistics for N saved districts which are passed as an array
+	// returns an array of type SelectedLocalStatisticsTuple which contains the data for a particular group
+	// and the district information which will be then used for filtering.
+	func latestSelectedLocalStatistics(selectedlocalStatisticsDistricts: [LocalStatisticsDistrict], completion: @escaping ([SelectedLocalStatisticsTuple]) -> Void) {
+		return fetchSelectedLocalStatistics(selectedlocalStatisticsDistricts: selectedlocalStatisticsDistricts, completion: completion)
+	}
 
 	// MARK: - Private
 
 	private let client: LocalStatisticsFetching
 	private let store: LocalStatisticsCaching
-	private var selectedLocalStatisticsTuple: [SelectedLocalStatisticsTuple]
+	private var selectedLocalStatisticsTuples: [SelectedLocalStatisticsTuple]
+	private var subscriptions = Set<AnyCancellable>()
 
-	private func fetchSavedLocalStatistics(savedlocalStatisticsDistricts: [LocalStatisticsDistrict]) -> Future<SelectedLocalStatisticsTuple, Error> {
-		for localStatisticsDistrict in savedlocalStatisticsDistricts {
-			fetchLocalStatistics(groupID: String(localStatisticsDistrict.federalState.groupID), eTag: nil)
-				.sink(
-				receiveCompletion: { [weak self] result in
-					switch result {
-					case .finished:
-						break
-					case .failure(let error):
-						Log.error("[LocalStatisticsProvider] Could not fetch save local statistics: \(error)", log: .api)
+	private func fetchSelectedLocalStatistics(selectedlocalStatisticsDistricts: [LocalStatisticsDistrict], completion: @escaping ([SelectedLocalStatisticsTuple]) -> Void) {
+		
+		// We need to fetch local statistics for N saved districts, so we use dispatch group
+		// to make sure we get the data for N saved districts
+		let localStatisticsGroup = DispatchGroup()
+		
+		for localStatisticsDistrict in selectedlocalStatisticsDistricts {
+			localStatisticsGroup.enter()
+			DispatchQueue.global().async {
+				self.fetchLocalStatistics(groupID: String(localStatisticsDistrict.federalState.groupID), eTag: nil)
+					.sink(
+					receiveCompletion: { result in
+						switch result {
+						case .finished:
+							break
+						case .failure(let error):
+							Log.error("[LocalStatisticsProvider] Could not fetch saved local statistics for district: \(localStatisticsDistrict.districtName): \(error)", log: .api)
+						}
+					}, receiveValue: { [weak self] in
+						self?.selectedLocalStatisticsTuples.append(SelectedLocalStatisticsTuple(localStatisticsData: $0.administrativeUnitData, localStatisticsDistrict: localStatisticsDistrict))
+						localStatisticsGroup.leave()
 					}
-				}, receiveValue: { [weak self] in
-					self?.selectedLocalStatisticsTuple.append(SelectedLocalStatisticsTuple(localStatisticsData: $0.administrativeUnitData, localStatisticsDistrict: localStatisticsDistrict))
-				}
-			)
+				)
+				.store(in: &self.subscriptions)
+			}
 		}
-		return Future { }
+		
+		localStatisticsGroup.notify(queue: .main) {
+			completion(self.selectedLocalStatisticsTuples)
+		}
 	}
 
 	private func fetchLocalStatistics(groupID: GroupIdentifier, eTag: String? = nil) -> Future<SAP_Internal_Stats_LocalStatistics, Error> {
