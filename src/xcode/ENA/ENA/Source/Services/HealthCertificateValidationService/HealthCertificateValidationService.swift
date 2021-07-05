@@ -398,7 +398,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		completion: @escaping (Result<HealthCertificateValidationReport, HealthCertificateValidationError>) -> Void
 	) {
 		
-		if combinedRuleValidations.allSatisfy({ $0.result == .passed}) {
+		if combinedRuleValidations.allSatisfy({ $0.result == .passed }) {
 			// all rules has to be .passed
 			completion(.success(.validationPassed))
 		} else if combinedRuleValidations.allSatisfy({ $0.result == .open }) {
@@ -728,11 +728,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		}
 	}
 	
-	private func mapUnixTimestampsInSecondsToDate(_ timestamp: UInt64?) -> Date {
-		guard let timestamp = timestamp else {
-			// TODO: What should we do here?
-			fatalError("This should not happen")
-		}
+	private func mapUnixTimestampsInSecondsToDate(_ timestamp: UInt64) -> Date {
 		return Date(timeIntervalSince1970: TimeInterval(timestamp))
 	}
 }
