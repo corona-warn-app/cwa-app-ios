@@ -132,14 +132,14 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 
 											// 7. apply acceptance rules
 
-											let accpeptanceRulesResult = ValidationRulesAccess().applyValidationRules(
+											let acceptanceRulesResult = ValidationRulesAccess().applyValidationRules(
 												acceptanceRules,
 												to: healthCertificate.digitalCovidCertificate,
 												externalRules: acceptanceRuleParameter
 											)
 
-											guard case let .success(accpeptanceRulesValidations) = accpeptanceRulesResult else {
-												if case let .failure(error) = accpeptanceRulesResult {
+											guard case let .success(acceptanceRulesValidations) = acceptanceRulesResult else {
+												if case let .failure(error) = acceptanceRulesResult {
 													completion(.failure(.ACCEPTANCE_RULE_VALIDATION_ERROR(error)))
 												}
 												return
@@ -147,20 +147,20 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 
 											// 9. apply invalidation rules
 											
-											let invaldationRulesResult = ValidationRulesAccess().applyValidationRules(
+											let invalidationRulesResult = ValidationRulesAccess().applyValidationRules(
 												invalidationRules,
 												to: healthCertificate.digitalCovidCertificate,
 												externalRules: invalidationRuleParameter
 											)
 
-											guard case let .success(invaldationRulesValidations) = invaldationRulesResult else {
-												if case let .failure(error) = invaldationRulesResult {
+											guard case let .success(invalidationRulesValidations) = invalidationRulesResult else {
+												if case let .failure(error) = invalidationRulesResult {
 													completion(.failure(.INVALIDATION_RULE_VALIDATION_ERROR(error)))
 												}
 												return
 											}
 
-											let combinedRuleValidations = accpeptanceRulesValidations + invaldationRulesValidations
+											let combinedRuleValidations = acceptanceRulesValidations + invalidationRulesValidations
 
 											// if all rules contains .passed, we call this:
 											completion(.success(.validationPassed))
