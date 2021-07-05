@@ -90,7 +90,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		}
 		
 		guard let adminUnit = administrativeUnit, let districtName = district?.districtName else {
-			// TO DO Error handling
+			// TODO: Error handling
 			return
 		}
 
