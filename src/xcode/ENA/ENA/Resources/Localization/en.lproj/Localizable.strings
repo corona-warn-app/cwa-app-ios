@@ -1920,7 +1920,7 @@
 /* - At least one person vaccinated card */
 "Statistics_Card_AtLeastOneVaccinated_Title" = "People who have received at least one vaccine dose";
 
-"Statistics_Card_AtLeastOneVaccinated_Today" = "Current";
+"Statistics_Card_AtLeastOneVaccinated_Today" = "Up to today";
 
 "Statistics_Card_AtLeastOneVaccinated_Yesterday" = "Up to yesterday";
 
@@ -1933,9 +1933,9 @@
 "Statistics_Card_AtLeastOneVaccinated_SecondarySubtitleLabel" = "of the total population";
 
 /* - Fully vaccinated people card */
-"Statistics_Card_FullyVaccinated_Title" = "people who are fully vaccinated";
+"Statistics_Card_FullyVaccinated_Title" = "People who are fully vaccinated";
 
-"Statistics_Card_FullyVaccinated_Today" = "Current";
+"Statistics_Card_FullyVaccinated_Today" = "Up to today";
 
 "Statistics_Card_FullyVaccinated_Yesterday" = "Up to yesterday";
 
@@ -1950,11 +1950,11 @@
 /* - Applied vaccination dose rates card */
 "Statistics_Card_AppliedDoseRates_Title" = "Vaccine doses administered";
 
-"Statistics_Card_AppliedDoseRates_Today" = "Current";
+"Statistics_Card_AppliedDoseRates_Today" = "Today";
 
-"Statistics_Card_AppliedDoseRates_Yesterday" = "Up to yesterday";
+"Statistics_Card_AppliedDoseRates_Yesterday" = "Yesterday";
 
-"Statistics_Card_AppliedDoseRates_Date" = "Up to %@";
+"Statistics_Card_AppliedDoseRates_Date" = "%@";
 
 "Statistics_Card_AppliedDoseRates_SecondaryLabelTitle" = "7-Day Average";
 
@@ -2595,9 +2595,9 @@
 
 "HealthCertificate_Info_imageDescription" = "An immunized person is looking at their smartphone";
 
-"HealthCertificate_Info_description" = "Add your EU digital COVID certificates in the app. This will enable you to prove your vaccination protection or a negative test result with the app.";
+"HealthCertificate_Info_description" = "Add your EU digital COVID certificates in the app. This will enable you to prove your vaccination protection, a negative test result, or your recovery from an infection with the app.";
 
-"HealthCertificate_Info_section01" = "You can add EU digital COVID vaccination certificates or EU COVID test certificates in the app.";
+"HealthCertificate_Info_section01" = "You can add EU digital COVID vaccination certificates, COVID test certificates, and COVID certificates of recovery in the app.";
 
 "HealthCertificate_Info_section02" = "These certificates are considered to be valid proof within the EU (e.g. for travel).";
 
@@ -2613,17 +2613,35 @@
 "HealthCertificate_QRScanner_instruction" = "Scan QR Code and Register";
 
 /* Health Certified Person Screen */
-"HealthCertifiedPerson_title" = "EU Digital Proof of Vaccination";
+"HealthCertifiedPerson_title" = "EU Digital COVID Certificate";
 
-"HealthCertifiedPerson_subtitle" = "SARS-CoV-2 Vaccination Protection";
+"HealthCertifiedPerson_partiallyVaccinated" = "You have not yet received all the currently planned vaccinations. As such, your vaccination protection is not complete yet.";
 
 "HealthCertifiedPerson_dateOfBirth" = "Born %@";
 
-"HealthCertifiedPerson_vaccinationCount" = "Vaccination %i of %i";
+"HealthCertifiedPerson_preferredPersonDescription" = "My smartphone, my app. Certificates for me appear at the top of the list.";
 
-"HealthCertifiedPerson_vaccinationDate" = "Performed on %@";
+"HealthCertifiedPerson_QRCode_Image_Description" = "A QR code with the current certificate";
 
-"HealthCertifiedPerson_QRCode_Image_Description" = "A QR code with the status of your vaccination";
+"HealthCertifiedPerson_VaccinationCertificate_headline" = "Vaccination Certificate";
+
+"HealthCertifiedPerson_VaccinationCertificate_vaccinationCount" = "Vaccination %i of %i";
+
+"HealthCertifiedPerson_VaccinationCertificate_vaccinationDate" = "vaccinated on %@";
+
+"HealthCertifiedPerson_TestCertificate_headline" = "Test Certificate";
+
+"HealthCertifiedPerson_TestCertificate_pcrTest" = "PCR Test";
+
+"HealthCertifiedPerson_TestCertificate_antigenTest" = "Rapid Test";
+
+"HealthCertifiedPerson_TestCertificate_sampleCollectionDate" = "Sample taken %@";
+
+"HealthCertifiedPerson_RecoveryCertificate_headline" = "Certificate of Recovery";
+
+"HealthCertifiedPerson_RecoveryCertificate_validityDate" = "valid to %@";
+
+"HealthCertifiedPerson_currentlyUsedCertificate" = "Currently used certificate";
 
 /* Vaccination Certificate Details */
 "HealthCertificate_Details_vaccinationCount" = "Vaccination %i of %i";
@@ -2704,9 +2722,9 @@
 /* Health Certificate Errors */
 "HealthCertificate_Error_Title" = "Error";
 
-"HealthCertificate_Error_FAQ_Description" = "\n\nFor more information about how to receive your vaccination certificate, please see our FAQ page.";
+"HealthCertificate_Error_FAQ_Description" = "\n\nFor more information about how to receive your certificate, please see our FAQ page.";
 
-"HealthCertificate_Error_FAQ_Button_Title" = "FAQ for Vaccination Certificates";
+"HealthCertificate_Error_FAQ_Button_Title" = "FAQ for Certificates";
 
 "HealthCertificate_Error_HC_ALREADY_REGISTERED" = "The certificate is already registered in your app.";
 
