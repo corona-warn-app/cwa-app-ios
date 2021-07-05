@@ -162,7 +162,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 			
 
 			let localStatisticsAvailableCardsState: LocalStatisticsState
-			switch store.selectedAdministrativeUnitIDs.count {
+			switch store.selectedLocalStatisticsDistricts.count {
 
 			case 0:
 				localStatisticsAvailableCardsState = .empty
