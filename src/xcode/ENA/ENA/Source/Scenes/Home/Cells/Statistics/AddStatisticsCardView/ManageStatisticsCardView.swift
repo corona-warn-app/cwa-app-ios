@@ -5,6 +5,8 @@
 import UIKit
 
 class ManageStatisticsCardView: UIView {
+
+	@IBOutlet weak var stackView: UIStackView!
 	
 	// MARK: - Overrides
 
@@ -61,11 +63,6 @@ class ManageStatisticsCardView: UIView {
 		viewModel?.presentStateSelection()
 	}
 
-	@IBOutlet weak var stackView: UIStackView!
-	// TODO: These two guys will move to the `CustomDashedView`
-	// @IBOutlet weak var addLocalIncidenceLabel: ENALabel!
-	// @IBOutlet weak var addLocalIncidencesButton: UIButton!
-
 	func updateUI(for state: LocalStatisticsState) {
 		// clear
 		stackView.arrangedSubviews.forEach { subview in
@@ -75,8 +72,9 @@ class ManageStatisticsCardView: UIView {
 
 		let addView = { () -> CustomDashedView in
 			let add = CustomDashedView.instance(for: .add)
-			add.tapHandler = {
+			add.tapHandler = { [weak self] in
 				Log.debug("add…", log: .ui)
+				self?.onAddLocalIncidenceButtonPressed(add)
 			}
 			add.label.onAccessibilityFocus = onAccessibilityFocus
 			return add
