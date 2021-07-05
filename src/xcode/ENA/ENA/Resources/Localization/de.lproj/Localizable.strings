@@ -2712,7 +2712,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertifiedPerson_dateOfBirth" = "geboren %@";
 
-"HealthCertifiedPerson_preferredPersonDescription" = "Mein Smartphone, meine App. Zertifikate für mich erscheinen in der Liste an erster Stelle.";
+"HealthCertifiedPerson_preferredPersonDescription" = "Bitte aktivieren Sie diesen Schalter, wenn Sie selbst %@ sind und die App hauptsächlich nutzen. Ihre Zertifikate erscheinen in der Liste an erster Stelle.";
 
 "HealthCertifiedPerson_QRCode_Image_Description" = "Ein QR-Code mit dem aktuellen Zertifikat";
 
