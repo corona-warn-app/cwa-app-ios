@@ -50,6 +50,8 @@ struct LocalStatisticsDistrict: Codable, Equatable {
 
 }
 
+// TODO: Should be moved after overall refactoring
+
 struct SelectedLocalStatisticsTuple {
 	
 	// MARK: - Init
