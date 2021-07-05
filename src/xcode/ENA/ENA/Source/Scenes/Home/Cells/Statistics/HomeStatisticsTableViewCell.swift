@@ -151,17 +151,19 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		guard let jsonFileURL = Bundle.main.url(forResource: "ppdd-ppa-administrative-unit-set-ua-approved", withExtension: "json") else {
 			preconditionFailure("missing json file")
 		}
-		let localStatisticsModel = AddLocalStatisticsModel(store: store, jsonFileURL: jsonFileURL)
+		let localStatisticsModel = LocalStatisticsModel(store: store, jsonFileURL: jsonFileURL)
 
-		let addNibName = String(describing: AddStatisticsCardView.self)
+		let addNibName = String(describing: ManageStatisticsCardView.self)
 		let addNib = UINib(nibName: addNibName, bundle: .main)
 		
-		if let addLocalStatisticsCardView = addNib.instantiate(withOwner: self, options: nil).first as? AddStatisticsCardView {
-			stackView.addArrangedSubview(addLocalStatisticsCardView)
-			addLocalStatisticsCardView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
+		if let manageLocalStatisticsCardView = addNib.instantiate(withOwner: self, options: nil).first as? ManageStatisticsCardView {
+			stackView.addArrangedSubview(manageLocalStatisticsCardView)
+			manageLocalStatisticsCardView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
 			
-			let localStatisticsAvailableCardsState: CreatedLocalStatisticsState
-			switch store.selectedLocalStatisticsDistricts.count {
+
+			let localStatisticsAvailableCardsState: LocalStatisticsState
+			switch store.selectedAdministrativeUnitIDs.count {
+
 			case 0:
 				localStatisticsAvailableCardsState = .empty
 			case let count where count < 5:
@@ -172,7 +174,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 				localStatisticsAvailableCardsState = .empty
 			}
 
-			addLocalStatisticsCardView.configure(
+			manageLocalStatisticsCardView.configure(
 				localStatisticsModel: localStatisticsModel,
 				availableCardsState: localStatisticsAvailableCardsState,
 				onAddStateButtonTap: { selectValueViewController in
