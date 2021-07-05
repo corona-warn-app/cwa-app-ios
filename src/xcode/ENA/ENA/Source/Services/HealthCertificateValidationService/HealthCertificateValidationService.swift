@@ -398,23 +398,16 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		completion: @escaping (Result<HealthCertificateValidationReport, HealthCertificateValidationError>) -> Void
 	) {
 		
-		// if one rule contains .fail, we call this with the corresponding rules:
-		guard combinedRuleValidations.contains( where: { $0.result == .fail }) else {
-			// TODO: Do we return all results or only the open and failed ones?
-			completion(.success(.validationFailed(combinedRuleValidations)))
-			return
-		}
-		
-		// if all rules contains .open, we call this with the corresponding rules:
-		guard combinedRuleValidations.allSatisfy({ $0.result == .open }) else {
-			// TODO: Do we return all results or only the open ones?
+		if combinedRuleValidations.allSatisfy({ $0.result == .passed}) {
+			// all rules has to be .passed
+			completion(.success(.validationPassed))
+		} else if combinedRuleValidations.allSatisfy({ $0.result == .open }) {
+			// all rules has to be .open
 			completion(.success(.validationOpen(combinedRuleValidations)))
-			return
+		} else {
+			// At least one rule should contain now .fail
+			completion(.success(.validationFailed(combinedRuleValidations)))
 		}
-		
-		// At this point, every rule should be passed, so we can call the best success.
-		// if all rules contains .passed, we call this:
-		completion(.success(.validationPassed))
 	}
 		
 	private func downloadAcceptanceRule(
