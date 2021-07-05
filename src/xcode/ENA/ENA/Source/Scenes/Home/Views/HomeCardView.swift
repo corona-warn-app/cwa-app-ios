@@ -17,7 +17,7 @@ class HomeCardView: UIView {
 
 		layer.shadowColor = UIColor.enaColor(for: .shadow).cgColor
 		layer.shadowOffset = .init(width: 0.0, height: 10.0)
-		layer.shadowRadius = 36.0
+		layer.shadowRadius = 12.0
 		layer.shadowOpacity = 1
 
 		highlightView.backgroundColor = .clear

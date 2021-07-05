@@ -38,6 +38,12 @@ class CreateAntigenTestProfileViewController: UITableViewController, FooterViewH
 		setupBindings()
 	}
 	
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+		// dismiss any presented keyboard
+		view.endEditing(true)
+	}
+	
 	override func numberOfSections(in tableView: UITableView) -> Int {
 		return 1
 	}
@@ -134,6 +140,15 @@ class CreateAntigenTestProfileViewController: UITableViewController, FooterViewH
 			textField.resignFirstResponder()
 		}
 		return true
+	}
+	
+	func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+		// filtering out emojis and any other unwanted charaters. these are not wanted in the test profile.
+		return string.trimmingCharacters(in: CharacterSet.alphanumerics).isEmpty
+			|| string.trimmingCharacters(in: CharacterSet.punctuationCharacters).isEmpty
+			|| string.trimmingCharacters(in: CharacterSet.symbols).isEmpty
+			|| string.trimmingCharacters(in: CharacterSet.whitespaces).isEmpty
+			|| string.contains(where: { $0 == "@" })
 	}
 	
 	// MARK: - Private

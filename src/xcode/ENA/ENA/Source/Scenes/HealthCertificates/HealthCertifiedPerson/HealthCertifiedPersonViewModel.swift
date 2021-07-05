@@ -181,17 +181,17 @@ final class HealthCertifiedPersonViewModel {
 
 	func healthCertificateCellViewModel(row: Int) -> HealthCertificateCellViewModel {
 		HealthCertificateCellViewModel(
-			healthCertificate: healthCertifiedPerson.healthCertificates[row],
+			healthCertificate: sortedHealthCertificates[row],
 			healthCertifiedPerson: healthCertifiedPerson
 		)
 	}
 
 	func healthCertificate(for indexPath: IndexPath) -> HealthCertificate? {
-		guard TableViewSection.map(indexPath.section) == .certificates,
-			  healthCertifiedPerson.healthCertificates.indices.contains(indexPath.row) else {
+		guard TableViewSection.map(indexPath.section) == .certificates else {
 			return nil
 		}
-		return healthCertifiedPerson.healthCertificates[indexPath.row]
+
+		return sortedHealthCertificates[safe: indexPath.row]
 	}
 
 	func canEditRow(at indexPath: IndexPath) -> Bool {
@@ -203,7 +203,7 @@ final class HealthCertifiedPersonViewModel {
 			return
 		}
 
-		healthCertificateService.removeHealthCertificate(healthCertifiedPerson.healthCertificates[indexPath.row])
+		healthCertificateService.removeHealthCertificate(sortedHealthCertificates[indexPath.row])
 	}
 
 	// MARK: - Private
@@ -212,5 +212,9 @@ final class HealthCertifiedPersonViewModel {
 	private let healthCertificateService: HealthCertificateService
 	private let healtCertificateValueSetsProvider: VaccinationValueSetsProvider
 	private var subscriptions = Set<AnyCancellable>()
+
+	private var sortedHealthCertificates: [HealthCertificate] {
+		healthCertifiedPerson.healthCertificates.sorted(by: >)
+	}
 
 }
