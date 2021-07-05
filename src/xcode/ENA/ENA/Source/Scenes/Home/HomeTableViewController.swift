@@ -612,7 +612,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			onDismissDistrict: { [weak self] dismissToRoot in
 				self?.onDismissDistrict(dismissToRoot)
 			}, onFetchGroupData: { [weak self] district in
-				self?.fetchLocalStatistics(district: district)
+				self?.viewModel.state.fetchLocalStatistics(district: district)
 			},
 			onEditLocalStatisticsButtonTap: {
 				Log.warning("Edit Functionality Should Be Added")
@@ -840,31 +840,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		DispatchQueue.main.async { [weak self] in
 			self?.viewModel.updateTestResult()
 			self?.viewModel.state.updateStatistics()
-			// self?.fetchSelectedLocalStatistics()
-		}
-	}
-
-	private func fetchSelectedLocalStatistics() {
-		for selectedLocalStatisticsDistrict in store.selectedLocalStatisticsDistricts {
-			DispatchQueue.main.async { [weak self] in
-				self?.viewModel.state.updateLocalStatistics(selectedLocalStatisticsDistrict: selectedLocalStatisticsDistrict)
-			}
-		}
-	}
-
-	private func fetchLocalStatistics(district: LocalStatisticsDistrict) {
-		// check for the selected district in persisted districts
-		let selectedLocalStatisticsDistrict = store.selectedLocalStatisticsDistricts.filter({
-			$0.districtId == district.districtId
-		}).compactMap { $0 }.first
-		
-		// selected district is not there in presisted districts
-		if selectedLocalStatisticsDistrict == nil {
-			store.selectedLocalStatisticsDistricts.append(district)
-			
-			DispatchQueue.main.async { [weak self] in
-				self?.viewModel.state.updateLocalStatistics(selectedLocalStatisticsDistrict: district)
-			}
+			self?.viewModel.state.updateSelectedLocalStatistics(selectedLocalStatisticsDistricts: self?.store.selectedLocalStatisticsDistricts)
 		}
 	}
 	// swiftlint:disable:next file_length

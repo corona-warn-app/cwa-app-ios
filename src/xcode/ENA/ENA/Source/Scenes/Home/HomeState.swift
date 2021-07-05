@@ -141,6 +141,22 @@ class HomeState: ENStateHandlerUpdating {
 			.store(in: &subscriptions)
 	}
 	
+	func fetchLocalStatistics(district: LocalStatisticsDistrict) {
+		// check for the selected district in persisted districts
+		let selectedLocalStatisticsDistrict = store.selectedLocalStatisticsDistricts.filter({
+			$0.districtId == district.districtId
+		}).compactMap { $0 }.first
+		
+		// selected district is not there in presisted districts
+		if selectedLocalStatisticsDistrict == nil {
+			store.selectedLocalStatisticsDistricts.append(district)
+			
+			DispatchQueue.main.async { [weak self] in
+				self?.updateLocalStatistics(selectedLocalStatisticsDistrict: district)
+			}
+		}
+	}
+
 	func updateLocalStatistics(selectedLocalStatisticsDistrict: LocalStatisticsDistrict) {
 		localStatisticsProvider.latestLocalStatistics(groupID: String(selectedLocalStatisticsDistrict.federalState.groupID), eTag: nil)
 			.sink(
@@ -160,6 +176,12 @@ class HomeState: ENStateHandlerUpdating {
 				}
 			)
 			.store(in: &subscriptions)
+	}
+	
+	func updateSelectedLocalStatistics(selectedLocalStatisticsDistricts: [LocalStatisticsDistrict]?) {
+		localStatisticsProvider.latestSelectedLocalStatistics(selectedlocalStatisticsDistricts: selectedLocalStatisticsDistricts ?? [], completion: { selectedLocalStatisticsDistricts in
+			// TODO: Handle the selected districts data
+		})
 	}
 
 	// MARK: - Private
