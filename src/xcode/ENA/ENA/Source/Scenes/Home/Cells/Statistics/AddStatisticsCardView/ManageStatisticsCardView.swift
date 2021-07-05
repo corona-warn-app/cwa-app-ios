@@ -82,8 +82,9 @@ class ManageStatisticsCardView: UIView {
 
 		let modifyView = { () -> CustomDashedView in
 			let modify = CustomDashedView.instance(for: .modify)
-			modify.tapHandler = {
+			modify.tapHandler = { [weak self] in
 				Log.debug("modify…", log: .ui)
+				self?.onEditButtonTap?()
 			}
 			modify.label.onAccessibilityFocus = onAccessibilityFocus
 			return modify

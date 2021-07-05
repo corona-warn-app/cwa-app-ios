@@ -15,12 +15,12 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		self.addGestureRecognizer(scrollView.panGestureRecognizer)
     }
 
-	// MARK: - Internal
 	override func layoutSubviews() {
 		super.layoutSubviews()
 		self.scrollView.bounds.origin.x = self.scrollView.frame.size.width
-
 	}
+
+	// MARK: - Internal
 	
 	// swiftlint:disable:next function_parameter_count
 	func configure(
