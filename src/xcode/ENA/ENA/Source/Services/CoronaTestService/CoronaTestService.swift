@@ -475,6 +475,7 @@ class CoronaTestService {
 	private let appConfiguration: AppConfigurationProviding
 	private let healthCertificateService: HealthCertificateService
 	private let notificationCenter: UserNotificationCenter
+	private let serialQueue = AsyncOperation.serialQueue(named: "CoronaTestService.serialQueue")
 
 	private let fakeRequestService: FakeRequestService
 	private let warnOthersReminder: WarnOthersReminder
@@ -594,8 +595,8 @@ class CoronaTestService {
 		case .antigen:
 			antigenTestResultIsLoading = true
 		}
-
-		client.getTestResult(forDevice: registrationToken, isFake: false) { [weak self] result in
+		
+		let operation = CoronaTestResultOperation(client: client, registrationToken: registrationToken) { [weak self] result in
 			guard let self = self else { return }
 
 			switch coronaTestType {
@@ -673,7 +674,7 @@ class CoronaTestService {
 
 				switch testResult {
 				case .positive, .negative, .invalid:
-					if case .positive = testResult, !coronaTest.keysSubmitted {
+					if case .positive = testResult, let coronaTest = self.coronaTest(ofType: coronaTestType), !coronaTest.keysSubmitted {
 						self.createKeySubmissionMetadataDefaultValues(for: coronaTest)
 					}
 
@@ -698,7 +699,7 @@ class CoronaTestService {
 
 					}
 
-					if coronaTest.finalTestResultReceivedDate == nil {
+					if self.coronaTest(ofType: coronaTestType)?.finalTestResultReceivedDate == nil {
 						switch coronaTestType {
 						case .pcr:
 							self.pcrTest?.finalTestResultReceivedDate = Date()
@@ -761,6 +762,8 @@ class CoronaTestService {
 				}
 			}
 		}
+
+		serialQueue.addOperation(operation)
 	}
 
 	private func setupOutdatedPublisher(for antigenTest: AntigenTest) {

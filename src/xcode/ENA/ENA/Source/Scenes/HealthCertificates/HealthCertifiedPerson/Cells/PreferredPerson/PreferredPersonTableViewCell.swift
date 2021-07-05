@@ -41,6 +41,8 @@ class PreferredPersonTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 		nameLabel.text = cellModel.name
 		dateOfBirthLabel.text = cellModel.dateOfBirth
 
+		descriptionLabel.text = cellModel.description
+
 		cellModel.$isPreferredPerson
 			.assign(to: \.isOn, on: preferredPersonSwitch)
 			.store(in: &subscriptions)
@@ -55,6 +57,7 @@ class PreferredPersonTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 	private let nameLabel = ENALabel(style: .headline)
 	private let dateOfBirthLabel = ENALabel(style: .body)
 	private let preferredPersonSwitch = UISwitch()
+	private let descriptionLabel = ENALabel(style: .body)
 
 	private var cellModel: PreferredPersonCellModel?
 	private var subscriptions = Set<AnyCancellable>()
@@ -104,8 +107,6 @@ class PreferredPersonTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 		preferredPersonSwitch.addTarget(self, action: #selector(didTogglePreferredPersonSwitch(sender:)), for: .valueChanged)
 		topContentStackView.addArrangedSubview(preferredPersonSwitch)
 
-		let descriptionLabel = ENALabel(style: .body)
-		descriptionLabel.text = AppStrings.HealthCertificate.Person.preferredPersonDescription
 		descriptionLabel.numberOfLines = 0
 		contentStackView.addArrangedSubview(descriptionLabel)
 
