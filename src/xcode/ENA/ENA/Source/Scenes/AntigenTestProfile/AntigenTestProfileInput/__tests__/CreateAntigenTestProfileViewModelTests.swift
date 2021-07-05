@@ -139,4 +139,13 @@ class CreateAntigenTestProfileViewModelTests: CWATestCase {
 		}
 	}
 
+	func testGIVEN_AntigenTestProfile_WHEN_Init_THEN_ProfileHasData() {
+		let profile = AntigenTestProfile(firstName: "firstName")
+		let store = MockTestStore()
+		store.antigenTestProfile = profile
+		let viewModel = AntigenTestProfileInputViewModel(store: store)
+
+		XCTAssertEqual(viewModel.antigenTestProfile.firstName, profile.firstName)
+	}
+
 }
