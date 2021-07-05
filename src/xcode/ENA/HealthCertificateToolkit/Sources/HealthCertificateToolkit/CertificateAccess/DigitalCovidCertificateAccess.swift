@@ -153,7 +153,9 @@ public struct DigitalCovidCertificateAccess: DigitalCovidCertificateAccessProtoc
             return .failure(.HC_CBORWEBTOKEN_NO_EXPIRATIONTIME)
         }
 
-        var issuedAt: UInt64?
+        // 'iat' (issuedAt) should not be nil, so we assign it a default 0 here to avoid optionality.
+        // We are not returning an error here, because of backwards compatibility, due to a change from optional to non-optional.
+        var issuedAt: UInt64 = 0
         // 6: Issued at (UNIX timestamp in seconds)
         if let issuedAtElement = cborWebToken[6],
            case let .unsignedInt(_issuedAt) = issuedAtElement {
