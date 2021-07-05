@@ -2595,9 +2595,9 @@
 
 "HealthCertificate_Info_imageDescription" = "An immunized person is looking at their smartphone";
 
-"HealthCertificate_Info_description" = "Add your EU digital COVID certificates in the app. This will enable you to prove your vaccination protection or a negative test result with the app.";
+"HealthCertificate_Info_description" = "Add your EU digital COVID certificates in the app. This will enable you to prove your vaccination protection, a negative test result, or your recovery from an infection with the app.";
 
-"HealthCertificate_Info_section01" = "You can add EU digital COVID vaccination certificates or EU COVID test certificates in the app.";
+"HealthCertificate_Info_section01" = "You can add EU digital COVID vaccination certificates, COVID test certificates, and COVID certificates of recovery in the app.";
 
 "HealthCertificate_Info_section02" = "These certificates are considered to be valid proof within the EU (e.g. for travel).";
 
@@ -2722,9 +2722,9 @@
 /* Health Certificate Errors */
 "HealthCertificate_Error_Title" = "Error";
 
-"HealthCertificate_Error_FAQ_Description" = "\n\nFor more information about how to receive your vaccination certificate, please see our FAQ page.";
+"HealthCertificate_Error_FAQ_Description" = "\n\nFor more information about how to receive your certificate, please see our FAQ page.";
 
-"HealthCertificate_Error_FAQ_Button_Title" = "FAQ for Vaccination Certificates";
+"HealthCertificate_Error_FAQ_Button_Title" = "FAQ for Certificates";
 
 "HealthCertificate_Error_HC_ALREADY_REGISTERED" = "The certificate is already registered in your app.";
 

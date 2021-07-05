@@ -2595,9 +2595,9 @@
 
 "HealthCertificate_Info_imageDescription" = "O persoană imunizată se uită pe smartphone";
 
-"HealthCertificate_Info_description" = "Adăugați certificatele dvs. de COVID digitale UE în aplicație. Acest lucru vă ajută să dovediți protecția dvs. prin vaccinare sau să arătați un rezultat de test negativ în aplicație.";
+"HealthCertificate_Info_description" = "Adăugați certificatele dvs. de COVID digitale UE în aplicație. Acest lucru vă ajută să dovediți în aplicație protecția dvs. prin vaccinare, un rezultat de test negativ sau recuperarea în urma unei infecții.";
 
-"HealthCertificate_Info_section01" = "Puteți adăuga certificate de vaccinare COVID digitale UE sau certificate de test COVID UE în aplicație.";
+"HealthCertificate_Info_section01" = "Puteți adăuga certificate de vaccinare COVID digitale UE, certificate de test COVID și certificate de recuperare COVID în aplicație.";
 
 "HealthCertificate_Info_section02" = "Aceste certificate sunt considerate o dovadă valabilă în UE (de exemplu, în scop de călătorie).";
 
@@ -2722,9 +2722,9 @@
 /* Health Certificate Errors */
 "HealthCertificate_Error_Title" = "Eroare";
 
-"HealthCertificate_Error_FAQ_Description" = "\n\nPentru mai multe informații despre modul în care puteți primi certificatul dvs. de vaccinare, consultați pagina noastră de întrebări frecvente.";
+"HealthCertificate_Error_FAQ_Description" = "\n\nPentru mai multe informații despre modul în care puteți primi certificatul dvs., consultați pagina noastră de întrebări frecvente.";
 
-"HealthCertificate_Error_FAQ_Button_Title" = "Întrebări frecvente privind certificatele de vaccinare";
+"HealthCertificate_Error_FAQ_Button_Title" = "Întrebări frecvente privind certificatele";
 
 "HealthCertificate_Error_HC_ALREADY_REGISTERED" = "Certificatul este deja înregistrat în aplicația dvs.";
 
