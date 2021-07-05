@@ -12,11 +12,8 @@ class CustomDashedView: UIView {
 	
 	// MARK: - Internal
 
-	let label: ENALabel = {
-		let label = ENALabel()
-		// configure
-		return label
-	}()
+	@IBOutlet weak var label: ENALabel!
+	@IBOutlet weak var icon: UIImageView!
 	
 	@IBInspectable var cornerRadius: CGFloat = 15 {
 		didSet {
@@ -32,16 +29,17 @@ class CustomDashedView: UIView {
 	/// Dash pattern - gap length
 	@IBInspectable var betweenDashesSpace: CGFloat = 5
 
-	var dashBorder: CAShapeLayer?
+	var tapHandler: (() -> Void)?
 
-	required init(mode: Mode) {
-		super.init(frame: .zero)
+	private var dashBorder: CAShapeLayer?
+	private lazy var tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(onTap))
 
-		configure(for: mode)
-	}
-
-	required init?(coder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
+	class func instance(for mode: Mode) -> CustomDashedView {
+		let nibName = String(describing: Self.self)
+		// swiftlint:disable:next force_cast
+		let view = UINib(nibName: nibName, bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! CustomDashedView
+		view.configure(for: mode)
+		return view
 	}
 
 	override func layoutSubviews() {
@@ -67,9 +65,29 @@ class CustomDashedView: UIView {
 	private func configure(for mode: Mode) {
 		switch mode {
 		case .add:
-			backgroundColor = .green
+			label.text = AppStrings.Statistics.AddCard.sevenDayIncidence
+			label.accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.addLocalIncidenceLabel
+
+			icon.image = UIImage(named: "Icon_Add")
+			self.accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.addLocalIncidencesButton
 		case .modify:
-			backgroundColor = .orange
+			label.text = AppStrings.Statistics.AddCard.modify
+			label.accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.modifyLocalIncidenceLabel
+
+			icon.image = UIImage(named: "Icon_Modify")
+			self.accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.modifyLocalIncidencesButton
 		}
+
+		// ensure we don't assign this one multiple times
+		gestureRecognizers?.forEach { rec in
+			removeGestureRecognizer(rec)
+		}
+		// add tap recognizer
+		self.addGestureRecognizer(tapRecognizer)
+	}
+
+	@objc
+	private func onTap(_ sender: UITapGestureRecognizer) {
+		tapHandler?()
 	}
 }

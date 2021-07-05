@@ -5,6 +5,8 @@
 import UIKit
 
 class ManageStatisticsCardView: UIView {
+
+	@IBOutlet weak var stackView: UIStackView!
 	
 	// MARK: - Overrides
 
@@ -13,13 +15,6 @@ class ManageStatisticsCardView: UIView {
 		
 		let borderColor: UIColor = .enaColor(for: .backgroundLightGray)
 		layer.borderColor = borderColor.cgColor
-		// TODO: will move to the `CustomDashedView`
-//		addLocalIncidenceLabel.text = AppStrings.Statistics.AddCard.sevenDayIncidence
-//		addLocalIncidenceLabel.accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.addLocalIncidenceLabel
-//		addLocalIncidencesButton.accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.addLocalIncidencesButton
-//		addLocalIncidenceLabel.onAccessibilityFocus = { [weak self] in
-//			self?.onAccessibilityFocus?()
-//		}
 	}
 	
 	// swiftlint:disable:next function_parameter_count
@@ -44,7 +39,8 @@ class ManageStatisticsCardView: UIView {
 		self.onEditButtonTap = onEditButtonTap
 		self.onAccessibilityFocus = onAccessibilityFocus
 
-		updateUI(for: availableCardsState)
+		// FIXME: development code
+		updateUI(for: .notYetFull /*availableCardsState*/)
 	}
 
 	@IBAction func onAddLocalIncidenceButtonPressed(_ sender: Any) {
@@ -67,11 +63,6 @@ class ManageStatisticsCardView: UIView {
 		viewModel?.presentStateSelection()
 	}
 
-	@IBOutlet weak var stackView: UIStackView!
-	// TODO: These two guys will move to the `CustomDashedView`
-	// @IBOutlet weak var addLocalIncidenceLabel: ENALabel!
-	// @IBOutlet weak var addLocalIncidencesButton: UIButton!
-
 	func updateUI(for state: LocalStatisticsState) {
 		// clear
 		stackView.arrangedSubviews.forEach { subview in
@@ -79,22 +70,37 @@ class ManageStatisticsCardView: UIView {
 			subview.removeFromSuperview()
 		}
 
+		let addView = { () -> CustomDashedView in
+			let add = CustomDashedView.instance(for: .add)
+			add.tapHandler = { [weak self] in
+				Log.debug("add…", log: .ui)
+				self?.onAddLocalIncidenceButtonPressed(add)
+			}
+			add.label.onAccessibilityFocus = onAccessibilityFocus
+			return add
+		}()
+
+		let modifyView = { () -> CustomDashedView in
+			let modify = CustomDashedView.instance(for: .modify)
+			modify.tapHandler = { [weak self] in
+				Log.debug("modify…", log: .ui)
+				self?.onEditButtonTap?()
+			}
+			modify.label.onAccessibilityFocus = onAccessibilityFocus
+			return modify
+		}()
+
 		switch state {
 		case .empty:
 			// just 'add'
-			let add = CustomDashedView(mode: .add)
-			stackView.addArrangedSubview(add)
+			stackView.addArrangedSubview(addView)
 		case .notYetFull:
 			// 'add' & 'modify'
-			let add = CustomDashedView(mode: .add)
-			stackView.addArrangedSubview(add)
-
-			let modify = CustomDashedView(mode: .modify)
-			stackView.addArrangedSubview(modify)
+			stackView.addArrangedSubview(addView)
+			stackView.addArrangedSubview(modifyView)
 		case .full:
 			// just 'modify'
-			let modify = CustomDashedView(mode: .modify)
-			stackView.addArrangedSubview(modify)
+			stackView.addArrangedSubview(modifyView)
 		}
 	}
 	

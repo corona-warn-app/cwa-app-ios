@@ -39,6 +39,7 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		// the Local statistics card will appear.
 		XCTAssertTrue(app.tables[AccessibilityIdentifiers.Home.tableView].waitForExistence(timeout: .medium))
 //		app.swipeDown(velocity: .slow)
+		// TODO: replace `staticTexts` usage!!!
 //		XCTAssertTrue(self.app.staticTexts[localStatisticsViewTitle].waitForExistence(timeout: .medium))
 	}
 	
