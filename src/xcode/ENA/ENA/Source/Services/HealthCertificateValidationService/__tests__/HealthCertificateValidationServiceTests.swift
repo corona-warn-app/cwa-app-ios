@@ -3,9 +3,9 @@
 //
 
 @testable import ENA
+@testable import HealthCertificateToolkit
 import XCTest
 import SwiftCBOR
-import HealthCertificateToolkit
 
 class HealthCertificateValidationServiceTests: XCTestCase {
 	

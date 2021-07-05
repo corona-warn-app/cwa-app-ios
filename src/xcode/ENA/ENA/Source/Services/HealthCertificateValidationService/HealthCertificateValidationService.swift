@@ -61,12 +61,12 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 				
 				switch result {
 				case let .success(packageDownloadResponse):
-					self.onboardedCountriesSuccessHandler(
+					self.processOnboardedCountriesResponse(
 						packageDownloadResponse: packageDownloadResponse,
 						completion: completion
 					)
 				case let .failure(error):
-					self.onboardedCountriesFailureHandler(
+					self.processOnboardedCountriesFailure(
 						error: error,
 						completion: completion
 					)
@@ -113,12 +113,11 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 	private let client: Client
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProvider
 	private let signatureVerifier: SignatureVerification
-	
 	private var subscriptions = Set<AnyCancellable>()
 	
 	// MARK: - Onboarded Countries
 	
-	private func onboardedCountriesSuccessHandler(
+	private func processOnboardedCountriesResponse(
 		packageDownloadResponse: PackageDownloadResponse,
 		completion: @escaping (Result<[Country], ValidationOnboardedCountriesError>) -> Void
 	) {
@@ -168,7 +167,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		)
 	}
 	
-	private func onboardedCountriesFailureHandler(
+	private func processOnboardedCountriesFailure(
 		error: URLSession.Response.Failure,
 		completion: @escaping (Result<[Country], ValidationOnboardedCountriesError>) -> Void
 	) {

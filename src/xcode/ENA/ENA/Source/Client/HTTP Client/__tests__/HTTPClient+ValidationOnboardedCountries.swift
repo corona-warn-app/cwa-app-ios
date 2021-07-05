@@ -114,13 +114,13 @@ final class HTTPClientValidationOnboardedCountriesTests: CWATestCase {
 		XCTAssertEqual(failure, .serverError(504))
 	}
 	
-	func testGIVEN_Client_WHEN_Failure_THEN_Failure_InvalidResponseIsReturned() {
+	func testGIVEN_Client_WHEN_Failure_THEN_Failure_NoResponseIsReturned() {
 		// GIVEN
 		let stack = MockNetworkStack(
 			httpStatus: 504,
 			responseData: nil)
 		let client = HTTPClient.makeWith(mock: stack)
-		let expectation = self.expectation(description: "completion handler is called with invalidResponse failure")
+		let expectation = self.expectation(description: "completion handler is called with noResponse failure")
 		var failure: URLSession.Response.Failure?
 		
 		// WHEN
@@ -136,7 +136,7 @@ final class HTTPClientValidationOnboardedCountriesTests: CWATestCase {
 	
 		// THEN
 		waitForExpectations(timeout: .short)
-		XCTAssertEqual(failure, .invalidResponse)
+		XCTAssertEqual(failure, .noResponse)
 	}
 	
 	// MARK: - Private
