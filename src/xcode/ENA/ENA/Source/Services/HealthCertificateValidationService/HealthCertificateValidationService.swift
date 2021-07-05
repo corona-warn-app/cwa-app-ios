@@ -9,6 +9,7 @@ import HealthCertificateToolkit
 import class CertLogic.Rule
 import class CertLogic.ExternalParameter
 import enum CertLogic.CertificateType
+import class CertLogic.ValidationResult
 
 protocol HealthCertificateValidationProviding {
 	func onboardedCountries(
@@ -23,6 +24,8 @@ protocol HealthCertificateValidationProviding {
 	)
 }
 
+// swiftlint:disable file_length
+// swiftlint:disable:next type_body_length
 final class HealthCertificateValidationService: HealthCertificateValidationProviding {
 	
 	// MARK: - Init
@@ -87,98 +90,13 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 			return completion(.failure(.TECHNICAL_VALIDATION_FAILED))
 		}
 
-		// 2. update/ download value sets
-		updateValueSets(
-			completion: { result in
-				switch result {
-				case let .failure(error):
-					completion(.failure(error))
-				case let .success(valueSets):
-					
-					// 3. update/ download acceptance rules
-					self.downloadAcceptanceRule(
-						completion: { result in
-							switch result {
-							case let .failure(error):
-								completion(.failure(error))
-							case let .success(acceptanceRules):
-								
-								// 4. update/ download invalidation rules
-								self.downloadInvalidationRule(
-									completion: { result in
-										switch result {
-										case let .failure(error):
-											completion(.failure(error))
-										case let .success(invalidationRules):
-											
-											// 5. assemble external rule params
-											// Do we need the common external rule params?
-											
-											// 6. assemble external rule params for acceptance rules
-											let acceptanceRuleParameter = self.assembleAcceptanceExternalRuleParameters(
-												healthCertificate: healthCertificate,
-												arrivalCountry: arrivalCountry,
-												validationClock: validationClock,
-												valueSet: valueSets
-											)
-											
-											// 8. assemble external rule params for invalidation rules
-											let invalidationRuleParameter = self.assembleInvalidationExternalRuleParameters(
-												healthCertificate: healthCertificate,
-												arrivalCountry: arrivalCountry,
-												validationClock: validationClock,
-												valueSet: valueSets
-											)
-
-											// 7. apply acceptance rules
-
-											let acceptanceRulesResult = ValidationRulesAccess().applyValidationRules(
-												acceptanceRules,
-												to: healthCertificate.digitalCovidCertificate,
-												externalRules: acceptanceRuleParameter
-											)
-
-											guard case let .success(acceptanceRulesValidations) = acceptanceRulesResult else {
-												if case let .failure(error) = acceptanceRulesResult {
-													completion(.failure(.ACCEPTANCE_RULE_VALIDATION_ERROR(error)))
-												}
-												return
-											}
-
-											// 9. apply invalidation rules
-											
-											let invalidationRulesResult = ValidationRulesAccess().applyValidationRules(
-												invalidationRules,
-												to: healthCertificate.digitalCovidCertificate,
-												externalRules: invalidationRuleParameter
-											)
-
-											guard case let .success(invalidationRulesValidations) = invalidationRulesResult else {
-												if case let .failure(error) = invalidationRulesResult {
-													completion(.failure(.INVALIDATION_RULE_VALIDATION_ERROR(error)))
-												}
-												return
-											}
-
-											let combinedRuleValidations = acceptanceRulesValidations + invalidationRulesValidations
-
-											// if all rules contains .passed, we call this:
-											completion(.success(.validationPassed))
-											
-											// if all rules contains .open, we call this with the corresponding rules:
-											// completion(.success(.validationOpen([]))
-											
-											// if one rule contains .fail, we call this with the corresponding rules:
-											// completion(.success(.validationPassed))
-										}
-									}
-								)
-							}
-						}
-					)
-				}
-			}
+		proceedWithUpdatingValueSets(
+			healthCertificate: healthCertificate,
+			arrivalCountry: arrivalCountry,
+			validationClock: validationClock,
+			completion: completion
 		)
+
 	}
 
 	// MARK: - Public
@@ -292,11 +210,15 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		}
 	}
 	
-	// MARK: - Value Sets
+	// MARK: - Validation
 	
-	private func updateValueSets(
-		completion: @escaping (Result<SAP_Internal_Dgc_ValueSets, HealthCertificateValidationError>) -> Void
+	private func proceedWithUpdatingValueSets(
+		healthCertificate: HealthCertificate,
+		arrivalCountry: String,
+		validationClock: Date,
+		completion: @escaping (Result<HealthCertificateValidationReport, HealthCertificateValidationError>) -> Void
 	) {
+		// 2. update/ download value sets
 		vaccinationValueSetsProvider.latestVaccinationCertificateValueSets()
 			.sink(
 				receiveCompletion: { result in
@@ -317,15 +239,183 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 						}
 					}
 					
-				}, receiveValue: { valueSets in
-					completion(.success(valueSets))
+				}, receiveValue: { [weak self] valueSets in
+					self?.proceedWithDownloadingAcceptanceRules(
+						healthCertificate: healthCertificate,
+						arrivalCountry: arrivalCountry,
+						validationClock: validationClock,
+						valueSets: valueSets,
+						completion: completion
+					)
 				}
 			)
 			.store(in: &subscriptions)
 	}
 	
-	// MARK: - Acceptance Rules
+	private func proceedWithDownloadingAcceptanceRules(
+		healthCertificate: HealthCertificate,
+		arrivalCountry: String,
+		validationClock: Date,
+		valueSets: SAP_Internal_Dgc_ValueSets,
+		completion: @escaping (Result<HealthCertificateValidationReport, HealthCertificateValidationError>) -> Void
+	) {
+		// 3. update/ download acceptance rules
+		downloadAcceptanceRule(
+			completion: { [weak self] result in
+				switch result {
+				case let .failure(error):
+					completion(.failure(error))
+				case let .success(acceptanceRules):
+					self?.proceedWithDownloadingInvalidationRules(
+						healthCertificate: healthCertificate,
+						arrivalCountry: arrivalCountry,
+						validationClock: validationClock,
+						valueSets: valueSets,
+						acceptanceRules: acceptanceRules,
+						completion: completion
+					)
+				}
+			}
+		)
+	}
 	
+	private func proceedWithDownloadingInvalidationRules(
+		healthCertificate: HealthCertificate,
+		arrivalCountry: String,
+		validationClock: Date,
+		valueSets: SAP_Internal_Dgc_ValueSets,
+		acceptanceRules: [Rule],
+		completion: @escaping (Result<HealthCertificateValidationReport, HealthCertificateValidationError>) -> Void
+	) {
+		// 4. update/ download invalidation rules
+		downloadInvalidationRule(
+			completion: { [weak self] result in
+				switch result {
+				case let .failure(error):
+					completion(.failure(error))
+				case let .success(invalidationRules):
+					self?.proceedWithAssemblingRules(
+						healthCertificate: healthCertificate,
+						arrivalCountry: arrivalCountry,
+						validationClock: validationClock,
+						valueSets: valueSets,
+						acceptanceRules: acceptanceRules,
+						invalidationRules: invalidationRules,
+						completion: completion
+					)
+				}
+			}
+		)
+	}
+	
+	private func proceedWithAssemblingRules(
+		healthCertificate: HealthCertificate,
+		arrivalCountry: String,
+		validationClock: Date,
+		valueSets: SAP_Internal_Dgc_ValueSets,
+		acceptanceRules: [Rule],
+		invalidationRules: [Rule],
+		completion: @escaping (Result<HealthCertificateValidationReport, HealthCertificateValidationError>) -> Void
+	) {
+		// 6. assemble external rule params for acceptance rules
+		let acceptanceRuleParameter = self.assembleAcceptanceExternalRuleParameters(
+			healthCertificate: healthCertificate,
+			arrivalCountry: arrivalCountry,
+			validationClock: validationClock,
+			valueSet: valueSets
+		)
+		
+		// 8. assemble external rule params for invalidation rules
+		let invalidationRuleParameter = self.assembleInvalidationExternalRuleParameters(
+			healthCertificate: healthCertificate,
+			arrivalCountry: arrivalCountry,
+			validationClock: validationClock,
+			valueSet: valueSets
+		)
+		
+		proceedWithRuleValidation(
+			healthCertificate: healthCertificate,
+			valueSets: valueSets,
+			acceptanceRules: acceptanceRules,
+			invalidationRules: invalidationRules,
+			acceptanceRuleParameter: acceptanceRuleParameter,
+			invalidationRuleParameter: invalidationRuleParameter,
+			completion: completion
+		)
+		
+	}
+	
+	private func proceedWithRuleValidation(
+		healthCertificate: HealthCertificate,
+		valueSets: SAP_Internal_Dgc_ValueSets,
+		acceptanceRules: [Rule],
+		invalidationRules: [Rule],
+		acceptanceRuleParameter: ExternalParameter,
+		invalidationRuleParameter: ExternalParameter,
+		completion: @escaping (Result<HealthCertificateValidationReport, HealthCertificateValidationError>) -> Void
+	) {
+		
+		// 7. apply acceptance rules
+		
+		let acceptanceRulesResult = ValidationRulesAccess().applyValidationRules(
+			acceptanceRules,
+			to: healthCertificate.digitalCovidCertificate,
+			externalRules: acceptanceRuleParameter
+		)
+
+		guard case let .success(acceptanceRulesValidations) = acceptanceRulesResult else {
+			if case let .failure(error) = acceptanceRulesResult {
+				completion(.failure(.ACCEPTANCE_RULE_VALIDATION_ERROR(error)))
+			}
+			return
+		}
+
+		// 9. apply invalidation rules
+		
+		let invalidationRulesResult = ValidationRulesAccess().applyValidationRules(
+			invalidationRules,
+			to: healthCertificate.digitalCovidCertificate,
+			externalRules: invalidationRuleParameter
+		)
+
+		guard case let .success(invalidationRulesValidations) = invalidationRulesResult else {
+			if case let .failure(error) = invalidationRulesResult {
+				completion(.failure(.INVALIDATION_RULE_VALIDATION_ERROR(error)))
+			}
+			return
+		}
+
+		let combinedRuleValidations = acceptanceRulesValidations + invalidationRulesValidations
+		proceedWithRuleInterpretation(
+			combinedRuleValidations: combinedRuleValidations,
+			completion: completion
+		)
+		
+	}
+	
+	private func proceedWithRuleInterpretation(
+		combinedRuleValidations: [ValidationResult],
+		completion: @escaping (Result<HealthCertificateValidationReport, HealthCertificateValidationError>) -> Void
+	) {
+		
+		// if one rule contains .fail, we call this with the corresponding rules:
+		guard combinedRuleValidations.contains(where: { $0.result == .fail}) else {
+			completion(.success(.validationFailed(combinedRuleValidations)))
+			return
+		}
+		
+		// if all rules contains .open, we call this with the corresponding rules:
+		guard combinedRuleValidations.allSatisfy({ $0.result == .open }) else {
+			// TODO: Do we return all results or only the open ones?
+			completion(.success(.validationOpen(combinedRuleValidations)))
+			return
+		}
+		
+		// At this point, every rule should be passed, so we can call the best success.
+		// if all rules contains .passed, we call this:
+		completion(.success(.validationPassed))
+	}
+		
 	private func downloadAcceptanceRule(
 		completion: @escaping (Result<[Rule], HealthCertificateValidationError>) -> Void
 	) {
