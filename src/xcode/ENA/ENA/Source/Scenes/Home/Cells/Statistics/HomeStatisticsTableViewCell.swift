@@ -42,7 +42,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] in
 				self?.clearStackView()
-				self?.configureAddLocalStatisticsCell(
+				self?.configureLocalStatisticsCell(
 					store: store,
 					onAddLocalStatisticsButtonTap: onAddLocalStatisticsButtonTap,
 					onAddDistrict: onAddDistrict,
@@ -138,7 +138,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 	}
 	
 	// swiftlint:disable:next function_parameter_count
-	private func configureAddLocalStatisticsCell(
+	private func configureLocalStatisticsCell(
 		store: Store,
 		onAddLocalStatisticsButtonTap: @escaping (SelectValueTableViewController) -> Void,
 		onAddDistrict: @escaping (SelectValueTableViewController) -> Void,
