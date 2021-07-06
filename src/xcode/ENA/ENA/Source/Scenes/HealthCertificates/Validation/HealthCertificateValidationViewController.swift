@@ -46,7 +46,6 @@ class HealthCertificateValidationViewController: UIViewController, FooterViewHan
 		let infoBarButtonItem = UIBarButtonItem(customView: infoButton)
 
 		parent?.navigationItem.rightBarButtonItems = [dismissHandlingCloseBarButton(.normal), infoBarButtonItem]
-		parent?.navigationItem.title = "Gültigkeit des Zertifikats"
 	}
 
 	// MARK: - Protocol FooterViewHandling
