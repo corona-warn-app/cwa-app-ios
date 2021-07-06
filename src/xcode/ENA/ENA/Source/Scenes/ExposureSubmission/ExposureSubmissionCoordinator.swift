@@ -855,7 +855,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				)
 
 			},
-			didTapInfoProfile: { [weak self] in
+			didTapProfileInfo: { [weak self] in
 				self?.showAntigenTestProfileInformation()
 			},
 			didTapEditProfile: { [weak self] in
