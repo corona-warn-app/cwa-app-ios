@@ -79,7 +79,7 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 			
 			let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 			alertController.addAction(UIAlertAction(title: AppStrings.AntigenProfile.Profile.infoActionTitle, style: .default, handler: { [weak self] _ in
-				self?.didTapInfoProfile()
+				self?.didTapProfileInfo()
 			}))
 
 			let editAction = UIAlertAction(title: AppStrings.AntigenProfile.Profile.editActionTitle, style: .default, handler: { [weak self] _ in
