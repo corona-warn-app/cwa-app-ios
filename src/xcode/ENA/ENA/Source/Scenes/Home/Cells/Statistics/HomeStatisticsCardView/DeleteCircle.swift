@@ -1,9 +1,10 @@
-////
+//
 // 🦠 Corona-Warn-App
 //
 
 import UIKit
 
+@IBDesignable
 class DeleteCircle: UIView {
 
 	override init(frame: CGRect) {
@@ -24,7 +25,7 @@ class DeleteCircle: UIView {
 		context?.fillPath()
 
 		context?.setLineCap(.round)
-		context?.setLineWidth(3.0)
+		context?.setLineWidth(rect.width / 8) // default: rect-width 24, line-width: 3
 		context?.setStrokeColor(UIColor.white.cgColor)
 		context?.addLines(between: [
 			CGPoint(x: rect.minX + rect.width / 5, y: rect.midY),

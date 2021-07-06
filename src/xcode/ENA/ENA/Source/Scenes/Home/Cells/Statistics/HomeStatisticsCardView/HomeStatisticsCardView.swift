@@ -82,6 +82,13 @@ class HomeStatisticsCardView: UIView {
 
 		primaryTrendImageView.layer.cornerRadius = primaryTrendImageView.bounds.width / 2
 		secondaryTrendImageView.layer.cornerRadius = secondaryTrendImageView.bounds.width / 2
+
+		// delete button/circle
+		let tap = UITapGestureRecognizer(target: self, action: #selector(onDeleteTapped(_:)))
+		deletionIndicator.addGestureRecognizer(tap)
+		deletionIndicator.center = CGPoint(x: 10, y: 6) // magic number because of a very static design
+		addSubview(deletionIndicator)
+		deletionIndicator.isHidden = true // initial state
 	}
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 		super.traitCollectionDidChange(previousTraitCollection)
@@ -299,6 +306,14 @@ class HomeStatisticsCardView: UIView {
 		updateIllustration(for: traitCollection)
 	}
 
+	func setEditMode(_ enabled: Bool, animated: Bool) {
+		UIView.animate(withDuration: animated ? 0.3 : 0.0, animations: {
+			if self.deletionIndicator.isHidden { self.deletionIndicator.isHidden.toggle() }
+			self.deletionIndicator.alpha = enabled ? 1 : 0
+		}, completion: { _ in
+			self.deletionIndicator.isHidden = !enabled
+		})
+	}
 	// MARK: - Private
 
 	private var onInfoButtonTap: (() -> Void)?
@@ -306,8 +321,17 @@ class HomeStatisticsCardView: UIView {
 
 	private var subscriptions = Set<AnyCancellable>()
 	private var viewModel: HomeStatisticsCardViewModel?
+	private lazy var deletionIndicator: UIView = {
+		let delete = DeleteCircle(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
+		return delete
+	}()
 
-	@IBAction private func infoButtonTapped(_ sender: Any) {
+	@objc
+	private func onDeleteTapped(_ sender: Any?) {
+		dump(sender)
+	}
+
+	@IBAction private func infoButtonTapped(_ sender: Any?) {
 		onInfoButtonTap?()
 	}
 

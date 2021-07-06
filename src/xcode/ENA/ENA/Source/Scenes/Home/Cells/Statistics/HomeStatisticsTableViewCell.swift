@@ -100,7 +100,6 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		if let statisticsCardView = nib.instantiate(withOwner: self, options: nil).first as? HomeStatisticsCardView {
 			if !stackView.arrangedSubviews.isEmpty {
 				stackView.insertArrangedSubview(statisticsCardView, at: 1)
-
 				statisticsCardView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
 				statisticsCardView.configure(
 					viewModel: HomeStatisticsCardViewModel(administrativeUnitData: adminUnit, district: districtName),
