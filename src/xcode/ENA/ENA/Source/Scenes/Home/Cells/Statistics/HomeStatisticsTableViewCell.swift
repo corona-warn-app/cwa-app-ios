@@ -29,10 +29,11 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		onInfoButtonTap: @escaping () -> Void,
 		onAddLocalStatisticsButtonTap: @escaping (SelectValueTableViewController) -> Void,
 		onAddDistrict: @escaping (SelectValueTableViewController) -> Void,
+		onDeleteLocalStatistic: @escaping (SAP_Internal_Stats_AdministrativeUnitData, LocalStatisticsDistrict) -> Void,
 		onDismissState: @escaping () -> Void,
 		onDismissDistrict: @escaping (Bool) -> Void,
 		onFetchGroupData: @escaping (LocalStatisticsDistrict) -> Void,
-		onEditLocalStatisticsButtonTap: @escaping () -> Void,
+		onToggleEditMode: @escaping (_ enabled: Bool) -> Void,
 		onAccessibilityFocus: @escaping () -> Void,
 		onUpdate: @escaping () -> Void
 	) {
@@ -46,10 +47,11 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 					store: store,
 					onAddLocalStatisticsButtonTap: onAddLocalStatisticsButtonTap,
 					onAddDistrict: onAddDistrict,
+					onDeleteLocalStatistic: onDeleteLocalStatistic,
 					onDismissState: onDismissState,
 					onDismissDistrict: onDismissDistrict,
 					onFetchGroupData: onFetchGroupData,
-					onEditLocalStatisticsButtonTap: onEditLocalStatisticsButtonTap,
+					onToggleEditMode: onToggleEditMode,
 					onAccessibilityFocus: onAccessibilityFocus
 				)
 				self?.configureKeyFigureCells(
@@ -72,7 +74,8 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 					store: store,
 					administrativeUnitsData: administrativeUnitsData,
 					onInfoButtonTap: onInfoButtonTap,
-					onAccessibilityFocus: onAccessibilityFocus
+					onAccessibilityFocus: onAccessibilityFocus,
+					onDeleteStatistic: onDeleteLocalStatistic
 				)
 				onUpdate()
 			}
@@ -83,7 +86,8 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		store: Store,
 		administrativeUnitsData: [SAP_Internal_Stats_AdministrativeUnitData],
 		onInfoButtonTap:  @escaping () -> Void,
-		onAccessibilityFocus: @escaping () -> Void
+		onAccessibilityFocus: @escaping () -> Void,
+		onDeleteStatistic: @escaping (SAP_Internal_Stats_AdministrativeUnitData, LocalStatisticsDistrict) -> Void
 	) {
 		let administrativeUnit = administrativeUnitsData.first {
 			$0.administrativeUnitShortID == UInt32(district?.districtId ?? "0")
@@ -113,14 +117,19 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 					},
 					onDeleteTap: { [weak self] in
 						// TODO: handle state, i.e. remove deselected entity from local statistics
-						Log.info("removing \((adminUnit, self?.district))", log: .ui)
+						guard let district = self?.district else {
+							assertionFailure("fix this!")
+							return
+						}
+						Log.info("removing \(private: adminUnit.administrativeUnitShortID, public: "administrative unit") @ \(private: district.districtName, public: "district id")", log: .ui)
+						onDeleteStatistic(adminUnit, district)
 
 						self?.stackView.removeArrangedSubview(statisticsCardView)
 						statisticsCardView.removeFromSuperview()
 					}
 				)
 				// FIXME: dev code
-				statisticsCardView.setEditMode(true, animated: true)
+				statisticsCardView.setEditMode(Self.editingStatistics, animated: true)
 
 				configureBaselines(statisticsCardView: statisticsCardView)
 			}
@@ -139,6 +148,9 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 	private var subscriptions = Set<AnyCancellable>()
 	private var district: LocalStatisticsDistrict?
 
+	/// A temporary solution to speed up development
+	private static var editingStatistics: Bool = false
+
 	private func clearStackView() {
 		stackView.arrangedSubviews.forEach {
 			stackView.removeArrangedSubview($0)
@@ -151,10 +163,11 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		store: Store,
 		onAddLocalStatisticsButtonTap: @escaping (SelectValueTableViewController) -> Void,
 		onAddDistrict: @escaping (SelectValueTableViewController) -> Void,
+		onDeleteLocalStatistic: @escaping (SAP_Internal_Stats_AdministrativeUnitData, LocalStatisticsDistrict) -> Void,
 		onDismissState: @escaping () -> Void,
 		onDismissDistrict: @escaping (Bool) -> Void,
 		onFetchGroupData: @escaping (LocalStatisticsDistrict) -> Void,
-		onEditLocalStatisticsButtonTap: @escaping () -> Void,
+		onToggleEditMode: @escaping (_ enabled: Bool) -> Void,
 		onAccessibilityFocus: @escaping () -> Void
 	) {
 		guard let jsonFileURL = Bundle.main.url(forResource: "ppdd-ppa-administrative-unit-set-ua-approved", withExtension: "json") else {
@@ -197,9 +210,10 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 				}, onFetchGroupData: { district in
 					self.district = district
 					onFetchGroupData(district)
-				},
-				onEditButtonTap: {
-					onEditLocalStatisticsButtonTap()
+				}, onEditButtonTap: {
+					//FIXME: the local static var is currently for development. Keeping this instance based will reset it on reloading of this cell. `onToggleEditMode` passes the current state to the tableViewController…
+					Self.editingStatistics.toggle()
+					onToggleEditMode(Self.editingStatistics)
 				}, onAccessibilityFocus: {
 					onAccessibilityFocus()
 				}

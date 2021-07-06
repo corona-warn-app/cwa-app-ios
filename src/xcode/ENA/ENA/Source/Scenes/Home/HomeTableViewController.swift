@@ -606,16 +606,20 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			onAddDistrict: { [weak self] selectValueViewController in
 				self?.onAddDistrict(selectValueViewController)
 			},
+			onDeleteLocalStatistic: { administrativeUnit, district in
+				//
+			},
 			onDismissState: { [weak self] in
 				self?.onDismissState()
 			},
 			onDismissDistrict: { [weak self] dismissToRoot in
 				self?.onDismissDistrict(dismissToRoot)
-			}, onFetchGroupData: { [weak self] district in
+			},
+			onFetchGroupData: { [weak self] district in
 				self?.viewModel.state.fetchLocalStatistics(district: district)
 			},
-			onEditLocalStatisticsButtonTap: {
-				Log.warning("Edit Functionality Should Be Added")
+			onToggleEditMode: { enabled in
+				Log.warning("Edit mode on: \(enabled)")
 			},
 			onAccessibilityFocus: { [weak self] in
 				self?.tableView.contentOffset.x = 0
