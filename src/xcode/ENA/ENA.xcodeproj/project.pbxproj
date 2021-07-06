@@ -837,6 +837,8 @@
 		ABD2F634254C533200DC1958 /* KeyPackageDownload.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD2F633254C533200DC1958 /* KeyPackageDownload.swift */; };
 		ABDA2792251CE308006BAE84 /* DMServerEnvironmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDA2791251CE308006BAE84 /* DMServerEnvironmentViewController.swift */; };
 		ABE06E99261D958A00D98E1B /* TraceLocationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE06E98261D958A00D98E1B /* TraceLocationTests.swift */; };
+		ABE5E0BA269363B900D50C2B /* CountrySelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE5E0B9269363B900D50C2B /* CountrySelectionCell.swift */; };
+		ABE5E0BD2694590900D50C2B /* ValidationDateSelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE5E0BC2694590900D50C2B /* ValidationDateSelectionCell.swift */; };
 		ABE63CF126010EFF0024F856 /* ContactDiaryStore+Creation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE63CF026010EFF0024F856 /* ContactDiaryStore+Creation.swift */; };
 		ABE9612C25EFEB4E00D0F699 /* DMInstallationDateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE9612A25EFEB4E00D0F699 /* DMInstallationDateViewModel.swift */; };
 		ABE9612D25EFEB4E00D0F699 /* DMInstallationDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE9612B25EFEB4E00D0F699 /* DMInstallationDateViewController.swift */; };
@@ -2101,6 +2103,8 @@
 		ABD2F633254C533200DC1958 /* KeyPackageDownload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPackageDownload.swift; sourceTree = "<group>"; };
 		ABDA2791251CE308006BAE84 /* DMServerEnvironmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMServerEnvironmentViewController.swift; sourceTree = "<group>"; };
 		ABE06E98261D958A00D98E1B /* TraceLocationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationTests.swift; sourceTree = "<group>"; };
+		ABE5E0B9269363B900D50C2B /* CountrySelectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountrySelectionCell.swift; sourceTree = "<group>"; };
+		ABE5E0BC2694590900D50C2B /* ValidationDateSelectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationDateSelectionCell.swift; sourceTree = "<group>"; };
 		ABE63CF026010EFF0024F856 /* ContactDiaryStore+Creation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ContactDiaryStore+Creation.swift"; sourceTree = "<group>"; };
 		ABE9612A25EFEB4E00D0F699 /* DMInstallationDateViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DMInstallationDateViewModel.swift; sourceTree = "<group>"; };
 		ABE9612B25EFEB4E00D0F699 /* DMInstallationDateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DMInstallationDateViewController.swift; sourceTree = "<group>"; };
@@ -3323,6 +3327,7 @@
 		01E0D3AA268F02DF00E32CF9 /* Validation */ = {
 			isa = PBXGroup;
 			children = (
+				ABE5E0BB2694527300D50C2B /* Cells */,
 				01E0D3AB268F02F100E32CF9 /* HealthCertificateValidationCoordinator.swift */,
 				0186FB5F268F35B900872D45 /* HealthCertificateValidationViewController.swift */,
 				0186FB61268F362100872D45 /* HealthCertificateValidationViewModel.swift */,
@@ -5512,6 +5517,15 @@
 			path = KeyPackageDownload;
 			sourceTree = "<group>";
 		};
+		ABE5E0BB2694527300D50C2B /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				ABE5E0B9269363B900D50C2B /* CountrySelectionCell.swift */,
+				ABE5E0BC2694590900D50C2B /* ValidationDateSelectionCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		ABE9612925EFEB4E00D0F699 /* DMInstallationDate */ = {
 			isa = PBXGroup;
 			children = (
@@ -7660,6 +7674,7 @@
 				ABF0F605260B347600E50B0F /* CheckinRiskCalculation.swift in Sources */,
 				BA6C8B05254D6B1F008344F5 /* RiskCalculation.swift in Sources */,
 				BA6D1640255ADD0500ED3492 /* DMSwitchCellViewModel.swift in Sources */,
+				ABE5E0BA269363B900D50C2B /* CountrySelectionCell.swift in Sources */,
 				EBB92C77259E110900013B41 /* UpdateOSViewModel.swift in Sources */,
 				50680B9F26164442002EA256 /* DMDMMostRecentTraceLocationCheckedIntoViewModel.swift in Sources */,
 				0138F54A25ECD44300A9B075 /* ppdd_ppac_parameters.pb.swift in Sources */,
@@ -8013,6 +8028,7 @@
 				0120ECDD25875D8B00F78944 /* DiaryDayEntryCellModel.swift in Sources */,
 				BAEFB3572656A79700497F79 /* ContactDiaryStoreSchemaV5.swift in Sources */,
 				01A1B44A252DFD7800841B63 /* MetadataObject.swift in Sources */,
+				ABE5E0BD2694590900D50C2B /* ValidationDateSelectionCell.swift in Sources */,
 				01BA07432620938E00237DD8 /* DurationFilter.swift in Sources */,
 				51C737BD245B349700286105 /* OnboardingInfoViewController.swift in Sources */,
 				BA4985E426385928009D395C /* Dateformatter+vCard.swift in Sources */,

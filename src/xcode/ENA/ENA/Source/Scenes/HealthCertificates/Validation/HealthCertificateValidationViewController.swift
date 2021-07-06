@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-class HealthCertificateValidationViewController: UIViewController, FooterViewHandling, DismissHandling {
+class HealthCertificateValidationViewController: DynamicTableViewController, FooterViewHandling, DismissHandling {
 
 	// MARK: - Init
 
@@ -47,6 +47,9 @@ class HealthCertificateValidationViewController: UIViewController, FooterViewHan
 
 		parent?.navigationItem.rightBarButtonItems = [dismissHandlingCloseBarButton(.normal), infoBarButtonItem]
 		parent?.navigationItem.title = "Gültigkeit des Zertifikats"
+
+		setupTableView()
+
 	}
 
 	// MARK: - Protocol FooterViewHandling
@@ -73,4 +76,28 @@ class HealthCertificateValidationViewController: UIViewController, FooterViewHan
 		onInfoButtonTap()
 	}
 
+	private func setupTableView() {
+		tableView.separatorStyle = .none
+		dynamicTableViewModel = viewModel.dynamicTableViewModel
+
+		tableView.register(
+			UINib(nibName: String(describing: LabeledCountriesCell.self), bundle: nil),
+			forCellReuseIdentifier: "LabeledCountriesCell"
+		)
+
+		tableView.register(
+			DynamicTableViewRoundedCell.self,
+			forCellReuseIdentifier: "roundedCell"
+		)
+
+		tableView.register(
+			CountrySelectionCell.self,
+			forCellReuseIdentifier: CountrySelectionCell.reuseIdentifier
+		)
+
+		tableView.register(
+			ValidationDateSelectionCell.self,
+			forCellReuseIdentifier: ValidationDateSelectionCell.reuseIdentifier
+		)
+	}
 }
