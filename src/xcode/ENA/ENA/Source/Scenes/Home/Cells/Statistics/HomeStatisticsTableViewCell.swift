@@ -112,6 +112,9 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 						UIAccessibility.post(notification: .layoutChanged, argument: nil)
 					}
 				)
+				// FIXME: dev code
+				statisticsCardView.setEditMode(true, animated: true)
+
 				configureBaselines(statisticsCardView: statisticsCardView)
 			}
 		}
