@@ -211,6 +211,8 @@
 
 "ExposureSubmission_TestCertificate_Information_Legal_Text_2" = "Verileriniz, test sertifikanızı oluşturmak üzere bir kez şifrelenir ve RKI’ye aktarılır. RKI, bu verilerin geçerliliğini onaylamak için onları elektronik olarak imzalar. Veriler RKI’de saklanmaz.";
 
+"ExposureSubmission_TestCertificate_Information_Legal_Text_2a_PCR" = "Hiç kimsenin QR kodunuz üzerinden test sonucunuza erişememesi için test sonucunuz, doğum tarihinizle korunur. Doğum tarihiniz şifrelenir ve test sonucunu çağırmak üzere ilgili laboratuvara gönderilir.";
+
 "ExposureSubmission_TestCertificate_Information_Legal_Text_3" = "COVID test sertifikası, yaptırdığınız Korona testinize ilişkin verileri içerir. Yasal açıdan zorunlu durumlarda ilgili test sonucunu kanıtlamak için, Uygulamadaki QR kodu göstermeniz yeterli olacaktır. Söz konusu verilerin okunmasını istemiyorsanız, test sertifikasını hiç kimseye göstermeyin.";
 
 "ExposureSubmission_TestCertificate_Information_Legal_Text_4" = "Eğer Uygulamada test sertifikasına ilişkin QR kodu gösterirseniz ve bu bir kontrol uygulamasıyla taranırsa, diğer kişiler sizin test sertifikanızı öğrenebilir. Kontrol işlemi sırasında adınız ve doğum tarihiniz de resmi kontrol uygulamasında görüntülenecektir.";
