@@ -6,10 +6,11 @@
 @testable import HealthCertificateToolkit
 import XCTest
 import SwiftCBOR
+import CertLogic
 
 class HealthCertificateValidationServiceTests: XCTestCase {
 	
-	// MARK: - Success
+	// MARK: - Success - OnboardedCountries
 	
 	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_HappyCase_THEN_CountriesAreReturned() {
 		// GIVEN
@@ -88,7 +89,7 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 		XCTAssertEqual(countries, store.validationOnboardedCountriesCache?.onboardedCountries)
 	}
 	
-	// MARK: - Failures
+	// MARK: - Failures - OnboardedCountries
 	
 	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_MissingETag_THEN_ONBOARDED_COUNTRIES_JSON_ARCHIVE_SIGNATURE_INVALIDIsReturned() {
 		// GIVEN
@@ -417,7 +418,92 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 		XCTAssertEqual(receivedError, .ONBOARDED_COUNTRIES_SERVER_ERROR)
 	}
 	
+	// MARK: - Success - Validation
+	
+	func testGIVEN_ValidationService_WHEN_HappyCase_THEN_PassedShouldBeReturned() throws {
+		// GIVEN
+		let client = ClientMock()
+		
+		client.onGetDCCRules = { [weak self] _, _, completion in
+			guard let self = self else {
+				XCTFail("Could not create strong self")
+				return
+			}
+			completion(.success(self.dummyOnboardedCountriesResponse))
+		}
+		
+		let store = MockTestStore()
+		
+		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: store)
+		let validationService = HealthCertificateValidationService(
+			store: store,
+			client: client,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			signatureVerifier: MockVerifier()
+		)
+		
+		let testCertificateBase45 = try base45Fake(
+			from: DigitalCovidCertificate.fake(
+				name: .fake(standardizedFamilyName: "BRAUSE", standardizedGivenName: "PASCAL"),
+				testEntries: [TestEntry.fake(
+					dateTimeOfSampleCollection: "2021-07-06T13:22:14.595Z",
+					uniqueCertificateIdentifier: "0"
+				)]
+			)
+		)
+		
+		let testCertificate = try HealthCertificate(base45: testCertificateBase45)
+		let expectation = self.expectation(description: "Test should success with .passed")
+		var responseReport: HealthCertificateValidationReport?
+		
+		
+		// WHEN
+		validationService.validate(
+			healthCertificate: testCertificate,
+			arrivalCountry: "FR",
+			validationClock: Date(),
+			completion: { result in
+				switch result {
+				case let .success(report):
+					responseReport = report
+					expectation.fulfill()
+				case let .failure(error):
+					XCTFail("Test should not fail with error: \(error)")
+				}
+			}
+		)
+		
+		// THEN
+		waitForExpectations(timeout: .short)
+		guard let report = responseReport else {
+			XCTFail("report must not be nil")
+			return
+		}
+		XCTAssertEqual(report, .validationPassed)
+		
+	}
+	
+	func testGIVEN_ValidationService_WHEN_NotModified_THEN_PassedShouldBeReturned() {
+	}
+	
+	// MARK: - Success - Validation
+	
+	
 	private lazy var dummyOnboardedCountriesResponse: PackageDownloadResponse = {
+		let fakeData = onboardedCountriesCBORDataFake
+				
+		let package = SAPDownloadedPackage(
+			keysBin: fakeData,
+			signature: Data()
+		)
+		let response = PackageDownloadResponse(
+			package: package,
+			etag: "FakeEtag"
+		)
+		return response
+	}()
+	
+	private lazy var dummyRulesResponse: PackageDownloadResponse = {
 		let fakeData = onboardedCountriesCBORDataFake
 				
 		let package = SAPDownloadedPackage(
