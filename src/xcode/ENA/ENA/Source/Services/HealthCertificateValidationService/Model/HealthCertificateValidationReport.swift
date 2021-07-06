@@ -19,14 +19,15 @@ enum HealthCertificateValidationReport {
 
 extension HealthCertificateValidationReport: Equatable {
 	static func == (lhs: HealthCertificateValidationReport, rhs: HealthCertificateValidationReport) -> Bool {
-		switch lhs {
-		case .validationPassed:
-			return rhs == .validationPassed ? true : false
-		case .validationOpen:
-			return rhs == .validationOpen([]) ? true : false
-		case .validationFailed:
-			return rhs == .validationFailed([]) ? true : false
-			
+		switch (lhs, rhs) {
+		case (.validationPassed, .validationPassed):
+			return true
+		case let (.validationOpen(lhsRules), .validationOpen(rhsRules)):
+			return lhsRules == rhsRules
+		case let (.validationFailed(lhsRules), .validationFailed(rhsRules)):
+			return lhsRules == rhsRules
+		default:
+			return false
 		}
 	}
 }
