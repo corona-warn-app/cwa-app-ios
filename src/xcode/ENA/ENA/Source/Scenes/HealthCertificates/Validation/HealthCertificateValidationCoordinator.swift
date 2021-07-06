@@ -88,8 +88,6 @@ final class HealthCertificateValidationCoordinator {
 								error: error
 							)
 						}
-
-					break
 					}
 				}
 			},
