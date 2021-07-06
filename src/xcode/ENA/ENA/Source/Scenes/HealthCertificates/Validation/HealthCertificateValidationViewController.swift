@@ -99,5 +99,16 @@ class HealthCertificateValidationViewController: DynamicTableViewController, Foo
 			ValidationDateSelectionCell.self,
 			forCellReuseIdentifier: ValidationDateSelectionCell.reuseIdentifier
 		)
+
+		tableView.register(
+			UINib(nibName: String(describing: DynamicLegalCell.self), bundle: nil),
+			forCellReuseIdentifier: CellReuseIdentifier.legalDetails.rawValue
+		)
+	}
+}
+
+extension HealthCertificateValidationViewController {
+	enum CellReuseIdentifier: String, TableViewCellReuseIdentifiers {
+		case legalDetails = "DynamicLegalCell"
 	}
 }

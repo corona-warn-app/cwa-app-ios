@@ -34,56 +34,56 @@ final class HealthCertificateValidationViewModel {
 	var dynamicTableViewModel: DynamicTableViewModel {
 		DynamicTableViewModel([
 			.section(
-				header: .image(
-					UIImage(named: "Illu_EU_Interop"),
-					accessibilityLabel: AppStrings.ExposureSubmissionWarnOthers.accImageDescription,
-					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnOthers.accImageDescription,
-					height: 250
-				),
 				cells: [
-					.space(height: 20),
+					.title1(
+						text: "Gültigkeit des Zertifikates",
+						accessibilityIdentifier: ""
+					),
+					.body(
+						text: "Prüfen Sie vorab, ob Ihr Zertifikat im Reiseland zum Zeitpunkt der Reise gültig ist. Hierfür werden die geltenden Einreiseregeln des gewählten Reiselandes berücksichtigt.",
+						accessibilityIdentifier: ""
+					),
+					.headline(
+						text: "Prüfen für",
+						accessibilityIdentifier: ""
+					),
 					countrySelectionCell(),
 					validationDateSelectionCell(),
-					.space(height: 8),
-					.title1(
-						text: AppStrings.ExposureNotificationSetting.euTitle,
-						accessibilityIdentifier: ""
-					),
-					.space(height: 8),
 					.body(
-						text: AppStrings.ExposureNotificationSetting.euDescription1,
+						text: "Ein COVID-Zertifikat gilt bei Reisen innerhalb der EU als Nachweis.",
 						accessibilityIdentifier: ""
 					),
-					.space(height: 8),
-					.body(
-						text: AppStrings.ExposureNotificationSetting.euDescription2,
-						accessibilityIdentifier: ""
-					),
-					.space(height: 8),
 					.headline(
-						text: AppStrings.ExposureNotificationSetting.euDescription3,
+						text: "Hinweis",
 						accessibilityIdentifier: ""
 					),
-					.space(height: 16)
-
-			]),
-			// country flags and names if available
-			.section(
-				separators: countries.isEmpty ? .none : .all,
-				cells:
-					countries.isEmpty
-					? [.emptyCell()]
-					: [.countries(countries: countries)]
-			),
-			.section(
-				cells: [
-					.space(height: 8),
+					.bulletPoint(text: "Beachten Sie, dass sich die Einreiseregeln ändern können. Prüfen Sie daher das Zertifikat kurz vor der Einreise (max. 48 Stunden). Es können in einzelnen Regionen weitere Regeln oder Einschränkungen gelten."),
+					.bulletPoint(text: "Um die Echtheit eines Zertifikats sicherzustellen, wird jedes Zertifikat mit einer digitalen Signatur ausgestellt. Diese Signatur wird nur in einer Prüf-Anwendung validiert."),
+					.bulletPoint(text: "Ob die im Zertifikat eingetragenen Daten richtig sind, wird nicht geprüft."),
 					.body(
-						text: AppStrings.ExposureNotificationSetting.euDescription4,
+						text: "Mehr Informationen finden Sie in den FAQ und unter https://reopen.europa.eu/de.",
 						accessibilityIdentifier: ""
 					),
-					.space(height: 16)
-			])
+					.legal(title: NSAttributedString(string: "Datenschutz und Datensicherheit"), description: NSAttributedString(string: "Die aktuellen Einreiseregeln werden von den Servern des RKI heruntergeladen. Hierfür ist eine Verbindung zum Internet erforderlich und es werden Zugriffsdaten an das RKI übermittelt."), textBlocks: [])
+			]),
+			// Disclaimer cell
+			.section(
+				separators: .all,
+				cells: [
+					.body(
+						text: "Ausführliche Hinweise zur Datenverarbeitung finden Sie in der Datenschutzerklärung",
+						style: DynamicCell.TextCellStyle.label,
+						accessibilityIdentifier: AccessibilityIdentifiers.TraceLocation.dataPrivacyTitle,
+						accessibilityTraits: UIAccessibilityTraits.link,
+						action: .execute { _, _ in
+
+						},
+						configure: { _, cell, _ in
+							cell.accessoryType = .disclosureIndicator
+							cell.selectionStyle = .default
+						})
+				]
+			)
 		])
 	}
 
