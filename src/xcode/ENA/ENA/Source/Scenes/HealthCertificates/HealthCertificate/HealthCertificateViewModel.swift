@@ -341,6 +341,8 @@ final class HealthCertificateViewModel {
 
 		let customDateFormatter = DateFormatter()
 		customDateFormatter.dateFormat = "yyyy-MM-dd HH:mm 'UTC' x"
+		// Dates on this screen are formatted in Gregorian calendar, even if the user setting is different
+		customDateFormatter.calendar = .gregorian()
 		var dateTimeOfSampleCollectionCellViewModel: HealthCertificateKeyValueCellViewModel?
 		if let sampleCollectionDate = testEntry.sampleCollectionDate {
 			dateTimeOfSampleCollectionCellViewModel = HealthCertificateKeyValueCellViewModel(

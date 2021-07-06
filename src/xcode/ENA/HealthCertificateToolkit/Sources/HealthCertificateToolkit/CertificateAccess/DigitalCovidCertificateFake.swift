@@ -26,10 +26,7 @@ public enum DigitalCovidCertificateFake {
         cborWebTokenPayload[-260] = wrappedCertificate
         cborWebTokenPayload[1] = CBOR.utf8String(header.issuer)
         cborWebTokenPayload[4] = CBOR.unsignedInt(header.expirationTime)
-
-        if let issuedAt = header.issuedAt {
-            cborWebTokenPayload[6] = CBOR.unsignedInt(issuedAt)
-        }
+        cborWebTokenPayload[6] = CBOR.unsignedInt(header.issuedAt)
 
         let cborWebTokenPayloadBytes = cborWebTokenPayload.encode()
 
@@ -81,10 +78,7 @@ public enum DigitalCovidCertificateFake {
         var cborWebTokenPayload = CBOR.map([CBOR: CBOR]())
         cborWebTokenPayload[-260] = wrappedCertificate
         cborWebTokenPayload[4] = CBOR.unsignedInt(header.expirationTime)
-
-        if let issuedAt = header.issuedAt {
-            cborWebTokenPayload[6] = CBOR.unsignedInt(issuedAt)
-        }
+        cborWebTokenPayload[6] = CBOR.unsignedInt(header.issuedAt)
 
         let cborWebTokenPayloadBytes = cborWebTokenPayload.encode()
 

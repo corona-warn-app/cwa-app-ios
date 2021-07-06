@@ -1424,7 +1424,7 @@ enum AppStrings {
 			enum FullyVaccinated {
 				static let title = NSLocalizedString("Statistics_Card_FullyVaccinated_Title", comment: "")
 				static let today = NSLocalizedString("Statistics_Card_FullyVaccinated_Today", comment: "")
-				static let yesterday = NSLocalizedString("Statistics_Card_ReproductionNumber_Yesterday", comment: "")
+				static let yesterday = NSLocalizedString("Statistics_Card_FullyVaccinated_Yesterday", comment: "")
 				static let date = NSLocalizedString("Statistics_Card_FullyVaccinated_Date", comment: "")
 				static let secondaryLabelTitle = NSLocalizedString("Statistics_Card_FullyVaccinated_SecondaryLabelTitle", comment: "")
 				static let tertiaryLabelTitle = NSLocalizedString("Statistics_Card_FullyVaccinated_TertiaryLabelTitle", comment: "")

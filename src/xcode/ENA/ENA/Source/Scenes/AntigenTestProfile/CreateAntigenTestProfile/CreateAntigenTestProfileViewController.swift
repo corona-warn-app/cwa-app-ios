@@ -147,6 +147,7 @@ class CreateAntigenTestProfileViewController: UITableViewController, FooterViewH
 		return string.trimmingCharacters(in: CharacterSet.alphanumerics).isEmpty
 			|| string.trimmingCharacters(in: CharacterSet.punctuationCharacters).isEmpty
 			|| string.trimmingCharacters(in: CharacterSet.symbols).isEmpty
+			|| string.trimmingCharacters(in: CharacterSet.whitespaces).isEmpty
 			|| string.contains(where: { $0 == "@" })
 	}
 	
