@@ -11,13 +11,7 @@ import SwiftyJSON
 class ValidationRulesAccessTests: XCTestCase {
 
     func test_CreateValidationRules() throws {
-        let rules = [
-            Rule.fake(),
-            Rule.fake(),
-            Rule.fake()
-        ]
-
-        let cbor = try CodableCBOREncoder().encode(rules)
+        let cbor = try rulesCBORDataFake()
         let result = ValidationRulesAccess().extractValidationRules(from: cbor)
 
         guard case let .success(validationRules) = result else {
