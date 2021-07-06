@@ -95,7 +95,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		
 		guard let adminUnit = administrativeUnit, let districtName = district?.districtName else {
 			// TODO: Error handling
-			return
+			preconditionFailure()
 		}
 
 		let nibName = String(describing: HomeStatisticsCardView.self)
@@ -181,24 +181,10 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		if let manageLocalStatisticsCardView = nib.instantiate(withOwner: self, options: nil).first as? ManageStatisticsCardView {
 			stackView.addArrangedSubview(manageLocalStatisticsCardView)
 			manageLocalStatisticsCardView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
-			
-
-			let localStatisticsAvailableCardsState: LocalStatisticsState
-			switch store.selectedLocalStatisticsDistricts.count {
-
-			case 0:
-				localStatisticsAvailableCardsState = .empty
-			case let count where count < 5:
-				localStatisticsAvailableCardsState = .notYetFull
-			case 5:
-				localStatisticsAvailableCardsState = .full
-			default:
-				localStatisticsAvailableCardsState = .empty
-			}
 
 			manageLocalStatisticsCardView.configure(
 				localStatisticsModel: localStatisticsModel,
-				availableCardsState: localStatisticsAvailableCardsState,
+				availableCardsState: LocalStatisticsState.with(store),
 				onAddStateButtonTap: { selectValueViewController in
 					onAddLocalStatisticsButtonTap(selectValueViewController)
 				}, onAddDistrict: { selectValueViewController in

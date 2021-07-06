@@ -145,4 +145,17 @@ enum LocalStatisticsState {
 	case notYetFull
 	/// The maximum number of local statistics selected
 	case full
+
+	static func with(_ store: LocalStatisticsCaching) -> Self {
+		switch store.selectedLocalStatisticsDistricts.count {
+		case 0:
+			return .empty
+		case let count where count < 5:
+			return .notYetFull
+		case 5:
+			return .full
+		default:
+			return .empty
+		}
+	}
 }
