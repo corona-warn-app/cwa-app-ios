@@ -150,7 +150,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			onRapidTestProfileTap: { [weak self] in
 				// later move that to the title and inject both methods - just to get flow working
 				if self?.store.antigenTestProfile == nil {
-					self?.showCreateAntigenTestProfile()
+					self?.showAntigenTestProfileInput(editMode: false)
 				} else {
 					self?.showAntigenTestProfile()
 				}
@@ -179,6 +179,10 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	
 	private func push(_ vc: UIViewController) {
 		self.navigationController?.pushViewController(vc, animated: true)
+	}
+
+	private func popViewController() {
+		self.navigationController?.popViewController(animated: true)
 	}
 
 	private var subscriptions = [AnyCancellable]()
@@ -783,7 +787,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				}
 			},
 			didTapContinue: { [weak self] in
-				self?.showCreateAntigenTestProfile()
+				self?.showAntigenTestProfileInput(editMode: false)
 			},
 			dismiss: { [weak self] in self?.dismiss() }
 		)
@@ -804,16 +808,20 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		push(topBottomContainerViewController)
 	}
 
-	private func showCreateAntigenTestProfile() {
-		guard store.antigenTestProfileInfoScreenShown else {
+	private func showAntigenTestProfileInput(editMode: Bool) {
+		guard store.antigenTestProfileInfoScreenShown || editMode else {
 			showAntigenTestProfileInformation()
 			return
 		}
 
-		let createAntigenTestProfileViewController = CreateAntigenTestProfileViewController(
+		let createAntigenTestProfileViewController = AntigenTestProfileInputViewController(
 			store: store,
 			didTapSave: { [weak self] in
-				self?.showAntigenTestProfile()
+				if editMode {
+					self?.popViewController()
+				} else {
+					self?.showAntigenTestProfile()
+				}
 			},
 			dismiss: { [weak self] in self?.dismiss() }
 		)
@@ -847,11 +855,11 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				)
 
 			},
-			didTapInfoProfile: {
-				// Todo: Navigate to profile info
+			didTapProfileInfo: { [weak self] in
+				self?.showAntigenTestProfileInformation()
 			},
-			didTapEditProfile: {
-				// Todo: navigate to profile edit screen.
+			didTapEditProfile: { [weak self] in
+				self?.showAntigenTestProfileInput(editMode: true)
 			},
 			didTapDeleteProfile: { [weak self] in
 				self?.navigationController?.popViewController(animated: true)

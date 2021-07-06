@@ -11,14 +11,14 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 	init(
 		store: AntigenTestProfileStoring,
 		didTapContinue: @escaping (@escaping (Bool) -> Void) -> Void,
-		didTapInfoProfile: @escaping () -> Void,
+		didTapProfileInfo: @escaping () -> Void,
 		didTapEditProfile: @escaping () -> Void,
 		didTapDeleteProfile: @escaping () -> Void,
 		dismiss: @escaping () -> Void
 	) {
 		self.viewModel = AntigenTestProfileViewModel(store: store)
 		self.didTapContinue = didTapContinue
-		self.didTapInfoProfile = didTapInfoProfile
+		self.didTapProfileInfo = didTapProfileInfo
 		self.didTapEditProfile = didTapEditProfile
 		self.didTapDeleteProfile = didTapDeleteProfile
 		self.dismiss = dismiss
@@ -58,6 +58,9 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 		super.viewWillAppear(animated)
 
 		setupNavigationBar(animated: animated)
+
+		viewModel.refreshProfile()
+		tableView.reloadData()
 	}
 
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -76,7 +79,7 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 			
 			let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 			ac.addAction(UIAlertAction(title: AppStrings.AntigenProfile.Profile.infoActionTitle, style: .default, handler: { [weak self] _ in
-				self?.didTapInfoProfile()
+				self?.didTapProfileInfo()
 			}))
 			ac.addAction(UIAlertAction(title: AppStrings.AntigenProfile.Profile.editActionTitle, style: .default, handler: { [weak self] _ in
 				self?.didTapEditProfile()
@@ -147,9 +150,9 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 
 	// MARK: - Private
 	
-	private let viewModel: AntigenTestProfileViewModel
+	private var viewModel: AntigenTestProfileViewModel
 	private let didTapContinue: (@escaping (Bool) -> Void) -> Void
-	private let didTapInfoProfile: () -> Void
+	private let didTapProfileInfo: () -> Void
 	private let didTapEditProfile: () -> Void
 	private let didTapDeleteProfile: () -> Void
 	private let dismiss: () -> Void

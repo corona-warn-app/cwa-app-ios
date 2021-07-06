@@ -4,7 +4,7 @@
 
 import UIKit
 
-class CreateAntigenTestProfileInputCell: UITableViewCell, ReuseIdentifierProviding {
+class AntigenTestProfileInputCell: UITableViewCell, ReuseIdentifierProviding {
 		
 	// MARK: - Init
 	
