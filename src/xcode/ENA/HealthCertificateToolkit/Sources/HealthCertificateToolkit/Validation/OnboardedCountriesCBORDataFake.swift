@@ -5,7 +5,7 @@
 import Foundation
 import SwiftCBOR
 
-var onboardedCountriesCBORDataFake: Data {
+public var onboardedCountriesCBORDataFake: Data {
     let cborCountries = CBOR.array(
         [
             CBOR.utf8String("DE"),
@@ -15,7 +15,7 @@ var onboardedCountriesCBORDataFake: Data {
     return Data(cborCountries.encode())
 }
 
-var onboardedCountriesCorruptCBORDataFake: Data {
+public var onboardedCountriesCorruptCBORDataFake: Data {
     let cborCountries = CBOR.array(
         [
             CBOR.null,
