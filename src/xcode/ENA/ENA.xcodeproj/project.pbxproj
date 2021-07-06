@@ -557,6 +557,7 @@
 		50C029B225E4069400460FA4 /* KeySubmissionMetadataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C0297A25E4067400460FA4 /* KeySubmissionMetadataTests.swift */; };
 		50C029B625E406A400460FA4 /* RiskExposureMetadataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C0297F25E4067400460FA4 /* RiskExposureMetadataTests.swift */; };
 		50C02FAC25D162F500469BF4 /* PPAnalyticsSubmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C02FAB25D162F500469BF4 /* PPAnalyticsSubmitter.swift */; };
+		50C1E55226949EA600B9DC90 /* CertLogic+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C1E55126949EA600B9DC90 /* CertLogic+Equatable.swift */; };
 		50C51CB625CDEA4300D4C33A /* HTTPClient+SubmitAnalyticsDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C51CB525CDEA4300D4C33A /* HTTPClient+SubmitAnalyticsDataTests.swift */; };
 		50C5204025ADACBB008DF2F4 /* HomeShownPositiveTestResultCellModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C5203F25ADACBB008DF2F4 /* HomeShownPositiveTestResultCellModelTest.swift */; };
 		50C5C1B525891CC800C4817A /* DynamicLegalExtendedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50C5C1B425891CC800C4817A /* DynamicLegalExtendedCell.xib */; };
@@ -1799,6 +1800,7 @@
 		50C0298025E4067400460FA4 /* RiskExposureMetadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RiskExposureMetadata.swift; sourceTree = "<group>"; };
 		50C0298225E4067400460FA4 /* TestResultMetadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestResultMetadata.swift; sourceTree = "<group>"; };
 		50C02FAB25D162F500469BF4 /* PPAnalyticsSubmitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPAnalyticsSubmitter.swift; sourceTree = "<group>"; };
+		50C1E55126949EA600B9DC90 /* CertLogic+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CertLogic+Equatable.swift"; sourceTree = "<group>"; };
 		50C51CB525CDEA4300D4C33A /* HTTPClient+SubmitAnalyticsDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClient+SubmitAnalyticsDataTests.swift"; sourceTree = "<group>"; };
 		50C5203F25ADACBB008DF2F4 /* HomeShownPositiveTestResultCellModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeShownPositiveTestResultCellModelTest.swift; sourceTree = "<group>"; };
 		50C5C1B425891CC800C4817A /* DynamicLegalExtendedCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DynamicLegalExtendedCell.xib; sourceTree = "<group>"; };
@@ -4452,6 +4454,7 @@
 				013A5551260CEE330092B5B1 /* TimeInterval+Minutes.swift */,
 				34FE156926010A830002CB69 /* TraceLocation+GenerateQRCode.swift */,
 				35AAA19026139FE500D3A4C1 /* Array+SaveAccess.swift */,
+				50C1E55126949EA600B9DC90 /* CertLogic+Equatable.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -8182,6 +8185,7 @@
 				8F39D094263F6F5D0096F4E2 /* VaccinationValueDataSets.swift in Sources */,
 				B14D0CDF246E976400D5BEBC /* ExposureDetectionTransaction+DidEndPrematurelyReason.swift in Sources */,
 				AB190E8925FB608100FBFF0D /* DeleteTraceLocationQuery.swift in Sources */,
+				50C1E55226949EA600B9DC90 /* CertLogic+Equatable.swift in Sources */,
 				0138F62525F1147500A9B075 /* EmptyStateViewModel.swift in Sources */,
 				BA4693AB25C82EC8004B2DBB /* DMPPACViewController.swift in Sources */,
 				35D16DDE2567FB980069AD1B /* DynamicLegalCell.swift in Sources */,
