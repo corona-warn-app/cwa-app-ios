@@ -429,7 +429,7 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 				XCTFail("Could not create strong self")
 				return
 			}
-			completion(.success(self.dummyOnboardedCountriesResponse))
+			completion(.success(self.dummyRulesResponse))
 		}
 		
 		let store = MockTestStore()
@@ -456,12 +456,11 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 		let expectation = self.expectation(description: "Test should success with .passed")
 		var responseReport: HealthCertificateValidationReport?
 		
-		
 		// WHEN
 		validationService.validate(
 			healthCertificate: testCertificate,
 			arrivalCountry: "FR",
-			validationClock: Date(),
+			validationClock: Calendar.current.date(byAdding: .day, value: -22, to: Date()) ?? Date(),
 			completion: { result in
 				switch result {
 				case let .success(report):
@@ -504,17 +503,25 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 	}()
 	
 	private lazy var dummyRulesResponse: PackageDownloadResponse = {
-		let fakeData = onboardedCountriesCBORDataFake
-				
-		let package = SAPDownloadedPackage(
-			keysBin: fakeData,
-			signature: Data()
-		)
-		let response = PackageDownloadResponse(
-			package: package,
-			etag: "FakeEtag"
-		)
-		return response
+		do {
+			let fakeData = try rulesCBORDataFake()
+			let package = SAPDownloadedPackage(
+				keysBin: fakeData,
+				signature: Data()
+			)
+			let response = PackageDownloadResponse(
+				package: package,
+				etag: "FakeEtag"
+			)
+			return response
+		} catch {
+			XCTFail("Could not create rules CBOR fake data")
+			let response = PackageDownloadResponse(
+				package: nil,
+				etag: "FailStateETag"
+			)
+			return response
+		}
 	}()
 	
 	private var onboardedCountriesFake: [Country] {
