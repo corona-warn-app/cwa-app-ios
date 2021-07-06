@@ -3,7 +3,7 @@
 //
 
 @testable import ENA
-@testable import HealthCertificateToolkit
+import HealthCertificateToolkit
 import XCTest
 import SwiftCBOR
 import CertLogic
