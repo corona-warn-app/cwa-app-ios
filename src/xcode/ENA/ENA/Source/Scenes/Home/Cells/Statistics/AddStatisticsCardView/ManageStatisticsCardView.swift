@@ -39,8 +39,7 @@ class ManageStatisticsCardView: UIView {
 		self.onEditButtonTap = onEditButtonTap
 		self.onAccessibilityFocus = onAccessibilityFocus
 
-		// FIXME: development code
-		updateUI(for: .notYetFull /*availableCardsState*/)
+		updateUI(for: availableCardsState)
 	}
 
 	@IBAction func onAddLocalIncidenceButtonPressed(_ sender: Any) {

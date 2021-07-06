@@ -49,4 +49,3 @@ struct LocalStatisticsDistrict: Codable, Equatable {
 	var districtId: String
 
 }
-
