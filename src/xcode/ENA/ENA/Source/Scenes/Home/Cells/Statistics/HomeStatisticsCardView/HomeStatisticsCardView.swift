@@ -189,7 +189,8 @@ class HomeStatisticsCardView: UIView {
 	func configure(
 		viewModel: HomeStatisticsCardViewModel,
 		onInfoButtonTap: @escaping () -> Void,
-		onAccessibilityFocus: @escaping () -> Void
+		onAccessibilityFocus: @escaping () -> Void,
+		onDeleteTap: (() -> Void)? = nil // only for user defined statistics
 	) {
 		viewModel.$title
 			.sink { [weak self] in
@@ -302,6 +303,7 @@ class HomeStatisticsCardView: UIView {
 
 		self.onInfoButtonTap = onInfoButtonTap
 		self.onAccessibilityFocus = onAccessibilityFocus
+		self.onDeleteTap = onDeleteTap
 
 		updateIllustration(for: traitCollection)
 	}
@@ -318,6 +320,7 @@ class HomeStatisticsCardView: UIView {
 
 	private var onInfoButtonTap: (() -> Void)?
 	private var onAccessibilityFocus: (() -> Void)?
+	private var onDeleteTap: (() -> Void)?
 
 	private var subscriptions = Set<AnyCancellable>()
 	private var viewModel: HomeStatisticsCardViewModel?
@@ -328,7 +331,7 @@ class HomeStatisticsCardView: UIView {
 
 	@objc
 	private func onDeleteTapped(_ sender: Any?) {
-		dump(sender)
+		onDeleteTap?()
 	}
 
 	@IBAction private func infoButtonTapped(_ sender: Any?) {

@@ -110,6 +110,13 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 						self?.scrollView.scrollRectToVisible(statisticsCardView.frame, animated: false)
 						onAccessibilityFocus()
 						UIAccessibility.post(notification: .layoutChanged, argument: nil)
+					},
+					onDeleteTap: { [weak self] in
+						// TODO: handle state, i.e. remove deselected entity from local statistics
+						Log.info("removing \((adminUnit, self?.district))", log: .ui)
+
+						self?.stackView.removeArrangedSubview(statisticsCardView)
+						statisticsCardView.removeFromSuperview()
 					}
 				)
 				// FIXME: dev code
