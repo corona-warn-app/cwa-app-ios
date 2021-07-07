@@ -6,7 +6,19 @@ import Foundation
 import SwiftCBOR
 import CertLogic
 
-public struct ValidationRulesAccess {
+public protocol ValidationRulesAccessing {
+    func extractValidationRules(
+        from cborData: CBORData
+    ) -> Swift.Result<[Rule], RuleValidationError>
+    
+    func applyValidationRules(
+        _ rules: [Rule],
+        to certificate: DigitalCovidCertificate,
+        externalRules: ExternalParameter
+    ) -> Swift.Result<[ValidationResult], RuleValidationError>
+}
+
+public struct ValidationRulesAccess: ValidationRulesAccessing {
 
     public init() {}
 
