@@ -417,8 +417,9 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 			// all rules has to be .passed
 			Log.info("Successfully combined rules: \(private: combinedRuleValidations). Validation result is: validationPassed. Validation complete.", log: .vaccination)
 			completion(.success(.validationPassed))
-		} else if combinedRuleValidations.allSatisfy({ $0.result == .open }) {
-			// all rules has to be .open
+		} else if combinedRuleValidations.contains(where: { $0.result == .open }) &&
+					!combinedRuleValidations.contains(where: { $0.result == .fail }) {
+			// At least one rule should contain now .open and there is no .fail
 			Log.info("Successfully combined rules: \(private: combinedRuleValidations). Validation result is: validationOpen. Validation complete.", log: .vaccination)
 			completion(.success(.validationOpen(combinedRuleValidations)))
 		} else {
