@@ -207,7 +207,7 @@ final class HealthCertificatesCoordinator {
 						)
 					case .failure(let error):
 						self?.showErrorAlert(
-							title: AppStrings.HealthCertificate.ValidationError.title,
+							title: AppStrings.HealthCertificate.Validation.Error.title,
 							error: error
 						)
 					}
@@ -291,7 +291,7 @@ final class HealthCertificatesCoordinator {
 						)
 					case .failure(let error):
 						self?.showErrorAlert(
-							title: AppStrings.HealthCertificate.ValidationError.title,
+							title: AppStrings.HealthCertificate.Validation.Error.title,
 							error: error
 						)
 					}

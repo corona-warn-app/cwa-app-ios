@@ -2077,10 +2077,12 @@ enum AppStrings {
 			static let hcQRCodeError = NSLocalizedString("HealthCertificate_Error_HC_QR_CODE_ERROR", comment: "")
 		}
 
-		enum ValidationError {
-			static let title = NSLocalizedString("HealthCertificate_Validation_Error_Title", comment: "")
-			static let tryAgain = NSLocalizedString("HealthCertificate_Validation_Error_TRY_AGAIN", comment: "")
-			static let noNetwork = NSLocalizedString("HealthCertificate_Validation_Error_NO_NETWORK", comment: "")
+		enum Validation {
+			enum Error {
+				static let title = NSLocalizedString("HealthCertificate_Validation_Error_Title", comment: "")
+				static let tryAgain = NSLocalizedString("HealthCertificate_Validation_Error_TRY_AGAIN", comment: "")
+				static let noNetwork = NSLocalizedString("HealthCertificate_Validation_Error_NO_NETWORK", comment: "")
+			}
 		}
 
 	}

@@ -84,7 +84,7 @@ final class HealthCertificateValidationCoordinator {
 							self.showTechnicalErrorScreen()
 						default:
 							self.showErrorAlert(
-								title: AppStrings.HealthCertificate.ValidationError.title,
+								title: AppStrings.HealthCertificate.Validation.Error.title,
 								error: error
 							)
 						}
