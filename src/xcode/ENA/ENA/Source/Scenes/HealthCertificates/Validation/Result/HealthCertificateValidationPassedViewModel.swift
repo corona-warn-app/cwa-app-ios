@@ -7,24 +7,44 @@ import UIKit
 
 struct HealthCertificateValidationPassedViewModel: HealthCertificateValidationResultViewModel {
 
+	// MARK: - Init
+
+	init(arrivalCountry: Country, arrivalDate: Date) {
+		self.arrivalCountry = arrivalCountry
+		self.arrivalDate = arrivalDate
+	}
+
 	// MARK: - Internal
 
 	var dynamicTableViewModel: DynamicTableViewModel {
 		DynamicTableViewModel([
-
 			.section(
-				header:
-					.image(
-						UIImage(imageLiteralResourceName: "Illu_Overwrite_Notice"),
-						accessibilityLabel: AppStrings.ExposureSubmission.OverwriteNotice.imageDescription,
-						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.OverwriteNotice.imageDescription,
-						height: 182.0
-					),
 				cells: [
+					.footnote(
+						text: String(
+							format: AppStrings.HealthCertificate.Validation.Result.Passed.validationParameters,
+							arrivalCountry.localizedName,
+							DateFormatter.localizedString(from: arrivalDate, dateStyle: .short, timeStyle: .short),
+							DateFormatter.localizedString(from: Date(), dateStyle: .short, timeStyle: .short)
+						),
+						color: .enaColor(for: .textPrimary2)
+					),
+					.title2(text: AppStrings.HealthCertificate.Validation.Result.Passed.subtitle),
+					.space(height: 10),
+					.headline(text: AppStrings.HealthCertificate.Validation.Result.Passed.hintsTitle),
+					.bulletPoint(text: AppStrings.HealthCertificate.Validation.Result.Passed.hint1, spacing: .large),
+					.bulletPoint(text: AppStrings.HealthCertificate.Validation.Result.Passed.hint2, spacing: .large),
+					.bulletPoint(text: AppStrings.HealthCertificate.Validation.Result.Passed.hint3, spacing: .large),
+					.bulletPoint(text: AppStrings.HealthCertificate.Validation.Result.Passed.hint4, spacing: .large),
+					.body(text: AppStrings.HealthCertificate.Validation.Result.Passed.moreInformation)
 				]
 			)
-		]
-		)
+		])
 	}
+
+	// MARK: - Private
+
+	private let arrivalCountry: Country
+	private let arrivalDate: Date
 
 }

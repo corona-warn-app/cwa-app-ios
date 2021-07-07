@@ -72,7 +72,7 @@ final class HealthCertificateValidationCoordinator {
 					case .success(let validationReport):
 						switch validationReport {
 						case .validationPassed:
-							self.showValidationPassedScreen()
+							self.showValidationPassedScreen(arrivalCountry: arrivalCountry, arrivalDate: arrivalDate)
 						case .validationOpen(let validationResults):
 							self.showValidationOpenScreen(validationResults: validationResults)
 						case .validationFailed(let validationResults):
@@ -109,9 +109,12 @@ final class HealthCertificateValidationCoordinator {
 
 	}
 
-	private func showValidationPassedScreen() {
+	private func showValidationPassedScreen(arrivalCountry: Country, arrivalDate: Date) {
 		let validationPassedViewController = HealthCertificateValidationResultViewController(
-			viewModel: HealthCertificateValidationPassedViewModel(),
+			viewModel: HealthCertificateValidationPassedViewModel(
+				arrivalCountry: arrivalCountry,
+				arrivalDate: arrivalDate
+			),
 			onPrimaryButtonTap: { [weak self] in
 				self?.navigationController.popToRootViewController(animated: true)
 			},
@@ -121,7 +124,7 @@ final class HealthCertificateValidationCoordinator {
 		)
 
 		let footerViewModel = FooterViewModel(
-			primaryButtonName: AppStrings.HealthCertificate.Details.validationButtonTitle,
+			primaryButtonName: AppStrings.HealthCertificate.Validation.Result.Passed.primaryButtonTitle,
 			isPrimaryButtonEnabled: true,
 			isSecondaryButtonHidden: true,
 			backgroundColor: .enaColor(for: .background)
