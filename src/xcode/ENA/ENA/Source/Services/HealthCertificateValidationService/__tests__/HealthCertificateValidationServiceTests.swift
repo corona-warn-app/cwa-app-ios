@@ -132,7 +132,7 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 	
 		// THEN
 		waitForExpectations(timeout: .short)
-		XCTAssertEqual(receivedError, .ONBOARDED_COUNTRIES_JSON_ARCHIVE_SIGNATURE_INVALID)
+		XCTAssertEqual(receivedError, .ONBOARDED_COUNTRIES_JSON_ARCHIVE_ETAG_ERROR)
 	}
 	
 	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_EmptyPackage_THEN_ONBOARDED_COUNTRIES_JSON_ARCHIVE_FILE_MISSINGIsReturned() {
