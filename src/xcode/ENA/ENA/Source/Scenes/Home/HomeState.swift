@@ -178,9 +178,10 @@ class HomeState: ENStateHandlerUpdating {
 			.store(in: &subscriptions)
 	}
 	
-	func updateSelectedLocalStatistics(selectedLocalStatisticsDistricts: [LocalStatisticsDistrict]?) {
-		localStatisticsProvider.latestSelectedLocalStatistics(selectedlocalStatisticsDistricts: selectedLocalStatisticsDistricts ?? [], completion: { selectedLocalStatisticsDistricts in
+	func updateSelectedLocalStatistics(_ selection: [LocalStatisticsDistrict]?) {
+		localStatisticsProvider.latestSelectedLocalStatistics(selectedlocalStatisticsDistricts: selection ?? [], completion: { result in
 			// TODO: Handle the selected districts data
+			Log.debug("fetched local statistics: \(private: result) entities", log: .localStatistics)
 		})
 	}
 

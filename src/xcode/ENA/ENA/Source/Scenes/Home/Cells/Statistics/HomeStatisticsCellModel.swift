@@ -26,6 +26,7 @@ class HomeStatisticsCellModel {
 		homeState.$localStatistics
 			.sink { [weak self] localStatistics in
 				self?.localAdministrativeUnitStatistics = localStatistics.administrativeUnitData
+				Log.debug("HomeState did update. \(private: "\(self?.localAdministrativeUnitStatistics.count ?? -1)")", log: .localStatistics)
 			}
 			.store(in: &subscriptions)
 	}

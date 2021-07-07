@@ -70,6 +70,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		keyFigureCellModel.$localAdministrativeUnitStatistics
 			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { administrativeUnitsData in
+				Log.debug("update with \(keyFigureCellModel.localAdministrativeUnitStatistics.count) local stats", log: .localStatistics)
 				self.insertLocalStatistics(
 					store: store,
 					administrativeUnitsData: administrativeUnitsData,

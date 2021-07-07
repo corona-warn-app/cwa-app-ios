@@ -844,7 +844,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		DispatchQueue.main.async { [weak self] in
 			self?.viewModel.updateTestResult()
 			self?.viewModel.state.updateStatistics()
-			self?.viewModel.state.updateSelectedLocalStatistics(selectedLocalStatisticsDistricts: self?.store.selectedLocalStatisticsDistricts)
+			self?.viewModel.state.updateSelectedLocalStatistics(self?.store.selectedLocalStatisticsDistricts)
 		}
 	}
 	// swiftlint:disable:next file_length
