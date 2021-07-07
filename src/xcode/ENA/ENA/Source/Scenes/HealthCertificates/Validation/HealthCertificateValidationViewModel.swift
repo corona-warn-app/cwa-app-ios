@@ -100,8 +100,6 @@ final class HealthCertificateValidationViewModel {
 
 	private let healthCertificate: HealthCertificate
 	private let countries: [Country]
-	private var selectedCountry: Country?
-	private var selectedValidationDate: Date?
 	private let store: HealthCertificateStoring
 	private let onValidationButtonTap: (Country, Date) -> Void
 	private let onDisclaimerButtonTap: () -> Void
@@ -133,11 +131,11 @@ final class HealthCertificateValidationViewModel {
 			if let countrySelectionCell = cell as? CountrySelectionCell {
 
 				countrySelectionCell.didSelectCountry = { [weak self] country in
-					self?.selectedCountry = country
+					self?.selectedArrivalCountry = country
 				}
 
 				countrySelectionCell.countries = self.countries
-				countrySelectionCell.selectedCountry = self.selectedCountry ?? Country.defaultCountry()
+				countrySelectionCell.selectedCountry = self.selectedArrivalCountry
 				countrySelectionCell.isCollapsed = self.countrySelectionCollapsed
 			}
 		}
@@ -168,43 +166,12 @@ final class HealthCertificateValidationViewModel {
 			if let validationDateSelectionCell = cell as? ValidationDateSelectionCell {
 
 				validationDateSelectionCell.didSelectDate = { [weak self] date in
-					self?.selectedValidationDate = date
+					self?.selectedArrivalDate = date
 				}
 
-				validationDateSelectionCell.selectedDate = self.selectedValidationDate ?? Date()
+				validationDateSelectionCell.selectedDate = self.selectedArrivalDate
 				validationDateSelectionCell.isCollapsed = self.validationDateSelectionCollapsed
 			}
 		}
 	}
-}
-
-private extension DynamicCell {
-
-	static func emptyCell() -> Self {
-		.custom(
-			withIdentifier: EUSettingsViewController.CustomCellReuseIdentifiers.roundedCell,
-			action: .none,
-			accessoryAction: .none
-		) { _, cell, _ in
-			if let roundedCell = cell as? DynamicTableViewRoundedCell {
-				roundedCell.configure(
-					title: NSMutableAttributedString(string: AppStrings.ExposureNotificationSetting.euEmptyErrorTitle),
-					titleStyle: .title2,
-					body: NSMutableAttributedString(string: AppStrings.ExposureNotificationSetting.euEmptyErrorDescription),
-					textColor: .textPrimary1,
-					bgColor: .separator,
-					icons: [
-						UIImage(named: "Icons_MobileDaten"),
-						UIImage(named: "Icon_Wifi")]
-						.compactMap { $0 },
-					buttonTitle: AppStrings.ExposureNotificationSetting.euEmptyErrorButtonTitle) {
-					LinkHelper.open(urlString: UIApplication.openSettingsURLString)
-				}
-			}
-		}
-	}
-}
-
-extension DynamicTableViewController {
-
 }
