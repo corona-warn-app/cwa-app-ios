@@ -95,7 +95,7 @@ extension DynamicTableViewController {
 			view?.layoutMargins = insets
 			return view
 
-		case let .image(image, accessibilityLabel: label, accessibilityIdentifier: accessibilityIdentifier, height, accessibilityTraits):
+		case let .image(image, title, accessibilityLabel: label, accessibilityIdentifier: accessibilityIdentifier, height, accessibilityTraits):
 			let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: HeaderFooterReuseIdentifier.header.rawValue) as? DynamicTableViewHeaderImageView
 			view?.imageView?.image = image
 			if let label = label {
@@ -104,6 +104,10 @@ extension DynamicTableViewController {
 			}
 			view?.imageView?.accessibilityIdentifier = accessibilityIdentifier
 			view?.imageView?.accessibilityTraits = accessibilityTraits
+
+			// optional title that will be shown over the image and scroll with it.
+			view?.title = title
+
 			if let height = height {
 				view?.height = height
 			} else if let imageWidth = image?.size.width,
