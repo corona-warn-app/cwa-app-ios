@@ -124,7 +124,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 
 		guard let eTag = packageDownloadResponse.etag else {
 			Log.error("ETag of package is missing. Return with failure.", log: .vaccination)
-			completion(.failure(.ONBOARDED_COUNTRIES_JSON_ARCHIVE_SIGNATURE_INVALID))
+			completion(.failure(.ONBOARDED_COUNTRIES_JSON_ARCHIVE_ETAG_ERROR))
 			return
 		}
 		
@@ -138,14 +138,14 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		}
 		Log.info("Successfully extracted sapDownloadedPackage. Proceed with package verification...", log: .vaccination)
 		
-		guard self.signatureVerifier.verify(sapDownloadedPackage) else {
+		guard signatureVerifier.verify(sapDownloadedPackage) else {
 			Log.error("Verification of sapDownloadedPackage failed. Return with failure", log: .vaccination)
 			completion(.failure(.ONBOARDED_COUNTRIES_JSON_ARCHIVE_SIGNATURE_INVALID))
 			return
 		}
 		Log.info("Successfully verified sapDownloadedPackage. Proceed now with CBOR decoding...", log: .vaccination)
 		
-		self.countryCodes(
+		extractCountryCodes(
 			cborData: sapDownloadedPackage.bin,
 			completion: { result in
 				switch result {
@@ -194,7 +194,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 	}
 	
 	/// Extracts by the HealthCertificateToolkit the list of countrys. Expects the list as CBOR-Data and return for success the list of Country-Objects.
-	private func countryCodes(
+	private func extractCountryCodes(
 		cborData: Data,
 		completion: (Result<[Country], ValidationOnboardedCountriesError>
 		) -> Void
@@ -235,11 +235,15 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 								completion(.failure(.VALUE_SET_SERVER_ERROR))
 							default:
 								Log.error("Unhandled Status Code while fetching certificate value sets", log: .vaccination, error: error)
+								completion(.failure(.VALUE_SET_CLIENT_ERROR))
 							}
 							
 						} else if case URLSession.Response.Failure.noNetworkConnection = error {
 							Log.error("Failed to update value sets. No network error", log: .vaccination, error: error)
 							completion(.failure(.NO_NETWORK))
+						} else {
+							Log.error("Casting error for http error", log: .vaccination, error: error)
+							completion(.failure(.VALUE_SET_CLIENT_ERROR))
 						}
 					}
 					
@@ -265,7 +269,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		completion: @escaping (Result<HealthCertificateValidationReport, HealthCertificateValidationError>) -> Void
 	) {
 		// 3. update/ download acceptance rules
-		downloadAcceptanceRule(
+		downloadAcceptanceRules(
 			completion: { [weak self] result in
 				switch result {
 				case let .failure(error):
@@ -294,7 +298,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		completion: @escaping (Result<HealthCertificateValidationReport, HealthCertificateValidationError>) -> Void
 	) {
 		// 4. update/ download invalidation rules
-		downloadInvalidationRule(
+		downloadInvalidationRules(
 			completion: { [weak self] result in
 				switch result {
 				case let .failure(error):
@@ -325,7 +329,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		completion: @escaping (Result<HealthCertificateValidationReport, HealthCertificateValidationError>) -> Void
 	) {
 		// 6. assemble external rule params for acceptance rules
-		let acceptanceRuleParameter = self.assembleAcceptanceExternalRuleParameters(
+		let acceptanceRuleParameter = assembleAcceptanceExternalRuleParameters(
 			healthCertificate: healthCertificate,
 			arrivalCountry: arrivalCountry,
 			validationClock: validationClock,
@@ -334,7 +338,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		Log.info("Successfully assembled acceptance rule parameter: \(private: acceptanceRuleParameter). Proceed with invalidation rule parameter...", log: .vaccination)
 
 		// 8. assemble external rule params for invalidation rules
-		let invalidationRuleParameter = self.assembleInvalidationExternalRuleParameters(
+		let invalidationRuleParameter = assembleInvalidationExternalRuleParameters(
 			healthCertificate: healthCertificate,
 			arrivalCountry: arrivalCountry,
 			validationClock: validationClock,
@@ -342,7 +346,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		)
 		Log.info("Successfully assembled invalidation rule parameter: \(private: invalidationRuleParameter). Proceed with rule validation...", log: .vaccination)
 
-		proceedWithRuleValidation(
+		proceedWithRulesValidation(
 			healthCertificate: healthCertificate,
 			valueSets: valueSets,
 			acceptanceRules: acceptanceRules,
@@ -354,7 +358,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		
 	}
 	
-	private func proceedWithRuleValidation(
+	private func proceedWithRulesValidation(
 		healthCertificate: HealthCertificate,
 		valueSets: SAP_Internal_Dgc_ValueSets,
 		acceptanceRules: [Rule],
@@ -401,14 +405,14 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		Log.info("Successfully validated invalidation rules: \(private: invalidationRulesValidations). Proceed with combined rule validation...", log: .vaccination)
 
 		let combinedRuleValidations = acceptanceRulesValidations + invalidationRulesValidations
-		proceedWithRuleInterpretation(
+		proceedWithRulesInterpretation(
 			combinedRuleValidations: combinedRuleValidations,
 			completion: completion
 		)
 		
 	}
 	
-	private func proceedWithRuleInterpretation(
+	private func proceedWithRulesInterpretation(
 		combinedRuleValidations: [ValidationResult],
 		completion: @escaping (Result<HealthCertificateValidationReport, HealthCertificateValidationError>) -> Void
 	) {
@@ -416,8 +420,9 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 			// all rules has to be .passed
 			Log.info("Successfully combined rules: \(private: combinedRuleValidations). Validation result is: validationPassed. Validation complete.", log: .vaccination)
 			completion(.success(.validationPassed))
-		} else if combinedRuleValidations.allSatisfy({ $0.result == .open }) {
-			// all rules has to be .open
+		} else if combinedRuleValidations.contains(where: { $0.result == .open }) &&
+					!combinedRuleValidations.contains(where: { $0.result == .fail }) {
+			// At least one rule should contain now .open and there is no .fail
 			Log.info("Successfully combined rules: \(private: combinedRuleValidations). Validation result is: validationOpen. Validation complete.", log: .vaccination)
 			completion(.success(.validationOpen(combinedRuleValidations)))
 		} else {
@@ -429,7 +434,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 	
 	// MARK: - Acceptance Rules
 		
-	private func downloadAcceptanceRule(
+	private func downloadAcceptanceRules(
 		completion: @escaping (Result<[Rule], HealthCertificateValidationError>) -> Void
 	) {
 		client.getDCCRules(
@@ -445,13 +450,13 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 				
 				switch result {
 				case let .success(packageDownloadResponse):
-					self.acceptanceRuleDownloadingSuccessHandler(
+					self.acceptanceRulesDownloadingSuccessHandler(
 						packageDownloadResponse: packageDownloadResponse,
 						completion: completion
 					)
 	
 				case let .failure(error):
-					self.acceptanceRuleDownloadingFailureHandler(
+					self.acceptanceRulesDownloadingFailureHandler(
 						error: error,
 						completion: completion
 					)
@@ -460,7 +465,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		)
 	}
 	
-	private func acceptanceRuleDownloadingSuccessHandler(
+	private func acceptanceRulesDownloadingSuccessHandler(
 		packageDownloadResponse: PackageDownloadResponse,
 		completion: @escaping (Result<[Rule], HealthCertificateValidationError>) -> Void
 	) {
@@ -468,7 +473,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 
 		guard let eTag = packageDownloadResponse.etag else {
 			Log.error("ETag of package is missing. Return with failure.", log: .vaccination)
-			completion(.failure(.ACCEPTANCE_RULE_JSON_ARCHIVE_SIGNATURE_INVALID))
+			completion(.failure(.ACCEPTANCE_RULE_JSON_ARCHIVE_ETAG_ERROR))
 			return
 		}
 		
@@ -482,15 +487,14 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		}
 		Log.info("Successfully extracted sapDownloadedPackage. Proceed with package verification...", log: .vaccination)
 		
-		guard self.signatureVerifier.verify(sapDownloadedPackage) else {
+		guard signatureVerifier.verify(sapDownloadedPackage) else {
 			Log.error("Verification of sapDownloadedPackage failed. Return with failure", log: .vaccination)
 			completion(.failure(.ACCEPTANCE_RULE_JSON_ARCHIVE_SIGNATURE_INVALID))
 			return
 		}
 		Log.info("Successfully verified sapDownloadedPackage. Proceed now with CBOR decoding...", log: .vaccination)
 		
-		
-		self.acceptanceRules(sapDownloadedPackage.bin, completion: { result in
+		self.extractAcceptanceRules(sapDownloadedPackage.bin, completion: { result in
 			switch result {
 			case let .success(acceptanceRules):
 				Log.info("Successfully decoded acceptance rules: \(private: acceptanceRules).", log: .vaccination)
@@ -509,7 +513,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		})
 	}
 	
-	private func acceptanceRuleDownloadingFailureHandler(
+	private func acceptanceRulesDownloadingFailureHandler(
 		error: URLSession.Response.Failure,
 		completion: @escaping (Result<[Rule], HealthCertificateValidationError>) -> Void
 	) {
@@ -530,10 +534,10 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		case let .serverError(statusCode):
 			switch statusCode {
 			case 400...409:
-				Log.error("Could not download acceptance rules due to client error.", log: .vaccination, error: error)
+				Log.error("Could not download acceptance rules due to client error with status code: \(statusCode).", log: .vaccination, error: error)
 				completion(.failure(.ACCEPTANCE_RULE_CLIENT_ERROR))
 			default:
-				Log.error("Could not download acceptance rules due to server error.", log: .vaccination, error: error)
+				Log.error("Could not download acceptance rules due to server error with status code: \(statusCode).", log: .vaccination, error: error)
 				completion(.failure(.ACCEPTANCE_RULE_SERVER_ERROR))
 			}
 		default:
@@ -542,8 +546,9 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		}
 	}
 	
-	private func acceptanceRules(_ data: Data, completion: (Result<[Rule], HealthCertificateValidationError>) -> Void) {
-		let extractAcceptanceRulesResult = validationRulesAccess.extractValidationRules(from: data)
+
+	private func extractAcceptanceRules(_ data: Data, completion: (Result<[Rule], HealthCertificateValidationError>) -> Void) {
+		let extractAcceptanceRulesResult = ValidationRulesAccess().extractValidationRules(from: data)
 		
 		switch extractAcceptanceRulesResult {
 		case let .success(acceptanceRules):
@@ -555,7 +560,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 	
 	// MARK: - Invalidation Rules
 	
-	private func downloadInvalidationRule(
+	private func downloadInvalidationRules(
 		completion: @escaping (Result<[Rule], HealthCertificateValidationError>) -> Void
 	) {
 		client.getDCCRules(
@@ -571,7 +576,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 				
 				switch result {
 				case let .success(packageDownloadResponse):
-					self.invalidationRuleDownloadingSuccessHandler(
+					self.invalidationRulesDownloadingSuccessHandler(
 						packageDownloadResponse: packageDownloadResponse,
 						completion: completion
 					)
@@ -586,7 +591,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		)
 	}
 	
-	private func invalidationRuleDownloadingSuccessHandler(
+	private func invalidationRulesDownloadingSuccessHandler(
 		packageDownloadResponse: PackageDownloadResponse,
 		completion: @escaping (Result<[Rule], HealthCertificateValidationError>) -> Void
 	) {
@@ -594,7 +599,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 
 		guard let eTag = packageDownloadResponse.etag else {
 			Log.error("ETag of package is missing. Return with failure.", log: .vaccination)
-			completion(.failure(.INVALIDATION_RULE_JSON_ARCHIVE_SIGNATURE_INVALID))
+			completion(.failure(.INVALIDATION_RULE_JSON_ARCHIVE_ETAG_ERROR))
 			return
 		}
 		
@@ -608,15 +613,14 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		}
 		Log.info("Successfully extracted sapDownloadedPackage. Proceed with package verification...", log: .vaccination)
 		
-		guard self.signatureVerifier.verify(sapDownloadedPackage) else {
+		guard signatureVerifier.verify(sapDownloadedPackage) else {
 			Log.error("Verification of sapDownloadedPackage failed. Return with failure", log: .vaccination)
 			completion(.failure(.INVALIDATION_RULE_JSON_ARCHIVE_SIGNATURE_INVALID))
 			return
 		}
 		Log.info("Successfully verified sapDownloadedPackage. Proceed now with CBOR decoding...", log: .vaccination)
 		
-		
-		self.acceptanceRules(sapDownloadedPackage.bin, completion: { result in
+		self.extractInvalidationRules(sapDownloadedPackage.bin, completion: { result in
 			switch result {
 			case let .success(invalidationRules):
 				Log.info("Successfully decoded invalidation rules: \(private: invalidationRules).", log: .vaccination)
@@ -656,10 +660,10 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		case let .serverError(statusCode):
 			switch statusCode {
 			case 400...409:
-				Log.error("Could not download invalidation rules due to client error.", log: .vaccination, error: error)
+				Log.error("Could not download invalidation rules due to client error with status code: \(statusCode)..", log: .vaccination, error: error)
 				completion(.failure(.INVALIDATION_RULE_CLIENT_ERROR))
 			default:
-				Log.error("Could not download invalidation rules due to server error.", log: .vaccination, error: error)
+				Log.error("Could not download invalidation rules due to server error with status code: \(statusCode)..", log: .vaccination, error: error)
 				completion(.failure(.INVALIDATION_RULE_SERVER_ERROR))
 			}
 		default:
@@ -668,8 +672,8 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		}
 	}
 	
-	private func invalidationRules(_ data: Data, completion: (Result<[Rule], HealthCertificateValidationError>) -> Void) {
-		let extractInvalidationRulesResult = validationRulesAccess.extractValidationRules(from: data)
+	private func extractInvalidationRules(_ data: Data, completion: (Result<[Rule], HealthCertificateValidationError>) -> Void) {
+		let extractInvalidationRulesResult = ValidationRulesAccess().extractValidationRules(from: data)
 		
 		switch extractInvalidationRulesResult {
 		case let .success(invalidationRules):
@@ -738,7 +742,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		dictionary["covid-19-lab-test-type"] = valueSet.tcTt.items.map { $0.key }
 		dictionary["disease-agent-targeted"] = valueSet.tg.items.map { $0.key }
 		dictionary["sct-vaccines-covid-19"] = valueSet.vp.items.map { $0.key }
-		dictionary["vaccines-covid-19-auth-holders"] = valueSet.ma.items.map { $0.key }
+		dictionary["vaccines-covid-19-auth-holders"] = valueSet.tcMa.items.map { $0.key }
 		dictionary["vaccines-covid-19-names"] = valueSet.mp.items.map { $0.key }
 		return dictionary
 	}
