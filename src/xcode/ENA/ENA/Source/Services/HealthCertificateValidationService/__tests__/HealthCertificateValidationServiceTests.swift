@@ -419,8 +419,8 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 		waitForExpectations(timeout: .short)
 		XCTAssertEqual(receivedError, .ONBOARDED_COUNTRIES_SERVER_ERROR)
 	}
-	
-	// MARK: - Success - Validation
+		
+	// MARK: - Success - Validation (Passed)
 	
 	func testGIVEN_ValidationService_WHEN_HappyCase_THEN_PassedShouldBeReturned() throws {
 		// GIVEN
@@ -436,11 +436,19 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 		
 		let store = MockTestStore()
 		
+		XCTAssertNil(store.acceptanceRulesCache)
+		XCTAssertNil(store.invalidationRulesCache)
+				
 		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: store)
+		let validationResults = [
+			ValidationResult(rule: Rule.fake(identifier: "A"), result: .passed),
+			ValidationResult(rule: Rule.fake(identifier: "B"), result: .passed),
+			ValidationResult(rule: Rule.fake(identifier: "C"), result: .passed)
+		]
 		var validationRulesAccess = MockValidationRulesAccess()
 		validationRulesAccess.expectedAcceptanceExtractionResult = .success([])
 		validationRulesAccess.expectedInvalidationExtractionResult = .success([])
-		validationRulesAccess.expectedValidationResult = .success([])
+		validationRulesAccess.expectedValidationResult = .success(validationResults)
 		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
@@ -493,7 +501,8 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 			return
 		}
 		XCTAssertEqual(report, .validationPassed)
-		
+		XCTAssertNotNil(store.acceptanceRulesCache)
+		XCTAssertNotNil(store.invalidationRulesCache)
 	}
 	
 	func testGIVEN_ValidationService_WHEN_NotModifiedAcceptanceRules_THEN_CachedAcceptanceRulesShouldNotBeChanged() throws {
@@ -520,10 +529,15 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 			lastValidationRulesETag: "FakeEtag"
 		)
 		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: store)
+		let validationResults = [
+			ValidationResult(rule: Rule.fake(identifier: "Rule A"), result: .passed),
+			ValidationResult(rule: Rule.fake(identifier: "Rule B"), result: .passed),
+			ValidationResult(rule: Rule.fake(identifier: "Rule C"), result: .passed)
+		]
 		var validationRulesAccess = MockValidationRulesAccess()
 		validationRulesAccess.expectedAcceptanceExtractionResult = .success([cachedRule])
 		validationRulesAccess.expectedInvalidationExtractionResult = .success([])
-		validationRulesAccess.expectedValidationResult = .success([])
+		validationRulesAccess.expectedValidationResult = .success(validationResults)
 		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
@@ -608,10 +622,15 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 			lastValidationRulesETag: "FakeEtag"
 		)
 		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: store)
+		let validationResults = [
+			ValidationResult(rule: Rule.fake(identifier: "Rule A"), result: .passed),
+			ValidationResult(rule: Rule.fake(identifier: "Rule B"), result: .passed),
+			ValidationResult(rule: Rule.fake(identifier: "Rule C"), result: .passed)
+		]
 		var validationRulesAccess = MockValidationRulesAccess()
-		validationRulesAccess.expectedAcceptanceExtractionResult = .success([cachedRule])
-		validationRulesAccess.expectedInvalidationExtractionResult = .success([])
-		validationRulesAccess.expectedValidationResult = .success([])
+		validationRulesAccess.expectedAcceptanceExtractionResult = .success([])
+		validationRulesAccess.expectedInvalidationExtractionResult = .success([cachedRule])
+		validationRulesAccess.expectedValidationResult = .success(validationResults)
 		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
@@ -672,7 +691,173 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 		XCTAssertEqual(invalidationRulesCache.validationRules, [cachedRule])
 	}
 	
-	// MARK: - Failures - Validation
+	// MARK: - Success - Validation (Open)
+	
+	func testGIVEN_ValidationService_WHEN_SomeRuleIsOpen_THEN_OpenShouldBeReturned() throws {
+		// GIVEN
+		let client = ClientMock()
+		
+		client.onGetDCCRules = { [weak self] _, _, completion in
+			guard let self = self else {
+				XCTFail("Could not create strong self")
+				return
+			}
+			completion(.success(self.dummyRulesResponse))
+		}
+		
+		let store = MockTestStore()
+		
+		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: store)
+		
+		let validationResults = [
+			ValidationResult(rule: Rule.fake(identifier: "Rule A"), result: .passed),
+			ValidationResult(rule: Rule.fake(identifier: "Rule B"), result: .open),
+			ValidationResult(rule: Rule.fake(identifier: "Rule C"), result: .passed)
+		]
+		
+		var validationRulesAccess = MockValidationRulesAccess()
+		validationRulesAccess.expectedAcceptanceExtractionResult = .success([])
+		validationRulesAccess.expectedInvalidationExtractionResult = .success([])
+		validationRulesAccess.expectedValidationResult = .success(validationResults)
+		let validationService = HealthCertificateValidationService(
+			store: store,
+			client: client,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			signatureVerifier: MockVerifier(),
+			validationRulesAccess: validationRulesAccess
+		)
+		
+		// expirationTime must be >= validation clock to succeed.
+		let expirationTime: UInt64 = 1625655530
+		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
+		
+		let healthCertificateBase45 = DigitalCovidCertificateFake.makeBase45Fake(
+			from: DigitalCovidCertificate.fake(
+				name: .fake(familyName: "Brause", givenName: "Pascal", standardizedFamilyName: "BRAUSE", standardizedGivenName: "PASCAL"),
+				testEntries: [TestEntry.fake(dateTimeOfSampleCollection: "2021-06-06T06:06:06Z")]
+			),
+			and: CBORWebTokenHeader.fake(expirationTime: expirationTime)
+		)
+		
+		guard case let .success(base45) = healthCertificateBase45 else {
+			XCTFail("Could not create fake health certificate. Abort test.")
+			return
+		}
+		let healthCertificate = try HealthCertificate(base45: base45)
+		
+		let expectation = self.expectation(description: "Test should success with .validationOpen")
+		var responseReport: HealthCertificateValidationReport?
+		
+		// WHEN
+		validationService.validate(
+			healthCertificate: healthCertificate,
+			arrivalCountry: "FR",
+			validationClock: validationClock,
+			completion: { result in
+				switch result {
+				case let .success(report):
+					responseReport = report
+					expectation.fulfill()
+				case let .failure(error):
+					XCTFail("Test should not fail with error: \(error)")
+				}
+			}
+		)
+		
+		// THEN
+		waitForExpectations(timeout: .short)
+		guard let report = responseReport else {
+			XCTFail("report must not be nil")
+			return
+		}
+		// Need to double the results because the injected expectedValidationResult will be returned twice (1x acceptance, 1x invalidation)
+		XCTAssertEqual(report, .validationOpen(validationResults + validationResults))
+	}
+	
+	// MARK: - Success - Validation (Fail)
+	
+	func testGIVEN_ValidationService_WHEN_SomeRuleIsFailed_THEN_FailedShouldBeReturned() throws {
+		// GIVEN
+		let client = ClientMock()
+		
+		client.onGetDCCRules = { [weak self] _, _, completion in
+			guard let self = self else {
+				XCTFail("Could not create strong self")
+				return
+			}
+			completion(.success(self.dummyRulesResponse))
+		}
+		
+		let store = MockTestStore()
+		
+		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: store)
+		
+		let validationResults = [
+			ValidationResult(rule: Rule.fake(identifier: "Rule A"), result: .passed),
+			ValidationResult(rule: Rule.fake(identifier: "Rule B"), result: .open),
+			ValidationResult(rule: Rule.fake(identifier: "Rule C"), result: .fail)
+		]
+		
+		var validationRulesAccess = MockValidationRulesAccess()
+		validationRulesAccess.expectedAcceptanceExtractionResult = .success([])
+		validationRulesAccess.expectedInvalidationExtractionResult = .success([])
+		validationRulesAccess.expectedValidationResult = .success(validationResults)
+		let validationService = HealthCertificateValidationService(
+			store: store,
+			client: client,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			signatureVerifier: MockVerifier(),
+			validationRulesAccess: validationRulesAccess
+		)
+		
+		// expirationTime must be >= validation clock to succeed.
+		let expirationTime: UInt64 = 1625655530
+		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
+		
+		let healthCertificateBase45 = DigitalCovidCertificateFake.makeBase45Fake(
+			from: DigitalCovidCertificate.fake(
+				name: .fake(familyName: "Brause", givenName: "Pascal", standardizedFamilyName: "BRAUSE", standardizedGivenName: "PASCAL"),
+				testEntries: [TestEntry.fake(dateTimeOfSampleCollection: "2021-06-06T06:06:06Z")]
+			),
+			and: CBORWebTokenHeader.fake(expirationTime: expirationTime)
+		)
+		
+		guard case let .success(base45) = healthCertificateBase45 else {
+			XCTFail("Could not create fake health certificate. Abort test.")
+			return
+		}
+		let healthCertificate = try HealthCertificate(base45: base45)
+		
+		let expectation = self.expectation(description: "Test should success with .validationFailed")
+		var responseReport: HealthCertificateValidationReport?
+		
+		// WHEN
+		validationService.validate(
+			healthCertificate: healthCertificate,
+			arrivalCountry: "FR",
+			validationClock: validationClock,
+			completion: { result in
+				switch result {
+				case let .success(report):
+					responseReport = report
+					expectation.fulfill()
+				case let .failure(error):
+					XCTFail("Test should not fail with error: \(error)")
+				}
+			}
+		)
+		
+		// THEN
+		waitForExpectations(timeout: .short)
+		guard let report = responseReport else {
+			XCTFail("report must not be nil")
+			return
+		}
+		// Need to double the results because the injected expectedValidationResult will be returned twice (1x acceptance, 1x invalidation)
+		XCTAssertEqual(report, .validationFailed(validationResults + validationResults))
+	}
+	
+	// MARK: - Errors - Validation
 	
 	func testGIVEN_ValidationService_WHEN_expirationDateHasReached_THEN_TECHNICAL_VALIDATION_FAILED_IsReturned() throws {
 		// GIVEN
