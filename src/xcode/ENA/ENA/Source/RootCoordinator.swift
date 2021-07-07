@@ -94,6 +94,7 @@ class RootCoordinator: RequiresAppDependencies {
 		let healthCertificatesCoordinator = HealthCertificatesCoordinator(
 			store: store,
 			healthCertificateService: healthCertificateService,
+			healthCertificateValidationService: MockHealthCertificateValidationService(),
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider
 		)
 		self.healthCertificatesCoordinator = healthCertificatesCoordinator

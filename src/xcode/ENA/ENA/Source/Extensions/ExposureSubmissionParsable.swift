@@ -103,6 +103,8 @@ extension URLSessionError: ExposureSubmissionErrorTransformable {
 			return .fakeResponse
 		case .malformedDateOfBirthKey:
 			return .malformedDateOfBirthKey
+		case .invalidRequest:
+			return .invalidRequest
 		}
 	}
 	// swiftlint:enable cyclomatic_complexity

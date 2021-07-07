@@ -13,13 +13,14 @@ class ExposureSubmissionIntroViewModelTests: CWATestCase {
 
 		let viewModel = ExposureSubmissionIntroViewModel(
 			onQRCodeButtonTap: { _ in },
+			onFindTestCentersTap: { },
 			onTANButtonTap: { },
 			onHotlineButtonTap: { },
 			onRapidTestProfileTap: { },
 			antigenTestProfileStore: store
 		)
 
-		let profileCell = viewModel.dynamicTableModel.cell(at: IndexPath(row: 1, section: 1))
+		let profileCell = viewModel.dynamicTableModel.cell(at: IndexPath(row: 2, section: 1))
 
 		XCTAssertEqual(profileCell.tag, "AntigenTestCreateProfileCard")
 	}
@@ -30,13 +31,14 @@ class ExposureSubmissionIntroViewModelTests: CWATestCase {
 
 		let viewModel = ExposureSubmissionIntroViewModel(
 			onQRCodeButtonTap: { _ in },
+			onFindTestCentersTap: { },
 			onTANButtonTap: { },
 			onHotlineButtonTap: { },
 			onRapidTestProfileTap: { },
 			antigenTestProfileStore: store
 		)
 
-		let profileCell = viewModel.dynamicTableModel.cell(at: IndexPath(row: 1, section: 1))
+		let profileCell = viewModel.dynamicTableModel.cell(at: IndexPath(row: 2, section: 1))
 
 		XCTAssertEqual(profileCell.tag, "AntigenTestProfileCard")
 	}

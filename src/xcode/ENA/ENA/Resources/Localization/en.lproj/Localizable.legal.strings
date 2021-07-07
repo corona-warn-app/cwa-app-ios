@@ -128,7 +128,7 @@
 
 "errorReport_Legal_SendReports_Headline" = "Your consent";
 
-"errorReport_Legal_SendReports_Subline" = "By tapping on “Accept and Send”, you consent to the following steps:";
+"errorReport_Legal_SendReports_Subline" = "By tapping on “Agree and Send”, you consent to the following steps:";
 
 "errorReport_Legal_SendReports_Bullet1_Part1" = "The error report you create will be sent to the RKI for error analysis purposes.";
 
