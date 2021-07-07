@@ -738,11 +738,11 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		var dictionary = [String: [String]]()
 		dictionary["country-2-codes"] = allCountryCodes
 		dictionary["covid-19-lab-result"] = valueSet.tcTr.items.map { $0.key }
-		dictionary["covid-19-lab-test-manufacturer-and-name"] = valueSet.ma.items.map { $0.key }
+		dictionary["covid-19-lab-test-manufacturer-and-name"] = valueSet.tcMa.items.map { $0.key }
 		dictionary["covid-19-lab-test-type"] = valueSet.tcTt.items.map { $0.key }
 		dictionary["disease-agent-targeted"] = valueSet.tg.items.map { $0.key }
 		dictionary["sct-vaccines-covid-19"] = valueSet.vp.items.map { $0.key }
-		dictionary["vaccines-covid-19-auth-holders"] = valueSet.tcMa.items.map { $0.key }
+		dictionary["vaccines-covid-19-auth-holders"] = valueSet.ma.items.map { $0.key }
 		dictionary["vaccines-covid-19-names"] = valueSet.mp.items.map { $0.key }
 		return dictionary
 	}
