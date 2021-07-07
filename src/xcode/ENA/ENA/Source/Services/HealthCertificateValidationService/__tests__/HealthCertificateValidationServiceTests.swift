@@ -8,6 +8,8 @@ import XCTest
 import SwiftCBOR
 import CertLogic
 
+// swiftlint:disable file_length
+// swiftlint:disable:next type_body_length
 class HealthCertificateValidationServiceTests: XCTestCase {
 	
 	// MARK: - Success - OnboardedCountries
@@ -496,8 +498,73 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 	func testGIVEN_ValidationService_WHEN_NotModified_THEN_PassedShouldBeReturned() {
 	}
 	
-	// MARK: - Success - Validation
+	// MARK: - Failures - Validation
 	
+	func testGIVEN_ValidationService_WHEN_expirationDateHasReached_THEN_TECHNICAL_VALIDATION_FAILED_IsReturned() throws {
+		// GIVEN
+		let client = ClientMock()
+		
+		client.onGetDCCRules = { [weak self] _, _, completion in
+			guard let self = self else {
+				XCTFail("Could not create strong self")
+				return
+			}
+			completion(.success(self.dummyRulesResponse))
+		}
+		
+		let store = MockTestStore()
+		
+		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: store)
+		let validationService = HealthCertificateValidationService(
+			store: store,
+			client: client,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			signatureVerifier: MockVerifier(),
+			validationRulesAccess: MockValidationRulesAccess()
+		)
+		
+		// expirationTime must be >= validation clock to succeed.
+		let validationClock = Date()
+		
+		let healthCertificateBase45 = DigitalCovidCertificateFake.makeBase45Fake(
+			from: DigitalCovidCertificate.fake(),
+			and: CBORWebTokenHeader.fake()
+		)
+		
+		guard case let .success(base45) = healthCertificateBase45 else {
+			XCTFail("Could not create fake health certificate. Abort test.")
+			return
+		}
+		let healthCertificate = try HealthCertificate(base45: base45)
+		
+		let expectation = self.expectation(description: "Test should fail with .TECHNICAL_VALIDATION_FAILED")
+		var responseError: HealthCertificateValidationError?
+		
+		// WHEN
+		validationService.validate(
+			healthCertificate: healthCertificate,
+			arrivalCountry: "FR",
+			validationClock: validationClock,
+			completion: { result in
+				switch result {
+				case .success:
+					XCTFail("Test should not succeed.")
+				case let .failure(error):
+					responseError = error
+					expectation.fulfill()
+				}
+			}
+		)
+		
+		// THEN
+		waitForExpectations(timeout: .short)
+		guard let error = responseError else {
+			XCTFail("report must not be nil")
+			return
+		}
+		XCTAssertEqual(error, .TECHNICAL_VALIDATION_FAILED)
+		
+	}
 	
 	private lazy var dummyOnboardedCountriesResponse: PackageDownloadResponse = {
 		let fakeData = onboardedCountriesCBORDataFake
