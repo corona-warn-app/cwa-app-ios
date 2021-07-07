@@ -43,6 +43,7 @@ enum AppStrings {
 		static let healthCertificateFAQ = NSLocalizedString("HealthCertificate_Info_register_FAQLink", tableName: "Localizable.links", comment: "")
 		static let healthCertificateErrorFAQ = NSLocalizedString("HealthCertificate_Error_FAQ_Link", tableName: "Localizable.links", comment: "")
 		static let testCertificateErrorFAQ = NSLocalizedString("TestCertificate_Error_FAQ_Link", tableName: "Localizable.links", comment: "")
+		static let findTestCentersFAQ = NSLocalizedString("Test_Centers_FAQ_Link", tableName: "Localizable.links", comment: "")
 	}
 
 	enum QuickActions {
@@ -142,6 +143,7 @@ enum AppStrings {
 				static let legalHeadline_1 = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Legal_Headline", tableName: "Localizable.legal", comment: "")
 				static let legalText_1 = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Legal_Text_1", tableName: "Localizable.legal", comment: "")
 				static let legalText_2 = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Legal_Text_2", tableName: "Localizable.legal", comment: "")
+				static let legalText_2a_PCR = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Legal_Text_2a_PCR", tableName: "Localizable.legal", comment: "")
 				static let legalText_3 = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Legal_Text_3", tableName: "Localizable.legal", comment: "")
 				static let legalText_4 = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Legal_Text_4", tableName: "Localizable.legal", comment: "")
 				static let legalText_5 = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Legal_Text_5", tableName: "Localizable.legal", comment: "")
@@ -283,6 +285,8 @@ enum AppStrings {
 		static let tanButtonDescription = NSLocalizedString("ExposureSubmissionDispatch_TANButtonDescription", comment: "")
 		static let hotlineButtonTitle = NSLocalizedString("ExposureSubmissionDispatch_HotlineButtonTitle", comment: "")
 		static let hotlineButtonDescription = NSLocalizedString("ExposureSubmissionDispatch_HotlineButtonDescription", comment: "")
+		static let findTestCentersButtonTitle = NSLocalizedString("ExposureSubmissionDispatch_FindTestCentersTitle", comment: "")
+		static let findTestCentersButtonDescription = NSLocalizedString("ExposureSubmissionDispatch_FindTestCentersDescription", comment: "")
 	}
 
 	enum ExposureSubmissionQRInfo {
