@@ -48,9 +48,6 @@ struct HealthCertificate: Codable, Equatable, Comparable {
 
 	// MARK: - Internal
 	
-	let cborWebTokenHeader: CBORWebTokenHeader
-	let digitalCovidCertificate: DigitalCovidCertificate
-
 	enum CertificateType {
 		case vaccination
 		case test
@@ -64,7 +61,9 @@ struct HealthCertificate: Codable, Equatable, Comparable {
 	}
 
 	let base45: Base45
-
+	let cborWebTokenHeader: CBORWebTokenHeader
+	let digitalCovidCertificate: DigitalCovidCertificate
+	
 	var version: String {
 		digitalCovidCertificate.version
 	}

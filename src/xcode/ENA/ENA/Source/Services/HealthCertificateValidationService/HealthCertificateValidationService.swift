@@ -139,14 +139,14 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		}
 		Log.info("Successfully extracted sapDownloadedPackage. Proceed with package verification...", log: .vaccination)
 		
-		guard self.signatureVerifier.verify(sapDownloadedPackage) else {
+		guard signatureVerifier.verify(sapDownloadedPackage) else {
 			Log.error("Verification of sapDownloadedPackage failed. Return with failure", log: .vaccination)
 			completion(.failure(.ONBOARDED_COUNTRIES_JSON_ARCHIVE_SIGNATURE_INVALID))
 			return
 		}
 		Log.info("Successfully verified sapDownloadedPackage. Proceed now with CBOR decoding...", log: .vaccination)
 		
-		self.countryCodes(
+		extractCountryCodes(
 			cborData: sapDownloadedPackage.bin,
 			completion: { result in
 				switch result {
@@ -195,7 +195,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 	}
 	
 	/// Extracts by the HealthCertificateToolkit the list of countrys. Expects the list as CBOR-Data and return for success the list of Country-Objects.
-	private func countryCodes(
+	private func extractCountryCodes(
 		cborData: Data,
 		completion: (Result<[Country], ValidationOnboardedCountriesError>
 		) -> Void
@@ -236,11 +236,15 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 								completion(.failure(.VALUE_SET_SERVER_ERROR))
 							default:
 								Log.error("Unhandled Status Code while fetching certificate value sets", log: .vaccination, error: error)
+								completion(.failure(.VALUE_SET_CLIENT_ERROR))
 							}
 							
 						} else if case URLSession.Response.Failure.noNetworkConnection = error {
 							Log.error("Failed to update value sets. No network error", log: .vaccination, error: error)
 							completion(.failure(.NO_NETWORK))
+						} else {
+							Log.error("Casting error for http error", log: .vaccination, error: error)
+							completion(.failure(.VALUE_SET_CLIENT_ERROR))
 						}
 					}
 					
@@ -484,7 +488,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		}
 		Log.info("Successfully extracted sapDownloadedPackage. Proceed with package verification...", log: .vaccination)
 		
-		guard self.signatureVerifier.verify(sapDownloadedPackage) else {
+		guard signatureVerifier.verify(sapDownloadedPackage) else {
 			Log.error("Verification of sapDownloadedPackage failed. Return with failure", log: .vaccination)
 			completion(.failure(.ACCEPTANCE_RULE_JSON_ARCHIVE_SIGNATURE_INVALID))
 			return
@@ -610,7 +614,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		}
 		Log.info("Successfully extracted sapDownloadedPackage. Proceed with package verification...", log: .vaccination)
 		
-		guard self.signatureVerifier.verify(sapDownloadedPackage) else {
+		guard signatureVerifier.verify(sapDownloadedPackage) else {
 			Log.error("Verification of sapDownloadedPackage failed. Return with failure", log: .vaccination)
 			completion(.failure(.INVALIDATION_RULE_JSON_ARCHIVE_SIGNATURE_INVALID))
 			return

@@ -28,6 +28,7 @@ enum HealthCertificateValidationError: LocalizedError {
 	case INVALIDATION_RULE_SERVER_ERROR
 	case NO_NETWORK
 	case VALUE_SET_SERVER_ERROR
+	case VALUE_SET_CLIENT_ERROR
 
 	var errorDescription: String? {
 		switch self {
@@ -69,6 +70,8 @@ enum HealthCertificateValidationError: LocalizedError {
 			return "\(AppStrings.HealthCertificate.ValidationError.noNetwork) (NO_NETWORK)"
 		case .VALUE_SET_SERVER_ERROR:
 			return "\(AppStrings.HealthCertificate.ValidationError.tryAgain) (VALUE_SET_SERVER_ERROR)"
+		case .VALUE_SET_CLIENT_ERROR:
+			return "\(AppStrings.HealthCertificate.ValidationError.tryAgain) (VALUE_SET_CLIENT_ERROR)"
 		}
 	}
 
