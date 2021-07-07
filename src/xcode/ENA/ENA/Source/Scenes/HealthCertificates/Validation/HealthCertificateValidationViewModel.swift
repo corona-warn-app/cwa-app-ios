@@ -50,6 +50,7 @@ final class HealthCertificateValidationViewModel {
 						accessibilityIdentifier: ""
 					),
 					countrySelectionCell(),
+					.space(height: 8, color: .white),
 					validationDateSelectionCell(),
 					.body(
 						text: "Ein COVID-Zertifikat gilt bei Reisen innerhalb der EU als Nachweis.",
@@ -137,7 +138,7 @@ final class HealthCertificateValidationViewModel {
 
 				countrySelectionCell.countries = self.countries
 				countrySelectionCell.selectedCountry = self.selectedCountry
-				countrySelectionCell.isCollapsed(self.countrySelectionCollapsed)
+				countrySelectionCell.isCollapsed = self.countrySelectionCollapsed
 			}
 		}
 	}
@@ -171,7 +172,7 @@ final class HealthCertificateValidationViewModel {
 				}
 
 				validationDateSelectionCell.selectedDate = self.selectedValidationDate
-				validationDateSelectionCell.toggle(state: self.validationDateSelectionCollapsed)
+				validationDateSelectionCell.isCollapsed = self.validationDateSelectionCollapsed
 			}
 		}
 	}

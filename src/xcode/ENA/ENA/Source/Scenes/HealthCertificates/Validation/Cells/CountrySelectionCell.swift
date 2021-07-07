@@ -37,9 +37,11 @@ final class CountrySelectionCell: UITableViewCell, UIPickerViewDelegate, UIPicke
 		}
 	}
 
-	func isCollapsed(_ collapsed: Bool) {
-		picker.isHidden = collapsed
-		seperator.isHidden = collapsed
+	var isCollapsed: Bool = true {
+		didSet {
+			picker.isHidden = isCollapsed
+			seperator.isHidden = isCollapsed
+		}
 	}
 
 	// MARK: - Private
@@ -99,7 +101,6 @@ final class CountrySelectionCell: UITableViewCell, UIPickerViewDelegate, UIPicke
 	}()
 
 	private func createAndLayoutViewHierarchy() {
-
 		contentView.addSubview(cardContainer)
 		NSLayoutConstraint.activate([
 			cardContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 17),

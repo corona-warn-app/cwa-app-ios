@@ -7,62 +7,7 @@ import UIKit
 
 final class ValidationDateSelectionCell: UITableViewCell {
 
-	static let reuseIdentifier = "\(ValidationDateSelectionCell.self)"
-
-	var didSelectDate: ((Date) -> Void)?
-
-	var selectedDate: Date? {
-		didSet {
-			selectedDateLabel.text = "\(selectedDate?.timeIntervalSince1970)"
-		}
-	}
-
-	private lazy var containerStackView: UIStackView = {
-		let stack = UIStackView()
-		stack.translatesAutoresizingMaskIntoConstraints = false
-		stack.alignment = .fill
-		stack.distribution = .fill
-		stack.axis = .vertical
-		return stack
-	}()
-
-	private lazy var selectedDateLabel: UILabel = {
-		let label = UILabel()
-		label.text = "Deutschland"
-		label.numberOfLines = 0
-		return label
-	}()
-
-	private lazy var selectedDateTitle: UILabel = {
-		let label = UILabel()
-		label.text = "Zu prüfendes Land"
-		label.numberOfLines = 0
-		return label
-	}()
-
-	private lazy var selectedDateStackView: UIStackView = {
-		let stack = UIStackView()
-		stack.translatesAutoresizingMaskIntoConstraints = false
-		stack.alignment = .fill
-		stack.distribution = .fill
-		stack.axis = .horizontal
-		return stack
-	}()
-
-	private lazy var datePicker: UIDatePicker = {
-		let datePicker = UIDatePicker()
-		datePicker.translatesAutoresizingMaskIntoConstraints = false
-		datePicker.datePickerMode = .date
-		if #available(iOS 14.0, *) {
-			datePicker.preferredDatePickerStyle = .inline
-		} else if #available(iOS 13.4, *) {
-			datePicker.preferredDatePickerStyle = .wheels
-		}
-
-		datePicker.addTarget(self, action: #selector(didSelectDate(datePicker:)), for: .valueChanged)
-
-		return datePicker
-	}()
+	// MARK: - Init
 
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: reuseIdentifier)
@@ -74,20 +19,161 @@ final class ValidationDateSelectionCell: UITableViewCell {
 		fatalError("init(coder:) has not been implemented")
 	}
 
+	// MARK: - Internal
+
+	static let reuseIdentifier = "\(ValidationDateSelectionCell.self)"
+
+	var didSelectDate: ((Date) -> Void)?
+
+	var selectedDate: Date? {
+		didSet {
+			if let date = selectedDate {
+				selectedDateTimeLabel.text = DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .short)
+			} else {
+				selectedDateTimeLabel.text = ""
+			}
+		}
+	}
+
+	var isCollapsed: Bool = true {
+		didSet {
+			datePicker.isHidden = isCollapsed
+			infoStackView.isHidden = !isCollapsed
+			seperator.isHidden = isCollapsed
+			selectedDateTimeLabel.textColor = isCollapsed ? .enaColor(for: .textPrimary1) : .enaColor(for: .textTint)
+		}
+	}
+
+	// MARK: - Private
+
+	private lazy var cardContainer: UIView = {
+		let view = UIView()
+		view.translatesAutoresizingMaskIntoConstraints = false
+		view.backgroundColor = .enaColor(for: .backgroundLightGray)
+		view.layer.cornerRadius = 8
+		return view
+	}()
+
+	private lazy var containerStackView: UIStackView = {
+		let stack = UIStackView()
+		stack.translatesAutoresizingMaskIntoConstraints = false
+		stack.axis = .vertical
+		stack.spacing = 15
+		return stack
+	}()
+
+	private lazy var selectedDateTimeLabel: UILabel = {
+		let label = ENALabel()
+		label.numberOfLines = 0
+		label.setContentHuggingPriority(.required, for: .horizontal)
+		label.textAlignment = .right
+		label.font = .enaFont(for: .headline, weight: .semibold)
+		return label
+	}()
+
+	private lazy var selectedDateTimeTitle: UILabel = {
+		let label = ENALabel(style: .headline)
+		label.text = "Datum und Uhrzeit"
+		label.numberOfLines = 0
+		return label
+	}()
+
+	private lazy var selectedDateTimeStackView: UIStackView = {
+		let stack = UIStackView()
+		stack.translatesAutoresizingMaskIntoConstraints = false
+		stack.axis = .horizontal
+		stack.distribution = .fillProportionally
+		return stack
+	}()
+
+	private lazy var selectedTimeTitle: UILabel = {
+		let label = ENALabel(style: .headline)
+		label.text = "Zeit"
+		label.numberOfLines = 0
+		return label
+	}()
+
+	private lazy var infoStackView: UIStackView = {
+		let stack = UIStackView()
+		stack.translatesAutoresizingMaskIntoConstraints = false
+		stack.axis = .horizontal
+		stack.spacing = 5
+		return stack
+	}()
+
+	private lazy var infoLabel: UILabel = {
+		let label = ENALabel(style: .footnote)
+		label.text = "Geben Sie Ihr Einreisedatum und Ihre lokale Uhrzeit ein."
+		label.numberOfLines = 0
+		return label
+	}()
+
+	private lazy var infoButton: UIButton = {
+		let button = UIButton(type: .custom)
+		button.setImage(UIImage(named: "info"), for: .normal)
+		button.setContentHuggingPriority(.required, for: .horizontal)
+		return button
+	}()
+
+	private lazy var datePicker: UIDatePicker = {
+		let datePicker = UIDatePicker()
+		datePicker.translatesAutoresizingMaskIntoConstraints = false
+		datePicker.datePickerMode = .dateAndTime
+		datePicker.tintColor = .enaColor(for: .tint)
+
+		if #available(iOS 14.0, *) {
+			datePicker.preferredDatePickerStyle = .inline
+		} else if #available(iOS 13.4, *) {
+			datePicker.preferredDatePickerStyle = .wheels
+		}
+
+		datePicker.addTarget(self, action: #selector(didSelectDate(datePicker:)), for: .valueChanged)
+
+		return datePicker
+	}()
+
+	private lazy var seperator: UIView = {
+		let view = UIView()
+		view.translatesAutoresizingMaskIntoConstraints = false
+		view.backgroundColor = .enaColor(for: .hairline)
+		return view
+	}()
+
 	private func createAndLayoutViewHierarchy() {
-		contentView.addSubview(containerStackView)
+		contentView.addSubview(cardContainer)
 		NSLayoutConstraint.activate([
-			containerStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-			containerStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
-			containerStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-			containerStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+			cardContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 17),
+			cardContainer.topAnchor.constraint(equalTo: contentView.topAnchor),
+			cardContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -17),
+			cardContainer.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
 		])
 
-		containerStackView.addArrangedSubview(selectedDateStackView)
+		cardContainer.addSubview(containerStackView)
+		NSLayoutConstraint.activate([
+			containerStackView.leadingAnchor.constraint(equalTo: cardContainer.leadingAnchor, constant: 19),
+			containerStackView.topAnchor.constraint(equalTo: cardContainer.topAnchor, constant: 8),
+			containerStackView.trailingAnchor.constraint(equalTo: cardContainer.trailingAnchor, constant: -19),
+			containerStackView.bottomAnchor.constraint(equalTo: cardContainer.bottomAnchor, constant: -15)
+		])
+
+		containerStackView.addArrangedSubview(selectedDateTimeStackView)
+		containerStackView.addArrangedSubview(infoStackView)
 		containerStackView.addArrangedSubview(datePicker)
 
-		selectedDateStackView.addArrangedSubview(selectedDateTitle)
-		selectedDateStackView.addArrangedSubview(selectedDateLabel)
+		selectedDateTimeStackView.addArrangedSubview(selectedDateTimeTitle)
+		selectedDateTimeStackView.addArrangedSubview(selectedDateTimeLabel)
+
+		infoStackView.addArrangedSubview(infoLabel)
+		infoStackView.addArrangedSubview(infoButton)
+
+		cardContainer.addSubview(seperator)
+
+		NSLayoutConstraint.activate([
+			seperator.heightAnchor.constraint(equalToConstant: 1),
+			seperator.leadingAnchor.constraint(equalTo: cardContainer.leadingAnchor),
+			seperator.trailingAnchor.constraint(equalTo: cardContainer.trailingAnchor),
+			seperator.topAnchor.constraint(equalTo: selectedDateTimeStackView.bottomAnchor, constant: 8)
+		])
 	}
 
 	@objc
@@ -96,7 +182,4 @@ final class ValidationDateSelectionCell: UITableViewCell {
 		didSelectDate?(datePicker.date)
 	}
 
-	func toggle(state: Bool) {
-		datePicker.isHidden = state
-	}
 }
