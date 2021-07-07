@@ -2598,6 +2598,14 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "AntigenProfile_Delete_Alert_Delete_Button_Title" = "Entfernen";
 
+/* Health Certificate Validation Info */
+
+"HealthCertificate_Validation_Info_imageDescription" = "";
+
+"HealthCertificate_Validation_Info_byCar" = "Geben Sie die geplante lokale Ankunftszeit an der Grenze zu Ihrem Einreiseland ein.";
+
+"HealthCertificate_Validation_Info_byPlane" = "Wenn Sie auf dem Luftweg einreisen, geben Sie die geplante Uhrzeit Ihres Abflugs ein.";
+
 /* Health Certificate Overview */
 
 "HealthCertificate_Overview_title" = "Zertifikate";

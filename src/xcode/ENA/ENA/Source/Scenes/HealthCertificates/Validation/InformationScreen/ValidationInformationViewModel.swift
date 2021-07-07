@@ -17,64 +17,25 @@ struct ValidationInformationViewModel {
 				header:
 					.image(
 						UIImage(
-							imageLiteralResourceName: "Illu_Vaccination"
+							imageLiteralResourceName: "Illu_Europe_Card"
 						),
-						accessibilityLabel: AppStrings.HealthCertificate.Info.imageDescription,
-						accessibilityIdentifier: AccessibilityIdentifiers.HealthCertificate.Info.imageDescription,
-						height: 184.0
+						accessibilityLabel: AppStrings.HealthCertificate.Validation.Info.imageDescription,
+						accessibilityIdentifier: AccessibilityIdentifiers.HealthCertificate.Validation.Info.imageDescription,
+						height: 274.0
 					),
 				cells: [
-					.body(
-						text: AppStrings.HealthCertificate.Info.description
-					),
 					.icon(
-						UIImage(imageLiteralResourceName: "Icons_QR5"),
-						text: .string(AppStrings.HealthCertificate.Info.section01),
+						UIImage(imageLiteralResourceName: "Icons_Car"),
+						text: .string(AppStrings.HealthCertificate.Validation.Info.byCar),
 						alignment: .top
 					),
 					.icon(
-						UIImage(imageLiteralResourceName: "Icons_Certificates_01"),
-						text: .string(AppStrings.HealthCertificate.Info.section02),
-						alignment: .top
-					),
-					.icon(
-						UIImage(imageLiteralResourceName: "Icons - Smartphone"),
-						text: .string(AppStrings.HealthCertificate.Info.section03),
-						alignment: .top
-					),
-					.icon(
-						UIImage(imageLiteralResourceName: "Icons_Certificates_04"),
-						text: .string(AppStrings.HealthCertificate.Info.section04),
+						UIImage(imageLiteralResourceName: "Icons_Plane"),
+						text: .string(AppStrings.HealthCertificate.Validation.Info.byPlane),
 						alignment: .top
 					)
 				]
-			),
-			// Legal text
-			.section(cells: [
-				.legalExtended(
-					title: NSAttributedString(string: AppStrings.HealthCertificate.Info.Legal.headline),
-					subheadline1: nil,
-					bulletPoints1: [
-						bulletPointCellWithNormalText(
-							text: AppStrings.HealthCertificate.Info.Legal.section01
-						),
-						bulletPointCellWithNormalText(
-							text: AppStrings.HealthCertificate.Info.Legal.section02
-						),
-						bulletPointCellWithNormalText(
-							text: AppStrings.HealthCertificate.Info.Legal.section03
-						),
-						bulletPointCellWithNormalText(
-							text: AppStrings.HealthCertificate.Info.Legal.section04
-						)
-					],
-					subheadline2: nil,
-					accessibilityIdentifier: AccessibilityIdentifiers.HealthCertificate.Info.acknowledgementTitle,
-					configure: { _, cell, _ in
-						cell.backgroundColor = .enaColor(for: .background)
-					}
-				)
-			])
+			)
 		])
 	}
 

@@ -622,6 +622,12 @@ enum AccessibilityIdentifiers {
 
 	enum HealthCertificate {
 
+		enum Validation {
+			enum Info {
+				static let imageDescription = "AppStrings.HealthCertificate.Validation.Info.imageDescription"
+			}
+		}
+
 		enum Overview {
 			static let addCertificateCell =
 				"addCertificateCell"
