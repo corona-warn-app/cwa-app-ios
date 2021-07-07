@@ -137,7 +137,7 @@ final class HealthCertificateValidationViewModel {
 				}
 
 				countrySelectionCell.countries = self.countries
-				countrySelectionCell.selectedCountry = self.selectedCountry
+				countrySelectionCell.selectedCountry = self.selectedCountry ?? Country.defaultCountry()
 				countrySelectionCell.isCollapsed = self.countrySelectionCollapsed
 			}
 		}
@@ -171,7 +171,7 @@ final class HealthCertificateValidationViewModel {
 					self?.selectedValidationDate = date
 				}
 
-				validationDateSelectionCell.selectedDate = self.selectedValidationDate
+				validationDateSelectionCell.selectedDate = self.selectedValidationDate ?? Date()
 				validationDateSelectionCell.isCollapsed = self.validationDateSelectionCollapsed
 			}
 		}
