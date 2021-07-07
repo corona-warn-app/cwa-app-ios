@@ -2619,7 +2619,7 @@
 
 "HealthCertifiedPerson_dateOfBirth" = "Data urodzenia %@";
 
-"HealthCertifiedPerson_preferredPersonDescription" = "Mój smartfon, moja aplikacja. Certyfikaty dla mnie pojawiają się na górze listy.";
+"HealthCertifiedPerson_preferredPersonDescription" = "Włącz ten przełącznik, jeśli jesteś %@ oraz głównym użytkownikiem aplikacji. Twoje certyfikaty pojawią się na górze listy.";
 
 "HealthCertifiedPerson_QRCode_Image_Description" = "Kod QR z aktualnym certyfikatem";
 
@@ -2673,6 +2673,9 @@
 "HealthCertificate_Details_identifier" = "Numer certyfikatu";
 
 "HealthCertificate_Details_primaryButton" = "Usuń certyfikat szczepienia";
+
+/* Vaccination Certificate Details */
+"VaccinationCertificate_Details_OneOfOneHint" = "Jest to szczepionka, która wymaga tylko jednej dawki lub szczepionka dla ozdrowieńca, który potrzebuje tylko jednej dawki.";
 
 /* Vaccination Certificate Delete Alert */
 "HealthCertificate_Alert_title" = "Czy chcesz usunąć certyfikat  szczepienia?";
