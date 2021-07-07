@@ -4,7 +4,7 @@
 
 import UIKit
 
-class ValidationInformationViewController: UITableViewController, DismissHandling {
+class ValidationInformationViewController: DynamicTableViewController, DismissHandling {
 
 	// MARK: - Init
 
@@ -12,6 +12,7 @@ class ValidationInformationViewController: UITableViewController, DismissHandlin
 		dismiss: @escaping () -> Void
 	) {
 		self.dismiss = dismiss
+
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -25,6 +26,8 @@ class ValidationInformationViewController: UITableViewController, DismissHandlin
 		super.viewDidLoad()
 
 		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
+		setupTransparentNavigationBar()
+		setupView()
 	}
 
 	// MARK: - Protocol DismissHandling
@@ -39,18 +42,61 @@ class ValidationInformationViewController: UITableViewController, DismissHandlin
 
 	// MARK: - Private
 
+	private let viewModel: ValidationInformationViewModel = ValidationInformationViewModel()
 	private let dismiss: () -> Void
+	
+	private var backgroundImage: UIImage?
+	private var shadowImage: UIImage?
+	private var isTranslucent: Bool = false
+	private var backgroundColor: UIColor?
 
-	// MARK: - Table view data source
+	private func setupTransparentNavigationBar() {
+		// save current state
+		guard let navigationController = navigationController else {
+			Log.debug("no navigation controller found - stop")
+			return
+		}
 
-	override func numberOfSections(in tableView: UITableView) -> Int {
-		// #warning Incomplete implementation, return the number of sections
-		return 0
+		backgroundImage = navigationController.navigationBar.backgroundImage(for: .default)
+		shadowImage = navigationController.navigationBar.shadowImage
+		isTranslucent = navigationController.navigationBar.isTranslucent
+		backgroundColor = navigationController.view.backgroundColor
+
+		let emptyImage = UIImage()
+		navigationController.navigationBar.setBackgroundImage(emptyImage, for: .default)
+		navigationController.navigationBar.shadowImage = emptyImage
+		navigationController.navigationBar.isTranslucent = true
+		navigationController.view.backgroundColor = .clear
 	}
 
-	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		// #warning Incomplete implementation, return the number of rows
-		return 0
+	private func restoreOriginalNavigationBar() {
+		navigationController?.navigationBar.setBackgroundImage(backgroundImage, for: .default)
+		navigationController?.navigationBar.shadowImage = shadowImage
+		navigationController?.navigationBar.isTranslucent = isTranslucent
+		navigationController?.view.backgroundColor = backgroundColor
+
+		// reset to initial values
+		backgroundImage = nil
+		shadowImage = nil
+		backgroundColor = nil
 	}
+
+	private func setupView() {
+		view.backgroundColor = .enaColor(for: .background)
+
+		tableView.register(
+			UINib(nibName: String(describing: DynamicLegalExtendedCell.self), bundle: nil),
+			forCellReuseIdentifier: DynamicLegalExtendedCell.reuseIdentifier
+		)
+
+		tableView.register(
+			HealthCertificateAttributedTextCell.self,
+			forCellReuseIdentifier: HealthCertificateAttributedTextCell.reuseIdentifier
+		)
+
+		dynamicTableViewModel = viewModel.dynamicTableViewModel
+		tableView.separatorStyle = .none
+	}
+
 
 }
