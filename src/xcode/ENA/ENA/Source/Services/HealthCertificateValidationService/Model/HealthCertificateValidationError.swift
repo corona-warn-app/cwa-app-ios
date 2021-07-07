@@ -28,3 +28,9 @@ enum HealthCertificateValidationError: Error {
 	case VALUE_SET_SERVER_ERROR
 
 }
+
+extension HealthCertificateValidationError: Equatable {
+	static func == (lhs: HealthCertificateValidationError, rhs: HealthCertificateValidationError) -> Bool {
+		lhs.localizedDescription == rhs.localizedDescription
+	}
+}
