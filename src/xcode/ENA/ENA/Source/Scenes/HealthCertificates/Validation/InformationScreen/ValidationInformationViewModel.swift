@@ -19,6 +19,7 @@ struct ValidationInformationViewModel {
 						UIImage(
 							imageLiteralResourceName: "Illu_Europe_Card"
 						),
+						title: AppStrings.HealthCertificate.Validation.Info.title,
 						accessibilityLabel: AppStrings.HealthCertificate.Validation.Info.imageDescription,
 						accessibilityIdentifier: AccessibilityIdentifiers.HealthCertificate.Validation.Info.imageDescription,
 						height: 274.0
@@ -38,28 +39,5 @@ struct ValidationInformationViewModel {
 			)
 		])
 	}
-
-	// MARK: - Private
-
-//	private let didTapDataPrivacy: () -> Void
-
-	private let boldTextAttribute: [NSAttributedString.Key: Any] = [
-		NSAttributedString.Key.font: UIFont.enaFont(for: .body, weight: .bold)
-	]
-
-	private let normalTextAttribute: [NSAttributedString.Key: Any] = [
-		NSAttributedString.Key.font: UIFont.enaFont(for: .body)
-	]
-
-	private func bulletPointCellWithBoldHeadline(title: String, text: String) -> NSMutableAttributedString {
-		let bulletPoint = NSMutableAttributedString(string: "\(title)" + "\n\t", attributes: boldTextAttribute)
-		bulletPoint.append(NSAttributedString(string: text, attributes: normalTextAttribute))
-		return bulletPoint
-	}
-
-	private func bulletPointCellWithNormalText(text: String) -> NSMutableAttributedString {
-		return NSMutableAttributedString(string: "\(text)", attributes: normalTextAttribute)
-	}
-
 
 }

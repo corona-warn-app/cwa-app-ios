@@ -66,7 +66,7 @@ class DynamicTableViewHeaderImageView: UITableViewHeaderFooterView {
 
 				titleLabel.leadingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: 16.0),
 				titleLabel.topAnchor.constraint(equalTo: imageView.topAnchor, constant: 16.0),
-				titleLabel.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -42.0),
+				titleLabel.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -42.0)
 			]
 		)
 	}
