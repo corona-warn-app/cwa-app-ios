@@ -548,7 +548,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 	
 
 	private func extractAcceptanceRules(_ data: Data, completion: (Result<[Rule], HealthCertificateValidationError>) -> Void) {
-		let extractAcceptanceRulesResult = ValidationRulesAccess().extractValidationRules(from: data)
+		let extractAcceptanceRulesResult = validationRulesAccess.extractValidationRules(from: data)
 		
 		switch extractAcceptanceRulesResult {
 		case let .success(acceptanceRules):
@@ -673,7 +673,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 	}
 	
 	private func extractInvalidationRules(_ data: Data, completion: (Result<[Rule], HealthCertificateValidationError>) -> Void) {
-		let extractInvalidationRulesResult = ValidationRulesAccess().extractValidationRules(from: data)
+		let extractInvalidationRulesResult = validationRulesAccess.extractValidationRules(from: data)
 		
 		switch extractInvalidationRulesResult {
 		case let .success(invalidationRules):
