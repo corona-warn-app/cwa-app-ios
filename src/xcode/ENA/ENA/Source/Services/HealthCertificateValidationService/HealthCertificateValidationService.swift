@@ -34,12 +34,14 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		store: Store,
 		client: Client,
 		vaccinationValueSetsProvider: VaccinationValueSetsProvider,
-		signatureVerifier: SignatureVerification = SignatureVerifier()
+		signatureVerifier: SignatureVerification = SignatureVerifier(),
+		validationRulesAccess: ValidationRulesAccessing = ValidationRulesAccess()
 	) {
 		self.store = store
 		self.client = client
 		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
 		self.signatureVerifier = signatureVerifier
+		self.validationRulesAccess = validationRulesAccess
 	}
 	
 	// MARK: - Overrides
@@ -102,10 +104,6 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		)
 
 	}
-
-	// MARK: - Public
-	
-	// MARK: - Internal
 	
 	// MARK: - Private
 	
@@ -113,6 +111,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 	private let client: Client
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProvider
 	private let signatureVerifier: SignatureVerification
+	private let validationRulesAccess: ValidationRulesAccessing
 	private var subscriptions = Set<AnyCancellable>()
 	
 	// MARK: - Onboarded Countries
@@ -367,7 +366,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		
 		// 7. apply acceptance rules
 		
-		let acceptanceRulesResult = ValidationRulesAccess().applyValidationRules(
+		let acceptanceRulesResult = validationRulesAccess.applyValidationRules(
 			acceptanceRules,
 			to: healthCertificate.digitalCovidCertificate,
 			externalRules: acceptanceRuleParameter
@@ -385,7 +384,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 
 		// 9. apply invalidation rules
 		
-		let invalidationRulesResult = ValidationRulesAccess().applyValidationRules(
+		let invalidationRulesResult = validationRulesAccess.applyValidationRules(
 			invalidationRules,
 			to: healthCertificate.digitalCovidCertificate,
 			externalRules: invalidationRuleParameter
@@ -544,7 +543,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 	}
 	
 	private func acceptanceRules(_ data: Data, completion: (Result<[Rule], HealthCertificateValidationError>) -> Void) {
-		let extractAcceptanceRulesResult = ValidationRulesAccess().extractValidationRules(from: data)
+		let extractAcceptanceRulesResult = validationRulesAccess.extractValidationRules(from: data)
 		
 		switch extractAcceptanceRulesResult {
 		case let .success(acceptanceRules):
@@ -670,7 +669,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 	}
 	
 	private func invalidationRules(_ data: Data, completion: (Result<[Rule], HealthCertificateValidationError>) -> Void) {
-		let extractInvalidationRulesResult = ValidationRulesAccess().extractValidationRules(from: data)
+		let extractInvalidationRulesResult = validationRulesAccess.extractValidationRules(from: data)
 		
 		switch extractInvalidationRulesResult {
 		case let .success(invalidationRules):
