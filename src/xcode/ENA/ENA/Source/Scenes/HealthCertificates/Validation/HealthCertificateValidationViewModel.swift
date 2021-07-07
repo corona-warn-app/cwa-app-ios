@@ -62,6 +62,7 @@ final class HealthCertificateValidationViewModel {
 					.bulletPoint(text: "Ob die im Zertifikat eingetragenen Daten richtig sind, wird nicht geprüft."),
 					.body(
 						text: "Mehr Informationen finden Sie in den FAQ und unter https://reopen.europa.eu/de.",
+						style: .textView(.link),
 						accessibilityIdentifier: ""
 					),
 					.legal(title: NSAttributedString(string: "Datenschutz und Datensicherheit"), description: NSAttributedString(string: "Die aktuellen Einreiseregeln werden von den Servern des RKI heruntergeladen. Hierfür ist eine Verbindung zum Internet erforderlich und es werden Zugriffsdaten an das RKI übermittelt."), textBlocks: [])
