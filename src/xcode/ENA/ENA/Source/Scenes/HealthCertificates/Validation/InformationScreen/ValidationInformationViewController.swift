@@ -96,7 +96,7 @@ class ValidationInformationViewController: DynamicTableViewController, DismissHa
 
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
 		tableView.separatorStyle = .none
+		tableView.contentInsetAdjustmentBehavior = .never
 	}
-
 
 }
