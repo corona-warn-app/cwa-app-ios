@@ -5,8 +5,9 @@
 import CertLogic
 import SwiftyJSON
 import Foundation
+import SwiftCBOR
 
-extension Rule {
+public extension Rule {
 
     static func fake(
         identifier: String = "GR-CZ-0001",
@@ -54,4 +55,45 @@ public extension ExternalParameter {
     ) -> ExternalParameter {
         ExternalParameter(validationClock: validationClock, valueSets: valueSets, countryCode: countryCode, exp: exp, iat: iat, certificationType: certificationType, issueCountryCode: issueCountryCode)
     }
+}
+
+public extension ValidationResult {
+    
+    static func fake(
+        rule: Rule = Rule.fake(),
+        result: CertLogic.Result = .passed,
+        validationErrors: [Error] = []
+    ) -> ValidationResult {
+        ValidationResult(rule: rule, result: result, validationErrors: validationErrors)
+    }
+}
+
+public var onboardedCountriesCBORDataFake: Data {
+    let cborCountries = CBOR.array(
+        [
+            CBOR.utf8String("DE"),
+            CBOR.utf8String("FR")
+        ]
+    )
+    return Data(cborCountries.encode())
+}
+
+public var onboardedCountriesCorruptCBORDataFake: Data {
+    let cborCountries = CBOR.array(
+        [
+            CBOR.null,
+            CBOR.unsignedInt(42)
+        ]
+    )
+    return Data(cborCountries.encode())
+}
+
+public func rulesCBORDataFake() throws -> Data {
+    let rules = [
+        Rule.fake(),
+        Rule.fake(),
+        Rule.fake()
+    ]
+
+    return try CodableCBOREncoder().encode(rules)
 }
