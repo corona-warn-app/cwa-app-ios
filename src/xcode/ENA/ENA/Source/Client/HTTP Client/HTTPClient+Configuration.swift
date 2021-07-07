@@ -288,7 +288,7 @@ extension HTTPClient {
 				)
 		}
 		
-		var dccOnboardedCountriesURL: URL {
+		var validationOnboardedCountriesURL: URL {
 			endpoints
 				.distribution
 				.appending(

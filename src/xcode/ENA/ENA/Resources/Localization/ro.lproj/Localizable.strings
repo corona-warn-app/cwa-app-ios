@@ -2619,7 +2619,7 @@
 
 "HealthCertifiedPerson_dateOfBirth" = "Născut(ă) pe %@";
 
-"HealthCertifiedPerson_preferredPersonDescription" = "Smartphone-ul meu, aplicația mea. Certificatele pentru mine apar în partea de sus a listei.";
+"HealthCertifiedPerson_preferredPersonDescription" = "Activați acest comutator dacă sunteți %@ și sunteți utilizatorul principal al aplicației. Certificatele dvs. vor apărea în partea de sus a listei.";
 
 "HealthCertifiedPerson_QRCode_Image_Description" = "Un cod QR cu certificatul curent";
 
@@ -2673,6 +2673,9 @@
 "HealthCertificate_Details_identifier" = "Număr de certificare";
 
 "HealthCertificate_Details_primaryButton" = "Ștergere certificat de vaccinare";
+
+/* Vaccination Certificate Details */
+"VaccinationCertificate_Details_OneOfOneHint" = "Acesta este un vaccin care necesită o singură doză sau un vaccin pentru o persoană care s-a recuperat după boală și care are nevoie de o singură doză.";
 
 /* Vaccination Certificate Delete Alert */
 "HealthCertificate_Alert_title" = "Doriți să ștergeți certificatul de vaccinare?";
