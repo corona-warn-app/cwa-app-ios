@@ -169,7 +169,7 @@ class HomeStatisticsCardViewModelTests: CWATestCase {
 			)
 		)
 
-		XCTAssertEqual(viewModel.primaryTitle, "Bis Gestern")
+		XCTAssertEqual(viewModel.primaryTitle, "Bis gestern")
 	}
 
 	func testAtLeastOnceVaccinatedCardPrimaryTitleOtherDate() throws {
@@ -239,7 +239,7 @@ class HomeStatisticsCardViewModelTests: CWATestCase {
 			)
 		)
 
-		XCTAssertEqual(viewModel.primaryTitle, "Bis Gestern")
+		XCTAssertEqual(viewModel.primaryTitle, "Bis gestern")
 	}
 
 	func testFullyVaccinatedCardPrimaryTitleOtherDate() throws {
