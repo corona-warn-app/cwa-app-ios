@@ -37,10 +37,6 @@ final class HealthCertificateValidationViewModel {
 		DynamicTableViewModel([
 			.section(
 				cells: [
-					.title1(
-						text: "Gültigkeit des Zertifikates",
-						accessibilityIdentifier: ""
-					),
 					.body(
 						text: "Prüfen Sie vorab, ob Ihr Zertifikat im Reiseland zum Zeitpunkt der Reise gültig ist. Hierfür werden die geltenden Einreiseregeln des gewählten Reiselandes berücksichtigt.",
 						accessibilityIdentifier: ""
