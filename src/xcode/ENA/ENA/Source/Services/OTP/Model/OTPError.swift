@@ -16,6 +16,7 @@ enum OTPError: Error, Equatable {
 	case deviceTokenInvalid
 	case deviceTokenRedeemed
 	case deviceTokenSyntaxError
+	case noNetworkConnection
 
 	var description: String {
 		switch self {
@@ -45,6 +46,8 @@ enum OTPError: Error, Equatable {
 			return "deviceTokenRedeemed"
 		case .deviceTokenSyntaxError:
 			return "deviceTokenSyntaxError"
+		case .noNetworkConnection:
+			return "noNetworkConnection"
 		}
 	}
 
