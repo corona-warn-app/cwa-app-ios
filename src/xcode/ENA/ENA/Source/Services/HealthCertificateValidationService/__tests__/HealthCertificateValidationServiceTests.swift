@@ -496,7 +496,93 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 		
 	}
 	
-	func testGIVEN_ValidationService_WHEN_NotModified_THEN_PassedShouldBeReturned() {
+	func testGIVEN_ValidationService_WHEN_NotModifiedAcceptanceRules_THEN_CachedAcceptanceRulesShouldNotBeChanged() throws {
+		// GIVEN
+		let client = ClientMock()
+		
+		client.onGetDCCRules = { [weak self] _, ruleType, completion in
+			switch ruleType {
+			case .acceptance:
+				completion(.failure(.notModified))
+			case .invalidation:
+				guard let self = self else {
+					XCTFail("Could not create strong self")
+					return
+				}
+				completion(.success(self.dummyOnboardedCountriesResponse))
+			}
+		}
+		
+		let store = MockTestStore()
+		let cachedRule = Rule.fake(identifier: "Number One")
+		store.acceptanceRulesCache = ValidationRulesCache(
+			validationRules: [cachedRule],
+			lastValidationRulesETag: "FakeEtag"
+		)
+		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: store)
+		var validationRulesAccess = MockValidationRulesAccess()
+		validationRulesAccess.expectedAcceptanceExtractionResult = .success([cachedRule])
+		validationRulesAccess.expectedInvalidationExtractionResult = .success([])
+		validationRulesAccess.expectedValidationResult = .success([])
+		let validationService = HealthCertificateValidationService(
+			store: store,
+			client: client,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			signatureVerifier: MockVerifier(),
+			validationRulesAccess: validationRulesAccess
+		)
+		
+		// expirationTime must be >= validation clock to succeed.
+		let expirationTime: UInt64 = 1625655530
+		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
+		
+		let healthCertificateBase45 = DigitalCovidCertificateFake.makeBase45Fake(
+			from: DigitalCovidCertificate.fake(
+				name: .fake(familyName: "Brause", givenName: "Pascal", standardizedFamilyName: "BRAUSE", standardizedGivenName: "PASCAL"),
+				testEntries: [TestEntry.fake(dateTimeOfSampleCollection: "2021-06-06T06:06:06Z")]
+			),
+			and: CBORWebTokenHeader.fake(expirationTime: expirationTime)
+		)
+		
+		guard case let .success(base45) = healthCertificateBase45 else {
+			XCTFail("Could not create fake health certificate. Abort test.")
+			return
+		}
+		let healthCertificate = try HealthCertificate(base45: base45)
+		
+		let expectation = self.expectation(description: "Test should success with .passed")
+		var responseReport: HealthCertificateValidationReport?
+		
+		// WHEN
+		validationService.validate(
+			healthCertificate: healthCertificate,
+			arrivalCountry: "FR",
+			validationClock: validationClock,
+			completion: { result in
+				switch result {
+				case let .success(report):
+					responseReport = report
+					expectation.fulfill()
+				case let .failure(error):
+					XCTFail("Test should not fail with error: \(error)")
+				}
+			}
+		)
+		
+		// THEN
+		waitForExpectations(timeout: .short)
+		guard let report = responseReport else {
+			XCTFail("report must not be nil")
+			return
+		}
+		XCTAssertEqual(report, .validationPassed)
+		guard let acceptanceRulesCache = store.acceptanceRulesCache else {
+			XCTFail("cached rules must not be nil")
+			return
+		}
+		// The cached rules must not be changed, if so we would have downloaded new ones.
+		XCTAssertEqual(acceptanceRulesCache.validationRules, [cachedRule])
+	}
 	}
 	
 	// MARK: - Failures - Validation
