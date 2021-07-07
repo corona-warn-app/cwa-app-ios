@@ -14,11 +14,14 @@ final class HealthCertifiedPersonViewModel {
 		healthCertificateService: HealthCertificateService,
 		healthCertifiedPerson: HealthCertifiedPerson,
 		healthCertificateValueSetsProvider: VaccinationValueSetsProvider,
-		dismiss: @escaping () -> Void
+		dismiss: @escaping () -> Void,
+		didTapValidationButton: @escaping (HealthCertificate, @escaping (Bool) -> Void) -> Void
 	) {
 		self.healthCertificateService = healthCertificateService
 		self.healthCertifiedPerson = healthCertifiedPerson
 		self.healtCertificateValueSetsProvider = healthCertificateValueSetsProvider
+
+		self.didTapValidationButton = didTapValidationButton
 
 		healthCertifiedPerson.$healthCertificates
 			.sink { [weak self] in
@@ -109,7 +112,10 @@ final class HealthCertifiedPersonViewModel {
 
 		return HealthCertificateQRCodeCellViewModel(
 			healthCertificate: mostRelevantHealthCertificate,
-			accessibilityText: AppStrings.HealthCertificate.Person.QRCodeImageDescription
+			accessibilityText: AppStrings.HealthCertificate.Person.QRCodeImageDescription,
+			onValidationButtonTap: { [weak self] healthCertificate, loadingStateHandler in
+				self?.didTapValidationButton(healthCertificate, loadingStateHandler)
+			}
 		)
 	}
 
@@ -181,17 +187,17 @@ final class HealthCertifiedPersonViewModel {
 
 	func healthCertificateCellViewModel(row: Int) -> HealthCertificateCellViewModel {
 		HealthCertificateCellViewModel(
-			healthCertificate: healthCertifiedPerson.healthCertificates[row],
+			healthCertificate: sortedHealthCertificates[row],
 			healthCertifiedPerson: healthCertifiedPerson
 		)
 	}
 
 	func healthCertificate(for indexPath: IndexPath) -> HealthCertificate? {
-		guard TableViewSection.map(indexPath.section) == .certificates,
-			  healthCertifiedPerson.healthCertificates.indices.contains(indexPath.row) else {
+		guard TableViewSection.map(indexPath.section) == .certificates else {
 			return nil
 		}
-		return healthCertifiedPerson.healthCertificates[indexPath.row]
+
+		return sortedHealthCertificates[safe: indexPath.row]
 	}
 
 	func canEditRow(at indexPath: IndexPath) -> Bool {
@@ -203,7 +209,7 @@ final class HealthCertifiedPersonViewModel {
 			return
 		}
 
-		healthCertificateService.removeHealthCertificate(healthCertifiedPerson.healthCertificates[indexPath.row])
+		healthCertificateService.removeHealthCertificate(sortedHealthCertificates[indexPath.row])
 	}
 
 	// MARK: - Private
@@ -211,6 +217,13 @@ final class HealthCertifiedPersonViewModel {
 	private let healthCertifiedPerson: HealthCertifiedPerson
 	private let healthCertificateService: HealthCertificateService
 	private let healtCertificateValueSetsProvider: VaccinationValueSetsProvider
+
+	private let didTapValidationButton: (HealthCertificate, @escaping (Bool) -> Void) -> Void
+
 	private var subscriptions = Set<AnyCancellable>()
+
+	private var sortedHealthCertificates: [HealthCertificate] {
+		healthCertifiedPerson.healthCertificates.sorted(by: >)
+	}
 
 }

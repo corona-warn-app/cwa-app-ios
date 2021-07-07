@@ -22,7 +22,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 					)
 				)
 			),
-			accessibilityText: nil
+			accessibilityText: nil,
+			onValidationButtonTap: { _, _ in }
 		)
 
 		// THEN
@@ -51,7 +52,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 					)
 				)
 			),
-			accessibilityText: nil
+			accessibilityText: nil,
+			onValidationButtonTap: { _, _ in }
 		)
 
 		// THEN
@@ -76,7 +78,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 					)
 				)
 			),
-			accessibilityText: nil
+			accessibilityText: nil,
+			onValidationButtonTap: { _, _ in }
 		)
 
 		// THEN

@@ -1540,9 +1540,9 @@
 "NewVersionFeatures_Info_about_abb_information" = "Dane o zmianach w tej wersji można znaleźć w informacjach o aplikacji w sekcji „Nowe funkcje”.";
 
 /* Version 2.5 */
-"NewVersionFeature_25_recovery_cert_title" = "Zaświadczenie o statusie ozdrowieńca COVID";
+"NewVersionFeature_25_recovery_cert_title" = "Certyfikat statusu ozdrowieńca COVID";
 
-"NewVersionFeature_25_recovery_cert_description" = "Za pośrednictwem aplikacji możesz teraz również poprosić o wydanie cyfrowych zaświadczeń o statusie ozdrowieńca, a następnie dodać je w aplikacji. Zaświadczeń tych można używać na terenie UE, aby udowodnić przejście infekcji (np. w przypadku podróży zagranicznych).";
+"NewVersionFeature_25_recovery_cert_description" = "Za pośrednictwem aplikacji możesz teraz również poprosić o wydanie cyfrowych certyfikatów statusu ozdrowieńca, a następnie dodać je w aplikacji. Certyfikatów tych można używać na terenie UE, aby udowodnić przejście infekcji (np. w przypadku podróży zagranicznych).";
 
 "NewVersionFeature_25_family_certificate_title" = "Certyfikaty rodzinne";
 
@@ -1920,7 +1920,7 @@
 /* - At least one person vaccinated card */
 "Statistics_Card_AtLeastOneVaccinated_Title" = "Osoby, które otrzymały co najmniej jedną dawkę szczepionki";
 
-"Statistics_Card_AtLeastOneVaccinated_Today" = "Aktualnie";
+"Statistics_Card_AtLeastOneVaccinated_Today" = "Do dzisiaj";
 
 "Statistics_Card_AtLeastOneVaccinated_Yesterday" = "Do wczoraj";
 
@@ -1933,9 +1933,9 @@
 "Statistics_Card_AtLeastOneVaccinated_SecondarySubtitleLabel" = "ogółu populacji";
 
 /* - Fully vaccinated people card */
-"Statistics_Card_FullyVaccinated_Title" = "osoby w pełni zaszczepione";
+"Statistics_Card_FullyVaccinated_Title" = "Osoby w pełni zaszczepione";
 
-"Statistics_Card_FullyVaccinated_Today" = "Aktualnie";
+"Statistics_Card_FullyVaccinated_Today" = "Do dzisiaj";
 
 "Statistics_Card_FullyVaccinated_Yesterday" = "Do wczoraj";
 
@@ -1950,11 +1950,11 @@
 /* - Applied vaccination dose rates card */
 "Statistics_Card_AppliedDoseRates_Title" = "Podane dawki szczepionki";
 
-"Statistics_Card_AppliedDoseRates_Today" = "Aktualnie";
+"Statistics_Card_AppliedDoseRates_Today" = "Dzisiaj";
 
-"Statistics_Card_AppliedDoseRates_Yesterday" = "Do wczoraj";
+"Statistics_Card_AppliedDoseRates_Yesterday" = "Wczoraj";
 
-"Statistics_Card_AppliedDoseRates_Date" = "Do %@";
+"Statistics_Card_AppliedDoseRates_Date" = "%@";
 
 "Statistics_Card_AppliedDoseRates_SecondaryLabelTitle" = "7-dniowa średnia";
 
@@ -2520,13 +2520,13 @@
 
 "HealthCertificate_Overview_EmptyTitle" = "Nie ma jeszcze dostępnych certyfikatów";
 
-"HealthCertificate_Overview_EmptyDescription" = "W tym miejscu wyświetlane są zapisane cyfrowe świadectwa szczepień, zaświadczenia o statusie ozdrowieńca i certyfikaty testów.";
+"HealthCertificate_Overview_EmptyDescription" = "W tym miejscu wyświetlane są zapisane cyfrowe certyfikaty szczepień, certyfikaty statusu ozdrowieńca i certyfikaty testów.";
 
 "HealthCertificate_Overview_EmptyImageDescription" = "Pieczęć certyfikatu z cyfrowym certyfikatem w tle";
 
 "HealthCertificate_Overview_Covid_Title" = "Unijny\n**cyfrowy certyfikat COVID**";
 
-"VaccinationCertificate_title" = "Unijne\n**cyfrowe świadectwo szczepienia**";
+"VaccinationCertificate_title" = "Unijne\n**cyfrowy certyfikat szczepienia**";
 
 "VaccinationCertificate_partiallyVaccinated" = "Niepełne zaszczepienie";
 
@@ -2591,15 +2591,15 @@
 "TestCertificateRequest_Error_DGC_NOT_SUPPORTED_BY_LAB" = "Nie możesz zażądać wydania certyfikatu testu, ponieważ ten punkt testowania nie wydaje certyfikatów testów. Usuń certyfikat lub skontaktuj się z infolinią techniczną, korzystając z opcji: Informacje o aplikacji -> Infolinia techniczna. (%@)";
 
 /* Health Certificate Information */
-"HealthCertificate_Info_Title" = "Dodaj certyfikaty/świadectwa";
+"HealthCertificate_Info_Title" = "Dodaj certyfikaty";
 
 "HealthCertificate_Info_imageDescription" = "Uodporniona osoba patrzy na swój smartfon";
 
-"HealthCertificate_Info_description" = "Dodaj unijne cyfrowe świadectwa szczepienia przeciw COVID w aplikacji. Umożliwi Ci to udowodnienie za pomocą aplikacji posiadanie ochrony poszczepiennej lub negatywnego wyniku testu.";
+"HealthCertificate_Info_description" = "Dodaj unijne cyfrowe certyfikaty COVID w aplikacji. Umożliwi Ci to udowodnienie za pomocą aplikacji posiadania ochrony poszczepiennej, negatywnego wyniku testu lub przebycia infekcji.";
 
-"HealthCertificate_Info_section01" = "W aplikacji możesz dodać unijne cyfrowe świadectwa szczepień przeciw COVID lub unijne certyfikaty testów na COVID.";
+"HealthCertificate_Info_section01" = "W aplikacji można dodawać unijne cyfrowe certyfikaty szczepień przeciwko COVID, certyfikaty testów na COVID i certyfikaty statusu ozdrowieńca COVID.";
 
-"HealthCertificate_Info_section02" = "Takie świadectwa i certyfikaty są uznawane za ważny dowód w UE (np. w przypadku podróży).";
+"HealthCertificate_Info_section02" = "Takie certyfikaty są uznawane za ważny dowód w UE (np. w przypadku podróży).";
 
 "HealthCertificate_Info_section03" = "Po dodaniu certyfikatu pozostanie on na Twoim smartfonie. Zostanie on udostępniony innym tylko podczas jego okazywania w celu weryfikacji.";
 
@@ -2613,28 +2613,46 @@
 "HealthCertificate_QRScanner_instruction" = "Zeskanuj kod QR i zarejestruj się";
 
 /* Health Certified Person Screen */
-"HealthCertifiedPerson_title" = "Unijny cyfrowy dowód szczepienia";
+"HealthCertifiedPerson_title" = "Unijny cyfrowy certyfikat COVID";
 
-"HealthCertifiedPerson_subtitle" = "Ochrona poszczepienna przed SARS-CoV-2";
+"HealthCertifiedPerson_partiallyVaccinated" = "Nie otrzymałeś(-aś jeszcze wszystkich zaplanowanych szczepień. W związku z tym Twoja ochrona poszczepienna nie jest jeszcze pełna.";
 
 "HealthCertifiedPerson_dateOfBirth" = "Data urodzenia %@";
 
-"HealthCertifiedPerson_vaccinationCount" = "Szczepienie %i %i";
+"HealthCertifiedPerson_preferredPersonDescription" = "Włącz ten przełącznik, jeśli jesteś %@ oraz głównym użytkownikiem aplikacji. Twoje certyfikaty pojawią się na górze listy.";
 
-"HealthCertifiedPerson_vaccinationDate" = "Wykonano dnia %@";
+"HealthCertifiedPerson_QRCode_Image_Description" = "Kod QR z aktualnym certyfikatem";
 
-"HealthCertifiedPerson_QRCode_Image_Description" = "Kod QR ze statusem Twojego szczepienia";
+"HealthCertifiedPerson_VaccinationCertificate_headline" = "Certyfikat szczepienia";
+
+"HealthCertifiedPerson_VaccinationCertificate_vaccinationCount" = "Szczepienie %i %i";
+
+"HealthCertifiedPerson_VaccinationCertificate_vaccinationDate" = "zaszczepiono dnia %@";
+
+"HealthCertifiedPerson_TestCertificate_headline" = "Certyfikat testu";
+
+"HealthCertifiedPerson_TestCertificate_pcrTest" = "Test PCR";
+
+"HealthCertifiedPerson_TestCertificate_antigenTest" = "Szybki test";
+
+"HealthCertifiedPerson_TestCertificate_sampleCollectionDate" = "Próbka pobrana %@";
+
+"HealthCertifiedPerson_RecoveryCertificate_headline" = "Certyfikat statusu ozdrowieńca";
+
+"HealthCertifiedPerson_RecoveryCertificate_validityDate" = "ważne do %@";
+
+"HealthCertifiedPerson_currentlyUsedCertificate" = "Aktualnie używany certyfikat";
 
 /* Vaccination Certificate Details */
 "HealthCertificate_Details_vaccinationCount" = "Szczepienie %i %i";
 
-"HealthCertificate_Details_certificate" = "Świadectwo szczepienia";
+"HealthCertificate_Details_certificate" = "Certyfikat szczepienia";
 
 "HealthCertificate_Details_EU_Covid_Certificate" = "Unijny cyfrowy certyfikat COVID";
 
-"HealthCertificate_Details_QRCode_Image_Description" = "Kod QR ze świadectwem";
+"HealthCertificate_Details_QRCode_Image_Description" = "Kod QR z certyfikatem";
 
-"HealthCertificate_Details_certificateCount" = "Świadectwo szczepienia %i %i";
+"HealthCertificate_Details_certificateCount" = "Certyfikat szczepienia %i %i";
 
 "HealthCertificate_Details_validity" = "Zaszczepiono %@ - ważne do %@";
 
@@ -2652,14 +2670,17 @@
 
 "HealthCertificate_Details_country" = "Kraj";
 
-"HealthCertificate_Details_identifier" = "Numer świadectwa";
+"HealthCertificate_Details_identifier" = "Numer certyfikatu";
 
-"HealthCertificate_Details_primaryButton" = "Usuń świadectwo szczepienia";
+"HealthCertificate_Details_primaryButton" = "Usuń certyfikat szczepienia";
+
+/* Vaccination Certificate Details */
+"VaccinationCertificate_Details_OneOfOneHint" = "Jest to szczepionka, która wymaga tylko jednej dawki lub szczepionka dla ozdrowieńca, który potrzebuje tylko jednej dawki.";
 
 /* Vaccination Certificate Delete Alert */
-"HealthCertificate_Alert_title" = "Czy chcesz usunąć świadectwo szczepienia?";
+"HealthCertificate_Alert_title" = "Czy chcesz usunąć certyfikat  szczepienia?";
 
-"HealthCertificate_Alert_message" = "Jeśli usuniesz świadectwo szczepienia, aplikacja nie będzie już mogła używać szczepienia do weryfikacji statusu szczepienia.";
+"HealthCertificate_Alert_message" = "Jeśli usuniesz certyfikat szczepienia, aplikacja nie będzie już mogła używać szczepienia do weryfikacji statusu szczepienia.";
 
 "HealthCertificate_Alert_deleteButton" = "Usuń";
 
@@ -2686,16 +2707,16 @@
 "TestCertificate_Alert_cancelButton" = "Anuluj";
 
 /* Recovery Certificate Details */
-"RecoveryCertificate_Details_title" = "Zaświadczenie o statusie ozdrowieńca";
+"RecoveryCertificate_Details_title" = "Certyfikat statusu ozdrowieńca";
 
 "RecoveryCertificate_Details_subtitle" = "Unijny cyfrowy certyfikat COVID";
 
-"RecoveryCertificate_Details_primaryButton" = "Usuń zaświadczenie o statusie ozdrowieńca";
+"RecoveryCertificate_Details_primaryButton" = "Usuń certyfikat statusu ozdrowieńca";
 
 /* Recovery Certificate Delete Alert */
-"RecoveryCertificate_Alert_title" = "Czy chcesz usunąć zaświadczenie o statusie ozdrowieńca?";
+"RecoveryCertificate_Alert_title" = "Czy chcesz usunąć certyfikat statusu ozdrowieńca?";
 
-"RecoveryCertificate_Alert_message" = "Po usunięciu zaświadczenia o statusie ozdrowieńca jego użycie jako dowodu w aplikacji nie będzie już możliwe.";
+"RecoveryCertificate_Alert_message" = "Po usunięciu certyfikatu statusu ozdrowieńca jego użycie jako dowodu w aplikacji nie będzie już możliwe.";
 
 "RecoveryCertificate_Alert_deleteButton" = "Usuń";
 
@@ -2704,9 +2725,9 @@
 /* Health Certificate Errors */
 "HealthCertificate_Error_Title" = "Błąd";
 
-"HealthCertificate_Error_FAQ_Description" = "\n\nWięcej informacji na temat tego, jak otrzymać swoje świadectwo szczepienia, znajduje się na naszej stronie „Często zadawane pytania”.";
+"HealthCertificate_Error_FAQ_Description" = "\n\nWięcej informacji na temat tego, jak otrzymać certyfikat, znajduje się na naszej stronie „Często zadawane pytania”.";
 
-"HealthCertificate_Error_FAQ_Button_Title" = "Często zadawane pytania na temat świadectw szczepień";
+"HealthCertificate_Error_FAQ_Button_Title" = "Często zadawane pytania na temat certyfikatów";
 
 "HealthCertificate_Error_HC_ALREADY_REGISTERED" = "Certyfikat jest już zarejestrowany w Twojej aplikacji.";
 

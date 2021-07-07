@@ -22,7 +22,6 @@ class AntigenTestProfileInputCell: UITableViewCell, ReuseIdentifierProviding {
 		firstNameTextField = textField()
 		firstNameTextField.placeholder = AppStrings.AntigenProfile.Create.firstNameTextFieldPlaceholder
 		firstNameTextField.accessibilityIdentifier = AccessibilityIdentifiers.AntigenProfile.Create.firstNameTextField
-		firstNameTextField.keyboardType = .default
 		firstNameTextField.textContentType = .givenName
 		contentView.addSubview(firstNameTextField)
 		textFields.append(firstNameTextField)
@@ -30,7 +29,6 @@ class AntigenTestProfileInputCell: UITableViewCell, ReuseIdentifierProviding {
 		lastNameTextField = textField()
 		lastNameTextField.placeholder = AppStrings.AntigenProfile.Create.lastNameTextFieldPlaceholder
 		lastNameTextField.accessibilityIdentifier = AccessibilityIdentifiers.AntigenProfile.Create.lastNameTextField
-		lastNameTextField.keyboardType = .default
 		lastNameTextField.textContentType = .familyName
 		contentView.addSubview(lastNameTextField)
 		textFields.append(lastNameTextField)
@@ -38,7 +36,6 @@ class AntigenTestProfileInputCell: UITableViewCell, ReuseIdentifierProviding {
 		birthDateNameTextField = textField()
 		birthDateNameTextField.placeholder = AppStrings.AntigenProfile.Create.birthDateTextFieldPlaceholder
 		birthDateNameTextField.accessibilityIdentifier = AccessibilityIdentifiers.AntigenProfile.Create.birthDateTextField
-		birthDateNameTextField.keyboardType = .default
 		birthDateNameTextField.inputView = birthdayPicker
 		contentView.addSubview(birthDateNameTextField)
 		textFields.append(birthDateNameTextField)
@@ -46,7 +43,6 @@ class AntigenTestProfileInputCell: UITableViewCell, ReuseIdentifierProviding {
 		addressLineTextField = textField()
 		addressLineTextField.placeholder = AppStrings.AntigenProfile.Create.streetTextFieldPlaceholder
 		addressLineTextField.accessibilityIdentifier = AccessibilityIdentifiers.AntigenProfile.Create.streetTextField
-		addressLineTextField.keyboardType = .default
 		addressLineTextField.textContentType = .streetAddressLine1
 		contentView.addSubview(addressLineTextField)
 		textFields.append(addressLineTextField)
@@ -54,7 +50,7 @@ class AntigenTestProfileInputCell: UITableViewCell, ReuseIdentifierProviding {
 		postalCodeTextField = textField()
 		postalCodeTextField.placeholder = AppStrings.AntigenProfile.Create.postalCodeTextFieldPlaceholder
 		postalCodeTextField.accessibilityIdentifier = AccessibilityIdentifiers.AntigenProfile.Create.postalCodeTextField
-		postalCodeTextField.keyboardType = .numberPad
+		postalCodeTextField.keyboardType = .asciiCapableNumberPad
 		postalCodeTextField.textContentType = .postalCode
 		contentView.addSubview(postalCodeTextField)
 		textFields.append(postalCodeTextField)
@@ -62,7 +58,6 @@ class AntigenTestProfileInputCell: UITableViewCell, ReuseIdentifierProviding {
 		cityTextField = textField()
 		cityTextField.placeholder = AppStrings.AntigenProfile.Create.cityTextFieldPlaceholder
 		cityTextField.accessibilityIdentifier = AccessibilityIdentifiers.AntigenProfile.Create.cityTextField
-		cityTextField.keyboardType = .default
 		cityTextField.textContentType = .addressCity
 		contentView.addSubview(cityTextField)
 		textFields.append(cityTextField)
@@ -129,7 +124,7 @@ class AntigenTestProfileInputCell: UITableViewCell, ReuseIdentifierProviding {
 			emailAddressTextField.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -inset)
 		])
 	}
-	
+
 	// MARK: - Internal
 	
 	let birthdayPicker: UIDatePicker = {
@@ -158,8 +153,8 @@ class AntigenTestProfileInputCell: UITableViewCell, ReuseIdentifierProviding {
 	var emailAddressTextField: ENATextField!
 	
 	// MARK: - Private
-
-	private func textField () -> ENATextField {
+	
+	private func textField() -> ENATextField {
 		let textField = ENATextField(frame: .zero)
 		textField.autocorrectionType = .no
 		textField.isUserInteractionEnabled = true
@@ -168,6 +163,7 @@ class AntigenTestProfileInputCell: UITableViewCell, ReuseIdentifierProviding {
 		textField.spellCheckingType = .no
 		textField.smartQuotesType = .no
 		textField.layer.borderWidth = 0
+		textField.keyboardType = .asciiCapable
 		textField.translatesAutoresizingMaskIntoConstraints = false
 		textField.heightAnchor.constraint(equalToConstant: 40.0).isActive = true
 		return textField

@@ -25,7 +25,7 @@ protocol Client {
 	typealias TraceWarningPackageDownloadCompletionHandler = (Result<PackageDownloadResponse, TraceWarningError>) -> Void
 	typealias DigitalCovid19CertificateCompletionHandler = (Result<DCCResponse, DCCErrors.DigitalCovid19CertificateError>) -> Void
 	typealias DCCRegistrationCompletionHandler = (Result<Void, DCCErrors.RegistrationError>) -> Void
-	typealias DCCOnboardedCountriesCompletionHandler = (Result<PackageDownloadResponse, Failure>) -> Void
+	typealias ValidationOnboardedCountriesCompletionHandler = (Result<PackageDownloadResponse, Failure>) -> Void
 	typealias DCCRulesCompletionHandler = (Result<PackageDownloadResponse, Failure>) -> Void
 	
 	// MARK: Interacting with a Client
@@ -208,9 +208,10 @@ protocol Client {
 	/// - Parameters:
 	///   - isFake: Flag to indicate a fake request
 	///   - completion: The completion handler of the call, which contains a ResponsePackageDownload or a URLSession.Response.Failure
-	func getDCCOnboardedCountries(
+	func validationOnboardedCountries(
+		eTag: String?,
 		isFake: Bool,
-		completion: @escaping DCCOnboardedCountriesCompletionHandler
+		completion: @escaping ValidationOnboardedCountriesCompletionHandler
 	)
 	
 	/// GET call to receive the rules of a specified type (acceptance or invalidation) as a PackageDownloadResponse. Must be extracted and verified afterwards.
@@ -219,6 +220,7 @@ protocol Client {
 	///   - ruleType: Get the rules for the specified type (acceptance or invalidation)
 	///   - completion: The completion handler of the call, which contains a PackageDownloadResponse or a URLSession.Response.Failure
 	func getDCCRules(
+		eTag: String?,
 		isFake: Bool,
 		ruleType: DCCRuleType,
 		completion: @escaping DCCRulesCompletionHandler

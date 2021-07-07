@@ -74,6 +74,7 @@
         "ENAUITests_13_CreateHealthCertificate\/test_screenshot_CompleteVaccinationProtectionWithTestCertificate()",
         "ENAUITests_13_CreateHealthCertificate\/test_screenshot_CreateAntigenTestProfileWithFirstCertificate()",
         "ENAUITests_13_CreateHealthCertificate\/test_screenshot_CreateAntigenTestProfileWithLastCertificate()",
+        "ENAUITests_13_CreateHealthCertificate\/test_screenshot_MultipleFamilyTestCertificates()",
         "ENAUITests_13_CreateHealthCertificate\/test_screenshot_RecoveryCertificate()",
         "ENAUITests_13_CreateHealthCertificate\/test_screenshot_ShowCertificate()",
         "ENAUITests_13_CreateHealthCertificate\/test_screenshot_TestCertificate()",
