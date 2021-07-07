@@ -29,7 +29,7 @@ class HealthCertificateDetailsQRCodeCell: UITableViewCell, ReuseIdentifierProvid
 
 	// MARK: - Internal
 
-	func configure(with cellViewModel: HealthCertificateQRCodeCellViewModel) {
+	func configure(with cellViewModel: HealthCertificateDetailsQRCodeCellViewModel) {
 		qrCodeImageView.image = cellViewModel.qrCodeImage
 		qrCodeImageView.accessibilityLabel = cellViewModel.accessibilityText
 

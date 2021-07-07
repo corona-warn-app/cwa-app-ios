@@ -10,8 +10,12 @@ struct HealthCertificateQRCodeCellViewModel {
 
 	init(
 		healthCertificate: HealthCertificate,
-		accessibilityText: String?
+		accessibilityText: String?,
+		onValidationButtonTap: @escaping (HealthCertificate, @escaping (Bool) -> Void) -> Void
 	) {
+		self.healthCertificate = healthCertificate
+		self.onValidationButtonTap = onValidationButtonTap
+
 		let qrCodeSize = UIScreen.main.bounds.width - 60
 
 		self.qrCodeImage = UIImage.qrCode(
@@ -59,5 +63,16 @@ struct HealthCertificateQRCodeCellViewModel {
 	let subtitle: String?
 	let qrCodeImage: UIImage
 	let accessibilityText: String?
+
+	func didTapValidationButton(loadingStateHandler: @escaping (Bool) -> Void) {
+		onValidationButtonTap(healthCertificate) { isLoading in
+			loadingStateHandler(isLoading)
+		}
+	}
+
+	// MARK: - Private
+
+	private let healthCertificate: HealthCertificate
+	private let onValidationButtonTap: (HealthCertificate, @escaping (Bool) -> Void) -> Void
 
 }
