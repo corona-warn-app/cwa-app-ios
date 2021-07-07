@@ -1,4 +1,4 @@
-////
+//
 // 🦠 Corona-Warn-App
 //
 
@@ -22,14 +22,17 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		let firstCardTitle = AccessibilityIdentifiers.Statistics.Incidence.title
 		let addLocalStatisticsButton = AccessibilityIdentifiers.LocalStatistics.addLocalIncidencesButton
 		let localStatisticsViewTitle = AccessibilityIdentifiers.LocalStatistics.localStatisticsCard
-		// WHEN
+
 		app.setPreferredContentSizeCategory(accessibility: .normal, size: .S)
 		app.launch()
 		app.swipeUp(velocity: .slow)
-		XCTAssertTrue(self.app.staticTexts[firstCardTitle].waitForExistence(timeout: .medium))
-		app.staticTexts[firstCardTitle].swipeRight()
+		let statisticsCell = app.staticTexts[firstCardTitle]
+		XCTAssertTrue(statisticsCell.waitForExistence(timeout: .medium))
+		statisticsCell.swipeRight()
+
+		// Management card ("add")
 		XCTAssertTrue(self.app.staticTexts[AccessibilityIdentifiers.LocalStatistics.addLocalIncidenceLabel].waitForExistence(timeout: .medium))
-		app.buttons[addLocalStatisticsButton].waitAndTap()
+		app.otherElements[addLocalStatisticsButton].waitAndTap()
 		XCTAssertTrue(app.tables[AccessibilityIdentifiers.LocalStatistics.selectState].waitForExistence(timeout: .short))
 		// Tap on some data entry. Then we should be on select district screen.
 		app.cells.element(boundBy: 1).waitAndTap()
@@ -38,9 +41,7 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		app.cells.element(boundBy: 14).waitAndTap()
 		// the Local statistics card will appear.
 		XCTAssertTrue(app.tables[AccessibilityIdentifiers.Home.tableView].waitForExistence(timeout: .medium))
-//		app.swipeDown(velocity: .slow)
-		// TODO: replace `staticTexts` usage!!!
-//		XCTAssertTrue(self.app.staticTexts[localStatisticsViewTitle].waitForExistence(timeout: .medium))
+		XCTAssertTrue(self.app.staticTexts[localStatisticsViewTitle].waitForExistence(timeout: .medium))
 	}
 	
 	func test_StatisticsCardTitles() throws {

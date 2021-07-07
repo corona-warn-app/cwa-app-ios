@@ -4,14 +4,21 @@
 
 import UIKit
 
+/// A red circle to indicate a delete action
 @IBDesignable
 class DeleteCircle: UIView {
+
+	convenience init() {
+		self.init(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
+	}
 
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		clipsToBounds = false
 		isOpaque = false
 		layer.shouldRasterize = true
+
+		accessibilityIdentifier = AccessibilityIdentifiers.General.deleteButton
 	}
 
 	required init?(coder: NSCoder) {
