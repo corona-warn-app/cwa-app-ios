@@ -10,7 +10,7 @@ class CreateAntigenTestProfileViewModelTests: CWATestCase {
 	func testGIVEN_EmptyAntigenTestProfile_THEN_SetValues() {
 		// GIVEN
 		let store = MockTestStore()
-		let viewModel = CreateAntigenTestProfileViewModel(store: store)
+		let viewModel = AntigenTestProfileInputViewModel(store: store)
 		// THEN
 		AntigenTestProfile.CodingKeys.allCases.forEach { key in
 			switch key {
@@ -45,7 +45,7 @@ class CreateAntigenTestProfileViewModelTests: CWATestCase {
 	func testGIVEN_EmptyAntigenTestProfile_THEN_SetOneValueAndCheckIfEligibleToSave() {
 		// GIVEN
 		let store = MockTestStore()
-		let viewModel = CreateAntigenTestProfileViewModel(store: store)
+		let viewModel = AntigenTestProfileInputViewModel(store: store)
 		// THEN
 		AntigenTestProfile.CodingKeys.allCases.forEach { key in
 			switch key {
@@ -88,7 +88,7 @@ class CreateAntigenTestProfileViewModelTests: CWATestCase {
 	func testGIVEN_EmptyAntigenTestProfile_THEN_SetOneValueAndSave() {
 		// GIVEN
 		let store = MockTestStore()
-		let viewModel = CreateAntigenTestProfileViewModel(store: store)
+		let viewModel = AntigenTestProfileInputViewModel(store: store)
 		// THEN
 		viewModel.update("Max", keyPath: \.firstName)
 		viewModel.save()
@@ -104,7 +104,7 @@ class CreateAntigenTestProfileViewModelTests: CWATestCase {
 	func testGIVEN_AntigenTestProfile_THENEncodeAndDecode() {
 		// GIVEN
 		let store = MockTestStore()
-		let viewModel = CreateAntigenTestProfileViewModel(store: store)
+		let viewModel = AntigenTestProfileInputViewModel(store: store)
 		// THEN
 		let calendar = Calendar.current
 		let day: Int = 17
@@ -137,6 +137,15 @@ class CreateAntigenTestProfileViewModelTests: CWATestCase {
 		} catch {
 			XCTFail(error.localizedDescription)
 		}
+	}
+
+	func testGIVEN_AntigenTestProfile_WHEN_Init_THEN_ProfileHasData() {
+		let profile = AntigenTestProfile(firstName: "firstName")
+		let store = MockTestStore()
+		store.antigenTestProfile = profile
+		let viewModel = AntigenTestProfileInputViewModel(store: store)
+
+		XCTAssertEqual(viewModel.antigenTestProfile.firstName, profile.firstName)
 	}
 
 }
