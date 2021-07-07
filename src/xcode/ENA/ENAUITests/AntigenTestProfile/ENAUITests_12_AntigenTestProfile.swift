@@ -70,7 +70,7 @@ class ENAUITests_12_AntigenTestProfile: CWATestCase {
 
 		/// -> Antigen Test Information Screen
 		
-		let continueButton = app.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Information.continueButton]
+		var continueButton = app.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Information.continueButton]
 		continueButton.waitAndTap()
 
 		/// Create Antigen Test Profile Screen
@@ -165,7 +165,7 @@ class ENAUITests_12_AntigenTestProfile: CWATestCase {
 		/// Antigen Test Profile Screen
 
 		// continues button exists
-		let continueButton = app.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.continueButton]
+		continueButton = app.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.continueButton]
 		XCTAssertTrue(continueButton.waitForExistence(timeout: .short))
 
 		// edit profile button exists
