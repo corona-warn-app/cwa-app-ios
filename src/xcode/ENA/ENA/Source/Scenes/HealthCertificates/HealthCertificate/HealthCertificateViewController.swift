@@ -95,6 +95,10 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 			return cell
 		case .bottomCorner:
 			return tableView.dequeueReusableCell(cellType: HealthCertificateBottomCornerCell.self, for: indexPath)
+		case .vaccinationOneOfOneHint:
+			let cell = tableView.dequeueReusableCell(cellType: HealthCertificateSimpleTextCell.self, for: indexPath)
+			cell.configure(with: viewModel.vaccinationOneOfOneHintCellViewModel)
+			return cell
 		case .additionalInfo:
 			let cell = tableView.dequeueReusableCell(cellType: HealthCertificateTextViewCell.self, for: indexPath)
 			cell.configure(with: viewModel.additionalInfoCellViewModels[indexPath.row])
