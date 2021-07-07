@@ -106,7 +106,13 @@ final class HealthCertificateValidationCoordinator {
 	}()
 
 	private func showInfoScreen() {
-
+		let validationInformationViewController = ValidationInformationViewController(
+			dismiss: { [weak self] in
+				self?.navigationController.dismiss(animated: true)
+			}
+		)
+		let validationNavigationController = DismissHandlingNavigationController(rootViewController: validationInformationViewController)
+		navigationController.present(validationNavigationController, animated: true)
 	}
 
 	private func showValidationPassedScreen() {
