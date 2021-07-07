@@ -20,7 +20,8 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			healthCertificateService: service,
 			healthCertifiedPerson: HealthCertifiedPerson(healthCertificates: []),
 			healthCertificateValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
-			dismiss: {}
+			dismiss: {},
+			didTapValidationButton: { _, _ in }
 		)
 
 		// THEN
@@ -60,7 +61,8 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 				]
 			),
 			healthCertificateValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
-			dismiss: {}
+			dismiss: {},
+			didTapValidationButton: { _, _ in }
 		)
 
 		// WHEN
@@ -95,7 +97,8 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			healthCertificateService: service,
 			healthCertifiedPerson: healthCertifiedPerson,
 			healthCertificateValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
-			dismiss: {}
+			dismiss: {},
+			didTapValidationButton: { _, _ in }
 		)
 
 		let vaccinationHintCellViewModel = viewModel.vaccinationHintCellViewModel
@@ -136,7 +139,8 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			healthCertificateService: service,
 			healthCertifiedPerson: healthCertifiedPerson,
 			healthCertificateValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
-			dismiss: {}
+			dismiss: {},
+			didTapValidationButton: { _, _ in }
 		)
 
 		let vaccinationHintCellViewModel = viewModel.vaccinationHintCellViewModel
@@ -178,7 +182,8 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			healthCertificateService: service,
 			healthCertifiedPerson: healthCertifiedPerson,
 			healthCertificateValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
-			dismiss: {}
+			dismiss: {},
+			didTapValidationButton: { _, _ in }
 		)
 
 		// THEN

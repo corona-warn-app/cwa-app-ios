@@ -37,6 +37,8 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 	// MARK: - Internal
 
 	func configure(with cellViewModel: HealthCertificateQRCodeCellViewModel) {
+		self.cellViewModel = cellViewModel
+
 		qrCodeImageView.image = cellViewModel.qrCodeImage
 		qrCodeImageView.accessibilityLabel = cellViewModel.accessibilityText
 
@@ -56,7 +58,10 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 	private let qrCodeImageView = UIImageView()
 	private let titleLabel = ENALabel()
 	private let subtitleLabel = ENALabel()
+	private let validationButton = ENAButton()
 	private let stackView = UIStackView()
+
+	private var cellViewModel: HealthCertificateQRCodeCellViewModel?
 
 	private func setupView() {
 		backgroundColor = .clear
@@ -86,9 +91,19 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 		subtitleLabel.textColor = .enaColor(for: .textPrimary2)
 		subtitleLabel.numberOfLines = 0
 		stackView.addArrangedSubview(subtitleLabel)
+		stackView.setCustomSpacing(12, after: subtitleLabel)
+
+		validationButton.hasBorder = true
+		validationButton.hasBackground = false
+		validationButton.setTitle(
+			AppStrings.HealthCertificate.Person.validationButtonTitle,
+			for: .normal
+		)
+		validationButton.addTarget(self, action: #selector(validationButtonTapped), for: .primaryActionTriggered)
+		stackView.addArrangedSubview(validationButton)
 
 		stackView.translatesAutoresizingMaskIntoConstraints = false
-		stackView.alignment = .leading
+		stackView.alignment = .fill
 		stackView.axis = .vertical
 		stackView.spacing = 4.0
 		backgroundContainerView.addSubview(stackView)
@@ -113,6 +128,14 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 
 	private func updateBorderWidth() {
 		backgroundContainerView.layer.borderWidth = traitCollection.userInterfaceStyle == .dark ? 0 : 1
+	}
+
+	@objc
+	private func validationButtonTapped() {
+		cellViewModel?.didTapValidationButton { [weak self] isLoading in
+			self?.validationButton.isLoading = isLoading
+			self?.validationButton.isEnabled = !isLoading
+		}
 	}
 
 }

@@ -90,6 +90,7 @@ class GradientView: UIView {
 		// update stars view
 		if let starsColor = type.starsColor {
 			imageView.tintColor = starsColor
+			imageView.tintAdjustmentMode = .normal
 			imageView.image = UIImage(imageLiteralResourceName: "EUStarsGroup")
 		} else {
 			imageView.image = nil
