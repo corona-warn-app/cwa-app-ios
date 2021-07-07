@@ -6,7 +6,7 @@
 import Foundation
 import XCTest
 
-final class HTTPClientGetDccOnboardedCountriesTests: CWATestCase {
+final class HTTPClientValidationOnboardedCountriesTests: CWATestCase {
 	
 	func testGIVEN_Client_WHEN_HappyPath_THEN_PackageIsReturned() throws {
 					
@@ -22,7 +22,7 @@ final class HTTPClientGetDccOnboardedCountriesTests: CWATestCase {
 		// WHEN
 		var response: PackageDownloadResponse?
 		let client = HTTPClient.makeWith(mock: stack)
-		client.getDCCOnboardedCountries(completion: { result in
+		client.validationOnboardedCountries(completion: { result in
 			switch result {
 			case let .success(package):
 				response = package
@@ -49,7 +49,7 @@ final class HTTPClientGetDccOnboardedCountriesTests: CWATestCase {
 		var failure: URLSession.Response.Failure?
 		
 		// WHEN
-		client.getDCCOnboardedCountries(completion: { result in
+		client.validationOnboardedCountries(completion: { result in
 			switch result {
 			case .success:
 				XCTFail("This test should not succeed.")
@@ -74,7 +74,7 @@ final class HTTPClientGetDccOnboardedCountriesTests: CWATestCase {
 		var failure: URLSession.Response.Failure?
 		
 		// WHEN
-		client.getDCCOnboardedCountries(completion: { result in
+		client.validationOnboardedCountries(completion: { result in
 			switch result {
 			case .success:
 				XCTFail("This test should not succeed.")
@@ -99,7 +99,7 @@ final class HTTPClientGetDccOnboardedCountriesTests: CWATestCase {
 		var failure: URLSession.Response.Failure?
 		
 		// WHEN
-		client.getDCCOnboardedCountries(completion: { result in
+		client.validationOnboardedCountries(completion: { result in
 			switch result {
 			case .success:
 				XCTFail("This test should not succeed.")
@@ -114,17 +114,17 @@ final class HTTPClientGetDccOnboardedCountriesTests: CWATestCase {
 		XCTAssertEqual(failure, .serverError(504))
 	}
 	
-	func testGIVEN_Client_WHEN_Failure_THEN_Failure_InvalidResponseIsReturned() {
+	func testGIVEN_Client_WHEN_Failure_THEN_Failure_NoResponseIsReturned() {
 		// GIVEN
 		let stack = MockNetworkStack(
 			httpStatus: 504,
 			responseData: nil)
 		let client = HTTPClient.makeWith(mock: stack)
-		let expectation = self.expectation(description: "completion handler is called with invalidResponse failure")
+		let expectation = self.expectation(description: "completion handler is called with noResponse failure")
 		var failure: URLSession.Response.Failure?
 		
 		// WHEN
-		client.getDCCOnboardedCountries(completion: { result in
+		client.validationOnboardedCountries(completion: { result in
 			switch result {
 			case .success:
 				XCTFail("This test should not succeed.")
@@ -136,7 +136,7 @@ final class HTTPClientGetDccOnboardedCountriesTests: CWATestCase {
 	
 		// THEN
 		waitForExpectations(timeout: .short)
-		XCTAssertEqual(failure, .invalidResponse)
+		XCTAssertEqual(failure, .noResponse)
 	}
 	
 	// MARK: - Private
