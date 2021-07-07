@@ -1926,11 +1926,11 @@
 
 "Statistics_Card_AtLeastOneVaccinated_Date" = "До %@";
 
-"Statistics_Card_AtLeastOneVaccinated_SecondaryLabelTitle" = "от общия брой на населението";
+"Statistics_Card_AtLeastOneVaccinated_SecondaryLabelTitle" = "от населението";
 
 "Statistics_Card_AtLeastOneVaccinated_TertiaryLabelTitle" = "Общо";
 
-"Statistics_Card_AtLeastOneVaccinated_SecondarySubtitleLabel" = "от общия брой на населението";
+"Statistics_Card_AtLeastOneVaccinated_SecondarySubtitleLabel" = "от населението";
 
 /* - Fully vaccinated people card */
 "Statistics_Card_FullyVaccinated_Title" = "Напълно ваксинирани лица";
@@ -1941,11 +1941,11 @@
 
 "Statistics_Card_FullyVaccinated_Date" = "До %@";
 
-"Statistics_Card_FullyVaccinated_SecondaryLabelTitle" = "от общия брой на населението";
+"Statistics_Card_FullyVaccinated_SecondaryLabelTitle" = "от населението";
 
 "Statistics_Card_FullyVaccinated_TertiaryLabelTitle" = "Общо";
 
-"Statistics_Card_FullyVaccinated_SecondarySubtitleLabel" = "от общия брой на населението";
+"Statistics_Card_FullyVaccinated_SecondarySubtitleLabel" = "от населението";
 
 /* - Applied vaccination dose rates card */
 "Statistics_Card_AppliedDoseRates_Title" = "Поставени дози ваксини";
@@ -2619,7 +2619,7 @@
 
 "HealthCertifiedPerson_dateOfBirth" = "Дата на раждане %@";
 
-"HealthCertifiedPerson_preferredPersonDescription" = "Моят смартфон, моето приложение. Моите сертификати се показват най-отгоре в списъка.";
+"HealthCertifiedPerson_preferredPersonDescription" = "Включете тази функция, ако сте %@ и основният потребител на приложението. Сертификатът Ви ще се появи най-горе в списъка.";
 
 "HealthCertifiedPerson_QRCode_Image_Description" = "QR код с текущия сертификат";
 
@@ -2673,6 +2673,9 @@
 "HealthCertificate_Details_identifier" = "Сертификационен номер";
 
 "HealthCertificate_Details_primaryButton" = "Изтриване на сертификата за ваксинация";
+
+/* Vaccination Certificate Details */
+"VaccinationCertificate_Details_OneOfOneHint" = "Тази ваксина осигурява защита с една доза или се поставя на преболедувало лице, което се нуждае само от една доза.";
 
 /* Vaccination Certificate Delete Alert */
 "HealthCertificate_Alert_title" = "Желаете ли да изтриете сертификата за ваксинация?";
