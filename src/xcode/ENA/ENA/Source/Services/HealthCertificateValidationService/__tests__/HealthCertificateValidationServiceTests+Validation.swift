@@ -8,7 +8,6 @@ import XCTest
 import SwiftCBOR
 import CertLogic
 
-// swiftlint:disable file_length
 // swiftlint:disable:next type_body_length
 class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			
@@ -110,7 +109,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 					XCTFail("Could not create strong self")
 					return
 				}
-				completion(.success(self.dummyOnboardedCountriesResponse))
+				completion(.success(self.dummyRulesResponse))
 			}
 		}
 		
@@ -203,7 +202,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 					XCTFail("Could not create strong self")
 					return
 				}
-				completion(.success(self.dummyOnboardedCountriesResponse))
+				completion(.success(self.dummyRulesResponse))
 			}
 		}
 		

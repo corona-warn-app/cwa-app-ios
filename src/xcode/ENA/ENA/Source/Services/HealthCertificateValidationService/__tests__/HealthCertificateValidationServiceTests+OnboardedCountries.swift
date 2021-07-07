@@ -8,8 +8,6 @@ import XCTest
 import SwiftCBOR
 import CertLogic
 
-// swiftlint:disable file_length
-// swiftlint:disable:next type_body_length
 class HealthCertificateValidationServiceOnboardedCountriesTests: XCTestCase {
 	
 	// MARK: - Success
