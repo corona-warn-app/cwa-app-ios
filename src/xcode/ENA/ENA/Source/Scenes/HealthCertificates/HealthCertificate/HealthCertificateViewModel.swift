@@ -18,7 +18,7 @@ final class HealthCertificateViewModel {
 	) {
 		self.healthCertificate = healthCertificate
 		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
-		self.qrCodeCellViewModel = HealthCertificateQRCodeCellViewModel(
+		self.qrCodeCellViewModel = HealthCertificateDetailsQRCodeCellViewModel(
 			healthCertificate: healthCertificate,
 			accessibilityText: AppStrings.HealthCertificate.Details.QRCodeImageDescription
 		)
@@ -76,7 +76,7 @@ final class HealthCertificateViewModel {
 		}
 	}
 
-	let qrCodeCellViewModel: HealthCertificateQRCodeCellViewModel
+	let qrCodeCellViewModel: HealthCertificateDetailsQRCodeCellViewModel
 
 	@OpenCombine.Published private(set) var gradientType: GradientView.GradientType = .lightBlue(withStars: true)
 	@OpenCombine.Published private(set) var healthCertificateKeyValueCellViewModel: [HealthCertificateKeyValueCellViewModel] = []
