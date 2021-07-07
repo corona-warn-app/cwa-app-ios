@@ -438,7 +438,8 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 		
 		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: store)
 		var validationRulesAccess = MockValidationRulesAccess()
-		validationRulesAccess.expectedExtractionResult = .success([])
+		validationRulesAccess.expectedAcceptanceExtractionResult = .success([])
+		validationRulesAccess.expectedInvalidationExtractionResult = .success([])
 		validationRulesAccess.expectedValidationResult = .success([])
 		let validationService = HealthCertificateValidationService(
 			store: store,
