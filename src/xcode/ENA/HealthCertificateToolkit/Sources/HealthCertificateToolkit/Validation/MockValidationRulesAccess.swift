@@ -13,17 +13,21 @@ public struct MockValidationRulesAccess: ValidationRulesAccessing {
         
     // MARK: - Public
     
-    public var expectedExtractionResult: (Swift.Result<[Rule], RuleValidationError>)?
+    public var expectedAcceptanceExtractionResult: (Swift.Result<[Rule], RuleValidationError>)?
+    public var expectedInvalidationExtractionResult: (Swift.Result<[Rule], RuleValidationError>)?
     public var expectedValidationResult: (Swift.Result<[ValidationResult], RuleValidationError>)?
     
     public func extractValidationRules(
         from cborData: CBORData
     ) -> Swift.Result<[Rule], RuleValidationError> {
         
-        guard let expectedExtractionResult = expectedExtractionResult else {
+        if let expectedExtractionResult = expectedAcceptanceExtractionResult {
+            return expectedExtractionResult
+        } else if let expectedExtractionResult = expectedInvalidationExtractionResult {
+            return expectedExtractionResult
+        } else {
             return .failure(.JSON_VALIDATION_RULE_SCHEMA_NOTFOUND)
         }
-        return expectedExtractionResult
     }
     
     public func applyValidationRules(
