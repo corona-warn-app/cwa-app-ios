@@ -42,10 +42,6 @@ class ENAButton: DynamicTypeButton {
 		return size
 	}
 
-	// MARK: - Protocol <#Name#>
-
-	// MARK: - Public
-
 	// MARK: - Internal
 
 	@IBInspectable var enabledBackgroundColor: UIColor?
@@ -113,15 +109,16 @@ class ENAButton: DynamicTypeButton {
 			backgroundColor = style.backgroundColor
 			setTitleColor(style.foregroundColor, for: .normal)
 			activityIndicator?.color = style.foregroundColor
+			layer.borderColor = style.foregroundColor.cgColor
 		} else {
 			backgroundColor = style.disabledBackgroundColor
 			setTitleColor(style.disabledForegroundColor.withAlphaComponent(0.5), for: .disabled)
 			activityIndicator?.color = style.disabledForegroundColor.withAlphaComponent(0.5)
+			layer.borderColor = style.disabledForegroundColor.withAlphaComponent(0.5).cgColor
 		}
 
 		if hasBorder {
 			layer.borderWidth = 1
-			layer.borderColor = style.foregroundColor.cgColor
 			layer.cornerRadius = 8
 		} else {
 			layer.borderWidth = 0
@@ -225,29 +222,33 @@ extension ENAButton.Style {
 	var foregroundColor: UIColor {
 		switch self {
 		case let .transparent(customTextColor):
-			guard let textColor = customTextColor else {
-				return .enaColor(for: .textTint)
-			}
-			return textColor
-
-		case .emphasized: return .enaColor(for: .textContrast)
-		case .contrast: return .enaColor(for: .textPrimary1)
+			return customTextColor ?? .enaColor(for: .textTint)
+		case .emphasized:
+			return .enaColor(for: .textContrast)
+		case .contrast:
+			return .enaColor(for: .textPrimary1)
 		}
 	}
 
 	var disabledBackgroundColor: UIColor {
 		switch self {
-		case .transparent: return .clear
-		case let .emphasized(_, disabledBackgroundColor): return disabledBackgroundColor ?? .enaColor(for: .separator)
-		case .contrast: return .enaColor(for: .separator)
+		case .transparent:
+			return .clear
+		case let .emphasized(_, disabledBackgroundColor):
+			return disabledBackgroundColor ?? .enaColor(for: .separator)
+		case .contrast:
+			return .enaColor(for: .separator)
 		}
 	}
 
 	var disabledForegroundColor: UIColor {
 		switch self {
-		case .transparent: return .enaColor(for: .textTint)
-		case .emphasized: return .enaColor(for: .textPrimary1)
-		case .contrast: return .enaColor(for: .textPrimary1)
+		case let .transparent(customTextColor):
+			return customTextColor ?? .enaColor(for: .textTint)
+		case .emphasized:
+			return .enaColor(for: .textPrimary1)
+		case .contrast:
+			return .enaColor(for: .textPrimary1)
 		}
 	}
 }
