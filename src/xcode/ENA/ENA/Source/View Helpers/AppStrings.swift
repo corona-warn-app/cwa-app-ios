@@ -2083,6 +2083,21 @@ enum AppStrings {
 				static let tryAgain = NSLocalizedString("HealthCertificate_Validation_Error_TRY_AGAIN", comment: "")
 				static let noNetwork = NSLocalizedString("HealthCertificate_Validation_Error_NO_NETWORK", comment: "")
 			}
+
+			enum Result {
+				enum Passed {
+					static let title = NSLocalizedString("HealthCertificate_Validation_Passed_title", comment: "")
+					static let validationParameters = NSLocalizedString("HealthCertificate_Validation_Passed_validationParameters", comment: "")
+					static let subtitle = NSLocalizedString("HealthCertificate_Validation_Passed_subtitle", comment: "")
+					static let hintsTitle = NSLocalizedString("HealthCertificate_Validation_Passed_hintsTitle", comment: "")
+					static let hint1 = NSLocalizedString("HealthCertificate_Validation_Passed_hint1", comment: "")
+					static let hint2 = NSLocalizedString("HealthCertificate_Validation_Passed_hint2", comment: "")
+					static let hint3 = NSLocalizedString("HealthCertificate_Validation_Passed_hint3", comment: "")
+					static let hint4 = NSLocalizedString("HealthCertificate_Validation_Passed_hint4", comment: "")
+					static let moreInformation = NSLocalizedString("HealthCertificate_Validation_Passed_moreInformation", comment: "")
+					static let primaryButtonTitle = NSLocalizedString("HealthCertificate_Validation_Passed_primaryButtonTitle", comment: "")
+				}
+			}
 		}
 
 	}
