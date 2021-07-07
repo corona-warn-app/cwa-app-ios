@@ -435,32 +435,43 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 		let store = MockTestStore()
 		
 		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: store)
+		var validationRulesAccess = MockValidationRulesAccess()
+		validationRulesAccess.expectedExtractionResult = .success([])
+		validationRulesAccess.expectedValidationResult = .success([])
 		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			signatureVerifier: MockVerifier()
+			signatureVerifier: MockVerifier(),
+			validationRulesAccess: validationRulesAccess
 		)
 		
-		let testCertificateBase45 = try base45Fake(
+		// expirationTime must be >= validation clock to succeed.
+		let expirationTime: UInt64 = 1625655530
+		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
+		
+		let healthCertificateBase45 = DigitalCovidCertificateFake.makeBase45Fake(
 			from: DigitalCovidCertificate.fake(
-				name: .fake(standardizedFamilyName: "BRAUSE", standardizedGivenName: "PASCAL"),
-				testEntries: [TestEntry.fake(
-					dateTimeOfSampleCollection: "2021-07-06T13:22:14.595Z",
-					uniqueCertificateIdentifier: "0"
-				)]
-			)
+				name: .fake(familyName: "Brause", givenName: "Pascal", standardizedFamilyName: "BRAUSE", standardizedGivenName: "PASCAL"),
+				testEntries: [TestEntry.fake(dateTimeOfSampleCollection: "2021-06-06T06:06:06Z")]
+			),
+			and: CBORWebTokenHeader.fake(expirationTime: expirationTime)
 		)
 		
-		let testCertificate = try HealthCertificate(base45: testCertificateBase45)
+		guard case let .success(base45) = healthCertificateBase45 else {
+			XCTFail("Could not create fake health certificate. Abort test.")
+			return
+		}
+		let healthCertificate = try HealthCertificate(base45: base45)
+		
 		let expectation = self.expectation(description: "Test should success with .passed")
 		var responseReport: HealthCertificateValidationReport?
 		
 		// WHEN
 		validationService.validate(
-			healthCertificate: testCertificate,
+			healthCertificate: healthCertificate,
 			arrivalCountry: "FR",
-			validationClock: Calendar.current.date(byAdding: .day, value: -22, to: Date()) ?? Date(),
+			validationClock: validationClock,
 			completion: { result in
 				switch result {
 				case let .success(report):
