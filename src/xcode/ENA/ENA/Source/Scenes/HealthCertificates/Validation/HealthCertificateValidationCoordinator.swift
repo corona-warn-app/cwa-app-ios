@@ -110,7 +110,31 @@ final class HealthCertificateValidationCoordinator {
 	}
 
 	private func showValidationPassedScreen() {
+		let validationPassedViewController = HealthCertificateValidationResultViewController(
+			viewModel: HealthCertificateValidationPassedViewModel(),
+			onPrimaryButtonTap: { [weak self] in
+				self?.navigationController.popToRootViewController(animated: true)
+			},
+			onDismiss: { [weak self] in
+				self?.parentViewController.dismiss(animated: true)
+			}
+		)
 
+		let footerViewModel = FooterViewModel(
+			primaryButtonName: AppStrings.HealthCertificate.Details.validationButtonTitle,
+			isPrimaryButtonEnabled: true,
+			isSecondaryButtonHidden: true,
+			backgroundColor: .enaColor(for: .background)
+		)
+
+		let footerViewController = FooterViewController(footerViewModel)
+
+		let vc = TopBottomContainerViewController(
+			topController: validationPassedViewController,
+			bottomController: footerViewController
+		)
+
+		navigationController.pushViewController(vc, animated: true)
 	}
 
 	private func showValidationOpenScreen(validationResults: [ValidationResult]) {
