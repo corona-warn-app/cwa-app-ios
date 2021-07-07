@@ -870,7 +870,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			primaryButtonName: AppStrings.ExposureSubmission.AntigenTest.Profile.primaryButton,
 			secondaryButtonName: AppStrings.ExposureSubmission.AntigenTest.Profile.secondaryButton,
 			primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.continueButton,
-			secondaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.deleteButton,
+			secondaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.editButton,
 			isPrimaryButtonEnabled: true,
 			isSecondaryButtonEnabled: true,
 			secondaryButtonInverted: true,
