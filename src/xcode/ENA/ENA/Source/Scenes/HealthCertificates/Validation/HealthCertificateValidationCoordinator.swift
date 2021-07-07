@@ -83,6 +83,9 @@ final class HealthCertificateValidationCoordinator {
 					}
 				}
 			},
+			onDisclaimerButtonTap: {
+				
+			},
 			onInfoButtonTap: { [weak self] in
 				self?.showInfoScreen()
 			},

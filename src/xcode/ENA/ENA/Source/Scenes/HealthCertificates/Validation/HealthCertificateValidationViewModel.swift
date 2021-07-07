@@ -14,12 +14,14 @@ final class HealthCertificateValidationViewModel {
 		healthCertificate: HealthCertificate,
 		countries: [Country],
 		store: HealthCertificateStoring,
-		onValidationButtonTap: @escaping (Country, Date) -> Void
+		onValidationButtonTap: @escaping (Country, Date) -> Void,
+		onDisclaimerButtonTap: @escaping () -> Void
 	) {
 		self.healthCertificate = healthCertificate
 		self.countries = countries
 		self.store = store
 		self.onValidationButtonTap = onValidationButtonTap
+		self.onDisclaimerButtonTap = onDisclaimerButtonTap
 	}
 
 	// MARK: - Internal
@@ -76,8 +78,8 @@ final class HealthCertificateValidationViewModel {
 						style: DynamicCell.TextCellStyle.label,
 						accessibilityIdentifier: AccessibilityIdentifiers.TraceLocation.dataPrivacyTitle,
 						accessibilityTraits: UIAccessibilityTraits.link,
-						action: .execute { _, _ in
-
+						action: .execute { [weak self] _, _ in
+							self?.onDisclaimerButtonTap()
 						},
 						configure: { _, cell, _ in
 							cell.accessoryType = .disclosureIndicator
@@ -101,6 +103,7 @@ final class HealthCertificateValidationViewModel {
 	private var selectedValidationDate: Date?
 	private let store: HealthCertificateStoring
 	private let onValidationButtonTap: (Country, Date) -> Void
+	private let onDisclaimerButtonTap: () -> Void
 	private var countrySelectionCollapsed = true
 	private var validationDateSelectionCollapsed = true
 
@@ -134,7 +137,7 @@ final class HealthCertificateValidationViewModel {
 
 				countrySelectionCell.countries = self.countries
 				countrySelectionCell.selectedCountry = self.selectedCountry
-				countrySelectionCell.toggle(state: self.countrySelectionCollapsed)
+				countrySelectionCell.isCollapsed(self.countrySelectionCollapsed)
 			}
 		}
 	}

@@ -14,6 +14,7 @@ class HealthCertificateValidationViewController: DynamicTableViewController, Foo
 		countries: [Country],
 		store: HealthCertificateStoring,
 		onValidationButtonTap: @escaping (Country, Date) -> Void,
+		onDisclaimerButtonTap: @escaping () -> Void,
 		onInfoButtonTap: @escaping () -> Void,
 		onDismiss: @escaping () -> Void
 	) {
@@ -24,7 +25,8 @@ class HealthCertificateValidationViewController: DynamicTableViewController, Foo
 			healthCertificate: healthCertificate,
 			countries: countries,
 			store: store,
-			onValidationButtonTap: onValidationButtonTap
+			onValidationButtonTap: onValidationButtonTap,
+			onDisclaimerButtonTap: onDisclaimerButtonTap
 		)
 
 		super.init(nibName: nil, bundle: nil)
