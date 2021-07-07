@@ -32,6 +32,7 @@ class HomeStatisticsCellModel {
 
 	// MARK: - Internal
 
+	/// The default set of 'global' statistics for every user
 	@OpenCombine.Published private(set) var keyFigureCards = [SAP_Internal_Stats_KeyFigureCard]()
 	@OpenCombine.Published private(set) var localAdministrativeUnitStatistics = [SAP_Internal_Stats_AdministrativeUnitData]()
 

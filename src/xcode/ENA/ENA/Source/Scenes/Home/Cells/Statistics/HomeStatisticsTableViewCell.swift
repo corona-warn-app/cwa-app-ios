@@ -95,7 +95,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		
 		guard let adminUnit = administrativeUnit, let districtName = district?.districtName else {
 			// TODO: Error handling
-			preconditionFailure()
+			return
 		}
 
 		let nibName = String(describing: HomeStatisticsCardView.self)
@@ -197,7 +197,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 					self.district = district
 					onFetchGroupData(district)
 				}, onEditButtonTap: {
-					//FIXME: the local static var is currently for development. Keeping this instance based will reset it on reloading of this cell. `onToggleEditMode` passes the current state to the tableViewController…
+					// FIXME: the local static var is currently for development. Keeping this locally will reset it on reloading of this cell. `onToggleEditMode` passes the current state to the tableViewController…
 					Self.editingStatistics.toggle()
 					onToggleEditMode(Self.editingStatistics)
 				}, onAccessibilityFocus: {
