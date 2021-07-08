@@ -43,12 +43,10 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 	
 	init(
 		topController: TopViewController,
-		bottomController: BottomViewController,
-		isWithKeyBoardHandling: Bool = false
+		bottomController: BottomViewController
 	) {
 		self.topViewController = topController
 		self.bottomViewController = bottomController
-		self.isWithKeyBoardHandling = isWithKeyBoardHandling
 		
 		// if the the bottom view controller is FooterViewController we use it's viewModel here as well
 		self.footerViewModel = (bottomViewController as? FooterViewController)?.viewModel
@@ -102,10 +100,8 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 				bottomViewHeightAnchorConstraint
 			]
 		)
+		subscribeToKeyboardNotifications()
 		
-		if isWithKeyBoardHandling {
-			subscribeToKeyboardNotifications()
-		}
 		// if the the bottom view controller is FooterViewController we use it's viewModel here as well
 		if let viewModel = (bottomViewController as? FooterViewController)?.viewModel {
 			UIView.performWithoutAnimation {
@@ -178,7 +174,6 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 
 	private let topViewController: TopViewController
 	private let bottomViewController: BottomViewController
-	private let isWithKeyBoardHandling: Bool
 
 	private var subscriptions: [AnyCancellable] = []
 	private var keyboardSubscriptions: [AnyCancellable] = []
@@ -224,6 +219,7 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 			.store(in: &keyboardSubscriptions)
 		
 		NotificationCenter.default.ocombine.publisher(for: UIApplication.keyboardWillHideNotification)
+			.dropFirst()
 			.sink { [weak self] notification in
 				
 				guard let self = self,

@@ -339,8 +339,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		
 		let topBottomContainerViewController = TopBottomContainerViewController(
 			topController: vc,
-			bottomController: footerViewController,
-			isWithKeyBoardHandling: triggeredFromTeletan
+			bottomController: footerViewController
 		)
 		
 		return topBottomContainerViewController
