@@ -2104,8 +2104,8 @@ enum AppStrings {
 				enum Open {
 					static let title = NSLocalizedString("HealthCertificate_Validation_Open_title", comment: "")
 					static let subtitle = NSLocalizedString("HealthCertificate_Validation_Open_subtitle", comment: "")
-					static let hintsTitle = NSLocalizedString("HealthCertificate_Validation_Open_hintsTitle", comment: "")
-					static let hintsDescription = NSLocalizedString("HealthCertificate_Validation_Open_hintsDescription", comment: "")
+					static let openSectionTitle = NSLocalizedString("HealthCertificate_Validation_Open_openSectionTitle", comment: "")
+					static let openSectionDescription = NSLocalizedString("HealthCertificate_Validation_Open_openSectionDescription", comment: "")
 				}
 
 				enum Failed {

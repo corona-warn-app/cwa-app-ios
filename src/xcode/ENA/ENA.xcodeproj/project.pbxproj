@@ -2862,10 +2862,10 @@
 			children = (
 				018FD4742695EAAB000088F8 /* HealthCertificateValidationResultViewController.swift */,
 				018FD4752695EAAB000088F8 /* HealthCertificateValidationResultViewModel.swift */,
+				018FD4792695EEDB000088F8 /* HealthCertificateValidationPassedViewModel.swift */,
 				018FD47B2696E192000088F8 /* HealthCertificateValidationOpenViewModel.swift */,
 				018FD47D2696E19B000088F8 /* HealthCertificateValidationFailedViewModel.swift */,
 				018FD47F2696E19F000088F8 /* HealthCertificateTechnicalValidationFailedViewModel.swift */,
-				018FD4792695EEDB000088F8 /* HealthCertificateValidationPassedViewModel.swift */,
 			);
 			path = Result;
 			sourceTree = "<group>";

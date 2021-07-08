@@ -22,7 +22,7 @@ struct HealthCertificateValidationPassedViewModel: HealthCertificateValidationRe
 				cells: [
 					.footnote(
 						text: String(
-							format: AppStrings.HealthCertificate.Validation.Result.Passed.validationParameters,
+							format: AppStrings.HealthCertificate.Validation.Result.validationParameters,
 							arrivalCountry.localizedName,
 							DateFormatter.localizedString(from: arrivalDate, dateStyle: .short, timeStyle: .short),
 							DateFormatter.localizedString(from: Date(), dateStyle: .short, timeStyle: .short)
@@ -36,7 +36,7 @@ struct HealthCertificateValidationPassedViewModel: HealthCertificateValidationRe
 					.bulletPoint(text: AppStrings.HealthCertificate.Validation.Result.Passed.hint2, spacing: .large),
 					.bulletPoint(text: AppStrings.HealthCertificate.Validation.Result.Passed.hint3, spacing: .large),
 					.bulletPoint(text: AppStrings.HealthCertificate.Validation.Result.Passed.hint4, spacing: .large),
-					.body(text: AppStrings.HealthCertificate.Validation.Result.Passed.moreInformation)
+					.body(text: AppStrings.HealthCertificate.Validation.Result.moreInformation)
 				]
 			)
 		])

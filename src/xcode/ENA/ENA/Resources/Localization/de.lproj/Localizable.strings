@@ -2878,9 +2878,9 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Validation_Open_subtitle" = "Ihr Zertifikat konnte nicht vollständig geprüft werden";
 
-"HealthCertificate_Validation_Open_hintsTitle" = "Hinweis";
+"HealthCertificate_Validation_Open_openSectionTitle" = "Hinweis";
 
-"HealthCertificate_Validation_Open_hintsDescription" = "Nachfolgende Regeln konnten nicht geprüft werden. Vergewissern Sie sich, dass das Zertifikat den Regeln Ihres Reiselandes entspricht.";
+"HealthCertificate_Validation_Open_openSectionDescription" = "Nachfolgende Regeln konnten nicht geprüft werden. Vergewissern Sie sich, dass das Zertifikat den Regeln Ihres Reiselandes entspricht.";
 
 /* - Failed */
 
