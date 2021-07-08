@@ -100,7 +100,11 @@ extension DynamicTableViewController {
 			view?.imageView?.image = image
 			if let label = label {
 				view?.imageView?.isAccessibilityElement = true
-				view?.imageView?.accessibilityLabel = label
+				if let title = title {
+					view?.imageView?.accessibilityLabel = title + "\n" + label
+				} else {
+					view?.imageView?.accessibilityLabel = label
+				}
 			}
 			view?.imageView?.accessibilityIdentifier = accessibilityIdentifier
 			view?.imageView?.accessibilityTraits = accessibilityTraits
