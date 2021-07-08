@@ -33,6 +33,7 @@ public struct MockValidationRulesAccess: ValidationRulesAccessing {
     public func applyValidationRules(
         _ rules: [Rule],
         to certificate: DigitalCovidCertificate,
+        filter: FilterParameter,
         externalRules: ExternalParameter
     ) -> Swift.Result<[ValidationResult], RuleValidationError> {
         

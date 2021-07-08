@@ -87,7 +87,7 @@ class HealthCertificateValidationOnboardedCountriesProviderTests: XCTestCase {
 	
 	// MARK: - Failures
 	
-	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_MissingETag_THEN_ONBOARDED_COUNTRIES_JSON_ARCHIVE_SIGNATURE_INVALIDIsReturned() {
+	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_MissingETag_THEN_ONBOARDED_COUNTRIES_JSON_ARCHIVE_ETAG_ERRORIsReturned() {
 		// GIVEN
 		let client = ClientMock()
 		client.onValidationOnboardedCountries = { _, completion in
@@ -108,7 +108,8 @@ class HealthCertificateValidationOnboardedCountriesProviderTests: XCTestCase {
 			client: client,
 			signatureVerifier: MockVerifier()
 		)
-		let expectation = self.expectation(description: "Test should fail ONBOARDED_COUNTRIES_JSON_ARCHIVE_SIGNATURE_INVALID")
+
+		let expectation = self.expectation(description: "Test should fail ONBOARDED_COUNTRIES_JSON_ARCHIVE_ETAG_ERROR")
 		var receivedError: HealthCertificateValidationOnboardedCountriesError?
 	
 		// WHEN
@@ -239,7 +240,7 @@ class HealthCertificateValidationOnboardedCountriesProviderTests: XCTestCase {
 	
 		// THEN
 		waitForExpectations(timeout: .short)
-		XCTAssertEqual(receivedError, .ONBOARDED_COUNTRIES_JSON_DECODING_FAILED)
+		XCTAssertEqual(receivedError, .ONBOARDED_COUNTRIES_VALIDATION_ERROR(.CBOR_DECODING_FAILED(nil)))
 	}
 	
 	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_BadNetworkConnection_THEN_ONBOARDED_COUNTRIES_NO_NETWORKIsReturned() {

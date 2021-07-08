@@ -12,7 +12,7 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 	init(
 		healthCertificateService: HealthCertificateService,
 		healthCertifiedPerson: HealthCertifiedPerson,
-		vaccinationValueSetsProvider: VaccinationValueSetsProvider,
+		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
 		dismiss: @escaping () -> Void,
 		didTapValidationButton: @escaping (HealthCertificate, @escaping (Bool) -> Void) -> Void,
 		didTapHealthCertificate: @escaping (HealthCertificate) -> Void,

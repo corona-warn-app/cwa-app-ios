@@ -30,9 +30,10 @@ class ValidationRulesAccessTests: XCTestCase {
         ]
 
         let certificate = DigitalCovidCertificate.fake()
+        let filterParameters = FilterParameter.fake()
         let externalParameters = ExternalParameter.fake()
 
-        let result = ValidationRulesAccess().applyValidationRules(rules, to: certificate, externalRules: externalParameters)
+        let result = ValidationRulesAccess().applyValidationRules(rules, to: certificate, filter: filterParameters, externalRules: externalParameters)
 
         guard case .success = result else {
             XCTFail("Success expected.")
