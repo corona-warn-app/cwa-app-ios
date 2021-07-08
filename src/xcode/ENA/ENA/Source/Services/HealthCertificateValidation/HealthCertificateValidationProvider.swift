@@ -172,7 +172,7 @@ final class HealthCertificateValidationProvider: HealthCertificateValidationProv
 				case let .failure(error):
 					completion(.failure(error))
 				case let .success(invalidationRules):
-					Log.info("Successfully downloaded/restored invalidation rules. Proceed with assembling external rule parameters...", log: .vaccination)
+					Log.info("Successfully downloaded/restored invalidation rules. Proceed with assembling FilterParameter...", log: .vaccination)
 					self?.proceedWithAssemblingRules(
 						healthCertificate: healthCertificate,
 						arrivalCountry: arrivalCountry,
@@ -196,34 +196,43 @@ final class HealthCertificateValidationProvider: HealthCertificateValidationProv
 		invalidationRules: [Rule],
 		completion: @escaping (Result<HealthCertificateValidationReport, HealthCertificateValidationError>) -> Void
 	) {
-		// 6. assemble external rule params for acceptance rules
-		let acceptanceRuleParameter = assembleAcceptanceExternalRuleParameters(
-			healthCertificate: healthCertificate,
-			arrivalCountry: arrivalCountry,
+		// 5. Assemble common FilterParameter
+		
+		let mappedCertificateType = mapForExternalParameter(healthCertificate.type)
+		
+		let filterParameter = FilterParameter(
 			validationClock: validationClock,
-			valueSet: valueSets
+			countryCode: arrivalCountry,
+			certificationType: mappedCertificateType
 		)
-		Log.info("Successfully assembled acceptance rule parameter: \(private: acceptanceRuleParameter). Proceed with invalidation rule parameter...", log: .vaccination)
-
-		// 8. assemble external rule params for invalidation rules
-		let invalidationRuleParameter = assembleInvalidationExternalRuleParameters(
-			healthCertificate: healthCertificate,
-			arrivalCountry: arrivalCountry,
+		
+		Log.info("Successfully assembled common FilterParameter: \(private: filterParameter). Proceed with assembling common ExternalParameter...", log: .vaccination)
+		
+		// 6. Assemble common ExternalParameter
+		
+		let mappedValueSets = mapValueSetsForExternalParameter(valueSet: valueSets)
+		let exp = mapUnixTimestampsInSecondsToDate(healthCertificate.cborWebTokenHeader.expirationTime)
+		let iat = mapUnixTimestampsInSecondsToDate(healthCertificate.cborWebTokenHeader.issuedAt)
+		
+		let externalParameter = ExternalParameter(
 			validationClock: validationClock,
-			valueSet: valueSets
+			valueSets: mappedValueSets,
+			exp: exp,
+			iat: iat,
+			issuerCountryCode: healthCertificate.cborWebTokenHeader.issuer
 		)
-		Log.info("Successfully assembled invalidation rule parameter: \(private: invalidationRuleParameter). Proceed with rule validation...", log: .vaccination)
+		
+		Log.info("Successfully assembled common ExternalParameter: \(private: externalParameter). Proceed with rule validation...", log: .vaccination)
 
 		proceedWithRulesValidation(
 			healthCertificate: healthCertificate,
 			valueSets: valueSets,
 			acceptanceRules: acceptanceRules,
 			invalidationRules: invalidationRules,
-			acceptanceRuleParameter: acceptanceRuleParameter,
-			invalidationRuleParameter: invalidationRuleParameter,
+			filterParameter: filterParameter,
+			externalParameter: externalParameter,
 			completion: completion
 		)
-		
 	}
 	
 	private func proceedWithRulesValidation(
@@ -231,8 +240,8 @@ final class HealthCertificateValidationProvider: HealthCertificateValidationProv
 		valueSets: SAP_Internal_Dgc_ValueSets,
 		acceptanceRules: [Rule],
 		invalidationRules: [Rule],
-		acceptanceRuleParameter: ExternalParameter,
-		invalidationRuleParameter: ExternalParameter,
+		filterParameter: FilterParameter,
+		externalParameter: ExternalParameter,
 		completion: @escaping (Result<HealthCertificateValidationReport, HealthCertificateValidationError>) -> Void
 	) {
 		
@@ -509,63 +518,8 @@ final class HealthCertificateValidationProvider: HealthCertificateValidationProv
 		}
 	}
 	
-	// MARK: - External rule parameters
-	
-	private func assembleAcceptanceExternalRuleParameters(
-		healthCertificate: HealthCertificate,
-		arrivalCountry: String,
-		validationClock: Date,
-		valueSet: SAP_Internal_Dgc_ValueSets
-	) -> ExternalParameter {
-
-		// ToDo: Exchange fake
+	// MARK: - ExternalParameters helpers
 		
-//		let mappedValueSets = mapValueSetsForExternalParameter(valueSet: valueSet)
-//		let mappedCertificateType = mapForExternalParameter(healthCertificate.type)
-//
-//		let externalRuleParameter = ExternalParameter(
-//			validationClock: validationClock,
-//			valueSets: mappedValueSets,
-//			countryCode: arrivalCountry,
-//			exp: mapUnixTimestampsInSecondsToDate(healthCertificate.cborWebTokenHeader.expirationTime),
-//			iat: mapUnixTimestampsInSecondsToDate(healthCertificate.cborWebTokenHeader.issuedAt),
-//			certificationType: mappedCertificateType,
-//			issueCountryCode: healthCertificate.cborWebTokenHeader.issuer
-//		)
-//
-//		return externalRuleParameter
-
-		return .fake()
-	}
-	
-	private func assembleInvalidationExternalRuleParameters(
-		healthCertificate: HealthCertificate,
-		arrivalCountry: String,
-		validationClock: Date,
-		valueSet: SAP_Internal_Dgc_ValueSets
-	) -> ExternalParameter {
-
-		// ToDo: Exchange fake
-
-//
-//		let mappedValueSets = mapValueSetsForExternalParameter(valueSet: valueSet)
-//		let mappedCertificateType = mapForExternalParameter(healthCertificate.type)
-//
-//		let externalRuleParameter = ExternalParameter(
-//			validationClock: validationClock,
-//			valueSets: mappedValueSets,
-//			countryCode: healthCertificate.cborWebTokenHeader.issuer,
-//			exp: mapUnixTimestampsInSecondsToDate(healthCertificate.cborWebTokenHeader.expirationTime),
-//			iat: mapUnixTimestampsInSecondsToDate(healthCertificate.cborWebTokenHeader.issuedAt),
-//			certificationType: mappedCertificateType,
-//			issueCountryCode: healthCertificate.cborWebTokenHeader.issuer
-//		)
-//
-//		return externalRuleParameter
-
-		return .fake()
-	}
-	
 	/// Maps our valueSet on the value set of CertLogic. See https://github.com/corona-warn-app/cwa-app-tech-spec/blob/proposal/business-rules-dcc/docs/spec/dgc-validation-rules-client.md#data-structure-of-external-rule-parameters
 	private func mapValueSetsForExternalParameter(
 		valueSet: SAP_Internal_Dgc_ValueSets
