@@ -959,7 +959,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_Antigen_Profile_Information_Image_Description" = "Eine Frau mit einem Smartphone in der Hand steht vor einem Gebäude. Ein QR-Code symbolisiert das zu scannende Schnelltest-Profil.";
 
-"ExposureSubmission_Antigen_Profile_Information_Description_Title" = "Legen Sie ein Profil mit Ihren persönlichen Daten an, das Sie per QR-Code bei jeder teilnehmenden Teststelle vorlegen können.";
+"ExposureSubmission_Antigen_Profile_Information_Description_Title" = "Legen Sie Ihre persönlichen Daten als QR-Code ab, um die Registrierung an der Teststelle zu beschleunigen.";
 
 "ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline" = "Mit Ihrem eigenen Schnelltest-Profil müssen Sie Ihre persönlichen Daten nicht bei jedem neuen Schnelltest erneut ausfüllen.";
 
@@ -979,13 +979,13 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_Antigen_Profile_Primary_Button" = "Weiter";
 
-"ExposureSubmission_Antigen_Profile_Secondary_Button" = "Schnelltest-Profil entfernen";
+"ExposureSubmission_Antigen_Profile_Secondary_Button" = "Bearbeiten";
 
 /* ExposureSubmission AntigenTest */
 
 "ExposureSubmission_Profile_CreateProfileTile_Title" = "Schnelltest-Profil anlegen";
 
-"ExposureSubmission_Profile_CreateProfileTile_Description" = "Legen Sie ein Profil mit Ihren persönlichen Daten an, das Sie per QR-Code bei jeder teilnehmenden Teststelle vorlegen können.";
+"ExposureSubmission_Profile_CreateProfileTile_Description" = "Legen Sie Ihre persönlichen Daten als QR-Code ab, um die Registrierung an der Teststelle zu beschleunigen.";
 
 "ExposureSubmission_Profile_ProfileTile_Title" = "Schnelltest-Profil";
 
@@ -2570,7 +2570,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "AntigenProfile_Create_Title" = "Schnelltest-Profil";
 
-"AntigenProfile_Create_Description" = "Legen Sie ein Profil mit Ihren persönlichen Daten an, das Sie per QR-Code bei jeder teilnehmenden Teststelle vorlegen können.";
+"AntigenProfile_Create_Description" = "Legen Sie Ihre persönlichen Daten als QR-Code ab, um die Registrierung an der Teststelle zu beschleunigen.";
 
 "AntigenProfile_Create_FirstNamePlaceholder" = "Vorname";
 
@@ -2591,6 +2591,14 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "AntigenProfile_Create_Save_Button_Title" = "Speichern";
 
 /* Antigen Profile */
+
+"AntigenProfile_Info_Action_Title" = "Info";
+
+"AntigenProfile_Edit_Action_Title" = "Schnelltest-Profil bearbeiten";
+
+"AntigenProfile_Delete_Action_Title" = "Schnelltest-Profil entfernen";
+
+"AntigenProfile_Cancel_Action_Title" = "Abbrechen";
 
 "AntigenProfile_Delete_Alert_Title" = "Wollen Sie das Schnelltest-Profil entfernen?";
 

@@ -500,8 +500,8 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 				Log.info("Successfully decoded acceptance rules: \(private: acceptanceRules).", log: .vaccination)
 				// Save in success case for caching
 				let receivedAcceptanceRules = ValidationRulesCache(
-					validationRules: acceptanceRules,
-					lastValidationRulesETag: eTag
+					lastValidationRulesETag: eTag,
+					validationRules: acceptanceRules
 				)
 				store.acceptanceRulesCache = receivedAcceptanceRules
 				Log.info("Successfully stored acceptance rules in cache.", log: .vaccination)
@@ -626,8 +626,8 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 				Log.info("Successfully decoded invalidation rules: \(private: invalidationRules).", log: .vaccination)
 				// Save in success case for caching
 				let receivedInvalidationRules = ValidationRulesCache(
-					validationRules: invalidationRules,
-					lastValidationRulesETag: eTag
+					lastValidationRulesETag: eTag,
+					validationRules: invalidationRules
 				)
 				store.invalidationRulesCache = receivedInvalidationRules
 				Log.info("Successfully stored invalidation rules in cache.", log: .vaccination)
@@ -738,11 +738,11 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		var dictionary = [String: [String]]()
 		dictionary["country-2-codes"] = allCountryCodes
 		dictionary["covid-19-lab-result"] = valueSet.tcTr.items.map { $0.key }
-		dictionary["covid-19-lab-test-manufacturer-and-name"] = valueSet.ma.items.map { $0.key }
+		dictionary["covid-19-lab-test-manufacturer-and-name"] = valueSet.tcMa.items.map { $0.key }
 		dictionary["covid-19-lab-test-type"] = valueSet.tcTt.items.map { $0.key }
 		dictionary["disease-agent-targeted"] = valueSet.tg.items.map { $0.key }
 		dictionary["sct-vaccines-covid-19"] = valueSet.vp.items.map { $0.key }
-		dictionary["vaccines-covid-19-auth-holders"] = valueSet.tcMa.items.map { $0.key }
+		dictionary["vaccines-covid-19-auth-holders"] = valueSet.ma.items.map { $0.key }
 		dictionary["vaccines-covid-19-names"] = valueSet.mp.items.map { $0.key }
 		return dictionary
 	}
