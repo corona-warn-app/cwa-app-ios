@@ -42,17 +42,6 @@ class ValidationInformationViewController: DynamicTableViewController, DismissHa
 	
 	private func setupView() {
 		view.backgroundColor = .enaColor(for: .background)
-
-		tableView.register(
-			UINib(nibName: String(describing: DynamicLegalExtendedCell.self), bundle: nil),
-			forCellReuseIdentifier: DynamicLegalExtendedCell.reuseIdentifier
-		)
-
-		tableView.register(
-			HealthCertificateAttributedTextCell.self,
-			forCellReuseIdentifier: HealthCertificateAttributedTextCell.reuseIdentifier
-		)
-
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
 		tableView.separatorStyle = .none
 		tableView.contentInsetAdjustmentBehavior = .never
