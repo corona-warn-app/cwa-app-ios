@@ -1116,6 +1116,7 @@
 		BAE20FF325C8321300162966 /* DMKeyValueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE20FF125C8321300162966 /* DMKeyValueTableViewCell.swift */; };
 		BAE2101025C8460900162966 /* PPACDeviceCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE2100125C83E4400162966 /* PPACDeviceCheck.swift */; };
 		BAE2101B25C8463400162966 /* PPACDeviceCheckMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE2101A25C8463400162966 /* PPACDeviceCheckMock.swift */; };
+		BAE54F462697290A0011DE4A /* ValidationInformationViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE54F452697290A0011DE4A /* ValidationInformationViewModelTests.swift */; };
 		BAEB174025E561120012FEF9 /* FooterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEB173F25E561120012FEF9 /* FooterViewController.swift */; };
 		BAEB174525E567830012FEF9 /* FooterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEB174425E567830012FEF9 /* FooterViewModel.swift */; };
 		BAEC99C7258B714300B98ECA /* ENAUITests_07_ContactJournalUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEC99BF258B705500B98ECA /* ENAUITests_07_ContactJournalUITests.swift */; };
@@ -2382,6 +2383,7 @@
 		BAE20FF125C8321300162966 /* DMKeyValueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMKeyValueTableViewCell.swift; sourceTree = "<group>"; };
 		BAE2100125C83E4400162966 /* PPACDeviceCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPACDeviceCheck.swift; sourceTree = "<group>"; };
 		BAE2101A25C8463400162966 /* PPACDeviceCheckMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPACDeviceCheckMock.swift; sourceTree = "<group>"; };
+		BAE54F452697290A0011DE4A /* ValidationInformationViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationInformationViewModelTests.swift; sourceTree = "<group>"; };
 		BAEB173F25E561120012FEF9 /* FooterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterViewController.swift; sourceTree = "<group>"; };
 		BAEB174425E567830012FEF9 /* FooterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterViewModel.swift; sourceTree = "<group>"; };
 		BAEC99BF258B705500B98ECA /* ENAUITests_07_ContactJournalUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_07_ContactJournalUITests.swift; sourceTree = "<group>"; };
@@ -6739,6 +6741,7 @@
 		BAB8F2ED2695C46300AF68A3 /* InformationScreen */ = {
 			isa = PBXGroup;
 			children = (
+				BAE54F44269728F30011DE4A /* __tests__ */,
 				BAB8F2EE2695C4A500AF68A3 /* ValidationInformationViewController.swift */,
 				BAB8F2F02695F5CA00AF68A3 /* ValidationInformationViewModel.swift */,
 			);
@@ -6968,6 +6971,14 @@
 			children = (
 				BAE106E326710E19002D91FB /* HealthCertifiedPersonViewModelTests.swift */,
 				01915573268475EB00D49C88 /* HealthCertificateCellViewModelTests.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
+		BAE54F44269728F30011DE4A /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				BAE54F452697290A0011DE4A /* ValidationInformationViewModelTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -8684,6 +8695,7 @@
 				524C4292256587B900EBC3B0 /* ExposureSubmissionTestResultConsentViewModelTests.swift in Sources */,
 				BA6C8B51254D80DF008344F5 /* ExposureWindowTest.swift in Sources */,
 				50BD2E7724FE26F400932566 /* AppInformationImprintTest.swift in Sources */,
+				BAE54F462697290A0011DE4A /* ValidationInformationViewModelTests.swift in Sources */,
 				EBD2D07F25A869B9006E4220 /* HomeTableViewModelTests.swift in Sources */,
 				352DEA6F25B08966006751D1 /* StatisticsProviderTests.swift in Sources */,
 				BAC729312603863E006D83C7 /* CheckinCellModelTests.swift in Sources */,
