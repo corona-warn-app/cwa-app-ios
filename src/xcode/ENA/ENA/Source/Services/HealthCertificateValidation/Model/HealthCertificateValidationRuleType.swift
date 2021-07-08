@@ -4,7 +4,7 @@
 
 import Foundation
 
-enum DCCRuleType {
+enum HealthCertificateValidationRuleType {
 	case acceptance
 	case invalidation
 	

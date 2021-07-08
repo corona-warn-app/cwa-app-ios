@@ -665,7 +665,7 @@ final class HTTPClient: Client {
 	func getDCCRules(
 		eTag: String? = nil,
 		isFake: Bool = false,
-		ruleType: DCCRuleType,
+		ruleType: HealthCertificateValidationRuleType,
 		completion: @escaping DCCRulesCompletionHandler
 	) {
 		guard let request = try? URLRequest.dccRulesRequest(
@@ -1454,7 +1454,7 @@ private extension URLRequest {
 	}
 	
 	static func dccRulesRequest(
-		ruleType: DCCRuleType,
+		ruleType: HealthCertificateValidationRuleType,
 		configuration: HTTPClient.Configuration,
 		eTag: String?,
 		headerValue: Int

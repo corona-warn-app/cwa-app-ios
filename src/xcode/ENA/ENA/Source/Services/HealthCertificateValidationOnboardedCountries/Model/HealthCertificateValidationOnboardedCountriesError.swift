@@ -4,7 +4,7 @@
 
 import Foundation
 
-enum ValidationOnboardedCountriesError: LocalizedError {
+enum HealthCertificateValidationOnboardedCountriesError: LocalizedError {
 
 	// MARK: - Internal
 	
