@@ -27,7 +27,7 @@ protocol HealthCertificateValidationProviding {
 
 // swiftlint:disable file_length
 // swiftlint:disable:next type_body_length
-final class HealthCertificateValidationService: HealthCertificateValidationProviding {
+final class HealthCertificateValidationProvider: HealthCertificateValidationProviding {
 	
 	// MARK: - Init
 	

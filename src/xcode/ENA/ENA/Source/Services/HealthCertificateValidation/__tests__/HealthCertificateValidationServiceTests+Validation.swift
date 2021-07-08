@@ -40,7 +40,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		validationRulesAccess.expectedAcceptanceExtractionResult = .success([])
 		validationRulesAccess.expectedInvalidationExtractionResult = .success([])
 		validationRulesAccess.expectedValidationResult = .success(validationResults)
-		let validationService = HealthCertificateValidationService(
+		let validationService = HealthCertificateValidationProvider(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -130,7 +130,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		validationRulesAccess.expectedAcceptanceExtractionResult = .success([cachedRule])
 		validationRulesAccess.expectedInvalidationExtractionResult = .success([])
 		validationRulesAccess.expectedValidationResult = .success(validationResults)
-		let validationService = HealthCertificateValidationService(
+		let validationService = HealthCertificateValidationProvider(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -223,7 +223,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		validationRulesAccess.expectedAcceptanceExtractionResult = .success([])
 		validationRulesAccess.expectedInvalidationExtractionResult = .success([cachedRule])
 		validationRulesAccess.expectedValidationResult = .success(validationResults)
-		let validationService = HealthCertificateValidationService(
+		let validationService = HealthCertificateValidationProvider(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -311,7 +311,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		validationRulesAccess.expectedAcceptanceExtractionResult = .success([])
 		validationRulesAccess.expectedInvalidationExtractionResult = .success([])
 		validationRulesAccess.expectedValidationResult = .success(validationResults)
-		let validationService = HealthCertificateValidationService(
+		let validationService = HealthCertificateValidationProvider(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -394,7 +394,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		validationRulesAccess.expectedAcceptanceExtractionResult = .success([])
 		validationRulesAccess.expectedInvalidationExtractionResult = .success([])
 		validationRulesAccess.expectedValidationResult = .success(validationResults)
-		let validationService = HealthCertificateValidationService(
+		let validationService = HealthCertificateValidationProvider(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -466,7 +466,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		let store = MockTestStore()
 		
 		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: store)
-		let validationService = HealthCertificateValidationService(
+		let validationService = HealthCertificateValidationProvider(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
