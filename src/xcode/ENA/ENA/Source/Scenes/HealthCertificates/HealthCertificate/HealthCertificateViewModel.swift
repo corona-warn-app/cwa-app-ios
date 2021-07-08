@@ -60,6 +60,7 @@ final class HealthCertificateViewModel {
 		case topCorner
 		case details
 		case bottomCorner
+		case vaccinationOneOfOneHint
 		case additionalInfo
 
 		static var numberOfSections: Int {
@@ -129,6 +130,18 @@ final class HealthCertificateViewModel {
 		)
 	}
 
+	var vaccinationOneOfOneHintCellViewModel: HealthCertificateSimpleTextCellViewModel {
+		HealthCertificateSimpleTextCellViewModel(
+			backgroundColor: .enaColor(for: .cellBackground2),
+			textAlignment: .left,
+			text: AppStrings.HealthCertificate.Details.VaccinationCertificate.oneOfOneHint,
+			topSpace: 16.0,
+			font: .enaFont(for: .body),
+			borderColor: .enaColor(for: .hairline),
+			accessibilityTraits: .staticText
+		)
+	}
+
 	/// these strings here are on purpose not localized
 	///
 	var additionalInfoCellViewModels: [HealthCertificateSimpleTextCellViewModel] {
@@ -165,6 +178,8 @@ final class HealthCertificateViewModel {
 			return healthCertificateKeyValueCellViewModel.count
 		case .topCorner, .bottomCorner:
 			return healthCertificateKeyValueCellViewModel.isEmpty ? 0 : 1
+		case .vaccinationOneOfOneHint:
+			return shouldShowVaccinationOneOfOneHint ? 1 : 0
 		case .additionalInfo:
 			return additionalInfoCellViewModels.count
 		}
@@ -187,6 +202,14 @@ final class HealthCertificateViewModel {
 
 	private var valueSets: SAP_Internal_Dgc_ValueSets?
 	private var subscriptions = Set<AnyCancellable>()
+
+	private var shouldShowVaccinationOneOfOneHint: Bool {
+		guard case .vaccination(let vaccinationEntry) = healthCertificate.entry else {
+			return false
+		}
+
+		return vaccinationEntry.doseNumber == 1 && vaccinationEntry.totalSeriesOfDoses == 1
+	}
 
 	private func updateHealthCertificateKeyValueCellViewModels() {
 		switch healthCertificate.entry {
