@@ -32,7 +32,7 @@ public struct ValidationRulesAccess {
         }
     }
 
-    public func applyValidationRules(_ rules: [Rule], to certificate: DigitalCovidCertificate, externalRules: ExternalParameter) -> Swift.Result<[ValidationResult], RuleValidationError> {
+    public func applyValidationRules(_ rules: [Rule], to certificate: DigitalCovidCertificate, filter: FilterParameter, externalRules: ExternalParameter) -> Swift.Result<[ValidationResult], RuleValidationError> {
         do {
             let jsonData = try JSONEncoder().encode(certificate)
             guard let jsonString = String(data: jsonData, encoding: .utf8) else {
@@ -46,7 +46,7 @@ public struct ValidationRulesAccess {
             }
             
             let certLogicEngine = CertLogicEngine(schema: schemaString, rules: rules)
-            return .success(certLogicEngine.validate(external: externalRules, payload: jsonString))
+            return .success(certLogicEngine.validate(filter: filter, external: externalRules, payload: jsonString))
         } catch {
             return .failure(.JSON_ENCODING_FAILED(error))
         }
