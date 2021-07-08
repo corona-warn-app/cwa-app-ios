@@ -3,12 +3,14 @@
 //
 
 import Foundation
+import HealthCertificateToolkit
 
 enum HealthCertificateValidationOnboardedCountriesError: LocalizedError {
 
 	// MARK: - Internal
 	
 	case ONBOARDED_COUNTRIES_CLIENT_ERROR
+	case ONBOARDED_COUNTRIES_VALIDATION_ERROR(RuleValidationError)
 	case ONBOARDED_COUNTRIES_JSON_ARCHIVE_ETAG_ERROR
 	case ONBOARDED_COUNTRIES_JSON_ARCHIVE_FILE_MISSING
 	case ONBOARDED_COUNTRIES_JSON_ARCHIVE_SIGNATURE_INVALID
@@ -21,6 +23,8 @@ enum HealthCertificateValidationOnboardedCountriesError: LocalizedError {
 		switch self {
 		case .ONBOARDED_COUNTRIES_CLIENT_ERROR:
 			return "\(AppStrings.HealthCertificate.ValidationError.tryAgain) (ONBOARDED_COUNTRIES_CLIENT_ERROR)"
+		case let .ONBOARDED_COUNTRIES_VALIDATION_ERROR(error):
+			return "\(AppStrings.HealthCertificate.ValidationError.tryAgain) (ONBOARDED_COUNTRIES_VALIDATION_ERROR - \(error)"
 		case .ONBOARDED_COUNTRIES_JSON_ARCHIVE_ETAG_ERROR:
 			return "\(AppStrings.HealthCertificate.ValidationError.tryAgain) (ONBOARDED_COUNTRIES_JSON_ARCHIVE_ETAG_ERROR)"
 		case .ONBOARDED_COUNTRIES_JSON_ARCHIVE_FILE_MISSING:

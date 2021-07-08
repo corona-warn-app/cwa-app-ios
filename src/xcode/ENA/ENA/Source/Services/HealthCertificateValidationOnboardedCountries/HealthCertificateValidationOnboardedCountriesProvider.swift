@@ -25,8 +25,6 @@ final class HealthCertificateValidationOnboardedCountriesProvider: HealthCertifi
 		self.signatureVerifier = signatureVerifier
 	}
 	
-	// MARK: - Overrides
-	
 	// MARK: - Protocol HealthCertificateValidationOnboardedCountriesProviding
 	
 	func onboardedCountries(
@@ -63,9 +61,7 @@ final class HealthCertificateValidationOnboardedCountriesProvider: HealthCertifi
 	private let store: Store
 	private let client: Client
 	private let signatureVerifier: SignatureVerification
-	
-	// MARK: - Onboarded Countries
-	
+		
 	private func processOnboardedCountriesResponse(
 		packageDownloadResponse: PackageDownloadResponse,
 		completion: @escaping (Result<[Country], HealthCertificateValidationOnboardedCountriesError>) -> Void
@@ -110,7 +106,7 @@ final class HealthCertificateValidationOnboardedCountriesProvider: HealthCertifi
 					completion(.success(countries))
 				case let .failure(error):
 					Log.error("Could not decode CBOR from package with error:", log: .vaccination, error: error)
-					completion(.failure(error))
+					completion(.failure(.ONBOARDED_COUNTRIES_VALIDATION_ERROR(error)))
 				}
 			}
 		)
@@ -123,22 +119,28 @@ final class HealthCertificateValidationOnboardedCountriesProvider: HealthCertifi
 		switch error {
 		case .notModified:
 			// Normally we should have cached something before
+			Log.info("Download new onboarded countries aborted due to not modified content. Taking cached countries.", log: .vaccination)
 			if let cachedOnboardedCountries = store.validationOnboardedCountriesCache?.onboardedCountries {
 				completion(.success(cachedOnboardedCountries))
 			} else {
 				// If not, return edge case error
+				Log.error("Could not find cached countries but need some.", log: .vaccination)
 				completion(.failure(.ONBOARDED_COUNTRIES_MISSING_CACHE))
 			}
 		case .noNetworkConnection:
+			Log.error("Could not download onboarded countries due to no network.", log: .vaccination, error: error)
 			completion(.failure(.ONBOARDED_COUNTRIES_NO_NETWORK))
 		case let .serverError(statusCode):
 			switch statusCode {
 			case 400...409:
+				Log.error("Could not download onboarded countries due to client error with status code: \(statusCode).", log: .vaccination, error: error)
 				completion(.failure(.ONBOARDED_COUNTRIES_CLIENT_ERROR))
 			default:
+				Log.error("Could not download onboarded countries due to server error with status code: \(statusCode).", log: .vaccination, error: error)
 				completion(.failure(.ONBOARDED_COUNTRIES_SERVER_ERROR))
 			}
 		default:
+			Log.error("Could not download onboarded countries due to server error.", log: .vaccination, error: error)
 			completion(.failure(.ONBOARDED_COUNTRIES_SERVER_ERROR))
 		}
 	}
@@ -146,7 +148,7 @@ final class HealthCertificateValidationOnboardedCountriesProvider: HealthCertifi
 	/// Extracts by the HealthCertificateToolkit the list of countrys. Expects the list as CBOR-Data and return for success the list of Country-Objects.
 	private func extractCountryCodes(
 		cborData: Data,
-		completion: (Result<[Country], HealthCertificateValidationOnboardedCountriesError>
+		completion: (Result<[Country], RuleValidationError>
 		) -> Void
 	) {
 		let extractOnboardedCountryCodesResult = OnboardedCountriesAccess().extractCountryCodes(from: cborData)
@@ -157,8 +159,8 @@ final class HealthCertificateValidationOnboardedCountriesProvider: HealthCertifi
 				Country(countryCode: $0)
 			}
 			completion(.success(countries))
-		case .failure:
-			completion(.failure(.ONBOARDED_COUNTRIES_JSON_DECODING_FAILED))
+		case let .failure(error):
+			completion(.failure(error))
 		}
 	}
 }
