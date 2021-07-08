@@ -240,7 +240,7 @@ class HealthCertificateValidationOnboardedCountriesProviderTests: XCTestCase {
 	
 		// THEN
 		waitForExpectations(timeout: .short)
-		XCTAssertEqual(receivedError, .ONBOARDED_COUNTRIES_JSON_DECODING_FAILED)
+		XCTAssertEqual(receivedError, .ONBOARDED_COUNTRIES_VALIDATION_ERROR(.CBOR_DECODING_FAILED(nil)))
 	}
 	
 	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_BadNetworkConnection_THEN_ONBOARDED_COUNTRIES_NO_NETWORKIsReturned() {

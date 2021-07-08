@@ -41,5 +41,15 @@ enum HealthCertificateValidationOnboardedCountriesError: LocalizedError {
 			return "\(AppStrings.HealthCertificate.ValidationError.noNetwork) (NO_NETWORK)"
 		}
 	}
+}
 
+extension HealthCertificateValidationOnboardedCountriesError: Equatable {
+	static func == (lhs: HealthCertificateValidationOnboardedCountriesError, rhs: HealthCertificateValidationOnboardedCountriesError) -> Bool {
+		switch (lhs, rhs) {
+		case let (.ONBOARDED_COUNTRIES_VALIDATION_ERROR(lhsRuleValidationError), .ONBOARDED_COUNTRIES_VALIDATION_ERROR(rhsRuleValidationError)):
+			return lhsRuleValidationError == rhsRuleValidationError
+		default:
+			return lhs.localizedDescription == rhs.localizedDescription
+		}
+	}
 }
